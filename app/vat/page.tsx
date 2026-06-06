@@ -1,0 +1,121 @@
+'use client';
+import { useState } from 'react';
+import CalcShell, {
+  Card, CardHeader, Label, inputCls, PrimaryBtn,
+  SummaryCard, SummaryGrid, TabBar,
+} from '@/components/CalcShell';
+
+const w = (n: number) => Math.round(n).toLocaleString();
+
+type Mode = 'from-supply' | 'from-total';
+
+interface Result {
+  supply: number;
+  vat: number;
+  total: number;
+  vatRate: string;
+}
+
+export default function VatPage() {
+  const [mode, setMode] = useState<Mode>('from-supply');
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState<Result | null>(null);
+
+  function calculate() {
+    const v = Number(input);
+    if (!v || v <= 0) return;
+    if (mode === 'from-supply') {
+      const vat = v * 0.1;
+      setResult({ supply: v, vat, total: v + vat, vatRate: '10%' });
+    } else {
+      const supply = v / 1.1;
+      const vat = v / 11;
+      setResult({ supply, vat, total: v, vatRate: '10%' });
+    }
+  }
+
+  function handleModeChange(m: Mode) {
+    setMode(m);
+    setInput('');
+    setResult(null);
+  }
+
+  return (
+    <CalcShell title="부가세 계산기" description="공급가액 ↔ 부가세 ↔ 공급대가 계산">
+      <div className="flex flex-col gap-4">
+        <TabBar<Mode>
+          options={[
+            { value: 'from-supply', label: '공급가액 → 부가세' },
+            { value: 'from-total', label: '공급대가 → 부가세' },
+          ]}
+          value={mode}
+          onChange={handleModeChange}
+        />
+
+        <Card className="p-5">
+          <div className="flex flex-col gap-3">
+            <div>
+              <Label>
+                {mode === 'from-supply' ? '공급가액 (원, 부가세 제외)' : '공급대가 (원, 부가세 포함)'}
+              </Label>
+              <input
+                type="number"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                placeholder={mode === 'from-supply' ? '예: 100,000' : '예: 110,000'}
+                className={inputCls}
+              />
+            </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
+        </Card>
+
+        {result && (
+          <Card>
+            <CardHeader title="계산 결과" sub="부가가치세법 기준" />
+            <div className="p-4">
+              <SummaryGrid>
+                <SummaryCard
+                  label="공급가액"
+                  value={`${w(result.supply)}원`}
+                  sub="부가세 제외"
+                />
+                <SummaryCard
+                  label="부가세 (10%)"
+                  value={`${w(result.vat)}원`}
+                  variant="primary"
+                />
+                <SummaryCard
+                  label="공급대가"
+                  value={`${w(result.total)}원`}
+                  sub="부가세 포함"
+                />
+                <SummaryCard
+                  label="부가세율"
+                  value={result.vatRate}
+                  sub="표준세율"
+                />
+              </SummaryGrid>
+            </div>
+            <div className="px-5 pb-4">
+              <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-600 space-y-1.5">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">공급가액</span>
+                  <span className="font-semibold">{w(result.supply)}원</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">부가가치세 (×10%)</span>
+                  <span className="font-semibold text-blue-600">+{w(result.vat)}원</span>
+                </div>
+                <div className="flex justify-between border-t border-slate-200 pt-1.5 font-bold text-slate-800">
+                  <span>공급대가 합계</span>
+                  <span>{w(result.total)}원</span>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
+      </div>
+    </CalcShell>
+  );
+}
