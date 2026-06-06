@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, {
   Card, Label, inputCls, selectCls, PrimaryBtn,
   SummaryGrid, SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const TAX_RATE = 0.154; // 이자소득세 15.4% (이자세 14% + 지방소득세 1.4%)
 const w = (n: number) => Math.round(n).toLocaleString();
@@ -58,15 +59,15 @@ function simulate(principal: number, annualRate: number, months: number): YearRo
 }
 
 export default function SimpleInterestPage() {
-  const [principal, setPrincipal] = useState('');
-  const [rate, setRate] = useState('');
+  const [principal, setPrincipal] = useState(10_000_000);
+  const [rate, setRate] = useState('3');
   const [period, setPeriod] = useState('12');
   const [unit, setUnit] = useState<'month' | 'year'>('month');
   const [rows, setRows] = useState<YearRow[] | null>(null);
   const [showAll, setShowAll] = useState(false);
 
   function calculate() {
-    const p = Number(principal);
+    const p = principal;
     const r = Number(rate);
     let months = Number(period);
     if (unit === 'year') months *= 12;
@@ -74,6 +75,8 @@ export default function SimpleInterestPage() {
     setShowAll(false);
     setRows(simulate(p, r, months));
   }
+
+  useEffect(() => { calculate(); }, []);
 
   const last = rows?.[rows.length - 1];
   const totalInterest = last?.cumInterest ?? 0;
@@ -89,8 +92,7 @@ export default function SimpleInterestPage() {
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
               <Label>원금 (원)</Label>
-              <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
-                placeholder="예: 10,000,000" className={inputCls} />
+              <CommaInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />
             </div>
             <div>
               <Label>연이율 (%)</Label>
@@ -130,14 +132,14 @@ export default function SimpleInterestPage() {
               <SummaryCard label="만기 금액" value={`${w(last.balance)}원`} variant="primary" />
               <SummaryCard label="총 이자" value={`+${w(totalInterest)}원`} variant="green" />
               <SummaryCard label="세후 이자" value={`+${w(afterTaxInterest)}원`} sub={`세금 -${w(taxAmount)}원`} variant="green" />
-              <SummaryCard label="세후 만기 금액" value={`${w(Number(principal) + afterTaxInterest)}원`} />
+              <SummaryCard label="세후 만기 금액" value={`${w(principal + afterTaxInterest)}원`} />
             </SummaryGrid>
 
             <Card className="p-5">
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">원금 vs 이자 비율</p>
               <RatioBar
-                a={Number(principal)} b={totalInterest}
-                labelA={`원금 ${w(Number(principal))}원`}
+                a={principal} b={totalInterest}
+                labelA={`원금 ${w(principal)}원`}
                 labelB={`이자 ${w(totalInterest)}원`}
               />
             </Card>

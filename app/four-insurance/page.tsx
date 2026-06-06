@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard, TabBar, TableWrap, RatioBar,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -100,14 +101,12 @@ interface TableRow {
 }
 
 export default function FourInsurancePage() {
-  const [salary, setSalary] = useState('');
-  const [result, setResult] = useState<InsuranceResult | null>(null);
+  const [salary, setSalary] = useState(3_500_000);
   const [tab, setTab] = useState<TabValue>('employee');
 
-  function calculate() {
-    const v = Number(salary);
-    if (v > 0) setResult(calcInsurance(v));
-  }
+  const result = useMemo(() => {
+    return salary > 0 ? calcInsurance(salary) : null;
+  }, [salary]);
 
   function getRows(): TableRow[] {
     if (!result) return [];
@@ -149,16 +148,11 @@ export default function FourInsurancePage() {
         <Card className="p-5">
           <div>
             <Label>월 급여 (원)</Label>
-            <input
-              type="number"
+            <CommaInput
               value={salary}
-              onChange={e => setSalary(e.target.value)}
-              placeholder="예: 3,000,000"
-              className={inputCls}
+              onChange={setSalary}
+              placeholder="예: 3,500,000"
             />
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -168,7 +162,7 @@ export default function FourInsurancePage() {
               <SummaryCard
                 label="근로자 4대보험"
                 value={`${fmt(result.empTotal)}원`}
-                sub={`급여의 ${((result.empTotal / Number(salary)) * 100).toFixed(2)}%`}
+                sub={`급여의 ${((result.empTotal / salary) * 100).toFixed(2)}%`}
                 variant="primary"
               />
               <SummaryCard

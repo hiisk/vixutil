@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, {
   Card, Label, inputCls, PrimaryBtn, TabBar,
   SummaryGrid, SummaryCard, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 type Tab = 'future' | 'present';
 
@@ -42,32 +43,34 @@ export default function InflationPage() {
   const [tab, setTab] = useState<Tab>('future');
 
   // 탭1: 미래 가치
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(1_000_000);
   const [inflRate, setInflRate] = useState('3');
   const [years, setYears] = useState('10');
   const [futureRows, setFutureRows] = useState<YearRow[] | null>(null);
   const [showAllF, setShowAllF] = useState(false);
 
   // 탭2: 현재 가치 역산
-  const [futureAmount, setFutureAmount] = useState('');
+  const [futureAmount, setFutureAmount] = useState(0);
   const [inflRate2, setInflRate2] = useState('3');
   const [years2, setYears2] = useState('10');
   const [presentRows, setPresentRows] = useState<YearRow[] | null>(null);
   const [showAllP, setShowAllP] = useState(false);
 
   function calcFutureRows() {
-    const a = Number(amount), r = Number(inflRate), y = Number(years);
+    const a = amount, r = Number(inflRate), y = Number(years);
     if (!a || !r || !y || y > 100) return;
     setShowAllF(false);
     setFutureRows(calcFuture(a, r, y));
   }
 
   function calcPresentRows() {
-    const a = Number(futureAmount), r = Number(inflRate2), y = Number(years2);
+    const a = futureAmount, r = Number(inflRate2), y = Number(years2);
     if (!a || !r || !y || y > 100) return;
     setShowAllP(false);
     setPresentRows(calcPresent(a, r, y));
   }
+
+  useEffect(() => { calcFutureRows(); }, []);
 
   const fLast = futureRows?.[futureRows.length - 1];
   const pLast = presentRows?.[presentRows.length - 1];
@@ -95,8 +98,7 @@ export default function InflationPage() {
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>현재 금액 (원)</Label>
-                  <input type="number" value={amount} onChange={e => setAmount(e.target.value)}
-                    placeholder="예: 1,000,000" className={inputCls} />
+                  <CommaInput value={amount} onChange={setAmount} placeholder="예: 1,000,000" />
                 </div>
                 <div>
                   <Label>연 물가상승률 (%)</Label>
@@ -132,7 +134,7 @@ export default function InflationPage() {
               <>
                 <SummaryGrid>
                   <SummaryCard label={`${years}년 후 필요 금액`} value={`${w(fLast.value)}원`} variant="primary" />
-                  <SummaryCard label="가격 상승분" value={`+${w(fLast.value - Number(amount))}원`} variant="red" />
+                  <SummaryCard label="가격 상승분" value={`+${w(fLast.value - amount)}원`} variant="red" />
                   <SummaryCard label="누적 물가상승" value={`${fLast.cumInflation.toFixed(1)}%`} />
                   <SummaryCard label="실질 구매력" value={`${fLast.purchasePower.toFixed(1)}%`}
                     sub="현재 대비" />
@@ -159,7 +161,7 @@ export default function InflationPage() {
                           <tr key={r.year}>
                             <td>{r.year}년 후</td>
                             <td className="font-black text-slate-900">{w(r.value)}원</td>
-                            <td className="text-red-500 font-semibold">+{w(r.value - Number(amount))}원</td>
+                            <td className="text-red-500 font-semibold">+{w(r.value - amount)}원</td>
                             <td className="text-red-500 font-semibold">+{r.cumInflation.toFixed(1)}%</td>
                             <td className="text-blue-700 font-semibold">{r.purchasePower.toFixed(1)}%</td>
                           </tr>
@@ -184,8 +186,7 @@ export default function InflationPage() {
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>미래 목표 금액 (원)</Label>
-                  <input type="number" value={futureAmount} onChange={e => setFutureAmount(e.target.value)}
-                    placeholder="예: 1,000,000" className={inputCls} />
+                  <CommaInput value={futureAmount} onChange={setFutureAmount} placeholder="예: 1,000,000" />
                 </div>
                 <div>
                   <Label>연 물가상승률 (%)</Label>
@@ -221,10 +222,10 @@ export default function InflationPage() {
               <>
                 <SummaryGrid>
                   <SummaryCard label={`${years2}년 전 현재 가치`} value={`${w(pLast.value)}원`} variant="primary" />
-                  <SummaryCard label="가치 하락분" value={`-${w(Number(futureAmount) - pLast.value)}원`} variant="red" />
+                  <SummaryCard label="가치 하락분" value={`-${w(futureAmount - pLast.value)}원`} variant="red" />
                   <SummaryCard label="실질 가치 비율" value={`${pLast.purchasePower.toFixed(1)}%`}
                     sub="미래 대비" />
-                  <SummaryCard label="미래 목표 금액" value={`${w(Number(futureAmount))}원`} />
+                  <SummaryCard label="미래 목표 금액" value={`${w(futureAmount)}원`} />
                 </SummaryGrid>
 
                 <Card>
@@ -247,7 +248,7 @@ export default function InflationPage() {
                           <tr key={r.year}>
                             <td>{r.year}년 전</td>
                             <td className="font-black text-slate-900">{w(r.value)}원</td>
-                            <td className="text-red-500 font-semibold">-{w(Number(futureAmount) - r.value)}원</td>
+                            <td className="text-red-500 font-semibold">-{w(futureAmount - r.value)}원</td>
                             <td className="text-blue-700 font-semibold">{r.purchasePower.toFixed(1)}%</td>
                           </tr>
                         ))}

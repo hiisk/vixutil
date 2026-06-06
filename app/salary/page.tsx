@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 /*
  * 2026년 4대보험 요율
@@ -74,15 +75,16 @@ function calc(annual: number, dependents: number, mealExempt: boolean): Result {
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function SalaryPage() {
-  const [annual, setAnnual] = useState('');
+  const [annual, setAnnual] = useState(40_000_000);
   const [dependents, setDependents] = useState('1');
   const [mealExempt, setMealExempt] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
 
   function calculate() {
-    const v = Number(annual);
-    if (v > 0) setResult(calc(v, Number(dependents) || 1, mealExempt));
+    if (annual > 0) setResult(calc(annual, Number(dependents) || 1, mealExempt));
   }
+
+  useEffect(() => { calculate(); }, []);
 
   return (
     <CalcShell title="실수령액 계산기" description="2026년 4대보험 요율 · 근로소득세법 기준">
@@ -92,8 +94,7 @@ export default function SalaryPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>연봉 (원)</Label>
-              <input type="number" value={annual} onChange={e => setAnnual(e.target.value)}
-                placeholder="예: 40,000,000" className={inputCls} />
+              <CommaInput value={annual} onChange={setAnnual} placeholder="예: 40,000,000" />
             </div>
           </div>
 

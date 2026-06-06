@@ -1,39 +1,33 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const TIP_RATES = [10, 15, 18, 20, 25];
 const w = (n: number) => Math.round(n).toLocaleString();
 
 export default function TipPage() {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(50_000);
   const [tipRate, setTipRate] = useState<number | null>(15);
   const [customRate, setCustomRate] = useState('');
-  const [people, setPeople] = useState('2');
-  const [result, setResult] = useState<{
-    tipAmount: number;
-    tipPerPerson: number;
-    total: number;
-    totalPerPerson: number;
-    rate: number;
-  } | null>(null);
+  const [people, setPeople] = useState('4');
 
-  function calculate() {
-    const a = Number(amount);
+  const result = useMemo(() => {
+    const a = amount;
     const p = Number(people) || 1;
     const rate = tipRate !== null ? tipRate : Number(customRate);
-    if (!a || !rate) return;
+    if (!a || !rate) return null;
 
     const tipAmount = a * (rate / 100);
     const total = a + tipAmount;
-    setResult({
+    return {
       tipAmount,
       tipPerPerson: tipAmount / p,
       total,
       totalPerPerson: total / p,
       rate,
-    });
-  }
+    };
+  }, [amount, tipRate, customRate, people]);
 
   function handleRateBtn(r: number) {
     setTipRate(r);
@@ -53,13 +47,7 @@ export default function TipPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>금액 (원)</Label>
-              <input
-                type="number"
-                value={amount}
-                onChange={e => setAmount(e.target.value)}
-                placeholder="예: 50000"
-                className={inputCls}
-              />
+              <CommaInput value={amount} onChange={setAmount} placeholder="예: 50,000" />
             </div>
 
             <div>
@@ -118,9 +106,6 @@ export default function TipPage() {
               </div>
             </div>
           </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-          </div>
         </Card>
 
         {result && (
@@ -155,7 +140,7 @@ export default function TipPage() {
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">상세 내역</p>
               <div className="flex flex-col gap-2">
                 {[
-                  { label: '원금', value: `${w(Number(amount))}원` },
+                  { label: '원금', value: `${w(amount)}원` },
                   { label: `팁 (${result.rate}%)`, value: `+${w(result.tipAmount)}원` },
                   { label: '합계', value: `${w(result.total)}원`, bold: true },
                   { label: '인원수', value: `${people}명` },

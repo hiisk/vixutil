@@ -1,36 +1,34 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function MaxLoanPage() {
-  const [annualIncome, setAnnualIncome] = useState('');
-  const [rate, setRate] = useState('');
+  const [annualIncome, setAnnualIncome] = useState(60_000_000);
+  const [rate, setRate] = useState('4.5');
   const [loanYears, setLoanYears] = useState('30');
-  const [existing, setExisting] = useState('');
+  const [existing, setExisting] = useState(0);
   const [dti, setDti] = useState('40');
-  const [result, setResult] = useState<null | {
-    maxLoan: number; monthlyPayment: number; totalInterest: number; allowableMonthly: number;
-  }>(null);
 
-  function calculate() {
-    const income = Number(annualIncome);
+  const result = useMemo(() => {
+    const income = annualIncome;
     const r = Number(rate) / 100 / 12;
     const n = Number(loanYears) * 12;
-    const existingMonthly = Number(existing || 0);
-    if (income <= 0 || Number(rate) <= 0) return;
+    const existingMonthly = existing;
+    if (income <= 0 || Number(rate) <= 0) return null;
 
     const monthlyIncome = income / 12;
     const allowableMonthly = monthlyIncome * Number(dti) / 100 - existingMonthly;
-    if (allowableMonthly <= 0) { setResult(null); return; }
+    if (allowableMonthly <= 0) return null;
 
     const maxLoan = allowableMonthly * (1 - Math.pow(1 + r, -n)) / r;
     const totalPayment = allowableMonthly * n;
     const totalInterest = totalPayment - maxLoan;
 
-    setResult({ maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly });
-  }
+    return { maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly };
+  }, [annualIncome, rate, loanYears, existing, dti]);
 
   return (
     <CalcShell title="대출 가능 금액 계산기" description="소득 기준 DTI 대출 가능 최대 금액">
@@ -39,8 +37,7 @@ export default function MaxLoanPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>연 소득 (원)</Label>
-              <input type="number" value={annualIncome} onChange={e => setAnnualIncome(e.target.value)}
-                placeholder="예: 60,000,000" className={inputCls} min="0" />
+              <CommaInput value={annualIncome} onChange={setAnnualIncome} placeholder="예: 60,000,000" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -59,8 +56,7 @@ export default function MaxLoanPage() {
             </div>
             <div>
               <Label>기존 대출 월 상환액 (원)</Label>
-              <input type="number" value={existing} onChange={e => setExisting(e.target.value)}
-                placeholder="0" className={inputCls} min="0" />
+              <CommaInput value={existing} onChange={setExisting} placeholder="없으면 0" />
             </div>
             <div>
               <Label>DTI 기준 (%)</Label>
@@ -70,7 +66,6 @@ export default function MaxLoanPage() {
                 <option value="60">60%</option>
               </select>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

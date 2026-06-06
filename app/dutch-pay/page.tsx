@@ -1,11 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 interface ExtraItem {
   id: number;
   name: string;
-  amount: string;
+  amount: number;
   payer: string; // 'all' or person index string
 }
 
@@ -14,30 +15,15 @@ const w = (n: number) => Math.round(n).toLocaleString();
 let nextId = 1;
 
 export default function DutchPayPage() {
-  const [total, setTotal] = useState('');
+  const [total, setTotal] = useState(80_000);
   const [people, setPeople] = useState('4');
   const [extras, setExtras] = useState<ExtraItem[]>([]);
-  const [result, setResult] = useState<{ name: string; base: number; extra: number; total: number }[] | null>(null);
 
   const peopleCount = Math.max(2, Math.min(20, Number(people) || 2));
 
-  function addExtra() {
-    setExtras(prev => [...prev, { id: nextId++, name: '', amount: '', payer: 'all' }]);
-  }
-
-  function updateExtra(id: number, field: keyof ExtraItem, value: string) {
-    setExtras(prev => prev.map(e => e.id === id ? { ...e, [field]: value } : e));
-  }
-
-  function removeExtra(id: number) {
-    setExtras(prev => prev.filter(e => e.id !== id));
-  }
-
-  function calculate() {
-    const t = Number(total);
-    if (!t || peopleCount < 2) return;
-
-    const base = t / peopleCount;
+  const result = useMemo(() => {
+    if (!total || peopleCount < 2) return null;
+    const base = total / peopleCount;
     const rows = Array.from({ length: peopleCount }, (_, i) => ({
       name: `참여자 ${i + 1}`,
       base,
@@ -46,7 +32,7 @@ export default function DutchPayPage() {
     }));
 
     extras.forEach(ex => {
-      const amt = Number(ex.amount);
+      const amt = ex.amount;
       if (!amt) return;
       if (ex.payer === 'all') {
         const perPerson = amt / peopleCount;
@@ -60,7 +46,23 @@ export default function DutchPayPage() {
       }
     });
 
-    setResult(rows);
+    return rows;
+  }, [total, peopleCount, extras]);
+
+  function addExtra() {
+    setExtras(prev => [...prev, { id: nextId++, name: '', amount: 0, payer: 'all' }]);
+  }
+
+  function updateExtraText(id: number, field: 'name' | 'payer', value: string) {
+    setExtras(prev => prev.map(e => e.id === id ? { ...e, [field]: value } : e));
+  }
+
+  function updateExtraAmount(id: number, value: number) {
+    setExtras(prev => prev.map(e => e.id === id ? { ...e, amount: value } : e));
+  }
+
+  function removeExtra(id: number) {
+    setExtras(prev => prev.filter(e => e.id !== id));
   }
 
   return (
@@ -71,13 +73,7 @@ export default function DutchPayPage() {
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
               <Label>총 금액 (원)</Label>
-              <input
-                type="number"
-                value={total}
-                onChange={e => setTotal(e.target.value)}
-                placeholder="예: 120000"
-                className={inputCls}
-              />
+              <CommaInput value={total} onChange={setTotal} placeholder="예: 80,000" />
             </div>
             <div className="col-span-2">
               <Label>인원수 (2~20명)</Label>
@@ -134,19 +130,17 @@ export default function DutchPayPage() {
                     <input
                       type="text"
                       value={ex.name}
-                      onChange={e => updateExtra(ex.id, 'name', e.target.value)}
+                      onChange={e => updateExtraText(ex.id, 'name', e.target.value)}
                       placeholder="예: 음료수"
                       className={inputCls}
                     />
                   </div>
                   <div>
                     <Label>금액 (원)</Label>
-                    <input
-                      type="number"
+                    <CommaInput
                       value={ex.amount}
-                      onChange={e => updateExtra(ex.id, 'amount', e.target.value)}
-                      placeholder="예: 5000"
-                      className={inputCls}
+                      onChange={v => updateExtraAmount(ex.id, v)}
+                      placeholder="예: 5,000"
                     />
                   </div>
                 </div>
@@ -155,7 +149,7 @@ export default function DutchPayPage() {
                     <Label>부담자</Label>
                     <select
                       value={ex.payer}
-                      onChange={e => updateExtra(ex.id, 'payer', e.target.value)}
+                      onChange={e => updateExtraText(ex.id, 'payer', e.target.value)}
                       className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                     >
                       <option value="all">전원 균등 분담</option>
@@ -177,13 +171,11 @@ export default function DutchPayPage() {
           </div>
         </Card>
 
-        <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-
         {result && (
           <Card>
             <div className="px-5 py-4 border-b border-slate-100">
               <p className="font-bold text-slate-800 text-sm">각자 부담 금액</p>
-              <p className="text-xs text-slate-400 mt-0.5">기본 {w(Number(total) / peopleCount)}원 + 추가 항목</p>
+              <p className="text-xs text-slate-400 mt-0.5">기본 {w(total / peopleCount)}원 + 추가 항목</p>
             </div>
             <TableWrap>
               <table className="calc-table">

@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, SummaryGrid, SummaryCard } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 type Tab = 'calc' | 'rate' | 'reverse';
 
@@ -10,40 +11,37 @@ export default function DiscountPage() {
   const [tab, setTab] = useState<Tab>('calc');
 
   // 탭1: 할인가 계산
-  const [origPrice, setOrigPrice] = useState('');
-  const [discRate, setDiscRate] = useState('');
-  const [calcResult, setCalcResult] = useState<{ discounted: number; saved: number; rate: number } | null>(null);
+  const [origPrice, setOrigPrice] = useState(50_000);
+  const [discRate, setDiscRate] = useState('30');
 
   // 탭2: 할인율 계산
-  const [origPrice2, setOrigPrice2] = useState('');
-  const [salePrice, setSalePrice] = useState('');
-  const [rateResult, setRateResult] = useState<{ rate: number; saved: number } | null>(null);
+  const [origPrice2, setOrigPrice2] = useState(0);
+  const [salePrice, setSalePrice] = useState(0);
 
   // 탭3: 역산 (할인가 + 할인율 → 원가)
-  const [salePrice3, setSalePrice3] = useState('');
+  const [salePrice3, setSalePrice3] = useState(0);
   const [discRate3, setDiscRate3] = useState('');
-  const [reverseResult, setReverseResult] = useState<{ orig: number; saved: number } | null>(null);
 
-  function calcDiscount() {
-    const p = Number(origPrice), r = Number(discRate);
-    if (!p || !r || r < 0 || r > 100) return;
+  const calcResult = useMemo(() => {
+    const p = origPrice, r = Number(discRate);
+    if (!p || !r || r < 0 || r > 100) return null;
     const saved = p * (r / 100);
-    setCalcResult({ discounted: p - saved, saved, rate: r });
-  }
+    return { discounted: p - saved, saved, rate: r };
+  }, [origPrice, discRate]);
 
-  function calcRate() {
-    const p = Number(origPrice2), s = Number(salePrice);
-    if (!p || !s || s > p) return;
+  const rateResult = useMemo(() => {
+    const p = origPrice2, s = salePrice;
+    if (!p || !s || s > p) return null;
     const saved = p - s;
-    setRateResult({ rate: (saved / p) * 100, saved });
-  }
+    return { rate: (saved / p) * 100, saved };
+  }, [origPrice2, salePrice]);
 
-  function calcReverse() {
-    const s = Number(salePrice3), r = Number(discRate3);
-    if (!s || !r || r >= 100) return;
+  const reverseResult = useMemo(() => {
+    const s = salePrice3, r = Number(discRate3);
+    if (!s || !r || r >= 100) return null;
     const orig = s / (1 - r / 100);
-    setReverseResult({ orig, saved: orig - s });
-  }
+    return { orig, saved: orig - s };
+  }, [salePrice3, discRate3]);
 
   const QUICK_RATES = [5, 10, 15, 20, 25, 30, 50];
 
@@ -57,7 +55,7 @@ export default function DiscountPage() {
             { value: 'reverse', label: '원가 역산', sub: '할인가 + 할인율' },
           ]}
           value={tab}
-          onChange={v => { setTab(v); setCalcResult(null); setRateResult(null); setReverseResult(null); }}
+          onChange={v => setTab(v)}
         />
 
         {/* 탭1: 할인가 계산 */}
@@ -68,8 +66,7 @@ export default function DiscountPage() {
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>정가 (원)</Label>
-                  <input type="number" value={origPrice} onChange={e => setOrigPrice(e.target.value)}
-                    placeholder="예: 100000" className={inputCls} />
+                  <CommaInput value={origPrice} onChange={setOrigPrice} placeholder="예: 50,000" />
                 </div>
                 <div>
                   <Label>할인율 (%)</Label>
@@ -87,14 +84,13 @@ export default function DiscountPage() {
                     placeholder="직접 입력 (%)" className={inputCls} />
                 </div>
               </div>
-              <div className="mt-4"><PrimaryBtn onClick={calcDiscount}>계산하기</PrimaryBtn></div>
             </Card>
             {calcResult && (
               <SummaryGrid>
                 <SummaryCard label="할인가" value={`${w(calcResult.discounted)}원`} variant="primary" />
                 <SummaryCard label="절약 금액" value={`-${w(calcResult.saved)}원`} variant="red" />
                 <SummaryCard label="할인율" value={`${calcResult.rate}%`} />
-                <SummaryCard label="정가" value={`${w(Number(origPrice))}원`} />
+                <SummaryCard label="정가" value={`${w(origPrice)}원`} />
               </SummaryGrid>
             )}
           </>
@@ -108,23 +104,21 @@ export default function DiscountPage() {
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>정가 (원)</Label>
-                  <input type="number" value={origPrice2} onChange={e => setOrigPrice2(e.target.value)}
-                    placeholder="예: 100000" className={inputCls} />
+                  <CommaInput value={origPrice2} onChange={setOrigPrice2} placeholder="예: 100,000" />
                 </div>
                 <div>
                   <Label>할인가 (원)</Label>
-                  <input type="number" value={salePrice} onChange={e => setSalePrice(e.target.value)}
-                    placeholder="예: 75000" className={inputCls} />
+                  <CommaInput value={salePrice} onChange={setSalePrice} placeholder="예: 75,000" />
                 </div>
               </div>
-              <div className="mt-4"><PrimaryBtn onClick={calcRate}>계산하기</PrimaryBtn></div>
+              <div className="mt-4"><PrimaryBtn onClick={() => {}}>계산하기</PrimaryBtn></div>
             </Card>
             {rateResult && (
               <SummaryGrid>
                 <SummaryCard label="할인율" value={`${rateResult.rate.toFixed(1)}%`} variant="primary" />
                 <SummaryCard label="절약 금액" value={`-${w(rateResult.saved)}원`} variant="red" />
-                <SummaryCard label="정가" value={`${w(Number(origPrice2))}원`} />
-                <SummaryCard label="할인가" value={`${w(Number(salePrice))}원`} />
+                <SummaryCard label="정가" value={`${w(origPrice2)}원`} />
+                <SummaryCard label="할인가" value={`${w(salePrice)}원`} />
               </SummaryGrid>
             )}
           </>
@@ -138,8 +132,7 @@ export default function DiscountPage() {
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>할인가 (원)</Label>
-                  <input type="number" value={salePrice3} onChange={e => setSalePrice3(e.target.value)}
-                    placeholder="예: 75000" className={inputCls} />
+                  <CommaInput value={salePrice3} onChange={setSalePrice3} placeholder="예: 75,000" />
                 </div>
                 <div>
                   <Label>할인율 (%)</Label>
@@ -157,13 +150,13 @@ export default function DiscountPage() {
                     placeholder="직접 입력 (%)" className={inputCls} />
                 </div>
               </div>
-              <div className="mt-4"><PrimaryBtn onClick={calcReverse}>계산하기</PrimaryBtn></div>
+              <div className="mt-4"><PrimaryBtn onClick={() => {}}>계산하기</PrimaryBtn></div>
             </Card>
             {reverseResult && (
               <SummaryGrid>
                 <SummaryCard label="원가 (정가)" value={`${w(reverseResult.orig)}원`} variant="primary" />
                 <SummaryCard label="할인 금액" value={`-${w(reverseResult.saved)}원`} variant="red" />
-                <SummaryCard label="할인가" value={`${w(Number(salePrice3))}원`} />
+                <SummaryCard label="할인가" value={`${w(salePrice3)}원`} />
                 <SummaryCard label="할인율" value={`${discRate3}%`} />
               </SummaryGrid>
             )}

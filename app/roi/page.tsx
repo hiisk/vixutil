@@ -1,25 +1,23 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 const pct = (n: number) => n.toFixed(2) + '%';
 
 export default function RoiPage() {
   const [mode, setMode] = useState<'simple' | 'annualized'>('simple');
-  const [buy, setBuy] = useState('');
-  const [sell, setSell] = useState('');
-  const [fee, setFee] = useState('');
+  const [buy, setBuy] = useState(5_000_000);
+  const [sell, setSell] = useState(7_000_000);
+  const [fee, setFee] = useState(0);
   const [years, setYears] = useState('');
-  const [result, setResult] = useState<null | {
-    profit: number; roi: number; cagr?: number; isGain: boolean;
-  }>(null);
 
-  function calculate() {
-    const b = Number(buy);
-    const s = Number(sell);
-    const f = Number(fee || 0);
-    if (b <= 0 || s <= 0) return;
+  const result = useMemo(() => {
+    const b = buy;
+    const s = sell;
+    const f = fee;
+    if (b <= 0 || s <= 0) return null;
 
     const profit = s - b - f;
     const roi = (profit / b) * 100;
@@ -30,8 +28,8 @@ export default function RoiPage() {
       if (y > 0) cagr = (Math.pow(s / b, 1 / y) - 1) * 100;
     }
 
-    setResult({ profit, roi, cagr, isGain: profit >= 0 });
-  }
+    return { profit, roi, cagr, isGain: profit >= 0 };
+  }, [buy, sell, fee, mode, years]);
 
   return (
     <CalcShell title="투자 수익률 계산기" description="매수·매도 금액 기준 수익률 및 연환산 수익률(CAGR)">
@@ -42,24 +40,21 @@ export default function RoiPage() {
             { value: 'annualized', label: '연환산 (CAGR)' },
           ]}
           value={mode}
-          onChange={v => { setMode(v as 'simple' | 'annualized'); setResult(null); }}
+          onChange={v => setMode(v as 'simple' | 'annualized')}
         />
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <div>
               <Label>매수 금액 (원)</Label>
-              <input type="number" value={buy} onChange={e => setBuy(e.target.value)}
-                placeholder="예: 10,000,000" className={inputCls} min="0" />
+              <CommaInput value={buy} onChange={setBuy} placeholder="예: 5,000,000" />
             </div>
             <div>
               <Label>매도 금액 (원)</Label>
-              <input type="number" value={sell} onChange={e => setSell(e.target.value)}
-                placeholder="예: 13,000,000" className={inputCls} min="0" />
+              <CommaInput value={sell} onChange={setSell} placeholder="예: 7,000,000" />
             </div>
             <div>
               <Label>수수료·세금 합계 (원, 선택)</Label>
-              <input type="number" value={fee} onChange={e => setFee(e.target.value)}
-                placeholder="0" className={inputCls} min="0" />
+              <CommaInput value={fee} onChange={setFee} placeholder="0" />
             </div>
             {mode === 'annualized' && (
               <div>
@@ -68,7 +63,6 @@ export default function RoiPage() {
                   placeholder="예: 3" className={inputCls} min="0" step="0.5" />
               </div>
             )}
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

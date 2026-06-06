@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
+  Card, CardHeader, Label, inputCls, TabBar,
   SummaryCard, SummaryGrid, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 type Freq = 12 | 4 | 1;
 
@@ -36,25 +37,25 @@ function simulate(principal: number, monthly: number, rate: number, years: numbe
   return rows;
 }
 
-const w = (n: number) => Math.round(n).toLocaleString();
+const w = (n: number) => Math.round(n).toLocaleString('ko-KR');
 
 export default function CompoundPage() {
   const [freq, setFreq] = useState<Freq>(12);
-  const [principal, setPrincipal] = useState('');
-  const [monthly, setMonthly] = useState('');
-  const [rate, setRate] = useState('');
-  const [years, setYears] = useState('');
+  const [principal, setPrincipal] = useState(10_000_000);
+  const [monthly, setMonthly] = useState(300_000);
+  const [rate, setRate] = useState('5');
+  const [years, setYears] = useState('20');
   const [applyTax, setApplyTax] = useState(false);
-  const [rows, setRows] = useState<YearRow[] | null>(null);
   const [showAll, setShowAll] = useState(false);
 
-  function calculate() {
-    const p = Number(principal), m = Number(monthly) || 0;
-    const r = Number(rate), y = Number(years);
-    if (!p || !r || !y || y > 100 || y < 1) return;
+  const rows = useMemo(() => {
+    const r = Number(rate);
+    const y = Number(years);
+    if (!principal || !r || !y || y > 100 || y < 1) return null;
     setShowAll(false);
-    setRows(simulate(p, m, r, y, freq));
-  }
+    return simulate(principal, monthly, r, y, freq);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [principal, monthly, rate, years, freq]);
 
   const last = rows?.[rows.length - 1];
   const taxCut = last ? Math.round(last.cumulativeInterest * 0.154) : 0;
@@ -63,7 +64,6 @@ export default function CompoundPage() {
 
   return (
     <CalcShell wide title="복리 계산기" description="복리 주기 · 적립식 · 연도별 자산 성장 테이블">
-
       <div className="flex flex-col gap-4">
         <TabBar
           options={[
@@ -72,7 +72,7 @@ export default function CompoundPage() {
             { value: 1, label: '연복리', sub: '매년 이자' },
           ]}
           value={freq}
-          onChange={(v) => { setFreq(Number(v) as Freq); setRows(null); }}
+          onChange={(v) => setFreq(Number(v) as Freq)}
         />
 
         <Card className="p-5">
@@ -80,23 +80,21 @@ export default function CompoundPage() {
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2 sm:col-span-1">
               <Label>초기 원금 (원)</Label>
-              <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
-                placeholder="예: 10,000,000" className={inputCls} />
+              <CommaInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />
             </div>
             <div className="col-span-2 sm:col-span-1">
               <Label>월 추가납입 (원, 선택)</Label>
-              <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                placeholder="예: 300,000" className={inputCls} />
+              <CommaInput value={monthly} onChange={setMonthly} placeholder="예: 300,000" />
             </div>
             <div>
               <Label>연이율 (%)</Label>
               <input type="number" value={rate} onChange={e => setRate(e.target.value)}
-                placeholder="예: 5" className={inputCls} />
+                placeholder="예: 5" min="0" max="100" step="0.1" className={inputCls} />
             </div>
             <div>
               <Label>기간 (년)</Label>
               <input type="number" value={years} onChange={e => setYears(e.target.value)}
-                placeholder="예: 20" className={inputCls} />
+                placeholder="예: 20" min="1" max="100" className={inputCls} />
             </div>
           </div>
           <label className="flex items-center gap-2 mt-4 text-sm text-slate-600 cursor-pointer select-none">
@@ -104,9 +102,6 @@ export default function CompoundPage() {
               className="w-4 h-4 accent-blue-600 rounded" />
             이자소득세 15.4% 적용 (이자 14% + 지방소득세 1.4%)
           </label>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-          </div>
         </Card>
 
         {last && (

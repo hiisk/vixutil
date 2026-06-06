@@ -1,19 +1,20 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function SavingsPage() {
-  const [monthly, setMonthly] = useState('');
-  const [rate, setRate] = useState('');
-  const [months, setMonths] = useState('12');
+  const [monthly, setMonthly] = useState(500_000);
+  const [rate, setRate] = useState('4');
+  const [months, setMonths] = useState('24');
   const [result, setResult] = useState<null | {
     principal: number; interest: number; tax: number; total: number;
   }>(null);
 
   function calculate() {
-    const m = Number(monthly);
+    const m = monthly;
     const r = Number(rate) / 100 / 12;
     const n = Number(months);
     if (m <= 0 || Number(rate) <= 0 || n <= 0) return;
@@ -25,6 +26,8 @@ export default function SavingsPage() {
     setResult({ principal, interest, tax, total: principal + interest - tax });
   }
 
+  useEffect(() => { calculate(); }, []);
+
   return (
     <CalcShell title="적금 계산기" description="월 납입금·금리·기간 기준 만기금액 계산">
       <div className="flex flex-col gap-4">
@@ -32,8 +35,7 @@ export default function SavingsPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>월 납입금액 (원)</Label>
-              <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                placeholder="예: 500,000" className={inputCls} min="0" />
+              <CommaInput value={monthly} onChange={setMonthly} placeholder="예: 500,000" />
             </div>
             <div>
               <Label>연 이자율 (%)</Label>

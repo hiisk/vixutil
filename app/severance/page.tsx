@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar, SummaryCard,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 /*
  * 근로자퇴직급여 보장법 제8조, 근로기준법 제2조
@@ -81,19 +82,19 @@ const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function SeverancePage() {
   const [mode, setMode] = useState<'simple' | 'detail'>('simple');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState('2020-01-01');
+  const [endDate, setEndDate] = useState('2026-06-06');
 
   // 간편 모드
-  const [simpleWage, setSimpleWage] = useState('');
+  const [simpleWage, setSimpleWage] = useState(3_000_000);
 
   // 상세 모드
-  const [wage1, setWage1] = useState('');
-  const [wage2, setWage2] = useState('');
-  const [wage3, setWage3] = useState('');
-  const [annualBonus, setAnnualBonus] = useState('');
-  const [annualLeavePay, setAnnualLeavePay] = useState('');
-  const [monthlyStdWage, setMonthlyStdWage] = useState('');
+  const [wage1, setWage1] = useState(3_000_000);
+  const [wage2, setWage2] = useState(3_000_000);
+  const [wage3, setWage3] = useState(3_000_000);
+  const [annualBonus, setAnnualBonus] = useState(0);
+  const [annualLeavePay, setAnnualLeavePay] = useState(0);
+  const [monthlyStdWage, setMonthlyStdWage] = useState(0);
 
   const [result, setResult] = useState<Result | null>(null);
   const [error, setError] = useState('');
@@ -109,22 +110,22 @@ export default function SeverancePage() {
 
     let w1: number, w2: number, w3: number;
     if (mode === 'simple') {
-      const m = Number(simpleWage);
+      const m = simpleWage;
       if (!m) { setError('월 평균임금을 입력해주세요.'); return; }
       w1 = w2 = w3 = m;
     } else {
-      w1 = Number(wage1) || 0;
-      w2 = Number(wage2) || 0;
-      w3 = Number(wage3) || 0;
+      w1 = wage1;
+      w2 = wage2;
+      w3 = wage3;
       if (!w1 && !w2 && !w3) { setError('직전 3개월 급여를 입력해주세요.'); return; }
     }
 
     setResult(calcSeverance({
       startDate: start, endDate: end,
       wage1: w1, wage2: w2, wage3: w3,
-      annualBonus: Number(annualBonus) || 0,
-      annualLeavePay: Number(annualLeavePay) || 0,
-      monthlyStdWage: Number(monthlyStdWage) || 0,
+      annualBonus,
+      annualLeavePay,
+      monthlyStdWage,
     }));
   }
 
@@ -165,12 +166,10 @@ export default function SeverancePage() {
           {mode === 'simple' ? (
             <div>
               <Label>월 평균임금 (원)</Label>
-              <input
-                type="number"
+              <CommaInput
                 value={simpleWage}
-                onChange={e => setSimpleWage(e.target.value)}
-                placeholder="예: 3,500,000"
-                className={inputCls}
+                onChange={setSimpleWage}
+                placeholder="예: 3,000,000"
               />
               <p className="text-xs text-slate-400 mt-1.5">세전 급여 기준 (기본급 + 각종 수당 포함)</p>
             </div>
@@ -179,18 +178,15 @@ export default function SeverancePage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <Label>직전 1개월 급여</Label>
-                  <input type="number" value={wage1} onChange={e => setWage1(e.target.value)}
-                    placeholder="예: 3,500,000" className={inputCls} />
+                  <CommaInput value={wage1} onChange={setWage1} placeholder="예: 3,000,000" />
                 </div>
                 <div>
                   <Label>직전 2개월 급여</Label>
-                  <input type="number" value={wage2} onChange={e => setWage2(e.target.value)}
-                    placeholder="예: 3,500,000" className={inputCls} />
+                  <CommaInput value={wage2} onChange={setWage2} placeholder="예: 3,000,000" />
                 </div>
                 <div>
                   <Label>직전 3개월 급여</Label>
-                  <input type="number" value={wage3} onChange={e => setWage3(e.target.value)}
-                    placeholder="예: 3,500,000" className={inputCls} />
+                  <CommaInput value={wage3} onChange={setWage3} placeholder="예: 3,000,000" />
                 </div>
               </div>
               <p className="text-xs text-slate-400">기본급 + 제수당 포함, 퇴직 전 3개월간 실수령 세전 금액</p>
@@ -201,22 +197,19 @@ export default function SeverancePage() {
           <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <Label>연간 상여금 (원, 선택)</Label>
-              <input type="number" value={annualBonus} onChange={e => setAnnualBonus(e.target.value)}
-                placeholder="예: 7,000,000" className={inputCls} />
+              <CommaInput value={annualBonus} onChange={setAnnualBonus} placeholder="예: 7,000,000" />
               <p className="text-xs text-slate-400 mt-1">연간 정기 상여 합계</p>
             </div>
             <div>
               <Label>연간 연차미사용수당 (원, 선택)</Label>
-              <input type="number" value={annualLeavePay} onChange={e => setAnnualLeavePay(e.target.value)}
-                placeholder="예: 500,000" className={inputCls} />
+              <CommaInput value={annualLeavePay} onChange={setAnnualLeavePay} placeholder="예: 500,000" />
             </div>
           </div>
 
           {/* 통상임금 비교 */}
           <div className="mt-4 pt-4 border-t border-slate-100">
             <Label>월 통상임금 (원, 선택 — 평균임금과 비교)</Label>
-            <input type="number" value={monthlyStdWage} onChange={e => setMonthlyStdWage(e.target.value)}
-              placeholder="입력 시 평균임금과 비교해 높은 값 적용" className={inputCls} />
+            <CommaInput value={monthlyStdWage} onChange={setMonthlyStdWage} placeholder="입력 시 평균임금과 비교해 높은 값 적용" />
             <p className="text-xs text-slate-400 mt-1.5">
               통상임금이 평균임금보다 높으면 통상임금 기준으로 계산 (근로기준법 제2조)
             </p>

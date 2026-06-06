@@ -1,21 +1,22 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function DepositPage() {
   const [mode, setMode] = useState<'simple' | 'compound'>('simple');
-  const [principal, setPrincipal] = useState('');
-  const [rate, setRate] = useState('');
-  const [period, setPeriod] = useState('');
-  const [unit, setUnit] = useState<'month' | 'year'>('year');
+  const [principal, setPrincipal] = useState(10_000_000);
+  const [rate, setRate] = useState('3.5');
+  const [period, setPeriod] = useState('12');
+  const [unit, setUnit] = useState<'month' | 'year'>('month');
   const [result, setResult] = useState<null | {
     interest: number; tax: number; netInterest: number; total: number;
   }>(null);
 
   function calculate() {
-    const p = Number(principal);
+    const p = principal;
     const r = Number(rate) / 100;
     const periodVal = Number(period);
     if (p <= 0 || r <= 0 || periodVal <= 0) return;
@@ -30,6 +31,8 @@ export default function DepositPage() {
     const tax = interest * 0.154;
     setResult({ interest, tax, netInterest: interest - tax, total: p + interest - tax });
   }
+
+  useEffect(() => { calculate(); }, []);
 
   return (
     <CalcShell title="예금 이자 계산기" description="단리·복리 예금 이자 및 세후 수령액 계산">
@@ -46,8 +49,7 @@ export default function DepositPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>예치금액 (원)</Label>
-              <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
-                placeholder="예: 10,000,000" className={inputCls} min="0" />
+              <CommaInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />
             </div>
             <div>
               <Label>연 이자율 (%)</Label>
@@ -79,7 +81,7 @@ export default function DepositPage() {
               <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <SummaryCard label="원금" value={`${fmt(Number(principal))}원`} />
+              <SummaryCard label="원금" value={`${fmt(principal)}원`} />
               <SummaryCard label="세전 이자" value={`${fmt(result.interest)}원`} variant="green" />
               <SummaryCard label="이자소득세 (15.4%)" value={`-${fmt(result.tax)}원`} variant="red" />
               <SummaryCard label="세후 이자" value={`${fmt(result.netInterest)}원`} variant="green" />

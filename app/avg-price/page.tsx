@@ -1,38 +1,46 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => n.toLocaleString(undefined, { maximumFractionDigits: 0 });
 
-interface Row { price: string; qty: string }
+interface Row { price: number; qty: string }
 
 export default function AvgPricePage() {
-  const [rows, setRows] = useState<Row[]>([{ price: '', qty: '' }, { price: '', qty: '' }]);
-  const [currentPrice, setCurrentPrice] = useState('');
-  const [result, setResult] = useState<null | {
-    avgPrice: number; totalQty: number; totalInvest: number;
-    evalAmount?: number; evalProfit?: number; evalRate?: number;
-  }>(null);
+  const [rows, setRows] = useState<Row[]>([
+    { price: 75_000, qty: '10' },
+    { price: 68_000, qty: '15' },
+    { price: 72_000, qty: '5' },
+  ]);
+  const [currentPrice, setCurrentPrice] = useState(80_000);
 
-  function updateRow(i: number, field: keyof Row, val: string) {
-    setRows(prev => prev.map((r, idx) => idx === i ? { ...r, [field]: val } : r));
+  function updateRowPrice(i: number, val: number) {
+    setRows(prev => prev.map((r, idx) => idx === i ? { ...r, price: val } : r));
   }
 
-  function calculate() {
-    const valid = rows.filter(r => Number(r.price) > 0 && Number(r.qty) > 0);
-    if (valid.length === 0) return;
-    const totalInvest = valid.reduce((s, r) => s + Number(r.price) * Number(r.qty), 0);
+  function updateRowQty(i: number, val: string) {
+    setRows(prev => prev.map((r, idx) => idx === i ? { ...r, qty: val } : r));
+  }
+
+  const result = useMemo(() => {
+    const valid = rows.filter(r => r.price > 0 && Number(r.qty) > 0);
+    if (valid.length === 0) return null;
+    const totalInvest = valid.reduce((s, r) => s + r.price * Number(r.qty), 0);
     const totalQty = valid.reduce((s, r) => s + Number(r.qty), 0);
     const avgPrice = totalInvest / totalQty;
-    const cp = Number(currentPrice);
-    const res: typeof result = { avgPrice, totalQty, totalInvest };
+    const cp = currentPrice;
+    const res: {
+      avgPrice: number; totalQty: number; totalInvest: number;
+      evalAmount?: number; evalProfit?: number; evalRate?: number;
+    } = { avgPrice, totalQty, totalInvest };
     if (cp > 0) {
       res.evalAmount = cp * totalQty;
       res.evalProfit = (cp - avgPrice) * totalQty;
       res.evalRate = (cp / avgPrice - 1) * 100;
     }
-    setResult(res);
-  }
+    return res;
+  }, [rows, currentPrice]);
 
   return (
     <CalcShell title="평균단가 계산기" description="여러 번 매수 시 평균 매입단가 계산">
@@ -44,12 +52,12 @@ export default function AvgPricePage() {
               <div key={i} className="grid grid-cols-5 gap-2 items-center">
                 <div className="col-span-2">
                   {i === 0 && <Label>매수가</Label>}
-                  <input type="number" value={row.price} onChange={e => updateRow(i, 'price', e.target.value)}
-                    placeholder="가격" className={inputCls} min="0" />
+                  <CommaInput value={row.price} onChange={v => updateRowPrice(i, v)}
+                    placeholder="가격" />
                 </div>
                 <div className="col-span-2">
                   {i === 0 && <Label>수량</Label>}
-                  <input type="number" value={row.qty} onChange={e => updateRow(i, 'qty', e.target.value)}
+                  <input type="number" value={row.qty} onChange={e => updateRowQty(i, e.target.value)}
                     placeholder="수량" className={inputCls} min="0" />
                 </div>
                 <div className={i === 0 ? 'pt-6' : ''}>
@@ -61,7 +69,7 @@ export default function AvgPricePage() {
               </div>
             ))}
             {rows.length < 10 && (
-              <button onClick={() => setRows(prev => [...prev, { price: '', qty: '' }])}
+              <button onClick={() => setRows(prev => [...prev, { price: 0, qty: '' }])}
                 className="mt-1 text-sm text-blue-600 font-semibold hover:underline text-left">
                 + 매수 추가
               </button>
@@ -69,11 +77,7 @@ export default function AvgPricePage() {
           </div>
           <div className="px-4 pb-4">
             <Label>현재가 (손익 계산용, 선택)</Label>
-            <input type="number" value={currentPrice} onChange={e => setCurrentPrice(e.target.value)}
-              placeholder="현재 가격 입력" className={inputCls} min="0" />
-          </div>
-          <div className="px-4 pb-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+            <CommaInput value={currentPrice} onChange={setCurrentPrice} placeholder="현재 가격 입력" />
           </div>
         </Card>
 

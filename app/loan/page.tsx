@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
   SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 interface MonthRow {
   month: number; payment: number; principal: number; interest: number; balance: number;
@@ -30,21 +31,23 @@ const fmt = (n: number) => n.toLocaleString();
 
 export default function LoanPage() {
   const [mode, setMode] = useState<'ep'|'eprin'>('ep');
-  const [amount, setAmount] = useState('');
-  const [rate, setRate] = useState('');
-  const [months, setMonths] = useState('');
+  const [amount, setAmount] = useState(300_000_000);
+  const [rate, setRate] = useState('3.5');
+  const [months, setMonths] = useState('360');
   const [rows, setRows] = useState<MonthRow[]|null>(null);
   const [showAll, setShowAll] = useState(false);
 
   function calculate() {
-    const p=Number(amount), r=Number(rate)/100/12, m=Number(months);
+    const p = amount, r = Number(rate)/100/12, m = Number(months);
     if(!p||!r||!m||m>600) return;
     setShowAll(false);
     setRows(mode==='ep' ? calcEP(p,r,m) : calcEPrin(p,r,m));
   }
 
+  useEffect(() => { calculate(); }, []);
+
   const totalRepay = rows ? rows.reduce((s,r)=>s+r.payment,0) : 0;
-  const totalInterest = totalRepay - Number(amount);
+  const totalInterest = totalRepay - amount;
   const display = rows ? (showAll ? rows : rows.slice(0,24)) : [];
 
   return (
@@ -64,8 +67,7 @@ export default function LoanPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <Label>대출금액 (원)</Label>
-              <input type="number" value={amount} onChange={e=>setAmount(e.target.value)}
-                placeholder="예: 300,000,000" className={inputCls}/>
+              <CommaInput value={amount} onChange={setAmount} placeholder="예: 300,000,000" />
             </div>
             <div>
               <Label>연이율 (%)</Label>
@@ -100,8 +102,8 @@ export default function LoanPage() {
             <Card className="p-5">
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">원금 vs 이자 비율</p>
               <RatioBar
-                a={Number(amount)} b={totalInterest}
-                labelA={`원금 ${fmt(Number(amount))}원`}
+                a={amount} b={totalInterest}
+                labelA={`원금 ${fmt(amount)}원`}
                 labelB={`이자 ${fmt(totalInterest)}원`}
               />
             </Card>

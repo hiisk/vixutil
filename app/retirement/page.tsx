@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
+import CommaInput from '@/components/CommaInput';
 
 function fmtKRW(n: number): string {
   if (n >= 1e8) return `${(n / 1e8).toFixed(2)}억원`;
@@ -22,11 +23,11 @@ interface YearRow {
 }
 
 export default function RetirementPage() {
-  const [currentAge, setCurrentAge] = useState('');
-  const [retireAge, setRetireAge] = useState('');
-  const [currentSavings, setCurrentSavings] = useState('');
-  const [monthlyContrib, setMonthlyContrib] = useState('');
-  const [annualReturn, setAnnualReturn] = useState('');
+  const [currentAge, setCurrentAge] = useState('35');
+  const [retireAge, setRetireAge] = useState('60');
+  const [currentSavings, setCurrentSavings] = useState(50_000_000);
+  const [monthlyContrib, setMonthlyContrib] = useState(500_000);
+  const [annualReturn, setAnnualReturn] = useState('5');
 
   const [result, setResult] = useState<{
     totalAsset: number;
@@ -40,8 +41,8 @@ export default function RetirementPage() {
     setError('');
     const ca = parseInt(currentAge);
     const ra = parseInt(retireAge);
-    const cs = parseFloat(currentSavings.replace(/,/g, '')) || 0;
-    const mc = parseFloat(monthlyContrib.replace(/,/g, '')) || 0;
+    const cs = currentSavings;
+    const mc = monthlyContrib;
     const ar = parseFloat(annualReturn) / 100;
 
     if (!ca || !ra || ra <= ca) { setError('나이를 올바르게 입력해주세요 (은퇴 나이 > 현재 나이).'); return; }
@@ -95,6 +96,8 @@ export default function RetirementPage() {
     setShowing(10);
   }
 
+  useEffect(() => { calculate(); }, []);
+
   return (
     <CalcShell title="은퇴자금 계산기" description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산">
       <div className="flex flex-col gap-4">
@@ -113,11 +116,11 @@ export default function RetirementPage() {
             </div>
             <div>
               <Label>현재 저축액 (원)</Label>
-              <input type="number" value={currentSavings} onChange={e => setCurrentSavings(e.target.value)} placeholder="50000000" className={inputCls} />
+              <CommaInput value={currentSavings} onChange={setCurrentSavings} placeholder="예: 50,000,000" />
             </div>
             <div>
               <Label>월 저축액 (원)</Label>
-              <input type="number" value={monthlyContrib} onChange={e => setMonthlyContrib(e.target.value)} placeholder="500000" className={inputCls} />
+              <CommaInput value={monthlyContrib} onChange={setMonthlyContrib} placeholder="예: 500,000" />
             </div>
             <div>
               <Label>예상 연 수익률 (%)</Label>
