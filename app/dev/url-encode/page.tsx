@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-sm rounded-xl p-4 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
@@ -24,19 +24,15 @@ const COMMON_CHARS = [
 export default function UrlEncodePage() {
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
   const [input, setInput] = useState('');
-  const [error, setError] = useState('');
 
-  const output = (() => {
-    if (!input) return '';
+  const { output, error } = useMemo(() => {
+    if (!input) return { output: '', error: '' };
     try {
-      const result = mode === 'encode' ? encodeURIComponent(input) : decodeURIComponent(input);
-      setError('');
-      return result;
+      return { output: mode === 'encode' ? encodeURIComponent(input) : decodeURIComponent(input), error: '' };
     } catch (e) {
-      setError(mode === 'decode' ? '유효하지 않은 URL 인코딩입니다' : String(e));
-      return '';
+      return { output: '', error: mode === 'decode' ? '유효하지 않은 URL 인코딩입니다' : String(e) };
     }
-  })();
+  }, [input, mode]);
 
   return (
     <CalcShell title="URL 인코딩 변환기" description="URL 인코딩 · 디코딩" wide>
