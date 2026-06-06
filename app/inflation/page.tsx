@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, {
   Card, Label, inputCls, PrimaryBtn, TabBar,
   SummaryGrid, SummaryCard, TableWrap, ShowMoreBtn,
@@ -69,8 +69,6 @@ export default function InflationPage() {
     setShowAllP(false);
     setPresentRows(calcPresent(a, r, y));
   }
-
-  useEffect(() => { calcFutureRows(); }, []);
 
   const fLast = futureRows?.[futureRows.length - 1];
   const pLast = presentRows?.[presentRows.length - 1];

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
@@ -83,8 +83,6 @@ export default function SalaryPage() {
   function calculate() {
     if (annual > 0) setResult(calc(annual, Number(dependents) || 1, mealExempt));
   }
-
-  useEffect(() => { calculate(); }, []);
 
   return (
     <CalcShell title="실수령액 계산기" description="2026년 4대보험 요율 · 근로소득세법 기준">

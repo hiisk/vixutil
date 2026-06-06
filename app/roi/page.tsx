@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -13,11 +13,18 @@ export default function RoiPage() {
   const [fee, setFee] = useState(0);
   const [years, setYears] = useState('');
 
-  const result = useMemo(() => {
+  const [result, setResult] = useState<{
+    profit: number;
+    roi: number;
+    cagr?: number;
+    isGain: boolean;
+  } | null>(null);
+
+  function calculate() {
     const b = buy;
     const s = sell;
     const f = fee;
-    if (b <= 0 || s <= 0) return null;
+    if (b <= 0 || s <= 0) return;
 
     const profit = s - b - f;
     const roi = (profit / b) * 100;
@@ -28,8 +35,8 @@ export default function RoiPage() {
       if (y > 0) cagr = (Math.pow(s / b, 1 / y) - 1) * 100;
     }
 
-    return { profit, roi, cagr, isGain: profit >= 0 };
-  }, [buy, sell, fee, mode, years]);
+    setResult({ profit, roi, cagr, isGain: profit >= 0 });
+  }
 
   return (
     <CalcShell title="투자 수익률 계산기" description="매수·매도 금액 기준 수익률 및 연환산 수익률(CAGR)">
@@ -63,6 +70,9 @@ export default function RoiPage() {
                   placeholder="예: 3" className={inputCls} min="0" step="0.5" />
               </div>
             )}
+          </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

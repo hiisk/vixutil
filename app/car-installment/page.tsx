@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, RatioBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -11,19 +11,26 @@ export default function CarInstallmentPage() {
   const [months, setMonths] = useState('60');
   const [rate, setRate] = useState('5');
 
-  const result = useMemo(() => {
+  const [result, setResult] = useState<{
+    loan: number;
+    monthly: number;
+    totalPay: number;
+    totalInterest: number;
+  } | null>(null);
+
+  function calculate() {
     const p = price;
     const d = down;
     const n = Number(months);
     const r = Number(rate) / 100 / 12;
-    if (p <= 0 || Number(rate) <= 0) return null;
+    if (p <= 0 || Number(rate) <= 0) return;
 
     const loan = p - d;
     const monthly = r === 0 ? loan / n : loan * r / (1 - Math.pow(1 + r, -n));
     const totalPay = monthly * n + d;
     const totalInterest = monthly * n - loan;
-    return { loan, monthly, totalPay, totalInterest };
-  }, [price, down, months, rate]);
+    setResult({ loan, monthly, totalPay, totalInterest });
+  }
 
   return (
     <CalcShell title="자동차 할부 계산기" description="차량 가격·금리·기간 기준 월 할부금 계산">
@@ -53,6 +60,9 @@ export default function CarInstallmentPage() {
                   placeholder="예: 5.9" className={inputCls} min="0" step="0.1" />
               </div>
             </div>
+          </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, {
   Card, Label, inputCls, selectCls, PrimaryBtn,
   SummaryGrid, SummaryCard, TableWrap,
@@ -85,11 +85,11 @@ function calcResult(courses: Course[], system: GradeSystem) {
 export default function GpaPage() {
   const [system, setSystem] = useState<GradeSystem>('4.5');
   const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES);
-  const [result, setResult] = useState(() => calcResult(INITIAL_COURSES, '4.5'));
+  const [result, setResult] = useState<ReturnType<typeof calcResult> | null>(null);
 
-  useEffect(() => {
+  function calculate() {
     setResult(calcResult(courses, system));
-  }, [courses, system]);
+  }
 
   function addCourse() {
     setCourses(prev => [...prev, {
@@ -137,44 +137,46 @@ export default function GpaPage() {
           </p>
         </Card>
 
-        {/* 결과 (실시간) */}
-        <SummaryGrid>
-          <SummaryCard
-            label={`GPA (${system}제)`}
-            value={result.gpa.toFixed(2)}
-            sub={`만점 ${maxGpa}`}
-            variant="primary"
-          />
-          <SummaryCard label="총 이수학점" value={`${result.totalCredits}학점`} />
-          <SummaryCard
-            label="취득학점"
-            value={`${result.earnedCredits}학점`}
-            sub="F 제외"
-            variant="green"
-          />
-          <SummaryCard label="과목 수" value={`${result.courseCount}과목`} />
-        </SummaryGrid>
+        {result && (
+          <>
+            <SummaryGrid>
+              <SummaryCard
+                label={`GPA (${system}제)`}
+                value={result.gpa.toFixed(2)}
+                sub={`만점 ${maxGpa}`}
+                variant="primary"
+              />
+              <SummaryCard label="총 이수학점" value={`${result.totalCredits}학점`} />
+              <SummaryCard
+                label="취득학점"
+                value={`${result.earnedCredits}학점`}
+                sub="F 제외"
+                variant="green"
+              />
+              <SummaryCard label="과목 수" value={`${result.courseCount}과목`} />
+            </SummaryGrid>
 
-        {/* GPA 바 */}
-        <Card className="p-5">
-          <div className="flex justify-between text-xs text-slate-500 mb-1">
-            <span>0.0</span>
-            <span className="font-bold text-blue-600">{result.gpa.toFixed(2)} / {maxGpa}</span>
-            <span>{maxGpa}</span>
-          </div>
-          <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
-            <div className="h-full bg-blue-600 rounded-full transition-all"
-              style={{ width: `${(result.gpa / maxGpa) * 100}%` }} />
-          </div>
-          <p className="text-xs text-slate-400 mt-1.5 text-center">
-            만점 대비 {((result.gpa / maxGpa) * 100).toFixed(1)}%
-            {result.gpaCredits < result.totalCredits && (
-              <span className="ml-2 text-teal-600">
-                (P/F {result.totalCredits - result.gpaCredits}학점 제외 후 계산)
-              </span>
-            )}
-          </p>
-        </Card>
+            <Card className="p-5">
+              <div className="flex justify-between text-xs text-slate-500 mb-1">
+                <span>0.0</span>
+                <span className="font-bold text-blue-600">{result.gpa.toFixed(2)} / {maxGpa}</span>
+                <span>{maxGpa}</span>
+              </div>
+              <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-full bg-blue-600 rounded-full transition-all"
+                  style={{ width: `${(result.gpa / maxGpa) * 100}%` }} />
+              </div>
+              <p className="text-xs text-slate-400 mt-1.5 text-center">
+                만점 대비 {((result.gpa / maxGpa) * 100).toFixed(1)}%
+                {result.gpaCredits < result.totalCredits && (
+                  <span className="ml-2 text-teal-600">
+                    (P/F {result.totalCredits - result.gpaCredits}학점 제외 후 계산)
+                  </span>
+                )}
+              </p>
+            </Card>
+          </>
+        )}
 
         {/* 과목 목록 */}
         <Card className="p-5">
@@ -258,10 +260,12 @@ export default function GpaPage() {
               </div>
             ))}
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>GPA 계산하기</PrimaryBtn>
+          </div>
         </Card>
 
-        {/* 과목별 상세 테이블 */}
-        <Card>
+        {result && <Card>
           <div className="px-5 py-4 border-b border-slate-100">
             <p className="font-bold text-slate-800 text-sm">과목별 상세</p>
           </div>
@@ -312,7 +316,7 @@ export default function GpaPage() {
               </tbody>
             </table>
           </TableWrap>
-        </Card>
+        </Card>}
 
         {/* 성적 기준표 */}
         <Card className="p-5">

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -25,8 +25,6 @@ export default function SavingsPage() {
     const tax = interest * 0.154;
     setResult({ principal, interest, tax, total: principal + interest - tax });
   }
-
-  useEffect(() => { calculate(); }, []);
 
   return (
     <CalcShell title="적금 계산기" description="월 납입금·금리·기간 기준 만기금액 계산">

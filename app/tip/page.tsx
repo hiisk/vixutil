@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -12,22 +12,30 @@ export default function TipPage() {
   const [customRate, setCustomRate] = useState('');
   const [people, setPeople] = useState('4');
 
-  const result = useMemo(() => {
+  const [result, setResult] = useState<{
+    tipAmount: number;
+    tipPerPerson: number;
+    total: number;
+    totalPerPerson: number;
+    rate: number;
+  } | null>(null);
+
+  function calculate() {
     const a = amount;
     const p = Number(people) || 1;
     const rate = tipRate !== null ? tipRate : Number(customRate);
-    if (!a || !rate) return null;
+    if (!a || !rate) return;
 
     const tipAmount = a * (rate / 100);
     const total = a + tipAmount;
-    return {
+    setResult({
       tipAmount,
       tipPerPerson: tipAmount / p,
       total,
       totalPerPerson: total / p,
       rate,
-    };
-  }, [amount, tipRate, customRate, people]);
+    });
+  }
 
   function handleRateBtn(r: number) {
     setTipRate(r);
@@ -105,6 +113,9 @@ export default function TipPage() {
                 />
               </div>
             </div>
+          </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

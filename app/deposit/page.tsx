@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -31,8 +31,6 @@ export default function DepositPage() {
     const tax = interest * 0.154;
     setResult({ interest, tax, netInterest: interest - tax, total: p + interest - tax });
   }
-
-  useEffect(() => { calculate(); }, []);
 
   return (
     <CalcShell title="예금 이자 계산기" description="단리·복리 예금 이자 및 세후 수령액 계산">

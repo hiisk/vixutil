@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, {
   Card, Label, inputCls, selectCls, PrimaryBtn,
   SummaryGrid, SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
@@ -75,8 +75,6 @@ export default function SimpleInterestPage() {
     setShowAll(false);
     setRows(simulate(p, r, months));
   }
-
-  useEffect(() => { calculate(); }, []);
 
   const last = rows?.[rows.length - 1];
   const totalInterest = last?.cumInterest ?? 0;

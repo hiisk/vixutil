@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -23,9 +23,18 @@ export default function AvgPricePage() {
     setRows(prev => prev.map((r, idx) => idx === i ? { ...r, qty: val } : r));
   }
 
-  const result = useMemo(() => {
+  const [result, setResult] = useState<{
+    avgPrice: number;
+    totalQty: number;
+    totalInvest: number;
+    evalAmount?: number;
+    evalProfit?: number;
+    evalRate?: number;
+  } | null>(null);
+
+  function calculate() {
     const valid = rows.filter(r => r.price > 0 && Number(r.qty) > 0);
-    if (valid.length === 0) return null;
+    if (valid.length === 0) return;
     const totalInvest = valid.reduce((s, r) => s + r.price * Number(r.qty), 0);
     const totalQty = valid.reduce((s, r) => s + Number(r.qty), 0);
     const avgPrice = totalInvest / totalQty;
@@ -39,8 +48,8 @@ export default function AvgPricePage() {
       res.evalProfit = (cp - avgPrice) * totalQty;
       res.evalRate = (cp / avgPrice - 1) * 100;
     }
-    return res;
-  }, [rows, currentPrice]);
+    setResult(res);
+  }
 
   return (
     <CalcShell title="평균단가 계산기" description="여러 번 매수 시 평균 매입단가 계산">
@@ -78,6 +87,9 @@ export default function AvgPricePage() {
           <div className="px-4 pb-4">
             <Label>현재가 (손익 계산용, 선택)</Label>
             <CommaInput value={currentPrice} onChange={setCurrentPrice} placeholder="현재 가격 입력" />
+            <div className="mt-4">
+              <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+            </div>
           </div>
         </Card>
 

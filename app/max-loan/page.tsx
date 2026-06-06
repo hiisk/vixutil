@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -12,23 +12,30 @@ export default function MaxLoanPage() {
   const [existing, setExisting] = useState(0);
   const [dti, setDti] = useState('40');
 
-  const result = useMemo(() => {
+  const [result, setResult] = useState<{
+    maxLoan: number;
+    monthlyPayment: number;
+    totalInterest: number;
+    allowableMonthly: number;
+  } | null>(null);
+
+  function calculate() {
     const income = annualIncome;
     const r = Number(rate) / 100 / 12;
     const n = Number(loanYears) * 12;
     const existingMonthly = existing;
-    if (income <= 0 || Number(rate) <= 0) return null;
+    if (income <= 0 || Number(rate) <= 0) return;
 
     const monthlyIncome = income / 12;
     const allowableMonthly = monthlyIncome * Number(dti) / 100 - existingMonthly;
-    if (allowableMonthly <= 0) return null;
+    if (allowableMonthly <= 0) return;
 
     const maxLoan = allowableMonthly * (1 - Math.pow(1 + r, -n)) / r;
     const totalPayment = allowableMonthly * n;
     const totalInterest = totalPayment - maxLoan;
 
-    return { maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly };
-  }, [annualIncome, rate, loanYears, existing, dti]);
+    setResult({ maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly });
+  }
 
   return (
     <CalcShell title="대출 가능 금액 계산기" description="소득 기준 DTI 대출 가능 최대 금액">
@@ -66,6 +73,9 @@ export default function MaxLoanPage() {
                 <option value="60">60%</option>
               </select>
             </div>
+          </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

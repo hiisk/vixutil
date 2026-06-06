@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -22,26 +22,30 @@ export default function DiscountPage() {
   const [salePrice3, setSalePrice3] = useState(0);
   const [discRate3, setDiscRate3] = useState('');
 
-  const calcResult = useMemo(() => {
+  const [calcResult, setCalcResult] = useState<{ discounted: number; saved: number; rate: number } | null>(null);
+  const [rateResult, setRateResult] = useState<{ rate: number; saved: number } | null>(null);
+  const [reverseResult, setReverseResult] = useState<{ orig: number; saved: number } | null>(null);
+
+  function calcCalc() {
     const p = origPrice, r = Number(discRate);
-    if (!p || !r || r < 0 || r > 100) return null;
+    if (!p || !r || r < 0 || r > 100) return;
     const saved = p * (r / 100);
-    return { discounted: p - saved, saved, rate: r };
-  }, [origPrice, discRate]);
+    setCalcResult({ discounted: p - saved, saved, rate: r });
+  }
 
-  const rateResult = useMemo(() => {
+  function calcRate() {
     const p = origPrice2, s = salePrice;
-    if (!p || !s || s > p) return null;
+    if (!p || !s || s > p) return;
     const saved = p - s;
-    return { rate: (saved / p) * 100, saved };
-  }, [origPrice2, salePrice]);
+    setRateResult({ rate: (saved / p) * 100, saved });
+  }
 
-  const reverseResult = useMemo(() => {
+  function calcReverse() {
     const s = salePrice3, r = Number(discRate3);
-    if (!s || !r || r >= 100) return null;
+    if (!s || !r || r >= 100) return;
     const orig = s / (1 - r / 100);
-    return { orig, saved: orig - s };
-  }, [salePrice3, discRate3]);
+    setReverseResult({ orig, saved: orig - s });
+  }
 
   const QUICK_RATES = [5, 10, 15, 20, 25, 30, 50];
 
@@ -84,6 +88,7 @@ export default function DiscountPage() {
                     placeholder="직접 입력 (%)" className={inputCls} />
                 </div>
               </div>
+              <div className="mt-4"><PrimaryBtn onClick={calcCalc}>계산하기</PrimaryBtn></div>
             </Card>
             {calcResult && (
               <SummaryGrid>
@@ -111,7 +116,7 @@ export default function DiscountPage() {
                   <CommaInput value={salePrice} onChange={setSalePrice} placeholder="예: 75,000" />
                 </div>
               </div>
-              <div className="mt-4"><PrimaryBtn onClick={() => {}}>계산하기</PrimaryBtn></div>
+              <div className="mt-4"><PrimaryBtn onClick={calcRate}>계산하기</PrimaryBtn></div>
             </Card>
             {rateResult && (
               <SummaryGrid>
@@ -150,7 +155,7 @@ export default function DiscountPage() {
                     placeholder="직접 입력 (%)" className={inputCls} />
                 </div>
               </div>
-              <div className="mt-4"><PrimaryBtn onClick={() => {}}>계산하기</PrimaryBtn></div>
+              <div className="mt-4"><PrimaryBtn onClick={calcReverse}>계산하기</PrimaryBtn></div>
             </Card>
             {reverseResult && (
               <SummaryGrid>

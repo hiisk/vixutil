@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -95,8 +95,6 @@ export default function RetirementPage() {
     });
     setShowing(10);
   }
-
-  useEffect(() => { calculate(); }, []);
 
   return (
     <CalcShell title="은퇴자금 계산기" description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산">

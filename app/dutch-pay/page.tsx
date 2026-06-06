@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -21,8 +21,15 @@ export default function DutchPayPage() {
 
   const peopleCount = Math.max(2, Math.min(20, Number(people) || 2));
 
-  const result = useMemo(() => {
-    if (!total || peopleCount < 2) return null;
+  const [result, setResult] = useState<Array<{
+    name: string;
+    base: number;
+    extra: number;
+    total: number;
+  }> | null>(null);
+
+  function calculate() {
+    if (!total || peopleCount < 2) return;
     const base = total / peopleCount;
     const rows = Array.from({ length: peopleCount }, (_, i) => ({
       name: `참여자 ${i + 1}`,
@@ -46,8 +53,8 @@ export default function DutchPayPage() {
       }
     });
 
-    return rows;
-  }, [total, peopleCount, extras]);
+    setResult(rows);
+  }
 
   function addExtra() {
     setExtras(prev => [...prev, { id: nextId++, name: '', amount: 0, payer: 'all' }]);
@@ -103,6 +110,9 @@ export default function DutchPayPage() {
                 />
               </div>
             </div>
+          </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

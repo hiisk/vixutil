@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -19,27 +19,29 @@ export default function BreakevenPage() {
   const [sellPriceU, setSellPriceU] = useState(20_000);
   const [varCost, setVarCost] = useState(8_000);
 
-  const result = useMemo(() => {
+  const [result, setResult] = useState<{ bep: number; extra: string } | null>(null);
+
+  function calculate() {
     if (mode === 'invest') {
       const p = buyPrice;
-      if (!p) return null;
+      if (!p) return;
       const bf = Number(buyFee) / 100;
       const sf = Number(sellFee) / 100;
       const tt = txTax ? 0.0018 : 0;
       const bep = p * (1 + bf) / (1 - sf - tt);
       const upRate = (bep / p - 1) * 100;
-      return { bep, extra: `필요 상승률 ${upRate.toFixed(2)}%` };
+      setResult({ bep, extra: `필요 상승률 ${upRate.toFixed(2)}%` });
     } else {
       const fc = fixedCost;
       const sp = sellPriceU;
       const vc = varCost;
-      if (fc <= 0 || sp <= vc) return null;
+      if (fc <= 0 || sp <= vc) return;
       const contrib = sp - vc;
       const qty = fc / contrib;
       const sales = qty * sp;
-      return { bep: qty, extra: `BEP 매출 ${Math.ceil(sales).toLocaleString()}원` };
+      setResult({ bep: qty, extra: `BEP 매출 ${Math.ceil(sales).toLocaleString()}원` });
     }
-  }, [mode, buyPrice, buyFee, sellFee, txTax, fixedCost, sellPriceU, varCost]);
+  }
 
   return (
     <CalcShell title="손익분기점 계산기" description="투자 BEP 가격 · 사업 BEP 판매량 계산">
@@ -93,6 +95,9 @@ export default function BreakevenPage() {
               </div>
             </div>
           )}
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (

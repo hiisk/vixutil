@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
   SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
@@ -43,8 +43,6 @@ export default function LoanPage() {
     setShowAll(false);
     setRows(mode==='ep' ? calcEP(p,r,m) : calcEPrin(p,r,m));
   }
-
-  useEffect(() => { calculate(); }, []);
 
   const totalRepay = rows ? rows.reduce((s,r)=>s+r.payment,0) : 0;
   const totalInterest = totalRepay - amount;

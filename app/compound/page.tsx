@@ -1,7 +1,7 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, TabBar,
+  Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
   SummaryCard, SummaryGrid, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -46,16 +46,16 @@ export default function CompoundPage() {
   const [rate, setRate] = useState('5');
   const [years, setYears] = useState('20');
   const [applyTax, setApplyTax] = useState(false);
+  const [rows, setRows] = useState<YearRow[] | null>(null);
   const [showAll, setShowAll] = useState(false);
 
-  const rows = useMemo(() => {
+  function calculate() {
     const r = Number(rate);
     const y = Number(years);
-    if (!principal || !r || !y || y > 100 || y < 1) return null;
+    if (!principal || !r || !y || y > 100 || y < 1) return;
     setShowAll(false);
-    return simulate(principal, monthly, r, y, freq);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [principal, monthly, rate, years, freq]);
+    setRows(simulate(principal, monthly, r, y, freq));
+  }
 
   const last = rows?.[rows.length - 1];
   const taxCut = last ? Math.round(last.cumulativeInterest * 0.154) : 0;
@@ -72,7 +72,7 @@ export default function CompoundPage() {
             { value: 1, label: '연복리', sub: '매년 이자' },
           ]}
           value={freq}
-          onChange={(v) => setFreq(Number(v) as Freq)}
+          onChange={(v) => { setFreq(Number(v) as Freq); setRows(null); }}
         />
 
         <Card className="p-5">
@@ -102,6 +102,9 @@ export default function CompoundPage() {
               className="w-4 h-4 accent-blue-600 rounded" />
             이자소득세 15.4% 적용 (이자 14% + 지방소득세 1.4%)
           </label>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {last && (
@@ -133,12 +136,8 @@ export default function CompoundPage() {
                 <table className="calc-table">
                   <thead>
                     <tr>
-                      <th>연차</th>
-                      <th>누적 원금</th>
-                      <th>연간 이자</th>
-                      <th>누적 이자</th>
-                      <th>총 자산</th>
-                      <th>수익률</th>
+                      <th>연차</th><th>누적 원금</th><th>연간 이자</th>
+                      <th>누적 이자</th><th>총 자산</th><th>수익률</th>
                     </tr>
                   </thead>
                   <tbody>
