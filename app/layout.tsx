@@ -20,7 +20,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={geist.variable}>
       <head>
-        <meta name="google-site-verification" content="nkeNtX8q3N4cfPa38gf8xYucb0uiynS64aCfSSkzOPc" />
         <meta name="google-site-verification" content="8aQBw8JhTs3guCPKFJPkPZezUI0sK3fxDS_j09tyHsE" />
         <meta name="naver-site-verification" content="24028bd1e68ef5dcf18517d8ecb1164938bd35ef" />
         <Script
