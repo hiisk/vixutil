@@ -26,7 +26,7 @@ export default function CalcShell({
       <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link
-            href="/"
+            href="/calculator"
             className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-blue-600 transition-colors font-medium"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

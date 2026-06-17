@@ -6,8 +6,8 @@ import "./globals.css";
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: { default: "실생활 계산기", template: "%s | 실생활 계산기" },
-  description: "세금·투자·대출·건강 계산기 모음 — 2026년 기준",
+  title: { default: "vixutil", template: "%s | vixutil" },
+  description: "계산기·심리테스트 등 실용 도구 모음 — vixutil.com",
 };
 
 export const viewport: Viewport = {
