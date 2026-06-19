@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Generator } from '@/lib/types';
-import ShareButtons from './ShareButtons';
+import ShareButton from './ShareButton';
 
 function generateResult(gen: Generator): string {
   switch (gen.type) {
@@ -13,9 +13,8 @@ function generateResult(gen: Generator): string {
     }
     case 'pick': {
       if (!gen.items) return '';
-      const count = gen.count ?? 1;
       const shuffled = [...gen.items].sort(() => Math.random() - 0.5);
-      return shuffled.slice(0, count).join('\n');
+      return shuffled[0] ?? '';
     }
     case 'password': {
       const len = gen.count ?? 16;
@@ -35,10 +34,7 @@ function generateResult(gen: Generator): string {
     case 'number': {
       const min = gen.min ?? 1;
       const max = gen.max ?? 100;
-      const count = gen.count ?? 1;
-      return Array.from({ length: count }, () =>
-        Math.floor(Math.random() * (max - min + 1)) + min
-      ).join(', ');
+      return String(Math.floor(Math.random() * (max - min + 1)) + min);
     }
     default: return '';
   }
@@ -110,9 +106,10 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
         </button>
 
         {result !== null && (
-          <ShareButtons
+          <ShareButton
             title={gen.title}
             description={`${gen.title} 결과: ${result.substring(0, 60)}`}
+            type="generator"
           />
         )}
       </div>

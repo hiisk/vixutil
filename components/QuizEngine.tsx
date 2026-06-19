@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
-import ShareButtons from './ShareButtons';
+import ShareButton from './ShareButton';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
@@ -177,7 +177,7 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
           </div>
         )}
 
-        <ShareButtons title={`${quiz.title} ${pct}점 달성!`} description={`${correct}/${total}문제 정답 · ${msg}`} />
+        <ShareButton title={`${quiz.title} ${pct}점 달성!`} description={`${correct}/${total}문제 정답 · ${msg}`} type="quiz" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-xl py-3.5 font-bold text-sm transition-colors">

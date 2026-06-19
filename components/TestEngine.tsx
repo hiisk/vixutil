@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Test, TestResult } from '@/lib/types';
-import ShareButtons from './ShareButtons';
+import ShareButton from './ShareButton';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
 
@@ -130,7 +130,7 @@ export default function TestEngine({ test }: { test: Test }) {
           </div>
         )}
 
-        <ShareButtons title={`${test.title} 결과: ${result.title}`} description={result.desc} />
+        <ShareButton title={`${test.title} 결과: ${result.title}`} description={result.desc} type="test" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}
