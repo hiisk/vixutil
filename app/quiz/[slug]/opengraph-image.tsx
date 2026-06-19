@@ -52,7 +52,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               marginBottom: 16,
             }}
           >
-            {quiz.category} 퀴즈
+            {`${quiz.category} 퀴즈`}
           </div>
           <div
             style={{
