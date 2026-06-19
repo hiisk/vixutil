@@ -43,10 +43,6 @@ export default function TestEngine({ test }: { test: Test }) {
         </div>
       </header>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
-        {/* Hero illustration */}
-        <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${DEFAULT_GRADIENT} flex items-center justify-center text-6xl shadow-lg mb-6`}>
-          {test.icon}
-        </div>
         <span className="text-xs font-bold text-violet-500 bg-violet-50 px-3 py-1 rounded-full mb-3">{test.category}</span>
         <h1 className="text-2xl font-black text-slate-900 mb-3">{test.title}</h1>
         <p className="text-slate-500 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>

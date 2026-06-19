@@ -77,9 +77,6 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
       <div className="flex-1 px-4 py-10 max-w-lg mx-auto w-full">
         {/* Intro */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-4xl shadow-md mx-auto mb-4">
-            {gen.icon}
-          </div>
           <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">{gen.category}</span>
           <h1 className="text-2xl font-black text-slate-900 mt-3 mb-2">{gen.title}</h1>
           <p className="text-slate-500 text-sm">{gen.desc}</p>
@@ -89,7 +86,6 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
         {result !== null && (
           <div key={animKey}
             className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 p-8 text-white text-center mb-5 shadow-lg animate-fade-in">
-            <span className="absolute -top-4 -right-4 text-[80px] opacity-10 select-none">{gen.icon}</span>
             <p className="text-emerald-200 text-xs font-semibold uppercase tracking-widest mb-3">✨ 생성 결과</p>
             <p className="text-2xl font-black whitespace-pre-line leading-relaxed">{result}</p>
             <button onClick={copyResult}
