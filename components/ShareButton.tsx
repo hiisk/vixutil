@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
 
-const TEST_CTA = ['🚀 결과 공유하기','🔥 친구도 테스트 해보기','🎯 내 결과 자랑하기','✨ 친구 결과와 비교해보기','👀 친구는 어떤 결과가 나올까?','🎉 이 결과 생각보다 정확한데?','💡 친구한테도 보내보기','🧠 친구도 테스트 해보게 하기','🔥 이건 친구도 해봐야 함','😆 의외로 정확한 테스트'];
-const QUIZ_CTA = ['🏆 내 점수 자랑하기','🔥 친구도 도전해보기','🎯 몇 점 받을 수 있을까?','📚 친구와 퀴즈 대결하기','😎 생각보다 쉽지 않은데?','🚀 점수 공유하기','💡 친구도 맞출 수 있을까?','📢 친구에게 퀴즈 보내기'];
-const GEN_CTA = ['✨ 결과 공유하기','🎁 이 이름 어때?','🔥 친구도 하나 뽑아보기','😆 의외로 괜찮은 결과','🚀 친구에게 보여주기','👀 친구는 뭐가 나올까?','🎉 결과 공유하기'];
-const CALC_CTA = ['💰 계산 결과 공유하기','📊 친구 결과와 비교하기','🚀 결과 보내기','💡 도움이 됐다면 공유하기','📈 계산 결과 공유하기'];
+const TEST_CTA = ['친구도 테스트 해보기', '내 결과 자랑하기', '친구 결과와 비교하기', '친구는 어떤 결과일까?', '생각보다 정확한 테스트', '친구한테도 보내보기', '이건 친구도 해봐야 함', '의외로 정확해서 공유'];
+const QUIZ_CTA = ['내 점수 자랑하기', '친구도 도전해보기', '몇 점 받을 수 있을까?', '친구와 퀴즈 대결하기', '친구도 맞출 수 있을까?', '점수 공유하기'];
+const GEN_CTA = ['친구도 하나 뽑아보기', '친구에게 보여주기', '친구는 뭐가 나올까?', '결과 공유하기', '의외로 괜찮은 결과'];
+const CALC_CTA = ['친구 결과와 비교하기', '결과 보내기', '도움이 됐다면 공유', '계산 결과 공유하기'];
 
 type CTAType = 'test' | 'quiz' | 'generator' | 'calculator';
 
@@ -18,6 +18,16 @@ interface Props {
   title: string;
   description: string;
   type?: CTAType;
+}
+
+function ShareIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+      <polyline points="16 6 12 2 8 6" />
+      <line x1="12" y1="2" x2="12" y2="15" />
+    </svg>
+  );
 }
 
 export default function ShareButton({ title, description, type = 'test' }: Props) {
@@ -34,19 +44,39 @@ export default function ShareButton({ title, description, type = 'test' }: Props
         if ((e as Error).name === 'AbortError') return;
       }
     }
-    // PC fallback: copy URL
     await navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   }
 
   return (
-    <div className="mt-6 border-t border-slate-100 pt-5">
+    <div className="mt-8 pt-6 border-t border-slate-100">
+      <p className="text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">공유하기</p>
       <button
         onClick={share}
-        className="w-full h-14 flex items-center justify-center gap-2 bg-gradient-to-r from-violet-500 to-pink-500 text-white rounded-2xl font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all shadow-sm"
+        className="
+          w-full h-14 flex items-center justify-center gap-2.5
+          bg-gradient-to-r from-fuchsia-500 via-pink-500 to-orange-400
+          text-white rounded-2xl font-bold text-[15px]
+          shadow-lg shadow-pink-200
+          hover:shadow-xl hover:shadow-pink-300 hover:scale-[1.02]
+          active:scale-[0.97]
+          transition-all duration-200
+        "
       >
-        {copied ? '✅ 링크가 복사됐어요!' : cta}
+        {copied ? (
+          <>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            링크가 복사됐어요!
+          </>
+        ) : (
+          <>
+            <ShareIcon />
+            {cta}
+          </>
+        )}
       </button>
     </div>
   );
