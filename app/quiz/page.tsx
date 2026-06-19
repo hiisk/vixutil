@@ -9,6 +9,26 @@ export const metadata: Metadata = {
 
 const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', '스포츠', '과학', '엔터테인먼트', '생활·건강', '환경·경제'];
 
+function QuizCard({ q }: { q: typeof QUIZZES[0] }) {
+  return (
+    <Link href={`/quiz/${q.slug}`}
+      className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
+      <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-amber-100 to-orange-100">
+        <img
+          src={`/quiz/${q.slug}/opengraph-image`}
+          alt={q.title}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+      <div className="p-3">
+        <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
+        <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{q.desc}</p>
+      </div>
+    </Link>
+  );
+}
+
 export default function QuizIndexPage() {
   const grouped = CATEGORIES.map(cat => ({
     name: cat,
@@ -43,18 +63,7 @@ export default function QuizIndexPage() {
                 <span className="text-xs font-bold text-amber-500 bg-amber-50 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                {group.items.map(q => (
-                  <Link key={q.slug} href={`/quiz/${q.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
-                    <div className="aspect-[4/3] bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center text-5xl group-hover:from-amber-100 group-hover:to-orange-100 transition-colors">
-                      {q.icon}
-                    </div>
-                    <div className="p-3">
-                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
-                      <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{q.desc}</p>
-                    </div>
-                  </Link>
-                ))}
+                {group.items.map(q => <QuizCard key={q.slug} q={q} />)}
               </div>
             </section>
           ))}
@@ -62,18 +71,7 @@ export default function QuizIndexPage() {
             <section>
               <h2 className="text-sm font-black text-slate-700 mb-4">기타</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                {uncategorized.map(q => (
-                  <Link key={q.slug} href={`/quiz/${q.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
-                    <div className="aspect-[4/3] bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center text-5xl group-hover:from-amber-100 group-hover:to-orange-100 transition-colors">
-                      {q.icon}
-                    </div>
-                    <div className="p-3">
-                      <h3 className="font-bold text-sm text-slate-900 group-hover:text-amber-700 mb-1">{q.title}</h3>
-                      <p className="text-xs text-slate-400 line-clamp-2">{q.desc}</p>
-                    </div>
-                  </Link>
-                ))}
+                {uncategorized.map(q => <QuizCard key={q.slug} q={q} />)}
               </div>
             </section>
           )}

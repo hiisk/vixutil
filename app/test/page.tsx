@@ -9,6 +9,26 @@ export const metadata: Metadata = {
 
 const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·재테크', '건강·생활', '자기계발', '취미·라이프스타일'];
 
+function TestCard({ t }: { t: typeof TESTS[0] }) {
+  return (
+    <Link href={`/test/${t.slug}`}
+      className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
+      <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-violet-100 to-pink-100">
+        <img
+          src={`/test/${t.slug}/opengraph-image`}
+          alt={t.title}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+      <div className="p-3">
+        <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
+        <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{t.desc}</p>
+      </div>
+    </Link>
+  );
+}
+
 export default function TestIndexPage() {
   const grouped = CATEGORIES.map(cat => ({
     name: cat,
@@ -43,18 +63,7 @@ export default function TestIndexPage() {
                 <span className="text-xs font-bold text-violet-500 bg-violet-50 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                {group.items.map(t => (
-                  <Link key={t.slug} href={`/test/${t.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
-                    <div className="aspect-[4/3] bg-gradient-to-br from-violet-50 to-pink-50 flex items-center justify-center text-5xl group-hover:from-violet-100 group-hover:to-pink-100 transition-colors">
-                      {t.icon}
-                    </div>
-                    <div className="p-3">
-                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
-                      <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{t.desc}</p>
-                    </div>
-                  </Link>
-                ))}
+                {group.items.map(t => <TestCard key={t.slug} t={t} />)}
               </div>
             </section>
           ))}
@@ -62,18 +71,7 @@ export default function TestIndexPage() {
             <section>
               <h2 className="text-sm font-black text-slate-700 mb-4">기타</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                {uncategorized.map(t => (
-                  <Link key={t.slug} href={`/test/${t.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
-                    <div className="aspect-[4/3] bg-gradient-to-br from-violet-50 to-pink-50 flex items-center justify-center text-5xl group-hover:from-violet-100 group-hover:to-pink-100 transition-colors">
-                      {t.icon}
-                    </div>
-                    <div className="p-3">
-                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 mb-1">{t.title}</h3>
-                      <p className="text-xs text-slate-400 line-clamp-2">{t.desc}</p>
-                    </div>
-                  </Link>
-                ))}
+                {uncategorized.map(t => <TestCard key={t.slug} t={t} />)}
               </div>
             </section>
           )}
