@@ -45,10 +45,14 @@ export default function QuizIndexPage() {
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(q => (
                   <Link key={q.slug} href={`/quiz/${q.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-amber-300 hover:shadow-sm transition-all">
-                    <div className="text-2xl mb-2">{q.icon}</div>
-                    <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{q.desc}</p>
+                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center text-5xl group-hover:from-amber-100 group-hover:to-orange-100 transition-colors">
+                      {q.icon}
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
+                      <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{q.desc}</p>
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -60,10 +64,14 @@ export default function QuizIndexPage() {
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {uncategorized.map(q => (
                   <Link key={q.slug} href={`/quiz/${q.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-amber-300 hover:shadow-sm transition-all">
-                    <div className="text-2xl mb-2">{q.icon}</div>
-                    <h3 className="font-bold text-sm text-slate-900 group-hover:text-amber-700 mb-1">{q.title}</h3>
-                    <p className="text-xs text-slate-400">{q.desc}</p>
+                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center text-5xl group-hover:from-amber-100 group-hover:to-orange-100 transition-colors">
+                      {q.icon}
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-bold text-sm text-slate-900 group-hover:text-amber-700 mb-1">{q.title}</h3>
+                      <p className="text-xs text-slate-400 line-clamp-2">{q.desc}</p>
+                    </div>
                   </Link>
                 ))}
               </div>

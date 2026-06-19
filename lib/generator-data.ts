@@ -6,7 +6,7 @@ export const GENERATORS: Generator[] =
     "slug": "nickname",
     "title": "닉네임 생성기",
     "desc": "형용사와 동물, 자연물, 판타지 단어를 조합한다.",
-    "icon": "🎯",
+    "icon": "🏷️",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -73,7 +73,7 @@ export const GENERATORS: Generator[] =
     "slug": "company-name",
     "title": "회사명 생성기",
     "desc": "신뢰감 있고 짧은 이름으로 만든다.",
-    "icon": "🎯",
+    "icon": "🏢",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -123,7 +123,7 @@ export const GENERATORS: Generator[] =
     "slug": "business-idea",
     "title": "사업 아이디어 생성기",
     "desc": "문제, 대상고객, 수익모델을 함께 보여준다.",
-    "icon": "🎯",
+    "icon": "💡",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -139,7 +139,7 @@ export const GENERATORS: Generator[] =
     "slug": "youtube-channel",
     "title": "유튜브 채널명 생성기",
     "desc": "기억하기 쉽고 검색하기 쉬운 이름으로 만든다.",
-    "icon": "🎯",
+    "icon": "📹",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -201,7 +201,7 @@ export const GENERATORS: Generator[] =
     "slug": "blog-name",
     "title": "블로그 이름 생성기",
     "desc": "전문성 또는 감성 느낌 중 선택 가능하게 한다.",
-    "icon": "🎯",
+    "icon": "✍️",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -253,7 +253,7 @@ export const GENERATORS: Generator[] =
     "slug": "brand-name",
     "title": "브랜드명 생성기",
     "desc": "고급형, 감성형, 실용형으로 분리한다.",
-    "icon": "🏷️",
+    "icon": "💎",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -298,7 +298,7 @@ export const GENERATORS: Generator[] =
     "slug": "startup-name",
     "title": "스타트업 이름 생성기",
     "desc": "짧고 확장성 있는 이름으로 만든다.",
-    "icon": "🏷️",
+    "icon": "🚀",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -355,7 +355,7 @@ export const GENERATORS: Generator[] =
     "slug": "shop-name",
     "title": "쇼핑몰 이름 생성기",
     "desc": "패션, 반려동물, 생활용품 등 업종별로 다르게 만든다.",
-    "icon": "✅",
+    "icon": "🛍️",
     "category": "계획",
     "type": "combine",
     "pools": [
@@ -406,7 +406,7 @@ export const GENERATORS: Generator[] =
     "slug": "domain-name",
     "title": "도메인 이름 생성기",
     "desc": "짧고 발음 쉬운 영문식 이름으로 제안한다.",
-    "icon": "🏷️",
+    "icon": "🌐",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -463,7 +463,7 @@ export const GENERATORS: Generator[] =
     "slug": "app-name",
     "title": "앱 이름 생성기",
     "desc": "기능이 직관적으로 느껴지는 이름을 만든다.",
-    "icon": "🏷️",
+    "icon": "📱",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -515,7 +515,7 @@ export const GENERATORS: Generator[] =
     "slug": "team-name",
     "title": "팀 이름 생성기",
     "desc": "회사, 게임, 스터디, 운동팀에 맞춰 생성한다.",
-    "icon": "🏷️",
+    "icon": "👥",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -562,7 +562,7 @@ export const GENERATORS: Generator[] =
     "slug": "game-character",
     "title": "게임 캐릭터 이름 생성기",
     "desc": "판타지 느낌과 강한 느낌을 섞는다.",
-    "icon": "🎯",
+    "icon": "🎮",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -607,7 +607,7 @@ export const GENERATORS: Generator[] =
     "slug": "fantasy-name",
     "title": "판타지 이름 생성기",
     "desc": "엘프, 드래곤, 마법사, 기사 느낌으로 만든다.",
-    "icon": "🎯",
+    "icon": "🧙",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -652,7 +652,7 @@ export const GENERATORS: Generator[] =
     "slug": "sf-name",
     "title": "공상과학 이름 생성기",
     "desc": "우주, 로봇, 행성, 미래도시 느낌을 넣는다.",
-    "icon": "🎯",
+    "icon": "🤖",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -697,7 +697,7 @@ export const GENERATORS: Generator[] =
     "slug": "rpg-class",
     "title": "역할수행게임 직업 생성기",
     "desc": "직업명, 특징, 추천 무기를 함께 제공한다.",
-    "icon": "🎯",
+    "icon": "⚔️",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -739,7 +739,7 @@ export const GENERATORS: Generator[] =
     "slug": "pet-name",
     "title": "반려동물 이름 생성기",
     "desc": "귀여운 이름과 고급스러운 이름을 섞는다.",
-    "icon": "🎲",
+    "icon": "🐾",
     "category": "랜덤",
     "type": "pick",
     "separator": "",
@@ -791,7 +791,7 @@ export const GENERATORS: Generator[] =
     "slug": "dog-name",
     "title": "강아지 이름 생성기",
     "desc": "활발함, 얌전함, 귀여움에 맞춰 이름을 만든다.",
-    "icon": "🎯",
+    "icon": "🐕",
     "category": "추천",
     "type": "pick",
     "separator": "",
@@ -843,7 +843,7 @@ export const GENERATORS: Generator[] =
     "slug": "cat-name",
     "title": "고양이 이름 생성기",
     "desc": "도도함, 귀여움, 신비로움 느낌을 반영한다.",
-    "icon": "🎲",
+    "icon": "🐈",
     "category": "랜덤",
     "type": "pick",
     "separator": "",
@@ -895,7 +895,7 @@ export const GENERATORS: Generator[] =
     "slug": "menu-recommend",
     "title": "메뉴 추천기",
     "desc": "한식, 중식, 일식, 양식, 분식으로 나눈다.",
-    "icon": "🎯",
+    "icon": "🍴",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -911,7 +911,7 @@ export const GENERATORS: Generator[] =
     "slug": "lunch-recommend",
     "title": "점심 추천기",
     "desc": "직장인 점심에 어울리는 메뉴 위주로 추천한다.",
-    "icon": "🎯",
+    "icon": "🥙",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -927,7 +927,7 @@ export const GENERATORS: Generator[] =
     "slug": "dinner-recommend",
     "title": "저녁 추천기",
     "desc": "집밥, 배달, 외식 메뉴를 섞는다.",
-    "icon": "🎯",
+    "icon": "🍽️",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -943,7 +943,7 @@ export const GENERATORS: Generator[] =
     "slug": "late-night-food",
     "title": "야식 추천기",
     "desc": "부담 적은 야식과 제대로 먹는 야식을 나눈다.",
-    "icon": "🎯",
+    "icon": "🌙",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -959,7 +959,7 @@ export const GENERATORS: Generator[] =
     "slug": "snack-recommend",
     "title": "술안주 추천기",
     "desc": "맥주, 소주, 와인, 막걸리에 맞춰 추천한다.",
-    "icon": "🎯",
+    "icon": "🍺",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -975,7 +975,7 @@ export const GENERATORS: Generator[] =
     "slug": "cafe-menu",
     "title": "카페 메뉴 추천기",
     "desc": "커피, 논커피, 디저트를 함께 추천한다.",
-    "icon": "🎯",
+    "icon": "☕",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -991,7 +991,7 @@ export const GENERATORS: Generator[] =
     "slug": "travel-destination",
     "title": "여행지 추천기",
     "desc": "휴양, 도시, 자연, 맛집 여행으로 나눈다.",
-    "icon": "🎯",
+    "icon": "✈️",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1007,7 +1007,7 @@ export const GENERATORS: Generator[] =
     "slug": "date-course",
     "title": "데이트 코스 추천기",
     "desc": "식사, 카페, 산책 또는 활동을 묶어서 제안한다.",
-    "icon": "🎯",
+    "icon": "💑",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1023,7 +1023,7 @@ export const GENERATORS: Generator[] =
     "slug": "hobby-recommend",
     "title": "취미 추천기",
     "desc": "혼자 하는 취미와 함께 하는 취미를 나눈다.",
-    "icon": "🎯",
+    "icon": "🎨",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1064,7 +1064,7 @@ export const GENERATORS: Generator[] =
     "slug": "exercise-recommend",
     "title": "운동 추천기",
     "desc": "다이어트, 근력, 체력, 스트레스 해소로 분류한다.",
-    "icon": "🎯",
+    "icon": "🏃",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1080,7 +1080,7 @@ export const GENERATORS: Generator[] =
     "slug": "side-job-recommend",
     "title": "부업 추천기",
     "desc": "현실적인 난이도와 예상 장단점을 같이 보여준다.",
-    "icon": "🎯",
+    "icon": "💼",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1096,7 +1096,7 @@ export const GENERATORS: Generator[] =
     "slug": "side-project",
     "title": "사이드 프로젝트 추천기",
     "desc": "개발, 콘텐츠, 자동화, 수익화 아이디어로 나눈다.",
-    "icon": "🎯",
+    "icon": "💻",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1127,7 +1127,7 @@ export const GENERATORS: Generator[] =
     "slug": "startup-item",
     "title": "창업 아이템 추천기",
     "desc": "고객 문제, 해결책, 수익모델을 함께 제공한다.",
-    "icon": "🎯",
+    "icon": "🌱",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1158,7 +1158,7 @@ export const GENERATORS: Generator[] =
     "slug": "book-recommend",
     "title": "독서 추천기",
     "desc": "실제 책명보다 읽을 만한 주제와 장르를 추천한다.",
-    "icon": "🎯",
+    "icon": "📚",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1189,7 +1189,7 @@ export const GENERATORS: Generator[] =
     "slug": "self-improvement",
     "title": "자기계발 추천기",
     "desc": "작게 시작할 수 있는 행동 중심으로 제안한다.",
-    "icon": "🎯",
+    "icon": "📈",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1236,7 +1236,7 @@ export const GENERATORS: Generator[] =
     "slug": "daily-quote",
     "title": "오늘의 명언 생성기",
     "desc": "짧고 공유하기 좋은 문장으로 만든다.",
-    "icon": "🎯",
+    "icon": "💭",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1252,7 +1252,7 @@ export const GENERATORS: Generator[] =
     "slug": "daily-fortune",
     "title": "오늘의 운세 생성기",
     "desc": "재미용임을 표시하고 긍정적인 조언을 준다.",
-    "icon": "✍️",
+    "icon": "🔮",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1288,7 +1288,7 @@ export const GENERATORS: Generator[] =
     "slug": "mbti-job",
     "title": "엠비티아이 직업 추천기",
     "desc": "유형별 강점과 어울리는 직무를 함께 보여준다.",
-    "icon": "🎯",
+    "icon": "🧠",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1304,7 +1304,7 @@ export const GENERATORS: Generator[] =
     "slug": "mbti-travel",
     "title": "엠비티아이 여행 추천기",
     "desc": "유형별 선호 여행 방식을 추천한다.",
-    "icon": "🎯",
+    "icon": "🗺️",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1320,7 +1320,7 @@ export const GENERATORS: Generator[] =
     "slug": "mbti-hobby",
     "title": "엠비티아이 취미 추천기",
     "desc": "혼자형, 사교형, 탐구형, 활동형 취미로 나눈다.",
-    "icon": "🎯",
+    "icon": "🎭",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1347,7 +1347,7 @@ export const GENERATORS: Generator[] =
     "slug": "gift-recommend",
     "title": "선물 추천기",
     "desc": "무난한 선물과 센스 있는 선물을 나눠 추천한다.",
-    "icon": "🎯",
+    "icon": "🎁",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1363,7 +1363,7 @@ export const GENERATORS: Generator[] =
     "slug": "birthday-gift",
     "title": "생일선물 추천기",
     "desc": "친구, 연인, 가족, 직장동료별로 다르게 추천한다.",
-    "icon": "🎯",
+    "icon": "🎂",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1379,7 +1379,7 @@ export const GENERATORS: Generator[] =
     "slug": "anniversary-gift",
     "title": "기념일 선물 추천기",
     "desc": "가격대별로 부담 없는 선물을 추천한다.",
-    "icon": "🎯",
+    "icon": "💝",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -1395,7 +1395,7 @@ export const GENERATORS: Generator[] =
     "slug": "date-topic",
     "title": "소개팅 대화 주제 생성기",
     "desc": "부담 없고 자연스럽게 이어지는 질문으로 만든다.",
-    "icon": "✍️",
+    "icon": "💬",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1411,7 +1411,7 @@ export const GENERATORS: Generator[] =
     "slug": "love-phrase",
     "title": "연애 멘트 생성기",
     "desc": "오글거림을 줄이고 자연스럽게 만든다.",
-    "icon": "✍️",
+    "icon": "💕",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1427,7 +1427,7 @@ export const GENERATORS: Generator[] =
     "slug": "confession-phrase",
     "title": "고백 멘트 생성기",
     "desc": "진지형, 담백형, 귀여운형으로 나눈다.",
-    "icon": "✍️",
+    "icon": "💘",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1443,7 +1443,7 @@ export const GENERATORS: Generator[] =
     "slug": "breakup-recovery-phrase",
     "title": "이별 극복 문구 생성기",
     "desc": "미련을 자극하지 않고 회복을 돕는 문장으로 만든다.",
-    "icon": "✍️",
+    "icon": "💔",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1459,7 +1459,7 @@ export const GENERATORS: Generator[] =
     "slug": "cheer-phrase",
     "title": "응원 문구 생성기",
     "desc": "시험, 면접, 취업, 운동 등 상황별로 만든다.",
-    "icon": "✍️",
+    "icon": "🎉",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1475,7 +1475,7 @@ export const GENERATORS: Generator[] =
     "slug": "motivation-phrase",
     "title": "동기부여 문구 생성기",
     "desc": "짧고 강하게 행동을 유도하는 문장으로 만든다.",
-    "icon": "✍️",
+    "icon": "⚡",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1491,7 +1491,7 @@ export const GENERATORS: Generator[] =
     "slug": "project-name",
     "title": "프로젝트명 생성기",
     "desc": "개발 프로젝트, 회사 프로젝트, 팀 과제용으로 나눈다.",
-    "icon": "🏷️",
+    "icon": "📁",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -1543,7 +1543,7 @@ export const GENERATORS: Generator[] =
     "slug": "service-name",
     "title": "서비스명 생성기",
     "desc": "사용자가 기능을 떠올릴 수 있는 이름으로 만든다.",
-    "icon": "🏷️",
+    "icon": "🔧",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -1600,7 +1600,7 @@ export const GENERATORS: Generator[] =
     "slug": "product-name",
     "title": "제품명 생성기",
     "desc": "짧고 기억하기 쉬운 상품명으로 만든다.",
-    "icon": "🏷️",
+    "icon": "📦",
     "category": "이름·브랜드",
     "type": "combine",
     "pools": [
@@ -1645,7 +1645,7 @@ export const GENERATORS: Generator[] =
     "slug": "character-setting",
     "title": "캐릭터 설정 생성기",
     "desc": "이름, 성격, 배경, 특징, 약점을 함께 만든다.",
-    "icon": "✍️",
+    "icon": "🦸",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1659,7 +1659,7 @@ export const GENERATORS: Generator[] =
     "slug": "novel-title",
     "title": "소설 제목 생성기",
     "desc": "로맨스, 판타지, 스릴러, 성장물로 나눈다.",
-    "icon": "✍️",
+    "icon": "📖",
     "category": "문구·아이디어",
     "type": "combine",
     "pools": [
@@ -1709,7 +1709,7 @@ export const GENERATORS: Generator[] =
     "slug": "webtoon-title",
     "title": "웹툰 제목 생성기",
     "desc": "짧고 클릭하고 싶게 만드는 제목으로 만든다.",
-    "icon": "🎯",
+    "icon": "🖊️",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -1759,7 +1759,7 @@ export const GENERATORS: Generator[] =
     "slug": "game-title",
     "title": "게임 제목 생성기",
     "desc": "역할수행, 퍼즐, 액션, 생존 게임 느낌으로 만든다.",
-    "icon": "🎯",
+    "icon": "🕹️",
     "category": "추천",
     "type": "combine",
     "pools": [
@@ -1811,7 +1811,7 @@ export const GENERATORS: Generator[] =
     "slug": "youtube-content-idea",
     "title": "유튜브 콘텐츠 아이디어 생성기",
     "desc": "제목, 영상 구성, 후킹 포인트를 함께 제공한다.",
-    "icon": "✍️",
+    "icon": "🎬",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1827,7 +1827,7 @@ export const GENERATORS: Generator[] =
     "slug": "blog-topic",
     "title": "블로그 주제 생성기",
     "desc": "검색 유입이 가능한 질문형 제목으로 만든다.",
-    "icon": "🏷️",
+    "icon": "📝",
     "category": "이름·브랜드",
     "type": "pick",
     "items": [
@@ -1843,7 +1843,7 @@ export const GENERATORS: Generator[] =
     "slug": "shorts-idea",
     "title": "짧은 영상 아이디어 생성기",
     "desc": "첫 3초 후킹과 짧은 결론을 포함한다.",
-    "icon": "✍️",
+    "icon": "📲",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1859,7 +1859,7 @@ export const GENERATORS: Generator[] =
     "slug": "ad-phrase",
     "title": "광고 문구 생성기",
     "desc": "문제 제기, 혜택, 행동유도 순서로 만든다.",
-    "icon": "✍️",
+    "icon": "📢",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1875,7 +1875,7 @@ export const GENERATORS: Generator[] =
     "slug": "marketing-phrase",
     "title": "마케팅 문구 생성기",
     "desc": "감성형, 실용형, 긴급형 문구를 섞는다.",
-    "icon": "✍️",
+    "icon": "📣",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1891,7 +1891,7 @@ export const GENERATORS: Generator[] =
     "slug": "landing-phrase",
     "title": "랜딩페이지 문구 생성기",
     "desc": "고객 문제와 해결 가치를 첫 문장에 넣는다.",
-    "icon": "✍️",
+    "icon": "🖥️",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1907,7 +1907,7 @@ export const GENERATORS: Generator[] =
     "slug": "hashtag",
     "title": "해시태그 생성기",
     "desc": "큰 키워드, 중간 키워드, 세부 키워드를 섞는다.",
-    "icon": "✍️",
+    "icon": "#️⃣",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1923,7 +1923,7 @@ export const GENERATORS: Generator[] =
     "slug": "email-subject",
     "title": "이메일 제목 생성기",
     "desc": "광고, 안내, 문의, 제안 메일용으로 나눈다.",
-    "icon": "✍️",
+    "icon": "📧",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1939,7 +1939,7 @@ export const GENERATORS: Generator[] =
     "slug": "self-intro",
     "title": "자기소개 생성기",
     "desc": "강점, 경험, 목표 순서로 구성한다.",
-    "icon": "✍️",
+    "icon": "👤",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1955,7 +1955,7 @@ export const GENERATORS: Generator[] =
     "slug": "interview-answer",
     "title": "면접 답변 생성기",
     "desc": "상황, 행동, 결과 구조로 답변을 만든다.",
-    "icon": "✍️",
+    "icon": "🎤",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1971,7 +1971,7 @@ export const GENERATORS: Generator[] =
     "slug": "company-vision",
     "title": "회사 비전 생성기",
     "desc": "고객가치와 미래 방향을 담는다.",
-    "icon": "✍️",
+    "icon": "🔭",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -1987,7 +1987,7 @@ export const GENERATORS: Generator[] =
     "slug": "company-motto",
     "title": "사훈 생성기",
     "desc": "짧고 기억하기 좋은 문장으로 만든다.",
-    "icon": "✍️",
+    "icon": "🏆",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -2003,7 +2003,7 @@ export const GENERATORS: Generator[] =
     "slug": "personal-motto",
     "title": "좌우명 생성기",
     "desc": "인생 태도와 행동 기준을 담는다.",
-    "icon": "✍️",
+    "icon": "⭐",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -2034,7 +2034,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-challenge",
     "title": "랜덤 챌린지 생성기",
     "desc": "하루 또는 일주일 안에 할 수 있는 도전으로 만든다.",
-    "icon": "🎯",
+    "icon": "🎪",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2065,7 +2065,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-mission",
     "title": "랜덤 미션 생성기",
     "desc": "재미용, 자기계발용, 관계 개선용으로 나눈다.",
-    "icon": "🎯",
+    "icon": "🕵️",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2081,7 +2081,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-penalty",
     "title": "랜덤 벌칙 생성기",
     "desc": "불쾌하거나 위험하지 않은 가벼운 벌칙만 만든다.",
-    "icon": "🎯",
+    "icon": "😈",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2097,7 +2097,7 @@ export const GENERATORS: Generator[] =
     "slug": "travel-plan",
     "title": "여행 일정 생성기",
     "desc": "오전, 오후, 저녁 일정으로 나눈다.",
-    "icon": "✅",
+    "icon": "🗓️",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2113,7 +2113,7 @@ export const GENERATORS: Generator[] =
     "slug": "weekend-plan",
     "title": "주말 계획 생성기",
     "desc": "집콕, 외출, 자기계발, 데이트로 나눈다.",
-    "icon": "✅",
+    "icon": "🌅",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2129,7 +2129,7 @@ export const GENERATORS: Generator[] =
     "slug": "vacation-plan",
     "title": "휴가 계획 생성기",
     "desc": "휴식, 여행, 정리, 자기계발형으로 나눈다.",
-    "icon": "✅",
+    "icon": "🏖️",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2145,7 +2145,7 @@ export const GENERATORS: Generator[] =
     "slug": "study-plan",
     "title": "공부 계획 생성기",
     "desc": "하루 단위 목표와 복습 시간을 포함한다.",
-    "icon": "✅",
+    "icon": "📓",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2161,7 +2161,7 @@ export const GENERATORS: Generator[] =
     "slug": "exercise-plan",
     "title": "운동 계획 생성기",
     "desc": "초보자도 할 수 있는 강도로 만든다.",
-    "icon": "🎯",
+    "icon": "🏋️",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2177,7 +2177,7 @@ export const GENERATORS: Generator[] =
     "slug": "diet-plan",
     "title": "다이어트 계획 생성기",
     "desc": "무리한 감량이 아니라 생활습관 개선 중심으로 만든다.",
-    "icon": "🎯",
+    "icon": "🥗",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2193,7 +2193,7 @@ export const GENERATORS: Generator[] =
     "slug": "investment-goal",
     "title": "재테크 목표 생성기",
     "desc": "저축, 투자, 부채관리 목표를 현실적으로 만든다.",
-    "icon": "✅",
+    "icon": "💰",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2209,7 +2209,7 @@ export const GENERATORS: Generator[] =
     "slug": "investment-idea",
     "title": "투자 아이디어 생성기",
     "desc": "종목 추천이 아니라 공부할 투자 테마를 제안한다.",
-    "icon": "✍️",
+    "icon": "📊",
     "category": "문구·아이디어",
     "type": "pick",
     "items": [
@@ -2240,7 +2240,7 @@ export const GENERATORS: Generator[] =
     "slug": "shopping-list",
     "title": "쇼핑 리스트 생성기",
     "desc": "자취, 여행, 캠핑, 집들이 상황별로 만든다.",
-    "icon": "✅",
+    "icon": "🛒",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2256,7 +2256,7 @@ export const GENERATORS: Generator[] =
     "slug": "housewarming-menu",
     "title": "집들이 메뉴 생성기",
     "desc": "메인, 사이드, 음료, 디저트로 구성한다.",
-    "icon": "🎯",
+    "icon": "🏠",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2272,7 +2272,7 @@ export const GENERATORS: Generator[] =
     "slug": "camping-checklist",
     "title": "캠핑 준비물 생성기",
     "desc": "필수품, 음식, 안전용품으로 나눈다.",
-    "icon": "✅",
+    "icon": "⛺",
     "category": "계획",
     "type": "pick",
     "items": [
@@ -2288,7 +2288,7 @@ export const GENERATORS: Generator[] =
     "slug": "emergency-food",
     "title": "비상식량 추천기",
     "desc": "상온 보관, 간편 조리, 유통기한 중심으로 추천한다.",
-    "icon": "🎯",
+    "icon": "🥫",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2304,7 +2304,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-color",
     "title": "랜덤 색상 생성기",
     "desc": "감성 이름과 색상 코드를 함께 보여준다.",
-    "icon": "🎨",
+    "icon": "🌈",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2320,7 +2320,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-emoji",
     "title": "랜덤 이모지 생성기",
     "desc": "게시글이나 닉네임에 쓸 수 있는 조합으로 만든다.",
-    "icon": "🎲",
+    "icon": "😀",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2336,7 +2336,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-animal",
     "title": "랜덤 동물 생성기",
     "desc": "동물 이름과 짧은 특징을 함께 보여준다.",
-    "icon": "🎲",
+    "icon": "🦊",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2352,7 +2352,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-job",
     "title": "랜덤 직업 생성기",
     "desc": "하는 일과 어울리는 사람을 함께 설명한다.",
-    "icon": "🎲",
+    "icon": "👷",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2368,7 +2368,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-country",
     "title": "랜덤 국가 생성기",
     "desc": "수도와 대표 특징을 함께 보여준다.",
-    "icon": "🎯",
+    "icon": "🌍",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2384,7 +2384,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-city",
     "title": "랜덤 도시 생성기",
     "desc": "여행 포인트를 짧게 설명한다.",
-    "icon": "🎲",
+    "icon": "🏙️",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2400,7 +2400,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-movie",
     "title": "랜덤 영화 추천기",
     "desc": "실제 작품명보다 장르와 분위기 추천으로 구성한다.",
-    "icon": "🎯",
+    "icon": "🎦",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2431,7 +2431,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-drama",
     "title": "랜덤 드라마 추천기",
     "desc": "가볍게 볼 작품 유형과 몰입형 작품 유형을 나눈다.",
-    "icon": "🎯",
+    "icon": "📺",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2462,7 +2462,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-music",
     "title": "랜덤 음악 추천기",
     "desc": "장르와 상황을 함께 추천한다.",
-    "icon": "🎯",
+    "icon": "🎵",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2493,7 +2493,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-game",
     "title": "랜덤 게임 추천기",
     "desc": "혼자, 협동, 경쟁, 힐링 게임으로 나눈다.",
-    "icon": "🎯",
+    "icon": "🎮",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2524,7 +2524,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-webtoon",
     "title": "랜덤 웹툰 추천기",
     "desc": "로맨스, 액션, 일상, 판타지 유형을 추천한다.",
-    "icon": "🎯",
+    "icon": "🖼️",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2555,7 +2555,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-book",
     "title": "랜덤 책 추천기",
     "desc": "실제 책명보다 읽을 주제와 방향을 제안한다.",
-    "icon": "🎯",
+    "icon": "📗",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2586,7 +2586,7 @@ export const GENERATORS: Generator[] =
     "slug": "random-goal",
     "title": "랜덤 목표 생성기",
     "desc": "하루, 일주일, 한 달 목표로 나눈다.",
-    "icon": "🎲",
+    "icon": "🏹",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2602,7 +2602,7 @@ export const GENERATORS: Generator[] =
     "slug": "bucket-list",
     "title": "랜덤 인생 버킷리스트 생성기",
     "desc": "여행, 성장, 관계, 경험, 도전으로 나눈다.",
-    "icon": "🎲",
+    "icon": "🪣",
     "category": "랜덤",
     "type": "pick",
     "items": [
@@ -2618,7 +2618,7 @@ export const GENERATORS: Generator[] =
     "slug": "daily-tasks",
     "title": "오늘 할 일 추천기",
     "desc": "작고 부담 없는 행동부터 추천한다.",
-    "icon": "🎯",
+    "icon": "✅",
     "category": "추천",
     "type": "pick",
     "items": [
@@ -2630,7 +2630,6 @@ export const GENERATORS: Generator[] =
     ],
     "count": 1
   }
-]
-;
+];;
 
 export const GENERATOR_MAP: Record<string, Generator> = Object.fromEntries(GENERATORS.map(item => [item.slug, item]));

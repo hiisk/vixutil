@@ -45,10 +45,14 @@ export default function TestIndexPage() {
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(t => (
                   <Link key={t.slug} href={`/test/${t.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-violet-300 hover:shadow-sm transition-all">
-                    <div className="text-2xl mb-2">{t.icon}</div>
-                    <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{t.desc}</p>
+                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-violet-50 to-pink-50 flex items-center justify-center text-5xl group-hover:from-violet-100 group-hover:to-pink-100 transition-colors">
+                      {t.icon}
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
+                      <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{t.desc}</p>
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -60,10 +64,14 @@ export default function TestIndexPage() {
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {uncategorized.map(t => (
                   <Link key={t.slug} href={`/test/${t.slug}`}
-                    className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-violet-300 hover:shadow-sm transition-all">
-                    <div className="text-2xl mb-2">{t.icon}</div>
-                    <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 mb-1">{t.title}</h3>
-                    <p className="text-xs text-slate-400">{t.desc}</p>
+                    className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-violet-50 to-pink-50 flex items-center justify-center text-5xl group-hover:from-violet-100 group-hover:to-pink-100 transition-colors">
+                      {t.icon}
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 mb-1">{t.title}</h3>
+                      <p className="text-xs text-slate-400 line-clamp-2">{t.desc}</p>
+                    </div>
                   </Link>
                 ))}
               </div>

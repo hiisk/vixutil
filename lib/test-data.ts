@@ -5,7 +5,7 @@ export const TESTS: Test[] = [
     "slug": "mbti",
     "title": "엠비티아이 간이 테스트",
     "desc": "외향, 내향, 감각, 직관, 사고, 감정, 판단, 인식 항목을 실제 상황으로 확인하는 12문항 테스트",
-    "icon": "🧩",
+    "icon": "🧠",
     "category": "성격",
     "questions": [
       {
@@ -324,7 +324,7 @@ export const TESTS: Test[] = [
     "slug": "love-style",
     "title": "연애 성향 테스트",
     "desc": "애정표현, 안정감, 집착도, 독립성 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "💑",
     "category": "연애·결혼",
     "questions": [
       {
@@ -601,7 +601,7 @@ export const TESTS: Test[] = [
     "slug": "crush-success",
     "title": "썸 성공 가능성 테스트",
     "desc": "호감 표현, 대화 지속력, 센스, 타이밍 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "💘",
     "category": "연애·결혼",
     "questions": [
       {
@@ -878,7 +878,7 @@ export const TESTS: Test[] = [
     "slug": "marriage-fit",
     "title": "결혼 적합도 테스트",
     "desc": "책임감, 경제관념, 갈등해결, 가치관 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "💍",
     "category": "연애·결혼",
     "questions": [
       {
@@ -1155,7 +1155,7 @@ export const TESTS: Test[] = [
     "slug": "breakup-recovery",
     "title": "이별 회복력 테스트",
     "desc": "감정 회복, 자기관리, 미련, 현실수용 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "💔",
     "category": "연애·결혼",
     "questions": [
       {
@@ -1432,7 +1432,7 @@ export const TESTS: Test[] = [
     "slug": "worker-type",
     "title": "직장인 유형 테스트",
     "desc": "성장욕구, 안정성, 워라밸, 리더십 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🏢",
     "category": "직장·커리어",
     "questions": [
       {
@@ -1709,7 +1709,7 @@ export const TESTS: Test[] = [
     "slug": "resign-risk",
     "title": "퇴사 위험도 테스트",
     "desc": "회사 만족도, 스트레스, 보상 불만, 미래 불안 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🚪",
     "category": "직장·커리어",
     "questions": [
       {
@@ -1986,7 +1986,7 @@ export const TESTS: Test[] = [
     "slug": "burnout",
     "title": "번아웃 테스트",
     "desc": "피로감, 무기력, 감정소진, 집중력 저하 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🔥",
     "category": "직장·커리어",
     "questions": [
       {
@@ -2263,7 +2263,7 @@ export const TESTS: Test[] = [
     "slug": "leadership",
     "title": "리더십 테스트",
     "desc": "결정력, 책임감, 설득력, 팀관리 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "👑",
     "category": "성격",
     "questions": [
       {
@@ -2540,7 +2540,7 @@ export const TESTS: Test[] = [
     "slug": "teamwork-style",
     "title": "협업 스타일 테스트",
     "desc": "소통, 독립성, 조율력, 실행력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🤝",
     "category": "직장·커리어",
     "questions": [
       {
@@ -2817,7 +2817,7 @@ export const TESTS: Test[] = [
     "slug": "spending-habit",
     "title": "소비 습관 테스트",
     "desc": "충동구매, 계획소비, 절약, 과소비 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🛍️",
     "category": "금융·재테크",
     "questions": [
       {
@@ -3094,7 +3094,7 @@ export const TESTS: Test[] = [
     "slug": "investment-type",
     "title": "투자 성향 테스트",
     "desc": "위험선호, 손실감내, 장기투자, 정보탐색 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "📈",
     "category": "금융·재테크",
     "questions": [
       {
@@ -3371,7 +3371,7 @@ export const TESTS: Test[] = [
     "slug": "wealth-potential",
     "title": "부자 가능성 테스트",
     "desc": "저축, 투자, 지출관리, 성장습관 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "💰",
     "category": "금융·재테크",
     "questions": [
       {
@@ -3648,7 +3648,7 @@ export const TESTS: Test[] = [
     "slug": "impulse-buy",
     "title": "충동구매 위험도 테스트",
     "desc": "즉시구매, 할인민감도, 감정소비 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🛒",
     "category": "금융·재테크",
     "questions": [
       {
@@ -3921,7 +3921,7 @@ export const TESTS: Test[] = [
     "slug": "financial-level",
     "title": "재테크 수준 테스트",
     "desc": "예산관리, 저축률, 투자지식, 목표설정 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "💹",
     "category": "금융·재테크",
     "questions": [
       {
@@ -4198,7 +4198,7 @@ export const TESTS: Test[] = [
     "slug": "stress-index",
     "title": "스트레스 지수 테스트",
     "desc": "긴장, 불안, 피로, 감정기복 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "😤",
     "category": "건강·생활",
     "questions": [
       {
@@ -4475,7 +4475,7 @@ export const TESTS: Test[] = [
     "slug": "happiness-index",
     "title": "행복 지수 테스트",
     "desc": "만족감, 관계, 여유, 자기효능감 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "😊",
     "category": "건강·생활",
     "questions": [
       {
@@ -4752,7 +4752,7 @@ export const TESTS: Test[] = [
     "slug": "self-management",
     "title": "자기관리 능력 테스트",
     "desc": "루틴, 운동, 식습관, 목표관리 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "📋",
     "category": "건강·생활",
     "questions": [
       {
@@ -5029,7 +5029,7 @@ export const TESTS: Test[] = [
     "slug": "laziness",
     "title": "게으름 지수 테스트",
     "desc": "미루기, 실행력, 집중력, 습관 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "🛋️",
     "category": "성격",
     "questions": [
       {
@@ -5306,7 +5306,7 @@ export const TESTS: Test[] = [
     "slug": "focus",
     "title": "집중력 테스트",
     "desc": "몰입, 산만함, 스마트폰 의존, 지속력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🎯",
     "category": "직장·커리어",
     "questions": [
       {
@@ -5583,7 +5583,7 @@ export const TESTS: Test[] = [
     "slug": "developer-aptitude",
     "title": "개발자 적성 테스트",
     "desc": "논리력, 문제해결, 끈기, 학습력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "💻",
     "category": "자기계발",
     "questions": [
       {
@@ -5860,7 +5860,7 @@ export const TESTS: Test[] = [
     "slug": "startup-aptitude",
     "title": "창업 적성 테스트",
     "desc": "도전성, 실행력, 리스크 감수, 영업력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🚀",
     "category": "자기계발",
     "questions": [
       {
@@ -6137,7 +6137,7 @@ export const TESTS: Test[] = [
     "slug": "entrepreneur",
     "title": "사업가 기질 테스트",
     "desc": "기회발견, 돈감각, 협상력, 추진력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🏆",
     "category": "직장·커리어",
     "questions": [
       {
@@ -6414,7 +6414,7 @@ export const TESTS: Test[] = [
     "slug": "ai-survival",
     "title": "인공지능 시대 생존력 테스트",
     "desc": "도구활용, 학습속도, 자동화 이해, 적응력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🤖",
     "category": "자기계발",
     "questions": [
       {
@@ -6691,7 +6691,7 @@ export const TESTS: Test[] = [
     "slug": "travel-style",
     "title": "여행 스타일 테스트",
     "desc": "계획성, 휴식선호, 모험성, 맛집중심 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "✈️",
     "category": "건강·생활",
     "questions": [
       {
@@ -6968,7 +6968,7 @@ export const TESTS: Test[] = [
     "slug": "food-preference",
     "title": "음식 취향 테스트",
     "desc": "매운맛, 단맛, 담백함, 새로운 음식 선호 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🍽️",
     "category": "건강·생활",
     "questions": [
       {
@@ -7245,7 +7245,7 @@ export const TESTS: Test[] = [
     "slug": "exercise-type",
     "title": "운동 성향 테스트",
     "desc": "경쟁성, 꾸준함, 강도선호, 혼자운동 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "💪",
     "category": "건강·생활",
     "questions": [
       {
@@ -7522,7 +7522,7 @@ export const TESTS: Test[] = [
     "slug": "game-style",
     "title": "게임 성향 테스트",
     "desc": "경쟁, 성장, 탐험, 협동 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎒",
+    "icon": "🎮",
     "category": "취미·라이프스타일",
     "questions": [
       {
@@ -7799,7 +7799,7 @@ export const TESTS: Test[] = [
     "slug": "relationship-type",
     "title": "인간관계 유형 테스트",
     "desc": "친화력, 거리감, 공감, 갈등대응 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "👥",
     "category": "성격",
     "questions": [
       {
@@ -8076,7 +8076,7 @@ export const TESTS: Test[] = [
     "slug": "life-satisfaction",
     "title": "인생 만족도 테스트",
     "desc": "현재만족, 미래기대, 관계, 건강 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🌟",
     "category": "건강·생활",
     "questions": [
       {
@@ -8353,7 +8353,7 @@ export const TESTS: Test[] = [
     "slug": "emotion-control",
     "title": "감정 조절 능력 테스트",
     "desc": "분노조절, 침착함, 표현방식 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "😌",
     "category": "건강·생활",
     "questions": [
       {
@@ -8626,7 +8626,7 @@ export const TESTS: Test[] = [
     "slug": "empathy",
     "title": "공감 능력 테스트",
     "desc": "타인감정 이해, 배려, 경청 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "🫂",
     "category": "연애·결혼",
     "questions": [
       {
@@ -8899,7 +8899,7 @@ export const TESTS: Test[] = [
     "slug": "decision-style",
     "title": "의사결정 스타일 테스트",
     "desc": "직감, 분석, 조언, 속도 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "⚖️",
     "category": "성격",
     "questions": [
       {
@@ -9176,7 +9176,7 @@ export const TESTS: Test[] = [
     "slug": "planner-type",
     "title": "계획형 인간 테스트",
     "desc": "일정관리, 사전준비, 변수대응 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "📅",
     "category": "성격",
     "questions": [
       {
@@ -9449,7 +9449,7 @@ export const TESTS: Test[] = [
     "slug": "spontaneous-type",
     "title": "즉흥형 인간 테스트",
     "desc": "즉흥성, 유연성, 계획회피 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "⚡",
     "category": "성격",
     "questions": [
       {
@@ -9722,7 +9722,7 @@ export const TESTS: Test[] = [
     "slug": "sociability",
     "title": "사회성 테스트",
     "desc": "대화, 모임, 친화력, 적응력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "🗣️",
     "category": "성격",
     "questions": [
       {
@@ -9999,7 +9999,7 @@ export const TESTS: Test[] = [
     "slug": "introversion",
     "title": "내향성 테스트",
     "desc": "혼자시간, 에너지소모, 조용한 환경 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "🌙",
     "category": "성격",
     "questions": [
       {
@@ -10272,7 +10272,7 @@ export const TESTS: Test[] = [
     "slug": "extroversion",
     "title": "외향성 테스트",
     "desc": "사교성, 활동성, 표현력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "☀️",
     "category": "성격",
     "questions": [
       {
@@ -10545,7 +10545,7 @@ export const TESTS: Test[] = [
     "slug": "self-esteem",
     "title": "자존감 테스트",
     "desc": "자기신뢰, 비교습관, 실패수용 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "💫",
     "category": "성격",
     "questions": [
       {
@@ -10818,7 +10818,7 @@ export const TESTS: Test[] = [
     "slug": "diligence",
     "title": "성실성 테스트",
     "desc": "약속, 꾸준함, 책임완수 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "📝",
     "category": "직장·커리어",
     "questions": [
       {
@@ -11091,7 +11091,7 @@ export const TESTS: Test[] = [
     "slug": "responsibility",
     "title": "책임감 테스트",
     "desc": "약속이행, 문제수습, 역할의식 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🛡️",
     "category": "자기계발",
     "questions": [
       {
@@ -11364,7 +11364,7 @@ export const TESTS: Test[] = [
     "slug": "persistence",
     "title": "끈기 테스트",
     "desc": "지속력, 실패극복, 장기목표 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🧗",
     "category": "자기계발",
     "questions": [
       {
@@ -11637,7 +11637,7 @@ export const TESTS: Test[] = [
     "slug": "goal-achievement",
     "title": "목표 달성 가능성 테스트",
     "desc": "목표설정, 실행, 점검, 습관화 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🏹",
     "category": "자기계발",
     "questions": [
       {
@@ -11914,7 +11914,7 @@ export const TESTS: Test[] = [
     "slug": "time-management",
     "title": "시간 관리 능력 테스트",
     "desc": "우선순위, 지각, 마감관리 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "⏰",
     "category": "자기계발",
     "questions": [
       {
@@ -12187,7 +12187,7 @@ export const TESTS: Test[] = [
     "slug": "resilience",
     "title": "회복탄력성 테스트",
     "desc": "실패회복, 감정정리, 재도전 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🌱",
     "category": "건강·생활",
     "questions": [
       {
@@ -12460,7 +12460,7 @@ export const TESTS: Test[] = [
     "slug": "challenge-spirit",
     "title": "도전 정신 테스트",
     "desc": "새로움, 위험감수, 실행력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🦁",
     "category": "자기계발",
     "questions": [
       {
@@ -12733,7 +12733,7 @@ export const TESTS: Test[] = [
     "slug": "competitiveness",
     "title": "경쟁심 테스트",
     "desc": "승부욕, 비교, 성취욕 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "🥊",
     "category": "성격",
     "questions": [
       {
@@ -13006,7 +13006,7 @@ export const TESTS: Test[] = [
     "slug": "risk-tolerance",
     "title": "리스크 감수 성향 테스트",
     "desc": "불확실성, 손실감내, 모험성 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "🎲",
     "category": "성격",
     "questions": [
       {
@@ -13279,7 +13279,7 @@ export const TESTS: Test[] = [
     "slug": "problem-solving",
     "title": "문제 해결 능력 테스트",
     "desc": "분석, 원인파악, 해결실행 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🔧",
     "category": "자기계발",
     "questions": [
       {
@@ -13552,7 +13552,7 @@ export const TESTS: Test[] = [
     "slug": "logic",
     "title": "논리력 테스트",
     "desc": "근거, 추론, 일관성 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🧮",
     "category": "자기계발",
     "questions": [
       {
@@ -13825,7 +13825,7 @@ export const TESTS: Test[] = [
     "slug": "creativity",
     "title": "창의력 테스트",
     "desc": "아이디어, 관점전환, 상상력 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🎨",
     "category": "자기계발",
     "questions": [
       {
@@ -14098,7 +14098,7 @@ export const TESTS: Test[] = [
     "slug": "imagination",
     "title": "상상력 테스트",
     "desc": "연상, 몰입, 이야기 구성 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "🌈",
     "category": "성격",
     "questions": [
       {
@@ -14371,7 +14371,7 @@ export const TESTS: Test[] = [
     "slug": "curiosity",
     "title": "호기심 지수 테스트",
     "desc": "탐색, 질문, 학습욕구 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🔍",
     "category": "자기계발",
     "questions": [
       {
@@ -14644,7 +14644,7 @@ export const TESTS: Test[] = [
     "slug": "consideration",
     "title": "배려심 테스트",
     "desc": "양보, 관찰, 타인중심 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🤗",
     "category": "자기계발",
     "questions": [
       {
@@ -14917,7 +14917,7 @@ export const TESTS: Test[] = [
     "slug": "kindness",
     "title": "친절도 테스트",
     "desc": "말투, 도움, 예의, 반응 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🌸",
     "category": "자기계발",
     "questions": [
       {
@@ -15194,7 +15194,7 @@ export const TESTS: Test[] = [
     "slug": "love-obsession",
     "title": "연애 집착도 테스트",
     "desc": "확인욕구, 불안, 통제, 의존 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "🔒",
     "category": "연애·결혼",
     "questions": [
       {
@@ -15471,7 +15471,7 @@ export const TESTS: Test[] = [
     "slug": "love-security",
     "title": "연애 안정감 테스트",
     "desc": "신뢰, 여유, 감정안정, 소통 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "🕊️",
     "category": "연애·결혼",
     "questions": [
       {
@@ -15748,7 +15748,7 @@ export const TESTS: Test[] = [
     "slug": "marriage-readiness",
     "title": "결혼 준비도 테스트",
     "desc": "경제, 생활, 책임, 대화 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "👰",
     "category": "연애·결혼",
     "questions": [
       {
@@ -16025,7 +16025,7 @@ export const TESTS: Test[] = [
     "slug": "parenting-aptitude",
     "title": "부모 적성 테스트",
     "desc": "인내심, 책임감, 돌봄, 교육관 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "👶",
     "category": "연애·결혼",
     "questions": [
       {
@@ -16302,7 +16302,7 @@ export const TESTS: Test[] = [
     "slug": "friendship-satisfaction",
     "title": "친구 관계 만족도 테스트",
     "desc": "신뢰, 연락, 의지, 거리감 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💌",
+    "icon": "👫",
     "category": "연애·결혼",
     "questions": [
       {
@@ -16579,7 +16579,7 @@ export const TESTS: Test[] = [
     "slug": "job-satisfaction",
     "title": "직장 만족도 테스트",
     "desc": "보상, 업무, 관계, 성장 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "😄",
     "category": "직장·커리어",
     "questions": [
       {
@@ -16856,7 +16856,7 @@ export const TESTS: Test[] = [
     "slug": "work-stress",
     "title": "업무 스트레스 테스트",
     "desc": "업무량, 압박감, 야근, 인간관계 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🧩",
+    "icon": "😰",
     "category": "성격",
     "questions": [
       {
@@ -17133,7 +17133,7 @@ export const TESTS: Test[] = [
     "slug": "promotion-potential",
     "title": "승진 가능성 테스트",
     "desc": "성과, 신뢰, 리더십, 태도 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "📊",
     "category": "직장·커리어",
     "questions": [
       {
@@ -17410,7 +17410,7 @@ export const TESTS: Test[] = [
     "slug": "job-fit",
     "title": "직무 적합도 테스트",
     "desc": "흥미, 강점, 성과, 피로도 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🔑",
     "category": "직장·커리어",
     "questions": [
       {
@@ -17687,7 +17687,7 @@ export const TESTS: Test[] = [
     "slug": "wfh-adaptability",
     "title": "재택근무 적응력 테스트",
     "desc": "자율성, 집중력, 소통, 루틴 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🏠",
     "category": "직장·커리어",
     "questions": [
       {
@@ -17964,7 +17964,7 @@ export const TESTS: Test[] = [
     "slug": "leader-fit",
     "title": "리더 적합도 테스트",
     "desc": "책임, 판단, 피드백, 조율 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🎖️",
     "category": "직장·커리어",
     "questions": [
       {
@@ -18241,7 +18241,7 @@ export const TESTS: Test[] = [
     "slug": "team-fit",
     "title": "팀원 적합도 테스트",
     "desc": "협조, 소통, 책임, 실행 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🧩",
     "category": "직장·커리어",
     "questions": [
       {
@@ -18518,7 +18518,7 @@ export const TESTS: Test[] = [
     "slug": "negotiation",
     "title": "협상 능력 테스트",
     "desc": "설득, 양보, 조건제시, 침착함 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "💬",
     "category": "직장·커리어",
     "questions": [
       {
@@ -18795,7 +18795,7 @@ export const TESTS: Test[] = [
     "slug": "presentation",
     "title": "발표 능력 테스트",
     "desc": "자신감, 전달력, 구조화, 긴장관리 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🎤",
     "category": "직장·커리어",
     "questions": [
       {
@@ -19072,7 +19072,7 @@ export const TESTS: Test[] = [
     "slug": "persuasion",
     "title": "설득력 테스트",
     "desc": "논리, 공감, 표현, 타이밍 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🗝️",
     "category": "직장·커리어",
     "questions": [
       {
@@ -19622,7 +19622,7 @@ export const TESTS: Test[] = [
     "slug": "saving-habit",
     "title": "저축 습관 테스트",
     "desc": "저축률, 자동이체, 비상금 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🐷",
     "category": "금융·재테크",
     "questions": [
       {
@@ -19895,7 +19895,7 @@ export const TESTS: Test[] = [
     "slug": "investment-knowledge",
     "title": "투자 지식 테스트",
     "desc": "위험, 분산, 장기투자, 상품이해 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "📚",
     "category": "금융·재테크",
     "questions": [
       {
@@ -20172,7 +20172,7 @@ export const TESTS: Test[] = [
     "slug": "economic-sense",
     "title": "경제 감각 테스트",
     "desc": "물가, 금리, 소득, 자산 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🏦",
     "category": "금융·재테크",
     "questions": [
       {
@@ -20449,7 +20449,7 @@ export const TESTS: Test[] = [
     "slug": "asset-management",
     "title": "자산 관리 능력 테스트",
     "desc": "현금흐름, 부채관리, 투자비중 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "💎",
     "category": "금융·재테크",
     "questions": [
       {
@@ -20722,7 +20722,7 @@ export const TESTS: Test[] = [
     "slug": "side-job-aptitude",
     "title": "부업 적성 테스트",
     "desc": "시간관리, 실행력, 수익화, 꾸준함 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🔄",
     "category": "금융·재테크",
     "questions": [
       {
@@ -20999,7 +20999,7 @@ export const TESTS: Test[] = [
     "slug": "business-success",
     "title": "사업 성공 가능성 테스트",
     "desc": "시장감각, 실행, 비용관리, 고객이해 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🌐",
     "category": "자기계발",
     "questions": [
       {
@@ -21276,7 +21276,7 @@ export const TESTS: Test[] = [
     "slug": "startup-fit",
     "title": "스타트업 적성 테스트",
     "desc": "속도, 불확실성, 협업, 성장욕구 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "⚙️",
     "category": "직장·커리어",
     "questions": [
       {
@@ -21553,7 +21553,7 @@ export const TESTS: Test[] = [
     "slug": "freelance-fit",
     "title": "프리랜서 적성 테스트",
     "desc": "자율성, 영업, 일정관리, 책임 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🖥️",
     "category": "자기계발",
     "questions": [
       {
@@ -21830,7 +21830,7 @@ export const TESTS: Test[] = [
     "slug": "digital-nomad",
     "title": "디지털 노마드 적성 테스트",
     "desc": "원격업무, 자기관리, 이동성, 불안정감내 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💼",
+    "icon": "🌍",
     "category": "직장·커리어",
     "questions": [
       {
@@ -22107,7 +22107,7 @@ export const TESTS: Test[] = [
     "slug": "exercise-will",
     "title": "운동 의지 테스트",
     "desc": "꾸준함, 목표, 자기통제, 회복 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🏃",
     "category": "건강·생활",
     "questions": [
       {
@@ -22384,7 +22384,7 @@ export const TESTS: Test[] = [
     "slug": "health-management",
     "title": "건강 관리 수준 테스트",
     "desc": "수면, 식사, 운동, 검진 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🏥",
     "category": "건강·생활",
     "questions": [
       {
@@ -22661,7 +22661,7 @@ export const TESTS: Test[] = [
     "slug": "sleep-habit",
     "title": "수면 습관 테스트",
     "desc": "수면시간, 규칙성, 스마트폰, 피로 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "😴",
     "category": "건강·생활",
     "questions": [
       {
@@ -22938,7 +22938,7 @@ export const TESTS: Test[] = [
     "slug": "diet-habit",
     "title": "식습관 테스트",
     "desc": "규칙성, 영양, 야식, 과식 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🥗",
     "category": "건강·생활",
     "questions": [
       {
@@ -23215,7 +23215,7 @@ export const TESTS: Test[] = [
     "slug": "diet-success",
     "title": "다이어트 성공 가능성 테스트",
     "desc": "식단, 운동, 꾸준함, 유혹관리 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🥦",
     "category": "건강·생활",
     "questions": [
       {
@@ -23492,7 +23492,7 @@ export const TESTS: Test[] = [
     "slug": "addiction-risk",
     "title": "중독 위험도 테스트",
     "desc": "통제력, 사용시간, 금단감, 일상방해 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "⚠️",
     "category": "건강·생활",
     "questions": [
       {
@@ -23769,7 +23769,7 @@ export const TESTS: Test[] = [
     "slug": "smartphone-dependency",
     "title": "스마트폰 의존도 테스트",
     "desc": "사용시간, 확인습관, 불안, 수면방해 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "📱",
     "category": "건강·생활",
     "questions": [
       {
@@ -24046,7 +24046,7 @@ export const TESTS: Test[] = [
     "slug": "sns-addiction",
     "title": "SNS 중독 테스트",
     "desc": "확인빈도, 비교, 게시욕구, 시간소모 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "📸",
     "category": "건강·생활",
     "questions": [
       {
@@ -24323,7 +24323,7 @@ export const TESTS: Test[] = [
     "slug": "game-addiction",
     "title": "게임 중독 테스트",
     "desc": "플레이시간, 통제력, 우선순위 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🕹️",
     "category": "건강·생활",
     "questions": [
       {
@@ -24596,7 +24596,7 @@ export const TESTS: Test[] = [
     "slug": "youtube-addiction",
     "title": "유튜브 중독 테스트",
     "desc": "시청시간, 알고리즘 의존, 수면방해 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "📺",
     "category": "건강·생활",
     "questions": [
       {
@@ -24869,7 +24869,7 @@ export const TESTS: Test[] = [
     "slug": "movie-taste",
     "title": "영화 취향 테스트",
     "desc": "장르선호, 몰입방식, 감정반응 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "🎬",
     "category": "건강·생활",
     "questions": [
       {
@@ -25142,7 +25142,7 @@ export const TESTS: Test[] = [
     "slug": "music-taste",
     "title": "음악 취향 테스트",
     "desc": "감성, 리듬, 가사, 분위기 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎒",
+    "icon": "🎵",
     "category": "취미·라이프스타일",
     "questions": [
       {
@@ -25419,7 +25419,7 @@ export const TESTS: Test[] = [
     "slug": "reading-style",
     "title": "독서 성향 테스트",
     "desc": "장르, 집중력, 목적, 속도 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎒",
+    "icon": "📖",
     "category": "취미·라이프스타일",
     "questions": [
       {
@@ -25696,7 +25696,7 @@ export const TESTS: Test[] = [
     "slug": "learning-style",
     "title": "학습 스타일 테스트",
     "desc": "시각, 청각, 반복, 실습 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🎓",
     "category": "자기계발",
     "questions": [
       {
@@ -25973,7 +25973,7 @@ export const TESTS: Test[] = [
     "slug": "language-aptitude",
     "title": "언어 학습 적성 테스트",
     "desc": "꾸준함, 듣기, 말하기, 암기 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🗺️",
     "category": "자기계발",
     "questions": [
       {
@@ -26250,7 +26250,7 @@ export const TESTS: Test[] = [
     "slug": "iq-style",
     "title": "지능 유형 테스트",
     "desc": "언어, 논리, 공간, 감성 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🔬",
     "category": "자기계발",
     "questions": [
       {
@@ -26527,7 +26527,7 @@ export const TESTS: Test[] = [
     "slug": "eq-style",
     "title": "감성 지능 테스트",
     "desc": "자기감정인식, 타인이해, 감정표현 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🌿",
+    "icon": "❤️",
     "category": "건강·생활",
     "questions": [
       {
@@ -26800,7 +26800,7 @@ export const TESTS: Test[] = [
     "slug": "future-readiness",
     "title": "미래 준비도 테스트",
     "desc": "저축, 학습, 건강, 커리어 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🔭",
     "category": "금융·재테크",
     "questions": [
       {
@@ -27077,7 +27077,7 @@ export const TESTS: Test[] = [
     "slug": "life-balance",
     "title": "인생 밸런스 테스트",
     "desc": "일, 돈, 건강, 관계, 휴식 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "💳",
+    "icon": "🎭",
     "category": "금융·재테크",
     "questions": [
       {
@@ -27354,7 +27354,7 @@ export const TESTS: Test[] = [
     "slug": "success-potential",
     "title": "성공 가능성 테스트",
     "desc": "목표, 실행, 끈기, 학습, 관계 항목을 실제 상황으로 확인하는 10문항 테스트",
-    "icon": "🎯",
+    "icon": "🌠",
     "category": "자기계발",
     "questions": [
       {

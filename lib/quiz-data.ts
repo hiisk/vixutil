@@ -5,7 +5,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "general-knowledge",
     "title": "일반상식 퀴즈",
     "desc": "역사, 과학, 경제, 문화을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "📚",
     "category": "역사",
     "questions": [
       {
@@ -124,7 +124,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "korean-history",
     "title": "한국사 퀴즈",
     "desc": "삼국, 고려, 조선, 근현대을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "🏯",
     "category": "역사",
     "questions": [
       {
@@ -243,7 +243,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "world-history",
     "title": "세계사 퀴즈",
     "desc": "고대, 중세, 근대, 현대을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "🌍",
     "category": "역사",
     "questions": [
       {
@@ -362,7 +362,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "capital-cities",
     "title": "수도 맞추기 퀴즈",
     "desc": "국가와 수도을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "🏙️",
     "category": "세계지리",
     "questions": [
       {
@@ -481,7 +481,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "flags",
     "title": "국기 맞추기 퀴즈",
     "desc": "국기 이미지 또는 설명을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "🚩",
     "category": "세계지리",
     "questions": [
       {
@@ -600,7 +600,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "english-words",
     "title": "영어 단어 퀴즈",
     "desc": "단어 뜻 맞추기을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔤",
+    "icon": "📖",
     "category": "언어",
     "questions": [
       {
@@ -719,7 +719,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "english-idioms",
     "title": "영어 숙어 퀴즈",
     "desc": "숙어 의미 맞추기을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔤",
+    "icon": "💬",
     "category": "언어",
     "questions": [
       {
@@ -838,7 +838,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "it-developer",
     "title": "아이티 개발자 퀴즈",
     "desc": "프로그래밍, 데이터베이스, 서버, 네트워크을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "👨‍💻",
     "category": "기술·IT",
     "questions": [
       {
@@ -957,7 +957,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "java",
     "title": "자바 퀴즈",
     "desc": "객체지향, 자료형, 예외, 컬렉션을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "☕",
     "category": "기술·IT",
     "questions": [
       {
@@ -1076,7 +1076,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "spring",
     "title": "스프링 퀴즈",
     "desc": "빈, 의존성주입, 트랜잭션, 보안을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🌿",
     "category": "기술·IT",
     "questions": [
       {
@@ -1195,7 +1195,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "database",
     "title": "데이터베이스 퀴즈",
     "desc": "정규화, 인덱스, 조인, 트랜잭션을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🗄️",
     "category": "기술·IT",
     "questions": [
       {
@@ -1314,7 +1314,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "network",
     "title": "네트워크 퀴즈",
     "desc": "아이피, 포트, 프로토콜, 보안을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🌐",
     "category": "기술·IT",
     "questions": [
       {
@@ -1433,7 +1433,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "linux",
     "title": "리눅스 퀴즈",
     "desc": "명령어, 권한, 프로세스, 로그을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🐧",
     "category": "기술·IT",
     "questions": [
       {
@@ -1552,7 +1552,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "aws",
     "title": "클라우드 퀴즈",
     "desc": "서버, 저장소, 네트워크, 비용을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "☁️",
     "category": "기술·IT",
     "questions": [
       {
@@ -1671,7 +1671,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "ai",
     "title": "인공지능 퀴즈",
     "desc": "머신러닝, 생성형 인공지능, 데이터, 윤리을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🤖",
     "category": "기술·IT",
     "questions": [
       {
@@ -1790,7 +1790,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "math",
     "title": "수학 퀴즈",
     "desc": "사칙연산, 확률, 도형, 논리을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔬",
+    "icon": "➗",
     "category": "과학",
     "questions": [
       {
@@ -2028,7 +2028,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "astronomy",
     "title": "천문학 퀴즈",
     "desc": "행성, 별, 우주, 탐사을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔬",
+    "icon": "🔭",
     "category": "과학",
     "questions": [
       {
@@ -2147,7 +2147,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "economics",
     "title": "경제 퀴즈",
     "desc": "금리, 물가, 환율, 경기을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "💹",
     "category": "환경·경제",
     "questions": [
       {
@@ -2385,7 +2385,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "soccer",
     "title": "축구 퀴즈",
     "desc": "규칙, 선수, 대회, 포지션을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "⚽",
     "category": "스포츠",
     "questions": [
       {
@@ -2504,7 +2504,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "baseball",
     "title": "야구 퀴즈",
     "desc": "규칙, 포지션, 기록, 리그을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "⚾",
     "category": "스포츠",
     "questions": [
       {
@@ -2623,7 +2623,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "basketball",
     "title": "농구 퀴즈",
     "desc": "규칙, 포지션, 선수, 기록을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "🏀",
     "category": "스포츠",
     "questions": [
       {
@@ -2742,7 +2742,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "volleyball",
     "title": "배구 퀴즈",
     "desc": "규칙, 포지션, 득점, 선수을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "🏐",
     "category": "스포츠",
     "questions": [
       {
@@ -2980,7 +2980,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "kdrama",
     "title": "드라마 퀴즈",
     "desc": "한국드라마, 해외드라마, 등장인물을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "📺",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -3099,7 +3099,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "animation",
     "title": "애니메이션 퀴즈",
     "desc": "작품, 캐릭터, 장르, 명대사을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎌",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -3218,7 +3218,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "kpop",
     "title": "케이팝 퀴즈",
     "desc": "그룹, 노래, 팬덤, 안무을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎵",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -3337,7 +3337,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "food",
     "title": "음식 퀴즈",
     "desc": "한식, 세계음식, 재료, 조리법을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🍱",
     "category": "생활·건강",
     "questions": [
       {
@@ -3456,7 +3456,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "travel",
     "title": "여행 퀴즈",
     "desc": "도시, 랜드마크, 문화, 교통을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "✈️",
     "category": "세계지리",
     "questions": [
       {
@@ -3575,7 +3575,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "cars",
     "title": "자동차 퀴즈",
     "desc": "브랜드, 부품, 운전상식, 연비을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🚗",
     "category": "생활·건강",
     "questions": [
       {
@@ -3694,7 +3694,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "interview",
     "title": "면접 상식 퀴즈",
     "desc": "자기소개, 태도, 질문대응, 직무이해을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🎤",
     "category": "생활·건강",
     "questions": [
       {
@@ -3813,7 +3813,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "business",
     "title": "기업 상식 퀴즈",
     "desc": "조직, 회계, 마케팅, 경영을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "🏢",
     "category": "환경·경제",
     "questions": [
       {
@@ -3932,7 +3932,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "world-culture",
     "title": "세계 문화 퀴즈",
     "desc": "축제, 예절, 종교, 음식을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "🌏",
     "category": "세계지리",
     "questions": [
       {
@@ -4051,7 +4051,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "korean-culture",
     "title": "한국 문화 퀴즈",
     "desc": "전통, 음식, 명절, 예절을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "🥢",
     "category": "세계지리",
     "questions": [
       {
@@ -4289,7 +4289,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "europe",
     "title": "유럽 퀴즈",
     "desc": "국가, 도시, 문화, 역사을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "🏰",
     "category": "역사",
     "questions": [
       {
@@ -4408,7 +4408,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "asia",
     "title": "아시아 퀴즈",
     "desc": "국가, 문화, 음식, 도시을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "🏮",
     "category": "세계지리",
     "questions": [
       {
@@ -4527,7 +4527,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "america",
     "title": "미국 퀴즈",
     "desc": "주, 도시, 역사, 문화을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "🗽",
     "category": "역사",
     "questions": [
       {
@@ -4646,7 +4646,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "china",
     "title": "중국 퀴즈",
     "desc": "역사, 도시, 문화, 음식을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "🐉",
     "category": "역사",
     "questions": [
       {
@@ -4765,7 +4765,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "japan",
     "title": "일본 퀴즈",
     "desc": "도시, 문화, 음식, 역사을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "⛩️",
     "category": "역사",
     "questions": [
       {
@@ -4884,7 +4884,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "sports-stars",
     "title": "스포츠 스타 퀴즈",
     "desc": "선수, 종목, 기록, 국적을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "🏅",
     "category": "스포츠",
     "questions": [
       {
@@ -5003,7 +5003,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "olympics",
     "title": "올림픽 퀴즈",
     "desc": "종목, 개최지, 메달, 기록을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "🥇",
     "category": "스포츠",
     "questions": [
       {
@@ -5122,7 +5122,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "world-cup",
     "title": "월드컵 퀴즈",
     "desc": "국가, 선수, 우승, 경기규칙을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🏟️",
+    "icon": "🏆",
     "category": "스포츠",
     "questions": [
       {
@@ -5241,7 +5241,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "programming-languages",
     "title": "프로그래밍 언어 퀴즈",
     "desc": "언어 특징, 용도, 문법을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔤",
+    "icon": "💻",
     "category": "언어",
     "questions": [
       {
@@ -5360,7 +5360,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "algorithms",
     "title": "알고리즘 퀴즈",
     "desc": "정렬, 탐색, 시간복잡도, 재귀을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "⚙️",
     "category": "기술·IT",
     "questions": [
       {
@@ -5479,7 +5479,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "data-structures",
     "title": "자료구조 퀴즈",
     "desc": "배열, 스택, 큐, 트리, 해시을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🧱",
     "category": "기술·IT",
     "questions": [
       {
@@ -5598,7 +5598,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "security",
     "title": "보안 퀴즈",
     "desc": "비밀번호, 암호화, 인증, 공격유형을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🔐",
     "category": "기술·IT",
     "questions": [
       {
@@ -5717,7 +5717,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "hacking",
     "title": "해킹 상식 퀴즈",
     "desc": "피싱, 악성코드, 취약점, 방어을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🧠",
+    "icon": "🕵️",
     "category": "상식",
     "questions": [
       {
@@ -5836,7 +5836,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "operating-systems",
     "title": "운영체제 퀴즈",
     "desc": "프로세스, 메모리, 파일, 스레드을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🖥️",
     "category": "기술·IT",
     "questions": [
       {
@@ -5955,7 +5955,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "html",
     "title": "웹 문서 퀴즈",
     "desc": "태그, 구조, 접근성, 문서 의미을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "📄",
     "category": "기술·IT",
     "questions": [
       {
@@ -6074,7 +6074,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "css",
     "title": "스타일시트 퀴즈",
     "desc": "선택자, 박스모델, 배치, 반응형을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🎨",
     "category": "기술·IT",
     "questions": [
       {
@@ -6193,7 +6193,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "javascript",
     "title": "자바스크립트 퀴즈",
     "desc": "변수, 함수, 배열, 비동기을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🟨",
     "category": "기술·IT",
     "questions": [
       {
@@ -6312,7 +6312,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "react",
     "title": "리액트 퀴즈",
     "desc": "컴포넌트, 상태, 속성, 훅을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "⚛️",
     "category": "기술·IT",
     "questions": [
       {
@@ -6431,7 +6431,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "nextjs",
     "title": "넥스트 퀴즈",
     "desc": "라우팅, 렌더링, 메타태그, 배포을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🔺",
     "category": "기술·IT",
     "questions": [
       {
@@ -6550,7 +6550,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "mobile-apps",
     "title": "모바일 앱 퀴즈",
     "desc": "앱 구조, 알림, 권한, 배포을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "📲",
     "category": "기술·IT",
     "questions": [
       {
@@ -6669,7 +6669,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "smartphones",
     "title": "스마트폰 퀴즈",
     "desc": "기능, 배터리, 보안, 설정을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "📱",
     "category": "기술·IT",
     "questions": [
       {
@@ -6788,7 +6788,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "internet",
     "title": "인터넷 퀴즈",
     "desc": "브라우저, 검색, 주소, 보안을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🔗",
     "category": "기술·IT",
     "questions": [
       {
@@ -6907,7 +6907,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "sns",
     "title": "소셜미디어 퀴즈",
     "desc": "게시물, 알고리즘, 해시태그, 보안을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "📸",
     "category": "기술·IT",
     "questions": [
       {
@@ -7026,7 +7026,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "youtube-quiz",
     "title": "유튜브 퀴즈",
     "desc": "채널, 영상, 알고리즘, 수익화을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "▶️",
     "category": "기술·IT",
     "questions": [
       {
@@ -7145,7 +7145,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "netflix",
     "title": "넷플릭스 퀴즈",
     "desc": "콘텐츠, 장르, 시리즈, 시청문화을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🗺️",
+    "icon": "🍿",
     "category": "세계지리",
     "questions": [
       {
@@ -7264,7 +7264,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "webtoons",
     "title": "웹툰 퀴즈",
     "desc": "장르, 플랫폼, 캐릭터, 용어을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "💻",
+    "icon": "🖊️",
     "category": "기술·IT",
     "questions": [
       {
@@ -7383,7 +7383,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "games",
     "title": "게임 퀴즈",
     "desc": "장르, 용어, 플랫폼, 캐릭터을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎮",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -7502,7 +7502,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "rpg",
     "title": "역할수행게임 퀴즈",
     "desc": "직업, 레벨, 장비, 퀘스트을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "⚔️",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -7621,7 +7621,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "fps",
     "title": "슈팅게임 퀴즈",
     "desc": "무기, 맵, 전략, 팀플레이을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎯",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -7740,7 +7740,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "strategy-games",
     "title": "전략게임 퀴즈",
     "desc": "자원, 빌드, 운영, 전술을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "♟️",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -7859,7 +7859,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "card-games",
     "title": "카드게임 퀴즈",
     "desc": "카드효과, 확률, 덱구성, 순서을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🃏",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -7978,7 +7978,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "board-games",
     "title": "보드게임 퀴즈",
     "desc": "규칙, 장르, 전략, 협상을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎲",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8097,7 +8097,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "music-quiz",
     "title": "음악 퀴즈",
     "desc": "장르, 악기, 가수, 용어을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎼",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8216,7 +8216,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "classical-music",
     "title": "클래식 음악 퀴즈",
     "desc": "작곡가, 악기, 시대, 작품을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🎻",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8335,7 +8335,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "instruments",
     "title": "악기 퀴즈",
     "desc": "현악기, 관악기, 타악기, 건반악기을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🧠",
+    "icon": "🎹",
     "category": "상식",
     "questions": [
       {
@@ -8454,7 +8454,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "art",
     "title": "미술 퀴즈",
     "desc": "화가, 작품, 사조, 재료을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🖼️",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8573,7 +8573,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "architecture",
     "title": "건축 퀴즈",
     "desc": "건축물, 구조, 양식, 도시을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "🏛️",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8692,7 +8692,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "design",
     "title": "디자인 퀴즈",
     "desc": "색상, 배치, 글꼴, 사용자경험을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "✏️",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8811,7 +8811,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "photography",
     "title": "사진 퀴즈",
     "desc": "구도, 빛, 렌즈, 촬영기법을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🎬",
+    "icon": "📷",
     "category": "엔터테인먼트",
     "questions": [
       {
@@ -8930,7 +8930,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "health",
     "title": "건강 상식 퀴즈",
     "desc": "운동, 식사, 수면, 생활습관을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🏥",
     "category": "생활·건강",
     "questions": [
       {
@@ -9168,7 +9168,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "medicine",
     "title": "약품 상식 퀴즈",
     "desc": "복용법, 보관, 주의사항을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "💊",
     "category": "생활·건강",
     "questions": [
       {
@@ -9287,7 +9287,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "animals",
     "title": "동물 퀴즈",
     "desc": "포유류, 조류, 파충류, 생태을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🦁",
     "category": "생활·건강",
     "questions": [
       {
@@ -9406,7 +9406,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "dogs",
     "title": "강아지 퀴즈",
     "desc": "품종, 행동, 건강, 훈련을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🐕",
     "category": "생활·건강",
     "questions": [
       {
@@ -9525,7 +9525,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "cats",
     "title": "고양이 퀴즈",
     "desc": "행동, 품종, 습성, 건강을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🐈",
     "category": "생활·건강",
     "questions": [
       {
@@ -9644,7 +9644,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "dinosaurs",
     "title": "공룡 퀴즈",
     "desc": "종류, 시대, 특징, 화석을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🦕",
     "category": "생활·건강",
     "questions": [
       {
@@ -9763,7 +9763,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "insects",
     "title": "곤충 퀴즈",
     "desc": "몸 구조, 생태, 변태, 종류을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🦋",
     "category": "생활·건강",
     "questions": [
       {
@@ -9882,7 +9882,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "sea-creatures",
     "title": "바다생물 퀴즈",
     "desc": "물고기, 포유류, 심해, 산호을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "🐠",
     "category": "생활·건강",
     "questions": [
       {
@@ -10001,7 +10001,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "space",
     "title": "우주 퀴즈",
     "desc": "행성, 은하, 별, 우주탐사을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔬",
+    "icon": "🚀",
     "category": "과학",
     "questions": [
       {
@@ -10120,7 +10120,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "weather",
     "title": "날씨 퀴즈",
     "desc": "기온, 비, 바람, 구름을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🔬",
+    "icon": "⛅",
     "category": "과학",
     "questions": [
       {
@@ -10239,7 +10239,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "environment",
     "title": "환경 퀴즈",
     "desc": "기후, 오염, 생태, 절약을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "🌱",
     "category": "환경·경제",
     "questions": [
       {
@@ -10358,7 +10358,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "carbon-neutral",
     "title": "탄소중립 퀴즈",
     "desc": "탄소배출, 에너지, 재생, 절감을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "🌿",
     "category": "환경·경제",
     "questions": [
       {
@@ -10477,7 +10477,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "recycling",
     "title": "재활용 퀴즈",
     "desc": "분리배출, 재사용, 쓰레기을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "♻️",
     "category": "환경·경제",
     "questions": [
       {
@@ -10596,7 +10596,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "jobs",
     "title": "직업 퀴즈",
     "desc": "직무, 역할, 산업, 자격을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "👔",
     "category": "생활·건강",
     "questions": [
       {
@@ -10715,7 +10715,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "civil-service",
     "title": "공무원 상식 퀴즈",
     "desc": "행정, 법, 조직, 민원을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🧠",
+    "icon": "📋",
     "category": "상식",
     "questions": [
       {
@@ -10834,7 +10834,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "finance-quiz",
     "title": "금융 퀴즈",
     "desc": "예금, 대출, 금리, 신용을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "💰",
     "category": "환경·경제",
     "questions": [
       {
@@ -10953,7 +10953,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "real-estate-quiz",
     "title": "부동산 퀴즈",
     "desc": "전세, 월세, 매매, 대출, 세금을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "🏘️",
     "category": "환경·경제",
     "questions": [
       {
@@ -11072,7 +11072,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "tax-quiz",
     "title": "세금 퀴즈",
     "desc": "소득세, 부가세, 연말정산, 공제을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "📊",
     "category": "환경·경제",
     "questions": [
       {
@@ -11191,7 +11191,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "law",
     "title": "법률 상식 퀴즈",
     "desc": "계약, 권리, 의무, 생활법률을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "🩺",
+    "icon": "⚖️",
     "category": "생활·건강",
     "questions": [
       {
@@ -11310,7 +11310,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "entrepreneurship",
     "title": "창업 퀴즈",
     "desc": "사업자, 고객, 비용, 마케팅을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "💡",
     "category": "환경·경제",
     "questions": [
       {
@@ -11429,7 +11429,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "marketing",
     "title": "마케팅 퀴즈",
     "desc": "고객, 광고, 브랜드, 전환을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "📣",
     "category": "환경·경제",
     "questions": [
       {
@@ -11548,7 +11548,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "advertising",
     "title": "광고 퀴즈",
     "desc": "노출, 클릭, 전환, 예산을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "📢",
     "category": "환경·경제",
     "questions": [
       {
@@ -11667,7 +11667,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "startups",
     "title": "스타트업 퀴즈",
     "desc": "투자, 성장, 제품, 시장을 중심으로 주제별 핵심 개념을 확인하는 10문항 퀴즈",
-    "icon": "📈",
+    "icon": "⚡",
     "category": "환경·경제",
     "questions": [
       {
@@ -11786,7 +11786,7 @@ export const QUIZZES: Quiz[] = [
     "slug": "master-quiz",
     "title": "종합 마스터 퀴즈",
     "desc": "상식, 역사, 과학, 경제, 문화을 중심으로 주제별 핵심 개념을 확인하는 20문항 퀴즈",
-    "icon": "🏛️",
+    "icon": "👑",
     "category": "역사",
     "questions": [
       {
