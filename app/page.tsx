@@ -11,8 +11,8 @@ const SECTIONS = [
     href: '/calculator',
     icon: '📊',
     title: '계산기',
-    desc: '세금·금융·건강·부동산 등 70개+ 계산기',
-    badge: '70+',
+    desc: '세금·금융·건강·부동산 등 85개+ 계산기',
+    badge: '85+',
     color: 'from-blue-500 to-blue-700',
     bgLight: 'bg-blue-50',
     textAccent: 'text-blue-700',
@@ -106,7 +106,7 @@ export default function HubPage() {
         {/* Stats bar */}
         <div className="mt-10 flex items-center justify-center gap-6 text-center">
           {[
-            { label: '계산기', val: '70+' },
+            { label: '계산기', val: '85+' },
             { label: '테스트', val: '100+' },
             { label: '퀴즈', val: '100+' },
             { label: '생성기', val: '100+' },
