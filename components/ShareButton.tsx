@@ -39,7 +39,7 @@ export default function ShareButton({ title, description, type = 'test' }: Props
     const text = description ? `${description}\n\n${url}` : url;
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
       try {
-        await navigator.share({ title, text: description, url });
+        await navigator.share({ text: `${title}\n\n${description}\n\n${url}` });
         return;
       } catch (e) {
         if ((e as Error).name === 'AbortError') return;
