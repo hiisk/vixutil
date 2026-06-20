@@ -1,5 +1,6 @@
 export interface TestQ {
   q: string;
+  axis?: 'EI' | 'SN' | 'TF' | 'JP'; // MBTI axis (high score = E/S/T/J)
   opts: { text: string; score: number }[];
 }
 
@@ -11,6 +12,7 @@ export interface TestResult {
   emoji: string;
   traits?: string[];
   color?: string; // tailwind gradient e.g. 'from-violet-500 to-pink-600'
+  mbtiType?: string; // 'INTJ', 'ENFP', etc. — used when test.type === 'mbti'
 }
 
 export interface Test {
@@ -19,6 +21,7 @@ export interface Test {
   desc: string;
   icon: string;
   category: string;
+  type?: 'score' | 'mbti'; // default 'score'
   questions: TestQ[];
   results: TestResult[];
 }

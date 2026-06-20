@@ -6,12 +6,27 @@ import ShareButton from './ShareButton';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
 
+function getMbtiType(scores: Record<string, number>): string {
+  const e = (scores.EI ?? 0) >= 8 ? 'E' : 'I';
+  const s = (scores.SN ?? 0) >= 8 ? 'S' : 'N';
+  const t = (scores.TF ?? 0) >= 8 ? 'T' : 'F';
+  const j = (scores.JP ?? 0) >= 8 ? 'J' : 'P';
+  return e + s + t + j;
+}
+
 export default function TestEngine({ test }: { test: Test }) {
   const [phase, setPhase] = useState<'start' | 'question' | 'result'>('start');
   const [current, setCurrent] = useState(0);
   const [total, setTotal] = useState(0);
+  const [axisScores, setAxisScores] = useState<Record<string, number>>({});
+
+  const isMbti = test.type === 'mbti';
 
   function pick(score: number) {
+    const q = test.questions[current];
+    if (isMbti && q.axis) {
+      setAxisScores(prev => ({ ...prev, [q.axis!]: (prev[q.axis!] ?? 0) + score }));
+    }
     const next = total + score;
     if (current + 1 >= test.questions.length) {
       setTotal(next);
@@ -22,9 +37,12 @@ export default function TestEngine({ test }: { test: Test }) {
     }
   }
 
-  function restart() { setPhase('start'); setCurrent(0); setTotal(0); }
+  function restart() { setPhase('start'); setCurrent(0); setTotal(0); setAxisScores({}); }
 
-  const result = test.results.find(r => total >= r.min && total <= r.max) ?? test.results[test.results.length - 1];
+  const mbtiType = isMbti ? getMbtiType(axisScores) : null;
+  const result = isMbti
+    ? (test.results.find(r => r.mbtiType === mbtiType) ?? test.results[0])
+    : (test.results.find(r => total >= r.min && total <= r.max) ?? test.results[test.results.length - 1]);
   const progress = Math.round((current / test.questions.length) * 100);
   const grad = result?.color ?? DEFAULT_GRADIENT;
 
@@ -108,7 +126,10 @@ export default function TestEngine({ test }: { test: Test }) {
           {/* main emoji */}
           <div className="text-7xl mb-4 filter drop-shadow-lg relative z-10">{result.emoji}</div>
           <span className="relative z-10 text-xs font-bold bg-white/20 px-3 py-1 rounded-full">{test.category} 테스트 결과</span>
-          <h2 className="relative z-10 text-2xl font-black mt-4 mb-3">{result.title}</h2>
+          {mbtiType && (
+            <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
+          )}
+          <h2 className="relative z-10 text-2xl font-black mt-2 mb-3">{result.title}</h2>
           <p className="relative z-10 text-sm leading-relaxed text-white/90">{result.desc}</p>
         </div>
 
