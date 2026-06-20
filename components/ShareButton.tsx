@@ -36,6 +36,7 @@ export default function ShareButton({ title, description, type = 'test' }: Props
 
   async function share() {
     const url = window.location.href;
+    const text = description ? `${description}\n\n${url}` : url;
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
       try {
         await navigator.share({ title, text: description, url });
@@ -44,7 +45,7 @@ export default function ShareButton({ title, description, type = 'test' }: Props
         if ((e as Error).name === 'AbortError') return;
       }
     }
-    await navigator.clipboard.writeText(url);
+    await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   }

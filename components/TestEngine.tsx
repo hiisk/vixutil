@@ -147,7 +147,11 @@ export default function TestEngine({ test }: { test: Test }) {
           </div>
         )}
 
-        <ShareButton title={`${test.title} 결과: ${result.title}`} description={result.desc} type="test" />
+        <ShareButton
+          title={`${test.title} 결과: ${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`}
+          description={`${mbtiType ? `나의 MBTI는 ${mbtiType}!\n` : ''}${result.title}\n\n${result.desc}`}
+          type="test"
+        />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}
