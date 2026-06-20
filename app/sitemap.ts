@@ -5,6 +5,8 @@ import { GENERATORS } from "@/lib/generator-data";
 
 const BASE = "https://vixutil.com";
 
+export const dynamic = "force-static";
+
 const calculatorRoutes = [
   "/calculator/salary", "/calculator/parttime", "/calculator/minimum-wage", "/calculator/standard-wage", "/calculator/overtime",
   "/calculator/weekly-holiday", "/calculator/severance", "/calculator/annual-leave-pay", "/calculator/four-insurance",

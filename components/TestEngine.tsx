@@ -71,7 +71,7 @@ export default function TestEngine({ test }: { test: Test }) {
         </header>
         <div className="flex-1 px-4 py-10 max-w-lg mx-auto w-full">
           <p className="text-xs font-bold text-violet-400 mb-4">Q{current + 1}</p>
-          <h2 className="text-lg font-bold text-slate-900 mb-8 leading-relaxed">{q.q}</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-8 leading-relaxed whitespace-pre-line">{q.q}</h2>
           <div className="flex flex-col gap-3">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(opt.score)}

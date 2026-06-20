@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const SECTIONS = [
   {
     href: '/calculator',
-    icon: '🧮',
+    icon: '📊',
     title: '계산기',
     desc: '세금·금융·건강·부동산 등 70개+ 계산기',
     badge: '70+',
@@ -21,7 +21,7 @@ const SECTIONS = [
   },
   {
     href: '/test',
-    icon: '🧠',
+    icon: '🧭',
     title: '심리 테스트',
     desc: 'MBTI·연애·직장·성향 등 심리 테스트',
     badge: '100+',
@@ -33,7 +33,7 @@ const SECTIONS = [
   },
   {
     href: '/quiz',
-    icon: '❓',
+    icon: '🏆',
     title: '지식 퀴즈',
     desc: '한국사·IT·상식·K-POP 등 퀴즈',
     badge: '100+',
@@ -45,7 +45,7 @@ const SECTIONS = [
   },
   {
     href: '/generator',
-    icon: '✨',
+    icon: '⚙️',
     title: '생성기',
     desc: '닉네임·명언·추천·비밀번호 등 생성',
     badge: '100+',
