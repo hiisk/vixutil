@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 
-const MIN_WAGE = 10_030;
+const MIN_WAGE = 10_320;
 
 function calcMonthly(hourly: number, weeklyHours: number) {
   const weeklyHoliday = weeklyHours >= 15 ? weeklyHours / 5 : 0;
@@ -30,7 +30,7 @@ export default function MinimumWagePage() {
   })();
 
   return (
-    <CalcShell title="최저시급 월급 계산기" description="2026년 최저시급 10,030원 기준">
+    <CalcShell title="최저시급 월급 계산기" description="2026년 최저시급 10,320원 기준">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
@@ -38,7 +38,7 @@ export default function MinimumWagePage() {
               <Label>시급 (원)</Label>
               <input type="number" value={hourly} onChange={e => setHourly(e.target.value)}
                 placeholder="10030" className={inputCls} min="0" />
-              <p className="text-xs text-blue-600 mt-1.5 font-semibold">2026년 최저시급: 10,030원</p>
+              <p className="text-xs text-blue-600 mt-1.5 font-semibold">2026년 최저시급: 10,320원</p>
             </div>
             <div>
               <Label>주 소정근로시간</Label>

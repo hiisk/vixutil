@@ -129,7 +129,7 @@ export default function LoanPage() {
                 </table>
               </TableWrap>
               <div className="px-5 pb-4">
-                <ShowMoreBtn total={rows.length} showing={24} onClick={()=>setShowAll(true)}/>
+                {!showAll && <ShowMoreBtn total={rows.length} showing={24} onClick={()=>setShowAll(true)}/>}
               </div>
             </Card>
           </>

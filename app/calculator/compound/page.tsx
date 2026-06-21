@@ -154,7 +154,7 @@ export default function CompoundPage() {
                   </tbody>
                 </table>
               </TableWrap>
-              <ShowMoreBtn total={rows?.length ?? 0} showing={20} onClick={() => setShowAll(true)} />
+              {!showAll && <ShowMoreBtn total={rows?.length ?? 0} showing={20} onClick={() => setShowAll(true)} />}
             </Card>
           </>
         )}

@@ -46,7 +46,7 @@ export default function ParttimePage() {
             <div>
               <Label>시급 (원)</Label>
               <input type="number" value={hourly} onChange={e => setHourly(e.target.value)}
-                placeholder="예: 10,030" className={inputCls} min="0" />
+                placeholder="예: 10,320" className={inputCls} min="0" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>

@@ -172,7 +172,7 @@ export default function SimpleInterestPage() {
                 </table>
               </TableWrap>
               <div className="p-4">
-                <ShowMoreBtn total={rows?.length ?? 0} showing={20} onClick={() => setShowAll(true)} />
+                {!showAll && <ShowMoreBtn total={rows?.length ?? 0} showing={20} onClick={() => setShowAll(true)} />}
               </div>
             </Card>
           </>

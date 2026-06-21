@@ -168,7 +168,7 @@ export default function InflationPage() {
                     </table>
                   </TableWrap>
                   <div className="p-4">
-                    <ShowMoreBtn total={futureRows!.length} showing={20} onClick={() => setShowAllF(true)} />
+                    {!showAllF && <ShowMoreBtn total={futureRows!.length} showing={20} onClick={() => setShowAllF(true)} />}
                   </div>
                 </Card>
               </>
@@ -254,7 +254,7 @@ export default function InflationPage() {
                     </table>
                   </TableWrap>
                   <div className="p-4">
-                    <ShowMoreBtn total={presentRows!.length} showing={20} onClick={() => setShowAllP(true)} />
+                    {!showAllP && <ShowMoreBtn total={presentRows!.length} showing={20} onClick={() => setShowAllP(true)} />}
                   </div>
                 </Card>
               </>

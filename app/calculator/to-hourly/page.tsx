@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 
-const MIN_WAGE_2026 = 10_030;
+const MIN_WAGE_2026 = 10_320;
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function ToHourlyPage() {
