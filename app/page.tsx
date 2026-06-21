@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
-  description: '계산기·심리테스트·퀴즈·생성기 등 일상에 필요한 실용 도구 모음 — vixutil.com',
+  description: '계산기·심리테스트·퀴즈·생성기·체크리스트 등 일상에 필요한 실용 도구 모음 — vixutil.com',
 };
 
 const SECTIONS = [
@@ -55,12 +55,24 @@ const SECTIONS = [
     borderAccent: 'border-emerald-200',
     shadow: 'shadow-emerald-100',
   },
+  {
+    href: '/checklist',
+    icon: '✅',
+    title: '체크리스트',
+    desc: '이사·취업·여행·건강 등 상황별 체크리스트',
+    badge: '16+',
+    color: 'from-sky-400 to-cyan-600',
+    bgLight: 'bg-sky-50',
+    textAccent: 'text-sky-700',
+    borderAccent: 'border-sky-200',
+    shadow: 'shadow-sky-100',
+  },
 ];
 
 export default function HubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 via-amber-400 to-emerald-500" />
+      <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 via-amber-400 via-emerald-500 to-sky-400" />
 
       <div className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
         {/* Brand */}
@@ -104,12 +116,13 @@ export default function HubPage() {
         </div>
 
         {/* Stats bar */}
-        <div className="mt-10 flex items-center justify-center gap-6 text-center">
+        <div className="mt-10 flex items-center justify-center gap-5 text-center flex-wrap">
           {[
             { label: '계산기', val: '85+' },
             { label: '테스트', val: '100+' },
             { label: '퀴즈', val: '100+' },
             { label: '생성기', val: '100+' },
+            { label: '체크리스트', val: '16+' },
           ].map(item => (
             <div key={item.label}>
               <p className="text-xl font-black text-slate-900">{item.val}</p>

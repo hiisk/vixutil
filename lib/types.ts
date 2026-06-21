@@ -42,6 +42,27 @@ export interface Quiz {
   questions: QuizQ[];
 }
 
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  note?: string;
+}
+
+export interface ChecklistSection {
+  title: string;
+  icon: string;
+  items: ChecklistItem[];
+}
+
+export interface Checklist {
+  slug: string;
+  title: string;
+  desc: string;
+  icon: string;
+  category: string;
+  sections: ChecklistSection[];
+}
+
 export interface Generator {
   slug: string;
   title: string;
