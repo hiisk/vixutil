@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MBTI_TYPES } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
@@ -13,6 +13,18 @@ const GROUPS = [
 
 export default function MbtiPage() {
   const [selected, setSelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (id && MBTI_TYPES.some(t => t.id === id)) setSelected(id);
+  }, []);
+
+  function handleSelect(id: string) {
+    setSelected(id);
+    window.history.replaceState(null, '', `?id=${id}`);
+  }
+
   const type = MBTI_TYPES.find(t => t.id === selected);
 
   return (
@@ -27,7 +39,9 @@ export default function MbtiPage() {
             운세
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">MBTI 운세</span>
+          <span className="text-sm font-semibold text-slate-700 flex-1 truncate">
+            {type ? `${type.id} 운세` : 'MBTI 운세'}
+          </span>
         </div>
       </header>
 
@@ -37,7 +51,6 @@ export default function MbtiPage() {
           <p className="text-sm text-slate-500 mt-1">내 MBTI 유형을 선택하세요</p>
         </div>
 
-        {/* MBTI 선택 */}
         <div className="space-y-3 mb-6">
           {GROUPS.map(g => (
             <div key={g.label}>
@@ -48,14 +61,14 @@ export default function MbtiPage() {
                   return (
                     <button
                       key={id}
-                      onClick={() => setSelected(id)}
+                      onClick={() => handleSelect(id)}
                       className={`rounded-xl p-2.5 text-center transition-all border ${
                         selected === id
                           ? 'bg-sky-600 border-sky-600 text-white shadow-md'
                           : 'bg-white border-slate-200 hover:border-sky-300 text-slate-700'
                       }`}
                     >
-                      <div className={`text-lg mb-0.5 ${selected === id ? '' : ''}`}>{t.emoji}</div>
+                      <div className="text-lg mb-0.5">{t.emoji}</div>
                       <p className={`text-xs font-black ${selected === id ? 'text-white' : 'text-slate-800'}`}>{id}</p>
                     </button>
                   );
@@ -65,7 +78,6 @@ export default function MbtiPage() {
           ))}
         </div>
 
-        {/* 선택된 운세 */}
         {type ? (
           <div>
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 bg-white border border-slate-200 rounded-xl px-3 py-2">

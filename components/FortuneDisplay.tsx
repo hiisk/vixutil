@@ -1,5 +1,5 @@
 'use client';
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortune } from '@/lib/fortune-data';
 
 interface Props {
@@ -10,10 +10,10 @@ interface Props {
 }
 
 const DOMAINS = [
-  { key: 'love'  as const, label: '연애운', icon: '💕' },
-  { key: 'money' as const, label: '금전운', icon: '💰' },
-  { key: 'work'  as const, label: '직업운', icon: '💼' },
-  { key: 'health'as const, label: '건강운', icon: '💪' },
+  { key: 'love'   as const, label: '연애운', icon: '💕' },
+  { key: 'money'  as const, label: '금전운', icon: '💰' },
+  { key: 'work'   as const, label: '직업운', icon: '💼' },
+  { key: 'health' as const, label: '건강운', icon: '💪' },
 ];
 
 function Stars({ n }: { n: number }) {
@@ -28,6 +28,49 @@ function Stars({ n }: { n: number }) {
   );
 }
 
+function ShareBtn({ name }: { name: string }) {
+  const [state, setState] = useState<'idle' | 'copied'>('idle');
+
+  const handleShare = useCallback(async () => {
+    const url = window.location.href;
+    const today = new Date();
+    const dateStr = `${today.getMonth()+1}월 ${today.getDate()}일`;
+    const text = `${name} ${dateStr} 운세 — vixutil.com`;
+
+    if (navigator.share) {
+      try { await navigator.share({ title: text, url }); return; } catch {}
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setState('copied');
+      setTimeout(() => setState('idle'), 2000);
+    } catch {}
+  }, [name]);
+
+  return (
+    <button
+      onClick={handleShare}
+      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30"
+    >
+      {state === 'copied' ? (
+        <>
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          복사됨
+        </>
+      ) : (
+        <>
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+          </svg>
+          공유
+        </>
+      )}
+    </button>
+  );
+}
+
 export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, badge }: Props) {
   const f = useMemo(() => getTodayFortune(subjectId), [subjectId]);
   const today = useMemo(() => {
@@ -35,18 +78,21 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
     return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
   }, []);
 
-  const overallAvg = Math.round((f.stars.overall + f.stars.love + f.stars.money + f.stars.health + f.stars.work) / 5);
+  const overallAvg = Math.round(
+    (f.stars.overall + f.stars.love + f.stars.money + f.stars.health + f.stars.work) / 5
+  );
 
   return (
     <div className="space-y-4">
       {/* 헤더 카드 */}
       <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-6 text-white text-center">
+        <div className="flex justify-end mb-2">
+          <ShareBtn name={subjectName} />
+        </div>
         <p className="text-sm font-semibold text-purple-200 mb-2">{today} 운세</p>
         <div className="text-6xl mb-3">{subjectEmoji}</div>
         <h2 className="text-2xl font-black mb-1">{subjectName}</h2>
         {badge && <span className="text-xs bg-white/20 px-3 py-1 rounded-full font-semibold">{badge}</span>}
-
-        {/* 종합 별점 */}
         <div className="mt-4 flex flex-col items-center gap-1">
           <p className="text-xs text-purple-200">오늘의 종합운</p>
           <Stars n={overallAvg} />

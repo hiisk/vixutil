@@ -1,13 +1,24 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ANIMALS } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 
 export default function AnimalPage() {
   const [selected, setSelected] = useState<string | null>(null);
-  const animal = ANIMALS.find(a => a.id === selected);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (id && ANIMALS.some(a => a.id === id)) setSelected(id);
+  }, []);
+
+  function handleSelect(id: string) {
+    setSelected(id);
+    window.history.replaceState(null, '', `?id=${id}`);
+  }
+
+  const animal = ANIMALS.find(a => a.id === selected);
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,7 +33,9 @@ export default function AnimalPage() {
             운세
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">사주·띠 운세</span>
+          <span className="text-sm font-semibold text-slate-700 flex-1 truncate">
+            {animal ? animal.name : '사주·띠 운세'}
+          </span>
         </div>
       </header>
 
@@ -32,14 +45,13 @@ export default function AnimalPage() {
           <p className="text-sm text-slate-500 mt-1">내 띠를 선택하세요</p>
         </div>
 
-        {/* 띠 선택 그리드 */}
         <div className="grid grid-cols-3 gap-2 mb-6">
           {ANIMALS.map(a => {
             const recentYear = [...a.years].filter(y => y <= currentYear).at(-1);
             return (
               <button
                 key={a.id}
-                onClick={() => setSelected(a.id)}
+                onClick={() => handleSelect(a.id)}
                 className={`rounded-2xl p-3 text-center transition-all border ${
                   selected === a.id
                     ? 'bg-rose-600 border-rose-600 text-white shadow-md'
@@ -54,7 +66,6 @@ export default function AnimalPage() {
           })}
         </div>
 
-        {/* 선택된 운세 */}
         {animal ? (
           <div>
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 bg-white border border-slate-200 rounded-xl px-3 py-2 flex-wrap">

@@ -1,11 +1,24 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ZODIAC_SIGNS } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 
 export default function ZodiacPage() {
   const [selected, setSelected] = useState<string | null>(null);
+
+  // URL 파라미터에서 초기값 읽기
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (id && ZODIAC_SIGNS.some(s => s.id === id)) setSelected(id);
+  }, []);
+
+  function handleSelect(id: string) {
+    setSelected(id);
+    window.history.replaceState(null, '', `?id=${id}`);
+  }
+
   const sign = ZODIAC_SIGNS.find(s => s.id === selected);
 
   return (
@@ -20,7 +33,9 @@ export default function ZodiacPage() {
             운세
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">별자리 운세</span>
+          <span className="text-sm font-semibold text-slate-700 flex-1 truncate">
+            {sign ? sign.name : '별자리 운세'}
+          </span>
         </div>
       </header>
 
@@ -30,12 +45,11 @@ export default function ZodiacPage() {
           <p className="text-sm text-slate-500 mt-1">내 별자리를 선택하세요</p>
         </div>
 
-        {/* 별자리 선택 그리드 */}
         <div className="grid grid-cols-3 gap-2 mb-6">
           {ZODIAC_SIGNS.map(s => (
             <button
               key={s.id}
-              onClick={() => setSelected(s.id)}
+              onClick={() => handleSelect(s.id)}
               className={`rounded-2xl p-3 text-center transition-all border ${
                 selected === s.id
                   ? 'bg-violet-600 border-violet-600 text-white shadow-md'
@@ -49,7 +63,6 @@ export default function ZodiacPage() {
           ))}
         </div>
 
-        {/* 선택된 별자리 운세 */}
         {sign ? (
           <div>
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 bg-white border border-slate-200 rounded-xl px-3 py-2">
