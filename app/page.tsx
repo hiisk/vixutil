@@ -59,8 +59,8 @@ const SECTIONS = [
     href: '/checklist',
     icon: '✅',
     title: '체크리스트',
-    desc: '이사·취업·여행·건강 등 상황별 체크리스트',
-    badge: '45+',
+    desc: '이사·취업·여행·건강·디지털 등 상황별 체크리스트',
+    badge: '70+',
     color: 'from-sky-400 to-cyan-600',
     bgLight: 'bg-sky-50',
     textAccent: 'text-sky-700',
@@ -122,7 +122,7 @@ export default function HubPage() {
             { label: '테스트', val: '100+' },
             { label: '퀴즈', val: '100+' },
             { label: '생성기', val: '100+' },
-            { label: '체크리스트', val: '45+' },
+            { label: '체크리스트', val: '70+' },
           ].map(item => (
             <div key={item.label}>
               <p className="text-xl font-black text-slate-900">{item.val}</p>
