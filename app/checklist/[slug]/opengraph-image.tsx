@@ -54,7 +54,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               marginBottom: 16,
             }}
           >
-            {checklist.category} · {total}개 항목
+            {`${checklist.category} · ${total}개 항목`}
           </div>
           <div
             style={{
