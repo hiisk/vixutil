@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
 
-const CATEGORIES = ['이사·생활', '취업·직장', '여행', '건강·운동', '재테크'];
+const CATEGORIES = ['이사·생활', '취업·직장', '여행', '건강·운동', '재테크', '학습·시험', '행사·기념'];
 
 function ChecklistCard({ c }: { c: Checklist }) {
   const total = c.sections.reduce((s, sec) => s + sec.items.length, 0);
