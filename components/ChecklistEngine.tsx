@@ -64,123 +64,217 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
   async function handleSaveCard() {
     setDownloading(true);
     try {
-      const S = 1080;
-      const canvas = document.createElement('canvas');
-      canvas.width = S;
-      canvas.height = S;
-      const ctx = canvas.getContext('2d')!;
+      const W = 1080;
+      const PAD = 60;
+      const IW = W - PAD * 2;       // inner width
+      const CB = 26;                  // checkbox size
+      const TEXT_X = PAD + CB + 18;  // item text start x
+      const TEXT_W = W - TEXT_X - PAD;
+      const ITEM_H = 54;
+      const SEC_H = 56;
+      const SEC_GAP = 20;
+      const HEADER_H = 288;
+      const FOOTER_H = 68;
+
       const KR = '"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif';
       const font = (px: number, w = 'normal') => `${w} ${px}px -apple-system,BlinkMacSystemFont,${KR}`;
-      const cx = S / 2;
 
-      // Background gradient
-      const grad = ctx.createLinearGradient(0, 0, S, S);
-      grad.addColorStop(0, '#0ea5e9');
-      grad.addColorStop(0.5, '#0284c7');
-      grad.addColorStop(1, '#0369a1');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, S, S);
+      // Pre-calculate total height using a temp canvas to measure text
+      const tmp = document.createElement('canvas').getContext('2d')!;
+      tmp.font = font(26, '500');
+      let contentH = 0;
+      for (const sec of checklist.sections) {
+        contentH += SEC_H;
+        for (const item of sec.items) {
+          const lines = wrapText(tmp, item.text, TEXT_W, 2);
+          const noteLines = item.note ? wrapText(tmp, item.note, TEXT_W, 1) : [];
+          const lineH = lines.length > 1 ? 34 : 0;
+          const noteH = noteLines.length > 0 ? 28 : 0;
+          contentH += ITEM_H + lineH + noteH;
+        }
+        contentH += SEC_GAP;
+      }
+      const H = HEADER_H + 32 + contentH + FOOTER_H;
 
-      // White card
-      const pad = 64;
-      const cW = S - pad * 2, cH = S - pad * 2;
-      roundRect(ctx, pad, pad, cW, cH, 48);
-      ctx.fillStyle = 'white';
-      ctx.fill();
+      const canvas = document.createElement('canvas');
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d')!;
+      const cx = W / 2;
 
-      const inner = pad + 56;
-      const innerW = S - inner * 2;
-      let y = pad + 88;
+      /* ── 배경 ── */
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(0, 0, W, H);
 
-      // Emoji icon
-      ctx.font = `88px serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji"`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#000';
-      ctx.fillText(checklist.icon, cx, y);
-      y += 88;
+      /* ── 헤더 (sky blue 그라디언트) ── */
+      const hgrad = ctx.createLinearGradient(0, 0, W, HEADER_H);
+      hgrad.addColorStop(0, '#38bdf8');
+      hgrad.addColorStop(1, '#0284c7');
+      ctx.fillStyle = hgrad;
+      ctx.fillRect(0, 0, W, HEADER_H);
 
-      // Category badge
-      y += 24;
+      let y = 44;
+
+      // 카테고리 배지
       ctx.font = font(22, '700');
       const catTxt = checklist.category;
-      const catW = ctx.measureText(catTxt).width + 52;
-      const badgeH = 44;
-      roundRect(ctx, cx - catW / 2, y, catW, badgeH, badgeH / 2);
-      ctx.fillStyle = '#e0f2fe';
+      const catW = ctx.measureText(catTxt).width + 44;
+      const bH = 38;
+      roundRect(ctx, cx - catW / 2, y, catW, bH, bH / 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.22)';
       ctx.fill();
-      ctx.fillStyle = '#0284c7';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(catTxt, cx, y + badgeH / 2);
-      y += badgeH + 44;
-
-      // Title (max 2 lines)
-      ctx.font = font(58, '900');
-      ctx.fillStyle = '#0f172a';
-      ctx.textBaseline = 'middle';
-      const titleLines = wrapText(ctx, checklist.title, innerW, 2);
-      const titleLH = 72;
-      titleLines.forEach((line, i) => ctx.fillText(line, cx, y + i * titleLH));
-      y += titleLines.length * titleLH + 18;
-
-      // Desc (max 2 lines)
-      ctx.font = font(26);
-      ctx.fillStyle = '#64748b';
-      const descLines = wrapText(ctx, checklist.desc, innerW, 2);
-      const descLH = 38;
-      descLines.forEach((line, i) => ctx.fillText(line, cx, y + i * descLH));
-      y += descLines.length * descLH + 52;
-
-      // Progress bar
-      const barX = inner, barW = innerW, barH = 20;
-      roundRect(ctx, barX, y, barW, barH, barH / 2);
-      ctx.fillStyle = '#f1f5f9';
-      ctx.fill();
-
-      const fillW = Math.max(barW * pct / 100, pct > 0 ? barH : 0);
-      if (fillW > 0) {
-        roundRect(ctx, barX, y, fillW, barH, barH / 2);
-        ctx.fillStyle = isAllDone ? '#10b981' : '#0ea5e9';
-        ctx.fill();
-      }
-      y += barH + 24;
-
-      // Stats
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'left';
-      ctx.font = font(26, '600');
-      ctx.fillStyle = '#64748b';
-      ctx.fillText(`${done}개 완료 / ${total}개 항목`, barX, y);
-
-      ctx.textAlign = 'right';
-      ctx.font = font(34, '900');
-      ctx.fillStyle = isAllDone ? '#10b981' : '#0ea5e9';
-      ctx.fillText(`${pct}%`, barX + barW, y);
-      y += 50;
-
-      // Done banner
-      if (isAllDone) {
-        const bannerTxt = '🎉  모든 항목 완료!';
-        ctx.font = font(26, '700');
-        const bW = ctx.measureText(bannerTxt).width + 64;
-        const bH = 58;
-        roundRect(ctx, cx - bW / 2, y, bW, bH, 16);
-        ctx.fillStyle = '#d1fae5';
-        ctx.fill();
-        ctx.fillStyle = '#059669';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(bannerTxt, cx, y + bH / 2);
-      }
-
-      // Branding
-      ctx.font = font(26, '900');
-      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.fillStyle = '#fff';
       ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText('vixutil.com', cx, S - 28);
+      ctx.textBaseline = 'middle';
+      ctx.fillText(catTxt, cx, y + bH / 2);
+      y += bH + 22;
 
-      // Download
+      // 제목 (이모지 + 텍스트)
+      ctx.font = font(46, '900');
+      ctx.fillStyle = '#fff';
+      ctx.fillText(`${checklist.icon} ${checklist.title}`, cx, y + 28);
+      y += 68;
+
+      // 진행률 바
+      const barX = PAD + 16, barW = IW - 32, barH = 12;
+      roundRect(ctx, barX, y, barW, barH, barH / 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.fill();
+      const fw = Math.max(barW * pct / 100, pct > 0 ? barH : 0);
+      if (fw > 0) {
+        roundRect(ctx, barX, y, fw, barH, barH / 2);
+        ctx.fillStyle = isAllDone ? '#6ee7b7' : '#fff';
+        ctx.fill();
+      }
+      y += barH + 14;
+
+      // 통계
+      ctx.textBaseline = 'middle';
+      ctx.font = font(22, '600');
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.textAlign = 'left';
+      ctx.fillText(`${done}/${total} 완료`, barX, y);
+      ctx.textAlign = 'right';
+      ctx.font = font(26, '900');
+      ctx.fillStyle = '#fff';
+      ctx.fillText(`${pct}%`, barX + barW, y);
+
+      /* ── 섹션 & 항목 ── */
+      y = HEADER_H + 32;
+
+      for (const sec of checklist.sections) {
+        const secIds = sec.items.map(i => i.id);
+        const secDone = secIds.filter(id => checked.has(id)).length;
+        const secAll = secDone === secIds.length;
+
+        // 섹션 헤더 행
+        ctx.fillStyle = secAll ? '#f0fdf4' : '#f1f5f9';
+        ctx.fillRect(0, y, W, SEC_H);
+        // 섹션 구분선
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, y); ctx.lineTo(W, y);
+        ctx.stroke();
+
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.font = font(26, '700');
+        ctx.fillStyle = secAll ? '#059669' : '#334155';
+        ctx.fillText(`${sec.icon}  ${sec.title}`, PAD, y + SEC_H / 2);
+
+        // 섹션 카운트
+        ctx.textAlign = 'right';
+        ctx.font = font(22, '700');
+        ctx.fillStyle = secAll ? '#059669' : '#0ea5e9';
+        ctx.fillText(`${secDone}/${secIds.length}`, W - PAD, y + SEC_H / 2);
+        y += SEC_H;
+
+        // 항목
+        for (const item of sec.items) {
+          const isChecked = checked.has(item.id);
+
+          // 항목 구분선
+          ctx.strokeStyle = '#f1f5f9';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y);
+          ctx.stroke();
+
+          // 텍스트 줄 수 계산
+          ctx.font = font(26, '500');
+          const lines = wrapText(ctx, item.text, TEXT_W, 2);
+          const noteLines = item.note ? wrapText(ctx, item.note, TEXT_W, 1) : [];
+          const extraH = (lines.length > 1 ? (lines.length - 1) * 34 : 0) + (noteLines.length > 0 ? 28 : 0);
+          const thisH = ITEM_H + extraH;
+          const midY = y + thisH / 2;
+
+          // 체크박스
+          const cbY = y + 18;
+          roundRect(ctx, PAD, cbY, CB, CB, 6);
+          if (isChecked) {
+            ctx.fillStyle = '#0ea5e9';
+            ctx.fill();
+            // 체크마크
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.moveTo(PAD + 5, cbY + CB / 2);
+            ctx.lineTo(PAD + CB / 2 - 1, cbY + CB - 7);
+            ctx.lineTo(PAD + CB - 5, cbY + 7);
+            ctx.stroke();
+          } else {
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+
+          // 항목 텍스트
+          ctx.font = font(26, isChecked ? '400' : '500');
+          ctx.fillStyle = isChecked ? '#94a3b8' : '#1e293b';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'top';
+          lines.forEach((line, i) => {
+            ctx.fillText(line, TEXT_X, y + 15 + i * 34);
+            // 취소선
+            if (isChecked) {
+              const tw = Math.min(ctx.measureText(line).width, TEXT_W);
+              const ly = y + 15 + i * 34 + 14;
+              ctx.strokeStyle = '#94a3b8';
+              ctx.lineWidth = 1.5;
+              ctx.beginPath();
+              ctx.moveTo(TEXT_X, ly);
+              ctx.lineTo(TEXT_X + tw, ly);
+              ctx.stroke();
+            }
+          });
+
+          // note
+          if (noteLines.length > 0) {
+            const noteY = y + 15 + lines.length * 34 + 2;
+            ctx.font = font(21);
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(noteLines[0], TEXT_X, noteY);
+          }
+
+          y += thisH;
+        }
+
+        y += SEC_GAP;
+      }
+
+      /* ── 푸터 ── */
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillRect(0, H - FOOTER_H, W, FOOTER_H);
+      ctx.font = font(24, '900');
+      ctx.fillStyle = '#94a3b8';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('vixutil.com', cx, H - FOOTER_H / 2);
+
+      /* ── 다운로드 ── */
       canvas.toBlob(blob => {
         if (!blob) { showToast('이미지 저장에 실패했어요'); return; }
         const url = URL.createObjectURL(blob);
@@ -193,6 +287,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
         URL.revokeObjectURL(url);
         showToast('카드 이미지가 저장됐어요!');
       }, 'image/png');
+
     } catch {
       showToast('이미지 저장에 실패했어요');
     } finally {
