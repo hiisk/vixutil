@@ -5,6 +5,15 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: { default: "vixutil", template: "%s | vixutil" },
   description: "계산기·심리테스트 등 실용 도구 모음 — vixutil.com",
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '48x48' },
+    ],
+    apple: [
+      { url: '/apple-icon.svg', type: 'image/svg+xml' },
+    ],
+  },
 };
 
 export const viewport: Viewport = {

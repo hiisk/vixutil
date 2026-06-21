@@ -7,10 +7,11 @@ export const metadata: Metadata = {
 };
 
 const TYPES = [
-  { href: '/fortune/zodiac', icon: '⭐', title: '별자리 운세', desc: '12개 별자리로 오늘의 운세 확인', badge: '12가지', color: 'from-violet-500 to-purple-700' },
-  { href: '/fortune/animal', icon: '🐉', title: '사주·띠 운세', desc: '쥐·소·범 등 12띠별 오늘의 운세', badge: '12띠', color: 'from-rose-500 to-pink-600' },
-  { href: '/fortune/tarot', icon: '🃏', title: '타로 카드', desc: '22장 메이저 아르카나에서 한 장 뽑기', badge: '22장', color: 'from-amber-500 to-orange-600' },
-  { href: '/fortune/mbti', icon: '🧠', title: 'MBTI 운세', desc: '16가지 성격 유형별 오늘의 운세', badge: '16유형', color: 'from-sky-500 to-blue-600' },
+  { href: '/fortune/saju',   icon: '🔯', title: '사주 분석',   desc: '생년월일로 사주 4주 분석 + 오행 균형', badge: '사주명리', color: 'from-indigo-500 to-violet-700' },
+  { href: '/fortune/zodiac', icon: '⭐', title: '별자리 운세', desc: '12개 별자리로 오늘의 운세 확인',        badge: '12가지',   color: 'from-violet-500 to-purple-700' },
+  { href: '/fortune/animal', icon: '🐉', title: '띠 운세',     desc: '쥐·소·범 등 12띠별 오늘의 운세',       badge: '12띠',     color: 'from-rose-500 to-pink-600' },
+  { href: '/fortune/tarot',  icon: '🃏', title: '타로 카드',   desc: '78장 풀덱에서 카드 뽑기',               badge: '78장',     color: 'from-amber-500 to-orange-600' },
+  { href: '/fortune/mbti',   icon: '🧠', title: 'MBTI 운세',  desc: '16가지 성격 유형별 오늘의 운세',        badge: '16유형',   color: 'from-sky-500 to-blue-600' },
 ];
 
 export default function FortunePage() {
@@ -37,7 +38,7 @@ export default function FortunePage() {
         <div className="text-center mb-10">
           <div className="text-5xl mb-4">🔮</div>
           <h1 className="text-3xl font-black text-slate-900 mb-2">오늘의 운세</h1>
-          <p className="text-slate-500 text-sm">매일 새롭게 업데이트 · 별자리·띠·타로·MBTI</p>
+          <p className="text-slate-500 text-sm">매일 새롭게 업데이트 · 사주·별자리·띠·타로·MBTI</p>
         </div>
 
         {/* 카테고리 카드 */}
