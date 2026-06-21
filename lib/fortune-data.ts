@@ -1,0 +1,270 @@
+/* ────────────────────────────────────────────────
+   운세 데이터 — vixutil.com
+   날짜 시드 기반으로 매일 다른 운세가 제공됩니다
+──────────────────────────────────────────────── */
+
+/* ── 별자리 ── */
+export const ZODIAC_SIGNS = [
+  { id: 'aries',       name: '양자리',     emoji: '♈', period: '3.21~4.19', element: '불',  ruling: '화성' },
+  { id: 'taurus',      name: '황소자리',   emoji: '♉', period: '4.20~5.20', element: '흙',  ruling: '금성' },
+  { id: 'gemini',      name: '쌍둥이자리', emoji: '♊', period: '5.21~6.21', element: '바람', ruling: '수성' },
+  { id: 'cancer',      name: '게자리',     emoji: '♋', period: '6.22~7.22', element: '물',  ruling: '달' },
+  { id: 'leo',         name: '사자자리',   emoji: '♌', period: '7.23~8.22', element: '불',  ruling: '태양' },
+  { id: 'virgo',       name: '처녀자리',   emoji: '♍', period: '8.23~9.22', element: '흙',  ruling: '수성' },
+  { id: 'libra',       name: '천칭자리',   emoji: '♎', period: '9.23~10.23', element: '바람', ruling: '금성' },
+  { id: 'scorpio',     name: '전갈자리',   emoji: '♏', period: '10.24~11.22', element: '물', ruling: '명왕성' },
+  { id: 'sagittarius', name: '사수자리',   emoji: '♐', period: '11.23~12.21', element: '불', ruling: '목성' },
+  { id: 'capricorn',   name: '염소자리',   emoji: '♑', period: '12.22~1.19', element: '흙', ruling: '토성' },
+  { id: 'aquarius',    name: '물병자리',   emoji: '♒', period: '1.20~2.18', element: '바람', ruling: '천왕성' },
+  { id: 'pisces',      name: '물고기자리', emoji: '♓', period: '2.19~3.20', element: '물',  ruling: '해왕성' },
+] as const;
+export type ZodiacId = typeof ZODIAC_SIGNS[number]['id'];
+
+/* ── 사주·띠 ── */
+export const ANIMALS = [
+  { id: 'rat',     name: '쥐띠',  emoji: '🐭', years: [1948,1960,1972,1984,1996,2008,2020], trait: '영리함·적응력' },
+  { id: 'ox',      name: '소띠',  emoji: '🐂', years: [1949,1961,1973,1985,1997,2009,2021], trait: '성실함·인내심' },
+  { id: 'tiger',   name: '범띠',  emoji: '🐯', years: [1950,1962,1974,1986,1998,2010,2022], trait: '용감함·추진력' },
+  { id: 'rabbit',  name: '토끼띠',emoji: '🐰', years: [1951,1963,1975,1987,1999,2011,2023], trait: '온화함·섬세함' },
+  { id: 'dragon',  name: '용띠',  emoji: '🐲', years: [1952,1964,1976,1988,2000,2012,2024], trait: '카리스마·야망' },
+  { id: 'snake',   name: '뱀띠',  emoji: '🐍', years: [1953,1965,1977,1989,2001,2013,2025], trait: '직관력·신중함' },
+  { id: 'horse',   name: '말띠',  emoji: '🐴', years: [1954,1966,1978,1990,2002,2014,2026], trait: '열정·자유로움' },
+  { id: 'goat',    name: '양띠',  emoji: '🐑', years: [1955,1967,1979,1991,2003,2015,2027], trait: '예술성·온순함' },
+  { id: 'monkey',  name: '원숭이띠',emoji: '🐒', years: [1956,1968,1980,1992,2004,2016,2028], trait: '재치·호기심' },
+  { id: 'rooster', name: '닭띠',  emoji: '🐓', years: [1957,1969,1981,1993,2005,2017,2029], trait: '꼼꼼함·성취욕' },
+  { id: 'dog',     name: '개띠',  emoji: '🐕', years: [1958,1970,1982,1994,2006,2018,2030], trait: '충실함·정의감' },
+  { id: 'pig',     name: '돼지띠',emoji: '🐷', years: [1959,1971,1983,1995,2007,2019,2031], trait: '넉넉함·복' },
+] as const;
+export type AnimalId = typeof ANIMALS[number]['id'];
+
+/* ── 타로 메이저 아르카나 ── */
+export const TAROT_CARDS = [
+  { id: 0,  name: '바보',           nameEn: 'The Fool',          emoji: '🃏', upright: '새로운 시작, 순수한 열정, 모험의 기회', reversed: '무모한 결정, 계획 없는 행동 주의', color: '#6366f1' },
+  { id: 1,  name: '마법사',         nameEn: 'The Magician',      emoji: '🔮', upright: '의지력·능력 발휘, 창의적 아이디어 실현', reversed: '재능 낭비, 자기 과신 주의', color: '#f59e0b' },
+  { id: 2,  name: '여사제',         nameEn: 'The High Priestess',emoji: '🌙', upright: '직관·내면의 지혜, 숨겨진 진실 발견', reversed: '지나친 의심, 정보 과부하 주의', color: '#8b5cf6' },
+  { id: 3,  name: '여황제',         nameEn: 'The Empress',       emoji: '🌸', upright: '풍요·창조력, 사랑과 감수성의 시간', reversed: '의존성·창의력 막힘 주의', color: '#ec4899' },
+  { id: 4,  name: '황제',           nameEn: 'The Emperor',       emoji: '👑', upright: '안정·질서, 강한 리더십과 책임감', reversed: '권위주의·경직성 주의', color: '#ef4444' },
+  { id: 5,  name: '교황',           nameEn: 'The Hierophant',    emoji: '⛪', upright: '전통·신뢰, 멘토의 조언이 빛을 발함', reversed: '틀에 박힌 사고, 변화 거부 주의', color: '#d97706' },
+  { id: 6,  name: '연인',           nameEn: 'The Lovers',        emoji: '💑', upright: '조화로운 관계, 중요한 선택의 기로', reversed: '불화·선택 장애 주의', color: '#f43f5e' },
+  { id: 7,  name: '전차',           nameEn: 'The Chariot',       emoji: '🏆', upright: '승리·추진력, 강한 의지로 목표 달성', reversed: '방향성 잃음, 통제력 상실 주의', color: '#3b82f6' },
+  { id: 8,  name: '힘',             nameEn: 'Strength',          emoji: '🦁', upright: '내면의 힘·용기, 인내로 어려움 극복', reversed: '자기 의심, 에너지 고갈 주의', color: '#f59e0b' },
+  { id: 9,  name: '은둔자',         nameEn: 'The Hermit',        emoji: '🏔️', upright: '내면 탐구, 혼자만의 성찰이 답을 줌', reversed: '고립·외로움 주의', color: '#6b7280' },
+  { id: 10, name: '운명의 수레바퀴', nameEn: 'Wheel of Fortune',  emoji: '☸️', upright: '행운·전환점, 긍정적 변화가 찾아옴', reversed: '나쁜 운·반복되는 실수 주의', color: '#10b981' },
+  { id: 11, name: '정의',           nameEn: 'Justice',           emoji: '⚖️', upright: '공정한 결과, 노력에 걸맞는 보상', reversed: '불공정·책임 회피 주의', color: '#0ea5e9' },
+  { id: 12, name: '매달린 사람',     nameEn: 'The Hanged Man',    emoji: '🙃', upright: '관점 전환, 잠시 멈춰 새롭게 바라볼 때', reversed: '시간 낭비·희생 거부 주의', color: '#6366f1' },
+  { id: 13, name: '죽음',           nameEn: 'Death',             emoji: '🌑', upright: '끝과 새 시작, 변화를 두려워 말 것', reversed: '변화 거부, 과거에 집착 주의', color: '#374151' },
+  { id: 14, name: '절제',           nameEn: 'Temperance',        emoji: '⚗️', upright: '균형·조화, 인내와 중용의 미덕', reversed: '극단적 행동·과잉 주의', color: '#06b6d4' },
+  { id: 15, name: '악마',           nameEn: 'The Devil',         emoji: '😈', upright: '속박에서 벗어날 기회, 욕구 직면', reversed: '집착·유혹에 빠짐 주의', color: '#7c3aed' },
+  { id: 16, name: '탑',             nameEn: 'The Tower',         emoji: '⚡', upright: '갑작스러운 변화, 낡은 것 무너뜨리고 재건', reversed: '변화 거부, 재난 회피 주의', color: '#dc2626' },
+  { id: 17, name: '별',             nameEn: 'The Star',          emoji: '⭐', upright: '희망·치유, 꿈이 이루어지는 길목', reversed: '실망·희망 상실 주의', color: '#0ea5e9' },
+  { id: 18, name: '달',             nameEn: 'The Moon',          emoji: '🌕', upright: '무의식·직관, 숨은 진실이 드러날 때', reversed: '불안·환상 주의', color: '#6366f1' },
+  { id: 19, name: '태양',           nameEn: 'The Sun',           emoji: '☀️', upright: '기쁨·활력, 최고의 에너지로 빛나는 날', reversed: '과신·일시적 행복 주의', color: '#f59e0b' },
+  { id: 20, name: '심판',           nameEn: 'Judgement',         emoji: '🎺', upright: '부활·자각, 새로운 소명을 발견하는 시기', reversed: '자기 의심·판단 미루기 주의', color: '#10b981' },
+  { id: 21, name: '세계',           nameEn: 'The World',         emoji: '🌍', upright: '완성·성취, 목표를 이루고 새 단계로', reversed: '미완성·지연 주의', color: '#8b5cf6' },
+] as const;
+
+/* ── MBTI 유형 ── */
+export const MBTI_TYPES = [
+  { id: 'ISTJ', name: 'ISTJ', nickname: '세상의 소금형', emoji: '🏛️', trait: '책임감·꼼꼼함' },
+  { id: 'ISFJ', name: 'ISFJ', nickname: '임금 뒤편의 권력형', emoji: '🛡️', trait: '헌신·배려' },
+  { id: 'INFJ', name: 'INFJ', nickname: '예언자형', emoji: '🔭', trait: '통찰력·공감' },
+  { id: 'INTJ', name: 'INTJ', nickname: '과학자형', emoji: '🧠', trait: '전략적·독립적' },
+  { id: 'ISTP', name: 'ISTP', nickname: '백과사전형', emoji: '🔧', trait: '분석적·실용적' },
+  { id: 'ISFP', name: 'ISFP', nickname: '성인군자형', emoji: '🎨', trait: '온화·감성적' },
+  { id: 'INFP', name: 'INFP', nickname: '잔다르크형', emoji: '🌿', trait: '이상적·창의적' },
+  { id: 'INTP', name: 'INTP', nickname: '아이디어 뱅크형', emoji: '💡', trait: '논리적·탐구적' },
+  { id: 'ESTP', name: 'ESTP', nickname: '수완가형', emoji: '⚡', trait: '행동력·현실적' },
+  { id: 'ESFP', name: 'ESFP', nickname: '사교형', emoji: '🎉', trait: '활기·즉흥적' },
+  { id: 'ENFP', name: 'ENFP', nickname: '스파크형', emoji: '✨', trait: '열정·창의성' },
+  { id: 'ENTP', name: 'ENTP', nickname: '발명가형', emoji: '🚀', trait: '도전·혁신' },
+  { id: 'ESTJ', name: 'ESTJ', nickname: '사업가형', emoji: '📊', trait: '리더십·조직력' },
+  { id: 'ESFJ', name: 'ESFJ', nickname: '친선도모형', emoji: '🤝', trait: '조화·사교성' },
+  { id: 'ENFJ', name: 'ENFJ', nickname: '언변능숙형', emoji: '🎤', trait: '영향력·공감' },
+  { id: 'ENTJ', name: 'ENTJ', nickname: '지도자형', emoji: '🦅', trait: '결단력·목표지향' },
+] as const;
+export type MbtiId = typeof MBTI_TYPES[number]['id'];
+
+/* ── 운세 텍스트 풀 ── */
+export const FORTUNE_POOL = {
+  overall: [
+    '오늘은 당신의 에너지가 최고조에 달하는 날입니다. 오랫동안 미뤄왔던 일을 시작하기에 딱 좋은 타이밍이니 과감하게 첫발을 내딛어보세요.',
+    '주변 사람들과의 관계에서 특별한 행운이 찾아옵니다. 연락이 닿지 않았던 사람에게 먼저 손을 내밀면 뜻밖의 좋은 소식을 들을 수 있습니다.',
+    '차분히 현재 상황을 돌아보는 하루가 될 것입니다. 급하게 결정을 내리기보다 충분히 생각한 후 움직이면 실수를 크게 줄일 수 있습니다.',
+    '새로운 기회의 문이 살짝 열려있는 날입니다. 평소라면 그냥 지나쳤을 작은 신호에 귀를 기울여보세요. 그 안에 당신이 찾던 답이 있을 수 있습니다.',
+    '창의적인 아이디어가 샘솟는 날입니다. 떠오르는 생각을 바로 적어두세요. 오늘의 영감이 앞으로의 중요한 전환점이 될 수 있습니다.',
+    '오늘은 작은 일에서 큰 만족을 얻을 수 있는 날입니다. 주변의 소소한 것들에 감사하는 마음을 가지면 하루가 더욱 풍요로워집니다.',
+    '계획했던 일이 순조롭게 진행되는 날입니다. 꼼꼼히 준비해왔다면 오늘 그 성과가 나타날 것입니다. 자신감을 갖고 임하세요.',
+    '예상치 못한 도움이나 정보를 얻게 되는 날입니다. 열린 마음으로 주변의 말을 들으면 문제 해결의 실마리를 찾을 수 있습니다.',
+    '인내심이 필요한 날입니다. 원하는 결과가 바로 나타나지 않더라도 포기하지 말고 한 걸음씩 나아가다 보면 좋은 결실을 맺게 됩니다.',
+    '오늘은 자신을 돌보는 시간을 갖는 것이 중요합니다. 바쁜 일상 속에서도 잠깐의 휴식이 앞으로의 에너지를 충전해줄 것입니다.',
+    '소통이 모든 문제의 열쇠가 되는 날입니다. 오해가 생겼다면 직접 마주하고 솔직하게 이야기하세요. 명쾌한 해결책이 보일 것입니다.',
+    '변화를 두려워하지 않는 용기가 필요한 날입니다. 익숙한 것에서 벗어나 새로운 방향을 모색하면 더 나은 결과가 기다리고 있습니다.',
+    '오늘의 노력은 반드시 미래의 성과로 돌아옵니다. 눈앞의 어려움에 집중하기보다 목표를 향해 묵묵히 걸어가는 자세가 필요합니다.',
+    '협력과 팀워크가 빛을 발하는 날입니다. 혼자 해결하려 하기보다 주변의 도움을 기꺼이 받아들이면 훨씬 더 좋은 결과를 얻을 수 있습니다.',
+    '직관을 믿어야 하는 날입니다. 논리적으로 설명하기 어렵더라도 내면의 목소리가 이끄는 방향을 따라가 보세요.',
+    '오늘은 계획보다 유연하게 상황에 대처하는 것이 중요합니다. 예상치 못한 변수가 오히려 더 나은 방향으로 이끌 수 있습니다.',
+    '집중력이 높아지는 날입니다. 방해 요소를 최소화하고 중요한 작업에 몰입하면 평소보다 훨씬 높은 성과를 낼 수 있습니다.',
+    '작은 친절이 큰 변화를 만드는 날입니다. 주변 사람들에게 따뜻한 한마디를 건네보세요. 그 선의가 결국 자신에게 돌아올 것입니다.',
+    '오늘은 과거를 정리하고 미래를 준비하기 좋은 날입니다. 오래된 감정이나 관계를 정리하면 새로운 에너지가 유입될 것입니다.',
+    '겸손함이 더 큰 성장을 이끄는 날입니다. 모든 것을 알려고 하기보다 배우는 자세로 임하면 뜻밖의 가르침을 얻게 됩니다.',
+  ],
+
+  love: [
+    '연애 중이라면 파트너와의 솔직한 대화가 관계를 한 단계 발전시킵니다. 하지 못했던 말을 꺼내기에 좋은 날입니다.',
+    '새로운 인연이 찾아올 조짐이 있습니다. 일상 속 낯선 만남을 열린 마음으로 맞이하세요.',
+    '혼자만의 시간이 오히려 자신의 마음을 더 잘 이해하게 해줍니다. 스스로를 충분히 사랑하는 것이 먼저입니다.',
+    '오해나 갈등이 있었다면 오늘이 화해의 적기입니다. 먼저 손 내밀면 상대도 마음을 열 것입니다.',
+    '함께하는 시간보다 각자의 공간을 존중하는 것이 관계를 더 오래, 더 깊게 유지하게 합니다.',
+    '오랫동안 마음에 두었던 사람에게 용기 내어 다가가기 좋은 날입니다. 진심은 반드시 통합니다.',
+    '좋아하는 사람과 함께 새로운 경험을 공유하면 관계가 자연스럽게 깊어집니다.',
+    '연인과의 사소한 다툼도 서로를 더 이해하는 과정입니다. 이기려 하기보다 이해하려 노력하세요.',
+    '관계에서 너무 많은 것을 기대하면 실망도 큽니다. 있는 그대로를 사랑하는 연습이 필요한 때입니다.',
+    '예전에 소홀히 했던 소중한 사람에게 연락을 취해보세요. 그리움은 나눌수록 감동이 됩니다.',
+    '감정 표현을 아끼지 마세요. 솔직한 애정 표현 한마디가 상대의 하루를 밝게 만들 수 있습니다.',
+    '인연은 서두른다고 빨리 오지 않습니다. 자신을 가꾸고 내실을 다지다 보면 자연스럽게 찾아옵니다.',
+    '상대방의 입장에서 생각해보는 것이 지금 관계의 해법입니다. 공감이 사랑을 키웁니다.',
+    '데이트 계획보다 상대가 원하는 것에 귀 기울이는 하루가 되세요. 작은 배려가 큰 감동이 됩니다.',
+    '마음이 이끄는 대로 솔직하게 행동하는 것이 가장 매력적입니다. 꾸밈없는 모습이 진짜 인연을 부릅니다.',
+  ],
+
+  money: [
+    '예상치 못한 곳에서 수익 기회가 나타날 수 있습니다. 단, 검증되지 않은 투자는 신중하게 접근하세요.',
+    '지출을 한 번 더 점검해볼 필요가 있는 날입니다. 작은 새는 돈이 쌓이면 큰 금액이 됩니다.',
+    '재정적인 결정을 내려야 한다면 오늘은 신중히, 내일은 과감히 움직이는 전략이 좋습니다.',
+    '오래된 부채나 미결산 항목을 정리하기 좋은 날입니다. 깔끔한 마무리가 새 기회를 불러옵니다.',
+    '수익보다 지출 관리에 집중하는 것이 재산을 늘리는 지름길입니다.',
+    '투자보다 저축이 먼저인 날입니다. 안전한 기반을 쌓은 뒤 다음 단계를 고려하세요.',
+    '협업이나 파트너십을 통한 수익 기회가 보입니다. 신뢰할 수 있는 사람과 힘을 합치면 시너지가 납니다.',
+    '오늘 아낀 돈이 내일의 기회비용이 됩니다. 소소한 절약 습관을 다시 점검해보세요.',
+    '욕심보다 필요에 집중하는 소비 습관이 장기적 재정 건강의 핵심입니다.',
+    '계획에 없던 지출이 생길 수 있습니다. 비상금이 충분한지 미리 확인해두면 마음이 편합니다.',
+    '금전적 스트레스가 있다면 전문가의 조언을 구해보세요. 혼자 안고 가는 것보다 훨씬 빠른 해결책을 찾을 수 있습니다.',
+    '작은 사이드 수입이라도 꾸준히 쌓아가면 놀라운 결과를 만들어냅니다. 시작이 중요합니다.',
+    '충동구매를 자제하고 정말 가치 있는 것에만 돈을 쓰는 하루가 되세요.',
+    '돈을 버는 것 못지않게 올바르게 쓰는 법을 배우는 것이 진정한 부의 첫 걸음입니다.',
+    '수입의 일부를 자기계발에 투자하는 것을 고려해보세요. 지식은 가장 확실한 자산입니다.',
+  ],
+
+  health: [
+    '몸이 보내는 신호를 무시하지 마세요. 작은 이상 증세도 초기에 챙기면 큰 건강 문제를 예방할 수 있습니다.',
+    '규칙적인 수면이 오늘의 핵심입니다. 취침 시간을 일정하게 유지하면 컨디션이 눈에 띄게 좋아집니다.',
+    '스트레칭이나 가벼운 산책이 몸과 마음에 활력을 불어넣는 날입니다. 10분만 투자해보세요.',
+    '수분 섭취가 부족하지 않은지 확인해보세요. 물 한 잔이 생각보다 큰 에너지 변화를 만듭니다.',
+    '과로나 스트레스가 쌓여있다면 오늘은 충분한 휴식을 취하는 것이 최선입니다.',
+    '규칙적인 식사 시간이 소화기 건강을 지킵니다. 끼니를 거르지 말고 제때 챙겨드세요.',
+    '야외 활동이 기분을 환기시키기 좋은 날입니다. 햇빛을 쬐는 것만으로도 세로토닌이 분비됩니다.',
+    '무리한 운동보다 꾸준한 저강도 운동이 장기적으로 더 건강한 몸을 만듭니다.',
+    '정신 건강도 체크가 필요한 날입니다. 감정을 억누르지 말고 신뢰할 수 있는 사람과 나눠보세요.',
+    '눈과 허리 건강에 특히 신경 써야 하는 날입니다. 장시간 화면 작업 후 적절히 쉬어주세요.',
+    '따뜻한 물로 족욕을 하거나 반신욕을 해보세요. 피로 회복에 효과적입니다.',
+    '건강한 식단을 선택하는 작은 실천이 몸에 큰 변화를 만들어냅니다. 채소와 과일을 챙겨드세요.',
+    '스트레스 관리가 면역력의 기본입니다. 명상이나 깊은 호흡을 5분만 해보세요.',
+    '잠들기 전 스마트폰 사용을 줄이면 수면의 질이 크게 개선됩니다.',
+    '건강 검진 결과가 있다면 오늘 다시 살펴보는 것이 좋겠습니다. 놓친 관리 항목이 없는지 확인하세요.',
+  ],
+
+  work: [
+    '업무 집중력이 높아지는 날입니다. 가장 중요한 과제를 오전에 배치하면 최고의 효율을 낼 수 있습니다.',
+    '새로운 아이디어가 인정받는 날입니다. 평소 말하기 망설였던 의견을 자신 있게 제안해보세요.',
+    '꼼꼼한 마무리가 중요한 날입니다. 급하게 끝내기보다 세부 사항을 한 번 더 확인하면 완성도가 높아집니다.',
+    '협업이 성과를 배가시키는 날입니다. 혼자 끌어안기보다 팀과 함께 문제를 해결해보세요.',
+    '상사나 동료의 피드백을 열린 마음으로 받아들이면 성장의 기회가 됩니다.',
+    '업무 중 우선순위를 정하는 것이 생산성의 핵심입니다. 중요한 것과 급한 것을 구분해보세요.',
+    '학습에 투자하기 좋은 날입니다. 새로운 기술이나 지식을 익히면 경쟁력이 높아집니다.',
+    '어려운 과제일수록 작게 쪼개어 접근하면 해결책이 보입니다. 첫 단계만 실행해보세요.',
+    '오늘은 네트워킹에 신경 써보세요. 예상치 못한 연결고리가 새로운 기회를 가져옵니다.',
+    '멀티태스킹보다 한 가지에 집중하는 것이 오늘은 더 나은 결과를 만들어냅니다.',
+    '준비가 충분히 되었다면 이제 실행할 차례입니다. 완벽함을 기다리기보다 시작하는 용기가 필요합니다.',
+    '업무 환경을 정리하는 것만으로도 집중력이 높아집니다. 책상을 깔끔하게 정돈해보세요.',
+    '창의적인 발상이 빛을 발하는 날입니다. 틀을 벗어난 사고가 문제의 돌파구를 열어줍니다.',
+    '성과를 서두르지 마세요. 꾸준히 쌓아온 노력이 오늘내일 사이에 반드시 결실을 맺습니다.',
+    '오늘 한 작은 약속도 반드시 지키세요. 신뢰는 사소한 것에서 시작됩니다.',
+  ],
+};
+
+/* ── 행운 색·숫자 ── */
+export const LUCKY_COLORS: [string, string][] = [
+  ['빨강',   '#ef4444'],
+  ['주황',   '#f97316'],
+  ['노랑',   '#eab308'],
+  ['초록',   '#22c55e'],
+  ['파랑',   '#3b82f6'],
+  ['남색',   '#6366f1'],
+  ['보라',   '#a855f7'],
+  ['분홍',   '#ec4899'],
+  ['하얀',   '#f1f5f9'],
+  ['금색',   '#f59e0b'],
+  ['은색',   '#94a3b8'],
+  ['민트',   '#14b8a6'],
+];
+
+export const LUCKY_DIRECTIONS = ['동쪽', '서쪽', '남쪽', '북쪽', '동남쪽', '서남쪽'];
+
+/* ── 날짜 시드 기반 결정론적 랜덤 ── */
+export function seededInt(seed: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h >>> 0);
+}
+
+export function todaySeed(subjectId: string, domain: string): string {
+  const today = new Date();
+  const ymd = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+  return `${subjectId}-${domain}-${ymd}`;
+}
+
+export function pick<T>(arr: T[], seed: string): T {
+  return arr[seededInt(seed) % arr.length];
+}
+
+export function pickIdx(arr: unknown[], seed: string): number {
+  return seededInt(seed) % arr.length;
+}
+
+/** 1~5 별점 — seed에 따라 결정 */
+export function starRating(subjectId: string, domain: string): number {
+  const n = seededInt(todaySeed(subjectId, domain));
+  // 1: 5%, 2: 15%, 3: 35%, 4: 30%, 5: 15%
+  const r = n % 100;
+  if (r < 5)  return 1;
+  if (r < 20) return 2;
+  if (r < 55) return 3;
+  if (r < 85) return 4;
+  return 5;
+}
+
+/** 오늘의 운세 조회 */
+export function getTodayFortune(subjectId: string) {
+  const overall  = pick(FORTUNE_POOL.overall,  todaySeed(subjectId, 'overall'));
+  const love     = pick(FORTUNE_POOL.love,     todaySeed(subjectId, 'love'));
+  const money    = pick(FORTUNE_POOL.money,    todaySeed(subjectId, 'money'));
+  const health   = pick(FORTUNE_POOL.health,   todaySeed(subjectId, 'health'));
+  const work     = pick(FORTUNE_POOL.work,     todaySeed(subjectId, 'work'));
+
+  const [colorName, colorHex] = pick(LUCKY_COLORS, todaySeed(subjectId, 'color'));
+  const luckyNumber    = (seededInt(todaySeed(subjectId, 'number')) % 30) + 1;
+  const luckyDirection = pick(LUCKY_DIRECTIONS, todaySeed(subjectId, 'direction'));
+
+  return {
+    overall, love, money, health, work,
+    luckyColor: colorName, luckyColorHex: colorHex,
+    luckyNumber, luckyDirection,
+    stars: {
+      overall: starRating(subjectId, 'star-overall'),
+      love:    starRating(subjectId, 'star-love'),
+      money:   starRating(subjectId, 'star-money'),
+      health:  starRating(subjectId, 'star-health'),
+      work:    starRating(subjectId, 'star-work'),
+    },
+  };
+}
+
+/** 오늘의 타로 카드 뽑기 (완전 랜덤, 정방향/역방향) */
+export function drawTarotCard(): { card: typeof TAROT_CARDS[number]; reversed: boolean } {
+  const idx = Math.floor(Math.random() * TAROT_CARDS.length);
+  const reversed = Math.random() < 0.4;
+  return { card: TAROT_CARDS[idx], reversed };
+}

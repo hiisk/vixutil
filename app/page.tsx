@@ -67,6 +67,18 @@ const SECTIONS = [
     borderAccent: 'border-sky-200',
     shadow: 'shadow-sky-100',
   },
+  {
+    href: '/fortune',
+    icon: '🔮',
+    title: '오늘의 운세',
+    desc: '별자리·띠·타로·MBTI 운세 매일 업데이트',
+    badge: '4종',
+    color: 'from-violet-500 to-purple-700',
+    bgLight: 'bg-violet-50',
+    textAccent: 'text-violet-700',
+    borderAccent: 'border-violet-200',
+    shadow: 'shadow-violet-100',
+  },
 ];
 
 export default function HubPage() {
@@ -123,6 +135,7 @@ export default function HubPage() {
             { label: '퀴즈', val: '100+' },
             { label: '생성기', val: '100+' },
             { label: '체크리스트', val: '70+' },
+            { label: '운세', val: '4종' },
           ].map(item => (
             <div key={item.label}>
               <p className="text-xl font-black text-slate-900">{item.val}</p>
