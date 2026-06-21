@@ -63,6 +63,113 @@ export const TAROT_CARDS = [
   { id: 21, name: '세계',           nameEn: 'The World',         emoji: '🌍', upright: '완성·성취, 목표를 이루고 새 단계로', reversed: '미완성·지연 주의', color: '#8b5cf6' },
 ] as const;
 
+/* ── 마이너 아르카나 56장 ── */
+export const SUIT_INFO = {
+  wands:     { name: '완드',    nameEn: 'Wands',     emoji: '🪄', theme: '열정·창의력·의지', color: '#f97316' },
+  cups:      { name: '컵',      nameEn: 'Cups',      emoji: '🏆', theme: '감정·관계·직관',   color: '#3b82f6' },
+  swords:    { name: '소드',    nameEn: 'Swords',    emoji: '⚔️', theme: '생각·갈등·진실',   color: '#6366f1' },
+  pentacles: { name: '펜타클', nameEn: 'Pentacles', emoji: '🌟', theme: '물질·현실·안정',   color: '#22c55e' },
+} as const;
+export type Suit = keyof typeof SUIT_INFO;
+
+export const MINOR_ARCANA: {
+  suit: Suit; rank: number; name: string; nameEn: string; emoji: string;
+  upright: string; reversed: string;
+}[] = [
+  /* ── 완드 (Wands) ── */
+  { suit:'wands', rank:1,  name:'완드 에이스',  nameEn:'Ace of Wands',      emoji:'🕯️', upright:'새로운 시작·창의적 불꽃, 열정적 도전의 기회',    reversed:'창의력 막힘, 계획만 세우고 실행 못함 주의' },
+  { suit:'wands', rank:2,  name:'완드 2',        nameEn:'Two of Wands',      emoji:'🌍', upright:'장기 계획과 비전, 더 넓은 세계를 향한 탐색',       reversed:'두려움으로 인한 지연, 편안함에 안주 주의' },
+  { suit:'wands', rank:3,  name:'완드 3',        nameEn:'Three of Wands',    emoji:'⛵', upright:'기회 확장, 결실이 눈앞에 가까워짐',                 reversed:'예상치 못한 지연, 걸림돌 주의' },
+  { suit:'wands', rank:4,  name:'완드 4',        nameEn:'Four of Wands',     emoji:'🎊', upright:'축하·안정·화목, 성취 후 즐거운 쉬어가는 시간',    reversed:'불안정한 기반, 지연과 변동 주의' },
+  { suit:'wands', rank:5,  name:'완드 5',        nameEn:'Five of Wands',     emoji:'⚡', upright:'건전한 경쟁과 도전, 창의적 마찰에서 성장',          reversed:'갈등 회피, 억눌린 에너지 주의' },
+  { suit:'wands', rank:6,  name:'완드 6',        nameEn:'Six of Wands',      emoji:'🏆', upright:'승리·인정·자신감, 노력이 빛을 발하는 순간',        reversed:'자기 의심, 타인의 인정에 지나치게 의존 주의' },
+  { suit:'wands', rank:7,  name:'완드 7',        nameEn:'Seven of Wands',    emoji:'🛡️', upright:'끝까지 방어하는 용기, 경쟁 속 우위 유지',          reversed:'과도한 방어, 지쳐서 포기할 위험 주의' },
+  { suit:'wands', rank:8,  name:'완드 8',        nameEn:'Eight of Wands',    emoji:'🚀', upright:'빠른 진전·소식·행동, 일이 속도를 내기 시작',       reversed:'지연·혼선, 서두르다 실수할 위험 주의' },
+  { suit:'wands', rank:9,  name:'완드 9',        nameEn:'Nine of Wands',     emoji:'💪', upright:'회복력·인내, 마지막 관문을 넘을 힘이 있음',         reversed:'과도한 방어심, 지쳐서 의심하는 상태 주의' },
+  { suit:'wands', rank:10, name:'완드 10',       nameEn:'Ten of Wands',      emoji:'📦', upright:'책임감과 성취, 무거운 짐이지만 결승점이 가까움',   reversed:'과부하·번아웃, 짐을 내려놓을 용기 필요' },
+  { suit:'wands', rank:11, name:'완드 시종',     nameEn:'Page of Wands',     emoji:'🌱', upright:'열정적 학습자, 새로운 아이디어와 모험심',           reversed:'성급함·충동, 계획 없는 출발 주의' },
+  { suit:'wands', rank:12, name:'완드 기사',     nameEn:'Knight of Wands',   emoji:'🐎', upright:'열정적 행동가, 용기 있는 도전과 카리스마',          reversed:'경솔함, 에너지 분산과 무모한 위험 주의' },
+  { suit:'wands', rank:13, name:'완드 여왕',     nameEn:'Queen of Wands',    emoji:'🌻', upright:'자신감·독립심·카리스마, 목표를 향한 강렬한 에너지', reversed:'독선적 태도, 지배욕과 에너지 소진 주의' },
+  { suit:'wands', rank:14, name:'완드 왕',       nameEn:'King of Wands',     emoji:'🦁', upright:'리더십·비전·카리스마, 사람들을 이끄는 강한 힘',    reversed:'권위주의·충동적 결정, 과신 주의' },
+
+  /* ── 컵 (Cups) ── */
+  { suit:'cups', rank:1,  name:'컵 에이스',    nameEn:'Ace of Cups',       emoji:'💧', upright:'새로운 감정의 시작, 사랑·직관·치유의 씨앗',         reversed:'감정 억압, 내면의 공허함 주의' },
+  { suit:'cups', rank:2,  name:'컵 2',          nameEn:'Two of Cups',       emoji:'💑', upright:'파트너십·상호 사랑, 깊은 인연의 연결',              reversed:'불균형한 관계, 오해와 불화 주의' },
+  { suit:'cups', rank:3,  name:'컵 3',          nameEn:'Three of Cups',     emoji:'🥂', upright:'축하·우정·공동체, 함께하는 기쁨',                   reversed:'과도한 쾌락, 삼각관계나 험담 주의' },
+  { suit:'cups', rank:4,  name:'컵 4',          nameEn:'Four of Cups',      emoji:'🌀', upright:'사색·무관심, 내면을 들여다볼 시간',                 reversed:'새로운 기회를 놓침, 무기력 주의' },
+  { suit:'cups', rank:5,  name:'컵 5',          nameEn:'Five of Cups',      emoji:'😢', upright:'상실·슬픔·후회, 남은 것에도 가치가 있음을 기억',    reversed:'회복·수용, 과거를 놓아줄 준비' },
+  { suit:'cups', rank:6,  name:'컵 6',          nameEn:'Six of Cups',       emoji:'🌈', upright:'향수·순수함·좋은 추억, 어린 시절의 기쁨',           reversed:'과거에 집착, 순진한 기대 주의' },
+  { suit:'cups', rank:7,  name:'컵 7',          nameEn:'Seven of Cups',     emoji:'🌙', upright:'다양한 선택지·환상, 꿈을 현실로 만들 기회',         reversed:'환상에서 벗어나 현실 직시 필요' },
+  { suit:'cups', rank:8,  name:'컵 8',          nameEn:'Eight of Cups',     emoji:'🚶', upright:'더 높은 것을 향해 떠남, 용기 있는 포기',             reversed:'집착·방황, 두려움으로 미루는 결정 주의' },
+  { suit:'cups', rank:9,  name:'컵 9',          nameEn:'Nine of Cups',      emoji:'🌟', upright:'소원 성취·만족감, 원하던 것이 이루어지는 시간',     reversed:'탐욕·물질주의, 만족 모르는 욕구 주의' },
+  { suit:'cups', rank:10, name:'컵 10',         nameEn:'Ten of Cups',       emoji:'🏡', upright:'행복한 가정·완성·충만함, 감정적 완전체',            reversed:'깨진 관계, 표면적 행복의 균열 주의' },
+  { suit:'cups', rank:11, name:'컵 시종',       nameEn:'Page of Cups',      emoji:'🐠', upright:'직관적·감성적·꿈꾸는 자, 창의적 영감',              reversed:'감정 기복, 미성숙한 감정 표현 주의' },
+  { suit:'cups', rank:12, name:'컵 기사',       nameEn:'Knight of Cups',    emoji:'🐬', upright:'낭만적 이상주의, 감성으로 움직이는 열정',            reversed:'변덕·감정 조종, 공상에 빠짐 주의' },
+  { suit:'cups', rank:13, name:'컵 여왕',       nameEn:'Queen of Cups',     emoji:'🧘', upright:'공감능력·직관·치유의 힘, 감성적 지혜',              reversed:'감정 의존·과도한 자기 희생 주의' },
+  { suit:'cups', rank:14, name:'컵 왕',         nameEn:'King of Cups',      emoji:'🌊', upright:'감정적 성숙·균형, 지혜롭게 감정을 이끄는 힘',      reversed:'감정 조종·불안정한 감정 기복 주의' },
+
+  /* ── 소드 (Swords) ── */
+  { suit:'swords', rank:1,  name:'소드 에이스',  nameEn:'Ace of Swords',     emoji:'⚡', upright:'진실·명확성·새로운 통찰, 지적 돌파구',              reversed:'혼란·거짓, 진실을 외면하는 상황 주의' },
+  { suit:'swords', rank:2,  name:'소드 2',        nameEn:'Two of Swords',     emoji:'⚖️', upright:'교착상태, 결정을 미루는 순간 내면을 들여다봄',      reversed:'결단의 시기, 더 이상 회피할 수 없음' },
+  { suit:'swords', rank:3,  name:'소드 3',        nameEn:'Three of Swords',   emoji:'💔', upright:'슬픔·배신·마음의 상처, 고통이 치유의 시작',         reversed:'회복·용서, 상처를 놓아줄 준비' },
+  { suit:'swords', rank:4,  name:'소드 4',        nameEn:'Four of Swords',    emoji:'😴', upright:'휴식·명상·회복, 충전 후 더 강해지는 시간',          reversed:'지나친 고립, 활동으로 돌아갈 때' },
+  { suit:'swords', rank:5,  name:'소드 5',        nameEn:'Five of Swords',    emoji:'🗡️', upright:'갈등 후 승리, 승패보다 중요한 것이 있음을 기억',     reversed:'화해·반성, 갈등의 결말이 다가옴' },
+  { suit:'swords', rank:6,  name:'소드 6',        nameEn:'Six of Swords',     emoji:'⛵', upright:'전환·회복, 어려운 상황에서 더 나은 곳으로 이동',     reversed:'정체·저항, 변화를 거부하는 마음 주의' },
+  { suit:'swords', rank:7,  name:'소드 7',        nameEn:'Seven of Swords',   emoji:'🦊', upright:'전략·독립적 사고, 영리한 접근이 필요한 상황',       reversed:'자백·솔직함, 숨겨왔던 것을 드러낼 때' },
+  { suit:'swords', rank:8,  name:'소드 8',        nameEn:'Eight of Swords',   emoji:'🎭', upright:'구속·갇힌 느낌, 실은 스스로 만든 한계일 수 있음',   reversed:'자유·해방, 스스로의 힘으로 제약을 넘음' },
+  { suit:'swords', rank:9,  name:'소드 9',        nameEn:'Nine of Swords',    emoji:'😰', upright:'불안·악몽, 두려움이 현실보다 크게 느껴지는 시기',    reversed:'회복의 빛, 최악은 지나가고 있음' },
+  { suit:'swords', rank:10, name:'소드 10',       nameEn:'Ten of Swords',     emoji:'🌅', upright:'고통스러운 끝, 그러나 여명이 밝아오고 있음',         reversed:'재생·회복, 바닥을 찍고 올라오는 시작' },
+  { suit:'swords', rank:11, name:'소드 시종',     nameEn:'Page of Swords',    emoji:'📖', upright:'분석적 사고·호기심·새로운 정보 습득',               reversed:'계획 없는 말, 비판적 태도 주의' },
+  { suit:'swords', rank:12, name:'소드 기사',     nameEn:'Knight of Swords',  emoji:'🦅', upright:'빠른 사고·야망·직접적 행동, 목표를 향한 돌진',      reversed:'경솔·공격적 태도, 속도를 줄일 필요' },
+  { suit:'swords', rank:13, name:'소드 여왕',     nameEn:'Queen of Swords',   emoji:'🌬️', upright:'독립·명확한 사고·날카로운 통찰력',                  reversed:'냉담·비판, 감정을 잃은 판단 주의' },
+  { suit:'swords', rank:14, name:'소드 왕',       nameEn:'King of Swords',    emoji:'👁️', upright:'권위·분석력·공정한 판단, 이성으로 이끄는 힘',        reversed:'독재·냉혹함, 감정 무시 주의' },
+
+  /* ── 펜타클 (Pentacles) ── */
+  { suit:'pentacles', rank:1,  name:'펜타클 에이스', nameEn:'Ace of Pentacles',    emoji:'🌱', upright:'물질적 기회·번영의 씨앗, 현실적 시작의 신호',        reversed:'낭비·탐욕, 기회를 놓치는 상황 주의' },
+  { suit:'pentacles', rank:2,  name:'펜타클 2',       nameEn:'Two of Pentacles',    emoji:'🔄', upright:'유연한 균형, 바쁜 일상에서 우선순위 조율',            reversed:'불균형·혼란, 너무 많은 것을 동시에 주의' },
+  { suit:'pentacles', rank:3,  name:'펜타클 3',       nameEn:'Three of Pentacles',  emoji:'🏗️', upright:'팀워크·장인정신, 협력으로 만들어내는 높은 성취',      reversed:'갈등·낮은 퀄리티, 혼자 하려는 고집 주의' },
+  { suit:'pentacles', rank:4,  name:'펜타클 4',       nameEn:'Four of Pentacles',   emoji:'🔒', upright:'안정·보안, 현명하게 지키는 자산과 에너지',            reversed:'집착·인색함, 변화를 두려워한 나머지 가로막힘' },
+  { suit:'pentacles', rank:5,  name:'펜타클 5',       nameEn:'Five of Pentacles',   emoji:'❄️', upright:'재정적 어려움·고난, 그러나 도움의 손길이 가까이',      reversed:'회복·구원, 어려운 시기가 끝나가고 있음' },
+  { suit:'pentacles', rank:6,  name:'펜타클 6',       nameEn:'Six of Pentacles',    emoji:'🤝', upright:'관대함·나눔, 주고받음의 균형이 이루어지는 시간',       reversed:'빚·불공정한 나눔, 의존 관계 주의' },
+  { suit:'pentacles', rank:7,  name:'펜타클 7',       nameEn:'Seven of Pentacles',  emoji:'⏳', upright:'인내·장기 투자, 씨앗이 자라는 것을 기다리는 시간',    reversed:'성급함, 보상 없는 노력에 대한 좌절 주의' },
+  { suit:'pentacles', rank:8,  name:'펜타클 8',       nameEn:'Eight of Pentacles',  emoji:'🔨', upright:'근면·기술 연마, 묵묵히 실력을 쌓아가는 장인',         reversed:'완벽주의·미루기, 지나친 반복에 빠짐 주의' },
+  { suit:'pentacles', rank:9,  name:'펜타클 9',       nameEn:'Nine of Pentacles',   emoji:'🌺', upright:'풍요·독립·자기충족, 노력의 달콤한 결실',              reversed:'허영·과시, 외적 성공 뒤 공허함 주의' },
+  { suit:'pentacles', rank:10, name:'펜타클 10',      nameEn:'Ten of Pentacles',    emoji:'🏰', upright:'부와 안정·유산, 세대를 이어갈 풍요로운 기반',          reversed:'가족 갈등·재정 손실, 기반의 균열 주의' },
+  { suit:'pentacles', rank:11, name:'펜타클 시종',    nameEn:'Page of Pentacles',   emoji:'📚', upright:'현실적 목표·꾸준한 학습, 성실한 첫 발자국',           reversed:'나태·신중함 부족, 계획 없는 시작 주의' },
+  { suit:'pentacles', rank:12, name:'펜타클 기사',    nameEn:'Knight of Pentacles', emoji:'🐢', upright:'신중함·꾸준함, 느리지만 확실하게 목표 달성',          reversed:'지나친 신중·고집, 변화를 거부하는 경직성 주의' },
+  { suit:'pentacles', rank:13, name:'펜타클 여왕',    nameEn:'Queen of Pentacles',  emoji:'🌿', upright:'현실적 풍요·따뜻한 보살핌, 물질과 정서의 균형',       reversed:'물질주의·불안, 지나친 안전 추구 주의' },
+  { suit:'pentacles', rank:14, name:'펜타클 왕',      nameEn:'King of Pentacles',   emoji:'💰', upright:'재정적 성공·안정적 리더십, 현실을 지배하는 힘',        reversed:'부패·낭비, 돈에 의한 오만함 주의' },
+];
+
+/** 전체 78장 덱 조합 */
+export function getFullDeck() {
+  const minor = MINOR_ARCANA.map((c, i) => ({
+    id: 22 + i,
+    name: c.name,
+    nameEn: c.nameEn,
+    emoji: c.emoji,
+    upright: c.upright,
+    reversed: c.reversed,
+    color: SUIT_INFO[c.suit].color,
+    suit: c.suit,
+    rank: c.rank,
+  }));
+  const major = TAROT_CARDS.map(c => ({ ...c, suit: undefined as undefined, rank: undefined as undefined }));
+  return [...major, ...minor];
+}
+
+export type AnyTarotCard = ReturnType<typeof getFullDeck>[number];
+
+/** 여러 장 뽑기 (중복 없음) */
+export function drawCards(count: number, fullDeck = false): { card: AnyTarotCard; reversed: boolean }[] {
+  const deck = fullDeck ? getFullDeck() : [...TAROT_CARDS].map(c => ({ ...c, suit: undefined as undefined, rank: undefined as undefined }));
+  const shuffled = [...deck].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count).map(card => ({
+    card,
+    reversed: Math.random() < 0.35,
+  }));
+}
+
 /* ── MBTI 유형 ── */
 export const MBTI_TYPES = [
   { id: 'ISTJ', name: 'ISTJ', nickname: '세상의 소금형', emoji: '🏛️', trait: '책임감·꼼꼼함' },
