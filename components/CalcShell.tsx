@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import CalcShareBtn from './CalcShareBtn';
 
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
 export function makeMetadata(title: string, description: string): Metadata {
@@ -35,7 +36,8 @@ export default function CalcShell({
             전체 계산기
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">{title}</span>
+          <span className="text-sm font-semibold text-slate-700 flex-1 truncate">{title}</span>
+          <CalcShareBtn />
         </div>
       </header>
 
