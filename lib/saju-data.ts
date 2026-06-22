@@ -368,10 +368,11 @@ export function getMonthPillar(month: number, day: number, yearStemIdx: number):
 }
 
 const DAY_OFFSET = 17;
-export function getDayPillar(date: Date): Pillar {
-  const unixDay = Math.floor(date.getTime()/86400000);
-  const idx = ((unixDay+DAY_OFFSET)%60+60)%60;
-  return { stemIdx:idx%10, branchIdx:idx%12 };
+// Date.UTC 사용: new Date(y,m,d)는 KST 자정 = UTC 전날 오후3시이므로 unixDay가 -1 오차 발생
+export function getDayPillar(year: number, month: number, day: number): Pillar {
+  const unixDay = Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+  const idx = ((unixDay + DAY_OFFSET) % 60 + 60) % 60;
+  return { stemIdx: idx % 10, branchIdx: idx % 12 };
 }
 
 export function getHourPillar(hour: number, dayStemIdx: number): Pillar {

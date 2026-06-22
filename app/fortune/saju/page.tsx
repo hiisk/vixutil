@@ -157,7 +157,7 @@ export default function SajuPage() {
     setError('');
     const yearP  = getYearPillar(yi,mi,di);
     const monthP = getMonthPillar(mi,di,yearP.stemIdx);
-    const dayP   = getDayPillar(new Date(yi,mi-1,di));
+    const dayP   = getDayPillar(yi, mi, di);
     const hourP  = h ? getHourPillar(parseInt(h),dayP.stemIdx) : null;
     setResult({ year:yearP, month:monthP, day:dayP, hour:hourP, inputYear:yi, inputMonth:mi, inputDay:di, gender:g });
     window.history.replaceState({},''  ,`?${new URLSearchParams({y,m,d,...(h?{h}:{}),g})}`);
