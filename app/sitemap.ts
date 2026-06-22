@@ -11,6 +11,7 @@ export const dynamic = "force-static";
 const calculatorRoutes = [
   "/calculator/salary", "/calculator/parttime", "/calculator/minimum-wage", "/calculator/standard-wage", "/calculator/overtime",
   "/calculator/weekly-holiday", "/calculator/severance", "/calculator/annual-leave-pay", "/calculator/four-insurance",
+  "/calculator/unemployment", "/calculator/parental-leave",
   "/calculator/freelance", "/calculator/to-hourly", "/calculator/to-annual",
   "/calculator/loan", "/calculator/deposit", "/calculator/savings", "/calculator/compound", "/calculator/compound-goal",
   "/calculator/ltv", "/calculator/dsr", "/calculator/max-loan", "/calculator/car-installment",

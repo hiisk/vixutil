@@ -18,7 +18,9 @@ const CATS = [
       { href:'/calculator/to-hourly',       title:'시급 계산기',          desc:'월급 → 시급 환산' },
       { href:'/calculator/to-annual',       title:'연봉 계산기',          desc:'월급 → 연봉 환산' },
       { href:'/calculator/standard-wage',   title:'통상임금 계산기',      desc:'기본급·고정수당 → 통상임금' },
-      { href:'/calculator/severance',       title:'퇴직금 계산기',        desc:'평균임금+상여+연차 → 법령기준 퇴직금' },
+      { href:'/calculator/severance',        title:'퇴직금 계산기',        desc:'평균임금+상여+연차 → 법령기준 퇴직금' },
+      { href:'/calculator/unemployment',     title:'실업급여 계산기',      desc:'평균임금·가입기간 → 구직급여 예상액', hot:true },
+      { href:'/calculator/parental-leave',   title:'육아휴직 급여 계산기', desc:'통상임금 → 육아휴직 급여 예상액', hot:true },
     ],
   },
   {
