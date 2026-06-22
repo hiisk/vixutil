@@ -14,25 +14,22 @@ const CAT_META: Record<string, { icon: string; color: string }> = {
 };
 
 function GenCard({ g }: { g: Generator }) {
-  const meta = CAT_META[g.category] ?? { icon: '✨', color: 'bg-slate-50 text-slate-700 border-slate-200' };
   return (
     <Link
       href={`/generator/${g.slug}`}
-      className="group flex flex-col bg-white border border-slate-200 rounded-xl p-4 hover:border-emerald-300 hover:shadow-md transition-all"
+      className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <span className="text-xl">{g.icon}</span>
-        <span className={`text-xs font-bold px-2 py-0.5 rounded-full border shrink-0 ${meta.color}`}>{g.category}</span>
+      <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-emerald-100 to-teal-100">
+        <img
+          src={`/generator/${g.slug}/opengraph-image`}
+          alt={g.title}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
       </div>
-      <h3 className="font-bold text-sm text-slate-900 group-hover:text-emerald-700 transition-colors mb-1 leading-tight">
-        {g.title}
-      </h3>
-      <p className="text-xs text-slate-400 leading-relaxed line-clamp-2 flex-1">{g.desc}</p>
-      <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-emerald-500">
-        생성하기
-        <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-        </svg>
+      <div className="p-3">
+        <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
+        <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{g.desc}</p>
       </div>
     </Link>
   );
