@@ -3,10 +3,11 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: '오늘의 운세 — vixutil',
-  description: '별자리·사주띠·타로·MBTI 운세를 무료로 확인하세요. 매일 새롭게 업데이트되는 오늘의 운세',
+  description: '꿈해몽·사주·별자리·타로·MBTI 운세를 무료로 확인하세요. 매일 새롭게 업데이트되는 오늘의 운세',
 };
 
 const TYPES = [
+  { href: '/fortune/dream',  icon: '🌙', title: '꿈 해몽',     desc: '돼지·뱀·불 등 50가지 꿈의 의미 분석', badge: '꿈해몽',   color: 'from-slate-700 to-indigo-800' },
   { href: '/fortune/saju',   icon: '🔯', title: '사주 분석',   desc: '생년월일로 사주 4주 분석 + 오행 균형', badge: '사주명리', color: 'from-indigo-500 to-violet-700' },
   { href: '/fortune/zodiac', icon: '⭐', title: '별자리 운세', desc: '12개 별자리로 오늘의 운세 확인',        badge: '12가지',   color: 'from-violet-500 to-purple-700' },
   { href: '/fortune/animal', icon: '🐉', title: '띠 운세',     desc: '쥐·소·범 등 12띠별 오늘의 운세',       badge: '12띠',     color: 'from-rose-500 to-pink-600' },
