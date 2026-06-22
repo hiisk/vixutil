@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "vixutil", template: "%s | vixutil" },
-  description: "계산기·심리테스트 등 실용 도구 모음 — vixutil.com",
+  description: "계산기·운세·생성기·심리테스트·퀴즈 등 일상 유틸 모음 — vixutil.com",
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },

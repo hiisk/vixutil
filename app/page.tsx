@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
-  description: '계산기·심리테스트·퀴즈·생성기·체크리스트 등 일상에 필요한 실용 도구 모음 — vixutil.com',
+  description: '계산기·운세·생성기·심리테스트·퀴즈 등 일상에 필요한 실용 유틸 모음 — vixutil.com',
 };
 
 const SECTIONS = [
