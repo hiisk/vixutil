@@ -10,6 +10,8 @@ import {
   countElements, pillarLabel, pillarHanja,
 } from '@/lib/saju-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
+import { analyzeFortune } from '@/lib/saju-fortune';
+import type { DomainFortune } from '@/lib/saju-fortune';
 
 /* ── util ── */
 const pad = (n: number) => String(n).padStart(2,'0');
@@ -98,6 +100,84 @@ function ElementBar({ counts, total }: { counts: Record<string,number>; total: n
   );
 }
 
+/* ── 색상 맵 ── */
+const COLOR_MAP: Record<string, { bg: string; badge: string; dot: string; border: string; accent: string }> = {
+  rose:   { bg:'bg-rose-50',   badge:'bg-rose-100 text-rose-700',   dot:'bg-rose-400',   border:'border-rose-200',   accent:'text-rose-700'   },
+  pink:   { bg:'bg-pink-50',   badge:'bg-pink-100 text-pink-700',   dot:'bg-pink-400',   border:'border-pink-200',   accent:'text-pink-700'   },
+  blue:   { bg:'bg-blue-50',   badge:'bg-blue-100 text-blue-700',   dot:'bg-blue-400',   border:'border-blue-200',   accent:'text-blue-700'   },
+  amber:  { bg:'bg-amber-50',  badge:'bg-amber-100 text-amber-700', dot:'bg-amber-400',  border:'border-amber-200',  accent:'text-amber-700'  },
+  indigo: { bg:'bg-indigo-50', badge:'bg-indigo-100 text-indigo-700',dot:'bg-indigo-400',border:'border-indigo-200', accent:'text-indigo-700' },
+  green:  { bg:'bg-green-50',  badge:'bg-green-100 text-green-700', dot:'bg-green-400',  border:'border-green-200',  accent:'text-green-700'  },
+  teal:   { bg:'bg-teal-50',   badge:'bg-teal-100 text-teal-700',   dot:'bg-teal-400',   border:'border-teal-200',   accent:'text-teal-700'   },
+  violet: { bg:'bg-violet-50', badge:'bg-violet-100 text-violet-700',dot:'bg-violet-400',border:'border-violet-200', accent:'text-violet-700' },
+  purple: { bg:'bg-purple-50', badge:'bg-purple-100 text-purple-700',dot:'bg-purple-400',border:'border-purple-200', accent:'text-purple-700' },
+  orange: { bg:'bg-orange-50', badge:'bg-orange-100 text-orange-700',dot:'bg-orange-400',border:'border-orange-200', accent:'text-orange-700' },
+};
+
+const GRADE_BADGE: Record<string, string> = {
+  '대길': 'bg-red-100 text-red-700',
+  '길':   'bg-emerald-100 text-emerald-700',
+  '보통': 'bg-slate-100 text-slate-600',
+  '주의': 'bg-amber-100 text-amber-700',
+  '흉':   'bg-gray-200 text-gray-600',
+};
+
+/* ── 운세 도메인 카드 ── */
+function DomainCard({ d, expanded, onToggle }: {
+  d: DomainFortune; expanded: boolean; onToggle: () => void;
+}) {
+  const c = COLOR_MAP[d.colorKey] ?? COLOR_MAP.blue;
+  return (
+    <div className={`rounded-2xl border-2 overflow-hidden transition-all ${expanded ? c.border : 'border-slate-100'}`}>
+      {/* 헤더 (항상 표시) */}
+      <button
+        onClick={onToggle}
+        className={`w-full flex items-center gap-3 p-4 text-left transition-colors ${expanded ? c.bg : 'bg-white hover:bg-slate-50'}`}
+      >
+        <span className="text-2xl leading-none shrink-0">{d.emoji}</span>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-sm font-black text-slate-900">{d.title}</span>
+            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${GRADE_BADGE[d.grade]}`}>{d.grade}</span>
+          </div>
+          {/* 별점 */}
+          <div className="flex gap-0.5 mb-1.5">
+            {[1,2,3,4,5].map(i => (
+              <div key={i} className={`w-2.5 h-2.5 rounded-full ${i <= d.score ? c.dot : 'bg-slate-200'}`} />
+            ))}
+          </div>
+          <p className="text-xs text-slate-500 leading-snug line-clamp-1">{d.summary}</p>
+        </div>
+        <svg
+          className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {/* 확장 영역 */}
+      {expanded && (
+        <div className="bg-white border-t border-slate-100 px-4 py-4 space-y-3">
+          <p className="text-xs text-slate-600 leading-relaxed">{d.summary}</p>
+          <ul className="space-y-2">
+            {d.points.map((pt, i) => (
+              <li key={i} className="flex gap-2 text-xs text-slate-700 leading-relaxed">
+                <span className={`shrink-0 font-black mt-0.5 ${c.accent}`}>·</span>
+                <span>{pt}</span>
+              </li>
+            ))}
+          </ul>
+          <div className={`rounded-xl p-3 border ${c.bg} ${c.border}`}>
+            <p className={`text-[10px] font-black mb-1 ${c.accent}`}>💡 조언</p>
+            <p className="text-xs text-slate-700 leading-relaxed">{d.advice}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── 대운 카드 ── */
 function DaewoonCard({ entry, currentAge, isCurrent }: { entry: DaewoonEntry; currentAge: number; isCurrent: boolean }) {
   const stem   = STEMS[entry.pillar.stemIdx];
@@ -140,7 +220,8 @@ export default function SajuPage() {
   const [result, setResult] = useState<SajuResult|null>(null);
   const [error, setError]   = useState('');
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'analysis'|'daewoon'>('analysis');
+  const [activeTab, setActiveTab] = useState<'analysis'|'daewoon'|'fortune'>('analysis');
+  const [expandedDomains, setExpandedDomains] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
@@ -193,6 +274,19 @@ export default function SajuPage() {
         { label:'시주 천간', pillar:result.hour,   role:'자녀·노년·결실' },
       ]
     : [];
+
+  /* 운세 도메인 분석 */
+  const fortuneDomains = result && singang
+    ? analyzeFortune(result.day, result.year, result.month, result.hour, result.gender, singang.strong, counts)
+    : [];
+
+  function toggleDomain(id: string) {
+    setExpandedDomains(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }
 
   /* 공유 */
   function handleCopyLink() {
@@ -321,15 +415,19 @@ export default function SajuPage() {
           <div id="saju-result" className="space-y-4">
 
             {/* 탭 */}
-            <div className="flex gap-2">
-              {(['analysis','daewoon'] as const).map(tab => (
+            <div className="flex gap-1.5">
+              {([
+                ['analysis', '🔍', '사주 분석'],
+                ['daewoon',  '⏳', '대운'],
+                ['fortune',  '✨', '운세 분석'],
+              ] as const).map(([tab, icon, label]) => (
                 <button key={tab} onClick={()=>setActiveTab(tab)}
                   className={`flex-1 py-2.5 rounded-xl text-xs font-black border-2 transition-all ${
                     activeTab===tab
                       ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
                       : 'bg-white border-slate-200 text-slate-500'
                   }`}>
-                  {tab==='analysis' ? '🔍 사주 분석' : '⏳ 대운 (大運)'}
+                  {icon} {label}
                 </button>
               ))}
             </div>
@@ -689,6 +787,50 @@ export default function SajuPage() {
                     실제 사주 풀이는 세운(歲運)·월운(月運)과 함께 종합적으로 해석해야 합니다.
                   </p>
                 </div>
+              </div>
+            )}
+
+            {/* ─── 운세 분석 탭 ─── */}
+            {activeTab==='fortune' && (
+              <div className="space-y-3">
+                {/* 안내 */}
+                <div className="bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200 rounded-2xl p-4">
+                  <p className="text-xs font-black text-indigo-700 mb-1">✨ 10가지 삶의 영역별 운세 분석</p>
+                  <p className="text-[11px] text-indigo-600 leading-relaxed">
+                    일주·십성·신강신약·오행 균형을 종합해 연애·결혼·직업·재물·건강 등 10개 영역을 분석합니다.<br />
+                    각 카드를 눌러 상세 해석을 확인하세요.
+                  </p>
+                </div>
+
+                {/* 도메인 카드 */}
+                {fortuneDomains.map(d => (
+                  <DomainCard
+                    key={d.id}
+                    d={d}
+                    expanded={expandedDomains.has(d.id)}
+                    onToggle={() => toggleDomain(d.id)}
+                  />
+                ))}
+
+                {/* 전체 열기/닫기 */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setExpandedDomains(new Set(fortuneDomains.map(d => d.id)))}
+                    className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-all"
+                  >
+                    전체 펼치기
+                  </button>
+                  <button
+                    onClick={() => setExpandedDomains(new Set())}
+                    className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-slate-300 transition-all"
+                  >
+                    전체 접기
+                  </button>
+                </div>
+
+                <p className="text-center text-[10px] text-slate-300 pt-2">
+                  운세 분석은 사주팔자를 기반으로 한 참고 자료이며 오락 목적입니다
+                </p>
               </div>
             )}
 
