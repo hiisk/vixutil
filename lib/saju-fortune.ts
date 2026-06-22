@@ -7,6 +7,7 @@ export interface DomainFortune {
   title: string;
   score: 1|2|3|4|5;
   grade: '대길'|'길'|'보통'|'주의'|'흉';
+  intro: string;
   summary: string;
   points: string[];
   advice: string;
@@ -88,6 +89,9 @@ export function analyzeFortune(
   const love: DomainFortune = {
     id: 'love', emoji: '💕', title: '연애운',
     score: loveScore, grade: GRADES[loveScore], colorKey: 'rose',
+    intro: gender === 'female'
+      ? `사주에서 여성의 이성 인연은 관성(官星)이 나타냅니다. 관성의 강도와 종류에 따라 이성을 만나는 빈도, 관계의 깊이, 연애 스타일이 달라집니다. 도화살(桃花殺)이 있으면 타고난 매력으로 이성이 먼저 다가오는 경우가 많으며, 연애 기회 자체가 풍부합니다.`
+      : `사주에서 남성의 이성 인연은 재성(財星)이 나타냅니다. 재성의 강도와 종류에 따라 이성을 대하는 방식, 관계의 지속성, 연애 패턴이 결정됩니다. 도화살(桃花殺)이 함께 있으면 자연스러운 매력 발산으로 이성에게 인기가 높아집니다.`,
     summary: loveScore >= 4
       ? '이성 인기가 높고 만남 기회가 자연스럽게 찾아오는 사주입니다.'
       : loveScore === 3
@@ -146,6 +150,7 @@ export function analyzeFortune(
   const marriage: DomainFortune = {
     id: 'marriage', emoji: '💍', title: '결혼운',
     score: marriageScore, grade: GRADES[marriageScore], colorKey: 'pink',
+    intro: `일지(日支)는 배우자 자리로, 결혼 인연의 성격을 가장 직접적으로 드러냅니다. 배우자 별(여성:관성, 남성:재성)의 강약이 결혼 시기와 배우자의 성향을 결정하며, 비겁(比劫)이 강한 사주는 혼자이고 싶은 욕구가 강해 결혼이 늦어지는 경우가 많습니다. 결혼은 서두르는 것보다 자신과 맞는 사람을 찾는 데 집중하는 것이 더 중요합니다.`,
     summary: marriageScore >= 4
       ? '결혼 인연이 뚜렷한 사주입니다. 적절한 시기에 자연스럽게 이루어집니다.'
       : marriageScore === 3
@@ -195,6 +200,7 @@ export function analyzeFortune(
   const career: DomainFortune = {
     id: 'career', emoji: '💼', title: '직업·이직운',
     score: careerScore, grade: GRADES[careerScore], colorKey: 'blue',
+    intro: `사주에서 직업 운은 관성(官星), 식상(食傷), 재성(財星)의 조합으로 결정됩니다. 관성이 강하면 조직에서 인정받고 승진이 빠르지만, 식상이 강하면 창의적인 환경이나 프리랜서가 더 맞습니다. 신강(身强)한 사주는 독립과 이직에 강하고, 신약(身弱)한 사주는 좋은 조직과 동료가 성과를 결정합니다.`,
     summary: `${careerTypeLabel} 사주입니다. ${careerScore >= 4 ? '현재 직업 환경이 유리하게 작용하고 있습니다.' : careerScore === 3 ? '이직 시기를 신중하게 고르는 것이 중요합니다.' : '직업적 변화가 잦을 수 있으나 결국 자신만의 길을 찾게 됩니다.'}`,
     points: [
       dominantCat === '관성'
@@ -237,6 +243,7 @@ export function analyzeFortune(
   const wealth: DomainFortune = {
     id: 'wealth', emoji: '💰', title: '재물운',
     score: wealthScore, grade: GRADES[wealthScore], colorKey: 'amber',
+    intro: `재물운은 재성(財星)의 강도와 식상(食傷)의 조합으로 결정됩니다. 식신(食神)이 재성을 생하는 '식신생재(食神生財)' 구조가 있으면 능력으로 자연스럽게 돈을 버는 이상적인 구조입니다. 반면 비겁(比劫)이 너무 강하면 재물이 들어와도 주변으로 빠져나가는 구조가 되기 쉬우므로, 재물 관리 방식이 매우 중요합니다.`,
     summary: wealthScore >= 4
       ? hasShiksin ? '식신생재(食神生財) 구조로 능력이 돈을 부르는 이상적인 재물 사주입니다.' : '꾸준히 재물을 모으는 구조가 갖춰진 사주입니다.'
       : wealthScore === 3
@@ -284,6 +291,7 @@ export function analyzeFortune(
   const study: DomainFortune = {
     id: 'study', emoji: '📚', title: '학업·시험운',
     score: studyScore, grade: GRADES[studyScore], colorKey: 'indigo',
+    intro: `학업과 시험 운은 인성(印星)이 핵심입니다. 정인(正印)이 있으면 집중력이 높고 귀인의 도움을 받으며, 편인(偏印)이 있으면 독창적인 학습 방식이 잘 맞습니다. 수(水) 오행은 지혜와 기억력을 상징하므로 수 기운이 있으면 정보 흡수력이 뛰어나며, 부족하면 집중력 유지에 의식적인 노력이 필요합니다.`,
     summary: studyScore >= 4
       ? '학습 집중력과 시험 운이 뛰어난 사주입니다. 노력한 만큼 결과가 나옵니다.'
       : studyScore === 3
@@ -330,6 +338,7 @@ export function analyzeFortune(
   const health: DomainFortune = {
     id: 'health', emoji: '🏥', title: '건강운',
     score: healthScore, grade: GRADES[healthScore], colorKey: 'green',
+    intro: `사주의 오행 균형은 신체 건강과 직결됩니다. 목(木)은 간·담낭, 화(火)는 심장·순환계, 토(土)는 위장·비장, 금(金)은 폐·대장, 수(水)는 신장·방광에 영향을 미칩니다. 오행 중 하나라도 완전히 없다면 해당 장기에 주의가 필요하며, 신강(身强)/신약(身弱) 여부는 전반적인 체력과 면역력의 기준이 됩니다.`,
     summary: healthScore >= 4
       ? `전반적으로 체력과 기운이 좋은 사주입니다.${singang ? ' 신강해 활동적인 에너지가 넘칩니다.' : ''}`
       : healthScore === 3
@@ -371,6 +380,7 @@ export function analyzeFortune(
   const social: DomainFortune = {
     id: 'social', emoji: '🤝', title: '대인관계·인맥운',
     score: socialScore, grade: GRADES[socialScore], colorKey: 'teal',
+    intro: `인간관계는 식상(食傷)의 표현력과 인성(印星)의 지성적 매력, 그리고 도화(桃花) 기운이 결합되어 형성됩니다. 비겁(比劫)이 강한 사주는 독립적 성향이 강해 넓은 인맥보다 깊은 소수 관계를 선호하고, 관성(官星)이 강한 사주는 사회적 역할과 책임을 통해 신뢰 기반의 인맥을 쌓아갑니다. 어떤 사주든 진심을 다하는 관계가 결국 가장 든든한 인맥이 됩니다.`,
     summary: socialScore >= 4
       ? '자연스럽게 인맥이 모이고 귀인의 도움을 받기 쉬운 사주입니다.'
       : socialScore === 3
@@ -412,6 +422,7 @@ export function analyzeFortune(
   const business: DomainFortune = {
     id: 'business', emoji: '🚀', title: '사업·창업운',
     score: bizScore, grade: GRADES[bizScore], colorKey: 'violet',
+    intro: `사업 성공의 핵심은 신강(身强) 여부와 식신생재(食神生財) 구조입니다. 신강하면 추진력과 결단력이 강해 사업 환경에서 강점을 발휘하고, 식상이 재성을 생하는 구조가 있으면 내 재능이 직접 수익으로 연결됩니다. 신약하더라도 파트너십이나 전문직 형태의 사업은 충분히 성공할 수 있으며, 중요한 것은 자신의 사주에 맞는 사업 방식을 선택하는 것입니다.`,
     summary: bizScore >= 4
       ? '사업 에너지와 재물을 만드는 구조가 갖춰진 사주입니다. 창업·독립에 유리합니다.'
       : bizScore === 3
@@ -449,6 +460,7 @@ export function analyzeFortune(
   const change: DomainFortune = {
     id: 'change', emoji: '🔄', title: '이직·변화운',
     score: changeScore, grade: GRADES[changeScore], colorKey: 'orange',
+    intro: `이직과 변화의 운은 역마살(驛馬殺)과 비겁(比劫)의 강도, 그리고 신강/신약으로 결정됩니다. 역마살이 있는 사주는 이동과 변화 속에서 오히려 기회가 열리는 구조로, 한 곳에 너무 오래 머물면 오히려 운이 막히기도 합니다. 신강한 사주는 새 환경에 빠르게 적응하고 주도권을 잡는 반면, 신약한 사주는 이직 전 충분한 준비와 안전망이 필수입니다.`,
     summary: changeScore >= 4
       ? '변화와 이동에 강한 사주입니다. 새로운 환경이 오히려 기회가 됩니다.'
       : changeScore === 3
@@ -508,6 +520,7 @@ export function analyzeFortune(
   const future: DomainFortune = {
     id: 'future', emoji: '🔮', title: '미래 총운',
     score: futureScore, grade: GRADES[futureScore], colorKey: 'purple',
+    intro: `미래의 흐름은 일간(日干)의 오행과 신강/신약이 만드는 근본 에너지 방향에 달려 있습니다. 타고난 오행의 특성을 이해하고 그 강점을 최대한 활용하는 사람이 자신의 운명을 개척합니다. 대운(大運)은 10년마다 바뀌는 큰 흐름으로, 현재 대운의 방향과 자신의 일간 에너지가 일치할 때 가장 큰 성취를 이룰 수 있습니다.`,
     summary: futureScore >= 4
       ? `${elName} 일간의 기운이 충실하게 발현되는 삶의 흐름을 갖고 있습니다.`
       : `${elName} 일간으로 ${singang ? '강한 에너지를 올바른 방향으로 집중하는 것' : '기반을 단단히 쌓아 나가는 것'}이 미래의 핵심입니다.`,

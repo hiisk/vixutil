@@ -220,8 +220,7 @@ export default function SajuPage() {
   const [result, setResult] = useState<SajuResult|null>(null);
   const [error, setError]   = useState('');
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'analysis'|'daewoon'|'fortune'>('analysis');
-  const [expandedDomains, setExpandedDomains] = useState<Set<string>>(new Set());
+  const [stepIdx, setStepIdx] = useState(0);
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
@@ -280,13 +279,32 @@ export default function SajuPage() {
     ? analyzeFortune(result.day, result.year, result.month, result.hour, result.gender, singang.strong, counts)
     : [];
 
-  function toggleDomain(id: string) {
-    setExpandedDomains(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  }
+  /* 스텝 목록 */
+  type StepType = { key: string; emoji: string; title: string; subtitle: string; grad: string };
+  const STATIC_STEPS: StepType[] = [
+    { key:'pillars',  emoji:'🎴', title:'나의 사주 사주',  subtitle:'천간과 지지로 이루어진 네 기둥', grad:'from-indigo-600 to-violet-700' },
+    { key:'ilju',     emoji: dayStem?.emoji??'🔯', title:'일주 심층 해석', subtitle:'나를 이루는 핵심 에너지', grad:'from-slate-700 to-slate-900' },
+    { key:'singang',  emoji:'⚖️', title:'신강·신약 분석', subtitle:'일간 기운의 강약과 용신', grad:'from-rose-600 to-rose-800' },
+    { key:'ohaeng',   emoji:'🌊', title:'오행 균형',       subtitle:'다섯 원소의 분포와 보완법', grad:'from-cyan-600 to-blue-700' },
+    { key:'sipseong', emoji:'☯️', title:'십성(十星) 분석', subtitle:'일간과 다른 천간의 관계', grad:'from-purple-600 to-purple-800' },
+  ];
+  const DOMAIN_STEPS: StepType[] = fortuneDomains.map(d => ({
+    key: `domain-${d.id}`, emoji: d.emoji, title: d.title,
+    subtitle: `${d.grade} · ${d.score}점`,
+    grad: {
+      rose:'from-rose-500 to-rose-700', pink:'from-pink-500 to-pink-700',
+      blue:'from-blue-500 to-blue-700', amber:'from-amber-500 to-amber-700',
+      indigo:'from-indigo-500 to-indigo-700', green:'from-green-600 to-green-800',
+      teal:'from-teal-500 to-teal-700', violet:'from-violet-500 to-violet-700',
+      purple:'from-purple-500 to-purple-700', orange:'from-orange-500 to-orange-700',
+    }[d.colorKey] ?? 'from-indigo-500 to-violet-600',
+  }));
+  const TAIL_STEPS: StepType[] = [
+    { key:'daewoon', emoji:'⏳', title:'대운(大運) 흐름', subtitle:'10년 단위 인생의 큰 흐름', grad:'from-violet-600 to-purple-800' },
+  ];
+  const allSteps = [...STATIC_STEPS, ...DOMAIN_STEPS, ...TAIL_STEPS];
+  const safeStep = Math.min(stepIdx, allSteps.length - 1);
+  const currentStep = allSteps[safeStep];
 
   /* 공유 */
   function handleCopyLink() {
@@ -411,428 +429,408 @@ export default function SajuPage() {
         </div>
 
         {/* ══════════════ 결과 ══════════════ */}
-        {result && (
-          <div id="saju-result" className="space-y-4">
+        {result && dayStem && (
+          <div id="saju-result">
 
-            {/* 탭 */}
-            <div className="flex gap-1.5">
-              {([
-                ['analysis', '🔍', '사주 분석'],
-                ['daewoon',  '⏳', '대운'],
-                ['fortune',  '✨', '운세 분석'],
-              ] as const).map(([tab, icon, label]) => (
-                <button key={tab} onClick={()=>setActiveTab(tab)}
-                  className={`flex-1 py-2.5 rounded-xl text-xs font-black border-2 transition-all ${
-                    activeTab===tab
-                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
-                      : 'bg-white border-slate-200 text-slate-500'
-                  }`}>
-                  {icon} {label}
-                </button>
-              ))}
+            {/* ── 스텝 목차 (미니) ── */}
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-xs font-bold text-slate-500">
+                {safeStep + 1} <span className="text-slate-300">/ {allSteps.length}</span>
+              </p>
+              <div className="flex gap-1 overflow-hidden max-w-[200px]">
+                {allSteps.map((s, i) => (
+                  <button
+                    key={s.key}
+                    onClick={() => setStepIdx(i)}
+                    className={`h-1.5 rounded-full transition-all flex-shrink-0 ${
+                      i === safeStep ? 'w-5 bg-indigo-500' : 'w-1.5 bg-slate-200 hover:bg-slate-300'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
 
-            {/* ─── 분석 탭 ─── */}
-            {activeTab==='analysis' && (
-              <div className="space-y-4">
+            {/* ── 스텝 카드 ── */}
+            <div className="rounded-3xl overflow-hidden shadow-lg shadow-indigo-100/60 border border-white">
 
-                {/* ① 사주 사주표 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <SectionHeader emoji="🎴" title="사주 사주(四柱)" sub={`${result.inputYear}.${pad(result.inputMonth)}.${pad(result.inputDay)} · ${result.gender==='male'?'남성':'여성'}`} />
-                  <div className="flex gap-1.5">
-                    <PillarCard label="년주(年柱)" pillar={result.year}  ilganIdx={result.day.stemIdx} />
-                    <PillarCard label="월주(月柱)" pillar={result.month} ilganIdx={result.day.stemIdx} />
-                    <PillarCard label="일주(日柱)" pillar={result.day}   isDay />
-                    <PillarCard label="시주(時柱)" pillar={result.hour}  ilganIdx={result.day.stemIdx} />
-                  </div>
-                  <p className="text-[9px] text-slate-300 text-center mt-3">각 기둥의 천간 아래 작은 뱃지가 일간 기준 십성(十星)입니다</p>
-                </div>
+              {/* 카드 헤더 */}
+              <div className={`bg-gradient-to-br ${currentStep?.grad ?? 'from-indigo-600 to-violet-700'} px-5 pt-6 pb-8 text-white relative overflow-hidden`}>
+                <div className="absolute -right-4 -top-4 text-8xl opacity-10 select-none leading-none">{currentStep?.emoji}</div>
+                <p className="text-[10px] font-black opacity-60 tracking-widest uppercase mb-3">
+                  Step {safeStep + 1} / {allSteps.length}
+                </p>
+                <div className="text-5xl mb-3">{currentStep?.emoji}</div>
+                <h2 className="text-2xl font-black leading-tight mb-1">{currentStep?.title}</h2>
+                <p className="text-sm opacity-70">{currentStep?.subtitle}</p>
+              </div>
 
-                {/* ② 일주 해석 */}
-                {dayStem && (
-                  <div className="rounded-2xl overflow-hidden border border-slate-200">
-                    <div className="px-5 py-4 text-white relative overflow-hidden"
-                      style={{ background:`linear-gradient(135deg,${dayStem.color}f0,${dayStem.color}88)` }}>
-                      <div className="absolute -right-3 -top-3 text-7xl opacity-10 select-none">{dayStem.emoji}</div>
-                      <p className="text-[10px] font-black opacity-60 mb-2 uppercase tracking-widest">일주(日柱) · 나의 핵심 에너지</p>
-                      <div className="flex items-start gap-3">
-                        <span className="text-5xl">{dayStem.emoji}</span>
-                        <div>
-                          <p className="text-4xl font-black leading-none">{pillarHanja(result.day)}</p>
-                          <p className="text-sm font-bold mt-1 opacity-90">{pillarLabel(result.day)} 일주</p>
-                          <p className="text-xs opacity-60">{BRANCHES[result.day.branchIdx].animal} · {dayStem.nature} · {dayStem.element}({dayStem.yinyang})</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white p-4 space-y-4">
-                      <p className="text-sm text-slate-700 leading-[1.85]">{iljuDesc}</p>
-                      <div className="grid grid-cols-2 gap-2">
-                        {[
-                          { label:'오행', value:`${dayStem.element}(${dayStem.yinyang})`, emoji:ELEMENT_INFO[dayStem.element].emoji },
-                          { label:'상징', value:dayStem.nature, emoji:dayStem.emoji },
-                          { label:'행운 색상', value:dayStem.luckyColor, emoji:'🎨' },
-                          { label:'행운 방향', value:dayStem.luckyDirection, emoji:'🧭' },
-                          { label:'행운 숫자', value:`${dayStem.luckyNumber}`, emoji:'🔢' },
-                          { label:'적성 분야', value:dayStem.aptitude, emoji:'💼' },
-                        ].map(({label,value,emoji})=>(
-                          <div key={label} className="bg-slate-50 rounded-xl p-2.5">
-                            <p className="text-[9px] font-bold text-slate-400 mb-0.5">{emoji} {label}</p>
-                            <p className="text-xs font-black text-slate-700">{value}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
+              {/* 카드 본문 */}
+              <div className="bg-white">
 
-                {/* ③ 신강신약 */}
-                {singang && dayStem && (
-                  <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
-                    <SectionHeader emoji="⚖️" title="신강·신약(身强·身弱)" sub="일간 기운의 강약 판단 — 용신 결정의 기준" />
-                    <div className={`rounded-xl p-4 border-2 ${singang.strong ? 'border-rose-200 bg-rose-50' : 'border-blue-200 bg-blue-50'}`}>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-lg">{singang.strong ? '💪' : '🌱'}</span>
-                        <p className={`text-base font-black ${singang.strong ? 'text-rose-700' : 'text-blue-700'}`}>
-                          {singang.label}
-                        </p>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${singang.strong ? 'bg-rose-100 text-rose-600' : 'bg-blue-100 text-blue-600'}`}>
-                          강약지수 {singang.score>0?'+':''}{singang.score}
-                        </span>
-                      </div>
-                      <p className={`text-xs leading-relaxed ${singang.strong ? 'text-rose-700' : 'text-blue-700'}`}>{singang.desc}</p>
+                {/* ── pillars ── */}
+                {currentStep?.key === 'pillars' && (
+                  <div className="p-5 space-y-5">
+                    <div className="flex gap-1.5">
+                      <PillarCard label="년주(年柱)" pillar={result.year}  ilganIdx={result.day.stemIdx} />
+                      <PillarCard label="월주(月柱)" pillar={result.month} ilganIdx={result.day.stemIdx} />
+                      <PillarCard label="일주(日柱)" pillar={result.day}   isDay />
+                      <PillarCard label="시주(時柱)" pillar={result.hour}  ilganIdx={result.day.stemIdx} />
                     </div>
-                    <div className="rounded-xl p-4 bg-amber-50 border border-amber-200">
-                      <p className="text-xs font-black text-amber-700 mb-1">🌟 용신(用神) — 내가 취해야 할 기운</p>
-                      <p className="text-sm font-black text-amber-800 mb-1">{singang.yongshin}</p>
-                      <p className="text-xs text-amber-700 leading-relaxed">{singang.yongshinDesc}</p>
-                    </div>
-                  </div>
-                )}
-
-                {/* ④ 십성 분석 */}
-                {result && (
-                  <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
-                    <SectionHeader emoji="☯️" title="십성(十星) 분석" sub="일간이 다른 천간과 맺는 관계 — 성격·직업·재물·인연의 키" />
-                    <div className="space-y-3">
-                      {otherPillars.map(({ label, pillar, role }) => {
-                        if (!pillar) return null;
-                        const ss = getSipseong(result.day.stemIdx, pillar.stemIdx);
-                        const info = SIPSEONG_INFO[ss];
-                        const stemInfo = STEMS[pillar.stemIdx];
-                        if (!info) return null;
-                        return (
-                          <div key={label} className="rounded-xl border border-slate-200 overflow-hidden">
-                            <div className="flex items-center gap-2 px-3 py-2 bg-slate-50">
-                              <span className="text-sm font-black" style={{ color: ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
-                              <div>
-                                <span className="text-xs font-bold text-slate-600">{label}</span>
-                                <span className="text-[10px] text-slate-400 ml-1">({role})</span>
-                              </div>
-                              <div className="ml-auto flex items-center gap-1">
-                                <span className="text-sm">{info.emoji}</span>
-                                <span className="text-xs font-black px-2 py-0.5 rounded-full"
-                                  style={{ background: ELEMENT_INFO[stemInfo.element].bg, color: ELEMENT_INFO[stemInfo.element].color }}>
-                                  {ss}
-                                </span>
-                                <span className="text-[10px] text-slate-400">({info.summary})</span>
-                              </div>
-                            </div>
-                            <div className="p-3 space-y-2">
-                              <p className="text-xs text-slate-700 leading-relaxed">
-                                {result.gender==='male' ? info.male : info.female}
-                              </p>
-                              <div className="grid grid-cols-2 gap-2">
-                                <div className="bg-slate-50 rounded-lg p-2">
-                                  <p className="text-[9px] font-bold text-slate-400 mb-0.5">💼 직업 영향</p>
-                                  <p className="text-[10px] text-slate-600">{info.career}</p>
-                                </div>
-                                <div className="bg-slate-50 rounded-lg p-2">
-                                  <p className="text-[9px] font-bold text-slate-400 mb-0.5">💰 재물 영향</p>
-                                  <p className="text-[10px] text-slate-600">{info.wealth}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                      {result.hour === null && (
-                        <p className="text-xs text-slate-400 text-center py-2">시주 입력 시 시주 천간 십성도 분석됩니다</p>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* ⑤ 오행 분석 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
-                  <SectionHeader emoji="🌊" title="오행(五行) 분석" sub="천간+지지 전체의 오행 분포" />
-                  {dominantEl && (
-                    <div className="rounded-xl p-3 border"
-                      style={{ background:ELEMENT_INFO[dominantEl].bg, borderColor:ELEMENT_INFO[dominantEl].border }}>
-                      <p className="text-xs font-black mb-1" style={{ color:ELEMENT_INFO[dominantEl].color }}>
-                        {ELEMENT_INFO[dominantEl].emoji} {ELEMENT_INFO[dominantEl].label} 기운이 가장 강합니다
-                      </p>
-                      <p className="text-[11px] leading-relaxed" style={{ color:ELEMENT_INFO[dominantEl].color+'cc' }}>
-                        {ELEMENT_INFO[dominantEl].advice}
-                      </p>
-                    </div>
-                  )}
-                  <ElementBar counts={counts} total={total} />
-                  {missingEls.length>0 && (
-                    <div className="bg-amber-50 border border-amber-100 rounded-xl p-3 space-y-2.5">
-                      <p className="text-[10px] font-black text-amber-700">부족한 오행 — 보완 방법</p>
-                      {missingEls.map(el=>(
-                        <div key={el} className="flex items-start gap-2">
-                          <span className="text-base leading-none mt-0.5">{ELEMENT_INFO[el].emoji}</span>
-                          <div>
-                            <p className="text-[10px] font-black" style={{ color:ELEMENT_INFO[el].color }}>{ELEMENT_INFO[el].label} 없음</p>
-                            <p className="text-[11px] text-slate-600 leading-relaxed">{ELEMENT_SHORTAGE[el]}</p>
-                          </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { label:'출생', value:`${result.inputYear}년 ${result.inputMonth}월 ${result.inputDay}일`, emoji:'📅' },
+                        { label:'성별', value:result.gender==='male'?'남성':'여성', emoji:'👤' },
+                        { label:'일주', value:`${pillarHanja(result.day)} 일주`, emoji:'🌟' },
+                        { label:'오행', value:`${dayStem.element}(${dayStem.yinyang}) 일간`, emoji:ELEMENT_INFO[dayStem.element].emoji },
+                      ].map(({ label, value, emoji }) => (
+                        <div key={label} className="bg-slate-50 rounded-xl p-3">
+                          <p className="text-[10px] font-bold text-slate-400 mb-0.5">{emoji} {label}</p>
+                          <p className="text-sm font-black text-slate-800">{value}</p>
                         </div>
                       ))}
                     </div>
-                  )}
-                </div>
+                    <p className="text-xs text-slate-400 text-center">각 기둥 천간 아래 작은 뱃지는 일간 기준 십성(十星)입니다</p>
+                  </div>
+                )}
 
-                {/* ⑥ 지장간 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <SectionHeader emoji="🔑" title="지장간(地藏干)" sub="지지 속에 숨겨진 천간 — 잠재된 에너지와 가능성" />
-                  <div className="space-y-3">
-                    {[
-                      { label:'년지', branch:result.year.branchIdx },
-                      { label:'월지', branch:result.month.branchIdx },
-                      { label:'일지', branch:result.day.branchIdx  },
-                      ...(result.hour ? [{ label:'시지', branch:result.hour.branchIdx }] : []),
-                    ].map(({ label, branch }) => {
-                      const b = BRANCHES[branch];
-                      const jjg = JIJANGGAN[branch];
-                      return (
-                        <div key={label} className="flex items-start gap-3">
-                          <div className="flex-shrink-0 text-center w-12">
-                            <span className="text-xl">{b.emoji}</span>
-                            <p className="text-[9px] font-black text-slate-400 mt-0.5">{label}</p>
-                            <p className="text-xs font-black" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</p>
+                {/* ── ilju ── */}
+                {currentStep?.key === 'ilju' && (
+                  <div className="p-5 space-y-4">
+                    <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+                      <span className="text-4xl">{dayStem.emoji}</span>
+                      <div>
+                        <p className="text-2xl font-black text-slate-900">{pillarHanja(result.day)}</p>
+                        <p className="text-sm font-bold text-slate-500">{pillarLabel(result.day)} 일주 · {BRANCHES[result.day.branchIdx].animal}</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-slate-700 leading-[1.9]">{iljuDesc}</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { label:'기질', value:dayStem.nature, emoji:'🌿' },
+                        { label:'행운 색상', value:dayStem.luckyColor, emoji:'🎨' },
+                        { label:'행운 방향', value:dayStem.luckyDirection, emoji:'🧭' },
+                        { label:'행운 숫자', value:`${dayStem.luckyNumber}`, emoji:'🔢' },
+                        { label:'적성 분야', value:dayStem.aptitude, emoji:'💼' },
+                        { label:'음양', value:`${dayStem.element} · ${dayStem.yinyang}`, emoji:ELEMENT_INFO[dayStem.element].emoji },
+                      ].map(({ label, value, emoji }) => (
+                        <div key={label} className="bg-slate-50 rounded-xl p-2.5">
+                          <p className="text-[9px] font-bold text-slate-400 mb-0.5">{emoji} {label}</p>
+                          <p className="text-xs font-black text-slate-700">{value}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
+                      <p className="text-[10px] font-black text-indigo-600 mb-1">💡 오늘의 운세</p>
+                      <FortuneDisplay
+                        subjectId={subjectId}
+                        subjectName={`${result.inputYear}년생`}
+                        subjectEmoji={dayStem.emoji}
+                        badge={`${pillarHanja(result.day)} 일주`}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* ── singang ── */}
+                {currentStep?.key === 'singang' && singang && (
+                  <div className="p-5 space-y-4">
+                    <div className={`rounded-2xl p-4 border-2 ${singang.strong ? 'border-rose-200 bg-rose-50' : 'border-blue-200 bg-blue-50'}`}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-2xl">{singang.strong ? '💪' : '🌱'}</span>
+                        <div>
+                          <p className={`text-xl font-black ${singang.strong ? 'text-rose-700' : 'text-blue-700'}`}>{singang.label}</p>
+                          <p className={`text-xs font-bold ${singang.strong ? 'text-rose-500' : 'text-blue-500'}`}>강약 지수 {singang.score > 0 ? '+' : ''}{singang.score}</p>
+                        </div>
+                      </div>
+                      <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800' : 'text-blue-800'}`}>{singang.desc}</p>
+                    </div>
+                    <div className="rounded-2xl p-4 bg-amber-50 border-2 border-amber-200">
+                      <p className="text-xs font-black text-amber-700 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
+                      <p className="text-lg font-black text-amber-800 mb-2">{singang.yongshin}</p>
+                      <p className="text-sm text-amber-700 leading-[1.85]">{singang.yongshinDesc}</p>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-xs font-black text-slate-500">활용 방법</p>
+                      {[
+                        singang.strong
+                          ? '신강한 사주는 에너지가 넘쳐 주변과 마찰이 생기기 쉽습니다. 이 힘을 외부 활동(운동, 사업, 창작)으로 발산하는 출구를 의식적으로 만드세요.'
+                          : '신약한 사주는 좋은 환경과 지지자가 성과를 결정합니다. 혼자 모든 것을 짊어지려 하지 말고 주변의 협력을 적극적으로 활용하세요.',
+                        `용신 기운(${singang.yongshin})의 색상과 방향을 생활 속에서 가까이 두면 운의 흐름이 강해집니다. 직업·주거·옷 색상 선택에 활용하세요.`,
+                      ].map((t, i) => (
+                        <div key={i} className="flex gap-2 bg-white border border-slate-100 rounded-xl p-3">
+                          <span className="text-amber-500 font-black shrink-0">·</span>
+                          <p className="text-xs text-slate-700 leading-relaxed">{t}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* ── ohaeng ── */}
+                {currentStep?.key === 'ohaeng' && (
+                  <div className="p-5 space-y-4">
+                    {dominantEl && (
+                      <div className="rounded-2xl p-4 border-2" style={{ background:ELEMENT_INFO[dominantEl].bg, borderColor:ELEMENT_INFO[dominantEl].border }}>
+                        <p className="text-xs font-black mb-2" style={{ color:ELEMENT_INFO[dominantEl].color }}>
+                          {ELEMENT_INFO[dominantEl].emoji} {ELEMENT_INFO[dominantEl].label} 기운이 가장 강합니다
+                        </p>
+                        <p className="text-sm leading-[1.85]" style={{ color:ELEMENT_INFO[dominantEl].color+'dd' }}>{ELEMENT_INFO[dominantEl].advice}</p>
+                      </div>
+                    )}
+                    <ElementBar counts={counts} total={total} />
+                    {missingEls.length > 0 && (
+                      <div className="space-y-3">
+                        <p className="text-xs font-black text-slate-500">부족한 오행 보완법</p>
+                        {missingEls.map(el => (
+                          <div key={el} className="flex gap-3 bg-amber-50 border border-amber-100 rounded-xl p-3">
+                            <span className="text-2xl leading-none shrink-0">{ELEMENT_INFO[el].emoji}</span>
+                            <div>
+                              <p className="text-xs font-black mb-1" style={{ color:ELEMENT_INFO[el].color }}>{ELEMENT_INFO[el].label} 없음</p>
+                              <p className="text-xs text-slate-600 leading-relaxed">{ELEMENT_SHORTAGE[el]}</p>
+                            </div>
                           </div>
-                          <div className="flex-1 flex flex-wrap gap-1.5 pt-1">
-                            {jjg.map(({ stemIdx, role }) => {
-                              const s = STEMS[stemIdx];
-                              const el = ELEMENT_INFO[s.element];
-                              const ss = getSipseong(result.day.stemIdx, stemIdx);
-                              const ssInfo = SIPSEONG_INFO[ss];
-                              return (
-                                <div key={stemIdx+role} className="flex items-center gap-1 px-2 py-1 rounded-lg border text-[10px] font-bold"
-                                  style={{ background:el.bg, borderColor:el.border }}>
-                                  <span style={{ color:el.color }}>{s.hanja}({s.kor})</span>
-                                  <span className="text-slate-400">{role}</span>
-                                  {ssInfo && <span style={{ color:el.color }}>· {ss}</span>}
-                                </div>
-                              );
-                            })}
+                        ))}
+                      </div>
+                    )}
+                    <div className="bg-slate-50 rounded-2xl p-4">
+                      <p className="text-xs font-black text-slate-500 mb-3">지장간(地藏干) — 숨겨진 기운</p>
+                      <div className="space-y-2">
+                        {[
+                          { label:'년지', branch:result.year.branchIdx },
+                          { label:'월지', branch:result.month.branchIdx },
+                          { label:'일지', branch:result.day.branchIdx },
+                          ...(result.hour ? [{ label:'시지', branch:result.hour.branchIdx }] : []),
+                        ].map(({ label, branch }) => {
+                          const b = BRANCHES[branch];
+                          return (
+                            <div key={label} className="flex items-center gap-2">
+                              <span className="text-xs font-black w-6 text-slate-400">{label}</span>
+                              <span className="text-base">{b.emoji}</span>
+                              <span className="text-sm font-black" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
+                              <div className="flex gap-1 flex-wrap">
+                                {JIJANGGAN[branch].map(({ stemIdx, role }) => {
+                                  const s = STEMS[stemIdx];
+                                  const el = ELEMENT_INFO[s.element];
+                                  return (
+                                    <span key={stemIdx+role} className="text-[9px] font-bold px-1.5 py-0.5 rounded" style={{ background:el.bg, color:el.color }}>
+                                      {s.hanja}{role}
+                                    </span>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ── sipseong ── */}
+                {currentStep?.key === 'sipseong' && (
+                  <div className="p-5 space-y-3">
+                    <p className="text-xs text-slate-500 leading-relaxed">일간 <span className="font-black text-slate-800">{dayStem.hanja}({dayStem.kor})</span> 기준으로 다른 기둥의 천간과 맺는 관계를 분석합니다. 십성은 성격·직업·재물·인연을 결정하는 핵심 키입니다.</p>
+                    {[
+                      { label:'년주 천간', pillar:result.year,   role:'조상·선천 기질' },
+                      { label:'월주 천간', pillar:result.month,  role:'부모·직업 환경' },
+                      { label:'시주 천간', pillar:result.hour,   role:'자녀·노년·결실' },
+                    ].map(({ label, pillar: p, role }) => {
+                      if (!p) return <div key={label} className="text-xs text-slate-400 text-center py-2">시주 입력 시 시주 십성도 표시됩니다</div>;
+                      const ss = getSipseong(result.day.stemIdx, p.stemIdx);
+                      const info = SIPSEONG_INFO[ss];
+                      const stemInfo = STEMS[p.stemIdx];
+                      if (!info) return null;
+                      return (
+                        <div key={label} className="rounded-2xl border border-slate-200 overflow-hidden">
+                          <div className="flex items-center gap-2 px-4 py-3 bg-slate-50">
+                            <span className="text-lg font-black" style={{ color:ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
+                            <span className="text-xs font-bold text-slate-700">{label}</span>
+                            <span className="text-[10px] text-slate-400">({role})</span>
+                            <div className="ml-auto flex items-center gap-1.5">
+                              <span className="text-sm">{info.emoji}</span>
+                              <span className="text-xs font-black px-2 py-0.5 rounded-full" style={{ background:ELEMENT_INFO[stemInfo.element].bg, color:ELEMENT_INFO[stemInfo.element].color }}>{ss}</span>
+                            </div>
+                          </div>
+                          <div className="px-4 py-3 space-y-2">
+                            <p className="text-sm text-slate-700 leading-[1.85]">{result.gender==='male' ? info.male : info.female}</p>
+                            <div className="grid grid-cols-2 gap-2 mt-2">
+                              <div className="bg-slate-50 rounded-xl p-2.5">
+                                <p className="text-[9px] font-bold text-slate-400 mb-1">💼 직업 영향</p>
+                                <p className="text-xs text-slate-600 leading-relaxed">{info.career}</p>
+                              </div>
+                              <div className="bg-slate-50 rounded-xl p-2.5">
+                                <p className="text-[9px] font-bold text-slate-400 mb-1">💰 재물 영향</p>
+                                <p className="text-xs text-slate-600 leading-relaxed">{info.wealth}</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       );
                     })}
                   </div>
-                  <p className="text-[10px] text-slate-300 mt-3">지장간 본기(本氣)가 해당 기둥의 핵심 에너지입니다</p>
-                </div>
+                )}
 
-                {/* ⑦ 오늘의 운세 */}
-                <div className="space-y-3">
-                  <SectionHeader emoji="🌟" title="오늘의 운세" />
-                  <FortuneDisplay
-                    subjectId={subjectId}
-                    subjectName={`${result.inputYear}년생`}
-                    subjectEmoji={dayStem?.emoji??'🔯'}
-                    badge={dayStem ? `${pillarHanja(result.day)} 일주` : undefined}
-                  />
-                </div>
-
-                {/* ⑧ 공유 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <p className="text-xs font-black text-slate-500 mb-3">결과 공유 · 링크 저장</p>
-                  <div className="flex gap-2">
-                    <button onClick={handleShare}
-                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-colors">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
-                      </svg>
-                      공유하기
-                    </button>
-                    <button onClick={handleCopyLink}
-                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors">
-                      {copied
-                        ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></>
-                        : <><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>링크 복사</>
-                      }
-                    </button>
-                  </div>
-                  <p className="text-[10px] text-slate-300 text-center mt-2">링크 공유 시 상대방도 결과를 바로 확인할 수 있습니다</p>
-                </div>
-              </div>
-            )}
-
-            {/* ─── 대운 탭 ─── */}
-            {activeTab==='daewoon' && (
-              <div className="space-y-4">
-                {/* 대운 개요 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
-                  <SectionHeader emoji="⏳" title="대운(大運) 분석" sub="10년 단위로 바뀌는 운의 흐름" />
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-[10px] font-bold text-slate-400 mb-1">대운 방향</p>
-                      <p className="text-sm font-black text-slate-700">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5">
-                        {result.gender==='male'?'남성':'여성'} · 년주 {STEMS[result.year.stemIdx].yinyang}간 →{' '}
-                        {direction==='forward'?'시간순 진행':'시간 역방향 진행'}
-                      </p>
+                {/* ── domain steps ── */}
+                {currentStep?.key.startsWith('domain-') && (() => {
+                  const domainId = currentStep.key.replace('domain-', '');
+                  const d = fortuneDomains.find(fd => fd.id === domainId);
+                  if (!d) return null;
+                  const c = COLOR_MAP[d.colorKey] ?? COLOR_MAP.blue;
+                  return (
+                    <div className="p-5 space-y-4">
+                      {/* 점수 */}
+                      <div className={`rounded-2xl p-4 ${c.bg} border ${c.border}`}>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex gap-1.5">
+                            {[1,2,3,4,5].map(i => (
+                              <div key={i} className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${i <= d.score ? c.dot + ' border-transparent' : 'bg-white border-slate-200'}`}>
+                                {i <= d.score && <div className="w-2 h-2 rounded-full bg-white" />}
+                              </div>
+                            ))}
+                          </div>
+                          <span className={`text-sm font-black px-3 py-1 rounded-full ${GRADE_BADGE[d.grade]}`}>{d.grade}</span>
+                        </div>
+                        <p className={`text-sm font-bold leading-relaxed ${c.accent}`}>{d.summary}</p>
+                      </div>
+                      {/* 소개 */}
+                      <p className="text-sm text-slate-600 leading-[1.9]">{d.intro}</p>
+                      {/* 포인트 */}
+                      <div className="space-y-3">
+                        {d.points.map((pt, i) => (
+                          <div key={i} className="flex gap-3 bg-white border border-slate-100 rounded-xl p-3.5">
+                            <span className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black text-white ${c.dot}`}>{i+1}</span>
+                            <p className="text-sm text-slate-700 leading-[1.85]">{pt}</p>
+                          </div>
+                        ))}
+                      </div>
+                      {/* 조언 */}
+                      <div className={`rounded-2xl p-4 border-2 ${c.bg} ${c.border}`}>
+                        <p className={`text-xs font-black mb-2 ${c.accent}`}>💡 핵심 조언</p>
+                        <p className="text-sm text-slate-700 leading-[1.85]">{d.advice}</p>
+                      </div>
                     </div>
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-[10px] font-bold text-slate-400 mb-1">입운수 (대운 시작)</p>
-                      <p className="text-sm font-black text-slate-700">{startAge}세부터</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5">출생 후 {startAge}년째부터 첫 대운 시작</p>
-                    </div>
-                    {currentDaewoon && (
-                      <div className="col-span-2 rounded-xl p-3 border-2 border-indigo-200 bg-indigo-50">
-                        <p className="text-[10px] font-bold text-indigo-500 mb-1">현재 대운 ({currentAge}세)</p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-2xl font-black" style={{ color:ELEMENT_INFO[STEMS[currentDaewoon.pillar.stemIdx].element].color }}>
-                            {STEMS[currentDaewoon.pillar.stemIdx].hanja}{BRANCHES[currentDaewoon.pillar.branchIdx].hanja}
-                          </span>
-                          <div>
-                            <p className="text-sm font-black text-indigo-700">
-                              {pillarHanja(currentDaewoon.pillar)} 대운
-                            </p>
-                            <p className="text-xs text-indigo-500">
-                              {currentDaewoon.startAge}세 ~ {currentDaewoon.endAge}세
-                              ({currentDaewoon.endAge - currentAge + 1}년 남음)
-                            </p>
+                  );
+                })()}
+
+                {/* ── daewoon ── */}
+                {currentStep?.key === 'daewoon' && (
+                  <div className="p-5 space-y-4">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="bg-slate-50 rounded-xl p-3">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1">대운 방향</p>
+                        <p className="text-base font-black text-slate-800">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">{direction==='forward'?'시간순 진행':'시간 역방향 진행'}</p>
+                      </div>
+                      <div className="bg-slate-50 rounded-xl p-3">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1">첫 대운 시작</p>
+                        <p className="text-base font-black text-slate-800">{startAge}세부터</p>
+                      </div>
+                      {currentDaewoon && (
+                        <div className="col-span-2 rounded-xl p-3 border-2 border-indigo-200 bg-indigo-50">
+                          <p className="text-[10px] font-bold text-indigo-500 mb-1">현재 대운 ({currentAge}세)</p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl font-black" style={{ color:ELEMENT_INFO[STEMS[currentDaewoon.pillar.stemIdx].element].color }}>
+                              {STEMS[currentDaewoon.pillar.stemIdx].hanja}{BRANCHES[currentDaewoon.pillar.branchIdx].hanja}
+                            </span>
+                            <div>
+                              <p className="text-sm font-black text-indigo-700">{pillarHanja(currentDaewoon.pillar)} 대운</p>
+                              <p className="text-xs text-indigo-500">{currentDaewoon.startAge}~{currentDaewoon.endAge}세 · {currentDaewoon.endAge-currentAge+1}년 남음</p>
+                            </div>
                           </div>
                         </div>
+                      )}
+                    </div>
+                    <div className="overflow-x-auto -mx-1 px-1 pb-2">
+                      <div className="flex gap-2 w-max">
+                        {daewoons.map((entry, i) => (
+                          <DaewoonCard key={i} entry={entry} currentAge={currentAge} isCurrent={!!currentDaewoon && entry.startAge===currentDaewoon.startAge} />
+                        ))}
                       </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* 대운 타임라인 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <p className="text-xs font-black text-slate-500 mb-3">대운 10개 흐름</p>
-                  <div className="overflow-x-auto -mx-1 px-1 pb-2">
-                    <div className="flex gap-2 w-max">
-                      {daewoons.map((entry, i) => (
-                        <DaewoonCard
-                          key={i}
-                          entry={entry}
-                          currentAge={currentAge}
-                          isCurrent={!!currentDaewoon && entry.startAge===currentDaewoon.startAge}
-                        />
-                      ))}
+                    </div>
+                    <div className="space-y-2">
+                      {daewoons.map((entry, i) => {
+                        const s = STEMS[entry.pillar.stemIdx];
+                        const b = BRANCHES[entry.pillar.branchIdx];
+                        const se = ELEMENT_INFO[s.element];
+                        const isCurrent = !!currentDaewoon && entry.startAge===currentDaewoon.startAge;
+                        const ss = getSipseong(result.day.stemIdx, entry.pillar.stemIdx);
+                        const ssInfo = SIPSEONG_INFO[ss];
+                        return (
+                          <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'border-indigo-300':'border-slate-100'}`}>
+                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50':'bg-slate-50'}`}>
+                              <span className="text-sm font-black text-slate-700">{s.hanja}{b.hanja}</span>
+                              <span className="text-xs font-bold text-slate-600">{pillarHanja(entry.pillar)}</span>
+                              <span className="text-[10px] text-slate-400">{entry.startAge}~{entry.endAge}세</span>
+                              {isCurrent && <span className="ml-auto text-[10px] font-black text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded-full">현재</span>}
+                            </div>
+                            <div className="px-3 py-2">
+                              <div className="flex gap-1.5 flex-wrap text-[10px] mb-1.5">
+                                <span className="px-2 py-0.5 rounded-full" style={{ background:se.bg, color:se.color }}>{se.emoji} {s.element}</span>
+                                {ssInfo && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{ssInfo.emoji} {ss}</span>}
+                              </div>
+                              <p className="text-xs text-slate-600 leading-relaxed">
+                                {s.nature}의 {s.element} 에너지와 {b.animal}({b.element}) 기운이 흐르는 {entry.endAge-entry.startAge+1}년입니다.
+                                {ssInfo && ` ${ss}운으로 ${ssInfo.summary}의 시기입니다.`}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
-                </div>
+                )}
 
-                {/* 각 대운 해석 */}
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
-                  <p className="text-xs font-black text-slate-500">대운별 오행 흐름 해석</p>
-                  {daewoons.map((entry, i) => {
-                    const s  = STEMS[entry.pillar.stemIdx];
-                    const b  = BRANCHES[entry.pillar.branchIdx];
-                    const se = ELEMENT_INFO[s.element];
-                    const be = ELEMENT_INFO[b.element];
-                    const isCurrent = !!currentDaewoon && entry.startAge===currentDaewoon.startAge;
-                    // 대운 천간과 일간의 십성 관계
-                    const ss = getSipseong(result.day.stemIdx, entry.pillar.stemIdx);
-                    const ssInfo = SIPSEONG_INFO[ss];
-                    return (
-                      <div key={i} className={`rounded-xl border overflow-hidden transition-all ${isCurrent?'border-indigo-300 shadow-md':'border-slate-200'}`}>
-                        <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50':'bg-slate-50'}`}>
-                          <span className={`text-base font-black ${isCurrent?'text-indigo-600':'text-slate-600'}`}>
-                            {s.hanja}{b.hanja}
-                          </span>
-                          <span className={`text-xs font-black ${isCurrent?'text-indigo-700':'text-slate-700'}`}>
-                            {pillarHanja(entry.pillar)} 대운
-                          </span>
-                          <span className={`text-[10px] ${isCurrent?'text-indigo-500':'text-slate-400'}`}>
-                            {entry.startAge}~{entry.endAge}세
-                          </span>
-                          {isCurrent && <span className="ml-auto text-[10px] font-black text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded-full">현재 진행중</span>}
-                        </div>
-                        <div className="px-3 py-2.5 space-y-1.5">
-                          <div className="flex gap-2 flex-wrap text-[10px] font-bold">
-                            <span className="px-2 py-0.5 rounded-full" style={{ background:se.bg, color:se.color }}>
-                              {se.emoji} 천간 {s.kor}({s.element}·{s.yinyang})
-                            </span>
-                            <span className="px-2 py-0.5 rounded-full" style={{ background:be.bg, color:be.color }}>
-                              {be.emoji} 지지 {b.kor}({b.animal})
-                            </span>
-                            {ssInfo && (
-                              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                                {ssInfo.emoji} {ss} ({ssInfo.summary})
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-xs text-slate-600 leading-relaxed">
-                            {s.nature}의 {s.element} 기운과 {b.animal}({b.element})의 지지 에너지가 흐르는 {entry.endAge-entry.startAge+1}년입니다.
-                            {ssInfo && ` 일간 기준 ${ss}운으로, ${ssInfo.summary}의 시기입니다.`}
-                            {s.element === (singang?.strong ? singang.yongshin.split('·')[0].replace(/[()]/g,'') : '') &&
-                              ` 용신 오행이 강해지는 좋은 흐름입니다.`}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+              </div>{/* end 카드 본문 */}
+            </div>{/* end 스텝 카드 */}
 
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                  <p className="text-[10px] text-slate-400 leading-relaxed">
-                    ※ 대운은 입운수를 기준으로 10년 단위로 바뀌며, 절기 날짜 오차로 인해 1~2년의 차이가 있을 수 있습니다.
-                    실제 사주 풀이는 세운(歲運)·월운(月運)과 함께 종합적으로 해석해야 합니다.
-                  </p>
-                </div>
-              </div>
-            )}
+            {/* ── 네비게이션 ── */}
+            <div className="flex items-center gap-3 mt-4">
+              <button
+                onClick={() => setStepIdx(i => Math.max(0, i - 1))}
+                disabled={safeStep === 0}
+                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm transition-all border-2 ${
+                  safeStep === 0
+                    ? 'border-slate-100 text-slate-300 bg-white cursor-not-allowed'
+                    : 'border-slate-200 text-slate-700 bg-white hover:border-indigo-300 hover:text-indigo-600'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                이전
+              </button>
+              <button
+                onClick={() => { setStepIdx(i => Math.min(allSteps.length - 1, i + 1)); document.getElementById('saju-result')?.scrollIntoView({ behavior:'smooth', block:'start' }); }}
+                disabled={safeStep === allSteps.length - 1}
+                className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-2xl font-black text-sm transition-all ${
+                  safeStep === allSteps.length - 1
+                    ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
+                }`}
+              >
+                {safeStep === allSteps.length - 1 ? '마지막 페이지' : (
+                  <>
+                    다음 — {allSteps[safeStep + 1]?.emoji} {allSteps[safeStep + 1]?.title}
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </div>
 
-            {/* ─── 운세 분석 탭 ─── */}
-            {activeTab==='fortune' && (
-              <div className="space-y-3">
-                {/* 안내 */}
-                <div className="bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200 rounded-2xl p-4">
-                  <p className="text-xs font-black text-indigo-700 mb-1">✨ 10가지 삶의 영역별 운세 분석</p>
-                  <p className="text-[11px] text-indigo-600 leading-relaxed">
-                    일주·십성·신강신약·오행 균형을 종합해 연애·결혼·직업·재물·건강 등 10개 영역을 분석합니다.<br />
-                    각 카드를 눌러 상세 해석을 확인하세요.
-                  </p>
-                </div>
-
-                {/* 도메인 카드 */}
-                {fortuneDomains.map(d => (
-                  <DomainCard
-                    key={d.id}
-                    d={d}
-                    expanded={expandedDomains.has(d.id)}
-                    onToggle={() => toggleDomain(d.id)}
-                  />
-                ))}
-
-                {/* 전체 열기/닫기 */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setExpandedDomains(new Set(fortuneDomains.map(d => d.id)))}
-                    className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-all"
-                  >
-                    전체 펼치기
-                  </button>
-                  <button
-                    onClick={() => setExpandedDomains(new Set())}
-                    className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-slate-300 transition-all"
-                  >
-                    전체 접기
-                  </button>
-                </div>
-
-                <p className="text-center text-[10px] text-slate-300 pt-2">
-                  운세 분석은 사주팔자를 기반으로 한 참고 자료이며 오락 목적입니다
-                </p>
-              </div>
-            )}
+            {/* 공유 */}
+            <div className="flex gap-2 mt-2">
+              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 border border-indigo-200 rounded-2xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-colors">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
+                </svg>
+                공유하기
+              </button>
+              <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors">
+                {copied ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></> : '🔗 링크 복사'}
+              </button>
+            </div>
 
           </div>
         )}
