@@ -1,6 +1,7 @@
 'use client';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 import { drawCards, TAROT_CARDS, MINOR_ARCANA, SUIT_INFO, type AnyTarotCard } from '@/lib/fortune-data';
 
 /* ═══════════════════════════════════════════
@@ -596,6 +597,7 @@ export default function TarotPage() {
         {/* ── 카드 목록 탭 ── */}
         {tab === 'catalog' && <CatalogTab />}
       </div>
+      <SiteFooter />
     </div>
   );
 }

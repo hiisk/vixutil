@@ -4,6 +4,7 @@ import CalcShell, {
   Card, CardHeader, Label, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import { CALC_FAQ } from '@/lib/calc-faq';
 
 /*
  * 육아휴직 급여 계산기 — 2025년 기준
@@ -102,6 +103,7 @@ export default function ParentalLeavePage() {
     <CalcShell
       title="육아휴직 급여 계산기"
       description="고용보험 육아휴직 급여 예상 수령액 · 2025년 기준"
+      faq={CALC_FAQ['parental-leave']}
     >
       <Card>
         <CardHeader title="육아휴직 정보 입력" />

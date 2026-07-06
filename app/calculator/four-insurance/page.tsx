@@ -4,6 +4,7 @@ import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard, TabBar, TableWrap, RatioBar,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import { CALC_FAQ } from '@/lib/calc-faq';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -145,7 +146,7 @@ export default function FourInsurancePage() {
     : 0;
 
   return (
-    <CalcShell title="4대보험 계산기" description="2026년 기준 4대보험 근로자·사업자 부담금">
+    <CalcShell title="4대보험 계산기" description="2026년 기준 4대보험 근로자·사업자 부담금" faq={CALC_FAQ['four-insurance']}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div>

@@ -5,6 +5,7 @@ import CalcShell, {
   SummaryCard, SummaryGrid, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import { CALC_FAQ } from '@/lib/calc-faq';
 
 type Freq = 12 | 4 | 1;
 
@@ -63,7 +64,7 @@ export default function CompoundPage() {
   const display = rows ? (showAll ? rows : rows.slice(0, 20)) : [];
 
   return (
-    <CalcShell wide title="복리 계산기" description="복리 주기 · 적립식 · 연도별 자산 성장 테이블">
+    <CalcShell wide title="복리 계산기" description="복리 주기 · 적립식 · 연도별 자산 성장 테이블" faq={CALC_FAQ.compound}>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

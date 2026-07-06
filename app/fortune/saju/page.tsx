@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 import {
   STEMS, BRANCHES, ELEMENT_INFO, ELEMENT_SHORTAGE, ILJU_READINGS,
   SIPSEONG_INFO, JIJANGGAN,
@@ -835,6 +836,7 @@ export default function SajuPage() {
           </div>
         )}
       </div>
+      <SiteFooter />
     </div>
   );
 }

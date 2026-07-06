@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 import { MBTI_TYPES } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 
@@ -99,6 +100,7 @@ export default function MbtiPage() {
           </div>
         )}
       </div>
+      <SiteFooter />
     </div>
   );
 }

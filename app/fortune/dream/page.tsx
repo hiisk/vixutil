@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 import {
   DREAM_DATA, POPULAR_KEYWORDS, CATEGORIES, LUCK_INFO,
   type DreamEntry, type DreamCategory,
@@ -259,6 +260,7 @@ export default function DreamPage() {
           </div>
         </div>
       )}
+      <SiteFooter />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
   title: '오늘의 운세 — vixutil',
@@ -68,6 +69,7 @@ export default function FortunePage() {
 
         <p className="text-center text-xs text-slate-300 mt-10">운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다</p>
       </div>
+      <SiteFooter />
     </div>
   );
 }

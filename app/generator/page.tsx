@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { GENERATORS } from '@/lib/generator-data';
 import GeneratorSearch from '@/components/GeneratorSearch';
+import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
   title: '생성기',
@@ -29,6 +30,7 @@ export default function GeneratorIndexPage() {
 
         <GeneratorSearch generators={GENERATORS} />
       </div>
+      <SiteFooter />
     </div>
   );
 }

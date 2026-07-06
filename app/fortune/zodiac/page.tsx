@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 import { ZODIAC_SIGNS } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 
@@ -86,6 +87,7 @@ export default function ZodiacPage() {
           </div>
         )}
       </div>
+      <SiteFooter />
     </div>
   );
 }

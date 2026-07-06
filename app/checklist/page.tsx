@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { CHECKLISTS } from '@/lib/checklist-data';
 import ChecklistSearch from '@/components/ChecklistSearch';
+import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
   title: '체크리스트',
@@ -33,6 +34,7 @@ export default function ChecklistIndexPage() {
 
         <ChecklistSearch checklists={CHECKLISTS} />
       </div>
+      <SiteFooter />
     </div>
   );
 }

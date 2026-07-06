@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+import { CALC_FAQ } from '@/lib/calc-faq';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -56,7 +57,7 @@ export default function BrokerFeePage() {
   }
 
   return (
-    <CalcShell title="중개수수료 계산기" description="2021년 개정 기준 부동산 중개보수 계산">
+    <CalcShell title="중개수수료 계산기" description="2021년 개정 기준 부동산 중개보수 계산" faq={CALC_FAQ['broker-fee']}>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

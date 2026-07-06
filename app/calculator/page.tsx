@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
+import SiteFooter from '@/components/SiteFooter';
 
 const CATS = [
   {
@@ -297,6 +298,7 @@ export default function Home() {
           <p className="text-xs text-slate-300">2026년 기준 · 참고용 계산기입니다</p>
         </footer>
       </div>
+      <SiteFooter />
     </div>
   );
 }

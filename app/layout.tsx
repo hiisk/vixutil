@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import JsonLd, { websiteJsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vixutil.com"),
   title: { default: "vixutil", template: "%s | vixutil" },
   description: "계산기·운세·생성기·심리테스트·퀴즈 등 일상 유틸 모음 — vixutil.com",
   icons: {
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-slate-50 text-slate-900">
+        <JsonLd data={websiteJsonLd} />
         {children}
       </body>
     </html>

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
+import { CALC_FAQ } from '@/lib/calc-faq';
 
 // 단순경비율 (업종코드 940909 — 기타 자유직업 관련 서비스업) 2025년 기준
 const EXPENSE_RATE = 0.641;
@@ -41,7 +42,7 @@ export default function FreelancePage() {
   }
 
   return (
-    <CalcShell title="프리랜서 세금 계산기" description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정">
+    <CalcShell title="프리랜서 세금 계산기" description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정" faq={CALC_FAQ.freelance}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">수입 정보</p>

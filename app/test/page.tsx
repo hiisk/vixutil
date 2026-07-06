@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { TESTS } from '@/lib/test-data';
 import TestSearch from '@/components/TestSearch';
+import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
   title: '심리 테스트',
@@ -29,6 +30,7 @@ export default function TestIndexPage() {
 
         <TestSearch tests={TESTS} />
       </div>
+      <SiteFooter />
     </div>
   );
 }

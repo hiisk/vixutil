@@ -4,6 +4,7 @@ import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar, SummaryCard,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import { CALC_FAQ } from '@/lib/calc-faq';
 
 /*
  * 근로자퇴직급여 보장법 제8조, 근로기준법 제2조
@@ -133,6 +134,7 @@ export default function SeverancePage() {
     <CalcShell
       title="퇴직금 계산기"
       description="근로자퇴직급여 보장법 기준 · 평균임금 + 상여금 + 연차수당 반영"
+      faq={CALC_FAQ.severance}
     >
       <div className="flex flex-col gap-4">
         {/* 입력 방식 */}

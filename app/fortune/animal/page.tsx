@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 import { ANIMALS } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 
@@ -87,6 +88,7 @@ export default function AnimalPage() {
           </div>
         )}
       </div>
+      <SiteFooter />
     </div>
   );
 }

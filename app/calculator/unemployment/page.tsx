@@ -4,6 +4,7 @@ import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import { CALC_FAQ } from '@/lib/calc-faq';
 import type { Metadata } from 'next';
 
 /*
@@ -75,6 +76,7 @@ export default function UnemploymentPage() {
     <CalcShell
       title="실업급여 계산기"
       description="고용보험 구직급여 예상 수령액 · 2025년 기준"
+      faq={CALC_FAQ.unemployment}
     >
       <Card>
         <CardHeader title="수급 조건 입력" />

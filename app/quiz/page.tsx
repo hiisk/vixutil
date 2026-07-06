@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { QUIZZES } from '@/lib/quiz-data';
 import QuizSearch from '@/components/QuizSearch';
+import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
   title: '지식 퀴즈',
@@ -29,6 +30,7 @@ export default function QuizIndexPage() {
 
         <QuizSearch quizzes={QUIZZES} />
       </div>
+      <SiteFooter />
     </div>
   );
 }
