@@ -1,7 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import JsonLd, { websiteJsonLd } from "@/components/JsonLd";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
+
+// TODO: GA4 측정 ID를 입력하세요 (예: "G-XXXXXXXXXX"). 비워두면 GA 스크립트는 로드되지 않습니다.
+const GA_MEASUREMENT_ID = "";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vixutil.com"),
@@ -39,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-slate-50 text-slate-900">
         <JsonLd data={websiteJsonLd} />
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         {children}
       </body>
     </html>

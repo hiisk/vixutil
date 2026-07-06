@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
-import JsonLd, { breadcrumbJsonLd, faqJsonLd } from './JsonLd';
-
-export type FaqItem = { q: string; a: string };
+import RelatedCalcs from './RelatedCalcs';
+import CalcFaq from './CalcFaq';
+import JsonLd, { breadcrumbJsonLd } from './JsonLd';
+import type { FaqItem } from '@/lib/calc-faq';
 
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
 export function makeMetadata(title: string, description: string): Metadata {
@@ -76,28 +77,9 @@ export default function CalcShell({
           </div>
         )}
 
-        {faq && faq.length > 0 && (
-          <section className="mt-8" aria-label="자주 묻는 질문">
-            <JsonLd data={faqJsonLd(faq)} />
-            <h2 className="text-base font-black text-slate-800 mb-3">자주 묻는 질문</h2>
-            <div className="flex flex-col gap-2.5">
-              {faq.map((item, i) => (
-                <details
-                  key={i}
-                  className="group bg-white border border-slate-200 rounded-xl px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
-                >
-                  <summary className="flex items-center justify-between cursor-pointer text-sm font-bold text-slate-700 list-none">
-                    <span className="flex-1 pr-2">Q. {item.q}</span>
-                    <svg className="w-4 h-4 text-slate-400 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                  </summary>
-                  <p className="mt-2.5 text-sm leading-relaxed text-slate-600">{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </section>
-        )}
+        <RelatedCalcs />
+
+        <CalcFaq items={faq} />
       </main>
 
       <SiteFooter />
