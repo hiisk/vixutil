@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import JsonLd, { websiteJsonLd } from "@/components/JsonLd";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={websiteJsonLd} />
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         {children}
+        <Analytics />
       </body>
     </html>
   );
