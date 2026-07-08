@@ -266,6 +266,18 @@ export default function SajuPage() {
   const currentAge  = result ? (new Date().getFullYear() - result.inputYear) : 0;
   const currentDaewoon = daewoons.find(d=>currentAge>=d.startAge&&currentAge<=d.endAge);
 
+  /* 세운(歲運) — 올해부터 3년간의 연간 운세 */
+  const thisYear = new Date().getFullYear();
+  const seunYears = result
+    ? Array.from({ length: 3 }, (_, i) => {
+        const y = thisYear + i;
+        // 입춘(대략 2/4) 이후로 안전하게 고정한 월/일로 연주 계산
+        const p = getYearPillar(y, 6, 15);
+        const ss = getSipseong(result.day.stemIdx, p.stemIdx);
+        return { year: y, pillar: p, sipseong: ss };
+      })
+    : [];
+
   /* 십성 */
   const otherPillars = result
     ? [
@@ -302,6 +314,7 @@ export default function SajuPage() {
   }));
   const TAIL_STEPS: StepType[] = [
     { key:'daewoon', emoji:'⏳', title:'대운(大運) 흐름', subtitle:'10년 단위 인생의 큰 흐름', grad:'from-violet-600 to-purple-800' },
+    { key:'seun', emoji:'📅', title:'세운(歲運) 연간 운세', subtitle:`${thisYear}년부터 3년간의 흐름`, grad:'from-cyan-600 to-blue-800' },
   ];
   const allSteps = [...STATIC_STEPS, ...DOMAIN_STEPS, ...TAIL_STEPS];
   const safeStep = Math.min(stepIdx, allSteps.length - 1);
@@ -778,6 +791,57 @@ export default function SajuPage() {
                         );
                       })}
                     </div>
+                  </div>
+                )}
+
+                {/* ── seun (연간 운세) ── */}
+                {currentStep?.key === 'seun' && (
+                  <div className="p-5 space-y-3">
+                    <p className="text-xs text-slate-500 leading-relaxed mb-1">
+                      세운은 대운(10년 흐름) 안에서 매년 바뀌는 그해의 기운입니다. 일간과 그해 천간의 관계(십성)로 한 해의 성격을 가늠합니다.
+                    </p>
+                    {seunYears.map(({ year, pillar, sipseong }, i) => {
+                      const s = STEMS[pillar.stemIdx];
+                      const b = BRANCHES[pillar.branchIdx];
+                      const se = ELEMENT_INFO[s.element];
+                      const ssInfo = SIPSEONG_INFO[sipseong];
+                      const isThisYear = i === 0;
+                      return (
+                        <div key={year} className={`rounded-xl border overflow-hidden ${isThisYear?'border-cyan-300':'border-slate-100'}`}>
+                          <div className={`flex items-center gap-2 px-3 py-2.5 ${isThisYear?'bg-cyan-50':'bg-slate-50'}`}>
+                            <span className="text-lg font-black" style={{ color: se.color }}>{s.hanja}{b.hanja}</span>
+                            <div>
+                              <p className="text-sm font-black text-slate-800">{year}년 · {pillarHanja(pillar)} 세운</p>
+                              <p className="text-[10px] text-slate-400">{pillarLabel(pillar)}년</p>
+                            </div>
+                            {isThisYear && <span className="ml-auto text-[10px] font-black text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded-full">올해</span>}
+                          </div>
+                          <div className="px-3.5 py-3 bg-white">
+                            <div className="flex gap-1.5 flex-wrap text-[10px] mb-2">
+                              <span className="px-2 py-0.5 rounded-full" style={{ background: se.bg, color: se.color }}>{se.emoji} {s.element}({s.yinyang})</span>
+                              {ssInfo && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{ssInfo.emoji} {sipseong} · {ssInfo.summary}</span>}
+                            </div>
+                            {ssInfo && (
+                              <>
+                                <p className="text-xs text-slate-700 leading-[1.85] mb-2">
+                                  {result?.gender === 'female' ? ssInfo.female : ssInfo.male}
+                                </p>
+                                <div className="grid grid-cols-2 gap-2">
+                                  <div className="bg-slate-50 rounded-lg p-2.5">
+                                    <p className="text-[10px] font-bold text-slate-400 mb-1">💼 커리어</p>
+                                    <p className="text-[11px] text-slate-600 leading-relaxed">{ssInfo.career}</p>
+                                  </div>
+                                  <div className="bg-slate-50 rounded-lg p-2.5">
+                                    <p className="text-[10px] font-bold text-slate-400 mb-1">💰 재물</p>
+                                    <p className="text-[11px] text-slate-600 leading-relaxed">{ssInfo.wealth}</p>
+                                  </div>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 
