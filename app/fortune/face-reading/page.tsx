@@ -32,11 +32,19 @@ function widthOf(points: Point[]) {
   return Math.max(...xs) - Math.min(...xs);
 }
 
-function avgY(points: Point[]) {
-  return points.reduce((s, p) => s + p.y, 0) / points.length;
+function midpoint(points: Point[]): Point {
+  return {
+    x: points.reduce((s, p) => s + p.x, 0) / points.length,
+    y: points.reduce((s, p) => s + p.y, 0) / points.length,
+  };
 }
 
-/** 68포인트 랜드마크 + 얼굴 박스로부터 이목구비 비율을 계산한다 */
+/**
+ * 68포인트 랜드마크 + 얼굴 박스로부터 이목구비 비율을 계산한다.
+ * 이마·헤어라인은 랜드마크 좌표가 존재하지 않아(68포인트는 눈썹 아래부터만
+ * 포함) 측정 대상에서 제외한다 — 앞머리로 가려진 사진에서도 그럴듯한 이마
+ * 모양을 지어내는 건 측정이 아니라 그냥 지어낸 말이 되기 때문이다.
+ */
 function measureRatios(box: FaceBox, landmarks: Landmarks68): FaceRatios {
   const jaw = landmarks.getJawOutline();
   const leftBrow = landmarks.getLeftEyeBrow();
@@ -49,13 +57,16 @@ function measureRatios(box: FaceBox, landmarks: Landmarks68): FaceRatios {
   const faceWidth = box.width;
   const faceHeight = box.height;
 
-  // 이마: 얼굴 박스 상단 ~ 눈썹 평균 높이 사이 공간 (박스 상단이 헤어라인 근처를 포함하는 경향을 이용한 근사치)
-  const eyebrowY = (avgY(leftBrow) + avgY(rightBrow)) / 2;
-  const foreheadSpace = Math.max(0, eyebrowY - box.y);
-  const foreheadRatio = clampUnit((foreheadSpace / faceHeight) * 2.2);
+  // 얼굴형: 잘선 폭(귀~귀, 0번·16번) 대비 얼굴 길이(눈썹 중앙~턱끝, 8번)의 비율.
+  // 잘선만으로 계산하므로 헤어스타일에 영향받지 않는다.
+  const browMid = midpoint([...leftBrow, ...rightBrow]);
+  const cheekWidth = dist(jaw[0], jaw[16]);
+  const faceLength = dist(browMid, jaw[8]);
+  const widthToLength = faceLength > 0 ? cheekWidth / faceLength : 0.8;
+  const faceShapeRatio = clampUnit((widthToLength - 0.6) / 0.5);
 
   // 눈썹: 양끝 평균 높이 대비 중앙이 얼마나 위로 솟았는지(아치 정도)
-  const archOf = (brow: { x: number; y: number }[]) => {
+  const archOf = (brow: Point[]) => {
     const ys = brow.map(p => p.y);
     const endAvg = (ys[0] + ys[ys.length - 1]) / 2;
     return endAvg - Math.min(...ys);
@@ -63,9 +74,22 @@ function measureRatios(box: FaceBox, landmarks: Landmarks68): FaceRatios {
   const browArch = (archOf(leftBrow) + archOf(rightBrow)) / 2;
   const eyebrowArchRatio = clampUnit((browArch / faceHeight) * 8);
 
-  // 눈: 눈 너비의 얼굴 대비 비율
+  // 눈 크기: 눈 너비의 얼굴 대비 비율
   const eyeWidthAvg = (widthOf(leftEye) + widthOf(rightEye)) / 2;
   const eyeWidthRatio = clampUnit((eyeWidthAvg / faceWidth) * 4.2);
+
+  // 눈매(캔달 틸트): 코 중심에서 먼 쪽(바깥쪽 눈꼬리)이 가까운 쪽(안쪽 눈머리)보다
+  // 얼마나 위/아래에 있는지로 처짐/올라감 각도를 측정한다.
+  const noseCenterX = midpoint(nose).x;
+  const tiltOf = (eye: Point[]) => {
+    const minXPt = eye.reduce((a, b) => (a.x < b.x ? a : b));
+    const maxXPt = eye.reduce((a, b) => (a.x > b.x ? a : b));
+    const outer = Math.abs(minXPt.x - noseCenterX) > Math.abs(maxXPt.x - noseCenterX) ? minXPt : maxXPt;
+    const inner = outer === minXPt ? maxXPt : minXPt;
+    return inner.y - outer.y; // 양수 = 바깥쪽 눈꼬리가 더 위 (올라간 눈매)
+  };
+  const tiltPx = (tiltOf(leftEye) + tiltOf(rightEye)) / 2;
+  const eyeTiltRatio = clampUnit(0.5 + (tiltPx / faceHeight) * 6);
 
   // 코: 콧볼 너비의 얼굴 대비 비율
   const noseWidthRatio = clampUnit((widthOf(nose) / faceWidth) * 3.3);
@@ -76,7 +100,7 @@ function measureRatios(box: FaceBox, landmarks: Landmarks68): FaceRatios {
   // 턱선: 귀 높이 부근 잘선(2번·14번 포인트) 너비의 얼굴 대비 비율
   const jawWidthRatio = clampUnit((dist(jaw[2], jaw[14]) / faceWidth) * 1.15);
 
-  return { foreheadRatio, eyebrowArchRatio, eyeWidthRatio, noseWidthRatio, mouthWidthRatio, jawWidthRatio };
+  return { faceShapeRatio, eyebrowArchRatio, eyeWidthRatio, eyeTiltRatio, noseWidthRatio, mouthWidthRatio, jawWidthRatio };
 }
 
 function ShareBtn() {
