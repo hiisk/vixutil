@@ -1,6 +1,7 @@
 'use client';
 import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortune } from '@/lib/fortune-data';
+import ShareButton from './ShareButton';
 
 interface Props {
   subjectId: string;
@@ -170,6 +171,8 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
           </div>
         </div>
       </div>
+
+      <ShareButton title={`${subjectName} ${today} 운세`} description={f.overall} type="fortune" />
     </div>
   );
 }
