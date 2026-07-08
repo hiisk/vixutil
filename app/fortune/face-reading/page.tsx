@@ -148,7 +148,9 @@ export default function FaceReadingPage() {
         const faceapi = await import('@vladmandic/face-api');
         await Promise.all([
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-          faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models'),
+          // 랜드마크는 68개 좌표 정밀도가 모든 비율 계산의 근거이므로, 속도보다
+          // 정확도를 우선해 Tiny가 아닌 풀 사이즈 모델을 사용한다.
+          faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         ]);
         if (cancelled) return;
         faceapiRef.current = faceapi;
@@ -188,9 +190,10 @@ export default function FaceReadingPage() {
     const startedAt = Date.now();
     let detection;
     try {
+      // inputSize를 기본값(416)보다 키워 작거나 비스듬한 얼굴도 놓치지 않게 한다.
       detection = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks(true);
+        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 }))
+        .withFaceLandmarks();
     } catch {
       detection = undefined;
     }
@@ -199,8 +202,10 @@ export default function FaceReadingPage() {
     const elapsed = Date.now() - startedAt;
     if (elapsed < 800) await new Promise(r => setTimeout(r, 800 - elapsed));
 
-    if (!detection) {
-      setFaceError('사진에서 얼굴을 찾지 못했어요. 얼굴이 선명하게 나온 정면 사진으로 다시 시도해주세요.');
+    // 검출 확신도가 낮으면(흐릿함·측면·비-얼굴) 그럴듯한 결과를 억지로 만들지 않고 거부한다.
+    const MIN_CONFIDENCE = 0.6;
+    if (!detection || detection.detection.score < MIN_CONFIDENCE) {
+      setFaceError('사진에서 얼굴을 뚜렷하게 찾지 못했어요. 밝은 곳에서 얼굴이 정면으로 크게 나온 사진으로 다시 시도해주세요.');
       setAnalyzing(false);
       return;
     }
@@ -335,7 +340,15 @@ export default function FaceReadingPage() {
             <div className="grid grid-cols-1 gap-3">
               {result.features.map(f => (
                 <div key={f.key} className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">{f.icon} {f.label}</p>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">{f.icon} {f.label}</p>
+                    <span className="text-[11px] font-bold text-teal-600 bg-teal-50 border border-teal-100 rounded-full px-2 py-0.5">
+                      측정값 {f.percent}%
+                    </span>
+                  </div>
+                  <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-2.5">
+                    <div className="h-full bg-gradient-to-r from-teal-400 to-cyan-600 rounded-full" style={{ width: `${f.percent}%` }} />
+                  </div>
                   <p className="text-sm text-slate-700 leading-relaxed">{f.text}</p>
                 </div>
               ))}
