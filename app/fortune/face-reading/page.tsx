@@ -2,6 +2,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import ShareButton from '@/components/ShareButton';
 import { getFaceReading, type FaceReadingResult, type FaceRatios } from '@/lib/face-reading-data';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
@@ -365,6 +366,8 @@ export default function FaceReadingPage() {
             >
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <ShareButton title="관상 테스트 결과" description={result.overall} type="fortune" />
 
             <p className="text-center text-xs text-slate-300 pt-2">
               얼굴 인식은 실제로 이뤄지지만, 관상 해석은 오락 목적이며 과학적·의학적 근거가 없습니다.
