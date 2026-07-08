@@ -105,6 +105,12 @@ export const NEW_QUIZ_SLUGS = new Set([
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'worry-doll',
+  'toast-phrase',
+  'diary-prompt',
+  'question-of-day',
+  'reply-message',
+  'comfort-message',
   'compliment-generator',
   'excuse-generator',
   'fortune-cookie',
