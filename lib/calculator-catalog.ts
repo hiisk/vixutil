@@ -68,6 +68,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/dsr',            title:'DSR 계산기',             desc:'대출 상환 능력 비율 계산' },
       { href:'/calculator/ltv',            title:'LTV 계산기',             desc:'담보인정비율 계산' },
       { href:'/calculator/exchange',       title:'환율 계산기',            desc:'실시간 API · 주요 통화 변환' },
+      { href:'/calculator/loan-prepayment-fee', title:'중도상환수수료 계산기', desc:'조기상환 시 발생하는 수수료 계산' },
     ],
   },
   {
@@ -90,6 +91,8 @@ export const CATS: CalcCategory[] = [
     accent: 'bg-teal-50 text-teal-700 border-teal-200',
     calcs: [
       { href:'/calculator/bmi',            title:'BMI 계산기',         desc:'키·몸무게 → BMI + 표준체중' },
+      { href:'/calculator/caffeine',       title:'카페인 계산기',      desc:'반감기 공식으로 체내 잔존 카페인량 계산' },
+      { href:'/calculator/wedding-gift',   title:'축의금 계산기',      desc:'관계·참석 여부별 적정 축의금 가이드' },
       { href:'/calculator/body-fat',       title:'체지방률 계산기',    desc:'해군 공식 기반 체지방률 계산' },
       { href:'/calculator/bmr',            title:'기초대사량 계산기',  desc:'BMR (Harris-Benedict) 계산' },
       { href:'/calculator/calorie',        title:'칼로리 계산기',      desc:'활동 수준별 권장 칼로리' },

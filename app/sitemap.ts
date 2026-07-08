@@ -28,6 +28,7 @@ const calculatorRoutes = [
   "/calculator/pregnancy", "/calculator/tip", "/calculator/dutch-pay", "/calculator/discount", "/calculator/gpa",
   "/calculator/age", "/calculator/birthday", "/calculator/dday", "/calculator/time-diff",
   "/calculator/unit-length", "/calculator/unit-weight", "/calculator/unit-temp", "/calculator/binary",
+  "/calculator/loan-prepayment-fee", "/calculator/caffeine", "/calculator/wedding-gift",
 ];
 
 const devRoutes = [
