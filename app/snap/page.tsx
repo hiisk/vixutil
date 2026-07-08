@@ -14,6 +14,7 @@ const TYPES = [
   { href: '/snap/photo-mood',     icon: '🎞️', title: '사진 감성 분석',  desc: '아무 사진이나 올려서 보는 내 감성 타입',   badge: '실제 픽셀분석', color: 'from-fuchsia-500 to-sky-500' },
   { href: '/snap/face-symmetry',  icon: '⚖️', title: '얼굴 대칭 분석',  desc: '사진 한 장으로 보는 좌우 밸런스 지수',     badge: '실제 랜드마크', color: 'from-indigo-500 to-cyan-500' },
   { href: '/snap/smile-score',    icon: '😊', title: '미소 지수 측정',  desc: '사진 한 장으로 보는 내 미소 지수',         badge: '실제 표정분석', color: 'from-amber-400 to-rose-500' },
+  { href: '/snap/handwriting',    icon: '✍️', title: '손글씨 심리 테스트', desc: '손글씨 사진으로 보는 기울기·필압 분석', badge: 'NEW', color: 'from-slate-600 to-indigo-700' },
 ];
 
 export default function SnapPage() {

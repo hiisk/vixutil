@@ -63,6 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/snap/face-symmetry`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/smile-score`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/animal-face`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/snap/handwriting`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
