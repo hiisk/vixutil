@@ -96,6 +96,12 @@ export const NEW_QUIZ_SLUGS = new Set([
   'disney',
   'horror-movie',
   'slang',
+  'coffee',
+  'traffic-law',
+  'idol-quiz',
+  'camping',
+  'pet-health',
+  'real-estate-basic',
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
