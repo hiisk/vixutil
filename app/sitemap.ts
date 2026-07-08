@@ -57,6 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/saju`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/mbti`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/face-reading`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/personal-color`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),

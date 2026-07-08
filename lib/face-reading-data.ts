@@ -10,6 +10,9 @@
  * 눈꼬리 각도로 재는 "눈매"를 넣어 항목 수와 신뢰도를 함께 확보했다.
  */
 
+import { hashString, mix32, pick, pickByRatio, toPercent } from './ratio-pick';
+export { hashString } from './ratio-pick';
+
 export type FeatureKey = 'faceShape' | 'eyebrow' | 'eye' | 'eyeTilt' | 'nose' | 'mouth' | 'chin';
 
 export const FEATURE_META: Record<FeatureKey, { label: string; icon: string }> = {
@@ -144,47 +147,6 @@ export const TODAY_LUCK_POOL: string[] = [
   '오늘의 관상운은 인간관계 확장에 좋습니다. 새로운 모임이나 자리에 나가보면 예상 밖의 좋은 사람을 만날 수 있는 하루입니다.',
 ];
 
-export function hashString(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return Math.abs(h >>> 0);
-}
-
-/**
- * 32비트 정수 비트 믹서(splitmix32 계열). 작은 배열에 mod 연산을 적용할 때
- * 하위 비트에만 의존해 서로 다른 입력이 같은 결과로 몰리는 것을 방지한다.
- */
-function mix32(x: number): number {
-  x = x >>> 0;
-  x ^= x >>> 16;
-  x = Math.imul(x, 0x85ebca6b) >>> 0;
-  x ^= x >>> 13;
-  x = Math.imul(x, 0xc2b2ae35) >>> 0;
-  x ^= x >>> 16;
-  return x >>> 0;
-}
-
-function pick<T>(arr: T[], seed: number): T {
-  return arr[mix32(seed) % arr.length];
-}
-
-function clamp01(x: number): number {
-  return Math.max(0, Math.min(1, x));
-}
-
-/** 0~1 비율값을 풀 안의 인덱스로 매핑한다 (실측값 기반 선택). */
-function pickByRatio<T>(arr: T[], ratio: number): T {
-  const idx = Math.min(arr.length - 1, Math.floor(clamp01(ratio) * arr.length));
-  return arr[idx];
-}
-
-/** 0~1 비율값을 화면에 보여줄 0~100 정수 퍼센트로 변환한다. */
-function toPercent(ratio: number): number {
-  return Math.round(clamp01(ratio) * 100);
-}
 
 /**
  * face-api.js의 68포인트 랜드마크 + 얼굴 박스로부터 계산한 이목구비 비율.

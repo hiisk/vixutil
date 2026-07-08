@@ -14,7 +14,8 @@ const TYPES = [
   { href: '/fortune/animal', icon: '🐉', title: '띠 운세',     desc: '쥐·소·범 등 12띠별 오늘의 운세',       badge: '12띠',     color: 'from-rose-500 to-pink-600' },
   { href: '/fortune/tarot',  icon: '🃏', title: '타로 카드',   desc: '78장 풀덱에서 카드 뽑기',               badge: '78장',     color: 'from-amber-500 to-orange-600' },
   { href: '/fortune/mbti',   icon: '🧠', title: 'MBTI 운세',  desc: '16가지 성격 유형별 오늘의 운세',        badge: '16유형',   color: 'from-sky-500 to-blue-600' },
-  { href: '/fortune/face-reading', icon: '🪞', title: '관상 테스트', desc: '사진 한 장으로 보는 재미있는 관상 분석', badge: 'NEW',   color: 'from-teal-500 to-cyan-700' },
+  { href: '/fortune/face-reading', icon: '🪞', title: '관상 테스트', desc: '사진 한 장으로 보는 재미있는 관상 분석', badge: '실제 얼굴인식',   color: 'from-teal-500 to-cyan-700' },
+  { href: '/fortune/personal-color', icon: '🎨', title: '퍼스널컬러 진단', desc: '사진 한 장으로 보는 웜톤·쿨톤 컬러 진단', badge: 'NEW', color: 'from-orange-400 to-indigo-500' },
 ];
 
 export default function FortunePage() {
