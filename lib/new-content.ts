@@ -3,6 +3,12 @@
  * 새 배치가 충분히 쌓이면(다음 대규모 추가 시) 오래된 항목은 정리해도 된다.
  */
 export const NEW_TEST_SLUGS = new Set([
+  'apology-style',
+  'nostalgia',
+  'caffeine-dependency',
+  'generosity',
+  'confidence-index',
+  'planning-style',
   'active-listening',
   'aegyo',
   'alexithymia',
