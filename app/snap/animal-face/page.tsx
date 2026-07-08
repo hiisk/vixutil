@@ -38,10 +38,10 @@ function midpoint(points: Point[]): Point {
 }
 
 /**
- * 관상 테스트에서 이미 검증된 얼굴형·눈매·눈 크기 계산식을 그대로 재사용한다.
- * 세 지표를 동물별 기준 벡터와 비교해 가장 가까운 동물상을 찾는다.
+ * 관상 테스트에서 이미 검증된 얼굴형·눈매·눈 크기·턱선 계산식을 그대로
+ * 재사용한다. 네 지표를 동물별 기준 벡터와 비교해 가장 가까운 동물상을 찾는다.
  */
-function measureAnimalRatios(landmarks: Landmarks68): { eyeTiltRatio: number; faceShapeRatio: number; eyeWidthRatio: number } {
+function measureAnimalRatios(landmarks: Landmarks68): { eyeTiltRatio: number; faceShapeRatio: number; eyeWidthRatio: number; jawWidthRatio: number } {
   const jaw = landmarks.getJawOutline();
   const leftBrow = landmarks.getLeftEyeBrow();
   const rightBrow = landmarks.getRightEyeBrow();
@@ -72,7 +72,9 @@ function measureAnimalRatios(landmarks: Landmarks68): { eyeTiltRatio: number; fa
   const eyeWidthAvg = (widthOf(leftEye) + widthOf(rightEye)) / 2;
   const eyeWidthRatio = clampUnit((eyeWidthAvg / faceWidth) * 4.2);
 
-  return { eyeTiltRatio, faceShapeRatio, eyeWidthRatio };
+  const jawWidthRatio = clampUnit((dist(jaw[2], jaw[14]) / faceWidth) * 1.15);
+
+  return { eyeTiltRatio, faceShapeRatio, eyeWidthRatio, jawWidthRatio };
 }
 
 function ShareBtn() {
@@ -171,8 +173,8 @@ export default function AnimalFacePage() {
       return;
     }
 
-    const { eyeTiltRatio, faceShapeRatio, eyeWidthRatio } = measureAnimalRatios(detection.landmarks);
-    setResult(getAnimalFace(eyeTiltRatio, faceShapeRatio, eyeWidthRatio));
+    const { eyeTiltRatio, faceShapeRatio, eyeWidthRatio, jawWidthRatio } = measureAnimalRatios(detection.landmarks);
+    setResult(getAnimalFace(eyeTiltRatio, faceShapeRatio, eyeWidthRatio, jawWidthRatio));
     setAnalyzing(false);
     setTimeout(() => document.getElementById('animal-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
@@ -211,7 +213,7 @@ export default function AnimalFacePage() {
 
         <div className="bg-orange-50 border border-orange-100 rounded-2xl p-4 mb-6 text-xs text-orange-800 leading-relaxed">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
-          <p>눈매·얼굴형은 이 브라우저 안에서 실제로 측정되고, 6가지 동물 기준값과 비교해 가장 가까운 동물상을 찾아드려요. 결과는 재미로만 봐주세요.</p>
+          <p>눈매·얼굴형·눈 크기·턱선은 이 브라우저 안에서 실제로 측정되고, 12가지 동물 기준값과 비교해 가장 가까운 동물상을 찾아드려요. 결과는 재미로만 봐주세요.</p>
         </div>
 
         {modelState === 'loading' && (
