@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
 import { getPersonalColor, type PersonalColorResult } from '@/lib/personal-color-data';
+import { rgbToLab } from '@/lib/color-lab';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -19,27 +20,6 @@ interface Landmarks68 {
 
 function clampUnit(x: number) {
   return Math.max(0, Math.min(1, x));
-}
-
-/**
- * RGB(0~255) → CIE Lab 변환. 피부는 항상 R>G>B라서 단순 R-B 비교로는
- * 웜/쿨을 가르지 못한다(쿨톤 피부도 R이 B보다 크긴 마찬가지라서). 대신
- * Lab의 a*(빨강-초록)·b*(노랑-파랑) 축을 써서, 노랑 쪽으로 치우칠수록
- * 웜, 상대적으로 붉은/핑크 쪽에 가까울수록 쿨로 판단하는 표준적인 방식을 쓴다.
- */
-function rgbToLab(r: number, g: number, b: number): { l: number; a: number; b: number } {
-  const toLinear = (c: number) => {
-    c /= 255;
-    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-  };
-  const R = toLinear(r), G = toLinear(g), B = toLinear(b);
-  const x = R * 0.4124 + G * 0.3576 + B * 0.1805;
-  const y = R * 0.2126 + G * 0.7152 + B * 0.0722;
-  const z = R * 0.0193 + G * 0.1192 + B * 0.9505;
-  const xn = 0.95047, yn = 1.0, zn = 1.08883;
-  const f = (t: number) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
-  const fx = f(x / xn), fy = f(y / yn), fz = f(z / zn);
-  return { l: 116 * fy - 16, a: 500 * (fx - fy), b: 200 * (fy - fz) };
 }
 
 /** 캔버스에서 지정한 사각형 영역의 평균 RGB를 구한다. */
