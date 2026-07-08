@@ -38,6 +38,27 @@ function sampleAvgColor(ctx: CanvasRenderingContext2D, cx: number, cy: number, s
   return { r: r / n, g: g / n, b: b / n };
 }
 
+/** 캔버스에서 지정한 사각형 영역의 픽셀을 채널별 배열로 반환한다(중앙값 계산용). */
+function samplePatchPixels(ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, maxW: number, maxH: number) {
+  const half = size / 2;
+  const x = Math.max(0, Math.min(maxW - size, cx - half));
+  const y = Math.max(0, Math.min(maxH - size, cy - half));
+  const w = Math.max(1, Math.min(size, maxW - x));
+  const h = Math.max(1, Math.min(size, maxH - y));
+  const { data } = ctx.getImageData(x, y, w, h);
+  const rs: number[] = [], gs: number[] = [], bs: number[] = [];
+  for (let i = 0; i < data.length; i += 4) {
+    rs.push(data[i]); gs.push(data[i + 1]); bs.push(data[i + 2]);
+  }
+  return { rs, gs, bs };
+}
+
+function median(arr: number[]): number {
+  const sorted = [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+}
+
 /**
  * 사진 전체를 작게 축소해 평균 RGB를 구한다. 실내 백열등처럼 사진 전체에
  * 색이 낀 조명 아래에서는 볼 색도 그 색으로 물들어서, 실제로는 쿨톤인
@@ -72,10 +93,12 @@ function whiteBalance(sample: { r: number; g: number; b: number }, sceneAvg: { r
 
 /**
  * 볼 부위(눈 아래 · 턱선 안쪽, 눈·입·눈썹은 배제)의 픽셀을 실제로 샘플링해
- * 웜/쿨 지수와 선명도 지수를 계산한다. 68포인트 랜드마크에는 피부색을 직접
+ * 웜/쿨·선명도·명도 세 지수를 계산한다. 68포인트 랜드마크에는 피부색을 직접
  * 알려주는 좌표가 없으므로, 눈·코·잘선 좌표로 안전한 볼 영역을 추정한다.
+ * 좌우 볼 패치의 픽셀을 하나로 모아 채널별 중앙값을 쓰는데, 평균보다
+ * 안경 반사·잔머리·잡티 같은 이상치 픽셀에 덜 흔들린다.
  */
-function measurePersonalColorRatios(img: HTMLImageElement, landmarks: Landmarks68): { warmthRatio: number; clarityRatio: number } {
+function measurePersonalColorRatios(img: HTMLImageElement, landmarks: Landmarks68): { warmthRatio: number; clarityRatio: number; valueRatio: number } {
   const jaw = landmarks.getJawOutline();
   const nose = landmarks.getNose();
   const leftEye = landmarks.getLeftEye();
@@ -99,13 +122,17 @@ function measurePersonalColorRatios(img: HTMLImageElement, landmarks: Landmarks6
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  if (!ctx) return { warmthRatio: 0.5, clarityRatio: 0.5 };
+  if (!ctx) return { warmthRatio: 0.5, clarityRatio: 0.5, valueRatio: 0.5 };
   ctx.drawImage(img, 0, 0);
 
   const patchSize = Math.max(6, faceWidth * 0.12);
-  const left = sampleAvgColor(ctx, leftCheek.x, leftCheek.y, patchSize, canvas.width, canvas.height);
-  const right = sampleAvgColor(ctx, rightCheek.x, rightCheek.y, patchSize, canvas.width, canvas.height);
-  const rawCheek = { r: (left.r + right.r) / 2, g: (left.g + right.g) / 2, b: (left.b + right.b) / 2 };
+  const left = samplePatchPixels(ctx, leftCheek.x, leftCheek.y, patchSize, canvas.width, canvas.height);
+  const right = samplePatchPixels(ctx, rightCheek.x, rightCheek.y, patchSize, canvas.width, canvas.height);
+  const rawCheek = {
+    r: median([...left.rs, ...right.rs]),
+    g: median([...left.gs, ...right.gs]),
+    b: median([...left.bs, ...right.bs]),
+  };
 
   // 조명 색캐스트를 역보정한 볼 색으로 웜/쿨을 판단한다.
   const sceneAvg = estimateSceneAverage(img);
@@ -122,7 +149,10 @@ function measurePersonalColorRatios(img: HTMLImageElement, landmarks: Landmarks6
   const chroma = Math.hypot(lab.a, lab.b);
   const clarityRatio = clampUnit((chroma - 10) / 35);
 
-  return { warmthRatio, clarityRatio };
+  // 명도: L*(밝기)가 높을수록 라이트, 낮을수록 딥한 쪽으로 본다.
+  const valueRatio = clampUnit((lab.l - 30) / 55);
+
+  return { warmthRatio, clarityRatio, valueRatio };
 }
 
 function ShareBtn() {
@@ -228,8 +258,8 @@ export default function PersonalColorPage() {
     }
 
     try {
-      const { warmthRatio, clarityRatio } = measurePersonalColorRatios(img, detection.landmarks);
-      setResult(getPersonalColor(warmthRatio, clarityRatio));
+      const { warmthRatio, clarityRatio, valueRatio } = measurePersonalColorRatios(img, detection.landmarks);
+      setResult(getPersonalColor(warmthRatio, clarityRatio, valueRatio));
     } catch {
       setFaceError('사진을 분석하는 중 문제가 생겼어요. 다른 사진으로 다시 시도해주세요.');
       setAnalyzing(false);
@@ -268,7 +298,7 @@ export default function PersonalColorPage() {
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">🎨</div>
           <h1 className="text-2xl font-black text-slate-900 mb-1.5">퍼스널컬러 진단</h1>
-          <p className="text-slate-500 text-sm">실제 얼굴 인식으로 피부 톤을 분석해 웜/쿨을 진단해요</p>
+          <p className="text-slate-500 text-sm">실제 얼굴 인식으로 피부 톤을 분석해 12가지 유형과 나만의 컬러 팔레트를 찾아드려요</p>
         </div>
 
         <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 mb-6 text-xs text-rose-800 leading-relaxed">
@@ -383,6 +413,18 @@ export default function PersonalColorPage() {
               </div>
               <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-1">
                 <div className="h-full bg-gradient-to-r from-rose-400 to-fuchsia-500 rounded-full" style={{ width: `${result.clarityPercent}%` }} />
+              </div>
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">☀️ 명도 지수</p>
+                <span className="text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-100 rounded-full px-2 py-0.5">
+                  {result.valuePercent}% {result.valuePercent >= 50 ? '라이트' : '딥'}
+                </span>
+              </div>
+              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-1">
+                <div className="h-full bg-gradient-to-r from-slate-700 to-amber-200 rounded-full" style={{ width: `${result.valuePercent}%` }} />
               </div>
             </div>
 
