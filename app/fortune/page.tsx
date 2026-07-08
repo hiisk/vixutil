@@ -3,7 +3,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
-  title: '오늘의 운세 — vixutil',
+  title: '오늘의 운세',
   description: '꿈해몽·사주·별자리·타로·MBTI 운세를 무료로 확인하세요. 매일 새롭게 업데이트되는 오늘의 운세',
 };
 
