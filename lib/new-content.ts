@@ -4,18 +4,16 @@
  * 새 배치를 추가할 때마다 이 목록을 최신 것으로 교체).
  */
 export const NEW_TEST_SLUGS = new Set([
-  'apology-style',
-  'nostalgia',
-  'caffeine-dependency',
-  'generosity',
-  'confidence-index',
-  'planning-style',
   'leftover-food',
   'plant-parent',
   'karaoke-style',
   'roommate-type',
   'online-shopping',
   'study-cafe',
+  'fandom-style',
+  'driving-style',
+  'late-night-snack',
+  'emoji-style',
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
@@ -25,6 +23,9 @@ export const NEW_QUIZ_SLUGS = new Set([
   'brand-logo',
   'dessert',
   'riddle',
+  'spelling-quiz',
+  'psychology-quiz',
+  'nobel-prize',
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
@@ -34,4 +35,7 @@ export const NEW_GENERATOR_SLUGS = new Set([
   'question-of-day',
   'reply-message',
   'comfort-message',
+  'birthday-message',
+  'dad-joke',
+  'today-concept',
 ]);
