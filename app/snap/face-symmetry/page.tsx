@@ -30,9 +30,10 @@ function avgX(pts: Point[]) {
 /**
  * 코 콧대(눈썹 사이~콧대 위쪽, 좌우 어느 쪽으로도 치우치지 않는 중심선)를
  * 기준선으로 삼아, 눈·눈썹·입꼬리·잘선이 좌우로 얼마나 다르게 떨어져
- * 있는지를 실측해 대칭 지수를 계산한다. 완전한 정면 사진일수록 정확하다.
+ * 있는지를 부위별로 실측한다. 각 부위의 좌우 편차를 얼굴 너비 대비로
+ * 정규화해 0~1(1=완벽대칭) 대칭도로 환산한다. 정면 사진일수록 정확하다.
  */
-function measureSymmetry(landmarks: Landmarks68): number {
+function measureSymmetry(landmarks: Landmarks68): Record<string, number> {
   const jaw = landmarks.getJawOutline();
   const nose = landmarks.getNose();
   const leftBrow = landmarks.getLeftEyeBrow();
@@ -43,22 +44,23 @@ function measureSymmetry(landmarks: Landmarks68): number {
 
   const midlineX = avgX(nose.slice(0, 4));
   const faceWidth = Math.max(...jaw.map(p => p.x)) - Math.min(...jaw.map(p => p.x));
-  if (faceWidth <= 0) return 0.5;
+  if (faceWidth <= 0) return { eye: 0.5, brow: 0.5, mouth: 0.5, jaw: 0.5 };
 
   const asymOf = (leftX: number, rightX: number) =>
     Math.abs(Math.abs(leftX - midlineX) - Math.abs(rightX - midlineX));
+  // 부위별 좌우 편차(px)를 대칭도(0~1)로 환산 — 배율은 얼굴 너비 대비 경험값
+  const toSym = (asym: number) => clampUnit(1 - (asym / faceWidth) * 6);
 
   const mouthXs = mouth.map(p => p.x);
   const mouthLeftCorner = mouth[mouthXs.indexOf(Math.min(...mouthXs))];
   const mouthRightCorner = mouth[mouthXs.indexOf(Math.max(...mouthXs))];
 
-  const asymEye = asymOf(avgX(leftEye), avgX(rightEye));
-  const asymBrow = asymOf(avgX(leftBrow), avgX(rightBrow));
-  const asymMouth = asymOf(mouthLeftCorner.x, mouthRightCorner.x);
-  const asymJaw = (asymOf(jaw[0].x, jaw[16].x) + asymOf(jaw[2].x, jaw[14].x) + asymOf(jaw[4].x, jaw[12].x)) / 3;
+  const eye = toSym(asymOf(avgX(leftEye), avgX(rightEye)));
+  const brow = toSym(asymOf(avgX(leftBrow), avgX(rightBrow)));
+  const mouthSym = toSym(asymOf(mouthLeftCorner.x, mouthRightCorner.x));
+  const jawSym = toSym((asymOf(jaw[0].x, jaw[16].x) + asymOf(jaw[2].x, jaw[14].x) + asymOf(jaw[4].x, jaw[12].x)) / 3);
 
-  const totalAsym = (asymEye + asymBrow + asymMouth + asymJaw) / 4;
-  return clampUnit(1 - (totalAsym / faceWidth) * 6);
+  return { eye, brow, mouth: mouthSym, jaw: jawSym };
 }
 
 function ShareBtn() {
@@ -157,8 +159,8 @@ export default function FaceSymmetryPage() {
       return;
     }
 
-    const symmetryRatio = measureSymmetry(detection.landmarks);
-    setResult(getFaceSymmetry(symmetryRatio));
+    const regionRatios = measureSymmetry(detection.landmarks);
+    setResult(getFaceSymmetry(regionRatios));
     setAnalyzing(false);
     setTimeout(() => document.getElementById('symmetry-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
@@ -262,9 +264,27 @@ export default function FaceSymmetryPage() {
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <p className="text-sm font-semibold text-indigo-100 mb-2">⚖️ 대칭 지수</p>
+              <p className="text-sm font-semibold text-indigo-100 mb-2">⚖️ 종합 대칭 지수</p>
               <p className="text-4xl font-black mb-3">{result.percent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">📊 부위별 좌우 대칭도</p>
+              <div className="flex flex-col gap-3">
+                {result.regions.map(r => (
+                  <div key={r.key}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-semibold text-slate-600">{r.label}</span>
+                      <span className="text-xs font-bold text-indigo-600">{r.percent}% <span className="text-slate-400 font-medium">· {r.comment}</span></span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-indigo-400 to-cyan-500 rounded-full" style={{ width: `${r.percent}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[11px] text-slate-400 mt-3">가장 대칭이 잘 맞는 부위는 <strong className="text-slate-500">{result.bestRegion}</strong>이에요.</p>
             </div>
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">

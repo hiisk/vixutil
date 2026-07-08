@@ -19,15 +19,17 @@ function clampUnit(x: number) {
 }
 
 /**
- * 입꼬리(가장 왼쪽·오른쪽 점)가 입 바운딩박스의 세로 중심보다 얼마나
- * 위에 있는지로 미소를 측정한다. 절대 크기가 아니라 입 자체의 세로
- * 중심 기준 상대 위치라, 사람마다 다른 입 크기에 영향을 덜 받는다.
+ * 입 랜드마크로 세 가지를 실측한다:
+ *  1) 입꼬리 올라감(smile): 입꼬리가 입 세로 중심보다 얼마나 위에 있는지
+ *  2) 입 벌어짐(openness): 입 세로 높이 대비 가로 너비 비율
+ *  3) 좌우 균형(balance): 두 입꼬리의 높이 차이가 적을수록 대칭
+ * 모두 입 자체 크기 기준의 상대값이라 사람마다 다른 입 크기에 덜 흔들린다.
  */
-function measureSmile(landmarks: Landmarks68): number {
+function measureSmile(landmarks: Landmarks68): { smile: number; openness: number; balance: number } {
   const jaw = landmarks.getJawOutline();
   const mouth = landmarks.getMouth();
   const faceHeight = Math.max(...jaw.map(p => p.y)) - Math.min(...jaw.map(p => p.y));
-  if (faceHeight <= 0) return 0.5;
+  if (faceHeight <= 0) return { smile: 0.5, openness: 0.3, balance: 0.8 };
 
   const xs = mouth.map(p => p.x);
   const ys = mouth.map(p => p.y);
@@ -38,8 +40,18 @@ function measureSmile(landmarks: Landmarks68): number {
   const cornerY = (leftCorner.y + rightCorner.y) / 2;
   const midY = (minY + maxY) / 2;
   const cornerLift = midY - cornerY; // 양수 = 입꼬리가 중심보다 위(웃는 방향)
+  const smile = clampUnit(0.5 + (cornerLift / faceHeight) * 10);
 
-  return clampUnit(0.5 + (cornerLift / faceHeight) * 10);
+  // 입 벌어짐: 입 세로 높이 / 가로 너비 (활짝 웃을수록 커짐)
+  const mouthW = maxX - minX;
+  const mouthH = maxY - minY;
+  const openness = clampUnit(mouthW > 0 ? ((mouthH / mouthW) - 0.15) / 0.5 : 0.3);
+
+  // 좌우 균형: 두 입꼬리 높이 차이가 작을수록 1에 가깝게
+  const cornerDiff = Math.abs(leftCorner.y - rightCorner.y);
+  const balance = clampUnit(1 - (cornerDiff / faceHeight) * 12);
+
+  return { smile, openness, balance };
 }
 
 function ShareBtn() {
@@ -138,8 +150,8 @@ export default function SmileScorePage() {
       return;
     }
 
-    const smileRatio = measureSmile(detection.landmarks);
-    setResult(getSmileScore(smileRatio));
+    const { smile, openness, balance } = measureSmile(detection.landmarks);
+    setResult(getSmileScore(smile, openness, balance));
     setAnalyzing(false);
     setTimeout(() => document.getElementById('smile-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
@@ -243,9 +255,26 @@ export default function SmileScorePage() {
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <p className="text-sm font-semibold text-white/80 mb-2">😊 미소 지수</p>
+              <p className="text-sm font-semibold text-white/80 mb-2">😊 종합 미소 지수</p>
               <p className="text-4xl font-black mb-3">{result.percent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">📊 미소 세부 분석</p>
+              <div className="flex flex-col gap-3">
+                {result.metrics.map(m => (
+                  <div key={m.key}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-semibold text-slate-600">{m.label}</span>
+                      <span className="text-xs font-bold text-rose-500">{m.percent}% <span className="text-slate-400 font-medium">· {m.comment}</span></span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-amber-400 to-rose-500 rounded-full" style={{ width: `${m.percent}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
