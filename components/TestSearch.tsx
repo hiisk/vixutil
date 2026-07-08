@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Test } from '@/lib/types';
+import { NEW_TEST_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·재테크', '건강·생활', '자기계발', '취미·라이프스타일'];
 
@@ -10,6 +11,11 @@ function TestCard({ t }: { t: Test }) {
     <Link href={`/test/${t.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
       <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-violet-100 to-pink-100">
+        {NEW_TEST_SLUGS.has(t.slug) && (
+          <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
+            NEW
+          </span>
+        )}
         <img
           src={`/test/${t.slug}/opengraph-image`}
           alt={t.title}

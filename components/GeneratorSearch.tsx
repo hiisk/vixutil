@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Generator } from '@/lib/types';
+import { NEW_GENERATOR_SLUGS } from '@/lib/new-content';
 
-const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획'];
+const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획', '재미', '생활'];
 
 const CAT_META: Record<string, { icon: string; color: string }> = {
   '추천':      { icon: '⭐', color: 'bg-amber-50 text-amber-700 border-amber-200' },
@@ -11,6 +12,8 @@ const CAT_META: Record<string, { icon: string; color: string }> = {
   '문구·아이디어':{ icon: '💡', color: 'bg-violet-50 text-violet-700 border-violet-200' },
   '랜덤':      { icon: '🎲', color: 'bg-rose-50 text-rose-700 border-rose-200' },
   '계획':      { icon: '📋', color: 'bg-teal-50 text-teal-700 border-teal-200' },
+  '재미':      { icon: '🎉', color: 'bg-pink-50 text-pink-700 border-pink-200' },
+  '생활':      { icon: '🏠', color: 'bg-sky-50 text-sky-700 border-sky-200' },
 };
 
 function GenCard({ g }: { g: Generator }) {
@@ -20,6 +23,11 @@ function GenCard({ g }: { g: Generator }) {
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
       <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-emerald-100 to-teal-100">
+        {NEW_GENERATOR_SLUGS.has(g.slug) && (
+          <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
+            NEW
+          </span>
+        )}
         <img
           src={`/generator/${g.slug}/opengraph-image`}
           alt={g.title}

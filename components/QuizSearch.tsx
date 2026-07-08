@@ -2,14 +2,20 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
+import { NEW_QUIZ_SLUGS } from '@/lib/new-content';
 
-const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', '스포츠', '과학', '엔터테인먼트', '생활·건강', '환경·경제'];
+const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', '스포츠', '과학', '엔터테인먼트', '영화', '트렌드', '추억', '생활', '생활·건강', '환경·경제'];
 
 function QuizCard({ q }: { q: Quiz }) {
   return (
     <Link href={`/quiz/${q.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
       <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-amber-100 to-orange-100">
+        {NEW_QUIZ_SLUGS.has(q.slug) && (
+          <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
+            NEW
+          </span>
+        )}
         <img
           src={`/quiz/${q.slug}/opengraph-image`}
           alt={q.title}
