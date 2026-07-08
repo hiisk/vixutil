@@ -39,6 +39,38 @@ function sampleAvgColor(ctx: CanvasRenderingContext2D, cx: number, cy: number, s
 }
 
 /**
+ * 사진 전체를 작게 축소해 평균 RGB를 구한다. 실내 백열등처럼 사진 전체에
+ * 색이 낀 조명 아래에서는 볼 색도 그 색으로 물들어서, 실제로는 쿨톤인
+ * 피부가 웜 조명 때문에 웜톤으로 잘못 측정되는 문제가 있었다(그 반대도
+ * 마찬가지). "사진 전체 평균은 대체로 무채색에 가깝다"는 그레이월드
+ * 가정으로 조명 색을 추정해 볼 색에서 역보정한다.
+ */
+function estimateSceneAverage(img: HTMLImageElement): { r: number; g: number; b: number } {
+  const longSide = Math.max(img.naturalWidth, img.naturalHeight);
+  const scale = Math.min(1, 100 / longSide);
+  const w = Math.max(1, Math.round(img.naturalWidth * scale));
+  const h = Math.max(1, Math.round(img.naturalHeight * scale));
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return { r: 128, g: 128, b: 128 };
+  ctx.drawImage(img, 0, 0, w, h);
+  return sampleAvgColor(ctx, w / 2, h / 2, Math.max(w, h), w, h);
+}
+
+/** 그레이월드 가정으로 추정한 조명색을 이용해 표본 색에서 조명 색캐스트를 역보정한다. */
+function whiteBalance(sample: { r: number; g: number; b: number }, sceneAvg: { r: number; g: number; b: number }) {
+  const gray = (sceneAvg.r + sceneAvg.g + sceneAvg.b) / 3;
+  const clamp255 = (v: number) => Math.max(0, Math.min(255, v));
+  return {
+    r: clamp255(sample.r * (gray / Math.max(1, sceneAvg.r))),
+    g: clamp255(sample.g * (gray / Math.max(1, sceneAvg.g))),
+    b: clamp255(sample.b * (gray / Math.max(1, sceneAvg.b))),
+  };
+}
+
+/**
  * 볼 부위(눈 아래 · 턱선 안쪽, 눈·입·눈썹은 배제)의 픽셀을 실제로 샘플링해
  * 웜/쿨 지수와 선명도 지수를 계산한다. 68포인트 랜드마크에는 피부색을 직접
  * 알려주는 좌표가 없으므로, 눈·코·잘선 좌표로 안전한 볼 영역을 추정한다.
@@ -73,7 +105,11 @@ function measurePersonalColorRatios(img: HTMLImageElement, landmarks: Landmarks6
   const patchSize = Math.max(6, faceWidth * 0.12);
   const left = sampleAvgColor(ctx, leftCheek.x, leftCheek.y, patchSize, canvas.width, canvas.height);
   const right = sampleAvgColor(ctx, rightCheek.x, rightCheek.y, patchSize, canvas.width, canvas.height);
-  const r = (left.r + right.r) / 2, g = (left.g + right.g) / 2, b = (left.b + right.b) / 2;
+  const rawCheek = { r: (left.r + right.r) / 2, g: (left.g + right.g) / 2, b: (left.b + right.b) / 2 };
+
+  // 조명 색캐스트를 역보정한 볼 색으로 웜/쿨을 판단한다.
+  const sceneAvg = estimateSceneAverage(img);
+  const { r, g, b } = whiteBalance(rawCheek, sceneAvg);
 
   const lab = rgbToLab(r, g, b);
 
