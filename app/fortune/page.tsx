@@ -14,11 +14,6 @@ const TYPES = [
   { href: '/fortune/animal', icon: '🐉', title: '띠 운세',     desc: '쥐·소·범 등 12띠별 오늘의 운세',       badge: '12띠',     color: 'from-rose-500 to-pink-600' },
   { href: '/fortune/tarot',  icon: '🃏', title: '타로 카드',   desc: '78장 풀덱에서 카드 뽑기',               badge: '78장',     color: 'from-amber-500 to-orange-600' },
   { href: '/fortune/mbti',   icon: '🧠', title: 'MBTI 운세',  desc: '16가지 성격 유형별 오늘의 운세',        badge: '16유형',   color: 'from-sky-500 to-blue-600' },
-  { href: '/fortune/face-reading', icon: '🪞', title: '관상 테스트', desc: '사진 한 장으로 보는 재미있는 관상 분석', badge: '실제 얼굴인식',   color: 'from-teal-500 to-cyan-700' },
-  { href: '/fortune/personal-color', icon: '🎨', title: '퍼스널컬러 진단', desc: '사진 한 장으로 보는 웜톤·쿨톤 컬러 진단', badge: '실제 색상측정', color: 'from-orange-400 to-indigo-500' },
-  { href: '/fortune/photo-mood', icon: '🎞️', title: '사진 감성 분석', desc: '아무 사진이나 올려서 보는 내 감성 타입', badge: '실제 픽셀분석', color: 'from-fuchsia-500 to-sky-500' },
-  { href: '/fortune/face-symmetry', icon: '⚖️', title: '얼굴 대칭 분석', desc: '사진 한 장으로 보는 좌우 밸런스 지수', badge: 'NEW', color: 'from-indigo-500 to-cyan-500' },
-  { href: '/fortune/smile-score', icon: '😊', title: '미소 지수 측정', desc: '사진 한 장으로 보는 내 미소 지수', badge: 'NEW', color: 'from-amber-400 to-rose-500' },
 ];
 
 export default function FortunePage() {
@@ -71,6 +66,24 @@ export default function FortunePage() {
             </Link>
           ))}
         </div>
+
+        {/* 스냅테스트 프로모 */}
+        <Link
+          href="/snap"
+          className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-gradient-to-br from-fuchsia-50 to-sky-50 p-6 mt-4 flex items-center gap-4 hover:shadow-md hover:border-fuchsia-200 transition-all"
+        >
+          <span className="text-4xl">📸</span>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <h2 className="text-base font-black text-slate-900">스냅테스트</h2>
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-fuchsia-100 text-fuchsia-700">사진으로 하는 테스트</span>
+            </div>
+            <p className="text-sm text-slate-500">관상·퍼스널컬러·감성 분석 등 사진 한 장으로 즐기는 참여형 테스트 모음</p>
+          </div>
+          <svg className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </Link>
 
         <p className="text-center text-xs text-slate-300 mt-10">운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다</p>
       </div>

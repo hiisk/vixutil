@@ -232,11 +232,11 @@ export default function FaceReadingPage() {
 
       <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/fortune" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-teal-600 transition-colors font-medium">
+          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-teal-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            운세
+            스냅테스트
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700">관상 테스트</span>
