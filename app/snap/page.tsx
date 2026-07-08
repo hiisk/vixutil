@@ -10,11 +10,14 @@ export const metadata: Metadata = {
 const TYPES = [
   { href: '/snap/face-reading',   icon: '🪞', title: '관상 테스트',     desc: '사진 한 장으로 보는 재미있는 관상 분석',   badge: '실제 얼굴인식', color: 'from-teal-500 to-cyan-700' },
   { href: '/snap/personal-color', icon: '🎨', title: '퍼스널컬러 진단', desc: '사진 한 장으로 보는 웜톤·쿨톤 12타입 컬러 진단', badge: '실제 색상측정', color: 'from-orange-400 to-indigo-500' },
-  { href: '/snap/animal-face',    icon: '🐾', title: '동물상 테스트',   desc: '사진 한 장으로 보는 나의 동물상',           badge: 'NEW', color: 'from-amber-400 to-rose-400' },
+  { href: '/snap/animal-face',    icon: '🐾', title: '동물상 테스트',   desc: '사진 한 장으로 보는 나의 동물상',           badge: '실제 랜드마크', color: 'from-amber-400 to-rose-400' },
+  { href: '/snap/expression',     icon: '🎭', title: '표정 감정 분석',  desc: 'AI로 보는 사진 속 표정의 7가지 감정',      badge: 'NEW', color: 'from-pink-500 to-violet-600' },
+  { href: '/snap/golden-ratio',   icon: '📐', title: '황금비율 테스트', desc: '이목구비 비례가 황금비에 얼마나 가까운지',  badge: 'NEW', color: 'from-amber-500 to-orange-600' },
+  { href: '/snap/couple-match',   icon: '💑', title: '커플 관상 궁합',  desc: '사진 두 장으로 보는 우리 커플 궁합',        badge: 'NEW', color: 'from-rose-500 to-pink-600' },
   { href: '/snap/photo-mood',     icon: '🎞️', title: '사진 감성 분석',  desc: '아무 사진이나 올려서 보는 내 감성 타입',   badge: '실제 픽셀분석', color: 'from-fuchsia-500 to-sky-500' },
   { href: '/snap/face-symmetry',  icon: '⚖️', title: '얼굴 대칭 분석',  desc: '사진 한 장으로 보는 좌우 밸런스 지수',     badge: '실제 랜드마크', color: 'from-indigo-500 to-cyan-500' },
   { href: '/snap/smile-score',    icon: '😊', title: '미소 지수 측정',  desc: '사진 한 장으로 보는 내 미소 지수',         badge: '실제 표정분석', color: 'from-amber-400 to-rose-500' },
-  { href: '/snap/handwriting',    icon: '✍️', title: '손글씨 심리 테스트', desc: '손글씨 사진으로 보는 기울기·필압 분석', badge: 'NEW', color: 'from-slate-600 to-indigo-700' },
+  { href: '/snap/handwriting',    icon: '✍️', title: '손글씨 심리 테스트', desc: '손글씨 사진으로 보는 기울기·필압 분석', badge: '실제 획분석', color: 'from-slate-600 to-indigo-700' },
 ];
 
 export default function SnapPage() {

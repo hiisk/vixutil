@@ -84,7 +84,7 @@ const SECTIONS = [
     icon: '📸',
     title: '스냅테스트',
     desc: '사진 한 장으로 즐기는 관상·퍼스널컬러 등 참여형 테스트',
-    badge: '5종',
+    badge: '10종',
     color: 'from-fuchsia-500 to-sky-500',
     bgLight: 'bg-fuchsia-50',
     textAccent: 'text-fuchsia-700',
