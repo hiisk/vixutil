@@ -5,6 +5,7 @@ import { QUIZZES_C } from './quiz-data-c';
 import { QUIZZES_D } from './quiz-data-d';
 import { QUIZZES_E } from './quiz-data-e';
 import { QUIZZES_F } from './quiz-data-f';
+import { QUIZZES_G } from './quiz-data-g';
 
 export const QUIZZES: Quiz[] = [
   ...QUIZZES_A,
@@ -13,6 +14,7 @@ export const QUIZZES: Quiz[] = [
   ...QUIZZES_D,
   ...QUIZZES_E,
   ...QUIZZES_F,
+  ...QUIZZES_G,
 ];
 
 export const QUIZ_MAP: Record<string, Quiz> = Object.fromEntries(
