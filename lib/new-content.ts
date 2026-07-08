@@ -19,12 +19,12 @@ export const NEW_TEST_SLUGS = new Set([
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
-  'coffee',
-  'traffic-law',
-  'idol-quiz',
-  'camping',
-  'pet-health',
-  'real-estate-basic',
+  'wine',
+  'greek-myth',
+  'proverb',
+  'brand-logo',
+  'dessert',
+  'riddle',
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
