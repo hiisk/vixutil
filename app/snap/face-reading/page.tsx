@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import SaveResultCard from '@/components/SaveResultCard';
 import { getFaceReading, type FaceReadingResult, type FaceRatios } from '@/lib/face-reading-data';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
@@ -366,6 +367,16 @@ export default function FaceReadingPage() {
             >
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <SaveResultCard
+              emoji="🪞"
+              title="관상 테스트"
+              subtitle="전체 인상"
+              body={result.overall}
+              from="#14b8a6"
+              to="#0e7490"
+              fileName="face-reading-result"
+            />
 
             <ShareButton title="관상 테스트 결과" description={result.overall} type="fortune" />
 

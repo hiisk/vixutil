@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import SaveResultCard from '@/components/SaveResultCard';
 import { getPersonalColor, type PersonalColorResult } from '@/lib/personal-color-data';
 import { rgbToLab } from '@/lib/color-lab';
 
@@ -463,6 +464,16 @@ export default function PersonalColorPage() {
             >
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <SaveResultCard
+              emoji={result.emoji}
+              title={result.label}
+              subtitle={result.vibe}
+              body={result.text}
+              from={result.from}
+              to={result.to}
+              fileName="personal-color-result"
+            />
 
             <ShareButton title="퍼스널컬러 진단 결과" description={`${result.label} — ${result.text}`} type="fortune" />
 

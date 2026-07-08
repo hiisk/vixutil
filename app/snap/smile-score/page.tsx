@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import SaveResultCard from '@/components/SaveResultCard';
 import { getSmileScore, type SmileScoreResult } from '@/lib/smile-score-data';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -255,6 +256,16 @@ export default function SmileScorePage() {
             <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-orange-300 hover:text-orange-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <SaveResultCard
+              emoji="😊"
+              title={`미소 지수 ${result.percent}%`}
+              subtitle="미소 지수 측정"
+              body={result.text}
+              from="#fbbf24"
+              to="#f43f5e"
+              fileName="smile-score-result"
+            />
 
             <ShareButton title="미소 지수 측정 결과" description={`미소 지수 ${result.percent}% — ${result.text}`} type="fortune" />
 

@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import SaveResultCard from '@/components/SaveResultCard';
 import { getFaceSymmetry, type FaceSymmetryResult } from '@/lib/face-symmetry-data';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -274,6 +275,16 @@ export default function FaceSymmetryPage() {
             <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <SaveResultCard
+              emoji="⚖️"
+              title={`대칭 지수 ${result.percent}%`}
+              subtitle="얼굴 대칭 분석"
+              body={result.text}
+              from="#6366f1"
+              to="#06b6d4"
+              fileName="face-symmetry-result"
+            />
 
             <ShareButton title="얼굴 대칭 분석 결과" description={`대칭 지수 ${result.percent}% — ${result.text}`} type="fortune" />
 

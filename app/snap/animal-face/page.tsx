@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import SaveResultCard from '@/components/SaveResultCard';
 import { getAnimalFace, type AnimalFaceResult } from '@/lib/animal-face-data';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -300,6 +301,16 @@ export default function AnimalFacePage() {
             <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-orange-300 hover:text-orange-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <SaveResultCard
+              emoji={result.emoji}
+              title={result.label}
+              subtitle={`일치도 ${result.matchPercent}%`}
+              body={result.text}
+              from={result.from}
+              to={result.to}
+              fileName="animal-face-result"
+            />
 
             <ShareButton title="동물상 테스트 결과" description={`${result.label} (일치도 ${result.matchPercent}%) — ${result.text}`} type="fortune" />
 

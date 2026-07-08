@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import SaveResultCard from '@/components/SaveResultCard';
 import { getPhotoMood, type PhotoMoodResult } from '@/lib/photo-mood-data';
 import { rgbToLab } from '@/lib/color-lab';
 
@@ -328,6 +329,16 @@ export default function PhotoMoodPage() {
             >
               🔄 다른 사진으로 다시 해보기
             </button>
+
+            <SaveResultCard
+              emoji={result.emoji}
+              title={result.label}
+              subtitle={result.vibe}
+              body={result.text}
+              from={result.from}
+              to={result.to}
+              fileName="photo-mood-result"
+            />
 
             <ShareButton title="사진 감성 분석 결과" description={`${result.label} — ${result.text}`} type="fortune" />
 
