@@ -59,6 +59,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/face-reading`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/personal-color`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/photo-mood`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/face-symmetry`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/smile-score`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),

@@ -16,7 +16,9 @@ const TYPES = [
   { href: '/fortune/mbti',   icon: '🧠', title: 'MBTI 운세',  desc: '16가지 성격 유형별 오늘의 운세',        badge: '16유형',   color: 'from-sky-500 to-blue-600' },
   { href: '/fortune/face-reading', icon: '🪞', title: '관상 테스트', desc: '사진 한 장으로 보는 재미있는 관상 분석', badge: '실제 얼굴인식',   color: 'from-teal-500 to-cyan-700' },
   { href: '/fortune/personal-color', icon: '🎨', title: '퍼스널컬러 진단', desc: '사진 한 장으로 보는 웜톤·쿨톤 컬러 진단', badge: '실제 색상측정', color: 'from-orange-400 to-indigo-500' },
-  { href: '/fortune/photo-mood', icon: '🎞️', title: '사진 감성 분석', desc: '아무 사진이나 올려서 보는 내 감성 타입', badge: 'NEW', color: 'from-fuchsia-500 to-sky-500' },
+  { href: '/fortune/photo-mood', icon: '🎞️', title: '사진 감성 분석', desc: '아무 사진이나 올려서 보는 내 감성 타입', badge: '실제 픽셀분석', color: 'from-fuchsia-500 to-sky-500' },
+  { href: '/fortune/face-symmetry', icon: '⚖️', title: '얼굴 대칭 분석', desc: '사진 한 장으로 보는 좌우 밸런스 지수', badge: 'NEW', color: 'from-indigo-500 to-cyan-500' },
+  { href: '/fortune/smile-score', icon: '😊', title: '미소 지수 측정', desc: '사진 한 장으로 보는 내 미소 지수', badge: 'NEW', color: 'from-amber-400 to-rose-500' },
 ];
 
 export default function FortunePage() {
