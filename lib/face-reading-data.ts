@@ -1,7 +1,7 @@
 /**
- * 관상 테스트 — 재미·오락용 콘텐츠.
- * 사진은 서버로 전송되지 않고 브라우저 안에서만 해시값을 뽑아 사용한다.
- * 실제 관상학·과학적 근거와 무관한 엔터테인먼트 콘텐츠임을 페이지에 명시해야 한다.
+ * 관상 테스트 — 실제 얼굴 인식(landmark 검출)으로 이목구비 비율을 측정하되,
+ * 그 비율에 붙이는 성격·운세 해석 문구는 관상학에 근거한 오락 콘텐츠다.
+ * 사진 자체는 서버로 전송되지 않고 브라우저 안에서만 처리된다(모델도 자체 호스팅).
  */
 
 export type FeatureKey = 'forehead' | 'eyebrow' | 'eye' | 'nose' | 'mouth' | 'chin';
@@ -104,18 +104,6 @@ export const TODAY_LUCK_POOL: string[] = [
   '오늘은 웃는 얼굴이 유독 매력적으로 보이는 날입니다. 자주 웃어보세요.',
 ];
 
-/** 문자열/바이트 배열로부터 결정론적 정수 해시를 만든다 (FNV-1a 변형) */
-export function hashBytes(bytes: Uint8Array): number {
-  let h = 2166136261;
-  // 큰 이미지도 빠르게 처리하기 위해 일정 간격으로 샘플링
-  const step = Math.max(1, Math.floor(bytes.length / 4000));
-  for (let i = 0; i < bytes.length; i += step) {
-    h ^= bytes[i];
-    h = Math.imul(h, 16777619);
-  }
-  return Math.abs(h >>> 0);
-}
-
 export function hashString(s: string): number {
   let h = 2166136261;
   for (let i = 0; i < s.length; i++) {
@@ -143,31 +131,65 @@ function pick<T>(arr: T[], seed: number): T {
   return arr[mix32(seed) % arr.length];
 }
 
+function clamp01(x: number): number {
+  return Math.max(0, Math.min(1, x));
+}
+
+/** 0~1 비율값을 풀 안의 인덱스로 매핑한다 (실측값 기반 선택). */
+function pickByRatio<T>(arr: T[], ratio: number): T {
+  const idx = Math.min(arr.length - 1, Math.floor(clamp01(ratio) * arr.length));
+  return arr[idx];
+}
+
+/**
+ * face-api.js의 68포인트 랜드마크 + 얼굴 박스로부터 계산한 이목구비 비율.
+ * 각 값은 대략 0(작음/좁음)~1(큼/넓음) 범위가 되도록 얼굴 크기 대비로 정규화한다.
+ * 사람 얼굴의 평균적인 비례를 참고한 경험적 배율이며, 의학적으로 교정된 값은 아니다.
+ */
+export interface FaceRatios {
+  foreheadRatio: number;
+  eyebrowArchRatio: number;
+  eyeWidthRatio: number;
+  noseWidthRatio: number;
+  mouthWidthRatio: number;
+  jawWidthRatio: number;
+}
+
 export interface FaceReadingResult {
   overall: string;
   features: { key: FeatureKey; label: string; icon: string; text: string }[];
   todayLuck: string;
 }
 
-/** 이미지 해시값을 기반으로 결정론적인 관상 리딩을 생성한다. */
-export function getFaceReading(imageHash: number): FaceReadingResult {
-  const keys: FeatureKey[] = ['forehead', 'eyebrow', 'eye', 'nose', 'mouth', 'chin'];
-  // 큰 소수를 서로 다른 배수로 더해 특징별 서브시드를 분리한다 (pick 내부에서 mix32로 재확산됨)
-  const features = keys.map((key, i) => {
-    const subSeed = (imageHash + i * 0x9e3779b9) >>> 0;
-    return {
-      key,
-      label: FEATURE_META[key].label,
-      icon: FEATURE_META[key].icon,
-      text: pick(FEATURE_POOL[key], subSeed),
-    };
-  });
+/** 측정된 비율들을 하나의 정수 시드로 압축한다 (오늘의 운·전체인상 다양화용). */
+function ratioSeed(r: FaceRatios): number {
+  const packed =
+    r.foreheadRatio * 997 +
+    r.eyebrowArchRatio * 7919 +
+    r.eyeWidthRatio * 104729 +
+    r.noseWidthRatio * 1299709 +
+    r.mouthWidthRatio * 15485863 +
+    r.jawWidthRatio * 179424673;
+  return mix32(Math.floor(packed * 1000) >>> 0);
+}
 
-  const overall = pick(OVERALL_POOL, (imageHash + 6 * 0x9e3779b9) >>> 0);
+/** 실제로 측정된 얼굴 비율을 기반으로 관상 리딩을 생성한다. */
+export function getFaceReading(ratios: FaceRatios): FaceReadingResult {
+  const features: FaceReadingResult['features'] = [
+    { key: 'forehead', label: FEATURE_META.forehead.label, icon: FEATURE_META.forehead.icon, text: pickByRatio(FEATURE_POOL.forehead, ratios.foreheadRatio) },
+    { key: 'eyebrow',  label: FEATURE_META.eyebrow.label,  icon: FEATURE_META.eyebrow.icon,  text: pickByRatio(FEATURE_POOL.eyebrow, ratios.eyebrowArchRatio) },
+    { key: 'eye',      label: FEATURE_META.eye.label,      icon: FEATURE_META.eye.icon,      text: pickByRatio(FEATURE_POOL.eye, ratios.eyeWidthRatio) },
+    { key: 'nose',     label: FEATURE_META.nose.label,     icon: FEATURE_META.nose.icon,     text: pickByRatio(FEATURE_POOL.nose, ratios.noseWidthRatio) },
+    { key: 'mouth',    label: FEATURE_META.mouth.label,    icon: FEATURE_META.mouth.icon,    text: pickByRatio(FEATURE_POOL.mouth, ratios.mouthWidthRatio) },
+    { key: 'chin',     label: FEATURE_META.chin.label,     icon: FEATURE_META.chin.icon,     text: pickByRatio(FEATURE_POOL.chin, ratios.jawWidthRatio) },
+  ];
+
+  const seed = ratioSeed(ratios);
+  const overall = pick(OVERALL_POOL, seed);
 
   const today = new Date();
   const ymd = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`;
-  const luckSeed = (hashString(ymd) ^ imageHash) >>> 0;
+  const luckSeed = (hashString(ymd) ^ seed) >>> 0;
   const todayLuck = pick(TODAY_LUCK_POOL, luckSeed);
 
   return { overall, features, todayLuck };
