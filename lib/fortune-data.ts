@@ -414,6 +414,15 @@ export const FORTUNE_POOL = {
     '작은 친절이 큰 변화를 만드는 날입니다. 주변 사람들에게 따뜻한 한마디를 건네보세요. 그 선의가 결국 자신에게 돌아올 것입니다.',
     '오늘은 과거를 정리하고 미래를 준비하기 좋은 날입니다. 오래된 감정이나 관계를 정리하면 새로운 에너지가 유입될 것입니다.',
     '겸손함이 더 큰 성장을 이끄는 날입니다. 모든 것을 알려고 하기보다 배우는 자세로 임하면 뜻밖의 가르침을 얻게 됩니다.',
+    '오늘은 마무리의 기운이 강한 날입니다. 벌여놓기만 했던 일들을 하나씩 매듭지으면 큰 홀가분함이 찾아옵니다.',
+    '주변의 인정과 칭찬이 따르는 날입니다. 그동안의 노력이 드디어 빛을 보기 시작하니 자신감을 가지세요.',
+    '작은 지출이나 약속도 신중하게 다뤄야 하는 날입니다. 꼼꼼함이 오늘의 실수를 막아줍니다.',
+    '오늘은 나서기보다 한 발 물러서서 관망하는 것이 유리합니다. 조용히 흐름을 읽으면 기회가 보입니다.',
+    '몸과 마음의 리듬이 잘 맞는 날입니다. 하고 싶었던 일을 실행에 옮기면 만족스러운 결과를 얻습니다.',
+    '뜻밖의 반가운 소식이 들려올 수 있는 날입니다. 열린 마음으로 하루를 맞이하세요.',
+    '감정의 기복이 있을 수 있으니 중요한 대화나 결정은 마음이 차분해진 뒤로 미루는 것이 좋습니다.',
+    '오늘의 작은 용기가 내일의 큰 변화를 만듭니다. 미뤄둔 한 걸음을 지금 내디뎌보세요.',
+    '주변 사람과의 협력이 행운의 열쇠가 되는 날입니다. 함께라면 더 멀리 갈 수 있습니다.',
   ],
 
   love: [
@@ -489,6 +498,51 @@ export const FORTUNE_POOL = {
   ],
 };
 
+/* ── 오늘의 한 줄 조언 ── */
+export const ADVICE_POOL = [
+  '망설여진다면 일단 시작해보세요. 완벽한 타이밍은 오지 않습니다.',
+  '오늘은 "괜찮아"라는 말을 스스로에게 자주 건네보세요.',
+  '작은 성취도 크게 축하하는 하루가 되세요.',
+  '거절해도 괜찮습니다. 나를 위한 선택이 우선입니다.',
+  '지나간 일에 대한 후회는 오늘 여기서 내려놓으세요.',
+  '먼저 웃으면 좋은 일이 따라옵니다.',
+  '급할수록 한 박자 쉬어가는 지혜가 필요합니다.',
+  '오늘 만나는 사람에게 진심 어린 칭찬 한마디를 건네보세요.',
+  '가장 어려운 일을 가장 먼저 해치우면 하루가 가벼워집니다.',
+  '완벽하지 않아도 충분합니다. 80%면 훌륭합니다.',
+  '남과 비교하지 말고 어제의 나와 겨루세요.',
+  '오늘의 감정을 있는 그대로 인정해주세요.',
+  '스마트폰을 잠시 내려놓고 하늘을 한 번 올려다보세요.',
+  '고민을 혼자 안고 가지 말고 누군가에게 털어놓으세요.',
+  '작은 친절이 돌고 돌아 당신에게 돌아옵니다.',
+  '오늘 하루, 물 한 잔 더 마시고 깊게 숨 쉬어보세요.',
+  '결정을 미루고 있었다면 오늘이 그날입니다.',
+  '주변을 정리하면 마음도 함께 정리됩니다.',
+  '실수를 두려워 말고 배움의 기회로 삼으세요.',
+  '오늘은 나를 위한 작은 선물을 하나 준비해보세요.',
+  '들뜬 마음일수록 중요한 결정은 내일로 미루세요.',
+  '감사한 일 세 가지를 떠올리면 하루가 달라집니다.',
+  '먼저 연락하는 용기가 관계를 살립니다.',
+  '몸이 피곤하다는 신호를 보내면 오늘은 일찍 쉬세요.',
+];
+
+/* ── 행운의 아이템 ── */
+export const LUCKY_ITEMS = [
+  '따뜻한 커피', '손목시계', '초록 식물', '향초', '노트와 펜',
+  '이어폰', '작은 거울', '텀블러', '반지', '스카프',
+  '책 한 권', '캔들', '가죽 지갑', '운동화', '손수건',
+  '방향제', '머그컵', '모자', '선글라스', '립밤',
+  '에코백', '키링', '향수', '따뜻한 차',
+];
+
+/* ── 오늘의 키워드 ── */
+export const KEYWORD_POOL = [
+  '도전', '휴식', '소통', '집중', '용기', '균형', '시작', '정리',
+  '감사', '여유', '성장', '연결', '변화', '안정', '표현', '배려',
+  '결단', '몰입', '회복', '설렘', '신뢰', '자유', '열정', '차분',
+  '기회', '인내', '긍정', '솔직', '유연', '따뜻함',
+];
+
 /* ── 행운 색·숫자 ── */
 export const LUCKY_COLORS: [string, string][] = [
   ['빨강',   '#ef4444'],
@@ -551,12 +605,21 @@ export function getTodayFortune(subjectId: string) {
   const health   = pick(FORTUNE_POOL.health,   todaySeed(subjectId, 'health'));
   const work     = pick(FORTUNE_POOL.work,     todaySeed(subjectId, 'work'));
 
+  const advice   = pick(ADVICE_POOL,  todaySeed(subjectId, 'advice'));
+  const luckyItem = pick(LUCKY_ITEMS, todaySeed(subjectId, 'item'));
+  // 오늘의 키워드 2개 (중복 없이)
+  const kwA = pickIdx(KEYWORD_POOL, todaySeed(subjectId, 'kw1'));
+  let kwB = pickIdx(KEYWORD_POOL, todaySeed(subjectId, 'kw2'));
+  if (kwB === kwA) kwB = (kwB + 1) % KEYWORD_POOL.length;
+  const keywords = [KEYWORD_POOL[kwA], KEYWORD_POOL[kwB]];
+
   const [colorName, colorHex] = pick(LUCKY_COLORS, todaySeed(subjectId, 'color'));
   const luckyNumber    = (seededInt(todaySeed(subjectId, 'number')) % 30) + 1;
   const luckyDirection = pick(LUCKY_DIRECTIONS, todaySeed(subjectId, 'direction'));
 
   return {
     overall, love, money, health, work,
+    advice, luckyItem, keywords,
     luckyColor: colorName, luckyColorHex: colorHex,
     luckyNumber, luckyDirection,
     stars: {

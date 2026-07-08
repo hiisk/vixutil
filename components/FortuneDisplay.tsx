@@ -113,6 +113,19 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       <div className="bg-white border border-violet-100 rounded-2xl p-5">
         <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">✨ 오늘의 총운</p>
         <p className="text-sm text-slate-700 leading-relaxed">{f.overall}</p>
+        <div className="mt-3 flex flex-wrap items-center gap-1.5">
+          {f.keywords.map(k => (
+            <span key={k} className="text-xs font-bold text-violet-700 bg-violet-50 border border-violet-100 px-2.5 py-1 rounded-full">
+              #{k}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* 오늘의 조언 */}
+      <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
+        <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 조언</p>
+        <p className="text-sm text-slate-700 leading-relaxed font-medium">{f.advice}</p>
       </div>
 
       {/* 도메인 운세 */}
@@ -127,7 +140,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       {/* 행운 정보 */}
       <div className="bg-white border border-slate-200 rounded-2xl p-5">
         <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">🍀 오늘의 행운</p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="text-center">
             <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm"
               style={{ background: f.luckyColorHex }} />
@@ -147,6 +160,13 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
             </div>
             <p className="text-xs text-slate-400">행운의 방향</p>
             <p className="text-sm font-bold text-slate-700">{f.luckyDirection}</p>
+          </div>
+          <div className="text-center">
+            <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
+              <span className="text-base">🎁</span>
+            </div>
+            <p className="text-xs text-slate-400">행운의 아이템</p>
+            <p className="text-sm font-bold text-slate-700">{f.luckyItem}</p>
           </div>
         </div>
       </div>
