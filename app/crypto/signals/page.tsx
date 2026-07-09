@@ -73,6 +73,16 @@ function utcLabel(d: Date): string {
   return d.toLocaleString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }) + ' UTC';
 }
 
+/** 정렬 가능 컬럼 힌트 — 위/아래 화살촉을 겹쳐 표시하고 활성 방향만 강조 */
+function SortHint({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
+  return (
+    <span className="inline-flex flex-col leading-[0.55] text-[7px] ml-1">
+      <span className={active && dir === 'asc' ? 'text-amber-400' : 'text-slate-600'}>▲</span>
+      <span className={active && dir === 'desc' ? 'text-amber-400' : 'text-slate-600'}>▼</span>
+    </span>
+  );
+}
+
 function formatVolume(v: number): string {
   if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
   if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
@@ -357,8 +367,8 @@ export default function SignalsPage() {
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                       <th className="text-left font-semibold px-4 py-3">Coin</th>
                       <th className="text-left font-semibold px-2 py-3">
-                        <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center gap-0.5 hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
-                          Signal {sortKey === 'signal' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
+                        <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
+                          Signal <SortHint active={sortKey === 'signal'} dir={sortDir} />
                         </button>
                       </th>
                       <th className={th}>Entry</th>
@@ -366,13 +376,13 @@ export default function SignalsPage() {
                       <th className={th}>TP</th>
                       <th className={th}>SL</th>
                       <th className={th}>
-                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center gap-0.5 hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
-                          Volume {sortKey === 'volume' ? '▼' : ''}
+                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
+                          Volume <SortHint active={sortKey === 'volume'} dir="desc" />
                         </button>
                       </th>
                       <th className="text-right font-semibold px-4 py-3">
-                        <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center gap-0.5 hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
-                          P&amp;L {sortKey === 'pnl' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
+                        <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
+                          P&amp;L <SortHint active={sortKey === 'pnl'} dir={sortDir} />
                         </button>
                       </th>
                     </tr>
