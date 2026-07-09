@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef, useReducer } from 'react';
 import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
-import { computeStrategy, STRATEGY_META, type StrategyKey, type Bias, type StrategySignal } from '@/lib/strategies';
+import { computeConsensus, STRATEGY_META, type Bias, type ConsensusSignal } from '@/lib/strategies';
 import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type Ticker24h } from '@/lib/binance';
 
 const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
@@ -34,17 +34,17 @@ const PER_PAGE = 50;
 const TP_MULT = 1.5;
 const SL_MULT = 1.0;
 
-type StratInfo = StrategySignal;
+type StratInfo = ConsensusSignal;
 
-const BIAS_STYLE: Record<Bias, { label: string; cls: string }> = {
-  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400' },
-  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400' },
-  neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-400' },
+const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400', emoji: '🟢' },
+  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
+  neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-400', emoji: '⚪' },
 };
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'atr' | 'pnl';
-const STRATEGIES: StrategyKey[] = ['trend', 'bollinger', 'rsi', 'atr'];
 
 function pnlOf(side: Direction, entry: number, price: number): number {
   const raw = ((price - entry) / entry) * 100;
@@ -65,14 +65,13 @@ export default function SignalsPage() {
   const [page, setPage] = useState(1);
   const [sortKey, setSortKey] = useState<SortKey>('volume');
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc');
-  const [strategy, setStrategy] = useState<StrategyKey>('trend');
   const [query, setQuery] = useState('');
   const [pageComputing, setPageComputing] = useState(false);
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
 
-  // Signal cache: symbol -> info. undefined = not computed, null = insufficient data.
-  // Reset when market or strategy changes (both alter the computed signal).
+  // Signal cache: symbol -> consensus info. undefined = not computed, null = insufficient data.
+  // Reset when the market changes (different symbols / candles).
   const cacheRef = useRef<Map<string, StratInfo | null>>(new Map());
   const [, bump] = useReducer((x: number) => x + 1, 0);
 
@@ -92,36 +91,36 @@ export default function SignalsPage() {
     }
   }, []);
 
-  async function computeInfo(symbol: string, mkt: Market, strat: StrategyKey): Promise<StratInfo | null> {
+  async function computeInfo(symbol: string, mkt: Market): Promise<StratInfo | null> {
     try {
       // SMA50 등 지표를 위해 마감 일봉 60개까지 사용
       const candles = await fetchDailyCandles(symbol, 60, mkt);
-      return computeStrategy(candles, strat, mkt);
+      return computeConsensus(candles, mkt);
     } catch {
       return null;
     }
   }
 
   // Lazy: compute signals for the visible page only (used for Volume sort)
-  const computePage = useCallback(async (list: Ticker24h[], mkt: Market, strat: StrategyKey) => {
+  const computePage = useCallback(async (list: Ticker24h[], mkt: Market) => {
     const todo = list.filter(t => !cacheRef.current.has(t.symbol));
     if (!todo.length) return;
     setPageComputing(true);
     await mapWithConcurrency(todo, 8, async t => {
-      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt, strat));
+      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt));
     });
     setPageComputing(false);
     bump();
   }, []);
 
   // Full: compute signals for every coin (required to sort by ATR%/P&L across all coins)
-  const computeAll = useCallback(async (list: Ticker24h[], mkt: Market, strat: StrategyKey) => {
+  const computeAll = useCallback(async (list: Ticker24h[], mkt: Market) => {
     const todo = list.filter(t => !cacheRef.current.has(t.symbol));
     if (!todo.length) return;
     let done = list.length - todo.length;
     setFullCompute({ active: true, done, total: list.length });
     await mapWithConcurrency(todo, 8, async t => {
-      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt, strat));
+      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt));
       done++;
       if (done % 8 === 0 || done === list.length) setFullCompute({ active: true, done, total: list.length });
     });
@@ -155,12 +154,12 @@ export default function SignalsPage() {
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
 
-  // Trigger the right computation for the current sort/strategy.
+  // Trigger the right computation for the current sort.
   useEffect(() => {
     if (listState !== 'ready') return;
-    if (sortKey === 'atr' || sortKey === 'pnl') computeAll(tickers, market, strategy);
-    else if (pageTickers.length) computePage(pageTickers, market, strategy);
-  }, [listState, sortKey, pageTickers, tickers, market, strategy, computeAll, computePage]);
+    if (sortKey === 'atr' || sortKey === 'pnl') computeAll(tickers, market);
+    else if (pageTickers.length) computePage(pageTickers, market);
+  }, [listState, sortKey, pageTickers, tickers, market, computeAll, computePage]);
 
   // 검색어가 바뀌면 첫 페이지로
   useEffect(() => { setPage(1); }, [query]);
@@ -170,15 +169,6 @@ export default function SignalsPage() {
     setSortKey(key);
     setPage(1);
     if (key !== 'volume') setSortDir('desc');
-  }
-
-  // 전략 변경: 신호가 달라지므로 캐시 초기화 후 재계산(effect가 처리)
-  function selectStrategy(s: StrategyKey) {
-    if (s === strategy) return;
-    cacheRef.current = new Map();
-    setStrategy(s);
-    setPage(1);
-    bump();
   }
 
   const updatedLabel = useMemo(
@@ -236,7 +226,7 @@ export default function SignalsPage() {
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">📈</div>
           <h1 className="text-2xl font-black text-white mb-1.5">Crypto Signal Board</h1>
-          <p className="text-slate-400 text-sm">Multi-strategy signals (Trend · Bollinger · RSI · ATR) with daily entry / TP / SL · live P&amp;L</p>
+          <p className="text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction &amp; confidence, with daily entry / TP / SL · live P&amp;L</p>
         </div>
 
         {/* Controls */}
@@ -267,20 +257,6 @@ export default function SignalsPage() {
             </div>
             <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
-        </div>
-
-        {/* Strategy selector */}
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-xs text-slate-500 shrink-0">Strategy</span>
-          <div className="inline-flex flex-wrap rounded-xl border border-slate-800 bg-slate-900 p-1 gap-1">
-            {STRATEGIES.map(s => (
-              <button key={s} onClick={() => selectStrategy(s)} title={STRATEGY_META[s].blurb}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${strategy === s ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
-                {STRATEGY_META[s].label}
-              </button>
-            ))}
-          </div>
-          <span className="text-[11px] text-slate-600 hidden sm:block">{STRATEGY_META[strategy].blurb}</span>
         </div>
 
         {/* Search */}
@@ -368,11 +344,18 @@ export default function SignalsPage() {
                           </td>
                           <td className="px-2 py-3">
                             {info ? (
-                              <div className="flex flex-col gap-0.5">
-                                <span className={`inline-flex w-fit items-center text-[10px] font-black px-2 py-0.5 rounded ${BIAS_STYLE[info.bias].cls}`}>
-                                  {info.bias === 'bullish' ? '🟢' : info.bias === 'bearish' ? '🔴' : '⚪'} {BIAS_STYLE[info.bias].label}
+                              <div className="flex flex-col gap-1">
+                                <span className={`inline-flex w-fit items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded ${BIAS_STYLE[info.bias].cls}`}>
+                                  {BIAS_STYLE[info.bias].emoji} {BIAS_STYLE[info.bias].label}
+                                  {info.bias !== 'neutral' && <span className="opacity-80">{info.confidence}%</span>}
                                 </span>
-                                <span className="text-[10px] text-slate-500">{info.note}</span>
+                                <span className="flex gap-1.5">
+                                  {info.votes.map(v => (
+                                    <span key={v.key} title={`${STRATEGY_META[v.key].label}: ${v.note}`} className={`text-[10px] font-bold ${VOTE_CLR[v.bias]}`}>
+                                      {STRATEGY_META[v.key].short}{v.bias === 'bullish' ? '↑' : v.bias === 'bearish' ? '↓' : '·'}
+                                    </span>
+                                  ))}
+                                </span>
                               </div>
                             ) : (
                               <span className="text-slate-600 text-xs">{pending ? '…' : '-'}</span>
@@ -404,7 +387,7 @@ export default function SignalsPage() {
                 </table>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {STRATEGY_META[strategy].label} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
+                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
             </div>
@@ -422,7 +405,7 @@ export default function SignalsPage() {
 
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
-          <p>Signals come from the selected strategy (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend). Entry / TP / SL are based on the last closed daily candle and ATR (TP {TP_MULT}× / SL {SL_MULT}×); P&amp;L is live from the current price. Spot is buy-only (long); LONG/SHORT direction applies to futures only.</p>
+          <p>Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry / TP / SL use the last closed daily candle and ATR (TP {TP_MULT}× / SL {SL_MULT}×); P&amp;L is live from the current price. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">🔄 Refresh to recalculate with the latest prices · Binance public market data</p>

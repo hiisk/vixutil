@@ -9,12 +9,14 @@ import { computeATR, computeTpSl, type Direction, type Candle } from './atr';
 export type StrategyKey = 'trend' | 'bollinger' | 'rsi' | 'atr';
 export type Bias = 'bullish' | 'bearish' | 'neutral';
 
-export const STRATEGY_META: Record<StrategyKey, { label: string; blurb: string }> = {
-  trend: { label: 'Trend', blurb: 'SMA 20/50 alignment' },
-  bollinger: { label: 'Bollinger', blurb: 'Band position (%B)' },
-  rsi: { label: 'RSI', blurb: 'Overbought / oversold' },
-  atr: { label: 'ATR', blurb: 'Volatility + SMA20 trend' },
+export const STRATEGY_META: Record<StrategyKey, { label: string; short: string; blurb: string }> = {
+  trend: { label: 'Trend', short: 'T', blurb: 'SMA 20/50 alignment' },
+  bollinger: { label: 'Bollinger', short: 'B', blurb: 'Band position (%B)' },
+  rsi: { label: 'RSI', short: 'R', blurb: 'Overbought / oversold' },
+  atr: { label: 'ATR', short: 'A', blurb: 'Volatility + SMA20 trend' },
 };
+
+export const STRATEGIES: StrategyKey[] = ['trend', 'bollinger', 'rsi', 'atr'];
 
 const TP_MULT = 1.5;
 const SL_MULT = 1.0;
@@ -105,4 +107,53 @@ export function computeStrategy(candles: Candle[], strategy: StrategyKey, market
   const side: Direction = market === 'spot' ? 'long' : bias === 'bearish' ? 'short' : 'long';
   const { tp, sl } = computeTpSl(entry, atr, side, TP_MULT, SL_MULT);
   return { bias, side, entry, tp, sl, atr, atrPct: (atr / entry) * 100, note };
+}
+
+export interface StrategyVote {
+  key: StrategyKey;
+  bias: Bias;
+  note: string;
+}
+
+export interface ConsensusSignal {
+  bias: Bias;
+  confidence: number; // 0~100, 방향에 동의한 전략 비율
+  side: Direction;
+  entry: number;
+  tp: number;
+  sl: number;
+  atr: number;
+  atrPct: number;
+  votes: StrategyVote[];
+}
+
+/**
+ * 모든 전략을 실행해 표를 집계, 다수결 방향 + 확신도(%)를 낸다.
+ * 각 전략이 강세/약세/중립에 동등하게 1표씩. 지표 계산은 같은 캔들에 대한
+ * 순수 연산이라 추가 네트워크 요청이 없다.
+ */
+export function computeConsensus(candles: Candle[], market: 'spot' | 'futures'): ConsensusSignal | null {
+  const votes: StrategyVote[] = [];
+  let base: StrategySignal | null = null;
+  let bull = 0, bear = 0;
+  for (const key of STRATEGIES) {
+    const sig = computeStrategy(candles, key, market);
+    if (!sig) continue;
+    if (!base) base = sig;
+    if (sig.bias === 'bullish') bull++;
+    else if (sig.bias === 'bearish') bear++;
+    votes.push({ key, bias: sig.bias, note: sig.note });
+  }
+  if (!base || votes.length === 0) return null;
+
+  const n = votes.length;
+  let bias: Bias;
+  let confidence: number;
+  if (bull > bear) { bias = 'bullish'; confidence = Math.round((bull / n) * 100); }
+  else if (bear > bull) { bias = 'bearish'; confidence = Math.round((bear / n) * 100); }
+  else { bias = 'neutral'; confidence = 0; }
+
+  const side: Direction = market === 'spot' ? 'long' : bias === 'bearish' ? 'short' : 'long';
+  const { tp, sl } = computeTpSl(base.entry, base.atr, side, TP_MULT, SL_MULT);
+  return { bias, confidence, side, entry: base.entry, tp, sl, atr: base.atr, atrPct: (base.atr / base.entry) * 100, votes };
 }
