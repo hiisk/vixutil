@@ -171,7 +171,7 @@ export default function AtrTpslPage() {
               </table>
               {updatedAt && (
                 <p className="text-[11px] text-slate-300 px-4 py-2 text-right">
-                  as of {updatedAt.toLocaleTimeString('en-US')} · tap a row to load it into the calculator below
+                  as of {updatedAt.toLocaleTimeString('en-US', { timeZone: 'UTC', hour12: false })} UTC · tap a row to load it into the calculator below
                 </p>
               )}
             </div>

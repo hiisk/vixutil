@@ -51,6 +51,23 @@ function pnlOf(side: Direction, entry: number, price: number): number {
   return side === 'long' ? raw : -raw;
 }
 
+/** 현재가가 TP/SL에 도달했는지 (방향 반영) */
+function hitState(info: StratInfo, price: number): 'tp' | 'sl' | null {
+  if (info.side === 'long') {
+    if (price >= info.tp) return 'tp';
+    if (price <= info.sl) return 'sl';
+  } else {
+    if (price <= info.tp) return 'tp';
+    if (price >= info.sl) return 'sl';
+  }
+  return null;
+}
+
+/** UTC 기준 시각 라벨 */
+function utcLabel(d: Date): string {
+  return d.toLocaleString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }) + ' UTC';
+}
+
 function formatVolume(v: number): string {
   if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
   if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
@@ -69,6 +86,7 @@ export default function SignalsPage() {
   const [pageComputing, setPageComputing] = useState(false);
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
+  const [now, setNow] = useState(() => Date.now());
 
   // Signal cache: symbol -> consensus info. undefined = not computed, null = insufficient data.
   // Reset when the market changes (different symbols / candles).
@@ -171,10 +189,16 @@ export default function SignalsPage() {
     if (key !== 'volume') setSortDir('desc');
   }
 
-  const updatedLabel = useMemo(
-    () => (updatedAt ? updatedAt.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : null),
-    [updatedAt],
-  );
+  const updatedLabel = useMemo(() => (updatedAt ? utcLabel(updatedAt) : null), [updatedAt]);
+
+  // 다음 00:00 UTC(전략 리셋)까지 남은 시간 — 1분마다 갱신
+  useEffect(() => { const id = setInterval(() => setNow(Date.now()), 60_000); return () => clearInterval(id); }, []);
+  const resetIn = useMemo(() => {
+    const d = new Date(now);
+    const next = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 0, 0);
+    const ms = next - now;
+    return `${Math.floor(ms / 3_600_000)}h ${Math.floor((ms % 3_600_000) / 60_000)}m`;
+  }, [now]);
 
   const th = 'text-right font-semibold px-2 py-3';
   return (
@@ -227,6 +251,7 @@ export default function SignalsPage() {
           <div className="text-4xl mb-2">📈</div>
           <h1 className="text-2xl font-black text-white mb-1.5">Crypto Signal Board</h1>
           <p className="text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction &amp; confidence, with daily entry / TP / SL · live P&amp;L</p>
+          <p className="text-slate-600 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
         </div>
 
         {/* Controls */}
@@ -370,7 +395,17 @@ export default function SignalsPage() {
                             {pnl == null ? (
                               <span className="text-slate-600">{pending ? '…' : '-'}</span>
                             ) : (
-                              <span className={pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}%</span>
+                              <div className="flex items-center justify-end gap-1.5">
+                                {info && (() => {
+                                  const hit = hitState(info, t.lastPrice);
+                                  return hit === 'tp'
+                                    ? <span className="text-[9px] font-black px-1 py-0.5 rounded bg-emerald-500/20 text-emerald-300">🎯 TP</span>
+                                    : hit === 'sl'
+                                    ? <span className="text-[9px] font-black px-1 py-0.5 rounded bg-rose-500/20 text-rose-300">🛑 SL</span>
+                                    : null;
+                                })()}
+                                <span className={pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}%</span>
+                              </div>
                             )}
                           </td>
                         </tr>
