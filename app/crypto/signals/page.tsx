@@ -201,6 +201,18 @@ export default function SignalsPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* Referral links */}
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
+            className="group flex items-center gap-3 rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-yellow-600/[0.04] p-4 hover:border-yellow-400/60 hover:from-yellow-500/[0.16] transition-all">
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-2 mb-1">
+                <BybitWordmark className="h-4 w-auto" />
+                <span className="text-[9px] font-bold text-slate-500 border border-slate-700 rounded px-1 py-px">AD</span>
+              </span>
+              <span className="block text-[11px] text-slate-400 leading-snug">🔥 Claim $20, up to $30K rewards + fee discount</span>
+            </span>
+            <svg className="w-4 h-4 text-yellow-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+          </a>
+
           <a href={BINANCE_REF} target="_blank" rel="noopener noreferrer sponsored"
             className="group flex items-center gap-3 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-amber-600/[0.04] p-4 hover:border-amber-400/60 hover:from-amber-500/[0.16] transition-all">
             <span className="min-w-0 flex-1">
@@ -212,18 +224,6 @@ export default function SignalsPage() {
               <span className="block text-[11px] text-slate-400 leading-snug">🎁 10% off trading fees + up to $600 new-user bonus</span>
             </span>
             <svg className="w-4 h-4 text-amber-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-          </a>
-
-          <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group flex items-center gap-3 rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-yellow-600/[0.04] p-4 hover:border-yellow-400/60 hover:from-yellow-500/[0.16] transition-all">
-            <span className="min-w-0 flex-1">
-              <span className="flex items-center gap-2 mb-1">
-                <BybitWordmark className="h-4 w-auto" />
-                <span className="text-[9px] font-bold text-slate-500 border border-slate-700 rounded px-1 py-px">AD</span>
-              </span>
-              <span className="block text-[11px] text-slate-400 leading-snug">🔥 Claim $20, up to $30K rewards + fee discount</span>
-            </span>
-            <svg className="w-4 h-4 text-yellow-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
           </a>
         </div>
 
