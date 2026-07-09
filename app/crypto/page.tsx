@@ -21,8 +21,7 @@ const structuredData = [
 ];
 
 const TOOLS = [
-  { href: '/crypto/predictions', icon: '🔮', title: 'Price Predictions', desc: '1D to 3Y projection ranges for 86 coins — median + 80% confidence band', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
-  { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy (Trend/BB/RSI/ATR) entry, TP, SL & live P&L for all coins', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
   { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL Calculator', desc: 'Pick a coin, set entry and multipliers, get take-profit & stop-loss', badge: 'Calc', color: 'from-yellow-400 to-amber-600' },
 ];
 

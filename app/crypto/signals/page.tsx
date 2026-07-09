@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
 import { computeConsensus, STRATEGY_META, type Bias, type ConsensusSignal } from '@/lib/strategies';
 import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type Ticker24h } from '@/lib/binance';
+import { buildForecast, HORIZONS, type ForecastModel } from '@/lib/forecast';
+import { coinByBase } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 
 const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
@@ -46,6 +48,11 @@ const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: '
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'signal' | 'pnl';
+/** 같은 코인 목록을 두 가지 컬럼 구성으로 본다 — 페이지를 나누지 않고 한 보드에서 전환 */
+type View = 'signals' | 'predictions';
+
+/** projection 계산에 쓰는 일봉 수 (drift·sigma 추정용) */
+const FORECAST_DAYS = 365;
 
 /** 정렬용 신호 점수: 강세는 +확신도, 약세는 -확신도, 중립은 0 */
 function signalMetric(info: StratInfo): number {
@@ -98,10 +105,14 @@ export default function SignalsPage() {
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
   const [now, setNow] = useState(() => Date.now());
   const [btcSpark, setBtcSpark] = useState<number[]>([]);
+  const [view, setView] = useState<View>('signals');
+  const [fcComputing, setFcComputing] = useState(false);
 
   // Signal cache: symbol -> consensus info. undefined = not computed, null = insufficient data.
   // Reset when the market changes (different symbols / candles).
   const cacheRef = useRef<Map<string, StratInfo | null>>(new Map());
+  // Forecast cache: symbol -> GBM 모델 + 스파크라인용 종가. 신호 캐시와 분리 — 필요한 캔들 수(365)가 다르다.
+  const forecastRef = useRef<Map<string, { model: ForecastModel | null; spark: number[] }>>(new Map());
   const [, bump] = useReducer((x: number) => x + 1, 0);
 
   const loadList = useCallback(async (mkt: Market) => {
@@ -109,6 +120,7 @@ export default function SignalsPage() {
     setPage(1);
     setSortKey('volume');
     cacheRef.current = new Map();
+    forecastRef.current = new Map();
     setFullCompute({ active: false, done: 0, total: 0 });
     try {
       const t = await fetchTickers(mkt);
@@ -190,7 +202,8 @@ export default function SignalsPage() {
   // Search filter (by base symbol), then sort. Volume sort is free (ticker order);
   // Search filter → sort → (optional) TP/SL-hit filter.
   // Signal/P&L sorts and the hit filter read the cache (require the full compute).
-  const needsFullCompute = sortKey === 'signal' || sortKey === 'pnl' || hitOnly;
+  // predictions 뷰는 신호 컬럼을 쓰지 않으므로 전체 계산이 필요 없다.
+  const needsFullCompute = view === 'signals' && (sortKey === 'signal' || sortKey === 'pnl' || hitOnly);
 
   const sortedTickers = useMemo(() => {
     const q = query.trim().toUpperCase();
@@ -219,13 +232,43 @@ export default function SignalsPage() {
 
   // Trigger the right computation for the current view.
   useEffect(() => {
-    if (listState !== 'ready') return;
+    if (listState !== 'ready' || view !== 'signals') return;
     if (needsFullCompute) computeAll(tickers, market);
     else if (pageTickers.length) computePage(pageTickers, market);
-  }, [listState, needsFullCompute, pageTickers, tickers, market, computeAll, computePage]);
+  }, [listState, view, needsFullCompute, pageTickers, tickers, market, computeAll, computePage]);
+
+  // predictions 뷰: 보이는 페이지의 코인만 지연 계산(한 번에 전체 klines를 쏘지 않는다)
+  useEffect(() => {
+    if (listState !== 'ready' || view !== 'predictions' || !pageTickers.length) return;
+    const todo = pageTickers.filter(t => !forecastRef.current.has(t.symbol));
+    if (!todo.length) return;
+    let cancelled = false;
+    setFcComputing(true);
+    mapWithConcurrency(todo, 6, async t => {
+      let entry: { model: ForecastModel | null; spark: number[] } = { model: null, spark: [] };
+      try {
+        const candles = await fetchDailyCandles(t.symbol, FORECAST_DAYS, market);
+        const closes = candles.map(c => c.close);
+        entry = { model: buildForecast(closes, t.lastPrice), spark: closes.slice(-7) };
+      } catch { /* 데이터 부족 → model null */ }
+      if (!cancelled) forecastRef.current.set(t.symbol, entry);
+    }).then(() => {
+      if (cancelled) return;
+      setFcComputing(false);
+      bump();
+    });
+    return () => { cancelled = true; };
+  }, [listState, view, pageTickers, market]);
 
   // 검색어·필터 바뀌면 첫 페이지로
   useEffect(() => { setPage(1); }, [query, hitOnly]);
+
+  // predictions 뷰에는 신호 기반 정렬·필터가 없다
+  useEffect(() => {
+    if (view !== 'predictions') return;
+    setSortKey('volume');
+    setHitOnly(false);
+  }, [view]);
 
   // 최신 값을 즉시 읽기 위한 ref (stale closure/레이스 방지)
   const marketRef = useRef(market);
@@ -345,7 +388,11 @@ export default function SignalsPage() {
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">📈</div>
           <h1 className="text-2xl font-black text-white mb-1.5">Crypto Signal Board</h1>
-          <p className="text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction &amp; confidence, with daily entry / TP / SL · live P&amp;L</p>
+          <p className="text-slate-400 text-sm">
+            {view === 'signals'
+              ? 'Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction & confidence, with daily entry / TP / SL · live P&L'
+              : 'Median projection and 80% range for 1D · 1W · 1M · 3M · 6M · 1Y · 3Y, from Binance daily closes'}
+          </p>
           <p className="text-slate-600 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
         </div>
 
@@ -399,6 +446,16 @@ export default function SignalsPage() {
           </div>
         )}
 
+        {/* View tabs — 같은 코인 목록을 신호 / 예측 두 컬럼 구성으로 본다 */}
+        <div className="inline-flex rounded-xl border border-slate-800 bg-slate-900 p-1 mb-4">
+          {([['signals', '📈 Signals'], ['predictions', '🔮 Predictions']] as [View, string][]).map(([v, label]) => (
+            <button key={v} onClick={() => setView(v)}
+              className={`px-5 py-1.5 text-sm font-bold rounded-lg transition-colors ${view === v ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+              {label}
+            </button>
+          ))}
+        </div>
+
         {/* Controls */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div className="inline-flex rounded-xl border border-slate-800 bg-slate-900 p-1">
@@ -410,13 +467,26 @@ export default function SignalsPage() {
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => setHitOnly(v => !v)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
-              🎯 TP/SL hit
-            </button>
+            {view === 'signals' && (
+              <button onClick={() => setHitOnly(v => !v)}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
+                🎯 TP/SL hit
+              </button>
+            )}
             <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
         </div>
+
+        {view === 'predictions' && (
+          <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
+            <p className="font-bold text-amber-300/90 mb-1">Read the range, not the number.</p>
+            <p>
+              For nearly every coin the historical trend is <b className="text-slate-300">not statistically distinguishable from zero</b>, so it is discarded and
+              the median lands near today&apos;s price. What actually differs between coins is the <b className="text-slate-300">width of the 80% range</b>, which
+              grows with the square root of time. Click a coin for its full breakdown.
+            </p>
+          </div>
+        )}
 
         {/* Search */}
         <div className="relative mb-4">
@@ -473,26 +543,38 @@ export default function SignalsPage() {
                   <thead>
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                       <th className="sticky left-0 z-20 bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
-                      <th className="text-left font-semibold px-2 py-3">
-                        <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
-                          Signal <SortHint active={sortKey === 'signal'} dir={sortDir} />
-                        </button>
-                      </th>
-                      <th className={th}>Entry</th>
-                      <th className={th}>Current</th>
-                      <th className={`${th} border-l border-slate-800/70`}>
-                        <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
-                          P&amp;L <SortHint active={sortKey === 'pnl'} dir={sortDir} />
-                        </button>
-                      </th>
-                      <th className={`${th} border-l border-slate-800/70`}>TP</th>
-                      <th className={th}>SL</th>
-                      <th className={`${th} border-l border-slate-800/70`}>
-                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
-                          Volume <SortHint active={sortKey === 'volume'} dir="desc" />
-                        </button>
-                      </th>
-                      <th className="text-right font-semibold px-4 py-3">Last 7d</th>
+                      {view === 'signals' ? (
+                        <>
+                          <th className="text-left font-semibold px-2 py-3">
+                            <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
+                              Signal <SortHint active={sortKey === 'signal'} dir={sortDir} />
+                            </button>
+                          </th>
+                          <th className={th}>Entry</th>
+                          <th className={th}>Current</th>
+                          <th className={`${th} border-l border-slate-800/70`}>
+                            <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
+                              P&amp;L <SortHint active={sortKey === 'pnl'} dir={sortDir} />
+                            </button>
+                          </th>
+                          <th className={`${th} border-l border-slate-800/70`}>TP</th>
+                          <th className={th}>SL</th>
+                          <th className={`${th} border-l border-slate-800/70`}>
+                            <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
+                              Volume <SortHint active={sortKey === 'volume'} dir="desc" />
+                            </button>
+                          </th>
+                          <th className="text-right font-semibold px-4 py-3">Last 7d</th>
+                        </>
+                      ) : (
+                        <>
+                          <th className={th}>Current</th>
+                          {HORIZONS.map(h => (
+                            <th key={h.key} className={`${th} border-l border-slate-800/70`}>{h.short}</th>
+                          ))}
+                          <th className="text-right font-semibold px-4 py-3">Last 7d</th>
+                        </>
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -504,26 +586,55 @@ export default function SignalsPage() {
                       const slPct = info ? pnlOf(info.side, info.entry, info.sl) : null;
                       const hit = info ? hitState(info, t.lastPrice) : null;
                       const chg = t.priceChangePercent;
-                      const sparkPts = info && info.spark.length > 1 ? [...info.spark, t.lastPrice] : null;
+                      // 상세 페이지는 큐레이션된 코인에만 존재한다(정적 export). 없으면 링크하지 않는다.
+                      const meta = coinByBase(t.base);
+                      const fc = forecastRef.current.get(t.symbol);
+                      const fcPending = fc === undefined;
+                      const fcModel = fc?.model ?? null;
+                      // 자동 새로고침으로 현재가가 바뀌어도 구간이 따라가도록, 계산 시점 spot 대비 비율로 재조정
+                      const fcScale = fcModel ? t.lastPrice / fcModel.spot : 1;
+
+                      // 스파크라인 원본은 뷰마다 다른 캐시에서 온다
+                      const rawSpark = view === 'signals' ? info?.spark : fc?.spark;
+                      const sparkPts = rawSpark && rawSpark.length > 1 ? [...rawSpark, t.lastPrice] : null;
                       const spark7 = sparkPts ? ((t.lastPrice - sparkPts[0]) / sparkPts[0]) * 100 : null;
+                      const sparkPending = view === 'signals' ? pending : fcPending;
+
+                      const coinInner = (
+                        <>
+                          <div className="flex items-center gap-2">
+                            <span className="text-slate-600 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
+                            <CoinLogo base={t.base} />
+                            <span className={`font-bold text-white ${meta ? 'group-hover:text-amber-400 transition-colors' : ''}`}>{t.base}</span>
+                            {info && view === 'signals' && market === 'futures' && (
+                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${info.side === 'long' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
+                                {info.side === 'long' ? 'LONG' : 'SHORT'}
+                              </span>
+                            )}
+                          </div>
+                          <span className="block pl-7 text-[11px] text-slate-500">
+                            {view === 'signals'
+                              ? (info ? `ATR ${info.atrPct.toFixed(1)}%` : pending ? 'calculating…' : 'no data')
+                              : (meta ? meta.name : fcPending ? 'calculating…' : t.base)}
+                          </span>
+                        </>
+                      );
+
                       return (
                         <tr key={t.symbol} className="group border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
                           {/* 가로 스크롤 시 코인명이 고정되도록 sticky. 배경이 불투명해야 아래 셀이 비치지 않는다 */}
                           <td className="sticky left-0 z-10 bg-slate-900 p-0 border-b border-slate-800/50">
-                            <div className="px-4 py-3 group-hover:bg-slate-800/40 transition-colors">
-                              <div className="flex items-center gap-2">
-                                <span className="text-slate-600 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
-                                <CoinLogo base={t.base} />
-                                <span className="font-bold text-white">{t.base}</span>
-                                {info && market === 'futures' && (
-                                  <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${info.side === 'long' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
-                                    {info.side === 'long' ? 'LONG' : 'SHORT'}
-                                  </span>
-                                )}
-                              </div>
-                              <span className="block pl-7 text-[11px] text-slate-500">{info ? `ATR ${info.atrPct.toFixed(1)}%` : pending ? 'calculating…' : 'no data'}</span>
-                            </div>
+                            {meta ? (
+                              <Link href={`/crypto/${meta.slug}/price-prediction`} className="block px-4 py-3 group-hover:bg-slate-800/40 transition-colors">
+                                {coinInner}
+                              </Link>
+                            ) : (
+                              <div className="px-4 py-3 group-hover:bg-slate-800/40 transition-colors">{coinInner}</div>
+                            )}
                           </td>
+
+                          {view === 'signals' ? (
+                          <>
                           <td className="px-2 py-3">
                             {info ? (
                               <div className="flex flex-col gap-1">
@@ -581,13 +692,42 @@ export default function SignalsPage() {
                             ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
                           </td>
                           <td className="px-2 py-3 text-right text-slate-400 tabular-nums border-l border-slate-800/40">{formatVolume(t.quoteVolume)}</td>
+                          </>
+                          ) : (
+                          <>
+                          <td className="px-2 py-3 text-right tabular-nums">
+                            <div className="flex flex-col items-end leading-tight">
+                              <span className="text-white">{formatPrice(t.lastPrice)}</span>
+                              {isFinite(chg) && <span className="text-[10px] opacity-70"><Pct value={chg} /></span>}
+                            </div>
+                          </td>
+                          {HORIZONS.map(h => {
+                            const p = fcModel?.projections.find(x => x.key === h.key);
+                            return (
+                              <td key={h.key} className="px-2 py-3 text-right border-l border-slate-800/40">
+                                {p ? (
+                                  <div className="flex flex-col items-end leading-tight">
+                                    <span className="text-white tabular-nums">{formatPrice(p.median * fcScale)}</span>
+                                    <span className="text-[10px] text-slate-500 tabular-nums">
+                                      {formatPrice(p.low * fcScale)} – {formatPrice(p.high * fcScale)}
+                                    </span>
+                                  </div>
+                                ) : (
+                                  <span className="text-slate-600 text-xs">{fcPending ? '…' : '-'}</span>
+                                )}
+                              </td>
+                            );
+                          })}
+                          </>
+                          )}
+
                           <td className="px-4 py-3 text-right">
                             {sparkPts ? (
                               <span title={`7d ${spark7! >= 0 ? '+' : ''}${spark7!.toFixed(1)}%`}>
                                 <Sparkline points={sparkPts} />
                               </span>
                             ) : (
-                              <span className="text-slate-700">{pending ? '…' : '-'}</span>
+                              <span className="text-slate-700">{sparkPending ? '…' : '-'}</span>
                             )}
                           </td>
                         </tr>
@@ -595,7 +735,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={9} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={view === 'signals' ? 9 : 3 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -604,11 +744,18 @@ export default function SignalsPage() {
                 </table>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-                <span>Votes: <b className="text-slate-400">T</b> Trend · <b className="text-slate-400">B</b> Bollinger · <b className="text-slate-400">R</b> RSI · <b className="text-slate-400">A</b> ATR <span className="text-slate-600">(↑ bullish · ↓ bearish · · neutral)</span></span>
+                {view === 'signals' ? (
+                  <span>Votes: <b className="text-slate-400">T</b> Trend · <b className="text-slate-400">B</b> Bollinger · <b className="text-slate-400">R</b> RSI · <b className="text-slate-400">A</b> ATR <span className="text-slate-600">(↑ bullish · ↓ bearish · · neutral)</span></span>
+                ) : (
+                  <span>Each cell shows the <b className="text-slate-400">median</b> projection with the <b className="text-slate-400">80% range</b> (P10 – P90) below it{fcComputing ? ' · calculating…' : ''}</span>
+                )}
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
-                {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}
+                {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
+                {view === 'signals'
+                  ? <>TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</>
+                  : <>projections from {FORECAST_DAYS} days of daily closes · click a coin for its full breakdown</>}
               </div>
             </div>
 

@@ -72,7 +72,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/crypto/predictions`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...COINS.map(c => ({
       url: `${BASE}/crypto/${c.slug}/price-prediction`,
       lastModified: now,

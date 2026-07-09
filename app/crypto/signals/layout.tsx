@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import JsonLd, { webAppJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Crypto Signal Board - Multi-strategy entry / TP / SL in real time',
-  description: 'A dashboard that predicts direction with multiple strategies (Trend, Bollinger Bands, RSI, ATR) and computes daily entry, take-profit and stop-loss plus live P&L for all Binance spot & futures coins, right in your browser. Reference only, not investment advice.',
+  title: 'Crypto Signal Board - Multi-strategy signals & 1D–3Y price predictions',
+  description: 'A dashboard that predicts direction with multiple strategies (Trend, Bollinger Bands, RSI, ATR) and computes daily entry, take-profit and stop-loss plus live P&L for all Binance spot & futures coins — plus 1D to 3Y price projection ranges. Runs in your browser. Reference only, not investment advice.',
 };
 
 const structuredData = [
@@ -31,8 +31,16 @@ const structuredData = [
       a: 'Futures show both LONG and SHORT because you can trade either direction. Spot is buy-only, so it only shows long-side levels. The board defaults to Futures and you can switch with the SPOT / FUTURES toggle.',
     },
     {
+      q: 'How are the 1D to 3Y price predictions calculated?',
+      a: 'Switch to the Predictions tab. Daily closes are converted to log returns, from which a drift and a volatility are estimated, and the price is projected as a geometric Brownian motion. Each horizon shows the median outcome with an 80% confidence range (10th to 90th percentile). Click any coin for its full breakdown.',
+    },
+    {
+      q: 'Why is the long-term median price close to the current price?',
+      a: 'Because for almost every cryptocurrency the historical trend is not statistically distinguishable from zero. We measure this with a t-statistic and discard the drift entirely unless it clears |t| >= 3, so random price movement is never presented as a confident long-term forecast. At long horizons the honest information is the width of the range, not a single number.',
+    },
+    {
       q: 'Is this investment advice?',
-      a: 'No. The Crypto Signal Board is a reference tool that mechanically applies well-known technical indicators to public price data. It is not investment advice, and all trading decisions and risks are your own.',
+      a: 'No. The Crypto Signal Board is a reference tool that mechanically applies well-known technical indicators and statistical projections to public price data. It is not investment advice, and all trading decisions and risks are your own.',
     },
   ]),
 ];

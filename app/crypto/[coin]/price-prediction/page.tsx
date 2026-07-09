@@ -35,7 +35,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
     breadcrumbJsonLd([
       { name: 'Home', path: '/' },
       { name: 'Crypto Tools', path: '/crypto' },
-      { name: 'Price Predictions', path: '/crypto/predictions' },
+      { name: 'Signal Board', path: '/crypto/signals' },
       { name: `${coin.name} Price Prediction`, path },
     ]),
     faqJsonLd([
@@ -61,11 +61,11 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
 
       <header className="border-b border-slate-800 sticky top-0 z-30 bg-slate-950/90 backdrop-blur">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/crypto/predictions" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
+          <Link href="/crypto/signals" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            Predictions
+            Signal Board
           </Link>
           <span className="text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-300">{coin.name}</span>
@@ -76,8 +76,8 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         <CoinPrediction coin={coin} />
 
         <div className="mt-8 text-center">
-          <Link href="/crypto/predictions" className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">
-            ← All coin predictions
+          <Link href="/crypto/signals" className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">
+            ← Back to the signal board
           </Link>
         </div>
       </div>
