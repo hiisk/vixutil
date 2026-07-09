@@ -281,30 +281,42 @@ export default function SignalsPage() {
 
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* Referral links */}
+        <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-2">🎁 New-user bonuses — trade with an edge</p>
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          {/* Bybit */}
           <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group flex items-center gap-3 rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-yellow-600/[0.04] p-4 hover:border-yellow-400/60 hover:from-yellow-500/[0.16] transition-all">
-            <span className="min-w-0 flex-1">
-              <span className="flex items-center gap-2 mb-1">
-                <BybitWordmark className="h-4 w-auto" />
-                <span className="text-[9px] font-bold text-slate-500 border border-slate-700 rounded px-1 py-px">AD</span>
+            className="group relative overflow-hidden rounded-2xl border border-yellow-500/40 bg-gradient-to-br from-yellow-500/[0.22] via-amber-600/[0.08] to-slate-900/0 p-4 hover:border-yellow-400/80 hover:shadow-lg hover:shadow-yellow-500/15 hover:-translate-y-0.5 transition-all">
+            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-yellow-400/20 blur-2xl group-hover:bg-yellow-400/30 transition-colors" />
+            <span className="relative flex items-center gap-2 mb-2">
+              <BybitWordmark className="h-4 w-auto" />
+              <span className="text-[9px] font-bold text-yellow-400/70 uppercase tracking-wide">New user</span>
+              <span className="text-[9px] font-bold text-slate-600 border border-slate-700 rounded px-1 py-px">AD</span>
+              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-yellow-400 rounded-lg px-3 py-1 group-hover:bg-yellow-300 transition-colors">
+                Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
-              <span className="block text-[11px] text-slate-400 leading-snug">🔥 Claim $20, up to $30K rewards + fee discount</span>
             </span>
-            <svg className="w-4 h-4 text-yellow-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            <span className="relative flex items-baseline gap-2 flex-wrap">
+              <span className="text-[26px] leading-none font-black text-yellow-300">Up to $30,000</span>
+              <span className="text-[11px] text-slate-400">+ $20 welcome · fee discount</span>
+            </span>
           </a>
 
+          {/* Binance */}
           <a href={BINANCE_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group flex items-center gap-3 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-amber-600/[0.04] p-4 hover:border-amber-400/60 hover:from-amber-500/[0.16] transition-all">
-            <span className="min-w-0 flex-1">
-              <span className="flex items-center gap-2 mb-1">
-                <BinanceIcon />
-                <span className="font-black text-amber-200 text-[15px] tracking-tight">BINANCE</span>
-                <span className="text-[9px] font-bold text-slate-500 border border-slate-700 rounded px-1 py-px">AD</span>
+            className="group relative overflow-hidden rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/[0.22] via-amber-600/[0.08] to-slate-900/0 p-4 hover:border-amber-400/80 hover:shadow-lg hover:shadow-amber-500/15 hover:-translate-y-0.5 transition-all">
+            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-amber-400/20 blur-2xl group-hover:bg-amber-400/30 transition-colors" />
+            <span className="relative flex items-center gap-2 mb-2">
+              <BinanceIcon />
+              <span className="font-black text-amber-200 text-[15px] tracking-tight">BINANCE</span>
+              <span className="text-[9px] font-bold text-slate-600 border border-slate-700 rounded px-1 py-px">AD</span>
+              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-amber-400 rounded-lg px-3 py-1 group-hover:bg-amber-300 transition-colors">
+                Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
-              <span className="block text-[11px] text-slate-400 leading-snug">🎁 10% off trading fees + up to $600 new-user bonus</span>
             </span>
-            <svg className="w-4 h-4 text-amber-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            <span className="relative flex items-baseline gap-2 flex-wrap">
+              <span className="text-[26px] leading-none font-black text-amber-300">Up to $600</span>
+              <span className="text-[11px] text-slate-400">+ 10% off trading fees</span>
+            </span>
           </a>
         </div>
 
