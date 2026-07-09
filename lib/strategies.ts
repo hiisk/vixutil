@@ -104,7 +104,9 @@ export function computeStrategy(candles: Candle[], strategy: StrategyKey, market
   } else if (strategy === 'rsi') {
     const r = rsi(closes, 14);
     if (r == null) return null; // 15봉 미만이거나 0/100 포화 → 제외
-    score = clamp1((50 - r) / 20); // RSI30=+1(과매도), RSI70=-1(과매수)
+    // 정상 구간(30~70)은 중립. 30 밑=과매도(강세), 70 위=과매수(약세)로 램프.
+    // 30→0, 20이하→+1 / 70→0, 80이상→-1 (표준 20/80 극단에서 최대 강도)
+    score = r <= 30 ? clamp1((30 - r) / 10) : r >= 70 ? -clamp1((r - 70) / 10) : 0;
     note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`;
   } else {
     // atr: SMA20 대비 거리를 변동성(ATR)으로 정규화한 추세 강도
