@@ -87,38 +87,31 @@ export function computeStrategy(candles: Candle[], strategy: StrategyKey, market
   let score = 0;
   let note = '';
 
+  // 각 전략은 필요한 최소 기간(상장 기간)을 못 채우면 null을 돌려 합의에서 빠진다.
   if (strategy === 'trend') {
     const s20 = sma(closes, 20), s50 = sma(closes, 50);
-    if (s20 == null) { note = 'Not enough data'; }
-    else {
-      const a = Math.sign(entry - s20) * 0.5;
-      const b = s50 != null ? Math.sign(s20 - s50) * 0.5 : 0;
-      score = a + b; // -1(역배열) ~ +1(정배열)
-      note = score >= 0.9 ? 'Price > SMA20 > SMA50' : score <= -0.9 ? 'Price < SMA20 < SMA50' : score > 0 ? 'Above SMA20' : score < 0 ? 'Below SMA20' : 'Mixed MAs';
-    }
+    if (s20 == null) return null; // SMA20(20봉) 필요
+    const a = Math.sign(entry - s20) * 0.5;
+    const b = s50 != null ? Math.sign(s20 - s50) * 0.5 : 0; // SMA50 없으면 SMA20만으로 부분 판정
+    score = a + b; // -1(역배열) ~ +1(정배열)
+    note = score >= 0.9 ? 'Price > SMA20 > SMA50' : score <= -0.9 ? 'Price < SMA20 < SMA50' : score > 0 ? 'Above SMA20' : score < 0 ? 'Below SMA20' : 'Mixed MAs';
   } else if (strategy === 'bollinger') {
     const mid = sma(closes, 20), sd = stddev(closes, 20);
-    if (mid == null || sd == null || sd === 0) { note = 'Not enough data'; }
-    else {
-      const pctB = (entry - (mid - 2 * sd)) / (4 * sd);
-      score = clamp1((0.5 - pctB) * 2); // 하단밴드(과매도)=+1, 상단밴드(과매수)=-1
-      note = `%B ${Math.round(pctB * 100)}%${pctB <= 0.1 ? ' (oversold)' : pctB >= 0.9 ? ' (overbought)' : ''}`;
-    }
+    if (mid == null || sd == null || sd === 0) return null; // 20봉 필요
+    const pctB = (entry - (mid - 2 * sd)) / (4 * sd);
+    score = clamp1((0.5 - pctB) * 2); // 하단밴드(과매도)=+1, 상단밴드(과매수)=-1
+    note = `%B ${Math.round(pctB * 100)}%${pctB <= 0.1 ? ' (oversold)' : pctB >= 0.9 ? ' (overbought)' : ''}`;
   } else if (strategy === 'rsi') {
     const r = rsi(closes, 14);
-    if (r == null) { note = 'RSI n/a'; }
-    else {
-      score = clamp1((50 - r) / 20); // RSI30=+1(과매도), RSI70=-1(과매수)
-      note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`;
-    }
+    if (r == null) return null; // 15봉 미만이거나 0/100 포화 → 제외
+    score = clamp1((50 - r) / 20); // RSI30=+1(과매도), RSI70=-1(과매수)
+    note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`;
   } else {
     // atr: SMA20 대비 거리를 변동성(ATR)으로 정규화한 추세 강도
     const s20 = sma(closes, 20);
-    if (s20 == null) { note = 'Not enough data'; }
-    else {
-      score = clamp1((entry - s20) / (atr * 3));
-      note = `${score >= 0 ? '+' : ''}${((entry - s20) / atr).toFixed(1)} ATR vs SMA20`;
-    }
+    if (s20 == null) return null; // SMA20(20봉) 필요
+    score = clamp1((entry - s20) / (atr * 3));
+    note = `${score >= 0 ? '+' : ''}${((entry - s20) / atr).toFixed(1)} ATR vs SMA20`;
   }
 
   const bias = biasOf(score);
