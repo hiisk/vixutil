@@ -1,11 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Crypto Trading Tools',
   description: 'Crypto trading tools built on Binance public market data — ATR volatility, TP/SL levels, and a real-time signal board. Everything is computed in your browser.',
 };
+
+const structuredData = [
+  webAppJsonLd(
+    'Crypto Trading Tools',
+    'Binance-based crypto trading tools: ATR volatility, TP/SL levels and a multi-strategy real-time signal board, all computed in your browser.',
+    '/crypto',
+  ),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Crypto Tools', path: '/crypto' },
+  ]),
+];
 
 const TOOLS = [
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy (Trend/BB/RSI/ATR) entry, TP, SL & live P&L for all coins', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
@@ -15,6 +28,7 @@ const TOOLS = [
 export default function CryptoPage() {
   return (
     <div className="min-h-screen bg-white">
+      <JsonLd data={structuredData} />
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
       <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
