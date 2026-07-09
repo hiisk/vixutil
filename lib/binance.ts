@@ -70,6 +70,40 @@ export async function fetchDailyCandles(symbol: string, limit = 20, market: Mark
     .map(k => ({ high: Number(k[2]), low: Number(k[3]), close: Number(k[4]) }));
 }
 
+/** 마감된 일봉의 시가·고가·저가·종가·거래량 (상세 페이지 Historic data 섹션용) */
+export interface DailyOHLCV {
+  /** 캔들 시작 시각(ms, UTC 00:00) */
+  openTime: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  /** 코인 수량 기준 거래량 */
+  volume: number;
+  /** USDT 기준 거래대금 */
+  quoteVolume: number;
+}
+
+/** 마감된 일봉의 OHLCV를 오래된 순으로 돌려준다. 진행 중인 봉은 제외한다. */
+export async function fetchDailyOHLCV(symbol: string, limit = 30, market: Market = 'spot'): Promise<DailyOHLCV[]> {
+  const res = await fetch(`${BASES[market]}/klines?symbol=${symbol}&interval=1d&limit=${limit + 2}`);
+  if (!res.ok) throw new Error(`klines ${symbol} ${res.status}`);
+  const rows: unknown[][] = await res.json();
+  const now = Date.now();
+  return rows
+    .filter(k => Number(k[6]) < now)
+    .slice(-limit)
+    .map(k => ({
+      openTime: Number(k[0]),
+      open: Number(k[1]),
+      high: Number(k[2]),
+      low: Number(k[3]),
+      close: Number(k[4]),
+      volume: Number(k[5]),
+      quoteVolume: Number(k[7]),
+    }));
+}
+
 /**
  * 동시성 제한 실행기 — 배열 항목을 최대 `concurrency`개씩 병렬로 처리한다.
  * 한 페이지(50개) klines를 한꺼번에 쏘지 않고 나눠 보내 레이트리밋을 피한다.

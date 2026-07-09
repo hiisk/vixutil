@@ -1,21 +1,31 @@
 /**
- * 가격 projection 모델 — 일봉 종가의 로그수익률로 표준적인 기하 브라운 운동(GBM)을
- * 적합해 각 기간의 중앙값과 불확실성 구간을 계산한다.
+ * 가격 projection 모델 — 일봉 종가의 로그수익률로 기하 브라운 운동(GBM)을 적합해
+ * 각 기간의 중앙값과 불확실성 구간을 계산한다.
  *
- * 중요: 이것은 "예언"이 아니라 과거 추세(drift)와 변동성(sigma)을 그대로 연장했을 때의
- * 확률 분포다. 기간이 길수록 구간이 sqrt(t)로 벌어지며, 그 사실 자체가 결과의 핵심이다.
+ * 예측 로직은 지평에 따라 이원화된다.
  *
- * 순진하게 최근 상승률을 3년 연장하면 말도 안 되는 숫자가 나오므로 두 단계로 억제한다.
- *  1) 축소(shrinkage): drift의 t통계량으로 신뢰도를 재서 max(0, 1 - (T_CRIT/t)^2)만큼만
- *     남긴다(양의 부분 James-Stein). 임계값을 못 넘으면 drift를 통째로 버려서
- *     "현재가 근처 + 넓은 구간"이 된다.
+ *  ┌ 단기(5D~1M) : 기술적 합의(Trend·Bollinger·RSI·ATR)의 방향 점수로 중앙값을 기울인다.
+ *  │                기술적 지표의 유효 지평은 수일~수주이므로 30일 이후로는 지수적으로 소멸시킨다.
+ *  └ 장기(3M~3Y) : 기술적 신호는 사실상 0이 되고, 과거 추세(drift)만 남는데 그 drift조차
+ *                  통계적으로 유의하지 않으면 통째로 버린다. 결과적으로 중앙값은 현재가 근처.
  *
- *     T_CRIT을 통상적인 2가 아니라 3으로 둔 근거: drift를 최대 1095일 복리로 늘리기 때문에
- *     위양성 한 건의 대가가 매우 크다. 진짜 drift가 0인 랜덤워크 4000회 몬테카를로 결과,
- *       t=2 → 4.6%가 위양성(86개 중 3.9개), 허위 3년 변동 중앙값 87%, 최악 1909%
- *       t=3 → 0.3%(86개 중 0.2개), 최악 276%
+ * 즉 장기 예측의 내용물은 "중앙값"이 아니라 "구간의 폭"이다.
+ *
+ * ── drift를 억제하는 두 단계 ──────────────────────────────────
+ *  1) 축소(shrinkage): max(0, 1 - (T_CRIT/t)^2) (양의 부분 James-Stein).
+ *     T_CRIT을 통상적인 2가 아니라 3으로 둔 근거: drift를 최대 1095일 복리로 늘리므로
+ *     위양성 한 건의 대가가 크다. drift=0인 랜덤워크 4000회 몬테카를로 결과,
+ *       t=2 → 4.6%가 위양성, 허위 3년 변동 최악 +1909%
+ *       t=3 → 0.3%, 최악 276%
  *     반면 진짜 추세(|t|=9.4)는 t=3에서도 drift의 86%가 살아남는다.
  *  2) 상한(cap): 축소 후에도 연 로그드리프트를 ±MAX_ANNUAL_LOG_DRIFT로 자른다.
+ *
+ * ── 구간 폭에 관하여 ────────────────────────────────────────
+ * 변동성은 sigma*sqrt(t)로 늘린다(랜덤워크). 평균회귀로 장기 구간을 좁힐 수 있는지
+ * 허스트 지수를 실측했으나(비중첩 분산비 회귀) BTC 0.497 · ETH 0.497 · SOL 0.536 ·
+ * DOGE 0.540 · PEPE 0.559 로 전부 0.5 근처이거나 그 이상이었다. 즉 좁힐 경험적 근거가
+ * 없다. 그래서 폭을 줄이는 유일하게 정직한 방법인 "신뢰수준"을 택했다 — 기본 표시는
+ * 50% 구간(사분위, 결과의 절반이 이 안에 들어온다)이고 80% 구간도 함께 제공한다.
  */
 
 export interface Horizon {
@@ -26,7 +36,7 @@ export interface Horizon {
 }
 
 export const HORIZONS: Horizon[] = [
-  { key: '1d', label: '1 Day', short: '1D', days: 1 },
+  { key: '5d', label: '5 Days', short: '5D', days: 5 },
   { key: '1w', label: '1 Week', short: '1W', days: 7 },
   { key: '1m', label: '1 Month', short: '1M', days: 30 },
   { key: '3m', label: '3 Months', short: '3M', days: 90 },
@@ -35,59 +45,90 @@ export const HORIZONS: Horizon[] = [
   { key: '3y', label: '3 Years', short: '3Y', days: 1095 },
 ];
 
-/** 80% 신뢰구간의 표준정규 분위수 (P10 ~ P90) */
-const Z_80 = 1.2815515655446004;
+/** 표준정규 분위수 */
+const Z50 = 0.6744897501960817; // 50% 구간 (P25~P75)
+const Z80 = 1.2815515655446004; // 80% 구간 (P10~P90)
+
 /** 축소 후에도 연 로그드리프트를 이 값으로 자른다. exp(±1) ≈ 2.72배 / 0.37배 */
 const MAX_ANNUAL_LOG_DRIFT = 1.0;
-/**
- * drift를 신뢰하기 시작하는 t통계량 임계값. 이하는 전부 잡음으로 버린다.
- * 통상적인 유의수준(2)보다 엄격한 3을 쓴다 — 위 주석의 몬테카를로 근거 참고.
- */
+/** drift를 신뢰하기 시작하는 t통계량 임계값. 통상적인 2보다 엄격한 3. */
 export const T_CRIT = 3;
 /** drift·sigma 추정에 필요한 최소 표본 수(일) */
 export const MIN_SAMPLES = 60;
+
+/** 기술적 틸트: 합의 점수 1개당 sigma*sqrt(h)의 몇 배를 기울일지 */
+const TILT_K = 0.5;
+/** 기술적 신호가 완전히 유효하다고 보는 최대 지평(일). 그 뒤로는 감쇠. */
+const TILT_FULL_DAYS = 30;
+/** 감쇠 시정수(일) — 90일이면 틸트가 exp(-1)≈37%만 남는다 */
+const TILT_DECAY_DAYS = 60;
+/** 틸트 로그수익률 상한. exp(0.20)≈+22% / exp(-0.20)≈-18% */
+const MAX_TILT_LOG = 0.2;
+/** 일별 경로를 며칠치 만들지 (상세 페이지 차트·표) */
+export const DAILY_PATH_DAYS = 30;
 
 export interface Projection {
   key: string;
   label: string;
   short: string;
   days: number;
-  /** 로그정규 분포의 중앙값 = spot·exp(mu·t) */
+  /** 로그정규 분포의 중앙값 */
   median: number;
-  /** 80% 구간 하단(P10) */
+  /** 50% 구간 (P25 ~ P75) — 기본 표시 */
   low: number;
-  /** 80% 구간 상단(P90) */
   high: number;
+  /** 80% 구간 (P10 ~ P90) */
+  low80: number;
+  high80: number;
   /** 중앙값의 현재가 대비 변동률(%) */
+  changePct: number;
+}
+
+export interface DailyPoint {
+  /** 오늘로부터 며칠 뒤 (1 ~ DAILY_PATH_DAYS) */
+  day: number;
+  median: number;
+  low: number;
+  high: number;
   changePct: number;
 }
 
 export interface ForecastModel {
   spot: number;
-  /** 원본 일간 로그드리프트 */
   muRaw: number;
-  /** 축소·상한 적용 후 일간 로그드리프트 */
+  /** 축소·상한 후 일간 로그드리프트 (장기 성분) */
   mu: number;
-  /** 일간 로그수익률 표준편차 */
   sigma: number;
-  /** 0~1. drift를 얼마나 신뢰했는지 (1=완전 신뢰, 0=잡음으로 보고 버림) */
   shrink: number;
-  /** drift의 t통계량 */
   tStat: number;
   samples: number;
-  /** 연환산 변동성(%) */
   annualVolPct: number;
+  /** 단기 방향을 기울인 기술적 합의 점수 (-1 ~ +1). 0이면 틸트 없음. */
+  score: number;
   projections: Projection[];
+  daily: DailyPoint[];
 }
 
 const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x));
 
 /**
- * 종가 시계열로 GBM 파라미터를 추정하고 각 기간의 projection을 만든다.
+ * 기술적 합의가 지평 h일에 기여하는 로그수익률.
+ * 30일까지는 sqrt(h)로 자라고, 그 뒤로는 지수 감쇠해 장기에서는 사라진다.
+ */
+function tiltLog(score: number, sigma: number, h: number): number {
+  if (!score) return 0;
+  const grow = Math.sqrt(Math.min(h, TILT_FULL_DAYS));
+  const decay = Math.exp(-Math.max(0, h - TILT_FULL_DAYS) / TILT_DECAY_DAYS);
+  return clamp(TILT_K * score * sigma * grow * decay, -MAX_TILT_LOG, MAX_TILT_LOG);
+}
+
+/**
+ * 종가 시계열로 GBM 파라미터를 추정하고 projection을 만든다.
+ * @param score 기술적 합의 점수(-1~+1). 없으면 0 — 순수 통계 모델이 된다.
  * 표본이 부족하거나(상장 직후) 변동성이 0이면 null.
  */
-export function buildForecast(closes: number[], spot: number, horizons: Horizon[] = HORIZONS): ForecastModel | null {
-  if (closes.length < MIN_SAMPLES + 1 || spot <= 0) return null;
+export function buildForecast(closes: number[], spot: number, score = 0): ForecastModel | null {
+  if (closes.length < MIN_SAMPLES + 1 || !(spot > 0)) return null;
 
   const rets: number[] = [];
   for (let i = 1; i < closes.length; i++) {
@@ -97,45 +138,57 @@ export function buildForecast(closes: number[], spot: number, horizons: Horizon[
   if (n < MIN_SAMPLES) return null;
 
   const muRaw = rets.reduce((s, r) => s + r, 0) / n;
-  // 표본분산(n-1). 변동성이 0이면 스테이블코인류라 projection이 무의미하다.
   const variance = rets.reduce((s, r) => s + (r - muRaw) ** 2, 0) / (n - 1);
   const sigma = Math.sqrt(variance);
   if (!isFinite(sigma) || sigma <= 0) return null;
 
-  // drift가 잡음과 구별되는 정도. 표준오차 = sigma/sqrt(n)
   const tStat = muRaw / (sigma / Math.sqrt(n));
-  // 양의 부분 James-Stein(임계값 T_CRIT): |t| <= T_CRIT이면 drift를 0으로 버린다
   const shrink = Math.max(0, 1 - (T_CRIT * T_CRIT) / (tStat * tStat));
   const capDaily = MAX_ANNUAL_LOG_DRIFT / 365;
   const mu = clamp(muRaw * shrink, -capDaily, capDaily);
+  const s = clamp(score, -1, 1);
 
-  const projections = horizons.map(h => {
-    const t = h.days;
-    const drift = mu * t;
-    const spread = Z_80 * sigma * Math.sqrt(t);
+  /** 지평 h일의 중앙 로그수익률 = 장기 drift + 단기 기술적 틸트 */
+  const driftAt = (h: number) => mu * h + tiltLog(s, sigma, h);
+
+  const projections: Projection[] = HORIZONS.map(hz => {
+    const h = hz.days;
+    const drift = driftAt(h);
+    const sd = sigma * Math.sqrt(h);
     const median = spot * Math.exp(drift);
     return {
-      key: h.key,
-      label: h.label,
-      short: h.short,
-      days: t,
+      key: hz.key,
+      label: hz.label,
+      short: hz.short,
+      days: h,
       median,
-      low: spot * Math.exp(drift - spread),
-      high: spot * Math.exp(drift + spread),
+      low: spot * Math.exp(drift - Z50 * sd),
+      high: spot * Math.exp(drift + Z50 * sd),
+      low80: spot * Math.exp(drift - Z80 * sd),
+      high80: spot * Math.exp(drift + Z80 * sd),
       changePct: (Math.exp(drift) - 1) * 100,
     };
   });
 
+  const daily: DailyPoint[] = [];
+  for (let d = 1; d <= DAILY_PATH_DAYS; d++) {
+    const drift = driftAt(d);
+    const sd = sigma * Math.sqrt(d);
+    daily.push({
+      day: d,
+      median: spot * Math.exp(drift),
+      low: spot * Math.exp(drift - Z50 * sd),
+      high: spot * Math.exp(drift + Z50 * sd),
+      changePct: (Math.exp(drift) - 1) * 100,
+    });
+  }
+
   return {
-    spot,
-    muRaw,
-    mu,
-    sigma,
-    shrink,
-    tStat,
-    samples: n,
+    spot, muRaw, mu, sigma, shrink, tStat, samples: n,
     annualVolPct: sigma * Math.sqrt(365) * 100,
+    score: s,
     projections,
+    daily,
   };
 }
 
@@ -156,8 +209,8 @@ export function volatilityLabel(annualVolPct: number): 'Low' | 'Medium' | 'High'
 }
 
 /**
- * drift 신뢰도를 사람이 읽을 수 있는 라벨로. 축소 계수가 낮다는 건 "추세가 잡음과
- * 구별되지 않아 현재가 근처로 수렴시켰다"는 뜻이므로 그대로 노출해야 정직하다.
+ * drift 신뢰도 라벨. 축소 계수가 0이면 "추세가 잡음과 구별되지 않아 현재가 근처로
+ * 수렴시켰다"는 뜻이므로 그대로 노출해야 정직하다.
  */
 export function trendConfidenceLabel(shrink: number): string {
   if (shrink >= 0.75) return 'Strong';

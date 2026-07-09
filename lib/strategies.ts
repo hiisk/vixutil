@@ -131,6 +131,8 @@ export interface StrategyVote {
 export interface ConsensusSignal {
   bias: Bias;
   confidence: number; // 0~100, 방향에 동의한 전략 비율
+  /** 부호 있는 합의 점수 (-1 약세 ~ +1 강세). 예측 모델의 단기 틸트 입력. */
+  score: number;
   side: Direction;
   entry: number;
   tp: number;
@@ -171,5 +173,5 @@ export function computeConsensus(candles: Candle[], market: 'spot' | 'futures'):
   const side: Direction = market === 'spot' ? 'long' : bias === 'bearish' ? 'short' : 'long';
   const { tp, sl } = computeTpSl(base.entry, base.atr, side, TP_MULT, SL_MULT);
   const spark = candles.slice(-7).map(c => c.close);
-  return { bias, confidence, side, entry: base.entry, tp, sl, atr: base.atr, atrPct: (base.atr / base.entry) * 100, votes, spark };
+  return { bias, confidence, score: agg, side, entry: base.entry, tp, sl, atr: base.atr, atrPct: (base.atr / base.entry) * 100, votes, spark };
 }

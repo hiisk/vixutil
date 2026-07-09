@@ -1,19 +1,28 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchDailyCandles } from '@/lib/binance';
-import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, HORIZONS, T_CRIT, type ForecastModel } from '@/lib/forecast';
-import { sma, rsi } from '@/lib/strategies';
-import { symbolOf, type CoinMeta } from '@/lib/coins';
-import { CoinLogo, Sparkline, Pct } from '@/components/crypto/ui';
+import { fetchTickers, fetchDailyOHLCV, type DailyOHLCV } from '@/lib/binance';
+import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
+import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, T_CRIT, type ForecastModel } from '@/lib/forecast';
+import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
+import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
+import ForecastChart from '@/components/crypto/ForecastChart';
 
+/** drift·sigma 추정과 SMA200을 위해 넉넉히 받는다 */
 const HISTORY_DAYS = 365;
+/** 차트에 그릴 과거 구간 */
+const CHART_HISTORY = 60;
+/** Historic data 표에 보여줄 일수 */
+const HISTORY_ROWS = 30;
 
 interface Snapshot {
   price: number;
   chg24h: number;
+  quoteVolume: number;
   model: ForecastModel;
+  consensus: ConsensusSignal | null;
   closes: number[];
+  ohlcv: DailyOHLCV[];
   sma50: number | null;
   sma200: number | null;
   rsi14: number | null;
@@ -25,12 +34,37 @@ type State = 'loading' | 'ready' | 'nodata' | 'error';
 const VOL_CLR: Record<string, string> = {
   Low: 'text-emerald-400', Medium: 'text-amber-400', High: 'text-orange-400', Extreme: 'text-rose-400',
 };
+const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400', emoji: '🟢' },
+  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
+  neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-400', emoji: '⚪' },
+};
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
 
-/** RSI 해석 — 색만이 아니라 라벨로도 상태를 알린다 */
 function rsiLabel(r: number): { text: string; cls: string } {
   if (r >= 70) return { text: 'Overbought', cls: 'text-rose-400' };
   if (r <= 30) return { text: 'Oversold', cls: 'text-emerald-400' };
   return { text: 'Neutral', cls: 'text-slate-400' };
+}
+
+/** UTC 기준 날짜 라벨 (모든 시각은 UTC로 통일) */
+const utcDate = (ms: number) =>
+  new Date(ms).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' });
+
+/** 오늘(UTC 자정) + n일 */
+function utcDayOffset(n: number): number {
+  const d = new Date();
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) + n * 86_400_000;
+}
+
+function Section({ id, title, sub, children }: { id: string; title: string; sub?: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="scroll-mt-28 mb-8">
+      <h2 className="text-lg font-black text-white mb-1">{title}</h2>
+      {sub && <p className="text-xs text-slate-500 mb-3">{sub}</p>}
+      {children}
+    </section>
+  );
 }
 
 export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
@@ -40,23 +74,29 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const load = useCallback(async () => {
     setState('loading');
     try {
+      const market = marketOf(coin);
       const symbol = symbolOf(coin);
-      const [tickers, candles] = await Promise.all([
-        fetchTickers('spot'),
-        fetchDailyCandles(symbol, HISTORY_DAYS, 'spot'),
+      const [tickers, ohlcv] = await Promise.all([
+        fetchTickers(market),
+        fetchDailyOHLCV(symbol, HISTORY_DAYS, market),
       ]);
       const t = tickers.find(x => x.base === coin.base);
-      if (!t) { setState('nodata'); return; }
+      if (!t || ohlcv.length < 2) { setState('nodata'); return; }
 
-      const closes = candles.map(c => c.close);
-      const model = buildForecast(closes, t.lastPrice);
+      const closes = ohlcv.map(k => k.close);
+      const candles = ohlcv.map(k => ({ high: k.high, low: k.low, close: k.close }));
+      const consensus = computeConsensus(candles, market);
+      const model = buildForecast(closes, t.lastPrice, consensus?.score ?? 0);
       if (!model) { setState('nodata'); return; }
 
       setSnap({
         price: t.lastPrice,
         chg24h: t.priceChangePercent,
+        quoteVolume: t.quoteVolume,
         model,
+        consensus,
         closes,
+        ohlcv,
         sma50: sma(closes, 50),
         sma200: sma(closes, 200),
         rsi14: rsi(closes, 14),
@@ -79,7 +119,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     );
   }
 
-  if (state === 'error' || state === 'nodata') {
+  if (state !== 'ready' || !snap) {
     return (
       <div className="rounded-2xl border border-slate-800 bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span className="text-3xl">{state === 'nodata' ? '📉' : '⚠️'}</span>
@@ -94,12 +134,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     );
   }
 
-  const s = snap!;
+  const s = snap;
   const m = s.model;
   const volLabel = volatilityLabel(m.annualVolPct);
   const trendLabel = trendConfidenceLabel(m.shrink);
   const greenPct = s.green.total ? Math.round((s.green.green / s.green.total) * 100) : 0;
-  const short = HORIZONS.filter(h => ['1d', '1w', '1m'].includes(h.key));
+  const recent = [...s.ohlcv].slice(-HISTORY_ROWS).reverse();
+  const driftDiscarded = m.shrink === 0;
 
   return (
     <>
@@ -110,7 +151,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <CoinLogo base={coin.base} size={40} />
             <div>
               <h1 className="text-xl font-black text-white leading-tight">{coin.name} Price Prediction</h1>
-              <p className="text-xs text-slate-500 font-semibold">{coin.base} · Binance spot</p>
+              <p className="text-xs text-slate-500 font-semibold">
+                {coin.base} · Binance {marketOf(coin) === 'spot' ? 'spot' : 'futures'}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -123,113 +166,225 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </div>
       </div>
 
-      {/* 단기 예측 카드 */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-        {short.map(h => {
-          const p = m.projections.find(x => x.key === h.key)!;
-          return (
-            <div key={h.key} className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">{h.label}</p>
-              <p className="text-xl font-black text-white tabular-nums">${formatPrice(p.median)}</p>
-              <p className="text-[11px] text-slate-500 tabular-nums mt-1">
-                80% range <span className="text-slate-400">${formatPrice(p.low)} – ${formatPrice(p.high)}</span>
-              </p>
-            </div>
-          );
-        })}
-      </div>
+      {/* Section nav */}
+      <nav className="sticky top-14 z-20 -mx-4 px-4 py-2 bg-slate-950/90 backdrop-blur border-b border-slate-800 mb-6">
+        <div className="flex gap-2 text-xs font-bold">
+          {[['overview', 'Overview'], ['prediction', 'Prediction'], ['historic', 'Historic data']].map(([id, label]) => (
+            <a key={id} href={`#${id}`} className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-amber-400 hover:border-slate-600 transition-colors">
+              {label}
+            </a>
+          ))}
+        </div>
+      </nav>
 
-      {/* 전체 기간 표 */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-5">
-        <div className="px-4 py-3 border-b border-slate-800">
-          <h2 className="text-sm font-black text-white">{coin.name} projection by horizon</h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm whitespace-nowrap">
-            <thead>
-              <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
-                <th className="text-left font-semibold px-4 py-3">Period</th>
-                <th className="text-right font-semibold px-3 py-3">Low (P10)</th>
-                <th className="text-right font-semibold px-3 py-3">Median</th>
-                <th className="text-right font-semibold px-3 py-3">High (P90)</th>
-                <th className="text-right font-semibold px-4 py-3">Median vs now</th>
-              </tr>
-            </thead>
-            <tbody>
-              {m.projections.map(p => (
-                <tr key={p.key} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
-                  <td className="px-4 py-3 font-bold text-slate-300">{p.label}</td>
-                  <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
-                  <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.median)}</td>
-                  <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
-                  <td className="px-4 py-3 text-right"><Pct value={p.changePct} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-          The 80% range means: if the measured volatility keeps holding, the price lands inside this band 8 times out of 10. It is not a floor or a ceiling.
-        </div>
-      </div>
-
-      {/* 기술적 요약 */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-5">
-        <div className="px-4 py-3 border-b border-slate-800">
-          <h2 className="text-sm font-black text-white">{coin.base} technical summary</h2>
-        </div>
-        <dl className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-y divide-slate-800/60">
-          <div className="p-4">
-            <dt className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Annual volatility</dt>
-            <dd className="text-lg font-black tabular-nums text-white">
+      {/* ── Overview ─────────────────────────────── */}
+      <Section id="overview" title="Overview" sub={`Live market state and technical readout for ${coin.name}`}>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Price</p>
+            <p className="text-lg font-black text-white tabular-nums">${formatPrice(s.price)}</p>
+            <p className="text-xs mt-0.5"><Pct value={s.chg24h} /></p>
+          </div>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">24h volume</p>
+            <p className="text-lg font-black text-white tabular-nums">{formatVolume(s.quoteVolume)}</p>
+          </div>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Annual volatility</p>
+            <p className="text-lg font-black tabular-nums text-white">
               {m.annualVolPct.toFixed(1)}% <span className={`text-xs font-bold ${VOL_CLR[volLabel]}`}>{volLabel}</span>
-            </dd>
+            </p>
           </div>
-          <div className="p-4">
-            <dt className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Green days (30d)</dt>
-            <dd className="text-lg font-black tabular-nums text-white">{s.green.green}/{s.green.total} <span className="text-xs text-slate-500">{greenPct}%</span></dd>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Green days (30d)</p>
+            <p className="text-lg font-black tabular-nums text-white">{s.green.green}/{s.green.total} <span className="text-xs text-slate-500">{greenPct}%</span></p>
           </div>
-          <div className="p-4">
-            <dt className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Trend significance</dt>
-            <dd className="text-lg font-black text-white">
-              {trendLabel} <span className="text-xs text-slate-500 tabular-nums">t={m.tStat.toFixed(2)}</span>
-            </dd>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">14-day RSI</p>
+            <p className="text-lg font-black tabular-nums text-white">
+              {s.rsi14 != null ? <>{s.rsi14.toFixed(1)} <span className={`text-xs font-bold ${rsiLabel(s.rsi14).cls}`}>{rsiLabel(s.rsi14).text}</span></> : '-'}
+            </p>
           </div>
-          <div className="p-4">
-            <dt className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">50-day SMA</dt>
-            <dd className="text-lg font-black tabular-nums text-white">{s.sma50 != null ? `$${formatPrice(s.sma50)}` : '-'}</dd>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Trend significance</p>
+            <p className="text-lg font-black text-white">{trendLabel} <span className="text-xs text-slate-500 tabular-nums">t={m.tStat.toFixed(2)}</span></p>
           </div>
-          <div className="p-4">
-            <dt className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">200-day SMA</dt>
-            <dd className="text-lg font-black tabular-nums text-white">{s.sma200 != null ? `$${formatPrice(s.sma200)}` : '-'}</dd>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">50-day SMA</p>
+            <p className="text-lg font-black tabular-nums text-white">{s.sma50 != null ? `$${formatPrice(s.sma50)}` : '-'}</p>
           </div>
-          <div className="p-4">
-            <dt className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">14-day RSI</dt>
-            <dd className="text-lg font-black tabular-nums text-white">
-              {s.rsi14 != null ? (
-                <>{s.rsi14.toFixed(1)} <span className={`text-xs font-bold ${rsiLabel(s.rsi14).cls}`}>{rsiLabel(s.rsi14).text}</span></>
-              ) : '-'}
-            </dd>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">200-day SMA</p>
+            <p className="text-lg font-black tabular-nums text-white">{s.sma200 != null ? `$${formatPrice(s.sma200)}` : '-'}</p>
           </div>
-        </dl>
-      </div>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">History used</p>
+            <p className="text-lg font-black tabular-nums text-white">{m.samples + 1} <span className="text-xs text-slate-500">daily closes</span></p>
+          </div>
+        </div>
 
-      {/* 방법론 — 왜 중앙값이 평평한지 밝힌다 */}
+        {s.consensus && (
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-2">Technical consensus</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className={`inline-flex items-center gap-1.5 text-xs font-black px-2.5 py-1 rounded ${BIAS_STYLE[s.consensus.bias].cls}`}>
+                {BIAS_STYLE[s.consensus.bias].emoji} {BIAS_STYLE[s.consensus.bias].label}
+                {s.consensus.bias !== 'neutral' && <span className="opacity-80">{s.consensus.confidence}%</span>}
+              </span>
+              <span className="flex gap-3">
+                {s.consensus.votes.map(v => (
+                  <span key={v.key} className={`text-[11px] font-bold ${VOTE_CLR[v.bias]}`} title={v.note}>
+                    {STRATEGY_META[v.key].label} {v.bias === 'bullish' ? '↑' : v.bias === 'bearish' ? '↓' : '·'}
+                  </span>
+                ))}
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 mt-2">This consensus tilts the short-horizon (5D–1M) projections below. It decays to nothing beyond 30 days.</p>
+          </div>
+        )}
+      </Section>
+
+      {/* ── Prediction ───────────────────────────── */}
+      <Section id="prediction" title="Prediction" sub={`${coin.name} projection with a 50% confidence range — half of outcomes land inside the band`}>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
+          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} />
+        </div>
+
+        {/* 왜 장기 중앙값이 평평한지 먼저 밝힌다 */}
+        <div className="rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 mb-4 text-xs text-slate-400 leading-relaxed">
+          {driftDiscarded ? (
+            <p>
+              {coin.base}&apos;s historical drift has a t-statistic of <b className="text-slate-300">{m.tStat.toFixed(2)}</b>, which does not clear the
+              |t| ≥ {T_CRIT} bar. It is indistinguishable from random noise, so we <b className="text-slate-300">discard it entirely</b> and anchor the long-run
+              median at today&apos;s price. Short horizons are still tilted by the technical consensus. Read the range, not the number.
+            </p>
+          ) : (
+            <p>
+              {coin.base}&apos;s historical drift clears the |t| ≥ {T_CRIT} bar (t = <b className="text-slate-300">{m.tStat.toFixed(2)}</b>), so we keep{' '}
+              <b className="text-slate-300">{(m.shrink * 100).toFixed(0)}%</b> of it after shrinkage and cap it at ±1.0 annual log drift. The range still
+              carries most of the information at long horizons.
+            </p>
+          )}
+        </div>
+
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
+          <div className="px-4 py-3 border-b border-slate-800"><h3 className="text-sm font-black text-white">By horizon</h3></div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm whitespace-nowrap">
+              <thead>
+                <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                  <th className="text-left font-semibold px-4 py-3">Period</th>
+                  <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
+                  <th className="text-right font-semibold px-3 py-3">Median</th>
+                  <th className="text-right font-semibold px-3 py-3">High (P75)</th>
+                  <th className="text-right font-semibold px-3 py-3">Median vs now</th>
+                  <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">80% range</th>
+                </tr>
+              </thead>
+              <tbody>
+                {m.projections.map(p => (
+                  <tr key={p.key} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                    <td className="px-4 py-3 font-bold text-slate-300">{p.label}</td>
+                    <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
+                    <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.median)}</td>
+                    <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
+                    <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
+                    <td className="px-4 py-3 text-right text-[11px] text-slate-500 tabular-nums border-l border-slate-800/40">
+                      ${formatPrice(p.low80)} – ${formatPrice(p.high80)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-800">
+            <h3 className="text-sm font-black text-white">Daily forecast — next {m.daily.length} days</h3>
+          </div>
+          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
+            <table className="w-full text-sm whitespace-nowrap">
+              <thead className="sticky top-0 bg-slate-900 z-10">
+                <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                  <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
+                  <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
+                  <th className="text-right font-semibold px-3 py-3">Median</th>
+                  <th className="text-right font-semibold px-3 py-3">High (P75)</th>
+                  <th className="text-right font-semibold px-4 py-3">Median vs now</th>
+                </tr>
+              </thead>
+              <tbody>
+                {m.daily.map(d => (
+                  <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                    <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
+                    <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
+                    <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.median)}</td>
+                    <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
+                    <td className="px-4 py-2.5 text-right"><Pct value={d.changePct} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Section>
+
+      {/* ── Historic data ────────────────────────── */}
+      <Section id="historic" title="Historic data" sub={`${coin.base} daily open / high / low / close and volume, last ${HISTORY_ROWS} closed candles (UTC)`}>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
+            <table className="w-full text-sm whitespace-nowrap">
+              <thead className="sticky top-0 bg-slate-900 z-10">
+                <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                  <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
+                  <th className="text-right font-semibold px-3 py-3">Open</th>
+                  <th className="text-right font-semibold px-3 py-3">High</th>
+                  <th className="text-right font-semibold px-3 py-3">Low</th>
+                  <th className="text-right font-semibold px-3 py-3">Close</th>
+                  <th className="text-right font-semibold px-3 py-3">Change</th>
+                  <th className="text-right font-semibold px-4 py-3">Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recent.map(k => {
+                  const chg = k.open > 0 ? ((k.close - k.open) / k.open) * 100 : 0;
+                  return (
+                    <tr key={k.openTime} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                      <td className="px-4 py-2.5 text-slate-300">{utcDate(k.openTime)}</td>
+                      <td className="px-3 py-2.5 text-right text-slate-400 tabular-nums">${formatPrice(k.open)}</td>
+                      <td className="px-3 py-2.5 text-right text-emerald-400/70 tabular-nums">${formatPrice(k.high)}</td>
+                      <td className="px-3 py-2.5 text-right text-rose-400/70 tabular-nums">${formatPrice(k.low)}</td>
+                      <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(k.close)}</td>
+                      <td className="px-3 py-2.5 text-right"><Pct value={chg} /></td>
+                      <td className="px-4 py-2.5 text-right text-slate-400 tabular-nums">{formatVolume(k.quoteVolume)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Section>
+
+      {/* 방법론 */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 mb-5 text-xs text-slate-500 leading-relaxed">
         <h2 className="text-sm font-black text-slate-300 mb-2">How this {coin.name} prediction is made</h2>
         <p className="mb-2">
-          We take {m.samples + 1} daily closes from Binance, convert them to log returns, and estimate a drift (μ) and a volatility (σ).
-          {coin.base}&apos;s measured annual volatility is <b className="text-slate-400">{m.annualVolPct.toFixed(1)}%</b>.
+          We take {m.samples + 1} daily closes from Binance and convert them to log returns, giving a drift (μ) and a volatility (σ).
+          {' '}{coin.base}&apos;s measured annual volatility is <b className="text-slate-400">{m.annualVolPct.toFixed(1)}%</b>.
         </p>
         <p className="mb-2">
-          The drift&apos;s t-statistic is <b className="text-slate-400">{m.tStat.toFixed(2)}</b>
-          {m.shrink === 0
-            ? ` — it does not clear the conventional |t| ≥ ${T_CRIT} significance bar, meaning the historical trend cannot be told apart from random noise. We therefore discard the drift entirely and anchor the median at today’s price, rather than compound noise over years and dress it up as a forecast.`
-            : `, which clears the |t| ≥ ${T_CRIT} significance bar, so we keep ${(m.shrink * 100).toFixed(0)}% of the measured drift (a positive-part James-Stein shrinkage of max(0, 1 - (${T_CRIT}/t)²)) and cap it at ±1.0 annual log drift.`}
+          The two horizons use different logic. <b className="text-slate-400">Short (5D–1M)</b>: the technical consensus score
+          ({m.score >= 0 ? '+' : ''}{m.score.toFixed(2)}) tilts the median, growing with √t and capped at ±22%; that tilt decays exponentially past 30 days
+          because technical indicators have no established edge months out. <b className="text-slate-400">Long (3M–3Y)</b>: only the historical drift remains,
+          and it is discarded unless its t-statistic clears |t| ≥ {T_CRIT} — a stricter bar than the conventional 2, because compounding a drift over 1,095 days
+          turns statistical noise into a confident-looking forecast.
         </p>
         <p>
-          Prices are then projected as a geometric Brownian motion: the median is spot·exp(μt) and the 80% range is spot·exp(μt ± 1.28·σ√t).
-          Because uncertainty grows with √t, the band widens sharply with the horizon — that widening, not the median, is the real content of a long-term projection.
+          Ranges come from σ√t. We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We tested
+          whether mean reversion would justify narrower long-horizon bands by measuring the Hurst exponent, but it came out at ≈0.5 for every major coin
+          (a random walk), so there is no empirical basis for shrinking them further.
         </p>
       </div>
 
