@@ -34,9 +34,9 @@ export function stddev(vals: number[], p: number): number | null {
 }
 
 /**
- * Wilder RSI(period) — 전체 시리즈에 지수평활 적용.
- * 한쪽 방향만 있어 RSI가 0/100으로 포화된 경우(하락일 0개 또는 상승일 0개)는
- * 신뢰할 수 있는 신호가 아니므로 null을 돌려준다.
+ * Wilder RSI(period) — 전체 시리즈에 지수평활 적용. p+1개 미만(신규 상장으로
+ * 기간 미달)이면 null. 상승/하락이 전혀 없는 완전 무변동일 때만 계산 불가로 null,
+ * 그 외에는 0~100 값을 그대로 돌려준다(극단 0/100도 유효 신호로 사용).
  */
 export function rsi(closes: number[], p = 14): number | null {
   if (closes.length < p + 1) return null;
@@ -51,7 +51,8 @@ export function rsi(closes: number[], p = 14): number | null {
     ag = (ag * (p - 1) + Math.max(ch, 0)) / p;
     al = (al * (p - 1) + Math.max(-ch, 0)) / p;
   }
-  if (al === 0 || ag === 0) return null; // 0/100 포화 → 신뢰 불가
+  if (al === 0 && ag === 0) return null; // 완전 무변동 → 계산 불가
+  if (al === 0) return 100;
   return 100 - 100 / (1 + ag / al);
 }
 
@@ -103,10 +104,9 @@ export function computeStrategy(candles: Candle[], strategy: StrategyKey, market
     note = `%B ${Math.round(pctB * 100)}%${pctB <= 0.1 ? ' (oversold)' : pctB >= 0.9 ? ' (overbought)' : ''}`;
   } else if (strategy === 'rsi') {
     const r = rsi(closes, 14);
-    if (r == null) return null; // 15봉 미만이거나 0/100 포화 → 제외
-    // 정상 구간(30~70)은 중립. 30 밑=과매도(강세), 70 위=과매수(약세)로 램프.
-    // 30→0, 20이하→+1 / 70→0, 80이상→-1 (표준 20/80 극단에서 최대 강도)
-    score = r <= 30 ? clamp1((30 - r) / 10) : r >= 70 ? -clamp1((r - 70) / 10) : 0;
+    if (r == null) return null; // 15봉(≈14일) 미만 → 기간 미달로 제외
+    // RSI 값에 선형 비례: 50=중립, 0=+1(과매도 최대), 100=-1(과매수 최대)
+    score = clamp1((50 - r) / 50);
     note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`;
   } else {
     // atr: SMA20 대비 거리를 변동성(ATR)으로 정규화한 추세 강도
