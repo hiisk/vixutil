@@ -11,7 +11,7 @@ function faqs(name: string, base: string) {
   return [
     {
       q: `How is the ${name} price prediction calculated?`,
-      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns, giving a drift and a volatility, and the price is projected as a geometric Brownian motion. We do not tilt the forecast in any direction: backtesting a technical consensus across 46 coins gave 49.8% directional accuracy over 5 days, so there is no basis for it. The historical drift is discarded unless its t-statistic clears 3. Each horizon therefore reports a 50% range (25th to 75th percentile) and the probability of a 10% move, rather than a point forecast.`,
+      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns, giving a drift and a volatility, and the price is projected forward as a geometric Brownian motion. The forecast's direction comes from the Bayesian posterior mean of that drift, shrunk toward zero in proportion to how noisy the estimate is, because no coin's drift is statistically significant. We do not tilt it with technical indicators: backtested across 46 coins, their 5-day directional accuracy was 49.8%. Alongside the forecast price each horizon reports a 50% range and the probability of a 10% move.`,
     },
     {
       q: `Will ${name} go up?`,
@@ -19,7 +19,7 @@ function faqs(name: string, base: string) {
     },
     {
       q: `What will ${name} be worth in 1 year?`,
-      a: `Rather than a single number, the model gives a distribution. The 1-year row shows the range that contains half of all outcomes under ${base}'s measured volatility, together with the probability of gaining or losing 10%. Anyone quoting one precise long-term price for ${name} is not measuring anything you cannot measure yourself.`,
+      a: `The 1-year row gives a single forecast price, together with the range containing half of all outcomes under ${base}'s measured volatility and the probability of gaining or losing 10%. The forecast is deliberately modest: ${name}'s historical drift is not statistically distinguishable from zero, so it is shrunk toward zero rather than extrapolated. Treat the range as seriously as the number.`,
     },
     {
       q: `Is this ${name} forecast investment advice?`,
@@ -96,18 +96,19 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
             Every number is computed in your browser from {coin.base}&apos;s public Binance daily closing prices; nothing is stored and no account is needed.
           </p>
           <p className="mb-3">
-            The model does not guess a direction, and that is a deliberate, measured choice. We backtested a technical consensus of four indicators —
-            trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure — across 46 coins using non-overlapping forward windows and a coin-level
-            t-test. Its directional accuracy over 5 days was <b className="text-slate-300">49.8%</b>, indistinguishable from a coin flip, and over 30 days
-            its correlation with future returns was slightly negative. The historical drift fares no better: it is discarded entirely unless its
-            t-statistic clears |t| ≥ 3, a stricter bar than the conventional 2, because a drift compounded over 1,095 days turns random noise into a
-            confident-looking forecast.
+            The forecast price comes from {coin.base}&apos;s own historical drift — but not naively. No cryptocurrency has a statistically significant drift;
+            even Bitcoin&apos;s full 8.9-year Binance history yields a t-statistic of just 1.32. So we take the <b className="text-slate-300">Bayesian posterior
+            mean</b>, pulling the measured drift toward zero in proportion to how noisy it is. The prior was calibrated by Monte-Carlo so that a pure random
+            walk with zero true drift produces a spurious 3-year move of only 6.4% at the median.
+            We also do <b className="text-slate-300">not</b> tilt the forecast with technical indicators. We backtested a consensus of trend (SMA 20/50),
+            Bollinger %B, RSI(14) and an ATR trend measure across 46 coins with non-overlapping forward windows and a coin-level t-test: its 5-day directional
+            accuracy was <b className="text-slate-300">49.8%</b>, a coin flip, and its 30-day correlation was slightly negative.
           </p>
           <p>
-            The consequence is worth stating plainly: the median sits at today&apos;s price. That is not a defect of the model but the honest answer, and it is
-            why this page leads with what genuinely differs between coins — the <b className="text-slate-300">width of the range</b> and the
-            <b className="text-slate-300"> probability of a given move</b>, both driven by {coin.base}&apos;s measured volatility. A high-volatility coin has a
-            far greater chance of a 10% swing in a month than {coin.base === 'BTC' ? 'a large-cap' : 'Bitcoin'} does, and that difference is real and measurable.
+            Two consequences are worth stating plainly. The forecast is <b className="text-slate-300">modest</b> — single-digit annual percentages, not the
+            confident multiples you will see elsewhere — because that is all the data supports. And the daily forecast line is <b className="text-slate-300">smooth
+            and monotone</b>: a forecast that zig-zagged day to day would be inventing information nobody has. The range and the probability of a given move,
+            both driven by {coin.base}&apos;s measured volatility, carry at least as much information as the number itself.
           </p>
         </section>
 

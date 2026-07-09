@@ -1,6 +1,6 @@
 /**
- * 가격 projection 모델 — 일봉 종가로 기하 브라운 운동(GBM)을 적합해 미래 가격의
- * 확률분포를 만든다. 점 예측(중앙값 하나)이 아니라 분포를 다루는 이유는 아래 실측 때문이다.
+ * 가격 예측 모델 — 일봉 종가로 기하 브라운 운동(GBM)을 적합해 미래 가격의 확률분포를
+ * 만들고, 그 분포의 중앙값을 점 예측가(forecast)로 내놓는다.
  *
  * ── 왜 "방향 예측"을 하지 않는가 ─────────────────────────────
  * 바이낸스 상위 46개 코인 · 일봉 1000개로 백테스트했다(미래 정보 누출 없음, 겹치지 않는
@@ -14,22 +14,29 @@
  *   모멘텀(120일)  30일   -0.009     -4.61       49.0%
  *
  * 기술적 합의(Trend·Bollinger·RSI·ATR)는 예측력이 사실상 0이고 30일에서는 오히려 부호가
- * 음수다. 모멘텀은 pooled와 coin-level에서 부호가 뒤집혀 견고하지 않다. 즉 이 데이터로
- * 중앙값을 어느 방향으로든 기울일 근거가 없다. 예전 버전은 합의 점수로 중앙값을 기울였는데,
- * 그것은 잡음을 예측으로 포장한 것이었으므로 제거했다.
+ * 음수다. 모멘텀은 pooled와 coin-level에서 부호가 뒤집혀 견고하지 않다. 그래서 단기 방향을
+ * 기술적 지표로 기울이지 않는다(예전 버전은 그렇게 했고, 그건 잡음을 예측으로 포장한 것이었다).
  *
- * 남는 것: drift는 0에 가깝고(아래 축소 참조), 따라서 중앙값 ≈ 현재가다. 이것은 버그가
- * 아니라 정답이며, 그래서 UI는 중앙값 대신 **구간과 확률**을 보여준다. 구간 폭과 목표
- * 도달 확률은 코인·지평마다 크게 다르고 전부 실측 변동성에서 나온다.
+ * 점 예측의 방향과 크기는 오직 아래 사후 drift에서 나온다. 하루하루 오르내리는 예측선을
+ * 그리지 않는 이유도 같다 — 일간 방향을 맞힐 수 있다는 증거가 없으므로(적중률 49.8%),
+ * 정직한 점 예측 경로는 단조로운 곡선이다.
  *
- * ── drift를 억제하는 두 단계 ──────────────────────────────────
- *  1) 축소: max(0, 1 - (T_CRIT/t)^2) (양의 부분 James-Stein).
- *     T_CRIT을 통상적인 2가 아니라 3으로 둔 근거: drift를 최대 1095일 복리로 늘리므로
- *     위양성 한 건의 대가가 크다. drift=0인 랜덤워크 4000회 몬테카를로 결과,
- *       t=2 → 4.6%가 위양성, 허위 3년 변동 최악 +1909%
- *       t=3 → 0.3%, 최악 276%
- *     반면 진짜 추세(|t|=9.4)는 t=3에서도 drift의 86%가 살아남는다.
- *  2) 상한: 축소 후에도 연 로그드리프트를 ±MAX_ANNUAL_LOG_DRIFT로 자른다.
+ * ── drift 추정: 베이지안 사후평균 ─────────────────────────────
+ * 어떤 코인도 drift가 유의하지 않다. 전체 바이낸스 이력을 다 써도 그렇다:
+ *   BTC 3248일 t=1.32 · ETH 0.67 · BNB 2.11 · XRP 0.07 · ADA -0.13 · SOL 1.13
+ * 그래서 "유의하면 쓰고 아니면 버린다"는 하드 컷오프 대신, 0을 향해 당기는
+ * 사후평균을 쓴다. 사전분포는 "코인의 진짜 연 로그드리프트는 대략 ±15% 안"이라는 것:
+ *
+ *   mu_posterior = mu_hat · tau^2 / (tau^2 + se^2),   se = sigma/sqrt(n), tau = 0.15/365
+ *
+ * 이러면 추정이 흐릴수록(se가 클수록) 0에 가까워지고, 결코 0이 되지는 않는다.
+ * 사전분포 폭은 몬테카를로로 정했다. 진짜 drift가 0인 랜덤워크에서 나오는 "가짜" 3년 변동:
+ *   사전 10% → 중앙값 3.0% · p95  8.6% · 최악  21%
+ *   사전 15% → 중앙값 6.4% · p95 18.8% · 최악  49%   ← 채택
+ *   사전 25% → 중앙값16.6% · p95 50.3% · 최악 186%
+ *   사전 40% → 중앙값34.6% · p95137.4% · 최악1048%
+ * (참고: 이전의 하드 컷오프 |t|>=3은 같은 조건에서 최악 276%였다. 즉 지금이 더 안전하면서
+ *  동시에 예측값이 0으로 죽지 않는다.)
  *
  * ── 구간 폭 ────────────────────────────────────────────────
  * 변동성은 sigma*sqrt(t)로 늘린다. 평균회귀로 장기 구간을 좁힐 수 있는지 허스트 지수를
@@ -58,9 +65,10 @@ export const HORIZONS: Horizon[] = [
 const Z50 = 0.6744897501960817; // 50% 구간 (P25~P75)
 const Z80 = 1.2815515655446004; // 80% 구간 (P10~P90)
 
-const MAX_ANNUAL_LOG_DRIFT = 1.0;
-/** drift를 신뢰하기 시작하는 t통계량 임계값. 통상적인 2보다 엄격한 3. */
-export const T_CRIT = 3;
+/** 사후평균에도 상한을 둔다. exp(±0.5) ≈ 1.65배 / 0.61배 per year */
+const MAX_ANNUAL_LOG_DRIFT = 0.5;
+/** 사전분포: 코인의 진짜 연 로그드리프트 표준편차. 몬테카를로로 보정(위 주석). */
+export const PRIOR_ANNUAL_DRIFT_SD = 0.15;
 /** 최소 표본 수(일). 이보다 적으면 sigma조차 못 믿는다. */
 export const MIN_SAMPLES = 20;
 /** 이 수보다 표본이 적으면 "제한된 이력"으로 표시한다 */
@@ -81,8 +89,8 @@ export interface Projection {
   label: string;
   short: string;
   days: number;
-  /** 로그정규 분포의 중앙값. drift가 0이면 현재가와 같다. */
-  median: number;
+  /** 점 예측가 — 사후 drift를 적용한 분포의 중앙값 */
+  forecast: number;
   /** 50% 구간 (P25 ~ P75) — 기본 표시 */
   low: number;
   high: number;
@@ -100,7 +108,8 @@ export interface Projection {
 
 export interface DailyPoint {
   day: number;
-  median: number;
+  /** 점 예측가 */
+  forecast: number;
   low: number;
   high: number;
   changePct: number;
@@ -111,8 +120,11 @@ export interface ForecastModel {
   muRaw: number;
   mu: number;
   sigma: number;
+  /** 사후평균에서 데이터에 실린 가중치 (0=전부 사전분포, 1=전부 데이터) */
   shrink: number;
   tStat: number;
+  /** 사후 연 드리프트(%) — 점 예측의 방향과 크기 */
+  annualDriftPct: number;
   samples: number;
   /** 표본이 RELIABLE_SAMPLES 미만 — 신규 상장이라 추정이 거칠다 */
   limitedHistory: boolean;
@@ -142,8 +154,11 @@ export function buildForecast(closes: number[], spot: number): ForecastModel | n
   const sigma = Math.sqrt(variance);
   if (!isFinite(sigma) || sigma <= 0) return null;
 
-  const tStat = muRaw / (sigma / Math.sqrt(n));
-  const shrink = Math.max(0, 1 - (T_CRIT * T_CRIT) / (tStat * tStat));
+  const se = sigma / Math.sqrt(n);
+  const tStat = muRaw / se;
+  // 베이지안 사후평균: 데이터가 흐릴수록(se가 클수록) 사전분포(0)로 당겨진다
+  const tau = PRIOR_ANNUAL_DRIFT_SD / 365;
+  const shrink = (tau * tau) / (tau * tau + se * se); // 0~1, data에 실리는 가중치
   const capDaily = MAX_ANNUAL_LOG_DRIFT / 365;
   const mu = clamp(muRaw * shrink, -capDaily, capDaily);
 
@@ -153,7 +168,7 @@ export function buildForecast(closes: number[], spot: number): ForecastModel | n
     const h = hz.days;
     const drift = mu * h;
     const sd = sigma * Math.sqrt(h);
-    const median = spot * Math.exp(drift);
+    const forecast = spot * Math.exp(drift);
     const low = spot * Math.exp(drift - Z50 * sd);
     const high = spot * Math.exp(drift + Z50 * sd);
     return {
@@ -161,7 +176,7 @@ export function buildForecast(closes: number[], spot: number): ForecastModel | n
       label: hz.label,
       short: hz.short,
       days: h,
-      median,
+      forecast,
       low,
       high,
       low80: spot * Math.exp(drift - Z80 * sd),
@@ -180,7 +195,7 @@ export function buildForecast(closes: number[], spot: number): ForecastModel | n
     const sd = sigma * Math.sqrt(d);
     daily.push({
       day: d,
-      median: spot * Math.exp(drift),
+      forecast: spot * Math.exp(drift),
       low: spot * Math.exp(drift - Z50 * sd),
       high: spot * Math.exp(drift + Z50 * sd),
       changePct: (Math.exp(drift) - 1) * 100,
@@ -190,6 +205,7 @@ export function buildForecast(closes: number[], spot: number): ForecastModel | n
   return {
     spot, muRaw, mu, sigma, shrink, tStat, samples: n,
     limitedHistory: n < RELIABLE_SAMPLES,
+    annualDriftPct: (Math.exp(mu * 365) - 1) * 100,
     annualVolPct: sigma * Math.sqrt(365) * 100,
     projections, daily,
   };
@@ -210,7 +226,7 @@ export function probReach(m: ForecastModel, target: number, days: number): numbe
 /**
  * TP를 SL보다 먼저 건드릴 확률(%) — 두 배리어 중 어디에 먼저 닿는지.
  * 로그가격이 drift 0인 브라운 운동이면 정확해가 있다: 반대쪽 배리어까지의
- * 로그거리 비율. drift가 0에 가깝게 축소되므로 이 근사가 타당하다.
+ * 로그거리 비율. 사후 drift는 사전분포에 강하게 당겨져 매우 작으므로 이 근사가 타당하다.
  * (도달만 따지므로 종가가 아니라 장중 경로 기준이다.)
  */
 export function probTpBeforeSl(spot: number, tp: number, sl: number): number {
@@ -236,9 +252,10 @@ export function volatilityLabel(annualVolPct: number): 'Low' | 'Medium' | 'High'
   return 'Extreme';
 }
 
+/** 사후평균에서 데이터가 차지한 비중을 사람 말로 */
 export function trendConfidenceLabel(shrink: number): string {
-  if (shrink >= 0.75) return 'Strong';
-  if (shrink >= 0.4) return 'Moderate';
-  if (shrink >= 0.15) return 'Weak';
-  return 'Noise';
+  if (shrink >= 0.5) return 'Strong';
+  if (shrink >= 0.2) return 'Moderate';
+  if (shrink >= 0.08) return 'Weak';
+  return 'Very weak';
 }

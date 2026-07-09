@@ -48,7 +48,7 @@ export default function ForecastChart({
 
   // 예측선은 오늘(마지막 과거점)에서 이어붙여 끊기지 않게 한다
   const fx = (i: number) => x(nH - 1 + 1 + i);
-  const medLine = [`M${x(nH - 1).toFixed(1)},${y(spot).toFixed(1)}`, ...daily.map((d, i) => `L${fx(i).toFixed(1)},${y(d.median).toFixed(1)}`)].join(' ');
+  const medLine = [`M${x(nH - 1).toFixed(1)},${y(spot).toFixed(1)}`, ...daily.map((d, i) => `L${fx(i).toFixed(1)},${y(d.forecast).toFixed(1)}`)].join(' ');
 
   const bandTop = [`M${x(nH - 1).toFixed(1)},${y(spot).toFixed(1)}`, ...daily.map((d, i) => `L${fx(i).toFixed(1)},${y(d.high).toFixed(1)}`)];
   const bandBottom = [...daily].reverse().map((d, i) => `L${fx(nF - 1 - i).toFixed(1)},${y(d.low).toFixed(1)}`);
@@ -56,7 +56,7 @@ export default function ForecastChart({
 
   const divX = x(nH - 1);
   const last = daily[nF - 1];
-  const up = last.median >= spot;
+  const up = last.forecast >= spot;
   const accent = up ? '#34d399' : '#fb7185';
 
   const ticks = [lo + (hi - lo) * 0.08, (lo + hi) / 2, hi - (hi - lo) * 0.08];
@@ -64,7 +64,7 @@ export default function ForecastChart({
 
   return (
     <div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height }} role="img" aria-label="Price history and 30-day projection with 50% range">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height }} role="img" aria-label="Price history and 30-day forecast with 50% range">
         {/* 격자 — 데이터보다 뒤로 */}
         {ticks.map((t, i) => (
           <g key={i}>
@@ -88,13 +88,13 @@ export default function ForecastChart({
 
         {/* 오늘 지점 마커 — 표면색 링으로 겹침 방지 */}
         <circle cx={divX} cy={y(spot)} r={4} fill="#e2e8f0" stroke="#0f172a" strokeWidth={2} />
-        <circle cx={fx(nF - 1)} cy={y(last.median)} r={4} fill={accent} stroke="#0f172a" strokeWidth={2} />
+        <circle cx={fx(nF - 1)} cy={y(last.forecast)} r={4} fill={accent} stroke="#0f172a" strokeWidth={2} />
       </svg>
 
       {/* 두 개 이상의 시계열 → 범례는 항상 둔다 */}
       <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 mt-1">
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 bg-slate-400 rounded" /> Actual close</span>
-        <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent }} /> Median projection</span>
+        <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent }} /> Forecast</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-2 rounded-sm" style={{ background: accent, opacity: 0.25 }} /> 50% range</span>
       </div>
     </div>

@@ -437,12 +437,13 @@ export default function SignalsPage() {
         </div>
 
         <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
-          <p className="font-bold text-amber-300/90 mb-1">The 5D–3Y columns show a range, not a point forecast — on purpose.</p>
+          <p className="font-bold text-amber-300/90 mb-1">How the 5D–3Y forecast is built</p>
           <p>
-            We backtested whether the technical consensus predicts direction (46 coins, non-overlapping windows): its 5-day directional accuracy was
-            <b className="text-slate-300"> 49.8%</b> — a coin flip — and at 30 days the correlation was slightly <i>negative</i>. So there is no honest basis
-            for a moving point forecast, and we do not manufacture one. What is real and does differ between coins is the
-            <b className="text-slate-300"> width of the range</b> (half of outcomes land inside it) and the probability of a given move. Click a coin for those.
+            The forecast price comes from a <b className="text-slate-300">Bayesian posterior drift</b>: the coin&apos;s measured trend, pulled toward zero in
+            proportion to how noisy that measurement is. No coin&apos;s drift is statistically significant — even BTC&apos;s full 8.9-year history gives
+            t = 1.32 — so the forecast stays deliberately modest rather than extrapolating noise. We also do <b className="text-slate-300">not</b> tilt it with
+            technical indicators: backtested over 46 coins, their 5-day directional accuracy was 49.8%, a coin flip. The range below each price contains half
+            of all outcomes. Click a coin for the daily path and probabilities.
           </p>
         </div>
 
@@ -523,7 +524,7 @@ export default function SignalsPage() {
                       {HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
                           {h.short}
-                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">50% range</span>
+                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast · range</span>
                         </th>
                       ))}
                     </tr>
@@ -645,10 +646,13 @@ export default function SignalsPage() {
                               <td key={h.key} className={`px-2 py-3 text-right ${hi === 0 ? 'border-l border-slate-800/40' : ''}`}>
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
-                                    <span className="text-white tabular-nums text-[13px]">
+                                    <span className="text-white font-bold tabular-nums">{formatPrice(p.forecast * fcScale)}</span>
+                                    <span className={`text-[10px] tabular-nums ${p.changePct >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
+                                      {p.changePct >= 0 ? '+' : ''}{p.changePct.toFixed(1)}%
+                                    </span>
+                                    <span className="text-[9px] text-slate-600 tabular-nums">
                                       {formatPrice(p.low * fcScale)} – {formatPrice(p.high * fcScale)}
                                     </span>
-                                    <span className="text-[10px] text-slate-500 tabular-nums">±{p.swingPct.toFixed(1)}%</span>
                                   </div>
                                 ) : pending ? (
                                   <span className="text-slate-600 text-xs">…</span>
@@ -679,7 +683,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-                5D–3Y show the range containing half of outcomes, from up to {FORECAST_DAYS} daily closes · coins listed under {MIN_SAMPLES + 1} days show “new”{pageComputing ? ' · calculating…' : ''}
+5D–3Y show the forecast price, its change, and the range containing half of outcomes · coins listed under {MIN_SAMPLES + 1} days show “new”{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 

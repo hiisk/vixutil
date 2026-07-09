@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, T_CRIT, MIN_SAMPLES, RELIABLE_SAMPLES, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_ANNUAL_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, type ForecastModel } from '@/lib/forecast';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -141,7 +141,6 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const trendLabel = trendConfidenceLabel(m.shrink);
   const greenPct = s.green.total ? Math.round((s.green.green / s.green.total) * 100) : 0;
   const recent = [...s.ohlcv].slice(-HISTORY_ROWS).reverse();
-  const driftDiscarded = m.shrink === 0;
   const p1m = m.projections.find(p => p.key === '1m')!;
   const p1y = m.projections.find(p => p.key === '1y')!;
   // TP를 SL보다 먼저 칠 확률과 그때의 기대값 (R 배수). 승률만으론 전략의 좋고 나쁨을 못 본다.
@@ -269,19 +268,14 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         {/* 왜 장기 중앙값이 평평한지 먼저 밝힌다 */}
         <div className="rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 mb-4 text-xs text-slate-400 leading-relaxed">
-          {driftDiscarded ? (
-            <p>
-              {coin.base}&apos;s historical drift has a t-statistic of <b className="text-slate-300">{m.tStat.toFixed(2)}</b>, which does not clear the
-              |t| ≥ {T_CRIT} bar. It is indistinguishable from random noise, so we <b className="text-slate-300">discard it entirely</b> and anchor the long-run
-              median at today&apos;s price. Read the range and the probabilities, not the median.
-            </p>
-          ) : (
-            <p>
-              {coin.base}&apos;s historical drift clears the |t| ≥ {T_CRIT} bar (t = <b className="text-slate-300">{m.tStat.toFixed(2)}</b>), so we keep{' '}
-              <b className="text-slate-300">{(m.shrink * 100).toFixed(0)}%</b> of it after shrinkage and cap it at ±1.0 annual log drift. The range still
-              carries most of the information at long horizons.
-            </p>
-          )}
+          <p>
+            {coin.base}&apos;s raw historical drift is <b className="text-slate-300">{((Math.exp(m.muRaw * 365) - 1) * 100).toFixed(1)}%</b> per year, but with a
+            t-statistic of only <b className="text-slate-300">{m.tStat.toFixed(2)}</b> it is far from significant. Rather than either trusting it or throwing it
+            away, we take the Bayesian posterior mean under a prior that a coin&apos;s true annual drift lies within about ±{(PRIOR_ANNUAL_DRIFT_SD * 100).toFixed(0)}%.
+            That puts <b className="text-slate-300">{(m.shrink * 100).toFixed(0)}%</b> of the weight on the data, giving a forecast drift of{' '}
+            <b className="text-slate-300">{m.annualDriftPct >= 0 ? '+' : ''}{m.annualDriftPct.toFixed(1)}%</b> per year. The forecast line is smooth and monotone
+            because nothing in the data predicts day-to-day direction — a zig-zagging daily forecast would be invented, not measured.
+          </p>
         </div>
 
         {/* 확률 — 중앙값과 달리 코인·지평마다 실제로 달라지는 값 */}
@@ -330,9 +324,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                   <th className="text-left font-semibold px-4 py-3">Period</th>
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Median</th>
+                  <th className="text-right font-semibold px-3 py-3">Forecast</th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-3 py-3">Typical swing</th>
+                  <th className="text-right font-semibold px-3 py-3">vs now</th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">P(+10%)</th>
                   <th className="text-right font-semibold px-3 py-3">P(−10%)</th>
                   <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">80% range</th>
@@ -343,9 +337,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <tr key={p.key} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-3 font-bold text-slate-300">{p.label}</td>
                     <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
-                    <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.median)}</td>
+                    <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.forecast)}</td>
                     <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
-                    <td className="px-3 py-3 text-right text-slate-300 tabular-nums">±{p.swingPct.toFixed(1)}%</td>
+                    <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
                     <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums border-l border-slate-800/40">{p.pUp10.toFixed(1)}%</td>
                     <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">{p.pDown10.toFixed(1)}%</td>
                     <td className="px-4 py-3 text-right text-[11px] text-slate-500 tabular-nums border-l border-slate-800/40">
@@ -368,9 +362,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                   <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Median</th>
+                  <th className="text-right font-semibold px-3 py-3">Forecast</th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-4 py-3">Typical swing</th>
+                  <th className="text-right font-semibold px-4 py-3">vs now</th>
                 </tr>
               </thead>
               <tbody>
@@ -378,9 +372,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
                     <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
-                    <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.median)}</td>
+                    <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
                     <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
-                    <td className="px-4 py-2.5 text-right text-slate-300 tabular-nums">±{(((d.high / d.median) - 1) * 100).toFixed(1)}%</td>
+                    <td className="px-4 py-2.5 text-right"><Pct value={d.changePct} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -440,9 +434,11 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           supports a directional forecast, so the model does not pretend otherwise.
         </p>
         <p className="mb-2">
-          The long-run drift is likewise discarded unless its t-statistic clears |t| ≥ {T_CRIT} — a stricter bar than the conventional 2, because
-          compounding a drift over 1,095 days turns statistical noise into a confident-looking forecast. With the drift gone, the median equals today&apos;s
-          price. That is the honest output, and it is why this page leads with ranges and probabilities instead.
+          The forecast&apos;s direction comes entirely from the historical drift, which is not statistically significant for any coin — even Bitcoin&apos;s full
+          8.9-year Binance history gives t = 1.32. So instead of trusting it or discarding it, we take its Bayesian posterior mean under a prior that the true
+          annual drift lies within about ±{(PRIOR_ANNUAL_DRIFT_SD * 100).toFixed(0)}%. We calibrated that prior by Monte-Carlo: on a pure random walk with zero
+          true drift it produces a spurious 3-year move of 6.4% at the median and 49% at the very worst, whereas a conventional significance cutoff let through
+          moves as large as 276%. The forecast therefore moves, differs between coins, and never explodes.
         </p>
         <p>
           Ranges come from σ√t. We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We tested
