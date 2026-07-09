@@ -33,7 +33,11 @@ export function stddev(vals: number[], p: number): number | null {
   return Math.sqrt(slice.reduce((s, v) => s + (v - m) ** 2, 0) / p);
 }
 
-/** Wilder RSI(period) — 전체 시리즈에 지수평활 적용 */
+/**
+ * Wilder RSI(period) — 전체 시리즈에 지수평활 적용.
+ * 한쪽 방향만 있어 RSI가 0/100으로 포화된 경우(하락일 0개 또는 상승일 0개)는
+ * 신뢰할 수 있는 신호가 아니므로 null을 돌려준다.
+ */
 export function rsi(closes: number[], p = 14): number | null {
   if (closes.length < p + 1) return null;
   let gain = 0, loss = 0;
@@ -47,7 +51,7 @@ export function rsi(closes: number[], p = 14): number | null {
     ag = (ag * (p - 1) + Math.max(ch, 0)) / p;
     al = (al * (p - 1) + Math.max(-ch, 0)) / p;
   }
-  if (al === 0) return 100;
+  if (al === 0 || ag === 0) return null; // 0/100 포화 → 신뢰 불가
   return 100 - 100 / (1 + ag / al);
 }
 
@@ -102,7 +106,7 @@ export function computeStrategy(candles: Candle[], strategy: StrategyKey, market
     }
   } else if (strategy === 'rsi') {
     const r = rsi(closes, 14);
-    if (r == null) { note = 'Not enough data'; }
+    if (r == null) { note = 'RSI n/a'; }
     else {
       score = clamp1((50 - r) / 20); // RSI30=+1(과매도), RSI70=-1(과매수)
       note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`;
