@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
-  title: 'ATR 타점 보드 - 코인 진입·TP·SL 실시간',
-  description: '바이낸스 현물·선물 전체 코인의 UTC 일봉 ATR 타점(진입가·타겟·손절)과 실시간 수익률을 브라우저에서 직접 계산해 보여주는 대시보드입니다. 투자 자문이 아닌 참고용입니다.',
+  title: 'ATR Signal Board - Crypto entry / TP / SL in real time',
+  description: 'A dashboard that computes daily-ATR entry, take-profit and stop-loss levels plus live P&L for all Binance spot & futures coins, right in your browser. Sort by volume or P&L. Reference only, not investment advice.',
 };
 export default function Layout({ children }: { children: React.ReactNode }) { return <>{children}</>; }

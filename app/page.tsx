@@ -94,8 +94,8 @@ const SECTIONS = [
   {
     href: '/crypto',
     icon: '🪙',
-    title: '코인 트레이딩 도구',
-    desc: '바이낸스 시세로 ATR 변동성·TP/SL 익절·손절 계산',
+    title: 'Crypto Trading Tools',
+    desc: '바이낸스 전체 코인 ATR 타점(진입·TP·SL)·수익률 실시간',
     badge: 'NEW',
     color: 'from-amber-400 to-orange-600',
     bgLight: 'bg-amber-50',

@@ -10,8 +10,8 @@ export default function Image() {
     ogCard({
       icon: '📊',
       eyebrow: 'Crypto · ATR',
-      title: 'ATR TP/SL 세팅',
-      desc: '바이낸스 코인 변동성 기반 익절·손절 계산기',
+      title: 'ATR TP/SL Calculator',
+      desc: 'Volatility-based take-profit & stop-loss',
       from: '#f59e0b',
       to: '#ea580c',
     }),

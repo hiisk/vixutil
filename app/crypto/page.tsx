@@ -3,13 +3,13 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 
 export const metadata: Metadata = {
-  title: '코인 트레이딩 도구',
-  description: '바이낸스 공개 시세로 ATR·변동성·TP/SL을 계산하는 코인 트레이딩 도구 모음. 브라우저에서 직접 시세를 받아 계산합니다.',
+  title: 'Crypto Trading Tools',
+  description: 'Crypto trading tools built on Binance public market data — ATR volatility, TP/SL levels, and a real-time signal board. Everything is computed in your browser.',
 };
 
 const TOOLS = [
-  { href: '/crypto/signals', icon: '📈', title: 'ATR 타점 보드', desc: '현물·선물 전체 코인의 진입·TP·SL·실시간 수익률 (50개씩)', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
-  { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL 계산기', desc: '코인 선택 후 진입가·배수로 익절·손절가 직접 계산', badge: '계산기', color: 'from-yellow-400 to-amber-600' },
+  { href: '/crypto/signals', icon: '📈', title: 'ATR Signal Board', desc: 'Entry / TP / SL and live P&L for all spot & futures coins (50 per page)', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL Calculator', desc: 'Pick a coin, set entry and multipliers, get take-profit & stop-loss', badge: 'Calc', color: 'from-yellow-400 to-amber-600' },
 ];
 
 export default function CryptoPage() {
@@ -23,18 +23,18 @@ export default function CryptoPage() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            홈
+            Home
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">코인 도구</span>
+          <span className="text-sm font-semibold text-slate-700">Crypto Tools</span>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
           <div className="text-5xl mb-4">🪙</div>
-          <h1 className="text-3xl font-black text-slate-900 mb-2">코인 트레이딩 도구</h1>
-          <p className="text-slate-500 text-sm">바이낸스 공개 시세로 변동성·TP/SL을 계산해요</p>
+          <h1 className="text-3xl font-black text-slate-900 mb-2">Crypto Trading Tools</h1>
+          <p className="text-slate-500 text-sm">Volatility & TP/SL from Binance public market data</p>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -50,7 +50,7 @@ export default function CryptoPage() {
                 <h2 className="text-lg font-black text-slate-900 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 mb-4">{t.desc}</p>
                 <div className="flex items-center gap-1 text-xs font-semibold text-amber-600">
-                  도구 열기
+                  Open tool
                   <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
@@ -60,7 +60,7 @@ export default function CryptoPage() {
           ))}
         </div>
 
-        <p className="text-center text-xs text-slate-300 mt-10">시세는 바이낸스 공개 API 기준이며, 모든 계산은 투자 자문이 아닌 참고용입니다</p>
+        <p className="text-center text-xs text-slate-300 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
       </div>
       <SiteFooter />
     </div>

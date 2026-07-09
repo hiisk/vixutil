@@ -62,7 +62,7 @@ export default function AtrTpslPage() {
     }
   }, [selected]);
 
-  useEffect(() => { load(); /* 최초 1회 */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { load(); /* on mount */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const selectedRow = useMemo(() => rows.find(r => r.symbol === selected) ?? null, [rows, selected]);
@@ -91,51 +91,51 @@ export default function AtrTpslPage() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            코인 도구
+            Crypto Tools
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">ATR TP/SL 세팅</span>
+          <span className="text-sm font-semibold text-slate-700">ATR TP/SL Calculator</span>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">📊</div>
-          <h1 className="text-2xl font-black text-slate-900 mb-1.5">ATR 기반 TP/SL 세팅</h1>
-          <p className="text-slate-500 text-sm">바이낸스 거래량 상위 코인의 일봉 ATR(14)로 익절·손절 가격을 계산해요</p>
+          <h1 className="text-2xl font-black text-slate-900 mb-1.5">ATR-based TP/SL Calculator</h1>
+          <p className="text-slate-500 text-sm">Compute take-profit / stop-loss from the daily ATR(14) of top-volume Binance coins</p>
         </div>
 
         <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 mb-6 text-xs text-amber-800 leading-relaxed">
-          <p className="font-bold mb-1">⚠️ 투자 자문이 아니에요</p>
-          <p>바이낸스 공개 시세를 브라우저에서 직접 받아 ATR(평균 변동폭)을 계산하는 도구입니다. TP/SL은 변동성 기반 참고 수치일 뿐, 어떤 매매도 권유하지 않으며 투자 판단과 책임은 본인에게 있습니다.</p>
+          <p className="font-bold mb-1">⚠️ Not investment advice</p>
+          <p>This tool fetches Binance public market data in your browser and computes the ATR (average true range). TP/SL are volatility-based reference values only — nothing here is a trade recommendation, and all decisions and risks are your own.</p>
         </div>
 
-        {/* 변동성 랭킹 테이블 */}
+        {/* Volatility ranking table */}
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden mb-6">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">거래량 상위 20 · 일봉 ATR</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Top 20 by volume · Daily ATR</p>
             <button
               onClick={load}
               disabled={state === 'loading'}
               className="text-xs font-semibold text-amber-600 hover:text-amber-700 disabled:text-slate-300 transition-colors"
             >
-              {state === 'loading' ? '불러오는 중…' : '↻ 새로고침'}
+              {state === 'loading' ? 'Loading…' : '↻ Refresh'}
             </button>
           </div>
 
           {state === 'loading' && (
             <div className="py-16 flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-4 border-slate-200 border-t-amber-500 rounded-full animate-spin" />
-              <span className="text-sm font-bold text-slate-500">바이낸스에서 시세를 불러오는 중...</span>
+              <span className="text-sm font-bold text-slate-500">Loading prices from Binance...</span>
             </div>
           )}
 
           {state === 'error' && (
             <div className="py-12 px-4 flex flex-col items-center gap-2 text-center">
               <span className="text-3xl">⚠️</span>
-              <span className="text-sm font-bold text-rose-600">시세를 불러오지 못했어요</span>
-              <span className="text-xs text-rose-400">네트워크 상태를 확인하고 새로고침 해주세요. 일부 지역에서는 바이낸스 접속이 제한될 수 있어요.</span>
-              <button onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">다시 시도</button>
+              <span className="text-sm font-bold text-rose-600">Couldn&apos;t load prices</span>
+              <span className="text-xs text-rose-400">Check your connection and refresh. Binance may be restricted in some regions.</span>
+              <button onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
             </div>
           )}
 
@@ -145,8 +145,8 @@ export default function AtrTpslPage() {
                 <thead>
                   <tr className="text-[11px] text-slate-400 border-b border-slate-100">
                     <th className="text-left font-semibold px-4 py-2">#</th>
-                    <th className="text-left font-semibold px-2 py-2">코인</th>
-                    <th className="text-right font-semibold px-2 py-2">현재가</th>
+                    <th className="text-left font-semibold px-2 py-2">Coin</th>
+                    <th className="text-right font-semibold px-2 py-2">Price</th>
                     <th className="text-right font-semibold px-2 py-2">24h</th>
                     <th className="text-right font-semibold px-4 py-2">ATR%</th>
                   </tr>
@@ -171,24 +171,24 @@ export default function AtrTpslPage() {
               </table>
               {updatedAt && (
                 <p className="text-[11px] text-slate-300 px-4 py-2 text-right">
-                  {updatedAt.toLocaleTimeString('ko-KR')} 기준 · 행을 누르면 아래 계산기에 반영돼요
+                  as of {updatedAt.toLocaleTimeString('en-US')} · tap a row to load it into the calculator below
                 </p>
               )}
             </div>
           )}
         </div>
 
-        {/* TP/SL 계산기 */}
+        {/* TP/SL calculator */}
         {selectedRow && (
           <div className="bg-white border border-slate-200 rounded-2xl p-5 mb-6">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">TP/SL 계산</p>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">TP/SL Calculation</p>
               <span className="text-sm font-black text-slate-800">{selectedRow.base}/USDT</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-3">
               <div className="col-span-2 flex items-center justify-between bg-slate-50 rounded-xl px-4 py-2.5">
-                <span className="text-xs text-slate-500">일봉 ATR(14)</span>
+                <span className="text-xs text-slate-500">Daily ATR(14)</span>
                 <span className="text-sm font-bold text-slate-800">
                   {selectedRow.atr != null ? formatPrice(selectedRow.atr) : '-'}
                   {selectedRow.atrPct != null && <span className="text-amber-600"> ({selectedRow.atrPct.toFixed(2)}%)</span>}
@@ -196,14 +196,14 @@ export default function AtrTpslPage() {
               </div>
 
               <div className="col-span-2">
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">진입가 (USDT)</label>
+                <label className="block text-xs font-semibold text-slate-500 mb-1.5">Entry price (USDT)</label>
                 <input type="number" value={entry} onChange={e => setEntry(e.target.value)} className={inputCls} />
               </div>
 
               <div className="col-span-2">
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">방향</label>
+                <label className="block text-xs font-semibold text-slate-500 mb-1.5">Direction</label>
                 <div className="flex gap-2">
-                  {([['long', '롱 (매수)'], ['short', '숏 (매도)']] as [Direction, string][]).map(([d, label]) => (
+                  {([['long', 'Long (buy)'], ['short', 'Short (sell)']] as [Direction, string][]).map(([d, label]) => (
                     <button
                       key={d}
                       onClick={() => setDirection(d)}
@@ -220,11 +220,11 @@ export default function AtrTpslPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">TP 배수 (×ATR)</label>
+                <label className="block text-xs font-semibold text-slate-500 mb-1.5">TP multiplier (×ATR)</label>
                 <input type="number" step="0.1" value={tpMult} onChange={e => setTpMult(e.target.value)} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">SL 배수 (×ATR)</label>
+                <label className="block text-xs font-semibold text-slate-500 mb-1.5">SL multiplier (×ATR)</label>
                 <input type="number" step="0.1" value={slMult} onChange={e => setSlMult(e.target.value)} className={inputCls} />
               </div>
             </div>
@@ -232,25 +232,25 @@ export default function AtrTpslPage() {
             {calc && (
               <div className="mt-2 grid grid-cols-2 gap-3">
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-                  <p className="text-xs text-emerald-600 font-semibold mb-1">🎯 익절 (TP)</p>
+                  <p className="text-xs text-emerald-600 font-semibold mb-1">🎯 Take Profit (TP)</p>
                   <p className="text-lg font-black text-emerald-700">{formatPrice(calc.tp)}</p>
                   <p className="text-xs text-emerald-600 mt-0.5">{direction === 'long' ? '+' : '-'}{calc.tpDistPct.toFixed(2)}%</p>
                 </div>
                 <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
-                  <p className="text-xs text-rose-500 font-semibold mb-1">🛑 손절 (SL)</p>
+                  <p className="text-xs text-rose-500 font-semibold mb-1">🛑 Stop Loss (SL)</p>
                   <p className="text-lg font-black text-rose-600">{formatPrice(calc.sl)}</p>
                   <p className="text-xs text-rose-500 mt-0.5">{direction === 'long' ? '-' : '+'}{calc.slDistPct.toFixed(2)}%</p>
                 </div>
                 <div className="col-span-2 flex items-center justify-between bg-slate-50 rounded-xl px-4 py-2.5">
-                  <span className="text-xs text-slate-500">손익비 (R:R)</span>
+                  <span className="text-xs text-slate-500">Risk : Reward</span>
                   <span className="text-sm font-bold text-slate-800">1 : {calc.riskReward.toFixed(2)}</span>
                 </div>
               </div>
             )}
 
             <p className="text-[11px] text-slate-400 mt-4 leading-relaxed">
-              TP/SL = 진입가 {direction === 'long' ? '± ' : '∓ '}ATR × 배수. ATR은 일봉 14기간 평균 변동폭이라, 배수 1.5면
-              최근 평균 하루 변동의 1.5배만큼 떨어진 지점을 익절가로 잡는다는 뜻이에요. 변동성이 큰 코인일수록 폭이 넓어집니다.
+              TP/SL = entry {direction === 'long' ? '± ' : '∓ '}ATR × multiplier. ATR is the 14-day average daily range, so a
+              1.5× multiplier sets the take-profit 1.5× the recent average daily move away from entry. Higher-volatility coins get wider levels.
             </p>
           </div>
         )}
