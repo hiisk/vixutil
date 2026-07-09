@@ -407,16 +407,16 @@ export default function SignalsPage() {
                       </th>
                       <th className={th}>Entry</th>
                       <th className={th}>Current</th>
-                      <th className={th}>TP</th>
-                      <th className={th}>SL</th>
-                      <th className={th}>
-                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
-                          Volume <SortHint active={sortKey === 'volume'} dir="desc" />
-                        </button>
-                      </th>
-                      <th className="text-right font-semibold px-4 py-3">
+                      <th className={`${th} border-l border-slate-800/70`}>
                         <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
                           P&amp;L <SortHint active={sortKey === 'pnl'} dir={sortDir} />
+                        </button>
+                      </th>
+                      <th className={`${th} border-l border-slate-800/70`}>TP</th>
+                      <th className={th}>SL</th>
+                      <th className={`${th} border-l border-slate-800/70`}>
+                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
+                          Volume <SortHint active={sortKey === 'volume'} dir="desc" />
                         </button>
                       </th>
                     </tr>
@@ -426,6 +426,10 @@ export default function SignalsPage() {
                       const info = cacheRef.current.get(t.symbol);
                       const pnl = info ? pnlOf(info.side, info.entry, t.lastPrice) : null;
                       const pending = info === undefined;
+                      const tpPct = info ? pnlOf(info.side, info.entry, info.tp) : null;
+                      const slPct = info ? pnlOf(info.side, info.entry, info.sl) : null;
+                      const hit = info ? hitState(info, t.lastPrice) : null;
+                      const chg = t.priceChangePercent;
                       return (
                         <tr key={t.symbol} className="border-b border-slate-800/60 hover:bg-slate-800/40 transition-colors">
                           <td className="px-4 py-3">
@@ -460,27 +464,43 @@ export default function SignalsPage() {
                             )}
                           </td>
                           <td className="px-2 py-3 text-right text-slate-300 tabular-nums">{info ? formatPrice(info.entry) : pending ? '…' : '-'}</td>
-                          <td className="px-2 py-3 text-right text-white tabular-nums">{formatPrice(t.lastPrice)}</td>
-                          <td className="px-2 py-3 text-right text-emerald-400 tabular-nums">{info ? formatPrice(info.tp) : pending ? '…' : '-'}</td>
-                          <td className="px-2 py-3 text-right text-rose-400 tabular-nums">{info ? formatPrice(info.sl) : pending ? '…' : '-'}</td>
-                          <td className="px-2 py-3 text-right text-slate-400 tabular-nums">{formatVolume(t.quoteVolume)}</td>
-                          <td className="px-4 py-3 text-right tabular-nums font-bold">
+                          <td className="px-2 py-3 text-right tabular-nums">
+                            <div className="flex flex-col items-end leading-tight">
+                              <span className="text-white">{formatPrice(t.lastPrice)}</span>
+                              {isFinite(chg) && (
+                                <span className={`text-[10px] ${chg >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>{chg >= 0 ? '+' : ''}{chg.toFixed(1)}% 24h</span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-2 py-3 text-right tabular-nums border-l border-slate-800/40">
                             {pnl == null ? (
                               <span className="text-slate-600">{pending ? '…' : '-'}</span>
                             ) : (
-                              <div className="flex items-center justify-end gap-1.5">
-                                {info && (() => {
-                                  const hit = hitState(info, t.lastPrice);
-                                  return hit === 'tp'
-                                    ? <span className="text-[9px] font-black px-1 py-0.5 rounded bg-emerald-500/20 text-emerald-300">🎯 TP</span>
-                                    : hit === 'sl'
-                                    ? <span className="text-[9px] font-black px-1 py-0.5 rounded bg-rose-500/20 text-rose-300">🛑 SL</span>
-                                    : null;
-                                })()}
-                                <span className={pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}%</span>
+                              <div className="flex flex-col items-end gap-1">
+                                <span className={`font-black px-2 py-0.5 rounded-md text-xs ${pnl >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>{pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}%</span>
+                                {hit && (
+                                  <span className={`text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>{hit === 'tp' ? '🎯 TP' : '🛑 SL'}</span>
+                                )}
                               </div>
                             )}
                           </td>
+                          <td className="px-2 py-3 text-right tabular-nums border-l border-slate-800/40">
+                            {info ? (
+                              <div className="flex flex-col items-end leading-tight">
+                                <span className="text-emerald-400">{formatPrice(info.tp)}</span>
+                                <span className="text-[10px] text-emerald-500/50">+{tpPct!.toFixed(1)}%</span>
+                              </div>
+                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
+                          </td>
+                          <td className="px-2 py-3 text-right tabular-nums">
+                            {info ? (
+                              <div className="flex flex-col items-end leading-tight">
+                                <span className="text-rose-400">{formatPrice(info.sl)}</span>
+                                <span className="text-[10px] text-rose-500/50">{slPct!.toFixed(1)}%</span>
+                              </div>
+                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
+                          </td>
+                          <td className="px-2 py-3 text-right text-slate-400 tabular-nums border-l border-slate-800/40">{formatVolume(t.quoteVolume)}</td>
                         </tr>
                       );
                     })}
