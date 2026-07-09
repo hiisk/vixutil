@@ -138,6 +138,8 @@ export interface ConsensusSignal {
   atr: number;
   atrPct: number;
   votes: StrategyVote[];
+  /** 최근 7개 마감 일봉 종가 — 스파크라인용(같은 캔들 재사용, 추가 요청 없음) */
+  spark: number[];
 }
 
 /**
@@ -168,5 +170,6 @@ export function computeConsensus(candles: Candle[], market: 'spot' | 'futures'):
 
   const side: Direction = market === 'spot' ? 'long' : bias === 'bearish' ? 'short' : 'long';
   const { tp, sl } = computeTpSl(base.entry, base.atr, side, TP_MULT, SL_MULT);
-  return { bias, confidence, side, entry: base.entry, tp, sl, atr: base.atr, atrPct: (base.atr / base.entry) * 100, votes };
+  const spark = candles.slice(-7).map(c => c.close);
+  return { bias, confidence, side, entry: base.entry, tp, sl, atr: base.atr, atrPct: (base.atr / base.entry) * 100, votes, spark };
 }

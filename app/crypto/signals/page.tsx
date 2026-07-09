@@ -90,6 +90,63 @@ function formatVolume(v: number): string {
   return `$${v.toFixed(0)}`;
 }
 
+/** 코인 로고 — 공개 CDN(jsDelivr). 목록에 없는 코인은 티커 앞 2글자 아바타로 폴백 */
+function CoinLogo({ base, size = 24 }: { base: string; size?: number }) {
+  const [failed, setFailed] = useState(false);
+  const style = { width: size, height: size };
+  if (failed) {
+    return (
+      <span style={style} className="shrink-0 rounded-full bg-slate-800 text-slate-400 text-[9px] font-black grid place-items-center">
+        {base.slice(0, 2)}
+      </span>
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`https://cdn.jsdelivr.net/npm/cryptocurrency-icons@0.18.1/32/color/${base.toLowerCase()}.png`}
+      alt="" width={size} height={size} loading="lazy" onError={() => setFailed(true)}
+      style={style} className="shrink-0 rounded-full"
+    />
+  );
+}
+
+/**
+ * 7일 종가 스파크라인. 단일 시계열이라 축·범례 없이 2px 선만 그린다.
+ * 방향은 색만으로 전달하지 않는다 — 옆 칸의 부호·삼각형(▲▼)이 같은 정보를 중복 인코딩한다.
+ */
+function Sparkline({ points, w = 84, h = 28 }: { points: number[]; w?: number; h?: number }) {
+  if (points.length < 2) return <span className="text-slate-700">-</span>;
+  const min = Math.min(...points), max = Math.max(...points);
+  const flat = max === min; // 무변동 구간은 바닥이 아니라 세로 중앙에 그린다
+  const span = max - min;
+  const pad = 3;
+  const d = points
+    .map((p, i) => {
+      const x = pad + (i / (points.length - 1)) * (w - pad * 2);
+      const y = flat ? h / 2 : pad + (1 - (p - min) / span) * (h - pad * 2);
+      return `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(' ');
+  const up = points[points.length - 1] >= points[0];
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true" className="inline-block align-middle">
+      <path d={d} fill="none" stroke={up ? '#34d399' : '#fb7185'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** 변동률 — 색 + 삼각형 + 부호로 이중 인코딩(색만으로 방향을 전달하지 않음) */
+function Pct({ value, bold = false }: { value: number; bold?: boolean }) {
+  const up = value >= 0;
+  return (
+    <span className={`inline-flex items-center gap-0.5 tabular-nums ${bold ? 'font-black' : ''} ${up ? 'text-emerald-400' : 'text-rose-400'}`}>
+      <span className="text-[0.65em] leading-none">{up ? '▲' : '▼'}</span>
+      {up ? '+' : '-'}{Math.abs(value).toFixed(2)}%
+    </span>
+  );
+}
+
 export default function SignalsPage() {
   const [market, setMarket] = useState<Market>('futures');
   const [listState, setListState] = useState<ListState>('loading');
@@ -103,6 +160,7 @@ export default function SignalsPage() {
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
   const [now, setNow] = useState(() => Date.now());
+  const [btcSpark, setBtcSpark] = useState<number[]>([]);
 
   // Signal cache: symbol -> consensus info. undefined = not computed, null = insufficient data.
   // Reset when the market changes (different symbols / candles).
@@ -163,6 +221,34 @@ export default function SignalsPage() {
   }, []);
 
   useEffect(() => { loadList(market); }, [market, loadList]);
+
+  // 헤더 카드용 BTC 7일 스파크라인 (마켓당 요청 1회)
+  useEffect(() => {
+    let cancelled = false;
+    fetchDailyCandles('BTCUSDT', 7, market)
+      .then(c => { if (!cancelled) setBtcSpark(c.map(x => x.close)); })
+      .catch(() => { if (!cancelled) setBtcSpark([]); });
+    return () => { cancelled = true; };
+  }, [market]);
+
+  // 상단 지표 카드 — 이미 받아온 티커 1건에서 전부 계산(추가 요청 없음)
+  const stats = useMemo(() => {
+    if (!tickers.length) return null;
+    const btc = tickers.find(t => t.base === 'BTC') ?? null;
+    const totalVol = tickers.reduce((s, t) => s + t.quoteVolume, 0);
+    let up = 0, down = 0;
+    for (const t of tickers) {
+      if (t.priceChangePercent > 0) up++;
+      else if (t.priceChangePercent < 0) down++;
+    }
+    // 거래량이 극히 적은 코인의 이상치 급등은 제외
+    const liquid = tickers.filter(t => t.quoteVolume >= 1e6);
+    const gainer = liquid.length
+      ? liquid.reduce((a, b) => (b.priceChangePercent > a.priceChangePercent ? b : a))
+      : null;
+    const upShare = up + down > 0 ? (up / (up + down)) * 100 : 50;
+    return { btc, totalVol, up, down, gainer, upShare };
+  }, [tickers]);
 
   // Search filter (by base symbol), then sort. Volume sort is free (ticker order);
   // Search filter → sort → (optional) TP/SL-hit filter.
@@ -326,6 +412,56 @@ export default function SignalsPage() {
           <p className="text-slate-600 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
         </div>
 
+        {/* Market stat cards */}
+        {listState === 'ready' && stats && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">BTC price</p>
+              {stats.btc ? (
+                <>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xl font-black text-white tabular-nums">{formatPrice(stats.btc.lastPrice)}</span>
+                    {btcSpark.length > 1 && <Sparkline points={[...btcSpark, stats.btc.lastPrice]} w={60} h={22} />}
+                  </div>
+                  <p className="text-xs mt-1"><Pct value={stats.btc.priceChangePercent} /> <span className="text-slate-600">24h</span></p>
+                </>
+              ) : <span className="text-slate-600 text-sm">-</span>}
+            </div>
+
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">24h volume</p>
+              <span className="text-xl font-black text-white tabular-nums">{formatVolume(stats.totalVol)}</span>
+              <p className="text-xs text-slate-600 mt-1">{tickers.length} USDT pairs</p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Advancing / declining</p>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-xl font-black text-emerald-400 tabular-nums">{stats.up}</span>
+                <span className="text-slate-700">/</span>
+                <span className="text-xl font-black text-rose-400 tabular-nums">{stats.down}</span>
+              </div>
+              <div className="mt-2 flex h-1.5 gap-[2px]" role="img" aria-label={`${stats.up} advancing, ${stats.down} declining`}>
+                <div className="bg-emerald-500 rounded-full" style={{ width: `${stats.upShare}%` }} />
+                <div className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Top gainer 24h</p>
+              {stats.gainer ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <CoinLogo base={stats.gainer.base} size={22} />
+                    <span className="text-lg font-black text-white truncate">{stats.gainer.base}</span>
+                  </div>
+                  <p className="text-xs mt-1"><Pct value={stats.gainer.priceChangePercent} /></p>
+                </>
+              ) : <span className="text-slate-600 text-sm">-</span>}
+            </div>
+          </div>
+        )}
+
         {/* Controls */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div className="inline-flex rounded-xl border border-slate-800 bg-slate-900 p-1">
@@ -399,7 +535,7 @@ export default function SignalsPage() {
                 <table className="w-full text-sm whitespace-nowrap">
                   <thead>
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
-                      <th className="text-left font-semibold px-4 py-3">Coin</th>
+                      <th className="sticky left-0 z-20 bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
                       <th className="text-left font-semibold px-2 py-3">
                         <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
                           Signal <SortHint active={sortKey === 'signal'} dir={sortDir} />
@@ -419,6 +555,7 @@ export default function SignalsPage() {
                           Volume <SortHint active={sortKey === 'volume'} dir="desc" />
                         </button>
                       </th>
+                      <th className="text-right font-semibold px-4 py-3">Last 7d</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -430,19 +567,25 @@ export default function SignalsPage() {
                       const slPct = info ? pnlOf(info.side, info.entry, info.sl) : null;
                       const hit = info ? hitState(info, t.lastPrice) : null;
                       const chg = t.priceChangePercent;
+                      const sparkPts = info && info.spark.length > 1 ? [...info.spark, t.lastPrice] : null;
+                      const spark7 = sparkPts ? ((t.lastPrice - sparkPts[0]) / sparkPts[0]) * 100 : null;
                       return (
-                        <tr key={t.symbol} className="border-b border-slate-800/60 hover:bg-slate-800/40 transition-colors">
-                          <td className="px-4 py-3">
-                            <div className="flex items-center gap-2">
-                              <span className="text-slate-600 text-xs tabular-nums">{(page - 1) * PER_PAGE + i + 1}</span>
-                              <span className="font-bold text-white">{t.base}</span>
-                              {info && market === 'futures' && (
-                                <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${info.side === 'long' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
-                                  {info.side === 'long' ? 'LONG' : 'SHORT'}
-                                </span>
-                              )}
+                        <tr key={t.symbol} className="group border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                          {/* 가로 스크롤 시 코인명이 고정되도록 sticky. 배경이 불투명해야 아래 셀이 비치지 않는다 */}
+                          <td className="sticky left-0 z-10 bg-slate-900 p-0 border-b border-slate-800/50">
+                            <div className="px-4 py-3 group-hover:bg-slate-800/40 transition-colors">
+                              <div className="flex items-center gap-2">
+                                <span className="text-slate-600 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
+                                <CoinLogo base={t.base} />
+                                <span className="font-bold text-white">{t.base}</span>
+                                {info && market === 'futures' && (
+                                  <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${info.side === 'long' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
+                                    {info.side === 'long' ? 'LONG' : 'SHORT'}
+                                  </span>
+                                )}
+                              </div>
+                              <span className="block pl-7 text-[11px] text-slate-500">{info ? `ATR ${info.atrPct.toFixed(1)}%` : pending ? 'calculating…' : 'no data'}</span>
                             </div>
-                            <span className="text-[11px] text-slate-500">{info ? `ATR ${info.atrPct.toFixed(1)}%` : pending ? 'calculating…' : 'no data'}</span>
                           </td>
                           <td className="px-2 py-3">
                             {info ? (
@@ -468,7 +611,7 @@ export default function SignalsPage() {
                             <div className="flex flex-col items-end leading-tight">
                               <span className="text-white">{formatPrice(t.lastPrice)}</span>
                               {isFinite(chg) && (
-                                <span className={`text-[10px] ${chg >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>{chg >= 0 ? '+' : ''}{chg.toFixed(1)}% 24h</span>
+                                <span className="text-[10px] opacity-70"><Pct value={chg} /></span>
                               )}
                             </div>
                           </td>
@@ -477,7 +620,7 @@ export default function SignalsPage() {
                               <span className="text-slate-600">{pending ? '…' : '-'}</span>
                             ) : (
                               <div className="flex flex-col items-end gap-1">
-                                <span className={`font-black px-2 py-0.5 rounded-md text-xs ${pnl >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>{pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}%</span>
+                                <Pct value={pnl} bold />
                                 {hit && (
                                   <span className={`text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>{hit === 'tp' ? '🎯 TP' : '🛑 SL'}</span>
                                 )}
@@ -501,12 +644,21 @@ export default function SignalsPage() {
                             ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
                           </td>
                           <td className="px-2 py-3 text-right text-slate-400 tabular-nums border-l border-slate-800/40">{formatVolume(t.quoteVolume)}</td>
+                          <td className="px-4 py-3 text-right">
+                            {sparkPts ? (
+                              <span title={`7d ${spark7! >= 0 ? '+' : ''}${spark7!.toFixed(1)}%`}>
+                                <Sparkline points={sparkPts} />
+                              </span>
+                            ) : (
+                              <span className="text-slate-700">{pending ? '…' : '-'}</span>
+                            )}
+                          </td>
                         </tr>
                       );
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={8} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={9} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
