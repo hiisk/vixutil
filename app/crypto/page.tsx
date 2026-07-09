@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const TOOLS = [
-  { href: '/crypto/signals', icon: '📈', title: 'ATR Signal Board', desc: 'Entry / TP / SL and live P&L for all spot & futures coins (50 per page)', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy (Trend/BB/RSI/ATR) entry, TP, SL & live P&L for all coins', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
   { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL Calculator', desc: 'Pick a coin, set entry and multipliers, get take-profit & stop-loss', badge: 'Calc', color: 'from-yellow-400 to-amber-600' },
 ];
 

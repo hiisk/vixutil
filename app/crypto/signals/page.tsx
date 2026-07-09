@@ -1,7 +1,8 @@
 'use client';
 import { useState, useEffect, useCallback, useMemo, useRef, useReducer } from 'react';
 import Link from 'next/link';
-import { computeATR, computeTpSl, smaClose, formatPrice, type Direction } from '@/lib/atr';
+import { formatPrice, type Direction } from '@/lib/atr';
+import { computeStrategy, STRATEGY_META, type StrategyKey, type Bias, type StrategySignal } from '@/lib/strategies';
 import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type Ticker24h } from '@/lib/binance';
 
 const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
@@ -33,17 +34,17 @@ const PER_PAGE = 50;
 const TP_MULT = 1.5;
 const SL_MULT = 1.0;
 
-interface AtrInfo {
-  atr: number;
-  atrPct: number;
-  entry: number;
-  side: Direction;
-  tp: number;
-  sl: number;
-}
+type StratInfo = StrategySignal;
+
+const BIAS_STYLE: Record<Bias, { label: string; cls: string }> = {
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400' },
+  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400' },
+  neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-400' },
+};
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'atr' | 'pnl';
+const STRATEGIES: StrategyKey[] = ['trend', 'bollinger', 'rsi', 'atr'];
 
 function pnlOf(side: Direction, entry: number, price: number): number {
   const raw = ((price - entry) / entry) * 100;
@@ -64,13 +65,15 @@ export default function SignalsPage() {
   const [page, setPage] = useState(1);
   const [sortKey, setSortKey] = useState<SortKey>('volume');
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc');
+  const [strategy, setStrategy] = useState<StrategyKey>('trend');
   const [query, setQuery] = useState('');
   const [pageComputing, setPageComputing] = useState(false);
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
 
-  // ATR cache: symbol -> info. undefined = not computed, null = insufficient data. Reset per market.
-  const cacheRef = useRef<Map<string, AtrInfo | null>>(new Map());
+  // Signal cache: symbol -> info. undefined = not computed, null = insufficient data.
+  // Reset when market or strategy changes (both alter the computed signal).
+  const cacheRef = useRef<Map<string, StratInfo | null>>(new Map());
   const [, bump] = useReducer((x: number) => x + 1, 0);
 
   const loadList = useCallback(async (mkt: Market) => {
@@ -89,42 +92,36 @@ export default function SignalsPage() {
     }
   }, []);
 
-  async function computeInfo(symbol: string, mkt: Market): Promise<AtrInfo | null> {
+  async function computeInfo(symbol: string, mkt: Market, strat: StrategyKey): Promise<StratInfo | null> {
     try {
-      const candles = await fetchDailyCandles(symbol, 30, mkt);
-      const atr = computeATR(candles, 14);
-      if (!atr) return null;
-      const entry = candles[candles.length - 1].close;
-      // 현물은 매수(long)만 가능 → 방향 고정. 선물만 20일 추세로 롱/숏 판정.
-      const trend = smaClose(candles, 20);
-      const side: Direction = mkt === 'spot' ? 'long' : trend == null || entry >= trend ? 'long' : 'short';
-      const { tp, sl } = computeTpSl(entry, atr, side, TP_MULT, SL_MULT);
-      return { atr, atrPct: (atr / entry) * 100, entry, side, tp, sl };
+      // SMA50 등 지표를 위해 마감 일봉 60개까지 사용
+      const candles = await fetchDailyCandles(symbol, 60, mkt);
+      return computeStrategy(candles, strat, mkt);
     } catch {
       return null;
     }
   }
 
-  // Lazy: compute ATR for the visible page only (used for Volume sort)
-  const computePage = useCallback(async (list: Ticker24h[], mkt: Market) => {
+  // Lazy: compute signals for the visible page only (used for Volume sort)
+  const computePage = useCallback(async (list: Ticker24h[], mkt: Market, strat: StrategyKey) => {
     const todo = list.filter(t => !cacheRef.current.has(t.symbol));
     if (!todo.length) return;
     setPageComputing(true);
     await mapWithConcurrency(todo, 8, async t => {
-      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt));
+      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt, strat));
     });
     setPageComputing(false);
     bump();
   }, []);
 
-  // Full: compute ATR for every coin (required to sort by P&L across all coins)
-  const computeAll = useCallback(async (list: Ticker24h[], mkt: Market) => {
+  // Full: compute signals for every coin (required to sort by ATR%/P&L across all coins)
+  const computeAll = useCallback(async (list: Ticker24h[], mkt: Market, strat: StrategyKey) => {
     const todo = list.filter(t => !cacheRef.current.has(t.symbol));
     if (!todo.length) return;
     let done = list.length - todo.length;
     setFullCompute({ active: true, done, total: list.length });
     await mapWithConcurrency(todo, 8, async t => {
-      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt));
+      cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt, strat));
       done++;
       if (done % 8 === 0 || done === list.length) setFullCompute({ active: true, done, total: list.length });
     });
@@ -158,12 +155,12 @@ export default function SignalsPage() {
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
 
-  // Trigger the right computation for the current sort.
+  // Trigger the right computation for the current sort/strategy.
   useEffect(() => {
     if (listState !== 'ready') return;
-    if (sortKey === 'atr' || sortKey === 'pnl') computeAll(tickers, market);
-    else if (pageTickers.length) computePage(pageTickers, market);
-  }, [listState, sortKey, pageTickers, tickers, market, computeAll, computePage]);
+    if (sortKey === 'atr' || sortKey === 'pnl') computeAll(tickers, market, strategy);
+    else if (pageTickers.length) computePage(pageTickers, market, strategy);
+  }, [listState, sortKey, pageTickers, tickers, market, strategy, computeAll, computePage]);
 
   // 검색어가 바뀌면 첫 페이지로
   useEffect(() => { setPage(1); }, [query]);
@@ -173,6 +170,15 @@ export default function SignalsPage() {
     setSortKey(key);
     setPage(1);
     if (key !== 'volume') setSortDir('desc');
+  }
+
+  // 전략 변경: 신호가 달라지므로 캐시 초기화 후 재계산(effect가 처리)
+  function selectStrategy(s: StrategyKey) {
+    if (s === strategy) return;
+    cacheRef.current = new Map();
+    setStrategy(s);
+    setPage(1);
+    bump();
   }
 
   const updatedLabel = useMemo(
@@ -194,7 +200,7 @@ export default function SignalsPage() {
             Crypto Tools
           </Link>
           <span className="text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-300">ATR Signal Board</span>
+          <span className="text-sm font-semibold text-slate-300">Signal Board</span>
         </div>
       </header>
 
@@ -229,8 +235,8 @@ export default function SignalsPage() {
 
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">📈</div>
-          <h1 className="text-2xl font-black text-white mb-1.5">ATR Signal Board</h1>
-          <p className="text-slate-400 text-sm">Daily 00:00 UTC ATR entry / take-profit / stop-loss · live P&amp;L</p>
+          <h1 className="text-2xl font-black text-white mb-1.5">Crypto Signal Board</h1>
+          <p className="text-slate-400 text-sm">Multi-strategy signals (Trend · Bollinger · RSI · ATR) with daily entry / TP / SL · live P&amp;L</p>
         </div>
 
         {/* Controls */}
@@ -261,6 +267,20 @@ export default function SignalsPage() {
             </div>
             <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
+        </div>
+
+        {/* Strategy selector */}
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-xs text-slate-500 shrink-0">Strategy</span>
+          <div className="inline-flex flex-wrap rounded-xl border border-slate-800 bg-slate-900 p-1 gap-1">
+            {STRATEGIES.map(s => (
+              <button key={s} onClick={() => selectStrategy(s)} title={STRATEGY_META[s].blurb}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${strategy === s ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+                {STRATEGY_META[s].label}
+              </button>
+            ))}
+          </div>
+          <span className="text-[11px] text-slate-600 hidden sm:block">{STRATEGY_META[strategy].blurb}</span>
         </div>
 
         {/* Search */}
@@ -302,7 +322,7 @@ export default function SignalsPage() {
         {listState === 'ready' && fullCompute.active && (
           <div className="rounded-2xl border border-slate-800 bg-slate-900 py-16 flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-4 border-slate-700 border-t-amber-500 rounded-full animate-spin" />
-            <span className="text-sm font-bold text-slate-300">Calculating ATR for all coins to sort by P&amp;L…</span>
+            <span className="text-sm font-bold text-slate-300">Calculating signals for all coins…</span>
             <span className="text-xs text-slate-500 tabular-nums">{fullCompute.done} / {fullCompute.total}</span>
             <div className="w-48 h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full bg-amber-500 rounded-full transition-all" style={{ width: `${fullCompute.total ? (fullCompute.done / fullCompute.total) * 100 : 0}%` }} />
@@ -318,6 +338,7 @@ export default function SignalsPage() {
                   <thead>
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                       <th className="text-left font-semibold px-4 py-3">Coin</th>
+                      <th className="text-left font-semibold px-2 py-3">Signal</th>
                       <th className={th}>Entry</th>
                       <th className={th}>Current</th>
                       <th className={th}>TP</th>
@@ -345,6 +366,18 @@ export default function SignalsPage() {
                             </div>
                             <span className="text-[11px] text-slate-500">{info ? `ATR ${info.atrPct.toFixed(1)}%` : pending ? 'calculating…' : 'no data'}</span>
                           </td>
+                          <td className="px-2 py-3">
+                            {info ? (
+                              <div className="flex flex-col gap-0.5">
+                                <span className={`inline-flex w-fit items-center text-[10px] font-black px-2 py-0.5 rounded ${BIAS_STYLE[info.bias].cls}`}>
+                                  {info.bias === 'bullish' ? '🟢' : info.bias === 'bearish' ? '🔴' : '⚪'} {BIAS_STYLE[info.bias].label}
+                                </span>
+                                <span className="text-[10px] text-slate-500">{info.note}</span>
+                              </div>
+                            ) : (
+                              <span className="text-slate-600 text-xs">{pending ? '…' : '-'}</span>
+                            )}
+                          </td>
                           <td className="px-2 py-3 text-right text-slate-300 tabular-nums">{info ? formatPrice(info.entry) : pending ? '…' : '-'}</td>
                           <td className="px-2 py-3 text-right text-white tabular-nums">{formatPrice(t.lastPrice)}</td>
                           <td className="px-2 py-3 text-right text-emerald-400 tabular-nums">{info ? formatPrice(info.tp) : pending ? '…' : '-'}</td>
@@ -362,7 +395,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={7} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={8} className="px-4 py-12 text-center text-sm text-slate-500">
                           No coins match &ldquo;{query}&rdquo;
                         </td>
                       </tr>
@@ -371,7 +404,7 @@ export default function SignalsPage() {
                 </table>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
+                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {STRATEGY_META[strategy].label} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
             </div>
@@ -389,7 +422,7 @@ export default function SignalsPage() {
 
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
-          <p>Entry / TP / SL are fixed daily at 00:00 UTC based on the last closed daily candle; P&amp;L is computed live from the current price. Spot is buy-only (long); LONG/SHORT direction applies to futures only.</p>
+          <p>Signals come from the selected strategy (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend). Entry / TP / SL are based on the last closed daily candle and ATR (TP {TP_MULT}× / SL {SL_MULT}×); P&amp;L is live from the current price. Spot is buy-only (long); LONG/SHORT direction applies to futures only.</p>
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">🔄 Refresh to recalculate with the latest prices · Binance public market data</p>

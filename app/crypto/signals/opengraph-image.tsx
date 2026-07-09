@@ -10,8 +10,8 @@ export default function Image() {
     ogCard({
       icon: '📈',
       eyebrow: 'Crypto · Signals',
-      title: 'ATR Signal Board',
-      desc: 'Entry / TP / SL for all coins, real-time',
+      title: 'Crypto Signal Board',
+      desc: 'Multi-strategy entry / TP / SL for all coins',
       from: '#f59e0b',
       to: '#ea580c',
     }),
