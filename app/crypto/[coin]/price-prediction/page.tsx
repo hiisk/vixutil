@@ -11,7 +11,7 @@ function faqs(name: string, base: string) {
   return [
     {
       q: `How is the ${name} price prediction calculated?`,
-      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns, from which a drift and a volatility are estimated. Short horizons (5 days to 1 month) are tilted by a technical consensus of Trend, Bollinger, RSI and ATR; that tilt decays after 30 days. Long horizons keep only the historical drift, and discard it unless it is statistically significant. Each horizon reports the median with a 50% confidence range (25th to 75th percentile).`,
+      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns, giving a drift and a volatility, and the price is projected as a geometric Brownian motion. We do not tilt the forecast in any direction: backtesting a technical consensus across 46 coins gave 49.8% directional accuracy over 5 days, so there is no basis for it. The historical drift is discarded unless its t-statistic clears 3. Each horizon therefore reports a 50% range (25th to 75th percentile) and the probability of a 10% move, rather than a point forecast.`,
     },
     {
       q: `Will ${name} go up?`,
@@ -19,7 +19,7 @@ function faqs(name: string, base: string) {
     },
     {
       q: `What will ${name} be worth in 1 year?`,
-      a: `Rather than a single number, the model gives a distribution. The 1-year row shows the median together with the range that contains half of all outcomes under ${base}'s measured volatility. Anyone quoting one precise long-term price for ${name} is not measuring anything you cannot measure yourself.`,
+      a: `Rather than a single number, the model gives a distribution. The 1-year row shows the range that contains half of all outcomes under ${base}'s measured volatility, together with the probability of gaining or losing 10%. Anyone quoting one precise long-term price for ${name} is not measuring anything you cannot measure yourself.`,
     },
     {
       q: `Is this ${name} forecast investment advice?`,
@@ -91,22 +91,23 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         <section className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-400 leading-relaxed">
           <h2 className="text-base font-black text-white mb-3">About the {coin.name} ({coin.base}) price prediction</h2>
           <p className="mb-3">
-            This page projects the {coin.name} price over seven horizons — 5 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years —
-            plus a day-by-day forecast for the next 30 days. Every number is computed in your browser from {coin.base}&apos;s public Binance daily
-            closing prices; nothing is stored and no account is needed.
+            This page projects the {coin.name} price over seven horizons — 5 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years — plus a
+            day-by-day forecast for the next 30 days. For each it reports the range containing half of all outcomes and the probability of a 10% move.
+            Every number is computed in your browser from {coin.base}&apos;s public Binance daily closing prices; nothing is stored and no account is needed.
           </p>
           <p className="mb-3">
-            The model is deliberately split in two. Over <b className="text-slate-300">short horizons</b> (5 days to 1 month) the median is tilted by a
-            technical consensus of four indicators — trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure. That tilt grows with the square
-            root of time, is capped, and decays to nothing beyond 30 days, because technical indicators have no established predictive edge months out.
-            Over <b className="text-slate-300">long horizons</b> (3 months to 3 years) only the historical drift remains, and it is discarded entirely
-            unless its t-statistic clears |t| ≥ 3 — a stricter bar than the conventional 2, because a drift compounded over 1,095 days turns random noise
-            into a confident-looking forecast.
+            The model does not guess a direction, and that is a deliberate, measured choice. We backtested a technical consensus of four indicators —
+            trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure — across 46 coins using non-overlapping forward windows and a coin-level
+            t-test. Its directional accuracy over 5 days was <b className="text-slate-300">49.8%</b>, indistinguishable from a coin flip, and over 30 days
+            its correlation with future returns was slightly negative. The historical drift fares no better: it is discarded entirely unless its
+            t-statistic clears |t| ≥ 3, a stricter bar than the conventional 2, because a drift compounded over 1,095 days turns random noise into a
+            confident-looking forecast.
           </p>
           <p>
-            The consequence is worth stating plainly: for {coin.name}, as for almost every cryptocurrency, the long-run median tends to sit near
-            today&apos;s price. That is not a defect of the model but the honest answer. The useful information at long horizons is the
-            <b className="text-slate-300"> width of the range</b>, which is driven by {coin.base}&apos;s measured volatility and grows with the square root of time.
+            The consequence is worth stating plainly: the median sits at today&apos;s price. That is not a defect of the model but the honest answer, and it is
+            why this page leads with what genuinely differs between coins — the <b className="text-slate-300">width of the range</b> and the
+            <b className="text-slate-300"> probability of a given move</b>, both driven by {coin.base}&apos;s measured volatility. A high-volatility coin has a
+            far greater chance of a 10% swing in a month than {coin.base === 'BTC' ? 'a large-cap' : 'Bitcoin'} does, and that difference is real and measurable.
           </p>
         </section>
 

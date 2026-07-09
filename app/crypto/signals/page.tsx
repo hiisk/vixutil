@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
 import { computeConsensus, STRATEGY_META, type Bias, type ConsensusSignal } from '@/lib/strategies';
 import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type Ticker24h } from '@/lib/binance';
-import { buildForecast, HORIZONS, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, HORIZONS, MIN_SAMPLES, type ForecastModel } from '@/lib/forecast';
 import { coinByBase } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 
@@ -44,8 +44,8 @@ const SL_MULT = 1.0;
 interface RowInfo {
   c: ConsensusSignal | null;
   f: ForecastModel | null;
-  /** 스파크라인용 최근 종가 */
-  spark: number[];
+  /** 받아온 마감 일봉 수 — 신규 상장이라 예측이 안 되는 경우를 설명하기 위해 */
+  days: number;
 }
 
 const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
@@ -134,17 +134,17 @@ export default function SignalsPage() {
     }
   }, []);
 
-  /** klines 1회로 consensus(방향·TP/SL)와 forecast(기간별 projection)를 함께 만든다 */
+  /** klines 1회로 consensus(방향·TP/SL)와 forecast(기간별 확률분포)를 함께 만든다 */
   async function computeInfo(symbol: string, mkt: Market, spot: number): Promise<RowInfo> {
     try {
       const candles = await fetchDailyCandles(symbol, FORECAST_DAYS, mkt);
       const closes = candles.map(k => k.close);
       const c = computeConsensus(candles, mkt);
-      // 단기 projection은 기술적 합의 점수로 방향을 기울인다
-      const f = buildForecast(closes, spot, c?.score ?? 0);
-      return { c, f, spark: closes.slice(-7) };
+      // 방향 틸트는 넣지 않는다 — 백테스트에서 합의 점수의 예측력이 0이었다(lib/forecast.ts 주석)
+      const f = buildForecast(closes, spot);
+      return { c, f, days: closes.length };
     } catch {
-      return { c: null, f: null, spark: [] };
+      return { c: null, f: null, days: 0 };
     }
   }
 
@@ -437,12 +437,12 @@ export default function SignalsPage() {
         </div>
 
         <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
-          <p className="font-bold text-amber-300/90 mb-1">How to read the 5D–3Y columns</p>
+          <p className="font-bold text-amber-300/90 mb-1">The 5D–3Y columns show a range, not a point forecast — on purpose.</p>
           <p>
-            Each shows the <b className="text-slate-300">median projection</b> with its <b className="text-slate-300">50% range</b> below.
-            Short horizons (5D–1M) are tilted by the technical consensus; at longer horizons that signal decays and the historical trend is
-            discarded unless it is statistically significant, so the median settles near today&apos;s price and the
-            <b className="text-slate-300"> range width</b> becomes the real content. Click a coin for its full breakdown.
+            We backtested whether the technical consensus predicts direction (46 coins, non-overlapping windows): its 5-day directional accuracy was
+            <b className="text-slate-300"> 49.8%</b> — a coin flip — and at 30 days the correlation was slightly <i>negative</i>. So there is no honest basis
+            for a moving point forecast, and we do not manufacture one. What is real and does differ between coins is the
+            <b className="text-slate-300"> width of the range</b> (half of outcomes land inside it) and the probability of a given move. Click a coin for those.
           </p>
         </div>
 
@@ -521,9 +521,11 @@ export default function SignalsPage() {
                         </button>
                       </th>
                       {HORIZONS.map((h, hi) => (
-                        <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>{h.short}</th>
+                        <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
+                          {h.short}
+                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">50% range</span>
+                        </th>
                       ))}
-                      <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">Last 7d</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -543,9 +545,6 @@ export default function SignalsPage() {
                       const meta = coinByBase(t.base);
                       // 자동 새로고침으로 현재가가 바뀌어도 구간이 따라가도록 계산 시점 spot 대비 비율로 재조정
                       const fcScale = f ? t.lastPrice / f.spot : 1;
-
-                      const sparkPts = info && info.spark.length > 1 ? [...info.spark, t.lastPrice] : null;
-                      const spark7 = sparkPts ? ((t.lastPrice - sparkPts[0]) / sparkPts[0]) * 100 : null;
 
                       const coinInner = (
                         <>
@@ -646,33 +645,27 @@ export default function SignalsPage() {
                               <td key={h.key} className={`px-2 py-3 text-right ${hi === 0 ? 'border-l border-slate-800/40' : ''}`}>
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
-                                    <span className="text-white tabular-nums">{formatPrice(p.median * fcScale)}</span>
-                                    <span className="text-[10px] text-slate-500 tabular-nums">
+                                    <span className="text-white tabular-nums text-[13px]">
                                       {formatPrice(p.low * fcScale)} – {formatPrice(p.high * fcScale)}
                                     </span>
+                                    <span className="text-[10px] text-slate-500 tabular-nums">±{p.swingPct.toFixed(1)}%</span>
                                   </div>
+                                ) : pending ? (
+                                  <span className="text-slate-600 text-xs">…</span>
+                                ) : info && info.days > 0 ? (
+                                  <span className="text-slate-600 text-[10px]" title={`Needs ${MIN_SAMPLES + 1} daily closes, has ${info.days}`}>new · {info.days}d</span>
                                 ) : (
-                                  <span className="text-slate-600 text-xs">{pending ? '…' : '-'}</span>
+                                  <span className="text-slate-600 text-xs">-</span>
                                 )}
                               </td>
                             );
                           })}
-
-                          <td className="px-4 py-3 text-right border-l border-slate-800/40">
-                            {sparkPts ? (
-                              <span title={`7d ${spark7! >= 0 ? '+' : ''}${spark7!.toFixed(1)}%`}>
-                                <Sparkline points={sparkPts} />
-                              </span>
-                            ) : (
-                              <span className="text-slate-700">{pending ? '…' : '-'}</span>
-                            )}
-                          </td>
                         </tr>
                       );
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={9 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={8 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -686,7 +679,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-                5D–3Y projections show the median with its 50% range, from {FORECAST_DAYS} days of daily closes{pageComputing ? ' · calculating…' : ''}
+                5D–3Y show the range containing half of outcomes, from up to {FORECAST_DAYS} daily closes · coins listed under {MIN_SAMPLES + 1} days show “new”{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 

@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, T_CRIT, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, T_CRIT, MIN_SAMPLES, RELIABLE_SAMPLES, type ForecastModel } from '@/lib/forecast';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -86,7 +86,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       const closes = ohlcv.map(k => k.close);
       const candles = ohlcv.map(k => ({ high: k.high, low: k.low, close: k.close }));
       const consensus = computeConsensus(candles, market);
-      const model = buildForecast(closes, t.lastPrice, consensus?.score ?? 0);
+      // 방향 틸트 없음 — 백테스트에서 합의 점수의 예측력이 0이었다(lib/forecast.ts 주석)
+      const model = buildForecast(closes, t.lastPrice);
       if (!model) { setState('nodata'); return; }
 
       setSnap({
@@ -127,7 +128,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           {state === 'nodata' ? `Not enough price history for ${coin.name}` : 'Couldn’t load market data'}
         </span>
         <span className="text-xs text-slate-500">
-          {state === 'nodata' ? 'A projection needs at least 60 days of daily closes.' : 'Binance may be restricted in your region'}
+          {state === 'nodata' ? `A projection needs at least ${MIN_SAMPLES + 1} daily closes — ${coin.base} may be a brand-new listing.` : 'Binance may be restricted in your region'}
         </span>
         <button onClick={load} className="mt-2 text-sm font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl px-4 py-2">Retry</button>
       </div>
@@ -141,6 +142,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const greenPct = s.green.total ? Math.round((s.green.green / s.green.total) * 100) : 0;
   const recent = [...s.ohlcv].slice(-HISTORY_ROWS).reverse();
   const driftDiscarded = m.shrink === 0;
+  const p1m = m.projections.find(p => p.key === '1m')!;
+  const p1y = m.projections.find(p => p.key === '1y')!;
+  // TP를 SL보다 먼저 칠 확률과 그때의 기대값 (R 배수). 승률만으론 전략의 좋고 나쁨을 못 본다.
+  const pTp = s.consensus ? probTpBeforeSl(s.price, s.consensus.tp, s.consensus.sl) : NaN;
+  const rr = s.consensus ? Math.abs(s.consensus.tp - s.consensus.entry) / Math.abs(s.consensus.entry - s.consensus.sl) : NaN;
+  const evR = isFinite(pTp) && isFinite(rr) ? (pTp / 100) * rr - (1 - pTp / 100) : NaN;
 
   return (
     <>
@@ -165,6 +172,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         </div>
       </div>
+
+      {m.limitedHistory && (
+        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.08] p-4 mb-5 text-xs text-amber-200/80">
+          <b>Limited history.</b> {coin.base} has only {m.samples + 1} daily closes, below the {RELIABLE_SAMPLES} we consider reliable.
+          Volatility — and therefore every range and probability on this page — is estimated from a short sample and will move a lot as more data arrives.
+        </div>
+      )}
 
       {/* Section nav */}
       <nav className="sticky top-14 z-20 -mx-4 px-4 py-2 bg-slate-950/90 backdrop-blur border-b border-slate-800 mb-6">
@@ -239,7 +253,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 ))}
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 mt-2">This consensus tilts the short-horizon (5D–1M) projections below. It decays to nothing beyond 30 days.</p>
+            <p className="text-[11px] text-slate-500 mt-2">
+              This drives the entry / TP / SL levels on the signal board. It deliberately does <b className="text-slate-400">not</b> feed the projections below —
+              backtested, its directional accuracy over 5 days was 49.8%.
+            </p>
           </div>
         )}
       </Section>
@@ -256,7 +273,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <p>
               {coin.base}&apos;s historical drift has a t-statistic of <b className="text-slate-300">{m.tStat.toFixed(2)}</b>, which does not clear the
               |t| ≥ {T_CRIT} bar. It is indistinguishable from random noise, so we <b className="text-slate-300">discard it entirely</b> and anchor the long-run
-              median at today&apos;s price. Short horizons are still tilted by the technical consensus. Read the range, not the number.
+              median at today&apos;s price. Read the range and the probabilities, not the median.
             </p>
           ) : (
             <p>
@@ -266,6 +283,44 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             </p>
           )}
         </div>
+
+        {/* 확률 — 중앙값과 달리 코인·지평마다 실제로 달라지는 값 */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Gain ≥10% in 30d</p>
+            <p className="text-xl font-black text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
+            <p className="text-[10px] text-slate-600 mt-0.5">probability</p>
+          </div>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Drop ≥10% in 30d</p>
+            <p className="text-xl font-black text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
+            <p className="text-[10px] text-slate-600 mt-0.5">probability</p>
+          </div>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Gain ≥10% in 1y</p>
+            <p className="text-xl font-black text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
+            <p className="text-[10px] text-slate-600 mt-0.5">probability</p>
+          </div>
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Hit TP before SL</p>
+            {isFinite(pTp) ? (
+              <>
+                <p className="text-xl font-black text-white tabular-nums">{pTp.toFixed(1)}%</p>
+                <p className={`text-[10px] mt-0.5 tabular-nums ${evR >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
+                  {evR >= 0 ? '+' : ''}{evR.toFixed(2)}R expected · {rr.toFixed(2)}:1 reward
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-slate-600">price already outside the levels</p>
+            )}
+          </div>
+        </div>
+
+        <p className="text-[11px] text-slate-600 mb-4 leading-relaxed">
+          Probabilities come from the same fitted distribution. The TP/SL figure is the exact barrier-crossing probability for a driftless log-price random
+          walk (verified against a 200,000-path Monte-Carlo), so an expected value near <b className="text-slate-500">0R</b> is what a fair coin with those
+          levels should give — it is the model telling you the levels carry no edge by themselves.
+        </p>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-800"><h3 className="text-sm font-black text-white">By horizon</h3></div>
@@ -277,7 +332,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
                   <th className="text-right font-semibold px-3 py-3">Median</th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-3 py-3">Median vs now</th>
+                  <th className="text-right font-semibold px-3 py-3">Typical swing</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">P(+10%)</th>
+                  <th className="text-right font-semibold px-3 py-3">P(−10%)</th>
                   <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">80% range</th>
                 </tr>
               </thead>
@@ -288,7 +345,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
                     <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.median)}</td>
                     <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
-                    <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
+                    <td className="px-3 py-3 text-right text-slate-300 tabular-nums">±{p.swingPct.toFixed(1)}%</td>
+                    <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums border-l border-slate-800/40">{p.pUp10.toFixed(1)}%</td>
+                    <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">{p.pDown10.toFixed(1)}%</td>
                     <td className="px-4 py-3 text-right text-[11px] text-slate-500 tabular-nums border-l border-slate-800/40">
                       ${formatPrice(p.low80)} – ${formatPrice(p.high80)}
                     </td>
@@ -311,7 +370,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
                   <th className="text-right font-semibold px-3 py-3">Median</th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-4 py-3">Median vs now</th>
+                  <th className="text-right font-semibold px-4 py-3">Typical swing</th>
                 </tr>
               </thead>
               <tbody>
@@ -321,7 +380,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
                     <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.median)}</td>
                     <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
-                    <td className="px-4 py-2.5 text-right"><Pct value={d.changePct} /></td>
+                    <td className="px-4 py-2.5 text-right text-slate-300 tabular-nums">±{(((d.high / d.median) - 1) * 100).toFixed(1)}%</td>
                   </tr>
                 ))}
               </tbody>
@@ -375,11 +434,15 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           {' '}{coin.base}&apos;s measured annual volatility is <b className="text-slate-400">{m.annualVolPct.toFixed(1)}%</b>.
         </p>
         <p className="mb-2">
-          The two horizons use different logic. <b className="text-slate-400">Short (5D–1M)</b>: the technical consensus score
-          ({m.score >= 0 ? '+' : ''}{m.score.toFixed(2)}) tilts the median, growing with √t and capped at ±22%; that tilt decays exponentially past 30 days
-          because technical indicators have no established edge months out. <b className="text-slate-400">Long (3M–3Y)</b>: only the historical drift remains,
-          and it is discarded unless its t-statistic clears |t| ≥ {T_CRIT} — a stricter bar than the conventional 2, because compounding a drift over 1,095 days
-          turns statistical noise into a confident-looking forecast.
+          We do <b className="text-slate-400">not</b> tilt the median in any direction, because we measured whether we could. Backtesting the technical
+          consensus across 46 coins with non-overlapping forward windows and a coin-level t-test, its 5-day directional accuracy was 49.8% (IC −0.0005,
+          t = −0.35) and its 30-day correlation was slightly negative (t = −2.39). Momentum flipped sign between pooled and per-coin fits. None of it
+          supports a directional forecast, so the model does not pretend otherwise.
+        </p>
+        <p className="mb-2">
+          The long-run drift is likewise discarded unless its t-statistic clears |t| ≥ {T_CRIT} — a stricter bar than the conventional 2, because
+          compounding a drift over 1,095 days turns statistical noise into a confident-looking forecast. With the drift gone, the median equals today&apos;s
+          price. That is the honest output, and it is why this page leads with ranges and probabilities instead.
         </p>
         <p>
           Ranges come from σ√t. We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We tested
