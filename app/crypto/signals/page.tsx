@@ -290,7 +290,6 @@ export default function SignalsPage() {
             <span className="relative flex items-center gap-2 mb-2">
               <BybitWordmark className="h-4 w-auto" />
               <span className="text-[9px] font-bold text-yellow-400/70 uppercase tracking-wide">New user</span>
-              <span className="text-[9px] font-bold text-slate-600 border border-slate-700 rounded px-1 py-px">AD</span>
               <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-yellow-400 rounded-lg px-3 py-1 group-hover:bg-yellow-300 transition-colors">
                 Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
@@ -308,7 +307,7 @@ export default function SignalsPage() {
             <span className="relative flex items-center gap-2 mb-2">
               <BinanceIcon />
               <span className="font-black text-amber-200 text-[15px] tracking-tight">BINANCE</span>
-              <span className="text-[9px] font-bold text-slate-600 border border-slate-700 rounded px-1 py-px">AD</span>
+              <span className="text-[9px] font-bold text-amber-400/70 uppercase tracking-wide">New user</span>
               <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-amber-400 rounded-lg px-3 py-1 group-hover:bg-amber-300 transition-colors">
                 Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
@@ -496,8 +495,11 @@ export default function SignalsPage() {
                 </table>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
+                <span>Votes: <b className="text-slate-400">T</b> Trend · <b className="text-slate-400">B</b> Bollinger · <b className="text-slate-400">R</b> RSI · <b className="text-slate-400">A</b> ATR <span className="text-slate-600">(↑ bullish · ↓ bearish · · neutral)</span></span>
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
+              </div>
+              <div className="px-4 pb-3 text-[11px] text-slate-600">
+                {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
