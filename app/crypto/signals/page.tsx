@@ -223,10 +223,16 @@ export default function SignalsPage() {
     } catch { /* 조용히 무시 */ }
   }, []);
 
+  // 매분 :00초에 맞춰 갱신(들어온 시점 기준이 아니라 벽시계 분 경계). 매번 다음 :00까지 재예약해 드리프트 방지
   useEffect(() => {
     if (listState !== 'ready') return;
-    const id = setInterval(refreshPrices, 60_000);
-    return () => clearInterval(id);
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      refreshPrices();
+      timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
+    };
+    timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
+    return () => clearTimeout(timer);
   }, [listState, refreshPrices]);
 
   function selectSort(key: SortKey) {
@@ -238,8 +244,16 @@ export default function SignalsPage() {
 
   const updatedLabel = useMemo(() => (updatedAt ? utcLabel(updatedAt) : null), [updatedAt]);
 
-  // 다음 00:00 UTC(전략 리셋)까지 남은 시간 — 1분마다 갱신
-  useEffect(() => { const id = setInterval(() => setNow(Date.now()), 60_000); return () => clearInterval(id); }, []);
+  // 다음 00:00 UTC(전략 리셋)까지 남은 시간 — 매분 :00초에 갱신
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      setNow(Date.now());
+      timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
+    };
+    timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
+    return () => clearTimeout(timer);
+  }, []);
   const resetIn = useMemo(() => {
     const d = new Date(now);
     const next = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 0, 0);
