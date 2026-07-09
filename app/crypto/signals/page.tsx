@@ -4,9 +4,25 @@ import Link from 'next/link';
 import { computeATR, computeTpSl, smaClose, formatPrice, type Direction } from '@/lib/atr';
 import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type Ticker24h } from '@/lib/binance';
 
-// TODO: replace with real referral links
-const BINANCE_REF = '#';
-const BYBIT_REF = '#';
+const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
+const BYBIT_REF = 'https://partner.bybit.com/b/127153';
+
+/** 브랜드 아이콘 — 외부 요청/추적 없이 인라인 SVG로 렌더 */
+function BinanceIcon() {
+  return (
+    <svg viewBox="0 0 126 126" className="w-6 h-6" aria-hidden="true">
+      <path fill="#F3BA2F" d="M38.87 53.62 63 29.49l24.14 24.14 14.04-14.04L63 1.41 24.83 39.58zM1.4 63l14.04-14.04L29.48 63 15.44 77.04zM38.87 72.38 63 96.51l24.13-24.13 14.05 14.03L63 124.59 24.83 86.42zM96.52 63l14.04-14.04L124.6 63l-14.04 14.04zM77.25 62.99 63 48.74 52.46 59.28l-1.21 1.21-2.5 2.5L63 77.26z" />
+    </svg>
+  );
+}
+function BybitIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
+      <rect width="24" height="24" rx="6" fill="#F7A600" />
+      <text x="12" y="17" textAnchor="middle" fontSize="15" fontWeight={800} fill="#17181E" fontFamily="Arial, Helvetica, sans-serif">b</text>
+    </svg>
+  );
+}
 
 const PER_PAGE = 50;
 const TP_MULT = 1.5;
@@ -177,15 +193,32 @@ export default function SignalsPage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Referral placeholders */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          <a href={BINANCE_REF} target="_blank" rel="noopener noreferrer"
-            className="flex-1 min-w-[140px] text-center rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-300 font-bold text-sm py-2.5 hover:bg-amber-500/20 transition-colors">
-            🔶 Sign up on Binance (ref)
+        {/* Referral links */}
+        <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          <a href={BINANCE_REF} target="_blank" rel="noopener noreferrer sponsored"
+            className="group flex items-center gap-3 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-amber-600/[0.04] p-3.5 hover:border-amber-400/60 hover:from-amber-500/[0.16] transition-all">
+            <span className="shrink-0 w-10 h-10 rounded-xl bg-slate-950 border border-amber-500/25 flex items-center justify-center"><BinanceIcon /></span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-1.5">
+                <span className="font-black text-amber-200 text-sm">Binance</span>
+                <span className="text-[9px] font-bold text-slate-500 border border-slate-700 rounded px-1 py-px">AD</span>
+              </span>
+              <span className="block text-[11px] text-slate-400 leading-snug mt-0.5">🎁 10% off trading fees + up to $600 new-user bonus</span>
+            </span>
+            <svg className="w-4 h-4 text-amber-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
           </a>
-          <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer"
-            className="flex-1 min-w-[140px] text-center rounded-xl border border-orange-500/40 bg-orange-500/10 text-orange-300 font-bold text-sm py-2.5 hover:bg-orange-500/20 transition-colors">
-            🟠 Sign up on Bybit (ref)
+
+          <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
+            className="group flex items-center gap-3 rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-yellow-600/[0.04] p-3.5 hover:border-yellow-400/60 hover:from-yellow-500/[0.16] transition-all">
+            <span className="shrink-0 w-10 h-10 rounded-xl bg-slate-950 border border-yellow-500/25 flex items-center justify-center"><BybitIcon /></span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-1.5">
+                <span className="font-black text-yellow-200 text-sm">Bybit</span>
+                <span className="text-[9px] font-bold text-slate-500 border border-slate-700 rounded px-1 py-px">AD</span>
+              </span>
+              <span className="block text-[11px] text-slate-400 leading-snug mt-0.5">🔥 Claim $20, up to $30K rewards + fee discount</span>
+            </span>
+            <svg className="w-4 h-4 text-yellow-500/70 shrink-0 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
           </a>
         </div>
 
