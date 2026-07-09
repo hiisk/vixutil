@@ -44,7 +44,12 @@ const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = 
 const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
-type SortKey = 'volume' | 'atr' | 'pnl';
+type SortKey = 'volume' | 'signal' | 'pnl';
+
+/** 정렬용 신호 점수: 강세는 +확신도, 약세는 -확신도, 중립은 0 */
+function signalMetric(info: StratInfo): number {
+  return info.bias === 'bullish' ? info.confidence : info.bias === 'bearish' ? -info.confidence : 0;
+}
 
 function pnlOf(side: Direction, entry: number, price: number): number {
   const raw = ((price - entry) / entry) * 100;
@@ -83,6 +88,7 @@ export default function SignalsPage() {
   const [sortKey, setSortKey] = useState<SortKey>('volume');
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc');
   const [query, setQuery] = useState('');
+  const [hitOnly, setHitOnly] = useState(false);
   const [pageComputing, setPageComputing] = useState(false);
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
@@ -149,38 +155,60 @@ export default function SignalsPage() {
   useEffect(() => { loadList(market); }, [market, loadList]);
 
   // Search filter (by base symbol), then sort. Volume sort is free (ticker order);
-  // ATR%/P&L sorts read the ATR cache (require the full compute).
+  // Search filter → sort → (optional) TP/SL-hit filter.
+  // Signal/P&L sorts and the hit filter read the cache (require the full compute).
+  const needsFullCompute = sortKey === 'signal' || sortKey === 'pnl' || hitOnly;
+
   const sortedTickers = useMemo(() => {
     const q = query.trim().toUpperCase();
-    const base = q ? tickers.filter(t => t.base.includes(q)) : tickers;
-    if (sortKey === 'volume') return base;
-    const scored = base.map(t => {
-      const info = cacheRef.current.get(t.symbol);
-      const metric = info ? (sortKey === 'atr' ? info.atrPct : pnlOf(info.side, info.entry, t.lastPrice)) : null;
-      return { t, metric };
-    });
-    scored.sort((a, b) => {
-      if (a.metric == null && b.metric == null) return 0;
-      if (a.metric == null) return 1;
-      if (b.metric == null) return -1;
-      return sortDir === 'desc' ? b.metric - a.metric : a.metric - b.metric;
-    });
-    return scored.map(x => x.t);
+    let list = q ? tickers.filter(t => t.base.includes(q)) : tickers;
+    if (sortKey !== 'volume') {
+      const scored = list.map(t => {
+        const info = cacheRef.current.get(t.symbol);
+        const metric = info ? (sortKey === 'signal' ? signalMetric(info) : pnlOf(info.side, info.entry, t.lastPrice)) : null;
+        return { t, metric };
+      });
+      scored.sort((a, b) => {
+        if (a.metric == null && b.metric == null) return 0;
+        if (a.metric == null) return 1;
+        if (b.metric == null) return -1;
+        return sortDir === 'desc' ? b.metric - a.metric : a.metric - b.metric;
+      });
+      list = scored.map(x => x.t);
+    }
+    if (hitOnly) list = list.filter(t => { const info = cacheRef.current.get(t.symbol); return info != null && hitState(info, t.lastPrice) != null; });
+    return list;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tickers, sortKey, sortDir, query, fullCompute.active]);
+  }, [tickers, sortKey, sortDir, query, hitOnly, fullCompute.active]);
 
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
 
-  // Trigger the right computation for the current sort.
+  // Trigger the right computation for the current view.
   useEffect(() => {
     if (listState !== 'ready') return;
-    if (sortKey === 'atr' || sortKey === 'pnl') computeAll(tickers, market);
+    if (needsFullCompute) computeAll(tickers, market);
     else if (pageTickers.length) computePage(pageTickers, market);
-  }, [listState, sortKey, pageTickers, tickers, market, computeAll, computePage]);
+  }, [listState, needsFullCompute, pageTickers, tickers, market, computeAll, computePage]);
 
-  // 검색어가 바뀌면 첫 페이지로
-  useEffect(() => { setPage(1); }, [query]);
+  // 검색어·필터 바뀌면 첫 페이지로
+  useEffect(() => { setPage(1); }, [query, hitOnly]);
+
+  // 60초마다 가격만 조용히 갱신(진입가·TP·SL은 일봉 고정이라 그대로, P&L·현재가만 업데이트)
+  const refreshPrices = useCallback(async () => {
+    try {
+      const fresh = await fetchTickers(market);
+      const priceMap = new Map(fresh.map(t => [t.symbol, t.lastPrice]));
+      setTickers(prev => prev.map(t => ({ ...t, lastPrice: priceMap.get(t.symbol) ?? t.lastPrice })));
+      setUpdatedAt(new Date());
+    } catch { /* 조용히 무시 */ }
+  }, [market]);
+
+  useEffect(() => {
+    if (listState !== 'ready') return;
+    const id = setInterval(refreshPrices, 60_000);
+    return () => clearInterval(id);
+  }, [listState, refreshPrices]);
 
   function selectSort(key: SortKey) {
     if (key !== 'volume' && sortKey === key) { setSortDir(d => (d === 'desc' ? 'asc' : 'desc')); return; }
@@ -265,21 +293,10 @@ export default function SignalsPage() {
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">Sort</span>
-            <div className="inline-flex rounded-xl border border-slate-800 bg-slate-900 p-1">
-              <button onClick={() => selectSort('volume')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${sortKey === 'volume' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'}`}>
-                Volume
-              </button>
-              <button onClick={() => selectSort('atr')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${sortKey === 'atr' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'}`}>
-                ATR% {sortKey === 'atr' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
-              </button>
-              <button onClick={() => selectSort('pnl')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${sortKey === 'pnl' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'}`}>
-                P&amp;L {sortKey === 'pnl' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
-              </button>
-            </div>
+            <button onClick={() => setHitOnly(v => !v)}
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
+              🎯 TP/SL hit
+            </button>
             <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
         </div>
@@ -339,13 +356,25 @@ export default function SignalsPage() {
                   <thead>
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                       <th className="text-left font-semibold px-4 py-3">Coin</th>
-                      <th className="text-left font-semibold px-2 py-3">Signal</th>
+                      <th className="text-left font-semibold px-2 py-3">
+                        <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center gap-0.5 hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
+                          Signal {sortKey === 'signal' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
+                        </button>
+                      </th>
                       <th className={th}>Entry</th>
                       <th className={th}>Current</th>
                       <th className={th}>TP</th>
                       <th className={th}>SL</th>
-                      <th className={th}>Volume</th>
-                      <th className="text-right font-semibold px-4 py-3">P&amp;L</th>
+                      <th className={th}>
+                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center gap-0.5 hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
+                          Volume {sortKey === 'volume' ? '▼' : ''}
+                        </button>
+                      </th>
+                      <th className="text-right font-semibold px-4 py-3">
+                        <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center gap-0.5 hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
+                          P&amp;L {sortKey === 'pnl' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
+                        </button>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -414,7 +443,7 @@ export default function SignalsPage() {
                     {pageTickers.length === 0 && (
                       <tr>
                         <td colSpan={8} className="px-4 py-12 text-center text-sm text-slate-500">
-                          No coins match &ldquo;{query}&rdquo;
+                          {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
                     )}
