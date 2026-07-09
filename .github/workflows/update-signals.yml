@@ -1,0 +1,45 @@
+name: Update ATR signals
+
+# UTC 기준 3시간마다 실행 (+ 수동 실행 가능)
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+# data 브랜치에 force-push 하기 위해 쓰기 권한 필요
+permissions:
+  contents: write
+
+concurrency:
+  group: update-signals
+  cancel-in-progress: true
+
+jobs:
+  build-signals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate signals.json
+        run: node scripts/generate-signals.mjs
+
+      # signals.json 만 담은 단일 커밋을 data 브랜치로 force-push.
+      # main 히스토리를 건드리지 않고, data 브랜치는 항상 커밋 1개만 유지된다.
+      - name: Publish to data branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p /tmp/pub
+          cp public/data/signals.json /tmp/pub/signals.json
+          cd /tmp/pub
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add signals.json
+          git commit -q -m "chore(data): update ATR signals $(date -u +%FT%TZ)"
+          git branch -M data
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" data

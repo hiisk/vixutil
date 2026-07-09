@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 };
 
 const TOOLS = [
-  { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL 세팅', desc: '거래량 상위 코인의 일봉 ATR로 익절·손절가 계산', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/signals', icon: '📈', title: 'ATR 타점 보드', desc: '현물·선물 상위 코인의 진입·TP·SL·수익률 3시간마다 자동 갱신', badge: 'NEW', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL 계산기', desc: '코인 선택 후 진입가·배수로 익절·손절가 직접 계산', badge: '계산기', color: 'from-yellow-400 to-amber-600' },
 ];
 
 export default function CryptoPage() {

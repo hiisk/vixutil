@@ -69,6 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/snap/golden-ratio`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/couple-match`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/signals`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
