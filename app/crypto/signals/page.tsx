@@ -5,8 +5,6 @@ import { formatPrice } from '@/lib/atr';
 
 /** GitHub Actions가 3시간마다 갱신하는 data 브랜치의 신호 JSON */
 const SIGNALS_URL = 'https://raw.githubusercontent.com/hiisk/vixutil/data/signals.json';
-const SPOT_PRICE_URL = 'https://data-api.binance.vision/api/v3/ticker/price';
-const FUT_PRICE_URL = 'https://fapi.binance.com/fapi/v1/ticker/price';
 
 // TODO: 실제 초대 링크로 교체
 const BINANCE_REF = '#';
@@ -22,8 +20,11 @@ interface Signal {
   atr: number;
   atrPct: number;
   change24h: number;
+  currentPrice: number;
+  pnl: number | null;
 }
 interface SignalsPayload {
+  strategyDate: string;
   generatedAt: string;
   tpMult: number;
   slMult: number;
@@ -34,17 +35,10 @@ interface SignalsPayload {
 type Market = 'spot' | 'futures';
 type LoadState = 'loading' | 'ready' | 'empty' | 'error';
 
-function pnlPercent(sig: Signal, live: number): number | null {
-  if (!live || !sig.entry) return null;
-  const raw = ((live - sig.entry) / sig.entry) * 100;
-  return sig.side === 'long' ? raw : -raw;
-}
-
 export default function SignalsPage() {
   const [state, setState] = useState<LoadState>('loading');
   const [data, setData] = useState<SignalsPayload | null>(null);
   const [market, setMarket] = useState<Market>('spot');
-  const [prices, setPrices] = useState<Record<string, number>>({});
 
   const loadSignals = useCallback(async () => {
     setState('loading');
@@ -59,21 +53,14 @@ export default function SignalsPage() {
     }
   }, []);
 
-  const loadPrices = useCallback(async (mkt: Market) => {
-    try {
-      const res = await fetch(mkt === 'spot' ? SPOT_PRICE_URL : FUT_PRICE_URL);
-      if (!res.ok) return;
-      const arr: { symbol: string; price: string }[] = await res.json();
-      const map: Record<string, number> = {};
-      for (const p of arr) map[p.symbol] = Number(p.price);
-      setPrices(map);
-    } catch { /* 실시간 가격 실패 시 수익률만 '-'로 표시 */ }
-  }, []);
-
   useEffect(() => { loadSignals(); }, [loadSignals]);
-  useEffect(() => { loadPrices(market); }, [market, loadPrices]);
 
   const rows = useMemo(() => (data ? data[market] ?? [] : []), [data, market]);
+
+  const strategyLabel = useMemo(() => {
+    if (!data?.strategyDate) return null;
+    return new Date(data.strategyDate).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
+  }, [data]);
 
   const updatedLabel = useMemo(() => {
     if (!data?.generatedAt) return null;
@@ -116,7 +103,7 @@ export default function SignalsPage() {
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">📈</div>
           <h1 className="text-2xl font-black text-white mb-1.5">ATR 타점 보드</h1>
-          <p className="text-slate-400 text-sm">UTC 일봉 ATR로 계산한 거래량 상위 코인의 진입·익절·손절 타점</p>
+          <p className="text-slate-400 text-sm">매일 00:00 UTC 일봉 ATR로 확정하는 거래량 상위 코인의 진입·익절·손절 타점</p>
         </div>
 
         {/* 마켓 토글 */}
@@ -134,7 +121,7 @@ export default function SignalsPage() {
               </button>
             ))}
           </div>
-          <button onClick={() => { loadSignals(); loadPrices(market); }} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">
+          <button onClick={loadSignals} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">
             ↻ 새로고침
           </button>
         </div>
@@ -173,8 +160,7 @@ export default function SignalsPage() {
                 </thead>
                 <tbody>
                   {rows.map(sig => {
-                    const live = prices[sig.symbol];
-                    const pnl = live != null ? pnlPercent(sig, live) : null;
+                    const pnl = sig.pnl;
                     return (
                       <tr key={sig.symbol} className="border-b border-slate-800/60 hover:bg-slate-800/40 transition-colors">
                         <td className="px-4 py-3">
@@ -204,9 +190,12 @@ export default function SignalsPage() {
                 </tbody>
               </table>
             </div>
-            <div className="flex items-center justify-between px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
               <span>거래량 상위 {rows.length}개 · TP {data?.tpMult}×ATR · SL {data?.slMult}×ATR</span>
-              {updatedLabel && <span>최근 실행: {updatedLabel}</span>}
+              <span className="flex gap-3">
+                {strategyLabel && <span>📌 {strategyLabel} 전략</span>}
+                {updatedLabel && <span>🕒 수익률 {updatedLabel}</span>}
+              </span>
             </div>
           </div>
         )}
@@ -214,7 +203,7 @@ export default function SignalsPage() {
         {/* 면책 + 자동 갱신 문구 */}
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
           <p className="mb-1">⚠️ 본 데이터는 투자 자문이 아닌 참고용 계산 결과이며, 매매 판단과 책임은 전적으로 본인에게 있습니다.</p>
-          <p>현재 수익률은 진입가(신호 생성 시점 종가) 대비 실시간 가격 기준이며, 방향(LONG/SHORT)을 반영합니다.</p>
+          <p>진입가·TP·SL은 매일 00:00 UTC에 마감된 일봉 기준으로 확정되어 하루 동안 고정되며, 현재 수익률은 3시간마다 갱신됩니다(방향 LONG/SHORT 반영).</p>
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">🕒 UTC 기준 매 3시간마다 자동 업데이트됩니다</p>
