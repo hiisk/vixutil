@@ -65,6 +65,10 @@ export interface TpSlResult {
  *  롱: TP = 진입 + ATR×tpMult, SL = 진입 - ATR×slMult
  *  숏: TP = 진입 - ATR×tpMult, SL = 진입 + ATR×slMult
  * 손익비(R:R) = TP까지 거리 / SL까지 거리.
+ *
+ * 변동성이 극단적이면(ATR×배수 ≥ 진입가) 롱 SL·숏 TP가 음수로 내려갈 수 있는데,
+ * 가격은 0 밑으로 갈 수 없으므로 두 레벨을 모두 0 이상으로 clamp하고, 거리(%)·
+ * 손익비도 clamp된 실제 레벨 기준으로 다시 계산해 표시가 일관되게 한다.
  */
 export function computeTpSl(
   entry: number,
@@ -75,15 +79,17 @@ export function computeTpSl(
 ): TpSlResult {
   const tpDist = atr * tpMult;
   const slDist = atr * slMult;
-  const tp = direction === 'long' ? entry + tpDist : entry - tpDist;
-  const sl = direction === 'long' ? entry - slDist : entry + slDist;
+  const tp = Math.max(0, direction === 'long' ? entry + tpDist : entry - tpDist);
+  const sl = Math.max(0, direction === 'long' ? entry - slDist : entry + slDist);
+  const actualTpDist = Math.abs(tp - entry);
+  const actualSlDist = Math.abs(sl - entry);
   return {
     entry,
     tp,
     sl,
-    tpDistPct: entry > 0 ? (tpDist / entry) * 100 : 0,
-    slDistPct: entry > 0 ? (slDist / entry) * 100 : 0,
-    riskReward: slDist > 0 ? tpDist / slDist : 0,
+    tpDistPct: entry > 0 ? (actualTpDist / entry) * 100 : 0,
+    slDistPct: entry > 0 ? (actualSlDist / entry) * 100 : 0,
+    riskReward: actualSlDist > 0 ? actualTpDist / actualSlDist : 0,
   };
 }
 

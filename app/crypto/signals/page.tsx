@@ -22,7 +22,7 @@ interface AtrInfo {
 }
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
-type SortKey = 'volume' | 'pnl';
+type SortKey = 'volume' | 'atr' | 'pnl';
 
 function pnlOf(side: Direction, entry: number, price: number): number {
   const raw = ((price - entry) / entry) * 100;
@@ -43,6 +43,7 @@ export default function SignalsPage() {
   const [page, setPage] = useState(1);
   const [sortKey, setSortKey] = useState<SortKey>('volume');
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc');
+  const [query, setQuery] = useState('');
   const [pageComputing, setPageComputing] = useState(false);
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
@@ -111,22 +112,26 @@ export default function SignalsPage() {
 
   useEffect(() => { loadList(market); }, [market, loadList]);
 
-  // Sorted list. Volume sort is free (ticker order). P&L sort reads the ATR cache.
+  // Search filter (by base symbol), then sort. Volume sort is free (ticker order);
+  // ATR%/P&L sorts read the ATR cache (require the full compute).
   const sortedTickers = useMemo(() => {
-    if (sortKey === 'volume') return tickers;
-    const scored = tickers.map(t => {
+    const q = query.trim().toUpperCase();
+    const base = q ? tickers.filter(t => t.base.includes(q)) : tickers;
+    if (sortKey === 'volume') return base;
+    const scored = base.map(t => {
       const info = cacheRef.current.get(t.symbol);
-      return { t, pnl: info ? pnlOf(info.side, info.entry, t.lastPrice) : null };
+      const metric = info ? (sortKey === 'atr' ? info.atrPct : pnlOf(info.side, info.entry, t.lastPrice)) : null;
+      return { t, metric };
     });
     scored.sort((a, b) => {
-      if (a.pnl == null && b.pnl == null) return 0;
-      if (a.pnl == null) return 1;
-      if (b.pnl == null) return -1;
-      return sortDir === 'desc' ? b.pnl - a.pnl : a.pnl - b.pnl;
+      if (a.metric == null && b.metric == null) return 0;
+      if (a.metric == null) return 1;
+      if (b.metric == null) return -1;
+      return sortDir === 'desc' ? b.metric - a.metric : a.metric - b.metric;
     });
     return scored.map(x => x.t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tickers, sortKey, sortDir, fullCompute.active]);
+  }, [tickers, sortKey, sortDir, query, fullCompute.active]);
 
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
@@ -134,15 +139,18 @@ export default function SignalsPage() {
   // Trigger the right computation for the current sort.
   useEffect(() => {
     if (listState !== 'ready') return;
-    if (sortKey === 'pnl') computeAll(tickers, market);
+    if (sortKey === 'atr' || sortKey === 'pnl') computeAll(tickers, market);
     else if (pageTickers.length) computePage(pageTickers, market);
   }, [listState, sortKey, pageTickers, tickers, market, computeAll, computePage]);
 
+  // 검색어가 바뀌면 첫 페이지로
+  useEffect(() => { setPage(1); }, [query]);
+
   function selectSort(key: SortKey) {
-    if (key === 'pnl' && sortKey === 'pnl') { setSortDir(d => (d === 'desc' ? 'asc' : 'desc')); return; }
+    if (key !== 'volume' && sortKey === key) { setSortDir(d => (d === 'desc' ? 'asc' : 'desc')); return; }
     setSortKey(key);
     setPage(1);
-    if (key === 'pnl') setSortDir('desc');
+    if (key !== 'volume') setSortDir('desc');
   }
 
   const updatedLabel = useMemo(
@@ -204,6 +212,10 @@ export default function SignalsPage() {
                 className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${sortKey === 'volume' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'}`}>
                 Volume
               </button>
+              <button onClick={() => selectSort('atr')}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${sortKey === 'atr' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'}`}>
+                ATR% {sortKey === 'atr' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
+              </button>
               <button onClick={() => selectSort('pnl')}
                 className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${sortKey === 'pnl' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'}`}>
                 P&amp;L {sortKey === 'pnl' ? (sortDir === 'desc' ? '▼' : '▲') : ''}
@@ -211,6 +223,21 @@ export default function SignalsPage() {
             </div>
             <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
+        </div>
+
+        {/* Search */}
+        <div className="relative mb-4">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 text-sm pointer-events-none">🔍</span>
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value.replace(/\s/g, ''))}
+            placeholder="Search coin (e.g. BTC, SOL, PEPE)"
+            className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-9 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500/60 transition"
+          />
+          {query && (
+            <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 transition-colors">✕</button>
+          )}
         </div>
 
         {(listState === 'loading' || listState === 'empty' || listState === 'error') && (
@@ -295,11 +322,18 @@ export default function SignalsPage() {
                         </tr>
                       );
                     })}
+                    {pageTickers.length === 0 && (
+                      <tr>
+                        <td colSpan={7} className="px-4 py-12 text-center text-sm text-slate-500">
+                          No coins match &ldquo;{query}&rdquo;
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
+                <span>{market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR{pageComputing ? ' · calculating…' : ''}</span>
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
             </div>
