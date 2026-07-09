@@ -43,6 +43,12 @@ export function computeATR(candles: Candle[], period = 14): number | null {
   return atr;
 }
 
+/** 종가 단순이동평균(추세 판정용). 데이터가 period보다 적으면 null. */
+export function smaClose(candles: Candle[], period: number): number | null {
+  if (candles.length < period) return null;
+  return candles.slice(-period).reduce((s, c) => s + c.close, 0) / period;
+}
+
 export type Direction = 'long' | 'short';
 
 export interface TpSlResult {

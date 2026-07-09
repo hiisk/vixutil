@@ -11,7 +11,7 @@ export default function Image() {
       icon: '📈',
       eyebrow: 'Crypto · Signals',
       title: 'ATR 타점 보드',
-      desc: '현물·선물 코인 진입·TP·SL 3시간마다 자동 갱신',
+      desc: '현물·선물 전체 코인 진입·TP·SL 실시간',
       from: '#f59e0b',
       to: '#ea580c',
     }),
