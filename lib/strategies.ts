@@ -53,6 +53,8 @@ export function rsi(closes: number[], p = 14): number | null {
 
 export interface StrategySignal {
   bias: Bias;
+  /** -1(강한 약세) ~ +1(강한 강세) 연속 점수. 신호가 강할수록 절댓값이 크다. */
+  score: number;
   side: Direction;
   entry: number;
   tp: number;
@@ -62,8 +64,13 @@ export interface StrategySignal {
   note: string;
 }
 
+/** 점수 절댓값이 이 값보다 작으면 중립으로 본다(약한 신호 무시). */
+const NEUTRAL_ZONE = 0.15;
+const clamp1 = (x: number) => Math.max(-1, Math.min(1, x));
+const biasOf = (score: number): Bias => (score > NEUTRAL_ZONE ? 'bullish' : score < -NEUTRAL_ZONE ? 'bearish' : 'neutral');
+
 /**
- * 선택한 전략으로 방향(bias)을 예측하고 ATR 기반 TP/SL을 계산한다.
+ * 한 전략의 방향 점수(-1~+1)와 근거를 계산한다. 양수=강세, 음수=약세, 절댓값=강도.
  * 현물(spot)은 매수만 가능하므로 side는 항상 long, 선물은 bias를 따른다.
  */
 export function computeStrategy(candles: Candle[], strategy: StrategyKey, market: 'spot' | 'futures'): StrategySignal | null {
@@ -73,40 +80,47 @@ export function computeStrategy(candles: Candle[], strategy: StrategyKey, market
   const atr = computeATR(candles, 14);
   if (!atr || entry <= 0) return null;
 
-  let bias: Bias = 'neutral';
+  let score = 0;
   let note = '';
 
   if (strategy === 'trend') {
     const s20 = sma(closes, 20), s50 = sma(closes, 50);
-    if (s20 == null) { bias = 'neutral'; note = 'Not enough data'; }
-    else if (s50 == null) { bias = entry >= s20 ? 'bullish' : 'bearish'; note = `Price ${entry >= s20 ? 'above' : 'below'} SMA20`; }
+    if (s20 == null) { note = 'Not enough data'; }
     else {
-      bias = entry > s20 && s20 > s50 ? 'bullish' : entry < s20 && s20 < s50 ? 'bearish' : 'neutral';
-      note = bias === 'bullish' ? 'Price > SMA20 > SMA50' : bias === 'bearish' ? 'Price < SMA20 < SMA50' : 'Mixed moving averages';
+      const a = Math.sign(entry - s20) * 0.5;
+      const b = s50 != null ? Math.sign(s20 - s50) * 0.5 : 0;
+      score = a + b; // -1(역배열) ~ +1(정배열)
+      note = score >= 0.9 ? 'Price > SMA20 > SMA50' : score <= -0.9 ? 'Price < SMA20 < SMA50' : score > 0 ? 'Above SMA20' : score < 0 ? 'Below SMA20' : 'Mixed MAs';
     }
   } else if (strategy === 'bollinger') {
     const mid = sma(closes, 20), sd = stddev(closes, 20);
     if (mid == null || sd == null || sd === 0) { note = 'Not enough data'; }
     else {
-      const upper = mid + 2 * sd, lower = mid - 2 * sd;
-      const pctB = (entry - lower) / (upper - lower);
-      bias = pctB <= 0.1 ? 'bullish' : pctB >= 0.9 ? 'bearish' : 'neutral';
-      note = pctB <= 0.1 ? 'Near lower band (oversold)' : pctB >= 0.9 ? 'Near upper band (overbought)' : `%B ${Math.round(pctB * 100)}%`;
+      const pctB = (entry - (mid - 2 * sd)) / (4 * sd);
+      score = clamp1((0.5 - pctB) * 2); // 하단밴드(과매도)=+1, 상단밴드(과매수)=-1
+      note = `%B ${Math.round(pctB * 100)}%${pctB <= 0.1 ? ' (oversold)' : pctB >= 0.9 ? ' (overbought)' : ''}`;
     }
   } else if (strategy === 'rsi') {
     const r = rsi(closes, 14);
     if (r == null) { note = 'Not enough data'; }
-    else { bias = r <= 30 ? 'bullish' : r >= 70 ? 'bearish' : 'neutral'; note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`; }
+    else {
+      score = clamp1((50 - r) / 20); // RSI30=+1(과매도), RSI70=-1(과매수)
+      note = `RSI ${r.toFixed(0)}${r <= 30 ? ' (oversold)' : r >= 70 ? ' (overbought)' : ''}`;
+    }
   } else {
-    // atr: SMA20 추세로 방향, ATR%로 변동성 표시
+    // atr: SMA20 대비 거리를 변동성(ATR)으로 정규화한 추세 강도
     const s20 = sma(closes, 20);
-    bias = s20 == null || entry >= s20 ? 'bullish' : 'bearish';
-    note = `Trend ${bias === 'bullish' ? 'up' : 'down'} · ATR ${(atr / entry * 100).toFixed(1)}%`;
+    if (s20 == null) { note = 'Not enough data'; }
+    else {
+      score = clamp1((entry - s20) / (atr * 3));
+      note = `${score >= 0 ? '+' : ''}${((entry - s20) / atr).toFixed(1)} ATR vs SMA20`;
+    }
   }
 
+  const bias = biasOf(score);
   const side: Direction = market === 'spot' ? 'long' : bias === 'bearish' ? 'short' : 'long';
   const { tp, sl } = computeTpSl(entry, atr, side, TP_MULT, SL_MULT);
-  return { bias, side, entry, tp, sl, atr, atrPct: (atr / entry) * 100, note };
+  return { bias, score, side, entry, tp, sl, atr, atrPct: (atr / entry) * 100, note };
 }
 
 export interface StrategyVote {
@@ -128,30 +142,30 @@ export interface ConsensusSignal {
 }
 
 /**
- * 모든 전략을 실행해 표를 집계, 다수결 방향 + 확신도(%)를 낸다.
- * 각 전략이 강세/약세/중립에 동등하게 1표씩. 지표 계산은 같은 캔들에 대한
- * 순수 연산이라 추가 네트워크 요청이 없다.
+ * 모든 전략을 실행해 방향 점수를 확신도 가중 평균으로 합친다.
+ *   aggregate = Σ(score · |score|) / Σ|score|
+ * 이렇게 하면 강한 신호(절댓값이 큰 전략)일수록 결과를 크게 끌어당겨서,
+ * 한 전략만 아주 적절해도(예: RSI 15) 확신도가 높게 나오고, 반대 방향의
+ * 강한 신호끼리는 서로 상쇄된다. 지표 계산은 같은 캔들 순수 연산이라 추가
+ * 네트워크 요청이 없다.
  */
 export function computeConsensus(candles: Candle[], market: 'spot' | 'futures'): ConsensusSignal | null {
   const votes: StrategyVote[] = [];
   let base: StrategySignal | null = null;
-  let bull = 0, bear = 0;
+  let num = 0, den = 0;
   for (const key of STRATEGIES) {
     const sig = computeStrategy(candles, key, market);
     if (!sig) continue;
     if (!base) base = sig;
-    if (sig.bias === 'bullish') bull++;
-    else if (sig.bias === 'bearish') bear++;
+    num += sig.score * Math.abs(sig.score);
+    den += Math.abs(sig.score);
     votes.push({ key, bias: sig.bias, note: sig.note });
   }
   if (!base || votes.length === 0) return null;
 
-  const n = votes.length;
-  let bias: Bias;
-  let confidence: number;
-  if (bull > bear) { bias = 'bullish'; confidence = Math.round((bull / n) * 100); }
-  else if (bear > bull) { bias = 'bearish'; confidence = Math.round((bear / n) * 100); }
-  else { bias = 'neutral'; confidence = 0; }
+  const agg = den > 0 ? num / den : 0; // -1 ~ +1
+  const bias = biasOf(agg);
+  const confidence = Math.round(Math.abs(agg) * 100);
 
   const side: Direction = market === 'spot' ? 'long' : bias === 'bearish' ? 'short' : 'long';
   const { tp, sl } = computeTpSl(base.entry, base.atr, side, TP_MULT, SL_MULT);
