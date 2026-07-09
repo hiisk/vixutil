@@ -204,15 +204,24 @@ export default function SignalsPage() {
   // 검색어·필터 바뀌면 첫 페이지로
   useEffect(() => { setPage(1); }, [query, hitOnly]);
 
+  // 최신 값을 즉시 읽기 위한 ref (stale closure/레이스 방지)
+  const marketRef = useRef(market);
+  marketRef.current = market;
+  const fullComputeRef = useRef(false);
+  fullComputeRef.current = fullCompute.active;
+
   // 60초마다 가격만 조용히 갱신(진입가·TP·SL은 일봉 고정이라 그대로, P&L·현재가만 업데이트)
   const refreshPrices = useCallback(async () => {
+    if (fullComputeRef.current) return; // 전체 계산 중이면 건너뜀(중복 실행 방지)
+    const mkt = marketRef.current;
     try {
-      const fresh = await fetchTickers(market);
+      const fresh = await fetchTickers(mkt);
+      if (marketRef.current !== mkt) return; // 응답 도착 전 마켓이 바뀌었으면 폐기(레이스 방지)
       const priceMap = new Map(fresh.map(t => [t.symbol, t.lastPrice]));
       setTickers(prev => prev.map(t => ({ ...t, lastPrice: priceMap.get(t.symbol) ?? t.lastPrice })));
       setUpdatedAt(new Date());
     } catch { /* 조용히 무시 */ }
-  }, [market]);
+  }, []);
 
   useEffect(() => {
     if (listState !== 'ready') return;
