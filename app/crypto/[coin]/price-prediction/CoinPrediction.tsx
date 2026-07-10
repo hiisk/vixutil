@@ -5,6 +5,7 @@ import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses,
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
 import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
+import { simulateBarriers, probEverReach } from '@/lib/barriers';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -15,6 +16,8 @@ const HISTORY_DAYS = 365;
 const CHART_HISTORY = 60;
 /** Historic data 표에 보여줄 일수 */
 const HISTORY_ROWS = 30;
+/** 목표가 도달 확률을 재는 시점 (일) */
+const BARRIER_CHECKPOINTS = [365, 730, 1095];
 
 interface Snapshot {
   price: number;
@@ -149,6 +152,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     const cfg = TIMEFRAMES[tf];
     return forecastSeries(snap.model, cfg.stepDays, cfg.count);
   }, [snap, tf]);
+
+  // 경로 최고/최저 분포 — "한 번이라도 도달" 확률용. 무거우니 한 번만 계산한다.
+  const barriers = useMemo(() => (snap ? simulateBarriers(snap.model, BARRIER_CHECKPOINTS, 4000, 2024) : null), [snap]);
 
   if (state === 'loading') {
     return (
@@ -451,11 +457,20 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <table className="w-full text-sm whitespace-nowrap">
               <thead>
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
-                  <th className="text-left font-semibold px-4 py-3">Target</th>
-                  <th className="text-right font-semibold px-3 py-3">vs now</th>
-                  <th className="text-right font-semibold px-3 py-3">1 Year</th>
-                  <th className="text-right font-semibold px-3 py-3">2 Years</th>
-                  <th className="text-right font-semibold px-4 py-3">3 Years</th>
+                  <th className="text-left font-semibold px-4 py-3" rowSpan={2}>Target</th>
+                  <th className="text-right font-semibold px-3 py-3" rowSpan={2}>vs now</th>
+                  <th className="text-center font-semibold px-3 py-2 border-l border-slate-800/70" colSpan={3}>
+                    Ever touches it
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">at any point before</span>
+                  </th>
+                  <th className="text-center font-semibold px-3 py-2 border-l border-slate-800/70" colSpan={3}>
+                    Ends at or beyond
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">closing price on that date</span>
+                  </th>
+                </tr>
+                <tr className="text-[10px] uppercase tracking-wide text-slate-600 border-b border-slate-800">
+                  {['1Y', '2Y', '3Y'].map((l, i) => <th key={`e${l}`} className={`text-right font-semibold px-3 py-1.5 ${i === 0 ? 'border-l border-slate-800/70' : ''}`}>{l}</th>)}
+                  {['1Y', '2Y', '3Y'].map((l, i) => <th key={`c${l}`} className={`text-right font-semibold px-3 py-1.5 ${i === 0 ? 'border-l border-slate-800/70' : ''}`}>{l}</th>)}
                 </tr>
               </thead>
               <tbody>
@@ -467,14 +482,23 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   return rows.map(v => {
                     const up = v >= s.price;
                     const isCustom = isFinite(custom) && custom > 0 && v === custom && !presets.includes(custom);
+                    const clr = up ? 'text-emerald-400' : 'text-rose-400';
                     return (
                       <tr key={v} className={`border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors ${isCustom ? 'bg-amber-500/[0.06]' : ''}`}>
                         <td className="px-4 py-2.5 font-bold text-white tabular-nums">${formatPrice(v)}</td>
                         <td className="px-3 py-2.5 text-right"><Pct value={(v / s.price - 1) * 100} /></td>
-                        {[365, 730, 1095].map(d => {
+                        {BARRIER_CHECKPOINTS.map((d, i) => {
+                          const p = barriers ? probEverReach(barriers, i, v, s.price) : NaN;
+                          return (
+                            <td key={`e${d}`} className={`px-3 py-2.5 text-right tabular-nums font-bold ${clr} ${i === 0 ? 'border-l border-slate-800/40' : ''}`}>
+                              {isFinite(p) ? `${p.toFixed(1)}%` : '…'}
+                            </td>
+                          );
+                        })}
+                        {BARRIER_CHECKPOINTS.map((d, i) => {
                           const p = probReach(s.model, v, d);
                           return (
-                            <td key={d} className={`px-3 py-2.5 text-right tabular-nums font-bold ${up ? 'text-emerald-400' : 'text-rose-400'}`}>
+                            <td key={`c${d}`} className={`px-3 py-2.5 text-right tabular-nums ${clr} opacity-60 ${i === 0 ? 'border-l border-slate-800/40' : ''}`}>
                               {isFinite(p) ? `${p.toFixed(1)}%` : '-'}
                             </td>
                           );
@@ -487,8 +511,11 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             </table>
           </div>
           <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
-            Probability that the closing price is at or beyond the target on that date, under the fitted distribution (Student-t, fat-tailed, calibrated so a
-            stated 50% band really does contain ~50% of outcomes). Upward targets read as &quot;reach or exceed&quot;; downward targets as &quot;fall to or below&quot;.
+            <b className="text-slate-400">&quot;Ever touches&quot; is the number most people actually mean</b>, and it is much larger than &quot;ends at or beyond&quot;.
+            Historically {coin.base === 'BTC' ? 'Bitcoin' : coin.base} touched a given level within a one-year window far more often than it finished above it —
+            for BTC, a +58% level was touched in 61.4% of one-year windows but closed above in only 44.0%. The touch figures come from 4,000 simulated paths of
+            the same fitted distribution (fat-tailed, with the measured volatility term structure), monitored on daily closes, so they are consistent with the
+            bands above. Upward targets read as &quot;reach or exceed&quot;; downward targets as &quot;fall to or below&quot;.
           </div>
         </div>
 

@@ -533,7 +533,7 @@ export default function SignalsPage() {
                       {HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
                           {h.short}
-                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast · range</span>
+                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast</span>
                         </th>
                       ))}
                     </tr>
@@ -659,9 +659,6 @@ export default function SignalsPage() {
                                     <span className={`text-[10px] tabular-nums ${p.changePct >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
                                       {p.changePct >= 0 ? '+' : ''}{p.changePct.toFixed(1)}%
                                     </span>
-                                    <span className="text-[9px] text-slate-600 tabular-nums">
-                                      {formatPrice(p.low * fcScale)} – {formatPrice(p.high * fcScale)}
-                                    </span>
                                   </div>
                                 ) : pending ? (
                                   <span className="text-slate-600 text-xs">…</span>
@@ -692,7 +689,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-5D–3Y show the forecast price, its change, and the range containing half of outcomes · coins listed under {MIN_SAMPLES + 1} days show “new”{pageComputing ? ' · calculating…' : ''}
+5D–3Y show the forecast price and its change · click a coin for ranges, probabilities and how often it ever touched a target{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
