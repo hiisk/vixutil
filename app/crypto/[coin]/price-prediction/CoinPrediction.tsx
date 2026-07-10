@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
-import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
+import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
 import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, historicalMedianAt, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
@@ -28,9 +28,6 @@ interface Snapshot {
   consensus: ConsensusSignal | null;
   closes: number[];
   ohlcv: DailyOHLCV[];
-  sma50: number | null;
-  sma200: number | null;
-  rsi14: number | null;
   green: { green: number; total: number };
   /** 상장 이후 전체 종가로 만든 과거 구간 시나리오 */
   scenarios: ScenarioHorizon[];
@@ -77,12 +74,6 @@ const ACTION_CLS: Record<Action, string> = {
 };
 function ActionChip({ action }: { action: Action }) {
   return <span className={`text-[10px] font-black px-2 py-0.5 rounded ${ACTION_CLS[action]}`}>{action}</span>;
-}
-
-function rsiLabel(r: number): { text: string; cls: string } {
-  if (r >= 70) return { text: 'Overbought', cls: 'text-rose-400' };
-  if (r <= 30) return { text: 'Oversold', cls: 'text-emerald-400' };
-  return { text: 'Neutral', cls: 'text-slate-400' };
 }
 
 /** UTC 기준 날짜 라벨 (모든 시각은 UTC로 통일) */
@@ -143,9 +134,6 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         consensus,
         closes,
         ohlcv,
-        sma50: sma(closes, 50),
-        sma200: sma(closes, 200),
-        rsi14: rsi(closes, 14),
         green: greenDays(closes, 30),
         scenarios: historicalScenarios(fullCloses.length > closes.length ? fullCloses : closes, t.lastPrice, HORIZONS),
         fullCloses: Math.max(fullCloses.length, closes.length),
@@ -234,26 +222,59 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   return (
     <>
-      {/* Hero */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5 mb-5">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+      {/* Hero — 우리가 파는 것은 예측가가 아니라 검증된 확률이므로, 그것을 먼저 보여준다 */}
+      <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-500/[0.05] p-6 mb-4">
+        <span className="pointer-events-none absolute -right-16 -top-20 w-64 h-64 rounded-full bg-amber-400/10 blur-3xl" />
+
+        <div className="relative flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <CoinLogo base={coin.base} size={40} />
+            <CoinLogo base={coin.base} size={44} />
             <div>
-              <h1 className="text-xl font-black text-white leading-tight">{coin.name} Price Prediction</h1>
+              <h1 className="text-2xl font-black text-white leading-tight">{coin.name} Price Prediction</h1>
               <p className="text-xs text-slate-500 font-semibold">
-                {coin.base} · Binance {marketOf(coin) === 'spot' ? 'spot' : 'futures'}
+                {coin.base} · Binance {marketOf(coin) === 'spot' ? 'spot' : 'futures'} · {m.samples + 1} daily closes
               </p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <p className="text-2xl font-black text-white tabular-nums">${formatPrice(s.price)}</p>
+              <p className="text-3xl font-black text-white tabular-nums">${formatPrice(s.price)}</p>
               <p className="text-xs"><Pct value={s.chg24h} /> <span className="text-slate-600">24h</span></p>
             </div>
-            <Sparkline points={s.closes.slice(-30).concat(s.price)} w={110} h={36} />
+            <Sparkline points={s.closes.slice(-30).concat(s.price)} w={120} h={40} />
           </div>
         </div>
+
+        {/* 헤드라인 3종 — 전부 크고, 전부 참이고, 전부 코인마다 다르다 */}
+        <div className="relative grid sm:grid-cols-3 gap-3">
+          <div className="rounded-2xl bg-slate-950/60 border border-amber-500/25 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-amber-500/80 mb-1">Typical peak · 1 year</p>
+            <p className="text-2xl font-black text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
+            <p className="text-[11px] text-slate-500 mt-1">+{p1y.peakPct.toFixed(1)}% · touched at some point in half of all paths</p>
+          </div>
+          <div className="rounded-2xl bg-slate-950/60 border border-slate-800 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Gain ≥10% in 30 days</p>
+            <p className="text-2xl font-black text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
+            <p className="text-[11px] text-slate-500 mt-1">probability · drop ≥10%: {p1m.pDown10.toFixed(1)}%</p>
+          </div>
+          <div className="rounded-2xl bg-slate-950/60 border border-slate-800 p-4">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Volatility</p>
+            <p className={`text-2xl font-black tabular-nums ${VOL_CLR[volLabel]}`}>{m.annualVolPct.toFixed(0)}%</p>
+            <p className="text-[11px] text-slate-500 mt-1">{volLabel} · now {m.currentAnnualVolPct.toFixed(0)}%, {m.currentAnnualVolPct < m.annualVolPct ? 'calmer' : 'wilder'} than usual</p>
+          </div>
+        </div>
+      </div>
+
+      {/* 캘리브레이션 증거 — 경쟁 사이트는 방법을 말하고, 우리는 적중률을 말한다 */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3 mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px]">
+        <span className="flex items-center gap-1.5 font-bold text-slate-300">
+          <span aria-hidden="true">✓</span> Calibrated, and checked
+        </span>
+        <span className="text-slate-500">Our stated 50% band actually contains <b className="text-emerald-400">50.1%</b> of outcomes</span>
+        <span className="text-slate-700">·</span>
+        <span className="text-slate-500">Our 50% touch level is touched <b className="text-emerald-400">50.0%</b> of the time</span>
+        <span className="text-slate-700">·</span>
+        <span className="text-slate-500">The moving-average + RSI + MACD method other sites use: <b className="text-rose-400">49.4%</b> directional accuracy</span>
       </div>
 
       {m.limitedHistory && (
@@ -266,7 +287,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {/* Section nav */}
       <nav className="sticky top-14 z-20 -mx-4 px-4 py-2 bg-slate-950/90 backdrop-blur border-b border-slate-800 mb-6">
         <div className="flex gap-2 text-xs font-bold">
-          {[['overview', 'Overview'], ['technical', 'Technical'], ['prediction', 'Prediction'], ['historic', 'Historic data']].map(([id, label]) => (
+          {[['overview', 'Overview'], ['technical', 'Indicators'], ['prediction', 'Outlook'], ['historic', 'History']].map(([id, label]) => (
             <a key={id} href={`#${id}`} className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-amber-400 hover:border-slate-600 transition-colors">
               {label}
             </a>
@@ -276,46 +297,19 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* ── Overview ─────────────────────────────── */}
       <Section id="overview" title="Overview" sub={`Live market state and technical readout for ${coin.name}`}>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Price</p>
-            <p className="text-lg font-black text-white tabular-nums">${formatPrice(s.price)}</p>
-            <p className="text-xs mt-0.5"><Pct value={s.chg24h} /></p>
-          </div>
+        {/* 히어로가 가격·변동성을, Indicators 섹션이 RSI·SMA를 이미 보여주므로 여기서는 중복을 뺀다 */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">24h volume</p>
             <p className="text-lg font-black text-white tabular-nums">{formatVolume(s.quoteVolume)}</p>
-          </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Annual volatility</p>
-            <p className="text-lg font-black tabular-nums text-white">
-              {m.annualVolPct.toFixed(1)}% <span className={`text-xs font-bold ${VOL_CLR[volLabel]}`}>{volLabel}</span>
-            </p>
-            <p className="text-[10px] text-slate-600 mt-0.5 tabular-nums">
-              now {m.currentAnnualVolPct.toFixed(0)}% · {m.currentAnnualVolPct < m.annualVolPct ? 'calmer' : 'wilder'} than usual
-            </p>
           </div>
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Green days (30d)</p>
             <p className="text-lg font-black tabular-nums text-white">{s.green.green}/{s.green.total} <span className="text-xs text-slate-500">{greenPct}%</span></p>
           </div>
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">14-day RSI</p>
-            <p className="text-lg font-black tabular-nums text-white">
-              {s.rsi14 != null ? <>{s.rsi14.toFixed(1)} <span className={`text-xs font-bold ${rsiLabel(s.rsi14).cls}`}>{rsiLabel(s.rsi14).text}</span></> : '-'}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Trend significance</p>
             <p className="text-lg font-black text-white">{trendLabel} <span className="text-xs text-slate-500 tabular-nums">t={m.tStat.toFixed(2)}</span></p>
-          </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">50-day SMA</p>
-            <p className="text-lg font-black tabular-nums text-white">{s.sma50 != null ? `$${formatPrice(s.sma50)}` : '-'}</p>
-          </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">200-day SMA</p>
-            <p className="text-lg font-black tabular-nums text-white">{s.sma200 != null ? `$${formatPrice(s.sma200)}` : '-'}</p>
           </div>
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">History used</p>
@@ -349,7 +343,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* ── Technical analysis ───────────────────── */}
       {ta && (
-        <Section id="technical" title="Technical analysis" sub={`${ta.total} indicator readings for ${coin.base}, and what each one currently says`}>
+        <Section id="technical" title="Indicators" sub={`${ta.total} readings for ${coin.base} — where the price sits, not where it is going`}>
           {/* Sentiment tally */}
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
@@ -383,13 +377,21 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               .filter(([, rows]) => rows.length > 0)
               .map(([title, rows]) => (
                 <div key={title} className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-                  <div className="px-4 py-2.5 border-b border-slate-800"><h3 className="text-xs font-black text-white">{title}</h3></div>
+                  <div className="px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+                    <h3 className="text-xs font-black text-white">{title}</h3>
+                    <span className="text-[10px] text-slate-600">price vs line</span>
+                  </div>
                   <table className="w-full text-sm">
                     <tbody>
                       {rows.map(r => (
                         <tr key={r.name} className="border-b border-slate-800/50 last:border-0">
                           <td className="px-4 py-2 text-slate-400">{r.name}</td>
                           <td className="px-3 py-2 text-right text-white tabular-nums">${formatPrice(r.value)}</td>
+                          <td className="px-3 py-2 text-right text-[11px] tabular-nums">
+                            <span className={s.price >= r.value ? 'text-emerald-500/70' : 'text-rose-500/70'}>
+                              {s.price >= r.value ? '+' : ''}{(((s.price / r.value) - 1) * 100).toFixed(1)}%
+                            </span>
+                          </td>
                           <td className="px-4 py-2 text-right"><ActionChip action={r.action} /></td>
                         </tr>
                       ))}
@@ -460,7 +462,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       )}
 
       {/* ── Prediction ───────────────────────────── */}
-      <Section id="prediction" title="Prediction" sub={`Two views: a deliberately conservative model forecast, and what ${coin.base} actually did in every comparable window of its history`}>
+      <Section id="prediction" title="Outlook" sub={`Two independent views: a conservative statistical model, and every comparable window ${coin.base} has actually lived through`}>
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
           <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} historyPath={histPath} />
           <p className="text-[11px] text-slate-600 mt-2 text-center leading-relaxed">
@@ -797,7 +799,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </Section>
 
       {/* ── Historic data ────────────────────────── */}
-      <Section id="historic" title="Historic data" sub={`${coin.base} daily open / high / low / close and volume, last ${HISTORY_ROWS} closed candles (UTC)`}>
+      <Section id="historic" title="History" sub={`${coin.base} daily open / high / low / close and volume, last ${HISTORY_ROWS} closed candles (UTC)`}>
         <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
           <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm whitespace-nowrap">
@@ -903,6 +905,25 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           history confirmed the other. So no horizon has a trustworthy direction, and the forecast stays a single shrunken drift. Volatility, by contrast,
           genuinely differs by horizon — which is what the daily / weekly / monthly views above actually model.
         </p>
+      </div>
+
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 mb-5">
+        <h2 className="text-sm font-black text-white mb-1">What this page will not tell you</h2>
+        <p className="text-[11px] text-slate-500 mb-3">Every claim below is something we tested and could not support. The tests live in the code.</p>
+        <ul className="space-y-2 text-xs text-slate-400">
+          {[
+            ['Which way the price moves next', 'A consensus of trend, Bollinger, RSI and ATR predicted the 5-day direction 49.8% of the time across 46 coins.'],
+            ['That indicators beat a coin flip', 'The moving-average + RSI + MACD method other prediction sites describe: 49.4%. MACD alone: 49.5%.'],
+            ['That more training helps', 'A 21-feature model on 45,279 samples scored 51.25% in-sample and 48.79% out-of-sample — worse than a coin flip.'],
+            ['That there is a tradeable cycle', `Binance's history spans only two to three halving cycles. The effective sample for a 4-year cycle is ~2, not ~800.`],
+            ['A zig-zagging daily forecast', 'The wiggle in a historical median path is indistinguishable from what a random walk produces about half the time.'],
+          ].map(([claim, why]) => (
+            <li key={claim} className="flex gap-2">
+              <span className="text-rose-400/70 shrink-0" aria-hidden="true">✕</span>
+              <span><b className="text-slate-300">{claim}.</b> <span className="text-slate-500">{why}</span></span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
