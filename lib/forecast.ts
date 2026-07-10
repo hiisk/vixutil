@@ -302,6 +302,13 @@ export interface Projection {
   pUp10: number;
   /** 현재가 대비 -10% 이상 내릴 확률(%) */
   pDown10: number;
+  /**
+   * 통상 최고점 — 이 지평 안에서 "한 번이라도" 닿는 가격의 중앙값.
+   * 정의상 P(경로 최고가 >= peak) = 50%. 종점 예측(forecast)과는 다른 값이며 항상 더 높다.
+   */
+  peak: number;
+  /** peak의 현재가 대비 변동률(%) */
+  peakPct: number;
 }
 
 export interface DailyPoint {
@@ -358,6 +365,70 @@ export interface ForecastModel {
 }
 
 const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x));
+
+/**
+ * 배리어 연속성 보정 계수 beta(h).
+ *
+ * 정규분포 이론값은 Broadie-Glasserman-Kou의 0.5826(상수)이다. 그러나 우리 충격은
+ * 팻테일 t분포이고 첨도가 지평에 따라 달라지므로 상수로는 맞지 않는다. 실제로 0.5826을
+ * 쓰면 최고점이 과대평가되고(P(터치) 46~49%), 단일 상수 0.90으로 바꾸면 장기는 맞지만
+ * 단기가 58%로 어긋난다.
+ *
+ * 그래서 8개 코인의 팻테일 MC에서 "P(경로 최고가 >= peak) = 50%"가 정확히 성립하도록
+ * 지평별로 beta를 적합했다:
+ *   h(일)    3      7     30     90    180    365   1095
+ *   beta   0.690  0.772  0.827  0.973  0.993  1.203  1.541
+ * log h 축에서 보간하고 범위 밖은 양 끝으로 고정한다(측정 범위 밖은 외삽하지 않는다).
+ */
+const BARRIER_BETA_KNOTS: [number, number][] = [
+  [3, 0.690], [7, 0.772], [30, 0.827], [90, 0.973], [180, 0.993], [365, 1.203], [1095, 1.541],
+];
+
+function barrierBeta(h: number): number {
+  if (h <= BARRIER_BETA_KNOTS[0][0]) return BARRIER_BETA_KNOTS[0][1];
+  const last = BARRIER_BETA_KNOTS[BARRIER_BETA_KNOTS.length - 1];
+  if (h >= last[0]) return last[1];
+  for (let i = 1; i < BARRIER_BETA_KNOTS.length; i++) {
+    const [h0, b0] = BARRIER_BETA_KNOTS[i - 1], [h1, b1] = BARRIER_BETA_KNOTS[i];
+    if (h <= h1) {
+      const f = (Math.log(h) - Math.log(h0)) / (Math.log(h1) - Math.log(h0));
+      return b0 + f * (b1 - b0);
+    }
+  }
+  return last[1];
+}
+
+/**
+ * 경로 최고가가 로그거리 a 이상 올라갈 확률 (드리프트 있는 브라운 운동의 반사원리).
+ * 일별 종가로만 관측하므로 배리어를 BARRIER_BETA·sigma 만큼 바깥으로 민다.
+ * 연속 감시 공식을 그대로 쓰면 확률이 과대평가된다.
+ */
+function probMaxAbove(aLog: number, muT: number, sdT: number, sigmaDaily: number, beta: number): number {
+  const a = aLog + beta * sigmaDaily;
+  if (a <= 0) return 1;
+  const first = normalCdf((muT - a) / sdT);
+  // exp 항이 폭주하지 않도록 지수를 자른다 (Phi(-큰수)가 0이라 결과에 영향 없음)
+  const expo = clamp((2 * muT * a) / (sdT * sdT), -700, 700);
+  const second = Math.exp(expo) * normalCdf((-a - muT) / sdT);
+  return clamp(first + second, 0, 1);
+}
+
+/**
+ * 통상 최고점: P(경로 최고가 >= level) = 50% 가 되는 level.
+ * 즉 "이 지평 안에 절반의 확률로 한 번은 닿는 가격". 종점 예측과 다르며 항상 더 높다.
+ * beta(h)를 팻테일 MC에 맞춰 적합했으므로 전 지평에서 터치 확률이 50%에 수렴한다.
+ * 짧은 지평에서는 과거 실측 중앙 최고점과도 맞는다(BTC 3일 모델 vs 과거 $64,129).
+ */
+export function medianPeakLevel(spot: number, muT: number, sdT: number, sigmaDaily: number, days: number): number {
+  if (!(spot > 0) || !(sdT > 0)) return spot;
+  const beta = barrierBeta(days);
+  let lo = 0, hi = 3; // 로그거리 상한 e^3 ≈ 20배
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2;
+    if (probMaxAbove(mid, muT, sdT, sigmaDaily, beta) > 0.5) lo = mid; else hi = mid;
+  }
+  return spot * Math.exp((lo + hi) / 2);
+}
 
 /**
  * 종가 시계열로 GBM 파라미터를 추정하고 projection을 만든다.
@@ -452,6 +523,7 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
     const forecast = spot * Math.exp(drift);
     const low = spot * Math.exp(drift - z50 * sd);
     const high = spot * Math.exp(drift + z50 * sd);
+    const peakLevel = medianPeakLevel(spot, drift, sd, sigmaAt(h), h);
     return {
       key: hz.key,
       label: hz.label,
@@ -467,6 +539,8 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
       // 팻테일을 반영해 t분포로 확률을 낸다
       pUp10: (1 - tCdfStd((ln11 - drift) / sd, v)) * 100,
       pDown10: tCdfStd((ln09 - drift) / sd, v) * 100,
+      peak: peakLevel,
+      peakPct: (peakLevel / spot - 1) * 100,
     };
   });
 

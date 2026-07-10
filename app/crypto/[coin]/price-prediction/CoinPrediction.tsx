@@ -411,6 +411,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <th className="text-right font-semibold px-3 py-3">Forecast</th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
                   <th className="text-right font-semibold px-3 py-3">vs now</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
+                    Typical peak
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
+                  </th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">P(+10%)</th>
                   <th className="text-right font-semibold px-3 py-3">P(−10%)</th>
                   <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">80% range</th>
@@ -424,6 +428,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.forecast)}</td>
                     <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
                     <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
+                    <td className="px-3 py-3 text-right tabular-nums border-l border-slate-800/40">
+                      <span className="text-amber-400 font-bold">${formatPrice(p.peak)}</span>
+                      <span className="block text-[10px] text-amber-500/60">+{p.peakPct.toFixed(1)}%</span>
+                    </td>
                     <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums border-l border-slate-800/40">{p.pUp10.toFixed(1)}%</td>
                     <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">{p.pDown10.toFixed(1)}%</td>
                     <td className="px-4 py-3 text-right text-[11px] text-slate-500 tabular-nums border-l border-slate-800/40">

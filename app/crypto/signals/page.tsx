@@ -537,7 +537,7 @@ export default function SignalsPage() {
                       {HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
                           {h.short}
-                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast</span>
+                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast · peak</span>
                         </th>
                       ))}
                     </tr>
@@ -663,6 +663,12 @@ export default function SignalsPage() {
                                     <span className={`text-[10px] tabular-nums ${p.changePct >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
                                       {p.changePct >= 0 ? '+' : ''}{p.changePct.toFixed(1)}%
                                     </span>
+                                    <span
+                                      className="text-[10px] text-amber-500/80 tabular-nums"
+                                      title={`Typical peak: half the time ${t.base} touches at least this price at some point within ${h.label.toLowerCase()} (+${p.peakPct.toFixed(1)}%)`}
+                                    >
+                                      ▲ {formatPrice(p.peak * fcScale)}
+                                    </span>
                                   </div>
                                 ) : pending ? (
                                   <span className="text-slate-600 text-xs">…</span>
@@ -693,7 +699,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-3D–3Y show the forecast price and its change · click a coin for ranges, probabilities and how often it ever touched a target{pageComputing ? ' · calculating…' : ''}
+3D–3Y show the forecast price (where it likely ends) and ▲ the typical peak (a level it touches at some point half the time){pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
