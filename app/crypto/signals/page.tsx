@@ -452,11 +452,16 @@ export default function SignalsPage() {
         <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
           <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
           <p>
-            Each coin&apos;s trend is split into a <b className="text-slate-300">market component</b> (its beta to BTC) and a
-            <b className="text-slate-300"> coin-specific component</b> (alpha). We deliberately do not extrapolate the market&apos;s trailing drift — the average
-            beta across coins is 1.00, so doing that would just copy the last year onto every coin. Both components are shrunk toward zero by a Bayesian
-            posterior in proportion to how noisy they are, and no technical tilt is applied (backtested, 5-day directional accuracy was 49.8% — a coin flip).
-            The range below each price contains half of all outcomes. Click a coin for the decomposition, daily path and probabilities.
+            Each cell is a <b className="text-slate-300">single forecast price</b>: the median, where the coin most likely ends. A coin&apos;s trend is split into a
+            market component (its beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean. The market trend is extrapolated
+            assertively, which costs about 2.6% in measured one-year accuracy versus assuming no change and makes most coins point the same way as Bitcoin; coins
+            with under two years of history fall back to a conservative prior. No technical tilt is applied — we implemented the moving-average + RSI + MACD method
+            other prediction sites describe and measured its 5-day directional accuracy at 49.4%, a coin flip (MACD alone: 49.5%).
+          </p>
+          <p className="mt-2">
+            Over three days the drift is only about 9% of the noise, so the forecast barely moves even though the price still swings roughly one ATR — that swing
+            lives in the range, not in the forecast. Click a coin for its <b className="text-slate-300">typical peak</b> (the level it touches at some point in half
+            of all paths), the ranges, and the probability of reaching any target.
           </p>
         </div>
 
@@ -537,7 +542,7 @@ export default function SignalsPage() {
                       {HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
                           {h.short}
-                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast · peak</span>
+                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast</span>
                         </th>
                       ))}
                     </tr>
@@ -663,12 +668,6 @@ export default function SignalsPage() {
                                     <span className={`text-[10px] tabular-nums ${p.changePct >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
                                       {p.changePct >= 0 ? '+' : ''}{p.changePct.toFixed(1)}%
                                     </span>
-                                    <span
-                                      className="text-[10px] text-amber-500/80 tabular-nums"
-                                      title={`Typical peak: half the time ${t.base} touches at least this price at some point within ${h.label.toLowerCase()} (+${p.peakPct.toFixed(1)}%)`}
-                                    >
-                                      ▲ {formatPrice(p.peak * fcScale)}
-                                    </span>
                                   </div>
                                 ) : pending ? (
                                   <span className="text-slate-600 text-xs">…</span>
@@ -699,7 +698,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-3D–3Y show the forecast price (where it likely ends) and ▲ the typical peak (a level it touches at some point half the time){pageComputing ? ' · calculating…' : ''}
+3D–3Y show a single forecast price — where the coin most likely ends · click a coin for its typical peak, ranges and probabilities{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 

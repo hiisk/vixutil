@@ -597,8 +597,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
               <b className="text-slate-400">Read this as history, not prophecy.</b> Overlapping windows inflate the apparent sample: what counts is the number
               of <i>independent</i> windows, shown on the right. Rows with fewer than {MIN_INDEPENDENT_WINDOWS} are greyed out — {coin.base}&apos;s 3-year row
-              rests on barely a couple of non-overlapping periods. And most coins lived through more bull market than bear, so these medians lean optimistic.
-              The model forecast above is deliberately far more conservative.
+              rests on barely a couple of non-overlapping periods. And most coins lived through more bull market than bear, so these medians lean optimistic at
+              long horizons: the model forecast above sits well below them at one and three years, because it shrinks the trend rather than assuming the past bull
+              market repeats. At a month or a quarter the two can cross, with the model slightly higher.
             </div>
           </div>
         )}
