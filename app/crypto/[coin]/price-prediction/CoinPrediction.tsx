@@ -331,7 +331,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             The faint lines are <b className="text-slate-500">simulated scenarios</b> from the same fitted model — samples of how the price could wander, not
             predictions of when. The accent line is the model forecast; it is smooth because a constant drift can only produce a monotone path. The
             <b style={{ color: '#818cf8' }}> indigo line</b> is the <b className="text-slate-400">historical median path</b> — for each day ahead, the median of
-            every such move {coin.base} has actually made. It zig-zags because history does: over 30 days, 7 of its 29 steps go down.
+            every such move {coin.base} has actually made. It wanders up and down, but <b className="text-slate-400">do not read meaning into the wiggles</b>: we
+            simulated 400 random walks with the same drift, volatility and fat tails, and they produce just as many down-steps (for Bitcoin, 47% of the time).
+            The wobble is sampling noise. Read its <i>level</i>, not its shape — and that is why the forecast line stays smooth rather than imitating it.
           </p>
         </div>
 
@@ -650,8 +652,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
             Each row uses the volatility measured for <i>its own</i> horizon, not a rescaled daily number — the weight on {coin.base}&apos;s current
             volatility falls from 0.803 at 1 day to 0.290 at 240, so the range width is not a naive σ√t fan. The
-            <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made,
-            and unlike the model it is free to go down as well as up.
+            <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
+            It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
+            treat the individual ups and downs as sampling noise rather than structure.
           </div>
         </div>
       </Section>
