@@ -18,6 +18,10 @@ function faqs(name: string, base: string) {
       a: `The page answers that with two numbers: the chance ${base} ever touches the level at any point before a date, and the chance it closes at or beyond it on that date. The first is much larger and is usually what people mean — historically Bitcoin touched a +58% level within 61.4% of one-year windows but closed above it in only 44.0%. Both come from a fat-tailed distribution calibrated so a stated 50% band really contains about 50% of outcomes.`,
     },
     {
+      q: `Why not use moving averages, RSI and MACD to predict the price, like other sites do?`,
+      a: `Because we implemented exactly that method and measured it. Across 25 coins with non-overlapping forward windows, a composite of moving averages (20/50/100/200), RSI(14) and MACD(12,26,9) predicted the 5-day direction 49.4% of the time — a coin flip. MACD alone was the weakest of the three at 49.5%. The indicators do appear significant until you account for the fact that every coin shares one market: they are really detecting "the market is trending", and once forward returns are made market-neutral the effect collapses (MACD's t-statistic falls from 2.15 to 0.33). Stating that a site uses technical indicators is a description of its method, not evidence that the method works.`,
+    },
+    {
       q: `Will ${name} go up?`,
       a: `This page does not answer that, and no honest model can from price data alone. For ${name}, as for nearly every cryptocurrency, the historical trend is not statistically distinguishable from random noise, so the long-run median projection sits close to the current price. What the model can tell you is how wide the plausible range of outcomes is at each horizon.`,
     },
