@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
@@ -45,6 +45,25 @@ const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = 
 };
 const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
 
+/** 1 / 1.5 / 2 / 2.5 / 3 / 4 / 5 / 7.5 × 10^k 중 가까운 "보기 좋은" 숫자로 반올림 */
+function niceRound(v: number): number {
+  if (!(v > 0)) return 0;
+  const e = Math.floor(Math.log10(v));
+  const base = Math.pow(10, e);
+  const m = v / base;
+  const steps = [1, 1.5, 2, 2.5, 3, 4, 5, 7.5, 10];
+  let best = steps[0];
+  for (const st of steps) if (Math.abs(st - m) < Math.abs(best - m)) best = st;
+  return best * base;
+}
+
+/** 현재가 주변의 의미 있는 목표가들 (중복 제거) */
+function targetPrices(spot: number): number[] {
+  const mults = [0.5, 0.75, 1.25, 1.5, 2, 3];
+  const out = mults.map(x => niceRound(spot * x));
+  return [...new Set(out)].filter(v => v > 0).sort((a, b) => a - b);
+}
+
 function rsiLabel(r: number): { text: string; cls: string } {
   if (r >= 70) return { text: 'Overbought', cls: 'text-rose-400' };
   if (r <= 30) return { text: 'Oversold', cls: 'text-emerald-400' };
@@ -75,6 +94,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const [state, setState] = useState<State>('loading');
   const [snap, setSnap] = useState<Snapshot | null>(null);
   const [tf, setTf] = useState<Timeframe>('daily');
+  const [target, setTarget] = useState('');
 
   const load = useCallback(async () => {
     setState('loading');
@@ -170,6 +190,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const seed = [...coin.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7);
   const paths = simulatePaths(m, DAILY_PATH_DAYS, 12, seed);
   const flip = hasSignFlip(s.scenarios);
+  const presets = targetPrices(s.price);
 
   return (
     <>
@@ -407,6 +428,70 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         </div>
 
+        {/* 목표가 도달 확률 — "10만 갈까?" 같은 질문에 점 예측이 아니라 확률로 답한다 */}
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
+          <div className="px-4 py-3 border-b border-slate-800">
+            <h3 className="text-sm font-black text-white">Probability of reaching a price</h3>
+            <p className="text-[11px] text-slate-500 mt-0.5">
+              The model does not claim {coin.base} will hit a round number — it assigns that number a probability.
+            </p>
+          </div>
+          <div className="px-4 pt-3">
+            <label className="flex items-center gap-2 text-xs text-slate-400">
+              <span className="shrink-0">Custom target</span>
+              <span className="text-slate-600">$</span>
+              <input
+                type="number" inputMode="decimal" value={target} onChange={e => setTarget(e.target.value)}
+                placeholder={String(Math.round(s.price * 1.5))}
+                className="w-40 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-sm text-slate-200 placeholder:text-slate-700 focus:outline-none focus:border-amber-500/60 tabular-nums"
+              />
+            </label>
+          </div>
+          <div className="overflow-x-auto mt-3">
+            <table className="w-full text-sm whitespace-nowrap">
+              <thead>
+                <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                  <th className="text-left font-semibold px-4 py-3">Target</th>
+                  <th className="text-right font-semibold px-3 py-3">vs now</th>
+                  <th className="text-right font-semibold px-3 py-3">1 Year</th>
+                  <th className="text-right font-semibold px-3 py-3">2 Years</th>
+                  <th className="text-right font-semibold px-4 py-3">3 Years</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(() => {
+                  const custom = Number(target);
+                  const rows = [...presets];
+                  if (isFinite(custom) && custom > 0 && !rows.includes(custom)) rows.push(custom);
+                  rows.sort((a, b) => a - b);
+                  return rows.map(v => {
+                    const up = v >= s.price;
+                    const isCustom = isFinite(custom) && custom > 0 && v === custom && !presets.includes(custom);
+                    return (
+                      <tr key={v} className={`border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors ${isCustom ? 'bg-amber-500/[0.06]' : ''}`}>
+                        <td className="px-4 py-2.5 font-bold text-white tabular-nums">${formatPrice(v)}</td>
+                        <td className="px-3 py-2.5 text-right"><Pct value={(v / s.price - 1) * 100} /></td>
+                        {[365, 730, 1095].map(d => {
+                          const p = probReach(s.model, v, d);
+                          return (
+                            <td key={d} className={`px-3 py-2.5 text-right tabular-nums font-bold ${up ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              {isFinite(p) ? `${p.toFixed(1)}%` : '-'}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  });
+                })()}
+              </tbody>
+            </table>
+          </div>
+          <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
+            Probability that the closing price is at or beyond the target on that date, under the fitted distribution (Student-t, fat-tailed, calibrated so a
+            stated 50% band really does contain ~50% of outcomes). Upward targets read as &quot;reach or exceed&quot;; downward targets as &quot;fall to or below&quot;.
+          </div>
+        </div>
+
         {/* 과거 구간 시나리오 — 모델이 아니라 이 코인이 실제로 살아낸 구간들 */}
         {s.scenarios.length > 0 && (
           <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
@@ -565,11 +650,26 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           walk with zero true drift, the alpha prior yields a spurious 3-year move of 6.4% at the median and 49% at worst.
         </p>
         <p className="mb-2">
+          We tested the intuition that a coin&apos;s long history should set its forecast — {coin.base === 'BTC' ? "Bitcoin has averaged about +35% a year, so surely the model should extrapolate that" : "many coins have risen a lot historically, so surely the model should extrapolate that"}.
+          Across 24 coins with an expanding window, we compared 1-year-ahead forecasts against simply assuming no change. Assuming no change gave an RMSE of
+          <b className="text-slate-400"> 1.0723</b>; extrapolating the full-history drift unshrunk gave <b className="text-slate-400">1.4363</b>, or 33.9% worse.
+          Every drift estimator we tried lost to &quot;the price stays where it is,&quot; and the more we shrank the drift, the better it did. Longer history did
+          not help either, because drift is not stationary — the past regime does not carry forward. That measurement is why the forecast stays small, and why
+          a big round-number target is answered with a probability above rather than a headline price.
+        </p>
+        <p className="mb-2">
           Direction is unpredictable, but <b className="text-slate-400">volatility is not</b> — it is close to the only thing in markets that genuinely
           forecasts. Regressing next-week volatility on the trailing 20 days across 28 coins gives a slope of 0.645 with R² = 0.24 (t = 63.9). So each horizon
           gets its own volatility: a blend of {coin.base}&apos;s current level (EWMA, 20-day half-life) and its long-run level, using weights we measured
           directly (0.803 at 1 day, decaying to 0.290 at 240). That is why the bands here are not a naive σ√t fan — a coin that is calm right now gets tighter
           near-term bands even if its history is wild.
+        </p>
+        <p className="mb-2">
+          The shape of the distribution changes with the horizon too. Daily crypto returns are fat-tailed, so a Gaussian band is too wide in the middle: a
+          backtest showed our stated &quot;50%&quot; band actually contained <b className="text-slate-400">60.7%</b> of one-day outcomes. We therefore fit a
+          Student-t whose degrees of freedom rise with the horizon (3.9 at one day, 15.7 at 180 days, approaching Gaussian as the central limit theorem takes
+          over). After the fix the stated 50% and 80% bands contain <b className="text-slate-400">50.1%</b> and <b className="text-slate-400">79.0%</b> of
+          outcomes at one day. The bands now mean what they say.
         </p>
         <p>
           We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We also tested whether mean

@@ -14,6 +14,10 @@ function faqs(name: string, base: string) {
       a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns and projected forward as a geometric Brownian motion. The trend is split into a market component (${base}'s beta to Bitcoin) and a coin-specific component (alpha), and both are shrunk toward zero as Bayesian posterior means, because no coin's drift is statistically significant. The market part is shrunk hardest, since extrapolating a market-wide move would copy the last year onto every coin. Technical indicators are not used to tilt the forecast: backtested across 46 coins their 5-day directional accuracy was 49.8%. Alongside the forecast price each horizon reports a 50% range and the probability of a 10% move.`,
     },
     {
+      q: `Will ${base} reach $100,000 (or any round number)?`,
+      a: `The page answers that with a probability, not a headline price. Pick a target in the "Probability of reaching a price" table and it reports the chance the closing price is at or beyond it in 1, 2 or 3 years, using a fat-tailed distribution calibrated so that a stated 50% band really contains about 50% of historical outcomes. We deliberately do not extrapolate a coin's past growth into a big round forecast: across 24 coins, extrapolating the full-history drift made 1-year forecasts 33.9% worse than simply assuming the price does not change.`,
+    },
+    {
       q: `Will ${name} go up?`,
       a: `This page does not answer that, and no honest model can from price data alone. For ${name}, as for nearly every cryptocurrency, the historical trend is not statistically distinguishable from random noise, so the long-run median projection sits close to the current price. What the model can tell you is how wide the plausible range of outcomes is at each horizon.`,
     },

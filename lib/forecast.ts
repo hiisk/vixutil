@@ -58,6 +58,23 @@
  *   사전 40% → 중앙값34.6% · 최악1048%
  * (이전의 하드 컷오프 |t|>=3은 같은 조건에서 최악 276%였다.)
  *
+ * ── 왜 drift를 더 크게 잡지 않는가 (out-of-sample 검정) ──────────
+ * "BTC는 과거 연 +35%였으니 그걸 연장해야 한다"는 직관을 실제로 검정했다.
+ * 24개 코인, 확장창(expanding window), 1년 앞 로그수익률 RMSE:
+ *
+ *   mu = 0 (아무 예측 안 함)          1.0723   <- 기준
+ *   전체이력 drift, 사전 5%           1.0726   +0.0%
+ *   전체이력 drift, 사전 25%          1.0820   +0.9%
+ *   전체이력 drift, 축소 없음         1.4363  +33.9%
+ *   최근365일 drift, 축소 없음        1.7505  +63.2%
+ *
+ * 모든 drift 추정기가 "가격이 안 변한다"보다 나빴고, 축소를 강하게 할수록 좋아졌다.
+ * 전체 이력을 써도 나아지지 않는다 — 표준오차는 줄지만 drift 자체가 비정상(non-stationary)
+ * 이라 과거 국면이 미래로 전이되지 않기 때문이다. 그래서 사전분포를 좁게 유지한다.
+ *
+ * 사용자가 기대하는 큰 숫자(예: "BTC 3년 뒤 10만")는 예측값이 아니라 **확률**로 답한다.
+ * 현재 모델은 P(BTC >= $100k, 3년) = 23.8%를 준다. probReach() 참조.
+ *
  * ── 기간별로 다른 변동성(구간 폭) ──────────────────────────────
  * 방향은 예측 불가능하지만 **변동성은 예측 가능하다** — 금융에서 실제로 예측되는 거의
  * 유일한 것이다. 실측(28개 코인, 전체 이력): 과거 20일 변동성 -> 향후 5일 변동성
@@ -108,8 +125,94 @@ export const HORIZONS: Horizon[] = [
   { key: '3y', label: '3 Years', short: '3Y', days: 1095 },
 ];
 
-const Z50 = 0.6744897501960817; // 50% 구간 (P25~P75)
-const Z80 = 1.2815515655446004; // 80% 구간 (P10~P90)
+/**
+ * 지평별 Student-t 자유도. 40개 코인 롤링 백테스트로 표준화 잔차의 |z| 분위수를 재고
+ * 표준화 t분포를 적합했다(50·80 분위를 동시에 맞춤).
+ *
+ *   h     실측|z|@50  실측|z|@80   적합 v   t(v)@50  t(v)@80
+ *   1      0.5174      1.0750      3.9    0.5183   1.0755
+ *   5      0.5438      1.1546      5.0    0.5629   1.1432
+ *   30     0.6178      1.2330      9.9    0.6254   1.2266
+ *   180    0.6427      1.2518     15.7    0.6450   1.2497
+ *   (정규분포는 0.6745 / 1.2816 = v -> 무한대 극한)
+ *
+ * 정규분포를 그대로 쓰면 단기 구간이 너무 넓다: 실측 커버리지가 "50% 구간"에서 60.7%(h=1),
+ * "80% 구간"에서 84.5%였다. 자유도가 지평에 따라 커지는 건 중심극한정리 때문이다.
+ * h=60에서 18.2가 나왔으나 앞뒤(30:9.9, 90:12.6)와 어긋나는 잡음이라 매듭에서 뺐다.
+ * 측정 범위(1~180일) 밖으로는 외삽하지 않고 양 끝 값으로 고정한다.
+ */
+const T_DF_KNOTS: [number, number][] = [
+  [1, 3.9], [2, 4.4], [3, 4.5], [5, 5.0], [10, 5.3], [20, 7.5], [30, 9.9], [90, 12.6], [180, 15.7],
+];
+
+/** 지평 h의 자유도 — log h 축 선형보간, 범위 밖은 양 끝 고정 */
+export function dfAt(h: number): number {
+  if (h <= T_DF_KNOTS[0][0]) return T_DF_KNOTS[0][1];
+  const last = T_DF_KNOTS[T_DF_KNOTS.length - 1];
+  if (h >= last[0]) return last[1];
+  for (let i = 1; i < T_DF_KNOTS.length; i++) {
+    const [h0, v0] = T_DF_KNOTS[i - 1], [h1, v1] = T_DF_KNOTS[i];
+    if (h <= h1) {
+      const f = (Math.log(h) - Math.log(h0)) / (Math.log(h1) - Math.log(h0));
+      return v0 + f * (v1 - v0);
+    }
+  }
+  return last[1];
+}
+
+// ── Student-t (분산 1로 표준화) ────────────────────────────────
+function lgamma(x: number): number {
+  const g = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+  let y = x, tmp = x + 5.5;
+  tmp -= (x + 0.5) * Math.log(tmp);
+  let ser = 1.000000000190015;
+  for (let j = 0; j < 6; j++) ser += g[j] / ++y;
+  return -tmp + Math.log(2.5066282746310005 * ser / x);
+}
+function betacf(a: number, b: number, x: number): number {
+  const MAXIT = 200, EPS = 3e-14, FPMIN = 1e-300;
+  const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap;
+  if (Math.abs(d) < FPMIN) d = FPMIN;
+  d = 1 / d;
+  let h = d;
+  for (let m = 1; m <= MAXIT; m++) {
+    const m2 = 2 * m;
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d; h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d;
+    const del = d * c; h *= del;
+    if (Math.abs(del - 1) < EPS) break;
+  }
+  return h;
+}
+function ibeta(a: number, b: number, x: number): number {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b;
+}
+/** 표준화 t분포(분산 1)의 누적분포 */
+export function tCdfStd(z: number, v: number): number {
+  const t = z / Math.sqrt((v - 2) / v);
+  const x = v / (v + t * t);
+  const p = 0.5 * ibeta(v / 2, 0.5, x);
+  return t > 0 ? 1 - p : p;
+}
+/** 표준화 t분포의 분위수 (CDF 이분법) */
+export function tQuantStd(p: number, v: number): number {
+  let lo = -60, hi = 60;
+  for (let i = 0; i < 120; i++) {
+    const mid = (lo + hi) / 2;
+    if (tCdfStd(mid, v) < p) lo = mid; else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
 
 /** 사후평균에도 상한을 둔다. exp(±0.5) ≈ 1.65배 / 0.61배 per year */
 const MAX_ANNUAL_LOG_DRIFT = 0.5;
@@ -316,9 +419,11 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
     const h = hz.days;
     const drift = mu * h;
     const sd = sigmaAt(h) * Math.sqrt(h);
+    const v = dfAt(h);
+    const z50 = tQuantStd(0.75, v), z80 = tQuantStd(0.90, v);
     const forecast = spot * Math.exp(drift);
-    const low = spot * Math.exp(drift - Z50 * sd);
-    const high = spot * Math.exp(drift + Z50 * sd);
+    const low = spot * Math.exp(drift - z50 * sd);
+    const high = spot * Math.exp(drift + z50 * sd);
     return {
       key: hz.key,
       label: hz.label,
@@ -327,13 +432,13 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
       forecast,
       low,
       high,
-      low80: spot * Math.exp(drift - Z80 * sd),
-      high80: spot * Math.exp(drift + Z80 * sd),
+      low80: spot * Math.exp(drift - z80 * sd),
+      high80: spot * Math.exp(drift + z80 * sd),
       changePct: (Math.exp(drift) - 1) * 100,
-      swingPct: (Math.exp(Z50 * sd) - 1) * 100,
-      // P(S_h >= 1.1·S_0) = 1 - Phi((ln1.1 - drift)/sd)
-      pUp10: (1 - normalCdf((ln11 - drift) / sd)) * 100,
-      pDown10: normalCdf((ln09 - drift) / sd) * 100,
+      swingPct: (Math.exp(z50 * sd) - 1) * 100,
+      // 팻테일을 반영해 t분포로 확률을 낸다
+      pUp10: (1 - tCdfStd((ln11 - drift) / sd, v)) * 100,
+      pDown10: tCdfStd((ln09 - drift) / sd, v) * 100,
     };
   });
 
@@ -341,11 +446,12 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
   for (let d = 1; d <= DAILY_PATH_DAYS; d++) {
     const drift = mu * d;
     const sd = sigmaAt(d) * Math.sqrt(d);
+    const z50 = tQuantStd(0.75, dfAt(d));
     daily.push({
       day: d,
       forecast: spot * Math.exp(drift),
-      low: spot * Math.exp(drift - Z50 * sd),
-      high: spot * Math.exp(drift + Z50 * sd),
+      low: spot * Math.exp(drift - z50 * sd),
+      high: spot * Math.exp(drift + z50 * sd),
       changePct: (Math.exp(drift) - 1) * 100,
     });
   }
@@ -372,7 +478,8 @@ export function probReach(m: ForecastModel, target: number, days: number): numbe
   const drift = m.mu * days;
   const sd = m.sigmaAt(days) * Math.sqrt(days);
   const z = (Math.log(target / m.spot) - drift) / sd;
-  return target >= m.spot ? (1 - normalCdf(z)) * 100 : normalCdf(z) * 100;
+  const v = dfAt(days);
+  return target >= m.spot ? (1 - tCdfStd(z, v)) * 100 : tCdfStd(z, v) * 100;
 }
 
 /**
@@ -399,11 +506,12 @@ export function forecastSeries(m: ForecastModel, stepDays: number, count: number
     const h = i * stepDays;
     const drift = m.mu * h;
     const sd = m.sigmaAt(h) * Math.sqrt(h);
+    const z50 = tQuantStd(0.75, dfAt(h));
     out.push({
       day: h,
       forecast: m.spot * Math.exp(drift),
-      low: m.spot * Math.exp(drift - Z50 * sd),
-      high: m.spot * Math.exp(drift + Z50 * sd),
+      low: m.spot * Math.exp(drift - z50 * sd),
+      high: m.spot * Math.exp(drift + z50 * sd),
       changePct: (Math.exp(drift) - 1) * 100,
     });
   }
@@ -418,7 +526,16 @@ export function forecastSeries(m: ForecastModel, stepDays: number, count: number
 export function simulatePaths(m: ForecastModel, days: number, count: number, seed: number): number[][] {
   let s = seed >>> 0 || 1;
   const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s >>> 8) / 16777216; };
-  const gauss = () => Math.sqrt(-2 * Math.log(1 - rnd())) * Math.cos(2 * Math.PI * rnd());
+  // 일별 충격은 정규분포가 아니라 t(df(1)) — 실측된 팻테일과 일치시킨다.
+  // 역CDF 표집이 비싸므로 분위수 표를 한 번 만들어 선형보간한다.
+  const v1 = dfAt(1), TABLE = 512;
+  const quant: number[] = [];
+  for (let i = 0; i <= TABLE; i++) quant.push(tQuantStd((i + 0.5) / (TABLE + 1), v1));
+  const shock = () => {
+    const u = rnd() * TABLE;
+    const i = Math.min(TABLE - 1, Math.max(0, Math.floor(u)));
+    return quant[i] + (u - i) * (quant[i + 1] - quant[i]);
+  };
 
   // 일별 분산: V(k) = k · sigmaAt(k)^2
   const V = (k: number) => k * Math.pow(m.sigmaAt(k), 2);
@@ -430,7 +547,7 @@ export function simulatePaths(m: ForecastModel, days: number, count: number, see
     const path: number[] = [];
     let logS = Math.log(m.spot);
     for (let k = 0; k < days; k++) {
-      logS += m.mu + Math.sqrt(dailyVar[k]) * gauss();
+      logS += m.mu + Math.sqrt(dailyVar[k]) * shock();
       path.push(Math.exp(logS));
     }
     out.push(path);
