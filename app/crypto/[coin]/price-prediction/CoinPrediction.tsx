@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchDailyOHLCV, type DailyOHLCV } from '@/lib/binance';
+import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_ANNUAL_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, type ForecastModel } from '@/lib/forecast';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -76,9 +76,11 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     try {
       const market = marketOf(coin);
       const symbol = symbolOf(coin);
-      const [tickers, ohlcv] = await Promise.all([
+      // 시장 기준계열(BTC)도 같이 받는다 — 예측을 시장/alpha 성분으로 분해하기 위해
+      const [tickers, ohlcv, marketCandles] = await Promise.all([
         fetchTickers(market),
         fetchDailyOHLCV(symbol, HISTORY_DAYS, market),
+        fetchDailyCandles('BTCUSDT', HISTORY_DAYS, market).catch(() => []),
       ]);
       const t = tickers.find(x => x.base === coin.base);
       if (!t || ohlcv.length < 2) { setState('nodata'); return; }
@@ -87,7 +89,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       const candles = ohlcv.map(k => ({ high: k.high, low: k.low, close: k.close }));
       const consensus = computeConsensus(candles, market);
       // 방향 틸트 없음 — 백테스트에서 합의 점수의 예측력이 0이었다(lib/forecast.ts 주석)
-      const model = buildForecast(closes, t.lastPrice);
+      const marketCloses = marketCandles.map(k => k.close);
+      const model = buildForecast(closes, t.lastPrice, marketCloses.length ? marketCloses : undefined);
       if (!model) { setState('nodata'); return; }
 
       setSnap({
@@ -268,13 +271,38 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         {/* 왜 장기 중앙값이 평평한지 먼저 밝힌다 */}
         <div className="rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 mb-4 text-xs text-slate-400 leading-relaxed">
+          <p className="mb-2">
+            {coin.base}&apos;s raw trailing drift is <b className="text-slate-300">{((Math.exp(m.muRaw * 365) - 1) * 100).toFixed(1)}%</b> per year
+            (t = {m.tStat.toFixed(2)}, not significant). Extrapolating that would just replay the last year, so instead we split it into a market component and
+            a coin-specific one, and shrink each toward zero.
+          </p>
+          {m.hasMarket && (
+            <div className="grid grid-cols-3 gap-2 mb-2 text-center">
+              <div className="rounded-lg bg-slate-900/60 p-2">
+                <p className="text-[10px] uppercase tracking-wide text-slate-500">Market (β={m.beta.toFixed(2)})</p>
+                <p className={`text-sm font-black tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                  {m.marketAnnualPct >= 0 ? '+' : ''}{m.marketAnnualPct.toFixed(1)}%/yr
+                </p>
+              </div>
+              <div className="rounded-lg bg-slate-900/60 p-2">
+                <p className="text-[10px] uppercase tracking-wide text-slate-500">Coin-specific (α)</p>
+                <p className={`text-sm font-black tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                  {m.alphaAnnualPct >= 0 ? '+' : ''}{m.alphaAnnualPct.toFixed(1)}%/yr
+                </p>
+              </div>
+              <div className="rounded-lg bg-slate-900/60 p-2">
+                <p className="text-[10px] uppercase tracking-wide text-slate-500">Forecast drift</p>
+                <p className={`text-sm font-black tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                  {m.annualDriftPct >= 0 ? '+' : ''}{m.annualDriftPct.toFixed(1)}%/yr
+                </p>
+              </div>
+            </div>
+          )}
           <p>
-            {coin.base}&apos;s raw historical drift is <b className="text-slate-300">{((Math.exp(m.muRaw * 365) - 1) * 100).toFixed(1)}%</b> per year, but with a
-            t-statistic of only <b className="text-slate-300">{m.tStat.toFixed(2)}</b> it is far from significant. Rather than either trusting it or throwing it
-            away, we take the Bayesian posterior mean under a prior that a coin&apos;s true annual drift lies within about ±{(PRIOR_ANNUAL_DRIFT_SD * 100).toFixed(0)}%.
-            That puts <b className="text-slate-300">{(m.shrink * 100).toFixed(0)}%</b> of the weight on the data, giving a forecast drift of{' '}
-            <b className="text-slate-300">{m.annualDriftPct >= 0 ? '+' : ''}{m.annualDriftPct.toFixed(1)}%</b> per year. The forecast line is smooth and monotone
-            because nothing in the data predicts day-to-day direction — a zig-zagging daily forecast would be invented, not measured.
+            The market prior is tight (±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr) because the average beta across coins is 1.00 — extrapolating the
+            market&apos;s trailing move would simply copy it onto every coin. The alpha prior is wider (±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr) since
+            that is the only place coin-specific information can live; here it puts {(m.shrink * 100).toFixed(0)}% of the weight on the data. The forecast line
+            is smooth and monotone because nothing in the data predicts day-to-day direction — a zig-zagging daily forecast would be invented, not measured.
           </p>
         </div>
 
@@ -434,11 +462,11 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           supports a directional forecast, so the model does not pretend otherwise.
         </p>
         <p className="mb-2">
-          The forecast&apos;s direction comes entirely from the historical drift, which is not statistically significant for any coin — even Bitcoin&apos;s full
-          8.9-year Binance history gives t = 1.32. So instead of trusting it or discarding it, we take its Bayesian posterior mean under a prior that the true
-          annual drift lies within about ±{(PRIOR_ANNUAL_DRIFT_SD * 100).toFixed(0)}%. We calibrated that prior by Monte-Carlo: on a pure random walk with zero
-          true drift it produces a spurious 3-year move of 6.4% at the median and 49% at the very worst, whereas a conventional significance cutoff let through
-          moves as large as 276%. The forecast therefore moves, differs between coins, and never explodes.
+          No coin&apos;s drift is statistically significant — even Bitcoin&apos;s full 8.9-year Binance history gives t = 1.32 — and the average beta across the
+          top coins is 1.00, so a naive forecast just copies the market&apos;s last year onto everything. We therefore regress each coin on BTC, shrink the market
+          drift hard (prior ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr, because extrapolating a market drawdown has no evidentiary support) and the
+          coin-specific alpha more gently (prior ±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr). The priors were calibrated by Monte-Carlo: on a pure random
+          walk with zero true drift, the alpha prior yields a spurious 3-year move of 6.4% at the median and 49% at worst.
         </p>
         <p>
           Ranges come from σ√t. We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We tested

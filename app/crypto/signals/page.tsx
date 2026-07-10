@@ -116,6 +116,8 @@ export default function SignalsPage() {
   // Row cache: symbol -> consensus + forecast. undefined = 미계산.
   // Reset when the market changes (different symbols / candles).
   const cacheRef = useRef<Map<string, RowInfo>>(new Map());
+  // 시장 대용치(BTC) 일봉 종가 — 예측을 시장 성분과 코인 고유(alpha) 성분으로 분해하는 데 쓴다
+  const marketClosesRef = useRef<number[]>([]);
   const [, bump] = useReducer((x: number) => x + 1, 0);
 
   const loadList = useCallback(async (mkt: Market) => {
@@ -123,8 +125,14 @@ export default function SignalsPage() {
     setPage(1);
     setSortKey('volume');
     cacheRef.current = new Map();
+    marketClosesRef.current = [];
     setFullCompute({ active: false, done: 0, total: 0 });
     try {
+      // 시장 기준계열을 먼저 받아둔다. 실패해도 예측은 자기 drift로 폴백한다.
+      try {
+        const btc = await fetchDailyCandles('BTCUSDT', FORECAST_DAYS, mkt);
+        marketClosesRef.current = btc.map(k => k.close);
+      } catch { marketClosesRef.current = []; }
       const t = await fetchTickers(mkt);
       setTickers(t);
       setUpdatedAt(new Date());
@@ -140,8 +148,9 @@ export default function SignalsPage() {
       const candles = await fetchDailyCandles(symbol, FORECAST_DAYS, mkt);
       const closes = candles.map(k => k.close);
       const c = computeConsensus(candles, mkt);
-      // 방향 틸트는 넣지 않는다 — 백테스트에서 합의 점수의 예측력이 0이었다(lib/forecast.ts 주석)
-      const f = buildForecast(closes, spot);
+      // 방향 틸트는 넣지 않는다 — 백테스트에서 합의 점수의 예측력이 0이었다(lib/forecast.ts 주석).
+      // 대신 시장 성분과 코인 고유(alpha) 성분으로 분해한다.
+      const f = buildForecast(closes, spot, marketClosesRef.current.length ? marketClosesRef.current : undefined);
       return { c, f, days: closes.length };
     } catch {
       return { c: null, f: null, days: 0 };
@@ -439,11 +448,11 @@ export default function SignalsPage() {
         <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
           <p className="font-bold text-amber-300/90 mb-1">How the 5D–3Y forecast is built</p>
           <p>
-            The forecast price comes from a <b className="text-slate-300">Bayesian posterior drift</b>: the coin&apos;s measured trend, pulled toward zero in
-            proportion to how noisy that measurement is. No coin&apos;s drift is statistically significant — even BTC&apos;s full 8.9-year history gives
-            t = 1.32 — so the forecast stays deliberately modest rather than extrapolating noise. We also do <b className="text-slate-300">not</b> tilt it with
-            technical indicators: backtested over 46 coins, their 5-day directional accuracy was 49.8%, a coin flip. The range below each price contains half
-            of all outcomes. Click a coin for the daily path and probabilities.
+            Each coin&apos;s trend is split into a <b className="text-slate-300">market component</b> (its beta to BTC) and a
+            <b className="text-slate-300"> coin-specific component</b> (alpha). We deliberately do not extrapolate the market&apos;s trailing drift — the average
+            beta across coins is 1.00, so doing that would just copy the last year onto every coin. Both components are shrunk toward zero by a Bayesian
+            posterior in proportion to how noisy they are, and no technical tilt is applied (backtested, 5-day directional accuracy was 49.8% — a coin flip).
+            The range below each price contains half of all outcomes. Click a coin for the decomposition, daily path and probabilities.
           </p>
         </div>
 

@@ -11,7 +11,7 @@ function faqs(name: string, base: string) {
   return [
     {
       q: `How is the ${name} price prediction calculated?`,
-      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns, giving a drift and a volatility, and the price is projected forward as a geometric Brownian motion. The forecast's direction comes from the Bayesian posterior mean of that drift, shrunk toward zero in proportion to how noisy the estimate is, because no coin's drift is statistically significant. We do not tilt it with technical indicators: backtested across 46 coins, their 5-day directional accuracy was 49.8%. Alongside the forecast price each horizon reports a 50% range and the probability of a 10% move.`,
+      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns and projected forward as a geometric Brownian motion. The trend is split into a market component (${base}'s beta to Bitcoin) and a coin-specific component (alpha), and both are shrunk toward zero as Bayesian posterior means, because no coin's drift is statistically significant. The market part is shrunk hardest, since extrapolating a market-wide move would copy the last year onto every coin. Technical indicators are not used to tilt the forecast: backtested across 46 coins their 5-day directional accuracy was 49.8%. Alongside the forecast price each horizon reports a 50% range and the probability of a 10% move.`,
     },
     {
       q: `Will ${name} go up?`,
@@ -96,13 +96,16 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
             Every number is computed in your browser from {coin.base}&apos;s public Binance daily closing prices; nothing is stored and no account is needed.
           </p>
           <p className="mb-3">
-            The forecast price comes from {coin.base}&apos;s own historical drift — but not naively. No cryptocurrency has a statistically significant drift;
-            even Bitcoin&apos;s full 8.9-year Binance history yields a t-statistic of just 1.32. So we take the <b className="text-slate-300">Bayesian posterior
-            mean</b>, pulling the measured drift toward zero in proportion to how noisy it is. The prior was calibrated by Monte-Carlo so that a pure random
-            walk with zero true drift produces a spurious 3-year move of only 6.4% at the median.
-            We also do <b className="text-slate-300">not</b> tilt the forecast with technical indicators. We backtested a consensus of trend (SMA 20/50),
-            Bollinger %B, RSI(14) and an ATR trend measure across 46 coins with non-overlapping forward windows and a coin-level t-test: its 5-day directional
-            accuracy was <b className="text-slate-300">49.8%</b>, a coin flip, and its 30-day correlation was slightly negative.
+            The forecast splits {coin.base}&apos;s trend into two parts: a <b className="text-slate-300">market component</b> (its beta to Bitcoin) and a
+            <b className="text-slate-300"> coin-specific component</b> (alpha). This matters because the average beta across the top coins is 1.00, so simply
+            extrapolating each coin&apos;s own trailing return would copy the market&apos;s last year onto everything and make almost every forecast point the
+            same way. We therefore shrink the market drift hard — extrapolating a market-wide move forward has no evidentiary support — and shrink alpha more
+            gently, since that is the only place coin-specific information can live. Both are Bayesian posterior means, calibrated by Monte-Carlo so a pure
+            random walk produces a spurious 3-year move of only 6.4% at the median.
+            We also do <b className="text-slate-300">not</b> tilt the forecast with technical indicators. Backtested across 46 coins with non-overlapping
+            forward windows and a coin-level t-test, a consensus of trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure had a 5-day directional
+            accuracy of <b className="text-slate-300">49.8%</b> — a coin flip. Momentum and reversal were no better: their signs flipped between pooled and
+            per-coin fits and did not hold up across half-samples.
           </p>
           <p>
             Two consequences are worth stating plainly. The forecast is <b className="text-slate-300">modest</b> — single-digit annual percentages, not the
