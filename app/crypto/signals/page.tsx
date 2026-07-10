@@ -449,30 +449,6 @@ export default function SignalsPage() {
           </div>
         </div>
 
-        <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
-          <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
-          <p className="mb-2">
-            <b className="text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
-            <b className="text-slate-300"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
-            because the drift is only about 9% of the noise over three days. We show the peak because it is the number that genuinely differs between coins and
-            is calibrated: the barrier correction was fitted so the touch probability really is 50%, and checked on BTC, SOL and DOGE with a seed different from
-            the one used to fit it (measured 48.2–50.1%). At short horizons it also matches what a coin historically did — Bitcoin&apos;s modelled 3-day peak
-            lands within 0.4% of its historical median 3-day peak. <b className="text-slate-300">Scenarios</b> shows four sampled 30-day paths from the same model — real samples, not forecasts.
-          </p>
-          <p>
-            A coin&apos;s trend is split into a
-            market component (its beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean. The market trend is extrapolated
-            assertively, which costs about 2.6% in measured one-year accuracy versus assuming no change and makes most coins point the same way as Bitcoin; coins
-            with under two years of history fall back to a conservative prior. No technical tilt is applied — we implemented the moving-average + RSI + MACD method
-            other prediction sites describe and measured its 5-day directional accuracy at 49.4%, a coin flip (MACD alone: 49.5%).
-          </p>
-          <p className="mt-2">
-            Over three days the drift is only about 9% of the noise, so the forecast barely moves even though the price still swings roughly one ATR — that swing
-            lives in the range, not in the forecast. Click a coin for its <b className="text-slate-300">typical peak</b> (the level it touches at some point in half
-            of all paths), the ranges, and the probability of reaching any target.
-          </p>
-        </div>
-
         {/* Search */}
         <div className="relative mb-4">
           <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 text-sm pointer-events-none">🔍</span>
@@ -733,6 +709,30 @@ export default function SignalsPage() {
             </div>
           </>
         )}
+
+        <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
+          <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
+          <p className="mb-2">
+            <b className="text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
+            <b className="text-slate-300"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
+            because the drift is only about 9% of the noise over three days. We show the peak because it is the number that genuinely differs between coins and
+            is calibrated: the barrier correction was fitted so the touch probability really is 50%, and checked on BTC, SOL and DOGE with a seed different from
+            the one used to fit it (measured 48.2–50.1%). At short horizons it also matches what a coin historically did — Bitcoin&apos;s modelled 3-day peak
+            lands within 0.4% of its historical median 3-day peak. <b className="text-slate-300">Scenarios</b> shows four sampled 30-day paths from the same model — real samples, not forecasts.
+          </p>
+          <p>
+            A coin&apos;s trend is split into a
+            market component (its beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean. The market trend is extrapolated
+            assertively, which costs about 2.6% in measured one-year accuracy versus assuming no change and makes most coins point the same way as Bitcoin; coins
+            with under two years of history fall back to a conservative prior. No technical tilt is applied — we implemented the moving-average + RSI + MACD method
+            other prediction sites describe and measured its 5-day directional accuracy at 49.4%, a coin flip (MACD alone: 49.5%).
+          </p>
+          <p className="mt-2">
+            Over three days the drift is only about 9% of the noise, so the forecast barely moves even though the price still swings roughly one ATR — that swing
+            lives in the range, not in the forecast. Click a coin for its <b className="text-slate-300">typical peak</b> (the level it touches at some point in half
+            of all paths), the ranges, and the probability of reaching any target.
+          </p>
+        </div>
 
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
