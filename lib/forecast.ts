@@ -49,11 +49,37 @@
  *   사전 40% → 중앙값34.6% · 최악1048%
  * (이전의 하드 컷오프 |t|>=3은 같은 조건에서 최악 276%였다.)
  *
- * ── 구간 폭 ────────────────────────────────────────────────
- * 변동성은 sigma*sqrt(t)로 늘린다. 평균회귀로 장기 구간을 좁힐 수 있는지 허스트 지수를
- * 실측했으나(비중첩 분산비 회귀) BTC 0.497 · ETH 0.497 · SOL 0.536 · DOGE 0.540 ·
- * PEPE 0.559 로 전부 0.5 근처이거나 그 이상이었다. 좁힐 경험적 근거가 없으므로 정직한
- * 방법인 "신뢰수준"만 조정한다 — 기본은 50% 구간(결과의 절반이 이 안에 들어온다).
+ * ── 기간별로 다른 변동성(구간 폭) ──────────────────────────────
+ * 방향은 예측 불가능하지만 **변동성은 예측 가능하다** — 금융에서 실제로 예측되는 거의
+ * 유일한 것이다. 실측(28개 코인, 전체 이력): 과거 20일 변동성 -> 향후 5일 변동성
+ * 회귀의 기울기 0.645, R^2 0.236, t=63.9.
+ *
+ * 그래서 지평마다 다른 변동성을 쓴다. 현재 변동성(EWMA, 반감기 20일)과 장기 변동성을
+ * 로그공간에서 섞되, 현재 변동성에 실리는 가중치 w(h)를 직접 측정했다:
+ *
+ *   h(일)    1      5     10     20     60    120    240
+ *   w(h)  0.803  0.742  0.684  0.612  0.464  0.391  0.290
+ *
+ * (AR(1) phi=0.9675로 맞춰봤으나 양 끝에서 어긋난다 — h=1에서 모델 0.967 vs 실측 0.803,
+ *  h=240에서 0.124 vs 0.290. 장기기억이 있어 단일 AR(1)로는 부족하다. 그래서 함수형을
+ *  지어내지 않고 측정한 곡선을 log h 축에서 보간해 쓴다.)
+ *
+ * sigma_h = exp( w(h)·ln(sigma_now) + (1-w(h))·ln(sigma_long) )
+ *
+ * 결과: 지금 조용한 코인은 단기 구간이 좁고, 원래 험한 코인은 장기 구간이 넓어진다.
+ * 순진한 sigma·sqrt(t)로는 나오지 않는 구조다.
+ *
+ * 폭 자체를 평균회귀로 더 좁힐 수 있는지도 봤다(허스트 지수, 비중첩 분산비 회귀):
+ * BTC 0.497 · ETH 0.497 · SOL 0.536 · DOGE 0.540 · PEPE 0.559 — 전부 0.5 근처이거나
+ * 그 이상이라 근거가 없다. 그래서 신뢰수준만 조정한다(기본 50% 구간).
+ *
+ * ── 지그재그하는 일별 예측선을 그리지 않는 이유 ─────────────────
+ * 요일 효과를 의심해 검정했다. 코인 단위로는 목요일 t=-7.39처럼 강해 보이지만, 32개 코인은
+ * 같은 목요일을 겪으므로 독립 표본이 아니다. 시장 시계열 하나로 다시 재면 |t|가 2를 넘는
+ * 요일이 하나도 없다(최대 화요일 -1.79). 전반기로 학습해 후반기를 맞히면 적중률 54.8%가
+ * 나오지만 요일별 평균의 전·후반 상관이 0.336으로 불안정하다. 즉 지그재그를 정당화할
+ * 근거가 없다. 대신 차트에는 같은 모델에서 뽑은 **시뮬레이션 경로**를 그린다 — 그것은
+ * 예측이 아니라 "이런 식으로 움직일 수 있다"는 표본이며, 그렇게 명시한다.
  */
 
 export interface Horizon {
@@ -88,6 +114,30 @@ export const MIN_SAMPLES = 20;
 export const RELIABLE_SAMPLES = 60;
 /** 일별 경로를 며칠치 만들지 (상세 페이지 차트·표) */
 export const DAILY_PATH_DAYS = 30;
+/** 현재 변동성 EWMA 반감기(일) */
+const EWMA_HALFLIFE = 20;
+/**
+ * 지평 h일에서 "현재 변동성"에 실리는 가중치. 28개 코인 전체 이력으로 실측한 값.
+ * 나머지 (1-w)는 장기 변동성에 실린다. log h 축에서 선형보간한다.
+ */
+const VOL_WEIGHTS: [number, number][] = [
+  [1, 0.803], [5, 0.742], [10, 0.684], [20, 0.612], [60, 0.464], [120, 0.391], [240, 0.290],
+];
+
+/** 측정된 곡선을 log h 축에서 보간. 범위 밖은 양 끝 값으로 고정한다. */
+export function currentVolWeight(h: number): number {
+  if (h <= VOL_WEIGHTS[0][0]) return VOL_WEIGHTS[0][1];
+  const last = VOL_WEIGHTS[VOL_WEIGHTS.length - 1];
+  if (h >= last[0]) return last[1];
+  for (let i = 1; i < VOL_WEIGHTS.length; i++) {
+    const [h0, w0] = VOL_WEIGHTS[i - 1], [h1, w1] = VOL_WEIGHTS[i];
+    if (h <= h1) {
+      const f = (Math.log(h) - Math.log(h0)) / (Math.log(h1) - Math.log(h0));
+      return w0 + f * (w1 - w0);
+    }
+  }
+  return last[1];
+}
 
 /** 표준정규 누적분포 — Abramowitz & Stegun 7.1.26 기반 erf 근사 (|오차| < 1.5e-7) */
 export function normalCdf(x: number): number {
@@ -132,7 +182,12 @@ export interface ForecastModel {
   spot: number;
   muRaw: number;
   mu: number;
+  /** 장기(전체 표본) 일간 변동성 */
   sigma: number;
+  /** 현재 일간 변동성 (EWMA, 반감기 20일) */
+  sigmaNow: number;
+  /** 지평 h일의 평균 일간 변동성 — 현재/장기를 로그공간에서 섞은 값 */
+  sigmaAt: (h: number) => number;
   /** alpha 사후평균에서 데이터에 실린 가중치 (0=전부 사전분포, 1=전부 데이터) */
   shrink: number;
   tStat: number;
@@ -150,6 +205,8 @@ export interface ForecastModel {
   /** 표본이 RELIABLE_SAMPLES 미만 — 신규 상장이라 추정이 거칠다 */
   limitedHistory: boolean;
   annualVolPct: number;
+  /** 현재 변동성의 연환산(%) */
+  currentAnnualVolPct: number;
   projections: Projection[];
   daily: DailyPoint[];
 }
@@ -191,6 +248,18 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
   const sigma = sampleSd(rets);
   if (!isFinite(sigma) || sigma <= 0) return null;
 
+  // 현재 변동성: EWMA. 장기 분산으로 초기화해 표본 앞부분의 편향을 줄인다.
+  const lam = Math.pow(0.5, 1 / EWMA_HALFLIFE);
+  let v = sigma * sigma;
+  for (const r of rets) v = lam * v + (1 - lam) * r * r;
+  const sigmaNow = Math.sqrt(v) > 0 ? Math.sqrt(v) : sigma;
+
+  /** 지평 h의 평균 일간 변동성 (측정된 가중치로 로그공간 혼합) */
+  const sigmaAt = (h: number) => {
+    const w = currentVolWeight(h);
+    return Math.exp(w * Math.log(sigmaNow) + (1 - w) * Math.log(sigma));
+  };
+
   const se = sigma / Math.sqrt(n);
   const tStat = muRaw / se;
   const capDaily = MAX_ANNUAL_LOG_DRIFT / 365;
@@ -228,7 +297,7 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
   const projections: Projection[] = HORIZONS.map(hz => {
     const h = hz.days;
     const drift = mu * h;
-    const sd = sigma * Math.sqrt(h);
+    const sd = sigmaAt(h) * Math.sqrt(h);
     const forecast = spot * Math.exp(drift);
     const low = spot * Math.exp(drift - Z50 * sd);
     const high = spot * Math.exp(drift + Z50 * sd);
@@ -253,7 +322,7 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
   const daily: DailyPoint[] = [];
   for (let d = 1; d <= DAILY_PATH_DAYS; d++) {
     const drift = mu * d;
-    const sd = sigma * Math.sqrt(d);
+    const sd = sigmaAt(d) * Math.sqrt(d);
     daily.push({
       day: d,
       forecast: spot * Math.exp(drift),
@@ -264,13 +333,14 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
   }
 
   return {
-    spot, muRaw, mu, sigma, shrink, tStat, samples: n,
+    spot, muRaw, mu, sigma, sigmaNow, sigmaAt, shrink, tStat, samples: n,
     beta, hasMarket,
     marketAnnualPct: (Math.exp(beta * muMarket * 365) - 1) * 100,
     alphaAnnualPct: (Math.exp(alphaPost * 365) - 1) * 100,
     limitedHistory: n < RELIABLE_SAMPLES,
     annualDriftPct: (Math.exp(mu * 365) - 1) * 100,
     annualVolPct: sigma * Math.sqrt(365) * 100,
+    currentAnnualVolPct: sigmaNow * Math.sqrt(365) * 100,
     projections, daily,
   };
 }
@@ -282,7 +352,7 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
 export function probReach(m: ForecastModel, target: number, days: number): number {
   if (!(target > 0) || !(m.spot > 0)) return NaN;
   const drift = m.mu * days;
-  const sd = m.sigma * Math.sqrt(days);
+  const sd = m.sigmaAt(days) * Math.sqrt(days);
   const z = (Math.log(target / m.spot) - drift) / sd;
   return target >= m.spot ? (1 - normalCdf(z)) * 100 : normalCdf(z) * 100;
 }
@@ -299,6 +369,34 @@ export function probTpBeforeSl(spot: number, tp: number, sl: number): number {
   if (!(spot > lo && spot < hi)) return NaN; // 이미 한쪽을 벗어남
   const pUpper = Math.log(spot / lo) / Math.log(hi / lo); // 위쪽 배리어를 먼저 칠 확률
   return (tp > sl ? pUpper : 1 - pUpper) * 100;
+}
+
+/**
+ * 시뮬레이션 경로 — 같은 모델에서 뽑은 표본이지, 예측이 아니다.
+ * 일별 조건부 분산은 지평별 총분산의 차분 V(k)-V(k-1)에서 얻는다(변동성 기간구조와 일관).
+ * 결정적 시드를 받아 리렌더마다 경로가 바뀌지 않게 한다.
+ */
+export function simulatePaths(m: ForecastModel, days: number, count: number, seed: number): number[][] {
+  let s = seed >>> 0 || 1;
+  const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s >>> 8) / 16777216; };
+  const gauss = () => Math.sqrt(-2 * Math.log(1 - rnd())) * Math.cos(2 * Math.PI * rnd());
+
+  // 일별 분산: V(k) = k · sigmaAt(k)^2
+  const V = (k: number) => k * Math.pow(m.sigmaAt(k), 2);
+  const dailyVar: number[] = [];
+  for (let k = 1; k <= days; k++) dailyVar.push(Math.max(V(k) - V(k - 1), 1e-12));
+
+  const out: number[][] = [];
+  for (let p = 0; p < count; p++) {
+    const path: number[] = [];
+    let logS = Math.log(m.spot);
+    for (let k = 0; k < days; k++) {
+      logS += m.mu + Math.sqrt(dailyVar[k]) * gauss();
+      path.push(Math.exp(logS));
+    }
+    out.push(path);
+  }
+  return out;
 }
 
 /** 최근 `window`일 중 상승 마감한 날의 수 */

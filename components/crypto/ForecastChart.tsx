@@ -1,4 +1,5 @@
 'use client';
+import { useId } from 'react';
 import type { DailyPoint } from '@/lib/forecast';
 
 /**
@@ -12,14 +13,18 @@ export default function ForecastChart({
   history,
   daily,
   spot,
+  paths = [],
   height = 260,
 }: {
   /** 과거 종가 (오래된 순) */
   history: number[];
   daily: DailyPoint[];
   spot: number;
+  /** 같은 모델에서 뽑은 시뮬레이션 경로 — 예측이 아니라 표본이다 */
+  paths?: number[][];
   height?: number;
 }) {
+  const uid = useId().replace(/:/g, '');
   if (history.length < 2 || daily.length < 2) {
     return <div className="h-40 grid place-items-center text-sm text-slate-600">Not enough data to chart</div>;
   }
@@ -33,9 +38,16 @@ export default function ForecastChart({
   const nF = daily.length;
   const total = nH + nF; // 마지막 과거점(=오늘) 다음에 예측 1일차가 온다
 
-  // y 범위: 과거 + 예측 구간 전체를 담되, 위아래 4% 여백
+  // y 범위: 과거 + 예측 구간을 담되, 시뮬레이션 경로도 대부분 들어오게 한다.
+  // 경로 하나가 크게 튀어 축이 뭉개지지 않도록 2~98 분위로 자른다.
   const lows = [...history, ...daily.map(d => d.low)];
   const highs = [...history, ...daily.map(d => d.high)];
+  if (paths.length) {
+    const flat = paths.flat().sort((a, b) => a - b);
+    const q = (f: number) => flat[Math.min(flat.length - 1, Math.max(0, Math.floor(f * flat.length)))];
+    lows.push(q(0.02));
+    highs.push(q(0.98));
+  }
   let lo = Math.min(...lows), hi = Math.max(...highs);
   if (!(hi > lo)) { hi = lo * 1.01 || 1; lo = lo * 0.99; }
   const padY = (hi - lo) * 0.04;
@@ -77,6 +89,17 @@ export default function ForecastChart({
         <line x1={divX} x2={divX} y1={padT} y2={padT + innerH} stroke="#334155" strokeWidth={1} />
         <text x={divX + 5} y={padT + 11} fill="#64748b" fontSize={10}>today</text>
 
+        {/* 시뮬레이션 경로 — 데이터가 아니라 표본이므로 가장 뒤에, 가장 옅게 */}
+        {paths.length > 0 && (
+          <g clipPath={`url(#clip-${uid})`} opacity={0.35}>
+            {paths.map((pth, pi) => (
+              <path key={pi} d={[`M${x(nH - 1).toFixed(1)},${y(spot).toFixed(1)}`,
+                ...pth.map((v, i) => `L${fx(i).toFixed(1)},${y(v).toFixed(1)}`)].join(' ')}
+                fill="none" stroke={accent} strokeWidth={1} strokeLinejoin="round" />
+            ))}
+          </g>
+        )}
+
         {/* 50% 구간 — 옅은 면 */}
         <path d={bandPath} fill={accent} opacity={0.1} />
 
@@ -89,6 +112,10 @@ export default function ForecastChart({
         {/* 오늘 지점 마커 — 표면색 링으로 겹침 방지 */}
         <circle cx={divX} cy={y(spot)} r={4} fill="#e2e8f0" stroke="#0f172a" strokeWidth={2} />
         <circle cx={fx(nF - 1)} cy={y(last.forecast)} r={4} fill={accent} stroke="#0f172a" strokeWidth={2} />
+
+        <defs>
+          <clipPath id={`clip-${uid}`}><rect x={padL} y={padT} width={innerW} height={innerH} /></clipPath>
+        </defs>
       </svg>
 
       {/* 두 개 이상의 시계열 → 범례는 항상 둔다 */}
@@ -96,6 +123,9 @@ export default function ForecastChart({
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 bg-slate-400 rounded" /> Actual close</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent }} /> Forecast</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-2 rounded-sm" style={{ background: accent, opacity: 0.25 }} /> 50% range</span>
+        {paths.length > 0 && (
+          <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent, opacity: 0.4 }} /> simulated paths</span>
+        )}
       </div>
     </div>
   );

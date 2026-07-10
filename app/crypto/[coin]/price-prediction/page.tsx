@@ -110,8 +110,10 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           <p>
             Two consequences are worth stating plainly. The forecast is <b className="text-slate-300">modest</b> — single-digit annual percentages, not the
             confident multiples you will see elsewhere — because that is all the data supports. And the daily forecast line is <b className="text-slate-300">smooth
-            and monotone</b>: a forecast that zig-zagged day to day would be inventing information nobody has. The range and the probability of a given move,
-            both driven by {coin.base}&apos;s measured volatility, carry at least as much information as the number itself.
+            and monotone</b>: we tested a day-of-week effect to see whether a zig-zagging daily forecast could be justified, and on the market series no weekday
+            reaches statistical significance. Direction is not forecastable, but <b className="text-slate-300">volatility is</b>, so each horizon uses its own
+            measured blend of {coin.base}&apos;s current and long-run volatility. The range and the probability of a given move therefore carry at least as much
+            information as the number itself.
           </p>
         </section>
 

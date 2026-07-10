@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, simulatePaths, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel } from '@/lib/forecast';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -150,6 +150,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const pTp = s.consensus ? probTpBeforeSl(s.price, s.consensus.tp, s.consensus.sl) : NaN;
   const rr = s.consensus ? Math.abs(s.consensus.tp - s.consensus.entry) / Math.abs(s.consensus.entry - s.consensus.sl) : NaN;
   const evR = isFinite(pTp) && isFinite(rr) ? (pTp / 100) * rr - (1 - pTp / 100) : NaN;
+  // 코인 티커로 시드를 만들어 리렌더/재방문에도 같은 경로가 나오게 한다
+  const seed = [...coin.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7);
+  const paths = simulatePaths(m, DAILY_PATH_DAYS, 12, seed);
 
   return (
     <>
@@ -210,6 +213,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <p className="text-lg font-black tabular-nums text-white">
               {m.annualVolPct.toFixed(1)}% <span className={`text-xs font-bold ${VOL_CLR[volLabel]}`}>{volLabel}</span>
             </p>
+            <p className="text-[10px] text-slate-600 mt-0.5 tabular-nums">
+              now {m.currentAnnualVolPct.toFixed(0)}% · {m.currentAnnualVolPct < m.annualVolPct ? 'calmer' : 'wilder'} than usual
+            </p>
           </div>
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1">Green days (30d)</p>
@@ -266,7 +272,11 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {/* ── Prediction ───────────────────────────── */}
       <Section id="prediction" title="Prediction" sub={`${coin.name} projection with a 50% confidence range — half of outcomes land inside the band`}>
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
-          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} />
+          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} />
+          <p className="text-[11px] text-slate-600 mt-2 text-center leading-relaxed">
+            The faint lines are <b className="text-slate-500">simulated scenarios</b> drawn from the same fitted model — samples of how the price could wander,
+            not predictions of when. The solid line is the forecast; it is smooth because nothing in the data predicts day-to-day direction.
+          </p>
         </div>
 
         {/* 왜 장기 중앙값이 평평한지 먼저 밝힌다 */}
@@ -468,10 +478,19 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           coin-specific alpha more gently (prior ±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr). The priors were calibrated by Monte-Carlo: on a pure random
           walk with zero true drift, the alpha prior yields a spurious 3-year move of 6.4% at the median and 49% at worst.
         </p>
+        <p className="mb-2">
+          Direction is unpredictable, but <b className="text-slate-400">volatility is not</b> — it is close to the only thing in markets that genuinely
+          forecasts. Regressing next-week volatility on the trailing 20 days across 28 coins gives a slope of 0.645 with R² = 0.24 (t = 63.9). So each horizon
+          gets its own volatility: a blend of {coin.base}&apos;s current level (EWMA, 20-day half-life) and its long-run level, using weights we measured
+          directly (0.803 at 1 day, decaying to 0.290 at 240). That is why the bands here are not a naive σ√t fan — a coin that is calm right now gets tighter
+          near-term bands even if its history is wild.
+        </p>
         <p>
-          Ranges come from σ√t. We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We tested
-          whether mean reversion would justify narrower long-horizon bands by measuring the Hurst exponent, but it came out at ≈0.5 for every major coin
-          (a random walk), so there is no empirical basis for shrinking them further.
+          We display the <b className="text-slate-400">50% interval (P25–P75)</b> by default and the 80% interval alongside it. We also tested whether mean
+          reversion would justify narrower long-horizon bands by measuring the Hurst exponent, but it came out at ≈0.5 for every major coin (a random walk),
+          so there is no basis for shrinking them further. And we tested a day-of-week effect, hoping to justify a zig-zagging daily forecast: on the market
+          series no weekday clears |t| = 2, and the weekday pattern from one half of history correlates only 0.34 with the other. So the forecast line stays
+          smooth, and the wiggle you see belongs to the simulated scenarios, which are labelled as such.
         </p>
       </div>
 
