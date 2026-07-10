@@ -1,9 +1,9 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -70,6 +70,7 @@ function Section({ id, title, sub, children }: { id: string; title: string; sub?
 export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const [state, setState] = useState<State>('loading');
   const [snap, setSnap] = useState<Snapshot | null>(null);
+  const [tf, setTf] = useState<Timeframe>('daily');
 
   const load = useCallback(async () => {
     setState('loading');
@@ -113,6 +114,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   }, [coin]);
 
   useEffect(() => { load(); }, [load]);
+
+  // 일/주/월 뷰 — 지평마다 다른 변동성(sigmaAt)을 그대로 쓴다
+  const series = useMemo(() => {
+    if (!snap) return [];
+    const cfg = TIMEFRAMES[tf];
+    return forecastSeries(snap.model, cfg.stepDays, cfg.count);
+  }, [snap, tf]);
 
   if (state === 'loading') {
     return (
@@ -391,8 +399,16 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-          <div className="px-4 py-3 border-b border-slate-800">
-            <h3 className="text-sm font-black text-white">Daily forecast — next {m.daily.length} days</h3>
+          <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <h3 className="text-sm font-black text-white">{TIMEFRAMES[tf].label}</h3>
+            <div className="inline-flex rounded-lg border border-slate-800 bg-slate-950 p-0.5">
+              {(Object.keys(TIMEFRAMES) as Timeframe[]).map(k => (
+                <button key={k} onClick={() => setTf(k)}
+                  className={`px-3 py-1 text-[11px] font-bold rounded-md capitalize transition-colors ${tf === k ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+                  {k}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm whitespace-nowrap">
@@ -402,21 +418,27 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
                   <th className="text-right font-semibold px-3 py-3">Forecast</th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
+                  <th className="text-right font-semibold px-3 py-3">Range width</th>
                   <th className="text-right font-semibold px-4 py-3">vs now</th>
                 </tr>
               </thead>
               <tbody>
-                {m.daily.map(d => (
+                {series.map(d => (
                   <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
                     <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
                     <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
                     <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
+                    <td className="px-3 py-2.5 text-right text-slate-400 tabular-nums">±{(((d.high / d.forecast) - 1) * 100).toFixed(1)}%</td>
                     <td className="px-4 py-2.5 text-right"><Pct value={d.changePct} /></td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
+            Each row uses the volatility measured for <i>its own</i> horizon, not a rescaled daily number — the weight on {coin.base}&apos;s current
+            volatility falls from 0.803 at 1 day to 0.290 at 240, so the range width is not a naive σ√t fan.
           </div>
         </div>
       </Section>
@@ -491,6 +513,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           so there is no basis for shrinking them further. And we tested a day-of-week effect, hoping to justify a zig-zagging daily forecast: on the market
           series no weekday clears |t| = 2, and the weekday pattern from one half of history correlates only 0.34 with the other. So the forecast line stays
           smooth, and the wiggle you see belongs to the simulated scenarios, which are labelled as such.
+        </p>
+        <p>
+          We also tested whether {coin.base} mean-reverts to its own 200-day anchor — which would bend the forecast line and give each coin its own direction
+          depending on where it sits. Using market-neutral (idiosyncratic) forward returns, non-overlapping windows and a coin-level t-test, the pooled and
+          per-coin coefficients came out with <b className="text-slate-400">opposite signs</b> at every horizon (5, 20, 60 and 120 days) and neither half of
+          history confirmed the other. So no horizon has a trustworthy direction, and the forecast stays a single shrunken drift. Volatility, by contrast,
+          genuinely differs by horizon — which is what the daily / weekly / monthly views above actually model.
         </p>
       </div>
 

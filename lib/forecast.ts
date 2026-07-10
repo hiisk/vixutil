@@ -13,6 +13,15 @@
  *   모멘텀(60일)   30일    0.036     -1.77       53.8%
  *   모멘텀(120일)  30일   -0.009     -4.61       49.0%
  *
+ * 장기 기준선(SMA200) 평균회귀도 검정했다. 시장 성분을 제거한 고유(idiosyncratic) 수익률을
+ * 타깃으로, 비중첩 구간·코인단위 t·반기 안정성까지 봤다. h=5/20/60/120 전부에서
+ * pooled 계수는 양수(추세)인데 coin-level은 음수(회귀)로 **부호가 반대**였고 반기별로도
+ * 무너졌다. 즉 "특이성에 따른 조정"으로 방향을 바꿀 근거도 없다.
+ *
+ * 예측선이 단조로운 이유가 여기 있다. 선이 휘려면 지평마다 부호가 다른 기대수익률이
+ * 있어야 하는데, 어느 지평에서도 유의한 부호가 없다. 반면 **변동성**은 지평마다 확실히
+ * 다르므로(아래) 일/주/월 뷰는 각자의 변동성 모델을 쓴다.
+ *
  * 기술적 합의(Trend·Bollinger·RSI·ATR)는 예측력이 사실상 0이고 30일에서는 오히려 부호가
  * 음수다. 모멘텀은 pooled와 coin-level에서 부호가 뒤집혀 견고하지 않다. 그래서 단기 방향을
  * 기술적 지표로 기울이지 않는다(예전 버전은 그렇게 했고, 그건 잡음을 예측으로 포장한 것이었다).
@@ -170,6 +179,7 @@ export interface Projection {
 }
 
 export interface DailyPoint {
+  /** 오늘로부터 며칠 뒤 */
   day: number;
   /** 점 예측가 */
   forecast: number;
@@ -177,6 +187,14 @@ export interface DailyPoint {
   high: number;
   changePct: number;
 }
+
+/** 예측 시계열을 만들 때 쓰는 간격 */
+export type Timeframe = 'daily' | 'weekly' | 'monthly';
+export const TIMEFRAMES: Record<Timeframe, { stepDays: number; count: number; label: string }> = {
+  daily: { stepDays: 1, count: 30, label: 'Daily · next 30 days' },
+  weekly: { stepDays: 7, count: 12, label: 'Weekly · next 12 weeks' },
+  monthly: { stepDays: 30, count: 12, label: 'Monthly · next 12 months' },
+};
 
 export interface ForecastModel {
   spot: number;
@@ -369,6 +387,27 @@ export function probTpBeforeSl(spot: number, tp: number, sl: number): number {
   if (!(spot > lo && spot < hi)) return NaN; // 이미 한쪽을 벗어남
   const pUpper = Math.log(spot / lo) / Math.log(hi / lo); // 위쪽 배리어를 먼저 칠 확률
   return (tp > sl ? pUpper : 1 - pUpper) * 100;
+}
+
+/**
+ * 임의 간격의 예측 시계열. 각 지점의 변동성은 그 지평의 sigmaAt(h)를 쓰므로,
+ * 일/주/월 뷰는 단순한 재표집이 아니라 지평마다 다른 변동성 모델을 반영한다.
+ */
+export function forecastSeries(m: ForecastModel, stepDays: number, count: number): DailyPoint[] {
+  const out: DailyPoint[] = [];
+  for (let i = 1; i <= count; i++) {
+    const h = i * stepDays;
+    const drift = m.mu * h;
+    const sd = m.sigmaAt(h) * Math.sqrt(h);
+    out.push({
+      day: h,
+      forecast: m.spot * Math.exp(drift),
+      low: m.spot * Math.exp(drift - Z50 * sd),
+      high: m.spot * Math.exp(drift + Z50 * sd),
+      changePct: (Math.exp(drift) - 1) * 100,
+    });
+  }
+  return out;
 }
 
 /**
