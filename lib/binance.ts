@@ -24,6 +24,8 @@ export interface Ticker24h {
   lastPrice: number;
   priceChangePercent: number;
   quoteVolume: number;
+  /** 24시간 고가·저가 폭을 현재가로 나눈 값(%). 실현 변동성의 값싼 대용치. */
+  rangePct: number;
 }
 
 /**
@@ -39,13 +41,18 @@ export async function fetchTickers(market: Market = 'spot'): Promise<Ticker24h[]
     .filter(x => x.symbol.endsWith('USDT'))
     .map(x => ({ symbol: x.symbol, base: x.symbol.slice(0, -4), raw: x }))
     .filter(x => !STABLE_BASES.has(x.base))
-    .map(x => ({
-      symbol: x.symbol,
-      base: x.base,
-      lastPrice: Number(x.raw.lastPrice),
-      priceChangePercent: Number(x.raw.priceChangePercent),
-      quoteVolume: Number(x.raw.quoteVolume),
-    }))
+    .map(x => {
+      const lastPrice = Number(x.raw.lastPrice);
+      const high = Number(x.raw.highPrice), low = Number(x.raw.lowPrice);
+      return {
+        symbol: x.symbol,
+        base: x.base,
+        lastPrice,
+        priceChangePercent: Number(x.raw.priceChangePercent),
+        quoteVolume: Number(x.raw.quoteVolume),
+        rangePct: lastPrice > 0 && isFinite(high) && isFinite(low) ? ((high - low) / lastPrice) * 100 : 0,
+      };
+    })
     .filter(x => x.lastPrice > 0 && isFinite(x.quoteVolume))
     .sort((a, b) => b.quoteVolume - a.quoteVolume);
 }

@@ -56,7 +56,7 @@ const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = 
 const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
-type SortKey = 'volume' | 'signal' | 'pnl';
+type SortKey = 'volume' | 'signal' | 'pnl' | 'chg24h' | 'range24h';
 
 /**
  * consensus·projection 계산에 쓰는 일봉 수.
@@ -215,18 +215,26 @@ export default function SignalsPage() {
       ? liquid.reduce((a, b) => (b.priceChangePercent > a.priceChangePercent ? b : a))
       : null;
     const upShare = up + down > 0 ? (up / (up + down)) * 100 : 50;
-    return { btc, totalVol, up, down, gainer, upShare };
+    // 상단 하이라이트 카드 — 전부 이미 받아온 티커 1건에서 나온다(추가 요청 없음)
+    const trending = [...tickers].sort((a, b) => b.quoteVolume - a.quoteVolume).slice(0, 3);
+    const gainers = [...liquid].sort((a, b) => b.priceChangePercent - a.priceChangePercent).slice(0, 3);
+    const volatile = [...liquid].sort((a, b) => b.rangePct - a.rangePct).slice(0, 3);
+    return { btc, totalVol, up, down, gainer, upShare, trending, gainers, volatile };
   }, [tickers]);
 
   // Search filter (by base symbol), then sort. Volume sort is free (ticker order);
   // Search filter → sort → (optional) TP/SL-hit filter.
   // Signal/P&L sorts and the hit filter read the cache (require the full compute).
+  // 티커만으로 정렬되는 키는 코인별 계산이 필요 없다
   const needsFullCompute = sortKey === 'signal' || sortKey === 'pnl' || hitOnly;
 
   const sortedTickers = useMemo(() => {
     const q = query.trim().toUpperCase();
     let list = q ? tickers.filter(t => t.base.includes(q)) : tickers;
-    if (sortKey !== 'volume') {
+    if (sortKey === 'chg24h' || sortKey === 'range24h') {
+      const key = sortKey === 'chg24h' ? 'priceChangePercent' as const : 'rangePct' as const;
+      list = [...list].sort((a, b) => (sortDir === 'desc' ? b[key] - a[key] : a[key] - b[key]));
+    } else if (sortKey !== 'volume') {
       const scored = list.map(t => {
         const c = cacheRef.current.get(t.symbol)?.c;
         const metric = c ? (sortKey === 'signal' ? signalMetric(c) : pnlOf(c.side, c.entry, t.lastPrice)) : null;
@@ -382,54 +390,83 @@ export default function SignalsPage() {
           <p className="text-slate-600 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
         </div>
 
-        {/* Market stat cards */}
+        {/* Market summary strip + highlight cards */}
         {listState === 'ready' && stats && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">BTC price</p>
-              {stats.btc ? (
-                <>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xl font-black text-white tabular-nums">{formatPrice(stats.btc.lastPrice)}</span>
-                    {btcSpark.length > 1 && <Sparkline points={[...btcSpark, stats.btc.lastPrice]} w={60} h={22} />}
-                  </div>
-                  <p className="text-xs mt-1"><Pct value={stats.btc.priceChangePercent} /> <span className="text-slate-600">24h</span></p>
-                </>
-              ) : <span className="text-slate-600 text-sm">-</span>}
-            </div>
-
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">24h volume</p>
-              <span className="text-xl font-black text-white tabular-nums">{formatVolume(stats.totalVol)}</span>
-              <p className="text-xs text-slate-600 mt-1">{tickers.length} USDT pairs</p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Advancing / declining</p>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-xl font-black text-emerald-400 tabular-nums">{stats.up}</span>
+          <>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-4 px-1 text-xs">
+              {stats.btc && (
+                <span className="flex items-center gap-2">
+                  <span className="text-slate-500">BTC</span>
+                  <span className="font-black text-white tabular-nums">{formatPrice(stats.btc.lastPrice)}</span>
+                  <Pct value={stats.btc.priceChangePercent} />
+                  {btcSpark.length > 1 && <Sparkline points={[...btcSpark, stats.btc.lastPrice]} w={54} h={18} />}
+                </span>
+              )}
+              <span className="flex items-center gap-2">
+                <span className="text-slate-500">24h volume</span>
+                <span className="font-black text-white tabular-nums">{formatVolume(stats.totalVol)}</span>
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="text-slate-500">Advancing</span>
+                <span className="font-black text-emerald-400 tabular-nums">{stats.up}</span>
                 <span className="text-slate-700">/</span>
-                <span className="text-xl font-black text-rose-400 tabular-nums">{stats.down}</span>
-              </div>
-              <div className="mt-2 flex h-1.5 gap-[2px]" role="img" aria-label={`${stats.up} advancing, ${stats.down} declining`}>
-                <div className="bg-emerald-500 rounded-full" style={{ width: `${stats.upShare}%` }} />
-                <div className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
-              </div>
+                <span className="font-black text-rose-400 tabular-nums">{stats.down}</span>
+                <span className="inline-flex h-1.5 w-24 gap-[2px]" role="img" aria-label={`${stats.up} advancing, ${stats.down} declining`}>
+                  <span className="bg-emerald-500 rounded-full" style={{ width: `${stats.upShare}%` }} />
+                  <span className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
+                </span>
+              </span>
+              <span className="text-slate-600">{tickers.length} USDT pairs</span>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-              <p className="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Top gainer 24h</p>
-              {stats.gainer ? (
-                <>
-                  <div className="flex items-center gap-2">
-                    <CoinLogo base={stats.gainer.base} size={22} />
-                    <span className="text-lg font-black text-white truncate">{stats.gainer.base}</span>
+            <div className="grid md:grid-cols-3 gap-3 mb-5">
+              {([
+                { key: 'trending', icon: '🔥', title: 'Trending', hint: 'Most traded', rows: stats.trending,
+                  value: (t: Ticker24h) => formatVolume(t.quoteVolume), cls: 'text-slate-300',
+                  cta: 'Sort by volume', sort: 'volume' as SortKey },
+                { key: 'gainers', icon: '📈', title: 'Gainers', hint: 'Best 24h change', rows: stats.gainers,
+                  value: (t: Ticker24h) => `${t.priceChangePercent >= 0 ? '+' : ''}${t.priceChangePercent.toFixed(2)}%`,
+                  cls: 'text-emerald-400', cta: 'Sort by 24h change', sort: 'chg24h' as SortKey },
+                { key: 'volatile', icon: '⚡', title: 'Most volatile', hint: 'Widest 24h range', rows: stats.volatile,
+                  value: (t: Ticker24h) => `${t.rangePct.toFixed(1)}%`, cls: 'text-amber-400',
+                  cta: 'Sort by 24h range', sort: 'range24h' as SortKey },
+              ]).map(card => (
+                <div key={card.key} className="rounded-2xl border border-slate-800 bg-slate-900 p-4 flex flex-col">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="flex items-center gap-2 text-sm font-black text-white">
+                      <span aria-hidden="true">{card.icon}</span>{card.title}
+                    </span>
+                    <span className="text-[11px] text-slate-500">{card.hint}</span>
                   </div>
-                  <p className="text-xs mt-1"><Pct value={stats.gainer.priceChangePercent} /></p>
-                </>
-              ) : <span className="text-slate-600 text-sm">-</span>}
+                  <div className="space-y-2 flex-1">
+                    {card.rows.map((t, i) => {
+                      const meta = coinByBase(t.base);
+                      const inner = (
+                        <>
+                          <span className="text-slate-600 text-xs tabular-nums w-3 shrink-0">{i + 1}</span>
+                          <CoinLogo base={t.base} size={20} />
+                          <span className="font-bold text-white text-sm">{t.base}</span>
+                          {meta && meta.name !== meta.base && <span className="text-slate-500 text-xs truncate">{meta.name}</span>}
+                          <span className={`ml-auto text-sm font-bold tabular-nums ${card.cls}`}>{card.value(t)}</span>
+                        </>
+                      );
+                      return meta ? (
+                        <Link key={t.symbol} href={`/crypto/${meta.slug}/price-prediction`} className="flex items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-slate-800/60 transition-colors">{inner}</Link>
+                      ) : (
+                        <div key={t.symbol} className="flex items-center gap-2 px-1 py-0.5">{inner}</div>
+                      );
+                    })}
+                  </div>
+                  <button
+                    onClick={() => { setSortKey(card.sort); setSortDir('desc'); setPage(1); }}
+                    className="mt-3 w-full text-xs font-bold rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:text-amber-400 hover:border-slate-600 py-2 transition-colors"
+                  >
+                    {card.cta}
+                  </button>
+                </div>
+              ))}
             </div>
-          </div>
+          </>
         )}
 
         {/* Controls */}
