@@ -59,6 +59,36 @@ export function Pct({ value, bold = false }: { value: number; bold?: boolean }) 
   );
 }
 
+/**
+ * 시뮬레이션 경로 미니 차트 — 같은 모델에서 뽑은 표본 몇 개.
+ * 예측선이 아니라 "이 코인이 30일 동안 이런 식으로 움직일 수 있다"는 표본이므로
+ * 얇고 흐리게 그리고, 헤더에 그렇게 표기한다.
+ */
+export function MiniPaths({ paths, spot, w = 76, h = 26 }: { paths: number[][]; spot: number; w?: number; h?: number }) {
+  if (!paths.length || paths[0].length < 2) return <span className="text-slate-700">-</span>;
+  const flat = paths.flat();
+  let lo = Math.min(spot, ...flat), hi = Math.max(spot, ...flat);
+  if (!(hi > lo)) { hi = lo * 1.01 || 1; lo = lo * 0.99; }
+  const pad = 2;
+  const n = paths[0].length;
+  const x = (i: number) => pad + ((i + 1) / n) * (w - pad * 2);
+  const y = (v: number) => pad + (1 - (v - lo) / (hi - lo)) * (h - pad * 2);
+  const up = paths.reduce((s, p) => s + (p[p.length - 1] >= spot ? 1 : 0), 0) >= paths.length / 2;
+  const color = up ? '#34d399' : '#fb7185';
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true" className="inline-block align-middle">
+      <line x1={pad} x2={w - pad} y1={y(spot)} y2={y(spot)} stroke="#334155" strokeWidth={1} />
+      {paths.map((p, pi) => (
+        <path
+          key={pi}
+          d={[`M${pad.toFixed(1)},${y(spot).toFixed(1)}`, ...p.map((v, i) => `L${x(i).toFixed(1)},${y(v).toFixed(1)}`)].join(' ')}
+          fill="none" stroke={color} strokeWidth={1} strokeLinejoin="round" opacity={0.55}
+        />
+      ))}
+    </svg>
+  );
+}
+
 /** 큰 숫자를 좁은 표 셀에 넣기 위한 축약 표기. 소액 코인은 formatPrice에 맡긴다. */
 export function compactPrice(v: number): string {
   if (!isFinite(v)) return '-';

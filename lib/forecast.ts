@@ -704,6 +704,19 @@ export function forecastSeries(m: ForecastModel, stepDays: number, count: number
   return out;
 }
 
+/** 표준화 t분포 분위수 표 캐시 (자유도별). 표 재구성이 비싸서 반드시 캐시한다. */
+const SHOCK_TABLE_SIZE = 512;
+const shockTableCache = new Map<number, number[]>();
+function shockQuantiles(v: number): number[] {
+  const key = Math.round(v * 1000);
+  const hit = shockTableCache.get(key);
+  if (hit) return hit;
+  const q: number[] = [];
+  for (let i = 0; i <= SHOCK_TABLE_SIZE; i++) q.push(tQuantStd((i + 0.5) / (SHOCK_TABLE_SIZE + 1), v));
+  shockTableCache.set(key, q);
+  return q;
+}
+
 /**
  * 시뮬레이션 경로 — 같은 모델에서 뽑은 표본이지, 예측이 아니다.
  * 일별 조건부 분산은 지평별 총분산의 차분 V(k)-V(k-1)에서 얻는다(변동성 기간구조와 일관).
@@ -713,10 +726,10 @@ export function simulatePaths(m: ForecastModel, days: number, count: number, see
   let s = seed >>> 0 || 1;
   const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s >>> 8) / 16777216; };
   // 일별 충격은 정규분포가 아니라 t(df(1)) — 실측된 팻테일과 일치시킨다.
-  // 역CDF 표집이 비싸므로 분위수 표를 한 번 만들어 선형보간한다.
-  const v1 = dfAt(1), TABLE = 512;
-  const quant: number[] = [];
-  for (let i = 0; i <= TABLE; i++) quant.push(tQuantStd((i + 0.5) / (TABLE + 1), v1));
+  // 역CDF 표집이 비싸므로 분위수 표를 만들어 선형보간하되, df는 상수이므로 표를 캐시한다.
+  // (캐시가 없으면 코인 50개 보드에서 표 재구성만 400ms가 걸려 렌더를 막는다.)
+  const quant = shockQuantiles(dfAt(1));
+  const TABLE = quant.length - 1;
   const shock = () => {
     const u = rnd() * TABLE;
     const i = Math.min(TABLE - 1, Math.max(0, Math.floor(u)));

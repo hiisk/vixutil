@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
 import { computeConsensus, STRATEGY_META, type Bias, type ConsensusSignal } from '@/lib/strategies';
 import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type Ticker24h } from '@/lib/binance';
-import { buildForecast, HORIZONS, MIN_SAMPLES, type ForecastModel } from '@/lib/forecast';
+import { buildForecast, simulatePaths, HORIZONS, MIN_SAMPLES, DAILY_PATH_DAYS, type ForecastModel } from '@/lib/forecast';
 import { coinByBase } from '@/lib/coins';
-import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
+import { CoinLogo, Sparkline, Pct, MiniPaths, formatVolume } from '@/components/crypto/ui';
 
 const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
 const BYBIT_REF = 'https://partner.bybit.com/b/127153';
@@ -451,8 +451,16 @@ export default function SignalsPage() {
 
         <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
           <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
+          <p className="mb-2">
+            <b className="text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
+            <b className="text-slate-300"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
+            because the drift is only about 9% of the noise over three days. We show the peak because it is the number that genuinely differs between coins and
+            is calibrated: the barrier correction was fitted so the touch probability really is 50%, and checked on BTC, SOL and DOGE with a seed different from
+            the one used to fit it (measured 48.2–50.1%). At short horizons it also matches what a coin historically did — Bitcoin&apos;s modelled 3-day peak
+            lands within 0.4% of its historical median 3-day peak. <b className="text-slate-300">Scenarios</b> shows four sampled 30-day paths from the same model — real samples, not forecasts.
+          </p>
           <p>
-            Each cell is a <b className="text-slate-300">single forecast price</b>: the median, where the coin most likely ends. A coin&apos;s trend is split into a
+            A coin&apos;s trend is split into a
             market component (its beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean. The market trend is extrapolated
             assertively, which costs about 2.6% in measured one-year accuracy versus assuming no change and makes most coins point the same way as Bitcoin; coins
             with under two years of history fall back to a conservative prior. No technical tilt is applied — we implemented the moving-average + RSI + MACD method
@@ -539,10 +547,14 @@ export default function SignalsPage() {
                           Volume <SortHint active={sortKey === 'volume'} dir="desc" />
                         </button>
                       </th>
+                      <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
+                        Scenarios
+                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">30d simulated paths</span>
+                      </th>
                       {HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
                           {h.short}
-                          <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">forecast</span>
+                          <span className="block text-[9px] font-normal text-amber-500/70 normal-case tracking-normal">peak</span>
                         </th>
                       ))}
                     </tr>
@@ -564,6 +576,9 @@ export default function SignalsPage() {
                       const meta = coinByBase(t.base);
                       // 자동 새로고침으로 현재가가 바뀌어도 구간이 따라가도록 계산 시점 spot 대비 비율로 재조정
                       const fcScale = f ? t.lastPrice / f.spot : 1;
+                      // 코인 티커로 시드를 고정해 리렌더마다 경로가 바뀌지 않게 한다
+                      const pathSeed = [...t.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7);
+                      const miniPaths = f ? simulatePaths(f, DAILY_PATH_DAYS, 4, pathSeed).map(p => p.map(v => v * fcScale)) : [];
 
                       const coinInner = (
                         <>
@@ -658,16 +673,22 @@ export default function SignalsPage() {
 
                           <td className="px-2 py-3 text-right text-slate-400 tabular-nums border-l border-slate-800/40">{formatVolume(t.quoteVolume)}</td>
 
+                          <td className="px-3 py-3 text-right border-l border-slate-800/40">
+                            {miniPaths.length ? (
+                              <MiniPaths paths={miniPaths} spot={t.lastPrice} />
+                            ) : (
+                              <span className="text-slate-700">{pending ? '…' : '-'}</span>
+                            )}
+                          </td>
+
                           {HORIZONS.map((h, hi) => {
                             const p = f?.projections.find(x => x.key === h.key);
                             return (
                               <td key={h.key} className={`px-2 py-3 text-right ${hi === 0 ? 'border-l border-slate-800/40' : ''}`}>
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
-                                    <span className="text-white font-bold tabular-nums">{formatPrice(p.forecast * fcScale)}</span>
-                                    <span className={`text-[10px] tabular-nums ${p.changePct >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
-                                      {p.changePct >= 0 ? '+' : ''}{p.changePct.toFixed(1)}%
-                                    </span>
+                                    <span className="text-white font-bold tabular-nums">{formatPrice(p.peak * fcScale)}</span>
+                                    <span className="text-[10px] text-amber-500/80 tabular-nums">+{p.peakPct.toFixed(1)}%</span>
                                   </div>
                                 ) : pending ? (
                                   <span className="text-slate-600 text-xs">…</span>
@@ -684,7 +705,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={8 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={9 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -698,7 +719,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-3D–3Y show a single forecast price — where the coin most likely ends · click a coin for its typical peak, ranges and probabilities{pageComputing ? ' · calculating…' : ''}
+3D–3Y show the typical peak — the level each coin touches at some point, half the time · click a coin for its forecast, ranges and probabilities{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 

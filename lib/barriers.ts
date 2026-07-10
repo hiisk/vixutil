@@ -21,6 +21,19 @@
  */
 import { dfAt, tQuantStd, type ForecastModel } from './forecast';
 
+/** 표준화 t분포 분위수 표 캐시 — 표 재구성이 비싸다 */
+const SHOCK_TABLE_SIZE = 512;
+const shockTableCache = new Map<number, number[]>();
+function shockQuantiles(v: number): number[] {
+  const key = Math.round(v * 1000);
+  const hit = shockTableCache.get(key);
+  if (hit) return hit;
+  const q: number[] = [];
+  for (let i = 0; i <= SHOCK_TABLE_SIZE; i++) q.push(tQuantStd((i + 0.5) / (SHOCK_TABLE_SIZE + 1), v));
+  shockTableCache.set(key, q);
+  return q;
+}
+
 export interface BarrierSim {
   /** 확률을 재는 날짜들 (오늘로부터 며칠 뒤) */
   checkpoints: number[];
@@ -51,10 +64,9 @@ export function simulateBarriers(m: ForecastModel, checkpoints: number[], paths 
   let s = seed >>> 0 || 1;
   const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s >>> 8) / 16777216; };
 
-  // 일별 충격은 t(df(1)) — 밴드와 같은 팻테일
-  const v1 = dfAt(1), TABLE = 512;
-  const quant: number[] = [];
-  for (let i = 0; i <= TABLE; i++) quant.push(tQuantStd((i + 0.5) / (TABLE + 1), v1));
+  // 일별 충격은 t(df(1)) — 밴드와 같은 팻테일. 분위수 표는 비싸므로 캐시한다.
+  const quant = shockQuantiles(dfAt(1));
+  const TABLE = quant.length - 1;
   const shock = () => {
     const u = rnd() * TABLE;
     const i = Math.min(TABLE - 1, Math.max(0, Math.floor(u)));
