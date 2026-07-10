@@ -124,7 +124,7 @@ export interface Horizon {
 }
 
 export const HORIZONS: Horizon[] = [
-  { key: '5d', label: '5 Days', short: '5D', days: 5 },
+  { key: '3d', label: '3 Days', short: '3D', days: 3 },
   { key: '1w', label: '1 Week', short: '1W', days: 7 },
   { key: '1m', label: '1 Month', short: '1M', days: 30 },
   { key: '3m', label: '3 Months', short: '3M', days: 90 },

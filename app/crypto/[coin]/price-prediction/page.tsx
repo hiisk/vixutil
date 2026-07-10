@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ coin: str
   if (!coin) return {};
   return {
     title: `${coin.name} (${coin.base}) Price Prediction — 5D to 3Y ranges`,
-    description: `${coin.name} price projection for 5 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years, plus a day-by-day 30-day forecast, chart, technical readout and historic OHLC data from Binance.`,
+    description: `${coin.name} price projection for 3 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years, plus a day-by-day 30-day forecast, chart, technical readout and historic OHLC data from Binance.`,
   };
 }
 
@@ -95,7 +95,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         <section className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-400 leading-relaxed">
           <h2 className="text-base font-black text-white mb-3">About the {coin.name} ({coin.base}) price prediction</h2>
           <p className="mb-3">
-            This page projects the {coin.name} price over seven horizons — 5 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years — with daily,
+            This page projects the {coin.name} price over seven horizons — 3 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years — with daily,
             weekly and monthly views. It shows two complementary things: a conservative statistical forecast, and a <b className="text-slate-300">historical
             scenario</b> table replaying every comparable window {coin.base} has actually lived through, which can fall over six months yet rise over a year.
             Every number is computed in your browser from {coin.base}&apos;s public Binance daily closing prices; nothing is stored and no account is needed.

@@ -376,7 +376,7 @@ export default function SignalsPage() {
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">📈</div>
           <h1 className="text-2xl font-black text-white mb-1.5">Crypto Signal Board</h1>
-          <p className="text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 5D–3Y price projections</p>
+          <p className="text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
           <p className="text-slate-600 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
         </div>
 
@@ -450,7 +450,7 @@ export default function SignalsPage() {
         </div>
 
         <div className="mb-4 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed">
-          <p className="font-bold text-amber-300/90 mb-1">How the 5D–3Y forecast is built</p>
+          <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
           <p>
             Each coin&apos;s trend is split into a <b className="text-slate-300">market component</b> (its beta to BTC) and a
             <b className="text-slate-300"> coin-specific component</b> (alpha). We deliberately do not extrapolate the market&apos;s trailing drift — the average
@@ -693,7 +693,7 @@ export default function SignalsPage() {
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-5D–3Y show the forecast price and its change · click a coin for ranges, probabilities and how often it ever touched a target{pageComputing ? ' · calculating…' : ''}
+3D–3Y show the forecast price and its change · click a coin for ranges, probabilities and how often it ever touched a target{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
@@ -711,7 +711,7 @@ export default function SignalsPage() {
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
           <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry / TP / SL use the last closed daily candle and ATR (TP {TP_MULT}× / SL {SL_MULT}×); P&amp;L is live from the current price. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
-          <p>Projections (5D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. Short horizons are tilted by the consensus score; that tilt decays after 30 days and is capped at ±22%. The long-run drift is discarded unless its t-statistic clears |t| ≥ 3, because a drift compounded over 1,095 days turns noise into a confident-looking forecast. Ranges are the 50% interval (P25–P75) and widen with √t.</p>
+          <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">🔄 Refresh to recalculate with the latest prices · Binance public market data</p>
