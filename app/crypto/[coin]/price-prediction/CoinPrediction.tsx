@@ -4,7 +4,7 @@ import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
 import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
-import { historicalScenarios, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
+import { historicalScenarios, historicalDailyPath, historicalMedianAt, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
@@ -34,6 +34,8 @@ interface Snapshot {
   /** 상장 이후 전체 종가로 만든 과거 구간 시나리오 */
   scenarios: ScenarioHorizon[];
   fullCloses: number;
+  /** 과거 전체 종가 — 일별 중앙 경로 계산용 */
+  allCloses: number[];
 }
 
 type State = 'loading' | 'ready' | 'nodata' | 'error';
@@ -137,6 +139,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         green: greenDays(closes, 30),
         scenarios: historicalScenarios(fullCloses.length > closes.length ? fullCloses : closes, t.lastPrice, HORIZONS),
         fullCloses: Math.max(fullCloses.length, closes.length),
+        allCloses: fullCloses.length > closes.length ? fullCloses : closes,
       });
       setState('ready');
     } catch {
@@ -155,6 +158,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   // 경로 최고/최저 분포 — "한 번이라도 도달" 확률용. 무거우니 한 번만 계산한다.
   const barriers = useMemo(() => (snap ? simulateBarriers(snap.model, BARRIER_CHECKPOINTS, 4000, 2024) : null), [snap]);
+
+  // 과거 일별 중앙 경로(차트용) + 현재 뷰의 각 행에 대응하는 과거 중앙값
+  const histPath = useMemo(() => (snap ? historicalDailyPath(snap.allCloses, snap.price, DAILY_PATH_DAYS) : []), [snap]);
+  const histSeries = useMemo(
+    () => (snap ? series.map(d => historicalMedianAt(snap.allCloses, snap.price, d.day)) : []),
+    [snap, series],
+  );
 
   if (state === 'loading') {
     return (
@@ -316,10 +326,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {/* ── Prediction ───────────────────────────── */}
       <Section id="prediction" title="Prediction" sub={`Two views: a deliberately conservative model forecast, and what ${coin.base} actually did in every comparable window of its history`}>
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
-          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} />
+          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} historyPath={histPath} />
           <p className="text-[11px] text-slate-600 mt-2 text-center leading-relaxed">
-            The faint lines are <b className="text-slate-500">simulated scenarios</b> drawn from the same fitted model — samples of how the price could wander,
-            not predictions of when. The solid line is the forecast; it is smooth because nothing in the data predicts day-to-day direction.
+            The faint lines are <b className="text-slate-500">simulated scenarios</b> from the same fitted model — samples of how the price could wander, not
+            predictions of when. The accent line is the model forecast; it is smooth because a constant drift can only produce a monotone path. The
+            <b style={{ color: '#818cf8' }}> indigo line</b> is the <b className="text-slate-400">historical median path</b> — for each day ahead, the median of
+            every such move {coin.base} has actually made. It zig-zags because history does: over 30 days, 7 of its 29 steps go down.
           </p>
         </div>
 
@@ -408,7 +420,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                   <th className="text-left font-semibold px-4 py-3">Period</th>
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Forecast</th>
+                  <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median</span></th>
+                  <th className="text-right font-semibold px-3 py-3">Expected<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">mean</span></th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
                   <th className="text-right font-semibold px-3 py-3">vs now</th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
@@ -426,6 +439,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <td className="px-4 py-3 font-bold text-slate-300">{p.label}</td>
                     <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
                     <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(p.forecast)}</td>
+                    <td className="px-3 py-3 text-right text-slate-300 tabular-nums">
+                      ${formatPrice(p.mean)}
+                      <span className="block text-[10px] text-slate-600">+{p.meanPct.toFixed(1)}%</span>
+                    </td>
                     <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
                     <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
                     <td className="px-3 py-3 text-right tabular-nums border-l border-slate-800/40">
@@ -602,20 +619,28 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                   <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
                   <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Forecast</th>
+                  <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median</span></th>
+                  <th className="text-right font-semibold px-3 py-3">Expected<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">mean</span></th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
                   <th className="text-right font-semibold px-3 py-3">Range width</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
+                    History
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median of past moves</span>
+                  </th>
                   <th className="text-right font-semibold px-4 py-3">vs now</th>
                 </tr>
               </thead>
               <tbody>
-                {series.map(d => (
+                {series.map((d, ri) => (
                   <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
                     <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
                     <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
                     <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
                     <td className="px-3 py-2.5 text-right text-slate-400 tabular-nums">±{(((d.high / d.forecast) - 1) * 100).toFixed(1)}%</td>
+                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
+                      {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
+                    </td>
                     <td className="px-4 py-2.5 text-right"><Pct value={d.changePct} /></td>
                   </tr>
                 ))}
@@ -624,7 +649,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
           <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
             Each row uses the volatility measured for <i>its own</i> horizon, not a rescaled daily number — the weight on {coin.base}&apos;s current
-            volatility falls from 0.803 at 1 day to 0.290 at 240, so the range width is not a naive σ√t fan.
+            volatility falls from 0.803 at 1 day to 0.290 at 240, so the range width is not a naive σ√t fan. The
+            <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made,
+            and unlike the model it is free to go down as well as up.
           </div>
         </div>
       </Section>

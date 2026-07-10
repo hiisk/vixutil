@@ -93,6 +93,33 @@ export function historicalScenarios(
   return out;
 }
 
+/**
+ * 과거 일별 중앙 경로 — d = 1..days 각각에 대해 "이 코인의 모든 d일 구간 수익률의 중앙값".
+ *
+ * 모수 모델의 예측 경로는 기대수익률이 상수 drift 하나라 구조적으로 단조롭다. 반면 이 경로는
+ * 아무 모델도 가정하지 않으므로 실제로 흔들린다. BTC 30일 기준 29걸음 중 7번이 하락이고,
+ * 걸음의 흔들림(0.080%/일)이 추세(0.049%/일)의 1.63배다. 즉 지그재그는 지어낸 것이 아니라
+ * 과거가 실제로 그런 모양이다. 예측이 아니라 기술통계이므로 그렇게 표기해야 한다.
+ */
+export function historicalMedianAt(closes: number[], spot: number, d: number): number | null {
+  if (!(spot > 0) || d < 1 || closes.length < d + 6) return null;
+  const rets: number[] = [];
+  for (let i = 0; i + d < closes.length; i++) if (closes[i] > 0) rets.push(closes[i + d] / closes[i]);
+  if (rets.length < 5) return null;
+  rets.sort((a, b) => a - b);
+  return spot * quantile(rets, 0.5);
+}
+
+export function historicalDailyPath(closes: number[], spot: number, days: number): number[] {
+  const out: number[] = [];
+  for (let d = 1; d <= days; d++) {
+    const v = historicalMedianAt(closes, spot, d);
+    if (v == null) return out;
+    out.push(v);
+  }
+  return out;
+}
+
 /** 지평별 중앙값 부호가 바뀌는가 — "단기는 내려가도 장기는 오른다" 같은 모양 */
 export function hasSignFlip(rows: ScenarioHorizon[]): boolean {
   const usable = rows.filter(r => r.reliable);

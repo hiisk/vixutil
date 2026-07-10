@@ -14,6 +14,7 @@ export default function ForecastChart({
   daily,
   spot,
   paths = [],
+  historyPath = [],
   height = 260,
 }: {
   /** 과거 종가 (오래된 순) */
@@ -22,6 +23,8 @@ export default function ForecastChart({
   spot: number;
   /** 같은 모델에서 뽑은 시뮬레이션 경로 — 예측이 아니라 표본이다 */
   paths?: number[][];
+  /** 과거 일별 중앙 경로 — 모델이 아니라 기술통계라 실제로 흔들린다 */
+  historyPath?: number[];
   height?: number;
 }) {
   const uid = useId().replace(/:/g, '');
@@ -42,6 +45,7 @@ export default function ForecastChart({
   // 경로 하나가 크게 튀어 축이 뭉개지지 않도록 2~98 분위로 자른다.
   const lows = [...history, ...daily.map(d => d.low)];
   const highs = [...history, ...daily.map(d => d.high)];
+  if (historyPath.length) { lows.push(Math.min(...historyPath)); highs.push(Math.max(...historyPath)); }
   if (paths.length) {
     const flat = paths.flat().sort((a, b) => a - b);
     const q = (f: number) => flat[Math.min(flat.length - 1, Math.max(0, Math.floor(f * flat.length)))];
@@ -106,6 +110,14 @@ export default function ForecastChart({
         {/* 과거 종가 */}
         <path d={histLine} fill="none" stroke="#94a3b8" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
 
+        {/* 과거 일별 중앙 경로 — 예측이 아니므로 다른 색, 그리고 실제로 지그재그한다 */}
+        {historyPath.length > 1 && (
+          <path
+            d={[`M${x(nH - 1).toFixed(1)},${y(spot).toFixed(1)}`, ...historyPath.map((v, i) => `L${fx(i).toFixed(1)},${y(v).toFixed(1)}`)].join(' ')}
+            fill="none" stroke="#818cf8" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round"
+          />
+        )}
+
         {/* 예측 중앙값 */}
         <path d={medLine} fill="none" stroke={accent} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
 
@@ -123,6 +135,9 @@ export default function ForecastChart({
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 bg-slate-400 rounded" /> Actual close</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent }} /> Forecast</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-2 rounded-sm" style={{ background: accent, opacity: 0.25 }} /> 50% range</span>
+        {historyPath.length > 1 && (
+          <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: '#818cf8' }} /> historical median path</span>
+        )}
         {paths.length > 0 && (
           <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent, opacity: 0.4 }} /> simulated paths</span>
         )}

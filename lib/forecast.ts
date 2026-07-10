@@ -309,6 +309,14 @@ export interface Projection {
   peak: number;
   /** peak의 현재가 대비 변동률(%) */
   peakPct: number;
+  /**
+   * 기대값(평균). 로그정규의 평균 = spot·exp(muT + sdT^2/2) 이므로 중앙값보다 항상 높다.
+   * forecast(중앙값)와 peak(경로 최고점) 사이에 놓이는, 정의가 분명한 "중간" 값이다.
+   * 주의: 오른쪽으로 치우친 분포라 **절반보다 적은 확률로만 초과**된다. 목표가로 쓰면 안 된다.
+   */
+  mean: number;
+  /** mean의 현재가 대비 변동률(%) */
+  meanPct: number;
 }
 
 export interface DailyPoint {
@@ -524,6 +532,9 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
     const low = spot * Math.exp(drift - z50 * sd);
     const high = spot * Math.exp(drift + z50 * sd);
     const peakLevel = medianPeakLevel(spot, drift, sd, sigmaAt(h), h);
+    // 로그정규 평균. 팻테일 t의 이론적 평균은 발산하지만, 일별 충격이 h일에 걸쳐 합해지면
+    // 중심극한정리로 정규에 가까워져 실제 표본평균은 안정적이다(경로 2천~3만2천에서 ±0.2%).
+    const meanLevel = spot * Math.exp(drift + (sd * sd) / 2);
     return {
       key: hz.key,
       label: hz.label,
@@ -541,6 +552,8 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
       pDown10: tCdfStd((ln09 - drift) / sd, v) * 100,
       peak: peakLevel,
       peakPct: (peakLevel / spot - 1) * 100,
+      mean: meanLevel,
+      meanPct: (meanLevel / spot - 1) * 100,
     };
   });
 
