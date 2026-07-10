@@ -321,7 +321,7 @@ export default function SignalsPage() {
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
       <header className="border-b border-slate-800 sticky top-0 z-10 bg-slate-950/90 backdrop-blur">
-        <div className="max-w-[1800px] mx-auto px-4 h-14 flex items-center gap-3">
+        <div className="max-w-[1920px] mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -335,7 +335,7 @@ export default function SignalsPage() {
 
       {/* 표는 17개 컬럼이라 넓은 폭이 필요하지만, 히어로·가입 링크·설명문은 초광폭에서
           읽기 나빠진다. 바깥은 넓게 두고 표 이외의 블록만 max-w-5xl로 되돌린다. */}
-      <div className="max-w-[1800px] mx-auto px-4 py-8">
+      <div className="max-w-[1920px] mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto">
         {/* Referral links */}
         <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-2">🎁 New-user bonuses — trade with an edge</p>
