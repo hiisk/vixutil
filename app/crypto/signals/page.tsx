@@ -58,6 +58,15 @@ const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: '
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'signal' | 'pnl' | 'chg24h' | 'range24h';
 
+/** 볼륨 컬럼을 상세 페이지로 옮겼으므로, 현재 정렬 기준을 하단에 글로 알려준다 */
+const SORT_LABEL: Record<SortKey, string> = {
+  volume: '24h volume',
+  signal: 'signal',
+  pnl: 'P&L',
+  chg24h: '24h change',
+  range24h: '24h range',
+};
+
 /**
  * consensus·projection 계산에 쓰는 일봉 수.
  * drift 추정은 표본 수가 아니라 관측 기간에 달려 있어 창이 길수록 안정적이다.
@@ -329,7 +338,7 @@ export default function SignalsPage() {
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
       <header className="border-b border-slate-800 sticky top-0 z-10 bg-slate-950/90 backdrop-blur">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
           <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -343,7 +352,7 @@ export default function SignalsPage() {
 
       {/* 모든 블록이 같은 폭을 공유한다. 화면 끝까지 붙이지 않도록 상한과 좌우 여백을 둔다.
           단, 본문 문단만 읽기 좋은 줄길이(max-w-[95ch])로 제한한다 — 폭이 아니라 타이포그래피 문제다. */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Referral links */}
         <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-2">🎁 New-user bonuses — trade with an edge</p>
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
@@ -557,11 +566,6 @@ export default function SignalsPage() {
                       </th>
                       <th className={`${th} border-l border-slate-800/70`}>TP</th>
                       <th className={th}>SL</th>
-                      <th className={`${th} border-l border-slate-800/70`}>
-                        <button onClick={() => selectSort('volume')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'volume' ? 'text-amber-400' : ''}`}>
-                          Volume <SortHint active={sortKey === 'volume'} dir="desc" />
-                        </button>
-                      </th>
                       <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
                         Scenarios
                         <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">30d simulated paths</span>
@@ -686,8 +690,6 @@ export default function SignalsPage() {
                             ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
                           </td>
 
-                          <td className="px-2 py-3 text-right text-slate-400 tabular-nums border-l border-slate-800/40">{formatVolume(t.quoteVolume)}</td>
-
                           <td className="px-3 py-3 text-right border-l border-slate-800/40">
                             {miniPaths.length ? (
                               <MiniPaths paths={miniPaths} spot={t.lastPrice} w={116} h={30} />
@@ -720,7 +722,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={9 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={8 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -733,7 +735,8 @@ export default function SignalsPage() {
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
               <div className="px-4 pb-3 text-[11px] text-slate-600">
-                {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
+                {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
+                sorted by <b className="text-slate-500">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
 3D–3Y show the typical peak — the level each coin touches at some point, half the time · click a coin for its forecast, ranges and probabilities{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
