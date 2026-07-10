@@ -11,11 +11,11 @@ function faqs(name: string, base: string) {
   return [
     {
       q: `How is the ${name} price prediction calculated?`,
-      a: `Up to a year of ${name} daily closing prices from Binance are converted to log returns and projected forward as a geometric Brownian motion. The trend is split into a market component (${base}'s beta to Bitcoin) and a coin-specific component (alpha), and both are shrunk toward zero as Bayesian posterior means, because no coin's drift is statistically significant. The market part is shrunk hardest, since extrapolating a market-wide move would copy the last year onto every coin. Technical indicators are not used to tilt the forecast: backtested across 46 coins their 5-day directional accuracy was 49.8%. Alongside the forecast price each horizon reports a 50% range and the probability of a 10% move.`,
+      a: `Up to 1,000 daily closing prices from Binance are converted to log returns and projected forward as a geometric Brownian motion. The trend is split into a market component (${base}'s beta to Bitcoin) and a coin-specific component (alpha), each shrunk toward zero as a Bayesian posterior mean. The market trend is extrapolated assertively so that a coin's long-run direction reaches the forecast; measured against 24 coins this costs about 2.6% in one-year RMSE versus assuming no change, so the forecast is a trend extrapolation rather than a statistically validated prediction. Coins with under two years of history use a conservative prior instead, and the drift is capped. Technical indicators are not used to tilt it: backtested across 46 coins their 5-day directional accuracy was 49.8%.`,
     },
     {
       q: `Will ${base} reach $100,000 (or any round number)?`,
-      a: `The page answers that with a probability, not a headline price. Pick a target in the "Probability of reaching a price" table and it reports the chance the closing price is at or beyond it in 1, 2 or 3 years, using a fat-tailed distribution calibrated so that a stated 50% band really contains about 50% of historical outcomes. We deliberately do not extrapolate a coin's past growth into a big round forecast: across 24 coins, extrapolating the full-history drift made 1-year forecasts 33.9% worse than simply assuming the price does not change.`,
+      a: `The page answers that with two numbers: the chance ${base} ever touches the level at any point before a date, and the chance it closes at or beyond it on that date. The first is much larger and is usually what people mean — historically Bitcoin touched a +58% level within 61.4% of one-year windows but closed above it in only 44.0%. Both come from a fat-tailed distribution calibrated so a stated 50% band really contains about 50% of outcomes.`,
     },
     {
       q: `Will ${name} go up?`,
@@ -102,20 +102,19 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           </p>
           <p className="mb-3">
             The forecast splits {coin.base}&apos;s trend into two parts: a <b className="text-slate-300">market component</b> (its beta to Bitcoin) and a
-            <b className="text-slate-300"> coin-specific component</b> (alpha). This matters because the average beta across the top coins is 1.00, so simply
-            extrapolating each coin&apos;s own trailing return would copy the market&apos;s last year onto everything and make almost every forecast point the
-            same way. We therefore shrink the market drift hard — extrapolating a market-wide move forward has no evidentiary support — and shrink alpha more
-            gently, since that is the only place coin-specific information can live. Both are Bayesian posterior means, calibrated by Monte-Carlo so a pure
-            random walk produces a spurious 3-year move of only 6.4% at the median.
-            We also do <b className="text-slate-300">not</b> tilt the forecast with technical indicators. Backtested across 46 coins with non-overlapping
-            forward windows and a coin-level t-test, a consensus of trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure had a 5-day directional
-            accuracy of <b className="text-slate-300">49.8%</b> — a coin flip. Momentum and reversal were no better: their signs flipped between pooled and
-            per-coin fits and did not hold up across half-samples.
+            <b className="text-slate-300"> coin-specific component</b> (alpha), each shrunk toward zero as a Bayesian posterior mean. The market drift is
+            extrapolated assertively, so a coin&apos;s long-run trend does reach the forecast. That is a choice, and it has a measured cost: forecasting one year
+            ahead across 24 coins, this setting is about <b className="text-slate-300">2.6% worse</b> in RMSE than simply assuming the price does not change, and
+            on a pure random walk it can manufacture a 3-year move of 34.6% from noise alone. Coins with under two years of history fall back to a conservative
+            prior, and the drift is capped, to limit that.
+            We do <b className="text-slate-300">not</b> tilt the forecast with technical indicators. Backtested across 46 coins with non-overlapping forward
+            windows and a coin-level t-test, a consensus of trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure had a 5-day directional accuracy of
+            <b className="text-slate-300">49.8%</b> — a coin flip. Momentum and reversal were no better: their signs flipped between pooled and per-coin fits.
           </p>
           <p>
-            Two consequences are worth stating plainly. The forecast is <b className="text-slate-300">modest</b> — single-digit annual percentages, not the
-            confident multiples you will see elsewhere — because that is all the data supports. And the daily forecast line is <b className="text-slate-300">smooth
-            and monotone</b>: we tested a day-of-week effect to see whether a zig-zagging daily forecast could be justified, and on the market series no weekday
+            Two consequences are worth stating plainly. The forecast <b className="text-slate-300">extrapolates a trend that is not statistically significant</b>,
+            so treat it as one scenario rather than a validated prediction, and read the range and probabilities beside it. And the daily forecast line is
+            <b className="text-slate-300"> smooth and monotone</b>: we tested a day-of-week effect to see whether a zig-zagging daily forecast could be justified, and on the market series no weekday
             reaches statistical significance. Direction is not forecastable, but <b className="text-slate-300">volatility is</b>, so each horizon uses its own
             measured blend of {coin.base}&apos;s current and long-run volatility. The range and the probability of a given move therefore carry at least as much
             information as the number itself.

@@ -224,8 +224,23 @@ export function tQuantStd(p: number, v: number): number {
 
 /** 사후평균에도 상한을 둔다. exp(±0.5) ≈ 1.65배 / 0.61배 per year */
 const MAX_ANNUAL_LOG_DRIFT = 0.5;
-/** 사전분포: 시장(BTC) 연 로그드리프트. 좁게 둔다 — 한 해 낙폭을 앞으로 연장하지 않는다. */
-export const PRIOR_MARKET_DRIFT_SD = 0.05;
+/**
+ * 사전분포: 시장(BTC) 연 로그드리프트.
+ *
+ * 사이트 소유자의 선택으로 0.40을 쓴다. 이는 "코인의 장기 추세를 예측에 반영한다"는 입장이며,
+ * 아래 측정된 비용을 감수하는 판단이다.
+ *   · 1년 앞 예측 RMSE: 1.1005 (mu=0 기준 1.0723 대비 +2.6%). 즉 순수 예측력만 보면 손해다.
+ *   · 진짜 drift가 0인 랜덤워크에서 나오는 허위 3년 변동: 중앙값 34.6%, 최악 1048%.
+ * 두 번째 항목이 위험하므로 아래 MIN_DRIFT_HISTORY 게이팅과 상한(cap)으로 막는다.
+ *
+ * 또한 drift 추정은 창 길이에 매우 민감하다(BTC 기준 연 -45.6% / +36.7% / +10.9% / +35.3%
+ * for 365 / 1000 / 2000 / 3248일). 이 불안정성이 RMSE가 나빠지는 이유다.
+ */
+export const PRIOR_MARKET_DRIFT_SD = 0.40;
+/** 이력이 이보다 짧으면 공격적 사전분포를 신뢰할 수 없어 보수적으로 되돌린다 */
+export const MIN_DRIFT_HISTORY = 730;
+/** 짧은 이력 코인에 적용하는 보수적 시장 사전분포 */
+export const PRIOR_MARKET_DRIFT_SD_SHORT = 0.15;
 /** 사전분포: 코인 고유(alpha) 연 로그드리프트. 코인별 정보가 사는 자리라 조금 넓게. */
 export const PRIOR_ALPHA_DRIFT_SD = 0.15;
 /** 최소 표본 수(일). 이보다 적으면 sigma조차 못 믿는다. */
@@ -328,6 +343,8 @@ export interface ForecastModel {
   alphaAnnualPct: number;
   /** 시장 기준계열을 실제로 썼는지 */
   hasMarket: boolean;
+  /** 이력이 짧아 보수적 사전분포로 되돌렸는지 */
+  driftGated: boolean;
   /** 사후 연 드리프트(%) — 점 예측의 방향과 크기 (market + alpha) */
   annualDriftPct: number;
   samples: number;
@@ -409,13 +426,16 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
 
     const seM = sampleSd(x) / Math.sqrt(k);
     const seA = sampleSd(resid) / Math.sqrt(k);
-    muMarket = clamp(mx * bayesWeight(PRIOR_MARKET_DRIFT_SD, seM), -capDaily, capDaily);
+    // 이력이 짧은 코인(신규 상장·잡코인)에 공격적 drift를 적용하면 잡음이 예측으로 증폭된다
+    const marketPrior = k >= MIN_DRIFT_HISTORY ? PRIOR_MARKET_DRIFT_SD : PRIOR_MARKET_DRIFT_SD_SHORT;
+    muMarket = clamp(mx * bayesWeight(marketPrior, seM), -capDaily, capDaily);
     shrink = bayesWeight(PRIOR_ALPHA_DRIFT_SD, seA);
     alphaPost = clamp(alpha * shrink, -capDaily, capDaily);
     hasMarket = true;
   } else {
-    // 시장 기준계열이 없으면 자기 drift를 시장 성분으로 취급하고 강하게 축소
-    shrink = bayesWeight(PRIOR_MARKET_DRIFT_SD, se);
+    // 시장 기준계열이 없으면 자기 drift를 시장 성분으로 취급한다
+    const marketPrior = n >= MIN_DRIFT_HISTORY ? PRIOR_MARKET_DRIFT_SD : PRIOR_MARKET_DRIFT_SD_SHORT;
+    shrink = bayesWeight(marketPrior, se);
     muMarket = clamp(muRaw * shrink, -capDaily, capDaily);
   }
 
@@ -467,6 +487,7 @@ export function buildForecast(closes: number[], spot: number, marketCloses?: num
   return {
     spot, muRaw, mu, sigma, sigmaNow, sigmaAt, shrink, tStat, samples: n,
     beta, hasMarket,
+    driftGated: n < MIN_DRIFT_HISTORY,
     marketAnnualPct: (Math.exp(beta * muMarket * 365) - 1) * 100,
     alphaAnnualPct: (Math.exp(alphaPost * 365) - 1) * 100,
     limitedHistory: n < RELIABLE_SAMPLES,

@@ -60,7 +60,9 @@ export async function fetchTopSymbols(limit = 20, market: Market = 'spot'): Prom
  * 마지막 캔들 종가가 곧 "오늘 00:00 UTC에 확정된 진입가(어제 종가)"가 되도록 한다.
  */
 export async function fetchDailyCandles(symbol: string, limit = 20, market: Market = 'spot'): Promise<Candle[]> {
-  const res = await fetch(`${BASES[market]}/klines?symbol=${symbol}&interval=1d&limit=${limit + 2}`);
+  // 바이낸스 klines limit 상한은 1000이다. limit+2가 이를 넘으면 요청이 실패한다.
+  const req = Math.min(limit + 2, 1000);
+  const res = await fetch(`${BASES[market]}/klines?symbol=${symbol}&interval=1d&limit=${req}`);
   if (!res.ok) throw new Error(`klines ${symbol} ${res.status}`);
   const rows: unknown[][] = await res.json();
   const now = Date.now();

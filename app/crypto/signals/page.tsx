@@ -58,8 +58,12 @@ const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: '
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'signal' | 'pnl';
 
-/** consensus·projection 계산에 쓰는 일봉 수 (drift·sigma 추정용) */
-const FORECAST_DAYS = 365;
+/**
+ * consensus·projection 계산에 쓰는 일봉 수.
+ * drift 추정은 표본 수가 아니라 관측 기간에 달려 있어 창이 길수록 안정적이다.
+ * 바이낸스 klines 상한이 1000이므로 요청 1회로 받을 수 있는 최대치를 쓴다.
+ */
+const FORECAST_DAYS = 998;
 
 /** 정렬용 신호 점수: 강세는 +확신도, 약세는 -확신도, 중립은 0 */
 function signalMetric(info: ConsensusSignal): number {

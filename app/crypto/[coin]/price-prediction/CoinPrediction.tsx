@@ -3,15 +3,15 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
 
-/** drift·sigma 추정과 SMA200을 위해 넉넉히 받는다 */
-const HISTORY_DAYS = 365;
+/** drift는 관측 기간이 길수록 안정적이다. 바이낸스 요청 1회 상한(1000)에 맞춘다. */
+const HISTORY_DAYS = 998;
 /** 차트에 그릴 과거 구간 */
 const CHART_HISTORY = 60;
 /** Historic data 표에 보여줄 일수 */
@@ -353,10 +353,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             </div>
           )}
           <p>
-            The market prior is tight (±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr) because the average beta across coins is 1.00 — extrapolating the
-            market&apos;s trailing move would simply copy it onto every coin. The alpha prior is wider (±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr) since
-            that is the only place coin-specific information can live; here it puts {(m.shrink * 100).toFixed(0)}% of the weight on the data. The forecast line
-            is smooth and monotone because nothing in the data predicts day-to-day direction — a zig-zagging daily forecast would be invented, not measured.
+            The market prior is ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr, which is a <b className="text-slate-400">deliberately assertive</b> choice: it
+            lets a coin&apos;s long-run trend show up in the forecast. It has a measured price — see the methodology below. The alpha prior is tighter
+            (±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr) and puts {(m.shrink * 100).toFixed(0)}% of the weight on the data.
+            {m.driftGated && <> Because {coin.base} has under {MIN_DRIFT_HISTORY} days of history, the assertive prior is <b className="text-amber-400">switched off</b> for it and a conservative one used instead.</>}
+            {' '}The forecast line is smooth and monotone because nothing in the data predicts day-to-day direction — a zig-zagging daily forecast would be
+            invented, not measured.
           </p>
         </div>
 
@@ -671,18 +673,26 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </p>
         <p className="mb-2">
           No coin&apos;s drift is statistically significant — even Bitcoin&apos;s full 8.9-year Binance history gives t = 1.32 — and the average beta across the
-          top coins is 1.00, so a naive forecast just copies the market&apos;s last year onto everything. We therefore regress each coin on BTC, shrink the market
-          drift hard (prior ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr, because extrapolating a market drawdown has no evidentiary support) and the
-          coin-specific alpha more gently (prior ±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr). The priors were calibrated by Monte-Carlo: on a pure random
-          walk with zero true drift, the alpha prior yields a spurious 3-year move of 6.4% at the median and 49% at worst.
+          top coins is 1.00, so a coin&apos;s own trailing return is mostly the market&apos;s. We therefore regress each coin on BTC and shrink the market drift
+          (prior ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr) and the coin-specific alpha (prior ±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr) separately.
+          Because the market prior is assertive, most coins now carry a positive market component, and their forecasts point the same way as Bitcoin&apos;s.
+          A Monte-Carlo on a pure random walk with zero true drift shows what that costs: this market prior can manufacture a 3-year move of 34.6% at the median,
+          and 1048% in the worst case, from nothing but noise. The history gate and the drift cap exist to blunt that.
         </p>
         <p className="mb-2">
-          We tested the intuition that a coin&apos;s long history should set its forecast — {coin.base === 'BTC' ? "Bitcoin has averaged about +35% a year, so surely the model should extrapolate that" : "many coins have risen a lot historically, so surely the model should extrapolate that"}.
-          Across 24 coins with an expanding window, we compared 1-year-ahead forecasts against simply assuming no change. Assuming no change gave an RMSE of
-          <b className="text-slate-400"> 1.0723</b>; extrapolating the full-history drift unshrunk gave <b className="text-slate-400">1.4363</b>, or 33.9% worse.
-          Every drift estimator we tried lost to &quot;the price stays where it is,&quot; and the more we shrank the drift, the better it did. Longer history did
-          not help either, because drift is not stationary — the past regime does not carry forward. That measurement is why the forecast stays small, and why
-          a big round-number target is answered with a probability above rather than a headline price.
+          <b className="text-slate-400">An honest disclosure about the drift.</b> This site extrapolates a coin&apos;s long-run trend into the forecast, using a
+          prior of ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr on the market drift. That is a deliberate choice by the site owner, and it costs accuracy. We
+          measured it: across 24 coins with an expanding window, forecasting one year ahead, simply assuming the price does not change gives an RMSE of
+          <b className="text-slate-400"> 1.0723</b>. The setting used here gives <b className="text-slate-400">1.1005</b>, about 2.6% worse. Extrapolating the raw
+          drift with no shrinkage at all would give 1.4363, or 33.9% worse. In other words, no drift estimator we tested beat &quot;the price stays where it is,&quot;
+          and drift estimates swing wildly with the window (for Bitcoin: −45.6%, +36.7%, +10.9% and +35.3% per year using 1, 2.7, 5.5 and 8.9 years of history).
+          Treat the forecast as a trend extrapolation, not as a statistically validated prediction — and weigh the range and the probabilities beside it at least
+          as heavily.
+        </p>
+        <p className="mb-2">
+          Two safeguards limit the damage. Coins with under {MIN_DRIFT_HISTORY} days of history fall back to a conservative prior, so a brand-new token cannot
+          turn noise into a confident multi-year forecast. And the drift is capped at ±0.5 in annual log terms (at most +65% or −39% per year), so no coin can
+          compound into an absurd number.
         </p>
         <p className="mb-2">
           Direction is unpredictable, but <b className="text-slate-400">volatility is not</b> — it is close to the only thing in markets that genuinely
