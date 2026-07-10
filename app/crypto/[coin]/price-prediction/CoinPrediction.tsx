@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, type DailyOHLCV } from '@/lib/binance';
+import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, sma, rsi, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { historicalScenarios, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -27,6 +28,9 @@ interface Snapshot {
   sma200: number | null;
   rsi14: number | null;
   green: { green: number; total: number };
+  /** 상장 이후 전체 종가로 만든 과거 구간 시나리오 */
+  scenarios: ScenarioHorizon[];
+  fullCloses: number;
 }
 
 type State = 'loading' | 'ready' | 'nodata' | 'error';
@@ -78,10 +82,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       const market = marketOf(coin);
       const symbol = symbolOf(coin);
       // 시장 기준계열(BTC)도 같이 받는다 — 예측을 시장/alpha 성분으로 분해하기 위해
-      const [tickers, ohlcv, marketCandles] = await Promise.all([
+      const [tickers, ohlcv, marketCandles, fullCloses] = await Promise.all([
         fetchTickers(market),
         fetchDailyOHLCV(symbol, HISTORY_DAYS, market),
         fetchDailyCandles('BTCUSDT', HISTORY_DAYS, market).catch(() => []),
+        // 과거 구간 시나리오는 상장 이후 전체 이력을 쓴다(1000개 상한이라 페이징)
+        fetchFullDailyCloses(symbol, market).catch(() => [] as number[]),
       ]);
       const t = tickers.find(x => x.base === coin.base);
       if (!t || ohlcv.length < 2) { setState('nodata'); return; }
@@ -106,6 +112,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         sma200: sma(closes, 200),
         rsi14: rsi(closes, 14),
         green: greenDays(closes, 30),
+        scenarios: historicalScenarios(fullCloses.length > closes.length ? fullCloses : closes, t.lastPrice, HORIZONS),
+        fullCloses: Math.max(fullCloses.length, closes.length),
       });
       setState('ready');
     } catch {
@@ -161,6 +169,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   // 코인 티커로 시드를 만들어 리렌더/재방문에도 같은 경로가 나오게 한다
   const seed = [...coin.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7);
   const paths = simulatePaths(m, DAILY_PATH_DAYS, 12, seed);
+  const flip = hasSignFlip(s.scenarios);
 
   return (
     <>
@@ -278,7 +287,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </Section>
 
       {/* ── Prediction ───────────────────────────── */}
-      <Section id="prediction" title="Prediction" sub={`${coin.name} projection with a 50% confidence range — half of outcomes land inside the band`}>
+      <Section id="prediction" title="Prediction" sub={`Two views: a deliberately conservative model forecast, and what ${coin.base} actually did in every comparable window of its history`}>
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
           <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} />
           <p className="text-[11px] text-slate-600 mt-2 text-center leading-relaxed">
@@ -398,6 +407,61 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         </div>
 
+        {/* 과거 구간 시나리오 — 모델이 아니라 이 코인이 실제로 살아낸 구간들 */}
+        {s.scenarios.length > 0 && (
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
+            <div className="px-4 py-3 border-b border-slate-800">
+              <h3 className="text-sm font-black text-white">Historical scenarios — what {coin.base} actually did</h3>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Every overlapping window in {coin.base}&apos;s {s.fullCloses.toLocaleString()} days of history. No model, no drift — just what happened.
+                {flip && <span className="text-amber-400/90"> Note the median changes sign across horizons.</span>}
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm whitespace-nowrap">
+                <thead>
+                  <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                    <th className="text-left font-semibold px-4 py-3">Period</th>
+                    <th className="text-right font-semibold px-3 py-3">Worst 25%</th>
+                    <th className="text-right font-semibold px-3 py-3">Median</th>
+                    <th className="text-right font-semibold px-3 py-3">Best 25%</th>
+                    <th className="text-right font-semibold px-3 py-3">Median vs now</th>
+                    <th className="text-right font-semibold px-3 py-3">Rose</th>
+                    <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">Sample</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {s.scenarios.map(r => (
+                    <tr key={r.key} className={`border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors ${r.reliable ? '' : 'opacity-45'}`}>
+                      <td className="px-4 py-3 font-bold text-slate-300">{r.label}</td>
+                      <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(r.p25)}</td>
+                      <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(r.median)}</td>
+                      <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(r.p75)}</td>
+                      <td className="px-3 py-3 text-right"><Pct value={r.medianPct} /></td>
+                      <td className="px-3 py-3 text-right text-slate-400 tabular-nums">{r.pUp.toFixed(0)}%</td>
+                      <td className="px-4 py-3 text-right text-[11px] tabular-nums border-l border-slate-800/40">
+                        {r.reliable ? (
+                          <span className="text-slate-500">{r.independent} independent</span>
+                        ) : (
+                          <span className="text-amber-500/80" title={`Needs ${MIN_INDEPENDENT_WINDOWS} non-overlapping windows`}>
+                            only {r.independent} — not reliable
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
+              <b className="text-slate-400">Read this as history, not prophecy.</b> Overlapping windows inflate the apparent sample: what counts is the number
+              of <i>independent</i> windows, shown on the right. Rows with fewer than {MIN_INDEPENDENT_WINDOWS} are greyed out — {coin.base}&apos;s 3-year row
+              rests on barely a couple of non-overlapping periods. And most coins lived through more bull market than bear, so these medians lean optimistic.
+              The model forecast above is deliberately far more conservative.
+            </div>
+          </div>
+        )}
+
         <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
           <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-sm font-black text-white">{TIMEFRAMES[tf].label}</h3>
@@ -513,6 +577,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           so there is no basis for shrinking them further. And we tested a day-of-week effect, hoping to justify a zig-zagging daily forecast: on the market
           series no weekday clears |t| = 2, and the weekday pattern from one half of history correlates only 0.34 with the other. So the forecast line stays
           smooth, and the wiggle you see belongs to the simulated scenarios, which are labelled as such.
+        </p>
+        <p className="mb-2">
+          That is also why this page shows <b className="text-slate-400">two</b> things. The model forecast is parametric and conservative: one shrunken drift,
+          so its path is necessarily smooth and one-directional. The <b className="text-slate-400">historical scenarios</b> table assumes no model at all — it
+          replays every window {coin.base} has actually lived through — so its median is free to change sign across horizons, and often does. Neither is a
+          promise; the first is what the statistics will defend, the second is what the past contains.
         </p>
         <p>
           We also tested whether {coin.base} mean-reverts to its own 200-day anchor — which would bend the forecast line and give each coin its own direction

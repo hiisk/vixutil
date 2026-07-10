@@ -70,6 +70,26 @@ export async function fetchDailyCandles(symbol: string, limit = 20, market: Mark
     .map(k => ({ high: Number(k[2]), low: Number(k[3]), close: Number(k[4]) }));
 }
 
+/**
+ * 바이낸스 klines는 한 번에 1000개가 상한이라, endTime을 거슬러가며 여러 번 받아
+ * 상장 이후 전체 일봉 종가를 모은다(오래된 순). 과거 구간 시나리오 계산에 쓴다.
+ */
+export async function fetchFullDailyCloses(symbol: string, market: Market = 'spot', maxPages = 4): Promise<number[]> {
+  let end = Date.now();
+  const out: number[] = [];
+  const now = Date.now();
+  for (let page = 0; page < maxPages; page++) {
+    const res = await fetch(`${BASES[market]}/klines?symbol=${symbol}&interval=1d&limit=1000&endTime=${end}`);
+    if (!res.ok) break;
+    const rows: unknown[][] = await res.json();
+    if (!rows.length) break;
+    out.unshift(...rows.filter(k => Number(k[6]) < now).map(k => Number(k[4])));
+    end = Number(rows[0][0]) - 1;
+    if (rows.length < 1000) break; // 상장 시점까지 도달
+  }
+  return out;
+}
+
 /** 마감된 일봉의 시가·고가·저가·종가·거래량 (상세 페이지 Historic data 섹션용) */
 export interface DailyOHLCV {
   /** 캔들 시작 시각(ms, UTC 00:00) */
