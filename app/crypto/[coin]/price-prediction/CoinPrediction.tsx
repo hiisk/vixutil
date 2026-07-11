@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
@@ -176,6 +176,15 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   useEffect(() => { load(); }, [load]);
 
+  // 이 페이지는 클라이언트 렌더라, URL에 해시가 남아 있으면 새로고침 시 브라우저가
+  // 아직 비어 있는 문서에서 앵커를 찾다 실패하고, 데이터가 로드돼 길어진 뒤 엉뚱한
+  // 위치(주로 맨 아래)로 점프한다. 마운트 시 해시를 지우고 맨 위에서 시작한다.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.location.hash) return;
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+  }, []);
+
   // 일/주/월 뷰 — 지평마다 다른 변동성(sigmaAt)을 그대로 쓴다
   const series = useMemo(() => {
     if (!snap) return [];
@@ -213,6 +222,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   // 각 행의 "그 시점까지 절반의 확률로 한 번은 닿는 가격" — 보드의 Trade target과 같은 종류의 값이라
   // 두 화면이 같은 언어로 말하게 된다. (예측 중앙값만 있으면 상세 표가 죽어 보인다.)
+  // 각 행 시점까지 절반의 확률로 한 번은 닿는 가격 (보드의 지평별 peak과 같은 값)
+  const seriesPeaks = useMemo(() => {
+    if (!snap) return [];
+    const mm = snap.model;
+    return series.map(d => medianPeakLevel(mm.spot, mm.mu * d.day, mm.sigmaAt(d.day) * Math.sqrt(d.day), mm.sigmaAt(d.day), d.day));
+  }, [snap, series]);
+
   // 대표 경로 — 종점이 중앙값과 일치하면서 날마다 오르내리는 실제 표본 하나
   const seriesPath = useMemo(() => {
     if (!snap) return [];
@@ -341,9 +357,14 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       <nav className="sticky top-14 z-20 -mx-4 px-4 py-2 bg-slate-950/90 backdrop-blur border-b border-slate-800 mb-6">
         <div className="flex gap-2 text-xs font-bold">
           {[['overview', 'Overview'], ['prediction', 'Prediction'], ['technical', 'Indicators'], ['historic', 'History']].map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-amber-400 hover:border-slate-600 transition-colors">
+            <button
+              key={id}
+              type="button"
+              onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-amber-400 hover:border-slate-600 transition-colors"
+            >
               {label}
-            </a>
+            </button>
           ))}
         </div>
       </nav>
@@ -556,14 +577,16 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               <thead className="sticky top-0 bg-slate-900 z-10">
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                   <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
-                  <th className="text-right font-semibold px-4 py-3">
+                  <th className="text-right font-semibold px-3 py-3">
                     Prediction
                     <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">one likely future</span>
                   </th>
-                  <th className="text-right font-semibold px-4 py-3">Change</th>
-                  <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">
-                    Likely range
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">half of outcomes land here</span>
+                  <th className="text-right font-semibold px-3 py-3">Change</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">Low</th>
+                  <th className="text-right font-semibold px-3 py-3">High</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#fbbf24' }}>
+                    Typical peak
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
                   </th>
                 </tr>
               </thead>
@@ -574,27 +597,21 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   const dayChg = v != null && prev != null && prev > 0 ? ((v / prev) - 1) * 100 : null;
                   return (
                     <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
-                      <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
-                      <td className="px-4 py-2.5 text-right tabular-nums">
-                        {v != null ? (
-                          <span className="text-white font-bold text-[15px]">${formatPrice(v)}</span>
-                        ) : (
-                          <span className="text-slate-700">-</span>
-                        )}
+                      <td className="px-4 py-2 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">
+                        {v != null ? <span className="text-white font-bold">${formatPrice(v)}</span> : <span className="text-slate-700">-</span>}
                       </td>
-                      <td className="px-4 py-2.5 text-right tabular-nums">
+                      <td className="px-3 py-2 text-right tabular-nums">
                         {dayChg != null ? (
                           <span className={`inline-flex items-center gap-1 font-bold ${dayChg >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                             <span className="text-[10px] leading-none">{dayChg >= 0 ? '▲' : '▼'}</span>
                             {dayChg >= 0 ? '+' : ''}{dayChg.toFixed(2)}%
                           </span>
-                        ) : (
-                          <span className="text-slate-700">-</span>
-                        )}
+                        ) : <span className="text-slate-700">-</span>}
                       </td>
-                      <td className="px-4 py-2.5 text-right tabular-nums text-[13px] text-slate-400 border-l border-slate-800/40">
-                        ${formatPrice(d.low)} – ${formatPrice(d.high)}
-                      </td>
+                      <td className="px-3 py-2 text-right tabular-nums text-rose-400/70 border-l border-slate-800/40">${formatPrice(d.low)}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-emerald-400/70">${formatPrice(d.high)}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-amber-400 font-bold border-l border-slate-800/40">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</td>
                     </tr>
                   );
                 })}
@@ -769,33 +786,35 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 </thead>
                 <tbody>
                   {s.scenarios.map(r => (
-                    <tr key={r.key} className={`border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors ${r.reliable ? '' : 'opacity-45'}`}>
+                    <tr key={r.key} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-3 font-bold text-slate-300">{r.label}</td>
-                      <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(r.p25)}</td>
-                      <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(r.median)}</td>
-                      <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(r.p75)}</td>
-                      <td className="px-3 py-3 text-right"><Pct value={r.medianPct} /></td>
-                      <td className="px-3 py-3 text-right text-slate-400 tabular-nums">{r.pUp.toFixed(0)}%</td>
-                      <td className="px-4 py-3 text-right text-[11px] tabular-nums border-l border-slate-800/40">
-                        {r.reliable ? (
-                          <span className="text-slate-500">{r.independent} independent</span>
-                        ) : (
-                          <span className="text-amber-500/80" title={`Needs ${MIN_INDEPENDENT_WINDOWS} non-overlapping windows`}>
-                            only {r.independent} — not reliable
-                          </span>
-                        )}
-                      </td>
+                      {r.reliable ? (
+                        <>
+                          <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(r.p25)}</td>
+                          <td className="px-3 py-3 text-right text-white font-bold tabular-nums">${formatPrice(r.median)}</td>
+                          <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(r.p75)}</td>
+                          <td className="px-3 py-3 text-right"><Pct value={r.medianPct} /></td>
+                          <td className="px-3 py-3 text-right text-slate-400 tabular-nums">{r.pUp.toFixed(0)}%</td>
+                          <td className="px-4 py-3 text-right text-[11px] tabular-nums border-l border-slate-800/40 text-slate-500">
+                            {r.independent} windows
+                          </td>
+                        </>
+                      ) : (
+                        // 독립 표본이 부족한 행은 숫자를 아예 보여주지 않는다. 신뢰할 수 없다고
+                        // 적어두면서 그 값을 노출하면 사람들은 결국 숫자를 읽는다.
+                        <td colSpan={6} className="px-3 py-3 text-center text-[11px] text-slate-600">
+                          Only {r.independent} independent {r.independent === 1 ? 'window' : 'windows'} of this length exist in {coin.base}&apos;s history — too few to mean anything, so we do not show a number.
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
             <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
-              <b className="text-slate-400">Read this as history, not prophecy.</b> Overlapping windows inflate the apparent sample: what counts is the number
-              of <i>independent</i> windows, shown on the right. Rows with fewer than {MIN_INDEPENDENT_WINDOWS} are greyed out — {coin.base}&apos;s 3-year row
-              rests on barely a couple of non-overlapping periods. And most coins lived through more bull market than bear, so these medians lean optimistic at
-              long horizons: the model forecast above sits well below them at one and three years, because it shrinks the trend rather than assuming the past bull
-              market repeats. At a month or a quarter the two can cross, with the model slightly higher.
+              <b className="text-slate-400">History, not prophecy.</b> These are the windows {coin.base} actually lived through, and most coins have seen more bull
+              market than bear — so the long-horizon medians lean optimistic. Rows without at least {MIN_INDEPENDENT_WINDOWS} independent windows show no number
+              at all.
             </div>
           </div>
         )}
