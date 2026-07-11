@@ -56,13 +56,12 @@ const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = 
 const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
-type SortKey = 'volume' | 'signal' | 'pnl' | 'chg24h' | 'range24h';
+type SortKey = 'volume' | 'signal' | 'chg24h' | 'range24h';
 
 /** 볼륨 컬럼을 상세 페이지로 옮겼으므로, 현재 정렬 기준을 하단에 글로 알려준다 */
 const SORT_LABEL: Record<SortKey, string> = {
   volume: '24h volume',
   signal: 'signal',
-  pnl: 'P&L',
   chg24h: '24h change',
   range24h: '24h range',
 };
@@ -235,7 +234,7 @@ export default function SignalsPage() {
   // Search filter → sort → (optional) TP/SL-hit filter.
   // Signal/P&L sorts and the hit filter read the cache (require the full compute).
   // 티커만으로 정렬되는 키는 코인별 계산이 필요 없다
-  const needsFullCompute = sortKey === 'signal' || sortKey === 'pnl' || hitOnly;
+  const needsFullCompute = sortKey === 'signal' || hitOnly;
 
   const sortedTickers = useMemo(() => {
     const q = query.trim().toUpperCase();
@@ -246,7 +245,7 @@ export default function SignalsPage() {
     } else if (sortKey !== 'volume') {
       const scored = list.map(t => {
         const c = cacheRef.current.get(t.symbol)?.c;
-        const metric = c ? (sortKey === 'signal' ? signalMetric(c) : pnlOf(c.side, c.entry, t.lastPrice)) : null;
+        const metric = c ? signalMetric(c) : null;
         return { t, metric };
       });
       scored.sort((a, b) => {
@@ -559,19 +558,21 @@ export default function SignalsPage() {
                       </th>
                       <th className={th}>Entry</th>
                       <th className={th}>Current</th>
-                      <th className={`${th} border-l border-slate-800/70`}>
-                        <button onClick={() => selectSort('pnl')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'pnl' ? 'text-amber-400' : ''}`}>
-                          P&amp;L <SortHint active={sortKey === 'pnl'} dir={sortDir} />
+                      <th className={th}>
+                        <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-400' : ''}`}>
+                          24H <SortHint active={sortKey === 'chg24h'} dir={sortDir} />
                         </button>
                       </th>
-                      <th className={`${th} border-l border-slate-800/70`}>TP</th>
-                      <th className={th}>SL</th>
                       <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
                         Scenarios
                         <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">30d simulated paths</span>
                       </th>
-                      {HORIZONS.map((h, hi) => (
-                        <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
+                      <th className={`${th} border-l border-slate-800/70`}>
+                        Today&apos;s target
+                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR</span>
+                      </th>
+                      {HORIZONS.map(h => (
+                        <th key={h.key} className={th}>
                           {h.short}
                           <span className="block text-[9px] font-normal text-amber-500/70 normal-case tracking-normal">peak</span>
                         </th>
@@ -585,9 +586,7 @@ export default function SignalsPage() {
                       const c = info?.c ?? null;
                       const f = info?.f ?? null;
 
-                      const pnl = c ? pnlOf(c.side, c.entry, t.lastPrice) : null;
                       const tpPct = c ? pnlOf(c.side, c.entry, c.tp) : null;
-                      const slPct = c ? pnlOf(c.side, c.entry, c.sl) : null;
                       const hit = c ? hitState(c, t.lastPrice) : null;
                       const chg = t.priceChangePercent;
 
@@ -652,42 +651,10 @@ export default function SignalsPage() {
 
                           <td className="px-2 py-3 text-right text-slate-300 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
 
-                          <td className="px-2 py-3 text-right tabular-nums">
-                            <div className="flex flex-col items-end leading-tight">
-                              <span className="text-white">{formatPrice(t.lastPrice)}</span>
-                              {isFinite(chg) && <span className="text-[10px] opacity-70"><Pct value={chg} /></span>}
-                            </div>
-                          </td>
-
-                          <td className="px-2 py-3 text-right tabular-nums border-l border-slate-800/40">
-                            {pnl == null ? (
-                              <span className="text-slate-600">{pending ? '…' : '-'}</span>
-                            ) : (
-                              <div className="flex flex-col items-end gap-1">
-                                <Pct value={pnl} bold />
-                                {hit && (
-                                  <span className={`text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>{hit === 'tp' ? '🎯 TP' : '🛑 SL'}</span>
-                                )}
-                              </div>
-                            )}
-                          </td>
-
-                          <td className="px-2 py-3 text-right tabular-nums border-l border-slate-800/40">
-                            {c ? (
-                              <div className="flex flex-col items-end leading-tight">
-                                <span className="text-emerald-400">{formatPrice(c.tp)}</span>
-                                <span className="text-[10px] text-emerald-500/50">+{tpPct!.toFixed(1)}%</span>
-                              </div>
-                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
-                          </td>
+                          <td className="px-2 py-3 text-right tabular-nums text-white">{formatPrice(t.lastPrice)}</td>
 
                           <td className="px-2 py-3 text-right tabular-nums">
-                            {c ? (
-                              <div className="flex flex-col items-end leading-tight">
-                                <span className="text-rose-400">{formatPrice(c.sl)}</span>
-                                <span className="text-[10px] text-rose-500/50">{slPct!.toFixed(1)}%</span>
-                              </div>
-                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
+                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-600">-</span>}
                           </td>
 
                           <td className="px-3 py-3 text-right border-l border-slate-800/40">
@@ -698,10 +665,24 @@ export default function SignalsPage() {
                             )}
                           </td>
 
-                          {HORIZONS.map((h, hi) => {
+                          <td className="px-2 py-3 text-right tabular-nums border-l border-slate-800/40">
+                            {c ? (
+                              <div className="flex flex-col items-end leading-tight">
+                                <span className="text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
+                                <span className="text-[10px] text-emerald-500/60">+{tpPct!.toFixed(1)}%</span>
+                                {hit && (
+                                  <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                                    {hit === 'tp' ? '🎯 hit' : '🛑 stopped'}
+                                  </span>
+                                )}
+                              </div>
+                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
+                          </td>
+
+                          {HORIZONS.map(h => {
                             const p = f?.projections.find(x => x.key === h.key);
                             return (
-                              <td key={h.key} className={`px-2 py-3 text-right ${hi === 0 ? 'border-l border-slate-800/40' : ''}`}>
+                              <td key={h.key} className="px-2 py-3 text-right">
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
                                     <span className="text-white font-bold tabular-nums">{formatPrice(p.peak * fcScale)}</span>
@@ -722,7 +703,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={8 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={7 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -737,7 +718,7 @@ export default function SignalsPage() {
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
                 sorted by <b className="text-slate-500">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-3D–3Y show the typical peak — the level each coin touches at some point, half the time · click a coin for its forecast, ranges and probabilities{pageComputing ? ' · calculating…' : ''}
+Today&apos;s target = entry + {TP_MULT}×ATR (the daily trade level; SL and P&amp;L now live on the coin page) · 3D–3Y show the typical peak, the level each coin touches at some point half the time{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
@@ -778,7 +759,7 @@ export default function SignalsPage() {
 
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
-          <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry / TP / SL use the last closed daily candle and ATR (TP {TP_MULT}× / SL {SL_MULT}×); P&amp;L is live from the current price. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
+          <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry is the last closed daily candle; Today&apos;s target = entry + {TP_MULT}×ATR in the signal direction. The stop-loss ({SL_MULT}×ATR), live P&amp;L and target-hit history are on each coin&apos;s page. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
           <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>
         </div>
 

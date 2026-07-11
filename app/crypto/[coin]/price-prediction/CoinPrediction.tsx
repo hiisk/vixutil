@@ -836,7 +836,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </Section>
 
       {/* 방법론 */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 mb-5 text-xs text-slate-500 leading-relaxed">
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 mb-5 text-xs text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
         <h2 className="text-sm font-black text-slate-300 mb-2">How this {coin.name} prediction is made</h2>
         <p className="mb-2">
           We take {m.samples + 1} daily closes from Binance and convert them to log returns, giving a drift (μ) and a volatility (σ).
@@ -926,7 +926,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </ul>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed">
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
         <p>
           ⚠️ Not investment advice. This page contains statistical projections of a price distribution, not a forecast of what {coin.name} will do.
           The model knows nothing about news, regulation, liquidity or market structure. All trading decisions and risks are your own.

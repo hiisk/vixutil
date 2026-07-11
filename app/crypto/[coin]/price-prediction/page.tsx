@@ -77,7 +77,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
       <header className="border-b border-slate-800 sticky top-0 z-30 bg-slate-950/90 backdrop-blur">
-        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
           <Link href="/crypto/signals" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -89,14 +89,14 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <CoinPrediction coin={coin} />
 
         {/*
           아래는 서버에서 정적으로 렌더된다. 위 대시보드는 브라우저에서 시세를 받아 그리므로
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다. 실제 문장을 여기 둔다.
         */}
-        <section className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-400 leading-relaxed">
+        <section className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
           <h2 className="text-base font-black text-white mb-3">About the {coin.name} ({coin.base}) price prediction</h2>
           <p className="mb-3">
             This page projects the {coin.name} price over seven horizons — 3 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years — with daily,
@@ -125,7 +125,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           </p>
         </section>
 
-        <section className="mt-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-5">
+        <section className="mt-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 [&_dd]:max-w-[95ch]">
           <h2 className="text-base font-black text-white mb-3">{coin.name} price prediction FAQ</h2>
           <dl className="space-y-4 text-sm">
             {faqs(coin.name, coin.base).map(qa => (
