@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
-import { historicalScenarios, historicalDailyPath, historicalMedianAt, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
+import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { historicalScenarios, historicalDailyPath, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
 import { investOutcome } from '@/lib/invest';
@@ -222,15 +222,6 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     return series.map((_, i) => p[(i + 1) * step - 1]);
   }, [snap, series, tf, pathSeed]);
 
-  const seriesPeaks = useMemo(() => {
-    if (!snap) return [];
-    const m = snap.model;
-    return series.map(d => {
-      const drift = m.mu * d.day;
-      const sd = m.sigmaAt(d.day) * Math.sqrt(d.day);
-      return medianPeakLevel(m.spot, drift, sd, m.sigmaAt(d.day), d.day);
-    });
-  }, [snap, series]);
 
   const corrs = useMemo(() => {
     if (!snap) return [];
@@ -241,10 +232,6 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       .sort((a, b) => b.r - a.r);
   }, [snap]);
 
-  const histSeries = useMemo(
-    () => (snap ? series.map(d => historicalMedianAt(snap.allCloses, snap.price, d.day)) : []),
-    [snap, series],
-  );
 
   if (state === 'loading') {
     return (
@@ -569,72 +556,57 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               <thead className="sticky top-0 bg-slate-900 z-10">
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                   <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
-                  <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median close</span></th>
-                  <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#fbbf24' }}>
-                    Typical peak
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
+                  <th className="text-right font-semibold px-4 py-3">
+                    Prediction
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">one likely future</span>
                   </th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
-                    Likely path
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">one typical future</span>
-                  </th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
-                    History
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median of past moves</span>
+                  <th className="text-right font-semibold px-4 py-3">Change</th>
+                  <th className="text-right font-semibold px-4 py-3 border-l border-slate-800/70">
+                    Likely range
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">half of outcomes land here</span>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {series.map((d, ri) => (
-                  <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
-                    <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
-                    <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
-                    <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
-                    <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
-                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
-                      <span className="text-amber-400 font-bold">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</span>
-                      <span className="block text-[10px] text-amber-500/60">
-                        +{((((seriesPeaks[ri] ?? d.forecast) / s.price) - 1) * 100).toFixed(1)}%
-                      </span>
-                    </td>
-                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
-                      {seriesPath[ri] != null ? (() => {
-                        const v = seriesPath[ri]!;
-                        const prev = ri > 0 ? seriesPath[ri - 1] : s.price;
-                        const up = prev != null && v >= prev;
-                        const chg = ((v / s.price) - 1) * 100;
-                        return (
-                          <span className="flex items-center justify-end gap-1">
-                            <span className={`text-[10px] leading-none ${up ? 'text-emerald-400' : 'text-rose-400'}`}>{up ? '▲' : '▼'}</span>
-                            <span className="text-white font-bold">${formatPrice(v)}</span>
-                            <span className={`text-[10px] ${chg >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
-                              {chg >= 0 ? '+' : ''}{chg.toFixed(1)}%
-                            </span>
+                {series.map((d, ri) => {
+                  const v = seriesPath[ri];
+                  const prev = ri > 0 ? seriesPath[ri - 1] : s.price;
+                  const dayChg = v != null && prev != null && prev > 0 ? ((v / prev) - 1) * 100 : null;
+                  return (
+                    <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                      <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
+                      <td className="px-4 py-2.5 text-right tabular-nums">
+                        {v != null ? (
+                          <span className="text-white font-bold text-[15px]">${formatPrice(v)}</span>
+                        ) : (
+                          <span className="text-slate-700">-</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-2.5 text-right tabular-nums">
+                        {dayChg != null ? (
+                          <span className={`inline-flex items-center gap-1 font-bold ${dayChg >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                            <span className="text-[10px] leading-none">{dayChg >= 0 ? '▲' : '▼'}</span>
+                            {dayChg >= 0 ? '+' : ''}{dayChg.toFixed(2)}%
                           </span>
-                        );
-                      })() : <span className="text-slate-700">-</span>}
-                    </td>
-                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
-                      {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
-                    </td>
-                  </tr>
-                ))}
+                        ) : (
+                          <span className="text-slate-700">-</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-2.5 text-right tabular-nums text-[13px] text-slate-400 border-l border-slate-800/40">
+                        ${formatPrice(d.low)} – ${formatPrice(d.high)}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
-          <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-            <b className="text-amber-400/90">Typical peak</b> is the level {coin.base} touches at some point by that date in half of all paths — the same kind of
-            number as the trade target on the signal board, and always well above the forecast. The <b className="text-slate-400">Forecast</b> column is the median
-            close, which barely moves over a few days because the drift is only a few percent of the noise; that is why the two columns look so different.
-            <b className="text-slate-400">Likely path</b> is one concrete future drawn from the same model — the single simulated path whose endpoint lands
-            closest to the median. It rises and falls day to day, as a real price does, yet it finishes exactly where the forecast says. The
-            <b className="text-slate-400"> Forecast</b> column is smooth because it is the median of <i>all</i> paths, and averaging cancels the wiggles; the
-            price itself never moves that way. Nothing here is invented — the path is a genuine sample, not a hand-drawn curve. Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
-            <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
-            It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
-            treat the individual ups and downs as sampling noise rather than structure.
+          <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
+            <b className="text-slate-400">Prediction</b> is one concrete future drawn from the model — of many simulated paths, the one whose endpoint lands
+            closest to the median. It rises and falls day to day, as a real price does, yet it finishes where the median says. Nothing here is hand-drawn: the
+            path is a genuine sample, not a curve we bent to look interesting. <b className="text-slate-400">Change</b> is versus the previous row, so it shows
+            each day&apos;s move rather than the running total. <b className="text-slate-400">Likely range</b> is the 25th–75th percentile — half of all outcomes
+            land inside it, half do not. The horizon table below gives the median, the typical peak and the 80% range.
           </div>
         </div>
 
