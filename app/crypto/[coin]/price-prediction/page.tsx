@@ -77,7 +77,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
       <header className="border-b border-slate-800 sticky top-0 z-30 bg-slate-950/90 backdrop-blur">
-        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
           <Link href="/crypto/signals" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -89,7 +89,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         </div>
       </header>
 
-      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <CoinPrediction coin={coin} />
 
         {/*

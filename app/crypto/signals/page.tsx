@@ -73,6 +73,11 @@ const SORT_LABEL: Record<SortKey, string> = {
  */
 const FORECAST_DAYS = 998;
 
+/**
+ * 보드에 노출할 지평. 화면이 빽빽해 3D·3M·6M은 뺐다(상세 페이지에는 전부 있다).
+ */
+const BOARD_HORIZONS = HORIZONS.filter(h => ['1w', '1m', '1y', '3y'].includes(h.key));
+
 /** 정렬용 신호 점수: 강세는 +확신도, 약세는 -확신도, 중립은 0 */
 function signalMetric(info: ConsensusSignal): number {
   return info.bias === 'bullish' ? info.confidence : info.bias === 'bearish' ? -info.confidence : 0;
@@ -337,7 +342,7 @@ export default function SignalsPage() {
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
       <header className="border-b border-slate-800 sticky top-0 z-10 bg-slate-950/90 backdrop-blur">
-        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
           <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -351,7 +356,7 @@ export default function SignalsPage() {
 
       {/* 모든 블록이 같은 폭을 공유한다. 화면 끝까지 붙이지 않도록 상한과 좌우 여백을 둔다.
           단, 본문 문단만 읽기 좋은 줄길이(max-w-[95ch])로 제한한다 — 폭이 아니라 타이포그래피 문제다. */}
-      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Referral links */}
         <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-2">🎁 New-user bonuses — trade with an edge</p>
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
@@ -488,6 +493,10 @@ export default function SignalsPage() {
             ))}
           </div>
           <div className="flex items-center gap-2">
+            <button onClick={() => selectSort('signal')}
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${sortKey === 'signal' ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
+              Sort by signal{sortKey === 'signal' && <span className="ml-1">{sortDir === 'desc' ? '▼' : '▲'}</span>}
+            </button>
             <button onClick={() => setHitOnly(v => !v)}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
               🎯 TP/SL hit
@@ -551,11 +560,6 @@ export default function SignalsPage() {
                   <thead>
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                       <th className="sticky left-0 z-20 bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
-                      <th className="text-left font-semibold px-2 py-3">
-                        <button onClick={() => selectSort('signal')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'signal' ? 'text-amber-400' : ''}`}>
-                          Signal <SortHint active={sortKey === 'signal'} dir={sortDir} />
-                        </button>
-                      </th>
                       <th className={th}>Entry</th>
                       <th className={th}>Current</th>
                       <th className={th}>
@@ -571,7 +575,7 @@ export default function SignalsPage() {
                         Today&apos;s target
                         <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR</span>
                       </th>
-                      {HORIZONS.map(h => (
+                      {BOARD_HORIZONS.map(h => (
                         <th key={h.key} className={th}>
                           {h.short}
                           <span className="block text-[9px] font-normal text-amber-500/70 normal-case tracking-normal">peak</span>
@@ -610,9 +614,23 @@ export default function SignalsPage() {
                               </span>
                             )}
                           </div>
-                          <span className="block pl-7 text-[11px] text-slate-500">
-                            {c ? `ATR ${c.atrPct.toFixed(1)}%` : pending ? 'calculating…' : 'no data'}
-                          </span>
+                          {c ? (
+                            <span className="flex items-center gap-1.5 pl-7 mt-0.5">
+                              <span className={`inline-flex items-center gap-1 text-[10px] font-black px-1.5 py-0.5 rounded ${BIAS_STYLE[c.bias].cls}`}>
+                                {BIAS_STYLE[c.bias].emoji} {BIAS_STYLE[c.bias].label}
+                                {c.bias !== 'neutral' && <span className="opacity-80">{c.confidence}%</span>}
+                              </span>
+                              <span className="flex gap-1">
+                                {c.votes.map(v => (
+                                  <span key={v.key} title={`${STRATEGY_META[v.key].label}: ${v.note}`} className={`text-[10px] font-bold ${VOTE_CLR[v.bias]}`}>
+                                    {STRATEGY_META[v.key].short}{v.bias === 'bullish' ? '↑' : v.bias === 'bearish' ? '↓' : '·'}
+                                  </span>
+                                ))}
+                              </span>
+                            </span>
+                          ) : (
+                            <span className="block pl-7 text-[11px] text-slate-500">{pending ? 'calculating…' : 'no data'}</span>
+                          )}
                         </>
                       );
 
@@ -626,26 +644,6 @@ export default function SignalsPage() {
                               </Link>
                             ) : (
                               <div className="px-4 py-3 group-hover:bg-slate-800/40 transition-colors">{coinInner}</div>
-                            )}
-                          </td>
-
-                          <td className="px-2 py-3">
-                            {c ? (
-                              <div className="flex flex-col gap-1">
-                                <span className={`inline-flex w-fit items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded ${BIAS_STYLE[c.bias].cls}`}>
-                                  {BIAS_STYLE[c.bias].emoji} {BIAS_STYLE[c.bias].label}
-                                  {c.bias !== 'neutral' && <span className="opacity-80">{c.confidence}%</span>}
-                                </span>
-                                <span className="flex gap-1.5">
-                                  {c.votes.map(v => (
-                                    <span key={v.key} title={`${STRATEGY_META[v.key].label}: ${v.note}`} className={`text-[10px] font-bold ${VOTE_CLR[v.bias]}`}>
-                                      {STRATEGY_META[v.key].short}{v.bias === 'bullish' ? '↑' : v.bias === 'bearish' ? '↓' : '·'}
-                                    </span>
-                                  ))}
-                                </span>
-                              </div>
-                            ) : (
-                              <span className="text-slate-600 text-xs">{pending ? '…' : '-'}</span>
                             )}
                           </td>
 
@@ -679,7 +677,7 @@ export default function SignalsPage() {
                             ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
                           </td>
 
-                          {HORIZONS.map(h => {
+                          {BOARD_HORIZONS.map(h => {
                             const p = f?.projections.find(x => x.key === h.key);
                             return (
                               <td key={h.key} className="px-2 py-3 text-right">
@@ -703,7 +701,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={7 + HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={6 + BOARD_HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -718,7 +716,7 @@ export default function SignalsPage() {
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
                 sorted by <b className="text-slate-500">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-Today&apos;s target = entry + {TP_MULT}×ATR (the daily trade level; SL and P&amp;L now live on the coin page) · 3D–3Y show the typical peak, the level each coin touches at some point half the time{pageComputing ? ' · calculating…' : ''}
+Today&apos;s target = entry + {TP_MULT}×ATR (the daily trade level; SL and P&amp;L now live on the coin page) · 1W–3Y show the typical peak, the level each coin touches at some point half the time{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
