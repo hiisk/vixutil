@@ -1,12 +1,15 @@
 'use client';
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, probReach, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, historicalMedianAt, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
+import { investOutcome } from '@/lib/invest';
+import { COINS } from '@/lib/coins';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, formatVolume } from '@/components/crypto/ui';
 import ForecastChart from '@/components/crypto/ForecastChart';
@@ -19,6 +22,14 @@ const CHART_HISTORY = 60;
 const HISTORY_ROWS = 30;
 /** 목표가 도달 확률을 재는 시점 (일) */
 const BARRIER_CHECKPOINTS = [365, 730, 1095];
+/** 상관계수 계산에 쓰는 일수 */
+const CORR_DAYS = 365;
+/** 상관계수를 비교할 대형 코인 */
+const PEER_BASES = ['BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA'];
+/** 월별 예측 연도 탭 */
+const YEARS = [0, 1, 2, 3].map(i => new Date().getUTCFullYear() + i);
+/** 투자 계산기의 보유 기간 선택지 */
+const HOLD_OPTIONS: [string, number][] = [['1M', 30], ['3M', 90], ['6M', 180], ['1Y', 365], ['2Y', 730], ['3Y', 1095]];
 
 interface Snapshot {
   price: number;
@@ -31,6 +42,7 @@ interface Snapshot {
   green: { green: number; total: number };
   /** 상장 이후 전체 종가로 만든 과거 구간 시나리오 */
   scenarios: ScenarioHorizon[];
+  peers: { base: string; closes: number[] }[];
   fullCloses: number;
   /** 과거 전체 종가 — 일별 중앙 경로 계산용 */
   allCloses: number[];
@@ -101,6 +113,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const [snap, setSnap] = useState<Snapshot | null>(null);
   const [tf, setTf] = useState<Timeframe>('daily');
   const [target, setTarget] = useState('');
+  const [amount, setAmount] = useState('1000');
+  const [holdDays, setHoldDays] = useState(365);
+  const [year, setYear] = useState(() => new Date().getUTCFullYear());
 
   const load = useCallback(async () => {
     setState('loading');
@@ -115,6 +130,16 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         // 과거 구간 시나리오는 상장 이후 전체 이력을 쓴다(1000개 상한이라 페이징)
         fetchFullDailyCloses(symbol, market).catch(() => [] as number[]),
       ]);
+
+      // 상관계수용 동종 코인 — 대형주 몇 개만(요청 수를 늘리지 않도록 소수로 제한)
+      const peerBases = PEER_BASES.filter(b => b !== coin.base).slice(0, 6);
+      const peerCloses = await Promise.all(
+        peerBases.map(b =>
+          fetchDailyCandles(`${b}USDT`, CORR_DAYS, market)
+            .then(k => ({ base: b, closes: k.map(x => x.close) }))
+            .catch(() => ({ base: b, closes: [] as number[] })),
+        ),
+      );
       const t = tickers.find(x => x.base === coin.base);
       if (!t || ohlcv.length < 2) { setState('nodata'); return; }
 
@@ -135,6 +160,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         closes,
         ohlcv,
         green: greenDays(closes, 30),
+        peers: peerCloses.filter(p => p.closes.length >= 60),
         scenarios: historicalScenarios(fullCloses.length > closes.length ? fullCloses : closes, t.lastPrice, HORIZONS),
         fullCloses: Math.max(fullCloses.length, closes.length),
         allCloses: fullCloses.length > closes.length ? fullCloses : closes,
@@ -171,6 +197,24 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     const osc = oscillatorTable(c);
     const all = [...dailySma, ...dailyEma, ...weeklySma, ...weeklyEma, ...osc];
     return { dailySma, dailyEma, weeklySma, weeklyEma, osc, pv: pivots(c), s: sentiment(all), total: all.length };
+  }, [snap]);
+
+  // 투자 결과 분포 + 월별 예측 + 상관계수
+  const invest = useMemo(() => {
+    if (!snap) return null;
+    const amt = Number(amount);
+    return isFinite(amt) && amt > 0 ? investOutcome(snap.model, amt, holdDays) : null;
+  }, [snap, amount, holdDays]);
+
+  const months = useMemo(() => (snap ? monthlyProjections(snap.model, year) : []), [snap, year]);
+
+  const corrs = useMemo(() => {
+    if (!snap) return [];
+    const mine = snap.closes.slice(-CORR_DAYS);
+    return snap.peers
+      .map(p => ({ base: p.base, r: correlation(mine, p.closes.slice(-CORR_DAYS)) }))
+      .filter((x): x is { base: string; r: number } => x.r != null)
+      .sort((a, b) => b.r - a.r);
   }, [snap]);
 
   const histSeries = useMemo(
@@ -294,6 +338,60 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           ))}
         </div>
       </nav>
+
+      {/* 투자 계산기 — 경쟁사는 단일 ROI를 주지만, 결과는 숫자가 아니라 분포다 */}
+      {invest && (
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5 mb-5">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-4">
+            <div>
+              <h2 className="text-sm font-black text-white mb-0.5">If you invest today</h2>
+              <p className="text-[11px] text-slate-500">Most sites give one ROI number. The outcome is a distribution — here it is.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-1.5 text-xs text-slate-400">
+                <span className="text-slate-600">$</span>
+                <input
+                  type="number" inputMode="decimal" value={amount} min={1}
+                  onChange={e => setAmount(e.target.value)}
+                  className="w-28 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-sm text-slate-200 tabular-nums focus:outline-none focus:border-amber-500/60"
+                />
+              </label>
+              <div className="inline-flex rounded-lg border border-slate-800 bg-slate-950 p-0.5">
+                {HOLD_OPTIONS.map(([label, d]) => (
+                  <button key={d} onClick={() => setHoldDays(d)}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors ${holdDays === d ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 mb-3">
+            <div className="rounded-xl bg-slate-950/60 border border-rose-500/20 p-3 text-center">
+              <p className="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Worst 10%</p>
+              <p className="text-lg font-black text-rose-400 tabular-nums">${formatPrice(invest.p10)}</p>
+            </div>
+            <div className="rounded-xl bg-slate-950/60 border border-amber-500/30 p-3 text-center">
+              <p className="text-[10px] uppercase tracking-wide text-amber-500/80 mb-1">Median</p>
+              <p className="text-xl font-black text-white tabular-nums">${formatPrice(invest.median)}</p>
+              <p className={`text-[11px] font-bold tabular-nums ${invest.medianRoi >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                {invest.medianRoi >= 0 ? '+' : ''}{invest.medianRoi.toFixed(1)}%
+              </p>
+            </div>
+            <div className="rounded-xl bg-slate-950/60 border border-emerald-500/20 p-3 text-center">
+              <p className="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Best 10%</p>
+              <p className="text-lg font-black text-emerald-400 tabular-nums">${formatPrice(invest.p90)}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-[11px]">
+            <span className="text-slate-500">Chance you lose money: <b className="text-rose-400">{invest.pLoss.toFixed(1)}%</b></span>
+            <span className="text-slate-500">Chance it doubles: <b className="text-emerald-400">{invest.pDouble.toFixed(1)}%</b></span>
+            <span className="text-slate-600">Half of outcomes land between ${formatPrice(invest.p25)} and ${formatPrice(invest.p75)}</span>
+          </div>
+        </div>
+      )}
 
       {/* ── Overview ─────────────────────────────── */}
       <Section id="overview" title="Overview" sub={`Live market state and technical readout for ${coin.name}`}>
@@ -742,6 +840,53 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         )}
 
+        {/* 월별 예측 — 연도 탭 */}
+        {months.length > 0 && (
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
+            <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+              <h3 className="text-sm font-black text-white">Month by month</h3>
+              <div className="inline-flex rounded-lg border border-slate-800 bg-slate-950 p-0.5">
+                {YEARS.map(y => (
+                  <button key={y} onClick={() => setYear(y)}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md tabular-nums transition-colors ${year === y ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+                    {y}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm whitespace-nowrap">
+                <thead>
+                  <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                    <th className="text-left font-semibold px-4 py-3">Month</th>
+                    <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
+                    <th className="text-right font-semibold px-3 py-3">Forecast</th>
+                    <th className="text-right font-semibold px-3 py-3">High (P75)</th>
+                    <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#fbbf24' }}>Typical peak</th>
+                    <th className="text-right font-semibold px-4 py-3">vs now</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {months.map(r => (
+                    <tr key={r.label} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                      <td className="px-4 py-2.5 font-bold text-slate-300">{r.label}</td>
+                      <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(r.low)}</td>
+                      <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(r.forecast)}</td>
+                      <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(r.high)}</td>
+                      <td className="px-3 py-2.5 text-right text-amber-400 font-bold tabular-nums border-l border-slate-800/40">${formatPrice(r.peak)}</td>
+                      <td className="px-4 py-2.5 text-right"><Pct value={r.changePct} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 leading-relaxed">
+              Other sites label these columns &quot;Min / Avg / Max&quot;. They are not minimums and maximums — they are the 25th and 75th percentiles of a
+              distribution, and the price lands outside them half the time. We label them for what they are.
+            </div>
+          </div>
+        )}
+
         <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
           <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-sm font-black text-white">{TIMEFRAMES[tf].label}</h3>
@@ -906,6 +1051,43 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           genuinely differs by horizon — which is what the daily / weekly / monthly views above actually model.
         </p>
       </div>
+
+      {/* 상관계수 — 저희는 이미 BTC 베타를 쓰므로 데이터가 있다 */}
+      {corrs.length > 0 && (
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5 mb-5">
+          <h2 className="text-sm font-black text-white mb-1">How {coin.base} moves with other coins</h2>
+          <p className="text-[11px] text-slate-500 mb-4">
+            Correlation of daily returns over the last {CORR_DAYS} days. 1.00 means they move in lockstep; 0 means unrelated.
+            {m.hasMarket && <> {coin.base}&apos;s beta to Bitcoin is <b className="text-slate-400">{m.beta.toFixed(2)}</b>, which is what the forecast uses.</>}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {corrs.map(({ base, r }) => {
+              const meta = COINS.find(x => x.base === base);
+              const pct = Math.abs(r) * 100;
+              const inner = (
+                <>
+                  <CoinLogo base={base} size={18} />
+                  <span className="font-bold text-white text-xs">{base}</span>
+                  <span className={`text-xs font-black tabular-nums ${r >= 0.5 ? 'text-emerald-400' : r >= 0 ? 'text-slate-300' : 'text-rose-400'}`}>
+                    {r >= 0 ? '+' : ''}{r.toFixed(2)}
+                  </span>
+                  <span className="h-1 w-10 rounded-full bg-slate-800 overflow-hidden">
+                    <span className={`block h-full rounded-full ${r >= 0 ? 'bg-emerald-500' : 'bg-rose-500'}`} style={{ width: `${pct}%` }} />
+                  </span>
+                </>
+              );
+              return meta ? (
+                <Link key={base} href={`/crypto/${meta.slug}/price-prediction`}
+                  className="flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2 hover:border-slate-600 transition-colors">
+                  {inner}
+                </Link>
+              ) : (
+                <div key={base} className="flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2">{inner}</div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 mb-5">
         <h2 className="text-sm font-black text-white mb-1">What this page will not tell you</h2>

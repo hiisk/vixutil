@@ -754,6 +754,78 @@ export function simulatePaths(m: ForecastModel, days: number, count: number, see
   return out;
 }
 
+/** 월별 예측 한 줄 (경쟁사의 "Min / Avg / Max" 표에 대응하되, 그 정체를 정직하게 라벨링한다) */
+export interface MonthlyProjection {
+  /** 해당 월의 마지막 날까지의 일수 */
+  days: number;
+  year: number;
+  month: number; // 0-11
+  label: string; // "Jul 2026"
+  /** 25% 분위 (경쟁사의 "Min"에 대응 — 최저가가 아니라 하위 사분위다) */
+  low: number;
+  /** 중앙값 (경쟁사의 "Avg") */
+  forecast: number;
+  /** 75% 분위 (경쟁사의 "Max") */
+  high: number;
+  /** 그 달 안에 절반의 확률로 한 번은 닿는 가격 */
+  peak: number;
+  changePct: number;
+}
+
+/**
+ * 지정한 연도의 월별 예측. 각 달의 마지막 날을 지평으로 삼는다.
+ * 이미 지난 달은 건너뛴다.
+ */
+export function monthlyProjections(m: ForecastModel, year: number): MonthlyProjection[] {
+  const now = new Date();
+  const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const out: MonthlyProjection[] = [];
+  for (let mo = 0; mo < 12; mo++) {
+    const end = Date.UTC(year, mo + 1, 0); // 그 달의 마지막 날
+    const days = Math.round((end - today) / 86_400_000);
+    if (days < 1) continue;
+    const drift = m.mu * days;
+    const sd = m.sigmaAt(days) * Math.sqrt(days);
+    const z50 = tQuantStd(0.75, dfAt(days));
+    const forecast = m.spot * Math.exp(drift);
+    out.push({
+      days, year, month: mo,
+      label: new Date(end).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', year: 'numeric' }),
+      low: m.spot * Math.exp(drift - z50 * sd),
+      forecast,
+      high: m.spot * Math.exp(drift + z50 * sd),
+      peak: medianPeakLevel(m.spot, drift, sd, m.sigmaAt(days), days),
+      changePct: (Math.exp(drift) - 1) * 100,
+    });
+  }
+  return out;
+}
+
+/** 두 종가 시계열의 로그수익률 상관계수 (겹치는 구간만 사용) */
+export function correlation(a: number[], b: number[]): number | null {
+  const n = Math.min(a.length, b.length);
+  if (n < 30) return null;
+  const ra: number[] = [], rb: number[] = [];
+  const A = a.slice(-n), B = b.slice(-n);
+  for (let i = 1; i < n; i++) {
+    if (A[i] > 0 && A[i - 1] > 0 && B[i] > 0 && B[i - 1] > 0) {
+      ra.push(Math.log(A[i] / A[i - 1]));
+      rb.push(Math.log(B[i] / B[i - 1]));
+    }
+  }
+  if (ra.length < 30) return null;
+  const ma = ra.reduce((s, v) => s + v, 0) / ra.length;
+  const mb = rb.reduce((s, v) => s + v, 0) / rb.length;
+  let num = 0, da = 0, db = 0;
+  for (let i = 0; i < ra.length; i++) {
+    num += (ra[i] - ma) * (rb[i] - mb);
+    da += (ra[i] - ma) ** 2;
+    db += (rb[i] - mb) ** 2;
+  }
+  const den = Math.sqrt(da * db);
+  return den > 0 ? num / den : null;
+}
+
 /** 최근 `window`일 중 상승 마감한 날의 수 */
 export function greenDays(closes: number[], window = 30): { green: number; total: number } {
   const slice = closes.slice(-(window + 1));
