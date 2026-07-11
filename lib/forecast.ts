@@ -505,7 +505,11 @@ export function medianPeakLevel(spot: number, muT: number, sdT: number, sigmaDai
     const mid = (lo + hi) / 2;
     if (probMaxAbove(mid, muT, sdT, sigmaDaily, beta) > 0.5) lo = mid; else hi = mid;
   }
-  return spot * Math.exp((lo + hi) / 2);
+  const level = spot * Math.exp((lo + hi) / 2);
+  // 경로 최고가는 정의상 종가 이상이다. 그러나 1일처럼 지평이 짧으면 일별 종가 관측에 대한
+  // 연속성 보정폭(beta*sigma)이 drift보다 커져 해가 종가 중앙값(spot*exp(muT)) 아래로
+  // 내려갈 수 있다. 그때는 종가 중앙값을 하한으로 삼는다.
+  return Math.max(level, spot * Math.exp(muT));
 }
 
 /**
