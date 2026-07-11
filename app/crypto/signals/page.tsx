@@ -572,8 +572,8 @@ export default function SignalsPage() {
                         <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">30d simulated paths</span>
                       </th>
                       <th className={`${th} border-l border-slate-800/70`}>
-                        Today&apos;s target
-                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR</span>
+                        Trade target
+                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR · not same-day</span>
                       </th>
                       {BOARD_HORIZONS.map(h => (
                         <th key={h.key} className={th}>
@@ -716,7 +716,7 @@ export default function SignalsPage() {
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
                 sorted by <b className="text-slate-500">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-Today&apos;s target = entry + {TP_MULT}×ATR (the daily trade level; SL and P&amp;L now live on the coin page) · 1W–3Y show the typical peak, the level each coin touches at some point half the time{pageComputing ? ' · calculating…' : ''}
+Trade target = entry + {TP_MULT}×ATR. Backtested over 8,552 setups it is reached the next day only <b className="text-slate-500">4.6%</b> of the time (the stop hits first 9.4%; nothing happens 86%), so treat it as a level, not a daily prediction · 1W–3Y show the typical peak, the price each coin touches at some point half the time{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
@@ -757,7 +757,7 @@ Today&apos;s target = entry + {TP_MULT}×ATR (the daily trade level; SL and P&am
 
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
-          <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry is the last closed daily candle; Today&apos;s target = entry + {TP_MULT}×ATR in the signal direction. The stop-loss ({SL_MULT}×ATR), live P&amp;L and target-hit history are on each coin&apos;s page. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
+          <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry is the last closed daily candle; the trade target = entry + {TP_MULT}×ATR in the signal direction — over 8,552 historical setups it was reached the next day 4.6% of the time and within five days 23.2%, while the stop was hit first 42.1% of the time. The stop-loss ({SL_MULT}×ATR), live P&amp;L and target-hit history are on each coin&apos;s page. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
           <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>
         </div>
 

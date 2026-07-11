@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, historicalMedianAt, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
@@ -207,6 +207,18 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   }, [snap, amount, holdDays]);
 
   const months = useMemo(() => (snap ? monthlyProjections(snap.model, year) : []), [snap, year]);
+
+  // 각 행의 "그 시점까지 절반의 확률로 한 번은 닿는 가격" — 보드의 Trade target과 같은 종류의 값이라
+  // 두 화면이 같은 언어로 말하게 된다. (예측 중앙값만 있으면 상세 표가 죽어 보인다.)
+  const seriesPeaks = useMemo(() => {
+    if (!snap) return [];
+    const m = snap.model;
+    return series.map(d => {
+      const drift = m.mu * d.day;
+      const sd = m.sigmaAt(d.day) * Math.sqrt(d.day);
+      return medianPeakLevel(m.spot, drift, sd, m.sigmaAt(d.day), d.day);
+    });
+  }, [snap, series]);
 
   const corrs = useMemo(() => {
     if (!snap) return [];
@@ -908,7 +920,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median</span></th>
                   <th className="text-right font-semibold px-3 py-3">Expected<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">mean</span></th>
                   <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-3 py-3">Range width</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#fbbf24' }}>
+                    Typical peak
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
+                  </th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
                     History
                     <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median of past moves</span>
@@ -923,7 +938,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
                     <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
                     <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
-                    <td className="px-3 py-2.5 text-right text-slate-400 tabular-nums">±{(((d.high / d.forecast) - 1) * 100).toFixed(1)}%</td>
+                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
+                      <span className="text-amber-400 font-bold">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</span>
+                      <span className="block text-[10px] text-amber-500/60">
+                        +{((((seriesPeaks[ri] ?? d.forecast) / s.price) - 1) * 100).toFixed(1)}%
+                      </span>
+                    </td>
                     <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
                       {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
                     </td>
@@ -934,8 +954,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             </table>
           </div>
           <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-            Each row uses the volatility measured for <i>its own</i> horizon, not a rescaled daily number — the weight on {coin.base}&apos;s current
-            volatility falls from 0.803 at 1 day to 0.290 at 240, so the range width is not a naive σ√t fan. The
+            <b className="text-amber-400/90">Typical peak</b> is the level {coin.base} touches at some point by that date in half of all paths — the same kind of
+            number as the trade target on the signal board, and always well above the forecast. The <b className="text-slate-400">Forecast</b> column is the median
+            close, which barely moves over a few days because the drift is only a few percent of the noise; that is why the two columns look so different.
+            Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
             <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
             It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
             treat the individual ups and downs as sampling noise rather than structure.
