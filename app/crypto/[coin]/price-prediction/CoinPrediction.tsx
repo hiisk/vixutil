@@ -551,6 +551,83 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           levels should give — it is the model telling you the levels carry no edge by themselves.
         </p>
 
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <h3 className="text-sm font-black text-white">{TIMEFRAMES[tf].label}</h3>
+            <div className="inline-flex rounded-lg border border-slate-800 bg-slate-950 p-0.5">
+              {(Object.keys(TIMEFRAMES) as Timeframe[]).map(k => (
+                <button key={k} onClick={() => setTf(k)}
+                  className={`px-3 py-1 text-[11px] font-bold rounded-md capitalize transition-colors ${tf === k ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+                  {k}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
+            <table className="w-full text-sm whitespace-nowrap">
+              <thead className="sticky top-0 bg-slate-900 z-10">
+                <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                  <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
+                  <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
+                  <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median close</span></th>
+                  <th className="text-right font-semibold px-3 py-3">High (P75)</th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#fbbf24' }}>
+                    Typical peak
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
+                  </th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
+                    Scenarios
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">3 sampled paths</span>
+                  </th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
+                    History
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median of past moves</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {series.map((d, ri) => (
+                  <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
+                    <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
+                    <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
+                    <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
+                    <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
+                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
+                      <span className="text-amber-400 font-bold">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</span>
+                      <span className="block text-[10px] text-amber-500/60">
+                        +{((((seriesPeaks[ri] ?? d.forecast) / s.price) - 1) * 100).toFixed(1)}%
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
+                      <span className="flex justify-end gap-1.5 text-[11px]">
+                        {(seriesSamples[ri] ?? []).map((v, si) => (
+                          <span key={si} className={v >= s.price ? 'text-emerald-400/80' : 'text-rose-400/80'}>
+                            {v >= s.price ? '+' : ''}{(((v / s.price) - 1) * 100).toFixed(1)}%
+                          </span>
+                        ))}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
+                      {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
+            <b className="text-amber-400/90">Typical peak</b> is the level {coin.base} touches at some point by that date in half of all paths — the same kind of
+            number as the trade target on the signal board, and always well above the forecast. The <b className="text-slate-400">Forecast</b> column is the median
+            close, which barely moves over a few days because the drift is only a few percent of the noise; that is why the two columns look so different.
+            <b className="text-slate-400">Scenarios</b> shows three sampled paths from the same model — those <i>do</i> move up and down day to day, because a
+            single future is volatile even when its median is not. That is the honest version of a zig-zagging forecast: the wiggle belongs to the individual
+            paths, not to the average of all of them. Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
+            <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
+            It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
+            treat the individual ups and downs as sampling noise rather than structure.
+          </div>
+        </div>
+
         <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-800"><h3 className="text-sm font-black text-white">By horizon</h3></div>
           <div className="overflow-x-auto">
@@ -788,85 +865,6 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         )}
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-          <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-sm font-black text-white">{TIMEFRAMES[tf].label}</h3>
-            <div className="inline-flex rounded-lg border border-slate-800 bg-slate-950 p-0.5">
-              {(Object.keys(TIMEFRAMES) as Timeframe[]).map(k => (
-                <button key={k} onClick={() => setTf(k)}
-                  className={`px-3 py-1 text-[11px] font-bold rounded-md capitalize transition-colors ${tf === k ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
-                  {k}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
-            <table className="w-full text-sm whitespace-nowrap">
-              <thead className="sticky top-0 bg-slate-900 z-10">
-                <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
-                  <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
-                  <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median</span></th>
-                  <th className="text-right font-semibold px-3 py-3">Expected<span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">mean</span></th>
-                  <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#fbbf24' }}>
-                    Typical peak
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
-                  </th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
-                    Scenarios
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">3 sampled paths</span>
-                  </th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
-                    History
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median of past moves</span>
-                  </th>
-                  <th className="text-right font-semibold px-4 py-3">vs now</th>
-                </tr>
-              </thead>
-              <tbody>
-                {series.map((d, ri) => (
-                  <tr key={d.day} className="border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors">
-                    <td className="px-4 py-2.5 text-slate-300">{utcDate(utcDayOffset(d.day))}</td>
-                    <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(d.low)}</td>
-                    <td className="px-3 py-2.5 text-right text-white font-bold tabular-nums">${formatPrice(d.forecast)}</td>
-                    <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(d.high)}</td>
-                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
-                      <span className="text-amber-400 font-bold">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</span>
-                      <span className="block text-[10px] text-amber-500/60">
-                        +{((((seriesPeaks[ri] ?? d.forecast) / s.price) - 1) * 100).toFixed(1)}%
-                      </span>
-                    </td>
-                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
-                      <span className="flex justify-end gap-1.5 text-[11px]">
-                        {(seriesSamples[ri] ?? []).map((v, si) => (
-                          <span key={si} className={v >= s.price ? 'text-emerald-400/80' : 'text-rose-400/80'}>
-                            {v >= s.price ? '+' : ''}{(((v / s.price) - 1) * 100).toFixed(1)}%
-                          </span>
-                        ))}
-                      </span>
-                    </td>
-                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
-                      {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
-                    </td>
-                    <td className="px-4 py-2.5 text-right"><Pct value={d.changePct} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-            <b className="text-amber-400/90">Typical peak</b> is the level {coin.base} touches at some point by that date in half of all paths — the same kind of
-            number as the trade target on the signal board, and always well above the forecast. The <b className="text-slate-400">Forecast</b> column is the median
-            close, which barely moves over a few days because the drift is only a few percent of the noise; that is why the two columns look so different.
-            <b className="text-slate-400">Scenarios</b> shows three sampled paths from the same model — those <i>do</i> move up and down day to day, because a
-            single future is volatile even when its median is not. That is the honest version of a zig-zagging forecast: the wiggle belongs to the individual
-            paths, not to the average of all of them. Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
-            <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
-            It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
-            treat the individual ups and downs as sampling noise rather than structure.
-          </div>
-        </div>
       </Section>
 
       {/* ── Technical analysis ───────────────────── */}

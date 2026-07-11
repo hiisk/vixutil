@@ -561,6 +561,10 @@ export default function SignalsPage() {
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
                       <th className="sticky left-0 z-20 bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
                       <th className={th}>Entry</th>
+                      <th className={th}>
+                        ATR target
+                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR · not a forecast</span>
+                      </th>
                       <th className={th}>Current</th>
                       <th className={th}>
                         <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-400' : ''}`}>
@@ -571,12 +575,8 @@ export default function SignalsPage() {
                         Scenarios
                         <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">30d simulated paths</span>
                       </th>
-                      <th className={`${th} border-l border-slate-800/70`}>
-                        Trade target
-                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR · not same-day</span>
-                      </th>
-                      {BOARD_HORIZONS.map(h => (
-                        <th key={h.key} className={th}>
+                      {BOARD_HORIZONS.map((h, hi) => (
+                        <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
                           {h.short}
                           <span className="block text-[9px] font-normal text-amber-500/70 normal-case tracking-normal">peak</span>
                         </th>
@@ -649,6 +649,20 @@ export default function SignalsPage() {
 
                           <td className="px-2 py-3 text-right text-slate-300 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
 
+                          <td className="px-2 py-3 text-right tabular-nums">
+                            {c ? (
+                              <div className="flex flex-col items-end leading-tight">
+                                <span className="text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
+                                <span className="text-[10px] text-emerald-500/60">+{tpPct!.toFixed(1)}%</span>
+                                {hit && (
+                                  <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                                    {hit === 'tp' ? '🎯 hit' : '🛑 stopped'}
+                                  </span>
+                                )}
+                              </div>
+                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
+                          </td>
+
                           <td className="px-2 py-3 text-right tabular-nums text-white">{formatPrice(t.lastPrice)}</td>
 
                           <td className="px-2 py-3 text-right tabular-nums">
@@ -663,24 +677,10 @@ export default function SignalsPage() {
                             )}
                           </td>
 
-                          <td className="px-2 py-3 text-right tabular-nums border-l border-slate-800/40">
-                            {c ? (
-                              <div className="flex flex-col items-end leading-tight">
-                                <span className="text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
-                                <span className="text-[10px] text-emerald-500/60">+{tpPct!.toFixed(1)}%</span>
-                                {hit && (
-                                  <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
-                                    {hit === 'tp' ? '🎯 hit' : '🛑 stopped'}
-                                  </span>
-                                )}
-                              </div>
-                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
-                          </td>
-
-                          {BOARD_HORIZONS.map(h => {
+                          {BOARD_HORIZONS.map((h, hi) => {
                             const p = f?.projections.find(x => x.key === h.key);
                             return (
-                              <td key={h.key} className="px-2 py-3 text-right">
+                              <td key={h.key} className={`px-2 py-3 text-right ${hi === 0 ? 'border-l border-slate-800/40' : ''}`}>
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
                                     <span className="text-white font-bold tabular-nums">{formatPrice(p.peak * fcScale)}</span>
@@ -716,7 +716,7 @@ export default function SignalsPage() {
               <div className="px-4 pb-3 text-[11px] text-slate-600">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
                 sorted by <b className="text-slate-500">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-Trade target = entry + {TP_MULT}×ATR. Backtested over 8,552 setups it is reached the next day only <b className="text-slate-500">4.6%</b> of the time (the stop hits first 9.4%; nothing happens 86%), so treat it as a level, not a daily prediction · 1W–3Y show the typical peak, the price each coin touches at some point half the time{pageComputing ? ' · calculating…' : ''}
+<b className="text-slate-500">ATR target</b> is a trade level (entry + {TP_MULT}×ATR), <b className="text-slate-500">not a forecast</b> — backtested over 8,552 setups it was reached the next day only 4.6% of the time · <b className="text-slate-500">1W–3Y</b> are the forecast: the typical peak, the price each coin touches at some point half the time. These match the coin page exactly.{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
