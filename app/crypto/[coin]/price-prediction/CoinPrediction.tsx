@@ -117,6 +117,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const [holdDays, setHoldDays] = useState(365);
   const [year, setYear] = useState(() => new Date().getUTCFullYear());
 
+  // 코인 티커로 시드를 고정해 리렌더/재방문에도 같은 시나리오가 나오게 한다
+  const pathSeed = useMemo(() => [...coin.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7), [coin.base]);
+
   const load = useCallback(async () => {
     setState('loading');
     try {
@@ -210,6 +213,14 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   // 각 행의 "그 시점까지 절반의 확률로 한 번은 닿는 가격" — 보드의 Trade target과 같은 종류의 값이라
   // 두 화면이 같은 언어로 말하게 된다. (예측 중앙값만 있으면 상세 표가 죽어 보인다.)
+  // 표의 각 행에 붙일 시나리오 표본 — 예측이 아니라 표본이므로 실제로 오르내린다
+  const seriesSamples = useMemo(() => {
+    if (!snap) return [];
+    const step = TIMEFRAMES[tf].stepDays;
+    const p = simulatePaths(snap.model, series.length * step, 3, pathSeed + 101);
+    return series.map((_, i) => p.map(path => path[(i + 1) * step - 1]));
+  }, [snap, series, tf, pathSeed]);
+
   const seriesPeaks = useMemo(() => {
     if (!snap) return [];
     const m = snap.model;
@@ -270,9 +281,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const pTp = s.consensus ? probTpBeforeSl(s.price, s.consensus.tp, s.consensus.sl) : NaN;
   const rr = s.consensus ? Math.abs(s.consensus.tp - s.consensus.entry) / Math.abs(s.consensus.entry - s.consensus.sl) : NaN;
   const evR = isFinite(pTp) && isFinite(rr) ? (pTp / 100) * rr - (1 - pTp / 100) : NaN;
-  // 코인 티커로 시드를 만들어 리렌더/재방문에도 같은 경로가 나오게 한다
-  const seed = [...coin.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7);
-  const paths = simulatePaths(m, DAILY_PATH_DAYS, 12, seed);
+  const paths = simulatePaths(m, DAILY_PATH_DAYS, 24, pathSeed);
   const flip = hasSignFlip(s.scenarios);
   const presets = targetPrices(s.price);
 
@@ -343,7 +352,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {/* Section nav */}
       <nav className="sticky top-14 z-20 -mx-4 px-4 py-2 bg-slate-950/90 backdrop-blur border-b border-slate-800 mb-6">
         <div className="flex gap-2 text-xs font-bold">
-          {[['overview', 'Overview'], ['technical', 'Indicators'], ['prediction', 'Outlook'], ['historic', 'History']].map(([id, label]) => (
+          {[['overview', 'Overview'], ['prediction', 'Prediction'], ['technical', 'Indicators'], ['historic', 'History']].map(([id, label]) => (
             <a key={id} href={`#${id}`} className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-amber-400 hover:border-slate-600 transition-colors">
               {label}
             </a>
@@ -451,130 +460,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         )}
       </Section>
 
-      {/* ── Technical analysis ───────────────────── */}
-      {ta && (
-        <Section id="technical" title="Indicators" sub={`${ta.total} readings for ${coin.base} — where the price sits, not where it is going`}>
-          {/* Sentiment tally */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <div>
-                <p className="text-[11px] uppercase tracking-wide text-slate-500">Indicator tally</p>
-                <p className={`text-2xl font-black ${ta.s.label === 'Bullish' ? 'text-emerald-400' : ta.s.label === 'Bearish' ? 'text-rose-400' : 'text-slate-300'}`}>
-                  {ta.s.label}
-                </p>
-              </div>
-              <div className="text-right text-xs tabular-nums">
-                <p className="text-emerald-400 font-bold">{ta.s.bullish} bullish</p>
-                <p className="text-rose-400 font-bold">{ta.s.bearish} bearish</p>
-                <p className="text-slate-500">{ta.s.neutral} neutral</p>
-              </div>
-            </div>
-            <div className="flex h-2 gap-[2px]" role="img" aria-label={`${ta.s.bullish} bullish, ${ta.s.bearish} bearish`}>
-              <div className="bg-emerald-500 rounded-full" style={{ width: `${ta.s.bullishPct}%` }} />
-              <div className="bg-rose-500 rounded-full" style={{ width: `${100 - ta.s.bullishPct}%` }} />
-            </div>
-            <p className="text-[11px] text-slate-500 mt-3 leading-relaxed">
-              This is a <b className="text-slate-400">count of indicator states</b>, not a forecast. Each label below just says whether the price sits above or
-              below that line, or whether an oscillator is in its conventional overbought / oversold zone. We measured what these labels are worth: a composite of
-              moving averages, RSI and MACD predicted {coin.base}&apos;s 5-day direction <b className="text-slate-400">49.4%</b> of the time across 46 coins — a
-              coin flip. Read them as a description of where the price is, not where it is going.
-            </p>
-          </div>
-
-          {/* Moving averages */}
-          <div className="grid md:grid-cols-2 gap-3 mb-4">
-            {([['Daily SMA', ta.dailySma], ['Daily EMA', ta.dailyEma], ['Weekly SMA', ta.weeklySma], ['Weekly EMA', ta.weeklyEma]] as [string, Reading[]][])
-              .filter(([, rows]) => rows.length > 0)
-              .map(([title, rows]) => (
-                <div key={title} className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-                  <div className="px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
-                    <h3 className="text-xs font-black text-white">{title}</h3>
-                    <span className="text-[10px] text-slate-600">price vs line</span>
-                  </div>
-                  <table className="w-full text-sm">
-                    <tbody>
-                      {rows.map(r => (
-                        <tr key={r.name} className="border-b border-slate-800/50 last:border-0">
-                          <td className="px-4 py-2 text-slate-400">{r.name}</td>
-                          <td className="px-3 py-2 text-right text-white tabular-nums">${formatPrice(r.value)}</td>
-                          <td className="px-3 py-2 text-right text-[11px] tabular-nums">
-                            <span className={s.price >= r.value ? 'text-emerald-500/70' : 'text-rose-500/70'}>
-                              {s.price >= r.value ? '+' : ''}{(((s.price / r.value) - 1) * 100).toFixed(1)}%
-                            </span>
-                          </td>
-                          <td className="px-4 py-2 text-right"><ActionChip action={r.action} /></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
-          </div>
-
-          {/* Oscillators */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
-            <div className="px-4 py-2.5 border-b border-slate-800"><h3 className="text-xs font-black text-white">Oscillators</h3></div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm whitespace-nowrap">
-                <tbody>
-                  {ta.osc.map(r => (
-                    <tr key={r.name} className="border-b border-slate-800/50 last:border-0">
-                      <td className="px-4 py-2 text-slate-400">{r.name}</td>
-                      <td className="px-3 py-2 text-right text-white tabular-nums">
-                        {Math.abs(r.value) >= 1000 ? formatPrice(r.value) : r.value.toFixed(2)}
-                      </td>
-                      <td className="px-4 py-2 text-right"><ActionChip action={r.action} /></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Pivot levels */}
-          {ta.pv && (
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-              <div className="px-4 py-2.5 border-b border-slate-800">
-                <h3 className="text-xs font-black text-white">Key price levels</h3>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  Classical pivot from the last closed candle: P = (high + low + close) / 3. A deterministic formula, not a prediction.
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-800/60">
-                <table className="w-full text-sm">
-                  <tbody>
-                    {([['R3', ta.pv.r3], ['R2', ta.pv.r2], ['R1', ta.pv.r1]] as [string, number][]).map(([k, v]) => (
-                      <tr key={k} className="border-b border-slate-800/50 last:border-0">
-                        <td className="px-4 py-2 text-slate-500">Resistance {k}</td>
-                        <td className="px-4 py-2 text-right text-emerald-400 font-bold tabular-nums">${formatPrice(v)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <table className="w-full text-sm">
-                  <tbody>
-                    {([['S1', ta.pv.s1], ['S2', ta.pv.s2], ['S3', ta.pv.s3]] as [string, number][]).map(([k, v]) => (
-                      <tr key={k} className="border-b border-slate-800/50 last:border-0">
-                        <td className="px-4 py-2 text-slate-500">Support {k}</td>
-                        <td className="px-4 py-2 text-right text-rose-400 font-bold tabular-nums">${formatPrice(v)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="px-4 py-2.5 border-t border-slate-800 text-center text-xs">
-                <span className="text-slate-500">Pivot </span>
-                <span className="text-white font-black tabular-nums">${formatPrice(ta.pv.p)}</span>
-              </div>
-            </div>
-          )}
-        </Section>
-      )}
-
       {/* ── Prediction ───────────────────────────── */}
-      <Section id="prediction" title="Outlook" sub={`Two independent views: a conservative statistical model, and every comparable window ${coin.base} has actually lived through`}>
+      <Section id="prediction" title="Prediction" sub={`Two independent views: a conservative statistical model, and every comparable window ${coin.base} has actually lived through`}>
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
-          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} historyPath={histPath} />
+          <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} historyPath={histPath} height={320} />
           <p className="text-[11px] text-slate-600 mt-2 text-center leading-relaxed">
             The faint lines are <b className="text-slate-500">simulated scenarios</b> from the same fitted model — samples of how the price could wander, not
             predictions of when. The accent line is the model forecast; it is smooth because a constant drift can only produce a monotone path. The
@@ -924,6 +813,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     Typical peak
                     <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
                   </th>
+                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
+                    Scenarios
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">3 sampled paths</span>
+                  </th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
                     History
                     <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">median of past moves</span>
@@ -944,6 +837,15 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                         +{((((seriesPeaks[ri] ?? d.forecast) / s.price) - 1) * 100).toFixed(1)}%
                       </span>
                     </td>
+                    <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
+                      <span className="flex justify-end gap-1.5 text-[11px]">
+                        {(seriesSamples[ri] ?? []).map((v, si) => (
+                          <span key={si} className={v >= s.price ? 'text-emerald-400/80' : 'text-rose-400/80'}>
+                            {v >= s.price ? '+' : ''}{(((v / s.price) - 1) * 100).toFixed(1)}%
+                          </span>
+                        ))}
+                      </span>
+                    </td>
                     <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
                       {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
                     </td>
@@ -957,13 +859,135 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <b className="text-amber-400/90">Typical peak</b> is the level {coin.base} touches at some point by that date in half of all paths — the same kind of
             number as the trade target on the signal board, and always well above the forecast. The <b className="text-slate-400">Forecast</b> column is the median
             close, which barely moves over a few days because the drift is only a few percent of the noise; that is why the two columns look so different.
-            Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
+            <b className="text-slate-400">Scenarios</b> shows three sampled paths from the same model — those <i>do</i> move up and down day to day, because a
+            single future is volatile even when its median is not. That is the honest version of a zig-zagging forecast: the wiggle belongs to the individual
+            paths, not to the average of all of them. Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
             <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
             It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
             treat the individual ups and downs as sampling noise rather than structure.
           </div>
         </div>
       </Section>
+
+      {/* ── Technical analysis ───────────────────── */}
+      {ta && (
+        <Section id="technical" title="Indicators" sub={`${ta.total} readings for ${coin.base} — where the price sits, not where it is going`}>
+          {/* Sentiment tally */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 mb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <div>
+                <p className="text-[11px] uppercase tracking-wide text-slate-500">Indicator tally</p>
+                <p className={`text-2xl font-black ${ta.s.label === 'Bullish' ? 'text-emerald-400' : ta.s.label === 'Bearish' ? 'text-rose-400' : 'text-slate-300'}`}>
+                  {ta.s.label}
+                </p>
+              </div>
+              <div className="text-right text-xs tabular-nums">
+                <p className="text-emerald-400 font-bold">{ta.s.bullish} bullish</p>
+                <p className="text-rose-400 font-bold">{ta.s.bearish} bearish</p>
+                <p className="text-slate-500">{ta.s.neutral} neutral</p>
+              </div>
+            </div>
+            <div className="flex h-2 gap-[2px]" role="img" aria-label={`${ta.s.bullish} bullish, ${ta.s.bearish} bearish`}>
+              <div className="bg-emerald-500 rounded-full" style={{ width: `${ta.s.bullishPct}%` }} />
+              <div className="bg-rose-500 rounded-full" style={{ width: `${100 - ta.s.bullishPct}%` }} />
+            </div>
+            <p className="text-[11px] text-slate-500 mt-3 leading-relaxed">
+              This is a <b className="text-slate-400">count of indicator states</b>, not a forecast. Each label below just says whether the price sits above or
+              below that line, or whether an oscillator is in its conventional overbought / oversold zone. We measured what these labels are worth: a composite of
+              moving averages, RSI and MACD predicted {coin.base}&apos;s 5-day direction <b className="text-slate-400">49.4%</b> of the time across 46 coins — a
+              coin flip. Read them as a description of where the price is, not where it is going.
+            </p>
+          </div>
+
+          {/* Moving averages */}
+          <div className="grid md:grid-cols-2 gap-3 mb-4">
+            {([['Daily SMA', ta.dailySma], ['Daily EMA', ta.dailyEma], ['Weekly SMA', ta.weeklySma], ['Weekly EMA', ta.weeklyEma]] as [string, Reading[]][])
+              .filter(([, rows]) => rows.length > 0)
+              .map(([title, rows]) => (
+                <div key={title} className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+                  <div className="px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+                    <h3 className="text-xs font-black text-white">{title}</h3>
+                    <span className="text-[10px] text-slate-600">price vs line</span>
+                  </div>
+                  <table className="w-full text-sm">
+                    <tbody>
+                      {rows.map(r => (
+                        <tr key={r.name} className="border-b border-slate-800/50 last:border-0">
+                          <td className="px-4 py-2 text-slate-400">{r.name}</td>
+                          <td className="px-3 py-2 text-right text-white tabular-nums">${formatPrice(r.value)}</td>
+                          <td className="px-3 py-2 text-right text-[11px] tabular-nums">
+                            <span className={s.price >= r.value ? 'text-emerald-500/70' : 'text-rose-500/70'}>
+                              {s.price >= r.value ? '+' : ''}{(((s.price / r.value) - 1) * 100).toFixed(1)}%
+                            </span>
+                          </td>
+                          <td className="px-4 py-2 text-right"><ActionChip action={r.action} /></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+          </div>
+
+          {/* Oscillators */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
+            <div className="px-4 py-2.5 border-b border-slate-800"><h3 className="text-xs font-black text-white">Oscillators</h3></div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm whitespace-nowrap">
+                <tbody>
+                  {ta.osc.map(r => (
+                    <tr key={r.name} className="border-b border-slate-800/50 last:border-0">
+                      <td className="px-4 py-2 text-slate-400">{r.name}</td>
+                      <td className="px-3 py-2 text-right text-white tabular-nums">
+                        {Math.abs(r.value) >= 1000 ? formatPrice(r.value) : r.value.toFixed(2)}
+                      </td>
+                      <td className="px-4 py-2 text-right"><ActionChip action={r.action} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pivot levels */}
+          {ta.pv && (
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+              <div className="px-4 py-2.5 border-b border-slate-800">
+                <h3 className="text-xs font-black text-white">Key price levels</h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Classical pivot from the last closed candle: P = (high + low + close) / 3. A deterministic formula, not a prediction.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-800/60">
+                <table className="w-full text-sm">
+                  <tbody>
+                    {([['R3', ta.pv.r3], ['R2', ta.pv.r2], ['R1', ta.pv.r1]] as [string, number][]).map(([k, v]) => (
+                      <tr key={k} className="border-b border-slate-800/50 last:border-0">
+                        <td className="px-4 py-2 text-slate-500">Resistance {k}</td>
+                        <td className="px-4 py-2 text-right text-emerald-400 font-bold tabular-nums">${formatPrice(v)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <table className="w-full text-sm">
+                  <tbody>
+                    {([['S1', ta.pv.s1], ['S2', ta.pv.s2], ['S3', ta.pv.s3]] as [string, number][]).map(([k, v]) => (
+                      <tr key={k} className="border-b border-slate-800/50 last:border-0">
+                        <td className="px-4 py-2 text-slate-500">Support {k}</td>
+                        <td className="px-4 py-2 text-right text-rose-400 font-bold tabular-nums">${formatPrice(v)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="px-4 py-2.5 border-t border-slate-800 text-center text-xs">
+                <span className="text-slate-500">Pivot </span>
+                <span className="text-white font-black tabular-nums">${formatPrice(ta.pv.p)}</span>
+              </div>
+            </div>
+          )}
+        </Section>
+      )}
 
       {/* ── Historic data ────────────────────────── */}
       <Section id="historic" title="History" sub={`${coin.base} daily open / high / low / close and volume, last ${HISTORY_ROWS} closed candles (UTC)`}>
