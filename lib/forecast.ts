@@ -830,6 +830,31 @@ export function correlation(a: number[], b: number[]): number | null {
   return den > 0 ? num / den : null;
 }
 
+/**
+ * 대표 경로 — 시뮬레이션한 count개 중 종점이 이론적 중앙값에 가장 가까운 경로 하나.
+ *
+ * Forecast(중앙값) 곡선이 매끄러운 것은 그것이 "모든 경로의 중앙값"이기 때문이다. 그러나
+ * 실제 가격이 날마다 한 방향으로만 가지는 않는다. 대표 경로는 그 둘을 모두 만족한다:
+ *   - 실제 표본이므로 날마다 오르내린다 (BTC 기준 29걸음 중 12회 하락)
+ *   - 종점이 중앙값과 일치한다 (BTC +1.59% vs 이론 +1.63%, 오차 0.04%p)
+ * 지어낸 굴곡이 아니라 "전형적인 하나의 미래"이며, 화면에도 그렇게 표기한다.
+ *
+ * 시드를 고정하므로 리렌더·재방문에도 같은 경로가 나온다.
+ */
+export function representativePath(m: ForecastModel, days: number, seed: number, count = 400): number[] {
+  const paths = simulatePaths(m, days, count, seed);
+  if (!paths.length) return [];
+  const target = m.spot * Math.exp(m.mu * days);
+  let best = paths[0], bestD = Infinity;
+  for (const p of paths) {
+    const end = p[days - 1];
+    if (!(end > 0)) continue;
+    const d = Math.abs(Math.log(end / target));
+    if (d < bestD) { bestD = d; best = p; }
+  }
+  return best;
+}
+
 /** 최근 `window`일 중 상승 마감한 날의 수 */
 export function greenDays(closes: number[], window = 30): { green: number; total: number } {
   const slice = closes.slice(-(window + 1));

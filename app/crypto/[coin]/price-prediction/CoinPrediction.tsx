@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
 import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
-import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
+import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, historicalMedianAt, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
 import { simulateBarriers, probEverReach } from '@/lib/barriers';
@@ -213,12 +213,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   // 각 행의 "그 시점까지 절반의 확률로 한 번은 닿는 가격" — 보드의 Trade target과 같은 종류의 값이라
   // 두 화면이 같은 언어로 말하게 된다. (예측 중앙값만 있으면 상세 표가 죽어 보인다.)
-  // 표의 각 행에 붙일 시나리오 표본 — 예측이 아니라 표본이므로 실제로 오르내린다
-  const seriesSamples = useMemo(() => {
+  // 대표 경로 — 종점이 중앙값과 일치하면서 날마다 오르내리는 실제 표본 하나
+  const seriesPath = useMemo(() => {
     if (!snap) return [];
     const step = TIMEFRAMES[tf].stepDays;
-    const p = simulatePaths(snap.model, series.length * step, 3, pathSeed + 101);
-    return series.map((_, i) => p.map(path => path[(i + 1) * step - 1]));
+    const total = series.length * step;
+    const p = representativePath(snap.model, total, pathSeed + 101);
+    return series.map((_, i) => p[(i + 1) * step - 1]);
   }, [snap, series, tf, pathSeed]);
 
   const seriesPeaks = useMemo(() => {
@@ -551,7 +552,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           levels should give — it is the model telling you the levels carry no edge by themselves.
         </p>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-sm font-black text-white">{TIMEFRAMES[tf].label}</h3>
             <div className="inline-flex rounded-lg border border-slate-800 bg-slate-950 p-0.5">
@@ -576,8 +577,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">touched 50% of the time</span>
                   </th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
-                    Scenarios
-                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">3 sampled paths</span>
+                    Likely path
+                    <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">one typical future</span>
                   </th>
                   <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70" style={{ color: '#818cf8' }}>
                     History
@@ -599,13 +600,21 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       </span>
                     </td>
                     <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40">
-                      <span className="flex justify-end gap-1.5 text-[11px]">
-                        {(seriesSamples[ri] ?? []).map((v, si) => (
-                          <span key={si} className={v >= s.price ? 'text-emerald-400/80' : 'text-rose-400/80'}>
-                            {v >= s.price ? '+' : ''}{(((v / s.price) - 1) * 100).toFixed(1)}%
+                      {seriesPath[ri] != null ? (() => {
+                        const v = seriesPath[ri]!;
+                        const prev = ri > 0 ? seriesPath[ri - 1] : s.price;
+                        const up = prev != null && v >= prev;
+                        const chg = ((v / s.price) - 1) * 100;
+                        return (
+                          <span className="flex items-center justify-end gap-1">
+                            <span className={`text-[10px] leading-none ${up ? 'text-emerald-400' : 'text-rose-400'}`}>{up ? '▲' : '▼'}</span>
+                            <span className="text-white font-bold">${formatPrice(v)}</span>
+                            <span className={`text-[10px] ${chg >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
+                              {chg >= 0 ? '+' : ''}{chg.toFixed(1)}%
+                            </span>
                           </span>
-                        ))}
-                      </span>
+                        );
+                      })() : <span className="text-slate-700">-</span>}
                     </td>
                     <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-800/40" style={{ color: '#818cf8' }}>
                       {histSeries[ri] != null ? `$${formatPrice(histSeries[ri]!)}` : '-'}
@@ -619,9 +628,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <b className="text-amber-400/90">Typical peak</b> is the level {coin.base} touches at some point by that date in half of all paths — the same kind of
             number as the trade target on the signal board, and always well above the forecast. The <b className="text-slate-400">Forecast</b> column is the median
             close, which barely moves over a few days because the drift is only a few percent of the noise; that is why the two columns look so different.
-            <b className="text-slate-400">Scenarios</b> shows three sampled paths from the same model — those <i>do</i> move up and down day to day, because a
-            single future is volatile even when its median is not. That is the honest version of a zig-zagging forecast: the wiggle belongs to the individual
-            paths, not to the average of all of them. Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
+            <b className="text-slate-400">Likely path</b> is one concrete future drawn from the same model — the single simulated path whose endpoint lands
+            closest to the median. It rises and falls day to day, as a real price does, yet it finishes exactly where the forecast says. The
+            <b className="text-slate-400"> Forecast</b> column is smooth because it is the median of <i>all</i> paths, and averaging cancels the wiggles; the
+            price itself never moves that way. Nothing here is invented — the path is a genuine sample, not a hand-drawn curve. Each row uses the volatility measured for <i>its own</i> horizon, so the peak is not a rescaled daily number. The
             <b style={{ color: '#818cf8' }}> History</b> column is not a forecast: it is the median of every move of that length {coin.base} has actually made.
             It is free to go down as well as up, but a random walk with the same drift and volatility produces the same amount of wobble about half the time, so
             treat the individual ups and downs as sampling noise rather than structure.
