@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import ShareButton from './ShareButton';
 import type { Generator } from '@/lib/types';
 
 const BATCH = 5;
@@ -192,6 +193,15 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
               {copiedAll ? '✓ 전체 복사됨' : '전체 복사하기'}
             </button>
           </div>
+        )}
+
+        {hasResults && (
+          // 공유 문구에는 저장한 결과가 있으면 그것을, 없으면 방금 뽑은 결과를 싣는다.
+          <ShareButton
+            title={gen.title}
+            description={(saved.length > 0 ? saved : results).slice(0, 3).join(' · ')}
+            type="generator"
+          />
         )}
 
         {/* 저장 목록 */}

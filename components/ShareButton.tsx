@@ -4,13 +4,13 @@ import { useState } from 'react';
 const TEST_CTA = ['친구도 테스트 해보기', '내 결과 자랑하기', '친구 결과와 비교하기', '친구는 어떤 결과일까?', '생각보다 정확한 테스트', '친구한테도 보내보기', '이건 친구도 해봐야 함', '의외로 정확해서 공유'];
 const QUIZ_CTA = ['내 점수 자랑하기', '친구도 도전해보기', '몇 점 받을 수 있을까?', '친구와 퀴즈 대결하기', '친구도 맞출 수 있을까?', '점수 공유하기'];
 const GEN_CTA = ['친구도 하나 뽑아보기', '친구에게 보여주기', '친구는 뭐가 나올까?', '결과 공유하기', '의외로 괜찮은 결과'];
-const CALC_CTA = ['친구 결과와 비교하기', '결과 보내기', '도움이 됐다면 공유', '계산 결과 공유하기'];
 const FORTUNE_CTA = ['오늘 운세 공유하기', '친구 운세도 보여주기', '내 운세 자랑하기', '친구는 오늘 운세가 어떨까?', '결과 공유하기'];
 
-type CTAType = 'test' | 'quiz' | 'generator' | 'calculator' | 'fortune';
+// 계산기는 CalcShareBtn이 자체 공유를 구현하므로 여기 타입에 없다.
+type CTAType = 'test' | 'quiz' | 'generator' | 'fortune';
 
 function getCTA(type: CTAType): string {
-  const pools: Record<CTAType, string[]> = { test: TEST_CTA, quiz: QUIZ_CTA, generator: GEN_CTA, calculator: CALC_CTA, fortune: FORTUNE_CTA };
+  const pools: Record<CTAType, string[]> = { test: TEST_CTA, quiz: QUIZ_CTA, generator: GEN_CTA, fortune: FORTUNE_CTA };
   const pool = pools[type];
   return pool[Math.floor(Math.random() * pool.length)];
 }
