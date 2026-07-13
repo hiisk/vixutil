@@ -45,6 +45,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/gift-tax',          title:'증여세 계산기',         desc:'증여금액·관계 → 예상 증여세' },
       { href:'/calculator/inheritance-tax',   title:'상속세 계산기',         desc:'상속재산 → 예상 상속세' },
       { href:'/calculator/local-income-tax',  title:'지방소득세 계산기',     desc:'소득세 → 지방소득세 계산' },
+      { href:'/calculator/pension-credit',    title:'연금저축·IRP 세액공제 계산기', desc:'연금계좌 납입액 → 연말정산 환급액', hot:true },
     ],
   },
   {

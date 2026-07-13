@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { CALC_FAQ } from '../lib/calc-faq.ts';
 
@@ -53,6 +53,34 @@ test('한 계산기 안에 중복 질문이 없다', () => {
     const qs = items.map(i => i.q);
     assert.equal(new Set(qs).size, qs.length, `${slug}: 중복 질문 존재`);
   }
+});
+
+test('모든 계산기가 카탈로그와 사이트맵에 등록돼 있다', async () => {
+  // 카탈로그에 없으면 인덱스와 "관련 계산기"에서 안 보이고,
+  // 사이트맵에 없으면 검색엔진이 찾아오지 못한다. 새 계산기를 만들고
+  // 등록을 빠뜨리면 아무도 그 페이지에 닿지 못한다.
+  const catalog = readFileSync(join(import.meta.dirname, '..', 'lib', 'calculator-catalog.ts'), 'utf8');
+  const sitemap = readFileSync(join(import.meta.dirname, '..', 'app', 'sitemap.ts'), 'utf8');
+
+  // 개발자 도구는 별도 목록(devRoutes)으로 관리되고 카탈로그에도 들어 있다.
+  const missingFromCatalog = slugs.filter(s => !catalog.includes(`/calculator/${s}'`));
+  const missingFromSitemap = slugs.filter(s => !sitemap.includes(`/calculator/${s}"`));
+
+  assert.deepEqual(missingFromCatalog, [], `카탈로그 누락: ${missingFromCatalog.join(', ')}`);
+  assert.deepEqual(missingFromSitemap, [], `사이트맵 누락: ${missingFromSitemap.join(', ')}`);
+});
+
+test('모든 계산기가 고유한 title/description 메타데이터를 갖는다', () => {
+  // 계산기 페이지는 'use client'라 metadata를 직접 export할 수 없다.
+  // layout.tsx가 없으면 title이 사이트 기본값으로 나가고, 검색 결과에서
+  // 다른 계산기와 구분되지 않는다. 온페이지 SEO에서 가장 큰 손실이다.
+  const missing = slugs.filter(s => {
+    const layout = join(CALC_DIR, s, 'layout.tsx');
+    if (!existsSync(layout)) return true;
+    const src = readFileSync(layout, 'utf8');
+    return !src.includes('title:') || !src.includes('description:');
+  });
+  assert.deepEqual(missing, [], `layout.tsx 메타데이터 누락: ${missing.join(', ')}`);
 });
 
 test('FAQ는 계산기당 2개 이상이다', () => {

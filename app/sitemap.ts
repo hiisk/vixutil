@@ -19,6 +19,7 @@ const calculatorRoutes = [
   "/calculator/acquisition-tax", "/calculator/property-tax", "/calculator/holding-tax", "/calculator/capital-gains",
   "/calculator/gift-tax", "/calculator/inheritance-tax", "/calculator/comprehensive-tax", "/calculator/local-income-tax",
   "/calculator/business-income", "/calculator/dividend", "/calculator/vat", "/calculator/broker-fee", "/calculator/subscription-score",
+  "/calculator/pension-credit",
   "/calculator/jeonwolse", "/calculator/pyeong",
   "/calculator/exchange", "/calculator/roi", "/calculator/avg-price", "/calculator/breakeven", "/calculator/percent",
   "/calculator/simple-interest", "/calculator/inflation", "/calculator/retirement",
