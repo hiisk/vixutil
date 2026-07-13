@@ -20,6 +20,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/salary',          title:'실수령액 계산기',      desc:'연봉 → 공제 후 월 실수령액', hot:true },
       { href:'/calculator/weekly-holiday',  title:'주휴수당 계산기',      desc:'시급·주 근무시간 → 주휴수당·월급' },
       { href:'/calculator/annual-leave-pay',title:'연차수당 계산기',      desc:'월급·미사용 연차 → 연차수당' },
+      { href:'/calculator/annual-leave',    title:'연차 계산기',          desc:'입사일 → 연차 발생일수 (근로기준법)', hot:true },
       { href:'/calculator/four-insurance',  title:'4대보험 계산기',       desc:'월급 → 4대보험 상세 내역' },
       { href:'/calculator/minimum-wage',    title:'최저시급 월급 계산기', desc:'2026년 최저시급 기준 월급' },
       { href:'/calculator/parttime',        title:'알바 급여 계산기',     desc:'시급·근무일수 → 주급·월급' },
