@@ -462,7 +462,7 @@ export const TESTS_A: Test[] = [
   {
     slug: 'marriage-fit',
     title: '결혼 적합도 테스트',
-    desc: '10가지 상황으로 알아보는 나의 결혼 준비 수준',
+    desc: '여행·돈·갈등 상황에서 드러나는 나의 관계 스타일 10문항',
     icon: '💍',
     category: '연애·결혼',
     questions: [

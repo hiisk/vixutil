@@ -262,7 +262,7 @@ export const TESTS_H: Test[] = [
   {
     slug: 'marriage-readiness',
     title: '결혼 준비도 테스트',
-    desc: '10가지 상황으로 알아보는 나의 결혼 준비 수준',
+    desc: '생활비·주거·가치관 — 지금 결혼해도 될지 현실 점검 10문항',
     icon: '👰',
     category: '연애·결혼',
     questions: [

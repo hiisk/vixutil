@@ -50,6 +50,33 @@ test('빌드된 페이지에 끊어진 내부 링크가 없다', { skip: built ?
   assert.deepEqual(list, [], `존재하지 않는 곳을 가리키는 링크:\n  ${list.join('\n  ')}`);
 });
 
+test('페이지마다 고유한 title과 description을 갖는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  // 여러 페이지가 같은 title/description을 쓰면 검색엔진이 중복으로 보고
+  // 하나만 색인하거나 순위를 깎는다.
+  const titles = new Map<string, string[]>();
+  const descs = new Map<string, string[]>();
+
+  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+    if (route === '/404' || route === '/_not-found') continue;
+
+    const html = readFileSync(f, 'utf8');
+    const t = html.match(/<title>([^<]*)<\/title>/)?.[1];
+    const d = html.match(/<meta name="description" content="([^"]*)"/)?.[1];
+
+    assert.ok(t, `${route}: <title>이 없다`);
+    assert.ok(d, `${route}: description이 없다`);
+
+    (titles.get(t) ?? titles.set(t, []).get(t)!).push(route);
+    (descs.get(d) ?? descs.set(d, []).get(d)!).push(route);
+  }
+
+  const dupT = [...titles].filter(([, v]) => v.length > 1).map(([k, v]) => `title "${k}" ← ${v.join(', ')}`);
+  const dupD = [...descs].filter(([, v]) => v.length > 1).map(([k, v]) => `desc "${k.slice(0, 40)}…" ← ${v.join(', ')}`);
+
+  assert.deepEqual([...dupT, ...dupD], [], `중복 메타데이터:\n  ${[...dupT, ...dupD].join('\n  ')}`);
+});
+
 test('아이콘 파일이 실제로 출력된다', { skip: built ? false : 'out/ 없음' }, () => {
   // apple-icon 규약은 .svg를 지원하지 않는다. 예전에 app/apple-icon.svg를 두는 바람에
   // 모든 페이지가 존재하지 않는 아이콘을 가리키고 있었다.
