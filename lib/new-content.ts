@@ -29,6 +29,10 @@ export const NEW_QUIZ_SLUGS = new Set([
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'account-breach',
+  'housing-subscription',
+  'interview-day',
+  'condolence',
   'jeonse-fraud',
   'car-accident',
   'unemployment-claim',
