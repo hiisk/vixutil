@@ -71,6 +71,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/ltv',            title:'LTV 계산기',             desc:'담보인정비율 계산' },
       { href:'/calculator/exchange',       title:'환율 계산기',            desc:'실시간 API · 주요 통화 변환' },
       { href:'/calculator/loan-prepayment-fee', title:'중도상환수수료 계산기', desc:'조기상환 시 발생하는 수수료 계산' },
+      { href:'/calculator/refinance',     title:'대출 갈아타기 계산기',   desc:'대환 이득 여부 + 손익분기점 계산', hot:true },
     ],
   },
   {
