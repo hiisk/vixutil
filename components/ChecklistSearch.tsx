@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
+import { NEW_CHECKLIST_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['이사·생활', '취업·직장', '여행', '건강·운동', '재테크', '학습·시험', '행사·기념', '디지털·IT'];
 
@@ -12,9 +13,16 @@ function ChecklistCard({ c }: { c: Checklist }) {
       className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
         <span className="text-2xl">{c.icon}</span>
-        <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full shrink-0">
-          {total}항목
-        </span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          {NEW_CHECKLIST_SLUGS.has(c.slug) && (
+            <span className="text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
+              NEW
+            </span>
+          )}
+          <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full">
+            {total}항목
+          </span>
+        </div>
       </div>
       <div>
         <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-sky-700 transition-colors mb-1">

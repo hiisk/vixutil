@@ -28,6 +28,14 @@ export const NEW_QUIZ_SLUGS = new Set([
   'nobel-prize',
 ]);
 
+export const NEW_CHECKLIST_SLUGS = new Set([
+  'jeonse-fraud',
+  'car-accident',
+  'unemployment-claim',
+  'military-enlist',
+  'freshman',
+]);
+
 export const NEW_GENERATOR_SLUGS = new Set([
   'worry-doll',
   'toast-phrase',
