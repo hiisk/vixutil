@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { QUIZZES } from '@/lib/quiz-data';
 import QuizSearch from '@/components/QuizSearch';
+import { toCard } from '@/lib/card';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -30,7 +31,7 @@ export default function QuizIndexPage() {
           상식부터 전문 지식까지 — <strong className="text-slate-700">{QUIZZES.length}개</strong>
         </p>
 
-        <QuizSearch quizzes={QUIZZES} />
+        <QuizSearch quizzes={QUIZZES.map(toCard)} />
 
         <Faq items={SECTION_FAQ.quiz} />
       </div>

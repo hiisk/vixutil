@@ -1,13 +1,13 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Checklist } from '@/lib/types';
+import type { ChecklistCardItem } from '@/lib/card';
 import { NEW_CHECKLIST_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['이사·생활', '취업·직장', '여행', '건강·운동', '재테크', '학습·시험', '행사·기념', '디지털·IT'];
 
-function ChecklistCard({ c }: { c: Checklist }) {
-  const total = c.sections.reduce((s, sec) => s + sec.items.length, 0);
+function ChecklistCard({ c }: { c: ChecklistCardItem }) {
+  const total = c.itemCount;
   return (
     <Link href={`/checklist/${c.slug}`}
       className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
@@ -34,7 +34,7 @@ function ChecklistCard({ c }: { c: Checklist }) {
   );
 }
 
-export default function ChecklistSearch({ checklists }: { checklists: Checklist[] }) {
+export default function ChecklistSearch({ checklists }: { checklists: ChecklistCardItem[] }) {
   const [query, setQuery] = useState('');
 
   const trimmed = query.trim();

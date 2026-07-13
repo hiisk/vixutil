@@ -1,12 +1,12 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Quiz } from '@/lib/types';
+import type { CardItem } from '@/lib/card';
 import { NEW_QUIZ_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', '스포츠', '과학', '엔터테인먼트', '영화', '트렌드', '추억', '생활', '생활·건강', '환경·경제'];
 
-function QuizCard({ q }: { q: Quiz }) {
+function QuizCard({ q }: { q: CardItem }) {
   return (
     <Link href={`/quiz/${q.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
@@ -31,7 +31,7 @@ function QuizCard({ q }: { q: Quiz }) {
   );
 }
 
-export default function QuizSearch({ quizzes }: { quizzes: Quiz[] }) {
+export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
   const [query, setQuery] = useState('');
 
   const trimmed = query.trim();

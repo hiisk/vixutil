@@ -1,12 +1,12 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Test } from '@/lib/types';
+import type { CardItem } from '@/lib/card';
 import { NEW_TEST_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·재테크', '건강·생활', '자기계발', '취미·라이프스타일'];
 
-function TestCard({ t }: { t: Test }) {
+function TestCard({ t }: { t: CardItem }) {
   return (
     <Link href={`/test/${t.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
@@ -31,7 +31,7 @@ function TestCard({ t }: { t: Test }) {
   );
 }
 
-export default function TestSearch({ tests }: { tests: Test[] }) {
+export default function TestSearch({ tests }: { tests: CardItem[] }) {
   const [query, setQuery] = useState('');
 
   const trimmed = query.trim();

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Generator } from '@/lib/types';
+import type { IconCardItem } from '@/lib/card';
 import { NEW_GENERATOR_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획', '재미', '생활'];
@@ -16,7 +16,7 @@ const CAT_META: Record<string, { icon: string; color: string }> = {
   '생활':      { icon: '🏠', color: 'bg-sky-50 text-sky-700 border-sky-200' },
 };
 
-function GenCard({ g }: { g: Generator }) {
+function GenCard({ g }: { g: IconCardItem }) {
   return (
     <Link
       href={`/generator/${g.slug}`}
@@ -43,7 +43,7 @@ function GenCard({ g }: { g: Generator }) {
   );
 }
 
-export default function GeneratorSearch({ generators }: { generators: Generator[] }) {
+export default function GeneratorSearch({ generators }: { generators: IconCardItem[] }) {
   const [query, setQuery]   = useState('');
   const [active, setActive] = useState<string>('전체');
 

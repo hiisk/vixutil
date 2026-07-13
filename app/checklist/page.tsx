@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { CHECKLISTS } from '@/lib/checklist-data';
 import ChecklistSearch from '@/components/ChecklistSearch';
+import { toChecklistCard } from '@/lib/card';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -34,7 +35,7 @@ export default function ChecklistIndexPage() {
           중요한 순간, 빠짐없이 준비하도록 — <strong className="text-slate-700">{CHECKLISTS.length}개</strong> 상황별 체크리스트
         </p>
 
-        <ChecklistSearch checklists={CHECKLISTS} />
+        <ChecklistSearch checklists={CHECKLISTS.map(toChecklistCard)} />
 
         <Faq items={SECTION_FAQ.checklist} />
       </div>

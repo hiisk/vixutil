@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { TESTS } from '@/lib/test-data';
 import TestSearch from '@/components/TestSearch';
+import { toCard } from '@/lib/card';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -30,7 +31,7 @@ export default function TestIndexPage() {
           나를 알아가는 다양한 테스트 — <strong className="text-slate-700">{TESTS.length}개</strong>
         </p>
 
-        <TestSearch tests={TESTS} />
+        <TestSearch tests={TESTS.map(toCard)} />
 
         <Faq items={SECTION_FAQ.test} />
       </div>

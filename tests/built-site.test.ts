@@ -77,6 +77,33 @@ test('페이지마다 고유한 title과 description을 갖는다', { skip: buil
   assert.deepEqual([...dupT, ...dupD], [], `중복 메타데이터:\n  ${[...dupT, ...dupD].join('\n  ')}`);
 });
 
+test('허브 페이지가 상세 콘텐츠를 통째로 싣지 않는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  // 허브는 카드 그리드만 그린다. 클라이언트 컴포넌트에 전체 객체를 넘기면
+  // 모든 문항·결과·섹션이 HTML에 직렬화된다. 실제로 /test가 1.2MB였다.
+  // 카드에 필요한 건 slug·title·desc·category(+icon)뿐이다.
+  const LIMIT = 400 * 1024;
+  const oversized: string[] = [];
+
+  for (const hub of ['test', 'quiz', 'generator', 'checklist']) {
+    const p = join(OUT, `${hub}.html`);
+    assert.ok(existsSync(p), `${hub}.html이 없다`);
+    const size = statSync(p).size;
+    if (size > LIMIT) oversized.push(`/${hub}: ${Math.round(size / 1024)}KB`);
+  }
+
+  assert.deepEqual(oversized, [], `허브 HTML이 너무 크다 (상한 ${LIMIT / 1024}KB):\n  ${oversized.join('\n  ')}`);
+});
+
+test('허브 페이지가 모든 항목을 카드로 렌더한다', { skip: built ? false : 'out/ 없음' }, () => {
+  // 경량 데이터로 바꾸다가 항목이 누락되면 안 된다.
+  const expected: Record<string, number> = { test: 150, quiz: 100, generator: 100, checklist: 70 };
+  for (const [hub, min] of Object.entries(expected)) {
+    const html = readFileSync(join(OUT, `${hub}.html`), 'utf8');
+    const cards = new Set([...html.matchAll(new RegExp(`href="/${hub}/([a-z0-9-]+)"`, 'g'))].map(m => m[1]));
+    assert.ok(cards.size >= min, `/${hub}: 카드가 ${cards.size}개뿐 (최소 ${min}개 기대)`);
+  }
+});
+
 test('아이콘 파일이 실제로 출력된다', { skip: built ? false : 'out/ 없음' }, () => {
   // apple-icon 규약은 .svg를 지원하지 않는다. 예전에 app/apple-icon.svg를 두는 바람에
   // 모든 페이지가 존재하지 않는 아이콘을 가리키고 있었다.

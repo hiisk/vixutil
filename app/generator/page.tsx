@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { GENERATORS } from '@/lib/generator-data';
 import GeneratorSearch from '@/components/GeneratorSearch';
+import { toIconCard } from '@/lib/card';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -30,7 +31,7 @@ export default function GeneratorIndexPage() {
           아이디어가 필요할 때, 결정을 못 내릴 때 — <strong className="text-slate-700">{GENERATORS.length}개</strong>
         </p>
 
-        <GeneratorSearch generators={GENERATORS} />
+        <GeneratorSearch generators={GENERATORS.map(toIconCard)} />
 
         <Faq items={SECTION_FAQ.generator} />
       </div>
