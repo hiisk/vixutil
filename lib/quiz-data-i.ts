@@ -17,7 +17,7 @@ export const QUIZZES_I: Quiz[] = [
     ],
   },
   {
-    slug: 'greek-myth', title: '그리스로마신화 퀴즈', desc: '올림포스의 신들, 얼마나 알고 있어? 10문항', icon: '⚡', category: '문화',
+    slug: 'greek-myth', title: '그리스로마신화 퀴즈', desc: '올림포스의 신들, 얼마나 알고 있어? 10문항', icon: '⚡', category: '역사',
     questions: [
       { q: '그리스 신화 최고신(제우스)의\n로마식 이름은?', opts: ['주피터', '넵튠', '마르스', '아폴로'], correct: 0, explanation: '그리스 신화의 제우스는 로마 신화에서 주피터(유피테르)로 불리며 하늘과 번개를 다스리는 최고신입니다.' },
       { q: '사랑과 미의 여신은?', opts: ['아프로디테', '아테나', '헤라', '아르테미스'], correct: 0, explanation: '아프로디테는 사랑과 미의 여신으로, 로마 신화에서는 비너스(Venus)로 불립니다.' },
