@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { QUIZZES, QUIZ_MAP } from '@/lib/quiz-data';
 import QuizEngine from '@/components/QuizEngine';
+import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 
 export function generateStaticParams() {
@@ -19,5 +20,11 @@ export default async function QuizPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const quiz = QUIZ_MAP[slug];
   if (!quiz) notFound();
-  return <><QuizEngine quiz={quiz} /><SiteFooter /></>;
+  return (
+    <>
+      <QuizEngine quiz={quiz} />
+      <RelatedContent items={QUIZZES} currentSlug={slug} basePath="/quiz" accent="amber" />
+      <SiteFooter />
+    </>
+  );
 }

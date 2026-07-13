@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { GENERATORS, GENERATOR_MAP } from '@/lib/generator-data';
 import GeneratorEngine from '@/components/GeneratorEngine';
+import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 
 export function generateStaticParams() {
@@ -19,5 +20,11 @@ export default async function GeneratorPage({ params }: { params: Promise<{ slug
   const { slug } = await params;
   const gen = GENERATOR_MAP[slug];
   if (!gen) notFound();
-  return <><GeneratorEngine gen={gen} /><SiteFooter /></>;
+  return (
+    <>
+      <GeneratorEngine gen={gen} />
+      <RelatedContent items={GENERATORS} currentSlug={slug} basePath="/generator" accent="emerald" bg="bg-slate-50" />
+      <SiteFooter />
+    </>
+  );
 }

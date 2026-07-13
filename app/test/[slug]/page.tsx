@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { TESTS, TEST_MAP } from '@/lib/test-data';
 import TestEngine from '@/components/TestEngine';
+import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 
 export function generateStaticParams() {
@@ -19,5 +20,11 @@ export default async function TestPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const test = TEST_MAP[slug];
   if (!test) notFound();
-  return <><TestEngine test={test} /><SiteFooter /></>;
+  return (
+    <>
+      <TestEngine test={test} />
+      <RelatedContent items={TESTS} currentSlug={slug} basePath="/test" accent="violet" />
+      <SiteFooter />
+    </>
+  );
 }

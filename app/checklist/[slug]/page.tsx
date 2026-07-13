@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CHECKLISTS, CHECKLISTS_MAP } from '@/lib/checklist-data';
 import ChecklistEngine from '@/components/ChecklistEngine';
+import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 
 export function generateStaticParams() {
@@ -23,5 +24,11 @@ export default async function ChecklistPage({ params }: { params: Promise<{ slug
   const { slug } = await params;
   const checklist = CHECKLISTS_MAP[slug];
   if (!checklist) notFound();
-  return <><ChecklistEngine checklist={checklist} /><SiteFooter /></>;
+  return (
+    <>
+      <ChecklistEngine checklist={checklist} />
+      <RelatedContent items={CHECKLISTS} currentSlug={slug} basePath="/checklist" accent="sky" />
+      <SiteFooter />
+    </>
+  );
 }
