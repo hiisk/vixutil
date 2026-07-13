@@ -84,5 +84,29 @@ export const GENERATORS_H: Generator[] = [
       "오늘의 컨셉: 스마트한 오피스룩 💼 — 깔끔한 셋업에 자신감 있는 자세",
       "오늘의 컨셉: 자유로운 보헤미안 🪶 — 플로우한 실루엣에 편안한 미소"
     ]
+  },
+  {
+    "slug": "lotto",
+    "title": "로또 번호 생성기",
+    "desc": "1~45에서 중복 없이 6개를 뽑는다. 한 번에 5게임.",
+    "icon": "🎱",
+    "category": "랜덤",
+    "type": "sample",
+    "min": 1,
+    "max": 45,
+    "count": 6,
+    "separator": ", "
+  },
+  {
+    "slug": "random-pick-number",
+    "title": "숫자 추첨기",
+    "desc": "1~100에서 중복 없이 여러 개를 뽑는다. 경품 추첨·자리 배정에.",
+    "icon": "🎟️",
+    "category": "랜덤",
+    "type": "sample",
+    "min": 1,
+    "max": 100,
+    "count": 5,
+    "separator": ", "
   }
 ];

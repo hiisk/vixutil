@@ -69,7 +69,8 @@ export interface Generator {
   desc: string;
   icon: string;
   category: string;
-  type: 'combine' | 'pick' | 'password' | 'number';
+  /** sample = min~max 범위에서 중복 없이 count개를 뽑아 오름차순 정렬 (로또 등) */
+  type: 'combine' | 'pick' | 'password' | 'number' | 'sample';
   pools?: string[][];
   items?: string[];
   count?: number;

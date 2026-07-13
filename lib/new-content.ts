@@ -37,6 +37,8 @@ export const NEW_CHECKLIST_SLUGS = new Set([
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'lotto',
+  'random-pick-number',
   'worry-doll',
   'toast-phrase',
   'diary-prompt',

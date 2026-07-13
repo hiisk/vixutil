@@ -3,53 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import ShareButton from './ShareButton';
 import type { Generator } from '@/lib/types';
-
-const BATCH = 5;
-
-function makeOne(gen: Generator): string {
-  switch (gen.type) {
-    case 'combine': {
-      if (!gen.pools) return '';
-      return gen.pools.map(p => p[Math.floor(Math.random() * p.length)]).join(gen.separator ?? ' ');
-    }
-    case 'pick': {
-      if (!gen.items) return '';
-      return gen.items[Math.floor(Math.random() * gen.items.length)] ?? '';
-    }
-    case 'password': {
-      const len = gen.count ?? 16;
-      const upper = 'ABCDEFGHJKMNPQRSTUVWXYZ';
-      const lower = 'abcdefghjkmnpqrstuvwxyz';
-      const nums = '23456789';
-      const syms = '!@#$%&*';
-      const all = upper + lower + nums + syms;
-      return [
-        upper[Math.floor(Math.random() * upper.length)],
-        nums[Math.floor(Math.random() * nums.length)],
-        syms[Math.floor(Math.random() * syms.length)],
-        ...Array.from({ length: len - 3 }, () => all[Math.floor(Math.random() * all.length)]),
-      ].sort(() => Math.random() - 0.5).join('');
-    }
-    case 'number': {
-      const min = gen.min ?? 1;
-      const max = gen.max ?? 100;
-      return String(Math.floor(Math.random() * (max - min + 1)) + min);
-    }
-    default: return '';
-  }
-}
-
-function makeBatch(gen: Generator): string[] {
-  const results: string[] = [];
-  const seen = new Set<string>();
-  let tries = 0;
-  while (results.length < BATCH && tries < BATCH * 6) {
-    const r = makeOne(gen);
-    if (!seen.has(r)) { seen.add(r); results.push(r); }
-    tries++;
-  }
-  return results;
-}
+import { makeOne, makeBatch } from '@/lib/generate';
 
 function CopyBtn({ text }: { text: string }) {
   const [ok, setOk] = useState(false);
