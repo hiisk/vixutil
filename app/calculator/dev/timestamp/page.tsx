@@ -27,6 +27,9 @@ export default function TimestampPage() {
   const [now, setNow] = useState(0);
 
   useEffect(() => {
+    // 현재 시각은 서버 프리렌더 시점에 알 수 없다. 마운트 후에 채워야
+    // 하이드레이션 불일치가 나지 않는다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(Date.now());
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);

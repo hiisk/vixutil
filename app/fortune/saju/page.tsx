@@ -225,13 +225,6 @@ export default function SajuPage() {
   const [copied, setCopied] = useState(false);
   const [stepIdx, setStepIdx] = useState(0);
 
-  useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    const y=p.get('y')??'', m=p.get('m')??'', d=p.get('d')??'', h=p.get('h')??'', g=(p.get('g')??'male') as Gender;
-    if (y&&m&&d) { setForm({ year:y,month:m,day:d,hour:h,gender:g }); runCalc(y,m,d,h,g); }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
-
   const runCalc = useCallback((y:string,m:string,d:string,h:string,g:Gender) => {
     const yi=parseInt(y),mi=parseInt(m),di=parseInt(d);
     if (!yi||!mi||!di||yi<1900||yi>2100||mi<1||mi>12||di<1||di>31) {
@@ -246,6 +239,17 @@ export default function SajuPage() {
     window.history.replaceState({},''  ,`?${new URLSearchParams({y,m,d,...(h?{h}:{}),g})}`);
     setTimeout(()=>document.getElementById('saju-result')?.scrollIntoView({behavior:'smooth'}),100);
   },[]);
+
+  // 공유된 링크(?y=&m=&d=)로 들어온 경우 폼을 채우고 바로 계산한다.
+  // runCalc은 위에서 선언돼야 한다 — 아래에 두면 여기서 TDZ로 접근하게 된다.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const y=p.get('y')??'', m=p.get('m')??'', d=p.get('d')??'', h=p.get('h')??'', g=(p.get('g')??'male') as Gender;
+    // 공유 링크(?y=&m=&d=)로 들어온 경우 폼을 복원한다. URL은 프리렌더 시점에
+    // 알 수 없으므로 마운트 후에 읽을 수밖에 없다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (y&&m&&d) { setForm({ year:y,month:m,day:d,hour:h,gender:g }); runCalc(y,m,d,h,g); }
+  },[runCalc]);
 
   function handleCalc() { runCalc(form.year,form.month,form.day,form.hour,form.gender); }
 

@@ -13,6 +13,9 @@ export default function AnimalPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
+    // 공유 링크(?id=)로 들어온 경우 선택 상태를 복원한다. URL은 프리렌더 시점에
+    // 알 수 없으므로 마운트 후에 읽을 수밖에 없다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (id && ANIMALS.some(a => a.id === id)) setSelected(id);
   }, []);
 

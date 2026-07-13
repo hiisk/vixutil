@@ -24,8 +24,8 @@ function simulate(principal: number, annualRate: number, months: number): YearRo
 
   // 연도별 (12개월 단위)로 행 생성, 마지막 행은 남은 월
   let cumInterest = 0;
-  let fullYears = Math.floor(months / 12);
-  let remainMonths = months % 12;
+  const fullYears = Math.floor(months / 12);
+  const remainMonths = months % 12;
 
   for (let y = 1; y <= fullYears; y++) {
     const interest = principal * monthlyRate * 12;

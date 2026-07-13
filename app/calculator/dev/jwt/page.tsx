@@ -4,21 +4,35 @@ import CalcShell, { Card, TabBar } from '@/components/CalcShell';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-xs rounded-xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
-function decodeJWT(token: string) {
+interface Decoded {
+  header: object;
+  payload: object;
+  signature: string;
+  /** exp 클레임이 없으면 null. 디코딩 시각 기준으로 판정한다. */
+  expired: boolean | null;
+}
+
+function decodeJWT(token: string): Decoded {
   const parts = token.trim().split('.');
   if (parts.length !== 3) throw new Error('JWT는 header.payload.signature 형식이어야 합니다');
   const decode = (s: string) => JSON.parse(atob(s.replace(/-/g, '+').replace(/_/g, '/')));
+  const payload = decode(parts[1]);
+  const exp = (payload as Record<string, unknown>).exp;
+
   return {
     header: decode(parts[0]),
-    payload: decode(parts[1]),
+    payload,
     signature: parts[2],
+    // 만료 판정은 여기서 한 번만 한다. 렌더 중에 Date.now()를 부르면
+    // 렌더가 비순수해져 같은 입력에도 결과가 달라진다.
+    expired: typeof exp === 'number' ? Date.now() / 1000 > exp : null,
   };
 }
 
 export default function JwtPage() {
   const [input, setInput] = useState('');
   const [tab, setTab] = useState<'header' | 'payload' | 'sig'>('payload');
-  const [result, setResult] = useState<{ header: object; payload: object; signature: string } | null>(null);
+  const [result, setResult] = useState<Decoded | null>(null);
   const [error, setError] = useState('');
 
   function handleChange(val: string) {
@@ -33,12 +47,7 @@ export default function JwtPage() {
     }
   }
 
-  const isExpired = (() => {
-    if (!result) return null;
-    const p = result.payload as Record<string, unknown>;
-    if (typeof p.exp !== 'number') return null;
-    return Date.now() / 1000 > p.exp;
-  })();
+  const isExpired = result?.expired ?? null;
 
   const tabContent = result
     ? tab === 'header' ? result.header

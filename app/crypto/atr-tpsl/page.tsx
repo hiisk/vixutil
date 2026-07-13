@@ -64,6 +64,8 @@ export default function AtrTpslPage() {
     }
   }, [selected]);
 
+  // 마운트 후 시세 로드 — 프리렌더 시점에 없는 데이터라 effect에서 가져온다.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load(); /* on mount */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -70,7 +70,7 @@ function analyzeHandwriting(img: HTMLImageElement): { slantRatio: number; pressu
 
   const Vx = 2 * Sxy;
   const Vy = Sxx - Syy;
-  let ridgeAngle = 0.5 * Math.atan2(Vx, Vy) + Math.PI / 2; // 그라디언트(edge) 방향 → 획 방향으로 90도 보정
+  const ridgeAngle = 0.5 * Math.atan2(Vx, Vy) + Math.PI / 2; // 그라디언트(edge) 방향 → 획 방향으로 90도 보정
   let deg = (ridgeAngle * 180) / Math.PI;
   while (deg > 90) deg -= 180;
   while (deg < -90) deg += 180;

@@ -66,7 +66,7 @@ export default function UrlEncodePage() {
           <div className="grid grid-cols-4 gap-2">
             {COMMON_CHARS.map(c => (
               <div key={c.char} className="bg-slate-50 rounded-lg p-2 text-center text-xs">
-                <p className="font-bold text-slate-800">'{c.char}'</p>
+                <p className="font-bold text-slate-800">&apos;{c.char}&apos;</p>
                 <p className="text-slate-400 font-mono">{c.encoded}</p>
               </div>
             ))}

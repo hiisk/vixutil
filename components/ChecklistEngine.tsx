@@ -49,6 +49,8 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
   const isAllDone = done === total;
 
   useEffect(() => {
+    // localStorage는 프리렌더 시점에 없다. 마운트 후 읽어 진행 상황을 복원한다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     try {
       const saved = localStorage.getItem(STORAGE_KEY);

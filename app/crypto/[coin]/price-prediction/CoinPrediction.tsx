@@ -174,6 +174,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     }
   }, [coin]);
 
+  // 마운트 후 시세를 받아온다. load()가 첫머리에서 로딩 상태를 세팅하는데,
+  // 네트워크 데이터는 프리렌더 시점에 존재할 수 없으므로 effect가 맞는 자리다.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load(); }, [load]);
 
   // 이 페이지는 클라이언트 렌더라, URL에 해시가 남아 있으면 새로고침 시 브라우저가

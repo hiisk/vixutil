@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback, useMemo, useRef, useReducer } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
 import { computeConsensus, STRATEGY_META, type Bias, type ConsensusSignal } from '@/lib/strategies';
@@ -134,16 +134,22 @@ export default function SignalsPage() {
 
   // Row cache: symbol -> consensus + forecast. undefined = 미계산.
   // Reset when the market changes (different symbols / candles).
+  //
+  // 비동기 계산은 cacheRef에 써 넣고(수백 개를 항목마다 setState하면 리렌더가 폭발한다),
+  // 배치가 끝나면 불변 스냅샷을 state로 한 번 올린다. 렌더는 이 state만 읽는다 —
+  // 렌더 중에 가변 ref를 읽으면 React가 변경을 추적하지 못한다.
   const cacheRef = useRef<Map<string, RowInfo>>(new Map());
+  const [cache, setCache] = useState<Map<string, RowInfo>>(new Map());
+  const publishCache = useCallback(() => setCache(new Map(cacheRef.current)), []);
   // 시장 대용치(BTC) 일봉 종가 — 예측을 시장 성분과 코인 고유(alpha) 성분으로 분해하는 데 쓴다
   const marketClosesRef = useRef<number[]>([]);
-  const [, bump] = useReducer((x: number) => x + 1, 0);
 
   const loadList = useCallback(async (mkt: Market) => {
     setListState('loading');
     setPage(1);
     setSortKey('volume');
     cacheRef.current = new Map();
+    setCache(new Map());
     marketClosesRef.current = [];
     setFullCompute({ active: false, done: 0, total: 0 });
     try {
@@ -185,8 +191,8 @@ export default function SignalsPage() {
       cacheRef.current.set(t.symbol, await computeInfo(t.symbol, mkt, t.lastPrice));
     });
     setPageComputing(false);
-    bump();
-  }, []);
+    publishCache();
+  }, [publishCache]);
 
   // Full: compute signals for every coin (required to sort by ATR%/P&L across all coins)
   const computeAll = useCallback(async (list: Ticker24h[], mkt: Market) => {
@@ -200,9 +206,11 @@ export default function SignalsPage() {
       if (done % 8 === 0 || done === list.length) setFullCompute({ active: true, done, total: list.length });
     });
     setFullCompute({ active: false, done: list.length, total: list.length });
-    bump();
-  }, []);
+    publishCache();
+  }, [publishCache]);
 
+  // 마켓이 바뀔 때마다 목록을 새로 받는다. 외부 데이터 동기화는 effect의 본래 용도다.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { loadList(market); }, [market, loadList]);
 
   // 헤더 카드용 BTC 7일 스파크라인 (마켓당 요청 1회)
@@ -251,7 +259,7 @@ export default function SignalsPage() {
       list = [...list].sort((a, b) => (sortDir === 'desc' ? b[key] - a[key] : a[key] - b[key]));
     } else if (sortKey !== 'volume') {
       const scored = list.map(t => {
-        const c = cacheRef.current.get(t.symbol)?.c;
+        const c = cache.get(t.symbol)?.c;
         const metric = c ? signalMetric(c) : null;
         return { t, metric };
       });
@@ -263,10 +271,9 @@ export default function SignalsPage() {
       });
       list = scored.map(x => x.t);
     }
-    if (hitOnly) list = list.filter(t => { const c = cacheRef.current.get(t.symbol)?.c; return c != null && hitState(c, t.lastPrice) != null; });
+    if (hitOnly) list = list.filter(t => { const c = cache.get(t.symbol)?.c; return c != null && hitState(c, t.lastPrice) != null; });
     return list;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tickers, sortKey, sortDir, query, hitOnly, fullCompute.active]);
+  }, [tickers, sortKey, sortDir, query, hitOnly, cache]);
 
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
@@ -278,14 +285,18 @@ export default function SignalsPage() {
     else if (pageTickers.length) computePage(pageTickers, market);
   }, [listState, needsFullCompute, pageTickers, tickers, market, computeAll, computePage]);
 
-  // 검색어·필터 바뀌면 첫 페이지로
-  useEffect(() => { setPage(1); }, [query, hitOnly]);
+  // 검색어·필터가 바뀌면 첫 페이지로 — 값이 바뀌는 지점에서 함께 처리한다.
+  // effect로 되돌리면 옛 페이지가 한 번 렌더된 뒤 되감기는 연쇄 렌더가 생긴다.
+  const changeQuery = useCallback((v: string) => { setQuery(v); setPage(1); }, []);
+  const toggleHitOnly = useCallback(() => { setHitOnly(v => !v); setPage(1); }, []);
 
-  // 최신 값을 즉시 읽기 위한 ref (stale closure/레이스 방지)
+  // 최신 값을 즉시 읽기 위한 ref (stale closure/레이스 방지).
+  // 렌더 중에 쓰면 안 되므로 커밋 후에 갱신한다. 이 ref들은 타이머 콜백에서만
+  // 읽히고 렌더 경로에서는 읽히지 않으므로 한 박자 늦게 갱신돼도 안전하다.
   const marketRef = useRef(market);
-  marketRef.current = market;
   const fullComputeRef = useRef(false);
-  fullComputeRef.current = fullCompute.active;
+  useEffect(() => { marketRef.current = market; }, [market]);
+  useEffect(() => { fullComputeRef.current = fullCompute.active; }, [fullCompute.active]);
 
   // 60초마다 가격만 조용히 갱신(진입가·TP·SL은 일봉 고정이라 그대로, P&L·현재가만 업데이트)
   const refreshPrices = useCallback(async () => {
@@ -499,7 +510,7 @@ export default function SignalsPage() {
               className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${sortKey === 'signal' ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
               Sort by signal{sortKey === 'signal' && <span className="ml-1">{sortDir === 'desc' ? '▼' : '▲'}</span>}
             </button>
-            <button onClick={() => setHitOnly(v => !v)}
+            <button onClick={toggleHitOnly}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
               🎯 TP/SL hit
             </button>
@@ -513,12 +524,12 @@ export default function SignalsPage() {
           <input
             type="text"
             value={query}
-            onChange={e => setQuery(e.target.value.replace(/\s/g, ''))}
+            onChange={e => changeQuery(e.target.value.replace(/\s/g, ''))}
             placeholder="Search coin (e.g. BTC, SOL, PEPE)"
             className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-9 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500/60 transition"
           />
           {query && (
-            <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 transition-colors">✕</button>
+            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 transition-colors">✕</button>
           )}
         </div>
 
@@ -587,7 +598,7 @@ export default function SignalsPage() {
                   </thead>
                   <tbody>
                     {pageTickers.map((t, i) => {
-                      const info = cacheRef.current.get(t.symbol);
+                      const info = cache.get(t.symbol);
                       const pending = info === undefined;
                       const c = info?.c ?? null;
                       const f = info?.f ?? null;
