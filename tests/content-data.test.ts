@@ -90,6 +90,48 @@ test('NEW 배지 목록이 실제 존재하는 slug만 가리킨다', async () =
   assert.deepEqual(bad, [], `존재하지 않는 slug를 가리키는 NEW 배지: ${bad.join(', ')}`);
 });
 
+/** 퀴즈 문항의 보기 수와 정답 인덱스를 소스에서 뽑는다. */
+function quizQuestions(): { slug: string; optCount: number; correct: number }[] {
+  const out: { slug: string; optCount: number; correct: number }[] = [];
+  for (const f of readdirSync(LIB).filter(f => /^quiz-data-\w\.ts$/.test(f))) {
+    const src = readFileSync(join(LIB, f), 'utf8');
+    for (const b of src.matchAll(/slug: '([^']+)'[\s\S]*?questions: \[([\s\S]*?)\n {4}\],/g)) {
+      for (const q of b[2].matchAll(/opts: \[([^\]]*)\], correct: (\d+)/g)) {
+        const optCount = [...q[1].matchAll(/'(?:\\.|[^'\\])*'/g)].length;
+        out.push({ slug: b[1], optCount, correct: Number(q[2]) });
+      }
+    }
+  }
+  return out;
+}
+
+test('퀴즈 정답 인덱스가 보기 범위 안에 있다', () => {
+  const qs = quizQuestions();
+  assert.ok(qs.length > 500, `문항이 ${qs.length}개만 파싱됨`);
+  const bad = qs.filter(q => q.correct < 0 || q.correct >= q.optCount);
+  assert.deepEqual(bad, [], `범위 밖 정답: ${bad.map(b => `${b.slug}(correct=${b.correct}, opts=${b.optCount})`).join(', ')}`);
+});
+
+test('퀴즈 정답이 특정 보기 번호에 몰려 있지 않다', () => {
+  // 정답이 늘 같은 자리면 그 번호만 찍어도 만점이라 퀴즈가 무의미해진다.
+  // 실제로 36개 퀴즈가 80~100% 한 자리에 몰려 있었다.
+  const byQuiz = new Map<string, number[]>();
+  for (const q of quizQuestions()) {
+    if (!byQuiz.has(q.slug)) byQuiz.set(q.slug, []);
+    byQuiz.get(q.slug)!.push(q.correct);
+  }
+
+  const biased: string[] = [];
+  for (const [slug, idxs] of byQuiz) {
+    if (idxs.length < 5) continue;
+    const counts = new Map<number, number>();
+    for (const i of idxs) counts.set(i, (counts.get(i) ?? 0) + 1);
+    const top = Math.max(...counts.values());
+    if (top / idxs.length > 0.5) biased.push(`${slug} (${top}/${idxs.length})`);
+  }
+  assert.deepEqual(biased, [], `정답이 한 자리에 절반 넘게 몰린 퀴즈:\n  ${biased.join('\n  ')}`);
+});
+
 test('섹션 안에서 slug가 중복되지 않는다', () => {
   for (const { name, items } of SECTIONS) {
     const slugs = items.map(i => i.slug);
