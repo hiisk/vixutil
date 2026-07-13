@@ -4,6 +4,8 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import { MBTI_TYPES } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 const GROUPS = [
   { label: '분석가형', color: 'bg-violet-50 text-violet-700 border-violet-200', types: ['INTJ','INTP','ENTJ','ENTP'] },
@@ -99,6 +101,8 @@ export default function MbtiPage() {
             <p className="text-sm">MBTI 유형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['fortune/mbti']} />
       </div>
       <SiteFooter />
     </div>

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import { ZODIAC_SIGNS } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export default function ZodiacPage() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -86,6 +88,8 @@ export default function ZodiacPage() {
             <p className="text-sm">별자리를 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['fortune/zodiac']} />
       </div>
       <SiteFooter />
     </div>

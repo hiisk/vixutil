@@ -4,6 +4,8 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import { computeATR, computeTpSl, formatPrice, type Direction } from '@/lib/atr';
 import { fetchTopSymbols, fetchDailyCandles, mapWithConcurrency } from '@/lib/binance';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 interface Row {
   rank: number;
@@ -254,6 +256,8 @@ export default function AtrTpslPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['crypto/atr-tpsl']} />
       </div>
       <SiteFooter />
     </div>

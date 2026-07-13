@@ -6,6 +6,8 @@ import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getPhotoMood, type PhotoMoodResult } from '@/lib/photo-mood-data';
 import { rgbToLab } from '@/lib/color-lab';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 function clampUnit(x: number) {
   return Math.max(0, Math.min(1, x));
@@ -347,6 +349,8 @@ export default function PhotoMoodPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/photo-mood']} />
       </div>
       <SiteFooter />
     </div>

@@ -6,6 +6,8 @@ import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getPersonalColor, type PersonalColorResult } from '@/lib/personal-color-data';
 import { rgbToLab } from '@/lib/color-lab';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -482,6 +484,8 @@ export default function PersonalColorPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/personal-color']} />
       </div>
       <SiteFooter />
     </div>

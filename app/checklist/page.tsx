@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { CHECKLISTS } from '@/lib/checklist-data';
 import ChecklistSearch from '@/components/ChecklistSearch';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: '체크리스트',
@@ -33,6 +35,8 @@ export default function ChecklistIndexPage() {
         </p>
 
         <ChecklistSearch checklists={CHECKLISTS} />
+
+        <Faq items={SECTION_FAQ.checklist} />
       </div>
       <SiteFooter />
     </div>

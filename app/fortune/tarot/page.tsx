@@ -3,6 +3,8 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import { drawCards, TAROT_CARDS, MINOR_ARCANA, SUIT_INFO, type AnyTarotCard } from '@/lib/fortune-data';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 /* ═══════════════════════════════════════════
    스프레드 정의
@@ -596,6 +598,8 @@ export default function TarotPage() {
 
         {/* ── 카드 목록 탭 ── */}
         {tab === 'catalog' && <CatalogTab />}
+
+        <Faq items={SECTION_FAQ['fortune/tarot']} />
       </div>
       <SiteFooter />
     </div>

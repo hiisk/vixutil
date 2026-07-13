@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { QUIZZES } from '@/lib/quiz-data';
 import QuizSearch from '@/components/QuizSearch';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: '지식 퀴즈',
@@ -29,6 +31,8 @@ export default function QuizIndexPage() {
         </p>
 
         <QuizSearch quizzes={QUIZZES} />
+
+        <Faq items={SECTION_FAQ.quiz} />
       </div>
       <SiteFooter />
     </div>

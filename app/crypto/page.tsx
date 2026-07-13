@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: 'Crypto Trading Tools',
@@ -75,6 +77,8 @@ export default function CryptoPage() {
         </div>
 
         <p className="text-center text-xs text-slate-300 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
+
+        <Faq items={SECTION_FAQ.crypto} />
       </div>
       <SiteFooter />
     </div>

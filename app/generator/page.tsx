@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { GENERATORS } from '@/lib/generator-data';
 import GeneratorSearch from '@/components/GeneratorSearch';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: '생성기',
@@ -29,6 +31,8 @@ export default function GeneratorIndexPage() {
         </p>
 
         <GeneratorSearch generators={GENERATORS} />
+
+        <Faq items={SECTION_FAQ.generator} />
       </div>
       <SiteFooter />
     </div>

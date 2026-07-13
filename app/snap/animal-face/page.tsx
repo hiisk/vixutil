@@ -5,6 +5,8 @@ import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getAnimalFace, type AnimalFaceResult } from '@/lib/animal-face-data';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -319,6 +321,8 @@ export default function AnimalFacePage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/animal-face']} />
       </div>
       <SiteFooter />
     </div>

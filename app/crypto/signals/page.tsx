@@ -7,6 +7,8 @@ import { fetchTickers, fetchDailyCandles, mapWithConcurrency, type Market, type 
 import { buildForecast, simulatePaths, HORIZONS, MIN_SAMPLES, DAILY_PATH_DAYS, type ForecastModel } from '@/lib/forecast';
 import { coinByBase } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, MiniPaths, formatVolume } from '@/components/crypto/ui';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
 const BYBIT_REF = 'https://partner.bybit.com/b/127153';
@@ -754,6 +756,8 @@ export default function SignalsPage() {
             of all paths), the ranges, and the probability of reaching any target.
           </p>
         </div>
+
+        <Faq items={SECTION_FAQ['crypto/signals']} tone="dark" className="mt-8" />
 
         <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>

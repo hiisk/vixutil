@@ -5,6 +5,8 @@ import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getExpressionResult, EMOTION_ORDER, type ExpressionResult, type EmotionKey } from '@/lib/expression-data';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -265,6 +267,8 @@ export default function ExpressionPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/expression']} />
       </div>
       <SiteFooter />
     </div>

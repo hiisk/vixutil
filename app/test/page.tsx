@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { TESTS } from '@/lib/test-data';
 import TestSearch from '@/components/TestSearch';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: '심리 테스트',
@@ -29,6 +31,8 @@ export default function TestIndexPage() {
         </p>
 
         <TestSearch tests={TESTS} />
+
+        <Faq items={SECTION_FAQ.test} />
       </div>
       <SiteFooter />
     </div>

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useState, useMemo } from 'react';
 import SiteFooter from '@/components/SiteFooter';
 import { CATS } from '@/lib/calculator-catalog';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export default function Home() {
   const [query, setQuery] = useState('');
@@ -143,6 +145,8 @@ export default function Home() {
         <footer className="border-t border-slate-100 py-8 text-center">
           <p className="text-xs text-slate-300">2026년 기준 · 참고용 계산기입니다</p>
         </footer>
+
+        <Faq items={SECTION_FAQ.calculator} />
       </div>
       <SiteFooter />
     </div>

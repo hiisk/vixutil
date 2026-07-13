@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: '스냅테스트 — 사진으로 하는 참여형 테스트',
@@ -73,6 +75,8 @@ export default function SnapPage() {
         </div>
 
         <p className="text-center text-xs text-slate-300 mt-10">모든 해석은 참고·오락 목적이며 과학적·의학적 근거가 없습니다</p>
+
+        <Faq items={SECTION_FAQ.snap} />
       </div>
       <SiteFooter />
     </div>

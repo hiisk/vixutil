@@ -5,6 +5,8 @@ import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getFaceSymmetry, type FaceSymmetryResult } from '@/lib/face-symmetry-data';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -313,6 +315,8 @@ export default function FaceSymmetryPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/face-symmetry']} />
       </div>
       <SiteFooter />
     </div>

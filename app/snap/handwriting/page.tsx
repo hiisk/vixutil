@@ -5,6 +5,8 @@ import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getHandwritingResult, type HandwritingResult } from '@/lib/handwriting-data';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 function clampUnit(x: number) {
   return Math.max(0, Math.min(1, x));
@@ -304,6 +306,8 @@ export default function HandwritingPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/handwriting']} />
       </div>
       <SiteFooter />
     </div>

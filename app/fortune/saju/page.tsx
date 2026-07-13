@@ -13,6 +13,8 @@ import {
 import FortuneDisplay from '@/components/FortuneDisplay';
 import { analyzeFortune } from '@/lib/saju-fortune';
 import type { DomainFortune } from '@/lib/saju-fortune';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 /* ── util ── */
 const pad = (n: number) => String(n).padStart(2,'0');
@@ -899,6 +901,8 @@ export default function SajuPage() {
 
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['fortune/saju']} />
       </div>
       <SiteFooter />
     </div>

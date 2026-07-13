@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 export const metadata: Metadata = {
   title: '오늘의 운세',
@@ -86,6 +88,8 @@ export default function FortunePage() {
         </Link>
 
         <p className="text-center text-xs text-slate-300 mt-10">운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다</p>
+
+        <Faq items={SECTION_FAQ.fortune} />
       </div>
       <SiteFooter />
     </div>

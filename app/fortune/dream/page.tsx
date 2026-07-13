@@ -2,6 +2,8 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 import {
   DREAM_DATA, POPULAR_KEYWORDS, CATEGORIES, LUCK_INFO,
   type DreamEntry, type DreamCategory,
@@ -159,6 +161,8 @@ export default function DreamPage() {
             })}
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['fortune/dream']} />
       </div>
 
       {/* 상세 바텀시트 */}

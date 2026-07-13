@@ -5,6 +5,8 @@ import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
 import SaveResultCard from '@/components/SaveResultCard';
 import { getGoldenRatio, type GoldenRatioResult } from '@/lib/golden-ratio-data';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -317,6 +319,8 @@ export default function GoldenRatioPage() {
             </p>
           </div>
         )}
+
+        <Faq items={SECTION_FAQ['snap/golden-ratio']} />
       </div>
       <SiteFooter />
     </div>
