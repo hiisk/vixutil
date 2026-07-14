@@ -41,7 +41,7 @@ export default function UnitWeightPage() {
     <CalcShell title="무게 단위 변환기" description="mg · g · kg · t · oz · lb · stone · 근 · 돈 · 냥 동시 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">변환할 값 입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환할 값 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>숫자</Label>
@@ -69,18 +69,18 @@ export default function UnitWeightPage() {
 
         {results && (
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">변환 결과</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환 결과</p>
             <div className="flex flex-col divide-y divide-slate-100">
               {results.map(r => (
                 <div
                   key={r.key}
                   className={`flex justify-between items-center py-3 ${r.key === fromUnit ? 'font-bold' : ''}`}
                 >
-                  <span className={`text-sm ${r.key === fromUnit ? 'text-blue-600' : 'text-slate-500'}`}>
+                  <span className={`text-sm ${r.key === fromUnit ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400'}`}>
                     {r.label}
                     {r.key === fromUnit && <span className="ml-1 text-xs text-blue-400">(입력)</span>}
                   </span>
-                  <span className={`text-sm font-mono ${r.key === fromUnit ? 'text-blue-700 font-black' : 'text-slate-800'}`}>
+                  <span className={`text-sm font-mono ${r.key === fromUnit ? 'text-blue-700 font-black' : 'text-slate-800 dark:text-slate-100'}`}>
                     {fmt(r.val)}
                   </span>
                 </div>

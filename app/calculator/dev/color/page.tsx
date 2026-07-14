@@ -52,7 +52,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-2 py-1 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors font-medium">
+      className="text-xs px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors font-medium">
       {copied ? '✓' : '복사'}
     </button>
   );
@@ -95,7 +95,7 @@ export default function ColorPage() {
     setHex(val);
   }
 
-  const inputCls = 'bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full';
+  const inputCls = 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full';
 
   return (
     <CalcShell title="Color Converter" description="HEX ↔ RGB ↔ HSL 색상 변환" wide>
@@ -104,7 +104,7 @@ export default function ColorPage() {
           <div className="flex items-center gap-4 mb-4">
             <input type="color" value={pickerColor} onChange={e => fromPicker(e.target.value)}
               className="w-16 h-16 rounded-xl cursor-pointer border-0 p-0 bg-transparent" />
-            <div className="flex-1 h-16 rounded-xl border border-slate-200" style={{ backgroundColor: pickerColor }} />
+            <div className="flex-1 h-16 rounded-xl border border-slate-200 dark:border-slate-700" style={{ backgroundColor: pickerColor }} />
           </div>
 
           <div className="flex flex-col gap-3">
@@ -125,7 +125,7 @@ export default function ColorPage() {
               <div className="grid grid-cols-3 gap-2">
                 {['R', 'G', 'B'].map((label, i) => (
                   <div key={label}>
-                    <p className="text-xs text-slate-400 text-center mb-1">{label}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-1">{label}</p>
                     <input type="number" value={rgb[i]} onChange={e => fromRgb(i, e.target.value)}
                       min="0" max="255" className={inputCls + ' text-center font-mono'} />
                   </div>
@@ -141,7 +141,7 @@ export default function ColorPage() {
               <div className="grid grid-cols-3 gap-2">
                 {[{ l: 'H°', max: 360 }, { l: 'S%', max: 100 }, { l: 'L%', max: 100 }].map((f, i) => (
                   <div key={f.l}>
-                    <p className="text-xs text-slate-400 text-center mb-1">{f.l}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-1">{f.l}</p>
                     <input type="number" value={hsl[i]} onChange={e => fromHsl(i, e.target.value)}
                       min="0" max={f.max} className={inputCls + ' text-center font-mono'} />
                   </div>

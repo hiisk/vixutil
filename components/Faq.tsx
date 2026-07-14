@@ -8,18 +8,18 @@ import JsonLd, { faqJsonLd } from './JsonLd';
  */
 const TONE = {
   light: {
-    heading: 'text-slate-800',
-    card: 'bg-white border-slate-200',
-    question: 'text-slate-700',
-    chevron: 'text-slate-400',
-    answer: 'text-slate-600',
+    heading: 'text-slate-800 dark:text-slate-100',
+    card: 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700',
+    question: 'text-slate-700 dark:text-slate-200',
+    chevron: 'text-slate-400 dark:text-slate-500',
+    answer: 'text-slate-600 dark:text-slate-300',
   },
   dark: {
     heading: 'text-slate-100',
     card: 'bg-slate-900/50 border-slate-800',
     question: 'text-slate-200',
-    chevron: 'text-slate-500',
-    answer: 'text-slate-400',
+    chevron: 'text-slate-500 dark:text-slate-400',
+    answer: 'text-slate-400 dark:text-slate-500',
   },
 } as const;
 

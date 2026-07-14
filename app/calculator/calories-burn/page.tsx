@@ -70,7 +70,7 @@ export default function CaloriesBurnPage() {
     <CalcShell title="운동 칼로리 소모 계산기" description="MET 기반 운동별 칼로리 소모 · 지방 소모량 · 음식 비교">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">운동 정보 입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">운동 정보 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>체중 (kg)</Label>
@@ -125,8 +125,8 @@ export default function CaloriesBurnPage() {
                   <p className="text-sm text-orange-400">g</p>
                 </div>
               </div>
-              <div className="bg-white rounded-xl px-4 py-2 border border-orange-100">
-                <p className="text-xs text-slate-500">
+              <div className="bg-white dark:bg-slate-900 rounded-xl px-4 py-2 border border-orange-100">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {result.exerciseLabel} · MET {result.met} ·
                   {' '}{duration}분 운동 기준
                 </p>
@@ -135,7 +135,7 @@ export default function CaloriesBurnPage() {
 
             {/* 음식 비교 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">음식 칼로리 비교</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">음식 칼로리 비교</p>
               <div className="flex flex-col gap-2">
                 {FOOD_COMPARISON.map(f => {
                   const ratio = result.kcal / f.kcal;
@@ -143,12 +143,12 @@ export default function CaloriesBurnPage() {
                   return (
                     <div key={f.name} className="flex flex-col gap-1">
                       <div className="flex justify-between text-xs">
-                        <span className="text-slate-600">{f.name}</span>
-                        <span className={`font-semibold ${ratio >= 1 ? 'text-orange-600' : 'text-slate-500'}`}>
+                        <span className="text-slate-600 dark:text-slate-300">{f.name}</span>
+                        <span className={`font-semibold ${ratio >= 1 ? 'text-orange-600' : 'text-slate-500 dark:text-slate-400'}`}>
                           {ratio.toFixed(1)}개분 ({f.kcal} kcal)
                         </span>
                       </div>
-                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-orange-400 rounded-full transition-all"
                           style={{ width: `${pct}%` }}
@@ -158,13 +158,13 @@ export default function CaloriesBurnPage() {
                   );
                 })}
               </div>
-              <p className="text-xs text-slate-400 mt-3">* 100% = 해당 음식 칼로리와 동일, 그 이상은 더 많이 소모</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">* 100% = 해당 음식 칼로리와 동일, 그 이상은 더 많이 소모</p>
             </Card>
 
             {/* MET 설명 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">MET란?</p>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">MET란?</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 MET(Metabolic Equivalent of Task)는 운동 강도를 나타내는 단위입니다.
                 MET 1 = 안정 시 산소 소모량(3.5 mL/kg/min)을 기준으로 하며,
                 MET × 체중(kg) × 시간(h) = 소모 칼로리(kcal)로 계산됩니다.

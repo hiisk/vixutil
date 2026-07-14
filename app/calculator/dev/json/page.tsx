@@ -8,7 +8,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -46,7 +46,7 @@ export default function JsonPage() {
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">입력</span>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">입력</span>
             {isValid !== null && (
               <span className={`text-xs font-bold px-2 py-1 rounded-full ${isValid ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-600'}`}>
                 {isValid ? '✓ Valid JSON' : '✕ Invalid JSON'}
@@ -66,7 +66,7 @@ export default function JsonPage() {
               압축 (Minify)
             </button>
             <button onClick={() => { setInput(''); setOutput(''); setError(''); setStats(null); }}
-              className="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-sm font-bold transition-colors">
+              className="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300 py-2.5 rounded-xl text-sm font-bold transition-colors">
               초기화
             </button>
           </div>
@@ -75,9 +75,9 @@ export default function JsonPage() {
         {output && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">결과</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">결과</span>
               <div className="flex items-center gap-3">
-                {stats && <span className="text-xs text-slate-400">{stats.lines}줄 · {stats.bytes}bytes</span>}
+                {stats && <span className="text-xs text-slate-400 dark:text-slate-500">{stats.lines}줄 · {stats.bytes}bytes</span>}
                 <CopyBtn text={output} />
               </div>
             </div>

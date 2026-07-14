@@ -37,14 +37,14 @@ export default function RegexPage() {
         <Card className="p-4">
           <Label>정규식 패턴 (/ 없이 입력)</Label>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-slate-400 font-mono">/</span>
+            <span className="text-slate-400 dark:text-slate-500 font-mono">/</span>
             <input type="text" value={pattern} onChange={e => setPattern(e.target.value)}
-              placeholder="예: \d{3}-\d{4}-\d{4}" className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <span className="text-slate-400 font-mono">/</span>
+              placeholder="예: \d{3}-\d{4}-\d{4}" className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <span className="text-slate-400 dark:text-slate-500 font-mono">/</span>
             <div className="flex gap-1">
               {FLAGS.map(f => (
                 <button key={f} onClick={() => toggleFlag(f)}
-                  className={`w-8 h-8 rounded-lg text-sm font-mono font-bold transition-colors ${flags.has(f) ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'}`}>
+                  className={`w-8 h-8 rounded-lg text-sm font-mono font-bold transition-colors ${flags.has(f) ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
                   {f}
                 </button>
               ))}
@@ -62,29 +62,29 @@ export default function RegexPage() {
             ) : (
               <>
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">매치 결과</p>
-                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${result.matches.length > 0 ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'}`}>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">매치 결과</p>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${result.matches.length > 0 ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
                     {result.matches.length}개 매치
                   </span>
                 </div>
                 {result.matches.length > 0 ? (
                   <div className="overflow-x-auto">
                     <table className="w-full text-xs">
-                      <thead className="bg-slate-50">
+                      <thead className="bg-slate-50 dark:bg-slate-950">
                         <tr>
-                          <th className="px-3 py-2 text-left font-bold text-slate-500">#</th>
-                          <th className="px-3 py-2 text-left font-bold text-slate-500">매치값</th>
-                          <th className="px-3 py-2 text-left font-bold text-slate-500">위치</th>
-                          <th className="px-3 py-2 text-left font-bold text-slate-500">그룹</th>
+                          <th className="px-3 py-2 text-left font-bold text-slate-500 dark:text-slate-400">#</th>
+                          <th className="px-3 py-2 text-left font-bold text-slate-500 dark:text-slate-400">매치값</th>
+                          <th className="px-3 py-2 text-left font-bold text-slate-500 dark:text-slate-400">위치</th>
+                          <th className="px-3 py-2 text-left font-bold text-slate-500 dark:text-slate-400">그룹</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
                         {result.matches.slice(0, 20).map((m, i) => (
                           <tr key={i}>
-                            <td className="px-3 py-2 text-slate-400">{i + 1}</td>
+                            <td className="px-3 py-2 text-slate-400 dark:text-slate-500">{i + 1}</td>
                             <td className="px-3 py-2 font-mono text-blue-600 font-bold">{m[0]}</td>
-                            <td className="px-3 py-2 text-slate-500">{m.index}</td>
-                            <td className="px-3 py-2 font-mono text-slate-500">
+                            <td className="px-3 py-2 text-slate-500 dark:text-slate-400">{m.index}</td>
+                            <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">
                               {m.slice(1).length > 0 ? m.slice(1).join(', ') : '-'}
                             </td>
                           </tr>
@@ -93,7 +93,7 @@ export default function RegexPage() {
                     </table>
                   </div>
                 ) : (
-                  <p className="text-slate-400 text-sm">매치 없음</p>
+                  <p className="text-slate-400 dark:text-slate-500 text-sm">매치 없음</p>
                 )}
               </>
             )}

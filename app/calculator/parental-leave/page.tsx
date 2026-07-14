@@ -111,9 +111,9 @@ export default function ParentalLeavePage() {
         <Label>통상임금 월급 (만원)</Label>
         <div className="flex items-center gap-2">
           <CommaInput value={salary} onChange={setSalary} placeholder="350" />
-          <span className="text-sm text-slate-500 shrink-0">만원</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 shrink-0">만원</span>
         </div>
-        <p className="text-xs text-slate-400 mt-1 mb-4">세전 월 통상임금 기준으로 입력하세요</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 mb-4">세전 월 통상임금 기준으로 입력하세요</p>
 
         <Label>육아휴직 기간</Label>
         <div className="flex gap-2 flex-wrap mb-5">
@@ -124,7 +124,7 @@ export default function ParentalLeavePage() {
               className={`flex-1 min-w-[60px] py-2.5 rounded-xl text-sm font-bold border transition-all ${
                 duration === m
                   ? 'bg-violet-600 text-white border-violet-600'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-violet-300'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
               }`}
             >
               {m}개월
@@ -144,11 +144,11 @@ export default function ParentalLeavePage() {
               className={`flex-1 py-3 px-2 rounded-xl text-sm border transition-all text-left ${
                 mode === opt.value
                   ? 'bg-violet-600 text-white border-violet-600'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-violet-300'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
               }`}
             >
               <div className="font-bold mb-0.5">{opt.label}</div>
-              <div className={`text-xs ${mode === opt.value ? 'text-violet-200' : 'text-slate-400'}`}>{opt.sub}</div>
+              <div className={`text-xs ${mode === opt.value ? 'text-violet-200' : 'text-slate-400 dark:text-slate-500'}`}>{opt.sub}</div>
             </button>
           ))}
         </div>
@@ -169,12 +169,12 @@ export default function ParentalLeavePage() {
             <div className="space-y-3">
               {result.rows.map((r) => (
                 <div key={r.label} className="flex justify-between items-center text-sm border-b border-slate-50 pb-2.5 last:border-0">
-                  <span className="text-slate-500">{r.label} ({r.count}개월)</span>
-                  <span className="font-bold text-slate-900">월 {fmt(r.monthly)}원</span>
+                  <span className="text-slate-500 dark:text-slate-400">{r.label} ({r.count}개월)</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100">월 {fmt(r.monthly)}원</span>
                 </div>
               ))}
               <div className="flex justify-between items-center text-sm pt-1 font-black">
-                <span className="text-slate-700">합계</span>
+                <span className="text-slate-700 dark:text-slate-200">합계</span>
                 <span className="text-violet-700">{fmt(result.total)}원</span>
               </div>
             </div>
@@ -185,27 +185,27 @@ export default function ParentalLeavePage() {
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100">
-                    <th className="text-left py-2 px-2 font-bold text-slate-500">구간</th>
-                    <th className="text-right py-2 px-2 font-bold text-slate-500">지급율</th>
-                    <th className="text-right py-2 px-2 font-bold text-slate-500">상한</th>
-                    <th className="text-right py-2 px-2 font-bold text-slate-500">하한</th>
+                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                    <th className="text-left py-2 px-2 font-bold text-slate-500 dark:text-slate-400">구간</th>
+                    <th className="text-right py-2 px-2 font-bold text-slate-500 dark:text-slate-400">지급율</th>
+                    <th className="text-right py-2 px-2 font-bold text-slate-500 dark:text-slate-400">상한</th>
+                    <th className="text-right py-2 px-2 font-bold text-slate-500 dark:text-slate-400">하한</th>
                   </tr>
                 </thead>
                 <tbody>
                   {mode === 'solo' ? (
                     <>
                       <tr className="border-b border-slate-50">
-                        <td className="py-2 px-2 text-slate-700">1~6개월</td>
-                        <td className="text-right py-2 px-2 text-slate-600">80%</td>
-                        <td className="text-right py-2 px-2 text-slate-600">150만원</td>
-                        <td className="text-right py-2 px-2 text-slate-600">70만원</td>
+                        <td className="py-2 px-2 text-slate-700 dark:text-slate-200">1~6개월</td>
+                        <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">80%</td>
+                        <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">150만원</td>
+                        <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">70만원</td>
                       </tr>
                       <tr className="border-b border-slate-50">
-                        <td className="py-2 px-2 text-slate-700">7~12개월</td>
-                        <td className="text-right py-2 px-2 text-slate-600">50%</td>
-                        <td className="text-right py-2 px-2 text-slate-600">120만원</td>
-                        <td className="text-right py-2 px-2 text-slate-600">70만원</td>
+                        <td className="py-2 px-2 text-slate-700 dark:text-slate-200">7~12개월</td>
+                        <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">50%</td>
+                        <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">120만원</td>
+                        <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">70만원</td>
                       </tr>
                     </>
                   ) : (
@@ -218,10 +218,10 @@ export default function ParentalLeavePage() {
                         ['7~12개월','(단독 기준 적용)', '—'],
                       ].map(([period, rate, cap]) => (
                         <tr key={period} className="border-b border-slate-50">
-                          <td className="py-2 px-2 text-slate-700">{period}</td>
-                          <td className="text-right py-2 px-2 text-slate-600">{rate}</td>
-                          <td className="text-right py-2 px-2 text-slate-600">{cap}</td>
-                          <td className="text-right py-2 px-2 text-slate-600">70만원</td>
+                          <td className="py-2 px-2 text-slate-700 dark:text-slate-200">{period}</td>
+                          <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">{rate}</td>
+                          <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">{cap}</td>
+                          <td className="text-right py-2 px-2 text-slate-600 dark:text-slate-300">70만원</td>
                         </tr>
                       ))}
                     </>
@@ -229,12 +229,12 @@ export default function ParentalLeavePage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-slate-400 mt-3">6+6 부모육아휴직제는 부부가 각각 첫 6개월 육아휴직 사용 시 적용됩니다.</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">6+6 부모육아휴직제는 부부가 각각 첫 6개월 육아휴직 사용 시 적용됩니다.</p>
           </Card>
 
           <Card>
             <CardHeader title="수급 요건 안내" />
-            <ul className="space-y-2 text-sm text-slate-600">
+            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
               {[
                 '육아휴직 시작일 이전 피보험단위기간 180일 이상',
                 '만 8세 이하 또는 초등학교 2학년 이하의 자녀',
@@ -248,7 +248,7 @@ export default function ParentalLeavePage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-slate-400">
+            <p className="mt-4 text-xs text-slate-400 dark:text-slate-500">
               ※ 본 계산기는 참고용이며 실제 수급액은 사업장 규모와 고용센터 심사에 따라 달라질 수 있습니다.
             </p>
           </Card>

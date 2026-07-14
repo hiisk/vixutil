@@ -71,7 +71,7 @@ export default function AvgPricePage() {
                 </div>
                 <div className={i === 0 ? 'pt-6' : ''}>
                   <button onClick={() => setRows(prev => prev.filter((_, idx) => idx !== i))}
-                    className="w-full py-3 text-slate-400 hover:text-red-400 text-sm font-bold transition-colors">
+                    className="w-full py-3 text-slate-400 dark:text-slate-500 hover:text-red-400 text-sm font-bold transition-colors">
                     ✕
                   </button>
                 </div>

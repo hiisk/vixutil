@@ -30,7 +30,7 @@ export default function SubscriptionScorePage() {
   const grade =
     total >= 60 ? { label: '경쟁력 높음', color: 'text-blue-600', bg: 'bg-blue-50' } :
     total >= 50 ? { label: '보통', color: 'text-amber-600', bg: 'bg-amber-50' } :
-                  { label: '경쟁력 낮음', color: 'text-slate-500', bg: 'bg-slate-50' };
+                  { label: '경쟁력 낮음', color: 'text-slate-500 dark:text-slate-400', bg: 'bg-slate-50 dark:bg-slate-950' };
 
   return (
     <CalcShell title="청약 가점 계산기" description="무주택기간 · 부양가족 · 청약통장 가입기간 기준">
@@ -44,7 +44,7 @@ export default function SubscriptionScorePage() {
               note={`${homelessYears}년 이상 무주택`}
             >
               <select value={homelessYears} onChange={e => setHomelessYears(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="0">미혼 / 무주택 1년 미만 (2점)</option>
                 {Array.from({ length: 15 }, (_, i) => i + 1).map(n => (
                   <option key={n} value={n}>{n}년 이상 ({2 + n * 2}점)</option>
@@ -60,7 +60,7 @@ export default function SubscriptionScorePage() {
               note={`${dependents}명 (본인 제외)`}
             >
               <select value={dependents} onChange={e => setDependents(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 {[0,1,2,3,4,5].map(n => (
                   <option key={n} value={n}>{n}명 ({5 + n * 5}점)</option>
                 ))}
@@ -75,7 +75,7 @@ export default function SubscriptionScorePage() {
               note={`${savingsYears}년`}
             >
               <select value={savingsYears} onChange={e => setSavingsYears(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="0">6개월 미만 (1점)</option>
                 <option value="0.5">6개월 이상 (2점)</option>
                 {Array.from({ length: 15 }, (_, i) => i + 1).map(n => (
@@ -94,7 +94,7 @@ export default function SubscriptionScorePage() {
 
         <div className={`rounded-2xl p-4 text-center ${grade.bg}`}>
           <p className={`font-bold text-lg ${grade.color}`}>{grade.label}</p>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {total >= 60 ? '인기 단지 1순위 당첨 가능성 높음' :
              total >= 50 ? '지역·단지에 따라 당첨 가능' :
              '가점제 당첨 어려움 — 추첨제 노리기'}
@@ -112,14 +112,14 @@ function ScoreItem({ label, max, score, note, children }: {
     <div>
       <div className="flex justify-between items-center mb-1.5">
         <div className="flex items-baseline gap-1.5 min-w-0">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">{label}</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{label}</p>
           {/* note는 지금까지 prop으로 받기만 하고 그리지 않아 화면에 나오지 않았다 */}
-          {note && <p className="text-xs text-slate-400 truncate">{note}</p>}
+          {note && <p className="text-xs text-slate-400 dark:text-slate-500 truncate">{note}</p>}
         </div>
-        <span className="text-blue-600 font-black text-sm shrink-0">{score}<span className="text-slate-300 font-normal">/{max}점</span></span>
+        <span className="text-blue-600 font-black text-sm shrink-0">{score}<span className="text-slate-300 dark:text-slate-600 font-normal">/{max}점</span></span>
       </div>
       {children}
-      <div className="mt-1.5 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+      <div className="mt-1.5 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${(score / max) * 100}%` }} />
       </div>
     </div>

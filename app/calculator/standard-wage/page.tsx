@@ -32,7 +32,7 @@ export default function StandardWagePage() {
     <CalcShell title="통상임금 계산기" description="기본급 + 고정수당 기준 통상임금 · 통상시급 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>월 기본급 (원)</Label>
@@ -47,7 +47,7 @@ export default function StandardWagePage() {
               </select>
             </div>
           </div>
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-4 mb-3">고정수당 (해당 항목만 입력)</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mt-4 mb-3">고정수당 (해당 항목만 입력)</p>
           <div className="grid grid-cols-2 gap-3">
             {ALLOWANCES.map(name => (
               <div key={name}>
@@ -76,32 +76,32 @@ export default function StandardWagePage() {
               <CardHeader title="구성 내역" sub={`월 ${result.monthlyHours}h 기준`} />
               <div className="divide-y divide-slate-100">
                 <div className="px-5 py-3 flex justify-between text-sm">
-                  <span className="text-slate-600">기본급</span>
+                  <span className="text-slate-600 dark:text-slate-300">기본급</span>
                   <span className="font-semibold">{fmt(Number(basic))}원</span>
                 </div>
                 {result.rows.filter(r => r.amount > 0).map(r => (
                   <div key={r.name} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-600">{r.name}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{r.name}</span>
                     <span className="font-semibold">{fmt(r.amount)}원</span>
                   </div>
                 ))}
-                <div className="px-5 py-3 bg-slate-50 flex justify-between font-bold text-sm">
+                <div className="px-5 py-3 bg-slate-50 dark:bg-slate-950 flex justify-between font-bold text-sm">
                   <span>통상임금 합계</span>
                   <span className="text-blue-600">{fmt(result.standard)}원</span>
                 </div>
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs font-bold text-slate-500 mb-2">수당 단가 참고</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">수당 단가 참고</p>
               <div className="grid grid-cols-3 gap-2 text-xs text-center">
                 {[
                   { label: '연장근로', rate: '×1.5', value: result.hourly * 1.5 },
                   { label: '야간가산', rate: '×0.5', value: result.hourly * 0.5 },
                   { label: '휴일근로', rate: '×1.5', value: result.hourly * 1.5 },
                 ].map(item => (
-                  <div key={item.label} className="bg-slate-50 rounded-lg p-2">
-                    <p className="text-slate-400">{item.label} {item.rate}</p>
-                    <p className="font-bold text-slate-800">{fmt(item.value)}원/h</p>
+                  <div key={item.label} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2">
+                    <p className="text-slate-400 dark:text-slate-500">{item.label} {item.rate}</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-100">{fmt(item.value)}원/h</p>
                   </div>
                 ))}
               </div>

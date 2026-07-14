@@ -108,17 +108,17 @@ const SECTIONS = [
 
 export default function HubPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 via-amber-400 via-emerald-500 to-sky-400" />
 
       <div className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
         {/* Brand */}
         <div className="mb-14 text-center">
           <div className="inline-flex items-center gap-1 mb-4">
-            <span className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tighter">vix</span>
+            <span className="text-5xl sm:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-5xl sm:text-6xl font-black text-blue-600 tracking-tighter">util</span>
           </div>
-          <p className="text-slate-400 text-base">일상에 필요한 실용 도구 모음</p>
+          <p className="text-slate-400 dark:text-slate-500 text-base">일상에 필요한 실용 도구 모음</p>
         </div>
 
         {/*
@@ -128,15 +128,15 @@ export default function HubPage() {
         */}
         <Link
           href="/search"
-          className="group flex items-center gap-3 mb-10 border-2 border-slate-200 rounded-2xl px-4 py-3.5 hover:border-indigo-300 hover:shadow-sm transition-all"
+          className="group flex items-center gap-3 mb-10 border-2 border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 hover:border-indigo-300 hover:shadow-sm transition-all"
         >
-          <svg className="w-5 h-5 text-slate-400 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
-          <span className="text-base text-slate-400 group-hover:text-slate-500 transition-colors">
+          <span className="text-base text-slate-400 dark:text-slate-500 group-hover:text-slate-500 transition-colors">
             실업급여, 전세, MBTI, 로또…
           </span>
-          <span className="ml-auto text-xs font-bold text-slate-300 group-hover:text-indigo-400 transition-colors shrink-0">
+          <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-400 transition-colors shrink-0">
             전체 검색
           </span>
         </Link>
@@ -155,12 +155,12 @@ export default function HubPage() {
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-4">
                   <span className="text-3xl">{s.icon}</span>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white ${s.textAccent} border ${s.borderAccent}`}>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 ${s.textAccent} border ${s.borderAccent}`}>
                     {s.badge}
                   </span>
                 </div>
                 <h2 className={`text-lg font-black ${s.textAccent} mb-1`}>{s.title}</h2>
-                <p className="text-sm text-slate-500 mb-4">{s.desc}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{s.desc}</p>
                 <div className={`flex items-center gap-1 text-xs font-semibold ${s.textAccent}`}>
                   바로가기
                   <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -183,15 +183,15 @@ export default function HubPage() {
             { label: '운세', val: '6종' },
           ].map(item => (
             <div key={item.label}>
-              <p className="text-xl font-black text-slate-900">{item.val}</p>
-              <p className="text-xs text-slate-400">{item.label}</p>
+              <p className="text-xl font-black text-slate-900 dark:text-slate-100">{item.val}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">{item.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       <footer className="text-center pb-8">
-        <p className="text-xs text-slate-300">vixutil.com — 2026</p>
+        <p className="text-xs text-slate-300 dark:text-slate-600">vixutil.com — 2026</p>
       </footer>
     </div>
   );

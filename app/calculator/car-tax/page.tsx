@@ -105,7 +105,7 @@ export default function CarTaxPage() {
                   { label: '지방교육세 (자동차세×30%)', value: result.eduTax },
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-600">{r.label}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{r.label}</span>
                     <span className={`font-semibold ${r.value < 0 ? 'text-emerald-600' : ''}`}>
                       {r.value < 0 ? '-' : ''}{fmt(Math.abs(r.value))}원
                     </span>

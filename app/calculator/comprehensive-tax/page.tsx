@@ -134,18 +134,18 @@ export default function ComprehensiveTaxPage() {
                   ...(result.extraDeduction > 0 ? [{ label: '추가공제', value: result.extraDeduction }] : []),
                 ].map(row => (
                   <div key={row.label} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-600">{row.label}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{row.label}</span>
                     <span className="font-semibold text-emerald-600">-{fmt(row.value)}원</span>
                   </div>
                 ))}
-                <div className="px-5 py-3 bg-slate-50 flex justify-between font-bold text-sm">
+                <div className="px-5 py-3 bg-slate-50 dark:bg-slate-950 flex justify-between font-bold text-sm">
                   <span>과세표준</span>
                   <span>{fmt(result.taxable)}원</span>
                 </div>
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400">* 간이 계산 결과입니다. 세액공제(근로·자녀·연금 등) 미적용. 정확한 세액은 세무사 상담을 권장합니다.</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">* 간이 계산 결과입니다. 세액공제(근로·자녀·연금 등) 미적용. 정확한 세액은 세무사 상담을 권장합니다.</p>
             </Card>
           </>
         )}

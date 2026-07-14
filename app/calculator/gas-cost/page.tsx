@@ -47,7 +47,7 @@ export default function GasCostPage() {
               <div className="flex gap-2 mb-2">
                 {FUEL_PRESETS.map(p => (
                   <button key={p.label} onClick={() => setFuelPrice(String(p.price))}
-                    className={`flex-1 py-2 rounded-lg text-xs font-bold transition-colors ${fuelPrice === String(p.price) ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    className={`flex-1 py-2 rounded-lg text-xs font-bold transition-colors ${fuelPrice === String(p.price) ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}`}>
                     {p.label}<br />{p.price.toLocaleString()}원
                   </button>
                 ))}
@@ -58,7 +58,7 @@ export default function GasCostPage() {
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={roundTrip} onChange={e => setRoundTrip(e.target.checked)}
                 className="w-4 h-4 accent-blue-600" />
-              <span className="text-sm text-slate-700">왕복 계산</span>
+              <span className="text-sm text-slate-700 dark:text-slate-200">왕복 계산</span>
             </label>
             <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>

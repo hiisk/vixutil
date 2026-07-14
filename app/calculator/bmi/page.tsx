@@ -42,7 +42,7 @@ export default function BmiPage() {
     <CalcShell title="BMI 계산기" description="대한비만학회 2022 기준 체질량지수 · 표준체중 · 정상 체중 범위">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">신체 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">신체 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>성별</Label>
@@ -50,7 +50,7 @@ export default function BmiPage() {
                 {([{v:'m',l:'남성'},{v:'f',l:'여성'}] as const).map(s=>(
                   <button key={s.v} onClick={()=>setSex(s.v)}
                     className={`py-3 text-sm font-semibold rounded-xl border transition-colors ${
-                      sex===s.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                      sex===s.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}>
                     {s.l}
                   </button>
@@ -81,11 +81,11 @@ export default function BmiPage() {
             <div className={`rounded-2xl border p-5 ${result.level.bg}`}>
               <div className="flex justify-between items-start mb-5">
                 <div>
-                  <p className="text-xs text-slate-500 mb-1">BMI 지수</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">BMI 지수</p>
                   <p className={`text-5xl font-black ${result.level.color}`}>{result.bmi.toFixed(1)}</p>
-                  <p className="text-xs text-slate-500 mt-1">{result.level.desc}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{result.level.desc}</p>
                 </div>
-                <span className={`text-base font-black px-4 py-2 rounded-xl bg-white border ${result.level.color} border-current`}>
+                <span className={`text-base font-black px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} border-current`}>
                   {result.level.label}
                 </span>
               </div>
@@ -106,7 +106,7 @@ export default function BmiPage() {
                 </div>
                 <div className="absolute top-0 w-3 h-3 bg-slate-800 rounded-full border-2 border-white shadow -translate-x-1.5"
                   style={{left:`${bmiPct}%`}}/>
-                <div className="flex justify-between text-xs text-slate-400 mt-1.5 px-0.5">
+                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 mt-1.5 px-0.5">
                   {['14','18.5','23','25','30','35','42'].map(v=><span key={v}>{v}</span>)}
                 </div>
               </div>
@@ -115,28 +115,28 @@ export default function BmiPage() {
             {/* 수치 카드들 */}
             <div className="grid grid-cols-2 gap-3">
               <Card className="p-4">
-                <p className="text-xs text-slate-400 mb-1">표준체중 ({sex==='m'?'남':'여'})</p>
-                <p className="text-xl font-black text-slate-900">{result.std.toFixed(1)} kg</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">표준체중 ({sex==='m'?'남':'여'})</p>
+                <p className="text-xl font-black text-slate-900 dark:text-slate-100">{result.std.toFixed(1)} kg</p>
                 <p className={`text-xs mt-1 font-semibold ${result.diff>0?'text-orange-500':result.diff<0?'text-blue-500':'text-emerald-600'}`}>
                   {result.diff>0?`+${result.diff.toFixed(1)}kg 초과`:result.diff<0?`${result.diff.toFixed(1)}kg 미달`:'정상 체중'}
                 </p>
               </Card>
               <Card className="p-4">
-                <p className="text-xs text-slate-400 mb-1">정상 체중 범위</p>
-                <p className="text-base font-black text-slate-900">
+                <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">정상 체중 범위</p>
+                <p className="text-base font-black text-slate-900 dark:text-slate-100">
                   {result.idealMin.toFixed(1)} ~ {result.idealMax.toFixed(1)} kg
                 </p>
-                <p className="text-xs text-slate-400 mt-1">BMI 18.5 ~ 22.9</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">BMI 18.5 ~ 22.9</p>
               </Card>
             </div>
 
             {/* 기준표 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">BMI 기준표 (대한비만학회 2022)</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">BMI 기준표 (대한비만학회 2022)</p>
               <div className="flex flex-col gap-1.5">
                 {LEVELS.map((l,i)=>(
                   <div key={i} className={`flex justify-between items-center text-xs px-3.5 py-2.5 rounded-xl border ${
-                    result.level.label===l.label ? `${l.bg} font-bold` : 'bg-slate-50 border-slate-100 text-slate-500'
+                    result.level.label===l.label ? `${l.bg} font-bold` : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400'
                   }`}>
                     <div className="flex items-center gap-2">
                       <div className={`w-2.5 h-2.5 rounded-full ${l.bar}`}/>

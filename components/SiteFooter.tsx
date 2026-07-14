@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 /**
  * 사이트 전역 푸터 — 섹션 간 이동 동선 + 내부링크(SEO) + 인기 도구 노출.
@@ -28,7 +29,7 @@ const POPULAR: { href: string; label: string }[] = [
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-slate-100 bg-white mt-4">
+    <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">
       <div className="max-w-3xl mx-auto px-4 py-10">
         {/*
           통합 검색 — 홈에만 있으면 도구 페이지에 깊이 들어온 사용자가 닿을 수 없다.
@@ -36,21 +37,21 @@ export default function SiteFooter() {
         */}
         <Link
           href="/search"
-          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 transition-colors"
+          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
         >
-          <svg className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
-          <span className="text-sm text-slate-400 group-hover:text-slate-600 transition-colors">
+          <span className="text-sm text-slate-400 dark:text-slate-500 group-hover:text-slate-600 transition-colors">
             찾는 도구가 있나요?
           </span>
-          <span className="ml-auto text-xs font-bold text-slate-300 group-hover:text-indigo-500 transition-colors">
+          <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">
             전체 검색
           </span>
         </Link>
 
         {/* 섹션 바로가기 */}
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
           다른 도구 둘러보기
         </p>
         <nav className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-8">
@@ -58,7 +59,7 @@ export default function SiteFooter() {
             <Link
               key={s.href}
               href={s.href}
-              className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-semibold text-slate-600 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+              className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
             >
               <span className="text-base">{s.icon}</span>
               {s.label}
@@ -67,7 +68,7 @@ export default function SiteFooter() {
         </nav>
 
         {/* 인기 도구 */}
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
           인기 도구
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
@@ -75,19 +76,20 @@ export default function SiteFooter() {
             <Link
               key={p.href}
               href={p.href}
-              className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-200 hover:text-slate-700 transition-colors"
+              className="rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-200 hover:text-slate-700 transition-colors"
             >
               {p.label}
             </Link>
           ))}
         </div>
 
-        <div className="flex items-center justify-between border-t border-slate-100 pt-5">
-          <Link href="/" className="flex items-center gap-0.5">
-            <span className="text-sm font-black text-slate-800 tracking-tighter">vix</span>
+        <div className="flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-5">
+          <Link href="/" className="flex items-center gap-0.5 shrink-0">
+            <span className="text-sm font-black text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-sm font-black text-blue-600 tracking-tighter">util</span>
           </Link>
-          <p className="text-xs text-slate-300">일상에 필요한 실용 도구 · 2026</p>
+          <p className="text-xs text-slate-300 dark:text-slate-600 hidden sm:block">일상에 필요한 실용 도구 · 2026</p>
+          <ThemeToggle />
         </div>
       </div>
     </footer>

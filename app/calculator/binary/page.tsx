@@ -78,7 +78,7 @@ export default function BinaryPage() {
     <CalcShell title="진수 변환기" description="2진수 · 8진수 · 10진수 · 16진수 상호 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>진수 선택</Label>
@@ -114,7 +114,7 @@ export default function BinaryPage() {
 
         {result && (
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">변환 결과</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환 결과</p>
             <div className="flex flex-col divide-y divide-slate-100">
               {rows.map(r => (
                 <div
@@ -122,12 +122,12 @@ export default function BinaryPage() {
                   className={`py-4 ${r.base === base ? '' : ''}`}
                 >
                   <div className="flex justify-between items-start">
-                    <span className={`text-sm ${r.base === base ? 'text-blue-600 font-bold' : 'text-slate-500'}`}>
+                    <span className={`text-sm ${r.base === base ? 'text-blue-600 font-bold' : 'text-slate-500 dark:text-slate-400'}`}>
                       {r.label}
                       {r.base === base && <span className="ml-1 text-xs text-blue-400">(입력)</span>}
                     </span>
                   </div>
-                  <p className={`text-sm font-mono mt-1 break-all leading-relaxed ${r.base === base ? 'text-blue-700 font-bold' : 'text-slate-900 font-semibold'}`}>
+                  <p className={`text-sm font-mono mt-1 break-all leading-relaxed ${r.base === base ? 'text-blue-700 font-bold' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
                     {r.display}
                   </p>
                 </div>
@@ -138,24 +138,24 @@ export default function BinaryPage() {
 
         {/* 진수 빠른 참고표 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">빠른 참고표 (0 – 15)</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">빠른 참고표 (0 – 15)</p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-center">
               <thead>
-                <tr className="border-b border-slate-100">
-                  <th className="py-2 text-slate-400 font-semibold">DEC</th>
-                  <th className="py-2 text-slate-400 font-semibold">HEX</th>
-                  <th className="py-2 text-slate-400 font-semibold">OCT</th>
-                  <th className="py-2 text-slate-400 font-semibold">BIN</th>
+                <tr className="border-b border-slate-100 dark:border-slate-800">
+                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">DEC</th>
+                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">HEX</th>
+                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">OCT</th>
+                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">BIN</th>
                 </tr>
               </thead>
               <tbody>
                 {Array.from({ length: 16 }, (_, i) => (
                   <tr key={i} className="border-b border-slate-50">
-                    <td className="py-1.5 font-mono text-slate-700">{i}</td>
+                    <td className="py-1.5 font-mono text-slate-700 dark:text-slate-200">{i}</td>
                     <td className="py-1.5 font-mono text-blue-600">0x{i.toString(16).toUpperCase()}</td>
-                    <td className="py-1.5 font-mono text-slate-600">0o{i.toString(8)}</td>
-                    <td className="py-1.5 font-mono text-slate-600">{formatBinary(i.toString(2))}</td>
+                    <td className="py-1.5 font-mono text-slate-600 dark:text-slate-300">0o{i.toString(8)}</td>
+                    <td className="py-1.5 font-mono text-slate-600 dark:text-slate-300">{formatBinary(i.toString(2))}</td>
                   </tr>
                 ))}
               </tbody>

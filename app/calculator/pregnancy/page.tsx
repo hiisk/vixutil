@@ -97,7 +97,7 @@ export default function PregnancyPage() {
     <CalcShell title="임신 예정일 계산기" description="네겔레 법칙 기반 출산예정일 · 임신주수 · 검사 일정 안내">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">정보 입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">정보 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>마지막 생리 시작일</Label>
@@ -119,7 +119,7 @@ export default function PregnancyPage() {
                 placeholder="28"
                 className={inputCls}
               />
-              <p className="text-xs text-slate-400 mt-1">21~45일 사이로 입력하세요</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">21~45일 사이로 입력하세요</p>
             </div>
           </div>
           <div className="mt-4">
@@ -164,24 +164,24 @@ export default function PregnancyPage() {
 
             {/* 분기 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">분기별 일정</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">분기별 일정</p>
               {[
                 { n: 1, label: '1분기 (1~12주)', start: result.t1Start, end: result.t1End,
-                  desc: '태아 기관 형성기', color: result.trimester === 1 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 border-slate-100' },
+                  desc: '태아 기관 형성기', color: result.trimester === 1 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
                 { n: 2, label: '2분기 (13~27주)', start: result.t2Start, end: result.t2End,
-                  desc: '태동 시작, 안정기', color: result.trimester === 2 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 border-slate-100' },
+                  desc: '태동 시작, 안정기', color: result.trimester === 2 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
                 { n: 3, label: '3분기 (28주~)', start: result.t3Start, end: result.dueDate,
-                  desc: '출산 준비', color: result.trimester === 3 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 border-slate-100' },
+                  desc: '출산 준비', color: result.trimester === 3 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
               ].map(t => (
                 <div key={t.n} className={`rounded-xl border px-4 py-3 mb-2 ${t.color}`}>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-slate-700">{t.label}</span>
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t.label}</span>
                     {result.trimester === t.n && (
                       <span className="text-xs bg-rose-500 text-white px-2 py-0.5 rounded-full font-semibold">현재</span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-500 mt-0.5">{t.desc}</p>
-                  <p className="text-xs text-slate-400 mt-1">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t.desc}</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                     {formatDateShort(t.start)} ~ {formatDateShort(t.end)}
                   </p>
                 </div>
@@ -190,7 +190,7 @@ export default function PregnancyPage() {
 
             {/* 중요 검사 일정 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">중요 검사 및 시기</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">중요 검사 및 시기</p>
               <div className="flex flex-col divide-y divide-slate-100">
                 {result.milestones.map(m => {
                   const isPast = m.date < new Date();
@@ -198,13 +198,13 @@ export default function PregnancyPage() {
                   return (
                     <div key={m.week} className={`flex items-start gap-3 py-3 ${isPast ? 'opacity-50' : ''}`}>
                       <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shrink-0 ${
-                        isCurrent ? 'bg-rose-500 text-white' : isPast ? 'bg-slate-200 text-slate-500' : 'bg-slate-100 text-slate-500'
+                        isCurrent ? 'bg-rose-500 text-white' : isPast ? 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                       }`}>
                         {m.week}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm font-semibold ${isCurrent ? 'text-rose-600' : 'text-slate-700'}`}>{m.label}</p>
-                        <p className="text-xs text-slate-400">{formatDateShort(m.date)} 전후</p>
+                        <p className={`text-sm font-semibold ${isCurrent ? 'text-rose-600' : 'text-slate-700 dark:text-slate-200'}`}>{m.label}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500">{formatDateShort(m.date)} 전후</p>
                       </div>
                     </div>
                   );
@@ -212,7 +212,7 @@ export default function PregnancyPage() {
               </div>
             </Card>
 
-            <p className="text-xs text-slate-400 text-center px-4">
+            <p className="text-xs text-slate-400 dark:text-slate-500 text-center px-4">
               * 이 계산기는 참고용입니다. 정확한 예정일은 산부인과 초음파 검사로 확인하세요.
             </p>
           </>

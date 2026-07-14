@@ -23,7 +23,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ slug
   return (
     <>
       <GeneratorEngine gen={gen} />
-      <RelatedContent items={GENERATORS} currentSlug={slug} basePath="/generator" accent="emerald" bg="bg-slate-50" />
+      <RelatedContent items={GENERATORS} currentSlug={slug} basePath="/generator" accent="emerald" bg="bg-slate-50 dark:bg-slate-950" />
       <SiteFooter />
     </>
   );

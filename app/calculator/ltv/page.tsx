@@ -87,7 +87,7 @@ export default function LtvPage() {
                 {result.ltv <= result.limit ? '한도 이하 ✓' : '한도 초과 ✕'}
               </p>
             </div>
-            <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
               <div
                 className={`h-3 rounded-full transition-all ${result.ltv <= result.limit ? 'bg-blue-500' : 'bg-rose-500'}`}
                 style={{ width: `${Math.min(100, result.ltv)}%` }}

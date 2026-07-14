@@ -78,14 +78,14 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
 
       <header className="border-b border-slate-800 sticky top-0 z-30 bg-slate-950/90 backdrop-blur">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
-          <Link href="/crypto/signals" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
+          <Link href="/crypto/signals" className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             Signal Board
           </Link>
-          <span className="text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-300">{coin.name}</span>
+          <span className="text-slate-700 dark:text-slate-200">·</span>
+          <span className="text-sm font-semibold text-slate-300 dark:text-slate-600">{coin.name}</span>
         </div>
       </header>
 
@@ -96,30 +96,30 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           아래는 서버에서 정적으로 렌더된다. 위 대시보드는 브라우저에서 시세를 받아 그리므로
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다. 실제 문장을 여기 둔다.
         */}
-        <section className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
+        <section className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-400 dark:text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
           <h2 className="text-base font-black text-white mb-3">About the {coin.name} ({coin.base}) price prediction</h2>
           <p className="mb-3">
             This page projects the {coin.name} price over seven horizons — 3 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years — with daily,
-            weekly and monthly views. It shows two complementary things: a conservative statistical forecast, and a <b className="text-slate-300">historical
+            weekly and monthly views. It shows two complementary things: a conservative statistical forecast, and a <b className="text-slate-300 dark:text-slate-600">historical
             scenario</b> table replaying every comparable window {coin.base} has actually lived through, which can fall over six months yet rise over a year.
             Every number is computed in your browser from {coin.base}&apos;s public Binance daily closing prices; nothing is stored and no account is needed.
           </p>
           <p className="mb-3">
-            The forecast splits {coin.base}&apos;s trend into two parts: a <b className="text-slate-300">market component</b> (its beta to Bitcoin) and a
-            <b className="text-slate-300"> coin-specific component</b> (alpha), each shrunk toward zero as a Bayesian posterior mean. The market drift is
+            The forecast splits {coin.base}&apos;s trend into two parts: a <b className="text-slate-300 dark:text-slate-600">market component</b> (its beta to Bitcoin) and a
+            <b className="text-slate-300 dark:text-slate-600"> coin-specific component</b> (alpha), each shrunk toward zero as a Bayesian posterior mean. The market drift is
             extrapolated assertively, so a coin&apos;s long-run trend does reach the forecast. That is a choice, and it has a measured cost: forecasting one year
-            ahead across 24 coins, this setting is about <b className="text-slate-300">2.6% worse</b> in RMSE than simply assuming the price does not change, and
+            ahead across 24 coins, this setting is about <b className="text-slate-300 dark:text-slate-600">2.6% worse</b> in RMSE than simply assuming the price does not change, and
             on a pure random walk it can manufacture a 3-year move of 34.6% from noise alone. Coins with under two years of history fall back to a conservative
             prior, and the drift is capped, to limit that.
-            We do <b className="text-slate-300">not</b> tilt the forecast with technical indicators. Backtested across 46 coins with non-overlapping forward
+            We do <b className="text-slate-300 dark:text-slate-600">not</b> tilt the forecast with technical indicators. Backtested across 46 coins with non-overlapping forward
             windows and a coin-level t-test, a consensus of trend (SMA 20/50), Bollinger %B, RSI(14) and an ATR trend measure had a 5-day directional accuracy of
-            <b className="text-slate-300">49.8%</b> — a coin flip. Momentum and reversal were no better: their signs flipped between pooled and per-coin fits.
+            <b className="text-slate-300 dark:text-slate-600">49.8%</b> — a coin flip. Momentum and reversal were no better: their signs flipped between pooled and per-coin fits.
           </p>
           <p>
-            Two consequences are worth stating plainly. The forecast <b className="text-slate-300">extrapolates a trend that is not statistically significant</b>,
+            Two consequences are worth stating plainly. The forecast <b className="text-slate-300 dark:text-slate-600">extrapolates a trend that is not statistically significant</b>,
             so treat it as one scenario rather than a validated prediction, and read the range and probabilities beside it. And the daily forecast line is
-            <b className="text-slate-300"> smooth and monotone</b>: we tested a day-of-week effect to see whether a zig-zagging daily forecast could be justified, and on the market series no weekday
-            reaches statistical significance. Direction is not forecastable, but <b className="text-slate-300">volatility is</b>, so each horizon uses its own
+            <b className="text-slate-300 dark:text-slate-600"> smooth and monotone</b>: we tested a day-of-week effect to see whether a zig-zagging daily forecast could be justified, and on the market series no weekday
+            reaches statistical significance. Direction is not forecastable, but <b className="text-slate-300 dark:text-slate-600">volatility is</b>, so each horizon uses its own
             measured blend of {coin.base}&apos;s current and long-run volatility. The range and the probability of a given move therefore carry at least as much
             information as the number itself.
           </p>
@@ -130,15 +130,15 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           <dl className="space-y-4 text-sm">
             {faqs(coin.name, coin.base).map(qa => (
               <div key={qa.q}>
-                <dt className="font-bold text-slate-300 mb-1">{qa.q}</dt>
-                <dd className="text-slate-500 leading-relaxed">{qa.a}</dd>
+                <dt className="font-bold text-slate-300 dark:text-slate-600 mb-1">{qa.q}</dt>
+                <dd className="text-slate-500 dark:text-slate-400 leading-relaxed">{qa.a}</dd>
               </div>
             ))}
           </dl>
         </section>
 
         <div className="mt-8 text-center">
-          <Link href="/crypto/signals" className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">
+          <Link href="/crypto/signals" className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors">
             ← Back to the signal board
           </Link>
         </div>

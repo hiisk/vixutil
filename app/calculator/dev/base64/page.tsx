@@ -8,7 +8,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -53,7 +53,7 @@ export default function Base64Page() {
           onChange={v => { setMode(v as 'encode' | 'decode'); setInput(''); }}
         />
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
             {mode === 'encode' ? '원문' : 'Base64'}
           </p>
           <textarea value={input} onChange={e => setInput(e.target.value)}
@@ -62,14 +62,14 @@ export default function Base64Page() {
           <label className="flex items-center gap-2 mt-3 cursor-pointer">
             <input type="checkbox" checked={urlSafe} onChange={e => setUrlSafe(e.target.checked)}
               className="w-4 h-4 accent-blue-600" />
-            <span className="text-sm text-slate-600">URL-safe Base64 (+→-, /→_)</span>
+            <span className="text-sm text-slate-600 dark:text-slate-300">URL-safe Base64 (+→-, /→_)</span>
           </label>
         </Card>
 
         {output && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                 {mode === 'encode' ? 'Base64' : '원문'}
               </p>
               <CopyBtn text={output} />

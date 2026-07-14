@@ -57,10 +57,10 @@ export default function ElectricityPage() {
               { label: '2구간', range: '~400kWh', rate: '214.6원' },
               { label: '3구간', range: '400kWh+', rate: '307.3원' },
             ].map(t => (
-              <div key={t.label} className="bg-slate-50 rounded-lg p-2">
-                <p className="font-bold text-slate-600">{t.label}</p>
-                <p className="text-slate-400">{t.range}</p>
-                <p className="font-semibold text-slate-700">{t.rate}/kWh</p>
+              <div key={t.label} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2">
+                <p className="font-bold text-slate-600 dark:text-slate-300">{t.label}</p>
+                <p className="text-slate-400 dark:text-slate-500">{t.range}</p>
+                <p className="font-semibold text-slate-700 dark:text-slate-200">{t.rate}/kWh</p>
               </div>
             ))}
           </div>
@@ -83,7 +83,7 @@ export default function ElectricityPage() {
                   { label: '전력기반기금 (3.7%)', value: result.fund },
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-600">{r.label}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{r.label}</span>
                     <span className="font-semibold">{fmt(r.value)}원</span>
                   </div>
                 ))}

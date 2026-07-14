@@ -150,46 +150,46 @@ export default function BusinessIncomePage() {
                   <table className="w-full text-sm">
                     <tbody>
                       <tr className="px-5">
-                        <td className="px-5 py-3 text-slate-500">연 매출</td>
-                        <td className="px-5 py-3 text-right font-semibold text-slate-800">{w(result.revenue)}원</td>
+                        <td className="px-5 py-3 text-slate-500 dark:text-slate-400">연 매출</td>
+                        <td className="px-5 py-3 text-right font-semibold text-slate-800 dark:text-slate-100">{w(result.revenue)}원</td>
                       </tr>
-                      <tr className="bg-slate-50">
-                        <td className="px-5 py-3 text-slate-500">필요경비 ({result.expenseRate.toFixed(1)}%)</td>
+                      <tr className="bg-slate-50 dark:bg-slate-950">
+                        <td className="px-5 py-3 text-slate-500 dark:text-slate-400">필요경비 ({result.expenseRate.toFixed(1)}%)</td>
                         <td className="px-5 py-3 text-right font-semibold text-blue-600">-{w(result.expenses)}원</td>
                       </tr>
                       <tr>
-                        <td className="px-5 py-3 text-slate-500">사업소득</td>
-                        <td className="px-5 py-3 text-right font-semibold text-slate-800">{w(result.businessIncome)}원</td>
+                        <td className="px-5 py-3 text-slate-500 dark:text-slate-400">사업소득</td>
+                        <td className="px-5 py-3 text-right font-semibold text-slate-800 dark:text-slate-100">{w(result.businessIncome)}원</td>
                       </tr>
-                      <tr className="bg-slate-50">
-                        <td className="px-5 py-3 text-slate-500">기본공제 (150만×{1 + Number(dependents)}명)</td>
+                      <tr className="bg-slate-50 dark:bg-slate-950">
+                        <td className="px-5 py-3 text-slate-500 dark:text-slate-400">기본공제 (150만×{1 + Number(dependents)}명)</td>
                         <td className="px-5 py-3 text-right font-semibold text-blue-600">-{w(result.basicDeduction)}원</td>
                       </tr>
                       <tr>
-                        <td className="px-5 py-3 font-bold text-slate-700">과세표준</td>
-                        <td className="px-5 py-3 text-right font-bold text-slate-800">{w(result.taxBase)}원</td>
+                        <td className="px-5 py-3 font-bold text-slate-700 dark:text-slate-200">과세표준</td>
+                        <td className="px-5 py-3 text-right font-bold text-slate-800 dark:text-slate-100">{w(result.taxBase)}원</td>
                       </tr>
-                      <tr className="bg-slate-50">
-                        <td className="px-5 py-3 text-slate-500">소득세</td>
+                      <tr className="bg-slate-50 dark:bg-slate-950">
+                        <td className="px-5 py-3 text-slate-500 dark:text-slate-400">소득세</td>
                         <td className="px-5 py-3 text-right font-semibold text-red-500">{w(result.incomeTax)}원</td>
                       </tr>
                       <tr>
-                        <td className="px-5 py-3 text-slate-500">지방소득세 (×10%)</td>
+                        <td className="px-5 py-3 text-slate-500 dark:text-slate-400">지방소득세 (×10%)</td>
                         <td className="px-5 py-3 text-right font-semibold text-red-500">{w(result.localTax)}원</td>
                       </tr>
                       <tr className="bg-red-50">
-                        <td className="px-5 py-3 font-bold text-slate-800">총 세금</td>
+                        <td className="px-5 py-3 font-bold text-slate-800 dark:text-slate-100">총 세금</td>
                         <td className="px-5 py-3 text-right font-black text-red-500">{w(result.totalTax)}원</td>
                       </tr>
                     </tbody>
                   </table>
                 </TableWrap>
               </div>
-              <div className="px-5 py-3 border-t border-slate-100">
-                <p className="text-xs text-slate-400">
+              <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
+                <p className="text-xs text-slate-400 dark:text-slate-500">
                   * 건강보험료(지역가입자 추산): 약 {w(result.healthInsurance)}원 (사업소득×7.09%)
                 </p>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                   * 단순경비율 적용 기준 · 실제 세액은 신고 방식에 따라 다를 수 있습니다.
                 </p>
               </div>

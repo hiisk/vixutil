@@ -103,7 +103,7 @@ export default function CaffeinePage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">섭취 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">섭취 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>섭취한 음료</Label>
@@ -116,7 +116,7 @@ export default function CaffeinePage() {
                     className={`px-3 py-2 text-xs font-semibold rounded-xl border transition-colors ${
                       amount === p.mg
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {p.label} ({p.mg}mg)
@@ -176,12 +176,12 @@ export default function CaffeinePage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">시간대별 잔존량 예상</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">시간대별 잔존량 예상</p>
               <div className="flex flex-col gap-2">
                 {result.milestones.map((m, i) => (
-                  <div key={i} className={`flex justify-between items-center py-2 ${i < result.milestones.length - 1 ? 'border-b border-slate-100' : ''}`}>
-                    <span className="text-sm text-slate-500">{m.label}</span>
-                    <span className="text-sm font-bold text-slate-800">약 {m.time}</span>
+                  <div key={i} className={`flex justify-between items-center py-2 ${i < result.milestones.length - 1 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}>
+                    <span className="text-sm text-slate-500 dark:text-slate-400">{m.label}</span>
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100">약 {m.time}</span>
                   </div>
                 ))}
               </div>
@@ -190,7 +190,7 @@ export default function CaffeinePage() {
             {result.sleepSafeTime && (
               <Card className="p-5 bg-amber-50 border-amber-100">
                 <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">🌙 참고용 취침 권장 시각</p>
-                <p className="text-sm text-slate-700">
+                <p className="text-sm text-slate-700 dark:text-slate-200">
                   체내 카페인이 약 {SLEEP_THRESHOLD_MG}mg 이하로 떨어지는 시각은 <strong>{result.sleepSafeTime}</strong> 무렵으로
                   추정됩니다. 개인차가 크므로 참고만 해주세요.
                 </p>

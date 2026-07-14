@@ -24,7 +24,7 @@ export default function CalcShareBtn() {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-blue-600 border border-slate-200 hover:border-blue-300 rounded-xl px-3 py-1.5 transition-all relative"
+      className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-blue-600 border border-slate-200 dark:border-slate-700 hover:border-blue-300 rounded-xl px-3 py-1.5 transition-all relative"
       aria-label="계산기 공유"
     >
       {copied ? (

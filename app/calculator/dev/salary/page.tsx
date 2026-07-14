@@ -137,7 +137,7 @@ export default function DevSalaryPage() {
                   <SummaryCard label="세후 차익 (20% 세율 추정)" value={`${fmt(stockResult.netAfterTax)}원`} variant="green" />
                 </div>
                 <Card className="p-4">
-                  <p className="text-xs text-slate-400">* 스톡옵션 과세는 행사 시점, 보유 기간, 상장 여부에 따라 다릅니다. 세무사 상담 권장.</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">* 스톡옵션 과세는 행사 시점, 보유 기간, 상장 여부에 따라 다릅니다. 세무사 상담 권장.</p>
                 </Card>
               </>
             )}

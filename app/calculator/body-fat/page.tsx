@@ -101,7 +101,7 @@ export default function BodyFatPage() {
         />
 
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             {/* 성별 */}
             <div>
@@ -112,7 +112,7 @@ export default function BodyFatPage() {
                     key={s.v}
                     onClick={() => { setSex(s.v); setResult(null); }}
                     className={`py-3 text-sm font-semibold rounded-xl border transition-colors ${
-                      sex === s.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                      sex === s.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {s.l}
@@ -149,7 +149,7 @@ export default function BodyFatPage() {
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-slate-400">* 목둘레: 후두골 아래 · 허리둘레: 배꼽 위 가장 가는 부위</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">* 목둘레: 후두골 아래 · 허리둘레: 배꼽 위 가장 가는 부위</p>
               </>
             ) : (
               <>
@@ -167,7 +167,7 @@ export default function BodyFatPage() {
                   <Label>체중 (kg) · 선택</Label>
                   <input type="number" value={weight} onChange={e => setWeight(e.target.value)} placeholder="70" className={inputCls} />
                 </div>
-                <p className="text-xs text-slate-400">Deurenberg 1991 공식 기반 추정 (±3~5% 오차 가능)</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">Deurenberg 1991 공식 기반 추정 (±3~5% 오차 가능)</p>
               </>
             )}
 
@@ -184,10 +184,10 @@ export default function BodyFatPage() {
             <div className={`rounded-2xl border p-5 ${result.level.bg}`}>
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <p className="text-xs text-slate-500 mb-1">체지방률</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">체지방률</p>
                   <p className={`text-5xl font-black ${result.level.color}`}>{result.bf.toFixed(1)}%</p>
                 </div>
-                <span className={`text-sm font-black px-4 py-2 rounded-xl bg-white border ${result.level.color} border-current`}>
+                <span className={`text-sm font-black px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} border-current`}>
                   {result.level.label}
                 </span>
               </div>
@@ -195,13 +195,13 @@ export default function BodyFatPage() {
               {result.totalWeight > 0 && (
                 <>
                   <div className="grid grid-cols-2 gap-3 mb-4">
-                    <div className="bg-white rounded-xl p-3 border border-slate-100">
-                      <p className="text-xs text-slate-400 mb-1">체지방량</p>
-                      <p className="text-lg font-black text-slate-800">{result.fatMass.toFixed(1)} kg</p>
+                    <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
+                      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체지방량</p>
+                      <p className="text-lg font-black text-slate-800 dark:text-slate-100">{result.fatMass.toFixed(1)} kg</p>
                     </div>
-                    <div className="bg-white rounded-xl p-3 border border-slate-100">
-                      <p className="text-xs text-slate-400 mb-1">근육·제지방량</p>
-                      <p className="text-lg font-black text-slate-800">{result.leanMass.toFixed(1)} kg</p>
+                    <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
+                      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">근육·제지방량</p>
+                      <p className="text-lg font-black text-slate-800 dark:text-slate-100">{result.leanMass.toFixed(1)} kg</p>
                     </div>
                   </div>
                   <RatioBar a={result.leanMass} b={result.fatMass} labelA="근육·제지방" labelB="체지방" />
@@ -211,7 +211,7 @@ export default function BodyFatPage() {
 
             {/* ACSM 기준표 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">ACSM 체지방률 등급 기준 ({sex === 'm' ? '남성' : '여성'})</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">ACSM 체지방률 등급 기준 ({sex === 'm' ? '남성' : '여성'})</p>
               <div className="flex flex-col gap-1.5">
                 {(sex === 'm' ? ACSM_MALE : ACSM_FEMALE).map((l, i) => {
                   const prev = (sex === 'm' ? ACSM_MALE : ACSM_FEMALE)[i - 1];
@@ -219,7 +219,7 @@ export default function BodyFatPage() {
                     <div
                       key={l.label}
                       className={`flex justify-between items-center text-xs px-3.5 py-2.5 rounded-xl border ${
-                        result.level.label === l.label ? `${l.bg} font-bold` : 'bg-slate-50 border-slate-100 text-slate-500'
+                        result.level.label === l.label ? `${l.bg} font-bold` : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400'
                       }`}
                     >
                       <span className={result.level.label === l.label ? l.color : ''}>{l.label}</span>

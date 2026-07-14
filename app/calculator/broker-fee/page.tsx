@@ -88,13 +88,13 @@ export default function BrokerFeePage() {
                   <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
                     placeholder="예: 800,000" className={inputCls} min="0" />
                 </div>
-                <p className="text-xs text-slate-400">환산금액 = 보증금 + 월세 × 100</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">환산금액 = 보증금 + 월세 × 100</p>
               </>
             )}
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={vat} onChange={e => setVat(e.target.checked)}
                 className="w-4 h-4 accent-blue-600" />
-              <span className="text-sm text-slate-700">VAT 10% 포함</span>
+              <span className="text-sm text-slate-700 dark:text-slate-200">VAT 10% 포함</span>
             </label>
             <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
@@ -112,7 +112,7 @@ export default function BrokerFeePage() {
               {vat && <SummaryCard label="부가가치세 (10%)" value={`${fmt(result.vatAmount)}원`} />}
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-400">* 상한 요율 내에서 협의 가능 · 실제 요율은 중개인과 협의하여 결정</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">* 상한 요율 내에서 협의 가능 · 실제 요율은 중개인과 협의하여 결정</p>
             </Card>
           </>
         )}

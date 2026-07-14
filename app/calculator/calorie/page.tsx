@@ -40,7 +40,7 @@ export default function CaloriePage() {
               <div className="grid grid-cols-2 gap-2">
                 {[{ v: 'male', l: '남성' }, { v: 'female', l: '여성' }].map(o => (
                   <button key={o.v} onClick={() => setGender(o.v as 'male' | 'female')}
-                    className={`py-2.5 rounded-xl text-sm font-semibold transition-colors ${gender === o.v ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                    className={`py-2.5 rounded-xl text-sm font-semibold transition-colors ${gender === o.v ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                     {o.l}
                   </button>
                 ))}
@@ -67,13 +67,13 @@ export default function CaloriePage() {
               <Label>활동 수준</Label>
               <div className="flex flex-col gap-1.5">
                 {ACTIVITY_LEVELS.map(l => (
-                  <label key={l.value} className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer border transition-colors ${activity === String(l.value) ? 'bg-blue-50 border-blue-300' : 'border-slate-200 hover:bg-slate-50'}`}>
+                  <label key={l.value} className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer border transition-colors ${activity === String(l.value) ? 'bg-blue-50 border-blue-300' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
                     <input type="radio" name="activity" value={l.value}
                       checked={activity === String(l.value)} onChange={e => setActivity(e.target.value)}
                       className="accent-blue-600" />
                     <div>
-                      <p className="text-sm font-semibold text-slate-800">{l.label}</p>
-                      <p className="text-xs text-slate-400">{l.sub}</p>
+                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{l.label}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500">{l.sub}</p>
                     </div>
                   </label>
                 ))}

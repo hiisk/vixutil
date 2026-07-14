@@ -78,7 +78,7 @@ export default function LocalIncomeTaxPage() {
               <SummaryCard label="지방소득세 (×10%)" value={`${fmt(result.localTax)}원`} variant="red" />
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 지방소득세는 소득세의 10%로 산출됩니다.<br />
                 신고 기한: 소득세 신고 다음달 말일까지 (위택스·지자체 납부)
               </p>

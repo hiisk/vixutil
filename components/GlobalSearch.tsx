@@ -49,7 +49,7 @@ export default function GlobalSearch({ items }: { items: SearchItem[] }) {
   return (
     <div>
       <div className="relative mb-5">
-        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         <input
@@ -58,7 +58,7 @@ export default function GlobalSearch({ items }: { items: SearchItem[] }) {
           onChange={e => { setQuery(e.target.value); setActive('전체'); }}
           placeholder="실업급여, 전세, MBTI, 로또…"
           autoFocus
-          className="w-full border-2 border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 placeholder:text-slate-300 focus:outline-none focus:border-indigo-400 transition-colors bg-white"
+          className="w-full border-2 border-slate-200 dark:border-slate-700 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:border-indigo-400 transition-colors bg-white dark:bg-slate-900"
         />
       </div>
 
@@ -76,10 +76,10 @@ export default function GlobalSearch({ items }: { items: SearchItem[] }) {
                   className={`shrink-0 px-3.5 py-1.5 rounded-full text-sm font-bold border transition-all ${
                     active === s
                       ? 'bg-indigo-500 text-white border-indigo-500'
-                      : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300'
+                      : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300'
                   }`}
                 >
-                  {label} <span className={active === s ? 'text-indigo-100' : 'text-slate-400'}>{n}</span>
+                  {label} <span className={active === s ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}>{n}</span>
                 </button>
               );
             })}
@@ -89,17 +89,17 @@ export default function GlobalSearch({ items }: { items: SearchItem[] }) {
       {!trimmed ? (
         <div className="py-16 text-center">
           <p className="text-4xl mb-3">🔍</p>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-400 dark:text-slate-500">
             계산기 · 심리테스트 · 퀴즈 · 생성기 · 체크리스트를<br />한 번에 검색합니다
           </p>
         </div>
       ) : shown.length === 0 ? (
         <div className="py-16 text-center">
           <p className="text-4xl mb-3">🤔</p>
-          <p className="text-sm text-slate-500">
-            <span className="font-bold text-slate-700">&lsquo;{query.trim()}&rsquo;</span>에 해당하는 결과가 없어요.
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="font-bold text-slate-700 dark:text-slate-200">&lsquo;{query.trim()}&rsquo;</span>에 해당하는 결과가 없어요.
           </p>
-          <p className="text-xs text-slate-400 mt-1.5">다른 단어로 검색해보세요.</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">다른 단어로 검색해보세요.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -109,21 +109,21 @@ export default function GlobalSearch({ items }: { items: SearchItem[] }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-start gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
+                className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
               >
-                <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-lg">
+                <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-950 flex items-center justify-center text-lg">
                   {item.icon}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-sm font-bold text-slate-800 group-hover:text-indigo-700 transition-colors">
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-700 transition-colors">
                       {item.title}
                     </span>
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${meta.accent}`}>
                       {meta.label}
                     </span>
                   </span>
-                  <span className="block text-xs text-slate-400 leading-relaxed mt-0.5 line-clamp-1">{item.desc}</span>
+                  <span className="block text-xs text-slate-400 dark:text-slate-500 leading-relaxed mt-0.5 line-clamp-1">{item.desc}</span>
                 </span>
               </Link>
             );

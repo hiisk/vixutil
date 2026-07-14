@@ -62,9 +62,9 @@ export default function WaterPage() {
                 { label: '소형 페트병 (330ml)', value: `${Math.ceil(result.ml / 330)}병` },
                 { label: '중형 페트병 (500ml)', value: `${Math.ceil(result.ml / 500)}병` },
               ].map(r => (
-                <div key={r.label} className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <p className="text-xs text-slate-400 mb-1">{r.label}</p>
-                  <p className="font-black text-slate-900 text-lg">{r.value}</p>
+                <div key={r.label} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{r.label}</p>
+                  <p className="font-black text-slate-900 dark:text-slate-100 text-lg">{r.value}</p>
                 </div>
               ))}
             </div>

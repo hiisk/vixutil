@@ -6,7 +6,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -48,13 +48,13 @@ export default function CronPage() {
     describeField(fields.dow, '요일'),
   ].join(' / ');
 
-  const inputCls = 'w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500';
+  const inputCls = 'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500';
 
   return (
     <CalcShell title="Cron 표현식 생성기" description="Cron Expression 작성 · 미리 정의된 템플릿 제공" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">미리 정의된 템플릿</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">미리 정의된 템플릿</p>
           <div className="grid grid-cols-2 gap-2">
             {PRESETS.map(p => (
               <button key={p.expr}
@@ -62,16 +62,16 @@ export default function CronPage() {
                   const [min, hour, day, month, dow] = p.expr.split(' ');
                   setFields({ min, hour, day, month, dow });
                 }}
-                className={`text-left p-3 rounded-xl border text-xs transition-colors ${expr === p.expr ? 'bg-blue-50 border-blue-300' : 'bg-white border-slate-200 hover:border-blue-200'}`}>
-                <p className="font-bold text-slate-700 font-mono">{p.expr}</p>
-                <p className="text-slate-400 mt-0.5">{p.label} · {p.desc}</p>
+                className={`text-left p-3 rounded-xl border text-xs transition-colors ${expr === p.expr ? 'bg-blue-50 border-blue-300' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-blue-200'}`}>
+                <p className="font-bold text-slate-700 dark:text-slate-200 font-mono">{p.expr}</p>
+                <p className="text-slate-400 dark:text-slate-500 mt-0.5">{p.label} · {p.desc}</p>
               </button>
             ))}
           </div>
         </Card>
 
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">직접 편집</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">직접 편집</p>
           <div className="grid grid-cols-5 gap-2">
             {[
               { key: 'min', label: '분 (0-59)', placeholder: '0, *, */5' },
@@ -92,15 +92,15 @@ export default function CronPage() {
 
         <div className="bg-slate-900 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-slate-400 text-xs uppercase tracking-wide font-bold">Cron 표현식</p>
+            <p className="text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wide font-bold">Cron 표현식</p>
             <CopyBtn text={expr} />
           </div>
           <p className="text-green-400 font-mono text-2xl font-bold">{expr}</p>
-          <p className="text-slate-400 text-xs mt-2">{description}</p>
+          <p className="text-slate-400 dark:text-slate-500 text-xs mt-2">{description}</p>
         </div>
 
         <Card className="p-4">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-400 dark:text-slate-500">
             * = 모든 값 · */n = n마다 · a-b = a부터 b · a,b = a와 b<br />
             요일: 0=일, 1=월, 2=화, 3=수, 4=목, 5=금, 6=토, 7=일
           </p>

@@ -23,7 +23,7 @@ export default function RelatedContent({
   basePath,
   accent,
   limit = 6,
-  bg = 'bg-white',
+  bg = 'bg-white dark:bg-slate-900',
 }: {
   items: readonly RelatedItem[];
   currentSlug: string;
@@ -42,7 +42,7 @@ export default function RelatedContent({
   return (
     <div className={bg}>
       <section className="max-w-lg mx-auto px-4 pb-12 w-full" aria-label="관련 콘텐츠">
-        <h2 className="text-base font-black text-slate-800 mb-3">
+        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">
           {current.category} 더 보기
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">
@@ -50,16 +50,16 @@ export default function RelatedContent({
             <Link
               key={item.slug}
               href={`${basePath}/${item.slug}`}
-              className={`group flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-3.5 py-3 transition-all hover:shadow-sm ${c.hoverBorder}`}
+              className={`group flex items-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-3 transition-all hover:shadow-sm ${c.hoverBorder}`}
             >
               <span className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-lg ${c.iconBg}`}>
                 {item.icon}
               </span>
               <span className="min-w-0">
-                <span className={`block text-sm font-bold text-slate-800 truncate transition-colors ${c.hoverText}`}>
+                <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 truncate transition-colors ${c.hoverText}`}>
                   {item.title}
                 </span>
-                <span className="block text-xs text-slate-400 truncate">{item.desc}</span>
+                <span className="block text-xs text-slate-400 dark:text-slate-500 truncate">{item.desc}</span>
               </span>
             </Link>
           ))}

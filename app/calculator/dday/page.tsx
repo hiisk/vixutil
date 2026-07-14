@@ -76,8 +76,8 @@ export default function DdayPage() {
                 {l:'평일 수', v:`${Math.abs(result.weekdays)}일`},
               ].map(item=>(
                 <Card key={item.l} className="p-4 text-center">
-                  <p className="text-xs text-slate-400 mb-1">{item.l}</p>
-                  <p className="font-black text-slate-900 text-base">{item.v}</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.l}</p>
+                  <p className="font-black text-slate-900 dark:text-slate-100 text-base">{item.v}</p>
                 </Card>
               ))}
             </div>
@@ -86,7 +86,7 @@ export default function DdayPage() {
 
         {/* 날짜 간격 계산 */}
         <Card className="p-5">
-          <p className="text-sm font-bold text-slate-800 mb-4">두 날짜 사이 간격</p>
+          <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-4">두 날짜 사이 간격</p>
           <TwoDate />
         </Card>
       </div>

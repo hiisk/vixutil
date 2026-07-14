@@ -111,16 +111,16 @@ export default function CompoundGoalPage() {
               <CardHeader title="연도별 자산 성장" />
               <TableWrap>
                 <table className="w-full text-sm">
-                  <thead className="bg-slate-50">
+                  <thead className="bg-slate-50 dark:bg-slate-950">
                     <tr>
-                      <th className="px-5 py-2.5 text-left text-xs font-bold text-slate-500">연도</th>
-                      <th className="px-5 py-2.5 text-right text-xs font-bold text-slate-500">예상 자산</th>
+                      <th className="px-5 py-2.5 text-left text-xs font-bold text-slate-500 dark:text-slate-400">연도</th>
+                      <th className="px-5 py-2.5 text-right text-xs font-bold text-slate-500 dark:text-slate-400">예상 자산</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {result.rows.slice(0, showing).map(row => (
                       <tr key={row.year} className={row.amount >= Number(goal) ? 'bg-blue-50' : ''}>
-                        <td className="px-5 py-2.5 text-slate-700">{row.year}년 후</td>
+                        <td className="px-5 py-2.5 text-slate-700 dark:text-slate-200">{row.year}년 후</td>
                         <td className="px-5 py-2.5 text-right font-semibold">{fmt(row.amount)}원</td>
                       </tr>
                     ))}

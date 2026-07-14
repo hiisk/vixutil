@@ -75,7 +75,7 @@ export default function GiftTaxPage() {
                   <option key={k} value={k}>{RELATION_LABEL[k]}</option>
                 ))}
               </select>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 공제한도: {(DEDUCTION[relation] / 100_000_000).toFixed(1)}억원 (10년 합산 기준)
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function GiftTaxPage() {
               <SummaryCard label="과세표준" value={`${fmt(result.taxBase)}원`} />
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 * 신고기한: 증여일이 속하는 달의 말일부터 3개월 이내<br />
                 * 자진신고 시 세액의 3% 공제 적용<br />
                 * 공제한도는 10년 단위로 초기화됩니다

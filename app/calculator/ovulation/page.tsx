@@ -75,12 +75,12 @@ export default function OvulationPage() {
             <Card>
               <div className="divide-y divide-slate-100">
                 {[
-                  { label: '다음 생리 예정일', value: formatDate(result.nextPeriod), color: 'text-slate-800' },
+                  { label: '다음 생리 예정일', value: formatDate(result.nextPeriod), color: 'text-slate-800 dark:text-slate-100' },
                   { label: '가임기 시작', value: formatDate(result.fertilityStart), color: 'text-emerald-600' },
                   { label: '가임기 종료', value: formatDate(result.fertilityEnd), color: 'text-emerald-600' },
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3.5 flex justify-between text-sm">
-                    <span className="text-slate-500">{r.label}</span>
+                    <span className="text-slate-500 dark:text-slate-400">{r.label}</span>
                     <span className={`font-bold ${r.color}`}>{r.value}</span>
                   </div>
                 ))}
@@ -88,7 +88,7 @@ export default function OvulationPage() {
             </Card>
             <Card className="p-4">
               <p className="text-xs text-red-400 font-semibold mb-1">⚠ 주의사항</p>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 이 계산기는 평균적인 주기를 기반으로 한 참고용 계산입니다.
                 실제 배란일은 개인마다 다를 수 있으며, 의학적 진단이 아닙니다.
                 정확한 정보는 전문의와 상담하세요.

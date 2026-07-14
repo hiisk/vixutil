@@ -48,11 +48,11 @@ export default function TestEngine({ test }: { test: Test }) {
 
   /* ── START ── */
   if (phase === 'start') return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
-      <header className="bg-white border-b border-slate-100">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href="/test" className="text-sm text-slate-400 hover:text-violet-600 flex items-center gap-1.5 font-medium">
+          <Link href="/test" className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -62,9 +62,9 @@ export default function TestEngine({ test }: { test: Test }) {
       </header>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
         <span className="text-xs font-bold text-violet-500 bg-violet-50 px-3 py-1 rounded-full mb-3">{test.category}</span>
-        <h1 className="text-2xl font-black text-slate-900 mb-3">{test.title}</h1>
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>
-        <p className="text-xs text-slate-400 mb-8">{test.questions.length}문항 · 약 2분 소요</p>
+        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{test.title}</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{test.questions.length}문항 · 약 2분 소요</p>
         <button onClick={() => setPhase('question')}
           className="w-full max-w-xs bg-violet-600 hover:bg-violet-700 text-white font-black py-4 rounded-2xl text-base transition-colors shadow-md shadow-violet-200">
           테스트 시작하기 →
@@ -77,23 +77,23 @@ export default function TestEngine({ test }: { test: Test }) {
   if (phase === 'question') {
     const q = test.questions[current];
     return (
-      <div className="min-h-screen bg-white flex flex-col">
+      <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
         <div className="h-1.5 bg-violet-100">
           <div className="h-full bg-gradient-to-r from-violet-500 to-pink-500 transition-all duration-500" style={{ width: `${progress}%` }} />
         </div>
-        <header className="bg-white border-b border-slate-100">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
           <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
             <span className="text-sm font-bold text-violet-600 truncate mr-2">{test.title}</span>
-            <span className="text-xs text-slate-400 shrink-0">{current + 1} / {test.questions.length}</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">{current + 1} / {test.questions.length}</span>
           </div>
         </header>
         <div className="flex-1 px-4 py-10 max-w-lg mx-auto w-full">
           <p className="text-xs font-bold text-violet-400 mb-4">Q{current + 1}</p>
-          <h2 className="text-lg font-bold text-slate-900 mb-8 leading-relaxed whitespace-pre-line">{q.q}</h2>
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line">{q.q}</h2>
           <div className="flex flex-col gap-3">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(opt.score)}
-                className="w-full text-left bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-sm font-medium text-slate-700 hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 active:scale-[0.99] transition-all">
+                className="w-full text-left bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 active:scale-[0.99] transition-all">
                 {opt.text}
               </button>
             ))}
@@ -105,11 +105,11 @@ export default function TestEngine({ test }: { test: Test }) {
 
   /* ── RESULT ── */
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
-      <header className="bg-white border-b border-slate-100">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center">
-          <button onClick={restart} className="text-sm text-slate-400 hover:text-violet-600 flex items-center gap-1.5 font-medium">
+          <button onClick={restart} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -125,7 +125,7 @@ export default function TestEngine({ test }: { test: Test }) {
           <span className="absolute -bottom-4 -left-4 text-[80px] opacity-10 select-none">{result.emoji}</span>
           {/* main emoji */}
           <div className="text-7xl mb-4 filter drop-shadow-lg relative z-10">{result.emoji}</div>
-          <span className="relative z-10 text-xs font-bold bg-white/20 px-3 py-1 rounded-full">{test.category} 테스트 결과</span>
+          <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{test.category} 테스트 결과</span>
           {mbtiType && (
             <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
           )}
@@ -135,11 +135,11 @@ export default function TestEngine({ test }: { test: Test }) {
 
         {/* Traits */}
         {result.traits && result.traits.length > 0 && (
-          <div className="bg-slate-50 rounded-2xl p-5 mb-5">
-            <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wide">주요 특징</p>
+          <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-5 mb-5">
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">주요 특징</p>
             <div className="flex flex-wrap gap-2">
               {result.traits.map((t, i) => (
-                <span key={i} className="text-xs font-semibold px-3 py-1.5 bg-white border border-slate-200 rounded-full text-slate-700">
+                <span key={i} className="text-xs font-semibold px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-200">
                   ✦ {t}
                 </span>
               ))}
@@ -159,7 +159,7 @@ export default function TestEngine({ test }: { test: Test }) {
             다시 테스트하기
           </button>
           <Link href="/test"
-            className="w-full block text-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl py-3.5 font-bold text-sm transition-colors">
+            className="w-full block text-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 rounded-xl py-3.5 font-bold text-sm transition-colors">
             다른 테스트 보기
           </Link>
         </div>

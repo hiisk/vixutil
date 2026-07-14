@@ -63,7 +63,7 @@ export default function EvChargePage() {
               <div className="flex gap-2 mb-2">
                 {CHARGE_PRESETS.map(p => (
                   <button key={p.label} onClick={() => setChargePrice(String(p.price))}
-                    className={`flex-1 py-2 rounded-lg text-xs font-bold transition-colors ${chargePrice === String(p.price) ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                    className={`flex-1 py-2 rounded-lg text-xs font-bold transition-colors ${chargePrice === String(p.price) ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                     {p.label}<br />{p.price}원
                   </button>
                 ))}

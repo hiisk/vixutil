@@ -149,7 +149,7 @@ export default function SeverancePage() {
 
         {/* 공통: 재직기간 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">재직기간</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">재직기간</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>입사일</Label>
@@ -164,7 +164,7 @@ export default function SeverancePage() {
 
         {/* 임금 입력 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">임금 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">임금 정보</p>
           {mode === 'simple' ? (
             <div>
               <Label>월 평균임금 (원)</Label>
@@ -173,7 +173,7 @@ export default function SeverancePage() {
                 onChange={setSimpleWage}
                 placeholder="예: 3,000,000"
               />
-              <p className="text-xs text-slate-400 mt-1.5">세전 급여 기준 (기본급 + 각종 수당 포함)</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">세전 급여 기준 (기본급 + 각종 수당 포함)</p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -191,16 +191,16 @@ export default function SeverancePage() {
                   <CommaInput value={wage3} onChange={setWage3} placeholder="예: 3,000,000" />
                 </div>
               </div>
-              <p className="text-xs text-slate-400">기본급 + 제수당 포함, 퇴직 전 3개월간 실수령 세전 금액</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">기본급 + 제수당 포함, 퇴직 전 3개월간 실수령 세전 금액</p>
             </div>
           )}
 
           {/* 상여금·연차수당 (두 모드 공통) */}
-          <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <Label>연간 상여금 (원, 선택)</Label>
               <CommaInput value={annualBonus} onChange={setAnnualBonus} placeholder="예: 7,000,000" />
-              <p className="text-xs text-slate-400 mt-1">연간 정기 상여 합계</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">연간 정기 상여 합계</p>
             </div>
             <div>
               <Label>연간 연차미사용수당 (원, 선택)</Label>
@@ -209,10 +209,10 @@ export default function SeverancePage() {
           </div>
 
           {/* 통상임금 비교 */}
-          <div className="mt-4 pt-4 border-t border-slate-100">
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
             <Label>월 통상임금 (원, 선택 — 평균임금과 비교)</Label>
             <CommaInput value={monthlyStdWage} onChange={setMonthlyStdWage} placeholder="입력 시 평균임금과 비교해 높은 값 적용" />
-            <p className="text-xs text-slate-400 mt-1.5">
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
               통상임금이 평균임금보다 높으면 통상임금 기준으로 계산 (근로기준법 제2조)
             </p>
           </div>
@@ -271,10 +271,10 @@ export default function SeverancePage() {
                     value={`+${fmt(result.leave3M)}원`}
                   />
                 )}
-                <div className="border-t border-slate-100 pt-2.5">
+                <div className="border-t border-slate-100 dark:border-slate-800 pt-2.5">
                   <Row label="3개월 임금 총액" value={`${fmt(result.threeMonthTotal)}원`} bold />
                 </div>
-                <div className="border-t border-slate-100 pt-2.5">
+                <div className="border-t border-slate-100 dark:border-slate-800 pt-2.5">
                   <Row
                     label={`1일 평균임금 (÷ ${result.threeMonthDays}일)`}
                     value={`${result.dailyAvgWage.toFixed(0)}원`}
@@ -286,15 +286,15 @@ export default function SeverancePage() {
 
             <Card>
               <CardHeader title="퇴직금 산출 공식" />
-              <div className="p-5 text-sm text-slate-600 space-y-2">
-                <p className="font-mono text-xs bg-slate-50 rounded-lg p-3 text-slate-700 leading-relaxed">
+              <div className="p-5 text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                <p className="font-mono text-xs bg-slate-50 dark:bg-slate-950 rounded-lg p-3 text-slate-700 dark:text-slate-200 leading-relaxed">
                   퇴직금 = 1일 평균임금 × 30일 × (재직일수 ÷ 365)
                   <br />
                   = {fmt(result.appliedWage)}원 × 30 × ({fmt(result.totalDays)} ÷ 365)
                   <br />
                   = <strong>{fmt(result.severancePay)}원</strong>
                 </p>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
                   * 퇴직소득세가 별도 부과됩니다. 근속연수·퇴직소득공제에 따라 실수령액이 달라집니다.
                 </p>
               </div>
@@ -308,7 +308,7 @@ export default function SeverancePage() {
 
 function Row({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
   return (
-    <div className={`flex justify-between items-center ${bold ? 'font-bold text-slate-900' : 'text-slate-600'}`}>
+    <div className={`flex justify-between items-center ${bold ? 'font-bold text-slate-900 dark:text-slate-100' : 'text-slate-600 dark:text-slate-300'}`}>
       <span>{label}</span>
       <span>{value}</span>
     </div>

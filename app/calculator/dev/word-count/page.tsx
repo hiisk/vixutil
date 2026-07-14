@@ -24,8 +24,8 @@ const STAT_ITEMS: { key: keyof ReturnType<typeof countStats>; label: string; sub
   { key: 'charsNoSpace', label: '글자수',          sub: '공백 제외',        color: 'text-indigo-700' },
   { key: 'words',        label: '단어수',          sub: '공백 기준',        color: 'text-violet-700' },
   { key: 'sentences',    label: '문장수',          sub: '.!? 기준',         color: 'text-purple-700' },
-  { key: 'lines',        label: '줄 수',           sub: '개행 기준',        color: 'text-slate-700' },
-  { key: 'paragraphs',   label: '단락수',          sub: '빈 줄 기준',       color: 'text-slate-600' },
+  { key: 'lines',        label: '줄 수',           sub: '개행 기준',        color: 'text-slate-700 dark:text-slate-200' },
+  { key: 'paragraphs',   label: '단락수',          sub: '빈 줄 기준',       color: 'text-slate-600 dark:text-slate-300' },
   { key: 'bytes',        label: '바이트수',        sub: 'UTF-8',            color: 'text-emerald-700' },
 ];
 
@@ -40,23 +40,23 @@ export default function WordCountPage() {
         {/* 통계 그리드 */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {STAT_ITEMS.slice(0, 4).map(item => (
-            <div key={item.key} className="bg-white border border-slate-200 rounded-2xl p-4">
-              <p className="text-xs text-slate-400 mb-1">{item.label}</p>
+            <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
               <p className={`text-2xl font-black ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
               </p>
-              <p className="text-xs text-slate-400 mt-0.5">{item.sub}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{item.sub}</p>
             </div>
           ))}
         </div>
         <div className="grid grid-cols-3 gap-3">
           {STAT_ITEMS.slice(4).map(item => (
-            <div key={item.key} className="bg-white border border-slate-200 rounded-2xl p-4">
-              <p className="text-xs text-slate-400 mb-1">{item.label}</p>
+            <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
               <p className={`text-2xl font-black ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
               </p>
-              <p className="text-xs text-slate-400 mt-0.5">{item.sub}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{item.sub}</p>
             </div>
           ))}
         </div>
@@ -64,11 +64,11 @@ export default function WordCountPage() {
         {/* 텍스트 입력 */}
         <Card className="p-5">
           <div className="flex justify-between items-center mb-3">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">텍스트 입력</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">텍스트 입력</p>
             {text && (
               <button
                 onClick={() => setText('')}
-                className="text-xs text-slate-400 hover:text-red-500 transition-colors font-semibold"
+                className="text-xs text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors font-semibold"
               >
                 지우기
               </button>
@@ -78,10 +78,10 @@ export default function WordCountPage() {
             value={text}
             onChange={e => setText(e.target.value)}
             placeholder="여기에 텍스트를 입력하면 실시간으로 글자수가 카운트됩니다..."
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
             rows={12}
           />
-          <div className="flex justify-between items-center mt-2 text-xs text-slate-400">
+          <div className="flex justify-between items-center mt-2 text-xs text-slate-400 dark:text-slate-500">
             <span>실시간 카운트 · 입력 즉시 반영</span>
             <span>{stats.totalChars.toLocaleString('ko-KR')} 자</span>
           </div>
@@ -90,13 +90,13 @@ export default function WordCountPage() {
         {/* 상세 분석 */}
         {text && (
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">상세 분석</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">상세 분석</p>
             <div className="flex flex-col divide-y divide-slate-100">
               {STAT_ITEMS.map(item => (
                 <div key={item.key} className="flex justify-between items-center py-2.5">
                   <div>
-                    <span className="text-sm text-slate-700 font-semibold">{item.label}</span>
-                    <span className="text-xs text-slate-400 ml-2">{item.sub}</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-200 font-semibold">{item.label}</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500 ml-2">{item.sub}</span>
                   </div>
                   <span className={`text-base font-black font-mono ${item.color}`}>
                     {stats[item.key].toLocaleString('ko-KR')}

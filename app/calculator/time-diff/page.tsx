@@ -81,7 +81,7 @@ export default function TimeDiffPage() {
         {tab === 'diff' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">두 시각 입력</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">두 시각 입력</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
@@ -114,7 +114,7 @@ export default function TimeDiffPage() {
                   <SummaryCard label="초" value={`${diffResult.seconds}초`} />
                 </SummaryGrid>
                 <Card className="p-5">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">환산</p>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">환산</p>
                   <div className="flex flex-col gap-2">
                     {(() => {
                       const abs = diffResult.days * 86400 + diffResult.hours * 3600 + diffResult.minutes * 60 + diffResult.seconds;
@@ -126,9 +126,9 @@ export default function TimeDiffPage() {
                         { label: '총 일', value: `${sign}${(abs / 86400).toFixed(4)}일` },
                       ];
                     })().map((row, i) => (
-                      <div key={i} className={`flex justify-between py-2 ${i < 3 ? 'border-b border-slate-100' : ''}`}>
-                        <span className="text-sm text-slate-500">{row.label}</span>
-                        <span className="text-sm font-bold text-slate-900">{row.value}</span>
+                      <div key={i} className={`flex justify-between py-2 ${i < 3 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}>
+                        <span className="text-sm text-slate-500 dark:text-slate-400">{row.label}</span>
+                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{row.value}</span>
                       </div>
                     ))}
                   </div>
@@ -142,7 +142,7 @@ export default function TimeDiffPage() {
         {tab === 'add' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">기준 시각</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기준 시각</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
@@ -160,7 +160,7 @@ export default function TimeDiffPage() {
                     {(['add', 'sub'] as const).map(op => (
                       <button key={op} type="button" onClick={() => setOperation(op)}
                         className={`py-3 text-sm font-semibold rounded-xl border transition-colors ${
-                          operation === op ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          operation === op ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>
                         {op === 'add' ? '+ 더하기' : '- 빼기'}
                       </button>
@@ -178,7 +178,7 @@ export default function TimeDiffPage() {
                       { label: '초', value: addSecs, set: setAddSecs },
                     ].map(field => (
                       <div key={field.label}>
-                        <p className="text-xs text-slate-400 text-center mb-1">{field.label}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-1">{field.label}</p>
                         <input type="number" value={field.value}
                           onChange={e => field.set(e.target.value)}
                           min={0} className={inputCls} />

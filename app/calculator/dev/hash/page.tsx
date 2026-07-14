@@ -15,7 +15,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -43,16 +43,16 @@ export default function HashPage() {
           onChange={v => setAlgo(v as 'SHA-256' | 'SHA-512')}
         />
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">입력 텍스트</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">입력 텍스트</p>
           <textarea value={input} onChange={e => setInput(e.target.value)}
             placeholder="해시를 생성할 텍스트 입력 (실시간 계산)" className={areaCls} />
         </Card>
 
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">{algo} 해시</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{algo} 해시</p>
             <div className="flex items-center gap-3">
-              <label className="flex items-center gap-1.5 text-xs text-slate-500 cursor-pointer">
+              <label className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 cursor-pointer">
                 <input type="checkbox" checked={uppercase} onChange={e => setUppercase(e.target.checked)}
                   className="accent-blue-600" />
                 대문자
@@ -63,7 +63,7 @@ export default function HashPage() {
           <div className="bg-slate-900 rounded-xl p-4 border border-slate-700">
             <p className="font-mono text-green-400 text-xs break-all">{output || '(입력하면 자동 계산됩니다)'}</p>
           </div>
-          <p className="text-xs text-slate-400 mt-2">{algo === 'SHA-256' ? '256비트 (64자)' : '512비트 (128자)'}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{algo === 'SHA-256' ? '256비트 (64자)' : '512비트 (128자)'}</p>
         </Card>
       </div>
     </CalcShell>

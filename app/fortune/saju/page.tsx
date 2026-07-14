@@ -21,9 +21,9 @@ function PillarCard({ label, pillar, isDay, ilganIdx }: {
 }) {
   if (!pillar) return (
     <div className="flex-1 min-w-0 flex flex-col gap-1">
-      <p className="text-[10px] font-black text-slate-400 text-center tracking-wider">{label}</p>
-      <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 min-h-[140px] flex flex-col items-center justify-center">
-        <p className="text-xs text-slate-300 font-bold">생략</p>
+      <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 text-center tracking-wider">{label}</p>
+      <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 min-h-[140px] flex flex-col items-center justify-center">
+        <p className="text-xs text-slate-300 dark:text-slate-600 font-bold">생략</p>
       </div>
     </div>
   );
@@ -36,10 +36,10 @@ function PillarCard({ label, pillar, isDay, ilganIdx }: {
 
   return (
     <div className="flex-1 min-w-0 flex flex-col gap-1">
-      <p className={`text-[10px] font-black text-center tracking-wider ${isDay ? 'text-indigo-600' : 'text-slate-400'}`}>{label}</p>
-      <div className={`rounded-xl border-2 overflow-hidden flex flex-col ${isDay ? 'border-indigo-300 shadow-md shadow-indigo-100' : 'border-slate-200'}`}>
+      <p className={`text-[10px] font-black text-center tracking-wider ${isDay ? 'text-indigo-600' : 'text-slate-400 dark:text-slate-500'}`}>{label}</p>
+      <div className={`rounded-xl border-2 overflow-hidden flex flex-col ${isDay ? 'border-indigo-300 shadow-md shadow-indigo-100' : 'border-slate-200 dark:border-slate-700'}`}>
         {/* 천간 */}
-        <div className="p-2 flex flex-col items-center border-b border-white/50" style={{ background: stemEl.bg }}>
+        <div className="p-2 flex flex-col items-center border-b border-white/50 dark:border-slate-700/50" style={{ background: stemEl.bg }}>
           <span className="text-2xl font-black leading-none" style={{ color: stemEl.color }}>{stem.hanja}</span>
           <span className="text-[9px] font-bold mt-0.5" style={{ color: stemEl.color }}>{stem.kor}({stem.element}·{stem.yinyang})</span>
           {ssInfo && (
@@ -55,7 +55,7 @@ function PillarCard({ label, pillar, isDay, ilganIdx }: {
           <span className="text-[9px] font-bold" style={{ color: branchEl.color }}>{branch.kor}({branch.element})</span>
         </div>
       </div>
-      <p className="text-[9px] text-center text-slate-300 font-bold">{pillarHanja(pillar)}</p>
+      <p className="text-[9px] text-center text-slate-300 dark:text-slate-600 font-bold">{pillarHanja(pillar)}</p>
     </div>
   );
 }
@@ -76,7 +76,7 @@ function ElementBar({ counts, total }: { counts: Record<string,number>; total: n
                 {count}개{count===0?' ⚠️':''}
               </span>
             </div>
-            <div className="bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div className="bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
               <div className="h-full rounded-full transition-all duration-700" style={{ width:`${pct}%`, background:info.color }} />
             </div>
           </div>
@@ -103,7 +103,7 @@ const COLOR_MAP: Record<string, { bg: string; badge: string; dot: string; border
 const GRADE_BADGE: Record<string, string> = {
   '대길': 'bg-red-100 text-red-700',
   '길':   'bg-emerald-100 text-emerald-700',
-  '보통': 'bg-slate-100 text-slate-600',
+  '보통': 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300',
   '주의': 'bg-amber-100 text-amber-700',
   '흉':   'bg-gray-200 text-gray-600',
 };
@@ -116,11 +116,11 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
   const branchEl = ELEMENT_INFO[branch.element];
   return (
     <div className={`flex-shrink-0 w-[72px] rounded-xl border-2 overflow-hidden text-center transition-all
-      ${isCurrent ? 'border-indigo-400 shadow-lg shadow-indigo-100 scale-105' : 'border-slate-200'}`}>
+      ${isCurrent ? 'border-indigo-400 shadow-lg shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
       {isCurrent && (
         <div className="bg-indigo-500 text-white text-[8px] font-black py-0.5">현재</div>
       )}
-      <div className="p-1.5 border-b border-white/50" style={{ background: stemEl.bg }}>
+      <div className="p-1.5 border-b border-white/50 dark:border-slate-700/50" style={{ background: stemEl.bg }}>
         <p className="text-xs font-black" style={{ color:stemEl.color }}>{stem.hanja}</p>
         <p className="text-[8px] font-bold" style={{ color:stemEl.color }}>{stem.kor}({stem.element})</p>
       </div>
@@ -129,7 +129,7 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
         <p className="text-xs font-black" style={{ color:branchEl.color }}>{branch.hanja}</p>
         <p className="text-[8px] font-bold" style={{ color:branchEl.color }}>{branch.kor}</p>
       </div>
-      <div className={`py-1 text-[8px] font-black ${isCurrent?'bg-indigo-50 text-indigo-600':'bg-slate-50 text-slate-400'}`}>
+      <div className={`py-1 text-[8px] font-black ${isCurrent?'bg-indigo-50 text-indigo-600':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
         {entry.startAge}~{entry.endAge}세
       </div>
     </div>
@@ -258,19 +258,19 @@ export default function SajuPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600" />
 
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-20">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/fortune" className="flex items-center gap-1 text-sm text-slate-400 hover:text-indigo-600 transition-colors font-medium">
+          <Link href="/fortune" className="flex items-center gap-1 text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             운세
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700 flex-1">사주 분석</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1">사주 분석</span>
           {result && (
             <button onClick={handleShare}
               className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full active:scale-95 transition-transform">
@@ -286,7 +286,7 @@ export default function SajuPage() {
       <div className="max-w-xl mx-auto px-4 py-6 pb-16 space-y-4">
 
         {/* 입력 폼 */}
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
           <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
             <div className="text-4xl mb-2">🔯</div>
             <h1 className="text-xl font-black">사주 분석</h1>
@@ -295,14 +295,14 @@ export default function SajuPage() {
           <div className="p-5 space-y-4">
             {/* 성별 */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 block mb-2">성별 * (대운 방향에 영향)</label>
+              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-2">성별 * (대운 방향에 영향)</label>
               <div className="grid grid-cols-2 gap-2">
                 {(['male','female'] as const).map(g => (
                   <button key={g} onClick={()=>setForm(f=>({...f,gender:g}))}
                     className={`py-3 rounded-xl text-sm font-black border-2 transition-all ${
                       form.gender===g
                         ? g==='male' ? 'bg-blue-50 border-blue-400 text-blue-700' : 'bg-pink-50 border-pink-400 text-pink-700'
-                        : 'bg-slate-50 border-slate-200 text-slate-400'
+                        : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
                     }`}>
                     {g==='male' ? '♂ 남성' : '♀ 여성'}
                   </button>
@@ -313,34 +313,34 @@ export default function SajuPage() {
             {/* 생년월일 */}
             <div className="grid grid-cols-3 gap-2">
               <div>
-                <label className="text-[10px] font-bold text-slate-400 block mb-1">출생년도 *</label>
+                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">출생년도 *</label>
                 <input type="number" placeholder="예) 1995" value={form.year}
                   onChange={e=>setForm(f=>({...f,year:e.target.value}))}
                   onKeyDown={e=>e.key==='Enter'&&handleCalc()}
-                  className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
+                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
               </div>
               <div>
-                <label className="text-[10px] font-bold text-slate-400 block mb-1">출생월 *</label>
+                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">출생월 *</label>
                 <select value={form.month} onChange={e=>setForm(f=>({...f,month:e.target.value}))}
-                  className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-indigo-400 bg-white">
+                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 bg-white dark:bg-slate-900">
                   <option value="">월</option>
                   {Array.from({length:12},(_,i)=><option key={i+1} value={i+1}>{i+1}월</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-bold text-slate-400 block mb-1">출생일 *</label>
+                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">출생일 *</label>
                 <input type="number" placeholder="일" min={1} max={31} value={form.day}
                   onChange={e=>setForm(f=>({...f,day:e.target.value}))}
                   onKeyDown={e=>e.key==='Enter'&&handleCalc()}
-                  className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
+                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
               </div>
             </div>
 
             {/* 시간 */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 block mb-1">태어난 시간 (선택 — 시주 계산에 필요)</label>
+              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">태어난 시간 (선택 — 시주 계산에 필요)</label>
               <select value={form.hour} onChange={e=>setForm(f=>({...f,hour:e.target.value}))}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-indigo-400 bg-white">
+                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 bg-white dark:bg-slate-900">
                 <option value="">모름 / 시주 생략</option>
                 <option value="23">자시 (子時, 23:00–01:00)</option>
                 <option value="1">축시 (丑時, 01:00–03:00)</option>
@@ -372,8 +372,8 @@ export default function SajuPage() {
 
             {/* ── 스텝 목차 (미니) ── */}
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-bold text-slate-500">
-                {safeStep + 1} <span className="text-slate-300">/ {allSteps.length}</span>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                {safeStep + 1} <span className="text-slate-300 dark:text-slate-600">/ {allSteps.length}</span>
               </p>
               <div className="flex gap-1 overflow-hidden max-w-[200px]">
                 {allSteps.map((s, i) => (
@@ -381,7 +381,7 @@ export default function SajuPage() {
                     key={s.key}
                     onClick={() => setStepIdx(i)}
                     className={`h-1.5 rounded-full transition-all flex-shrink-0 ${
-                      i === safeStep ? 'w-5 bg-indigo-500' : 'w-1.5 bg-slate-200 hover:bg-slate-300'
+                      i === safeStep ? 'w-5 bg-indigo-500' : 'w-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300'
                     }`}
                   />
                 ))}
@@ -403,7 +403,7 @@ export default function SajuPage() {
               </div>
 
               {/* 카드 본문 */}
-              <div className="bg-white">
+              <div className="bg-white dark:bg-slate-900">
 
                 {/* ── pillars ── */}
                 {currentStep?.key === 'pillars' && (
@@ -421,27 +421,27 @@ export default function SajuPage() {
                         { label:'일주', value:`${pillarHanja(result.day)} 일주`, emoji:'🌟' },
                         { label:'오행', value:`${dayStem.element}(${dayStem.yinyang}) 일간`, emoji:ELEMENT_INFO[dayStem.element].emoji },
                       ].map(({ label, value, emoji }) => (
-                        <div key={label} className="bg-slate-50 rounded-xl p-3">
-                          <p className="text-[10px] font-bold text-slate-400 mb-0.5">{emoji} {label}</p>
-                          <p className="text-sm font-black text-slate-800">{value}</p>
+                        <div key={label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
+                          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{emoji} {label}</p>
+                          <p className="text-sm font-black text-slate-800 dark:text-slate-100">{value}</p>
                         </div>
                       ))}
                     </div>
-                    <p className="text-xs text-slate-400 text-center">각 기둥 천간 아래 작은 뱃지는 일간 기준 십성(十星)입니다</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center">각 기둥 천간 아래 작은 뱃지는 일간 기준 십성(十星)입니다</p>
                   </div>
                 )}
 
                 {/* ── ilju ── */}
                 {currentStep?.key === 'ilju' && (
                   <div className="p-5 space-y-4">
-                    <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div className="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
                       <span className="text-4xl">{dayStem.emoji}</span>
                       <div>
-                        <p className="text-2xl font-black text-slate-900">{pillarHanja(result.day)}</p>
-                        <p className="text-sm font-bold text-slate-500">{pillarLabel(result.day)} 일주 · {BRANCHES[result.day.branchIdx].animal}</p>
+                        <p className="text-2xl font-black text-slate-900 dark:text-slate-100">{pillarHanja(result.day)}</p>
+                        <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{pillarLabel(result.day)} 일주 · {BRANCHES[result.day.branchIdx].animal}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-slate-700 leading-[1.9]">{iljuDesc}</p>
+                    <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.9]">{iljuDesc}</p>
                     <div className="grid grid-cols-2 gap-2">
                       {[
                         { label:'기질', value:dayStem.nature, emoji:'🌿' },
@@ -451,9 +451,9 @@ export default function SajuPage() {
                         { label:'적성 분야', value:dayStem.aptitude, emoji:'💼' },
                         { label:'음양', value:`${dayStem.element} · ${dayStem.yinyang}`, emoji:ELEMENT_INFO[dayStem.element].emoji },
                       ].map(({ label, value, emoji }) => (
-                        <div key={label} className="bg-slate-50 rounded-xl p-2.5">
-                          <p className="text-[9px] font-bold text-slate-400 mb-0.5">{emoji} {label}</p>
-                          <p className="text-xs font-black text-slate-700">{value}</p>
+                        <div key={label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
+                          <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{emoji} {label}</p>
+                          <p className="text-xs font-black text-slate-700 dark:text-slate-200">{value}</p>
                         </div>
                       ))}
                     </div>
@@ -488,16 +488,16 @@ export default function SajuPage() {
                       <p className="text-sm text-amber-700 leading-[1.85]">{singang.yongshinDesc}</p>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-xs font-black text-slate-500">활용 방법</p>
+                      <p className="text-xs font-black text-slate-500 dark:text-slate-400">활용 방법</p>
                       {[
                         singang.strong
                           ? '신강한 사주는 에너지가 넘쳐 주변과 마찰이 생기기 쉽습니다. 이 힘을 외부 활동(운동, 사업, 창작)으로 발산하는 출구를 의식적으로 만드세요.'
                           : '신약한 사주는 좋은 환경과 지지자가 성과를 결정합니다. 혼자 모든 것을 짊어지려 하지 말고 주변의 협력을 적극적으로 활용하세요.',
                         `용신 기운(${singang.yongshin})의 색상과 방향을 생활 속에서 가까이 두면 운의 흐름이 강해집니다. 직업·주거·옷 색상 선택에 활용하세요.`,
                       ].map((t, i) => (
-                        <div key={i} className="flex gap-2 bg-white border border-slate-100 rounded-xl p-3">
+                        <div key={i} className="flex gap-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-3">
                           <span className="text-amber-500 font-black shrink-0">·</span>
-                          <p className="text-xs text-slate-700 leading-relaxed">{t}</p>
+                          <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">{t}</p>
                         </div>
                       ))}
                     </div>
@@ -518,20 +518,20 @@ export default function SajuPage() {
                     <ElementBar counts={counts} total={total} />
                     {missingEls.length > 0 && (
                       <div className="space-y-3">
-                        <p className="text-xs font-black text-slate-500">부족한 오행 보완법</p>
+                        <p className="text-xs font-black text-slate-500 dark:text-slate-400">부족한 오행 보완법</p>
                         {missingEls.map(el => (
                           <div key={el} className="flex gap-3 bg-amber-50 border border-amber-100 rounded-xl p-3">
                             <span className="text-2xl leading-none shrink-0">{ELEMENT_INFO[el].emoji}</span>
                             <div>
                               <p className="text-xs font-black mb-1" style={{ color:ELEMENT_INFO[el].color }}>{ELEMENT_INFO[el].label} 없음</p>
-                              <p className="text-xs text-slate-600 leading-relaxed">{ELEMENT_SHORTAGE[el]}</p>
+                              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{ELEMENT_SHORTAGE[el]}</p>
                             </div>
                           </div>
                         ))}
                       </div>
                     )}
-                    <div className="bg-slate-50 rounded-2xl p-4">
-                      <p className="text-xs font-black text-slate-500 mb-3">지장간(地藏干) — 숨겨진 기운</p>
+                    <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-4">
+                      <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-3">지장간(地藏干) — 숨겨진 기운</p>
                       <div className="space-y-2">
                         {[
                           { label:'년지', branch:result.year.branchIdx },
@@ -542,7 +542,7 @@ export default function SajuPage() {
                           const b = BRANCHES[branch];
                           return (
                             <div key={label} className="flex items-center gap-2">
-                              <span className="text-xs font-black w-6 text-slate-400">{label}</span>
+                              <span className="text-xs font-black w-6 text-slate-400 dark:text-slate-500">{label}</span>
                               <span className="text-base">{b.emoji}</span>
                               <span className="text-sm font-black" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
                               <div className="flex gap-1 flex-wrap">
@@ -567,38 +567,38 @@ export default function SajuPage() {
                 {/* ── sipseong ── */}
                 {currentStep?.key === 'sipseong' && (
                   <div className="p-5 space-y-3">
-                    <p className="text-xs text-slate-500 leading-relaxed">일간 <span className="font-black text-slate-800">{dayStem.hanja}({dayStem.kor})</span> 기준으로 다른 기둥의 천간과 맺는 관계를 분석합니다. 십성은 성격·직업·재물·인연을 결정하는 핵심 키입니다.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">일간 <span className="font-black text-slate-800 dark:text-slate-100">{dayStem.hanja}({dayStem.kor})</span> 기준으로 다른 기둥의 천간과 맺는 관계를 분석합니다. 십성은 성격·직업·재물·인연을 결정하는 핵심 키입니다.</p>
                     {[
                       { label:'년주 천간', pillar:result.year,   role:'조상·선천 기질' },
                       { label:'월주 천간', pillar:result.month,  role:'부모·직업 환경' },
                       { label:'시주 천간', pillar:result.hour,   role:'자녀·노년·결실' },
                     ].map(({ label, pillar: p, role }) => {
-                      if (!p) return <div key={label} className="text-xs text-slate-400 text-center py-2">시주 입력 시 시주 십성도 표시됩니다</div>;
+                      if (!p) return <div key={label} className="text-xs text-slate-400 dark:text-slate-500 text-center py-2">시주 입력 시 시주 십성도 표시됩니다</div>;
                       const ss = getSipseong(result.day.stemIdx, p.stemIdx);
                       const info = SIPSEONG_INFO[ss];
                       const stemInfo = STEMS[p.stemIdx];
                       if (!info) return null;
                       return (
-                        <div key={label} className="rounded-2xl border border-slate-200 overflow-hidden">
-                          <div className="flex items-center gap-2 px-4 py-3 bg-slate-50">
+                        <div key={label} className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                          <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-950">
                             <span className="text-lg font-black" style={{ color:ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
-                            <span className="text-xs font-bold text-slate-700">{label}</span>
-                            <span className="text-[10px] text-slate-400">({role})</span>
+                            <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{label}</span>
+                            <span className="text-[10px] text-slate-400 dark:text-slate-500">({role})</span>
                             <div className="ml-auto flex items-center gap-1.5">
                               <span className="text-sm">{info.emoji}</span>
                               <span className="text-xs font-black px-2 py-0.5 rounded-full" style={{ background:ELEMENT_INFO[stemInfo.element].bg, color:ELEMENT_INFO[stemInfo.element].color }}>{ss}</span>
                             </div>
                           </div>
                           <div className="px-4 py-3 space-y-2">
-                            <p className="text-sm text-slate-700 leading-[1.85]">{result.gender==='male' ? info.male : info.female}</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{result.gender==='male' ? info.male : info.female}</p>
                             <div className="grid grid-cols-2 gap-2 mt-2">
-                              <div className="bg-slate-50 rounded-xl p-2.5">
-                                <p className="text-[9px] font-bold text-slate-400 mb-1">💼 직업 영향</p>
-                                <p className="text-xs text-slate-600 leading-relaxed">{info.career}</p>
+                              <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
+                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">💼 직업 영향</p>
+                                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{info.career}</p>
                               </div>
-                              <div className="bg-slate-50 rounded-xl p-2.5">
-                                <p className="text-[9px] font-bold text-slate-400 mb-1">💰 재물 영향</p>
-                                <p className="text-xs text-slate-600 leading-relaxed">{info.wealth}</p>
+                              <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
+                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">💰 재물 영향</p>
+                                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{info.wealth}</p>
                               </div>
                             </div>
                           </div>
@@ -621,8 +621,8 @@ export default function SajuPage() {
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex gap-1.5">
                             {[1,2,3,4,5].map(i => (
-                              <div key={i} className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${i <= d.score ? c.dot + ' border-transparent' : 'bg-white border-slate-200'}`}>
-                                {i <= d.score && <div className="w-2 h-2 rounded-full bg-white" />}
+                              <div key={i} className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${i <= d.score ? c.dot + ' border-transparent' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700'}`}>
+                                {i <= d.score && <div className="w-2 h-2 rounded-full bg-white dark:bg-slate-900" />}
                               </div>
                             ))}
                           </div>
@@ -631,20 +631,20 @@ export default function SajuPage() {
                         <p className={`text-sm font-bold leading-relaxed ${c.accent}`}>{d.summary}</p>
                       </div>
                       {/* 소개 */}
-                      <p className="text-sm text-slate-600 leading-[1.9]">{d.intro}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-[1.9]">{d.intro}</p>
                       {/* 포인트 */}
                       <div className="space-y-3">
                         {d.points.map((pt, i) => (
-                          <div key={i} className="flex gap-3 bg-white border border-slate-100 rounded-xl p-3.5">
+                          <div key={i} className="flex gap-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-3.5">
                             <span className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black text-white ${c.dot}`}>{i+1}</span>
-                            <p className="text-sm text-slate-700 leading-[1.85]">{pt}</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{pt}</p>
                           </div>
                         ))}
                       </div>
                       {/* 조언 */}
                       <div className={`rounded-2xl p-4 border-2 ${c.bg} ${c.border}`}>
                         <p className={`text-xs font-black mb-2 ${c.accent}`}>💡 핵심 조언</p>
-                        <p className="text-sm text-slate-700 leading-[1.85]">{d.advice}</p>
+                        <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{d.advice}</p>
                       </div>
                     </div>
                   );
@@ -654,14 +654,14 @@ export default function SajuPage() {
                 {currentStep?.key === 'daewoon' && (
                   <div className="p-5 space-y-4">
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-slate-50 rounded-xl p-3">
-                        <p className="text-[10px] font-bold text-slate-400 mb-1">대운 방향</p>
-                        <p className="text-base font-black text-slate-800">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">{direction==='forward'?'시간순 진행':'시간 역방향 진행'}</p>
+                      <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
+                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">대운 방향</p>
+                        <p className="text-base font-black text-slate-800 dark:text-slate-100">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{direction==='forward'?'시간순 진행':'시간 역방향 진행'}</p>
                       </div>
-                      <div className="bg-slate-50 rounded-xl p-3">
-                        <p className="text-[10px] font-bold text-slate-400 mb-1">첫 대운 시작</p>
-                        <p className="text-base font-black text-slate-800">{startAge}세부터</p>
+                      <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
+                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">첫 대운 시작</p>
+                        <p className="text-base font-black text-slate-800 dark:text-slate-100">{startAge}세부터</p>
                       </div>
                       {currentDaewoon && (
                         <div className="col-span-2 rounded-xl p-3 border-2 border-indigo-200 bg-indigo-50">
@@ -694,19 +694,19 @@ export default function SajuPage() {
                         const ss = getSipseong(result.day.stemIdx, entry.pillar.stemIdx);
                         const ssInfo = SIPSEONG_INFO[ss];
                         return (
-                          <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'border-indigo-300':'border-slate-100'}`}>
-                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50':'bg-slate-50'}`}>
-                              <span className="text-sm font-black text-slate-700">{s.hanja}{b.hanja}</span>
-                              <span className="text-xs font-bold text-slate-600">{pillarHanja(entry.pillar)}</span>
-                              <span className="text-[10px] text-slate-400">{entry.startAge}~{entry.endAge}세</span>
+                          <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'border-indigo-300':'border-slate-100 dark:border-slate-800'}`}>
+                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50':'bg-slate-50 dark:bg-slate-950'}`}>
+                              <span className="text-sm font-black text-slate-700 dark:text-slate-200">{s.hanja}{b.hanja}</span>
+                              <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{pillarHanja(entry.pillar)}</span>
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500">{entry.startAge}~{entry.endAge}세</span>
                               {isCurrent && <span className="ml-auto text-[10px] font-black text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded-full">현재</span>}
                             </div>
                             <div className="px-3 py-2">
                               <div className="flex gap-1.5 flex-wrap text-[10px] mb-1.5">
                                 <span className="px-2 py-0.5 rounded-full" style={{ background:se.bg, color:se.color }}>{se.emoji} {s.element}</span>
-                                {ssInfo && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{ssInfo.emoji} {ss}</span>}
+                                {ssInfo && <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">{ssInfo.emoji} {ss}</span>}
                               </div>
-                              <p className="text-xs text-slate-600 leading-relaxed">
+                              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                                 {s.nature}의 {s.element} 에너지와 {b.animal}({b.element}) 기운이 흐르는 {entry.endAge-entry.startAge+1}년입니다.
                                 {ssInfo && ` ${ss}운으로 ${ssInfo.summary}의 시기입니다.`}
                               </p>
@@ -721,7 +721,7 @@ export default function SajuPage() {
                 {/* ── seun (연간 운세) ── */}
                 {currentStep?.key === 'seun' && (
                   <div className="p-5 space-y-3">
-                    <p className="text-xs text-slate-500 leading-relaxed mb-1">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-1">
                       세운은 대운(10년 흐름) 안에서 매년 바뀌는 그해의 기운입니다. 일간과 그해 천간의 관계(십성)로 한 해의 성격을 가늠합니다.
                     </p>
                     {seunYears.map(({ year, pillar, sipseong }, i) => {
@@ -731,33 +731,33 @@ export default function SajuPage() {
                       const ssInfo = SIPSEONG_INFO[sipseong];
                       const isThisYear = i === 0;
                       return (
-                        <div key={year} className={`rounded-xl border overflow-hidden ${isThisYear?'border-cyan-300':'border-slate-100'}`}>
-                          <div className={`flex items-center gap-2 px-3 py-2.5 ${isThisYear?'bg-cyan-50':'bg-slate-50'}`}>
+                        <div key={year} className={`rounded-xl border overflow-hidden ${isThisYear?'border-cyan-300':'border-slate-100 dark:border-slate-800'}`}>
+                          <div className={`flex items-center gap-2 px-3 py-2.5 ${isThisYear?'bg-cyan-50':'bg-slate-50 dark:bg-slate-950'}`}>
                             <span className="text-lg font-black" style={{ color: se.color }}>{s.hanja}{b.hanja}</span>
                             <div>
-                              <p className="text-sm font-black text-slate-800">{year}년 · {pillarHanja(pillar)} 세운</p>
-                              <p className="text-[10px] text-slate-400">{pillarLabel(pillar)}년</p>
+                              <p className="text-sm font-black text-slate-800 dark:text-slate-100">{year}년 · {pillarHanja(pillar)} 세운</p>
+                              <p className="text-[10px] text-slate-400 dark:text-slate-500">{pillarLabel(pillar)}년</p>
                             </div>
                             {isThisYear && <span className="ml-auto text-[10px] font-black text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded-full">올해</span>}
                           </div>
-                          <div className="px-3.5 py-3 bg-white">
+                          <div className="px-3.5 py-3 bg-white dark:bg-slate-900">
                             <div className="flex gap-1.5 flex-wrap text-[10px] mb-2">
                               <span className="px-2 py-0.5 rounded-full" style={{ background: se.bg, color: se.color }}>{se.emoji} {s.element}({s.yinyang})</span>
-                              {ssInfo && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{ssInfo.emoji} {sipseong} · {ssInfo.summary}</span>}
+                              {ssInfo && <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">{ssInfo.emoji} {sipseong} · {ssInfo.summary}</span>}
                             </div>
                             {ssInfo && (
                               <>
-                                <p className="text-xs text-slate-700 leading-[1.85] mb-2">
+                                <p className="text-xs text-slate-700 dark:text-slate-200 leading-[1.85] mb-2">
                                   {result?.gender === 'female' ? ssInfo.female : ssInfo.male}
                                 </p>
                                 <div className="grid grid-cols-2 gap-2">
-                                  <div className="bg-slate-50 rounded-lg p-2.5">
-                                    <p className="text-[10px] font-bold text-slate-400 mb-1">💼 커리어</p>
-                                    <p className="text-[11px] text-slate-600 leading-relaxed">{ssInfo.career}</p>
+                                  <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2.5">
+                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">💼 커리어</p>
+                                    <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">{ssInfo.career}</p>
                                   </div>
-                                  <div className="bg-slate-50 rounded-lg p-2.5">
-                                    <p className="text-[10px] font-bold text-slate-400 mb-1">💰 재물</p>
-                                    <p className="text-[11px] text-slate-600 leading-relaxed">{ssInfo.wealth}</p>
+                                  <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2.5">
+                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">💰 재물</p>
+                                    <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">{ssInfo.wealth}</p>
                                   </div>
                                 </div>
                               </>
@@ -779,8 +779,8 @@ export default function SajuPage() {
                 disabled={safeStep === 0}
                 className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm transition-all border-2 ${
                   safeStep === 0
-                    ? 'border-slate-100 text-slate-300 bg-white cursor-not-allowed'
-                    : 'border-slate-200 text-slate-700 bg-white hover:border-indigo-300 hover:text-indigo-600'
+                    ? 'border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 bg-white dark:bg-slate-900 cursor-not-allowed'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:border-indigo-300 hover:text-indigo-600'
                 }`}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -793,7 +793,7 @@ export default function SajuPage() {
                 disabled={safeStep === allSteps.length - 1}
                 className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-2xl font-black text-sm transition-all ${
                   safeStep === allSteps.length - 1
-                    ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
                     : 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
                 }`}
               >
@@ -810,13 +810,13 @@ export default function SajuPage() {
 
             {/* 공유 */}
             <div className="flex gap-2 mt-2">
-              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 border border-indigo-200 rounded-2xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-colors">
+              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 border border-indigo-200 rounded-2xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-950/50 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
                 </svg>
                 공유하기
               </button>
-              <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors">
+              <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                 {copied ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></> : '🔗 링크 복사'}
               </button>
             </div>

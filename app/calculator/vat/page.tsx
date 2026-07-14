@@ -98,16 +98,16 @@ export default function VatPage() {
               </SummaryGrid>
             </div>
             <div className="px-5 pb-4">
-              <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-600 space-y-1.5">
+              <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 text-sm text-slate-600 dark:text-slate-300 space-y-1.5">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">공급가액</span>
+                  <span className="text-slate-500 dark:text-slate-400">공급가액</span>
                   <span className="font-semibold">{w(result.supply)}원</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">부가가치세 (×10%)</span>
+                  <span className="text-slate-500 dark:text-slate-400">부가가치세 (×10%)</span>
                   <span className="font-semibold text-blue-600">+{w(result.vat)}원</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-200 pt-1.5 font-bold text-slate-800">
+                <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-1.5 font-bold text-slate-800 dark:text-slate-100">
                   <span>공급대가 합계</span>
                   <span>{w(result.total)}원</span>
                 </div>

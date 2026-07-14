@@ -126,7 +126,7 @@ const CATS = [
   {
     id: 'dev', label: '開発者ツール', icon: '💻',
     desc: '開発者向けツール集',
-    accent: 'bg-slate-100 text-slate-700 border-slate-300',
+    accent: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300',
     calcs: [
       { href: '/calculator/dev/json',       title: 'JSON Formatter',        desc: 'JSON整形・検証・コピー' },
       { href: '/calculator/dev/base64',     title: 'Base64コンバーター',    desc: 'Base64エンコード・デコード' },
@@ -179,11 +179,11 @@ export default function JaHome() {
     : CATS;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
 
       {/* ヘッダー */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-slate-100">
+      <header className="sticky top-0 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4">
           <div className="h-14 flex items-center gap-4">
             <span className="font-black text-blue-600 text-lg shrink-0">計算機まとめ</span>
@@ -193,7 +193,7 @@ export default function JaHome() {
                 <a
                   key={c.id}
                   href={`#${c.id}`}
-                  className="shrink-0 text-xs font-semibold text-slate-500 hover:text-blue-600 px-2.5 py-1 rounded-full hover:bg-blue-50 transition-colors whitespace-nowrap"
+                  className="shrink-0 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 py-1 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors whitespace-nowrap"
                 >
                   {c.icon} {c.label}
                 </a>
@@ -208,7 +208,7 @@ export default function JaHome() {
                   className={`text-xs font-semibold px-2 py-1 rounded-full transition-colors ${
                     l.href === '/ja'
                       ? 'bg-blue-600 text-white'
-                      : 'text-slate-500 hover:text-blue-600 hover:bg-blue-50'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40'
                   }`}
                 >
                   {l.label}
@@ -221,14 +221,14 @@ export default function JaHome() {
 
       <div className="max-w-5xl mx-auto px-4">
         {/* ヒーロー */}
-        <section className="py-10 sm:py-14 border-b border-slate-100">
+        <section className="py-10 sm:py-14 border-b border-slate-100 dark:border-slate-800">
           <p className="text-xs font-bold text-blue-600 tracking-widest uppercase mb-3">Korean Calculator</p>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-slate-100 leading-tight mb-3">
             生活計算機まとめ
           </h1>
-          <p className="text-slate-500 text-sm mb-5">
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-5">
             給与・税金・金融・不動産など —{' '}
-            <strong className="text-slate-700">{total}種類</strong>の計算機
+            <strong className="text-slate-700 dark:text-slate-200">{total}種類</strong>の計算機
           </p>
           {/* 検索 */}
           <input
@@ -236,7 +236,7 @@ export default function JaHome() {
             placeholder="計算機を検索..."
             value={query}
             onChange={e => setQuery(e.target.value)}
-            className="w-full max-w-md border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
+            className="w-full max-w-md border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
           />
         </section>
 
@@ -248,8 +248,8 @@ export default function JaHome() {
               <div className="flex items-center gap-3 mb-5">
                 <span className="text-2xl">{cat.icon}</span>
                 <div>
-                  <h2 className="font-black text-slate-900 text-lg leading-tight">{cat.label}</h2>
-                  <p className="text-xs text-slate-400">{cat.desc}</p>
+                  <h2 className="font-black text-slate-900 dark:text-slate-100 text-lg leading-tight">{cat.label}</h2>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">{cat.desc}</p>
                 </div>
                 <span className={`ml-auto shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border ${cat.accent}`}>
                   {cat.calcs.length}個
@@ -262,17 +262,17 @@ export default function JaHome() {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all"
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-blue-700 transition-colors">
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-blue-700 transition-colors">
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
                         <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed">{c.desc}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.desc}</p>
                   </Link>
                 ))}
               </div>
@@ -280,8 +280,8 @@ export default function JaHome() {
           ))}
         </div>
 
-        <footer className="border-t border-slate-100 py-8 text-center">
-          <p className="text-xs text-slate-300">参考用計算機 · 2026年韓国基準</p>
+        <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
+          <p className="text-xs text-slate-300 dark:text-slate-600">参考用計算機 · 2026年韓国基準</p>
         </footer>
       </div>
     </div>

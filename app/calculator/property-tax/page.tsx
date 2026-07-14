@@ -49,12 +49,12 @@ export default function PropertyTaxPage() {
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={isOneHouse} onChange={e => setIsOneHouse(e.target.checked)}
                 className="w-4 h-4 accent-blue-600" />
-              <span className="text-sm text-slate-700">1세대 1주택 특례 적용</span>
+              <span className="text-sm text-slate-700 dark:text-slate-200">1세대 1주택 특례 적용</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={isCity} onChange={e => setIsCity(e.target.checked)}
                 className="w-4 h-4 accent-blue-600" />
-              <span className="text-sm text-slate-700">도시지역 (도시지역분 포함)</span>
+              <span className="text-sm text-slate-700 dark:text-slate-200">도시지역 (도시지역분 포함)</span>
             </label>
             <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
@@ -78,14 +78,14 @@ export default function PropertyTaxPage() {
                   { label: '지방교육세 (재산세×20%)', value: result.eduTax },
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-600">{r.label}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{r.label}</span>
                     <span className="font-semibold">{fmt(r.value)}원</span>
                   </div>
                 ))}
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400">* 7월(건물분)·9월(토지분) 2회 납부 · 20만원 이하 일시납</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">* 7월(건물분)·9월(토지분) 2회 납부 · 20만원 이하 일시납</p>
             </Card>
           </>
         )}

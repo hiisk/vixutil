@@ -31,7 +31,7 @@ export default function OvertimePage() {
     <CalcShell title="야근수당 계산기" description="통상시급 기준 연장·야간·휴일 수당 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>월 기본급 (원)</Label>
@@ -48,7 +48,7 @@ export default function OvertimePage() {
             </div>
           </div>
 
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-4 mb-3">수당 시간 입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mt-4 mb-3">수당 시간 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>연장근로 시간 (×1.5배)</Label>
@@ -88,15 +88,15 @@ export default function OvertimePage() {
                 ].map(row => (
                   <div key={row.label} className="px-5 py-3.5 flex justify-between items-center">
                     <div>
-                      <p className="text-sm font-semibold text-slate-800">{row.label}</p>
-                      <p className="text-xs text-slate-400">{row.rate} · {row.hours}시간</p>
+                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{row.label}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500">{row.rate} · {row.hours}시간</p>
                     </div>
                     <span className="font-bold text-blue-600">{fmt(row.pay)}원</span>
                   </div>
                 ))}
               </div>
-              <div className="px-5 py-3 border-t border-slate-100 bg-slate-50 flex justify-between">
-                <span className="font-bold text-sm text-slate-800">합계</span>
+              <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex justify-between">
+                <span className="font-bold text-sm text-slate-800 dark:text-slate-100">합계</span>
                 <span className="font-black text-blue-600">{fmt(result.total)}원</span>
               </div>
             </Card>

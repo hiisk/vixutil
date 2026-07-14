@@ -70,7 +70,7 @@ export default function DividendPage() {
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={taxed} onChange={e => setTaxed(e.target.checked)}
                 className="w-4 h-4 accent-blue-600" />
-              <span className="text-sm text-slate-700">배당소득세 15.4% 차감</span>
+              <span className="text-sm text-slate-700 dark:text-slate-200">배당소득세 15.4% 차감</span>
             </label>
             <div>
               <Label>목표 월 배당금 (역산용, 선택)</Label>
@@ -94,7 +94,7 @@ export default function DividendPage() {
             </div>
             {needInvest && (
               <Card className="p-4">
-                <p className="text-xs font-bold text-slate-500 mb-1">목표 월 배당 달성을 위한 필요 투자금</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">목표 월 배당 달성을 위한 필요 투자금</p>
                 <p className="text-2xl font-black text-blue-600">{fmt(needInvest)}원</p>
               </Card>
             )}

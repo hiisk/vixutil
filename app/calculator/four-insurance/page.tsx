@@ -204,25 +204,25 @@ export default function FourInsurancePage() {
               <TableWrap>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-slate-50">
-                      <th className="px-4 py-2.5 text-left text-xs font-bold text-slate-500 uppercase tracking-wide">보험종류</th>
-                      <th className="px-4 py-2.5 text-center text-xs font-bold text-slate-500 uppercase tracking-wide">요율</th>
-                      <th className="px-4 py-2.5 text-right text-xs font-bold text-slate-500 uppercase tracking-wide">금액</th>
+                    <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+                      <th className="px-4 py-2.5 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">보험종류</th>
+                      <th className="px-4 py-2.5 text-center text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">요율</th>
+                      <th className="px-4 py-2.5 text-right text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">금액</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">
                     {getRows().map(row => (
                       <tr key={row.label}>
-                        <td className="px-4 py-2.5 text-slate-700">
+                        <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">
                           {row.label}
-                          {row.note && <span className="block text-xs text-slate-400">{row.note}</span>}
+                          {row.note && <span className="block text-xs text-slate-400 dark:text-slate-500">{row.note}</span>}
                         </td>
-                        <td className="px-4 py-2.5 text-center text-slate-500 text-xs">{row.rate}</td>
-                        <td className="px-4 py-2.5 text-right font-semibold text-slate-800">{fmt(row.amount)}원</td>
+                        <td className="px-4 py-2.5 text-center text-slate-500 dark:text-slate-400 text-xs">{row.rate}</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-slate-800 dark:text-slate-100">{fmt(row.amount)}원</td>
                       </tr>
                     ))}
-                    <tr className="bg-slate-50 border-t border-slate-200">
-                      <td className="px-4 py-2.5 font-bold text-slate-800" colSpan={2}>
+                    <tr className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-700">
+                      <td className="px-4 py-2.5 font-bold text-slate-800 dark:text-slate-100" colSpan={2}>
                         {tab === 'employee' ? '근로자 합계' : tab === 'employer' ? '사업주 합계' : '총합계'}
                       </td>
                       <td className="px-4 py-2.5 text-right font-black text-blue-600">{fmt(tabTotal)}원</td>
@@ -233,7 +233,7 @@ export default function FourInsurancePage() {
             </Card>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">근로자 / 사업주 부담 비율</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">근로자 / 사업주 부담 비율</p>
               <RatioBar
                 a={result.empTotal}
                 b={result.erTotal}
@@ -243,18 +243,18 @@ export default function FourInsurancePage() {
             </Card>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">소득세 내역</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">소득세 내역</p>
               <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">근로소득세 (간이세액)</span>
+                  <span className="text-slate-500 dark:text-slate-400">근로소득세 (간이세액)</span>
                   <span className="font-semibold text-red-500">-{fmt(result.incomeTax)}원</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">지방소득세 (소득세 × 10%)</span>
+                  <span className="text-slate-500 dark:text-slate-400">지방소득세 (소득세 × 10%)</span>
                   <span className="font-semibold text-red-500">-{fmt(result.localTax)}원</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-100 pt-2 mt-1">
-                  <span className="font-bold text-slate-700">소득세 합계</span>
+                <div className="flex justify-between border-t border-slate-100 dark:border-slate-800 pt-2 mt-1">
+                  <span className="font-bold text-slate-700 dark:text-slate-200">소득세 합계</span>
                   <span className="font-black text-red-500">-{fmt(result.totalTax)}원</span>
                 </div>
               </div>

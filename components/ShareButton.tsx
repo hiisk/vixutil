@@ -52,8 +52,8 @@ export default function ShareButton({ title, description, type = 'test' }: Props
   }
 
   return (
-    <div className="mt-8 pt-6 border-t border-slate-100">
-      <p className="text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">공유하기</p>
+    <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+      <p className="text-center text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">공유하기</p>
       <button
         onClick={share}
         className="

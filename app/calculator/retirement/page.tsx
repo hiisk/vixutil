@@ -100,7 +100,7 @@ export default function RetirementPage() {
     <CalcShell title="은퇴자금 계산기" description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">입력 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력 정보</p>
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -142,32 +142,32 @@ export default function RetirementPage() {
 
             {/* 월 인출 가능액 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">은퇴 후 월 인출 가능액 (자산 소진 기준)</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">은퇴 후 월 인출 가능액 (자산 소진 기준)</p>
               <div className="flex flex-col gap-2">
                 {[
                   { years: 20, monthly: result.monthly20 },
                   { years: 25, monthly: result.monthly25 },
                   { years: 30, monthly: result.monthly30 },
                 ].map(r => (
-                  <div key={r.years} className="flex justify-between items-center bg-slate-50 rounded-xl px-4 py-3">
-                    <span className="text-sm text-slate-600 font-semibold">{r.years}년간 인출</span>
+                  <div key={r.years} className="flex justify-between items-center bg-slate-50 dark:bg-slate-950 rounded-xl px-4 py-3">
+                    <span className="text-sm text-slate-600 dark:text-slate-300 font-semibold">{r.years}년간 인출</span>
                     <div className="text-right">
                       <span className="text-base font-black text-blue-700">{fmtKRW(r.monthly)}</span>
-                      <span className="text-xs text-slate-400 block">/월</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-500 block">/월</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 mt-3">* 동일 수익률 지속 가정, 세금·물가 미반영</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">* 동일 수익률 지속 가정, 세금·물가 미반영</p>
             </Card>
 
             {/* 연도별 성장 테이블 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">연도별 자산 성장</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">연도별 자산 성장</p>
               <TableWrap>
                 <table className="w-full text-xs text-right">
                   <thead>
-                    <tr className="border-b border-slate-100 text-slate-400">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500">
                       <th className="py-2 text-left font-semibold">나이</th>
                       <th className="py-2 font-semibold">연도</th>
                       <th className="py-2 font-semibold">연간 저축</th>
@@ -178,9 +178,9 @@ export default function RetirementPage() {
                   <tbody>
                     {result.rows.slice(0, showing).map(r => (
                       <tr key={r.year} className="border-b border-slate-50">
-                        <td className="py-2 text-left text-slate-700 font-semibold">{r.age}세</td>
-                        <td className="py-2 text-slate-500">{r.year}</td>
-                        <td className="py-2 text-slate-600">{fmtKRW(r.contribution)}</td>
+                        <td className="py-2 text-left text-slate-700 dark:text-slate-200 font-semibold">{r.age}세</td>
+                        <td className="py-2 text-slate-500 dark:text-slate-400">{r.year}</td>
+                        <td className="py-2 text-slate-600 dark:text-slate-300">{fmtKRW(r.contribution)}</td>
                         <td className="py-2 text-emerald-600 font-semibold">{fmtKRW(r.interest)}</td>
                         <td className="py-2 text-blue-700 font-black">{fmtKRW(r.endBalance)}</td>
                       </tr>

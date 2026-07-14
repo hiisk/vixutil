@@ -6,7 +6,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -55,9 +55,9 @@ export default function TimestampPage() {
     <CalcShell title="Unix Timestamp 변환기" description="Unix Timestamp ↔ 날짜·시간 변환" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">현재 시각</p>
-          <p className="text-2xl font-black text-slate-800">{Math.floor(now / 1000)}</p>
-          <p className="text-xs text-slate-400 mt-0.5">{formatKST(now)}</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">현재 시각</p>
+          <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{Math.floor(now / 1000)}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{formatKST(now)}</p>
         </Card>
 
         <TabBar
@@ -81,10 +81,10 @@ export default function TimestampPage() {
                   { label: 'UTC', value: tsResult.utc },
                   { label: 'Timestamp (ms)', value: String(tsResult.ms) },
                 ].map(r => (
-                  <div key={r.label} className="bg-slate-50 rounded-xl p-3 flex items-center justify-between">
+                  <div key={r.label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3 flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-slate-400">{r.label}</p>
-                      <p className="font-mono font-bold text-slate-800 text-sm">{r.value}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500">{r.label}</p>
+                      <p className="font-mono font-bold text-slate-800 dark:text-slate-100 text-sm">{r.value}</p>
                     </div>
                     <CopyBtn text={r.value} />
                   </div>
@@ -102,10 +102,10 @@ export default function TimestampPage() {
                   { label: 'Unix Timestamp (초)', value: String(dateResult.seconds) },
                   { label: 'Unix Timestamp (밀리초)', value: String(dateResult.ms) },
                 ].map(r => (
-                  <div key={r.label} className="bg-slate-50 rounded-xl p-3 flex items-center justify-between">
+                  <div key={r.label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3 flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-slate-400">{r.label}</p>
-                      <p className="font-mono font-bold text-slate-800 text-sm">{r.value}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500">{r.label}</p>
+                      <p className="font-mono font-bold text-slate-800 dark:text-slate-100 text-sm">{r.value}</p>
                     </div>
                     <CopyBtn text={r.value} />
                   </div>

@@ -74,21 +74,21 @@ export default function SleepPage() {
 
         <div className="flex flex-col gap-2">
           {times.map(t => (
-            <div key={t.cycles} className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between">
+            <div key={t.cycles} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 flex items-center justify-between">
               <div>
-                <p className="font-bold text-slate-800">
+                <p className="font-bold text-slate-800 dark:text-slate-100">
                   {mode === 'wakeup' ? `${t.bedtime}에 취침` : `${t.wakeup}에 기상`}
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">{t.cycles}사이클 · {t.hours}시간</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{t.cycles}사이클 · {t.hours}시간</p>
               </div>
-              <div className={`px-3 py-1.5 rounded-full text-xs font-bold ${t.cycles === 5 ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+              <div className={`px-3 py-1.5 rounded-full text-xs font-bold ${t.cycles === 5 ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                 {t.cycles === 5 ? '권장' : `${t.cycles}사이클`}
               </div>
             </div>
           ))}
         </div>
         <Card className="p-4">
-          <p className="text-xs text-slate-400">수면 사이클 90분 기준 · 사람마다 차이가 있을 수 있습니다</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500">수면 사이클 90분 기준 · 사람마다 차이가 있을 수 있습니다</p>
         </Card>
       </div>
     </CalcShell>

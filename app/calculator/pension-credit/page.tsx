@@ -48,7 +48,7 @@ export default function PensionCreditPage() {
             <div>
               <Label>{incomeLabel} (원)</Label>
               <CommaInput value={income} onChange={setIncome} placeholder={`예: ${w(cap)}`} />
-              <p className="mt-1.5 text-xs text-slate-400">
+              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
                 {man(cap)} 이하면 16.5%, 초과하면 13.2%가 적용됩니다.
               </p>
             </div>
@@ -56,7 +56,7 @@ export default function PensionCreditPage() {
             <div>
               <Label>연금저축 연간 납입액 (원)</Label>
               <CommaInput value={savings} onChange={setSavings} placeholder="예: 6,000,000" />
-              <p className="mt-1.5 text-xs text-slate-400">
+              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
                 연금저축은 {man(PENSION_RULES.savingsLimit)}까지만 공제 대상입니다.
               </p>
             </div>
@@ -64,7 +64,7 @@ export default function PensionCreditPage() {
             <div>
               <Label>IRP 연간 납입액 (원)</Label>
               <CommaInput value={irp} onChange={setIrp} placeholder="예: 3,000,000" />
-              <p className="mt-1.5 text-xs text-slate-400">
+              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
                 연금저축과 합쳐 {man(PENSION_RULES.totalLimit)}까지 공제받을 수 있습니다.
               </p>
             </div>
@@ -107,24 +107,24 @@ export default function PensionCreditPage() {
             </div>
 
             <div className="px-5 pb-4">
-              <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-600 space-y-1.5">
+              <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 text-sm text-slate-600 dark:text-slate-300 space-y-1.5">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">연금저축 인정액</span>
+                  <span className="text-slate-500 dark:text-slate-400">연금저축 인정액</span>
                   <span className="font-semibold">{w(result.eligibleSavings)}원</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">IRP 인정액</span>
+                  <span className="text-slate-500 dark:text-slate-400">IRP 인정액</span>
                   <span className="font-semibold">{w(result.eligibleIrp)}원</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-200 pt-1.5">
-                  <span className="text-slate-500">공제 대상 합계</span>
+                <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-1.5">
+                  <span className="text-slate-500 dark:text-slate-400">공제 대상 합계</span>
                   <span className="font-semibold">{w(result.eligibleTotal)}원</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">공제율 (×{(result.rate * 100).toFixed(1)}%)</span>
+                  <span className="text-slate-500 dark:text-slate-400">공제율 (×{(result.rate * 100).toFixed(1)}%)</span>
                   <span className="font-semibold text-blue-600">{w(result.credit)}원</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-200 pt-1.5 font-bold text-slate-800">
+                <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-1.5 font-bold text-slate-800 dark:text-slate-100">
                   <span>예상 세액공제액</span>
                   <span>{w(result.credit)}원</span>
                 </div>

@@ -79,7 +79,7 @@ export default function UnitTempPage() {
     <CalcShell title="온도 변환기" description="섭씨(°C) · 화씨(°F) · 켈빈(K) · 랭킨(°R) 즉시 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">온도 입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">온도 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>온도값</Label>
@@ -109,27 +109,27 @@ export default function UnitTempPage() {
           <>
             {/* 체감 설명 */}
             {descObj && (
-              <div className={`rounded-2xl border px-5 py-4 bg-white border-slate-200`}>
-                <p className="text-xs text-slate-400 mb-1">체감 설명</p>
+              <div className={`rounded-2xl border px-5 py-4 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700`}>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체감 설명</p>
                 <p className={`text-base font-bold ${descObj.color}`}>{descObj.desc}</p>
-                <p className="text-xs text-slate-400 mt-1">{result.C.toFixed(2)}°C 기준</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{result.C.toFixed(2)}°C 기준</p>
               </div>
             )}
 
             {/* 변환 결과 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">변환 결과</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환 결과</p>
               <div className="flex flex-col divide-y divide-slate-100">
                 {(Object.keys(UNIT_LABELS) as TempUnit[]).map(k => (
                   <div
                     key={k}
                     className={`flex justify-between items-center py-3.5 ${k === unit ? 'font-bold' : ''}`}
                   >
-                    <span className={`text-sm ${k === unit ? 'text-blue-600' : 'text-slate-500'}`}>
+                    <span className={`text-sm ${k === unit ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400'}`}>
                       {UNIT_LABELS[k]}
                       {k === unit && <span className="ml-1 text-xs text-blue-400">(입력)</span>}
                     </span>
-                    <span className={`text-base font-mono ${k === unit ? 'text-blue-700 font-black' : 'text-slate-900 font-semibold'}`}>
+                    <span className={`text-base font-mono ${k === unit ? 'text-blue-700 font-black' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
                       {result[k].toFixed(4)}
                       {k !== 'K' && k !== 'R' ? `°${k}` : k}
                     </span>
@@ -140,12 +140,12 @@ export default function UnitTempPage() {
 
             {/* 주요 기준점 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">주요 기준 온도</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">주요 기준 온도</p>
               <div className="flex flex-col gap-2">
                 {LANDMARKS.map(lm => (
                   <div key={lm.c} className="flex justify-between items-center text-sm">
-                    <span className="text-slate-500">{lm.label}</span>
-                    <span className="text-slate-800 font-mono font-semibold">
+                    <span className="text-slate-500 dark:text-slate-400">{lm.label}</span>
+                    <span className="text-slate-800 dark:text-slate-100 font-mono font-semibold">
                       {lm.c}°C / {fromCelsius(lm.c, 'F').toFixed(1)}°F / {fromCelsius(lm.c, 'K').toFixed(2)}K
                     </span>
                   </div>

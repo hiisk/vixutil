@@ -10,7 +10,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
   const total = c.itemCount;
   return (
     <Link href={`/checklist/${c.slug}`}
-      className="group bg-white border border-slate-200 rounded-xl p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
         <span className="text-2xl">{c.icon}</span>
         <div className="flex items-center gap-1.5 shrink-0">
@@ -25,10 +25,10 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
         </div>
       </div>
       <div>
-        <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-sky-700 transition-colors mb-1">
+        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sky-700 transition-colors mb-1">
           {c.title}
         </h3>
-        <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{c.desc}</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed line-clamp-2">{c.desc}</p>
       </div>
     </Link>
   );
@@ -50,7 +50,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
   return (
     <>
       <div className="relative mb-10">
-        <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         <input
@@ -58,12 +58,12 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="체크리스트 검색..."
-          className="w-full border border-slate-200 rounded-2xl px-4 py-3 pl-10 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition-all"
+          className="w-full border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition-all"
         />
         {query && (
           <button
             onClick={() => setQuery('')}
-            className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600 transition-colors"
+            className="absolute right-3.5 top-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -75,7 +75,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
       {filtered !== null ? (
         filtered.length > 0 ? (
           <div>
-            <p className="text-xs text-slate-400 mb-4">
+            <p className="text-xs text-slate-400 dark:text-slate-500 mb-4">
               <span className="text-sky-600 font-bold">{filtered.length}개</span> 검색 결과
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
@@ -83,7 +83,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
             </div>
           </div>
         ) : (
-          <p className="text-sm text-slate-400 text-center py-20">
+          <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-20">
             &apos;{trimmed}&apos;에 해당하는 체크리스트가 없어요.
           </p>
         )
@@ -91,7 +91,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
         <div className="flex flex-col gap-10">
           {grouped.map(group => (
             <section key={group.name}>
-              <h2 className="text-sm font-black text-slate-700 mb-4 flex items-center gap-2">
+              <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
                 <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>

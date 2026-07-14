@@ -68,7 +68,7 @@ export default function BirthdayPage() {
                 <p className="text-white text-xl font-black">{info.zodiac}띠</p>
               </div>
               <div className="bg-slate-800 rounded-2xl p-5 text-center">
-                <p className="text-slate-400 text-xs mb-1">별자리</p>
+                <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">별자리</p>
                 <p className="text-4xl mb-1">{info.star.emoji}</p>
                 <p className="text-white text-xl font-black">{info.star.name}</p>
               </div>
@@ -82,8 +82,8 @@ export default function BirthdayPage() {
                   { label: '한국 나이', value: `${info.koreanAge}세` },
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-500">{r.label}</span>
-                    <span className="font-bold text-slate-800">{r.value}</span>
+                    <span className="text-slate-500 dark:text-slate-400">{r.label}</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-100">{r.value}</span>
                   </div>
                 ))}
               </div>

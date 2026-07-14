@@ -53,9 +53,9 @@ interface RowInfo {
 const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
   bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400', emoji: '🟢' },
   bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
-  neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-400', emoji: '⚪' },
+  neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-400 dark:text-slate-500', emoji: '⚪' },
 };
-const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600' };
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-600 dark:text-slate-300' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'signal' | 'chg24h' | 'range24h';
@@ -111,8 +111,8 @@ function utcLabel(d: Date): string {
 function SortHint({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   return (
     <span className="inline-flex flex-col leading-[0.55] text-[7px] ml-1">
-      <span className={active && dir === 'asc' ? 'text-amber-400' : 'text-slate-600'}>▲</span>
-      <span className={active && dir === 'desc' ? 'text-amber-400' : 'text-slate-600'}>▼</span>
+      <span className={active && dir === 'asc' ? 'text-amber-400' : 'text-slate-600 dark:text-slate-300'}>▲</span>
+      <span className={active && dir === 'desc' ? 'text-amber-400' : 'text-slate-600 dark:text-slate-300'}>▼</span>
     </span>
   );
 }
@@ -356,14 +356,14 @@ export default function SignalsPage() {
 
       <header className="border-b border-slate-800 sticky top-0 z-10 bg-slate-950/90 backdrop-blur">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">
-          <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-amber-400 transition-colors font-medium">
+          <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             Crypto Tools
           </Link>
-          <span className="text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-300">Signal Board</span>
+          <span className="text-slate-700 dark:text-slate-200">·</span>
+          <span className="text-sm font-semibold text-slate-300 dark:text-slate-600">Signal Board</span>
         </div>
       </header>
 
@@ -371,7 +371,7 @@ export default function SignalsPage() {
           단, 본문 문단만 읽기 좋은 줄길이(max-w-[95ch])로 제한한다 — 폭이 아니라 타이포그래피 문제다. */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Referral links */}
-        <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-2">🎁 New-user bonuses — trade with an edge</p>
+        <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">🎁 New-user bonuses — trade with an edge</p>
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
           {/* Bybit */}
           <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
@@ -386,7 +386,7 @@ export default function SignalsPage() {
             </span>
             <span className="relative flex items-baseline gap-2 flex-wrap">
               <span className="text-[26px] leading-none font-black text-yellow-300">Up to $30,000</span>
-              <span className="text-[11px] text-slate-400">+ $20 welcome · fee discount</span>
+              <span className="text-[11px] text-slate-400 dark:text-slate-500">+ $20 welcome · fee discount</span>
             </span>
           </a>
 
@@ -404,7 +404,7 @@ export default function SignalsPage() {
             </span>
             <span className="relative flex items-baseline gap-2 flex-wrap">
               <span className="text-[26px] leading-none font-black text-amber-300">Up to $600</span>
-              <span className="text-[11px] text-slate-400">+ 10% off trading fees</span>
+              <span className="text-[11px] text-slate-400 dark:text-slate-500">+ 10% off trading fees</span>
             </span>
           </a>
         </div>
@@ -412,8 +412,8 @@ export default function SignalsPage() {
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">📈</div>
           <h1 className="text-2xl font-black text-white mb-1.5">Crypto Signal Board</h1>
-          <p className="text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
-          <p className="text-slate-600 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
+          <p className="text-slate-400 dark:text-slate-500 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
+          <p className="text-slate-600 dark:text-slate-300 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
         </div>
 
         {/* Market summary strip + highlight cards */}
@@ -422,33 +422,33 @@ export default function SignalsPage() {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-4 px-1 text-xs">
               {stats.btc && (
                 <span className="flex items-center gap-2">
-                  <span className="text-slate-500">BTC</span>
+                  <span className="text-slate-500 dark:text-slate-400">BTC</span>
                   <span className="font-black text-white tabular-nums">{formatPrice(stats.btc.lastPrice)}</span>
                   <Pct value={stats.btc.priceChangePercent} />
                   {btcSpark.length > 1 && <Sparkline points={[...btcSpark, stats.btc.lastPrice]} w={54} h={18} />}
                 </span>
               )}
               <span className="flex items-center gap-2">
-                <span className="text-slate-500">24h volume</span>
+                <span className="text-slate-500 dark:text-slate-400">24h volume</span>
                 <span className="font-black text-white tabular-nums">{formatVolume(stats.totalVol)}</span>
               </span>
               <span className="flex items-center gap-2">
-                <span className="text-slate-500">Advancing</span>
+                <span className="text-slate-500 dark:text-slate-400">Advancing</span>
                 <span className="font-black text-emerald-400 tabular-nums">{stats.up}</span>
-                <span className="text-slate-700">/</span>
+                <span className="text-slate-700 dark:text-slate-200">/</span>
                 <span className="font-black text-rose-400 tabular-nums">{stats.down}</span>
                 <span className="inline-flex h-1.5 w-24 gap-[2px]" role="img" aria-label={`${stats.up} advancing, ${stats.down} declining`}>
                   <span className="bg-emerald-500 rounded-full" style={{ width: `${stats.upShare}%` }} />
                   <span className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
                 </span>
               </span>
-              <span className="text-slate-600">{tickers.length} USDT pairs</span>
+              <span className="text-slate-600 dark:text-slate-300">{tickers.length} USDT pairs</span>
             </div>
 
             <div className="grid md:grid-cols-3 gap-3 mb-5">
               {([
                 { key: 'trending', icon: '🔥', title: 'Trending', hint: 'Most traded', rows: stats.trending,
-                  value: (t: Ticker24h) => formatVolume(t.quoteVolume), cls: 'text-slate-300',
+                  value: (t: Ticker24h) => formatVolume(t.quoteVolume), cls: 'text-slate-300 dark:text-slate-600',
                   cta: 'Sort by volume', sort: 'volume' as SortKey },
                 { key: 'gainers', icon: '📈', title: 'Gainers', hint: 'Best 24h change', rows: stats.gainers,
                   value: (t: Ticker24h) => `${t.priceChangePercent >= 0 ? '+' : ''}${t.priceChangePercent.toFixed(2)}%`,
@@ -462,17 +462,17 @@ export default function SignalsPage() {
                     <span className="flex items-center gap-2 text-sm font-black text-white">
                       <span aria-hidden="true">{card.icon}</span>{card.title}
                     </span>
-                    <span className="text-[11px] text-slate-500">{card.hint}</span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">{card.hint}</span>
                   </div>
                   <div className="space-y-2 flex-1">
                     {card.rows.map((t, i) => {
                       const meta = coinByBase(t.base);
                       const inner = (
                         <>
-                          <span className="text-slate-600 text-xs tabular-nums w-3 shrink-0">{i + 1}</span>
+                          <span className="text-slate-600 dark:text-slate-300 text-xs tabular-nums w-3 shrink-0">{i + 1}</span>
                           <CoinLogo base={t.base} size={20} />
                           <span className="font-bold text-white text-sm">{t.base}</span>
-                          {meta && meta.name !== meta.base && <span className="text-slate-500 text-xs truncate">{meta.name}</span>}
+                          {meta && meta.name !== meta.base && <span className="text-slate-500 dark:text-slate-400 text-xs truncate">{meta.name}</span>}
                           <span className={`ml-auto text-sm font-bold tabular-nums ${card.cls}`}>{card.value(t)}</span>
                         </>
                       );
@@ -485,7 +485,7 @@ export default function SignalsPage() {
                   </div>
                   <button
                     onClick={() => { setSortKey(card.sort); setSortDir('desc'); setPage(1); }}
-                    className="mt-3 w-full text-xs font-bold rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:text-amber-400 hover:border-slate-600 py-2 transition-colors"
+                    className="mt-3 w-full text-xs font-bold rounded-lg border border-slate-800 bg-slate-950 text-slate-300 dark:text-slate-600 hover:text-amber-400 hover:border-slate-600 py-2 transition-colors"
                   >
                     {card.cta}
                   </button>
@@ -500,27 +500,27 @@ export default function SignalsPage() {
           <div className="inline-flex rounded-xl border border-slate-800 bg-slate-900 p-1">
             {(['spot', 'futures'] as Market[]).map(m => (
               <button key={m} onClick={() => setMarket(m)}
-                className={`px-5 py-1.5 text-sm font-bold rounded-lg transition-colors ${market === m ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'}`}>
+                className={`px-5 py-1.5 text-sm font-bold rounded-lg transition-colors ${market === m ? 'bg-amber-500 text-slate-950' : 'text-slate-400 dark:text-slate-500 hover:text-slate-200'}`}>
                 {m === 'spot' ? 'SPOT' : 'FUTURES'}
               </button>
             ))}
           </div>
           <div className="flex items-center gap-2">
             <button onClick={() => selectSort('signal')}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${sortKey === 'signal' ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${sortKey === 'signal' ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 dark:text-slate-500 hover:text-slate-200'}`}>
               Sort by signal{sortKey === 'signal' && <span className="ml-1">{sortDir === 'desc' ? '▼' : '▲'}</span>}
             </button>
             <button onClick={toggleHitOnly}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'}`}>
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-800 bg-slate-900 text-slate-400 dark:text-slate-500 hover:text-slate-200'}`}>
               🎯 TP/SL hit
             </button>
-            <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 hover:text-amber-400 transition-colors">↻ Refresh</button>
+            <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
         </div>
 
         {/* Search */}
         <div className="relative mb-4">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 text-sm pointer-events-none">🔍</span>
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 text-sm pointer-events-none">🔍</span>
           <input
             type="text"
             value={query}
@@ -529,7 +529,7 @@ export default function SignalsPage() {
             className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-9 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500/60 transition"
           />
           {query && (
-            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 transition-colors">✕</button>
+            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 hover:text-slate-300 transition-colors">✕</button>
           )}
         </div>
 
@@ -538,17 +538,17 @@ export default function SignalsPage() {
             {listState === 'loading' ? (
               <>
                 <div className="w-8 h-8 border-4 border-slate-700 border-t-amber-500 rounded-full animate-spin" />
-                <span className="text-sm font-bold text-slate-400">Loading market data...</span>
+                <span className="text-sm font-bold text-slate-400 dark:text-slate-500">Loading market data...</span>
               </>
             ) : listState === 'error' ? (
               <>
                 <span className="text-3xl">⚠️</span>
                 <span className="text-sm font-bold text-rose-400">Couldn&apos;t load prices</span>
-                <span className="text-xs text-slate-500">Binance may be restricted in your region</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">Binance may be restricted in your region</span>
                 <button onClick={() => loadList(market)} className="mt-2 text-sm font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl px-4 py-2 transition-colors">Retry</button>
               </>
             ) : (
-              <><span className="text-3xl">🛠️</span><span className="text-sm font-bold text-slate-300">No data</span></>
+              <><span className="text-3xl">🛠️</span><span className="text-sm font-bold text-slate-300 dark:text-slate-600">No data</span></>
             )}
           </div>
         )}
@@ -557,8 +557,8 @@ export default function SignalsPage() {
         {listState === 'ready' && fullCompute.active && (
           <div className="rounded-2xl border border-slate-800 bg-slate-900 py-16 flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-4 border-slate-700 border-t-amber-500 rounded-full animate-spin" />
-            <span className="text-sm font-bold text-slate-300">Calculating signals for all coins…</span>
-            <span className="text-xs text-slate-500 tabular-nums">{fullCompute.done} / {fullCompute.total}</span>
+            <span className="text-sm font-bold text-slate-300 dark:text-slate-600">Calculating signals for all coins…</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{fullCompute.done} / {fullCompute.total}</span>
             <div className="w-48 h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full bg-amber-500 rounded-full transition-all" style={{ width: `${fullCompute.total ? (fullCompute.done / fullCompute.total) * 100 : 0}%` }} />
             </div>
@@ -571,12 +571,12 @@ export default function SignalsPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm whitespace-nowrap">
                   <thead>
-                    <tr className="text-[11px] uppercase tracking-wide text-slate-500 border-b border-slate-800">
+                    <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-800">
                       <th className="sticky left-0 z-20 bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
                       <th className={th}>Entry</th>
                       <th className={th}>
                         ATR target
-                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">entry + 1.5×ATR · not a forecast</span>
+                        <span className="block text-[9px] font-normal text-slate-600 dark:text-slate-300 normal-case tracking-normal">entry + 1.5×ATR · not a forecast</span>
                       </th>
                       <th className={th}>Current</th>
                       <th className={th}>
@@ -586,7 +586,7 @@ export default function SignalsPage() {
                       </th>
                       <th className="text-right font-semibold px-3 py-3 border-l border-slate-800/70">
                         Scenarios
-                        <span className="block text-[9px] font-normal text-slate-600 normal-case tracking-normal">30d simulated paths</span>
+                        <span className="block text-[9px] font-normal text-slate-600 dark:text-slate-300 normal-case tracking-normal">30d simulated paths</span>
                       </th>
                       {BOARD_HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-800/70' : ''}`}>
@@ -618,7 +618,7 @@ export default function SignalsPage() {
                       const coinInner = (
                         <>
                           <div className="flex items-center gap-2">
-                            <span className="text-slate-600 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
+                            <span className="text-slate-600 dark:text-slate-300 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
                             <CoinLogo base={t.base} />
                             <span className={`font-bold text-white ${meta ? 'group-hover:text-amber-400 transition-colors' : ''}`}>{t.base}</span>
                             {c && market === 'futures' && (
@@ -642,7 +642,7 @@ export default function SignalsPage() {
                               </span>
                             </span>
                           ) : (
-                            <span className="block pl-7 text-[11px] text-slate-500">{pending ? 'calculating…' : 'no data'}</span>
+                            <span className="block pl-7 text-[11px] text-slate-500 dark:text-slate-400">{pending ? 'calculating…' : 'no data'}</span>
                           )}
                         </>
                       );
@@ -660,7 +660,7 @@ export default function SignalsPage() {
                             )}
                           </td>
 
-                          <td className="px-2 py-3 text-right text-slate-300 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
+                          <td className="px-2 py-3 text-right text-slate-300 dark:text-slate-600 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
 
                           <td className="px-2 py-3 text-right tabular-nums">
                             {c ? (
@@ -673,20 +673,20 @@ export default function SignalsPage() {
                                   </span>
                                 )}
                               </div>
-                            ) : <span className="text-slate-600">{pending ? '…' : '-'}</span>}
+                            ) : <span className="text-slate-600 dark:text-slate-300">{pending ? '…' : '-'}</span>}
                           </td>
 
                           <td className="px-2 py-3 text-right tabular-nums text-white">{formatPrice(t.lastPrice)}</td>
 
                           <td className="px-2 py-3 text-right tabular-nums">
-                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-600">-</span>}
+                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-600 dark:text-slate-300">-</span>}
                           </td>
 
                           <td className="px-3 py-3 text-right border-l border-slate-800/40">
                             {miniPaths.length ? (
                               <MiniPaths paths={miniPaths} spot={t.lastPrice} w={116} h={30} />
                             ) : (
-                              <span className="text-slate-700">{pending ? '…' : '-'}</span>
+                              <span className="text-slate-700 dark:text-slate-200">{pending ? '…' : '-'}</span>
                             )}
                           </td>
 
@@ -700,11 +700,11 @@ export default function SignalsPage() {
                                     <span className="text-[10px] text-amber-500/80 tabular-nums">+{p.peakPct.toFixed(1)}%</span>
                                   </div>
                                 ) : pending ? (
-                                  <span className="text-slate-600 text-xs">…</span>
+                                  <span className="text-slate-600 dark:text-slate-300 text-xs">…</span>
                                 ) : info && info.days > 0 ? (
-                                  <span className="text-slate-600 text-[10px]" title={`Needs ${MIN_SAMPLES + 1} daily closes, has ${info.days}`}>new · {info.days}d</span>
+                                  <span className="text-slate-600 dark:text-slate-300 text-[10px]" title={`Needs ${MIN_SAMPLES + 1} daily closes, has ${info.days}`}>new · {info.days}d</span>
                                 ) : (
-                                  <span className="text-slate-600 text-xs">-</span>
+                                  <span className="text-slate-600 dark:text-slate-300 text-xs">-</span>
                                 )}
                               </td>
                             );
@@ -714,7 +714,7 @@ export default function SignalsPage() {
                     })}
                     {pageTickers.length === 0 && (
                       <tr>
-                        <td colSpan={6 + BOARD_HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500">
+                        <td colSpan={6 + BOARD_HORIZONS.length} className="px-4 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
                           {hitOnly ? 'No coins have hit TP or SL yet' : `No coins match "${query}"`}
                         </td>
                       </tr>
@@ -722,37 +722,37 @@ export default function SignalsPage() {
                   </tbody>
                 </table>
               </div>
-              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500">
-                <span>Votes: <b className="text-slate-400">T</b> Trend · <b className="text-slate-400">B</b> Bollinger · <b className="text-slate-400">R</b> RSI · <b className="text-slate-400">A</b> ATR <span className="text-slate-600">(↑ bullish · ↓ bearish · · neutral)</span></span>
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-800 text-[11px] text-slate-500 dark:text-slate-400">
+                <span>Votes: <b className="text-slate-400 dark:text-slate-500">T</b> Trend · <b className="text-slate-400 dark:text-slate-500">B</b> Bollinger · <b className="text-slate-400 dark:text-slate-500">R</b> RSI · <b className="text-slate-400 dark:text-slate-500">A</b> ATR <span className="text-slate-600 dark:text-slate-300">(↑ bullish · ↓ bearish · · neutral)</span></span>
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
-              <div className="px-4 pb-3 text-[11px] text-slate-600">
+              <div className="px-4 pb-3 text-[11px] text-slate-600 dark:text-slate-300">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
-                sorted by <b className="text-slate-500">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
-<b className="text-slate-500">ATR target</b> is a trade level (entry + {TP_MULT}×ATR), <b className="text-slate-500">not a forecast</b> — backtested over 8,552 setups it was reached the next day only 4.6% of the time · <b className="text-slate-500">1W–3Y</b> are the forecast: the typical peak, the price each coin touches at some point half the time. These match the coin page exactly.{pageComputing ? ' · calculating…' : ''}
+                sorted by <b className="text-slate-500 dark:text-slate-400">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
+<b className="text-slate-500 dark:text-slate-400">ATR target</b> is a trade level (entry + {TP_MULT}×ATR), <b className="text-slate-500 dark:text-slate-400">not a forecast</b> — backtested over 8,552 setups it was reached the next day only 4.6% of the time · <b className="text-slate-500 dark:text-slate-400">1W–3Y</b> are the forecast: the typical peak, the price each coin touches at some point half the time. These match the coin page exactly.{pageComputing ? ' · calculating…' : ''}
               </div>
             </div>
 
             {/* Pagination */}
             <div className="flex items-center justify-center gap-2 mt-4">
-              <button onClick={() => setPage(1)} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">« First</button>
-              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">‹ Prev</button>
-              <span className="px-3 text-sm font-bold text-slate-300 tabular-nums">{page} / {totalPages}</span>
-              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">Next ›</button>
-              <button onClick={() => setPage(totalPages)} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">Last »</button>
+              <button onClick={() => setPage(1)} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 dark:text-slate-500 disabled:opacity-30 hover:border-slate-600 transition-colors">« First</button>
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 dark:text-slate-500 disabled:opacity-30 hover:border-slate-600 transition-colors">‹ Prev</button>
+              <span className="px-3 text-sm font-bold text-slate-300 dark:text-slate-600 tabular-nums">{page} / {totalPages}</span>
+              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 dark:text-slate-500 disabled:opacity-30 hover:border-slate-600 transition-colors">Next ›</button>
+              <button onClick={() => setPage(totalPages)} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-800 text-slate-400 dark:text-slate-500 disabled:opacity-30 hover:border-slate-600 transition-colors">Last »</button>
             </div>
           </>
         )}
 
-        <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
+        <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-400 dark:text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
           <p className="mb-2">
             <b className="text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
-            <b className="text-slate-300"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
+            <b className="text-slate-300 dark:text-slate-600"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
             because the drift is only about 9% of the noise over three days. We show the peak because it is the number that genuinely differs between coins and
             is calibrated: the barrier correction was fitted so the touch probability really is 50%, and checked on BTC, SOL and DOGE with a seed different from
             the one used to fit it (measured 48.2–50.1%). At short horizons it also matches what a coin historically did — Bitcoin&apos;s modelled 3-day peak
-            lands within 0.4% of its historical median 3-day peak. <b className="text-slate-300">Scenarios</b> shows four sampled 30-day paths from the same model — real samples, not forecasts.
+            lands within 0.4% of its historical median 3-day peak. <b className="text-slate-300 dark:text-slate-600">Scenarios</b> shows four sampled 30-day paths from the same model — real samples, not forecasts.
           </p>
           <p>
             A coin&apos;s trend is split into a
@@ -763,20 +763,20 @@ export default function SignalsPage() {
           </p>
           <p className="mt-2">
             Over three days the drift is only about 9% of the noise, so the forecast barely moves even though the price still swings roughly one ATR — that swing
-            lives in the range, not in the forecast. Click a coin for its <b className="text-slate-300">typical peak</b> (the level it touches at some point in half
+            lives in the range, not in the forecast. Click a coin for its <b className="text-slate-300 dark:text-slate-600">typical peak</b> (the level it touches at some point in half
             of all paths), the ranges, and the probability of reaching any target.
           </p>
         </div>
 
         <Faq items={SECTION_FAQ['crypto/signals']} tone="dark" className="mt-8" />
 
-        <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 leading-relaxed [&>p]:max-w-[95ch]">
+        <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
           <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry is the last closed daily candle; the trade target = entry + {TP_MULT}×ATR in the signal direction — over 8,552 historical setups it was reached the next day 4.6% of the time and within five days 23.2%, while the stop was hit first 42.1% of the time. The stop-loss ({SL_MULT}×ATR), live P&amp;L and target-hit history are on each coin&apos;s page. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
           <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>
         </div>
 
-        <p className="text-center text-xs text-slate-600 mt-6">🔄 Refresh to recalculate with the latest prices · Binance public market data</p>
+        <p className="text-center text-xs text-slate-600 dark:text-slate-300 mt-6">🔄 Refresh to recalculate with the latest prices · Binance public market data</p>
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ export default function ToHourlyPage() {
               <SummaryCard label="월 소정근로시간" value={`${result.monthlyHours}시간`} />
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 2026년 최저시급: {MIN_WAGE_2026.toLocaleString()}원 · 주 {weeklyHours}시간 기준 월 {result.monthlyHours}시간 적용
               </p>
             </Card>

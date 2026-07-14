@@ -9,10 +9,10 @@ function InputRow({ label, value, onChange, placeholder }: {
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-slate-500 w-32 shrink-0">{label}</span>
+      <span className="text-sm text-slate-500 dark:text-slate-400 w-32 shrink-0">{label}</span>
       <input type="number" value={value} onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
   );
 }
@@ -66,7 +66,7 @@ export default function PercentPage() {
                 <div className="flex gap-2">
                   {(['up', 'down'] as const).map(d => (
                     <button key={d} onClick={() => setDir(d)}
-                      className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors ${dir === d ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                      className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors ${dir === d ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                       {d === 'up' ? '▲ 증가' : '▼ 감소'}
                     </button>
                   ))}

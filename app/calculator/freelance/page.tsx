@@ -45,7 +45,7 @@ export default function FreelancePage() {
     <CalcShell title="프리랜서 세금 계산기" description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정" faq={CALC_FAQ.freelance}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">수입 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">수입 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>수입 구분</Label>
@@ -57,7 +57,7 @@ export default function FreelancePage() {
                 ] as const).map(opt=>(
                   <button key={opt.v} onClick={()=>setPeriod(opt.v)}
                     className={`py-2.5 text-sm font-semibold rounded-xl border transition-colors ${
-                      period===opt.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                      period===opt.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}>
                     {opt.l}
                   </button>
@@ -104,10 +104,10 @@ export default function FreelancePage() {
                 <Row l="연간 추정 수입" v={`${fmt(result.annualEstimate)}원`}/>
                 <Row l={`경비 공제 (${(EXPENSE_RATE*100).toFixed(1)}%)`} v={`-${fmt(result.expenseDeduction)}원`}/>
                 <Row l="사업소득금액" v={`${fmt(result.annualEstimate-result.expenseDeduction)}원`}/>
-                <div className="border-t border-slate-100 pt-2.5">
+                <div className="border-t border-slate-100 dark:border-slate-800 pt-2.5">
                   <Row l="예상 종합소득세" v={`≈ ${fmt(result.estimatedFinalTax)}원`} bold/>
                 </div>
-                <div className="border-t border-slate-100 pt-2.5">
+                <div className="border-t border-slate-100 dark:border-slate-800 pt-2.5">
                   <Row
                     l="기납부 원천세 (연간)"
                     v={`${fmt(result.incomeTax*12)}원`}
@@ -124,7 +124,7 @@ export default function FreelancePage() {
                 </div>
               </div>
               <div className="px-5 pb-4">
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
                   * 연간 수입을 기준으로 추정한 값입니다. 부양가족·의료비 등 공제 미반영.
                   실제 세금은 세무사 상담을 권장합니다.
                 </p>
@@ -139,9 +139,9 @@ export default function FreelancePage() {
 
 function Row({l,v,red,bold}:{l:string;v:string;red?:boolean;bold?:boolean}) {
   return (
-    <div className={`flex justify-between px-5 py-2.5 ${bold?'font-bold bg-slate-50':''}`}>
-      <span className="text-slate-600">{l}</span>
-      <span className={red?'text-red-500 font-semibold':'text-slate-800'}>{v}</span>
+    <div className={`flex justify-between px-5 py-2.5 ${bold?'font-bold bg-slate-50 dark:bg-slate-950':''}`}>
+      <span className="text-slate-600 dark:text-slate-300">{l}</span>
+      <span className={red?'text-red-500 font-semibold':'text-slate-800 dark:text-slate-100'}>{v}</span>
     </div>
   );
 }

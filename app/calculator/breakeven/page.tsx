@@ -76,7 +76,7 @@ export default function BreakevenPage() {
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input type="checkbox" checked={txTax} onChange={e => setTxTax(e.target.checked)}
                   className="w-4 h-4 accent-blue-600" />
-                <span className="text-sm text-slate-700">증권거래세 0.18% 포함</span>
+                <span className="text-sm text-slate-700 dark:text-slate-200">증권거래세 0.18% 포함</span>
               </label>
             </div>
           ) : (

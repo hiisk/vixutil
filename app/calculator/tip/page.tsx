@@ -51,7 +51,7 @@ export default function TipPage() {
     <CalcShell title="팁 계산기" description="금액과 팁 비율, 인원수를 입력하면 1인당 금액을 자동 계산합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">결제 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">결제 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>금액 (원)</Label>
@@ -69,7 +69,7 @@ export default function TipPage() {
                     className={`px-4 py-2 text-sm font-semibold rounded-xl border transition-colors ${
                       tipRate === r
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {r}%
@@ -98,7 +98,7 @@ export default function TipPage() {
                     className={`px-4 py-2 text-sm font-semibold rounded-xl border transition-colors ${
                       people === String(n)
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {n}명
@@ -148,7 +148,7 @@ export default function TipPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">상세 내역</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">상세 내역</p>
               <div className="flex flex-col gap-2">
                 {[
                   { label: '원금', value: `${w(amount)}원` },
@@ -159,10 +159,10 @@ export default function TipPage() {
                 ].map((row, i) => (
                   <div
                     key={i}
-                    className={`flex justify-between items-center py-2 ${i < 4 ? 'border-b border-slate-100' : ''}`}
+                    className={`flex justify-between items-center py-2 ${i < 4 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}
                   >
-                    <span className="text-sm text-slate-500">{row.label}</span>
-                    <span className={`text-sm ${row.bold ? 'font-black text-slate-900' : 'text-slate-700'}`}>
+                    <span className="text-sm text-slate-500 dark:text-slate-400">{row.label}</span>
+                    <span className={`text-sm ${row.bold ? 'font-black text-slate-900 dark:text-slate-100' : 'text-slate-700 dark:text-slate-200'}`}>
                       {row.value}
                     </span>
                   </div>

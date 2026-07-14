@@ -29,7 +29,7 @@ export default function ForecastChart({
 }) {
   const uid = useId().replace(/:/g, '');
   if (history.length < 2 || daily.length < 2) {
-    return <div className="h-40 grid place-items-center text-sm text-slate-600">Not enough data to chart</div>;
+    return <div className="h-40 grid place-items-center text-sm text-slate-600 dark:text-slate-300">Not enough data to chart</div>;
   }
 
   const W = 720, H = height;
@@ -131,7 +131,7 @@ export default function ForecastChart({
       </svg>
 
       {/* 두 개 이상의 시계열 → 범례는 항상 둔다 */}
-      <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 mt-1">
+      <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 bg-slate-400 rounded" /> Actual close</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 rounded" style={{ background: accent }} /> Forecast</span>
         <span className="inline-flex items-center gap-1.5"><span className="w-4 h-2 rounded-sm" style={{ background: accent, opacity: 0.25 }} /> 50% range</span>

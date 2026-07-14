@@ -96,7 +96,7 @@ function ShareBtn() {
     } catch { /* 권한 없음 */ }
   }, []);
   return (
-    <button onClick={handleShare} className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30">
+    <button onClick={handleShare} className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 dark:bg-slate-900/20 border-white/30 dark:border-slate-700/30 text-white hover:bg-white/30">
       {state === 'copied' ? '복사됨 ✓' : '공유'}
     </button>
   );
@@ -162,27 +162,27 @@ export default function HandwritingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="h-1 bg-gradient-to-r from-slate-600 via-indigo-500 to-violet-500" />
 
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 transition-colors font-medium">
+          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             스냅테스트
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">손글씨 심리 테스트</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">손글씨 심리 테스트</span>
         </div>
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">✍️</div>
-          <h1 className="text-2xl font-black text-slate-900 mb-1.5">손글씨 심리 테스트</h1>
-          <p className="text-slate-500 text-sm">손글씨 사진 한 장으로 기울기·필압을 분석해요</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">손글씨 심리 테스트</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">손글씨 사진 한 장으로 기울기·필압을 분석해요</p>
         </div>
 
         <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 mb-6 text-xs text-indigo-800 leading-relaxed">
@@ -193,11 +193,11 @@ export default function HandwritingPage() {
         {!preview && (
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white hover:border-indigo-400 hover:bg-indigo-50/50 transition-colors"
+            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
           >
             <span className="text-4xl">📝</span>
-            <span className="text-sm font-bold text-slate-600">손글씨 사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400">종이에 쓴 글씨가 또렷하게 나온 사진일수록 정확해요</span>
+            <span className="text-sm font-bold text-slate-600 dark:text-slate-300">손글씨 사진을 선택해주세요</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">종이에 쓴 글씨가 또렷하게 나온 사진일수록 정확해요</span>
           </button>
         )}
         <input
@@ -210,12 +210,12 @@ export default function HandwritingPage() {
 
         {preview && (
           <div className="mb-6">
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-white aspect-square max-w-xs mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt="업로드한 손글씨 사진 미리보기" className="w-full h-full object-cover" />
               {analyzing && (
                 <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center gap-3">
-                  <div className="w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-10 h-10 border-4 border-white/30 dark:border-slate-700/30 border-t-white rounded-full animate-spin" />
                   <p className="text-white text-sm font-bold">필체 분석 중...</p>
                 </div>
               )}
@@ -223,7 +223,7 @@ export default function HandwritingPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 hover:text-indigo-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -254,14 +254,14 @@ export default function HandwritingPage() {
               <p className="text-sm leading-relaxed">{result.slantText}</p>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">↔️ 기울기 지수</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">↔️ 기울기 지수</p>
                 <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 rounded-full px-2 py-0.5">
                   {result.slantPercent}%
                 </span>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-sky-400 via-slate-300 to-rose-400 rounded-full" style={{ width: '100%' }} />
               </div>
               <div className="relative h-3">
@@ -269,22 +269,22 @@ export default function HandwritingPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">✏️ 필압 — {result.pressurePercent}%</p>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-3">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">✏️ 필압 — {result.pressurePercent}%</p>
+              <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
                 <div className="h-full bg-gradient-to-r from-slate-200 to-slate-800 rounded-full" style={{ width: `${result.pressurePercent}%` }} />
               </div>
-              <p className="text-sm text-slate-700 leading-relaxed">{result.pressureText}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.pressureText}</p>
             </div>
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 표현 팁</p>
-              <p className="text-sm text-slate-700 leading-relaxed font-medium">{result.tip}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>
 
             <button
               onClick={handleReset}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-colors"
+              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-indigo-300 hover:text-indigo-600 transition-colors"
             >
               🔄 다른 사진으로 다시 해보기
             </button>
@@ -301,7 +301,7 @@ export default function HandwritingPage() {
 
             <ShareButton title="손글씨 심리 테스트 결과" description={`${result.slantText} ${result.pressureText}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 pt-2">
+            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
               기울기·필압 측정은 실제 이미지 분석 결과이며, 성격 해석은 필적학에 근거한 참고용 오락 콘텐츠입니다.
             </p>
           </div>

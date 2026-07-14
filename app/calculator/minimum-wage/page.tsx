@@ -69,7 +69,7 @@ export default function MinimumWagePage() {
               <SummaryCard label="월 소정근로시간" value={`${result.monthlyHours}시간`} />
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 주 {weeklyHours}시간 근무 기준 · 주휴수당 포함 월 소정근로시간 {result.monthlyHours}h 적용
                 {Number(weeklyHours) < 15 && ' · 주 15시간 미만으로 주휴수당 미발생'}
               </p>

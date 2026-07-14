@@ -176,7 +176,7 @@ function ShareBtn() {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30"
+      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 dark:bg-slate-900/20 border-white/30 dark:border-slate-700/30 text-white hover:bg-white/30"
     >
       {state === 'copied' ? '복사됨 ✓' : '공유'}
     </button>
@@ -280,27 +280,27 @@ export default function PersonalColorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="h-1 bg-gradient-to-r from-orange-400 via-rose-400 to-indigo-500" />
 
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-rose-600 transition-colors font-medium">
+          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-rose-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             스냅테스트
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">퍼스널컬러 진단</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">퍼스널컬러 진단</span>
         </div>
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">🎨</div>
-          <h1 className="text-2xl font-black text-slate-900 mb-1.5">퍼스널컬러 진단</h1>
-          <p className="text-slate-500 text-sm">실제 얼굴 인식으로 피부 톤을 분석해 12가지 유형과 나만의 컬러 팔레트를 찾아드려요</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">퍼스널컬러 진단</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 피부 톤을 분석해 12가지 유형과 나만의 컬러 팔레트를 찾아드려요</p>
         </div>
 
         <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 mb-6 text-xs text-rose-800 leading-relaxed">
@@ -309,9 +309,9 @@ export default function PersonalColorPage() {
         </div>
 
         {modelState === 'loading' && (
-          <div className="w-full border-2 border-dashed border-slate-200 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white">
-            <div className="w-8 h-8 border-4 border-slate-200 border-t-rose-500 rounded-full animate-spin" />
-            <span className="text-sm font-bold text-slate-500">얼굴 인식 모델을 불러오는 중...</span>
+          <div className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
+            <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-rose-500 rounded-full animate-spin" />
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">얼굴 인식 모델을 불러오는 중...</span>
           </div>
         )}
 
@@ -326,11 +326,11 @@ export default function PersonalColorPage() {
         {modelState === 'ready' && !preview && (
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white hover:border-rose-400 hover:bg-rose-50/50 transition-colors"
+            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40 transition-colors"
           >
             <span className="text-4xl">📷</span>
-            <span className="text-sm font-bold text-slate-600">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400">밝은 곳에서 찍은 정면 사진일수록 정확해요</span>
+            <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">밝은 곳에서 찍은 정면 사진일수록 정확해요</span>
           </button>
         )}
         <input
@@ -343,12 +343,12 @@ export default function PersonalColorPage() {
 
         {preview && (
           <div className="mb-6">
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-white aspect-square max-w-xs mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt="업로드한 사진 미리보기" className="w-full h-full object-cover" />
               {analyzing && (
                 <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center gap-3">
-                  <div className="w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-10 h-10 border-4 border-white/30 dark:border-slate-700/30 border-t-white rounded-full animate-spin" />
                   <p className="text-white text-sm font-bold">피부 톤 분석 중...</p>
                 </div>
               )}
@@ -356,7 +356,7 @@ export default function PersonalColorPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 hover:text-rose-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-rose-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -391,14 +391,14 @@ export default function PersonalColorPage() {
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">🌡️ 웜/쿨 지수</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">🌡️ 웜/쿨 지수</p>
                 <span className="text-[11px] font-bold text-orange-600 bg-orange-50 border border-orange-100 rounded-full px-2 py-0.5">
                   {result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}
                 </span>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-sky-400 via-slate-300 to-orange-400 rounded-full" style={{ width: '100%' }} />
               </div>
               <div className="relative h-3">
@@ -406,49 +406,49 @@ export default function PersonalColorPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">✨ 선명도 지수</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">✨ 선명도 지수</p>
                 <span className="text-[11px] font-bold text-rose-600 bg-rose-50 border border-rose-100 rounded-full px-2 py-0.5">
                   {result.clarityPercent}% {result.clarityPercent >= 50 ? '클리어' : '뮤트'}
                 </span>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-1">
+              <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
                 <div className="h-full bg-gradient-to-r from-rose-400 to-fuchsia-500 rounded-full" style={{ width: `${result.clarityPercent}%` }} />
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">☀️ 명도 지수</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">☀️ 명도 지수</p>
                 <span className="text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-100 rounded-full px-2 py-0.5">
                   {result.valuePercent}% {result.valuePercent >= 50 ? '라이트' : '딥'}
                 </span>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-1">
+              <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
                 <div className="h-full bg-gradient-to-r from-slate-700 to-amber-200 rounded-full" style={{ width: `${result.valuePercent}%` }} />
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">🎨 추천 컬러 팔레트</p>
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">🎨 추천 컬러 팔레트</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.palette.map(c => (
                   <div key={c.hex} className="text-center">
-                    <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200 shadow-sm" style={{ background: c.hex }} />
-                    <p className="text-xs font-semibold text-slate-600">{c.name}</p>
+                    <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200 dark:border-slate-700 shadow-sm" style={{ background: c.hex }} />
+                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">{c.name}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">🙅 피하면 좋은 컬러</p>
+            <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">🙅 피하면 좋은 컬러</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.avoidPalette.map(c => (
                   <div key={c.hex} className="text-center opacity-70">
-                    <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200" style={{ background: c.hex }} />
-                    <p className="text-xs font-semibold text-slate-500">{c.name}</p>
+                    <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200 dark:border-slate-700" style={{ background: c.hex }} />
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{c.name}</p>
                   </div>
                 ))}
               </div>
@@ -456,12 +456,12 @@ export default function PersonalColorPage() {
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 스타일 팁</p>
-              <p className="text-sm text-slate-700 leading-relaxed font-medium">{result.styleTip}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.styleTip}</p>
             </div>
 
             <button
               onClick={handleReset}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-rose-300 hover:text-rose-600 transition-colors"
+              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors"
             >
               🔄 다른 사진으로 다시 해보기
             </button>
@@ -478,7 +478,7 @@ export default function PersonalColorPage() {
 
             <ShareButton title="퍼스널컬러 진단 결과" description={`${result.label} — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 pt-2">
+            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
               얼굴 인식과 피부 톤 측정은 실제로 이뤄지지만, 웜/쿨 해석과 컬러 추천은 참고용이며 전문 퍼스널컬러 진단을 대체하지 않습니다.
             </p>
           </div>

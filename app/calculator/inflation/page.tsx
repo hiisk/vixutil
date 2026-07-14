@@ -92,7 +92,7 @@ export default function InflationPage() {
         {tab === 'future' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">조건 입력</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">조건 입력</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>현재 금액 (원)</Label>
@@ -104,7 +104,7 @@ export default function InflationPage() {
                     {QUICK_RATES.map(r => (
                       <button key={r} type="button" onClick={() => setInflRate(r)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          inflRate === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          inflRate === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>{r}%</button>
                     ))}
                   </div>
@@ -117,7 +117,7 @@ export default function InflationPage() {
                     {QUICK_YEARS.map(y => (
                       <button key={y} type="button" onClick={() => setYears(y)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          years === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          years === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>{y}년</button>
                     ))}
                   </div>
@@ -139,9 +139,9 @@ export default function InflationPage() {
                 </SummaryGrid>
 
                 <Card>
-                  <div className="px-5 py-4 border-b border-slate-100">
-                    <p className="font-bold text-slate-800 text-sm">연도별 물가 변화</p>
-                    <p className="text-xs text-slate-400 mt-0.5">연 {inflRate}% 물가상승률 적용</p>
+                  <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+                    <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">연도별 물가 변화</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">연 {inflRate}% 물가상승률 적용</p>
                   </div>
                   <TableWrap>
                     <table className="calc-table">
@@ -158,7 +158,7 @@ export default function InflationPage() {
                         {(showAllF ? futureRows! : futureRows!.slice(0, 20)).map(r => (
                           <tr key={r.year}>
                             <td>{r.year}년 후</td>
-                            <td className="font-black text-slate-900">{w(r.value)}원</td>
+                            <td className="font-black text-slate-900 dark:text-slate-100">{w(r.value)}원</td>
                             <td className="text-red-500 font-semibold">+{w(r.value - amount)}원</td>
                             <td className="text-red-500 font-semibold">+{r.cumInflation.toFixed(1)}%</td>
                             <td className="text-blue-700 font-semibold">{r.purchasePower.toFixed(1)}%</td>
@@ -180,7 +180,7 @@ export default function InflationPage() {
         {tab === 'present' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">조건 입력</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">조건 입력</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>미래 목표 금액 (원)</Label>
@@ -192,7 +192,7 @@ export default function InflationPage() {
                     {QUICK_RATES.map(r => (
                       <button key={r} type="button" onClick={() => setInflRate2(r)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          inflRate2 === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          inflRate2 === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>{r}%</button>
                     ))}
                   </div>
@@ -205,7 +205,7 @@ export default function InflationPage() {
                     {QUICK_YEARS.map(y => (
                       <button key={y} type="button" onClick={() => setYears2(y)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          years2 === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          years2 === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>{y}년</button>
                     ))}
                   </div>
@@ -227,9 +227,9 @@ export default function InflationPage() {
                 </SummaryGrid>
 
                 <Card>
-                  <div className="px-5 py-4 border-b border-slate-100">
-                    <p className="font-bold text-slate-800 text-sm">연도별 현재 가치</p>
-                    <p className="text-xs text-slate-400 mt-0.5">연 {inflRate2}% 물가상승률 기준</p>
+                  <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+                    <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">연도별 현재 가치</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">연 {inflRate2}% 물가상승률 기준</p>
                   </div>
                   <TableWrap>
                     <table className="calc-table">
@@ -245,7 +245,7 @@ export default function InflationPage() {
                         {(showAllP ? presentRows! : presentRows!.slice(0, 20)).map(r => (
                           <tr key={r.year}>
                             <td>{r.year}년 전</td>
-                            <td className="font-black text-slate-900">{w(r.value)}원</td>
+                            <td className="font-black text-slate-900 dark:text-slate-100">{w(r.value)}원</td>
                             <td className="text-red-500 font-semibold">-{w(futureAmount - r.value)}원</td>
                             <td className="text-blue-700 font-semibold">{r.purchasePower.toFixed(1)}%</td>
                           </tr>

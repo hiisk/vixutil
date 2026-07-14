@@ -83,9 +83,9 @@ export default function UnemploymentPage() {
         <Label>이직 전 월 평균임금 (만원)</Label>
         <div className="flex items-center gap-2">
           <CommaInput value={salary} onChange={setSalary} placeholder="350" />
-          <span className="text-sm text-slate-500 shrink-0">만원</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 shrink-0">만원</span>
         </div>
-        <p className="text-xs text-slate-400 mt-1 mb-4">세전 월급 기준으로 입력하세요</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 mb-4">세전 월급 기준으로 입력하세요</p>
 
         <Label>고용보험 가입기간</Label>
         <div className="flex gap-2 mb-4">
@@ -98,7 +98,7 @@ export default function UnemploymentPage() {
                 placeholder="0"
                 className={inputCls}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 pointer-events-none">년</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 dark:text-slate-500 pointer-events-none">년</span>
             </div>
           </div>
           <div className="flex-1">
@@ -110,7 +110,7 @@ export default function UnemploymentPage() {
                 placeholder="0"
                 className={inputCls}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 pointer-events-none">개월</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 dark:text-slate-500 pointer-events-none">개월</span>
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function UnemploymentPage() {
               className={`flex-1 py-2.5 rounded-xl text-sm font-bold border transition-all ${
                 over50 === opt.value
                   ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-blue-300'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-300'
               }`}
             >
               {opt.label}
@@ -158,8 +158,8 @@ export default function UnemploymentPage() {
                 ['월 평균 수령',   `약 ${fmt(result.monthly)}원`],
               ].map(([label, value]) => (
                 <div key={label} className="flex justify-between items-start gap-4 text-sm border-b border-slate-50 pb-2.5 last:border-0 last:pb-0">
-                  <span className="text-slate-500 shrink-0">{label}</span>
-                  <span className="font-bold text-slate-900 text-right">{value}</span>
+                  <span className="text-slate-500 dark:text-slate-400 shrink-0">{label}</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100 text-right">{value}</span>
                 </div>
               ))}
             </div>
@@ -170,10 +170,10 @@ export default function UnemploymentPage() {
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100">
-                    <th className="text-left py-2 px-2 font-bold text-slate-500">피보험 단위기간</th>
-                    <th className="text-right py-2 px-2 font-bold text-slate-500">50세 미만</th>
-                    <th className="text-right py-2 px-2 font-bold text-slate-500">50세 이상·장애인</th>
+                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                    <th className="text-left py-2 px-2 font-bold text-slate-500 dark:text-slate-400">피보험 단위기간</th>
+                    <th className="text-right py-2 px-2 font-bold text-slate-500 dark:text-slate-400">50세 미만</th>
+                    <th className="text-right py-2 px-2 font-bold text-slate-500 dark:text-slate-400">50세 이상·장애인</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,9 +190,9 @@ export default function UnemploymentPage() {
                         key={String(period)}
                         className={`border-b border-slate-50 ${isActive ? 'bg-blue-50 font-bold' : ''}`}
                       >
-                        <td className="py-2 px-2 text-slate-700">{period}{isActive ? ' ✓' : ''}</td>
-                        <td className={`text-right py-2 px-2 ${isActive && !over50 ? 'text-blue-700' : 'text-slate-600'}`}>{young}일</td>
-                        <td className={`text-right py-2 px-2 ${isActive && over50 ? 'text-blue-700' : 'text-slate-600'}`}>{old}일</td>
+                        <td className="py-2 px-2 text-slate-700 dark:text-slate-200">{period}{isActive ? ' ✓' : ''}</td>
+                        <td className={`text-right py-2 px-2 ${isActive && !over50 ? 'text-blue-700' : 'text-slate-600 dark:text-slate-300'}`}>{young}일</td>
+                        <td className={`text-right py-2 px-2 ${isActive && over50 ? 'text-blue-700' : 'text-slate-600 dark:text-slate-300'}`}>{old}일</td>
                       </tr>
                     );
                   })}
@@ -203,7 +203,7 @@ export default function UnemploymentPage() {
 
           <Card>
             <CardHeader title="수급 요건 안내" />
-            <ul className="space-y-2 text-sm text-slate-600">
+            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
               {[
                 '이직일 이전 18개월 중 피보험단위기간 180일 이상',
                 '비자발적 이직 (권고사직, 계약만료, 회사 폐업 등)',
@@ -217,7 +217,7 @@ export default function UnemploymentPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-slate-400">
+            <p className="mt-4 text-xs text-slate-400 dark:text-slate-500">
               ※ 본 계산기는 참고용이며 실제 수급액은 고용센터 심사에 따라 달라질 수 있습니다.
             </p>
           </Card>

@@ -81,7 +81,7 @@ export default function RefinancePage() {
             <div>
               <Label>중도상환수수료 (원)</Label>
               <CommaInput value={prepaymentFee} onChange={setPrepaymentFee} placeholder="예: 1,200,000" />
-              <p className="mt-1.5 text-xs text-slate-400">
+              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
                 보통 실행 후 3년이 지나면 면제됩니다. 모르면 0으로 두세요.
               </p>
             </div>
@@ -138,26 +138,26 @@ export default function RefinancePage() {
             </div>
 
             <div className="px-5 pb-4">
-              <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-600 space-y-1.5">
+              <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 text-sm text-slate-600 dark:text-slate-300 space-y-1.5">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">현재 대출 총이자</span>
+                  <span className="text-slate-500 dark:text-slate-400">현재 대출 총이자</span>
                   <span className="font-semibold">{w(result.currentTotalInterest)}원</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">갈아탄 뒤 총이자</span>
+                  <span className="text-slate-500 dark:text-slate-400">갈아탄 뒤 총이자</span>
                   <span className="font-semibold">{w(result.newTotalInterest)}원</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-200 pt-1.5">
-                  <span className="text-slate-500">이자 절감액</span>
+                <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-1.5">
+                  <span className="text-slate-500 dark:text-slate-400">이자 절감액</span>
                   <span className={`font-semibold ${result.interestSaved >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
                     {signed(result.interestSaved)}원
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">초기 비용 (수수료 + 부대비용)</span>
+                  <span className="text-slate-500 dark:text-slate-400">초기 비용 (수수료 + 부대비용)</span>
                   <span className="font-semibold text-red-600">-{w(result.upfrontCost)}원</span>
                 </div>
-                <div className="flex justify-between border-t border-slate-200 pt-1.5 font-bold text-slate-800">
+                <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-1.5 font-bold text-slate-800 dark:text-slate-100">
                   <span>순이익</span>
                   <span className={result.worthIt ? 'text-emerald-600' : 'text-red-600'}>
                     {signed(result.netBenefit)}원

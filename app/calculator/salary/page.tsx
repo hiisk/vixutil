@@ -89,7 +89,7 @@ export default function SalaryPage() {
     <CalcShell title="실수령액 계산기" description="2026년 4대보험 요율 · 근로소득세법 기준" faq={CALC_FAQ.salary}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>연봉 (원)</Label>
@@ -97,7 +97,7 @@ export default function SalaryPage() {
             </div>
           </div>
 
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-4 mb-3">공제 옵션</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mt-4 mb-3">공제 옵션</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>부양가족 수 (본인 포함)</Label>
@@ -112,9 +112,9 @@ export default function SalaryPage() {
               <label className="flex items-center gap-2 py-3 cursor-pointer select-none">
                 <input type="checkbox" checked={mealExempt} onChange={e => setMealExempt(e.target.checked)}
                   className="w-4 h-4 accent-blue-600" />
-                <span className="text-sm text-slate-700">
+                <span className="text-sm text-slate-700 dark:text-slate-200">
                   식대 비과세<br />
-                  <span className="text-xs text-slate-400">월 20만원 공제</span>
+                  <span className="text-xs text-slate-400 dark:text-slate-500">월 20만원 공제</span>
                 </span>
               </label>
             </div>
@@ -152,13 +152,13 @@ export default function SalaryPage() {
                   <Row label="근로소득세" rate="간이세액표 기준" value={result.incomeTax} />
                   <Row label="지방소득세" rate="소득세×10%" value={result.localTax} />
                 </Section>
-                <div className="px-5 py-3.5 bg-slate-50 flex justify-between items-center">
-                  <span className="text-sm font-bold text-slate-800">총 공제액</span>
+                <div className="px-5 py-3.5 bg-slate-50 dark:bg-slate-950 flex justify-between items-center">
+                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100">총 공제액</span>
                   <span className="font-black text-red-500">-{fmt(result.totalDeduction)}원</span>
                 </div>
               </div>
-              <div className="px-5 py-3 border-t border-slate-100">
-                <p className="text-xs text-slate-400">
+              <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
+                <p className="text-xs text-slate-400 dark:text-slate-500">
                   * 부양가족 {dependents}명 기본공제 적용
                   {mealExempt ? ' · 식대 비과세 20만원 적용' : ''}
                   {' · '}의료비·교육비 등 추가공제 미반영
@@ -176,7 +176,7 @@ function Section({ title, total, children }: { title: string; total: number; chi
   return (
     <div className="px-5 py-4">
       <div className="flex justify-between items-center mb-2.5">
-        <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">{title}</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{title}</p>
         <span className="text-xs font-bold text-red-500">-{Math.round(total).toLocaleString()}원</span>
       </div>
       <div className="flex flex-col gap-2">{children}</div>
@@ -188,8 +188,8 @@ function Row({ label, rate, value }: { label: string; rate: string; value: numbe
   return (
     <div className="flex justify-between items-center text-sm">
       <div className="flex items-center gap-2">
-        <span className="text-slate-700">{label}</span>
-        <span className="text-xs text-slate-400 hidden sm:inline">{rate}</span>
+        <span className="text-slate-700 dark:text-slate-200">{label}</span>
+        <span className="text-xs text-slate-400 dark:text-slate-500 hidden sm:inline">{rate}</span>
       </div>
       <span className="font-semibold text-red-500">-{Math.round(value).toLocaleString()}원</span>
     </div>

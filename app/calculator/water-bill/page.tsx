@@ -70,14 +70,14 @@ export default function WaterBillPage() {
                   { label: '물이용부담금 (170원/m³)', value: result.envFee },
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3 flex justify-between text-sm">
-                    <span className="text-slate-600">{r.label}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{r.label}</span>
                     <span className="font-semibold">{fmt(r.value)}원</span>
                   </div>
                 ))}
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400">* 수도요금은 부가세 면세 · 서울시 기준 (지역에 따라 다를 수 있음)</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">* 수도요금은 부가세 면세 · 서울시 기준 (지역에 따라 다를 수 있음)</p>
             </Card>
           </>
         )}

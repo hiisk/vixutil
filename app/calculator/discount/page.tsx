@@ -66,7 +66,7 @@ export default function DiscountPage() {
         {tab === 'calc' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">할인가 계산</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">할인가 계산</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>정가 (원)</Label>
@@ -78,7 +78,7 @@ export default function DiscountPage() {
                     {QUICK_RATES.map(r => (
                       <button key={r} type="button" onClick={() => setDiscRate(String(r))}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          discRate === String(r) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          discRate === String(r) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>
                         {r}%
                       </button>
@@ -105,7 +105,7 @@ export default function DiscountPage() {
         {tab === 'rate' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">할인율 계산</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">할인율 계산</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>정가 (원)</Label>
@@ -133,7 +133,7 @@ export default function DiscountPage() {
         {tab === 'reverse' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">원가 역산</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">원가 역산</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>할인가 (원)</Label>
@@ -145,7 +145,7 @@ export default function DiscountPage() {
                     {QUICK_RATES.map(r => (
                       <button key={r} type="button" onClick={() => setDiscRate3(String(r))}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          discRate3 === String(r) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          discRate3 === String(r) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                         }`}>
                         {r}%
                       </button>

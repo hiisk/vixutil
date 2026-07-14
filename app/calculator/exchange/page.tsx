@@ -48,7 +48,7 @@ export default function ExchangePage() {
     <CalcShell title="환율 계산기" description="실시간 환율 API 연동 (ExchangeRate-API)">
       <div className="flex flex-col gap-4">
         {loading && (
-          <Card className="p-8 text-center text-slate-400 text-sm">
+          <Card className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
             환율 정보 불러오는 중...
           </Card>
         )}
@@ -59,7 +59,7 @@ export default function ExchangePage() {
         {rates && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">통화 선택</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">통화 선택</p>
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <div>
                   <Label>보낼 통화</Label>
@@ -119,11 +119,11 @@ export default function ExchangePage() {
                       const unitPer10k = 10000 * r;
                       return (
                         <tr key={c.code}>
-                          <td className="text-left pl-5 text-slate-700 font-semibold">
+                          <td className="text-left pl-5 text-slate-700 dark:text-slate-200 font-semibold">
                             {c.flag} {c.code}
                           </td>
-                          <td className="text-slate-500">{c.scale?`${c.scale}${c.code}`:`1${c.code}`}</td>
-                          <td className="font-bold text-slate-900">{Math.round(krwPerUnit).toLocaleString()}원</td>
+                          <td className="text-slate-500 dark:text-slate-400">{c.scale?`${c.scale}${c.code}`:`1${c.code}`}</td>
+                          <td className="font-bold text-slate-900 dark:text-slate-100">{Math.round(krwPerUnit).toLocaleString()}원</td>
                           <td className="text-blue-700">
                             {c.scale
                               ? `${(unitPer10k*c.scale/10000).toFixed(2)}${c.code}`

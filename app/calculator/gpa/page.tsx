@@ -123,16 +123,16 @@ export default function GpaPage() {
             ] as const).map(opt => (
               <button key={opt.value} type="button" onClick={() => setSystem(opt.value)}
                 className={`py-3 text-sm font-semibold rounded-xl border transition-colors leading-tight ${
-                  system === opt.value ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                  system === opt.value ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                 }`}>
                 {opt.label}
-                <span className={`block text-xs font-normal ${system === opt.value ? 'text-blue-200' : 'text-slate-400'}`}>
+                <span className={`block text-xs font-normal ${system === opt.value ? 'text-blue-200' : 'text-slate-400 dark:text-slate-500'}`}>
                   {opt.sub}
                 </span>
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
             💡 P/F 과목은 각 과목의 <strong>P/F 토글</strong>로 표시하세요. 이수 학점에는 포함되지만 GPA 산정에서는 제외됩니다.
           </p>
         </Card>
@@ -157,16 +157,16 @@ export default function GpaPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <div className="flex justify-between text-xs text-slate-500 mb-1">
+              <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
                 <span>0.0</span>
                 <span className="font-bold text-blue-600">{result.gpa.toFixed(2)} / {maxGpa}</span>
                 <span>{maxGpa}</span>
               </div>
-              <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                 <div className="h-full bg-blue-600 rounded-full transition-all"
                   style={{ width: `${(result.gpa / maxGpa) * 100}%` }} />
               </div>
-              <p className="text-xs text-slate-400 mt-1.5 text-center">
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 text-center">
                 만점 대비 {((result.gpa / maxGpa) * 100).toFixed(1)}%
                 {result.gpaCredits < result.totalCredits && (
                   <span className="ml-2 text-teal-600">
@@ -181,16 +181,16 @@ export default function GpaPage() {
         {/* 과목 목록 */}
         <Card className="p-5">
           <div className="flex justify-between items-center mb-3">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">과목 목록</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">과목 목록</p>
             <button type="button" onClick={addCourse}
-              className="text-xs font-semibold text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors">
+              className="text-xs font-semibold text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">
               + 과목 추가
             </button>
           </div>
 
           <div className="flex flex-col gap-2">
             {courses.map((course, idx) => (
-              <div key={course.id} className="bg-slate-50 rounded-xl p-3">
+              <div key={course.id} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
                 <div className="grid grid-cols-12 gap-2 items-end">
                   {/* 과목명 */}
                   <div className="col-span-4">
@@ -220,7 +220,7 @@ export default function GpaPage() {
                       className={`py-3 text-xs font-bold rounded-xl border transition-colors ${
                         course.isPf
                           ? 'bg-teal-600 border-teal-600 text-white'
-                          : 'border-slate-200 text-slate-300 hover:border-slate-300'
+                          : 'border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600 hover:border-slate-300'
                       }`}>
                       {course.isPf ? 'P/F' : '-'}
                     </button>
@@ -252,7 +252,7 @@ export default function GpaPage() {
                     {idx === 0 && <div className="h-5 mb-1.5" />}
                     <button type="button" onClick={() => removeCourse(course.id)}
                       disabled={courses.length <= 1}
-                      className="py-3 text-xs text-red-400 border border-red-200 rounded-xl hover:bg-red-50 transition-colors disabled:opacity-30">
+                      className="py-3 text-xs text-red-400 border border-red-200 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors disabled:opacity-30">
                       ✕
                     </button>
                   </div>
@@ -266,8 +266,8 @@ export default function GpaPage() {
         </Card>
 
         {result && <Card>
-          <div className="px-5 py-4 border-b border-slate-100">
-            <p className="font-bold text-slate-800 text-sm">과목별 상세</p>
+          <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+            <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">과목별 상세</p>
           </div>
           <TableWrap>
             <table className="calc-table">
@@ -287,7 +287,7 @@ export default function GpaPage() {
                   const contrib = point !== null ? point * cr : null;
                   return (
                     <tr key={c.id}>
-                      <td className="font-medium text-slate-700">{c.name || `과목 ${i + 1}`}</td>
+                      <td className="font-medium text-slate-700 dark:text-slate-200">{c.name || `과목 ${i + 1}`}</td>
                       <td>{cr}학점</td>
                       <td>
                         <span className={`font-bold ${
@@ -297,7 +297,7 @@ export default function GpaPage() {
                             : c.grade.startsWith('B') ? 'text-blue-700'
                             : c.grade.startsWith('C') ? 'text-amber-600'
                             : c.grade === 'F' ? 'text-red-500'
-                            : 'text-slate-500'
+                            : 'text-slate-500 dark:text-slate-400'
                         }`}>
                           {c.isPf ? `${c.pfGrade} (Pass/Fail)` : c.grade}
                         </span>
@@ -307,7 +307,7 @@ export default function GpaPage() {
                           ? <span className="text-xs text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">GPA 제외</span>
                           : point?.toFixed(1)}
                       </td>
-                      <td className="font-semibold text-slate-700">
+                      <td className="font-semibold text-slate-700 dark:text-slate-200">
                         {contrib !== null ? `${contrib.toFixed(2)}점` : '—'}
                       </td>
                     </tr>
@@ -320,14 +320,14 @@ export default function GpaPage() {
 
         {/* 성적 기준표 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
             {system}제 성적 기준표
           </p>
           <div className="grid grid-cols-5 gap-2">
             {gradeList.map(g => (
-              <div key={g.label} className="bg-slate-50 rounded-xl p-2.5 text-center border border-slate-100">
-                <p className="text-sm font-black text-slate-800">{g.label}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{g.point.toFixed(1)}</p>
+              <div key={g.label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5 text-center border border-slate-100 dark:border-slate-800">
+                <p className="text-sm font-black text-slate-800 dark:text-slate-100">{g.label}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{g.point.toFixed(1)}</p>
               </div>
             ))}
           </div>

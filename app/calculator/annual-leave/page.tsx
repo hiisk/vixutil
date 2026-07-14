@@ -66,7 +66,7 @@ export default function AnnualLeavePage() {
                 onChange={e => setBaseDate(e.target.value)}
                 className={inputCls}
               />
-              <p className="mt-1.5 text-xs text-slate-400">
+              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
                 비워두면 오늘 기준으로 계산합니다.
               </p>
             </div>
@@ -124,11 +124,11 @@ export default function AnnualLeavePage() {
             )}
 
             <div className="px-5 pb-5">
-              <p className="text-sm font-bold text-slate-700 mb-2">근속연수별 연차 일수</p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">근속연수별 연차 일수</p>
               <TableWrap>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-xs text-slate-500 border-b border-slate-200">
+                    <tr className="text-xs text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                       <th className="text-left py-2 px-3 font-semibold">근속연수</th>
                       <th className="text-right py-2 px-3 font-semibold">연차 일수</th>
                     </tr>
@@ -139,7 +139,7 @@ export default function AnnualLeavePage() {
                       return (
                         <tr
                           key={row.year}
-                          className={`border-b border-slate-100 last:border-0 ${isMine ? 'bg-blue-50 font-bold text-blue-700' : 'text-slate-600'}`}
+                          className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${isMine ? 'bg-blue-50 dark:bg-blue-950/50 font-bold text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}
                         >
                           <td className="py-2 px-3">
                             {row.year}년차{isMine && ' ← 내 위치'}
@@ -151,7 +151,7 @@ export default function AnnualLeavePage() {
                   </tbody>
                 </table>
               </TableWrap>
-              <p className="mt-2 text-xs text-slate-400">
+              <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
                 이후로도 2년마다 1일씩 늘어 21년차에 법정 상한 {LEAVE_RULES.cap}일에 도달합니다.
               </p>
             </div>

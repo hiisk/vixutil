@@ -66,12 +66,17 @@ test('한국어 섹션 FAQ에는 한글이 있다', () => {
   }
 });
 
-test('다크 테마 페이지는 tone="dark"로 렌더링한다', () => {
+test('항상 어두운 페이지는 tone="dark"로 렌더링한다', () => {
   // 밝은 FAQ 카드를 어두운 배경에 올리면 대비가 깨진다.
+  //
+  // 여기서 말하는 "어두운 페이지"는 다크모드가 아니라 크립토처럼 라이트 테마에서도
+  // 항상 어두운 페이지다. 사이트 전체에 다크모드가 들어오면서 모든 페이지에
+  // dark:bg-slate-9xx가 붙었으므로, dark: 접두어가 없는 것만 봐야 한다.
   for (const route of routes) {
     const src = readFileSync(pagePath(route), 'utf8');
-    const isDark = /min-h-screen[^"]*bg-slate-9\d\d/.test(src);
+    const root = src.match(/min-h-screen[^"`]*/)?.[0] ?? '';
+    const alwaysDark = /(?<!dark:)bg-slate-9\d\d/.test(root);
     const usesDarkTone = /<Faq[^>]*tone="dark"/.test(src);
-    assert.equal(usesDarkTone, isDark, `${route}: 배경(dark=${isDark})과 FAQ tone(dark=${usesDarkTone}) 불일치`);
+    assert.equal(usesDarkTone, alwaysDark, `${route}: 배경(항상 어두움=${alwaysDark})과 FAQ tone(dark=${usesDarkTone}) 불일치`);
   }
 });

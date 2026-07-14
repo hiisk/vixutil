@@ -19,7 +19,7 @@ interface Row {
 
 type LoadState = 'loading' | 'ready' | 'error';
 
-const inputCls = 'w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
+const inputCls = 'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
 
 export default function AtrTpslPage() {
   const [state, setState] = useState<LoadState>('loading');
@@ -86,27 +86,27 @@ export default function AtrTpslPage() {
   }, [entry, selectedRow, direction, tpMult, slMult]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-amber-600 transition-colors font-medium">
+          <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             Crypto Tools
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">ATR TP/SL Calculator</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">ATR TP/SL Calculator</span>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">📊</div>
-          <h1 className="text-2xl font-black text-slate-900 mb-1.5">ATR-based TP/SL Calculator</h1>
-          <p className="text-slate-500 text-sm">Compute take-profit / stop-loss from the daily ATR(14) of top-volume Binance coins</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">ATR-based TP/SL Calculator</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">Compute take-profit / stop-loss from the daily ATR(14) of top-volume Binance coins</p>
         </div>
 
         <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 mb-6 text-xs text-amber-800 leading-relaxed">
@@ -115,9 +115,9 @@ export default function AtrTpslPage() {
         </div>
 
         {/* Volatility ranking table */}
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden mb-6">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Top 20 by volume · Daily ATR</p>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden mb-6">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800">
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Top 20 by volume · Daily ATR</p>
             <button
               onClick={load}
               disabled={state === 'loading'}
@@ -129,8 +129,8 @@ export default function AtrTpslPage() {
 
           {state === 'loading' && (
             <div className="py-16 flex flex-col items-center gap-3">
-              <div className="w-8 h-8 border-4 border-slate-200 border-t-amber-500 rounded-full animate-spin" />
-              <span className="text-sm font-bold text-slate-500">Loading prices from Binance...</span>
+              <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
+              <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading prices from Binance...</span>
             </div>
           )}
 
@@ -147,7 +147,7 @@ export default function AtrTpslPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-[11px] text-slate-400 border-b border-slate-100">
+                  <tr className="text-[11px] text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800">
                     <th className="text-left font-semibold px-4 py-2">#</th>
                     <th className="text-left font-semibold px-2 py-2">Coin</th>
                     <th className="text-right font-semibold px-2 py-2">Price</th>
@@ -160,11 +160,11 @@ export default function AtrTpslPage() {
                     <tr
                       key={r.symbol}
                       onClick={() => pickRow(r)}
-                      className={`border-b border-slate-50 cursor-pointer transition-colors ${selected === r.symbol ? 'bg-amber-50' : 'hover:bg-slate-50'}`}
+                      className={`border-b border-slate-50 cursor-pointer transition-colors ${selected === r.symbol ? 'bg-amber-50' : 'hover:bg-slate-50 dark:hover:bg-slate-800'}`}
                     >
-                      <td className="px-4 py-2.5 text-slate-400">{r.rank}</td>
-                      <td className="px-2 py-2.5 font-bold text-slate-800">{r.base}<span className="text-slate-300 font-medium">/USDT</span></td>
-                      <td className="px-2 py-2.5 text-right text-slate-700">{formatPrice(r.lastPrice)}</td>
+                      <td className="px-4 py-2.5 text-slate-400 dark:text-slate-500">{r.rank}</td>
+                      <td className="px-2 py-2.5 font-bold text-slate-800 dark:text-slate-100">{r.base}<span className="text-slate-300 dark:text-slate-600 font-medium">/USDT</span></td>
+                      <td className="px-2 py-2.5 text-right text-slate-700 dark:text-slate-200">{formatPrice(r.lastPrice)}</td>
                       <td className={`px-2 py-2.5 text-right font-semibold ${r.priceChangePercent >= 0 ? 'text-emerald-600' : 'text-rose-500'}`}>
                         {r.priceChangePercent >= 0 ? '+' : ''}{r.priceChangePercent.toFixed(2)}%
                       </td>
@@ -174,7 +174,7 @@ export default function AtrTpslPage() {
                 </tbody>
               </table>
               {updatedAt && (
-                <p className="text-[11px] text-slate-300 px-4 py-2 text-right">
+                <p className="text-[11px] text-slate-300 dark:text-slate-600 px-4 py-2 text-right">
                   as of {updatedAt.toLocaleTimeString('en-US', { timeZone: 'UTC', hour12: false })} UTC · tap a row to load it into the calculator below
                 </p>
               )}
@@ -184,28 +184,28 @@ export default function AtrTpslPage() {
 
         {/* TP/SL calculator */}
         {selectedRow && (
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 mb-6">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-6">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">TP/SL Calculation</p>
-              <span className="text-sm font-black text-slate-800">{selectedRow.base}/USDT</span>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">TP/SL Calculation</p>
+              <span className="text-sm font-black text-slate-800 dark:text-slate-100">{selectedRow.base}/USDT</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-3">
-              <div className="col-span-2 flex items-center justify-between bg-slate-50 rounded-xl px-4 py-2.5">
-                <span className="text-xs text-slate-500">Daily ATR(14)</span>
-                <span className="text-sm font-bold text-slate-800">
+              <div className="col-span-2 flex items-center justify-between bg-slate-50 dark:bg-slate-950 rounded-xl px-4 py-2.5">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Daily ATR(14)</span>
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">
                   {selectedRow.atr != null ? formatPrice(selectedRow.atr) : '-'}
                   {selectedRow.atrPct != null && <span className="text-amber-600"> ({selectedRow.atrPct.toFixed(2)}%)</span>}
                 </span>
               </div>
 
               <div className="col-span-2">
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">Entry price (USDT)</label>
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">Entry price (USDT)</label>
                 <input type="number" value={entry} onChange={e => setEntry(e.target.value)} className={inputCls} />
               </div>
 
               <div className="col-span-2">
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">Direction</label>
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">Direction</label>
                 <div className="flex gap-2">
                   {([['long', 'Long (buy)'], ['short', 'Short (sell)']] as [Direction, string][]).map(([d, label]) => (
                     <button
@@ -214,7 +214,7 @@ export default function AtrTpslPage() {
                       className={`flex-1 py-2.5 text-sm font-bold rounded-xl border transition-colors ${
                         direction === d
                           ? d === 'long' ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-rose-500 border-rose-500 text-white'
-                          : 'border-slate-200 text-slate-500 hover:border-slate-300'
+                          : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300'
                       }`}
                     >
                       {label}
@@ -224,11 +224,11 @@ export default function AtrTpslPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">TP multiplier (×ATR)</label>
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">TP multiplier (×ATR)</label>
                 <input type="number" step="0.1" value={tpMult} onChange={e => setTpMult(e.target.value)} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5">SL multiplier (×ATR)</label>
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">SL multiplier (×ATR)</label>
                 <input type="number" step="0.1" value={slMult} onChange={e => setSlMult(e.target.value)} className={inputCls} />
               </div>
             </div>
@@ -245,14 +245,14 @@ export default function AtrTpslPage() {
                   <p className="text-lg font-black text-rose-600">{formatPrice(calc.sl)}</p>
                   <p className="text-xs text-rose-500 mt-0.5">{direction === 'long' ? '-' : '+'}{calc.slDistPct.toFixed(2)}%</p>
                 </div>
-                <div className="col-span-2 flex items-center justify-between bg-slate-50 rounded-xl px-4 py-2.5">
-                  <span className="text-xs text-slate-500">Risk : Reward</span>
-                  <span className="text-sm font-bold text-slate-800">1 : {calc.riskReward.toFixed(2)}</span>
+                <div className="col-span-2 flex items-center justify-between bg-slate-50 dark:bg-slate-950 rounded-xl px-4 py-2.5">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">Risk : Reward</span>
+                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100">1 : {calc.riskReward.toFixed(2)}</span>
                 </div>
               </div>
             )}
 
-            <p className="text-[11px] text-slate-400 mt-4 leading-relaxed">
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-4 leading-relaxed">
               TP/SL = entry {direction === 'long' ? '± ' : '∓ '}ATR × multiplier. ATR is the 14-day average daily range, so a
               1.5× multiplier sets the take-profit 1.5× the recent average daily move away from entry. Higher-volatility coins get wider levels.
             </p>

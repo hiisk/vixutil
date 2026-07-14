@@ -73,7 +73,7 @@ export default function LoanPrepaymentFeePage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">대출 정보</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">대출 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>중도상환원금 (원)</Label>
@@ -91,7 +91,7 @@ export default function LoanPrepaymentFeePage() {
                     className={`px-3 py-2 text-xs font-semibold rounded-xl border transition-colors ${
                       rate === p.rate
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {p.label}
@@ -151,7 +151,7 @@ export default function LoanPrepaymentFeePage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">계산 상세</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">계산 상세</p>
               <div className="flex flex-col gap-2">
                 {[
                   { label: '중도상환원금', value: `${w(principal)}원` },
@@ -159,13 +159,13 @@ export default function LoanPrepaymentFeePage() {
                   { label: '잔존기간 비율', value: `${(result.remainingRatio * 100).toFixed(1)}%` },
                   { label: '중도상환수수료', value: `${w(result.fee)}원`, bold: true },
                 ].map((row, i) => (
-                  <div key={i} className={`flex justify-between items-center py-2 ${i < 3 ? 'border-b border-slate-100' : ''}`}>
-                    <span className="text-sm text-slate-500">{row.label}</span>
-                    <span className={`text-sm ${row.bold ? 'font-black text-slate-900' : 'text-slate-700'}`}>{row.value}</span>
+                  <div key={i} className={`flex justify-between items-center py-2 ${i < 3 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}>
+                    <span className="text-sm text-slate-500 dark:text-slate-400">{row.label}</span>
+                    <span className={`text-sm ${row.bold ? 'font-black text-slate-900 dark:text-slate-100' : 'text-slate-700 dark:text-slate-200'}`}>{row.value}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 mt-3">
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
                 실제 수수료는 금융사·상품 약정에 따라 계산 기준(일할 계산 등)이 다를 수 있어 참고용으로만 확인하세요.
               </p>
             </Card>

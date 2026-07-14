@@ -8,7 +8,7 @@ export function CoinLogo({ base, size = 24 }: { base: string; size?: number }) {
   const style = { width: size, height: size };
   if (failed) {
     return (
-      <span style={style} className="shrink-0 rounded-full bg-slate-800 text-slate-400 text-[9px] font-black grid place-items-center">
+      <span style={style} className="shrink-0 rounded-full bg-slate-800 text-slate-400 dark:text-slate-500 text-[9px] font-black grid place-items-center">
         {base.slice(0, 2)}
       </span>
     );
@@ -28,7 +28,7 @@ export function CoinLogo({ base, size = 24 }: { base: string; size?: number }) {
  * 방향은 색만으로 전달하지 않는다 — 옆의 부호·삼각형(▲▼)이 같은 정보를 중복 인코딩한다.
  */
 export function Sparkline({ points, w = 84, h = 28 }: { points: number[]; w?: number; h?: number }) {
-  if (points.length < 2) return <span className="text-slate-700">-</span>;
+  if (points.length < 2) return <span className="text-slate-700 dark:text-slate-200">-</span>;
   const min = Math.min(...points), max = Math.max(...points);
   const flat = max === min; // 무변동 구간은 바닥이 아니라 세로 중앙에 그린다
   const span = max - min;
@@ -65,7 +65,7 @@ export function Pct({ value, bold = false }: { value: number; bold?: boolean }) 
  * 얇고 흐리게 그리고, 헤더에 그렇게 표기한다.
  */
 export function MiniPaths({ paths, spot, w = 76, h = 26 }: { paths: number[][]; spot: number; w?: number; h?: number }) {
-  if (!paths.length || paths[0].length < 2) return <span className="text-slate-700">-</span>;
+  if (!paths.length || paths[0].length < 2) return <span className="text-slate-700 dark:text-slate-200">-</span>;
   const flat = paths.flat();
   let lo = Math.min(spot, ...flat), hi = Math.max(spot, ...flat);
   if (!(hi > lo)) { hi = lo * 1.01 || 1; lo = lo * 0.99; }

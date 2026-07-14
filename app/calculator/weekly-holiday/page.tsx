@@ -47,7 +47,7 @@ export default function WeeklyHolidayPage() {
     <CalcShell title="주휴수당 계산기" description="시급·주 근무시간 → 주휴수당 및 월 환산 급여">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">근무 조건</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">근무 조건</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>시급 (원)</Label>
@@ -118,26 +118,26 @@ export default function WeeklyHolidayPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">계산 내역</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">계산 내역</p>
               <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">주당 소정근로시간</span>
-                  <span className="font-semibold text-slate-800">{result.weeklyHours}시간</span>
+                  <span className="text-slate-500 dark:text-slate-400">주당 소정근로시간</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-100">{result.weeklyHours}시간</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">주휴수당 지급 조건</span>
+                  <span className="text-slate-500 dark:text-slate-400">주휴수당 지급 조건</span>
                   <span className={`font-semibold ${result.eligible ? 'text-emerald-600' : 'text-red-500'}`}>
                     {result.eligible ? '충족 (주 15h 이상)' : '미충족 (주 15h 미만)'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">시급 × 주 근무시간</span>
-                  <span className="font-semibold text-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400">시급 × 주 근무시간</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-100">
                     {fmt(Number(hourlyWage) * result.weeklyHours)}원
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">주휴수당</span>
+                  <span className="text-slate-500 dark:text-slate-400">주휴수당</span>
                   <span className="font-semibold text-blue-600">+{fmt(result.weeklyHolidayPay)}원</span>
                 </div>
               </div>

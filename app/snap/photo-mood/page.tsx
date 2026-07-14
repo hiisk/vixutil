@@ -108,7 +108,7 @@ function ShareBtn() {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30"
+      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 dark:bg-slate-900/20 border-white/30 dark:border-slate-700/30 text-white hover:bg-white/30"
     >
       {state === 'copied' ? '복사됨 ✓' : '공유'}
     </button>
@@ -171,27 +171,27 @@ export default function PhotoMoodPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" />
 
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-fuchsia-600 transition-colors font-medium">
+          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-fuchsia-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             스냅테스트
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">사진 감성 분석</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">사진 감성 분석</span>
         </div>
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">🎞️</div>
-          <h1 className="text-2xl font-black text-slate-900 mb-1.5">사진 감성 분석</h1>
-          <p className="text-slate-500 text-sm">아무 사진이나 올려도 돼요 — 실제 색감을 분석해드려요</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">사진 감성 분석</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">아무 사진이나 올려도 돼요 — 실제 색감을 분석해드려요</p>
         </div>
 
         <div className="bg-violet-50 border border-violet-100 rounded-2xl p-4 mb-6 text-xs text-violet-800 leading-relaxed">
@@ -202,11 +202,11 @@ export default function PhotoMoodPage() {
         {!preview && (
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white hover:border-fuchsia-400 hover:bg-fuchsia-50/50 transition-colors"
+            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-fuchsia-400 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-950/40 transition-colors"
           >
             <span className="text-4xl">📷</span>
-            <span className="text-sm font-bold text-slate-600">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400">인생샷, 풍경, 음식 사진 다 좋아요</span>
+            <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">인생샷, 풍경, 음식 사진 다 좋아요</span>
           </button>
         )}
         <input
@@ -219,12 +219,12 @@ export default function PhotoMoodPage() {
 
         {preview && (
           <div className="mb-6">
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-white aspect-square max-w-xs mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt="업로드한 사진 미리보기" className="w-full h-full object-cover" />
               {analyzing && (
                 <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center gap-3">
-                  <div className="w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-10 h-10 border-4 border-white/30 dark:border-slate-700/30 border-t-white rounded-full animate-spin" />
                   <p className="text-white text-sm font-bold">색감 분석 중...</p>
                 </div>
               )}
@@ -232,7 +232,7 @@ export default function PhotoMoodPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 hover:text-fuchsia-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-fuchsia-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -268,13 +268,13 @@ export default function PhotoMoodPage() {
             </div>
 
             {palette.length > 0 && (
-              <div className="bg-white border border-slate-200 rounded-2xl p-5">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">🎨 이 사진의 컬러 팔레트</p>
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">🎨 이 사진의 컬러 팔레트</p>
                 <div className="flex gap-2">
                   {palette.map(hex => (
                     <div key={hex} className="flex-1 text-center">
-                      <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200 shadow-sm" style={{ background: hex }} />
-                      <p className="text-[10px] font-mono text-slate-400 uppercase">{hex}</p>
+                      <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200 dark:border-slate-700 shadow-sm" style={{ background: hex }} />
+                      <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase">{hex}</p>
                     </div>
                   ))}
                 </div>
@@ -282,39 +282,39 @@ export default function PhotoMoodPage() {
             )}
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500">☀️ 밝기</p>
-                  <span className="text-[11px] font-bold text-slate-600">{result.brightnessPercent}%</span>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">☀️ 밝기</p>
+                  <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.brightnessPercent}%</span>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-gradient-to-r from-slate-400 to-yellow-300 rounded-full" style={{ width: `${result.brightnessPercent}%` }} />
                 </div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500">🌈 채도</p>
-                  <span className="text-[11px] font-bold text-slate-600">{result.saturationPercent}%</span>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">🌈 채도</p>
+                  <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.saturationPercent}%</span>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-gradient-to-r from-slate-300 to-fuchsia-500 rounded-full" style={{ width: `${result.saturationPercent}%` }} />
                 </div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500">🌡️ 웜/쿨</p>
-                  <span className="text-[11px] font-bold text-slate-600">{result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}</span>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">🌡️ 웜/쿨</p>
+                  <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}</span>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-gradient-to-r from-sky-400 to-orange-400 rounded-full" style={{ width: `${result.warmthPercent}%` }} />
                 </div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500">◐ 대비</p>
-                  <span className="text-[11px] font-bold text-slate-600">{result.contrastPercent}%</span>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">◐ 대비</p>
+                  <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.contrastPercent}%</span>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-gradient-to-r from-slate-300 to-slate-800 rounded-full" style={{ width: `${result.contrastPercent}%` }} />
                 </div>
               </div>
@@ -322,12 +322,12 @@ export default function PhotoMoodPage() {
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💬 캡션 팁</p>
-              <p className="text-sm text-slate-700 leading-relaxed font-medium">{result.captionTip}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.captionTip}</p>
             </div>
 
             <button
               onClick={handleReset}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-fuchsia-300 hover:text-fuchsia-600 transition-colors"
+              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-fuchsia-300 hover:text-fuchsia-600 transition-colors"
             >
               🔄 다른 사진으로 다시 해보기
             </button>
@@ -344,7 +344,7 @@ export default function PhotoMoodPage() {
 
             <ShareButton title="사진 감성 분석 결과" description={`${result.label} — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 pt-2">
+            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
               밝기·채도·색감 측정은 실제 픽셀 데이터를 분석한 결과이며, 감성 타입 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>

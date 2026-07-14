@@ -33,7 +33,7 @@ export default function BmrPage() {
               <div className="grid grid-cols-2 gap-2">
                 {[{ v: 'male', l: '남성' }, { v: 'female', l: '여성' }].map(o => (
                   <button key={o.v} onClick={() => setGender(o.v as 'male' | 'female')}
-                    className={`py-2.5 rounded-xl text-sm font-semibold transition-colors ${gender === o.v ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                    className={`py-2.5 rounded-xl text-sm font-semibold transition-colors ${gender === o.v ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                     {o.l}
                   </button>
                 ))}
@@ -66,22 +66,22 @@ export default function BmrPage() {
                 <p className="text-blue-200 text-xs mt-1">kcal/일</p>
               </div>
               <div className="bg-slate-800 rounded-2xl p-5">
-                <p className="text-slate-400 text-xs mb-1">Mifflin-St Jeor</p>
+                <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">Mifflin-St Jeor</p>
                 <p className="text-white text-2xl font-black">{fmt(result.mifflin)}</p>
-                <p className="text-slate-400 text-xs mt-1">kcal/일</p>
+                <p className="text-slate-400 dark:text-slate-500 text-xs mt-1">kcal/일</p>
               </div>
             </div>
             <Card className="p-4">
-              <p className="text-xs font-bold text-slate-500 mb-2">하루 소모 칼로리 환산 참고</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">하루 소모 칼로리 환산 참고</p>
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 {[
                   { food: '밥 한 공기', kcal: 300 },
                   { food: '계란 1개', kcal: 80 },
                   { food: '아메리카노', kcal: 10 },
                 ].map(f => (
-                  <div key={f.food} className="bg-slate-50 rounded-lg p-2">
-                    <p className="text-slate-500">{f.food}</p>
-                    <p className="font-bold text-slate-800">{Math.round(result.mifflin / f.kcal)}개분</p>
+                  <div key={f.food} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2">
+                    <p className="text-slate-500 dark:text-slate-400">{f.food}</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-100">{Math.round(result.mifflin / f.kcal)}개분</p>
                   </div>
                 ))}
               </div>

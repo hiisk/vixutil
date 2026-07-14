@@ -74,7 +74,7 @@ export default function HoldingTaxPage() {
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={isOneHouse} onChange={e => setIsOneHouse(e.target.checked)}
                 className="w-4 h-4 accent-blue-600" />
-              <span className="text-sm text-slate-700">1세대 1주택 (공제 12억)</span>
+              <span className="text-sm text-slate-700 dark:text-slate-200">1세대 1주택 (공제 12억)</span>
             </label>
             <div>
               <Label>기 납부 재산세 (자동계산 or 직접 입력)</Label>
@@ -101,10 +101,10 @@ export default function HoldingTaxPage() {
                 ].map(r => (
                   <div key={r.label} className="px-5 py-3">
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-700">{r.label}</span>
+                      <span className="text-slate-700 dark:text-slate-200">{r.label}</span>
                       <span className="font-semibold">{fmt(r.value)}원</span>
                     </div>
-                    {r.note && <p className="text-xs text-slate-400 mt-0.5">{r.note}</p>}
+                    {r.note && <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{r.note}</p>}
                   </div>
                 ))}
               </div>

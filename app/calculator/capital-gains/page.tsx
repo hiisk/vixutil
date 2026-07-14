@@ -121,15 +121,15 @@ export default function CapitalGainsPage() {
                   { label: '기본공제', value: `-${fmt(result.basic)}원` },
                   { label: '과세표준', value: fmt(result.taxBase) + '원', bold: true },
                 ].map(row => (
-                  <div key={row.label} className={`px-5 py-3 flex justify-between text-sm ${(row as {bold?:boolean}).bold ? 'bg-slate-50 font-bold' : ''}`}>
-                    <span className="text-slate-600">{row.label}</span>
+                  <div key={row.label} className={`px-5 py-3 flex justify-between text-sm ${(row as {bold?:boolean}).bold ? 'bg-slate-50 dark:bg-slate-950 font-bold' : ''}`}>
+                    <span className="text-slate-600 dark:text-slate-300">{row.label}</span>
                     <span className="font-semibold">{row.value}</span>
                   </div>
                 ))}
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400">* 필요경비 취득가 3% 적용. 실제 영수증 경비가 있으면 세무사 상담 권장.</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">* 필요경비 취득가 3% 적용. 실제 영수증 경비가 있으면 세무사 상담 권장.</p>
             </Card>
           </>
         )}

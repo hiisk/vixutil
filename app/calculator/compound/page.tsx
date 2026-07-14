@@ -77,7 +77,7 @@ export default function CompoundPage() {
         />
 
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">투자 조건</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">투자 조건</p>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2 sm:col-span-1">
               <Label>초기 원금 (원)</Label>
@@ -98,7 +98,7 @@ export default function CompoundPage() {
                 placeholder="예: 20" min="1" max="100" className={inputCls} />
             </div>
           </div>
-          <label className="flex items-center gap-2 mt-4 text-sm text-slate-600 cursor-pointer select-none">
+          <label className="flex items-center gap-2 mt-4 text-sm text-slate-600 dark:text-slate-300 cursor-pointer select-none">
             <input type="checkbox" checked={applyTax} onChange={e => setApplyTax(e.target.checked)}
               className="w-4 h-4 accent-blue-600 rounded" />
             이자소득세 15.4% 적용 (이자 14% + 지방소득세 1.4%)
@@ -120,7 +120,7 @@ export default function CompoundPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">원금 vs 수익 비율</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">원금 vs 수익 비율</p>
               <RatioBar
                 a={last.cumulativePrincipal} b={last.cumulativeInterest}
                 labelA={`납입 원금 ${w(last.cumulativePrincipal)}원`}
@@ -148,7 +148,7 @@ export default function CompoundPage() {
                         <td>{w(r.cumulativePrincipal)}원</td>
                         <td className="text-emerald-700 font-semibold">+{w(r.annualInterest)}원</td>
                         <td className="text-emerald-700 font-semibold">+{w(r.cumulativeInterest)}원</td>
-                        <td className="font-bold text-slate-900">{w(r.balance)}원</td>
+                        <td className="font-bold text-slate-900 dark:text-slate-100">{w(r.balance)}원</td>
                         <td className="text-blue-700 font-semibold">{r.yieldPct.toFixed(2)}%</td>
                       </tr>
                     ))}

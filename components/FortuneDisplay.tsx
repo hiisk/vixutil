@@ -51,7 +51,7 @@ function ShareBtn({ name }: { name: string }) {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30"
+      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 dark:bg-slate-900/20 border-white/30 dark:border-slate-700/30 text-white hover:bg-white/30"
     >
       {state === 'copied' ? (
         <>
@@ -93,7 +93,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
         <p className="text-sm font-semibold text-purple-200 mb-2">{today} 운세</p>
         <div className="text-6xl mb-3">{subjectEmoji}</div>
         <h2 className="text-2xl font-black mb-1">{subjectName}</h2>
-        {badge && <span className="text-xs bg-white/20 px-3 py-1 rounded-full font-semibold">{badge}</span>}
+        {badge && <span className="text-xs bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full font-semibold">{badge}</span>}
         <div className="mt-4 flex flex-col items-center gap-1">
           <p className="text-xs text-purple-200">오늘의 종합운</p>
           <Stars n={overallAvg} />
@@ -103,17 +103,17 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       {/* 도메인별 별점 */}
       <div className="grid grid-cols-2 gap-3">
         {DOMAINS.map(d => (
-          <div key={d.key} className="bg-white border border-slate-200 rounded-2xl p-4">
-            <p className="text-sm text-slate-500 mb-1.5">{d.icon} {d.label}</p>
+          <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-1.5">{d.icon} {d.label}</p>
             <Stars n={f.stars[d.key]} />
           </div>
         ))}
       </div>
 
       {/* 종합운 */}
-      <div className="bg-white border border-violet-100 rounded-2xl p-5">
+      <div className="bg-white dark:bg-slate-900 border border-violet-100 rounded-2xl p-5">
         <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">✨ 오늘의 총운</p>
-        <p className="text-sm text-slate-700 leading-relaxed">{f.overall}</p>
+        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f.overall}</p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {f.keywords.map(k => (
             <span key={k} className="text-xs font-bold text-violet-700 bg-violet-50 border border-violet-100 px-2.5 py-1 rounded-full">
@@ -126,48 +126,48 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       {/* 오늘의 조언 */}
       <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
         <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 조언</p>
-        <p className="text-sm text-slate-700 leading-relaxed font-medium">{f.advice}</p>
+        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{f.advice}</p>
       </div>
 
       {/* 도메인 운세 */}
       {DOMAINS.map(d => (
-        <div key={d.key} className="bg-white border border-slate-200 rounded-2xl p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">{d.icon} {d.label}</p>
+        <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{d.icon} {d.label}</p>
           <div className="mb-2"><Stars n={f.stars[d.key]} /></div>
-          <p className="text-sm text-slate-700 leading-relaxed">{f[d.key]}</p>
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f[d.key]}</p>
         </div>
       ))}
 
       {/* 행운 정보 */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5">
-        <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">🍀 오늘의 행운</p>
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">🍀 오늘의 행운</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="text-center">
             <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm"
               style={{ background: f.luckyColorHex }} />
-            <p className="text-xs text-slate-400">행운의 색</p>
-            <p className="text-sm font-bold text-slate-700">{f.luckyColor}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">행운의 색</p>
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyColor}</p>
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
               <span className="text-lg font-black text-violet-600">{f.luckyNumber}</span>
             </div>
-            <p className="text-xs text-slate-400">행운의 숫자</p>
-            <p className="text-sm font-bold text-slate-700">{f.luckyNumber}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">행운의 숫자</p>
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyNumber}</p>
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
               <span className="text-base">🧭</span>
             </div>
-            <p className="text-xs text-slate-400">행운의 방향</p>
-            <p className="text-sm font-bold text-slate-700">{f.luckyDirection}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">행운의 방향</p>
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyDirection}</p>
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
               <span className="text-base">🎁</span>
             </div>
-            <p className="text-xs text-slate-400">행운의 아이템</p>
-            <p className="text-sm font-bold text-slate-700">{f.luckyItem}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">행운의 아이템</p>
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyItem}</p>
           </div>
         </div>
       </div>

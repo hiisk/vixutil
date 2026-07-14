@@ -62,7 +62,7 @@ export default function AgePage() {
               <SummaryCard label="다음 생일까지" value={`D-${result.dday}`} />
             </div>
             <Card className="p-4 text-center">
-              <p className="text-xs text-slate-500">태어난 요일: <span className="font-bold text-slate-800">{result.birthDow}요일</span></p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">태어난 요일: <span className="font-bold text-slate-800 dark:text-slate-100">{result.birthDow}요일</span></p>
             </Card>
           </>
         )}

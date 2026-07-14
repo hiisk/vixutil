@@ -86,7 +86,7 @@ export default function SimpleInterestPage() {
     <CalcShell wide title="단리 계산기" description="원금, 연이율, 기간으로 단리 이자·세후이자·만기금액을 계산합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">예금 조건</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">예금 조건</p>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
               <Label>원금 (원)</Label>
@@ -111,7 +111,7 @@ export default function SimpleInterestPage() {
                 {(unit === 'month' ? [3, 6, 12, 24, 36, 60] : [1, 2, 3, 5, 10]).map(n => (
                   <button key={n} type="button" onClick={() => setPeriod(String(n))}
                     className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                      period === String(n) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                      period === String(n) ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}>
                     {n}{unit === 'month' ? '개월' : '년'}
                   </button>
@@ -134,7 +134,7 @@ export default function SimpleInterestPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">원금 vs 이자 비율</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">원금 vs 이자 비율</p>
               <RatioBar
                 a={principal} b={totalInterest}
                 labelA={`원금 ${w(principal)}원`}
@@ -143,9 +143,9 @@ export default function SimpleInterestPage() {
             </Card>
 
             <Card>
-              <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center">
-                <p className="font-bold text-slate-800 text-sm">기간별 이자 현황</p>
-                <span className="text-xs text-slate-400">세율 {(TAX_RATE * 100).toFixed(1)}% 적용</span>
+              <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">기간별 이자 현황</p>
+                <span className="text-xs text-slate-400 dark:text-slate-500">세율 {(TAX_RATE * 100).toFixed(1)}% 적용</span>
               </div>
               <TableWrap>
                 <table className="calc-table">
@@ -165,7 +165,7 @@ export default function SimpleInterestPage() {
                         <td className="text-emerald-700 font-semibold">+{w(r.interest)}원</td>
                         <td className="text-emerald-600">+{w(r.afterTaxInterest)}원</td>
                         <td className="text-emerald-700 font-semibold">+{w(r.cumInterest)}원</td>
-                        <td className="font-black text-slate-900">{w(r.balance)}원</td>
+                        <td className="font-black text-slate-900 dark:text-slate-100">{w(r.balance)}원</td>
                       </tr>
                     ))}
                   </tbody>

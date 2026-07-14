@@ -61,7 +61,7 @@ export default function AnnualLeavePayPage() {
     <CalcShell title="연차수당 계산기" description="근속연수·미사용 연차 → 연차수당">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">통상임금 입력 방식</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">통상임금 입력 방식</p>
           <div className="flex gap-2 mb-4">
             <button
               type="button"
@@ -69,7 +69,7 @@ export default function AnnualLeavePayPage() {
               className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition-colors ${
                 mode === 'monthly'
                   ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
               월 기본급으로 계산
@@ -80,7 +80,7 @@ export default function AnnualLeavePayPage() {
               className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition-colors ${
                 mode === 'direct'
                   ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
               1일 통상임금 직접 입력
@@ -98,7 +98,7 @@ export default function AnnualLeavePayPage() {
                   placeholder="예: 3,000,000"
                   className={inputCls}
                 />
-                <p className="text-xs text-slate-400 mt-1">1일 통상임금 = 월 기본급 ÷ 209 × 8</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">1일 통상임금 = 월 기본급 ÷ 209 × 8</p>
               </div>
             ) : (
               <div>
@@ -172,9 +172,9 @@ export default function AnnualLeavePayPage() {
           <TableWrap>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50">
-                  <th className="px-4 py-2.5 text-left text-xs font-bold text-slate-500 uppercase tracking-wide">근속연수</th>
-                  <th className="px-4 py-2.5 text-right text-xs font-bold text-slate-500 uppercase tracking-wide">연차 발생일수</th>
+                <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+                  <th className="px-4 py-2.5 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">근속연수</th>
+                  <th className="px-4 py-2.5 text-right text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">연차 발생일수</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
@@ -183,8 +183,8 @@ export default function AnnualLeavePayPage() {
                     key={row.years}
                     className={`${result && Number(yearsOfService) === row.years ? 'bg-blue-50' : ''}`}
                   >
-                    <td className="px-4 py-2.5 text-slate-700">{row.years}년</td>
-                    <td className="px-4 py-2.5 text-right font-semibold text-slate-800">
+                    <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">{row.years}년</td>
+                    <td className="px-4 py-2.5 text-right font-semibold text-slate-800 dark:text-slate-100">
                       {row.days}일
                       {result && Number(yearsOfService) === row.years && (
                         <span className="ml-1.5 text-xs text-blue-600 font-bold">← 현재</span>
@@ -195,7 +195,7 @@ export default function AnnualLeavePayPage() {
               </tbody>
             </table>
           </TableWrap>
-          <div className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100">
+          <div className="px-4 py-3 text-xs text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800">
             * 1년 미만: 월 1일 (최대 11일) / 1년: 15일 / 이후 2년마다 1일 추가 (최대 25일)
           </div>
         </Card>

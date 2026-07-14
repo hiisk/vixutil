@@ -125,7 +125,7 @@ export default function BloodPressurePage() {
     <CalcShell title="혈압 체크기" description="WHO 기준으로 수축기·이완기 혈압 등급을 판정합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">혈압 입력</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 입력</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>수축기 혈압 (최고, mmHg)</Label>
@@ -138,7 +138,7 @@ export default function BloodPressurePage() {
                 placeholder="예: 80" className={inputCls} />
             </div>
           </div>
-          <p className="text-xs text-slate-400 mt-2">* 수축기 ÷ 이완기 순서로 입력 (예: 120/80)</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">* 수축기 ÷ 이완기 순서로 입력 (예: 120/80)</p>
           <div className="mt-4"><PrimaryBtn onClick={calculate}>판정하기</PrimaryBtn></div>
         </Card>
 
@@ -148,20 +148,20 @@ export default function BloodPressurePage() {
             <div className={`rounded-2xl border p-5 ${result.level.bg} ${result.level.border}`}>
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <p className="text-xs text-slate-500 mb-1">혈압 판정</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">혈압 판정</p>
                   <p className={`text-4xl font-black ${result.level.color}`}>
                     {result.systolic} / {result.diastolic}
                   </p>
-                  <p className="text-xs text-slate-500 mt-1">mmHg (수축기 / 이완기)</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">mmHg (수축기 / 이완기)</p>
                 </div>
-                <span className={`text-sm font-black px-4 py-2 rounded-xl bg-white border ${result.level.color} ${result.level.border}`}>
+                <span className={`text-sm font-black px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} ${result.level.border}`}>
                   {result.level.label}
                 </span>
               </div>
 
               {/* 수축기 게이지 */}
               <div className="mb-3">
-                <p className="text-xs text-slate-500 mb-1">수축기 ({result.systolic} mmHg)</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">수축기 ({result.systolic} mmHg)</p>
                 <div className="relative h-2.5 rounded-full overflow-hidden flex">
                   {[{w:21.4,c:'bg-blue-300'},{w:21.4,c:'bg-emerald-300'},{w:7.1,c:'bg-amber-300'},{w:7.1,c:'bg-orange-300'},{w:28.6,c:'bg-red-400'},{w:14.4,c:'bg-red-700'}].map((s,i)=>(
                     <div key={i} className={`h-full ${s.c}`} style={{width:`${s.w}%`}} />
@@ -169,14 +169,14 @@ export default function BloodPressurePage() {
                   <div className="absolute top-0 w-3 h-3 bg-slate-800 rounded-full border-2 border-white shadow -translate-y-0.5 -translate-x-1.5"
                     style={{left:`${sysPct}%`}} />
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 mt-1">
                   {['60','90','120','130','140','180','200'].map(v=><span key={v}>{v}</span>)}
                 </div>
               </div>
 
               {/* 이완기 게이지 */}
               <div className="mb-4">
-                <p className="text-xs text-slate-500 mb-1">이완기 ({result.diastolic} mmHg)</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">이완기 ({result.diastolic} mmHg)</p>
                 <div className="relative h-2.5 rounded-full overflow-hidden flex">
                   {[{w:22.2,c:'bg-blue-300'},{w:22.2,c:'bg-emerald-300'},{w:11.1,c:'bg-orange-300'},{w:33.3,c:'bg-red-400'},{w:11.2,c:'bg-red-700'}].map((s,i)=>(
                     <div key={i} className={`h-full ${s.c}`} style={{width:`${s.w}%`}} />
@@ -184,25 +184,25 @@ export default function BloodPressurePage() {
                   <div className="absolute top-0 w-3 h-3 bg-slate-800 rounded-full border-2 border-white shadow -translate-y-0.5 -translate-x-1.5"
                     style={{left:`${diaPct}%`}} />
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 mt-1">
                   {['40','60','80','90','120','130'].map(v=><span key={v}>{v}</span>)}
                 </div>
               </div>
 
-              <div className={`text-sm font-medium ${result.level.color} bg-white rounded-xl p-3 border ${result.level.border}`}>
+              <div className={`text-sm font-medium ${result.level.color} bg-white dark:bg-slate-900 rounded-xl p-3 border ${result.level.border}`}>
                 {result.level.detail}
               </div>
             </div>
 
             {/* 기준표 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">혈압 기준표 (WHO · 대한고혈압학회 2023)</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 기준표 (WHO · 대한고혈압학회 2023)</p>
               <div className="flex flex-col gap-1.5">
                 {TABLE_ROWS.map((row, i) => {
                   const active = result.level.label === row.label;
                   return (
                     <div key={i} className={`flex justify-between items-center text-xs px-3.5 py-2.5 rounded-xl border ${
-                      active ? `${LEVELS[i].bg} ${LEVELS[i].border} font-bold` : 'bg-slate-50 border-slate-100 text-slate-500'
+                      active ? `${LEVELS[i].bg} ${LEVELS[i].border} font-bold` : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400'
                     }`}>
                       <div className="flex items-center gap-2">
                         <div className={`w-2.5 h-2.5 rounded-full ${LEVELS[i].bar}`} />
@@ -215,7 +215,7 @@ export default function BloodPressurePage() {
                   );
                 })}
               </div>
-              <p className="text-xs text-slate-400 mt-3">* 수축기와 이완기 중 한쪽이라도 해당되면 높은 등급 적용</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">* 수축기와 이완기 중 한쪽이라도 해당되면 높은 등급 적용</p>
             </Card>
           </>
         )}

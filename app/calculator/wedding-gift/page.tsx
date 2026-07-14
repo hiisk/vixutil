@@ -64,7 +64,7 @@ export default function WeddingGiftPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">관계 및 상황</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">관계 및 상황</p>
           <div className="flex flex-col gap-4">
             <div>
               <Label>신랑·신부와의 관계</Label>
@@ -77,7 +77,7 @@ export default function WeddingGiftPage() {
                     className={`px-3 py-2 text-xs font-semibold rounded-xl border transition-colors ${
                       relationKey === r.key
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {r.label}
@@ -97,7 +97,7 @@ export default function WeddingGiftPage() {
                     className={`px-4 py-2 text-sm font-semibold rounded-xl border transition-colors ${
                       attending === o.v
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                     }`}
                   >
                     {o.label}
@@ -118,7 +118,7 @@ export default function WeddingGiftPage() {
                       className={`px-4 py-2 text-sm font-semibold rounded-xl border transition-colors ${
                         venue === o.v
                           ? 'bg-blue-600 border-blue-600 text-white'
-                          : 'border-slate-200 text-slate-500 hover:border-blue-300'
+                          : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
                       }`}
                     >
                       {o.label}
@@ -144,8 +144,8 @@ export default function WeddingGiftPage() {
           />
         </SummaryGrid>
 
-        <Card className="p-5 bg-slate-50">
-          <p className="text-xs text-slate-500 leading-relaxed">
+        <Card className="p-5 bg-slate-50 dark:bg-slate-950">
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             💡 이 금액은 통상적인 경향을 참고용으로 안내하는 것으로, 지역·문화·개인 사정에 따라 크게 달라질 수
             있습니다. 특히 가족·친척 사이는 집안 관례를 따르는 경우가 많으니 참고만 해주세요.
           </p>

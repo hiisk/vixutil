@@ -82,7 +82,7 @@ function ShareBtn() {
     } catch { /* 권한 없음 */ }
   }, []);
   return (
-    <button onClick={handleShare} className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30">
+    <button onClick={handleShare} className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 dark:bg-slate-900/20 border-white/30 dark:border-slate-700/30 text-white hover:bg-white/30">
       {state === 'copied' ? '복사됨 ✓' : '공유'}
     </button>
   );
@@ -186,27 +186,27 @@ export default function CoupleMatchPage() {
   const bothReady = !!(vectors[0] && vectors[1]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="h-1 bg-gradient-to-r from-rose-400 via-pink-500 to-red-500" />
 
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-rose-600 transition-colors font-medium">
+          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-rose-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             스냅테스트
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700">커플 관상 궁합</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">커플 관상 궁합</span>
         </div>
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">💑</div>
-          <h1 className="text-2xl font-black text-slate-900 mb-1.5">커플 관상 궁합</h1>
-          <p className="text-slate-500 text-sm">두 사람의 사진으로 인상이 얼마나 닮았는지 궁합을 봐드려요</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">커플 관상 궁합</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">두 사람의 사진으로 인상이 얼마나 닮았는지 궁합을 봐드려요</p>
         </div>
 
         <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 mb-6 text-xs text-rose-800 leading-relaxed">
@@ -215,9 +215,9 @@ export default function CoupleMatchPage() {
         </div>
 
         {modelState === 'loading' && (
-          <div className="w-full border-2 border-dashed border-slate-200 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white">
-            <div className="w-8 h-8 border-4 border-slate-200 border-t-rose-500 rounded-full animate-spin" />
-            <span className="text-sm font-bold text-slate-500">얼굴 인식 모델을 불러오는 중...</span>
+          <div className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
+            <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-rose-500 rounded-full animate-spin" />
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">얼굴 인식 모델을 불러오는 중...</span>
           </div>
         )}
 
@@ -236,7 +236,7 @@ export default function CoupleMatchPage() {
                 <div key={slot}>
                   <button
                     onClick={() => inputRefs[slot].current?.click()}
-                    className="w-full aspect-square rounded-2xl border-2 border-dashed border-slate-300 bg-white hover:border-rose-400 hover:bg-rose-50/50 transition-colors overflow-hidden relative flex flex-col items-center justify-center gap-2"
+                    className="w-full aspect-square rounded-2xl border-2 border-dashed border-slate-300 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40 transition-colors overflow-hidden relative flex flex-col items-center justify-center gap-2"
                   >
                     {previews[slot] ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -244,12 +244,12 @@ export default function CoupleMatchPage() {
                     ) : (
                       <>
                         <span className="text-3xl">{slot === 0 ? '👤' : '👥'}</span>
-                        <span className="text-xs font-bold text-slate-500">{slot + 1}번째 사진</span>
+                        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{slot + 1}번째 사진</span>
                       </>
                     )}
                     {busy === slot && (
                       <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
-                        <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-4 border-white/30 dark:border-slate-700/30 border-t-white rounded-full animate-spin" />
                       </div>
                     )}
                     {vectors[slot] && busy !== slot && (
@@ -284,16 +284,16 @@ export default function CoupleMatchPage() {
               <p className="text-sm leading-relaxed">{result.headline}</p>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">💞 이목구비별 닮은 정도</p>
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">💞 이목구비별 닮은 정도</p>
               <div className="flex flex-col gap-2.5">
                 {result.breakdown.map(m => (
                   <div key={m.label}>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-semibold text-slate-600">{m.label}</span>
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{m.label}</span>
                       <span className="text-xs font-bold text-rose-500">{m.score}%</span>
                     </div>
-                    <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-rose-400 to-pink-500 rounded-full" style={{ width: `${m.score}%` }} />
                     </div>
                   </div>
@@ -303,10 +303,10 @@ export default function CoupleMatchPage() {
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💌 오늘의 커플 팁</p>
-              <p className="text-sm text-slate-700 leading-relaxed font-medium">{result.comment}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.comment}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-600 hover:border-rose-300 hover:text-rose-600 transition-colors">
+            <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
 
@@ -322,7 +322,7 @@ export default function CoupleMatchPage() {
 
             <ShareButton title="커플 관상 궁합 결과" description={`궁합 ${result.score}% — ${result.headline}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 pt-2">
+            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
               이목구비 비율 측정은 실제로 이뤄지지만, 궁합 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>
