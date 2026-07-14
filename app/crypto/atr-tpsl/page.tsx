@@ -140,7 +140,7 @@ export default function AtrTpslPage() {
             <div className="py-12 px-4 flex flex-col items-center gap-2 text-center">
               <span className="text-3xl">⚠️</span>
               <span className="text-sm font-bold text-rose-600">Couldn&apos;t load prices</span>
-              <span className="text-xs text-rose-400">Check your connection and refresh. Binance may be restricted in some regions.</span>
+              <span className="text-xs text-rose-600 dark:text-rose-400">Check your connection and refresh. Binance may be restricted in some regions.</span>
               <button onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
             </div>
           )}
@@ -167,7 +167,7 @@ export default function AtrTpslPage() {
                       <td className="px-4 py-2.5 text-slate-500 dark:text-slate-400">{r.rank}</td>
                       <td className="px-2 py-2.5 font-bold text-slate-800 dark:text-slate-100">{r.base}<span className="text-slate-700 dark:text-slate-200 font-medium">/USDT</span></td>
                       <td className="px-2 py-2.5 text-right text-slate-700 dark:text-slate-200">{formatPrice(r.lastPrice)}</td>
-                      <td className={`px-2 py-2.5 text-right font-semibold ${r.priceChangePercent >= 0 ? 'text-emerald-600' : 'text-rose-500'}`}>
+                      <td className={`px-2 py-2.5 text-right font-semibold ${r.priceChangePercent >= 0 ? 'text-emerald-600' : 'text-rose-600 dark:text-rose-400'}`}>
                         {r.priceChangePercent >= 0 ? '+' : ''}{r.priceChangePercent.toFixed(2)}%
                       </td>
                       <td className="px-4 py-2.5 text-right font-bold text-amber-600">{r.atrPct != null ? r.atrPct.toFixed(2) + '%' : '-'}</td>
@@ -243,9 +243,9 @@ export default function AtrTpslPage() {
                   <p className="text-xs text-emerald-600 mt-0.5">{direction === 'long' ? '+' : '-'}{calc.tpDistPct.toFixed(2)}%</p>
                 </div>
                 <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
-                  <p className="text-xs text-rose-500 font-semibold mb-1">🛑 Stop Loss (SL)</p>
+                  <p className="text-xs text-rose-600 dark:text-rose-400 font-semibold mb-1">🛑 Stop Loss (SL)</p>
                   <p className="text-lg font-black text-rose-600">{formatPrice(calc.sl)}</p>
-                  <p className="text-xs text-rose-500 mt-0.5">{direction === 'long' ? '-' : '+'}{calc.slDistPct.toFixed(2)}%</p>
+                  <p className="text-xs text-rose-600 dark:text-rose-400 mt-0.5">{direction === 'long' ? '-' : '+'}{calc.slDistPct.toFixed(2)}%</p>
                 </div>
                 <div className="col-span-2 flex items-center justify-between bg-slate-50 dark:bg-slate-950 rounded-xl px-4 py-2.5">
                   <span className="text-xs text-slate-500 dark:text-slate-400">Risk : Reward</span>

@@ -56,7 +56,7 @@ interface RowInfo {
 }
 
 const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
-  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400', emoji: '🟢' },
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400', emoji: '🟢' },
   bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
   neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-500 dark:text-slate-400', emoji: '⚪' },
 };
@@ -403,7 +403,7 @@ export default function SignalsPage() {
             <span className="relative flex items-center gap-2 mb-2">
               <BinanceIcon />
               <span className="font-black text-amber-200 text-[15px] tracking-tight">BINANCE</span>
-              <span className="text-[9px] font-bold text-amber-400/70 uppercase tracking-wide">New user</span>
+              <span className="text-[9px] font-bold text-amber-600 dark:text-amber-400/70 uppercase tracking-wide">New user</span>
               <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-amber-400 rounded-lg px-3 py-1 group-hover:bg-amber-300 transition-colors">
                 Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
@@ -458,9 +458,9 @@ export default function SignalsPage() {
                   cta: 'Sort by volume', sort: 'volume' as SortKey },
                 { key: 'gainers', icon: '📈', title: 'Gainers', hint: 'Best 24h change', rows: stats.gainers,
                   value: (t: Ticker24h) => `${t.priceChangePercent >= 0 ? '+' : ''}${t.priceChangePercent.toFixed(2)}%`,
-                  cls: 'text-emerald-400', cta: 'Sort by 24h change', sort: 'chg24h' as SortKey },
+                  cls: 'text-emerald-600 dark:text-emerald-400', cta: 'Sort by 24h change', sort: 'chg24h' as SortKey },
                 { key: 'volatile', icon: '⚡', title: 'Most volatile', hint: 'Widest 24h range', rows: stats.volatile,
-                  value: (t: Ticker24h) => `${t.rangePct.toFixed(1)}%`, cls: 'text-amber-400',
+                  value: (t: Ticker24h) => `${t.rangePct.toFixed(1)}%`, cls: 'text-amber-600 dark:text-amber-400',
                   cta: 'Sort by 24h range', sort: 'range24h' as SortKey },
               ]).map(card => (
                 <div key={card.key} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 flex flex-col">
@@ -586,7 +586,7 @@ export default function SignalsPage() {
                       </th>
                       <th className={th}>Current</th>
                       <th className={th}>
-                        <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-400' : ''}`}>
+                        <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-600 dark:text-amber-400' : ''}`}>
                           24H <SortHint active={sortKey === 'chg24h'} dir={sortDir} />
                         </button>
                       </th>
@@ -597,7 +597,7 @@ export default function SignalsPage() {
                       {BOARD_HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-200/70 dark:border-slate-700/70' : ''}`}>
                           {h.short}
-                          <span className="block text-[9px] font-normal text-amber-500/70 normal-case tracking-normal">peak</span>
+                          <span className="block text-[9px] font-normal text-amber-600 dark:text-amber-400/70 normal-case tracking-normal">peak</span>
                         </th>
                       ))}
                     </tr>
@@ -628,7 +628,7 @@ export default function SignalsPage() {
                             <CoinLogo base={t.base} />
                             <span className={`font-bold text-slate-900 dark:text-white ${meta ? 'group-hover:text-amber-400 transition-colors' : ''}`}>{t.base}</span>
                             {c && market === 'futures' && (
-                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
+                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
                                 {c.side === 'long' ? 'LONG' : 'SHORT'}
                               </span>
                             )}
@@ -671,10 +671,10 @@ export default function SignalsPage() {
                           <td className="px-2 py-3 text-right tabular-nums">
                             {c ? (
                               <div className="flex flex-col items-end leading-tight">
-                                <span className="text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
-                                <span className="text-[10px] text-emerald-500/60">+{tpPct!.toFixed(1)}%</span>
+                                <span className="text-emerald-600 dark:text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
+                                <span className="text-[10px] text-emerald-600 dark:text-emerald-400/60">+{tpPct!.toFixed(1)}%</span>
                                 {hit && (
-                                  <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                                  <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
                                     {hit === 'tp' ? '🎯 hit' : '🛑 stopped'}
                                   </span>
                                 )}
@@ -703,7 +703,7 @@ export default function SignalsPage() {
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
                                     <span className="text-slate-900 dark:text-white font-bold tabular-nums">{formatPrice(p.peak * fcScale)}</span>
-                                    <span className="text-[10px] text-amber-500/80 tabular-nums">+{p.peakPct.toFixed(1)}%</span>
+                                    <span className="text-[10px] text-amber-600 dark:text-amber-400/80 tabular-nums">+{p.peakPct.toFixed(1)}%</span>
                                   </div>
                                 ) : pending ? (
                                   <span className="text-slate-400 dark:text-slate-500 text-xs">…</span>
@@ -753,7 +753,7 @@ export default function SignalsPage() {
         <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
           <p className="mb-2">
-            <b className="text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
+            <b className="text-amber-700 dark:text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
             <b className="text-slate-700 dark:text-slate-200"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
             because the drift is only about 9% of the noise over three days. We show the peak because it is the number that genuinely differs between coins and
             is calibrated: the barrier correction was fitted so the touch probability really is 50%, and checked on BTC, SOL and DOGE with a seed different from

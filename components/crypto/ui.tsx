@@ -52,7 +52,7 @@ export function Sparkline({ points, w = 84, h = 28 }: { points: number[]; w?: nu
 export function Pct({ value, bold = false }: { value: number; bold?: boolean }) {
   const up = value >= 0;
   return (
-    <span className={`inline-flex items-center gap-0.5 tabular-nums ${bold ? 'font-black' : ''} ${up ? 'text-emerald-400' : 'text-rose-400'}`}>
+    <span className={`inline-flex items-center gap-0.5 tabular-nums ${bold ? 'font-black' : ''} ${up ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
       <span className="text-[0.65em] leading-none">{up ? '▲' : '▼'}</span>
       {up ? '+' : '-'}{Math.abs(value).toFixed(2)}%
     </span>

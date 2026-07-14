@@ -73,7 +73,7 @@ export default function ForecastChart({
   const divX = x(nH - 1);
   const last = daily[nF - 1];
   const up = last.forecast >= spot;
-  const accent = up ? '#34d399' : '#fb7185';
+  const accent = up ? '#059669' : '#e11d48';
 
   const ticks = [lo + (hi - lo) * 0.08, (lo + hi) / 2, hi - (hi - lo) * 0.08];
   const fmtTick = (v: number) => (v >= 1000 ? v.toLocaleString('en-US', { maximumFractionDigits: 0 }) : v >= 1 ? v.toFixed(2) : v.toPrecision(3));
@@ -84,13 +84,13 @@ export default function ForecastChart({
         {/* 격자 — 데이터보다 뒤로 */}
         {ticks.map((t, i) => (
           <g key={i}>
-            <line x1={padL} x2={padL + innerW} y1={y(t)} y2={y(t)} stroke="#1e293b" strokeWidth={1} />
-            <text x={padL + innerW + 6} y={y(t) + 4} fill="#475569" fontSize={11} fontFamily="ui-monospace, monospace">{fmtTick(t)}</text>
+            <line x1={padL} x2={padL + innerW} y1={y(t)} y2={y(t)} stroke="#e2e8f0" strokeWidth={1} />
+            <text x={padL + innerW + 6} y={y(t) + 4} fill="#94a3b8" fontSize={11} fontFamily="ui-monospace, monospace">{fmtTick(t)}</text>
           </g>
         ))}
 
         {/* 오늘 경계 */}
-        <line x1={divX} x2={divX} y1={padT} y2={padT + innerH} stroke="#334155" strokeWidth={1} />
+        <line x1={divX} x2={divX} y1={padT} y2={padT + innerH} stroke="#cbd5e1" strokeWidth={1} />
         <text x={divX + 5} y={padT + 11} fill="#64748b" fontSize={10}>today</text>
 
         {/* 시뮬레이션 경로 — 데이터가 아니라 표본이므로 가장 뒤에, 가장 옅게 */}

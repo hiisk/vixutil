@@ -51,10 +51,10 @@ interface Snapshot {
 type State = 'loading' | 'ready' | 'nodata' | 'error';
 
 const VOL_CLR: Record<string, string> = {
-  Low: 'text-emerald-400', Medium: 'text-amber-400', High: 'text-orange-400', Extreme: 'text-rose-400',
+  Low: 'text-emerald-600 dark:text-emerald-400', Medium: 'text-amber-400', High: 'text-orange-400', Extreme: 'text-rose-400',
 };
 const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
-  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-400', emoji: '🟢' },
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400', emoji: '🟢' },
   bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
   neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-500 dark:text-slate-400', emoji: '⚪' },
 };
@@ -265,7 +265,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span className="text-3xl">{state === 'nodata' ? '📉' : '⚠️'}</span>
-        <span className="text-sm font-bold text-rose-400">
+        <span className="text-sm font-bold text-rose-600 dark:text-rose-400">
           {state === 'nodata' ? `Not enough price history for ${coin.name}` : 'Couldn’t load market data'}
         </span>
         <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -320,7 +320,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         {/* 헤드라인 3종 — 전부 크고, 전부 참이고, 전부 코인마다 다르다 */}
         <div className="relative grid sm:grid-cols-3 gap-3">
           <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/25 p-4">
-            <p className="text-[11px] uppercase tracking-wide text-amber-500/80 mb-1">Typical peak · 1 year</p>
+            <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400/80 mb-1">Typical peak · 1 year</p>
             <p className="text-2xl font-black text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">+{p1y.peakPct.toFixed(1)}% · touched at some point in half of all paths</p>
           </div>
@@ -408,7 +408,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/30 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-amber-500/80 mb-1">Median</p>
               <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(invest.median)}</p>
-              <p className={`text-[11px] font-bold tabular-nums ${invest.medianRoi >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <p className={`text-[11px] font-bold tabular-nums ${invest.medianRoi >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
                 {invest.medianRoi >= 0 ? '+' : ''}{invest.medianRoi.toFixed(1)}%
               </p>
             </div>
@@ -497,19 +497,19 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="grid grid-cols-3 gap-2 mb-2 text-center">
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Market (β={m.beta.toFixed(2)})</p>
-                <p className={`text-sm font-black tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <p className={`text-sm font-black tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
                   {m.marketAnnualPct >= 0 ? '+' : ''}{m.marketAnnualPct.toFixed(1)}%/yr
                 </p>
               </div>
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Coin-specific (α)</p>
-                <p className={`text-sm font-black tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <p className={`text-sm font-black tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
                   {m.alphaAnnualPct >= 0 ? '+' : ''}{m.alphaAnnualPct.toFixed(1)}%/yr
                 </p>
               </div>
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Forecast drift</p>
-                <p className={`text-sm font-black tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <p className={`text-sm font-black tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
                   {m.annualDriftPct >= 0 ? '+' : ''}{m.annualDriftPct.toFixed(1)}%/yr
                 </p>
               </div>
@@ -519,7 +519,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             The market prior is ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr, which is a <b className="text-slate-500 dark:text-slate-400">deliberately assertive</b> choice: it
             lets a coin&apos;s long-run trend show up in the forecast. It has a measured price — see the methodology below. The alpha prior is tighter
             (±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr) and puts {(m.shrink * 100).toFixed(0)}% of the weight on the data.
-            {m.driftGated && <> Because {coin.base} has under {MIN_DRIFT_HISTORY} days of history, the assertive prior is <b className="text-amber-400">switched off</b> for it and a conservative one used instead.</>}
+            {m.driftGated && <> Because {coin.base} has under {MIN_DRIFT_HISTORY} days of history, the assertive prior is <b className="text-amber-600 dark:text-amber-400">switched off</b> for it and a conservative one used instead.</>}
             {' '}The forecast line is smooth and monotone because nothing in the data predicts day-to-day direction — a zig-zagging daily forecast would be
             invented, not measured.
           </p>
@@ -547,7 +547,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             {isFinite(pTp) ? (
               <>
                 <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">{pTp.toFixed(1)}%</p>
-                <p className={`text-[10px] mt-0.5 tabular-nums ${evR >= 0 ? 'text-emerald-500/70' : 'text-rose-500/70'}`}>
+                <p className={`text-[10px] mt-0.5 tabular-nums ${evR >= 0 ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-500/70'}`}>
                   {evR >= 0 ? '+' : ''}{evR.toFixed(2)}R expected · {rr.toFixed(2)}:1 reward
                 </p>
               </>
@@ -606,15 +606,15 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums">
                         {dayChg != null ? (
-                          <span className={`inline-flex items-center gap-1 font-bold ${dayChg >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          <span className={`inline-flex items-center gap-1 font-bold ${dayChg >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
                             <span className="text-[10px] leading-none">{dayChg >= 0 ? '▲' : '▼'}</span>
                             {dayChg >= 0 ? '+' : ''}{dayChg.toFixed(2)}%
                           </span>
                         ) : <span className="text-slate-700 dark:text-slate-200">-</span>}
                       </td>
-                      <td className="px-3 py-2 text-right tabular-nums text-rose-400/70 border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(d.low)}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-emerald-400/70">${formatPrice(d.high)}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-amber-400 font-bold border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-rose-600 dark:text-rose-400/70 border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(d.low)}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-emerald-600 dark:text-emerald-400/70">${formatPrice(d.high)}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-amber-600 dark:text-amber-400 font-bold border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(seriesPeaks[ri] ?? d.forecast)}</td>
                     </tr>
                   );
                 })}
@@ -661,14 +661,14 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       ${formatPrice(p.mean)}
                       <span className="block text-[10px] text-slate-400 dark:text-slate-500">+{p.meanPct.toFixed(1)}%</span>
                     </td>
-                    <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
+                    <td className="px-3 py-3 text-right text-emerald-600 dark:text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
                     <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
                     <td className="px-3 py-3 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">
-                      <span className="text-amber-400 font-bold">${formatPrice(p.peak)}</span>
+                      <span className="text-amber-600 dark:text-amber-400 font-bold">${formatPrice(p.peak)}</span>
                       <span className="block text-[10px] text-amber-500/60">+{p.peakPct.toFixed(1)}%</span>
                     </td>
-                    <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">{p.pUp10.toFixed(1)}%</td>
-                    <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">{p.pDown10.toFixed(1)}%</td>
+                    <td className="px-3 py-3 text-right text-emerald-600 dark:text-emerald-400/80 tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">{p.pUp10.toFixed(1)}%</td>
+                    <td className="px-3 py-3 text-right text-rose-600 dark:text-rose-400/80 tabular-nums">{p.pDown10.toFixed(1)}%</td>
                     <td className="px-4 py-3 text-right text-[11px] text-slate-500 dark:text-slate-400 tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">
                       ${formatPrice(p.low80)} – ${formatPrice(p.high80)}
                     </td>
@@ -727,7 +727,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   return rows.map(v => {
                     const up = v >= s.price;
                     const isCustom = isFinite(custom) && custom > 0 && v === custom && !presets.includes(custom);
-                    const clr = up ? 'text-emerald-400' : 'text-rose-400';
+                    const clr = up ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400';
                     return (
                       <tr key={v} className={`border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors ${isCustom ? 'bg-amber-500/[0.06]' : ''}`}>
                         <td className="px-4 py-2.5 font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(v)}</td>
@@ -771,7 +771,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               <h3 className="text-sm font-black text-slate-900 dark:text-white">Historical scenarios — what {coin.base} actually did</h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                 Every overlapping window in {coin.base}&apos;s {s.fullCloses.toLocaleString()} days of history. No model, no drift — just what happened.
-                {flip && <span className="text-amber-400/90"> Note the median changes sign across horizons.</span>}
+                {flip && <span className="text-amber-600 dark:text-amber-400/90"> Note the median changes sign across horizons.</span>}
               </p>
             </div>
             <div className="overflow-x-auto">
@@ -793,9 +793,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-200">{r.label}</td>
                       {r.reliable ? (
                         <>
-                          <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(r.p25)}</td>
+                          <td className="px-3 py-3 text-right text-rose-600 dark:text-rose-400/80 tabular-nums">${formatPrice(r.p25)}</td>
                           <td className="px-3 py-3 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(r.median)}</td>
-                          <td className="px-3 py-3 text-right text-emerald-400/80 tabular-nums">${formatPrice(r.p75)}</td>
+                          <td className="px-3 py-3 text-right text-emerald-600 dark:text-emerald-400/80 tabular-nums">${formatPrice(r.p75)}</td>
                           <td className="px-3 py-3 text-right"><Pct value={r.medianPct} /></td>
                           <td className="px-3 py-3 text-right text-slate-500 dark:text-slate-400 tabular-nums">{r.pUp.toFixed(0)}%</td>
                           <td className="px-4 py-3 text-right text-[11px] tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 text-slate-500 dark:text-slate-400">
@@ -854,8 +854,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       <td className="px-4 py-2.5 font-bold text-slate-700 dark:text-slate-200">{r.label}</td>
                       <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(r.low)}</td>
                       <td className="px-3 py-2.5 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(r.forecast)}</td>
-                      <td className="px-3 py-2.5 text-right text-emerald-400/80 tabular-nums">${formatPrice(r.high)}</td>
-                      <td className="px-3 py-2.5 text-right text-amber-400 font-bold tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(r.peak)}</td>
+                      <td className="px-3 py-2.5 text-right text-emerald-600 dark:text-emerald-400/80 tabular-nums">${formatPrice(r.high)}</td>
+                      <td className="px-3 py-2.5 text-right text-amber-600 dark:text-amber-400 font-bold tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(r.peak)}</td>
                       <td className="px-4 py-2.5 text-right"><Pct value={r.changePct} /></td>
                     </tr>
                   ))}
@@ -884,7 +884,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 </p>
               </div>
               <div className="text-right text-xs tabular-nums">
-                <p className="text-emerald-400 font-bold">{ta.s.bullish} bullish</p>
+                <p className="text-emerald-600 dark:text-emerald-400 font-bold">{ta.s.bullish} bullish</p>
                 <p className="text-rose-400 font-bold">{ta.s.bearish} bearish</p>
                 <p className="text-slate-500 dark:text-slate-400">{ta.s.neutral} neutral</p>
               </div>
@@ -918,7 +918,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                           <td className="px-4 py-2 text-slate-500 dark:text-slate-400">{r.name}</td>
                           <td className="px-3 py-2 text-right text-slate-900 dark:text-white tabular-nums">${formatPrice(r.value)}</td>
                           <td className="px-3 py-2 text-right text-[11px] tabular-nums">
-                            <span className={s.price >= r.value ? 'text-emerald-500/70' : 'text-rose-500/70'}>
+                            <span className={s.price >= r.value ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-500/70'}>
                               {s.price >= r.value ? '+' : ''}{(((s.price / r.value) - 1) * 100).toFixed(1)}%
                             </span>
                           </td>
@@ -1014,8 +1014,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     <tr key={k.openTime} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">{utcDate(k.openTime)}</td>
                       <td className="px-3 py-2.5 text-right text-slate-500 dark:text-slate-400 tabular-nums">${formatPrice(k.open)}</td>
-                      <td className="px-3 py-2.5 text-right text-emerald-400/70 tabular-nums">${formatPrice(k.high)}</td>
-                      <td className="px-3 py-2.5 text-right text-rose-400/70 tabular-nums">${formatPrice(k.low)}</td>
+                      <td className="px-3 py-2.5 text-right text-emerald-600 dark:text-emerald-400/70 tabular-nums">${formatPrice(k.high)}</td>
+                      <td className="px-3 py-2.5 text-right text-rose-600 dark:text-rose-400/70 tabular-nums">${formatPrice(k.low)}</td>
                       <td className="px-3 py-2.5 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(k.close)}</td>
                       <td className="px-3 py-2.5 text-right"><Pct value={chg} /></td>
                       <td className="px-4 py-2.5 text-right text-slate-500 dark:text-slate-400 tabular-nums">{formatVolume(k.quoteVolume)}</td>
