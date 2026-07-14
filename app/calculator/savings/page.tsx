@@ -15,7 +15,6 @@ export default function SavingsPage() {
 
   function calculate() {
     const m = monthly;
-    const r = Number(rate) / 100 / 12;
     const n = Number(months);
     if (m <= 0 || Number(rate) <= 0 || n <= 0) return;
 

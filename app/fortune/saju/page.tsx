@@ -12,12 +12,8 @@ import {
 } from '@/lib/saju-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 import { analyzeFortune } from '@/lib/saju-fortune';
-import type { DomainFortune } from '@/lib/saju-fortune';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
-
-/* ── util ── */
-const pad = (n: number) => String(n).padStart(2,'0');
 
 /* ── 기둥 카드 ── */
 function PillarCard({ label, pillar, isDay, ilganIdx }: {
@@ -60,19 +56,6 @@ function PillarCard({ label, pillar, isDay, ilganIdx }: {
         </div>
       </div>
       <p className="text-[9px] text-center text-slate-300 font-bold">{pillarHanja(pillar)}</p>
-    </div>
-  );
-}
-
-/* ── 섹션 헤더 ── */
-function SectionHeader({ emoji, title, sub }: { emoji: string; title: string; sub?: string }) {
-  return (
-    <div className="flex items-start gap-2 mb-3">
-      <span className="text-lg leading-none">{emoji}</span>
-      <div>
-        <p className="text-sm font-black text-slate-800">{title}</p>
-        {sub && <p className="text-[10px] text-slate-400 mt-0.5">{sub}</p>}
-      </div>
     </div>
   );
 }
@@ -125,64 +108,8 @@ const GRADE_BADGE: Record<string, string> = {
   '흉':   'bg-gray-200 text-gray-600',
 };
 
-/* ── 운세 도메인 카드 ── */
-function DomainCard({ d, expanded, onToggle }: {
-  d: DomainFortune; expanded: boolean; onToggle: () => void;
-}) {
-  const c = COLOR_MAP[d.colorKey] ?? COLOR_MAP.blue;
-  return (
-    <div className={`rounded-2xl border-2 overflow-hidden transition-all ${expanded ? c.border : 'border-slate-100'}`}>
-      {/* 헤더 (항상 표시) */}
-      <button
-        onClick={onToggle}
-        className={`w-full flex items-center gap-3 p-4 text-left transition-colors ${expanded ? c.bg : 'bg-white hover:bg-slate-50'}`}
-      >
-        <span className="text-2xl leading-none shrink-0">{d.emoji}</span>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm font-black text-slate-900">{d.title}</span>
-            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${GRADE_BADGE[d.grade]}`}>{d.grade}</span>
-          </div>
-          {/* 별점 */}
-          <div className="flex gap-0.5 mb-1.5">
-            {[1,2,3,4,5].map(i => (
-              <div key={i} className={`w-2.5 h-2.5 rounded-full ${i <= d.score ? c.dot : 'bg-slate-200'}`} />
-            ))}
-          </div>
-          <p className="text-xs text-slate-500 leading-snug line-clamp-1">{d.summary}</p>
-        </div>
-        <svg
-          className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {/* 확장 영역 */}
-      {expanded && (
-        <div className="bg-white border-t border-slate-100 px-4 py-4 space-y-3">
-          <p className="text-xs text-slate-600 leading-relaxed">{d.summary}</p>
-          <ul className="space-y-2">
-            {d.points.map((pt, i) => (
-              <li key={i} className="flex gap-2 text-xs text-slate-700 leading-relaxed">
-                <span className={`shrink-0 font-black mt-0.5 ${c.accent}`}>·</span>
-                <span>{pt}</span>
-              </li>
-            ))}
-          </ul>
-          <div className={`rounded-xl p-3 border ${c.bg} ${c.border}`}>
-            <p className={`text-[10px] font-black mb-1 ${c.accent}`}>💡 조언</p>
-            <p className="text-xs text-slate-700 leading-relaxed">{d.advice}</p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 /* ── 대운 카드 ── */
-function DaewoonCard({ entry, currentAge, isCurrent }: { entry: DaewoonEntry; currentAge: number; isCurrent: boolean }) {
+function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boolean }) {
   const stem   = STEMS[entry.pillar.stemIdx];
   const branch = BRANCHES[entry.pillar.branchIdx];
   const stemEl   = ELEMENT_INFO[stem.element];
@@ -282,15 +209,6 @@ export default function SajuPage() {
         const ss = getSipseong(result.day.stemIdx, p.stemIdx);
         return { year: y, pillar: p, sipseong: ss };
       })
-    : [];
-
-  /* 십성 */
-  const otherPillars = result
-    ? [
-        { label:'년주 천간', pillar:result.year,   role:'조상·선천 기질' },
-        { label:'월주 천간', pillar:result.month,  role:'부모·직업 환경' },
-        { label:'시주 천간', pillar:result.hour,   role:'자녀·노년·결실' },
-      ]
     : [];
 
   /* 운세 도메인 분석 */
@@ -763,7 +681,7 @@ export default function SajuPage() {
                     <div className="overflow-x-auto -mx-1 px-1 pb-2">
                       <div className="flex gap-2 w-max">
                         {daewoons.map((entry, i) => (
-                          <DaewoonCard key={i} entry={entry} currentAge={currentAge} isCurrent={!!currentDaewoon && entry.startAge===currentDaewoon.startAge} />
+                          <DaewoonCard key={i} entry={entry} isCurrent={!!currentDaewoon && entry.startAge===currentDaewoon.startAge} />
                         ))}
                       </div>
                     </div>

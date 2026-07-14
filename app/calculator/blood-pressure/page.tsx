@@ -199,8 +199,6 @@ export default function BloodPressurePage() {
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">혈압 기준표 (WHO · 대한고혈압학회 2023)</p>
               <div className="flex flex-col gap-1.5">
                 {TABLE_ROWS.map((row, i) => {
-                  const isActive = result.level.label === LEVELS[i].label ||
-                    (result.level.label === LEVELS[i].label);
                   const active = result.level.label === row.label;
                   return (
                     <div key={i} className={`flex justify-between items-center text-xs px-3.5 py-2.5 rounded-xl border ${

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard, TabBar, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 

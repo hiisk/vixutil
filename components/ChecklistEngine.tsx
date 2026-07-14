@@ -209,7 +209,6 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
           const noteLines = item.note ? wrapText(ctx, item.note, TEXT_W, 1) : [];
           const extraH = (lines.length > 1 ? (lines.length - 1) * 34 : 0) + (noteLines.length > 0 ? 28 : 0);
           const thisH = ITEM_H + extraH;
-          const midY = y + thisH / 2;
 
           // 체크박스
           const cbY = y + 18;

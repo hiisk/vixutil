@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
 const INH_BRACKETS = [
   { limit: 100_000_000, rate: 0.1, deduct: 0 },

@@ -12,8 +12,6 @@ const SUB_KW = ['AND', 'OR', 'NOT', 'IN', 'NOT IN', 'EXISTS', 'BETWEEN', 'LIKE',
 
 function formatSQL(sql: string, upper: boolean): string {
   let s = sql.replace(/\s+/g, ' ').trim();
-  const kw = upper ? MAIN_KW : MAIN_KW.map(k => k.toLowerCase());
-  const sub = upper ? SUB_KW : SUB_KW.map(k => k.toLowerCase());
 
   const allKw = [...MAIN_KW, ...SUB_KW];
   const re = new RegExp('\\b(' + allKw.map(k => k.replace(/\s+/g, '\\s+')).join('|') + ')\\b', 'gi');

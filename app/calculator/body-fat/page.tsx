@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn, TabBar, RatioBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, RatioBar } from '@/components/CalcShell';
 
 // ACSM 체지방률 등급 기준
 const ACSM_MALE: { max: number; label: string; color: string; bg: string }[] = [
@@ -30,14 +30,6 @@ function navyBF(sex: 'm' | 'f', neck: number, waist: number, hip: number, height
   } else {
     return 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
   }
-}
-
-// BMI 추정 체지방 (Deurenberg 공식)
-function bmiBF(bmi: number, age: number, sex: 'm' | 'f'): number {
-  const sexFactor = sex === 'f' ? 1 : 0;
-  return 1.20 * bmi + 0.23 * age - 10.8 * sexFactor - 5.4;
-  // 공식: 1.20*BMI + 0.23*Age - 10.8*Sex(남=1,여=0) - 5.4
-  // 여기서 남성이면 sexFactor=0, 식 조정
 }
 
 // 정정: Deurenberg 1991 원공식: BF% = 1.2*BMI + 0.23*Age - 10.8*sex - 5.4 (sex: 남=1, 여=0)

@@ -9,8 +9,6 @@ type DiffLine =
   | { type: 'delete';  value: string; leftNo: number; rightNo: null };
 
 function computeLCS(a: string[], b: string[]): number[][] {
-  const m = a.length;
-  const n = b.length;
   // 메모리 절약: 최대 1000줄 × 1000줄 = 100만 셀
   const MAX = 1000;
   const aSlice = a.slice(0, MAX);

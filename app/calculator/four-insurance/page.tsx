@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard, TabBar, TableWrap, RatioBar,
+  Card, Label, PrimaryBtn, SummaryGrid, SummaryCard, TabBar, TableWrap, RatioBar,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';

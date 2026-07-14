@@ -13,7 +13,6 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
 interface Point { x: number; y: number }
-interface FaceBox { x: number; y: number; width: number; height: number }
 interface Landmarks68 {
   getJawOutline(): Point[];
   getNose(): Point[];

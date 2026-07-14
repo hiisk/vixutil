@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import { drawCards, TAROT_CARDS, MINOR_ARCANA, SUIT_INFO, type AnyTarotCard } from '@/lib/fortune-data';
@@ -146,7 +146,7 @@ function SlotCard({ idx, drawn, revealed, spread, onReveal, size = 'sm' }:
 }
 
 /* 한 장 */
-function OneLayout({ drawn, revealed, spread, onReveal }: LayoutProps) {
+function OneLayout({ drawn, revealed, onReveal }: LayoutProps) {
   return (
     <div className="flex justify-center py-4">
       {!drawn ? (

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 const LEGAL_RATE = 5.5;

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Test, TestResult } from '@/lib/types';
+import type { Test } from '@/lib/types';
 import ShareButton from './ShareButton';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';

@@ -5,7 +5,6 @@ import CalcShell, {
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
-import type { Metadata } from 'next';
 
 /*
  * 실업급여(구직급여) 계산기 — 2025년 기준

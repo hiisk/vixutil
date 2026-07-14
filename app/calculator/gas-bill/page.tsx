@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 const UNIT_PRICE = 805; // 서울 가정용 원/m³

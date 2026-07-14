@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => n.toLocaleString(undefined, { maximumFractionDigits: 2 });

@@ -6,7 +6,6 @@ import ShareButton from './ShareButton';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
-const MEDALS = ['🏆', '🥇', '🥈', '🥉', '📚'];
 
 function medal(pct: number) {
   if (pct === 100) return '🏆';

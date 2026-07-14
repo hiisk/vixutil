@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, TabBar } from '@/components/CalcShell';
 
 function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);

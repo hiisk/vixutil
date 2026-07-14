@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
 const MIN_WAGE = 10_320;
