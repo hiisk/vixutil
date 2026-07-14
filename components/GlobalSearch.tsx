@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { SECTION_META, type SearchItem, type Section } from '@/lib/search-index';
 
-const SECTIONS: Section[] = ['calculator', 'test', 'quiz', 'generator', 'checklist'];
+const SECTIONS: Section[] = ['calculator', 'test', 'quiz', 'generator', 'checklist', 'fortune', 'snap'];
 
 /** 제목이 앞에서 맞을수록, 그다음 제목 포함, 마지막이 설명 포함 순으로 올린다. */
 function score(item: SearchItem, q: string): number {

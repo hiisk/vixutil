@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { CATS } from '../lib/calculator-catalog.ts';
 import { CHECKLISTS } from '../lib/checklist-data.ts';
@@ -14,14 +14,41 @@ const ROOT = join(import.meta.dirname, '..');
  */
 const indexSrc = readFileSync(join(ROOT, 'lib', 'search-index.ts'), 'utf8');
 
-test('검색 인덱스가 다섯 섹션을 모두 포함한다', () => {
+test('검색 인덱스가 모든 섹션을 포함한다', () => {
   // 한 섹션이라도 빠지면 그 섹션은 통합 검색으로 찾을 수 없다.
-  for (const section of ['calculator', 'test', 'quiz', 'generator', 'checklist']) {
-    assert.ok(
-      indexSrc.includes(`section: '${section}' as const`) || indexSrc.includes(`'${section}' as const`),
-      `${section} 섹션이 인덱스에 없다`,
-    );
+  // 실제로 처음 만들 때 운세와 스냅테스트를 빠뜨려, "관상"이나 "퍼스널컬러"를
+  // 검색하면 아무것도 안 나왔다.
+  for (const section of ['calculator', 'test', 'quiz', 'generator', 'checklist', 'fortune', 'snap']) {
+    assert.ok(indexSrc.includes(`'${section}'`), `${section} 섹션이 인덱스에 없다`);
   }
+});
+
+test('운세·스냅의 모든 페이지가 인덱스에 있다', () => {
+  // 이 둘은 콘텐츠 배열이 아니라 개별 페이지라 손으로 적는다 — 빠뜨리기 쉽다.
+  // 파일시스템에 있는 페이지와 인덱스를 대조한다.
+  const missing: string[] = [];
+
+  for (const section of ['fortune', 'snap']) {
+    const dir = join(ROOT, 'app', section);
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      if (!existsSync(join(dir, entry.name, 'page.tsx'))) continue;
+      const href = `/${section}/${entry.name}`;
+      if (!indexSrc.includes(`'${href}'`)) missing.push(href);
+    }
+  }
+
+  assert.deepEqual(missing, [], `검색 인덱스에 없는 페이지: ${missing.join(', ')}`);
+});
+
+test('인덱스의 운세·스냅 href가 실재한다', () => {
+  const hrefs = [...indexSrc.matchAll(/href: '\/(fortune|snap)\/([a-z-]+)'/g)];
+  assert.ok(hrefs.length >= 16, `운세·스냅 항목이 ${hrefs.length}개뿐`);
+
+  const broken = hrefs
+    .filter(m => !existsSync(join(ROOT, 'app', m[1], m[2], 'page.tsx')))
+    .map(m => `/${m[1]}/${m[2]}`);
+  assert.deepEqual(broken, [], `페이지가 없는 검색 항목: ${broken.join(', ')}`);
 });
 
 test('계산기 카탈로그의 href가 모두 실재한다', () => {
