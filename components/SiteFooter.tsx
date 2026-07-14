@@ -12,6 +12,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/generator", icon: "⚙️", label: "생성기" },
   { href: "/checklist", icon: "✅", label: "체크리스트" },
   { href: "/fortune", icon: "🔮", label: "오늘의 운세" },
+  { href: "/snap", icon: "📸", label: "스냅테스트" },
 ];
 
 const POPULAR: { href: string; label: string }[] = [
@@ -29,6 +30,25 @@ export default function SiteFooter() {
   return (
     <footer className="border-t border-slate-100 bg-white mt-4">
       <div className="max-w-3xl mx-auto px-4 py-10">
+        {/*
+          통합 검색 — 홈에만 있으면 도구 페이지에 깊이 들어온 사용자가 닿을 수 없다.
+          푸터는 모든 페이지에 있으므로 여기가 가장 확실한 진입점이다.
+        */}
+        <Link
+          href="/search"
+          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 transition-colors"
+        >
+          <svg className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <span className="text-sm text-slate-400 group-hover:text-slate-600 transition-colors">
+            찾는 도구가 있나요?
+          </span>
+          <span className="ml-auto text-xs font-bold text-slate-300 group-hover:text-indigo-500 transition-colors">
+            전체 검색
+          </span>
+        </Link>
+
         {/* 섹션 바로가기 */}
         <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">
           다른 도구 둘러보기

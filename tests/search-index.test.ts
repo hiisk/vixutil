@@ -99,3 +99,24 @@ test('검색 페이지가 사이트맵에 등록돼 있다', () => {
   const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/search'), '검색 페이지가 사이트맵에 없다');
 });
+
+test('푸터가 모든 섹션과 통합 검색으로 이어진다', () => {
+  // 푸터는 모든 페이지에 있어 도구 페이지가 고립되지 않게 하는 장치다.
+  // 섹션이 빠지면 그 섹션은 깊은 페이지에서 닿을 수 없다 (스냅테스트가 그랬다).
+  const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  for (const href of ['/search', '/calculator', '/test', '/quiz', '/generator', '/checklist', '/fortune', '/snap']) {
+    assert.ok(footer.includes(`"${href}"`), `푸터에 ${href} 링크가 없다`);
+  }
+});
+
+test('푸터의 인기 도구 링크가 실재한다', () => {
+  // 하드코딩된 목록이라 페이지 이름이 바뀌면 조용히 404가 된다.
+  const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  const popular = [...footer.matchAll(/href: "\/(calculator|fortune)\/([a-z-]+)"/g)];
+  assert.ok(popular.length >= 5, `인기 도구가 ${popular.length}개뿐 — 파싱 실패`);
+
+  const broken = popular
+    .filter(m => !existsSync(join(ROOT, 'app', m[1], m[2], 'page.tsx')))
+    .map(m => `/${m[1]}/${m[2]}`);
+  assert.deepEqual(broken, [], `푸터가 없는 페이지를 가리킨다: ${broken.join(', ')}`);
+});
