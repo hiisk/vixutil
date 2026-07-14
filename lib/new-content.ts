@@ -4,6 +4,10 @@
  * 새 배치를 추가할 때마다 이 목록을 최신 것으로 교체).
  */
 export const NEW_TEST_SLUGS = new Set([
+  'debt-attitude',
+  'financial-independence',
+  'love-language',
+  'couple-conflict',
   'leftover-food',
   'plant-parent',
   'karaoke-style',
