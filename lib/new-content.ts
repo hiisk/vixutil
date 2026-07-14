@@ -17,6 +17,12 @@ export const NEW_TEST_SLUGS = new Set([
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
+  'joseon',
+  'idiom',
+  'pure-korean',
+  'korean-movie',
+  'nineties',
+  'meme',
   'wine',
   'greek-myth',
   'proverb',
