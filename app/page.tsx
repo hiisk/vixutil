@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { SECTION_COUNTS } from '@/lib/search-index';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
@@ -11,8 +12,8 @@ const SECTIONS = [
     href: '/calculator',
     icon: '📊',
     title: '계산기',
-    desc: '세금·금융·건강·부동산 등 85개+ 계산기',
-    badge: '85+',
+    desc: '세금·금융·건강·부동산 등 실생활 계산기',
+    badge: `${SECTION_COUNTS.calculator}개`,
     color: 'from-blue-500 to-blue-700',
     bgLight: 'bg-blue-50',
     textAccent: 'text-blue-700',
@@ -24,7 +25,7 @@ const SECTIONS = [
     icon: '🧭',
     title: '심리 테스트',
     desc: 'MBTI·연애·직장·성향 등 심리 테스트',
-    badge: '100+',
+    badge: `${SECTION_COUNTS.test}개`,
     color: 'from-violet-500 to-pink-600',
     bgLight: 'bg-violet-50',
     textAccent: 'text-violet-700',
@@ -36,7 +37,7 @@ const SECTIONS = [
     icon: '🏆',
     title: '지식 퀴즈',
     desc: '한국사·IT·상식·K-POP 등 퀴즈',
-    badge: '100+',
+    badge: `${SECTION_COUNTS.quiz}개`,
     color: 'from-amber-400 to-orange-500',
     bgLight: 'bg-amber-50',
     textAccent: 'text-amber-700',
@@ -48,7 +49,7 @@ const SECTIONS = [
     icon: '⚙️',
     title: '생성기',
     desc: '닉네임·명언·추천·비밀번호 등 생성',
-    badge: '100+',
+    badge: `${SECTION_COUNTS.generator}개`,
     color: 'from-emerald-400 to-teal-600',
     bgLight: 'bg-emerald-50',
     textAccent: 'text-emerald-700',
@@ -60,7 +61,7 @@ const SECTIONS = [
     icon: '✅',
     title: '체크리스트',
     desc: '이사·취업·여행·건강·디지털 등 상황별 체크리스트',
-    badge: '70+',
+    badge: `${SECTION_COUNTS.checklist}개`,
     color: 'from-sky-400 to-cyan-600',
     bgLight: 'bg-sky-50',
     textAccent: 'text-sky-700',
@@ -120,6 +121,26 @@ export default function HubPage() {
           <p className="text-slate-400 text-base">일상에 필요한 실용 도구 모음</p>
         </div>
 
+        {/*
+          통합 검색 진입점. 지금까지 검색은 섹션별 허브에만 있어서, 어느 섹션에
+          있는지 모르면 찾을 수 없었다. 인덱스 자체는 /search에만 싣는다 —
+          랜딩 페이지에 600여 개 항목을 직렬화하면 무거워진다.
+        */}
+        <Link
+          href="/search"
+          className="group flex items-center gap-3 mb-10 border-2 border-slate-200 rounded-2xl px-4 py-3.5 hover:border-indigo-300 hover:shadow-sm transition-all"
+        >
+          <svg className="w-5 h-5 text-slate-400 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <span className="text-base text-slate-400 group-hover:text-slate-500 transition-colors">
+            실업급여, 전세, MBTI, 로또…
+          </span>
+          <span className="ml-auto text-xs font-bold text-slate-300 group-hover:text-indigo-400 transition-colors shrink-0">
+            전체 검색
+          </span>
+        </Link>
+
         {/* Section grid */}
         <div className="grid sm:grid-cols-2 gap-4">
           {SECTIONS.map((s) => (
@@ -151,15 +172,15 @@ export default function HubPage() {
           ))}
         </div>
 
-        {/* Stats bar */}
+        {/* Stats bar — 숫자는 데이터에서 뽑는다. 손으로 적으면 콘텐츠가 늘 때마다 낡는다 */}
         <div className="mt-10 flex items-center justify-center gap-5 text-center flex-wrap">
           {[
-            { label: '계산기', val: '85+' },
-            { label: '테스트', val: '100+' },
-            { label: '퀴즈', val: '100+' },
-            { label: '생성기', val: '100+' },
-            { label: '체크리스트', val: '70+' },
-            { label: '운세', val: '4종' },
+            { label: '계산기', val: String(SECTION_COUNTS.calculator) },
+            { label: '테스트', val: String(SECTION_COUNTS.test) },
+            { label: '퀴즈', val: String(SECTION_COUNTS.quiz) },
+            { label: '생성기', val: String(SECTION_COUNTS.generator) },
+            { label: '체크리스트', val: String(SECTION_COUNTS.checklist) },
+            { label: '운세', val: '6종' },
           ].map(item => (
             <div key={item.label}>
               <p className="text-xl font-black text-slate-900">{item.val}</p>

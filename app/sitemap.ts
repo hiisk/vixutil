@@ -47,6 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: BASE, lastModified: now, changeFrequency: weekly, priority: 1 },
+    { url: `${BASE}/search`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/test`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/quiz`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
