@@ -31,71 +31,90 @@ export default function CalcShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: '홈', path: '/' },
-          { name: '계산기', path: '/calculator' },
-          { name: title, path: '/calculator' },
-        ])}
-      />
-      {/* 상단 바 */}
-      <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
-
-      {/* 네비 헤더 */}
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link
-            href="/calculator"
-            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-blue-600 transition-colors font-medium"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            전체 계산기
-          </Link>
-          <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700 flex-1 truncate">{title}</span>
-          <CalcShareBtn />
-        </div>
-      </header>
-
-      {/* 페이지 타이틀 */}
-      <div className="bg-white border-b border-slate-100">
-        <div className={`${wide ? 'max-w-3xl' : 'max-w-xl'} mx-auto px-4 py-6`}>
-          <h1 className="text-xl font-black text-slate-900">{title}</h1>
-          <p className="text-sm text-slate-500 mt-1">{description}</p>
-        </div>
+    /*
+      배경에 아주 옅은 컬러 웜을 깔고, 그 위에 반투명 카드를 올린다(글래스모피즘).
+      불투명 흰 카드를 회색 판에 얹던 기존 플랫 디자인보다 깊이감이 생긴다.
+      다만 투명도는 85% 이상으로 유지한다 — 계산기는 숫자를 읽는 화면이라
+      배경이 비쳐 대비가 떨어지면 디자인이고 뭐고 소용없다.
+    */
+    <div className="relative min-h-screen bg-slate-50">
+      {/* 배경 글로우 — 콘텐츠 뒤에 깔리며 스크롤과 무관하게 고정 */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-24 w-[28rem] h-[28rem] rounded-full bg-blue-400/10 blur-3xl" />
+        <div className="absolute top-1/3 -right-32 w-[26rem] h-[26rem] rounded-full bg-emerald-400/10 blur-3xl" />
       </div>
 
-      {/* 본문 */}
-      <main className={`${wide ? 'max-w-3xl' : 'max-w-xl'} mx-auto px-4 py-6 pb-8`}>
-        {children}
+      <div className="relative">
+        <JsonLd
+          data={breadcrumbJsonLd([
+            { name: '홈', path: '/' },
+            { name: '계산기', path: '/calculator' },
+            { name: title, path: '/calculator' },
+          ])}
+        />
+        {/* 상단 바 */}
+        <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400" />
 
-        {intro && (
-          <div className="mt-8 text-sm leading-relaxed text-slate-600 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 [&_strong]:text-slate-800">
-            {intro}
+        {/* 네비 헤더 */}
+        <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 sticky top-0 z-10">
+          <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
+            <Link
+              href="/calculator"
+              className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-blue-600 transition-colors font-medium"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
+              전체 계산기
+            </Link>
+            <span className="text-slate-200">·</span>
+            <span className="text-sm font-semibold text-slate-700 flex-1 truncate">{title}</span>
+            <CalcShareBtn />
           </div>
-        )}
+        </header>
 
-        {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
-        <CrossLinks />
+        {/* 페이지 타이틀 */}
+        <div className={`${wide ? 'max-w-3xl' : 'max-w-xl'} mx-auto px-4 pt-8 pb-2`}>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">{title}</h1>
+          <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">{description}</p>
+        </div>
 
-        <RelatedCalcs />
+        {/* 본문 */}
+        <main className={`${wide ? 'max-w-3xl' : 'max-w-xl'} mx-auto px-4 py-6 pb-8`}>
+          {children}
 
-        <CalcFaq items={faq} />
-      </main>
+          {intro && (
+            <div className="mt-8 text-sm leading-relaxed text-slate-600 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 [&_strong]:text-slate-800">
+              {intro}
+            </div>
+          )}
 
-      <SiteFooter />
+          {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
+          <CrossLinks />
+
+          <RelatedCalcs />
+
+          <CalcFaq items={faq} />
+        </main>
+
+        <SiteFooter />
+      </div>
     </div>
   );
 }
 
 /* ── 공통 UI 컴포넌트 ── */
 
+/**
+ * 반투명 유리 카드. 흰 배경을 85%로 두어 뒤의 컬러 글로우가 은은하게 비치되,
+ * 본문 대비는 그대로 유지한다. 그림자는 회색이 아니라 파란빛을 섞어
+ * 배경 톤과 어우러지게 했다.
+ */
 export function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-white border border-slate-200 rounded-2xl ${className}`}>
+    <div
+      className={`bg-white/85 backdrop-blur-xl border border-white/70 rounded-2xl shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)] ${className}`}
+    >
       {children}
     </div>
   );
@@ -118,18 +137,19 @@ export function Label({ children }: { children: React.ReactNode }) {
   );
 }
 
+// 입력 필드는 카드보다 조금 더 불투명하게 — 값을 읽고 쓰는 곳이라 대비가 최우선이다.
 export const inputCls =
-  "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition";
+  "w-full bg-white/90 border border-slate-200/80 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-300 transition-all";
 
 export const selectCls =
-  "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition";
+  "w-full bg-white/90 border border-slate-200/80 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-300 transition-all";
 
 export function PrimaryBtn({ onClick, children }: { onClick?: () => void; children: React.ReactNode }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl py-3.5 font-bold text-sm transition-colors"
+      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.99] text-white rounded-xl py-3.5 font-bold text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200"
     >
       {children}
     </button>
@@ -146,20 +166,20 @@ export function TabBar<T extends string | number>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div className="flex bg-white border border-slate-200 rounded-xl overflow-hidden">
+    <div className="flex bg-white/85 backdrop-blur-xl border border-white/70 rounded-xl overflow-hidden shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)]">
       {options.map((opt) => (
         <button
           key={opt.value}
           type="button"
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-3 text-sm font-semibold transition-colors leading-tight ${
+          className={`flex-1 py-3 text-sm font-semibold transition-all leading-tight ${
             value === opt.value
-              ? 'bg-blue-600 text-white'
-              : 'text-slate-500 hover:bg-slate-50'
+              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
+              : 'text-slate-500 hover:bg-blue-50/60'
           }`}
         >
           {opt.label}
-          {opt.sub && <span className={`block text-xs font-normal ${value === opt.value ? 'text-blue-200' : 'text-slate-400'}`}>{opt.sub}</span>}
+          {opt.sub && <span className={`block text-xs font-normal ${value === opt.value ? 'text-blue-100' : 'text-slate-400'}`}>{opt.sub}</span>}
         </button>
       ))}
     </div>
@@ -176,20 +196,21 @@ export function SummaryCard({
   label: string; value: string; sub?: string;
   variant?: 'default' | 'primary' | 'green' | 'red';
 }) {
+  // primary는 결과에서 제일 중요한 숫자다 — 그라데이션과 컬러 그림자로 확실히 띄운다.
   const styles = {
-    default: 'bg-white border-slate-200 text-slate-800',
-    primary: 'bg-blue-600 border-blue-600 text-white',
-    green: 'bg-white border-slate-200 text-emerald-600',
-    red: 'bg-white border-slate-200 text-red-500',
+    default: 'bg-white/85 backdrop-blur-xl border-white/70 text-slate-800 shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)]',
+    primary: 'bg-gradient-to-br from-blue-600 to-indigo-600 border-blue-500/50 text-white shadow-lg shadow-blue-500/25',
+    green:   'bg-white/85 backdrop-blur-xl border-emerald-200/70 text-emerald-600 shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)]',
+    red:     'bg-white/85 backdrop-blur-xl border-red-200/70 text-red-500 shadow-[0_8px_24px_-12px_rgba(239,68,68,0.22)]',
   };
   const labelStyles = {
     default: 'text-slate-400',
-    primary: 'text-blue-200',
+    primary: 'text-blue-100',
     green: 'text-slate-400',
     red: 'text-slate-400',
   };
   return (
-    <div className={`rounded-2xl border p-4 ${styles[variant]}`}>
+    <div className={`rounded-2xl border p-4 transition-transform duration-200 hover:-translate-y-0.5 ${styles[variant]}`}>
       <p className={`text-xs mb-1 ${labelStyles[variant]}`}>{label}</p>
       <p className="font-black text-base leading-tight">{value}</p>
       {sub && <p className={`text-xs mt-0.5 ${labelStyles[variant]}`}>{sub}</p>}
