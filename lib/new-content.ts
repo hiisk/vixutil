@@ -59,6 +59,12 @@ export const NEW_CHECKLIST_SLUGS = new Set([
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'chore-roulette',
+  'cleaning-plan',
+  'grocery-list',
+  'morning-routine',
+  'declutter-target',
+  'meal-prep',
   'lotto',
   'random-pick-number',
   'status-message',
