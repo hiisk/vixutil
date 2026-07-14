@@ -67,6 +67,13 @@ export const NEW_CHECKLIST_SLUGS = new Set([
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'sns-id',
+  'band-name',
+  'cafe-name',
+  'random-topic',
+  'random-workout',
+  'random-restaurant',
+  'random-penalty-game',
   'chore-roulette',
   'cleaning-plan',
   'grocery-list',
