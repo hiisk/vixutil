@@ -35,6 +35,10 @@ export const NEW_QUIZ_SLUGS = new Set([
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'noise-dispute',
+  'workplace-harassment',
+  'subscription-audit',
+  'holiday-prep',
   'used-trade-safety',
   'first-birthday',
   'civil-service-exam',
