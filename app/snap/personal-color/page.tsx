@@ -8,6 +8,7 @@ import { getPersonalColor, type PersonalColorResult } from '@/lib/personal-color
 import { rgbToLab } from '@/lib/color-lab';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -280,7 +281,8 @@ export default function PersonalColorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-orange-400 via-rose-400 to-indigo-500" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">

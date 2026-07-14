@@ -6,6 +6,7 @@ import { MBTI_TYPES } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 const GROUPS = [
   { label: '분석가형', color: 'bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/50', types: ['INTJ','INTP','ENTJ','ENTP'] },
@@ -34,7 +35,8 @@ export default function MbtiPage() {
   const type = MBTI_TYPES.find(t => t.id === selected);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-sky-500 to-blue-600" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">

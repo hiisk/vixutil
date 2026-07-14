@@ -6,6 +6,7 @@ import { ZODIAC_SIGNS } from '@/lib/fortune-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 export default function ZodiacPage() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -28,7 +29,8 @@ export default function ZodiacPage() {
   const sign = ZODIAC_SIGNS.find(s => s.id === selected);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-600 to-purple-500" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">

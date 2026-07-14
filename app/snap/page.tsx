@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 export const metadata: Metadata = {
   title: '스냅테스트 — 사진으로 하는 참여형 테스트',
@@ -24,7 +25,8 @@ const TYPES = [
 
 export default function SnapPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">

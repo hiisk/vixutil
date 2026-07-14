@@ -7,6 +7,7 @@ import SaveResultCard from '@/components/SaveResultCard';
 import { getFaceSymmetry, type FaceSymmetryResult } from '@/lib/face-symmetry-data';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -176,7 +177,8 @@ export default function FaceSymmetryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">

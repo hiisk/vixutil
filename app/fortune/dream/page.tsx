@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 import {
   DREAM_DATA, POPULAR_KEYWORDS, CATEGORIES, LUCK_INFO,
   type DreamEntry, type DreamCategory,
@@ -35,7 +36,8 @@ export default function DreamPage() {
   const info = selected ? LUCK_INFO[String(selected.luck)] : null;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600" />
 
       {/* 헤더 */}

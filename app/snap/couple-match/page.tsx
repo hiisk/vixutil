@@ -7,6 +7,7 @@ import SaveResultCard from '@/components/SaveResultCard';
 import { getCoupleMatch, type FaceVector, type CoupleMatchResult } from '@/lib/couple-match-data';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -186,7 +187,8 @@ export default function CoupleMatchPage() {
   const bothReady = !!(vectors[0] && vectors[1]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-rose-400 via-pink-500 to-red-500" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">

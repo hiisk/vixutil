@@ -5,6 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { drawCards, TAROT_CARDS, MINOR_ARCANA, SUIT_INFO, type AnyTarotCard } from '@/lib/fortune-data';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 /* ═══════════════════════════════════════════
    스프레드 정의
@@ -478,7 +479,8 @@ export default function TarotPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500" />
 
       {/* 헤더 */}

@@ -7,6 +7,7 @@ import SaveResultCard from '@/components/SaveResultCard';
 import { getFaceReading, type FaceReadingResult, type FaceRatios } from '@/lib/face-reading-data';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -230,7 +231,8 @@ export default function FaceReadingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-teal-500 via-cyan-600 to-blue-600" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">

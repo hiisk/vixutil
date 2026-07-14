@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import PageGlow from '@/components/PageGlow';
 
 /* ── 計算機データ（日本語） ── */
 const CATS = [
@@ -179,7 +180,8 @@ export default function JaHome() {
     : CATS;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <PageGlow accent="blue" />
       <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
 
       {/* ヘッダー */}

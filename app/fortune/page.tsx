@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 export const metadata: Metadata = {
   title: '오늘의 운세',
@@ -20,7 +21,8 @@ const TYPES = [
 
 export default function FortunePage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500" />
 
       {/* 헤더 */}

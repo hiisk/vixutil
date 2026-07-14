@@ -5,6 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { CATS } from '@/lib/calculator-catalog';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 export default function Home() {
   const [query, setQuery] = useState('');
@@ -25,7 +26,8 @@ export default function Home() {
   const searchTotal = filtered.reduce((s, c) => s + c.calcs.length, 0);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <PageGlow accent="blue" />
       <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
 
       {/* 헤더 */}
