@@ -112,17 +112,21 @@ test('퀴즈 정답 인덱스가 보기 범위 안에 있다', () => {
   assert.deepEqual(bad, [], `범위 밖 정답: ${bad.map(b => `${b.slug}(correct=${b.correct}, opts=${b.optCount})`).join(', ')}`);
 });
 
+/** 퀴즈별 정답 인덱스 시퀀스 */
+function answerSequences(): Map<string, number[]> {
+  const by = new Map<string, number[]>();
+  for (const q of quizQuestions()) {
+    if (!by.has(q.slug)) by.set(q.slug, []);
+    by.get(q.slug)!.push(q.correct);
+  }
+  return by;
+}
+
 test('퀴즈 정답이 특정 보기 번호에 몰려 있지 않다', () => {
   // 정답이 늘 같은 자리면 그 번호만 찍어도 만점이라 퀴즈가 무의미해진다.
   // 실제로 36개 퀴즈가 80~100% 한 자리에 몰려 있었다.
-  const byQuiz = new Map<string, number[]>();
-  for (const q of quizQuestions()) {
-    if (!byQuiz.has(q.slug)) byQuiz.set(q.slug, []);
-    byQuiz.get(q.slug)!.push(q.correct);
-  }
-
   const biased: string[] = [];
-  for (const [slug, idxs] of byQuiz) {
+  for (const [slug, idxs] of answerSequences()) {
     if (idxs.length < 5) continue;
     const counts = new Map<number, number>();
     for (const i of idxs) counts.set(i, (counts.get(i) ?? 0) + 1);
@@ -130,6 +134,55 @@ test('퀴즈 정답이 특정 보기 번호에 몰려 있지 않다', () => {
     if (top / idxs.length > 0.5) biased.push(`${slug} (${top}/${idxs.length})`);
   }
   assert.deepEqual(biased, [], `정답이 한 자리에 절반 넘게 몰린 퀴즈:\n  ${biased.join('\n  ')}`);
+});
+
+test('퀴즈 정답 순서에 눈에 보이는 규칙이 없다', () => {
+  // 분포가 균등해도 순서가 0,1,2,3,0,1,2,3… 처럼 규칙적이면 소용없다.
+  // 한 퀴즈만 풀어보면 나머지 전부를 뚫을 수 있다. 실제로 한 번 이렇게 만들었다가
+  // 되돌렸다. "고르게 섞였는가"와 "예측 불가능한가"는 다른 문제다.
+  const patterned: string[] = [];
+
+  for (const [slug, idxs] of answerSequences()) {
+    if (idxs.length < 5) continue;
+
+    // 1) 순환 패턴 (0,1,2,3,0,1,… / 3,2,1,0,3,2,… 등 일정 간격 증감)
+    const diffs = idxs.slice(1).map((v, i) => (v - idxs[i] + 4) % 4);
+    if (new Set(diffs).size === 1 && diffs[0] !== 0) {
+      patterned.push(`${slug}: 일정 간격 순환 [${idxs.join(',')}]`);
+      continue;
+    }
+
+    // 2) 같은 자리가 3번 연속
+    for (let i = 0; i + 2 < idxs.length; i++) {
+      if (idxs[i] === idxs[i + 1] && idxs[i + 1] === idxs[i + 2]) {
+        patterned.push(`${slug}: 같은 자리 3연속 [${idxs.join(',')}]`);
+        break;
+      }
+    }
+  }
+
+  assert.deepEqual(patterned, [], `정답 순서에 규칙이 보이는 퀴즈:\n  ${patterned.join('\n  ')}`);
+});
+
+test('문항 순서별로도 정답 위치가 치우치지 않는다', () => {
+  // "1번 문항의 정답은 늘 1번" 같은 위치 편향도 찍기로 뚫린다.
+  const byPosition = new Map<number, Map<number, number>>();
+  for (const [, idxs] of answerSequences()) {
+    idxs.forEach((correct, qi) => {
+      if (!byPosition.has(qi)) byPosition.set(qi, new Map());
+      const m = byPosition.get(qi)!;
+      m.set(correct, (m.get(correct) ?? 0) + 1);
+    });
+  }
+
+  const skewed: string[] = [];
+  for (const [qi, counts] of byPosition) {
+    const total = [...counts.values()].reduce((a, b) => a + b, 0);
+    if (total < 30) continue; // 표본이 적으면 편차가 커서 의미 없다
+    const top = Math.max(...counts.values());
+    if (top / total > 0.45) skewed.push(`${qi + 1}번 문항: 정답의 ${Math.round((top / total) * 100)}%가 한 자리`);
+  }
+  assert.deepEqual(skewed, [], `문항 위치별 정답 편향:\n  ${skewed.join('\n  ')}`);
 });
 
 test('섹션 안에서 slug가 중복되지 않는다', () => {
