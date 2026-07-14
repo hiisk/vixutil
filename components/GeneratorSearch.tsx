@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { IconCardItem } from '@/lib/card';
+import type { CardItem } from '@/lib/card';
 import { NEW_GENERATOR_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획', '재미', '생활'];
@@ -16,24 +16,20 @@ const CAT_META: Record<string, { icon: string; color: string }> = {
   '생활':      { icon: '🏠', color: 'bg-sky-50 text-sky-700 border-sky-200' },
 };
 
-function GenCard({ g }: { g: IconCardItem }) {
+function GenCard({ g }: { g: CardItem }) {
   return (
     <Link
       href={`/generator/${g.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
-      <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-emerald-100 to-teal-100">
+      {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
+      <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-emerald-400 to-teal-500">
         {NEW_GENERATOR_SLUGS.has(g.slug) && (
           <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
             NEW
           </span>
         )}
-        <img
-          src={`/generator/${g.slug}/opengraph-image`}
-          alt={g.title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+        <span className="text-4xl drop-shadow-sm" aria-hidden="true">{g.icon}</span>
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
@@ -43,7 +39,7 @@ function GenCard({ g }: { g: IconCardItem }) {
   );
 }
 
-export default function GeneratorSearch({ generators }: { generators: IconCardItem[] }) {
+export default function GeneratorSearch({ generators }: { generators: CardItem[] }) {
   const [query, setQuery]   = useState('');
   const [active, setActive] = useState<string>('전체');
 

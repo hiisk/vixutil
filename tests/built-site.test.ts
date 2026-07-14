@@ -104,6 +104,30 @@ test('허브 페이지가 모든 항목을 카드로 렌더한다', { skip: buil
   }
 });
 
+test('허브 카드가 OG 이미지를 썸네일로 쓰지 않는다', { skip: built ? false : 'out/ 없음' }, () => {
+  // OG 이미지는 1200×630 PNG(개당 ~90KB)다. 200px 카드 썸네일로 쓰면 /test 하나에
+  // 194 × 90KB ≈ 17MB를 받게 된다. 게다가 그 크기에선 이미지 속 글씨가 안 읽히고
+  // 제목·설명은 카드 아래 텍스트로 또 나온다 — 순수 장식이었다.
+  const withImages: string[] = [];
+  for (const hub of ['test', 'quiz', 'generator', 'checklist']) {
+    const html = readFileSync(join(OUT, `${hub}.html`), 'utf8');
+    const imgs = [...html.matchAll(/<img[^>]+src="([^"]+)"/g)].map(m => m[1]);
+    const ogThumbs = imgs.filter(src => src.includes('opengraph-image'));
+    if (ogThumbs.length) withImages.push(`/${hub}: ${ogThumbs.length}개`);
+  }
+  assert.deepEqual(withImages, [], `허브가 OG 이미지를 썸네일로 쓰고 있다:\n  ${withImages.join('\n  ')}`);
+});
+
+test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? false : 'out/ 없음' }, () => {
+  // 카드 썸네일로는 안 쓰지만 소셜 공유 미리보기에는 반드시 필요하다.
+  // 공유는 이 사이트의 주요 유입 채널이라 실수로 지우면 안 된다.
+  for (const p of ['test/mbti/opengraph-image', 'quiz/wine/opengraph-image']) {
+    const f = join(OUT, p);
+    assert.ok(existsSync(f), `${p}가 없다 — 공유 미리보기가 깨진다`);
+    assert.ok(statSync(f).size > 1000, `${p}가 비어 있다`);
+  }
+});
+
 test('아이콘 파일이 실제로 출력된다', { skip: built ? false : 'out/ 없음' }, () => {
   // apple-icon 규약은 .svg를 지원하지 않는다. 예전에 app/apple-icon.svg를 두는 바람에
   // 모든 페이지가 존재하지 않는 아이콘을 가리키고 있었다.

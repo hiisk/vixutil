@@ -10,18 +10,14 @@ function QuizCard({ q }: { q: CardItem }) {
   return (
     <Link href={`/quiz/${q.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
-      <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-amber-100 to-orange-100">
+      {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
+      <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-400 to-orange-500">
         {NEW_QUIZ_SLUGS.has(q.slug) && (
           <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
             NEW
           </span>
         )}
-        <img
-          src={`/quiz/${q.slug}/opengraph-image`}
-          alt={q.title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+        <span className="text-4xl drop-shadow-sm" aria-hidden="true">{q.icon}</span>
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>

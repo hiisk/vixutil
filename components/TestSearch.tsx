@@ -10,18 +10,19 @@ function TestCard({ t }: { t: CardItem }) {
   return (
     <Link href={`/test/${t.slug}`}
       className="group bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
-      <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-violet-100 to-pink-100">
+      {/*
+        예전에는 여기서 OG 이미지(1200×630 PNG, 개당 ~90KB)를 썸네일로 썼다.
+        200px로 줄여 보여주니 이미지 안의 글씨는 어차피 안 읽히고, 제목·설명은
+        바로 아래 텍스트로 또 나온다 — 순수 장식에 194개 × 90KB를 쓰고 있었다.
+        그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
+      */}
+      <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-violet-500 to-pink-500">
         {NEW_TEST_SLUGS.has(t.slug) && (
           <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
             NEW
           </span>
         )}
-        <img
-          src={`/test/${t.slug}/opengraph-image`}
-          alt={t.title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+        <span className="text-4xl drop-shadow-sm" aria-hidden="true">{t.icon}</span>
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>

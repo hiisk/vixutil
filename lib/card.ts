@@ -1,4 +1,4 @@
-import type { Test, Quiz, Generator, Checklist } from './types';
+import type { Checklist } from './types';
 
 /**
  * 목록 페이지 카드가 실제로 쓰는 필드만 담은 경량 타입.
@@ -13,29 +13,19 @@ export interface CardItem {
   title: string;
   desc: string;
   category: string;
-}
-
-/** 아이콘을 카드에 표시하는 섹션용 */
-export interface IconCardItem extends CardItem {
   icon: string;
 }
 
 /** 체크리스트 카드는 항목 수를 뱃지로 보여준다 */
-export interface ChecklistCardItem extends IconCardItem {
+export interface ChecklistCardItem extends CardItem {
   itemCount: number;
 }
 
-export const toCard = ({ slug, title, desc, category }: Test | Quiz): CardItem =>
-  ({ slug, title, desc, category });
-
-export const toIconCard = ({ slug, title, desc, category, icon }: Generator): IconCardItem =>
+/** test·quiz·generator·checklist가 공유하는 형태라 구조적으로 받는다. */
+export const toCard = ({ slug, title, desc, category, icon }: CardItem): CardItem =>
   ({ slug, title, desc, category, icon });
 
 export const toChecklistCard = (c: Checklist): ChecklistCardItem => ({
-  slug: c.slug,
-  title: c.title,
-  desc: c.desc,
-  category: c.category,
-  icon: c.icon,
+  ...toCard(c),
   itemCount: c.sections.reduce((n, s) => n + s.items.length, 0),
 });
