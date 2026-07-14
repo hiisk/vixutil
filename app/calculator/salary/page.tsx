@@ -5,73 +5,7 @@ import CalcShell, {
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
-
-/*
- * 2026년 4대보험 요율
- * - 국민연금: 4.5% (기준소득월액 상한 617만원 — 2025.7~2026.6 기준)
- * - 건강보험: 3.545%
- * - 장기요양: 건강보험료 × 12.95%
- * - 고용보험: 0.9%
- *
- * 근로소득세: 2023년 개정 소득세법 (1,400만원 구간 신설) 적용
- */
-
-const BRACKETS = [
-  { limit: 1400,    rate: 0.06,  deduct: 0 },
-  { limit: 5000,    rate: 0.15,  deduct: 126 },
-  { limit: 8800,    rate: 0.24,  deduct: 576 },
-  { limit: 15000,   rate: 0.35,  deduct: 1544 },
-  { limit: 30000,   rate: 0.38,  deduct: 1994 },
-  { limit: 50000,   rate: 0.40,  deduct: 2594 },
-  { limit: 100000,  rate: 0.42,  deduct: 3594 },
-  { limit: Infinity,rate: 0.45,  deduct: 6594 },
-];
-
-function earningDeduction(a: number) {
-  if (a <= 500) return a * 0.7;
-  if (a <= 1500) return 350 + (a - 500) * 0.4;
-  if (a <= 4500) return 750 + (a - 1500) * 0.15;
-  if (a <= 10000) return 1200 + (a - 4500) * 0.05;
-  return Math.min(2000, 1475 + (a - 10000) * 0.02);
-}
-
-interface Result {
-  monthly: number; pension: number; health: number; longCare: number; employment: number;
-  incomeTax: number; localTax: number;
-  totalInsurance: number; totalTax: number; totalDeduction: number;
-  netMonthly: number; netAnnual: number; effectiveRate: number;
-}
-
-function calc(annual: number, dependents: number, mealExempt: boolean): Result {
-  const mealDeduction = mealExempt ? 200_000 : 0;
-  const monthly = Math.floor(annual / 12);
-
-  const pension = Math.round(Math.min(monthly, 6_170_000) * 0.045);
-  const health = Math.round(monthly * 0.03545);
-  const longCare = Math.round(health * 0.1295);
-  const employment = Math.round(monthly * 0.009);
-
-  // 과세표준 계산 (만원 단위)
-  const taxableAnnual = Math.max(0, annual - mealDeduction * 12);
-  const a = taxableAnnual / 10000;
-  const taxable = Math.max(0, a - earningDeduction(a) - 150 - (dependents - 1) * 150);
-  const b = BRACKETS.find(br => taxable <= br.limit)!;
-  const annualTax = Math.max(0, taxable * b.rate - b.deduct) * 10000;
-
-  const incomeTax = Math.round(annualTax / 12);
-  const localTax = Math.round(incomeTax * 0.1);
-  const totalInsurance = pension + health + longCare + employment;
-  const totalTax = incomeTax + localTax;
-  const totalDeduction = totalInsurance + totalTax;
-  const netMonthly = monthly - totalDeduction;
-
-  return {
-    monthly, pension, health, longCare, employment, incomeTax, localTax,
-    totalInsurance, totalTax, totalDeduction,
-    netMonthly, netAnnual: netMonthly * 12,
-    effectiveRate: (totalDeduction / monthly) * 100,
-  };
-}
+import { calcSalary, type SalaryResult } from '@/lib/salary';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -79,10 +13,10 @@ export default function SalaryPage() {
   const [annual, setAnnual] = useState(40_000_000);
   const [dependents, setDependents] = useState('1');
   const [mealExempt, setMealExempt] = useState(false);
-  const [result, setResult] = useState<Result | null>(null);
+  const [result, setResult] = useState<SalaryResult | null>(null);
 
   function calculate() {
-    if (annual > 0) setResult(calc(annual, Number(dependents) || 1, mealExempt));
+    if (annual > 0) setResult(calcSalary(annual, Number(dependents) || 1, mealExempt));
   }
 
   return (

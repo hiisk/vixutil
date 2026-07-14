@@ -67,6 +67,10 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
   'calculator/salary': [
     { href: '/checklist/salary-negotiation', title: '연봉 협상 체크리스트', why: '실수령액을 알았다면 협상 근거를 준비할 차례입니다', icon: '🤝' },
   ],
+  'calculator/target-salary': [
+    { href: '/calculator/salary', title: '실수령액 계산기', why: '반대로 연봉에서 실수령액을 계산합니다', icon: '💵' },
+    { href: '/checklist/salary-negotiation', title: '연봉 협상 체크리스트', why: '목표 연봉이 정해졌다면 근거를 준비할 차례입니다', icon: '🤝' },
+  ],
 
   /* ── 체크리스트 → 계산기 ── */
   'checklist/unemployment-claim': [
