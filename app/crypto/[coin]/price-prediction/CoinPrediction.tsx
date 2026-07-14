@@ -295,8 +295,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   return (
     <>
       {/* Hero — 우리가 파는 것은 예측가가 아니라 검증된 확률이므로, 그것을 먼저 보여준다 */}
-      <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-500/[0.05] p-6 mb-4">
-        <span className="pointer-events-none absolute -right-16 -top-20 w-64 h-64 rounded-full bg-amber-400/10 blur-3xl" />
+      {/*
+        원래 어두운 그라데이션(from-slate-900)이었다. 라이트로 전환하면서 글자만
+        어둡게 바뀌어 검정 배경 위에 검정 숫자가 얹혔다 — 아무것도 안 보였다.
+        그라데이션 접두어(from-/via-/to-)는 색 치환 규칙이 놓치는 자리다.
+      */}
+      <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-amber-500/[0.05] p-6 mb-4 shadow-sm">
+        <span className="pointer-events-none absolute -right-16 -top-20 w-64 h-64 rounded-full bg-amber-300/25 dark:bg-amber-400/10 blur-3xl" />
 
         <div className="relative flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
