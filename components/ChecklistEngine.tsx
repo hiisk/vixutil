@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
 import PageGlow from './PageGlow';
+import { thumbGradient } from '@/lib/thumbnail';
 
 // Korean-aware text wrapping (splits by character since Korean has no spaces between words)
 function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxLines = 999): string[] {
@@ -387,9 +388,13 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
       <div className="max-w-lg mx-auto px-4 py-8 w-full flex-1">
         {/* 타이틀 */}
         <div className="mb-6">
+          {/* 목록 카드와 같은 그라데이션·이모지 — 제목 옆 작은 이모지보다 눈에 들어온다 */}
+          <div className={`w-20 h-20 rounded-2xl mb-4 flex items-center justify-center bg-gradient-to-br ${thumbGradient(checklist.slug, 'checklist')} shadow-lg shadow-sky-500/20`}>
+            <span className="text-4xl drop-shadow-md" aria-hidden="true">{checklist.icon}</span>
+          </div>
           <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1">
-            {checklist.icon} {checklist.title}
+            {checklist.title}
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{checklist.desc}</p>
 

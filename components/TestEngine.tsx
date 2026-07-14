@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Test } from '@/lib/types';
 import ShareButton from './ShareButton';
 import PageGlow from './PageGlow';
+import { thumbGradient } from '@/lib/thumbnail';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
 
@@ -62,13 +63,20 @@ export default function TestEngine({ test }: { test: Test }) {
           </Link>
         </div>
       </header>
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-12 max-w-lg mx-auto w-full text-center">
+        {/*
+          목록 카드와 같은 그라데이션·이모지를 크게 다시 보여준다. 들어오자마자
+          텍스트만 있으면 허전하고, 어떤 카드를 눌렀는지도 이어지지 않는다.
+        */}
+        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-gradient-to-br ${thumbGradient(test.slug, 'test')} shadow-xl shadow-violet-500/20`}>
+          <span className="text-6xl drop-shadow-md" aria-hidden="true">{test.icon}</span>
+        </div>
         <span className="text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/30 px-3 py-1 rounded-full mb-3">{test.category}</span>
         <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{test.title}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{test.questions.length}문항 · 약 2분 소요</p>
         <button onClick={() => setPhase('question')}
-          className="w-full max-w-xs bg-violet-600 hover:bg-violet-700 text-white font-black py-4 rounded-2xl text-base transition-colors shadow-md shadow-violet-200">
+          className="w-full max-w-xs bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 active:scale-[0.99] text-white font-black py-4 rounded-2xl text-base transition-all shadow-lg shadow-violet-500/25">
           테스트 시작하기 →
         </button>
       </div>

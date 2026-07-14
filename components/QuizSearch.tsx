@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
 import { NEW_QUIZ_SLUGS } from '@/lib/new-content';
+import { thumbGradient } from '@/lib/thumbnail';
 
 const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', '스포츠', '과학', '엔터테인먼트', '영화', '트렌드', '추억', '생활', '생활·건강', '환경·경제'];
 
@@ -11,13 +12,13 @@ function QuizCard({ q }: { q: CardItem }) {
     <Link href={`/quiz/${q.slug}`}
       className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(245,158,11,0.22)] overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
-      <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-400 to-orange-500">
+      <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(q.slug, 'quiz')}`}>
         {NEW_QUIZ_SLUGS.has(q.slug) && (
           <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
             NEW
           </span>
         )}
-        <span className="text-4xl drop-shadow-sm" aria-hidden="true">{q.icon}</span>
+        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{q.icon}</span>
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>

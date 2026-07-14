@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
 import { NEW_GENERATOR_SLUGS } from '@/lib/new-content';
+import { thumbGradient } from '@/lib/thumbnail';
 
 const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획', '재미', '생활'];
 
@@ -23,13 +24,13 @@ function GenCard({ g }: { g: CardItem }) {
       className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)] overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
-      <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-emerald-400 to-teal-500">
+      <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(g.slug, 'generator')}`}>
         {NEW_GENERATOR_SLUGS.has(g.slug) && (
           <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
             NEW
           </span>
         )}
-        <span className="text-4xl drop-shadow-sm" aria-hidden="true">{g.icon}</span>
+        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{g.icon}</span>
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
 import { NEW_TEST_SLUGS } from '@/lib/new-content';
+import { thumbGradient } from '@/lib/thumbnail';
 
 const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·재테크', '건강·생활', '자기계발', '취미·라이프스타일'];
 
@@ -16,13 +17,13 @@ function TestCard({ t }: { t: CardItem }) {
         바로 아래 텍스트로 또 나온다 — 순수 장식에 194개 × 90KB를 쓰고 있었다.
         그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
       */}
-      <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-violet-500 to-pink-500">
+      <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(t.slug, 'test')}`}>
         {NEW_TEST_SLUGS.has(t.slug) && (
           <span className="absolute top-1.5 left-1.5 z-10 text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
             NEW
           </span>
         )}
-        <span className="text-4xl drop-shadow-sm" aria-hidden="true">{t.icon}</span>
+        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{t.icon}</span>
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>

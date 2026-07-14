@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
 import ShareButton from './ShareButton';
 import PageGlow from './PageGlow';
+import { thumbGradient } from '@/lib/thumbnail';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
@@ -76,6 +77,10 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
         </div>
       </header>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
+        {/* 목록 카드와 같은 그라데이션·이모지 — 텍스트만 있으면 허전하다 */}
+        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-gradient-to-br ${thumbGradient(quiz.slug, 'quiz')} shadow-xl shadow-amber-500/20`}>
+          <span className="text-6xl drop-shadow-md" aria-hidden="true">{quiz.icon}</span>
+        </div>
         <span className="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1 rounded-full mb-3">{quiz.category}</span>
         <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{quiz.title}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{quiz.desc}</p>
