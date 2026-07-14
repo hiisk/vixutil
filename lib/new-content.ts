@@ -4,6 +4,9 @@
  * 새 배치를 추가할 때마다 이 목록을 최신 것으로 교체).
  */
 export const NEW_TEST_SLUGS = new Set([
+  'money-anxiety',
+  'work-life-boundary',
+  'relationship-slump',
   'debt-attitude',
   'financial-independence',
   'love-language',
