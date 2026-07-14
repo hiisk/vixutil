@@ -8,7 +8,7 @@ export function CoinLogo({ base, size = 24 }: { base: string; size?: number }) {
   const style = { width: size, height: size };
   if (failed) {
     return (
-      <span style={style} className="shrink-0 rounded-full bg-slate-800 text-slate-400 dark:text-slate-500 text-[9px] font-black grid place-items-center">
+      <span style={style} className="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[9px] font-black grid place-items-center">
         {base.slice(0, 2)}
       </span>
     );

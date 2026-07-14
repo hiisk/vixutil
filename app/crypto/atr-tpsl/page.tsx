@@ -6,6 +6,7 @@ import { computeATR, computeTpSl, formatPrice, type Direction } from '@/lib/atr'
 import { fetchTopSymbols, fetchDailyCandles, mapWithConcurrency } from '@/lib/binance';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 interface Row {
   rank: number;
@@ -86,18 +87,19 @@ export default function AtrTpslPage() {
   }, [entry, selectedRow, direction, tpMult, slMult]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
-      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors font-medium">
+          <Link href="/crypto" className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             Crypto Tools
           </Link>
-          <span className="text-slate-200">·</span>
+          <span className="text-slate-800 dark:text-slate-100">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">ATR TP/SL Calculator</span>
         </div>
       </header>
@@ -116,7 +118,7 @@ export default function AtrTpslPage() {
 
         {/* Volatility ranking table */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden mb-6">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Top 20 by volume · Daily ATR</p>
             <button
               onClick={load}
@@ -147,7 +149,7 @@ export default function AtrTpslPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-[11px] text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800">
+                  <tr className="text-[11px] text-slate-500 dark:text-slate-400 border-b border-slate-100">
                     <th className="text-left font-semibold px-4 py-2">#</th>
                     <th className="text-left font-semibold px-2 py-2">Coin</th>
                     <th className="text-right font-semibold px-2 py-2">Price</th>
@@ -162,8 +164,8 @@ export default function AtrTpslPage() {
                       onClick={() => pickRow(r)}
                       className={`border-b border-slate-50 cursor-pointer transition-colors ${selected === r.symbol ? 'bg-amber-50' : 'hover:bg-slate-50 dark:hover:bg-slate-800'}`}
                     >
-                      <td className="px-4 py-2.5 text-slate-400 dark:text-slate-500">{r.rank}</td>
-                      <td className="px-2 py-2.5 font-bold text-slate-800 dark:text-slate-100">{r.base}<span className="text-slate-300 dark:text-slate-600 font-medium">/USDT</span></td>
+                      <td className="px-4 py-2.5 text-slate-500 dark:text-slate-400">{r.rank}</td>
+                      <td className="px-2 py-2.5 font-bold text-slate-800 dark:text-slate-100">{r.base}<span className="text-slate-700 dark:text-slate-200 font-medium">/USDT</span></td>
                       <td className="px-2 py-2.5 text-right text-slate-700 dark:text-slate-200">{formatPrice(r.lastPrice)}</td>
                       <td className={`px-2 py-2.5 text-right font-semibold ${r.priceChangePercent >= 0 ? 'text-emerald-600' : 'text-rose-500'}`}>
                         {r.priceChangePercent >= 0 ? '+' : ''}{r.priceChangePercent.toFixed(2)}%
@@ -174,7 +176,7 @@ export default function AtrTpslPage() {
                 </tbody>
               </table>
               {updatedAt && (
-                <p className="text-[11px] text-slate-300 dark:text-slate-600 px-4 py-2 text-right">
+                <p className="text-[11px] text-slate-700 dark:text-slate-200 px-4 py-2 text-right">
                   as of {updatedAt.toLocaleTimeString('en-US', { timeZone: 'UTC', hour12: false })} UTC · tap a row to load it into the calculator below
                 </p>
               )}
@@ -252,7 +254,7 @@ export default function AtrTpslPage() {
               </div>
             )}
 
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-4 leading-relaxed">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-4 leading-relaxed">
               TP/SL = entry {direction === 'long' ? '± ' : '∓ '}ATR × multiplier. ATR is the 14-day average daily range, so a
               1.5× multiplier sets the take-profit 1.5× the recent average daily move away from entry. Higher-volatility coins get wider levels.
             </p>

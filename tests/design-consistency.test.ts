@@ -7,14 +7,13 @@ const ROOT = join(import.meta.dirname, '..');
 const APP = join(ROOT, 'app');
 
 /**
- * 페이지 컴포넌트를 모은다. 크립토는 독립된 다크 테마 영어 섹션이라 제외한다.
+ * 페이지 컴포넌트를 모은다. 크립토도 라이트 기본으로 전환돼 이제 함께 검사한다.
  * [slug] 동적 라우트는 엔진 컴포넌트가 화면을 그리므로 별도로 본다.
  */
 function pageFiles(dir: string, out: string[] = []): string[] {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     const p = join(dir, e.name);
     if (e.isDirectory()) {
-      if (e.name === 'crypto') continue;
       pageFiles(p, out);
     } else if (e.name === 'page.tsx') {
       out.push(p);
@@ -52,6 +51,31 @@ test('공용 셸과 엔진이 배경 글로우를 쓴다', () => {
     return !readFileSync(p, 'utf8').includes('PageGlow');
   });
   assert.deepEqual(missing, [], `글로우가 없는 셸: ${missing.join(', ')}`);
+});
+
+test('기본 테마는 라이트다 — 시스템 설정을 따르지 않는다', () => {
+  // 구글 자동 광고는 흰 배경으로 렌더된다. 시스템이 다크인 사용자에게 자동으로
+  // 검은 페이지를 주면 그 위에 흰 광고 블록이 박혀 어색해진다. 광고 색은 우리가
+  // 못 바꾸므로 페이지를 밝게 두고, 다크는 사용자가 직접 켤 때만 적용한다.
+  const layout = readFileSync(join(APP, 'layout.tsx'), 'utf8');
+  const init = layout.match(/const THEME_INIT = `([\s\S]*?)`;/)?.[1];
+  assert.ok(init, 'THEME_INIT을 찾지 못함');
+
+  assert.doesNotMatch(init, /matchMedia|prefers-color-scheme/,
+    '테마 초기화가 시스템 설정을 따르고 있다 — 라이트가 기본이어야 한다');
+  assert.match(init, /localStorage/, '저장된 선택은 반영해야 한다');
+});
+
+test('항상 어두운 페이지가 남아 있지 않다', () => {
+  // 크립토도 라이트 기본으로 전환했다. dark: 접두어 없는 어두운 루트 배경이
+  // 남아 있으면 그 페이지만 검게 나온다.
+  const stuck: string[] = [];
+  for (const f of pageFiles(APP)) {
+    const src = readFileSync(f, 'utf8');
+    const root = src.match(/min-h-screen[^"`]*/)?.[0] ?? '';
+    if (/(?<!dark:)bg-slate-9\d\d/.test(root)) stuck.push(relative(APP, f).replace('/page.tsx', ''));
+  }
+  assert.deepEqual(stuck, [], `라이트 기본이 아닌 페이지:\n  ${stuck.join('\n  ')}`);
 });
 
 test('PageGlow가 지원하는 accent만 쓴다', () => {

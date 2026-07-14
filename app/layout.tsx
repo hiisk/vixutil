@@ -31,17 +31,22 @@ export const viewport: Viewport = {
 };
 
 /**
- * 첫 페인트 전에 테마 클래스를 붙인다. React가 렌더한 뒤에 붙이면 어두운 테마
- * 사용자에게 흰 화면이 한 번 번쩍인다(FOUC). 그래서 동기 인라인 스크립트여야 한다.
- * 저장된 선택이 있으면 그것을, 없으면 시스템 설정을 따른다.
+ * 첫 페인트 전에 테마 클래스를 붙인다. React가 렌더한 뒤에 붙이면 화면이 한 번
+ * 번쩍인다(FOUC). 그래서 동기 인라인 스크립트여야 한다.
+ *
+ * 기본은 라이트다. 시스템 설정(prefers-color-scheme)을 따르지 않는다 —
+ * 이 사이트는 구글 자동 광고를 싣는데 광고는 흰 배경으로 렌더돼서, 시스템이
+ * 다크인 사용자에게 검은 페이지 위에 흰 광고 블록이 박히는 그림이 된다.
+ * 광고의 색은 우리가 못 바꾸므로 페이지를 밝게 두는 편이 낫다.
+ *
+ * 다크는 사용자가 직접 켤 때만 적용하고, 그 선택은 localStorage에 남는다.
  */
 const THEME_INIT = `
 (function(){
   try {
-    var t = localStorage.getItem('theme');
-    var dark = t ? t === 'dark'
-                 : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (dark) document.documentElement.classList.add('dark');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
   } catch (e) {}
 })();
 `;

@@ -6,8 +6,8 @@ type Theme = 'light' | 'dark';
 /**
  * 다크모드 토글.
  *
- * 시스템 설정(prefers-color-scheme)을 기본값으로 쓰되, 사용자가 고르면 그 선택을
- * localStorage에 남겨 우선한다. 시스템만 따르면 사용자가 끌 수 없다.
+ * 기본은 라이트다(시스템 설정을 따르지 않는다 — layout.tsx의 THEME_INIT 참고).
+ * 사용자가 켜면 그 선택을 localStorage에 남겨 다음 방문에도 유지한다.
  *
  * 첫 페인트 전에 클래스를 붙이는 일은 layout.tsx의 인라인 스크립트가 한다.
  * 여기서 하면 흰 화면이 한 번 번쩍인다.

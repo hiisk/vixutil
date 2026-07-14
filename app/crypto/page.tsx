@@ -4,6 +4,7 @@ import SiteFooter from '@/components/SiteFooter';
 import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 export const metadata: Metadata = {
   title: 'Crypto Trading Tools',
@@ -29,19 +30,20 @@ const TOOLS = [
 
 export default function CryptoPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <PageGlow accent="amber" />
       <JsonLd data={structuredData} />
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
 
-      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors font-medium">
+          <Link href="/" className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             Home
           </Link>
-          <span className="text-slate-200">·</span>
+          <span className="text-slate-800 dark:text-slate-100">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Crypto Tools</span>
         </div>
       </header>
@@ -56,7 +58,7 @@ export default function CryptoPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           {TOOLS.map(t => (
             <Link key={t.href} href={t.href}
-              className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:shadow-md hover:border-amber-200 transition-all">
+              className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white dark:bg-slate-900 p-6 hover:shadow-md hover:border-amber-200 transition-all">
               <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
@@ -76,7 +78,7 @@ export default function CryptoPage() {
           ))}
         </div>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
+        <p className="text-center text-xs text-slate-700 dark:text-slate-200 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
 
         <Faq items={SECTION_FAQ.crypto} />
       </div>
