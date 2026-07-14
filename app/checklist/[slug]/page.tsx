@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { CHECKLISTS, CHECKLISTS_MAP } from '@/lib/checklist-data';
 import ChecklistEngine from '@/components/ChecklistEngine';
 import RelatedContent from '@/components/RelatedContent';
+import CrossLinks from '@/components/CrossLinks';
 import SiteFooter from '@/components/SiteFooter';
 
 export function generateStaticParams() {
@@ -27,6 +28,9 @@ export default async function ChecklistPage({ params }: { params: Promise<{ slug
   return (
     <>
       <ChecklistEngine checklist={checklist} />
+      <div className="max-w-lg mx-auto px-4 w-full">
+        <CrossLinks className="mb-4" />
+      </div>
       <RelatedContent items={CHECKLISTS} currentSlug={slug} basePath="/checklist" accent="sky" />
       <SiteFooter />
     </>

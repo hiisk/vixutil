@@ -3,6 +3,7 @@ import Link from 'next/link';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
 import RelatedCalcs from './RelatedCalcs';
+import CrossLinks from './CrossLinks';
 import CalcFaq from './CalcFaq';
 import JsonLd, { breadcrumbJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
@@ -76,6 +77,9 @@ export default function CalcShell({
             {intro}
           </div>
         )}
+
+        {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
+        <CrossLinks />
 
         <RelatedCalcs />
 
