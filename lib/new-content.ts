@@ -21,6 +21,11 @@ export const NEW_TEST_SLUGS = new Set([
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
+  'korea-modern-history',
+  'world-cinema',
+  'retro-90s-kids',
+  'internet-culture',
+  'daily-law',
   'nostalgia-2010s',
   'trend-slang',
   'movie-classics',

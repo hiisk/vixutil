@@ -398,8 +398,8 @@ export const GENERATORS_H: Generator[] = [
   },
   {
     "slug": "sns-id",
-    "title": "SNS 아이디 생성기",
-    "desc": "인스타·트위터 아이디, 중복 없이 새로 만들 때.",
+    "title": "영문 아이디 생성기",
+    "desc": "영어 단어를 조합한 짧은 아이디. 중복 안 걸리는 조합을 찾을 때.",
     "icon": "🆔",
     "category": "이름·브랜드",
     "type": "combine",
