@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
 import ShareButton from './ShareButton';
+import PageGlow from './PageGlow';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
@@ -61,7 +62,8 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
 
   /* ── START ── */
   if (phase === 'start') return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+      <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center">
@@ -74,7 +76,7 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
         </div>
       </header>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
-        <span className="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full mb-3">{quiz.category}</span>
+        <span className="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1 rounded-full mb-3">{quiz.category}</span>
         <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{quiz.title}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{quiz.desc}</p>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{quiz.questions.length}문항 · 4지선다 · 해설 포함</p>
@@ -89,7 +91,7 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
   /* ── QUESTION / ANSWER ── */
   if (phase === 'question' || phase === 'answer') return (
     <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
-      <div className="h-1.5 bg-amber-100">
+      <div className="h-1.5 bg-amber-100 dark:bg-amber-950/40">
         <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500" style={{ width: `${progress}%` }} />
       </div>
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
@@ -100,9 +102,9 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
       </header>
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         <div className="flex items-center gap-2 mb-5">
-          <span className="text-xs font-bold text-amber-500 bg-amber-50 px-2 py-1 rounded-full">Q{current + 1}</span>
+          <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2 py-1 rounded-full">Q{current + 1}</span>
           {phase === 'answer' && (
-            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'}`}>
+            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
               {isCorrect ? '✓ 정답!' : '✗ 오답'}
             </span>
           )}
@@ -112,8 +114,8 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
           {q.opts.map((opt, i) => {
             let cls = 'w-full text-left border rounded-xl px-4 py-3.5 text-sm font-medium transition-all ';
             if (phase === 'answer') {
-              if (i === q.correct) cls += 'bg-emerald-50 border-2 border-emerald-400 text-emerald-800 font-bold';
-              else if (i === selected) cls += 'bg-red-50 border-2 border-red-400 text-red-700';
+              if (i === q.correct) cls += 'bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-bold';
+              else if (i === selected) cls += 'bg-red-50 dark:bg-red-950/30 border-2 border-red-400 text-red-700 dark:text-red-300';
               else cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400';
             } else {
               cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 cursor-pointer';
@@ -128,9 +130,9 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
         {phase === 'answer' && (
           <div className="mt-5 space-y-3">
             {q.explanation && (
-              <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4">
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 rounded-2xl p-4">
                 <p className="text-xs font-bold text-blue-600 mb-1">💡 해설</p>
-                <p className="text-sm text-blue-800 leading-relaxed">{q.explanation}</p>
+                <p className="text-sm text-blue-800 dark:text-blue-300 leading-relaxed">{q.explanation}</p>
               </div>
             )}
             <button onClick={next}
@@ -163,11 +165,11 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
 
         {/* Wrong answers */}
         {wrongList.length > 0 && (
-          <div className="bg-red-50 border border-red-100 rounded-2xl p-4 mb-5">
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 rounded-2xl p-4 mb-5">
             <p className="text-xs font-bold text-red-500 mb-2">틀린 문제 ({wrongList.length}개)</p>
             <div className="space-y-1">
               {wrongList.map(idx => (
-                <p key={idx} className="text-xs text-red-700">Q{idx + 1}. {quiz.questions[idx].q.substring(0, 40)}…</p>
+                <p key={idx} className="text-xs text-red-700 dark:text-red-300">Q{idx + 1}. {quiz.questions[idx].q.substring(0, 40)}…</p>
               ))}
             </div>
           </div>

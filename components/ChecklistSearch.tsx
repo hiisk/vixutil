@@ -10,7 +10,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
   const total = c.itemCount;
   return (
     <Link href={`/checklist/${c.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
+      className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(14,165,233,0.22)] p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
         <span className="text-2xl">{c.icon}</span>
         <div className="flex items-center gap-1.5 shrink-0">
@@ -19,7 +19,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
               NEW
             </span>
           )}
-          <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-2 py-0.5 rounded-full">
             {total}항목
           </span>
         </div>
@@ -93,7 +93,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
             <section key={group.name}>
               <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
-                <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(c => <ChecklistCard key={c.slug} c={c} />)}

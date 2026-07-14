@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SECTION_COUNTS } from '@/lib/search-index';
+import PageGlow from '@/components/PageGlow';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
@@ -15,9 +16,9 @@ const SECTIONS = [
     desc: '세금·금융·건강·부동산 등 실생활 계산기',
     badge: `${SECTION_COUNTS.calculator}개`,
     color: 'from-blue-500 to-blue-700',
-    bgLight: 'bg-blue-50',
-    textAccent: 'text-blue-700',
-    borderAccent: 'border-blue-200',
+    bgLight: 'bg-blue-50 dark:bg-blue-950/30',
+    textAccent: 'text-blue-700 dark:text-blue-300',
+    borderAccent: 'border-blue-200 dark:border-blue-900/50',
     shadow: 'shadow-blue-100',
   },
   {
@@ -27,9 +28,9 @@ const SECTIONS = [
     desc: 'MBTI·연애·직장·성향 등 심리 테스트',
     badge: `${SECTION_COUNTS.test}개`,
     color: 'from-violet-500 to-pink-600',
-    bgLight: 'bg-violet-50',
-    textAccent: 'text-violet-700',
-    borderAccent: 'border-violet-200',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
     shadow: 'shadow-violet-100',
   },
   {
@@ -39,9 +40,9 @@ const SECTIONS = [
     desc: '한국사·IT·상식·K-POP 등 퀴즈',
     badge: `${SECTION_COUNTS.quiz}개`,
     color: 'from-amber-400 to-orange-500',
-    bgLight: 'bg-amber-50',
-    textAccent: 'text-amber-700',
-    borderAccent: 'border-amber-200',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
     shadow: 'shadow-amber-100',
   },
   {
@@ -51,9 +52,9 @@ const SECTIONS = [
     desc: '닉네임·명언·추천·비밀번호 등 생성',
     badge: `${SECTION_COUNTS.generator}개`,
     color: 'from-emerald-400 to-teal-600',
-    bgLight: 'bg-emerald-50',
-    textAccent: 'text-emerald-700',
-    borderAccent: 'border-emerald-200',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-950/30',
+    textAccent: 'text-emerald-700 dark:text-emerald-300',
+    borderAccent: 'border-emerald-200 dark:border-emerald-900/50',
     shadow: 'shadow-emerald-100',
   },
   {
@@ -63,9 +64,9 @@ const SECTIONS = [
     desc: '이사·취업·여행·건강·디지털 등 상황별 체크리스트',
     badge: `${SECTION_COUNTS.checklist}개`,
     color: 'from-sky-400 to-cyan-600',
-    bgLight: 'bg-sky-50',
-    textAccent: 'text-sky-700',
-    borderAccent: 'border-sky-200',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
     shadow: 'shadow-sky-100',
   },
   {
@@ -75,9 +76,9 @@ const SECTIONS = [
     desc: '별자리·띠·타로·MBTI 운세 매일 업데이트',
     badge: '6종',
     color: 'from-violet-500 to-purple-700',
-    bgLight: 'bg-violet-50',
-    textAccent: 'text-violet-700',
-    borderAccent: 'border-violet-200',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
     shadow: 'shadow-violet-100',
   },
   {
@@ -87,9 +88,9 @@ const SECTIONS = [
     desc: '사진 한 장으로 즐기는 관상·퍼스널컬러 등 참여형 테스트',
     badge: '10종',
     color: 'from-fuchsia-500 to-sky-500',
-    bgLight: 'bg-fuchsia-50',
-    textAccent: 'text-fuchsia-700',
-    borderAccent: 'border-fuchsia-200',
+    bgLight: 'bg-fuchsia-50 dark:bg-fuchsia-950/30',
+    textAccent: 'text-fuchsia-700 dark:text-fuchsia-300',
+    borderAccent: 'border-fuchsia-200 dark:border-fuchsia-900/50',
     shadow: 'shadow-fuchsia-100',
   },
   {
@@ -99,19 +100,20 @@ const SECTIONS = [
     desc: '바이낸스 전체 코인 멀티전략 타점(진입·TP·SL)·수익률 실시간',
     badge: 'NEW',
     color: 'from-amber-400 to-orange-600',
-    bgLight: 'bg-amber-50',
-    textAccent: 'text-amber-700',
-    borderAccent: 'border-amber-200',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
     shadow: 'shadow-amber-100',
   },
 ];
 
 export default function HubPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 via-amber-400 via-emerald-500 to-sky-400" />
 
-      <div className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
+      <div className="relative max-w-3xl mx-auto px-4 py-16 sm:py-24">
         {/* Brand */}
         <div className="mb-14 text-center">
           <div className="inline-flex items-center gap-1 mb-4">
@@ -128,7 +130,7 @@ export default function HubPage() {
         */}
         <Link
           href="/search"
-          className="group flex items-center gap-3 mb-10 border-2 border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 hover:border-indigo-300 hover:shadow-sm transition-all"
+          className="group flex items-center gap-3 mb-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-2 border-white/70 dark:border-slate-700/70 rounded-2xl px-4 py-3.5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.2)] hover:border-indigo-300 hover:shadow-lg transition-all"
         >
           <svg className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -147,7 +149,7 @@ export default function HubPage() {
             <Link
               key={s.href}
               href={s.href}
-              className={`group relative overflow-hidden rounded-2xl border ${s.borderAccent} ${s.bgLight} p-6 hover:shadow-md ${s.shadow} transition-all duration-200`}
+              className={`group relative overflow-hidden rounded-2xl border ${s.borderAccent} ${s.bgLight} dark:bg-slate-900/70 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg ${s.shadow} hover:-translate-y-0.5 transition-all duration-200`}
             >
               {/* Background gradient decoration */}
               <div className={`absolute -right-8 -top-8 w-28 h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
@@ -155,7 +157,7 @@ export default function HubPage() {
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-4">
                   <span className="text-3xl">{s.icon}</span>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 ${s.textAccent} border ${s.borderAccent}`}>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
                     {s.badge}
                   </span>
                 </div>

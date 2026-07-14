@@ -123,7 +123,7 @@ export default function DutchPayPage() {
             <button
               type="button"
               onClick={addExtra}
-              className="text-xs font-semibold text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
+              className="text-xs font-semibold text-blue-600 border border-blue-200 dark:border-blue-900/50 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
             >
               + 항목 추가
             </button>
@@ -171,7 +171,7 @@ export default function DutchPayPage() {
                   <button
                     type="button"
                     onClick={() => removeExtra(ex.id)}
-                    className="py-3 px-3 text-sm text-red-400 border border-red-200 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
+                    className="py-3 px-3 text-sm text-red-400 border border-red-200 dark:border-red-900/50 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
                   >
                     삭제
                   </button>

@@ -8,10 +8,10 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 
 const GROUPS = [
-  { label: '분석가형', color: 'bg-violet-50 text-violet-700 border-violet-200', types: ['INTJ','INTP','ENTJ','ENTP'] },
-  { label: '외교관형', color: 'bg-emerald-50 text-emerald-700 border-emerald-200', types: ['INFJ','INFP','ENFJ','ENFP'] },
-  { label: '수호자형', color: 'bg-sky-50 text-sky-700 border-sky-200', types: ['ISTJ','ISFJ','ESTJ','ESFJ'] },
-  { label: '탐험가형', color: 'bg-amber-50 text-amber-700 border-amber-200', types: ['ISTP','ISFP','ESTP','ESFP'] },
+  { label: '분석가형', color: 'bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/50', types: ['INTJ','INTP','ENTJ','ENTP'] },
+  { label: '외교관형', color: 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50', types: ['INFJ','INFP','ENFJ','ENFP'] },
+  { label: '수호자형', color: 'bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-900/50', types: ['ISTJ','ISFJ','ESTJ','ESFJ'] },
+  { label: '탐험가형', color: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50', types: ['ISTP','ISFP','ESTP','ESFP'] },
 ];
 
 export default function MbtiPage() {

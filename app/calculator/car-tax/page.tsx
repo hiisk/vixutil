@@ -70,7 +70,7 @@ export default function CarTaxPage() {
               </div>
             )}
             {type === 'ev' && (
-              <div className="bg-blue-50 rounded-xl p-4 text-center">
+              <div className="bg-blue-50 dark:bg-blue-950/30 rounded-xl p-4 text-center">
                 <p className="text-blue-600 font-bold">전기차 자동차세: 연 100,000원 (고정)</p>
               </div>
             )}

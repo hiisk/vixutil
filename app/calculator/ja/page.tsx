@@ -8,7 +8,7 @@ const CATS = [
   {
     id: 'worker', label: '給与・社会保険', icon: '👔',
     desc: '給与・手当・保険関連の計算機',
-    accent: 'bg-blue-50 text-blue-700 border-blue-200',
+    accent: 'bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/50',
     calcs: [
       { href: '/calculator/salary',          title: '手取り計算機',         desc: '年収 → 控除後の月手取り額', hot: true },
       { href: '/calculator/weekly-holiday',  title: '週休手当計算機',       desc: '時給・週勤務時間 → 週休手当・月給' },
@@ -26,7 +26,7 @@ const CATS = [
   {
     id: 'tax', label: '税金', icon: '🧾',
     desc: '各種税金計算機',
-    accent: 'bg-amber-50 text-amber-700 border-amber-200',
+    accent: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50',
     calcs: [
       { href: '/calculator/freelance',         title: 'フリーランス税金計算機', desc: '収入 → 3.3% 源泉徴収', hot: true },
       { href: '/calculator/vat',               title: '消費税計算機',           desc: '税抜金額 ↔ 消費税計算' },
@@ -41,7 +41,7 @@ const CATS = [
   {
     id: 'finance', label: '金融・投資', icon: '📈',
     desc: '投資・貯蓄・ローン計算機',
-    accent: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    accent: 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50',
     calcs: [
       { href: '/calculator/compound',       title: '複利計算機',           desc: '月複利・四半期・年複利＋年度別テーブル', hot: true },
       { href: '/calculator/loan',           title: 'ローン返済計算機',     desc: '元利均等・元金均等＋返済スケジュール' },
@@ -64,7 +64,7 @@ const CATS = [
   {
     id: 'realestate', label: '不動産', icon: '🏠',
     desc: '不動産取引・税金計算機',
-    accent: 'bg-violet-50 text-violet-700 border-violet-200',
+    accent: 'bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/50',
     calcs: [
       { href: '/calculator/pyeong',             title: '坪数計算機',         desc: '坪 ↔ 平方メートル換算' },
       { href: '/calculator/broker-fee',         title: '仲介手数料計算機',   desc: '取引金額 → 仲介報酬' },
@@ -78,7 +78,7 @@ const CATS = [
   {
     id: 'life', label: '生活・健康', icon: '🌿',
     desc: '日常生活の便利な計算機',
-    accent: 'bg-teal-50 text-teal-700 border-teal-200',
+    accent: 'bg-teal-50 dark:bg-teal-950/30 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-900/50',
     calcs: [
       { href: '/calculator/bmi',            title: 'BMI計算機',           desc: '身長・体重 → BMI＋標準体重' },
       { href: '/calculator/dday',           title: 'Dデイカウンター',     desc: '目標日のDデイ・日付間隔' },
@@ -104,7 +104,7 @@ const CATS = [
   {
     id: 'car', label: '自動車', icon: '🚗',
     desc: '自動車関連計算機',
-    accent: 'bg-orange-50 text-orange-700 border-orange-200',
+    accent: 'bg-orange-50 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-900/50',
     calcs: [
       { href: '/calculator/car-installment', title: '自動車ローン計算機',   desc: '車両価格・金利・期間 → 月次返済額' },
       { href: '/calculator/car-tax',         title: '自動車税計算機',       desc: '排気量基準の自動車税' },
@@ -147,7 +147,7 @@ const CATS = [
   {
     id: 'math', label: '単位変換', icon: '🔢',
     desc: '単位変換・数学ツール',
-    accent: 'bg-pink-50 text-pink-700 border-pink-200',
+    accent: 'bg-pink-50 dark:bg-pink-950/30 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-900/50',
     calcs: [
       { href: '/calculator/unit-length', title: '長さ変換',     desc: '長さの単位を変換' },
       { href: '/calculator/unit-weight', title: '重さ変換',     desc: '重さの単位を変換' },
@@ -269,7 +269,7 @@ export default function JaHome() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.desc}</p>

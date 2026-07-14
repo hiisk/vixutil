@@ -90,7 +90,7 @@ export default function WeeklyHolidayPage() {
         {result && (
           <>
             {!result.eligible && (
-              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-sm text-amber-700 font-semibold">
+              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-sm text-amber-700 dark:text-amber-300 font-semibold">
                 ⚠️ 주 {result.weeklyHours}시간 근무 — 주 15시간 미만은 주휴수당 미발생
               </div>
             )}

@@ -162,9 +162,9 @@ export default function SimpleInterestPage() {
                     {display.map((r, i) => (
                       <tr key={i}>
                         <td>{r.label}</td>
-                        <td className="text-emerald-700 font-semibold">+{w(r.interest)}원</td>
+                        <td className="text-emerald-700 dark:text-emerald-300 font-semibold">+{w(r.interest)}원</td>
                         <td className="text-emerald-600">+{w(r.afterTaxInterest)}원</td>
-                        <td className="text-emerald-700 font-semibold">+{w(r.cumInterest)}원</td>
+                        <td className="text-emerald-700 dark:text-emerald-300 font-semibold">+{w(r.cumInterest)}원</td>
                         <td className="font-black text-slate-900 dark:text-slate-100">{w(r.balance)}원</td>
                       </tr>
                     ))}

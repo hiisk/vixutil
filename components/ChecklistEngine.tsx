@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
+import PageGlow from './PageGlow';
 
 // Korean-aware text wrapping (splits by character since Korean has no spaces between words)
 function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxLines = 999): string[] {
@@ -339,7 +340,8 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
   }
 
   if (!mounted) return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+      <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-400 to-cyan-500" />
       <div className="flex-1 flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
@@ -350,7 +352,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
       {/* 상단 진행바 */}
-      <div className="h-1.5 bg-sky-100">
+      <div className="h-1.5 bg-sky-100 dark:bg-sky-950/40">
         <div
           className={`h-full transition-all duration-500 ${isAllDone ? 'bg-emerald-400' : 'bg-gradient-to-r from-sky-400 to-cyan-500'}`}
           style={{ width: `${pct}%` }}
@@ -385,7 +387,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
       <div className="max-w-lg mx-auto px-4 py-8 w-full flex-1">
         {/* 타이틀 */}
         <div className="mb-6">
-          <span className="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-full">{checklist.category}</span>
+          <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1">
             {checklist.icon} {checklist.title}
           </h1>
@@ -405,14 +407,14 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
 
         {/* 완료 메시지 */}
         {isAllDone && (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center mb-6">
+          <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl p-5 text-center mb-6">
             <p className="text-3xl mb-2">🎉</p>
-            <p className="font-black text-emerald-700 text-lg">모든 항목 완료!</p>
+            <p className="font-black text-emerald-700 dark:text-emerald-300 text-lg">모든 항목 완료!</p>
             <p className="text-sm text-emerald-600 mt-1">수고하셨습니다. 모든 준비를 마쳤어요.</p>
             <div className="flex gap-2 mt-4">
               <button
                 onClick={handleShare}
-                className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-600 border border-emerald-200 bg-white dark:bg-slate-900 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 px-4 py-2.5 rounded-xl transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-600 border border-emerald-200 dark:border-emerald-900/50 bg-white dark:bg-slate-900 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 px-4 py-2.5 rounded-xl transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
@@ -452,7 +454,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                      sectionAllDone ? 'bg-emerald-100 text-emerald-700' : 'bg-sky-50 text-sky-600'
+                      sectionAllDone ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300' : 'bg-sky-50 dark:bg-sky-950/30 text-sky-600'
                     }`}>
                       {sectionDone}/{sectionIds.length}
                     </span>
@@ -504,7 +506,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
           <div className="flex gap-3">
             <button
               onClick={handleShare}
-              className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-sky-600 border border-sky-200 hover:bg-sky-50 dark:hover:bg-sky-950/40 rounded-xl transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-sky-600 border border-sky-200 dark:border-sky-900/50 hover:bg-sky-50 dark:hover:bg-sky-950/40 rounded-xl transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />

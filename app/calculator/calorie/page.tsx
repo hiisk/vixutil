@@ -67,7 +67,7 @@ export default function CaloriePage() {
               <Label>활동 수준</Label>
               <div className="flex flex-col gap-1.5">
                 {ACTIVITY_LEVELS.map(l => (
-                  <label key={l.value} className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer border transition-colors ${activity === String(l.value) ? 'bg-blue-50 border-blue-300' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                  <label key={l.value} className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer border transition-colors ${activity === String(l.value) ? 'bg-blue-50 dark:bg-blue-950/30 border-blue-300' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
                     <input type="radio" name="activity" value={l.value}
                       checked={activity === String(l.value)} onChange={e => setActivity(e.target.value)}
                       className="accent-blue-600" />

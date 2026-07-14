@@ -7,20 +7,20 @@ import { NEW_GENERATOR_SLUGS } from '@/lib/new-content';
 const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획', '재미', '생활'];
 
 const CAT_META: Record<string, { icon: string; color: string }> = {
-  '추천':      { icon: '⭐', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-  '이름·브랜드':{ icon: '✏️', color: 'bg-blue-50 text-blue-700 border-blue-200' },
-  '문구·아이디어':{ icon: '💡', color: 'bg-violet-50 text-violet-700 border-violet-200' },
-  '랜덤':      { icon: '🎲', color: 'bg-rose-50 text-rose-700 border-rose-200' },
-  '계획':      { icon: '📋', color: 'bg-teal-50 text-teal-700 border-teal-200' },
-  '재미':      { icon: '🎉', color: 'bg-pink-50 text-pink-700 border-pink-200' },
-  '생활':      { icon: '🏠', color: 'bg-sky-50 text-sky-700 border-sky-200' },
+  '추천':      { icon: '⭐', color: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50' },
+  '이름·브랜드':{ icon: '✏️', color: 'bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/50' },
+  '문구·아이디어':{ icon: '💡', color: 'bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/50' },
+  '랜덤':      { icon: '🎲', color: 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-900/50' },
+  '계획':      { icon: '📋', color: 'bg-teal-50 dark:bg-teal-950/30 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-900/50' },
+  '재미':      { icon: '🎉', color: 'bg-pink-50 dark:bg-pink-950/30 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-900/50' },
+  '생활':      { icon: '🏠', color: 'bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-900/50' },
 };
 
 function GenCard({ g }: { g: CardItem }) {
   return (
     <Link
       href={`/generator/${g.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
+      className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)] overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-emerald-400 to-teal-500">
@@ -104,7 +104,7 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-lg">{meta.icon}</span>
                   <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">{group.name}</h2>
-                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                   {group.items.map(g => <GenCard key={g.slug} g={g} />)}

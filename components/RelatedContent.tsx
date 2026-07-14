@@ -4,10 +4,10 @@ import { pickRelated, type RelatedItem } from '@/lib/related';
 type Accent = 'violet' | 'amber' | 'sky' | 'emerald';
 
 const ACCENT: Record<Accent, { hoverBorder: string; iconBg: string; hoverText: string }> = {
-  violet:  { hoverBorder: 'hover:border-violet-200',  iconBg: 'bg-violet-50',  hoverText: 'group-hover:text-violet-700' },
-  amber:   { hoverBorder: 'hover:border-amber-200',   iconBg: 'bg-amber-50',   hoverText: 'group-hover:text-amber-700' },
-  sky:     { hoverBorder: 'hover:border-sky-200',     iconBg: 'bg-sky-50',     hoverText: 'group-hover:text-sky-700' },
-  emerald: { hoverBorder: 'hover:border-emerald-200', iconBg: 'bg-emerald-50', hoverText: 'group-hover:text-emerald-700' },
+  violet:  { hoverBorder: 'hover:border-violet-200',  iconBg: 'bg-violet-50 dark:bg-violet-950/30',  hoverText: 'group-hover:text-violet-700' },
+  amber:   { hoverBorder: 'hover:border-amber-200',   iconBg: 'bg-amber-50 dark:bg-amber-950/30',   hoverText: 'group-hover:text-amber-700' },
+  sky:     { hoverBorder: 'hover:border-sky-200',     iconBg: 'bg-sky-50 dark:bg-sky-950/30',     hoverText: 'group-hover:text-sky-700' },
+  emerald: { hoverBorder: 'hover:border-emerald-200', iconBg: 'bg-emerald-50 dark:bg-emerald-950/30', hoverText: 'group-hover:text-emerald-700' },
 };
 
 /**

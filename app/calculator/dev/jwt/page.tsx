@@ -68,7 +68,7 @@ export default function JwtPage() {
         {result && (
           <>
             {isExpired !== null && (
-              <div className={`rounded-xl p-3 text-sm font-semibold ${isExpired ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-700'}`}>
+              <div className={`rounded-xl p-3 text-sm font-semibold ${isExpired ? 'bg-red-50 dark:bg-red-950/30 text-red-600' : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300'}`}>
                 {isExpired ? '⚠ 만료된 토큰' : '✓ 유효한 토큰 (exp 기준)'}
                 {!isExpired && ` — ${new Date((result.payload as Record<string, number>).exp * 1000).toLocaleString('ko-KR')}`}
               </div>

@@ -214,7 +214,7 @@ export default function AnimalFacePage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 눈매·얼굴형을 분석해 동물상을 찾아드려요</p>
         </div>
 
-        <div className="bg-orange-50 border border-orange-100 rounded-2xl p-4 mb-6 text-xs text-orange-800 leading-relaxed">
+        <div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-2xl p-4 mb-6 text-xs text-orange-800 dark:text-orange-300 leading-relaxed">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>눈매·얼굴형·눈 크기·턱선은 이 브라우저 안에서 실제로 측정되고, 12가지 동물 기준값과 비교해 가장 가까운 동물상을 찾아드려요. 결과는 재미로만 봐주세요.</p>
         </div>
@@ -227,7 +227,7 @@ export default function AnimalFacePage() {
         )}
 
         {modelState === 'error' && (
-          <div className="w-full border-2 border-dashed border-rose-200 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 text-center">
+          <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
             <span className="text-3xl">⚠️</span>
             <span className="text-sm font-bold text-rose-600">얼굴 인식 모델을 불러오지 못했어요</span>
             <span className="text-xs text-rose-400">네트워크 상태를 확인하고 새로고침 해주세요</span>
@@ -267,8 +267,8 @@ export default function AnimalFacePage() {
         )}
 
         {faceError && !analyzing && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6 text-center">
-            <p className="text-sm font-bold text-amber-700 mb-3">🙈 {faceError}</p>
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 mb-6 text-center">
+            <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
             <button onClick={() => fileInputRef.current?.click()} className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
               다른 사진 선택하기
             </button>
@@ -295,7 +295,7 @@ export default function AnimalFacePage() {
               <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{result.runnerUp.emoji} {result.runnerUp.label} <span className="text-slate-400 dark:text-slate-500 font-semibold">{result.runnerUp.percent}%</span></p>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 매력 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>

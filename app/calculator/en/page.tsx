@@ -8,7 +8,7 @@ const CATS = [
   {
     id: 'worker', label: 'Salary', icon: '👔',
     desc: 'Salary, allowances & insurance calculators',
-    accent: 'bg-blue-50 text-blue-700 border-blue-200',
+    accent: 'bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/50',
     calcs: [
       { href: '/calculator/salary',          title: 'Net Salary Calculator',    desc: 'Annual salary → monthly take-home after deductions', hot: true },
       { href: '/calculator/weekly-holiday',  title: 'Weekly Holiday Pay',       desc: 'Hourly wage & weekly hours → weekly holiday allowance' },
@@ -26,7 +26,7 @@ const CATS = [
   {
     id: 'tax', label: 'Tax', icon: '🧾',
     desc: 'Various tax calculators',
-    accent: 'bg-amber-50 text-amber-700 border-amber-200',
+    accent: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/50',
     calcs: [
       { href: '/calculator/freelance',         title: 'Freelancer Tax',            desc: 'Income → 3.3% withholding tax', hot: true },
       { href: '/calculator/vat',               title: 'VAT',                       desc: 'Supply amount ↔ value-added tax' },
@@ -41,7 +41,7 @@ const CATS = [
   {
     id: 'finance', label: 'Finance', icon: '📈',
     desc: 'Investment, savings & loan calculators',
-    accent: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    accent: 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50',
     calcs: [
       { href: '/calculator/compound',       title: 'Compound Interest',      desc: 'Monthly/quarterly/annual compounding + yearly table', hot: true },
       { href: '/calculator/loan',           title: 'Loan Calculator',         desc: 'Equal payment / equal principal + repayment schedule' },
@@ -64,7 +64,7 @@ const CATS = [
   {
     id: 'realestate', label: 'Real Estate', icon: '🏠',
     desc: 'Real estate transaction & tax calculators',
-    accent: 'bg-violet-50 text-violet-700 border-violet-200',
+    accent: 'bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/50',
     calcs: [
       { href: '/calculator/pyeong',             title: 'Pyeong Converter',       desc: 'Pyeong ↔ square meters conversion' },
       { href: '/calculator/broker-fee',         title: 'Agent Fee',              desc: 'Transaction amount → broker commission' },
@@ -78,7 +78,7 @@ const CATS = [
   {
     id: 'life', label: 'Daily Life', icon: '🌿',
     desc: 'Everyday convenience calculators',
-    accent: 'bg-teal-50 text-teal-700 border-teal-200',
+    accent: 'bg-teal-50 dark:bg-teal-950/30 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-900/50',
     calcs: [
       { href: '/calculator/bmi',            title: 'BMI Calculator',         desc: 'Height & weight → BMI + ideal weight' },
       { href: '/calculator/dday',           title: 'D-day Calculator',       desc: 'Target date D-day · date interval' },
@@ -104,7 +104,7 @@ const CATS = [
   {
     id: 'car', label: 'Car', icon: '🚗',
     desc: 'Automobile related calculators',
-    accent: 'bg-orange-50 text-orange-700 border-orange-200',
+    accent: 'bg-orange-50 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-900/50',
     calcs: [
       { href: '/calculator/car-installment', title: 'Car Installment',    desc: 'Car price, rate & term → monthly payment' },
       { href: '/calculator/car-tax',         title: 'Car Tax',            desc: 'Automobile tax by engine displacement' },
@@ -147,7 +147,7 @@ const CATS = [
   {
     id: 'math', label: 'Math', icon: '🔢',
     desc: 'Unit conversion & math tools',
-    accent: 'bg-pink-50 text-pink-700 border-pink-200',
+    accent: 'bg-pink-50 dark:bg-pink-950/30 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-900/50',
     calcs: [
       { href: '/calculator/unit-length', title: 'Length Converter',       desc: 'Convert between length units' },
       { href: '/calculator/unit-weight', title: 'Weight Converter',       desc: 'Convert between weight units' },
@@ -269,7 +269,7 @@ export default function EnHome() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.desc}</p>

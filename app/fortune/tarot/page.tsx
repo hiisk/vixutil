@@ -305,7 +305,7 @@ function CardInterpretation({ drawn, spread }: { drawn: DrawnSet; spread: Spread
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[10px] font-black text-slate-400 dark:text-slate-500">#{i + 1} {spread.positions[i]}</span>
-                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.reversed ? 'bg-rose-50 text-rose-500' : 'bg-emerald-50 text-emerald-600'}`}>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.reversed ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-500' : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600'}`}>
                   {item.reversed ? '역방향' : '정방향'}
                 </span>
               </div>
@@ -341,7 +341,7 @@ function CatalogTab() {
           {majorCards.map(c => (
             <button key={c.id} onClick={() => setSelected(selected?.id === c.id ? null : c)}
               className={`rounded-xl p-2.5 text-left transition-all border ${
-                selected?.id === c.id ? 'border-amber-400 bg-amber-50' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300'
+                selected?.id === c.id ? 'border-amber-400 bg-amber-50 dark:bg-amber-950/30' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300'
               }`}>
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center text-base flex-shrink-0" style={{ background: c.color + '22' }}>{c.emoji}</div>
@@ -384,7 +384,7 @@ function CatalogTab() {
                             setSelected(selected?.name === c.name ? null : full as AnyTarotCard);
                           }}
                           className={`rounded-xl p-2 text-left transition-all border ${
-                            selected?.name === c.name ? 'border-amber-400 bg-amber-50' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800 hover:border-slate-200'
+                            selected?.name === c.name ? 'border-amber-400 bg-amber-50 dark:bg-amber-950/30' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800 hover:border-slate-200'
                           }`}>
                           <div className="flex items-center gap-1.5 mb-0.5">
                             <span className="text-base">{c.emoji}</span>
@@ -415,8 +415,8 @@ function CatalogTab() {
           </div>
           <div className="px-4 pb-4 space-y-2">
             <div className="flex gap-2">
-              <span className="text-xs bg-emerald-50 text-emerald-600 font-bold px-2 py-1 rounded-lg">✨ 정방향</span>
-              <span className="text-xs bg-rose-50 text-rose-500 font-bold px-2 py-1 rounded-lg">⚠️ 역방향</span>
+              <span className="text-xs bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 font-bold px-2 py-1 rounded-lg">✨ 정방향</span>
+              <span className="text-xs bg-rose-50 dark:bg-rose-950/30 text-rose-500 font-bold px-2 py-1 rounded-lg">⚠️ 역방향</span>
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-200">{selected.upright}</p>
             <p className="text-sm text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800 pt-2">{selected.reversed}</p>
@@ -570,13 +570,13 @@ export default function TarotPage() {
                   <div className="flex gap-2">
                     {!allRevealed && anyRevealed && (
                       <button onClick={handleRevealAll}
-                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors">
+                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors">
                         모두 공개
                       </button>
                     )}
                     {!allRevealed && !anyRevealed && (
                       <button onClick={handleRevealAll}
-                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors">
+                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors">
                         한 번에 모두 공개
                       </button>
                     )}

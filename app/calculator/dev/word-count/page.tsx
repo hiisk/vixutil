@@ -20,13 +20,13 @@ function countStats(text: string) {
 }
 
 const STAT_ITEMS: { key: keyof ReturnType<typeof countStats>; label: string; sub: string; color: string }[] = [
-  { key: 'totalChars',   label: '전체 글자수',    sub: '공백 포함',        color: 'text-blue-700' },
-  { key: 'charsNoSpace', label: '글자수',          sub: '공백 제외',        color: 'text-indigo-700' },
-  { key: 'words',        label: '단어수',          sub: '공백 기준',        color: 'text-violet-700' },
-  { key: 'sentences',    label: '문장수',          sub: '.!? 기준',         color: 'text-purple-700' },
+  { key: 'totalChars',   label: '전체 글자수',    sub: '공백 포함',        color: 'text-blue-700 dark:text-blue-300' },
+  { key: 'charsNoSpace', label: '글자수',          sub: '공백 제외',        color: 'text-indigo-700 dark:text-indigo-300' },
+  { key: 'words',        label: '단어수',          sub: '공백 기준',        color: 'text-violet-700 dark:text-violet-300' },
+  { key: 'sentences',    label: '문장수',          sub: '.!? 기준',         color: 'text-purple-700 dark:text-purple-300' },
   { key: 'lines',        label: '줄 수',           sub: '개행 기준',        color: 'text-slate-700 dark:text-slate-200' },
   { key: 'paragraphs',   label: '단락수',          sub: '빈 줄 기준',       color: 'text-slate-600 dark:text-slate-300' },
-  { key: 'bytes',        label: '바이트수',        sub: 'UTF-8',            color: 'text-emerald-700' },
+  { key: 'bytes',        label: '바이트수',        sub: 'UTF-8',            color: 'text-emerald-700 dark:text-emerald-300' },
 ];
 
 export default function WordCountPage() {

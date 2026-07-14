@@ -119,7 +119,7 @@ export default function CompoundGoalPage() {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {result.rows.slice(0, showing).map(row => (
-                      <tr key={row.year} className={row.amount >= Number(goal) ? 'bg-blue-50' : ''}>
+                      <tr key={row.year} className={row.amount >= Number(goal) ? 'bg-blue-50 dark:bg-blue-950/30' : ''}>
                         <td className="px-5 py-2.5 text-slate-700 dark:text-slate-200">{row.year}년 후</td>
                         <td className="px-5 py-2.5 text-right font-semibold">{fmt(row.amount)}원</td>
                       </tr>

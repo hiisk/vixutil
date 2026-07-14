@@ -9,7 +9,7 @@ const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', 
 function QuizCard({ q }: { q: CardItem }) {
   return (
     <Link href={`/quiz/${q.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
+      className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(245,158,11,0.22)] overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-400 to-orange-500">
         {NEW_QUIZ_SLUGS.has(q.slug) && (
@@ -88,7 +88,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
             <section key={group.name}>
               <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
-                <span className="text-xs font-bold text-amber-500 bg-amber-50 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(q => <QuizCard key={q.slug} q={q} />)}

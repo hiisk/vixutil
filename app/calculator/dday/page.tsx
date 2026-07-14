@@ -131,8 +131,8 @@ function TwoDate() {
             {l:'개월',v:res.months.toFixed(1)},
             {l:'평일',v:res.weekdays.toLocaleString()},
           ].map(i=>(
-            <div key={i.l} className="bg-blue-50 border border-blue-100 rounded-xl py-3">
-              <p className="font-black text-blue-700 text-lg leading-tight">{i.v}</p>
+            <div key={i.l} className="bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 rounded-xl py-3">
+              <p className="font-black text-blue-700 dark:text-blue-300 text-lg leading-tight">{i.v}</p>
               <p className="text-blue-400 text-xs mt-0.5">{i.l}</p>
             </div>
           ))}

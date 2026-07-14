@@ -161,7 +161,7 @@ export default function InflationPage() {
                             <td className="font-black text-slate-900 dark:text-slate-100">{w(r.value)}원</td>
                             <td className="text-red-500 font-semibold">+{w(r.value - amount)}원</td>
                             <td className="text-red-500 font-semibold">+{r.cumInflation.toFixed(1)}%</td>
-                            <td className="text-blue-700 font-semibold">{r.purchasePower.toFixed(1)}%</td>
+                            <td className="text-blue-700 dark:text-blue-300 font-semibold">{r.purchasePower.toFixed(1)}%</td>
                           </tr>
                         ))}
                       </tbody>
@@ -247,7 +247,7 @@ export default function InflationPage() {
                             <td>{r.year}년 전</td>
                             <td className="font-black text-slate-900 dark:text-slate-100">{w(r.value)}원</td>
                             <td className="text-red-500 font-semibold">-{w(futureAmount - r.value)}원</td>
-                            <td className="text-blue-700 font-semibold">{r.purchasePower.toFixed(1)}%</td>
+                            <td className="text-blue-700 dark:text-blue-300 font-semibold">{r.purchasePower.toFixed(1)}%</td>
                           </tr>
                         ))}
                       </tbody>

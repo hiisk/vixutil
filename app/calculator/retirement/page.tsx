@@ -134,9 +134,9 @@ export default function RetirementPage() {
         {result && (
           <>
             {/* 은퇴 자산 */}
-            <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+            <div className="rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30 p-5">
               <p className="text-xs text-blue-400 mb-1">은퇴 시 예상 자산</p>
-              <p className="text-4xl font-black text-blue-700">{fmtKRW(result.totalAsset)}</p>
+              <p className="text-4xl font-black text-blue-700 dark:text-blue-300">{fmtKRW(result.totalAsset)}</p>
               <p className="text-sm text-blue-500 mt-1">{fmtWon(result.totalAsset)}</p>
             </div>
 
@@ -152,7 +152,7 @@ export default function RetirementPage() {
                   <div key={r.years} className="flex justify-between items-center bg-slate-50 dark:bg-slate-950 rounded-xl px-4 py-3">
                     <span className="text-sm text-slate-600 dark:text-slate-300 font-semibold">{r.years}년간 인출</span>
                     <div className="text-right">
-                      <span className="text-base font-black text-blue-700">{fmtKRW(r.monthly)}</span>
+                      <span className="text-base font-black text-blue-700 dark:text-blue-300">{fmtKRW(r.monthly)}</span>
                       <span className="text-xs text-slate-400 dark:text-slate-500 block">/월</span>
                     </div>
                   </div>
@@ -182,7 +182,7 @@ export default function RetirementPage() {
                         <td className="py-2 text-slate-500 dark:text-slate-400">{r.year}</td>
                         <td className="py-2 text-slate-600 dark:text-slate-300">{fmtKRW(r.contribution)}</td>
                         <td className="py-2 text-emerald-600 font-semibold">{fmtKRW(r.interest)}</td>
-                        <td className="py-2 text-blue-700 font-black">{fmtKRW(r.endBalance)}</td>
+                        <td className="py-2 text-blue-700 dark:text-blue-300 font-black">{fmtKRW(r.endBalance)}</td>
                       </tr>
                     ))}
                   </tbody>

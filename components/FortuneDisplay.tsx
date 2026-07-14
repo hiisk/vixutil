@@ -111,12 +111,12 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       </div>
 
       {/* 종합운 */}
-      <div className="bg-white dark:bg-slate-900 border border-violet-100 rounded-2xl p-5">
+      <div className="bg-white dark:bg-slate-900 border border-violet-100 dark:border-violet-900/40 rounded-2xl p-5">
         <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">✨ 오늘의 총운</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f.overall}</p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {f.keywords.map(k => (
-            <span key={k} className="text-xs font-bold text-violet-700 bg-violet-50 border border-violet-100 px-2.5 py-1 rounded-full">
+            <span key={k} className="text-xs font-bold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 px-2.5 py-1 rounded-full">
               #{k}
             </span>
           ))}
@@ -124,7 +124,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       </div>
 
       {/* 오늘의 조언 */}
-      <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
+      <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
         <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 조언</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{f.advice}</p>
       </div>
@@ -149,21 +149,21 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyColor}</p>
           </div>
           <div className="text-center">
-            <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
+            <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
               <span className="text-lg font-black text-violet-600">{f.luckyNumber}</span>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">행운의 숫자</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyNumber}</p>
           </div>
           <div className="text-center">
-            <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
+            <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
               <span className="text-base">🧭</span>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">행운의 방향</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyDirection}</p>
           </div>
           <div className="text-center">
-            <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-1">
+            <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
               <span className="text-base">🎁</span>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">행운의 아이템</p>

@@ -79,9 +79,9 @@ export default function PyeongPage() {
                   <button
                     key={r.label}
                     onClick={() => { setValue(String(mode === 'sqm' ? r.sqm : r.pyeong)); }}
-                    className={`w-full px-5 py-3 flex justify-between items-center text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${nearest?.label === r.label ? 'bg-blue-50' : ''}`}
+                    className={`w-full px-5 py-3 flex justify-between items-center text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${nearest?.label === r.label ? 'bg-blue-50 dark:bg-blue-950/30' : ''}`}
                   >
-                    <span className={`font-semibold ${nearest?.label === r.label ? 'text-blue-700' : 'text-slate-700 dark:text-slate-200'}`}>{r.label}</span>
+                    <span className={`font-semibold ${nearest?.label === r.label ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{r.label}</span>
                     <span className="text-slate-400 dark:text-slate-500">{r.pyeong}평 = {r.sqm}㎡</span>
                   </button>
                 ))}

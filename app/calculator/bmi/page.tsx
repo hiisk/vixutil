@@ -4,12 +4,12 @@ import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcS
 
 // 대한비만학회 2022 진료지침 기준
 const LEVELS = [
-  { max: 18.5, label: '저체중',     desc: '영양 상태 확인 필요',    color:'text-blue-600',   bg:'bg-blue-50 border-blue-200',   bar:'bg-blue-500' },
-  { max: 23.0, label: '정상',       desc: '건강 체중 범위',         color:'text-emerald-700',bg:'bg-emerald-50 border-emerald-200',bar:'bg-emerald-500' },
-  { max: 25.0, label: '과체중',     desc: '체중 관리 시작 권장',    color:'text-amber-600',  bg:'bg-amber-50 border-amber-200',  bar:'bg-amber-400' },
-  { max: 30.0, label: '비만 1단계', desc: '생활습관 개선 필요',     color:'text-orange-600', bg:'bg-orange-50 border-orange-200',bar:'bg-orange-500' },
-  { max: 35.0, label: '비만 2단계', desc: '의료적 관리 권장',       color:'text-red-600',    bg:'bg-red-50 border-red-200',      bar:'bg-red-500' },
-  { max: Infinity, label:'비만 3단계',desc:'즉각적 의료 관리 필요', color:'text-red-800',    bg:'bg-red-100 border-red-300',     bar:'bg-red-700' },
+  { max: 18.5, label: '저체중',     desc: '영양 상태 확인 필요',    color:'text-blue-600',   bg:'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900/50',   bar:'bg-blue-500' },
+  { max: 23.0, label: '정상',       desc: '건강 체중 범위',         color:'text-emerald-700 dark:text-emerald-300',bg:'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/50',bar:'bg-emerald-500' },
+  { max: 25.0, label: '과체중',     desc: '체중 관리 시작 권장',    color:'text-amber-600',  bg:'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900/50',  bar:'bg-amber-400' },
+  { max: 30.0, label: '비만 1단계', desc: '생활습관 개선 필요',     color:'text-orange-600', bg:'bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-900/50',bar:'bg-orange-500' },
+  { max: 35.0, label: '비만 2단계', desc: '의료적 관리 권장',       color:'text-red-600',    bg:'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50',      bar:'bg-red-500' },
+  { max: Infinity, label:'비만 3단계',desc:'즉각적 의료 관리 필요', color:'text-red-800 dark:text-red-300',    bg:'bg-red-100 dark:bg-red-950/40 border-red-300',     bar:'bg-red-700' },
 ];
 
 const BMI_SCALE = { min: 14, max: 42 }; // 게이지 범위

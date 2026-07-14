@@ -202,7 +202,7 @@ export default function GoldenRatioPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 이목구비 비례가 황금비(φ)에 얼마나 가까운지 측정해요</p>
         </div>
 
-        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 mb-6 text-xs text-amber-800 leading-relaxed">
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-4 mb-6 text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>이목구비 비율은 이 브라우저 안에서 실제로 측정돼요. 다만 황금비는 미의 절대 기준이 아니라 하나의 참고 개념일 뿐이니, 점수는 재미로만 봐주세요.</p>
         </div>
@@ -215,7 +215,7 @@ export default function GoldenRatioPage() {
         )}
 
         {modelState === 'error' && (
-          <div className="w-full border-2 border-dashed border-rose-200 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 text-center">
+          <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
             <span className="text-3xl">⚠️</span>
             <span className="text-sm font-bold text-rose-600">얼굴 인식 모델을 불러오지 못했어요</span>
             <span className="text-xs text-rose-400">네트워크 상태를 확인하고 새로고침 해주세요</span>
@@ -255,8 +255,8 @@ export default function GoldenRatioPage() {
         )}
 
         {faceError && !analyzing && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6 text-center">
-            <p className="text-sm font-bold text-amber-700 mb-3">🙈 {faceError}</p>
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 mb-6 text-center">
+            <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
             <button onClick={() => fileInputRef.current?.click()} className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
               다른 사진 선택하기
             </button>
@@ -293,7 +293,7 @@ export default function GoldenRatioPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-5">
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 참고 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>

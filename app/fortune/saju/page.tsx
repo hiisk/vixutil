@@ -88,23 +88,23 @@ function ElementBar({ counts, total }: { counts: Record<string,number>; total: n
 
 /* ── 색상 맵 ── */
 const COLOR_MAP: Record<string, { bg: string; badge: string; dot: string; border: string; accent: string }> = {
-  rose:   { bg:'bg-rose-50',   badge:'bg-rose-100 text-rose-700',   dot:'bg-rose-400',   border:'border-rose-200',   accent:'text-rose-700'   },
-  pink:   { bg:'bg-pink-50',   badge:'bg-pink-100 text-pink-700',   dot:'bg-pink-400',   border:'border-pink-200',   accent:'text-pink-700'   },
-  blue:   { bg:'bg-blue-50',   badge:'bg-blue-100 text-blue-700',   dot:'bg-blue-400',   border:'border-blue-200',   accent:'text-blue-700'   },
-  amber:  { bg:'bg-amber-50',  badge:'bg-amber-100 text-amber-700', dot:'bg-amber-400',  border:'border-amber-200',  accent:'text-amber-700'  },
-  indigo: { bg:'bg-indigo-50', badge:'bg-indigo-100 text-indigo-700',dot:'bg-indigo-400',border:'border-indigo-200', accent:'text-indigo-700' },
-  green:  { bg:'bg-green-50',  badge:'bg-green-100 text-green-700', dot:'bg-green-400',  border:'border-green-200',  accent:'text-green-700'  },
-  teal:   { bg:'bg-teal-50',   badge:'bg-teal-100 text-teal-700',   dot:'bg-teal-400',   border:'border-teal-200',   accent:'text-teal-700'   },
-  violet: { bg:'bg-violet-50', badge:'bg-violet-100 text-violet-700',dot:'bg-violet-400',border:'border-violet-200', accent:'text-violet-700' },
-  purple: { bg:'bg-purple-50', badge:'bg-purple-100 text-purple-700',dot:'bg-purple-400',border:'border-purple-200', accent:'text-purple-700' },
-  orange: { bg:'bg-orange-50', badge:'bg-orange-100 text-orange-700',dot:'bg-orange-400',border:'border-orange-200', accent:'text-orange-700' },
+  rose:   { bg:'bg-rose-50 dark:bg-rose-950/30',   badge:'bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300',   dot:'bg-rose-400',   border:'border-rose-200 dark:border-rose-900/50',   accent:'text-rose-700 dark:text-rose-300'   },
+  pink:   { bg:'bg-pink-50 dark:bg-pink-950/30',   badge:'bg-pink-100 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300',   dot:'bg-pink-400',   border:'border-pink-200 dark:border-pink-900/50',   accent:'text-pink-700 dark:text-pink-300'   },
+  blue:   { bg:'bg-blue-50 dark:bg-blue-950/30',   badge:'bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300',   dot:'bg-blue-400',   border:'border-blue-200 dark:border-blue-900/50',   accent:'text-blue-700 dark:text-blue-300'   },
+  amber:  { bg:'bg-amber-50 dark:bg-amber-950/30',  badge:'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300', dot:'bg-amber-400',  border:'border-amber-200 dark:border-amber-900/50',  accent:'text-amber-700 dark:text-amber-300'  },
+  indigo: { bg:'bg-indigo-50 dark:bg-indigo-950/30', badge:'bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300',dot:'bg-indigo-400',border:'border-indigo-200 dark:border-indigo-900/50', accent:'text-indigo-700 dark:text-indigo-300' },
+  green:  { bg:'bg-green-50 dark:bg-green-950/30',  badge:'bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-300', dot:'bg-green-400',  border:'border-green-200 dark:border-green-900/50',  accent:'text-green-700 dark:text-green-300'  },
+  teal:   { bg:'bg-teal-50 dark:bg-teal-950/30',   badge:'bg-teal-100 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300',   dot:'bg-teal-400',   border:'border-teal-200 dark:border-teal-900/50',   accent:'text-teal-700 dark:text-teal-300'   },
+  violet: { bg:'bg-violet-50 dark:bg-violet-950/30', badge:'bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300',dot:'bg-violet-400',border:'border-violet-200 dark:border-violet-900/50', accent:'text-violet-700 dark:text-violet-300' },
+  purple: { bg:'bg-purple-50 dark:bg-purple-950/30', badge:'bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300',dot:'bg-purple-400',border:'border-purple-200 dark:border-purple-900/50', accent:'text-purple-700 dark:text-purple-300' },
+  orange: { bg:'bg-orange-50 dark:bg-orange-950/30', badge:'bg-orange-100 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',dot:'bg-orange-400',border:'border-orange-200 dark:border-orange-900/50', accent:'text-orange-700 dark:text-orange-300' },
 };
 
 const GRADE_BADGE: Record<string, string> = {
-  '대길': 'bg-red-100 text-red-700',
-  '길':   'bg-emerald-100 text-emerald-700',
+  '대길': 'bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-300',
+  '길':   'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300',
   '보통': 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300',
-  '주의': 'bg-amber-100 text-amber-700',
+  '주의': 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
   '흉':   'bg-gray-200 text-gray-600',
 };
 
@@ -129,7 +129,7 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
         <p className="text-xs font-black" style={{ color:branchEl.color }}>{branch.hanja}</p>
         <p className="text-[8px] font-bold" style={{ color:branchEl.color }}>{branch.kor}</p>
       </div>
-      <div className={`py-1 text-[8px] font-black ${isCurrent?'bg-indigo-50 text-indigo-600':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
+      <div className={`py-1 text-[8px] font-black ${isCurrent?'bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
         {entry.startAge}~{entry.endAge}세
       </div>
     </div>
@@ -273,7 +273,7 @@ export default function SajuPage() {
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1">사주 분석</span>
           {result && (
             <button onClick={handleShare}
-              className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full active:scale-95 transition-transform">
+              className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 px-3 py-1.5 rounded-full active:scale-95 transition-transform">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
               </svg>
@@ -301,7 +301,7 @@ export default function SajuPage() {
                   <button key={g} onClick={()=>setForm(f=>({...f,gender:g}))}
                     className={`py-3 rounded-xl text-sm font-black border-2 transition-all ${
                       form.gender===g
-                        ? g==='male' ? 'bg-blue-50 border-blue-400 text-blue-700' : 'bg-pink-50 border-pink-400 text-pink-700'
+                        ? g==='male' ? 'bg-blue-50 dark:bg-blue-950/30 border-blue-400 text-blue-700 dark:text-blue-300' : 'bg-pink-50 dark:bg-pink-950/30 border-pink-400 text-pink-700 dark:text-pink-300'
                         : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
                     }`}>
                     {g==='male' ? '♂ 남성' : '♀ 여성'}
@@ -457,7 +457,7 @@ export default function SajuPage() {
                         </div>
                       ))}
                     </div>
-                    <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
+                    <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-xl p-3">
                       <p className="text-[10px] font-black text-indigo-600 mb-1">💡 오늘의 운세</p>
                       <FortuneDisplay
                         subjectId={subjectId}
@@ -472,20 +472,20 @@ export default function SajuPage() {
                 {/* ── singang ── */}
                 {currentStep?.key === 'singang' && singang && (
                   <div className="p-5 space-y-4">
-                    <div className={`rounded-2xl p-4 border-2 ${singang.strong ? 'border-rose-200 bg-rose-50' : 'border-blue-200 bg-blue-50'}`}>
+                    <div className={`rounded-2xl p-4 border-2 ${singang.strong ? 'border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30' : 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30'}`}>
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-2xl">{singang.strong ? '💪' : '🌱'}</span>
                         <div>
-                          <p className={`text-xl font-black ${singang.strong ? 'text-rose-700' : 'text-blue-700'}`}>{singang.label}</p>
+                          <p className={`text-xl font-black ${singang.strong ? 'text-rose-700 dark:text-rose-300' : 'text-blue-700 dark:text-blue-300'}`}>{singang.label}</p>
                           <p className={`text-xs font-bold ${singang.strong ? 'text-rose-500' : 'text-blue-500'}`}>강약 지수 {singang.score > 0 ? '+' : ''}{singang.score}</p>
                         </div>
                       </div>
-                      <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800' : 'text-blue-800'}`}>{singang.desc}</p>
+                      <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800 dark:text-rose-300' : 'text-blue-800 dark:text-blue-300'}`}>{singang.desc}</p>
                     </div>
-                    <div className="rounded-2xl p-4 bg-amber-50 border-2 border-amber-200">
-                      <p className="text-xs font-black text-amber-700 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
-                      <p className="text-lg font-black text-amber-800 mb-2">{singang.yongshin}</p>
-                      <p className="text-sm text-amber-700 leading-[1.85]">{singang.yongshinDesc}</p>
+                    <div className="rounded-2xl p-4 bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-900/50">
+                      <p className="text-xs font-black text-amber-700 dark:text-amber-300 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
+                      <p className="text-lg font-black text-amber-800 dark:text-amber-200 mb-2">{singang.yongshin}</p>
+                      <p className="text-sm text-amber-700 dark:text-amber-300 leading-[1.85]">{singang.yongshinDesc}</p>
                     </div>
                     <div className="space-y-2">
                       <p className="text-xs font-black text-slate-500 dark:text-slate-400">활용 방법</p>
@@ -520,7 +520,7 @@ export default function SajuPage() {
                       <div className="space-y-3">
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">부족한 오행 보완법</p>
                         {missingEls.map(el => (
-                          <div key={el} className="flex gap-3 bg-amber-50 border border-amber-100 rounded-xl p-3">
+                          <div key={el} className="flex gap-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-xl p-3">
                             <span className="text-2xl leading-none shrink-0">{ELEMENT_INFO[el].emoji}</span>
                             <div>
                               <p className="text-xs font-black mb-1" style={{ color:ELEMENT_INFO[el].color }}>{ELEMENT_INFO[el].label} 없음</p>
@@ -664,14 +664,14 @@ export default function SajuPage() {
                         <p className="text-base font-black text-slate-800 dark:text-slate-100">{startAge}세부터</p>
                       </div>
                       {currentDaewoon && (
-                        <div className="col-span-2 rounded-xl p-3 border-2 border-indigo-200 bg-indigo-50">
+                        <div className="col-span-2 rounded-xl p-3 border-2 border-indigo-200 dark:border-indigo-900/50 bg-indigo-50 dark:bg-indigo-950/30">
                           <p className="text-[10px] font-bold text-indigo-500 mb-1">현재 대운 ({currentAge}세)</p>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-black" style={{ color:ELEMENT_INFO[STEMS[currentDaewoon.pillar.stemIdx].element].color }}>
                               {STEMS[currentDaewoon.pillar.stemIdx].hanja}{BRANCHES[currentDaewoon.pillar.branchIdx].hanja}
                             </span>
                             <div>
-                              <p className="text-sm font-black text-indigo-700">{pillarHanja(currentDaewoon.pillar)} 대운</p>
+                              <p className="text-sm font-black text-indigo-700 dark:text-indigo-300">{pillarHanja(currentDaewoon.pillar)} 대운</p>
                               <p className="text-xs text-indigo-500">{currentDaewoon.startAge}~{currentDaewoon.endAge}세 · {currentDaewoon.endAge-currentAge+1}년 남음</p>
                             </div>
                           </div>
@@ -695,11 +695,11 @@ export default function SajuPage() {
                         const ssInfo = SIPSEONG_INFO[ss];
                         return (
                           <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'border-indigo-300':'border-slate-100 dark:border-slate-800'}`}>
-                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50':'bg-slate-50 dark:bg-slate-950'}`}>
+                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50 dark:bg-indigo-950/30':'bg-slate-50 dark:bg-slate-950'}`}>
                               <span className="text-sm font-black text-slate-700 dark:text-slate-200">{s.hanja}{b.hanja}</span>
                               <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{pillarHanja(entry.pillar)}</span>
                               <span className="text-[10px] text-slate-400 dark:text-slate-500">{entry.startAge}~{entry.endAge}세</span>
-                              {isCurrent && <span className="ml-auto text-[10px] font-black text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded-full">현재</span>}
+                              {isCurrent && <span className="ml-auto text-[10px] font-black text-indigo-600 bg-indigo-100 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full">현재</span>}
                             </div>
                             <div className="px-3 py-2">
                               <div className="flex gap-1.5 flex-wrap text-[10px] mb-1.5">
@@ -810,7 +810,7 @@ export default function SajuPage() {
 
             {/* 공유 */}
             <div className="flex gap-2 mt-2">
-              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 border border-indigo-200 rounded-2xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-950/50 transition-colors">
+              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 rounded-2xl text-xs font-bold text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-950/50 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
                 </svg>

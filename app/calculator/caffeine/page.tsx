@@ -188,7 +188,7 @@ export default function CaffeinePage() {
             </Card>
 
             {result.sleepSafeTime && (
-              <Card className="p-5 bg-amber-50 border-amber-100">
+              <Card className="p-5 bg-amber-50 dark:bg-amber-950/30 border-amber-100 dark:border-amber-900/40">
                 <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">🌙 참고용 취침 권장 시각</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200">
                   체내 카페인이 약 {SLEEP_THRESHOLD_MG}mg 이하로 떨어지는 시각은 <strong>{result.sleepSafeTime}</strong> 무렵으로

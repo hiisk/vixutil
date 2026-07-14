@@ -127,7 +127,7 @@ export default function BinaryPage() {
                       {r.base === base && <span className="ml-1 text-xs text-blue-400">(입력)</span>}
                     </span>
                   </div>
-                  <p className={`text-sm font-mono mt-1 break-all leading-relaxed ${r.base === base ? 'text-blue-700 font-bold' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
+                  <p className={`text-sm font-mono mt-1 break-all leading-relaxed ${r.base === base ? 'text-blue-700 dark:text-blue-300 font-bold' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
                     {r.display}
                   </p>
                 </div>

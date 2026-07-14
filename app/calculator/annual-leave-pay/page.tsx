@@ -181,7 +181,7 @@ export default function AnnualLeavePayPage() {
                 {leaveTable.map(row => (
                   <tr
                     key={row.years}
-                    className={`${result && Number(yearsOfService) === row.years ? 'bg-blue-50' : ''}`}
+                    className={`${result && Number(yearsOfService) === row.years ? 'bg-blue-50 dark:bg-blue-950/30' : ''}`}
                   >
                     <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">{row.years}년</td>
                     <td className="px-4 py-2.5 text-right font-semibold text-slate-800 dark:text-slate-100">

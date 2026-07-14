@@ -4,18 +4,18 @@ import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, RatioBar } from '
 
 // ACSM 체지방률 등급 기준
 const ACSM_MALE: { max: number; label: string; color: string; bg: string }[] = [
-  { max: 6,   label: '필수 지방',  color: 'text-blue-700',    bg: 'bg-blue-50 border-blue-200' },
-  { max: 14,  label: '운동 선수', color: 'text-emerald-700',  bg: 'bg-emerald-50 border-emerald-200' },
-  { max: 18,  label: '피트니스',  color: 'text-green-600',    bg: 'bg-green-50 border-green-200' },
-  { max: 25,  label: '평균',      color: 'text-amber-600',    bg: 'bg-amber-50 border-amber-200' },
-  { max: Infinity, label: '비만', color: 'text-red-600',      bg: 'bg-red-50 border-red-200' },
+  { max: 6,   label: '필수 지방',  color: 'text-blue-700 dark:text-blue-300',    bg: 'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900/50' },
+  { max: 14,  label: '운동 선수', color: 'text-emerald-700 dark:text-emerald-300',  bg: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/50' },
+  { max: 18,  label: '피트니스',  color: 'text-green-600',    bg: 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900/50' },
+  { max: 25,  label: '평균',      color: 'text-amber-600',    bg: 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900/50' },
+  { max: Infinity, label: '비만', color: 'text-red-600',      bg: 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50' },
 ];
 const ACSM_FEMALE: { max: number; label: string; color: string; bg: string }[] = [
-  { max: 14,  label: '필수 지방',  color: 'text-blue-700',    bg: 'bg-blue-50 border-blue-200' },
-  { max: 21,  label: '운동 선수', color: 'text-emerald-700',  bg: 'bg-emerald-50 border-emerald-200' },
-  { max: 25,  label: '피트니스',  color: 'text-green-600',    bg: 'bg-green-50 border-green-200' },
-  { max: 32,  label: '평균',      color: 'text-amber-600',    bg: 'bg-amber-50 border-amber-200' },
-  { max: Infinity, label: '비만', color: 'text-red-600',      bg: 'bg-red-50 border-red-200' },
+  { max: 14,  label: '필수 지방',  color: 'text-blue-700 dark:text-blue-300',    bg: 'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900/50' },
+  { max: 21,  label: '운동 선수', color: 'text-emerald-700 dark:text-emerald-300',  bg: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/50' },
+  { max: 25,  label: '피트니스',  color: 'text-green-600',    bg: 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900/50' },
+  { max: 32,  label: '평균',      color: 'text-amber-600',    bg: 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900/50' },
+  { max: Infinity, label: '비만', color: 'text-red-600',      bg: 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50' },
 ];
 
 function getLevel(bf: number, sex: 'm' | 'f') {

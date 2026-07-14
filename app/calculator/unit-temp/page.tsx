@@ -32,8 +32,8 @@ const UNIT_LABELS: Record<TempUnit, string> = {
 
 // 체감 설명 (섭씨 기준)
 const DESCRIPTIONS: { max: number; desc: string; color: string }[] = [
-  { max: -30,  desc: '극도로 추운 날씨, 동상 주의',    color: 'text-indigo-700' },
-  { max: -10,  desc: '매우 추운 날씨, 두꺼운 외투 필수', color: 'text-blue-700' },
+  { max: -30,  desc: '극도로 추운 날씨, 동상 주의',    color: 'text-indigo-700 dark:text-indigo-300' },
+  { max: -10,  desc: '매우 추운 날씨, 두꺼운 외투 필수', color: 'text-blue-700 dark:text-blue-300' },
   { max: 0,    desc: '영하의 날씨, 결빙 주의',          color: 'text-blue-600' },
   { max: 10,   desc: '쌀쌀한 날씨, 외투 필요',          color: 'text-sky-600' },
   { max: 20,   desc: '선선한 날씨, 활동하기 좋음',       color: 'text-emerald-600' },
@@ -42,7 +42,7 @@ const DESCRIPTIONS: { max: number; desc: string; color: string }[] = [
   { max: 37.5, desc: '체온 수준 (정상 체온 36.5°C)',    color: 'text-orange-500' },
   { max: 40,   desc: '고온, 열사병 주의',               color: 'text-orange-600' },
   { max: 100,  desc: '물이 끓는 온도 (100°C)',          color: 'text-red-600' },
-  { max: Infinity, desc: '매우 높은 온도',               color: 'text-red-800' },
+  { max: Infinity, desc: '매우 높은 온도',               color: 'text-red-800 dark:text-red-300' },
 ];
 
 const LANDMARKS: { c: number; label: string }[] = [
@@ -129,7 +129,7 @@ export default function UnitTempPage() {
                       {UNIT_LABELS[k]}
                       {k === unit && <span className="ml-1 text-xs text-blue-400">(입력)</span>}
                     </span>
-                    <span className={`text-base font-mono ${k === unit ? 'text-blue-700 font-black' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
+                    <span className={`text-base font-mono ${k === unit ? 'text-blue-700 dark:text-blue-300 font-black' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
                       {result[k].toFixed(4)}
                       {k !== 'K' && k !== 'R' ? `°${k}` : k}
                     </span>

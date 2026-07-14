@@ -183,7 +183,7 @@ export default function GpaPage() {
           <div className="flex justify-between items-center mb-3">
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">과목 목록</p>
             <button type="button" onClick={addCourse}
-              className="text-xs font-semibold text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">
+              className="text-xs font-semibold text-blue-600 border border-blue-200 dark:border-blue-900/50 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">
               + 과목 추가
             </button>
           </div>
@@ -252,7 +252,7 @@ export default function GpaPage() {
                     {idx === 0 && <div className="h-5 mb-1.5" />}
                     <button type="button" onClick={() => removeCourse(course.id)}
                       disabled={courses.length <= 1}
-                      className="py-3 text-xs text-red-400 border border-red-200 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors disabled:opacity-30">
+                      className="py-3 text-xs text-red-400 border border-red-200 dark:border-red-900/50 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors disabled:opacity-30">
                       ✕
                     </button>
                   </div>
@@ -293,8 +293,8 @@ export default function GpaPage() {
                         <span className={`font-bold ${
                           c.isPf
                             ? c.pfGrade === 'P' ? 'text-teal-600' : 'text-red-500'
-                            : c.grade.startsWith('A') ? 'text-emerald-700'
-                            : c.grade.startsWith('B') ? 'text-blue-700'
+                            : c.grade.startsWith('A') ? 'text-emerald-700 dark:text-emerald-300'
+                            : c.grade.startsWith('B') ? 'text-blue-700 dark:text-blue-300'
                             : c.grade.startsWith('C') ? 'text-amber-600'
                             : c.grade === 'F' ? 'text-red-500'
                             : 'text-slate-500 dark:text-slate-400'
@@ -304,7 +304,7 @@ export default function GpaPage() {
                       </td>
                       <td>
                         {c.isPf
-                          ? <span className="text-xs text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">GPA 제외</span>
+                          ? <span className="text-xs text-teal-600 bg-teal-50 dark:bg-teal-950/30 px-2 py-0.5 rounded-full">GPA 제외</span>
                           : point?.toFixed(1)}
                       </td>
                       <td className="font-semibold text-slate-700 dark:text-slate-200">

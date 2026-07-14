@@ -146,10 +146,10 @@ export default function CompoundPage() {
                       <tr key={r.year}>
                         <td>{r.year}년</td>
                         <td>{w(r.cumulativePrincipal)}원</td>
-                        <td className="text-emerald-700 font-semibold">+{w(r.annualInterest)}원</td>
-                        <td className="text-emerald-700 font-semibold">+{w(r.cumulativeInterest)}원</td>
+                        <td className="text-emerald-700 dark:text-emerald-300 font-semibold">+{w(r.annualInterest)}원</td>
+                        <td className="text-emerald-700 dark:text-emerald-300 font-semibold">+{w(r.cumulativeInterest)}원</td>
                         <td className="font-bold text-slate-900 dark:text-slate-100">{w(r.balance)}원</td>
-                        <td className="text-blue-700 font-semibold">{r.yieldPct.toFixed(2)}%</td>
+                        <td className="text-blue-700 dark:text-blue-300 font-semibold">{r.yieldPct.toFixed(2)}%</td>
                       </tr>
                     ))}
                   </tbody>

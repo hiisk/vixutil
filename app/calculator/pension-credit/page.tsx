@@ -133,11 +133,11 @@ export default function PensionCreditPage() {
 
             {result.roomLeft > 0 && (
               <div className="px-5 pb-5">
-                <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4">
-                  <p className="text-sm font-bold text-emerald-800 mb-1">
+                <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 rounded-xl p-4">
+                  <p className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-1">
                     💡 {w(result.roomLeft)}원을 더 넣으면 {w(result.creditIfMaxed - result.credit)}원을 더 돌려받습니다
                   </p>
-                  <p className="text-xs text-emerald-700 leading-relaxed">
+                  <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
                     한도({man(PENSION_RULES.totalLimit)})를 다 채우면 세액공제액이 {w(result.creditIfMaxed)}원이 됩니다.
                     연금저축이 한도({man(PENSION_RULES.savingsLimit)})에 걸렸다면 나머지는 IRP로 채워야 합니다.
                   </p>
@@ -147,11 +147,11 @@ export default function PensionCreditPage() {
 
             {result.excess > 0 && (
               <div className="px-5 pb-5">
-                <div className="bg-red-50 border border-red-100 rounded-xl p-4">
-                  <p className="text-sm font-bold text-red-800 mb-1">
+                <div className="bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 rounded-xl p-4">
+                  <p className="text-sm font-bold text-red-800 dark:text-red-200 mb-1">
                     ⚠️ {w(result.excess)}원은 공제받지 못합니다
                   </p>
-                  <p className="text-xs text-red-700 leading-relaxed">
+                  <p className="text-xs text-red-700 dark:text-red-300 leading-relaxed">
                     {savings > PENSION_RULES.savingsLimit
                       ? `연금저축 납입액이 단독 한도(${man(PENSION_RULES.savingsLimit)})를 넘었습니다. 초과분을 IRP로 옮기면 합산 한도(${man(PENSION_RULES.totalLimit)})까지 공제받을 수 있습니다.`
                       : `합산 한도(${man(PENSION_RULES.totalLimit)})를 넘겨 납입했습니다. 초과분은 세액공제 대상이 아닙니다.`}

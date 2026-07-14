@@ -112,7 +112,7 @@ export default function CaloriesBurnPage() {
         {result && (
           <>
             {/* 핵심 결과 */}
-            <div className="rounded-2xl border border-orange-200 bg-orange-50 p-5">
+            <div className="rounded-2xl border border-orange-200 dark:border-orange-900/50 bg-orange-50 dark:bg-orange-950/30 p-5">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-orange-400 mb-1">소모 칼로리</p>
@@ -125,7 +125,7 @@ export default function CaloriesBurnPage() {
                   <p className="text-sm text-orange-400">g</p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-900 rounded-xl px-4 py-2 border border-orange-100">
+              <div className="bg-white dark:bg-slate-900 rounded-xl px-4 py-2 border border-orange-100 dark:border-orange-900/40">
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   {result.exerciseLabel} · MET {result.met} ·
                   {' '}{duration}분 운동 기준

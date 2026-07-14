@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import GlobalSearch from '@/components/GlobalSearch';
 import SiteFooter from '@/components/SiteFooter';
 import { SEARCH_INDEX } from '@/lib/search-index';
+import PageGlow from '@/components/PageGlow';
 
 export const metadata: Metadata = {
   title: '통합 검색',
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 
 export default function SearchPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+      <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">

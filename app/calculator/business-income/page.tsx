@@ -177,7 +177,7 @@ export default function BusinessIncomePage() {
                         <td className="px-5 py-3 text-slate-500 dark:text-slate-400">지방소득세 (×10%)</td>
                         <td className="px-5 py-3 text-right font-semibold text-red-500">{w(result.localTax)}원</td>
                       </tr>
-                      <tr className="bg-red-50">
+                      <tr className="bg-red-50 dark:bg-red-950/30">
                         <td className="px-5 py-3 font-bold text-slate-800 dark:text-slate-100">총 세금</td>
                         <td className="px-5 py-3 text-right font-black text-red-500">{w(result.totalTax)}원</td>
                       </tr>

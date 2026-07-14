@@ -168,11 +168,11 @@ export default function RefinancePage() {
 
             {result.interestSaved < 0 && result.paymentDiff < 0 && (
               <div className="px-5 pb-5">
-                <div className="bg-amber-50 border border-amber-100 rounded-xl p-4">
-                  <p className="text-sm font-bold text-amber-800 mb-1">
+                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-xl p-4">
+                  <p className="text-sm font-bold text-amber-800 dark:text-amber-200 mb-1">
                     ⚠️ 월 부담은 줄지만 총이자는 더 냅니다
                   </p>
-                  <p className="text-xs text-amber-700 leading-relaxed">
+                  <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
                     상환 기간을 늘려서 월 납입액이 {w(-result.paymentDiff)}원 줄어 보이지만,
                     이자를 내는 기간이 길어져 총이자가 {w(-result.interestSaved)}원 늘어납니다.
                     당장의 현금흐름이 급하지 않다면 다시 생각해볼 조건입니다.

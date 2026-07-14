@@ -145,11 +145,11 @@ export default function DiffPage() {
           <>
             {/* 통계 */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-center">
-                <p className="text-2xl font-black text-emerald-700">+{stats.added}</p>
+              <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl p-4 text-center">
+                <p className="text-2xl font-black text-emerald-700 dark:text-emerald-300">+{stats.added}</p>
                 <p className="text-xs text-emerald-600 mt-1">추가된 줄</p>
               </div>
-              <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-center">
+              <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-2xl p-4 text-center">
                 <p className="text-2xl font-black text-red-600">-{stats.deleted}</p>
                 <p className="text-xs text-red-500 mt-1">삭제된 줄</p>
               </div>
@@ -161,8 +161,8 @@ export default function DiffPage() {
 
             {/* Diff 결과 */}
             {stats.added === 0 && stats.deleted === 0 ? (
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-center">
-                <p className="text-emerald-700 font-bold text-sm">두 텍스트가 완전히 동일합니다.</p>
+              <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-950/30 p-5 text-center">
+                <p className="text-emerald-700 dark:text-emerald-300 font-bold text-sm">두 텍스트가 완전히 동일합니다.</p>
               </div>
             ) : (
               <Card className="p-5">
@@ -182,20 +182,20 @@ export default function DiffPage() {
                         const isInsert = line.type === 'insert';
                         const isDelete = line.type === 'delete';
                         const rowCls = isInsert
-                          ? 'bg-emerald-50'
+                          ? 'bg-emerald-50 dark:bg-emerald-950/30'
                           : isDelete
-                          ? 'bg-red-50'
+                          ? 'bg-red-50 dark:bg-red-950/30'
                           : '';
                         const textCls = isInsert
-                          ? 'text-emerald-700'
+                          ? 'text-emerald-700 dark:text-emerald-300'
                           : isDelete
                           ? 'text-red-600'
                           : 'text-slate-500 dark:text-slate-400';
                         const marker = isInsert ? '+' : isDelete ? '-' : ' ';
                         const markerCls = isInsert
-                          ? 'text-emerald-600 font-bold bg-emerald-100'
+                          ? 'text-emerald-600 font-bold bg-emerald-100 dark:bg-emerald-950/40'
                           : isDelete
-                          ? 'text-red-500 font-bold bg-red-100'
+                          ? 'text-red-500 font-bold bg-red-100 dark:bg-red-950/40'
                           : 'text-slate-300 dark:text-slate-600';
 
                         return (

@@ -53,7 +53,7 @@ export default function ExchangePage() {
           </Card>
         )}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-4 py-3 text-red-600 text-sm">{error}</div>
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-2xl px-4 py-3 text-red-600 text-sm">{error}</div>
         )}
 
         {rates && (
@@ -124,7 +124,7 @@ export default function ExchangePage() {
                           </td>
                           <td className="text-slate-500 dark:text-slate-400">{c.scale?`${c.scale}${c.code}`:`1${c.code}`}</td>
                           <td className="font-bold text-slate-900 dark:text-slate-100">{Math.round(krwPerUnit).toLocaleString()}원</td>
-                          <td className="text-blue-700">
+                          <td className="text-blue-700 dark:text-blue-300">
                             {c.scale
                               ? `${(unitPer10k*c.scale/10000).toFixed(2)}${c.code}`
                               : `${unitPer10k.toFixed(2)}${c.code}`}

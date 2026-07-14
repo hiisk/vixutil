@@ -130,16 +130,16 @@ export default function PregnancyPage() {
         {result && (
           <>
             {/* 핵심 결과 */}
-            <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+            <div className="rounded-2xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 p-5">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-rose-400 mb-1">출산 예정일</p>
-                  <p className="text-3xl font-black text-rose-700">{formatDateShort(result.dueDate)}</p>
+                  <p className="text-3xl font-black text-rose-700 dark:text-rose-300">{formatDateShort(result.dueDate)}</p>
                   <p className="text-xs text-rose-400 mt-1">{formatDate(result.dueDate)}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-rose-400 mb-1">현재 임신 주수</p>
-                  <p className="text-2xl font-black text-rose-700">{weekLabel(result.currentWeeks, result.currentDays)}</p>
+                  <p className="text-2xl font-black text-rose-700 dark:text-rose-300">{weekLabel(result.currentWeeks, result.currentDays)}</p>
                   <p className="text-xs text-rose-400 mt-1">
                     {result.daysRemaining > 0 ? `D-${result.daysRemaining}` : '출산 예정일 경과'}
                   </p>
@@ -167,11 +167,11 @@ export default function PregnancyPage() {
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">분기별 일정</p>
               {[
                 { n: 1, label: '1분기 (1~12주)', start: result.t1Start, end: result.t1End,
-                  desc: '태아 기관 형성기', color: result.trimester === 1 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
+                  desc: '태아 기관 형성기', color: result.trimester === 1 ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
                 { n: 2, label: '2분기 (13~27주)', start: result.t2Start, end: result.t2End,
-                  desc: '태동 시작, 안정기', color: result.trimester === 2 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
+                  desc: '태동 시작, 안정기', color: result.trimester === 2 ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
                 { n: 3, label: '3분기 (28주~)', start: result.t3Start, end: result.dueDate,
-                  desc: '출산 준비', color: result.trimester === 3 ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
+                  desc: '출산 준비', color: result.trimester === 3 ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
               ].map(t => (
                 <div key={t.n} className={`rounded-xl border px-4 py-3 mb-2 ${t.color}`}>
                   <div className="flex justify-between items-center">

@@ -146,7 +146,7 @@ export default function DreamPage() {
                   onClick={() => pick(dream)}
                   className={`text-left rounded-2xl border p-4 transition-all duration-200 ${
                     isOpen
-                      ? 'border-violet-400 bg-violet-50 shadow-md ring-1 ring-violet-300'
+                      ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/30 shadow-md ring-1 ring-violet-300'
                       : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-violet-200 hover:shadow-sm'
                   }`}
                 >

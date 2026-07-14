@@ -28,7 +28,7 @@ export default function CrossLinks({ className = 'mt-8' }: { className?: string 
             href={l.href}
             className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
           >
-            <span className="shrink-0 w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center text-lg">
+            <span className="shrink-0 w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center text-lg">
               {l.icon}
             </span>
             <span className="min-w-0 flex-1">

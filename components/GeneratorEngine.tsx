@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ShareButton from './ShareButton';
 import type { Generator } from '@/lib/types';
 import { makeOne, makeBatch } from '@/lib/generate';
+import PageGlow from './PageGlow';
 
 function CopyBtn({ text }: { text: string }) {
   const [ok, setOk] = useState(false);
@@ -17,7 +18,7 @@ function CopyBtn({ text }: { text: string }) {
       onClick={copy}
       className={`shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border transition-all ${
         ok
-          ? 'bg-emerald-100 text-emerald-700 border-emerald-300'
+          ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300'
           : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600'
       }`}
     >
@@ -63,7 +64,8 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
   const hasResults = results.length > 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
+      <PageGlow accent="emerald" />
       <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
@@ -82,7 +84,7 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/* 인트로 */}
         <div className="text-center mb-7">
-          <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">{gen.category}</span>
+          <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1.5">{gen.title}</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">{gen.desc}</p>
         </div>
@@ -106,7 +108,7 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
                   key={`${r}-${i}`}
                   className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-2xl px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all"
                 >
-                  <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 text-xs font-black flex items-center justify-center mt-0.5">
+                  <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center mt-0.5">
                     {i + 1}
                   </span>
                   <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-line min-w-0">
@@ -167,7 +169,7 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
             </div>
             <div className="space-y-2">
               {saved.map((s, i) => (
-                <div key={i} className="flex items-center gap-3 bg-rose-50 rounded-xl px-3 py-2.5 border border-rose-100">
+                <div key={i} className="flex items-center gap-3 bg-rose-50 dark:bg-rose-950/30 rounded-xl px-3 py-2.5 border border-rose-100 dark:border-rose-900/40">
                   <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line min-w-0">{s}</p>
                   <div className="flex items-center gap-1.5 shrink-0">
                     <CopyBtn text={s} />

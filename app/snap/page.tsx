@@ -59,7 +59,7 @@ export default function SnapPage() {
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <span className="text-3xl">{t.icon}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-fuchsia-50 text-fuchsia-600 border border-fuchsia-100">{t.badge}</span>
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-fuchsia-50 dark:bg-fuchsia-950/30 text-fuchsia-600 border border-fuchsia-100 dark:border-fuchsia-900/40">{t.badge}</span>
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>

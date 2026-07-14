@@ -28,8 +28,8 @@ export default function SubscriptionScorePage() {
   const total = hScore + dScore + sScore;
 
   const grade =
-    total >= 60 ? { label: '경쟁력 높음', color: 'text-blue-600', bg: 'bg-blue-50' } :
-    total >= 50 ? { label: '보통', color: 'text-amber-600', bg: 'bg-amber-50' } :
+    total >= 60 ? { label: '경쟁력 높음', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-950/30' } :
+    total >= 50 ? { label: '보통', color: 'text-amber-600', bg: 'bg-amber-50 dark:bg-amber-950/30' } :
                   { label: '경쟁력 낮음', color: 'text-slate-500 dark:text-slate-400', bg: 'bg-slate-50 dark:bg-slate-950' };
 
   return (

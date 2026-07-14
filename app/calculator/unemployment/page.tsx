@@ -188,11 +188,11 @@ export default function UnemploymentPage() {
                     return (
                       <tr
                         key={String(period)}
-                        className={`border-b border-slate-50 ${isActive ? 'bg-blue-50 font-bold' : ''}`}
+                        className={`border-b border-slate-50 ${isActive ? 'bg-blue-50 dark:bg-blue-950/30 font-bold' : ''}`}
                       >
                         <td className="py-2 px-2 text-slate-700 dark:text-slate-200">{period}{isActive ? ' ✓' : ''}</td>
-                        <td className={`text-right py-2 px-2 ${isActive && !over50 ? 'text-blue-700' : 'text-slate-600 dark:text-slate-300'}`}>{young}일</td>
-                        <td className={`text-right py-2 px-2 ${isActive && over50 ? 'text-blue-700' : 'text-slate-600 dark:text-slate-300'}`}>{old}일</td>
+                        <td className={`text-right py-2 px-2 ${isActive && !over50 ? 'text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}>{young}일</td>
+                        <td className={`text-right py-2 px-2 ${isActive && over50 ? 'text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}>{old}일</td>
                       </tr>
                     );
                   })}

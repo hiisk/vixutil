@@ -4,6 +4,7 @@ import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
 import RelatedCalcs from './RelatedCalcs';
 import CrossLinks from './CrossLinks';
+import PageGlow from './PageGlow';
 import CalcFaq from './CalcFaq';
 import JsonLd, { breadcrumbJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
@@ -38,11 +39,7 @@ export default function CalcShell({
       배경이 비쳐 대비가 떨어지면 디자인이고 뭐고 소용없다.
     */
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
-      {/* 배경 글로우 — 콘텐츠 뒤에 깔리며 스크롤과 무관하게 고정 */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-32 -left-24 w-[28rem] h-[28rem] rounded-full bg-blue-400/10 blur-3xl" />
-        <div className="absolute top-1/3 -right-32 w-[26rem] h-[26rem] rounded-full bg-emerald-400/10 blur-3xl" />
-      </div>
+      <PageGlow accent="blue" />
 
       <div className="relative">
         <JsonLd
@@ -200,8 +197,8 @@ export function SummaryCard({
   const styles = {
     default: 'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-white/70 dark:border-slate-700/70 text-slate-800 dark:text-slate-100 shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)]',
     primary: 'bg-gradient-to-br from-blue-600 to-indigo-600 border-blue-500/50 text-white shadow-lg shadow-blue-500/25',
-    green:   'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-emerald-200/70 text-emerald-600 shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)]',
-    red:     'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-red-200/70 text-red-500 shadow-[0_8px_24px_-12px_rgba(239,68,68,0.22)]',
+    green:   'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-emerald-200 dark:border-emerald-900/50/70 text-emerald-600 shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)]',
+    red:     'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-red-200 dark:border-red-900/50/70 text-red-500 shadow-[0_8px_24px_-12px_rgba(239,68,68,0.22)]',
   };
   const labelStyles = {
     default: 'text-slate-400 dark:text-slate-500',
@@ -252,7 +249,7 @@ export function ShowMoreBtn({ total, showing, onClick }: { total: number; showin
   return (
     <button
       onClick={onClick}
-      className="w-full mt-3 py-2.5 text-sm text-blue-600 font-semibold border border-blue-200 rounded-xl bg-blue-50 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors"
+      className="w-full mt-3 py-2.5 text-sm text-blue-600 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors"
     >
       전체 {total}개 보기 (현재 {showing}개 표시)
     </button>

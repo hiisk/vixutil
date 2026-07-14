@@ -48,7 +48,7 @@ export default function Home() {
             </nav>
             {/* 언어 전환 */}
             <div className="flex items-center gap-1 shrink-0">
-              <span className="text-xs font-bold text-blue-600 px-2 py-1 rounded-full bg-blue-50">KO</span>
+              <span className="text-xs font-bold text-blue-600 px-2 py-1 rounded-full bg-blue-50 dark:bg-blue-950/30">KO</span>
               <Link href="/calculator/en" className="text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-slate-700 px-2 py-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">EN</Link>
               <Link href="/calculator/ja" className="text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-slate-700 px-2 py-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">JA</Link>
             </div>
@@ -123,7 +123,7 @@ export default function Home() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.desc}</p>

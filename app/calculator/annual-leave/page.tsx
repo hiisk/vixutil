@@ -110,11 +110,11 @@ export default function AnnualLeavePage() {
 
             {result.underOneYear && (
               <div className="px-5 pb-5">
-                <div className="bg-amber-50 border border-amber-100 rounded-xl p-4">
-                  <p className="text-sm font-bold text-amber-800 mb-1">
+                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-xl p-4">
+                  <p className="text-sm font-bold text-amber-800 dark:text-amber-200 mb-1">
                     아직 1년 미만 근속입니다
                   </p>
-                  <p className="text-xs text-amber-700 leading-relaxed">
+                  <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
                     1년 미만이면 <strong>1개월을 개근할 때마다 1일</strong>씩, 최대 {LEAVE_RULES.underOneYearMax}일까지 발생합니다.
                     현재 {result.months}개월 근무해 {result.days}일이 발생했습니다.
                     입사 1년이 되면 별도로 {LEAVE_RULES.base}일이 새로 생깁니다.
@@ -139,7 +139,7 @@ export default function AnnualLeavePage() {
                       return (
                         <tr
                           key={row.year}
-                          className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${isMine ? 'bg-blue-50 dark:bg-blue-950/50 font-bold text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}
+                          className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${isMine ? 'bg-blue-50 dark:bg-blue-950/30 dark:bg-blue-950/50 font-bold text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}
                         >
                           <td className="py-2 px-3">
                             {row.year}년차{isMine && ' ← 내 위치'}

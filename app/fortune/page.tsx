@@ -54,7 +54,7 @@ export default function FortunePage() {
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <span className="text-3xl">{t.icon}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-600 border border-violet-100">{t.badge}</span>
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>
@@ -78,7 +78,7 @@ export default function FortunePage() {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <h2 className="text-base font-black text-slate-900 dark:text-slate-100">스냅테스트</h2>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-fuchsia-100 text-fuchsia-700">사진으로 하는 테스트</span>
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-950/40 text-fuchsia-700 dark:text-fuchsia-300">사진으로 하는 테스트</span>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400">관상·퍼스널컬러·감성 분석 등 사진 한 장으로 즐기는 참여형 테스트 모음</p>
           </div>

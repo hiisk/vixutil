@@ -6,6 +6,7 @@ import { toCard } from '@/lib/card';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import PageGlow from '@/components/PageGlow';
 
 export const metadata: Metadata = {
   title: '심리 테스트',
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
 
 export default function TestIndexPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">

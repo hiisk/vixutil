@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { Test } from '@/lib/types';
 import ShareButton from './ShareButton';
+import PageGlow from './PageGlow';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
 
@@ -48,7 +49,8 @@ export default function TestEngine({ test }: { test: Test }) {
 
   /* ── START ── */
   if (phase === 'start') return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+      <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-2">
@@ -61,7 +63,7 @@ export default function TestEngine({ test }: { test: Test }) {
         </div>
       </header>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
-        <span className="text-xs font-bold text-violet-500 bg-violet-50 px-3 py-1 rounded-full mb-3">{test.category}</span>
+        <span className="text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/30 px-3 py-1 rounded-full mb-3">{test.category}</span>
         <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{test.title}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{test.questions.length}문항 · 약 2분 소요</p>
@@ -78,7 +80,7 @@ export default function TestEngine({ test }: { test: Test }) {
     const q = test.questions[current];
     return (
       <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
-        <div className="h-1.5 bg-violet-100">
+        <div className="h-1.5 bg-violet-100 dark:bg-violet-950/40">
           <div className="h-full bg-gradient-to-r from-violet-500 to-pink-500 transition-all duration-500" style={{ width: `${progress}%` }} />
         </div>
         <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">

@@ -62,7 +62,7 @@ export default function CronPage() {
                   const [min, hour, day, month, dow] = p.expr.split(' ');
                   setFields({ min, hour, day, month, dow });
                 }}
-                className={`text-left p-3 rounded-xl border text-xs transition-colors ${expr === p.expr ? 'bg-blue-50 border-blue-300' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-blue-200'}`}>
+                className={`text-left p-3 rounded-xl border text-xs transition-colors ${expr === p.expr ? 'bg-blue-50 dark:bg-blue-950/30 border-blue-300' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-blue-200'}`}>
                 <p className="font-bold text-slate-700 dark:text-slate-200 font-mono">{p.expr}</p>
                 <p className="text-slate-400 dark:text-slate-500 mt-0.5">{p.label} · {p.desc}</p>
               </button>

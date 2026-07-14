@@ -121,7 +121,7 @@ export default function LoanPage() {
                       <tr key={r.month}>
                         <td>{r.month}회</td>
                         <td>{fmt(r.payment)}원</td>
-                        <td className="text-blue-700 font-semibold">{fmt(r.principal)}원</td>
+                        <td className="text-blue-700 dark:text-blue-300 font-semibold">{fmt(r.principal)}원</td>
                         <td className="text-red-500">{fmt(r.interest)}원</td>
                         <td>{fmt(r.balance)}원</td>
                       </tr>
