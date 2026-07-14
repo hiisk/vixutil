@@ -51,14 +51,14 @@ interface Snapshot {
 type State = 'loading' | 'ready' | 'nodata' | 'error';
 
 const VOL_CLR: Record<string, string> = {
-  Low: 'text-emerald-600 dark:text-emerald-400', Medium: 'text-amber-400', High: 'text-orange-400', Extreme: 'text-rose-400',
+  Low: 'text-emerald-600 dark:text-emerald-400', Medium: 'text-amber-600 dark:text-amber-400', High: 'text-orange-600 dark:text-orange-400', Extreme: 'text-rose-600 dark:text-rose-400',
 };
 const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
-  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400', emoji: '🟢' },
-  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400', emoji: '🟢' },
+  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-700 dark:text-rose-400', emoji: '🔴' },
   neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-500 dark:text-slate-400', emoji: '⚪' },
 };
-const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-400 dark:text-slate-500' };
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-600 dark:text-emerald-400', bearish: 'text-rose-600 dark:text-rose-400', neutral: 'text-slate-400 dark:text-slate-500' };
 
 /** 1 / 1.5 / 2 / 2.5 / 3 / 4 / 5 / 7.5 × 10^k 중 가까운 "보기 좋은" 숫자로 반올림 */
 function niceRound(v: number): number {
@@ -81,7 +81,7 @@ function targetPrices(spot: number): number[] {
 
 const ACTION_CLS: Record<Action, string> = {
   BUY: 'bg-emerald-500/15 text-emerald-400',
-  SELL: 'bg-rose-500/15 text-rose-400',
+  SELL: 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
   NEUTRAL: 'bg-slate-500/15 text-slate-500 dark:text-slate-400',
 };
 function ActionChip({ action }: { action: Action }) {
@@ -321,12 +321,12 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <div className="relative grid sm:grid-cols-3 gap-3">
           <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/25 p-4">
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400/80 mb-1">Typical peak · 1 year</p>
-            <p className="text-2xl font-black text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
+            <p className="text-2xl font-black text-amber-700 dark:text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">+{p1y.peakPct.toFixed(1)}% · touched at some point in half of all paths</p>
           </div>
           <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30 days</p>
-            <p className="text-2xl font-black text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
+            <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">probability · drop ≥10%: {p1m.pDown10.toFixed(1)}%</p>
           </div>
           <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
@@ -342,11 +342,11 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <span className="flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-200">
           <span aria-hidden="true">✓</span> Calibrated, and checked
         </span>
-        <span className="text-slate-500 dark:text-slate-400">Our stated 50% band actually contains <b className="text-emerald-400">50.1%</b> of outcomes</span>
+        <span className="text-slate-500 dark:text-slate-400">Our stated 50% band actually contains <b className="text-emerald-600 dark:text-emerald-400">50.1%</b> of outcomes</span>
         <span className="text-slate-700 dark:text-slate-200">·</span>
-        <span className="text-slate-500 dark:text-slate-400">Our 50% touch level is touched <b className="text-emerald-400">50.0%</b> of the time</span>
+        <span className="text-slate-500 dark:text-slate-400">Our 50% touch level is touched <b className="text-emerald-600 dark:text-emerald-400">50.0%</b> of the time</span>
         <span className="text-slate-700 dark:text-slate-200">·</span>
-        <span className="text-slate-500 dark:text-slate-400">The moving-average + RSI + MACD method other sites use: <b className="text-rose-400">49.4%</b> directional accuracy</span>
+        <span className="text-slate-500 dark:text-slate-400">The moving-average + RSI + MACD method other sites use: <b className="text-rose-600 dark:text-rose-400">49.4%</b> directional accuracy</span>
       </div>
 
       {m.limitedHistory && (
@@ -403,24 +403,24 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="grid grid-cols-3 gap-3 mb-3">
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-rose-500/20 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Worst 10%</p>
-              <p className="text-lg font-black text-rose-400 tabular-nums">${formatPrice(invest.p10)}</p>
+              <p className="text-lg font-black text-rose-600 dark:text-rose-400 tabular-nums">${formatPrice(invest.p10)}</p>
             </div>
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/30 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-amber-500/80 mb-1">Median</p>
               <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(invest.median)}</p>
-              <p className={`text-[11px] font-bold tabular-nums ${invest.medianRoi >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
+              <p className={`text-[11px] font-bold tabular-nums ${invest.medianRoi >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                 {invest.medianRoi >= 0 ? '+' : ''}{invest.medianRoi.toFixed(1)}%
               </p>
             </div>
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-emerald-500/20 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Best 10%</p>
-              <p className="text-lg font-black text-emerald-400 tabular-nums">${formatPrice(invest.p90)}</p>
+              <p className="text-lg font-black text-emerald-600 dark:text-emerald-400 tabular-nums">${formatPrice(invest.p90)}</p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-[11px]">
-            <span className="text-slate-500 dark:text-slate-400">Chance you lose money: <b className="text-rose-400">{invest.pLoss.toFixed(1)}%</b></span>
-            <span className="text-slate-500 dark:text-slate-400">Chance it doubles: <b className="text-emerald-400">{invest.pDouble.toFixed(1)}%</b></span>
+            <span className="text-slate-500 dark:text-slate-400">Chance you lose money: <b className="text-rose-600 dark:text-rose-400">{invest.pLoss.toFixed(1)}%</b></span>
+            <span className="text-slate-500 dark:text-slate-400">Chance it doubles: <b className="text-emerald-600 dark:text-emerald-400">{invest.pDouble.toFixed(1)}%</b></span>
             <span className="text-slate-400 dark:text-slate-500">Half of outcomes land between ${formatPrice(invest.p25)} and ${formatPrice(invest.p75)}</span>
           </div>
         </div>
@@ -497,19 +497,19 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="grid grid-cols-3 gap-2 mb-2 text-center">
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Market (β={m.beta.toFixed(2)})</p>
-                <p className={`text-sm font-black tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
+                <p className={`text-sm font-black tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                   {m.marketAnnualPct >= 0 ? '+' : ''}{m.marketAnnualPct.toFixed(1)}%/yr
                 </p>
               </div>
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Coin-specific (α)</p>
-                <p className={`text-sm font-black tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
+                <p className={`text-sm font-black tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                   {m.alphaAnnualPct >= 0 ? '+' : ''}{m.alphaAnnualPct.toFixed(1)}%/yr
                 </p>
               </div>
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Forecast drift</p>
-                <p className={`text-sm font-black tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
+                <p className={`text-sm font-black tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                   {m.annualDriftPct >= 0 ? '+' : ''}{m.annualDriftPct.toFixed(1)}%/yr
                 </p>
               </div>
@@ -529,17 +529,17 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30d</p>
-            <p className="text-xl font-black text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
+            <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">probability</p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Drop ≥10% in 30d</p>
-            <p className="text-xl font-black text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
+            <p className="text-xl font-black text-rose-600 dark:text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">probability</p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 1y</p>
-            <p className="text-xl font-black text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
+            <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">probability</p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
@@ -606,7 +606,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums">
                         {dayChg != null ? (
-                          <span className={`inline-flex items-center gap-1 font-bold ${dayChg >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400'}`}>
+                          <span className={`inline-flex items-center gap-1 font-bold ${dayChg >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                             <span className="text-[10px] leading-none">{dayChg >= 0 ? '▲' : '▼'}</span>
                             {dayChg >= 0 ? '+' : ''}{dayChg.toFixed(2)}%
                           </span>
@@ -655,7 +655,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 {m.projections.map(p => (
                   <tr key={p.key} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-200">{p.label}</td>
-                    <td className="px-3 py-3 text-right text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
+                    <td className="px-3 py-3 text-right text-rose-600 dark:text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
                     <td className="px-3 py-3 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(p.forecast)}</td>
                     <td className="px-3 py-3 text-right text-slate-700 dark:text-slate-200 tabular-nums">
                       ${formatPrice(p.mean)}
@@ -727,7 +727,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   return rows.map(v => {
                     const up = v >= s.price;
                     const isCustom = isFinite(custom) && custom > 0 && v === custom && !presets.includes(custom);
-                    const clr = up ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-400';
+                    const clr = up ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400';
                     return (
                       <tr key={v} className={`border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors ${isCustom ? 'bg-amber-500/[0.06]' : ''}`}>
                         <td className="px-4 py-2.5 font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(v)}</td>
@@ -852,7 +852,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   {months.map(r => (
                     <tr key={r.label} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-2.5 font-bold text-slate-700 dark:text-slate-200">{r.label}</td>
-                      <td className="px-3 py-2.5 text-right text-rose-400/80 tabular-nums">${formatPrice(r.low)}</td>
+                      <td className="px-3 py-2.5 text-right text-rose-600 dark:text-rose-400/80 tabular-nums">${formatPrice(r.low)}</td>
                       <td className="px-3 py-2.5 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(r.forecast)}</td>
                       <td className="px-3 py-2.5 text-right text-emerald-600 dark:text-emerald-400/80 tabular-nums">${formatPrice(r.high)}</td>
                       <td className="px-3 py-2.5 text-right text-amber-600 dark:text-amber-400 font-bold tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(r.peak)}</td>
@@ -879,13 +879,13 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <div>
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Indicator tally</p>
-                <p className={`text-2xl font-black ${ta.s.label === 'Bullish' ? 'text-emerald-400' : ta.s.label === 'Bearish' ? 'text-rose-400' : 'text-slate-700 dark:text-slate-200'}`}>
+                <p className={`text-2xl font-black ${ta.s.label === 'Bullish' ? 'text-emerald-600 dark:text-emerald-400' : ta.s.label === 'Bearish' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-700 dark:text-slate-200'}`}>
                   {ta.s.label}
                 </p>
               </div>
               <div className="text-right text-xs tabular-nums">
                 <p className="text-emerald-600 dark:text-emerald-400 font-bold">{ta.s.bullish} bullish</p>
-                <p className="text-rose-400 font-bold">{ta.s.bearish} bearish</p>
+                <p className="text-rose-600 dark:text-rose-400 font-bold">{ta.s.bearish} bearish</p>
                 <p className="text-slate-500 dark:text-slate-400">{ta.s.neutral} neutral</p>
               </div>
             </div>
@@ -966,7 +966,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     {([['R3', ta.pv.r3], ['R2', ta.pv.r2], ['R1', ta.pv.r1]] as [string, number][]).map(([k, v]) => (
                       <tr key={k} className="border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
                         <td className="px-4 py-2 text-slate-500 dark:text-slate-400">Resistance {k}</td>
-                        <td className="px-4 py-2 text-right text-emerald-400 font-bold tabular-nums">${formatPrice(v)}</td>
+                        <td className="px-4 py-2 text-right text-emerald-600 dark:text-emerald-400 font-bold tabular-nums">${formatPrice(v)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -976,7 +976,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     {([['S1', ta.pv.s1], ['S2', ta.pv.s2], ['S3', ta.pv.s3]] as [string, number][]).map(([k, v]) => (
                       <tr key={k} className="border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
                         <td className="px-4 py-2 text-slate-500 dark:text-slate-400">Support {k}</td>
-                        <td className="px-4 py-2 text-right text-rose-400 font-bold tabular-nums">${formatPrice(v)}</td>
+                        <td className="px-4 py-2 text-right text-rose-600 dark:text-rose-400 font-bold tabular-nums">${formatPrice(v)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1116,7 +1116,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <>
                   <CoinLogo base={base} size={18} />
                   <span className="font-bold text-slate-900 dark:text-white text-xs">{base}</span>
-                  <span className={`text-xs font-black tabular-nums ${r >= 0.5 ? 'text-emerald-400' : r >= 0 ? 'text-slate-700 dark:text-slate-200' : 'text-rose-400'}`}>
+                  <span className={`text-xs font-black tabular-nums ${r >= 0.5 ? 'text-emerald-600 dark:text-emerald-400' : r >= 0 ? 'text-slate-700 dark:text-slate-200' : 'text-rose-600 dark:text-rose-400'}`}>
                     {r >= 0 ? '+' : ''}{r.toFixed(2)}
                   </span>
                   <span className="h-1 w-10 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -1149,7 +1149,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             ['A zig-zagging daily forecast', 'The wiggle in a historical median path is indistinguishable from what a random walk produces about half the time.'],
           ].map(([claim, why]) => (
             <li key={claim} className="flex gap-2">
-              <span className="text-rose-400/70 shrink-0" aria-hidden="true">✕</span>
+              <span className="text-rose-600 dark:text-rose-400/70 shrink-0" aria-hidden="true">✕</span>
               <span><b className="text-slate-700 dark:text-slate-200">{claim}.</b> <span className="text-slate-500 dark:text-slate-400">{why}</span></span>
             </li>
           ))}

@@ -56,11 +56,11 @@ interface RowInfo {
 }
 
 const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = {
-  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400', emoji: '🟢' },
-  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-400', emoji: '🔴' },
+  bullish: { label: 'Bullish', cls: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400', emoji: '🟢' },
+  bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-700 dark:text-rose-400', emoji: '🔴' },
   neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-500 dark:text-slate-400', emoji: '⚪' },
 };
-const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-400', bearish: 'text-rose-400', neutral: 'text-slate-400 dark:text-slate-500' };
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-600 dark:text-emerald-400', bearish: 'text-rose-600 dark:text-rose-400', neutral: 'text-slate-400 dark:text-slate-500' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'signal' | 'chg24h' | 'range24h';
@@ -116,8 +116,8 @@ function utcLabel(d: Date): string {
 function SortHint({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   return (
     <span className="inline-flex flex-col leading-[0.55] text-[7px] ml-1">
-      <span className={active && dir === 'asc' ? 'text-amber-400' : 'text-slate-400 dark:text-slate-500'}>▲</span>
-      <span className={active && dir === 'desc' ? 'text-amber-400' : 'text-slate-400 dark:text-slate-500'}>▼</span>
+      <span className={active && dir === 'asc' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'}>▲</span>
+      <span className={active && dir === 'desc' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'}>▼</span>
     </span>
   );
 }
@@ -379,37 +379,48 @@ export default function SignalsPage() {
         {/* Referral links */}
         <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">🎁 New-user bonuses — trade with an edge</p>
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          {/*
+            가입 배너는 원래 어두운 배경 전제로 만들어져 있었다 — 브랜드 컬러를
+            글자에 그대로 써서(text-yellow-300, text-amber-200) 흰 배경에서는
+            거의 안 읽혔다.
+
+            라이트에서는 색의 역할을 바꾼다:
+              - 금액(배너의 주인공)은 진한 색(700)으로 대비를 확실히 준다.
+              - 브랜드 컬러(400)는 배경 틴트·테두리·CTA 버튼에만 쓴다.
+              - 다크에서는 원래대로 밝은 톤을 되돌린다.
+          */}
+
           {/* Bybit */}
           <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group relative overflow-hidden rounded-2xl border border-yellow-500/40 bg-gradient-to-br from-yellow-500/[0.22] via-amber-600/[0.08] to-slate-900/0 p-4 hover:border-yellow-400/80 hover:shadow-lg hover:shadow-yellow-500/15 hover:-translate-y-0.5 transition-all">
-            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-yellow-400/20 blur-2xl group-hover:bg-yellow-400/30 transition-colors" />
+            className="group relative overflow-hidden rounded-2xl border border-yellow-300 dark:border-yellow-500/40 bg-gradient-to-br from-yellow-50 to-amber-50/40 dark:from-yellow-500/[0.22] dark:via-amber-600/[0.08] dark:to-transparent p-4 hover:border-yellow-400 hover:shadow-lg hover:shadow-yellow-500/15 hover:-translate-y-0.5 transition-all">
+            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-yellow-300/40 dark:bg-yellow-400/20 blur-2xl group-hover:bg-yellow-300/60 transition-colors" />
             <span className="relative flex items-center gap-2 mb-2">
-              <BybitWordmark className="h-4 w-auto" />
-              <span className="text-[9px] font-bold text-yellow-400/70 uppercase tracking-wide">New user</span>
-              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-yellow-400 rounded-lg px-3 py-1 group-hover:bg-yellow-300 transition-colors">
+              <BybitWordmark className="h-4 w-auto text-slate-900 dark:text-slate-50" />
+              <span className="text-[9px] font-bold text-amber-700 dark:text-yellow-400/70 uppercase tracking-wide">New user</span>
+              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-yellow-400 rounded-lg px-3 py-1 shadow-sm group-hover:bg-yellow-300 transition-colors">
                 Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
             </span>
             <span className="relative flex items-baseline gap-2 flex-wrap">
-              <span className="text-[26px] leading-none font-black text-yellow-300">Up to $30,000</span>
+              <span className="text-[26px] leading-none font-black text-amber-700 dark:text-yellow-300">Up to $30,000</span>
               <span className="text-[11px] text-slate-500 dark:text-slate-400">+ $20 welcome · fee discount</span>
             </span>
           </a>
 
           {/* Binance */}
           <a href={BINANCE_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group relative overflow-hidden rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/[0.22] via-amber-600/[0.08] to-slate-900/0 p-4 hover:border-amber-400/80 hover:shadow-lg hover:shadow-amber-500/15 hover:-translate-y-0.5 transition-all">
-            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-amber-400/20 blur-2xl group-hover:bg-amber-400/30 transition-colors" />
+            className="group relative overflow-hidden rounded-2xl border border-amber-300 dark:border-amber-500/40 bg-gradient-to-br from-amber-50 to-orange-50/40 dark:from-amber-500/[0.22] dark:via-amber-600/[0.08] dark:to-transparent p-4 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/15 hover:-translate-y-0.5 transition-all">
+            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-amber-300/40 dark:bg-amber-400/20 blur-2xl group-hover:bg-amber-300/60 transition-colors" />
             <span className="relative flex items-center gap-2 mb-2">
               <BinanceIcon />
-              <span className="font-black text-amber-200 text-[15px] tracking-tight">BINANCE</span>
-              <span className="text-[9px] font-bold text-amber-600 dark:text-amber-400/70 uppercase tracking-wide">New user</span>
-              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-amber-400 rounded-lg px-3 py-1 group-hover:bg-amber-300 transition-colors">
+              <span className="font-black text-slate-900 dark:text-amber-200 text-[15px] tracking-tight">BINANCE</span>
+              <span className="text-[9px] font-bold text-amber-700 dark:text-amber-400/70 uppercase tracking-wide">New user</span>
+              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-amber-400 rounded-lg px-3 py-1 shadow-sm group-hover:bg-amber-300 transition-colors">
                 Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
               </span>
             </span>
             <span className="relative flex items-baseline gap-2 flex-wrap">
-              <span className="text-[26px] leading-none font-black text-amber-300">Up to $600</span>
+              <span className="text-[26px] leading-none font-black text-amber-700 dark:text-amber-300">Up to $600</span>
               <span className="text-[11px] text-slate-500 dark:text-slate-400">+ 10% off trading fees</span>
             </span>
           </a>
@@ -440,9 +451,9 @@ export default function SignalsPage() {
               </span>
               <span className="flex items-center gap-2">
                 <span className="text-slate-500 dark:text-slate-400">Advancing</span>
-                <span className="font-black text-emerald-400 tabular-nums">{stats.up}</span>
+                <span className="font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{stats.up}</span>
                 <span className="text-slate-700 dark:text-slate-200">/</span>
-                <span className="font-black text-rose-400 tabular-nums">{stats.down}</span>
+                <span className="font-black text-rose-600 dark:text-rose-400 tabular-nums">{stats.down}</span>
                 <span className="inline-flex h-1.5 w-24 gap-[2px]" role="img" aria-label={`${stats.up} advancing, ${stats.down} declining`}>
                   <span className="bg-emerald-500 rounded-full" style={{ width: `${stats.upShare}%` }} />
                   <span className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
@@ -549,7 +560,7 @@ export default function SignalsPage() {
             ) : listState === 'error' ? (
               <>
                 <span className="text-3xl">⚠️</span>
-                <span className="text-sm font-bold text-rose-400">Couldn&apos;t load prices</span>
+                <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load prices</span>
                 <span className="text-xs text-slate-500 dark:text-slate-400">Binance may be restricted in your region</span>
                 <button onClick={() => loadList(market)} className="mt-2 text-sm font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl px-4 py-2 transition-colors">Retry</button>
               </>
@@ -628,7 +639,7 @@ export default function SignalsPage() {
                             <CoinLogo base={t.base} />
                             <span className={`font-bold text-slate-900 dark:text-white ${meta ? 'group-hover:text-amber-400 transition-colors' : ''}`}>{t.base}</span>
                             {c && market === 'futures' && (
-                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-400'}`}>
+                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-700 dark:text-rose-400'}`}>
                                 {c.side === 'long' ? 'LONG' : 'SHORT'}
                               </span>
                             )}
@@ -751,7 +762,7 @@ export default function SignalsPage() {
         )}
 
         <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
-          <p className="font-bold text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
+          <p className="font-bold text-amber-700 dark:text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
           <p className="mb-2">
             <b className="text-amber-700 dark:text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
             <b className="text-slate-700 dark:text-slate-200"> half of all simulated paths</b>. It is not where the price ends; the median endpoint barely moves at short horizons
