@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import { REFERRALS, REFERRAL_REL } from "@/lib/referral";
 
 /**
  * 사이트 전역 푸터 — 섹션 간 이동 동선 + 내부링크(SEO) + 인기 도구 노출.
@@ -80,6 +81,33 @@ export default function SiteFooter() {
             >
               {p.label}
             </Link>
+          ))}
+        </div>
+
+        {/*
+          제휴 링크. 의도적으로 작게 간다 — 이 사이트 방문자는 대부분 계산기나
+          체크리스트를 보러 온 사람이라 코인 거래소와 맥락이 멀다. 큰 배너를
+          전 페이지에 얹으면 광고 대 콘텐츠 비율이 나빠지고 이탈만 늘린다.
+
+          "광고" 표기를 숨기지 않는다. 숨기면 당장은 클릭이 늘지 몰라도
+          신뢰를 잃는다 — 이 사이트가 파는 게 그거다.
+        */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-slate-100 dark:border-slate-800 pt-5 pb-4">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 dark:text-slate-600 shrink-0">
+            광고
+          </span>
+          {REFERRALS.map(r => (
+            <a
+              key={r.id}
+              href={r.href}
+              target="_blank"
+              rel={REFERRAL_REL}
+              className="group inline-flex items-center gap-1.5 rounded-full border border-amber-200 dark:border-amber-900/50 bg-amber-50/60 dark:bg-amber-950/20 px-3 py-1 text-xs font-semibold text-amber-800 dark:text-amber-300 hover:border-amber-400 hover:bg-amber-50 transition-colors"
+            >
+              {r.name} 가입 혜택
+              <span className="font-black">{r.perk}</span>
+              <span className="text-amber-500 group-hover:translate-x-0.5 transition-transform">→</span>
+            </a>
           ))}
         </div>
 

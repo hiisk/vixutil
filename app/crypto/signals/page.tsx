@@ -9,10 +9,12 @@ import { coinByBase } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, MiniPaths, formatVolume } from '@/components/crypto/ui';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
+import { REFERRALS } from '@/lib/referral';
 import PageGlow from '@/components/PageGlow';
 
-const BINANCE_REF = 'https://accounts.binance.com/register?ref=KLLDA01Q';
-const BYBIT_REF = 'https://partner.bybit.com/b/127153';
+// 링크는 lib/referral.ts가 유일한 출처다 — 두 벌로 두면 한쪽만 바뀌는 사고가 난다.
+const BINANCE_REF = REFERRALS.find(r => r.id === 'binance')!.href;
+const BYBIT_REF = REFERRALS.find(r => r.id === 'bybit')!.href;
 
 /** 브랜드 아이콘 — 외부 요청/추적 없이 인라인 SVG로 렌더 */
 function BinanceIcon() {
