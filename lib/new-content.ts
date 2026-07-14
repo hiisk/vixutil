@@ -43,6 +43,10 @@ export const NEW_QUIZ_SLUGS = new Set([
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'wedding-guest',
+  'phone-transfer',
+  'doctor-visit',
+  'language-test',
   'noise-dispute',
   'workplace-harassment',
   'subscription-audit',
