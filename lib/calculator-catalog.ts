@@ -83,6 +83,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/pyeong',              title:'평수 계산기',        desc:'평 ↔ 제곱미터 변환' },
       { href:'/calculator/broker-fee',          title:'중개수수료 계산기',  desc:'거래금액 → 중개보수' },
       { href:'/calculator/jeonwolse',           title:'전월세 전환 계산기', desc:'전세 ↔ 월세 환산' },
+      { href:'/calculator/deposit-conversion',   title:'환산보증금 계산기', desc:'상가 임대차 — 보증금 + 월세×100' },
       { href:'/calculator/acquisition-tax',     title:'취득세 계산기',      desc:'부동산 취득세 계산' },
       { href:'/calculator/property-tax',        title:'재산세 계산기',      desc:'재산세 예상 계산' },
       { href:'/calculator/holding-tax',         title:'보유세 계산기',      desc:'종부세 포함 보유세' },
