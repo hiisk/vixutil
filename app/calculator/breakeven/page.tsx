@@ -44,7 +44,34 @@ export default function BreakevenPage() {
   }
 
   return (
-    <CalcShell path="/calculator/breakeven" title="손익분기점 계산기" description="투자 BEP 가격 · 사업 BEP 판매량 계산">
+    <CalcShell
+      path="/calculator/breakeven"
+      title="손익분기점 계산기"
+      description="투자 BEP 가격 · 사업 BEP 판매량 계산"
+      intro={
+        <>
+          <h2>매수가로 팔면 손해입니다</h2>
+          <p>
+            산 가격 그대로 팔면 본전 같지만 실제로는 <strong>수수료와 세금만큼 손해</strong>입니다.
+            살 때 수수료를 내고, 팔 때 또 수수료에 <strong>증권거래세 0.18%</strong>까지 붙기 때문입니다.
+            그래서 진짜 본전 가격은 매수가보다 조금 위에 있습니다. 이 계산기는 그 지점을 계산합니다.
+          </p>
+          <h2>단타일수록 무겁습니다</h2>
+          <p>
+            거래 한 번에 붙는 비용은 작아 보여도, 사고팔기를 반복하면 <strong>매번</strong> 붙습니다.
+            수익률이 몇 %인 짧은 매매를 자주 하면 비용이 수익을 갉아먹는 구조라, 실제 남는 돈은 화면에
+            보이는 등락폭보다 훨씬 적습니다.
+          </p>
+          <h2>사업 손익분기점</h2>
+          <p>
+            사업 쪽은 <strong>고정비 ÷ (판매가 − 변동비)</strong>로 몇 개를 팔아야 적자를 벗어나는지
+            계산합니다. 괄호 안이 <strong>공헌이익</strong>, 한 개 팔 때마다 고정비를 갚아나가는 몫입니다.
+            공헌이익이 작으면 아무리 많이 팔아도 본전이 안 나오므로, 판매량을 늘리기 전에 가격이나 원가를
+            먼저 봐야 하는 경우가 많습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

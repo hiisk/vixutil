@@ -45,7 +45,39 @@ export default function DividendPage() {
   }
 
   return (
-    <CalcShell path="/calculator/dividend" title="배당금 계산기" description="배당수익률 기준 예상 배당금 및 필요 투자금 계산">
+    <CalcShell
+      path="/calculator/dividend"
+      title="배당금 계산기"
+      description="배당수익률 기준 예상 배당금 및 필요 투자금 계산"
+      intro={
+        <>
+          <h2>배당소득세 15.4%</h2>
+          <p>
+            배당금에는 <strong>15.4%</strong>(소득세 14% + 지방소득세 1.4%)가 원천징수됩니다.
+            그래서 실제로 통장에 들어오는 건 <strong>84.6%</strong>입니다. 배당수익률 4%짜리에 투자해도
+            손에 쥐는 건 3.4% 정도라는 뜻이라, 목표 배당금을 정할 때는 세후로 따져야 합니다.
+          </p>
+          <h2>배당수익률은 주가를 따라 움직입니다</h2>
+          <p>
+            배당수익률은 <strong>배당금 ÷ 주가</strong>라서, 주가가 떨어지면 수익률이 올라갑니다.
+            수익률이 유난히 높은 종목은 배당을 많이 주는 게 아니라 <strong>주가가 많이 빠진 것</strong>일
+            수 있습니다. 그리고 그런 회사는 배당을 줄이거나 없앨 여지도 큽니다.
+          </p>
+          <h2>과거 배당이 미래를 보장하지 않습니다</h2>
+          <p>
+            배당은 <strong>회사가 결정하는 것</strong>이지 약속된 이자가 아닙니다. 실적이 나빠지면 줄거나
+            사라집니다. 이 계산기는 입력한 수익률이 계속 유지된다고 가정하므로, 결과를 확정된 현금흐름으로
+            보면 곤란합니다.
+          </p>
+          <h2>금융소득종합과세</h2>
+          <p>
+            이자와 배당을 합쳐 <strong>연 2,000만원</strong>을 넘으면 다른 소득과 합산해서 누진세율로
+            과세됩니다. 배당으로 생활비를 만들 만큼 규모가 커지면 15.4%로 끝나지 않으므로 미리 감안해야
+            합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
