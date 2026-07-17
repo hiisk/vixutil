@@ -202,6 +202,13 @@ test('체크리스트 항목 id가 같은 체크리스트 안에서 중복되지
   }
 });
 
+test('모든 체크리스트에 항목 설명(note)이 하나 이상 있다', () => {
+  // 항목만 있고 왜 해야 하는지가 없으면 체크박스를 읽고도 판단이 안 된다.
+  // 90개 전부에 note를 채웠으므로 새 체크리스트도 빈 채로 들어오지 않게 막는다.
+  const empty = CHECKLISTS.filter(c => !c.sections.some(s => s.items.some(i => i.note?.trim()))).map(c => c.slug);
+  assert.deepEqual(empty, [], `note가 하나도 없는 체크리스트: ${empty.join(', ')}`);
+});
+
 test('체크리스트에 빈 섹션이나 빈 항목이 없다', () => {
   for (const c of CHECKLISTS) {
     assert.ok(c.sections.length > 0, `${c.slug}: 섹션이 없다`);
