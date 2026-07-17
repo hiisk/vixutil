@@ -83,7 +83,7 @@ export default function SimpleInterestPage() {
   const display = rows ? (showAll ? rows : rows.slice(0, 20)) : [];
 
   return (
-    <CalcShell wide title="단리 계산기" description="원금, 연이율, 기간으로 단리 이자·세후이자·만기금액을 계산합니다">
+    <CalcShell path="/calculator/simple-interest" wide title="단리 계산기" description="원금, 연이율, 기간으로 단리 이자·세후이자·만기금액을 계산합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">예금 조건</p>

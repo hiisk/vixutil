@@ -37,7 +37,7 @@ export default function PropertyTaxPage() {
   }
 
   return (
-    <CalcShell title="재산세 계산기" description="주택 공시가격 기준 재산세 계산">
+    <CalcShell path="/calculator/property-tax" title="재산세 계산기" description="주택 공시가격 기준 재산세 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

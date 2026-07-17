@@ -28,7 +28,7 @@ export default function GasCostPage() {
   }
 
   return (
-    <CalcShell title="주유비 계산기" description="거리·연비·유가 기준 주유비 계산">
+    <CalcShell path="/calculator/gas-cost" title="주유비 계산기" description="거리·연비·유가 기준 주유비 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

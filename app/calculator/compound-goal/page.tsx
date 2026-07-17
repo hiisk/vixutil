@@ -48,7 +48,7 @@ export default function CompoundGoalPage() {
   }
 
   return (
-    <CalcShell title="복리 목표 계산기" description="목표 금액까지 필요한 기간 또는 월 투자액 계산">
+    <CalcShell path="/calculator/compound-goal" title="복리 목표 계산기" description="목표 금액까지 필요한 기간 또는 월 투자액 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

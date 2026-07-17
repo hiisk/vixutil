@@ -31,7 +31,7 @@ export default function PyeongPage() {
     : null;
 
   return (
-    <CalcShell title="평수 계산기" description="평 ↔ 제곱미터(㎡) 즉시 변환">
+    <CalcShell path="/calculator/pyeong" title="평수 계산기" description="평 ↔ 제곱미터(㎡) 즉시 변환">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

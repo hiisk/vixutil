@@ -27,7 +27,8 @@ export default function PensionCreditPage() {
 
   return (
     <CalcShell
-      title="연금저축·IRP 세액공제 계산기"
+      path="/calculator/pension-credit"
+            title="연금저축·IRP 세액공제 계산기"
       description="연금저축·IRP 납입액 → 연말정산 세액공제액. 남은 납입 여력까지 계산합니다."
     >
       <div className="flex flex-col gap-4">

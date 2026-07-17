@@ -43,7 +43,7 @@ export default function ElectricityPage() {
   }
 
   return (
-    <CalcShell title="전기요금 계산기" description="주택용 저압 누진세 기준 전기요금 계산">
+    <CalcShell path="/calculator/electricity" title="전기요금 계산기" description="주택용 저압 누진세 기준 전기요금 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="mb-4">

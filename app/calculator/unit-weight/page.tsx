@@ -38,7 +38,7 @@ export default function UnitWeightPage() {
   }
 
   return (
-    <CalcShell title="무게 단위 변환기" description="mg · g · kg · t · oz · lb · stone · 근 · 돈 · 냥 동시 변환">
+    <CalcShell path="/calculator/unit-weight" title="무게 단위 변환기" description="mg · g · kg · t · oz · lb · stone · 근 · 돈 · 냥 동시 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환할 값 입력</p>

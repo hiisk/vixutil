@@ -45,7 +45,7 @@ export default function ExchangePage() {
   const isSmall = to!=='KRW' && from!=='KRW';
 
   return (
-    <CalcShell title="환율 계산기" description="실시간 환율 API 연동 (ExchangeRate-API)">
+    <CalcShell path="/calculator/exchange" title="환율 계산기" description="실시간 환율 API 연동 (ExchangeRate-API)">
       <div className="flex flex-col gap-4">
         {loading && (
           <Card className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">

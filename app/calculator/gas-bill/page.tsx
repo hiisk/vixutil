@@ -25,7 +25,7 @@ export default function GasBillPage() {
   }
 
   return (
-    <CalcShell title="가스요금 계산기" description="도시가스 주택용 요금 계산 (서울 기준)">
+    <CalcShell path="/calculator/gas-bill" title="가스요금 계산기" description="도시가스 주택용 요금 계산 (서울 기준)">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

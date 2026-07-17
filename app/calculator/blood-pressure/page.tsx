@@ -122,7 +122,7 @@ export default function BloodPressurePage() {
   const diaPct = result ? Math.min(100, Math.max(0, (result.diastolic - 40) / (130 - 40) * 100)) : 0;
 
   return (
-    <CalcShell title="혈압 체크기" description="WHO 기준으로 수축기·이완기 혈압 등급을 판정합니다">
+    <CalcShell path="/calculator/blood-pressure" title="혈압 체크기" description="WHO 기준으로 수축기·이완기 혈압 등급을 판정합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 입력</p>

@@ -20,7 +20,7 @@ export default function SalaryPage() {
   }
 
   return (
-    <CalcShell title="실수령액 계산기" description="2026년 4대보험 요율 · 근로소득세법 기준" faq={CALC_FAQ.salary}>
+    <CalcShell path="/calculator/salary" title="실수령액 계산기" description="2026년 4대보험 요율 · 근로소득세법 기준" faq={CALC_FAQ.salary}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

@@ -97,7 +97,7 @@ export default function RetirementPage() {
   }
 
   return (
-    <CalcShell title="은퇴자금 계산기" description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산">
+    <CalcShell path="/calculator/retirement" title="은퇴자금 계산기" description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력 정보</p>

@@ -29,7 +29,7 @@ export default function StandardWagePage() {
   }
 
   return (
-    <CalcShell title="통상임금 계산기" description="기본급 + 고정수당 기준 통상임금 · 통상시급 계산">
+    <CalcShell path="/calculator/standard-wage" title="통상임금 계산기" description="기본급 + 고정수당 기준 통상임금 · 통상시급 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

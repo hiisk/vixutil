@@ -32,7 +32,7 @@ export default function HashPage() {
   }, [input, algo, uppercase]);
 
   return (
-    <CalcShell title="SHA256 / SHA512 해시 생성기" description="Web Crypto API 기반 해시 생성" wide>
+    <CalcShell path="/calculator/dev/hash" title="SHA256 / SHA512 해시 생성기" description="Web Crypto API 기반 해시 생성" wide>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

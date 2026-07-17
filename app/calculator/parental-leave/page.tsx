@@ -101,7 +101,8 @@ export default function ParentalLeavePage() {
 
   return (
     <CalcShell
-      title="육아휴직 급여 계산기"
+      path="/calculator/parental-leave"
+            title="육아휴직 급여 계산기"
       description="고용보험 육아휴직 급여 예상 수령액 · 2025년 기준"
       faq={CALC_FAQ['parental-leave']}
     >

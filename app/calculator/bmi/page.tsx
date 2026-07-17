@@ -39,7 +39,7 @@ export default function BmiPage() {
   const bmiPct = result ? Math.min(100, Math.max(0, (result.bmi - BMI_SCALE.min) / (BMI_SCALE.max - BMI_SCALE.min) * 100)) : 0;
 
   return (
-    <CalcShell title="BMI 계산기" description="대한비만학회 2022 기준 체질량지수 · 표준체중 · 정상 체중 범위">
+    <CalcShell path="/calculator/bmi" title="BMI 계산기" description="대한비만학회 2022 기준 체질량지수 · 표준체중 · 정상 체중 범위">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">신체 정보</p>

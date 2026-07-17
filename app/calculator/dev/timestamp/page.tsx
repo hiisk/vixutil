@@ -52,7 +52,7 @@ export default function TimestampPage() {
   })();
 
   return (
-    <CalcShell title="Unix Timestamp 변환기" description="Unix Timestamp ↔ 날짜·시간 변환" wide>
+    <CalcShell path="/calculator/dev/timestamp" title="Unix Timestamp 변환기" description="Unix Timestamp ↔ 날짜·시간 변환" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">현재 시각</p>

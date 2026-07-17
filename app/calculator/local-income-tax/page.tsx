@@ -38,7 +38,7 @@ export default function LocalIncomeTaxPage() {
   }
 
   return (
-    <CalcShell title="지방소득세 계산기" description="소득세의 10% — 지방소득세 계산">
+    <CalcShell path="/calculator/local-income-tax" title="지방소득세 계산기" description="소득세의 10% — 지방소득세 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

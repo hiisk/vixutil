@@ -52,7 +52,7 @@ export default function AvgPricePage() {
   }
 
   return (
-    <CalcShell title="평균단가 계산기" description="여러 번 매수 시 평균 매입단가 계산">
+    <CalcShell path="/calculator/avg-price" title="평균단가 계산기" description="여러 번 매수 시 평균 매입단가 계산">
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader title="매수 내역" />

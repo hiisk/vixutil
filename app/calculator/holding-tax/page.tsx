@@ -62,7 +62,7 @@ export default function HoldingTaxPage() {
   }
 
   return (
-    <CalcShell title="보유세 계산기" description="재산세 + 종합부동산세 합계 보유세 계산">
+    <CalcShell path="/calculator/holding-tax" title="보유세 계산기" description="재산세 + 종합부동산세 합계 보유세 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

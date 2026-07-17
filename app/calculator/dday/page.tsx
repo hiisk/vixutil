@@ -34,7 +34,7 @@ export default function DdayPage() {
   }
 
   return (
-    <CalcShell title="D-day 계산기" description="목표일까지 D-day · 평일 수 · 두 날짜 간격">
+    <CalcShell path="/calculator/dday" title="D-day 계산기" description="목표일까지 D-day · 평일 수 · 두 날짜 간격">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

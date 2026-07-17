@@ -44,7 +44,8 @@ export default function WeddingGiftPage() {
 
   return (
     <CalcShell
-      title="축의금 계산기"
+      path="/calculator/wedding-gift"
+            title="축의금 계산기"
       description="관계와 참석 여부에 따라 통상적인 축의금 금액대를 참고용으로 안내합니다"
       faq={CALC_FAQ['wedding-gift']}
       intro={

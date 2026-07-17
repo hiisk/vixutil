@@ -38,7 +38,7 @@ export default function MaxLoanPage() {
   }
 
   return (
-    <CalcShell title="대출 가능 금액 계산기" description="소득 기준 DTI 대출 가능 최대 금액">
+    <CalcShell path="/calculator/max-loan" title="대출 가능 금액 계산기" description="소득 기준 DTI 대출 가능 최대 금액">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

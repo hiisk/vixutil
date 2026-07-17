@@ -51,7 +51,8 @@ export default function LoanPrepaymentFeePage() {
 
   return (
     <CalcShell
-      title="중도상환수수료 계산기"
+      path="/calculator/loan-prepayment-fee"
+            title="중도상환수수료 계산기"
       description="대출을 만기 전에 갚을 때 발생하는 중도상환수수료를 계산합니다"
       faq={CALC_FAQ['loan-prepayment-fee']}
       intro={

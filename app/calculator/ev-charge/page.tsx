@@ -37,7 +37,7 @@ export default function EvChargePage() {
   }
 
   return (
-    <CalcShell title="전기차 충전비 계산기" description="배터리 용량·충전율 기준 충전 비용 및 주행 가능 거리">
+    <CalcShell path="/calculator/ev-charge" title="전기차 충전비 계산기" description="배터리 용량·충전율 기준 충전 비용 및 주행 가능 거리">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

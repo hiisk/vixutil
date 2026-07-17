@@ -59,7 +59,7 @@ export default function GiftTaxPage() {
   }
 
   return (
-    <CalcShell title="증여세 간편 계산기" description="증여금액·관계 기준 예상 증여세 계산">
+    <CalcShell path="/calculator/gift-tax" title="증여세 간편 계산기" description="증여금액·관계 기준 예상 증여세 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

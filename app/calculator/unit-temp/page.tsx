@@ -76,7 +76,7 @@ export default function UnitTempPage() {
     : null;
 
   return (
-    <CalcShell title="온도 변환기" description="섭씨(°C) · 화씨(°F) · 켈빈(K) · 랭킨(°R) 즉시 변환">
+    <CalcShell path="/calculator/unit-temp" title="온도 변환기" description="섭씨(°C) · 화씨(°F) · 켈빈(K) · 랭킨(°R) 즉시 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">온도 입력</p>

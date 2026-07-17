@@ -41,7 +41,7 @@ export default function VatPage() {
   }
 
   return (
-    <CalcShell title="부가세 계산기" description="공급가액 ↔ 부가세 ↔ 공급대가 계산">
+    <CalcShell path="/calculator/vat" title="부가세 계산기" description="공급가액 ↔ 부가세 ↔ 공급대가 계산">
       <div className="flex flex-col gap-4">
         <TabBar<Mode>
           options={[

@@ -43,7 +43,7 @@ export default function LtvPage() {
   }
 
   return (
-    <CalcShell title="LTV 계산기" description="담보인정비율 — 지역·주택수 기준 LTV 한도 확인">
+    <CalcShell path="/calculator/ltv" title="LTV 계산기" description="담보인정비율 — 지역·주택수 기준 LTV 한도 확인">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

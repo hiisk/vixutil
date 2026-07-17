@@ -32,7 +32,7 @@ export default function RegexPage() {
   })();
 
   return (
-    <CalcShell title="Regex Tester" description="정규식 실시간 테스트 및 매치 확인" wide>
+    <CalcShell path="/calculator/dev/regex" title="Regex Tester" description="정규식 실시간 테스트 및 매치 확인" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <Label>정규식 패턴 (/ 없이 입력)</Label>

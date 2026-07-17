@@ -33,7 +33,7 @@ export default function CarInstallmentPage() {
   }
 
   return (
-    <CalcShell title="자동차 할부 계산기" description="차량 가격·금리·기간 기준 월 할부금 계산">
+    <CalcShell path="/calculator/car-installment" title="자동차 할부 계산기" description="차량 가격·금리·기간 기준 월 할부금 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

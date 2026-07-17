@@ -50,7 +50,7 @@ export default function DiscountPage() {
   const QUICK_RATES = [5, 10, 15, 20, 25, 30, 50];
 
   return (
-    <CalcShell title="할인 계산기" description="할인가 계산·할인율 계산·원가 역산 세 가지 모드를 지원합니다">
+    <CalcShell path="/calculator/discount" title="할인 계산기" description="할인가 계산·할인율 계산·원가 역산 세 가지 모드를 지원합니다">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

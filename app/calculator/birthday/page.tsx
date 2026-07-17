@@ -52,7 +52,7 @@ export default function BirthdayPage() {
   })();
 
   return (
-    <CalcShell title="생년월일 계산기" description="띠·별자리·요일·나이 정보 계산">
+    <CalcShell path="/calculator/birthday" title="생년월일 계산기" description="띠·별자리·요일·나이 정보 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <Label>생년월일</Label>

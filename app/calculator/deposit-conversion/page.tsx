@@ -32,7 +32,8 @@ export default function DepositConversionPage() {
 
   return (
     <CalcShell
-      title="환산보증금 계산기"
+      path="/calculator/deposit-conversion"
+            title="환산보증금 계산기"
       description="상가 임대차의 환산보증금을 계산하고 지역별 기준금액과 비교합니다."
     >
       <div className="flex flex-col gap-4">

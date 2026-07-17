@@ -29,7 +29,7 @@ export default function ToHourlyPage() {
   }
 
   return (
-    <CalcShell title="시급 계산기" description="월급을 시급으로 환산">
+    <CalcShell path="/calculator/to-hourly" title="시급 계산기" description="월급을 시급으로 환산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

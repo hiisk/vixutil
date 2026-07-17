@@ -42,7 +42,7 @@ export default function FreelancePage() {
   }
 
   return (
-    <CalcShell title="프리랜서 세금 계산기" description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정" faq={CALC_FAQ.freelance}>
+    <CalcShell path="/calculator/freelance" title="프리랜서 세금 계산기" description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정" faq={CALC_FAQ.freelance}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">수입 정보</p>

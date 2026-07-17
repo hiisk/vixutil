@@ -47,7 +47,7 @@ export default function SqlPage() {
   }
 
   return (
-    <CalcShell title="SQL Formatter" description="SQL 키워드 기반 정렬·들여쓰기" wide>
+    <CalcShell path="/calculator/dev/sql" title="SQL Formatter" description="SQL 키워드 기반 정렬·들여쓰기" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">

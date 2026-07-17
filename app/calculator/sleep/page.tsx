@@ -44,7 +44,7 @@ export default function SleepPage() {
   })();
 
   return (
-    <CalcShell title="수면 계산기" description="90분 수면 사이클 기준 최적 취침·기상 시간">
+    <CalcShell path="/calculator/sleep" title="수면 계산기" description="90분 수면 사이클 기준 최적 취침·기상 시간">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

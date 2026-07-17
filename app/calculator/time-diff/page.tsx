@@ -66,7 +66,7 @@ export default function TimeDiffPage() {
   }
 
   return (
-    <CalcShell title="시간 계산기" description="두 시각의 차이를 계산하거나 특정 시각에서 시간을 더하고 뺍니다">
+    <CalcShell path="/calculator/time-diff" title="시간 계산기" description="두 시각의 차이를 계산하거나 특정 시각에서 시간을 더하고 뺍니다">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

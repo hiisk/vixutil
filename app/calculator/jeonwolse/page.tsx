@@ -33,7 +33,7 @@ export default function JeonwolsePage() {
   }
 
   return (
-    <CalcShell title="전월세 전환 계산기" description="전세 ↔ 월세 금액 환산">
+    <CalcShell path="/calculator/jeonwolse" title="전월세 전환 계산기" description="전세 ↔ 월세 금액 환산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

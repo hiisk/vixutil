@@ -82,7 +82,8 @@ export default function CaffeinePage() {
 
   return (
     <CalcShell
-      title="카페인 계산기"
+      path="/calculator/caffeine"
+            title="카페인 계산기"
       description="섭취한 카페인이 시간에 따라 체내에 얼마나 남아있는지 계산합니다"
       faq={CALC_FAQ['caffeine']}
       intro={

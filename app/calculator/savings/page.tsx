@@ -26,7 +26,7 @@ export default function SavingsPage() {
   }
 
   return (
-    <CalcShell title="적금 계산기" description="월 납입금·금리·기간 기준 만기금액 계산">
+    <CalcShell path="/calculator/savings" title="적금 계산기" description="월 납입금·금리·기간 기준 만기금액 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

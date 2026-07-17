@@ -68,7 +68,7 @@ export default function ComprehensiveTaxPage() {
   }
 
   return (
-    <CalcShell title="종합소득세 계산기" description="2024년 세율 기준 예상 종합소득세 계산">
+    <CalcShell path="/calculator/comprehensive-tax" title="종합소득세 계산기" description="2024년 세율 기준 예상 종합소득세 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

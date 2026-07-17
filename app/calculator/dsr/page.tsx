@@ -39,7 +39,7 @@ export default function DsrPage() {
   }
 
   return (
-    <CalcShell title="DSR 계산기" description="총부채원리금상환비율 — 대출 상환 능력 비율">
+    <CalcShell path="/calculator/dsr" title="DSR 계산기" description="총부채원리금상환비율 — 대출 상환 능력 비율">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="mb-4">

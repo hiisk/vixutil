@@ -28,7 +28,7 @@ export default function OvertimePage() {
   }
 
   return (
-    <CalcShell title="야근수당 계산기" description="통상시급 기준 연장·야간·휴일 수당 계산">
+    <CalcShell path="/calculator/overtime" title="야근수당 계산기" description="통상시급 기준 연장·야간·휴일 수당 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

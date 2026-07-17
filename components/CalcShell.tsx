@@ -6,7 +6,7 @@ import RelatedCalcs from './RelatedCalcs';
 import CrossLinks from './CrossLinks';
 import PageGlow from './PageGlow';
 import CalcFaq from './CalcFaq';
-import JsonLd, { breadcrumbJsonLd } from './JsonLd';
+import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
 
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
@@ -17,6 +17,7 @@ export function makeMetadata(title: string, description: string): Metadata {
 export default function CalcShell({
   title,
   description,
+  path,
   wide,
   faq,
   intro,
@@ -24,6 +25,13 @@ export default function CalcShell({
 }: {
   title: string;
   description: string;
+  /**
+   * 이 계산기의 경로(예: '/calculator/salary').
+   * 없으면 breadcrumb의 마지막 항목이 자기 URL을 못 가리켜 구조화 데이터가
+   * 무효가 되고, WebApplication도 못 낸다. usePathname은 클라이언트 훅이라
+   * 서버 컴포넌트인 여기서는 쓸 수 없어 prop으로 받는다.
+   */
+  path?: string;
   wide?: boolean;
   /** 페이지 하단 자주 묻는 질문 — 표시 + FAQPage 구조화 데이터로 함께 출력 */
   faq?: FaqItem[];
@@ -46,9 +54,11 @@ export default function CalcShell({
           data={breadcrumbJsonLd([
             { name: '홈', path: '/' },
             { name: '계산기', path: '/calculator' },
-            { name: title, path: '/calculator' },
+            { name: title, path: path ?? '/calculator' },
           ])}
         />
+        {/* 계산기는 무료 웹 도구다 — WebApplication으로 알리면 검색에서 도구로 인식된다 */}
+        {path && <JsonLd data={webAppJsonLd(title, description, path)} />}
         {/* 상단 바 */}
         <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400" />
 

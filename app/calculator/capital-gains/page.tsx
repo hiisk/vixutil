@@ -64,7 +64,7 @@ export default function CapitalGainsPage() {
   }
 
   return (
-    <CalcShell title="양도소득세 간편 계산기" description="취득가·양도가·보유기간 기준 예상 양도소득세">
+    <CalcShell path="/calculator/capital-gains" title="양도소득세 간편 계산기" description="취득가·양도가·보유기간 기준 예상 양도소득세">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -39,7 +39,7 @@ export default function ParttimePage() {
   }
 
   return (
-    <CalcShell title="알바 급여 계산기" description="시급·근무시간 기준 주급·월급 계산">
+    <CalcShell path="/calculator/parttime" title="알바 급여 계산기" description="시급·근무시간 기준 주급·월급 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

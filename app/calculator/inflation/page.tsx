@@ -77,7 +77,7 @@ export default function InflationPage() {
   const QUICK_YEARS = ['5', '10', '20', '30'];
 
   return (
-    <CalcShell wide title="물가상승률 계산기" description="인플레이션에 따른 미래 필요 금액과 실질 구매력 변화를 계산합니다">
+    <CalcShell path="/calculator/inflation" wide title="물가상승률 계산기" description="인플레이션에 따른 미래 필요 금액과 실질 구매력 변화를 계산합니다">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

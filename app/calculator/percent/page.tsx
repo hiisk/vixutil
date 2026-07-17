@@ -34,7 +34,7 @@ export default function PercentPage() {
   })();
 
   return (
-    <CalcShell title="퍼센트 계산기" description="비율·금액·증감율 즉시 계산">
+    <CalcShell path="/calculator/percent" title="퍼센트 계산기" description="비율·금액·증감율 즉시 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

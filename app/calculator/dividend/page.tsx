@@ -45,7 +45,7 @@ export default function DividendPage() {
   }
 
   return (
-    <CalcShell title="배당금 계산기" description="배당수익률 기준 예상 배당금 및 필요 투자금 계산">
+    <CalcShell path="/calculator/dividend" title="배당금 계산기" description="배당수익률 기준 예상 배당금 및 필요 투자금 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

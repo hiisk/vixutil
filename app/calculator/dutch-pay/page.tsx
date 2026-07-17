@@ -73,7 +73,7 @@ export default function DutchPayPage() {
   }
 
   return (
-    <CalcShell title="더치페이 계산기" description="총 금액과 인원수, 추가 항목을 입력하면 각자 부담할 금액을 계산합니다">
+    <CalcShell path="/calculator/dutch-pay" title="더치페이 계산기" description="총 금액과 인원수, 추가 항목을 입력하면 각자 부담할 금액을 계산합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

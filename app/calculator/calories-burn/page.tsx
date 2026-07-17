@@ -67,7 +67,7 @@ export default function CaloriesBurnPage() {
   }
 
   return (
-    <CalcShell title="운동 칼로리 소모 계산기" description="MET 기반 운동별 칼로리 소모 · 지방 소모량 · 음식 비교">
+    <CalcShell path="/calculator/calories-burn" title="운동 칼로리 소모 계산기" description="MET 기반 운동별 칼로리 소모 · 지방 소모량 · 음식 비교">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">운동 정보 입력</p>

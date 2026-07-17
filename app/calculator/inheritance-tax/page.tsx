@@ -45,7 +45,7 @@ export default function InheritanceTaxPage() {
   }
 
   return (
-    <CalcShell title="상속세 간편 계산기" description="상속재산 기준 예상 상속세 계산">
+    <CalcShell path="/calculator/inheritance-tax" title="상속세 간편 계산기" description="상속재산 기준 예상 상속세 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -19,7 +19,7 @@ export default function WaterPage() {
   }
 
   return (
-    <CalcShell title="물 섭취량 계산기" description="체중·활동 수준 기준 하루 권장 수분량">
+    <CalcShell path="/calculator/water" title="물 섭취량 계산기" description="체중·활동 수준 기준 하루 권장 수분량">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

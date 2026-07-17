@@ -58,7 +58,7 @@ export default function AnnualLeavePayPage() {
   }));
 
   return (
-    <CalcShell title="연차수당 계산기" description="근속연수·미사용 연차 → 연차수당">
+    <CalcShell path="/calculator/annual-leave-pay" title="연차수당 계산기" description="근속연수·미사용 연차 → 연차수당">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">통상임금 입력 방식</p>

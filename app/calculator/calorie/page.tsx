@@ -31,7 +31,7 @@ export default function CaloriePage() {
   }
 
   return (
-    <CalcShell title="칼로리 계산기" description="활동 수준 기준 하루 권장 칼로리 계산">
+    <CalcShell path="/calculator/calorie" title="칼로리 계산기" description="활동 수준 기준 하루 권장 칼로리 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

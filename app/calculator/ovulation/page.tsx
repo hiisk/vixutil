@@ -36,7 +36,7 @@ export default function OvulationPage() {
   }
 
   return (
-    <CalcShell title="배란일 계산기" description="마지막 생리일 기준 배란일·가임기 계산">
+    <CalcShell path="/calculator/ovulation" title="배란일 계산기" description="마지막 생리일 기준 배란일·가임기 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

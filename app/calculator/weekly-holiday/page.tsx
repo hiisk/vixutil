@@ -44,7 +44,7 @@ export default function WeeklyHolidayPage() {
   }
 
   return (
-    <CalcShell title="주휴수당 계산기" description="시급·주 근무시간 → 주휴수당 및 월 환산 급여">
+    <CalcShell path="/calculator/weekly-holiday" title="주휴수당 계산기" description="시급·주 근무시간 → 주휴수당 및 월 환산 급여">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">근무 조건</p>

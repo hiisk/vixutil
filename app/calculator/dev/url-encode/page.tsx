@@ -35,7 +35,7 @@ export default function UrlEncodePage() {
   }, [input, mode]);
 
   return (
-    <CalcShell title="URL 인코딩 변환기" description="URL 인코딩 · 디코딩" wide>
+    <CalcShell path="/calculator/dev/url-encode" title="URL 인코딩 변환기" description="URL 인코딩 · 디코딩" wide>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[{ value: 'encode', label: '인코딩' }, { value: 'decode', label: '디코딩' }]}

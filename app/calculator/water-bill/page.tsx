@@ -32,7 +32,7 @@ export default function WaterBillPage() {
   }
 
   return (
-    <CalcShell title="수도요금 계산기" description="서울시 상수도 기준 수도·하수도요금 계산">
+    <CalcShell path="/calculator/water-bill" title="수도요금 계산기" description="서울시 상수도 기준 수도·하수도요금 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

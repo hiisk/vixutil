@@ -31,7 +31,7 @@ export default function MinimumWagePage() {
   })();
 
   return (
-    <CalcShell title="최저시급 월급 계산기" description="2026년 최저시급 10,320원 기준" faq={CALC_FAQ['minimum-wage']}>
+    <CalcShell path="/calculator/minimum-wage" title="최저시급 월급 계산기" description="2026년 최저시급 10,320원 기준" faq={CALC_FAQ['minimum-wage']}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

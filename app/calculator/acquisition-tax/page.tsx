@@ -54,7 +54,7 @@ export default function AcquisitionTaxPage() {
   }
 
   return (
-    <CalcShell title="취득세 계산기" description="부동산 취득세 · 농어촌특별세 · 지방교육세 계산">
+    <CalcShell path="/calculator/acquisition-tax" title="취득세 계산기" description="부동산 취득세 · 농어촌특별세 · 지방교육세 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

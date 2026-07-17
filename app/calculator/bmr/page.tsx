@@ -24,7 +24,7 @@ export default function BmrPage() {
   }
 
   return (
-    <CalcShell title="기초대사량 계산기" description="Harris-Benedict · Mifflin-St Jeor 공식 비교">
+    <CalcShell path="/calculator/bmr" title="기초대사량 계산기" description="Harris-Benedict · Mifflin-St Jeor 공식 비교">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

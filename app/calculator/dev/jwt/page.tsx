@@ -56,7 +56,7 @@ export default function JwtPage() {
     : null;
 
   return (
-    <CalcShell title="JWT Decoder" description="JWT 토큰 파싱 및 Payload 확인" wide>
+    <CalcShell path="/calculator/dev/jwt" title="JWT Decoder" description="JWT 토큰 파싱 및 Payload 확인" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">JWT 토큰</p>

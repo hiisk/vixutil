@@ -23,7 +23,7 @@ export default function FuelEfficiencyPage() {
   }
 
   return (
-    <CalcShell title="연비 계산기" description="주행거리·연료량 → 연비 / 연비·잔여연료 → 주행 가능 거리">
+    <CalcShell path="/calculator/fuel-efficiency" title="연비 계산기" description="주행거리·연료량 → 연비 / 연비·잔여연료 → 주행 가능 거리">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

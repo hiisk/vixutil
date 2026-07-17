@@ -42,7 +42,7 @@ export default function Base64Page() {
   })();
 
   return (
-    <CalcShell title="Base64 변환기" description="Base64 인코딩 · 디코딩" wide>
+    <CalcShell path="/calculator/dev/base64" title="Base64 변환기" description="Base64 인코딩 · 디코딩" wide>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

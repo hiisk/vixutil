@@ -23,7 +23,7 @@ export default function ToAnnualPage() {
   }
 
   return (
-    <CalcShell title="연봉 계산기" description="월급 → 연봉 환산">
+    <CalcShell path="/calculator/to-annual" title="연봉 계산기" description="월급 → 연봉 환산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -35,7 +35,7 @@ export default function WordCountPage() {
   const stats = useMemo(() => countStats(text), [text]);
 
   return (
-    <CalcShell title="글자수·단어수 카운터" description="전체 글자수 · 공백 제외 · 단어수 · 문장수 · 바이트 수 실시간 카운트" wide>
+    <CalcShell path="/calculator/dev/word-count" title="글자수·단어수 카운터" description="전체 글자수 · 공백 제외 · 단어수 · 문장수 · 바이트 수 실시간 카운트" wide>
       <div className="flex flex-col gap-4">
         {/* 통계 그리드 */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

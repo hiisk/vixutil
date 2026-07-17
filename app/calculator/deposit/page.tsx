@@ -33,7 +33,7 @@ export default function DepositPage() {
   }
 
   return (
-    <CalcShell title="예금 이자 계산기" description="단리·복리 예금 이자 및 세후 수령액 계산">
+    <CalcShell path="/calculator/deposit" title="예금 이자 계산기" description="단리·복리 예금 이자 및 세후 수령액 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

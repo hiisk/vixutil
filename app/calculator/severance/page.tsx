@@ -132,7 +132,8 @@ export default function SeverancePage() {
 
   return (
     <CalcShell
-      title="퇴직금 계산기"
+      path="/calculator/severance"
+            title="퇴직금 계산기"
       description="근로자퇴직급여 보장법 기준 · 평균임금 + 상여금 + 연차수당 반영"
       faq={CALC_FAQ.severance}
     >

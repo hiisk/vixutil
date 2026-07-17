@@ -98,7 +98,7 @@ export default function ColorPage() {
   const inputCls = 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full';
 
   return (
-    <CalcShell title="Color Converter" description="HEX ↔ RGB ↔ HSL 색상 변환" wide>
+    <CalcShell path="/calculator/dev/color" title="Color Converter" description="HEX ↔ RGB ↔ HSL 색상 변환" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-4 mb-4">

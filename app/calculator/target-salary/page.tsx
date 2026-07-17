@@ -27,7 +27,8 @@ export default function TargetSalaryPage() {
 
   return (
     <CalcShell
-      title="목표 실수령액 → 연봉 계산기"
+      path="/calculator/target-salary"
+            title="목표 실수령액 → 연봉 계산기"
       description="월 실수령액을 넣으면 필요한 연봉을 역산합니다. 이직·연봉 협상 때 기준이 됩니다."
     >
       <div className="flex flex-col gap-4">

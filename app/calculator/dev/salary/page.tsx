@@ -65,7 +65,7 @@ export default function DevSalaryPage() {
   }
 
   return (
-    <CalcShell title="개발자 연봉 계산기" description="연봉 분석 · 스톡옵션 평가 계산">
+    <CalcShell path="/calculator/dev/salary" title="개발자 연봉 계산기" description="연봉 분석 · 스톡옵션 평가 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

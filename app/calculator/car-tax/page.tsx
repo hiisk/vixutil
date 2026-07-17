@@ -49,7 +49,7 @@ export default function CarTaxPage() {
   }
 
   return (
-    <CalcShell title="자동차세 계산기" description="2024년 배기량 기준 자동차세 계산">
+    <CalcShell path="/calculator/car-tax" title="자동차세 계산기" description="2024년 배기량 기준 자동차세 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

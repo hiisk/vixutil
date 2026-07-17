@@ -37,7 +37,8 @@ export default function RefinancePage() {
 
   return (
     <CalcShell
-      title="대출 갈아타기 계산기"
+      path="/calculator/refinance"
+            title="대출 갈아타기 계산기"
       description="중도상환수수료까지 넣고 대환이 정말 이득인지, 몇 달 만에 본전인지 계산합니다."
     >
       <div className="flex flex-col gap-4">

@@ -39,7 +39,7 @@ export default function RoiPage() {
   }
 
   return (
-    <CalcShell title="투자 수익률 계산기" description="매수·매도 금액 기준 수익률 및 연환산 수익률(CAGR)">
+    <CalcShell path="/calculator/roi" title="투자 수익률 계산기" description="매수·매도 금액 기준 수익률 및 연환산 수익률(CAGR)">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

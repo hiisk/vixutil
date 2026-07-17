@@ -94,7 +94,7 @@ export default function PregnancyPage() {
     : 0;
 
   return (
-    <CalcShell title="임신 예정일 계산기" description="네겔레 법칙 기반 출산예정일 · 임신주수 · 검사 일정 안내">
+    <CalcShell path="/calculator/pregnancy" title="임신 예정일 계산기" description="네겔레 법칙 기반 출산예정일 · 임신주수 · 검사 일정 안내">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">정보 입력</p>

@@ -78,7 +78,7 @@ export default function BusinessIncomePage() {
   }
 
   return (
-    <CalcShell title="사업소득세 계산기" description="개인사업자 연소득 → 예상 사업소득세">
+    <CalcShell path="/calculator/business-income" title="사업소득세 계산기" description="개인사업자 연소득 → 예상 사업소득세">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

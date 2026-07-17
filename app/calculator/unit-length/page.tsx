@@ -39,7 +39,7 @@ export default function UnitLengthPage() {
   }
 
   return (
-    <CalcShell title="길이 단위 변환기" description="mm · cm · m · km · 인치 · 피트 · 야드 · 마일 · 해리 동시 변환">
+    <CalcShell path="/calculator/unit-length" title="길이 단위 변환기" description="mm · cm · m · km · 인치 · 피트 · 야드 · 마일 · 해리 동시 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환할 값 입력</p>

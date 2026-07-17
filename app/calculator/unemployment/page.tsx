@@ -73,7 +73,8 @@ export default function UnemploymentPage() {
 
   return (
     <CalcShell
-      title="실업급여 계산기"
+      path="/calculator/unemployment"
+            title="실업급여 계산기"
       description="고용보험 구직급여 예상 수령액 · 2025년 기준"
       faq={CALC_FAQ.unemployment}
     >

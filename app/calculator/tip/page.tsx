@@ -48,7 +48,7 @@ export default function TipPage() {
   }
 
   return (
-    <CalcShell title="팁 계산기" description="금액과 팁 비율, 인원수를 입력하면 1인당 금액을 자동 계산합니다">
+    <CalcShell path="/calculator/tip" title="팁 계산기" description="금액과 팁 비율, 인원수를 입력하면 1인당 금액을 자동 계산합니다">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">결제 정보</p>

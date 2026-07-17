@@ -34,7 +34,7 @@ export default function AgePage() {
   })();
 
   return (
-    <CalcShell title="나이 계산기" description="만 나이 · 한국 나이 · 연 나이 계산">
+    <CalcShell path="/calculator/age" title="나이 계산기" description="만 나이 · 한국 나이 · 연 나이 계산">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -43,7 +43,8 @@ export default function AnnualLeavePage() {
 
   return (
     <CalcShell
-      title="연차 계산기"
+      path="/calculator/annual-leave"
+            title="연차 계산기"
       description="입사일을 넣으면 근로기준법 기준 연차 발생일수를 계산합니다."
     >
       <div className="flex flex-col gap-4">

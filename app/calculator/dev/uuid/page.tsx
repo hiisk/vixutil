@@ -39,7 +39,7 @@ export default function UuidPage() {
   }
 
   return (
-    <CalcShell title="UUID Generator" description="v4 UUID 랜덤 생성" wide>
+    <CalcShell path="/calculator/dev/uuid" title="UUID Generator" description="v4 UUID 랜덤 생성" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <div className="flex gap-3 mb-3">

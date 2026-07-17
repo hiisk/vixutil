@@ -110,7 +110,7 @@ export default function GpaPage() {
   const maxGpa = system === '4.5' ? 4.5 : 4.3;
 
   return (
-    <CalcShell wide title="학점 GPA 계산기" description="과목별 성적을 입력하면 GPA를 계산합니다 · P/F 과목은 학점에 포함, GPA 산정 제외">
+    <CalcShell path="/calculator/gpa" wide title="학점 GPA 계산기" description="과목별 성적을 입력하면 GPA를 계산합니다 · P/F 과목은 학점에 포함, GPA 산정 제외">
       <div className="flex flex-col gap-4">
 
         {/* 성적 체계 */}

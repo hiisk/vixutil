@@ -50,7 +50,7 @@ export default function LoanPage() {
   const display = rows ? (showAll ? rows : rows.slice(0,24)) : [];
 
   return (
-    <CalcShell wide title="대출 이자 계산기" description="원리금균등·원금균등 비교 + 월별 상환 스케줄" faq={CALC_FAQ.loan}>
+    <CalcShell path="/calculator/loan" wide title="대출 이자 계산기" description="원리금균등·원금균등 비교 + 월별 상환 스케줄" faq={CALC_FAQ.loan}>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

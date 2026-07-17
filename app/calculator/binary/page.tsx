@@ -75,7 +75,7 @@ export default function BinaryPage() {
     : [];
 
   return (
-    <CalcShell title="진수 변환기" description="2진수 · 8진수 · 10진수 · 16진수 상호 변환">
+    <CalcShell path="/calculator/binary" title="진수 변환기" description="2진수 · 8진수 · 10진수 · 16진수 상호 변환">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력</p>

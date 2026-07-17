@@ -33,7 +33,7 @@ export default function SubscriptionScorePage() {
                   { label: '경쟁력 낮음', color: 'text-slate-500 dark:text-slate-400', bg: 'bg-slate-50 dark:bg-slate-950' };
 
   return (
-    <CalcShell title="청약 가점 계산기" description="무주택기간 · 부양가족 · 청약통장 가입기간 기준">
+    <CalcShell path="/calculator/subscription-score" title="청약 가점 계산기" description="무주택기간 · 부양가족 · 청약통장 가입기간 기준">
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-5">

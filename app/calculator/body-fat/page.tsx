@@ -89,7 +89,7 @@ export default function BodyFatPage() {
   }
 
   return (
-    <CalcShell title="체지방률 계산기" description="해군 공식 · BMI 추정법 · ACSM 기준 등급 분석">
+    <CalcShell path="/calculator/body-fat" title="체지방률 계산기" description="해군 공식 · BMI 추정법 · ACSM 기준 등급 분석">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

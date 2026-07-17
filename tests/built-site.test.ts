@@ -157,6 +157,37 @@ test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { ski
   assert.deepEqual(problems, [], `canonical 문제:\n  ${problems.slice(0, 10).join('\n  ')}`);
 });
 
+test('breadcrumb의 마지막 항목이 자기 URL을 가리킨다', { skip: built ? false : 'out/ 없음' }, () => {
+  // 마지막 항목이 자기 경로가 아니면(계산기 97개가 /calculator를 가리키고 있었다)
+  // 2번과 3번 항목의 URL이 같아져 구글이 breadcrumb을 무효로 볼 수 있다.
+  const BASE = 'https://vixutil.com';
+  const bad: string[] = [];
+
+  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+    const html = readFileSync(f, 'utf8');
+    const m = html.match(/\{"@context":"https:\/\/schema\.org","@type":"BreadcrumbList".*?\]\}/);
+    if (!m) continue;
+
+    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+    const crumbs = JSON.parse(m[0]) as { itemListElement: { item: string }[] };
+    const last = crumbs.itemListElement.at(-1)?.item;
+
+    if (last !== `${BASE}${route}`) bad.push(`${route}: 마지막이 "${last}"`);
+  }
+
+  assert.deepEqual(bad, [], `breadcrumb 마지막이 자기 URL이 아닌 페이지:\n  ${bad.slice(0, 8).join('\n  ')}`);
+});
+
+test('계산기는 WebApplication 구조화 데이터를 낸다', { skip: built ? false : 'out/ 없음' }, () => {
+  // 무료 웹 도구임을 알리면 검색에서 도구로 인식된다.
+  const samples = ['salary', 'loan', 'bmi', 'refinance', 'annual-leave'];
+  const missing = samples.filter(s => {
+    const f = join(OUT, 'calculator', `${s}.html`);
+    return !existsSync(f) || !readFileSync(f, 'utf8').includes('"WebApplication"');
+  });
+  assert.deepEqual(missing, [], `WebApplication이 없는 계산기: ${missing.join(', ')}`);
+});
+
 test('상세 페이지에 BreadcrumbList가 있다', { skip: built ? false : 'out/ 없음' }, () => {
   // 검색 결과에 "홈 > 심리테스트 > MBTI" 경로가 표시된다. 클릭률에 직접 영향을 준다.
   const samples = ['test/mbti', 'quiz/joseon', 'generator/lotto', 'checklist/moving', 'calculator/salary'];

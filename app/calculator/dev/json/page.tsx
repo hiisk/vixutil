@@ -42,7 +42,7 @@ export default function JsonPage() {
   })();
 
   return (
-    <CalcShell title="JSON Formatter" description="JSON 정렬·압축·유효성 검사" wide>
+    <CalcShell path="/calculator/dev/json" title="JSON Formatter" description="JSON 정렬·압축·유효성 검사" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">

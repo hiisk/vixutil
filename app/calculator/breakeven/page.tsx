@@ -44,7 +44,7 @@ export default function BreakevenPage() {
   }
 
   return (
-    <CalcShell title="손익분기점 계산기" description="투자 BEP 가격 · 사업 BEP 판매량 계산">
+    <CalcShell path="/calculator/breakeven" title="손익분기점 계산기" description="투자 BEP 가격 · 사업 BEP 판매량 계산">
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

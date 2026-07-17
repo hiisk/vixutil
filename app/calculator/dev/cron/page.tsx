@@ -51,7 +51,7 @@ export default function CronPage() {
   const inputCls = 'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500';
 
   return (
-    <CalcShell title="Cron 표현식 생성기" description="Cron Expression 작성 · 미리 정의된 템플릿 제공" wide>
+    <CalcShell path="/calculator/dev/cron" title="Cron 표현식 생성기" description="Cron Expression 작성 · 미리 정의된 템플릿 제공" wide>
       <div className="flex flex-col gap-4">
         <Card className="p-4">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">미리 정의된 템플릿</p>

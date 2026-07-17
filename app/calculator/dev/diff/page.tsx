@@ -107,7 +107,7 @@ export default function DiffPage() {
     : null;
 
   return (
-    <CalcShell title="텍스트 비교 (Diff)" description="줄 단위 LCS 알고리즘 · 추가(녹색) · 삭제(빨간색) · 동일(회색)" wide>
+    <CalcShell path="/calculator/dev/diff" title="텍스트 비교 (Diff)" description="줄 단위 LCS 알고리즘 · 추가(녹색) · 삭제(빨간색) · 동일(회색)" wide>
       <div className="flex flex-col gap-4">
         {/* 입력 영역 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

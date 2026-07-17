@@ -146,7 +146,7 @@ export default function FourInsurancePage() {
     : 0;
 
   return (
-    <CalcShell title="4대보험 계산기" description="2026년 기준 4대보험 근로자·사업자 부담금" faq={CALC_FAQ['four-insurance']}>
+    <CalcShell path="/calculator/four-insurance" title="4대보험 계산기" description="2026년 기준 4대보험 근로자·사업자 부담금" faq={CALC_FAQ['four-insurance']}>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div>
