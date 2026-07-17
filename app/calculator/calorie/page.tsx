@@ -31,7 +31,41 @@ export default function CaloriePage() {
   }
 
   return (
-    <CalcShell path="/calculator/calorie" title="칼로리 계산기" description="활동 수준 기준 하루 권장 칼로리 계산">
+    <CalcShell
+      path="/calculator/calorie"
+      title="칼로리 계산기"
+      description="활동 수준 기준 하루 권장 칼로리 계산"
+      intro={
+        <>
+          <h2>기초대사량 × 활동계수</h2>
+          <p>
+            가만히 있어도 쓰는 <strong>기초대사량</strong>에 활동 수준을 곱해 하루 총 소모 열량을 구합니다.
+            계수는 거의 안 움직이면 <strong>1.2</strong>, 주 3~5회 운동하면 <strong>1.55</strong>,
+            운동선수급이면 <strong>1.9</strong>입니다. 같은 몸이어도 활동량에 따라 하루 필요 열량이
+            수백 kcal씩 차이 납니다.
+          </p>
+          <h2>활동 수준을 높게 잡기 쉽습니다</h2>
+          <p>
+            계산이 실제와 안 맞는 가장 흔한 이유입니다. 주 3회 헬스를 가더라도 나머지 시간에 앉아만
+            있다면 <strong>1.55보다 낮게</strong> 잡는 편이 현실적입니다. 운동으로 태우는 열량은 생각보다
+            적고, 하루 총 소모량에서 차지하는 비중도 크지 않습니다.
+          </p>
+          <h2>감량 속도는 욕심내지 마세요</h2>
+          <p>
+            체지방 1kg을 빼려면 대략 7,700kcal의 적자가 필요합니다. 하루 500kcal씩 덜 먹으면 주에 0.5kg
+            정도가 됩니다. 이보다 빠르게 빼려고 극단적으로 줄이면 근육이 먼저 빠지고 <strong>기초대사량이
+            떨어져</strong> 나중에 더 안 빠지는 몸이 됩니다. <strong>기초대사량 아래로 먹는 식단은
+            권장되지 않습니다.</strong>
+          </p>
+          <h2>추정치입니다</h2>
+          <p>
+            공식이 쓰는 건 성별·나이·키·몸무게뿐이라 근육량이나 개인차는 반영되지 않습니다. 여기서 나온
+            숫자를 출발점으로 삼아 2~3주 체중 변화를 보고 조정하는 편이 정확합니다. 질환이 있거나 큰 폭의
+            감량을 계획한다면 전문가와 상의하세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -122,7 +122,41 @@ export default function BloodPressurePage() {
   const diaPct = result ? Math.min(100, Math.max(0, (result.diastolic - 40) / (130 - 40) * 100)) : 0;
 
   return (
-    <CalcShell path="/calculator/blood-pressure" title="혈압 체크기" description="WHO 기준으로 수축기·이완기 혈압 등급을 판정합니다">
+    <CalcShell
+      path="/calculator/blood-pressure"
+      title="혈압 체크기"
+      description="WHO 기준으로 수축기·이완기 혈압 등급을 판정합니다"
+      intro={
+        <>
+          <h2>한 번 잰 값으로 판단하지 않습니다</h2>
+          <p>
+            혈압은 하루 안에서도 계속 오르내립니다. 방금 걸었거나, 커피를 마셨거나, 긴장했거나, 화장실을
+            참고 있어도 올라갑니다. 병원에서만 높게 나오는 <strong>백의 고혈압</strong>도 흔합니다.
+            그래서 고혈압 진단은 <strong>여러 날, 여러 번 잰 값</strong>을 보고 의사가 내리는 것이지
+            오늘 한 번 잰 숫자로 정해지지 않습니다.
+          </p>
+          <h2>제대로 재는 법</h2>
+          <p>
+            앉아서 <strong>5분 정도 안정</strong>한 뒤, 등을 기대고 발을 바닥에 붙이고, 팔은{' '}
+            <strong>심장 높이</strong>에 둔 채로 잽니다. 재는 동안 말하지 않아야 하고, 측정 전 30분은
+            커피·담배·운동을 피합니다. 이 조건이 무너지면 수치가 쉽게 10 이상 흔들려서, 등급이 바뀌기도
+            합니다.
+          </p>
+          <h2>위아래 둘 다 봅니다</h2>
+          <p>
+            <strong>수축기</strong>(위 숫자)는 심장이 짤 때, <strong>이완기</strong>(아래 숫자)는 심장이
+            쉴 때의 압력입니다. 둘 중 <strong>하나만 높아도</strong> 그에 해당하는 등급으로 봅니다.
+            둘의 등급이 다르면 더 높은 쪽을 따릅니다.
+          </p>
+          <h2>이 도구는 진단이 아닙니다</h2>
+          <p>
+            여기서 나오는 등급은 <strong>참고용</strong>이며 의학적 진단이 아닙니다. 수치가 높게 나왔다면
+            며칠간 같은 조건으로 재보고, 계속 높거나 두통·어지럼 같은 증상이 있다면 진료를 받으세요.
+            수축기 180 또는 이완기 120 이상이면서 증상이 있다면 지체하지 말고 의료기관을 찾아야 합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 입력</p>
