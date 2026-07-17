@@ -20,7 +20,34 @@ export default function SalaryPage() {
   }
 
   return (
-    <CalcShell path="/calculator/salary" title="실수령액 계산기" description="2026년 4대보험 요율 · 근로소득세법 기준" faq={CALC_FAQ.salary}>
+    <CalcShell
+      path="/calculator/salary"
+      title="실수령액 계산기"
+      description="2026년 4대보험 요율 · 근로소득세법 기준"
+      faq={CALC_FAQ.salary}
+      intro={
+        <>
+          <h2>무엇을 계산하나요</h2>
+          <p>
+            연봉에서 <strong>4대보험과 세금을 빼고 실제로 통장에 들어오는 월 금액</strong>을 계산합니다.
+            연봉 계약서에 적힌 숫자를 12로 나눈 값과 실수령액이 다른 이유가 여기에 있습니다.
+          </p>
+          <h2>적용 요율 (2026년 기준)</h2>
+          <p>
+            국민연금 <strong>4.5%</strong>(기준소득월액 상한 617만원), 건강보험 <strong>3.545%</strong>,
+            장기요양보험 <strong>건강보험료의 12.95%</strong>, 고용보험 <strong>0.9%</strong>를 적용합니다.
+            근로소득세는 2023년 개정 소득세법(1,400만원 구간 신설) 기준의 간이세액표 방식으로 계산하고,
+            지방소득세는 소득세의 10%입니다.
+          </p>
+          <h2>실제 급여명세서와 다를 수 있습니다</h2>
+          <p>
+            회사마다 비과세 항목(식대·차량유지비·연구활동비 등)과 추가 공제 항목이 달라서 이 계산기는{' '}
+            <strong>추정치</strong>입니다. 식대 비과세는 월 20만원까지 반영할 수 있게 해뒀지만, 그 밖의 항목은
+            회사 규정을 따릅니다. 연말정산에서 부양가족·의료비·기부금 등이 반영되면 최종 세액은 또 달라집니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

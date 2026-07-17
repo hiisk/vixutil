@@ -91,7 +91,7 @@ export default function CalcShell({
           {children}
 
           {intro && (
-            <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 [&_strong]:text-slate-800">
+            <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 dark:[&_h2]:text-slate-100 [&_strong]:text-slate-800 dark:[&_strong]:text-slate-100">
               {intro}
             </div>
           )}
