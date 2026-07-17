@@ -28,7 +28,39 @@ export default function OvertimePage() {
   }
 
   return (
-    <CalcShell path="/calculator/overtime" title="야근수당 계산기" description="통상시급 기준 연장·야간·휴일 수당 계산">
+    <CalcShell
+      path="/calculator/overtime"
+      title="야근수당 계산기"
+      description="통상시급 기준 연장·야간·휴일 수당 계산"
+      intro={
+        <>
+          <h2>가산율</h2>
+          <p>
+            <strong>연장근로</strong>(주 40시간 초과)와 <strong>휴일근로</strong>는 통상시급의{' '}
+            <strong>1.5배</strong>입니다. <strong>야간근로</strong>(밤 10시~새벽 6시)는 여기서{' '}
+            <strong>0.5배가 더 붙습니다</strong>.
+          </p>
+          <h2>야간 칸에 0.5배만 계산되는 이유</h2>
+          <p>
+            야간수당은 &ldquo;대신&rdquo; 받는 게 아니라 <strong>얹어서</strong> 받는 가산분입니다.
+            밤 11시까지 연장근무를 했다면 연장 1.5배에 야간 0.5배가 더해져 <strong>2배</strong>가 됩니다.
+            그래서 이 계산기는 야간 시간을 0.5배로만 계산하고, 그 시간은 연장 칸에도 함께 넣어야 합니다.
+            중복해서 세는 게 아니라 그렇게 해야 2배가 맞습니다.
+          </p>
+          <h2>통상시급 209시간의 정체</h2>
+          <p>
+            기본값 209시간은 <strong>주 40시간 + 주휴 8시간</strong>을 월로 환산한 값(48 × 365 ÷ 12 ÷ 7)입니다.
+            월급을 209로 나눈 것이 통상시급입니다. 통상임금에는 기본급 외에 정기적·일률적으로 주는 수당이
+            들어가고 성과급처럼 들쭉날쭉한 것은 빠지는데, 회사마다 다툼이 잦은 지점입니다.
+          </p>
+          <h2>5인 미만 사업장은 다릅니다</h2>
+          <p>
+            상시 근로자 <strong>5인 미만 사업장</strong>에는 연장·야간·휴일 가산수당 규정이 적용되지 않습니다.
+            일한 시간만큼의 임금은 받지만 1.5배 가산은 법적 의무가 아닙니다. 본인 회사 규모를 먼저 확인하세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

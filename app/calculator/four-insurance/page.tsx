@@ -146,7 +146,37 @@ export default function FourInsurancePage() {
     : 0;
 
   return (
-    <CalcShell path="/calculator/four-insurance" title="4대보험 계산기" description="2026년 기준 4대보험 근로자·사업자 부담금" faq={CALC_FAQ['four-insurance']}>
+    <CalcShell
+      path="/calculator/four-insurance"
+      title="4대보험 계산기"
+      description="2026년 기준 4대보험 근로자·사업자 부담금"
+      faq={CALC_FAQ['four-insurance']}
+      intro={
+        <>
+          <h2>반씩 나눠 냅니다</h2>
+          <p>
+            국민연금 <strong>4.5%</strong>, 건강보험 <strong>3.545%</strong>, 장기요양보험{' '}
+            <strong>건강보험료의 12.95%</strong>는 근로자와 회사가 <strong>같은 금액씩</strong> 부담합니다.
+            급여명세서에서 빠져나간 금액과 똑같은 돈을 회사도 따로 내고 있다는 뜻입니다.
+            국민연금은 기준소득월액 <strong>상한 617만원</strong>이 있어 월급이 그보다 많아도 보험료는 더
+            늘지 않습니다.
+          </p>
+          <h2>회사만 내는 것도 있습니다</h2>
+          <p>
+            고용보험은 근로자가 <strong>0.9%</strong>, 회사가 <strong>1.15%</strong>(150인 미만 사업장 기준)로
+            회사 쪽이 더 큽니다. 회사 부담분에 고용안정·직업능력개발 사업비가 얹히기 때문입니다.{' '}
+            <strong>산재보험</strong>은 전액 회사 부담이라 근로자 급여에서는 빠지지 않습니다. 이 계산기는
+            기본 업종 요율 <strong>0.73%</strong>를 적용하는데, 산재 요율은 업종에 따라 크게 달라집니다.
+          </p>
+          <h2>총인건비는 연봉보다 큽니다</h2>
+          <p>
+            회사가 실제로 쓰는 돈은 연봉이 아니라 <strong>연봉 + 회사 부담 4대보험</strong>입니다.
+            대략 급여의 10% 남짓이 더 붙습니다. 연봉 협상이나 프리랜서 단가를 비교할 때 이 차이를 모르면
+            같은 금액으로 착각하기 쉽습니다. 사업장 규모와 업종에 따라 요율이 달라지므로 결과는 추정치입니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div>
