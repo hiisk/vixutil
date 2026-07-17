@@ -42,7 +42,35 @@ export default function FreelancePage() {
   }
 
   return (
-    <CalcShell path="/calculator/freelance" title="프리랜서 세금 계산기" description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정" faq={CALC_FAQ.freelance}>
+    <CalcShell
+      path="/calculator/freelance"
+      title="프리랜서 세금 계산기"
+      description="3.3% 원천징수 내역 + 5월 종합소득세 납부 추정"
+      faq={CALC_FAQ.freelance}
+      intro={
+        <>
+          <h2>3.3%는 세금이 아니라 미리 낸 돈입니다</h2>
+          <p>
+            프리랜서 대금에서 떼는 3.3%는 <strong>소득세 3% + 지방소득세 0.3%</strong>로, 세금을 확정한 게
+            아니라 미리 걷어두는 <strong>원천징수</strong>입니다. 실제 세금은 이듬해 5월 종합소득세 신고로
+            정해지고, 그때 더 내거나 돌려받습니다.
+          </p>
+          <h2>5월에 돌려받을 수도, 더 낼 수도 있습니다</h2>
+          <p>
+            수입이 적으면 3.3%가 실제 세금보다 많아 <strong>환급</strong>을 받고, 수입이 많으면 누진세율 때문에{' '}
+            <strong>추가 납부</strong>가 생깁니다. 연 수입이 클수록 3.3%로는 턱없이 모자라므로, 5월에 낼 돈을
+            미리 떼어두지 않으면 곤란해집니다.
+          </p>
+          <h2>경비율 추정치입니다</h2>
+          <p>
+            이 계산기의 종합소득세 추정은 <strong>단순경비율 64.1%</strong>(업종코드 940909, 기타 자유직업
+            관련 서비스업, 2025년 기준)를 적용합니다. 업종이 다르면 경비율이 달라지고, 수입이 일정 규모를
+            넘으면 단순경비율을 못 쓰고 기준경비율이나 장부 작성 대상이 됩니다. 실제 경비가 경비율보다 많다면
+            장부를 쓰는 편이 유리합니다. 정확한 세액은 신고할 때 확정됩니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">수입 정보</p>
