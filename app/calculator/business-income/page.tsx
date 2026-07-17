@@ -78,7 +78,41 @@ export default function BusinessIncomePage() {
   }
 
   return (
-    <CalcShell path="/calculator/business-income" title="사업소득세 계산기" description="개인사업자 연소득 → 예상 사업소득세">
+    <CalcShell
+      path="/calculator/business-income"
+      title="사업소득세 계산기"
+      description="개인사업자 연소득 → 예상 사업소득세"
+      intro={
+        <>
+          <h2>매출이 아니라 소득에 세금이 붙습니다</h2>
+          <p>
+            사업소득세는 <strong>매출 − 필요경비</strong>에 매깁니다. 경비를 얼마로 인정받느냐가 세금을
+            좌우하는데, 장부를 쓰지 않으면 국세청이 정한 <strong>경비율</strong>로 추정해서 계산합니다.
+          </p>
+          <h2>업종마다 경비율이 다릅니다</h2>
+          <p>
+            같은 매출이어도 업종에 따라 세금이 크게 갈립니다. 단순경비율이{' '}
+            <strong>도소매 90.2%</strong>, <strong>제조업 83.4%</strong>, <strong>음식점 78.7%</strong>,{' '}
+            <strong>서비스업 64.1%</strong>, <strong>IT·전문직 60.7%</strong> 순으로 다르기 때문입니다.
+            도소매는 물건을 떼오는 원가가 크다고 보는 것이고, 전문직은 원가가 적다고 보는 것입니다.
+          </p>
+          <h2>단순경비율은 아무나 못 씁니다</h2>
+          <p>
+            매출이 일정 규모를 넘으면 <strong>기준경비율</strong> 대상이 되고, 더 커지면 장부 작성이
+            의무입니다. 기준경비율은 인정 폭이 훨씬 좁아서 세금이 확 늘어납니다. 또{' '}
+            <strong>실제 경비가 경비율보다 많다면 장부를 쓰는 편이 유리</strong>합니다. 장부를 쓰면
+            적자가 났을 때 그걸 인정받을 수도 있습니다.
+          </p>
+          <h2>이게 전부가 아닙니다</h2>
+          <p>
+            세율은 <strong>6%에서 45%</strong>까지 8단계 누진이고, 산출세액에{' '}
+            <strong>지방소득세 10%</strong>가 더 붙습니다. 실제 신고에서는 인적공제·연금보험료공제·
+            노란우산공제 등이 반영되고, 사업소득 외에 다른 소득이 있으면 합산해서 세율이 올라갑니다.
+            이 계산기는 <strong>추정치</strong>이며 정확한 세액은 신고할 때 확정됩니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

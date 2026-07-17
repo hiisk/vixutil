@@ -37,7 +37,40 @@ export default function PropertyTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/property-tax" title="재산세 계산기" description="주택 공시가격 기준 재산세 계산">
+    <CalcShell
+      path="/calculator/property-tax"
+      title="재산세 계산기"
+      description="주택 공시가격 기준 재산세 계산"
+      intro={
+        <>
+          <h2>시세가 아니라 공시가격이 기준입니다</h2>
+          <p>
+            재산세는 실제 거래가가 아니라 <strong>공시가격</strong>으로 매깁니다. 공시가격은 보통 시세보다
+            낮아서, 시세 10억 집의 세금이 10억 기준으로 나오지 않습니다. 본인 집 공시가격은{' '}
+            <strong>부동산공시가격 알리미</strong>에서 확인할 수 있습니다.
+          </p>
+          <h2>공정시장가액비율을 한 번 더 곱합니다</h2>
+          <p>
+            공시가격에 <strong>공정시장가액비율</strong>을 곱한 것이 과세표준입니다. 주택은 60%가 기본이고,
+            1주택자는 공시가격에 따라 <strong>45~50%</strong>로 더 낮게 적용됩니다. 공시가격이 그대로
+            과세표준이 되는 게 아니라 한 단계 더 깎이는 구조입니다. 이 비율은 정부가 조정할 수 있습니다.
+          </p>
+          <h2>세율</h2>
+          <p>
+            과세표준 <strong>6,000만원 이하 0.1%</strong>부터 <strong>3억원 초과 0.4%</strong>까지
+            누진 구간으로 나뉩니다. 여기에 <strong>지방교육세</strong>(재산세의 20%)가 붙고, 도시지역에
+            있으면 <strong>도시지역분</strong>(과세표준의 0.14%)이 추가됩니다.
+          </p>
+          <h2>종부세는 별개입니다</h2>
+          <p>
+            공시가격이 일정 기준을 넘으면 재산세와 <strong>종합부동산세</strong>를 함께 냅니다.
+            이 계산기는 재산세만 계산하므로 고가 주택이나 다주택이라면 실제 보유세는 여기서 나온 금액보다
+            큽니다. 재산세는 <strong>매년 6월 1일 기준 소유자</strong>에게 부과되므로, 5월 31일에 팔면
+            그해 재산세는 산 사람이 냅니다. 세율과 특례는 개정되므로 정확한 금액은 고지서를 따릅니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
