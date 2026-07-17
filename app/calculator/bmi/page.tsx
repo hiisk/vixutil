@@ -39,7 +39,36 @@ export default function BmiPage() {
   const bmiPct = result ? Math.min(100, Math.max(0, (result.bmi - BMI_SCALE.min) / (BMI_SCALE.max - BMI_SCALE.min) * 100)) : 0;
 
   return (
-    <CalcShell path="/calculator/bmi" title="BMI 계산기" description="대한비만학회 2022 기준 체질량지수 · 표준체중 · 정상 체중 범위">
+    <CalcShell
+      path="/calculator/bmi"
+      title="BMI 계산기"
+      description="대한비만학회 2022 기준 체질량지수 · 표준체중 · 정상 체중 범위"
+      intro={
+        <>
+          <h2>계산 방식</h2>
+          <p>
+            체질량지수는 <strong>몸무게(kg) ÷ 키(m)의 제곱</strong>입니다. 키 175cm에 70kg이면
+            70 ÷ 1.75² 로 약 22.9입니다. 이 계산기는 <strong>대한비만학회 2022 진료지침</strong> 기준으로
+            등급을 나눕니다.
+          </p>
+          <h2>한국 기준은 서양과 다릅니다</h2>
+          <p>
+            국내 기준은 <strong>정상 18.5~23 미만</strong>, 23 이상이면 과체중, <strong>25 이상부터 비만</strong>
+            입니다. WHO의 국제 기준(30 이상 비만)보다 훨씬 낮은데, 같은 BMI라도 아시아인이 대사질환 위험이
+            더 높다는 점이 반영된 것입니다. 해외 사이트에서 &ldquo;정상&rdquo;이 나왔는데 여기서는 과체중이
+            나오는 이유가 이것입니다.
+          </p>
+          <h2>BMI는 근육과 지방을 구분하지 못합니다</h2>
+          <p>
+            키와 몸무게만 쓰기 때문에 <strong>근육이 많은 사람도 비만으로 나옵니다</strong>. 반대로 체중은
+            정상인데 근육이 적고 지방이 많은 경우는 잡아내지 못합니다. 그래서 BMI는 집단의 경향을 보는
+            지표이지 개인의 건강 상태를 판정하는 도구가 아닙니다. 체성분이 궁금하다면{' '}
+            <strong>체지방률 계산기</strong>를 함께 보고, 실제 판단은 의료진에게 맡기는 것이 맞습니다.
+            이 계산기의 등급은 참고용이며 진단이 아닙니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">신체 정보</p>

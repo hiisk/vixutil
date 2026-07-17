@@ -24,7 +24,40 @@ export default function BmrPage() {
   }
 
   return (
-    <CalcShell path="/calculator/bmr" title="기초대사량 계산기" description="Harris-Benedict · Mifflin-St Jeor 공식 비교">
+    <CalcShell
+      path="/calculator/bmr"
+      title="기초대사량 계산기"
+      description="Harris-Benedict · Mifflin-St Jeor 공식 비교"
+      intro={
+        <>
+          <h2>기초대사량이 뭔가요</h2>
+          <p>
+            <strong>가만히 누워만 있어도 소모되는 하루 열량</strong>입니다. 심장을 뛰게 하고 체온을 유지하는
+            데 쓰이는 몫이라, 하루 총 소모 열량의 상당 부분을 차지합니다. 여기에 활동량을 곱해야 실제로
+            하루에 쓰는 열량이 나옵니다.
+          </p>
+          <h2>두 공식을 함께 보여주는 이유</h2>
+          <p>
+            <strong>Harris-Benedict</strong>는 오래된 공식이라 널리 쓰이지만 값이 다소 높게 나오는 편이고,{' '}
+            <strong>Mifflin-St Jeor</strong>는 비교적 최근 공식으로 현대인에게 더 잘 맞는다고 평가됩니다.
+            둘의 차이를 보면 이 숫자가 <strong>정밀한 측정값이 아니라 추정치</strong>라는 게 드러납니다.
+            어느 쪽도 개인의 실제 대사량을 정확히 맞히지는 못합니다.
+          </p>
+          <h2>체성분은 반영되지 않습니다</h2>
+          <p>
+            두 공식 모두 <strong>성별·나이·키·몸무게</strong>만 씁니다. 같은 조건이어도 근육량이 많으면 실제
+            기초대사량이 더 높은데, 근육이 지방보다 열량을 많이 쓰기 때문입니다. 이 차이는 공식이 잡아내지
+            못합니다.
+          </p>
+          <h2>다이어트에 쓸 때</h2>
+          <p>
+            기초대사량 아래로 먹는 식단은 권장되지 않습니다. 감량이 목적이라면 기초대사량이 아니라{' '}
+            <strong>활동량까지 포함한 하루 소모 열량</strong>을 기준으로 적자를 만드는 것이 보통입니다.
+            질환이 있거나 극단적인 감량을 계획한다면 전문가와 상의하세요. 이 계산기는 참고용 추정치입니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

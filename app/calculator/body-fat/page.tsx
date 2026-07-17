@@ -89,7 +89,40 @@ export default function BodyFatPage() {
   }
 
   return (
-    <CalcShell path="/calculator/body-fat" title="체지방률 계산기" description="해군 공식 · BMI 추정법 · ACSM 기준 등급 분석">
+    <CalcShell
+      path="/calculator/body-fat"
+      title="체지방률 계산기"
+      description="해군 공식 · BMI 추정법 · ACSM 기준 등급 분석"
+      intro={
+        <>
+          <h2>두 가지 추정법</h2>
+          <p>
+            <strong>미 해군 공식</strong>은 목·허리(여성은 엉덩이 포함) 둘레와 키로 체지방률을 추정합니다.
+            줄자만 있으면 되고, 몸의 형태를 반영하기 때문에 BMI보다 실제에 가깝습니다.{' '}
+            <strong>BMI 추정법</strong>(Deurenberg 공식)은 BMI·나이·성별만으로 계산해 간편한 대신 오차가 큽니다.
+            둘의 값이 벌어진다면 체형이 평균에서 벗어나 있다는 신호로 볼 수 있습니다.
+          </p>
+          <h2>남녀 기준이 다릅니다</h2>
+          <p>
+            여성은 생리적으로 필수 지방이 더 많아, 같은 수치라도 등급이 다릅니다. 이 계산기는{' '}
+            <strong>ACSM 기준</strong>으로 성별을 나눠 등급을 매깁니다. 남성 기준을 여성에게 그대로 적용하면
+            건강한 사람도 과체지방으로 나오므로, 남녀 수치를 직접 비교하는 것은 의미가 없습니다.
+          </p>
+          <h2>측정이 결과를 좌우합니다</h2>
+          <p>
+            해군 공식은 <strong>둘레를 어떻게 재느냐</strong>에 결과가 크게 흔들립니다. 줄자를 세게 조이거나
+            재는 위치가 매번 다르면 며칠 사이에 몇 %씩 움직입니다. 같은 시간대에, 같은 자세로, 힘을 빼고
+            재야 비교할 값이 나옵니다.
+          </p>
+          <h2>절대값보다 추세를 보세요</h2>
+          <p>
+            줄자 공식이든 체성분 측정기든 <strong>추정</strong>이며, 정밀 측정법(DEXA 등)과는 차이가 납니다.
+            그러니 오늘 나온 숫자 하나에 의미를 두기보다 <strong>같은 방법으로 재면서 방향이 어디로
+            가는지</strong>를 보는 편이 유용합니다. 이 계산기는 참고용이며 의학적 진단이 아닙니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[
