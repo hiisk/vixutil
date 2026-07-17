@@ -39,7 +39,33 @@ export default function ParttimePage() {
   }
 
   return (
-    <CalcShell path="/calculator/parttime" title="알바 급여 계산기" description="시급·근무시간 기준 주급·월급 계산">
+    <CalcShell
+      path="/calculator/parttime"
+      title="알바 급여 계산기"
+      description="시급·근무시간 기준 주급·월급 계산"
+      intro={
+        <>
+          <h2>주휴수당까지 넣어서 계산합니다</h2>
+          <p>
+            아르바이트도 <strong>주 15시간 이상</strong> 일하면 주휴수당을 받습니다. 시급제라서 안 준다거나
+            아르바이트는 대상이 아니라는 말은 맞지 않습니다. 이 계산기는 주휴수당을 포함한 금액을 보여주므로,
+            사장님이 말한 금액과 다르다면 주휴수당이 빠졌을 가능성이 큽니다.
+          </p>
+          <h2>월급 환산에 365 ÷ 7 ÷ 12를 씁니다</h2>
+          <p>
+            한 달을 4주로 잡으면 실제보다 적게 나옵니다. 1년은 52주가 조금 넘어서 한 달 평균이{' '}
+            <strong>약 4.35주</strong>이기 때문입니다. 주급에 4를 곱한 값과 이 계산기 결과가 다른 이유입니다.
+          </p>
+          <h2>알바도 최저임금과 근로계약서 대상입니다</h2>
+          <p>
+            <strong>근로계약서를 쓰지 않는 것 자체가 위반</strong>이고, 5인 미만 사업장이어도 최저임금과
+            주휴수당은 지켜야 합니다. 다만 연장·야간·휴일 <strong>가산수당</strong>은 5인 미만 사업장에
+            적용되지 않으므로 본인이 일하는 곳의 규모를 알아둘 필요가 있습니다. 이 계산기는 세전 기준이며,
+            근무 형태에 따라 4대보험 가입 여부가 갈립니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -58,7 +58,40 @@ export default function AnnualLeavePayPage() {
   }));
 
   return (
-    <CalcShell path="/calculator/annual-leave-pay" title="연차수당 계산기" description="근속연수·미사용 연차 → 연차수당">
+    <CalcShell
+      path="/calculator/annual-leave-pay"
+      title="연차수당 계산기"
+      description="근속연수·미사용 연차 → 연차수당"
+      intro={
+        <>
+          <h2>계산 방식</h2>
+          <p>
+            연차수당은 <strong>1일 통상임금 × 미사용 연차 일수</strong>입니다. 1일 통상임금은{' '}
+            <strong>월 통상임금 ÷ 209 × 8</strong>로 구합니다. 209는 주 40시간에 주휴 8시간을 더해 월로
+            환산한 시간이고, 여기에 하루 8시간을 곱해 하루치를 냅니다.
+          </p>
+          <h2>연차는 며칠 생기나요</h2>
+          <p>
+            1년 미만이면 <strong>1개월 개근마다 1일씩 최대 11일</strong>, 1년 이상이면 <strong>15일</strong>
+            에서 시작해 3년 이상부터 <strong>2년마다 1일씩</strong> 붙어 최대 25일까지 늘어납니다.
+            근로기준법에 정해진 일수라 회사가 임의로 줄일 수 없습니다.
+          </p>
+          <h2>안 썼다고 무조건 받는 건 아닙니다</h2>
+          <p>
+            회사가 법에 정해진 절차대로 <strong>연차사용촉진</strong>을 했는데도 근로자가 쓰지 않았다면
+            수당 지급 의무가 사라질 수 있습니다. 절차는 서면 통보 시기까지 정해져 있어서, 형식을 지키지
+            않은 구두 독려만으로는 인정되지 않습니다. 반대로 회사가 촉진을 하지 않았다면 미사용 연차는
+            수당으로 정산받습니다.
+          </p>
+          <h2>퇴사할 때</h2>
+          <p>
+            퇴사 시점에 남은 연차는 수당으로 받습니다. 이 <strong>퇴직 전 연차수당은 퇴직금 계산의
+            평균임금에도 반영</strong>되므로 퇴직금 계산기에 연차수당을 함께 넣어야 정확합니다.
+            5인 미만 사업장은 연차 규정 자체가 적용되지 않습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">통상임금 입력 방식</p>
