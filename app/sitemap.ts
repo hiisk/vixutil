@@ -61,6 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/saju`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/mbti`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
+    { url: `${BASE}/snap/first-impression`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/face-reading`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/personal-color`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/photo-mood`, lastModified: now, changeFrequency: weekly, priority: 0.9 },

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 const TYPES = [
+  { href: '/snap/first-impression', icon: '✨', title: '첫인상 분석',   desc: '눈·얼굴선·입꼬리를 실측해 보는 내 인상 유형', badge: 'NEW', color: 'from-sky-400 to-indigo-600' },
   { href: '/snap/face-reading',   icon: '🪞', title: '관상 테스트',     desc: '사진 한 장으로 보는 재미있는 관상 분석',   badge: '실제 얼굴인식', color: 'from-teal-500 to-cyan-700' },
   { href: '/snap/personal-color', icon: '🎨', title: '퍼스널컬러 진단', desc: '사진 한 장으로 보는 웜톤·쿨톤 12타입 컬러 진단', badge: '실제 색상측정', color: 'from-orange-400 to-indigo-500' },
   { href: '/snap/animal-face',    icon: '🐾', title: '동물상 테스트',   desc: '사진 한 장으로 보는 나의 동물상',           badge: '실제 랜드마크', color: 'from-amber-400 to-rose-400' },
