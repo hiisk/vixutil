@@ -28,7 +28,34 @@ export default function GasCostPage() {
   }
 
   return (
-    <CalcShell path="/calculator/gas-cost" title="주유비 계산기" description="거리·연비·유가 기준 주유비 계산">
+    <CalcShell
+      path="/calculator/gas-cost"
+      title="주유비 계산기"
+      description="거리·연비·유가 기준 주유비 계산"
+      intro={
+        <>
+          <h2>계산 방식</h2>
+          <p>
+            <strong>주행거리 ÷ 연비 × 유가</strong>입니다. 400km를 연비 12km/L인 차로 달리면 33.3L가
+            필요하고, 여기에 리터당 가격을 곱하면 주유비가 나옵니다. 왕복이라면 거리를 두 배로 넣거나
+            왕복 옵션을 켜세요.
+          </p>
+          <h2>공인연비대로 나오지 않습니다</h2>
+          <p>
+            카탈로그의 공인연비는 정해진 조건에서 측정한 값이라 실제 주행보다 좋게 나오는 것이 보통입니다.
+            <strong>급가속·에어컨·정체·짐 무게</strong>가 전부 연비를 갉아먹습니다. 계산이 실제와 맞으려면
+            공인연비가 아니라 <strong>본인 차의 실연비</strong>를 넣어야 합니다. 모른다면{' '}
+            <strong>연비 계산기</strong>로 주유량과 주행거리를 넣어 구할 수 있습니다.
+          </p>
+          <h2>고속도로가 시내보다 연비가 좋습니다</h2>
+          <p>
+            정차와 재출발이 없어서입니다. 같은 차라도 시내 주행 연비는 고속 주행의 70% 수준으로 떨어지는
+            경우가 흔하므로, 장거리 여행 비용을 잡을 때와 출퇴근 비용을 잡을 때 다른 연비를 쓰는 편이
+            정확합니다. 유가는 지역과 브랜드에 따라 리터당 수백 원씩 차이 나기도 합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -49,7 +49,41 @@ export default function CarTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/car-tax" title="자동차세 계산기" description="2024년 배기량 기준 자동차세 계산">
+    <CalcShell
+      path="/calculator/car-tax"
+      title="자동차세 계산기"
+      description="2024년 배기량 기준 자동차세 계산"
+      intro={
+        <>
+          <h2>배기량 × cc당 세액</h2>
+          <p>
+            승용차 자동차세는 <strong>배기량(cc) × cc당 세액</strong>입니다. cc당 세액은{' '}
+            <strong>1,000cc 이하 80원</strong>, <strong>1,600cc 이하 140원</strong>,{' '}
+            <strong>2,000cc 이하 200원</strong>, 그 초과는 220원입니다. 구간이 바뀌는 지점에서 세금이
+            껑충 뛰기 때문에, 1,599cc와 1,601cc는 배기량은 비슷해도 세금 차이가 큽니다.
+            여기에 <strong>지방교육세 30%</strong>가 더 붙습니다.
+          </p>
+          <h2>차가 오래되면 깎아줍니다</h2>
+          <p>
+            차령 <strong>3년차부터 매년 5%씩</strong> 감면되고 <strong>12년 이상이면 50%</strong>에서
+            멈춥니다. 오래된 차의 가치가 떨어진 것을 반영하는 것이라, 같은 차종이어도 연식에 따라 내는
+            돈이 다릅니다.
+          </p>
+          <h2>전기차는 배기량이 없습니다</h2>
+          <p>
+            엔진이 없으니 배기량 기준을 쓸 수 없어서 <strong>연 10만원 정액</strong>입니다. 하이브리드는
+            배기량 기준으로 계산하되 이 계산기는 <strong>15% 감면</strong>을 적용합니다. 친환경차 세제는
+            제도가 계속 바뀌는 영역이라 시점에 따라 달라질 수 있습니다.
+          </p>
+          <h2>연납하면 할인됩니다</h2>
+          <p>
+            자동차세는 보통 6월과 12월에 나눠 내지만, <strong>1월에 1년치를 미리 내면</strong> 약 9.15%를
+            할인받습니다(신청 시기가 늦어지면 할인율이 줄어듭니다). 이 계산기는 연납 할인 금액도 함께
+            보여줍니다. 정확한 부과액은 관할 지자체 고지서를 따릅니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[
