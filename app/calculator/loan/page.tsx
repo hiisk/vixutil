@@ -50,7 +50,42 @@ export default function LoanPage() {
   const display = rows ? (showAll ? rows : rows.slice(0,24)) : [];
 
   return (
-    <CalcShell path="/calculator/loan" wide title="대출 이자 계산기" description="원리금균등·원금균등 비교 + 월별 상환 스케줄" faq={CALC_FAQ.loan}>
+    <CalcShell
+      path="/calculator/loan"
+      wide
+      title="대출 이자 계산기"
+      description="원리금균등·원금균등 비교 + 월별 상환 스케줄"
+      faq={CALC_FAQ.loan}
+      intro={
+        <>
+          <h2>원리금균등 vs 원금균등</h2>
+          <p>
+            <strong>원리금균등</strong>은 매달 내는 돈이 끝까지 똑같습니다. 관리하기 편하고 초반 부담이
+            작아서 가장 많이 쓰입니다. <strong>원금균등</strong>은 원금을 기간으로 똑같이 나눠 갚고 남은
+            원금에 이자를 붙이므로, <strong>처음에 많이 내고 갈수록 줄어듭니다</strong>.
+          </p>
+          <h2>총 이자는 원금균등이 적습니다</h2>
+          <p>
+            원금을 빨리 줄일수록 이자가 붙을 원금이 작아지기 때문입니다. 대신 초기 상환액이 커서 그 부담을
+            감당할 수 있어야 합니다. 결국 <strong>총 이자를 아낄 것이냐, 초기 부담을 낮출 것이냐</strong>의
+            선택입니다. 월별 상환 스케줄에서 두 방식의 차이가 언제 어떻게 뒤집히는지 볼 수 있습니다.
+          </p>
+          <h2>이자는 기간에 가장 민감합니다</h2>
+          <p>
+            같은 금액이라도 <strong>기간이 길어지면 총 이자가 눈에 띄게 불어납니다</strong>. 월 상환액을
+            낮추려고 기간을 늘리는 건 편해지는 값을 이자로 치르는 셈입니다. 여유가 생겼을 때 원금을 미리
+            갚으면 남은 이자가 줄어드는데, 대출 초기 몇 년은 <strong>중도상환수수료</strong>가 붙을 수
+            있으니 확인이 필요합니다.
+          </p>
+          <h2>변동금리라면</h2>
+          <p>
+            이 계산기는 입력한 금리가 <strong>끝까지 유지된다고 가정</strong>합니다. 변동금리 대출은
+            금리가 오르면 월 상환액도 함께 오르므로, 지금 금리로 나온 결과는 현재 조건의 스냅숏입니다.
+            금리를 몇 %p 올려서도 한번 계산해 보면 감당 가능한 범위인지 가늠할 수 있습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

@@ -26,7 +26,34 @@ export default function SavingsPage() {
   }
 
   return (
-    <CalcShell path="/calculator/savings" title="적금 계산기" description="월 납입금·금리·기간 기준 만기금액 계산">
+    <CalcShell
+      path="/calculator/savings"
+      title="적금 계산기"
+      description="월 납입금·금리·기간 기준 만기금액 계산"
+      intro={
+        <>
+          <h2>금리가 같은데 예금보다 이자가 적은 이유</h2>
+          <p>
+            적금 금리 4%라고 해서 낸 돈 전체에 4%가 붙는 게 아닙니다. <strong>첫 달 납입금은 12개월치 이자를
+            받지만, 마지막 달 납입금은 한 달치 이자만</strong> 받습니다. 돈이 계좌에 머문 기간이 회차마다
+            다르기 때문입니다. 그래서 12개월 적금의 실제 이자는 같은 금리 예금의 <strong>절반 남짓</strong>이
+            됩니다. 광고에 나온 금리가 틀린 게 아니라 계산 구조가 그렇습니다.
+          </p>
+          <h2>계산 방식</h2>
+          <p>
+            각 회차 납입금에 남은 개월 수만큼 이자를 붙여 전부 더합니다(<strong>단리</strong> 기준).
+            대부분의 은행 적금이 이 방식입니다. 예금과 적금을 비교하려면 금리만 볼 게 아니라 이 계산기와{' '}
+            <strong>예금 이자 계산기</strong>에 같은 금액을 넣고 만기 수령액을 견줘야 합니다.
+          </p>
+          <h2>세금</h2>
+          <p>
+            이자에는 <strong>이자소득세 15.4%</strong>(소득세 14% + 지방소득세 1.4%)가 붙습니다.
+            이 계산기는 세후 금액까지 보여줍니다. 청년우대형이나 비과세 종합저축처럼 요건을 갖추면 세금이
+            줄거나 없어지는 상품도 있으니, 가입 전에 해당 여부를 확인해 보세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

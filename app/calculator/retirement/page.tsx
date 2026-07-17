@@ -97,7 +97,41 @@ export default function RetirementPage() {
   }
 
   return (
-    <CalcShell path="/calculator/retirement" title="은퇴자금 계산기" description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산">
+    <CalcShell
+      path="/calculator/retirement"
+      title="은퇴자금 계산기"
+      description="복리 성장 시뮬레이션 · 은퇴 후 월 인출 가능액 계산"
+      intro={
+        <>
+          <h2>두 단계로 계산합니다</h2>
+          <p>
+            먼저 은퇴 시점까지 <strong>지금 모은 돈과 매달 적립액이 복리로 얼마까지 불어나는지</strong>를
+            구하고, 그 다음 그 금액을 <strong>은퇴 후 기간 동안 매달 얼마씩 꺼내 쓸 수 있는지</strong>로
+            바꿉니다. 인출액은 남은 잔액에도 계속 수익률이 붙는다고 보고 계산합니다.
+          </p>
+          <h2>일찍 시작하는 것이 많이 넣는 것보다 강합니다</h2>
+          <p>
+            복리는 시간이 길수록 가팔라집니다. 적립 기간을 몇 년만 늘려도 결과가 크게 달라지는데, 월
+            적립액을 같은 비율로 올리는 것보다 효과가 큰 경우가 많습니다. 시작 나이를 바꿔가며 계산해
+            보면 그 차이가 눈에 보입니다.
+          </p>
+          <h2>수익률은 매년 일정하지 않습니다</h2>
+          <p>
+            이 계산기는 입력한 수익률이 <strong>매년 똑같이 나온다고 가정</strong>합니다. 실제 투자는
+            오르내림이 있고, 특히 은퇴 직전이나 인출 초기에 큰 손실이 나면 같은 평균 수익률이어도 결과가
+            훨씬 나빠집니다. 그러니 결과를 확정된 미래가 아니라{' '}
+            <strong>가정을 바꿔가며 비교하는 도구</strong>로 쓰는 것이 맞습니다. 수익률을 보수적으로
+            낮춰서도 한번 돌려보세요.
+          </p>
+          <h2>물가와 세금은 빠져 있습니다</h2>
+          <p>
+            30년 뒤의 1억은 지금의 1억이 아닙니다. 결과는 <strong>명목 금액</strong>이므로 실질 가치가
+            궁금하다면 <strong>물가상승률 계산기</strong>를 함께 쓰세요. 투자 수익에 붙는 세금과
+            국민연금·퇴직연금 수령액도 반영되지 않았습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력 정보</p>

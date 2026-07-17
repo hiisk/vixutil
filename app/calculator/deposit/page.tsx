@@ -33,7 +33,35 @@ export default function DepositPage() {
   }
 
   return (
-    <CalcShell path="/calculator/deposit" title="예금 이자 계산기" description="단리·복리 예금 이자 및 세후 수령액 계산">
+    <CalcShell
+      path="/calculator/deposit"
+      title="예금 이자 계산기"
+      description="단리·복리 예금 이자 및 세후 수령액 계산"
+      intro={
+        <>
+          <h2>단리와 복리</h2>
+          <p>
+            <strong>단리</strong>는 원금에만 이자가 붙고, <strong>복리</strong>는 붙은 이자에 다시 이자가
+            붙습니다. 1년짜리면 둘의 차이가 거의 없지만 기간이 길어질수록 벌어집니다. 은행 정기예금은
+            대부분 단리이거나 만기일시지급 방식이므로, 상품 설명에 <strong>월복리</strong>라고 적혀 있지
+            않다면 단리로 보는 게 맞습니다.
+          </p>
+          <h2>세후 금액이 진짜 받는 돈입니다</h2>
+          <p>
+            이자에는 <strong>이자소득세 15.4%</strong>(소득세 14% + 지방소득세 1.4%)가 원천징수됩니다.
+            금리 4%짜리에 넣어도 실제로 손에 쥐는 건 3.4% 수준이라는 뜻입니다. 상품을 비교할 때는 표시
+            금리가 아니라 <strong>세후 수령액</strong>으로 견주세요.
+          </p>
+          <h2>중도해지하면 계산이 달라집니다</h2>
+          <p>
+            만기를 채우지 못하면 약정 금리가 아니라 훨씬 낮은{' '}
+            <strong>중도해지이율</strong>이 적용됩니다. 이 계산기는 만기까지 유지하는 것을 전제로 하므로,
+            중간에 쓸 가능성이 있는 돈이라면 결과보다 훨씬 적게 받을 수 있습니다. 이자가 연 2,000만원을
+            넘으면 금융소득종합과세 대상이 되어 세금이 더 붙는 점도 감안하세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[
