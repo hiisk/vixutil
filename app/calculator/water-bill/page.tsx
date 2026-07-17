@@ -32,7 +32,37 @@ export default function WaterBillPage() {
   }
 
   return (
-    <CalcShell path="/calculator/water-bill" title="수도요금 계산기" description="서울시 상수도 기준 수도·하수도요금 계산">
+    <CalcShell
+      path="/calculator/water-bill"
+      title="수도요금 계산기"
+      description="서울시 상수도 기준 수도·하수도요금 계산"
+      intro={
+        <>
+          <h2>수도요금은 세 가지가 합쳐진 금액입니다</h2>
+          <p>
+            고지서에 찍히는 금액은 <strong>상수도요금 + 하수도요금 + 물이용부담금</strong>입니다.
+            하수도요금은 쓴 물을 버리는 값이라 상수도요금에 연동해서 붙고, 물이용부담금은 사용량에 비례해
+            따로 매겨집니다. 상수도요금만 계산하면 실제 고지서의 절반쯤밖에 안 나옵니다.
+          </p>
+          <h2>상수도도 누진 구간이 있습니다</h2>
+          <p>
+            가정용은 <strong>30㎥까지</strong>, <strong>50㎥까지</strong>, 그 이상으로 구간이 나뉘고 단가가
+            올라갑니다. 전기와 마찬가지로 넘긴 만큼만 비싼 단가가 붙지, 전체가 비싸지는 게 아닙니다.
+            기본요금은 <strong>계량기 구경</strong>에 따라 정해져서 사용량과 무관하게 붙습니다.
+          </p>
+          <h2>부가세가 없습니다</h2>
+          <p>
+            수도요금은 <strong>부가가치세 면세</strong> 대상이라 전기·가스와 달리 10%가 붙지 않습니다.
+          </p>
+          <h2>서울시 기준입니다</h2>
+          <p>
+            수도요금은 <strong>지방자치단체가 정하기 때문에 지역마다 다릅니다</strong>. 이 계산기는 서울시
+            가정용 기준이므로 다른 지역은 참고만 하세요. 아파트는 단지 전체 사용량을 세대별로 나누는 방식이
+            섞여 있어 개별 고지서와 차이가 날 수 있습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

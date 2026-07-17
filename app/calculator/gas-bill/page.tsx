@@ -25,7 +25,33 @@ export default function GasBillPage() {
   }
 
   return (
-    <CalcShell path="/calculator/gas-bill" title="가스요금 계산기" description="도시가스 주택용 요금 계산 (서울 기준)">
+    <CalcShell
+      path="/calculator/gas-bill"
+      title="가스요금 계산기"
+      description="도시가스 주택용 요금 계산 (서울 기준)"
+      intro={
+        <>
+          <h2>가스는 누진제가 없습니다</h2>
+          <p>
+            전기와 달리 도시가스 주택용은 <strong>단가가 일정</strong>합니다. 쓴 만큼 곱하면 끝이라
+            많이 썼다고 단가가 뛰지 않습니다. 겨울 가스요금이 무서운 건 누진 때문이 아니라 그냥 사용량이
+            몇 배로 늘기 때문입니다.
+          </p>
+          <h2>단가는 지역과 계절에 따라 다릅니다</h2>
+          <p>
+            도시가스는 <strong>지역 공급사별로 요금이 다르고</strong>, 원료비 연동제라 국제 가스 가격에 따라
+            주기적으로 조정됩니다. 이 계산기는 서울 가정용 <strong>805원/㎥</strong>를 기본값으로 두지만,
+            고지서에 적힌 단가를 직접 넣으면 훨씬 정확합니다. 취사용과 난방용 단가가 나뉘는 경우도 있습니다.
+          </p>
+          <h2>㎥와 MJ</h2>
+          <p>
+            고지서에 <strong>MJ(메가줄)</strong>로 적혀 있다면 열량 단위입니다. 계량기는 부피(㎥)로 재고
+            요금은 열량으로 매기는 곳이 있어서, 열량환산계수를 곱해 변환합니다. 이 계수도 지역·시기에 따라
+            달라집니다. 여기에 <strong>부가가치세 10%</strong>가 붙어 최종 금액이 됩니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -43,7 +43,41 @@ export default function ElectricityPage() {
   }
 
   return (
-    <CalcShell path="/calculator/electricity" title="전기요금 계산기" description="주택용 저압 누진세 기준 전기요금 계산">
+    <CalcShell
+      path="/calculator/electricity"
+      title="전기요금 계산기"
+      description="주택용 저압 누진세 기준 전기요금 계산"
+      intro={
+        <>
+          <h2>누진제 3단계</h2>
+          <p>
+            주택용 전기는 쓸수록 단가가 올라갑니다. <strong>200kWh까지 1단계</strong>,{' '}
+            <strong>400kWh까지 2단계</strong>, 그 위가 3단계입니다. 단가는 1단계 120원대에서 3단계 300원대로{' '}
+            <strong>2.5배 넘게</strong> 벌어집니다. 기본요금도 단계마다 달라서, 400kWh를 조금만 넘겨도
+            기본요금이 1,600원에서 7,300원으로 뜁니다.
+          </p>
+          <h2>넘긴 만큼만 비싸집니다</h2>
+          <p>
+            흔한 오해가 &ldquo;401kWh를 쓰면 전체가 3단계 단가로 계산된다&rdquo;는 것인데 그렇지 않습니다.{' '}
+            <strong>구간별로 나눠서</strong> 계산합니다. 401kWh라면 200kWh는 1단계 단가로, 다음 200kWh는
+            2단계 단가로, 마지막 1kWh만 3단계 단가로 붙습니다. 다만 기본요금은 최종 구간 기준으로 통째로
+            바뀌므로 경계선 부근에서는 체감 차이가 납니다.
+          </p>
+          <h2>요금에 붙는 것들</h2>
+          <p>
+            전기요금에는 <strong>부가가치세 10%</strong>와 <strong>전력산업기반기금 3.7%</strong>가
+            더 붙습니다. 고지서 금액이 계산한 사용요금보다 큰 이유입니다.
+          </p>
+          <h2>참고용입니다</h2>
+          <p>
+            이 계산기는 <strong>주택용 저압</strong> 기준입니다. 아파트는 고압으로 계약된 곳이 많아 단가가
+            다르고, 여름·겨울 누진 완화 구간, 필수사용량 보장공제, 다자녀·출산 가구 할인 등이 적용되면
+            실제 고지서와 달라집니다. 한전 요금표는 개정되므로 정확한 금액은 고지서나 한전 사이트에서
+            확인하세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="mb-4">
