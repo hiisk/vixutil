@@ -45,7 +45,40 @@ export default function InheritanceTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/inheritance-tax" title="상속세 간편 계산기" description="상속재산 기준 예상 상속세 계산">
+    <CalcShell
+      path="/calculator/inheritance-tax"
+      title="상속세 간편 계산기"
+      description="상속재산 기준 예상 상속세 계산"
+      intro={
+        <>
+          <h2>공제부터 빼고 봅니다</h2>
+          <p>
+            상속재산 전액에 세금이 붙는 게 아닙니다. <strong>일괄공제 5억원</strong>이 기본으로 적용되고
+            (기초공제 2억 + 자녀당 5,000만원의 합계가 5억을 넘으면 큰 쪽), 배우자가 있으면{' '}
+            <strong>배우자상속공제로 최소 5억원</strong>이 더 붙습니다. 배우자 공제는 법정상속분 범위에서{' '}
+            <strong>최대 30억원</strong>까지 늘어납니다. 금융재산이 있으면 그 20%를 2억원 한도로 추가 공제합니다.
+          </p>
+          <h2>배우자 유무가 갈림길입니다</h2>
+          <p>
+            배우자가 있으면 공제만 <strong>10억원</strong>부터 시작합니다. 그래서 배우자와 자녀가 있는 집은
+            상속재산이 10억원을 넘지 않으면 상속세가 나오지 않는 경우가 많습니다. 배우자 없이 자녀만 있으면
+            5억원이 기준선이라 문턱이 훨씬 낮아집니다.
+          </p>
+          <h2>세율</h2>
+          <p>
+            과세표준 <strong>1억원 이하 10%</strong>에서 <strong>30억원 초과 50%</strong>까지 5단계
+            누진세율입니다. 증여세와 같은 세율표입니다.
+          </p>
+          <h2>간편 계산입니다</h2>
+          <p>
+            실제 상속세는 재산 평가 방법(특히 부동산·비상장주식), 사전증여재산 합산(<strong>10년 이내</strong>),
+            동거주택 상속공제, 가업상속공제, 신고세액공제 등에 따라 크게 달라집니다. 상속은 신고 기한
+            (<strong>사망일이 속한 달의 말일부터 6개월</strong>)이 정해져 있고 금액도 커서, 이 계산기로
+            대략을 가늠한 뒤 세무 상담을 받는 것을 권합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

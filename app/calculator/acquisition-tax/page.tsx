@@ -54,7 +54,39 @@ export default function AcquisitionTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/acquisition-tax" title="취득세 계산기" description="부동산 취득세 · 농어촌특별세 · 지방교육세 계산">
+    <CalcShell
+      path="/calculator/acquisition-tax"
+      title="취득세 계산기"
+      description="부동산 취득세 · 농어촌특별세 · 지방교육세 계산"
+      intro={
+        <>
+          <h2>취득세만 내는 게 아닙니다</h2>
+          <p>
+            집을 살 때는 취득세에 <strong>농어촌특별세</strong>와 <strong>지방교육세</strong>가 함께 붙습니다.
+            지방교육세는 취득세율의 20%, 농어촌특별세는 0.1%(주택 외 부동산은 0.4%) 수준입니다.
+            취득세율만 보고 예산을 짜면 실제 낼 돈보다 적게 잡히는 이유입니다.
+          </p>
+          <h2>1주택 실수요자 세율</h2>
+          <p>
+            <strong>6억원 이하는 1%</strong>, <strong>9억원 초과는 3%</strong>입니다. 그 사이 6~9억 구간은
+            계단식이 아니라 <strong>가격에 따라 1%에서 3%로 매끄럽게 올라가는</strong> 산식을 씁니다.
+            예전처럼 6억원에서 1원만 넘어도 세율이 껑충 뛰던 문제를 없앤 구조입니다.
+          </p>
+          <h2>주택 수가 많으면 중과됩니다</h2>
+          <p>
+            2주택 이상이면 세율이 크게 올라가고, <strong>조정대상지역에서는 2주택부터 12%</strong>가
+            적용됩니다. 3주택 이상은 지역과 무관하게 중과 대상입니다. 조정대상지역 지정은 정책에 따라 바뀌므로
+            계약 시점 기준으로 확인해야 합니다.
+          </p>
+          <h2>생애최초 감면</h2>
+          <p>
+            생애최초로 주택을 사면 취득세를 <strong>최대 200만원까지</strong> 감면받습니다. 다만 소득·주택
+            가격 등 요건이 붙습니다. 이 계산기는 감면 한도만 반영한 <strong>추정치</strong>이며, 실제
+            세액과 감면 여부는 관할 지방자치단체 세무과에서 확인해야 합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

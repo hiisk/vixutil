@@ -59,7 +59,38 @@ export default function GiftTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/gift-tax" title="증여세 간편 계산기" description="증여금액·관계 기준 예상 증여세 계산">
+    <CalcShell
+      path="/calculator/gift-tax"
+      title="증여세 간편 계산기"
+      description="증여금액·관계 기준 예상 증여세 계산"
+      intro={
+        <>
+          <h2>관계에 따라 공제액이 다릅니다</h2>
+          <p>
+            증여재산공제는 <strong>배우자 6억원</strong>, <strong>직계존속 → 성인 자녀 5,000만원</strong>,{' '}
+            <strong>미성년 자녀 2,000만원</strong>, 기타 친족 1,000만원입니다. 타인에게 받으면 공제가 없습니다.
+            공제액을 뺀 나머지에만 세금이 붙으므로, 같은 금액이라도 누가 주느냐에 따라 세액이 크게 달라집니다.
+          </p>
+          <h2>세율</h2>
+          <p>
+            과세표준 <strong>1억원 이하 10%</strong>부터 시작해 5억·10억·30억 구간을 지나며{' '}
+            <strong>30억 초과는 50%</strong>까지 올라가는 누진세율입니다. 상속세와 같은 세율표를 씁니다.
+          </p>
+          <h2>10년 단위로 합산합니다</h2>
+          <p>
+            공제는 <strong>10년 동안 합산</strong>해서 적용됩니다. 성인 자녀에게 5,000만원을 준 뒤 3년 만에
+            또 주면 두 번째는 공제가 남아 있지 않습니다. 나눠서 주면 세금을 피할 수 있다는 이야기가 통하지
+            않는 이유입니다. 10년이 지나면 공제가 되살아납니다.
+          </p>
+          <h2>간편 계산입니다</h2>
+          <p>
+            이 계산기는 증여금액과 관계만으로 <strong>대략의 세액</strong>을 냅니다. 실제로는 신고세액공제,
+            증여재산의 평가 방법, 부담부증여(빚을 함께 넘기는 경우), 창업자금·가업승계 특례 등 세액을 바꾸는
+            요소가 많습니다. 금액이 크다면 세무 상담을 받는 것이 확실합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
