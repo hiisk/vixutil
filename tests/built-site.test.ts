@@ -128,6 +128,45 @@ test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? fals
   }
 });
 
+test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  // canonical이 없으면 ?utm=, 슬래시 유무, 파라미터 조합으로 같은 페이지가
+  // 여러 URL로 색인돼 순위가 나뉜다. 실제로 1413개 페이지 전부 없었다.
+  //
+  // 더 위험한 건 canonical이 "틀린" 경우다 — 엉뚱한 URL을 정본으로 지목하면
+  // 그 페이지가 색인에서 통째로 빠진다. 그래서 자기 URL을 가리키는지까지 본다.
+  const BASE = 'https://vixutil.com';
+  const problems: string[] = [];
+
+  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+    if (route === '/404' || route === '/_not-found') continue; // 오류 페이지는 canonical이 없는 게 맞다
+
+    const html = readFileSync(f, 'utf8');
+    const found = html.match(/rel="canonical"\s+href="([^"]+)"/)?.[1];
+
+    if (!found) { problems.push(`${route}: canonical 없음`); continue; }
+
+    // 홈은 Next가 metadataBase와 '/'를 합치며 트레일링 슬래시를 뺀다.
+    // https://vixutil.com 과 https://vixutil.com/ 은 같은 URL이라 문제가 아니다.
+    const expected = route === '/index' ? BASE : `${BASE}${route}`;
+    if (found.replace(/\/$/, '') !== expected) {
+      problems.push(`${route}: "${found}" (기대: "${expected}")`);
+    }
+  }
+
+  assert.deepEqual(problems, [], `canonical 문제:\n  ${problems.slice(0, 10).join('\n  ')}`);
+});
+
+test('상세 페이지에 BreadcrumbList가 있다', { skip: built ? false : 'out/ 없음' }, () => {
+  // 검색 결과에 "홈 > 심리테스트 > MBTI" 경로가 표시된다. 클릭률에 직접 영향을 준다.
+  const samples = ['test/mbti', 'quiz/joseon', 'generator/lotto', 'checklist/moving', 'calculator/salary'];
+  const missing = samples.filter(s => {
+    const f = join(OUT, `${s}.html`);
+    return !existsSync(f) || !readFileSync(f, 'utf8').includes('BreadcrumbList');
+  });
+  assert.deepEqual(missing, [], `BreadcrumbList가 없는 페이지: ${missing.join(', ')}`);
+});
+
 test('아이콘 파일이 실제로 출력된다', { skip: built ? false : 'out/ 없음' }, () => {
   // apple-icon 규약은 .svg를 지원하지 않는다. 예전에 app/apple-icon.svg를 두는 바람에
   // 모든 페이지가 존재하지 않는 아이콘을 가리키고 있었다.

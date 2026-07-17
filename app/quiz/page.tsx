@@ -11,6 +11,7 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: '지식 퀴즈',
   description: '한국사, IT, K-POP, 건강 상식 등 100가지 퀴즈 모음',
+  alternates: { canonical: '/quiz' },
 };
 
 export default function QuizIndexPage() {

@@ -4,6 +4,7 @@ import JsonLd, { webAppJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/components/
 export const metadata: Metadata = {
   title: 'Crypto Signal Board - Multi-strategy signals & 1D–3Y price predictions',
   description: 'A dashboard that predicts direction with multiple strategies (Trend, Bollinger Bands, RSI, ATR) and computes daily entry, take-profit and stop-loss plus live P&L for all Binance spot & futures coins — plus 1D to 3Y price projection ranges. Runs in your browser. Reference only, not investment advice.',
+  alternates: { canonical: '/crypto/signals' },
 };
 
 const structuredData = [

@@ -4,7 +4,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 
-const APP = join(import.meta.dirname, '..', 'app');
+const ROOT = join(import.meta.dirname, '..');
+const APP = join(ROOT, 'app');
 const pagePath = (route: string) => join(APP, route, 'page.tsx');
 
 const routes = Object.keys(SECTION_FAQ);
@@ -18,13 +19,21 @@ test('SECTION_FAQ의 모든 키에 대응하는 페이지가 있다', () => {
   assert.deepEqual(missing, [], `페이지 없는 FAQ 키: ${missing.join(', ')}`);
 });
 
-test('FAQ가 정의된 페이지는 실제로 Faq를 렌더링한다', () => {
+test('FAQ가 정의된 페이지는 실제로 FAQPage를 내보낸다', () => {
   // 데이터만 있고 페이지에 안 붙으면 FAQPage 구조화 데이터가 나가지 않는다.
-  const unwired = routes.filter(r => {
-    const src = readFileSync(pagePath(r), 'utf8');
-    return !src.includes("from '@/components/Faq'") || !src.includes('<Faq');
+  //
+  // 소스에서 <Faq>를 찾는 대신 빌드 출력을 본다. 페이지가 클라이언트 컴포넌트에
+  // 화면을 위임하면(계산기 허브가 그렇다) 소스만 봐서는 놓친다 — 정작 중요한 건
+  // "실제로 나가는가"이므로 결과물을 확인하는 편이 정확하다.
+  const OUT = join(ROOT, 'out');
+  if (!existsSync(OUT)) return; // 빌드 전이면 건너뛴다
+
+  const missing = routes.filter(r => {
+    const html = join(OUT, `${r}.html`);
+    if (!existsSync(html)) return true;
+    return !readFileSync(html, 'utf8').includes('FAQPage');
   });
-  assert.deepEqual(unwired, [], `Faq를 렌더링하지 않는 페이지: ${unwired.join(', ')}`);
+  assert.deepEqual(missing, [], `FAQPage가 안 나가는 페이지: ${missing.join(', ')}`);
 });
 
 test('FAQ 항목에 빈 질문·짧은 답변이 없다', () => {

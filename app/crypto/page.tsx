@@ -9,6 +9,7 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: 'Crypto Trading Tools',
   description: 'Crypto trading tools built on Binance public market data — ATR volatility, TP/SL levels, and a real-time signal board. Everything is computed in your browser.',
+  alternates: { canonical: '/crypto' },
 };
 
 const structuredData = [

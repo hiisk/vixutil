@@ -6,6 +6,7 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
   description: '계산기·운세·생성기·심리테스트·퀴즈 등 일상에 필요한 실용 유틸 모음 — vixutil.com',
+  alternates: { canonical: '/' },
 };
 
 const SECTIONS = [

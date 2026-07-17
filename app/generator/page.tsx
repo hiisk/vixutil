@@ -11,6 +11,7 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: '생성기',
   description: '닉네임, 비밀번호, 명언, 메뉴 등 100가지 랜덤 생성기 모음',
+  alternates: { canonical: '/generator' },
 };
 
 export default function GeneratorIndexPage() {

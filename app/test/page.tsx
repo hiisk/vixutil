@@ -11,6 +11,7 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: '심리 테스트',
   description: 'MBTI, 연애 성향, 번아웃 등 다양한 심리 테스트 모음',
+  alternates: { canonical: '/test' },
 };
 
 export default function TestIndexPage() {

@@ -11,6 +11,7 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: '체크리스트',
   description: '이사·취업·여행·건강 등 상황별 체크리스트 모음 — 진행 상황을 저장하며 빠짐없이 준비하세요',
+  alternates: { canonical: '/checklist' },
 };
 
 export default function ChecklistIndexPage() {
