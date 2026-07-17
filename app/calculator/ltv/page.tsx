@@ -43,7 +43,35 @@ export default function LtvPage() {
   }
 
   return (
-    <CalcShell path="/calculator/ltv" title="LTV 계산기" description="담보인정비율 — 지역·주택수 기준 LTV 한도 확인">
+    <CalcShell
+      path="/calculator/ltv"
+      title="LTV 계산기"
+      description="담보인정비율 — 지역·주택수 기준 LTV 한도 확인"
+      intro={
+        <>
+          <h2>LTV가 뭔가요</h2>
+          <p>
+            <strong>담보인정비율(Loan To Value)</strong>은 집값 대비 얼마까지 빌려주느냐입니다.
+            LTV 70%에 10억 집이면 최대 7억까지입니다. 집이라는 담보를 기준으로 하는 한도라서,
+            내 소득이 얼마인지는 여기에 반영되지 않습니다.
+          </p>
+          <h2>LTV만 통과해서는 대출이 안 나옵니다</h2>
+          <p>
+            실제 한도는 <strong>LTV와 DSR 중 더 낮은 쪽</strong>으로 정해집니다. LTV로 7억이 가능해도
+            소득 대비 상환 부담이 크면 DSR에서 막힙니다. 집값이 비쌀수록 LTV보다 DSR이 먼저 걸리는
+            경우가 많으므로 <strong>DSR 계산기</strong>도 함께 돌려보세요.
+          </p>
+          <h2>규제지역 지정은 자주 바뀝니다</h2>
+          <p>
+            LTV 한도는 <strong>지역(투기과열지구·조정대상지역·비규제)</strong>과{' '}
+            <strong>보유 주택 수</strong>로 갈립니다. 문제는 어느 지역이 어디에 해당하는지가 정부 정책에 따라
+            수시로 바뀐다는 점입니다. 생애최초 구입, 신혼부부, 서민·실수요자 요건에 해당하면 우대 한도가
+            따로 적용되기도 합니다. 이 계산기는 일반적인 기준을 적용한 <strong>참고용</strong>이며,
+            실제 한도는 대출받을 금융사에서 확인해야 합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

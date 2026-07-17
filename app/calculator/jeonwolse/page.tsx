@@ -33,7 +33,36 @@ export default function JeonwolsePage() {
   }
 
   return (
-    <CalcShell path="/calculator/jeonwolse" title="전월세 전환 계산기" description="전세 ↔ 월세 금액 환산">
+    <CalcShell
+      path="/calculator/jeonwolse"
+      title="전월세 전환 계산기"
+      description="전세 ↔ 월세 금액 환산"
+      intro={
+        <>
+          <h2>계산 방식</h2>
+          <p>
+            전세를 월세로 바꿀 때는 <strong>(전세금 − 새 보증금) × 전환율 ÷ 12</strong>가 월세입니다.
+            반대로 월세를 전세로 환산할 때는 <strong>보증금 + (월세 × 12 ÷ 전환율)</strong>이 됩니다.
+            전환율이 낮을수록 세입자에게 유리합니다.
+          </p>
+          <h2>법정 전환율은 고정값이 아닙니다</h2>
+          <p>
+            주택임대차보호법은 전환율 상한을 <strong>연 10%</strong>와{' '}
+            <strong>한국은행 기준금리 + 2%</strong> 중 <strong>낮은 쪽</strong>으로 정합니다.
+            기준금리에 연동되므로 금리가 움직이면 상한도 함께 움직입니다. 이 계산기의 기본값도 그렇게 계산된
+            값이니, 계약 시점의 기준금리를 확인하고 직접 넣어 쓰는 것이 정확합니다.
+          </p>
+          <h2>상한이 적용되는 상황이 정해져 있습니다</h2>
+          <p>
+            이 상한은 <strong>기존 계약의 전세를 월세로 전환</strong>할 때 적용됩니다. 새로 맺는 계약의
+            월세 자체를 규제하는 것이 아니어서, 신규 계약에서는 시세대로 정해지는 것이 보통입니다.
+            그래서 시장에서 실제로 쓰이는 전환율이 법정 상한보다 높은 경우가 있습니다. 전세와 월세 중 뭐가
+            유리한지 따질 때는 보증금을 예금에 넣었을 때의 이자, 대출을 낀다면 그 이자까지 같이 비교해야
+            합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[
