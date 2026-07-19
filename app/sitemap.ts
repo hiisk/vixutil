@@ -26,6 +26,7 @@ const calculatorRoutes = [
   "/calculator/electricity", "/calculator/gas-bill", "/calculator/water-bill", "/calculator/water",
   "/calculator/maintenance-fee",
   "/calculator/gas-cost", "/calculator/fuel-efficiency", "/calculator/ev-charge", "/calculator/car-tax",
+  "/calculator/car-registration",
   "/calculator/bmi", "/calculator/bmr", "/calculator/calorie", "/calculator/sleep", "/calculator/ovulation",
   "/calculator/body-fat", "/calculator/blood-pressure", "/calculator/calories-burn",
   "/calculator/pregnancy", "/calculator/tip", "/calculator/dutch-pay", "/calculator/discount", "/calculator/gpa",

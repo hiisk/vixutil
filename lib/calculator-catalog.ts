@@ -124,6 +124,7 @@ export const CATS: CalcCategory[] = [
     accent: 'bg-orange-50 text-orange-700 border-orange-200',
     calcs: [
       { href:'/calculator/car-installment', title:'자동차 할부 계산기',  desc:'차량가·금리·기간 → 월 할부금' },
+      { href:'/calculator/car-registration', title:'자동차 취등록세 계산기', desc:'차값 외 취득세·공채·등록비' },
       { href:'/calculator/car-tax',         title:'자동차세 계산기',     desc:'배기량 기준 자동차세' },
       { href:'/calculator/fuel-efficiency', title:'연비 계산기',          desc:'주행거리·연료량 → 연비' },
       { href:'/calculator/gas-cost',        title:'주유비 계산기',        desc:'거리·연비·유가 → 주유비' },
