@@ -24,6 +24,7 @@ const calculatorRoutes = [
   "/calculator/exchange", "/calculator/roi", "/calculator/avg-price", "/calculator/breakeven", "/calculator/percent",
   "/calculator/simple-interest", "/calculator/inflation", "/calculator/retirement",
   "/calculator/electricity", "/calculator/gas-bill", "/calculator/water-bill", "/calculator/water",
+  "/calculator/maintenance-fee",
   "/calculator/gas-cost", "/calculator/fuel-efficiency", "/calculator/ev-charge", "/calculator/car-tax",
   "/calculator/bmi", "/calculator/bmr", "/calculator/calorie", "/calculator/sleep", "/calculator/ovulation",
   "/calculator/body-fat", "/calculator/blood-pressure", "/calculator/calories-burn",
