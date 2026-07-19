@@ -33,7 +33,39 @@ export default function CarInstallmentPage() {
   }
 
   return (
-    <CalcShell path="/calculator/car-installment" title="자동차 할부 계산기" description="차량 가격·금리·기간 기준 월 할부금 계산">
+    <CalcShell
+      path="/calculator/car-installment"
+      title="자동차 할부 계산기"
+      description="차량 가격·금리·기간 기준 월 할부금 계산"
+      intro={
+        <>
+          <h2>월 할부금만 보면 안 됩니다</h2>
+          <p>
+            같은 차라도 기간을 늘리면 월 부담이 확 줄어 싸 보입니다. 하지만 <strong>총 이자는
+            그만큼 늘어납니다</strong>. 36개월과 60개월을 비교하면 월 납입액 차이보다 총액 차이가
+            훨씬 크므로, 결정 전에 <strong>총 상환액</strong>을 견줘 보세요.
+          </p>
+          <h2>선수금과 잔가</h2>
+          <p>
+            <strong>선수금</strong>을 많이 낼수록 대출 원금이 줄어 이자가 적습니다. 반대로{' '}
+            <strong>유예할부(잔가 설정)</strong>는 차값의 일부를 만기에 몰아서 내는 방식이라 월 납입액이
+            낮아 보이지만, 마지막에 목돈이 필요하고 그때까지 그 금액에도 이자가 붙습니다.
+          </p>
+          <h2>차값 말고도 나가는 돈</h2>
+          <p>
+            <strong>취득세·등록비·보험료</strong>가 별도이고, 이후로도 자동차세·유류비·정비비가
+            계속 듭니다. 할부금만 계산하고 예산을 짜면 빠듯해지기 쉽습니다. 자동차세와 주유비
+            계산기로 유지비까지 함께 잡아보세요.
+          </p>
+          <h2>제시 금리를 그대로 넣으세요</h2>
+          <p>
+            할부 금리는 신용도·차종·프로모션에 따라 달라지고, 낮은 금리 대신 할인이 줄어드는 조건이
+            섞이기도 합니다. 이 계산기는 <strong>원리금균등</strong> 기준이며 취급수수료 같은 부대비용은
+            반영하지 않습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

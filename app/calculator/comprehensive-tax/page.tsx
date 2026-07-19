@@ -68,7 +68,34 @@ export default function ComprehensiveTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/comprehensive-tax" title="종합소득세 계산기" description="2024년 세율 기준 예상 종합소득세 계산">
+    <CalcShell
+      path="/calculator/comprehensive-tax"
+      title="종합소득세 계산기"
+      description="2024년 세율 기준 예상 종합소득세 계산"
+      intro={
+        <>
+          <h2>여러 소득을 합쳐서 매깁니다</h2>
+          <p>
+            종합소득세는 <strong>이자·배당·사업·근로·연금·기타소득</strong>을 하나로 합쳐 세율을
+            매깁니다. 각각 따로 낼 때보다 세율 구간이 올라가므로, 소득원이 여러 개면 합산했을 때
+            세금이 예상보다 커집니다. 세율은 <strong>6%에서 45%</strong>까지 8단계 누진입니다.
+          </p>
+          <h2>누진세는 전체에 최고세율이 붙는 게 아닙니다</h2>
+          <p>
+            과세표준이 6,000만원이라고 전액에 24%가 붙지 않습니다. <strong>1,400만원까지는 6%,
+            그 위 구간은 15%</strong> 하는 식으로 나눠서 계산합니다. 구간을 살짝 넘겼다고 세금이
+            갑자기 뛰지 않는 이유입니다.
+          </p>
+          <h2>공제가 반영되지 않았습니다</h2>
+          <p>
+            실제 신고에서는 인적공제·연금보험료공제·특별공제와 각종 세액공제가 들어가 세금이 크게
+            줄어듭니다. 이 계산기는 그 전 단계의 <strong>대략적인 규모</strong>를 보는 용도입니다.
+            5월 신고 때 낼 돈을 미리 가늠하는 데 쓰고, 정확한 세액은 홈택스나 세무 상담에서
+            확인하세요. 산출세액의 10%인 <strong>지방소득세</strong>가 별도로 붙는 점도 감안해야 합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

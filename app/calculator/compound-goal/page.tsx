@@ -48,7 +48,34 @@ export default function CompoundGoalPage() {
   }
 
   return (
-    <CalcShell path="/calculator/compound-goal" title="복리 목표 계산기" description="목표 금액까지 필요한 기간 또는 월 투자액 계산">
+    <CalcShell
+      path="/calculator/compound-goal"
+      title="복리 목표 계산기"
+      description="목표 금액까지 필요한 기간 또는 월 투자액 계산"
+      intro={
+        <>
+          <h2>거꾸로 계산합니다</h2>
+          <p>
+            복리 계산기가 &ldquo;이만큼 넣으면 얼마가 되나&rdquo;를 본다면, 이 계산기는{' '}
+            <strong>목표 금액에서 출발</strong>합니다. 1억을 모으려면 매달 얼마를 넣어야 하는지,
+            혹은 지금 넣는 금액으로는 몇 년이 걸리는지를 구합니다.
+          </p>
+          <h2>기간을 늘리는 게 가장 쉽습니다</h2>
+          <p>
+            목표 달성을 앞당기는 방법은 셋입니다. <strong>더 넣거나, 더 오래 두거나, 수익률을
+            높이거나.</strong> 이 중 수익률은 마음대로 되지 않고 올리려면 위험도 같이 커집니다.
+            숫자를 바꿔가며 돌려보면 <strong>기간을 몇 년 늘리는 것</strong>이 월 납입액을 크게
+            올리는 것만큼 효과가 있다는 게 보입니다.
+          </p>
+          <h2>가정이 결과를 좌우합니다</h2>
+          <p>
+            입력한 수익률이 <strong>매년 똑같이 나온다는 전제</strong>입니다. 실제 투자는 오르내림이
+            있고 세금과 물가도 빠져 있습니다. 수익률을 보수적으로 낮춰서도 계산해 보고, 결과를 확정된
+            계획이 아니라 <strong>가정을 비교하는 기준</strong>으로 쓰세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

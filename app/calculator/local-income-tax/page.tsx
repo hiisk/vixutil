@@ -38,7 +38,32 @@ export default function LocalIncomeTaxPage() {
   }
 
   return (
-    <CalcShell path="/calculator/local-income-tax" title="지방소득세 계산기" description="소득세의 10% — 지방소득세 계산">
+    <CalcShell
+      path="/calculator/local-income-tax"
+      title="지방소득세 계산기"
+      description="소득세의 10% — 지방소득세 계산"
+      intro={
+        <>
+          <h2>소득세의 10%</h2>
+          <p>
+            지방소득세는 <strong>산출된 소득세의 10%</strong>입니다. 소득세가 300만원이면 30만원이
+            더 붙어 총 330만원을 냅니다. 별도의 세율표가 있는 게 아니라 소득세에 연동되는 구조라,
+            소득세가 줄면 지방소득세도 같이 줍니다.
+          </p>
+          <h2>과세표준의 10%가 아닙니다</h2>
+          <p>
+            흔한 오해입니다. 곱하는 대상은 <strong>과세표준이 아니라 산출세액</strong>입니다.
+            과세표준 5,000만원에 소득세가 600만원 나왔다면 지방소득세는 500만원이 아니라 60만원입니다.
+          </p>
+          <h2>어디에 쓰이나요</h2>
+          <p>
+            이름 그대로 <strong>지방자치단체로 가는 세금</strong>입니다. 근로자는 급여에서 원천징수될 때
+            소득세와 함께 빠져나가고, 사업자는 종합소득세를 신고할 때 함께 신고합니다.
+            양도소득세·법인세에도 같은 방식으로 붙습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

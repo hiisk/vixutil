@@ -33,7 +33,40 @@ export default function SubscriptionScorePage() {
                   { label: '경쟁력 낮음', color: 'text-slate-500 dark:text-slate-400', bg: 'bg-slate-50 dark:bg-slate-950' };
 
   return (
-    <CalcShell path="/calculator/subscription-score" title="청약 가점 계산기" description="무주택기간 · 부양가족 · 청약통장 가입기간 기준">
+    <CalcShell
+      path="/calculator/subscription-score"
+      title="청약 가점 계산기"
+      description="무주택기간 · 부양가족 · 청약통장 가입기간 기준"
+      intro={
+        <>
+          <h2>84점 만점</h2>
+          <p>
+            청약 가점은 <strong>무주택기간 32점 + 부양가족 35점 + 청약통장 가입기간 17점</strong>으로
+            이뤄집니다. 이 중 <strong>부양가족 배점이 가장 큽니다</strong>. 한 명당 5점씩이라
+            가족 수가 당락을 가르는 경우가 많습니다.
+          </p>
+          <h2>무주택기간은 만 30세부터 셉니다</h2>
+          <p>
+            태어나서부터가 아닙니다. <strong>만 30세</strong>가 되는 날부터, 그 전에 혼인했다면{' '}
+            <strong>혼인신고일</strong>부터 계산합니다. 그래서 20대는 아무리 집이 없어도 기간 점수를
+            쌓을 수 없습니다. 중간에 집을 소유한 적이 있다면 처분한 시점부터 다시 셉니다.
+          </p>
+          <h2>부양가족 인정 요건이 까다롭습니다</h2>
+          <p>
+            같은 <strong>주민등록등본에 올라 있어야</strong> 하고 기간 요건도 있습니다. 직계존속(부모)은
+            보통 3년 이상, 직계비속(자녀) 중 만 30세 이상 미혼 자녀는 1년 이상 함께 등재돼 있어야
+            인정됩니다. 따로 사는 부모나 이미 분가한 자녀는 세지 않습니다.
+          </p>
+          <h2>가점을 부풀리면 부적격 처리됩니다</h2>
+          <p>
+            <strong>당첨이 취소되고 일정 기간 청약이 제한</strong>됩니다. 고의가 아니라 계산 착오여도
+            마찬가지입니다. 이 계산기는 <strong>참고용</strong>이므로, 실제 청약 전에는{' '}
+            <strong>청약홈</strong>에서 본인 정보를 조회해 확정된 점수를 확인하세요. 특별공급이나
+            추첨제는 가점제와 기준이 다릅니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-5">
