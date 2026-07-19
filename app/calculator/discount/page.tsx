@@ -50,7 +50,32 @@ export default function DiscountPage() {
   const QUICK_RATES = [5, 10, 15, 20, 25, 30, 50];
 
   return (
-    <CalcShell path="/calculator/discount" title="할인 계산기" description="할인가 계산·할인율 계산·원가 역산 세 가지 모드를 지원합니다">
+    <CalcShell
+      path="/calculator/discount"
+      title="할인 계산기"
+      description="할인가 계산·할인율 계산·원가 역산 세 가지 모드를 지원합니다"
+      intro={
+        <>
+          <h2>연속 할인은 더하는 게 아닙니다</h2>
+          <p>
+            30% 할인에 추가 20% 할인이 붙으면 50%가 아닙니다. 30%를 뺀 <strong>70%에서 다시 20%를
+            빼는</strong> 것이라 최종 44% 할인입니다. 쿠폰을 겹쳐 쓸 때 기대보다 덜 깎이는 이유입니다.
+          </p>
+          <h2>할인율을 역산해 보세요</h2>
+          <p>
+            &ldquo;정가 10만원 → 6만 5천원&rdquo;이 몇 % 할인인지 바로 계산됩니다.{' '}
+            <strong>정가를 올려놓고 할인율만 크게 표시</strong>하는 경우가 있어서, 원래 가격이 얼마였는지
+            확인하는 편이 안전합니다. 할인율보다 <strong>실제 지불 금액</strong>으로 비교하는 것이
+            언제나 확실합니다.
+          </p>
+          <h2>1+1과 50% 할인</h2>
+          <p>
+            같아 보이지만 다릅니다. 1+1은 <strong>두 개를 사야</strong> 절반 값이 되는 것이고, 하나만
+            필요한데 두 개를 사면 절약이 아닙니다. 필요한 수량을 먼저 정하고 단가를 견주세요.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

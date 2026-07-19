@@ -73,7 +73,32 @@ export default function DutchPayPage() {
   }
 
   return (
-    <CalcShell path="/calculator/dutch-pay" title="더치페이 계산기" description="총 금액과 인원수, 추가 항목을 입력하면 각자 부담할 금액을 계산합니다">
+    <CalcShell
+      path="/calculator/dutch-pay"
+      title="더치페이 계산기"
+      description="총 금액과 인원수, 추가 항목을 입력하면 각자 부담할 금액을 계산합니다"
+      intro={
+        <>
+          <h2>1/N이 항상 공평하지는 않습니다</h2>
+          <p>
+            술을 안 마신 사람과 많이 마신 사람이 같은 금액을 내면 불편함이 남습니다. 이 계산기는
+            <strong>특정 항목을 특정 사람에게만 배정</strong>할 수 있어서, 함께 먹은 것은 나누고
+            따로 시킨 것은 그 사람이 내는 식으로 정리할 수 있습니다.
+          </p>
+          <h2>끝자리는 미리 정해두세요</h2>
+          <p>
+            나누다 보면 <strong>원 단위</strong>가 남습니다. 계산이 복잡해질수록 누가 몇십 원을 더
+            내느냐가 애매해지므로, 십 원이나 백 원 단위로 올림해서 정리하고 남는 몫은 한 사람이
+            떠안는 편이 깔끔합니다.
+          </p>
+          <h2>돈 이야기는 먹기 전에</h2>
+          <p>
+            어떻게 나눌지를 <strong>주문하기 전에</strong> 정해두면 계산할 때 어색해지지 않습니다.
+            메뉴 가격 차이가 큰 자리라면 특히 그렇습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>

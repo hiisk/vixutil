@@ -23,7 +23,34 @@ export default function ToAnnualPage() {
   }
 
   return (
-    <CalcShell path="/calculator/to-annual" title="연봉 계산기" description="월급 → 연봉 환산">
+    <CalcShell
+      path="/calculator/to-annual"
+      title="연봉 계산기"
+      description="월급 → 연봉 환산"
+      intro={
+        <>
+          <h2>월급 × 12가 연봉이 아닐 수 있습니다</h2>
+          <p>
+            회사마다 <strong>상여금·성과급·명절수당</strong>을 어떻게 주느냐가 달라서, 매달 받는
+            금액에 12를 곱한 값이 계약상 연봉과 어긋나는 경우가 많습니다. 연봉을 13이나 14로 나눠
+            지급하는 회사도 있습니다.
+          </p>
+          <h2>세전인지 세후인지 맞춰야 합니다</h2>
+          <p>
+            채용 공고의 연봉은 대개 <strong>세전</strong>이고, 본인이 아는 월급은 <strong>세후
+            실수령액</strong>인 경우가 많습니다. 이 둘을 그대로 비교하면 연봉이 실제보다 낮게 나옵니다.
+            실수령액에서 연봉을 역산하려면 4대보험과 세금을 되돌려야 하므로{' '}
+            <strong>목표 실수령액 → 연봉 계산기</strong>를 쓰세요.
+          </p>
+          <h2>이직 협상에서는 총보상으로 보세요</h2>
+          <p>
+            연봉만 비교하면 놓치는 것이 많습니다. <strong>퇴직금 별도 여부</strong>, 성과급 비중,
+            식대·교통비 같은 비과세 항목, 복리후생까지 합쳐야 실제 조건이 견줘집니다. 특히 퇴직금이
+            연봉에 포함된 조건인지 아닌지는 실질 차이가 큽니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

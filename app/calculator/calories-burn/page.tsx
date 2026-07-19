@@ -67,7 +67,35 @@ export default function CaloriesBurnPage() {
   }
 
   return (
-    <CalcShell path="/calculator/calories-burn" title="운동 칼로리 소모 계산기" description="MET 기반 운동별 칼로리 소모 · 지방 소모량 · 음식 비교">
+    <CalcShell
+      path="/calculator/calories-burn"
+      title="운동 칼로리 소모 계산기"
+      description="MET 기반 운동별 칼로리 소모 · 지방 소모량 · 음식 비교"
+      intro={
+        <>
+          <h2>MET로 계산합니다</h2>
+          <p>
+            <strong>MET</strong>는 가만히 있을 때 대비 몇 배의 에너지를 쓰는지를 나타내는 값입니다.
+            소모 칼로리는 <strong>MET × 체중(kg) × 시간</strong>으로 구합니다. 같은 운동이어도
+            체중이 무거울수록 더 많이 태우는 이유가 여기 있습니다. MET 값은 신체활동 개요서
+            (Compendium of Physical Activities)를 따랐습니다.
+          </p>
+          <h2>운동으로 빼는 건 생각보다 어렵습니다</h2>
+          <p>
+            30분 달리기로 태우는 열량이 라면 한 그릇에도 못 미치는 경우가 흔합니다. 먹는 쪽을
+            조절하는 게 훨씬 효율적이라는 이야기가 나오는 이유입니다. 그렇다고 운동이 의미 없다는
+            뜻은 아닙니다. <strong>근육량과 심폐 건강</strong>은 칼로리 숫자로 환산되지 않는 값어치가
+            있습니다.
+          </p>
+          <h2>추정치입니다</h2>
+          <p>
+            같은 운동이어도 강도·숙련도·개인차에 따라 실제 소모량은 달라집니다. 운동 기구나 스마트워치가
+            보여주는 숫자도 마찬가지로 추정이고, 대체로 <strong>실제보다 높게</strong> 나오는 경향이
+            있습니다. 하나의 기준으로 꾸준히 재면서 추세를 보는 편이 절대값보다 쓸모 있습니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">운동 정보 입력</p>

@@ -94,7 +94,38 @@ export default function PregnancyPage() {
     : 0;
 
   return (
-    <CalcShell path="/calculator/pregnancy" title="임신 예정일 계산기" description="네겔레 법칙 기반 출산예정일 · 임신주수 · 검사 일정 안내">
+    <CalcShell
+      path="/calculator/pregnancy"
+      title="임신 예정일 계산기"
+      description="네겔레 법칙 기반 출산예정일 · 임신주수 · 검사 일정 안내"
+      intro={
+        <>
+          <h2>마지막 생리 시작일부터 셉니다</h2>
+          <p>
+            임신 주수는 수정된 날이 아니라 <strong>마지막 생리 시작일(LMP)</strong>이 기준입니다.
+            수정은 보통 배란 무렵에 일어나므로, 임신 4주라고 해도 실제 수정된 지는 2주쯤 됐다는
+            뜻입니다. 병원에서 말하는 주수가 생각보다 앞서 있는 이유입니다.
+          </p>
+          <h2>출산예정일은 LMP + 280일</h2>
+          <p>
+            <strong>네겔레 법칙</strong>이라고 하며 40주를 기준으로 잡습니다. 이 계산기는 생리주기가
+            28일이 아닌 경우 그 차이만큼 보정합니다. 주기가 길면 배란도 늦어 예정일이 뒤로 밀리기
+            때문입니다.
+          </p>
+          <h2>예정일에 낳는 경우는 드뭅니다</h2>
+          <p>
+            예정일은 <strong>확정된 날짜가 아니라 중앙값</strong>에 가깝습니다. 실제로 그날 출산하는
+            비율은 낮고, 대부분 그 앞뒤 몇 주 안에 태어납니다. 초음파로 잰 아기 크기에 따라 병원에서
+            예정일을 조정하기도 하는데, <strong>초음파 기준이 더 정확</strong>하다고 봅니다.
+          </p>
+          <h2>참고용입니다</h2>
+          <p>
+            주기가 불규칙하거나 마지막 생리일이 확실하지 않으면 이 계산이 맞지 않습니다.
+            정확한 주수와 예정일은 산부인과 진료에서 확인하세요. 이 계산기는 의학적 조언이 아닙니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">정보 입력</p>

@@ -29,7 +29,33 @@ export default function ToHourlyPage() {
   }
 
   return (
-    <CalcShell path="/calculator/to-hourly" title="시급 계산기" description="월급을 시급으로 환산">
+    <CalcShell
+      path="/calculator/to-hourly"
+      title="시급 계산기"
+      description="월급을 시급으로 환산"
+      intro={
+        <>
+          <h2>월급을 209로 나눕니다</h2>
+          <p>
+            시급 환산의 기준이 되는 <strong>209시간</strong>은 주 40시간에 <strong>주휴 8시간</strong>을
+            더해 월로 환산한 값(48 × 365 ÷ 7 ÷ 12)입니다. 한 달을 4주로 보고 160시간으로 나누면
+            시급이 실제보다 높게 나옵니다.
+          </p>
+          <h2>최저임금 위반 여부를 볼 때</h2>
+          <p>
+            월급제라도 시급으로 환산했을 때 <strong>최저시급(2026년 10,320원)</strong>에 못 미치면
+            안 됩니다. 다만 최저임금에 산입되는 임금의 범위가 법으로 정해져 있어서, 상여금이나
+            복리후생비가 섞인 급여 구조라면 단순 나눗셈만으로 판단하기 어렵습니다.
+          </p>
+          <h2>소정근로시간이 다르면 209가 아닙니다</h2>
+          <p>
+            주 40시간보다 적게 일하기로 계약했다면 그에 맞는 시간으로 나눠야 합니다. 연장근로수당은
+            여기서 나온 시급이 아니라 <strong>통상시급</strong>을 기준으로 계산하는데, 통상임금에
+            포함되는 항목이 따로 있어 총급여와는 다릅니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

@@ -48,7 +48,33 @@ export default function TipPage() {
   }
 
   return (
-    <CalcShell path="/calculator/tip" title="팁 계산기" description="금액과 팁 비율, 인원수를 입력하면 1인당 금액을 자동 계산합니다">
+    <CalcShell
+      path="/calculator/tip"
+      title="팁 계산기"
+      description="금액과 팁 비율, 인원수를 입력하면 1인당 금액을 자동 계산합니다"
+      intro={
+        <>
+          <h2>얼마가 적당한가</h2>
+          <p>
+            미국 기준으로 식당은 보통 <strong>15~20%</strong>, 서비스가 좋았다면 그 이상을 줍니다.
+            카페 테이크아웃이나 바에서는 관행이 다르고, 나라에 따라 팁 문화가 아예 없거나 요금에
+            포함돼 있기도 합니다. 유럽·일본처럼 팁을 주지 않는 것이 자연스러운 곳도 많습니다.
+          </p>
+          <h2>서비스료가 이미 붙었는지 확인하세요</h2>
+          <p>
+            영수증에 <strong>gratuity</strong>나 <strong>service charge</strong>가 이미 포함된 경우가
+            있습니다. 단체 손님에게 자동으로 붙이는 식당이 많은데, 모르고 또 주면 두 번 내는 셈입니다.
+            계산 전에 항목을 한 번 훑어보세요.
+          </p>
+          <h2>세금 전 금액이 기준입니다</h2>
+          <p>
+            원칙적으로 팁은 <strong>세금을 뺀 음식값</strong>을 기준으로 계산합니다. 세금이 포함된
+            총액으로 계산하면 조금 더 내게 되는데, 편의상 그렇게 하는 사람도 많습니다. 인원수로 나눌
+            때는 끝자리를 올림해 정리하면 계산이 깔끔합니다.
+          </p>
+        </>
+      }
+    >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">결제 정보</p>
