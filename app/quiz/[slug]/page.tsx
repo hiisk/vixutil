@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { QUIZZES, QUIZ_MAP } from '@/lib/quiz-data';
 import QuizEngine from '@/components/QuizEngine';
+import QuizContent from '@/components/QuizContent';
 import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
@@ -31,6 +32,7 @@ export default async function QuizPage({ params }: { params: Promise<{ slug: str
         ])}
       />
       <QuizEngine quiz={quiz} />
+      <QuizContent quiz={quiz} />
       <RelatedContent items={QUIZZES} currentSlug={slug} basePath="/quiz" accent="amber" />
       <SiteFooter />
     </>

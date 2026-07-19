@@ -49,6 +49,9 @@ export async function generateMetadata({ params }: { params: Promise<{ coin: str
     title: `${coin.name} (${coin.base}) Price Prediction — 5D to 3Y ranges`,
     description: `${coin.name} price projection for 3 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years, plus a day-by-day 30-day forecast, chart, technical readout and historic OHLC data from Binance.`,
     alternates: { canonical: `/crypto/${slug}/price-prediction` },
+    // 코인별 페이지는 티커만 다른 동일 템플릿이라 색인에서 제외한다.
+    // 링크는 계속 따라가도록 follow는 유지 — /crypto/signals 등 허브는 색인 대상.
+    robots: { index: false, follow: true },
   };
 }
 

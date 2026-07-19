@@ -3,7 +3,6 @@ import { TESTS } from "@/lib/test-data";
 import { QUIZZES } from "@/lib/quiz-data";
 import { GENERATORS } from "@/lib/generator-data";
 import { CHECKLISTS } from "@/lib/checklist-data";
-import { COINS } from "@/lib/coins";
 
 const BASE = "https://vixutil.com";
 
@@ -77,12 +76,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
-    ...COINS.map(c => ({
-      url: `${BASE}/crypto/${c.slug}/price-prediction`,
-      lastModified: now,
-      changeFrequency: weekly,
-      priority: 0.7,
-    })),
+    // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
+    // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { TESTS, TEST_MAP } from '@/lib/test-data';
 import TestEngine from '@/components/TestEngine';
+import TestContent from '@/components/TestContent';
 import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
@@ -31,6 +32,7 @@ export default async function TestPage({ params }: { params: Promise<{ slug: str
         ])}
       />
       <TestEngine test={test} />
+      <TestContent test={test} />
       <RelatedContent items={TESTS} currentSlug={slug} basePath="/test" accent="violet" />
       <SiteFooter />
     </>

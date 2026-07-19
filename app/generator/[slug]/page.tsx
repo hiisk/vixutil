@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { GENERATORS, GENERATOR_MAP } from '@/lib/generator-data';
 import GeneratorEngine from '@/components/GeneratorEngine';
+import GeneratorContent from '@/components/GeneratorContent';
 import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
@@ -31,6 +32,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ slug
         ])}
       />
       <GeneratorEngine gen={gen} />
+      <GeneratorContent gen={gen} />
       <RelatedContent items={GENERATORS} currentSlug={slug} basePath="/generator" accent="emerald" bg="bg-slate-50 dark:bg-slate-950" />
       <SiteFooter />
     </>

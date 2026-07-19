@@ -40,7 +40,6 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
 export default function ChecklistEngine({ checklist }: { checklist: Checklist }) {
   const STORAGE_KEY = `checklist-${checklist.slug}`;
   const [checked, setChecked] = useState<Set<string>>(new Set());
-  const [mounted, setMounted] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
 
@@ -52,10 +51,12 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
 
   useEffect(() => {
     // localStorage는 프리렌더 시점에 없다. 마운트 후 읽어 진행 상황을 복원한다.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
+    // 목록 자체는 프리렌더 때부터 전부 그린다. checked가 빈 Set으로 시작하므로
+    // 서버 HTML과 하이드레이션 직후 렌더가 일치하고, 복원은 그 다음 커밋에서 반영된다.
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
+      // 프리렌더 HTML과 하이드레이션을 맞추려면 복원은 마운트 후여야 한다.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (saved) setChecked(new Set(JSON.parse(saved)));
     } catch {}
   }, [STORAGE_KEY]);
@@ -340,18 +341,9 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
   }
 
-  if (!mounted) return (
+  return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
       <PageGlow accent="sky" />
-      <div className="h-1 bg-gradient-to-r from-sky-400 to-cyan-500" />
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
       {/* 상단 진행바 */}
       <div className="h-1.5 bg-sky-100 dark:bg-sky-950/40">
         <div
