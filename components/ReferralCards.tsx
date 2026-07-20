@@ -53,14 +53,32 @@ interface Props {
   lang?: 'ko' | 'en';
   /** 섹션 제목. 생략하면 기본 문구 */
   heading?: string;
+  /**
+   * 'result' — 테스트·퀴즈 결과 화면처럼 사용자가 버튼을 눌러 도달한 자리.
+   * 시선이 가장 오래 머무는 지점이라 테두리를 세워 눈에 띄게 한다.
+   *
+   * 팝업이나 결과를 덮는 오버레이로 만들지 않는다. 방금 저품질 판정을 받은
+   * 사이트에서 인터스티셜은 애드센스 정책에 정면으로 걸리고, 사용자가 보려고
+   * 누른 결과를 가리면 광고를 보기 전에 뒤로 가기를 누른다.
+   */
+  placement?: 'section' | 'result';
 }
 
-export default function ReferralCards({ lang = 'ko', heading }: Props) {
+export default function ReferralCards({ lang = 'ko', heading, placement = 'section' }: Props) {
   const ko = lang === 'ko';
-  const title = heading ?? (ko ? '코인 선물 거래소 가입 혜택' : 'Exchange sign-up bonuses');
+  const inResult = placement === 'result';
+  const title = heading ?? (ko
+    ? (inResult ? '결과를 본 김에 — 코인 거래소 가입 혜택' : '코인 선물 거래소 가입 혜택')
+    : 'Exchange sign-up bonuses');
 
   return (
-    <section className="not-prose">
+    <section
+      className={
+        inResult
+          ? 'not-prose mt-6 rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/40 dark:bg-amber-950/10 p-4'
+          : 'not-prose'
+      }
+    >
       <div className="flex items-center gap-2 mb-3">
         {/* "광고" 표기를 눈에 띄게 둔다. 숨기면 당장 클릭이 늘어도 신뢰를 잃는다. */}
         <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
@@ -129,7 +147,7 @@ export default function ReferralCards({ lang = 'ko', heading }: Props) {
         })}
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-slate-400 dark:text-slate-500">
+      <p className="mt-2.5 text-[11px] text-slate-400 dark:text-slate-500">
         {ko ? RISK_NOTE_KO : RISK_NOTE_EN}
       </p>
     </section>

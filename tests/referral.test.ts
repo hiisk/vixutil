@@ -52,15 +52,30 @@ test('제휴 카드가 광고임을 명시한다', () => {
   assert.match(card, /'Ad'/, '영어 광고 표기가 없다');
 });
 
-test('제휴 카드에 원금 손실·제휴 관계 고지가 함께 붙는다', () => {
-  // 카드를 크게 키우기로 하면서 더 필요해진 것들이다. 크기만 키우고 고지를 떼면
-  // 원금 전액을 잃을 수 있는 상품을 수수료 받고 밀어주는 모양이 된다.
+test('제휴 카드에 원금 손실 고지가 붙는다', () => {
+  // 제휴 관계 고지는 "광고" 표기가 맡는다(공정위 추천·보증 심사지침이 인정하는 표시).
+  // 원금 손실 한 줄은 남긴다 — 실수령액 계산기를 보러 온 사람에게 "최대 $30,000"을
+  // 띄우는 자리라서, 크기를 키울수록 이 한 줄의 값어치가 커진다.
   const card = readFileSync(join(ROOT, 'components', 'ReferralCards.tsx'), 'utf8');
   assert.ok(card.includes('RISK_NOTE_KO') && card.includes('RISK_NOTE_EN'), '카드가 위험 고지를 렌더하지 않는다');
   assert.match(RISK_NOTE_KO, /원금/, '원금 손실 언급 누락');
-  assert.match(RISK_NOTE_KO, /제휴|수수료/, '제휴 관계 고지 누락');
-  assert.match(RISK_NOTE_EN, /principal/i, 'principal 언급 누락');
-  assert.match(RISK_NOTE_EN, /affiliate|commission/i, '제휴 관계 고지 누락');
+  assert.match(RISK_NOTE_EN, /principal|loss/i, '원금 손실 언급 누락');
+});
+
+test('결과 화면 노출이 팝업이 아니라 본문에 들어간다', () => {
+  // 인터스티셜·오버레이는 애드센스 정책에 걸린다. 저품질 판정을 한 번 받은
+  // 사이트에서는 특히 위험하고, 사용자가 보려고 누른 결과를 가리면 광고를
+  // 보기 전에 뒤로 가기를 누른다.
+  const card = readFileSync(join(ROOT, 'components', 'ReferralCards.tsx'), 'utf8');
+  for (const banned of ['fixed inset-0', 'position: fixed', 'z-50', 'backdrop-blur', 'role="dialog"']) {
+    assert.ok(!card.includes(banned), `오버레이로 보이는 마크업: ${banned}`);
+  }
+
+  // 두 결과 화면이 실제로 카드를 렌더하는지 확인한다.
+  for (const engine of ['TestEngine.tsx', 'QuizEngine.tsx']) {
+    const src = readFileSync(join(ROOT, 'components', engine), 'utf8');
+    assert.match(src, /<ReferralCards placement="result" \/>/, `${engine}: 결과 화면에 카드가 없다`);
+  }
 });
 
 test('"1위" 문구는 무엇에 대한 1위인지 밝힌다', () => {

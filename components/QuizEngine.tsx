@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
 import ShareButton from './ShareButton';
 import PageGlow from './PageGlow';
+import ReferralCards from './ReferralCards';
 import { thumbGradient } from '@/lib/thumbnail';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
@@ -181,6 +182,9 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
         )}
 
         <ShareButton title={`${quiz.title} ${pct}점 달성!`} description={`${correct}/${total}문제 정답 · ${msg}`} type="quiz" />
+
+        {/* 결과 화면 노출 — 위치 선정 근거는 TestEngine의 같은 자리에 적어두었다. */}
+        <ReferralCards placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-xl py-3.5 font-bold text-sm transition-colors">

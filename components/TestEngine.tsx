@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Test } from '@/lib/types';
 import ShareButton from './ShareButton';
 import PageGlow from './PageGlow';
+import ReferralCards from './ReferralCards';
 import { thumbGradient } from '@/lib/thumbnail';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
@@ -162,6 +163,13 @@ export default function TestEngine({ test }: { test: Test }) {
           description={`${mbtiType ? `나의 MBTI는 ${mbtiType}!\n` : ''}${result.title}\n\n${result.desc}`}
           type="test"
         />
+
+        {/*
+          결과 화면은 사용자가 직접 버튼을 눌러 도달한, 시선이 가장 오래 머무는
+          자리다. 공유 버튼 다음·다음 행동 버튼 앞에 둔다 — 결과를 다 읽고 나서
+          자연스럽게 눈에 들어오되, 결과 자체를 가리지는 않는 위치다.
+        */}
+        <ReferralCards placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}

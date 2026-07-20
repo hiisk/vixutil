@@ -90,8 +90,16 @@ export function hasRankBasis(label: string): boolean {
   return basis.length >= 2;
 }
 
-/** 투자 위험 고지 — 제휴 링크를 크게 노출하는 자리에는 반드시 함께 둔다 */
-export const RISK_NOTE_KO =
-  '가상자산 선물 거래는 원금 전액을 잃을 수 있는 고위험 상품입니다. 이 링크는 제휴 링크로, 가입 시 사이트가 수수료를 받습니다.';
-export const RISK_NOTE_EN =
-  'Crypto futures trading is high-risk and you can lose your entire principal. These are affiliate links — we earn a commission if you sign up.';
+/**
+ * 위험 고지.
+ *
+ * 원래 두 문장이었다 — 원금 손실 + 제휴 수수료. 제휴 수수료 쪽은 뺐다. 카드에 붙는
+ * "광고" 표기가 공정위 추천·보증 심사지침이 요구하는 경제적 이해관계 표시에
+ * 해당하므로, 같은 말을 두 번 할 필요가 없다.
+ *
+ * 원금 손실 한 줄은 남긴다. 실수령액 계산기를 보러 온 사람에게 "최대 $30,000"을
+ * 띄우는 자리라서다. 선물은 대부분의 개인 투자자가 돈을 잃는 상품이고, 한 줄
+ * 덧붙이는 비용은 사실상 없다. 대신 문장을 짧게 줄여 카드를 가리지 않게 했다.
+ */
+export const RISK_NOTE_KO = '가상자산 선물은 원금 전액을 잃을 수 있습니다.';
+export const RISK_NOTE_EN = 'Crypto futures carry a risk of total loss.';
