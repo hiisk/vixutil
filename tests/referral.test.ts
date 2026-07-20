@@ -139,16 +139,44 @@ test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false 
     for (const e of readdirSync(dir, { withFileTypes: true })) {
       const p = join(dir, e.name);
       if (e.isDirectory()) walk(p, out);
-      else if (e.name.endsWith('.html')) out.push(p);
+      // 확장자로 거르지 않는다 — HTML만 모으면 JS 번들 검사가 빈 배열을 보고
+      // 조용히 통과한다(실제로 그렇게 통과할 뻔했다). 거르기는 호출부에서 한다.
+      else out.push(p);
     }
     return out;
   };
 
-  const pages = walk(OUT);
   const host = new URL(REFERRALS[0].href).host;
-  const withRef = pages.filter(p => readFileSync(p, 'utf8').includes(host));
 
-  // 푸터가 있는 페이지에는 전부 실려야 한다. 404 등 몇 개는 푸터가 없다.
-  const ratio = withRef.length / pages.length;
-  assert.ok(ratio > 0.9, `제휴 링크가 ${withRef.length}/${pages.length} 페이지에만 있다`);
+  // 푸터에서 카드를 뺐으므로 "모든 HTML에 들어 있다"는 더 이상 성립하지 않는다.
+  // 지금은 두 경로로 나간다.
+  //
+  //  1) 계산기는 CalcShell이 서버 렌더라 정적 HTML에 그대로 실린다.
+  //  2) 나머지 섹션은 결과가 나온 뒤에 그리므로 정적 HTML이 아니라 JS 번들에 있다.
+  //     (테스트·퀴즈 결과 화면, 생성기 결과, 체크리스트 진행 중, 운세)
+  //
+  // 둘 다 확인한다 — 한쪽만 보면 반대쪽이 통째로 빠져도 통과한다.
+  //
+  // en/ja는 제외한다. 로컬라이즈된 계산기 허브라 CalcShell을 쓰지 않고, 제휴 문구도
+  // 한국어·영어만 있어서 일본어 페이지에 넣을 것이 없다.
+  const LOCALIZED_HUBS = ['en.html', 'ja.html'];
+  const calcPages = walk(join(OUT, 'calculator'))
+    .filter(p => p.endsWith('.html'))
+    .filter(p => !LOCALIZED_HUBS.includes(p.split('/').pop()!));
+
+  const withRef = calcPages.filter(p => readFileSync(p, 'utf8').includes(host));
+  assert.ok(calcPages.length > 50, `계산기 페이지가 ${calcPages.length}개뿐 — 경로가 바뀌었나`);
+  assert.equal(withRef.length, calcPages.length,
+    `계산기 ${calcPages.length}개 중 ${withRef.length}개에만 제휴 링크가 있다`);
+
+  const chunks = walk(join(OUT, '_next', 'static')).filter(p => p.endsWith('.js'));
+  const inBundle = chunks.some(p => readFileSync(p, 'utf8').includes(host));
+  assert.ok(inBundle, '결과 화면용 번들에 제휴 링크가 없다 — 결과 지점 노출이 통째로 빠졌다');
+});
+
+test('푸터에는 제휴 링크를 두지 않는다', () => {
+  // 결과 지점 노출과 겹쳐 한 페이지에 카드가 두 번 얹히던 것을 정리했다.
+  // 무심코 되돌리면 짧은 계산기 페이지의 광고 대 콘텐츠 비율이 다시 나빠진다.
+  const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  assert.ok(!/<ReferralCards/.test(footer), '푸터가 다시 제휴 카드를 렌더한다');
 });

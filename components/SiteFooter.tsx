@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
-import ReferralCards from "./ReferralCards";
 
 /**
  * 사이트 전역 푸터 — 섹션 간 이동 동선 + 내부링크(SEO) + 인기 도구 노출.
@@ -85,21 +84,17 @@ export default function SiteFooter() {
         </div>
 
         {/*
-          제휴 링크.
+          제휴 링크는 푸터에 두지 않는다.
 
-          원래는 작은 텍스트 링크였다 — 이 사이트 방문자 대부분이 실수령액이나
-          체크리스트를 보러 온 사람이라 코인 거래소와 맥락이 멀다고 봤기 때문이다.
-          노출을 키우기로 결정하면서 카드로 바꿨지만, 대신 지켜야 할 것이 늘었다:
-          "광고" 표기와 원금 손실 고지를 카드에 붙여서 크기와 함께 커지게 했다.
-          (ReferralCards가 둘 다 들고 있다.)
+          한때 작은 텍스트 링크였다가 큰 카드가 되었다가, 결국 뺐다. 제휴 카드가
+          각 섹션의 결과 지점(계산기 본문, 테스트·퀴즈 결과 화면, 생성기 결과,
+          체크리스트 진행 중, 운세)으로 옮겨가면서 푸터 자리는 같은 페이지에 카드를
+          두 번 얹는 꼴이 됐다. 클릭은 결과 지점 쪽이 거의 다 가져가는데, 짧은
+          계산기 페이지에서는 광고 대 콘텐츠 비율만 나빠 보였다 — 저품질 판정을
+          한 번 받은 사이트에서 굳이 감수할 이유가 없다.
 
-          광고 대 콘텐츠 비율이 애드센스 쪽에 걸릴 여지는 남아 있다. 문제가 되면
-          이 자리를 되돌리는 것이 가장 먼저 손댈 곳이다.
+          다시 넣고 싶어지면 결과 지점 노출과 겹치지 않는지부터 확인할 것.
         */}
-        <div className="border-t border-slate-100 dark:border-slate-800 pt-6 pb-5">
-          <ReferralCards lang="ko" />
-        </div>
-
         <div className="flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-5">
           <Link href="/" className="flex items-center gap-0.5 shrink-0">
             <span className="text-sm font-black text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
