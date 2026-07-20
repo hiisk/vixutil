@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import ShareButton from '@/components/ShareButton';
+import ReferralCards from '@/components/ReferralCards';
 import { analyzeFirstImpression, type FirstImpressionResult } from '@/lib/first-impression-data';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -299,6 +300,9 @@ export default function FirstImpressionPage() {
               description={result.type.keywords.join(' · ')}
               type="fortune"
             />
+
+            {/* 스냅 11개 중 이 페이지만 SaveResultCard를 안 쓴다 — 그래서 여기만 직접 붙인다 */}
+            <ReferralCards placement="result" />
 
             <button
               onClick={handleReset}

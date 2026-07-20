@@ -174,6 +174,29 @@ test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false 
   assert.ok(inBundle, '결과 화면용 번들에 제휴 링크가 없다 — 결과 지점 노출이 통째로 빠졌다');
 });
 
+test('스냅 11개 페이지가 모두 결과 지점 노출을 갖는다', () => {
+  // 10개는 SaveResultCard(스냅 전용)가 대신 들고, first-impression만 직접 붙인다.
+  // 새 스냅 페이지를 만들 때 둘 중 하나도 안 쓰면 여기서 걸린다.
+  const snapDir = join(ROOT, 'app', 'snap');
+  const pages = readdirSync(snapDir, { withFileTypes: true })
+    .filter(e => e.isDirectory())
+    .map(e => e.name);
+
+  assert.ok(pages.length >= 11, `스냅 페이지가 ${pages.length}개뿐 — 경로가 바뀌었나`);
+
+  const missing = pages.filter(slug => {
+    const src = readFileSync(join(snapDir, slug, 'page.tsx'), 'utf8');
+    return !src.includes('SaveResultCard') && !src.includes('ReferralCards');
+  });
+  assert.deepEqual(missing, [], `결과 지점 노출이 없는 스냅 페이지: ${missing.join(', ')}`);
+});
+
+test('SaveResultCard가 제휴 카드를 들고 있다', () => {
+  // 스냅 10개가 이 컴포넌트 하나에 의존한다. 여기서 빠지면 10개가 한꺼번에 조용히 빠진다.
+  const src = readFileSync(join(ROOT, 'components', 'SaveResultCard.tsx'), 'utf8');
+  assert.match(src, /<ReferralCards placement="result" \/>/, 'SaveResultCard에 제휴 카드가 없다');
+});
+
 test('푸터에는 제휴 링크를 두지 않는다', () => {
   // 결과 지점 노출과 겹쳐 한 페이지에 카드가 두 번 얹히던 것을 정리했다.
   // 무심코 되돌리면 짧은 계산기 페이지의 광고 대 콘텐츠 비율이 다시 나빠진다.

@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState, useCallback } from 'react';
 import { drawResultCard, canvasToBlob } from '@/lib/canvas-result-card';
+import ReferralCards from './ReferralCards';
 
 interface Props {
   emoji: string;
@@ -64,6 +65,15 @@ export default function SaveResultCard({ emoji, title, subtitle, body, from, to,
       >
         {state === 'saving' ? '이미지 만드는 중...' : state === 'done' ? '완료! ✓' : '🖼️ 결과 이미지로 저장·공유'}
       </button>
+
+      {/*
+        스냅테스트 결과 지점. 이 컴포넌트는 스냅 전용이고 11개 페이지 중 10개가
+        쓰므로, 페이지마다 따로 붙이는 대신 여기 한 번만 넣는다. 사진을 올리고
+        분석이 끝난 뒤에만 렌더되는 자리라 조건도 따로 필요 없다.
+        (ShareButton에 넣지 않은 이유: 테스트·퀴즈·생성기·운세도 그걸 쓰는데
+        그쪽은 이미 결과 카드를 따로 붙여둬서 두 번 나온다.)
+      */}
+      <ReferralCards placement="result" />
     </div>
   );
 }
