@@ -43,7 +43,7 @@ export function Sparkline({ points, w = 84, h = 28 }: { points: number[]; w?: nu
   const up = points[points.length - 1] >= points[0];
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true" className="inline-block align-middle">
-      <path d={d} fill="none" stroke={up ? '#34d399' : '#fb7185'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={d} fill="none" className={up ? 'stroke-emerald-600 dark:stroke-emerald-400' : 'stroke-rose-600 dark:stroke-rose-400'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -74,15 +74,15 @@ export function MiniPaths({ paths, spot, w = 76, h = 26 }: { paths: number[][]; 
   const x = (i: number) => pad + ((i + 1) / n) * (w - pad * 2);
   const y = (v: number) => pad + (1 - (v - lo) / (hi - lo)) * (h - pad * 2);
   const up = paths.reduce((s, p) => s + (p[p.length - 1] >= spot ? 1 : 0), 0) >= paths.length / 2;
-  const color = up ? '#34d399' : '#fb7185';
+  const color = up ? 'stroke-emerald-600 dark:stroke-emerald-400' : 'stroke-rose-600 dark:stroke-rose-400';
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true" className="inline-block align-middle">
-      <line x1={pad} x2={w - pad} y1={y(spot)} y2={y(spot)} stroke="#334155" strokeWidth={1} />
+      <line x1={pad} x2={w - pad} y1={y(spot)} y2={y(spot)} className="stroke-slate-300 dark:stroke-slate-600" strokeWidth={1} />
       {paths.map((p, pi) => (
         <path
           key={pi}
           d={[`M${pad.toFixed(1)},${y(spot).toFixed(1)}`, ...p.map((v, i) => `L${x(i).toFixed(1)},${y(v).toFixed(1)}`)].join(' ')}
-          fill="none" stroke={color} strokeWidth={1} strokeLinejoin="round" opacity={0.55}
+          fill="none" className={color} strokeWidth={1} strokeLinejoin="round" opacity={0.55}
         />
       ))}
     </svg>

@@ -84,14 +84,14 @@ export default function ForecastChart({
         {/* 격자 — 데이터보다 뒤로 */}
         {ticks.map((t, i) => (
           <g key={i}>
-            <line x1={padL} x2={padL + innerW} y1={y(t)} y2={y(t)} stroke="#e2e8f0" strokeWidth={1} />
-            <text x={padL + innerW + 6} y={y(t) + 4} fill="#94a3b8" fontSize={11} fontFamily="ui-monospace, monospace">{fmtTick(t)}</text>
+            <line x1={padL} x2={padL + innerW} y1={y(t)} y2={y(t)} className="stroke-slate-200 dark:stroke-slate-800" strokeWidth={1} />
+            <text x={padL + innerW + 6} y={y(t) + 4} className="fill-slate-400 dark:fill-slate-500" fontSize={11} fontFamily="ui-monospace, monospace">{fmtTick(t)}</text>
           </g>
         ))}
 
         {/* 오늘 경계 */}
-        <line x1={divX} x2={divX} y1={padT} y2={padT + innerH} stroke="#cbd5e1" strokeWidth={1} />
-        <text x={divX + 5} y={padT + 11} fill="#64748b" fontSize={10}>today</text>
+        <line x1={divX} x2={divX} y1={padT} y2={padT + innerH} className="stroke-slate-300 dark:stroke-slate-700" strokeWidth={1} />
+        <text x={divX + 5} y={padT + 11} className="fill-slate-500" fontSize={10}>today</text>
 
         {/* 시뮬레이션 경로 — 데이터가 아니라 표본이므로 가장 뒤에, 가장 옅게 */}
         {paths.length > 0 && (
@@ -108,7 +108,7 @@ export default function ForecastChart({
         <path d={bandPath} fill={accent} opacity={0.1} />
 
         {/* 과거 종가 */}
-        <path d={histLine} fill="none" stroke="#94a3b8" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+        <path d={histLine} fill="none" className="stroke-slate-400 dark:stroke-slate-500" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
 
         {/* 과거 일별 중앙 경로 — 예측이 아니므로 다른 색, 그리고 실제로 지그재그한다 */}
         {historyPath.length > 1 && (
@@ -122,8 +122,8 @@ export default function ForecastChart({
         <path d={medLine} fill="none" stroke={accent} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
 
         {/* 오늘 지점 마커 — 표면색 링으로 겹침 방지 */}
-        <circle cx={divX} cy={y(spot)} r={4} fill="#e2e8f0" stroke="#0f172a" strokeWidth={2} />
-        <circle cx={fx(nF - 1)} cy={y(last.forecast)} r={4} fill={accent} stroke="#0f172a" strokeWidth={2} />
+        <circle cx={divX} cy={y(spot)} r={4} className="fill-slate-400 dark:fill-slate-200 stroke-white dark:stroke-slate-950" strokeWidth={2} />
+        <circle cx={fx(nF - 1)} cy={y(last.forecast)} r={4} fill={accent} className="stroke-white dark:stroke-slate-950" strokeWidth={2} />
 
         <defs>
           <clipPath id={`clip-${uid}`}><rect x={padL} y={padT} width={innerW} height={innerH} /></clipPath>

@@ -355,7 +355,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </div>
 
       {m.limitedHistory && (
-        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.08] p-4 mb-5 text-xs text-amber-200/80">
+        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.08] p-4 mb-5 text-xs text-amber-800 dark:text-amber-200/80">
           <b>Limited history.</b> {coin.base} has only {m.samples + 1} daily closes, below the {RELIABLE_SAMPLES} we consider reliable.
           Volatility — and therefore every range and probability on this page — is estimated from a short sample and will move a lot as more data arrives.
         </div>
@@ -965,7 +965,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   Classical pivot from the last closed candle: P = (high + low + close) / 3. A deterministic formula, not a prediction.
                 </p>
               </div>
-              <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-800/60">
+              <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-800/60">
                 <table className="w-full text-sm">
                   <tbody>
                     {([['R3', ta.pv.r3], ['R2', ta.pv.r2], ['R1', ta.pv.r1]] as [string, number][]).map(([k, v]) => (

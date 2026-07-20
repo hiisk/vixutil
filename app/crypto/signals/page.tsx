@@ -84,8 +84,16 @@ const FORECAST_DAYS = 998;
 
 /**
  * 보드에 노출할 지평. 화면이 빽빽해 3D·3M·6M은 뺐다(상세 페이지에는 전부 있다).
+ * 좁은 화면에서는 그중에서도 1M·1Y만 남긴다 — 휴대폰에서 4개는 읽히지 않는다.
  */
 const BOARD_HORIZONS = HORIZONS.filter(h => ['1w', '1m', '1y', '3y'].includes(h.key));
+/** 지평별 반응형 노출 규칙 (헤더·셀이 같은 값을 써야 컬럼이 어긋나지 않는다) */
+const HORIZON_VIS: Record<string, string> = {
+  '1w': 'hidden md:table-cell',
+  '1m': '',
+  '1y': '',
+  '3y': 'hidden lg:table-cell',
+};
 
 /** 정렬용 신호 점수: 강세는 +확신도, 약세는 -확신도, 중립은 0 */
 function signalMetric(info: ConsensusSignal): number {
@@ -548,7 +556,7 @@ export default function SignalsPage() {
             className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-9 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:border-amber-500/60 transition"
           />
           {query && (
-            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-300 transition-colors">✕</button>
+            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">✕</button>
           )}
         </div>
 
@@ -592,23 +600,23 @@ export default function SignalsPage() {
                   <thead>
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                       <th className="sticky left-0 z-20 bg-white dark:bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
-                      <th className={th}>Entry</th>
-                      <th className={th}>
+                      <th className={`${th} hidden lg:table-cell`}>Entry</th>
+                      <th className={`${th} hidden md:table-cell`}>
                         ATR target
                         <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">entry + 1.5×ATR · not a forecast</span>
                       </th>
                       <th className={th}>Current</th>
                       <th className={th}>
-                        <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-600 dark:text-amber-400' : ''}`}>
+                        <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-700 dark:hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-600 dark:text-amber-400' : ''}`}>
                           24H <SortHint active={sortKey === 'chg24h'} dir={sortDir} />
                         </button>
                       </th>
-                      <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
+                      <th className="hidden sm:table-cell text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
                         Scenarios
                         <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">30d simulated paths</span>
                       </th>
                       {BOARD_HORIZONS.map((h, hi) => (
-                        <th key={h.key} className={`${th} ${hi === 0 ? 'border-l border-slate-200/70 dark:border-slate-700/70' : ''}`}>
+                        <th key={h.key} className={`${th} ${HORIZON_VIS[h.key] ?? ''} ${hi === 0 ? 'border-l border-slate-200/70 dark:border-slate-700/70' : ''}`}>
                           {h.short}
                           <span className="block text-[9px] font-normal text-amber-600 dark:text-amber-400/70 normal-case tracking-normal">peak</span>
                         </th>
@@ -679,9 +687,9 @@ export default function SignalsPage() {
                             )}
                           </td>
 
-                          <td className="px-2 py-3 text-right text-slate-700 dark:text-slate-200 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
+                          <td className="hidden lg:table-cell px-2 py-3 text-right text-slate-700 dark:text-slate-200 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
 
-                          <td className="px-2 py-3 text-right tabular-nums">
+                          <td className="hidden md:table-cell px-2 py-3 text-right tabular-nums">
                             {c ? (
                               <div className="flex flex-col items-end leading-tight">
                                 <span className="text-emerald-600 dark:text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
@@ -701,7 +709,7 @@ export default function SignalsPage() {
                             {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-400 dark:text-slate-500">-</span>}
                           </td>
 
-                          <td className="px-3 py-3 text-right border-l border-slate-200/40 dark:border-slate-700/40">
+                          <td className="hidden sm:table-cell px-3 py-3 text-right border-l border-slate-200/40 dark:border-slate-700/40">
                             {miniPaths.length ? (
                               <MiniPaths paths={miniPaths} spot={t.lastPrice} w={116} h={30} />
                             ) : (
@@ -712,7 +720,7 @@ export default function SignalsPage() {
                           {BOARD_HORIZONS.map((h, hi) => {
                             const p = f?.projections.find(x => x.key === h.key);
                             return (
-                              <td key={h.key} className={`px-2 py-3 text-right ${hi === 0 ? 'border-l border-slate-200/40 dark:border-slate-700/40' : ''}`}>
+                              <td key={h.key} className={`px-2 py-3 text-right ${HORIZON_VIS[h.key] ?? ''} ${hi === 0 ? 'border-l border-slate-200/40 dark:border-slate-700/40' : ''}`}>
                                 {p ? (
                                   <div className="flex flex-col items-end leading-tight">
                                     <span className="text-slate-900 dark:text-white font-bold tabular-nums">{formatPrice(p.peak * fcScale)}</span>
