@@ -50,17 +50,27 @@ export default function KimchiBoard() {
   const [sortKey, setSortKey] = useState<SortKey>('volume');
   const [query, setQuery] = useState('');
 
-  const load = useCallback(async () => {
-    setState('loading');
-    try {
-      setSnap(await fetchKimchi());
-      setState('ready');
-    } catch {
-      setState('error');
-    }
-  }, []);
+  /**
+   * 재시도는 이 키를 올려 아래 이펙트를 다시 돌린다. 이펙트 본문에서 직접
+   * setState를 부르면 렌더가 한 번 더 도는데, 상태 변경을 전부 promise 콜백
+   * 안으로 밀어넣으면 그 경로가 아예 사라진다. 덤으로 언마운트된 뒤 도착한
+   * 응답이 setState를 부르는 것도 alive 플래그로 막힌다.
+   */
+  const [reloadKey, setReloadKey] = useState(0);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    let alive = true;
+    fetchKimchi()
+      .then(s => {
+        if (!alive) return;
+        setSnap(s);
+        setState('ready');
+      })
+      .catch(() => {
+        if (alive) setState('error');
+      });
+    return () => { alive = false; };
+  }, [reloadKey]);
 
   // 1분마다 조용히 갱신 — 김프는 분 단위로도 눈에 띄게 움직인다
   useEffect(() => {
@@ -112,7 +122,7 @@ export default function KimchiBoard() {
         <span className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">시세를 불러오지 못했습니다</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">거래소 API가 일시적으로 막혔을 수 있습니다</span>
-        <button onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">
+        <button onClick={() => { setState('loading'); setReloadKey(k => k + 1); }} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">
           다시 시도
         </button>
       </div>
