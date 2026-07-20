@@ -174,6 +174,52 @@ test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false 
   assert.ok(inBundle, '결과 화면용 번들에 제휴 링크가 없다 — 결과 지점 노출이 통째로 빠졌다');
 });
 
+test('crypto 페이지가 모두 제휴 노출을 갖는다', () => {
+  // 푸터에서 카드를 뺐을 때 crypto 5개 중 4개가 통째로 비었다. 제휴가 가장
+  // 맥락에 맞는 섹션인데도 signals에만 남아 있었다 — 나머지는 푸터에 기대고 있었다.
+  const dir = join(ROOT, 'app', 'crypto');
+  const pages: string[] = [];
+  const collect = (d: string) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      const p = join(d, e.name);
+      if (e.isDirectory()) collect(p);
+      else if (e.name === 'page.tsx') pages.push(p);
+    }
+  };
+  collect(dir);
+
+  assert.ok(pages.length >= 5, `crypto 페이지가 ${pages.length}개뿐 — 경로가 바뀌었나`);
+  const missing = pages
+    .filter(p => !readFileSync(p, 'utf8').includes('ReferralCards'))
+    .map(p => relative(ROOT, p));
+  assert.deepEqual(missing, [], `제휴 노출이 없는 crypto 페이지: ${missing.join(', ')}`);
+});
+
+test('한국어 페이지에 영어 제휴 문구가 붙지 않는다', () => {
+  // 김프만 한국어 페이지라 lang="en"을 붙이면 본문과 언어가 어긋난다.
+  const src = readFileSync(join(ROOT, 'app', 'crypto', 'kimchi-premium', 'page.tsx'), 'utf8');
+  assert.match(src, /<ReferralCards lang="ko"/, '김프 페이지에 한국어 카드가 아니다');
+});
+
+test('운세 페이지가 모두 결과 지점 노출을 갖는다', () => {
+  // 푸터에서 카드를 뺀 뒤, FortuneDisplay를 안 쓰는 페이지 4개(dream·tarot·biorhythm·
+  // name-match)가 조용히 카드 없이 남아 있었다. 페이지마다 결과를 그리는 방식이
+  // 달라서 눈으로는 안 보였다 — 목록으로 훑어야 잡힌다.
+  const dir = join(ROOT, 'app', 'fortune');
+  const pages = readdirSync(dir, { withFileTypes: true })
+    .filter(e => e.isDirectory())
+    .map(e => e.name);
+
+  assert.ok(pages.length >= 9, `운세 페이지가 ${pages.length}개뿐 — 경로가 바뀌었나`);
+
+  const missing = pages.filter(slug => {
+    const src = readFileSync(join(dir, slug, 'page.tsx'), 'utf8');
+    // FortuneDisplay가 카드를 대신 들고 있다.
+    return !src.includes('FortuneDisplay') && !src.includes('ReferralCards');
+  });
+  assert.deepEqual(missing, [], `결과 지점 노출이 없는 운세 페이지: ${missing.join(', ')}`);
+});
+
 test('스냅 11개 페이지가 모두 결과 지점 노출을 갖는다', () => {
   // 10개는 SaveResultCard(스냅 전용)가 대신 들고, first-impression만 직접 붙인다.
   // 새 스냅 페이지를 만들 때 둘 중 하나도 안 쓰면 여기서 걸린다.

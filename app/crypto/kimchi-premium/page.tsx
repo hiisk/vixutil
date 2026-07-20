@@ -6,6 +6,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import KimchiBoard from './KimchiBoard';
+import ReferralCards from '@/components/ReferralCards';
 
 /**
  * 이 페이지만 한국어로 쓴다. /crypto의 다른 페이지는 영어지만, 김치 프리미엄은
@@ -88,6 +89,8 @@ export default function KimchiPremiumPage() {
             숫자만 보지 말고 옆의 거래대금을 함께 확인하세요.
           </p>
         </section>
+
+        <ReferralCards lang="ko" />
 
         <Faq items={SECTION_FAQ['crypto/kimchi-premium'] ?? []} />
 

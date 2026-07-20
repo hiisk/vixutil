@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import { drawCards, TAROT_CARDS, MINOR_ARCANA, SUIT_INFO, type AnyTarotCard } from '@/lib/fortune-data';
 import Faq from '@/components/Faq';
+import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 
@@ -600,6 +601,9 @@ export default function TarotPage() {
 
         {/* ── 카드 목록 탭 ── */}
         {tab === 'catalog' && <CatalogTab />}
+
+        {/* 카드를 전부 뒤집어 해설까지 본 뒤에만 */}
+        {drawn && allRevealed && <ReferralCards placement="result" />}
 
         <Faq items={SECTION_FAQ['fortune/tarot']} />
       </div>

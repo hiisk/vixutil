@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { COINS, coinBySlug } from '@/lib/coins';
 import CoinPrediction from './CoinPrediction';
 import PageGlow from '@/components/PageGlow';
+import ReferralCards from '@/components/ReferralCards';
 
 /** JSON-LD와 화면에 같은 문장을 쓰기 위한 단일 출처 */
 function faqs(name: string, base: string) {
@@ -149,6 +150,8 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           </Link>
         </div>
       </div>
+      <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
+
       <SiteFooter />
     </div>
   );

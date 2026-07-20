@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
+import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import { matchNames, verdictFor, type MatchResult } from '@/lib/name-match';
@@ -157,6 +158,8 @@ export default function NameMatchPage() {
             공책 귀퉁이에서 하던 놀이를 화면으로 옮겨온 것뿐입니다.
           </p>
         </div>
+
+        {result && <ReferralCards placement="result" />}
 
         <Faq items={SECTION_FAQ['fortune/name-match']} />
       </div>

@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
+import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import {
@@ -203,6 +204,8 @@ export default function BiorhythmPage() {
             오늘 컨디션이 어떤지는 그래프보다 몸이 더 정확하게 알려줍니다.
           </p>
         </div>
+
+        {result && <ReferralCards placement="result" />}
 
         <Faq items={SECTION_FAQ['fortune/biorhythm']} />
       </div>
