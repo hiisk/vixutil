@@ -128,6 +128,28 @@ test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? fals
   }
 });
 
+test('색인되는 페이지에는 h1이 정확히 하나 있다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  // h1이 없으면 크롤러가 페이지 주제를 잡을 근거가 약해진다. 실제로 홈·검색·타로
+  // 세 곳이 h1 없이 색인되고 있었다 — 그중 홈은 사이트에서 권위가 가장 높은 페이지다.
+  //
+  // noindex 페이지는 제외한다. 색인되지 않으므로 h1이 없어도 잃을 것이 없고,
+  // 코인별 price-prediction 731개가 여기 해당한다.
+  const problems: string[] = [];
+
+  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+    if (route === '/404' || route === '/_not-found') continue;
+
+    const html = readFileSync(f, 'utf8');
+    if (/name="robots"[^>]*noindex/i.test(html)) continue;
+
+    const count = (html.match(/<h1\b/g) ?? []).length;
+    if (count !== 1) problems.push(`${route}: h1이 ${count}개`);
+  }
+
+  assert.deepEqual(problems, [], `h1 문제:\n  ${problems.slice(0, 10).join('\n  ')}`);
+});
+
 test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
   // canonical이 없으면 ?utm=, 슬래시 유무, 파라미터 조합으로 같은 페이지가
   // 여러 URL로 색인돼 순위가 나뉜다. 실제로 1413개 페이지 전부 없었다.

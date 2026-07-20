@@ -26,6 +26,8 @@ export default function SearchPage() {
       </header>
 
       <div className="flex-1 max-w-2xl mx-auto px-4 py-8 w-full">
+        {/* 검색 UI만 있고 h1이 없었다. 화면 구성은 그대로 두고 제목만 넣는다. */}
+        <h1 className="sr-only">통합 검색 — 계산기·심리테스트·퀴즈·생성기·체크리스트 전체 검색</h1>
         <GlobalSearch items={SEARCH_INDEX} />
       </div>
 

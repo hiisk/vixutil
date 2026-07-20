@@ -117,10 +117,17 @@ export default function HubPage() {
       <div className="relative max-w-3xl mx-auto px-4 py-16 sm:py-24">
         {/* Brand */}
         <div className="mb-14 text-center">
-          <div className="inline-flex items-center gap-1 mb-4">
+          {/*
+            홈에 h1이 없었다. 브랜드가 span 두 개로만 그려져 있어서, 사이트에서
+            권위가 가장 높은 페이지가 주제를 알리는 제목 없이 색인되고 있었다.
+            보이는 모습은 그대로 두고 태그만 h1으로 바꾼다. 다만 "vixutil"만으로는
+            무슨 사이트인지 설명이 안 되므로 설명을 sr-only로 h1 안에 넣는다.
+          */}
+          <h1 className="inline-flex items-center gap-1 mb-4">
             <span className="text-5xl sm:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-5xl sm:text-6xl font-black text-blue-600 tracking-tighter">util</span>
-          </div>
+            <span className="sr-only"> — 계산기·심리테스트·퀴즈·생성기·체크리스트·운세 모음</span>
+          </h1>
           <p className="text-slate-400 dark:text-slate-500 text-base">일상에 필요한 실용 도구 모음</p>
         </div>
 

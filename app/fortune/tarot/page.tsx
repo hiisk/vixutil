@@ -517,6 +517,12 @@ export default function TarotPage() {
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-5 pb-16">
+        {/*
+          이 페이지는 헤더의 span 말고는 제목이 없었다. 다른 운세 페이지가 모두
+          h1을 갖고 있는데 타로만 빠져 있었다. 레이아웃이 카드 그리드로 꽉 차
+          있어 보이는 제목을 넣으면 구성이 흐트러지므로 sr-only로 둔다.
+        */}
+        <h1 className="sr-only">타로 카드 뽑기 — 78장 풀덱에서 오늘의 카드 보기</h1>
 
         {/* ── 뽑기 탭 ── */}
         {tab === 'draw' && (
