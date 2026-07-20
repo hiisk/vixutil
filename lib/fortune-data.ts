@@ -391,6 +391,21 @@ export const MBTI_TYPES = [
 ] as const;
 export type MbtiId = typeof MBTI_TYPES[number]['id'];
 
+/* ── 혈액형 ── */
+/**
+ * 혈액형 성격론은 근거가 없다 — 이 사이트의 심리 퀴즈에서도 바넘 효과의 예로
+ * 쓰고 있다. 그래서 trait에 "A형은 소심하다" 같은 단정 대신 통념으로 회자되는
+ * 인상을 적고, 페이지 본문에서 근거가 없다는 사실을 분명히 밝힌다.
+ * 운세 자체는 다른 페이지와 똑같이 날짜 시드로 뽑는다.
+ */
+export const BLOOD_TYPES = [
+  { id: 'A',  name: 'A형',  emoji: '🅰️', nickname: '섬세한 관찰자', trait: '꼼꼼함·배려' },
+  { id: 'B',  name: 'B형',  emoji: '🅱️', nickname: '자유로운 탐험가', trait: '개성·추진력' },
+  { id: 'O',  name: 'O형',  emoji: '⭕', nickname: '너그러운 조율자', trait: '사교성·대범함' },
+  { id: 'AB', name: 'AB형', emoji: '🆎', nickname: '알 수 없는 전략가', trait: '이성·독창성' },
+] as const;
+export type BloodTypeId = typeof BLOOD_TYPES[number]['id'];
+
 /* ── 운세 텍스트 풀 ── */
 export const FORTUNE_POOL = {
   overall: [

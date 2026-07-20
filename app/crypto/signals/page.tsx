@@ -9,38 +9,8 @@ import { coinByBase } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, MiniPaths, formatVolume } from '@/components/crypto/ui';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
-import { REFERRALS } from '@/lib/referral';
+import ReferralCards from '@/components/ReferralCards';
 import PageGlow from '@/components/PageGlow';
-
-// 링크는 lib/referral.ts가 유일한 출처다 — 두 벌로 두면 한쪽만 바뀌는 사고가 난다.
-const BINANCE_REF = REFERRALS.find(r => r.id === 'binance')!.href;
-const BYBIT_REF = REFERRALS.find(r => r.id === 'bybit')!.href;
-
-/** 브랜드 아이콘 — 외부 요청/추적 없이 인라인 SVG로 렌더 */
-function BinanceIcon() {
-  return (
-    <svg viewBox="0 0 126 126" className="w-6 h-6" aria-hidden="true">
-      <path fill="#F3BA2F" d="M38.87 53.62 63 29.49l24.14 24.14 14.04-14.04L63 1.41 24.83 39.58zM1.4 63l14.04-14.04L29.48 63 15.44 77.04zM38.87 72.38 63 96.51l24.13-24.13 14.05 14.03L63 124.59 24.83 86.42zM96.52 63l14.04-14.04L124.6 63l-14.04 14.04zM77.25 62.99 63 48.74 52.46 59.28l-1.21 1.21-2.5 2.5L63 77.26z" />
-    </svg>
-  );
-}
-/**
- * 공식 Bybit 워드마크(위키미디어). 글자는 currentColor로 두어 부모의 텍스트 색을
- * 따라가게 한다 — 라이트에서는 어둡게, 다크에서는 밝게 자동으로 맞는다.
- * 흰색으로 박아두면 라이트 배경에서 글자가 사라진다.
- */
-function BybitWordmark({ className }: { className?: string }) {
-  const L = 'currentColor';
-  return (
-    <svg viewBox="0 0 13547 4513" className={className} role="img" aria-label="Bybit">
-      <polygon fill="#F6A500" points="9655,3480 9655,-1 10355,-1 10355,3480" />
-      <path fill={L} d="M1500 4514l-1500 0 0 -3481 1440 0c700,0 1107,381 1107,978 0,386 -262,636 -443,719 216,98 493,318 493,782 0,650 -458,1002 -1097,1002zm-116 -2875l0 0 -685 0 0 802 685 0c297,0 463,-161 463,-401 0,-239 -166,-401 -463,-401zm45 1413l0 0 -730 0 0 856 730 0c317,0 468,-195 468,-430 0,-235 -151,-425 -468,-425z" />
-      <polygon fill={L} points="4732,3086 4732,4514 4037,4514 4037,3086 2960,1033 3720,1033 4389,2436 5049,1033 5809,1033" />
-      <path fill={L} d="M7793 4514l-1500 0 0 -3481 1440 0c700,0 1107,381 1107,978 0,386 -262,636 -443,719 216,98 493,318 493,782 0,650 -458,1002 -1097,1002zm-116 -2875l0 0 -685 0 0 802 685 0c297,0 463,-161 463,-401 0,-239 -166,-401 -463,-401zm45 1413l0 0 -730 0 0 856 730 0c317,0 468,-195 468,-430 0,-235 -151,-425 -468,-425z" />
-      <polygon fill={L} points="12610,1639 12610,4514 11911,4514 11911,1639 10974,1639 10974,1033 13547,1033 13547,1639" />
-    </svg>
-  );
-}
 
 const PER_PAGE = 50;
 const TP_MULT = 1.5;
@@ -386,54 +356,13 @@ export default function SignalsPage() {
       {/* 모든 블록이 같은 폭을 공유한다. 화면 끝까지 붙이지 않도록 상한과 좌우 여백을 둔다.
           단, 본문 문단만 읽기 좋은 줄길이(max-w-[95ch])로 제한한다 — 폭이 아니라 타이포그래피 문제다. */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Referral links */}
-        <p className="text-center text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">🎁 New-user bonuses — trade with an edge</p>
-        <div className="grid sm:grid-cols-2 gap-3 mb-6">
-          {/*
-            가입 배너는 원래 어두운 배경 전제로 만들어져 있었다 — 브랜드 컬러를
-            글자에 그대로 써서(text-yellow-300, text-amber-200) 흰 배경에서는
-            거의 안 읽혔다.
-
-            라이트에서는 색의 역할을 바꾼다:
-              - 금액(배너의 주인공)은 진한 색(700)으로 대비를 확실히 준다.
-              - 브랜드 컬러(400)는 배경 틴트·테두리·CTA 버튼에만 쓴다.
-              - 다크에서는 원래대로 밝은 톤을 되돌린다.
-          */}
-
-          {/* Bybit */}
-          <a href={BYBIT_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group relative overflow-hidden rounded-2xl border border-yellow-300 dark:border-yellow-500/40 bg-gradient-to-br from-yellow-50 to-amber-50/40 dark:from-yellow-500/[0.22] dark:via-amber-600/[0.08] dark:to-transparent p-4 hover:border-yellow-400 hover:shadow-lg hover:shadow-yellow-500/15 hover:-translate-y-0.5 transition-all">
-            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-yellow-300/40 dark:bg-yellow-400/20 blur-2xl group-hover:bg-yellow-300/60 transition-colors" />
-            <span className="relative flex items-center gap-2 mb-2">
-              <BybitWordmark className="h-4 w-auto text-slate-900 dark:text-slate-50" />
-              <span className="text-[9px] font-bold text-amber-700 dark:text-yellow-400/70 uppercase tracking-wide">New user</span>
-              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-yellow-400 rounded-lg px-3 py-1 shadow-sm group-hover:bg-yellow-300 transition-colors">
-                Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-              </span>
-            </span>
-            <span className="relative flex items-baseline gap-2 flex-wrap">
-              <span className="text-[26px] leading-none font-black text-amber-700 dark:text-yellow-300">Up to $30,000</span>
-              <span className="text-[11px] text-slate-500 dark:text-slate-400">+ $20 welcome · fee discount</span>
-            </span>
-          </a>
-
-          {/* Binance */}
-          <a href={BINANCE_REF} target="_blank" rel="noopener noreferrer sponsored"
-            className="group relative overflow-hidden rounded-2xl border border-amber-300 dark:border-amber-500/40 bg-gradient-to-br from-amber-50 to-orange-50/40 dark:from-amber-500/[0.22] dark:via-amber-600/[0.08] dark:to-transparent p-4 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/15 hover:-translate-y-0.5 transition-all">
-            <span className="pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-amber-300/40 dark:bg-amber-400/20 blur-2xl group-hover:bg-amber-300/60 transition-colors" />
-            <span className="relative flex items-center gap-2 mb-2">
-              <BinanceIcon />
-              <span className="font-black text-slate-900 dark:text-amber-200 text-[15px] tracking-tight">BINANCE</span>
-              <span className="text-[9px] font-bold text-amber-700 dark:text-amber-400/70 uppercase tracking-wide">New user</span>
-              <span className="ml-auto flex items-center gap-1 text-[13px] font-black text-slate-950 bg-amber-400 rounded-lg px-3 py-1 shadow-sm group-hover:bg-amber-300 transition-colors">
-                Claim <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-              </span>
-            </span>
-            <span className="relative flex items-baseline gap-2 flex-wrap">
-              <span className="text-[26px] leading-none font-black text-amber-700 dark:text-amber-300">Up to $600</span>
-              <span className="text-[11px] text-slate-500 dark:text-slate-400">+ 10% off trading fees</span>
-            </span>
-          </a>
+        {/*
+          가입 배너. 예전에는 이 자리에 카드 마크업이 통째로 박혀 있었고 푸터에는
+          별도의 작은 텍스트 링크가 있었다 — 금액이 양쪽에 하드코딩돼 있어서 한쪽만
+          고치면 두 화면이 다른 금액을 말하게 되는 구조였다. 공용 컴포넌트로 합쳤다.
+        */}
+        <div className="mb-6">
+          <ReferralCards lang="en" heading="New-user bonuses" />
         </div>
 
         <div className="text-center mb-6">

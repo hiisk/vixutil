@@ -83,13 +83,13 @@ test('크립토에 흰 글씨가 일반 배경 위에 남아 있지 않다', () 
 test('가입 배너의 금액이 라이트에서 진하게 나온다', () => {
   // 배너의 주인공은 금액이다. 브랜드 컬러(밝은 노랑)를 글자에 그대로 쓰면
   // 흰 배경에서 안 읽힌다 — 색은 배경 틴트·테두리·CTA 버튼에만 쓴다.
-  const src = readFileSync(join(ROOT, 'app', 'crypto', 'signals', 'page.tsx'), 'utf8');
+  //
+  // 금액 문자열은 이제 lib/referral.ts에서 오므로 페이지에 하드코딩돼 있지 않다.
+  // 대신 금액을 렌더하는 공용 카드의 className을 본다.
+  const src = readFileSync(join(ROOT, 'components', 'ReferralCards.tsx'), 'utf8');
 
-  for (const amount of ['Up to \\$30,000', 'Up to \\$600']) {
-    const re = new RegExp(`className="([^"]*)"[^>]*>${amount}`);
-    const cls = src.match(re)?.[1];
-    assert.ok(cls, `${amount} 배너 금액을 찾지 못함`);
-    assert.match(cls, /text-\w+-[67]00/, `${amount}: 라이트에서 흐린 색을 쓰고 있다 — ${cls}`);
-    assert.match(cls, /dark:text-\w+-[1-4]00/, `${amount}: 다크 대응이 없다 — ${cls}`);
-  }
+  const cls = src.match(/className=\{`([^`]*)`\}[\s\S]{0,40}?\{copy\.bonus\}/)?.[1];
+  assert.ok(cls, '배너 금액을 렌더하는 요소를 찾지 못함');
+  assert.match(cls, /text-\w+-[67]00/, `라이트에서 흐린 색을 쓰고 있다 — ${cls}`);
+  assert.match(cls, /dark:text-\w+-[1-4]00/, `다크 대응이 없다 — ${cls}`);
 });

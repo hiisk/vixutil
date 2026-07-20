@@ -14,6 +14,7 @@ const ACCENT = {
   emerald: ['bg-emerald-400/12', 'bg-teal-400/10'],
   sky:     ['bg-sky-400/12',     'bg-cyan-400/10'],
   indigo:  ['bg-indigo-400/12',  'bg-violet-400/10'],
+  rose:    ['bg-rose-400/12',    'bg-pink-400/10'],
 } as const;
 
 export default function PageGlow({ accent = 'blue' }: { accent?: keyof typeof ACCENT }) {

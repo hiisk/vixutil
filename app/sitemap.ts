@@ -61,6 +61,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/dream`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/fortune/saju`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/mbti`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/blood-type`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/biorhythm`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/name-match`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/snap/first-impression`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/face-reading`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
@@ -76,6 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/kimchi-premium`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
