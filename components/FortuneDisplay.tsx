@@ -2,6 +2,7 @@
 import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortune } from '@/lib/fortune-data';
 import ShareButton from './ShareButton';
+import ReferralCards from './ReferralCards';
 
 interface Props {
   subjectId: string;
@@ -173,6 +174,9 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       </div>
 
       <ShareButton title={`${subjectName} ${today} 운세`} description={f.overall} type="fortune" />
+
+      {/* 운세를 다 읽은 직후 — 별자리·띠·MBTI·혈액형 페이지가 모두 이 컴포넌트를 쓴다 */}
+      <ReferralCards placement="result" />
     </div>
   );
 }

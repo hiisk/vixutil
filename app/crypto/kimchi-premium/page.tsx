@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description:
     '업비트·빗썸 원화 시세와 바이낸스 달러 시세를 비교한 실시간 김치 프리미엄. 공식 환율 기준과 USDT 기준을 모두 보여주고, 국내 두 거래소 간 가격차와 거래대금까지 한 번에 확인하세요.',
   keywords: ['김치프리미엄', '김프', '업비트 빗썸 비교', '바이낸스 김프', '코인 시세 비교', 'USDT 프리미엄'],
+  alternates: { canonical: '/crypto/kimchi-premium' },
 };
 
 const PATH = '/crypto/kimchi-premium';

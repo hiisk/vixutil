@@ -8,6 +8,7 @@ import PageGlow from './PageGlow';
 import CalcFaq from './CalcFaq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
+import ReferralCards from './ReferralCards';
 
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
 export function makeMetadata(title: string, description: string): Metadata {
@@ -95,6 +96,14 @@ export default function CalcShell({
               {intro}
             </div>
           )}
+
+          {/*
+            계산기는 입력하는 대로 결과가 갱신돼서 "제출 버튼"이라는 순간이 없다.
+            그래서 결과 바로 아래가 아니라 설명 문단 뒤에 둔다 — 계산기와 그 해설
+            사이를 광고로 끊으면, 저품질 판정 대응으로 본문을 정적 렌더링해 넣은
+            작업(cf966da)이 노리던 "도구 + 설명" 흐름이 깨진다.
+          */}
+          <ReferralCards placement="result" />
 
           {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
           <CrossLinks />

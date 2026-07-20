@@ -10,8 +10,20 @@ const pagePath = (route: string) => join(APP, route, 'page.tsx');
 
 const routes = Object.keys(SECTION_FAQ);
 
-/** crypto 섹션은 영어 페이지이므로 FAQ도 영어여야 한다. */
-const ENGLISH_ROUTES = routes.filter(r => r === 'crypto' || r.startsWith('crypto/'));
+/**
+ * crypto 섹션은 영어 페이지이므로 FAQ도 영어여야 한다.
+ *
+ * 김치 프리미엄만 예외다. 국내 거래소 전용 개념이라 사용자가 "김치프리미엄"·"김프"로
+ * 검색하고, 페이지 본문 자체가 한국어로 쓰여 있다. 영어 FAQ를 붙이면 한국어 본문에
+ * 영어 FAQ가 섞여 오히려 깨져 보인다 — 이 규칙이 막으려던 것과 같은 문제다.
+ *
+ * 예외는 여기에 적어서만 늘린다. 목록이 길어지면 "crypto는 영어"라는 전제 자체를
+ * 다시 봐야 한다는 신호다.
+ */
+const KOREAN_BY_DESIGN = new Set(['crypto/kimchi-premium']);
+const ENGLISH_ROUTES = routes.filter(
+  r => (r === 'crypto' || r.startsWith('crypto/')) && !KOREAN_BY_DESIGN.has(r),
+);
 const HANGUL = /[가-힣]/;
 
 test('SECTION_FAQ의 모든 키에 대응하는 페이지가 있다', () => {
@@ -55,6 +67,13 @@ test('한 페이지 안에 중복 질문이 없다', () => {
 test('페이지당 FAQ가 2개 이상이다', () => {
   const thin = Object.entries(SECTION_FAQ).filter(([, i]) => i.length < 2).map(([r]) => r);
   assert.deepEqual(thin, [], `FAQ가 2개 미만: ${thin.join(', ')}`);
+});
+
+test('한국어 예외 목록에 죽은 경로가 없다', () => {
+  // 페이지가 사라졌는데 예외만 남으면, 나중에 그 경로가 되살아났을 때
+  // 영어 규칙이 조용히 꺼진 채로 통과한다.
+  const stale = [...KOREAN_BY_DESIGN].filter(r => !routes.includes(r));
+  assert.deepEqual(stale, [], `예외 목록에 없는 경로: ${stale.join(', ')}`);
 });
 
 test('crypto 섹션 FAQ는 영어로 작성된다', () => {

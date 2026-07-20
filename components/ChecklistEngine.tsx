@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
 import PageGlow from './PageGlow';
 import { thumbGradient } from '@/lib/thumbnail';
+import ReferralCards from './ReferralCards';
 
 // Korean-aware text wrapping (splits by character since Korean has no spaces between words)
 function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxLines = 999): string[] {
@@ -533,6 +534,9 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
               진행 상황 초기화
             </button>
           )}
+
+          {/* 하나라도 체크한 뒤에 — 목록만 훑고 지나가는 사람에게는 띄우지 않는다 */}
+          {done > 0 && <ReferralCards placement="result" />}
         </div>
       </div>
 

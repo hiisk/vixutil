@@ -6,6 +6,7 @@ import type { Generator } from '@/lib/types';
 import { makeOne, makeBatch } from '@/lib/generate';
 import PageGlow from './PageGlow';
 import { thumbGradient } from '@/lib/thumbnail';
+import ReferralCards from './ReferralCards';
 
 function CopyBtn({ text }: { text: string }) {
   const [ok, setOk] = useState(false);
@@ -192,6 +193,9 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
             </div>
           </div>
         )}
+
+        {/* 생성 버튼을 눌러 결과가 나온 뒤에만 — 빈 화면에 광고부터 띄우지 않는다 */}
+        {hasResults && <ReferralCards placement="result" />}
       </div>
 
       <style jsx global>{`
