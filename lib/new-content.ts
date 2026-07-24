@@ -24,6 +24,7 @@ export const NEW_TEST_SLUGS = new Set([
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
+  'excel',
   'korea-modern-history',
   'world-cinema',
   'retro-90s-kids',
@@ -51,6 +52,8 @@ export const NEW_QUIZ_SLUGS = new Set([
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'hospital-bag',
+  'parents-birthday',
   'wedding-guest',
   'phone-transfer',
   'doctor-visit',
@@ -75,6 +78,8 @@ export const NEW_CHECKLIST_SLUGS = new Set([
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'baby-nickname',
+  'balance-game',
   'sns-id',
   'band-name',
   'cafe-name',
