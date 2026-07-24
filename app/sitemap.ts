@@ -20,6 +20,7 @@ const calculatorRoutes = [
   "/calculator/business-income", "/calculator/dividend", "/calculator/vat", "/calculator/broker-fee", "/calculator/subscription-score",
   "/calculator/retirement-income-tax", "/calculator/rental-yield",
   "/calculator/rental-income-tax", "/calculator/jeonse-wolse",
+  "/calculator/interest-tax", "/calculator/simple-vat", "/calculator/protein", "/calculator/sober-time",
   "/calculator/pension-credit", "/calculator/annual-leave", "/calculator/refinance",
   "/calculator/jeonwolse", "/calculator/pyeong", "/calculator/deposit-conversion",
   "/calculator/exchange", "/calculator/roi", "/calculator/avg-price", "/calculator/breakeven", "/calculator/percent",
