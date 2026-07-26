@@ -4978,6 +4978,53 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'hospitalization',
+    title: '입원 준비 체크리스트',
+    desc: '수술·입원을 앞두고 미리 챙길 것들',
+    icon: '🏨',
+    category: '건강·운동',
+    sections: [
+      {
+        title: '서류 & 행정', icon: '📋',
+        items: [
+          { id: 'hz01', text: '신분증·건강보험증' },
+          { id: 'hz02', text: '입원 서류·진료의뢰서 준비' },
+          { id: 'hz03', text: '실손보험 가입 여부·보장 내용 확인', note: '입원비·수술비 청구를 위해 필요한 서류를 미리 물어둔다' },
+          { id: 'hz04', text: '보호자·비상 연락처 정리' },
+          { id: 'hz05', text: '직장에 병가·연차 신청' },
+        ],
+      },
+      {
+        title: '세면·생활용품', icon: '🧼',
+        items: [
+          { id: 'hz06', text: '세면도구·수건·물컵' },
+          { id: 'hz07', text: '갈아입을 편한 옷·속옷·양말', note: '앞이 트인 옷이 치료·검사에 편하다' },
+          { id: 'hz08', text: '슬리퍼·개인 실내화' },
+          { id: 'hz09', text: '휴대폰 충전기(긴 것)·보조배터리' },
+          { id: 'hz10', text: '물티슈·마스크·개인 위생용품' },
+        ],
+      },
+      {
+        title: '건강 정보', icon: '💊',
+        items: [
+          { id: 'hz11', text: '평소 복용 약·약 목록 지참', note: '입원 중 처방과 겹치지 않도록 의료진에게 꼭 알린다' },
+          { id: 'hz12', text: '알레르기·기저질환 정보 전달' },
+          { id: 'hz13', text: '금식 여부·수술 전 주의사항 확인', note: '수술 전 금식 지침을 어기면 수술이 미뤄질 수 있다' },
+          { id: 'hz14', text: '궁금한 점·회복 계획 미리 메모' },
+        ],
+      },
+      {
+        title: '편의 & 마음 준비', icon: '📖',
+        items: [
+          { id: 'hz15', text: '소일거리(책·이어폰 등)' },
+          { id: 'hz16', text: '소액 현금·병원 결제수단' },
+          { id: 'hz17', text: '퇴원 후 돌봐줄 사람·이동편 확인' },
+          { id: 'hz18', text: '귀중품은 최소화해 가져가기', note: '병실은 사람이 드나들어 분실 위험이 있다' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
