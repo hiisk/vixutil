@@ -4793,6 +4793,54 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'business-trip',
+    title: '해외 출장 준비',
+    desc: '업무와 이동을 매끄럽게, 출장 전 챙길 것들',
+    icon: '💼',
+    category: '취업·직장',
+    sections: [
+      {
+        title: '서류 & 예약', icon: '📋',
+        items: [
+          { id: 'bt01', text: '여권 유효기간 확인 (6개월 이상)', note: '유효기간이 6개월 미만이면 입국을 거부당할 수 있다' },
+          { id: 'bt02', text: '비자·전자여행허가(ESTA 등) 확인' },
+          { id: 'bt03', text: '항공권·호텔 예약 및 일정 확정' },
+          { id: 'bt04', text: '출장비·법인카드·영수증 처리 방식 확인', note: '정산 규정을 미리 알아야 귀국 후 비용 처리가 수월하다' },
+          { id: 'bt05', text: '미팅 상대·주소·연락처 정리' },
+        ],
+      },
+      {
+        title: '업무 준비', icon: '💻',
+        items: [
+          { id: 'bt06', text: '발표 자료·계약서 등 최종본 백업', note: '노트북과 클라우드 양쪽에 두면 기기 문제 시에도 안전하다' },
+          { id: 'bt07', text: '노트북·충전기·어댑터 챙기기' },
+          { id: 'bt08', text: '명함 넉넉히 준비' },
+          { id: 'bt09', text: '현지 시차 고려해 회의 시간 확인', note: '한국과의 시차로 화상회의 시간이 애매해질 수 있다' },
+          { id: 'bt10', text: '통역·번역 앱 또는 자료 준비' },
+        ],
+      },
+      {
+        title: '현지 준비물', icon: '🧳',
+        items: [
+          { id: 'bt11', text: '해외 로밍 또는 유심·이심 준비' },
+          { id: 'bt12', text: '국가별 전원 어댑터(플러그) 확인' },
+          { id: 'bt13', text: '환전 또는 해외 결제 카드' },
+          { id: 'bt14', text: '비즈니스 복장·상황별 옷' },
+          { id: 'bt15', text: '상비약·개인 위생용품' },
+        ],
+      },
+      {
+        title: '안전 & 마무리', icon: '🛡️',
+        items: [
+          { id: 'bt16', text: '해외여행자 보험 가입' },
+          { id: 'bt17', text: '현지 대사관·긴급 연락처 저장' },
+          { id: 'bt18', text: '가족·회사에 일정 공유' },
+          { id: 'bt19', text: '귀국 후 출장 보고서·비용 정산 계획' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
