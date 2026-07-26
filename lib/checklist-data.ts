@@ -4658,6 +4658,51 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'driver-license',
+    title: '운전면허 취득 준비',
+    desc: '학과부터 도로주행까지 면허 따기 전 과정',
+    icon: '🚘',
+    category: '학습·시험',
+    sections: [
+      {
+        title: '시작 전 준비', icon: '📋',
+        items: [
+          { id: 'dl01', text: '취득할 면허 종류 정하기 (1종·2종)', note: '대부분 2종 보통으로 시작한다. 승합·화물을 몰 계획이면 1종을 고려한다' },
+          { id: 'dl02', text: '학원 등록 vs 독학 방식 결정' },
+          { id: 'dl03', text: '신체검사·증명사진 준비' },
+          { id: 'dl04', text: '응시 수수료·학원비 예산 확인' },
+        ],
+      },
+      {
+        title: '학과시험', icon: '📖',
+        items: [
+          { id: 'dl05', text: '교통안전교육 이수 (학과 전 필수)', note: '온라인·현장 교육을 먼저 들어야 학과시험 응시가 가능하다' },
+          { id: 'dl06', text: '학과시험 문제집·기출 앱으로 공부' },
+          { id: 'dl07', text: '학과시험 접수·응시 (합격 60점 이상)' },
+        ],
+      },
+      {
+        title: '기능·도로주행', icon: '🚗',
+        items: [
+          { id: 'dl08', text: '기능시험 코스 연습 (장내 기능)' },
+          { id: 'dl09', text: '기능시험 합격 후 연습면허 발급' },
+          { id: 'dl10', text: '도로주행 연습 (연습면허로 도로 연수)', note: '연습면허 상태로는 반드시 동승자(자격 있는 사람)와 함께 운전해야 한다' },
+          { id: 'dl11', text: '도로주행 시험 접수·응시' },
+        ],
+      },
+      {
+        title: '취득 후', icon: '🎫',
+        items: [
+          { id: 'dl12', text: '면허증 발급 받기' },
+          { id: 'dl13', text: '초보운전 스티커 부착' },
+          { id: 'dl14', text: '자동차 보험 가입 (운전 전 필수)', note: '무보험 운전은 사고 시 큰 부담과 처벌로 이어진다' },
+          { id: 'dl15', text: '실전 감각 위해 도로 연수 추가 고려' },
+          { id: 'dl16', text: '면허 갱신 주기 확인 (보통 10년)' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
