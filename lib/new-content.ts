@@ -4,6 +4,7 @@
  * 새 배치를 추가할 때마다 이 목록을 최신 것으로 교체).
  */
 export const NEW_TEST_SLUGS = new Set([
+  'appearance-care',
   'time-vs-money',
   'crisis-calm',
   'social-circle',
@@ -39,6 +40,8 @@ export const NEW_TEST_SLUGS = new Set([
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
+  'traditional-games',
+  'appliances',
   'hanja',
   'seasons',
   'etiquette',
@@ -97,6 +100,7 @@ export const NEW_QUIZ_SLUGS = new Set([
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'proposal',
   'blind-date',
   'daycare',
   'business-trip',
@@ -138,6 +142,8 @@ export const NEW_CHECKLIST_SLUGS = new Set([
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'world-cuisine',
+  'parents-question',
   'new-year-resolution',
   'emotion-word',
   'magic-answer',
