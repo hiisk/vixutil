@@ -4473,6 +4473,54 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'home-party',
+    title: '홈파티 준비 체크리스트',
+    desc: '친구를 초대하는 집들이·모임을 매끄럽게',
+    icon: '🎉',
+    category: '행사·기념',
+    sections: [
+      {
+        title: '계획 & 초대', icon: '📨',
+        items: [
+          { id: 'pt01', text: '날짜·시간·인원 정하기' },
+          { id: 'pt02', text: '초대 인원에게 미리 공지', note: '못 먹는 음식·알레르기를 함께 물어두면 메뉴 짜기가 쉽다' },
+          { id: 'pt03', text: '컨셉·드레스코드 정하기 (선택)' },
+          { id: 'pt04', text: '예산 정하고 분담 여부 정하기' },
+        ],
+      },
+      {
+        title: '음식 & 음료', icon: '🍽️',
+        items: [
+          { id: 'pt05', text: '메뉴 구성 (직접 요리 + 배달·완제품 섞기)', note: '전부 직접 만들면 정작 파티 때 주방에만 있게 된다' },
+          { id: 'pt06', text: '술·음료 넉넉히 (무알콜 옵션 포함)' },
+          { id: 'pt07', text: '간단한 안주·핑거푸드 준비' },
+          { id: 'pt08', text: '얼음·생수 여유분' },
+          { id: 'pt09', text: '일회용 접시·컵·수저 (설거지 부담↓)' },
+          { id: 'pt10', text: '디저트·케이크 (기념일이면)' },
+        ],
+      },
+      {
+        title: '공간 & 분위기', icon: '🕯️',
+        items: [
+          { id: 'pt11', text: '미리 청소·환기하기' },
+          { id: 'pt12', text: '앉을 자리·테이블 동선 확보' },
+          { id: 'pt13', text: '조명·플레이리스트로 분위기 세팅', note: '음악과 조명만 바꿔도 분위기가 확 산다' },
+          { id: 'pt14', text: '보드게임·이벤트 등 놀거리 준비' },
+          { id: 'pt15', text: '겉옷·가방 둘 공간 비워두기' },
+        ],
+      },
+      {
+        title: '마무리 배려', icon: '🧹',
+        items: [
+          { id: 'pt16', text: '쓰레기봉투·분리수거함 미리 두기' },
+          { id: 'pt17', text: '남은 음식 포장 용기 준비 (나눠 보내기)' },
+          { id: 'pt18', text: '늦은 귀가 손님 교통편 배려' },
+          { id: 'pt19', text: '이웃에 소음 양해 구하기', note: '늦은 시간 층간소음 민원을 예방한다' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
