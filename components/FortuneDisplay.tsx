@@ -9,6 +9,12 @@ interface Props {
   subjectName: string;
   subjectEmoji: string;
   badge?: string;
+  /**
+   * 결과 지점 제휴 카드를 이 컴포넌트 안에서 렌더할지.
+   * 사주처럼 이 컴포넌트가 "다음" 단계 네비게이션 위에 끼어 있는 흐름에서는
+   * 끄고(showReferral={false}), 페이지가 다음 버튼 아래에 직접 배치한다.
+   */
+  showReferral?: boolean;
 }
 
 const DOMAINS = [
@@ -73,7 +79,7 @@ function ShareBtn({ name }: { name: string }) {
   );
 }
 
-export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, badge }: Props) {
+export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, badge, showReferral = true }: Props) {
   const f = useMemo(() => getTodayFortune(subjectId), [subjectId]);
   const today = useMemo(() => {
     const d = new Date();
@@ -175,8 +181,10 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
 
       <ShareButton title={`${subjectName} ${today} 운세`} description={f.overall} type="fortune" />
 
-      {/* 운세를 다 읽은 직후 — 별자리·띠·MBTI·혈액형 페이지가 모두 이 컴포넌트를 쓴다 */}
-      <ReferralCards placement="result" />
+      {/* 운세를 다 읽은 직후 — 별자리·띠·MBTI·혈액형 페이지가 모두 이 컴포넌트를 쓴다.
+          사주처럼 "다음" 단계 버튼 위에 끼는 흐름에서는 페이지가 이 카드를 끄고
+          다음 버튼 아래에 직접 배치한다(showReferral={false}). */}
+      {showReferral && <ReferralCards placement="result" />}
     </div>
   );
 }

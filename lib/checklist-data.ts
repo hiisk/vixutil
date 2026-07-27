@@ -5025,6 +5025,53 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'retirement-prep',
+    title: '은퇴·노후 준비 체크리스트',
+    desc: '든든한 노후를 위해 미리 챙길 것들',
+    icon: '🌇',
+    category: '재테크',
+    sections: [
+      {
+        title: '연금 점검', icon: '📊',
+        items: [
+          { id: 'rp01', text: '국민연금 예상 수령액 조회', note: '국민연금공단 홈페이지·앱에서 예상 연금을 확인할 수 있다' },
+          { id: 'rp02', text: '퇴직연금(DB·DC·IRP) 현황 확인' },
+          { id: 'rp03', text: '개인연금(연금저축·연금보험) 점검' },
+          { id: 'rp04', text: '3층 연금(국민+퇴직+개인) 합산 노후소득 계산', note: '세 가지를 합쳐 매달 얼마가 들어올지 그려본다' },
+        ],
+      },
+      {
+        title: '자산 & 지출 설계', icon: '💰',
+        items: [
+          { id: 'rp05', text: '은퇴 후 월 생활비 목표 정하기' },
+          { id: 'rp06', text: '현재 자산·부채 총정리' },
+          { id: 'rp07', text: '은퇴 시점까지 필요 저축액 계산' },
+          { id: 'rp08', text: '고정 지출 줄일 항목 점검', note: '은퇴 후엔 고정비를 낮추는 것이 소득 늘리기만큼 중요하다' },
+          { id: 'rp09', text: '비상금(예비자금) 별도 확보' },
+        ],
+      },
+      {
+        title: '건강 & 보험', icon: '🩺',
+        items: [
+          { id: 'rp10', text: '실손·건강보험 보장 내용 점검' },
+          { id: 'rp11', text: '정기 건강검진 계획', note: '노후 의료비를 줄이는 가장 확실한 방법은 예방이다' },
+          { id: 'rp12', text: '치아·시력 등 미리 관리' },
+          { id: 'rp13', text: '간병·요양 대비 계획 생각해두기' },
+        ],
+      },
+      {
+        title: '삶의 준비', icon: '🌱',
+        items: [
+          { id: 'rp14', text: '은퇴 후 하고 싶은 일·취미 목록' },
+          { id: 'rp15', text: '재취업·창업 등 제2의 일 고려' },
+          { id: 'rp16', text: '사회적 관계·모임 유지 계획', note: '은퇴 후 고립감이 건강에 큰 영향을 준다. 관계를 미리 챙긴다' },
+          { id: 'rp17', text: '거주지·주거 형태 계획 (다운사이징 등)' },
+          { id: 'rp18', text: '상속·유언 등 정리 미리 생각하기' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(

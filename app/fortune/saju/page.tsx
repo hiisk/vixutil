@@ -11,6 +11,7 @@ import {
   countElements, pillarLabel, pillarHanja,
 } from '@/lib/saju-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
+import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortune } from '@/lib/saju-fortune';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -466,6 +467,7 @@ export default function SajuPage() {
                         subjectName={`${result.inputYear}년생`}
                         subjectEmoji={dayStem.emoji}
                         badge={`${pillarHanja(result.day)} 일주`}
+                        showReferral={false}
                       />
                     </div>
                   </div>
@@ -822,6 +824,13 @@ export default function SajuPage() {
                 {copied ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></> : '🔗 링크 복사'}
               </button>
             </div>
+
+            {/*
+              제휴 카드는 "오늘의 운세(일주)" 단계에서만, 그리고 이전/다음 네비게이션과
+              공유 버튼보다 아래에 둔다. FortuneDisplay 안에 두면 "다음" 버튼 위에 끼어
+              단계 이동을 방해했다(showReferral={false}로 끄고 여기로 옮김).
+            */}
+            {currentStep?.key === 'ilju' && <ReferralCards placement="result" />}
 
           </div>
         )}
