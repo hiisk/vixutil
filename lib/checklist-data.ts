@@ -5288,6 +5288,45 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'new-semester',
+    title: '새 학기 준비 체크리스트',
+    desc: '개학·개강 전, 준비물부터 마음가짐까지 빠짐없이',
+    icon: '🎒',
+    category: '학습·시험',
+    sections: [
+      {
+        title: '준비물 & 서류', icon: '📚',
+        items: [
+          { id: 'ns01', text: '교과서·참고서·문제집 목록 확인하고 준비' },
+          { id: 'ns02', text: '노트·필기구·파일 등 학용품 채우기' },
+          { id: 'ns03', text: '가방·필통·실내화 상태 점검, 필요 시 교체' },
+          { id: 'ns04', text: '제출 서류(가정통신문·동의서 등) 미리 작성', note: '마감일 놓치지 않기' },
+          { id: 'ns05', text: '태블릿·노트북 등 학습 기기 충전·점검' },
+        ],
+      },
+      {
+        title: '학습 준비', icon: '📝',
+        items: [
+          { id: 'ns06', text: '지난 학기 내용 가볍게 복습' },
+          { id: 'ns07', text: '새 학기 시간표·교실·강의 확인' },
+          { id: 'ns08', text: '학습 목표와 계획 세우기', note: '작게 시작해 꾸준히' },
+          { id: 'ns09', text: '주요 일정(중간·기말·과제) 달력에 표시' },
+          { id: 'ns10', text: '인강·학원 등록 여부 정리' },
+        ],
+      },
+      {
+        title: '생활 & 마음가짐', icon: '🌱',
+        items: [
+          { id: 'ns11', text: '기상·취침 시간 규칙적으로 되돌리기', note: '개학 1주 전부터 조정' },
+          { id: 'ns12', text: '통학 경로·소요 시간 확인' },
+          { id: 'ns13', text: '새 학기 옷·신발 등 준비' },
+          { id: 'ns14', text: '용돈·교통비 관리 방법 정하기' },
+          { id: 'ns15', text: '새로운 만남에 열린 마음 갖기', note: '긴장은 자연스러운 것' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
