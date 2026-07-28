@@ -21,6 +21,7 @@ const TYPES = [
   { href: '/fortune/blood-type', icon: '🩸', title: '혈액형 운세', desc: 'A·B·O·AB형 오늘의 운세',            badge: '4가지',    color: 'from-rose-500 to-red-600' },
   { href: '/fortune/biorhythm',  icon: '📈', title: '바이오리듬',  desc: '신체·감성·지성 리듬을 그래프로',      badge: '그래프',   color: 'from-emerald-500 to-teal-600' },
   { href: '/fortune/name-match', icon: '💕', title: '이름 궁합',   desc: '두 사람 이름 획수로 보는 궁합 점수',   badge: '궁합',     color: 'from-pink-500 to-rose-600' },
+  { href: '/fortune/zodiac-match', icon: '🐲', title: '띠 궁합',    desc: '십이지 삼합·육합으로 보는 두 사람 궁합', badge: '12띠',    color: 'from-rose-500 to-red-600' },
 ];
 
 export default function FortunePage() {

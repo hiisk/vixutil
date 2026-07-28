@@ -67,6 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/blood-type`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/biorhythm`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/name-match`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/zodiac-match`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/snap/first-impression`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/face-reading`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
