@@ -106,29 +106,37 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
           <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">{current + 1} / {total}</span>
         </div>
       </header>
-      <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
+      <div key={current} className="flex-1 px-4 py-8 max-w-lg mx-auto w-full qz-fade">
         <div className="flex items-center gap-2 mb-5">
-          <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2 py-1 rounded-full">Q{current + 1}</span>
+          <span className="text-xs font-black text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
           {phase === 'answer' && (
-            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
+            <span className={`text-xs font-black px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
               {isCorrect ? '✓ 정답!' : '✗ 오답'}
             </span>
           )}
         </div>
-        <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-6 leading-relaxed">{q.q}</h2>
+        <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-6 leading-relaxed tracking-tight">{q.q}</h2>
         <div className="flex flex-col gap-2.5">
           {q.opts.map((opt, i) => {
-            let cls = 'w-full text-left border rounded-xl px-4 py-3.5 text-sm font-medium transition-all ';
-            if (phase === 'answer') {
-              if (i === q.correct) cls += 'bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-bold';
-              else if (i === selected) cls += 'bg-red-50 dark:bg-red-950/30 border-2 border-red-400 text-red-700 dark:text-red-300';
-              else cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400';
+            const answered = phase === 'answer';
+            const isRight = i === q.correct;
+            const isChosen = i === selected;
+            let cls = 'group w-full text-left flex items-center gap-3 border rounded-2xl pl-3 pr-4 py-3.5 text-sm font-medium transition-all ';
+            let badgeCls = 'shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-colors ';
+            if (answered) {
+              if (isRight) { cls += 'bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-bold'; badgeCls += 'bg-emerald-500 text-white'; }
+              else if (isChosen) { cls += 'bg-red-50 dark:bg-red-950/30 border-2 border-red-400 text-red-700 dark:text-red-300'; badgeCls += 'bg-red-500 text-white'; }
+              else { cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'; badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'; }
             } else {
-              cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 cursor-pointer';
+              cls += 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:shadow-sm active:scale-[0.99] cursor-pointer';
+              badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white';
             }
             return (
-              <button key={i} className={cls} onClick={() => phase === 'question' && handleAnswer(i)} disabled={phase === 'answer'}>
-                <span className="mr-2 text-slate-400 dark:text-slate-500 font-normal">{['①','②','③','④'][i]}</span>{opt}
+              <button key={i} className={cls} onClick={() => phase === 'question' && handleAnswer(i)} disabled={answered}>
+                <span className={badgeCls}>
+                  {answered && isRight ? '✓' : answered && isChosen ? '✕' : ['①', '②', '③', '④', '⑤'][i]}
+                </span>
+                <span className="flex-1 leading-snug">{opt}</span>
               </button>
             );
           })}
@@ -148,6 +156,10 @@ export default function QuizEngine({ quiz }: { quiz: Quiz }) {
           </div>
         )}
       </div>
+      <style jsx>{`
+        .qz-fade { animation: qzFade 0.28s ease-out; }
+        @keyframes qzFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
     </div>
   );
 
