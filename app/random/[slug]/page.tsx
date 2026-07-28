@@ -9,6 +9,7 @@ import RandomPicker from '@/components/random/RandomPicker';
 import TeamMaker from '@/components/random/TeamMaker';
 import NumberPicker from '@/components/random/NumberPicker';
 import CoinDice from '@/components/random/CoinDice';
+import OrderShuffler from '@/components/random/OrderShuffler';
 import ShareButton from '@/components/ShareButton';
 import ReferralCards from '@/components/ReferralCards';
 import SiteFooter from '@/components/SiteFooter';
@@ -34,6 +35,7 @@ function Tool({ slug }: { slug: string }) {
     case 'roulette': return <RouletteWheel />;
     case 'ladder': return <LadderGame />;
     case 'pick': return <RandomPicker />;
+    case 'order': return <OrderShuffler />;
     case 'team': return <TeamMaker />;
     case 'number': return <NumberPicker />;
     case 'coin-dice': return <CoinDice />;

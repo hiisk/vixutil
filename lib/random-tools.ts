@@ -48,6 +48,15 @@ const RANDOM_TOOLS: RandomTool[] = [
     long: '이름이나 항목 목록을 넣고 원하는 인원만큼 무작위로 뽑습니다. 경품 추첨, 발표자 정하기, 청소 당번 뽑기 등에 사용하세요.',
   },
   {
+    slug: 'order',
+    title: '순서 정하기',
+    desc: '명단을 무작위 순서로 정렬',
+    icon: '🔀',
+    category: '추첨',
+    gradient: 'from-cyan-500 to-sky-600',
+    long: '참가자나 항목을 넣으면 무작위 순서로 정렬해 줍니다. 발표 순서, 게임 차례, 줄서기 순서 등을 공정하게 정할 때 쓰세요.',
+  },
+  {
     slug: 'team',
     title: '팀 나누기',
     desc: '인원을 원하는 팀 수로 랜덤 배분',

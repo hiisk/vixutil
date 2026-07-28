@@ -5210,6 +5210,45 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'first-day-job',
+    title: '첫 출근 준비 체크리스트',
+    desc: '입사 전날부터 첫날까지, 좋은 첫인상을 위한 준비',
+    icon: '🧑‍💼',
+    category: '취업·직장',
+    sections: [
+      {
+        title: '서류 & 행정', icon: '📄',
+        items: [
+          { id: 'fd01', text: '제출 서류 준비(신분증 사본·통장 사본·사진)', note: '회사가 요청한 목록을 미리 확인' },
+          { id: 'fd02', text: '주민등록등본·자격증 사본 등 추가 서류 챙기기' },
+          { id: 'fd03', text: '급여 입금용 계좌 정보 정리' },
+          { id: 'fd04', text: '근로계약서 내용(연봉·근무시간·수습) 다시 확인' },
+          { id: 'fd05', text: '건강검진 결과서 필요 여부 확인' },
+        ],
+      },
+      {
+        title: '복장 & 준비물', icon: '👔',
+        items: [
+          { id: 'fd06', text: '회사 분위기에 맞는 복장 준비', note: '모르면 단정한 세미정장이 무난' },
+          { id: 'fd07', text: '첫날 입을 옷 전날 밤 미리 꺼내두기' },
+          { id: 'fd08', text: '필기구·노트·개인 도장 챙기기' },
+          { id: 'fd09', text: '휴대폰·노트북 충전기, 보조배터리' },
+          { id: 'fd10', text: '점심값·교통카드 등 소액 현금 준비' },
+        ],
+      },
+      {
+        title: '동선 & 마음가짐', icon: '🚶',
+        items: [
+          { id: 'fd11', text: '출근 경로·소요 시간 미리 확인', note: '첫날은 20~30분 여유 있게' },
+          { id: 'fd12', text: '출근 시간·도착 후 연락할 담당자 확인' },
+          { id: 'fd13', text: '전날 일찍 자고 알람 여러 개 맞추기' },
+          { id: 'fd14', text: '간단한 자기소개 한두 문장 준비' },
+          { id: 'fd15', text: '밝은 인사와 메모하는 습관 마음에 새기기', note: '첫인상은 태도에서 갈린다' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
