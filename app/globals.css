@@ -112,6 +112,14 @@ html.dark .calc-card {
 }
 .animate-fade-in-up { animation: fade-in-up 0.2s ease-out both; }
 
+/* ── 제휴 CTA 광택 스윕 ── */
+@keyframes ref-shine {
+  0%        { transform: translateX(0) skewX(12deg); }
+  55%, 100% { transform: translateX(600%) skewX(12deg); }
+}
+.ref-shine { animation: ref-shine 2.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .ref-shine { animation: none; } }
+
 /* ── 스크롤바 (webkit) ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }

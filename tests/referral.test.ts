@@ -4,7 +4,6 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import {
   REFERRALS, RANKED_REFERRALS, REFERRAL_REL, hasRankBasis,
-  RISK_NOTE_KO, RISK_NOTE_EN,
 } from '../lib/referral.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -52,14 +51,12 @@ test('제휴 카드가 광고임을 명시한다', () => {
   assert.match(card, /'Ad'/, '영어 광고 표기가 없다');
 });
 
-test('제휴 카드에 원금 손실 고지가 붙는다', () => {
-  // 제휴 관계 고지는 "광고" 표기가 맡는다(공정위 추천·보증 심사지침이 인정하는 표시).
-  // 원금 손실 한 줄은 남긴다 — 실수령액 계산기를 보러 온 사람에게 "최대 $30,000"을
-  // 띄우는 자리라서, 크기를 키울수록 이 한 줄의 값어치가 커진다.
+test('제휴 카드가 "광고"임을 명시한다(관계 고지)', () => {
+  // 위험 고지 문구는 사이트 소유자 결정으로 뺐다. 다만 제휴 관계를 알리는
+  // "광고" 표기는 유지한다 — 이건 위험 경고가 아니라 광고 표시라 별개이고,
+  // 숨기면 신뢰와 검색 신호를 잃는다.
   const card = readFileSync(join(ROOT, 'components', 'ReferralCards.tsx'), 'utf8');
-  assert.ok(card.includes('RISK_NOTE_KO') && card.includes('RISK_NOTE_EN'), '카드가 위험 고지를 렌더하지 않는다');
-  assert.match(RISK_NOTE_KO, /원금/, '원금 손실 언급 누락');
-  assert.match(RISK_NOTE_EN, /principal|loss/i, '원금 손실 언급 누락');
+  assert.match(card, /'광고'/, '광고 표기가 사라졌다');
 });
 
 test('결과 화면 노출이 팝업이 아니라 본문에 들어간다', () => {

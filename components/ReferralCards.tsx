@@ -1,4 +1,4 @@
-import { RANKED_REFERRALS, REFERRAL_REL, RISK_NOTE_KO, RISK_NOTE_EN } from '@/lib/referral';
+import { RANKED_REFERRALS, REFERRAL_REL } from '@/lib/referral';
 
 /**
  * 제휴 거래소 카드 — 푸터(한국어)와 crypto 섹션(영어)이 같이 쓴다.
@@ -110,10 +110,10 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
                 }`}
               />
 
-              <span className="relative flex items-center gap-2 mb-3">
+              <span className="relative flex flex-wrap items-center gap-y-1 gap-2 mb-3">
                 <BrandMark id={r.id} />
                 <span
-                  className={`ml-auto inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-black ${
+                  className={`ml-auto inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-black ${
                     top
                       ? 'bg-amber-400 text-slate-950'
                       : 'bg-slate-800 dark:bg-slate-700 text-white'
@@ -133,23 +133,21 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
               </span>
 
               <span
-                className={`relative mt-4 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-black transition-colors ${
+                className={`relative mt-4 flex items-center justify-center gap-1.5 overflow-hidden rounded-xl py-2.5 text-sm font-black transition-colors ${
                   top
                     ? 'bg-amber-400 text-slate-950 group-hover:bg-amber-300'
                     : 'bg-slate-800 dark:bg-slate-700 text-white group-hover:bg-slate-900 dark:group-hover:bg-slate-600'
                 }`}
               >
-                {copy.cta}
-                <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                {/* 버튼 위를 스치는 광택 — 시선을 CTA로 끌어 클릭을 유도한다 */}
+                <span aria-hidden="true" className="ref-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-white/40" />
+                <span className="relative">{copy.cta}</span>
+                <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
               </span>
             </a>
           );
         })}
       </div>
-
-      <p className="mt-2.5 text-[11px] text-slate-400 dark:text-slate-500">
-        {ko ? RISK_NOTE_KO : RISK_NOTE_EN}
-      </p>
     </section>
   );
 }
