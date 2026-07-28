@@ -5327,6 +5327,45 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'puppy-arrival',
+    title: '강아지 입양 준비 체크리스트',
+    desc: '새 가족을 맞기 전, 준비물부터 집 안전까지',
+    icon: '🐶',
+    category: '이사·생활',
+    sections: [
+      {
+        title: '기본 준비물', icon: '🛒',
+        items: [
+          { id: 'pa01', text: '사료·간식 준비(기존에 먹던 것과 같게)', note: '갑작스러운 사료 변경은 배탈의 원인' },
+          { id: 'pa02', text: '밥그릇·물그릇 준비' },
+          { id: 'pa03', text: '배변 패드와 배변 공간 마련' },
+          { id: 'pa04', text: '편안한 잠자리(방석·하우스)' },
+          { id: 'pa05', text: '목줄·하네스·인식표 준비' },
+          { id: 'pa06', text: '이갈이용 장난감·노즈워크 용품' },
+        ],
+      },
+      {
+        title: '집 안전 점검', icon: '🏠',
+        items: [
+          { id: 'pa07', text: '전선·콘센트 물어뜯지 못하게 정리', note: '감전 위험, 커버로 가리기' },
+          { id: 'pa08', text: '삼킬 만한 작은 물건·약 치우기' },
+          { id: 'pa09', text: '강아지에게 위험한 식물 치우기', note: '백합·튤립 등은 중독 위험' },
+          { id: 'pa10', text: '미끄러운 바닥에 매트 깔기(관절 보호)' },
+          { id: 'pa11', text: '베란다·계단 안전문 설치 검토' },
+        ],
+      },
+      {
+        title: '건강 & 적응', icon: '🩺',
+        items: [
+          { id: 'pa12', text: '가까운 동물병원 위치 확인' },
+          { id: 'pa13', text: '예방접종·구충 일정 확인', note: '입양처에서 접종 기록 받기' },
+          { id: 'pa14', text: '동물등록(내장칩·외장칩) 계획', note: '반려견은 법적 등록 대상' },
+          { id: 'pa15', text: '첫 며칠은 조용히 적응할 시간 주기', note: '과한 스킨십·손님 초대는 자제' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
