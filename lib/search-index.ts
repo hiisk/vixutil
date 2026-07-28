@@ -3,6 +3,7 @@ import { TESTS } from './test-data';
 import { QUIZZES } from './quiz-data';
 import { GENERATORS } from './generator-data';
 import { CHECKLISTS } from './checklist-data';
+import { WORLDCUPS } from './worldcup-data';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -13,7 +14,7 @@ import { CHECKLISTS } from './checklist-data';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'worldcup';
 
 export interface SearchItem {
   href: string;
@@ -31,6 +32,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   checklist:  { label: '체크리스트',  icon: '✅', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   fortune:    { label: '운세',       icon: '🔮', accent: 'bg-purple-50 text-purple-700 border-purple-200' },
   snap:       { label: '스냅테스트',  icon: '📸', accent: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
+  worldcup:   { label: '이상형 월드컵', icon: '🏆', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
 };
 
 /**
@@ -83,6 +85,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...QUIZZES.map(q => ({ href: `/quiz/${q.slug}`, title: q.title, desc: q.desc, section: 'quiz' as const, icon: q.icon })),
   ...GENERATORS.map(g => ({ href: `/generator/${g.slug}`, title: g.title, desc: g.desc, section: 'generator' as const, icon: g.icon })),
   ...CHECKLISTS.map(c => ({ href: `/checklist/${c.slug}`, title: c.title, desc: c.desc, section: 'checklist' as const, icon: c.icon })),
+  ...WORLDCUPS.map(w => ({ href: `/worldcup/${w.slug}`, title: `${w.title}`, desc: w.desc, section: 'worldcup' as const, icon: w.icon })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

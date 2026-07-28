@@ -13,6 +13,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/generator", icon: "⚙️", label: "생성기" },
   { href: "/checklist", icon: "✅", label: "체크리스트" },
   { href: "/fortune", icon: "🔮", label: "오늘의 운세" },
+  { href: "/worldcup", icon: "🏆", label: "이상형 월드컵" },
   { href: "/snap", icon: "📸", label: "스냅테스트" },
 ];
 
