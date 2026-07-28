@@ -5117,6 +5117,52 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'zero-waste',
+    title: '제로웨이스트 시작 체크리스트',
+    desc: '부담 없이 쓰레기 줄이는 습관 만들기',
+    icon: '♻️',
+    category: '이사·생활',
+    sections: [
+      {
+        title: '외출 필수템', icon: '🛍️',
+        items: [
+          { id: 'zw01', text: '장바구니·에코백 가지고 다니기', note: '비닐봉지 대신 쓰는 것만으로 큰 차이가 난다' },
+          { id: 'zw02', text: '텀블러·개인 컵 챙기기', note: '카페에서 할인해 주는 곳도 많아 돈도 아낀다' },
+          { id: 'zw03', text: '손수건 사용하기' },
+          { id: 'zw04', text: '다회용 빨대·용기 준비' },
+        ],
+      },
+      {
+        title: '집에서 줄이기', icon: '🏠',
+        items: [
+          { id: 'zw05', text: '분리배출 제대로 하기(내용물 비우고 헹구기)', note: '오염된 재활용품은 결국 소각된다. 헹궈서 버리는 게 핵심이다' },
+          { id: 'zw06', text: '음식물 쓰레기 줄이기(필요한 만큼만 구매)' },
+          { id: 'zw07', text: '일회용품 대신 다회용품 쓰기' },
+          { id: 'zw08', text: '고체 비누·설거지바 등 시도해보기' },
+          { id: 'zw09', text: '안 쓰는 물건 중고거래·나눔' },
+        ],
+      },
+      {
+        title: '소비 습관', icon: '🧾',
+        items: [
+          { id: 'zw10', text: '과대포장 제품 피하기' },
+          { id: 'zw11', text: '리필 스테이션·대용량 활용' },
+          { id: 'zw12', text: '필요 없는 사은품·비닐 거절하기' },
+          { id: 'zw13', text: '오래 쓸 수 있는 물건 고르기', note: '싸게 자주 사는 것보다 좋은 걸 오래 쓰는 게 결국 덜 버린다' },
+        ],
+      },
+      {
+        title: '지속 가능하게', icon: '🌱',
+        items: [
+          { id: 'zw14', text: '완벽하려 하지 않기', note: '한 번에 다 바꾸려다 지친다. 할 수 있는 것 하나부터 꾸준히가 답이다' },
+          { id: 'zw15', text: '실천한 것 기록하며 뿌듯함 느끼기' },
+          { id: 'zw16', text: '가족·친구와 함께 하기' },
+          { id: 'zw17', text: '내 상황에 맞는 방법만 골라 지키기' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(

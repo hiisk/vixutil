@@ -98,18 +98,28 @@ export default function TestEngine({ test }: { test: Test }) {
             <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">{current + 1} / {test.questions.length}</span>
           </div>
         </header>
-        <div className="flex-1 px-4 py-10 max-w-lg mx-auto w-full">
-          <p className="text-xs font-bold text-violet-400 mb-4">Q{current + 1}</p>
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line">{q.q}</h2>
-          <div className="flex flex-col gap-3">
+        <div key={current} className="flex-1 px-4 py-10 max-w-lg mx-auto w-full te-fade">
+          <span className="inline-block text-xs font-black text-violet-500 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
+          <h2 className="text-xl font-black text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line tracking-tight">{q.q}</h2>
+          <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(opt.score)}
-                className="w-full text-left bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 active:scale-[0.99] transition-all">
-                {opt.text}
+                className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
+                <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-black flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
+                  {['A', 'B', 'C', 'D', 'E'][i] ?? i + 1}
+                </span>
+                <span className="flex-1 leading-snug">{opt.text}</span>
+                <svg className="w-4 h-4 shrink-0 text-slate-200 dark:text-slate-700 group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
               </button>
             ))}
           </div>
         </div>
+        <style jsx>{`
+          .te-fade { animation: teFade 0.28s ease-out; }
+          @keyframes teFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        `}</style>
       </div>
     );
   }
@@ -130,12 +140,14 @@ export default function TestEngine({ test }: { test: Test }) {
       </header>
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/* Result hero card */}
-        <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${grad} p-8 text-white text-center mb-6 shadow-lg`}>
+        <div className={`te-pop relative overflow-hidden rounded-3xl bg-gradient-to-br ${grad} p-8 text-white text-center mb-6 shadow-xl`}>
           {/* decorative bg emoji */}
           <span className="absolute -top-4 -right-4 text-[100px] opacity-10 select-none">{result.emoji}</span>
           <span className="absolute -bottom-4 -left-4 text-[80px] opacity-10 select-none">{result.emoji}</span>
+          {/* soft glow */}
+          <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white/20 blur-3xl" />
           {/* main emoji */}
-          <div className="text-7xl mb-4 filter drop-shadow-lg relative z-10">{result.emoji}</div>
+          <div className="te-pop-emoji text-7xl mb-4 filter drop-shadow-lg relative z-10">{result.emoji}</div>
           <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{test.category} 테스트 결과</span>
           {mbtiType && (
             <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
@@ -150,13 +162,19 @@ export default function TestEngine({ test }: { test: Test }) {
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">주요 특징</p>
             <div className="flex flex-wrap gap-2">
               {result.traits.map((t, i) => (
-                <span key={i} className="text-xs font-semibold px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-200">
+                <span key={i} className="text-xs font-bold px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-200 shadow-sm">
                   ✦ {t}
                 </span>
               ))}
             </div>
           </div>
         )}
+        <style jsx>{`
+          .te-pop { animation: tePop 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+          .te-pop-emoji { animation: tePopEmoji 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+          @keyframes tePop { from { opacity: 0; transform: scale(0.94) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+          @keyframes tePopEmoji { 0% { opacity: 0; transform: scale(0.3); } 60% { transform: scale(1.15); } 100% { opacity: 1; transform: scale(1); } }
+        `}</style>
 
         <ShareButton
           title={`${test.title} 결과: ${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`}
