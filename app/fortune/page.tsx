@@ -26,6 +26,8 @@ const TYPES = [
   { href: '/fortune/blood-match',  icon: '🩸', title: '혈액형 궁합',  desc: 'A·B·O·AB형으로 보는 두 사람 궁합',      badge: '4가지',   color: 'from-rose-500 to-orange-600' },
   { href: '/fortune/mbti-match',   icon: '🧠', title: 'MBTI 궁합',   desc: '16유형으로 보는 두 사람 궁합 점수',     badge: '16유형',  color: 'from-violet-500 to-indigo-600' },
   { href: '/fortune/daily',        icon: '🔮', title: '오늘의 종합운세', desc: '생년월일로 보는 오늘의 총운·연애·금전운', badge: '생년월일', color: 'from-purple-500 to-pink-600' },
+  { href: '/fortune/daily-tarot',  icon: '🃏', title: '오늘의 타로',   desc: '매일 자정 바뀌는 오늘의 타로 카드 한 장', badge: 'NEW',     color: 'from-amber-500 to-orange-600' },
+  { href: '/fortune/tarot-yesno',  icon: '🔮', title: '타로 예스/노',  desc: '질문을 떠올리고 카드로 받는 예·아니오',   badge: 'NEW',     color: 'from-indigo-500 to-violet-700' },
 ];
 
 export default function FortunePage() {
