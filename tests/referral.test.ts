@@ -212,12 +212,21 @@ test('운세 페이지가 모두 결과 지점 노출을 갖는다', () => {
 
   assert.ok(pages.length >= 9, `운세 페이지가 ${pages.length}개뿐 — 경로가 바뀌었나`);
 
+  // 결과 지점 카드를 대신 들고 있는 컴포넌트들. 하나라도 쓰면 노출이 보장된다.
+  //  - FortuneDisplay: 별자리·띠·MBTI 운세·혈액형·오늘의 종합운세
+  //  - MatchResultCard: 궁합 4종(띠·별자리·혈액형·MBTI)의 공용 결과 카드
+  //  - ReferralCards: 직접 배치(dream·tarot·biorhythm·name-match)
+  const CARRIERS = ['FortuneDisplay', 'MatchResultCard', 'ReferralCards'];
   const missing = pages.filter(slug => {
     const src = readFileSync(join(dir, slug, 'page.tsx'), 'utf8');
-    // FortuneDisplay가 카드를 대신 들고 있다.
-    return !src.includes('FortuneDisplay') && !src.includes('ReferralCards');
+    return !CARRIERS.some(c => src.includes(c));
   });
   assert.deepEqual(missing, [], `결과 지점 노출이 없는 운세 페이지: ${missing.join(', ')}`);
+
+  // 대리 컴포넌트(MatchResultCard)가 실제로 제휴 카드를 들고 있는지 확인 —
+  // 여기서 빠지면 궁합 4종이 한꺼번에 조용히 사라진다.
+  const mrc = readFileSync(join(ROOT, 'components', 'MatchResultCard.tsx'), 'utf8');
+  assert.match(mrc, /<ReferralCards placement="result" \/>/, 'MatchResultCard에 제휴 카드가 없다');
 });
 
 test('스냅 11개 페이지가 모두 결과 지점 노출을 갖는다', () => {

@@ -23,6 +23,9 @@ const TYPES = [
   { href: '/fortune/name-match', icon: '💕', title: '이름 궁합',   desc: '두 사람 이름 획수로 보는 궁합 점수',   badge: '궁합',     color: 'from-pink-500 to-rose-600' },
   { href: '/fortune/zodiac-match', icon: '🐲', title: '띠 궁합',    desc: '십이지 삼합·육합으로 보는 두 사람 궁합', badge: '12띠',    color: 'from-rose-500 to-red-600' },
   { href: '/fortune/star-match',   icon: '⭐', title: '별자리 궁합',  desc: '12별자리 원소로 보는 두 사람 궁합',     badge: '12별자리', color: 'from-violet-500 to-fuchsia-600' },
+  { href: '/fortune/blood-match',  icon: '🩸', title: '혈액형 궁합',  desc: 'A·B·O·AB형으로 보는 두 사람 궁합',      badge: '4가지',   color: 'from-rose-500 to-orange-600' },
+  { href: '/fortune/mbti-match',   icon: '🧠', title: 'MBTI 궁합',   desc: '16유형으로 보는 두 사람 궁합 점수',     badge: '16유형',  color: 'from-violet-500 to-indigo-600' },
+  { href: '/fortune/daily',        icon: '🔮', title: '오늘의 종합운세', desc: '생년월일로 보는 오늘의 총운·연애·금전운', badge: '생년월일', color: 'from-purple-500 to-pink-600' },
 ];
 
 export default function FortunePage() {
