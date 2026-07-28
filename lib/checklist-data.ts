@@ -5249,6 +5249,45 @@ const CHECKLISTS: Checklist[] = [
       },
     ],
   },
+  {
+    slug: 'exam-day',
+    title: '시험 당일 체크리스트',
+    desc: '전날 밤부터 시험장까지, 실수 없이 실력 발휘하기',
+    icon: '📝',
+    category: '학습·시험',
+    sections: [
+      {
+        title: '전날 밤', icon: '🌙',
+        items: [
+          { id: 'ex01', text: '수험표·신분증 미리 챙겨 가방에 넣기', note: '가장 많이 놓치는 준비물' },
+          { id: 'ex02', text: '필기구(펜·컴퓨터용 사인펜·연필·지우개) 여분까지', note: '사인펜은 2개 이상' },
+          { id: 'ex03', text: '허용되는 계산기·시계 규정 확인' },
+          { id: 'ex04', text: '시험장 위치·교통편·소요 시간 확인' },
+          { id: 'ex05', text: '알람 여러 개 맞추고 일찍 잠자리에', note: '밤샘보다 컨디션이 중요' },
+        ],
+      },
+      {
+        title: '당일 아침', icon: '☀️',
+        items: [
+          { id: 'ex06', text: '아침 식사 가볍게 챙기기', note: '과식·빈속 모두 피하기' },
+          { id: 'ex07', text: '날씨에 맞는 옷·겉옷(체온 조절)' },
+          { id: 'ex08', text: '수험표·신분증 다시 한번 확인' },
+          { id: 'ex09', text: '시험 시작 30분 전 도착 목표로 출발' },
+          { id: 'ex10', text: '휴대폰은 규정대로 전원 끄거나 제출 준비' },
+        ],
+      },
+      {
+        title: '시험장에서', icon: '✍️',
+        items: [
+          { id: 'ex11', text: '화장실 미리 다녀오기' },
+          { id: 'ex12', text: '자리·수험번호·과목 확인' },
+          { id: 'ex13', text: '이름·수험번호 마킹 먼저 정확히', note: '이 실수가 가장 뼈아프다' },
+          { id: 'ex14', text: '쉬운 문제부터 풀고 시간 배분하기' },
+          { id: 'ex15', text: '마지막 5분, 마킹 누락·밀림 점검', note: '한 칸 밀림 반드시 확인' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(

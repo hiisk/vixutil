@@ -14,6 +14,7 @@ export const NEW_RANDOM_SLUGS = new Set([
 ]);
 
 export const NEW_TEST_SLUGS = new Set([
+  'logic-emotion',
   'spender-saver',
   'minimalism',
   'comfort-style',
@@ -25,10 +26,11 @@ export const NEW_TEST_SLUGS = new Set([
   'crisis-calm',
   'social-circle',
   'chronotype',
-  'assertiveness',
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
+  'robots',
+  'spices',
   'nutrition',
   'world-food',
   'physics',
@@ -39,11 +41,10 @@ export const NEW_QUIZ_SLUGS = new Set([
   'world-orgs',
   'continents',
   'folk-customs',
-  'taste-science',
-  'traditional-games',
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'exam-day',
   'first-day-job',
   'empty-house',
   'zero-waste',
@@ -55,10 +56,11 @@ export const NEW_CHECKLIST_SLUGS = new Set([
   'daycare',
   'business-trip',
   'first-credit-card',
-  'newborn-care',
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'superhero-name',
+  'bakery-name',
   'guild-name',
   'rapper-name',
   'pickup-line',
@@ -69,6 +71,4 @@ export const NEW_GENERATOR_SLUGS = new Set([
   'first-message',
   'home-date',
   'study-break',
-  'mindfulness',
-  'sleep-routine',
 ]);
