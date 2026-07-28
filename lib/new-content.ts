@@ -3,15 +3,13 @@
  * 최신 1~2개 배치만 유지한다 (너무 쌓이면 배지 의미가 퇴색되므로,
  * 새 배치를 추가할 때마다 이 목록을 최신 것으로 교체).
  */
-export const NEW_WORLDCUP_SLUGS = new Set([
-  'food',
-  'chicken',
-  'ramen',
-  'snack',
-  'late-night',
-  'dessert',
-  'drink',
-  'travel',
+export const NEW_RANDOM_SLUGS = new Set([
+  'roulette',
+  'ladder',
+  'pick',
+  'team',
+  'number',
+  'coin-dice',
 ]);
 
 export const NEW_TEST_SLUGS = new Set([

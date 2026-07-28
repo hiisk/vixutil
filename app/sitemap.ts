@@ -3,7 +3,7 @@ import { TESTS } from "@/lib/test-data";
 import { QUIZZES } from "@/lib/quiz-data";
 import { GENERATORS } from "@/lib/generator-data";
 import { CHECKLISTS } from "@/lib/checklist-data";
-import { WORLDCUPS } from "@/lib/worldcup-data";
+import { RANDOM_TOOLS } from "@/lib/random-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -73,8 +73,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/blood-match`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/mbti-match`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/daily`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
-    { url: `${BASE}/worldcup`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
-    ...WORLDCUPS.map((w: { slug: string }) => ({ url: `${BASE}/worldcup/${w.slug}`, lastModified: now, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/random`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
+    ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/random/${t.slug}`, lastModified: now, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/snap`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/snap/first-impression`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/face-reading`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
