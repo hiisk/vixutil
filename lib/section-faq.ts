@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/long-short-ratio': [
+    {
+      q: 'What is the long/short ratio?',
+      a: 'It describes how Binance futures participants are positioned. The account ratio is the share of trading accounts holding a long; the top-trader position ratio is the share of money in large accounts that is long. They answer different questions and this page shows both.',
+    },
+    {
+      q: 'Why do the account and position ratios differ?',
+      a: 'Because one counts people and the other counts money. When many small accounts are long while a few large positions are short, the account ratio leans long and the position ratio leans short. That disagreement is usually more informative than either number alone.',
+    },
+    {
+      q: 'Does a crowded ratio mean the price will move the other way?',
+      a: 'That is the popular claim and this page does not endorse it. Binance exposes only thirty days of positioning history, which sits inside a single market mood, so any backtest over it would produce a number with no evidential weight. Rather than showing a misleading result, no backtest is shown.',
+    },
+    {
+      q: 'Why does open interest matter here?',
+      a: 'Because a lopsided ratio on a thin market means far less than the same ratio on a deep one. Open interest is the notional value of all open positions, so it tells you how much capital the reading actually represents.',
+    },
+    {
+      q: 'What do "crowded" and "tilted" mean?',
+      a: 'They are labels applied at twenty and ten percentage points away from an even split. Those cutoffs are conventions chosen for readability, not thresholds discovered in data, and a reading just either side of one is not meaningfully different.',
+    },
+    {
+      q: 'Does this cover the whole market?',
+      a: 'No, only Binance USD-M futures. Other venues have their own participants and their own positioning, and spot holdings are not represented at all. It is a large slice of derivatives activity rather than a complete picture.',
+    },
+  ],
   'crypto/fear-greed-index': [
     {
       q: 'What is the crypto Fear & Greed Index?',
