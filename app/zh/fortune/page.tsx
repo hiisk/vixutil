@@ -28,6 +28,7 @@ const TYPES = [
   { href: '/zh/fortune/mbti',         icon: '🧠', title: 'MBTI 今日运势', desc: '16型人格的今日运势', badge: '16型', color: 'from-sky-500 to-blue-600' },
   { href: '/zh/fortune/daily-tarot', icon: '🃏', title: '今日塔罗',   desc: '大阿尔卡纳中的一张', badge: '每日', color: 'from-amber-500 to-orange-600' },
   { href: '/zh/fortune/tarot-yesno', icon: '🔮', title: '塔罗是与否', desc: '抽一张牌得到答案',   badge: '抽牌', color: 'from-indigo-500 to-violet-700' },
+  { href: '/zh/fortune/dream',      icon: '🌙', title: '周公解梦', desc: '20 个常见梦境意象', badge: '20种', color: 'from-slate-700 to-indigo-800' },
 ];
 
 export default function ZhFortuneHub() {

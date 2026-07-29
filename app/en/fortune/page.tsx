@@ -32,6 +32,7 @@ const TYPES = [
   { href: '/en/fortune/mbti',         icon: '🧠', title: 'MBTI Daily Horoscope',       desc: 'Today’s reading for all 16 types',    badge: '16 types',   color: 'from-sky-500 to-blue-600' },
   { href: '/en/fortune/daily-tarot', icon: '🃏', title: 'Today’s Tarot',      desc: 'One card from the major arcana', badge: 'Daily', color: 'from-amber-500 to-orange-600' },
   { href: '/en/fortune/tarot-yesno', icon: '🔮', title: 'Tarot Yes or No',    desc: 'Draw one card for an answer',    badge: 'Draw',  color: 'from-indigo-500 to-violet-700' },
+  { href: '/en/fortune/dream',      icon: '🌙', title: 'Dream Dictionary',   desc: '20 common dream symbols', badge: '20', color: 'from-slate-700 to-indigo-800' },
 ];
 
 export default function EnFortuneHub() {

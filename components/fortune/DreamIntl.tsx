@@ -1,0 +1,159 @@
+'use client';
+import { useState, useMemo } from 'react';
+import Link from 'next/link';
+import PageGlow from '@/components/PageGlow';
+import ReferralCards from '@/components/ReferralCards';
+import type { DreamEntry } from '@/lib/dream-data';
+import { DREAM_DATA_EN, DREAM_CATEGORIES_EN } from '@/lib/dream-en';
+import { DREAM_DATA_ZH, DREAM_CATEGORIES_ZH } from '@/lib/dream-zh';
+import { t, type Lang } from '@/lib/fortune-intl';
+
+type IntlLang = Exclude<Lang, 'ko'>;
+
+/** 길흉 라벨 — 색은 한국어 LUCK_INFO와 같은 계열을 쓴다 */
+const LUCK_LABEL: Record<IntlLang, Record<string, string>> = {
+  en: { '2': 'Very good', '1': 'Good', '0': 'Neutral', '-1': 'Caution', '-2': 'Warning' },
+  zh: { '2': '大吉', '1': '吉', '0': '中性', '-1': '需留意', '-2': '警示' },
+};
+
+const LUCK_STYLE: Record<string, string> = {
+  '2': 'text-emerald-700 bg-emerald-50 border-emerald-200 dark:text-emerald-300 dark:bg-emerald-950/30 dark:border-emerald-900/50',
+  '1': 'text-teal-700 bg-teal-50 border-teal-200 dark:text-teal-300 dark:bg-teal-950/30 dark:border-teal-900/50',
+  '0': 'text-slate-600 bg-slate-100 border-slate-200 dark:text-slate-300 dark:bg-slate-800 dark:border-slate-700',
+  '-1': 'text-orange-700 bg-orange-50 border-orange-200 dark:text-orange-300 dark:bg-orange-950/30 dark:border-orange-900/50',
+  '-2': 'text-red-700 bg-red-50 border-red-200 dark:text-red-300 dark:bg-red-950/30 dark:border-red-900/50',
+};
+
+const COPY = {
+  en: {
+    title: 'Dream Dictionary',
+    lead: 'Twenty dream symbols that show up across cultures, and what they are usually read as',
+    search: 'Search a symbol…',
+    all: 'All',
+    none: 'Nothing matched that search.',
+    note: 'Dream interpretation has no scientific standing. What is described here is what these symbols are traditionally read as, and which situations they tend to be reported in — not a prediction.',
+  },
+  zh: {
+    title: '周公解梦',
+    lead: '二十个跨文化都常见的梦境意象，以及它们通常被怎么解读',
+    search: '搜索意象…',
+    all: '全部',
+    none: '没有匹配的结果。',
+    note: '解梦没有科学依据。这里写的是这些意象在传统上被怎么解读、以及它们常在什么处境下被报告 —— 不是预言。',
+  },
+} as const;
+
+export default function DreamIntl({ lang }: { lang: IntlLang }) {
+  const c = COPY[lang];
+  const data: DreamEntry[] = lang === 'zh' ? DREAM_DATA_ZH : DREAM_DATA_EN;
+  const categories: string[] = lang === 'zh' ? DREAM_CATEGORIES_ZH : DREAM_CATEGORIES_EN;
+
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return data.filter(d => {
+      if (category && d.category !== category) return false;
+      if (!q) return true;
+      return d.keyword.toLowerCase().includes(q) || d.summary.toLowerCase().includes(q);
+    });
+  }, [data, search, category]);
+
+  return (
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent="indigo" />
+      <div className="h-1 bg-gradient-to-r from-slate-700 to-indigo-800" />
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
+          <Link href={`/${lang}/fortune`} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+            <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            {t('fortuneOf', lang)}
+          </Link>
+          <span className="text-slate-200 dark:text-slate-700">·</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{c.title}</span>
+        </div>
+      </header>
+
+      <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="text-center mb-6">
+          <div className="text-5xl mb-3">🌙</div>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{c.title}</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">{c.lead}</p>
+        </div>
+
+        <input
+          type="search"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder={c.search}
+          className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-4"
+        />
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          <button type="button" onClick={() => setCategory(null)}
+            className={`text-xs font-bold px-3 py-1.5 rounded-full border transition-colors ${category === null
+              ? 'bg-indigo-600 border-indigo-600 text-white'
+              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
+            {c.all}
+          </button>
+          {categories.map(cat => (
+            <button key={cat} type="button" onClick={() => setCategory(cat)}
+              className={`text-xs font-bold px-3 py-1.5 rounded-full border transition-colors ${category === cat
+                ? 'bg-indigo-600 border-indigo-600 text-white'
+                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {filtered.length === 0 ? (
+          <p className="text-center text-sm text-slate-400 dark:text-slate-500 py-12">{c.none}</p>
+        ) : (
+          <div className="space-y-2">
+            {filtered.map(d => {
+              const open = openId === d.id;
+              return (
+                <div key={d.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
+                  <button type="button" onClick={() => setOpenId(open ? null : d.id)}
+                    className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <span className="text-2xl shrink-0">{d.emoji}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-slate-800 dark:text-slate-100 text-sm">{d.keyword}</span>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${LUCK_STYLE[String(d.luck)]}`}>
+                          {LUCK_LABEL[lang][String(d.luck)]}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">{d.summary}</p>
+                    </div>
+                    <svg aria-hidden="true" className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {open && (
+                    <div className="px-5 pb-5 pt-1 space-y-2 border-t border-slate-100 dark:border-slate-800">
+                      {d.detail.map((p, i) => (
+                        <p key={i} className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{p}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="mt-8">
+          <ReferralCards lang="en" placement="result" />
+        </div>
+
+        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{c.note}</p>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,275 @@
+import type { DreamEntry } from './dream-data';
+
+/**
+ * 영어 꿈해몽.
+ *
+ * 한국어 57종 중 돼지꿈=재물처럼 한국 특유의 상징은 옮겨봐야 통하지 않는다.
+ * 낙하·치아·추격처럼 문화를 넘어 널리 보고되는 상징 20종만 골라 새로 썼다.
+ *
+ * 해석에 단정적인 예언을 담지 않는다 — 어느 쪽으로도 근거가 없고,
+ * "이런 꿈은 이런 시기에 자주 보고된다"는 서술이 사실에 가깝다.
+ */
+export const DREAM_DATA_EN: DreamEntry[] = [
+  {
+    id: 'falling',
+    keyword: 'Falling',
+    emoji: '🪂',
+    category: 'Movement' as DreamEntry['category'],
+    luck: -1 as DreamEntry['luck'],
+    summary: 'A loss of control somewhere in waking life',
+    detail: [
+      'Falling dreams usually surface when something feels out of your hands — a job, a relationship, a decision that got taken away from you.',
+      'The detail that matters is what happens on the way down. Landing safely, or waking before impact, is read as the situation being survivable.',
+      'These are among the most common dreams there are, and they cluster around periods of change rather than predicting anything.',
+    ],
+  },
+  {
+    id: 'teeth',
+    keyword: 'Losing teeth',
+    emoji: '🦷',
+    category: 'Body' as DreamEntry['category'],
+    luck: -1 as DreamEntry['luck'],
+    summary: 'Anxiety about how you are seen',
+    detail: [
+      'Teeth falling out is one of the most reported dreams worldwide, and it is usually tied to worry about appearance, ageing or how you come across.',
+      'It often appears before something where you will be evaluated — a presentation, an interview, meeting someone new.',
+      'Some traditions read it as news about family. The anxiety reading is the more common one and usually fits better.',
+    ],
+  },
+  {
+    id: 'flying',
+    keyword: 'Flying',
+    emoji: '🕊️',
+    category: 'Movement' as DreamEntry['category'],
+    luck: 2 as DreamEntry['luck'],
+    summary: 'Freedom, or wanting it',
+    detail: [
+      'Flying dreams are read as a sense of release — from a constraint, a role or a period that has been heavy.',
+      'Flying easily and high is the positive form. Struggling to stay up, or being unable to get off the ground, points at something still holding you.',
+      'People often report these during or just after a difficult stretch ends.',
+    ],
+  },
+  {
+    id: 'chased',
+    keyword: 'Being chased',
+    emoji: '🏃',
+    category: 'Movement' as DreamEntry['category'],
+    luck: -1 as DreamEntry['luck'],
+    summary: 'Something you are avoiding',
+    detail: [
+      'Being chased is generally read as avoidance — a conversation, a decision or a feeling you have been outrunning.',
+      'What is chasing you matters less than the fact that you are running. Turning to face it in the dream is often reported as the point things shift.',
+      'These recur when the avoided thing stays unresolved, and tend to stop once it is addressed.',
+    ],
+  },
+  {
+    id: 'water',
+    keyword: 'Water',
+    emoji: '🌊',
+    category: 'Nature' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'The state of your emotions',
+    detail: [
+      'Water is read as emotion, and the state of the water is the reading. Clear calm water suggests things are settled; murky or rough water suggests they are not.',
+      'Deep water is often associated with something you have not fully looked at. Being comfortable in it is a good sign.',
+      'Flooding specifically tends to appear when feeling has built up faster than it can be processed.',
+    ],
+  },
+  {
+    id: 'snake',
+    keyword: 'Snake',
+    emoji: '🐍',
+    category: 'Animals' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'Transformation, or a hidden worry',
+    detail: [
+      'Snakes carry two readings at once: renewal, because they shed skin, and threat, because they are snakes. Which one applies depends on how the dream felt.',
+      'A calm snake is usually read as change already underway. A threatening one points at something you sense but have not named.',
+      'Colour matters in several traditions — golden or white snakes are read considerably more positively than dark ones.',
+    ],
+  },
+  {
+    id: 'house',
+    keyword: 'A house',
+    emoji: '🏠',
+    category: 'Places' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'Yourself, in architectural form',
+    detail: [
+      'A house in a dream is commonly read as the self, with each room standing for a different part of your life.',
+      'Finding a room you did not know existed is one of the most reported variants, and is read as discovering capacity you had not used.',
+      'A house in disrepair usually points at something being neglected rather than at the building itself.',
+    ],
+  },
+  {
+    id: 'death',
+    keyword: 'Death',
+    emoji: '⚰️',
+    category: 'People' as DreamEntry['category'],
+    luck: 0 as DreamEntry['luck'],
+    summary: 'An ending, not a prediction',
+    detail: [
+      'Dreams of death are almost universally read as endings and transitions rather than as literal warnings.',
+      'Dreaming of your own death is generally read as a phase closing — a job, a relationship, a version of yourself.',
+      'These dreams cluster around genuine life changes, which is why they feel significant even though the literal reading is not the useful one.',
+    ],
+  },
+  {
+    id: 'baby',
+    keyword: 'A baby',
+    emoji: '👶',
+    category: 'People' as DreamEntry['category'],
+    luck: 2 as DreamEntry['luck'],
+    summary: 'Something new starting',
+    detail: [
+      'Babies are read as beginnings — a project, a relationship, a version of your life that is just starting.',
+      'Caring for the baby easily is the positive form. Losing or forgetting it points at something new you are not giving enough attention.',
+      'These are common during periods of genuine new responsibility, whether or not children are involved.',
+    ],
+  },
+  {
+    id: 'money',
+    keyword: 'Money',
+    emoji: '💰',
+    category: 'Objects' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'Value and self-worth',
+    detail: [
+      'Money in dreams is read less about literal finances and more about what you feel you are worth.',
+      'Finding money is associated with recognising something you already had. Losing it points at feeling undervalued.',
+      'Traditions differ sharply here, so the feeling in the dream is a better guide than any fixed meaning.',
+    ],
+  },
+  {
+    id: 'exam',
+    keyword: 'An exam',
+    emoji: '📝',
+    category: 'Situations' as DreamEntry['category'],
+    luck: -1 as DreamEntry['luck'],
+    summary: 'Feeling tested or unprepared',
+    detail: [
+      'Exam dreams — unprepared, late, in the wrong room — are among the most common anxiety dreams and often continue decades after school.',
+      'They typically appear before something where you will be judged, not before actual exams.',
+      'The recurring version usually maps onto a specific situation where you feel you are being assessed.',
+    ],
+  },
+  {
+    id: 'naked',
+    keyword: 'Being naked in public',
+    emoji: '🙈',
+    category: 'Situations' as DreamEntry['category'],
+    luck: -1 as DreamEntry['luck'],
+    summary: 'Fear of being seen as you are',
+    detail: [
+      'Being exposed in public is read as vulnerability — worry that something about you will be seen before you are ready.',
+      'That nobody in the dream reacts is a common detail, and is usually read as the fear being larger than the reality.',
+      'These often appear before something genuinely exposing: a new job, a public talk, a relationship becoming serious.',
+    ],
+  },
+  {
+    id: 'fire',
+    keyword: 'Fire',
+    emoji: '🔥',
+    category: 'Nature' as DreamEntry['category'],
+    luck: 0 as DreamEntry['luck'],
+    summary: 'Intensity — creative or destructive',
+    detail: [
+      'Fire carries both readings: passion and drive on one side, destruction and anger on the other.',
+      'A controlled fire is read positively — energy being put to use. An uncontrolled one points at something running away from you.',
+      'In several traditions fire is specifically associated with wealth and rapid change.',
+    ],
+  },
+  {
+    id: 'lost',
+    keyword: 'Being lost',
+    emoji: '🧭',
+    category: 'Situations' as DreamEntry['category'],
+    luck: -1 as DreamEntry['luck'],
+    summary: 'Uncertainty about direction',
+    detail: [
+      'Being lost is read as uncertainty about where you are heading, in work or in life more broadly.',
+      'Familiar places that have become unfamiliar are a common variant, usually pointing at a situation that has changed underneath you.',
+      'Finding your way in the dream is reported as a turning point more often than not.',
+    ],
+  },
+  {
+    id: 'cat',
+    keyword: 'A cat',
+    emoji: '🐱',
+    category: 'Animals' as DreamEntry['category'],
+    luck: 0 as DreamEntry['luck'],
+    summary: 'Independence, and what you keep private',
+    detail: [
+      'Cats are commonly read as independence and intuition, and sometimes as the parts of yourself you keep to yourself.',
+      'A friendly cat is read positively. An aggressive one is often associated with a relationship where something is unspoken.',
+      'Traditions vary widely on cats, more than on almost any other animal.',
+    ],
+  },
+  {
+    id: 'bird',
+    keyword: 'Birds',
+    emoji: '🐦',
+    category: 'Animals' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'News, or a wish to be elsewhere',
+    detail: [
+      'Birds are widely read as messages and as freedom, depending on whether they arrive or depart.',
+      'A caged bird is a strong and consistent symbol across traditions — something in you that is not being let out.',
+      'Flocks are often associated with news arriving, sometimes from a distance.',
+    ],
+  },
+  {
+    id: 'mountain',
+    keyword: 'A mountain',
+    emoji: '⛰️',
+    category: 'Nature' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'An obstacle, or an ambition',
+    detail: [
+      'Mountains are read as something large in front of you — which can be an obstacle or a goal, and often both.',
+      'Climbing is the positive form. Standing at the base unable to start points at something feeling out of reach.',
+      'Reaching the summit is one of the more consistently positive dream images across traditions.',
+    ],
+  },
+  {
+    id: 'mirror',
+    keyword: 'A mirror',
+    emoji: '🪞',
+    category: 'Objects' as DreamEntry['category'],
+    luck: 0 as DreamEntry['luck'],
+    summary: 'How you see yourself',
+    detail: [
+      'Mirrors are read as self-perception — how you see yourself rather than how others see you.',
+      'A distorted or unclear reflection is usually associated with uncertainty about identity or direction.',
+      'Broken mirrors carry a superstition of bad luck, but in dream reading they more often point at a self-image that has cracked rather than at misfortune.',
+    ],
+  },
+  {
+    id: 'rain',
+    keyword: 'Rain',
+    emoji: '🌧️',
+    category: 'Nature' as DreamEntry['category'],
+    luck: 1 as DreamEntry['luck'],
+    summary: 'Release, and what comes after',
+    detail: [
+      'Rain is read as release and cleansing — often appearing after an emotionally heavy period rather than before one.',
+      'Gentle rain is read positively. A storm points at something still unresolved.',
+      'Being sheltered from the rain versus standing in it is the detail most readings turn on.',
+    ],
+  },
+  {
+    id: 'road',
+    keyword: 'A road',
+    emoji: '🛣️',
+    category: 'Places' as DreamEntry['category'],
+    luck: 0 as DreamEntry['luck'],
+    summary: 'The path you are on',
+    detail: [
+      'Roads are read as life direction, with forks standing for decisions you are aware of but may be deferring.',
+      'A clear road ahead is straightforwardly positive. A blocked or ending one points at a plan that needs rethinking.',
+      'Who is travelling with you is often the more informative detail.',
+    ],
+  },
+];
+
+export const DREAM_CATEGORIES_EN = ['Animals', 'Body', 'Movement', 'Nature', 'Objects', 'People', 'Places', 'Situations'];
