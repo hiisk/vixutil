@@ -227,6 +227,18 @@ const SECTIONS = [
     shadow: 'shadow-emerald-100',
   },
   {
+    href: '/body',
+    icon: '🩺',
+    title: '몸 수치',
+    desc: 'BMI·기초대사량·심박수·혈압 지표까지 몸으로 재는 수치 50가지',
+    badge: `${SECTION_COUNTS.body}개`,
+    color: 'from-rose-500 to-pink-600',
+    bgLight: 'bg-rose-50 dark:bg-rose-950/30',
+    textAccent: 'text-rose-700 dark:text-rose-300',
+    borderAccent: 'border-rose-200 dark:border-rose-900/50',
+    shadow: 'shadow-rose-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

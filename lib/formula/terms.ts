@@ -8,11 +8,14 @@
  * 통화 기호도 여기서 갈린다. 한국어는 '원', 영어는 통화 중립으로 비워 두고,
  * 중국어는 '元'을 쓴다 — 계산 자체는 통화와 무관하다.
  */
+import { BODY_TERMS, BODY_UNITS } from './terms-body.ts';
+
 export type Lang = 'ko' | 'en' | 'zh';
 
 export interface Term { ko: string; en: string; zh: string }
 
-export const TERMS: Record<string, Term> = {
+
+const CORE_TERMS: Record<string, Term> = {
   price:        { ko: '가격',        en: 'Price',            zh: '价格' },
   cost:         { ko: '원가',        en: 'Cost',             zh: '成本' },
   listPrice:    { ko: '정가',        en: 'List price',       zh: '原价' },
@@ -119,7 +122,7 @@ export const TERMS: Record<string, Term> = {
 };
 
 /** 단위 라벨 — 통화처럼 언어마다 다른 것들 */
-export const UNITS: Record<string, Term> = {
+const CORE_UNITS: Record<string, Term> = {
   money:   { ko: '원',   en: '',      zh: '元' },
   percent: { ko: '%',    en: '%',     zh: '%' },
   gram:    { ko: 'g',    en: 'g',     zh: '克' },
@@ -133,6 +136,10 @@ export const UNITS: Record<string, Term> = {
   m:       { ko: 'm',    en: 'm',     zh: '米' },
   km:      { ko: 'km',   en: 'km',    zh: '公里' },
 };
+
+/* 섹션별 용어는 파일을 나눠 둔다 — 한 파일에 수백 줄이면 무엇이 어디 쓰이는지 보이지 않는다 */
+export const TERMS: Record<string, Term> = { ...CORE_TERMS, ...BODY_TERMS };
+export const UNITS: Record<string, Term> = { ...CORE_UNITS, ...BODY_UNITS };
 
 export const term = (key: string, lang: Lang): string => TERMS[key]?.[lang] ?? key;
 export const unitLabel = (key: string, lang: Lang): string => UNITS[key]?.[lang] ?? '';

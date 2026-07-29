@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Lang } from '@/lib/formula/terms';
 import { FORMULA_UI, FORMULA_LANGS } from '@/lib/formula/ui';
-import type { SectionConfig } from '@/lib/rate-section';
+import type { SectionConfig } from '@/lib/formula/section';
 
 /**
  * 공식 도구 허브 — 카테고리별로 묶어 쉰 개를 한 화면에 보여준다.

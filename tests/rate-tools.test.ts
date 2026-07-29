@@ -1,155 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
-import { readFileSync } from 'node:fs';
-import { RATE_TOOLS, RATE_CATEGORIES, rateTool } from '../lib/rate-tools.ts';
-import { TERMS, UNITS } from '../lib/formula/terms.ts';
-import { sectionAlternates, groupNum } from '../lib/formula/ui.ts';
-import { formulaFaq, renderFormula } from '../lib/formula/faq.ts';
-import { RATE_CATEGORY_LABEL, RATE_META } from '../lib/rate-section.ts';
+import { RATE_TOOLS, rateTool } from '../lib/rate-tools.ts';
+import { RATE_SECTION } from '../lib/rate-section.ts';
+import { groupNum } from '../lib/formula/ui.ts';
+import { checkFormulaSection, primaryOf as primaryIn } from './formula-section-checks.ts';
 
-const LANGS = ['ko', 'en', 'zh'] as const;
-const HANGUL = /[가-힣]/;
+/* 구조·i18n·라우트 검사는 세 섹션이 공유한다 (tests/formula-section-checks.ts) */
+checkFormulaSection(RATE_SECTION);
 
-/** 기본값으로 계산한 결과 */
-const runDefaults = (t: typeof RATE_TOOLS[number]) => {
-  const v: Record<string, number> = {};
-  for (const f of t.fields) v[f.key] = f.def;
-  return { v, out: t.compute(v) };
-};
-
-test('50종이 있고 slug가 겹치지 않는다', () => {
-  assert.ok(RATE_TOOLS.length >= 50, `50종 이상이어야 하는데 ${RATE_TOOLS.length}개`);
-  assert.equal(new Set(RATE_TOOLS.map(t => t.slug)).size, RATE_TOOLS.length);
-});
-
-test('slug는 URL에 쓸 수 있는 소문자·하이픈만 쓴다', () => {
-  for (const t of RATE_TOOLS) assert.match(t.slug, /^[a-z0-9-]+$/, t.slug);
-});
-
-test('세 언어의 제목·설명·본문·주의가 모두 채워져 있다', () => {
-  for (const t of RATE_TOOLS) {
-    for (const lang of LANGS) {
-      const x = t[lang];
-      // 중국어는 글자당 정보량이 커서 같은 내용이 훨씬 짧다 — 길이 기준을 언어에 맞춘다
-      const min = lang === 'zh' ? { title: 3, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
-      for (const key of ['title', 'desc', 'long', 'note'] as const) {
-        assert.ok(x[key].length >= min[key], `${t.slug}.${lang}.${key}가 너무 짧다: "${x[key]}"`);
-      }
-    }
-  }
-});
-
-test('제목은 언어별로 서로 겹치지 않는다 — 검색 결과에서 구별돼야 한다', () => {
-  for (const lang of LANGS) {
-    const titles = RATE_TOOLS.map(t => t[lang].title);
-    const dup = titles.filter((x, i) => titles.indexOf(x) !== i);
-    assert.deepEqual(dup, [], `${lang} 중복 제목: ${dup.join(', ')}`);
-  }
-});
-
-test('영어·중국어 페이지에 한글이 새지 않는다', () => {
-  for (const t of RATE_TOOLS) {
-    for (const lang of ['en', 'zh'] as const) {
-      const joined = Object.values(t[lang]).join(' ');
-      assert.ok(!HANGUL.test(joined), `${t.slug}.${lang}에 한글: ${joined.match(HANGUL)}`);
-    }
-  }
-});
-
-test('중국어 본문은 실제로 중국어다 — 영어를 그대로 둔 페이지가 없다', () => {
-  for (const t of RATE_TOOLS) {
-    assert.match(t.zh.title + t.zh.long, /[一-鿿]/, `${t.slug} zh에 한자 없음`);
-  }
-});
-
-test('카테고리는 정해진 6종 안에 있고 6종 모두 쓰인다', () => {
-  const used = new Set(RATE_TOOLS.map(t => t.category));
-  for (const c of used) assert.ok((RATE_CATEGORIES as readonly string[]).includes(c), `모르는 카테고리 ${c}`);
-  for (const c of RATE_CATEGORIES) assert.ok(used.has(c), `안 쓰인 카테고리 ${c}`);
-});
-
-test('카테고리 이름이 세 언어로 다 있다', () => {
-  for (const lang of LANGS) {
-    for (const c of RATE_CATEGORIES) {
-      assert.ok(RATE_CATEGORY_LABEL[lang][c], `${lang}에 ${c} 라벨 없음`);
-    }
-  }
-});
-
-test('입력 라벨과 단위가 사전에 등록돼 있다', () => {
-  for (const t of RATE_TOOLS) {
-    assert.ok(t.fields.length > 0, `${t.slug} 입력 없음`);
-    for (const f of t.fields) {
-      assert.ok(TERMS[f.term], `${t.slug}: TERMS에 ${f.term} 없음`);
-      if (f.unit) assert.ok(UNITS[f.unit], `${t.slug}: UNITS에 ${f.unit} 없음`);
-      assert.equal(new Set(t.fields.map(x => x.key)).size, t.fields.length, `${t.slug} 입력 키 중복`);
-    }
-  }
-});
-
-test('결과 항목도 사전에 등록돼 있고 주인공이 하나 있다', () => {
-  for (const t of RATE_TOOLS) {
-    const { out } = runDefaults(t);
-    assert.ok(out.length > 0, `${t.slug} 결과 없음`);
-    for (const o of out) {
-      assert.ok(TERMS[o.term], `${t.slug}: TERMS에 ${o.term} 없음`);
-      if (o.unit) assert.ok(UNITS[o.unit], `${t.slug}: UNITS에 ${o.unit} 없음`);
-    }
-    assert.ok(out.filter(o => o.primary).length <= 1, `${t.slug} primary가 둘 이상`);
-  }
-});
-
-test('공식의 {키}가 모두 용어 사전에 있다 — 화면에 {price}가 그대로 나오면 안 된다', () => {
-  for (const t of RATE_TOOLS) {
-    for (const m of t.formula.matchAll(/\{(\w+)\}/g)) {
-      assert.ok(TERMS[m[1]], `${t.slug} 공식의 ${m[1]}가 TERMS에 없음`);
-    }
-    for (const lang of LANGS) {
-      assert.ok(!renderFormula(t.formula, lang).includes('{'), `${t.slug} ${lang} 공식에 치환 안 된 자리`);
-    }
-  }
-});
-
-test('기본값 계산 결과가 모두 유한한 숫자다', () => {
-  for (const t of RATE_TOOLS) {
-    for (const o of runDefaults(t).out) {
-      assert.ok(Number.isFinite(o.value), `${t.slug}.${o.term} = ${o.value}`);
-    }
-  }
-});
-
-test('0을 넣어도 NaN·Infinity가 나오지 않는다 — 입력을 지운 순간 화면이 깨지면 안 된다', () => {
-  for (const t of RATE_TOOLS) {
-    const v: Record<string, number> = {};
-    for (const f of t.fields) v[f.key] = 0;
-    for (const o of t.compute(v)) {
-      assert.ok(Number.isFinite(o.value), `${t.slug}.${o.term}이 0 입력에서 ${o.value}`);
-    }
-  }
-});
-
-test('해석 문구는 세 언어가 함께 나온다', () => {
-  for (const t of RATE_TOOLS) {
-    if (!t.verdict) continue;
-    const { v, out } = runDefaults(t);
-    const verdict = t.verdict(v, out);
-    if (!verdict) continue;
-    for (const lang of LANGS) {
-      assert.ok(verdict[lang] && verdict[lang].length > 3, `${t.slug} verdict.${lang} 비었음`);
-    }
-    assert.ok(!HANGUL.test(verdict.en), `${t.slug} verdict.en에 한글`);
-    assert.ok(!HANGUL.test(verdict.zh), `${t.slug} verdict.zh에 한글`);
-  }
-});
+const primaryOf = (slug: string, v: Record<string, number>) => primaryIn(RATE_TOOLS, slug, v);
 
 /* ───────── 계산이 실제로 맞는지 ───────── */
 
-const primaryOf = (slug: string, v: Record<string, number>) => {
-  const t = rateTool(slug)!;
-  const out = t.compute(v);
-  return (out.find(o => o.primary) ?? out[0]).value;
-};
+
 
 test('할인율: 39,000원 30% 할인은 27,300원', () => {
   assert.equal(primaryOf('discount', { price: 39000, rate: 30 }), 27300);
@@ -292,71 +155,6 @@ test('단가가 변동비보다 낮으면 손익분기점이 없다고 알린다
   const v = { fixed: 3000000, price: 5000, variable: 6000 };
   const verdict = t.verdict!(v, t.compute(v));
   assert.ok(verdict && verdict.tone === 'bad');
-});
-
-/* ───────── 화면·라우트 ───────── */
-
-test('FAQ는 3개이고 실제 계산값이 들어간다', () => {
-  for (const t of RATE_TOOLS) {
-    for (const lang of LANGS) {
-      const faq = formulaFaq(t, lang);
-      assert.equal(faq.length, 3, `${t.slug} ${lang}`);
-      for (const item of faq) {
-        assert.ok(item.q.length > 4 && item.a.length > 10, `${t.slug} ${lang} 빈 FAQ`);
-      }
-      const { out } = runDefaults(t);
-      const primary = out.find(o => o.primary) ?? out[0];
-      assert.ok(
-        faq[1].a.includes(groupNum(primary.value, primary.digits ?? 2)),
-        `${t.slug} ${lang} 예시에 계산값 없음: ${faq[1].a}`,
-      );
-    }
-  }
-});
-
-test('영어·중국어 FAQ에 한글이 없다', () => {
-  for (const t of RATE_TOOLS) {
-    for (const lang of ['en', 'zh'] as const) {
-      for (const item of formulaFaq(t, lang)) {
-        assert.ok(!HANGUL.test(item.q + item.a), `${t.slug} ${lang} FAQ에 한글`);
-      }
-    }
-  }
-});
-
-test('세 언어 라우트가 모두 있다', () => {
-  for (const p of ['app/rate', 'app/en/rate', 'app/zh/rate']) {
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
-  }
-});
-
-test('hreflang은 네 줄이고 x-default는 영어를 가리킨다', () => {
-  const a = sectionAlternates('rate', 'discount');
-  assert.equal(Object.keys(a).length, 4);
-  assert.equal(a.ko, '/rate/discount');
-  assert.equal(a.en, '/en/rate/discount');
-  assert.equal(a.zh, '/zh/rate/discount');
-  assert.equal(a['x-default'], '/en/rate/discount');
-});
-
-test('사이트맵에 세 언어의 /rate가 들어 있다', () => {
-  const src = readFileSync('app/sitemap.ts', 'utf8');
-  for (const p of ['/rate', '/en/rate', '/zh/rate']) {
-    assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
-  }
-});
-
-test('섹션 메타가 세 언어로 다 있고 서로 다르다', () => {
-  const titles = LANGS.map(l => RATE_META[l].metaTitle);
-  assert.equal(new Set(titles).size, 3);
-  for (const lang of LANGS) {
-    const m = RATE_META[lang];
-    assert.ok(m.metaDesc.length > (lang === 'zh' ? 40 : 80), `${lang} 설명이 너무 짧다`);
-  }
-  assert.ok(!HANGUL.test(RATE_META.en.metaTitle + RATE_META.en.metaDesc));
-  assert.ok(!HANGUL.test(RATE_META.zh.metaTitle + RATE_META.zh.metaDesc));
 });
 
 test('groupNum은 세 자리마다 끊고 정수의 0을 지우지 않는다', () => {

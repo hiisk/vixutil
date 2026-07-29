@@ -6,6 +6,7 @@
  */
 import { RATE_TOOLS, RATE_CATEGORIES } from './rate-tools.ts';
 import type { Lang } from './formula/terms.ts';
+import type { SectionConfig } from './formula/section.ts';
 
 export const RATE_META = {
   ko: {
@@ -56,13 +57,13 @@ export const RATE_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
   },
 };
 
-export const RATE_SECTION = {
+export const RATE_SECTION: SectionConfig = {
   key: 'rate',
   tools: RATE_TOOLS,
   categories: RATE_CATEGORIES,
   meta: RATE_META,
   categoryLabel: RATE_CATEGORY_LABEL,
-  accent: 'emerald' as const,
+  accent: 'emerald',
   grad: 'from-emerald-500 to-teal-600',
   gradBar: 'from-emerald-500 to-teal-600',
   hoverBorder: 'hover:border-emerald-300',
@@ -73,5 +74,3 @@ export const RATE_SECTION = {
   ogFrom: '#10b981',
   ogTo: '#0d9488',
 };
-
-export type SectionConfig = typeof RATE_SECTION;

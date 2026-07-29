@@ -7,7 +7,7 @@ import type { FormulaTool } from '@/lib/formula/types';
 import type { Lang } from '@/lib/formula/terms';
 import { FORMULA_UI, FORMULA_LANGS } from '@/lib/formula/ui';
 import { formulaFaq } from '@/lib/formula/faq';
-import type { SectionConfig } from '@/lib/rate-section';
+import type { SectionConfig } from '@/lib/formula/section';
 
 /**
  * 공식 도구 상세 화면 — 세 언어와 세 섹션이 이 컴포넌트 하나를 쓴다.
