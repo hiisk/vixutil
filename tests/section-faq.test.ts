@@ -6,7 +6,19 @@ import { SECTION_FAQ } from '../lib/section-faq.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const APP = join(ROOT, 'app');
-const pagePath = (route: string) => join(APP, route, 'page.tsx');
+/**
+ * FAQ 키에 대응하는 페이지 파일을 찾는다.
+ *
+ * 정적 라우트는 app/<route>/page.tsx에 그대로 있지만, 랜덤 도구처럼 [slug]
+ * 동적 라우트로 렌더되는 페이지는 그 경로에 디렉터리가 없다. 부모의
+ * [slug]/page.tsx가 그 키를 실제로 그리므로 그쪽도 인정한다.
+ */
+function pagePath(route: string): string {
+  const direct = join(APP, route, 'page.tsx');
+  if (existsSync(direct)) return direct;
+  const parent = route.split('/').slice(0, -1).join('/');
+  return join(APP, parent, '[slug]', 'page.tsx');
+}
 
 const routes = Object.keys(SECTION_FAQ);
 
@@ -41,6 +53,7 @@ test('FAQ가 정의된 페이지는 실제로 FAQPage를 내보낸다', () => {
   if (!existsSync(OUT)) return; // 빌드 전이면 건너뛴다
 
   const missing = routes.filter(r => {
+    // 동적 라우트도 정적 출력에서는 <route>.html로 떨어진다
     const html = join(OUT, `${r}.html`);
     if (!existsSync(html)) return true;
     return !readFileSync(html, 'utf8').includes('FAQPage');
