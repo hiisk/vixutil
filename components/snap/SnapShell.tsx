@@ -1,0 +1,355 @@
+'use client';
+import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
+import Link from 'next/link';
+import PageGlow from '@/components/PageGlow';
+
+/**
+ * 스냅테스트 공용 껍데기.
+ *
+ * 11개 스냅 페이지가 "모델 로드 → 사진 선택 → 얼굴 검출 → 결과"라는 같은 흐름을
+ * 각자 300줄씩 복사해 갖고 있었다. 흐름과 문구를 여기로 모으고, 각 테스트는
+ * 검출 결과를 자기 결과 타입으로 바꾸는 analyze와 그 결과를 그리는 children만 준다.
+ *
+ * 얼굴 검출 문턱값·최소 대기시간 같은 값도 한 곳에 있어야 한다. 페이지마다
+ * 흩어져 있으면 한 곳만 고쳐놓고 나머지는 다르게 동작하는 상황이 생긴다.
+ */
+export type SnapLang = 'ko' | 'en' | 'zh';
+
+type FaceApiModule = typeof import('@vladmandic/face-api');
+
+/** 검출 결과 — face-api 타입을 그대로 노출하지 않고 필요한 것만 넘긴다 */
+export interface SnapDetection {
+  landmarks: {
+    getJawOutline(): { x: number; y: number }[];
+    getMouth(): { x: number; y: number }[];
+    getLeftEye(): { x: number; y: number }[];
+    getRightEye(): { x: number; y: number }[];
+    getNose(): { x: number; y: number }[];
+    getLeftEyeBrow(): { x: number; y: number }[];
+    getRightEyeBrow(): { x: number; y: number }[];
+    positions: { x: number; y: number }[];
+  };
+  score: number;
+  box: { x: number; y: number; width: number; height: number };
+  /** 픽셀을 직접 읽어야 하는 테스트(퍼스널컬러 등)를 위한 원본 이미지 */
+  image: HTMLImageElement;
+}
+
+const UI: Record<SnapLang, {
+  hub: string;
+  loadingModel: string;
+  modelFailed: string;
+  modelFailedHint: string;
+  pickPhoto: string;
+  analyzing: string;
+  tryAnother: string;
+  pickAnother: string;
+  again: string;
+  previewAlt: string;
+  privacyTitle: string;
+  noFace: string;
+}> = {
+  ko: {
+    hub: '스냅테스트',
+    loadingModel: '얼굴 인식 모델을 불러오는 중...',
+    modelFailed: '얼굴 인식 모델을 불러오지 못했어요',
+    modelFailedHint: '네트워크 상태를 확인하고 새로고침 해주세요',
+    pickPhoto: '사진을 선택해주세요',
+    analyzing: '분석 중...',
+    tryAnother: '다른 사진으로 다시 보기',
+    pickAnother: '다른 사진 선택하기',
+    again: '🔄 다른 사진으로 다시 해보기',
+    previewAlt: '업로드한 사진 미리보기',
+    privacyTitle: '🔒 사진은 서버에 전송되지 않아요',
+    noFace: '사진에서 얼굴을 뚜렷하게 찾지 못했어요. 밝은 곳에서 얼굴이 정면으로 크게 나온 사진으로 다시 시도해주세요.',
+  },
+  en: {
+    hub: 'Snap tests',
+    loadingModel: 'Loading the face detection model…',
+    modelFailed: 'Could not load the face detection model',
+    modelFailedHint: 'Check your connection and refresh the page',
+    pickPhoto: 'Choose a photo',
+    analyzing: 'Analysing…',
+    tryAnother: 'Try a different photo',
+    pickAnother: 'Choose another photo',
+    again: '🔄 Try another photo',
+    previewAlt: 'Preview of the photo you uploaded',
+    privacyTitle: '🔒 Your photo never leaves this device',
+    noFace: 'No clear face was found in that photo. Try one taken in good light, facing the camera, with the face filling more of the frame.',
+  },
+  zh: {
+    hub: '照片测试',
+    loadingModel: '正在加载人脸识别模型…',
+    modelFailed: '人脸识别模型加载失败',
+    modelFailedHint: '请检查网络后刷新页面',
+    pickPhoto: '选择一张照片',
+    analyzing: '分析中…',
+    tryAnother: '换一张照片试试',
+    pickAnother: '选择其他照片',
+    again: '🔄 换一张照片再试',
+    previewAlt: '上传照片的预览',
+    privacyTitle: '🔒 照片不会上传到服务器',
+    noFace: '没能在照片里清晰地找到人脸。请在光线充足的地方，用正脸且占画面较大的照片再试一次。',
+  },
+};
+
+export interface SnapTheme {
+  /** 링크·강조 텍스트 hover */
+  hover: string;
+  /** 개인정보 안내 박스 */
+  notice: string;
+  /** 로딩 스피너 상단 테두리 */
+  spinner: string;
+  /** 사진 선택 버튼 hover 테두리 */
+  dropHover: string;
+  /** 다시하기 버튼 hover */
+  resetHover: string;
+}
+
+/** 어떤 모델을 불러올지 — 테스트마다 필요한 게 다르다 */
+export type SnapModels = 'landmarks' | 'landmarks+expressions';
+
+interface Props<T> {
+  lang: SnapLang;
+  /** 히어로 이모지 */
+  icon: string;
+  title: string;
+  lead: string;
+  /** 개인정보 안내 아래에 붙는 본문 — 테스트마다 다르다 */
+  privacyBody: string;
+  /** 상단 얇은 그라디언트 바 */
+  bar: string;
+  /**
+   * 강조색 클래스 묶음.
+   *
+   * Tailwind는 빌드 시점에 소스에서 클래스 이름을 문자열로 찾아낸다. `text-${c}-600`
+   * 처럼 조립하면 찾지 못해 그 클래스가 CSS에서 통째로 빠지고, 에러 없이 스타일만
+   * 사라진다. 그래서 색 이름이 아니라 완성된 클래스 문자열을 받는다.
+   */
+  theme: SnapTheme;
+  glow?: 'indigo' | 'violet' | 'rose' | 'emerald' | 'sky';
+  models?: SnapModels;
+  /** 결과 영역 id — 스크롤 대상 */
+  resultId: string;
+  /** 검출 결과를 각 테스트의 결과 타입으로 변환. null이면 얼굴 못 찾은 것으로 처리 */
+  analyze: (d: SnapDetection) => T | null;
+  children: (result: T, reset: () => void) => ReactNode;
+  /** 결과 아래 고정 문구 */
+  disclaimer: string;
+}
+
+const MIN_CONFIDENCE = 0.6;
+/** 너무 빨리 끝나면 분석한 느낌이 안 나서 최소 시간을 둔다 */
+const MIN_ANALYZE_MS = 800;
+
+export default function SnapShell<T>({
+  lang, icon, title, lead, privacyBody, bar, theme, glow = 'indigo',
+  models = 'landmarks', resultId, analyze, children, disclaimer,
+}: Props<T>) {
+  const ui = UI[lang];
+  const hubHref = lang === 'ko' ? '/snap' : `/${lang}/snap`;
+
+  const [modelState, setModelState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [preview, setPreview] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [faceError, setFaceError] = useState<string | null>(null);
+  const [result, setResult] = useState<T | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const objectUrlRef = useRef<string | null>(null);
+  const faceapiRef = useRef<FaceApiModule | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const faceapi = await import('@vladmandic/face-api');
+        const loads = [
+          faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+          faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        ];
+        if (models === 'landmarks+expressions') {
+          loads.push(faceapi.nets.faceExpressionNet.loadFromUri('/models'));
+        }
+        await Promise.all(loads);
+        if (cancelled) return;
+        faceapiRef.current = faceapi;
+        setModelState('ready');
+      } catch {
+        if (!cancelled) setModelState('error');
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [models]);
+
+  useEffect(() => {
+    return () => { if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current); };
+  }, []);
+
+  const handleFile = useCallback(async (file: File) => {
+    if (!file.type.startsWith('image/')) return;
+    const faceapi = faceapiRef.current;
+    if (!faceapi) return;
+
+    if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+    const url = URL.createObjectURL(file);
+    objectUrlRef.current = url;
+    setPreview(url);
+    setResult(null);
+    setFaceError(null);
+    setAnalyzing(true);
+
+    const img = new Image();
+    img.src = url;
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error('image load failed'));
+    }).catch(() => null);
+
+    const startedAt = Date.now();
+    let detection;
+    try {
+      const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 });
+      detection = await faceapi.detectSingleFace(img, opts).withFaceLandmarks();
+    } catch {
+      detection = undefined;
+    }
+
+    const elapsed = Date.now() - startedAt;
+    if (elapsed < MIN_ANALYZE_MS) await new Promise(r => setTimeout(r, MIN_ANALYZE_MS - elapsed));
+
+    if (!detection || detection.detection.score < MIN_CONFIDENCE) {
+      setFaceError(ui.noFace);
+      setAnalyzing(false);
+      return;
+    }
+
+    const out = analyze({
+      landmarks: detection.landmarks as unknown as SnapDetection['landmarks'],
+      score: detection.detection.score,
+      box: detection.detection.box,
+      image: img,
+    });
+
+    if (!out) {
+      setFaceError(ui.noFace);
+      setAnalyzing(false);
+      return;
+    }
+
+    setResult(out);
+    setAnalyzing(false);
+    setTimeout(() => document.getElementById(resultId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }, [analyze, resultId, ui.noFace]);
+
+  const reset = useCallback(() => {
+    setPreview(null);
+    setResult(null);
+    setFaceError(null);
+    setAnalyzing(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, []);
+
+  return (
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
+      <PageGlow accent={glow} />
+      <div className={`h-1 bg-gradient-to-r ${bar}`} />
+
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+        <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
+          <Link href={hubHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${theme.hover} transition-colors font-medium`}>
+            <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            {ui.hub}
+          </Link>
+          <span className="text-slate-200 dark:text-slate-700">·</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{title}</span>
+        </div>
+      </header>
+
+      <div className="max-w-xl mx-auto px-4 py-8">
+        <div className="text-center mb-6">
+          <div className="text-5xl mb-3">{icon}</div>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{title}</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">{lead}</p>
+        </div>
+
+        <div className={`${theme.notice} rounded-2xl p-4 mb-6 text-xs leading-relaxed`}>
+          <p className="font-bold mb-1">{ui.privacyTitle}</p>
+          <p>{privacyBody}</p>
+        </div>
+
+        {modelState === 'loading' && (
+          <div role="status" aria-live="polite" className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
+            <div aria-hidden="true" className={`w-8 h-8 border-4 border-slate-200 dark:border-slate-700 ${theme.spinner} rounded-full animate-spin`} />
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.loadingModel}</span>
+          </div>
+        )}
+
+        {modelState === 'error' && (
+          <div role="alert" className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
+            <span aria-hidden="true" className="text-3xl">⚠️</span>
+            <span className="text-sm font-bold text-rose-600">{ui.modelFailed}</span>
+            <span className="text-xs text-rose-400">{ui.modelFailedHint}</span>
+          </div>
+        )}
+
+        {modelState === 'ready' && !preview && (
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className={`w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 ${theme.dropHover} transition-colors`}
+          >
+            <span aria-hidden="true" className="text-4xl">📷</span>
+            <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{ui.pickPhoto}</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">{lead}</span>
+          </button>
+        )}
+        <input ref={fileInputRef} type="file" accept="image/*" className="hidden"
+          onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
+
+        {preview && (
+          <div className="mb-6">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={preview} alt={ui.previewAlt} className="w-full h-full object-cover" />
+              {analyzing && (
+                <div role="status" aria-live="polite" className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center gap-3">
+                  <div aria-hidden="true" className="w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                  <p className="text-white text-sm font-bold">{ui.analyzing}</p>
+                </div>
+              )}
+            </div>
+            {!analyzing && (
+              <button type="button" onClick={() => fileInputRef.current?.click()}
+                className={`mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 ${theme.hover} transition-colors`}>
+                {ui.tryAnother}
+              </button>
+            )}
+          </div>
+        )}
+
+        {faceError && !analyzing && (
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 mb-6 text-center">
+            <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
+            <button type="button" onClick={() => fileInputRef.current?.click()}
+              className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
+              {ui.pickAnother}
+            </button>
+          </div>
+        )}
+
+        {result && !analyzing && (
+          <div id={resultId} className="space-y-4">
+            {children(result, reset)}
+            <button type="button" onClick={reset}
+              className={`w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 ${theme.resetHover} transition-colors`}>
+              {ui.again}
+            </button>
+            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">{disclaimer}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
