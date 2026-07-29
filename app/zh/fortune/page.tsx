@@ -26,6 +26,8 @@ const TYPES = [
   { href: '/zh/fortune/mbti-match',   icon: '🧠', title: 'MBTI 配对', desc: '16型人格中两者的契合度', badge: '16型', color: 'from-violet-500 to-indigo-600' },
   { href: '/zh/fortune/blood-match',  icon: '🩸', title: '血型配对', desc: 'A、B、O、AB 型的配对结果', badge: '4种', color: 'from-rose-500 to-orange-600' },
   { href: '/zh/fortune/mbti',         icon: '🧠', title: 'MBTI 今日运势', desc: '16型人格的今日运势', badge: '16型', color: 'from-sky-500 to-blue-600' },
+  { href: '/zh/fortune/daily-tarot', icon: '🃏', title: '今日塔罗',   desc: '大阿尔卡纳中的一张', badge: '每日', color: 'from-amber-500 to-orange-600' },
+  { href: '/zh/fortune/tarot-yesno', icon: '🔮', title: '塔罗是与否', desc: '抽一张牌得到答案',   badge: '抽牌', color: 'from-indigo-500 to-violet-700' },
 ];
 
 export default function ZhFortuneHub() {
