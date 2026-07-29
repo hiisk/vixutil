@@ -143,6 +143,18 @@ const SECTIONS = [
     shadow: 'shadow-indigo-100',
   },
   {
+    href: '/game',
+    icon: '🕹️',
+    title: '두뇌 게임',
+    desc: '반응속도·클릭속도·기억력·타자를 1분 만에 측정',
+    badge: `${SECTION_COUNTS.game}개`,
+    color: 'from-emerald-500 to-indigo-600',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-950/30',
+    textAccent: 'text-emerald-700 dark:text-emerald-300',
+    borderAccent: 'border-emerald-200 dark:border-emerald-900/50',
+    shadow: 'shadow-emerald-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

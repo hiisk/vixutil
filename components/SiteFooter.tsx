@@ -23,6 +23,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/device", icon: "🧰", label: "기기 점검" },
   { href: "/image", icon: "🖼️", label: "이미지 도구" },
   { href: "/text", icon: "✍️", label: "텍스트 도구" },
+  { href: "/game", icon: "🕹️", label: "두뇌 게임" },
 ];
 
 const POPULAR: { href: string; label: string }[] = [
