@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/profit-calculator': [
+    {
+      q: 'Why is my break-even price higher than my entry?',
+      a: 'Because the fee is charged twice — once opening the position and once closing it. Returning to your entry price therefore leaves you down by both fees. For a long, break-even is entry x (1 + fee) / (1 - fee), which at 0.1% per side is about 0.2002% above entry.',
+    },
+    {
+      q: 'Why is break-even slightly more than double the one-way fee?',
+      a: 'The exit fee is charged on the exit amount, which is larger than the entry amount once the price has risen to break-even. Doubling the one-way fee assumes both are charged on the same base, and they are not. The gap is small per trade and compounds quickly for anyone trading frequently.',
+    },
+    {
+      q: 'Does leverage increase my profit?',
+      a: 'Not in dollars. Once the position size is fixed, a given price move produces the same gain or loss at any leverage. What leverage changes is the margin locked up, and therefore the percentage return quoted on that margin. A $100 gain is $100 whether the ROI reads 10% or 200%.',
+    },
+    {
+      q: 'What fee rate should I enter?',
+      a: 'It depends on the venue and order type. Binance spot is commonly 0.1% per side, while USD-M futures are nearer 0.02% for maker orders and 0.04% for taker orders. Volume tiers and fee discounts lower these, so the presets are starting points rather than your actual rate.',
+    },
+    {
+      q: 'Are funding payments included?',
+      a: 'No. Perpetual futures charge funding at fixed intervals while the position is open, and that is a separate cost from trading fees. For a position held more than a few hours it can outweigh them, and this page does not model it.',
+    },
+    {
+      q: 'Does the calculator work for short positions?',
+      a: 'Yes. For a short the profit comes from the price falling, and break-even sits below your entry at entry x (1 - fee) / (1 + fee) rather than above it. The direction toggle handles both cases.',
+    },
+  ],
   'crypto/all-time-high': [
     {
       q: 'Why does a 50% drop need a 100% gain to recover?',
