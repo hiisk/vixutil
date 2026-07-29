@@ -1,5 +1,6 @@
-import type { ColorTool } from './color-tools';
-import { COLOR_TOOLS } from './color-tools';
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import type { ColorTool } from './color-tools.ts';
+import { COLOR_TOOLS } from './color-tools.ts';
 
 /**
  * 색상 도구(/color) 섹션의 영어·중국어 메타데이터.

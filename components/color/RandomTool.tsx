@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { hslToHex } from '@/lib/color';
 import { CARD, Swatch, useCopy } from './ui';
+import { RANDOM_UI, type ColorLang } from '@/lib/color-ui-intl';
 
 /**
  * 랜덤 색 — 다섯 개를 뽑고, 마음에 드는 것은 잠근다.
@@ -18,7 +19,8 @@ const randomHex = () =>
     l: 35 + Math.floor(Math.random() * 35),
   });
 
-export default function RandomTool() {
+export default function RandomTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
+  const ui = RANDOM_UI[lang];
   const [colors, setColors] = useState<string[]>([]);
   const [locked, setLocked] = useState<boolean[]>(Array(COUNT).fill(false));
   const { copied, copy } = useCopy();
@@ -71,20 +73,19 @@ export default function RandomTool() {
         onClick={roll}
         className="mt-4 w-full rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
       >
-        🎲 다시 뽑기 (스페이스바)
+        {ui.reroll}
       </button>
 
       <button
         onClick={() => copy(colors.map(c => c.toUpperCase()).join(', '))}
         className="mt-2 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-rose-300 transition-colors"
       >
-        {copied ? '✅ 다섯 색을 복사했습니다' : 'HEX 다섯 개 한 번에 복사'}
+        {copied ? ui.copiedAll : ui.copyAll}
       </button>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          마음에 드는 색이 나오면 자물쇠로 잠그고 나머지만 다시 뽑으세요. 완전 무작위 대신 채도 45~85%,
-          명도 35~70% 범위에서 뽑기 때문에 화면에 바로 쓸 수 있는 색이 나옵니다.
+          {ui.note}
         </p>
       </div>
     </div>

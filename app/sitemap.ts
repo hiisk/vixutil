@@ -11,6 +11,7 @@ import { GENERATORS_EN } from "@/lib/generator-en";
 import { CHECKLISTS_EN } from "@/lib/checklist-en";
 import { QUIZZES_EN } from "@/lib/quiz-en";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
+import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
 import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
@@ -22,6 +23,7 @@ import { TIME_TOOLS } from "@/lib/time-tools";
 import { SOUND_TOOLS } from "@/lib/sound-tools";
 import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
+import { RATE_TOOLS } from "@/lib/rate-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -142,6 +144,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/convert`, changeFrequency: weekly, priority: 0.9 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
+    ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/en/rate`, changeFrequency: weekly, priority: 0.9 },
+    ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/rate`, changeFrequency: weekly, priority: 0.9 },
+    ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -159,6 +167,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/seasonality`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/correlation`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/compare`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/compound-calculator`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },
@@ -214,6 +223,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/time`, changeFrequency: weekly, priority: 0.9 },
     ...timeToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/en/color`, changeFrequency: weekly, priority: 0.9 },
+    ...colorToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/color/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
@@ -240,6 +252,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/zh/time`, changeFrequency: weekly, priority: 0.9 },
     ...timeToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/zh/color`, changeFrequency: weekly, priority: 0.9 },
+    ...colorToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/color/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },

@@ -2,8 +2,10 @@
 import { useMemo, useState } from 'react';
 import { hexToRgb, rgbToHsl, rgbToCmyk, nearestNamed, hslString, rgbString } from '@/lib/color';
 import { CARD, ColorInput, ValueRow } from './ui';
+import { NAME_UI, type ColorLang } from '@/lib/color-ui-intl';
 
-export default function NameTool() {
+export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
+  const ui = NAME_UI[lang];
   const [hex, setHex] = useState('#3b82f6');
 
   const info = useMemo(() => {
@@ -22,14 +24,14 @@ export default function NameTool() {
 
   return (
     <div>
-      <ColorInput value={hex} onChange={setHex} label="색 코드" />
+      <ColorInput value={hex} onChange={setHex} label={ui.colorCode} />
 
       <div className="h-28 rounded-2xl border border-slate-200 dark:border-slate-700 mt-4" style={{ background: hex }} />
 
       {info && (
         <>
           <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 text-center">
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">가장 가까운 이름</p>
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.nearest}</p>
             <p className="text-2xl font-black text-slate-900 dark:text-slate-100">
               {info.near.ko} <span className="text-slate-400 dark:text-slate-500 font-mono text-lg">{info.near.name}</span>
             </p>
@@ -40,8 +42,8 @@ export default function NameTool() {
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               {info.close
-                ? `거의 같은 색입니다 (차이 ${info.near.distance})`
-                : `이름 색과는 차이가 있습니다 (차이 ${info.near.distance}) — 비슷한 계열로만 보세요`}
+                ? ui.almostSame(info.near.distance)
+                : ui.differs(info.near.distance)}
             </p>
           </div>
 
@@ -54,8 +56,7 @@ export default function NameTool() {
 
           <div className={`${CARD} mt-4`}>
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              CMYK 값은 단순 변환입니다. 실제 인쇄 색은 잉크·용지·인쇄기에 따라 달라지므로, 정확한 색이
-              필요한 인쇄물이라면 팬톤 같은 별색 지정이나 인쇄소 교정을 거쳐야 합니다.
+              {ui.cmykNote}
             </p>
           </div>
         </>

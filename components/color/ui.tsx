@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useState } from 'react';
 import { hexToRgb, rgbToHex, luminance, type RGB } from '@/lib/color';
+import { COLOR_COMMON, type ColorLang } from '@/lib/color-ui-intl';
 
 /** 색상 도구 열 개가 함께 쓰는 조각들. */
 
@@ -42,7 +43,7 @@ export function ColorInput({
           type="color"
           value={value}
           onChange={e => onChange(e.target.value)}
-          aria-label={`${label} 선택기`}
+          aria-label={label}
           className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent cursor-pointer shrink-0"
         />
         <input
@@ -65,10 +66,12 @@ export function Swatch({
   label,
   sub,
   height = 'h-20',
+  lang = 'ko',
 }: {
   hex: string;
   label?: string;
   sub?: string;
+  lang?: ColorLang;
   height?: string;
 }) {
   const { copied, copy } = useCopy();
@@ -81,7 +84,7 @@ export function Swatch({
       className={`relative w-full ${height} rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center transition-transform active:scale-95`}
       style={{ background: rgbToHex(rgb), color: fg }}
     >
-      <span className="text-xs font-black font-mono uppercase">{copied === hex.toUpperCase() ? '복사됨' : hex.toUpperCase()}</span>
+      <span className="text-xs font-black font-mono uppercase">{copied === hex.toUpperCase() ? COLOR_COMMON[lang].copied : hex.toUpperCase()}</span>
       {label && <span className="text-[10px] opacity-70 mt-0.5">{label}</span>}
       {sub && <span className="text-[10px] opacity-60">{sub}</span>}
     </button>
@@ -89,7 +92,7 @@ export function Swatch({
 }
 
 /** 값 한 줄 — 누르면 복사 */
-export function ValueRow({ label, value }: { label: string; value: string }) {
+export function ValueRow({ label, value, lang = 'ko' }: { label: string; value: string; lang?: ColorLang }) {
   const { copied, copy } = useCopy();
   return (
     <button
@@ -99,7 +102,7 @@ export function ValueRow({ label, value }: { label: string; value: string }) {
       <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 w-16 shrink-0">{label}</span>
       <span className="flex-1 min-w-0 text-sm font-mono font-bold text-slate-800 dark:text-slate-100 break-all">{value}</span>
       <span className={`text-xs font-bold shrink-0 ${copied === value ? 'text-emerald-600' : 'text-slate-300 dark:text-slate-600'}`}>
-        {copied === value ? '복사됨' : '복사'}
+        {copied === value ? COLOR_COMMON[lang].copied : COLOR_COMMON[lang].copy}
       </span>
     </button>
   );

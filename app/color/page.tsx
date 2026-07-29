@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: '색상 도구 — 팔레트·대비 검사·그라디언트',
   description:
     '어울리는 색 조합 만들기, 글자가 읽히는지 WCAG 대비 검사, 색맹 시뮬레이션, CSS 그라디언트·그림자 코드 생성, 색온도 변환까지 한 곳에서. 무료·설치 없음.',
-  alternates: { canonical: '/color' },
+  alternates: {
+    canonical: '/color',
+    languages: { 'ko': '/color', 'en': '/en/color', 'zh': '/zh/color', 'x-default': '/en/color' },
+  },
 };
 
 const CATEGORY_ORDER = ['팔레트', '접근성', 'CSS', '변환'];

@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import { hexToRgb } from '@/lib/color';
 import { CARD, ColorInput, useCopy } from './ui';
+import { SHADOW_UI, type ColorLang } from '@/lib/color-ui-intl';
 
 /**
  * 그림자 — 값을 만지며 눈으로 확인한다.
@@ -10,13 +11,14 @@ import { CARD, ColorInput, useCopy } from './ui';
  * 진하고 멀수록 옅게 퍼지는데, 한 겹으로는 그 느낌이 안 나기 때문이다.
  */
 const PRESETS = [
-  { label: '얕게', css: '0 1px 2px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.10)' },
-  { label: '보통', css: '0 4px 6px -1px rgba(15,23,42,0.10), 0 2px 4px -2px rgba(15,23,42,0.08)' },
-  { label: '떠 있게', css: '0 10px 15px -3px rgba(15,23,42,0.12), 0 4px 6px -4px rgba(15,23,42,0.10)' },
-  { label: '깊게', css: '0 25px 50px -12px rgba(15,23,42,0.25)' },
+  { css: '0 1px 2px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.10)' },
+  { css: '0 4px 6px -1px rgba(15,23,42,0.10), 0 2px 4px -2px rgba(15,23,42,0.08)' },
+  { css: '0 10px 15px -3px rgba(15,23,42,0.12), 0 4px 6px -4px rgba(15,23,42,0.10)' },
+  { css: '0 25px 50px -12px rgba(15,23,42,0.25)' },
 ];
 
-export default function ShadowTool() {
+export default function ShadowTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
+  const ui = SHADOW_UI[lang];
   const [x, setX] = useState(0);
   const [y, setY] = useState(8);
   const [blur, setBlur] = useState(20);
@@ -54,9 +56,9 @@ export default function ShadowTool() {
       </div>
 
       <div className="grid grid-cols-4 gap-2 mt-4">
-        {PRESETS.map(p => (
+        {PRESETS.map((p, i) => (
           <button
-            key={p.label}
+            key={ui.presets[i]}
             onClick={() => setPreset(p.css)}
             className={`rounded-xl border py-2.5 text-xs font-bold transition-colors ${
               preset === p.css
@@ -64,30 +66,30 @@ export default function ShadowTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {p.label}
+            {ui.presets[i]}
           </button>
         ))}
       </div>
 
       <div className={`${CARD} mt-4 flex flex-col gap-3`}>
         <div className="grid grid-cols-2 gap-3">
-          {slider('가로 위치', x, -40, 40, setX)}
-          {slider('세로 위치', y, -40, 40, setY)}
-          {slider('흐림', blur, 0, 80, setBlur)}
-          {slider('번짐', spread, -20, 40, setSpread)}
+          {slider(ui.offsetX, x, -40, 40, setX)}
+          {slider(ui.offsetY, y, -40, 40, setY)}
+          {slider(ui.blur, blur, 0, 80, setBlur)}
+          {slider(ui.spread, spread, -20, 40, setSpread)}
         </div>
 
-        <ColorInput value={color} onChange={c => { setPreset(null); setColor(c); }} label="그림자 색" />
+        <ColorInput value={color} onChange={c => { setPreset(null); setColor(c); }} label={ui.shadowColor} />
 
         <div>
           <div className="flex items-baseline justify-between mb-1">
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">투명도</span>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.opacity}</span>
             <span className="text-sm font-black text-indigo-600 tabular-nums">{alpha}%</span>
           </div>
           <input
             type="range" min={0} max={100} value={alpha}
             onChange={e => { setPreset(null); setAlpha(Number(e.target.value)); }}
-            className="w-full accent-indigo-500" aria-label="투명도"
+            className="w-full accent-indigo-500" aria-label={ui.opacity}
           />
         </div>
 
@@ -97,7 +99,7 @@ export default function ShadowTool() {
             onChange={e => { setPreset(null); setInset(e.target.checked); }}
             className="w-4 h-4 accent-indigo-500"
           />
-          <span className="text-sm text-slate-700 dark:text-slate-200">안쪽 그림자(inset) — 눌린 느낌</span>
+          <span className="text-sm text-slate-700 dark:text-slate-200">{ui.inset}</span>
         </label>
       </div>
 
@@ -105,7 +107,7 @@ export default function ShadowTool() {
         onClick={() => copy(`box-shadow: ${css};`)}
         className="mt-3 w-full rounded-xl bg-gradient-to-r from-slate-600 to-indigo-700 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
       >
-        {copied ? '✅ CSS를 복사했습니다' : 'CSS 복사하기'}
+        {copied ? ui.copiedCss : ui.copyCss}
       </button>
 
       <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3">
@@ -114,8 +116,7 @@ export default function ShadowTool() {
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          자연스러운 그림자는 대개 아래로만 살짝 내려가고(가로 0), 색은 검정 대신 배경보다 조금 어두운
-          남색 계열을 옅게 씁니다. 순수한 검정 그림자는 탁해 보입니다.
+          {ui.note}
         </p>
       </div>
     </div>

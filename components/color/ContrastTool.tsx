@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import { hexToRgb, hexToHsl, hslToHex, judgeContrast } from '@/lib/color';
 import { CARD, ColorInput } from './ui';
+import { CONTRAST_UI, type ColorLang } from '@/lib/color-ui-intl';
 
 /**
  * 대비 검사 — 배경과 글자색이 접근성 기준을 넘는지.
@@ -11,13 +12,14 @@ import { CARD, ColorInput } from './ui';
  * 옮기면 브랜드 색을 지키면서 기준을 넘길 수 있다.
  */
 const BADGES = [
-  { key: 'aaNormal', label: 'AA 본문', need: '4.5:1' },
-  { key: 'aaLarge', label: 'AA 큰 글씨', need: '3:1' },
-  { key: 'aaaNormal', label: 'AAA 본문', need: '7:1' },
-  { key: 'aaaLarge', label: 'AAA 큰 글씨', need: '4.5:1' },
+  { key: 'aaNormal', labelKey: 'aaBody', need: '4.5:1' },
+  { key: 'aaLarge', labelKey: 'aaLarge', need: '3:1' },
+  { key: 'aaaNormal', labelKey: 'aaaBody', need: '7:1' },
+  { key: 'aaaLarge', labelKey: 'aaaLarge', need: '4.5:1' },
 ] as const;
 
-export default function ContrastTool() {
+export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
+  const ui = CONTRAST_UI[lang];
   const [bg, setBg] = useState('#3b82f6');
   const [fg, setFg] = useState('#ffffff');
 
@@ -48,29 +50,29 @@ export default function ContrastTool() {
   return (
     <div>
       <div className="grid sm:grid-cols-2 gap-3">
-        <ColorInput value={bg} onChange={setBg} label="배경색" />
-        <ColorInput value={fg} onChange={setFg} label="글자색" />
+        <ColorInput value={bg} onChange={setBg} label={ui.bgColor} />
+        <ColorInput value={fg} onChange={setFg} label={ui.textColor} />
       </div>
 
       <div className="mt-4 rounded-2xl p-6 border border-slate-200 dark:border-slate-700" style={{ background: bg, color: fg }}>
-        <p className="text-2xl font-black mb-2">큰 제목은 이렇게 보입니다</p>
-        <p className="text-base mb-1">본문 크기 글자는 이 정도로 읽힙니다.</p>
-        <p className="text-xs opacity-90">작은 글씨(캡션)는 이만큼 작아집니다 — 대비가 부족하면 여기서 먼저 티가 납니다.</p>
+        <p className="text-2xl font-black mb-2">{ui.previewH}</p>
+        <p className="text-base mb-1">{ui.previewBody}</p>
+        <p className="text-xs opacity-90">{ui.previewSmall}</p>
       </div>
 
       {verdict && (
         <>
           <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 text-center">
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">대비비</p>
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.ratio}</p>
             <p className={`text-5xl font-black tabular-nums ${verdict.aaNormal ? 'text-emerald-600' : 'text-rose-500'}`}>
               {verdict.ratio}
               <span className="text-2xl text-slate-400 dark:text-slate-500"> : 1</span>
             </p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-              {verdict.aaaNormal ? '가장 높은 기준(AAA)까지 통과합니다'
-                : verdict.aaNormal ? '본문에 쓸 수 있습니다 (AA 통과)'
-                : verdict.aaLarge ? '큰 글씨에만 쓸 수 있습니다'
-                : '이 조합은 읽기 어렵습니다'}
+              {verdict.aaaNormal ? ui.verdictBest
+                : verdict.aaNormal ? ui.verdictBody
+                : verdict.aaLarge ? ui.verdictLarge
+                : ui.verdictFail}
             </p>
           </div>
 
@@ -85,9 +87,9 @@ export default function ContrastTool() {
                 }`}
               >
                 <p className={`text-lg font-black ${verdict[b.key] ? 'text-emerald-600' : 'text-rose-500'}`}>
-                  {verdict[b.key] ? '통과' : '미달'}
+                  {verdict[b.key] ? ui.pass : ui.fail}
                 </p>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{b.label}</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui[b.labelKey as 'aaBody' | 'aaLarge' | 'aaaBody' | 'aaaLarge']}</p>
                 <p className="text-[10px] text-slate-400 dark:text-slate-500">{b.need}</p>
               </div>
             ))}
@@ -98,19 +100,19 @@ export default function ContrastTool() {
               onClick={suggest}
               className="mt-3 w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
             >
-              색상은 그대로 두고 밝기만 조절해 AA 통과시키기
+              {ui.autoFix}
             </button>
           )}
         </>
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">기준이 뜻하는 것</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.meaningTitle}</p>
         <ul className="flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          <li>· <b className="text-slate-800 dark:text-slate-100">AA 4.5:1</b> — 웹 접근성의 기본선입니다. 본문은 여기를 넘겨야 합니다.</li>
-          <li>· <b className="text-slate-800 dark:text-slate-100">큰 글씨 3:1</b> — 18pt(굵으면 14pt) 이상이면 기준이 낮아집니다.</li>
-          <li>· <b className="text-slate-800 dark:text-slate-100">AAA 7:1</b> — 더 엄격한 기준으로, 공공 사이트에서 요구하기도 합니다.</li>
-          <li className="text-slate-500 dark:text-slate-400">대비는 색이 아니라 밝기 차이로 정해집니다. 그래서 노랑 위 흰 글씨는 색이 달라도 안 읽힙니다.</li>
+          <li>· <b className="text-slate-800 dark:text-slate-100">AA 4.5:1</b>{ui.aaNote}</li>
+          <li>· <b className="text-slate-800 dark:text-slate-100">3:1</b>{ui.largeNote}</li>
+          <li>· <b className="text-slate-800 dark:text-slate-100">AAA 7:1</b>{ui.aaaNote}</li>
+          <li className="text-slate-500 dark:text-slate-400">{ui.brightnessNote}</li>
         </ul>
       </div>
     </div>

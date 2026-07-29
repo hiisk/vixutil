@@ -2,8 +2,11 @@
 import { useMemo, useState } from 'react';
 import { hexToHsl, hslToHex, hexToRgb, judgeContrast, scale } from '@/lib/color';
 import { CARD, ColorInput, useCopy } from './ui';
+import { SHADES_UI, COLOR_COMMON, type ColorLang } from '@/lib/color-ui-intl';
 
-export default function ShadesTool() {
+export default function ShadesTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
+  const ui = SHADES_UI[lang];
+  const common = COLOR_COMMON[lang];
   const [base, setBase] = useState('#3b82f6');
   const { copied, copy } = useCopy();
 
@@ -28,7 +31,7 @@ export default function ShadesTool() {
 
   return (
     <div>
-      <ColorInput value={base} onChange={setBase} label="기준 색 (브랜드 색)" />
+      <ColorInput value={base} onChange={setBase} label={ui.baseColor} />
 
       <div className="mt-4 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
         {steps.map(s => (
@@ -41,10 +44,10 @@ export default function ShadesTool() {
             <span className="w-12 text-xs font-black tabular-nums">{s.step}</span>
             <span className="flex-1 text-sm font-mono font-bold uppercase">{s.hex}</span>
             <span className="text-[10px] opacity-80">
-              {s.whiteOk && s.blackOk ? '흰·검 모두 OK' : s.whiteOk ? '흰 글씨 OK' : s.blackOk ? '검은 글씨 OK' : '글씨 대비 부족'}
+              {s.whiteOk && s.blackOk ? ui.bothOk : s.whiteOk ? ui.whiteOk : s.blackOk ? ui.blackOk : ui.lowContrast}
             </span>
             <span className="text-[10px] font-bold opacity-70 w-10 text-right">
-              {copied === s.hex.toUpperCase() ? '복사됨' : '복사'}
+              {copied === s.hex.toUpperCase() ? common.copied : common.copy}
             </span>
           </button>
         ))}
@@ -54,16 +57,16 @@ export default function ShadesTool() {
         onClick={() => copy(`:root {\n${css}\n}`)}
         className="mt-3 w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
       >
-        CSS 변수 전체 복사
+        {ui.copyAllCss}
       </button>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">어디에 쓰나요</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.whereTitle}</p>
         <ul className="flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          <li>· <b className="text-slate-800 dark:text-slate-100">50~200</b> 배경, 연한 강조, 비활성 상태</li>
-          <li>· <b className="text-slate-800 dark:text-slate-100">400~600</b> 버튼, 링크 — 브랜드 색의 본체</li>
-          <li>· <b className="text-slate-800 dark:text-slate-100">700~900</b> 눌린 상태, 어두운 배경 위 글자</li>
-          <li className="text-slate-500 dark:text-slate-400">각 줄 오른쪽의 안내는 그 색을 배경으로 썼을 때 흰/검은 글씨가 접근성 기준(4.5:1)을 넘는지입니다.</li>
+          <li>· <b className="text-slate-800 dark:text-slate-100">50~200</b> {ui.useLight}</li>
+          <li>· <b className="text-slate-800 dark:text-slate-100">400~600</b> {ui.useMid}</li>
+          <li>· <b className="text-slate-800 dark:text-slate-100">700~900</b> {ui.useDark}</li>
+          <li className="text-slate-500 dark:text-slate-400">{ui.contrastNote}</li>
         </ul>
       </div>
     </div>
