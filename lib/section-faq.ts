@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/seasonality': [
+    {
+      q: 'Is there really a best month to buy crypto?',
+      a: 'The table shows what each calendar month has actually done, but the honest answer is that the sample is far too small to establish it. Bitcoin has around nine Octobers on Binance, so an October figure rests on nine numbers rather than on years of daily data.',
+    },
+    {
+      q: 'Why is a p-value shown next to each month?',
+      a: 'Because a lopsided win rate looks convincing until you calculate how often chance produces it. Seven up years out of nine happens frequently with a fair coin. The p-value is the probability of a split that uneven or more, and most named crypto seasonal patterns do not survive it.',
+    },
+    {
+      q: 'What is wrong with looking at all twelve months?',
+      a: 'Testing twelve things at a 5% threshold produces about 0.6 apparent hits from randomness alone. So finding one dramatic-looking month somewhere in the calendar is the expected outcome of looking rather than a discovery, and a single flagged month should not be read as a pattern.',
+    },
+    {
+      q: 'Does "Uptober" hold up?',
+      a: 'October does show the strongest median in Bitcoin\u2019s Binance history, and the sample behind it is roughly nine years. Whether that clears the bar for evidence is exactly what the p column answers, and the page reports the number either way rather than promoting the name.',
+    },
+    {
+      q: 'Can I use this for altcoins?',
+      a: 'You can select any Binance coin, but the sample gets much thinner. A token listed three years ago has three observations per month, which is three coincidences rather than a seasonal effect. The page flags coins with too few years rather than presenting the table as meaningful.',
+    },
+    {
+      q: 'How is each month\u2019s return calculated?',
+      a: 'From the first to the last daily close within that calendar month, using Binance data. The first and last months of a coin\u2019s history are excluded because they are usually partial, which would otherwise distort those two months.',
+    },
+  ],
   'crypto/long-short-ratio': [
     {
       q: 'What is the long/short ratio?',
