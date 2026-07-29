@@ -179,6 +179,18 @@ const SECTIONS = [
     shadow: 'shadow-sky-100',
   },
   {
+    href: '/sound',
+    icon: '🔊',
+    title: '소리 도구',
+    desc: '메트로놈·악기 튜너·백색소음·소음 측정·녹음',
+    badge: `${SECTION_COUNTS.sound}개`,
+    color: 'from-indigo-500 to-sky-600',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
