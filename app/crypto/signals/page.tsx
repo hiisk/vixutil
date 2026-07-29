@@ -530,15 +530,15 @@ export default function SignalsPage() {
                     <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                       <th className="sticky left-0 z-20 bg-white dark:bg-slate-900 text-left font-semibold px-4 py-3">Coin</th>
                       <th className={`${th} hidden lg:table-cell`}>Entry</th>
-                      <th className={`${th} hidden md:table-cell`}>
-                        ATR target
-                        <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">entry + 1.5×ATR · not a forecast</span>
-                      </th>
                       <th className={th}>Current</th>
                       <th className={th}>
                         <button onClick={() => selectSort('chg24h')} className={`uppercase tracking-wide inline-flex items-center hover:text-slate-700 dark:hover:text-slate-300 transition-colors ${sortKey === 'chg24h' ? 'text-amber-600 dark:text-amber-400' : ''}`}>
                           24H <SortHint active={sortKey === 'chg24h'} dir={sortDir} />
                         </button>
+                      </th>
+                      <th className={`${th} hidden md:table-cell`}>
+                        ATR target
+                        <span className="block text-[9px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">entry + 1.5×ATR · not a forecast</span>
                       </th>
                       <th className="hidden sm:table-cell text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
                         Scenarios
@@ -560,6 +560,8 @@ export default function SignalsPage() {
                       const f = info?.f ?? null;
 
                       const tpPct = c ? pnlOf(c.side, c.entry, c.tp) : null;
+                      // 현재가에서 목표까지 남은 거리 — 진입가 기준 %와 다르다
+                      const tpFromNow = c ? pnlOf(c.side, t.lastPrice, c.tp) : null;
                       const hit = c ? hitState(c, t.lastPrice) : null;
                       const chg = t.priceChangePercent;
 
@@ -618,11 +620,35 @@ export default function SignalsPage() {
 
                           <td className="hidden lg:table-cell px-2 py-3 text-right text-slate-700 dark:text-slate-200 tabular-nums">{c ? formatPrice(c.entry) : pending ? '…' : '-'}</td>
 
+                          <td className="px-2 py-3 text-right tabular-nums text-slate-900 dark:text-white">{formatPrice(t.lastPrice)}</td>
+
+                          <td className="px-2 py-3 text-right tabular-nums">
+                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-400 dark:text-slate-500">-</span>}
+                          </td>
+
+                          {/*
+                            진입가 기준 %만 보여주면 "지금 여기서 얼마나 남았나"를 알 수 없다.
+                            현재가는 진입가와 다르므로 두 기준을 함께 적는다.
+                          */}
                           <td className="hidden md:table-cell px-2 py-3 text-right tabular-nums">
-                            {c ? (
+                            {c && c.tp <= 0 ? (
+                              /*
+                                ATR이 가격 전체보다 크면 숏 목표가가 0으로 clamp된다(가격은 음수가
+                                될 수 없다). 그 0을 목표가처럼 보여주면 "+100% 먹는다"로 읽히므로
+                                레벨 대신 상태를 적는다.
+                              */
+                              <span className="text-[11px] text-slate-500 dark:text-slate-400" title="1.5×ATR exceeds the price itself, so the level clamps to zero">
+                                ATR &gt; price
+                              </span>
+                            ) : c ? (
                               <div className="flex flex-col items-end leading-tight">
                                 <span className="text-emerald-600 dark:text-emerald-400 font-bold">{formatPrice(c.tp)}</span>
-                                <span className="text-[10px] text-emerald-600 dark:text-emerald-400/60">+{tpPct!.toFixed(1)}%</span>
+                                <span className="text-[10px] text-emerald-600 dark:text-emerald-400/70">+{tpPct!.toFixed(1)}% vs entry</span>
+                                {tpFromNow != null && (
+                                  <span className={`text-[10px] ${tpFromNow >= 0 ? 'text-slate-500 dark:text-slate-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                                    {tpFromNow >= 0 ? `${tpFromNow.toFixed(1)}% to go` : 'past target'}
+                                  </span>
+                                )}
                                 {hit && (
                                   <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
                                     {hit === 'tp' ? '🎯 hit' : '🛑 stopped'}
@@ -630,12 +656,6 @@ export default function SignalsPage() {
                                 )}
                               </div>
                             ) : <span className="text-slate-400 dark:text-slate-500">{pending ? '…' : '-'}</span>}
-                          </td>
-
-                          <td className="px-2 py-3 text-right tabular-nums text-slate-900 dark:text-white">{formatPrice(t.lastPrice)}</td>
-
-                          <td className="px-2 py-3 text-right tabular-nums">
-                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-400 dark:text-slate-500">-</span>}
                           </td>
 
                           <td className="hidden sm:table-cell px-3 py-3 text-right border-l border-slate-200/40 dark:border-slate-700/40">

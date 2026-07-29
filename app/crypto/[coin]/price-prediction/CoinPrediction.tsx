@@ -7,7 +7,8 @@ import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from
 import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
 import { maTable, maTableFromCloses, oscillatorTable, pivots, sentiment, resampleCloses, type Reading, type Action } from '@/lib/indicators';
-import { simulateBarriers, probEverReach } from '@/lib/barriers';
+import { simulateBarriers, probEverReach, probEverAbove } from '@/lib/barriers';
+import { athInfo } from '@/lib/ath';
 import { investOutcome } from '@/lib/invest';
 import { COINS } from '@/lib/coins';
 import { marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
@@ -242,6 +243,18 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   }, [snap, series, tf, pathSeed]);
 
 
+  /**
+   * 전고점 — "언제 다시 최고가를 찍나"는 이 페이지에서 가장 자주 나오는 질문인데
+   * 답이 없었다. 이미 받아둔 전체 종가와 배리어 시뮬레이션을 그대로 쓰므로
+   * 추가 요청이 없다. 체크포인트가 [365,730,1095]라 회복 확률도 바로 나온다.
+   */
+  const ath = useMemo(() => (snap ? athInfo(snap.allCloses, snap.price) : null), [snap]);
+
+  const athProbs = useMemo(() => {
+    if (!barriers || !ath || ath.atHigh) return null;
+    return BARRIER_CHECKPOINTS.map((_, i) => probEverAbove(barriers, i, ath.ath));
+  }, [barriers, ath]);
+
   const corrs = useMemo(() => {
     if (!snap) return [];
     const mine = snap.closes.slice(-CORR_DAYS);
@@ -341,6 +354,59 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         </div>
       </div>
+
+      {/*
+        전고점 — "언제 다시 최고가를 찍나"가 이 페이지에서 가장 자주 나오는 질문인데
+        답할 자리가 없었다. 하락률과 회복률의 비대칭(−50%는 +100%가 필요하다)이
+        핵심이라 둘을 나란히 놓는다.
+      */}
+      {ath && (
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">All-time high · Binance daily closes</p>
+              {ath.atHigh ? (
+                <>
+                  <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">At its high</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    {coin.base} is trading at its highest daily close on record (${formatPrice(ath.ath)}).
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">
+                    ${formatPrice(ath.ath)} <span className="text-base text-rose-600 dark:text-rose-400">−{ath.drawdownPct.toFixed(1)}%</span>
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Set {ath.daysSince.toLocaleString()} days ago. Getting back needs
+                    {' '}<b className="text-slate-700 dark:text-slate-200">+{ath.gainToRecoverPct.toFixed(1)}%</b> from here — a drop and its recovery are not
+                    the same number, which is the part most people get wrong.
+                  </p>
+                </>
+              )}
+            </div>
+
+            {athProbs && (
+              <div className="flex gap-3">
+                {athProbs.map((p, i) => (
+                  <div key={BARRIER_CHECKPOINTS[i]} className="text-center rounded-xl bg-slate-50 dark:bg-slate-950 px-3.5 py-2.5 min-w-[74px]">
+                    <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{BARRIER_CHECKPOINTS[i] / 365}Y</p>
+                    <p className="text-lg font-black text-amber-600 dark:text-amber-400 tabular-nums">{isFinite(p) ? `${p.toFixed(0)}%` : '—'}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {athProbs && (
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+              Those are the modelled chances of touching the old high again at any point within each horizon — from the same fitted distribution as
+              every other figure on this page, so they do not contradict the bands above. The high itself is a
+              <b className="text-slate-700 dark:text-slate-200"> daily close since {coin.base} listed on Binance</b>, not an intraday or pre-listing
+              record, so a coin that traded higher before listing will show a high that sits below its true record.
+            </p>
+          )}
+        </div>
+      )}
 
       {/* 캘리브레이션 증거 — 경쟁 사이트는 방법을 말하고, 우리는 적중률을 말한다 */}
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 px-4 py-3 mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px]">
