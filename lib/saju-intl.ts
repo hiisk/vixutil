@@ -251,8 +251,8 @@ export const SIPSEONG_INTL: Record<SajuIntlLang, Record<string, SipseongIntl>> =
 /* ── UI 문구 ── */
 export const SAJU_UI: Record<SajuIntlLang, Record<string, string>> = {
   en: {
-    title: 'BaZi Chart Reader',
-    lead: 'Your four pillars from date and time of birth, with the five-element balance',
+    title: 'Saju — Korean Four Pillars',
+    lead: 'Your four pillars from date and time of birth, read the way saju is read in Korea',
     birthLabel: 'Date of birth',
     yearPh: 'e.g. 1995', monthPh: 'Month', dayPh: 'Day',
     hourLabel: 'Hour of birth', hourUnknown: 'Not known',
@@ -277,6 +277,7 @@ export const SAJU_UI: Record<SajuIntlLang, Record<string, string>> = {
     errDay: 'Day must be between 1 and 31.',
     errInvalid: 'That date does not exist.',
     errFuture: 'Your date of birth is in the future.',
+    originNote: 'Saju (사주) is how four-pillar astrology is practised in Korea. The system itself came from China, where it is known as BaZi (八字), and the two share the same sexagenary calculation — the reading conventions and vocabulary differ.',
     disclaimer: 'The chart itself is calculated from the traditional sexagenary cycle and is deterministic — the same birth details always give the same pillars. The interpretations attached to it are a traditional practice, not a scientific one. Treat it as reflection rather than prediction.',
   },
   zh: {
@@ -306,6 +307,7 @@ export const SAJU_UI: Record<SajuIntlLang, Record<string, string>> = {
     errDay: '日期请填 1~31 之间。',
     errInvalid: '该日期不存在。',
     errFuture: '出生日期晚于今天。',
+    originNote: '八字在韩国称为「四柱（사주）」，用的是同一套干支推算，只是解读的习惯与用语有些不同。',
     disclaimer: '排盘本身按传统干支纪年法计算，是确定的 —— 同样的出生信息永远得到同样的四柱。附在上面的解读属于传统术数，而非科学。请当作自省而不是预言。',
   },
 };

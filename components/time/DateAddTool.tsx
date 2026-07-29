@@ -2,15 +2,15 @@
 import { useMemo, useState } from 'react';
 import { addDays, addMonths, daysBetween, formatKo, toISODate } from '@/lib/date-calc';
 import { CARD, DateField, Stat, useMounted } from './ui';
+import { DATEADD_UI, type TimeLang } from '@/lib/time-ui-intl';
 
-const QUICK = [
-  { label: '100일 뒤', days: 100 },
-  { label: '1년 뒤', months: 12 },
-  { label: '2주 뒤', days: 14 },
-  { label: '30일 전', days: -30 },
+const QUICK: { days?: number; months?: number }[] = [
+  { days: 100 }, { months: 12 }, { days: 14 }, { days: -30 },
 ];
 
-export default function DateAddTool() {
+export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
+  const ui = DATEADD_UI[lang];
+  const quick = QUICK.map((q, i) => ({ ...q, label: ui.presets[i] }));
   const mounted = useMounted();
   const [base, setBase] = useState('');
   const [days, setDays] = useState(0);
@@ -45,36 +45,36 @@ export default function DateAddTool() {
 
   return (
     <div>
-      <DateField value={start} onChange={setBase} label="기준 날짜" />
+      <DateField value={start} onChange={setBase} label={ui.baseDate} />
 
       <div className="grid grid-cols-4 gap-2 mt-4">
-        {field('일', days, setDays)}
-        {field('주', weeks, setWeeks)}
-        {field('개월', months, setMonths)}
-        {field('년', years, setYears)}
+        {field(ui.day, days, setDays)}
+        {field(ui.week, weeks, setWeeks)}
+        {field(ui.month, months, setMonths)}
+        {field(ui.year, years, setYears)}
       </div>
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1.5">음수를 넣으면 과거로 계산합니다</p>
+      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1.5">{ui.negativeNote}</p>
 
       {result && (
         <>
           <div className="mt-4 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white px-6 py-8 text-center">
-            <p className="text-sm text-white/70 mb-1">결과</p>
+            <p className="text-sm text-white/70 mb-1">{ui.result}</p>
             <p className="text-3xl font-black">{formatKo(result.date)}</p>
             <p className="text-sm text-white/70 mt-2">
-              기준일에서 {result.gap >= 0 ? `${result.gap}일 뒤` : `${-result.gap}일 전`}
+              {result.gap >= 0 ? ui.gapAfter(result.gap) : ui.gapBefore(-result.gap)}
             </p>
           </div>
 
           <div className="grid grid-cols-3 gap-2 mt-3">
-            <Stat label="차이(일)" value={Math.abs(result.gap)} accent="text-violet-600" />
-            <Stat label="차이(주)" value={`${Math.floor(Math.abs(result.gap) / 7)}주`} />
-            <Stat label="요일" value={formatKo(result.date).slice(-3)} />
+            <Stat label={ui.diffDays} value={Math.abs(result.gap)} accent="text-violet-600" />
+            <Stat label={ui.diffWeeks} value={ui.weekUnit(Math.floor(Math.abs(result.gap) / 7))} />
+            <Stat label={ui.weekday} value={result.date.toLocaleDateString(ui.locale, { weekday: 'short' })} />
           </div>
         </>
       )}
 
       <div className="grid grid-cols-4 gap-2 mt-4">
-        {QUICK.map(q => (
+        {quick.map(q => (
           <button
             key={q.label}
             onClick={() => { reset(); if (q.days) setDays(q.days); if (q.months) setMonths(q.months); }}
@@ -86,11 +86,9 @@ export default function DateAddTool() {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">월말은 이렇게 처리합니다</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.monthEndTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          1월 31일에 1개월을 더하면 2월 31일이 없으므로 <b className="text-slate-800 dark:text-slate-100">2월 28일(윤년이면 29일)</b>로
-          맞춥니다. 그냥 두면 3월 3일로 넘어가 버려 &lsquo;한 달 뒤&rsquo;라는 말과 어긋납니다. 계약 만료일을 셀 때
-          이 차이가 문제가 되는 일이 많습니다.
+          {ui.monthEndBody}
         </p>
       </div>
     </div>

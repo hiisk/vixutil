@@ -2,8 +2,10 @@
 import { useMemo, useState } from 'react';
 import { addDays, dayOfYear, formatKo, isLeapYear, isoWeek, quarter, toISODate } from '@/lib/date-calc';
 import { CARD, DateField, Stat, useMounted } from './ui';
+import { WEEKNUMBER_UI, type TimeLang } from '@/lib/time-ui-intl';
 
-export default function WeekNumberTool() {
+export default function WeekNumberTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
+  const ui = WEEKNUMBER_UI[lang];
   const mounted = useMounted();
   const [value, setValue] = useState('');
   const today = mounted ? toISODate(new Date()) : '';
@@ -30,26 +32,26 @@ export default function WeekNumberTool() {
 
   return (
     <div>
-      <DateField value={picked} onChange={setValue} label="날짜" />
+      <DateField value={picked} onChange={setValue} label={ui.date} />
 
       {info && (
         <>
           <div className="mt-4 rounded-2xl bg-gradient-to-br from-slate-600 to-indigo-700 text-white px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{formatKo(info.date)}</p>
-            <p className="text-5xl font-black tabular-nums">{info.week}주차</p>
-            <p className="text-sm text-white/70 mt-2">{info.year}년 · {info.quarter}분기</p>
+            <p className="text-5xl font-black tabular-nums">{ui.weekBig(info.week)}</p>
+            <p className="text-sm text-white/70 mt-2">{ui.yearQuarter(info.year, info.quarter)}</p>
           </div>
 
           <div className="grid grid-cols-4 gap-2 mt-3">
-            <Stat label="주차" value={info.week} accent="text-indigo-600" />
-            <Stat label="분기" value={`${info.quarter}Q`} />
-            <Stat label="연중 일수" value={`${info.doy}일째`} />
-            <Stat label="올해 남은 날" value={`${info.left}일`} accent="text-slate-500" />
+            <Stat label={ui.week} value={info.week} accent="text-indigo-600" />
+            <Stat label={ui.quarter} value={`${info.quarter}Q`} />
+            <Stat label={ui.dayOfYear} value={ui.doyValue(info.doy)} />
+            <Stat label={ui.daysLeft} value={ui.daysValue(info.left)} accent="text-slate-500" />
           </div>
 
           <div className="mt-4">
             <div className="flex items-baseline justify-between mb-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">올해 진행률</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.progress}</span>
               <span className="text-sm font-black text-indigo-600 tabular-nums">{info.progress}%</span>
             </div>
             <div className="h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -58,7 +60,7 @@ export default function WeekNumberTool() {
           </div>
 
           <div className={`${CARD} mt-4`}>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">이 주는 언제부터 언제까지</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.rangeTitle}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 font-bold">
               {formatKo(info.monday)} ~ {formatKo(info.sunday)}
             </p>
@@ -67,11 +69,9 @@ export default function WeekNumberTool() {
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">ISO 8601 기준입니다</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.isoNote}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          주는 월요일에 시작하고, 그 주의 목요일이 속한 해를 기준으로 몇 년 몇 주차인지 정합니다.
-          그래서 1월 1일이 금·토·일이면 <b className="text-slate-800 dark:text-slate-100">전년도 마지막 주차</b>가 됩니다.
-          회사에서 &lsquo;주차&rsquo;로 일정을 관리한다면 대개 이 기준을 씁니다.
+          {ui.isoBody}
         </p>
       </div>
     </div>

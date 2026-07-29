@@ -171,21 +171,35 @@ export const TIMEZONE_UI: L<{
 export const WORKDAYS_UI: L<{
   startDate: string; endDate: string; workdays: string; totalDays: string; weekendHoliday: string;
   addHolidays: string; nAfterTitle: string; nAfterResult: string; holidayNote: string;
+  dayUnit: (n: number) => string; inclusive: string; holidayPlaceholder: string;
+  holidaysApplied: (n: number) => string; nAfterNote: string;
 }> = {
   ko: {
     startDate: '시작일', endDate: '종료일', workdays: '근무일', totalDays: '전체 일수', weekendHoliday: '주말·공휴일',
     addHolidays: '공휴일 빼기', nAfterTitle: '근무일 기준 n일 뒤', nAfterResult: '근무일 뒤는',
     holidayNote: '한국 공휴일은 음력과 대체공휴일 때문에 해마다 달라, 직접 넣도록 했습니다',
+    dayUnit: n => `${n}일`, inclusive: '시작일과 종료일을 모두 포함해 셉니다',
+    holidayPlaceholder: '2026-01-01, 2026-03-01 처럼 날짜를 적으면 근무일에서 뺍니다',
+    holidaysApplied: n => `${n}개 날짜를 공휴일로 뺐습니다`,
+    nAfterNote: '주말과 위에 적은 공휴일을 건너뛴 날짜입니다. 서류 처리 기한을 셀 때 씁니다.',
   },
   en: {
     startDate: 'From', endDate: 'To', workdays: 'Working days', totalDays: 'Total days', weekendHoliday: 'Weekends & holidays',
     addHolidays: 'Exclude holidays', nAfterTitle: 'Date n working days later', nAfterResult: 'working days later is',
     holidayNote: 'Public holidays differ by country and move year to year, so add the ones that apply to you.',
+    dayUnit: n => `${n} days`, inclusive: 'Both the start and end dates are counted',
+    holidayPlaceholder: 'Enter dates like 2026-01-01, 2026-03-01 to exclude them',
+    holidaysApplied: n => `${n} date${n === 1 ? '' : 's'} excluded as holidays`,
+    nAfterNote: 'Skips weekends and any holidays you listed above. Useful for counting document or filing deadlines.',
   },
   zh: {
     startDate: '开始日', endDate: '结束日', workdays: '工作日', totalDays: '总天数', weekendHoliday: '周末与假日',
     addHolidays: '排除节假日', nAfterTitle: 'n 个工作日之后的日期', nAfterResult: '个工作日之后是',
     holidayNote: '各国的公共假日不同，每年日期也会变，请自行添加适用于你的假日。',
+    dayUnit: n => `${n} 天`, inclusive: '起始日与结束日都计入',
+    holidayPlaceholder: '按 2026-01-01, 2026-03-01 这样填写，会从工作日中扣除',
+    holidaysApplied: n => `已扣除 ${n} 个假日`,
+    nAfterNote: '会跳过周末以及你在上面填写的假日。计算文件处理期限时很有用。',
   },
 };
 
@@ -194,6 +208,8 @@ export const DATEADD_UI: L<{
   day: string; week: string; month: string; year: string;
   negativeNote: string; monthEndTitle: string; monthEndBody: string;
   presets: [string, string, string, string];
+  gapAfter: (n: number) => string; gapBefore: (n: number) => string;
+  weekUnit: (n: number) => string; locale: string;
 }> = {
   ko: {
     baseDate: '기준 날짜', result: '결과', weekday: '요일', diffDays: '차이(일)', diffWeeks: '차이(주)',
@@ -202,6 +218,8 @@ export const DATEADD_UI: L<{
     monthEndTitle: '월말은 이렇게 처리합니다',
     monthEndBody: '1월 31일에 1개월을 더하면 2월 28일(윤년이면 29일)이 됩니다. 없는 날짜로 넘어가지 않도록 그 달의 마지막 날로 맞춥니다.',
     presets: ['100일 뒤', '1년 뒤', '2주 뒤', '30일 전'],
+    gapAfter: n => `기준일에서 ${n}일 뒤`, gapBefore: n => `기준일에서 ${n}일 전`,
+    weekUnit: n => `${n}주`, locale: 'ko-KR',
   },
   en: {
     baseDate: 'From date', result: 'Result', weekday: 'Weekday', diffDays: 'Difference (days)', diffWeeks: 'Difference (weeks)',
@@ -210,6 +228,8 @@ export const DATEADD_UI: L<{
     monthEndTitle: 'How month-end is handled',
     monthEndBody: '31 January plus one month gives 28 February (29 in a leap year). Rather than rolling over into a date that does not exist, it clamps to the last day of that month.',
     presets: ['100 days later', '1 year later', '2 weeks later', '30 days earlier'],
+    gapAfter: n => `${n} days after the base date`, gapBefore: n => `${n} days before the base date`,
+    weekUnit: n => `${n} weeks`, locale: 'en-US',
   },
   zh: {
     baseDate: '基准日期', result: '结果', weekday: '星期', diffDays: '相差（天）', diffWeeks: '相差（周）',
@@ -218,30 +238,43 @@ export const DATEADD_UI: L<{
     monthEndTitle: '月末这样处理',
     monthEndBody: '1 月 31 日加一个月得到 2 月 28 日（闰年为 29 日）。为了不跳到不存在的日期，会取该月的最后一天。',
     presets: ['100 天后', '1 年后', '2 周后', '30 天前'],
+    gapAfter: n => `基准日之后 ${n} 天`, gapBefore: n => `基准日之前 ${n} 天`,
+    weekUnit: n => `${n} 周`, locale: 'zh-CN',
   },
 };
 
 export const WEEKNUMBER_UI: L<{
   date: string; week: string; quarter: string; dayOfYear: string; daysLeft: string;
   progress: string; rangeTitle: string; isoNote: string; prevYearNote: string;
+  weekBig: (w: number) => string; yearQuarter: (y: number, q: number) => string;
+  doyValue: (d: number) => string; daysValue: (d: number) => string; isoBody: string;
 }> = {
   ko: {
     date: '날짜', week: '주차', quarter: '분기', dayOfYear: '연중 일수', daysLeft: '올해 남은 날',
     progress: '올해 진행률', rangeTitle: '이 주는 언제부터 언제까지',
     isoNote: 'ISO 8601 기준입니다 — 목요일이 포함된 주를 그 해의 첫 주로 봅니다.',
     prevYearNote: '전년도 마지막 주차',
+    weekBig: w => `${w}주차`, yearQuarter: (y, q) => `${y}년 · ${q}분기`,
+    doyValue: d => `${d}일째`, daysValue: d => `${d}일`,
+    isoBody: '주는 월요일에 시작하고, 그 주의 목요일이 속한 해를 기준으로 몇 년 몇 주차인지 정합니다. 그래서 1월 1일이 금·토·일이면 전년도 마지막 주차가 됩니다. 회사에서 주차로 일정을 관리한다면 대개 이 기준을 씁니다.',
   },
   en: {
     date: 'Date', week: 'Week', quarter: 'Quarter', dayOfYear: 'Day of year', daysLeft: 'Days left this year',
     progress: 'Year progress', rangeTitle: 'This week runs from',
     isoNote: 'Uses ISO 8601 — the week containing the first Thursday is week one.',
     prevYearNote: 'Last week of the previous year',
+    weekBig: w => `Week ${w}`, yearQuarter: (y, q) => `${y} · Q${q}`,
+    doyValue: d => `day ${d}`, daysValue: d => `${d} days`,
+    isoBody: 'Weeks start on Monday, and the year a week belongs to is decided by which year its Thursday falls in. That means when 1 January lands on a Friday, Saturday or Sunday, it belongs to the last week of the previous year. Most companies that schedule by week number use this convention.',
   },
   zh: {
     date: '日期', week: '第几周', quarter: '季度', dayOfYear: '年内第几天', daysLeft: '今年剩余天数',
     progress: '今年进度', rangeTitle: '这一周的起止',
     isoNote: '采用 ISO 8601 —— 含第一个星期四的那一周为该年第一周。',
     prevYearNote: '上一年的最后一周',
+    weekBig: w => `第 ${w} 周`, yearQuarter: (y, q) => `${y} 年 · 第 ${q} 季度`,
+    doyValue: d => `第 ${d} 天`, daysValue: d => `${d} 天`,
+    isoBody: '一周从星期一开始，而这一周属于哪一年，由它的星期四落在哪一年决定。所以当 1 月 1 日是周五、周六或周日时，它属于上一年的最后一周。按周编号排期的公司多数采用这个标准。',
   },
 };
 
@@ -249,20 +282,35 @@ export const LIVED_UI: L<{
   birth: string; livedFor: string; milestones: string;
   week: string; hour: string; minute: string; second: string;
   computing: string; futureError: string;
+  ymd: (y: number, m: number, d: number) => string; totalToday: (n: string) => string;
+  milestoneLine: (n: string, date: string) => string; milestoneLeft: (n: number) => string;
+  beatsNote: (beats: string, sleepDays: string) => string; locale: string;
 }> = {
   ko: {
     birth: '생년월일', livedFor: '태어난 지', milestones: '다가오는 기념일',
     week: '주', hour: '시간', minute: '분', second: '초',
     computing: '계산 준비 중…', futureError: '오늘보다 앞선 날짜를 넣어 주세요',
+    ymd: (y, m, d) => `${y}년 ${m}개월 ${d}일`, totalToday: n => `오늘로 ${n}일째`,
+    milestoneLine: (n, date) => `${n}일 — ${date}`, milestoneLeft: n => `${n}일 남았습니다`,
+    beatsNote: (beats, sleepDays) => `그동안 심장은 대략 ${beats}백만 번 뛰었습니다 (안정 시 70회/분으로 계산한 어림값입니다). 잠으로 보낸 시간은 하루 7시간이라면 약 ${sleepDays}일쯤 됩니다.`,
+    locale: 'ko-KR',
   },
   en: {
     birth: 'Date of birth', livedFor: 'You have been alive for', milestones: 'Upcoming milestones',
     week: 'Weeks', hour: 'Hours', minute: 'Minutes', second: 'Seconds',
     computing: 'Calculating…', futureError: 'Please enter a date in the past',
+    ymd: (y, m, d) => `${y} years ${m} months ${d} days`, totalToday: n => `${n} days as of today`,
+    milestoneLine: (n, date) => `${n} days — ${date}`, milestoneLeft: n => `${n} days to go`,
+    beatsNote: (beats, sleepDays) => `Your heart has beaten roughly ${beats} million times (a rough figure at 70 beats per minute at rest). At seven hours a night, you have spent about ${sleepDays} days asleep.`,
+    locale: 'en-US',
   },
   zh: {
     birth: '出生日期', livedFor: '你已经活了', milestones: '即将到来的纪念日',
     week: '周', hour: '小时', minute: '分钟', second: '秒',
     computing: '正在计算…', futureError: '请填写今天之前的日期',
+    ymd: (y, m, d) => `${y} 年 ${m} 个月 ${d} 天`, totalToday: n => `到今天是第 ${n} 天`,
+    milestoneLine: (n, date) => `${n} 天 — ${date}`, milestoneLeft: n => `还有 ${n} 天`,
+    beatsNote: (beats, sleepDays) => `这段时间里心脏大约跳了 ${beats} 百万次（按静息 70 次／分的粗略估算）。若每晚睡七小时，你大约有 ${sleepDays} 天是在睡眠中度过的。`,
+    locale: 'zh-CN',
   },
 };
