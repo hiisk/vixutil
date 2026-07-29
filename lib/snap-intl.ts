@@ -1173,3 +1173,88 @@ export const PERSONAL_COLOR_TIP_INTL: Record<SnapIntlLang, string[]> = {
     '色板最重要的是贴近脸的部分 —— 上衣、围巾、领口。裤子几乎不影响。',
   ],
 };
+
+/* ── 커플 관상 궁합 ──
+   두 얼굴의 인상 벡터가 얼마나 닮았는지를 거리로 점수화한다.
+   "닮은 커플이 잘 어울린다"는 속설을 재미로 푼 것이고, 무작위가 아니라
+   두 얼굴의 실측값 차이에 기반한다. */
+export const COUPLE_LABELS_INTL: Record<SnapIntlLang, Record<string, string>> = {
+  en: {
+    faceShape: 'Face shape', eyeTilt: 'Eye tilt', eyeWidth: 'Eye size',
+    jawWidth: 'Jawline', noseWidth: 'Nose', mouthWidth: 'Mouth',
+  },
+  zh: {
+    faceShape: '脸型', eyeTilt: '眼型', eyeWidth: '眼睛大小',
+    jawWidth: '下颌线', noseWidth: '鼻子', mouthWidth: '嘴',
+  },
+};
+
+export const COUPLE_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Strikingly similar impressions. The kind of pair that looks settled together from the first meeting and does not tire on a long look.',
+    'A harmonious match. People probably tell you the two of you suit each other.',
+    'Similar but not identical — a balance where the differences fill each other in.',
+    'Two distinct personalities. The chemistry here comes from the contrast rather than the overlap.',
+    'An unusual, characterful combination. Not like anyone else, which is rather the point.',
+  ],
+  zh: [
+    '两人的印象非常相像。属于第一次见面就显得很搭、看久了也不腻的组合。',
+    '气质很合的一对。别人多半会说你们很般配。',
+    '像又不完全一样 —— 差异刚好互相补足的那种平衡。',
+    '两种鲜明的个性。这里的火花来自反差，而不是相似。',
+    '独特而有个性的组合。和别人都不一样，而这正是重点。',
+  ],
+};
+
+export const COUPLE_COMMENT_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'They say couples who look alike last. Look at each other’s faces more, and smile.',
+    'Try taking a selfie from the same angle today — the result is usually funny.',
+    'Couples are said to grow more alike in expression the longer they are together.',
+    'Where you differ is often exactly why it stays interesting.',
+    'Worth taking one photo today that is just the two of you.',
+    'The thing that makes couples suit each other is less looking alike than wanting to.',
+    'The more photos you take together, the more the memories and the faces converge.',
+    'Take a minute today to each name one thing you find appealing about the other.',
+  ],
+  zh: [
+    '有说法是长得像的情侣走得远。多看看对方的脸，多笑一笑。',
+    '今天试着用同一个角度各拍一张自拍，结果通常很好玩。',
+    '据说情侣相处越久，表情和神态会越来越像。',
+    '你们不一样的地方，往往正是让关系一直有意思的原因。',
+    '今天不妨留一张只属于你们俩的照片。',
+    '般配的秘诀，与其说是长得像，不如说是愿意变得像。',
+    '一起拍的照片越多，回忆和神态就越靠近。',
+    '今天花一分钟，各说一个你觉得对方最有魅力的地方。',
+  ],
+};
+
+export const COUPLE_UI: Record<SnapIntlLang, {
+  title: string; lead: string; privacy: string;
+  photoA: string; photoB: string; pickBoth: string;
+  score: string; breakdown: string; comment: string;
+  disclaimer: string; reset: string; noFace: string;
+}> = {
+  en: {
+    title: 'Couple Face Match',
+    lead: 'Two photos, six measured proportions, one similarity score',
+    privacy: 'Both photos are measured in your browser and neither is uploaded. The score is the distance between two sets of real measurements — the idea that similar-looking couples suit each other is folklore, not a finding.',
+    photoA: 'First photo', photoB: 'Second photo',
+    pickBoth: 'Add both photos to see the result',
+    score: 'Match score', breakdown: 'By feature', comment: '💡 Today',
+    disclaimer: 'The proportions are genuinely measured; reading compatibility from them is entertainment.',
+    reset: '🔄 Start over',
+    noFace: 'No clear face was found in that photo. Try one in good light, facing the camera.',
+  },
+  zh: {
+    title: '情侣面相配对',
+    lead: '两张照片，六项实测比例，一个相似度分数',
+    privacy: '两张照片都在你的浏览器内测量，都不会上传。分数是两组真实测量值之间的距离 —— 至于「长得像的情侣更般配」，那是民间说法，不是研究结论。',
+    photoA: '第一张照片', photoB: '第二张照片',
+    pickBoth: '两张都上传后才会出结果',
+    score: '契合度', breakdown: '分部位', comment: '💡 今日',
+    disclaimer: '比例为真实测量，由此解读契合度则仅供娱乐。',
+    reset: '🔄 重新开始',
+    noFace: '没能在照片里清晰地找到人脸。请用光线充足的正脸照片再试一次。',
+  },
+};

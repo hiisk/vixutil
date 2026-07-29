@@ -23,6 +23,7 @@ const TESTS = [
   { href: '/en/snap/face-reading',  icon: '🔮', title: 'Face Reading',     desc: 'Seven features, traditional style', color: 'from-amber-500 to-red-500' },
   { href: '/en/snap/animal-face',   icon: '🐾', title: 'Animal Face Type', desc: 'Which of twelve animals you match', color: 'from-orange-400 to-rose-500' },
   { href: '/en/snap/personal-color', icon: '🎨', title: 'Personal Colour',  desc: 'Your seasonal type and palette', color: 'from-pink-400 to-violet-500' },
+  { href: '/en/snap/couple-match',  icon: '💞', title: 'Couple Face Match', desc: 'Compare two photos', color: 'from-rose-400 to-fuchsia-500' },
 ];
 
 export default function EnSnapHub() {

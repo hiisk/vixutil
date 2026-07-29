@@ -16,6 +16,7 @@ import { QUIZZES_ZH } from "@/lib/quiz-zh";
 import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
 import { GENERATORS_ZH } from "@/lib/generator-zh";
 import { GAME_TOOLS } from "@/lib/game-tools";
+import { COLOR_TOOLS } from "@/lib/color-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -122,6 +123,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...TEXT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/text/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/game`, changeFrequency: weekly, priority: 0.95 },
     ...GAME_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/game/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/color`, changeFrequency: weekly, priority: 0.95 },
+    ...COLOR_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/color/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -166,6 +169,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/snap/face-reading`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/en/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/zh/snap/smile-score`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/face-symmetry`, changeFrequency: monthly, priority: 0.8 },
@@ -177,6 +181,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/snap/face-reading`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/zh/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
