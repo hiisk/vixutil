@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { CARD, Grade, Stat, useBest, higher } from './ui';
+import { GAME_COMMON, MATH_UI, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 암산 대결 — 제한 시간 안에 푼 문제 수.
@@ -12,9 +13,9 @@ const DURATION = 30;
 
 type Op = '+' | '-' | '×' | '÷';
 const LEVELS = {
-  easy: { label: '쉬움', max: 20 },
-  normal: { label: '보통', max: 50 },
-  hard: { label: '어려움', max: 99 },
+  easy: { max: 20 },
+  normal: { max: 50 },
+  hard: { max: 99 },
 } as const;
 type LevelKey = keyof typeof LEVELS;
 
@@ -32,7 +33,9 @@ function makeQuestion(ops: Op[], max: number) {
   return { text: `${b * answer} ÷ ${b}`, answer };
 }
 
-export default function MathGame() {
+export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = MATH_UI[lang];
+  const c = GAME_COMMON[lang];
   const [level, setLevel] = useState<LevelKey>('normal');
   const [ops, setOps] = useState<Op[]>(['+', '-']);
   const [question, setQuestion] = useState({ text: '', answer: 0 });
@@ -93,7 +96,7 @@ export default function MathGame() {
     <div>
       {phase === 'idle' && (
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">연산 고르기</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.opTitle}</p>
           <div className="grid grid-cols-4 gap-2">
             {(['+', '-', '×', '÷'] as Op[]).map(op => (
               <button
@@ -110,9 +113,9 @@ export default function MathGame() {
             ))}
           </div>
 
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">난이도</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.levelTitle}</p>
           <div className="grid grid-cols-3 gap-2">
-            {(Object.keys(LEVELS) as LevelKey[]).map(k => (
+            {(Object.keys(LEVELS) as LevelKey[]).map((k, i) => (
               <button
                 key={k}
                 onClick={() => setLevel(k)}
@@ -122,7 +125,7 @@ export default function MathGame() {
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                 }`}
               >
-                {LEVELS[k].label}
+                {ui.levels[i]}
               </button>
             ))}
           </div>
@@ -131,18 +134,18 @@ export default function MathGame() {
 
       {phase === 'run' && (
         <div className="rounded-2xl bg-slate-900 text-white px-6 py-10 text-center">
-          <p className="text-sm text-white/60 mb-3 tabular-nums">{left.toFixed(1)}초 남음 · {solved}문제</p>
+          <p className="text-sm text-white/60 mb-3 tabular-nums">{ui.timeLeft(left.toFixed(1), solved)}</p>
           <p className="text-4xl sm:text-5xl font-black tabular-nums mb-5">{question.text}</p>
           <input
             value={input}
             onChange={e => answer(e.target.value.replace(/[^\d-]/g, ''))}
             inputMode="numeric"
             autoFocus
-            placeholder="답"
+            placeholder={ui.answerPlaceholder}
             className="w-full max-w-[10rem] mx-auto rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-center text-2xl font-black text-white tabular-nums focus:outline-none focus:border-white/60"
           />
           <button onClick={skip} className="block mx-auto mt-3 text-xs font-bold text-white/50 hover:text-white/80">
-            모르겠어요 — 넘기기
+            {ui.skip}
           </button>
         </div>
       )}
@@ -150,7 +153,7 @@ export default function MathGame() {
       {phase === 'over' && (
         <div className="rounded-2xl bg-slate-900 text-white px-6 py-10 text-center">
           <p className="text-6xl font-black tabular-nums">{solved}</p>
-          <p className="text-sm text-white/70 mt-1">{DURATION}초 동안 푼 문제</p>
+          <p className="text-sm text-white/70 mt-1">{ui.solvedIn(DURATION)}</p>
         </div>
       )}
 
@@ -159,29 +162,29 @@ export default function MathGame() {
         disabled={phase === 'run'}
         className="mt-4 w-full rounded-xl bg-gradient-to-r from-emerald-500 to-lime-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
-        {phase === 'over' ? '다시 도전' : phase === 'run' ? '진행 중…' : `${DURATION}초 시작`}
+        {phase === 'over' ? c.retry : phase === 'run' ? c.running : ui.startIn(DURATION)}
       </button>
 
       <div className="grid grid-cols-4 gap-2 mt-4">
-        <Stat label="푼 문제" value={solved} accent="text-emerald-600" />
-        <Stat label="넘긴 문제" value={wrong.length} />
-        <Stat label="문제당 평균" value={perQuestion === '—' ? '—' : `${perQuestion}초`} />
-        <Stat label="최고 기록" value={best ?? '—'} accent="text-lime-600" />
+        <Stat label={ui.solved} value={solved} accent="text-emerald-600" />
+        <Stat label={ui.skipped} value={wrong.length} />
+        <Stat label={ui.perQuestion} value={perQuestion === '—' ? '—' : ui.secSuffix(String(perQuestion))} />
+        <Stat label={c.best} value={best ?? '—'} accent="text-lime-600" />
       </div>
 
       {phase === 'over' && (
         <>
           <Grade
             text={
-              solved >= 25 ? `${solved}문제 — 암산이 아주 빠릅니다` :
-              solved >= 15 ? `${solved}문제 — 평균 이상입니다` :
-              `${solved}문제 — 연산을 하나씩 줄여 연습해 보세요`
+              solved >= 25 ? ui.gradeFast(solved) :
+              solved >= 15 ? ui.gradeGood(solved) :
+              ui.gradeSlow(solved)
             }
             tone={solved >= 15 ? 'good' : 'normal'}
           />
           {wrong.length > 0 && (
             <div className={`${CARD} mt-4`}>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">넘긴 문제</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.skippedTitle}</p>
               <div className="flex flex-wrap gap-1.5">
                 {wrong.map((w, i) => (
                   <span key={i} className="rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1 text-xs font-mono text-slate-600 dark:text-slate-300">

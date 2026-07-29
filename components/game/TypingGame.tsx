@@ -9,21 +9,21 @@ import { CARD, Grade, Stat, useBest, higher } from './ui';
  * 눌러야 하므로 3타다. 글자 수로 세면 영문 타수와 비교가 되지 않는다.
  */
 import { toJamo } from '@/lib/hangul';
+import { GAME_COMMON, TYPING_UI, type GameLang } from '@/lib/game-ui-intl';
 
-const SENTENCES = [
-  '오늘도 좋은 하루 되세요',
-  '한글 타자 연습을 시작합니다',
-  '천 리 길도 한 걸음부터 시작된다',
-  '바람이 불어오는 곳 그곳으로 가네',
-  '작은 습관이 큰 변화를 만든다',
-  '노력은 배신하지 않는다고 믿는다',
-  '가는 말이 고와야 오는 말이 곱다',
-  '오늘 할 일을 내일로 미루지 말자',
-];
+/*
+  세는 단위가 언어마다 다르다. 한글은 자판을 누른 횟수로 세므로 '한'이 3타지만,
+  영어·중국어는 글자 수로 센다 — 그쪽 자판에서는 한 글자가 한 번이기 때문이다.
+*/
+const strokes = (text: string, countJamo: boolean) => (countJamo ? toJamo(text).length : text.length);
 
-const strokes = (text: string) => toJamo(text).length;
-
-export default function TypingGame() {
+export default function TypingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = TYPING_UI[lang];
+  const c = GAME_COMMON[lang];
+  const strokesOf = (text: string) => strokes(text, ui.countStrokes);
+  // 한글 타수는 자모 단위라 숫자가 크다 — 등급 경계도 그만큼 높다
+  const fastAt = ui.countStrokes ? 500 : 300;
+  const goodAt = ui.countStrokes ? 300 : 180;
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState('');
   const [cpm, setCpm] = useState(0);
@@ -32,7 +32,7 @@ export default function TypingGame() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { best, submit } = useBest('typing', higher);
 
-  const target = SENTENCES[index % SENTENCES.length];
+  const target = ui.sentences[index % ui.sentences.length];
 
   const correct = useMemo(() => {
     let n = 0;
@@ -52,11 +52,11 @@ export default function TypingGame() {
     setTyped(value);
 
     const elapsed = (now - startedAt.current) / 1000;
-    if (elapsed > 0.2) setCpm(Math.round((strokes(value) / elapsed) * 60));
+    if (elapsed > 0.2) setCpm(Math.round((strokesOf(value) / elapsed) * 60));
 
     if (value === target) {
       const acc = value.length ? Math.round(([...value].filter((c, i) => c === target[i]).length / value.length) * 100) : 0;
-      const finalCpm = elapsed > 0 ? Math.round((strokes(target) / elapsed) * 60) : 0;
+      const finalCpm = elapsed > 0 ? Math.round((strokesOf(target) / elapsed) * 60) : 0;
       setRecords(prev => [...prev, { cpm: finalCpm, acc }]);
       submit(finalCpm);
       setIndex(i => i + 1);
@@ -95,24 +95,24 @@ export default function TypingGame() {
         ref={inputRef}
         value={typed}
         onChange={e => onType(e.target.value)}
-        placeholder="여기에 위 문장을 그대로 치세요"
+        placeholder={ui.placeholder}
         autoComplete="off"
         className="mt-3 w-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 text-lg text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-violet-400 transition-colors"
       />
 
       <div className="grid grid-cols-4 gap-2 mt-4">
-        <Stat label="현재 타수" value={cpm || '—'} accent="text-violet-600" />
-        <Stat label="정확도" value={`${accuracy}%`} accent="text-fuchsia-600" />
-        <Stat label={`평균 (${records.length}문장)`} value={avgCpm || '—'} />
-        <Stat label="최고 타수" value={best ?? '—'} accent="text-indigo-600" />
+        <Stat label={ui.currentSpeed} value={cpm || '—'} accent="text-violet-600" />
+        <Stat label={c.accuracy} value={`${accuracy}%`} accent="text-fuchsia-600" />
+        <Stat label={ui.avgOf(records.length)} value={avgCpm || '—'} />
+        <Stat label={ui.bestSpeed} value={best ?? '—'} accent="text-indigo-600" />
       </div>
 
       {records.length > 0 && (
         <Grade
           text={
-            avgCpm >= 500 ? `평균 ${avgCpm}타 · 정확도 ${avgAcc}% — 아주 빠릅니다` :
-            avgCpm >= 300 ? `평균 ${avgCpm}타 · 정확도 ${avgAcc}% — 평균 이상입니다` :
-            `평균 ${avgCpm}타 · 정확도 ${avgAcc}% — 속도보다 정확도를 먼저 올리세요`
+            avgCpm >= fastAt ? ui.gradeFast(avgCpm, avgAcc) :
+            avgCpm >= goodAt ? ui.gradeGood(avgCpm, avgAcc) :
+            ui.gradeSlow(avgCpm, avgAcc)
           }
           tone={avgCpm >= 300 ? 'good' : 'normal'}
         />
@@ -120,9 +120,7 @@ export default function TypingGame() {
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          한글 타수는 자판을 누른 횟수로 셉니다 — &lsquo;한&rsquo;은 ㅎ·ㅏ·ㄴ 세 번이라 3타입니다. 성인 평균은
-          200~300타, 300타를 넘으면 빠른 편입니다. 정확도가 95% 아래라면 속도를 조금 늦추는 편이
-          결과적으로 더 빠릅니다.
+          {ui.note}
         </p>
       </div>
     </div>

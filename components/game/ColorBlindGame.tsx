@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import { CARD, Grade, Stat, useBest, higher } from './ui';
+import { COLOR_BLIND_UI, GAME_COMMON, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 색 구분 — 같은 색 사이에 섞인 다른 색 하나를 찾는다.
@@ -11,7 +12,9 @@ import { CARD, Grade, Stat, useBest, higher } from './ui';
  */
 const START_DIFF = 34;
 
-export default function ColorBlindGame() {
+export default function ColorBlindGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = COLOR_BLIND_UI[lang];
+  const c = GAME_COMMON[lang];
   const [level, setLevel] = useState(1);
   const [tiles, setTiles] = useState(4);
   const [odd, setOdd] = useState(0);
@@ -57,7 +60,7 @@ export default function ColorBlindGame() {
           <button
             key={i}
             onClick={() => tap(i)}
-            aria-label={`${i + 1}번 색`}
+            aria-label={ui.cellAria(i + 1)}
             className={`aspect-square rounded-xl transition-transform active:scale-95 ${
               over && i === odd ? 'ring-4 ring-white dark:ring-slate-900 outline outline-2 outline-emerald-500' : ''
             }`}
@@ -69,22 +72,22 @@ export default function ColorBlindGame() {
       </div>
 
       <p className="text-center text-sm font-bold mt-4 text-slate-600 dark:text-slate-300">
-        {over ? `${level - 1}단계에서 끝났습니다 — 정답은 표시된 칸입니다` : '색이 다른 칸 하나를 찾아 누르세요'}
+        {over ? ui.over(level - 1) : ui.idle}
       </p>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="단계" value={level} accent="text-fuchsia-600" />
-        <Stat label="색 차이" value={`${diff.toFixed(1)}%`} />
-        <Stat label="최고 단계" value={best ?? '—'} accent="text-violet-600" />
+        <Stat label={c.level} value={level} accent="text-fuchsia-600" />
+        <Stat label={ui.colorDiff} value={`${diff.toFixed(1)}%`} />
+        <Stat label={ui.bestLevel} value={best ?? '—'} accent="text-violet-600" />
       </div>
 
       {over && (
         <>
           <Grade
             text={
-              level - 1 >= 14 ? `${level - 1}단계 — 아주 예민한 눈입니다` :
-              level - 1 >= 9 ? `${level - 1}단계 — 평균 이상입니다` :
-              `${level - 1}단계 — 화면 밝기를 올리고 다시 해보세요`
+              level - 1 >= 14 ? ui.gradeSharp(level - 1) :
+              level - 1 >= 9 ? ui.gradeGood(level - 1) :
+              ui.gradeSlow(level - 1)
             }
             tone={level - 1 >= 9 ? 'good' : 'normal'}
           />
@@ -92,17 +95,15 @@ export default function ColorBlindGame() {
             onClick={restart}
             className="mt-3 w-full rounded-xl bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
           >
-            다시 도전
+            {c.retry}
           </button>
         </>
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">색약 검사가 아닙니다</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          이 게임은 명도 차이를 구별하는 능력을 봅니다. 색약·색맹 여부는 이시하라 검사처럼 특정 색 조합을
-          쓰는 검사로만 알 수 있고, 정확한 판정은 안과에서 받아야 합니다. 결과는 화면 품질과 밝기, 주변
-          조명에 따라서도 크게 달라집니다.
+          {ui.note}
         </p>
       </div>
     </div>

@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CARD, Grade, Stat, useBest, higher } from './ui';
+import { AIM_UI, GAME_COMMON, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 표적 클릭 — 30초 동안 명중 수와 정확도.
@@ -10,12 +11,14 @@ import { CARD, Grade, Stat, useBest, higher } from './ui';
  */
 const DURATION = 30;
 const SIZES = [
-  { label: '큼', px: 64 },
-  { label: '보통', px: 44 },
-  { label: '작음', px: 30 },
+  { px: 64 },
+  { px: 44 },
+  { px: 30 },
 ];
 
-export default function AimGame() {
+export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = AIM_UI[lang];
+  const c = GAME_COMMON[lang];
   const [size, setSize] = useState(44);
   const [running, setRunning] = useState(false);
   const [done, setDone] = useState(false);
@@ -70,7 +73,7 @@ export default function AimGame() {
   return (
     <div>
       <div className="grid grid-cols-3 gap-2 mb-4">
-        {SIZES.map(s => (
+        {SIZES.map((s, i) => (
           <button
             key={s.px}
             onClick={() => setSize(s.px)}
@@ -81,7 +84,7 @@ export default function AimGame() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            과녁 {s.label}
+            {ui.targetPrefix} {ui.sizes[i]}
           </button>
         ))}
       </div>
@@ -97,7 +100,7 @@ export default function AimGame() {
               setHits(h => h + 1);
               move();
             }}
-            aria-label="과녁"
+            aria-label={ui.targetAria}
             className="absolute rounded-full bg-gradient-to-br from-rose-400 to-orange-500 border-4 border-white/80 shadow-lg -translate-x-1/2 -translate-y-1/2 active:scale-90 transition-transform"
             style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: size, height: size }}
           />
@@ -106,12 +109,12 @@ export default function AimGame() {
             {done ? (
               <>
                 <span className="text-5xl font-black tabular-nums">{hits}</span>
-                <span className="text-sm text-white/70 mt-1">명중 · 정확도 {accuracy}%</span>
+                <span className="text-sm text-white/70 mt-1">{ui.hitsSub(accuracy)}</span>
               </>
             ) : (
               <>
-                <span className="text-2xl font-black mb-1">{DURATION}초 동안 과녁 맞히기</span>
-                <span className="text-sm text-white/60">빗나간 클릭도 셉니다 — 마구 누르면 정확도가 떨어집니다</span>
+                <span className="text-2xl font-black mb-1">{ui.introTitle(DURATION)}</span>
+                <span className="text-sm text-white/60">{ui.introSub}</span>
               </>
             )}
           </div>
@@ -119,7 +122,7 @@ export default function AimGame() {
 
         {running && (
           <span className="absolute top-3 right-4 text-sm font-bold text-white/80 tabular-nums">
-            {left.toFixed(1)}초 · {hits}
+            {c.secLeft(left.toFixed(1))} · {hits}
           </span>
         )}
       </div>
@@ -129,22 +132,22 @@ export default function AimGame() {
         disabled={running}
         className="mt-4 w-full rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
-        {done ? '다시 도전' : running ? '진행 중…' : '시작하기'}
+        {done ? c.retry : running ? c.running : c.start}
       </button>
 
       <div className="grid grid-cols-4 gap-2 mt-4">
-        <Stat label="명중" value={hits} accent="text-rose-600" />
-        <Stat label="빗나감" value={misses} />
-        <Stat label="정확도" value={`${accuracy}%`} accent="text-orange-600" />
-        <Stat label="최고 기록" value={best ?? '—'} accent="text-indigo-600" />
+        <Stat label={ui.hits} value={hits} accent="text-rose-600" />
+        <Stat label={ui.misses} value={misses} />
+        <Stat label={c.accuracy} value={`${accuracy}%`} accent="text-orange-600" />
+        <Stat label={c.best} value={best ?? '—'} accent="text-indigo-600" />
       </div>
 
       {done && (
         <Grade
           text={
-            hits >= 45 ? `${hits}개 명중 — 아주 빠릅니다` :
-            hits >= 30 ? `${hits}개 명중 — 좋은 편입니다` :
-            `${hits}개 명중 — 과녁을 크게 두고 감을 잡아보세요`
+            hits >= 45 ? ui.gradeFast(hits) :
+            hits >= 30 ? ui.gradeGood(hits) :
+            ui.gradeSlow(hits)
           }
           tone={hits >= 30 ? 'good' : 'normal'}
         />
@@ -152,8 +155,7 @@ export default function AimGame() {
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          정확도가 낮다면 마우스 감도(DPI)가 너무 높은 경우가 많습니다. 감도를 낮추고 팔로 크게 움직이면
-          작은 과녁에서 명중률이 올라갑니다. 휴대폰에서는 손가락 크기 때문에 작은 과녁이 불리합니다.
+          {ui.note}
         </p>
       </div>
     </div>

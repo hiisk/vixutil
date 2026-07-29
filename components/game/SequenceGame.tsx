@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CARD, Grade, Stat, useBest, higher } from './ui';
+import { GAME_COMMON, SEQUENCE_UI, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 패턴 기억 — 격자에서 켜졌던 칸의 위치를 기억한다.
@@ -8,7 +9,9 @@ import { CARD, Grade, Stat, useBest, higher } from './ui';
  * 순서는 묻지 않고 위치만 본다. 순서까지 요구하면 순서 기억 게임과 같아지고,
  * 위치만 재는 쪽이 공간 기억을 더 정확히 본다.
  */
-export default function SequenceGame() {
+export default function SequenceGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = SEQUENCE_UI[lang];
+  const c = GAME_COMMON[lang];
   const [level, setLevel] = useState(1);
   const [size, setSize] = useState(3);
   const [pattern, setPattern] = useState<number[]>([]);
@@ -74,7 +77,7 @@ export default function SequenceGame() {
               key={i}
               onClick={() => tap(i)}
               disabled={phase !== 'input'}
-              aria-label={`${i + 1}번 칸`}
+              aria-label={ui.cellAria(i + 1)}
               className={`aspect-square rounded-xl transition-colors duration-150 ${
                 state === 'on' ? 'bg-gradient-to-br from-indigo-400 to-violet-600'
                 : state === 'wrong' ? 'bg-rose-500'
@@ -86,16 +89,16 @@ export default function SequenceGame() {
       </div>
 
       <p className="text-center text-sm font-bold mt-4 text-slate-600 dark:text-slate-300">
-        {phase === 'idle' && '켜진 칸의 위치를 기억하세요'}
-        {phase === 'show' && '잘 보세요…'}
-        {phase === 'input' && `켜졌던 칸을 누르세요 (${picked.length}/${pattern.length})`}
-        {phase === 'over' && `${level - 1}단계에서 끝났습니다 — 빨간 칸이 틀린 곳입니다`}
+        {phase === 'idle' && ui.idle}
+        {phase === 'show' && ui.show}
+        {phase === 'input' && ui.input(picked.length, pattern.length)}
+        {phase === 'over' && ui.over(level - 1)}
       </p>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="단계" value={phase === 'idle' ? '—' : level} accent="text-indigo-600" />
-        <Stat label="격자" value={`${size}×${size}`} />
-        <Stat label="최고 단계" value={best ?? '—'} accent="text-violet-600" />
+        <Stat label={c.level} value={phase === 'idle' ? '—' : level} accent="text-indigo-600" />
+        <Stat label={ui.grid} value={`${size}×${size}`} />
+        <Stat label={ui.bestLevel} value={best ?? '—'} accent="text-violet-600" />
       </div>
 
       {(phase === 'idle' || phase === 'over') && (
@@ -103,21 +106,20 @@ export default function SequenceGame() {
           onClick={start}
           className="mt-4 w-full rounded-xl bg-gradient-to-r from-slate-600 to-indigo-700 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
-          {phase === 'over' ? '다시 도전' : '시작하기'}
+          {phase === 'over' ? c.retry : c.start}
         </button>
       )}
 
       {phase === 'over' && (
         <Grade
-          text={level - 1 >= 7 ? `${level - 1}단계 — 공간 기억이 좋습니다` : `${level - 1}단계 — 모양으로 묶어 외우면 늘어납니다`}
+          text={level - 1 >= 7 ? ui.gradeGood(level - 1) : ui.gradeSlow(level - 1)}
           tone={level - 1 >= 7 ? 'good' : 'normal'}
         />
       )}
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          칸 하나하나를 외우는 대신 켜진 칸들이 이루는 모양(ㄱ자, 대각선)으로 기억하면 훨씬 오래 갑니다.
-          위치 기억은 순서 기억과 다른 종류라, 한쪽을 잘해도 다른 쪽이 약할 수 있습니다.
+          {ui.note}
         </p>
       </div>
     </div>

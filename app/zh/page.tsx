@@ -33,6 +33,7 @@ const SECTIONS = [
   { href: '/zh/image',     icon: '🖼️', title: '图片工具',        desc: '压缩、调整尺寸、裁剪、人脸打码',           color: 'from-violet-500 to-indigo-600', accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30' },
   { href: '/zh/sound',     icon: '🔊', title: '声音工具',        desc: '节拍器、调音器、白噪音、信号音',          color: 'from-indigo-500 to-violet-600', accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30' },
   { href: '/zh/food',      icon: '🍳', title: '厨房工具',      desc: '量杯换克、烤箱温度、米水比、咖啡',        color: 'from-amber-500 to-orange-600', accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30' },
+  { href: '/zh/game',      icon: '🎮', title: '脑力小游戏',      desc: '反应、记忆、打字、瞄准、心算',   color: 'from-emerald-500 to-teal-600', accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30' },
 ];
 
 export default function ZhHome() {

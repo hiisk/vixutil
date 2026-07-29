@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { CARD, Grade, Stat, useBest, higher } from './ui';
+import { CPS_UI, GAME_COMMON, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 클릭 속도 — 정해진 시간 동안의 클릭 수를 초로 나눈다.
@@ -10,7 +11,9 @@ import { CARD, Grade, Stat, useBest, higher } from './ui';
  */
 const DURATIONS = [5, 10, 30];
 
-export default function CpsGame() {
+export default function CpsGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = CPS_UI[lang];
+  const c = GAME_COMMON[lang];
   const [duration, setDuration] = useState(10);
   const [clicks, setClicks] = useState(0);
   const [left, setLeft] = useState(0);
@@ -75,7 +78,7 @@ export default function CpsGame() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {d}초
+            {ui.secSuffix(d)}
           </button>
         ))}
       </div>
@@ -90,17 +93,17 @@ export default function CpsGame() {
         {done ? (
           <>
             <span className="text-5xl font-black tabular-nums">{cps.toFixed(1)}</span>
-            <span className="text-sm text-white/70 mt-1">CPS · {clicks}번 클릭</span>
+            <span className="text-sm text-white/70 mt-1">CPS · {ui.clicksSuffix(clicks)}</span>
           </>
         ) : running ? (
           <>
             <span className="text-6xl font-black tabular-nums">{clicks}</span>
-            <span className="text-sm text-white/70 mt-1">{left.toFixed(1)}초 남음</span>
+            <span className="text-sm text-white/70 mt-1">{c.secLeft(left.toFixed(1))}</span>
           </>
         ) : (
           <>
-            <span className="text-2xl font-black">여기를 계속 누르세요</span>
-            <span className="text-sm text-white/70 mt-1">첫 클릭과 함께 {duration}초가 시작됩니다</span>
+            <span className="text-2xl font-black">{ui.tapHere}</span>
+            <span className="text-sm text-white/70 mt-1">{ui.startsOnFirst(duration)}</span>
           </>
         )}
       </button>
@@ -113,19 +116,19 @@ export default function CpsGame() {
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="클릭 수" value={clicks} accent="text-sky-600" />
-        <Stat label="초당 클릭(CPS)" value={cps ? cps.toFixed(1) : '—'} accent="text-indigo-600" />
-        <Stat label={`최고 기록 (${duration}초)`} value={best !== null ? best.toFixed(1) : '—'} />
+        <Stat label={ui.clicks} value={clicks} accent="text-sky-600" />
+        <Stat label={ui.cps} value={cps ? cps.toFixed(1) : '—'} accent="text-indigo-600" />
+        <Stat label={ui.bestOf(duration)} value={best !== null ? best.toFixed(1) : '—'} />
       </div>
 
       {done && (
         <>
           <Grade
             text={
-              cps >= 10 ? `${cps.toFixed(1)} CPS — 아주 빠릅니다` :
-              cps >= 7 ? `${cps.toFixed(1)} CPS — 빠른 편입니다` :
-              cps >= 5 ? `${cps.toFixed(1)} CPS — 보통입니다` :
-              `${cps.toFixed(1)} CPS — 손가락 두 개를 번갈아 쓰면 더 나옵니다`
+              cps >= 10 ? ui.gradeVeryFast(cps.toFixed(1)) :
+              cps >= 7 ? ui.gradeFast(cps.toFixed(1)) :
+              cps >= 5 ? ui.gradeNormal(cps.toFixed(1)) :
+              ui.gradeSlow(cps.toFixed(1))
             }
             tone={cps >= 7 ? 'good' : cps >= 5 ? 'normal' : 'bad'}
           />
@@ -133,15 +136,14 @@ export default function CpsGame() {
             onClick={reset}
             className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-sky-300 transition-colors"
           >
-            다시 하기
+            {c.again}
           </button>
         </>
       )}
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          보통 한 손가락으로는 6~8 CPS 정도가 한계입니다. 두 손가락을 번갈아 쓰거나(버터플라이) 손목을 떠는
-          방식으로 10 CPS를 넘기기도 하지만, 마우스와 손목에 무리가 가니 오래 하지 마세요.
+          {ui.note}
         </p>
       </div>
     </div>

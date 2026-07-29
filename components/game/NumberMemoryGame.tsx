@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CARD, Stat, useBest, higher } from './ui';
+import { GAME_COMMON, NUMBER_MEMORY_UI, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 숫자 암기 — 자릿수를 하나씩 늘려간다.
@@ -8,7 +9,9 @@ import { CARD, Stat, useBest, higher } from './ui';
  * 보여주는 시간은 자릿수에 비례해 늘린다. 고정해 두면 뒤로 갈수록 다 읽기도
  * 전에 사라져서, 기억력이 아니라 읽는 속도를 재게 된다.
  */
-export default function NumberMemoryGame() {
+export default function NumberMemoryGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = NUMBER_MEMORY_UI[lang];
+  const c = GAME_COMMON[lang];
   const [digits, setDigits] = useState(3);
   const [answer, setAnswer] = useState('');
   const [input, setInput] = useState('');
@@ -55,8 +58,8 @@ export default function NumberMemoryGame() {
       <div className="rounded-2xl bg-slate-900 h-52 flex flex-col items-center justify-center px-6 text-center">
         {phase === 'idle' && (
           <>
-            <span className="text-white text-xl font-black mb-1">숫자를 외우세요</span>
-            <span className="text-white/60 text-sm">잠깐 보였다가 사라집니다</span>
+            <span className="text-white text-xl font-black mb-1">{ui.memorise}</span>
+            <span className="text-white/60 text-sm">{ui.briefly}</span>
           </>
         )}
         {phase === 'show' && (
@@ -64,7 +67,7 @@ export default function NumberMemoryGame() {
         )}
         {phase === 'input' && (
           <>
-            <span className="text-white/60 text-sm mb-3">방금 본 숫자를 입력하세요</span>
+            <span className="text-white/60 text-sm mb-3">{ui.typeBack}</span>
             <input
               value={input}
               onChange={e => setInput(e.target.value.replace(/[^\d]/g, ''))}
@@ -77,8 +80,8 @@ export default function NumberMemoryGame() {
         )}
         {phase === 'over' && (
           <>
-            <span className="text-white text-xl font-black mb-2">{digits - 1}자리까지 외웠습니다</span>
-            <span className="text-white/60 text-sm font-mono">정답 {answer} · 입력 {input || '없음'}</span>
+            <span className="text-white text-xl font-black mb-2">{ui.reached(digits - 1)}</span>
+            <span className="text-white/60 text-sm font-mono">{ui.answerVs(answer, input || ui.nothing)}</span>
           </>
         )}
       </div>
@@ -94,7 +97,7 @@ export default function NumberMemoryGame() {
           onClick={check}
           className="mt-4 w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
-          확인
+          {ui.confirm}
         </button>
       )}
 
@@ -103,20 +106,19 @@ export default function NumberMemoryGame() {
           onClick={start}
           className="mt-4 w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
-          {phase === 'over' ? '다시 도전' : '시작하기'}
+          {phase === 'over' ? c.retry : c.start}
         </button>
       )}
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="현재 자릿수" value={phase === 'idle' ? '—' : digits} accent="text-indigo-600" />
-        <Stat label="외운 자릿수" value={phase === 'over' ? digits - 1 : '—'} />
-        <Stat label="최고 기록" value={best ?? '—'} accent="text-violet-600" />
+        <Stat label={ui.currentDigits} value={phase === 'idle' ? '—' : digits} accent="text-indigo-600" />
+        <Stat label={ui.memorised} value={phase === 'over' ? digits - 1 : '—'} />
+        <Stat label={c.best} value={best ?? '—'} accent="text-violet-600" />
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          사람이 한 번에 외우는 숫자는 보통 일곱 자리 안팎입니다. 전화번호가 그 길이인 것도 우연이 아닙니다.
-          숫자를 두세 개씩 묶어 &lsquo;삼사-이오&rsquo;처럼 덩어리로 읽으면 열 자리를 넘기기도 합니다.
+          {ui.note}
         </p>
       </div>
     </div>

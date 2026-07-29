@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: '두뇌 게임 — 반응속도·클릭속도·기억력 테스트',
   description:
     '반응속도, 초당 클릭 수(CPS), 순서·숫자·패턴 기억력, 타자 연습, 색 구분, 가청 주파수, 암산까지 1분이면 끝나는 측정 게임 10종. 설치 없이 브라우저에서 바로.',
-  alternates: { canonical: '/game' },
+  alternates: {
+    canonical: '/game',
+    languages: { 'ko': '/game', 'en': '/en/game', 'zh': '/zh/game', 'x-default': '/en/game' },
+  },
 };
 
 const CATEGORY_ORDER = ['반응·속도', '기억력', '감각', '두뇌'];

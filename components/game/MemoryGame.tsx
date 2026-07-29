@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CARD, Grade, Stat, useBest, higher } from './ui';
+import { GAME_COMMON, MEMORY_UI, type GameLang } from '@/lib/game-ui-intl';
 
 /**
  * 순서 기억 — 색이 켜지는 순서를 그대로 따라 누른다.
@@ -18,7 +19,9 @@ const PADS = [
 /** 렌더 스코프에서 Math.random을 부르면 린트가 막는다 — 바깥에 두고 부른다 */
 const randomPad = () => Math.floor(Math.random() * PADS.length);
 
-export default function MemoryGame() {
+export default function MemoryGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
+  const ui = MEMORY_UI[lang];
+  const c = GAME_COMMON[lang];
   const [sequence, setSequence] = useState<number[]>([]);
   const [lit, setLit] = useState<number | null>(null);
   const [phase, setPhase] = useState<'idle' | 'show' | 'input' | 'over'>('idle');
@@ -76,7 +79,7 @@ export default function MemoryGame() {
             key={p.id}
             onClick={() => press(p.id)}
             disabled={phase !== 'input'}
-            aria-label={`${p.id + 1}번 단추`}
+            aria-label={ui.buttonAria(p.id + 1)}
             className={`aspect-square rounded-2xl transition-colors duration-100 ${lit === p.id ? p.on : p.off} ${
               phase === 'input' ? 'cursor-pointer hover:opacity-90' : 'cursor-default'
             }`}
@@ -85,16 +88,16 @@ export default function MemoryGame() {
       </div>
 
       <p className="text-center text-sm font-bold mt-4 text-slate-600 dark:text-slate-300">
-        {phase === 'idle' && '순서를 기억했다가 그대로 누르세요'}
-        {phase === 'show' && '잘 보세요…'}
-        {phase === 'input' && `따라 누르세요 (${step}/${sequence.length})`}
-        {phase === 'over' && `${level - 1}단계에서 끝났습니다`}
+        {phase === 'idle' && ui.idle}
+        {phase === 'show' && ui.show}
+        {phase === 'input' && ui.input(step, sequence.length)}
+        {phase === 'over' && ui.over(level - 1)}
       </p>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="현재 단계" value={phase === 'idle' ? '—' : Math.max(1, level)} accent="text-amber-600" />
-        <Stat label="기억할 개수" value={phase === 'idle' ? '—' : level} />
-        <Stat label="최고 단계" value={best ?? '—'} accent="text-indigo-600" />
+        <Stat label={ui.currentLevel} value={phase === 'idle' ? '—' : Math.max(1, level)} accent="text-amber-600" />
+        <Stat label={ui.toRemember} value={phase === 'idle' ? '—' : level} />
+        <Stat label={ui.bestLevel} value={best ?? '—'} accent="text-indigo-600" />
       </div>
 
       {(phase === 'idle' || phase === 'over') && (
@@ -102,16 +105,16 @@ export default function MemoryGame() {
           onClick={start}
           className="mt-4 w-full rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
-          {phase === 'over' ? '다시 도전' : '시작하기'}
+          {phase === 'over' ? c.retry : c.start}
         </button>
       )}
 
       {phase === 'over' && (
         <Grade
           text={
-            level - 1 >= 9 ? `${level - 1}단계 — 아주 좋은 기억력입니다` :
-            level - 1 >= 6 ? `${level - 1}단계 — 평균 이상입니다` :
-            `${level - 1}단계 — 소리 내어 순서를 읊으면 더 오래 기억됩니다`
+            level - 1 >= 9 ? ui.gradeGreat(level - 1) :
+            level - 1 >= 6 ? ui.gradeGood(level - 1) :
+            ui.gradeSlow(level - 1)
           }
           tone={level - 1 >= 6 ? 'good' : 'normal'}
         />
@@ -119,8 +122,7 @@ export default function MemoryGame() {
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          사람이 한 번에 붙잡아 두는 정보는 보통 다섯에서 아홉 덩어리입니다. 순서를 &lsquo;초록-빨강-파랑&rsquo;처럼
-          말로 묶어 외우면 덩어리 수가 줄어 더 길게 갈 수 있습니다.
+          {ui.note}
         </p>
       </div>
     </div>
