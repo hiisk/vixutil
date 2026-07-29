@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/halving-countdown': [
+    {
+      q: 'When is the next Bitcoin halving?',
+      a: 'It happens at a fixed block height rather than on a date — every 210,000 blocks. This page counts the blocks remaining from the live chain height and converts them to an estimated date, so the countdown stays correct as the network speeds up or slows down.',
+    },
+    {
+      q: 'Why do halving countdowns show different dates?',
+      a: 'Because converting blocks to a date requires assuming a block time, and blocks do not arrive exactly every ten minutes. Ten minutes is the target the difficulty adjustment aims at, not the observed rate, which drifts either side of it for weeks. Different assumptions move the estimate by days or weeks.',
+    },
+    {
+      q: 'Which block-time assumption is most reliable?',
+      a: 'The average across the current difficulty epoch, because it uses the largest sample. A fifteen-block average swings widely and is shown only to make the short-run variation visible. The honest reading is a range rather than any single date.',
+    },
+    {
+      q: 'What actually changes at a halving?',
+      a: 'The reward paid to miners for each block is cut in half, which halves the rate at which new bitcoin enters supply. That is the entire mechanism. It is scheduled in the protocol and has followed the same rule since 2009.',
+    },
+    {
+      q: 'Why is there no price prediction on this page?',
+      a: 'Because Bitcoin has had four halvings, and any claim about what the price does afterwards rests on those four observations, each embedded in a completely different market. Four points cannot separate a halving effect from everything else happening at the time.',
+    },
+    {
+      q: 'When do halvings stop?',
+      a: 'After the 33rd halving the reward rounds to zero in satoshi terms, which is what caps total supply near 21 million. On the current schedule that is well over a century away, and miners are expected to be paid by transaction fees long before then.',
+    },
+  ],
   'crypto/profit-calculator': [
     {
       q: 'Why is my break-even price higher than my entry?',
