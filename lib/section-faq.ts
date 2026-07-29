@@ -732,6 +732,28 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/all-time-high': [
+    {
+      q: 'Why does a 50% drop need a 100% gain to recover?',
+      a: 'The loss is measured against the old price and the recovery against the new, smaller one. Half of your money has to double to get back to the whole. The asymmetry grows quickly: down 80% needs up 400%, and down 95% needs up 1,900%.',
+    },
+    {
+      q: 'Where do the all-time highs come from?',
+      a: 'They are the highest daily closing price in the Binance history available for each coin. That excludes intraday spikes and any price from before the coin listed on Binance, so a token that peaked elsewhere or earlier will show a high below its true record.',
+    },
+    {
+      q: 'Why use daily closes instead of the intraday high?',
+      a: 'Every model on this site — the forecast bands, the touch probabilities, the historical scenarios — is built on daily closes. Mixing an intraday high into that would mean the price and the probability beside it describe different things. Consistency matters more here than matching a headline figure from another source.',
+    },
+    {
+      q: 'Does a large required gain mean the coin is a bargain?',
+      a: 'No. The number is arithmetic, not opportunity. A coin down 95% needs 1,900% to recover, and that difficulty is a reason for caution rather than a reason to expect the move. Many assets never regain a former high at all.',
+    },
+    {
+      q: 'Why do the drawdown and recovery orderings differ?',
+      a: 'They rank the same coins differently because the relationship between them is non-linear. Sorting by required gain pushes the deepest drawdowns much further apart than sorting by drawdown does, which is a more honest picture of how hard each recovery actually is.',
+    },
+  ],
   'crypto/altseason-index': [
     {
       q: 'What is the altcoin season index?',
