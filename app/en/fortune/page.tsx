@@ -24,6 +24,9 @@ const TYPES = [
   { href: '/en/fortune/birth-stone', icon: '💎', title: 'Birthstone & Flower',   desc: 'The gem and flower of your birth month',    badge: '12 months', color: 'from-fuchsia-500 to-violet-600' },
   { href: '/en/fortune/today-color', icon: '🎨', title: 'Today’s Lucky Colour',  desc: 'Your colour for today — and the one to skip', badge: 'Daily', color: 'from-pink-500 to-violet-600' },
   { href: '/en/fortune/lucky-numbers', icon: '🍀', title: 'Lucky Numbers',       desc: 'Six numbers from your birth date',          badge: 'Daily',     color: 'from-emerald-500 to-teal-600' },
+  { href: '/en/fortune/star-match',   icon: '💞', title: 'Star Sign Compatibility',    desc: 'How two signs match by element',      badge: '12 signs',   color: 'from-violet-500 to-fuchsia-600' },
+  { href: '/en/fortune/zodiac-match', icon: '🐲', title: 'Chinese Zodiac Compatibility', desc: 'Six Harmonies, Three Harmonies and clashes', badge: '12 animals', color: 'from-rose-500 to-red-600' },
+  { href: '/en/fortune/mbti-match',   icon: '🧠', title: 'MBTI Compatibility',         desc: 'How two of the 16 types line up',     badge: '16 types',   color: 'from-violet-500 to-indigo-600' },
 ];
 
 export default function EnFortuneHub() {

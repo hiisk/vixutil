@@ -4,6 +4,7 @@ import { QUIZZES } from "@/lib/quiz-data";
 import { GENERATORS } from "@/lib/generator-data";
 import { CHECKLISTS } from "@/lib/checklist-data";
 import { RANDOM_TOOLS } from "@/lib/random-tools";
+import { DEVICE_TOOLS } from "@/lib/device-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
 import { GENERATORS_ZH } from "@/lib/generator-zh";
 
@@ -104,6 +105,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/snap/expression`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/golden-ratio`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/couple-match`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/device`, changeFrequency: weekly, priority: 0.95 },
+    ...DEVICE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/device/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -127,6 +130,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/fortune/birth-stone`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/today-color`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/lucky-numbers`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/en/fortune/star-match`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/en/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/en/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/zh/fortune/zodiac`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/animal`, changeFrequency: weekly, priority: 0.8 },
@@ -135,6 +141,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/birth-stone`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/today-color`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/lucky-numbers`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/zh/fortune/star-match`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/zh/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/zh/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/calculator/en`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, changeFrequency: monthly, priority: 0.8 })),
