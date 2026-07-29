@@ -16,6 +16,8 @@ const TYPES = [
   { href: '/zh/fortune/zodiac',     icon: '⭐', title: '星座运势', desc: '12 星座今日运势查询',        badge: '12星座', color: 'from-violet-500 to-purple-700' },
   { href: '/zh/fortune/animal',     icon: '🐉', title: '生肖运势', desc: '十二生肖今日运势查询',       badge: '12生肖', color: 'from-rose-500 to-pink-600' },
   { href: '/zh/fortune/blood-type', icon: '🩸', title: '血型运势', desc: 'A、B、O、AB 型今日运势',     badge: '4种',   color: 'from-rose-500 to-red-600' },
+  { href: '/zh/fortune/biorhythm',  icon: '📈', title: '生物节律', desc: '身体·情绪·智力三条节律曲线', badge: '图表',  color: 'from-emerald-500 to-teal-600' },
+  { href: '/zh/fortune/birth-stone', icon: '💎', title: '诞生石·诞生花', desc: '出生月份的宝石与花及其含义', badge: '12个月', color: 'from-fuchsia-500 to-violet-600' },
 ];
 
 export default function ZhFortuneHub() {

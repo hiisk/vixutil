@@ -245,3 +245,51 @@ export const LUCKY_COLORS_EN: [string, string][] = [
 ];
 
 export const LUCKY_DIRECTIONS_EN = ['East', 'West', 'South', 'North', 'Southeast', 'Southwest'];
+
+/* ── 탄생석·탄생화 ──
+   보석·꽃 자체는 실제로 통용되는 정보라 언어만 바꾸면 되고, blurb만 새로 썼다. */
+export const BIRTH_INFO_EN = [
+  { month: 1,  stone: 'Garnet',     emoji: '❤️',   color: '#9b1b30', stoneMeaning: 'Truth · friendship · a constant heart', flower: 'Carnation',   flowerMeaning: 'Love and fascination',
+    blurb: 'January people tend to be steady and dependable. Once they commit to someone, they see it through — loyalty is the whole personality.' },
+  { month: 2,  stone: 'Amethyst',   emoji: '🟣',   color: '#8b5cf6', stoneMeaning: 'Peace · sincerity · a settled mind',     flower: 'Freesia',     flowerMeaning: 'Innocence and joy',
+    blurb: 'February people are calm on the surface and deep underneath. They rarely make noise about it, but their inner world is solidly their own.' },
+  { month: 3,  stone: 'Aquamarine', emoji: '🩵',   color: '#7fd4d4', stoneMeaning: 'Youth · happiness · courage',            flower: 'Daffodil',    flowerMeaning: 'Pride and mystery',
+    blurb: 'March people carry a clear, unbound energy. They have a knack for making any room feel a little lighter than it was.' },
+  { month: 4,  stone: 'Diamond',    emoji: '💎',   color: '#b9f2ff', stoneMeaning: 'Forever · purity · strength',            flower: 'Daisy',       flowerMeaning: 'Purity and hope',
+    blurb: 'April people have a hard core under a soft surface. Gentle most of the time, immovable when it actually counts.' },
+  { month: 5,  stone: 'Emerald',    emoji: '💚',   color: '#2ecc71', stoneMeaning: 'Happiness · love · hope',                flower: 'Lily of the Valley', flowerMeaning: 'The return of happiness',
+    blurb: 'May people are warm and full of life. Being near them is genuinely calming — that is the energy they give off without trying.' },
+  { month: 6,  stone: 'Pearl',      emoji: '🤍',   color: '#f4f0e6', stoneMeaning: 'Health · long life · purity',            flower: 'Rose',        flowerMeaning: 'Love and passion',
+    blurb: 'June people are understated but unmistakably present. Inside the soft exterior sits a quiet, elegant self-assurance.' },
+  { month: 7,  stone: 'Ruby',       emoji: '❤️‍🔥', color: '#e0115f', stoneMeaning: 'Passion · courage · love',               flower: 'Lily',        flowerMeaning: 'Purity and dignity',
+    blurb: 'July people run hot. When they love something they go all in, and the surrounding room tends to catch it from them.' },
+  { month: 8,  stone: 'Peridot',    emoji: '🫒',   color: '#9bbb59', stoneMeaning: 'Marital happiness · peace',              flower: 'Sunflower',   flowerMeaning: 'Adoration and longing',
+    blurb: 'August people are bright and forward-facing. Like the sunflower, they turn toward the good side of things and light up whatever is nearby.' },
+  { month: 9,  stone: 'Sapphire',   emoji: '🔷',   color: '#0f52ba', stoneMeaning: 'Sincerity · truth · wisdom',             flower: 'Aster',       flowerMeaning: 'Memory and faith',
+    blurb: 'September people are grounded and easy to trust. They prove things by doing rather than saying, and the depth shows over time.' },
+  { month: 10, stone: 'Opal',       emoji: '🌈',   color: '#a8c3bc', stoneMeaning: 'Hope · purity · creativity',             flower: 'Cosmos',      flowerMeaning: 'Sincerity and harmony',
+    blurb: 'October people have unusual taste and a distinct edge. Like opal, a different facet catches the light from every angle.' },
+  { month: 11, stone: 'Topaz',      emoji: '🟡',   color: '#ffc87c', stoneMeaning: 'Friendship · patience · hope',           flower: 'Chrysanthemum', flowerMeaning: 'Nobility and truth',
+    blurb: 'November people are warm and stubborn in the best sense. They do not rush, they simply keep walking their own road until they arrive.' },
+  { month: 12, stone: 'Turquoise',  emoji: '🩵',   color: '#30d5c8', stoneMeaning: 'Success · prosperity · good fortune',    flower: 'Poinsettia',  flowerMeaning: 'Blessing and celebration',
+    blurb: 'December people carry luck with them. They mix easily with others and have a way of pulling good relationships toward themselves.' },
+] as const;
+
+/* ── 바이오리듬 ── */
+export const CYCLES_EN = [
+  { key: 'physical',     label: 'Physical',     period: 23, emoji: '💪', desc: 'Stamina · endurance · drive' },
+  { key: 'emotional',    label: 'Emotional',    period: 28, emoji: '💗', desc: 'Mood · sensitivity · creativity' },
+  { key: 'intellectual', label: 'Intellectual', period: 33, emoji: '🧠', desc: 'Focus · judgement · memory' },
+] as const;
+
+export const PHASE_LABEL_EN = { high: 'High', low: 'Low', critical: 'Critical day' } as const;
+
+export const BIORHYTHM_COMMENT_EN = {
+  multiCritical: (names: string) => `${names} are both at a critical day. Your condition may swing, so postpone anything demanding and stick to your usual routine.`,
+  oneCritical:   (name: string)  => `Your ${name.toLowerCase()} rhythm is at a turning point. Watch how you feel before pushing anything related to it.`,
+  veryHigh: 'All three rhythms are running high. A good day to start what you have been putting off.',
+  high:     'Overall the flow is steady. Keep your usual pace.',
+  mid:      'Your rhythms sit around the middle. Adjust your plans to how you actually feel.',
+  low:      'A somewhat flat stretch. Better to tidy up and rest than to start something new.',
+  veryLow:  'All three rhythms are low. Rest properly and push important decisions back a few days.',
+};

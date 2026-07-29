@@ -244,3 +244,50 @@ export const LUCKY_COLORS_ZH: [string, string][] = [
 ];
 
 export const LUCKY_DIRECTIONS_ZH = ['东方', '西方', '南方', '北方', '东南', '西南'];
+
+/* ── 탄생석·탄생화 ── */
+export const BIRTH_INFO_ZH = [
+  { month: 1,  stone: '石榴石',   emoji: '❤️',   color: '#9b1b30', stoneMeaning: '真诚·友谊·不变的心', flower: '康乃馨', flowerMeaning: '爱与魅力',
+    blurb: '一月出生的人多半始终如一、值得信赖。一旦认定了一段关系，就会真心到底，是很讲义气的人。' },
+  { month: 2,  stone: '紫水晶',   emoji: '🟣',   color: '#8b5cf6', stoneMeaning: '平和·踏实·内心安定', flower: '小苍兰', flowerMeaning: '纯洁与天真',
+    blurb: '二月出生的人表面沉静，内里很有深度。不张扬，但自己的世界很扎实。' },
+  { month: 3,  stone: '海蓝宝',   emoji: '🩵',   color: '#7fd4d4', stoneMeaning: '青春·幸福·勇气', flower: '水仙花', flowerMeaning: '自尊与神秘',
+    blurb: '三月出生的人带着清澈自由的气息，走到哪里都能把气氛变得轻快起来。' },
+  { month: 4,  stone: '钻石',     emoji: '💎',   color: '#b9f2ff', stoneMeaning: '永恒·纯粹·坚韧', flower: '雏菊', flowerMeaning: '纯真与希望',
+    blurb: '四月出生的人心里有根很硬的柱子。平时温和，关键时刻却不会动摇。' },
+  { month: 5,  stone: '祖母绿',   emoji: '💚',   color: '#2ecc71', stoneMeaning: '幸福·爱·希望', flower: '铃兰', flowerMeaning: '幸福归来',
+    blurb: '五月出生的人温暖又有生气。待在他们身边会让人安心，那份体贴是自然流露的。' },
+  { month: 6,  stone: '珍珠',     emoji: '🤍',   color: '#f4f0e6', stoneMeaning: '健康·长寿·纯洁', flower: '玫瑰', flowerMeaning: '爱与热情',
+    blurb: '六月出生的人不喧哗，存在感却很明确。柔和的外表下藏着优雅的自尊。' },
+  { month: 7,  stone: '红宝石',   emoji: '❤️‍🔥', color: '#e0115f', stoneMeaning: '热情·勇气·爱', flower: '百合', flowerMeaning: '纯洁与庄严',
+    blurb: '七月出生的人骨子里很热。喜欢的事会全力投入，那股能量会感染周围的人。' },
+  { month: 8,  stone: '橄榄石',   emoji: '🫒',   color: '#9bbb59', stoneMeaning: '夫妻和睦·平安', flower: '向日葵', flowerMeaning: '憧憬与仰慕',
+    blurb: '八月出生的人开朗积极。像向日葵一样朝着好的一面，把周围也照亮了。' },
+  { month: 9,  stone: '蓝宝石',   emoji: '🔷',   color: '#0f52ba', stoneMeaning: '踏实·真诚·智慧', flower: '翠菊', flowerMeaning: '回忆与信任',
+    blurb: '九月出生的人稳重可靠。用行动而不是言语证明自己，越相处越能感到那份深度。' },
+  { month: 10, stone: '欧泊',     emoji: '🌈',   color: '#a8c3bc', stoneMeaning: '希望·纯粹·创造力', flower: '波斯菊', flowerMeaning: '真心与和谐',
+    blurb: '十月出生的人品味与个性都很独特。像欧泊一样，换个角度就闪出另一种光。' },
+  { month: 11, stone: '黄玉',     emoji: '🟡',   color: '#ffc87c', stoneMeaning: '友谊·耐心·希望', flower: '菊花', flowerMeaning: '高洁与真实',
+    blurb: '十一月出生的人温暖又有韧性。不急不躁地走自己的路，最后总能走到。' },
+  { month: 12, stone: '绿松石',   emoji: '🩵',   color: '#30d5c8', stoneMeaning: '成功·兴旺·好运', flower: '一品红', flowerMeaning: '祝福与庆贺',
+    blurb: '十二月出生的人自带福气。与人相处融洽，很容易把好的缘分吸引过来。' },
+] as const;
+
+/* ── 바이오리듬 ── */
+export const CYCLES_ZH = [
+  { key: 'physical',     label: '身体节律', period: 23, emoji: '💪', desc: '体力·耐力·活动力' },
+  { key: 'emotional',    label: '情绪节律', period: 28, emoji: '💗', desc: '心情·敏感度·创造力' },
+  { key: 'intellectual', label: '智力节律', period: 33, emoji: '🧠', desc: '专注力·判断力·记忆力' },
+] as const;
+
+export const PHASE_LABEL_ZH = { high: '高潮期', low: '低潮期', critical: '临界日' } as const;
+
+export const BIORHYTHM_COMMENT_ZH = {
+  multiCritical: (names: string) => `${names}同时处于临界日。状态起伏可能较大，把吃力的安排往后挪，照平常的节奏走就好。`,
+  oneCritical:   (name: string)  => `${name}正处在转折点。与这项节律相关的事，边看状态边推进比较稳妥。`,
+  veryHigh: '三条节律都处在高位，适合开始一直拖着没做的事。',
+  high:     '整体走势平稳，保持平常的节奏就好。',
+  mid:      '节律处在中间位置，可以按当天的状态调整安排。',
+  low:      '略微低落的时期。与其开新的事，不如收拾收尾、好好休息。',
+  veryLow:  '三条节律都偏低。请充分休息，重要的决定往后推几天。',
+};
