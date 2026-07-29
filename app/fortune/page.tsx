@@ -4,6 +4,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: '오늘의 운세',
@@ -36,6 +37,19 @@ const TYPES = [
 export default function FortunePage() {
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: '홈', path: '/' },
+          { name: '운세', path: '/fortune' },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          '오늘의 운세',
+          '/fortune',
+          TYPES.map(t => ({ name: t.title, path: t.href })),
+        )}
+      />
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500" />
 

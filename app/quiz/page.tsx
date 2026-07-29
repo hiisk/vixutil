@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: '지식 퀴즈',
@@ -17,6 +18,19 @@ export const metadata: Metadata = {
 export default function QuizIndexPage() {
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: '홈', path: '/' },
+          { name: '지식 퀴즈', path: '/quiz' },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          '지식 퀴즈',
+          '/quiz',
+          QUIZZES.map(q => ({ name: q.title, path: `/quiz/${q.slug}` })),
+        )}
+      />
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">

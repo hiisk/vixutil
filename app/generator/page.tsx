@@ -7,16 +7,33 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: '생성기',
   description: '닉네임, 비밀번호, 명언, 메뉴 등 100가지 랜덤 생성기 모음',
-  alternates: { canonical: '/generator' },
+  alternates: {
+    canonical: '/generator',
+    languages: { 'ko': '/generator', 'en': '/en/generator', 'zh': '/zh/generator', 'x-default': '/en/generator' },
+  },
 };
 
 export default function GeneratorIndexPage() {
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: '홈', path: '/' },
+          { name: '생성기', path: '/generator' },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          '생성기',
+          '/generator',
+          GENERATORS.map(g => ({ name: g.title, path: `/generator/${g.slug}` })),
+        )}
+      />
       <PageGlow accent="emerald" />
       <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">

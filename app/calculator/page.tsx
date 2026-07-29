@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import CalculatorHub from '@/components/CalculatorHub';
+import { CATS } from '@/lib/calculator-catalog';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 /**
  * 화면은 CalculatorHub(클라이언트)가 그린다. 이 파일이 서버 컴포넌트인 이유는
@@ -14,5 +16,17 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <CalculatorHub />;
+  const calcs = CATS.flatMap(c => c.calcs).map(c => ({ name: c.title, path: c.href }));
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: '홈', path: '/' },
+          { name: '계산기', path: '/calculator' },
+        ])}
+      />
+      <JsonLd data={itemListJsonLd('실생활 계산기', '/calculator', calcs)} />
+      <CalculatorHub />
+    </>
+  );
 }

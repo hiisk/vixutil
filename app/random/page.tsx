@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: '랜덤 뽑기',
@@ -19,6 +20,19 @@ export const metadata: Metadata = {
 export default function RandomIndexPage() {
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: '홈', path: '/' },
+          { name: '랜덤 뽑기', path: '/random' },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          '랜덤 뽑기',
+          '/random',
+          RANDOM_TOOLS.map(t => ({ name: t.title, path: `/random/${t.slug}` })),
+        )}
+      />
       <PageGlow accent="rose" />
       <div className="h-1 bg-gradient-to-r from-rose-500 to-pink-600" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">

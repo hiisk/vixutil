@@ -5,6 +5,8 @@ import QuizEngine from '@/components/QuizEngine';
 import QuizContent from '@/components/QuizContent';
 import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { contentFaq } from '@/lib/content-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 
 export function generateStaticParams() {
@@ -33,6 +35,11 @@ export default async function QuizPage({ params }: { params: Promise<{ slug: str
       />
       <QuizEngine quiz={quiz} />
       <QuizContent quiz={quiz} />
+      <div className="bg-white dark:bg-slate-900">
+        <div className="max-w-lg mx-auto px-4 pb-10 w-full">
+          <Faq items={contentFaq('quiz', slug, quiz)} className="" />
+        </div>
+      </div>
       <RelatedContent items={QUIZZES} currentSlug={slug} basePath="/quiz" accent="amber" />
       <SiteFooter />
     </>

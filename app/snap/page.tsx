@@ -4,6 +4,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: '스냅테스트 — 사진으로 하는 참여형 테스트',
@@ -28,6 +29,19 @@ const TYPES = [
 export default function SnapPage() {
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: '홈', path: '/' },
+          { name: '스냅테스트', path: '/snap' },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          '스냅테스트',
+          '/snap',
+          TYPES.map(t => ({ name: t.title, path: t.href })),
+        )}
+      />
       <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" />
 

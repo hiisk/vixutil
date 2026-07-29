@@ -62,6 +62,36 @@ export function webAppJsonLd(name: string, description: string, path: string) {
   };
 }
 
+/**
+ * 허브(목록) 페이지용 CollectionPage + ItemList 구조화 데이터.
+ *
+ * 허브는 링크만 잔뜩 있는 화면이라 크롤러가 "이 페이지의 본체가 무엇인가"를
+ * 잡기 어렵다. 목록 자체가 본체라고 명시하고 항목을 순서대로 넘겨준다.
+ */
+export function itemListJsonLd(
+  name: string,
+  path: string,
+  items: { name: string; path: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    url: `${BASE}${path}`,
+    inLanguage: "ko-KR",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((it, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: it.name,
+        url: `${BASE}${it.path}`,
+      })),
+    },
+  };
+}
+
 /** FAQ 구조화 데이터 생성 헬퍼 */
 export function faqJsonLd(qas: { q: string; a: string }[]) {
   return {

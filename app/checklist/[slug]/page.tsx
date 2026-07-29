@@ -5,6 +5,8 @@ import ChecklistEngine from '@/components/ChecklistEngine';
 import RelatedContent from '@/components/RelatedContent';
 import CrossLinks from '@/components/CrossLinks';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { contentFaq } from '@/lib/content-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 
 export function generateStaticParams() {
@@ -38,6 +40,7 @@ export default async function ChecklistPage({ params }: { params: Promise<{ slug
       />
       <ChecklistEngine checklist={checklist} />
       <div className="max-w-lg mx-auto px-4 w-full">
+        <Faq items={contentFaq('checklist', slug, checklist)} className="mb-8" />
         <CrossLinks className="mb-4" />
       </div>
       <RelatedContent items={CHECKLISTS} currentSlug={slug} basePath="/checklist" accent="sky" />

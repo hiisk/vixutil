@@ -5,6 +5,8 @@ import TestEngine from '@/components/TestEngine';
 import TestContent from '@/components/TestContent';
 import RelatedContent from '@/components/RelatedContent';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { contentFaq } from '@/lib/content-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 
 export function generateStaticParams() {
@@ -33,6 +35,11 @@ export default async function TestPage({ params }: { params: Promise<{ slug: str
       />
       <TestEngine test={test} />
       <TestContent test={test} />
+      <div className="bg-white dark:bg-slate-900">
+        <div className="max-w-lg mx-auto px-4 pb-10 w-full">
+          <Faq items={contentFaq('test', slug, test)} className="" />
+        </div>
+      </div>
       <RelatedContent items={TESTS} currentSlug={slug} basePath="/test" accent="violet" />
       <SiteFooter />
     </>
