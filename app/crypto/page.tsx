@@ -30,6 +30,7 @@ const TOOLS = [
   // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/fear-greed-index', icon: '😱', title: 'Fear & Greed Index', desc: 'The index — plus a direct test of whether "buy the fear" has actually paid', badge: 'NEW', color: 'from-rose-400 to-pink-500' },
   { href: '/crypto/halving-countdown', icon: '⛏️', title: 'Halving Countdown', desc: 'Counted in blocks from the live chain height — and why countdowns disagree', badge: 'NEW', color: 'from-orange-400 to-red-500' },
   { href: '/crypto/profit-calculator', icon: '🧮', title: 'Profit Calculator', desc: 'P&L with fees on both sides — and the break-even price they create', badge: 'NEW', color: 'from-lime-400 to-emerald-500' },
   { href: '/crypto/all-time-high', icon: '🏔️', title: 'All-Time High Tracker', desc: 'How far below the high — and the gain it takes to get back (not the same number)', badge: 'NEW', color: 'from-cyan-400 to-blue-500' },

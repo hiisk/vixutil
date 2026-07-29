@@ -83,6 +83,34 @@ export async function fetchDailyCandles(symbol: string, limit = 20, market: Mark
  * 바이낸스 klines는 한 번에 1000개가 상한이라, endTime을 거슬러가며 여러 번 받아
  * 상장 이후 전체 일봉 종가를 모은다(오래된 순). 과거 구간 시나리오 계산에 쓴다.
  */
+/**
+ * 상장 이후 전체 일봉을 openTime과 함께 돌려준다.
+ *
+ * fetchFullDailyCloses는 종가만 주는데, 다른 데이터(예: 공포·탐욕 지수)와 날짜로
+ * 붙이려면 종가만으로는 안 된다. 인덱스로 날짜를 역산하는 방법은 미체결 캔들 처리와
+ * 상장 초기 공백 때문에 어긋날 수 있어, API가 주는 openTime을 그대로 쓴다.
+ */
+export async function fetchFullDailyKlines(
+  symbol: string,
+  market: Market = 'spot',
+  maxPages = 4,
+): Promise<{ openTime: number; close: number }[]> {
+  let end = Date.now();
+  const out: { openTime: number; close: number }[] = [];
+  const now = Date.now();
+  for (let page = 0; page < maxPages; page++) {
+    const res = await fetch(`${BASES[market]}/klines?symbol=${symbol}&interval=1d&limit=1000&endTime=${end}`);
+    if (!res.ok) break;
+    const rows: unknown[][] = await res.json();
+    if (!rows.length) break;
+    // k[6]은 closeTime — 아직 안 닫힌 캔들은 뺀다
+    out.unshift(...rows.filter(k => Number(k[6]) < now).map(k => ({ openTime: Number(k[0]), close: Number(k[4]) })));
+    end = Number(rows[0][0]) - 1;
+    if (rows.length < 1000) break; // 상장 시점까지 도달
+  }
+  return out;
+}
+
 export async function fetchFullDailyCloses(symbol: string, market: Market = 'spot', maxPages = 4): Promise<number[]> {
   let end = Date.now();
   const out: number[] = [];

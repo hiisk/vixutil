@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/fear-greed-index': [
+    {
+      q: 'What is the crypto Fear & Greed Index?',
+      a: 'A single 0 to 100 reading published by alternative.me that blends volatility, market momentum and volume, social media activity, Bitcoin dominance and search interest. Low values are labelled fear and high values greed.',
+    },
+    {
+      q: 'Does buying at extreme fear actually work?',
+      a: 'This page tests it rather than assuming it. Every daily reading since 2018 is joined to Bitcoin\u2019s close and grouped by category, and the median return over the next 30 and 90 days is shown for each. The result is displayed as measured, including when it contradicts the popular contrarian rule.',
+    },
+    {
+      q: 'Why does the table show episodes as well as days?',
+      a: 'Because consecutive days at the same reading are one event, not many. A month of fear contributes about thirty rows but only a single independent observation. The episode count collapses each run into one and is much smaller, which is the number worth reading.',
+    },
+    {
+      q: 'Why is the current value shown as a percentile?',
+      a: 'A reading of 25 means little on its own. Knowing what share of the past several years sat below it turns the number into something comparable — the same value can be unremarkable in one period and unusual in another.',
+    },
+    {
+      q: 'Is the index independent of price?',
+      a: 'Largely not. Most of its inputs — volatility, momentum, volume, dominance — are derived from price, so the index moves closely with the market rather than ahead of it. A low reading mainly reflects that the price has already fallen, which limits how much it can add.',
+    },
+    {
+      q: 'How far back does the data go?',
+      a: 'The index begins on 1 February 2018, giving roughly three thousand daily readings. That covers only a few market cycles, so groupings drawn from it describe a specific era rather than a general rule.',
+    },
+  ],
   'crypto/halving-countdown': [
     {
       q: 'When is the next Bitcoin halving?',
