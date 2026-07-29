@@ -58,7 +58,7 @@ const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = 
   bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-700 dark:text-rose-400', emoji: '🔴' },
   neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-500 dark:text-slate-400', emoji: '⚪' },
 };
-const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-600 dark:text-emerald-400', bearish: 'text-rose-600 dark:text-rose-400', neutral: 'text-slate-400 dark:text-slate-500' };
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-600 dark:text-emerald-400', bearish: 'text-rose-600 dark:text-rose-400', neutral: 'text-slate-500 dark:text-slate-400' };
 
 /** 1 / 1.5 / 2 / 2.5 / 3 / 4 / 5 / 7.5 × 10^k 중 가까운 "보기 좋은" 숫자로 반올림 */
 function niceRound(v: number): number {
@@ -80,7 +80,7 @@ function targetPrices(spot: number): number[] {
 }
 
 const ACTION_CLS: Record<Action, string> = {
-  BUY: 'bg-emerald-500/15 text-emerald-400',
+  BUY: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
   SELL: 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
   NEUTRAL: 'bg-slate-500/15 text-slate-500 dark:text-slate-400',
 };
@@ -254,8 +254,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   if (state === 'loading') {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
-        <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
+      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+        <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading {coin.name} market data…</span>
       </div>
     );
@@ -263,15 +263,15 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   if (state !== 'ready' || !snap) {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
-        <span className="text-3xl">{state === 'nodata' ? '📉' : '⚠️'}</span>
+      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+        <span aria-hidden="true" className="text-3xl">{state === 'nodata' ? '📉' : '⚠️'}</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">
           {state === 'nodata' ? `Not enough price history for ${coin.name}` : 'Couldn’t load market data'}
         </span>
         <span className="text-xs text-slate-500 dark:text-slate-400">
           {state === 'nodata' ? `A projection needs at least ${MIN_SAMPLES + 1} daily closes — ${coin.base} may be a brand-new listing.` : 'Binance may be restricted in your region'}
         </span>
-        <button onClick={load} className="mt-2 text-sm font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl px-4 py-2">Retry</button>
+        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl px-4 py-2">Retry</button>
       </div>
     );
   }
@@ -316,7 +316,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="flex items-center gap-4">
             <div className="text-right">
               <p className="text-3xl font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(s.price)}</p>
-              <p className="text-xs"><Pct value={s.chg24h} /> <span className="text-slate-400 dark:text-slate-500">24h</span></p>
+              <p className="text-xs"><Pct value={s.chg24h} /> <span className="text-slate-500 dark:text-slate-400">24h</span></p>
             </div>
             <Sparkline points={s.closes.slice(-30).concat(s.price)} w={120} h={40} />
           </div>
@@ -369,7 +369,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               key={id}
               type="button"
               onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-amber-400 hover:border-slate-600 transition-colors"
+              className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-amber-400 hover:border-slate-400 dark:hover:border-slate-600 transition-colors"
             >
               {label}
             </button>
@@ -387,7 +387,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <label className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-                <span className="text-slate-400 dark:text-slate-500">$</span>
+                <span className="text-slate-500 dark:text-slate-400">$</span>
                 <input
                   type="number" inputMode="decimal" value={amount} min={1}
                   onChange={e => setAmount(e.target.value)}
@@ -396,8 +396,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               </label>
               <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
                 {HOLD_OPTIONS.map(([label, d]) => (
-                  <button key={d} onClick={() => setHoldDays(d)}
-                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors ${holdDays === d ? 'bg-amber-500 text-slate-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'}`}>
+                  <button key={d} type="button" aria-pressed={holdDays === d} onClick={() => setHoldDays(d)}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors ${holdDays === d ? 'bg-amber-500 text-slate-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
                     {label}
                   </button>
                 ))}
@@ -426,7 +426,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-[11px]">
             <span className="text-slate-500 dark:text-slate-400">Chance you lose money: <b className="text-rose-600 dark:text-rose-400">{invest.pLoss.toFixed(1)}%</b></span>
             <span className="text-slate-500 dark:text-slate-400">Chance it doubles: <b className="text-emerald-600 dark:text-emerald-400">{invest.pDouble.toFixed(1)}%</b></span>
-            <span className="text-slate-400 dark:text-slate-500">Half of outcomes land between ${formatPrice(invest.p25)} and ${formatPrice(invest.p75)}</span>
+            <span className="text-slate-500 dark:text-slate-400">Half of outcomes land between ${formatPrice(invest.p25)} and ${formatPrice(invest.p75)}</span>
           </div>
         </div>
       )}
@@ -481,7 +481,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       <Section id="prediction" title="Prediction" sub={`Two independent views: a conservative statistical model, and every comparable window ${coin.base} has actually lived through`}>
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
           <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} historyPath={histPath} height={320} />
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 text-center leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center leading-relaxed">
             The faint lines are <b className="text-slate-500 dark:text-slate-400">simulated scenarios</b> from the same fitted model — samples of how the price could wander, not
             predictions of when. The accent line is the model forecast; it is smooth because a constant drift can only produce a monotone path. The
             <b style={{ color: '#818cf8' }}> indigo line</b> is the <b className="text-slate-500 dark:text-slate-400">historical median path</b> — for each day ahead, the median of
@@ -535,34 +535,34 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30d</p>
             <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">probability</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Drop ≥10% in 30d</p>
             <p className="text-xl font-black text-rose-600 dark:text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">probability</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 1y</p>
             <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">probability</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Hit TP before SL</p>
             {isFinite(pTp) ? (
               <>
                 <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">{pTp.toFixed(1)}%</p>
-                <p className={`text-[10px] mt-0.5 tabular-nums ${evR >= 0 ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-500/70'}`}>
+                <p className={`text-[10px] mt-0.5 tabular-nums ${evR >= 0 ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-600/80 dark:text-rose-500/70'}`}>
                   {evR >= 0 ? '+' : ''}{evR.toFixed(2)}R expected · {rr.toFixed(2)}:1 reward
                 </p>
               </>
             ) : (
-              <p className="text-sm text-slate-400 dark:text-slate-500">price already outside the levels</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">price already outside the levels</p>
             )}
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-4 leading-relaxed">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
           Probabilities come from the same fitted distribution. The TP/SL figure is the exact barrier-crossing probability for a driftless log-price random
           walk (verified against a 200,000-path Monte-Carlo), so an expected value near <b className="text-slate-500 dark:text-slate-400">0R</b> is what a fair coin with those
           levels should give — it is the model telling you the levels carry no edge by themselves.
@@ -573,28 +573,28 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <h3 className="text-sm font-black text-slate-900 dark:text-white">{TIMEFRAMES[tf].label}</h3>
             <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
               {(Object.keys(TIMEFRAMES) as Timeframe[]).map(k => (
-                <button key={k} onClick={() => setTf(k)}
-                  className={`px-3 py-1 text-[11px] font-bold rounded-md capitalize transition-colors ${tf === k ? 'bg-amber-500 text-slate-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'}`}>
+                <button key={k} type="button" aria-pressed={tf === k} onClick={() => setTf(k)}
+                  className={`px-3 py-1 text-[11px] font-bold rounded-md capitalize transition-colors ${tf === k ? 'bg-amber-500 text-slate-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
                   {k}
                 </button>
               ))}
             </div>
           </div>
-          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
+          <div className="scroll-x overflow-x-auto max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm whitespace-nowrap">
               <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                  <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
-                  <th className="text-right font-semibold px-3 py-3">
+                  <th scope="col" className="text-left font-semibold px-4 py-3">Date (UTC)</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">
                     Prediction
-                    <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">one likely future</span>
+                    <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">one likely future</span>
                   </th>
-                  <th className="text-right font-semibold px-3 py-3">Change</th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">Low</th>
-                  <th className="text-right font-semibold px-3 py-3">High</th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70" style={{ color: '#fbbf24' }}>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Change</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">Low</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">High</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70" style={{ color: '#fbbf24' }}>
                     Typical peak
-                    <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">touched 50% of the time</span>
+                    <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">touched 50% of the time</span>
                   </th>
                 </tr>
               </thead>
@@ -604,10 +604,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                   const prev = ri > 0 ? seriesPath[ri - 1] : s.price;
                   const dayChg = v != null && prev != null && prev > 0 ? ((v / prev) - 1) * 100 : null;
                   return (
-                    <tr key={d.day} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
+                    <tr key={d.day} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-2 text-slate-700 dark:text-slate-200">{utcDate(utcDayOffset(d.day))}</td>
                       <td className="px-3 py-2 text-right tabular-nums">
-                        {v != null ? <span className="text-slate-900 dark:text-white font-bold">${formatPrice(v)}</span> : <span className="text-slate-700 dark:text-slate-200">-</span>}
+                        {v != null ? <span className="text-slate-900 dark:text-white font-bold">${formatPrice(v)}</span> : <span className="text-slate-400 dark:text-slate-600">-</span>}
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums">
                         {dayChg != null ? (
@@ -615,7 +615,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                             <span className="text-[10px] leading-none">{dayChg >= 0 ? '▲' : '▼'}</span>
                             {dayChg >= 0 ? '+' : ''}{dayChg.toFixed(2)}%
                           </span>
-                        ) : <span className="text-slate-700 dark:text-slate-200">-</span>}
+                        ) : <span className="text-slate-400 dark:text-slate-600">-</span>}
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums text-rose-600 dark:text-rose-400/70 border-l border-slate-200/40 dark:border-slate-700/40">${formatPrice(d.low)}</td>
                       <td className="px-3 py-2 text-right tabular-nums text-emerald-600 dark:text-emerald-400/70">${formatPrice(d.high)}</td>
@@ -626,45 +626,45 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               </tbody>
             </table>
           </div>
-          <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+          <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             <b className="text-slate-500 dark:text-slate-400">Prediction</b> is one concrete future drawn from the model — of many simulated paths, the one whose endpoint lands
             closest to the median. It rises and falls day to day, as a real price does, yet it finishes where the median says. Nothing here is hand-drawn: the
             path is a genuine sample, not a curve we bent to look interesting. <b className="text-slate-500 dark:text-slate-400">Change</b> is versus the previous row, so it shows
-            each day&apos;s move rather than the running total. <b className="text-slate-500 dark:text-slate-400">Likely range</b> is the 25th–75th percentile — half of all outcomes
-            land inside it, half do not. The horizon table below gives the median, the typical peak and the 80% range.
+            each day&apos;s move rather than the running total. <b className="text-slate-500 dark:text-slate-400">Low</b> and <b className="text-slate-500 dark:text-slate-400">High</b> are the
+            25th and 75th percentiles — half of all outcomes land inside them, half do not. The horizon table below gives the median, the typical peak and the 80% range.
           </div>
         </div>
 
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700"><h3 className="text-sm font-black text-slate-900 dark:text-white">By horizon</h3></div>
-          <div className="overflow-x-auto">
+          <div className="scroll-x overflow-x-auto">
             <table className="w-full text-sm whitespace-nowrap">
               <thead>
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                  <th className="text-left font-semibold px-4 py-3">Period</th>
-                  <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                  <th className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">median</span></th>
-                  <th className="text-right font-semibold px-3 py-3">Expected<span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">mean</span></th>
-                  <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                  <th className="text-right font-semibold px-3 py-3">vs now</th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
+                  <th scope="col" className="text-left font-semibold px-4 py-3">Period</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Low (P25)</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Forecast<span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">median</span></th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Expected<span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">mean</span></th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">High (P75)</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">vs now</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
                     Typical peak
-                    <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">touched 50% of the time</span>
+                    <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">touched 50% of the time</span>
                   </th>
-                  <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">P(+10%)</th>
-                  <th className="text-right font-semibold px-3 py-3">P(−10%)</th>
-                  <th className="text-right font-semibold px-4 py-3 border-l border-slate-200/70 dark:border-slate-700/70">80% range</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">P(+10%)</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">P(−10%)</th>
+                  <th scope="col" className="text-right font-semibold px-4 py-3 border-l border-slate-200/70 dark:border-slate-700/70">80% range</th>
                 </tr>
               </thead>
               <tbody>
                 {m.projections.map(p => (
-                  <tr key={p.key} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
+                  <tr key={p.key} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-200">{p.label}</td>
                     <td className="px-3 py-3 text-right text-rose-600 dark:text-rose-400/80 tabular-nums">${formatPrice(p.low)}</td>
                     <td className="px-3 py-3 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(p.forecast)}</td>
                     <td className="px-3 py-3 text-right text-slate-700 dark:text-slate-200 tabular-nums">
                       ${formatPrice(p.mean)}
-                      <span className="block text-[10px] text-slate-400 dark:text-slate-500">+{p.meanPct.toFixed(1)}%</span>
+                      <span className="block text-[10px] text-slate-500 dark:text-slate-400">+{p.meanPct.toFixed(1)}%</span>
                     </td>
                     <td className="px-3 py-3 text-right text-emerald-600 dark:text-emerald-400/80 tabular-nums">${formatPrice(p.high)}</td>
                     <td className="px-3 py-3 text-right"><Pct value={p.changePct} /></td>
@@ -695,30 +695,30 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="px-4 pt-3">
             <label className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <span className="shrink-0">Custom target</span>
-              <span className="text-slate-400 dark:text-slate-500">$</span>
+              <span className="text-slate-500 dark:text-slate-400">$</span>
               <input
                 type="number" inputMode="decimal" value={target} onChange={e => setTarget(e.target.value)}
                 placeholder={String(Math.round(s.price * 1.5))}
-                className="w-40 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-700 focus:outline-none focus:border-amber-500/60 tabular-nums"
+                className="w-40 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-amber-500/60 tabular-nums"
               />
             </label>
           </div>
-          <div className="overflow-x-auto mt-3">
+          <div className="scroll-x overflow-x-auto mt-3">
             <table className="w-full text-sm whitespace-nowrap">
               <thead>
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                  <th className="text-left font-semibold px-4 py-3" rowSpan={2}>Target</th>
-                  <th className="text-right font-semibold px-3 py-3" rowSpan={2}>vs now</th>
-                  <th className="text-center font-semibold px-3 py-2 border-l border-slate-200/70 dark:border-slate-700/70" colSpan={3}>
+                  <th scope="col" className="text-left font-semibold px-4 py-3" rowSpan={2}>Target</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3" rowSpan={2}>vs now</th>
+                  <th scope="colgroup" className="text-center font-semibold px-3 py-2 border-l border-slate-200/70 dark:border-slate-700/70" colSpan={3}>
                     Ever touches it
-                    <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">at any point before</span>
+                    <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">at any point before</span>
                   </th>
-                  <th className="text-center font-semibold px-3 py-2 border-l border-slate-200/70 dark:border-slate-700/70" colSpan={3}>
+                  <th scope="colgroup" className="text-center font-semibold px-3 py-2 border-l border-slate-200/70 dark:border-slate-700/70" colSpan={3}>
                     Ends at or beyond
-                    <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">closing price on that date</span>
+                    <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">closing price on that date</span>
                   </th>
                 </tr>
-                <tr className="text-[10px] uppercase tracking-wide text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
+                <tr className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                   {['1Y', '2Y', '3Y'].map((l, i) => <th key={`e${l}`} className={`text-right font-semibold px-3 py-1.5 ${i === 0 ? 'border-l border-slate-200/70 dark:border-slate-700/70' : ''}`}>{l}</th>)}
                   {['1Y', '2Y', '3Y'].map((l, i) => <th key={`c${l}`} className={`text-right font-semibold px-3 py-1.5 ${i === 0 ? 'border-l border-slate-200/70 dark:border-slate-700/70' : ''}`}>{l}</th>)}
                 </tr>
@@ -734,7 +734,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                     const isCustom = isFinite(custom) && custom > 0 && v === custom && !presets.includes(custom);
                     const clr = up ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400';
                     return (
-                      <tr key={v} className={`border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors ${isCustom ? 'bg-amber-500/[0.06]' : ''}`}>
+                      <tr key={v} className={`border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors ${isCustom ? 'bg-amber-500/[0.06]' : ''}`}>
                         <td className="px-4 py-2.5 font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(v)}</td>
                         <td className="px-3 py-2.5 text-right"><Pct value={(v / s.price - 1) * 100} /></td>
                         {BARRIER_CHECKPOINTS.map((d, i) => {
@@ -760,7 +760,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               </tbody>
             </table>
           </div>
-          <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+          <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             <b className="text-slate-500 dark:text-slate-400">&quot;Ever touches&quot; is the number most people actually mean</b>, and it is much larger than &quot;ends at or beyond&quot;.
             Historically {coin.base === 'BTC' ? 'Bitcoin' : coin.base} touched a given level within a one-year window far more often than it finished above it —
             for BTC, a +58% level was touched in 61.4% of one-year windows but closed above in only 44.0%. The touch figures come from 4,000 simulated paths of
@@ -779,22 +779,22 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 {flip && <span className="text-amber-600 dark:text-amber-400/90"> Note the median changes sign across horizons.</span>}
               </p>
             </div>
-            <div className="overflow-x-auto">
+            <div className="scroll-x overflow-x-auto">
               <table className="w-full text-sm whitespace-nowrap">
                 <thead>
                   <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                    <th className="text-left font-semibold px-4 py-3">Period</th>
-                    <th className="text-right font-semibold px-3 py-3">Worst 25%</th>
-                    <th className="text-right font-semibold px-3 py-3">Median</th>
-                    <th className="text-right font-semibold px-3 py-3">Best 25%</th>
-                    <th className="text-right font-semibold px-3 py-3">Median vs now</th>
-                    <th className="text-right font-semibold px-3 py-3">Rose</th>
-                    <th className="text-right font-semibold px-4 py-3 border-l border-slate-200/70 dark:border-slate-700/70">Sample</th>
+                    <th scope="col" className="text-left font-semibold px-4 py-3">Period</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Worst 25%</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Median</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Best 25%</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Median vs now</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Rose</th>
+                    <th scope="col" className="text-right font-semibold px-4 py-3 border-l border-slate-200/70 dark:border-slate-700/70">Sample</th>
                   </tr>
                 </thead>
                 <tbody>
                   {s.scenarios.map(r => (
-                    <tr key={r.key} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
+                    <tr key={r.key} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-200">{r.label}</td>
                       {r.reliable ? (
                         <>
@@ -810,7 +810,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                       ) : (
                         // 독립 표본이 부족한 행은 숫자를 아예 보여주지 않는다. 신뢰할 수 없다고
                         // 적어두면서 그 값을 노출하면 사람들은 결국 숫자를 읽는다.
-                        <td colSpan={6} className="px-3 py-3 text-center text-[11px] text-slate-400 dark:text-slate-500">
+                        <td colSpan={6} className="px-3 py-3 text-center text-[11px] text-slate-500 dark:text-slate-400">
                           Only {r.independent} independent {r.independent === 1 ? 'window' : 'windows'} of this length exist in {coin.base}&apos;s history — too few to mean anything, so we do not show a number.
                         </td>
                       )}
@@ -819,7 +819,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 </tbody>
               </table>
             </div>
-            <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+            <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               <b className="text-slate-500 dark:text-slate-400">History, not prophecy.</b> These are the windows {coin.base} actually lived through, and most coins have seen more bull
               market than bear — so the long-horizon medians lean optimistic. Rows without at least {MIN_INDEPENDENT_WINDOWS} independent windows show no number
               at all.
@@ -834,28 +834,28 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               <h3 className="text-sm font-black text-slate-900 dark:text-white">Month by month</h3>
               <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
                 {YEARS.map(y => (
-                  <button key={y} onClick={() => setYear(y)}
-                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md tabular-nums transition-colors ${year === y ? 'bg-amber-500 text-slate-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'}`}>
+                  <button key={y} type="button" aria-pressed={year === y} onClick={() => setYear(y)}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md tabular-nums transition-colors ${year === y ? 'bg-amber-500 text-slate-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
                     {y}
                   </button>
                 ))}
               </div>
             </div>
-            <div className="overflow-x-auto">
+            <div className="scroll-x overflow-x-auto">
               <table className="w-full text-sm whitespace-nowrap">
                 <thead>
                   <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                    <th className="text-left font-semibold px-4 py-3">Month</th>
-                    <th className="text-right font-semibold px-3 py-3">Low (P25)</th>
-                    <th className="text-right font-semibold px-3 py-3">Forecast</th>
-                    <th className="text-right font-semibold px-3 py-3">High (P75)</th>
-                    <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70" style={{ color: '#fbbf24' }}>Typical peak</th>
-                    <th className="text-right font-semibold px-4 py-3">vs now</th>
+                    <th scope="col" className="text-left font-semibold px-4 py-3">Month</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Low (P25)</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">Forecast</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3">High (P75)</th>
+                    <th scope="col" className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70" style={{ color: '#fbbf24' }}>Typical peak</th>
+                    <th scope="col" className="text-right font-semibold px-4 py-3">vs now</th>
                   </tr>
                 </thead>
                 <tbody>
                   {months.map(r => (
-                    <tr key={r.label} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
+                    <tr key={r.label} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-2.5 font-bold text-slate-700 dark:text-slate-200">{r.label}</td>
                       <td className="px-3 py-2.5 text-right text-rose-600 dark:text-rose-400/80 tabular-nums">${formatPrice(r.low)}</td>
                       <td className="px-3 py-2.5 text-right text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(r.forecast)}</td>
@@ -867,7 +867,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 </tbody>
               </table>
             </div>
-            <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+            <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Other sites label these columns &quot;Min / Avg / Max&quot;. They are not minimums and maximums — they are the 25th and 75th percentiles of a
               distribution, and the price lands outside them half the time. We label them for what they are.
             </div>
@@ -898,7 +898,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               <div className="bg-emerald-500 rounded-full" style={{ width: `${ta.s.bullishPct}%` }} />
               <div className="bg-rose-500 rounded-full" style={{ width: `${100 - ta.s.bullishPct}%` }} />
             </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
               This is a <b className="text-slate-500 dark:text-slate-400">count of indicator states</b>, not a forecast. Each label below just says whether the price sits above or
               below that line, or whether an oscillator is in its conventional overbought / oversold zone. We measured what these labels are worth: a composite of
               moving averages, RSI and MACD predicted {coin.base}&apos;s 5-day direction <b className="text-slate-500 dark:text-slate-400">49.4%</b> of the time across 46 coins — a
@@ -914,7 +914,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <div key={title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white">{title}</h3>
-                    <span className="text-[10px] text-slate-400 dark:text-slate-500">price vs line</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">price vs line</span>
                   </div>
                   <table className="w-full text-sm">
                     <tbody>
@@ -923,7 +923,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                           <td className="px-4 py-2 text-slate-500 dark:text-slate-400">{r.name}</td>
                           <td className="px-3 py-2 text-right text-slate-900 dark:text-white tabular-nums">${formatPrice(r.value)}</td>
                           <td className="px-3 py-2 text-right text-[11px] tabular-nums">
-                            <span className={s.price >= r.value ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-500/70'}>
+                            <span className={s.price >= r.value ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-600/80 dark:text-rose-500/70'}>
                               {s.price >= r.value ? '+' : ''}{(((s.price / r.value) - 1) * 100).toFixed(1)}%
                             </span>
                           </td>
@@ -939,7 +939,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           {/* Oscillators */}
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700"><h3 className="text-xs font-black text-slate-900 dark:text-white">Oscillators</h3></div>
-            <div className="overflow-x-auto">
+            <div className="scroll-x overflow-x-auto">
               <table className="w-full text-sm whitespace-nowrap">
                 <tbody>
                   {ta.osc.map(r => (
@@ -999,24 +999,24 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {/* ── Historic data ────────────────────────── */}
       <Section id="historic" title="History" sub={`${coin.base} daily open / high / low / close and volume, last ${HISTORY_ROWS} closed candles (UTC)`}>
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
-          <div className="overflow-x-auto max-h-[520px] overflow-y-auto">
+          <div className="scroll-x overflow-x-auto max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm whitespace-nowrap">
               <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">
                 <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                  <th className="text-left font-semibold px-4 py-3">Date (UTC)</th>
-                  <th className="text-right font-semibold px-3 py-3">Open</th>
-                  <th className="text-right font-semibold px-3 py-3">High</th>
-                  <th className="text-right font-semibold px-3 py-3">Low</th>
-                  <th className="text-right font-semibold px-3 py-3">Close</th>
-                  <th className="text-right font-semibold px-3 py-3">Change</th>
-                  <th className="text-right font-semibold px-4 py-3">Volume</th>
+                  <th scope="col" className="text-left font-semibold px-4 py-3">Date (UTC)</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Open</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">High</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Low</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Close</th>
+                  <th scope="col" className="text-right font-semibold px-3 py-3">Change</th>
+                  <th scope="col" className="text-right font-semibold px-4 py-3">Volume</th>
                 </tr>
               </thead>
               <tbody>
                 {recent.map(k => {
                   const chg = k.open > 0 ? ((k.close - k.open) / k.open) * 100 : 0;
                   return (
-                    <tr key={k.openTime} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-800/40 transition-colors">
+                    <tr key={k.openTime} className="border-b border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">{utcDate(k.openTime)}</td>
                       <td className="px-3 py-2.5 text-right text-slate-500 dark:text-slate-400 tabular-nums">${formatPrice(k.open)}</td>
                       <td className="px-3 py-2.5 text-right text-emerald-600 dark:text-emerald-400/70 tabular-nums">${formatPrice(k.high)}</td>
@@ -1034,7 +1034,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </Section>
 
       {/* 방법론 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-5 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-2">How this {coin.name} prediction is made</h2>
         <p className="mb-2">
           We take {m.samples + 1} daily closes from Binance and convert them to log returns, giving a drift (μ) and a volatility (σ).
@@ -1131,7 +1131,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               );
               return meta ? (
                 <Link key={base} href={`/crypto/${meta.slug}/price-prediction`}
-                  className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-950/60 px-3 py-2 hover:border-slate-600 transition-colors">
+                  className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-950/60 px-3 py-2 hover:border-slate-400 dark:hover:border-slate-600 transition-colors">
                   {inner}
                 </Link>
               ) : (
@@ -1161,7 +1161,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </ul>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <p>
           ⚠️ Not investment advice. This page contains statistical projections of a price distribution, not a forecast of what {coin.name} will do.
           The model knows nothing about news, regulation, liquidity or market structure. All trading decisions and risks are your own.

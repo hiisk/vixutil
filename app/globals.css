@@ -120,6 +120,26 @@ html.dark .calc-card {
 .ref-shine { animation: ref-shine 2.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .ref-shine { animation: none; } }
 
+/* ── 가로 스크롤 그림자 ──
+   표가 화면보다 넓을 때만 잘린 쪽 가장자리에 그림자가 뜨고, 끝까지 밀면 사라진다.
+   모바일에서 "옆에 열이 더 있다"를 알려주는 유일한 단서다. local 레이어는 내용과 함께
+   움직여 끝에 닿는 순간 scroll 레이어(그림자)를 덮는다. JS 없이 동작한다. */
+.scroll-x {
+  background:
+    linear-gradient(to right, #fff 40%, rgba(255, 255, 255, 0)) 0 0 / 32px 100% no-repeat local,
+    linear-gradient(to left, #fff 40%, rgba(255, 255, 255, 0)) 100% 0 / 32px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(15, 23, 42, 0.13), rgba(15, 23, 42, 0)) 0 0 / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(15, 23, 42, 0.13), rgba(15, 23, 42, 0)) 100% 0 / 12px 100% no-repeat scroll;
+}
+
+html.dark .scroll-x {
+  background:
+    linear-gradient(to right, #0f172a 40%, rgba(15, 23, 42, 0)) 0 0 / 32px 100% no-repeat local,
+    linear-gradient(to left, #0f172a 40%, rgba(15, 23, 42, 0)) 100% 0 / 32px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 0 0 / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 100% 0 / 12px 100% no-repeat scroll;
+}
+
 /* ── 스크롤바 (webkit) ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
