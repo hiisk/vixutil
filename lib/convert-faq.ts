@@ -7,24 +7,24 @@
  */
 import type { FaqItem } from './calc-faq.ts';
 import { convert, convertBack, format, type ConvertTool } from './convert-tools.ts';
+import { CONVERT_UI, type ConvertLang } from './convert-ui-intl.ts';
+import { CONVERT_EN, CONVERT_ZH } from './convert-i18n.ts';
 
-export function convertFaq(tool: ConvertTool): FaqItem[] {
+export function convertFaq(tool: ConvertTool, lang: ConvertLang = 'ko'): FaqItem[] {
+  const ui = CONVERT_UI[lang];
   const one = format(convert(1, tool), Math.max(tool.digits, 2));
   const oneBack = format(convertBack(1, tool), Math.max(tool.digits, 2));
   const ten = format(convert(10, tool), tool.digits);
 
+  // 주의사항과 단위 기호도 그 언어의 것을 쓴다
+  const l = lang === 'en' ? CONVERT_EN[tool.slug] : lang === 'zh' ? CONVERT_ZH[tool.slug] : undefined;
+  const note = l?.note ?? tool.note;
+  const from = l?.from ?? tool.from;
+  const to = l?.to ?? tool.to;
+
   return [
-    {
-      q: `1${tool.from}는 몇 ${tool.to}인가요?`,
-      a: `1${tool.from}는 ${one}${tool.to}입니다. 10${tool.from}는 ${ten}${tool.to}이고, 위 입력칸에 원하는 값을 넣으면 바로 계산됩니다.`,
-    },
-    {
-      q: `반대로 1${tool.to}는 몇 ${tool.from}인가요?`,
-      a: `1${tool.to}는 ${oneBack}${tool.from}입니다. 이 페이지는 양방향이라 오른쪽 칸에 값을 넣으면 왼쪽이 자동으로 바뀝니다.`,
-    },
-    {
-      q: `이 단위는 어디에 쓰나요?`,
-      a: tool.note,
-    },
+    { q: ui.faq1(from, to), a: ui.faq1a(from, to, one, ten) },
+    { q: ui.faq2(from, to), a: ui.faq2a(from, to, oneBack) },
+    { q: ui.faq3, a: note },
   ];
 }

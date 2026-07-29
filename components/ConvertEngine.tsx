@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { convert, convertBack, format, type ConvertTool } from '@/lib/convert-tools';
+import { CONVERT_UI, type ConvertLang } from '@/lib/convert-ui-intl';
 
 /**
  * 단위 변환 엔진 — 쉰 개 페이지가 이 컴포넌트 하나를 쓴다.
@@ -12,7 +13,8 @@ import { convert, convertBack, format, type ConvertTool } from '@/lib/convert-to
  * 입력 중인 쪽의 문자열은 그대로 두고 반대쪽만 계산한다. 양쪽을 다 숫자로
  * 정규화하면 "1.20"을 치는 도중에 "1.2"로 고쳐져 커서가 튄다.
  */
-export default function ConvertEngine({ tool }: { tool: ConvertTool }) {
+export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool; lang?: ConvertLang }) {
+  const ui = CONVERT_UI[lang];
   const [left, setLeft] = useState('1');
   const [right, setRight] = useState(() => format(convert(1, tool), tool.digits));
   const [editing, setEditing] = useState<'left' | 'right'>('left');
@@ -76,12 +78,12 @@ export default function ConvertEngine({ tool }: { tool: ConvertTool }) {
         disabled={!left || !right}
         className="mt-3 w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 disabled:opacity-40 transition-opacity"
       >
-        {copied ? '✅ 복사했습니다' : `${left || '—'}${tool.from} = ${right || '—'}${tool.to} 복사`}
+        {copied ? ui.copied : ui.copy(left || '—', tool.from, right || '—', tool.to)}
       </button>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
         <p className="px-4 py-2.5 text-xs font-black text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
-          자주 찾는 값
+          {ui.quickTitle}
         </p>
         {tool.quick.map(v => {
           const converted = format(convert(v, tool), tool.digits);
@@ -104,7 +106,7 @@ export default function ConvertEngine({ tool }: { tool: ConvertTool }) {
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">계산식</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.formula}</p>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-200">
           {tool.to} = {tool.from} × {tool.factor}
           {tool.offset ? ` + ${tool.offset}` : ''}

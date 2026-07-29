@@ -7,6 +7,8 @@ import {
   findConvertTool, relatedConvertTools,
 } from '../lib/convert-tools.ts';
 import { convertFaq } from '../lib/convert-faq.ts';
+import { CONVERT_EN, CONVERT_ZH, CONVERT_CATEGORY_EN, CONVERT_CATEGORY_ZH } from '../lib/convert-i18n.ts';
+import { convertAlternates } from '../lib/convert-ui-intl.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -97,7 +99,8 @@ test('허브와 상세 라우트가 있다', () => {
 });
 
 test('허브가 모든 분류를 그린다', () => {
-  const hub = readFileSync(join(ROOT, 'app', 'convert', 'page.tsx'), 'utf8');
+  // 세 언어가 공용 허브 컴포넌트를 쓰므로 그쪽을 본다
+  const hub = readFileSync(join(ROOT, 'components', 'ConvertHub.tsx'), 'utf8');
   assert.ok(hub.includes('CONVERT_CATEGORIES'), '허브가 분류 목록을 쓰지 않는다');
   const orphan = CONVERT_TOOLS.filter(t => !CONVERT_CATEGORIES.includes(t.category));
   assert.deepEqual(orphan, [], '허브에 안 그려지는 도구가 있다');
@@ -123,4 +126,100 @@ test('관련 도구가 자기 자신을 넣지 않는다', () => {
   }
   assert.equal(findConvertTool('없는변환'), undefined);
   assert.deepEqual(relatedConvertTools('없는변환'), []);
+});
+
+test('영어·중국어 문구가 쉰 개 모두 있다', () => {
+  for (const [name, map] of [['영어', CONVERT_EN], ['중국어', CONVERT_ZH]] as const) {
+    const missing = CONVERT_TOOLS.filter(t => !map[t.slug]).map(t => t.slug);
+    assert.deepEqual(missing, [], `${name} 문구 누락: ${missing.join(', ')}`);
+    for (const t of CONVERT_TOOLS) {
+      const l = map[t.slug];
+      assert.ok(l.title.trim() && l.desc.trim(), `${t.slug}: ${name} 제목·설명 누락`);
+      assert.ok(l.long.length >= 25, `${t.slug}: ${name} 설명이 짧다`);
+      assert.ok(l.note.length >= 20, `${t.slug}: ${name} 주의사항이 짧다`);
+    }
+  }
+});
+
+test('언어별 제목이 서로 겹치지 않는다', () => {
+  // 겹치면 검색엔진이 중복 페이지로 본다
+  for (const [name, map] of [['영어', CONVERT_EN], ['중국어', CONVERT_ZH]] as const) {
+    const titles = CONVERT_TOOLS.map(t => map[t.slug].title);
+    const dup = [...new Set(titles.filter((v, i) => titles.indexOf(v) !== i))];
+    assert.deepEqual(dup, [], `${name} 제목이 겹친다: ${dup.join(' / ')}`);
+  }
+});
+
+test('분류 이름도 3언어가 다 있다', () => {
+  for (const c of CONVERT_CATEGORIES) {
+    assert.ok(CONVERT_CATEGORY_EN[c], `영어 분류 누락: ${c}`);
+    assert.ok(CONVERT_CATEGORY_ZH[c], `중국어 분류 누락: ${c}`);
+  }
+});
+
+test('세 언어 라우트가 모두 있다', () => {
+  for (const prefix of ['', 'en', 'zh']) {
+    const base = prefix ? join(ROOT, 'app', prefix, 'convert') : join(ROOT, 'app', 'convert');
+    assert.ok(existsSync(join(base, 'page.tsx')), `${prefix || 'ko'} 허브 없음`);
+    assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${prefix || 'ko'} 상세 없음`);
+    assert.ok(existsSync(join(base, '[slug]', 'opengraph-image.tsx')), `${prefix || 'ko'} OG 없음`);
+  }
+});
+
+test('hreflang이 세 언어를 모두 가리킨다', () => {
+  // 한 언어라도 빠지면 그 언어 페이지가 중복으로 취급된다
+  const alt = convertAlternates('cm-inch');
+  assert.equal(alt.ko, '/convert/cm-inch');
+  assert.equal(alt.en, '/en/convert/cm-inch');
+  assert.equal(alt.zh, '/zh/convert/cm-inch');
+  assert.equal(alt['x-default'], '/en/convert/cm-inch');
+
+  const hub = convertAlternates();
+  assert.equal(hub.ko, '/convert');
+  assert.equal(hub.zh, '/zh/convert');
+});
+
+test('FAQ가 언어마다 그 언어로 나온다', () => {
+  const tool = CONVERT_MAP['cm-inch'];
+  const ko = convertFaq(tool, 'ko');
+  const en = convertFaq(tool, 'en');
+  const zh = convertFaq(tool, 'zh');
+
+  assert.ok(/[가-힣]/.test(ko[0].q), '한국어 FAQ에 한글이 없다');
+  assert.ok(!/[가-힣]/.test(en[0].q), '영어 FAQ에 한글이 섞였다');
+  assert.ok(!/[가-힣]/.test(en[2].a), '영어 주의사항에 한글이 섞였다');
+  assert.ok(/[\u4e00-\u9fff]/.test(zh[0].q), '중국어 FAQ에 한자가 없다');
+
+  // 세 언어 모두 같은 계산값을 담아야 한다
+  const one = format(convert(1, tool), Math.max(tool.digits, 2));
+  for (const [name, faq] of [['ko', ko], ['en', en], ['zh', zh]] as const) {
+    assert.ok(faq[0].a.includes(one), `${name}: 계산값이 답에 없다`);
+  }
+});
+
+test('사이트맵에 세 언어가 다 실린다', () => {
+  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  for (const path of ['/convert', '/en/convert', '/zh/convert']) {
+    assert.ok(sitemap.includes(`${path}\``) || sitemap.includes(`${path}/`), `사이트맵에 ${path} 없음`);
+  }
+});
+
+test('한글 단위 기호는 영어·중국어에서 바뀐다', () => {
+  /*
+    '리'·'자'·'돈' 같은 기호를 그대로 두면 영어 페이지 입력칸에 읽을 수 없는
+    글자가 박힌다. 한자권에서는 같은 한자라도 값이 달라(근 600g ↔ 斤 500g)
+    둘을 함께 적어야 오해가 없다.
+  */
+  const hangul = /[가-힣]/;
+  const bad: string[] = [];
+  for (const t of CONVERT_TOOLS) {
+    if (!hangul.test(t.from) && !hangul.test(t.to)) continue;
+    const en = CONVERT_EN[t.slug];
+    if (hangul.test(en.from ?? t.from) || hangul.test(en.to ?? t.to)) bad.push(`${t.slug}(en)`);
+    const zh = CONVERT_ZH[t.slug];
+    // 중국어는 한글 병기를 허용하되 한자가 반드시 함께 있어야 한다
+    const zhFrom = zh.from ?? t.from;
+    if (hangul.test(zhFrom) && !/[\u4e00-\u9fff]/.test(zhFrom)) bad.push(`${t.slug}(zh)`);
+  }
+  assert.deepEqual(bad, [], `기호를 안 바꾼 곳: ${bad.join(', ')}`);
 });
