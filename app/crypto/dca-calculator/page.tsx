@@ -74,7 +74,7 @@ export default function DcaCalculatorPage() {
             The part most calculators leave out is that <b className="text-slate-700 dark:text-slate-200">the start date does most of the work</b>.
             &quot;$100 a week into Bitcoin since 2020&quot; and the same plan started eighteen months later are not two versions of one strategy —
             they are two different outcomes of the same strategy, and the gap between them is usually larger than any difference between
-            strategies. So this page runs your plan from <b className="text-slate-700 dark:text-slate-200">every possible start date</b> in the coin&apos;s
+            strategies. So this page runs your plan from <b className="text-slate-700 dark:text-slate-200">every possible start date</b>{' '}in the coin&apos;s
             history and shows the whole spread: the worst, the median, the best, and how often it finished in profit at all.
           </p>
           <p>
@@ -94,9 +94,9 @@ export default function DcaCalculatorPage() {
 
         <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
-        <Faq items={SECTION_FAQ['crypto/dca-calculator']} />
+        <Faq items={SECTION_FAQ['crypto/dca-calculator']} lang="en" />
       </div>
-      <SiteFooter />
+      <SiteFooter lang="en" />
     </div>
   );
 }

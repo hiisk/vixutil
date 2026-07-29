@@ -72,7 +72,7 @@ export default function PositionSizeCalculatorPage() {
             so the loss stays the same either way.
           </p>
           <p className="mb-3">
-            What that formula does <b className="text-slate-700 dark:text-slate-200">not</b> answer is how often the stop gets hit, and that is
+            What that formula does <b className="text-slate-700 dark:text-slate-200">not</b>{' '}answer is how often the stop gets hit, and that is
             half the question. A 3% stop is noise on a volatile altcoin and a real signal on a quiet large cap. So this page also samples the
             coin&apos;s measured volatility to estimate how likely ordinary movement is to touch your stop within 7, 30 and 90 days, with no
             directional view involved. A stop that normal noise reaches most of the time is not protecting anything.

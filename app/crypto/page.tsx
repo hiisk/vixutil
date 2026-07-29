@@ -30,6 +30,7 @@ const TOOLS = [
   // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/altseason-index', icon: '🌗', title: 'Altcoin Season Index', desc: 'The index — shown with every coin it is built from, not just the number', badge: 'NEW', color: 'from-fuchsia-400 to-violet-500' },
   { href: '/crypto/position-size-calculator', icon: '⚖️', title: 'Position Size Calculator', desc: 'Size from risk, not from leverage — plus the odds your stop gets hit by noise', badge: 'NEW', color: 'from-violet-400 to-purple-500' },
   { href: '/crypto/funding-rates', icon: '💸', title: 'Funding Rates', desc: 'Every USDT perp, annualised with its real settlement interval — not a blanket 8h', badge: 'NEW', color: 'from-sky-400 to-indigo-500' },
   { href: '/crypto/dca-calculator', icon: '📅', title: 'DCA Calculator', desc: 'What a recurring buy would be worth — and whether that start date was lucky', badge: 'NEW', color: 'from-emerald-400 to-teal-500' },

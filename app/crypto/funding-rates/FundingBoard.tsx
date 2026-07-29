@@ -131,7 +131,7 @@ export default function FundingBoard() {
           Funding tables almost always annualise by assuming three settlements a day. Right now
           {' '}<b>{offSchedule.toLocaleString()} of {rows.length.toLocaleString()}</b> USDT perpetuals on Binance
           {' '}({((offSchedule / rows.length) * 100).toFixed(0)}%) are on a different schedule, and a 4-hour coin annualised as if it were
-          8-hour comes out at exactly <b>half</b> its real rate. Every figure below uses each symbol&apos;s actual interval.
+          8-hour comes out at exactly <b>half</b>{' '}its real rate. Every figure below uses each symbol&apos;s actual interval.
         </p>
         <div className="flex flex-wrap gap-2">
           {breakdown.map(b => (

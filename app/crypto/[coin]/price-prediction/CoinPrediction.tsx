@@ -521,7 +521,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             </div>
           )}
           <p>
-            The market prior is ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr, which is a <b className="text-slate-500 dark:text-slate-400">deliberately assertive</b> choice: it
+            The market prior is ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr, which is a <b className="text-slate-500 dark:text-slate-400">deliberately assertive</b>{' '}choice: it
             lets a coin&apos;s long-run trend show up in the forecast. It has a measured price — see the methodology below. The alpha prior is tighter
             (±{(PRIOR_ALPHA_DRIFT_SD * 100).toFixed(0)}%/yr) and puts {(m.shrink * 100).toFixed(0)}% of the weight on the data.
             {m.driftGated && <> Because {coin.base} has under {MIN_DRIFT_HISTORY} days of history, the assertive prior is <b className="text-amber-600 dark:text-amber-400">switched off</b> for it and a conservative one used instead.</>}
@@ -629,7 +629,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             <b className="text-slate-500 dark:text-slate-400">Prediction</b> is one concrete future drawn from the model — of many simulated paths, the one whose endpoint lands
             closest to the median. It rises and falls day to day, as a real price does, yet it finishes where the median says. Nothing here is hand-drawn: the
-            path is a genuine sample, not a curve we bent to look interesting. <b className="text-slate-500 dark:text-slate-400">Change</b> is versus the previous row, so it shows
+            path is a genuine sample, not a curve we bent to look interesting. <b className="text-slate-500 dark:text-slate-400">Change</b>{' '}is versus the previous row, so it shows
             each day&apos;s move rather than the running total. <b className="text-slate-500 dark:text-slate-400">Low</b> and <b className="text-slate-500 dark:text-slate-400">High</b> are the
             25th and 75th percentiles — half of all outcomes land inside them, half do not. The horizon table below gives the median, the typical peak and the 80% range.
           </div>
@@ -1055,7 +1055,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           and 1048% in the worst case, from nothing but noise. The history gate and the drift cap exist to blunt that.
         </p>
         <p className="mb-2">
-          <b className="text-slate-500 dark:text-slate-400">An honest disclosure about the drift.</b> This site extrapolates a coin&apos;s long-run trend into the forecast, using a
+          <b className="text-slate-500 dark:text-slate-400">An honest disclosure about the drift.</b>{' '}This site extrapolates a coin&apos;s long-run trend into the forecast, using a
           prior of ±{(PRIOR_MARKET_DRIFT_SD * 100).toFixed(0)}%/yr on the market drift. That is a deliberate choice by the site owner, and it costs accuracy. We
           measured it: across 24 coins with an expanding window, forecasting one year ahead, simply assuming the price does not change gives an RMSE of
           <b className="text-slate-500 dark:text-slate-400"> 1.0723</b>. The setting used here gives <b className="text-slate-500 dark:text-slate-400">1.1005</b>, about 2.6% worse. Extrapolating the raw

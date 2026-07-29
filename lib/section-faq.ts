@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/altseason-index': [
+    {
+      q: 'What is the altcoin season index?',
+      a: 'It is the share of the top coins that have outperformed Bitcoin over a chosen window, expressed as a percentage. The common convention looks back 90 days across the top 50 coins excluding stablecoins and wrapped assets, and calls 75 or above an altcoin season and 25 or below a Bitcoin season.',
+    },
+    {
+      q: 'Are the 75 and 25 thresholds meaningful?',
+      a: 'They are conventions rather than measured regime boundaries. Nothing changes in the market between a reading of 74 and 76, so a value near either line is better read as borderline than as a change of state. This page flags readings within five points of a threshold for that reason.',
+    },
+    {
+      q: 'Can the index say altcoin season while everything is falling?',
+      a: 'Yes, and this is the most common misreading. The measure is purely relative, so in a broad sell-off where altcoins fall less than Bitcoin the index rises even though every coin is losing money. The page shows each coin\u2019s own return alongside its performance against Bitcoin so that case is visible.',
+    },
+    {
+      q: 'Why does your list differ from other altcoin season trackers?',
+      a: 'The universe here is ranked by trading volume rather than market capitalisation, because a static site has no market-cap feed and volume is the closest public proxy Binance offers. The two usually agree on membership but not always. Since the full list is shown, any difference is easy to inspect rather than hidden.',
+    },
+    {
+      q: 'Which coins are excluded from the calculation?',
+      a: 'Bitcoin itself, stablecoins such as USDT, USDC, FDUSD and DAI, and Bitcoin or Ethereum wrappers such as WBTC and WBETH. Including them would drag the index toward the middle, since a stablecoin neither beats nor loses to Bitcoin in any meaningful sense.',
+    },
+    {
+      q: 'Does a high reading mean altcoins will keep outperforming?',
+      a: 'No. The index is entirely backward looking — it reports that altcoins have already outperformed over the window you selected. It contains no forecast, and this page does not turn it into one.',
+    },
+  ],
   'crypto/position-size-calculator': [
     {
       q: 'How is position size calculated?',
