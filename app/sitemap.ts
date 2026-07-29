@@ -29,6 +29,7 @@ import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
+import { GEO_TOOLS } from "@/lib/geo-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -161,6 +162,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/body/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/body`, changeFrequency: weekly, priority: 0.9 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/body/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/geometry`, changeFrequency: weekly, priority: 0.95 },
+    ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/geometry/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/en/geometry`, changeFrequency: weekly, priority: 0.9 },
+    ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/geometry`, changeFrequency: weekly, priority: 0.9 },
+    ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -182,6 +189,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/risk-adjusted`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/risk-of-ruin`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/stablecoin-depeg`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/drawdown`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },

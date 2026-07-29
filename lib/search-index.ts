@@ -15,6 +15,7 @@ import { FOOD_TOOLS } from './food-tools';
 import { CONVERT_TOOLS } from './convert-tools';
 import { RATE_TOOLS } from './rate-tools';
 import { BODY_TOOLS } from './body-tools';
+import { GEO_TOOLS } from './geo-tools';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -25,7 +26,7 @@ import { BODY_TOOLS } from './body-tools';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry';
 
 export interface SearchItem {
   href: string;
@@ -55,6 +56,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   convert:    { label: '단위 변환', icon: '🔄', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
   rate:       { label: '비율 계산', icon: '📐', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   body:       { label: '몸 수치', icon: '🩺', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
+  geometry:   { label: '도형·수학', icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
 };
 
 /**
@@ -124,6 +126,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...CONVERT_TOOLS.map(t => ({ href: `/convert/${t.slug}`, title: t.title, desc: t.desc, section: 'convert' as const, icon: t.icon })),
   ...RATE_TOOLS.map(t => ({ href: `/rate/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'rate' as const, icon: t.icon })),
   ...BODY_TOOLS.map(t => ({ href: `/body/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'body' as const, icon: t.icon })),
+  ...GEO_TOOLS.map(t => ({ href: `/geometry/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'geometry' as const, icon: t.icon })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

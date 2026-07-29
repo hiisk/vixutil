@@ -239,6 +239,18 @@ const SECTIONS = [
     shadow: 'shadow-rose-100',
   },
   {
+    href: '/geometry',
+    icon: '📐',
+    title: '도형·수학',
+    desc: '면적·부피·삼각비부터 타일 수·페인트 양까지 50가지',
+    badge: `${SECTION_COUNTS.geometry}개`,
+    color: 'from-indigo-500 to-violet-600',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

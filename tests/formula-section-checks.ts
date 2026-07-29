@@ -129,6 +129,12 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
+  test(`${name} 아이콘은 이모지다 — OG 이미지 폰트가 도형 문자를 못 받는다`, () => {
+    for (const t of tools) {
+      assert.match(t.icon, /\p{Extended_Pictographic}/u, `${t.slug} 아이콘 "${t.icon}"이 이모지가 아니다`);
+    }
+  });
+
   test(`${name} 공식에 한글이 없다 — 세 언어가 같은 문자열을 쓴다`, () => {
     for (const t of tools) {
       assert.ok(!HANGUL.test(t.formula), `${t.slug} 공식에 한글: ${t.formula}`);

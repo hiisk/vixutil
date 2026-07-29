@@ -9,6 +9,7 @@
  * 중국어는 '元'을 쓴다 — 계산 자체는 통화와 무관하다.
  */
 import { BODY_TERMS, BODY_UNITS } from './terms-body.ts';
+import { GEO_TERMS, GEO_UNITS } from './terms-geo.ts';
 
 export type Lang = 'ko' | 'en' | 'zh';
 
@@ -138,8 +139,8 @@ const CORE_UNITS: Record<string, Term> = {
 };
 
 /* 섹션별 용어는 파일을 나눠 둔다 — 한 파일에 수백 줄이면 무엇이 어디 쓰이는지 보이지 않는다 */
-export const TERMS: Record<string, Term> = { ...CORE_TERMS, ...BODY_TERMS };
-export const UNITS: Record<string, Term> = { ...CORE_UNITS, ...BODY_UNITS };
+export const TERMS: Record<string, Term> = { ...CORE_TERMS, ...BODY_TERMS, ...GEO_TERMS };
+export const UNITS: Record<string, Term> = { ...CORE_UNITS, ...BODY_UNITS, ...GEO_UNITS };
 
 export const term = (key: string, lang: Lang): string => TERMS[key]?.[lang] ?? key;
 export const unitLabel = (key: string, lang: Lang): string => UNITS[key]?.[lang] ?? '';
