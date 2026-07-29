@@ -20,6 +20,7 @@ import { COLOR_TOOLS } from "@/lib/color-tools";
 import { TIME_TOOLS } from "@/lib/time-tools";
 import { SOUND_TOOLS } from "@/lib/sound-tools";
 import { FOOD_TOOLS } from "@/lib/food-tools";
+import { CONVERT_TOOLS } from "@/lib/convert-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -134,6 +135,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...SOUND_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/sound/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/food`, changeFrequency: weekly, priority: 0.95 },
     ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
+    ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -145,6 +148,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/altseason-index`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/all-time-high`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/profit-calculator`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/halving-countdown`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
@@ -171,6 +175,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/fortune/daily-tarot`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/tarot-yesno`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/dream`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/en/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/en/snap`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/en/snap/smile-score`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/face-symmetry`, changeFrequency: monthly, priority: 0.8 },
@@ -218,6 +223,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/daily-tarot`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/tarot-yesno`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/dream`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/zh/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
