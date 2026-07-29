@@ -16,6 +16,8 @@ const TESTS = [
   { href: '/en/snap/smile-score',   icon: '😊', title: 'Smile Score',      desc: 'How far your mouth corners lift', color: 'from-amber-400 to-rose-500' },
   { href: '/en/snap/face-symmetry', icon: '⚖️', title: 'Face Symmetry',    desc: 'Left–right balance, feature by feature', color: 'from-violet-500 to-fuchsia-600' },
   { href: '/en/snap/golden-ratio',  icon: '📐', title: 'Golden Ratio Test', desc: 'How close your proportions sit to φ', color: 'from-amber-400 to-orange-500' },
+  { href: '/en/snap/photo-mood',    icon: '🎨', title: 'Photo Mood',       desc: 'Colour mood from any photo', color: 'from-sky-400 to-violet-500' },
+  { href: '/en/snap/expression',    icon: '🎭', title: 'Expression Analyser', desc: 'Seven emotions, inferred by a model', color: 'from-indigo-500 to-purple-500' },
 ];
 
 export default function EnSnapHub() {

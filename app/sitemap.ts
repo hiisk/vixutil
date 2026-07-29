@@ -120,6 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/dca-calculator`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/funding-rates`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/position-size-calculator`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/altseason-index`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
@@ -147,10 +148,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/snap/smile-score`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/face-symmetry`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/golden-ratio`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/en/snap/photo-mood`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/en/snap/expression`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/zh/snap/smile-score`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/face-symmetry`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/golden-ratio`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/zh/snap/photo-mood`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/zh/snap/expression`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },
     ...CHECKLISTS_EN.map((c: { slug: string }) => ({ url: `${BASE}/en/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },

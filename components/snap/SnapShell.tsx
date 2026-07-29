@@ -33,6 +33,8 @@ export interface SnapDetection {
   box: { x: number; y: number; width: number; height: number };
   /** 픽셀을 직접 읽어야 하는 테스트(퍼스널컬러 등)를 위한 원본 이미지 */
   image: HTMLImageElement;
+  /** models='landmarks+expressions'일 때만 채워진다 */
+  expressions?: Record<string, number>;
 }
 
 const UI: Record<SnapLang, {
@@ -129,6 +131,12 @@ interface Props<T> {
   theme: SnapTheme;
   glow?: 'indigo' | 'violet' | 'rose' | 'emerald' | 'sky';
   models?: SnapModels;
+  /**
+   * 얼굴 검출이 필요한지. false면 모델을 아예 불러오지 않고 이미지만 넘긴다.
+   * 사진 감성·손글씨처럼 픽셀만 보는 테스트는 풍경 사진도 받아야 하는데,
+   * 얼굴을 요구하면 정상 입력을 거부하게 된다.
+   */
+  requiresFace?: boolean;
   /** 결과 영역 id — 스크롤 대상 */
   resultId: string;
   /** 검출 결과를 각 테스트의 결과 타입으로 변환. null이면 얼굴 못 찾은 것으로 처리 */
@@ -144,7 +152,7 @@ const MIN_ANALYZE_MS = 800;
 
 export default function SnapShell<T>({
   lang, icon, title, lead, privacyBody, bar, theme, glow = 'indigo',
-  models = 'landmarks', resultId, analyze, children, disclaimer,
+  models = 'landmarks', requiresFace = true, resultId, analyze, children, disclaimer,
 }: Props<T>) {
   const ui = UI[lang];
   const hubHref = lang === 'ko' ? '/snap' : `/${lang}/snap`;
@@ -159,6 +167,7 @@ export default function SnapShell<T>({
   const faceapiRef = useRef<FaceApiModule | null>(null);
 
   useEffect(() => {
+    if (!requiresFace) { setModelState('ready'); return; }
     let cancelled = false;
     (async () => {
       try {
@@ -179,7 +188,7 @@ export default function SnapShell<T>({
       }
     })();
     return () => { cancelled = true; };
-  }, [models]);
+  }, [models, requiresFace]);
 
   useEffect(() => {
     return () => { if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current); };
@@ -188,7 +197,7 @@ export default function SnapShell<T>({
   const handleFile = useCallback(async (file: File) => {
     if (!file.type.startsWith('image/')) return;
     const faceapi = faceapiRef.current;
-    if (!faceapi) return;
+    if (requiresFace && !faceapi) return;
 
     if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
     const url = URL.createObjectURL(file);
@@ -207,27 +216,34 @@ export default function SnapShell<T>({
 
     const startedAt = Date.now();
     let detection;
-    try {
-      const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 });
-      detection = await faceapi.detectSingleFace(img, opts).withFaceLandmarks();
-    } catch {
-      detection = undefined;
+    if (requiresFace && faceapi) {
+      try {
+        const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 });
+        const base = faceapi.detectSingleFace(img, opts).withFaceLandmarks();
+        detection = models === 'landmarks+expressions'
+          ? await base.withFaceExpressions()
+          : await base;
+      } catch {
+        detection = undefined;
+      }
     }
 
     const elapsed = Date.now() - startedAt;
     if (elapsed < MIN_ANALYZE_MS) await new Promise(r => setTimeout(r, MIN_ANALYZE_MS - elapsed));
 
-    if (!detection || detection.detection.score < MIN_CONFIDENCE) {
+    if (requiresFace && (!detection || detection.detection.score < MIN_CONFIDENCE)) {
       setFaceError(ui.noFace);
       setAnalyzing(false);
       return;
     }
 
+    const withExpr = detection as { expressions?: Record<string, number> } | undefined;
     const out = analyze({
-      landmarks: detection.landmarks as unknown as SnapDetection['landmarks'],
-      score: detection.detection.score,
-      box: detection.detection.box,
+      landmarks: detection?.landmarks as unknown as SnapDetection['landmarks'],
+      score: detection?.detection.score ?? 0,
+      box: detection?.detection.box ?? { x: 0, y: 0, width: img.width, height: img.height },
       image: img,
+      expressions: withExpr?.expressions,
     });
 
     if (!out) {
@@ -239,7 +255,7 @@ export default function SnapShell<T>({
     setResult(out);
     setAnalyzing(false);
     setTimeout(() => document.getElementById(resultId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-  }, [analyze, resultId, ui.noFace]);
+  }, [analyze, resultId, ui.noFace, requiresFace, models]);
 
   const reset = useCallback(() => {
     setPreview(null);

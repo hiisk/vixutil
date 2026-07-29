@@ -16,6 +16,8 @@ const TESTS = [
   { href: '/zh/snap/smile-score',   icon: '😊', title: '微笑指数',     desc: '测量嘴角上扬的程度', color: 'from-amber-400 to-rose-500' },
   { href: '/zh/snap/face-symmetry', icon: '⚖️', title: '脸部对称度',   desc: '分部位看左右平衡', color: 'from-violet-500 to-fuchsia-600' },
   { href: '/zh/snap/golden-ratio',  icon: '📐', title: '黄金比例测试', desc: '五官比例与 φ 的接近程度', color: 'from-amber-400 to-orange-500' },
+  { href: '/zh/snap/photo-mood',    icon: '🎨', title: '照片氛围',   desc: '任意照片的色彩调性', color: 'from-sky-400 to-violet-500' },
+  { href: '/zh/snap/expression',    icon: '🎭', title: '表情分析',   desc: '模型推断的七种情绪', color: 'from-indigo-500 to-purple-500' },
 ];
 
 export default function ZhSnapHub() {

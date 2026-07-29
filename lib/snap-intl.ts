@@ -253,3 +253,287 @@ export const SNAP_UI: Record<SnapIntlLang, {
     tipLabel: '拍照建议',
   },
 };
+
+/* ── 사진 감성 ──
+   얼굴 인식이 필요 없어 풍경·소품 사진도 받는다. 픽셀 통계(밝기·채도·웜쿨·대비)로
+   사분면을 나누는 방식이라 계산은 언어와 무관하다. */
+export type MoodKeyIntl = 'pastel' | 'vivid' | 'moody' | 'neon';
+
+export const MOOD_META_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, { label: string; vibe: string }>> = {
+  en: {
+    pastel: { label: 'Soft & Light', vibe: 'bright, low saturation, minimal' },
+    vivid:  { label: 'Bright & Vivid', vibe: 'bright, high saturation, fresh' },
+    moody:  { label: 'Moody Grey', vibe: 'dark, low saturation, cinematic' },
+    neon:   { label: 'Dark Neon', vibe: 'dark, high saturation, dramatic' },
+  },
+  zh: {
+    pastel: { label: '白调质感', vibe: '明亮、低饱和、极简' },
+    vivid:  { label: '清爽鲜明', vibe: '明亮、高饱和、清新' },
+    moody:  { label: '灰调氛围', vibe: '暗调、低饱和、电影感' },
+    neon:   { label: '暗夜霓虹', vibe: '暗调、高饱和、戏剧感' },
+  },
+};
+
+export const MOOD_POOL_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, string[]>> = {
+  en: {
+    pastel: [
+      'A bright, softly desaturated photo. The light tone reads as calm and tidy, and it flatters people and objects alike.',
+      'Gentle pastel feeling throughout. The restraint in the colour is what makes it comfortable to look at — good for everyday shots.',
+      'Minimal and orderly. This mood gets stronger the more negative space and the fewer competing colours there are.',
+      'Warm and easy on the eye. Pulling the saturation down even slightly is what completes this kind of mood.',
+      'A calm, elegant white-and-pastel combination. A clean background doubles the effect.',
+      'Bright, understated tones that read as naturally trustworthy — good for keeping a feed visually consistent.',
+      'Strong ivory and beige feeling. Well suited to object photography and moodboard-style sets.',
+      'Soft and slightly dreamlike. This often appears in backlit shots or on overcast days.',
+      'Neat, with room to breathe. The mood comes from composition and space rather than colour.',
+      'Gentle light and low saturation making a relaxed image — the effortless-looking kind of shot.',
+    ],
+    vivid: [
+      'Fresh and full of life. The clear colour makes for a bright, open impression — especially good for summer and outdoor shots.',
+      'Punchy colour that stands out. The stronger the contrast between subject and background, the better this mood works.',
+      'Lively and energetic. Bright skies and strong primary colours amplify it.',
+      'Crisp pop-colour feeling. Very likely a photo where the colour holds up without any filter.',
+      'Bright, clear colour throughout. High saturation carries an active, positive atmosphere.',
+      'A real sense of freshness. This often shows up in natural-light photos with blues and greens.',
+      'Colour-forward and cheerful — the kind of frame that stops the scroll as a thumbnail.',
+      'An eye-catching colour combination. Several of these together make a bright, coherent set.',
+      'Full of clear, sunny energy. Particularly appealing in travel and outdoor photos.',
+      'Sharp colour with bright exposure. Has pop without needing any editing.',
+    ],
+    moody: [
+      'Calm and deep. The pulled-down tone and low saturation give it a cinematic quality.',
+      'Grey and dark tones making something refined — suits photos that hold emotion back while still conveying it.',
+      'Weighty and composed low-saturation mood. In portraits it reads as serious and reflective.',
+      'The particular feeling of film. Slightly under-exposed, which adds depth.',
+      'Restrained colour with strong shadow. Works well for quiet, indoor scenes.',
+      'A settled, unhurried atmosphere. Rain and overcast light produce this reliably.',
+      'Muted and textural. The mood comes from tonal range rather than colour.',
+      'Deep shadows with a narrow palette — the kind of frame that rewards a second look.',
+      'Quiet and cinematic. Good for photos meant to sit still rather than shout.',
+      'Low-key and considered. The absence of bright colour is doing the work here.',
+    ],
+    neon: [
+      'Dark but saturated — the night-city look, dramatic and high contrast.',
+      'Strong colour against deep shadow. Signage, screens and streetlights produce this well.',
+      'Vivid highlights in a dark frame. It reads as energetic even though the overall tone is low.',
+      'A dramatic mix of dark base and strong accent colour, the kind that carries on a small screen.',
+      'Night-time palette with real colour left in it. Neon and reflections push this further.',
+      'Deep tone with saturated punctuation — visually loud without being bright.',
+      'High contrast between dark surroundings and a coloured light source.',
+      'Cinematic night mood. Wet ground and reflected light amplify it noticeably.',
+      'Dark and vivid at once, which is exactly what makes it feel modern.',
+      'Bold colour lifted out of shadow — the most graphic of the four moods.',
+    ],
+  },
+  zh: {
+    pastel: [
+      '明亮柔和的白调照片。降低饱和度的浅色调让画面显得舒服而整洁，人物和静物都好看。',
+      '淡雅温柔的质感很突出。不过分的色彩让人看着舒服，很适合日常记录。',
+      '极简而整齐的白调照片。留白越多、颜色越克制，这种感觉就越明显。',
+      '温柔可爱的照片。饱和度只要稍微降一点，氛围感就出来了。',
+      '沉静优雅的白色与浅色搭配。配上干净的背景，效果会加倍。',
+      '明亮内敛的色调，自然让人产生信赖感。特别适合让整个主页保持统一。',
+      '米白、米色系的感觉很强。适合静物照或情绪板风格的组图。',
+      '柔和带点朦胧的质感。逆光或阴天拍摄时常会出现这种氛围。',
+      '干净且有留白的白调照片。氛围来自构图和留白，而不是颜色。',
+      '柔光与低饱和造就的放松感 —— 那种「精心又像没打理」的调子。',
+    ],
+    vivid: [
+      '清爽而有生气的鲜明照片。清晰的色彩带来开阔明亮的印象，特别适合夏天和户外。',
+      '色彩跳脱、很抓眼。主体和背景的色差越明显，这种感觉越好。',
+      '生机勃勃、充满活力。搭配通透的天空和鲜艳的原色小物，感觉会翻倍。',
+      '清新明快的糖果色感觉。很可能是不用滤镜色彩也立得住的照片。',
+      '明亮清晰的色彩很有存在感。高饱和带来积极活跃的氛围。',
+      '清爽感扑面而来。蓝绿色系的自然光照片里常见这种调子。',
+      '色彩鲜活、朝气十足。做缩略图特别抓人。',
+      '跳跃的配色让人挪不开眼。几张放在一起就是明亮统一的一组。',
+      '满是晴朗明亮的气息。旅行和户外照片里格外好看。',
+      '清晰色彩配上明亮曝光。不修图也有跳出来的感染力。',
+    ],
+    moody: [
+      '沉静而有深度的氛围照。压暗的色调与低饱和造出电影般的质感。',
+      '灰调与暗色营造的高级氛围。适合那种克制却传达得很浓的照片。',
+      '厚重沉稳的低饱和氛围。用在人像上会显得沉着、有思考感。',
+      '有胶片特有的味道。稍微压暗的曝光让画面更有层次。',
+      '克制的色彩配上明确的阴影。适合安静的室内场景。',
+      '不慌不忙的沉静氛围。下雨天和阴天的光线很容易出这个调子。',
+      '低饱和且有质感。氛围来自明暗层次，而不是颜色。',
+      '深阴影配上收窄的色域 —— 值得多看一眼的那种画面。',
+      '安静而有电影感。适合那些想让人停下来看的照片。',
+      '低调而克制。恰恰是没有鲜艳色彩，才成就了这张照片。',
+    ],
+    neon: [
+      '暗调却高饱和 —— 典型的夜色都市感，戏剧性强、对比大。',
+      '浓烈色彩落在深阴影上。招牌、屏幕和路灯很容易拍出这种感觉。',
+      '暗色画面里的鲜亮高光。整体虽暗，读起来却很有能量。',
+      '深色底加上强烈的点缀色，即使在小屏幕上也很有冲击力。',
+      '夜晚的色盘，但颜色都还在。霓虹与倒影会让效果更强。',
+      '深色调配上高饱和的点睛 —— 不亮，却很响亮。',
+      '暗环境与彩色光源之间的强对比。',
+      '有电影感的夜间氛围。湿地面和反光会明显加强这种感觉。',
+      '同时是暗的和鲜艳的，这正是它显得当代的原因。',
+      '从阴影里提出来的大胆色彩 —— 四种氛围里最有图形感的一种。',
+    ],
+  },
+};
+
+export const MOOD_CAPTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'A short, plain line suits this photo better. Leave space rather than explaining.',
+    'The better the colour, the shorter the caption should be — one emoji is plenty.',
+    'Try describing the feeling of the moment in a single word.',
+    'A sentence about the atmosphere lasts longer in memory than the date and place.',
+    'Three or four hashtags is enough; more starts to look cluttered.',
+    'If you want to tag someone, a comment reads more naturally than the caption.',
+    'A question in the caption pulls more replies than a long description.',
+    'This one would set the tone well as the first image in a set.',
+    'The unedited version may feel more atmospheric than any filter today.',
+    'Group it with two or three photos in the same tone for a coherent set.',
+    'Sometimes posting with no caption at all is its own kind of statement.',
+    'Let the strongest colour in the frame decide the mood of the caption.',
+  ],
+  zh: [
+    '这张照片配一句简短平实的话更合适。与其解释，不如留白。',
+    '色彩越好的照片，配文越要短，加一个表情就够了。',
+    '试着用一个词表达此刻的心情，那就是很好的配文。',
+    '写当下的氛围，会比写日期和地点更让人记得住。',
+    '标签挑三四个就够，太多反而显得杂乱。',
+    '想@朋友的话，写在评论里比写在配文里更自然。',
+    '提问式的配文比长篇说明更容易带来互动。',
+    '这张作为一组照片的第一张，很能定下整体的调子。',
+    '今天也许不加滤镜的原片，比修过的更有味道。',
+    '和两三张同色调的照片放在一起，会成为很统一的一组。',
+    '有时候什么都不写，只放照片，本身就是一种表达。',
+    '让画面里最强的那个颜色来决定配文的语气。',
+  ],
+};
+
+/* ── 표정 감정 분석 ──
+   face-api의 감정 인식 모델이 7가지 확률을 실제로 추론한다. 무작위가 아니라
+   학습된 신경망의 출력이고, 여기 붙는 코멘트만 오락용 해석이다. */
+export type EmotionKeyIntl = 'neutral' | 'happy' | 'sad' | 'angry' | 'fearful' | 'disgusted' | 'surprised';
+
+export const EMOTION_LABELS_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, string>> = {
+  en: {
+    happy: 'Happy', neutral: 'Neutral', surprised: 'Surprised',
+    sad: 'Sad', angry: 'Angry', fearful: 'Fearful', disgusted: 'Displeased',
+  },
+  zh: {
+    happy: '开心', neutral: '无表情', surprised: '惊讶',
+    sad: '难过', angry: '生气', fearful: '害怕', disgusted: '不悦',
+  },
+};
+
+export const EMOTION_POOL_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, string[]>> = {
+  en: {
+    happy: [
+      'Happiness comes through most strongly here. The lift at the mouth and the crease at the eyes read as genuine, and that kind of positive expression measurably lifts a first impression.',
+      'Bright, happy energy that carries past the frame. Happiness scored far above everything else, which means the smile reads as real rather than held. A good one to keep as a profile picture.',
+      'The smile dominates the emotion spread. It gives the impression of someone who would be good company — open, warm and easy to approach.',
+      'The highest happiness reading of the set. Nothing forced about it, so it feels like an actual moment rather than a pose. That honesty beats any filter.',
+    ],
+    neutral: [
+      'A composed neutral expression leads the spread. Holding the emotion back reads as understated and modern — the kind of face that suits an editorial or concept shot.',
+      'Calm, almost detached. Because little emotion shows on the surface, it comes across as steady and dependable, which is its own kind of appeal.',
+      'Restrained and plain in the best sense. There is nothing to tire of, and the composure gives it depth on a long look.',
+      'Neutral scored highest. There is something unreadable about it, and that ambiguity often leaves the stronger impression.',
+    ],
+    surprised: [
+      'Surprise leads the spread. Wide eyes and an open expression — a photo that caught an actual moment rather than a pose.',
+      'The highest surprise reading. It reads as lively and expressive, with the feeling of a real reaction rather than a held face.',
+      'Wide-eyed and open. There is something curious and unguarded about it that reads as younger and more candid.',
+      'The startled quality is the appeal here. It gives the photo a sense of story, and the reaction holds the eye.',
+    ],
+    sad: [
+      'A quieter, downcast reading came out on top. Photos with this kind of tone often carry more feeling than a smiling one does.',
+      'Some melancholy in the expression. That is not a flaw — softer, more contemplative faces photograph with real depth.',
+      'A subdued expression leads. It reads as thoughtful rather than unhappy, the kind of frame that suits a quiet moment.',
+      'A touch of wistfulness. This mood is what gives portraits their weight, and it tends to age well as an image.',
+    ],
+    angry: [
+      'A firm, intense expression scored highest. Often this is simply concentration rather than anger — a focused face reads as strong.',
+      'Strength and intensity dominate. Furrowed brows frequently register here even when the mood is just determination.',
+      'A serious, unsmiling face leads the spread. It reads as decisive, which is exactly right for some kinds of portrait.',
+      'The set expression came out on top. There is conviction in it, and conviction photographs well.',
+    ],
+    fearful: [
+      'A tense reading leads. Wide eyes and raised brows register this way, and it often just means the shutter caught you mid-thought.',
+      'Some apprehension in the expression. That vulnerability is often what makes a candid photo feel honest.',
+      'The alert, slightly braced look scored highest. It gives the frame urgency and movement.',
+      'A caught-off-guard quality leads the spread — usually the sign of a genuinely unposed photo.',
+    ],
+    disgusted: [
+      'A scrunched, unimpressed expression scored highest. These faces are usually the funniest ones in an album.',
+      'Displeasure leads — often a squint into the sun rather than an actual reaction.',
+      'A wrinkled-nose expression came out on top. It is expressive, and expressive photos are memorable.',
+      'The unimpressed face leads the spread. There is character in it, which is more than most posed shots manage.',
+    ],
+  },
+  zh: {
+    happy: [
+      '照片里最突出的是开心。嘴角和眼角自然的笑意让人跟着心情变好，这种积极表情能明显提升第一印象。',
+      '灿烂的快乐能量透出画面。开心的概率远高于其他情绪，说明这是发自内心的笑。拿来当头像好感度会直接上一个台阶。',
+      '笑容在情绪分布中占比最大。满是正向的气息，给人一种在一起会很开心的印象，明亮又好接近。',
+      '开心指数最高的一张。不勉强、很自然，像真的捕捉到了愉快的瞬间。这种真诚的笑比任何滤镜都好看。',
+    ],
+    neutral: [
+      '沉静的无表情在情绪分布中最突出。不外露情绪的高冷感是它的魅力，反而显得洗练、有都市感，很适合概念照。',
+      '看似无谓、实则沉稳的表情占主导。情绪起伏不写在脸上，给人稳重可靠的感觉。',
+      '克制而清爽的表情。因为不过分，所以看久了也舒服，那份不轻易外露的沉静本身就很有味道。',
+      '中性表情占比最高。有种看不透的神秘感，这样的氛围往往反而留下更强的印象。',
+    ],
+    surprised: [
+      '惊讶在情绪分布里最突出。眼睛睁大、表情舒展，是抓到了真实瞬间而不是摆拍的照片。',
+      '惊讶指数最高。显得生动、表现力强，情绪坦率地流露出来，很有活力。',
+      '睁大眼睛的惊讶占主导。透着单纯与好奇，有种显小的可爱，也很坦诚。',
+      '吓一跳般的表情正是魅力点。表现力足，照片像带着故事，反应生动、抓眼。',
+    ],
+    sad: [
+      '偏低落的情绪排在最前。这种调子的照片，往往比笑着的更有情绪张力。',
+      '表情里带着一点忧郁。这不是缺点 —— 柔软、带思绪的脸拍出来很有深度。',
+      '沉静的表情占主导。读起来更像在思考而不是不开心，适合安静的瞬间。',
+      '有几分怅然。人像的分量往往就来自这种情绪，而且这样的照片会越看越耐看。',
+    ],
+    angry: [
+      '坚定而有力度的表情得分最高。很多时候这只是专注而非生气 —— 专注的脸看着就有力量。',
+      '力量感与强度占主导。皱眉在模型里常被读成这一类，其实往往只是下定决心的样子。',
+      '认真不笑的脸排在最前。显得果断，用在某些人像里恰到好处。',
+      '绷住的表情占比最高。里面有笃定，而笃定是很上镜的。',
+    ],
+    fearful: [
+      '紧张的读数排在最前。眼睛睁大、眉毛上扬容易被读成这一类，通常只是快门抓到了你正在想事情的瞬间。',
+      '表情里有一点忐忑。这份不设防，常常正是抓拍照片显得真诚的原因。',
+      '警觉、微微绷住的样子得分最高。它给画面带来紧迫感和动势。',
+      '被抓个正着的感觉排在最前 —— 通常说明这是一张真正没有摆拍的照片。',
+    ],
+    disgusted: [
+      '皱起来的、不以为然的表情得分最高。这类照片往往是相册里最好笑的几张。',
+      '不悦排在最前 —— 很多时候只是被太阳晃到眯了眼，而不是真的有反应。',
+      '皱鼻子的表情占比最高。表现力强，而有表现力的照片让人记得住。',
+      '不买账的那张脸排在最前。里面有性格，这是大多数摆拍做不到的。',
+    ],
+  },
+};
+
+export const EMOTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'The model reads pixels, not feelings — a photo is one frozen instant, not a mood.',
+    'Expression recognition is trained mostly on posed faces, so subtle expressions often land as neutral.',
+    'Try the same face in different light; the reading can shift more than you would expect.',
+    'A slight head tilt changes the eye and brow geometry, which is most of what the model looks at.',
+    'Compare two photos from the same day — the difference is usually the light, not the mood.',
+    'Neutral scoring high is extremely common. Most faces at rest are neutral.',
+    'Glasses and hair over the brows can pull the reading around noticeably.',
+    'Try a burst and see how much the numbers move between frames a second apart.',
+  ],
+  zh: [
+    '模型读的是像素，不是心情 —— 一张照片只是被冻住的一瞬，不等于当时的状态。',
+    '表情识别主要在摆拍数据上训练，所以细微的表情常常被读成无表情。',
+    '换个光线拍同一张脸试试，结果的变化可能比你想的大。',
+    '头稍微一歪，眼睛和眉毛的几何就变了，而这正是模型主要在看的地方。',
+    '比较同一天的两张照片，差别通常来自光线而不是心情。',
+    '无表情得分高非常常见，大多数人放松时的脸就是中性的。',
+    '眼镜和盖住眉毛的头发会明显影响读数。',
+    '连拍几张看看，相隔一秒的两帧数字能差多少。',
+  ],
+};
