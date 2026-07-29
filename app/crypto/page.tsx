@@ -28,6 +28,7 @@ const structuredData = [
 const TOOLS = [
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: '김치 프리미엄', desc: '업비트·빗썸 vs 바이낸스 실시간 시세 비교 — 환율 기준과 USDT 기준 모두', badge: 'NEW', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/liquidation-calculator', icon: '⚠️', title: 'Liquidation Calculator', desc: 'Liquidation price for any leverage — plus the odds of actually reaching it', badge: 'NEW', color: 'from-rose-400 to-orange-500' },
   { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL Calculator', desc: 'Pick a coin, set entry and multipliers, get take-profit & stop-loss', badge: 'Calc', color: 'from-yellow-400 to-amber-600' },
 ];
 

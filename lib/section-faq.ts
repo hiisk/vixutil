@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/liquidation-calculator': [
+    {
+      q: 'How is the liquidation price calculated?',
+      a: 'Liquidation happens when the equity left in the position equals the maintenance margin. Because that margin is charged on the notional at the liquidation price rather than at entry, a long works out to entry x (1 - 1/leverage) / (1 - maintenance margin rate), and a short to entry x (1 + 1/leverage) / (1 + rate). Calculators that omit the divisor place the level further from entry than it actually is, and the gap widens with leverage.',
+    },
+    {
+      q: 'Why does this show a probability of being liquidated?',
+      a: 'Because the price alone does not tell you whether a position is risky. A liquidation 20% away is routine in a volatile coin and rare in a quiet one. The probability is sampled from 4,000 paths using that specific coin\u2019s measured volatility and fat tails, counting how often the price touches your level at any point within 7, 30 or 90 days.',
+    },
+    {
+      q: 'Will my real liquidation price match this?',
+      a: 'It will be slightly closer to your entry. This calculation excludes trading fees, funding payments and tiered maintenance margin, and all three erode margin in the same direction. Treat this as the optimistic end and confirm against the liquidation price your exchange shows on the order screen.',
+    },
+    {
+      q: 'What maintenance margin rate should I enter?',
+      a: 'It depends on the exchange, the coin and your position size, since exchanges apply tiers that rise with notional. On Binance the first tier is commonly 0.4% for BTC and 0.5% to 1% for most altcoins. The calculator cannot know your tier, so it takes the rate as an input rather than guessing.',
+    },
+    {
+      q: 'Does adding margin change my position size?',
+      a: 'No. Added margin leaves the quantity and notional untouched and only moves the liquidation price further away. Reducing leverage at a fixed margin is different: that shrinks the position itself.',
+    },
+    {
+      q: 'Is isolated or cross margin assumed?',
+      a: 'Isolated. Only the margin assigned to this position backs it. Under cross margin your entire wallet balance and the profit or loss of every other open position feed into the same calculation, so the liquidation price moves as those positions move.',
+    },
+  ],
   'crypto/atr-tpsl': [
     {
       q: 'What is ATR?',
