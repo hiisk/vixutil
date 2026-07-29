@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/position-size-calculator': [
+    {
+      q: 'How is position size calculated?',
+      a: 'Divide the amount you are willing to lose — your account multiplied by your risk percentage — by the distance from entry to stop. That gives the quantity, and because the distance is in the denominator, a wider stop automatically produces a smaller position and the loss at stop stays the same either way.',
+    },
+    {
+      q: 'Does leverage change my position size?',
+      a: 'No, and this is the most common misconception. Size comes from the stop distance and the loss you accept. Leverage only changes how much margin is locked up to hold that same position. Doubling leverage with an unchanged stop halves the margin posted and leaves the loss at stop identical.',
+    },
+    {
+      q: 'What risk percentage should I use per trade?',
+      a: 'Common practice is 0.5% to 2% of the account per trade, and the reason is arithmetic rather than taste: at 2% risk a run of ten losses costs about a fifth of the account, while at 10% the same run is close to fatal. There is no correct figure, but it should be a number a losing streak can survive.',
+    },
+    {
+      q: 'Why does this show the probability of the stop being hit?',
+      a: 'Because sizing only fixes what a loss costs, not how often it happens. The same 3% stop is routine noise on a volatile altcoin and a meaningful level on a quiet large cap. The figure comes from sampling that coin\u2019s measured volatility with no directional view, so it estimates how often ordinary movement alone would touch the level.',
+    },
+    {
+      q: 'What is an R multiple and a breakeven win rate?',
+      a: 'One R is the amount risked, so a target three times the stop distance away is 3R. The win rate needed just to break even follows only from that ratio and equals 1/(R+1) — 50% at 1R, 33% at 2R, 25% at 3R. Improving the ratio lowers the bar far more dependably than trying to be right more often.',
+    },
+    {
+      q: 'Can I be liquidated before my stop is reached?',
+      a: 'Yes, if leverage is high enough that the liquidation price falls inside the stop distance, in which case the stop never gets a chance to execute. Sizing by risk does not prevent that on its own — check the liquidation price separately for the leverage you intend to use.',
+    },
+  ],
   'crypto/funding-rates': [
     {
       q: 'What is a funding rate?',

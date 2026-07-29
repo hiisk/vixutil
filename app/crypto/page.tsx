@@ -26,8 +26,11 @@ const structuredData = [
 ];
 
 const TOOLS = [
-  { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: '김치 프리미엄', desc: '업비트·빗썸 vs 바이낸스 실시간 시세 비교 — 환율 기준과 USDT 기준 모두', badge: 'NEW', color: 'from-rose-400 to-amber-500' },
+  // 이 도구만 한국어다 — 김프는 한국 거래소 고유 현상이라 독자가 한국인이다.
+  // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
+  { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/position-size-calculator', icon: '⚖️', title: 'Position Size Calculator', desc: 'Size from risk, not from leverage — plus the odds your stop gets hit by noise', badge: 'NEW', color: 'from-violet-400 to-purple-500' },
   { href: '/crypto/funding-rates', icon: '💸', title: 'Funding Rates', desc: 'Every USDT perp, annualised with its real settlement interval — not a blanket 8h', badge: 'NEW', color: 'from-sky-400 to-indigo-500' },
   { href: '/crypto/dca-calculator', icon: '📅', title: 'DCA Calculator', desc: 'What a recurring buy would be worth — and whether that start date was lucky', badge: 'NEW', color: 'from-emerald-400 to-teal-500' },
   { href: '/crypto/liquidation-calculator', icon: '⚠️', title: 'Liquidation Calculator', desc: 'Liquidation price for any leverage — plus the odds of actually reaching it', badge: 'NEW', color: 'from-rose-400 to-orange-500' },
@@ -88,9 +91,9 @@ export default function CryptoPage() {
 
         <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
-        <Faq items={SECTION_FAQ.crypto} />
+        <Faq items={SECTION_FAQ.crypto} lang="en" />
       </div>
-      <SiteFooter />
+      <SiteFooter lang="en" />
     </div>
   );
 }
