@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/funding-rates': [
+    {
+      q: 'What is a funding rate?',
+      a: 'Perpetual futures never expire, so nothing naturally pulls their price back to spot. Funding does it: at fixed intervals one side pays the other in proportion to the gap between the perpetual and the index price. A positive rate means longs pay shorts, a negative rate means shorts pay longs. The exchange does not keep it — it moves between traders.',
+    },
+    {
+      q: 'Why do your annualised rates differ from other funding tables?',
+      a: 'Because most tables assume every contract settles three times a day. Binance runs a large share of its USDT perpetuals on a 4-hour schedule and a few on a 1-hour schedule, so the assumption is wrong for more than half of them. A 4-hour symbol annualised as if it were 8-hourly comes out at exactly half its real rate. This page reads each symbol\u2019s actual interval and uses that.',
+    },
+    {
+      q: 'Does a high annualised rate mean I would earn that in a year?',
+      a: 'No. Only the next settlement is fixed; everything after it moves with the market, and the most extreme rates are usually the ones that revert fastest. The annualised column exists to make the size of a small-looking number legible, not to project a year of income.',
+    },
+    {
+      q: 'Can I just collect funding by hedging the position?',
+      a: 'That is the standard funding arbitrage, and it is not free. Fees apply on both legs at entry and exit, the rate can flip before you unwind, and shorting spot to hedge requires borrowing — the borrow cost is usually highest on exactly the coins whose funding is extreme, for the same underlying reason.',
+    },
+    {
+      q: 'How do I tell whether a rate is unusually high?',
+      a: 'Only by comparing it to that coin\u2019s own history, since baselines differ widely between symbols. Selecting a row shows the percentile of the current rate against its past settlements, which is a more meaningful signal than any absolute threshold.',
+    },
+    {
+      q: 'Do funding rates predict the price direction?',
+      a: 'They describe positioning, not direction. A strongly positive rate says leveraged longs are crowded and paying to stay in, which is information about who is exposed rather than about where the price goes next. This page does not turn funding into a directional signal.',
+    },
+  ],
   'crypto/dca-calculator': [
     {
       q: 'What does this DCA calculator actually compute?',
