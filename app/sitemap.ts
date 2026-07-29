@@ -19,6 +19,7 @@ import { GAME_TOOLS } from "@/lib/game-tools";
 import { COLOR_TOOLS } from "@/lib/color-tools";
 import { TIME_TOOLS } from "@/lib/time-tools";
 import { SOUND_TOOLS } from "@/lib/sound-tools";
+import { FOOD_TOOLS } from "@/lib/food-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -131,6 +132,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...TIME_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/time/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/sound`, changeFrequency: weekly, priority: 0.95 },
     ...SOUND_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/sound/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/food`, changeFrequency: weekly, priority: 0.95 },
+    ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },

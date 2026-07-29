@@ -191,6 +191,18 @@ const SECTIONS = [
     shadow: 'shadow-indigo-100',
   },
   {
+    href: '/food',
+    icon: '🍳',
+    title: '계량·요리',
+    desc: '컵→그램 계량, 레시피 배율, 오븐 온도, 식품 보관',
+    badge: `${SECTION_COUNTS.food}개`,
+    color: 'from-amber-500 to-red-600',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
