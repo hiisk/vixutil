@@ -8,7 +8,7 @@ export const dynamic = 'force-static';
 export default function Image() {
   return new ImageResponse(
     ogCard({
-      icon: '📊',
+      icon: '🧮',
       eyebrow: 'Calculator',
       title: '실생활 계산기',
       desc: '세금 · 금융 · 대출 · 부동산 · 건강 등 85개+ 계산기',

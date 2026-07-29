@@ -1,11 +1,12 @@
 import type { ReactElement } from 'react';
+import { ogGlyph } from './og-icons';
 
 /** 공유(OG) 이미지 공통 규격·템플릿 — next/og(Satori)로 렌더 */
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = 'image/png';
 
 /** #rrggbb → rgba(r,g,b,a) */
-function alpha(hex: string, a: number): string {
+export function alpha(hex: string, a: number): string {
   const h = hex.replace('#', '');
   const r = parseInt(h.slice(0, 2), 16);
   const g = parseInt(h.slice(2, 4), 16);
@@ -13,8 +14,30 @@ function alpha(hex: string, a: number): string {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
-/** 왼쪽 글 영역의 안쪽 폭. 이보다 넘치면 오른쪽 아이콘을 침범한다. */
+/** 왼쪽 글 영역의 안쪽 폭. 이보다 넘치면 오른쪽 그림을 침범한다. */
 const TEXT_BOX = 624;
+
+/**
+ * 설명문에 섞인 이모지를 뺀다.
+ *
+ * 사이트 데이터의 desc는 "…탈탈 털어보자 🧓"처럼 이모지로 끝나는 게 꽤 있다.
+ * 화면에서는 괜찮지만 카드에서는 컬러 이모지가 흑백 아이콘 옆에 끼어들어
+ * 한 세트로 안 보인다.
+ *
+ * 화살표(U+2190~21FF)는 건드리지 않는다 — 계산기 설명이 "월급 → 실수령액"처럼
+ * 화살표를 문장 부호로 쓴다.
+ */
+function stripEmoji(text: string): string {
+  return text
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2300}-\u{23FF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+/** 그림의 중심과 크기 — 궤도·후광·아이콘이 모두 이 값을 기준으로 놓인다 */
+const ART_X = 892;
+const ART_Y = 315;
+const GLYPH = 280;
 
 /**
  * 글자 하나가 차지하는 폭을 em 단위로 어림한다.
@@ -36,7 +59,7 @@ function charUnits(ch: string): number {
 /**
  * 제목 폰트 크기.
  *
- * Satori에는 넘친 글자를 잘라낼 수단이 마땅치 않아서, 넘치면 그대로 아이콘
+ * Satori에는 넘친 글자를 잘라낼 수단이 마땅치 않아서, 넘치면 그대로 그림
  * 위로 올라탄다. 그래서 폭을 미리 재고 크기를 맞춘다 — 한 줄에 들어가면
  * 크게 뽑고, 안 되면 두 줄 기준으로 줄인다. 두 줄 계산에 1.15를 곱하는 건
  * 단어 단위 줄바꿈이라 줄 끝에 늘 빈 자리가 남기 때문이다.
@@ -49,20 +72,72 @@ function titleSize(title: string): number {
 }
 
 /**
- * 공유 카드 — "스포트라이트".
+ * 카드 그림 — 1200×630 한 장을 통째로 그린 SVG.
  *
- * 배경은 거의 검게 두고 오른쪽 아이콘에만 accent 색 빛을 몰아준다. 링크
- * 미리보기는 피드에서 작게 잘려 보이는데, 요소를 여럿 늘어놓으면 그 크기에선
- * 전부 뭉개진다. 그래서 밝은 지점을 하나만 만들고 나머지는 비웠다.
+ * 배경·빛·궤도·아이콘이 전부 이 안에 있다. CSS로 배경을 깔고 그 위에 작은
+ * 아이콘만 얹으면 "동그라미 안에 아이콘" 이상이 안 나오는데, 한 좌표계
+ * 안에서 그리면 궤도와 아이콘 크기를 맞춰 배치할 수 있다.
  *
- * 왼쪽 글, 오른쪽 아이콘의 2단 구성이다. 예전 템플릿은 왼쪽에만 내용을
- * 몰아넣어 오른쪽 절반이 통째로 비어 있었다.
+ * Satori가 지원하는 SVG는 제한적이다. defs·linearGradient·radialGradient·
+ * g transform·path·circle·rect까지는 통과하지만 filter·mask·use·clipPath는
+ * 쓰지 않는다.
+ */
+function artwork(glyph: ReactElement[] | null, from: string, to: string): ReactElement {
+  const half = GLYPH / 2;
+  return (
+    <svg width={OG_SIZE.width} height={OG_SIZE.height} viewBox="0 0 1200 630">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#12142c" />
+          <stop offset="60%" stopColor="#06070f" />
+          <stop offset="100%" stopColor="#0a0b18" />
+        </linearGradient>
+        {/* 가로로 서서히 밝아지는 판. 왼쪽 끝을 완전 투명으로 둬야 이음선이 안 생긴다 */}
+        <linearGradient id="sheet" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="30%" stopColor={from} stopOpacity="0" />
+          <stop offset="100%" stopColor={from} stopOpacity="0.3" />
+        </linearGradient>
+        <radialGradient id="spot" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor={to} stopOpacity="0.5" />
+          <stop offset="100%" stopColor={to} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <rect x={0} y={0} width={1200} height={630} fill="url(#bg)" />
+      <rect x={0} y={0} width={1200} height={630} fill="url(#sheet)" />
+      <circle cx={ART_X} cy={ART_Y} r={320} fill="url(#spot)" />
+
+      {/* 궤도 — 아이콘을 감싸 시선을 모은다 */}
+      <circle cx={ART_X} cy={ART_Y} r={240} fill="none" stroke="#ffffff" strokeOpacity="0.13" strokeWidth={2} />
+      <circle cx={ART_X} cy={ART_Y} r={300} fill="none" stroke="#ffffff" strokeOpacity="0.06" strokeWidth={2} />
+      <circle cx={ART_X} cy={ART_Y - 240} r={8} fill={to} />
+      <circle cx={ART_X + 300} cy={ART_Y} r={5} fill="#ffffff" fillOpacity="0.45" />
+
+      {glyph && (
+        <g
+          transform={`translate(${ART_X - half} ${ART_Y - half}) scale(${GLYPH / 100})`}
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth={5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {glyph}
+        </g>
+      )}
+    </svg>
+  );
+}
+
+/**
+ * 공유 카드.
  *
- * 색은 페이지 accent 두 개(from·to)로만 만든다. 800장이 넘는 카드가 같은
- * 형태를 쓰므로 색과 아이콘이 유일한 구분 수단이다.
+ * 왼쪽 글, 오른쪽 그림의 2단 구성이다. 색은 페이지 accent 두 개(from·to)로만
+ * 만든다. 800장이 넘는 카드가 같은 형태를 쓰므로 색과 아이콘이 유일한 구분
+ * 수단이다.
  *
- * Satori는 backdrop-filter·filter·CSS grid를 지원하지 않는다. 여기 쓰인
- * flex·radial-gradient·border-radius·box-shadow만으로 짜야 한다.
+ * icon에는 사이트 데이터의 이모지를 그대로 넘긴다. 대응하는 그린 아이콘이
+ * 있으면 그걸 쓰고, 없으면 이모지를 그대로 얹는다.
  */
 export function ogCard({
   icon,
@@ -79,6 +154,9 @@ export function ogCard({
   from: string;
   to: string;
 }): ReactElement {
+  const glyph = ogGlyph(icon, to);
+  const headline = stripEmoji(title);
+  const sub = stripEmoji(desc);
   return (
     <div
       style={{
@@ -87,54 +165,30 @@ export function ogCard({
         display: 'flex',
         position: 'relative',
         color: '#ffffff',
-        background: `radial-gradient(700px 700px at 80% 50%, ${alpha(to, 0.42)}, transparent 66%), radial-gradient(900px 600px at 0% 0%, ${alpha(from, 0.3)}, transparent 60%), linear-gradient(160deg, #0f1226 0%, #06070f 60%, #0a0b16 100%)`,
       }}
     >
-      {/* 오른쪽 위에서 비스듬히 떨어지는 빛 */}
-      <div
-        style={{
-          position: 'absolute',
-          display: 'flex',
-          top: 0,
-          right: 0,
-          width: 640,
-          height: 630,
-          background: `linear-gradient(200deg, ${alpha(to, 0.3)} 0%, transparent 58%)`,
-        }}
-      />
-      {/* 아이콘 뒤 후광 */}
-      <div
-        style={{
-          position: 'absolute',
-          display: 'flex',
-          top: 145,
-          right: 128,
-          width: 340,
-          height: 340,
-          borderRadius: 999,
-          background: `radial-gradient(circle, ${alpha(to, 0.55)}, transparent 70%)`,
-        }}
-      />
-      {/* 아이콘 디스크 */}
-      <div
-        style={{
-          position: 'absolute',
-          display: 'flex',
-          top: 170,
-          right: 152,
-          width: 292,
-          height: 292,
-          borderRadius: 999,
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 178,
-          background: 'linear-gradient(150deg, rgba(255,255,255,0.14), rgba(255,255,255,0.03))',
-          border: '1px solid rgba(255,255,255,0.3)',
-          boxShadow: `0 30px 90px ${alpha(to, 0.5)}`,
-        }}
-      >
-        {icon}
+      <div style={{ display: 'flex', position: 'absolute', top: 0, left: 0 }}>
+        {artwork(glyph, from, to)}
       </div>
+
+      {/* 그린 아이콘이 없는 이모지는 그림 자리에 그대로 얹는다 */}
+      {!glyph && (
+        <div
+          style={{
+            display: 'flex',
+            position: 'absolute',
+            top: ART_Y - GLYPH / 2,
+            left: ART_X - GLYPH / 2,
+            width: GLYPH,
+            height: GLYPH,
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 200,
+          }}
+        >
+          {icon}
+        </div>
+      )}
 
       {/* ── 왼쪽: 글 ── */}
       <div
@@ -166,7 +220,7 @@ export function ogCard({
           <div
             style={{
               display: 'flex',
-              fontSize: titleSize(title),
+              fontSize: titleSize(headline),
               fontWeight: 900,
               letterSpacing: '-0.035em',
               lineHeight: 1.1,
@@ -176,7 +230,7 @@ export function ogCard({
               wordBreak: 'keep-all',
             }}
           >
-            {title}
+            {headline}
           </div>
           <div
             style={{
@@ -188,7 +242,7 @@ export function ogCard({
               wordBreak: 'keep-all',
             }}
           >
-            {desc}
+            {sub}
           </div>
         </div>
 
