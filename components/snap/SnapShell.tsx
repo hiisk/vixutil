@@ -144,6 +144,12 @@ interface Props<T> {
   children: (result: T, reset: () => void) => ReactNode;
   /** 결과 아래 고정 문구 */
   disclaimer: string;
+  /**
+   * analyze가 null을 반환했을 때 보여줄 문구.
+   * 기본값은 "얼굴을 못 찾았다"인데, 손글씨·사진 감성처럼 얼굴을 보지 않는
+   * 테스트에서는 그 문구가 틀린 안내가 되므로 각자 덮어쓴다.
+   */
+  noResultMessage?: string;
 }
 
 const MIN_CONFIDENCE = 0.6;
@@ -153,6 +159,7 @@ const MIN_ANALYZE_MS = 800;
 export default function SnapShell<T>({
   lang, icon, title, lead, privacyBody, bar, theme, glow = 'indigo',
   models = 'landmarks', requiresFace = true, resultId, analyze, children, disclaimer,
+  noResultMessage,
 }: Props<T>) {
   const ui = UI[lang];
   const hubHref = lang === 'ko' ? '/snap' : `/${lang}/snap`;
@@ -247,7 +254,7 @@ export default function SnapShell<T>({
     });
 
     if (!out) {
-      setFaceError(ui.noFace);
+      setFaceError(noResultMessage ?? ui.noFace);
       setAnalyzing(false);
       return;
     }
@@ -255,7 +262,7 @@ export default function SnapShell<T>({
     setResult(out);
     setAnalyzing(false);
     setTimeout(() => document.getElementById(resultId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-  }, [analyze, resultId, ui.noFace, requiresFace, models]);
+  }, [analyze, resultId, ui.noFace, requiresFace, models, noResultMessage]);
 
   const reset = useCallback(() => {
     setPreview(null);

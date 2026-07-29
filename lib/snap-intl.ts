@@ -537,3 +537,200 @@ export const EMOTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
     '连拍几张看看，相隔一秒的两帧数字能差多少。',
   ],
 };
+
+/* ── 손글씨 심리 ──
+   기울기는 구조텐서로 실제 획 방향을 구하고, 필압은 어두운 픽셀 비율로 잰다.
+   측정은 진짜지만 거기 붙는 성격 해석은 필적학 기반의 오락 콘텐츠다. */
+export const SLANT_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Strongly left-leaning writing. In graphology this is read as holding feeling back and thinking a situation through before acting.',
+    'Slightly left-leaning. Read as stepping back to read the room rather than moving on impulse.',
+    'Gently left of vertical. Taken to mean a busy inner life and a habit of turning decisions over more than once.',
+    'Near-vertical with a slight left lean. Read as valuing the balance between feeling and reason, and judging calmly.',
+    'Almost perfectly upright. Read as even-handed — deciding on reason rather than being carried by emotion.',
+    'Near-vertical with a slight right lean. Read as balanced, able to show feeling when it is called for.',
+    'Gently right-leaning. Read as moving from thought to action without much friction, and enjoying company.',
+    'Slightly right-leaning. Read as open about feelings and comfortable meeting new people.',
+    'Clearly right-leaning. Read as warm and forward-moving, saying what is on your mind as it arrives.',
+    'Strongly right-leaning. Read as expressive and sociable, acting the moment a thought lands.',
+  ],
+  zh: [
+    '明显左斜的字迹。笔迹学上视为不太外露情感，行动前先把想法理清的谨慎倾向。',
+    '略微左斜的字迹。视为不冲动行事，先退一步观察情况的沉稳性格。',
+    '轻微偏左的字迹。被解读为内心想法多，做决定前会反复琢磨的类型。',
+    '接近垂直、略偏左的字迹。视为重视情感与理性的平衡，判断时冷静。',
+    '几乎笔直的字迹。视为不被情绪带着走、以理性判断的均衡性格。',
+    '接近垂直、略偏右的字迹。视为需要时也能自然表达情感的均衡类型。',
+    '轻微右斜的字迹。被解读为想到就能付诸行动，也享受与人交流。',
+    '略微右斜的字迹。视为情感表达坦率，不怕认识新朋友。',
+    '明显右斜的字迹。象征热情积极，想说的话会当下就说出来。',
+    '大幅右斜的字迹。视为情感表达丰富、善于社交，念头一起就立刻行动。',
+  ],
+};
+
+export const PRESSURE_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Very light pressure. Read as delicate and composed, expressing feeling with restraint.',
+    'Light pressure. Read as gentle and careful, with a habit of not wanting to impose.',
+    'Soft pressure. Read as steady energy with little emotional swing.',
+    'Moderate pressure. Read as stable and balanced, adapting to what a situation needs.',
+    'Firm pressure. Read as having clear opinions and acting on them with conviction.',
+    'Heavy pressure. Read as energetic and driven, pushing hard at what matters to you.',
+    'Very heavy pressure. Read as expressing strongly and having a definite presence.',
+    'Pressed hard into the page. Read as strong will and focus — once decided, carried through.',
+  ],
+  zh: [
+    '笔压很轻。视为细腻沉静，表达情感时有所克制的类型。',
+    '笔压偏轻。视为温和谨慎，不愿给别人添负担的体贴。',
+    '笔压柔和。视为拥有沉稳能量、情绪起伏较小的类型。',
+    '笔压适中。视为稳定均衡，能按情况灵活应对。',
+    '笔压清晰。表示想法明确，带着确信去行动。',
+    '笔压偏重。视为精力充沛、有热情，对想做的事推动力强。',
+    '笔压很重。视为情感表达强烈、存在感鲜明。',
+    '用力压进纸里的笔压。象征强烈的意志与专注，认定的事会做到底。',
+  ],
+};
+
+export const HANDWRITING_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Writing out what you want to say first tends to make the thought much clearer.',
+    'A handwritten note carries further than a message today.',
+    'Today is a good day to say the honest thing slightly more plainly than usual.',
+    'A short daily line in a notebook is a habit worth starting.',
+    'For something important, drafting it in writing before speaking is a real technique.',
+    'Changing how you form letters for a page is a surprisingly effective reset.',
+    'Free, aimless scribbling is genuinely good for stress.',
+    'Consider leaving someone a short thank-you in your own handwriting.',
+    'There is evidence that writing a goal by hand makes you more likely to act on it.',
+    'Switching the pen you use can change how the whole page feels.',
+  ],
+  zh: [
+    '今天先把想说的话写下来，思路会清楚很多。',
+    '今天一张手写便条，比消息更能传达心意。',
+    '今天不妨把真心话说得比平时更直接一点。',
+    '在本子上每天写一行，是值得开始的习惯。',
+    '重要的事，先写下来再开口，是很实用的方法。',
+    '换一种写法写满一页，意外地能转换心情。',
+    '随手涂鸦对缓解压力真的有用。',
+    '今天用手写给某个人留一句简短的感谢吧。',
+    '有研究认为，把目标手写下来更容易付诸行动。',
+    '换一支笔，整页的感觉都会不一样。',
+  ],
+};
+
+/* ── 첫인상 분석 ──
+   눈 크기·얼굴 비율·입꼬리 세 실측값의 조합으로 6유형을 정한다.
+   유형 id와 판정 규칙은 한국어와 동일하다. */
+export type ImpressionIdIntl = 'bright' | 'calm' | 'chic' | 'soft' | 'elegant' | 'energetic';
+
+export const IMPRESSION_TYPES_INTL: Record<SnapIntlLang, Record<ImpressionIdIntl, {
+  label: string; emoji: string; desc: string; strength: string; keywords: string[]; color: string;
+}>> = {
+  en: {
+    bright: {
+      label: 'Bright and approachable', emoji: '☀️', color: 'from-amber-400 to-orange-500',
+      desc: 'Clear eyes and a relaxed mouth make this an easy face to start a conversation with. There is no guardedness in the expression, so people tend to approach you first. One photo is enough to give the impression of someone worth knowing.',
+      strength: 'First hellos in interviews and first dates — anywhere you have a short window to be liked',
+      keywords: ['Warm', 'Clear', 'Approachable', 'Bright'],
+    },
+    calm: {
+      label: 'Calm and trustworthy', emoji: '🌿', color: 'from-emerald-400 to-teal-600',
+      desc: 'An unforced gaze and a face with the tension let out of it, giving a settled kind of ease. Quiet at first, more comfortable the longer people know you. This is trust built through manner rather than words, so the impression improves over time.',
+      strength: 'Long working relationships, and situations where the other person needs reassuring',
+      keywords: ['Steady', 'Trustworthy', 'At ease', 'Grounded'],
+    },
+    chic: {
+      label: 'Sharp and composed', emoji: '🖤', color: 'from-slate-500 to-slate-700',
+      desc: 'Defined eyes and a clean facial line giving an urban quality. Because the expression is held back, you are not easy to read, and that leaves a question behind. This face lands hardest in photographs, and often looks best without a smile.',
+      strength: 'Profile photos, and presentations or stages where you need to register strongly',
+      keywords: ['Composed', 'Urban', 'Restrained', 'Present'],
+    },
+    soft: {
+      label: 'Soft and warm', emoji: '🌸', color: 'from-rose-400 to-pink-500',
+      desc: 'Rounded lines and naturally lifted mouth corners give off real warmth. There is something in it that lowers other people’s tension, so conversation starts easily even on a first meeting. Nothing about it tires on a long look.',
+      strength: 'Work that involves meeting people constantly, and moments where someone needs to open up',
+      keywords: ['Warm', 'Gentle', 'Accepting', 'Easy'],
+    },
+    elegant: {
+      label: 'Poised and elegant', emoji: '🕊️', color: 'from-violet-400 to-purple-600',
+      desc: 'A longer facial line with balanced features, giving a composed impression. Rather than standing out loudly, this face stays with people quietly. It suits formal settings particularly well, and it is the kind of appeal that deepens with age.',
+      strength: 'Formal settings, and relationships where trust and bearing matter',
+      keywords: ['Poised', 'Balanced', 'Elegant', 'Understated'],
+    },
+    energetic: {
+      label: 'Lively and energetic', emoji: '⚡', color: 'from-sky-400 to-blue-600',
+      desc: 'Large eyes and an animated expression mean the energy reaches people before anything else does. Even at rest there is liveliness here, so you often end up as the one who lifts the room. In a group photo the eye goes to you first.',
+      strength: 'Leading the mood of a team, and any moment that needs some lift',
+      keywords: ['Lively', 'Energetic', 'Animated', 'Noticed'],
+    },
+  },
+  zh: {
+    bright: {
+      label: '明亮易亲近的印象', emoji: '☀️', color: 'from-amber-400 to-orange-500',
+      desc: '眼神清亮、嘴角放松，是初见就容易开口搭话的脸。表情里没有戒备，所以对方往往会先靠过来。一张照片就能给人「应该是个不错的人」的感觉。',
+      strength: '面试的第一句问候、初次见面 —— 需要在短短一瞬留下好感的场合',
+      keywords: ['亲切', '清亮', '好接近', '明亮'],
+    },
+    calm: {
+      label: '沉稳可信赖的印象', emoji: '🌿', color: 'from-emerald-400 to-teal-600',
+      desc: '眼神不锐利、表情卸了力，给人踏实的安定感。一开始看着安静，越相处越自在。这是用态度而非言语累积起来的信任，所以评价会随时间上升。',
+      strength: '需要长期共事的关系，以及要让对方安心的沟通与说服场合',
+      keywords: ['安定', '可信', '自在', '稳重'],
+    },
+    chic: {
+      label: '清晰高冷的印象', emoji: '🖤', color: 'from-slate-500 to-slate-700',
+      desc: '眼神清晰、脸部线条利落，透着都市感。因为表情克制，不容易被读懂，反而留下好奇。在照片里尤其有冲击力，无表情时魅力更明显。',
+      strength: '头像照，以及需要留下强烈印象的演讲或舞台',
+      keywords: ['高冷', '都市感', '克制', '存在感'],
+    },
+    soft: {
+      label: '柔和温暖的印象', emoji: '🌸', color: 'from-rose-400 to-pink-500',
+      desc: '脸部线条圆润、嘴角自然上扬，能感到实实在在的温度。有一种让对方松弛下来的力量，初次见面也容易聊起来。看久了也不会有压力。',
+      strength: '需要频繁与人打交道的工作，以及要让对方敞开心扉的场合',
+      keywords: ['温柔', '和煦', '包容', '舒服'],
+    },
+    elegant: {
+      label: '端正优雅的印象', emoji: '🕊️', color: 'from-violet-400 to-purple-600',
+      desc: '脸部线条偏长、五官分布均衡，给人整齐的印象。不靠张扬取胜，而是安静地留在别人记忆里。特别适合正式场合，也是那种越有年纪越有味道的魅力。',
+      strength: '正式场合，以及重视信任与风度的关系',
+      keywords: ['端正', '均衡', '优雅', '内敛'],
+    },
+    energetic: {
+      label: '生动活泼的印象', emoji: '⚡', color: 'from-sky-400 to-blue-600',
+      desc: '眼睛大、表情鲜活，能量比什么都先传过来。就算安静待着也有活力，所以常常担起带动气氛的角色。在合照里视线会先落到你身上。',
+      strength: '需要带动团队气氛的场合，以及任何需要提一提劲的时刻',
+      keywords: ['活力', '能量', '生动', '受注目'],
+    },
+  },
+};
+
+export const IMPRESSION_TIPS_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Research consistently puts expression above features for first impressions. Breathe out once and let the tension go before you walk in.',
+    'Holding eye contact one second longer measurably raises how warmly you are read.',
+    'In photos, looking slightly above the lens makes the eyes read as clearer.',
+    'Squaring your shoulders changes the impression more than your face does — posture is seen first.',
+    'Natural light softens the shadows and makes the whole impression more relaxed.',
+    'Turning about fifteen degrees off square brings out the line of the face.',
+    'A small nod while listening reads as attention and lifts how you come across.',
+    'Saying someone’s name once on a first meeting makes the impression last considerably longer.',
+    'A smile that reaches the eyes reads as real; one that only lifts the mouth does not.',
+    'Resting your tongue on the roof of your mouth before a photo tidies the jawline.',
+    'A light-coloured top bounces light onto the face and brightens the whole impression.',
+    'If you are nervous, press through your feet rather than your hands — the face stays looser.',
+  ],
+  zh: [
+    '有不少研究指出，第一印象更取决于表情而非五官。进门前先呼一口气，把力气卸掉。',
+    '眼神接触多停留一秒，好感度就会明显上升。',
+    '拍照时看向镜头稍上方，眼睛会显得更清亮。',
+    '把肩膀打开，印象的变化比表情还大 —— 姿态是先被看到的。',
+    '自然光会让脸上的阴影变柔，整体印象放松很多。',
+    '身体侧转约十五度，脸部线条会自然显出来。',
+    '听人说话时轻轻点头，是「我在听」的信号，好感会上升。',
+    '初次见面叫一次对方的名字，印象会留得久很多。',
+    '笑到眼睛才会被读成真笑，只提嘴角不会。',
+    '拍照前把舌头轻抵上颚，下颌线会更利落。',
+    '穿浅色上衣，光会反到脸上，整个人显得亮一些。',
+    '紧张的话，把力气放到脚上而不是手上，表情就不会僵。',
+  ],
+};

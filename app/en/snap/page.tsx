@@ -18,6 +18,8 @@ const TESTS = [
   { href: '/en/snap/golden-ratio',  icon: '📐', title: 'Golden Ratio Test', desc: 'How close your proportions sit to φ', color: 'from-amber-400 to-orange-500' },
   { href: '/en/snap/photo-mood',    icon: '🎨', title: 'Photo Mood',       desc: 'Colour mood from any photo', color: 'from-sky-400 to-violet-500' },
   { href: '/en/snap/expression',    icon: '🎭', title: 'Expression Analyser', desc: 'Seven emotions, inferred by a model', color: 'from-indigo-500 to-purple-500' },
+  { href: '/en/snap/first-impression', icon: '✨', title: 'First Impression', desc: 'Which of six impressions you read as', color: 'from-fuchsia-500 to-violet-600' },
+  { href: '/en/snap/handwriting',   icon: '✍️', title: 'Handwriting',      desc: 'Slant and pressure from your writing', color: 'from-teal-400 to-cyan-500' },
 ];
 
 export default function EnSnapHub() {
