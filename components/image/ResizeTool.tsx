@@ -6,6 +6,7 @@ import {
   canvasToBlob, download, drawToCanvas, fillBackground, formatBytes,
   loadImage, suffixName, type LoadedImage,
 } from '@/lib/image-canvas';
+import { RESIZE_UI, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 크기 조절 — 픽셀 수를 바꾼다.
@@ -14,13 +15,14 @@ import {
  * 그걸 원하는 사람은 거의 없다. 굳이 원하면 자물쇠를 풀 수 있다.
  */
 const PRESETS = [
-  { label: '인스타 정사각', w: 1080, h: 1080 },
-  { label: '유튜브 썸네일', w: 1280, h: 720 },
-  { label: '프로필 512', w: 512, h: 512 },
+  { w: 1080, h: 1080 },
+  { w: 1280, h: 720 },
+  { w: 512, h: 512 },
   { label: 'HD 1920', w: 1920, h: 1080 },
 ];
 
-export default function ResizeTool() {
+export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = RESIZE_UI[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [w, setW] = useState(0);
   const [h, setH] = useState(0);
@@ -88,18 +90,18 @@ export default function ResizeTool() {
     <div>
       <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={url} alt="크기 조절 결과 미리보기" className="w-full max-h-[24rem] object-contain" />
+        <img src={url} alt={ui.alt} className="w-full max-h-[24rem] object-contain" />
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-end gap-2">
           <label className="flex-1">
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">가로 (px)</span>
+            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.width}</span>
             <input type="number" min={1} max={12000} value={w} onChange={e => setWidth(Number(e.target.value))} className={field} />
           </label>
           <button
             onClick={() => setLock(l => !l)}
-            title={lock ? '비율 고정을 풉니다' : '비율을 고정합니다'}
+            title={lock ? ui.lockOn : ui.lockOff}
             className={`shrink-0 mb-1 w-10 h-10 rounded-xl border text-lg transition-colors ${
               lock
                 ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40 text-violet-600'
@@ -109,12 +111,12 @@ export default function ResizeTool() {
             {lock ? '🔒' : '🔓'}
           </button>
           <label className="flex-1">
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">세로 (px)</span>
+            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.height}</span>
             <input type="number" min={1} max={12000} value={h} onChange={e => setHeight(Number(e.target.value))} className={field} />
           </label>
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">비율로 줄이기</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.byRatio}</p>
         <div className="grid grid-cols-4 gap-2">
           {[0.75, 0.5, 0.25, 1].map(p => (
             <button
@@ -122,31 +124,32 @@ export default function ResizeTool() {
               onClick={() => scale(p)}
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
             >
-              {p === 1 ? '원본' : `${p * 100}%`}
+              {p === 1 ? ui.originalLabel : `${p * 100}%`}
             </button>
           ))}
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">자주 쓰는 규격</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.presetsTitle}</p>
         <div className="grid grid-cols-2 gap-2">
-          {PRESETS.map(p => (
+          {PRESETS.map((p, i) => (
             <button
-              key={p.label}
+              key={ui.presets[i]}
               onClick={() => { setLock(false); setW(p.w); setH(p.h); }}
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-left hover:border-violet-300 transition-colors"
             >
-              <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{p.label}</span>
+              <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[i]}</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{p.w} × {p.h}</span>
             </button>
           ))}
         </div>
 
         <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
-          원본 {img.width} × {img.height}px ({formatBytes(img.size)}) · 원본보다 크게 늘리면 화질이 좋아지지는 않고 흐릿해집니다.
+          {ui.originalLabel} {img.width} × {img.height}px ({formatBytes(img.size)}) · {ui.note}
         </p>
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={img.size}
         resultSize={blob?.size}
         dimension={`${w} × ${h}`}

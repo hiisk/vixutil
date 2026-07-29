@@ -31,6 +31,7 @@ const SECTIONS = [
   { href: '/en/fortune',   icon: '🔮', title: 'Horoscopes',        desc: 'Star signs, Chinese zodiac, tarot, BaZi',     color: 'from-violet-500 to-purple-700', accent: 'text-purple-700 dark:text-purple-300', border: 'border-purple-200 dark:border-purple-900/50', bg: 'bg-purple-50 dark:bg-purple-950/30' },
   { href: '/en/time',      icon: '⏱️', title: 'Time Tools',        desc: 'Timer, stopwatch, world clock, date maths', color: 'from-sky-400 to-cyan-600',   accent: 'text-cyan-700 dark:text-cyan-300',   border: 'border-cyan-200 dark:border-cyan-900/50',  bg: 'bg-cyan-50 dark:bg-cyan-950/30' },
   { href: '/en/color',     icon: '🎨', title: 'Colour Tools',      desc: 'Palette, shades, contrast, CSS gradient',      color: 'from-fuchsia-500 to-rose-500', accent: 'text-fuchsia-700 dark:text-fuchsia-300', border: 'border-fuchsia-200 dark:border-fuchsia-900/50', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30' },
+  { href: '/en/image',     icon: '🖼️', title: 'Image Tools',        desc: 'Compress, resize, crop, blur faces',           color: 'from-violet-500 to-indigo-600', accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30' },
 ];
 
 export default function EnHome() {

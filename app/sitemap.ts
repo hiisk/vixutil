@@ -12,6 +12,7 @@ import { CHECKLISTS_EN } from "@/lib/checklist-en";
 import { QUIZZES_EN } from "@/lib/quiz-en";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
+import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
 import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
@@ -226,6 +227,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/en/color`, changeFrequency: weekly, priority: 0.9 },
     ...colorToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/color/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/en/image`, changeFrequency: weekly, priority: 0.9 },
+    ...imageToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/image/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
@@ -255,6 +259,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/zh/color`, changeFrequency: weekly, priority: 0.9 },
     ...colorToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/color/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/zh/image`, changeFrequency: weekly, priority: 0.9 },
+    ...imageToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/image/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },

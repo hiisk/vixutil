@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ImageDrop from './ImageDrop';
 import { canvasToBlob, download, loadImage, suffixName, type LoadedImage } from '@/lib/image-canvas';
+import { IMG_PALETTE_UI, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 색상 추출.
@@ -70,7 +71,8 @@ function extract(src: CanvasImageSource, w: number, h: number): Swatch[] {
   }));
 }
 
-export default function PaletteTool() {
+export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = IMG_PALETTE_UI[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [objUrl, setObjUrl] = useState('');
   const [swatches, setSwatches] = useState<Swatch[]>([]);
@@ -141,7 +143,7 @@ export default function PaletteTool() {
     download(await canvasToBlob(canvas, { mime: 'image/png' }), suffixName(img.name, '-palette', 'png'));
   };
 
-  if (!img) return <ImageDrop onFiles={accept} hint="사진·일러스트·스크린샷 아무거나" />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const shown = picked ?? swatches[0];
 
@@ -151,13 +153,13 @@ export default function PaletteTool() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={objUrl}
-          alt="색을 추출할 사진 — 누르면 그 지점의 색을 읽습니다"
+          alt={ui.alt}
           onClick={pick}
           className="w-full max-h-[24rem] object-contain cursor-crosshair"
         />
       </div>
       <p className="mt-2.5 text-center text-xs text-slate-400 dark:text-slate-500">
-        사진 위를 누르면 그 지점의 색을 정확히 집어냅니다
+        {ui.how}
       </p>
 
       {/* 대표 색 띠 — 비율만큼 폭을 준다 */}
@@ -166,12 +168,12 @@ export default function PaletteTool() {
           <button
             key={s.hex}
             onClick={() => copy(s.hex)}
-            title={`${s.hex} 복사`}
+            title={ui.copyHex(s.hex)}
             style={{ background: s.hex, flexGrow: Math.max(s.ratio, 3) }}
             className="relative group"
           >
             <span className={`absolute inset-x-0 bottom-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity ${isLight(s.rgb) ? 'text-slate-900' : 'text-white'}`}>
-              복사
+              {ui.copy}
             </span>
           </button>
         ))}
@@ -192,11 +194,11 @@ export default function PaletteTool() {
               <span className="block text-sm font-black text-slate-800 dark:text-slate-100 font-mono uppercase">{s.hex}</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500 font-mono">
                 rgb({s.rgb.join(', ')})
-                {picked && i === 0 ? ' · 찍은 지점' : s.ratio > 0 ? ` · ${s.ratio}%` : ''}
+                {picked && i === 0 ? ui.pickedPoint : s.ratio > 0 ? ` · ${s.ratio}%` : ''}
               </span>
             </span>
             <span className={`text-xs font-bold ${copied === s.hex ? 'text-emerald-600' : 'text-slate-300 dark:text-slate-600'}`}>
-              {copied === s.hex ? '복사됨' : '복사'}
+              {copied === s.hex ? ui.copied : ui.copy}
             </span>
           </button>
         ))}
@@ -204,8 +206,8 @@ export default function PaletteTool() {
 
       {shown && (
         <p className="mt-3 text-center text-xs text-slate-400 dark:text-slate-500">
-          가장 많이 쓰인 색은 <span className="font-mono font-bold uppercase text-slate-500 dark:text-slate-400">{swatches[0]?.hex}</span>
-          입니다 — 배경이나 포인트 색으로 그대로 쓰면 사진과 잘 어울립니다.
+          {ui.noteBefore}<span className="font-mono font-bold uppercase text-slate-500 dark:text-slate-400">{swatches[0]?.hex}</span>
+          {ui.noteAfter}
         </p>
       )}
 
@@ -214,13 +216,13 @@ export default function PaletteTool() {
           onClick={() => { setImg(null); setSwatches([]); setPicked(null); }}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
         >
-          다른 사진
+          {ui.otherPhoto}
         </button>
         <button
           onClick={savePalette}
           className="col-span-2 rounded-xl bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
         >
-          ⬇ 팔레트 이미지로 저장
+          {ui.savePalette}
         </button>
       </div>
     </div>

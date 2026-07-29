@@ -5,6 +5,7 @@ import ResultActions from './ResultActions';
 import {
   canvasToBlob, download, fillBackground, loadImage, suffixName, type LoadedImage,
 } from '@/lib/image-canvas';
+import { ROTATE_UI, IMAGE_COMMON, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 회전·반전.
@@ -15,7 +16,9 @@ import {
  */
 const BG_COLORS = ['#ffffff', '#000000', '#f1f5f9'];
 
-export default function RotateTool() {
+export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = ROTATE_UI[lang];
+  const common = IMAGE_COMMON[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [angle, setAngle] = useState(0);
   const [flipX, setFlipX] = useState(false);
@@ -73,7 +76,7 @@ export default function RotateTool() {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [img, angle, flipX, flipY, bg]);
 
-  if (!img) return <ImageDrop onFiles={accept} hint="옆으로 누워 저장된 사진을 바로 세울 때" />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const turn = (deg: number) => setAngle(a => (a + deg + 360) % 360);
   const btn = 'rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors';
@@ -82,52 +85,52 @@ export default function RotateTool() {
     <div>
       <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 flex items-center justify-center min-h-[14rem]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={url} alt="회전 결과 미리보기" className="w-full max-h-[26rem] object-contain" />
+        <img src={url} alt={ui.alt} className="w-full max-h-[26rem] object-contain" />
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="grid grid-cols-4 gap-2">
-          <button onClick={() => turn(-90)} className={btn}>↺ 왼쪽</button>
-          <button onClick={() => turn(90)} className={btn}>↻ 오른쪽</button>
+          <button onClick={() => turn(-90)} className={btn}>{ui.left}</button>
+          <button onClick={() => turn(90)} className={btn}>{ui.right}</button>
           <button
             onClick={() => setFlipX(v => !v)}
             className={`${btn} ${flipX ? '!border-violet-300 !bg-violet-50 dark:!bg-violet-950/40 !text-violet-700' : ''}`}
           >
-            ↔ 좌우
+            {ui.flipH}
           </button>
           <button
             onClick={() => setFlipY(v => !v)}
             className={`${btn} ${flipY ? '!border-violet-300 !bg-violet-50 dark:!bg-violet-950/40 !text-violet-700' : ''}`}
           >
-            ↕ 상하
+            {ui.flipV}
           </button>
         </div>
 
         <div className="flex items-baseline justify-between mt-5 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">각도 미세 조정</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.fineAngle}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{angle}°</span>
         </div>
         <input
           type="range" min={0} max={359} value={angle}
           onChange={e => setAngle(Number(e.target.value))}
           className="w-full accent-violet-500"
-          aria-label="회전 각도"
+          aria-label={ui.angleAria}
         />
         <div className="flex gap-2 mt-2">
           <button onClick={() => setAngle(a => (a + 359) % 360)} className={`${btn} flex-1 !py-2`}>−1°</button>
-          <button onClick={() => setAngle(0)} className={`${btn} flex-1 !py-2`}>0°로</button>
+          <button onClick={() => setAngle(0)} className={`${btn} flex-1 !py-2`}>{ui.toZero}</button>
           <button onClick={() => setAngle(a => (a + 1) % 360)} className={`${btn} flex-1 !py-2`}>+1°</button>
         </div>
 
         {angle % 90 !== 0 && (
           <>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">빈 구석을 채울 색</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.cornerColor}</p>
             <div className="flex items-center gap-2">
               {BG_COLORS.map(c => (
                 <button
                   key={c}
                   onClick={() => setBg(c)}
-                  aria-label={`배경색 ${c}`}
+                  aria-label={`${common.bgColor} ${c}`}
                   style={{ background: c }}
                   className={`w-9 h-9 rounded-lg border-2 transition-transform ${
                     bg === c ? 'border-violet-500 scale-110' : 'border-slate-200 dark:border-slate-700'
@@ -137,11 +140,11 @@ export default function RotateTool() {
               <input
                 type="color" value={bg}
                 onChange={e => setBg(e.target.value)}
-                aria-label="배경색 직접 고르기"
+                aria-label={common.pickBg}
                 className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent cursor-pointer"
               />
               <span className="text-[11px] text-slate-400 dark:text-slate-500 ml-1">
-                90의 배수가 아닌 각도에서는 모서리에 빈 곳이 생깁니다
+                {ui.cornerNote}
               </span>
             </div>
           </>
@@ -149,9 +152,10 @@ export default function RotateTool() {
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={img.size}
         resultSize={blob?.size}
-        dimension={`${angle}° 회전`}
+        dimension={ui.dimension(angle)}
         busy={busy}
         onDownload={() => blob && download(blob, suffixName(img.name, '-rotated', img.type === 'image/png' ? 'png' : 'jpg'))}
         onReset={() => { setImg(null); setBlob(null); setUrl(''); }}

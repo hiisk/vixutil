@@ -6,6 +6,7 @@ import {
   canvasToBlob, download, drawToCanvas, EXT, fillBackground, formatBytes, isLossy,
   loadImage, MIME_LABEL, withExt, type LoadedImage,
 } from '@/lib/image-canvas';
+import { CONVERT_UI, IMAGE_COMMON, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 포맷 변환 — 같은 그림을 다른 컨테이너에 다시 담는다.
@@ -18,7 +19,9 @@ const TARGETS = ['image/jpeg', 'image/png', 'image/webp'];
 
 const BG_COLORS = ['#ffffff', '#000000', '#f1f5f9', '#fde68a', '#bfdbfe'];
 
-export default function ConvertTool() {
+export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = CONVERT_UI[lang];
+  const c2 = IMAGE_COMMON[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [mime, setMime] = useState('image/jpeg');
   const [quality, setQuality] = useState(0.9);
@@ -61,7 +64,7 @@ export default function ConvertTool() {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [img, mime, quality, bg]);
 
-  if (!img) return <ImageDrop onFiles={accept} hint="GIF·BMP·HEIC 등도 읽어서 변환합니다" />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const from = MIME_LABEL[img.type] ?? img.type.replace('image/', '').toUpperCase();
 
@@ -69,7 +72,7 @@ export default function ConvertTool() {
     <div>
       <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={url} alt="변환 결과 미리보기" className="w-full max-h-[24rem] object-contain" />
+        <img src={url} alt={ui.alt} className="w-full max-h-[24rem] object-contain" />
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
@@ -81,7 +84,7 @@ export default function ConvertTool() {
           </span>
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">바꿀 형식</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.targetFormat}</p>
         <div className="grid grid-cols-3 gap-2">
           {TARGETS.map(t => (
             <button
@@ -101,7 +104,7 @@ export default function ConvertTool() {
         {isLossy(mime) && (
           <>
             <div className="flex items-baseline justify-between mt-5 mb-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">화질</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{c2.quality}</span>
               <span className="text-sm font-black text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>
             </div>
             <input
@@ -109,7 +112,7 @@ export default function ConvertTool() {
               value={Math.round(quality * 100)}
               onChange={e => setQuality(Number(e.target.value) / 100)}
               className="w-full accent-violet-500"
-              aria-label="화질"
+              aria-label={c2.quality}
             />
           </>
         )}
@@ -117,14 +120,14 @@ export default function ConvertTool() {
         {mime !== 'image/png' && (
           <>
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">
-              투명 배경을 채울 색
+              {c2.bgFill}
             </p>
             <div className="flex items-center gap-2">
               {BG_COLORS.map(c => (
                 <button
                   key={c}
                   onClick={() => setBg(c)}
-                  aria-label={`배경색 ${c}`}
+                  aria-label={`${c2.bgColor} ${c}`}
                   style={{ background: c }}
                   className={`w-9 h-9 rounded-lg border-2 transition-transform ${
                     bg === c ? 'border-violet-500 scale-110' : 'border-slate-200 dark:border-slate-700'
@@ -135,22 +138,23 @@ export default function ConvertTool() {
                 type="color"
                 value={bg}
                 onChange={e => setBg(e.target.value)}
-                aria-label="배경색 직접 고르기"
+                aria-label={c2.pickBg}
                 className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent cursor-pointer"
               />
             </div>
             <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
-              JPG·WebP(품질 지정)에는 투명이 없어 원래 투명했던 부분이 이 색으로 채워집니다.
+              {ui.note}
             </p>
           </>
         )}
 
         <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500">
-          {img.width} × {img.height}px · 원본 {formatBytes(img.size)}
+          {img.width} × {img.height}px · {c2.original} {formatBytes(img.size)}
         </p>
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={img.size}
         resultSize={blob?.size}
         dimension={MIME_LABEL[mime]}

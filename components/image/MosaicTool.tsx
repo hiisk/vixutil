@@ -5,6 +5,7 @@ import ResultActions from './ResultActions';
 import {
   canvasToBlob, download, fillBackground, loadImage, suffixName, type LoadedImage,
 } from '@/lib/image-canvas';
+import { MOSAIC_UI, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 모자이크 — 문지른 자리만 가린다.
@@ -18,7 +19,8 @@ import {
  */
 type Stroke = { mode: 'mosaic' | 'black'; cell: number; cells: Set<string> };
 
-export default function MosaicTool() {
+export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = MOSAIC_UI[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [mode, setMode] = useState<'mosaic' | 'black'>('mosaic');
   const [cell, setCell] = useState(16);
@@ -169,7 +171,7 @@ export default function MosaicTool() {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [img, strokes]);
 
-  if (!img) return <ImageDrop onFiles={accept} hint="주소·계좌·얼굴이 담긴 캡처도 브라우저 밖으로 나가지 않습니다" />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   return (
     <div>
@@ -185,15 +187,15 @@ export default function MosaicTool() {
       </div>
 
       <p className="mt-2.5 text-center text-xs text-slate-400 dark:text-slate-500">
-        가리고 싶은 곳을 손가락이나 마우스로 문지르세요
+        {ui.how}
       </p>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="grid grid-cols-2 gap-2">
           {([
-            { m: 'mosaic', label: '🔳 모자이크', hint: '흐릿하게 뭉갬' },
-            { m: 'black', label: '⬛ 검게 덮기', hint: '완전히 가림' },
-          ] as const).map(b => (
+            { m: 'mosaic' as const },
+            { m: 'black' as const },
+          ] as const).map((b, i) => (
             <button
               key={b.m}
               onClick={() => setMode(b.m)}
@@ -204,36 +206,36 @@ export default function MosaicTool() {
               }`}
             >
               <span className={`block text-sm font-black ${mode === b.m ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
-                {b.label}
+                {ui.modes[i]}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{b.hint}</span>
+              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.modeHints[i]}</span>
             </button>
           ))}
         </div>
 
         <div className="flex items-baseline justify-between mt-5 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">붓 굵기</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.brush}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{brush}px</span>
         </div>
         <input
           type="range" min={16} max={Math.max(64, Math.round(Math.max(img.width, img.height) / 5))}
           value={brush} onChange={e => setBrush(Number(e.target.value))}
-          className="w-full accent-violet-500" aria-label="붓 굵기"
+          className="w-full accent-violet-500" aria-label={ui.brush}
         />
 
         {mode === 'mosaic' && (
           <>
             <div className="flex items-baseline justify-between mt-4 mb-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">모자이크 칸 크기</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.cellSize}</span>
               <span className="text-sm font-black text-violet-600 tabular-nums">{cell}px</span>
             </div>
             <input
               type="range" min={6} max={Math.max(24, Math.round(Math.max(img.width, img.height) / 20))}
               value={cell} onChange={e => setCell(Number(e.target.value))}
-              className="w-full accent-violet-500" aria-label="모자이크 칸 크기"
+              className="w-full accent-violet-500" aria-label={ui.cellSize}
             />
             <p className="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">
-              칸이 클수록 알아보기 어렵습니다. 글자를 가릴 때는 크게 잡으세요.
+              {ui.cellNote}
             </p>
           </>
         )}
@@ -244,22 +246,23 @@ export default function MosaicTool() {
             disabled={strokes.length === 0}
             className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 disabled:opacity-40 transition-colors"
           >
-            ↩ 방금 지운 것 되돌리기
+            {ui.undo}
           </button>
           <button
             onClick={clearAll}
             disabled={strokes.length === 0}
             className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-rose-300 disabled:opacity-40 transition-colors"
           >
-            전부 지우기
+            {ui.clear}
           </button>
         </div>
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={img.size}
         resultSize={blob?.size}
-        dimension={`${strokes.length}번 칠함`}
+        dimension={ui.dimension(strokes.length)}
         busy={busy}
         onDownload={() => blob && download(blob, suffixName(img.name, '-masked', img.type === 'image/png' ? 'png' : 'jpg'))}
         onReset={() => { setImg(null); setBlob(null); strokesRef.current = []; setStrokes([]); }}

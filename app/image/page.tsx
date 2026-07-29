@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: '이미지 도구 — 사진 용량 줄이기·크기 조절·자르기 온라인',
   description:
     '사진 용량 줄이기, 크기 조절, JPG·PNG·WebP 변환, 자르기, 회전, 모자이크, 이어붙이기, 색상 추출까지 설치 없이 브라우저에서. 사진은 서버에 올라가지 않습니다.',
-  alternates: { canonical: '/image' },
+  alternates: {
+    canonical: '/image',
+    languages: { 'ko': '/image', 'en': '/en/image', 'zh': '/zh/image', 'x-default': '/en/image' },
+  },
 };
 
 const CATEGORY_ORDER = ['용량·크기', '편집', '분석'];

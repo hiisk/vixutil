@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useId, useRef, useState } from 'react';
 import { ACCEPT, isImageFile } from '@/lib/image-canvas';
+import { IMAGE_COMMON, PASTE_HINT, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 사진을 받는 공통 입구 — 클릭, 드래그&드롭, 붙여넣기 세 경로를 다 연다.
@@ -13,11 +14,15 @@ export default function ImageDrop({
   onFiles,
   multiple = false,
   hint,
+  lang = 'ko',
 }: {
   onFiles: (files: File[]) => void;
   multiple?: boolean;
   hint?: string;
+  lang?: ImageLang;
 }) {
+  const c = IMAGE_COMMON[lang];
+  const paste = PASTE_HINT[lang];
   const [over, setOver] = useState(false);
   const [error, setError] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -26,7 +31,7 @@ export default function ImageDrop({
   const take = (list: FileList | File[] | null) => {
     const files = [...(list ?? [])].filter(isImageFile);
     if (files.length === 0) {
-      setError('이미지 파일이 아닙니다. JPG·PNG·WebP·GIF 등을 올려주세요.');
+      setError(c.notImage);
       return;
     }
     setError('');
@@ -59,10 +64,10 @@ export default function ImageDrop({
       >
         <span className="text-4xl">🖼️</span>
         <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
-          {multiple ? '사진 여러 장을 올려주세요' : '사진을 올려주세요'}
+          {multiple ? c.dropMany : c.dropOne}
         </span>
         <span className="text-xs text-slate-400 dark:text-slate-500 text-center leading-relaxed">
-          여기를 누르거나 끌어다 놓으세요 · <kbd className="font-sans">Ctrl</kbd>+<kbd className="font-sans">V</kbd>로 붙여넣기도 됩니다
+          {c.dropHow}{paste.before}<kbd className="font-sans">Ctrl</kbd>+<kbd className="font-sans">V</kbd>{paste.after}
           {hint && <><br />{hint}</>}
         </span>
         <input

@@ -5,6 +5,7 @@ import ResultActions from './ResultActions';
 import {
   canvasToBlob, download, fillBackground, formatBytes, loadImage, type LoadedImage,
 } from '@/lib/image-canvas';
+import { MERGE_UI, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 사진 이어붙이기.
@@ -16,7 +17,8 @@ import {
  */
 const GAP_BG = ['#ffffff', '#000000', '#f1f5f9'];
 
-export default function MergeTool() {
+export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = MERGE_UI[lang];
   const [imgs, setImgs] = useState<LoadedImage[]>([]);
   const [dir, setDir] = useState<'v' | 'h'>('v');
   const [fit, setFit] = useState(true);
@@ -96,7 +98,7 @@ export default function MergeTool() {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [imgs, dir, fit, gap, bg]);
 
-  if (imgs.length === 0) return <ImageDrop onFiles={accept} multiple hint="여러 장을 한 번에 고를 수 있습니다" />;
+  if (imgs.length === 0) return <ImageDrop onFiles={accept} multiple hint={ui.hint} lang={lang} />;
 
   const totalSize = imgs.reduce((a, i) => a + i.size, 0);
 
@@ -104,12 +106,12 @@ export default function MergeTool() {
     <div>
       <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={url} alt="이어붙인 결과 미리보기" className="w-full max-h-[30rem] object-contain" />
+        <img src={url} alt={ui.alt} className="w-full max-h-[30rem] object-contain" />
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
-          붙인 사진 {imgs.length}장 — 순서를 바꿀 수 있어요
+          {ui.countLine(imgs.length)}
         </p>
         <div className="flex flex-col gap-1.5 mb-5">
           {imgs.map((i, idx) => (
@@ -123,18 +125,18 @@ export default function MergeTool() {
                   {i.width} × {i.height} · {formatBytes(i.size)}
                 </span>
               </span>
-              <button onClick={() => move(idx, -1)} disabled={idx === 0} aria-label="위로" className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 disabled:opacity-30">↑</button>
-              <button onClick={() => move(idx, 1)} disabled={idx === imgs.length - 1} aria-label="아래로" className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 disabled:opacity-30">↓</button>
-              <button onClick={() => setImgs(p => p.filter((_, k) => k !== idx))} aria-label="빼기" className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-rose-500">✕</button>
+              <button onClick={() => move(idx, -1)} disabled={idx === 0} aria-label={ui.up} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 disabled:opacity-30">↑</button>
+              <button onClick={() => move(idx, 1)} disabled={idx === imgs.length - 1} aria-label={ui.down} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 disabled:opacity-30">↓</button>
+              <button onClick={() => setImgs(p => p.filter((_, k) => k !== idx))} aria-label={ui.remove} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-rose-500">✕</button>
             </div>
           ))}
         </div>
 
         <div className="grid grid-cols-2 gap-2">
           {([
-            { d: 'v', label: '⬇ 세로로 잇기' },
-            { d: 'h', label: '➡ 가로로 잇기' },
-          ] as const).map(b => (
+            { d: 'v' as const },
+            { d: 'h' as const },
+          ] as const).map((b, i) => (
             <button
               key={b.d}
               onClick={() => setDir(b.d)}
@@ -144,7 +146,7 @@ export default function MergeTool() {
                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-violet-200'
               }`}
             >
-              {b.label}
+              {ui.dirs[i]}
             </button>
           ))}
         </div>
@@ -152,36 +154,36 @@ export default function MergeTool() {
         <label className="flex items-center gap-3 mt-4 cursor-pointer">
           <input type="checkbox" checked={fit} onChange={e => setFit(e.target.checked)} className="w-4 h-4 accent-violet-500" />
           <span className="text-sm text-slate-600 dark:text-slate-300">
-            크기가 다른 사진 {dir === 'v' ? '폭' : '높이'} 맞추기
+            {ui.matchLabel(dir === 'v' ? ui.widthWord : ui.heightWord)}
             <span className="block text-[11px] text-slate-400 dark:text-slate-500">
-              끄면 원래 크기 그대로 가운데 정렬합니다
+              {ui.matchOff}
             </span>
           </span>
         </label>
 
         <div className="flex items-baseline justify-between mt-4 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">사진 사이 간격</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.gap}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{gap}px</span>
         </div>
         <input
           type="range" min={0} max={80} value={gap}
           onChange={e => setGap(Number(e.target.value))}
-          className="w-full accent-violet-500" aria-label="사진 사이 간격"
+          className="w-full accent-violet-500" aria-label={ui.gap}
         />
 
         {(gap > 0 || !fit) && (
           <>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">여백 색</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.gapColor}</p>
             <div className="flex items-center gap-2">
               {GAP_BG.map(c => (
                 <button
-                  key={c} onClick={() => setBg(c)} aria-label={`여백색 ${c}`} style={{ background: c }}
+                  key={c} onClick={() => setBg(c)} aria-label={`${ui.gapColorAria} ${c}`} style={{ background: c }}
                   className={`w-9 h-9 rounded-lg border-2 transition-transform ${bg === c ? 'border-violet-500 scale-110' : 'border-slate-200 dark:border-slate-700'}`}
                 />
               ))}
               <input
                 type="color" value={bg} onChange={e => setBg(e.target.value)}
-                aria-label="여백색 직접 고르기"
+                aria-label={ui.pickGapColor}
                 className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent cursor-pointer"
               />
             </div>
@@ -189,11 +191,12 @@ export default function MergeTool() {
         )}
 
         <div className="mt-5">
-          <ImageDrop onFiles={accept} multiple hint="이미 올린 사진 뒤에 이어서 붙습니다" />
+          <ImageDrop onFiles={accept} multiple hint={ui.hintMore} lang={lang} />
         </div>
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={totalSize}
         resultSize={blob?.size}
         dimension={`${out.w} × ${out.h}`}

@@ -5,6 +5,7 @@ import ResultActions from './ResultActions';
 import {
   canvasToBlob, download, drawToCanvas, fillBackground, loadImage, suffixName, type LoadedImage,
 } from '@/lib/image-canvas';
+import { CROP_UI, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 자르기 — 화면에서 끈 사각형을 원본 좌표로 되돌려 잘라낸다.
@@ -14,7 +15,7 @@ import {
  * 튀어 손맛이 나빠진다.
  */
 const RATIOS = [
-  { label: '자유', value: 0 },
+  { value: 0 },
   { label: '1:1', value: 1 },
   { label: '4:3', value: 4 / 3 },
   { label: '3:4', value: 3 / 4 },
@@ -31,7 +32,8 @@ type Drag =
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
-export default function CropTool() {
+export default function CropTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = CROP_UI[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [objUrl, setObjUrl] = useState('');
   const [sel, setSel] = useState<Rect>({ x: 0, y: 0, w: 0, h: 0 });
@@ -187,7 +189,7 @@ export default function CropTool() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={objUrl}
-          alt="자를 사진"
+          alt={ui.alt}
           onLoad={measure}
           draggable={false}
           /*
@@ -240,11 +242,11 @@ export default function CropTool() {
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">비율 고정</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.ratioTitle}</p>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-          {RATIOS.map(r => (
+          {RATIOS.map((r, i) => (
             <button
-              key={r.label}
+              key={ui.ratios[i]}
               onClick={() => applyRatio(r.value)}
               className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                 ratio === r.value
@@ -252,18 +254,19 @@ export default function CropTool() {
                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-violet-200'
               }`}
             >
-              {r.label}
+              {ui.ratios[i]}
             </button>
           ))}
         </div>
         <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
-          사진 위에서 끌어 영역을 새로 그리거나, 네 모서리를 잡아 크기를 바꾸세요. 가운데를 끌면 위치가 움직입니다.
+          {ui.how}
           <br />
-          원본 {img.width} × {img.height}px에서 {outW} × {outH}px만 남깁니다.
+          {ui.keeps(img.width, img.height, outW, outH)}
         </p>
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={img.size}
         resultSize={blob?.size}
         dimension={`${outW} × ${outH}`}

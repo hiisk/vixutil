@@ -6,6 +6,7 @@ import {
   canvasToBlob, download, drawToCanvas, fillBackground, formatBytes,
   loadImage, suffixName, type LoadedImage,
 } from '@/lib/image-canvas';
+import { COMPRESS_UI, IMAGE_COMMON, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 용량 줄이기 — 화질만 낮춰 다시 굽는다. 크기(픽셀)는 건드리지 않는다.
@@ -14,11 +15,13 @@ import {
  * 보인다. 손을 멈춘 뒤에 한 번만 굽도록 조금 늦춘다.
  */
 const FORMATS = [
-  { mime: 'image/jpeg', label: 'JPG', hint: '사진에 가장 무난' },
-  { mime: 'image/webp', label: 'WebP', hint: '같은 화질에 더 작음' },
+  { mime: 'image/jpeg' as const },
+  { mime: 'image/webp' as const },
 ];
 
-export default function CompressTool() {
+export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
+  const ui = COMPRESS_UI[lang];
+  const c = IMAGE_COMMON[lang];
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [quality, setQuality] = useState(0.7);
   const [mime, setMime] = useState('image/jpeg');
@@ -70,7 +73,7 @@ export default function CompressTool() {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [img, quality, mime]);
 
-  if (!img) return <ImageDrop onFiles={accept} hint="JPG·PNG·WebP 모두 됩니다" />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const ext = mime === 'image/webp' ? 'webp' : 'jpg';
 
@@ -80,7 +83,7 @@ export default function CompressTool() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={compare ? originalUrl : url || originalUrl}
-          alt={compare ? '원본 사진' : '압축 결과 미리보기'}
+          alt={compare ? ui.altOriginal : ui.altResult}
           className="w-full max-h-[26rem] object-contain"
         />
         <button
@@ -91,13 +94,13 @@ export default function CompressTool() {
           onTouchEnd={() => setCompare(false)}
           className="absolute bottom-3 right-3 rounded-xl bg-black/60 px-3.5 py-2 text-xs font-bold text-white hover:bg-black/75 transition-colors"
         >
-          {compare ? '원본 보는 중' : '누르면 원본'}
+          {compare ? ui.viewingOriginal : ui.tapForOriginal}
         </button>
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-baseline justify-between mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">화질</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{c.quality}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>
         </div>
         <input
@@ -107,16 +110,16 @@ export default function CompressTool() {
           value={Math.round(quality * 100)}
           onChange={e => setQuality(Number(e.target.value) / 100)}
           className="w-full accent-violet-500"
-          aria-label="화질"
+          aria-label={c.quality}
         />
         <div className="flex justify-between text-[11px] text-slate-400 dark:text-slate-500 mt-1">
-          <span>작게</span>
-          <span>선명하게</span>
+          <span>{c.smaller}</span>
+          <span>{c.sharper}</span>
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">저장 형식</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.saveAs}</p>
         <div className="grid grid-cols-2 gap-2">
-          {FORMATS.map(f => (
+          {FORMATS.map((f, i) => (
             <button
               key={f.mime}
               onClick={() => setMime(f.mime)}
@@ -127,20 +130,20 @@ export default function CompressTool() {
               }`}
             >
               <span className={`block text-sm font-black ${mime === f.mime ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
-                {f.label}
+                {ui.formats[i]}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{f.hint}</span>
+              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.formatHints[i]}</span>
             </button>
           ))}
         </div>
 
         <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
-          {img.width} × {img.height}px · 원본 {formatBytes(img.size)} · 크기(픽셀)는 그대로 두고 화질만 낮춥니다.
-          더 줄이려면 <b className="text-slate-500 dark:text-slate-400">이미지 크기 조절</b>을 함께 쓰세요.
+          {img.width} × {img.height}px · {c.original} {formatBytes(img.size)} · {ui.note}<b className="text-slate-500 dark:text-slate-400">{ui.noteLink}</b>
         </p>
       </div>
 
       <ResultActions
+        lang={lang}
         originalSize={img.size}
         resultSize={blob?.size}
         busy={busy}

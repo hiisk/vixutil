@@ -1,5 +1,6 @@
 'use client';
 import { formatBytes } from '@/lib/image-canvas';
+import { IMAGE_COMMON, type ImageLang } from '@/lib/image-ui-intl';
 
 /**
  * 결과 요약 + 저장/다시하기 버튼.
@@ -13,8 +14,9 @@ export default function ResultActions({
   dimension,
   onDownload,
   onReset,
-  downloadLabel = '저장하기',
+  downloadLabel,
   busy = false,
+  lang = 'ko',
 }: {
   originalSize: number;
   /** 아직 계산 중이면 undefined */
@@ -25,7 +27,9 @@ export default function ResultActions({
   onReset: () => void;
   downloadLabel?: string;
   busy?: boolean;
+  lang?: ImageLang;
 }) {
+  const c = IMAGE_COMMON[lang];
   // 압축이 아니라 늘어난 경우도 있다(PNG로 변환 등). 음수 절감률은 그대로 보여준다.
   const diff = resultSize === undefined ? null : Math.round((1 - resultSize / originalSize) * 100);
 
@@ -34,19 +38,19 @@ export default function ResultActions({
       <div className="grid grid-cols-3 gap-2">
         <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
           <p className="text-base font-black text-slate-700 dark:text-slate-200 tabular-nums">{formatBytes(originalSize)}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">원본</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{c.original}</p>
         </div>
         <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
           <p className="text-base font-black text-violet-600 tabular-nums">
             {resultSize === undefined ? '…' : formatBytes(resultSize)}
           </p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{dimension ?? '결과'}</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{dimension ?? c.result}</p>
         </div>
         <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
           <p className={`text-base font-black tabular-nums ${diff !== null && diff > 0 ? 'text-emerald-600' : 'text-slate-400 dark:text-slate-500'}`}>
             {diff === null ? '…' : diff > 0 ? `-${diff}%` : `+${-diff}%`}
           </p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{diff !== null && diff < 0 ? '증가' : '절감'}</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{diff !== null && diff < 0 ? c.grew : c.saved}</p>
         </div>
       </div>
 
@@ -55,14 +59,14 @@ export default function ResultActions({
           onClick={onReset}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
         >
-          다른 사진
+          {c.otherPhoto}
         </button>
         <button
           onClick={onDownload}
           disabled={busy || resultSize === undefined}
           className="col-span-2 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 disabled:opacity-50 transition-opacity"
         >
-          {busy ? '처리 중…' : `⬇ ${downloadLabel}`}
+          {busy ? c.working : `⬇ ${downloadLabel ?? c.save}`}
         </button>
       </div>
     </div>
