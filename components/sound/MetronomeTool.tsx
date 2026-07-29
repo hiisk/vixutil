@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { audioContext, click } from '@/lib/audio';
 import { CARD, PlayButton, Slider } from './ui';
+import { METRONOME_UI, type SoundLang } from '@/lib/sound-ui-intl';
 
 /**
  * 메트로놈 — 박자를 미리 예약해 둔다.
@@ -13,16 +14,12 @@ import { CARD, PlayButton, Slider } from './ui';
 const LOOKAHEAD_MS = 25;
 const SCHEDULE_AHEAD = 0.15;
 
-const TEMPO_NAMES: [number, string][] = [
-  [60, '라르고 — 아주 느리게'],
-  [76, '아다지오 — 느리게'],
-  [108, '안단테 — 걷는 속도로'],
-  [120, '모데라토 — 보통 빠르기'],
-  [168, '알레그로 — 빠르게'],
-  [999, '프레스토 — 아주 빠르게'],
+const TEMPO_MAX: number[] = [
+  60, 76, 108, 120, 168, 999,
 ];
 
-export default function MetronomeTool() {
+export default function MetronomeTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
+  const ui = METRONOME_UI[lang];
   const [bpm, setBpm] = useState(120);
   const [beats, setBeats] = useState(4);
   const [playing, setPlaying] = useState(false);
@@ -67,7 +64,9 @@ export default function MetronomeTool() {
     });
   };
 
-  const tempoName = TEMPO_NAMES.find(([max]) => bpm <= max)?.[1] ?? '';
+  // 문구는 언어별 사전에서 온다 — 경계 BPM만 여기 남긴다
+  const tempoIdx = TEMPO_MAX.findIndex(max => bpm <= max);
+  const tempoName = tempoIdx < 0 ? '' : ui.tempoNames[tempoIdx];
 
   return (
     <div>
@@ -90,7 +89,7 @@ export default function MetronomeTool() {
       </div>
 
       <div className="mt-4">
-        <Slider label="빠르기" value={bpm} min={30} max={240} unit=" BPM" onChange={setBpm} />
+        <Slider label={ui.tempo} value={bpm} min={30} max={240} unit=" BPM" onChange={setBpm} />
       </div>
 
       <div className="grid grid-cols-4 gap-2 mt-4">
@@ -104,25 +103,24 @@ export default function MetronomeTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {b}박자
+            {ui.beatSuffix(b)}
           </button>
         ))}
       </div>
 
       <div className="grid grid-cols-2 gap-2 mt-4">
-        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} label="시작" />
+        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} label={ui.start} lang={lang} />
         <button
           onClick={tap}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-indigo-300 transition-colors"
         >
-          👆 두드려서 BPM 맞추기
+          {ui.tapBpm}
         </button>
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          박자는 오디오 시계에 미리 예약해 둡니다. 화면이 잠깐 버벅여도 소리 간격은 흔들리지 않습니다.
-          첫 박은 높은 소리로 나므로 눈을 감고도 몇 박째인지 알 수 있습니다.
+          {ui.note}
         </p>
       </div>
     </div>

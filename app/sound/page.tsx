@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: '소리 도구 — 메트로놈·튜너·백색소음',
   description:
     '메트로놈, 악기 튜너, BPM 측정, 백색소음, 바이노럴 비트, 소음 측정, 음성 녹음, 주파수 생성까지. 음원 파일 없이 브라우저가 직접 소리를 만듭니다.',
-  alternates: { canonical: '/sound' },
+  alternates: {
+    canonical: '/sound',
+    languages: { 'ko': '/sound', 'en': '/en/sound', 'zh': '/zh/sound', 'x-default': '/en/sound' },
+  },
 };
 
 const CATEGORY_ORDER = ['연주·연습', '집중·수면', '측정', '신호음'];

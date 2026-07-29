@@ -2,20 +2,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { audioContext, detectPitch, frequencyToNote } from '@/lib/audio';
 import { CARD, MicGate, Stat, useMicAnalyser } from './ui';
+import { TUNER_UI, type SoundLang } from '@/lib/sound-ui-intl';
 
 /** 기타·우쿨렐레 개방현 — 조율할 때 기준음을 들려주려고 둔다 */
 const STRINGS = {
-  guitar: { label: '기타', notes: [['E2', 82.41], ['A2', 110.0], ['D3', 146.83], ['G3', 196.0], ['B3', 246.94], ['E4', 329.63]] },
-  ukulele: { label: '우쿨렐레', notes: [['G4', 392.0], ['C4', 261.63], ['E4', 329.63], ['A4', 440.0]] },
-  bass: { label: '베이스', notes: [['E1', 41.2], ['A1', 55.0], ['D2', 73.42], ['G2', 98.0]] },
+  guitar: { notes: [['E2', 82.41], ['A2', 110.0], ['D3', 146.83], ['G3', 196.0], ['B3', 246.94], ['E4', 329.63]] },
+  ukulele: { notes: [['G4', 392.0], ['C4', 261.63], ['E4', 329.63], ['A4', 440.0]] },
+  bass: { notes: [['E1', 41.2], ['A1', 55.0], ['D2', 73.42], ['G2', 98.0]] },
 } as const;
 
-export default function TunerTool() {
+export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
+  const ui = TUNER_UI[lang];
   const [on, setOn] = useState(false);
   const [a4, setA4] = useState(440);
   const [instrument, setInstrument] = useState<keyof typeof STRINGS>('guitar');
   const [reading, setReading] = useState<{ freq: number; note: string; octave: number; cents: number } | null>(null);
-  const { analyser, error } = useMicAnalyser(on, 4096);
+  const { analyser, error } = useMicAnalyser(on, 4096, lang);
   const rafRef = useRef(0);
 
   useEffect(() => {
@@ -54,10 +56,10 @@ export default function TunerTool() {
 
   if (!on) {
     return (
-      <MicGate onStart={() => setOn(true)} error={error} icon="🎸" gradient="from-emerald-500 to-teal-600">
-        악기 소리를 마이크로 들려주면 어떤 음인지, 얼마나 높거나 낮은지 알려줍니다.
+      <MicGate onStart={() => setOn(true)} error={error} icon="🎸" gradient="from-emerald-500 to-teal-600" lang={lang}>
+        {ui.gate}
         <br />
-        소리는 브라우저 안에서만 분석되고 어디로도 전송되지 않습니다.
+        {ui.gateNote}
       </MicGate>
     );
   }
@@ -73,7 +75,7 @@ export default function TunerTool() {
           {reading && <span className="text-3xl text-white/60">{reading.octave}</span>}
         </p>
         <p className="text-sm text-white/60 mt-2">
-          {reading ? `${reading.freq.toFixed(1)} Hz` : '악기 소리를 들려주세요'}
+          {reading ? `${reading.freq.toFixed(1)} Hz` : ui.waiting}
         </p>
 
         {/* 오차 눈금 — 가운데가 정확한 음이다 */}
@@ -90,19 +92,19 @@ export default function TunerTool() {
           )}
         </div>
         <p className="text-sm font-bold text-white/80">
-          {!reading ? ' ' : inTune ? '✓ 맞았습니다' : cents > 0 ? `${cents}센트 높습니다 — 줄을 풀어주세요` : `${-cents}센트 낮습니다 — 줄을 조여주세요`}
+          {!reading ? ' ' : inTune ? ui.inTune : cents > 0 ? ui.sharpBy(cents) : ui.flatBy(-cents)}
         </p>
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="음정" value={reading ? `${reading.note}${reading.octave}` : '—'} accent="text-emerald-600" />
-        <Stat label="주파수" value={reading ? `${reading.freq.toFixed(1)}Hz` : '—'} />
-        <Stat label="오차" value={reading ? `${cents > 0 ? '+' : ''}${cents}센트` : '—'} accent={inTune ? 'text-emerald-600' : 'text-amber-600'} />
+        <Stat label={ui.note} value={reading ? `${reading.note}${reading.octave}` : '—'} accent="text-emerald-600" />
+        <Stat label={ui.freqLabel} value={reading ? `${reading.freq.toFixed(1)}Hz` : '—'} />
+        <Stat label={ui.errorLabel} value={reading ? ui.centsSuffix(cents > 0 ? Number(`+${cents}`) : cents) : '—'} accent={inTune ? 'text-emerald-600' : 'text-amber-600'} />
       </div>
 
       <div className={`${CARD} mt-4`}>
         <div className="grid grid-cols-3 gap-2 mb-3">
-          {(Object.keys(STRINGS) as (keyof typeof STRINGS)[]).map(k => (
+          {(Object.keys(STRINGS) as (keyof typeof STRINGS)[]).map((k, i) => (
             <button
               key={k}
               onClick={() => setInstrument(k)}
@@ -112,11 +114,11 @@ export default function TunerTool() {
                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
               }`}
             >
-              {STRINGS[k].label}
+              {ui.instruments[i]}
             </button>
           ))}
         </div>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">기준음 듣기 (개방현)</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.openStrings}</p>
         <div className="flex flex-wrap gap-2">
           {STRINGS[instrument].notes.map(([name, freq]) => (
             <button
@@ -130,20 +132,19 @@ export default function TunerTool() {
         </div>
 
         <div className="flex items-center gap-3 mt-4">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">기준 A4</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.refA4}</span>
           <input
             type="number" min={430} max={450} value={a4}
             onChange={e => setA4(Math.min(450, Math.max(430, Number(e.target.value) || 440)))}
             className="w-20 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums"
           />
-          <span className="text-xs text-slate-400 dark:text-slate-500">Hz — 합주 상대와 맞추세요</span>
+          <span className="text-xs text-slate-400 dark:text-slate-500">{ui.refA4Note}</span>
         </div>
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          센트는 반음을 100으로 나눈 단위입니다. ±5센트 안이면 사람 귀에는 맞은 소리로 들립니다.
-          줄을 튕긴 직후에는 음이 흔들리므로, 소리가 잦아든 뒤의 값을 보세요.
+          {ui.footNote}
         </p>
       </div>
     </div>

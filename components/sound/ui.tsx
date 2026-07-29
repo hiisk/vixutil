@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { audioContext } from '@/lib/audio';
+import { SOUND_COMMON, type SoundLang } from '@/lib/sound-ui-intl';
 
 /** 소리 도구가 함께 쓰는 조각들 */
 
@@ -37,10 +38,11 @@ export function Slider({
 }
 
 export function PlayButton({
-  playing, onToggle, gradient = 'from-indigo-500 to-violet-600', label = '재생',
+  playing, onToggle, gradient = 'from-indigo-500 to-violet-600', label, lang = 'ko',
 }: {
-  playing: boolean; onToggle: () => void; gradient?: string; label?: string;
+  playing: boolean; onToggle: () => void; gradient?: string; label?: string; lang?: SoundLang;
 }) {
+  const c = SOUND_COMMON[lang];
   return (
     <button
       onClick={onToggle}
@@ -48,7 +50,7 @@ export function PlayButton({
         playing ? 'bg-slate-700' : `bg-gradient-to-r ${gradient}`
       }`}
     >
-      {playing ? '■ 정지' : `▶ ${label}`}
+      {playing ? c.stop : `▶ ${label ?? c.play}`}
     </button>
   );
 }
@@ -57,7 +59,7 @@ export function PlayButton({
  * 마이크를 열고 분석기를 붙인다. 소리는 브라우저 밖으로 나가지 않는다 —
  * 스트림을 분석기에만 연결하고 어디에도 보내지 않기 때문이다.
  */
-export function useMicAnalyser(active: boolean, fftSize = 2048) {
+export function useMicAnalyser(active: boolean, fftSize = 2048, lang: SoundLang = 'ko') {
   const [error, setError] = useState('');
   const [ready, setReady] = useState(false);
   const analyserRef = useRef<AnalyserNode | null>(null);
@@ -83,8 +85,8 @@ export function useMicAnalyser(active: boolean, fftSize = 2048) {
         const name = e instanceof DOMException ? e.name : '';
         setError(
           name === 'NotAllowedError'
-            ? '마이크 권한이 거부됐습니다. 주소창의 자물쇠 아이콘에서 허용으로 바꿔 주세요.'
-            : '마이크를 열 수 없습니다. 다른 앱이 쓰고 있는지 확인해 주세요.',
+            ? SOUND_COMMON[lang].micDenied
+            : SOUND_COMMON[lang].micFailed,
         );
       }
     };
@@ -104,9 +106,9 @@ export function useMicAnalyser(active: boolean, fftSize = 2048) {
 
 /** 마이크가 필요할 때 먼저 보여주는 시작 화면 */
 export function MicGate({
-  onStart, error, icon, gradient, children,
+  onStart, error, icon, gradient, children, lang = 'ko',
 }: {
-  onStart: () => void; error?: string; icon: string; gradient: string; children: React.ReactNode;
+  onStart: () => void; error?: string; icon: string; gradient: string; children: React.ReactNode; lang?: SoundLang;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
@@ -116,7 +118,7 @@ export function MicGate({
         onClick={onStart}
         className={`rounded-xl bg-gradient-to-r ${gradient} text-white font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 transition-opacity`}
       >
-        마이크 켜기
+        {SOUND_COMMON[lang].micStart}
       </button>
       {error && <p className="mt-4 text-xs text-rose-600 dark:text-rose-400 leading-relaxed max-w-sm mx-auto">{error}</p>}
     </div>

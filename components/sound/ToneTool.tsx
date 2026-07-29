@@ -2,13 +2,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { audioContext } from '@/lib/audio';
 import { CARD, PlayButton, Slider } from './ui';
+import { TONE_UI, SOUND_COMMON, type SoundLang } from '@/lib/sound-ui-intl';
 
 const WAVES: OscillatorType[] = ['sine', 'square', 'triangle', 'sawtooth'];
 const WAVE_LABEL: Record<string, string> = {
-  sine: '사인파 — 가장 부드러움',
-  square: '사각파 — 전자음 느낌',
-  triangle: '삼각파 — 사인과 사각의 중간',
-  sawtooth: '톱니파 — 가장 거침',
+  // 문구는 lib/sound-ui-intl.ts에서 온다
 };
 
 const PRESETS = [
@@ -16,7 +14,9 @@ const PRESETS = [
   { hz: 1000, label: '1kHz' }, { hz: 8000, label: '8kHz' },
 ];
 
-export default function ToneTool() {
+export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
+  const ui = TONE_UI[lang];
+  const c = SOUND_COMMON[lang];
   const [freq, setFreq] = useState(440);
   const [wave, setWave] = useState<OscillatorType>('sine');
   const [volume, setVolume] = useState(20);
@@ -80,7 +80,7 @@ export default function ToneTool() {
       </div>
 
       <div className={`${CARD} mt-4 flex flex-col gap-4`}>
-        <Slider label="주파수" value={freq} min={20} max={20000} step={10} unit="Hz" onChange={setFreq} accent="accent-sky-500" color="text-sky-600" />
+        <Slider label={c.freq} value={freq} min={20} max={20000} step={10} unit="Hz" onChange={setFreq} accent="accent-sky-500" color="text-sky-600" />
         <div className="grid grid-cols-4 gap-2">
           {PRESETS.map(p => (
             <button
@@ -94,7 +94,7 @@ export default function ToneTool() {
         </div>
 
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">파형</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.waveform}</p>
           <div className="grid grid-cols-4 gap-2">
             {WAVES.map(w => (
               <button
@@ -106,16 +106,16 @@ export default function ToneTool() {
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                 }`}
               >
-                {w === 'sine' ? '사인' : w === 'square' ? '사각' : w === 'triangle' ? '삼각' : '톱니'}
+                {ui.waveNames[w]}
               </button>
             ))}
           </div>
         </div>
 
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">출력 채널</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.channel}</p>
           <div className="grid grid-cols-3 gap-2">
-            {([['both', '양쪽'], ['left', '왼쪽만'], ['right', '오른쪽만']] as const).map(([v, label]) => (
+            {(['both', 'left', 'right'] as const).map((v, i) => (
               <button
                 key={v}
                 onClick={() => setChannel(v)}
@@ -125,23 +125,22 @@ export default function ToneTool() {
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                 }`}
               >
-                {label}
+                {ui.channels[i]}
               </button>
             ))}
           </div>
         </div>
 
-        <Slider label="볼륨" value={volume} min={0} max={60} unit="%" onChange={setVolume} accent="accent-sky-500" color="text-sky-600" />
+        <Slider label={c.volume} value={volume} min={0} max={60} unit="%" onChange={setVolume} accent="accent-sky-500" color="text-sky-600" />
       </div>
 
       <div className="mt-4">
-        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} gradient="from-slate-600 to-sky-600" label="소리 내기" />
+        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} gradient="from-slate-600 to-sky-600" label={ui.playLabel} lang={lang} />
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          볼륨 상한을 60%로 제한했습니다. 순수한 사인파는 음악보다 귀에 훨씬 부담이 크고, 특히 높은
-          주파수를 크게 오래 들으면 청력이 상할 수 있습니다. 들리는 만큼만 키우세요.
+          {ui.note}
         </p>
       </div>
     </div>

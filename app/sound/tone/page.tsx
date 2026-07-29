@@ -5,7 +5,10 @@ import ToneTool from '@/components/sound/ToneTool';
 export const metadata: Metadata = {
   title: '주파수 생성기 - 원하는 Hz 사인파 재생',
   description: '20Hz부터 20kHz까지 원하는 주파수의 소리를 만듭니다. 사인파·사각파·톱니파를 고를 수 있어 스피커 점검이나 악기 기준음, 간단한 실험에 쓸 수 있습니다.',
-  alternates: { canonical: '/sound/tone' },
+  alternates: {
+    canonical: '/sound/tone',
+    languages: { 'ko': '/sound/tone', 'en': '/en/sound/tone', 'zh': '/zh/sound/tone', 'x-default': '/en/sound/tone' },
+  },
 };
 
 export default function Page() {

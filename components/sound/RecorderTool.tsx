@@ -2,8 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatDuration } from '@/lib/date-calc';
 import { CARD } from './ui';
+import { RECORDER_UI, type SoundLang } from '@/lib/sound-ui-intl';
 
-export default function RecorderTool() {
+export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
+  const ui = RECORDER_UI[lang];
   const [state, setState] = useState<'idle' | 'recording' | 'done'>('idle');
   const [error, setError] = useState('');
   const [elapsed, setElapsed] = useState(0);
@@ -66,7 +68,7 @@ export default function RecorderTool() {
       loop();
     } catch (e) {
       const name = e instanceof DOMException ? e.name : '';
-      setError(name === 'NotAllowedError' ? '마이크 권한이 거부됐습니다. 주소창의 자물쇠 아이콘에서 허용해 주세요.' : '마이크를 열 수 없습니다.');
+      setError(name === 'NotAllowedError' ? ui.micDenied : ui.micFailed);
     }
   };
 
@@ -80,7 +82,7 @@ export default function RecorderTool() {
       <div className={`rounded-2xl px-6 py-10 text-center transition-colors ${state === 'recording' ? 'bg-rose-600' : 'bg-slate-900'}`}>
         <p className="text-5xl font-black text-white tabular-nums">{formatDuration(elapsed)}</p>
         <p className="text-sm text-white/60 mt-2">
-          {state === 'recording' ? '● 녹음 중' : state === 'done' ? '녹음이 끝났습니다' : '녹음 버튼을 누르세요'}
+          {state === 'recording' ? ui.recording : state === 'done' ? ui.done : ui.idle}
         </p>
         {state === 'recording' && (
           <div className="mt-5 h-3 rounded-full bg-white/20 overflow-hidden max-w-xs mx-auto">
@@ -98,7 +100,7 @@ export default function RecorderTool() {
             state === 'recording' ? 'bg-slate-700' : 'bg-gradient-to-r from-fuchsia-500 to-violet-600'
           }`}
         >
-          {state === 'recording' ? '■ 녹음 정지' : state === 'done' ? '다시 녹음' : '● 녹음 시작'}
+          {state === 'recording' ? ui.stopRec : state === 'done' ? ui.again : ui.startRec}
         </button>
         {clip ? (
           <a
@@ -106,26 +108,25 @@ export default function RecorderTool() {
             download="recording.webm"
             className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-fuchsia-300 transition-colors flex items-center justify-center"
           >
-            ⬇ 파일로 저장
+            {ui.saveFile}
           </a>
         ) : (
           <span className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 py-3.5 text-sm text-slate-300 dark:text-slate-600 flex items-center justify-center">
-            저장할 녹음 없음
+            {ui.nothingToSave}
           </span>
         )}
       </div>
 
       {clip && (
         <div className="mt-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">들어보기</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.listen}</p>
           <audio src={clip} controls className="w-full" />
         </div>
       )}
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          녹음은 이 브라우저 안에서만 만들어지고 저장 버튼을 눌러야 기기에 내려받습니다. 서버로
-          전송되지 않으니 회의 메모나 발음 연습에 써도 됩니다. 탭을 닫으면 녹음도 사라집니다.
+          {ui.note}
         </p>
       </div>
     </div>

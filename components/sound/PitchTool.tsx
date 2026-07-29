@@ -2,6 +2,7 @@
 import { useCallback, useState } from 'react';
 import { audioContext, noteToFrequency } from '@/lib/audio';
 import { CARD, Stat } from './ui';
+import { PITCH_UI, type SoundLang } from '@/lib/sound-ui-intl';
 
 /**
  * 음정 듣기 훈련 — 두 음 사이의 간격을 맞힌다.
@@ -11,23 +12,24 @@ import { CARD, Stat } from './ui';
  * 연습으로 늘릴 수 있는 쪽이다.
  */
 const INTERVALS = [
-  { semi: 1, name: '단2도' }, { semi: 2, name: '장2도' }, { semi: 3, name: '단3도' },
-  { semi: 4, name: '장3도' }, { semi: 5, name: '완전4도' }, { semi: 7, name: '완전5도' },
-  { semi: 8, name: '단6도' }, { semi: 9, name: '장6도' }, { semi: 10, name: '단7도' },
-  { semi: 11, name: '장7도' }, { semi: 12, name: '옥타브' },
+  { semi: 1 }, { semi: 2 }, { semi: 3 },
+  { semi: 4 }, { semi: 5 }, { semi: 7 },
+  { semi: 8 }, { semi: 9 }, { semi: 10 },
+  { semi: 11 }, { semi: 12 },
 ];
 
 const LEVELS = {
-  easy: { label: '쉬움', set: [4, 5, 7, 12] },
-  normal: { label: '보통', set: [2, 3, 4, 5, 7, 9, 12] },
-  hard: { label: '어려움', set: INTERVALS.map(i => i.semi) },
+  easy: { set: [4, 5, 7, 12] },
+  normal: { set: [2, 3, 4, 5, 7, 9, 12] },
+  hard: { set: INTERVALS.map(i => i.semi) },
 } as const;
 type LevelKey = keyof typeof LEVELS;
 
 /** 렌더 밖에서 난수를 쓴다 */
 const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 
-export default function PitchTool() {
+export default function PitchTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
+  const ui = PITCH_UI[lang];
   const [level, setLevel] = useState<LevelKey>('easy');
   const [question, setQuestion] = useState<{ root: number; semi: number } | null>(null);
   const [answered, setAnswered] = useState<number | null>(null);
@@ -78,29 +80,29 @@ export default function PitchTool() {
       <div className="rounded-2xl bg-slate-900 px-6 py-10 text-center">
         {question ? (
           <>
-            <p className="text-sm text-white/60 mb-3">두 음의 간격은?</p>
+            <p className="text-sm text-white/60 mb-3">{ui.askInterval}</p>
             <button
               onClick={() => playPair(question.root, question.semi)}
               className="rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-white font-bold text-sm hover:bg-white/20 transition-colors"
             >
-              🔊 다시 듣기
+              {ui.replay}
             </button>
             {answered !== null && (
               <p className={`mt-4 text-lg font-black ${answered === question.semi ? 'text-emerald-400' : 'text-rose-400'}`}>
-                {answered === question.semi ? '정답!' : `아쉽네요 — 정답은 ${INTERVALS.find(i => i.semi === question.semi)?.name}`}
+                {answered === question.semi ? ui.correct : `${ui.wrongPrefix}${ui.intervals[INTERVALS.findIndex(i => i.semi === question.semi)]}`}
               </p>
             )}
           </>
         ) : (
           <>
-            <p className="text-2xl font-black text-white mb-1">두 음을 듣고 간격 맞히기</p>
-            <p className="text-sm text-white/60">기준음은 매번 바뀝니다 — 절대음감이 없어도 됩니다</p>
+            <p className="text-2xl font-black text-white mb-1">{ui.introTitle}</p>
+            <p className="text-sm text-white/60">{ui.introNote}</p>
           </>
         )}
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        {(Object.keys(LEVELS) as LevelKey[]).map(k => (
+        {(Object.keys(LEVELS) as LevelKey[]).map((k, i) => (
           <button
             key={k}
             onClick={() => setLevel(k)}
@@ -110,7 +112,7 @@ export default function PitchTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {LEVELS[k].label}
+            {ui.levels[i]}
           </button>
         ))}
       </div>
@@ -130,7 +132,7 @@ export default function PitchTool() {
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
               }`}
             >
-              {i.name}
+              {ui.intervals[INTERVALS.findIndex(x => x.semi === i.semi)]}
             </button>
           ))}
         </div>
@@ -140,19 +142,18 @@ export default function PitchTool() {
         onClick={next}
         className="mt-3 w-full rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
       >
-        {question ? '다음 문제' : '시작하기'}
+        {question ? ui.next : ui.start}
       </button>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="맞힌 문제" value={`${score.right}/${score.total}`} accent="text-violet-600" />
-        <Stat label="정답률" value={`${rate}%`} accent="text-fuchsia-600" />
-        <Stat label="연속 정답" value={score.streak} />
+        <Stat label={ui.scoreLabel} value={`${score.right}/${score.total}`} accent="text-violet-600" />
+        <Stat label={ui.rateLabel} value={`${rate}%`} accent="text-fuchsia-600" />
+        <Stat label={ui.streakLabel} value={score.streak} />
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          아는 노래의 첫 두 음으로 외우면 훨씬 빨리 늡니다 — 완전5도는 &lsquo;반짝반짝 작은별&rsquo;의 처음 두 음,
-          옥타브는 &lsquo;Somewhere over the rainbow&rsquo;의 처음 두 음입니다.
+          {ui.note}
         </p>
       </div>
     </div>

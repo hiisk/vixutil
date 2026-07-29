@@ -2,17 +2,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { audioContext, createNoiseBuffer } from '@/lib/audio';
 import { CARD, PlayButton, Slider } from './ui';
+import { NOISE_UI, SOUND_COMMON, type SoundLang } from '@/lib/sound-ui-intl';
 
 const KINDS = [
-  { id: 'white', label: '화이트', hint: '모든 대역이 고르게 — 가장 날카롭습니다' },
-  { id: 'pink', label: '핑크', hint: '낮은 대역이 조금 강해 자연에 가깝습니다' },
-  { id: 'brown', label: '브라운', hint: '저역이 가장 강해 파도 소리 같습니다' },
+  { id: 'white' as const },
+  { id: 'pink' as const },
+  { id: 'brown' as const },
 ] as const;
 type Kind = (typeof KINDS)[number]['id'];
 
 const TIMERS = [0, 15, 30, 60];
 
-export default function NoiseTool() {
+export default function NoiseTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
+  const ui = NOISE_UI[lang];
+  const c = SOUND_COMMON[lang];
   const [kind, setKind] = useState<Kind>('brown');
   const [volume, setVolume] = useState(25);
   const [tone, setTone] = useState(6000);
@@ -83,7 +86,7 @@ export default function NoiseTool() {
   return (
     <div>
       <div className="grid grid-cols-3 gap-2">
-        {KINDS.map(k => (
+        {KINDS.map((k, i) => (
           <button
             key={k.id}
             onClick={() => setKind(k.id)}
@@ -93,19 +96,19 @@ export default function NoiseTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            <span className="block text-sm font-black">{k.label}</span>
+            <span className="block text-sm font-black">{ui.kinds[i]}</span>
           </button>
         ))}
       </div>
       <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500 text-center">
-        {KINDS.find(k => k.id === kind)?.hint}
+        {ui.kindHints[KINDS.findIndex(k => k.id === kind)]}
       </p>
 
       <div className={`${CARD} mt-4 flex flex-col gap-4`}>
-        <Slider label="볼륨" value={volume} min={0} max={100} unit="%" onChange={setVolume} accent="accent-sky-500" color="text-sky-600" />
-        <Slider label="부드러움 (고역 차단)" value={tone} min={500} max={16000} step={100} unit="Hz" onChange={setTone} accent="accent-sky-500" color="text-sky-600" />
+        <Slider label={c.volume} value={volume} min={0} max={100} unit="%" onChange={setVolume} accent="accent-sky-500" color="text-sky-600" />
+        <Slider label={ui.smooth} value={tone} min={500} max={16000} step={100} unit="Hz" onChange={setTone} accent="accent-sky-500" color="text-sky-600" />
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">자동 정지</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.autoStop}</p>
           <div className="grid grid-cols-4 gap-2">
             {TIMERS.map(t => (
               <button
@@ -117,7 +120,7 @@ export default function NoiseTool() {
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                 }`}
               >
-                {t === 0 ? '끄기' : `${t}분`}
+                {t === 0 ? ui.off : ui.minSuffix(t)}
               </button>
             ))}
           </div>
@@ -125,17 +128,15 @@ export default function NoiseTool() {
       </div>
 
       <div className="mt-4">
-        <PlayButton playing={playing} onToggle={() => (playing ? stop() : setPlaying(true))} gradient="from-sky-500 to-cyan-600" label="재생" />
+        <PlayButton playing={playing} onToggle={() => (playing ? stop() : setPlaying(true))} gradient="from-sky-500 to-cyan-600" label={c.play} lang={lang} />
       </div>
       {playing && timer > 0 && (
-        <p className="mt-2 text-center text-xs text-slate-400 dark:text-slate-500">{left || timer}분 뒤 자동으로 멈춥니다</p>
+        <p className="mt-2 text-center text-xs text-slate-400 dark:text-slate-500">{ui.stopsIn(left || timer)}</p>
       )}
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          주변 소리를 없애는 게 아니라 <b className="text-slate-800 dark:text-slate-100">덮어서</b> 덜 거슬리게 만드는 방식입니다.
-          그래서 볼륨을 크게 할 필요가 없고, 대화가 겨우 안 들릴 정도면 충분합니다. 잘 때 오래 크게 틀면
-          귀에 부담이 되니 자동 정지를 함께 쓰세요.
+          {ui.note}<b className="text-slate-800 dark:text-slate-100">{ui.noteBold}</b>{ui.noteAfter}
         </p>
       </div>
     </div>

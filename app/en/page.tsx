@@ -32,6 +32,7 @@ const SECTIONS = [
   { href: '/en/time',      icon: '⏱️', title: 'Time Tools',        desc: 'Timer, stopwatch, world clock, date maths', color: 'from-sky-400 to-cyan-600',   accent: 'text-cyan-700 dark:text-cyan-300',   border: 'border-cyan-200 dark:border-cyan-900/50',  bg: 'bg-cyan-50 dark:bg-cyan-950/30' },
   { href: '/en/color',     icon: '🎨', title: 'Colour Tools',      desc: 'Palette, shades, contrast, CSS gradient',      color: 'from-fuchsia-500 to-rose-500', accent: 'text-fuchsia-700 dark:text-fuchsia-300', border: 'border-fuchsia-200 dark:border-fuchsia-900/50', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30' },
   { href: '/en/image',     icon: '🖼️', title: 'Image Tools',        desc: 'Compress, resize, crop, blur faces',           color: 'from-violet-500 to-indigo-600', accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30' },
+  { href: '/en/sound',     icon: '🔊', title: 'Sound Tools',        desc: 'Metronome, tuner, white noise, tone',          color: 'from-indigo-500 to-violet-600', accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30' },
 ];
 
 export default function EnHome() {
