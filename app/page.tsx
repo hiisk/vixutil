@@ -155,6 +155,18 @@ const SECTIONS = [
     shadow: 'shadow-emerald-100',
   },
   {
+    href: '/color',
+    icon: '🎨',
+    title: '색상 도구',
+    desc: '팔레트·명도 대비·그라디언트·색맹 시뮬레이션',
+    badge: `${SECTION_COUNTS.color}개`,
+    color: 'from-violet-500 to-fuchsia-600',
+    bgLight: 'bg-fuchsia-50 dark:bg-fuchsia-950/30',
+    textAccent: 'text-fuchsia-700 dark:text-fuchsia-300',
+    borderAccent: 'border-fuchsia-200 dark:border-fuchsia-900/50',
+    shadow: 'shadow-fuchsia-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
