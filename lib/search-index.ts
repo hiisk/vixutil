@@ -13,6 +13,7 @@ import { TIME_TOOLS } from './time-tools';
 import { SOUND_TOOLS } from './sound-tools';
 import { FOOD_TOOLS } from './food-tools';
 import { CONVERT_TOOLS } from './convert-tools';
+import { RATE_TOOLS } from './rate-tools';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -23,7 +24,7 @@ import { CONVERT_TOOLS } from './convert-tools';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate';
 
 export interface SearchItem {
   href: string;
@@ -51,6 +52,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   sound:      { label: '소리 도구', icon: '🔊', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   food:       { label: '계량·요리', icon: '🍳', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   convert:    { label: '단위 변환', icon: '🔄', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
+  rate:       { label: '비율 계산', icon: '📐', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
 };
 
 /**
@@ -118,6 +120,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...SOUND_TOOLS.map(t => ({ href: `/sound/${t.slug}`, title: t.title, desc: t.desc, section: 'sound' as const, icon: t.icon })),
   ...FOOD_TOOLS.map(t => ({ href: `/food/${t.slug}`, title: t.title, desc: t.desc, section: 'food' as const, icon: t.icon })),
   ...CONVERT_TOOLS.map(t => ({ href: `/convert/${t.slug}`, title: t.title, desc: t.desc, section: 'convert' as const, icon: t.icon })),
+  ...RATE_TOOLS.map(t => ({ href: `/rate/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'rate' as const, icon: t.icon })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

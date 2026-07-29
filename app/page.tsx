@@ -215,6 +215,18 @@ const SECTIONS = [
     shadow: 'shadow-blue-100',
   },
   {
+    href: '/rate',
+    icon: '📐',
+    title: '비율 계산',
+    desc: '할인율·부가세·이자·농도까지 공식 하나로 끝나는 계산 50가지',
+    badge: `${SECTION_COUNTS.rate}개`,
+    color: 'from-emerald-500 to-teal-600',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-950/30',
+    textAccent: 'text-emerald-700 dark:text-emerald-300',
+    borderAccent: 'border-emerald-200 dark:border-emerald-900/50',
+    shadow: 'shadow-emerald-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
