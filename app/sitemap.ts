@@ -106,6 +106,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/random/${t.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/generator`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_ZH.map((g: { slug: string }) => ({ url: `${BASE}/zh/generator/${g.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/random`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/random/${t.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),

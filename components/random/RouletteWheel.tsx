@@ -19,6 +19,12 @@ const PRESETS_EN: Preset[] = [
   { label: 'Dare', items: ['Sing', 'Dance', 'Push-ups', 'Tell a joke', 'Skip', 'Free pass'] },
   { label: 'Who pays', items: ['#1', '#2', '#3', '#4'] },
 ];
+const PRESETS_ZH: Preset[] = [
+  { label: '午餐', items: ['火锅', '烧烤', '米饭', '面条', '汉堡', '披萨', '寿司', '沙拉'] },
+  { label: '是 / 否', items: ['是', '否'] },
+  { label: '惩罚', items: ['唱歌', '跳舞', '俯卧撑', '讲笑话', '跳过', '罚一杯'] },
+  { label: '谁买单', items: ['1号', '2号', '3号', '4号'] },
+];
 
 const R = 150;
 const CX = 160;
@@ -33,10 +39,11 @@ function clip(s: string): string {
   return s.length > 8 ? s.slice(0, 7) + '…' : s;
 }
 
-export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
   const ko = lang === 'ko';
-  const PRESETS = ko ? PRESETS_KO : PRESETS_EN;
-  const [options, setOptions] = useState<string[]>(ko ? ['치킨', '피자', '떡볶이', '초밥', '햄버거', '마라탕'] : ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Ramen']);
+  const zh = lang === 'zh';
+  const PRESETS = ko ? PRESETS_KO : zh ? PRESETS_ZH : PRESETS_EN;
+  const [options, setOptions] = useState<string[]>(ko ? ['치킨', '피자', '떡볶이', '초밥', '햄버거', '마라탕'] : zh ? ['火锅', '披萨', '烧烤', '寿司', '汉堡', '麻辣烫'] : ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Ramen']);
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
@@ -132,7 +139,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
       {/* 결과 */}
       {winner && (
         <div className="wc-pop text-center rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white py-5 mb-6">
-          <div className="text-xs font-bold text-rose-100 mb-1">{ko ? '당첨 🎉' : 'Winner 🎉'}</div>
+          <div className="text-xs font-bold text-rose-100 mb-1">{ko ? '당첨 🎉' : zh ? '中奖 🎉' : 'Winner 🎉'}</div>
           <div className="text-3xl font-black">{winner}</div>
         </div>
       )}
@@ -142,7 +149,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         disabled={spinning || !filled}
         className="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
-        {spinning ? (ko ? '돌아가는 중…' : 'Spinning…') : (ko ? '돌리기 🎡' : 'Spin 🎡')}
+        {spinning ? (ko ? '돌아가는 중…' : zh ? '旋转中…' : 'Spinning…') : (ko ? '돌리기 🎡' : zh ? '开始旋转 🎡' : 'Spin 🎡')}
       </button>
 
       {/* 프리셋 */}
@@ -166,14 +173,14 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
             <input
               value={opt}
               onChange={e => setOpt(i, e.target.value)}
-              placeholder={ko ? `항목 ${i + 1}` : `Option ${i + 1}`}
+              placeholder={ko ? `항목 ${i + 1}` : zh ? `选项 ${i + 1}` : `Option ${i + 1}`}
               className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-400"
             />
             <button
               onClick={() => removeOpt(i)}
               disabled={options.length <= 2}
               className="w-8 h-8 shrink-0 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-30 transition-colors"
-              aria-label={ko ? '삭제' : 'Remove'}
+              aria-label={ko ? '삭제' : zh ? '删除' : 'Remove'}
             >
               ✕
             </button>
@@ -185,7 +192,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         disabled={options.length >= 12}
         className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold py-2.5 hover:border-rose-300 hover:text-rose-500 disabled:opacity-40 transition-colors"
       >
-        {ko ? '+ 항목 추가' : '+ Add option'}
+        {ko ? '+ 항목 추가' : zh ? '+ 添加选项' : '+ Add option'}
       </button>
 
       <style jsx>{`

@@ -16,9 +16,10 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-export default function TeamMaker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+export default function TeamMaker({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
   const ko = lang === 'ko';
-  const [text, setText] = useState(ko ? '철수\n영희\n민수\n지연\n현우\n서준\n하은\n도윤' : 'Alex\nSam\nJordan\nTaylor\nJamie\nCasey\nRiley\nMorgan');
+  const zh = lang === 'zh';
+  const [text, setText] = useState(ko ? '철수\n영희\n민수\n지연\n현우\n서준\n하은\n도윤' : zh ? '张三\n李四\n王五\n赵六\n小明\n小红\n小刚\n小美' : 'Alex\nSam\nJordan\nTaylor\nJamie\nCasey\nRiley\nMorgan');
   const [teamCount, setTeamCount] = useState(2);
   const [teams, setTeams] = useState<string[][] | null>(null);
 
@@ -40,13 +41,13 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         value={text}
         onChange={e => { setText(e.target.value); setTeams(null); }}
         rows={6}
-        placeholder={ko ? '한 줄에 하나씩, 또는 쉼표로 구분해 입력하세요' : 'One name per line, or separated by commas'}
+        placeholder={ko ? '한 줄에 하나씩, 또는 쉼표로 구분해 입력하세요' : zh ? '每行一个名字，或用逗号分隔' : 'One name per line, or separated by commas'}
         className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400 resize-y"
       />
-      <div className="mt-2 mb-4 text-xs text-slate-400">{ko ? `총 ${members.length}명` : `${members.length} people`}</div>
+      <div className="mt-2 mb-4 text-xs text-slate-400">{ko ? `총 ${members.length}명` : zh ? `共 ${members.length} 人` : `${members.length} people`}</div>
 
       <div className="flex items-center gap-2 mb-5">
-        <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ko ? '팀 개수' : 'Teams'}</span>
+        <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ko ? '팀 개수' : zh ? '队伍数' : 'Teams'}</span>
         <input
           type="number" min={2} max={maxTeams} value={teamCount}
           onChange={e => setTeamCount(Math.max(2, Math.min(maxTeams, Number(e.target.value) || 2)))}
@@ -59,14 +60,14 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         disabled={members.length < 2}
         className="w-full bg-gradient-to-r from-sky-500 to-blue-600 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-sky-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
       >
-        {ko ? '👥 팀 나누기' : '👥 Make teams'}
+        {ko ? '👥 팀 나누기' : zh ? '👥 随机分组' : '👥 Make teams'}
       </button>
 
       {teams && (
         <div className="grid grid-cols-2 gap-3">
           {teams.map((team, i) => (
             <div key={i} className={`wc-pop rounded-2xl bg-gradient-to-br ${TEAM_COLORS[i % TEAM_COLORS.length]} text-white p-4`} style={{ animationDelay: `${i * 70}ms` }}>
-              <div className="text-xs font-bold text-white/80 mb-2">{ko ? `${TEAM_NAMES[i]} · ${team.length}명` : `Team ${i + 1} · ${team.length}`}</div>
+              <div className="text-xs font-bold text-white/80 mb-2">{ko ? `${TEAM_NAMES[i]} · ${team.length}명` : zh ? `${i + 1}队 · ${team.length}人` : `Team ${i + 1} · ${team.length}`}</div>
               <div className="flex flex-wrap gap-1.5">
                 {team.map((m, j) => (
                   <span key={j} className="inline-block bg-white/25 rounded-full px-2.5 py-1 text-sm font-bold">{m}</span>

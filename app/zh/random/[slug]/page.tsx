@@ -23,30 +23,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const t = RANDOM_TOOLS_MAP[slug];
   if (!t) return {};
   return {
-    title: `${t.titleEn} — free & instant`,
-    description: t.longEn,
+    title: `${t.titleZh} — 免费在线`,
+    description: t.longZh,
     alternates: {
-      canonical: `/en/random/${slug}`,
-      languages: { 'en': `/en/random/${slug}`, 'ko': `/random/${slug}`, 'zh': `/zh/random/${slug}`, 'x-default': `/en/random/${slug}` },
+      canonical: `/zh/random/${slug}`,
+      languages: { 'zh': `/zh/random/${slug}`, 'en': `/en/random/${slug}`, 'ko': `/random/${slug}`, 'x-default': `/en/random/${slug}` },
     },
   };
 }
 
 function Tool({ slug }: { slug: string }) {
   switch (slug) {
-    case 'roulette': return <RouletteWheel lang="en" />;
-    case 'ladder': return <LadderGame lang="en" />;
-    case 'pick': return <RandomPicker lang="en" />;
-    case 'order': return <OrderShuffler lang="en" />;
-    case 'secret-santa': return <SecretSanta lang="en" />;
-    case 'team': return <TeamMaker lang="en" />;
-    case 'number': return <NumberPicker lang="en" />;
-    case 'coin-dice': return <CoinDice lang="en" />;
+    case 'roulette': return <RouletteWheel lang="zh" />;
+    case 'ladder': return <LadderGame lang="zh" />;
+    case 'pick': return <RandomPicker lang="zh" />;
+    case 'order': return <OrderShuffler lang="zh" />;
+    case 'secret-santa': return <SecretSanta lang="zh" />;
+    case 'team': return <TeamMaker lang="zh" />;
+    case 'number': return <NumberPicker lang="zh" />;
+    case 'coin-dice': return <CoinDice lang="zh" />;
     default: return null;
   }
 }
 
-export default async function EnRandomToolPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ZhRandomToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = RANDOM_TOOLS_MAP[slug];
   if (!tool) notFound();
@@ -55,30 +55,30 @@ export default async function EnRandomToolPage({ params }: { params: Promise<{ s
     <>
       <JsonLd
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/en/random' },
-          { name: 'Random Tools', path: '/en/random' },
-          { name: tool.titleEn, path: `/en/random/${slug}` },
+          { name: '首页', path: '/zh/random' },
+          { name: '随机工具', path: '/zh/random' },
+          { name: tool.titleZh, path: `/zh/random/${slug}` },
         ])}
       />
-      <RandomToolShell tool={tool} lang="en">
+      <RandomToolShell tool={tool} lang="zh">
         <Tool slug={slug} />
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">
-          Results are generated live in your browser with real randomness. Nothing you enter is stored or sent.
+          结果由浏览器实时随机生成，你输入的内容不会被保存或上传。
         </p>
 
         <section className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mt-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-2">About the {tool.titleEn}</h2>
-          <p>{tool.longEn}</p>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-2">关于{tool.titleZh}</h2>
+          <p>{tool.longZh}</p>
         </section>
 
         <div className="mt-8">
-          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">More tools</h2>
+          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">更多工具</h2>
           <div className="grid grid-cols-3 gap-2">
             {others.map(o => (
-              <Link key={o.slug} href={`/en/random/${o.slug}`} className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-3 text-center hover:-translate-y-0.5 hover:shadow transition-all">
+              <Link key={o.slug} href={`/zh/random/${o.slug}`} className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-3 text-center hover:-translate-y-0.5 hover:shadow transition-all">
                 <div className="text-2xl mb-1">{o.icon}</div>
-                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 leading-tight">{o.titleEn}</div>
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 leading-tight">{o.titleZh}</div>
               </Link>
             ))}
           </div>
@@ -90,8 +90,8 @@ export default async function EnRandomToolPage({ params }: { params: Promise<{ s
       </RandomToolShell>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href="/en/random" className="text-sm font-black text-rose-600">vixutil</Link>
-        <p className="text-xs text-slate-400 mt-1">Free random tools · <Link href={`/random/${slug}`} className="hover:text-rose-600" hrefLang="ko">한국어</Link> · <Link href={`/zh/random/${slug}`} className="hover:text-rose-600" hrefLang="zh">中文</Link></p>
+        <Link href="/zh/random" className="text-sm font-black text-rose-600">vixutil</Link>
+        <p className="text-xs text-slate-400 mt-1">免费随机工具 · <Link href={`/random/${slug}`} className="hover:text-rose-600" hrefLang="ko">한국어</Link> · <Link href={`/en/random/${slug}`} className="hover:text-rose-600" hrefLang="en">EN</Link></p>
       </footer>
     </>
   );

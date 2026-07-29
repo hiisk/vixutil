@@ -32,10 +32,11 @@ function trace(rungs: Rungs, start: number, cols: number): number[] {
   return path; // 길이 ROWS+1, 각 레벨 진입 후 열 위치
 }
 
-export default function LadderGame({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+export default function LadderGame({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
   const ko = lang === 'ko';
-  const [names, setNames] = useState<string[]>(ko ? ['철수', '영희', '민수', '지연'] : ['Alex', 'Sam', 'Jordan', 'Taylor']);
-  const [results, setResults] = useState<string[]>(ko ? ['🎁 선물', '💸 벌금', '☕ 커피', '😆 통과'] : ['🎁 Gift', '💸 Pay', '☕ Coffee', '😆 Free']);
+  const zh = lang === 'zh';
+  const [names, setNames] = useState<string[]>(ko ? ['철수', '영희', '민수', '지연'] : zh ? ['张三', '李四', '王五', '赵六'] : ['Alex', 'Sam', 'Jordan', 'Taylor']);
+  const [results, setResults] = useState<string[]>(ko ? ['🎁 선물', '💸 벌금', '☕ 커피', '😆 통과'] : zh ? ['🎁 礼物', '💸 罚款', '☕ 咖啡', '😆 通过'] : ['🎁 Gift', '💸 Pay', '☕ Coffee', '😆 Free']);
   const [rungs, setRungs] = useState<Rungs>(() => buildRungs(4));
   const [rungsCols, setRungsCols] = useState(4);
   const [selected, setSelected] = useState<number | null>(null);
@@ -88,8 +89,8 @@ export default function LadderGame({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   function setResult(i: number, v: string) { setResults(p => p.map((o, idx) => idx === i ? v : o)); setRevealed({}); setSelected(null); }
   function addPair() {
     if (cols >= 8) return;
-    setNames(p => [...p, ko ? `참가${p.length + 1}` : `Player ${p.length + 1}`]);
-    setResults(p => [...p, ko ? '결과' : 'Result']);
+    setNames(p => [...p, ko ? `참가${p.length + 1}` : zh ? `玩家${p.length + 1}` : `Player ${p.length + 1}`]);
+    setResults(p => [...p, ko ? '결과' : zh ? '结果' : 'Result']);
   }
   function removePair() {
     if (cols <= 2) return;
@@ -158,29 +159,29 @@ export default function LadderGame({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         onClick={() => reset(cols)}
         className="w-full bg-gradient-to-r from-violet-500 to-purple-600 text-white font-black rounded-2xl py-3.5 mb-6 hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
-        {ko ? '🔀 사다리 다시 섞기' : '🔀 Reshuffle ladder'}
+        {ko ? '🔀 사다리 다시 섞기' : zh ? '🔀 重新生成阶梯' : '🔀 Reshuffle ladder'}
       </button>
 
       {/* 편집 */}
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="space-y-2">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ko ? '참가자' : 'Players'}</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ko ? '참가자' : zh ? '玩家' : 'Players'}</p>
           {names.map((v, i) => (
-            <input key={i} value={v} onChange={e => setName(i, e.target.value)} placeholder={ko ? `참가 ${i + 1}` : `Player ${i + 1}`}
+            <input key={i} value={v} onChange={e => setName(i, e.target.value)} placeholder={ko ? `참가 ${i + 1}` : zh ? `玩家 ${i + 1}` : `Player ${i + 1}`}
               className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-400" />
           ))}
         </div>
         <div className="space-y-2">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ko ? '결과' : 'Results'}</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ko ? '결과' : zh ? '结果' : 'Results'}</p>
           {results.map((v, i) => (
-            <input key={i} value={v} onChange={e => setResult(i, e.target.value)} placeholder={ko ? `결과 ${i + 1}` : `Result ${i + 1}`}
+            <input key={i} value={v} onChange={e => setResult(i, e.target.value)} placeholder={ko ? `결과 ${i + 1}` : zh ? `结果 ${i + 1}` : `Result ${i + 1}`}
               className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-400" />
           ))}
         </div>
       </div>
       <div className="flex gap-2">
-        <button onClick={removePair} disabled={cols <= 2} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-violet-300 hover:text-violet-500 disabled:opacity-40 transition-colors">{ko ? '− 줄이기' : '− Remove'}</button>
-        <button onClick={addPair} disabled={cols >= 8} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-violet-300 hover:text-violet-500 disabled:opacity-40 transition-colors">{ko ? '+ 추가' : '+ Add'}</button>
+        <button onClick={removePair} disabled={cols <= 2} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-violet-300 hover:text-violet-500 disabled:opacity-40 transition-colors">{ko ? '− 줄이기' : zh ? '− 减少' : '− Remove'}</button>
+        <button onClick={addPair} disabled={cols >= 8} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-violet-300 hover:text-violet-500 disabled:opacity-40 transition-colors">{ko ? '+ 추가' : zh ? '+ 增加' : '+ Add'}</button>
       </div>
 
       <style jsx>{`

@@ -10,7 +10,10 @@ import PageGlow from '@/components/PageGlow';
 export const metadata: Metadata = {
   title: '랜덤 뽑기',
   description: '룰렛 돌림판·사다리타기·팀 나누기·랜덤 뽑기·숫자 추첨·동전/주사위 — 공정하게 하나를 정하는 결정 도우미 모음',
-  alternates: { canonical: '/random' },
+  alternates: {
+    canonical: '/random',
+    languages: { 'ko': '/random', 'en': '/en/random', 'zh': '/zh/random', 'x-default': '/en/random' },
+  },
 };
 
 export default function RandomIndexPage() {
@@ -22,7 +25,11 @@ export default function RandomIndexPage() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-rose-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">랜덤 뽑기</span>
-          <span className="ml-auto text-xs text-slate-400 dark:text-slate-500">{RANDOM_TOOLS.length}개</span>
+          <span className="ml-auto flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+            {RANDOM_TOOLS.length}개
+            <Link href="/en/random" className="font-bold hover:text-rose-600" hrefLang="en">EN</Link>
+            <Link href="/zh/random" className="font-bold hover:text-rose-600" hrefLang="zh">中文</Link>
+          </span>
         </div>
       </header>
 

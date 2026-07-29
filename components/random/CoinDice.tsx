@@ -3,14 +3,15 @@ import { useState } from 'react';
 
 const DICE_FACES = ['', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
-export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
   const ko = lang === 'ko';
+  const zh = lang === 'zh';
   const [tab, setTab] = useState<'coin' | 'dice'>('coin');
 
   // 동전 — 내부 상태는 head/tail, 표시만 언어별
   const [coin, setCoin] = useState<'head' | 'tail' | null>(null);
   const [flipping, setFlipping] = useState(false);
-  const coinFace = coin === 'head' ? (ko ? '앞' : 'Heads') : coin === 'tail' ? (ko ? '뒤' : 'Tails') : null;
+  const coinFace = coin === 'head' ? (ko ? '앞' : zh ? '正面' : 'Heads') : coin === 'tail' ? (ko ? '뒤' : zh ? '反面' : 'Tails') : null;
   function flip() {
     if (flipping) return;
     setFlipping(true);
@@ -44,7 +45,7 @@ export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
             onClick={() => setTab(t)}
             className={`flex-1 rounded-lg py-2 text-sm font-bold transition-colors ${tab === t ? 'bg-white dark:bg-slate-700 text-fuchsia-600 dark:text-fuchsia-300 shadow' : 'text-slate-500 dark:text-slate-400'}`}
           >
-            {t === 'coin' ? (ko ? '🪙 동전' : '🪙 Coin') : (ko ? '🎲 주사위' : '🎲 Dice')}
+            {t === 'coin' ? (ko ? '🪙 동전' : zh ? '🪙 硬币' : '🪙 Coin') : (ko ? '🎲 주사위' : zh ? '🎲 骰子' : '🎲 Dice')}
           </button>
         ))}
       </div>
@@ -58,7 +59,7 @@ export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
             <div className="wc-pop text-2xl font-black text-slate-800 dark:text-slate-100 mb-6">{ko ? `${coinFace}면!` : `${coinFace}!`}</div>
           )}
           <button onClick={flip} disabled={flipping} className="w-full bg-gradient-to-r from-fuchsia-500 to-rose-500 text-white font-black text-lg rounded-2xl py-4 hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60">
-            {flipping ? (ko ? '던지는 중…' : 'Flipping…') : (ko ? '동전 던지기' : 'Flip coin')}
+            {flipping ? (ko ? '던지는 중…' : zh ? '抛掷中…' : 'Flipping…') : (ko ? '동전 던지기' : zh ? '抛硬币' : 'Flip coin')}
           </button>
         </div>
       )}
@@ -66,7 +67,7 @@ export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
       {tab === 'dice' && (
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 mb-5">
-            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ko ? '주사위 개수' : 'Dice'}</span>
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ko ? '주사위 개수' : zh ? '骰子数' : 'Dice'}</span>
             {[1, 2, 3, 4, 5].map(n => (
               <button key={n} onClick={() => { setDiceCount(n); setDice(null); }}
                 className={`w-8 h-8 rounded-lg text-sm font-bold transition-colors ${diceCount === n ? 'bg-fuchsia-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
@@ -82,10 +83,10 @@ export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
             ))}
           </div>
           {dice && !rolling && dice.length > 1 && (
-            <div className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-4">{ko ? `합계 ${dice.reduce((a, b) => a + b, 0)}` : `Total ${dice.reduce((a, b) => a + b, 0)}`}</div>
+            <div className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-4">{ko ? `합계 ${dice.reduce((a, b) => a + b, 0)}` : zh ? `合计 ${dice.reduce((a, b) => a + b, 0)}` : `Total ${dice.reduce((a, b) => a + b, 0)}`}</div>
           )}
           <button onClick={roll} disabled={rolling} className="w-full bg-gradient-to-r from-fuchsia-500 to-rose-500 text-white font-black text-lg rounded-2xl py-4 hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60">
-            {rolling ? (ko ? '굴리는 중…' : 'Rolling…') : (ko ? '주사위 굴리기' : 'Roll dice')}
+            {rolling ? (ko ? '굴리는 중…' : zh ? '投掷中…' : 'Rolling…') : (ko ? '주사위 굴리기' : zh ? '掷骰子' : 'Roll dice')}
           </button>
         </div>
       )}
