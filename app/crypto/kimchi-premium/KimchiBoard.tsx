@@ -25,6 +25,15 @@ const won = (v: number | null | undefined) => {
   return Math.round(v).toLocaleString();
 };
 
+/**
+ * 해당 거래소에 상장돼 있지 않다는 뜻. 그냥 "—"만 두면 데이터가 깨진 것처럼 읽혀서
+ * (업비트 KRW 275종목 / 빗썸 474종목이라 실제로 한쪽에만 있는 코인이 100개가 넘는다)
+ * 미상장임을 글자로 밝힌다.
+ */
+function NotListed() {
+  return <span className="text-slate-300 dark:text-slate-600 text-[11px]" title="이 거래소에 원화 마켓이 없습니다">미상장</span>;
+}
+
 /** 원화 가격은 자릿수가 코인마다 크게 달라 유효숫자로 맞춘다 */
 const krw = (v: number | null) => {
   if (v == null || !isFinite(v)) return '—';
@@ -305,11 +314,11 @@ export default function KimchiBoard() {
                       <span className="text-[11px] text-slate-400 dark:text-slate-500 font-semibold">{r.base}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-2.5 text-right tabular-nums text-slate-700 dark:text-slate-200">{krw(r.upbit)}</td>
+                  <td className="px-3 py-2.5 text-right tabular-nums text-slate-700 dark:text-slate-200">{r.upbit == null ? <NotListed /> : krw(r.upbit)}</td>
                   <td className="px-3 py-2.5 text-right border-l border-slate-200/40 dark:border-slate-700/40">
                     <Pm value={premOf(r, 'upbit')} />
                   </td>
-                  <td className="hidden sm:table-cell px-3 py-2.5 text-right tabular-nums text-slate-700 dark:text-slate-200">{krw(r.bithumb)}</td>
+                  <td className="hidden sm:table-cell px-3 py-2.5 text-right tabular-nums text-slate-700 dark:text-slate-200">{r.bithumb == null ? <NotListed /> : krw(r.bithumb)}</td>
                   <td className="hidden sm:table-cell px-3 py-2.5 text-right"><Pm value={premOf(r, 'bithumb')} /></td>
                   <td className="hidden lg:table-cell px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">
                     {r.spread != null ? (

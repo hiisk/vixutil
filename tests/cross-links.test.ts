@@ -5,19 +5,22 @@ import { join } from 'node:path';
 import { CROSS_LINKS } from '../lib/cross-links.ts';
 import { CHECKLISTS } from '../lib/checklist-data.ts';
 import { DEVICE_TOOLS } from '../lib/device-tools.ts';
+import { IMAGE_TOOLS } from '../lib/image-tools.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
 const checklistSlugs = new Set(CHECKLISTS.map(c => c.slug));
 const deviceSlugs = new Set(DEVICE_TOOLS.map(t => t.slug));
-const calcExists = (slug: string) => existsSync(join(ROOT, 'app', 'calculator', slug, 'page.tsx'));
+const imageSlugs = new Set(IMAGE_TOOLS.map(t => t.slug));
 
 /** 교차 링크가 오갈 수 있는 섹션의 경로가 실재하는지 */
 function routeExists(href: string): boolean {
-  const [, section, slug] = href.split('/');
-  if (section === 'calculator') return calcExists(slug);
-  if (section === 'checklist') return checklistSlugs.has(slug);
-  if (section === 'device') return deviceSlugs.has(slug);
+  // 계산기는 /calculator/dev/color처럼 한 단 더 들어가는 경로가 있어 나머지를 통째로 잇는다
+  const [, section, ...rest] = href.split('/');
+  if (section === 'calculator') return existsSync(join(ROOT, 'app', 'calculator', ...rest, 'page.tsx'));
+  if (section === 'checklist') return checklistSlugs.has(rest[0]);
+  if (section === 'device') return deviceSlugs.has(rest[0]);
+  if (section === 'image') return imageSlugs.has(rest[0]);
   return false;
 }
 
@@ -77,4 +80,7 @@ test('계산기 페이지가 CrossLinks를 렌더한다', () => {
   // 기기 점검도 셸 하나가 열 페이지를 다 그린다 — 여기 빠지면 전부 빠진다.
   const deviceShell = readFileSync(join(ROOT, 'components', 'DeviceShell.tsx'), 'utf8');
   assert.ok(deviceShell.includes('<CrossLinks'), 'DeviceShell이 CrossLinks를 렌더하지 않는다');
+
+  const imageShell = readFileSync(join(ROOT, 'components', 'ImageShell.tsx'), 'utf8');
+  assert.ok(imageShell.includes('<CrossLinks'), 'ImageShell이 CrossLinks를 렌더하지 않는다');
 });

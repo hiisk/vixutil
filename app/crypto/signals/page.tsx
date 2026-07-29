@@ -724,7 +724,7 @@ export default function SignalsPage() {
           </p>
         </div>
 
-        <Faq items={SECTION_FAQ['crypto/signals']} className="mt-8" />
+        <Faq items={SECTION_FAQ['crypto/signals']} className="mt-8" lang="en" />
 
         <div className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>

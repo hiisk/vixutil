@@ -110,6 +110,7 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
   'checklist/used-trade-safety': [
     { href: '/device/keyboard', title: '키보드 테스트', why: '중고 키보드는 만나서 모든 키를 눌러 보고 사야 합니다', icon: '⌨️' },
     { href: '/device/monitor', title: '모니터 불량화소 테스트', why: '불량화소는 받은 자리에서 확인해야 되돌릴 수 있습니다', icon: '🖥️' },
+    { href: '/image/mosaic', title: '모자이크 가리기', why: '인증샷을 보내기 전에 주소·계좌부터 가리세요', icon: '🔳' },
   ],
   'checklist/pc-setup': [
     { href: '/device/refresh-rate', title: '모니터 주사율 테스트', why: '고주사율 모니터가 60Hz로 잡혀 있는 경우가 흔합니다', icon: '⚡' },
@@ -137,5 +138,16 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
   ],
   'device/keyboard': [
     { href: '/checklist/used-trade-safety', title: '중고거래 안전 체크리스트', why: '거래 장소와 결제 방법에서 사고가 더 많이 납니다', icon: '🤝' },
+  ],
+
+  /* ── 이미지 도구 ↔ 다른 섹션 ── */
+  'image/palette': [
+    { href: '/calculator/dev/color', title: '색상 코드 변환기', why: '뽑은 HEX를 RGB·HSL로 바꾸거나 밝기를 조절할 때', icon: '🎨' },
+  ],
+  'image/mosaic': [
+    { href: '/checklist/used-trade-safety', title: '중고거래 안전 체크리스트', why: '가릴 것을 가렸다면 그다음은 거래 방법입니다', icon: '🤝' },
+  ],
+  'calculator/dev/color': [
+    { href: '/image/palette', title: '이미지 색상 추출', why: '사진이나 스크린샷에서 색을 바로 뽑아 올 수 있습니다', icon: '🖼️' },
   ],
 };

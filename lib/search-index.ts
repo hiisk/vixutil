@@ -5,6 +5,7 @@ import { GENERATORS } from './generator-data';
 import { CHECKLISTS } from './checklist-data';
 import { RANDOM_TOOLS } from './random-tools';
 import { DEVICE_TOOLS } from './device-tools';
+import { IMAGE_TOOLS } from './image-tools';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -15,7 +16,7 @@ import { DEVICE_TOOLS } from './device-tools';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image';
 
 export interface SearchItem {
   href: string;
@@ -35,6 +36,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   snap:       { label: '스냅테스트',  icon: '📸', accent: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
   random:     { label: '랜덤 뽑기',   icon: '🎲', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   device:     { label: '기기 점검',   icon: '🧰', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
+  image:      { label: '이미지 도구', icon: '🖼️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
 };
 
 /**
@@ -94,6 +96,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...CHECKLISTS.map(c => ({ href: `/checklist/${c.slug}`, title: c.title, desc: c.desc, section: 'checklist' as const, icon: c.icon })),
   ...RANDOM_TOOLS.map(t => ({ href: `/random/${t.slug}`, title: t.title, desc: t.desc, section: 'random' as const, icon: t.icon })),
   ...DEVICE_TOOLS.map(t => ({ href: `/device/${t.slug}`, title: t.title, desc: t.desc, section: 'device' as const, icon: t.icon })),
+  ...IMAGE_TOOLS.map(t => ({ href: `/image/${t.slug}`, title: t.title, desc: t.desc, section: 'image' as const, icon: t.icon })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

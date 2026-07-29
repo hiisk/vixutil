@@ -4,7 +4,12 @@ import ThemeToggle from "./ThemeToggle";
 /**
  * 사이트 전역 푸터 — 섹션 간 이동 동선 + 내부링크(SEO) + 인기 도구 노출.
  * 각 도구 페이지가 하나의 섬처럼 고립되지 않도록 모든 하위 페이지에 넣는다.
+ *
+ * lang="en"이면 문구를 영어로 바꾸는 데 그치지 않고 **링크 목록 자체를 바꾼다**.
+ * 영어 사용자에게 한국어 전용 계산기(실수령액·퇴직금 등)를 내보내면 클릭한 순간
+ * 읽을 수 없는 페이지가 나오기 때문이다. 영어로 실제 존재하는 섹션만 건다.
  */
+type Lang = 'ko' | 'en';
 
 const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/calculator", icon: "📊", label: "계산기" },
@@ -16,6 +21,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/random", icon: "🎲", label: "랜덤 뽑기" },
   { href: "/snap", icon: "📸", label: "스냅테스트" },
   { href: "/device", icon: "🧰", label: "기기 점검" },
+  { href: "/image", icon: "🖼️", label: "이미지 도구" },
 ];
 
 const POPULAR: { href: string; label: string }[] = [
@@ -29,7 +35,44 @@ const POPULAR: { href: string; label: string }[] = [
   { href: "/fortune/tarot", label: "타로" },
 ];
 
-export default function SiteFooter() {
+/** 영어로 실제 페이지가 있는 섹션만 — 없는 곳으로 보내면 한국어 화면이 나온다 */
+const SECTIONS_EN: { href: string; icon: string; label: string }[] = [
+  { href: "/crypto", icon: "🪙", label: "Crypto Tools" },
+  { href: "/calculator/en", icon: "📊", label: "Calculators" },
+  { href: "/en/generator", icon: "⚙️", label: "Generators" },
+  { href: "/en/fortune", icon: "🔮", label: "Fortune" },
+];
+
+const POPULAR_EN: { href: string; label: string }[] = [
+  { href: "/crypto/signals", label: "Signal Board" },
+  { href: "/crypto/funding-rates", label: "Funding Rates" },
+  { href: "/crypto/liquidation-calculator", label: "Liquidation Calculator" },
+  { href: "/crypto/dca-calculator", label: "DCA Calculator" },
+  { href: "/crypto/atr-tpsl", label: "ATR TP/SL" },
+];
+
+const COPY = {
+  ko: {
+    searchHint: "찾는 도구가 있나요?",
+    searchCta: "전체 검색",
+    browse: "다른 도구 둘러보기",
+    popular: "인기 도구",
+    tagline: "일상에 필요한 실용 도구 · 2026",
+  },
+  en: {
+    searchHint: "Looking for something else?",
+    searchCta: "Search all",
+    browse: "Browse other tools",
+    popular: "Popular tools",
+    tagline: "Practical everyday tools · 2026",
+  },
+} as const;
+
+export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const sections = lang === 'en' ? SECTIONS_EN : SECTIONS;
+  const popular = lang === 'en' ? POPULAR_EN : POPULAR;
+
   return (
     <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">
       <div className="max-w-3xl mx-auto px-4 py-10">
@@ -45,19 +88,19 @@ export default function SiteFooter() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
           <span className="text-sm text-slate-400 dark:text-slate-500 group-hover:text-slate-600 transition-colors">
-            찾는 도구가 있나요?
+            {t.searchHint}
           </span>
           <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">
-            전체 검색
+            {t.searchCta}
           </span>
         </Link>
 
         {/* 섹션 바로가기 */}
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
-          다른 도구 둘러보기
+          {t.browse}
         </p>
         <nav className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-8">
-          {SECTIONS.map((s) => (
+          {sections.map((s) => (
             <Link
               key={s.href}
               href={s.href}
@@ -71,10 +114,10 @@ export default function SiteFooter() {
 
         {/* 인기 도구 */}
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
-          인기 도구
+          {t.popular}
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
-          {POPULAR.map((p) => (
+          {popular.map((p) => (
             <Link
               key={p.href}
               href={p.href}
@@ -102,8 +145,8 @@ export default function SiteFooter() {
             <span className="text-sm font-black text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-sm font-black text-blue-600 tracking-tighter">util</span>
           </Link>
-          <p className="text-xs text-slate-300 dark:text-slate-600 hidden sm:block">일상에 필요한 실용 도구 · 2026</p>
-          <ThemeToggle />
+          <p className="text-xs text-slate-300 dark:text-slate-600 hidden sm:block">{t.tagline}</p>
+          <ThemeToggle lang={lang} />
         </div>
       </div>
     </footer>

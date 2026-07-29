@@ -119,6 +119,18 @@ const SECTIONS = [
     shadow: 'shadow-teal-100',
   },
   {
+    href: '/image',
+    icon: '🖼️',
+    title: '이미지 도구',
+    desc: '사진 용량 줄이기·크기 조절·자르기·모자이크를 올리지 않고',
+    badge: `${SECTION_COUNTS.image}개`,
+    color: 'from-violet-500 to-fuchsia-600',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
+    shadow: 'shadow-violet-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
