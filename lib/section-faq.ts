@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/volatility': [
+    {
+      q: 'Which crypto is the most volatile?',
+      a: 'It depends on the window, which is why four are shown. A coin can top the seven-day ranking because of one turbulent week while sitting mid-table over a year. The one-week column answers what is happening now and the one-year column answers what the coin is normally like.',
+    },
+    {
+      q: 'What does the "now divided by usual" ratio mean?',
+      a: 'It compares the seven-day volatility to the one-year volatility. A value near 1 means the coin is behaving normally; 3 means it is three times more turbulent than usual and is in an unusual regime rather than simply being a volatile asset.',
+    },
+    {
+      q: 'Can volatility be predicted?',
+      a: 'To a useful degree, yes — and it is the only thing on this site that can. Volatility clusters, so a violent week is followed by more violent moves more often than not. Direction shows no such persistence, which is why this page ranks turbulence and never suggests which way it resolves.',
+    },
+    {
+      q: 'Why show a "typical day" figure?',
+      a: 'Because an annualised percentage is hard to act on. Dividing it by the square root of 365 converts it back to the size of an ordinary daily move, which immediately tells you whether a given stop distance was ever realistic for that coin.',
+    },
+    {
+      q: 'Why is volatility annualised at 365 days rather than 252?',
+      a: 'Because crypto trades every day. Equity conventions use roughly 252 trading days a year to account for weekends and holidays, which do not exist here. Using 365 keeps the figures comparable across every window on the page.',
+    },
+    {
+      q: 'Does high volatility mean high risk?',
+      a: 'It means large moves in both directions. Whether that is risk depends on your position size and your stop: the same volatility is survivable at one size and ruinous at another, which is a sizing question rather than a property of the coin.',
+    },
+  ],
   'crypto/drawdown': [
     {
       q: 'What is a drawdown?',
