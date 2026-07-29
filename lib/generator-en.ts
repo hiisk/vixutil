@@ -101,6 +101,100 @@ export const GENERATORS_EN: Generator[] = [
       ['Arrow', 'Tempest', 'Barrier', 'Brand', 'Wave', 'Seal', 'Descent', 'Ward', 'Judgement', 'Pact', 'Song', 'Oath'],
     ],
   },
+  {
+    slug: 'sword-name', title: 'Weapon Name Generator',
+    desc: 'Legendary names for swords, axes & bows.',
+    icon: '🗡️', category: 'Fantasy', type: 'combine', separator: ' ',
+    pools: [
+      ['Dawnbringer', 'Doomforge', 'Dragonslayer', 'Frostbite', 'Flameheart', 'Shadowrend', 'Stormcaller', 'Dawnbreaker', 'Soulreaver', 'Thunderclap', 'Starfall', 'Voidedge', 'Ironfang', 'Bloodthirst', 'Windshear', 'Sunforge', 'Nightfall', 'Grimblade', 'Wyrmbane', 'Ashfall'],
+      ['Blade', 'Greatsword', 'Longsword', 'Dagger', 'Axe', 'Spear', 'Bow', 'Scythe', 'Hammer', 'Saber', 'Warblade', 'Reaver'],
+    ],
+  },
+  {
+    slug: 'tavern-name', title: 'Tavern Name Generator',
+    desc: 'Cozy names for fantasy inns and taverns.',
+    icon: '🍺', category: 'Fantasy', type: 'combine', separator: ' ',
+    pools: [
+      ['The Drunken', 'The Golden', 'The Old', 'The Red', 'The Wandering', 'The Prancing', 'The Sleepy', 'The Rusty', 'The Silver', 'The Crooked', 'The Salty', 'The Laughing', 'The Broken', 'The Weary', 'The Gilded', 'The Lucky', 'The Dancing', 'The Thirsty', 'The Wicked', 'The Hidden'],
+      ['Dragon', 'Barrel', 'Tankard', 'Boar', 'Anchor', 'Griffin', 'Mug', 'Lantern', 'Stag', 'Mermaid', 'Crown', 'Kettle'],
+    ],
+  },
+  {
+    slug: 'dungeon-name', title: 'Dungeon Name Generator',
+    desc: 'Ominous names for dungeons and labyrinths.',
+    icon: '🗝️', category: 'Gaming', type: 'combine', separator: ' ',
+    pools: [
+      ['Forgotten', 'Cursed', 'Abyssal', 'Shadowed', 'Crumbling', 'Bloody', 'Frozen', 'Burning', 'Ancient', 'Sealed', 'Infernal', 'Sunken', 'Twisted', 'Silent', 'Haunted', 'Ruined', 'Sacred', 'Endless', 'Fallen', 'Dread'],
+      ['Catacombs', 'Dungeon', 'Crypt', 'Lair', 'Tower', 'Caverns', 'Sanctum', 'Fortress', 'Tomb', 'Labyrinth', 'Keep', 'Depths'],
+    ],
+  },
+  {
+    slug: 'island-name', title: 'Island Name Generator',
+    desc: 'Names for mysterious islands and isles.',
+    icon: '🏝️', category: 'Fantasy', type: 'combine', separator: ' ',
+    pools: [
+      ['Emerald', 'Coral', 'Golden', 'Misty', 'Forgotten', 'Storm', 'Paradise', 'Black', 'Star', 'Dragon', 'Sunken', 'Hidden', 'Lonely', 'Shimmer', 'Whisper', 'Verdant', 'Crimson', 'Frost', 'Serpent', 'Sunfall'],
+      ['Isle', 'Island', 'Atoll', 'Reef', 'Cay', 'Shores', 'Cove', 'Bay', 'Point', 'Sands', 'Keys', 'Haven'],
+    ],
+  },
+  {
+    slug: 'potion-name', title: 'Potion Name Generator',
+    desc: 'Names for magical potions and elixirs.',
+    icon: '🧪', category: 'Fantasy', type: 'combine', separator: ' ',
+    pools: [
+      ['Potion of', 'Elixir of', 'Draught of', 'Tonic of', 'Brew of', 'Vial of', 'Flask of', 'Essence of', 'Serum of', 'Philter of', 'Tincture of', 'Distillate of'],
+      ['Healing', 'Eternal Youth', 'Invisibility', 'Fire Breath', 'Frost', 'Strength', 'Wisdom', 'Luck', 'Night Vision', 'Levitation', 'Courage', 'Madness', 'Silence', 'Swiftness', 'Regeneration', 'Fury', 'Charm', 'Poison', 'Dreams', 'Oblivion'],
+    ],
+  },
+  {
+    slug: 'spy-codename', title: 'Spy Codename Generator',
+    desc: 'Secret-agent codenames for your next mission.',
+    icon: '🕵️', category: 'Fun', type: 'combine', separator: ' ',
+    pools: [
+      ['Golden', 'Silver', 'Black', 'Red', 'Blue', 'White', 'Shadow', 'Ice', 'Storm', 'Night', 'Crimson', 'Phantom', 'Silk', 'Steel', 'Onyx', 'Cobra', 'Falcon', 'Wolf', 'Fox', 'Raven'],
+      ['Eagle', 'Viper', 'Ghost', 'Spider', 'Scorpion', 'Phoenix', 'Hunter', 'Saber', 'Knight', 'Sniper', 'Jaguar', 'Falcon'],
+    ],
+  },
+  {
+    slug: 'cocktail-name', title: 'Cocktail Name Generator',
+    desc: 'Names for cocktails and signature drinks.',
+    icon: '🍸', category: 'Fun', type: 'combine', separator: ' ',
+    pools: [
+      ['Midnight', 'Tropical', 'Sunset', 'Blue', 'Cherry', 'Citrus', 'Smoky', 'Velvet', 'Royal', 'Whisper', 'Scarlet', 'Ocean', 'Frozen', 'Honey', 'Rose', 'Moonlight', 'Golden', 'Spiced', 'Wild', 'Electric'],
+      ['Martini', 'Breeze', 'Sunrise', 'Rush', 'Kiss', 'Dream', 'Splash', 'Punch', 'Fizz', 'Margarita', 'Cooler', 'Sour'],
+    ],
+  },
+  {
+    slug: 'band-name', title: 'Band Name Generator',
+    desc: 'Names for your next rock or indie band.',
+    icon: '🎸', category: 'Fun', type: 'combine', separator: ' ',
+    pools: [
+      ['The Electric', 'The Velvet', 'The Neon', 'The Midnight', 'The Silver', 'The Crimson', 'The Wild', 'The Broken', 'The Lonely', 'The Golden', 'The Cosmic', 'The Rusty', 'The Screaming', 'The Silent', 'The Burning', 'The Frozen', 'The Royal', 'The Savage', 'The Echo', 'The Wandering'],
+      ['Wolves', 'Kings', 'Ghosts', 'Hearts', 'Roses', 'Suns', 'Waves', 'Riots', 'Bones', 'Saints', 'Owls', 'Tigers'],
+    ],
+  },
+  {
+    slug: 'username-generator', title: 'Username Generator',
+    desc: 'Cool, available-looking usernames & gamertags.',
+    icon: '💬', category: 'Fun', type: 'combine', separator: '',
+    pools: [
+      ['Swift', 'Silent', 'Cosmic', 'Frost', 'Shadow', 'Golden', 'Neon', 'Cyber', 'Lunar', 'Turbo', 'Mega', 'Pixel', 'Rogue', 'Epic', 'Hyper', 'Vivid', 'Solar', 'Iron', 'Wild', 'Zen'],
+      ['Panda', 'Ninja', 'Falcon', 'Wizard', 'Tiger', 'Ghost', 'Raven', 'Fox', 'Wolf', 'Dragon', 'Knight', 'Phoenix'],
+    ],
+  },
+  {
+    slug: 'wifi-name', title: 'Wi-Fi Name Generator',
+    desc: 'Funny and clever Wi-Fi network names (SSIDs).',
+    icon: '📶', category: 'Fun', type: 'pick',
+    items: [
+      'Pretty Fly for a WiFi', 'The LAN Before Time', 'Bill Wi the Science Fi', 'Drop It Like It’s Hotspot',
+      'Wi Believe I Can Fi', 'Router? I Hardly Know Her', 'The Promised LAN', 'Hide Yo Kids Hide Yo WiFi',
+      'It Hurts When IP', 'FBI Surveillance Van', 'Nacho WiFi', 'Winternet Is Coming',
+      'LAN Solo', 'No More Mr WiFi', 'Get Off My LAN', 'Silence of the LANs',
+      'This LAN Is My LAN', 'Password Is Taco', 'Definitely Not WiFi', 'Abraham Linksys',
+      'Wu-Tang LAN', 'Network Not Found', 'Skynet Global Defense', 'Enter the Dragon Modem',
+    ],
+  },
 ];
 
 export const GENERATORS_EN_MAP: Record<string, Generator> = Object.fromEntries(
