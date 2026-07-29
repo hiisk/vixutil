@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/drawdown': [
+    {
+      q: 'What is a drawdown?',
+      a: 'The fall from a record high to the lowest point before that high is beaten again. It is quoted as a depth, but it also has two durations that matter: how long the fall took and how long the recovery took.',
+    },
+    {
+      q: 'Why does duration matter more than depth?',
+      a: 'Because the cost of a drawdown is paid in time spent watching, not on the single day the low prints. A 50% fall recovered in three months and a 50% fall still unrecovered after three years are the same figure and completely different to hold.',
+    },
+    {
+      q: 'What does "time underwater" mean?',
+      a: 'The share of all days the asset spent below a previous high. It is usually large even for assets that rose a great deal, because new highs are rare by construction — most days sit under a level you have already seen.',
+    },
+    {
+      q: 'Why are the deepest and longest drawdowns often different episodes?',
+      a: 'Because a sharp crash can recover quickly while a shallow decline can grind on for years. Ranking by depth and ranking by duration give different answers, which is worth knowing before treating depth as the only measure of risk.',
+    },
+    {
+      q: 'Why exclude drawdowns under 10%?',
+      a: 'Ten percent moves happen constantly in crypto and listing them all would bury the episodes that mattered. The threshold is a readability choice rather than a meaningful boundary, and it is stated so you can interpret the list accordingly.',
+    },
+    {
+      q: 'Do these figures match other sources?',
+      a: 'Not always. They use daily closes since the coin listed on Binance, so intraday lows are excluded and an earlier peak on another exchange is not counted. Every model on this site uses daily closes, which keeps these numbers consistent with the forecasts.',
+    },
+  ],
   'crypto/stablecoin-depeg': [
     {
       q: 'Why report deviation in basis points instead of percent?',

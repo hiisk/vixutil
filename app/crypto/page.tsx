@@ -30,6 +30,7 @@ const TOOLS = [
   // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/drawdown', icon: '🌊', title: 'Drawdown & Time Underwater', desc: 'Depth is quoted everywhere — duration is what you live through', badge: 'NEW', color: 'from-sky-400 to-blue-600' },
   { href: '/crypto/stablecoin-depeg', icon: '⚓', title: 'Stablecoin Depeg', desc: 'In basis points — and measured against the right yardstick', badge: 'NEW', color: 'from-blue-400 to-sky-500' },
   { href: '/crypto/risk-of-ruin', icon: '💀', title: 'Risk of Ruin', desc: 'Same edge, wildly different odds — bet size decides it', badge: 'NEW', color: 'from-red-400 to-rose-600' },
   { href: '/crypto/risk-adjusted', icon: '📐', title: 'Risk-Adjusted Returns', desc: 'Sharpe, Sortino and Calmar — and how much the three disagree', badge: 'NEW', color: 'from-slate-400 to-slate-600' },
