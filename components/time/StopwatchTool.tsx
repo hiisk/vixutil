@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import { formatDuration } from '@/lib/date-calc';
 import { CARD, Stat, useNow } from './ui';
+import { STOPWATCH_UI, type TimeLang } from '@/lib/time-ui-intl';
 
-export default function StopwatchTool() {
+export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
+  const ui = STOPWATCH_UI[lang];
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [held, setHeld] = useState(0);
   const [laps, setLaps] = useState<number[]>([]);
@@ -28,7 +30,7 @@ export default function StopwatchTool() {
           {formatDuration(elapsed, true)}
         </p>
         <p className="text-sm text-white/60 mt-3">
-          {startedAt !== null ? '측정 중' : held > 0 ? '멈춤' : '시작을 누르세요'}
+          {startedAt !== null ? ui.measuring : held > 0 ? ui.stopped : ui.idle}
         </p>
       </div>
 
@@ -39,29 +41,29 @@ export default function StopwatchTool() {
             startedAt !== null ? 'bg-slate-700' : 'bg-gradient-to-r from-sky-500 to-indigo-600'
           }`}
         >
-          {startedAt !== null ? '■ 정지' : held > 0 ? '▶ 이어서' : '▶ 시작'}
+          {startedAt !== null ? ui.stop : held > 0 ? ui.resume : ui.start}
         </button>
         <button
           onClick={lap}
           disabled={startedAt === null}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-sky-300 disabled:opacity-40 transition-colors"
         >
-          랩 기록
+          {ui.lap}
         </button>
         <button
           onClick={reset}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-rose-300 transition-colors"
         >
-          초기화
+          {ui.reset}
         </button>
       </div>
 
       {laps.length > 0 && (
         <>
           <div className="grid grid-cols-3 gap-2 mt-4">
-            <Stat label="랩 수" value={laps.length} accent="text-sky-600" />
-            <Stat label="가장 빠른 구간" value={fastest ? formatDuration(fastest, true) : '—'} accent="text-emerald-600" />
-            <Stat label="가장 느린 구간" value={slowest ? formatDuration(slowest, true) : '—'} accent="text-rose-500" />
+            <Stat label={ui.lapCount} value={laps.length} accent="text-sky-600" />
+            <Stat label={ui.fastest} value={fastest ? formatDuration(fastest, true) : '—'} accent="text-emerald-600" />
+            <Stat label={ui.slowest} value={slowest ? formatDuration(slowest, true) : '—'} accent="text-rose-500" />
           </div>
 
           <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
@@ -81,7 +83,7 @@ export default function StopwatchTool() {
                     {formatDuration(seg, true)}
                   </span>
                   <span className="text-xs font-mono text-slate-400 dark:text-slate-500 tabular-nums">
-                    누적 {formatDuration(t, true)}
+                    {ui.cumulative} {formatDuration(t, true)}
                   </span>
                 </div>
               );
@@ -92,8 +94,7 @@ export default function StopwatchTool() {
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          랩은 구간 시간과 누적 시간을 함께 보여줍니다. 운동 세트나 반복 작업처럼 같은 일을 여러 번 할 때
-          어느 구간이 느려졌는지 바로 드러납니다. 가장 빠른 구간은 초록, 가장 느린 구간은 붉게 표시됩니다.
+          {ui.note}
         </p>
       </div>
     </div>

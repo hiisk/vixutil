@@ -2,10 +2,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatDuration } from '@/lib/date-calc';
 import { CARD, useBeep, useNow } from './ui';
+import { TIMER_UI, type TimeLang } from '@/lib/time-ui-intl';
 
 const PRESETS = [1, 3, 5, 10, 15, 30];
 
-export default function TimerTool() {
+export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
+  const ui = TIMER_UI[lang];
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
   const [endAt, setEndAt] = useState<number | null>(null);
@@ -29,12 +31,12 @@ export default function TimerTool() {
   // 다른 탭을 보고 있어도 남은 시간이 보이게 제목에 싣는다
   useEffect(() => {
     if (endAt === null && !done) {
-      document.title = '타이머 | vixutil';
+      document.title = ui.tabTitle;
       return;
     }
-    document.title = done ? '⏰ 시간 종료! | vixutil' : `${formatDuration(left)} | 타이머`;
-    return () => { document.title = '타이머 | vixutil'; };
-  }, [left, endAt, done]);
+    document.title = done ? ui.tabDone : `${formatDuration(left)} | ${ui.tabTitle.split(' | ')[0]}`;
+    return () => { document.title = ui.tabTitle; };
+  }, [left, endAt, done, ui]);
 
   const start = () => {
     if (total <= 0) return;
@@ -56,7 +58,7 @@ export default function TimerTool() {
           {formatDuration(left)}
         </p>
         <p className="text-sm text-white/60 mt-3">
-          {done ? '시간이 다 됐습니다' : running ? '진행 중' : paused !== null ? '일시정지' : '시작을 누르세요'}
+          {done ? ui.done : running ? ui.running : paused !== null ? ui.paused : ui.idle}
         </p>
       </div>
 
@@ -70,7 +72,7 @@ export default function TimerTool() {
       {!running && (
         <div className="grid grid-cols-2 gap-3 mt-4">
           <label>
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">분</span>
+            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.min}</span>
             <input
               type="number" min={0} max={180} value={minutes}
               onChange={e => { setMinutes(Math.max(0, Number(e.target.value))); reset(); }}
@@ -78,7 +80,7 @@ export default function TimerTool() {
             />
           </label>
           <label>
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">초</span>
+            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.sec}</span>
             <input
               type="number" min={0} max={59} value={seconds}
               onChange={e => { setSeconds(Math.min(59, Math.max(0, Number(e.target.value)))); reset(); }}
@@ -93,17 +95,17 @@ export default function TimerTool() {
           onClick={running ? pause : start}
           className="rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
-          {running ? '⏸ 일시정지' : paused !== null ? '▶ 이어서' : '▶ 시작'}
+          {running ? ui.pause : paused !== null ? ui.resume : ui.start}
         </button>
         <button
           onClick={reset}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-rose-300 transition-colors"
         >
-          처음으로
+          {ui.reset}
         </button>
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">빠른 설정</p>
+      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.presets}</p>
       <div className="grid grid-cols-6 gap-2">
         {PRESETS.map(m => (
           <button
@@ -115,16 +117,14 @@ export default function TimerTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {m}분
+            {ui.minSuffix(m)}
           </button>
         ))}
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          남은 시간은 끝나는 시각을 기준으로 다시 계산합니다. 다른 탭을 보다가 돌아와도 시간이 밀리지
-          않고, 브라우저 탭 제목에도 남은 시간이 표시돼 창을 바꿔도 확인할 수 있습니다. 다만 탭을 완전히
-          닫으면 알림음은 울리지 않습니다.
+          {ui.note}
         </p>
       </div>
     </div>
