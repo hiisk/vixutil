@@ -5,6 +5,7 @@ import { GENERATORS } from "@/lib/generator-data";
 import { CHECKLISTS } from "@/lib/checklist-data";
 import { RANDOM_TOOLS } from "@/lib/random-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
+import { GENERATORS_ZH } from "@/lib/generator-zh";
 
 const BASE = "https://vixutil.com";
 
@@ -103,6 +104,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/random`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/random/${t.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/generator`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    ...GENERATORS_ZH.map((g: { slug: string }) => ({ url: `${BASE}/zh/generator/${g.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { GENERATORS_EN, GENERATORS_EN_MAP } from '@/lib/generator-en';
+import { ZH_GENERATOR_SLUGS } from '@/lib/generator-zh';
 import EnGeneratorEngine from '@/components/EnGeneratorEngine';
 import ReferralCards from '@/components/ReferralCards';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       languages: {
         'en': `/en/generator/${slug}`,
         'ko': `/generator/${slug}`,
+        ...(ZH_GENERATOR_SLUGS.has(slug) ? { 'zh': `/zh/generator/${slug}` } : {}),
         'x-default': `/en/generator/${slug}`,
       },
     },

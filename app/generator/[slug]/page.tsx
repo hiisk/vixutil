@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { GENERATORS, GENERATOR_MAP } from '@/lib/generator-data';
 import { EN_GENERATOR_SLUGS } from '@/lib/generator-en';
+import { ZH_GENERATOR_SLUGS } from '@/lib/generator-zh';
 import GeneratorEngine from '@/components/GeneratorEngine';
 import GeneratorContent from '@/components/GeneratorContent';
 import RelatedContent from '@/components/RelatedContent';
@@ -16,15 +17,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const gen = GENERATOR_MAP[slug];
   if (!gen) return {};
-  const hasEn = EN_GENERATOR_SLUGS.has(slug);
+  // 영어·중국어판이 있는 생성기는 hreflang으로 언어별 대체 URL을 연결 —
+  // 해당 언어로 검색해 들어오면 그 언어 페이지로 간다.
+  const languages: Record<string, string> = { 'ko': `/generator/${slug}` };
+  if (EN_GENERATOR_SLUGS.has(slug)) { languages['en'] = `/en/generator/${slug}`; languages['x-default'] = `/en/generator/${slug}`; }
+  if (ZH_GENERATOR_SLUGS.has(slug)) languages['zh'] = `/zh/generator/${slug}`;
+  const hasAlt = Object.keys(languages).length > 1;
   return {
     title: gen.title,
     description: gen.desc,
-    alternates: {
-      canonical: `/generator/${slug}`,
-      // 영어판이 있는 생성기는 hreflang으로 ko↔en을 연결 — 영어 검색 유입이 영어 페이지로 간다.
-      ...(hasEn ? { languages: { 'ko': `/generator/${slug}`, 'en': `/en/generator/${slug}`, 'x-default': `/en/generator/${slug}` } } : {}),
-    },
+    alternates: { canonical: `/generator/${slug}`, ...(hasAlt ? { languages } : {}) },
   };
 }
 
