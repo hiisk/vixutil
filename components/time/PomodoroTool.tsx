@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatDuration } from '@/lib/date-calc';
 import { CARD, Stat, useBeep, useNow } from './ui';
+import { POMODORO_UI, type TimeLang } from '@/lib/time-ui-intl';
 
 /**
  * 뽀모도로 — 25분 집중 뒤 5분 휴식, 네 번마다 긴 휴식.
@@ -10,13 +11,16 @@ import { CARD, Stat, useBeep, useNow } from './ui';
  * 집중 시간인지 쉬는 시간인지 구분돼야 타이머를 계속 보지 않게 된다.
  */
 const PHASES = {
-  focus: { label: '집중', minutes: 25, bg: 'bg-red-500', next: '쉬는 시간입니다' },
-  short: { label: '짧은 휴식', minutes: 5, bg: 'bg-emerald-600', next: '다시 집중할 시간입니다' },
-  long: { label: '긴 휴식', minutes: 15, bg: 'bg-sky-600', next: '다시 집중할 시간입니다' },
+  focus: { minutes: 25, bg: 'bg-red-500' },
+  short: { minutes: 5, bg: 'bg-emerald-600' },
+  long: { minutes: 15, bg: 'bg-sky-600' },
 } as const;
 type Phase = keyof typeof PHASES;
 
-export default function PomodoroTool() {
+export default function PomodoroTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
+  const ui = POMODORO_UI[lang];
+  const phaseLabel = { focus: ui.focus, short: ui.shortBreak, long: ui.longBreak } as const;
+  const phaseNext = { focus: ui.breakTime, short: ui.focusTime, long: ui.focusTime } as const;
   const [phase, setPhase] = useState<Phase>('focus');
   const [endAt, setEndAt] = useState<number | null>(null);
   const [paused, setPaused] = useState<number | null>(null);
@@ -68,7 +72,7 @@ export default function PomodoroTool() {
   return (
     <div>
       <div className={`rounded-2xl px-6 py-12 text-center transition-colors ${PHASES[phase].bg}`}>
-        <p className="text-sm font-bold text-white/80 mb-2">{PHASES[phase].label}</p>
+        <p className="text-sm font-bold text-white/80 mb-2">{phaseLabel[phase]}</p>
         <p className="text-6xl sm:text-7xl font-black text-white tabular-nums tracking-tight">
           {formatDuration(left)}
         </p>
@@ -91,28 +95,26 @@ export default function PomodoroTool() {
           onClick={running ? pause : start}
           className="rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
-          {running ? '⏸ 일시정지' : paused !== null ? '▶ 이어서' : '▶ 시작'}
+          {running ? ui.pause : paused !== null ? ui.resume : ui.start}
         </button>
         <button
           onClick={skip}
           className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-red-300 transition-colors"
         >
-          이 단계 건너뛰기
+          {ui.skip}
         </button>
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <Stat label="완료한 뽀모도로" value={completed} accent="text-red-600" />
-        <Stat label="집중한 시간" value={`${completed * 25}분`} accent="text-rose-600" />
-        <Stat label="다음" value={phase === 'focus' ? '휴식' : '집중'} />
+        <Stat label={ui.completed} value={completed} accent="text-red-600" />
+        <Stat label={ui.focused} value={`${completed * 25}${ui.minUnit}`} accent="text-rose-600" />
+        <Stat label={ui.next} value={phase === 'focus' ? ui.breakLabel : ui.focus} />
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">왜 25분인가요</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.whyTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          한 번에 집중을 유지할 수 있는 시간이 대체로 그 정도이고, 짧아서 시작하는 부담이 적기 때문입니다.
-          중요한 건 시간보다 &lsquo;한 번에 하나만&rsquo;입니다. 25분 동안은 알림을 끄고 한 가지 일만 하세요.
-          네 번 하면 15분쯤 길게 쉬어 주는 편이 다음 집중에 도움이 됩니다.
+          {ui.whyBody}
         </p>
       </div>
     </div>

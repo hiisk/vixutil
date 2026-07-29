@@ -137,6 +137,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/en/convert`, changeFrequency: weekly, priority: 0.9 },
+    ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/convert`, changeFrequency: weekly, priority: 0.9 },
+    ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -150,8 +154,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/profit-calculator`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/halving-countdown`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/fear-greed-index`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/long-short-ratio`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
+    { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },
+    { url: `${BASE}/zh`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/random`, changeFrequency: weekly, priority: 0.9 },

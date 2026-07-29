@@ -76,6 +76,7 @@ export const POMODORO_UI: L<{
   breakTime: string; focusTime: string;
   start: string; resume: string; pause: string;
   next: string; completed: string; focused: string;
+  skip: string; minUnit: string;
   whyTitle: string; whyBody: string;
 }> = {
   ko: {
@@ -83,6 +84,7 @@ export const POMODORO_UI: L<{
     breakTime: '쉬는 시간입니다', focusTime: '다시 집중할 시간입니다',
     start: '▶ 시작', resume: '▶ 이어서', pause: '⏸ 일시정지',
     next: '다음', completed: '완료한 뽀모도로', focused: '집중한 시간',
+    skip: '이 단계 건너뛰기', minUnit: '분',
     whyTitle: '왜 25분인가요',
     whyBody: '25분은 프란체스코 치릴로가 1980년대에 제안한 길이입니다. 특정 숫자에 과학적 근거가 있는 것은 아니고, "타이머가 도는 동안은 딴 일을 하지 않는다"는 규칙 자체가 효과의 대부분입니다. 자신에게 맞는 길이로 바꿔도 됩니다.',
   },
@@ -91,6 +93,7 @@ export const POMODORO_UI: L<{
     breakTime: 'Break time', focusTime: 'Back to focus',
     start: '▶ Start', resume: '▶ Resume', pause: '⏸ Pause',
     next: 'Next', completed: 'Pomodoros done', focused: 'Time focused',
+    skip: 'Skip this phase', minUnit: ' min',
     whyTitle: 'Why 25 minutes?',
     whyBody: 'Twenty-five minutes is the length Francesco Cirillo proposed in the 1980s. There is no particular evidence behind that specific number — most of the effect comes from the rule itself, that you do not switch tasks while the timer runs. Adjust the length to whatever actually works for you.',
   },
@@ -99,6 +102,7 @@ export const POMODORO_UI: L<{
     breakTime: '休息时间', focusTime: '回到专注',
     start: '▶ 开始', resume: '▶ 继续', pause: '⏸ 暂停',
     next: '下一段', completed: '完成的番茄数', focused: '专注时长',
+    skip: '跳过这一段', minUnit: ' 分',
     whyTitle: '为什么是 25 分钟？',
     whyBody: '25 分钟是弗朗切斯科·奇里洛在 1980 年代提出的长度。这个具体数字并没有特别的科学依据 —— 效果主要来自规则本身：计时器转着的时候不去做别的事。你可以改成适合自己的长度。',
   },
@@ -108,21 +112,35 @@ export const ALARM_UI: L<{
   set: string; reset: string; ringing: string;
   alarmAt: string; currentTime: string; remaining: string;
   today: string; tomorrow: string; keepOpen: string;
+  stop: string; itIsNow: (t: string) => string; until: (day: string, t: string) => string;
+  note: string;
 }> = {
   ko: {
     set: '알람 맞추기', reset: '다시 맞추기', ringing: '⏰ 알람!',
     alarmAt: '알람 시각', currentTime: '현재 시각', remaining: '남았습니다',
     today: '오늘', tomorrow: '내일', keepOpen: '이 탭을 열어 두어야',
+    stop: '알람 끄기',
+    itIsNow: t => `${t}이 되었습니다`,
+    until: (day, t) => `${day} ${t}까지`,
+    note: '이미 지난 시각을 넣으면 내일 그 시각으로 잡힙니다. 브라우저 안에서만 도는 알람이라 이 탭을 열어 두어야 울립니다. 기기를 재우면 소리가 나지 않을 수 있으니, 꼭 일어나야 하는 아침 알람은 휴대폰 알람을 함께 쓰세요.',
   },
   en: {
     set: 'Set alarm', reset: 'Set again', ringing: '⏰ Alarm',
     alarmAt: 'Alarm at', currentTime: 'Now', remaining: 'to go',
     today: 'Today', tomorrow: 'Tomorrow', keepOpen: 'keep this tab open for it to fire',
+    stop: 'Stop alarm',
+    itIsNow: t => `It is ${t}`,
+    until: (day, t) => `until ${day} ${t}`,
+    note: 'A time already past today is set for tomorrow instead. The alarm runs inside the browser, so this tab has to stay open for it to fire, and a sleeping device may not play the sound. For a morning alarm you actually need to wake up to, use your phone alarm as well.',
   },
   zh: {
     set: '设定闹钟', reset: '重新设定', ringing: '⏰ 闹钟',
     alarmAt: '闹钟时刻', currentTime: '当前时刻', remaining: '后响',
     today: '今天', tomorrow: '明天', keepOpen: '需保持此标签页开启才会响',
+    stop: '关闭闹钟',
+    itIsNow: t => `已经 ${t} 了`,
+    until: (day, t) => `距离${day} ${t}`,
+    note: '填入今天已经过去的时刻，会自动设到明天。闹钟只在浏览器里运行，所以这个标签页要保持开启才会响，设备进入休眠时也可能没有声音。非要起来的早晨闹钟，请同时用手机闹钟。',
   },
 };
 
