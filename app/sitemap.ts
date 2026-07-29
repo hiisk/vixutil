@@ -5,6 +5,7 @@ import { GENERATORS } from "@/lib/generator-data";
 import { CHECKLISTS } from "@/lib/checklist-data";
 import { RANDOM_TOOLS } from "@/lib/random-tools";
 import { DEVICE_TOOLS } from "@/lib/device-tools";
+import { IMAGE_TOOLS } from "@/lib/image-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
 import { CHECKLISTS_EN } from "@/lib/checklist-en";
 import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
@@ -109,6 +110,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/snap/couple-match`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/device`, changeFrequency: weekly, priority: 0.95 },
     ...DEVICE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/device/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/image`, changeFrequency: weekly, priority: 0.95 },
+    ...IMAGE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/image/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
