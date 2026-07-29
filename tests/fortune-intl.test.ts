@@ -96,6 +96,54 @@ test('UI 문구가 세 언어 모두 채워져 있다', () => {
   }
 });
 
+test('행운 색 정보가 세 언어 모두 같은 순서·같은 hex다', async () => {
+  // 순서나 hex가 어긋나면 같은 날 같은 이름이 언어별로 다른 색을 받는다
+  const { COLORS } = await import('../lib/lucky-color.ts');
+  const { LUCKY_COLOR_INFO_EN } = await import('../lib/fortune-en.ts');
+  const { LUCKY_COLOR_INFO_ZH } = await import('../lib/fortune-zh.ts');
+
+  assert.equal(LUCKY_COLOR_INFO_EN.length, COLORS.length, 'en 색 개수가 ko와 다르다');
+  assert.equal(LUCKY_COLOR_INFO_ZH.length, COLORS.length, 'zh 색 개수가 ko와 다르다');
+  for (let i = 0; i < COLORS.length; i++) {
+    assert.equal(LUCKY_COLOR_INFO_EN[i].hex, COLORS[i].hex, `${i}번째 색 hex가 en에서 다르다`);
+    assert.equal(LUCKY_COLOR_INFO_ZH[i].hex, COLORS[i].hex, `${i}번째 색 hex가 zh에서 다르다`);
+    assert.equal(LUCKY_COLOR_INFO_EN[i].keywords.length, 3);
+    assert.equal(LUCKY_COLOR_INFO_ZH[i].keywords.length, 3);
+  }
+});
+
+test('행운의 숫자 요일·시간대 라벨이 6개/7개로 맞다', async () => {
+  // 인덱스로 한국어 결과를 언어별 라벨에 매핑하므로 개수가 어긋나면 엉뚱한 값이 나온다
+  const { LOTTO_EN } = await import('../lib/fortune-en.ts');
+  const { LOTTO_ZH } = await import('../lib/fortune-zh.ts');
+  for (const [label, l] of [['en', LOTTO_EN], ['zh', LOTTO_ZH]] as const) {
+    assert.equal(l.weekdays.length, 7, `${label}: 요일이 7개가 아니다`);
+    assert.equal(l.timeSlots.length, 6, `${label}: 시간대가 6개가 아니다`);
+  }
+});
+
+test('탄생석·바이오리듬 데이터가 12개월/3주기로 채워져 있다', async () => {
+  const { BIRTH_INFO_EN, CYCLES_EN } = await import('../lib/fortune-en.ts');
+  const { BIRTH_INFO_ZH, CYCLES_ZH } = await import('../lib/fortune-zh.ts');
+  const hangul = /[가-힣]/;
+
+  for (const [label, birth, cycles] of [
+    ['en', BIRTH_INFO_EN, CYCLES_EN],
+    ['zh', BIRTH_INFO_ZH, CYCLES_ZH],
+  ] as const) {
+    assert.equal(birth.length, 12, `${label}: 탄생석이 12개월이 아니다`);
+    assert.deepEqual(birth.map(b => b.month), [1,2,3,4,5,6,7,8,9,10,11,12], `${label}: 월 순서가 어긋난다`);
+    for (const b of birth) {
+      for (const field of ['stone', 'flower', 'stoneMeaning', 'flowerMeaning', 'blurb'] as const) {
+        assert.ok(b[field].trim().length > 0, `${label} ${b.month}월: ${field} 비어 있음`);
+        assert.ok(!hangul.test(b[field]), `${label} ${b.month}월 ${field}에 한글이 남아 있다`);
+      }
+    }
+    assert.equal(cycles.length, 3, `${label}: 바이오리듬 주기가 3개가 아니다`);
+    assert.deepEqual(cycles.map(c => c.period), [23, 28, 33], `${label}: 주기 값이 다르다`);
+  }
+});
+
 test('날짜 표기가 언어별 형식을 따른다', () => {
   const d = new Date(2026, 6, 29);
   assert.equal(formatToday('ko', d), '2026년 7월 29일');

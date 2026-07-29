@@ -18,6 +18,8 @@ const TYPES = [
   { href: '/zh/fortune/blood-type', icon: '🩸', title: '血型运势', desc: 'A、B、O、AB 型今日运势',     badge: '4种',   color: 'from-rose-500 to-red-600' },
   { href: '/zh/fortune/biorhythm',  icon: '📈', title: '生物节律', desc: '身体·情绪·智力三条节律曲线', badge: '图表',  color: 'from-emerald-500 to-teal-600' },
   { href: '/zh/fortune/birth-stone', icon: '💎', title: '诞生石·诞生花', desc: '出生月份的宝石与花及其含义', badge: '12个月', color: 'from-fuchsia-500 to-violet-600' },
+  { href: '/zh/fortune/today-color', icon: '🎨', title: '今日幸运色', desc: '今天的幸运色与要避开的颜色', badge: '每日', color: 'from-pink-500 to-violet-600' },
+  { href: '/zh/fortune/lucky-numbers', icon: '🍀', title: '今日幸运数字', desc: '由出生日期生成的 6 个数字', badge: '每日', color: 'from-emerald-500 to-teal-600' },
 ];
 
 export default function ZhFortuneHub() {

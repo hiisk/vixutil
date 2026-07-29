@@ -275,6 +275,35 @@ export const BIRTH_INFO_EN = [
     blurb: 'December people carry luck with them. They mix easily with others and have a way of pulling good relationships toward themselves.' },
 ] as const;
 
+/* ── 오늘의 행운 색 ──
+   hex는 한국어 COLORS와 같은 순서·같은 값으로 맞춘다. 순서가 어긋나면
+   같은 시드가 언어별로 다른 색을 고르게 된다. */
+export const LUCKY_COLOR_INFO_EN = [
+  { name: 'Red',    hex: '#ef4444', meaning: 'A day when confidence and drive rise', tip: 'One red accent is enough to make you register in a room that matters.', keywords: ['Passion', 'Confidence', 'Drive'] },
+  { name: 'Orange', hex: '#f97316', meaning: 'Energy and good company are with you', tip: 'Say hello first, with a smile. The right people tend to follow.', keywords: ['Energy', 'Sociability', 'Optimism'] },
+  { name: 'Yellow', hex: '#eab308', meaning: 'Luck and openings are moving toward you', tip: 'Say yes to the small offer or invitation that comes up today.', keywords: ['Luck', 'Opportunity', 'Cheer'] },
+  { name: 'Green',  hex: '#22c55e', meaning: 'Steadiness and repair run through the day', tip: 'Keep something green nearby, or take a short walk to reset.', keywords: ['Stability', 'Healing', 'Balance'] },
+  { name: 'Blue',   hex: '#3b82f6', meaning: 'Focus and trust are your strengths today', tip: 'A good day to clear the backlog. Finish one thing at a time.', keywords: ['Focus', 'Trust', 'Calm'] },
+  { name: 'Navy',   hex: '#4338ca', meaning: 'A day that asks for composure and judgement', tip: 'Thinking once more beats deciding quickly today.', keywords: ['Composure', 'Wisdom', 'Care'] },
+  { name: 'Purple', hex: '#a855f7', meaning: 'Intuition and feeling run close to the surface', tip: 'Write down what comes to you. Today’s inspiration keeps its value.', keywords: ['Feeling', 'Intuition', 'Creativity'] },
+  { name: 'Pink',   hex: '#ec4899', meaning: 'Affection and warmth grow easily today', tip: 'Send a short message to someone you are grateful for.', keywords: ['Love', 'Warmth', 'Kindness'] },
+  { name: 'White',  hex: '#e2e8f0', meaning: 'Good for clearing out and starting again', tip: 'Empty one drawer, or one worry. Something new gets room to arrive.', keywords: ['Clarity', 'Order', 'Beginning'] },
+  { name: 'Black',  hex: '#334155', meaning: 'A day for poise and holding your ground', tip: 'You may decline the unreasonable ask. Look after yourself first.', keywords: ['Poise', 'Boundaries', 'Centre'] },
+  { name: 'Gold',   hex: '#f59e0b', meaning: 'Money and achievement are in the air', tip: 'Open the budget, or finish one small goal you left hanging.', keywords: ['Wealth', 'Achievement', 'Abundance'] },
+  { name: 'Mint',   hex: '#14b8a6', meaning: 'Freshness and balance come back today', tip: 'Drink water often and move lightly — your condition follows.', keywords: ['Freshness', 'Balance', 'Recovery'] },
+] as const;
+
+/* ── 행운의 숫자 ──
+   한국어판은 한국 로또(6/45) 전용이지만, 영어판에서 특정 복권을 지칭하면
+   나라마다 형식이 달라 틀린 말이 된다. 그래서 "행운의 숫자"로만 제시한다. */
+export const LOTTO_EN = {
+  weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  timeSlots: [
+    'Early morning (6–9am)', 'Morning (9am–12pm)', 'Around midday (12–2pm)',
+    'Afternoon (2–6pm)', 'Evening (6–9pm)', 'Late evening (9pm–midnight)',
+  ],
+};
+
 /* ── 바이오리듬 ── */
 export const CYCLES_EN = [
   { key: 'physical',     label: 'Physical',     period: 23, emoji: '💪', desc: 'Stamina · endurance · drive' },

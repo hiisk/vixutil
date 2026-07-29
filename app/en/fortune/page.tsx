@@ -22,6 +22,8 @@ const TYPES = [
   { href: '/en/fortune/blood-type', icon: '🩸', title: 'Blood Type Horoscope',   desc: 'Today’s reading for A, B, O and AB',        badge: '4 types',   color: 'from-rose-500 to-red-600' },
   { href: '/en/fortune/biorhythm',  icon: '📈', title: 'Biorhythm Calculator',   desc: 'Chart your physical, emotional and intellectual cycles', badge: 'Chart', color: 'from-emerald-500 to-teal-600' },
   { href: '/en/fortune/birth-stone', icon: '💎', title: 'Birthstone & Flower',   desc: 'The gem and flower of your birth month',    badge: '12 months', color: 'from-fuchsia-500 to-violet-600' },
+  { href: '/en/fortune/today-color', icon: '🎨', title: 'Today’s Lucky Colour',  desc: 'Your colour for today — and the one to skip', badge: 'Daily', color: 'from-pink-500 to-violet-600' },
+  { href: '/en/fortune/lucky-numbers', icon: '🍀', title: 'Lucky Numbers',       desc: 'Six numbers from your birth date',          badge: 'Daily',     color: 'from-emerald-500 to-teal-600' },
 ];
 
 export default function EnFortuneHub() {
