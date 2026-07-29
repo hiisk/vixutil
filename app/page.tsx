@@ -75,7 +75,7 @@ const SECTIONS = [
     icon: '🔮',
     title: '오늘의 운세',
     desc: '별자리·띠·타로·사주·궁합 등 매일 업데이트',
-    badge: '18종',
+    badge: '19종',
     color: 'from-violet-500 to-purple-700',
     bgLight: 'bg-violet-50 dark:bg-violet-950/30',
     textAccent: 'text-violet-700 dark:text-violet-300',

@@ -30,6 +30,7 @@ const TYPES = [
   { href: '/fortune/tarot-yesno',  icon: '🔮', title: '타로 예스/노',  desc: '질문을 떠올리고 카드로 받는 예·아니오',   badge: 'NEW',     color: 'from-indigo-500 to-violet-700' },
   { href: '/fortune/lucky-lotto',  icon: '🍀', title: '행운의 로또 번호', desc: '생년월일로 보는 오늘의 행운 번호 6개',   badge: 'NEW',     color: 'from-emerald-500 to-teal-600' },
   { href: '/fortune/birth-stone',  icon: '💎', title: '탄생석·탄생화',   desc: '태어난 달의 보석과 꽃, 그 의미',       badge: 'NEW',     color: 'from-fuchsia-500 to-violet-600' },
+  { href: '/fortune/today-color',  icon: '🎨', title: '오늘의 행운 색',   desc: '이름·날짜로 보는 오늘의 행운 컬러',    badge: 'NEW',     color: 'from-pink-500 to-violet-600' },
 ];
 
 export default function FortunePage() {

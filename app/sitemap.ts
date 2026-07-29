@@ -77,6 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/tarot-yesno`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/lucky-lotto`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/birth-stone`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/today-color`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/random`, lastModified: now, changeFrequency: weekly, priority: 0.95 },
     ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/random/${t.slug}`, lastModified: now, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/snap`, lastModified: now, changeFrequency: weekly, priority: 0.95 },

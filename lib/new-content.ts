@@ -30,6 +30,7 @@ export const NEW_TEST_SLUGS = new Set([
 ]);
 
 export const NEW_QUIZ_SLUGS = new Set([
+  'fruit-veggie',
   'dog-breeds',
   'board-games',
   'emoji-quiz',
@@ -41,10 +42,12 @@ export const NEW_QUIZ_SLUGS = new Set([
   'robots',
   'spices',
   'nutrition',
-  'world-food',
 ]);
 
 export const NEW_CHECKLIST_SLUGS = new Set([
+  'first-flight',
+  'driving-test',
+  'saving-challenge',
   'winter-car',
   'flu-prevention',
   'blackout',
@@ -54,12 +57,14 @@ export const NEW_CHECKLIST_SLUGS = new Set([
   'new-semester',
   'exam-day',
   'first-day-job',
-  'empty-house',
-  'zero-waste',
-  'first-salary',
 ]);
 
 export const NEW_GENERATOR_SLUGS = new Set([
+  'spaceship-name',
+  'robot-name',
+  'magic-spell',
+  'mocktail-name',
+  'dragon-name',
   'sword-name',
   'idol-group',
   'island-name',
@@ -67,9 +72,4 @@ export const NEW_GENERATOR_SLUGS = new Set([
   'dungeon-name',
   'perfume-name',
   'flower-shop',
-  'restaurant-name',
-  'potion-name',
-  'spy-codename',
-  'pirate-name',
-  'villain-name',
 ]);
