@@ -9,6 +9,8 @@ import { IMAGE_TOOLS } from "@/lib/image-tools";
 import { TEXT_TOOLS } from "@/lib/text-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
 import { CHECKLISTS_EN } from "@/lib/checklist-en";
+import { QUIZZES_EN } from "@/lib/quiz-en";
+import { QUIZZES_ZH } from "@/lib/quiz-zh";
 import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
 import { GENERATORS_ZH } from "@/lib/generator-zh";
 
@@ -124,6 +126,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/funding-rates`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/position-size-calculator`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/altseason-index`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/all-time-high`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
@@ -167,6 +170,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/snap/handwriting`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/face-reading`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
+    ...QUIZZES_EN.map((q: { slug: string }) => ({ url: `${BASE}/en/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },
     ...CHECKLISTS_EN.map((c: { slug: string }) => ({ url: `${BASE}/en/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
@@ -183,6 +188,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/blood-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/daily`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
+    ...QUIZZES_ZH.map((q: { slug: string }) => ({ url: `${BASE}/zh/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/checklist`, changeFrequency: weekly, priority: 0.9 },
     ...CHECKLISTS_ZH.map((c: { slug: string }) => ({ url: `${BASE}/zh/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
