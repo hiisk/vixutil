@@ -15,6 +15,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/fortune", icon: "🔮", label: "오늘의 운세" },
   { href: "/random", icon: "🎲", label: "랜덤 뽑기" },
   { href: "/snap", icon: "📸", label: "스냅테스트" },
+  { href: "/device", icon: "🧰", label: "기기 점검" },
 ];
 
 const POPULAR: { href: string; label: string }[] = [

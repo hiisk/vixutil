@@ -107,6 +107,18 @@ const SECTIONS = [
     shadow: 'shadow-fuchsia-100',
   },
   {
+    href: '/device',
+    icon: '🧰',
+    title: '기기 점검',
+    desc: '키보드·마우스·마이크·웹캠·모니터를 브라우저에서 바로 테스트',
+    badge: `${SECTION_COUNTS.device}개`,
+    color: 'from-sky-500 to-teal-600',
+    bgLight: 'bg-teal-50 dark:bg-teal-950/30',
+    textAccent: 'text-teal-700 dark:text-teal-300',
+    borderAccent: 'border-teal-200 dark:border-teal-900/50',
+    shadow: 'shadow-teal-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

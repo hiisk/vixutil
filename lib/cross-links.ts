@@ -103,5 +103,39 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
   ],
   'checklist/interview-day': [
     { href: '/calculator/salary', title: '실수령액 계산기', why: '처우 질문에 대비해 시장가를 알아두세요', icon: '💵' },
+    { href: '/device/mic', title: '마이크 테스트', why: '화상 면접이라면 목소리가 어떻게 들리는지 먼저 들어보세요', icon: '🎤' },
+  ],
+
+  /* ── 체크리스트 → 기기 점검 ── */
+  'checklist/used-trade-safety': [
+    { href: '/device/keyboard', title: '키보드 테스트', why: '중고 키보드는 만나서 모든 키를 눌러 보고 사야 합니다', icon: '⌨️' },
+    { href: '/device/monitor', title: '모니터 불량화소 테스트', why: '불량화소는 받은 자리에서 확인해야 되돌릴 수 있습니다', icon: '🖥️' },
+  ],
+  'checklist/pc-setup': [
+    { href: '/device/refresh-rate', title: '모니터 주사율 테스트', why: '고주사율 모니터가 60Hz로 잡혀 있는 경우가 흔합니다', icon: '⚡' },
+    { href: '/device/monitor', title: '모니터 불량화소 테스트', why: '새 모니터는 개봉 직후에 죽은 픽셀부터 확인하세요', icon: '🖥️' },
+  ],
+  'checklist/work-from-home': [
+    { href: '/device/mic', title: '마이크 테스트', why: '회의 시작 전에 소리가 어떻게 들리는지 1분이면 확인합니다', icon: '🎤' },
+    { href: '/device/webcam', title: '웹캠 테스트', why: '카메라 화질과 각도를 미리 잡아두세요', icon: '📷' },
+  ],
+  'checklist/phone-upgrade': [
+    { href: '/device/touch', title: '터치스크린 테스트', why: '개통 직후 터치 안 먹는 영역이 없는지 확인하세요', icon: '👆' },
+    { href: '/device/info', title: '내 기기 정보', why: '해상도·브라우저 정보를 그대로 복사해 문의에 쓸 수 있습니다', icon: '🧾' },
+  ],
+
+  /* ── 기기 점검 → 체크리스트 ── */
+  'device/monitor': [
+    { href: '/checklist/used-trade-safety', title: '중고거래 안전 체크리스트', why: '중고 모니터는 확인할 것이 화면 말고도 더 있습니다', icon: '🤝' },
+    { href: '/checklist/pc-setup', title: 'PC 셋업 체크리스트', why: '새로 맞춘 PC에서 빠뜨리기 쉬운 설정들', icon: '🖥️' },
+  ],
+  'device/mic': [
+    { href: '/checklist/work-from-home', title: '재택근무 준비 체크리스트', why: '소리 말고도 회의 전에 챙길 것들이 있습니다', icon: '🏠' },
+  ],
+  'device/webcam': [
+    { href: '/checklist/interview-day', title: '면접 당일 체크리스트', why: '화상 면접이라면 카메라 다음으로 챙길 것들', icon: '💼' },
+  ],
+  'device/keyboard': [
+    { href: '/checklist/used-trade-safety', title: '중고거래 안전 체크리스트', why: '거래 장소와 결제 방법에서 사고가 더 많이 납니다', icon: '🤝' },
   ],
 };

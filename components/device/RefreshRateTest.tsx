@@ -1,0 +1,181 @@
+'use client';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+/**
+ * 주사율 측정 — requestAnimationFrame이 불리는 간격을 잰다.
+ *
+ * 브라우저는 화면이 새로 그려질 때마다 rAF를 부르므로, 그 간격의 역수가 곧
+ * 화면 주사율이다. 평균 대신 중앙값을 쓴다 — 측정 중 다른 탭이 잠깐 CPU를
+ * 물면 프레임 하나가 크게 튀는데, 평균은 그 하나에 통째로 끌려간다.
+ *
+ * 브라우저·전원 설정에 따라 실제 패널보다 낮게 잡힐 수 있다(노트북 절전 모드,
+ * 배터리 사용 시 60Hz 고정 등). 그래서 결과에 흔한 규격값을 같이 보여준다.
+ */
+const COMMON = [30, 48, 60, 75, 90, 100, 120, 144, 165, 180, 240, 360];
+const SAMPLES = 240;
+
+type Result = { hz: number; median: number; min: number; max: number; jitter: number; dropped: number };
+
+export default function RefreshRateTest() {
+  const [running, setRunning] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [live, setLive] = useState(0);
+  const [result, setResult] = useState<Result | null>(null);
+  const [motion, setMotion] = useState(true);
+  const rafRef = useRef(0);
+
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+
+  const run = useCallback(() => {
+    setRunning(true);
+    setResult(null);
+    setProgress(0);
+
+    const gaps: number[] = [];
+    let prev = performance.now();
+
+    const tick = (now: number) => {
+      const gap = now - prev;
+      prev = now;
+      // 첫 프레임은 버튼 클릭 직후라 간격이 의미 없다
+      if (gaps.length > 0 || gap < 100) gaps.push(gap);
+
+      if (gaps.length % 10 === 0 && gaps.length > 0) {
+        setProgress(Math.round((gaps.length / SAMPLES) * 100));
+        setLive(Math.round(1000 / gap));
+      }
+
+      if (gaps.length < SAMPLES) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      const sorted = [...gaps].sort((a, b) => a - b);
+      const median = sorted[Math.floor(sorted.length / 2)];
+      const hz = Math.round(1000 / median);
+      // 중앙값의 1.5배를 넘는 프레임은 한 번 걸러진 것으로 본다
+      const dropped = gaps.filter(g => g > median * 1.5).length;
+      const mean = gaps.reduce((a, b) => a + b, 0) / gaps.length;
+      const jitter = Math.sqrt(gaps.reduce((a, b) => a + (b - mean) ** 2, 0) / gaps.length);
+
+      setResult({
+        hz,
+        median: Number(median.toFixed(2)),
+        min: Number(sorted[0].toFixed(2)),
+        max: Number(sorted[sorted.length - 1].toFixed(2)),
+        jitter: Number(jitter.toFixed(2)),
+        dropped,
+      });
+      setProgress(100);
+      setRunning(false);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  const nearest = result ? COMMON.reduce((a, b) => (Math.abs(b - result.hz) < Math.abs(a - result.hz) ? b : a)) : null;
+  const offSpec = result && nearest ? Math.abs(result.hz - nearest) > 3 : false;
+
+  return (
+    <div>
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6 text-center">
+        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+          {running ? '측정 중' : result ? '측정 결과' : '준비됨'}
+        </p>
+        <p className="text-6xl font-black bg-gradient-to-r from-amber-500 to-rose-500 bg-clip-text text-transparent tabular-nums">
+          {result ? result.hz : running ? live || '–' : '–'}
+          <span className="text-2xl ml-1.5 text-slate-400 dark:text-slate-500">Hz</span>
+        </p>
+
+        <div className="mt-5 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-amber-500 to-rose-500 transition-[width] duration-150"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        <button
+          onClick={run}
+          disabled={running}
+          className="mt-5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-bold px-8 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+        >
+          {running ? '측정 중…' : result ? '다시 측정' : '주사율 측정 시작 (약 2초)'}
+        </button>
+        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+          측정하는 동안 이 탭을 보고 계셔야 합니다. 다른 창으로 옮기면 브라우저가 프레임을 늦춥니다.
+        </p>
+      </div>
+
+      {result && (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+            {[
+              { label: '프레임 간격', val: `${result.median}ms` },
+              { label: '가장 빠른 프레임', val: `${result.min}ms` },
+              { label: '가장 느린 프레임', val: `${result.max}ms` },
+              { label: '흔들림(편차)', val: `${result.jitter}ms` },
+            ].map(s => (
+              <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+                <p className="text-base font-black text-slate-800 dark:text-slate-100 tabular-nums">{s.val}</p>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 text-sm leading-relaxed">
+            {offSpec ? (
+              <p className="text-slate-600 dark:text-slate-300">
+                <b className="text-amber-600">{result.hz}Hz</b>는 흔한 규격({nearest}Hz)과 차이가 있습니다. 측정 중 다른 작업이
+                끼어들었을 수 있으니 한 번 더 재보세요.
+              </p>
+            ) : (
+              <p className="text-slate-600 dark:text-slate-300">
+                이 화면은 <b className="text-emerald-600">약 {nearest}Hz</b>로 동작하고 있습니다.
+                {nearest && nearest <= 60 && ' 고주사율 모니터를 쓰고 있다면 디스플레이 설정에서 주사율이 60Hz로 잡혀 있는지 확인해 보세요.'}
+              </p>
+            )}
+            {result.dropped > 0 && (
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                측정 중 {result.dropped}프레임이 평소보다 크게 늦었습니다. 백그라운드 프로그램이 많을 때 나타납니다.
+              </p>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* 눈으로 비교하는 부분 — 숫자보다 이쪽이 체감에 가깝다 */}
+      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">움직임 부드러움 확인</p>
+          <button
+            onClick={() => setMotion(m => !m)}
+            className="text-xs font-bold text-amber-600 hover:underline"
+          >
+            {motion ? '멈추기' : '움직이기'}
+          </button>
+        </div>
+        <div className="relative h-12 rounded-xl bg-slate-100 dark:bg-slate-800 overflow-hidden">
+          <div
+            className="absolute top-1/2 w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400 to-rose-500 shadow-lg"
+            style={{
+              transform: 'translateY(-50%)',
+              left: 0,
+              animation: motion ? 'device-slide 1.4s linear infinite alternate' : 'none',
+            }}
+          />
+        </div>
+        <p className="mt-2.5 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+          네모가 뚝뚝 끊겨 보이면 주사율이 낮거나 다른 프로그램이 그래픽을 물고 있는 상태입니다.
+        </p>
+      </div>
+
+      {/* left를 움직인다 — transform의 %는 자기 크기 기준이라 트랙 끝까지 못 간다 */}
+      <style>{`
+        @keyframes device-slide {
+          from { left: 0; }
+          to { left: calc(100% - 2.5rem); }
+        }
+      `}</style>
+    </div>
+  );
+}
