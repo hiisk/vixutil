@@ -203,6 +203,18 @@ const SECTIONS = [
     shadow: 'shadow-amber-100',
   },
   {
+    href: '/convert',
+    icon: '🔄',
+    title: '단위 변환',
+    desc: '평·근·돈부터 인치·파운드까지 50가지 단위 변환',
+    badge: `${SECTION_COUNTS.convert}개`,
+    color: 'from-blue-500 to-indigo-600',
+    bgLight: 'bg-blue-50 dark:bg-blue-950/30',
+    textAccent: 'text-blue-700 dark:text-blue-300',
+    borderAccent: 'border-blue-200 dark:border-blue-900/50',
+    shadow: 'shadow-blue-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

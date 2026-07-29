@@ -28,6 +28,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/time", icon: "⏰", label: "시간 도구" },
   { href: "/sound", icon: "🔊", label: "소리 도구" },
   { href: "/food", icon: "🍳", label: "계량·요리" },
+  { href: "/convert", icon: "🔄", label: "단위 변환" },
 ];
 
 const POPULAR: { href: string; label: string }[] = [
