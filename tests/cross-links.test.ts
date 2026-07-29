@@ -6,12 +6,14 @@ import { CROSS_LINKS } from '../lib/cross-links.ts';
 import { CHECKLISTS } from '../lib/checklist-data.ts';
 import { DEVICE_TOOLS } from '../lib/device-tools.ts';
 import { IMAGE_TOOLS } from '../lib/image-tools.ts';
+import { TEXT_TOOLS } from '../lib/text-tools.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
 const checklistSlugs = new Set(CHECKLISTS.map(c => c.slug));
 const deviceSlugs = new Set(DEVICE_TOOLS.map(t => t.slug));
 const imageSlugs = new Set(IMAGE_TOOLS.map(t => t.slug));
+const textSlugs = new Set(TEXT_TOOLS.map(t => t.slug));
 
 /** 교차 링크가 오갈 수 있는 섹션의 경로가 실재하는지 */
 function routeExists(href: string): boolean {
@@ -21,6 +23,7 @@ function routeExists(href: string): boolean {
   if (section === 'checklist') return checklistSlugs.has(rest[0]);
   if (section === 'device') return deviceSlugs.has(rest[0]);
   if (section === 'image') return imageSlugs.has(rest[0]);
+  if (section === 'text') return textSlugs.has(rest[0]);
   return false;
 }
 
@@ -83,4 +86,7 @@ test('계산기 페이지가 CrossLinks를 렌더한다', () => {
 
   const imageShell = readFileSync(join(ROOT, 'components', 'ImageShell.tsx'), 'utf8');
   assert.ok(imageShell.includes('<CrossLinks'), 'ImageShell이 CrossLinks를 렌더하지 않는다');
+
+  const textShell = readFileSync(join(ROOT, 'components', 'TextShell.tsx'), 'utf8');
+  assert.ok(textShell.includes('<CrossLinks'), 'TextShell이 CrossLinks를 렌더하지 않는다');
 });

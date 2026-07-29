@@ -131,6 +131,18 @@ const SECTIONS = [
     shadow: 'shadow-violet-100',
   },
   {
+    href: '/text',
+    icon: '✍️',
+    title: '텍스트 도구',
+    desc: '한영타 변환·영문 이름·특수문자·글자수를 한 곳에서',
+    badge: `${SECTION_COUNTS.text}개`,
+    color: 'from-blue-500 to-indigo-600',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

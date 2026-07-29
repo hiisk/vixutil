@@ -150,4 +150,21 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
   'calculator/dev/color': [
     { href: '/image/palette', title: '이미지 색상 추출', why: '사진이나 스크린샷에서 색을 바로 뽑아 올 수 있습니다', icon: '🖼️' },
   ],
+
+  /* ── 텍스트 도구 ↔ 다른 섹션 ── */
+  'text/manuscript': [
+    { href: '/calculator/dev/word-count', title: '글자수 카운터', why: '단어수·문장수·바이트까지 한 번에 보고 싶을 때', icon: '🔢' },
+  ],
+  'calculator/dev/word-count': [
+    { href: '/text/manuscript', title: '원고지·자소서 글자수', why: '원고지 매수와 목표 글자수까지 남은 분량을 봅니다', icon: '📝' },
+  ],
+  'text/romanize': [
+    { href: '/checklist/overseas-travel', title: '해외여행 준비 체크리스트', why: '여권 영문 이름을 정했다면 그다음에 챙길 것들', icon: '✈️' },
+  ],
+  'checklist/overseas-travel': [
+    { href: '/text/romanize', title: '영문 이름 변환', why: '항공권 이름은 여권과 철자까지 같아야 합니다', icon: '🛂' },
+  ],
+  'checklist/study-abroad': [
+    { href: '/text/romanize', title: '영문 이름 변환', why: '서류마다 영문 이름 표기를 통일해야 합니다', icon: '🛂' },
+  ],
 };
