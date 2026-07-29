@@ -17,7 +17,41 @@ function getMbtiType(scores: Record<string, number>): string {
   return e + s + t + j;
 }
 
-export default function TestEngine({ test }: { test: Test }) {
+
+export type TestLang = 'ko' | 'en' | 'zh';
+
+/** 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점 로직은 세 언어가 동일하다. */
+const UI: Record<TestLang, {
+  allTests: string; start: string; restart: string; retake: string; more: string;
+  traits: string; resultOf: (cat: string) => string; meta: (n: number) => string;
+  myMbti: (t: string) => string;
+}> = {
+  ko: {
+    allTests: '전체 테스트', start: '테스트 시작하기 →', restart: '다시하기',
+    retake: '다시 테스트하기', more: '다른 테스트 보기', traits: '{ui.traits}',
+    resultOf: cat => `${cat} 테스트 결과`,
+    meta: n => `${n}문항 · 약 2분 소요`,
+    myMbti: t => `나의 MBTI는 ${t}!`,
+  },
+  en: {
+    allTests: 'All tests', start: 'Start the test →', restart: 'Start over',
+    retake: 'Take it again', more: 'More tests', traits: 'Key traits',
+    resultOf: cat => `${cat} test result`,
+    meta: n => `${n} questions · about 2 minutes`,
+    myMbti: t => `My MBTI is ${t}!`,
+  },
+  zh: {
+    allTests: '全部测试', start: '开始测试 →', restart: '重新开始',
+    retake: '再测一次', more: '更多测试', traits: '主要特征',
+    resultOf: cat => `${cat}测试结果`,
+    meta: n => `${n} 题 · 约 2 分钟`,
+    myMbti: t => `我的 MBTI 是 ${t}！`,
+  },
+};
+
+export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: TestLang }) {
+  const ui = UI[lang];
+  const hubHref = lang === 'ko' ? '/test' : `/${lang}/test`;
   const [phase, setPhase] = useState<'start' | 'question' | 'result'>('start');
   const [current, setCurrent] = useState(0);
   const [total, setTotal] = useState(0);
@@ -56,11 +90,11 @@ export default function TestEngine({ test }: { test: Test }) {
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href="/test" className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
+          <Link href={hubHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            전체 테스트
+            {ui.allTests}
           </Link>
         </div>
       </header>
@@ -75,10 +109,10 @@ export default function TestEngine({ test }: { test: Test }) {
         <span className="text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/30 px-3 py-1 rounded-full mb-3">{test.category}</span>
         <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{test.title}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{test.questions.length}문항 · 약 2분 소요</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(test.questions.length)}</p>
         <button onClick={() => setPhase('question')}
           className="w-full max-w-xs bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 active:scale-[0.99] text-white font-black py-4 rounded-2xl text-base transition-all shadow-lg shadow-violet-500/25">
-          테스트 시작하기 →
+          {ui.start}
         </button>
       </div>
     </div>
@@ -134,7 +168,7 @@ export default function TestEngine({ test }: { test: Test }) {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            다시하기
+            {ui.restart}
           </button>
         </div>
       </header>
@@ -148,7 +182,7 @@ export default function TestEngine({ test }: { test: Test }) {
           <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white/20 blur-3xl" />
           {/* main emoji */}
           <div className="te-pop-emoji text-7xl mb-4 filter drop-shadow-lg relative z-10">{result.emoji}</div>
-          <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{test.category} 테스트 결과</span>
+          <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{ui.resultOf(test.category)}</span>
           {mbtiType && (
             <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
           )}
@@ -159,7 +193,7 @@ export default function TestEngine({ test }: { test: Test }) {
         {/* Traits */}
         {result.traits && result.traits.length > 0 && (
           <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-5 mb-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">주요 특징</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{ui.traits}</p>
             <div className="flex flex-wrap gap-2">
               {result.traits.map((t, i) => (
                 <span key={i} className="text-xs font-bold px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-200 shadow-sm">
@@ -178,7 +212,7 @@ export default function TestEngine({ test }: { test: Test }) {
 
         <ShareButton
           title={`${test.title} 결과: ${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`}
-          description={`${mbtiType ? `나의 MBTI는 ${mbtiType}!\n` : ''}${result.title}\n\n${result.desc}`}
+          description={`${mbtiType ? `${ui.myMbti(mbtiType)}\n` : ''}${result.title}\n\n${result.desc}`}
           type="test"
         />
 
@@ -192,11 +226,11 @@ export default function TestEngine({ test }: { test: Test }) {
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}
             className="w-full bg-violet-600 hover:bg-violet-700 text-white rounded-xl py-3.5 font-bold text-sm transition-colors">
-            다시 테스트하기
+            {ui.retake}
           </button>
-          <Link href="/test"
+          <Link href={hubHref}
             className="w-full block text-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 rounded-xl py-3.5 font-bold text-sm transition-colors">
-            다른 테스트 보기
+            {ui.more}
           </Link>
         </div>
       </div>

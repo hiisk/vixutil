@@ -10,9 +10,12 @@ import { TEXT_TOOLS } from "@/lib/text-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
 import { CHECKLISTS_EN } from "@/lib/checklist-en";
 import { QUIZZES_EN } from "@/lib/quiz-en";
+import { TESTS_EN } from "@/lib/test-en";
+import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
 import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
 import { GENERATORS_ZH } from "@/lib/generator-zh";
+import { GAME_TOOLS } from "@/lib/game-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -117,6 +120,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...IMAGE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/image/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/text`, changeFrequency: weekly, priority: 0.95 },
     ...TEXT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/text/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/game`, changeFrequency: weekly, priority: 0.95 },
+    ...GAME_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/game/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -170,6 +175,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/snap/handwriting`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/face-reading`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
+    ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
     ...QUIZZES_EN.map((q: { slug: string }) => ({ url: `${BASE}/en/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },
@@ -188,6 +195,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/blood-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/daily`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
+    ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
     ...QUIZZES_ZH.map((q: { slug: string }) => ({ url: `${BASE}/zh/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/checklist`, changeFrequency: weekly, priority: 0.9 },
