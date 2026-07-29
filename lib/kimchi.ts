@@ -67,16 +67,40 @@ export interface KimchiRow {
   comparable: boolean;
 }
 
+/** 어느 데이터 소스가 살아 있는지 — 하나가 죽어도 나머지로 계속 보여주기 위해 추적한다 */
+export type SourceId = 'binance' | 'upbit' | 'bithumb' | 'fx';
+
+export interface SourceStatus {
+  id: SourceId;
+  label: string;
+  ok: boolean;
+}
+
+/** 계산에 필요한 최소 조건이 무너졌을 때 — 어느 소스가 죽었는지 담아 던진다 */
+export class KimchiUnavailableError extends Error {
+  // 생성자 파라미터 프로퍼티(public readonly ...)를 쓰면 node --test의 타입 스트리핑이
+  // ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX로 죽는다. 평범한 필드로 둔다.
+  readonly failed: SourceId[];
+
+  constructor(failed: SourceId[], message: string) {
+    super(message);
+    this.name = 'KimchiUnavailableError';
+    this.failed = failed;
+  }
+}
+
 export interface KimchiSnapshot {
   rows: KimchiRow[];
-  /** 공식 USD/KRW */
-  fxRate: number;
+  /** 공식 USD/KRW. 환율 소스가 모두 죽으면 null이고, FX 기준을 쓸 수 없다. */
+  fxRate: number | null;
   /** 공식 환율 갱신 시각(UTC 문자열) */
-  fxUpdated: string;
-  /** 업비트 KRW-USDT 시세 */
-  usdtKrw: number;
-  /** USDT 자체 프리미엄(%) = usdtKrw / fxRate - 1 */
-  usdtPremium: number;
+  fxUpdated: string | null;
+  /** 업비트 KRW-USDT 시세. 업비트가 죽으면 빗썸 USDT로 대체하고, 둘 다 없으면 null. */
+  usdtKrw: number | null;
+  /** USDT 자체 프리미엄(%) = usdtKrw / fxRate - 1. 둘 중 하나라도 없으면 null. */
+  usdtPremium: number | null;
+  /** 소스별 생존 여부 — UI가 "무엇이 빠졌는지" 정확히 말할 수 있게 한다 */
+  sources: SourceStatus[];
   /** 시장 전체 김프 대표값(BTC 기준, FX) */
   btcFx: number | null;
   btcUsdt: number | null;
@@ -94,7 +118,9 @@ export interface KimchiSnapshot {
 const UPBIT = 'https://api.upbit.com/v1';
 const BITHUMB = 'https://api.bithumb.com/public';
 const BINANCE = 'https://data-api.binance.vision/api/v3';
-const FX = 'https://open.er-api.com/v6/latest/USD';
+/** 환율은 두 곳을 순서대로 시도한다 — 한쪽이 죽어도 FX 기준을 살리기 위해서다 */
+const FX_PRIMARY = 'https://open.er-api.com/v6/latest/USD';
+const FX_FALLBACK = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json';
 
 /**
  * 이 범위를 벗어나면 김프가 아니라 티커 충돌로 본다.
@@ -129,38 +155,93 @@ async function fetchUpbitTickers(markets: string[]): Promise<Map<string, { price
   return out;
 }
 
+/** 환율 — 1차가 죽으면 2차를 쓴다. 둘 다 죽으면 null(=FX 기준 사용 불가). */
+async function fetchFx(): Promise<{ rate: number; updated: string } | null> {
+  try {
+    const r = await getJson<{ rates: Record<string, number>; time_last_update_utc: string }>(FX_PRIMARY);
+    if (r.rates?.KRW > 0) return { rate: r.rates.KRW, updated: r.time_last_update_utc };
+  } catch {
+    // 2차로 넘어간다
+  }
+  try {
+    const r = await getJson<{ date: string; usd: Record<string, number> }>(FX_FALLBACK);
+    if (r.usd?.krw > 0) return { rate: r.usd.krw, updated: r.date };
+  } catch {
+    // 둘 다 실패
+  }
+  return null;
+}
+
+/**
+ * 네 소스를 각각 독립적으로 받는다. 예전에는 Promise.all이라 하나만 죽어도 페이지 전체가
+ * 빈 화면이 됐다 — 실제로 그렇게 죽었다. 이제는 살아 있는 것만으로 계산하고, 무엇이 빠졌는지
+ * snapshot.sources에 담아 UI가 정확히 말할 수 있게 한다.
+ *
+ * 최소 조건은 두 가지뿐이다.
+ *   (1) 바이낸스 — 비교 기준인 달러 가격이라 대체재가 없다.
+ *   (2) 국내 거래소 최소 한 곳 + 환산 기준(환율 또는 USDT 시세) 최소 하나.
+ * 이 조건이 무너질 때만 throw 한다.
+ */
 export async function fetchKimchi(): Promise<KimchiSnapshot> {
-  const [binance, upbitMarkets, bithumbRaw, fxRaw] = await Promise.all([
+  const [binanceR, upbitMarketsR, bithumbR, fxR] = await Promise.allSettled([
     getJson<Array<Record<string, string>>>(`${BINANCE}/ticker/24hr`),
     getJson<Array<{ market: string; korean_name: string }>>(`${UPBIT}/market/all`),
     getJson<{ status: string; data: Record<string, Record<string, string> | string> }>(`${BITHUMB}/ticker/ALL_KRW`),
-    getJson<{ rates: Record<string, number>; time_last_update_utc: string }>(FX),
+    fetchFx(),
   ]);
 
-  const fxRate = fxRaw.rates.KRW;
-  if (!(fxRate > 0)) throw new Error('bad fx rate');
-
-  // 바이낸스 USDT 가격
+  // 바이낸스 USDT 가격 — 없으면 아무것도 계산할 수 없다
   const usd = new Map<string, { price: number; vol: number }>();
-  for (const t of binance) {
-    if (!t.symbol.endsWith('USDT')) continue;
-    const base = t.symbol.slice(0, -4);
-    const price = Number(t.lastPrice);
-    if (price > 0) usd.set(base, { price, vol: Number(t.quoteVolume) || 0 });
+  if (binanceR.status === 'fulfilled') {
+    for (const t of binanceR.value) {
+      if (!t.symbol.endsWith('USDT')) continue;
+      const base = t.symbol.slice(0, -4);
+      const price = Number(t.lastPrice);
+      if (price > 0) usd.set(base, { price, vol: Number(t.quoteVolume) || 0 });
+    }
+  }
+  if (usd.size === 0) {
+    throw new KimchiUnavailableError(['binance'], '바이낸스 시세를 받지 못했습니다');
   }
 
-  const krwList = upbitMarkets.filter(m => m.market.startsWith('KRW-'));
-  const nameByBase = new Map(krwList.map(m => [m.market.slice(4), m.korean_name]));
-  const upbit = await fetchUpbitTickers(krwList.map(m => m.market));
+  // 업비트 — 마켓 목록과 시세를 모두 받아야 쓸 수 있다
+  const nameByBase = new Map<string, string>();
+  let upbit = new Map<string, { price: number; vol: number }>();
+  if (upbitMarketsR.status === 'fulfilled') {
+    const krwList = upbitMarketsR.value.filter(m => m.market.startsWith('KRW-'));
+    for (const m of krwList) nameByBase.set(m.market.slice(4), m.korean_name);
+    upbit = await fetchUpbitTickers(krwList.map(m => m.market));
+  }
 
-  const usdtKrw = upbit.get('USDT')?.price ?? 0;
-  if (!(usdtKrw > 0)) throw new Error('missing KRW-USDT');
-
+  // 빗썸
   const bithumb = new Map<string, { price: number; vol: number }>();
-  for (const [base, v] of Object.entries(bithumbRaw.data)) {
-    if (base === 'date' || typeof v === 'string') continue;
-    const price = Number(v.closing_price);
-    if (price > 0) bithumb.set(base, { price, vol: Number(v.acc_trade_value_24H) || 0 });
+  if (bithumbR.status === 'fulfilled') {
+    for (const [base, v] of Object.entries(bithumbR.value.data ?? {})) {
+      if (base === 'date' || typeof v === 'string') continue;
+      const price = Number(v.closing_price);
+      if (price > 0) bithumb.set(base, { price, vol: Number(v.acc_trade_value_24H) || 0 });
+    }
+  }
+
+  const fx = fxR.status === 'fulfilled' ? fxR.value : null;
+  const fxRate = fx?.rate ?? null;
+
+  // USDT 원화 시세 — 업비트가 먼저지만, 죽었으면 빗썸 USDT로 대체한다
+  const usdtKrw = upbit.get('USDT')?.price ?? bithumb.get('USDT')?.price ?? null;
+
+  const sources: SourceStatus[] = [
+    { id: 'binance', label: '바이낸스', ok: true },
+    { id: 'upbit', label: '업비트', ok: upbit.size > 0 },
+    { id: 'bithumb', label: '빗썸', ok: bithumb.size > 0 },
+    { id: 'fx', label: '환율', ok: fxRate != null },
+  ];
+  const failed = sources.filter(s => !s.ok).map(s => s.id);
+
+  if (upbit.size === 0 && bithumb.size === 0) {
+    throw new KimchiUnavailableError(failed, '업비트·빗썸 시세를 모두 받지 못했습니다');
+  }
+  if (fxRate == null && usdtKrw == null) {
+    throw new KimchiUnavailableError(failed, '환율과 USDT 시세를 모두 받지 못해 환산할 수 없습니다');
   }
 
   const bases = new Set<string>([...upbit.keys(), ...bithumb.keys()]);
@@ -174,7 +255,9 @@ export async function fetchKimchi(): Promise<KimchiSnapshot> {
     const btRec = bithumb.get(base);
     const up = upRec?.price ?? null;
     const bt = btRec?.price ?? null;
-    const prem = (krw: number | null, ref: number) => (krw != null ? (krw / (u.price * ref) - 1) * 100 : null);
+    // 환산 기준(ref)이 없으면 그 기준의 김프는 계산할 수 없다 — null로 둔다
+    const prem = (krw: number | null, ref: number | null) =>
+      krw != null && ref != null && ref > 0 ? (krw / (u.price * ref) - 1) * 100 : null;
 
     rows.push({
       base,
@@ -190,7 +273,12 @@ export async function fetchKimchi(): Promise<KimchiSnapshot> {
       upbitUsdt: prem(up, usdtKrw),
       bithumbUsdt: prem(bt, usdtKrw),
       spread: up != null && bt != null && up > 0 ? (bt / up - 1) * 100 : null,
-      comparable: [prem(up, fxRate), prem(bt, fxRate)]
+      // 티커 충돌 판정 — FX 기준이 있으면 그걸로, 없으면 USDT 기준으로 잰다.
+      // 기준이 하나도 없으면 애초에 여기 오지 않는다(위에서 throw).
+      comparable: (fxRate != null
+        ? [prem(up, fxRate), prem(bt, fxRate)]
+        : [prem(up, usdtKrw), prem(bt, usdtKrw)]
+      )
         .filter((v): v is number => v != null)
         .every(v => Math.abs(v) <= MAX_PLAUSIBLE),
     });
@@ -215,9 +303,10 @@ export async function fetchKimchi(): Promise<KimchiSnapshot> {
   return {
     rows: usable,
     fxRate,
-    fxUpdated: fxRaw.time_last_update_utc,
+    fxUpdated: fx?.updated ?? null,
     usdtKrw,
-    usdtPremium: (usdtKrw / fxRate - 1) * 100,
+    usdtPremium: fxRate != null && usdtKrw != null ? (usdtKrw / fxRate - 1) * 100 : null,
+    sources,
     btcFx: btc?.upbitFx ?? btc?.bithumbFx ?? null,
     btcUsdt: btc?.upbitUsdt ?? btc?.bithumbUsdt ?? null,
     marketFx,

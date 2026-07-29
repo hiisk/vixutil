@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { fetchKimchi, premiumTone, type KimchiSnapshot, type KimchiRow } from '@/lib/kimchi';
+import { fetchKimchi, premiumTone, KimchiUnavailableError, type KimchiSnapshot, type KimchiRow } from '@/lib/kimchi';
 import { CoinLogo } from '@/components/crypto/ui';
 
 type State = 'loading' | 'ready' | 'error';
@@ -46,7 +46,7 @@ function Pm({ value }: { value: number | null }) {
 export default function KimchiBoard() {
   const [state, setState] = useState<State>('loading');
   const [snap, setSnap] = useState<KimchiSnapshot | null>(null);
-  const [basis, setBasis] = useState<Basis>('fx');
+  const [pickedBasis, setBasis] = useState<Basis>('fx');
   const [sortKey, setSortKey] = useState<SortKey>('volume');
   const [query, setQuery] = useState('');
 
@@ -57,6 +57,8 @@ export default function KimchiBoard() {
    * 응답이 setState를 부르는 것도 alive 플래그로 막힌다.
    */
   const [reloadKey, setReloadKey] = useState(0);
+  /** 왜 실패했는지 — "거래소 API가 막혔을 수 있습니다"보다 어느 소스인지 말하는 편이 낫다 */
+  const [errMsg, setErrMsg] = useState<string | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -64,10 +66,13 @@ export default function KimchiBoard() {
       .then(s => {
         if (!alive) return;
         setSnap(s);
+        setErrMsg(null);
         setState('ready');
       })
-      .catch(() => {
-        if (alive) setState('error');
+      .catch((e: unknown) => {
+        if (!alive) return;
+        setErrMsg(e instanceof KimchiUnavailableError ? e.message : null);
+        setState('error');
       });
     return () => { alive = false; };
   }, [reloadKey]);
@@ -83,6 +88,18 @@ export default function KimchiBoard() {
     timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
     return () => clearTimeout(timer);
   }, [state]);
+
+  /**
+   * 환율 소스가 죽으면 FX 기준은 계산 자체가 안 되고, USDT 시세가 없으면 USDT 기준이 안 된다.
+   * 고른 기준을 못 쓰면 쓸 수 있는 쪽으로 자동 전환한다. 이펙트로 상태를 되돌리는 대신
+   * 파생값으로 두면 렌더가 한 번 더 도는 경로가 아예 생기지 않는다.
+   */
+  const fxOk = snap ? snap.fxRate != null : true;
+  const usdtOk = snap ? snap.usdtKrw != null : true;
+  const basis: Basis =
+    pickedBasis === 'fx' && !fxOk ? 'usdt'
+    : pickedBasis === 'usdt' && !usdtOk ? 'fx'
+    : pickedBasis;
 
   const premOf = useCallback(
     (r: KimchiRow, ex: 'upbit' | 'bithumb') =>
@@ -120,8 +137,11 @@ export default function KimchiBoard() {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span className="text-3xl">⚠️</span>
-        <span className="text-sm font-bold text-rose-600 dark:text-rose-400">시세를 불러오지 못했습니다</span>
-        <span className="text-xs text-slate-500 dark:text-slate-400">거래소 API가 일시적으로 막혔을 수 있습니다</span>
+        <span className="text-sm font-bold text-rose-600 dark:text-rose-400">{errMsg ?? '시세를 불러오지 못했습니다'}</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm px-4">
+          거래소 API가 일시적으로 막혔거나, 접속 지역에서 차단됐을 수 있습니다.
+          업비트·빗썸 중 한 곳만 살아 있어도 화면은 정상 동작합니다.
+        </span>
         <button onClick={() => { setState('loading'); setReloadKey(k => k + 1); }} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">
           다시 시도
         </button>
@@ -131,6 +151,18 @@ export default function KimchiBoard() {
 
   return (
     <>
+      {/*
+        일부 소스가 죽어도 화면은 계속 뜬다. 다만 조용히 빠지면 사용자는 왜 숫자가 비었는지
+        알 수 없으므로, 빠진 소스를 이름으로 밝힌다.
+      */}
+      {snap.sources.some(s => !s.ok) && (
+        <div role="status" className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.08] px-4 py-3 mb-4 text-xs text-amber-800 dark:text-amber-200/90 leading-relaxed">
+          <b>일부 데이터를 받지 못했습니다.</b>{' '}
+          {snap.sources.filter(s => !s.ok).map(s => s.label).join(' · ')} 응답이 없어 해당 값은 &quot;—&quot;로 표시됩니다.
+          나머지 소스로 계산한 값은 정상입니다.
+        </div>
+      )}
+
       {/* 헤드라인 — 사람들이 이 페이지에 오는 이유는 이 숫자 하나다 */}
       <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -147,32 +179,47 @@ export default function KimchiBoard() {
           </div>
 
           <div className="inline-flex rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-1">
-            {([['fx', '환율 기준'], ['usdt', 'USDT 기준']] as [Basis, string][]).map(([k, label]) => (
-              <button
-                key={k}
-                onClick={() => setBasis(k)}
-                className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${
-                  basis === k ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+            {([['fx', '환율 기준'], ['usdt', 'USDT 기준']] as [Basis, string][]).map(([k, label]) => {
+              const usable = k === 'fx' ? fxOk : usdtOk;
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setBasis(k)}
+                  disabled={!usable}
+                  aria-pressed={basis === k}
+                  title={usable ? undefined : '이 기준에 필요한 데이터를 받지 못했습니다'}
+                  className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${
+                    !usable ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                    : basis === k ? 'bg-amber-500 text-white'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-slate-100 dark:border-slate-800">
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">공식 환율</p>
-            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{snap.fxRate.toFixed(2)}원</p>
+            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">
+              {snap.fxRate != null ? `${snap.fxRate.toFixed(2)}원` : <span className="text-slate-400 dark:text-slate-500">—</span>}
+            </p>
           </div>
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">업비트 USDT</p>
-            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{snap.usdtKrw.toLocaleString()}원</p>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">USDT 시세</p>
+            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">
+              {snap.usdtKrw != null ? `${snap.usdtKrw.toLocaleString()}원` : <span className="text-slate-400 dark:text-slate-500">—</span>}
+            </p>
           </div>
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">USDT 프리미엄</p>
-            <p className="text-base font-black tabular-nums"><Pm value={snap.usdtPremium} /></p>
+            <p className="text-base font-black tabular-nums">
+              {snap.usdtPremium != null ? <Pm value={snap.usdtPremium} /> : <span className="text-slate-400 dark:text-slate-500">—</span>}
+            </p>
           </div>
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">비교 코인</p>
@@ -191,8 +238,12 @@ export default function KimchiBoard() {
         ) : (
           <>
             <b>USDT 기준</b>은 실제 차익거래 경로를 그대로 반영합니다. 원화로 USDT를 사서 해외로 보내는 과정을 따르므로,
-            국내 USDT 자체에 붙은 프리미엄({snap.usdtPremium >= 0 ? '+' : ''}{snap.usdtPremium.toFixed(2)}%)이 이미 반영돼 있습니다.
-            같은 시점에 환율 기준과 {Math.abs((snap.marketFx ?? 0) - (snap.marketUsdt ?? 0)).toFixed(2)}%p 차이가 나는 이유가 이것입니다.
+            {snap.usdtPremium != null ? (
+              <> 국내 USDT 자체에 붙은 프리미엄({snap.usdtPremium >= 0 ? '+' : ''}{snap.usdtPremium.toFixed(2)}%)이 이미 반영돼 있습니다.
+              같은 시점에 환율 기준과 {Math.abs((snap.marketFx ?? 0) - (snap.marketUsdt ?? 0)).toFixed(2)}%p 차이가 나는 이유가 이것입니다.</>
+            ) : (
+              <> 국내 USDT 프리미엄은 환율 소스가 복구되면 함께 표시됩니다.</>
+            )}
           </>
         )}
       </div>
@@ -283,8 +334,8 @@ export default function KimchiBoard() {
           같은 티커에 다른 토큰을 상장한 경우가 있어(예: 업비트 DATA는 데이터네트워크, 바이낸스 DATA는 Streamr)
           가격차가 ±60%를 넘는 {snap.excluded}개 코인은 비교에서 제외했습니다.
           <span className="block mt-1 text-slate-400 dark:text-slate-500">
-            갱신 {snap.fetchedAt.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })} · 1분마다 자동 갱신 ·
-            환율 기준일 {new Date(snap.fxUpdated).toLocaleDateString('ko-KR')}
+            갱신 {snap.fetchedAt.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })} · 1분마다 자동 갱신
+            {snap.fxUpdated && <> · 환율 기준일 {new Date(snap.fxUpdated).toLocaleDateString('ko-KR')}</>}
           </span>
         </div>
       </div>
