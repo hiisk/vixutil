@@ -17,6 +17,7 @@ import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
 import { GENERATORS_ZH } from "@/lib/generator-zh";
 import { GAME_TOOLS } from "@/lib/game-tools";
 import { COLOR_TOOLS } from "@/lib/color-tools";
+import { TIME_TOOLS } from "@/lib/time-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -125,6 +126,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GAME_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/game/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/color`, changeFrequency: weekly, priority: 0.95 },
     ...COLOR_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/color/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/time`, changeFrequency: weekly, priority: 0.95 },
+    ...TIME_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/time/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },

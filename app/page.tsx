@@ -167,6 +167,18 @@ const SECTIONS = [
     shadow: 'shadow-fuchsia-100',
   },
   {
+    href: '/time',
+    icon: '⏰',
+    title: '시간 도구',
+    desc: '타이머·스톱워치·뽀모도로·세계시계·근무일 계산',
+    badge: `${SECTION_COUNTS.time}개`,
+    color: 'from-sky-500 to-rose-500',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
+    shadow: 'shadow-sky-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',

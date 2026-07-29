@@ -25,6 +25,7 @@ const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/text", icon: "✍️", label: "텍스트 도구" },
   { href: "/game", icon: "🕹️", label: "두뇌 게임" },
   { href: "/color", icon: "🎨", label: "색상 도구" },
+  { href: "/time", icon: "⏰", label: "시간 도구" },
 ];
 
 const POPULAR: { href: string; label: string }[] = [
