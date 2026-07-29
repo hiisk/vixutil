@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 /* 영어 허브와 같은 이유로 실제로 만든 것만 싣는다 — 없는 페이지를 링크하면 404다. */
 const TYPES = [
+  { href: '/zh/fortune/daily',      icon: '🔮', title: '今日综合运势', desc: '按出生日期查看今天的运势', badge: '每日', color: 'from-purple-500 to-pink-600' },
   { href: '/zh/fortune/zodiac',     icon: '⭐', title: '星座运势', desc: '12 星座今日运势查询',        badge: '12星座', color: 'from-violet-500 to-purple-700' },
   { href: '/zh/fortune/animal',     icon: '🐉', title: '生肖运势', desc: '十二生肖今日运势查询',       badge: '12生肖', color: 'from-rose-500 to-pink-600' },
   { href: '/zh/fortune/blood-type', icon: '🩸', title: '血型运势', desc: 'A、B、O、AB 型今日运势',     badge: '4种',   color: 'from-rose-500 to-red-600' },

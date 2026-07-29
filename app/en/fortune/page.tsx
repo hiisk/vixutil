@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   깨진 내부 링크가 된다. 번역이 끝나는 대로 이 배열에 추가한다.
 */
 const TYPES = [
+  { href: '/en/fortune/daily',      icon: '🔮', title: 'Today’s Horoscope',      desc: 'Your reading from your birth date',         badge: 'Daily',     color: 'from-purple-500 to-pink-600' },
   { href: '/en/fortune/zodiac',     icon: '⭐', title: 'Daily Horoscope',        desc: 'Today’s reading for all 12 star signs',     badge: '12 signs',  color: 'from-violet-500 to-purple-700' },
   { href: '/en/fortune/animal',     icon: '🐉', title: 'Chinese Zodiac',         desc: 'Today’s reading for all 12 animals',        badge: '12 animals', color: 'from-rose-500 to-pink-600' },
   { href: '/en/fortune/blood-type', icon: '🩸', title: 'Blood Type Horoscope',   desc: 'Today’s reading for A, B, O and AB',        badge: '4 types',   color: 'from-rose-500 to-red-600' },
