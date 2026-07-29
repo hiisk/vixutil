@@ -9,10 +9,16 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
  *
  * canonical은 여기 둔다. app/calculator/layout.tsx에 넣으면 하위 계산기 97개가
  * 전부 이 레이아웃을 상속해 /calculator를 정본으로 가리키게 된다 — 그러면
- * 계산기 페이지들이 색인에서 통째로 빠진다.
+ * 계산기 페이지들이 색인에서 통째로 빠진다. languages도 같은 이유로 여기 있다.
+ *
+ * 이 hreflang은 /calculator/en·/calculator/ja 쪽 선언과 짝을 이룬다. 한쪽만
+ * 가리키면 구글은 그 hreflang 묶음을 통째로 무시한다 — 상호 참조가 조건이다.
  */
 export const metadata: Metadata = {
-  alternates: { canonical: '/calculator' },
+  alternates: {
+    canonical: '/calculator',
+    languages: { 'ko': '/calculator', 'en': '/calculator/en', 'ja': '/calculator/ja', 'x-default': '/calculator' },
+  },
 };
 
 export default function Page() {

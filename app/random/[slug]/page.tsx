@@ -14,6 +14,8 @@ import SecretSanta from '@/components/random/SecretSanta';
 import ShareButton from '@/components/ShareButton';
 import ReferralCards from '@/components/ReferralCards';
 import SiteFooter from '@/components/SiteFooter';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ } from '@/lib/section-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 
 export function generateStaticParams() {
@@ -72,6 +74,8 @@ export default async function RandomToolPage({ params }: { params: Promise<{ slu
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">
           결과는 브라우저에서 실시간 난수로 계산됩니다. 입력한 내용은 저장·전송되지 않습니다.
         </p>
+
+        <Faq items={SECTION_FAQ[`random/${slug}`]} />
 
         <div className="mt-8">
           <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">다른 도구</h2>

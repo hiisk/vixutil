@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     languages: {
       'en': '/en/generator',
       'ko': '/generator',
+      // 중국어판이 /en/generator를 가리키는데 여기서 되받지 않으면 상호 참조가
+      // 끊겨 구글이 이 hreflang 묶음을 무시한다.
+      'zh': '/zh/generator',
       'x-default': '/en/generator',
     },
   },
