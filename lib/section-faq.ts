@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/risk-adjusted': [
+    {
+      q: 'What is the Sharpe ratio and why is it limited for crypto?',
+      a: 'It divides return by total standard deviation. Two things make it a poor fit here: it assumes a normal distribution that fat-tailed crypto returns violate, so the worst days are understated, and it treats large gains as risk in exactly the same way as large losses.',
+    },
+    {
+      q: 'How is Sortino different?',
+      a: 'It divides only by downside deviation, so upside volatility is not penalised. The denominator still uses the total number of observations rather than only the losing ones, which prevents assets with rare losses from being unfairly punished.',
+    },
+    {
+      q: 'What does the Calmar ratio measure?',
+      a: 'Annual return divided by the worst drawdown actually endured. It makes no assumption about the shape of the return distribution, which is its advantage, but it rests on a single historical episode — so a coin that happened to avoid a crash scores well without being safer.',
+    },
+    {
+      q: 'Why do the three ratios rank coins differently?',
+      a: 'Because they encode different definitions of risk. A coin whose losses are rare but severe looks better under Sortino than under Calmar; one with steady mild volatility looks better under Sharpe. The rank-spread column shows how many places each coin moves, and a large spread means the ranking depends on which definition you accept.',
+    },
+    {
+      q: 'Why is the risk-free rate set to zero?',
+      a: 'Because against crypto return magnitudes it is within rounding error, and fixing it to a specific figure would distort comparisons between periods when rates differed. Setting it to zero keeps every column on the same basis.',
+    },
+    {
+      q: 'Does a high ratio predict future performance?',
+      a: 'No. Volatility persists to a useful degree, so the denominators carry some information about the future. The numerator is past return, which does not. Treating a high historical ratio as a forecast is the main way these numbers get misused.',
+    },
+  ],
   'crypto/compound-calculator': [
     {
       q: 'What is the difference between APR and APY?',
