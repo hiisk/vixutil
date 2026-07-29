@@ -30,6 +30,7 @@ const TOOLS = [
   // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/compound-calculator', icon: '🌱', title: 'Compound & Staking', desc: 'APR vs APY — and the price fall that erases the whole yield', badge: 'NEW', color: 'from-green-400 to-lime-500' },
   { href: '/crypto/compare', icon: '⚖️', title: 'Compare Two Coins', desc: 'Returns, risk — and whether the two are really different bets at all', badge: 'NEW', color: 'from-amber-400 to-yellow-500' },
   { href: '/crypto/correlation', icon: '🕸️', title: 'Correlation Matrix', desc: 'Not just the number — how far it drifts, and what happens when BTC drops', badge: 'NEW', color: 'from-purple-400 to-fuchsia-500' },
   { href: '/crypto/seasonality', icon: '🗓️', title: 'Monthly Seasonality', desc: '"Uptober" and the rest — with the sample size that usually gets left out', badge: 'NEW', color: 'from-indigo-400 to-blue-500' },

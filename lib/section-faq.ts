@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/compound-calculator': [
+    {
+      q: 'What is the difference between APR and APY?',
+      a: 'APR is the rate before compounding; APY is what you actually receive once interest earns interest. At 12% APR compounded daily the APY is 12.75%. Platforms advertise whichever looks better, so comparing one product\u2019s APR against another\u2019s APY invents a difference that is not there.',
+    },
+    {
+      q: 'Why does a 12% return only need an 10.7% price fall to erase it?',
+      a: 'Because the fall applies to the grown balance rather than to what you put in. If your holding is 1.12 times its original size, dropping to 1/1.12 of that returns you to break-even, which is a 10.7% decline. Gains and the losses that undo them are never mirror images.',
+    },
+    {
+      q: 'Does earning yield reduce my risk?',
+      a: 'No. Yield paid in a token increases how much of that token you hold, which increases your exposure rather than reducing it. Whether the position ends up profitable is decided mostly by the token price over the same period.',
+    },
+    {
+      q: 'Why compare the yield to volatility?',
+      a: 'Because it shows the scale of the two forces. Crypto assets commonly swing fifty to a hundred percent in a year, so a double-digit rate is a small adjustment to an outcome driven by price. The page reports the yield as a percentage of one year\u2019s ordinary swing to make that concrete.',
+    },
+    {
+      q: 'How is the probability of the break-even fall calculated?',
+      a: 'From the same model used across this site: the coin\u2019s measured volatility with fat-tailed shocks, sampled over four thousand paths, counting how often the price touches the break-even level at any point within a year. It is monitored on daily closes.',
+    },
+    {
+      q: 'What risks are not in this calculation?',
+      a: 'Lock-up periods and unbonding delays, smart-contract failure, validator slashing, platform insolvency, and the possibility that a rate is funded by token emissions rather than revenue. None of them appear in an advertised percentage, and none are modelled here.',
+    },
+  ],
   'crypto/compare': [
     {
       q: 'Which is better, Bitcoin or Ethereum?',
