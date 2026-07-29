@@ -38,8 +38,42 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
-export default function ChecklistEngine({ checklist }: { checklist: Checklist }) {
-  const STORAGE_KEY = `checklist-${checklist.slug}`;
+type Lang = 'ko' | 'en' | 'zh';
+
+/** 사용자에게 보이는 문구만 언어별로 갈라둔다. 나머지 동작은 세 언어가 동일하다. */
+const UI: Record<Lang, {
+  done: string; selectAll: string; deselectAll: string;
+  linkCopied: string; copyFailed: string; imageSaved: string; imageFailed: string;
+  progress: (done: number, total: number) => string;
+  fileSuffix: string;
+}> = {
+  ko: {
+    done: '완료', selectAll: '전체 선택', deselectAll: '전체 선택 해제',
+    linkCopied: '링크가 복사됐어요!', copyFailed: '복사에 실패했어요',
+    imageSaved: '카드 이미지가 저장됐어요!', imageFailed: '이미지 저장에 실패했어요',
+    progress: (d, t) => `${d}/${t}개 완료 중`,
+    fileSuffix: '체크리스트',
+  },
+  en: {
+    done: 'done', selectAll: 'Select all', deselectAll: 'Clear all',
+    linkCopied: 'Link copied', copyFailed: 'Could not copy',
+    imageSaved: 'Image saved', imageFailed: 'Could not save the image',
+    progress: (d, t) => `${d} of ${t} done`,
+    fileSuffix: 'checklist',
+  },
+  zh: {
+    done: '完成', selectAll: '全选', deselectAll: '取消全选',
+    linkCopied: '链接已复制', copyFailed: '复制失败',
+    imageSaved: '图片已保存', imageFailed: '图片保存失败',
+    progress: (d, t) => `已完成 ${d}/${t}`,
+    fileSuffix: '清单',
+  },
+};
+
+export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist: Checklist; lang?: Lang }) {
+  const ui = UI[lang];
+  // 진행 상황은 언어별로 따로 저장한다. 같은 slug라도 항목 id가 언어마다 달라질 수 있다.
+  const STORAGE_KEY = lang === 'ko' ? `checklist-${checklist.slug}` : `checklist-${lang}-${checklist.slug}`;
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [toast, setToast] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
@@ -159,7 +193,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
       ctx.font = font(22, '600');
       ctx.fillStyle = 'rgba(255,255,255,0.8)';
       ctx.textAlign = 'left';
-      ctx.fillText(`${done}/${total} 완료`, barX, y);
+      ctx.fillText(`${done}/${total} ${ui.done}`, barX, y);
       ctx.textAlign = 'right';
       ctx.font = font(26, '900');
       ctx.fillStyle = '#fff';
@@ -281,38 +315,40 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
 
       /* ── 다운로드 ── */
       canvas.toBlob(blob => {
-        if (!blob) { showToast('이미지 저장에 실패했어요'); return; }
+        if (!blob) { showToast(ui.imageFailed); return; }
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${checklist.title}-체크리스트.png`;
+        a.download = `${checklist.title}-${ui.fileSuffix}.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('카드 이미지가 저장됐어요!');
+        showToast(ui.imageSaved);
       }, 'image/png');
 
     } catch {
-      showToast('이미지 저장에 실패했어요');
+      showToast(ui.imageFailed);
     } finally {
       setDownloading(false);
     }
   }
 
   async function handleShare() {
-    const url = `https://vixutil.com/checklist/${checklist.slug}`;
+    const url = lang === 'ko'
+      ? `https://vixutil.com/checklist/${checklist.slug}`
+      : `https://vixutil.com/${lang}/checklist/${checklist.slug}`;
     const title = checklist.title;
-    const text = done > 0 ? `${checklist.title} — ${done}/${total}개 완료 중` : checklist.desc;
+    const text = done > 0 ? `${checklist.title} — ${ui.progress(done, total)}` : checklist.desc;
 
     if (typeof navigator !== 'undefined' && navigator.share) {
       try { await navigator.share({ title, text, url }); return; } catch {}
     }
     try {
       await navigator.clipboard.writeText(url);
-      showToast('링크가 복사됐어요!');
+      showToast(ui.linkCopied);
     } catch {
-      showToast('복사에 실패했어요');
+      showToast(ui.copyFailed);
     }
   }
 
@@ -457,7 +493,7 @@ export default function ChecklistEngine({ checklist }: { checklist: Checklist })
                       {sectionDone}/{sectionIds.length}
                     </span>
                     <span className="text-xs text-slate-400 dark:text-slate-500">
-                      {sectionAllDone ? '전체 선택 해제' : '전체 선택'}
+                      {sectionAllDone ? ui.deselectAll : ui.selectAll}
                     </span>
                   </div>
                 </button>

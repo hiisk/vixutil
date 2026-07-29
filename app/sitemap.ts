@@ -6,6 +6,8 @@ import { CHECKLISTS } from "@/lib/checklist-data";
 import { RANDOM_TOOLS } from "@/lib/random-tools";
 import { DEVICE_TOOLS } from "@/lib/device-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
+import { CHECKLISTS_EN } from "@/lib/checklist-en";
+import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
 import { GENERATORS_ZH } from "@/lib/generator-zh";
 
 const BASE = "https://vixutil.com";
@@ -137,6 +139,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/blood-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/daily`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },
+    ...CHECKLISTS_EN.map((c: { slug: string }) => ({ url: `${BASE}/en/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/zh/fortune/zodiac`, changeFrequency: weekly, priority: 0.8 },
@@ -151,6 +155,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/blood-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/daily`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/zh/checklist`, changeFrequency: weekly, priority: 0.9 },
+    ...CHECKLISTS_ZH.map((c: { slug: string }) => ({ url: `${BASE}/zh/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/calculator/en`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, changeFrequency: weekly, priority: 0.9 },
