@@ -732,6 +732,58 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/compare': [
+    {
+      q: 'Which is better, Bitcoin or Ethereum?',
+      a: 'The comparison has no fixed answer because it depends entirely on the window. This page shows returns over 30 days, 90 days, one year and two years precisely so you can see the lead change, and it says so when it does. A single headline figure is a choice of period presented as a property of the asset.',
+    },
+    {
+      q: 'Why does the page show the correlation between the two coins?',
+      a: 'Because it decides whether the comparison is interesting. Most large-cap crypto pairs correlate above 0.7, which means they differ mainly in how much they move rather than in when. Choosing between them is then closer to choosing exposure than to choosing a different bet, and holding both is not diversification.',
+    },
+    {
+      q: 'What does beta to Bitcoin mean here?',
+      a: 'It measures how much the coin has tended to move for a given Bitcoin move. A beta of 1.5 implies roughly one and a half times the move in either direction. Since almost all crypto moves with Bitcoin, beta is often more informative about a coin than its own return figures.',
+    },
+    {
+      q: 'Why compare drawdowns rather than just returns?',
+      a: 'Because drawdown is what determines whether a position is holdable. Two coins with the same annual return are not equivalent if one of them fell eighty percent along the way. The table also separates the worst drawdown ever from the current distance below the high, which are different questions.',
+    },
+    {
+      q: 'Is it fair to compare a new coin against an old one?',
+      a: 'Not entirely, and the page notes the overlapping history it used. A coin listed recently is judged on a shorter and usually easier sample, since it has not lived through as many market regimes. The day counts beside each coin are there so that asymmetry is visible.',
+    },
+    {
+      q: 'Does the better past performer keep winning?',
+      a: 'There is no evidence here for that, and this page makes no such claim. Volatility and correlation persist to a useful degree, drawdowns describe what holders have already endured, but the return column describes a period that has already happened.',
+    },
+  ],
+  'crypto/correlation': [
+    {
+      q: 'What does the correlation matrix show?',
+      a: 'The linear co-movement of daily returns between the major cryptocurrencies over the window you select. A value of 1 means the two moved together every day, 0 means no linear relationship, and negative values mean they tended to move in opposite directions.',
+    },
+    {
+      q: 'Why show how much the correlation changes?',
+      a: 'Because correlation is a property of a pair over a window, not a fixed property of the pair. Splitting the same window into quarters often moves the figure substantially, which means a portfolio designed around a single average was built for a relationship that did not hold for much of the period.',
+    },
+    {
+      q: 'Do cryptocurrencies diversify each other?',
+      a: 'Much less than the numbers suggest at a glance. Almost every large-cap pair sits well above zero, so the low readings are low by degree rather than in kind. A basket of them behaves closer to one position held in several proportions than to a diversified portfolio.',
+    },
+    {
+      q: 'Why report a median move on crash days instead of a crash correlation?',
+      a: 'Because restricting a sample to days when one variable moved a lot distorts correlation mechanically, through range truncation. A "crash correlation" can therefore rise or fall for reasons unrelated to diversification. How far each coin actually fell on those days has no such artefact and answers the question directly.',
+    },
+    {
+      q: 'What does the multiple against Bitcoin mean?',
+      a: 'It compares median moves on the days Bitcoin fell more than three percent. A value of 1.5 means the coin typically fell about half again as much as Bitcoin did on those days, which is the practical form of the question people are asking when they check correlation.',
+    },
+    {
+      q: 'Can correlation predict future price moves?',
+      a: 'No. It describes how two assets moved together in the past over one window, and this page shows how unstable even that description is. It carries no forecast about direction for either asset.',
+    },
+  ],
   'crypto/seasonality': [
     {
       q: 'Is there really a best month to buy crypto?',
