@@ -32,6 +32,7 @@ const SECTIONS = [
   { href: '/zh/color',     icon: '🎨', title: '颜色工具',      desc: '配色、色阶、对比度、CSS 渐变',      color: 'from-fuchsia-500 to-rose-500', accent: 'text-fuchsia-700 dark:text-fuchsia-300', border: 'border-fuchsia-200 dark:border-fuchsia-900/50', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30' },
   { href: '/zh/image',     icon: '🖼️', title: '图片工具',        desc: '压缩、调整尺寸、裁剪、人脸打码',           color: 'from-violet-500 to-indigo-600', accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30' },
   { href: '/zh/sound',     icon: '🔊', title: '声音工具',        desc: '节拍器、调音器、白噪音、信号音',          color: 'from-indigo-500 to-violet-600', accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30' },
+  { href: '/zh/food',      icon: '🍳', title: '厨房工具',      desc: '量杯换克、烤箱温度、米水比、咖啡',        color: 'from-amber-500 to-orange-600', accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30' },
 ];
 
 export default function ZhHome() {

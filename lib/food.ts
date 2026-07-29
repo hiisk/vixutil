@@ -5,11 +5,14 @@
  * 200g으로 서로 다르다 — 같은 부피라도 재료마다 밀도가 다르기 때문이다. 이걸
  * 무시하고 "1컵 = 200g"으로 퉁치면 베이킹은 반드시 실패한다.
  *
- * 한국 계량 기준을 쓴다: 1컵 200ml, 1큰술 15ml, 1작은술 5ml.
- * (미국은 1컵이 240ml라 레시피 출처를 확인해야 한다.)
+ * 기본은 한국 계량 기준이다: 1컵 200ml, 1큰술 15ml, 1작은술 5ml.
+ * 다만 영어권 레시피의 1컵은 240ml라 값이 20% 어긋난다 — 그래서 toSpoons는
+ * 컵 크기를 인자로 받고, 화면에서 어느 기준인지 고를 수 있게 해 둔다.
  */
 
 export const CUP_ML = 200;
+/** 미국식 컵 — 영어권 레시피는 대개 이쪽이다 */
+export const US_CUP_ML = 240;
 export const TBSP_ML = 15;
 export const TSP_ML = 5;
 
@@ -52,10 +55,10 @@ export function gramToVolume(g: number, density: number): number {
 }
 
 /** ml을 컵·큰술·작은술로 쪼갠다 — 계량도구로 실제로 재려면 이 형태가 필요하다 */
-export function toSpoons(ml: number): { cup: number; tbsp: number; tsp: number } {
+export function toSpoons(ml: number, cupMl: number = CUP_ML): { cup: number; tbsp: number; tsp: number } {
   let left = ml;
-  const cup = Math.floor(left / CUP_ML);
-  left -= cup * CUP_ML;
+  const cup = Math.floor(left / cupMl);
+  left -= cup * cupMl;
   const tbsp = Math.floor(left / TBSP_ML);
   left -= tbsp * TBSP_ML;
   return { cup, tbsp, tsp: Math.round((left / TSP_ML) * 10) / 10 };

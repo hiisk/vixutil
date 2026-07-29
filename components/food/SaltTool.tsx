@@ -1,15 +1,17 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { CARD, NumberField, Result } from './ui';
+import { SALT_UI, type FoodLang } from '@/lib/food-ui-intl';
 
 const USES = [
-  { pct: 2, label: '겉절이·즉석', note: '살짝만 절일 때' },
-  { pct: 6, label: '배추 절이기', note: '김장 기본' },
-  { pct: 10, label: '장아찌', note: '오래 두고 먹을 때' },
-  { pct: 15, label: '염장', note: '아주 오래 보관' },
+  { pct: 2 },
+  { pct: 6 },
+  { pct: 10 },
+  { pct: 15 },
 ];
 
-export default function SaltTool() {
+export default function SaltTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
+  const ui = SALT_UI[lang];
   const [water, setWater] = useState(1000);
   const [percent, setPercent] = useState(6);
   const [mode, setMode] = useState<'salt' | 'percent'>('salt');
@@ -31,7 +33,7 @@ export default function SaltTool() {
   return (
     <div>
       <div className="grid grid-cols-2 gap-2">
-        {([['salt', '소금량 구하기'], ['percent', '염도 구하기']] as const).map(([v, label]) => (
+        {(['salt', 'percent'] as const).map((v, i) => (
           <button
             key={v}
             onClick={() => setMode(v)}
@@ -41,41 +43,41 @@ export default function SaltTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {label}
+            {ui.modes[i]}
           </button>
         ))}
       </div>
 
       <div className="grid grid-cols-2 gap-3 mt-4">
-        <NumberField label="물" value={water} onChange={setWater} unit="ml" step={100} />
+        <NumberField label={ui.water} value={water} onChange={setWater} unit="ml" step={100} />
         {mode === 'salt'
-          ? <NumberField label="원하는 염도" value={percent} onChange={setPercent} unit="%" step={0.5} />
-          : <NumberField label="넣은 소금" value={salt} onChange={setSalt} unit="g" step={5} />}
+          ? <NumberField label={ui.targetPct} value={percent} onChange={setPercent} unit="%" step={0.5} />
+          : <NumberField label={ui.saltAdded} value={salt} onChange={setSalt} unit="g" step={5} />}
       </div>
 
-      <Result sub={mode === 'salt' ? '물 무게 기준 · 총량 기준으로는 아래 참고' : '물 대비 / 총량 대비'}>
+      <Result sub={mode === 'salt' ? ui.subSalt : ui.subPct}>
         {mode === 'salt'
-          ? <>소금 {result.byWater}<span className="text-xl ml-1">g</span></>
+          ? <>{ui.saltWord} {result.byWater}<span className="text-xl ml-1">g</span></>
           : <>{result.pctWater}<span className="text-xl ml-1">%</span></>}
       </Result>
 
       <p className="mt-2 text-center text-xs text-slate-400 dark:text-slate-500">
         {mode === 'salt'
-          ? `총량(물+소금) 기준으로 정확히 ${percent}%를 맞추려면 ${result.byTotal}g`
-          : `총량(물+소금) 기준으로는 ${result.pctTotal}%`}
+          ? ui.byTotalExact(percent, result.byTotal ?? 0)
+          : ui.byTotalPct(result.pctTotal ?? 0)}
       </p>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">용도별 권장 염도</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.presetTitle}</p>
         <div className="grid grid-cols-2 gap-2">
-          {USES.map(u => (
+          {USES.map((u, i) => (
             <button
               key={u.pct}
               onClick={() => { setMode('salt'); setPercent(u.pct); }}
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-left hover:border-sky-300 transition-colors"
             >
-              <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{u.label} {u.pct}%</span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{u.note}</span>
+              <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[i]} {u.pct}%</span>
+              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.presetNotes[i]}</span>
             </button>
           ))}
         </div>
@@ -83,8 +85,7 @@ export default function SaltTool() {
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          소금 종류에 따라 같은 부피라도 무게가 다릅니다. 굵은 소금은 알갱이 사이 공간이 많아 같은 컵에
-          담아도 가볍고, 맛소금은 첨가물이 있어 더 짜게 느껴집니다. 저울로 무게를 재는 편이 확실합니다.
+          {ui.note}
         </p>
       </div>
     </div>

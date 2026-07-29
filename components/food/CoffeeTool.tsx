@@ -2,17 +2,14 @@
 import { useMemo, useState } from 'react';
 import { BREW_RATIOS } from '@/lib/food';
 import { CARD, NumberField, Result, Stat } from './ui';
+import { BREW_INTL, GRIND_INTL } from '@/lib/food-intl';
+import { COFFEE_UI, type FoodLang } from '@/lib/food-ui-intl';
 
-const GRIND: Record<string, string> = {
-  'filter-light': '중간 굵기 · 2분 30초~3분',
-  filter: '중간 굵기 · 2분 30초~3분',
-  'filter-strong': '중간보다 조금 곱게 · 3분',
-  french: '아주 굵게 · 4분 담근 뒤 눌러 내리기',
-  coldbrew: '굵게 · 냉장 12~16시간',
-  espresso: '아주 곱게 · 25~30초 추출',
-};
 
-export default function CoffeeTool() {
+export default function CoffeeTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
+  const ui = COFFEE_UI[lang];
+  const brews = BREW_INTL[lang];
+  const grinds = GRIND_INTL[lang];
   const [method, setMethod] = useState('filter');
   const [water, setWater] = useState(300);
   const [mode, setMode] = useState<'byWater' | 'byBean'>('byWater');
@@ -40,9 +37,9 @@ export default function CoffeeTool() {
           >
             <span className="min-w-0 flex-1">
               <span className={`block text-sm font-black ${method === b.id ? 'text-amber-800 dark:text-amber-300' : 'text-slate-800 dark:text-slate-100'}`}>
-                {b.name}
+                {brews[b.id].name}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{b.note}</span>
+              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{brews[b.id].note}</span>
             </span>
             <span className="shrink-0 text-sm font-black text-slate-500 dark:text-slate-400 tabular-nums">1:{b.ratio}</span>
           </button>
@@ -50,7 +47,7 @@ export default function CoffeeTool() {
       </div>
 
       <div className="grid grid-cols-2 gap-2 mt-4">
-        {([['byWater', '물 양으로 계산'], ['byBean', '원두 양으로 계산']] as const).map(([v, label]) => (
+        {(['byWater', 'byBean'] as const).map((v, i) => (
           <button
             key={v}
             onClick={() => setMode(v)}
@@ -60,31 +57,30 @@ export default function CoffeeTool() {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            {label}
+            {ui.modes[i]}
           </button>
         ))}
       </div>
 
       <div className="mt-3">
         {mode === 'byWater'
-          ? <NumberField label={pick.id === 'espresso' ? '추출할 양' : '마실 물'} value={water} onChange={setWater} unit="ml" step={50} />
-          : <NumberField label="원두" value={bean} onChange={setBean} unit="g" step={1} />}
+          ? <NumberField label={pick.id === 'espresso' ? ui.yieldLabel : ui.drinkWater} value={water} onChange={setWater} unit="ml" step={50} />
+          : <NumberField label={ui.beanLabel} value={bean} onChange={setBean} unit="g" step={1} />}
       </div>
 
-      <Result sub={GRIND[method]}>
-        원두 {result.bean}<span className="text-xl">g</span> · 물 {result.water}<span className="text-xl">ml</span>
+      <Result sub={grinds[method]}>
+        {ui.beanWord} {result.bean}<span className="text-xl">g</span> · {ui.waterWord} {result.water}<span className="text-xl">ml</span>
       </Result>
 
       <div className="grid grid-cols-3 gap-2 mt-3">
-        <Stat label="원두" value={`${result.bean}g`} accent="text-amber-700" />
-        <Stat label="물" value={`${result.water}ml`} />
-        <Stat label="비율" value={`1 : ${pick.ratio}`} accent="text-orange-700" />
+        <Stat label={ui.beanStat} value={`${result.bean}g`} accent="text-amber-700" />
+        <Stat label={ui.waterStat} value={`${result.water}ml`} />
+        <Stat label={ui.ratioStat} value={`1 : ${pick.ratio}`} accent="text-orange-700" />
       </div>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          비율은 시작점일 뿐입니다. 같은 비율이라도 물 온도(90~95℃)와 분쇄도에 따라 맛이 크게 달라집니다.
-          쓰고 텁텁하면 굵게 갈거나 물 온도를 낮추고, 싱겁고 신맛만 나면 곱게 갈거나 시간을 늘리세요.
+          {ui.note}
         </p>
       </div>
     </div>

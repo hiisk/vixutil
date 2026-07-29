@@ -2,17 +2,22 @@
 import { useMemo, useState } from 'react';
 import { STORAGE } from '@/lib/food';
 import { CARD } from './ui';
+import { STORAGE_CATEGORIES, STORAGE_INTL } from '@/lib/food-intl';
+import { STORAGE_UI, type FoodLang } from '@/lib/food-ui-intl';
 
-const CATEGORIES = ['전체', '육류', '수산물', '유제품', '조리식품', '채소·과일'];
+// 분류 목록은 lib/food-intl.ts의 STORAGE_CATEGORIES에서 온다 — 첫 항목이 '전체'다
 
-export default function StorageTool() {
-  const [category, setCategory] = useState('전체');
+export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
+  const ui = STORAGE_UI[lang];
+  const cats = STORAGE_CATEGORIES[lang];
+  const rows = STORAGE_INTL[lang];
+  const [category, setCategory] = useState(cats[0]);
   const [query, setQuery] = useState('');
 
   const items = useMemo(() => {
     const q = query.trim();
     return STORAGE.filter(
-      s => (category === '전체' || s.category === category) && (!q || s.name.includes(q)),
+      (s, i) => (category === cats[0] || rows[i].category === category) && (!q || rows[i].name.toLowerCase().includes(q.toLowerCase())),
     );
   }, [category, query]);
 
@@ -22,12 +27,12 @@ export default function StorageTool() {
         type="search"
         value={query}
         onChange={e => setQuery(e.target.value)}
-        placeholder="재료 이름으로 찾기 — 닭, 우유, 두부…"
+        placeholder={ui.searchPlaceholder}
         className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 transition-colors"
       />
 
       <div className="flex gap-2 overflow-x-auto pb-1 mt-3" style={{ scrollbarWidth: 'none' }}>
-        {CATEGORIES.map(c => (
+        {cats.map(c => (
           <button
             key={c}
             onClick={() => setCategory(c)}
@@ -51,27 +56,25 @@ export default function StorageTool() {
                 <span className="block text-[11px] text-slate-400 dark:text-slate-500">{s.category}</span>
               </span>
               <span className="shrink-0 text-right">
-                <span className="block text-xs text-slate-500 dark:text-slate-400">냉장 <b className="text-cyan-600">{s.fridge}</b></span>
-                <span className="block text-xs text-slate-500 dark:text-slate-400">냉동 <b className="text-blue-600">{s.freezer}</b></span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.fridge} <b className="text-cyan-600">{rows[STORAGE.indexOf(s)].fridge}</b></span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.freezer} <b className="text-blue-600">{rows[STORAGE.indexOf(s)].freezer}</b></span>
               </span>
             </div>
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">💡 {s.tip}</p>
           </div>
         ))}
         {items.length === 0 && (
-          <p className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">찾는 재료가 목록에 없습니다</p>
+          <p className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">{ui.notFound}</p>
         )}
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">기간은 품질 기준입니다</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          여기 적힌 기간은 &lsquo;맛과 질감이 유지되는&rsquo; 기준입니다. 냉동은 그 뒤에도 상하지는 않지만 맛이
-          떨어집니다. 반대로 냉장은 기간 안이라도 온도가 높거나 여러 번 열었다면 더 빨리 상할 수 있으니,
-          <b className="text-slate-800 dark:text-slate-100"> 냄새와 색을 먼저 확인하세요.</b>
+          {ui.note}<b className="text-slate-800 dark:text-slate-100">{ui.noteBold}</b>
         </p>
         <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
-          해동한 식품을 다시 얼리지 마세요. 녹는 동안 늘어난 세균이 그대로 남습니다.
+          {ui.refreeze}
         </p>
       </div>
     </div>

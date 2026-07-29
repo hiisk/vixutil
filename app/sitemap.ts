@@ -14,6 +14,7 @@ import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
+import { foodToolsIntl } from "@/lib/food-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
 import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
@@ -243,6 +244,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/en/sound`, changeFrequency: weekly, priority: 0.9 },
     ...soundToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/en/food`, changeFrequency: weekly, priority: 0.9 },
+    ...foodToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/food/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
@@ -278,6 +282,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/zh/sound`, changeFrequency: weekly, priority: 0.9 },
     ...soundToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/zh/food`, changeFrequency: weekly, priority: 0.9 },
+    ...foodToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/food/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
