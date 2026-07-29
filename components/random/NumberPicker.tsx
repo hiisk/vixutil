@@ -15,7 +15,8 @@ function pickNumbers(min: number, max: number, count: number, unique: boolean): 
   return Array.from({ length: count }, () => lo + Math.floor(Math.random() * span));
 }
 
-export default function NumberPicker() {
+export default function NumberPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+  const ko = lang === 'ko';
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [count, setCount] = useState(1);
@@ -44,31 +45,31 @@ export default function NumberPicker() {
   return (
     <div>
       <div className="flex gap-3 mb-3">
-        {num(min, setMin, '최소')}
-        {num(max, setMax, '최대')}
-        {num(count, v => setCount(Math.max(1, v)), '개수')}
+        {num(min, setMin, ko ? '최소' : 'Min')}
+        {num(max, setMax, ko ? '최대' : 'Max')}
+        {num(count, v => setCount(Math.max(1, v)), ko ? '개수' : 'Count')}
       </div>
       <label className="flex items-center gap-2 mb-5 text-sm text-slate-600 dark:text-slate-300 cursor-pointer">
         <input type="checkbox" checked={unique} onChange={e => setUnique(e.target.checked)} className="w-4 h-4 accent-emerald-500" />
-        중복 없이 뽑기
+        {ko ? '중복 없이 뽑기' : 'No duplicates'}
       </label>
 
       <button
         onClick={draw}
         className="w-full bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-black text-lg rounded-2xl py-4 mb-3 shadow-lg shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
-        🔢 숫자 뽑기
+        {ko ? '🔢 숫자 뽑기' : '🔢 Generate numbers'}
       </button>
       <button
         onClick={lotto}
         className="w-full border-2 border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold rounded-2xl py-3 mb-6 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
       >
-        🍀 로또 번호 (1~45 중 6개)
+        {ko ? '🍀 로또 번호 (1~45 중 6개)' : '🍀 Lottery (6 of 1–45)'}
       </button>
 
       {result && (
         <div className="rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white p-6 text-center">
-          <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? '이번 주 행운의 번호 🍀' : '결과'}</div>
+          <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? (ko ? '이번 주 행운의 번호 🍀' : 'Your lucky numbers 🍀') : (ko ? '결과' : 'Result')}</div>
           <div className="flex flex-wrap justify-center gap-2">
             {result.map((n, i) => (
               <span key={i} className="wc-pop flex items-center justify-center w-12 h-12 rounded-full bg-white text-emerald-700 text-lg font-black" style={{ animationDelay: `${i * 90}ms` }}>

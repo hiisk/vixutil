@@ -15,8 +15,9 @@ function shuffle<T>(arr: T[]): T[] {
 
 const CONFETTI = ['🎉', '🎊', '✨', '🎈', '⭐', '💫'];
 
-export default function RandomPicker() {
-  const [text, setText] = useState('철수\n영희\n민수\n지연\n현우\n서준');
+export default function RandomPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+  const ko = lang === 'ko';
+  const [text, setText] = useState(ko ? '철수\n영희\n민수\n지연\n현우\n서준' : 'Alex\nSam\nJordan\nTaylor\nJamie\nCasey');
   const [count, setCount] = useState(1);
   const [winners, setWinners] = useState<string[] | null>(null);
   const [rolling, setRolling] = useState(false);
@@ -31,8 +32,6 @@ export default function RandomPicker() {
     if (rolling || items.length === 0) return;
     setWinners(null);
     setRolling(true);
-
-    // 슬롯머신식 두근두근 — 이름을 점점 느리게 번갈아 보여주다 멈춘다.
     timers.current.forEach(clearTimeout);
     timers.current = [];
     const totalMs = 1600;
@@ -41,7 +40,7 @@ export default function RandomPicker() {
     const tick = () => {
       setFlash(items[Math.floor(Math.random() * items.length)]);
       elapsed += delay;
-      delay = Math.min(delay * 1.18, 240); // 점점 느려짐
+      delay = Math.min(delay * 1.18, 240);
       if (elapsed < totalMs) {
         timers.current.push(setTimeout(tick, delay));
       } else {
@@ -58,15 +57,15 @@ export default function RandomPicker() {
         value={text}
         onChange={e => { setText(e.target.value); setWinners(null); }}
         rows={6}
-        placeholder="한 줄에 하나씩, 또는 쉼표로 구분해 입력하세요"
+        placeholder={ko ? '한 줄에 하나씩, 또는 쉼표로 구분해 입력하세요' : 'One name per line, or separated by commas'}
         className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400 resize-y"
       />
       <div className="flex items-center justify-between mt-2 mb-4 text-xs text-slate-400">
-        <span>총 {items.length}명 · {c}명 뽑기</span>
+        <span>{ko ? `총 ${items.length}명 · ${c}명 뽑기` : `${items.length} names · pick ${c}`}</span>
       </div>
 
       <div className="flex items-center gap-2 mb-5">
-        <span className="text-sm font-bold text-slate-500 dark:text-slate-400">뽑을 인원</span>
+        <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ko ? '뽑을 인원' : 'How many'}</span>
         <input
           type="number" min={1} max={max} value={count}
           onChange={e => setCount(Math.max(1, Math.min(max, Number(e.target.value) || 1)))}
@@ -74,27 +73,26 @@ export default function RandomPicker() {
         />
       </div>
 
-      {/* 두근두근 무대 */}
       <div className="relative mb-5 overflow-hidden rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white min-h-[7rem] flex flex-col items-center justify-center p-5">
         {rolling ? (
           <>
-            <div className="text-xs font-bold text-amber-100 mb-1 tracking-widest">🥁 두구두구두구…</div>
+            <div className="text-xs font-bold text-amber-100 mb-1 tracking-widest">🥁 {ko ? '두구두구두구…' : 'drumroll…'}</div>
             <div className="rp-shake text-3xl font-black drop-shadow">{flash || '?'}</div>
           </>
         ) : winners ? (
           <>
-            <div className="text-xs font-bold text-amber-100 mb-2">당첨 🎉</div>
+            <div className="text-xs font-bold text-amber-100 mb-2">{ko ? '당첨 🎉' : 'Winner 🎉'}</div>
             <div className="flex flex-wrap justify-center gap-2">
               {winners.map((w, i) => (
                 <span key={i} className="rp-pop relative inline-block bg-white/25 rounded-full px-4 py-2 text-lg font-black" style={{ animationDelay: `${i * 120}ms` }}>
-                  <span className="absolute -top-2 -right-1 text-sm" style={{ animationDelay: `${i * 120}ms` }}>{CONFETTI[i % CONFETTI.length]}</span>
+                  <span className="absolute -top-2 -right-1 text-sm">{CONFETTI[i % CONFETTI.length]}</span>
                   {w}
                 </span>
               ))}
             </div>
           </>
         ) : (
-          <div className="text-lg font-black text-white/90">누가 뽑힐까요? 🎯</div>
+          <div className="text-lg font-black text-white/90">{ko ? '누가 뽑힐까요? 🎯' : 'Who will it be? 🎯'}</div>
         )}
       </div>
 
@@ -103,7 +101,7 @@ export default function RandomPicker() {
         disabled={items.length === 0 || rolling}
         className="w-full bg-gradient-to-r from-amber-400 to-orange-500 text-white font-black text-lg rounded-2xl py-4 shadow-lg shadow-amber-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
-        {rolling ? '뽑는 중…' : winners ? '🎯 다시 뽑기' : '🎯 뽑기 시작!'}
+        {rolling ? (ko ? '뽑는 중…' : 'Drawing…') : winners ? (ko ? '🎯 다시 뽑기' : '🎯 Draw again') : (ko ? '🎯 뽑기 시작!' : '🎯 Draw!')}
       </button>
 
       <style jsx>{`

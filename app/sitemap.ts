@@ -101,6 +101,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en/generator`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/en/random`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
+    ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/random/${t.slug}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/calculator/en`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, lastModified: now, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, lastModified: now, changeFrequency: monthly, priority: 0.8 })),

@@ -30,8 +30,9 @@ function derange(names: string[]): Record<string, string> {
   return map;
 }
 
-export default function SecretSanta() {
-  const [text, setText] = useState('철수\n영희\n민수\n지연\n현우');
+export default function SecretSanta({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
+  const ko = lang === 'ko';
+  const [text, setText] = useState(ko ? '철수\n영희\n민수\n지연\n현우' : 'Alex\nSam\nJordan\nTaylor\nJamie');
   const [assign, setAssign] = useState<Record<string, string> | null>(null);
   const [order, setOrder] = useState<string[]>([]);
   const [openFor, setOpenFor] = useState<string | null>(null);
@@ -68,20 +69,20 @@ export default function SecretSanta() {
             value={text}
             onChange={e => setText(e.target.value)}
             rows={6}
-            placeholder="참가자 이름을 한 줄에 하나씩 (3명 이상)"
+            placeholder={ko ? '참가자 이름을 한 줄에 하나씩 (3명 이상)' : 'One name per line (3 or more)'}
             className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-400 resize-y"
           />
-          <div className="mt-2 mb-4 text-xs text-slate-400">총 {names.length}명</div>
-          {dupWarning && <p className="text-xs text-rose-500 mb-3">이름이 겹쳐요. 구분되게 입력해 주세요(예: 김철수, 이철수).</p>}
+          <div className="mt-2 mb-4 text-xs text-slate-400">{ko ? `총 ${names.length}명` : `${names.length} people`}</div>
+          {dupWarning && <p className="text-xs text-rose-500 mb-3">{ko ? '이름이 겹쳐요. 구분되게 입력해 주세요(예: 김철수, 이철수).' : 'Duplicate names — make them unique (e.g. John S, John K).'}</p>}
           <button
             onClick={run}
             disabled={names.length < 3 || dupWarning}
             className="w-full bg-gradient-to-r from-rose-500 to-red-600 text-white font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
           >
-            🎁 마니또 뽑기
+            {ko ? '🎁 마니또 뽑기' : '🎁 Draw Secret Santa'}
           </button>
           <p className="mt-3 text-center text-xs text-slate-400 dark:text-slate-500">
-            뽑은 뒤 폰을 돌려가며 각자 자기 마니또만 몰래 확인하세요.
+            {ko ? '뽑은 뒤 폰을 돌려가며 각자 자기 마니또만 몰래 확인하세요.' : 'After drawing, pass the phone around so each person privately checks their own match.'}
           </p>
         </>
       )}
@@ -89,8 +90,8 @@ export default function SecretSanta() {
       {assign && (
         <>
           <div className="text-center mb-4">
-            <div className="text-sm font-black text-rose-600">배정 완료! 🎁</div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">이름을 눌러 각자 자기 마니또를 확인하세요</p>
+            <div className="text-sm font-black text-rose-600">{ko ? '배정 완료! 🎁' : 'All matched! 🎁'}</div>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{ko ? '이름을 눌러 각자 자기 마니또를 확인하세요' : 'Tap your name to see your match'}</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-5">
@@ -112,31 +113,31 @@ export default function SecretSanta() {
             onClick={() => setAssign(null)}
             className="w-full border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-300 font-bold rounded-2xl py-3 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
           >
-            🔄 새로 뽑기
+            {ko ? '🔄 새로 뽑기' : '🔄 Draw again'}
           </button>
 
           {/* 확인 패널 (인라인 카드, 오버레이 아님) */}
           {openFor && (
             <div className="ss-pop mt-5 rounded-2xl border-2 border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/20 p-6 text-center">
               <div className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-3">
-                <span className="text-rose-600 font-black">{openFor}</span> 님만 보세요 🤫
+                <span className="text-rose-600 font-black">{openFor}</span> {ko ? '님만 보세요 🤫' : 'only 🤫'}
               </div>
               {!revealed ? (
                 <button
                   onClick={() => setRevealed(true)}
                   className="w-full bg-gradient-to-r from-rose-500 to-red-600 text-white font-black rounded-xl py-3.5 hover:shadow-lg transition-all"
                 >
-                  🎁 내 마니또 확인하기
+                  {ko ? '🎁 내 마니또 확인하기' : '🎁 Reveal my match'}
                 </button>
               ) : (
                 <>
-                  <div className="text-xs text-slate-400 mb-1">당신의 마니또는</div>
+                  <div className="text-xs text-slate-400 mb-1">{ko ? '당신의 마니또는' : 'Your match is'}</div>
                   <div className="text-3xl font-black text-rose-600 dark:text-rose-300 mb-4">{assign[openFor]}</div>
                   <button
                     onClick={close}
                     className="w-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-xl py-2.5 hover:bg-white dark:hover:bg-slate-800 transition-colors"
                   >
-                    확인했어요, 닫기
+                    {ko ? '확인했어요, 닫기' : 'Got it, close'}
                   </button>
                 </>
               )}
