@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/risk-of-ruin': [
+    {
+      q: 'What is risk of ruin?',
+      a: 'The probability that a run of losses reduces an account to a level you would not continue trading from. It depends on the win rate, the reward-to-risk ratio, and the fraction of the account risked on each trade.',
+    },
+    {
+      q: 'Which input matters most?',
+      a: 'The risk per trade, by a wide margin. Holding the win rate and reward ratio fixed and varying only the bet size moves the probability of ruin by orders of magnitude. The same strategy can be survivable for one trader and fatal for another purely through position size.',
+    },
+    {
+      q: 'Can I avoid ruin by trading smaller if my strategy loses money?',
+      a: 'No. With negative expectancy ruin is certain given enough trades, and smaller bets only postpone it. Advice to reduce size treats a sizing problem as though it could fix an edge problem, which it cannot.',
+    },
+    {
+      q: 'How is the probability calculated?',
+      a: 'In closed form rather than by simulation. The ruin probability satisfies a recursion whose solution is a geometric series, so it reduces to a root of p·z^(R+1) − z + q = 0 raised to the number of losses the account can absorb. For a reward ratio of 1 this is exactly the classic (q/p)^n result.',
+    },
+    {
+      q: 'Why does the page also show the break-even win rate?',
+      a: 'Because a win rate only means something relative to the reward ratio. At 2:1 you need to be right a third of the time to break even; at 1:2 you need two thirds. Without that comparison a win rate figure is unreadable.',
+    },
+    {
+      q: 'What does the model get wrong about real trading?',
+      a: 'It assumes trades are independent. In practice losses cluster, because whatever produced one usually persists for a while, and clustering makes ruin more likely than the figure shown. Win rates also drift, and the one you enter is usually estimated from too few trades.',
+    },
+  ],
   'crypto/risk-adjusted': [
     {
       q: 'What is the Sharpe ratio and why is it limited for crypto?',
