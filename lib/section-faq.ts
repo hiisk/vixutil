@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/dca-calculator': [
+    {
+      q: 'What does this DCA calculator actually compute?',
+      a: 'It replays a recurring fixed-amount buy against real Binance daily closes. Buys land on the close at each interval, so you get the total invested, the quantity accumulated, the average cost and what the position would be worth at the end of the window. Fees, spread and slippage are excluded.',
+    },
+    {
+      q: 'Why does it show every start date instead of just one?',
+      a: 'Because in crypto the start date usually matters more than the strategy. The same plan begun a year apart can end up with completely different results, so a single hand-picked window mostly reflects the choice of window. Running the plan from every possible start date shows the worst, the median and the best outcome, which tells you whether the headline number was lucky.',
+    },
+    {
+      q: 'Is dollar-cost averaging better than investing a lump sum?',
+      a: 'Not automatically, and this page measures it rather than asserting it. Spreading purchases lowers your average cost only when the price falls after you begin. In a market that mostly rose, buying later means buying higher, and lump sum wins more often. What DCA reliably reduces is how much your entry timing decides the outcome, not the average outcome itself.',
+    },
+    {
+      q: 'What does the number of independent windows mean?',
+      a: 'Overlapping windows re-measure the same history. Three years of daily data yields hundreds of one-year windows but only three that do not overlap, so the apparent sample size is far larger than the real one. The page shows the non-overlapping count next to every spread, and flags results below six as unreliable.',
+    },
+    {
+      q: 'Why is my result different from other DCA calculators?',
+      a: 'Usually the window, the price source or the buy timing. This page uses Binance daily closes and buys at the close of each interval; sites using a different exchange, a different close convention or a fee assumption will land somewhere nearby but not identical. Large gaps almost always come from a different start date rather than a different method.',
+    },
+    {
+      q: 'Does the historical result predict future returns?',
+      a: 'No. A backtest describes one particular past, and crypto has only a few genuinely independent multi-year windows in total. Coins that collapsed and were delisted are also missing from the data, which biases any historical average upward. Treat these figures as a description of what happened, not a forecast.',
+    },
+  ],
   'crypto/liquidation-calculator': [
     {
       q: 'How is the liquidation price calculated?',
