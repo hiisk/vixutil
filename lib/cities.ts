@@ -37,18 +37,97 @@ export const CITIES: City[] = [
 
 export const DEFAULT_CITY_IDS = ['seoul', 'newyork', 'london', 'tokyo', 'losangeles'];
 
+export type CityLang = 'ko' | 'en' | 'zh';
+
+/**
+ * 도시·국가 이름의 en/zh 표기. id·zone·flag는 세 언어가 공유하므로 여기엔 이름만 둔다.
+ * 표기가 없는 id는 한국어를 그대로 쓴다 — 도시를 추가해도 화면이 깨지지 않는다.
+ */
+const CITY_NAMES: Record<Exclude<CityLang, 'ko'>, Record<string, { city: string; country: string }>> = {
+  en: {
+    seoul: { city: 'Seoul', country: 'South Korea' },
+    tokyo: { city: 'Tokyo', country: 'Japan' },
+    beijing: { city: 'Beijing', country: 'China' },
+    hongkong: { city: 'Hong Kong', country: 'Hong Kong' },
+    singapore: { city: 'Singapore', country: 'Singapore' },
+    bangkok: { city: 'Bangkok', country: 'Thailand' },
+    hanoi: { city: 'Hanoi', country: 'Vietnam' },
+    delhi: { city: 'New Delhi', country: 'India' },
+    dubai: { city: 'Dubai', country: 'UAE' },
+    moscow: { city: 'Moscow', country: 'Russia' },
+    london: { city: 'London', country: 'United Kingdom' },
+    paris: { city: 'Paris', country: 'France' },
+    berlin: { city: 'Berlin', country: 'Germany' },
+    newyork: { city: 'New York', country: 'United States' },
+    chicago: { city: 'Chicago', country: 'United States' },
+    losangeles: { city: 'Los Angeles', country: 'United States' },
+    saopaulo: { city: 'São Paulo', country: 'Brazil' },
+    sydney: { city: 'Sydney', country: 'Australia' },
+    auckland: { city: 'Auckland', country: 'New Zealand' },
+  },
+  zh: {
+    seoul: { city: '首尔', country: '韩国' },
+    tokyo: { city: '东京', country: '日本' },
+    beijing: { city: '北京', country: '中国' },
+    hongkong: { city: '香港', country: '香港' },
+    singapore: { city: '新加坡', country: '新加坡' },
+    bangkok: { city: '曼谷', country: '泰国' },
+    hanoi: { city: '河内', country: '越南' },
+    delhi: { city: '新德里', country: '印度' },
+    dubai: { city: '迪拜', country: '阿联酋' },
+    moscow: { city: '莫斯科', country: '俄罗斯' },
+    london: { city: '伦敦', country: '英国' },
+    paris: { city: '巴黎', country: '法国' },
+    berlin: { city: '柏林', country: '德国' },
+    newyork: { city: '纽约', country: '美国' },
+    chicago: { city: '芝加哥', country: '美国' },
+    losangeles: { city: '洛杉矶', country: '美国' },
+    saopaulo: { city: '圣保罗', country: '巴西' },
+    sydney: { city: '悉尼', country: '澳大利亚' },
+    auckland: { city: '奥克兰', country: '新西兰' },
+  },
+};
+
+/** 언어별 도시 목록 */
+export function citiesIn(lang: CityLang): City[] {
+  if (lang === 'ko') return CITIES;
+  const names = CITY_NAMES[lang];
+  return CITIES.map(c => (names[c.id] ? { ...c, ...names[c.id] } : c));
+}
+
+export function findCityIn(lang: CityLang, id: string): City | undefined {
+  return citiesIn(lang).find(c => c.id === id);
+}
+
+/**
+ * 시차를 비교할 기준 시간대.
+ *
+ * 한국어는 서울을 기준으로 둔다(기존 동작). 영어·중국어에서 "서울보다 3시간 빠름"은
+ * 의미가 약하므로, 방문자 브라우저의 시간대를 기준으로 삼는다.
+ */
+export function baseZoneFor(lang: CityLang): string {
+  if (lang === 'ko') return 'Asia/Seoul';
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  } catch {
+    return 'UTC';
+  }
+}
+
+const LOCALE: Record<CityLang, string> = { ko: 'ko-KR', en: 'en-US', zh: 'zh-CN' };
+
 export const findCity = (id: string) => CITIES.find(c => c.id === id);
 
 /** 그 시간대의 현재 시:분:초 */
-export function timeIn(zone: string, at: number): string {
-  return new Intl.DateTimeFormat('ko-KR', {
+export function timeIn(zone: string, at: number, lang: CityLang = 'ko'): string {
+  return new Intl.DateTimeFormat(LOCALE[lang], {
     timeZone: zone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
   }).format(at);
 }
 
 /** 그 시간대의 날짜(월/일 요일) */
-export function dateIn(zone: string, at: number): string {
-  return new Intl.DateTimeFormat('ko-KR', {
+export function dateIn(zone: string, at: number, lang: CityLang = 'ko'): string {
+  return new Intl.DateTimeFormat(LOCALE[lang], {
     timeZone: zone, month: 'long', day: 'numeric', weekday: 'short',
   }).format(at);
 }
@@ -83,4 +162,10 @@ export const DAY_PART_LABEL: Record<DayPart, string> = {
   morning: '이른 아침',
   work: '업무 시간',
   evening: '저녁',
+};
+
+export const DAY_PART_LABEL_INTL: Record<CityLang, Record<DayPart, string>> = {
+  ko: DAY_PART_LABEL,
+  en: { night: 'Middle of the night', morning: 'Early morning', work: 'Working hours', evening: 'Evening' },
+  zh: { night: '深夜', morning: '清晨', work: '工作时间', evening: '傍晚' },
 };

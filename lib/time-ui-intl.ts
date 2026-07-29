@@ -144,27 +144,77 @@ export const ALARM_UI: L<{
   },
 };
 
-export const WORLDCLOCK_UI: L<{ manage: string; now: string }> = {
-  ko: { manage: '도시 추가·제거', now: '지금' },
-  en: { manage: 'Add or remove cities', now: 'Now' },
-  zh: { manage: '增删城市', now: '现在' },
+export const WORLDCLOCK_UI: L<{
+  manage: string; now: string;
+  ahead: (base: string, h: number) => string;
+  behind: (base: string, h: number) => string;
+  yourTime: string; note: string;
+}> = {
+  ko: {
+    manage: '도시 추가·제거', now: '지금',
+    ahead: (base, h) => `${base}보다 ${h}시간 빠름`,
+    behind: (base, h) => `${base}보다 ${h}시간 느림`,
+    yourTime: '서울',
+    note: '카드 색은 그곳의 시간대를 뜻합니다 — 초록은 업무 시간, 검정은 한밤중입니다. 연락하기 전에 색만 봐도 지금 보내도 되는지 알 수 있습니다. 서머타임은 브라우저가 각 나라의 규칙을 알고 있어 자동으로 반영됩니다.',
+  },
+  en: {
+    manage: 'Add or remove cities', now: 'Now',
+    ahead: (base, h) => `${h}h ahead of ${base}`,
+    behind: (base, h) => `${h}h behind ${base}`,
+    yourTime: 'your time',
+    note: 'The card colour tells you what time of day it is there — green is working hours, black is the middle of the night. A glance at the colour tells you whether now is a reasonable moment to message. Daylight saving is applied automatically, since the browser knows each country’s rules.',
+  },
+  zh: {
+    manage: '增删城市', now: '现在',
+    ahead: (base, h) => `比${base}快 ${h} 小时`,
+    behind: (base, h) => `比${base}慢 ${h} 小时`,
+    yourTime: '你所在地',
+    note: '卡片颜色代表当地是什么时候 —— 绿色是工作时间，黑色是深夜。联系之前看一眼颜色，就知道现在发消息合不合适。夏令时会自动处理，因为浏览器知道各国的规则。',
+  },
 };
 
 export const TIMEZONE_UI: L<{
   baseCity: string; targetCity: string; baseTime: string;
   sameDay: string; nextDay: string; prevDay: string; bothWorking: string;
+  note: string;
+  atIs: (city: string, t: string) => string;
+  inCity: (city: string, rel: string) => string;
+  offsetLabel: (sign: string, h: number) => string;
+  cityTime: (city: string) => string;
+  dayCompare: (n: number) => string; dstNote: string;
 }> = {
   ko: {
     baseCity: '기준 도시', targetCity: '상대 도시', baseTime: '기준 시각',
     sameDay: '같은 날', nextDay: '다음 날', prevDay: '전날', bothWorking: '둘 다 업무 시간',
+    note: '초록으로 겹치는 구간이 두 도시 모두 업무 시간인 때입니다. 회의를 잡을 때 그 안에서 고르면 한쪽이 새벽에 들어오는 일이 없습니다. 서머타임은 자동으로 반영됩니다.',
+    atIs: (city, t) => `${city} ${t} 은`,
+    inCity: (city, rel) => `${city} 기준 ${rel}`,
+    offsetLabel: (sign, h) => ` · 시차 ${sign}${h}시간`,
+    cityTime: city => `${city} 시각`,
+    dayCompare: n => `하루 비교 — 초록 칸은 양쪽 모두 업무 시간입니다 (${n}시간)`,
+    dstNote: '시차는 서머타임이 반영된 실제 값입니다. 미국·유럽은 3월과 11월 사이에 한 시간씩 당겨지므로, 한 달 뒤 회의라면 그 사이에 서머타임이 바뀌지 않는지 확인하세요.',
   },
   en: {
     baseCity: 'From', targetCity: 'To', baseTime: 'Time',
     sameDay: 'Same day', nextDay: 'Next day', prevDay: 'Previous day', bothWorking: 'Both in working hours',
+    note: 'The rows highlighted green are the hours that fall inside working hours in both cities. Pick a meeting slot from those and nobody ends up joining at dawn. Daylight saving is applied automatically.',
+    atIs: (city, t) => `${city} ${t} is`,
+    inCity: (city, rel) => `${rel} in ${city}`,
+    offsetLabel: (sign, h) => ` · offset ${sign}${h}h`,
+    cityTime: city => `Time in ${city}`,
+    dayCompare: n => `Full day — green rows are working hours in both (${n}h)`,
+    dstNote: 'The offset shown is the real one, with daylight saving applied. The US and Europe shift by an hour between March and November, so for a meeting a month out, check that daylight saving does not change in between.',
   },
   zh: {
     baseCity: '基准城市', targetCity: '目标城市', baseTime: '基准时刻',
     sameDay: '同一天', nextDay: '次日', prevDay: '前一天', bothWorking: '双方都在工作时间',
+    note: '标绿的时段是两个城市都处在工作时间的小时。约会议时从这里面挑，就不会有人凌晨上线。夏令时会自动处理。',
+    atIs: (city, t) => `${city} ${t} 是`,
+    inCity: (city, rel) => `${city}的${rel}`,
+    offsetLabel: (sign, h) => ` · 时差 ${sign}${h} 小时`,
+    cityTime: city => `${city}时刻`,
+    dayCompare: n => `全天对照 —— 标绿的是双方都在工作时间的小时（${n} 小时）`,
+    dstNote: '显示的时差是包含夏令时的实际值。美国与欧洲在 3 月至 11 月之间会拨快一小时，所以一个月之后的会议，要确认这期间夏令时不会变。',
   },
 };
 

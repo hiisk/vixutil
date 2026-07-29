@@ -1,5 +1,6 @@
-import type { TimeTool } from './time-tools';
-import { TIME_TOOLS } from './time-tools';
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import type { TimeTool } from './time-tools.ts';
+import { TIME_TOOLS } from './time-tools.ts';
 
 /**
  * 시간 도구(/time) 섹션의 영어·중국어 메타데이터.

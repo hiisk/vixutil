@@ -10,6 +10,7 @@ import { TEXT_TOOLS } from "@/lib/text-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
 import { CHECKLISTS_EN } from "@/lib/checklist-en";
 import { QUIZZES_EN } from "@/lib/quiz-en";
+import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
 import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
@@ -209,6 +210,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/zh/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
+    { url: `${BASE}/en/time`, changeFrequency: weekly, priority: 0.9 },
+    ...timeToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
@@ -233,6 +236,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/tarot-yesno`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/dream`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/zh/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
+    { url: `${BASE}/zh/time`, changeFrequency: weekly, priority: 0.9 },
+    ...timeToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
