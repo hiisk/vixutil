@@ -273,6 +273,26 @@ export const BIRTH_INFO_ZH = [
     blurb: '十二月出生的人自带福气。与人相处融洽，很容易把好的缘分吸引过来。' },
 ] as const;
 
+/* ── MBTI 16유형 ── 중화권에서 통용되는 별칭을 쓴다. id 순서는 한국어와 동일 */
+export const MBTI_TYPES_ZH = [
+  { id: 'ISTJ', name: 'ISTJ', nickname: '物流师',   emoji: '🏛️', trait: '有责任感·细致' },
+  { id: 'ISFJ', name: 'ISFJ', nickname: '守卫者',   emoji: '🛡️', trait: '尽心·体贴' },
+  { id: 'INFJ', name: 'INFJ', nickname: '提倡者',   emoji: '🔭', trait: '有洞察力·共情' },
+  { id: 'INTJ', name: 'INTJ', nickname: '建筑师',   emoji: '🧠', trait: '有战略性·独立' },
+  { id: 'ISTP', name: 'ISTP', nickname: '鉴赏家',   emoji: '🔧', trait: '善分析·务实' },
+  { id: 'ISFP', name: 'ISFP', nickname: '探险家',   emoji: '🎨', trait: '温和·感性' },
+  { id: 'INFP', name: 'INFP', nickname: '调停者',   emoji: '🌿', trait: '理想主义·有创意' },
+  { id: 'INTP', name: 'INTP', nickname: '逻辑学家', emoji: '💡', trait: '讲逻辑·爱钻研' },
+  { id: 'ESTP', name: 'ESTP', nickname: '企业家',   emoji: '⚡', trait: '行动力强·现实' },
+  { id: 'ESFP', name: 'ESFP', nickname: '表演者',   emoji: '🎉', trait: '有活力·随性' },
+  { id: 'ENFP', name: 'ENFP', nickname: '竞选者',   emoji: '✨', trait: '热情·有创造力' },
+  { id: 'ENTP', name: 'ENTP', nickname: '辩论家',   emoji: '🚀', trait: '爱挑战·善创新' },
+  { id: 'ESTJ', name: 'ESTJ', nickname: '总经理',   emoji: '📊', trait: '有领导力·善组织' },
+  { id: 'ESFJ', name: 'ESFJ', nickname: '执政官',   emoji: '🤝', trait: '重和谐·善社交' },
+  { id: 'ENFJ', name: 'ENFJ', nickname: '主人公',   emoji: '🎤', trait: '有影响力·共情' },
+  { id: 'ENTJ', name: 'ENTJ', nickname: '指挥官',   emoji: '🦅', trait: '果断·目标导向' },
+] as const;
+
 /* ── 오늘의 행운 색 ── hex와 순서는 한국어 COLORS와 동일하게 맞춘다 */
 export const LUCKY_COLOR_INFO_ZH = [
   { name: '红色',   hex: '#ef4444', meaning: '热情与自信高涨的一天', tip: '重要场合戴一件红色单品，存在感会不一样。', keywords: ['热情', '自信', '行动力'] },

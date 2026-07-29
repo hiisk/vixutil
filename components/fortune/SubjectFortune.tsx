@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import FortuneDisplayIntl from './FortuneDisplayIntl';
-import { zodiacSigns, animals, bloodTypes, t, type Lang, type Subject } from '@/lib/fortune-intl';
+import { zodiacSigns, animals, bloodTypes, mbtiTypes, t, type Lang, type Subject } from '@/lib/fortune-intl';
 
 /**
  * 별자리·띠·혈액형 운세의 공용 화면.
@@ -12,24 +12,27 @@ import { zodiacSigns, animals, bloodTypes, t, type Lang, type Subject } from '@/
  * 구조가 완전히 같아서, 한국어 쪽처럼 페이지마다 복사해 두면 문구를 고칠 때
  * 세 군데를 똑같이 고쳐야 한다. en/zh는 처음부터 하나로 묶는다.
  */
-export type SubjectKind = 'zodiac' | 'animal' | 'blood';
+export type SubjectKind = 'zodiac' | 'animal' | 'blood' | 'mbti';
 
 const KIND_META: Record<SubjectKind, { seedPrefix: string; icon: string; cols: string }> = {
   zodiac: { seedPrefix: 'zodiac', icon: '⭐', cols: 'grid-cols-3' },
   animal: { seedPrefix: 'animal', icon: '🐉', cols: 'grid-cols-3' },
   blood:  { seedPrefix: 'blood',  icon: '🩸', cols: 'grid-cols-2' },
+  mbti:   { seedPrefix: 'mbti',   icon: '🧠', cols: 'grid-cols-4' },
 };
 
 const TITLES: Record<SubjectKind, Record<Lang, string>> = {
   zodiac: { ko: '별자리 운세', en: 'Daily Horoscope', zh: '星座运势' },
   animal: { ko: '띠 운세',     en: 'Chinese Zodiac Horoscope', zh: '生肖运势' },
   blood:  { ko: '혈액형 운세', en: 'Blood Type Horoscope', zh: '血型运势' },
+  mbti:   { ko: 'MBTI 운세',   en: 'MBTI Daily Horoscope', zh: 'MBTI 今日运势' },
 };
 
 const PROMPTS: Record<SubjectKind, Record<Lang, string>> = {
   zodiac: { ko: '내 별자리를 선택하세요', en: 'Choose your star sign', zh: '选择你的星座' },
   animal: { ko: '내 띠를 선택하세요',     en: 'Choose your zodiac animal', zh: '选择你的生肖' },
   blood:  { ko: '내 혈액형을 선택하세요', en: 'Choose your blood type', zh: '选择你的血型' },
+  mbti:   { ko: '내 MBTI를 선택하세요',   en: 'Choose your MBTI type', zh: '选择你的 MBTI 类型' },
 };
 
 const EMPTY: Record<Lang, string> = {
@@ -41,6 +44,7 @@ const EMPTY: Record<Lang, string> = {
 function subjectsFor(kind: SubjectKind, lang: Lang): readonly Subject[] {
   if (kind === 'zodiac') return zodiacSigns(lang);
   if (kind === 'animal') return animals(lang);
+  if (kind === 'mbti') return mbtiTypes(lang);
   return bloodTypes(lang);
 }
 

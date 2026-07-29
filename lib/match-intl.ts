@@ -221,6 +221,135 @@ export const MBTI_AXIS_TEXT: Record<IntlLang, {
   },
 };
 
+/* ── 혈액형 궁합 ──
+   키는 blood-match.ts의 key()와 같은 규칙(A<B<O<AB 순서)으로 만든다. */
+export const BLOOD_MATCH_TEXT: Record<IntlLang, Record<string, Texts>> = {
+  en: {
+    'A-A': {
+      label: 'Quiet and steady', headline: 'Two people who read each other easily',
+      reason: 'Both of you are attentive and considerate, so you pick up on each other’s mood quickly. It runs smoothly, without big conflict.',
+      love: 'A careful romance that deepens over time. It lasts if you do not ration your affection.',
+      advice: 'You both tend to swallow things. Say what stung when it happens rather than storing it.',
+    },
+    'A-B': {
+      label: 'Opposites attract', headline: 'Drawn to what the other one has',
+      reason: 'Careful A and free-roaming B are quite different people. Early on that difference reads as a fresh kind of pull.',
+      love: 'One brings the planning, the other the spontaneity — you rarely get bored.',
+      advice: 'It works when A does not read B’s freedom as a threat, and B does not read A’s care as nagging.',
+    },
+    'A-O': {
+      label: 'Solid match', headline: 'Easygoing O makes room for careful A',
+      reason: 'Generous O wraps around detail-minded A comfortably. Each covers what the other runs short on.',
+      love: 'O leads, A looks after the details, and it settles into something stable.',
+      advice: 'O should not let A’s small signals pass unnoticed; A can afford to lean on O a little more.',
+    },
+    'A-AB': {
+      label: 'Quietly in tune', headline: 'Two sensitive people who get each other',
+      reason: 'Both of you run sensitive and inward, so you recognise what the other is actually feeling.',
+      love: 'A calm romance with plenty of moments that need no explaining.',
+      advice: 'It is easier when A does not over-analyse AB’s harder-to-pin-down side.',
+    },
+    'B-B': {
+      label: 'Free spirits', headline: 'Two people who respect each other’s space',
+      reason: 'Both of you have a strong sense of self and dislike being tied down. Acknowledge each other’s world and it stays comfortable.',
+      love: 'A relaxed romance where you each do your own thing and still come back together.',
+      advice: 'Enjoy the freedom, but keep expressing things so it does not drift into indifference.',
+    },
+    'B-O': {
+      label: 'High energy', headline: 'Being together is simply fun',
+      reason: 'Free-roaming B and sociable O keep the mood lively. You play well together and talk easily.',
+      love: 'An active, energetic couple who like doing things rather than sitting still.',
+      advice: 'You both push hard, so you will collide sometimes. Give a step each and you are a formidable pair.',
+    },
+    'B-AB': {
+      label: 'Sparky match', headline: 'Two originals who never run out of ideas',
+      reason: 'Free-roaming B and inventive AB bounce off each other. You find each other’s quirks entertaining.',
+      love: 'A distinctive romance run entirely on your own terms.',
+      advice: 'You can both be changeable, so pin down the plans that actually matter.',
+    },
+    'O-O': {
+      label: 'Straight talkers', headline: 'Honest, warm and quick to move on',
+      reason: 'Both of you are broad-minded and direct, with nothing left simmering. You say it and then it is over.',
+      love: 'Direct expression means fewer misunderstandings, and no half-measures.',
+      advice: 'Neither of you likes losing. Skip the pride contests and you are a dependable pair.',
+    },
+    'O-AB': {
+      label: 'Complementary', headline: 'Warmth and clear thinking together',
+      reason: 'Sociable O and rational AB fill in each other’s gaps. The balance holds well.',
+      love: 'O’s warmth and AB’s cool head give you both stability and stimulation.',
+      advice: 'It lasts as long as O does not take AB’s need for distance personally.',
+    },
+    'AB-AB': {
+      label: 'Uniquely in tune', headline: 'Two unusual people who recognise each other',
+      reason: 'Both of you are original and hard to predict — other people may find that difficult, but you two follow each other easily.',
+      love: 'A relationship that runs on a code only the two of you read.',
+      advice: 'You can both swing emotionally. Clear the misunderstandings often, with plain conversation.',
+    },
+  },
+  zh: {
+    'A-A': {
+      label: '沉稳安定型', headline: '很懂彼此的舒服关系',
+      reason: '两人都细腻体贴，能读懂对方的情绪，相处平顺，很少有大的冲突。',
+      love: '小心翼翼却越来越深的恋爱，不吝表达就能长久。',
+      advice: '两人都容易憋在心里，委屈别攒着，当下就说出来。',
+    },
+    'A-B': {
+      label: '互相吸引的反差型', headline: '被彼此的不同吸引',
+      reason: '细腻的 A 与自由的 B 性格差挺多，这份差异一开始会变成新鲜的吸引力。',
+      love: '一方有计划、一方随性，在一起不会无聊。',
+      advice: '关键是 A 别把 B 的自由当成不安，B 也别把 A 的细心当成唠叨。',
+    },
+    'A-O': {
+      label: '踏实合拍型', headline: '大方的 O 包住细腻的 A',
+      reason: '宽厚的 O 让心细的 A 觉得安心，彼此正好补上对方缺的那块。',
+      love: 'O 来带节奏、A 来顾细节，容易走向安定的恋爱。',
+      advice: 'O 别忽略 A 细微的信号，A 也可以更放心地依靠 O 一点。',
+    },
+    'A-AB': {
+      label: '默契感性型', headline: '两个细腻的人悄悄相通',
+      reason: '两人都敏感、感性，能读懂对方心底真正的感受。',
+      love: '不用多说就懂的时刻很多，是安静而深的恋爱。',
+      advice: 'A 别太去分析 AB 那种捉摸不定的一面，会轻松很多。',
+    },
+    'B-B': {
+      label: '自由灵魂型', headline: '尊重彼此空间的关系',
+      reason: '两人个性都鲜明，讨厌被束缚。承认彼此的世界，相处就很自在。',
+      love: '互不干涉、各自精彩又能在一起的洒脱恋爱。',
+      advice: '享受自由的同时，别让它滑向漠不关心，表达还是要有。',
+    },
+    'B-O': {
+      label: '活力四射型', headline: '在一起就很带劲',
+      reason: '自由的 B 遇上外向的 O，气氛总是热闹。玩得来也聊得来。',
+      love: '喜欢动起来的约会，是能量满满的一对。',
+      advice: '两人都很有冲劲，难免碰撞。各让一步就是最强搭档。',
+    },
+    'B-AB': {
+      label: '灵光跳跃型', headline: '两个有个性的人，没有无聊的时候',
+      reason: '自由的 B 与独特的 AB 凑一起，想法一个接一个冒出来，觉得对方的个性很有意思。',
+      love: '用只属于你们的方式谈的独特恋爱。',
+      advice: '两人都可能善变，重要的约定要说清楚定下来。',
+    },
+    'O-O': {
+      label: '爽快直接型', headline: '坦白痛快、不留隔夜气',
+      reason: '两人都大方直率，不记仇。该说的说完，很快就翻篇。',
+      love: '表达直接所以误会少，爱得也干脆。',
+      advice: '两人都不服输，只要不比自尊，就是很靠得住的一对。',
+    },
+    'O-AB': {
+      label: '互补型', headline: '大方与理性交织',
+      reason: '外向的 O 与理性的 AB 互相补上空缺，平衡感很好。',
+      love: 'O 的温暖遇上 AB 的冷静，既安定又有刺激。',
+      advice: 'O 别把 AB 想保持距离的一面当成疏远，就能长久。',
+    },
+    'AB-AB': {
+      label: '独特相通型', headline: '两个与众不同的人认出了彼此',
+      reason: '两人都有个性、难以预测，别人觉得难懂，你们却很能通。',
+      love: '用只有你们懂的暗号相通的特别恋爱。',
+      advice: '两人情绪都可能起伏，多用坦白的对话把误会解开。',
+    },
+  },
+};
+
 /* ── 공통 UI 문구 ── */
 export const MATCH_UI: Record<IntlLang, Record<string, string>> = {
   en: {

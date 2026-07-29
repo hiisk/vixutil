@@ -23,6 +23,8 @@ const TYPES = [
   { href: '/zh/fortune/star-match',   icon: '💞', title: '星座配对', desc: '按四元素看两个星座的相配程度', badge: '12星座', color: 'from-violet-500 to-fuchsia-600' },
   { href: '/zh/fortune/zodiac-match', icon: '🐲', title: '生肖配对', desc: '六合、三合、相冲的传统相性', badge: '12生肖', color: 'from-rose-500 to-red-600' },
   { href: '/zh/fortune/mbti-match',   icon: '🧠', title: 'MBTI 配对', desc: '16型人格中两者的契合度', badge: '16型', color: 'from-violet-500 to-indigo-600' },
+  { href: '/zh/fortune/blood-match',  icon: '🩸', title: '血型配对', desc: 'A、B、O、AB 型的配对结果', badge: '4种', color: 'from-rose-500 to-orange-600' },
+  { href: '/zh/fortune/mbti',         icon: '🧠', title: 'MBTI 今日运势', desc: '16型人格的今日运势', badge: '16型', color: 'from-sky-500 to-blue-600' },
 ];
 
 export default function ZhFortuneHub() {

@@ -275,6 +275,28 @@ export const BIRTH_INFO_EN = [
     blurb: 'December people carry luck with them. They mix easily with others and have a way of pulling good relationships toward themselves.' },
 ] as const;
 
+/* ── MBTI 16유형 ──
+   한국어 nickname("세상의 소금형" 등)은 국내에서만 통용되는 별칭이라 옮기지 않고,
+   영어권에서 실제로 쓰이는 표현으로 새로 붙였다. id 순서는 한국어와 동일하다. */
+export const MBTI_TYPES_EN = [
+  { id: 'ISTJ', name: 'ISTJ', nickname: 'The Inspector',    emoji: '🏛️', trait: 'Responsible · precise' },
+  { id: 'ISFJ', name: 'ISFJ', nickname: 'The Protector',    emoji: '🛡️', trait: 'Devoted · considerate' },
+  { id: 'INFJ', name: 'INFJ', nickname: 'The Advocate',     emoji: '🔭', trait: 'Insightful · empathetic' },
+  { id: 'INTJ', name: 'INTJ', nickname: 'The Architect',    emoji: '🧠', trait: 'Strategic · independent' },
+  { id: 'ISTP', name: 'ISTP', nickname: 'The Craftsman',    emoji: '🔧', trait: 'Analytical · practical' },
+  { id: 'ISFP', name: 'ISFP', nickname: 'The Composer',     emoji: '🎨', trait: 'Gentle · expressive' },
+  { id: 'INFP', name: 'INFP', nickname: 'The Mediator',     emoji: '🌿', trait: 'Idealistic · creative' },
+  { id: 'INTP', name: 'INTP', nickname: 'The Thinker',      emoji: '💡', trait: 'Logical · curious' },
+  { id: 'ESTP', name: 'ESTP', nickname: 'The Doer',         emoji: '⚡', trait: 'Decisive · grounded' },
+  { id: 'ESFP', name: 'ESFP', nickname: 'The Entertainer',  emoji: '🎉', trait: 'Lively · spontaneous' },
+  { id: 'ENFP', name: 'ENFP', nickname: 'The Campaigner',   emoji: '✨', trait: 'Enthusiastic · inventive' },
+  { id: 'ENTP', name: 'ENTP', nickname: 'The Debater',      emoji: '🚀', trait: 'Challenging · original' },
+  { id: 'ESTJ', name: 'ESTJ', nickname: 'The Executive',    emoji: '📊', trait: 'Leading · organised' },
+  { id: 'ESFJ', name: 'ESFJ', nickname: 'The Provider',     emoji: '🤝', trait: 'Harmonious · sociable' },
+  { id: 'ENFJ', name: 'ENFJ', nickname: 'The Protagonist',  emoji: '🎤', trait: 'Influential · empathetic' },
+  { id: 'ENTJ', name: 'ENTJ', nickname: 'The Commander',    emoji: '🦅', trait: 'Decisive · goal-driven' },
+] as const;
+
 /* ── 오늘의 행운 색 ──
    hex는 한국어 COLORS와 같은 순서·같은 값으로 맞춘다. 순서가 어긋나면
    같은 시드가 언어별로 다른 색을 고르게 된다. */

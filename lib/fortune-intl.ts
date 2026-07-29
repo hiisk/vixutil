@@ -10,17 +10,17 @@
 import {
   todaySeed, pick, pickIdx, seededInt, starRating,
   FORTUNE_POOL, ADVICE_POOL, LUCKY_ITEMS, KEYWORD_POOL, LUCKY_COLORS, LUCKY_DIRECTIONS,
-  ZODIAC_SIGNS, ANIMALS, BLOOD_TYPES,
+  ZODIAC_SIGNS, ANIMALS, BLOOD_TYPES, MBTI_TYPES,
 // 테스트가 node --test로 직접 이 파일을 불러오므로 확장자를 명시한다.
 // (tsconfig의 allowImportingTsExtensions가 켜져 있어 빌드에도 문제없다)
 } from './fortune-data.ts';
 import {
   FORTUNE_POOL_EN, ADVICE_POOL_EN, LUCKY_ITEMS_EN, KEYWORD_POOL_EN, LUCKY_COLORS_EN, LUCKY_DIRECTIONS_EN,
-  ZODIAC_SIGNS_EN, ANIMALS_EN, BLOOD_TYPES_EN,
+  ZODIAC_SIGNS_EN, ANIMALS_EN, BLOOD_TYPES_EN, MBTI_TYPES_EN,
 } from './fortune-en.ts';
 import {
   FORTUNE_POOL_ZH, ADVICE_POOL_ZH, LUCKY_ITEMS_ZH, KEYWORD_POOL_ZH, LUCKY_COLORS_ZH, LUCKY_DIRECTIONS_ZH,
-  ZODIAC_SIGNS_ZH, ANIMALS_ZH, BLOOD_TYPES_ZH,
+  ZODIAC_SIGNS_ZH, ANIMALS_ZH, BLOOD_TYPES_ZH, MBTI_TYPES_ZH,
 } from './fortune-zh.ts';
 
 export type Lang = 'ko' | 'en' | 'zh';
@@ -47,6 +47,10 @@ export function animals(lang: Lang): readonly Subject[] {
 
 export function bloodTypes(lang: Lang): readonly Subject[] {
   return lang === 'ko' ? BLOOD_TYPES : lang === 'zh' ? BLOOD_TYPES_ZH : BLOOD_TYPES_EN;
+}
+
+export function mbtiTypes(lang: Lang): readonly Subject[] {
+  return lang === 'ko' ? MBTI_TYPES : lang === 'zh' ? MBTI_TYPES_ZH : MBTI_TYPES_EN;
 }
 
 interface Pools {

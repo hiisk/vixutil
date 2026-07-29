@@ -6,34 +6,44 @@ import ReferralCards from '@/components/ReferralCards';
 import { calcZodiacMatch } from '@/lib/zodiac-match';
 import { calcStarMatch, SIGNS } from '@/lib/star-match';
 import { calcMbtiMatch, MBTI_TYPES, type MbtiType } from '@/lib/mbti-match';
-import { animals, zodiacSigns, t, type Lang } from '@/lib/fortune-intl';
+import { calcBloodMatch, type BloodType } from '@/lib/blood-match';
+import { animals, zodiacSigns, bloodTypes, t, type Lang } from '@/lib/fortune-intl';
 import {
-  ZODIAC_MATCH_TEXT, STAR_MATCH_TEXT, MBTI_MATCH_TEXT, MBTI_AXIS_TEXT, MATCH_UI,
+  ZODIAC_MATCH_TEXT, STAR_MATCH_TEXT, MBTI_MATCH_TEXT, MBTI_AXIS_TEXT, BLOOD_MATCH_TEXT, MATCH_UI,
   type IntlLang,
 } from '@/lib/match-intl';
 
-export type MatchKind = 'zodiac' | 'star' | 'mbti';
+export type MatchKind = 'zodiac' | 'star' | 'mbti' | 'blood';
 
 const TITLES: Record<MatchKind, Record<IntlLang, string>> = {
   zodiac: { en: 'Chinese Zodiac Compatibility', zh: '生肖配对' },
   star:   { en: 'Star Sign Compatibility',      zh: '星座配对' },
   mbti:   { en: 'MBTI Compatibility',           zh: 'MBTI 配对' },
+  blood:  { en: 'Blood Type Compatibility',     zh: '血型配对' },
 };
 
 const LEADS: Record<MatchKind, Record<IntlLang, string>> = {
   zodiac: { en: 'Pick two animals to see how the traditional harmonies read them', zh: '选择两个生肖，看传统六合三合怎么说' },
   star:   { en: 'Pick two signs to see how their elements match up', zh: '选择两个星座，看元素属性如何相配' },
   mbti:   { en: 'Pick two types to see how the four axes line up', zh: '选择两个类型，看四个维度如何相配' },
+  blood:  { en: 'Pick two blood types to see how the pairing reads', zh: '选择两个血型，看这对组合怎么说' },
 };
 
-const ICONS: Record<MatchKind, string> = { zodiac: '🐲', star: '⭐', mbti: '🧠' };
+const ICONS: Record<MatchKind, string> = { zodiac: '🐲', star: '⭐', mbti: '🧠', blood: '🩸' };
 
 interface Option { id: string; name: string; emoji: string }
 
 function optionsFor(kind: MatchKind, lang: IntlLang): Option[] {
   if (kind === 'zodiac') return animals(lang).map(a => ({ id: a.id, name: a.name, emoji: a.emoji }));
   if (kind === 'star') return zodiacSigns(lang).map(s => ({ id: s.id, name: s.name, emoji: s.emoji }));
+  if (kind === 'blood') return bloodTypes(lang).map(b => ({ id: b.id, name: b.name, emoji: b.emoji }));
   return MBTI_TYPES.map(m => ({ id: m, name: m, emoji: '🧩' }));
+}
+
+/** blood-match.ts의 key()와 같은 규칙 — 문자열 정렬은 'AB'를 'B' 앞에 놓아 어긋난다 */
+const BLOOD_ORDER: Record<string, number> = { A: 0, B: 1, O: 2, AB: 3 };
+function bloodKey(a: string, b: string): string {
+  return BLOOD_ORDER[a] <= BLOOD_ORDER[b] ? `${a}-${b}` : `${b}-${a}`;
 }
 
 interface Outcome { score: number; emoji: string; label: string; headline: string; reason: string; love: string; advice: string }
@@ -49,6 +59,12 @@ function evaluate(kind: MatchKind, lang: IntlLang, aIdx: number, bIdx: number): 
     const r = calcStarMatch(aIdx, bIdx);
     const txt = STAR_MATCH_TEXT[lang][r.type];
     return { score: r.score, emoji: r.info.emoji, ...txt };
+  }
+  if (kind === 'blood') {
+    const ids = ['A', 'B', 'O', 'AB'] as const;
+    const r = calcBloodMatch(ids[aIdx] as BloodType, ids[bIdx] as BloodType);
+    const txt = BLOOD_MATCH_TEXT[lang][bloodKey(ids[aIdx], ids[bIdx])];
+    return { score: r.score, emoji: r.emoji, ...txt };
   }
   const a = MBTI_TYPES[aIdx] as MbtiType;
   const b = MBTI_TYPES[bIdx] as MbtiType;
@@ -80,7 +96,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
   const [b, setB] = useState<number | null>(null);
   const ui = MATCH_UI[lang];
   const options = optionsFor(kind, lang);
-  const cols = kind === 'mbti' ? 'grid-cols-4' : 'grid-cols-4 sm:grid-cols-6';
+  const cols = kind === 'mbti' ? 'grid-cols-4' : kind === 'blood' ? 'grid-cols-4' : 'grid-cols-4 sm:grid-cols-6';
 
   const result = a !== null && b !== null ? evaluate(kind, lang, a, b) : null;
   // star-match의 SIGNS 순서가 fortune-intl의 zodiacSigns와 같은지는 테스트로 고정한다.

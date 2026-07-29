@@ -97,6 +97,47 @@ test('궁합은 대칭이다 — a×b와 b×a가 같은 점수', () => {
   }
 });
 
+test('혈액형 궁합 10쌍 전부에 en·zh 문구가 있다', async () => {
+  // 키는 A<B<O<AB 순서로 만든다. 문자열 정렬로 만들면 'AB'가 'B' 앞에 와서 어긋난다
+  const { BLOOD_MATCH_TEXT } = await import('../lib/match-intl.ts');
+  const ids = ['A', 'B', 'O', 'AB'];
+  const order: Record<string, number> = { A: 0, B: 1, O: 2, AB: 3 };
+  const key = (a: string, b: string) => (order[a] <= order[b] ? `${a}-${b}` : `${b}-${a}`);
+
+  for (const lang of LANGS) {
+    const seen = new Set<string>();
+    for (const a of ids) {
+      for (const b of ids) {
+        const k = key(a, b);
+        seen.add(k);
+        const txt = BLOOD_MATCH_TEXT[lang][k];
+        assert.ok(txt, `${lang}: ${k} 문구 없음`);
+        for (const field of ['label', 'headline', 'reason', 'love', 'advice'] as const) {
+          assert.ok(txt[field].trim().length > 0, `${lang}.${k}.${field} 비어 있음`);
+          assert.ok(!/[가-힣]/.test(txt[field]), `${lang}.${k}.${field}에 한글이 남아 있다`);
+        }
+      }
+    }
+    assert.equal(seen.size, 10, `${lang}: 조합이 10쌍이 아니다`);
+  }
+});
+
+test('MBTI 16유형이 세 언어 모두 같은 순서다', async () => {
+  const { MBTI_TYPES } = await import('../lib/fortune-data.ts');
+  const { MBTI_TYPES_EN } = await import('../lib/fortune-en.ts');
+  const { MBTI_TYPES_ZH } = await import('../lib/fortune-zh.ts');
+  const ids = MBTI_TYPES.map((m: { id: string }) => m.id);
+  assert.equal(ids.length, 16);
+  assert.deepEqual(MBTI_TYPES_EN.map(m => m.id), ids, 'en MBTI 순서가 다르다');
+  assert.deepEqual(MBTI_TYPES_ZH.map(m => m.id), ids, 'zh MBTI 순서가 다르다');
+  for (const list of [MBTI_TYPES_EN, MBTI_TYPES_ZH]) {
+    for (const m of list) {
+      assert.ok(m.nickname.trim().length > 0, `${m.id}: nickname 비어 있음`);
+      assert.ok(!/[가-힣]/.test(m.nickname + m.trait), `${m.id}: 한글이 남아 있다`);
+    }
+  }
+});
+
 test('궁합 UI 문구가 en·zh 모두 채워져 있다', () => {
   const keys = ['pickBoth', 'you', 'partner', 'score', 'why', 'love', 'advice', 'reset', 'disclaimer'];
   for (const lang of LANGS) {

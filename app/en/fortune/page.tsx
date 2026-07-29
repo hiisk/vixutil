@@ -27,6 +27,8 @@ const TYPES = [
   { href: '/en/fortune/star-match',   icon: '💞', title: 'Star Sign Compatibility',    desc: 'How two signs match by element',      badge: '12 signs',   color: 'from-violet-500 to-fuchsia-600' },
   { href: '/en/fortune/zodiac-match', icon: '🐲', title: 'Chinese Zodiac Compatibility', desc: 'Six Harmonies, Three Harmonies and clashes', badge: '12 animals', color: 'from-rose-500 to-red-600' },
   { href: '/en/fortune/mbti-match',   icon: '🧠', title: 'MBTI Compatibility',         desc: 'How two of the 16 types line up',     badge: '16 types',   color: 'from-violet-500 to-indigo-600' },
+  { href: '/en/fortune/blood-match',  icon: '🩸', title: 'Blood Type Compatibility',   desc: 'How A, B, O and AB pair up',          badge: '4 types',    color: 'from-rose-500 to-orange-600' },
+  { href: '/en/fortune/mbti',         icon: '🧠', title: 'MBTI Daily Horoscope',       desc: 'Today’s reading for all 16 types',    badge: '16 types',   color: 'from-sky-500 to-blue-600' },
 ];
 
 export default function EnFortuneHub() {
