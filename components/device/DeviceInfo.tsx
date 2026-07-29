@@ -1,4 +1,5 @@
 'use client';
+import { DEVICE_INFO_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useEffect, useState } from 'react';
 
 /**
@@ -17,35 +18,37 @@ type Row = { label: string; value: string; hint?: string };
   있어서, 크롬을 먼저 검사하면 전부 크롬으로 뭉개진다. 좁은 것부터 본다.
 */
 const BROWSERS: [name: string, re: RegExp][] = [
-  ['엣지', /Edg\/([\d.]+)/],
-  ['오페라', /OPR\/([\d.]+)/],
-  ['삼성 인터넷', /SamsungBrowser\/([\d.]+)/],
-  ['웨일', /Whale\/([\d.]+)/],
-  ['파이어폭스', /Firefox\/([\d.]+)/],
-  ['크롬', /Chrome\/([\d.]+)/],
-  ['사파리', /Version\/([\d.]+).*Safari/],
+  ['edge', /Edg\/([\d.]+)/],
+  ['opera', /OPR\/([\d.]+)/],
+  ['samsung', /SamsungBrowser\/([\d.]+)/],
+  ['whale', /Whale\/([\d.]+)/],
+  ['firefox', /Firefox\/([\d.]+)/],
+  ['chrome', /Chrome\/([\d.]+)/],
+  ['safari', /Version\/([\d.]+).*Safari/],
 ];
 
-function detectBrowser(ua: string): string {
-  for (const [name, re] of BROWSERS) {
+function detectBrowser(ua: string, ui: Ui): string {
+  for (const [key, re] of BROWSERS) {
     const m = re.exec(ua);
-    if (m) return `${name} ${m[1].split('.')[0]}`;
+    if (m) return `${ui.browsers[key] ?? key} ${m[1].split('.')[0]}`;
   }
-  return '알 수 없음';
+  return ui.unknown;
 }
 
-function detectOS(ua: string): string {
-  if (/Windows NT 10/.test(ua)) return 'Windows 10 또는 11';
+function detectOS(ua: string, ui: Ui): string {
+  if (/Windows NT 10/.test(ua)) return ui.windows10or11;
   if (/Windows NT ([\d.]+)/.test(ua)) return `Windows (NT ${/Windows NT ([\d.]+)/.exec(ua)![1]})`;
   if (/Android ([\d.]+)/.test(ua)) return `Android ${/Android ([\d.]+)/.exec(ua)![1]}`;
   if (/(iPhone|iPad).*OS ([\d_]+)/.test(ua)) return `iOS ${/OS ([\d_]+)/.exec(ua)![1].replace(/_/g, '.')}`;
   if (/Mac OS X ([\d_]+)/.test(ua)) return `macOS ${/Mac OS X ([\d_]+)/.exec(ua)![1].replace(/_/g, '.')}`;
   if (/Mac OS X/.test(ua)) return 'macOS';
   if (/Linux/.test(ua)) return 'Linux';
-  return '알 수 없음';
+  return ui.unknown;
 }
 
-function collect(): { groups: { title: string; rows: Row[] }[]; ua: string } {
+type Ui = (typeof DEVICE_INFO_UI)['ko'];
+
+function collect(ui: Ui): { groups: { title: string; rows: Row[] }[]; ua: string } {
   const ua = navigator.userAgent;
   const nav = navigator as Navigator & { deviceMemory?: number };
   const w = window;
@@ -54,55 +57,56 @@ function collect(): { groups: { title: string; rows: Row[] }[]; ua: string } {
     ua,
     groups: [
       {
-        title: '화면',
+        title: ui.screenTitle,
         rows: [
-          { label: '모니터 해상도', value: `${w.screen.width} × ${w.screen.height}`, hint: '운영체제가 보고하는 논리 해상도' },
-          { label: '브라우저 창 크기', value: `${w.innerWidth} × ${w.innerHeight}` },
-          { label: '작업 영역', value: `${w.screen.availWidth} × ${w.screen.availHeight}`, hint: '작업표시줄 등을 뺀 크기' },
-          { label: '픽셀 배율(DPR)', value: `${w.devicePixelRatio}×`, hint: '2 이상이면 고해상도(레티나) 화면' },
+          { label: ui.monitorRes, value: `${w.screen.width} × ${w.screen.height}`, hint: ui.monitorResHint },
+          { label: ui.windowSize, value: `${w.innerWidth} × ${w.innerHeight}` },
+          { label: ui.workArea, value: `${w.screen.availWidth} × ${w.screen.availHeight}`, hint: ui.workAreaHint },
+          { label: ui.dpr, value: `${w.devicePixelRatio}×`, hint: ui.dprHint },
           {
-            label: '실제 픽셀 추정',
+            label: ui.realPixels,
             value: `${Math.round(w.screen.width * w.devicePixelRatio)} × ${Math.round(w.screen.height * w.devicePixelRatio)}`,
           },
-          { label: '색 심도', value: `${w.screen.colorDepth}비트` },
-          { label: '화면 방향', value: w.screen.orientation?.type ?? '알 수 없음' },
+          { label: ui.colorDepth, value: ui.bitSuffix(w.screen.colorDepth) },
+          { label: ui.orientation, value: w.screen.orientation?.type ?? ui.unknown },
         ],
       },
       {
-        title: '브라우저',
+        title: ui.browserTitle,
         rows: [
-          { label: '브라우저', value: detectBrowser(ua) },
-          { label: '운영체제', value: detectOS(ua) },
-          { label: '언어', value: navigator.language },
-          { label: '쿠키 사용', value: navigator.cookieEnabled ? '허용됨' : '차단됨' },
-          { label: '네트워크 상태', value: navigator.onLine ? '온라인' : '오프라인' },
-          { label: '시간대', value: Intl.DateTimeFormat().resolvedOptions().timeZone },
+          { label: ui.browser, value: detectBrowser(ua, ui) },
+          { label: ui.os, value: detectOS(ua, ui) },
+          { label: ui.language, value: navigator.language },
+          { label: ui.cookies, value: navigator.cookieEnabled ? ui.cookiesOn : ui.cookiesOff },
+          { label: ui.network, value: navigator.onLine ? ui.online : ui.offline },
+          { label: ui.timezone, value: Intl.DateTimeFormat().resolvedOptions().timeZone },
         ],
       },
       {
-        title: '하드웨어',
+        title: ui.hardwareTitle,
         rows: [
-          { label: 'CPU 논리 코어', value: `${navigator.hardwareConcurrency ?? '–'}개`, hint: '브라우저가 쓸 수 있는 스레드 수' },
+          { label: ui.cores, value: ui.countSuffix(navigator.hardwareConcurrency ?? '–'), hint: ui.coresHint },
           {
-            label: '메모리(대략)',
-            value: nav.deviceMemory ? `${nav.deviceMemory}GB 이상` : '브라우저가 알려주지 않음',
-            hint: '크롬 계열만 제공하며 값이 반올림돼 있다',
+            label: ui.memory,
+            value: nav.deviceMemory ? ui.memoryValue(nav.deviceMemory) : ui.memoryUnknown,
+            hint: ui.memoryHint,
           },
-          { label: '동시 터치 점수', value: `${navigator.maxTouchPoints ?? 0}개`, hint: '0이면 터치 지원 없음' },
+          { label: ui.touchPoints, value: ui.countSuffix(navigator.maxTouchPoints ?? 0), hint: ui.touchHint },
         ],
       },
     ],
   };
 }
 
-export default function DeviceInfo() {
+export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = DEVICE_INFO_UI[lang];
   const [data, setData] = useState<ReturnType<typeof collect> | null>(null);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setData(collect());
-    const onResize = () => setData(collect());
+    setData(collect(ui));
+    const onResize = () => setData(collect(ui));
     window.addEventListener('resize', onResize);
     window.addEventListener('orientationchange', onResize);
     return () => {
@@ -129,7 +133,7 @@ export default function DeviceInfo() {
   if (!data) {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-12 text-center">
-        <p className="text-sm text-slate-400 dark:text-slate-500">기기 정보를 읽는 중…</p>
+        <p className="text-sm text-slate-400 dark:text-slate-500">{ui.loading}</p>
       </div>
     );
   }
@@ -169,13 +173,13 @@ export default function DeviceInfo() {
         onClick={copy}
         className="w-full rounded-xl bg-gradient-to-r from-teal-500 to-sky-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
       >
-        {copied ? '✅ 복사했습니다' : '📋 전체 정보 복사하기'}
+        {copied ? ui.copied : ui.copy}
       </button>
 
       <p className="text-center text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
-        여기 있는 값은 브라우저가 알려주는 것뿐이며 어디로도 전송되지 않습니다.
+        {ui.privacy1}
         <br />
-        개인정보(IP·위치·계정)는 수집하지도, 표시하지도 않습니다.
+        {ui.privacy2}
       </p>
     </div>
   );

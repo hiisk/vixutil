@@ -1,4 +1,5 @@
 'use client';
+import { WEBCAM_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -14,7 +15,8 @@ type FrameVideo = HTMLVideoElement & {
   requestVideoFrameCallback?: (cb: () => void) => number;
 };
 
-export default function WebcamTest() {
+export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = WEBCAM_UI[lang];
   const [state, setState] = useState<'idle' | 'starting' | 'on' | 'denied'>('idle');
   const [error, setError] = useState('');
   const [info, setInfo] = useState<{ w: number; h: number; fps: number | null; label: string } | null>(null);
@@ -81,7 +83,7 @@ export default function WebcamTest() {
         w: s.width ?? video?.videoWidth ?? 0,
         h: s.height ?? video?.videoHeight ?? 0,
         fps: s.frameRate ? Math.round(s.frameRate) : null,
-        label: track.label || '카메라',
+        label: track.label || ui.cameraWord,
       });
       setState('on');
 
@@ -93,10 +95,10 @@ export default function WebcamTest() {
       setState('denied');
       setError(
         name === 'NotAllowedError'
-          ? '카메라 권한이 거부됐습니다. 주소창의 자물쇠 아이콘에서 카메라를 허용으로 바꿔 주세요.'
+          ? ui.denied
           : name === 'NotFoundError'
-            ? '연결된 카메라를 찾지 못했습니다.'
-            : '카메라를 열 수 없습니다. 화상회의 앱 등 다른 프로그램이 쓰고 있는지 확인해 주세요.',
+            ? ui.notFound
+            : ui.cannotOpen,
       );
     }
   }, []);
@@ -136,14 +138,14 @@ export default function WebcamTest() {
           <div className="text-center px-6">
             <div className="text-5xl mb-3">📷</div>
             <p className="text-sm text-slate-300 mb-5 leading-relaxed">
-              버튼을 누르면 브라우저가 카메라 권한을 물어봅니다.
+              {ui.prompt}
             </p>
             <button
               onClick={() => start()}
               disabled={state === 'starting'}
               className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
             >
-              {state === 'starting' ? '카메라 여는 중…' : '웹캠 테스트 시작'}
+              {state === 'starting' ? ui.opening : ui.startTest}
             </button>
             {error && <p className="mt-4 text-xs text-rose-300 leading-relaxed max-w-sm mx-auto">{error}</p>}
           </div>
@@ -160,15 +162,15 @@ export default function WebcamTest() {
           <div className="grid grid-cols-3 gap-2 mt-4">
             <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
               <p className="text-base font-black text-cyan-600">{info.w}×{info.h}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">해상도</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.resolution}</p>
             </div>
             <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
               <p className="text-base font-black text-blue-600">{measured || info.fps || '–'}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">실측 fps</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.measuredFps}</p>
             </div>
             <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
               <p className="text-base font-black text-indigo-600">{info.fps ?? '–'}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">설정 fps</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.setFps}</p>
             </div>
           </div>
 
@@ -176,14 +178,14 @@ export default function WebcamTest() {
 
           {devices.length > 1 && (
             <label className="mt-4 block">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">카메라 장치</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.deviceLabel}</span>
               <select
                 value={deviceId}
                 onChange={e => { setDeviceId(e.target.value); start(e.target.value); }}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200"
               >
                 {devices.map((d, i) => (
-                  <option key={d.deviceId} value={d.deviceId}>{d.label || `카메라 ${i + 1}`}</option>
+                  <option key={d.deviceId} value={d.deviceId}>{d.label || ui.deviceN(i + 1)}</option>
                 ))}
               </select>
             </label>
@@ -194,37 +196,37 @@ export default function WebcamTest() {
               onClick={snapshot}
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-cyan-300 transition-colors"
             >
-              📸 스냅샷
+              {ui.snapshot}
             </button>
             <button
               onClick={() => setMirror(m => !m)}
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-cyan-300 transition-colors"
             >
-              {mirror ? '거울모드 끄기' : '거울모드 켜기'}
+              {mirror ? ui.mirrorOn : ui.mirrorOff}
             </button>
             <button
               onClick={stop}
               className="rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold py-3 text-sm hover:opacity-90 transition-opacity"
             >
-              카메라 끄기
+              {ui.turnOff}
             </button>
           </div>
 
           {shot && (
             <div className="mt-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400">스냅샷</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.snapshotTitle}</p>
                 <a
                   href={shot}
                   download="webcam-test.png"
                   className="text-xs font-bold text-cyan-600 hover:underline"
                 >
-                  이미지 저장
+                  {ui.saveImage}
                 </a>
               </div>
               {/* 로컬 Blob URL이라 next/image의 최적화 대상이 아니다 */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={shot} alt="웹캠 스냅샷" className="w-full rounded-xl border border-slate-200 dark:border-slate-700" />
+              <img src={shot} alt={ui.snapshotAlt} className="w-full rounded-xl border border-slate-200 dark:border-slate-700" />
             </div>
           )}
         </>

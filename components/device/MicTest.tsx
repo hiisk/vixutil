@@ -1,4 +1,5 @@
 'use client';
+import { MIC_TEST_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -10,7 +11,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  */
 const BARS = 24;
 
-export default function MicTest() {
+export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = MIC_TEST_UI[lang];
   const [state, setState] = useState<'idle' | 'starting' | 'on' | 'denied'>('idle');
   const [error, setError] = useState('');
   const [level, setLevel] = useState(0);
@@ -106,10 +108,10 @@ export default function MicTest() {
       setState('denied');
       setError(
         name === 'NotAllowedError'
-          ? '마이크 권한이 거부됐습니다. 주소창의 자물쇠 아이콘에서 마이크를 허용으로 바꿔 주세요.'
+          ? ui.denied
           : name === 'NotFoundError'
-            ? '연결된 마이크를 찾지 못했습니다. 장치가 꽂혀 있는지 확인해 주세요.'
-            : '마이크를 열 수 없습니다. 다른 앱이 마이크를 쓰고 있는지 확인해 주세요.',
+            ? ui.notFound
+            : ui.cannotOpen,
       );
     }
   }, []);
@@ -141,16 +143,16 @@ export default function MicTest() {
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
           <div className="text-5xl mb-3">🎤</div>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
-            버튼을 누르면 브라우저가 마이크 권한을 물어봅니다.
+            {ui.prompt1}
             <br />
-            허용하면 바로 입력 레벨이 보입니다.
+            {ui.prompt2}
           </p>
           <button
             onClick={() => start()}
             disabled={state === 'starting'}
             className="rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
           >
-            {state === 'starting' ? '마이크 여는 중…' : '마이크 테스트 시작'}
+            {state === 'starting' ? ui.opening : ui.startTest}
           </button>
           {error && (
             <p className="mt-4 text-xs text-rose-600 dark:text-rose-400 leading-relaxed max-w-sm mx-auto">{error}</p>
@@ -169,9 +171,9 @@ export default function MicTest() {
           </div>
 
           <div className="mb-1.5 flex items-center justify-between text-xs">
-            <span className="font-bold text-slate-500 dark:text-slate-400">입력 레벨</span>
+            <span className="font-bold text-slate-500 dark:text-slate-400">{ui.inputLevel}</span>
             <span className="font-mono text-slate-400 dark:text-slate-500">
-              {level}% · 최고 {peak}%
+              {ui.levelPeak(level, peak)}
             </span>
           </div>
           <div className="relative h-4 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -186,26 +188,26 @@ export default function MicTest() {
 
           <p className="mt-3 text-center text-sm font-bold">
             {peak === 0 ? (
-              <span className="text-slate-400 dark:text-slate-500">말을 해보세요…</span>
+              <span className="text-slate-400 dark:text-slate-500">{ui.saySomething}</span>
             ) : peak < 12 ? (
-              <span className="text-amber-600">소리가 거의 안 잡힙니다 — 음소거나 입력 볼륨을 확인하세요</span>
+              <span className="text-amber-600">{ui.tooQuiet}</span>
             ) : peak > 96 ? (
-              <span className="text-rose-500">너무 큽니다 — 소리가 깨질 수 있어요</span>
+              <span className="text-rose-500">{ui.tooLoud}</span>
             ) : (
-              <span className="text-emerald-600">✅ 마이크가 정상 동작합니다</span>
+              <span className="text-emerald-600">{ui.working}</span>
             )}
           </p>
 
           {devices.length > 1 && (
             <label className="mt-5 block">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">마이크 장치</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.deviceLabel}</span>
               <select
                 value={deviceId}
                 onChange={e => { setDeviceId(e.target.value); start(e.target.value); }}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200"
               >
                 {devices.map((d, i) => (
-                  <option key={d.deviceId} value={d.deviceId}>{d.label || `마이크 ${i + 1}`}</option>
+                  <option key={d.deviceId} value={d.deviceId}>{d.label || ui.deviceN(i + 1)}</option>
                 ))}
               </select>
             </label>
@@ -217,19 +219,19 @@ export default function MicTest() {
               disabled={recording}
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-rose-300 disabled:opacity-60 transition-colors"
             >
-              {recording ? '● 녹음 중… (6초)' : '6초 녹음해서 들어보기'}
+              {recording ? ui.recording : ui.recordAndListen}
             </button>
             <button
               onClick={stop}
               className="rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold py-3 text-sm hover:opacity-90 transition-opacity"
             >
-              마이크 끄기
+              {ui.turnOff}
             </button>
           </div>
 
           {clip && (
             <div className="mt-4">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">녹음 결과 — 재생해서 확인하세요</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.resultTitle}</p>
               <audio src={clip} controls className="w-full" />
             </div>
           )}

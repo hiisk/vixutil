@@ -16,6 +16,7 @@ import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
 import { foodToolsIntl } from "@/lib/food-tools-intl";
 import { gameToolsIntl } from "@/lib/game-tools-intl";
+import { deviceToolsIntl } from "@/lib/device-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
 import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
@@ -190,6 +191,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/risk-of-ruin`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/stablecoin-depeg`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/drawdown`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/volatility`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },
@@ -260,6 +262,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/en/game`, changeFrequency: weekly, priority: 0.9 },
     ...gameToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/game/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/en/device`, changeFrequency: weekly, priority: 0.9 },
+    ...deviceToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
@@ -301,6 +306,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/zh/game`, changeFrequency: weekly, priority: 0.9 },
     ...gameToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/game/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/zh/device`, changeFrequency: weekly, priority: 0.9 },
+    ...deviceToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },

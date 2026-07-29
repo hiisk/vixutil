@@ -35,6 +35,7 @@ const SECTIONS = [
   { href: '/en/sound',     icon: '🔊', title: 'Sound Tools',        desc: 'Metronome, tuner, white noise, tone',          color: 'from-indigo-500 to-violet-600', accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30' },
   { href: '/en/food',      icon: '🍳', title: 'Cooking Tools',      desc: 'Cups to grams, oven temp, rice, coffee',        color: 'from-amber-500 to-orange-600', accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30' },
   { href: '/en/game',      icon: '🎮', title: 'Brain Games',        desc: 'Reaction, memory, typing, aim, mental maths',   color: 'from-emerald-500 to-teal-600', accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30' },
+  { href: '/en/device',    icon: '🔧', title: 'Device Tests',       desc: 'Keyboard, mouse, mic, webcam, dead pixels',     color: 'from-sky-500 to-blue-600',     accent: 'text-sky-700 dark:text-sky-300',     border: 'border-sky-200 dark:border-sky-900/50',   bg: 'bg-sky-50 dark:bg-sky-950/30' },
 ];
 
 export default function EnHome() {

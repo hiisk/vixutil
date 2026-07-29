@@ -1,4 +1,5 @@
 'use client';
+import { KEYBOARD_UI, DEVICE_COMMON, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -56,7 +57,7 @@ const ROWS: Key[][] = [
     { code: 'MetaLeft', label: 'Win', w: 1.2 },
     { code: 'AltLeft', label: 'Alt', w: 1.2 },
     { code: 'Space', label: 'Space', w: 6 },
-    { code: 'Lang1', label: '한/영', w: 1.3 },
+    { code: 'Lang1', label: '', w: 1.3 },
     { code: 'AltRight', label: 'Alt', w: 1.2 },
     { code: 'ContextMenu', label: '☰', w: 1.2 },
     { code: 'ControlRight', label: 'Ctrl', w: 1.4 },
@@ -76,7 +77,9 @@ const ALL_CODES = [...ROWS, ...NAV].flat().map(k => k.code);
 /** 브라우저 단축키(F5 새로고침, Ctrl+S 등)에 화면을 뺏기지 않게 막는다. */
 const ALLOW_DEFAULT = new Set(['F5', 'F11', 'F12']);
 
-export default function KeyboardTest() {
+export default function KeyboardTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = KEYBOARD_UI[lang];
+  const c = DEVICE_COMMON[lang];
   const [down, setDown] = useState<string[]>([]);
   const [ever, setEver] = useState<string[]>([]);
   const [maxSimul, setMaxSimul] = useState(0);
@@ -141,7 +144,7 @@ export default function KeyboardTest() {
               : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400',
         ].join(' ')}
       >
-        <span className="truncate px-0.5">{k.label}</span>
+        <span className="truncate px-0.5">{k.code === 'Lang1' ? ui.langKey : k.label}</span>
       </div>
     );
   };
@@ -161,14 +164,14 @@ export default function KeyboardTest() {
       </div>
 
       <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-3">
-        키를 눌러보세요. 파란색은 지금 눌린 키, 연한 파란색은 한 번이라도 인식된 키입니다.
+        {ui.how}
       </p>
 
       <div className="grid grid-cols-3 gap-2 mt-5">
         {[
-          { label: '인식된 키', val: `${ever.length}개`, accent: 'text-sky-600' },
-          { label: '동시입력 최대', val: `${maxSimul}개`, accent: 'text-indigo-600' },
-          { label: '지금 눌린 키', val: `${down.length}개`, accent: 'text-slate-700 dark:text-slate-200' },
+          { label: ui.recognised, val: ui.countSuffix(ever.length), accent: 'text-sky-600' },
+          { label: ui.maxSimul, val: ui.countSuffix(maxSimul), accent: 'text-indigo-600' },
+          { label: ui.nowDown, val: ui.countSuffix(down.length), accent: 'text-slate-700 dark:text-slate-200' },
         ].map(s => (
           <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
             <p className={`text-lg font-black ${s.accent}`}>{s.val}</p>
@@ -178,9 +181,9 @@ export default function KeyboardTest() {
       </div>
 
       <div className="mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">최근 입력</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.recentInput}</p>
         {log.length === 0 ? (
-          <p className="text-sm text-slate-400 dark:text-slate-500">아직 입력이 없습니다.</p>
+          <p className="text-sm text-slate-400 dark:text-slate-500">{ui.noInput}</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {log.map((l, i) => (
@@ -203,10 +206,10 @@ export default function KeyboardTest() {
       {ever.length > 0 && (
         <div className="mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
-            아직 안 눌러본 키 {untested.length}개
+            {ui.untested(untested.length)}
           </p>
           {untested.length === 0 ? (
-            <p className="text-sm font-bold text-emerald-600">🎉 배열의 모든 키가 정상 인식됐습니다.</p>
+            <p className="text-sm font-bold text-emerald-600">{ui.allGood}</p>
           ) : (
             <p className="text-xs text-slate-400 dark:text-slate-500 font-mono leading-relaxed break-all">
               {untested.join(' · ')}
@@ -219,7 +222,7 @@ export default function KeyboardTest() {
         onClick={reset}
         className="mt-4 w-full rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold py-3 text-sm hover:opacity-90 transition-opacity"
       >
-        처음부터 다시
+        {c.reset}
       </button>
     </div>
   );

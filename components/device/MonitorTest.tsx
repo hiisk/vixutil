@@ -1,4 +1,5 @@
 'use client';
+import { MONITOR_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useState } from 'react';
 
 /**
@@ -11,17 +12,18 @@ import { useCallback, useEffect, useState } from 'react';
  * 화면을 덮은 동안에는 클릭·방향키로 색을 넘기고 Esc로 빠져나온다.
  */
 const PATTERNS = [
-  { key: 'red', label: '빨강', css: '#ff0000', tip: '빨간 화면에서 검은 점 = 죽은 픽셀' },
-  { key: 'green', label: '초록', css: '#00ff00', tip: '초록에서 안 보이면 초록 서브픽셀 문제' },
-  { key: 'blue', label: '파랑', css: '#0000ff', tip: '파랑에서 얼룩지면 백라이트 불균일' },
-  { key: 'white', label: '흰색', css: '#ffffff', tip: '흰 화면의 검은 점·먼지 확인' },
-  { key: 'black', label: '검정', css: '#000000', tip: '가장자리 빛샘과 밝은 점 확인' },
-  { key: 'gray', label: '회색', css: '#808080', tip: '얼룩(멍)과 색 치우침 확인' },
-  { key: 'grad', label: '그라디언트', css: 'linear-gradient(90deg,#000,#fff)', tip: '계단처럼 끊기면 색 밴딩' },
-  { key: 'rgb', label: 'RGB 3분할', css: 'linear-gradient(90deg,#f00 0 33.3%,#0f0 33.3% 66.6%,#00f 66.6%)', tip: '세 색의 경계가 또렷한지' },
+  { key: 'red', css: '#ff0000' },
+  { key: 'green', css: '#00ff00' },
+  { key: 'blue', css: '#0000ff' },
+  { key: 'white', css: '#ffffff' },
+  { key: 'black', css: '#000000' },
+  { key: 'gray', css: '#808080' },
+  { key: 'grad', css: 'linear-gradient(90deg,#000,#fff)' },
+  { key: 'rgb', css: 'linear-gradient(90deg,#f00 0 33.3%,#0f0 33.3% 66.6%,#00f 66.6%)' },
 ] as const;
 
-export default function MonitorTest() {
+export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = MONITOR_UI[lang];
   const [idx, setIdx] = useState<number | null>(null);
   const [auto, setAuto] = useState(false);
   const [hint, setHint] = useState(true);
@@ -91,16 +93,16 @@ export default function MonitorTest() {
           {/* 화면 전체가 "다음 색" 버튼이다 — 색 위에 다른 것이 겹치면 점을 못 찾는다 */}
           <button
             type="button"
-            aria-label={`${current.label} 화면 — 누르면 다음 색으로`}
+            aria-label={ui.screenAria(ui.colors[PATTERNS.indexOf(current)])}
             onClick={() => next(1)}
             className="absolute inset-0 w-full h-full cursor-pointer"
           />
           {hint && (
             <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-black/65 px-6 py-4 text-center text-sm text-white leading-relaxed">
-              <span className="block font-black mb-1">{current.label} ({idx + 1}/{PATTERNS.length})</span>
-              {current.tip}
+              <span className="block font-black mb-1">{ui.colors[PATTERNS.indexOf(current)]} ({idx + 1}/{PATTERNS.length})</span>
+              {ui.tips[PATTERNS.indexOf(current)]}
               <span className="block mt-2 text-[11px] text-white/70">
-                클릭 · → 다음 색 &nbsp;|&nbsp; Esc 나가기
+                {ui.fullscreenHint}
               </span>
             </div>
           )}
@@ -109,17 +111,17 @@ export default function MonitorTest() {
             onClick={exit}
             className="absolute top-4 right-4 rounded-xl bg-black/55 px-4 py-2 text-xs font-bold text-white hover:bg-black/75 transition-colors"
           >
-            ✕ 나가기 (Esc)
+            {ui.exit}
           </button>
         </div>
       )}
 
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-5">
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-          색을 하나 고르면 화면 전체가 그 색으로 덮입니다. 화면에 코를 가까이 대고 다른 색의 점이 있는지 훑어보세요.
+          {ui.how}
           <br />
           <span className="text-slate-400 dark:text-slate-500 text-xs">
-            클릭 또는 → 키로 다음 색, Esc로 나가기. 밝기는 최대로 올리고 보는 편이 잘 보입니다.
+            {ui.keysHint}
           </span>
         </p>
 
@@ -135,7 +137,7 @@ export default function MonitorTest() {
                 style={{ background: p.css }}
               />
               <span className="block mt-2 text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 transition-colors">
-                {p.label}
+                {ui.colors[i]}
               </span>
             </button>
           ))}
@@ -145,30 +147,28 @@ export default function MonitorTest() {
           onClick={() => { setAuto(true); open(0); }}
           className="mt-4 w-full rounded-xl bg-gradient-to-r from-slate-600 to-indigo-700 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
         >
-          ▶ 2.5초마다 자동으로 전부 순환
+          {ui.autoCycle}
         </button>
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">이렇게 판단하세요</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.judgeTitle}</p>
         <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <li>
-            <b className="text-slate-800 dark:text-slate-100">데드 픽셀</b> — 모든 색에서 계속 까맣다면 그 픽셀이 죽은 겁니다.
+            <b className="text-slate-800 dark:text-slate-100">{ui.deadTerm}</b>{ui.deadNote}
           </li>
           <li>
-            <b className="text-slate-800 dark:text-slate-100">스턱 픽셀</b> — 검정 화면인데 빨강·초록·파랑 점 하나가 켜져 있다면
-            서브픽셀이 굳은 겁니다. 며칠 쓰면 풀리기도 합니다.
+            <b className="text-slate-800 dark:text-slate-100">{ui.stuckTerm}</b>{ui.stuckNote}
           </li>
           <li>
-            <b className="text-slate-800 dark:text-slate-100">빛샘</b> — 검정 화면의 가장자리가 희끄무레하면 백라이트가 새는 것으로,
-            LCD에서는 어느 정도 정상 범위입니다.
+            <b className="text-slate-800 dark:text-slate-100">{ui.bleedTerm}</b>{ui.bleedNote}
           </li>
           <li>
-            <b className="text-slate-800 dark:text-slate-100">얼룩(멍)</b> — 회색 화면에서 넓게 어두운 부분이 보이면 패널 눌림일 수 있습니다.
+            <b className="text-slate-800 dark:text-slate-100">{ui.patchTerm}</b>{ui.patchNote}
           </li>
         </ul>
         <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
-          제조사마다 교환 기준(불량화소 개수)이 다릅니다. 개통·구매 직후에 확인하고 사진을 남겨 두세요.
+          {ui.warrantyNote}
         </p>
       </div>
     </div>

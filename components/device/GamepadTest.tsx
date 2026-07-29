@@ -1,4 +1,5 @@
 'use client';
+import { GAMEPAD_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useEffect, useState } from 'react';
 
 /**
@@ -10,10 +11,11 @@ import { useEffect, useState } from 'react';
  * 브라우저는 아무 버튼이나 한 번 눌러야 패드를 인정한다(지문 방지). 연결했는데
  * 안 잡힌다는 문의가 대부분 이것이라 화면에도 그렇게 안내한다.
  */
-const XBOX_LABELS = [
-  'A', 'B', 'X', 'Y', 'LB', 'RB', 'LT', 'RT', 'Back', 'Start',
-  'L스틱', 'R스틱', '↑', '↓', '←', '→', 'Home',
-];
+/*
+  앞 10개는 어느 언어에서나 패드에 그렇게 새겨져 있으므로 그대로 둔다.
+  10번부터(스틱 클릭·방향키·Home)는 말로 부르는 이름이라 사전에서 온다.
+*/
+const XBOX_LABELS = ['A', 'B', 'X', 'Y', 'LB', 'RB', 'LT', 'RT', 'Back', 'Start'];
 
 const DRIFT = 0.08;
 
@@ -25,7 +27,8 @@ type Snapshot = {
   mapping: string;
 };
 
-export default function GamepadTest() {
+export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = GAMEPAD_UI[lang];
   const [pads, setPads] = useState<Snapshot[]>([]);
   const [supported, setSupported] = useState(true);
   const [pressedEver, setPressedEver] = useState<Record<string, boolean>>({});
@@ -86,7 +89,7 @@ export default function GamepadTest() {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
         <div className="text-5xl mb-3">🎮</div>
-        <p className="text-sm text-slate-500 dark:text-slate-400">이 브라우저는 게임패드 API를 지원하지 않습니다. 크롬·엣지·파이어폭스에서 열어 주세요.</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{ui.unsupported}</p>
       </div>
     );
   }
@@ -95,11 +98,11 @@ export default function GamepadTest() {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-12 text-center">
         <div className="text-5xl mb-3 animate-pulse">🎮</div>
-        <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mb-2">컨트롤러를 기다리는 중…</p>
+        <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mb-2">{ui.waiting}</p>
         <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed max-w-sm mx-auto">
-          USB로 꽂거나 블루투스로 연결한 뒤, <b className="text-slate-600 dark:text-slate-300">아무 버튼이나 한 번 눌러 주세요.</b>
+          {ui.connectHint}<b className="text-slate-600 dark:text-slate-300">{ui.connectHintBold}</b>
           <br />
-          브라우저는 입력이 한 번 있어야 패드를 인식합니다.
+          {ui.needsInput}
         </p>
       </div>
     );
@@ -115,15 +118,15 @@ export default function GamepadTest() {
               <div className="min-w-0">
                 <p className="text-sm font-black text-slate-800 dark:text-slate-100 truncate">🎮 {pad.id}</p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
-                  {pad.index}번 · 버튼 {pad.buttons.length}개 · 축 {pad.axes.length}개
-                  {pad.mapping === 'standard' && ' · 표준 배열'}
+                  {ui.padInfo(pad.index, pad.buttons.length, pad.axes.length)}
+                  {pad.mapping === 'standard' && ui.standardMapping}
                 </p>
               </div>
               <button
                 onClick={() => vibrate(pad.index)}
                 className="shrink-0 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:border-indigo-300 transition-colors"
               >
-                진동 테스트
+                {ui.vibrate}
               </button>
             </div>
 
@@ -136,7 +139,7 @@ export default function GamepadTest() {
                 return (
                   <div key={base} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3">
                     <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-2 text-center">
-                      {base === 0 ? '왼쪽 스틱' : '오른쪽 스틱'}
+                      {base === 0 ? ui.leftStick : ui.rightStick}
                     </p>
                     <div className="relative mx-auto w-24 h-24 rounded-full border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
                       <div className="absolute left-1/2 top-1/2 w-px h-full -translate-x-1/2 bg-slate-100 dark:bg-slate-800" />
@@ -156,8 +159,7 @@ export default function GamepadTest() {
 
             {drifting && (
               <p className="mb-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/50 px-4 py-3 text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
-                스틱에서 손을 뗐는데도 값이 0에서 벗어나 있다면 스틱 드리프트입니다. 손을 완전히 뗀 상태에서 위 숫자가
-                0.00에 가까운지 확인하세요.
+                {ui.driftNote}
               </p>
             )}
 
@@ -177,7 +179,7 @@ export default function GamepadTest() {
                     }`}
                   >
                     <p className="text-[10px] font-bold truncate">
-                      {pad.mapping === 'standard' ? (XBOX_LABELS[i] ?? i) : i}
+                      {pad.mapping === 'standard' ? (XBOX_LABELS[i] ?? ui.buttonNames[i - XBOX_LABELS.length] ?? i) : i}
                     </p>
                     <p className="text-[9px] font-mono opacity-70 tabular-nums">{b.value.toFixed(2)}</p>
                   </div>
@@ -186,7 +188,7 @@ export default function GamepadTest() {
             </div>
 
             <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 text-center">
-              모든 버튼을 한 번씩 눌러 보세요. 색이 안 바뀌는 버튼이 인식되지 않는 버튼입니다.
+              {ui.buttonNote}
             </p>
           </div>
         );

@@ -1,4 +1,5 @@
 'use client';
+import { SPEAKER_UI, DEVICE_COMMON, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -11,17 +12,19 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  * 잘리기 때문). 게인을 15ms에 걸쳐 올리고 내려서 그걸 없앤다.
  */
 const PRESETS = [
-  { hz: 60, label: '60Hz', desc: '저음 (진동)' },
-  { hz: 250, label: '250Hz', desc: '중저음' },
-  { hz: 1000, label: '1kHz', desc: '기준음' },
-  { hz: 4000, label: '4kHz', desc: '고음' },
-  { hz: 12000, label: '12kHz', desc: '초고음' },
-  { hz: 16000, label: '16kHz', desc: '들리면 좋은 귀' },
+  { hz: 60, label: '60Hz' },
+  { hz: 250, label: '250Hz' },
+  { hz: 1000, label: '1kHz' },
+  { hz: 4000, label: '4kHz' },
+  { hz: 12000, label: '12kHz' },
+  { hz: 16000, label: '16kHz' },
 ];
 
 type Mode = 'left' | 'right' | 'both' | 'sweep' | null;
 
-export default function SpeakerTest() {
+export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = SPEAKER_UI[lang];
+  const c = DEVICE_COMMON[lang];
   const [mode, setMode] = useState<Mode>(null);
   const [hz, setHz] = useState(440);
   const [vol, setVol] = useState(30);
@@ -134,7 +137,7 @@ export default function SpeakerTest() {
                   {s === 'left' ? '🔈' : '🔊'}
                 </div>
                 <span className={`text-sm font-black ${on ? 'text-emerald-600' : 'text-slate-400 dark:text-slate-500'}`}>
-                  {s === 'left' ? 'LEFT · 왼쪽' : 'RIGHT · 오른쪽'}
+                  {s === 'left' ? ui.leftSide : ui.rightSide}
                 </span>
               </div>
             );
@@ -142,18 +145,18 @@ export default function SpeakerTest() {
         </div>
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-5 leading-relaxed">
           {mode
-            ? '소리가 나는 쪽과 화면에 켜진 쪽이 같은지 확인하세요. 반대라면 좌우가 바뀐 겁니다.'
-            : '아래 버튼으로 한쪽씩 울려 보세요. 볼륨은 30%에서 시작합니다.'}
+            ? ui.playingNote
+            : ui.idleNote}
         </p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
         {([
-          { m: 'left', label: '왼쪽만' },
-          { m: 'right', label: '오른쪽만' },
-          { m: 'both', label: '양쪽 함께' },
-          { m: 'sweep', label: '좌 ↔ 우 반복' },
-        ] as const).map(b => (
+          { m: 'left' as const },
+          { m: 'right' as const },
+          { m: 'both' as const },
+          { m: 'sweep' as const },
+        ] as const).map((b, i) => (
           <button
             key={b.m}
             onClick={() => toggle(b.m)}
@@ -163,14 +166,14 @@ export default function SpeakerTest() {
                 : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-emerald-300'
             }`}
           >
-            {mode === b.m ? '■ 정지' : b.label}
+            {mode === b.m ? c.stop : ui.modes[i]}
           </button>
         ))}
       </div>
 
       <div className="mt-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-baseline justify-between mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">주파수</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.freq}</span>
           <span className="text-lg font-black text-emerald-600 font-mono">
             {hz >= 1000 ? `${(hz / 1000).toFixed(hz % 1000 === 0 ? 0 : 1)}kHz` : `${hz}Hz`}
           </span>
@@ -183,14 +186,14 @@ export default function SpeakerTest() {
           value={hz}
           onChange={e => setFreq(Number(e.target.value))}
           className="w-full accent-emerald-500"
-          aria-label="주파수"
+          aria-label={ui.freq}
         />
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 mt-3">
-          {PRESETS.map(p => (
+          {PRESETS.map((p, i) => (
             <button
               key={p.hz}
               onClick={() => setFreq(p.hz)}
-              title={p.desc}
+              title={ui.bandDescs[i]}
               className={`rounded-lg px-1 py-2 text-[11px] font-bold border transition-colors ${
                 hz === p.hz
                   ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 text-emerald-700 dark:text-emerald-300'
@@ -203,7 +206,7 @@ export default function SpeakerTest() {
         </div>
 
         <div className="flex items-baseline justify-between mt-5 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">볼륨</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.volume}</span>
           <span className="text-sm font-black text-slate-600 dark:text-slate-300 font-mono">{vol}%</span>
         </div>
         <input
@@ -213,22 +216,19 @@ export default function SpeakerTest() {
           value={vol}
           onChange={e => setVolume(Number(e.target.value))}
           className="w-full accent-emerald-500"
-          aria-label="볼륨"
+          aria-label={ui.volume}
         />
         <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
-          고주파를 큰 볼륨으로 오래 듣지 마세요. 청력에 좋지 않습니다.
+          {ui.hearingWarn}
         </p>
       </div>
 
       {/* 스스로 체크하는 항목 — 브라우저가 대신 판정할 수 없는 부분이다 */}
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">직접 확인하고 체크하세요</p>
+        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.checkTitle}</p>
         <div className="flex flex-col gap-2">
           {[
-            '왼쪽만 눌렀을 때 왼쪽에서만 소리가 난다',
-            '오른쪽만 눌렀을 때 오른쪽에서만 소리가 난다',
-            '양쪽 소리 크기가 비슷하다',
-            '지직거리거나 끊기는 잡음이 없다',
+            ...ui.checkItems,
           ].map(item => (
             <label key={item} className="flex items-center gap-3 cursor-pointer">
               <input
@@ -244,7 +244,7 @@ export default function SpeakerTest() {
           ))}
         </div>
         {Object.values(checked).filter(Boolean).length === 4 && (
-          <p className="mt-3 text-sm font-bold text-emerald-600">✅ 스피커·이어폰이 정상입니다.</p>
+          <p className="mt-3 text-sm font-bold text-emerald-600">{ui.allGood}</p>
         )}
       </div>
     </div>

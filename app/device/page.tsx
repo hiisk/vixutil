@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: '기기 점검 — 키보드·마우스·마이크·웹캠 온라인 테스트',
   description:
     '키보드 입력, 마우스 채터링, 마이크 볼륨, 웹캠 화면, 스피커 좌우, 모니터 불량화소, 주사율까지 설치 없이 브라우저에서 바로 점검하세요. 무료·회원가입 없음.',
-  alternates: { canonical: '/device' },
+  alternates: {
+    canonical: '/device',
+    languages: { 'ko': '/device', 'en': '/en/device', 'zh': '/zh/device', 'x-default': '/en/device' },
+  },
 };
 
 const CATEGORY_ORDER = ['입력장치', '오디오', '영상', '화면', '정보'];

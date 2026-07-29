@@ -1,4 +1,5 @@
 'use client';
+import { REFRESH_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -16,7 +17,8 @@ const SAMPLES = 240;
 
 type Result = { hz: number; median: number; min: number; max: number; jitter: number; dropped: number };
 
-export default function RefreshRateTest() {
+export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = REFRESH_UI[lang];
   const [running, setRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [live, setLive] = useState(0);
@@ -80,7 +82,7 @@ export default function RefreshRateTest() {
     <div>
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6 text-center">
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
-          {running ? '측정 중' : result ? '측정 결과' : '준비됨'}
+          {running ? ui.measuring : result ? ui.resultLabel : ui.ready}
         </p>
         <p className="text-6xl font-black bg-gradient-to-r from-amber-500 to-rose-500 bg-clip-text text-transparent tabular-nums">
           {result ? result.hz : running ? live || '–' : '–'}
@@ -99,10 +101,10 @@ export default function RefreshRateTest() {
           disabled={running}
           className="mt-5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-bold px-8 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
         >
-          {running ? '측정 중…' : result ? '다시 측정' : '주사율 측정 시작 (약 2초)'}
+          {running ? ui.measuringBtn : result ? ui.again : ui.startBtn}
         </button>
         <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
-          측정하는 동안 이 탭을 보고 계셔야 합니다. 다른 창으로 옮기면 브라우저가 프레임을 늦춥니다.
+          {ui.stayHere}
         </p>
       </div>
 
@@ -110,10 +112,10 @@ export default function RefreshRateTest() {
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
             {[
-              { label: '프레임 간격', val: `${result.median}ms` },
-              { label: '가장 빠른 프레임', val: `${result.min}ms` },
-              { label: '가장 느린 프레임', val: `${result.max}ms` },
-              { label: '흔들림(편차)', val: `${result.jitter}ms` },
+              { label: ui.frameInterval, val: `${result.median}ms` },
+              { label: ui.fastestFrame, val: `${result.min}ms` },
+              { label: ui.slowestFrame, val: `${result.max}ms` },
+              { label: ui.jitter, val: `${result.jitter}ms` },
             ].map(s => (
               <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
                 <p className="text-base font-black text-slate-800 dark:text-slate-100 tabular-nums">{s.val}</p>
@@ -125,18 +127,17 @@ export default function RefreshRateTest() {
           <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 text-sm leading-relaxed">
             {offSpec ? (
               <p className="text-slate-600 dark:text-slate-300">
-                <b className="text-amber-600">{result.hz}Hz</b>는 흔한 규격({nearest}Hz)과 차이가 있습니다. 측정 중 다른 작업이
-                끼어들었을 수 있으니 한 번 더 재보세요.
+                {ui.oddNote(result.hz, nearest ?? 0)}
               </p>
             ) : (
               <p className="text-slate-600 dark:text-slate-300">
-                이 화면은 <b className="text-emerald-600">약 {nearest}Hz</b>로 동작하고 있습니다.
-                {nearest && nearest <= 60 && ' 고주사율 모니터를 쓰고 있다면 디스플레이 설정에서 주사율이 60Hz로 잡혀 있는지 확인해 보세요.'}
+                {ui.normalNote(nearest ?? 0)}
+                {nearest && nearest <= 60 && ui.sixtyHint}
               </p>
             )}
             {result.dropped > 0 && (
               <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                측정 중 {result.dropped}프레임이 평소보다 크게 늦었습니다. 백그라운드 프로그램이 많을 때 나타납니다.
+                {ui.droppedNote(result.dropped)}
               </p>
             )}
           </div>
@@ -146,12 +147,12 @@ export default function RefreshRateTest() {
       {/* 눈으로 비교하는 부분 — 숫자보다 이쪽이 체감에 가깝다 */}
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">움직임 부드러움 확인</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.motionTitle}</p>
           <button
             onClick={() => setMotion(m => !m)}
             className="text-xs font-bold text-amber-600 hover:underline"
           >
-            {motion ? '멈추기' : '움직이기'}
+            {motion ? ui.stopMove : ui.move}
           </button>
         </div>
         <div className="relative h-12 rounded-xl bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -165,7 +166,7 @@ export default function RefreshRateTest() {
           />
         </div>
         <p className="mt-2.5 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
-          네모가 뚝뚝 끊겨 보이면 주사율이 낮거나 다른 프로그램이 그래픽을 물고 있는 상태입니다.
+          {ui.motionNote}
         </p>
       </div>
 

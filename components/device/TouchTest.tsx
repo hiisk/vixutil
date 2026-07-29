@@ -1,4 +1,5 @@
 'use client';
+import { TOUCH_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -14,7 +15,8 @@ type Point = { id: number; x: number; y: number; pressure: number; size: number;
 
 const COLORS = ['#0ea5e9', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#14b8a6', '#f97316', '#6366f1', '#84cc16'];
 
-export default function TouchTest() {
+export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
+  const ui = TOUCH_UI[lang];
   const [points, setPoints] = useState<Point[]>([]);
   const [maxTouch, setMaxTouch] = useState(0);
   const [total, setTotal] = useState(0);
@@ -131,8 +133,8 @@ export default function TouchTest() {
         {points.length === 0 && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-4xl mb-2">👆</span>
-            <p className="text-sm font-bold text-slate-500 dark:text-slate-400">이 영역을 손가락으로 눌러 보세요</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">여러 손가락을 동시에 올려도 됩니다</p>
+            <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.pressHere}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{ui.multiOk}</p>
           </div>
         )}
 
@@ -158,28 +160,28 @@ export default function TouchTest() {
       <div className="grid grid-cols-3 gap-2 mt-4">
         <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
           <p className="text-lg font-black text-pink-600">{points.length}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">지금 닿은 점</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.nowTouching}</p>
         </div>
         <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
           <p className="text-lg font-black text-violet-600">{maxTouch}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">동시 인식 최대</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.maxSimul}</p>
         </div>
         <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
           <p className="text-lg font-black text-slate-700 dark:text-slate-200">{supported ?? '–'}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">기기 지원 점수</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.deviceSupports}</p>
         </div>
       </div>
 
       {points.length > 0 && (
         <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">터치 상세</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.detailTitle}</p>
           <div className="flex flex-wrap gap-1.5">
             {points.map(p => (
               <span
                 key={p.id}
                 className="rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-1 text-[11px] font-mono text-slate-500 dark:text-slate-400"
               >
-                #{p.id} · {p.type} · 압력 {p.pressure} · 크기 {p.size}
+                {ui.detailLine(p.id, p.type, String(p.pressure), String(p.size))}
               </span>
             ))}
           </div>
@@ -187,15 +189,15 @@ export default function TouchTest() {
       )}
 
       <p className="mt-3 text-xs text-slate-400 dark:text-slate-500 leading-relaxed text-center">
-        영역 전체를 손가락으로 꼼꼼히 문질러 보세요. 색이 안 칠해지는 구멍이 있다면 그 자리가 터치를 못 받는 겁니다.
-        {supported === 0 && ' (이 기기는 터치를 지원하지 않아 마우스로 표시됩니다.)'}
+        {ui.rubNote}
+        {supported === 0 && ui.noTouchNote}
       </p>
 
       <button
         onClick={clear}
         className="mt-4 w-full rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold py-3 text-sm hover:opacity-90 transition-opacity"
       >
-        지우고 다시 (총 {total}번 눌림)
+        {ui.clearWith(total)}
       </button>
     </div>
   );
