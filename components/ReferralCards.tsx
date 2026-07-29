@@ -69,7 +69,7 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
   const inResult = placement === 'result';
   const title = heading ?? (ko
     ? (inResult ? '결과를 본 김에 — 코인 거래소 가입 혜택' : '코인 선물 거래소 가입 혜택')
-    : (inResult ? 'While you’re here — crypto exchange bonus' : 'Crypto exchange sign-up bonuses'));
+    : (inResult ? 'While you’re here — claim a crypto exchange bonus' : 'Claim your crypto exchange bonus'));
 
   return (
     <section
