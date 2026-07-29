@@ -22,6 +22,7 @@ const TESTS = [
   { href: '/zh/snap/handwriting',   icon: '✍️', title: '笔迹分析',   desc: '从字迹测量倾斜度与笔压', color: 'from-teal-400 to-cyan-500' },
   { href: '/zh/snap/face-reading',  icon: '🔮', title: '面相分析',   desc: '七处五官的传统解读', color: 'from-amber-500 to-red-500' },
   { href: '/zh/snap/animal-face',   icon: '🐾', title: '动物脸测试', desc: '你最像十二种动物中的哪一种', color: 'from-orange-400 to-rose-500' },
+  { href: '/zh/snap/personal-color', icon: '🎨', title: '个人色彩',   desc: '你的四季型与专属色板', color: 'from-pink-400 to-violet-500' },
 ];
 
 export default function ZhSnapHub() {

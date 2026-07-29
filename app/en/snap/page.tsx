@@ -22,6 +22,7 @@ const TESTS = [
   { href: '/en/snap/handwriting',   icon: '✍️', title: 'Handwriting',      desc: 'Slant and pressure from your writing', color: 'from-teal-400 to-cyan-500' },
   { href: '/en/snap/face-reading',  icon: '🔮', title: 'Face Reading',     desc: 'Seven features, traditional style', color: 'from-amber-500 to-red-500' },
   { href: '/en/snap/animal-face',   icon: '🐾', title: 'Animal Face Type', desc: 'Which of twelve animals you match', color: 'from-orange-400 to-rose-500' },
+  { href: '/en/snap/personal-color', icon: '🎨', title: 'Personal Colour',  desc: 'Your seasonal type and palette', color: 'from-pink-400 to-violet-500' },
 ];
 
 export default function EnSnapHub() {

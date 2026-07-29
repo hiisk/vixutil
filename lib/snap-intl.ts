@@ -1054,3 +1054,122 @@ export const FACE_READING_LUCK_INTL: Record<SnapIntlLang, string[]> = {
     '今天相信第一直觉，反复犹豫才是代价。',
   ],
 };
+
+/* ── 퍼스널컬러 ──
+   12개 세부 타입 이름은 한국어판이 이미 영어 차용어(웜 스프링 등)라 영어는
+   그대로 옮기면 되고, 중국어는 중화권에서 통용되는 표현을 쓴다.
+   팔레트 색은 계산으로 생성되므로 색 이름만 번역한다. */
+export type SubtypeKeyIntl =
+  | 'warmSpring' | 'trueSpring' | 'lightSpring'
+  | 'softSummer' | 'trueSummer' | 'lightSummer'
+  | 'deepAutumn' | 'trueAutumn' | 'softAutumn'
+  | 'deepWinter' | 'trueWinter' | 'brightWinter';
+
+export const SUBTYPE_LABELS_INTL: Record<SnapIntlLang, Record<SubtypeKeyIntl, { label: string; vibe: string }>> = {
+  en: {
+    warmSpring:   { label: 'Warm Spring',   vibe: 'clear, bright warm tones' },
+    trueSpring:   { label: 'True Spring',   vibe: 'fresh, lively warm tones' },
+    lightSpring:  { label: 'Light Spring',  vibe: 'light, clear warm tones' },
+    softSummer:   { label: 'Soft Summer',   vibe: 'muted, gentle cool tones' },
+    trueSummer:   { label: 'True Summer',   vibe: 'soft, elegant cool tones' },
+    lightSummer:  { label: 'Light Summer',  vibe: 'light, delicate cool tones' },
+    deepAutumn:   { label: 'Deep Autumn',   vibe: 'rich, deep warm tones' },
+    trueAutumn:   { label: 'True Autumn',   vibe: 'earthy, refined warm tones' },
+    softAutumn:   { label: 'Soft Autumn',   vibe: 'soft, muted warm tones' },
+    deepWinter:   { label: 'Deep Winter',   vibe: 'strong, deep cool tones' },
+    trueWinter:   { label: 'True Winter',   vibe: 'clear, sharp cool tones' },
+    brightWinter: { label: 'Bright Winter', vibe: 'bright, vivid cool tones' },
+  },
+  zh: {
+    warmSpring:   { label: '暖春型',   vibe: '鲜明亮丽的暖色调' },
+    trueSpring:   { label: '正春型',   vibe: '明快有生气的暖色调' },
+    lightSpring:  { label: '浅春型',   vibe: '明亮清透的暖色调' },
+    softSummer:   { label: '柔夏型',   vibe: '低饱和、柔和的冷色调' },
+    trueSummer:   { label: '正夏型',   vibe: '柔美优雅的冷色调' },
+    lightSummer:  { label: '浅夏型',   vibe: '明亮轻盈的冷色调' },
+    deepAutumn:   { label: '深秋型',   vibe: '厚重有深度的暖色调' },
+    trueAutumn:   { label: '正秋型',   vibe: '沉稳精致的暖色调' },
+    softAutumn:   { label: '柔秋型',   vibe: '柔和低调的暖色调' },
+    deepWinter:   { label: '深冬型',   vibe: '强烈深邃的冷色调' },
+    trueWinter:   { label: '正冬型',   vibe: '鲜明清晰的冷色调' },
+    brightWinter: { label: '亮冬型',   vibe: '明亮鲜艳的冷色调' },
+  },
+};
+
+/** 계절별 앵커 색 이름 — hex는 한국어 lib이 계산해 주므로 이름만 옮긴다 */
+export const SWATCH_NAMES_INTL: Record<SnapIntlLang, Record<string, string>> = {
+  en: {
+    '코랄': 'Coral', '피치핑크': 'Peach pink', '아이보리': 'Ivory', '라이트카멜': 'Light camel',
+    '선노랑': 'Sun yellow', '라임그린': 'Lime green',
+    '머스타드': 'Mustard', '테라코타': 'Terracotta', '카키': 'Khaki', '브라운': 'Brown',
+    '올리브': 'Olive', '러스트오렌지': 'Rust orange',
+    '라벤더': 'Lavender', '로즈핑크': 'Rose pink', '파우더블루': 'Powder blue',
+    '소프트그레이': 'Soft grey', '더스티로즈': 'Dusty rose', '라일락': 'Lilac',
+    '로열블루': 'Royal blue', '퓨어화이트': 'Pure white', '버건디': 'Burgundy',
+    '차콜': 'Charcoal', '푸시아': 'Fuchsia', '에메랄드': 'Emerald',
+  },
+  zh: {
+    '코랄': '珊瑚色', '피치핑크': '蜜桃粉', '아이보리': '象牙白', '라이트카멜': '浅驼色',
+    '선노랑': '阳光黄', '라임그린': '青柠绿',
+    '머스타드': '芥末黄', '테라코타': '陶土色', '카키': '卡其色', '브라운': '棕色',
+    '올리브': '橄榄绿', '러스트오렌지': '铁锈橙',
+    '라벤더': '薰衣草紫', '로즈핑크': '玫瑰粉', '파우더블루': '粉蓝色',
+    '소프트그레이': '柔灰色', '더스티로즈': '豆沙粉', '라일락': '丁香紫',
+    '로열블루': '宝蓝色', '퓨어화이트': '纯白', '버건디': '酒红色',
+    '차콜': '炭灰色', '푸시아': '桃红色', '에메랄드': '祖母绿',
+  },
+};
+
+export const PERSONAL_COLOR_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Your skin reads warm and clear, so saturated warm colours — coral, warm peach, sunny yellow — lift the face rather than washing it out. Strong colour suits you.',
+    'A warm, lively reading. Yellow-based colours brighten the impression noticeably, while very dark or dulled shades tend to flatten it.',
+    'Warm and light. Clear peach and soft apricot bring out colour in the face; heavy dark tones can overwhelm it.',
+    'A cool, muted reading. Soft greyed colours — dusty rose, soft grey, muted blue — sit beautifully, while very bright shades compete with the face.',
+    'Cool and soft. Lavender, rose pink and powder blue give an elegant, calm impression that suits you particularly well.',
+    'Cool and light. Delicate pale tones suit you; heavy saturated colour tends to sit heavily against the skin.',
+    'Warm and deep. Rich, grounded colours — brown, olive, rust — carry real weight on you, and pale washed-out shades read as thin.',
+    'Warm and earthy. Mustard, terracotta and khaki give a refined, settled impression that lighter palettes cannot match.',
+    'Warm and softly muted. Gentle earth tones suit you, with strong contrast being the thing to use sparingly.',
+    'Cool and deep. Strong dark colours — charcoal, burgundy, royal blue — hold up against your colouring where softer shades disappear.',
+    'Cool and clear. High-contrast combinations, true white and sharp blue give a striking, defined impression.',
+    'Cool and bright. Vivid clear colours — fuchsia, emerald, pure white — read as sharp and modern on you.',
+  ],
+  zh: [
+    '肤色读起来偏暖且清透，所以高饱和的暖色 —— 珊瑚色、暖蜜桃、阳光黄 —— 会把脸提亮，而不是压住。你压得住浓一点的颜色。',
+    '偏暖而有生气的读数。黄调的颜色能明显提亮气色，而过深或发浊的颜色则容易让人显得平。',
+    '偏暖且明亮。清透的蜜桃、杏色会带出气色；厚重的深色反而会盖过你。',
+    '偏冷且低饱和。柔和的灰调色 —— 豆沙粉、柔灰、雾霾蓝 —— 很衬你，而过于鲜艳的颜色会和脸抢戏。',
+    '偏冷而柔美。薰衣草紫、玫瑰粉、粉蓝会给人优雅安静的印象，特别适合你。',
+    '偏冷且轻盈。浅淡细腻的色调很适合你；厚重高饱和的颜色压在皮肤上会显沉。',
+    '偏暖且深邃。厚重扎实的颜色 —— 棕色、橄榄绿、铁锈色 —— 在你身上很有分量，而发白的浅色则显得单薄。',
+    '偏暖且有大地感。芥末黄、陶土色、卡其色能给出精致沉稳的印象，是浅色系达不到的。',
+    '偏暖且柔和低调。温柔的大地色很适合你，强对比则要少用。',
+    '偏冷且深邃。浓重的深色 —— 炭灰、酒红、宝蓝 —— 撑得住你的气场，柔淡的颜色反而会消失。',
+    '偏冷且清晰。高对比的搭配、纯白与清亮的蓝会给出鲜明利落的印象。',
+    '偏冷且明亮。鲜艳清透的颜色 —— 桃红、祖母绿、纯白 —— 在你身上显得利落又当代。',
+  ],
+};
+
+export const PERSONAL_COLOR_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Changing only the lip colour is often enough to shift the whole impression. Use a lead colour from your palette.',
+    'Match the metal in your accessories — gold for warm, silver for cool. The difference in how the skin reads is real.',
+    'For something important, put one strong palette colour near the face rather than lower down.',
+    'The colours to avoid are worth moving to the back of the wardrobe rather than throwing out.',
+    'If you are being photographed, place a light palette colour near your face — it usually brightens the result.',
+    'Colour analysis is a guide, not a rule. If you love a colour outside the palette, wear it away from the face.',
+    'Lighting changes the reading. Try the same test in daylight and under indoor light and compare.',
+    'The palette matters most for what touches your face — tops, scarves, collars. Trousers barely register.',
+  ],
+  zh: [
+    '只换一支口红的颜色，往往就足以改变整体印象。用你色板里的代表色。',
+    '注意配饰的金属色 —— 暖色调选金，冷色调选银。皮肤读起来的差别是真实存在的。',
+    '有重要场合时，把色板里一个浓一点的颜色放在靠近脸的位置，而不是下半身。',
+    '要避开的颜色，收到衣柜里侧就好，不必扔掉。',
+    '要拍照的话，把色板里明亮的颜色放在脸旁边，通常会拍得更亮。',
+    '色彩诊断是参考而非规则。真心喜欢的颜色即使不在色板里，放在远离脸的位置照样能穿。',
+    '光线会改变结果。在自然光和室内光下各测一次，对比看看。',
+    '色板最重要的是贴近脸的部分 —— 上衣、围巾、领口。裤子几乎不影响。',
+  ],
+};
