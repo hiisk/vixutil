@@ -1,0 +1,125 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import type { Generator } from '@/lib/types';
+import PageGlow from './PageGlow';
+import { thumbGradient } from '@/lib/thumbnail';
+
+function pickFrom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function makeOne(gen: Generator): string {
+  if (gen.type === 'combine' && gen.pools) {
+    return gen.pools.map(p => pickFrom(p)).join(gen.separator ?? '');
+  }
+  if (gen.type === 'pick' && gen.items) {
+    return pickFrom(gen.items);
+  }
+  return '';
+}
+
+function makeBatch(gen: Generator, n = 6): string[] {
+  const out: string[] = [];
+  let tries = 0;
+  while (out.length < n && tries < n * 40) {
+    const r = makeOne(gen);
+    if (r && !out.includes(r)) out.push(r);
+    tries++;
+  }
+  return out;
+}
+
+export default function EnGeneratorEngine({ gen }: { gen: Generator }) {
+  const [results, setResults] = useState<string[]>([]);
+  const [animKey, setAnimKey] = useState(0);
+  const [copiedAll, setCopiedAll] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const hasResults = results.length > 0;
+
+  function generate() {
+    setResults(makeBatch(gen));
+    setAnimKey(k => k + 1);
+  }
+  function refreshOne(idx: number) {
+    setResults(prev => {
+      const next = [...prev];
+      let r = makeOne(gen), tries = 0;
+      while (next.includes(r) && tries < 20) { r = makeOne(gen); tries++; }
+      next[idx] = r;
+      return next;
+    });
+  }
+  async function copyOne(text: string, idx: number) {
+    await navigator.clipboard.writeText(text).catch(() => {});
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 1500);
+  }
+  async function copyAll() {
+    await navigator.clipboard.writeText(results.join('\n')).catch(() => {});
+    setCopiedAll(true);
+    setTimeout(() => setCopiedAll(false), 2000);
+  }
+
+  return (
+    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
+      <PageGlow accent="emerald" />
+      <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
+
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+        <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
+          <Link href="/en/generator" className="text-sm text-slate-400 dark:text-slate-500 hover:text-emerald-600 flex items-center gap-1.5 font-medium">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            All generators
+          </Link>
+          <span className="text-slate-200">·</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{gen.title}</span>
+          <Link href={`/generator/${gen.slug}`} className="ml-auto text-xs font-bold text-slate-400 hover:text-emerald-600" hrefLang="ko">한국어</Link>
+        </div>
+      </header>
+
+      <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
+        <div className="text-center mb-7">
+          <div className={`w-24 h-24 rounded-3xl mx-auto mb-4 flex items-center justify-center bg-gradient-to-br ${thumbGradient(gen.slug, 'generator')} shadow-xl shadow-emerald-500/20`}>
+            <span className="text-5xl drop-shadow-md" aria-hidden="true">{gen.icon}</span>
+          </div>
+          <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1.5">{gen.title}</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">{gen.desc}</p>
+        </div>
+
+        <button
+          onClick={generate}
+          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-2xl py-4 font-black text-base transition-all shadow-md shadow-emerald-200 dark:shadow-none mb-5"
+        >
+          {hasResults ? '🔄 Generate again' : '✨ Generate names'}
+        </button>
+
+        {hasResults && (
+          <div key={animKey} className="space-y-2.5 mb-4 animate-in">
+            {results.map((r, i) => (
+              <div key={`${r}-${i}`} className="group flex items-center gap-3 bg-white dark:bg-slate-900 rounded-2xl px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all">
+                <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center">{i + 1}</span>
+                <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 min-w-0">{r}</p>
+                <button onClick={() => refreshOne(i)} title="Reroll this one" className="text-slate-300 dark:text-slate-600 hover:text-emerald-500 transition-colors p-1">
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                </button>
+                <button onClick={() => copyOne(r, i)} className="text-xs font-bold text-slate-400 hover:text-emerald-600 transition-colors shrink-0 w-12 text-right">
+                  {copiedIdx === i ? '✓' : 'Copy'}
+                </button>
+              </div>
+            ))}
+            <button onClick={copyAll} className="w-full text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-emerald-600 py-2 transition-colors">
+              {copiedAll ? '✓ All copied' : 'Copy all'}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

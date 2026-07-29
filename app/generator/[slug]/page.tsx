@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { GENERATORS, GENERATOR_MAP } from '@/lib/generator-data';
+import { EN_GENERATOR_SLUGS } from '@/lib/generator-en';
 import GeneratorEngine from '@/components/GeneratorEngine';
 import GeneratorContent from '@/components/GeneratorContent';
 import RelatedContent from '@/components/RelatedContent';
@@ -15,7 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const gen = GENERATOR_MAP[slug];
   if (!gen) return {};
-  return { title: gen.title, description: gen.desc, alternates: { canonical: `/generator/${slug}` } };
+  const hasEn = EN_GENERATOR_SLUGS.has(slug);
+  return {
+    title: gen.title,
+    description: gen.desc,
+    alternates: {
+      canonical: `/generator/${slug}`,
+      // 영어판이 있는 생성기는 hreflang으로 ko↔en을 연결 — 영어 검색 유입이 영어 페이지로 간다.
+      ...(hasEn ? { languages: { 'ko': `/generator/${slug}`, 'en': `/en/generator/${slug}`, 'x-default': `/en/generator/${slug}` } } : {}),
+    },
+  };
 }
 
 export default async function GeneratorPage({ params }: { params: Promise<{ slug: string }> }) {
