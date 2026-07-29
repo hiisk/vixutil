@@ -20,6 +20,8 @@ const TESTS = [
   { href: '/zh/snap/expression',    icon: '🎭', title: '表情分析',   desc: '模型推断的七种情绪', color: 'from-indigo-500 to-purple-500' },
   { href: '/zh/snap/first-impression', icon: '✨', title: '第一印象', desc: '你属于六种印象中的哪一种', color: 'from-fuchsia-500 to-violet-600' },
   { href: '/zh/snap/handwriting',   icon: '✍️', title: '笔迹分析',   desc: '从字迹测量倾斜度与笔压', color: 'from-teal-400 to-cyan-500' },
+  { href: '/zh/snap/face-reading',  icon: '🔮', title: '面相分析',   desc: '七处五官的传统解读', color: 'from-amber-500 to-red-500' },
+  { href: '/zh/snap/animal-face',   icon: '🐾', title: '动物脸测试', desc: '你最像十二种动物中的哪一种', color: 'from-orange-400 to-rose-500' },
 ];
 
 export default function ZhSnapHub() {

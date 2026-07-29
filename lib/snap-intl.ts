@@ -734,3 +734,323 @@ export const IMPRESSION_TIPS_INTL: Record<SnapIntlLang, string[]> = {
     '紧张的话，把力气放到脚上而不是手上，表情就不会僵。',
   ],
 };
+
+/* ── 동물상 ──
+   12개 기준 벡터와의 최근접 이웃으로 정한다. 벡터와 거리 계산은 언어와
+   무관하므로 한국어 ANIMAL_ARCHETYPE을 그대로 쓰고 라벨·문장만 갈아 끼운다. */
+export type AnimalKeyIntl =
+  | 'dog' | 'cat' | 'fox' | 'rabbit' | 'bear' | 'deer'
+  | 'squirrel' | 'tiger' | 'lamb' | 'panda' | 'wolf' | 'koala';
+
+export const ANIMAL_LABELS_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, string>> = {
+  en: {
+    dog: 'Puppy type', cat: 'Cat type', fox: 'Fox type', rabbit: 'Rabbit type',
+    bear: 'Bear type', deer: 'Deer type', squirrel: 'Squirrel type', tiger: 'Tiger type',
+    lamb: 'Lamb type', panda: 'Panda type', wolf: 'Wolf type', koala: 'Koala type',
+  },
+  zh: {
+    dog: '小狗脸', cat: '猫系脸', fox: '狐狸脸', rabbit: '兔子脸',
+    bear: '熊系脸', deer: '小鹿脸', squirrel: '松鼠脸', tiger: '老虎脸',
+    lamb: '绵羊脸', panda: '熊猫脸', wolf: '狼系脸', koala: '考拉脸',
+  },
+};
+
+export const ANIMAL_POOL_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, string[]>> = {
+  en: {
+    dog: [
+      'Round, friendly eyes and a soft jawline — the face people describe as easy to like. There is no edge to it, so first meetings tend to go smoothly.',
+      'Warm and open. The features sit in a way that reads as approachable rather than striking, which is its own kind of advantage.',
+    ],
+    cat: [
+      'Lifted outer eye corners and a slim line — the cool, self-possessed type. Reads as independent rather than distant.',
+      'Feline proportions: narrow face, tilted eyes. It photographs well and holds attention without trying.',
+    ],
+    fox: [
+      'Sharply lifted eyes and a narrow face — the sharpest of the twelve. Reads as clever and quick.',
+      'A slim, upward-tilted look. Striking rather than soft, and memorable after one meeting.',
+    ],
+    rabbit: [
+      'Large eyes on a small, narrow face. Reads as young and open, the type people instinctively want to look after.',
+      'Wide-eyed and delicate. The proportions read as gentle and slightly startled, which is exactly the appeal.',
+    ],
+    bear: [
+      'A broad, rounded face with a solid jaw — the reassuring type. Reads as dependable and warm rather than sharp.',
+      'Generous proportions that read as steady. This is the face people describe as comforting to be around.',
+    ],
+    deer: [
+      'A long, narrow face with large eyes — elegant and slightly delicate. Reads as gentle and watchful.',
+      'Fine-boned proportions with wide eyes. Quiet rather than loud, and it holds up in close-up.',
+    ],
+    squirrel: [
+      'Small, narrow face with big lively eyes. Reads as quick and curious, the type that seems to be up to something.',
+      'Compact and bright-eyed. The proportions read as energetic and youthful.',
+    ],
+    tiger: [
+      'A broad face with a strong jaw and lifted eyes — the most commanding of the twelve. Reads as confident.',
+      'Strong bone structure with intensity in the eyes. This face registers instantly in a group.',
+    ],
+    lamb: [
+      'A soft, narrow face with gentle eyes. Reads as calm and unthreatening, and it ages beautifully.',
+      'Fine features with no hard lines. Quiet, warm, and easy to be around.',
+    ],
+    panda: [
+      'A rounded face with large, wide-set eyes. Reads as cheerful and unguarded — very hard to dislike.',
+      'Round proportions with big eyes. The combination reads as friendly and a little playful.',
+    ],
+    wolf: [
+      'A strong jaw with narrow, lifted eyes. Reads as composed and a bit unreadable, which people find compelling.',
+      'Angular and intense. It holds up especially well in profile and in dramatic light.',
+    ],
+    koala: [
+      'A wide, soft face with small calm eyes. Reads as unhurried and gentle — the most relaxed of the twelve.',
+      'Rounded and quiet. The proportions read as unbothered, which is a rarer appeal than it sounds.',
+    ],
+  },
+  zh: {
+    dog: [
+      '圆润友善的眼睛配上柔和的下颌线 —— 就是那种一看就讨喜的脸。没有攻击性，初次见面通常都很顺。',
+      '温暖而开放。五官的排布读起来是好接近而不是抢眼，这本身就是一种优势。',
+    ],
+    cat: [
+      '眼尾上扬、脸型偏窄 —— 冷感又有主见的类型。读起来是独立，而不是疏远。',
+      '猫系比例：窄脸、上挑的眼睛。很上镜，不用刻意也能抓住视线。',
+    ],
+    fox: [
+      '眼睛上扬明显、脸型窄 —— 十二种里最锐利的一种。读起来聪明、反应快。',
+      '纤细而上挑的长相。有冲击力而不柔软，见一次就记得住。',
+    ],
+    rabbit: [
+      '小而窄的脸上一双大眼睛。读起来年轻、不设防，是让人本能想照顾的类型。',
+      '眼睛大、骨相细。比例读起来温柔又带点受惊的感觉，而这正是魅力所在。',
+    ],
+    bear: [
+      '宽而圆的脸配上扎实的下颌 —— 让人安心的类型。读起来可靠温厚而非锐利。',
+      '大气的比例，读起来很稳。这就是别人口中「待在旁边很舒服」的那种脸。',
+    ],
+    deer: [
+      '窄长的脸配上大眼睛 —— 优雅又略带纤细。读起来温柔且警觉。',
+      '骨相细致、眼睛大。安静而不喧哗，近景特写也很耐看。',
+    ],
+    squirrel: [
+      '小而窄的脸配上灵动的大眼睛。读起来机灵好奇，像是随时在盘算什么。',
+      '小巧而眼神明亮。比例读起来充满活力、显年轻。',
+    ],
+    tiger: [
+      '宽脸、下颌有力、眼睛上扬 —— 十二种里气场最强的一种。读起来自信。',
+      '骨架强、眼神有力度。在人群里会被第一眼注意到。',
+    ],
+    lamb: [
+      '柔和窄脸配上温顺的眼睛。读起来平和无害，而且会越长越有味道。',
+      '五官细致、没有硬线条。安静、温暖、相处轻松。',
+    ],
+    panda: [
+      '圆脸配上大而分得开的眼睛。读起来开朗不设防 —— 很难让人不喜欢。',
+      '圆润的比例加大眼睛。这个组合读起来友善，还带点俏皮。',
+    ],
+    wolf: [
+      '下颌有力、眼睛细长上扬。读起来沉着又有点看不透，这种感觉很吸引人。',
+      '轮廓分明、眼神有强度。侧脸和强光下尤其好看。',
+    ],
+    koala: [
+      '宽而柔和的脸配上小而平静的眼睛。读起来不慌不忙、温和 —— 十二种里最放松的一种。',
+      '圆润而安静。比例读起来是「不太在意」的感觉，这种魅力其实比想象中少见。',
+    ],
+  },
+};
+
+export const ANIMAL_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Animal-face typing is a game, not a measurement of attractiveness — every one of the twelve has its own appeal.',
+    'The result shifts with angle and expression. Try a different photo and see which type you land on.',
+    'The runner-up type is often the one people actually say you resemble.',
+    'Hairstyle changes the face-shape ratio more than anything else — the result can move with a haircut.',
+    'A smiling photo and a neutral one from the same day can give different types. Both are you.',
+    'Lighting from below widens the jaw in the measurement. Front light gives the most representative result.',
+  ],
+  zh: [
+    '动物脸只是个游戏，不是颜值的测量 —— 十二种各有各的好看。',
+    '结果会随角度和表情变化。换张照片试试，看看落到哪一种。',
+    '第二名的类型，往往才是别人真正说你像的那一种。',
+    '发型对脸型比例的影响最大 —— 剪个头发结果就可能变。',
+    '同一天的笑脸照和无表情照可能给出不同类型。两个都是你。',
+    '从下往上打光会让下颌在测量里变宽。正面光的结果最有代表性。',
+  ],
+};
+
+/* ── 관상 ──
+   중화권에서는 面相으로 본토 문화라 zh 수요가 크다. 7개 부위의 실측 비율을
+   구간별 해석에 매핑하는 구조는 한국어와 동일하고, 문장만 각 언어로 새로 썼다.
+   배열 길이가 곧 구간 수라 언어별로 길이가 달라도 동작에는 문제가 없다. */
+export type FeatureKeyIntl = 'faceShape' | 'eyebrow' | 'eye' | 'eyeTilt' | 'nose' | 'mouth' | 'chin';
+
+export const FEATURE_LABELS_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, string>> = {
+  en: {
+    faceShape: 'Face shape', eyebrow: 'Eyebrows', eye: 'Eye size', eyeTilt: 'Eye tilt',
+    nose: 'Nose', mouth: 'Mouth', chin: 'Jawline',
+  },
+  zh: {
+    faceShape: '脸型', eyebrow: '眉毛', eye: '眼睛大小', eyeTilt: '眼型',
+    nose: '鼻子', mouth: '嘴', chin: '下颌线',
+  },
+};
+
+export const FEATURE_POOL_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, string[]>> = {
+  en: {
+    faceShape: [
+      'A long, slim face. Traditionally read as composed and thoughtful — someone who thinks before moving rather than leading with feeling. May seem hard to approach at first, but is usually described as having depth once known.',
+      'Slightly elongated. Read as calm and considered, with a preference for weighing things up over reacting quickly.',
+      'Balanced proportions, neither long nor round. Read as adaptable — able to shift register depending on who is in the room.',
+      'Softly rounded. Read as warm and sociable, the sort of face that makes other people relax first.',
+      'Broad and rounded. Read as generous and dependable, with a tendency to be the one others rely on.',
+      'Wide with a strong structure. Read as decisive and grounded, comfortable taking responsibility.',
+    ],
+    eyebrow: [
+      'Flat, level brows. Read as steady and unhurried — someone whose mood is hard to read from a distance.',
+      'Gently arched. Read as balanced between reason and feeling, adjusting to what a situation asks for.',
+      'A clear, moderate arch. Read as expressive without being volatile — the middle ground most faces sit in.',
+      'A defined arch. Read as having strong opinions and being willing to voice them.',
+      'A high, pronounced arch. Read as ambitious and quick to react, with visible feeling.',
+      'A sharply lifted arch. Read as intense and driven, with little patience for delay.',
+    ],
+    eye: [
+      'Narrow eyes. Read as observant and private — noticing more than is let on.',
+      'Slightly narrow. Read as measured, someone who watches before joining in.',
+      'Average size. Read as approachable without being unguarded.',
+      'Slightly large. Read as open and curious, quick to engage.',
+      'Large eyes. Read as expressive and warm, with feeling that shows clearly.',
+      'Very large eyes. Read as unguarded and vivid — what is felt is visible immediately.',
+    ],
+    eyeTilt: [
+      'Distinctly downturned. Read as gentle and unthreatening, the sort of gaze people find easy to meet.',
+      'Slightly downturned. Read as soft and approachable, with a kind quality to the expression.',
+      'Close to level. Read as even-tempered and steady, giving nothing away either direction.',
+      'Slightly upturned. Read as alert and confident, with some sharpness to the look.',
+      'Clearly upturned. Read as self-possessed and striking, the classic composed gaze.',
+      'Strongly upturned. Read as intense and commanding — a gaze that registers immediately.',
+    ],
+    nose: [
+      'A narrow nose. Read as refined and careful, with attention to detail.',
+      'Slightly narrow. Read as considered, preferring precision to broad strokes.',
+      'Moderate width. Read as balanced — practical without being rigid.',
+      'Slightly broad. Read as generous and grounded, comfortable with people.',
+      'A broad nose. Read as open-handed and resilient, traditionally linked to steady fortune.',
+      'Notably broad. Read as expansive and confident, with an appetite for scale.',
+    ],
+    mouth: [
+      'A small mouth. Read as reserved and careful with words — saying less than is thought.',
+      'Slightly small. Read as measured in speech, choosing words deliberately.',
+      'Average width. Read as balanced — able to speak up or hold back as needed.',
+      'Slightly wide. Read as sociable and expressive, comfortable in conversation.',
+      'A wide mouth. Read as generous and outgoing, traditionally linked to good fortune in relationships.',
+      'Notably wide. Read as expressive and warm, the person who carries the conversation.',
+    ],
+    chin: [
+      'A narrow jawline. Read as delicate and sensitive, with a refined quality.',
+      'Slightly narrow. Read as gentle, with an unforced kind of presence.',
+      'Moderate width. Read as balanced — neither soft nor severe.',
+      'Slightly broad. Read as steady and reliable, someone who follows through.',
+      'A broad jawline. Read as determined and grounded, traditionally linked to persistence.',
+      'A strong, wide jaw. Read as resolute — the classic mark of someone who finishes what they start.',
+    ],
+  },
+  zh: {
+    faceShape: [
+      '偏长的窄脸。传统上视为沉静有想法 —— 先想清楚再行动，而不是被情绪带着走。初看似乎不好接近，熟了之后常被说很有内涵。',
+      '略长的脸型。视为冷静有分寸，比起立刻反应更倾向于先掂量。',
+      '比例均衡，不长也不圆。视为适应力强 —— 能根据在场的人调整自己的方式。',
+      '柔和的圆脸。视为温暖好相处，是那种让别人先放松下来的脸。',
+      '宽而圆润。视为大方可靠，容易成为别人依赖的那一个。',
+      '宽脸、骨架明显。视为果断踏实，愿意承担责任。',
+    ],
+    eyebrow: [
+      '平直的眉。视为沉稳不急躁 —— 远看很难读出情绪的那种人。',
+      '弧度柔和的眉。视为理性与感性之间取得平衡，按情况调整。',
+      '弧度清晰适中。视为有表达力但不情绪化，大多数人的落点。',
+      '弧度明确的眉。视为有主见，也愿意说出来。',
+      '弧度高而明显。视为有企图心、反应快，情绪外露。',
+      '大幅上扬的眉。视为强烈而有驱动力，不太能忍受拖延。',
+    ],
+    eye: [
+      '细长的眼睛。视为善观察、不外露 —— 看到的比说出来的多。',
+      '略细的眼睛。视为有分寸，会先观察再加入。',
+      '大小适中。视为好接近，同时又不至于毫无防备。',
+      '略大的眼睛。视为开放好奇，反应积极。',
+      '大眼睛。视为有表达力、温暖，情绪写在脸上。',
+      '非常大的眼睛。视为不设防、鲜活 —— 感受会立刻显现出来。',
+    ],
+    eyeTilt: [
+      '明显下垂的眼型。视为温和无害，是让人容易对视的眼神。',
+      '略微下垂。视为柔和好接近，眼神里有善意。',
+      '接近水平。视为性情平稳，两边都不偏。',
+      '略微上扬。视为机敏自信，眼神带点锐度。',
+      '明显上扬。视为有主见、抓眼，是典型的沉稳眼神。',
+      '大幅上扬。视为强烈而有气场 —— 一眼就会被记住的眼神。',
+    ],
+    nose: [
+      '偏窄的鼻子。视为讲究细致，注重细节。',
+      '略窄。视为周到，偏好精确而非粗线条。',
+      '宽度适中。视为均衡 —— 务实但不僵硬。',
+      '略宽。视为大方踏实，与人相处自在。',
+      '偏宽的鼻子。视为慷慨有韧性，传统上与稳定的财运相连。',
+      '明显宽阔。视为格局大、有自信，喜欢做大的事。',
+    ],
+    mouth: [
+      '小嘴。视为内敛、说话谨慎 —— 想的比说的多。',
+      '略小。视为言语有节制，用词经过挑选。',
+      '宽度适中。视为均衡 —— 该说时说，该收时收。',
+      '略宽。视为善社交、有表达欲，聊天时自在。',
+      '偏宽的嘴。视为大方外向，传统上与人缘福气相连。',
+      '明显宽阔。视为有表达力、温暖，是撑起对话的那个人。',
+    ],
+    chin: [
+      '偏窄的下颌线。视为纤细敏感，有精致感。',
+      '略窄。视为温和，有一种不用力的存在感。',
+      '宽度适中。视为均衡 —— 不软也不硬。',
+      '略宽。视为稳重可靠，说到做到。',
+      '偏宽的下颌线。视为有决心、踏实，传统上与坚持相连。',
+      '有力的宽下颌。视为果决 —— 典型的「开了头就会做完」的相。',
+    ],
+  },
+};
+
+export const FACE_READING_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Taken together, the proportions read as balanced — no single feature dominates, which traditionally suggests someone who adapts well.',
+    'The features complement each other, giving an impression of steadiness. Traditional reading links this to relationships that last.',
+    'There is contrast between the features here, which is read as range: different sides showing in different situations.',
+    'The overall arrangement reads as composed. Traditionally associated with people who are trusted with responsibility.',
+    'Distinctive proportions with clear character. Read as someone who leaves a definite impression rather than blending in.',
+    'A harmonious arrangement overall — the kind of face traditional reading calls fortunate simply for being at ease with itself.',
+  ],
+  zh: [
+    '整体来看比例均衡 —— 没有哪一处特别突出，传统上认为这样的人适应力好。',
+    '各部位彼此相配，给人稳定的印象。传统解读把这与长久的人际关系相连。',
+    '各部位之间有反差，这被读作「层次」：在不同场合会显出不同的一面。',
+    '整体排布沉稳。传统上与被托付责任的人相连。',
+    '比例有辨识度、个性鲜明。视为会留下明确印象、不会泯然众人的类型。',
+    '整体协调 —— 传统面相里，仅仅是这份自在本身就被称为有福。',
+  ],
+};
+
+export const FACE_READING_LUCK_INTL: Record<SnapIntlLang, string[]> = {
+  en: [
+    'Today favours saying the thing you have been holding back.',
+    'A good day for the conversation you have been putting off.',
+    'Money matters go better with a second look today than a quick decision.',
+    'Today rewards listening more than speaking.',
+    'A small kindness today comes back sooner than you expect.',
+    'Today is better for finishing than for starting.',
+    'Someone will be glad you reached out first today.',
+    'Trust the first instinct today; the second-guessing is what costs you.',
+  ],
+  zh: [
+    '今天适合把一直憋着的那句话说出口。',
+    '一直拖着的那场对话，今天谈比较顺。',
+    '钱的事今天多看一眼比快速决定好。',
+    '今天听比说更有收获。',
+    '今天的一点善意，会比你以为的更早回来。',
+    '今天更适合收尾，而不是开新的。',
+    '今天你先开口联系，对方会很高兴。',
+    '今天相信第一直觉，反复犹豫才是代价。',
+  ],
+};

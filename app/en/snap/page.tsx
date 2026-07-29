@@ -20,6 +20,8 @@ const TESTS = [
   { href: '/en/snap/expression',    icon: '🎭', title: 'Expression Analyser', desc: 'Seven emotions, inferred by a model', color: 'from-indigo-500 to-purple-500' },
   { href: '/en/snap/first-impression', icon: '✨', title: 'First Impression', desc: 'Which of six impressions you read as', color: 'from-fuchsia-500 to-violet-600' },
   { href: '/en/snap/handwriting',   icon: '✍️', title: 'Handwriting',      desc: 'Slant and pressure from your writing', color: 'from-teal-400 to-cyan-500' },
+  { href: '/en/snap/face-reading',  icon: '🔮', title: 'Face Reading',     desc: 'Seven features, traditional style', color: 'from-amber-500 to-red-500' },
+  { href: '/en/snap/animal-face',   icon: '🐾', title: 'Animal Face Type', desc: 'Which of twelve animals you match', color: 'from-orange-400 to-rose-500' },
 ];
 
 export default function EnSnapHub() {
