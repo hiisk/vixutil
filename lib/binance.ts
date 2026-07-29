@@ -32,6 +32,32 @@ export interface Ticker24h {
  * USDT 페어 24h 티커를 거래량(quoteVolume) 내림차순으로 정렬해 전부 돌려준다.
  * 스테이블코인 페어는 제외한다. 요청 1회로 전체 목록·현재가·24h 변동을 얻는다.
  */
+/**
+ * 한 종목만 조회한다.
+ *
+ * fetchTickers()는 전 종목을 받는데 응답이 **1.8MB**다. 코인 하나의 현재가만
+ * 필요한 페이지가 그걸 쓰면 3,000배 넘는 낭비가 된다(단일 조회는 556 bytes).
+ * 보드처럼 전 종목이 실제로 필요한 화면만 fetchTickers를 쓴다.
+ */
+export async function fetchTicker(symbol: string, market: Market = 'spot'): Promise<Ticker24h | null> {
+  const res = await fetch(`${BASES[market]}/ticker/24hr?symbol=${symbol}`);
+  if (!res.ok) return null;
+  const x: Record<string, string> = await res.json();
+  if (!x?.symbol) return null;
+
+  const lastPrice = Number(x.lastPrice);
+  if (!(lastPrice > 0)) return null;
+  const high = Number(x.highPrice), low = Number(x.lowPrice);
+  return {
+    symbol: x.symbol,
+    base: x.symbol.endsWith('USDT') ? x.symbol.slice(0, -4) : x.symbol,
+    lastPrice,
+    priceChangePercent: Number(x.priceChangePercent),
+    quoteVolume: Number(x.quoteVolume) || 0,
+    rangePct: isFinite(high) && isFinite(low) ? ((high - low) / lastPrice) * 100 : 0,
+  };
+}
+
 export async function fetchTickers(market: Market = 'spot'): Promise<Ticker24h[]> {
   const res = await fetch(`${BASES[market]}/ticker/24hr`);
   if (!res.ok) throw new Error(`ticker ${res.status}`);

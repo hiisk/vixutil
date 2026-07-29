@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
+import { fetchTicker, fetchDailyOHLCV, fetchDailyCandles, fetchFullDailyCloses, type DailyOHLCV } from '@/lib/binance';
 import { computeConsensus, STRATEGY_META, type ConsensusSignal, type Bias } from '@/lib/strategies';
 import { buildForecast, simulatePaths, forecastSeries, probReach, monthlyProjections, correlation, medianPeakLevel, representativePath, HORIZONS, TIMEFRAMES, greenDays, volatilityLabel, trendConfidenceLabel, probTpBeforeSl, PRIOR_MARKET_DRIFT_SD, PRIOR_ALPHA_DRIFT_SD, MIN_DRIFT_HISTORY, MIN_SAMPLES, RELIABLE_SAMPLES, DAILY_PATH_DAYS, type ForecastModel, type Timeframe } from '@/lib/forecast';
 import { historicalScenarios, historicalDailyPath, hasSignFlip, MIN_INDEPENDENT_WINDOWS, type ScenarioHorizon } from '@/lib/scenarios';
@@ -127,8 +127,9 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       const market = marketOf(coin);
       const symbol = symbolOf(coin);
       // 시장 기준계열(BTC)도 같이 받는다 — 예측을 시장/alpha 성분으로 분해하기 위해
-      const [tickers, ohlcv, marketCandles, fullCloses] = await Promise.all([
-        fetchTickers(market),
+      const [t, ohlcv, marketCandles, fullCloses] = await Promise.all([
+        // 전 종목(1.8MB) 대신 이 코인만 받는다
+        fetchTicker(symbol, market),
         fetchDailyOHLCV(symbol, HISTORY_DAYS, market),
         fetchDailyCandles('BTCUSDT', HISTORY_DAYS, market).catch(() => []),
         // 과거 구간 시나리오는 상장 이후 전체 이력을 쓴다(1000개 상한이라 페이징)
@@ -144,7 +145,6 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             .catch(() => ({ base: b, closes: [] as number[] })),
         ),
       );
-      const t = tickers.find(x => x.base === coin.base);
       if (!t || ohlcv.length < 2) { setState('nodata'); return; }
 
       const closes = ohlcv.map(k => k.close);

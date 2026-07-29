@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { formatPrice, computeATR } from '@/lib/atr';
-import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles } from '@/lib/binance';
+import { fetchTicker, fetchDailyOHLCV, fetchDailyCandles } from '@/lib/binance';
 import { buildForecast, volatilityLabel, type ForecastModel } from '@/lib/forecast';
 import { simulateBarriers, probEverAbove, probEverBelow } from '@/lib/barriers';
 import { computePosition, breakevenWinRate, RISK_PRESETS, type Side } from '@/lib/position';
@@ -60,12 +60,11 @@ export default function PositionSizer() {
     setState('loading');
     try {
       const market = marketOf(coin);
-      const [tickers, ohlcv, btc] = await Promise.all([
-        fetchTickers(market),
+      const [t, ohlcv, btc] = await Promise.all([
+        fetchTicker(symbolOf(coin), market),
         fetchDailyOHLCV(symbolOf(coin), HISTORY_DAYS, market),
         fetchDailyCandles('BTCUSDT', HISTORY_DAYS, market).catch(() => []),
       ]);
-      const t = tickers.find(x => x.base === coin.base);
       if (!t || ohlcv.length < 2) { setState('nodata'); return; }
       const model = buildForecast(ohlcv.map(k => k.close), t.lastPrice, btc.length ? btc.map(k => k.close) : undefined);
       if (!model) { setState('nodata'); return; }

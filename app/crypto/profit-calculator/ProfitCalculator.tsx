@@ -2,9 +2,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers } from '@/lib/binance';
+import { fetchTicker } from '@/lib/binance';
 import { computeProfit, FEE_PRESETS, type Side } from '@/lib/profit';
-import { COINS, marketOf, type CoinMeta } from '@/lib/coins';
+import { COINS, marketOf, symbolOf, type CoinMeta } from '@/lib/coins';
 import { CoinLogo, Pct } from '@/components/crypto/ui';
 
 const SUGGEST_LIMIT = 8;
@@ -39,8 +39,7 @@ export default function ProfitCalculator() {
   const load = useCallback(async () => {
     setState('loading');
     try {
-      const tickers = await fetchTickers(marketOf(coin));
-      const t = tickers.find(x => x.base === coin.base);
+      const t = await fetchTicker(symbolOf(coin), marketOf(coin));
       if (!t) { setState('error'); return; }
       setPrice(t.lastPrice);
       setChg24h(t.priceChangePercent);

@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchDailyCandles } from '@/lib/binance';
+import { fetchTicker, fetchDailyCandles } from '@/lib/binance';
 import { buildForecast, volatilityLabel, type ForecastModel } from '@/lib/forecast';
 import { athInfo, type AthInfo } from '@/lib/ath';
 import { maxDrawdownPct } from '@/lib/seasonality';
@@ -104,10 +104,12 @@ export default function CompareBoard() {
   const load = useCallback(async () => {
     setState('loading');
     try {
-      const build = async (coin: CoinMeta, btcCloses: number[] | undefined, tickers: { base: string; lastPrice: number; priceChangePercent: number }[]) => {
-        const k = await fetchDailyCandles(symbolOf(coin), HISTORY_DAYS, marketOf(coin));
+      const build = async (coin: CoinMeta, btcCloses: number[] | undefined) => {
+        const [k, t] = await Promise.all([
+          fetchDailyCandles(symbolOf(coin), HISTORY_DAYS, marketOf(coin)),
+          fetchTicker(symbolOf(coin), marketOf(coin)),
+        ]);
         const closes = k.map(x => x.close);
-        const t = tickers.find(x => x.base === coin.base);
         const price = t?.lastPrice ?? closes[closes.length - 1];
         return {
           coin, price,
@@ -120,14 +122,11 @@ export default function CompareBoard() {
         } as Side;
       };
 
-      const [tickers, btc] = await Promise.all([
-        fetchTickers('spot').catch(() => []),
-        fetchDailyCandles('BTCUSDT', HISTORY_DAYS, 'spot').catch(() => []),
-      ]);
+      const btc = await fetchDailyCandles('BTCUSDT', HISTORY_DAYS, 'spot').catch(() => []);
       const btcCloses = btc.length ? btc.map(x => x.close) : undefined;
       const btcRets = btcCloses ? logReturns(btcCloses) : [];
 
-      const [a, b] = await Promise.all([build(coinA, btcCloses, tickers), build(coinB, btcCloses, tickers)]);
+      const [a, b] = await Promise.all([build(coinA, btcCloses), build(coinB, btcCloses)]);
       if (a.closes.length < 40 || b.closes.length < 40) { setState('error'); return; }
 
       setSnap({

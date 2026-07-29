@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchDailyOHLCV, fetchDailyCandles } from '@/lib/binance';
+import { fetchTicker, fetchDailyOHLCV, fetchDailyCandles } from '@/lib/binance';
 import { buildForecast, volatilityLabel, type ForecastModel } from '@/lib/forecast';
 import { simulateBarriers, probEverAbove, probEverBelow } from '@/lib/barriers';
 import { computeLiquidation, maxLeverageForBuffer, MMR_PRESETS, type Side } from '@/lib/liquidation';
@@ -64,12 +64,11 @@ export default function LiquidationCalculator() {
     try {
       const market = marketOf(coin);
       const symbol = symbolOf(coin);
-      const [tickers, ohlcv, btc] = await Promise.all([
-        fetchTickers(market),
+      const [t, ohlcv, btc] = await Promise.all([
+        fetchTicker(symbol, market),
         fetchDailyOHLCV(symbol, HISTORY_DAYS, market),
         fetchDailyCandles('BTCUSDT', HISTORY_DAYS, market).catch(() => []),
       ]);
-      const t = tickers.find(x => x.base === coin.base);
       if (!t || ohlcv.length < 2) { setState('nodata'); return; }
 
       const closes = ohlcv.map(k => k.close);

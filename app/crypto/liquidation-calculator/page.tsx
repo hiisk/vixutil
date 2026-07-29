@@ -89,9 +89,9 @@ export default function LiquidationCalculatorPage() {
 
         <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
-        <Faq items={SECTION_FAQ['crypto/liquidation-calculator']} />
+        <Faq items={SECTION_FAQ['crypto/liquidation-calculator']} lang="en" />
       </div>
-      <SiteFooter />
+      <SiteFooter lang="en" />
     </div>
   );
 }

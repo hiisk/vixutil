@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/atr';
-import { fetchTickers, fetchFullDailyCloses } from '@/lib/binance';
+import { fetchTicker, fetchFullDailyCloses } from '@/lib/binance';
 import {
   runDca, lumpRoi, dcaDistribution, percentileOf,
   FREQ_DAYS, FREQ_LABEL, MIN_INDEPENDENT_WINDOWS,
@@ -48,11 +48,10 @@ export default function DcaCalculator() {
     setState('loading');
     try {
       const market = marketOf(coin);
-      const [tickers, closes] = await Promise.all([
-        fetchTickers(market),
+      const [t, closes] = await Promise.all([
+        fetchTicker(symbolOf(coin), market),
         fetchFullDailyCloses(symbolOf(coin), market),
       ]);
-      const t = tickers.find(x => x.base === coin.base);
       if (!t || closes.length < 60) { setState('nodata'); return; }
       setSnap({ coin, price: t.lastPrice, closes });
       setState('ready');

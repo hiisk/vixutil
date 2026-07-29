@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { fetchFullDailyKlines, fetchTickers } from '@/lib/binance';
+import { fetchFullDailyKlines } from '@/lib/binance';
 import {
   seasonality, maxDrawdownPct, binomialTwoSidedP, MONTH_SHORT, MONTH_NAMES,
   type MonthStat,
@@ -44,10 +44,9 @@ export default function SeasonalityBoard() {
     setState('loading');
     try {
       const market = marketOf(coin);
-      const [klines] = await Promise.all([
-        fetchFullDailyKlines(symbolOf(coin), market),
-        fetchTickers(market).catch(() => []),
-      ]);
+      // 이 페이지는 현재가가 필요 없다. 예전엔 fetchTickers(1.8MB)를 함께 불렀는데
+      // 결과를 쓰지도 않았다 — 순수 낭비라 제거했다.
+      const klines = await fetchFullDailyKlines(symbolOf(coin), market);
       if (klines.length < 120) { setState('nodata'); return; }
       const stats = seasonality(klines.map(k => ({ day: k.openTime, close: k.close })));
       if (!stats.length) { setState('nodata'); return; }
