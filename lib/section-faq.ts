@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/stablecoin-depeg': [
+    {
+      q: 'Why report deviation in basis points instead of percent?',
+      a: 'Because the numbers are small and the differences matter. A stablecoin fifteen basis points from parity is doing ordinary market-making; one hundred and fifty basis points away is a different event. A percentage display rounds both toward 0.00% and hides the distinction.',
+    },
+    {
+      q: 'Are these prices against the US dollar?',
+      a: 'No, against USDT. Binance quotes stablecoins in USDT, so 0.999 means a tenth of a percent below USDT rather than below a dollar. That matters because when USDT itself drifts, every other row moves the opposite way.',
+    },
+    {
+      q: 'How do you know whether USDT or the other coin is moving?',
+      a: 'By taking the median deviation of the other stablecoins and inverting it. If they all sit the same distance on the same side, the simpler explanation is that the yardstick moved. The median is used rather than the average so that one genuinely failing token does not drag the estimate.',
+    },
+    {
+      q: 'Is a small deviation a warning sign?',
+      a: 'Usually not. Redemption takes hours and costs fees, so arbitrage does not close a few basis points instantly and stablecoins oscillate around parity continuously. Real depegs persist and widen rather than revert, and volume rises sharply as holders exit.',
+    },
+    {
+      q: 'Why does volume appear next to the deviation?',
+      a: 'Because a wide deviation on a thinly traded pair describes the order book rather than the token. Without volume, a quiet market with a wide spread looks identical to a run.',
+    },
+    {
+      q: 'Can this tell me if a stablecoin is safe?',
+      a: 'No. Price is the market\u2019s opinion about whether reserves exist and can be redeemed, not evidence about it, and that opinion has been wrong in both directions — slow in some failures, briefly panicked about tokens that were fine.',
+    },
+  ],
   'crypto/risk-of-ruin': [
     {
       q: 'What is risk of ruin?',

@@ -26,6 +26,9 @@ export interface Ticker24h {
   quoteVolume: number;
   /** 24시간 고가·저가 폭을 현재가로 나눈 값(%). 실현 변동성의 값싼 대용치. */
   rangePct: number;
+  /** 24시간 저가·고가 그대로. bp 단위로 읽는 화면(스테이블코인)은 폭이 아니라 값이 필요하다. */
+  low24h: number;
+  high24h: number;
 }
 
 /**
@@ -55,6 +58,8 @@ export async function fetchTicker(symbol: string, market: Market = 'spot'): Prom
     priceChangePercent: Number(x.priceChangePercent),
     quoteVolume: Number(x.quoteVolume) || 0,
     rangePct: isFinite(high) && isFinite(low) ? ((high - low) / lastPrice) * 100 : 0,
+    low24h: isFinite(low) ? low : lastPrice,
+    high24h: isFinite(high) ? high : lastPrice,
   };
 }
 
@@ -77,6 +82,8 @@ export async function fetchTickers(market: Market = 'spot'): Promise<Ticker24h[]
         priceChangePercent: Number(x.raw.priceChangePercent),
         quoteVolume: Number(x.raw.quoteVolume),
         rangePct: lastPrice > 0 && isFinite(high) && isFinite(low) ? ((high - low) / lastPrice) * 100 : 0,
+        low24h: isFinite(low) ? low : lastPrice,
+        high24h: isFinite(high) ? high : lastPrice,
       };
     })
     .filter(x => x.lastPrice > 0 && isFinite(x.quoteVolume))
