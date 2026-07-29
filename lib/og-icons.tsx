@@ -1,4 +1,5 @@
 import { cloneElement, type ReactElement } from 'react';
+import { ICON_FOR } from './og-icon-map';
 
 /**
  * 공유(OG) 카드용 아이콘 세트.
@@ -167,6 +168,7 @@ const ICONS: Record<string, (a: string) => ReactElement[]> = {
   lotus: a => [C(50, 20, 11), P('M50 31 V52'), P('M20 78 L50 52 L80 78'), P('M20 78 H80', st(a)), P('M36 44 L26 62'), P('M64 44 L74 62')],
   ball: a => [C(50, 50, 36), P('M50 28 L69 42 L62 64 H38 L31 42 Z', st(a))],
   stethoscope: a => [P('M28 14 V38 A22 22 0 0 0 72 38 V14'), P('M50 60 V74 A12 12 0 0 0 74 74 V64'), C(74, 54, 9, af(a))],
+  pill: a => [R(12, 36, 76, 28, 14), P('M50 36 V64', st(a))],
   sleep: a => [P('M12 70 H88'), P('M20 70 V52 A10 10 0 0 1 30 42 H88'), P('M56 12 H76 L56 34 H76', st(a))],
   glasses: a => [C(28, 54, 18), C(72, 54, 18, st(a)), P('M46 54 H54'), P('M10 42 L18 36'), P('M90 42 L82 36')],
 
@@ -240,201 +242,6 @@ const ICONS: Record<string, (a: string) => ReactElement[]> = {
 };
 
 /**
- * 아이콘 하나에 이모지 여러 개를 묶는다.
- *
- * 사이트 데이터가 카드마다 이모지를 이미 골라 뒀으니(사람이 고른 값이라
- * 내용을 제일 잘 나타낸다) 제목을 파싱하지 않고 이모지를 열쇠로 쓴다.
- * 뜻이 겹치는 이모지는 한 아이콘에 몰아넣는다 — 📋📝📄가 서로 다른 그림일
- * 필요는 없다.
- */
-const GROUPS: Record<string, string[]> = {
-  smile: ['😊', '😄', '😀', '🙂', '😌', '😇', '😆', '😎', '🪞'],
-  frown: ['😤', '😰', '😬', '😵', '😭'],
-  mask: ['🎭', '🤥', '🙈', '😏', '🤪', '🤫'],
-  eye: ['👀', '👁️'],
-  person: ['👤', '🧒', '🙇', '🧓', '👵', '🙋', '🧍'],
-  people: ['👥', '👫', '👨‍👩‍👧‍👦', '🫂', '🤝', '🤲', '🙏', '🫰'],
-  baby: ['👶', '🍼', '🧸', '🤰'],
-  brain: ['🧠'],
-
-  heart: ['❤️', '🤍', '💚', '💛', '💕', '💘', '🥰', '💜', '💗'],
-  heartBroken: ['💔'],
-  hearts: ['💑', '💞'],
-  ring: ['💍', '💒', '👰'],
-  pulse: ['🫀', '💹', '👏'],
-  blood: ['🩸'],
-
-  coin: ['💰', '💵', '💴', '💸'],
-  card: ['💳'],
-  bank: ['🏦'],
-  piggy: ['🐷'],
-  gem: ['💎'],
-  chartUp: ['📈'],
-  chartBar: ['📊'],
-  candles: ['🪙'],
-
-  clipboard: ['📋', '✅', '🪣'],
-  doc: ['📄', '📜'],
-  note: ['📝', '✏️', '🖊️', '✍️'],
-  book: ['📚', '📖', '📗', '📔', '📓'],
-  folder: ['📁', '🗂️', '🗄️', '💾'],
-  receipt: ['🧾'],
-  ruler: ['📏', '📐', '🪜', '🪡'],
-  letters: ['🔤', '🔠', '🀄', '🟨'],
-  hash: ['#️⃣'],
-  mail: ['📧', '💌'],
-  megaphone: ['📣', '📢', '🗣️'],
-  bubble: ['💬', '🗨️', '💭'],
-  question: ['❓', '🤔'],
-  bulb: ['💡'],
-
-  clock: ['⏰', '🕰️', '⏱️', '⏲️', '🍅', '⏸️', '⏳'],
-  calendar: ['📅', '📆', '🗓️'],
-
-  laptop: ['💻'],
-  tv: ['📺', '🖥️'],
-  phone: ['📱', '📲', '🤳'],
-  keyboard: ['⌨️'],
-  mouse: ['🖱️'],
-  plug: ['🔌'],
-  wifi: ['📶'],
-  cloud: ['☁️', '⛅', '🌫️', '🌤️'],
-  robot: ['🤖'],
-  atom: ['⚛️', '🧲'],
-  triangle: ['▲'],
-  gamepad: ['🎮', '🕹️', '🔫', '♟️'],
-  dice: ['🎲', '🎱'],
-  ticket: ['🎟️', '🎫'],
-  grid: ['🔲', '🔳', '🧱'],
-  numbers: ['🔢'],
-  calculator: ['🧮'],
-  pie: ['🥧'],
-  arrowUp: ['🔼', '⬆️'],
-  arrowDown: ['🔽', '📉'],
-  equals: ['🟰'],
-  thermometer: ['🌡️'],
-  boat: ['⚓', '🛥️'],
-  drop: ['💧', '🚰'],
-  compress: ['🗜️'],
-  touch: ['👆'],
-
-  camera: ['📸', '📷'],
-  video: ['📹', '🎥', '🎬', '🎦'],
-  film: ['🎞️', '🍿', '📼'],
-  play: ['▶️'],
-  headphone: ['🎧'],
-  music: ['🎵', '🎻', '🎸'],
-  mic: ['🎤', '🎙️'],
-  wave: ['〰️', '🌊', '🦟', '🎢', '💨', '🌪️'],
-  speaker: ['🔊', '🔇', '👂'],
-
-  home: ['🏠', '🏡', '🏘️', '🏚️'],
-  building: ['🏢', '🏨', '🏪', '🏫', '🏛️', '🏙️'],
-  castle: ['🏰', '🏯', '⛩️', '🗽'],
-  door: ['🚪'],
-  sofa: ['🛋️', '🛏️'],
-
-  leaf: ['🌱', '🌿', '🪴', '🍀', '🍃', '🌾', '🌲'],
-  flower: ['🌸', '💐', '🍂'],
-  globe: ['🌍', '🌎', '🌏', '🌐'],
-  mountain: ['🌋', '🏔️', '⛰️', '🧗', '🎿', '🏞️'],
-  umbrella: ['🏖️', '🏝️'],
-  tent: ['⛺', '🏕️'],
-  sunrise: ['🌅', '🌇', '☀️'],
-  moon: ['🌙', '🌜', '🌗', '🌕'],
-  rainbow: ['🌈'],
-  snow: ['❄️', '🧊'],
-  fire: ['🔥', '🌶️', '🪔', '🕯️'],
-  bolt: ['⚡', '🔋', '🔦'],
-
-  plate: ['🍽️', '🍴', '🍱', '🍚', '🥩', '🥙', '🐟'],
-  noodle: ['🍜', '🍝'],
-  pan: ['🍳', '🧑‍🍳'],
-  apple: ['🍎', '🥗', '🥦', '👅'],
-  cake: ['🎂', '🍰', '🥐', '🥠'],
-  coffee: ['☕', '🍵', '🥤'],
-  beer: ['🍺', '🍻', '🍶'],
-  wine: ['🍷', '🍸', '🍹', '🥂'],
-  can: ['🥫', '🧂', '🥄', '🛢️'],
-
-  dumbbell: ['💪', '🏋️'],
-  run: ['🏃', '🏊'],
-  lotus: ['🧘', '🧘‍♀️'],
-  ball: ['⚽', '⚾', '🏀', '🏐', '🥊', '🪁', '⛳', '🤹'],
-  stethoscope: ['🩺', '🏥', '🚑', '🤒', '🤧'],
-  sleep: ['😴'],
-  glasses: ['👓'],
-
-  tie: ['👔'],
-  shirt: ['👕'],
-  briefcase: ['💼', '🧑‍💼', '👷'],
-  gradCap: ['🎓'],
-  medal: ['🎖️', '🏅', '🥇'],
-  trophy: ['🏆'],
-  crown: ['👑'],
-
-  tools: ['🔧', '🔨', '🧰', '🏗️', '🛠️', '🔩'],
-  gear: ['⚙️'],
-  scissors: ['✂️'],
-  broom: ['🧹'],
-  soap: ['🧼', '🧴', '🫧'],
-  trash: ['🗑️'],
-  search: ['🔍', '🕵️'],
-  lock: ['🔒', '🔐'],
-  unlock: ['🔓'],
-  key: ['🔑', '🗝️'],
-  shield: ['🛡️'],
-  scale: ['⚖️'],
-  target: ['🎯', '🏹', '🎣'],
-  puzzle: ['🧩'],
-  flask: ['🧪', '🔬', '🧫', '⚗️'],
-  telescope: ['🔭'],
-  palette: ['🎨'],
-  frame: ['🖼️'],
-  tag: ['🏷️', '🆔', '🛂', '🔖'],
-  gift: ['🎁', '💝'],
-  box: ['📦'],
-  bag: ['🛍️', '🎒'],
-  cart: ['🛒'],
-  confetti: ['🎉', '🎊', '🎪', '🎎'],
-  balloon: ['🎈'],
-  check: ['☑️'],
-  plus: ['➕', '➗'],
-  refresh: ['🔄', '🔃', '♻️', '🌀', '🔀'],
-
-  car: ['🚗', '🚘', '🚙', '🛵', '🚆', '🚛', '🚜', '🏎️', '⛽', '🛞'],
-  plane: ['✈️'],
-  rocket: ['🚀'],
-  map: ['🗺️', '🛣️'],
-  compass: ['🧭'],
-  flag: ['🚩', '🏴‍☠️', '🇰🇷', '🇬🇧'],
-  warning: ['🚨', '🛑', '⚠️', '🚦', '🚸', '🚭', '🚧', '🧯'],
-
-  dog: ['🐕', '🐶'],
-  cat: ['🐈', '🐱'],
-  paw: ['🐾', '🦊', '🦁', '🐐', '🐙', '🐋', '🦕', '🐸'],
-  bird: ['🦅', '🕊️', '🐧'],
-  bug: ['🐛'],
-  dragon: ['🐉', '🐲'],
-
-  crystalBall: ['🔮'],
-  cards: ['🃏'],
-  hexagram: ['🔯'],
-  star: ['⭐', '🌟', '💫', '🌠'],
-  sparkles: ['✨', '💄'],
-  wizard: ['🧙', '🎩'],
-  hero: ['🦸'],
-  ghost: ['👻', '😈'],
-  sword: ['⚔️'],
-};
-
-/** 이모지 → 아이콘 이름 (GROUPS를 뒤집은 것) */
-const ICON_FOR: Record<string, string> = {};
-for (const [name, emojis] of Object.entries(GROUPS)) {
-  for (const e of emojis) ICON_FOR[e] = name;
-}
-
-/**
  * 이모지에 대응하는 그린 아이콘의 도형들. 100×100 좌표계 그대로 돌려주므로
  * 호출부가 `<g transform>`으로 원하는 크기·위치에 놓는다.
  *
@@ -447,6 +254,5 @@ export function ogGlyph(emoji: string, accent: string): ReactElement[] | null {
   return draw(accent).map((node, i) => cloneElement(node, { key: i }));
 }
 
-/** 점검용 — 아이콘·매핑 개수를 세는 스크립트에서 쓴다 */
+/** 점검용 — 아이콘 개수를 세는 스크립트에서 쓴다 */
 export const OG_ICON_NAMES = Object.keys(ICONS);
-export const OG_ICON_EMOJIS = Object.keys(ICON_FOR);
