@@ -13,8 +13,15 @@ import { BODY2_TERMS, BODY2_UNITS } from './terms-body2.ts';
 import { GEO_TERMS, GEO_UNITS } from './terms-geo.ts';
 import { GEO2_TERMS, GEO2_UNITS } from './terms-geo2.ts';
 import { RATE_TERMS, RATE_UNITS } from './terms-rate.ts';
+import { FORMULA_L10N } from './l10n/index.ts';
+import type { AnyLocale } from '../locales.ts';
 
+/**
+ * 나라 정보·사자성어가 아직 두 언어라 Lang은 그대로 둔다.
+ * 공식 도구는 여덟 언어이므로 FormulaLang을 따로 쓴다.
+ */
 export type Lang = 'ko' | 'en';
+export type FormulaLang = AnyLocale;
 
 export interface Term { ko: string; en: string }
 
@@ -145,5 +152,21 @@ const CORE_UNITS: Record<string, Term> = {
 export const TERMS: Record<string, Term> = { ...CORE_TERMS, ...RATE_TERMS, ...BODY_TERMS, ...BODY2_TERMS, ...GEO_TERMS, ...GEO2_TERMS };
 export const UNITS: Record<string, Term> = { ...CORE_UNITS, ...RATE_UNITS, ...BODY_UNITS, ...BODY2_UNITS, ...GEO_UNITS, ...GEO2_UNITS };
 
-export const term = (key: string, lang: Lang): string => TERMS[key]?.[lang] ?? key;
-export const unitLabel = (key: string, lang: Lang): string => UNITS[key]?.[lang] ?? '';
+/**
+ * 나머지 여섯 언어는 곁사전에 둔다.
+ *
+ * 위 표를 여덟 언어 필수로 바꾸면 562개가 한꺼번에 깨진다. 그래서 ko·en은 그대로
+ * 두고 번역은 언어별 파일에서 열쇠로 덧씌운다 — 한 섹션씩 옮겨도 나머지가 안 깨진다.
+ * 아직 안 옮긴 열쇠는 영어로 되돌아간다. 화면이 비지는 않지만 그 자리만 영어가
+ * 되므로, 섹션을 내보내기 전에 tests/formula-l10n.test.ts가 빠진 것을 센다.
+ */
+export const term = (key: string, lang: FormulaLang): string => {
+  if (lang === 'ko' || lang === 'en') return TERMS[key]?.[lang] ?? key;
+  return FORMULA_L10N[lang]?.TERMS[key] ?? TERMS[key]?.en ?? key;
+};
+
+export const unitLabel = (key: string, lang: FormulaLang): string => {
+  if (!key) return '';
+  if (lang === 'ko' || lang === 'en') return UNITS[key]?.[lang] ?? '';
+  return FORMULA_L10N[lang]?.UNITS[key] ?? UNITS[key]?.en ?? '';
+};
