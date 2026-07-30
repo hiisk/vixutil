@@ -7,5 +7,5 @@ export const contentType = OG_CONTENT_TYPE;
 export const dynamic = 'force-static';
 
 export default function Image() {
-  return new ImageResponse(hubCard('en'), { ...size });
+  return new ImageResponse(hubCard('pt'), { ...size });
 }

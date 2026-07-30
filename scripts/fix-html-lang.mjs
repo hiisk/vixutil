@@ -33,6 +33,14 @@ const RULES = [
   [p => p === 'en' || p.startsWith('en/'), 'en'],
   // 본문이 간체라 zh보다 정확하다 (음성 합성·글꼴 선택에 쓰인다)
   [p => p === 'zh' || p.startsWith('zh/'), 'zh-Hans'],
+  // 지하철 섹션부터 쓰는 여섯 언어. 목록은 lib/metro/lang.ts와 같아야 한다
+  [p => p === 'es' || p.startsWith('es/'), 'es'],
+  // 상파울루·리우 노선을 담았으니 유럽 포르투갈어가 아니다
+  [p => p === 'pt' || p.startsWith('pt/'), 'pt-BR'],
+  [p => p === 'ja' || p.startsWith('ja/'), 'ja'],
+  [p => p === 'de' || p.startsWith('de/'), 'de'],
+  [p => p === 'fr' || p.startsWith('fr/'), 'fr'],
+  [p => p === 'hi' || p.startsWith('hi/'), 'hi'],
 ];
 
 async function walk(dir) {

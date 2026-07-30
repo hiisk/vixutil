@@ -2,23 +2,26 @@
  * 지하철 노선 역 이름 맞추기 — 데이터 형태.
  *
  * 역 이름은 현지 표기 그대로 둔다. 서울 2호선을 영어 화면에서 풀어도 답은
- * "강남"이고, 런던 Central line을 한국어 화면에서 풀어도 답은 "Oxford Circus"다.
+ * "강남"이고, 런던 Victoria line을 한국어 화면에서 풀어도 답은 "Oxford Circus"다.
  * 실제로 그 도시에서 부르는 이름을 맞추는 것이 이 게임의 내용이기 때문이고,
- * 역 이름 삼천 개를 세 언어로 옮기다 생기는 오역을 피할 수 있기 때문이다.
+ * 역 이름 삼천 개를 여덟 언어로 옮기다 생기는 오역을 피할 수 있기 때문이다.
  *
- * 대신 도시 이름·노선 이름·화면 문구는 세 언어로 둔다. 로마자를 함께 정답으로
- * 받아 그 문자를 못 넣는 환경에서도 풀 수 있게 한다.
+ * 대신 도시·나라·노선 이름과 화면 문구는 여덟 언어로 둔다. 도시와 나라 이름은
+ * cities.ts에 한 번만 적고 노선은 열쇠만 참조한다 — 서울 노선 열 개에 같은 말을
+ * 여덟 벌씩 열 번 쓰지 않기 위해서다. 번호가 붙은 노선 이름도 lang.ts의 규칙으로
+ * 만들어 낸다.
  *
  * 노선도 좌표는 실제 위치가 아니라 도식(런던식 45도 격자)이다. shape 문자열에
  * 방향을 적어 두면 좌표는 계산해서 만든다 — 역마다 x·y를 손으로 적으면
  * 백 노선에 삼천 쌍을 적어야 하고, 역 하나를 끼워 넣을 때 전부 밀어야 한다.
  */
-import type { Lang } from '../formula/terms.ts';
+import { numberedLine, type L8, type MetroLang } from './lang.ts';
+import { CITIES } from './cities.ts';
 
 export interface MetroStation {
   /** 현지 표기 — 이것이 정답이다 */
   name: string;
-  /** 로마자 표기. 한글·한자·키릴 노선에서 함께 정답으로 받는다 */
+  /** 로마자 표기. 한글·한자·가나·데바나가리 노선에서 함께 정답으로 받는다 */
   roman?: string;
   /** 또 하나의 통용 표기 — 홍콩처럼 영문명과 한자명을 함께 쓰는 곳 */
   alt?: string;
@@ -32,38 +35,68 @@ export interface MetroStation {
  */
 export type Dir = 'E' | 'W' | 'N' | 'S' | 'NE' | 'NW' | 'SE' | 'SW';
 
-export interface MetroText {
-  /** 도시 이름 */
-  city: string;
-  /** 노선 이름 */
-  line: string;
-  /** 나라 이름 */
-  country: string;
+/** 노선 하나에 붙는 읽을 거리 */
+export interface MetroCopy {
   /** 이 노선이 어떤 노선인지 두세 문장 */
   intro: string;
   /** 풀 때 도움이 되는 한 가지 */
   hint: string;
 }
 
+/**
+ * 번호가 아닌 노선 이름.
+ *
+ * 어느 언어에서나 같게 부르는 이름(U2, L3)은 문자열 하나로 끝낸다.
+ * 언어마다 다른 이름(야마노테선 / Yamanote Line / 山手線)은 언어별로 적는다.
+ */
+export type LineLabel = string | Partial<L8<string>>;
+
 export interface MetroLine {
   slug: string;
-  /** 도시를 묶는 열쇠 — 허브에서 도시별로 모은다 */
+  /** 도시를 묶는 열쇠 — cities.ts의 키. 허브에서 도시별로 모은다 */
   city: string;
-  /** 국기 이모지. 카드 아이콘으로도 쓴다 */
-  icon: string;
   /** 노선 색 — 실제 노선색을 쓴다 */
   color: string;
   /** 순환선인가 */
   loop?: boolean;
+  /** 번호로 부르는 노선의 번호 — "2"를 넣으면 언어마다 2호선·Line 2·Línea 2가 된다 */
+  num?: string;
+  /** 번호가 아닌 이름을 쓸 때 */
+  label?: LineLabel;
   /** 노선 모양 — 방향 문자의 나열 */
   shape: Dir[];
   stations: MetroStation[];
-  ko: MetroText;
-  en: MetroText;
-  zh: MetroText;
+  /** 여덟 언어의 소개와 힌트 */
+  text: L8<MetroCopy>;
 }
 
-export const metroText = (l: MetroLine, lang: Lang): MetroText => l[lang];
+export const lineCopy = (l: MetroLine, lang: MetroLang): MetroCopy => l.text[lang];
+
+/** 노선 이름 — 번호면 규칙으로 만들고, 아니면 적어 둔 이름에서 고른다 */
+export function lineName(line: MetroLine, lang: MetroLang): string {
+  if (line.num) return numberedLine(line.num, lang);
+  const l = line.label;
+  if (!l) return line.slug;
+  if (typeof l === 'string') return l;
+  return l[lang] ?? l.en ?? line.slug;
+}
+
+export const cityName = (city: string, lang: MetroLang): string =>
+  CITIES[city]?.name[lang] ?? city;
+
+export const countryName = (city: string, lang: MetroLang): string =>
+  CITIES[city]?.country[lang] ?? '';
+
+/** 국기 이모지 — 카드 아이콘으로도 쓴다 */
+export const lineIcon = (line: MetroLine): string => CITIES[line.city]?.icon ?? '🚇';
+
+/** "서울 2호선" / "Seoul Line 2" — 제목과 공유 카드에 쓴다 */
+export const lineTitle = (line: MetroLine, lang: MetroLang): string =>
+  `${cityName(line.city, lang)} ${lineName(line, lang)}`;
+
+/** 수도가 아닌 도시의 노선인가 */
+export const isSecondCity = (line: MetroLine): boolean =>
+  Boolean(CITIES[line.city]?.secondCity);
 
 /** 방향 한 글자를 좌표 변화로 */
 const STEP: Record<Dir, [number, number]> = {

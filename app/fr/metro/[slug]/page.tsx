@@ -10,12 +10,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  return detailMetadata('en', slug);
+  return detailMetadata('fr', slug);
 }
 
 export default async function MetroDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const line = metroLine(slug);
   if (!line) notFound();
-  return <MetroPage line={line} lang="en" />;
+  return <MetroPage line={line} lang="fr" />;
 }

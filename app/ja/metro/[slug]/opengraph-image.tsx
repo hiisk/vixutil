@@ -13,5 +13,5 @@ export function generateStaticParams() {
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return new ImageResponse(lineCard('ko', slug), { ...size });
+  return new ImageResponse(lineCard('ja', slug), { ...size });
 }

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import MetroMap from './MetroMap';
 import { charCount, firstChar, matches, type MetroLine } from '@/lib/metro/types';
 import { METRO_UI, clock } from '@/lib/metro/ui';
-import type { Lang } from '@/lib/formula/terms';
+import type { MetroLang } from '@/lib/metro/lang';
 
 /**
  * 역 이름 타이핑 — 기점부터 순서대로 다음 역을 쳐 나간다.
@@ -18,7 +18,7 @@ import type { Lang } from '@/lib/formula/terms';
  * 시각은 마운트 뒤에 센다 — 서버에는 지금 시각이 없어서 SSR과 어긋나면
  * 하이드레이션이 깨진다.
  */
-export default function MetroGame({ line, lang }: { line: MetroLine; lang: Lang }) {
+export default function MetroGame({ line, lang }: { line: MetroLine; lang: MetroLang }) {
   const ui = METRO_UI[lang];
   const total = line.stations.length;
 
