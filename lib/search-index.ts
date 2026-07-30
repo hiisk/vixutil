@@ -29,6 +29,8 @@ import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
 import { EXTS, EXT_ICON } from './ext/list';
 import { CARDS, TAROT_ICON } from './tarot/deck';
 import { GLYPHS, GLYPH_ICON } from './glyph/list';
+import { TAGS, TAG_ICON } from './html/tags';
+import { tagDesc } from './html/desc';
 import { glyphFacts } from './glyph/facts';
 import { cardView } from './tarot/facts';
 import { extFacts } from './ext/facts';
@@ -45,7 +47,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html';
 
 export interface SearchItem {
   href: string;
@@ -81,6 +83,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   music:      { label: '음악 이론', icon: '🎹', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   ext:        { label: '파일 확장자', icon: '📄', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+  html:       { label: 'HTML 태그', icon: '🪟', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
 };
 
 /**
@@ -197,6 +200,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
   { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
   { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
+  { href: '/html', title: 'HTML 태그 사전', desc: '126개 태그의 쓰임과 속성', section: 'html' as const, icon: TAG_ICON },
   { href: '/ext', title: '파일 확장자 사전', desc: '140가지 확장자의 여는 프로그램과 MIME 타입', section: 'ext' as const, icon: EXT_ICON },
   ...GLYPHS.map(g => ({
     href: `/text/char/${g.slug}`,
@@ -204,6 +208,13 @@ export const SEARCH_INDEX: SearchItem[] = [
     desc: `${glyphFacts(g).unicode} · ${glyphFacts(g).entity}`,
     section: 'text' as const,
     icon: GLYPH_ICON,
+  })),
+  ...TAGS.map(t => ({
+    href: `/html/${t.name}`,
+    title: `<${t.name}> 태그`,
+    desc: tagDesc(t.name, 'ko'),
+    section: 'html' as const,
+    icon: TAG_ICON,
   })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,

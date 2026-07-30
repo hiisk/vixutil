@@ -280,6 +280,18 @@ const SECTIONS = [
     shadow: 'shadow-slate-100',
   },
   {
+    href: '/html',
+    icon: '🪟',
+    title: 'HTML 태그 사전',
+    desc: '태그 126개가 무엇을 하는지, 닫는 태그와 속성까지 한 장에',
+    badge: `${SECTION_COUNTS.html}개`,
+    color: 'from-orange-500 to-amber-500',
+    bgLight: 'bg-orange-50 dark:bg-orange-950/30',
+    textAccent: 'text-orange-700 dark:text-orange-300',
+    borderAccent: 'border-orange-200 dark:border-orange-900/50',
+    shadow: 'shadow-orange-100',
+  },
+  {
     href: '/ext',
     icon: '📄',
     title: '파일 확장자',

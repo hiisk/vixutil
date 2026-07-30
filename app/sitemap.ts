@@ -42,6 +42,7 @@ import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
 import { GLYPHS } from "@/lib/glyph/list";
+import { TAGS } from "@/lib/html/tags";
 
 const BASE = "https://vixutil.com";
 
@@ -194,6 +195,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // HTML 태그 126개도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/html`, changeFrequency: weekly, priority: 0.9 },
+      ...TAGS.map((t: { name: string }) => ({
+        url: `${BASE}${prefix}/html/${t.name}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 특수문자 168자도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/text/char`, changeFrequency: weekly, priority: 0.9 },

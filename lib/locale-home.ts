@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/html', icon: '🪟', color: 'from-orange-500 to-amber-500',
+    accent: 'text-orange-700 dark:text-orange-300', border: 'border-orange-200 dark:border-orange-900/50', bg: 'bg-orange-50 dark:bg-orange-950/30',
+    copy: {
+      en: { title: 'HTML Tag Reference', desc: 'What 126 tags do, whether they close, and their attributes' },
+      es: { title: 'Referencia de etiquetas HTML', desc: 'Qué hacen 126 etiquetas, si se cierran y sus atributos' },
+      'pt-br': { title: 'Referência de tags HTML', desc: 'O que 126 tags fazem, se fecham e seus atributos' },
+      ja: { title: 'HTMLタグ辞典', desc: '126タグの役割・閉じタグの要否・よく使う属性' },
+      de: { title: 'HTML-Tag-Referenz', desc: 'Was 126 Tags tun, ob sie schließen und welche Attribute sie haben' },
+      fr: { title: 'Référence des balises HTML', desc: 'Ce que font 126 balises, leur fermeture et leurs attributs' },
+      hi: { title: 'HTML टैग संदर्भ', desc: '126 टैग क्या करते हैं, बंद होते हैं या नहीं, और उनके विशेषण' },
+    },
+  },
+  {
     route: '/music', icon: '🎹', color: 'from-sky-500 to-indigo-600',
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {
