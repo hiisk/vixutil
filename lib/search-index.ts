@@ -28,6 +28,8 @@ import { SCREENS, SCREEN_ICON } from './device/screens';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
 import { EXTS, EXT_ICON } from './ext/list';
 import { CARDS, TAROT_ICON } from './tarot/deck';
+import { GLYPHS, GLYPH_ICON } from './glyph/list';
+import { glyphFacts } from './glyph/facts';
 import { cardView } from './tarot/facts';
 import { extFacts } from './ext/facts';
 import { freqFacts } from './sound/facts';
@@ -190,6 +192,19 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: TAROT_ICON,
     };
   }),
+  /* 자료 목록의 첫 장 — 개별 항목만 싣고 목록을 빼면 "타로"로 검색해도 안 나온다 */
+  { href: '/fortune/card', title: '타로 78장 뜻', desc: '메이저 22장과 마이너 56장의 정방향·역방향', section: 'fortune' as const, icon: TAROT_ICON },
+  { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
+  { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
+  { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
+  { href: '/ext', title: '파일 확장자 사전', desc: '140가지 확장자의 여는 프로그램과 MIME 타입', section: 'ext' as const, icon: EXT_ICON },
+  ...GLYPHS.map(g => ({
+    href: `/text/char/${g.slug}`,
+    title: `${g.char} 특수문자`,
+    desc: `${glyphFacts(g).unicode} · ${glyphFacts(g).entity}`,
+    section: 'text' as const,
+    icon: GLYPH_ICON,
+  })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

@@ -44,7 +44,7 @@ export const GROUPS: Record<string, string[]> = {
   folder: ['📁', '🗂️', '💾'],
   receipt: ['🧾'],
   ruler: ['📐', '🪜'],
-  letters: ['🔤', '🀄', '🟨'],
+  letters: ['🔤', '🀄', '🟨', '🔣'],
   hash: ['#️⃣'],
   mail: ['📧', '💌', '📮'],
   megaphone: ['📣', '📢', '🗣️'],

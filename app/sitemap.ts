@@ -41,6 +41,7 @@ import { SCREENS } from "@/lib/device/screens";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
+import { GLYPHS } from "@/lib/glyph/list";
 
 const BASE = "https://vixutil.com";
 
@@ -188,6 +189,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // 특수문자 168자도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/text/char`, changeFrequency: weekly, priority: 0.9 },
+      ...GLYPHS.map((g: { slug: string }) => ({
+        url: `${BASE}${prefix}/text/char/${g.slug}`,
+        changeFrequency: monthly,
+        priority: 0.75,
+      })),
+    ]),
     // 타로 78장도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/fortune/card`, changeFrequency: weekly, priority: 0.85 },

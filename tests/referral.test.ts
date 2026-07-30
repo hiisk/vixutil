@@ -214,7 +214,9 @@ test('운세 페이지가 모두 결과 지점 노출을 갖는다', () => {
   //  - MatchResultCard: 궁합 4종(띠·별자리·혈액형·MBTI)의 공용 결과 카드
   //  - ReferralCards: 직접 배치(dream·tarot·biorhythm·name-match)
   const CARRIERS = ['FortuneDisplay', 'MatchResultCard', 'ReferralCards'];
-  const missing = pages.filter(slug => {
+  // card는 타로 78장을 찾아보는 자료 목록이라 "내 결과"가 없다 — 공유할 결과 지점도 없다
+  const REFERENCE_ONLY = ['card'];
+  const missing = pages.filter(slug => !REFERENCE_ONLY.includes(slug)).filter(slug => {
     const src = readFileSync(join(dir, slug, 'page.tsx'), 'utf8');
     return !CARRIERS.some(c => src.includes(c));
   });
