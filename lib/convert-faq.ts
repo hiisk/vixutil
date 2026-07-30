@@ -8,7 +8,7 @@
 import type { FaqItem } from './calc-faq.ts';
 import { convert, convertBack, format, type ConvertTool } from './convert-tools.ts';
 import { CONVERT_UI, type ConvertLang } from './convert-ui-intl.ts';
-import { CONVERT_EN, CONVERT_ZH } from './convert-i18n.ts';
+import { CONVERT_EN } from './convert-i18n.ts';
 
 export function convertFaq(tool: ConvertTool, lang: ConvertLang = 'ko'): FaqItem[] {
   const ui = CONVERT_UI[lang];

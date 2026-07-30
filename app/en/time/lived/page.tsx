@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
 import TimeShellIntl from '@/components/TimeShellIntl';
 import LivedTool from '@/components/time/LivedTool';
+import { timeMetaIntl } from '@/lib/time-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Time Lived Calculator — Days, Hours and Minutes Since Birth",
-  description: "Converts your date of birth into years, months and days, then into total days, hours, minutes and seconds — with the next thousand-day milestone.",
-  alternates: {
-    canonical: '/en/time/lived',
-    languages: { 'en': '/en/time/lived', 'ko': '/time/lived', 'x-default': '/en/time/lived' },
-  },
-};
+export const metadata: Metadata = timeMetaIntl('en', 'lived');
 
-export default function EnLivedPage() {
+export default function EnTimeLivedPage() {
   return (
     <TimeShellIntl slug="lived" lang="en">
       <LivedTool lang="en" />

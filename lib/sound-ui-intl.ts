@@ -1,10 +1,16 @@
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import type { AnyLocale } from './locales.ts';
+
 /**
- * 소리 도구 화면 문구의 세 언어 사전.
+ * 소리 도구 화면 문구의 여덟 언어 사전.
  *
  * WebAudio 생성·분석 코드는 한국어 구현을 그대로 쓴다. 주파수·BPM·데시벨은
  * 언어와 무관하므로 프리셋 배열에서는 숫자만 남기고 이름은 여기서 인덱스로 참조한다.
+ *
+ * 배열은 언어마다 길이와 순서가 같아야 한다 — 인덱스로 짝지으므로 하나를 빼면
+ * 그 뒤가 전부 한 칸씩 밀린다.
  */
-export type SoundLang = 'ko' | 'en';
+export type SoundLang = AnyLocale;
 
 /** 열 도구가 공유하는 조각 — 재생 버튼, 마이크 게이트, 흔한 라벨 */
 export const SOUND_COMMON: Record<SoundLang, {
@@ -26,6 +32,48 @@ export const SOUND_COMMON: Record<SoundLang, {
     micFailed: 'Could not open the microphone. Check whether another app is using it.',
     reset: 'Reset the record', freq: 'Frequency',
   },
+  es: {
+    play: 'Reproducir', stop: '■ Parar', volume: 'Volumen',
+    micStart: 'Encender el micro',
+    micDenied: 'Se denegó el acceso al micrófono. Permítelo desde el icono del candado en la barra de direcciones.',
+    micFailed: 'No se pudo abrir el micrófono. Comprueba si otra aplicación lo está usando.',
+    reset: 'Reiniciar el registro', freq: 'Frecuencia',
+  },
+  'pt-br': {
+    play: 'Tocar', stop: '■ Parar', volume: 'Volume',
+    micStart: 'Ligar o microfone',
+    micDenied: 'O acesso ao microfone foi negado. Libere pelo ícone do cadeado na barra de endereços.',
+    micFailed: 'Não foi possível abrir o microfone. Veja se outro aplicativo está usando.',
+    reset: 'Zerar o registro', freq: 'Frequência',
+  },
+  ja: {
+    play: '再生', stop: '■ 停止', volume: '音量',
+    micStart: 'マイクをオンにする',
+    micDenied: 'マイクの使用が拒否されました。アドレスバーの鍵アイコンから許可してください。',
+    micFailed: 'マイクを開けませんでした。ほかのアプリが使っていないか確認してください。',
+    reset: '記録をリセット', freq: '周波数',
+  },
+  de: {
+    play: 'Abspielen', stop: '■ Stopp', volume: 'Lautstärke',
+    micStart: 'Mikrofon einschalten',
+    micDenied: 'Der Zugriff aufs Mikrofon wurde verweigert. Erlaube ihn über das Schloss-Symbol in der Adressleiste.',
+    micFailed: 'Das Mikrofon konnte nicht geöffnet werden. Prüfe, ob eine andere App es benutzt.',
+    reset: 'Aufzeichnung zurücksetzen', freq: 'Frequenz',
+  },
+  fr: {
+    play: 'Lecture', stop: '■ Arrêt', volume: 'Volume',
+    micStart: 'Activer le micro',
+    micDenied: 'L’accès au micro a été refusé. Autorise-le depuis l’icône de cadenas dans la barre d’adresse.',
+    micFailed: 'Impossible d’ouvrir le micro. Vérifie si une autre application l’utilise.',
+    reset: 'Réinitialiser le relevé', freq: 'Fréquence',
+  },
+  hi: {
+    play: 'चलाएँ', stop: '■ रोकें', volume: 'आवाज़',
+    micStart: 'माइक चालू करें',
+    micDenied: 'माइक की अनुमति नहीं मिली। पता-पट्टी के ताले के चिह्न से अनुमति दें।',
+    micFailed: 'माइक खुल नहीं सका। देखें कि कोई दूसरा ऐप उसे इस्तेमाल नहीं कर रहा।',
+    reset: 'रिकॉर्ड मिटाएँ', freq: 'आवृत्ति',
+  },
 };
 
 export const METRONOME_UI: Record<SoundLang, {
@@ -43,6 +91,42 @@ export const METRONOME_UI: Record<SoundLang, {
     tempoNames: ['Largo — very slow', 'Adagio — slow', 'Andante — walking pace', 'Moderato — moderate', 'Allegro — fast', 'Presto — very fast'],
     beatSuffix: n => `${n}/4`, start: 'Start', tapBpm: '👆 Tap to find the BPM',
     note: 'Beats are scheduled ahead on the audio clock, so a brief stutter on screen does not shift the timing. The first beat is pitched higher, which means you can follow the count with your eyes closed.',
+  },
+  es: {
+    tempo: 'Tempo',
+    tempoNames: ['Largo — muy lento', 'Adagio — lento', 'Andante — a paso de marcha', 'Moderato — moderado', 'Allegro — rápido', 'Presto — muy rápido'],
+    beatSuffix: n => `${n}/4`, start: 'Empezar', tapBpm: '👆 Toca para hallar los BPM',
+    note: 'Los pulsos se programan por adelantado en el reloj de audio, así que un tirón momentáneo en pantalla no desplaza el tiempo. El primer pulso suena más agudo, o sea que puedes seguir la cuenta con los ojos cerrados.',
+  },
+  'pt-br': {
+    tempo: 'Tempo',
+    tempoNames: ['Largo — bem lento', 'Adagio — lento', 'Andante — ritmo de caminhada', 'Moderato — moderado', 'Allegro — rápido', 'Presto — bem rápido'],
+    beatSuffix: n => `${n}/4`, start: 'Começar', tapBpm: '👆 Bata para descobrir o BPM',
+    note: 'Os tempos são agendados de antemão no relógio de áudio, então um engasgo momentâneo na tela não desloca a marcação. O primeiro tempo soa mais agudo, o que deixa você acompanhar a contagem de olhos fechados.',
+  },
+  ja: {
+    tempo: 'テンポ',
+    tempoNames: ['ラルゴ — とても遅く', 'アダージョ — 遅く', 'アンダンテ — 歩く速さで', 'モデラート — ふつうの速さ', 'アレグロ — 速く', 'プレスト — とても速く'],
+    beatSuffix: n => `${n}拍子`, start: '開始', tapBpm: '👆 叩いてBPMを合わせる',
+    note: '拍はオーディオ時計に前もって予約されるので、画面が一瞬つまっても音の間隔はずれません。1拍目は高い音で鳴るため、目を閉じていても何拍目か分かります。',
+  },
+  de: {
+    tempo: 'Tempo',
+    tempoNames: ['Largo — sehr langsam', 'Adagio — langsam', 'Andante — Schritttempo', 'Moderato — gemäßigt', 'Allegro — schnell', 'Presto — sehr schnell'],
+    beatSuffix: n => `${n}/4`, start: 'Starten', tapBpm: '👆 Antippen, um die BPM zu finden',
+    note: 'Die Schläge werden auf der Audio-Uhr vorausgeplant, ein kurzes Stocken auf dem Bildschirm verschiebt das Timing also nicht. Die Eins klingt höher — so folgst du der Zählung auch mit geschlossenen Augen.',
+  },
+  fr: {
+    tempo: 'Tempo',
+    tempoNames: ['Largo — très lent', 'Adagio — lent', 'Andante — allure de marche', 'Moderato — modéré', 'Allegro — rapide', 'Presto — très rapide'],
+    beatSuffix: n => `${n}/4`, start: 'Démarrer', tapBpm: '👆 Tape pour trouver le BPM',
+    note: 'Les temps sont programmés à l’avance sur l’horloge audio : un bref à-coup à l’écran ne décale pas la mesure. Le premier temps est plus aigu, donc tu peux suivre le compte les yeux fermés.',
+  },
+  hi: {
+    tempo: 'गति',
+    tempoNames: ['लार्गो — बहुत धीमा', 'अदाजियो — धीमा', 'आंदांते — चलने की चाल', 'मोदेरातो — सामान्य', 'अलेग्रो — तेज़', 'प्रेस्तो — बहुत तेज़'],
+    beatSuffix: n => `${n} मात्रा`, start: 'शुरू करें', tapBpm: '👆 थपकी देकर BPM मिलाएँ',
+    note: 'मात्राएँ ऑडियो घड़ी पर पहले से तय कर दी जाती हैं, इसलिए स्क्रीन एक पल अटके तो भी आवाज़ का अंतराल नहीं डोलता। पहली मात्रा ऊँचे सुर में बजती है, तो आँख बंद रखकर भी पता चलता है कि कौन-सी मात्रा है।',
   },
 };
 
@@ -75,6 +159,72 @@ export const TUNER_UI: Record<SoundLang, {
     openStrings: 'Reference notes (open strings)', refA4: 'A4 reference', refA4Note: 'Hz — match whoever you are playing with',
     footNote: 'A cent is one hundredth of a semitone. Within ±5 cents sounds in tune to the human ear. A string wavers right after you pluck it, so read the value once the note has settled.',
   },
+  es: {
+    gate: 'Toca tu instrumento hacia el micrófono y te dirá la nota, y cuánto estás por encima o por debajo.',
+    gateNote: 'El audio se analiza dentro del navegador y no se envía a ningún sitio.',
+    instruments: ['Guitarra', 'Ukelele', 'Bajo'],
+    waiting: 'Toca una nota', inTune: '✓ Afinado',
+    sharpBy: c => `${c} centésimos alto — afloja la cuerda`,
+    flatBy: c => `${c} centésimos bajo — tensa la cuerda`,
+    note: 'Nota', freqLabel: 'Frecuencia', errorLabel: 'Desviación', centsSuffix: c => `${c} centésimos`,
+    openStrings: 'Notas de referencia (cuerdas al aire)', refA4: 'Referencia A4', refA4Note: 'Hz — igualá con quien toques',
+    footNote: 'Un centésimo es la centésima parte de un semitono. Dentro de ±5 centésimos el oído humano lo escucha afinado. La cuerda oscila justo después de pulsarla, así que lee el valor cuando la nota se haya asentado.',
+  },
+  'pt-br': {
+    gate: 'Toque seu instrumento no microfone e ele diz a nota, e o quanto você está acima ou abaixo.',
+    gateNote: 'O áudio é analisado dentro do navegador e não é enviado a lugar nenhum.',
+    instruments: ['Violão', 'Ukulele', 'Baixo'],
+    waiting: 'Toque uma nota', inTune: '✓ Afinado',
+    sharpBy: c => `${c} cents acima — solte a corda`,
+    flatBy: c => `${c} cents abaixo — aperte a corda`,
+    note: 'Nota', freqLabel: 'Frequência', errorLabel: 'Desvio', centsSuffix: c => `${c} cents`,
+    openStrings: 'Notas de referência (cordas soltas)', refA4: 'Referência A4', refA4Note: 'Hz — iguale com quem estiver tocando',
+    footNote: 'Um cent é a centésima parte de um semitom. Dentro de ±5 cents o ouvido humano já escuta afinado. A corda oscila logo depois que você toca, então leia o valor quando a nota assentar.',
+  },
+  ja: {
+    gate: '楽器の音をマイクに聴かせると、どの音か、どれだけ高いか低いかを教えます。',
+    gateNote: '音はブラウザの中だけで分析され、どこにも送られません。',
+    instruments: ['ギター', 'ウクレレ', 'ベース'],
+    waiting: '音を出してください', inTune: '✓ 合っています',
+    sharpBy: c => `${c}セント高いです — 弦をゆるめてください`,
+    flatBy: c => `${c}セント低いです — 弦を締めてください`,
+    note: '音名', freqLabel: '周波数', errorLabel: '誤差', centsSuffix: c => `${c}セント`,
+    openStrings: '基準音を聴く（開放弦）', refA4: '基準 A4', refA4Note: 'Hz — 合奏相手と合わせてください',
+    footNote: 'セントは半音を100に分けた単位です。±5セント以内なら人の耳には合った音に聞こえます。弦を弾いた直後は音が揺れるので、落ち着いてからの値を見てください。',
+  },
+  de: {
+    gate: 'Spiel dein Instrument ins Mikrofon, und es nennt dir den Ton und wie viel du darüber oder darunter liegst.',
+    gateNote: 'Das Audio wird im Browser analysiert und nirgendwohin gesendet.',
+    instruments: ['Gitarre', 'Ukulele', 'Bass'],
+    waiting: 'Spiel einen Ton', inTune: '✓ Gestimmt',
+    sharpBy: c => `${c} Cent zu hoch — Saite lockern`,
+    flatBy: c => `${c} Cent zu tief — Saite spannen`,
+    note: 'Ton', freqLabel: 'Frequenz', errorLabel: 'Abweichung', centsSuffix: c => `${c} Cent`,
+    openStrings: 'Referenztöne (leere Saiten)', refA4: 'A4-Referenz', refA4Note: 'Hz — auf deine Mitspielenden abstimmen',
+    footNote: 'Ein Cent ist ein Hundertstel Halbton. Innerhalb von ±5 Cent klingt es fürs menschliche Ohr gestimmt. Direkt nach dem Anschlag schwankt die Saite — lies den Wert, wenn der Ton sich beruhigt hat.',
+  },
+  fr: {
+    gate: 'Joue ton instrument dans le micro et il te dit la note, et de combien tu es trop haut ou trop bas.',
+    gateNote: 'L’audio est analysé dans le navigateur et n’est envoyé nulle part.',
+    instruments: ['Guitare', 'Ukulélé', 'Basse'],
+    waiting: 'Joue une note', inTune: '✓ Juste',
+    sharpBy: c => `${c} cents trop haut — détends la corde`,
+    flatBy: c => `${c} cents trop bas — tends la corde`,
+    note: 'Note', freqLabel: 'Fréquence', errorLabel: 'Écart', centsSuffix: c => `${c} cents`,
+    openStrings: 'Notes de référence (cordes à vide)', refA4: 'Référence A4', refA4Note: 'Hz — accorde-toi sur tes partenaires',
+    footNote: 'Un cent vaut un centième de demi-ton. À ±5 cents près, l’oreille humaine entend juste. La corde oscille juste après avoir été pincée : lis la valeur une fois la note stabilisée.',
+  },
+  hi: {
+    gate: 'वाद्य की आवाज़ माइक को सुनाइए और यह बताएगा कि कौन-सा सुर है और आप कितने ऊपर या नीचे हैं।',
+    gateNote: 'आवाज़ ब्राउज़र के अंदर ही जाँची जाती है और कहीं नहीं भेजी जाती।',
+    instruments: ['गिटार', 'युकुलेली', 'बेस'],
+    waiting: 'कोई सुर बजाएँ', inTune: '✓ सही है',
+    sharpBy: c => `${c} सेंट ऊँचा है — तार ढीला करें`,
+    flatBy: c => `${c} सेंट नीचा है — तार कसें`,
+    note: 'सुर', freqLabel: 'आवृत्ति', errorLabel: 'अंतर', centsSuffix: c => `${c} सेंट`,
+    openStrings: 'आधार सुर सुनें (खुली तारें)', refA4: 'आधार A4', refA4Note: 'Hz — साथ बजाने वालों से मिलाएँ',
+    footNote: 'सेंट आधे सुर को सौ भागों में बाँटने की इकाई है। ±5 सेंट के भीतर मनुष्य के कान को सही सुनाई देता है। तार छेड़ने के तुरंत बाद सुर डोलता है, इसलिए आवाज़ ठहरने के बाद का मान देखें।',
+  },
 };
 
 export const PITCH_UI: Record<SoundLang, {
@@ -102,6 +252,60 @@ export const PITCH_UI: Record<SoundLang, {
     scoreLabel: 'Correct', rateLabel: 'Accuracy', streakLabel: 'Streak',
     note: 'Anchoring each interval to the first two notes of a song you know speeds this up a lot — a perfect fifth opens ‘Twinkle, Twinkle, Little Star’, and an octave opens ‘Somewhere Over the Rainbow’.',
   },
+  es: {
+    intervals: ['2ª menor', '2ª mayor', '3ª menor', '3ª mayor', '4ª justa', '5ª justa', '6ª menor', '6ª mayor', '7ª menor', '7ª mayor', 'Octava'],
+    levels: ['Fácil', 'Normal', 'Difícil'],
+    askInterval: '¿Qué intervalo es?', replay: '🔊 Volver a oír', correct: '¡Correcto!', wrongPrefix: 'Casi — era ',
+    introTitle: 'Escucha dos notas y di el intervalo', introNote: 'La nota de partida cambia cada vez — no hace falta oído absoluto',
+    next: 'Siguiente', start: 'Empezar',
+    scoreLabel: 'Aciertos', rateLabel: 'Precisión', streakLabel: 'Racha',
+    note: 'Anclar cada intervalo a las dos primeras notas de una canción que conozcas acelera mucho el proceso — una quinta justa abre ‘Twinkle, Twinkle, Little Star’, y una octava abre ‘Somewhere Over the Rainbow’.',
+  },
+  'pt-br': {
+    intervals: ['2ª menor', '2ª maior', '3ª menor', '3ª maior', '4ª justa', '5ª justa', '6ª menor', '6ª maior', '7ª menor', '7ª maior', 'Oitava'],
+    levels: ['Fácil', 'Normal', 'Difícil'],
+    askInterval: 'Qual é o intervalo?', replay: '🔊 Ouvir de novo', correct: 'Correto!', wrongPrefix: 'Quase — era ',
+    introTitle: 'Ouça duas notas e diga o intervalo', introNote: 'A nota de partida muda a cada vez — não precisa de ouvido absoluto',
+    next: 'Próxima', start: 'Começar',
+    scoreLabel: 'Acertos', rateLabel: 'Precisão', streakLabel: 'Sequência',
+    note: 'Ancorar cada intervalo nas duas primeiras notas de uma música que você conhece acelera muito — uma quinta justa abre ‘Twinkle, Twinkle, Little Star’, e uma oitava abre ‘Somewhere Over the Rainbow’.',
+  },
+  ja: {
+    intervals: ['短2度', '長2度', '短3度', '長3度', '完全4度', '完全5度', '短6度', '長6度', '短7度', '長7度', 'オクターブ'],
+    levels: ['やさしい', 'ふつう', 'むずかしい'],
+    askInterval: '二つの音の間隔は？', replay: '🔊 もう一度聴く', correct: '正解！', wrongPrefix: '残念 — 正解は ',
+    introTitle: '二つの音を聴いて間隔を当てる', introNote: '基準音は毎回変わります — 絶対音感は必要ありません',
+    next: '次の問題', start: 'はじめる',
+    scoreLabel: '正解数', rateLabel: '正答率', streakLabel: '連続正解',
+    note: '知っている曲の最初の二音で覚えると上達がずっと早くなります — 完全5度は『きらきら星』の最初の二音、オクターブは『Somewhere over the rainbow』の最初の二音です。',
+  },
+  de: {
+    intervals: ['Kleine Sekunde', 'Große Sekunde', 'Kleine Terz', 'Große Terz', 'Quarte', 'Quinte', 'Kleine Sexte', 'Große Sexte', 'Kleine Septime', 'Große Septime', 'Oktave'],
+    levels: ['Leicht', 'Normal', 'Schwer'],
+    askInterval: 'Welches Intervall ist das?', replay: '🔊 Nochmal hören', correct: 'Richtig!', wrongPrefix: 'Knapp daneben — es war ',
+    introTitle: 'Zwei Töne hören, das Intervall benennen', introNote: 'Der Startton wechselt jedes Mal — absolutes Gehör ist nicht nötig',
+    next: 'Nächste Aufgabe', start: 'Los',
+    scoreLabel: 'Richtig', rateLabel: 'Treffer', streakLabel: 'Serie',
+    note: 'Jedes Intervall an die ersten zwei Töne eines Liedes zu binden, das du kennst, beschleunigt das enorm — eine Quinte eröffnet ‘Twinkle, Twinkle, Little Star’, eine Oktave ‘Somewhere Over the Rainbow’.',
+  },
+  fr: {
+    intervals: ['Seconde mineure', 'Seconde majeure', 'Tierce mineure', 'Tierce majeure', 'Quarte juste', 'Quinte juste', 'Sixte mineure', 'Sixte majeure', 'Septième mineure', 'Septième majeure', 'Octave'],
+    levels: ['Facile', 'Normal', 'Difficile'],
+    askInterval: 'Quel est l’intervalle ?', replay: '🔊 Réécouter', correct: 'Juste !', wrongPrefix: 'Presque — c’était ',
+    introTitle: 'Écoute deux notes, nomme l’intervalle', introNote: 'La note de départ change à chaque fois — pas besoin d’oreille absolue',
+    next: 'Question suivante', start: 'Commencer',
+    scoreLabel: 'Bonnes réponses', rateLabel: 'Précision', streakLabel: 'Série',
+    note: 'Rattacher chaque intervalle aux deux premières notes d’une chanson que tu connais fait gagner beaucoup de temps — une quinte juste ouvre ‘Twinkle, Twinkle, Little Star’, et une octave ouvre ‘Somewhere Over the Rainbow’.',
+  },
+  hi: {
+    intervals: ['लघु द्वितीय', 'शुद्ध द्वितीय', 'लघु तृतीय', 'शुद्ध तृतीय', 'पूर्ण चतुर्थ', 'पूर्ण पंचम', 'लघु षष्ठ', 'शुद्ध षष्ठ', 'लघु सप्तम', 'शुद्ध सप्तम', 'अष्टक'],
+    levels: ['आसान', 'सामान्य', 'कठिन'],
+    askInterval: 'दो सुरों के बीच कितना अंतर है?', replay: '🔊 फिर सुनें', correct: 'सही!', wrongPrefix: 'नहीं — सही जवाब ',
+    introTitle: 'दो सुर सुनकर अंतर बताइए', introNote: 'आधार सुर हर बार बदलता है — पूर्ण श्रवण की ज़रूरत नहीं',
+    next: 'अगला सवाल', start: 'शुरू करें',
+    scoreLabel: 'सही जवाब', rateLabel: 'सटीकता', streakLabel: 'लगातार सही',
+    note: 'हर अंतराल को किसी जानी-पहचानी धुन के पहले दो सुरों से जोड़ लें तो अभ्यास बहुत तेज़ बढ़ता है — पूर्ण पंचम ‘Twinkle, Twinkle, Little Star’ के पहले दो सुर हैं, और अष्टक ‘Somewhere Over the Rainbow’ के।',
+  },
 };
 
 export const BPM_TAP_UI: Record<SoundLang, {
@@ -117,6 +321,36 @@ export const BPM_TAP_UI: Record<SoundLang, {
     prompt: 'Tap along with the beat', tapCount: 'Taps', interval: 'Beat interval', jitter: 'Jitter',
     again: 'Start over',
     note: 'About eight taps is enough to settle. Jitter over ±60ms means you are drifting off the beat — count out loud and try again. Pause for more than three seconds and it starts a fresh count.',
+  },
+  es: {
+    prompt: 'Toca al ritmo', tapCount: 'Pulsaciones', interval: 'Intervalo del pulso', jitter: 'Irregularidad',
+    again: 'Empezar de nuevo',
+    note: 'Con unas ocho pulsaciones el valor se estabiliza. Una irregularidad por encima de ±60ms significa que te estás saliendo del ritmo — cuenta en voz alta y vuelve a intentarlo. Si te detienes más de tres segundos, empieza una cuenta nueva.',
+  },
+  'pt-br': {
+    prompt: 'Bata no ritmo', tapCount: 'Batidas', interval: 'Intervalo do tempo', jitter: 'Irregularidade',
+    again: 'Começar de novo',
+    note: 'Umas oito batidas já estabilizam o valor. Irregularidade acima de ±60ms quer dizer que você está saindo do ritmo — conte em voz alta e tente de novo. Se parar por mais de três segundos, ele começa uma contagem nova.',
+  },
+  ja: {
+    prompt: '拍に合わせて叩いてください', tapCount: '叩いた回数', interval: '拍の間隔', jitter: 'ばらつき',
+    again: '測り直す',
+    note: '8回ほど叩くと値が安定します。ばらつきが±60msを超えるのは拍から外れているということなので、1拍ずつ大きく数えながらやり直してみてください。3秒以上休むと自動で数え直します。',
+  },
+  de: {
+    prompt: 'Tippe im Takt mit', tapCount: 'Anschläge', interval: 'Schlagabstand', jitter: 'Schwankung',
+    again: 'Neu messen',
+    note: 'Etwa acht Anschläge reichen, bis sich der Wert einpendelt. Eine Schwankung über ±60ms heißt, dass du aus dem Takt driftest — zähl laut mit und versuch es nochmal. Nach mehr als drei Sekunden Pause beginnt eine neue Zählung.',
+  },
+  fr: {
+    prompt: 'Tape en suivant le rythme', tapCount: 'Frappes', interval: 'Écart entre les temps', jitter: 'Irrégularité',
+    again: 'Recommencer',
+    note: 'Une huitaine de frappes suffit à stabiliser la valeur. Une irrégularité au-delà de ±60ms veut dire que tu dérives du rythme — compte à voix haute et reprends. Après plus de trois secondes de pause, un nouveau comptage démarre.',
+  },
+  hi: {
+    prompt: 'लय के साथ थपकी दें', tapCount: 'थपकियाँ', interval: 'मात्रा का अंतराल', jitter: 'डोलाव',
+    again: 'दोबारा मापें',
+    note: 'आठ-दस थपकी में मान ठहर जाता है। डोलाव ±60ms से ज़्यादा हो तो समझिए आप लय से हट रहे हैं — ज़ोर से गिनते हुए फिर कीजिए। तीन सेकंड से ज़्यादा रुकें तो गिनती नए सिरे से शुरू हो जाती है।',
   },
 };
 
@@ -140,6 +374,54 @@ export const NOISE_UI: Record<SoundLang, {
     stopsIn: n => `Stops automatically in ${n} minutes`,
     note: 'This does not remove the sounds around you — it ', noteBold: 'covers',
     noteAfter: ' them so they bother you less. That means you do not need it loud; just enough that conversation fades out is plenty. Playing it loud all night is hard on your ears, so use the auto stop.',
+  },
+  es: {
+    kinds: ['Blanco', 'Rosa', 'Marrón'],
+    kindHints: ['Parejo en todas las bandas — el más seco', 'Graves algo más fuertes, más cerca de la naturaleza', 'Los graves más fuertes — como las olas'],
+    smooth: 'Suavidad (corte de agudos)', autoStop: 'Parada automática', off: 'Apagado', minSuffix: n => `${n} min`,
+    stopsIn: n => `Se para solo en ${n} minutos`,
+    note: 'Esto no elimina los sonidos de alrededor — los ', noteBold: 'tapa',
+    noteAfter: ' para que te molesten menos. Por eso no hace falta ponerlo alto; que la conversación se difumine ya es suficiente. Dejarlo fuerte toda la noche cansa el oído, así que usa la parada automática.',
+  },
+  'pt-br': {
+    kinds: ['Branco', 'Rosa', 'Marrom'],
+    kindHints: ['Parelho em todas as faixas — o mais seco', 'Graves um pouco mais fortes, mais perto da natureza', 'Graves mais fortes — como ondas do mar'],
+    smooth: 'Suavidade (corte de agudos)', autoStop: 'Parada automática', off: 'Desligado', minSuffix: n => `${n} min`,
+    stopsIn: n => `Para sozinho em ${n} minutos`,
+    note: 'Isto não elimina os sons ao redor — ele os ', noteBold: 'cobre',
+    noteAfter: ' para incomodarem menos. Por isso não precisa ficar alto; basta que a conversa se dilua. Deixar forte a noite toda cansa o ouvido, então use a parada automática.',
+  },
+  ja: {
+    kinds: ['ホワイト', 'ピンク', 'ブラウン'],
+    kindHints: ['すべての帯域が均等 — もっとも硬い音', '低域が少し強く、自然の音に近い', '低域がもっとも強く、波の音のよう'],
+    smooth: 'なめらかさ（高域カット）', autoStop: '自動停止', off: 'オフ', minSuffix: n => `${n}分`,
+    stopsIn: n => `${n}分後に自動で止まります`,
+    note: '周りの音を消すのではなく、', noteBold: '覆って',
+    noteAfter: '気にならなくする仕組みです。だから大きくする必要はなく、会話がぎりぎり聞こえないくらいで十分です。寝るときに大音量で長時間流すと耳に負担がかかるので、自動停止も一緒に使ってください。',
+  },
+  de: {
+    kinds: ['Weiß', 'Rosa', 'Braun'],
+    kindHints: ['Über alle Bänder gleich — am härtesten', 'Etwas kräftigere Tiefen, näher an der Natur', 'Die kräftigsten Tiefen — wie Meereswellen'],
+    smooth: 'Weichheit (Höhen absenken)', autoStop: 'Automatisch stoppen', off: 'Aus', minSuffix: n => `${n} Min.`,
+    stopsIn: n => `Stoppt automatisch in ${n} Minuten`,
+    note: 'Das entfernt die Geräusche um dich herum nicht — es ', noteBold: 'überdeckt',
+    noteAfter: ' sie, damit sie weniger stören. Du brauchst es also nicht laut; gerade so, dass Gespräche verschwimmen, reicht. Die ganze Nacht laut zu hören belastet die Ohren — nimm die automatische Abschaltung dazu.',
+  },
+  fr: {
+    kinds: ['Blanc', 'Rose', 'Brun'],
+    kindHints: ['Égal sur toutes les bandes — le plus sec', 'Graves un peu plus présents, plus proche de la nature', 'Graves les plus présents — comme les vagues'],
+    smooth: 'Douceur (coupe des aigus)', autoStop: 'Arrêt automatique', off: 'Désactivé', minSuffix: n => `${n} min`,
+    stopsIn: n => `S’arrête tout seul dans ${n} minutes`,
+    note: 'Cela n’enlève pas les sons autour de toi — cela les ', noteBold: 'recouvre',
+    noteAfter: ' pour qu’ils dérangent moins. Pas besoin de monter le volume : juste assez pour que les conversations s’estompent suffit. Écouter fort toute la nuit fatigue les oreilles, donc utilise l’arrêt automatique.',
+  },
+  hi: {
+    kinds: ['व्हाइट', 'पिंक', 'ब्राउन'],
+    kindHints: ['सभी बैंड में बराबर — सबसे तीखा', 'निचली आवृत्तियाँ ज़रा तेज़, प्रकृति के करीब', 'निचली आवृत्तियाँ सबसे तेज़ — लहरों जैसा'],
+    smooth: 'नरमी (ऊँची आवृत्ति कम)', autoStop: 'अपने आप बंद', off: 'बंद', minSuffix: n => `${n} मिनट`,
+    stopsIn: n => `${n} मिनट बाद अपने आप रुक जाएगा`,
+    note: 'यह आस-पास की आवाज़ें मिटाता नहीं — उन्हें ', noteBold: 'ढककर',
+    noteAfter: ' कम खलने वाली बना देता है। इसलिए तेज़ करने की ज़रूरत नहीं; इतना कि बातचीत बस सुनाई न दे, काफ़ी है। सोते समय देर तक तेज़ चलाना कानों पर भारी पड़ता है, इसलिए साथ में अपने आप बंद होने की सेटिंग रखें।',
   },
 };
 
@@ -167,6 +449,60 @@ export const BINAURAL_UI: Record<SoundLang, {
     disclaimerTitle: 'The effect is still unclear',
     disclaimer: 'There is a claim that brainwaves follow the beat frequency, but the research is mixed and most of it points to a small effect at best. If it does help you focus or sleep, that may simply be the effect of listening to something quiet for a long time. Do not use it as a treatment.',
   },
+  es: {
+    presets: ['Delta 2Hz', 'Theta 6Hz', 'Alfa 10Hz', 'Beta 18Hz'],
+    presetNotes: ['Banda del sueño profundo', 'Somnolencia y meditación', 'Relajado pero despierto', 'Banda de concentración'],
+    channels: (l, r) => `Izquierda ${l}Hz · derecha ${r}Hz`,
+    headphones: '🎧 Los auriculares son imprescindibles. Por altavoz los dos tonos se mezclan en el aire y no aparece ningún pulso.',
+    beatFreq: 'Frecuencia del pulso', baseFreq: 'Frecuencia base',
+    disclaimerTitle: 'El efecto sigue sin estar claro',
+    disclaimer: 'Se dice que las ondas cerebrales siguen la frecuencia del pulso, pero los estudios se contradicen y la mayoría apunta a un efecto pequeño como mucho. Si te ayuda a concentrarte o a dormir, puede ser simplemente el efecto de escuchar algo tranquilo durante mucho tiempo. No lo uses como tratamiento.',
+  },
+  'pt-br': {
+    presets: ['Delta 2Hz', 'Theta 6Hz', 'Alfa 10Hz', 'Beta 18Hz'],
+    presetNotes: ['Faixa do sono profundo', 'Sonolência e meditação', 'Relaxado mas acordado', 'Faixa de concentração'],
+    channels: (l, r) => `Esquerda ${l}Hz · direita ${r}Hz`,
+    headphones: '🎧 Fones são indispensáveis. Na caixa de som os dois tons se misturam no ar e nenhum pulso aparece.',
+    beatFreq: 'Frequência do pulso', baseFreq: 'Frequência base',
+    disclaimerTitle: 'O efeito continua incerto',
+    disclaimer: 'Dizem que as ondas cerebrais acompanham a frequência do pulso, mas os estudos se contradizem e a maioria aponta para um efeito pequeno, no máximo. Se ajudar você a focar ou dormir, pode ser simplesmente o efeito de ouvir algo calmo por muito tempo. Não use como tratamento.',
+  },
+  ja: {
+    presets: ['デルタ 2Hz', 'シータ 6Hz', 'アルファ 10Hz', 'ベータ 18Hz'],
+    presetNotes: ['深い睡眠の帯域', '眠気・瞑想の帯域', 'リラックスした覚醒', '集中の帯域'],
+    channels: (l, r) => `左 ${l}Hz · 右 ${r}Hz`,
+    headphones: '🎧 イヤホンが必須です。スピーカーでは二つの音が空気中で混ざってしまい、うなりが生まれません。',
+    beatFreq: 'うなりの周波数', baseFreq: '基準周波数',
+    disclaimerTitle: '効果はまだはっきりしていません',
+    disclaimer: '脳波がうなりの周波数に同調するという主張がありますが、研究結果は分かれており、効果があってもわずかだという見方が多いです。集中や睡眠に役立つと感じるなら、静かな音を長く聴くこと自体の効果かもしれません。治療目的には使わないでください。',
+  },
+  de: {
+    presets: ['Delta 2Hz', 'Theta 6Hz', 'Alpha 10Hz', 'Beta 18Hz'],
+    presetNotes: ['Bereich des Tiefschlafs', 'Schläfrig und meditativ', 'Entspannt, aber wach', 'Konzentrationsbereich'],
+    channels: (l, r) => `Links ${l}Hz · rechts ${r}Hz`,
+    headphones: '🎧 Kopfhörer sind zwingend. Über Lautsprecher mischen sich die beiden Töne in der Luft und es entsteht kein Schweben.',
+    beatFreq: 'Schwebungsfrequenz', baseFreq: 'Grundfrequenz',
+    disclaimerTitle: 'Die Wirkung ist weiterhin unklar',
+    disclaimer: 'Es gibt die Behauptung, Hirnwellen folgten der Schwebungsfrequenz, doch die Forschung ist widersprüchlich und deutet überwiegend auf höchstens einen kleinen Effekt hin. Wenn es dir beim Konzentrieren oder Einschlafen hilft, kann das schlicht daran liegen, dass du lange etwas Ruhiges hörst. Nutze es nicht als Behandlung.',
+  },
+  fr: {
+    presets: ['Delta 2Hz', 'Thêta 6Hz', 'Alpha 10Hz', 'Bêta 18Hz'],
+    presetNotes: ['Bande du sommeil profond', 'Somnolence et méditation', 'Détendu mais éveillé', 'Bande de concentration'],
+    channels: (l, r) => `Gauche ${l}Hz · droite ${r}Hz`,
+    headphones: '🎧 Le casque est indispensable. Sur haut-parleur, les deux tons se mélangent dans l’air et aucun battement n’apparaît.',
+    beatFreq: 'Fréquence du battement', baseFreq: 'Fréquence de base',
+    disclaimerTitle: 'L’effet reste flou',
+    disclaimer: 'On avance que les ondes cérébrales suivent la fréquence du battement, mais la recherche se contredit et pointe surtout un effet faible au mieux. Si cela t’aide à te concentrer ou à dormir, ce peut être simplement l’effet d’écouter quelque chose de calme longtemps. Ne l’utilise pas comme traitement.',
+  },
+  hi: {
+    presets: ['डेल्टा 2Hz', 'थीटा 6Hz', 'अल्फ़ा 10Hz', 'बीटा 18Hz'],
+    presetNotes: ['गहरी नींद का दायरा', 'नींद और ध्यान का दायरा', 'शांत पर जागा हुआ', 'एकाग्रता का दायरा'],
+    channels: (l, r) => `बाएँ ${l}Hz · दाएँ ${r}Hz`,
+    headphones: '🎧 हेडफ़ोन ज़रूरी हैं। स्पीकर पर दोनों आवाज़ें हवा में मिल जाती हैं और कोई धड़कन नहीं बनती।',
+    beatFreq: 'धड़कन की आवृत्ति', baseFreq: 'आधार आवृत्ति',
+    disclaimerTitle: 'असर अब भी साफ़ नहीं है',
+    disclaimer: 'कहा जाता है कि मस्तिष्क तरंगें धड़कन की आवृत्ति के साथ चलने लगती हैं, पर शोध के नतीजे आपस में उलझे हैं और ज़्यादातर यही कहते हैं कि असर हो भी तो बहुत कम है। ध्यान लगाने या सोने में मदद मिलती लगे तो वह शायद देर तक कोई शांत आवाज़ सुनने का ही असर हो। इसे इलाज के तौर पर मत इस्तेमाल कीजिए।',
+  },
 };
 
 export const DECIBEL_UI: Record<SoundLang, {
@@ -189,6 +525,54 @@ export const DECIBEL_UI: Record<SoundLang, {
     aboutLevel: label => `about ${label}`,
     now: 'Now', peak: 'Peak', avg: 'Average', refsTitle: 'Reference',
     note: 'Mic sensitivity differs by device, so absolute sound pressure (dB SPL) cannot be measured here. These values are relative, with digital maximum set to 0 — use them only to compare loudness on the same device.',
+  },
+  es: {
+    gate: 'Mide el sonido de tu alrededor por el micrófono y lo compara con niveles de ruido cotidianos.',
+    gateNote: 'El audio se analiza dentro del navegador y no se guarda nada.',
+    refs: ['Una habitación muy silenciosa', 'Biblioteca', 'Oficina tranquila', 'Conversación normal', 'Calle concurrida o metro', 'Muy ruidoso'],
+    aboutLevel: label => `como ${label}`,
+    now: 'Ahora', peak: 'Máximo', avg: 'Media', refsTitle: 'Referencia',
+    note: 'La sensibilidad del micrófono cambia según el aparato, así que aquí no se puede medir la presión sonora absoluta (dB SPL). Estos valores son relativos, con el máximo digital puesto en 0 — úsalos solo para comparar volúmenes en el mismo aparato.',
+  },
+  'pt-br': {
+    gate: 'Mede o som ao seu redor pelo microfone e compara com níveis de ruído do dia a dia.',
+    gateNote: 'O áudio é analisado dentro do navegador e nada é guardado.',
+    refs: ['Um quarto bem silencioso', 'Biblioteca', 'Escritório calmo', 'Conversa normal', 'Rua movimentada ou metrô', 'Muito barulhento'],
+    aboutLevel: label => `mais ou menos ${label}`,
+    now: 'Agora', peak: 'Pico', avg: 'Média', refsTitle: 'Referência',
+    note: 'A sensibilidade do microfone muda de aparelho para aparelho, então aqui não é possível medir a pressão sonora absoluta (dB SPL). Estes valores são relativos, com o máximo digital em 0 — use apenas para comparar volumes no mesmo aparelho.',
+  },
+  ja: {
+    gate: 'マイクで周りの音の大きさを測り、生活騒音の目安と比べて見せます。',
+    gateNote: '音はブラウザの中だけで分析され、保存されません。',
+    refs: ['とても静かな部屋', '図書館', '静かなオフィス', 'ふつうの会話', '繁華街・地下鉄', 'とてもうるさい'],
+    aboutLevel: label => `${label}くらい`,
+    now: '現在', peak: '最大', avg: '平均', refsTitle: '目安',
+    note: '機種によってマイクの感度が違うため、絶対的な騒音レベル（dB SPL）は測れません。ここの値はデジタル上の最大を0とした相対値なので、同じ端末で音の大きさを比べる用途にだけ使ってください。',
+  },
+  de: {
+    gate: 'Misst über das Mikrofon den Klang um dich herum und vergleicht ihn mit Alltagsgeräuschen.',
+    gateNote: 'Das Audio wird im Browser analysiert und nichts wird gespeichert.',
+    refs: ['Ein sehr stiller Raum', 'Bibliothek', 'Ruhiges Büro', 'Normales Gespräch', 'Belebte Straße oder U-Bahn', 'Sehr laut'],
+    aboutLevel: label => `etwa ${label}`,
+    now: 'Jetzt', peak: 'Spitze', avg: 'Mittel', refsTitle: 'Anhaltspunkt',
+    note: 'Die Mikrofonempfindlichkeit unterscheidet sich je Gerät, absoluter Schalldruck (dB SPL) lässt sich hier also nicht messen. Diese Werte sind relativ, mit dem digitalen Maximum bei 0 — nutze sie nur, um Lautstärken auf demselben Gerät zu vergleichen.',
+  },
+  fr: {
+    gate: 'Mesure le son autour de toi par le micro et le compare à des niveaux de bruit du quotidien.',
+    gateNote: 'L’audio est analysé dans le navigateur et rien n’est conservé.',
+    refs: ['Une pièce très calme', 'Bibliothèque', 'Bureau silencieux', 'Conversation normale', 'Rue passante ou métro', 'Très bruyant'],
+    aboutLevel: label => `environ ${label}`,
+    now: 'Maintenant', peak: 'Crête', avg: 'Moyenne', refsTitle: 'Repère',
+    note: 'La sensibilité du micro varie selon l’appareil : la pression acoustique absolue (dB SPL) ne peut pas être mesurée ici. Ces valeurs sont relatives, le maximum numérique valant 0 — sers-t’en seulement pour comparer des volumes sur le même appareil.',
+  },
+  hi: {
+    gate: 'माइक से आस-पास की आवाज़ का स्तर मापकर रोज़ के शोर से तुलना करके दिखाता है।',
+    gateNote: 'आवाज़ ब्राउज़र के अंदर ही जाँची जाती है और कुछ सहेजा नहीं जाता।',
+    refs: ['बहुत शांत कमरा', 'पुस्तकालय', 'शांत दफ़्तर', 'सामान्य बातचीत', 'भीड़-भाड़ वाली सड़क या मेट्रो', 'बहुत शोर'],
+    aboutLevel: label => `${label} जितना`,
+    now: 'अभी', peak: 'सर्वोच्च', avg: 'औसत', refsTitle: 'संदर्भ',
+    note: 'हर उपकरण में माइक की संवेदनशीलता अलग होती है, इसलिए यहाँ पूर्ण ध्वनि दबाव (dB SPL) नहीं मापा जा सकता। ये मान सापेक्ष हैं, जिनमें डिजिटल अधिकतम को 0 माना गया है — इन्हें सिर्फ़ एक ही उपकरण पर आवाज़ की तुलना के लिए इस्तेमाल कीजिए।',
   },
 };
 
@@ -214,6 +598,54 @@ export const RECORDER_UI: Record<SoundLang, {
     saveFile: '⬇ Save as a file', nothingToSave: 'Nothing to save', listen: 'Listen back',
     note: 'The recording is created inside this browser and only reaches your device when you press save. Nothing is sent to a server, so meeting notes and pronunciation practice are fine here. Close the tab and the recording is gone.',
   },
+  es: {
+    micDenied: 'Se denegó el acceso al micrófono. Permítelo desde el icono del candado en la barra de direcciones.',
+    micFailed: 'No se pudo abrir el micrófono.',
+    recording: '● Grabando', done: 'Grabación terminada', idle: 'Pulsa grabar para empezar',
+    stopRec: '■ Parar la grabación', again: 'Grabar otra vez', startRec: '● Empezar a grabar',
+    saveFile: '⬇ Guardar como archivo', nothingToSave: 'Nada que guardar', listen: 'Escucharlo',
+    note: 'La grabación se crea dentro de este navegador y solo llega a tu aparato cuando pulsas guardar. No se envía nada a un servidor, así que las notas de una reunión o practicar pronunciación están bien aquí. Si cierras la pestaña, la grabación desaparece.',
+  },
+  'pt-br': {
+    micDenied: 'O acesso ao microfone foi negado. Libere pelo ícone do cadeado na barra de endereços.',
+    micFailed: 'Não foi possível abrir o microfone.',
+    recording: '● Gravando', done: 'Gravação concluída', idle: 'Aperte gravar para começar',
+    stopRec: '■ Parar a gravação', again: 'Gravar de novo', startRec: '● Começar a gravar',
+    saveFile: '⬇ Salvar como arquivo', nothingToSave: 'Nada para salvar', listen: 'Ouvir',
+    note: 'A gravação é criada dentro deste navegador e só chega ao seu aparelho quando você aperta salvar. Nada é enviado a um servidor, então anotações de reunião e treino de pronúncia ficam bem aqui. Se fechar a aba, a gravação desaparece.',
+  },
+  ja: {
+    micDenied: 'マイクの使用が拒否されました。アドレスバーの鍵アイコンから許可してください。',
+    micFailed: 'マイクを開けませんでした。',
+    recording: '● 録音中', done: '録音が終わりました', idle: '録音ボタンを押してください',
+    stopRec: '■ 録音を止める', again: 'もう一度録音', startRec: '● 録音を始める',
+    saveFile: '⬇ ファイルとして保存', nothingToSave: '保存する録音がありません', listen: '聴いてみる',
+    note: '録音はこのブラウザの中だけで作られ、保存ボタンを押したときに端末へ降ります。サーバーには送られないので、会議メモや発音練習に使っても大丈夫です。タブを閉じると録音も消えます。',
+  },
+  de: {
+    micDenied: 'Der Zugriff aufs Mikrofon wurde verweigert. Erlaube ihn über das Schloss-Symbol in der Adressleiste.',
+    micFailed: 'Das Mikrofon konnte nicht geöffnet werden.',
+    recording: '● Aufnahme läuft', done: 'Aufnahme beendet', idle: 'Drücke Aufnahme, um zu starten',
+    stopRec: '■ Aufnahme stoppen', again: 'Neu aufnehmen', startRec: '● Aufnahme starten',
+    saveFile: '⬇ Als Datei speichern', nothingToSave: 'Nichts zu speichern', listen: 'Anhören',
+    note: 'Die Aufnahme entsteht nur in diesem Browser und landet erst auf deinem Gerät, wenn du auf Speichern drückst. Nichts geht an einen Server — Besprechungsnotizen und Aussprachetraining sind hier also in Ordnung. Schließt du den Tab, ist die Aufnahme weg.',
+  },
+  fr: {
+    micDenied: 'L’accès au micro a été refusé. Autorise-le depuis l’icône de cadenas dans la barre d’adresse.',
+    micFailed: 'Impossible d’ouvrir le micro.',
+    recording: '● Enregistrement', done: 'Enregistrement terminé', idle: 'Appuie sur enregistrer pour commencer',
+    stopRec: '■ Arrêter l’enregistrement', again: 'Réenregistrer', startRec: '● Lancer l’enregistrement',
+    saveFile: '⬇ Sauvegarder en fichier', nothingToSave: 'Rien à sauvegarder', listen: 'Réécouter',
+    note: 'L’enregistrement est créé dans ce navigateur et n’arrive sur ton appareil que si tu appuies sur sauvegarder. Rien ne part vers un serveur : notes de réunion et travail de prononciation sont ici sans souci. Ferme l’onglet et l’enregistrement disparaît.',
+  },
+  hi: {
+    micDenied: 'माइक की अनुमति नहीं मिली। पता-पट्टी के ताले के चिह्न से अनुमति दें।',
+    micFailed: 'माइक खुल नहीं सका।',
+    recording: '● रिकॉर्डिंग चल रही है', done: 'रिकॉर्डिंग पूरी हुई', idle: 'रिकॉर्ड का बटन दबाएँ',
+    stopRec: '■ रिकॉर्डिंग रोकें', again: 'फिर रिकॉर्ड करें', startRec: '● रिकॉर्डिंग शुरू करें',
+    saveFile: '⬇ फ़ाइल के रूप में सेव करें', nothingToSave: 'सेव करने के लिए कुछ नहीं', listen: 'सुनें',
+    note: 'रिकॉर्डिंग इसी ब्राउज़र के अंदर बनती है और सेव दबाने पर ही आपके उपकरण में उतरती है। कुछ भी सर्वर पर नहीं जाता, इसलिए बैठक के नोट या उच्चारण का अभ्यास यहाँ ठीक है। टैब बंद करने पर रिकॉर्डिंग भी चली जाती है।',
+  },
 };
 
 export const TONE_UI: Record<SoundLang, {
@@ -235,6 +667,48 @@ export const TONE_UI: Record<SoundLang, {
     playLabel: 'Play the tone',
     note: 'Volume is capped at 60%. A pure sine tone is far harder on the ears than music, and loud high frequencies over a long stretch can damage your hearing. Turn it up only until you can hear it.',
   },
+  es: {
+    waveNotes: { sine: 'Senoidal — la más suave', square: 'Cuadrada — con filo electrónico', triangle: 'Triangular — entre senoidal y cuadrada', sawtooth: 'Diente de sierra — la más áspera' },
+    waveNames: { sine: 'Senoidal', square: 'Cuadrada', triangle: 'Triangular', sawtooth: 'Sierra' },
+    waveform: 'Forma de onda', channel: 'Canal de salida', channels: ['Ambos', 'Solo izquierdo', 'Solo derecho'],
+    playLabel: 'Emitir el tono',
+    note: 'El volumen está limitado al 60%. Un tono senoidal puro cansa mucho más el oído que la música, y las frecuencias altas fuertes durante un rato largo pueden dañar tu audición. Súbelo solo hasta que lo oigas.',
+  },
+  'pt-br': {
+    waveNotes: { sine: 'Senoidal — a mais suave', square: 'Quadrada — com um toque eletrônico', triangle: 'Triangular — entre senoidal e quadrada', sawtooth: 'Dente de serra — a mais áspera' },
+    waveNames: { sine: 'Senoidal', square: 'Quadrada', triangle: 'Triangular', sawtooth: 'Serra' },
+    waveform: 'Forma de onda', channel: 'Canal de saída', channels: ['Ambos', 'Só esquerdo', 'Só direito'],
+    playLabel: 'Emitir o tom',
+    note: 'O volume está limitado a 60%. Um tom senoidal puro cansa muito mais o ouvido do que música, e frequências altas fortes por um bom tempo podem danificar sua audição. Aumente só até conseguir ouvir.',
+  },
+  ja: {
+    waveNotes: { sine: 'サイン波 — もっともなめらか', square: '矩形波 — 電子音のような響き', triangle: '三角波 — サインと矩形の中間', sawtooth: 'のこぎり波 — もっとも粗い' },
+    waveNames: { sine: 'サイン', square: '矩形', triangle: '三角', sawtooth: 'のこぎり' },
+    waveform: '波形', channel: '出力チャンネル', channels: ['両方', '左だけ', '右だけ'],
+    playLabel: '音を出す',
+    note: '音量の上限を60%に制限しています。純粋なサイン波は音楽よりも耳への負担がずっと大きく、とくに高い周波数を大きな音で長く聴くと聴力を損なうことがあります。聞こえる分だけ上げてください。',
+  },
+  de: {
+    waveNotes: { sine: 'Sinus — am weichsten', square: 'Rechteck — mit elektronischer Kante', triangle: 'Dreieck — zwischen Sinus und Rechteck', sawtooth: 'Sägezahn — am schärfsten' },
+    waveNames: { sine: 'Sinus', square: 'Rechteck', triangle: 'Dreieck', sawtooth: 'Sägezahn' },
+    waveform: 'Wellenform', channel: 'Ausgabekanal', channels: ['Beide', 'Nur links', 'Nur rechts'],
+    playLabel: 'Ton abspielen',
+    note: 'Die Lautstärke ist auf 60% begrenzt. Ein reiner Sinuston belastet die Ohren deutlich stärker als Musik, und laute hohe Frequenzen über längere Zeit können das Gehör schädigen. Dreh nur so weit auf, bis du ihn hörst.',
+  },
+  fr: {
+    waveNotes: { sine: 'Sinus — la plus douce', square: 'Carré — un côté électronique', triangle: 'Triangle — entre sinus et carré', sawtooth: 'Dent de scie — la plus rugueuse' },
+    waveNames: { sine: 'Sinus', square: 'Carré', triangle: 'Triangle', sawtooth: 'Scie' },
+    waveform: 'Forme d’onde', channel: 'Canal de sortie', channels: ['Les deux', 'Gauche seulement', 'Droite seulement'],
+    playLabel: 'Émettre le son',
+    note: 'Le volume est plafonné à 60%. Un son sinusoïdal pur fatigue bien plus l’oreille que la musique, et des aigus forts sur une longue durée peuvent abîmer l’audition. Monte seulement jusqu’à l’entendre.',
+  },
+  hi: {
+    waveNotes: { sine: 'साइन — सबसे नरम', square: 'स्क्वेयर — इलेक्ट्रॉनिक धार', triangle: 'ट्रायंगल — साइन और स्क्वेयर के बीच', sawtooth: 'सॉटूथ — सबसे खुरदुरी' },
+    waveNames: { sine: 'साइन', square: 'स्क्वेयर', triangle: 'ट्रायंगल', sawtooth: 'सॉटूथ' },
+    waveform: 'तरंग', channel: 'आउटपुट चैनल', channels: ['दोनों', 'सिर्फ़ बायाँ', 'सिर्फ़ दायाँ'],
+    playLabel: 'आवाज़ निकालें',
+    note: 'आवाज़ की सीमा 60% रखी गई है। शुद्ध साइन तरंग संगीत से कहीं ज़्यादा कानों पर भारी पड़ती है, और ऊँची आवृत्तियाँ तेज़ आवाज़ में देर तक सुनने से सुनने की क्षमता को नुकसान हो सकता है। जितना सुनाई दे उतना ही बढ़ाएँ।',
+  },
 };
 
 export const MOSQUITO_UI: Record<SoundLang, {
@@ -249,5 +723,35 @@ export const MOSQUITO_UI: Record<SoundLang, {
     ages: ['Almost everyone hears this', 'Most people up to their thirties', 'Usually up to the mid-twenties', 'Up to the early twenties', 'Up to the late teens', 'Hearing this is quite rare'],
     heard: 'Heard', check: 'Check', highestHeard: 'Highest tone you marked as heard',
     note: 'Not hearing one does not mean anything is wrong. The cells that pick up high frequencies are the first to wear, so the upper limit dropping is simply normal. Many speakers cannot produce this range at all, so try headphones. The volume is already limited.',
+  },
+  es: {
+    ages: ['Casi todo el mundo lo oye', 'La mayoría hasta los treinta y tantos', 'Normalmente hasta mediados de los veinte', 'Hasta los primeros veinte', 'Hasta el final de la adolescencia', 'Oír esto es bastante raro'],
+    heard: 'Se oye', check: 'Marcar', highestHeard: 'El tono más alto que marcaste como oído',
+    note: 'No oír uno no significa que algo vaya mal. Las células que captan las frecuencias altas son las primeras en desgastarse, así que es normal que el límite superior baje. Muchos altavoces no llegan a producir este rango, así que prueba con auriculares. El volumen ya está limitado.',
+  },
+  'pt-br': {
+    ages: ['Quase todo mundo ouve', 'A maioria até os trinta e poucos', 'Normalmente até meados dos vinte', 'Até o começo dos vinte', 'Até o fim da adolescência', 'Ouvir isto é bem raro'],
+    heard: 'Ouvi', check: 'Marcar', highestHeard: 'O tom mais alto que você marcou como ouvido',
+    note: 'Não ouvir um deles não quer dizer que algo esteja errado. As células que captam frequências altas são as primeiras a desgastar, então é normal o limite superior cair. Muitas caixas de som nem chegam a produzir essa faixa, então tente com fones. O volume já está limitado.',
+  },
+  ja: {
+    ages: ['ほとんどの年齢で聞こえます', '30代まではおおむね聞こえます', '20代半ばまで聞こえることが多いです', '20代前半まで聞こえます', '10代後半まで聞こえます', '聞こえたらかなり稀です'],
+    heard: '聞こえた', check: 'チェック', highestHeard: '聞こえたとチェックしたいちばん高い音',
+    note: '聞こえないからといって問題があるわけではありません。高い音を拾う細胞から先に傷むので、可聴上限が下がるのは自然なことです。スピーカーがその帯域を出せない場合も多いので、イヤホンで試してみてください。音量はすでに低く制限されています。',
+  },
+  de: {
+    ages: ['Fast alle hören das', 'Die meisten bis Anfang dreißig', 'Meist bis Mitte zwanzig', 'Bis Anfang zwanzig', 'Bis in die späten Teenagerjahre', 'Das noch zu hören ist selten'],
+    heard: 'Gehört', check: 'Markieren', highestHeard: 'Der höchste Ton, den du als gehört markiert hast',
+    note: 'Einen davon nicht zu hören heißt nicht, dass etwas nicht stimmt. Die Zellen für hohe Frequenzen nutzen sich zuerst ab, ein sinkendes obere Ende ist also einfach normal. Viele Lautsprecher geben diesen Bereich gar nicht her — probiere Kopfhörer. Die Lautstärke ist bereits begrenzt.',
+  },
+  fr: {
+    ages: ['Presque tout le monde l’entend', 'La plupart jusqu’à la trentaine', 'Généralement jusqu’au milieu de la vingtaine', 'Jusqu’au début de la vingtaine', 'Jusqu’à la fin de l’adolescence', 'L’entendre encore est assez rare'],
+    heard: 'Entendu', check: 'Cocher', highestHeard: 'Le son le plus aigu que tu as marqué comme entendu',
+    note: 'Ne pas en entendre un ne veut pas dire qu’il y a un problème. Les cellules qui captent les aigus s’usent les premières : voir la limite haute descendre est simplement normal. Beaucoup d’enceintes ne produisent même pas cette plage, essaie donc un casque. Le volume est déjà limité.',
+  },
+  hi: {
+    ages: ['लगभग हर उम्र में सुनाई देता है', 'तीस के दशक तक आम तौर पर सुनाई देता है', 'बीस के मध्य तक आम तौर पर', 'बीस की शुरुआत तक', 'किशोरावस्था के अंत तक', 'यह सुनाई देना काफ़ी दुर्लभ है'],
+    heard: 'सुनाई दिया', check: 'चिह्नित करें', highestHeard: 'सबसे ऊँची आवाज़ जिसे आपने सुना बताया',
+    note: 'कोई एक न सुनाई दे तो इसका मतलब नहीं कि कुछ गड़बड़ है। ऊँची आवाज़ पकड़ने वाली कोशिकाएँ पहले घिसती हैं, इसलिए सुनने की ऊपरी सीमा घटना स्वाभाविक है। कई स्पीकर यह दायरा बजा ही नहीं पाते, इसलिए हेडफ़ोन से आज़माइए। आवाज़ पहले से ही सीमित रखी गई है।',
   },
 };

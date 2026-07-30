@@ -2,13 +2,13 @@
 import { useMemo, useState } from 'react';
 import { hexToRgb, rgbToHsl, rgbToCmyk, nearestNamed, hslString, rgbString } from '@/lib/color';
 import { CARD, ColorInput, ValueRow } from './ui';
-import { NAME_UI, NAMED_COLOR_ZH, type ColorLang } from '@/lib/color-ui-intl';
+import { NAME_UI, NAMED_COLOR_INTL, type ColorLang } from '@/lib/color-ui-intl';
 
 /** 가까운 색의 이름 — 영어는 name 그대로, 중국어는 표에서 */
 function colorName(near: { name: string; ko: string }, lang: ColorLang): string {
   if (lang === 'ko') return near.ko;
-  if (false) return NAMED_COLOR_ZH[near.name] ?? near.name;
-  return near.name;
+  if (lang === 'en') return near.name;
+  return NAMED_COLOR_INTL[lang][near.name] ?? near.name;
 }
 
 export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {

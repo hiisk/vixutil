@@ -1,11 +1,17 @@
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import type { AnyLocale } from './locales.ts';
+
 /**
- * 이미지 도구 화면에 뜨는 문구의 세 언어 사전.
+ * 이미지 도구 화면에 뜨는 문구의 여덟 언어 사전.
  *
  * 계산·canvas 처리는 한국어 구현을 그대로 쓴다 — 여기서 갈리는 건 문구뿐이다.
  * 도구가 프리셋 배열을 들고 있는 경우(규격, 비율 등) 배열에서 label을 떼어내고
  * 여기 이름 배열을 인덱스로 참조한다. 픽셀·비율은 언어와 무관하기 때문이다.
+ *
+ * 배열은 언어마다 길이와 순서가 같아야 한다 — 인덱스로 짝지으므로 하나를 빼면
+ * 그 뒤가 전부 한 칸씩 밀린다.
  */
-export type ImageLang = 'ko' | 'en';
+export type ImageLang = AnyLocale;
 
 /** 여덟 도구가 공통으로 쓰는 조각 — 입구, 결과 요약, 저장 버튼 */
 export const IMAGE_COMMON: Record<ImageLang, {
@@ -33,12 +39,72 @@ export const IMAGE_COMMON: Record<ImageLang, {
     quality: 'Quality', smaller: 'Smaller', sharper: 'Sharper',
     bgFill: 'Colour to fill transparency', pickBg: 'Pick a background colour', bgColor: 'Background',
   },
+  es: {
+    dropOne: 'Suelta una foto aquí', dropMany: 'Suelta varias fotos aquí',
+    dropHow: 'Pulsa aquí o arrastra un archivo',
+    notImage: 'Eso no es un archivo de imagen. Prueba con JPG, PNG, WebP o GIF.',
+    original: 'Original', result: 'Resultado', saved: 'ahorrado', grew: 'más grande',
+    otherPhoto: 'Otra foto', save: 'Guardar', working: 'Procesando…',
+    quality: 'Calidad', smaller: 'Más ligera', sharper: 'Más nítida',
+    bgFill: 'Color para rellenar la transparencia', pickBg: 'Elegir color de fondo', bgColor: 'Fondo',
+  },
+  'pt-br': {
+    dropOne: 'Solte uma foto aqui', dropMany: 'Solte várias fotos aqui',
+    dropHow: 'Clique aqui ou arraste um arquivo',
+    notImage: 'Esse não é um arquivo de imagem. Tente JPG, PNG, WebP ou GIF.',
+    original: 'Original', result: 'Resultado', saved: 'de economia', grew: 'maior',
+    otherPhoto: 'Outra foto', save: 'Salvar', working: 'Processando…',
+    quality: 'Qualidade', smaller: 'Mais leve', sharper: 'Mais nítida',
+    bgFill: 'Cor para preencher a transparência', pickBg: 'Escolher cor de fundo', bgColor: 'Fundo',
+  },
+  ja: {
+    dropOne: '写真をここに置いてください', dropMany: '写真を何枚かここに置いてください',
+    dropHow: 'ここを押すか、ファイルをドラッグしてください',
+    notImage: '画像ファイルではありません。JPG・PNG・WebP・GIFなどを選んでください。',
+    original: '元の写真', result: '結果', saved: '削減', grew: '増加',
+    otherPhoto: '別の写真', save: '保存', working: '処理中…',
+    quality: '画質', smaller: '軽く', sharper: '鮮明に',
+    bgFill: '透明部分を埋める色', pickBg: '背景色を選ぶ', bgColor: '背景色',
+  },
+  de: {
+    dropOne: 'Foto hier ablegen', dropMany: 'Mehrere Fotos hier ablegen',
+    dropHow: 'Hier klicken oder eine Datei hereinziehen',
+    notImage: 'Das ist keine Bilddatei. Versuche JPG, PNG, WebP oder GIF.',
+    original: 'Original', result: 'Ergebnis', saved: 'gespart', grew: 'größer',
+    otherPhoto: 'Neues Foto', save: 'Speichern', working: 'Wird verarbeitet…',
+    quality: 'Qualität', smaller: 'Kleiner', sharper: 'Schärfer',
+    bgFill: 'Farbe für die Transparenzfüllung', pickBg: 'Hintergrundfarbe wählen', bgColor: 'Hintergrund',
+  },
+  fr: {
+    dropOne: 'Dépose une photo ici', dropMany: 'Dépose plusieurs photos ici',
+    dropHow: 'Clique ici ou fais glisser un fichier',
+    notImage: 'Ce n’est pas un fichier image. Essaie un JPG, PNG, WebP ou GIF.',
+    original: 'Original', result: 'Résultat', saved: 'gagné', grew: 'plus lourd',
+    otherPhoto: 'Autre photo', save: 'Enregistrer', working: 'Traitement…',
+    quality: 'Qualité', smaller: 'Plus léger', sharper: 'Plus net',
+    bgFill: 'Couleur qui remplit la transparence', pickBg: 'Choisir une couleur de fond', bgColor: 'Fond',
+  },
+  hi: {
+    dropOne: 'फ़ोटो यहाँ डालें', dropMany: 'कई फ़ोटो यहाँ डालें',
+    dropHow: 'यहाँ दबाएँ या फ़ाइल खींचकर छोड़ें',
+    notImage: 'यह इमेज फ़ाइल नहीं है। JPG, PNG, WebP या GIF आज़माएँ।',
+    original: 'मूल', result: 'नतीजा', saved: 'की बचत', grew: 'बढ़ा',
+    otherPhoto: 'दूसरी फ़ोटो', save: 'सेव करें', working: 'हो रहा है…',
+    quality: 'क्वालिटी', smaller: 'हल्का', sharper: 'साफ़',
+    bgFill: 'पारदर्शिता भरने वाला रंग', pickBg: 'बैकग्राउंड रंग चुनें', bgColor: 'बैकग्राउंड',
+  },
 };
 
 /** 붙여넣기 안내 — kbd 태그가 끼어 있어 앞뒤를 나눈다 */
 export const PASTE_HINT: Record<ImageLang, { before: string; after: string }> = {
   ko: { before: ' · ', after: '로 붙여넣기도 됩니다' },
   en: { before: ' · or paste with ', after: '' },
+  es: { before: ' · o pega con ', after: '' },
+  'pt-br': { before: ' · ou cole com ', after: '' },
+  ja: { before: ' · ', after: ' で貼り付けもできます' },
+  de: { before: ' · oder einfügen mit ', after: '' },
+  fr: { before: ' · ou colle avec ', after: '' },
+  hi: { before: ' · या ', after: ' से पेस्ट करें' },
 };
 
 export const COMPRESS_UI: Record<ImageLang, {
@@ -63,6 +129,60 @@ export const COMPRESS_UI: Record<ImageLang, {
     viewingOriginal: 'Showing original', tapForOriginal: 'Tap for original',
     note: 'The pixel dimensions stay the same — only quality comes down. To go smaller, also use ',
     noteLink: 'Image Resizer',
+  },
+  es: {
+    hint: 'Sirve con JPG, PNG y WebP',
+    formats: ['JPG', 'WebP'], formatHints: ['Lo más seguro para fotos', 'Más ligero a igual calidad'],
+    saveAs: 'Guardar como',
+    altOriginal: 'La foto original', altResult: 'Vista previa del resultado comprimido',
+    viewingOriginal: 'Viendo el original', tapForOriginal: 'Pulsa para el original',
+    note: 'Las medidas en píxeles no cambian — solo baja la calidad. Para reducir más, usa también ',
+    noteLink: 'Redimensionar imagen',
+  },
+  'pt-br': {
+    hint: 'Funciona com JPG, PNG e WebP',
+    formats: ['JPG', 'WebP'], formatHints: ['O mais seguro para fotos', 'Mais leve na mesma qualidade'],
+    saveAs: 'Salvar como',
+    altOriginal: 'A foto original', altResult: 'Prévia do resultado comprimido',
+    viewingOriginal: 'Vendo o original', tapForOriginal: 'Toque para o original',
+    note: 'As medidas em pixels não mudam — só a qualidade cai. Para reduzir mais, use também ',
+    noteLink: 'Redimensionar imagem',
+  },
+  ja: {
+    hint: 'JPG・PNG・WebPどれでも大丈夫です',
+    formats: ['JPG', 'WebP'], formatHints: ['写真にいちばん無難', '同じ画質でより軽い'],
+    saveAs: '保存形式',
+    altOriginal: '元の写真', altResult: '圧縮結果のプレビュー',
+    viewingOriginal: '元の写真を表示中', tapForOriginal: '押すと元の写真',
+    note: 'ピクセル数はそのままで画質だけを下げます。もっと小さくするなら',
+    noteLink: '画像サイズ変更',
+  },
+  de: {
+    hint: 'JPG, PNG und WebP funktionieren alle',
+    formats: ['JPG', 'WebP'], formatHints: ['Am sichersten für Fotos', 'Kleiner bei gleicher Qualität'],
+    saveAs: 'Speichern als',
+    altOriginal: 'Das Originalfoto', altResult: 'Vorschau des komprimierten Ergebnisses',
+    viewingOriginal: 'Original wird gezeigt', tapForOriginal: 'Antippen für das Original',
+    note: 'Die Pixelmaße bleiben gleich — nur die Qualität sinkt. Für noch kleinere Dateien nimm zusätzlich ',
+    noteLink: 'Bildgröße ändern',
+  },
+  fr: {
+    hint: 'JPG, PNG et WebP fonctionnent tous',
+    formats: ['JPG', 'WebP'], formatHints: ['Le plus sûr pour les photos', 'Plus léger à qualité égale'],
+    saveAs: 'Enregistrer en',
+    altOriginal: 'La photo d’origine', altResult: 'Aperçu du résultat compressé',
+    viewingOriginal: 'Original affiché', tapForOriginal: 'Touche pour l’original',
+    note: 'Les dimensions en pixels ne changent pas — seule la qualité baisse. Pour aller plus loin, utilise aussi ',
+    noteLink: 'Redimensionner une image',
+  },
+  hi: {
+    hint: 'JPG, PNG और WebP सब चलते हैं',
+    formats: ['JPG', 'WebP'], formatHints: ['फ़ोटो के लिए सबसे सुरक्षित', 'उसी क्वालिटी में हल्का'],
+    saveAs: 'इस रूप में सेव करें',
+    altOriginal: 'मूल फ़ोटो', altResult: 'कंप्रेस किए नतीजे की झलक',
+    viewingOriginal: 'मूल फ़ोटो दिख रही है', tapForOriginal: 'दबाएँ तो मूल',
+    note: 'पिक्सेल नाप वही रहते हैं — सिर्फ़ क्वालिटी घटती है। और छोटा करना हो तो साथ में ',
+    noteLink: 'इमेज का आकार बदलें',
   },
 };
 
@@ -89,6 +209,60 @@ export const RESIZE_UI: Record<ImageLang, {
     presets: ['Instagram square', 'YouTube thumbnail', 'Profile 512'],
     note: 'Enlarging past the original does not add detail — it just gets blurry.',
   },
+  es: {
+    hint: 'Fija el ancho y el alto en píxeles', alt: 'Vista previa del resultado redimensionado',
+    width: 'Ancho (px)', height: 'Alto (px)',
+    lockOn: 'Desbloquear la proporción', lockOff: 'Bloquear la proporción',
+    byRatio: 'Reducir por porcentaje', originalLabel: 'Original',
+    presetsTitle: 'Tamaños más usados',
+    presets: ['Cuadrado de Instagram', 'Miniatura de YouTube', 'Perfil 512'],
+    note: 'Agrandar más allá del original no añade detalle — solo sale borroso.',
+  },
+  'pt-br': {
+    hint: 'Defina largura e altura em pixels', alt: 'Prévia do resultado redimensionado',
+    width: 'Largura (px)', height: 'Altura (px)',
+    lockOn: 'Destravar a proporção', lockOff: 'Travar a proporção',
+    byRatio: 'Reduzir por porcentagem', originalLabel: 'Original',
+    presetsTitle: 'Tamanhos mais usados',
+    presets: ['Quadrado do Instagram', 'Thumbnail do YouTube', 'Perfil 512'],
+    note: 'Ampliar além do original não cria detalhe — só fica embaçado.',
+  },
+  ja: {
+    hint: '縦横を好きなピクセル数に合わせます', alt: 'サイズ変更結果のプレビュー',
+    width: '幅 (px)', height: '高さ (px)',
+    lockOn: '縦横比の固定を外す', lockOff: '縦横比を固定する',
+    byRatio: 'パーセントで縮小', originalLabel: '元のサイズ',
+    presetsTitle: 'よく使う規格',
+    presets: ['Instagram 正方形', 'YouTube サムネイル', 'プロフィール 512'],
+    note: '元より大きくしても画質は上がりません。ぼやけるだけです。',
+  },
+  de: {
+    hint: 'Breite und Höhe in Pixeln festlegen', alt: 'Vorschau des skalierten Ergebnisses',
+    width: 'Breite (px)', height: 'Höhe (px)',
+    lockOn: 'Seitenverhältnis entsperren', lockOff: 'Seitenverhältnis sperren',
+    byRatio: 'Prozentual skalieren', originalLabel: 'Original',
+    presetsTitle: 'Gängige Maße',
+    presets: ['Instagram quadratisch', 'YouTube-Thumbnail', 'Profil 512'],
+    note: 'Über das Original hinaus zu vergrößern bringt keine Details — es wird nur unscharf.',
+  },
+  fr: {
+    hint: 'Règle la largeur et la hauteur en pixels', alt: 'Aperçu du résultat redimensionné',
+    width: 'Largeur (px)', height: 'Hauteur (px)',
+    lockOn: 'Déverrouiller les proportions', lockOff: 'Verrouiller les proportions',
+    byRatio: 'Réduire en pourcentage', originalLabel: 'Original',
+    presetsTitle: 'Formats courants',
+    presets: ['Carré Instagram', 'Vignette YouTube', 'Profil 512'],
+    note: 'Agrandir au-delà de l’original n’ajoute pas de détail — ça devient juste flou.',
+  },
+  hi: {
+    hint: 'चौड़ाई और ऊँचाई पिक्सेल में तय करें', alt: 'आकार बदले नतीजे की झलक',
+    width: 'चौड़ाई (px)', height: 'ऊँचाई (px)',
+    lockOn: 'अनुपात का लॉक हटाएँ', lockOff: 'अनुपात लॉक करें',
+    byRatio: 'प्रतिशत में घटाएँ', originalLabel: 'मूल',
+    presetsTitle: 'आम नाप',
+    presets: ['इंस्टाग्राम वर्ग', 'यूट्यूब थंबनेल', 'प्रोफ़ाइल 512'],
+    note: 'मूल से बड़ा करने पर बारीकी नहीं बढ़ती — बस धुँधला हो जाता है।',
+  },
 };
 
 export const CONVERT_UI: Record<ImageLang, {
@@ -103,6 +277,36 @@ export const CONVERT_UI: Record<ImageLang, {
     hint: 'GIF, BMP and HEIC can be read and converted too', alt: 'Preview of the converted result',
     targetFormat: 'Convert to',
     note: 'JPG and quality-set WebP have no transparency, so anything that was transparent gets filled with this colour.',
+  },
+  es: {
+    hint: 'También lee y convierte GIF, BMP y HEIC', alt: 'Vista previa del resultado convertido',
+    targetFormat: 'Convertir a',
+    note: 'JPG y WebP con calidad fijada no tienen transparencia, así que lo que era transparente se rellena con este color.',
+  },
+  'pt-br': {
+    hint: 'Também lê e converte GIF, BMP e HEIC', alt: 'Prévia do resultado convertido',
+    targetFormat: 'Converter para',
+    note: 'JPG e WebP com qualidade definida não têm transparência, então o que era transparente é preenchido com esta cor.',
+  },
+  ja: {
+    hint: 'GIF・BMP・HEICなども読み込んで変換します', alt: '変換結果のプレビュー',
+    targetFormat: '変換先の形式',
+    note: 'JPGと画質を指定したWebPには透明がないので、元が透明だった部分はこの色で埋まります。',
+  },
+  de: {
+    hint: 'GIF, BMP und HEIC können auch gelesen und umgewandelt werden', alt: 'Vorschau des umgewandelten Ergebnisses',
+    targetFormat: 'Umwandeln in',
+    note: 'JPG und WebP mit festgelegter Qualität haben keine Transparenz — was transparent war, wird mit dieser Farbe gefüllt.',
+  },
+  fr: {
+    hint: 'GIF, BMP et HEIC peuvent aussi être lus et convertis', alt: 'Aperçu du résultat converti',
+    targetFormat: 'Convertir en',
+    note: 'JPG et WebP à qualité fixée n’ont pas de transparence : ce qui était transparent est rempli avec cette couleur.',
+  },
+  hi: {
+    hint: 'GIF, BMP और HEIC भी पढ़कर बदले जाते हैं', alt: 'बदले नतीजे की झलक',
+    targetFormat: 'इसमें बदलें',
+    note: 'JPG और क्वालिटी तय किए WebP में पारदर्शिता नहीं होती, इसलिए जो पारदर्शी था वह इस रंग से भर जाता है।',
   },
 };
 
@@ -121,6 +325,42 @@ export const CROP_UI: Record<ImageLang, {
     ratioTitle: 'Lock ratio', ratios: ['Free', '1:1', '4:3', '3:4', '16:9', '9:16'],
     how: 'Drag on the photo to draw a new area, or grab a corner to resize. Drag the middle to move it.',
     keeps: (ow, oh, w, h) => `Keeping ${w} × ${h}px out of the original ${ow} × ${oh}px.`,
+  },
+  es: {
+    hint: 'Deja solo la parte que necesitas', alt: 'La foto que vas a recortar',
+    ratioTitle: 'Bloquear proporción', ratios: ['Libre', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: 'Arrastra sobre la foto para dibujar un área nueva, o agarra una esquina para cambiar el tamaño. Arrastra el centro para moverla.',
+    keeps: (ow, oh, w, h) => `Se quedan ${w} × ${h}px de los ${ow} × ${oh}px originales.`,
+  },
+  'pt-br': {
+    hint: 'Fica só com a parte que você precisa', alt: 'A foto que você vai recortar',
+    ratioTitle: 'Travar proporção', ratios: ['Livre', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: 'Arraste sobre a foto para desenhar uma área nova, ou pegue um canto para mudar o tamanho. Arraste o meio para mover.',
+    keeps: (ow, oh, w, h) => `Ficam ${w} × ${h}px dos ${ow} × ${oh}px originais.`,
+  },
+  ja: {
+    hint: '必要な部分だけを残します', alt: '切り抜く写真',
+    ratioTitle: '比率を固定', ratios: ['自由', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: '写真の上をドラッグして範囲を描き直すか、四隅をつかんで大きさを変えてください。中央をドラッグすると位置が動きます。',
+    keeps: (ow, oh, w, h) => `元の ${ow} × ${oh}px から ${w} × ${h}px を残します。`,
+  },
+  de: {
+    hint: 'Nur den Teil behalten, den du brauchst', alt: 'Das Foto zum Zuschneiden',
+    ratioTitle: 'Verhältnis sperren', ratios: ['Frei', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: 'Zieh über das Foto, um einen neuen Bereich zu ziehen, oder greif eine Ecke, um die Größe zu ändern. Zieh die Mitte, um ihn zu verschieben.',
+    keeps: (ow, oh, w, h) => `Behält ${w} × ${h}px von den ursprünglichen ${ow} × ${oh}px.`,
+  },
+  fr: {
+    hint: 'Ne garde que la partie utile', alt: 'La photo à recadrer',
+    ratioTitle: 'Verrouiller le ratio', ratios: ['Libre', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: 'Fais glisser sur la photo pour tracer une nouvelle zone, ou attrape un coin pour la redimensionner. Fais glisser le centre pour la déplacer.',
+    keeps: (ow, oh, w, h) => `On garde ${w} × ${h}px sur les ${ow} × ${oh}px d’origine.`,
+  },
+  hi: {
+    hint: 'सिर्फ़ ज़रूरी हिस्सा रखें', alt: 'काटी जाने वाली फ़ोटो',
+    ratioTitle: 'अनुपात लॉक', ratios: ['खुला', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: 'फ़ोटो पर खींचकर नया क्षेत्र बनाएँ, या किसी कोने को पकड़कर आकार बदलें। बीच से खींचें तो जगह बदलती है।',
+    keeps: (ow, oh, w, h) => `मूल ${ow} × ${oh}px में से ${w} × ${h}px रखे जाएँगे।`,
   },
 };
 
@@ -144,6 +384,54 @@ export const ROTATE_UI: Record<ImageLang, {
     cornerColor: 'Colour to fill the corners',
     cornerNote: 'Any angle that is not a multiple of 90° leaves gaps at the corners',
     dimension: a => `Rotated ${a}°`,
+  },
+  es: {
+    hint: 'Para una foto que se guardó tumbada', alt: 'Vista previa del resultado girado',
+    left: '↺ Izquierda', right: '↻ Derecha', flipH: '↔ Voltear', flipV: '↕ Voltear',
+    fineAngle: 'Ángulo fino', angleAria: 'Ángulo de giro', toZero: 'A 0°',
+    cornerColor: 'Color para rellenar las esquinas',
+    cornerNote: 'Cualquier ángulo que no sea múltiplo de 90° deja huecos en las esquinas',
+    dimension: a => `Girada ${a}°`,
+  },
+  'pt-br': {
+    hint: 'Para uma foto que salvou deitada', alt: 'Prévia do resultado girado',
+    left: '↺ Esquerda', right: '↻ Direita', flipH: '↔ Espelhar', flipV: '↕ Espelhar',
+    fineAngle: 'Ângulo fino', angleAria: 'Ângulo de giro', toZero: 'Para 0°',
+    cornerColor: 'Cor para preencher os cantos',
+    cornerNote: 'Qualquer ângulo que não seja múltiplo de 90° deixa falhas nos cantos',
+    dimension: a => `Girada ${a}°`,
+  },
+  ja: {
+    hint: '横向きに保存された写真を起こすときに', alt: '回転結果のプレビュー',
+    left: '↺ 左', right: '↻ 右', flipH: '↔ 左右', flipV: '↕ 上下',
+    fineAngle: '角度の微調整', angleAria: '回転角度', toZero: '0°に',
+    cornerColor: '空いた角を埋める色',
+    cornerNote: '90の倍数でない角度では、角に余白ができます',
+    dimension: a => `${a}° 回転`,
+  },
+  de: {
+    hint: 'Für ein Foto, das quer gespeichert wurde', alt: 'Vorschau des gedrehten Ergebnisses',
+    left: '↺ Links', right: '↻ Rechts', flipH: '↔ Spiegeln', flipV: '↕ Spiegeln',
+    fineAngle: 'Feiner Winkel', angleAria: 'Drehwinkel', toZero: 'Auf 0°',
+    cornerColor: 'Farbe für die Ecken',
+    cornerNote: 'Jeder Winkel, der kein Vielfaches von 90° ist, lässt Lücken an den Ecken',
+    dimension: a => `Um ${a}° gedreht`,
+  },
+  fr: {
+    hint: 'Pour une photo enregistrée de travers', alt: 'Aperçu du résultat pivoté',
+    left: '↺ Gauche', right: '↻ Droite', flipH: '↔ Retourner', flipV: '↕ Retourner',
+    fineAngle: 'Angle fin', angleAria: 'Angle de rotation', toZero: 'À 0°',
+    cornerColor: 'Couleur qui remplit les coins',
+    cornerNote: 'Tout angle qui n’est pas un multiple de 90° laisse des vides dans les coins',
+    dimension: a => `Pivotée de ${a}°`,
+  },
+  hi: {
+    hint: 'तिरछी सेव हो गई फ़ोटो सीधी करने के लिए', alt: 'घुमाए नतीजे की झलक',
+    left: '↺ बाएँ', right: '↻ दाएँ', flipH: '↔ बाएँ-दाएँ', flipV: '↕ ऊपर-नीचे',
+    fineAngle: 'कोण की बारीक सेटिंग', angleAria: 'घुमाव का कोण', toZero: '0° पर',
+    cornerColor: 'कोनों को भरने वाला रंग',
+    cornerNote: '90 के गुणक न होने वाले कोण पर कोनों में खाली जगह बचती है',
+    dimension: a => `${a}° घुमाया`,
   },
 };
 
@@ -169,6 +457,60 @@ export const MOSAIC_UI: Record<ImageLang, {
     cellNote: 'Bigger blocks are harder to read back. Go large when covering text.',
     undo: '↩ Undo the last stroke', clear: 'Clear all',
     dimension: n => `${n} strokes`,
+  },
+  es: {
+    hint: 'Las capturas con direcciones, números de cuenta o caras no salen del navegador',
+    how: 'Pinta con el dedo o el ratón sobre lo que quieras tapar',
+    modes: ['🔳 Pixelar', '⬛ Negro sólido'], modeHints: ['Lo deja borroso', 'Lo tapa del todo'],
+    brush: 'Grosor del pincel', cellSize: 'Tamaño del bloque',
+    cellNote: 'Los bloques grandes son más difíciles de descifrar. Súbelo cuando tapes texto.',
+    undo: '↩ Deshacer el último trazo', clear: 'Borrar todo',
+    dimension: n => `${n} trazos`,
+  },
+  'pt-br': {
+    hint: 'Prints com endereços, números de conta ou rostos não saem do navegador',
+    how: 'Passe o dedo ou o mouse sobre o que quiser esconder',
+    modes: ['🔳 Pixelar', '⬛ Preto sólido'], modeHints: ['Deixa embaçado', 'Esconde por completo'],
+    brush: 'Espessura do pincel', cellSize: 'Tamanho do bloco',
+    cellNote: 'Blocos maiores são mais difíceis de decifrar. Aumente ao cobrir texto.',
+    undo: '↩ Desfazer o último traço', clear: 'Apagar tudo',
+    dimension: n => `${n} traços`,
+  },
+  ja: {
+    hint: '住所・口座番号・顔が写ったスクリーンショットもブラウザの外に出ません',
+    how: '隠したいところを指やマウスでなぞってください',
+    modes: ['🔳 モザイク', '⬛ 黒で塗る'], modeHints: ['ぼかして潰す', '完全に隠す'],
+    brush: 'ブラシの太さ', cellSize: 'モザイクの粗さ',
+    cellNote: '粗いほど読み取りにくくなります。文字を隠すときは大きめに。',
+    undo: '↩ 直前の一筆を取り消す', clear: 'すべて消す',
+    dimension: n => `${n}回なぞった`,
+  },
+  de: {
+    hint: 'Screenshots mit Adressen, Kontonummern oder Gesichtern verlassen den Browser nicht',
+    how: 'Pinsle mit Finger oder Maus über alles, was verdeckt sein soll',
+    modes: ['🔳 Verpixeln', '⬛ Schwarz abdecken'], modeHints: ['Macht es unscharf', 'Verdeckt es vollständig'],
+    brush: 'Pinselgröße', cellSize: 'Blockgröße',
+    cellNote: 'Größere Blöcke sind schwerer zurückzulesen. Bei Text ruhig groß wählen.',
+    undo: '↩ Letzten Strich zurücknehmen', clear: 'Alles löschen',
+    dimension: n => `${n} Striche`,
+  },
+  fr: {
+    hint: 'Les captures avec adresses, numéros de compte ou visages ne quittent pas le navigateur',
+    how: 'Passe le doigt ou la souris sur ce que tu veux masquer',
+    modes: ['🔳 Pixeliser', '⬛ Noir opaque'], modeHints: ['Rend flou', 'Masque complètement'],
+    brush: 'Taille du pinceau', cellSize: 'Taille des blocs',
+    cellNote: 'De gros blocs sont plus difficiles à relire. Vois large pour masquer du texte.',
+    undo: '↩ Annuler le dernier trait', clear: 'Tout effacer',
+    dimension: n => `${n} traits`,
+  },
+  hi: {
+    hint: 'पते, खाता नंबर या चेहरे वाले स्क्रीनशॉट भी ब्राउज़र से बाहर नहीं जाते',
+    how: 'जो छिपाना है उस पर उँगली या माउस से ब्रश चलाइए',
+    modes: ['🔳 पिक्सेल', '⬛ काले से ढकें'], modeHints: ['धुँधला कर देता है', 'पूरी तरह छिपा देता है'],
+    brush: 'ब्रश की मोटाई', cellSize: 'खाने का आकार',
+    cellNote: 'खाने बड़े हों तो पढ़ना मुश्किल होता है। लिखावट ढकते समय बड़ा रखें।',
+    undo: '↩ आख़िरी स्ट्रोक वापस लें', clear: 'सब मिटाएँ',
+    dimension: n => `${n} स्ट्रोक`,
   },
 };
 
@@ -196,6 +538,60 @@ export const MERGE_UI: Record<ImageLang, {
     matchOff: 'Turn this off to keep original sizes, centred',
     gap: 'Gap between photos', gapColor: 'Gap colour', gapColorAria: 'Gap colour', pickGapColor: 'Pick a gap colour',
   },
+  es: {
+    hint: 'Puedes elegir varias a la vez', hintMore: 'Se añaden detrás de las fotos que ya cargaste',
+    alt: 'Vista previa del resultado unido', countLine: n => `${n} fotos unidas — puedes cambiar el orden`,
+    up: 'Subir', down: 'Bajar', remove: 'Quitar',
+    dirs: ['⬇ Apilar en vertical', '➡ Unir en horizontal'],
+    matchLabel: w => `Igualar el ${w} de fotos de distinto tamaño`, widthWord: 'ancho', heightWord: 'alto',
+    matchOff: 'Desactívalo para mantener los tamaños originales, centrados',
+    gap: 'Espacio entre fotos', gapColor: 'Color del espacio', gapColorAria: 'Color del espacio', pickGapColor: 'Elegir color del espacio',
+  },
+  'pt-br': {
+    hint: 'Você pode escolher várias de uma vez', hintMore: 'Elas entram depois das fotos já carregadas',
+    alt: 'Prévia do resultado unido', countLine: n => `${n} fotos unidas — você pode mudar a ordem`,
+    up: 'Subir', down: 'Descer', remove: 'Remover',
+    dirs: ['⬇ Empilhar na vertical', '➡ Unir lado a lado'],
+    matchLabel: w => `Igualar a ${w} de fotos de tamanhos diferentes`, widthWord: 'largura', heightWord: 'altura',
+    matchOff: 'Desligue para manter os tamanhos originais, centralizados',
+    gap: 'Espaço entre as fotos', gapColor: 'Cor do espaço', gapColorAria: 'Cor do espaço', pickGapColor: 'Escolher cor do espaço',
+  },
+  ja: {
+    hint: '何枚でも一度に選べます', hintMore: 'すでに読み込んだ写真のうしろに追加されます',
+    alt: '結合結果のプレビュー', countLine: n => `${n}枚を結合 — 順番を入れ替えられます`,
+    up: '上へ', down: '下へ', remove: '外す',
+    dirs: ['⬇ 縦に積む', '➡ 横に並べる'],
+    matchLabel: w => `大きさの違う写真の${w}を揃える`, widthWord: '幅', heightWord: '高さ',
+    matchOff: 'オフにすると元の大きさのまま中央に揃えます',
+    gap: '写真の間隔', gapColor: '余白の色', gapColorAria: '余白の色', pickGapColor: '余白の色を選ぶ',
+  },
+  de: {
+    hint: 'Du kannst mehrere auf einmal auswählen', hintMore: 'Diese kommen hinter die schon geladenen Fotos',
+    alt: 'Vorschau des zusammengefügten Ergebnisses', countLine: n => `${n} Fotos verbunden — du kannst sie umsortieren`,
+    up: 'Nach oben', down: 'Nach unten', remove: 'Entfernen',
+    dirs: ['⬇ Senkrecht stapeln', '➡ Nebeneinander setzen'],
+    matchLabel: w => `${w} unterschiedlich großer Fotos angleichen`, widthWord: 'Breite', heightWord: 'Höhe',
+    matchOff: 'Ausschalten, um die Originalgrößen zentriert zu behalten',
+    gap: 'Abstand zwischen den Fotos', gapColor: 'Farbe des Abstands', gapColorAria: 'Farbe des Abstands', pickGapColor: 'Farbe des Abstands wählen',
+  },
+  fr: {
+    hint: 'Tu peux en choisir plusieurs à la fois', hintMore: 'Elles s’ajoutent après les photos déjà chargées',
+    alt: 'Aperçu du résultat assemblé', countLine: n => `${n} photos assemblées — tu peux changer l’ordre`,
+    up: 'Monter', down: 'Descendre', remove: 'Retirer',
+    dirs: ['⬇ Empiler à la verticale', '➡ Mettre côte à côte'],
+    matchLabel: w => `Aligner la ${w} des photos de tailles différentes`, widthWord: 'largeur', heightWord: 'hauteur',
+    matchOff: 'Désactive pour garder les tailles d’origine, centrées',
+    gap: 'Écart entre les photos', gapColor: 'Couleur de l’écart', gapColorAria: 'Couleur de l’écart', pickGapColor: 'Choisir la couleur de l’écart',
+  },
+  hi: {
+    hint: 'एक बार में कई चुन सकते हैं', hintMore: 'ये पहले डाली गई फ़ोटो के पीछे जुड़ेंगी',
+    alt: 'जोड़े नतीजे की झलक', countLine: n => `${n} फ़ोटो जुड़ीं — क्रम बदल सकते हैं`,
+    up: 'ऊपर', down: 'नीचे', remove: 'हटाएँ',
+    dirs: ['⬇ खड़े जोड़ें', '➡ आड़े जोड़ें'],
+    matchLabel: w => `अलग-अलग नाप की फ़ोटो की ${w} बराबर करें`, widthWord: 'चौड़ाई', heightWord: 'ऊँचाई',
+    matchOff: 'बंद करें तो मूल नाप में बीच में सजाया जाता है',
+    gap: 'फ़ोटो के बीच अंतर', gapColor: 'खाली जगह का रंग', gapColorAria: 'खाली जगह का रंग', pickGapColor: 'खाली जगह का रंग चुनें',
+  },
 };
 
 export const IMG_PALETTE_UI: Record<ImageLang, {
@@ -221,5 +617,59 @@ export const IMG_PALETTE_UI: Record<ImageLang, {
     pickedPoint: ' · picked point',
     noteBefore: 'The most used colour is ', noteAfter: ' — use it as a background or accent and it will sit well with the photo.',
     otherPhoto: 'New photo', savePalette: '⬇ Save palette as an image',
+  },
+  es: {
+    hint: 'Una foto, una ilustración, una captura — lo que sea',
+    alt: 'La foto de la que sacar colores — toca para leer el color de ese punto',
+    how: 'Toca cualquier punto de la foto para coger el color exacto de ahí',
+    copy: 'Copiar', copied: 'Copiado', copyHex: hex => `Copiar ${hex}`,
+    pickedPoint: ' · punto elegido',
+    noteBefore: 'El color más usado es ', noteAfter: ' — úsalo de fondo o de acento y quedará bien con la foto.',
+    otherPhoto: 'Otra foto', savePalette: '⬇ Guardar la paleta como imagen',
+  },
+  'pt-br': {
+    hint: 'Uma foto, uma ilustração, um print — qualquer coisa',
+    alt: 'A foto de onde tirar cores — toque para ler a cor daquele ponto',
+    how: 'Toque em qualquer ponto da foto para pegar a cor exata dali',
+    copy: 'Copiar', copied: 'Copiado', copyHex: hex => `Copiar ${hex}`,
+    pickedPoint: ' · ponto escolhido',
+    noteBefore: 'A cor mais usada é ', noteAfter: ' — use como fundo ou destaque e vai combinar com a foto.',
+    otherPhoto: 'Outra foto', savePalette: '⬇ Salvar a paleta como imagem',
+  },
+  ja: {
+    hint: '写真・イラスト・スクリーンショット、何でも',
+    alt: '色を抽出する写真 — 押すとその地点の色を読みます',
+    how: '写真の上を押すと、その一点の色を正確に拾えます',
+    copy: 'コピー', copied: 'コピーしました', copyHex: hex => `${hex} をコピー`,
+    pickedPoint: ' · 選んだ地点',
+    noteBefore: 'いちばん多く使われている色は ', noteAfter: ' です — 背景やアクセントにそのまま使うと写真と馴染みます。',
+    otherPhoto: '別の写真', savePalette: '⬇ パレットを画像として保存',
+  },
+  de: {
+    hint: 'Ein Foto, eine Illustration, ein Screenshot — was du willst',
+    alt: 'Das Foto, aus dem Farben geholt werden — antippen, um die Farbe dort zu lesen',
+    how: 'Tippe irgendwo auf das Foto, um genau die Farbe dort aufzunehmen',
+    copy: 'Kopieren', copied: 'Kopiert', copyHex: hex => `${hex} kopieren`,
+    pickedPoint: ' · gewählter Punkt',
+    noteBefore: 'Die häufigste Farbe ist ', noteAfter: ' — als Hintergrund oder Akzent passt sie gut zum Foto.',
+    otherPhoto: 'Neues Foto', savePalette: '⬇ Palette als Bild speichern',
+  },
+  fr: {
+    hint: 'Une photo, une illustration, une capture — ce que tu veux',
+    alt: 'La photo dont extraire les couleurs — touche pour lire la couleur à cet endroit',
+    how: 'Touche n’importe quel point de la photo pour prélever la couleur exacte',
+    copy: 'Copier', copied: 'Copié', copyHex: hex => `Copier ${hex}`,
+    pickedPoint: ' · point choisi',
+    noteBefore: 'La couleur la plus présente est ', noteAfter: ' — en fond ou en accent, elle s’accordera avec la photo.',
+    otherPhoto: 'Autre photo', savePalette: '⬇ Enregistrer la palette en image',
+  },
+  hi: {
+    hint: 'फ़ोटो, चित्र, स्क्रीनशॉट — कुछ भी',
+    alt: 'जिससे रंग निकालने हैं वह फ़ोटो — दबाएँ तो उस बिंदु का रंग पढ़ा जाता है',
+    how: 'फ़ोटो पर कहीं भी दबाएँ और उस बिंदु का ठीक रंग मिल जाएगा',
+    copy: 'कॉपी', copied: 'कॉपी हो गया', copyHex: hex => `${hex} कॉपी करें`,
+    pickedPoint: ' · चुना बिंदु',
+    noteBefore: 'सबसे ज़्यादा इस्तेमाल हुआ रंग ', noteAfter: ' है — बैकग्राउंड या हाइलाइट में यही रखें तो फ़ोटो से मेल खाएगा।',
+    otherPhoto: 'दूसरी फ़ोटो', savePalette: '⬇ पैलेट को इमेज में सेव करें',
   },
 };

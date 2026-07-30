@@ -168,8 +168,9 @@ test('사이트맵과 검색 인덱스에 색 이름이 들어 있다', () => {
   assert.ok(map.includes('NAMED_COLORS_8'), '사이트맵이 색 목록을 돌지 않는다');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
   assert.ok(idx.includes('NAMED_COLORS_8'), '검색 인덱스에 색 이름 없음');
-  // 허브에서 걸어 주지 않으면 110장이 고아가 된다
-  for (const hub of ['app/color/page.tsx', 'app/en/color/page.tsx']) {
+  // 허브에서 걸어 주지 않으면 110장이 고아가 된다.
+  // 한국어는 자기 허브가 있고, 나머지 일곱 언어는 ColorHubIntl 하나를 함께 쓴다.
+  for (const hub of ['app/color/page.tsx', 'components/ColorHubIntl.tsx']) {
     assert.ok(readFileSync(hub, 'utf8').includes('colorsOfFamily'), `${hub}에 색 목록이 없다`);
   }
 });

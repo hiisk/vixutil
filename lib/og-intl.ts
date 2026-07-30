@@ -1,5 +1,13 @@
 import type { ReactElement } from 'react';
 import { ogCard } from './og-template';
+import type { IntlLocale } from './locales';
+import type { ToolIntlLang } from './time-tools-intl';
+import type { ImageIntlLang } from './image-tools-intl';
+import type { FoodIntlLang } from './food-tools-intl';
+import type { SoundIntlLang } from './sound-tools-intl';
+import type { GameIntlLang } from './game-tools-intl';
+import type { DeviceIntlLang } from './device-tools-intl';
+import type { TextIntlLang } from './text-tools-intl';
 import { findColorToolIntl, type ColorIntlLang } from './color-tools-intl';
 import { findTimeToolIntl } from './time-tools-intl';
 import { findImageToolIntl } from './image-tools-intl';
@@ -40,41 +48,77 @@ type Card = { icon: string; eyebrow: string; title: string; desc: string; from: 
 /** 표의 열쇠는 "<섹션>[/<도구>]/<언어>" */
 const CARDS: Record<string, Card> = {
   'home/en': { icon: '🧰', eyebrow: 'vixutil', title: 'Free Everyday Tools', desc: 'Conversion · checklists · quizzes · tests · generators · horoscopes', from: '#7c3aed', to: '#0ea5e9' },
-  'home/zh': { icon: '🧰', eyebrow: 'vixutil', title: '免费实用工具', desc: '单位换算 · 清单 · 测验 · 心理测试 · 生成器 · 今日运势', from: '#7c3aed', to: '#0ea5e9' },
+  'home/es': { icon: '🧰', eyebrow: 'vixutil', title: 'Herramientas gratis', desc: 'Colores · paletas · contraste · degradados CSS, en el navegador', from: '#7c3aed', to: '#0ea5e9' },
+  'home/pt-br': { icon: '🧰', eyebrow: 'vixutil', title: 'Ferramentas grátis', desc: 'Cores · paletas · contraste · gradiente CSS, no navegador', from: '#7c3aed', to: '#0ea5e9' },
+  'home/ja': { icon: '🧰', eyebrow: 'vixutil', title: '無料の便利ツール', desc: '配色 · コントラスト比 · CSSグラデーション、ブラウザで完結', from: '#7c3aed', to: '#0ea5e9' },
+  'home/de': { icon: '🧰', eyebrow: 'vixutil', title: 'Kostenlose Werkzeuge', desc: 'Farben · Paletten · Kontrast · CSS-Verläufe, im Browser', from: '#7c3aed', to: '#0ea5e9' },
+  'home/fr': { icon: '🧰', eyebrow: 'vixutil', title: 'Outils gratuits', desc: 'Couleurs · palettes · contraste · dégradés CSS, dans le navigateur', from: '#7c3aed', to: '#0ea5e9' },
+  'home/hi': { icon: '🧰', eyebrow: 'vixutil', title: 'मुफ़्त उपकरण', desc: 'रंग · पैलेट · कंट्रास्ट · CSS ग्रेडिएंट, ब्राउज़र में', from: '#7c3aed', to: '#0ea5e9' },
   'fortune/en': { icon: '🔮', eyebrow: 'Fortune', title: 'Free Daily Horoscope', desc: 'Star signs · Chinese zodiac · blood type · MBTI · tarot', from: '#7c3aed', to: '#db2777' },
-  'fortune/zh': { icon: '🔮', eyebrow: 'Fortune', title: '今日运势免费查询', desc: '星座 · 生肖 · 血型 · MBTI · 塔罗', from: '#7c3aed', to: '#db2777' },
   'snap/en': { icon: '📸', eyebrow: 'Snap Test', title: 'Snap Tests', desc: 'Photo tests that run in your browser — nothing is uploaded', from: '#d946ef', to: '#0ea5e9' },
-  'snap/zh': { icon: '📸', eyebrow: 'Snap Test', title: '照片测试', desc: '全部在浏览器内完成，照片不会上传', from: '#d946ef', to: '#0ea5e9' },
   'color/en': { icon: '🎨', eyebrow: 'Color Tools', title: 'Colour Tools', desc: 'Palette · contrast · CSS gradient, in the browser', from: '#8b5cf6', to: '#d946ef' },
-  'color/zh': { icon: '🎨', eyebrow: 'Color Tools', title: '颜色工具', desc: '配色 · 对比度 · CSS 渐变，浏览器内运行', from: '#8b5cf6', to: '#d946ef' },
+  'color/es': { icon: '🎨', eyebrow: 'Colour', title: 'Herramientas de color', desc: 'Paletas · contraste · gradiente CSS · sombras', from: '#d946ef', to: '#f43f5e' },
+  'color/pt-br': { icon: '🎨', eyebrow: 'Colour', title: 'Ferramentas de cor', desc: 'Paletas · contraste · gradiente CSS · sombras', from: '#d946ef', to: '#f43f5e' },
+  'color/ja': { icon: '🎨', eyebrow: 'Colour', title: 'カラーツール', desc: '配色 · コントラスト · CSSグラデーション · 影', from: '#d946ef', to: '#f43f5e' },
+  'color/de': { icon: '🎨', eyebrow: 'Colour', title: 'Farbwerkzeuge', desc: 'Paletten · Kontrast · CSS-Verlauf · Schatten', from: '#d946ef', to: '#f43f5e' },
+  'color/fr': { icon: '🎨', eyebrow: 'Colour', title: 'Outils de couleur', desc: 'Palettes · contraste · dégradé CSS · ombres', from: '#d946ef', to: '#f43f5e' },
+  'color/hi': { icon: '🎨', eyebrow: 'Colour', title: 'रंग उपकरण', desc: 'पैलेट · कंट्रास्ट · CSS ग्रेडिएंट · छाया', from: '#d946ef', to: '#f43f5e' },
   'image/en': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Image Tools', desc: 'Compress · resize · convert · crop, in the browser', from: '#8b5cf6', to: '#0ea5e9' },
-  'image/zh': { icon: '🖼️', eyebrow: 'Image Tools', title: '图片工具', desc: '压缩 · 调整尺寸 · 格式转换 · 裁剪，浏览器内运行', from: '#8b5cf6', to: '#0ea5e9' },
+  'image/es': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Herramientas de imagen', desc: 'Comprimir · redimensionar · convertir · recortar, en el navegador', from: '#8b5cf6', to: '#0ea5e9' },
+  'image/pt-br': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Ferramentas de imagem', desc: 'Comprimir · redimensionar · converter · recortar, no navegador', from: '#8b5cf6', to: '#0ea5e9' },
+  'image/ja': { icon: '🖼️', eyebrow: 'Image Tools', title: '画像ツール', desc: '圧縮 · サイズ変更 · 形式変換 · 切り抜き、ブラウザで完結', from: '#8b5cf6', to: '#0ea5e9' },
+  'image/de': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Bildwerkzeuge', desc: 'Komprimieren · skalieren · umwandeln · zuschneiden, im Browser', from: '#8b5cf6', to: '#0ea5e9' },
+  'image/fr': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Outils d’image', desc: 'Compresser · redimensionner · convertir · recadrer, dans le navigateur', from: '#8b5cf6', to: '#0ea5e9' },
+  'image/hi': { icon: '🖼️', eyebrow: 'Image Tools', title: 'इमेज उपकरण', desc: 'कंप्रेस · आकार · फ़ॉर्मेट · क्रॉप, ब्राउज़र में', from: '#8b5cf6', to: '#0ea5e9' },
   'food/en': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Cooking Tools', desc: 'Cups to grams · recipe scaling · oven temperatures', from: '#f59e0b', to: '#dc2626' },
-  'food/zh': { icon: '🍳', eyebrow: 'Cooking Tools', title: '厨房工具', desc: '量杯换克 · 配方缩放 · 烤箱温度', from: '#f59e0b', to: '#dc2626' },
+  'food/es': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Herramientas de cocina', desc: 'Tazas a gramos · horno · arroz · café', from: '#f59e0b', to: '#dc2626' },
+  'food/pt-br': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Ferramentas de cozinha', desc: 'Xícaras para gramas · forno · arroz · café', from: '#f59e0b', to: '#dc2626' },
+  'food/ja': { icon: '🍳', eyebrow: 'Cooking Tools', title: '料理ツール', desc: 'カップ→グラム · オーブン温度 · 水加減 · コーヒー', from: '#f59e0b', to: '#dc2626' },
+  'food/de': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Küchenwerkzeuge', desc: 'Cups in Gramm · Ofentemperatur · Reis · Kaffee', from: '#f59e0b', to: '#dc2626' },
+  'food/fr': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Outils de cuisine', desc: 'Tasses en grammes · four · riz · café', from: '#f59e0b', to: '#dc2626' },
+  'food/hi': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'रसोई उपकरण', desc: 'कप से ग्राम · ओवन · चावल · कॉफ़ी', from: '#f59e0b', to: '#dc2626' },
   'search/en': { icon: '🔍', eyebrow: 'Search', title: 'Search Every Tool', desc: 'Converters · tests · quizzes · checklists · games', from: '#6366f1', to: '#8b5cf6' },
-  'search/zh': { icon: '🔍', eyebrow: 'Search', title: '搜索全部工具', desc: '换算 · 测试 · 问答 · 清单 · 小游戏', from: '#6366f1', to: '#8b5cf6' },
   'game/en': { icon: '🎮', eyebrow: 'Brain Games', title: 'Brain Games', desc: 'Reaction · memory · typing · aim · mental maths', from: '#10b981', to: '#0d9488' },
-  'game/zh': { icon: '🎮', eyebrow: 'Brain Games', title: '脑力小游戏', desc: '反应 · 记忆 · 打字 · 瞄准 · 心算', from: '#10b981', to: '#0d9488' },
+  'game/es': { icon: '🎮', eyebrow: 'Brain Games', title: 'Juegos mentales', desc: 'Reacción · memoria · escritura · puntería · cálculo', from: '#10b981', to: '#0d9488' },
+  'game/pt-br': { icon: '🎮', eyebrow: 'Brain Games', title: 'Jogos mentais', desc: 'Reação · memória · digitação · mira · cálculo', from: '#10b981', to: '#0d9488' },
+  'game/ja': { icon: '🎮', eyebrow: 'Brain Games', title: '脳トレゲーム', desc: '反応速度 · 記憶 · タイピング · エイム · 暗算', from: '#10b981', to: '#0d9488' },
+  'game/de': { icon: '🎮', eyebrow: 'Brain Games', title: 'Denkspiele', desc: 'Reaktion · Gedächtnis · Tippen · Zielen · Kopfrechnen', from: '#10b981', to: '#0d9488' },
+  'game/fr': { icon: '🎮', eyebrow: 'Brain Games', title: 'Jeux de cerveau', desc: 'Réaction · mémoire · frappe · visée · calcul', from: '#10b981', to: '#0d9488' },
+  'game/hi': { icon: '🎮', eyebrow: 'Brain Games', title: 'दिमाग़ी खेल', desc: 'प्रतिक्रिया · स्मृति · टाइपिंग · निशाना · गणित', from: '#10b981', to: '#0d9488' },
   'device/en': { icon: '🔧', eyebrow: 'Device Tests', title: 'Device Tests', desc: 'Keyboard · mouse · mic · webcam · dead pixels', from: '#0ea5e9', to: '#2563eb' },
-  'device/zh': { icon: '🔧', eyebrow: 'Device Tests', title: '设备检测', desc: '键盘 · 鼠标 · 麦克风 · 摄像头 · 坏点', from: '#0ea5e9', to: '#2563eb' },
+  'device/es': { icon: '🔧', eyebrow: 'Device Tests', title: 'Tests de aparatos', desc: 'Teclado · ratón · micro · webcam · píxeles muertos', from: '#0ea5e9', to: '#2563eb' },
+  'device/pt-br': { icon: '🔧', eyebrow: 'Device Tests', title: 'Testes de aparelho', desc: 'Teclado · mouse · microfone · webcam · pixel morto', from: '#0ea5e9', to: '#2563eb' },
+  'device/ja': { icon: '🔧', eyebrow: 'Device Tests', title: '端末チェック', desc: 'キーボード · マウス · マイク · カメラ · ドット抜け', from: '#0ea5e9', to: '#2563eb' },
+  'device/de': { icon: '🔧', eyebrow: 'Device Tests', title: 'Gerätetests', desc: 'Tastatur · Maus · Mikrofon · Webcam · Pixelfehler', from: '#0ea5e9', to: '#2563eb' },
+  'device/fr': { icon: '🔧', eyebrow: 'Device Tests', title: 'Tests d’appareil', desc: 'Clavier · souris · micro · webcam · pixels morts', from: '#0ea5e9', to: '#2563eb' },
+  'device/hi': { icon: '🔧', eyebrow: 'Device Tests', title: 'उपकरण जाँच', desc: 'कीबोर्ड · माउस · माइक · वेबकैम · डेड पिक्सेल', from: '#0ea5e9', to: '#2563eb' },
   'text/en': { icon: '✏️', eyebrow: 'Text Tools', title: 'Text Tools', desc: 'Clean up · dedupe · case convert · count', from: '#6366f1', to: '#7c3aed' },
-  'text/zh': { icon: '✏️', eyebrow: 'Text Tools', title: '文本工具', desc: '清理 · 去重 · 大小写 · 字数统计', from: '#6366f1', to: '#7c3aed' },
+  'text/es': { icon: '✏️', eyebrow: 'Text Tools', title: 'Herramientas de texto', desc: 'Limpiar · deduplicar · mayúsculas · contar', from: '#6366f1', to: '#7c3aed' },
+  'text/pt-br': { icon: '✏️', eyebrow: 'Text Tools', title: 'Ferramentas de texto', desc: 'Limpar · deduplicar · maiúsculas · contar', from: '#6366f1', to: '#7c3aed' },
+  'text/ja': { icon: '✏️', eyebrow: 'Text Tools', title: 'テキストツール', desc: '整形 · 重複削除 · 大文字小文字 · 文字数', from: '#6366f1', to: '#7c3aed' },
+  'text/de': { icon: '✏️', eyebrow: 'Text Tools', title: 'Textwerkzeuge', desc: 'Aufräumen · Entdoppeln · Schreibweise · Zählen', from: '#6366f1', to: '#7c3aed' },
+  'text/fr': { icon: '✏️', eyebrow: 'Text Tools', title: 'Outils de texte', desc: 'Nettoyer · dédoublonner · casse · compter', from: '#6366f1', to: '#7c3aed' },
+  'text/hi': { icon: '✏️', eyebrow: 'Text Tools', title: 'टेक्स्ट उपकरण', desc: 'सफ़ाई · दोहराव · अक्षर-आकार · गिनती', from: '#6366f1', to: '#7c3aed' },
   'tarot/en': { icon: '🎴', eyebrow: 'Tarot', title: 'Tarot Reading', desc: 'Full 78-card deck · four spreads · upright and reversed', from: '#8b5cf6', to: '#6d28d9' },
-  'tarot/zh': { icon: '🎴', eyebrow: 'Tarot', title: '塔罗占卜', desc: '完整 78 张牌 · 四种牌阵 · 正位与逆位', from: '#8b5cf6', to: '#6d28d9' },
   'sound/en': { icon: '🔊', eyebrow: 'Sound Tools', title: 'Sound Tools', desc: 'Metronome · tuner · white noise, made by the browser', from: '#6366f1', to: '#0ea5e9' },
-  'sound/zh': { icon: '🔊', eyebrow: 'Sound Tools', title: '声音工具', desc: '节拍器 · 调音器 · 白噪音，浏览器直接生成', from: '#6366f1', to: '#0ea5e9' },
+  'sound/es': { icon: '🔊', eyebrow: 'Sound Tools', title: 'Herramientas de sonido', desc: 'Metrónomo · afinador · ruido blanco · tonos', from: '#6366f1', to: '#0ea5e9' },
+  'sound/pt-br': { icon: '🔊', eyebrow: 'Sound Tools', title: 'Ferramentas de som', desc: 'Metrônomo · afinador · ruído branco · tons', from: '#6366f1', to: '#0ea5e9' },
+  'sound/ja': { icon: '🔊', eyebrow: 'Sound Tools', title: 'サウンドツール', desc: 'メトロノーム · チューナー · ホワイトノイズ · トーン', from: '#6366f1', to: '#0ea5e9' },
+  'sound/de': { icon: '🔊', eyebrow: 'Sound Tools', title: 'Klangwerkzeuge', desc: 'Metronom · Stimmgerät · Rauschen · Töne', from: '#6366f1', to: '#0ea5e9' },
+  'sound/fr': { icon: '🔊', eyebrow: 'Sound Tools', title: 'Outils de son', desc: 'Métronome · accordeur · bruit blanc · tons', from: '#6366f1', to: '#0ea5e9' },
+  'sound/hi': { icon: '🔊', eyebrow: 'Sound Tools', title: 'ध्वनि उपकरण', desc: 'मेट्रोनोम · ट्यूनर · व्हाइट नॉइज़ · टोन', from: '#6366f1', to: '#0ea5e9' },
   'time/en': { icon: '⏰', eyebrow: 'Time Tools', title: 'Time Tools', desc: 'Timer · stopwatch · world clock · date maths', from: '#0ea5e9', to: '#f43f5e' },
-  'time/zh': { icon: '⏰', eyebrow: 'Time Tools', title: '时间工具', desc: '计时器 · 秒表 · 世界时钟 · 日期计算', from: '#0ea5e9', to: '#f43f5e' },
+  'time/es': { icon: '⏰', eyebrow: 'Time Tools', title: 'Herramientas de tiempo', desc: 'Temporizador · cronómetro · reloj mundial · fechas', from: '#0ea5e9', to: '#f43f5e' },
+  'time/pt-br': { icon: '⏰', eyebrow: 'Time Tools', title: 'Ferramentas de tempo', desc: 'Timer · cronômetro · relógio mundial · datas', from: '#0ea5e9', to: '#f43f5e' },
+  'time/ja': { icon: '⏰', eyebrow: 'Time Tools', title: '時間ツール', desc: 'タイマー · ストップウォッチ · 世界時計 · 日付計算', from: '#0ea5e9', to: '#f43f5e' },
+  'time/de': { icon: '⏰', eyebrow: 'Time Tools', title: 'Zeitwerkzeuge', desc: 'Timer · Stoppuhr · Weltzeituhr · Datumsrechnen', from: '#0ea5e9', to: '#f43f5e' },
+  'time/fr': { icon: '⏰', eyebrow: 'Time Tools', title: 'Outils de temps', desc: 'Minuteur · chronomètre · horloge mondiale · dates', from: '#0ea5e9', to: '#f43f5e' },
+  'time/hi': { icon: '⏰', eyebrow: 'Time Tools', title: 'समय उपकरण', desc: 'टाइमर · स्टॉपवॉच · विश्व घड़ी · तारीख़', from: '#0ea5e9', to: '#f43f5e' },
   'test/en': { icon: '🧭', eyebrow: 'Personality Test', title: 'Free Personality Tests', desc: 'Social battery · stress · decisions · working style', from: '#7c3aed', to: '#db2777' },
-  'test/zh': { icon: '🧭', eyebrow: 'Personality Test', title: '免费心理测试', desc: '社交电量 · 压力 · 决策方式 · 工作风格', from: '#7c3aed', to: '#db2777' },
   'quiz/en': { icon: '🏆', eyebrow: 'Quiz', title: 'Free Quizzes', desc: 'Geography · science · history · tech — ten questions each', from: '#f59e0b', to: '#ea580c' },
-  'quiz/zh': { icon: '🏆', eyebrow: 'Quiz', title: '免费测验', desc: '地理 · 科学 · 历史 · 科技，每套十题', from: '#f59e0b', to: '#ea580c' },
   'checklist/en': { icon: '✅', eyebrow: 'Checklist', title: 'Free Checklists', desc: 'Moving · travel · interviews · camping · weddings', from: '#0ea5e9', to: '#0891b2' },
-  'checklist/zh': { icon: '✅', eyebrow: 'Checklist', title: '免费清单', desc: '搬家 · 旅行 · 面试 · 露营 · 婚礼筹备', from: '#0ea5e9', to: '#0891b2' },
   'generator/en': { icon: '⚙️', eyebrow: 'Generator', title: 'Free Name Generators', desc: 'Fantasy · sci-fi · dragon · superhero · guild names', from: '#10b981', to: '#0d9488' },
-  'generator/zh': { icon: '⚙️', eyebrow: 'Generator', title: '免费名字生成器', desc: '奇幻 · 科幻 · 巨龙 · 超级英雄 · 公会', from: '#10b981', to: '#0d9488' },
   'random/en': { icon: '🎲', eyebrow: 'Random Picker', title: 'Random Picker Tools', desc: 'Wheel · name picker · teams · dice · Secret Santa', from: '#6366f1', to: '#a855f7' },
-  'random/zh': { icon: '🎲', eyebrow: 'Random Picker', title: '随机抽取工具', desc: '转盘 · 点名 · 分组 · 骰子 · 神秘圣诞人', from: '#6366f1', to: '#a855f7' },
   'random/ko': { icon: '🎲', eyebrow: 'Random Picker', title: '랜덤 뽑기', desc: '룰렛 · 사다리타기 · 팀 나누기 · 숫자 추첨 · 동전/주사위', from: '#6366f1', to: '#a855f7' },
   'calculator/en': { icon: '🧮', eyebrow: 'Calculator', title: 'Korean Calculators', desc: 'Salary · tax · loan · property calculators for Korea', from: '#1d4ed8', to: '#3b82f6' },
   'calculator/ja': { icon: '🧮', eyebrow: 'Calculator', title: '生活計算機まとめ', desc: '給与・税金・ローン・不動産の計算機', from: '#1d4ed8', to: '#3b82f6' },
@@ -136,37 +180,9 @@ const CARDS: Record<string, Card> = {
   'snap/animal-face/en': { icon: '🐾', eyebrow: 'Animal Face', title: 'Animal Face Type', desc: 'Which of twelve animals you match', from: '#f97316', to: '#db2777' },
   'snap/personal-color/en': { icon: '🎨', eyebrow: 'Personal Color', title: 'Personal Colour', desc: 'Your seasonal type and palette', from: '#fb923c', to: '#6366f1' },
   'snap/couple-match/en': { icon: '💞', eyebrow: 'Couple Match', title: 'Couple Face Match', desc: 'Compare two photos', from: '#f43f5e', to: '#db2777' },
-  'fortune/daily/zh': { icon: '🔮', eyebrow: '오늘의 종합운세', title: '今日综合运势', desc: '按出生日期查看今天的运势', from: '#7c3aed', to: '#db2777' },
-  'fortune/zodiac/zh': { icon: '⭐', eyebrow: 'Zodiac', title: '星座运势', desc: '12 星座今日运势查询', from: '#8b5cf6', to: '#7e22ce' },
-  'fortune/animal/zh': { icon: '🐉', eyebrow: 'Animal Sign', title: '生肖运势', desc: '十二生肖今日运势查询', from: '#f43f5e', to: '#db2777' },
-  'fortune/blood-type/zh': { icon: '🩸', eyebrow: '혈액형', title: '血型运势', desc: 'A、B、O、AB 型今日运势', from: '#f43f5e', to: '#dc2626' },
-  'fortune/biorhythm/zh': { icon: '📈', eyebrow: '바이오리듬', title: '生物节律', desc: '身体·情绪·智力三条节律曲线', from: '#10b981', to: '#0d9488' },
-  'fortune/birth-stone/zh': { icon: '💎', eyebrow: 'Birth Stone', title: '诞生石·诞生花', desc: '出生月份的宝石与花及其含义', from: '#d946ef', to: '#7c3aed' },
-  'fortune/today-color/zh': { icon: '🎨', eyebrow: 'Lucky Colour', title: '今日幸运色', desc: '今天的幸运色与要避开的颜色', from: '#ec4899', to: '#7c3aed' },
-  'fortune/lucky-numbers/zh': { icon: '🍀', eyebrow: 'Lucky Numbers', title: '今日幸运数字', desc: '由出生日期生成的 6 个数字', from: '#10b981', to: '#0d9488' },
-  'fortune/star-match/zh': { icon: '💞', eyebrow: '별자리 궁합', title: '星座配对', desc: '按四元素看两个星座的相配程度', from: '#8b5cf6', to: '#c026d3' },
-  'fortune/zodiac-match/zh': { icon: '🐲', eyebrow: '띠 궁합', title: '生肖配对', desc: '六合、三合、相冲的传统相性', from: '#f43f5e', to: '#db2777' },
-  'fortune/mbti-match/zh': { icon: '🧠', eyebrow: 'MBTI 궁합', title: 'MBTI 配对', desc: '16型人格中两者的契合度', from: '#8b5cf6', to: '#4f46e5' },
-  'fortune/blood-match/zh': { icon: '🩸', eyebrow: '혈액형 궁합', title: '血型配对', desc: 'A、B、O、AB 型的配对结果', from: '#f43f5e', to: '#ea580c' },
-  'fortune/mbti/zh': { icon: '🧠', eyebrow: 'MBTI', title: 'MBTI 今日运势', desc: '16型人格的今日运势', from: '#0ea5e9', to: '#2563eb' },
-  'fortune/daily-tarot/zh': { icon: '🃏', eyebrow: 'Daily Tarot', title: '今日塔罗', desc: '大阿尔卡纳中的一张', from: '#f59e0b', to: '#ea580c' },
-  'fortune/tarot-yesno/zh': { icon: '🔮', eyebrow: 'Tarot Yes/No', title: '塔罗是与否', desc: '抽一张牌得到答案', from: '#6366f1', to: '#6d28d9' },
-  'fortune/dream/zh': { icon: '🌙', eyebrow: 'Dream', title: '周公解梦', desc: '20 个常见梦境意象', from: '#334155', to: '#3730a3' },
-  'fortune/saju/zh': { icon: '🔯', eyebrow: 'Saju', title: '八字排盘', desc: '由出生年月日时排出四柱', from: '#6366f1', to: '#6d28d9' },
-  'snap/smile-score/zh': { icon: '😊', eyebrow: 'Smile Score', title: '微笑指数', desc: '测量嘴角上扬的程度', from: '#fbbf24', to: '#f43f5e' },
-  'snap/face-symmetry/zh': { icon: '⚖️', eyebrow: 'Face Symmetry', title: '脸部对称度', desc: '分部位看左右平衡', from: '#6366f1', to: '#06b6d4' },
-  'snap/golden-ratio/zh': { icon: '📐', eyebrow: 'Golden Ratio', title: '黄金比例测试', desc: '五官比例与 φ 的接近程度', from: '#f59e0b', to: '#ea580c' },
-  'snap/photo-mood/zh': { icon: '🎨', eyebrow: 'Photo Mood', title: '照片氛围', desc: '任意照片的色彩调性', from: '#d946ef', to: '#0ea5e9' },
-  'snap/expression/zh': { icon: '🎭', eyebrow: 'Expression', title: '表情分析', desc: '模型推断的七种情绪', from: '#ec4899', to: '#7c3aed' },
-  'snap/first-impression/zh': { icon: '✨', eyebrow: 'First Impression', title: '第一印象', desc: '你属于六种印象中的哪一种', from: '#d946ef', to: '#7c3aed' },
-  'snap/handwriting/zh': { icon: '✍️', eyebrow: 'Handwriting', title: '笔迹分析', desc: '从字迹测量倾斜度与笔压', from: '#475569', to: '#4338ca' },
-  'snap/face-reading/zh': { icon: '🔮', eyebrow: 'Face Reading', title: '面相分析', desc: '七处五官的传统解读', from: '#0d9488', to: '#0369a1' },
-  'snap/animal-face/zh': { icon: '🐾', eyebrow: 'Animal Face', title: '动物脸测试', desc: '你最像十二种动物中的哪一种', from: '#f97316', to: '#db2777' },
-  'snap/personal-color/zh': { icon: '🎨', eyebrow: 'Personal Color', title: '个人色彩', desc: '你的四季型与专属色板', from: '#fb923c', to: '#6366f1' },
-  'snap/couple-match/zh': { icon: '💞', eyebrow: 'Couple Match', title: '情侣面相配对', desc: '比较两张照片', from: '#f43f5e', to: '#db2777' },
 };
 
-export type OgLang = 'en';
+export type OgLang = IntlLocale;
 
 /** 표에 있는 카드 — 없는 열쇠는 빌드가 죽어야 한다(조용히 빈 카드가 나가는 것보다 낫다) */
 export function intlOg(key: string): ReactElement {
@@ -186,8 +202,8 @@ export function colorOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 시간 도구 — 색상 도구와 같은 방식 */
-export function timeOg(slug: string, lang: OgLang): ReactElement {
-  const tool = findTimeToolIntl(lang as ColorIntlLang, slug) ?? TIME_TOOLS.find(t => t.slug === slug);
+export function timeOg(slug: string, lang: ToolIntlLang): ReactElement {
+  const tool = findTimeToolIntl(lang, slug) ?? TIME_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 시간 도구가 없다 — ${slug}`);
   return ogCard({
     icon: tool.icon, eyebrow: tool.category, title: tool.title, desc: tool.desc,
@@ -196,7 +212,7 @@ export function timeOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 이미지 도구 — 색상 도구와 같은 방식 */
-export function imageOg(slug: string, lang: OgLang): ReactElement {
+export function imageOg(slug: string, lang: ImageIntlLang): ReactElement {
   const tool = findImageToolIntl(lang, slug) ?? IMAGE_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 이미지 도구가 없다 — ${slug}`);
   return ogCard({
@@ -206,7 +222,7 @@ export function imageOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 계량·요리 도구 — 색상 도구와 같은 방식 */
-export function foodOg(slug: string, lang: OgLang): ReactElement {
+export function foodOg(slug: string, lang: FoodIntlLang): ReactElement {
   const tool = findFoodToolIntl(lang, slug) ?? FOOD_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 요리 도구가 없다 — ${slug}`);
   return ogCard({
@@ -216,7 +232,7 @@ export function foodOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 소리 도구 — 색상 도구와 같은 방식 */
-export function soundOg(slug: string, lang: OgLang): ReactElement {
+export function soundOg(slug: string, lang: SoundIntlLang): ReactElement {
   const tool = findSoundToolIntl(lang, slug) ?? SOUND_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 소리 도구가 없다 — ${slug}`);
   return ogCard({
@@ -226,7 +242,7 @@ export function soundOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 랜덤 뽑기 — 도구 메타에 언어별 문구가 같이 들어 있다 */
-export function randomOg(slug: string, lang: 'ko' | OgLang): ReactElement {
+export function randomOg(slug: string, lang: 'ko' | 'en'): ReactElement {
   const tool: RandomTool | undefined = RANDOM_TOOLS_MAP[slug];
   if (!tool) throw new Error(`og-intl: 랜덤 도구가 없다 — ${slug}`);
   const title = lang === 'en' ? tool.titleEn : tool.title;
@@ -239,7 +255,7 @@ export function randomOg(slug: string, lang: 'ko' | OgLang): ReactElement {
 }
 
 /** 두뇌 게임 — 색상 도구와 같은 방식 */
-export function gameOg(slug: string, lang: OgLang): ReactElement {
+export function gameOg(slug: string, lang: GameIntlLang): ReactElement {
   const tool = findGameToolIntl(lang, slug) ?? GAME_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 게임이 없다 — ${slug}`);
   return ogCard({
@@ -249,7 +265,7 @@ export function gameOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 기기 점검 — 색상 도구와 같은 방식 */
-export function deviceOg(slug: string, lang: OgLang): ReactElement {
+export function deviceOg(slug: string, lang: DeviceIntlLang): ReactElement {
   const tool = findDeviceToolIntl(lang, slug) ?? DEVICE_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 기기 점검이 없다 — ${slug}`);
   return ogCard({
@@ -259,7 +275,7 @@ export function deviceOg(slug: string, lang: OgLang): ReactElement {
 }
 
 /** 텍스트 도구 — 한글 전용 네 종은 en/zh 목록에 없어 한국어로 폴백한다 */
-export function textOg(slug: string, lang: OgLang): ReactElement {
+export function textOg(slug: string, lang: TextIntlLang): ReactElement {
   const tool = findTextToolIntl(lang, slug) ?? TEXT_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 텍스트 도구가 없다 — ${slug}`);
   return ogCard({

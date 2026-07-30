@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import GameShellIntl from '@/components/GameShellIntl';
 import HearingGame from '@/components/game/HearingGame';
+import { gameMetaIntl } from '@/lib/game-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Hearing Test Online — How Many Hz Can You Hear',
-  description: 'Steps the frequency up bit by bit to find where you stop hearing it. The upper limit of human hearing drops with age, so the frequency you reach gives a rough sense of your ear age.',
-  alternates: {
-    canonical: '/en/game/hearing',
-    languages: { 'en': '/en/game/hearing', 'ko': '/game/hearing', 'x-default': '/en/game/hearing' },
-  },
-};
+export const metadata: Metadata = gameMetaIntl('en', 'hearing');
 
 export default function EnGameHearingPage() {
   return (

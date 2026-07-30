@@ -1,9 +1,10 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { DeviceTool } from './device-tools.ts';
 import { DEVICE_TOOLS } from './device-tools.ts';
+import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 
 /**
- * 기기 점검(/device) 섹션의 영어·중국어 메타데이터.
+ * 기기 점검(/device) 섹션의 번역 메타데이터.
  *
  * slug·icon·gradient·og·needsPermission은 한국어와 공유하고 사람이 읽는 문구만
  * 갈아 끼운다. checks는 title/desc가 아니라 별도 키라 여기서 함께 넘긴다.
@@ -11,7 +12,7 @@ import { DEVICE_TOOLS } from './device-tools.ts';
  * 이 섹션은 검색어가 거의 그대로 도구 이름이다 — "keyboard test",
  * "dead pixel test", "mic test". 그래서 metaTitle을 그 말에 맞춰 짓는다.
  */
-export type DeviceIntlLang = 'en';
+export type DeviceIntlLang = IntlLocale;
 
 interface ToolCopy {
   title: string; desc: string; category: string;
@@ -81,6 +82,395 @@ const COPY: Record<DeviceIntlLang, Record<string, ToolCopy>> = {
       checks: ['Screen resolution and window size', 'Pixel ratio (DPR) and colour depth', 'Browser, engine and operating system', 'CPU cores, memory and touch support'],
     },
   },
+
+  es: {
+    keyboard: {
+      title: 'Test de teclado', desc: 'Encuentra teclas muertas y comprueba el N-key rollover', category: 'Entrada',
+      metaTitle: 'Test de teclado online — Comprueba cada tecla y el N-key rollover',
+      long: 'Pulsa una tecla y se ilumina en el teclado de la pantalla. Encuentra teclas que no responden, teclas que se registran dos veces con una sola pulsación, y cuántas lee el teclado a la vez (N-key rollover) — todo en el navegador.',
+      checks: ['Si cada tecla se registra', 'El código de la tecla pulsada (KeyboardEvent.code)', 'Máximo de teclas simultáneas', 'Qué teclas aún no has probado'],
+    },
+    mouse: {
+      title: 'Test de clic del ratón', desc: 'Prueba clic izquierdo, derecho y rueda, y busca chatter', category: 'Entrada',
+      metaTitle: 'Test de clic del ratón — Comprueba botones y doble clic involuntario',
+      long: 'Comprueba que el izquierdo, el derecho, la rueda y los botones laterales se registran, y si una pulsación está llegando como dos — chatter — mirando el intervalo en milisegundos. Además se muestran la dirección de scroll y la frecuencia de eventos de movimiento.',
+      checks: ['Si cada botón se registra', 'Clics con sospecha de chatter (intervalo en ms)', 'Dirección y paso del scroll', 'Frecuencia de eventos de movimiento del cursor'],
+    },
+    mic: {
+      title: 'Test de micrófono', desc: 'Nivel de entrada en vivo, más grabar y escuchar', category: 'Audio',
+      metaTitle: 'Test de micrófono — Comprueba el nivel de entrada y graba online',
+      long: 'Mira un medidor de nivel en vivo para confirmar que tu micro capta sonido, luego graba unos segundos y reprodúcelo para oír cómo suenas de verdad. Una comprobación de un minuto antes de una videollamada o una partida.',
+      checks: ['Nivel de entrada en un medidor en vivo', 'Espectro de frecuencias', 'Grabar y reproducir', 'Lista de micrófonos conectados'],
+    },
+    webcam: {
+      title: 'Test de webcam', desc: 'Comprueba la imagen, la resolución y los fps, y saca una foto', category: 'Vídeo',
+      metaTitle: 'Test de webcam — Comprueba tu cámara online, sin instalar nada',
+      long: 'Confirma que la cámara se enciende, mira qué resolución y cuántos fps entrega, y saca una foto para juzgar la calidad de imagen. El vídeo se reproduce solo dentro de este navegador y nunca se envía a un servidor.',
+      checks: ['Salida de imagen de la cámara', 'Resolución y fotogramas por segundo', 'Guardar una captura', 'Cambiar entre cámaras conectadas'],
+    },
+    speaker: {
+      title: 'Test de altavoces y auriculares', desc: 'Comprueba la separación izquierda/derecha y qué frecuencias llegan', category: 'Audio',
+      metaTitle: 'Test de altavoces — Comprueba canales izquierdo/derecho y frecuencias',
+      long: 'Haz sonar el lado izquierdo y el derecho por separado para comprobar que los canales no están invertidos y que ninguno está en silencio. También puedes recorrer de 20Hz a 16kHz para ver hasta dónde llegan de verdad tus auriculares — y tus oídos.',
+      checks: ['Canales izquierdo y derecho por separado', 'Balance estéreo', 'Reproducción por bandas de frecuencia', 'Control de volumen'],
+    },
+    monitor: {
+      title: 'Test de píxeles muertos', desc: 'Colores sólidos a pantalla completa para encontrar píxeles muertos y manchas', category: 'Pantalla',
+      metaTitle: 'Test de píxeles muertos — Encuentra píxeles atascados y fugas de retroiluminación',
+      long: 'Llena la pantalla de rojo, verde, azul, blanco y negro para revelar puntos que se quedan apagados (píxeles muertos), puntos que se quedan encendidos (píxeles atascados) y fugas de retroiluminación o manchas en los bordes. Lo primero que hay que hacer el día que llega un monitor nuevo.',
+      checks: ['Cinco colores sólidos a pantalla completa', 'Degradado de grises (banding)', 'Sangrado de color y estelas', 'Fugas de retroiluminación en los bordes'],
+    },
+    'refresh-rate': {
+      title: 'Test de frecuencia de refresco', desc: 'Mide a cuántos Hz está funcionando tu pantalla de verdad', category: 'Pantalla',
+      metaTitle: 'Test de frecuencia de refresco — Mide los Hz reales de tu monitor',
+      long: 'No el número de tus ajustes, sino cuántas veces por segundo está dibujando esta pantalla. Comprar un monitor de 144Hz y tenerlo funcionando a 60Hz es un error muy común, y esto lo detecta al instante.',
+      checks: ['Frecuencia de refresco medida (Hz)', 'Variación del intervalo entre fotogramas (tirones)', 'Tiempo de fotograma mínimo y máximo', 'Comparar a ojo la fluidez del movimiento'],
+    },
+    touch: {
+      title: 'Test de pantalla táctil', desc: 'Comprueba el multitáctil y localiza zonas que no responden', category: 'Entrada',
+      metaTitle: 'Test de pantalla táctil — Multitáctil y zonas muertas',
+      long: 'Toca la pantalla para ver las coordenadas y cuántos puntos se registran a la vez, y luego arrastra un dedo para encontrar cualquier zona que no responda. Útil después de cambiar una pantalla, o cuando la imagen se corta de vez en cuando.',
+      checks: ['Coordenadas del toque en vivo', 'Máximo de toques simultáneos', 'Trazos de arrastre para encontrar zonas muertas', 'Presión y área de contacto (donde se admita)'],
+    },
+    gamepad: {
+      title: 'Test de mando', desc: 'Comprueba botones, palancas analógicas y gatillos', category: 'Entrada',
+      metaTitle: 'Test de mando — Comprueba botones y deriva de las palancas',
+      long: 'Conecta un mando, pulsa los botones para confirmar que se registran, y deja las palancas quietas para ver si las coordenadas se van solas — deriva de palanca. Los mandos de Xbox, PlayStation y Nintendo se leen todos por la API estándar del navegador.',
+      checks: ['Cada botón y su valor analógico', 'Coordenadas de la palanca izquierda y derecha', 'Deriva de palanca (descentrada en reposo)', 'Cuánto se pulsan los gatillos'],
+    },
+    info: {
+      title: 'Información de mi aparato', desc: 'Resolución, navegador, sistema y núcleos de un vistazo', category: 'Información',
+      metaTitle: 'Información de mi aparato — Resolución de pantalla, navegador y sistema',
+      long: 'La resolución de tu pantalla y el tamaño de la ventana del navegador, la relación de píxeles, la versión del navegador y del sistema operativo, y el número de núcleos de CPU — todo en una pantalla. Cópialo directamente cuando pidas soporte remoto o alguien te pregunte por tus especificaciones.',
+      checks: ['Resolución de pantalla y tamaño de ventana', 'Relación de píxeles (DPR) y profundidad de color', 'Navegador, motor y sistema operativo', 'Núcleos de CPU, memoria y soporte táctil'],
+    },
+  },
+
+  'pt-br': {
+    keyboard: {
+      title: 'Teste de teclado', desc: 'Encontre teclas mortas e confira o N-key rollover', category: 'Entrada',
+      metaTitle: 'Teste de teclado online — Confira cada tecla e o N-key rollover',
+      long: 'Aperte uma tecla e ela acende no teclado da tela. Encontre teclas que não respondem, teclas que registram duas vezes com um só toque, e quantas o teclado lê ao mesmo tempo (N-key rollover) — tudo no navegador.',
+      checks: ['Se cada tecla registra', 'O código da tecla apertada (KeyboardEvent.code)', 'Máximo de teclas simultâneas', 'Quais teclas você ainda não testou'],
+    },
+    mouse: {
+      title: 'Teste de clique do mouse', desc: 'Teste clique esquerdo, direito e rodinha, e procure chatter', category: 'Entrada',
+      metaTitle: 'Teste de clique do mouse — Confira botões e clique duplo involuntário',
+      long: 'Confira se esquerdo, direito, rodinha e botões laterais registram, e se um toque está chegando como dois — chatter — olhando o intervalo em milissegundos. Também aparecem a direção do scroll e a taxa de eventos de movimento.',
+      checks: ['Se cada botão registra', 'Cliques com suspeita de chatter (intervalo em ms)', 'Direção e passo do scroll', 'Taxa de eventos de movimento do cursor'],
+    },
+    mic: {
+      title: 'Teste de microfone', desc: 'Nível de entrada ao vivo, mais gravar e ouvir', category: 'Áudio',
+      metaTitle: 'Teste de microfone — Confira o nível de entrada e grave online',
+      long: 'Veja um medidor de nível ao vivo para confirmar que seu microfone está captando som, depois grave alguns segundos e ouça para saber como você soa de verdade. Uma checagem de um minuto antes de uma chamada de vídeo ou de um jogo.',
+      checks: ['Nível de entrada num medidor ao vivo', 'Espectro de frequências', 'Gravar e ouvir', 'Lista de microfones conectados'],
+    },
+    webcam: {
+      title: 'Teste de webcam', desc: 'Confira a imagem, a resolução e os fps, e tire uma foto', category: 'Vídeo',
+      metaTitle: 'Teste de webcam — Confira sua câmera online, sem instalar nada',
+      long: 'Confirme que a câmera liga, veja que resolução e quantos fps ela entrega, e tire uma foto para julgar a qualidade da imagem. O vídeo roda somente dentro deste navegador e nunca é enviado a um servidor.',
+      checks: ['Saída de imagem da câmera', 'Resolução e quadros por segundo', 'Salvar uma captura', 'Alternar entre câmeras conectadas'],
+    },
+    speaker: {
+      title: 'Teste de caixas e fones', desc: 'Confira a separação esquerda/direita e quais frequências chegam', category: 'Áudio',
+      metaTitle: 'Teste de caixas de som — Confira canais esquerdo/direito e frequências',
+      long: 'Toque o lado esquerdo e o direito separadamente para conferir se os canais não estão invertidos e se nenhum está mudo. Você também pode percorrer de 20Hz a 16kHz para descobrir até onde seus fones — e seus ouvidos — realmente chegam.',
+      checks: ['Canais esquerdo e direito separadamente', 'Balanço estéreo', 'Reprodução por faixas de frequência', 'Controle de volume'],
+    },
+    monitor: {
+      title: 'Teste de pixel morto', desc: 'Cores sólidas em tela cheia para achar pixels mortos e manchas', category: 'Tela',
+      metaTitle: 'Teste de pixel morto — Ache pixels travados e vazamento de luz',
+      long: 'Preenche a tela com vermelho, verde, azul, branco e preto para revelar pontos que ficam apagados (pixels mortos), pontos que ficam acesos (pixels travados) e vazamento de luz ou manchas nas bordas. A primeira coisa a fazer no dia em que chega um monitor novo.',
+      checks: ['Cinco cores sólidas em tela cheia', 'Degradê de cinza (banding)', 'Sangramento de cor e rastros', 'Vazamento de luz nas bordas'],
+    },
+    'refresh-rate': {
+      title: 'Teste de taxa de atualização', desc: 'Meça em quantos Hz sua tela está rodando de verdade', category: 'Tela',
+      metaTitle: 'Teste de taxa de atualização — Meça os Hz reais do seu monitor',
+      long: 'Não o número das configurações, mas quantas vezes por segundo esta tela está realmente desenhando. Comprar um monitor de 144Hz e deixá-lo rodando a 60Hz é um erro comum, e isto pega na hora.',
+      checks: ['Taxa de atualização medida (Hz)', 'Variação do intervalo entre quadros (engasgos)', 'Tempo de quadro mínimo e máximo', 'Comparar a fluidez do movimento a olho'],
+    },
+    touch: {
+      title: 'Teste de tela sensível ao toque', desc: 'Confira o multitoque e ache áreas que não respondem', category: 'Entrada',
+      metaTitle: 'Teste de touchscreen — Multitoque e zonas mortas',
+      long: 'Toque a tela para ver as coordenadas e quantos pontos registram ao mesmo tempo, depois arraste o dedo para achar qualquer área que não responda. Útil depois de trocar a tela, ou quando a imagem falha de vez em quando.',
+      checks: ['Coordenadas do toque ao vivo', 'Máximo de toques simultâneos', 'Rastros de arrasto para achar zonas mortas', 'Pressão e área de contato (onde houver suporte)'],
+    },
+    gamepad: {
+      title: 'Teste de controle', desc: 'Confira botões, analógicos e gatilhos', category: 'Entrada',
+      metaTitle: 'Teste de controle — Confira botões e drift dos analógicos',
+      long: 'Conecte um controle, aperte os botões para confirmar que registram, e deixe os analógicos parados para ver se as coordenadas andam sozinhas — stick drift. Controles de Xbox, PlayStation e Nintendo são todos lidos pela API padrão do navegador.',
+      checks: ['Cada botão e seu valor analógico', 'Coordenadas do analógico esquerdo e direito', 'Drift do analógico (fora do centro em repouso)', 'Quanto os gatilhos estão pressionados'],
+    },
+    info: {
+      title: 'Informações do meu aparelho', desc: 'Resolução, navegador, sistema e núcleos num relance', category: 'Informação',
+      metaTitle: 'Informações do meu aparelho — Resolução de tela, navegador e sistema',
+      long: 'A resolução da sua tela e o tamanho da janela do navegador, a proporção de pixels, a versão do navegador e do sistema operacional, e o número de núcleos da CPU — tudo numa tela. Copie direto quando for pedir suporte remoto ou alguém perguntar suas especificações.',
+      checks: ['Resolução de tela e tamanho da janela', 'Proporção de pixels (DPR) e profundidade de cor', 'Navegador, motor e sistema operacional', 'Núcleos de CPU, memória e suporte a toque'],
+    },
+  },
+
+  ja: {
+    keyboard: {
+      title: 'キーボードテスト', desc: '反応しないキーとNキーロールオーバーを調べる', category: '入力',
+      metaTitle: 'キーボードテスト — 全キーとNキーロールオーバーをブラウザで確認',
+      long: 'キーを押すと画面上のキーボードで光ります。反応しないキー、一度押しただけで二回入るキー、同時に何個まで読めるか（Nキーロールオーバー）を、ブラウザだけで確認できます。',
+      checks: ['各キーが反応するか', '押されたキーコード（KeyboardEvent.code）', '同時押しの最大数', 'まだ試していないキー'],
+    },
+    mouse: {
+      title: 'マウスクリックテスト', desc: '左・右・ホイールのクリックとチャタリングを調べる', category: '入力',
+      metaTitle: 'マウスクリックテスト — ボタンとチャタリングを確認',
+      long: '左・右・ホイール・サイドボタンがすべて反応するか、そして一度の押下が二回として入っていないか（チャタリング）を、ミリ秒の間隔で確認します。スクロール方向とカーソル移動イベントの頻度も一緒に表示します。',
+      checks: ['各ボタンが反応するか', 'チャタリングの疑いがあるクリック（間隔をms表示）', 'スクロールの方向と刻み', 'カーソル移動イベントの頻度'],
+    },
+    mic: {
+      title: 'マイクテスト', desc: '入力レベルをその場で見て、録音して聴き返す', category: '音声',
+      metaTitle: 'マイクテスト — 入力レベルの確認と録音をブラウザで',
+      long: 'レベルメーターでマイクが音を拾っているかを確かめ、数秒録音して再生すれば自分の声が実際にどう聞こえるか分かります。ビデオ通話やゲームの前に1分で終わる点検です。',
+      checks: ['入力レベルをメーターで表示', '周波数スペクトル', '録音して再生', '接続されているマイクの一覧'],
+    },
+    webcam: {
+      title: 'ウェブカメラテスト', desc: '映像・解像度・フレームレートを確認して静止画を撮る', category: '映像',
+      metaTitle: 'ウェブカメラテスト — カメラをブラウザで確認、インストール不要',
+      long: 'カメラが起動するかを確かめ、どの解像度とフレームレートで出ているかを見て、静止画を撮って画質を判断できます。映像はこのブラウザの中だけで再生され、サーバーには送られません。',
+      checks: ['カメラの映像出力', '解像度とフレームレート', '静止画の保存', '接続されているカメラの切り替え'],
+    },
+    speaker: {
+      title: 'スピーカー・イヤホンテスト', desc: '左右の分離と出ている周波数を確認する', category: '音声',
+      metaTitle: 'スピーカーテスト — 左右チャンネルと周波数をブラウザで確認',
+      long: '左と右を別々に鳴らして、チャンネルが入れ替わっていないか、片方が無音になっていないかを確認します。20Hzから16kHzまで順に鳴らして、イヤホンと自分の耳が実際どこまで届くかも試せます。',
+      checks: ['左右チャンネルを別々に', 'ステレオバランス', '周波数帯ごとの再生', '音量調整'],
+    },
+    monitor: {
+      title: 'ドット抜けテスト', desc: '全画面の単色でドット抜けやムラを見つける', category: '画面',
+      metaTitle: 'ドット抜けテスト — 常時点灯ドットとバックライト漏れを確認',
+      long: '画面を赤・緑・青・白・黒で埋めて、消えたままの点（ドット抜け）、点いたままの点（常時点灯）、端のバックライト漏れやムラを浮かび上がらせます。新しいモニターが届いた日にまずやることです。',
+      checks: ['全画面の単色5色', 'グレーのグラデーション（バンディング）', '色のにじみと残像', '端のバックライト漏れ'],
+    },
+    'refresh-rate': {
+      title: 'リフレッシュレートテスト', desc: '画面が実際に何Hzで動いているかを測る', category: '画面',
+      metaTitle: 'リフレッシュレートテスト — モニターの実際のHzを測る',
+      long: '設定に書かれた数字ではなく、この画面が1秒間に実際何回描いているかを測ります。144Hzのモニターを買って60Hzで動かしているのはよくある見落としで、これならすぐ気づけます。',
+      checks: ['実測リフレッシュレート（Hz）', 'フレーム間隔のばらつき（引っかかり）', 'フレーム時間の最小と最大', '動きのなめらかさを目で比較'],
+    },
+    touch: {
+      title: 'タッチパネルテスト', desc: 'マルチタッチの数と反応しない場所を調べる', category: '入力',
+      metaTitle: 'タッチパネルテスト — マルチタッチと反応しない領域の確認',
+      long: '画面を押すとタッチ座標と同時に認識される点の数が分かり、指を滑らせれば反応しない場所を見つけられます。画面を交換したあとや、表示がときどき途切れるときに役立ちます。',
+      checks: ['タッチ座標をその場で表示', '同時タッチの最大数', 'ドラッグの軌跡で反応しない領域を探す', '圧力と接触面積（対応している場合）'],
+    },
+    gamepad: {
+      title: 'ゲームパッドテスト', desc: 'ボタン・アナログスティック・トリガーを確認する', category: '入力',
+      metaTitle: 'ゲームパッドテスト — コントローラーのボタンとスティックドリフトを確認',
+      long: 'コントローラーをつないでボタンを押し、反応するかを確かめます。スティックに触れずに座標が動くかを見ればスティックドリフトが分かります。Xbox・PlayStation・Nintendoのパッドはいずれもブラウザの標準APIで読み取ります。',
+      checks: ['各ボタンとそのアナログ値', '左右スティックの座標', 'スティックドリフト（放置時の中心ずれ）', 'トリガーの踏み込み量'],
+    },
+    info: {
+      title: '自分の端末情報', desc: '解像度・ブラウザ・OS・コア数を一目で', category: '情報',
+      metaTitle: '自分の端末情報 — 画面解像度・ブラウザ・OSを確認',
+      long: '画面の解像度とブラウザウィンドウの大きさ、ピクセル比、ブラウザとOSのバージョン、CPUのコア数を一画面にまとめます。リモートサポートを頼むときや、スペックを聞かれたときにそのままコピーできます。',
+      checks: ['画面解像度とウィンドウサイズ', 'ピクセル比（DPR）と色深度', 'ブラウザ・エンジン・OS', 'CPUコア数・メモリ・タッチ対応'],
+    },
+  },
+
+  de: {
+    keyboard: {
+      title: 'Tastatur-Test', desc: 'Finde tote Tasten und prüfe das N-Key-Rollover', category: 'Eingabe',
+      metaTitle: 'Tastatur-Test online — Jede Taste und das N-Key-Rollover prüfen',
+      long: 'Drücke eine Taste und sie leuchtet auf der Tastatur am Bildschirm auf. Finde Tasten, die nicht reagieren, Tasten, die bei einem Druck doppelt auslösen, und wie viele die Tastatur gleichzeitig liest (N-Key-Rollover) — alles im Browser.',
+      checks: ['Ob jede Taste auslöst', 'Der Code der gedrückten Taste (KeyboardEvent.code)', 'Maximale Zahl gleichzeitiger Tasten', 'Welche Tasten du noch nicht probiert hast'],
+    },
+    mouse: {
+      title: 'Maus-Klick-Test', desc: 'Prüfe Links-, Rechts- und Radklick und suche Doppelklick-Fehler', category: 'Eingabe',
+      metaTitle: 'Maus-Klick-Test — Tasten und Doppelklick-Fehler prüfen',
+      long: 'Prüfe, ob links, rechts, Rad und Seitentasten auslösen, und ob ein Druck als zwei durchkommt — Chatter — anhand des Abstands in Millisekunden. Scrollrichtung und die Ereignisrate der Cursorbewegung stehen daneben.',
+      checks: ['Ob jede Taste auslöst', 'Klicks mit Chatter-Verdacht (Abstand in ms)', 'Scrollrichtung und Schrittweite', 'Ereignisrate der Cursorbewegung'],
+    },
+    mic: {
+      title: 'Mikrofon-Test', desc: 'Eingangspegel live, dazu aufnehmen und abhören', category: 'Audio',
+      metaTitle: 'Mikrofon-Test — Eingangspegel prüfen und online aufnehmen',
+      long: 'Beobachte eine Pegelanzeige, um zu bestätigen, dass dein Mikrofon Ton aufnimmt, nimm dann ein paar Sekunden auf und hör sie ab, um zu hören, wie du wirklich klingst. Eine Ein-Minuten-Prüfung vor einem Videoanruf oder einer Runde im Spiel.',
+      checks: ['Eingangspegel auf einer Live-Anzeige', 'Frequenzspektrum', 'Aufnehmen und abspielen', 'Liste der angeschlossenen Mikrofone'],
+    },
+    webcam: {
+      title: 'Webcam-Test', desc: 'Prüfe Bild, Auflösung und Bildrate, mach einen Schnappschuss', category: 'Video',
+      metaTitle: 'Webcam-Test — Kamera online prüfen, ohne Installation',
+      long: 'Bestätige, dass die Kamera angeht, sieh nachdem, welche Auflösung und Bildrate sie liefert, und mach einen Schnappschuss, um die Bildqualität zu beurteilen. Das Video läuft nur in diesem Browser und wird nie an einen Server geschickt.',
+      checks: ['Bildausgabe der Kamera', 'Auflösung und Bilder pro Sekunde', 'Schnappschuss speichern', 'Zwischen angeschlossenen Kameras wechseln'],
+    },
+    speaker: {
+      title: 'Lautsprecher- und Kopfhörer-Test', desc: 'Prüfe Links-Rechts-Trennung und welche Frequenzen ankommen', category: 'Audio',
+      metaTitle: 'Lautsprecher-Test — Links-Rechts-Kanäle und Frequenzen prüfen',
+      long: 'Lass links und rechts getrennt klingen, um zu prüfen, dass die Kanäle nicht vertauscht sind und keine Seite stumm bleibt. Du kannst außerdem von 20Hz bis 16kHz durchgehen, um zu sehen, wie weit deine Kopfhörer — und deine Ohren — tatsächlich reichen.',
+      checks: ['Linker und rechter Kanal getrennt', 'Stereo-Balance', 'Wiedergabe über Frequenzbänder', 'Lautstärkeregelung'],
+    },
+    monitor: {
+      title: 'Pixelfehler-Test', desc: 'Vollbild-Farbflächen, um tote Pixel und Flecken zu finden', category: 'Bildschirm',
+      metaTitle: 'Pixelfehler-Test — Tote Pixel und Backlight-Bleeding finden',
+      long: 'Füllt den Bildschirm mit Rot, Grün, Blau, Weiß und Schwarz, um Punkte zu zeigen, die aus bleiben (tote Pixel), Punkte, die an bleiben (hängende Pixel), sowie Backlight-Bleeding oder Flecken an den Rändern. Das Erste, was man am Tag eines neuen Monitors macht.',
+      checks: ['Fünf Vollbild-Farbflächen', 'Grauverlauf (Banding)', 'Farbverlaufen und Schlieren', 'Backlight-Bleeding an den Rändern'],
+    },
+    'refresh-rate': {
+      title: 'Bildwiederholrate-Test', desc: 'Miss, mit wie viel Hz dein Bildschirm wirklich läuft', category: 'Bildschirm',
+      metaTitle: 'Bildwiederholrate-Test — Die echten Hz deines Monitors messen',
+      long: 'Nicht die Zahl in den Einstellungen, sondern wie oft pro Sekunde dieser Bildschirm tatsächlich zeichnet. Einen 144-Hz-Monitor zu kaufen und mit 60Hz zu betreiben ist ein häufiger Fehler, und das fällt hier sofort auf.',
+      checks: ['Gemessene Bildwiederholrate (Hz)', 'Streuung der Bildabstände (Ruckeln)', 'Minimale und maximale Bildzeit', 'Laufruhe mit dem Auge vergleichen'],
+    },
+    touch: {
+      title: 'Touchscreen-Test', desc: 'Prüfe die Multitouch-Zahl und finde nicht reagierende Bereiche', category: 'Eingabe',
+      metaTitle: 'Touchscreen-Test — Multitouch und tote Zonen prüfen',
+      long: 'Berühre den Bildschirm, um Koordinaten und die Zahl gleichzeitig erkannter Punkte zu sehen, und zieh dann einen Finger darüber, um Bereiche zu finden, die nicht reagieren. Nützlich nach einem Displaytausch oder wenn die Anzeige gelegentlich aussetzt.',
+      checks: ['Berührungskoordinaten live', 'Maximale Zahl gleichzeitiger Berührungen', 'Zieh-Spuren, um tote Zonen zu finden', 'Druck und Auflagefläche (wo unterstützt)'],
+    },
+    gamepad: {
+      title: 'Gamepad-Test', desc: 'Prüfe Tasten, Analogsticks und Trigger', category: 'Eingabe',
+      metaTitle: 'Gamepad-Test — Controller-Tasten und Stick-Drift prüfen',
+      long: 'Schließ einen Controller an, drück die Tasten, um zu bestätigen, dass sie auslösen, und lass die Sticks in Ruhe, um zu sehen, ob die Koordinaten wandern — Stick-Drift. Xbox-, PlayStation- und Nintendo-Pads werden alle über die Standard-API des Browsers gelesen.',
+      checks: ['Jede Taste und ihr Analogwert', 'Koordinaten von linkem und rechtem Stick', 'Stick-Drift (in Ruhe außerhalb der Mitte)', 'Wie weit die Trigger gedrückt sind'],
+    },
+    info: {
+      title: 'Meine Geräteinfos', desc: 'Auflösung, Browser, System und Kernzahl auf einen Blick', category: 'Info',
+      metaTitle: 'Meine Geräteinfos — Bildschirmauflösung, Browser und System prüfen',
+      long: 'Deine Bildschirmauflösung und die Größe des Browserfensters, das Pixelverhältnis, Browser- und Betriebssystemversion sowie die Zahl der CPU-Kerne — alles auf einem Bildschirm. Kopier es direkt heraus, wenn du Fernwartung anfragst oder jemand nach deinen Daten fragt.',
+      checks: ['Bildschirmauflösung und Fenstergröße', 'Pixelverhältnis (DPR) und Farbtiefe', 'Browser, Engine und Betriebssystem', 'CPU-Kerne, Speicher und Touch-Unterstützung'],
+    },
+  },
+
+  fr: {
+    keyboard: {
+      title: 'Test de clavier', desc: 'Repère les touches mortes et vérifie le NKRO', category: 'Entrée',
+      metaTitle: 'Test de clavier en ligne — Vérifie chaque touche et le NKRO',
+      long: 'Appuie sur une touche et elle s’allume sur le clavier à l’écran. Trouve les touches qui ne répondent pas, celles qui s’enregistrent deux fois pour un seul appui, et combien le clavier en lit à la fois (NKRO) — tout dans le navigateur.',
+      checks: ['Si chaque touche s’enregistre', 'Le code de la touche appuyée (KeyboardEvent.code)', 'Nombre maximal de touches simultanées', 'Les touches que tu n’as pas encore essayées'],
+    },
+    mouse: {
+      title: 'Test de clic de souris', desc: 'Teste clic gauche, droit et molette, et cherche le chatter', category: 'Entrée',
+      metaTitle: 'Test de clic de souris — Vérifie les boutons et le double-clic parasite',
+      long: 'Vérifie que gauche, droit, molette et boutons latéraux s’enregistrent, et si un appui passe pour deux — le chatter — en regardant l’écart en millisecondes. Le sens du défilement et la fréquence des événements de déplacement s’affichent à côté.',
+      checks: ['Si chaque bouton s’enregistre', 'Clics suspectés de chatter (écart en ms)', 'Sens et pas du défilement', 'Fréquence des événements de déplacement du curseur'],
+    },
+    mic: {
+      title: 'Test de microphone', desc: 'Niveau d’entrée en direct, plus enregistrer et réécouter', category: 'Audio',
+      metaTitle: 'Test de microphone — Vérifie le niveau d’entrée et enregistre en ligne',
+      long: 'Regarde un vumètre en direct pour confirmer que ton micro capte le son, puis enregistre quelques secondes et réécoute pour entendre à quoi tu ressembles vraiment. Une vérification d’une minute avant un appel vidéo ou une partie.',
+      checks: ['Niveau d’entrée sur un vumètre en direct', 'Spectre de fréquences', 'Enregistrer et réécouter', 'Liste des micros connectés'],
+    },
+    webcam: {
+      title: 'Test de webcam', desc: 'Vérifie l’image, la résolution et les ips, prends une photo', category: 'Vidéo',
+      metaTitle: 'Test de webcam — Vérifie ta caméra en ligne, sans installation',
+      long: 'Confirme que la caméra s’allume, vois quelle résolution et combien d’images par seconde elle délivre, et prends une photo pour juger la qualité. La vidéo ne joue que dans ce navigateur et n’est jamais envoyée à un serveur.',
+      checks: ['Sortie image de la caméra', 'Résolution et images par seconde', 'Enregistrer une capture', 'Basculer entre les caméras connectées'],
+    },
+    speaker: {
+      title: 'Test d’enceintes et de casque', desc: 'Vérifie la séparation gauche/droite et les fréquences qui passent', category: 'Audio',
+      metaTitle: 'Test d’enceintes — Vérifie les canaux gauche/droite et les fréquences',
+      long: 'Fais sonner la gauche et la droite séparément pour vérifier que les canaux ne sont pas inversés et qu’aucun côté n’est muet. Tu peux aussi parcourir 20Hz à 16kHz pour trouver jusqu’où ton casque — et ton oreille — vont réellement.',
+      checks: ['Canaux gauche et droit séparément', 'Balance stéréo', 'Lecture par bandes de fréquences', 'Réglage du volume'],
+    },
+    monitor: {
+      title: 'Test de pixels morts', desc: 'Couleurs unies en plein écran pour repérer pixels morts et taches', category: 'Écran',
+      metaTitle: 'Test de pixels morts — Repère pixels bloqués et fuites de rétroéclairage',
+      long: 'Remplit l’écran de rouge, vert, bleu, blanc et noir pour révéler les points qui restent éteints (pixels morts), ceux qui restent allumés (pixels bloqués), et les fuites de rétroéclairage ou taches sur les bords. La première chose à faire le jour où arrive un écran neuf.',
+      checks: ['Cinq couleurs unies en plein écran', 'Dégradé de gris (banding)', 'Bavure de couleur et rémanence', 'Fuites de rétroéclairage sur les bords'],
+    },
+    'refresh-rate': {
+      title: 'Test de fréquence de rafraîchissement', desc: 'Mesure à combien de Hz ton écran tourne réellement', category: 'Écran',
+      metaTitle: 'Test de rafraîchissement — Mesure les Hz réels de ton écran',
+      long: 'Pas le chiffre de tes réglages, mais combien de fois par seconde cet écran dessine vraiment. Acheter un écran 144Hz et le faire tourner à 60Hz est une erreur courante, et cela se voit ici tout de suite.',
+      checks: ['Fréquence de rafraîchissement mesurée (Hz)', 'Variation de l’intervalle entre images (saccades)', 'Temps d’image minimum et maximum', 'Comparer la fluidité à l’œil'],
+    },
+    touch: {
+      title: 'Test d’écran tactile', desc: 'Vérifie le multitouch et trouve les zones qui ne répondent pas', category: 'Entrée',
+      metaTitle: 'Test d’écran tactile — Multitouch et zones mortes',
+      long: 'Touche l’écran pour voir les coordonnées et combien de points s’enregistrent en même temps, puis fais glisser un doigt pour trouver une zone qui ne répond pas. Utile après un remplacement d’écran, ou quand l’affichage coupe de temps en temps.',
+      checks: ['Coordonnées du toucher en direct', 'Nombre maximal de touchers simultanés', 'Tracés de glissement pour trouver les zones mortes', 'Pression et surface de contact (là où c’est pris en charge)'],
+    },
+    gamepad: {
+      title: 'Test de manette', desc: 'Vérifie boutons, sticks analogiques et gâchettes', category: 'Entrée',
+      metaTitle: 'Test de manette — Vérifie les boutons et la dérive des sticks',
+      long: 'Branche une manette, appuie sur les boutons pour confirmer qu’ils répondent, et laisse les sticks tranquilles pour voir si les coordonnées se déplacent — la dérive de stick. Les manettes Xbox, PlayStation et Nintendo se lisent toutes via l’API standard du navigateur.',
+      checks: ['Chaque bouton et sa valeur analogique', 'Coordonnées des sticks gauche et droit', 'Dérive de stick (hors centre au repos)', 'À quel point les gâchettes sont enfoncées'],
+    },
+    info: {
+      title: 'Infos de mon appareil', desc: 'Résolution, navigateur, système et cœurs d’un coup d’œil', category: 'Infos',
+      metaTitle: 'Infos de mon appareil — Résolution d’écran, navigateur et système',
+      long: 'La résolution de ton écran et la taille de la fenêtre du navigateur, le ratio de pixels, la version du navigateur et du système, et le nombre de cœurs du processeur — tout sur un écran. Copie-le tel quel quand tu demandes une assistance à distance ou qu’on te demande ta configuration.',
+      checks: ['Résolution d’écran et taille de fenêtre', 'Ratio de pixels (DPR) et profondeur de couleur', 'Navigateur, moteur et système', 'Cœurs du processeur, mémoire et prise en charge du tactile'],
+    },
+  },
+
+  hi: {
+    keyboard: {
+      title: 'कीबोर्ड जाँच', desc: 'बंद पड़ी कुंजियाँ और N-key rollover देखें', category: 'इनपुट',
+      metaTitle: 'ऑनलाइन कीबोर्ड जाँच — हर कुंजी और N-key rollover देखें',
+      long: 'कोई कुंजी दबाएँ और वह स्क्रीन के कीबोर्ड पर जल उठती है। कौन-सी कुंजी काम नहीं कर रही, कौन एक बार दबाने पर दो बार दर्ज हो रही, और कीबोर्ड एक साथ कितनी पढ़ पाता है (N-key rollover) — सब ब्राउज़र में।',
+      checks: ['हर कुंजी दर्ज होती है या नहीं', 'दबाई कुंजी का कोड (KeyboardEvent.code)', 'एक साथ अधिकतम कुंजियाँ', 'कौन-सी कुंजियाँ अभी नहीं आज़माईं'],
+    },
+    mouse: {
+      title: 'माउस क्लिक जाँच', desc: 'बायाँ, दायाँ और व्हील क्लिक जाँचें, चैटर देखें', category: 'इनपुट',
+      metaTitle: 'माउस क्लिक जाँच — बटन और अनचाहा डबल क्लिक जाँचें',
+      long: 'बायाँ, दायाँ, व्हील और साइड बटन दर्ज हो रहे हैं या नहीं यह देखें, और मिलीसेकंड का अंतर देखकर पता करें कि एक दबाव दो के रूप में आ रहा है (चैटर) या नहीं। स्क्रॉल की दिशा और कर्सर की गति की घटना दर भी साथ दिखती है।',
+      checks: ['हर बटन दर्ज होता है या नहीं', 'चैटर के संदेह वाले क्लिक (अंतर ms में)', 'स्क्रॉल की दिशा और चरण', 'कर्सर की गति की घटना दर'],
+    },
+    mic: {
+      title: 'माइक्रोफ़ोन जाँच', desc: 'इनपुट स्तर साथ-साथ, और रिकॉर्ड कर सुनना', category: 'ऑडियो',
+      metaTitle: 'माइक्रोफ़ोन जाँच — इनपुट स्तर देखें और ऑनलाइन रिकॉर्ड करें',
+      long: 'स्तर मापक देखकर पक्का करें कि माइक आवाज़ पकड़ रहा है, फिर कुछ सेकंड रिकॉर्ड कर बजाइए और सुनिए कि आप असल में कैसे सुनाई देते हैं। वीडियो कॉल या खेल से पहले एक मिनट की जाँच।',
+      checks: ['इनपुट स्तर साथ-साथ मापक पर', 'आवृत्ति स्पेक्ट्रम', 'रिकॉर्ड कर बजाना', 'जुड़े माइक्रोफ़ोन की सूची'],
+    },
+    webcam: {
+      title: 'वेबकैम जाँच', desc: 'तस्वीर, रिज़ॉल्यूशन और fps देखें, स्नैपशॉट लें', category: 'वीडियो',
+      metaTitle: 'वेबकैम जाँच — कैमरा ऑनलाइन जाँचें, कुछ इंस्टॉल किए बिना',
+      long: 'पक्का करें कि कैमरा चालू होता है, देखें कि वह कितना रिज़ॉल्यूशन और कितने fps देता है, और स्नैपशॉट लेकर तस्वीर की गुणवत्ता आँकें। वीडियो इसी ब्राउज़र के अंदर चलता है और कभी सर्वर पर नहीं जाता।',
+      checks: ['कैमरे का चित्र आउटपुट', 'रिज़ॉल्यूशन और प्रति सेकंड फ़्रेम', 'स्नैपशॉट सेव करना', 'जुड़े कैमरों के बीच बदलना'],
+    },
+    speaker: {
+      title: 'स्पीकर और हेडफ़ोन जाँच', desc: 'बाएँ-दाएँ अलगाव और कौन-सी आवृत्तियाँ आ रही हैं देखें', category: 'ऑडियो',
+      metaTitle: 'स्पीकर जाँच — बाएँ/दाएँ चैनल और आवृत्ति ऑनलाइन जाँचें',
+      long: 'बाएँ और दाएँ को अलग-अलग बजाकर देखें कि चैनल आपस में बदले नहीं हैं और कोई तरफ़ चुप नहीं है। 20Hz से 16kHz तक बारी-बारी बजाकर यह भी पता कर सकते हैं कि आपके हेडफ़ोन — और आपके कान — असल में कहाँ तक पहुँचते हैं।',
+      checks: ['बायाँ और दायाँ चैनल अलग-अलग', 'स्टीरियो संतुलन', 'आवृत्ति बैंड के अनुसार बजाना', 'आवाज़ का नियंत्रण'],
+    },
+    monitor: {
+      title: 'डेड पिक्सेल जाँच', desc: 'पूरी स्क्रीन के सादे रंगों से डेड पिक्सेल और धब्बे खोजें', category: 'स्क्रीन',
+      metaTitle: 'डेड पिक्सेल जाँच — अटके पिक्सेल और बैकलाइट रिसाव खोजें',
+      long: 'स्क्रीन को लाल, हरे, नीले, सफ़ेद और काले से भरकर वे बिंदु उभारता है जो बुझे रहते हैं (डेड पिक्सेल), जो जले रहते हैं (अटके पिक्सेल), और किनारों पर बैकलाइट का रिसाव या धब्बे। नया मॉनिटर आने के दिन सबसे पहले यही करना चाहिए।',
+      checks: ['पूरी स्क्रीन के पाँच सादे रंग', 'सलेटी ग्रेडिएंट (बैंडिंग)', 'रंग का फैलाव और छाया', 'किनारों पर बैकलाइट रिसाव'],
+    },
+    'refresh-rate': {
+      title: 'रिफ़्रेश दर जाँच', desc: 'मापें कि आपकी स्क्रीन असल में कितने Hz पर चल रही है', category: 'स्क्रीन',
+      metaTitle: 'रिफ़्रेश दर जाँच — मॉनिटर के असली Hz मापें',
+      long: 'सेटिंग में लिखा अंक नहीं, बल्कि यह स्क्रीन एक सेकंड में असल में कितनी बार बना रही है। 144Hz का मॉनिटर लेकर उसे 60Hz पर चलाते रहना आम चूक है, और यह उसे तुरंत पकड़ लेता है।',
+      checks: ['मापी गई रिफ़्रेश दर (Hz)', 'फ़्रेम अंतराल का उतार-चढ़ाव (झटके)', 'न्यूनतम और अधिकतम फ़्रेम समय', 'गति की चिकनाई आँखों से मिलाना'],
+    },
+    touch: {
+      title: 'टचस्क्रीन जाँच', desc: 'मल्टी-टच की संख्या देखें और न चलने वाले हिस्से खोजें', category: 'इनपुट',
+      metaTitle: 'टचस्क्रीन जाँच — मल्टी-टच और मृत क्षेत्र',
+      long: 'स्क्रीन दबाकर स्पर्श के निर्देशांक और एक साथ कितने बिंदु दर्ज होते हैं देखें, फिर उँगली घसीटकर वह हिस्सा खोजें जो जवाब नहीं देता। स्क्रीन बदलवाने के बाद, या कभी-कभी डिस्प्ले कट जाने पर काम आता है।',
+      checks: ['स्पर्श के निर्देशांक साथ-साथ', 'एक साथ अधिकतम स्पर्श', 'घसीटने के निशान से मृत क्षेत्र खोजना', 'दबाव और संपर्क क्षेत्र (जहाँ समर्थन हो)'],
+    },
+    gamepad: {
+      title: 'गेमपैड जाँच', desc: 'बटन, एनालॉग स्टिक और ट्रिगर जाँचें', category: 'इनपुट',
+      metaTitle: 'गेमपैड जाँच — कंट्रोलर के बटन और स्टिक ड्रिफ़्ट जाँचें',
+      long: 'कंट्रोलर जोड़ें, बटन दबाकर पक्का करें कि वे दर्ज होते हैं, और स्टिक को छोड़ देकर देखें कि निर्देशांक अपने आप खिसकते हैं या नहीं — स्टिक ड्रिफ़्ट। Xbox, PlayStation और Nintendo के पैड सब ब्राउज़र के मानक API से पढ़े जाते हैं।',
+      checks: ['हर बटन और उसका एनालॉग मान', 'बाएँ और दाएँ स्टिक के निर्देशांक', 'स्टिक ड्रिफ़्ट (छोड़ने पर केंद्र से हटना)', 'ट्रिगर कितना दबा है'],
+    },
+    info: {
+      title: 'मेरे उपकरण की जानकारी', desc: 'रिज़ॉल्यूशन, ब्राउज़र, सिस्टम और कोर एक नज़र में', category: 'जानकारी',
+      metaTitle: 'मेरे उपकरण की जानकारी — स्क्रीन रिज़ॉल्यूशन, ब्राउज़र और सिस्टम',
+      long: 'आपकी स्क्रीन का रिज़ॉल्यूशन और ब्राउज़र खिड़की का नाप, पिक्सेल अनुपात, ब्राउज़र और ऑपरेटिंग सिस्टम का संस्करण, और CPU कोर की संख्या — सब एक ही स्क्रीन पर। रिमोट सहायता माँगते समय या कोई आपकी विशेषताएँ पूछे तो सीधे कॉपी कर दें।',
+      checks: ['स्क्रीन रिज़ॉल्यूशन और खिड़की का नाप', 'पिक्सेल अनुपात (DPR) और रंग गहराई', 'ब्राउज़र, इंजन और ऑपरेटिंग सिस्टम', 'CPU कोर, मेमोरी और टच समर्थन'],
+    },
+  },
+};
+
+/** 언어별 분류 순서. 여기 문자열은 위 category와 글자까지 같아야 한다 */
+export const DEVICE_CATEGORY_ORDER: Record<DeviceIntlLang, string[]> = {
+  en: ['Input', 'Audio', 'Video', 'Display', 'Info'],
+  es: ['Entrada', 'Audio', 'Vídeo', 'Pantalla', 'Información'],
+  'pt-br': ['Entrada', 'Áudio', 'Vídeo', 'Tela', 'Informação'],
+  ja: ['入力', '音声', '映像', '画面', '情報'],
+  de: ['Eingabe', 'Audio', 'Video', 'Bildschirm', 'Info'],
+  fr: ['Entrée', 'Audio', 'Vidéo', 'Écran', 'Infos'],
+  hi: ['इनपुट', 'ऑडियो', 'वीडियो', 'स्क्रीन', 'जानकारी'],
 };
 
 /** 언어별 도구 목록 — 번역이 없는 slug는 한국어로 폴백해 화면이 깨지지 않는다 */
@@ -105,10 +495,39 @@ export function relatedDeviceToolsIntl(lang: DeviceIntlLang, slug: string, count
   return [...same, ...rest].slice(0, count);
 }
 
-/** 셸 UI 문구 */
+/** 라우트가 그대로 쓰는 메타데이터 — 문구를 라이브러리 한 곳에만 둔다 */
+export function deviceMetaIntl(lang: DeviceIntlLang, slug: string) {
+  const t = findDeviceToolIntl(lang, slug);
+  if (!t) throw new Error(`device-tools-intl: 도구가 없다 — ${slug}`);
+  return {
+    title: t.metaTitle,
+    description: t.long,
+    openGraph: openGraphFor(lang),
+    alternates: {
+      canonical: localeHref(lang, `/device/${slug}`),
+      languages: alternateLanguages(`/device/${slug}`),
+    },
+  };
+}
+
+export function deviceHubMetaIntl(lang: DeviceIntlLang) {
+  const ui = DEVICE_SHELL_UI[lang];
+  return {
+    title: ui.hubTitle,
+    description: ui.hubDesc,
+    openGraph: openGraphFor(lang),
+    alternates: {
+      canonical: localeHref(lang, '/device'),
+      languages: alternateLanguages('/device'),
+    },
+  };
+}
+
+/** 셸·허브 UI 문구 */
 export const DEVICE_SHELL_UI: Record<DeviceIntlLang, {
   home: string; section: string; whatItChecks: string; others: string;
   notice: string; permission: string; footNote: string;
+  hubTitle: string; hubDesc: string; hubLead: string; hubFoot: string; eyebrow: string;
 }> = {
   en: {
     home: 'Home', section: 'Device tests',
@@ -116,5 +535,75 @@ export const DEVICE_SHELL_UI: Record<DeviceIntlLang, {
     notice: '🔧 Runs in the browser. Nothing to install, nothing uploaded.',
     permission: '🔒 Allow it when the browser asks. Camera and microphone data is processed inside this browser only and is never sent anywhere.',
     footNote: 'Results depend on your browser and drivers. If something looks wrong here, try the same test in another browser before assuming the hardware is at fault.',
+    hubTitle: 'Device Tests — Keyboard, Mouse, Mic, Webcam, Dead Pixels',
+    hubDesc: 'Free device tests in your browser: keyboard, mouse click, microphone, webcam, speakers, dead pixels, refresh rate, touchscreen, gamepad and your device info.',
+    hubLead: 'Everything runs in the browser — nothing to install and nothing uploaded.',
+    hubFoot: 'Free device tests', eyebrow: 'Device',
+  },
+  es: {
+    home: 'Inicio', section: 'Tests de aparatos',
+    whatItChecks: 'Qué comprueba este test', others: 'Otros tests de aparatos',
+    notice: '🔧 Funciona en el navegador. Nada que instalar y nada que se suba.',
+    permission: '🔒 Dale permiso cuando el navegador lo pida. Los datos de cámara y micrófono se procesan solo dentro de este navegador y no se envían a ningún sitio.',
+    footNote: 'Los resultados dependen de tu navegador y tus controladores. Si algo se ve mal aquí, prueba el mismo test en otro navegador antes de dar por hecho que el problema es del hardware.',
+    hubTitle: 'Tests de aparatos — Teclado, ratón, micro, webcam, píxeles muertos',
+    hubDesc: 'Tests de aparatos gratis en tu navegador: teclado, clic del ratón, micrófono, webcam, altavoces, píxeles muertos, frecuencia de refresco, pantalla táctil, mando e información de tu aparato.',
+    hubLead: 'Todo funciona en el navegador — nada que instalar y nada que se suba.',
+    hubFoot: 'Tests de aparatos gratis', eyebrow: 'Aparato',
+  },
+  'pt-br': {
+    home: 'Início', section: 'Testes de aparelho',
+    whatItChecks: 'O que este teste confere', others: 'Outros testes de aparelho',
+    notice: '🔧 Roda no navegador. Nada para instalar e nada enviado.',
+    permission: '🔒 Libere quando o navegador pedir. Os dados de câmera e microfone são processados só dentro deste navegador e não são enviados a lugar nenhum.',
+    footNote: 'Os resultados dependem do seu navegador e dos drivers. Se algo parecer errado aqui, faça o mesmo teste em outro navegador antes de concluir que o problema é do hardware.',
+    hubTitle: 'Testes de aparelho — Teclado, mouse, microfone, webcam, pixel morto',
+    hubDesc: 'Testes de aparelho grátis no navegador: teclado, clique do mouse, microfone, webcam, caixas de som, pixel morto, taxa de atualização, tela sensível ao toque, controle e informações do seu aparelho.',
+    hubLead: 'Tudo roda no navegador — nada para instalar e nada enviado.',
+    hubFoot: 'Testes de aparelho grátis', eyebrow: 'Aparelho',
+  },
+  ja: {
+    home: 'ホーム', section: '端末チェック',
+    whatItChecks: 'このチェックで分かること', others: 'ほかの端末チェック',
+    notice: '🔧 ブラウザで動きます。インストールもアップロードもありません。',
+    permission: '🔒 ブラウザが尋ねたら許可してください。カメラとマイクのデータはこのブラウザの中だけで処理され、どこにも送られません。',
+    footNote: '結果はブラウザとドライバーに左右されます。ここでおかしく見えても、機器の故障と決める前に別のブラウザで同じチェックを試してみてください。',
+    hubTitle: '端末チェック — キーボード・マウス・マイク・カメラ・ドット抜け',
+    hubDesc: 'ブラウザで動く無料の端末チェック：キーボード、マウスクリック、マイク、ウェブカメラ、スピーカー、ドット抜け、リフレッシュレート、タッチパネル、ゲームパッド、端末情報。',
+    hubLead: 'すべてブラウザで動きます — インストールもアップロードもありません。',
+    hubFoot: '無料の端末チェック', eyebrow: 'Device',
+  },
+  de: {
+    home: 'Start', section: 'Gerätetests',
+    whatItChecks: 'Was dieser Test prüft', others: 'Weitere Gerätetests',
+    notice: '🔧 Läuft im Browser. Nichts zu installieren, nichts wird hochgeladen.',
+    permission: '🔒 Erlaube es, wenn der Browser fragt. Kamera- und Mikrofondaten werden nur in diesem Browser verarbeitet und nirgendwohin gesendet.',
+    footNote: 'Die Ergebnisse hängen von Browser und Treibern ab. Sieht hier etwas falsch aus, probier denselben Test in einem anderen Browser, bevor du auf einen Hardwaredefekt schließt.',
+    hubTitle: 'Gerätetests — Tastatur, Maus, Mikrofon, Webcam, Pixelfehler',
+    hubDesc: 'Kostenlose Gerätetests im Browser: Tastatur, Maus-Klick, Mikrofon, Webcam, Lautsprecher, Pixelfehler, Bildwiederholrate, Touchscreen, Gamepad und deine Geräteinfos.',
+    hubLead: 'Alles läuft im Browser — nichts zu installieren, nichts wird hochgeladen.',
+    hubFoot: 'Kostenlose Gerätetests', eyebrow: 'Gerät',
+  },
+  fr: {
+    home: 'Accueil', section: 'Tests d’appareil',
+    whatItChecks: 'Ce que vérifie ce test', others: 'Autres tests d’appareil',
+    notice: '🔧 Tourne dans le navigateur. Rien à installer, rien d’envoyé.',
+    permission: '🔒 Autorise quand le navigateur le demande. Les données de caméra et de micro sont traitées uniquement dans ce navigateur et ne sont envoyées nulle part.',
+    footNote: 'Les résultats dépendent de ton navigateur et de tes pilotes. Si quelque chose paraît anormal ici, refais le même test dans un autre navigateur avant de conclure à une panne matérielle.',
+    hubTitle: 'Tests d’appareil — Clavier, souris, micro, webcam, pixels morts',
+    hubDesc: 'Tests d’appareil gratuits dans le navigateur : clavier, clic de souris, microphone, webcam, enceintes, pixels morts, fréquence de rafraîchissement, écran tactile, manette et infos de ton appareil.',
+    hubLead: 'Tout tourne dans le navigateur — rien à installer, rien d’envoyé.',
+    hubFoot: 'Tests d’appareil gratuits', eyebrow: 'Appareil',
+  },
+  hi: {
+    home: 'होम', section: 'उपकरण जाँच',
+    whatItChecks: 'यह जाँच क्या देखती है', others: 'अन्य उपकरण जाँच',
+    notice: '🔧 ब्राउज़र में चलती है। कुछ इंस्टॉल करने की ज़रूरत नहीं, कुछ अपलोड नहीं होता।',
+    permission: '🔒 ब्राउज़र पूछे तो अनुमति दें। कैमरा और माइक का डेटा इसी ब्राउज़र में प्रोसेस होता है और कहीं नहीं भेजा जाता।',
+    footNote: 'नतीजे आपके ब्राउज़र और ड्राइवर पर निर्भर करते हैं। यहाँ कुछ गड़बड़ लगे तो हार्डवेयर की ख़राबी मान लेने से पहले वही जाँच दूसरे ब्राउज़र में कर देखें।',
+    hubTitle: 'उपकरण जाँच — कीबोर्ड, माउस, माइक, वेबकैम, डेड पिक्सेल',
+    hubDesc: 'ब्राउज़र में मुफ़्त उपकरण जाँच: कीबोर्ड, माउस क्लिक, माइक्रोफ़ोन, वेबकैम, स्पीकर, डेड पिक्सेल, रिफ़्रेश दर, टचस्क्रीन, गेमपैड और आपके उपकरण की जानकारी।',
+    hubLead: 'सब कुछ ब्राउज़र में चलता है — कुछ इंस्टॉल नहीं, कुछ अपलोड नहीं।',
+    hubFoot: 'मुफ़्त उपकरण जाँच', eyebrow: 'उपकरण',
   },
 };

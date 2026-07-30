@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import ColorHub from '@/components/ColorHub';
-import { hubMetadata } from '@/lib/color/route';
+import ColorHubIntl from '@/components/ColorHubIntl';
+import { colorHubMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = hubMetadata('es');
+/* 화면은 components/ColorHubIntl.tsx 하나를 일곱 언어가 같이 쓴다 */
+export const metadata: Metadata = colorHubMetaIntl('es');
 
-export default function ColorHubPage() {
-  return <ColorHub lang="es" />;
+export default function EsColorHub() {
+  return <ColorHubIntl lang="es" />;
 }

@@ -12,6 +12,7 @@ import { CHECKLISTS_EN } from "@/lib/checklist-en";
 import { QUIZZES_EN } from "@/lib/quiz-en";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
+import { INTL_LOCALES } from "@/lib/locales";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
 import { foodToolsIntl } from "@/lib/food-tools-intl";
@@ -235,7 +236,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/slippage`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
-    { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },
+    // 언어별 첫 화면. 레지스트리에서 만들어야 언어를 늘렸을 때 여기가 안 빠진다
+    ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/random`, changeFrequency: weekly, priority: 0.9 },
@@ -270,30 +272,63 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/time`, changeFrequency: weekly, priority: 0.9 },
-    ...timeToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/time`, changeFrequency: weekly, priority: 0.9 },
+      ...timeToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/time/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/color`, changeFrequency: weekly, priority: 0.9 },
-    ...colorToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/color/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 색상 도구는 번역 일곱 언어 전부 나간다 — 언어를 늘리면 INTL_LOCALES만 커지면 된다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/color`, changeFrequency: weekly, priority: 0.9 },
+      ...colorToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/color/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/image`, changeFrequency: weekly, priority: 0.9 },
-    ...imageToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/image/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/image`, changeFrequency: weekly, priority: 0.9 },
+      ...imageToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/image/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/sound`, changeFrequency: weekly, priority: 0.9 },
-    ...soundToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/sound`, changeFrequency: weekly, priority: 0.9 },
+      ...soundToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/food`, changeFrequency: weekly, priority: 0.9 },
-    ...foodToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/food/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/food`, changeFrequency: weekly, priority: 0.9 },
+      ...foodToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/food/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/game`, changeFrequency: weekly, priority: 0.9 },
-    ...gameToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/game/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/game`, changeFrequency: weekly, priority: 0.9 },
+      ...gameToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/game/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/device`, changeFrequency: weekly, priority: 0.9 },
-    ...deviceToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/device`, changeFrequency: weekly, priority: 0.9 },
+      ...deviceToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/device/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/text`, changeFrequency: weekly, priority: 0.9 },
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/text`, changeFrequency: weekly, priority: 0.9 },
+      ...textToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/text/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/en/search`, changeFrequency: weekly, priority: 0.7 },
-    ...textToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },

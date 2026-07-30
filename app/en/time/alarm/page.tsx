@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
 import TimeShellIntl from '@/components/TimeShellIntl';
 import AlarmTool from '@/components/time/AlarmTool';
+import { timeMetaIntl } from '@/lib/time-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Online Alarm Clock — Free, Set Any Time",
-  description: "Set an hour and minute and the alarm sounds at that time, with the remaining wait shown alongside.",
-  alternates: {
-    canonical: '/en/time/alarm',
-    languages: { 'en': '/en/time/alarm', 'ko': '/time/alarm', 'x-default': '/en/time/alarm' },
-  },
-};
+export const metadata: Metadata = timeMetaIntl('en', 'alarm');
 
-export default function EnAlarmPage() {
+export default function EnTimeAlarmPage() {
   return (
     <TimeShellIntl slug="alarm" lang="en">
       <AlarmTool lang="en" />

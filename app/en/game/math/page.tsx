@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import GameShellIntl from '@/components/GameShellIntl';
 import MathGame from '@/components/game/MathGame';
+import { gameMetaIntl } from '@/lib/game-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Mental Maths Challenge — 30 Seconds of Arithmetic',
-  description: 'Solve as many arithmetic problems as you can before the clock runs out. Pick the operations and difficulty, and it reports how many you got, your accuracy and the average time per problem.',
-  alternates: {
-    canonical: '/en/game/math',
-    languages: { 'en': '/en/game/math', 'ko': '/game/math', 'x-default': '/en/game/math' },
-  },
-};
+export const metadata: Metadata = gameMetaIntl('en', 'math');
 
 export default function EnGameMathPage() {
   return (

@@ -165,7 +165,6 @@ const KO_WEEKDAYS = ['일요일', '월요일', '화요일', '수요일', '목요
 const KO_TIME_SLOTS = ['이른 아침(6~9시)', '오전(9~12시)', '점심 무렵(12~14시)', '오후(14~18시)', '저녁(18~21시)', '늦은 밤(21~24시)'];
 const KO_DIRECTIONS = ['동쪽', '서쪽', '남쪽', '북쪽', '동남쪽', '서남쪽'];
 const DIRECTIONS_EN = ['East', 'West', 'South', 'North', 'Southeast', 'Southwest'];
-const DIRECTIONS_ZH = ['东方', '西方', '南方', '北方', '东南', '西南'];
 
 function weekdayIndex(ko: string): number {
   const i = KO_WEEKDAYS.indexOf(ko);

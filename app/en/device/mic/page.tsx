@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import DeviceShellIntl from '@/components/DeviceShellIntl';
 import MicTest from '@/components/device/MicTest';
+import { deviceMetaIntl } from '@/lib/device-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Microphone Test — Check Input Level and Record Online',
-  description: 'Watch a live level meter to confirm your mic is picking up sound, then record a few seconds and play it back to hear how you actually sound. A one-minute check before a video call or a game.',
-  alternates: {
-    canonical: '/en/device/mic',
-    languages: { 'en': '/en/device/mic', 'ko': '/device/mic', 'x-default': '/en/device/mic' },
-  },
-};
+export const metadata: Metadata = deviceMetaIntl('en', 'mic');
 
 export default function EnDeviceMicPage() {
   return (

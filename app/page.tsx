@@ -3,13 +3,15 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SECTION_COUNTS } from '@/lib/search-index';
 import PageGlow from '@/components/PageGlow';
+import { alternateLanguages } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
   description: '계산기·운세·생성기·심리테스트·퀴즈 등 일상에 필요한 실용 유틸 모음 — vixutil.com',
   alternates: {
     canonical: '/',
-    languages: { 'ko': '/', 'en': '/en', 'x-default': '/en' },
+    // 여덟 언어 전부를 적는다. 한쪽만 가리키는 짝은 구글이 무시한다
+    languages: alternateLanguages('/'),
   },
 };
 

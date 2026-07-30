@@ -5,6 +5,9 @@
  * 나라마다 시작·종료일이 다르고 해마다 바뀌는데, 브라우저의 Intl이 그 규칙을
  * 이미 알고 있다. 직접 +9 같은 숫자를 적으면 3월과 11월에 반드시 틀린다.
  */
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import type { AnyLocale } from './locales.ts';
+
 export interface City {
   id: string;
   city: string;
@@ -37,10 +40,10 @@ export const CITIES: City[] = [
 
 export const DEFAULT_CITY_IDS = ['seoul', 'newyork', 'london', 'tokyo', 'losangeles'];
 
-export type CityLang = 'ko' | 'en';
+export type CityLang = AnyLocale;
 
 /**
- * 도시·국가 이름의 en/zh 표기. id·zone·flag는 세 언어가 공유하므로 여기엔 이름만 둔다.
+ * 도시·국가 이름의 언어별 표기. id·zone·flag는 여덟 언어가 공유하므로 여기엔 이름만 둔다.
  * 표기가 없는 id는 한국어를 그대로 쓴다 — 도시를 추가해도 화면이 깨지지 않는다.
  */
 const CITY_NAMES: Record<Exclude<CityLang, 'ko'>, Record<string, { city: string; country: string }>> = {
@@ -65,6 +68,132 @@ const CITY_NAMES: Record<Exclude<CityLang, 'ko'>, Record<string, { city: string;
     sydney: { city: 'Sydney', country: 'Australia' },
     auckland: { city: 'Auckland', country: 'New Zealand' },
   },
+  es: {
+    seoul: { city: 'Seúl', country: 'Corea del Sur' },
+    tokyo: { city: 'Tokio', country: 'Japón' },
+    beijing: { city: 'Pekín', country: 'China' },
+    hongkong: { city: 'Hong Kong', country: 'Hong Kong' },
+    singapore: { city: 'Singapur', country: 'Singapur' },
+    bangkok: { city: 'Bangkok', country: 'Tailandia' },
+    hanoi: { city: 'Hanói', country: 'Vietnam' },
+    delhi: { city: 'Nueva Delhi', country: 'India' },
+    dubai: { city: 'Dubái', country: 'EAU' },
+    moscow: { city: 'Moscú', country: 'Rusia' },
+    london: { city: 'Londres', country: 'Reino Unido' },
+    paris: { city: 'París', country: 'Francia' },
+    berlin: { city: 'Berlín', country: 'Alemania' },
+    newyork: { city: 'Nueva York', country: 'Estados Unidos' },
+    chicago: { city: 'Chicago', country: 'Estados Unidos' },
+    losangeles: { city: 'Los Ángeles', country: 'Estados Unidos' },
+    saopaulo: { city: 'São Paulo', country: 'Brasil' },
+    sydney: { city: 'Sídney', country: 'Australia' },
+    auckland: { city: 'Auckland', country: 'Nueva Zelanda' },
+  },
+  'pt-br': {
+    seoul: { city: 'Seul', country: 'Coreia do Sul' },
+    tokyo: { city: 'Tóquio', country: 'Japão' },
+    beijing: { city: 'Pequim', country: 'China' },
+    hongkong: { city: 'Hong Kong', country: 'Hong Kong' },
+    singapore: { city: 'Singapura', country: 'Singapura' },
+    bangkok: { city: 'Bangkok', country: 'Tailândia' },
+    hanoi: { city: 'Hanói', country: 'Vietnã' },
+    delhi: { city: 'Nova Délhi', country: 'Índia' },
+    dubai: { city: 'Dubai', country: 'Emirados Árabes' },
+    moscow: { city: 'Moscou', country: 'Rússia' },
+    london: { city: 'Londres', country: 'Reino Unido' },
+    paris: { city: 'Paris', country: 'França' },
+    berlin: { city: 'Berlim', country: 'Alemanha' },
+    newyork: { city: 'Nova York', country: 'Estados Unidos' },
+    chicago: { city: 'Chicago', country: 'Estados Unidos' },
+    losangeles: { city: 'Los Angeles', country: 'Estados Unidos' },
+    saopaulo: { city: 'São Paulo', country: 'Brasil' },
+    sydney: { city: 'Sydney', country: 'Austrália' },
+    auckland: { city: 'Auckland', country: 'Nova Zelândia' },
+  },
+  ja: {
+    seoul: { city: 'ソウル', country: '韓国' },
+    tokyo: { city: '東京', country: '日本' },
+    beijing: { city: '北京', country: '中国' },
+    hongkong: { city: '香港', country: '香港' },
+    singapore: { city: 'シンガポール', country: 'シンガポール' },
+    bangkok: { city: 'バンコク', country: 'タイ' },
+    hanoi: { city: 'ハノイ', country: 'ベトナム' },
+    delhi: { city: 'ニューデリー', country: 'インド' },
+    dubai: { city: 'ドバイ', country: 'UAE' },
+    moscow: { city: 'モスクワ', country: 'ロシア' },
+    london: { city: 'ロンドン', country: 'イギリス' },
+    paris: { city: 'パリ', country: 'フランス' },
+    berlin: { city: 'ベルリン', country: 'ドイツ' },
+    newyork: { city: 'ニューヨーク', country: 'アメリカ' },
+    chicago: { city: 'シカゴ', country: 'アメリカ' },
+    losangeles: { city: 'ロサンゼルス', country: 'アメリカ' },
+    saopaulo: { city: 'サンパウロ', country: 'ブラジル' },
+    sydney: { city: 'シドニー', country: 'オーストラリア' },
+    auckland: { city: 'オークランド', country: 'ニュージーランド' },
+  },
+  de: {
+    seoul: { city: 'Seoul', country: 'Südkorea' },
+    tokyo: { city: 'Tokio', country: 'Japan' },
+    beijing: { city: 'Peking', country: 'China' },
+    hongkong: { city: 'Hongkong', country: 'Hongkong' },
+    singapore: { city: 'Singapur', country: 'Singapur' },
+    bangkok: { city: 'Bangkok', country: 'Thailand' },
+    hanoi: { city: 'Hanoi', country: 'Vietnam' },
+    delhi: { city: 'Neu-Delhi', country: 'Indien' },
+    dubai: { city: 'Dubai', country: 'VAE' },
+    moscow: { city: 'Moskau', country: 'Russland' },
+    london: { city: 'London', country: 'Vereinigtes Königreich' },
+    paris: { city: 'Paris', country: 'Frankreich' },
+    berlin: { city: 'Berlin', country: 'Deutschland' },
+    newyork: { city: 'New York', country: 'Vereinigte Staaten' },
+    chicago: { city: 'Chicago', country: 'Vereinigte Staaten' },
+    losangeles: { city: 'Los Angeles', country: 'Vereinigte Staaten' },
+    saopaulo: { city: 'São Paulo', country: 'Brasilien' },
+    sydney: { city: 'Sydney', country: 'Australien' },
+    auckland: { city: 'Auckland', country: 'Neuseeland' },
+  },
+  fr: {
+    seoul: { city: 'Séoul', country: 'Corée du Sud' },
+    tokyo: { city: 'Tokyo', country: 'Japon' },
+    beijing: { city: 'Pékin', country: 'Chine' },
+    hongkong: { city: 'Hong Kong', country: 'Hong Kong' },
+    singapore: { city: 'Singapour', country: 'Singapour' },
+    bangkok: { city: 'Bangkok', country: 'Thaïlande' },
+    hanoi: { city: 'Hanoï', country: 'Vietnam' },
+    delhi: { city: 'New Delhi', country: 'Inde' },
+    dubai: { city: 'Dubaï', country: 'Émirats arabes unis' },
+    moscow: { city: 'Moscou', country: 'Russie' },
+    london: { city: 'Londres', country: 'Royaume-Uni' },
+    paris: { city: 'Paris', country: 'France' },
+    berlin: { city: 'Berlin', country: 'Allemagne' },
+    newyork: { city: 'New York', country: 'États-Unis' },
+    chicago: { city: 'Chicago', country: 'États-Unis' },
+    losangeles: { city: 'Los Angeles', country: 'États-Unis' },
+    saopaulo: { city: 'São Paulo', country: 'Brésil' },
+    sydney: { city: 'Sydney', country: 'Australie' },
+    auckland: { city: 'Auckland', country: 'Nouvelle-Zélande' },
+  },
+  hi: {
+    seoul: { city: 'सियोल', country: 'दक्षिण कोरिया' },
+    tokyo: { city: 'टोक्यो', country: 'जापान' },
+    beijing: { city: 'बीजिंग', country: 'चीन' },
+    hongkong: { city: 'हांगकांग', country: 'हांगकांग' },
+    singapore: { city: 'सिंगापुर', country: 'सिंगापुर' },
+    bangkok: { city: 'बैंकॉक', country: 'थाईलैंड' },
+    hanoi: { city: 'हनोई', country: 'वियतनाम' },
+    delhi: { city: 'नई दिल्ली', country: 'भारत' },
+    dubai: { city: 'दुबई', country: 'यूएई' },
+    moscow: { city: 'मॉस्को', country: 'रूस' },
+    london: { city: 'लंदन', country: 'यूनाइटेड किंगडम' },
+    paris: { city: 'पेरिस', country: 'फ़्रांस' },
+    berlin: { city: 'बर्लिन', country: 'जर्मनी' },
+    newyork: { city: 'न्यूयॉर्क', country: 'संयुक्त राज्य अमेरिका' },
+    chicago: { city: 'शिकागो', country: 'संयुक्त राज्य अमेरिका' },
+    losangeles: { city: 'लॉस एंजेलिस', country: 'संयुक्त राज्य अमेरिका' },
+    saopaulo: { city: 'साओ पाउलो', country: 'ब्राज़ील' },
+    sydney: { city: 'सिडनी', country: 'ऑस्ट्रेलिया' },
+    auckland: { city: 'ऑकलैंड', country: 'न्यूज़ीलैंड' },
+  },
 };
 
 /** 언어별 도시 목록 */
@@ -81,7 +210,7 @@ export function findCityIn(lang: CityLang, id: string): City | undefined {
 /**
  * 시차를 비교할 기준 시간대.
  *
- * 한국어는 서울을 기준으로 둔다(기존 동작). 영어·중국어에서 "서울보다 3시간 빠름"은
+ * 한국어는 서울을 기준으로 둔다(기존 동작). 다른 언어에서 "서울보다 3시간 빠름"은
  * 의미가 약하므로, 방문자 브라우저의 시간대를 기준으로 삼는다.
  */
 export function baseZoneFor(lang: CityLang): string {
@@ -93,7 +222,10 @@ export function baseZoneFor(lang: CityLang): string {
   }
 }
 
-const LOCALE: Record<CityLang, string> = { ko: 'ko-KR', en: 'en-US' };
+const LOCALE: Record<CityLang, string> = {
+  ko: 'ko-KR', en: 'en-US', es: 'es-ES', 'pt-br': 'pt-BR',
+  ja: 'ja-JP', de: 'de-DE', fr: 'fr-FR', hi: 'hi-IN',
+};
 
 export const findCity = (id: string) => CITIES.find(c => c.id === id);
 
@@ -146,4 +278,10 @@ export const DAY_PART_LABEL: Record<DayPart, string> = {
 export const DAY_PART_LABEL_INTL: Record<CityLang, Record<DayPart, string>> = {
   ko: DAY_PART_LABEL,
   en: { night: 'Middle of the night', morning: 'Early morning', work: 'Working hours', evening: 'Evening' },
+  es: { night: 'Plena noche', morning: 'Primera hora', work: 'Horario laboral', evening: 'Tarde-noche' },
+  'pt-br': { night: 'Madrugada', morning: 'Começo da manhã', work: 'Horário de trabalho', evening: 'Fim do dia' },
+  ja: { night: '真夜中', morning: '早朝', work: '勤務時間', evening: '夕方' },
+  de: { night: 'Mitten in der Nacht', morning: 'Früher Morgen', work: 'Arbeitszeit', evening: 'Abend' },
+  fr: { night: 'Milieu de la nuit', morning: 'Tôt le matin', work: 'Heures de travail', evening: 'Soirée' },
+  hi: { night: 'आधी रात', morning: 'तड़के', work: 'कामकाजी घंटे', evening: 'शाम' },
 };

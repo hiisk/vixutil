@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
 import TimeShellIntl from '@/components/TimeShellIntl';
 import WorldClockTool from '@/components/time/WorldClockTool';
+import { timeMetaIntl } from '@/lib/time-tools-intl';
 
-export const metadata: Metadata = {
-  title: "World Clock — Current Time in Major Cities",
-  description: "Shows the current time in major cities at a glance, marking which are on a different date and which are inside working hours.",
-  alternates: {
-    canonical: '/en/time/worldclock',
-    languages: { 'en': '/en/time/worldclock', 'ko': '/time/worldclock', 'x-default': '/en/time/worldclock' },
-  },
-};
+export const metadata: Metadata = timeMetaIntl('en', 'worldclock');
 
-export default function EnWorldClockPage() {
+export default function EnTimeWorldclockPage() {
   return (
     <TimeShellIntl slug="worldclock" lang="en">
       <WorldClockTool lang="en" />

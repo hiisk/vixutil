@@ -46,6 +46,15 @@ export const LANGS8: Lang8Info[] = LOCALES.map(l => ({
 
 export const LANG8_CODES: Lang8[] = LANGS8.map(l => l.lang);
 
+/**
+ * 경로형 로케일을 데이터 열쇠로 — 'pt-br'을 'pt'로 바꾼다.
+ *
+ * 라우트와 번역 사전은 경로('pt-br')를 열쇠로 쓰고 이쪽 데이터는 짧은 열쇠('pt')를
+ * 쓴다. 두 세계가 만나는 곳에서 손으로 갈아 끼우면 한 곳이 남으므로 여기 한 번만 둔다.
+ */
+export const lang8OfLocale = (locale: string): Lang8 =>
+  KEY_OF_PATH[locale === 'ko' ? '' : locale] ?? 'en';
+
 export const lang8Info = (lang: Lang8): Lang8Info =>
   LANGS8.find(l => l.lang === lang) ?? LANGS8[0];
 

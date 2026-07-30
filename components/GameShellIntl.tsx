@@ -1,6 +1,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { findGameToolIntl, relatedGameToolsIntl, GAME_SHELL_UI, type GameIntlLang } from '@/lib/game-tools-intl';
 
@@ -56,6 +57,9 @@ export default function GameShellIntl({
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{tool.title}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/game/${slug}`} />
+          </span>
         </div>
       </header>
 
@@ -119,9 +123,6 @@ export default function GameShellIntl({
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link href={`/${lang}`} className="text-sm font-black text-emerald-600">vixutil</Link>
-        <p className="text-xs text-slate-400 mt-1">
-          <Link href={`/game/${slug}`} className="hover:text-emerald-600" hrefLang="ko">한국어</Link>
-        </p>
       </footer>
     </div>
   );

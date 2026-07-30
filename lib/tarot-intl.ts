@@ -7,21 +7,13 @@
 
    카드 이름은 이미 nameEn이 있어 영어는 그대로 쓰고, 중국어만 새로 붙였다.
 ──────────────────────────────────────────────── */
-import { MINOR_NAMES_ZH, MINOR_READINGS_EN, MINOR_READINGS_ZH } from './tarot-minor-intl.ts';
+import { MINOR_READINGS_EN } from './tarot-minor-intl.ts';
 
 export type TarotIntlLang = 'en';
 
 interface Reading { upright: string; reversed: string }
 
-const MAJOR_NAMES_ZH: Record<number, string> = {
-  0: '愚者', 1: '魔术师', 2: '女祭司', 3: '皇后', 4: '皇帝', 5: '教皇',
-  6: '恋人', 7: '战车', 8: '力量', 9: '隐者', 10: '命运之轮', 11: '正义',
-  12: '倒吊人', 13: '死神', 14: '节制', 15: '恶魔', 16: '高塔', 17: '星星',
-  18: '月亮', 19: '太阳', 20: '审判', 21: '世界',
-};
-
 /** 78장 전체 중국어 이름 — 메이저 22장 + 마이너 56장 */
-export const TAROT_NAMES_ZH: Record<number, string> = { ...MAJOR_NAMES_ZH, ...MINOR_NAMES_ZH };
 
 const MAJOR_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
   en: {
