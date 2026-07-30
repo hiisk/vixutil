@@ -18,6 +18,24 @@ import { COLOR_FAMILIES, NAMED_COLORS_8, colorsOfFamily, namedColor } from '../l
 import { colorFacts, nearbyColors } from '../lib/color/facts.ts';
 import { COLOR_UI, colorAlternates, colorFaq } from '../lib/color/ui.ts';
 
+/**
+ * 이 라우트에서 색 이름 목록으로 가는 길이 있는지 — 한 단계까지 따라 들어간다.
+ *
+ * 라우트가 직접 그리면 그 파일에 colorsOfFamily가 있고, 공유 컴포넌트에 넘기면
+ * 그 컴포넌트에 있다. 어느 쪽이든 링크는 걸린다.
+ */
+function linksNamedColors(route: string): boolean {
+  const src = readFileSync(route, 'utf8');
+  if (src.includes('colorsOfFamily')) return true;
+  for (const m of src.matchAll(/from '@\/(components\/[^']+)'/g)) {
+    for (const ext of ['.tsx', '.ts']) {
+      const p = `${m[1]}${ext}`;
+      if (existsSync(p) && readFileSync(p, 'utf8').includes('colorsOfFamily')) return true;
+    }
+  }
+  return false;
+}
+
 const LANGS = LANG8_CODES;
 const HANGUL = /[가-힣]/;
 const dense = (lang: Lang8) => lang === 'ja';
@@ -168,9 +186,15 @@ test('사이트맵과 검색 인덱스에 색 이름이 들어 있다', () => {
   assert.ok(map.includes('NAMED_COLORS_8'), '사이트맵이 색 목록을 돌지 않는다');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
   assert.ok(idx.includes('NAMED_COLORS_8'), '검색 인덱스에 색 이름 없음');
-  // 허브에서 걸어 주지 않으면 110장이 고아가 된다
-  for (const hub of ['app/color/page.tsx', 'app/en/color/page.tsx']) {
-    assert.ok(readFileSync(hub, 'utf8').includes('colorsOfFamily'), `${hub}에 색 목록이 없다`);
+  /*
+    허브에서 걸어 주지 않으면 110장이 고아가 된다.
+
+    허브가 화면을 직접 그리는 경우(한국어)와 공유 컴포넌트에 넘기는 경우(번역판)가
+    섞여 있으므로, 라우트에서 한 단계는 따라 들어간다. 파일만 보고 판단하면 컴포넌트로
+    옮긴 날 이 검사가 조용히 실패한다 — 실제로 그랬다.
+  */
+  for (const hub of ['app/color/page.tsx', 'app/en/color/page.tsx', 'app/es/color/page.tsx']) {
+    assert.ok(linksNamedColors(hub), `${hub}에서 색 이름으로 가는 링크가 없다`);
   }
 });
 
