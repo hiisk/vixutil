@@ -6,7 +6,7 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { CONVERT_TOOLS, CONVERT_CATEGORIES, convert, format } from '@/lib/convert-tools';
-import { CONVERT_CATEGORY_EN, CONVERT_CATEGORY_ZH } from '@/lib/convert-i18n';
+import { CONVERT_CATEGORY_EN } from '@/lib/convert-i18n';
 import { CONVERT_UI, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
 import { localized } from '@/components/ConvertPage';
 
@@ -17,7 +17,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
   // /en·/zh 랜딩 페이지는 없다. 그 언어의 '홈'은 섹션 허브로 보낸다.
   const homeHref = lang === 'ko' ? '/' : `${prefix}/convert`;
   const categoryLabel = (c: string) =>
-    lang === 'en' ? (CONVERT_CATEGORY_EN[c] ?? c) : false ? (CONVERT_CATEGORY_ZH[c] ?? c) : c;
+    lang === 'en' ? (CONVERT_CATEGORY_EN[c] ?? c) : c;
 
   const grouped = CONVERT_CATEGORIES.map(c => ({
     category: c,

@@ -8,7 +8,7 @@ import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { relatedConvertTools, type ConvertTool } from '@/lib/convert-tools';
 import { convertFaq } from '@/lib/convert-faq';
 import { CONVERT_UI, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
-import { CONVERT_EN, CONVERT_ZH } from '@/lib/convert-i18n';
+import { CONVERT_EN } from '@/lib/convert-i18n';
 
 /**
  * 단위 변환 상세 화면 — 세 언어가 이 컴포넌트 하나를 쓴다.

@@ -4,11 +4,11 @@ import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import { drawCards, SUIT_INFO, TAROT_CARDS, MINOR_ARCANA, type AnyTarotCard } from '@/lib/fortune-data';
-import { TAROT_NAMES_ZH, TAROT_READINGS } from '@/lib/tarot-intl';
+import { TAROT_READINGS } from '@/lib/tarot-intl';
 import { SPREADS_INTL, SPREAD_SHAPE, SPREAD_UI, SUIT_INTL, type TarotSpreadLang } from '@/lib/tarot-spread-intl';
 
 /**
- * 78장 풀덱 스프레드 리더의 en/zh 화면.
+ * 78장 풀덱 스프레드 리더의 번역 화면.
  *
  * 뽑기·섞기·역방향 확률은 한국어와 같은 drawCards를 쓴다. 그래야 같은 스프레드가
  * 세 언어에서 같은 성질로 돌아간다 — 여기서 갈리는 건 문구뿐이다.
@@ -20,7 +20,7 @@ type Drawn = { card: AnyTarotCard; reversed: boolean }[];
 
 /** 카드 이름 — 영어는 nameEn을 그대로, 중국어는 사전에서 */
 function cardName(card: AnyTarotCard, lang: TarotSpreadLang): string {
-  return false ? (TAROT_NAMES_ZH[card.id] ?? card.nameEn) : card.nameEn;
+  return card.nameEn;
 }
 
 export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
@@ -213,7 +213,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                 <div key={c.id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
                   <p className="text-lg">{c.emoji}</p>
                   <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight">
-                    {false ? (TAROT_NAMES_ZH[c.id] ?? c.nameEn) : c.nameEn}
+                    {c.nameEn}
                   </p>
                 </div>
               ))}
@@ -233,7 +233,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                       <div key={id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
                         <p className="text-lg">{c.emoji}</p>
                         <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight">
-                          {false ? (TAROT_NAMES_ZH[id] ?? c.nameEn) : c.nameEn}
+                          {c.nameEn}
                         </p>
                       </div>
                     );

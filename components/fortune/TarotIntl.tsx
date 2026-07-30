@@ -6,11 +6,11 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { TAROT_CARDS, seededInt, LUCKY_COLORS } from '@/lib/fortune-data';
 import { LUCKY_COLORS_EN } from '@/lib/fortune-en';
-import { TAROT_NAMES_ZH, TAROT_READINGS, TAROT_UI, type TarotIntlLang } from '@/lib/tarot-intl';
+import { TAROT_READINGS, TAROT_UI, type TarotIntlLang } from '@/lib/tarot-intl';
 import { t, formatToday } from '@/lib/fortune-intl';
 
 /**
- * 오늘의 타로 / 타로 예스·노 — en/zh판.
+ * 오늘의 타로 / 타로 예스·노 — 번역판.
  *
  * 카드 선택과 예스·노 판정은 한국어 페이지와 같은 규칙을 쓴다. 오늘의 타로는
  * 날짜 시드라 같은 날이면 세 언어가 같은 카드를 뽑고, 예스·노는 매번 무작위다.
@@ -48,7 +48,7 @@ function ymd(d: Date) {
 
 function cardName(id: number, lang: TarotIntlLang) {
   const card = TAROT_CARDS[id];
-  return false ? (TAROT_NAMES_ZH[id] ?? card.nameEn) : card.nameEn;
+  return card.nameEn;
 }
 
 export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlLang }) {

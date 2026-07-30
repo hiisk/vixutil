@@ -7,7 +7,7 @@ import {
   findConvertTool, relatedConvertTools,
 } from '../lib/convert-tools.ts';
 import { convertFaq } from '../lib/convert-faq.ts';
-import { CONVERT_EN, CONVERT_ZH, CONVERT_CATEGORY_EN, CONVERT_CATEGORY_ZH } from '../lib/convert-i18n.ts';
+import { CONVERT_EN, CONVERT_CATEGORY_EN } from '../lib/convert-i18n.ts';
 import { convertAlternates } from '../lib/convert-ui-intl.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 
@@ -128,8 +128,8 @@ test('관련 도구가 자기 자신을 넣지 않는다', () => {
   assert.deepEqual(relatedConvertTools('없는변환'), []);
 });
 
-test('영어·중국어 문구가 쉰 개 모두 있다', () => {
-  for (const [name, map] of [['영어', CONVERT_EN], ['중국어', CONVERT_ZH]] as const) {
+test('번역 문구가 백 개 모두 있다', () => {
+  for (const [name, map] of [['영어', CONVERT_EN]] as const) {
     const missing = CONVERT_TOOLS.filter(t => !map[t.slug]).map(t => t.slug);
     assert.deepEqual(missing, [], `${name} 문구 누락: ${missing.join(', ')}`);
     for (const t of CONVERT_TOOLS) {
@@ -143,21 +143,20 @@ test('영어·중국어 문구가 쉰 개 모두 있다', () => {
 
 test('언어별 제목이 서로 겹치지 않는다', () => {
   // 겹치면 검색엔진이 중복 페이지로 본다
-  for (const [name, map] of [['영어', CONVERT_EN], ['중국어', CONVERT_ZH]] as const) {
+  for (const [name, map] of [['영어', CONVERT_EN]] as const) {
     const titles = CONVERT_TOOLS.map(t => map[t.slug].title);
     const dup = [...new Set(titles.filter((v, i) => titles.indexOf(v) !== i))];
     assert.deepEqual(dup, [], `${name} 제목이 겹친다: ${dup.join(' / ')}`);
   }
 });
 
-test('분류 이름도 3언어가 다 있다', () => {
+test('분류 이름이 번역돼 있다', () => {
   for (const c of CONVERT_CATEGORIES) {
     assert.ok(CONVERT_CATEGORY_EN[c], `영어 분류 누락: ${c}`);
-    assert.ok(CONVERT_CATEGORY_ZH[c], `중국어 분류 누락: ${c}`);
   }
 });
 
-test('세 언어 라우트가 모두 있다', () => {
+test('번역 라우트가 있다', () => {
   for (const prefix of ['', 'en']) {
     const base = prefix ? join(ROOT, 'app', prefix, 'convert') : join(ROOT, 'app', 'convert');
     assert.ok(existsSync(join(base, 'page.tsx')), `${prefix || 'ko'} 허브 없음`);
