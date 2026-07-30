@@ -3,9 +3,11 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
-import type { Lang } from '@/lib/formula/terms';
-import { FORMULA_UI, FORMULA_LANGS } from '@/lib/formula/ui';
-import type { SectionConfig } from '@/lib/formula/section';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { textOf } from '@/lib/formula/types';
+import { FORMULA_UI, formulaLangs } from '@/lib/formula/ui';
+import { sectionCategories, sectionMeta, type SectionConfig } from '@/lib/formula/section';
+import { localeHref, localePrefix } from '@/lib/locales';
 
 /**
  * 공식 도구 허브 — 카테고리별로 묶어 쉰 개를 한 화면에 보여준다.
@@ -13,12 +15,12 @@ import type { SectionConfig } from '@/lib/formula/section';
  * 쉰 개를 한 줄로 늘어놓으면 아무것도 찾을 수 없다. 카테고리 제목이 스크롤
  * 중에도 어디쯤인지 알려주는 표지가 된다.
  */
-export default function FormulaHub({ lang, section }: { lang: Lang; section: SectionConfig }) {
+export default function FormulaHub({ lang, section }: { lang: FormulaLang; section: SectionConfig }) {
   const ui = FORMULA_UI[lang];
-  const meta = section.meta[lang];
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/${section.key}`;
-  const label = section.categoryLabel[lang];
+  const meta = sectionMeta(section, lang);
+  const prefix = localePrefix(lang);
+  const homeHref = localeHref(lang, '/');
+  const label = sectionCategories(section, lang);
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
@@ -41,8 +43,8 @@ export default function FormulaHub({ lang, section }: { lang: Lang; section: Sec
             {ui.home}
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
-            {FORMULA_LANGS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/${section.key}`} hrefLang={l.lang} className={`${section.linkHover} transition-colors`}>
+            {formulaLangs(section, lang).map(l => (
+              <Link key={l.lang} href={`${l.prefix}/${section.key}`} hrefLang={l.tag} className={`${section.linkHover} transition-colors`}>
                 {l.label}
               </Link>
             ))}
@@ -78,9 +80,9 @@ export default function FormulaHub({ lang, section }: { lang: Lang; section: Sec
                     <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                     <span className="min-w-0 flex-1">
                       <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${section.hoverText} transition-colors`}>
-                        {t[lang].title}
+                        {textOf(t, lang).title}
                       </span>
-                      <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{t[lang].desc}</span>
+                      <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{textOf(t, lang).desc}</span>
                     </span>
                   </Link>
                 ))}

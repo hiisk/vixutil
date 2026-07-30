@@ -32,10 +32,34 @@ export const SCORE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const n = out[0].value;
       return n > 100
-        ? { ko: `남은 시험을 모두 100점 받아도 목표 평균에 닿지 않습니다. 필요 점수가 ${n}점입니다.`, en: `Even perfect scores fall short — you would need ${n}.`, tone: 'bad' }
+        ? { ko: `남은 시험을 모두 100점 받아도 목표 평균에 닿지 않습니다. 필요 점수가 ${n}점입니다.`, en: `Even perfect scores fall short — you would need ${n}.`,
+            l10n: {
+              es: `Ni sacando el máximo llegas: harían falta ${n}.`,
+              'pt-br': `Nem tirando nota máxima dá: seriam necessários ${n}.`,
+              ja: `残りを全部満点にしても目標平均に届きません。必要な点は${n}点です。`,
+              de: `Selbst mit voller Punktzahl reicht es nicht — nötig wären ${n}.`,
+              fr: `Même avec des notes maximales, c’est hors d’atteinte : il faudrait ${n}.`,
+              hi: `बची परीक्षाओं में पूरे अंक लाकर भी लक्ष्य नहीं मिलेगा — ${n} अंक चाहिए होते।`,
+            }, tone: 'bad' }
         : n <= 0
-          ? { ko: '이미 목표 평균을 넘겼습니다.', en: 'You are already above the target average.', tone: 'good' }
-          : { ko: `남은 시험에서 평균 ${n}점을 받으면 목표에 닿습니다.`, en: `Average ${n} across the remaining tests and you hit the target.`, tone: 'warn' };
+          ? { ko: '이미 목표 평균을 넘겼습니다.', en: 'You are already above the target average.',
+              l10n: {
+                es: 'Ya estás por encima de la media que buscabas.',
+                'pt-br': 'Você já está acima da média que queria.',
+                ja: 'すでに目標の平均を超えています。',
+                de: 'Du liegst schon über dem gewünschten Schnitt.',
+                fr: 'Tu es déjà au-dessus de la moyenne visée.',
+                hi: 'आप पहले ही चाहिए औसत से ऊपर हैं।',
+              }, tone: 'good' }
+          : { ko: `남은 시험에서 평균 ${n}점을 받으면 목표에 닿습니다.`, en: `Average ${n} across the remaining tests and you hit the target.`,
+              l10n: {
+                es: `Saca una media de ${n} en lo que queda y llegas al objetivo.`,
+                'pt-br': `Tire média ${n} no que falta e você bate a meta.`,
+                ja: `残りの試験で平均${n}点を取れば目標に届きます。`,
+                de: `Schaff im Rest einen Schnitt von ${n}, dann erreichst du das Ziel.`,
+                fr: `Fais une moyenne de ${n} sur ce qui reste et tu atteins l’objectif.`,
+                hi: `बची परीक्षाओं में औसत ${n} अंक लाएँ तो लक्ष्य मिल जाएगा।`,
+              }, tone: 'warn' };
     },
     ko: { title: '목표 평균 필요 점수 계산기', desc: '남은 시험에서 몇 점을 받아야 목표 평균이 되는지 계산합니다.',
       long: '목표 평균에 전체 과목 수를 곱해 필요한 총점을 만들고, 이미 받은 총점을 뺀 뒤 남은 과목 수로 나눕니다. 필요 점수가 100점을 넘으면 목표가 수학적으로 불가능하다는 뜻입니다.',
@@ -92,8 +116,24 @@ export const SCORE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value <= 0
-        ? { ko: `합격선을 ${Math.abs(out[0].value)}점 넘겼습니다.`, en: `You are ${Math.abs(out[0].value)} points clear of the pass mark.`, tone: 'good' }
-        : { ko: `합격선까지 ${out[0].value}점 남았습니다. 만점 대비 ${out[2].value}%입니다.`, en: `${out[0].value} points short — that is ${out[2].value}% of the total marks.`, tone: 'warn' },
+        ? { ko: `합격선을 ${Math.abs(out[0].value)}점 넘겼습니다.`, en: `You are ${Math.abs(out[0].value)} points clear of the pass mark.`,
+            l10n: {
+              es: `Superas el aprobado por ${Math.abs(out[0].value)} puntos.`,
+              'pt-br': `Você passou da nota de corte por ${Math.abs(out[0].value)} pontos.`,
+              ja: `合格ラインを${Math.abs(out[0].value)}点上回っています。`,
+              de: `Du liegst ${Math.abs(out[0].value)} Punkte über der Bestehensgrenze.`,
+              fr: `Tu es à ${Math.abs(out[0].value)} points au-dessus du seuil de réussite.`,
+              hi: `आप उत्तीर्ण अंक से ${Math.abs(out[0].value)} अंक ऊपर हैं।`,
+            }, tone: 'good' }
+        : { ko: `합격선까지 ${out[0].value}점 남았습니다. 만점 대비 ${out[2].value}%입니다.`, en: `${out[0].value} points short — that is ${out[2].value}% of the total marks.`,
+            l10n: {
+              es: `Te faltan ${out[0].value} puntos, o sea el ${out[2].value} % del total.`,
+              'pt-br': `Faltam ${out[0].value} pontos, ou seja ${out[2].value} % do total.`,
+              ja: `合格ラインまで${out[0].value}点足りません。満点に対して${out[2].value}%です。`,
+              de: `Dir fehlen ${out[0].value} Punkte — das sind ${out[2].value} % der Gesamtpunktzahl.`,
+              fr: `Il te manque ${out[0].value} points, soit ${out[2].value} % du barème.`,
+              hi: `उत्तीर्ण अंक तक ${out[0].value} अंक बाक़ी हैं — पूर्णांक का ${out[2].value}%।`,
+            }, tone: 'warn' },
     ko: { title: '합격선까지 남은 점수', desc: '지금 점수와 합격선의 거리를 점수와 비율로 함께 봅니다.',
       long: '합격선에서 지금 점수를 뺀 값이 남은 점수입니다. 그 값을 만점으로 나누면 전체에서 몇 %를 더 채워야 하는지 보이고, 남은 시간에 어디를 파야 할지 판단하기 쉬워집니다.',
       note: '과목별 과락이 있는 시험은 총점만으로 판단할 수 없습니다. 과락 기준을 먼저 확인하세요.' },
@@ -121,8 +161,24 @@ export const SCORE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[1].value === 0
-        ? { ko: '목표를 이미 채웠습니다.', en: 'The goal is already met.', tone: 'good' }
-        : { ko: `하루 ${out[0].value}씩 하면 기한 안에 끝납니다. 지금 진도는 ${out[2].value}%입니다.`, en: `Do ${out[0].value} a day and you finish on time; you are ${out[2].value}% through.`, tone: 'warn' },
+        ? { ko: '목표를 이미 채웠습니다.', en: 'The goal is already met.',
+            l10n: {
+              es: 'El objetivo ya está cumplido.',
+              'pt-br': 'A meta já foi cumprida.',
+              ja: '目標はすでに達成しています。',
+              de: 'Das Ziel ist bereits erreicht.',
+              fr: 'L’objectif est déjà atteint.',
+              hi: 'लक्ष्य पहले ही पूरा हो चुका है।',
+            }, tone: 'good' }
+        : { ko: `하루 ${out[0].value}씩 하면 기한 안에 끝납니다. 지금 진도는 ${out[2].value}%입니다.`, en: `Do ${out[0].value} a day and you finish on time; you are ${out[2].value}% through.`,
+            l10n: {
+              es: `Haz ${out[0].value} al día y terminas a tiempo; llevas el ${out[2].value} %.`,
+              'pt-br': `Faça ${out[0].value} por dia e você termina no prazo; já andou ${out[2].value} %.`,
+              ja: `1日${out[0].value}ずつ進めれば期限に間に合います。今の進み具合は${out[2].value}%です。`,
+              de: `Schaff ${out[0].value} pro Tag, dann wirst du rechtzeitig fertig; du bist bei ${out[2].value} %.`,
+              fr: `Fais ${out[0].value} par jour et tu finis à temps ; tu en es à ${out[2].value} %.`,
+              hi: `रोज़ ${out[0].value} करें तो समय पर पूरा हो जाएगा; अभी ${out[2].value}% हुआ है।`,
+            }, tone: 'warn' },
     ko: { title: '하루치 진도 계산기', desc: '남은 기간에 목표를 채우려면 하루에 얼마씩 해야 하는지 계산합니다.',
       long: '목표에서 지금까지 한 양을 빼고 남은 일수로 나눕니다. 페이지 수, 문제 수, 저축액처럼 쌓아 가는 것이면 무엇이든 같은 계산입니다.',
       note: '하루도 빠지지 않는다는 가정입니다. 주 1회 쉬려면 남은 일수에서 쉬는 날을 먼저 빼고 넣으세요.' },

@@ -5,7 +5,8 @@
  * 모양이다. 그 모양을 여기 한 번 정하고, 섹션은 스펙 쉰 줄만 쓴다. 엔진 하나가
  * 세 섹션 백오십 페이지를 그린다.
  */
-import type { Lang } from './terms.ts';
+import type { FormulaLang } from './terms.ts';
+import { TOOL_L10N } from './tool-l10n.ts';
 
 export interface FieldSpec {
   /** compute에 넘어가는 키 */
@@ -33,8 +34,17 @@ export interface Verdict {
   /** 결과를 한 줄로 해석한다. 숫자만 주면 "그래서 뭐"가 남는다 */
   ko: string;
   en: string;
+  /**
+   * 나머지 언어. 도구마다 함수 안에서 문장을 만들기 때문에, 여덟 칸을 필수로 하면
+   * 101개 함수가 한꺼번에 깨진다. 옮긴 것만 담고 없으면 영어로 되돌린다.
+   */
+  l10n?: Partial<Record<Exclude<FormulaLang, 'ko' | 'en'>, string>>;
   tone?: 'good' | 'warn' | 'bad';
 }
+
+/** 그 언어의 판정 문장 */
+export const verdictText = (v: Verdict, lang: FormulaLang): string =>
+  lang === 'ko' ? v.ko : lang === 'en' ? v.en : (v.l10n?.[lang] ?? v.en);
 
 export interface FormulaText {
   title: string;
@@ -64,7 +74,16 @@ export interface FormulaTool {
   en: FormulaText;
 }
 
-export const textOf = (tool: FormulaTool, lang: Lang): FormulaText => tool[lang];
+/**
+ * 그 언어의 도구 문구.
+ *
+ * ko·en은 도구 데이터에 그대로 붙어 있고, 나머지는 섹션별 사전(lib/rate-l10n/ 등)에
+ * 있다. 사전에 없으면 영어로 되돌린다 — 그 도구만 영어가 되고 화면은 깨지지 않는다.
+ */
+export const textOf = (tool: FormulaTool, lang: FormulaLang): FormulaText => {
+  if (lang === 'ko' || lang === 'en') return tool[lang];
+  return TOOL_L10N[lang]?.[tool.slug] ?? tool.en;
+};
 
 /** 0으로 나누기와 NaN을 한 곳에서 막는다 — 쉰 개가 각자 막으면 몇 개는 빠진다 */
 export const safe = (n: number): number => (Number.isFinite(n) ? n : 0);

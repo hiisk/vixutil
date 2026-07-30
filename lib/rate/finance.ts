@@ -151,6 +151,14 @@ export const FINANCE_TOOLS: FormulaTool[] = [
       return {
         ko: r >= 0 ? `투자금의 ${r}%를 벌었습니다.` : `투자금의 ${Math.abs(r)}%를 잃었습니다.`,
         en: r >= 0 ? `You gained ${r}% of what you put in.` : `You lost ${Math.abs(r)}% of what you put in.`,
+        l10n: {
+          es: r >= 0 ? `Has ganado el ${r} % de lo que pusiste.` : `Has perdido el ${Math.abs(r)} % de lo que pusiste.`,
+          'pt-br': r >= 0 ? `Você ganhou ${r} % do que colocou.` : `Você perdeu ${Math.abs(r)} % do que colocou.`,
+          ja: r >= 0 ? `投資額の${r}%を得ました。` : `投資額の${Math.abs(r)}%を失いました。`,
+          de: r >= 0 ? `Du hast ${r} % deines Einsatzes gewonnen.` : `Du hast ${Math.abs(r)} % deines Einsatzes verloren.`,
+          fr: r >= 0 ? `Tu as gagné ${r} % de ta mise.` : `Tu as perdu ${Math.abs(r)} % de ta mise.`,
+          hi: r >= 0 ? `आपने लगाई रक़म का ${r}% कमाया।` : `आपने लगाई रक़म का ${Math.abs(r)}% गँवाया।`,
+        },
         tone: r >= 0 ? 'good' : 'bad',
       };
     },
@@ -200,6 +208,14 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `${v.loss}% 하락을 만회하려면 ${out[0].value}% 올라야 합니다 — 내린 만큼 오르면 본전이 아닙니다.`,
       en: `Recovering a ${v.loss}% drop takes a ${out[0].value}% rise — gaining back the same percentage is not enough.`,
+      l10n: {
+        es: `Recuperar una caída del ${v.loss} % exige subir un ${out[0].value} %: recuperar el mismo porcentaje no basta.`,
+        'pt-br': `Recuperar uma queda de ${v.loss} % exige subir ${out[0].value} %: recuperar a mesma porcentagem não basta.`,
+        ja: `${v.loss}%の下落を取り戻すには${out[0].value}%の上昇が要ります。下がった分だけ上がっても元には戻りません。`,
+        de: `Einen Rückgang von ${v.loss} % aufzuholen verlangt ${out[0].value} % Anstieg — denselben Prozentsatz zurückzugewinnen reicht nicht.`,
+        fr: `Rattraper une baisse de ${v.loss} % demande une hausse de ${out[0].value} % : regagner le même pourcentage ne suffit pas.`,
+        hi: `${v.loss}% की गिरावट भरने के लिए ${out[0].value}% बढ़त चाहिए — उतना ही चढ़ने से बराबरी नहीं होती।`,
+      },
       tone: 'warn',
     }),
     ko: { title: '손실 회복률 계산기', desc: '몇 % 떨어진 뒤 원금으로 돌아오려면 몇 % 올라야 하는지 구합니다.',
@@ -230,6 +246,14 @@ export const FINANCE_TOOLS: FormulaTool[] = [
       return {
         ko: real >= 0 ? `물가를 감안해도 연 ${real}% 남습니다.` : `물가를 감안하면 실질 ${Math.abs(real)}% 손실입니다.`,
         en: real >= 0 ? `After inflation you still gain ${real}% a year.` : `After inflation this loses ${Math.abs(real)}% a year in real terms.`,
+        l10n: {
+          es: real >= 0 ? `Descontada la inflación, aún ganas un ${real} % al año.` : `Descontada la inflación, esto pierde un ${Math.abs(real)} % al año en términos reales.`,
+          'pt-br': real >= 0 ? `Descontada a inflação, ainda sobra ${real} % ao ano.` : `Descontada a inflação, isso perde ${Math.abs(real)} % ao ano em termos reais.`,
+          ja: real >= 0 ? `物価を差し引いても年${real}%残ります。` : `物価を差し引くと実質で年${Math.abs(real)}%の目減りです。`,
+          de: real >= 0 ? `Nach Inflation bleiben dir noch ${real} % im Jahr.` : `Nach Inflation verliert das real ${Math.abs(real)} % im Jahr.`,
+          fr: real >= 0 ? `Une fois l’inflation retirée, il te reste ${real} % par an.` : `Une fois l’inflation retirée, cela perd ${Math.abs(real)} % par an en termes réels.`,
+          hi: real >= 0 ? `महँगाई हटाने के बाद भी सालाना ${real}% बचता है।` : `महँगाई हटाने पर यह सालाना ${Math.abs(real)}% घट जाता है।`,
+        },
         tone: real >= 0 ? 'good' : 'bad',
       };
     },

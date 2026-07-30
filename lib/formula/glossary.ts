@@ -8,7 +8,8 @@
  * 없는 키는 그냥 설명이 안 붙는다. 새 도구를 만든 사람이 여기 채우기 전에도
  * 표는 정상으로 나와야 한다.
  */
-import type { Lang, Term } from './terms.ts';
+import type { FormulaLang, Term } from './terms.ts';
+import { FORMULA_L10N } from './l10n/index.ts';
 import { RATE_DESC } from './glossary-rate.ts';
 import { BODY2_DESC } from './glossary-body.ts';
 import { GEO2_DESC } from './glossary-geo.ts';
@@ -294,4 +295,13 @@ const CORE_DESC: Record<string, Term> = {
 /* 섹션별 뜻풀이는 파일을 나눠 둔다 — 한 파일에 삼백 줄이면 무엇이 빠졌는지 안 보인다 */
 export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC, ...BODY2_DESC, ...GEO2_DESC };
 
-export const termDesc = (key: string, lang: Lang): string | null => TERM_DESC[key]?.[lang] ?? null;
+/**
+ * 라벨 옆에 붙는 한 줄 뜻풀이.
+ *
+ * 번역이 없으면 null을 돌려준다 — 영어를 끼우면 그 페이지에서 그 줄만 영어가
+ * 되므로, 차라리 설명을 안 붙이는 편이 읽기에 낫다.
+ */
+export const termDesc = (key: string, lang: FormulaLang): string | null => {
+  if (lang === 'ko' || lang === 'en') return TERM_DESC[key]?.[lang] ?? null;
+  return FORMULA_L10N[lang]?.DESC[key] ?? null;
+};

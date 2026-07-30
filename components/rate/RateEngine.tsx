@@ -1,7 +1,7 @@
 'use client';
 import FormulaEngine from '@/components/FormulaEngine';
 import { rateTool } from '@/lib/rate-tools';
-import type { Lang } from '@/lib/formula/terms';
+import type { FormulaLang } from '@/lib/formula/terms';
 
 /**
  * /rate의 클라이언트 진입점.
@@ -19,7 +19,7 @@ export default function RateEngine({
   focusBorder,
 }: {
   slug: string;
-  lang: Lang;
+  lang: FormulaLang;
   grad: string;
   textAccent: string;
   focusBorder: string;

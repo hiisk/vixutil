@@ -206,11 +206,17 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     assert.equal(a['x-default'], `/en/${key}/${slug}`);
   });
 
-  test(`${name} 사이트맵에 두 언어가 들어 있다`, () => {
+  test(`${name} 사이트맵에 그 섹션의 모든 언어가 들어 있다`, () => {
+    /*
+      번역 언어는 INTL_LOCALES를 돌려 만든다. 주소를 한 줄씩 적어 두면 언어를
+      늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다.
+    */
     const src = readFileSync('app/sitemap.ts', 'utf8');
-    for (const p of [`/${key}`, `/en/${key}`]) {
-      assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
-    }
+    assert.ok(src.includes(`/${key}\``) || src.includes(`/${key}/`), `사이트맵에 /${key} 없음`);
+    const intl = new RegExp(`INTL_LOCALES\\.flatMap[\\s\\S]{0,240}/${key}`);
+    const hasIntl = intl.test(src);
+    const hasEn = src.includes(`/en/${key}\``) || src.includes(`/en/${key}/`);
+    assert.ok(hasIntl || hasEn, `사이트맵에 /en/${key} 없음`);
   });
 
   test(`${name} 본문 표가 두 언어로 다 채워진다`, () => {

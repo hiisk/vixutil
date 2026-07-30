@@ -1,7 +1,8 @@
 'use client';
 import { useMemo, useState } from 'react';
 import type { FormulaTool } from '@/lib/formula/types';
-import { term, unitLabel, type Lang } from '@/lib/formula/terms';
+import { term, unitLabel, type FormulaLang } from '@/lib/formula/terms';
+import { textOf, verdictText } from '@/lib/formula/types';
 import { FORMULA_UI, groupNum } from '@/lib/formula/ui';
 import { renderFormula } from '@/lib/formula/faq';
 
@@ -19,7 +20,7 @@ export default function FormulaEngine({
   section,
 }: {
   tool: FormulaTool;
-  lang?: Lang;
+  lang?: FormulaLang;
   section: { grad: string; textAccent: string; focusBorder: string };
 }) {
   const ui = FORMULA_UI[lang];
@@ -122,7 +123,7 @@ export default function FormulaEngine({
       {verdict && (
         <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
           <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.interpret}</p>
-          <p className={`text-sm font-bold leading-relaxed ${tone}`}>{verdict[lang]}</p>
+          <p className={`text-sm font-bold leading-relaxed ${tone}`}>{verdictText(verdict, lang)}</p>
         </div>
       )}
 
@@ -131,7 +132,7 @@ export default function FormulaEngine({
         <p className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 leading-relaxed break-words">
           {renderFormula(tool.formula, lang)}
         </p>
-        <p className="mt-2.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{tool[lang].note}</p>
+        <p className="mt-2.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{textOf(tool, lang).note}</p>
       </div>
     </div>
   );

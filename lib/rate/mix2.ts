@@ -85,8 +85,32 @@ export const MIX2_TOOLS: FormulaTool[] = [
       const lo = Math.min(v.a, v.b);
       const hi = Math.max(v.a, v.b);
       return v.target < lo || v.target > hi
-        ? { ko: `목표 농도가 두 원액 사이(${lo}~${hi}%)를 벗어나 섞어서는 만들 수 없습니다.`, en: `The target sits outside the ${lo}–${hi}% range of the two stocks, so mixing cannot reach it.`, tone: 'bad' }
-        : { ko: '두 원액 사이의 농도이므로 섞어서 만들 수 있습니다.', en: 'The target lies between the two stocks, so this mix works.', tone: 'good' };
+        ? {
+            ko: `목표 농도가 두 원액 사이(${lo}~${hi}%)를 벗어나 섞어서는 만들 수 없습니다.`,
+            en: `The target sits outside the ${lo}–${hi}% range of the two stocks, so mixing cannot reach it.`,
+            l10n: {
+              es: `La concentración objetivo queda fuera del rango ${lo}–${hi} % de las dos disoluciones, así que mezclando no se alcanza.`,
+              'pt-br': `A concentração desejada fica fora da faixa ${lo}–${hi} % das duas soluções, então misturar não chega lá.`,
+              ja: `目標濃度が二つの原液の範囲（${lo}〜${hi}%）から外れているので、混ぜても作れません。`,
+              de: `Die Zielkonzentration liegt außerhalb des Bereichs ${lo}–${hi} % der beiden Lösungen — durch Mischen ist sie nicht erreichbar.`,
+              fr: `La concentration visée sort de la plage ${lo}–${hi} % des deux solutions : aucun mélange ne l’atteint.`,
+              hi: `लक्ष्य सांद्रता दोनों विलयनों की सीमा (${lo}–${hi}%) से बाहर है, इसलिए मिलाकर नहीं बनेगी।`,
+            },
+            tone: 'bad',
+          }
+        : {
+            ko: '두 원액 사이의 농도이므로 섞어서 만들 수 있습니다.',
+            en: 'The target lies between the two stocks, so this mix works.',
+            l10n: {
+              es: 'La concentración objetivo queda entre las dos disoluciones, así que esta mezcla funciona.',
+              'pt-br': 'A concentração desejada fica entre as duas soluções, então essa mistura funciona.',
+              ja: '目標が二つの原液の間にあるので、混ぜて作れます。',
+              de: 'Die Zielkonzentration liegt zwischen den beiden Lösungen, diese Mischung funktioniert also.',
+              fr: 'La concentration visée se situe entre les deux solutions : ce mélange fonctionne.',
+              hi: 'लक्ष्य सांद्रता दोनों विलयनों के बीच है, इसलिए यह मिश्रण बन जाएगा।',
+            },
+            tone: 'good',
+          };
     },
     ko: { title: '두 농도 섞어 목표 맞추기', desc: '농도가 다른 두 액체를 섞어 원하는 농도를 만들 양을 계산합니다.',
       long: '진한 쪽과 묶은 쪽 사이 어디에 목표가 놓이는지를 보면 섞는 비율이 나옵니다. 목표가 묶은 쪽에서 얼마나 떨어졌는지를 두 농도의 간격으로 나누면 진한 쪽 비율입니다.',

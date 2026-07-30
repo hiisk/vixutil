@@ -51,6 +51,14 @@ export const TAX2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `비과세 ${v.free}%는 과세 상품 ${out[0].value}%와 같습니다. 과세 상품이 그보다 낮으면 비과세 쪽이 유리합니다.`,
       en: `A tax-free ${v.free}% matches a taxable ${out[0].value}%. Anything below that and the tax-free option wins.`,
+      l10n: {
+        es: `Un ${v.free} % exento equivale a un ${out[0].value} % gravado. Por debajo de eso, gana la opción exenta.`,
+        'pt-br': `Um ${v.free} % isento equivale a ${out[0].value} % tributado. Abaixo disso, ganha a opção isenta.`,
+        ja: `非課税の${v.free}%は課税商品の${out[0].value}%に相当します。それを下回るなら非課税の方が有利です。`,
+        de: `Steuerfreie ${v.free} % entsprechen ${out[0].value} % vor Steuer. Liegt es darunter, gewinnt die steuerfreie Anlage.`,
+        fr: `Un ${v.free} % non imposé équivaut à ${out[0].value} % imposé. En dessous, l’option non imposée l’emporte.`,
+        hi: `कर-मुक्त ${v.free}% कर योग्य ${out[0].value}% के बराबर है। उससे कम हो तो कर-मुक्त वाला बेहतर है।`,
+      },
       tone: 'good',
     }),
     ko: { title: '비과세 → 과세 등가 수익률', desc: '비과세 상품과 같은 효과를 내려면 과세 상품이 몇 %여야 하는지 계산합니다.',
@@ -186,8 +194,24 @@ export const TAX2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[1].value === 0
-        ? { ko: '면세 한도 안이라 세금이 붙지 않습니다.', en: 'You are inside the allowance — nothing to pay.', tone: 'good' }
-        : { ko: `한도를 ${out[1].value} 넘겼습니다. 초과분에만 세금이 붙습니다.`, en: `You are ${out[1].value} over. Tax applies to the excess only.`, tone: 'warn' },
+        ? { ko: '면세 한도 안이라 세금이 붙지 않습니다.', en: 'You are inside the allowance — nothing to pay.',
+            l10n: {
+              es: 'Estás dentro de la franquicia: no hay nada que pagar.',
+              'pt-br': 'Você está dentro da cota: não há nada a pagar.',
+              ja: '免税枠の中なので税金はかかりません。',
+              de: 'Du bist innerhalb der Freigrenze — es fällt nichts an.',
+              fr: 'Tu es dans la franchise : rien à payer.',
+              hi: 'आप छूट सीमा के भीतर हैं — कुछ नहीं देना है।',
+            }, tone: 'good' }
+        : { ko: `한도를 ${out[1].value} 넘겼습니다. 초과분에만 세금이 붙습니다.`, en: `You are ${out[1].value} over. Tax applies to the excess only.`,
+            l10n: {
+              es: `Te has pasado ${out[1].value}. El impuesto solo cae sobre el exceso.`,
+              'pt-br': `Você passou ${out[1].value}. O imposto cai só sobre o excedente.`,
+              ja: `枠を${out[1].value}超えています。税金は超過分にだけかかります。`,
+              de: `Du liegst ${out[1].value} darüber. Besteuert wird nur der Überhang.`,
+              fr: `Tu dépasses de ${out[1].value}. La taxe ne porte que sur l’excédent.`,
+              hi: `आप ${out[1].value} ऊपर हैं। कर सिर्फ़ अतिरिक्त हिस्से पर लगेगा।`,
+            }, tone: 'warn' },
     ko: { title: '면세 한도 초과 세금 계산기', desc: '면세 한도를 넘긴 금액에만 붙는 세금을 계산합니다.',
       long: '구매액에서 면세 한도를 뺀 초과분에만 세금이 매겨집니다. 한도가 80만이고 120만을 샀다면 40만에만 세금이 붙습니다. 전체 금액에 세금을 매기는 것이 아닙니다.',
       note: '나라마다 한도와 계산 방식이 다릅니다. 전체 금액에 과세하는 나라도 있고, 술·담배는 수량으로 따로 한도를 두는 곳이 많습니다.' },

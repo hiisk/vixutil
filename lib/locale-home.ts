@@ -209,6 +209,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-orange-700 dark:text-orange-300', border: 'border-orange-200 dark:border-orange-900/50', bg: 'bg-orange-50 dark:bg-orange-950/30',
     copy: {
       en: { title: 'Percent & Rate', desc: 'Discounts, VAT, percent change, compound interest' },
+      es: { title: 'Porcentajes y proporciones', desc: 'Descuentos, IVA, variación porcentual, interés compuesto' },
+      'pt-br': { title: 'Porcentagem e proporção', desc: 'Descontos, impostos, variação percentual, juros compostos' },
+      ja: { title: '割合の計算', desc: '割引・消費税・変化率・複利まで100種' },
+      de: { title: 'Prozent und Verhältnis', desc: 'Rabatte, Mehrwertsteuer, Veränderung, Zinseszins' },
+      fr: { title: 'Pourcentages et rapports', desc: 'Remises, TVA, variation, intérêts composés' },
+      hi: { title: 'प्रतिशत और अनुपात', desc: 'छूट, GST, प्रतिशत बदलाव, चक्रवृद्धि ब्याज' },
     },
   },
   {

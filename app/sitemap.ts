@@ -165,8 +165,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/rate`, changeFrequency: weekly, priority: 0.9 },
-    ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 비율 계산도 slug가 여덟 언어에서 같다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/rate`, changeFrequency: weekly, priority: 0.9 },
+      ...RATE_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/body`, changeFrequency: weekly, priority: 0.95 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/body/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/body`, changeFrequency: weekly, priority: 0.9 },

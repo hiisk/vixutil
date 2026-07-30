@@ -35,6 +35,14 @@ export const PRICE2_TOOLS: FormulaTool[] = [
       return {
         ko: `더한 값 ${round(sum, 1)}%가 아니라 실제로는 ${real}% 깎입니다. 차이는 ${round(sum - real, 1)}%p입니다.`,
         en: `Not the ${round(sum, 1)}% you get by adding — the real cut is ${real}%, a gap of ${round(sum - real, 1)} points.`,
+        l10n: {
+          es: `No es el ${round(sum, 1)} % de sumarlos: la rebaja real es del ${real} %, una diferencia de ${round(sum - real, 1)} puntos.`,
+          'pt-br': `Não são os ${round(sum, 1)} % de somar: o corte real é de ${real} %, uma diferença de ${round(sum - real, 1)} pontos.`,
+          ja: `足した${round(sum, 1)}%ではなく、実際に引かれるのは${real}%です。差は${round(sum - real, 1)}ポイントあります。`,
+          de: `Nicht die ${round(sum, 1)} % aus der Addition — der echte Abschlag liegt bei ${real} %, ${round(sum - real, 1)} Punkte Unterschied.`,
+          fr: `Pas les ${round(sum, 1)} % de l’addition : la baisse réelle est de ${real} %, un écart de ${round(sum - real, 1)} points.`,
+          hi: `जोड़कर आए ${round(sum, 1)}% नहीं — असल में ${real}% कटता है, ${round(sum - real, 1)} अंक का फ़र्क़।`,
+        },
         tone: 'warn',
       };
     },
@@ -66,6 +74,14 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `1+1은 50%, 2+1은 33.3% 할인입니다. 이 조건은 ${out[0].value}%입니다.`,
       en: `Buy-one-get-one is 50% off; two-for-three is 33.3%. This deal is ${out[0].value}%.`,
+      l10n: {
+        es: `Un 2x1 es un 50 % de descuento; un 3x2, un 33,3 %. Esta oferta es del ${out[0].value} %.`,
+        'pt-br': `Leve 2 pague 1 é 50 % de desconto; leve 3 pague 2 é 33,3 %. Esta oferta dá ${out[0].value} %.`,
+        ja: `1+1は50%引き、2+1は33.3%引きです。この条件は${out[0].value}%です。`,
+        de: `Zwei zum Preis von einem sind 50 % Rabatt, drei für zwei sind 33,3 %. Dieses Angebot ergibt ${out[0].value} %.`,
+        fr: `Un 2 pour 1, c’est 50 % de remise ; un 3 pour 2, 33,3 %. Cette offre fait ${out[0].value} %.`,
+        hi: `दो पर एक मुफ़्त यानी 50% छूट; तीन पर दो यानी 33.3%। यह पेशकश ${out[0].value}% है।`,
+      },
       tone: 'good',
     }),
     ko: { title: 'N+1 할인율 계산기', desc: '1+1, 2+1처럼 덤을 주는 행사가 몇 % 할인인지 계산합니다.',
@@ -117,8 +133,10 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value >= 0
-        ? { ko: `세트가 ${out[0].value}% 저렴합니다.`, en: `The bundle is ${out[0].value}% cheaper.`, tone: 'good' }
-        : { ko: `세트가 오히려 ${Math.abs(out[0].value)}% 비쌉니다. 낱개로 사세요.`, en: `The bundle is actually ${Math.abs(out[0].value)}% dearer — buy singles.`, tone: 'bad' },
+        ? { ko: `세트가 ${out[0].value}% 저렴합니다.`, en: `The bundle is ${out[0].value}% cheaper.`,
+            l10n: { es: `El pack sale un ${out[0].value} % más barato.`, 'pt-br': `O pacote sai ${out[0].value} % mais barato.`, ja: `まとめ買いの方が${out[0].value}%安いです。`, de: `Das Bundle ist ${out[0].value} % günstiger.`, fr: `Le lot revient ${out[0].value} % moins cher.`, hi: `पैक ${out[0].value}% सस्ता पड़ता है।` }, tone: 'good' }
+        : { ko: `세트가 오히려 ${Math.abs(out[0].value)}% 비쌉니다. 낱개로 사세요.`, en: `The bundle is actually ${Math.abs(out[0].value)}% dearer — buy singles.`,
+            l10n: { es: `El pack sale un ${Math.abs(out[0].value)} % más caro: cómpralo suelto.`, 'pt-br': `O pacote sai ${Math.abs(out[0].value)} % mais caro: compre avulso.`, ja: `まとめ買いの方が${Math.abs(out[0].value)}%高くつきます。単品で買ってください。`, de: `Das Bundle ist sogar ${Math.abs(out[0].value)} % teurer — kauf einzeln.`, fr: `Le lot est en fait ${Math.abs(out[0].value)} % plus cher : prends à l’unité.`, hi: `पैक उलटा ${Math.abs(out[0].value)}% महँगा है — अलग-अलग ख़रीदें।` }, tone: 'bad' },
     ko: { title: '세트 vs 낱개 비교', desc: '묶음으로 사는 게 정말 싼지 낱개 가격과 견줍니다.',
       long: '낱개 가격에 개수를 곱해 따로 살 때의 금액을 만들고, 세트 가격을 그 값으로 나눕니다. 1에서 빼면 세트가 몇 % 싼지 나옵니다.',
       note: '세트가 더 비싼 경우가 드물지 않습니다. 특히 낱개가 할인 중일 때는 묶음이 정가 기준이라 역전됩니다.' },
@@ -146,10 +164,13 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (v, out) => {
       const add = out[0].value;
-      if (add === 0) return { ko: '이미 무료배송 기준을 넘었습니다.', en: 'You already clear the free-shipping bar.', tone: 'good' };
+      if (add === 0) return { ko: '이미 무료배송 기준을 넘었습니다.', en: 'You already clear the free-shipping bar.',
+        l10n: { es: 'Ya superas el mínimo para el envío gratis.', 'pt-br': 'Você já passou do mínimo para o frete grátis.', ja: 'すでに送料無料の基準を超えています。', de: 'Du liegst schon über der Grenze für den Gratisversand.', fr: 'Tu dépasses déjà le seuil de livraison offerte.', hi: 'आप पहले ही मुफ़्त डिलीवरी की सीमा पार कर चुके हैं।' }, tone: 'good' };
       return add <= v.ship
-        ? { ko: `${add}원어치를 더 담는 값이 배송비 ${v.ship}원보다 싸므로 더 담는 편이 이득입니다.`, en: `Adding ${add} costs less than the ${v.ship} shipping fee, so top up the basket.`, tone: 'good' }
-        : { ko: `배송비 ${v.ship}원보다 ${add - v.ship}원을 더 써야 합니다. 그냥 배송비를 내는 편이 낫습니다.`, en: `You would spend ${add - v.ship} more than the ${v.ship} fee — just pay the shipping.`, tone: 'warn' };
+        ? { ko: `${add}원어치를 더 담는 값이 배송비 ${v.ship}원보다 싸므로 더 담는 편이 이득입니다.`, en: `Adding ${add} costs less than the ${v.ship} shipping fee, so top up the basket.`,
+            l10n: { es: `Añadir ${add} cuesta menos que los ${v.ship} de envío, así que completa el carrito.`, 'pt-br': `Colocar mais ${add} custa menos que os ${v.ship} de frete, então complete o carrinho.`, ja: `あと${add}分を買い足す方が送料${v.ship}より安いので、買い足す方が得です。`, de: `${add} nachzulegen kostet weniger als die ${v.ship} Versand — leg lieber nach.`, fr: `Ajouter ${add} coûte moins que les ${v.ship} de livraison : complète le panier.`, hi: `${add} और जोड़ना ${v.ship} की डिलीवरी से सस्ता है, इसलिए टोकरी भर लें।` }, tone: 'good' }
+        : { ko: `배송비 ${v.ship}원보다 ${add - v.ship}원을 더 써야 합니다. 그냥 배송비를 내는 편이 낫습니다.`, en: `You would spend ${add - v.ship} more than the ${v.ship} fee — just pay the shipping.`,
+            l10n: { es: `Gastarías ${add - v.ship} más que los ${v.ship} del envío: paga mejor el envío.`, 'pt-br': `Você gastaria ${add - v.ship} a mais que os ${v.ship} do frete: melhor pagar o frete.`, ja: `送料${v.ship}より${add - v.ship}多く使うことになります。素直に送料を払う方がよいです。`, de: `Du gäbst ${add - v.ship} mehr aus als die ${v.ship} Versand — zahl lieber den Versand.`, fr: `Tu dépenserais ${add - v.ship} de plus que les ${v.ship} de livraison : paie plutôt la livraison.`, hi: `${v.ship} की डिलीवरी से ${add - v.ship} ज़्यादा ख़र्च होगा — डिलीवरी शुल्क देना ही ठीक है।` }, tone: 'warn' };
     },
     ko: { title: '무료배송 채우기 계산기', desc: '배송비를 아끼려고 더 담는 게 이득인지 판단합니다.',
       long: '기준 금액에서 지금 담은 금액을 빼면 더 담아야 할 금액이 나옵니다. 그 값이 배송비보다 작으면 더 담는 쪽이 싸고, 크면 배송비를 내는 쪽이 쌉니다.',
@@ -179,8 +200,10 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value > 0
-        ? { ko: `연 ${out[0].value}번 이상 쓰면 회비를 뽑습니다. 그보다 적게 쓸 것 같으면 가입하지 않는 편이 낫습니다.`, en: `Use it ${out[0].value} times a year and the fee pays for itself; fewer than that and skip it.`, tone: 'good' }
-        : { ko: '회원가가 일반가보다 싸지 않아 회비를 회수할 수 없습니다.', en: 'The member price is not lower, so the fee never comes back.', tone: 'bad' },
+        ? { ko: `연 ${out[0].value}번 이상 쓰면 회비를 뽑습니다. 그보다 적게 쓸 것 같으면 가입하지 않는 편이 낫습니다.`, en: `Use it ${out[0].value} times a year and the fee pays for itself; fewer than that and skip it.`,
+            l10n: { es: `Úsalo ${out[0].value} veces al año y la cuota se amortiza; menos que eso y no compensa.`, 'pt-br': `Use ${out[0].value} vezes por ano e a anuidade se paga; menos que isso, não vale.`, ja: `年${out[0].value}回以上使えば会費の元が取れます。それより少なそうなら入らない方が得です。`, de: `Nutz es ${out[0].value} Mal im Jahr, dann trägt sich die Gebühr; seltener lohnt es nicht.`, fr: `Utilise-le ${out[0].value} fois par an et la cotisation est amortie ; moins que ça, laisse tomber.`, hi: `साल में ${out[0].value} बार इस्तेमाल करें तो शुल्क वसूल हो जाता है; उससे कम हो तो न लें।` }, tone: 'good' }
+        : { ko: '회원가가 일반가보다 싸지 않아 회비를 회수할 수 없습니다.', en: 'The member price is not lower, so the fee never comes back.',
+            l10n: { es: 'El precio de socio no es más bajo, así que la cuota no se recupera nunca.', 'pt-br': 'O preço de sócio não é menor, então a anuidade nunca volta.', ja: '会員価格が通常価格より安くないので、会費を回収できません。', de: 'Der Mitgliederpreis liegt nicht darunter, die Gebühr kommt also nie zurück.', fr: 'Le prix adhérent n’est pas plus bas : la cotisation ne sera jamais rentabilisée.', hi: 'सदस्य क़ीमत सामान्य से कम नहीं है, इसलिए शुल्क कभी वसूल नहीं होगा।' }, tone: 'bad' },
     ko: { title: '유료 멤버십 손익분기 계산기', desc: '연회비를 뽑으려면 몇 번을 써야 하는지 계산합니다.',
       long: '한 번 쓸 때 아끼는 금액은 일반가에서 회원가를 뺀 값입니다. 연회비를 그 값으로 나누면 본전이 되는 횟수가 나오고, 나머지가 있으면 한 번을 더 써야 하므로 올림합니다.',
       note: '무료배송·적립처럼 돈으로 환산되는 혜택이 더 있으면 회당 절약액에 더해 계산하세요.' },
@@ -206,10 +229,13 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const s = out[0].value;
       return s <= 0.5
-        ? { ko: `스프레드 ${s}%는 좋은 조건입니다.`, en: `A ${s}% spread is a good deal.`, tone: 'good' }
+        ? { ko: `스프레드 ${s}%는 좋은 조건입니다.`, en: `A ${s}% spread is a good deal.`,
+            l10n: { es: `Un diferencial del ${s} % es una buena condición.`, 'pt-br': `Um spread de ${s} % é uma boa condição.`, ja: `スプレッド${s}%は良い条件です。`, de: `Eine Spanne von ${s} % ist ein gutes Angebot.`, fr: `Un écart de ${s} % est une bonne condition.`, hi: `${s}% का अंतर अच्छी शर्त है।` }, tone: 'good' }
         : s <= 2
-          ? { ko: `스프레드 ${s}%는 보통 수준입니다.`, en: `A ${s}% spread is about average.`, tone: 'warn' }
-          : { ko: `스프레드 ${s}%는 비쌉니다. 다른 창구를 알아보세요.`, en: `A ${s}% spread is expensive — shop around.`, tone: 'bad' };
+          ? { ko: `스프레드 ${s}%는 보통 수준입니다.`, en: `A ${s}% spread is about average.`,
+              l10n: { es: `Un diferencial del ${s} % está en la media.`, 'pt-br': `Um spread de ${s} % está na média.`, ja: `スプレッド${s}%は標準的な水準です。`, de: `Eine Spanne von ${s} % ist durchschnittlich.`, fr: `Un écart de ${s} % se situe dans la moyenne.`, hi: `${s}% का अंतर औसत स्तर का है।` }, tone: 'warn' }
+          : { ko: `스프레드 ${s}%는 비쌉니다. 다른 창구를 알아보세요.`, en: `A ${s}% spread is expensive — shop around.`,
+              l10n: { es: `Un diferencial del ${s} % es caro: mira en otro sitio.`, 'pt-br': `Um spread de ${s} % é caro: procure em outro lugar.`, ja: `スプレッド${s}%は高いです。ほかの窓口も当たってみてください。`, de: `Eine Spanne von ${s} % ist teuer — vergleich woanders.`, fr: `Un écart de ${s} % est cher : regarde ailleurs.`, hi: `${s}% का अंतर महँगा है — कहीं और देखें।` }, tone: 'bad' };
     },
     ko: { title: '환전 스프레드 계산기', desc: '적용 환율이 기준 환율보다 몇 % 나쁜지, 수수료가 얼마인지 계산합니다.',
       long: '"수수료 없음"이라고 적어 두고 환율에 얹는 곳이 많습니다. 적용 환율에서 기준 환율을 빼고 기준 환율로 나누면 그 숨은 수수료가 비율로 드러납니다.',
@@ -265,8 +291,10 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value > 0
-        ? { ko: `${out[0].value}%까지 깎아도 목표 이익률이 지켜집니다.`, en: `You can go to ${out[0].value}% off and still hold the margin.`, tone: 'good' }
-        : { ko: '정가가 낮아 목표 이익률을 지키면서 할인할 여지가 없습니다.', en: 'The list price is too low to discount at all and keep that margin.', tone: 'bad' },
+        ? { ko: `${out[0].value}%까지 깎아도 목표 이익률이 지켜집니다.`, en: `You can go to ${out[0].value}% off and still hold the margin.`,
+            l10n: { es: `Puedes bajar hasta un ${out[0].value} % y aun así mantener el margen.`, 'pt-br': `Dá para chegar a ${out[0].value} % de desconto e ainda segurar a margem.`, ja: `${out[0].value}%まで引いても目標の利益率は守れます。`, de: `Du kannst bis ${out[0].value} % nachlassen und die Marge trotzdem halten.`, fr: `Tu peux descendre jusqu’à ${out[0].value} % de remise et garder la marge.`, hi: `${out[0].value}% तक छूट देकर भी लक्ष्य मार्जिन बचा रहता है।` }, tone: 'good' }
+        : { ko: '정가가 낮아 목표 이익률을 지키면서 할인할 여지가 없습니다.', en: 'The list price is too low to discount at all and keep that margin.',
+            l10n: { es: 'El precio de lista es demasiado bajo para descontar nada y mantener ese margen.', 'pt-br': 'O preço de tabela é baixo demais para dar qualquer desconto e manter essa margem.', ja: '定価が低く、目標の利益率を守りながら値引きする余地がありません。', de: 'Der Listenpreis ist zu niedrig, um überhaupt nachzulassen und diese Marge zu halten.', fr: 'Le prix affiché est trop bas pour accorder la moindre remise en gardant cette marge.', hi: 'सूची मूल्य इतना कम है कि यह मार्जिन बचाते हुए कोई छूट नहीं दी जा सकती।' }, tone: 'bad' },
     ko: { title: '최대 할인율 계산기', desc: '목표 이익률을 지키면서 줄 수 있는 최대 할인율을 구합니다.',
       long: '이익률을 지키는 최저 판매가는 원가를 (1 − 이익률)로 나눈 값입니다. 그 값이 정가의 몇 %인지 보고 1에서 빼면 줄 수 있는 할인율이 나옵니다.',
       note: '이익률은 판매가 기준입니다. 원가 기준(마크업)으로 20%를 지키려면 최저가가 달라지므로 어느 기준인지 먼저 확인하세요.' },
@@ -298,8 +326,10 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value >= 0
-        ? { ko: `일시불이 ${out[0].value}원 유리합니다.`, en: `Paying in full wins by ${out[0].value}.`, tone: 'good' }
-        : { ko: `무이자 할부가 ${Math.abs(out[0].value)}원 유리합니다.`, en: `The interest-free instalments win by ${Math.abs(out[0].value)}.`, tone: 'good' },
+        ? { ko: `일시불이 ${out[0].value}원 유리합니다.`, en: `Paying in full wins by ${out[0].value}.`,
+            l10n: { es: `Pagar de una vez sale mejor por ${out[0].value}.`, 'pt-br': `Pagar à vista sai melhor em ${out[0].value}.`, ja: `一括払いの方が${out[0].value}分だけ有利です。`, de: `Sofort zu zahlen ist um ${out[0].value} besser.`, fr: `Payer comptant l’emporte de ${out[0].value}.`, hi: `एकमुश्त देना ${out[0].value} बेहतर पड़ता है।` }, tone: 'good' }
+        : { ko: `무이자 할부가 ${Math.abs(out[0].value)}원 유리합니다.`, en: `The interest-free instalments win by ${Math.abs(out[0].value)}.`,
+            l10n: { es: `Las cuotas sin intereses salen mejor por ${Math.abs(out[0].value)}.`, 'pt-br': `O parcelado sem juros sai melhor em ${Math.abs(out[0].value)}.`, ja: `無金利分割の方が${Math.abs(out[0].value)}分だけ有利です。`, de: `Die zinsfreien Raten sind um ${Math.abs(out[0].value)} besser.`, fr: `Les mensualités sans frais l’emportent de ${Math.abs(out[0].value)}.`, hi: `बिना ब्याज किस्तें ${Math.abs(out[0].value)} बेहतर पड़ती हैं।` }, tone: 'good' },
     ko: { title: '일시불 할인 vs 무이자 할부', desc: '일시불 할인과 무이자 할부 중 어느 쪽이 이득인지 비교합니다.',
       long: '일시불로 아끼는 돈은 가격 × 할인율입니다. 할부로 미룬 돈은 예금에 둘 수 있는데, 잔액이 매달 줄어 평균이 원금의 절반이므로 이자도 절반만 붙습니다. 두 값을 견주면 됩니다.',
       note: '무이자 할부가 카드사 혜택·적립을 깎는 조건이면 그만큼을 이자 쪽에서 빼야 합니다. 할부 원금이 다음 달 지출을 밀어내는지도 함께 보세요.' },

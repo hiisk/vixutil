@@ -59,12 +59,23 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     ],
     verdict: (v, out) => {
       const c = out[0].value;
-      if (c === 0) return { ko: '변화가 없습니다.', en: 'No change.' };
+      if (c === 0) return {
+        ko: '변화가 없습니다.', en: 'No change.',
+        l10n: { es: 'Sin variación.', 'pt-br': 'Sem variação.', ja: '変化はありません。', de: 'Keine Veränderung.', fr: 'Aucune variation.', hi: 'कोई बदलाव नहीं।' },
+      };
       const up = c > 0;
       const abs = Math.abs(c);
       return {
         ko: up ? `${abs}% 증가했습니다.` : `${abs}% 감소했습니다.`,
-        en: up ? `An increase of ${abs}%.` : `A decrease of ${abs}%.` ? `增长了${abs}%。` : `下降了${abs}%。`,
+        en: up ? `An increase of ${abs}%.` : `A decrease of ${abs}%.`,
+        l10n: {
+          es: up ? `Un aumento del ${abs} %.` : `Una bajada del ${abs} %.`,
+          'pt-br': up ? `Um aumento de ${abs} %.` : `Uma queda de ${abs} %.`,
+          ja: up ? `${abs}%の増加です。` : `${abs}%の減少です。`,
+          de: up ? `Ein Anstieg um ${abs} %.` : `Ein Rückgang um ${abs} %.`,
+          fr: up ? `Une hausse de ${abs} %.` : `Une baisse de ${abs} %.`,
+          hi: up ? `${abs}% की बढ़त।` : `${abs}% की गिरावट।`,
+        },
         tone: up ? 'good' : 'bad',
       };
     },
@@ -111,6 +122,14 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `${out[0].value}%p 올랐고, 비율로는 ${out[1].value}% 증가입니다.`,
       en: `Up ${out[0].value} percentage points, which is a ${out[1].value}% increase in relative terms.`,
+      l10n: {
+        es: `Sube ${out[0].value} puntos porcentuales, lo que en términos relativos es un aumento del ${out[1].value} %.`,
+        'pt-br': `Sobe ${out[0].value} pontos percentuais, o que em termos relativos é um aumento de ${out[1].value} %.`,
+        ja: `${out[0].value}ポイント上がり、率でみると${out[1].value}%の増加です。`,
+        de: `Ein Plus von ${out[0].value} Prozentpunkten, relativ gesehen also ein Anstieg um ${out[1].value} %.`,
+        fr: `Une hausse de ${out[0].value} points de pourcentage, soit ${out[1].value} % en relatif.`,
+        hi: `${out[0].value} प्रतिशत अंक की बढ़त, जो अनुपात में ${out[1].value}% की बढ़ोतरी है।`,
+      },
       tone: 'warn',
     }),
     ko: { title: '퍼센트포인트 계산기', desc: '4%에서 5%로 오른 것이 1%p인지 25% 증가인지 구분합니다.',
@@ -284,6 +303,14 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `가중평균 ${out[0].value}%는 단순평균 ${out[1].value}%와 다릅니다 — 양이 많은 쪽으로 끌립니다.`,
       en: `The weighted ${out[0].value}% differs from the simple average of ${out[1].value}% — it leans toward the larger group.`,
+      l10n: {
+        es: `El ${out[0].value} % ponderado no coincide con el ${out[1].value} % de la media simple: se inclina hacia el grupo más grande.`,
+        'pt-br': `Os ${out[0].value} % ponderados não batem com os ${out[1].value} % da média simples: puxam para o grupo maior.`,
+        ja: `加重平均の${out[0].value}%は単純平均の${out[1].value}%とは違います。数の多い側に引っぱられます。`,
+        de: `Die gewichteten ${out[0].value} % weichen vom einfachen Mittel von ${out[1].value} % ab — sie neigen zur größeren Gruppe.`,
+        fr: `Les ${out[0].value} % pondérés diffèrent des ${out[1].value} % de la moyenne simple : ils penchent vers le groupe le plus grand.`,
+        hi: `भारित ${out[0].value}% सीधे औसत ${out[1].value}% से अलग है — यह बड़े समूह की तरफ़ झुकता है।`,
+      },
       tone: 'warn',
     }),
     ko: { title: '가중평균 비율', desc: '크기가 다른 두 집단의 비율을 합쳐 전체 비율을 구합니다.',

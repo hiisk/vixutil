@@ -5,8 +5,8 @@
  * 이 파일에 두고 화면 코드는 이 설정을 받아 그린다.
  */
 import { RATE_TOOLS, RATE_CATEGORIES } from './rate-tools.ts';
-import type { Lang } from './formula/terms.ts';
-import type { SectionConfig } from './formula/section.ts';
+import type { FormulaLang, Lang } from './formula/terms.ts';
+import type { SectionConfig, SectionMeta } from './formula/section.ts';
 
 export const RATE_META = {
   ko: {
@@ -43,12 +43,109 @@ export const RATE_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
   },
 };
 
+
+/**
+ * 번역 여섯 언어의 섹션 문구.
+ *
+ * metaTitle·metaDesc는 화면의 제목과 다르게 쓴다 — 사람들이 검색창에 치는 말은
+ * "비율 계산"보다 "할인율 계산기"이기 때문이다.
+ */
+export const RATE_META_INTL: Partial<Record<FormulaLang, SectionMeta>> = {
+  es: {
+    section: 'Calculadoras de porcentaje',
+    hubTitle: 'Calculadoras de porcentajes y proporciones',
+    hubLead: 'Cien calculadoras de una sola fórmula: descuentos, impuestos, intereses, concentración',
+    hubNotice: '📐 El resultado se actualiza mientras escribes, y cada página muestra la fórmula.',
+    footNote: 'Los tipos impositivos y las convenciones de interés cambian según el país y el producto: para una operación real, mira tu contrato.',
+    metaTitle: 'Calculadora de porcentajes — 100 herramientas de proporción',
+    metaDesc: 'Descuentos, descuentos acumulados, 3x2, IVA, aranceles, tipo efectivo, variación porcentual, puntos porcentuales, percentiles, interés compuesto, capacidad de endeudamiento, diluciones y mezclas: 100 calculadoras, cada una con su fórmula, una guía de los datos y una tabla de referencia.',
+  },
+  'pt-br': {
+    section: 'Calculadoras de porcentagem',
+    hubTitle: 'Calculadoras de porcentagem e proporção',
+    hubLead: 'Cem calculadoras de uma fórmula só: descontos, impostos, juros, concentração',
+    hubNotice: '📐 O resultado atualiza enquanto você digita, e cada página mostra a fórmula.',
+    footNote: 'Alíquotas e formas de calcular juros mudam conforme o país e o produto — em uma operação real, confira o contrato.',
+    metaTitle: 'Calculadora de porcentagem — 100 ferramentas de proporção',
+    metaDesc: 'Descontos, descontos acumulados, leve 3 pague 2, impostos, imposto de importação, alíquota efetiva, variação percentual, pontos percentuais, percentis, juros compostos, limite de crédito, diluição e mistura: 100 calculadoras, cada uma com a fórmula, um guia dos campos e uma tabela de referência.',
+  },
+  ja: {
+    section: '割合の計算',
+    hubTitle: '割合・比率の計算機',
+    hubLead: '割引・税・利息・濃度まで、公式ひとつで終わる計算100種',
+    hubNotice: '📐 値を入れるとすぐ計算します。計算式も一緒に見られます。',
+    footNote: '税率と利息の計算方法は国と商品によって違います。実際の取引では契約条件を確かめてください。',
+    metaTitle: '割合の計算機 — 割引・税・利息・濃度100種',
+    metaDesc: '割引率、重ねがけ割引、2個買うと1個無料、消費税、関税、実効税率、変化率、パーセントポイント、パーセンタイル、複利、借入可能額、繰上返済、濃度と希釈まで100種類の割合計算。計算式・入力の説明・値ごとの結果表も一緒に見られます。',
+  },
+  de: {
+    section: 'Prozentrechner',
+    hubTitle: 'Prozent- und Verhältnisrechner',
+    hubLead: 'Hundert Rechner mit je einer Formel — Rabatte, Steuern, Zinsen, Konzentration',
+    hubNotice: '📐 Das Ergebnis rechnet beim Tippen mit, und jede Seite zeigt die Formel.',
+    footNote: 'Steuersätze und Zinskonventionen unterscheiden sich je Land und Produkt — für ein echtes Geschäft gilt dein Vertrag.',
+    metaTitle: 'Prozentrechner — 100 Werkzeuge für Anteile und Verhältnisse',
+    metaDesc: 'Rabatte, gestapelte Rabatte, 3 für 2, Mehrwertsteuer, Zoll, effektiver Steuersatz, prozentuale Veränderung, Prozentpunkte, Perzentile, Zinseszins, Kreditrahmen, Verdünnen und Mischen — 100 Rechner, jeder mit Formel, Eingabehilfe und Referenztabelle.',
+  },
+  fr: {
+    section: 'Calculatrices de pourcentage',
+    hubTitle: 'Calculatrices de pourcentages et de rapports',
+    hubLead: 'Cent calculatrices à une seule formule : remises, taxes, intérêts, concentration',
+    hubNotice: '📐 Le résultat se met à jour pendant la saisie, et chaque page affiche la formule.',
+    footNote: 'Les taux d’imposition et les conventions de calcul des intérêts varient selon le pays et le produit — pour une opération réelle, réfère-toi à ton contrat.',
+    metaTitle: 'Calculatrice de pourcentage — 100 outils de rapport',
+    metaDesc: 'Remises, remises cumulées, 3 pour 2, TVA, droits de douane, taux effectif, variation en pourcentage, points de pourcentage, centiles, intérêts composés, capacité d’emprunt, dilution et mélange : 100 calculatrices, chacune avec sa formule, un guide de saisie et un tableau de référence.',
+  },
+  hi: {
+    section: 'प्रतिशत कैलकुलेटर',
+    hubTitle: 'प्रतिशत और अनुपात के कैलकुलेटर',
+    hubLead: 'एक सूत्र में निपटने वाले सौ कैलकुलेटर — छूट, कर, ब्याज, सांद्रता',
+    hubNotice: '📐 लिखते ही परिणाम बदलता है, और हर पन्ने पर सूत्र भी दिखता है।',
+    footNote: 'कर की दरें और ब्याज गिनने का तरीक़ा देश और उत्पाद के हिसाब से बदलता है — असली लेन-देन में अपना अनुबंध देखें।',
+    metaTitle: 'प्रतिशत कैलकुलेटर — अनुपात के 100 औज़ार',
+    metaDesc: 'छूट, एक पर एक छूट, तीन पर दो, GST, सीमा शुल्क, असली कर दर, प्रतिशत बदलाव, प्रतिशत अंक, पर्सेंटाइल, चक्रवृद्धि ब्याज, कर्ज़ की सीमा, तनुकरण और मिश्रण — 100 कैलकुलेटर, हर एक के साथ सूत्र, इनपुट की व्याख्या और मान के हिसाब से परिणाम की सारणी।',
+  },
+};
+
+/** 분류 이름의 번역 — 열쇠는 카탈로그의 한국어 문자열 그대로다 */
+export const RATE_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, string>>> = {
+  es: {
+    '할인·가격': 'Precio y descuento', '세금·정산': 'Impuestos y liquidación', '비율·증감': 'Porcentaje y variación',
+    '금융·이자': 'Interés y rentabilidad', '농도·배합': 'Concentración', '점수·달성': 'Notas y objetivos',
+  },
+  'pt-br': {
+    '할인·가격': 'Preço e desconto', '세금·정산': 'Impostos e repasse', '비율·증감': 'Porcentagem e variação',
+    '금융·이자': 'Juros e retorno', '농도·배합': 'Concentração', '점수·달성': 'Notas e metas',
+  },
+  ja: {
+    '할인·가격': '割引・価格', '세금·정산': '税金・精算', '비율·증감': '割合・増減',
+    '금융·이자': '金融・利息', '농도·배합': '濃度・配合', '점수·달성': '点数・達成',
+  },
+  de: {
+    '할인·가격': 'Preis und Rabatt', '세금·정산': 'Steuern und Auszahlung', '비율·증감': 'Prozent und Veränderung',
+    '금융·이자': 'Zinsen und Rendite', '농도·배합': 'Konzentration', '점수·달성': 'Noten und Ziele',
+  },
+  fr: {
+    '할인·가격': 'Prix et remise', '세금·정산': 'Taxes et versement', '비율·증감': 'Pourcentage et variation',
+    '금융·이자': 'Intérêts et rendement', '농도·배합': 'Concentration', '점수·달성': 'Notes et objectifs',
+  },
+  hi: {
+    '할인·가격': 'क़ीमत और छूट', '세금·정산': 'कर और भुगतान', '비율·증감': 'प्रतिशत और बदलाव',
+    '금융·이자': 'ब्याज और प्रतिफल', '농도·배합': 'सांद्रता', '점수·달성': 'अंक और लक्ष्य',
+  },
+};
+
+/** 이 섹션이 나가는 언어 — hreflang과 라우트가 같은 목록을 본다 */
+export const RATE_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+
 export const RATE_SECTION: SectionConfig = {
   key: 'rate',
   tools: RATE_TOOLS,
   categories: RATE_CATEGORIES,
   meta: RATE_META,
   categoryLabel: RATE_CATEGORY_LABEL,
+  metaIntl: RATE_META_INTL,
+  categoryIntl: RATE_CATEGORY_INTL,
   accent: 'emerald',
   grad: 'from-emerald-500 to-teal-600',
   gradBar: 'from-emerald-500 to-teal-600',

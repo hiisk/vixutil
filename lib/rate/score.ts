@@ -23,6 +23,14 @@ export const SCORE_TOOLS: FormulaTool[] = [
       return {
         ko: `100점 환산 ${p}점, 통상 기준 ${label[0]} 구간입니다.`,
         en: `That is ${p} out of 100, which usually falls in the ${label[1]} range.`,
+        l10n: {
+          es: `Son ${p} sobre 100, lo que suele caer en la franja ${label[1]}.`,
+          'pt-br': `São ${p} de 100, o que costuma cair na faixa ${label[1]}.`,
+          ja: `100点換算で${p}点、通常の基準では${label[1]}の区間です。`,
+          de: `Das sind ${p} von 100 und liegt üblicherweise im Bereich ${label[1]}.`,
+          fr: `Cela fait ${p} sur 100, ce qui tombe d’ordinaire dans la tranche ${label[1]}.`,
+          hi: `100 में से ${p} अंक, जो आम तौर पर ${label[1]} श्रेणी में आता है।`,
+        },
         tone: p >= 70 ? 'good' : p >= 60 ? 'warn' : 'bad',
       };
     },
@@ -57,7 +65,15 @@ export const SCORE_TOOLS: FormulaTool[] = [
       const short = Math.max(0, out[2].value - v.attended);
       return {
         ko: ok ? `기준 ${v.need}%를 넘었습니다. ${out[1].value}번 더 빠져도 유지됩니다.` : `기준에 ${short}번 모자랍니다.`,
-        en: ok ? `Above the ${v.need}% requirement — you can miss ${out[1].value} more and still qualify.` : `You are ${short} sessions short of the requirement.` ? `已超过${v.need}%的要求，还可以再缺席${out[1].value}次。` : `距离要求还差${short}次。`,
+        en: ok ? `Above the ${v.need}% requirement — you can miss ${out[1].value} more and still qualify.` : `You are ${short} sessions short of the requirement.`,
+        l10n: {
+          es: ok ? `Por encima del ${v.need} % exigido: puedes faltar ${out[1].value} veces más y seguir cumpliendo.` : `Te faltan ${short} sesiones para llegar al mínimo.`,
+          'pt-br': ok ? `Acima dos ${v.need} % exigidos: dá para faltar mais ${out[1].value} vezes e ainda cumprir.` : `Faltam ${short} encontros para bater o mínimo.`,
+          ja: ok ? `基準の${v.need}%を超えています。あと${out[1].value}回休んでも維持できます。` : `基準まであと${short}回足りません。`,
+          de: ok ? `Über den geforderten ${v.need} % — du darfst noch ${out[1].value} Mal fehlen und erfüllst es weiterhin.` : `Dir fehlen ${short} Termine bis zur Anforderung.`,
+          fr: ok ? `Au-dessus des ${v.need} % exigés : tu peux encore manquer ${out[1].value} séances et rester dans les clous.` : `Il te manque ${short} séances pour atteindre le minimum.`,
+          hi: ok ? `${v.need}% की सीमा पार है — ${out[1].value} बार और छूटे तब भी पूरा रहेगा।` : `सीमा तक ${short} कक्षाएँ कम पड़ रही हैं।`,
+        },
         tone: ok ? 'good' : 'bad',
       };
     },
@@ -85,7 +101,15 @@ export const SCORE_TOOLS: FormulaTool[] = [
       const done = out[0].value >= 100;
       return {
         ko: done ? `목표를 ${round(out[0].value - 100, 1)}% 초과 달성했습니다.` : `목표까지 ${round(100 - out[0].value, 1)}% 남았습니다.`,
-        en: done ? `You are ${round(out[0].value - 100, 1)}% over target.` : `${round(100 - out[0].value, 1)}% left to reach the target.` ? `已超额完成目标${round(out[0].value - 100, 1)}%。` : `距离目标还差${round(100 - out[0].value, 1)}%。`,
+        en: done ? `You are ${round(out[0].value - 100, 1)}% over target.` : `${round(100 - out[0].value, 1)}% left to reach the target.`,
+        l10n: {
+          es: done ? `Has superado el objetivo en un ${round(out[0].value - 100, 1)} %.` : `Te queda un ${round(100 - out[0].value, 1)} % para llegar al objetivo.`,
+          'pt-br': done ? `Você passou da meta em ${round(out[0].value - 100, 1)} %.` : `Falta ${round(100 - out[0].value, 1)} % para bater a meta.`,
+          ja: done ? `目標を${round(out[0].value - 100, 1)}%超えて達成しました。` : `目標まであと${round(100 - out[0].value, 1)}%です。`,
+          de: done ? `Du liegst ${round(out[0].value - 100, 1)} % über dem Ziel.` : `Bis zum Ziel fehlen noch ${round(100 - out[0].value, 1)} %.`,
+          fr: done ? `Tu dépasses l’objectif de ${round(out[0].value - 100, 1)} %.` : `Il reste ${round(100 - out[0].value, 1)} % pour atteindre l’objectif.`,
+          hi: done ? `आपने लक्ष्य ${round(out[0].value - 100, 1)}% ज़्यादा पूरा किया।` : `लक्ष्य तक ${round(100 - out[0].value, 1)}% बाक़ी है।`,
+        },
         tone: done ? 'good' : 'warn',
       };
     },
@@ -119,6 +143,14 @@ export const SCORE_TOOLS: FormulaTool[] = [
       return {
         ko: r >= 50 ? `승률 5할을 넘었습니다.` : `5할까지 ${needed}승이 더 필요합니다.`,
         en: r >= 50 ? `Above a .500 record.` : `${needed} more wins to reach .500.`,
+        l10n: {
+          es: r >= 50 ? `Por encima del 50 % de victorias.` : `Faltan ${needed} victorias para llegar al 50 %.`,
+          'pt-br': r >= 50 ? `Acima dos 50 % de aproveitamento.` : `Faltam ${needed} vitórias para chegar aos 50 %.`,
+          ja: r >= 50 ? `勝率5割を超えています。` : `5割まであと${needed}勝必要です。`,
+          de: r >= 50 ? `Über einer Bilanz von 50 %.` : `Noch ${needed} Siege bis zu 50 %.`,
+          fr: r >= 50 ? `Au-dessus de 50 % de victoires.` : `Encore ${needed} victoires pour atteindre 50 %.`,
+          hi: r >= 50 ? `जीत दर 50% से ऊपर है।` : `50% तक ${needed} जीत और चाहिए।`,
+        },
         tone: r >= 50 ? 'good' : 'warn',
       };
     },

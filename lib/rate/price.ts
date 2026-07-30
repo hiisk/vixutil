@@ -77,6 +77,14 @@ export const PRICE_TOOLS: FormulaTool[] = [
       return {
         ko: `더한 값 ${naive}%가 아니라 실제로는 ${real}% 할인입니다 — ${gap}%p 차이납니다.`,
         en: `The real discount is ${real}%, not the ${naive}% you get by adding — a gap of ${gap} points.`,
+        l10n: {
+          es: `El descuento real es del ${real} %, no el ${naive} % de sumarlos — una diferencia de ${gap} puntos.`,
+          'pt-br': `O desconto real é de ${real} %, e não os ${naive} % de somar — uma diferença de ${gap} pontos.`,
+          ja: `実際は${real}%引きで、足した${naive}%ではありません。差は${gap}ポイントです。`,
+          de: `Der echte Rabatt liegt bei ${real} %, nicht bei den ${naive} % aus der Addition — ${gap} Punkte Unterschied.`,
+          fr: `La remise réelle est de ${real} %, pas les ${naive} % de l’addition — un écart de ${gap} points.`,
+          hi: `असली छूट ${real}% है, जोड़कर आए ${naive}% नहीं — ${gap} अंक का फ़र्क़।`,
+        },
         tone: 'warn',
       };
     },
@@ -114,9 +122,27 @@ export const PRICE_TOOLS: FormulaTool[] = [
           : `${v.rate}% 할인이 유리합니다. ${even.toLocaleString()}원 아래에서는 정액 쿠폰이 낫습니다.`,
         en: couponWins
           ? `The fixed coupon wins here. Above ${even.toLocaleString()}, the ${v.rate}% discount takes over.`
-          : `The ${v.rate}% discount wins here. Below ${even.toLocaleString()}, the fixed coupon is better.`
-          ? `定额优惠券更划算。金额超过${even.toLocaleString()}后，${v.rate}%折扣反超。`
-          : `${v.rate}%折扣更划算。金额低于${even.toLocaleString()}时，定额优惠券更好。`,
+          : `The ${v.rate}% discount wins here. Below ${even.toLocaleString()}, the fixed coupon is better.`,
+        l10n: {
+          es: couponWins
+            ? `Aquí gana el cupón fijo. A partir de ${even.toLocaleString()}, se impone el ${v.rate} % de descuento.`
+            : `Aquí gana el ${v.rate} % de descuento. Por debajo de ${even.toLocaleString()}, es mejor el cupón fijo.`,
+          'pt-br': couponWins
+            ? `Aqui ganha o cupom fixo. Acima de ${even.toLocaleString()}, o desconto de ${v.rate} % passa na frente.`
+            : `Aqui ganha o desconto de ${v.rate} %. Abaixo de ${even.toLocaleString()}, o cupom fixo é melhor.`,
+          ja: couponWins
+            ? `ここでは定額クーポンが有利です。${even.toLocaleString()}を超えると${v.rate}%引きが逆転します。`
+            : `ここでは${v.rate}%引きが有利です。${even.toLocaleString()}を下回ると定額クーポンの方がよくなります。`,
+          de: couponWins
+            ? `Hier gewinnt der feste Gutschein. Ab ${even.toLocaleString()} übernimmt der Rabatt von ${v.rate} %.`
+            : `Hier gewinnt der Rabatt von ${v.rate} %. Unter ${even.toLocaleString()} ist der feste Gutschein besser.`,
+          fr: couponWins
+            ? `Ici, le bon fixe l’emporte. Au-delà de ${even.toLocaleString()}, la remise de ${v.rate} % prend le dessus.`
+            : `Ici, la remise de ${v.rate} % l’emporte. En dessous de ${even.toLocaleString()}, le bon fixe est meilleur.`,
+          hi: couponWins
+            ? `यहाँ तय कूपन बेहतर है। ${even.toLocaleString()} से ऊपर ${v.rate}% छूट आगे निकल जाती है।`
+            : `यहाँ ${v.rate}% छूट बेहतर है। ${even.toLocaleString()} से नीचे तय कूपन बेहतर पड़ता है।`,
+        },
         tone: 'good',
       };
     },
@@ -217,6 +243,14 @@ export const PRICE_TOOLS: FormulaTool[] = [
     verdict: v => v.price <= v.variable ? {
       ko: '단가가 변동비보다 낮아 팔수록 손실이 커집니다. 손익분기점이 존재하지 않습니다.',
       en: 'The price is below the variable cost, so every sale deepens the loss — there is no break-even point.',
+      l10n: {
+        es: 'El precio está por debajo del coste variable, así que cada venta agranda la pérdida: no hay punto de equilibrio.',
+        'pt-br': 'O preço está abaixo do custo variável, então cada venda aumenta o prejuízo: não existe ponto de equilíbrio.',
+        ja: '単価が変動費を下回っているので、売るほど損が増えます。損益分岐点は存在しません。',
+        de: 'Der Preis liegt unter den variablen Kosten, jeder Verkauf vergrößert also den Verlust — einen Break-even gibt es nicht.',
+        fr: 'Le prix est sous le coût variable : chaque vente creuse la perte, il n’y a pas de seuil de rentabilité.',
+        hi: 'क़ीमत परिवर्तनशील लागत से नीचे है, इसलिए हर बिक्री घाटा बढ़ाती है — कोई बराबरी का बिंदु नहीं है।',
+      },
       tone: 'bad',
     } : null,
     ko: { title: '손익분기점 수량', desc: '고정비를 메우려면 몇 개를 팔아야 하는지 계산합니다.',

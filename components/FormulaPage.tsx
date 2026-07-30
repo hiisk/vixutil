@@ -5,9 +5,11 @@ import Faq from '@/components/Faq';
 import FormulaArticle from '@/components/FormulaArticle';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import type { FormulaTool } from '@/lib/formula/types';
-import type { Lang } from '@/lib/formula/terms';
-import { FORMULA_UI, FORMULA_LANGS } from '@/lib/formula/ui';
+import { textOf, type FormulaTool } from '@/lib/formula/types';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { FORMULA_UI, formulaLangs } from '@/lib/formula/ui';
+import { sectionMeta } from '@/lib/formula/section';
+import { localeHref, localePrefix } from '@/lib/locales';
 import { formulaFaq } from '@/lib/formula/faq';
 import type { SectionConfig } from '@/lib/formula/section';
 
@@ -27,7 +29,7 @@ export function relatedTools(section: SectionConfig, slug: string, limit = 4): F
 }
 
 /** 섹션마다 다른 클라이언트 진입점 — compute가 함수라서 경계를 넘길 수 없다 */
-type EngineProps = { slug: string; lang: Lang; grad: string; textAccent: string; focusBorder: string };
+type EngineProps = { slug: string; lang: FormulaLang; grad: string; textAccent: string; focusBorder: string };
 
 export default function FormulaPage({
   tool,
@@ -36,16 +38,16 @@ export default function FormulaPage({
   Engine,
 }: {
   tool: FormulaTool;
-  lang: Lang;
+  lang: FormulaLang;
   section: SectionConfig;
   Engine: (p: EngineProps) => React.ReactNode;
 }) {
   const ui = FORMULA_UI[lang];
-  const meta = section.meta[lang];
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
+  const meta = sectionMeta(section, lang);
+  const prefix = localePrefix(lang);
   // /en·/zh 랜딩 페이지는 없다. 그 언어의 '홈'은 섹션 허브로 보낸다.
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/${section.key}`;
-  const text = tool[lang];
+  const homeHref = localeHref(lang, '/');
+  const text = textOf(tool, lang);
   const path = `${prefix}/${section.key}/${tool.slug}`;
   const related = relatedTools(section, tool.slug);
 
@@ -76,8 +78,8 @@ export default function FormulaPage({
             {meta.section}
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
-            {FORMULA_LANGS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/${section.key}/${tool.slug}`} hrefLang={l.lang} className={`${section.linkHover} transition-colors`}>
+            {formulaLangs(section, lang).map(l => (
+              <Link key={l.lang} href={`${l.prefix}/${section.key}/${tool.slug}`} hrefLang={l.tag} className={`${section.linkHover} transition-colors`}>
                 {l.label}
               </Link>
             ))}
@@ -118,9 +120,9 @@ export default function FormulaPage({
                 <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                 <span className="min-w-0 flex-1">
                   <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${section.hoverText} transition-colors`}>
-                    {r[lang].title}
+                    {textOf(r, lang).title}
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{r[lang].desc}</span>
+                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{textOf(r, lang).desc}</span>
                 </span>
               </Link>
             ))}

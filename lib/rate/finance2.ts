@@ -175,6 +175,14 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `첫 달 상환액의 ${out[3].value}%가 이자입니다. 원금은 ${out[1].value}밖에 줄지 않습니다.`,
       en: `${out[3].value}% of the first payment is interest — only ${out[1].value} comes off the principal.`,
+      l10n: {
+        es: `El ${out[3].value} % de la primera cuota son intereses: solo ${out[1].value} va a capital.`,
+        'pt-br': `${out[3].value} % da primeira parcela são juros: só ${out[1].value} abate o principal.`,
+        ja: `初回返済額の${out[3].value}%が利息です。元金は${out[1].value}しか減りません。`,
+        de: `${out[3].value} % der ersten Rate sind Zinsen — nur ${out[1].value} gehen in die Tilgung.`,
+        fr: `${out[3].value} % de la première mensualité sont des intérêts : seuls ${out[1].value} remboursent le capital.`,
+        hi: `पहली किस्त का ${out[3].value}% ब्याज है — मूलधन सिर्फ़ ${out[1].value} घटता है।`,
+      },
       tone: 'warn',
     }),
     ko: { title: '첫 달 원금·이자 분해', desc: '대출 첫 달 상환액에서 이자와 원금이 각각 얼마인지 봅니다.',
@@ -206,6 +214,14 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `표시 수수료 ${v.fee}%는 실질 연이율 약 ${out[0].value}%에 해당합니다.`,
       en: `A quoted fee of ${v.fee}% works out to an effective APR of about ${out[0].value}%.`,
+      l10n: {
+        es: `Una comisión anunciada del ${v.fee} % equivale a una TAE efectiva de alrededor del ${out[0].value} %.`,
+        'pt-br': `Uma taxa anunciada de ${v.fee} % equivale a um custo efetivo de cerca de ${out[0].value} % ao ano.`,
+        ja: `表示された手数料${v.fee}%は、実質年率にすると約${out[0].value}%にあたります。`,
+        de: `Ein genannter Zuschlag von ${v.fee} % entspricht einem effektiven Jahreszins von rund ${out[0].value} %.`,
+        fr: `Des frais affichés de ${v.fee} % correspondent à un TAEG effectif d’environ ${out[0].value} %.`,
+        hi: `बताया गया ${v.fee}% शुल्क असल में लगभग ${out[0].value}% वार्षिक दर बैठता है।`,
+      },
       tone: 'warn',
     }),
     ko: { title: '할부 수수료 → 실질 연이율', desc: '표시된 할부 수수료율이 실제로 연 몇 %인지 환산합니다.',
@@ -315,10 +331,34 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const pct = out[2].value;
       return pct >= 100
-        ? { ko: '비상금 목표를 채웠습니다.', en: 'Your emergency fund is fully stocked.', tone: 'good' }
+        ? { ko: '비상금 목표를 채웠습니다.', en: 'Your emergency fund is fully stocked.',
+            l10n: {
+              es: 'Tu fondo de emergencia está completo.',
+              'pt-br': 'Sua reserva de emergência está completa.',
+              ja: '生活防衛資金の目標を満たしています。',
+              de: 'Dein Notgroschen ist vollständig aufgefüllt.',
+              fr: 'Ton épargne de précaution est au complet.',
+              hi: 'आपका आपात कोष पूरा हो चुका है।',
+            }, tone: 'good' }
         : pct >= 50
-          ? { ko: `목표의 ${pct}%를 모았습니다. 지금 잔액으로 ${out[3].value}개월을 버틸 수 있습니다.`, en: `You are ${pct}% of the way there — enough for ${out[3].value} months.`, tone: 'warn' }
-          : { ko: `목표의 ${pct}%뿐입니다. 지금 잔액으로는 ${out[3].value}개월치입니다.`, en: `Only ${pct}% of the target — that covers ${out[3].value} months.`, tone: 'bad' };
+          ? { ko: `목표의 ${pct}%를 모았습니다. 지금 잔액으로 ${out[3].value}개월을 버틸 수 있습니다.`, en: `You are ${pct}% of the way there — enough for ${out[3].value} months.`,
+              l10n: {
+                es: `Llevas el ${pct} % del objetivo: te da para ${out[3].value} meses.`,
+                'pt-br': `Você já tem ${pct} % da meta: dá para ${out[3].value} meses.`,
+                ja: `目標の${pct}%まで来ています。今の残高で${out[3].value}か月もちます。`,
+                de: `Du hast ${pct} % des Ziels — das reicht für ${out[3].value} Monate.`,
+                fr: `Tu es à ${pct} % de l’objectif : de quoi tenir ${out[3].value} mois.`,
+                hi: `लक्ष्य का ${pct}% जमा है — इससे ${out[3].value} महीने चल जाएँगे।`,
+              }, tone: 'warn' }
+          : { ko: `목표의 ${pct}%뿐입니다. 지금 잔액으로는 ${out[3].value}개월치입니다.`, en: `Only ${pct}% of the target — that covers ${out[3].value} months.`,
+              l10n: {
+                es: `Solo el ${pct} % del objetivo: cubre ${out[3].value} meses.`,
+                'pt-br': `Só ${pct} % da meta: cobre ${out[3].value} meses.`,
+                ja: `目標の${pct}%しかありません。今の残高では${out[3].value}か月分です。`,
+                de: `Erst ${pct} % des Ziels — das deckt ${out[3].value} Monate.`,
+                fr: `Seulement ${pct} % de l’objectif : cela couvre ${out[3].value} mois.`,
+                hi: `लक्ष्य का सिर्फ़ ${pct}% — इससे ${out[3].value} महीने चलेंगे।`,
+              }, tone: 'bad' };
     },
     ko: { title: '비상금 목표 계산기', desc: '몇 달치 생활비를 비상금으로 두어야 하는지 계산합니다.',
       long: '월 생활비에 버틸 개월을 곱합니다. 소득이 일정한 직장인은 3~6개월, 프리랜서나 자영업은 6~12개월을 잡는 편이 무난합니다.',
@@ -347,8 +387,24 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     },
     verdict: (v, out) =>
       v.price < v.face
-        ? { ko: `액면보다 싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 높습니다.`, en: `Bought below par, so the ${out[0].value}% current yield beats the ${v.coupon}% coupon.`, tone: 'good' }
-        : { ko: `액면보다 비싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 낮습니다.`, en: `Bought above par, so the ${out[0].value}% current yield falls short of the ${v.coupon}% coupon.`, tone: 'warn' },
+        ? { ko: `액면보다 싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 높습니다.`, en: `Bought below par, so the ${out[0].value}% current yield beats the ${v.coupon}% coupon.`,
+            l10n: {
+              es: `Comprado bajo la par, así que el ${out[0].value} % de rendimiento corriente supera al cupón del ${v.coupon} %.`,
+              'pt-br': `Comprado abaixo do par, então o rendimento corrente de ${out[0].value} % supera o cupom de ${v.coupon} %.`,
+              ja: `額面より安く買ったので、直利${out[0].value}%が表面利率${v.coupon}%を上回っています。`,
+              de: `Unter pari gekauft — die laufende Rendite von ${out[0].value} % übertrifft den Kupon von ${v.coupon} %.`,
+              fr: `Acheté sous le pair : le rendement courant de ${out[0].value} % dépasse le coupon de ${v.coupon} %.`,
+              hi: `अंकित मूल्य से सस्ता ख़रीदा, इसलिए ${out[0].value}% वर्तमान प्रतिफल ${v.coupon}% कूपन से ऊपर है।`,
+            }, tone: 'good' }
+        : { ko: `액면보다 비싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 낮습니다.`, en: `Bought above par, so the ${out[0].value}% current yield falls short of the ${v.coupon}% coupon.`,
+            l10n: {
+              es: `Comprado sobre la par, así que el ${out[0].value} % de rendimiento corriente se queda por debajo del cupón del ${v.coupon} %.`,
+              'pt-br': `Comprado acima do par, então o rendimento corrente de ${out[0].value} % fica abaixo do cupom de ${v.coupon} %.`,
+              ja: `額面より高く買ったので、直利${out[0].value}%が表面利率${v.coupon}%を下回っています。`,
+              de: `Über pari gekauft — die laufende Rendite von ${out[0].value} % bleibt unter dem Kupon von ${v.coupon} %.`,
+              fr: `Acheté au-dessus du pair : le rendement courant de ${out[0].value} % reste sous le coupon de ${v.coupon} %.`,
+              hi: `अंकित मूल्य से महँगा ख़रीदा, इसलिए ${out[0].value}% वर्तमान प्रतिफल ${v.coupon}% कूपन से नीचे है।`,
+            }, tone: 'warn' },
     ko: { title: '채권 현재 수익률 계산기', desc: '액면·표면금리·매입가로 실제 이자 수익률을 계산합니다.',
       long: '해마다 받는 이자는 액면에 표면금리를 곱한 값으로 고정입니다. 그 이자를 실제로 낸 값으로 나누면 현재 수익률이 나옵니다 — 싸게 살수록 수익률이 올라갑니다.',
       note: '현재 수익률은 만기까지 가는 동안의 가격 회복(또는 하락)을 반영하지 않습니다. 만기 보유가 목적이면 만기수익률을 함께 보세요.' },

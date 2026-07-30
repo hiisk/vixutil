@@ -1,5 +1,6 @@
 import type { FormulaTool } from '@/lib/formula/types';
-import type { Lang } from '@/lib/formula/terms';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { textOf } from '@/lib/formula/types';
 import { FORMULA_UI } from '@/lib/formula/ui';
 import { renderFormula } from '@/lib/formula/faq';
 import { answerLine, glossaryRows, inputRows, outputRows, scenarioTable, substituted } from '@/lib/formula/article';
@@ -37,11 +38,11 @@ export default function FormulaArticle({
   section,
 }: {
   tool: FormulaTool;
-  lang: Lang;
+  lang: FormulaLang;
   section: SectionConfig;
 }) {
   const ui = FORMULA_UI[lang];
-  const text = tool[lang];
+  const text = textOf(tool, lang);
   const inputs = inputRows(tool, lang);
   const outputs = outputRows(tool, lang);
   const table = scenarioTable(tool, lang);

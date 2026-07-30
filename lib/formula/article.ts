@@ -14,9 +14,9 @@
  * 공짜로 따라온다.
  */
 import type { FieldSpec, FormulaTool, OutputSpec } from './types.ts';
-import { term, unitLabel, type Lang } from './terms.ts';
+import { term, unitLabel, type FormulaLang } from './terms.ts';
 import { termDesc } from './glossary.ts';
-import { groupNum } from './ui.ts';
+import { FORMULA_UI, groupNum } from './ui.ts';
 
 export const defaultValues = (tool: FormulaTool): Record<string, number> => {
   const v: Record<string, number> = {};
@@ -27,7 +27,7 @@ export const defaultValues = (tool: FormulaTool): Record<string, number> => {
 const fmt = (n: number, digits = 2): string => groupNum(n, digits);
 
 /** 라벨 + 단위를 한 덩어리로 — "허리둘레(cm)" 처럼 */
-export const labelOf = (t: string, unit: string | undefined, lang: Lang): string => {
+export const labelOf = (t: string, unit: string | undefined, lang: FormulaLang): string => {
   const u = unitLabel(unit ?? '', lang);
   return u ? `${term(t, lang)} (${u})` : term(t, lang);
 };
@@ -39,15 +39,15 @@ export interface InputRow {
   desc: string | null;
 }
 
-export function inputRows(tool: FormulaTool, lang: Lang): InputRow[] {
-  const anyRange = { ko: '제한 없음', en: 'No limit' }[lang];
+export function inputRows(tool: FormulaTool, lang: FormulaLang): InputRow[] {
+  const ui = FORMULA_UI[lang];
   return tool.fields.map(f => {
     const lo = f.min, hi = f.max;
     const range =
       lo !== undefined && hi !== undefined ? `${fmt(lo, 2)} ~ ${fmt(hi, 2)}`
-      : lo !== undefined ? `${fmt(lo, 2)} ${lang === 'ko' ? '이상' : 'and up'}`
-      : hi !== undefined ? `${fmt(hi, 2)} ${lang === 'ko' ? '이하' : 'and below'}`
-      : anyRange;
+      : lo !== undefined ? `${fmt(lo, 2)} ${ui.andUp}`
+      : hi !== undefined ? `${fmt(hi, 2)} ${ui.andBelow}`
+      : ui.rangeAny;
     return { label: labelOf(f.term, f.unit, lang), def: fmt(f.def, 4), range, desc: termDesc(f.term, lang) };
   });
 }
@@ -59,7 +59,7 @@ export interface OutputRow {
   primary: boolean;
 }
 
-export function outputRows(tool: FormulaTool, lang: Lang): OutputRow[] {
+export function outputRows(tool: FormulaTool, lang: FormulaLang): OutputRow[] {
   const outputs = tool.compute(defaultValues(tool));
   return outputs.map(o => ({
     label: labelOf(o.term, o.unit, lang),
@@ -70,7 +70,7 @@ export function outputRows(tool: FormulaTool, lang: Lang): OutputRow[] {
 }
 
 /** 공식의 {키} 가운데 입력값인 것만 숫자로 바꾼다 — 나머지는 이름으로 남긴다 */
-export function substituted(tool: FormulaTool, lang: Lang): string {
+export function substituted(tool: FormulaTool, lang: FormulaLang): string {
   const byTerm = new Map(tool.fields.map(f => [f.term, f.def]));
   return tool.formula.replace(/\{(\w+)\}/g, (_, k: string) => {
     const v = byTerm.get(k);
@@ -78,7 +78,7 @@ export function substituted(tool: FormulaTool, lang: Lang): string {
   });
 }
 
-export function answerLine(tool: FormulaTool, lang: Lang): string {
+export function answerLine(tool: FormulaTool, lang: FormulaLang): string {
   const outputs = tool.compute(defaultValues(tool));
   const primary = outputs.find(o => o.primary) ?? outputs[0];
   const u = unitLabel(primary.unit ?? '', lang);
@@ -136,7 +136,7 @@ export interface ScenarioTable {
   rows: string[][];
 }
 
-export function scenarioTable(tool: FormulaTool, lang: Lang): ScenarioTable | null {
+export function scenarioTable(tool: FormulaTool, lang: FormulaLang): ScenarioTable | null {
   const pivot = pivotField(tool);
   if (!pivot) return null;
 
@@ -175,7 +175,7 @@ export function scenarioTable(tool: FormulaTool, lang: Lang): ScenarioTable | nu
 }
 
 /** 이 도구가 쓰는 용어 가운데 뜻풀이가 있는 것만 */
-export function glossaryRows(tool: FormulaTool, lang: Lang): { t: string; d: string }[] {
+export function glossaryRows(tool: FormulaTool, lang: FormulaLang): { t: string; d: string }[] {
   const keys = new Set<string>();
   for (const f of tool.fields) keys.add(f.term);
   for (const o of tool.compute(defaultValues(tool))) keys.add(o.term);

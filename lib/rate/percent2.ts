@@ -58,6 +58,14 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
       return {
         ko: `${v.a}% 올랐다가 ${v.b}% 변하면 합계 ${sum}%가 아니라 ${real}%입니다. 20% 올랐다가 20% 내리면 본전이 아니라 4% 손실입니다.`,
         en: `Up ${v.a}% then ${v.b}% gives ${real}%, not the ${sum}% you get by adding. Up 20% then down 20% is a 4% loss, not break-even.`,
+        l10n: {
+          es: `Subir ${v.a} % y luego ${v.b} % da ${real} %, no el ${sum} % de sumarlos. Subir 20 % y bajar 20 % deja una pérdida del 4 %, no un empate.`,
+          'pt-br': `Subir ${v.a} % e depois ${v.b} % dá ${real} %, e não os ${sum} % de somar. Subir 20 % e cair 20 % deixa 4 % de prejuízo, não empate.`,
+          ja: `${v.a}%のあと${v.b}%変わると合計は${sum}%ではなく${real}%です。20%上がって20%下がれば、元通りではなく4%の損です。`,
+          de: `${v.a} % hoch und dann ${v.b} % ergibt ${real} %, nicht die ${sum} % aus der Addition. 20 % hoch und 20 % runter sind 4 % Verlust, kein Nullsummenspiel.`,
+          fr: `Monter de ${v.a} % puis de ${v.b} % donne ${real} %, pas les ${sum} % de l’addition. Monter de 20 % puis baisser de 20 % laisse 4 % de perte, pas l’équilibre.`,
+          hi: `${v.a}% के बाद ${v.b}% बदलने पर कुल ${sum}% नहीं, ${real}% होता है। 20% चढ़कर 20% गिरने पर बराबरी नहीं, 4% का नुक़सान रहता है।`,
+        },
         tone: 'warn',
       };
     },
@@ -85,10 +93,37 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const e = out[0].value;
       return e <= 1
-        ? { ko: `오차 ${e}%는 정확한 편입니다.`, en: `An error of ${e}% is tight.`, tone: 'good' }
+        ? {
+            ko: `오차 ${e}%는 정확한 편입니다.`, en: `An error of ${e}% is tight.`,
+            l10n: {
+              es: `Un error del ${e} % es ajustado.`, 'pt-br': `Um erro de ${e} % é apertado.`,
+              ja: `誤差${e}%は正確な部類です。`, de: `Ein Fehler von ${e} % ist eng.`,
+              fr: `Une erreur de ${e} % est serrée.`, hi: `${e}% की त्रुटि सटीक मानी जाती है।`,
+            },
+            tone: 'good',
+          }
         : e <= 5
-          ? { ko: `오차 ${e}%는 대체로 받아들일 수 있는 수준입니다.`, en: `An error of ${e}% is usually acceptable.`, tone: 'warn' }
-          : { ko: `오차 ${e}%는 큽니다. 측정 방법을 다시 보세요.`, en: `An error of ${e}% is large — revisit the method.`, tone: 'bad' };
+          ? {
+              ko: `오차 ${e}%는 대체로 받아들일 수 있는 수준입니다.`, en: `An error of ${e}% is usually acceptable.`,
+              l10n: {
+                es: `Un error del ${e} % suele ser aceptable.`, 'pt-br': `Um erro de ${e} % costuma ser aceitável.`,
+                ja: `誤差${e}%はおおむね許容できる範囲です。`, de: `Ein Fehler von ${e} % ist meist vertretbar.`,
+                fr: `Une erreur de ${e} % est en général acceptable.`, hi: `${e}% की त्रुटि आम तौर पर चल जाती है।`,
+              },
+              tone: 'warn',
+            }
+          : {
+              ko: `오차 ${e}%는 큽니다. 측정 방법을 다시 보세요.`, en: `An error of ${e}% is large — revisit the method.`,
+              l10n: {
+                es: `Un error del ${e} % es grande: revisa el método de medición.`,
+                'pt-br': `Um erro de ${e} % é grande: revise o método de medição.`,
+                ja: `誤差${e}%は大きいです。測定方法を見直してください。`,
+                de: `Ein Fehler von ${e} % ist groß — sieh dir die Messmethode noch einmal an.`,
+                fr: `Une erreur de ${e} % est grande : revois la méthode de mesure.`,
+                hi: `${e}% की त्रुटि बड़ी है — मापने का तरीक़ा दोबारा देखें।`,
+              },
+              tone: 'bad',
+            };
     },
     ko: { title: '오차율 계산기', desc: '측정값이 참값에서 몇 % 벗어났는지 계산합니다.',
       long: '차이의 절댓값을 참값으로 나눕니다. 분모가 참값이라는 점이 중요합니다 — 측정값으로 나누면 같은 오차인데도 값이 달라져 실험 간 비교가 안 됩니다.',

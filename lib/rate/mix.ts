@@ -44,6 +44,14 @@ export const MIX_TOOLS: FormulaTool[] = [
     verdict: v => v.target > v.conc ? {
       ko: '목표 농도가 현재보다 높습니다. 물을 넣어서는 농도를 올릴 수 없습니다.',
       en: 'The target is higher than the current concentration — adding water cannot raise it.',
+      l10n: {
+        es: 'La concentración objetivo es mayor que la actual: añadiendo agua no se puede subir.',
+        'pt-br': 'A concentração desejada é maior que a atual: acrescentar água não faz subir.',
+        ja: '目標濃度が今より高くなっています。水を足して濃度を上げることはできません。',
+        de: 'Die Zielkonzentration liegt über der aktuellen — mit Wasser lässt sie sich nicht anheben.',
+        fr: 'La concentration visée dépasse l’actuelle : ajouter de l’eau ne peut pas la faire monter.',
+        hi: 'लक्ष्य सांद्रता अभी से ज़्यादा है — पानी मिलाकर सांद्रता बढ़ाई नहीं जा सकती।',
+      },
       tone: 'bad',
     } : null,
     ko: { title: '희석에 넣을 물 계산기', desc: '농도를 목표까지 낮추려면 물을 얼마나 더 넣어야 하는지 구합니다.',
