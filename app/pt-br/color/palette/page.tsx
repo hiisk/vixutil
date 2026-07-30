@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
 import ColorShellIntl from '@/components/ColorShellIntl';
 import PaletteTool from '@/components/color/PaletteTool';
-import { alternateLanguages } from '@/lib/locales';
+import { colorMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Gerador de paletas de cores — Monte combinações que funcionam',
-  description: 'Escolha uma cor e ele deduz as que combinam com ela pelas regras do círculo cromático: complementares, análogas, tríade. Escolher por regra em vez de no olho evita que a combinação saia errada.',
-  alternates: {
-    canonical: '/pt-br/color/palette',
-    languages: alternateLanguages('/color/palette'),
-  },
-};
+export const metadata: Metadata = colorMetaIntl('pt-br', 'palette');
 
 export default function PtBrColorPalettePage() {
   return (

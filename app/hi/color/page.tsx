@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import ColorHubIntl from '@/components/ColorHubIntl';
-import { alternateLanguages } from '@/lib/locales';
+import { colorHubMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'रंग उपकरण — पैलेट, कंट्रास्ट, CSS ग्रेडिएंट',
-  description: 'मुफ़्त रंग उपकरण: पैलेट जनरेटर, शेड श्रेणी, कंट्रास्ट जाँच, वर्णांधता सिम्युलेटर, CSS ग्रेडिएंट और छाया। ब्राउज़र में चलता है, इंस्टॉल करने की ज़रूरत नहीं।',
-  alternates: {
-    canonical: '/hi/color',
-    languages: alternateLanguages('/color'),
-  },
-};
+/* 화면은 components/ColorHubIntl.tsx 하나를 일곱 언어가 같이 쓴다 */
+export const metadata: Metadata = colorHubMetaIntl('hi');
 
 export default function HiColorHub() {
   return <ColorHubIntl lang="hi" />;

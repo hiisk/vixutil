@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import ColorHubIntl from '@/components/ColorHubIntl';
-import { alternateLanguages } from '@/lib/locales';
+import { colorHubMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Farbwerkzeuge — Paletten, Kontrast, CSS-Verläufe',
-  description: 'Kostenlose Farbwerkzeuge: Palettengenerator, Farbabstufungen, Kontrast-Prüfer, Farbenblindheit-Simulator, CSS-Verlauf und Schatten. Läuft im Browser, ohne Installation.',
-  alternates: {
-    canonical: '/de/color',
-    languages: alternateLanguages('/color'),
-  },
-};
+/* 화면은 components/ColorHubIntl.tsx 하나를 일곱 언어가 같이 쓴다 */
+export const metadata: Metadata = colorHubMetaIntl('de');
 
 export default function DeColorHub() {
   return <ColorHubIntl lang="de" />;

@@ -113,6 +113,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
     copy: {
       en: { title: 'Image Tools', desc: 'Compress, resize, crop, blur faces' },
+      es: { title: 'Herramientas de imagen', desc: 'Comprimir, redimensionar, recortar, pixelar caras' },
+      'pt-br': { title: 'Ferramentas de imagem', desc: 'Comprimir, redimensionar, recortar, pixelar rostos' },
+      ja: { title: '画像ツール', desc: '圧縮・サイズ変更・切り抜き・顔のモザイク' },
+      de: { title: 'Bildwerkzeuge', desc: 'Komprimieren, skalieren, zuschneiden, Gesichter verpixeln' },
+      fr: { title: 'Outils d’image', desc: 'Compresser, redimensionner, recadrer, pixeliser des visages' },
+      hi: { title: 'इमेज उपकरण', desc: 'कंप्रेस, आकार बदलना, क्रॉप, चेहरे पिक्सेल करना' },
     },
   },
   {
@@ -120,6 +126,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
     copy: {
       en: { title: 'Sound Tools', desc: 'Metronome, tuner, white noise, tone' },
+      es: { title: 'Herramientas de sonido', desc: 'Metrónomo, afinador, ruido blanco, tonos' },
+      'pt-br': { title: 'Ferramentas de som', desc: 'Metrônomo, afinador, ruído branco, tons' },
+      ja: { title: 'サウンドツール', desc: 'メトロノーム・チューナー・ホワイトノイズ・トーン' },
+      de: { title: 'Klangwerkzeuge', desc: 'Metronom, Stimmgerät, Rauschen, Töne' },
+      fr: { title: 'Outils de son', desc: 'Métronome, accordeur, bruit blanc, tons' },
+      hi: { title: 'ध्वनि उपकरण', desc: 'मेट्रोनोम, ट्यूनर, व्हाइट नॉइज़, टोन' },
     },
   },
   {
@@ -127,6 +139,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
     copy: {
       en: { title: 'Cooking Tools', desc: 'Cups to grams, oven temp, rice, coffee' },
+      es: { title: 'Herramientas de cocina', desc: 'Tazas a gramos, horno, arroz, café' },
+      'pt-br': { title: 'Ferramentas de cozinha', desc: 'Xícaras para gramas, forno, arroz, café' },
+      ja: { title: '料理ツール', desc: 'カップ→グラム・オーブン温度・水加減・コーヒー' },
+      de: { title: 'Küchenwerkzeuge', desc: 'Cups in Gramm, Ofentemperatur, Reis, Kaffee' },
+      fr: { title: 'Outils de cuisine', desc: 'Tasses en grammes, four, riz, café' },
+      hi: { title: 'रसोई उपकरण', desc: 'कप से ग्राम, ओवन, चावल, कॉफ़ी' },
     },
   },
   {

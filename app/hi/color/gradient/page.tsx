@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
 import ColorShellIntl from '@/components/ColorShellIntl';
 import GradientTool from '@/components/color/GradientTool';
-import { alternateLanguages } from '@/lib/locales';
+import { colorMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'CSS ग्रेडिएंट जनरेटर — linear-gradient कोड',
-  description: 'रंग और कोण तय कीजिए, यह CSS का linear-gradient लिख देगा। कलर स्टॉप घुमाकर तय करें कि बदलाव कहाँ हो, और नतीजा सीधे चिपका दें।',
-  alternates: {
-    canonical: '/hi/color/gradient',
-    languages: alternateLanguages('/color/gradient'),
-  },
-};
+export const metadata: Metadata = colorMetaIntl('hi', 'gradient');
 
 export default function HiColorGradientPage() {
   return (

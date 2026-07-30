@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import ColorHubIntl from '@/components/ColorHubIntl';
-import { alternateLanguages } from '@/lib/locales';
+import { colorHubMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'カラーツール — 配色・コントラスト・CSSグラデーション',
-  description: '無料のカラーツール：カラーパレット作成、色段階、コントラスト比チェック、色覚シミュレーター、CSSグラデーションと影。ブラウザで動き、インストールは不要です。',
-  alternates: {
-    canonical: '/ja/color',
-    languages: alternateLanguages('/color'),
-  },
-};
+/* 화면은 components/ColorHubIntl.tsx 하나를 일곱 언어가 같이 쓴다 */
+export const metadata: Metadata = colorHubMetaIntl('ja');
 
 export default function JaColorHub() {
   return <ColorHubIntl lang="ja" />;

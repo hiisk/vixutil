@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { ColorTool } from './color-tools.ts';
 import { COLOR_TOOLS } from './color-tools.ts';
-import type { IntlLocale } from './locales.ts';
+import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 
 /**
  * 색상 도구(/color) 섹션의 번역 메타데이터.
@@ -571,3 +571,36 @@ export const COLOR_SHELL_UI: Record<ColorIntlLang, {
     hubFoot: 'मुफ़्त रंग उपकरण', eyebrow: 'रंग',
   },
 };
+
+/**
+ * 라우트가 그대로 쓰는 메타데이터.
+ *
+ * 문구를 page.tsx에 박아 두면 언어 일곱 개 × 도구 열 개로 일흔 벌이 생기고,
+ * 여기 문구를 고쳤을 때 <title>만 옛 문구로 남는다. 페이지는 이 함수를 부른다.
+ */
+export function colorMetaIntl(lang: ColorIntlLang, slug: string) {
+  const t = findColorToolIntl(lang, slug);
+  if (!t) throw new Error(`color-tools-intl: 도구가 없다 — ${slug}`);
+  return {
+    title: t.metaTitle,
+    description: t.long,
+    openGraph: openGraphFor(lang),
+    alternates: {
+      canonical: localeHref(lang, `/color/${slug}`),
+      languages: alternateLanguages(`/color/${slug}`),
+    },
+  };
+}
+
+export function colorHubMetaIntl(lang: ColorIntlLang) {
+  const ui = COLOR_SHELL_UI[lang];
+  return {
+    title: ui.hubTitle,
+    description: ui.hubDesc,
+    openGraph: openGraphFor(lang),
+    alternates: {
+      canonical: localeHref(lang, '/color'),
+      languages: alternateLanguages('/color'),
+    },
+  };
+}

@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
 import ColorShellIntl from '@/components/ColorShellIntl';
 import GradientTool from '@/components/color/GradientTool';
-import { alternateLanguages } from '@/lib/locales';
+import { colorMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Gerador de gradiente CSS — Código linear-gradient',
-  description: 'Defina as cores e o ângulo e ele escreve o linear-gradient do CSS. Mova as paradas de cor para controlar onde a transição acontece e cole o resultado direto.',
-  alternates: {
-    canonical: '/pt-br/color/gradient',
-    languages: alternateLanguages('/color/gradient'),
-  },
-};
+export const metadata: Metadata = colorMetaIntl('pt-br', 'gradient');
 
 export default function PtBrColorGradientPage() {
   return (

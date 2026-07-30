@@ -7,16 +7,20 @@
  *
  * 반면 hreflang과 <html lang>은 BCP 47 표기를 쓴다. pt-BR처럼 지역까지 밝히면
  * 브라질 검색에 더 정확히 잡히고, 경로(pt-br)와 선언(pt-BR)이 달라도 문제없다.
+ *
+ * og:locale은 또 다른 표기다(밑줄, 지역 필수). 페이스북·링크드인·슬랙이 미리보기를
+ * 어느 언어로 그릴지 여기서 읽는다. 한때 app/layout.tsx의 ko_KR 하나가 여덟 언어
+ * 페이지에 전부 실려서, 스페인어 글을 공유하면 한국어 미리보기가 떴다.
  */
 export const LOCALES = [
-  { path: '',       tag: 'ko',    label: '한국어',   english: 'Korean' },
-  { path: 'en',     tag: 'en',    label: 'English',  english: 'English' },
-  { path: 'es',     tag: 'es',    label: 'Español',  english: 'Spanish' },
-  { path: 'pt-br',  tag: 'pt-BR', label: 'Português', english: 'Portuguese (Brazil)' },
-  { path: 'ja',     tag: 'ja',    label: '日本語',    english: 'Japanese' },
-  { path: 'de',     tag: 'de',    label: 'Deutsch',  english: 'German' },
-  { path: 'fr',     tag: 'fr',    label: 'Français', english: 'French' },
-  { path: 'hi',     tag: 'hi',    label: 'हिन्दी',      english: 'Hindi' },
+  { path: '',       tag: 'ko',    og: 'ko_KR', label: '한국어',   english: 'Korean' },
+  { path: 'en',     tag: 'en',    og: 'en_US', label: 'English',  english: 'English' },
+  { path: 'es',     tag: 'es',    og: 'es_ES', label: 'Español',  english: 'Spanish' },
+  { path: 'pt-br',  tag: 'pt-BR', og: 'pt_BR', label: 'Português', english: 'Portuguese (Brazil)' },
+  { path: 'ja',     tag: 'ja',    og: 'ja_JP', label: '日本語',    english: 'Japanese' },
+  { path: 'de',     tag: 'de',    og: 'de_DE', label: 'Deutsch',  english: 'German' },
+  { path: 'fr',     tag: 'fr',    og: 'fr_FR', label: 'Français', english: 'French' },
+  { path: 'hi',     tag: 'hi',    og: 'hi_IN', label: 'हिन्दी',      english: 'Hindi' },
 ] as const;
 
 export type LocalePath = typeof LOCALES[number]['path'];
@@ -43,6 +47,21 @@ const BY_PATH: Record<string, typeof LOCALES[number]> = Object.fromEntries(
 /** hreflang·<html lang>에 쓰는 BCP 47 표기 */
 export function localeTag(locale: AnyLocale): string {
   return BY_PATH[locale]?.tag ?? locale;
+}
+
+/**
+ * metadata.openGraph에 그대로 넣을 값.
+ *
+ * openGraph를 페이지에서 선언하면 app/layout.tsx의 것이 통째로 대체된다. 그래서
+ * locale만 바꿀 수 없고 type·siteName까지 같이 적어야 한다 — 빠뜨리면 미리보기에
+ * 사이트 이름이 사라진다.
+ */
+export function openGraphFor(locale: AnyLocale) {
+  return {
+    type: 'website' as const,
+    siteName: 'vixutil',
+    locale: BY_PATH[locale]?.og ?? 'ko_KR',
+  };
 }
 
 /** 언어 전환 링크에 쓰는 그 언어의 자기 이름 */

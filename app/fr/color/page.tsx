@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import ColorHubIntl from '@/components/ColorHubIntl';
-import { alternateLanguages } from '@/lib/locales';
+import { colorHubMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Outils de couleur — Palettes, contraste, dégradés CSS',
-  description: 'Outils de couleur gratuits : générateur de palettes, échelle de nuances, vérificateur de contraste, simulateur de daltonisme, dégradé et ombre CSS. Tourne dans le navigateur, rien à installer.',
-  alternates: {
-    canonical: '/fr/color',
-    languages: alternateLanguages('/color'),
-  },
-};
+/* 화면은 components/ColorHubIntl.tsx 하나를 일곱 언어가 같이 쓴다 */
+export const metadata: Metadata = colorHubMetaIntl('fr');
 
 export default function FrColorHub() {
   return <ColorHubIntl lang="fr" />;

@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import ColorHubIntl from '@/components/ColorHubIntl';
-import { alternateLanguages } from '@/lib/locales';
+import { colorHubMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Ferramentas de cor — Paletas, contraste, gradiente CSS',
-  description: 'Ferramentas de cor grátis: gerador de paletas, escala de tons, verificador de contraste, simulador de daltonismo, gradiente e sombra CSS. Roda no navegador, sem instalar nada.',
-  alternates: {
-    canonical: '/pt-br/color',
-    languages: alternateLanguages('/color'),
-  },
-};
+/* 화면은 components/ColorHubIntl.tsx 하나를 일곱 언어가 같이 쓴다 */
+export const metadata: Metadata = colorHubMetaIntl('pt-br');
 
 export default function PtBrColorHub() {
   return <ColorHubIntl lang="pt-br" />;

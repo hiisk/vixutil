@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
 import ColorShellIntl from '@/components/ColorShellIntl';
 import ShadowTool from '@/components/color/ShadowTool';
-import { alternateLanguages } from '@/lib/locales';
+import { colorMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Generador de box-shadow CSS — Vista previa y código',
-  description: 'Ajusta desplazamiento, desenfoque, extensión, color y opacidad viendo el resultado, y llévate el CSS. Incluye ajustes que superponen varias sombras para una sensación de profundidad más natural.',
-  alternates: {
-    canonical: '/es/color/shadow',
-    languages: alternateLanguages('/color/shadow'),
-  },
-};
+export const metadata: Metadata = colorMetaIntl('es', 'shadow');
 
 export default function EsColorShadowPage() {
   return (

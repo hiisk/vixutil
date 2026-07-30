@@ -253,14 +253,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })),
     ]),
 
-    { url: `${BASE}/en/image`, changeFrequency: weekly, priority: 0.9 },
-    ...imageToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/image/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/image`, changeFrequency: weekly, priority: 0.9 },
+      ...imageToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/image/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/sound`, changeFrequency: weekly, priority: 0.9 },
-    ...soundToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/sound`, changeFrequency: weekly, priority: 0.9 },
+      ...soundToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/food`, changeFrequency: weekly, priority: 0.9 },
-    ...foodToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/food/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/food`, changeFrequency: weekly, priority: 0.9 },
+      ...foodToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/food/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
     { url: `${BASE}/en/game`, changeFrequency: weekly, priority: 0.9 },
     ...gameToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/game/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),

@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
 import ColorShellIntl from '@/components/ColorShellIntl';
 import PaletteTool from '@/components/color/PaletteTool';
-import { alternateLanguages } from '@/lib/locales';
+import { colorMetaIntl } from '@/lib/color-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Colour Palette Generator — Build Matching Colour Schemes',
-  description: 'Pick one colour and it derives the colours that go with it using colour-wheel rules — complementary, analogous, triadic. Choosing by rule rather than by eye keeps a scheme from going badly wrong.',
-  alternates: {
-    canonical: '/en/color/palette',
-    languages: alternateLanguages('/color/palette'),
-  },
-};
+export const metadata: Metadata = colorMetaIntl('en', 'palette');
 
 export default function EnColorPalettePage() {
   return (
