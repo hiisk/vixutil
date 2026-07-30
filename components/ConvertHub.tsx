@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -59,7 +60,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
-          <div className="text-5xl mb-4">🔄</div>
+          <ToolIcon emoji="🔄" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
           <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.hubTitle}</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             {ui.hubLead} · {CONVERT_TOOLS.length}
@@ -85,7 +86,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
                     href={`${prefix}/convert/${t.slug}`}
                     className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
                   >
-                    <span className="text-xl shrink-0">{t.icon}</span>
+                    <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                     <span className="min-w-0 flex-1">
                       <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-700 transition-colors">
                         {lt.title}

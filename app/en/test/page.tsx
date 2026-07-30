@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { TESTS_EN } from '@/lib/test-en';
@@ -38,7 +39,7 @@ export default function EnTestHub() {
             <Link key={t.slug} href={`/en/test/${t.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${thumbGradient(t.slug, 'test')} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
-                <span className="text-4xl drop-shadow-lg transition-transform group-hover:scale-110">{t.icon}</span>
+                <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{t.questions.length}</span>
               </div>
               <div>

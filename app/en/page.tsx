@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageGlow from '@/components/PageGlow';
@@ -86,7 +87,7 @@ export default function EnHome() {
             >
               <div className={`absolute -right-8 -top-8 w-28 h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
               <div className="relative z-10">
-                <span className="text-3xl block mb-4">{s.icon}</span>
+                <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-9 h-9 block mb-4" />
                 <h2 className={`text-lg font-black ${s.accent} mb-1`}>{s.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{s.desc}</p>
                 <div className={`flex items-center gap-1 text-xs font-semibold ${s.accent}`}>

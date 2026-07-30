@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageGlow from '@/components/PageGlow';
@@ -52,7 +53,7 @@ export default function ZhFortuneHub() {
 
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
-          <div className="text-5xl mb-4">🔮</div>
+          <ToolIcon emoji="🔮" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
           <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">今日运势</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">每日更新 · 星座、生肖、血型</p>
         </div>
@@ -64,7 +65,7 @@ export default function ZhFortuneHub() {
               <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
-                  <span className="text-3xl">{t.icon}</span>
+                  <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
                   <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>

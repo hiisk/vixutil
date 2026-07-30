@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
@@ -427,7 +428,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
         <div className="mb-6">
           {/* 목록 카드와 같은 그라데이션·이모지 — 제목 옆 작은 이모지보다 눈에 들어온다 */}
           <div className={`w-20 h-20 rounded-2xl mb-4 flex items-center justify-center bg-gradient-to-br ${thumbGradient(checklist.slug, 'checklist')} shadow-lg shadow-sky-500/20`}>
-            <span className="text-4xl drop-shadow-md" aria-hidden="true">{checklist.icon}</span>
+            <ToolIcon emoji={checklist.icon} accent="rgba(255,255,255,0.55)" className="w-10 h-10 drop-shadow-md" />
           </div>
           <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1">
@@ -491,7 +492,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
                   className="w-full flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{section.icon}</span>
+                    <ToolIcon emoji={section.icon} className="w-5 h-5 text-slate-400 dark:text-slate-500" />
                     <span className="font-bold text-slate-800 dark:text-slate-100 text-sm">{section.title}</span>
                   </div>
                   <div className="flex items-center gap-2">

@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SECTION_COUNTS } from '@/lib/search-index';
@@ -347,7 +348,7 @@ export default function HubPage() {
 
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-4">
-                  <span className="text-3xl">{s.icon}</span>
+                  <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
                   <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
                     {s.badge}
                   </span>

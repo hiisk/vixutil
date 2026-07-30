@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -106,7 +107,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
 
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-2">🍀</div>
+          <ToolIcon emoji="🍀" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{c.title}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
         </div>
@@ -156,7 +157,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
                 { label: c.timeSlot, value: result.timeSlot, icon: '⏰' },
               ].map(item => (
                 <div key={item.label} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 text-center">
-                  <div className="text-xl mb-1">{item.icon}</div>
+                  <ToolIcon emoji={item.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 mx-auto mb-1" />
                   <div className="text-[11px] text-slate-400 dark:text-slate-500">{item.label}</div>
                   <div className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-0.5">{item.value}</div>
                 </div>
@@ -167,7 +168,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <div className="text-5xl mb-3">☝️</div>
+            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm">{c.empty}</p>
           </div>
         )}

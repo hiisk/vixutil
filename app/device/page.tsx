@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -59,7 +60,7 @@ export default function DeviceHubPage() {
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
-          <div className="text-5xl mb-4">🧰</div>
+          <ToolIcon emoji="🧰" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
           <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">기기 점검</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             키보드·마우스·마이크·웹캠·스피커·모니터가 제대로 도는지
@@ -87,7 +88,7 @@ export default function DeviceHubPage() {
                     <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <div className="flex items-start justify-between mb-3">
-                        <span className="text-3xl">{t.icon}</span>
+                        <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-8 h-8" />
                         {t.needsPermission && (
                           <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-600 border border-sky-100 dark:border-sky-900/50">
                             권한 필요

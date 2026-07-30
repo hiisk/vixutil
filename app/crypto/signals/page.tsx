@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
@@ -366,7 +367,7 @@ export default function SignalsPage() {
         </div>
 
         <div className="text-center mb-6">
-          <div className="text-4xl mb-2">📈</div>
+          <ToolIcon emoji="📈" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-1.5">Crypto Signal Board</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
           <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
@@ -416,7 +417,7 @@ export default function SignalsPage() {
                 <div key={card.key} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 flex flex-col">
                   <div className="flex items-center justify-between mb-3">
                     <span className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-white">
-                      <span aria-hidden="true">{card.icon}</span>{card.title}
+                      <ToolIcon emoji={card.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />{card.title}
                     </span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">{card.hint}</span>
                   </div>

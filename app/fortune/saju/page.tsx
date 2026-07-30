@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -291,7 +292,7 @@ export default function SajuPage() {
         {/* 입력 폼 */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
           <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
-            <div className="text-4xl mb-2">🔯</div>
+            <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
             <h1 className="text-xl font-black">사주 분석</h1>
             <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주 사주(四柱)를 분석합니다</p>
           </div>

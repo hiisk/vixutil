@@ -1,9 +1,9 @@
+import ToolIcon from '@/components/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import PageGlow from '@/components/PageGlow';
-import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { TIME_TOOLS } from '@/lib/time-tools';

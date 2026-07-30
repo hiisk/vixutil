@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageGlow from '@/components/PageGlow';
@@ -44,7 +45,7 @@ export default function EnSnapHub() {
 
       <div className="max-w-3xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
-          <div className="text-5xl mb-3">📸</div>
+          <ToolIcon emoji="📸" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">Snap Tests</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Real face detection, one photo, nothing uploaded</p>
         </div>
@@ -53,7 +54,7 @@ export default function EnSnapHub() {
           {TESTS.map(t => (
             <Link key={t.href} href={t.href}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.color} text-white p-6 min-h-[10rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-              <span className="text-4xl drop-shadow-lg transition-transform group-hover:scale-110">{t.icon}</span>
+              <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
                 <div className="text-xs font-medium text-white/80 mt-1">{t.desc}</div>

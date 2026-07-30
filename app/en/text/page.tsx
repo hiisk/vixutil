@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -49,7 +50,7 @@ export default function EnTextHub() {
               {g.tools.map(t => (
                 <Link key={t.slug} href={`/en/text/${t.slug}`}
                   className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-                  <span className="text-4xl drop-shadow-lg transition-transform group-hover:scale-110">{t.icon}</span>
+                  <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                   <span>
                     <span className="block text-base font-black drop-shadow leading-tight">{t.title}</span>
                     <span className="block text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{t.desc}</span>

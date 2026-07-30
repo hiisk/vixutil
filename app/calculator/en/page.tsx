@@ -1,5 +1,6 @@
 'use client';
 
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import { useState } from 'react';
 import PageGlow from '@/components/PageGlow';
@@ -248,7 +249,7 @@ export default function EnHome() {
             <section key={cat.id} id={cat.id}>
               {/* Section header */}
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-2xl">{cat.icon}</span>
+                <ToolIcon emoji={cat.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
                 <div>
                   <h2 className="font-black text-slate-900 dark:text-slate-100 text-lg leading-tight">{cat.label}</h2>
                   <p className="text-xs text-slate-400 dark:text-slate-500">{cat.desc}</p>

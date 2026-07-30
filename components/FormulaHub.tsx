@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
@@ -74,7 +75,7 @@ export default function FormulaHub({ lang, section }: { lang: Lang; section: Sec
                     href={`${prefix}/${section.key}/${t.slug}`}
                     className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${section.hoverBorder} hover:shadow-sm transition-all`}
                   >
-                    <span className="text-xl shrink-0">{t.icon}</span>
+                    <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                     <span className="min-w-0 flex-1">
                       <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${section.hoverText} transition-colors`}>
                         {t[lang].title}

@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { RandomTool } from '@/lib/random-tools';
@@ -38,7 +39,7 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
 
       <div className="max-w-lg mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-2">{tool.icon}</div>
+          <ToolIcon emoji={tool.icon} className="text-slate-800 dark:text-slate-100 w-14 h-14 mx-auto mb-2" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{title}</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{desc}</p>
         </div>

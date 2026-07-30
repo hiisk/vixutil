@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
@@ -72,7 +73,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">{c.icon}</div>
+          <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-14 h-14 mx-auto mb-3" />
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{t.name}</h1>
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500">
             {COUNTRY_REGION_LABEL[lang][c.region] ?? c.region} · {c.code}
@@ -123,7 +124,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
                 href={`${prefix}/country/${r.slug}`}
                 className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
               >
-                <span className="text-xl shrink-0">{r.icon}</span>
+                <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                 <span className="min-w-0 flex-1">
                   <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
                     {r[lang].name}

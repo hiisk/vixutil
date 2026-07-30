@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -86,7 +87,7 @@ export default async function RandomToolPage({ params }: { params: Promise<{ slu
                 href={`/random/${o.slug}`}
                 className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-3 text-center hover:-translate-y-0.5 hover:shadow transition-all"
               >
-                <div className="text-2xl mb-1">{o.icon}</div>
+                <ToolIcon emoji={o.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7 mx-auto mb-1" />
                 <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 leading-tight">{o.title}</div>
               </Link>
             ))}

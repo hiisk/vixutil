@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -38,7 +39,7 @@ export default function TodayColorPage() {
 
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-2">🎨</div>
+          <ToolIcon emoji="🎨" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">오늘의 행운 색</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">오늘 당신에게 힘이 되는 색과 피하면 좋은 색 — 매일 바뀝니다</p>
         </div>

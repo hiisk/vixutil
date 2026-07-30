@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { GENERATORS_ZH } from '@/lib/generator-zh';
@@ -44,7 +45,7 @@ export default function ZhGeneratorHub() {
           {GENERATORS_ZH.map((g, i) => (
             <Link key={g.slug} href={`/zh/generator/${g.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-              <div className="text-4xl drop-shadow-lg transition-transform group-hover:scale-110">{g.icon}</div>
+              <ToolIcon emoji={g.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-base font-black drop-shadow leading-tight">{g.title.replace('生成器', '')}</div>
                 <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{g.desc}</div>

@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -85,7 +86,7 @@ export default function BloodTypePage() {
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <div className="text-5xl mb-3">☝️</div>
+            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm">혈액형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>
         )}

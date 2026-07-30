@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import ShareButton from './ShareButton';
@@ -88,7 +89,7 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
         <div className="text-center mb-7">
           {/* 목록 카드와 같은 그라데이션·이모지 — 텍스트만 있으면 허전하다 */}
           <div className={`w-24 h-24 rounded-3xl mx-auto mb-4 flex items-center justify-center bg-gradient-to-br ${thumbGradient(gen.slug, 'generator')} shadow-xl shadow-emerald-500/20`}>
-            <span className="text-5xl drop-shadow-md" aria-hidden="true">{gen.icon}</span>
+            <ToolIcon emoji={gen.icon} accent="rgba(255,255,255,0.55)" className="w-12 h-12 drop-shadow-md" />
           </div>
           <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1.5">{gen.title}</h1>

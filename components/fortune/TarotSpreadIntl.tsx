@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -113,7 +114,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
-                    <span className="text-base">{s.icon}</span>
+                    <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                     <span className={`text-sm font-black ${spreadId === s.id ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                       {spreads[s.id].label}
                     </span>

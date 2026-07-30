@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -206,7 +207,7 @@ export default function CoupleMatchPage() {
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">💑</div>
+          <ToolIcon emoji="💑" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">커플 관상 궁합</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">두 사람의 사진으로 인상이 얼마나 닮았는지 궁합을 봐드려요</p>
         </div>
@@ -280,7 +281,7 @@ export default function CoupleMatchPage() {
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <div className="text-5xl mb-2">💘</div>
+              <ToolIcon emoji="💘" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
               <p className="text-sm font-semibold text-white/80 mb-1">커플 관상 궁합</p>
               <p className="text-4xl font-black mb-3">{result.score}%</p>
               <p className="text-sm leading-relaxed">{result.headline}</p>

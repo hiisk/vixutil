@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { WEBCAM_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -136,7 +137,7 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
         />
         {state !== 'on' && (
           <div className="text-center px-6">
-            <div className="text-5xl mb-3">📷</div>
+            <ToolIcon emoji="📷" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm text-slate-300 mb-5 leading-relaxed">
               {ui.prompt}
             </p>

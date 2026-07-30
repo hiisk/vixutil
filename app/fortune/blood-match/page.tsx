@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -98,7 +99,7 @@ export default function BloodMatchPage() {
           />
         ) : (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <div className="text-5xl mb-3">☝️</div>
+            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm">두 사람의 혈액형을 골라 궁합을 확인해보세요</p>
           </div>
         )}

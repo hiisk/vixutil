@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
@@ -18,7 +19,7 @@ function QuizCard({ q }: { q: CardItem }) {
             NEW
           </span>
         )}
-        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{q.icon}</span>
+        <ToolIcon emoji={q.icon} accent="rgba(255,255,255,0.55)" className="w-12 h-12 drop-shadow-md transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>

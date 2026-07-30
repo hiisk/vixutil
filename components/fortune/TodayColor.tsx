@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -83,7 +84,7 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
 
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-2">🎨</div>
+          <ToolIcon emoji="🎨" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{c.title}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
         </div>

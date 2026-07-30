@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -59,7 +60,7 @@ export default function DreamPage() {
       <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-950 text-white pt-10 pb-8">
         <div className="max-w-2xl mx-auto px-4">
           <div className="text-center mb-7">
-            <div className="text-5xl mb-3">🌙</div>
+            <ToolIcon emoji="🌙" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <h1 className="text-3xl font-black mb-1.5">꿈 해몽</h1>
             <p className="text-indigo-300 text-sm">어젯밤 꿈의 의미를 알아보세요</p>
           </div>
@@ -131,7 +132,7 @@ export default function DreamPage() {
         {/* 빈 결과 */}
         {filtered.length === 0 && (
           <div className="text-center py-24">
-            <div className="text-4xl mb-3">🔮</div>
+            <ToolIcon emoji="🔮" className="w-9 h-9 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-slate-500 dark:text-slate-400 font-semibold">검색 결과가 없어요</p>
             <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">다른 키워드로 검색해 보세요</p>
           </div>

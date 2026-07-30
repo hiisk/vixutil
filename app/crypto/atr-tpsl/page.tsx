@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -107,7 +108,7 @@ export default function AtrTpslPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">📊</div>
+          <ToolIcon emoji="📊" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">ATR-based TP/SL Calculator</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Compute take-profit / stop-loss from the daily ATR(14) of top-volume Binance coins</p>
         </div>

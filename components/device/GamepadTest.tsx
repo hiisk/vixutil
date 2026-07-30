@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { GAMEPAD_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useEffect, useState } from 'react';
 
@@ -88,7 +89,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
   if (!supported) {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
-        <div className="text-5xl mb-3">🎮</div>
+        <ToolIcon emoji="🎮" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
         <p className="text-sm text-slate-500 dark:text-slate-400">{ui.unsupported}</p>
       </div>
     );
@@ -97,7 +98,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
   if (pads.length === 0) {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-12 text-center">
-        <div className="text-5xl mb-3 animate-pulse">🎮</div>
+        <ToolIcon emoji="🎮" className="w-12 h-12 mx-auto mb-3 animate-pulse text-slate-800 dark:text-slate-100" />
         <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mb-2">{ui.waiting}</p>
         <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed max-w-sm mx-auto">
           {ui.connectHint}<b className="text-slate-600 dark:text-slate-300">{ui.connectHintBold}</b>

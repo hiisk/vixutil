@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -539,7 +540,7 @@ export default function TarotPage() {
                         : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-amber-200 text-slate-700 dark:text-slate-200'
                     }`}>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-base">{s.icon}</span>
+                      <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                       <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${spreadId === s.id ? 'bg-white/25 dark:bg-slate-900/25 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>{s.count}장</span>
                     </div>
                     <p className={`text-xs font-black leading-tight ${spreadId === s.id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{s.label}</p>

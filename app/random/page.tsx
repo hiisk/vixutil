@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { RANDOM_TOOLS } from '@/lib/random-tools';
@@ -64,7 +65,7 @@ export default function RandomIndexPage() {
               {NEW_RANDOM_SLUGS.has(t.slug) && (
                 <span className="absolute top-2 right-2 text-[10px] font-black bg-white/90 text-rose-600 rounded-full px-2 py-0.5">NEW</span>
               )}
-              <div className="text-4xl drop-shadow-lg transition-transform group-hover:scale-110">{t.icon}</div>
+              <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
                 <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{t.desc}</div>

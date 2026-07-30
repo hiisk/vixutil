@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { QUIZZES_EN } from '@/lib/quiz-en';
@@ -38,7 +39,7 @@ export default function EnQuizHub() {
             <Link key={q.slug} href={`/en/quiz/${q.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${thumbGradient(q.slug, 'quiz')} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
-                <span className="text-4xl drop-shadow-lg transition-transform group-hover:scale-110">{q.icon}</span>
+                <ToolIcon emoji={q.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{q.questions.length}</span>
               </div>
               <div>

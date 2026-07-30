@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import { notFound } from 'next/navigation';
 import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
@@ -45,7 +46,7 @@ export default async function EnQuizPage({ params }: { params: Promise<{ slug: s
           {others.map(o => (
             <Link key={o.slug} href={`/en/quiz/${o.slug}`}
               className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-3 hover:-translate-y-0.5 hover:shadow transition-all">
-              <div className="text-xl mb-1">{o.icon}</div>
+              <ToolIcon emoji={o.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 mx-auto mb-1" />
               <div className="text-xs font-bold text-slate-600 dark:text-slate-300 leading-tight">{o.title}</div>
             </Link>
           ))}

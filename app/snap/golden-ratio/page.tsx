@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -199,7 +200,7 @@ export default function GoldenRatioPage() {
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">📐</div>
+          <ToolIcon emoji="📐" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">얼굴 황금비율 테스트</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 이목구비 비례가 황금비(φ)에 얼마나 가까운지 측정해요</p>
         </div>
@@ -271,7 +272,7 @@ export default function GoldenRatioPage() {
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <div className="text-4xl mb-2">📐</div>
+              <ToolIcon emoji="📐" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
               <p className="text-sm font-semibold text-white/80 mb-1">황금비율 점수</p>
               <p className="text-4xl font-black mb-3">{result.totalScore}점</p>
               <p className="text-sm leading-relaxed">{result.overall}</p>

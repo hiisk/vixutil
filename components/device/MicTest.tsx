@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { MIC_TEST_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -141,7 +142,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
     <div>
       {state !== 'on' ? (
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
-          <div className="text-5xl mb-3">🎤</div>
+          <ToolIcon emoji="🎤" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
             {ui.prompt1}
             <br />

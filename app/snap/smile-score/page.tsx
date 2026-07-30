@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -187,7 +188,7 @@ export default function SmileScorePage() {
 
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">😊</div>
+          <ToolIcon emoji="😊" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">미소 지수 측정</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 입꼬리를 분석해요</p>
         </div>

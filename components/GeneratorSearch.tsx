@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
@@ -30,7 +31,7 @@ function GenCard({ g }: { g: CardItem }) {
             NEW
           </span>
         )}
-        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{g.icon}</span>
+        <ToolIcon emoji={g.icon} accent="rgba(255,255,255,0.55)" className="w-12 h-12 drop-shadow-md transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
@@ -103,7 +104,7 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
             return (
               <section key={group.name}>
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-lg">{meta.icon}</span>
+                  <ToolIcon emoji={meta.icon} className="w-5 h-5 text-slate-400 dark:text-slate-500" />
                   <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">{group.name}</h2>
                   <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
                 </div>

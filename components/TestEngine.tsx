@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Test } from '@/lib/types';
@@ -104,7 +105,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
           텍스트만 있으면 허전하고, 어떤 카드를 눌렀는지도 이어지지 않는다.
         */}
         <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-gradient-to-br ${thumbGradient(test.slug, 'test')} shadow-xl shadow-violet-500/20`}>
-          <span className="text-6xl drop-shadow-md" aria-hidden="true">{test.icon}</span>
+          <ToolIcon emoji={test.icon} accent="rgba(255,255,255,0.55)" className="w-14 h-14 drop-shadow-md" />
         </div>
         <span className="text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/30 px-3 py-1 rounded-full mb-3">{test.category}</span>
         <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{test.title}</h1>

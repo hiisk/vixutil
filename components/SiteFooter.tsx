@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
@@ -154,7 +155,7 @@ export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
               href={s.href}
               className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
             >
-              <span className="text-base">{s.icon}</span>
+              <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
               {s.label}
             </Link>
           ))}

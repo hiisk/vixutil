@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { ChecklistCardItem } from '@/lib/card';
@@ -12,7 +13,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
     <Link href={`/checklist/${c.slug}`}
       className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(14,165,233,0.22)] p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
-        <span className="text-2xl">{c.icon}</span>
+        <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
         <div className="flex items-center gap-1.5 shrink-0">
           {NEW_CHECKLIST_SLUGS.has(c.slug) && (
             <span className="text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">

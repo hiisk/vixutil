@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -63,7 +64,7 @@ export default function SnapPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
-          <div className="text-5xl mb-4">📸</div>
+          <ToolIcon emoji="📸" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
           <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">스냅테스트</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">사진 한 장으로 즐기는 참여형 테스트 · 실제 분석 기반</p>
         </div>
@@ -79,7 +80,7 @@ export default function SnapPage() {
               <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
-                  <span className="text-3xl">{t.icon}</span>
+                  <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
                   <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-fuchsia-50 dark:bg-fuchsia-950/30 text-fuchsia-600 border border-fuchsia-100 dark:border-fuchsia-900/40">{t.badge}</span>
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>

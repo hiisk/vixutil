@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -86,7 +87,7 @@ export default function FormulaPage({
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
           <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-gradient-to-br ${section.grad} shadow-lg`}>
-            <span>{tool.icon}</span>
+            <ToolIcon emoji={tool.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{text.title}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">{text.long}</p>
@@ -111,7 +112,7 @@ export default function FormulaPage({
                 href={`${prefix}/${section.key}/${r.slug}`}
                 className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${section.hoverBorder} hover:shadow-sm transition-all`}
               >
-                <span className="text-xl shrink-0">{r.icon}</span>
+                <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                 <span className="min-w-0 flex-1">
                   <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${section.hoverText} transition-colors`}>
                     {r[lang].title}
