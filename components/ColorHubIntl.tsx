@@ -5,7 +5,7 @@ import LangPicker from '@/components/LangPicker';
 import { colorToolsIntl, COLOR_CATEGORY_ORDER, COLOR_SHELL_UI, type ColorIntlLang } from '@/lib/color-tools-intl';
 import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
 import { COLOR_UI } from '@/lib/color/ui';
-import { toLang8 } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang8';
 
 /**
  * 색상 도구 허브의 번역 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -24,7 +24,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
   const tools = colorToolsIntl(lang);
   const ui = COLOR_SHELL_UI[lang];
   // 색 이름 사전은 lang8 열쇠를 쓴다 — 포르투갈어가 'pt-br'이 아니라 'pt'다
-  const named = COLOR_UI[toLang8(lang)];
+  const named = COLOR_UI[lang8OfLocale(lang)];
   const grouped = COLOR_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
     .filter(g => g.tools.length > 0);
@@ -89,7 +89,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
                     <span className="block h-11" style={{ background: c.hex }} />
                     <span className="block px-2 py-1.5 bg-white dark:bg-slate-900">
                       <span className="block text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
-                        {c.name[toLang8(lang)]}
+                        {c.name[lang8OfLocale(lang)]}
                       </span>
                       <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">{c.hex.toUpperCase()}</span>
                     </span>
