@@ -1,12 +1,12 @@
 /**
  * 빌드된 HTML의 <html lang>을 경로에 맞게 바꾼다.
  *
- * app/layout.tsx가 lang="ko"를 박고 있어서 영어·중국어·일본어 960장이 전부
- * 한국어로 선언돼 나갔다. 스크린리더가 영어 문장을 한국어 음운으로 읽고,
+ * app/layout.tsx가 lang="ko"를 박고 있어서 번역 페이지가 전부 한국어로 선언돼
+ * 나갔다. 스크린리더가 영어 문장을 한국어 음운으로 읽고,
  * 크롬이 엉뚱한 번역을 권한다.
  *
  * 정석은 route group으로 root layout을 언어별로 두는 것이다(<html>은 root
- * layout만 그린다). 하지만 라우트 300개를 (ko)/(en)/(zh) 그룹으로 옮기는
+ * layout만 그린다). 하지만 라우트 수백 개를 언어별 그룹으로 옮기는
  * 구조 변경이고, 지금은 섹션이 계속 추가되는 중이라 그 비용을 낼 때가 아니다.
  *
  * output: "export"라 out/의 HTML이 최종 산출물이다. 여기서 한 글자를 바꾸면
@@ -18,6 +18,7 @@
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { LOCALES } from '../lib/locales.ts';
 
 const OUT = new URL('../out/', import.meta.url).pathname;
 
@@ -27,12 +28,22 @@ const OUT = new URL('../out/', import.meta.url).pathname;
  * 파일 이름이 아니라 URL 경로로 판단한다 — /en은 en.html로 나오고 /en/color는
  * en/color.html로 나와서, 파일 이름만 보면 앞의 것을 놓친다.
  */
+/*
+  규칙은 lib/locales.ts에서 만든다. 한때 여기에 언어를 손으로 적어 뒀는데,
+  언어를 여섯 개 늘렸을 때 이 목록만 그대로여서 새 언어 페이지가 전부
+  lang="ko"로 나갔다 — 빌드는 통과하고 요약도 "800장 교정"이라 정상처럼 보였다.
+
+  계산기 카탈로그는 /calculator/en처럼 섹션 안에 언어가 들어가 있어서, 접두어
+  규칙보다 먼저 봐야 한다. 접두어는 긴 것부터 본다 — pt-br이 pt보다 먼저 걸려야
+  한다(지금은 pt가 없지만, 나중에 유럽 포르투갈어를 더하면 순서가 문제가 된다).
+*/
+const PREFIXED = LOCALES.filter(l => l.path !== '');
+
 const RULES = [
-  [p => p === 'calculator/en', 'en'],
-  [p => p === 'calculator/ja', 'ja'],
-  [p => p === 'en' || p.startsWith('en/'), 'en'],
-  // 본문이 간체라 zh보다 정확하다 (음성 합성·글꼴 선택에 쓰인다)
-  [p => p === 'zh' || p.startsWith('zh/'), 'zh-Hans'],
+  ...PREFIXED.map(l => [p => p === `calculator/${l.path}`, l.tag]),
+  ...[...PREFIXED]
+    .sort((a, b) => b.path.length - a.path.length)
+    .map(l => [p => p === l.path || p.startsWith(`${l.path}/`), l.tag]),
 ];
 
 async function walk(dir) {

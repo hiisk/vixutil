@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { LOCALES } from '../lib/locales.ts';
 
 /**
  * <html lang>이 경로의 언어와 맞는지 본다.
@@ -27,14 +28,23 @@ function walk(dir: string): string[] {
   return out;
 }
 
-/** 경로에서 기대되는 lang */
+/**
+ * 경로에서 기대되는 lang.
+ *
+ * 언어 목록은 레지스트리에서 가져오되 판정은 여기서 따로 쓴다 —
+ * scripts/fix-html-lang.mjs의 RULES를 그대로 불러오면 그 파일이 틀렸을 때
+ * 검사도 같이 틀려서 아무것도 못 잡는다. 목록은 공유하고 논리는 나눈다.
+ */
 function expected(path: string): string {
-  if (path === 'calculator/en') return 'en';
-  if (path === 'calculator/ja') return 'ja';
-  if (path === 'en' || path.startsWith('en/')) return 'en';
-  // 본문이 간체라 zh보다 정확하다
-  if (path === 'zh' || path.startsWith('zh/')) return 'zh-Hans';
-  return 'ko';
+  // 계산기 카탈로그는 /calculator/en처럼 섹션 안에 언어가 있다 — 접두어보다 먼저 본다
+  const inSection = LOCALES.find(l => l.path !== '' && path === `calculator/${l.path}`);
+  if (inSection) return inSection.tag;
+  // 긴 접두어부터: pt-br이 pt보다 먼저 걸려야 한다
+  const prefixed = [...LOCALES]
+    .filter(l => l.path !== '')
+    .sort((a, b) => b.path.length - a.path.length)
+    .find(l => path === l.path || path.startsWith(`${l.path}/`));
+  return prefixed ? prefixed.tag : 'ko';
 }
 
 test('모든 페이지의 html lang이 경로의 언어와 맞는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {

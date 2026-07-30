@@ -1,10 +1,12 @@
+import type { AnyLocale } from './locales.ts';
+
 /**
- * 색상 도구 화면 문구 — 세 언어.
+ * 색상 도구 화면 문구 — 여덟 언어.
  *
- * time-ui-intl.ts와 같은 방침 — 문구만 여기 모으고 컴포넌트는 lang으로 골라 쓴다.
- * 색 계산(HSL 변환·대비비·색각 변환)은 컴포넌트와 lib에 그대로 둔다.
+ * 문구만 여기 모으고 컴포넌트는 lang으로 골라 쓴다. 색 계산(HSL 변환·대비비·
+ * 색각 변환)은 컴포넌트와 lib에 그대로 둔다 — 숫자는 언어와 무관하다.
  */
-export type ColorLang = 'ko' | 'en';
+export type ColorLang = AnyLocale;
 
 type L<T> = Record<ColorLang, T>;
 
@@ -12,6 +14,12 @@ type L<T> = Record<ColorLang, T>;
 export const COLOR_COMMON: L<{ copy: string; copied: string }> = {
   ko: { copy: '복사', copied: '복사됨' },
   en: { copy: 'Copy', copied: 'Copied' },
+  es: { copy: 'Copiar', copied: 'Copiado' },
+  'pt-br': { copy: 'Copiar', copied: 'Copiado' },
+  ja: { copy: 'コピー', copied: 'コピーしました' },
+  de: { copy: 'Kopieren', copied: 'Kopiert' },
+  fr: { copy: 'Copier', copied: 'Copié' },
+  hi: { copy: 'कॉपी', copied: 'कॉपी हो गया' },
 };
 
 /* ── 팔레트 생성기 ── */
@@ -46,6 +54,84 @@ export const PALETTE_UI: L<{
       monochrome: 'The same hue with only the lightness changed. Almost impossible to get wrong, and the usual choice when you want one screen to read as a single colour family.',
     },
   },
+  es: {
+    baseColor: 'Color base', copyCss: 'Copiar todo como variables CSS', copiedCss: '✅ Copiado como variables CSS',
+    ratioNote: 'Úsalos más o menos 60:30:10',
+    ratioBody: 'Lo que haces después de elegir los colores importa más. Da el 60% al fondo amplio, el 30% al secundario y el 10% al acento, y el mismo conjunto de colores se ve mucho más ordenado. Si el acento pasa del 30%, deja de ser acento.',
+    schemes: { complementary: 'Complementarios', analogous: 'Análogos', triadic: 'Tríada', tetradic: 'Tétrada', monochrome: 'Monocromo' },
+    notes: {
+      complementary: 'Justo enfrente en el círculo cromático. El contraste más fuerte que hay, lo que lo hace buen acento, pero repartir una superficie grande al cincuenta por ciento entre ambos cansa la vista.',
+      analogous: 'Vecinos en el círculo cromático. Naturales y cómodos, lo que va bien en superficies grandes como un fondo y su texto.',
+      triadic: 'El círculo dividido en tres. Vivo pero equilibrado, y por eso aparece a menudo en ilustración y en paletas de marca.',
+      tetradic: 'El círculo dividido en cuatro. Muchos colores con los que trabajar y, por lo mismo, fácil de convertir en un lío: elige uno que lleve la voz y deja el resto por debajo.',
+      monochrome: 'El mismo tono cambiando solo la luminosidad. Casi imposible de estropear, y la opción habitual cuando quieres que una pantalla se lea como una sola familia de color.',
+    },
+  },
+  'pt-br': {
+    baseColor: 'Cor base', copyCss: 'Copiar tudo como variáveis CSS', copiedCss: '✅ Copiado como variáveis CSS',
+    ratioNote: 'Use mais ou menos 60:30:10',
+    ratioBody: 'O que você faz depois de escolher as cores importa mais. Dê 60% ao fundo amplo, 30% à secundária e 10% ao destaque, e o mesmo conjunto de cores fica muito mais organizado. Se o destaque passar de 30%, ele deixa de ser destaque.',
+    schemes: { complementary: 'Complementares', analogous: 'Análogas', triadic: 'Tríade', tetradic: 'Tétrade', monochrome: 'Monocromático' },
+    notes: {
+      complementary: 'Exatamente opostas no círculo cromático. O contraste mais forte que existe, o que faz delas um bom destaque — mas dividir uma área grande meio a meio entre as duas cansa a vista.',
+      analogous: 'Vizinhas no círculo cromático. Naturais e confortáveis, o que combina com áreas grandes como um fundo e o texto dele.',
+      triadic: 'O círculo dividido em três. Vivo e ainda equilibrado, e por isso aparece bastante em ilustração e em paletas de marca.',
+      tetradic: 'O círculo dividido em quatro. Muitas cores para trabalhar e, na mesma medida, fácil de virar bagunça — escolha uma para liderar e mantenha o resto abaixo dela.',
+      monochrome: 'O mesmo matiz mudando só a luminosidade. Quase impossível de errar, e a escolha usual quando você quer que uma tela seja lida como uma única família de cor.',
+    },
+  },
+  ja: {
+    baseColor: '基準色', copyCss: 'CSS変数としてまとめてコピー', copiedCss: '✅ CSS変数としてコピーしました',
+    ratioNote: '配色比は 60:30:10',
+    ratioBody: '色を選んだあとのほうが大事です。広い背景に60%、補助色に30%、強調に10%で使うと、同じ色の組み合わせでもずっと整って見えます。強調色を30%以上使うと、それは強調ではなくなります。',
+    schemes: { complementary: '補色', analogous: '類似色', triadic: 'トライアド', tetradic: 'テトラード', monochrome: '同一色相' },
+    notes: {
+      complementary: '色相環で真向かいにある色です。もっとも対比が強く強調色に向きますが、広い面積を半々で使うと目が疲れます。',
+      analogous: '色相環で隣り合う色です。自然で穏やかなので、背景と本文のような広い面積に合います。',
+      triadic: '色相環を三等分した色です。華やかでありながら均衡が取れるので、イラストやブランド配色によく使われます。',
+      tetradic: '色相環を四等分した色です。使える色は多いぶん散らかりやすいので、主役を一色決める必要があります。',
+      monochrome: '色相はそのままで明度だけを変えたものです。失敗しにくく、画面全体を一つの色系統でまとめたいときに使います。',
+    },
+  },
+  de: {
+    baseColor: 'Grundfarbe', copyCss: 'Alles als CSS-Variablen kopieren', copiedCss: '✅ Als CSS-Variablen kopiert',
+    ratioNote: 'Etwa im Verhältnis 60:30:10 einsetzen',
+    ratioBody: 'Was nach der Farbwahl passiert, zählt mehr. Gib 60% der großen Fläche, 30% der Zweitfarbe und 10% dem Akzent — dieselben Farben wirken dann deutlich aufgeräumter. Geht der Akzent über 30%, ist er kein Akzent mehr.',
+    schemes: { complementary: 'Komplementär', analogous: 'Analog', triadic: 'Triade', tetradic: 'Tetrade', monochrome: 'Monochrom' },
+    notes: {
+      complementary: 'Genau gegenüber im Farbkreis. Der stärkste Kontrast überhaupt und damit ein guter Akzent — eine große Fläche halbe-halbe zwischen beiden zu teilen ist aber anstrengend fürs Auge.',
+      analogous: 'Nachbarn im Farbkreis. Natürlich und ruhig, was großen Flächen wie Hintergrund und Fließtext gut steht.',
+      triadic: 'Der Farbkreis in Drittel geteilt. Lebhaft und trotzdem ausgewogen — deshalb taucht es in Illustration und Markenpaletten häufig auf.',
+      tetradic: 'Der Farbkreis in Viertel geteilt. Viele Farben zur Auswahl und entsprechend leicht unruhig — bestimme eine Hauptfarbe und halte die übrigen zurück.',
+      monochrome: 'Derselbe Farbton, nur die Helligkeit verändert. Kaum falsch zu machen und die übliche Wahl, wenn ein Screen als eine Farbfamilie gelesen werden soll.',
+    },
+  },
+  fr: {
+    baseColor: 'Couleur de base', copyCss: 'Copier le tout en variables CSS', copiedCss: '✅ Copié en variables CSS',
+    ratioNote: 'À utiliser environ 60:30:10',
+    ratioBody: 'Ce que vous faites après avoir choisi les couleurs compte davantage. Donnez 60% au grand fond, 30% à la secondaire et 10% à l’accent : le même ensemble paraît nettement plus posé. Si l’accent dépasse 30%, ce n’est plus un accent.',
+    schemes: { complementary: 'Complémentaires', analogous: 'Analogues', triadic: 'Triade', tetradic: 'Tétrade', monochrome: 'Monochrome' },
+    notes: {
+      complementary: 'Juste en face sur le cercle chromatique. Le contraste le plus fort qui existe, donc un bon accent — mais partager une grande surface moitié-moitié entre les deux fatigue l’œil.',
+      analogous: 'Voisines sur le cercle chromatique. Naturelles et reposantes, ce qui convient aux grandes surfaces comme un fond et son texte.',
+      triadic: 'Le cercle divisé en trois. Vif tout en restant équilibré, d’où sa présence fréquente en illustration et dans les palettes de marque.',
+      tetradic: 'Le cercle divisé en quatre. Beaucoup de couleurs disponibles et, du coup, facile à rendre confus — désignez-en une pour mener et gardez les autres en retrait.',
+      monochrome: 'La même teinte, seule la luminosité change. Presque impossible à rater, et le choix habituel quand un écran doit se lire comme une seule famille de couleur.',
+    },
+  },
+  hi: {
+    baseColor: 'बेस रंग', copyCss: 'सब कुछ CSS वेरिएबल में कॉपी करें', copiedCss: '✅ CSS वेरिएबल में कॉपी हो गया',
+    ratioNote: 'लगभग 60:30:10 के अनुपात में',
+    ratioBody: 'रंग चुनने के बाद जो करते हैं, वह ज़्यादा मायने रखता है। बड़े बैकग्राउंड को 60%, सहायक रंग को 30% और ज़ोर देने वाले रंग को 10% दें — वही रंग बहुत ज़्यादा व्यवस्थित दिखने लगते हैं। ज़ोर देने वाला रंग 30% से ऊपर चला जाए तो वह ज़ोर नहीं रह जाता।',
+    schemes: { complementary: 'कॉम्प्लिमेंटरी', analogous: 'एनालॉगस', triadic: 'ट्रायड', tetradic: 'टेट्राड', monochrome: 'मोनोक्रोम' },
+    notes: {
+      complementary: 'कलर व्हील में ठीक सामने पड़ने वाला रंग। सबसे तेज़ कंट्रास्ट देता है, इसलिए ज़ोर देने के लिए अच्छा है — पर बड़े हिस्से को आधा-आधा बाँट दें तो आँखें थक जाती हैं।',
+      analogous: 'कलर व्हील में पड़ोसी रंग। स्वाभाविक और आराम देने वाले, इसलिए बैकग्राउंड और मुख्य टेक्स्ट जैसे बड़े हिस्सों पर जमते हैं।',
+      triadic: 'कलर व्हील को तीन में बाँटकर मिले रंग। चटक होते हुए भी संतुलित, इसलिए इलस्ट्रेशन और ब्रांड पैलेट में बहुत दिखता है।',
+      tetradic: 'कलर व्हील को चार में बाँटकर मिले रंग। रंग ज़्यादा मिलते हैं, और उतना ही बिखरने का ख़तरा भी — एक रंग को मुख्य तय कर बाक़ी को दबा रखें।',
+      monochrome: 'रंग वही रखकर सिर्फ़ चमक बदली गई है। ग़लत होने की गुंजाइश लगभग नहीं, और जब पूरी स्क्रीन को एक ही रंग-परिवार में बाँधना हो तो यही चुना जाता है।',
+    },
+  },
 };
 
 /* ── 명도 단계 ── */
@@ -68,6 +154,48 @@ export const SHADES_UI: L<{
     useLight: 'Backgrounds, soft highlights, disabled states', useMid: 'Buttons and links — the brand colour proper', useDark: 'Pressed states, and text on dark backgrounds',
     copyAllCss: 'Copy all as CSS variables',
   },
+  es: {
+    baseColor: 'Color base (el de tu marca)', whereTitle: 'Para qué sirve cada paso',
+    contrastNote: 'La nota a la derecha de cada fila indica si el texto blanco o negro supera el umbral de accesibilidad (4,5:1) sobre ese fondo.',
+    whiteOk: 'Texto blanco OK', blackOk: 'Texto negro OK', bothOk: 'Ambos OK', lowContrast: 'Contraste insuficiente para texto',
+    useLight: 'Fondos, realces suaves, estados desactivados', useMid: 'Botones y enlaces: el color de marca en sí', useDark: 'Estados pulsados y texto sobre fondos oscuros',
+    copyAllCss: 'Copiar todo como variables CSS',
+  },
+  'pt-br': {
+    baseColor: 'Cor base (a da sua marca)', whereTitle: 'Onde cada degrau se usa',
+    contrastNote: 'A nota à direita de cada linha diz se o texto branco ou preto passa do limite de acessibilidade (4,5:1) sobre aquele fundo.',
+    whiteOk: 'Texto branco OK', blackOk: 'Texto preto OK', bothOk: 'Os dois OK', lowContrast: 'Contraste insuficiente para texto',
+    useLight: 'Fundos, realces suaves, estados desativados', useMid: 'Botões e links — a cor de marca em si', useDark: 'Estados pressionados e texto sobre fundos escuros',
+    copyAllCss: 'Copiar tudo como variáveis CSS',
+  },
+  ja: {
+    baseColor: '基準色（ブランドカラー）', whereTitle: 'どの段階をどこに使うか',
+    contrastNote: '各行の右の表示は、その色を背景にしたとき白／黒の文字がアクセシビリティ基準（4.5:1）を超えるかどうかです。',
+    whiteOk: '白文字OK', blackOk: '黒文字OK', bothOk: '白・黒どちらもOK', lowContrast: '文字には対比が足りません',
+    useLight: '背景、淡い強調、無効状態', useMid: 'ボタン・リンク — ブランドカラーそのもの', useDark: '押された状態、暗い背景上の文字',
+    copyAllCss: 'CSS変数をまとめてコピー',
+  },
+  de: {
+    baseColor: 'Grundfarbe (deine Markenfarbe)', whereTitle: 'Wozu welche Stufe dient',
+    contrastNote: 'Der Hinweis rechts in jeder Zeile sagt, ob weißer oder schwarzer Text auf diesem Hintergrund die Barrierefreiheitsschwelle (4,5:1) erreicht.',
+    whiteOk: 'Weißer Text OK', blackOk: 'Schwarzer Text OK', bothOk: 'Beides OK', lowContrast: 'Zu wenig Kontrast für Text',
+    useLight: 'Hintergründe, sanfte Hervorhebungen, inaktive Zustände', useMid: 'Buttons und Links — die Markenfarbe selbst', useDark: 'Gedrückte Zustände und Text auf dunklem Grund',
+    copyAllCss: 'Alles als CSS-Variablen kopieren',
+  },
+  fr: {
+    baseColor: 'Couleur de base (celle de votre marque)', whereTitle: 'À quoi sert chaque palier',
+    contrastNote: 'La note à droite de chaque ligne indique si le texte blanc ou noir franchit le seuil d’accessibilité (4,5:1) sur ce fond.',
+    whiteOk: 'Texte blanc OK', blackOk: 'Texte noir OK', bothOk: 'Les deux OK', lowContrast: 'Contraste insuffisant pour du texte',
+    useLight: 'Fonds, rehauts discrets, états désactivés', useMid: 'Boutons et liens — la couleur de marque elle-même', useDark: 'États pressés et texte sur fond sombre',
+    copyAllCss: 'Copier le tout en variables CSS',
+  },
+  hi: {
+    baseColor: 'बेस रंग (आपका ब्रांड रंग)', whereTitle: 'कौन-सा चरण कहाँ काम आता है',
+    contrastNote: 'हर पंक्ति के दाईं ओर लिखा है कि उस रंग को बैकग्राउंड बनाने पर सफ़ेद या काला टेक्स्ट सुगम्यता की सीमा (4.5:1) पार करता है या नहीं।',
+    whiteOk: 'सफ़ेद टेक्स्ट ठीक', blackOk: 'काला टेक्स्ट ठीक', bothOk: 'दोनों ठीक', lowContrast: 'टेक्स्ट के लिए कंट्रास्ट कम',
+    useLight: 'बैकग्राउंड, हल्का ज़ोर, निष्क्रिय अवस्था', useMid: 'बटन और लिंक — ब्रांड रंग स्वयं', useDark: 'दबी अवस्था, और गहरे बैकग्राउंड पर टेक्स्ट',
+    copyAllCss: 'सारे CSS वेरिएबल कॉपी करें',
+  },
 };
 
 /* ── 색 섞기 ── */
@@ -82,6 +210,30 @@ export const MIXER_UI: L<{
     first: 'First colour', second: 'Second colour', ratio: 'Blend ratio', stepsNote: 'Steps at 10% intervals',
     note: c => `The blend sits at ${c}:1 contrast on white. An even fifty-fifty mix often loses saturation and turns muddy — tipping one side past 70% usually brings the colour back.`,
   },
+  es: {
+    first: 'Primer color', second: 'Segundo color', ratio: 'Proporción de mezcla', stepsNote: 'Pasos cada 10%',
+    note: c => `La mezcla queda en ${c}:1 de contraste sobre blanco. Mezclar mitad y mitad suele perder saturación y volverse turbio; inclinar un lado por encima del 70% normalmente devuelve el color.`,
+  },
+  'pt-br': {
+    first: 'Primeira cor', second: 'Segunda cor', ratio: 'Proporção da mistura', stepsNote: 'Degraus de 10% em 10%',
+    note: c => `A mistura fica em ${c}:1 de contraste sobre branco. Misturar meio a meio costuma perder saturação e ficar embaçado — puxar um lado acima de 70% geralmente traz a cor de volta.`,
+  },
+  ja: {
+    first: '一つ目の色', second: '二つ目の色', ratio: '混ぜる比率', stepsNote: '10%刻みの中間段階',
+    note: c => `混ざった色は白背景で対比 ${c}:1 です。半々で混ぜると彩度が落ちて濁ることが多く、そのときは片方を70%以上に寄せると色が戻ります。`,
+  },
+  de: {
+    first: 'Erste Farbe', second: 'Zweite Farbe', ratio: 'Mischverhältnis', stepsNote: 'Stufen in 10%-Schritten',
+    note: c => `Die Mischung liegt bei ${c}:1 Kontrast auf Weiß. Halbe-halbe zu mischen kostet oft Sättigung und wirkt trüb — eine Seite über 70% zu ziehen holt die Farbe meist zurück.`,
+  },
+  fr: {
+    first: 'Première couleur', second: 'Deuxième couleur', ratio: 'Proportion du mélange', stepsNote: 'Paliers tous les 10%',
+    note: c => `Le mélange est à ${c}:1 de contraste sur blanc. Mélanger moitié-moitié fait souvent perdre de la saturation et devient terne ; pencher un côté au-delà de 70% ramène généralement la couleur.`,
+  },
+  hi: {
+    first: 'पहला रंग', second: 'दूसरा रंग', ratio: 'मिलाने का अनुपात', stepsNote: '10% के अंतराल पर बीच के चरण',
+    note: c => `मिला हुआ रंग सफ़ेद बैकग्राउंड पर ${c}:1 कंट्रास्ट देता है। आधा-आधा मिलाने पर सैचुरेशन गिरकर रंग मैला हो जाता है; ऐसे में एक तरफ़ को 70% से ऊपर झुका दें तो रंग वापस आ जाता है।`,
+  },
 };
 
 /* ── 랜덤 색 ── */
@@ -95,6 +247,36 @@ export const RANDOM_UI: L<{ copyAll: string; copiedAll: string; reroll: string; 
     copyAll: 'Copy all five HEX values', copiedAll: '✅ Copied all five',
     reroll: '🎲 Reroll (spacebar)',
     note: 'When a colour you like comes up, lock it and reroll the rest. Rather than being fully random, colours are drawn from 45–85% saturation and 35–70% lightness, so what comes out is usable on a screen straight away.',
+  },
+  es: {
+    copyAll: 'Copiar los cinco HEX', copiedAll: '✅ Copiados los cinco',
+    reroll: '🎲 Volver a tirar (barra espaciadora)',
+    note: 'Cuando salga un color que te guste, bloquéalo y vuelve a tirar el resto. En vez de ser del todo aleatorio, los colores salen con saturación del 45–85% y luminosidad del 35–70%, así que lo que aparece se puede usar en pantalla tal cual.',
+  },
+  'pt-br': {
+    copyAll: 'Copiar os cinco HEX', copiedAll: '✅ Copiados os cinco',
+    reroll: '🎲 Sortear de novo (barra de espaço)',
+    note: 'Quando aparecer uma cor que você gosta, trave ela e sorteie o resto de novo. Em vez de ser totalmente aleatório, as cores saem com saturação de 45–85% e luminosidade de 35–70%, então o que aparece já dá para usar na tela.',
+  },
+  ja: {
+    copyAll: 'HEX五つをまとめてコピー', copiedAll: '✅ 五色をコピーしました',
+    reroll: '🎲 引き直す（スペースキー）',
+    note: '気に入った色が出たら鍵をかけて、残りだけ引き直してください。完全なランダムではなく彩度45〜85%、明度35〜70%の範囲から引くので、そのまま画面に使える色が出ます。',
+  },
+  de: {
+    copyAll: 'Alle fünf HEX-Werte kopieren', copiedAll: '✅ Alle fünf kopiert',
+    reroll: '🎲 Neu würfeln (Leertaste)',
+    note: 'Kommt eine Farbe, die dir gefällt, sperre sie und würfle den Rest neu. Statt völlig zufällig werden Farben mit 45–85% Sättigung und 35–70% Helligkeit gezogen — was herauskommt, ist auf einem Screen direkt brauchbar.',
+  },
+  fr: {
+    copyAll: 'Copier les cinq HEX', copiedAll: '✅ Les cinq sont copiés',
+    reroll: '🎲 Relancer (barre d’espace)',
+    note: 'Quand une couleur vous plaît, verrouillez-la et relancez le reste. Plutôt qu’un tirage totalement aléatoire, les couleurs sortent entre 45 et 85% de saturation et 35 à 70% de luminosité : ce qui apparaît est utilisable tel quel à l’écran.',
+  },
+  hi: {
+    copyAll: 'पाँचों HEX एक साथ कॉपी करें', copiedAll: '✅ पाँचों कॉपी हो गए',
+    reroll: '🎲 दोबारा निकालें (स्पेसबार)',
+    note: 'पसंद का रंग आ जाए तो उसे लॉक कर दें और बाक़ी ही दोबारा निकालें। पूरी तरह रैंडम की जगह 45–85% सैचुरेशन और 35–70% चमक के दायरे से निकाला जाता है, इसलिए जो आता है वह सीधे स्क्रीन पर काम आ जाता है।',
   },
 };
 
@@ -142,6 +324,108 @@ export const CONTRAST_UI: L<{
     previewH: 'A heading looks like this', previewBody: 'Body text reads at about this weight.',
     previewSmall: 'Small text like a caption gets this small — insufficient contrast shows up here first.',
   },
+  es: {
+    textColor: 'Color del texto', bgColor: 'Color de fondo',
+    aaBody: 'AA texto', aaLarge: 'AA grande', aaaBody: 'AAA texto', aaaLarge: 'AAA grande',
+    pass: 'Pasa', fail: 'No pasa',
+    verdictBest: 'Supera el nivel más estricto (AAA)',
+    verdictBody: 'Se puede usar en texto corrido (pasa AA)',
+    verdictLarge: 'Solo se puede usar en tamaños grandes',
+    verdictFail: 'Esta combinación cuesta leerla',
+    aaNote: ' — la base de la accesibilidad web. El texto corrido tiene que superarlo.',
+    aaaNote: ' — el nivel más estricto, exigido a veces en sitios del sector público.',
+    largeNote: ' — desde 18pt (o 14pt en negrita) el umbral baja.',
+    ratio: 'Relación de contraste', autoFix: 'Mantener el tono y ajustar la luminosidad hasta pasar AA',
+    meaningTitle: 'Qué significan los niveles',
+    brightnessNote: 'El contraste lo decide la diferencia de luminosidad, no el tono. Por eso el texto blanco sobre amarillo no se lee aunque los colores sean distintos.',
+    previewH: 'Un titular se ve así', previewBody: 'El texto corrido se lee más o menos con este peso.',
+    previewSmall: 'El texto pequeño, como un pie de foto, queda así de pequeño: la falta de contraste se nota aquí primero.',
+  },
+  'pt-br': {
+    textColor: 'Cor do texto', bgColor: 'Cor de fundo',
+    aaBody: 'AA texto', aaLarge: 'AA grande', aaaBody: 'AAA texto', aaaLarge: 'AAA grande',
+    pass: 'Passa', fail: 'Não passa',
+    verdictBest: 'Passa até o nível mais rígido (AAA)',
+    verdictBody: 'Dá para usar em texto corrido (passa AA)',
+    verdictLarge: 'Só dá para usar em tamanhos grandes',
+    verdictFail: 'Essa combinação é difícil de ler',
+    aaNote: ' — a base da acessibilidade web. Texto corrido precisa passar disso.',
+    aaaNote: ' — o nível mais rígido, às vezes exigido em sites do setor público.',
+    largeNote: ' — a partir de 18pt (ou 14pt em negrito) o limite cai.',
+    ratio: 'Razão de contraste', autoFix: 'Manter o matiz e ajustar a luminosidade até passar no AA',
+    meaningTitle: 'O que os níveis significam',
+    brightnessNote: 'O contraste é decidido pela diferença de luminosidade, não pelo matiz. É por isso que texto branco sobre amarelo não se lê, mesmo sendo cores diferentes.',
+    previewH: 'Um título aparece assim', previewBody: 'Texto corrido se lê mais ou menos com este peso.',
+    previewSmall: 'Texto pequeno, como uma legenda, fica deste tamanho — a falta de contraste aparece aqui primeiro.',
+  },
+  ja: {
+    textColor: '文字色', bgColor: '背景色',
+    aaBody: 'AA 本文', aaLarge: 'AA 大きい文字', aaaBody: 'AAA 本文', aaaLarge: 'AAA 大きい文字',
+    pass: '合格', fail: '不足',
+    verdictBest: 'もっとも厳しい基準（AAA）まで満たします',
+    verdictBody: '本文に使えます（AA合格）',
+    verdictLarge: '大きい文字にだけ使えます',
+    verdictFail: 'この組み合わせは読みにくいです',
+    aaNote: ' — ウェブアクセシビリティの基本線です。本文はここを超える必要があります。',
+    aaaNote: ' — より厳しい基準で、公共サイトで求められることもあります。',
+    largeNote: ' — 18pt（太字なら14pt）以上では基準が下がります。',
+    ratio: 'コントラスト比', autoFix: '色相はそのままで明度だけ調整してAAを満たす',
+    meaningTitle: '基準が意味すること',
+    brightnessNote: 'コントラストは色ではなく明るさの差で決まります。だから黄色の上の白い文字は、色が違っても読めません。',
+    previewH: '大きな見出しはこう見えます', previewBody: '本文サイズの文字はこのくらいの読みやすさです。',
+    previewSmall: 'キャプションのような小さな文字はここまで小さくなります — 対比が足りないと、まずここで分かります。',
+  },
+  de: {
+    textColor: 'Textfarbe', bgColor: 'Hintergrundfarbe',
+    aaBody: 'AA Fließtext', aaLarge: 'AA groß', aaaBody: 'AAA Fließtext', aaaLarge: 'AAA groß',
+    pass: 'Bestanden', fail: 'Nicht bestanden',
+    verdictBest: 'Erreicht die strengste Stufe (AAA)',
+    verdictBody: 'Für Fließtext brauchbar (AA bestanden)',
+    verdictLarge: 'Nur in großen Größen brauchbar',
+    verdictFail: 'Diese Kombination ist schwer zu lesen',
+    aaNote: ' — die Grundlinie der Web-Barrierefreiheit. Fließtext muss das erreichen.',
+    aaaNote: ' — die strengere Stufe, teils für Seiten der öffentlichen Hand gefordert.',
+    largeNote: ' — ab 18pt (oder 14pt fett) sinkt die Schwelle.',
+    ratio: 'Kontrastverhältnis', autoFix: 'Farbton behalten, Helligkeit anpassen bis AA erreicht ist',
+    meaningTitle: 'Was die Stufen bedeuten',
+    brightnessNote: 'Kontrast entscheidet sich am Helligkeitsunterschied, nicht am Farbton. Deshalb ist weißer Text auf Gelb unlesbar, obwohl die Farben verschieden sind.',
+    previewH: 'Eine Überschrift sieht so aus', previewBody: 'Fließtext liest sich etwa in dieser Stärke.',
+    previewSmall: 'Kleiner Text wie eine Bildunterschrift wird so klein — zu wenig Kontrast fällt hier zuerst auf.',
+  },
+  fr: {
+    textColor: 'Couleur du texte', bgColor: 'Couleur de fond',
+    aaBody: 'AA texte', aaLarge: 'AA grand', aaaBody: 'AAA texte', aaaLarge: 'AAA grand',
+    pass: 'Réussi', fail: 'Échec',
+    verdictBest: 'Franchit le niveau le plus strict (AAA)',
+    verdictBody: 'Utilisable en texte courant (AA réussi)',
+    verdictLarge: 'Utilisable seulement en grandes tailles',
+    verdictFail: 'Cette combinaison est difficile à lire',
+    aaNote: ' — la base de l’accessibilité web. Le texte courant doit la franchir.',
+    aaaNote: ' — le niveau plus strict, parfois exigé pour les sites du secteur public.',
+    largeNote: ' — à partir de 18pt (ou 14pt en gras) le seuil baisse.',
+    ratio: 'Rapport de contraste', autoFix: 'Garder la teinte et ajuster la luminosité jusqu’à réussir AA',
+    meaningTitle: 'Ce que signifient les niveaux',
+    brightnessNote: 'Le contraste se joue sur l’écart de luminosité, pas sur la teinte. C’est pourquoi du texte blanc sur jaune ne se lit pas, même si les couleurs diffèrent.',
+    previewH: 'Un titre ressemble à ceci', previewBody: 'Le texte courant se lit à peu près avec ce poids.',
+    previewSmall: 'Un petit texte comme une légende devient aussi petit — un contraste insuffisant se voit ici d’abord.',
+  },
+  hi: {
+    textColor: 'टेक्स्ट का रंग', bgColor: 'बैकग्राउंड का रंग',
+    aaBody: 'AA मुख्य टेक्स्ट', aaLarge: 'AA बड़ा', aaaBody: 'AAA मुख्य टेक्स्ट', aaaLarge: 'AAA बड़ा',
+    pass: 'पास', fail: 'फ़ेल',
+    verdictBest: 'सबसे कड़ी सीमा (AAA) भी पार करता है',
+    verdictBody: 'मुख्य टेक्स्ट में काम आएगा (AA पास)',
+    verdictLarge: 'सिर्फ़ बड़े आकार में काम आएगा',
+    verdictFail: 'यह संयोजन पढ़ने में मुश्किल है',
+    aaNote: ' — वेब सुगम्यता की बुनियादी रेखा। मुख्य टेक्स्ट को यह पार करना ही चाहिए।',
+    aaaNote: ' — ज़्यादा कड़ी सीमा, कभी-कभी सरकारी साइटों पर ज़रूरी होती है।',
+    largeNote: ' — 18pt (बोल्ड हो तो 14pt) से ऊपर सीमा घट जाती है।',
+    ratio: 'कंट्रास्ट अनुपात', autoFix: 'रंग वही रखकर चमक बदलें, जब तक AA पास न हो',
+    meaningTitle: 'इन स्तरों का मतलब',
+    brightnessNote: 'कंट्रास्ट रंग से नहीं, चमक के अंतर से तय होता है। इसीलिए पीले पर सफ़ेद टेक्स्ट रंग अलग होने पर भी पढ़ा नहीं जाता।',
+    previewH: 'बड़ा शीर्षक ऐसा दिखता है', previewBody: 'मुख्य टेक्स्ट लगभग इसी वज़न में पढ़ा जाता है।',
+    previewSmall: 'कैप्शन जैसा छोटा टेक्स्ट इतना छोटा हो जाता है — कंट्रास्ट कम हो तो सबसे पहले यहीं पता चलता है।',
+  },
 };
 
 /* ── 색맹 시뮬레이터 ── */
@@ -178,6 +462,84 @@ export const COLORBLIND_UI: L<{
     },
     approxNote: 'The simulation is an approximation, so it is not exactly what someone actually sees. Use it to judge whether a combination is risky, not as a precise rendering.',
   },
+  es: {
+    first: 'Primer color', second: 'Segundo color', normal: 'Como se ve con visión cromática normal',
+    distinguishable: 'Se distinguen', hardToTell: 'Cuesta distinguirlos', adviceTitle: 'No indiques nada solo con el color',
+    advice: 'Alrededor de uno de cada veinte hombres tiene alguna deficiencia de visión cromática. Una pantalla que marca el éxito en verde y el fallo en rojo se ve del mismo color para buena parte de ellos. Acompaña el color con un icono (✓ ✕) o una palabra y el significado sobrevive sin él.',
+    types: { protanopia: 'Protanopía', deuteranopia: 'Deuteranopía', tritanopia: 'Tritanopía', achromatopsia: 'Acromatopsia' },
+    descs: {
+      protanopia: 'Los rojos se ven más oscuros, así que rojo y verde se parecen',
+      deuteranopia: 'El tipo más común: rojo y verde se ven casi iguales',
+      tritanopia: 'Un tipo poco frecuente, donde azul y verde cuestan separarse',
+      achromatopsia: 'Sin color alguno, solo queda la luminosidad',
+    },
+    approxNote: 'La simulación es una aproximación, así que no es exactamente lo que alguien ve. Úsala para juzgar si una combinación es arriesgada, no como reproducción exacta.',
+  },
+  'pt-br': {
+    first: 'Primeira cor', second: 'Segunda cor', normal: 'Como se vê com visão de cores normal',
+    distinguishable: 'Dá para distinguir', hardToTell: 'Difícil de distinguir', adviceTitle: 'Nunca sinalize só pela cor',
+    advice: 'Mais ou menos um em cada vinte homens tem alguma deficiência de visão de cores. Uma tela que marca sucesso em verde e falha em vermelho parece a mesma cor para boa parte deles. Junte à cor um ícone (✓ ✕) ou uma palavra e o significado sobrevive sem ela.',
+    types: { protanopia: 'Protanopia', deuteranopia: 'Deuteranopia', tritanopia: 'Tritanopia', achromatopsia: 'Acromatopsia' },
+    descs: {
+      protanopia: 'Os vermelhos aparecem mais escuros, então vermelho e verde ficam parecidos',
+      deuteranopia: 'O tipo mais comum — vermelho e verde ficam quase iguais',
+      tritanopia: 'Um tipo raro, em que azul e verde são difíceis de separar',
+      achromatopsia: 'Nenhuma cor, só a luminosidade permanece',
+    },
+    approxNote: 'A simulação é uma aproximação, então não é exatamente o que alguém vê. Use para julgar se uma combinação é arriscada, não como reprodução exata.',
+  },
+  ja: {
+    first: '一つ目の色', second: '二つ目の色', normal: '一般色覚での見え方',
+    distinguishable: '区別できる', hardToTell: '区別しにくい', adviceTitle: '色だけで伝えないこと',
+    advice: '男性の二十人に一人ほどに色覚特性があります。成功は緑、失敗は赤のように色だけで区別する画面は、その多くの人には同じ色に見えます。アイコン（✓ ✕）や文字を添えれば、色が見えなくても意味は伝わります。',
+    types: { protanopia: '1型（P型）色覚', deuteranopia: '2型（D型）色覚', tritanopia: '3型（T型）色覚', achromatopsia: '全色盲' },
+    descs: {
+      protanopia: '赤が暗く感じられ、赤と緑が似て見えます',
+      deuteranopia: 'もっとも多い型で、赤と緑がほぼ同じに見えます',
+      tritanopia: 'まれな型で、青と緑の区別が難しくなります',
+      achromatopsia: '色をまったく区別できず、明暗だけが残ります',
+    },
+    approxNote: 'シミュレーションは近似変換なので、実際にその人が見ている色と完全に同じではありません。組み合わせが危ないかを見極める用途に使ってください。',
+  },
+  de: {
+    first: 'Erste Farbe', second: 'Zweite Farbe', normal: 'So sieht es mit normalem Farbsehen aus',
+    distinguishable: 'Unterscheidbar', hardToTell: 'Kaum zu unterscheiden', adviceTitle: 'Niemals nur über Farbe informieren',
+    advice: 'Etwa einer von zwanzig Männern hat eine Farbsehschwäche. Ein Screen, der Erfolg in Grün und Fehler in Rot markiert, sieht für viele davon gleich aus. Kombiniere die Farbe mit einem Symbol (✓ ✕) oder einem Wort, dann bleibt die Bedeutung auch ohne sie erhalten.',
+    types: { protanopia: 'Protanopie', deuteranopia: 'Deuteranopie', tritanopia: 'Tritanopie', achromatopsia: 'Achromatopsie' },
+    descs: {
+      protanopia: 'Rottöne erscheinen dunkler, dadurch wirken Rot und Grün ähnlich',
+      deuteranopia: 'Die häufigste Form — Rot und Grün sehen fast gleich aus',
+      tritanopia: 'Eine seltene Form, bei der Blau und Grün schwer zu trennen sind',
+      achromatopsia: 'Überhaupt keine Farbe, nur Helligkeit bleibt',
+    },
+    approxNote: 'Die Simulation ist eine Annäherung und damit nicht genau das, was jemand wirklich sieht. Nutze sie, um einzuschätzen, ob eine Kombination riskant ist — nicht als exakte Wiedergabe.',
+  },
+  fr: {
+    first: 'Première couleur', second: 'Deuxième couleur', normal: 'Tel que le voit une vision des couleurs normale',
+    distinguishable: 'Se distinguent', hardToTell: 'Difficiles à distinguer', adviceTitle: 'Ne jamais signaler par la couleur seule',
+    advice: 'Environ un homme sur vingt a une déficience de la vision des couleurs. Un écran qui marque la réussite en vert et l’échec en rouge apparaît de la même couleur pour bon nombre d’entre eux. Associez à la couleur une icône (✓ ✕) ou un mot, et le sens survit sans elle.',
+    types: { protanopia: 'Protanopie', deuteranopia: 'Deutéranopie', tritanopia: 'Tritanopie', achromatopsia: 'Achromatopsie' },
+    descs: {
+      protanopia: 'Les rouges paraissent plus sombres, si bien que rouge et vert se ressemblent',
+      deuteranopia: 'Le type le plus courant — rouge et vert paraissent presque identiques',
+      tritanopia: 'Un type rare, où bleu et vert sont difficiles à séparer',
+      achromatopsia: 'Aucune couleur, seule la luminosité subsiste',
+    },
+    approxNote: 'La simulation est une approximation : ce n’est pas exactement ce que quelqu’un voit. Servez-vous-en pour juger si une combinaison est risquée, pas comme rendu exact.',
+  },
+  hi: {
+    first: 'पहला रंग', second: 'दूसरा रंग', normal: 'सामान्य रंग-दृष्टि में ऐसा दिखता है',
+    distinguishable: 'अलग दिखते हैं', hardToTell: 'अलग करना मुश्किल', adviceTitle: 'सिर्फ़ रंग से कुछ न बताएँ',
+    advice: 'लगभग बीस में से एक पुरुष को रंग-दृष्टि की कोई कमी होती है। सफलता को हरे और विफलता को लाल से बताने वाली स्क्रीन उनमें से कई को एक ही रंग की दिखती है। रंग के साथ आइकन (✓ ✕) या शब्द भी रखें, तो रंग न दिखने पर भी अर्थ पहुँच जाता है।',
+    types: { protanopia: 'प्रोटानोपिया', deuteranopia: 'ड्यूटेरानोपिया', tritanopia: 'ट्राइटानोपिया', achromatopsia: 'पूर्ण वर्णांधता' },
+    descs: {
+      protanopia: 'लाल गहरा लगता है, इसलिए लाल और हरा एक जैसे दिखते हैं',
+      deuteranopia: 'सबसे आम प्रकार — लाल और हरा लगभग एक जैसे दिखते हैं',
+      tritanopia: 'दुर्लभ प्रकार, जिसमें नीला और हरा अलग करना मुश्किल होता है',
+      achromatopsia: 'रंग बिल्कुल नहीं, सिर्फ़ चमक बचती है',
+    },
+    approxNote: 'यह सिम्युलेशन अनुमानित रूपांतरण है, इसलिए वह ठीक वैसा नहीं है जैसा कोई असल में देखता है। किसी संयोजन का जोखिम आँकने के लिए इसका इस्तेमाल करें, सटीक चित्रण के लिए नहीं।',
+  },
 };
 
 /* ── 그라디언트 ── */
@@ -200,6 +562,48 @@ export const GRADIENT_UI: L<{
     presetNames: ['Sunset', 'Ocean', 'Forest', 'Night'],
     note: 'When you put text over a gradient, check the contrast at both the lightest and the darkest point. Tune it for one end only and the text disappears at the other.',
   },
+  es: {
+    startColor: 'Color inicial', midColor: 'Color intermedio', endColor: 'Color final', angle: 'Ángulo',
+    addMid: 'Añadir un color intermedio', radial: 'Radial, desde el centro hacia fuera', presets: 'Ajustes',
+    copyCss: 'Copiar el CSS', copiedCss: '✅ CSS copiado',
+    presetNames: ['Atardecer', 'Océano', 'Bosque', 'Noche'],
+    note: 'Si pones texto sobre un degradado, comprueba el contraste tanto en el punto más claro como en el más oscuro. Si lo ajustas solo para un extremo, el texto desaparece en el otro.',
+  },
+  'pt-br': {
+    startColor: 'Cor inicial', midColor: 'Cor do meio', endColor: 'Cor final', angle: 'Ângulo',
+    addMid: 'Adicionar uma cor no meio', radial: 'Radial, se espalhando do centro', presets: 'Presets',
+    copyCss: 'Copiar o CSS', copiedCss: '✅ CSS copiado',
+    presetNames: ['Pôr do sol', 'Oceano', 'Floresta', 'Noite'],
+    note: 'Ao colocar texto sobre um gradiente, verifique o contraste tanto no ponto mais claro quanto no mais escuro. Se ajustar só para um lado, o texto desaparece no outro.',
+  },
+  ja: {
+    startColor: '開始色', midColor: '中間色', endColor: '終了色', angle: '角度',
+    addMid: '中間色を入れる', radial: '中央から広がる放射状に', presets: 'プリセット',
+    copyCss: 'CSSをコピー', copiedCss: '✅ CSSをコピーしました',
+    presetNames: ['夕焼け', '海', '森', '夜'],
+    note: 'グラデーションの上に文字を載せるときは、もっとも明るい点ともっとも暗い点の両方で対比を確認してください。片方だけで合わせると、反対側で文字が消えます。',
+  },
+  de: {
+    startColor: 'Startfarbe', midColor: 'Mittelfarbe', endColor: 'Endfarbe', angle: 'Winkel',
+    addMid: 'Mittelfarbe hinzufügen', radial: 'Radial, aus der Mitte heraus', presets: 'Vorlagen',
+    copyCss: 'CSS kopieren', copiedCss: '✅ CSS kopiert',
+    presetNames: ['Sonnenuntergang', 'Ozean', 'Wald', 'Nacht'],
+    note: 'Wenn Text über einem Verlauf liegt, prüfe den Kontrast an der hellsten und an der dunkelsten Stelle. Stimmst du ihn nur für ein Ende ab, verschwindet der Text am anderen.',
+  },
+  fr: {
+    startColor: 'Couleur de départ', midColor: 'Couleur intermédiaire', endColor: 'Couleur de fin', angle: 'Angle',
+    addMid: 'Ajouter une couleur intermédiaire', radial: 'Radial, depuis le centre', presets: 'Préréglages',
+    copyCss: 'Copier le CSS', copiedCss: '✅ CSS copié',
+    presetNames: ['Coucher de soleil', 'Océan', 'Forêt', 'Nuit'],
+    note: 'Quand vous posez du texte sur un dégradé, vérifiez le contraste au point le plus clair et au plus sombre. Réglé pour un seul bout, le texte disparaît à l’autre.',
+  },
+  hi: {
+    startColor: 'शुरुआती रंग', midColor: 'बीच का रंग', endColor: 'अंतिम रंग', angle: 'कोण',
+    addMid: 'बीच का रंग जोड़ें', radial: 'बीच से फैलने वाला radial', presets: 'प्रीसेट',
+    copyCss: 'CSS कॉपी करें', copiedCss: '✅ CSS कॉपी हो गया',
+    presetNames: ['सूर्यास्त', 'समुद्र', 'जंगल', 'रात'],
+    note: 'ग्रेडिएंट पर टेक्स्ट रखते समय सबसे हल्के और सबसे गहरे — दोनों बिंदुओं पर कंट्रास्ट जाँचें। सिर्फ़ एक सिरे के हिसाब से सेट करेंगे तो दूसरे सिरे पर टेक्स्ट ग़ायब हो जाएगा।',
+  },
 };
 
 /* ── 그림자 ── */
@@ -220,6 +624,42 @@ export const SHADOW_UI: L<{
     presets: ['Subtle', 'Medium', 'Floating', 'Deep'],
     note: 'A natural shadow usually falls straight down (offset X of 0), and uses a faint navy rather than black — slightly darker than the background. Pure black shadows look muddy.',
   },
+  es: {
+    shadowColor: 'Color de la sombra', opacity: 'Opacidad', offsetX: 'Desplazamiento X', offsetY: 'Desplazamiento Y', blur: 'Desenfoque', spread: 'Extensión',
+    inset: 'Sombra interior (inset): aspecto hundido', copyCss: 'Copiar el CSS', copiedCss: '✅ CSS copiado',
+    presets: ['Sutil', 'Media', 'Flotante', 'Profunda'],
+    note: 'Una sombra natural suele caer recta hacia abajo (desplazamiento X de 0) y usa un azul marino tenue en vez de negro, algo más oscuro que el fondo. Las sombras negras puras se ven turbias.',
+  },
+  'pt-br': {
+    shadowColor: 'Cor da sombra', opacity: 'Opacidade', offsetX: 'Deslocamento X', offsetY: 'Deslocamento Y', blur: 'Desfoque', spread: 'Espalhamento',
+    inset: 'Sombra interna (inset) — aspecto afundado', copyCss: 'Copiar o CSS', copiedCss: '✅ CSS copiado',
+    presets: ['Suave', 'Média', 'Flutuante', 'Profunda'],
+    note: 'Uma sombra natural normalmente cai reta para baixo (deslocamento X de 0) e usa um azul-marinho fraco em vez de preto, um pouco mais escuro que o fundo. Sombras preto puro ficam embaçadas.',
+  },
+  ja: {
+    shadowColor: '影の色', opacity: '不透明度', offsetX: '横位置', offsetY: '縦位置', blur: 'ぼかし', spread: '広がり',
+    inset: '内側の影（inset）— 押し込まれた感じ', copyCss: 'CSSをコピー', copiedCss: '✅ CSSをコピーしました',
+    presets: ['浅く', '標準', '浮かせる', '深く'],
+    note: '自然な影はたいてい真下にわずかに落ち（横位置0）、色は黒ではなく背景より少し暗い紺系を薄く使います。純粋な黒の影は濁って見えます。',
+  },
+  de: {
+    shadowColor: 'Schattenfarbe', opacity: 'Deckkraft', offsetX: 'Versatz X', offsetY: 'Versatz Y', blur: 'Weichzeichnung', spread: 'Ausbreitung',
+    inset: 'Innenschatten (inset) — wirkt eingedrückt', copyCss: 'CSS kopieren', copiedCss: '✅ CSS kopiert',
+    presets: ['Zart', 'Mittel', 'Schwebend', 'Tief'],
+    note: 'Ein natürlicher Schatten fällt meist gerade nach unten (Versatz X von 0) und nutzt ein blasses Marineblau statt Schwarz — etwas dunkler als der Hintergrund. Rein schwarze Schatten wirken trüb.',
+  },
+  fr: {
+    shadowColor: 'Couleur de l’ombre', opacity: 'Opacité', offsetX: 'Décalage X', offsetY: 'Décalage Y', blur: 'Flou', spread: 'Étalement',
+    inset: 'Ombre intérieure (inset) — un effet enfoncé', copyCss: 'Copier le CSS', copiedCss: '✅ CSS copié',
+    presets: ['Discrète', 'Moyenne', 'Flottante', 'Profonde'],
+    note: 'Une ombre naturelle tombe généralement droit vers le bas (décalage X de 0) et utilise un bleu marine léger plutôt que du noir, un peu plus sombre que le fond. Les ombres noir pur paraissent ternes.',
+  },
+  hi: {
+    shadowColor: 'छाया का रंग', opacity: 'अपारदर्शिता', offsetX: 'क्षैतिज ऑफ़सेट', offsetY: 'लंबवत ऑफ़सेट', blur: 'ब्लर', spread: 'फैलाव',
+    inset: 'अंदर की छाया (inset) — दबा हुआ लगता है', copyCss: 'CSS कॉपी करें', copiedCss: '✅ CSS कॉपी हो गया',
+    presets: ['हल्की', 'सामान्य', 'तैरती', 'गहरी'],
+    note: 'स्वाभाविक छाया अक्सर सीधे नीचे गिरती है (क्षैतिज ऑफ़सेट 0) और काले की जगह बैकग्राउंड से थोड़ा गहरा हल्का नेवी रंग लेती है। पूरी काली छाया मैली दिखती है।',
+  },
 };
 
 /* ── 색 이름 찾기 ── */
@@ -238,6 +678,42 @@ export const NAME_UI: L<{
     almostSame: d => `Practically the same colour (difference ${d})`,
     differs: d => `Noticeably different from the named colour (difference ${d}) — treat it as the same family only`,
     cmykNote: 'The CMYK value is a straight conversion. Printed colour depends on the ink, the paper and the press, so for print work where the colour has to be right, specify a spot colour like Pantone or get a proof from the printer.',
+  },
+  es: {
+    colorCode: 'Código de color', nearest: 'Color con nombre más cercano',
+    almostSame: d => `Prácticamente el mismo color (diferencia ${d})`,
+    differs: d => `Se nota distinto de ese color con nombre (diferencia ${d}): tómalo solo como la misma familia`,
+    cmykNote: 'El valor CMYK es una conversión directa. El color impreso depende de la tinta, el papel y la máquina, así que para trabajos de imprenta donde el color tiene que salir bien, especifica un color directo tipo Pantone o pide una prueba a la imprenta.',
+  },
+  'pt-br': {
+    colorCode: 'Código de cor', nearest: 'Cor com nome mais próxima',
+    almostSame: d => `Praticamente a mesma cor (diferença ${d})`,
+    differs: d => `Visivelmente diferente dessa cor com nome (diferença ${d}) — considere apenas a mesma família`,
+    cmykNote: 'O valor CMYK é uma conversão direta. A cor impressa depende da tinta, do papel e da máquina, então para trabalhos de impressão em que a cor precisa sair certa, especifique uma cor especial tipo Pantone ou peça uma prova à gráfica.',
+  },
+  ja: {
+    colorCode: 'カラーコード', nearest: 'いちばん近い色名',
+    almostSame: d => `ほぼ同じ色です（差 ${d}）`,
+    differs: d => `その色名とは差があります（差 ${d}）— 同じ系統として見てください`,
+    cmykNote: 'CMYK値は単純変換です。実際の印刷色はインク・用紙・印刷機によって変わるので、色が重要な印刷物ではPANTONEのような特色指定や印刷所での校正を通してください。',
+  },
+  de: {
+    colorCode: 'Farbcode', nearest: 'Nächstgelegener Farbname',
+    almostSame: d => `Praktisch dieselbe Farbe (Abweichung ${d})`,
+    differs: d => `Merklich anders als dieser Farbname (Abweichung ${d}) — nur als dieselbe Farbfamilie verstehen`,
+    cmykNote: 'Der CMYK-Wert ist eine reine Umrechnung. Die gedruckte Farbe hängt von Tinte, Papier und Maschine ab — bei Druckarbeiten, wo die Farbe stimmen muss, gib eine Sonderfarbe wie Pantone an oder lass einen Proof von der Druckerei machen.',
+  },
+  fr: {
+    colorCode: 'Code couleur', nearest: 'Couleur nommée la plus proche',
+    almostSame: d => `Pratiquement la même couleur (écart ${d})`,
+    differs: d => `Nettement différente de cette couleur nommée (écart ${d}) — à considérer comme la même famille seulement`,
+    cmykNote: 'La valeur CMJN est une conversion directe. La couleur imprimée dépend de l’encre, du papier et de la presse : pour un travail d’impression où la couleur doit être juste, spécifiez un ton direct type Pantone ou demandez une épreuve à l’imprimeur.',
+  },
+  hi: {
+    colorCode: 'रंग कोड', nearest: 'सबसे नज़दीक का नाम',
+    almostSame: d => `लगभग वही रंग है (अंतर ${d})`,
+    differs: d => `उस नामित रंग से साफ़ अंतर है (अंतर ${d}) — इसे सिर्फ़ एक ही परिवार का मानें`,
+    cmykNote: 'CMYK मान सीधा रूपांतरण है। छपा हुआ रंग स्याही, काग़ज़ और मशीन पर निर्भर करता है, इसलिए जहाँ रंग सही आना ज़रूरी हो, वहाँ Pantone जैसा स्पॉट कलर तय करें या प्रेस से प्रूफ़ लें।',
   },
 };
 
@@ -268,43 +744,121 @@ export const TEMPERATURE_UI: L<{
     rightCompare: 'Right temperature (for comparison)', commonTitle: 'Common values', colderTitle: 'Higher numbers are colder',
     colderBody: 'Counter to how it sounds, a lower Kelvin value is redder and warmer, and a higher one is bluer and colder. The scale comes from heating metal — first red, then white and bluish as it gets hotter. Home lighting sits around 2700–3000K, and a workspace around 4000–5000K.',
   },
+  es: {
+    left: 'Temperatura izquierda', right: 'Temperatura derecha',
+    presets: { candle: 'Luz de vela', incandescent: 'Incandescente', warmWhite: 'Blanco cálido', daylight: 'Luz de día', overcast: 'Cielo nublado', blue: 'Azul frío' },
+    descs: {
+      candle: 'Muy rojiza y cálida', incandescent: 'Iluminación de casa, acogedora', warmWhite: 'Oficinas y cocinas',
+      daylight: 'Sol de mediodía', overcast: 'Un blanco azulado', blue: 'La luz de referencia en fotografía',
+    },
+    rightCompare: 'Temperatura derecha (para comparar)', commonTitle: 'Valores habituales', colderTitle: 'Cuanto más alto el número, más frío',
+    colderBody: 'Al contrario de lo que suena, un valor bajo en kelvin es más rojo y cálido, y uno alto es más azul y frío. La escala viene de calentar metal: primero rojo, luego blanco y azulado a medida que se calienta. La iluminación de casa ronda los 2700–3000 K y un espacio de trabajo los 4000–5000 K.',
+  },
+  'pt-br': {
+    left: 'Temperatura da esquerda', right: 'Temperatura da direita',
+    presets: { candle: 'Luz de vela', incandescent: 'Incandescente', warmWhite: 'Branco quente', daylight: 'Luz do dia', overcast: 'Céu nublado', blue: 'Azul frio' },
+    descs: {
+      candle: 'Bem avermelhada e quente', incandescent: 'Iluminação de casa, acolhedora', warmWhite: 'Escritórios e cozinhas',
+      daylight: 'Sol do meio-dia', overcast: 'Um branco azulado', blue: 'A luz de referência na fotografia',
+    },
+    rightCompare: 'Temperatura da direita (para comparar)', commonTitle: 'Valores comuns', colderTitle: 'Número maior é mais frio',
+    colderBody: 'Ao contrário do que parece, um valor menor em kelvin é mais vermelho e quente, e um maior é mais azul e frio. A escala vem de aquecer metal: primeiro vermelho, depois branco e azulado conforme esquenta. Iluminação de casa fica em torno de 2700–3000 K e um espaço de trabalho em 4000–5000 K.',
+  },
+  ja: {
+    left: '左の色温度', right: '右の色温度',
+    presets: { candle: 'ろうそく', incandescent: '電球色', warmWhite: '温白色', daylight: '昼光色', overcast: '曇り空', blue: '冷たい青' },
+    descs: {
+      candle: 'とても赤く暖かい', incandescent: '家の照明、落ち着く', warmWhite: 'オフィス・台所',
+      daylight: '真昼の日光', overcast: '青みがかった白', blue: '写真の基準光',
+    },
+    rightCompare: '右の色温度（比較用）', commonTitle: 'よく使う値', colderTitle: '数字が大きいほど冷たい',
+    colderBody: '言葉の印象とは逆で、ケルビン値が低いほど赤く暖かい光、高いほど青く冷たい光です。鉄を熱すると最初は赤く、さらに熱くなると白く青く光ることを基準にしたためです。家の照明は2700〜3000K、作業空間は4000〜5000Kが無理のない範囲です。',
+  },
+  de: {
+    left: 'Temperatur links', right: 'Temperatur rechts',
+    presets: { candle: 'Kerzenlicht', incandescent: 'Glühlampe', warmWhite: 'Warmweiß', daylight: 'Tageslicht', overcast: 'Bedeckter Himmel', blue: 'Kühles Blau' },
+    descs: {
+      candle: 'Sehr rot und warm', incandescent: 'Wohnraumlicht, gemütlich', warmWhite: 'Büros und Küchen',
+      daylight: 'Mittagssonne', overcast: 'Ein bläuliches Weiß', blue: 'Das Referenzlicht in der Fotografie',
+    },
+    rightCompare: 'Temperatur rechts (zum Vergleich)', commonTitle: 'Gängige Werte', colderTitle: 'Höhere Zahlen sind kälter',
+    colderBody: 'Anders als es klingt, ist ein niedrigerer Kelvin-Wert röter und wärmer, ein höherer blauer und kälter. Die Skala kommt vom Erhitzen von Metall — erst rot, dann weiß und bläulich, je heißer es wird. Wohnraumlicht liegt bei etwa 2700–3000 K, ein Arbeitsplatz bei 4000–5000 K.',
+  },
+  fr: {
+    left: 'Température de gauche', right: 'Température de droite',
+    presets: { candle: 'Bougie', incandescent: 'Incandescent', warmWhite: 'Blanc chaud', daylight: 'Lumière du jour', overcast: 'Ciel couvert', blue: 'Bleu froid' },
+    descs: {
+      candle: 'Très rouge et chaude', incandescent: 'Éclairage domestique, chaleureux', warmWhite: 'Bureaux et cuisines',
+      daylight: 'Soleil de midi', overcast: 'Un blanc bleuté', blue: 'La lumière de référence en photo',
+    },
+    rightCompare: 'Température de droite (pour comparer)', commonTitle: 'Valeurs courantes', colderTitle: 'Plus le nombre est haut, plus c’est froid',
+    colderBody: 'À l’inverse de ce que le mot suggère, une valeur en kelvins plus basse est plus rouge et plus chaude, et une plus haute est plus bleue et plus froide. L’échelle vient du chauffage du métal : d’abord rouge, puis blanc et bleuté à mesure qu’il chauffe. L’éclairage domestique tourne autour de 2700–3000 K, un espace de travail autour de 4000–5000 K.',
+  },
+  hi: {
+    left: 'बाईं ओर का रंग तापमान', right: 'दाईं ओर का रंग तापमान',
+    presets: { candle: 'मोमबत्ती', incandescent: 'बल्ब जैसा', warmWhite: 'वॉर्म व्हाइट', daylight: 'डेलाइट', overcast: 'बादल भरा आकाश', blue: 'ठंडा नीला' },
+    descs: {
+      candle: 'बहुत लाल और गर्म', incandescent: 'घर की रोशनी, आरामदेह', warmWhite: 'दफ़्तर और रसोई',
+      daylight: 'दोपहर की धूप', overcast: 'नीलापन लिए सफ़ेद', blue: 'फ़ोटोग्राफ़ी की मानक रोशनी',
+    },
+    rightCompare: 'दाईं ओर का रंग तापमान (तुलना के लिए)', commonTitle: 'आम मान', colderTitle: 'अंक जितना बड़ा, उतना ठंडा',
+    colderBody: 'नाम से उलट, केल्विन मान जितना कम हो रोशनी उतनी लाल और गर्म होती है, और जितना ज़्यादा हो उतनी नीली और ठंडी। यह पैमाना धातु को गर्म करने से आया है — पहले लाल, और ज़्यादा गर्म होने पर सफ़ेद और नीली। घर की रोशनी 2700–3000K के आसपास और काम की जगह 4000–5000K के आसपास ठीक रहती है।',
+  },
 };
 
 /**
  * 색 이름의 언어별 표기 — NAMED_COLORS의 name을 열쇠로 쓴다.
  *
  * hex와 배열 순서는 그대로 두고 이름만 갈아 끼운다. 영어는 name을 그대로 쓰면
- * 되므로 중국어만 둔다 — 'skyblue'는 영어권에서 그 자체가 색 이름이다.
+ * 되므로 여기 없다 — 'skyblue'는 영어권에서 그 자체가 색 이름이다.
  */
-export const NAMED_COLOR_ZH: Record<string, string> = {
-  black: '黑',
-  white: '白',
-  gray: '灰',
-  silver: '银',
-  red: '红',
-  maroon: '栗红',
-  crimson: '绯红',
-  tomato: '番茄红',
-  coral: '珊瑚色',
-  orange: '橙',
-  gold: '金',
-  yellow: '黄',
-  olive: '橄榄绿',
-  lime: '黄绿',
-  green: '绿',
-  seagreen: '海绿',
-  teal: '青',
-  cyan: '青蓝',
-  skyblue: '天蓝',
-  blue: '蓝',
-  navy: '藏青',
-  indigo: '靛',
-  purple: '紫',
-  violet: '紫罗兰',
-  magenta: '洋红',
-  pink: '粉',
-  brown: '棕',
-  chocolate: '巧克力色',
-  tan: '茶色',
-  beige: '米色',
+export const NAMED_COLOR_INTL: Record<Exclude<ColorLang, 'ko' | 'en'>, Record<string, string>> = {
+  es: {
+    black: 'negro', white: 'blanco', gray: 'gris', silver: 'plata', red: 'rojo', maroon: 'granate',
+    crimson: 'carmesí', tomato: 'tomate', coral: 'coral', orange: 'naranja', gold: 'oro', yellow: 'amarillo',
+    olive: 'oliva', lime: 'lima', green: 'verde', seagreen: 'verde mar', teal: 'verde azulado', cyan: 'cian',
+    skyblue: 'azul cielo', blue: 'azul', navy: 'azul marino', indigo: 'índigo', purple: 'púrpura',
+    violet: 'violeta', magenta: 'magenta', pink: 'rosa', brown: 'marrón', chocolate: 'chocolate',
+    tan: 'canela', beige: 'beige',
+  },
+  'pt-br': {
+    black: 'preto', white: 'branco', gray: 'cinza', silver: 'prata', red: 'vermelho', maroon: 'grená',
+    crimson: 'carmim', tomato: 'tomate', coral: 'coral', orange: 'laranja', gold: 'ouro', yellow: 'amarelo',
+    olive: 'oliva', lime: 'verde-limão', green: 'verde', seagreen: 'verde-mar', teal: 'verde-azulado', cyan: 'ciano',
+    skyblue: 'azul-céu', blue: 'azul', navy: 'azul-marinho', indigo: 'índigo', purple: 'roxo',
+    violet: 'violeta', magenta: 'magenta', pink: 'rosa', brown: 'marrom', chocolate: 'chocolate',
+    tan: 'castanho-claro', beige: 'bege',
+  },
+  ja: {
+    black: '黒', white: '白', gray: '灰色', silver: '銀', red: '赤', maroon: '栗色',
+    crimson: '深紅', tomato: 'トマト色', coral: '珊瑚色', orange: 'オレンジ', gold: '金', yellow: '黄',
+    olive: 'オリーブ', lime: '黄緑', green: '緑', seagreen: '海緑色', teal: '青緑', cyan: 'シアン',
+    skyblue: '空色', blue: '青', navy: '紺', indigo: '藍', purple: '紫',
+    violet: '菫色', magenta: 'マゼンタ', pink: '桃色', brown: '茶色', chocolate: 'チョコレート色',
+    tan: '黄褐色', beige: 'ベージュ',
+  },
+  de: {
+    black: 'Schwarz', white: 'Weiß', gray: 'Grau', silver: 'Silber', red: 'Rot', maroon: 'Kastanienbraun',
+    crimson: 'Karmesinrot', tomato: 'Tomatenrot', coral: 'Korallenrot', orange: 'Orange', gold: 'Gold', yellow: 'Gelb',
+    olive: 'Olivgrün', lime: 'Hellgrün', green: 'Grün', seagreen: 'Meergrün', teal: 'Petrol', cyan: 'Cyan',
+    skyblue: 'Himmelblau', blue: 'Blau', navy: 'Marineblau', indigo: 'Indigo', purple: 'Purpur',
+    violet: 'Violett', magenta: 'Magenta', pink: 'Pink', brown: 'Braun', chocolate: 'Schokoladenbraun',
+    tan: 'Hellbraun', beige: 'Beige',
+  },
+  fr: {
+    black: 'noir', white: 'blanc', gray: 'gris', silver: 'argent', red: 'rouge', maroon: 'bordeaux',
+    crimson: 'cramoisi', tomato: 'tomate', coral: 'corail', orange: 'orange', gold: 'or', yellow: 'jaune',
+    olive: 'olive', lime: 'vert citron', green: 'vert', seagreen: 'vert d’eau', teal: 'sarcelle', cyan: 'cyan',
+    skyblue: 'bleu ciel', blue: 'bleu', navy: 'bleu marine', indigo: 'indigo', purple: 'pourpre',
+    violet: 'violet', magenta: 'magenta', pink: 'rose', brown: 'brun', chocolate: 'chocolat',
+    tan: 'fauve', beige: 'beige',
+  },
+  hi: {
+    black: 'काला', white: 'सफ़ेद', gray: 'स्लेटी', silver: 'चाँदी', red: 'लाल', maroon: 'मैरून',
+    crimson: 'क्रिमसन', tomato: 'टमाटरी', coral: 'मूँगा', orange: 'नारंगी', gold: 'सुनहरा', yellow: 'पीला',
+    olive: 'जैतूनी', lime: 'नीबूई हरा', green: 'हरा', seagreen: 'समुद्री हरा', teal: 'हरा-नीला', cyan: 'सायन',
+    skyblue: 'आसमानी', blue: 'नीला', navy: 'गहरा नीला', indigo: 'जामुनी नील', purple: 'बैंजनी',
+    violet: 'वायलेट', magenta: 'मैजेंटा', pink: 'गुलाबी', brown: 'भूरा', chocolate: 'चॉकलेटी',
+    tan: 'हल्का भूरा', beige: 'बेज',
+  },
 };
