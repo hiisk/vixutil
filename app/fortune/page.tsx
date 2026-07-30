@@ -108,7 +108,7 @@ export default function FortunePage() {
           href="/snap"
           className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-gradient-to-br from-fuchsia-50 to-sky-50 p-6 mt-4 flex items-center gap-4 hover:shadow-md hover:border-fuchsia-200 transition-all"
         >
-          <span className="text-4xl">📸</span>
+          <ToolIcon emoji="📸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <h2 className="text-base font-black text-slate-900 dark:text-slate-100">스냅테스트</h2>

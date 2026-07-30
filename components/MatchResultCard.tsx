@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/ToolIcon';
 import ShareButton from './ShareButton';
 import ReferralCards from './ReferralCards';
 
@@ -54,7 +55,7 @@ export default function MatchResultCard({
               <span className="text-[11px] font-bold mt-1">{a.name}</span>
               {a.sub && <span className="text-[9px] opacity-80">{a.sub}</span>}
             </div>
-            <span className="text-2xl opacity-80">💗</span>
+            <ToolIcon emoji="💗" className="w-7 h-7 opacity-80 text-slate-800 dark:text-slate-100" />
             <div className="flex flex-col items-center">
               <span className="text-4xl">{b.emoji}</span>
               <span className="text-[11px] font-bold mt-1">{b.name}</span>

@@ -207,7 +207,7 @@ export default function PhotoMoodPage() {
             onClick={() => fileInputRef.current?.click()}
             className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-fuchsia-400 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-950/40 transition-colors"
           >
-            <span className="text-4xl">📷</span>
+            <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
             <span className="text-xs text-slate-400 dark:text-slate-500">인생샷, 풍경, 음식 사진 다 좋아요</span>
           </button>

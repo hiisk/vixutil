@@ -106,6 +106,7 @@ const ICONS: Record<string, (a: string) => ReactElement[]> = {
   robot: a => [R(16, 30, 68, 52, 12), C(36, 52, 5, FL), C(64, 52, 5, FL), P('M40 68 H60', st(a)), P('M50 14 V30'), C(50, 12, 5, af(a))],
   atom: a => [C(50, 50, 34), C(50, 50, 9, FL), C(50, 16, 6, af(a)), C(79, 67, 6, af(a)), C(21, 67, 6, af(a))],
   triangle: a => [P('M50 16 L92 84 H8 Z', sf(a))],
+  triangleDown: a => [P('M50 84 L8 16 H92 Z', sf(a))],
   gamepad: a => [R(6, 32, 88, 40, 18), P('M28 44 V60', st(a)), P('M20 52 H36', st(a)), C(68, 46, 5, FL), C(78, 58, 5, FL)],
   dice: a => [R(18, 18, 64, 64, 14), C(36, 36, 5, FL), C(50, 50, 5, af(a)), C(64, 64, 5, FL), C(64, 36, 5, FL), C(36, 64, 5, FL)],
   ticket: a => [R(8, 28, 84, 44, 8), P('M50 32 V40', st(a)), P('M50 46 V54', st(a)), P('M50 60 V68', st(a))],

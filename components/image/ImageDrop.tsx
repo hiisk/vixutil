@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useEffect, useId, useRef, useState } from 'react';
 import { ACCEPT, isImageFile } from '@/lib/image-canvas';
 import { IMAGE_COMMON, PASTE_HINT, type ImageLang } from '@/lib/image-ui-intl';
@@ -62,7 +63,7 @@ export default function ImageDrop({
             : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 hover:border-violet-300'
         }`}
       >
-        <span className="text-4xl">🖼️</span>
+        <ToolIcon emoji="🖼️" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
         <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
           {multiple ? c.dropMany : c.dropOne}
         </span>

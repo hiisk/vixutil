@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -297,7 +298,7 @@ export default function SnapShell<T>({
 
         {modelState === 'error' && (
           <div role="alert" className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
-            <span aria-hidden="true" className="text-3xl">⚠️</span>
+            <ToolIcon emoji="⚠️" className="w-8 h-8 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-rose-600">{ui.modelFailed}</span>
             <span className="text-xs text-rose-400">{ui.modelFailedHint}</span>
           </div>
@@ -309,7 +310,7 @@ export default function SnapShell<T>({
             onClick={() => fileInputRef.current?.click()}
             className={`w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 ${theme.dropHover} transition-colors`}
           >
-            <span aria-hidden="true" className="text-4xl">📷</span>
+            <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{ui.pickPhoto}</span>
             <span className="text-xs text-slate-400 dark:text-slate-500">{lead}</span>
           </button>

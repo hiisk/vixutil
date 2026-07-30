@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useRef, useState } from 'react';
 
 const COLORS = [
@@ -90,7 +91,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
       {/* 휠 */}
       <div className="relative mx-auto mb-6" style={{ width: 320, maxWidth: '100%' }}>
         {/* 포인터 */}
-        <div className="absolute left-1/2 -translate-x-1/2 -top-1 z-10 text-3xl drop-shadow" aria-hidden>🔻</div>
+        <ToolIcon emoji="🔻" className="absolute left-1/2 -translate-x-1/2 -top-1 z-10 w-8 h-8 drop-shadow text-slate-800 dark:text-slate-100" />
         <svg
           viewBox="0 0 320 320"
           className="w-full h-auto select-none"

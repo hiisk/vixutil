@@ -198,7 +198,7 @@ export default function HandwritingPage() {
             onClick={() => fileInputRef.current?.click()}
             className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
           >
-            <span className="text-4xl">📝</span>
+            <ToolIcon emoji="📝" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">손글씨 사진을 선택해주세요</span>
             <span className="text-xs text-slate-400 dark:text-slate-500">종이에 쓴 글씨가 또렷하게 나온 사진일수록 정확해요</span>
           </button>

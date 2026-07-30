@@ -219,7 +219,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={previews[slot]!} alt="" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-3xl">📷</span>
+                  <ToolIcon emoji="📷" className="w-8 h-8 text-slate-800 dark:text-slate-100" />
                 )}
               </button>
               {busy === slot && (
