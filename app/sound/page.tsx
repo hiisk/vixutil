@@ -8,6 +8,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { SOUND_TOOLS } from '@/lib/sound-tools';
+import { SOUND_UI } from '@/lib/sound/ui';
+import { FREQ_ICON } from '@/lib/sound/freqs';
 
 export const metadata: Metadata = {
   title: '소리 도구 — 메트로놈·튜너·백색소음',
@@ -114,6 +116,20 @@ export default function SoundHubPage() {
             <li>🎙️ <b className="text-slate-800 dark:text-slate-100">발음을 연습할 때</b> — 녹음해서 직접 들어 보세요</li>
           </ul>
         </div>
+
+        {/* 주파수 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다 */}
+        <Link
+          href="/sound/hz"
+          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-emerald-400 to-teal-500">
+            <ToolIcon emoji={FREQ_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{SOUND_UI.ko.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{SOUND_UI.ko.hubLead}</span>
+          </span>
+        </Link>
 
         <Faq items={SECTION_FAQ.sound} />
 

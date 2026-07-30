@@ -25,6 +25,8 @@ import { NAMED_COLORS_8 } from './color/named8';
 import { INGREDIENTS } from './food/ingredients8';
 import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
+import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
+import { freqFacts } from './sound/facts';
 import { screenFacts } from './device/facts';
 import { foodFacts } from './food/facts';
 
@@ -156,6 +158,16 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'device' as const,
     icon: SCREEN_ICON,
   })),
+  ...FREQS.map(f => {
+    const facts = freqFacts(f);
+    return {
+      href: `/sound/hz/${freqSlug(f.hz)}`,
+      title: `${f.hz}Hz 소리`,
+      desc: `${facts.note} · 파장 ${facts.wavelengthLabel}`,
+      section: 'sound' as const,
+      icon: FREQ_ICON,
+    };
+  }),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];
