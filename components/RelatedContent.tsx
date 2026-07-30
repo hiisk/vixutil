@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ToolIcon from '@/components/ToolIcon';
 import { pickRelated, type RelatedItem } from '@/lib/related';
 
 type Accent = 'violet' | 'amber' | 'sky' | 'emerald';
@@ -52,8 +53,8 @@ export default function RelatedContent({
               href={`${basePath}/${item.slug}`}
               className={`group flex items-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-3 transition-all hover:shadow-sm ${c.hoverBorder}`}
             >
-              <span className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-lg ${c.iconBg}`}>
-                {item.icon}
+              <span className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${c.iconBg}`}>
+                <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
               </span>
               <span className="min-w-0">
                 <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 truncate transition-colors ${c.hoverText}`}>

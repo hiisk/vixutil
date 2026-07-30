@@ -45,7 +45,8 @@ export default function CalculatorHub() {
                   onClick={() => setQuery('')}
                   className="shrink-0 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 py-1 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors whitespace-nowrap"
                 >
-                  {c.icon} {c.label}
+                  <ToolIcon emoji={c.icon} className="inline-block w-3.5 h-3.5 -mt-0.5 mr-1 align-middle" />
+                  {c.label}
                 </a>
               ))}
             </nav>

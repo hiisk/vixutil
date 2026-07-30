@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import ToolIcon from '@/components/ToolIcon';
 import { SEARCH_INTL_UI, type SearchIntlItem, type SearchIntlLang } from '@/lib/search-index-intl';
 
 /**
@@ -130,8 +131,8 @@ export default function GlobalSearchIntl({ items, lang }: { items: SearchIntlIte
                 href={item.href}
                 className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
               >
-                <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-950 flex items-center justify-center text-lg">
-                  {item.icon}
+                <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+                  <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-1.5 flex-wrap">

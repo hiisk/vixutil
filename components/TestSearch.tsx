@@ -18,7 +18,11 @@ function TestCard({ t }: { t: CardItem }) {
         그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
       */}
       <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(t.slug, 'test')}`}>
-        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{t.icon}</span>
+        <ToolIcon
+          emoji={t.icon}
+          accent="rgba(255,255,255,0.6)"
+          className="w-14 h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+        />
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
