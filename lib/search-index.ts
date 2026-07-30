@@ -22,6 +22,8 @@ import { METRO_LINES } from './metro-lines';
 import { lineIcon, lineTitle } from './metro/types';
 import { MUSIC_ITEMS, iconOf, symbolOf, titleOf } from './music/catalog';
 import { NAMED_COLORS_8 } from './color/named8';
+import { INGREDIENTS } from './food/ingredients8';
+import { foodFacts } from './food/facts';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -142,6 +144,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${lineTitle(l, 'ko')} 역 이름 맞추기`, desc: l.text.ko.intro.slice(0, 60), section: 'metro' as const, icon: lineIcon(l) })),
   ...MUSIC_ITEMS.map(i => ({ href: `/music/${i.slug}`, title: `${titleOf(i, 'ko')} 구성음`, desc: `${symbolOf(i)} — ${titleOf(i, 'en')}`, section: 'music' as const, icon: iconOf(i) })),
   ...NAMED_COLORS_8.map(c => ({ href: `/color/${c.slug}`, title: `${c.name.ko} 색상 코드`, desc: `${c.hex.toUpperCase()} — ${c.name.en}`, section: 'color' as const, icon: '🎨' })),
+  ...INGREDIENTS.map(i => ({ href: `/food/${i.slug}`, title: `${i.name.ko} 1컵 무게`, desc: `미국컵 ${foodFacts(i).grams.cupUs}g · 한국컵 ${foodFacts(i).grams.cupMetric}g`, section: 'food' as const, icon: '⚖️' })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

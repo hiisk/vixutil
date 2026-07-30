@@ -1,4 +1,8 @@
 import Link from 'next/link';
+import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { FOOD_CATEGORIES, ingredientsOfCategory } from '@/lib/food/ingredients8';
+import { foodFacts } from '@/lib/food/facts';
+import { FOOD_UI } from '@/lib/food/ui';
 import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -14,6 +18,9 @@ import { foodToolsIntl, FOOD_CATEGORY_ORDER, FOOD_SHELL_UI, type FoodIntlLang } 
 export default function FoodHubIntl({ lang }: { lang: FoodIntlLang }) {
   const tools = foodToolsIntl(lang);
   const ui = FOOD_SHELL_UI[lang];
+  // 재료 무게 쪽 문구는 짧은 열쇠를 쓴다 — 'pt-br'과 'pt'가 만나는 자리다
+  const key = lang8OfLocale(lang);
+  const w = FOOD_UI[key];
   const grouped = FOOD_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
     .filter(g => g.tools.length > 0);
@@ -58,6 +65,37 @@ export default function FoodHubIntl({ lang }: { lang: FoodIntlLang }) {
             </div>
           </section>
         ))}
+
+        {/*
+          재료 125가지의 컵·큰술 무게. 도구가 "계산하는" 쪽이라면 이쪽은 "찾는"
+          쪽이다 — 레시피를 펴 놓고 밀가루 1컵이 몇 g인지만 알고 싶은 사람은
+          변환기를 열 생각이 없다.
+        */}
+        <section className="mb-8" aria-label={w.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{w.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{w.hubLead}</p>
+          {FOOD_CATEGORIES.map(cat => (
+            <div key={cat} className="mb-4">
+              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">{w.categoryLabel[cat]}</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {ingredientsOfCategory(cat).map(i => (
+                  <Link
+                    key={i.slug}
+                    href={`/${lang}/food/${i.slug}`}
+                    className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-amber-300 transition-all"
+                  >
+                    <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
+                      {i.name[key]}
+                    </span>
+                    <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+                      {foodFacts(i).grams.cupUs}{w.gram}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
