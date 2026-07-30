@@ -1,5 +1,5 @@
 'use client';
-import ToolIcon from '@/components/ToolIcon';
+import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
@@ -13,7 +13,10 @@ function QuizCard({ q }: { q: CardItem }) {
       className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(245,158,11,0.22)] overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(q.slug, 'quiz')}`}>
-        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{q.icon}</span>
+        <ToolIconRef
+          emoji={q.icon}
+          className="w-14 h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+        />
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
@@ -40,6 +43,9 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
 
   return (
     <>
+      {/* 도형은 여기 한 번만 — 카드는 <use>로 가리킨다 */}
+      <ToolIconDefs emojis={quizzes.map(x => x.icon)} accent="rgba(255,255,255,0.6)" />
+
       <div className="relative mb-10">
         <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />

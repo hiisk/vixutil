@@ -43,13 +43,10 @@ export default function ToolIcon({
   return (
     <svg
       viewBox="0 0 100 100"
-      className={className}
+      // 선 굵기·마감은 globals.css의 .ti가 준다 — 속성으로 적으면 아이콘마다
+      // 같은 문자열 120바이트가 붙어 목록 HTML이 수십 KB 불어난다
+      className={className ? `ti ${className}` : 'ti'}
       style={color ? { color } : undefined}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
       role="img"
       aria-label={title}
       aria-hidden={title ? undefined : true}

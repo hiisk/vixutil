@@ -169,3 +169,15 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 @media (prefers-reduced-motion: reduce) {
   .metro-flow, .metro-drift { animation: none; }
 }
+
+/* ── 도구 아이콘 (components/ToolIcon.tsx) ──
+   선 굵기·마감은 아이콘 1,600여 개가 전부 같다. svg 태그마다 적으면
+   같은 속성 다섯 개가 그만큼 반복돼 목록 페이지 HTML이 수십 KB 불어난다.
+   /test 허브는 카드가 228장이라 이 차이가 400KB 상한을 넘기고 말았다. */
+.ti {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

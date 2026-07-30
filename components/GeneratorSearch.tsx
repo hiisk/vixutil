@@ -1,4 +1,5 @@
 'use client';
+import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
 import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -25,7 +26,10 @@ function GenCard({ g }: { g: CardItem }) {
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(g.slug, 'generator')}`}>
-        <span className="text-5xl drop-shadow-md transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{g.icon}</span>
+        <ToolIconRef
+          emoji={g.icon}
+          className="w-14 h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+        />
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
@@ -51,6 +55,9 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
 
   return (
     <>
+      {/* 도형은 여기 한 번만 — 카드는 <use>로 가리킨다 */}
+      <ToolIconDefs emojis={generators.map(x => x.icon)} accent="rgba(255,255,255,0.6)" />
+
       {/* 검색 */}
       <div className="relative mb-5">
         <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
