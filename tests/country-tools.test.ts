@@ -8,7 +8,7 @@ const LANGS = ['ko', 'en', 'zh'] as const;
 const HANGUL = /[가-힣]/;
 
 test('50개국이 있고 slug·국가코드가 겹치지 않는다', () => {
-  assert.ok(COUNTRIES.length >= 50, `50개국 이상이어야 하는데 ${COUNTRIES.length}개`);
+  assert.ok(COUNTRIES.length >= 100, `100개국 이상이어야 하는데 ${COUNTRIES.length}개`);
   assert.equal(new Set(COUNTRIES.map(c => c.slug)).size, COUNTRIES.length);
   assert.equal(new Set(COUNTRIES.map(c => c.code)).size, COUNTRIES.length);
 });
