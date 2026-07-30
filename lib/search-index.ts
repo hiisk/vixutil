@@ -23,6 +23,7 @@ import { lineIcon, lineTitle } from './metro/types';
 import { MUSIC_ITEMS, iconOf, symbolOf, titleOf } from './music/catalog';
 import { NAMED_COLORS_8 } from './color/named8';
 import { INGREDIENTS } from './food/ingredients8';
+import { TIME_CITIES, timeCountry } from './time/cities8';
 import { foodFacts } from './food/facts';
 
 /**
@@ -145,6 +146,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...MUSIC_ITEMS.map(i => ({ href: `/music/${i.slug}`, title: `${titleOf(i, 'ko')} 구성음`, desc: `${symbolOf(i)} — ${titleOf(i, 'en')}`, section: 'music' as const, icon: iconOf(i) })),
   ...NAMED_COLORS_8.map(c => ({ href: `/color/${c.slug}`, title: `${c.name.ko} 색상 코드`, desc: `${c.hex.toUpperCase()} — ${c.name.en}`, section: 'color' as const, icon: '🎨' })),
   ...INGREDIENTS.map(i => ({ href: `/food/${i.slug}`, title: `${i.name.ko} 1컵 무게`, desc: `미국컵 ${foodFacts(i).grams.cupUs}g · 한국컵 ${foodFacts(i).grams.cupMetric}g`, section: 'food' as const, icon: '⚖️' })),
+  ...TIME_CITIES.map(c => ({ href: `/time/${c.slug}`, title: `${c.name.ko} 현재 시각`, desc: `${timeCountry(c.country)?.name.ko ?? ''} · ${c.zone}`, section: 'time' as const, icon: '🕰️' })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

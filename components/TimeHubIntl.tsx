@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { TIME_REGIONS, citiesOfRegion, timeCountry } from '@/lib/time/cities8';
+import { TIME_UI } from '@/lib/time/ui';
 import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -14,6 +17,9 @@ import { timeToolsIntl, TIME_CATEGORY_ORDER, TIME_SHELL_UI, type ToolIntlLang } 
 export default function TimeHubIntl({ lang }: { lang: ToolIntlLang }) {
   const tools = timeToolsIntl(lang);
   const ui = TIME_SHELL_UI[lang];
+  // 도시 시계 쪽 문구는 짧은 열쇠를 쓴다 — 'pt-br'과 'pt'가 만나는 자리다
+  const key = lang8OfLocale(lang);
+  const w = TIME_UI[key];
   const grouped = TIME_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
     .filter(g => g.tools.length > 0);
@@ -58,6 +64,34 @@ export default function TimeHubIntl({ lang }: { lang: ToolIntlLang }) {
             </div>
           </section>
         ))}
+
+        {/*
+          도시 116곳의 현재 시각. 도구가 "재는" 쪽이라면 이쪽은 "보는" 쪽이다 —
+          뉴욕이 지금 몇 시인지 알고 싶은 사람은 타이머를 열 생각이 없다.
+        */}
+        <section className="mb-8" aria-label={w.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{w.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{w.hubLead}</p>
+          {TIME_REGIONS.map(region => (
+            <div key={region} className="mb-4">
+              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">{w.regionLabel[region]}</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {citiesOfRegion(region).map(city => (
+                  <Link
+                    key={city.slug}
+                    href={`/${lang}/time/${city.slug}`}
+                    className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-sky-300 transition-all"
+                  >
+                    <span className="shrink-0">{timeCountry(city.country)?.flag}</span>
+                    <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
+                      {city.name[key]}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
       </div>

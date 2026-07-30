@@ -36,6 +36,7 @@ import { METRO_LANGS } from "@/lib/metro/lang";
 import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
+import { TIME_CITIES } from "@/lib/time/cities8";
 
 const BASE = "https://vixutil.com";
 
@@ -175,6 +176,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/en/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
+    // 도시 시계 116장도 여덟 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+      TIME_CITIES.map((c: { slug: string }) => ({
+        url: `${BASE}${prefix}/time/${c.slug}`,
+        changeFrequency: weekly,
+        priority: 0.8,
+      })),
+    ),
     // 재료 무게 125장도 여덟 언어다 — 도구는 따로 실려 있고 이건 이름 페이지다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
       INGREDIENTS.map((i: { slug: string }) => ({
