@@ -37,7 +37,7 @@ const STR = {
 
 export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator; lang?: 'en' }) {
   const t = STR[lang];
-  const hubHref = lang === 'en' ? '/en/generator' : '/zh/generator';
+  const hubHref = `/${lang}/generator`;
   const [results, setResults] = useState<string[]>([]);
   const [animKey, setAnimKey] = useState(0);
   const [copiedAll, setCopiedAll] = useState(false);

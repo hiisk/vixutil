@@ -63,13 +63,6 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/fortune/tarot" className="hover:text-violet-600" hrefLang="ko">한국어</Link>
-            <Link
-              href={`/${lang === 'en' ? 'zh' : 'en'}/fortune/tarot`}
-              className="hover:text-violet-600"
-              hrefLang={lang === 'en' ? 'zh' : 'en'}
-            >
-              {lang === 'en' ? '中文' : 'EN'}
-            </Link>
           </span>
         </div>
       </header>

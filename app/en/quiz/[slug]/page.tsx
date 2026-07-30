@@ -55,8 +55,7 @@ export default async function EnQuizPage({ params }: { params: Promise<{ slug: s
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link href="/en/quiz" className="text-sm font-black text-amber-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">
-          Free quizzes · <Link href={`/zh/quiz/${slug}`} className="hover:text-amber-600" hrefLang="zh">中文</Link>
-        </p>
+          Free quizzes </p>
       </footer>
     </>
   );

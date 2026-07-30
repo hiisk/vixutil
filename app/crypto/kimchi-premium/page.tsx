@@ -68,7 +68,7 @@ export default function KimchiPremiumPage() {
 
         <KimchiBoard />
 
-        <ReferralCards lang="en" placement="result" />
+        <ReferralCards lang="ko" placement="result" />
 
         {/* 서버에서 정적으로 렌더된다 — 위 보드는 브라우저에서 시세를 받아 그리므로
             자바스크립트를 실행하지 않는 크롤러에게는 빈 껍데기로 보인다. */}

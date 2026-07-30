@@ -42,7 +42,6 @@ export default function RandomIndexPage() {
           <span className="ml-auto flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
             {RANDOM_TOOLS.length}개
             <Link href="/en/random" className="font-bold hover:text-rose-600" hrefLang="en">EN</Link>
-            <Link href="/zh/random" className="font-bold hover:text-rose-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

@@ -55,8 +55,7 @@ export default async function EnTestPage({ params }: { params: Promise<{ slug: s
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link href="/en/test" className="text-sm font-black text-violet-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">
-          Free personality tests · <Link href={`/zh/test/${slug}`} className="hover:text-violet-600" hrefLang="zh">中文</Link>
-        </p>
+          Free personality tests </p>
       </footer>
     </>
   );

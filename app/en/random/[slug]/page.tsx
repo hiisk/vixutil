@@ -92,7 +92,7 @@ export default async function EnRandomToolPage({ params }: { params: Promise<{ s
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link href="/en/random" className="text-sm font-black text-rose-600">vixutil</Link>
-        <p className="text-xs text-slate-400 mt-1">Free random tools · <Link href={`/random/${slug}`} className="hover:text-rose-600" hrefLang="ko">한국어</Link> · <Link href={`/zh/random/${slug}`} className="hover:text-rose-600" hrefLang="zh">中文</Link></p>
+        <p className="text-xs text-slate-400 mt-1">Free random tools · <Link href={`/random/${slug}`} className="hover:text-rose-600" hrefLang="ko">한국어</Link> </p>
       </footer>
     </>
   );
