@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-const CATEGORY_ORDER = ['配色', '无障碍', 'CSS', '转换'];
+const CATEGORY_ORDER = ['配色', '无障碍', 'CSS', '换算'];
 
 export default function ZhColorHub() {
   const tools = colorToolsIntl('zh');

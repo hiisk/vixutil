@@ -36,6 +36,11 @@ const SECTIONS = [
   { href: '/zh/game',      icon: '🎮', title: '脑力小游戏',      desc: '反应、记忆、打字、瞄准、心算',   color: 'from-emerald-500 to-teal-600', accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30' },
   { href: '/zh/device',    icon: '🔧', title: '设备检测',       desc: '键盘、鼠标、麦克风、摄像头、坏点',     color: 'from-sky-500 to-blue-600',     accent: 'text-sky-700 dark:text-sky-300',     border: 'border-sky-200 dark:border-sky-900/50',   bg: 'bg-sky-50 dark:bg-sky-950/30' },
   { href: '/zh/text',      icon: '✏️', title: '文本工具',         desc: '清理、去重、大小写转换、字数统计',         color: 'from-indigo-500 to-violet-600', accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30' },
+  { href: '/zh/rate', icon: '📊', title: '百分比与比率', desc: '折扣、增值税、百分比变化、复利', color: 'from-orange-500 to-amber-600', accent: 'text-orange-700 dark:text-orange-300', border: 'border-orange-200 dark:border-orange-900/50', bg: 'bg-orange-50 dark:bg-orange-950/30' },
+  { href: '/zh/body', icon: '🎯', title: '身体数值', desc: 'BMI、体脂、基础代谢、配速、极限重量', color: 'from-rose-500 to-red-600', accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30' },
+  { href: '/zh/geometry', icon: '🔵', title: '几何计算', desc: '面积、体积、勾股定理、角度', color: 'from-cyan-500 to-blue-600', accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30' },
+  { href: '/zh/country', icon: '🪙', title: '各国资讯', desc: '时差、插头、国际电话、货币', color: 'from-teal-500 to-emerald-600', accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30' },
+  { href: '/zh/hanja', icon: '🀄', title: '四字成语', desc: '五十条韩国成语，含释义与出处', color: 'from-amber-600 to-yellow-700', accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30' },
 ];
 
 export default function ZhHome() {
