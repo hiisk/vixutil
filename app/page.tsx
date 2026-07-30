@@ -251,6 +251,18 @@ const SECTIONS = [
     shadow: 'shadow-indigo-100',
   },
   {
+    href: '/country',
+    icon: '🧭',
+    title: '나라 정보',
+    desc: '시차·전압·플러그·국가번호·입국 조건을 나라별로 한 장에',
+    badge: `${SECTION_COUNTS.country}개`,
+    color: 'from-sky-500 to-cyan-600',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
+    shadow: 'shadow-sky-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
