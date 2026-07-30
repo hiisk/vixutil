@@ -1,15 +1,24 @@
 'use client';
+import { EMOTICON_GROUP_INTL, emoticonsFor } from '@/lib/text-intl';
+import { SYMBOL_TOOL_UI, type TextLang } from '@/lib/text-ui-intl';
 import CopyPicker from './CopyPicker';
 import { EMOTICON_GROUPS } from '@/lib/emoticons';
 
-export default function EmoticonTool() {
+export default function EmoticonTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
+  // 한글 자모로 만든 이모티콘은 한국어 화면에만 둔다 — 다른 언어에서는 뜻이 없다
+  const groups = EMOTICON_GROUPS.map(g => ({
+    ...g,
+    label: EMOTICON_GROUP_INTL[lang][g.id] ?? g.label,
+    items: emoticonsFor(g.items, lang),
+  }));
   return (
     <CopyPicker
-      groups={EMOTICON_GROUPS.map(g => ({ ...g, items: g.items.map(ch => ({ ch })) }))}
+      groups={groups.map(g => ({ ...g, items: g.items.map(ch => ({ ch })) }))}
       storageKey="vixutil:recent-emoticons"
       searchable={false}
       large
-      hint="문자로 만든 이모티콘이라 이미지가 아닙니다. 닉네임·상태 메시지처럼 그림 이모지를 못 쓰는 곳에도 들어가고, 어떤 기기에서 봐도 같은 모양으로 보입니다."
+      hint={SYMBOL_TOOL_UI[lang].emoticonHint}
+      lang={lang}
     />
   );
 }

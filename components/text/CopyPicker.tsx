@@ -1,11 +1,12 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { CARD, useCopy } from './ui';
+import { COPY_PICKER_UI, type TextLang } from '@/lib/text-ui-intl';
 
 /**
  * 눌러서 복사하는 격자 — 특수문자와 이모티콘이 같은 화면을 쓴다.
  *
- * 최근에 쓴 것을 맨 위에 남긴다. 이런 도구는 같은 사람이 같은 기호를 반복해서
+ * {ui.recentTitle}을 맨 위에 남긴다. 이런 도구는 같은 사람이 같은 기호를 반복해서
  * 찾는 일이 대부분이라, 그 몇 개만 위에 있어도 매번 목록을 훑지 않아도 된다.
  * localStorage를 쓰므로 이 브라우저 안에만 남는다.
  */
@@ -27,6 +28,7 @@ export default function CopyPicker({
   searchable = true,
   large = false,
   hint,
+  lang = 'ko',
 }: {
   groups: PickerGroup[];
   storageKey: string;
@@ -34,7 +36,9 @@ export default function CopyPicker({
   /** 카오모지처럼 폭이 넓은 것은 큰 칸에 넣는다 */
   large?: boolean;
   hint?: string;
+  lang?: TextLang;
 }) {
+  const ui = COPY_PICKER_UI[lang];
   const { copied, copy } = useCopy();
   const [query, setQuery] = useState('');
   const [recent, setRecent] = useState<string[]>([]);
@@ -82,7 +86,7 @@ export default function CopyPicker({
       </span>
       {copied === item.ch && (
         <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-emerald-500/90 text-[11px] font-bold text-white">
-          복사됨
+          {ui.copied}
         </span>
       )}
     </button>
@@ -97,14 +101,14 @@ export default function CopyPicker({
           type="search"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          placeholder="이름으로 찾기 — 화살표, 제곱미터, 하트…"
+          placeholder={ui.searchPlaceholder}
           className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors mb-4"
         />
       )}
 
       {recent.length > 0 && !found && (
         <div className="mb-5">
-          <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">최근에 쓴 것</p>
+          <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">{ui.recentTitle}</p>
           <div className={gridClass}>{recent.map((ch, i) => cell({ ch }, `recent-${ch}-${i}`))}</div>
         </div>
       )}
@@ -112,11 +116,11 @@ export default function CopyPicker({
       {found ? (
         <div>
           <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
-            검색 결과 {found.length}개
+            {ui.foundCount(found.length)}
           </p>
           {found.length === 0 ? (
             <p className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">
-              찾는 기호가 없습니다. 다른 이름으로 검색해 보세요.
+              {ui.notFound}
             </p>
           ) : (
             <div className={gridClass}>{found.map((item, i) => cell(item, `found-${item.ch}-${i}`))}</div>

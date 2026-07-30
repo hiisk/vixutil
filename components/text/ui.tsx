@@ -1,4 +1,5 @@
 'use client';
+import { TEXT_COMMON, type TextLang } from '@/lib/text-ui-intl';
 import { useCallback, useState } from 'react';
 
 /**
@@ -29,8 +30,9 @@ export function InputArea({
   onChange,
   placeholder,
   rows = 6,
-  label = '입력',
+  label,
   onClear,
+  lang = 'ko',
 }: {
   value: string;
   onChange: (next: string) => void;
@@ -38,17 +40,19 @@ export function InputArea({
   rows?: number;
   label?: string;
   onClear?: () => void;
+  lang?: TextLang;
 }) {
+  const c = TEXT_COMMON[lang];
   return (
     <div>
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label ?? c.input}</span>
         {value && (
           <button
             onClick={() => (onClear ? onClear() : onChange(''))}
             className="text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-rose-500 transition-colors"
           >
-            지우기
+            {c.clear}
           </button>
         )}
       </div>
@@ -65,23 +69,26 @@ export function InputArea({
 
 export function CopyBox({
   value,
-  label = '결과',
+  label,
   rows = 6,
   mono = false,
-  empty = '위에 글을 입력하면 결과가 나옵니다',
+  empty,
+  lang = 'ko',
 }: {
   value: string;
   label?: string;
   rows?: number;
   mono?: boolean;
   empty?: string;
+  lang?: TextLang;
 }) {
   const { copied, copy } = useCopy();
+  const c = TEXT_COMMON[lang];
 
   return (
     <div className="mt-4">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label ?? c.output}</span>
         <button
           onClick={() => copy(value)}
           disabled={!value}
@@ -89,7 +96,7 @@ export function CopyBox({
             copied ? 'text-emerald-600' : 'text-indigo-600 hover:text-indigo-700'
           }`}
         >
-          {copied ? '✅ 복사했습니다' : '복사하기'}
+          {copied ? c.copied : c.copy}
         </button>
       </div>
       <div
@@ -98,7 +105,7 @@ export function CopyBox({
         } ${value ? 'text-slate-800 dark:text-slate-100' : 'text-slate-300 dark:text-slate-600'}`}
         style={{ minHeight: `${rows * 1.6}rem` }}
       >
-        {value || empty}
+        {value || empty || c.empty}
       </div>
     </div>
   );
@@ -110,13 +117,16 @@ export function CopyRow({
   value,
   hint,
   accent = false,
+  lang = 'ko',
 }: {
   label: string;
   value: string;
   hint?: string;
   accent?: boolean;
+  lang?: TextLang;
 }) {
   const { copied, copy } = useCopy();
+  const c = TEXT_COMMON[lang];
 
   return (
     <button
@@ -136,7 +146,7 @@ export function CopyRow({
         {hint && <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{hint}</span>}
       </span>
       <span className={`shrink-0 text-xs font-bold ${copied ? 'text-emerald-600' : 'text-slate-300 dark:text-slate-600'}`}>
-        {copied ? '복사됨' : '복사'}
+        {copied ? c.copiedShort : c.copyShort}
       </span>
     </button>
   );

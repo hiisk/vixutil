@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: '텍스트 도구 — 한영타 변환·영문 이름·특수문자',
   description:
     '한/영 잘못 친 글자 되돌리기, 여권 영문 이름, 한글 금액, 초성 변환, 특수문자·이모티콘, 중복 줄 제거, 원고지 매수까지 한 곳에서. 설치 없이 브라우저에서 바로.',
-  alternates: { canonical: '/text' },
+  alternates: {
+    canonical: '/text',
+    languages: { 'ko': '/text', 'en': '/en/text', 'zh': '/zh/text', 'x-default': '/en/text' },
+  },
 };
 
 const CATEGORY_ORDER = ['한글 변환', '정리·편집', '기호·입력', '세기·쓰기'];

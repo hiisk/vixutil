@@ -17,6 +17,7 @@ import { soundToolsIntl } from "@/lib/sound-tools-intl";
 import { foodToolsIntl } from "@/lib/food-tools-intl";
 import { gameToolsIntl } from "@/lib/game-tools-intl";
 import { deviceToolsIntl } from "@/lib/device-tools-intl";
+import { textToolsIntl } from "@/lib/text-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
 import { TESTS_ZH } from "@/lib/test-zh";
 import { QUIZZES_ZH } from "@/lib/quiz-zh";
@@ -31,6 +32,7 @@ import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
+import { COUNTRIES } from "@/lib/country-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -169,6 +171,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/geometry`, changeFrequency: weekly, priority: 0.9 },
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/country`, changeFrequency: weekly, priority: 0.95 },
+    ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/country/${c.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/en/country`, changeFrequency: weekly, priority: 0.9 },
+    ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/en/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/country`, changeFrequency: weekly, priority: 0.9 },
+    ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/zh/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -266,6 +274,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/en/device`, changeFrequency: weekly, priority: 0.9 },
     ...deviceToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/en/text`, changeFrequency: weekly, priority: 0.9 },
+    ...textToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
@@ -310,6 +321,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${BASE}/zh/device`, changeFrequency: weekly, priority: 0.9 },
     ...deviceToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+
+    { url: `${BASE}/zh/text`, changeFrequency: weekly, priority: 0.9 },
+    ...textToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
