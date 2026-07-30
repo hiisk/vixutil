@@ -6,13 +6,22 @@
  */
 import type { FormulaTool } from './formula/types.ts';
 import { PLANE_TOOLS } from './geo/plane.ts';
+import { PLANE2_TOOLS } from './geo/plane2.ts';
 import { SOLID_TOOLS } from './geo/solid.ts';
+import { SOLID2_TOOLS } from './geo/solid2.ts';
 import { TRIG_TOOLS } from './geo/trig.ts';
+import { TRIG2_TOOLS } from './geo/trig2.ts';
 import { CIRCLE_TOOLS } from './geo/circle.ts';
+import { CIRCLE2_TOOLS } from './geo/circle2.ts';
 import { PRACTICAL_TOOLS } from './geo/practical.ts';
+import { PRACTICAL2_TOOLS } from './geo/practical2.ts';
 
 export const GEO_TOOLS: FormulaTool[] = [
-  ...PLANE_TOOLS, ...SOLID_TOOLS, ...TRIG_TOOLS, ...CIRCLE_TOOLS, ...PRACTICAL_TOOLS,
+  ...PLANE_TOOLS, ...PLANE2_TOOLS,
+  ...SOLID_TOOLS, ...SOLID2_TOOLS,
+  ...TRIG_TOOLS, ...TRIG2_TOOLS,
+  ...CIRCLE_TOOLS, ...CIRCLE2_TOOLS,
+  ...PRACTICAL_TOOLS, ...PRACTICAL2_TOOLS,
 ];
 
 export const GEO_CATEGORIES = ['평면 도형', '입체 부피', '삼각비·각', '원·호', '생활 계산'] as const;

@@ -4,7 +4,7 @@ import { GEO_TOOLS, geoTool } from '../lib/geo-tools.ts';
 import { GEO_SECTION } from '../lib/geo-section.ts';
 import { checkFormulaSection, primaryOf, outputsOf } from './formula-section-checks.ts';
 
-checkFormulaSection(GEO_SECTION);
+checkFormulaSection(GEO_SECTION, 100);
 
 const primary = (slug: string, v: Record<string, number>) => primaryOf(GEO_TOOLS, slug, v);
 const outputs = (slug: string, v: Record<string, number>) => outputsOf(GEO_TOOLS, slug, v);
