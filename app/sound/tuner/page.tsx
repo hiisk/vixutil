@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '악기 소리를 들려주면 어떤 음인지, 기준음보다 얼마나 높거나 낮은지 센트 단위로 알려줍니다. 기타·우쿨렐레·베이스의 개방현 기준음도 들어 볼 수 있습니다.',
   alternates: {
     canonical: '/sound/tuner',
-    languages: { 'ko': '/sound/tuner', 'en': '/en/sound/tuner', 'zh': '/zh/sound/tuner', 'x-default': '/en/sound/tuner' },
+    languages: { 'ko': '/sound/tuner', 'en': '/en/sound/tuner', 'x-default': '/en/sound/tuner' },
   },
 };
 

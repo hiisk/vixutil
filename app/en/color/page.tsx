@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free colour tools: palette generator, shade scale, contrast checker, colour blindness simulator, CSS gradient and box-shadow. Runs in your browser, no install.',
   alternates: {
     canonical: '/en/color',
-    languages: { 'en': '/en/color', 'zh': '/zh/color', 'ko': '/color', 'x-default': '/en/color' },
+    languages: { 'en': '/en/color', 'ko': '/color', 'x-default': '/en/color' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnColorHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/color" className="hover:text-fuchsia-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/color" className="hover:text-fuchsia-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

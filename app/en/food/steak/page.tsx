@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Internal temperature for each level of doneness, and when to pull it off the heat given how much carryover cooking will happen. Enter the thickness and it estimates roughly how long per side.',
   alternates: {
     canonical: '/en/food/steak',
-    languages: { 'en': '/en/food/steak', 'zh': '/zh/food/steak', 'ko': '/food/steak', 'x-default': '/en/food/steak' },
+    languages: { 'en': '/en/food/steak', 'ko': '/food/steak', 'x-default': '/en/food/steak' },
   },
 };
 

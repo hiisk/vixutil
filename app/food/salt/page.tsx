@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '원하는 염도(%)와 물의 양을 넣으면 소금이 몇 그램 필요한지 계산합니다. 배추 절이기·장아찌·피클처럼 염도가 결과를 좌우하는 요리에서 감으로 하지 않게 해줍니다.',
   alternates: {
     canonical: '/food/salt',
-    languages: { 'ko': '/food/salt', 'en': '/en/food/salt', 'zh': '/zh/food/salt', 'x-default': '/en/food/salt' },
+    languages: { 'ko': '/food/salt', 'en': '/en/food/salt', 'x-default': '/en/food/salt' },
   },
 };
 

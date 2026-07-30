@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free random decision tools: spin the wheel, random name picker, team generator, number generator, coin flip, dice roller and Secret Santa. Instant, no sign-up.',
   alternates: {
     canonical: '/en/random',
-    languages: { 'en': '/en/random', 'ko': '/random', 'zh': '/zh/random', 'x-default': '/en/random' },
+    languages: { 'en': '/en/random', 'ko': '/random', 'x-default': '/en/random' },
   },
 };
 
@@ -24,7 +24,6 @@ export default function EnRandomHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Random Tools</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/random" className="hover:text-rose-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/random" className="hover:text-rose-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

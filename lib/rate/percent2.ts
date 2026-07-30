@@ -33,9 +33,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Percentage of a Percentage', desc: 'Work out what 25% of 40% comes to as a share of the whole.',
       long: 'Multiply the two percentages and divide by 100. If 40% of 5,000 people are women and 25% of those are in their twenties, that group is 10% of everyone — 500 people. Adding to get 65% means something else entirely.',
       note: 'The whole thing turns on “of those” versus “of everyone”. Miss it while reading a survey and you can misjudge the size by several times.' },
-    zh: { title: '比例的比例计算器', desc: '算出“整体的40%中的25%”占整体的百分之几。',
-      long: '把两个百分比相乘再除以100。5000人中40%为女性，其中25%是二十多岁，那么这一群体占整体的10%，即500人。若相加得65%，含义就完全不同了。',
-      note: '关键在于“其中”还是“整体中”。读问卷结果时忽略这一点，规模可能被误判数倍。' },
   },
   {
     slug: 'compound-change',
@@ -61,7 +58,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
       return {
         ko: `${v.a}% 올랐다가 ${v.b}% 변하면 합계 ${sum}%가 아니라 ${real}%입니다. 20% 올랐다가 20% 내리면 본전이 아니라 4% 손실입니다.`,
         en: `Up ${v.a}% then ${v.b}% gives ${real}%, not the ${sum}% you get by adding. Up 20% then down 20% is a 4% loss, not break-even.`,
-        zh: `先变动${v.a}%再变动${v.b}%，结果是${real}%而非相加的${sum}%。涨20%再跌20%不是回本，而是亏4%。`,
         tone: 'warn',
       };
     },
@@ -71,9 +67,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Two Changes in a Row', desc: 'The total change after something rises and then falls.',
       long: 'Percentage changes multiply, they do not add. Multiply (1 + each change) and subtract one. A rise followed by an equal-sized fall always leaves you below where you started.',
       note: 'The fall works off the larger number, which is why halving a price needs a 100% rise to undo — not 50%.' },
-    zh: { title: '连续增减率计算器', desc: '算出先涨后跌两次变动后的总变化率。',
-      long: '变化率是相乘而不是相加。把(1 + 各变化率)相乘再减1即得总变化率。先涨后按同样比例跌，结果总是低于起点。',
-      note: '下跌是以变大后的金额为基数，所以跌幅影响更大：股价腰斩后需要上涨100%才能回到原位，而不是50%。' },
   },
   {
     slug: 'percent-error',
@@ -92,10 +85,10 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const e = out[0].value;
       return e <= 1
-        ? { ko: `오차 ${e}%는 정확한 편입니다.`, en: `An error of ${e}% is tight.`, zh: `${e}%的误差属于精确范围。`, tone: 'good' }
+        ? { ko: `오차 ${e}%는 정확한 편입니다.`, en: `An error of ${e}% is tight.`, tone: 'good' }
         : e <= 5
-          ? { ko: `오차 ${e}%는 대체로 받아들일 수 있는 수준입니다.`, en: `An error of ${e}% is usually acceptable.`, zh: `${e}%的误差通常可以接受。`, tone: 'warn' }
-          : { ko: `오차 ${e}%는 큽니다. 측정 방법을 다시 보세요.`, en: `An error of ${e}% is large — revisit the method.`, zh: `${e}%的误差偏大，建议检查测量方法。`, tone: 'bad' };
+          ? { ko: `오차 ${e}%는 대체로 받아들일 수 있는 수준입니다.`, en: `An error of ${e}% is usually acceptable.`, tone: 'warn' }
+          : { ko: `오차 ${e}%는 큽니다. 측정 방법을 다시 보세요.`, en: `An error of ${e}% is large — revisit the method.`, tone: 'bad' };
     },
     ko: { title: '오차율 계산기', desc: '측정값이 참값에서 몇 % 벗어났는지 계산합니다.',
       long: '차이의 절댓값을 참값으로 나눕니다. 분모가 참값이라는 점이 중요합니다 — 측정값으로 나누면 같은 오차인데도 값이 달라져 실험 간 비교가 안 됩니다.',
@@ -103,9 +96,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Percent Error', desc: 'How far a measurement strayed from the true value, as a percentage.',
       long: 'Divide the absolute difference by the true value. The denominator matters: dividing by the measurement instead makes identical errors look different and breaks comparison between runs.',
       note: 'When the true value nears zero the percentage explodes. Report the absolute difference in that case.' },
-    zh: { title: '误差率计算器', desc: '算出测量值偏离真值百分之几。',
-      long: '用差的绝对值除以真值。分母必须是真值：若除以测量值，同样的误差会得出不同数字，实验之间就无法比较。',
-      note: '真值接近0时误差率会急剧放大，这种情况请改用差值的绝对量。' },
   },
   {
     slug: 'required-growth',
@@ -131,9 +121,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Growth Rate Needed', desc: 'The yearly growth required to hit a target within a set time.',
       long: 'Divide the target by the start to see the multiple needed, then take the year-th root. Tripling in five years needs 24.6% a year — not the 40% you get by dividing 200% growth by five.',
       note: 'Because it compounds, the absolute gains arrive late. Falling behind the line in the early years is expected.' },
-    zh: { title: '达成目标所需增长率', desc: '算出在给定期限内达到目标所需的年增长率。',
-      long: '用目标除以起始值得到需要翻的倍数，再开年数次方。五年增至三倍需要每年24.6%，而不是把总增长200%除以5得到的40%。',
-      note: '因为是复利，绝对增量集中在后期。前几年落后于目标线是正常现象。' },
   },
   {
     slug: 'percentile-rank',
@@ -155,9 +142,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Top Percentage & Percentile', desc: 'Turn a rank out of a total into a top-x% and a percentile.',
       long: 'Divide the rank by the head count. Forty-second of 320 is the top 13.13%, or the 86.88th percentile. Note the directions are opposite — a low top-% is good, a high percentile is good.',
       note: 'Ties shift the answer depending on how ranks are assigned, so this may not match a report card’s percentile exactly.' },
-    zh: { title: '前百分之几与百分位', desc: '用名次和总人数算出前百分之几以及百分位。',
-      long: '用名次除以总人数。320人中的第42名处于前13.13%，百分位为86.88。两者方向相反：前百分之几越小越好，百分位越大越好。',
-      note: '存在同分时，名次的处理方式（并列或平均）会略微改变结果，可能与成绩单上的百分位不完全一致。' },
   },
   {
     slug: 'ratio-three',
@@ -184,9 +168,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Split Three Ways by Ratio', desc: 'Divide an amount between three people in an agreed ratio.',
       long: 'Add the ratio numbers to count the parts, divide the total by that to value one part, then multiply by each person’s number. At 3:2:1 there are six parts, so 600,000 splits into 300,000, 200,000 and 100,000.',
       note: 'Rounding can leave the three shares a unit or two off the total. Agree in advance who absorbs the remainder.' },
-    zh: { title: '按3:2:1三方分配', desc: '按约定比例把金额分给三个人。',
-      long: '先把比例相加得到总份数，用总额除以份数得到每份金额，再乘各自的比例数。3:2:1共6份，60万即分为30万、20万和10万。',
-      note: '四舍五入可能让三份之和与总额相差一两个单位，结算前应约定由谁吸收余数。' },
   },
   {
     slug: 'per-mille',
@@ -211,9 +192,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Per Mille (‰) & ppm Converter', desc: 'See a small share as a percentage, per mille and parts per million at once.',
       long: 'Percent is out of 100, per mille out of 1,000, ppm out of a million. 0.4375% is 4.375‰ and 4,375 ppm. Percentages get unreadable once the decimals pile up.',
       note: 'Blood alcohol, tax rates and water quality each have a conventional unit. Carry the unit across whenever you quote a figure.' },
-    zh: { title: '千分率(‰)与ppm换算器', desc: '把极小的比例同时看作百分比、千分率和ppm。',
-      long: '百分比是万分之百，千分率是千分之几，ppm是百万分之几。0.4375%等于4.375‰，也等于4375ppm。比例很小时用百分比表示，小数位会长到难以阅读。',
-      note: '血液酒精浓度、税率、水质标准各有惯用单位。引用数据时请一并标明单位。' },
   },
   {
     slug: 'inverse-proportion',
@@ -239,9 +217,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Inverse Proportion (People × Days)', desc: 'How the schedule shrinks when you add people.',
       long: 'Treat the work as fixed at people × days. Four people taking twelve days is 48 person-days, so six people take eight. Multiply the crew by 1.5 and the time divides by 1.5.',
       note: 'In practice coordination costs eat into this, so it is never exactly inverse. Software projects break the assumption hardest.' },
-    zh: { title: '反比例计算器（人数与天数）', desc: '算出增加人手后工期会缩短到几天。',
-      long: '把工作量视为人数×天数的固定值。4人需12天即48人日，6人则需8天。人手增至1.5倍，工期变为原来的1÷1.5。',
-      note: '现实中人手增加会带来协调成本，并非严格反比。软件开发中这一假设最容易失效。' },
   },
   {
     slug: 'remaining-percent',
@@ -266,9 +241,6 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Percentage Remaining', desc: 'See what share is left and what share is gone.',
       long: 'Subtract what is used from the total, then divide by the total. Handy for data plans, ink, annual leave — anything where the question is “how much is left”.',
       note: 'If usage exceeds the total the remainder is held at zero; a negative balance is meaningless, so track the overage separately.' },
-    zh: { title: '剩余比例计算器', desc: '同时查看剩余比例与已用比例。',
-      long: '用总量减去已用量得到剩余量，再除以总量。适用于流量套餐、墨水、年假等“还剩多少”的场景。',
-      note: '已用量超过总量时剩余比例按0处理；负余额没有意义，超额部分应单独记录。' },
   },
   {
     slug: 'index-rebase',
@@ -290,8 +262,5 @@ export const PERCENT2_TOOLS: FormulaTool[] = [
     en: { title: 'Rebase to an Index of 100', desc: 'Set a base period to 100 and express the current value as an index.',
       long: 'Divide the current value by the base and multiply by 100. An index of 115 means 15% above base, which lets you overlay series with completely different units on one chart.',
       note: 'Changing the base period leaves the shape untouched but every number moves. Always quote the base year alongside an index.' },
-    zh: { title: '指数换算（基准=100）', desc: '把基准期设为100，将当前值表示为指数。',
-      long: '用当前值除以基准值再乘100。指数115表示高于基准15%，便于把单位完全不同的多条数据叠在同一张图上。',
-      note: '更换基准期虽不改变曲线形状，但所有数字都会变。引用指数时务必标明基准年份。' },
   },
 ];

@@ -13,10 +13,6 @@ export const OCEANIA_AFRICA: Country[] = [
       intro: 'Southern hemisphere seasons, three time zones, and daylight saving applied differently by state — domestic hops can shift the clock. The UTC+10 listed here is Sydney.',
       tip: 'Type I sockets with angled pins mean Korean adapters will not fit. UV is intense enough that sun protection matters even on cloudy days.',
       visa: 'There is no visa-free entry — tourists need an ETA or eVisitor approved in advance.', emergency: '000' },
-    zh: { name: '澳大利亚', capital: '堪培拉', languages: '英语', currency: '澳元',
-      intro: '南半球季节与韩国相反，全国三个时区且各州夏令时不一，国内飞行常会改变时刻。表中UTC+10为悉尼时间。',
-      tip: '插座为I型(三枚斜脚)，韩国转换头插不上。紫外线极强，即使阴天也需要防晒。',
-      visa: '没有免签入境 — 旅游须提前获批ETA或eVisitor。', emergency: '000' },
   },
   {
     slug: 'new-zealand', code: 'NZ', icon: '🇳🇿', region: '오세아니아·아프리카',
@@ -29,10 +25,6 @@ export const OCEANIA_AFRICA: Country[] = [
       intro: 'Close to the date line, it is among the first countries into each new year. The South Island’s mountains and the North Island’s volcanoes and hot springs make two different trips.',
       tip: 'Biosecurity checks on food and muddy hiking boots are strict — failing to declare brings an instant fine.',
       visa: 'No visa-free entry: tourists need an approved NZeTA, which includes the visitor levy.', emergency: '111' },
-    zh: { name: '新西兰', capital: '惠灵顿', languages: '英语、毛利语', currency: '新西兰元',
-      intro: '靠近日界线，是全球最早迎接新年的国家之一。南岛的山地风光与北岛的火山温泉是两种不同的旅行。',
-      tip: '入境对食品和沾泥登山鞋的生物安检非常严格 — 未申报会立即罚款。',
-      visa: '没有免签入境：旅游须提前获批NZeTA，并同时缴纳旅游税。', emergency: '111' },
   },
   {
     slug: 'egypt', code: 'EG', icon: '🇪🇬', region: '오세아니아·아프리카',
@@ -45,10 +37,6 @@ export const OCEANIA_AFRICA: Country[] = [
       intro: 'The Giza pyramids, the temples at Luxor and a Nile cruise anchor most trips. Summer passes 40°C, so October to April is the comfortable window.',
       tip: 'Some sites charge separately for photography. If a guide attaches himself to you, agree the fee up front to avoid a dispute.',
       visa: 'A visa on arrival or e-visa is required; there is no visa-free entry.', emergency: '122 police · 123 ambulance' },
-    zh: { name: '埃及', capital: '开罗', languages: '阿拉伯语', currency: '埃及镑',
-      intro: '吉萨金字塔、卢克索神庙和尼罗河游船是行程主轴。夏季超过40度，10月至次年4月更适合出行。',
-      tip: '部分遗址对拍照单独收费。若有导游主动跟随，请事先谈好价格以免纠纷。',
-      visa: '需办理落地签或电子签证，没有免签入境。', emergency: '122 警察 · 123 急救' },
   },
   {
     slug: 'south-africa', code: 'ZA', icon: '🇿🇦', region: '오세아니아·아프리카',
@@ -61,10 +49,6 @@ export const OCEANIA_AFRICA: Country[] = [
       intro: 'Three capitals split the functions: Pretoria administers, Cape Town legislates, Bloemfontein judges. There are more than eleven official languages.',
       tip: 'The local type M plug has three thick pins that most travel adapters do not fit — buying one locally is the reliable option.',
       visa: 'Visa-free entry is available, but the permitted period and conditions can change — check the embassy notice before departure.', emergency: '10111 police · 10177 ambulance' },
-    zh: { name: '南非', capital: '比勒陀利亚(行政)', languages: '英语、南非荷兰语等', currency: '兰特',
-      intro: '三个首都分担职能：比勒陀利亚行政、开普敦立法、布隆方丹司法。官方语言超过十一种。',
-      tip: '当地M型插头为三枚粗针，多数旅行转换头都插不上 — 在当地购买最稳妥。',
-      visa: '可免签入境，但允许期限和条件可能变化 — 出发前请查看使馆公告。', emergency: '10111 警察 · 10177 急救' },
   },
   {
     slug: 'morocco', code: 'MA', icon: '🇲🇦', region: '오세아니아·아프리카',
@@ -77,9 +61,5 @@ export const OCEANIA_AFRICA: Country[] = [
       intro: 'Since 2018 the country stays on UTC+1 year-round, stepping back an hour only during Ramadan. Marrakesh’s medina and Sahara tours lead most itineraries.',
       tip: 'Medina alleys are tangled enough that maps struggle — photograph your accommodation’s location before setting out.',
       visa: '90 days visa-free for tourism. Taking dirhams out of the country is restricted, so change what is left before you fly.', emergency: '190 police · 150 ambulance' },
-    zh: { name: '摩洛哥', capital: '拉巴特', languages: '阿拉伯语、柏柏尔语、法语', currency: '迪拉姆',
-      intro: '自2018年起全年使用UTC+1，仅在斋月期间回调一小时。马拉喜什的老城与撒哈拉沙漠团是主要路线。',
-      tip: '老城(麦地那)巷道错综复杂，地图常常不管用 — 出门前先拍下住宿位置。',
-      visa: '韩国护照旅游可免签停留90天。当地货币限制携出，剩余现金请在离境前兑换。', emergency: '190 警察 · 150 急救' },
   },
 ];

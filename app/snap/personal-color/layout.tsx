@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '사진 한 장으로 피부 톤을 실측해 웜톤·쿨톤 12타입을 진단하고, 나만의 컬러 팔레트를 찾아보세요.',
   alternates: {
     canonical: '/snap/personal-color',
-    languages: { 'ko': '/snap/personal-color', 'en': '/en/snap/personal-color', 'zh': '/zh/snap/personal-color', 'x-default': '/en/snap/personal-color' },
+    languages: { 'ko': '/snap/personal-color', 'en': '/en/snap/personal-color', 'x-default': '/en/snap/personal-color' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

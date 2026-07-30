@@ -26,16 +26,6 @@ const COPY = {
     tip: '📸 Photo tip',
     disclaimer: 'The landmark measurement is real; the interpretation is entertainment.',
   },
-  zh: {
-    title: '脸部对称度',
-    lead: '用真实关键点分部位测量左右平衡',
-    privacy: '左右平衡确实是根据关键点位置在这个浏览器里实测的。几乎没有完全对称的脸，自然的不对称通常被视为个性的一部分 —— 分数低并不代表不好看。',
-    overall: '⚖️ 综合对称度',
-    breakdown: '📊 分部位',
-    best: '最均衡的部位',
-    tip: '📸 拍照建议',
-    disclaimer: '关键点测量为实测，解读仅供娱乐参考。',
-  },
 } as const;
 
 interface Result {

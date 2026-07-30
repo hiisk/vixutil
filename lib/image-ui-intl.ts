@@ -5,7 +5,7 @@
  * 도구가 프리셋 배열을 들고 있는 경우(규격, 비율 등) 배열에서 label을 떼어내고
  * 여기 이름 배열을 인덱스로 참조한다. 픽셀·비율은 언어와 무관하기 때문이다.
  */
-export type ImageLang = 'ko' | 'en' | 'zh';
+export type ImageLang = 'ko' | 'en';
 
 /** 여덟 도구가 공통으로 쓰는 조각 — 입구, 결과 요약, 저장 버튼 */
 export const IMAGE_COMMON: Record<ImageLang, {
@@ -33,22 +33,12 @@ export const IMAGE_COMMON: Record<ImageLang, {
     quality: 'Quality', smaller: 'Smaller', sharper: 'Sharper',
     bgFill: 'Colour to fill transparency', pickBg: 'Pick a background colour', bgColor: 'Background',
   },
-  zh: {
-    dropOne: '把照片放到这里', dropMany: '把多张照片放到这里',
-    dropHow: '点这里，或把文件拖进来',
-    notImage: '这不是图片文件。请上传 JPG、PNG、WebP 或 GIF 等。',
-    original: '原图', result: '结果', saved: '减小', grew: '增大',
-    otherPhoto: '换张照片', save: '保存', working: '处理中…',
-    quality: '画质', smaller: '更小', sharper: '更清晰',
-    bgFill: '填充透明背景的颜色', pickBg: '自选背景色', bgColor: '背景色',
-  },
 };
 
 /** 붙여넣기 안내 — kbd 태그가 끼어 있어 앞뒤를 나눈다 */
 export const PASTE_HINT: Record<ImageLang, { before: string; after: string }> = {
   ko: { before: ' · ', after: '로 붙여넣기도 됩니다' },
   en: { before: ' · or paste with ', after: '' },
-  zh: { before: ' · 也可以用 ', after: ' 粘贴' },
 };
 
 export const COMPRESS_UI: Record<ImageLang, {
@@ -73,15 +63,6 @@ export const COMPRESS_UI: Record<ImageLang, {
     viewingOriginal: 'Showing original', tapForOriginal: 'Tap for original',
     note: 'The pixel dimensions stay the same — only quality comes down. To go smaller, also use ',
     noteLink: 'Image Resizer',
-  },
-  zh: {
-    hint: 'JPG、PNG、WebP 都可以',
-    formats: ['JPG', 'WebP'], formatHints: ['照片用它最稳妥', '同画质下体积更小'],
-    saveAs: '保存格式',
-    altOriginal: '原始照片', altResult: '压缩结果预览',
-    viewingOriginal: '正在看原图', tapForOriginal: '点一下看原图',
-    note: '像素尺寸保持不变，只降低画质。想更小的话，请一起用 ',
-    noteLink: '图片尺寸调整',
   },
 };
 
@@ -108,15 +89,6 @@ export const RESIZE_UI: Record<ImageLang, {
     presets: ['Instagram square', 'YouTube thumbnail', 'Profile 512'],
     note: 'Enlarging past the original does not add detail — it just gets blurry.',
   },
-  zh: {
-    hint: '把宽高设成想要的像素', alt: '尺寸调整结果预览',
-    width: '宽 (px)', height: '高 (px)',
-    lockOn: '解除等比锁定', lockOff: '锁定宽高比',
-    byRatio: '按百分比缩小', originalLabel: '原图',
-    presetsTitle: '常用规格',
-    presets: ['Instagram 方形', 'YouTube 缩略图', '头像 512'],
-    note: '放得比原图更大并不会变清晰，只会更模糊。',
-  },
 };
 
 export const CONVERT_UI: Record<ImageLang, {
@@ -131,11 +103,6 @@ export const CONVERT_UI: Record<ImageLang, {
     hint: 'GIF, BMP and HEIC can be read and converted too', alt: 'Preview of the converted result',
     targetFormat: 'Convert to',
     note: 'JPG and quality-set WebP have no transparency, so anything that was transparent gets filled with this colour.',
-  },
-  zh: {
-    hint: 'GIF、BMP、HEIC 等也能读取并转换', alt: '转换结果预览',
-    targetFormat: '转换为',
-    note: 'JPG 与指定质量的 WebP 没有透明通道，原本透明的部分会用这个颜色填充。',
   },
 };
 
@@ -154,12 +121,6 @@ export const CROP_UI: Record<ImageLang, {
     ratioTitle: 'Lock ratio', ratios: ['Free', '1:1', '4:3', '3:4', '16:9', '9:16'],
     how: 'Drag on the photo to draw a new area, or grab a corner to resize. Drag the middle to move it.',
     keeps: (ow, oh, w, h) => `Keeping ${w} × ${h}px out of the original ${ow} × ${oh}px.`,
-  },
-  zh: {
-    hint: '只保留需要的部分', alt: '要裁剪的照片',
-    ratioTitle: '锁定比例', ratios: ['自由', '1:1', '4:3', '3:4', '16:9', '9:16'],
-    how: '在照片上拖动可重新框选区域，拖四个角可改变大小，拖中间可移动位置。',
-    keeps: (ow, oh, w, h) => `从原图 ${ow} × ${oh}px 中只保留 ${w} × ${h}px。`,
   },
 };
 
@@ -183,14 +144,6 @@ export const ROTATE_UI: Record<ImageLang, {
     cornerColor: 'Colour to fill the corners',
     cornerNote: 'Any angle that is not a multiple of 90° leaves gaps at the corners',
     dimension: a => `Rotated ${a}°`,
-  },
-  zh: {
-    hint: '适合把存成横躺的照片扶正', alt: '旋转结果预览',
-    left: '↺ 向左', right: '↻ 向右', flipH: '↔ 左右', flipV: '↕ 上下',
-    fineAngle: '角度微调', angleAria: '旋转角度', toZero: '归零',
-    cornerColor: '填充空角的颜色',
-    cornerNote: '角度不是 90 的倍数时，四角会出现空白',
-    dimension: a => `旋转 ${a}°`,
   },
 };
 
@@ -216,15 +169,6 @@ export const MOSAIC_UI: Record<ImageLang, {
     cellNote: 'Bigger blocks are harder to read back. Go large when covering text.',
     undo: '↩ Undo the last stroke', clear: 'Clear all',
     dimension: n => `${n} strokes`,
-  },
-  zh: {
-    hint: '含地址、账号、人脸的截图也不会离开浏览器',
-    how: '用手指或鼠标涂过想遮住的位置',
-    modes: ['🔳 打码', '⬛ 纯黑遮盖'], modeHints: ['模糊糊掉', '完全遮住'],
-    brush: '笔刷粗细', cellSize: '马赛克格子大小',
-    cellNote: '格子越大越难辨认。遮文字时请调大。',
-    undo: '↩ 撤销刚才那一笔', clear: '全部清除',
-    dimension: n => `涂了 ${n} 笔`,
   },
 };
 
@@ -252,15 +196,6 @@ export const MERGE_UI: Record<ImageLang, {
     matchOff: 'Turn this off to keep original sizes, centred',
     gap: 'Gap between photos', gapColor: 'Gap colour', gapColorAria: 'Gap colour', pickGapColor: 'Pick a gap colour',
   },
-  zh: {
-    hint: '可以一次选多张', hintMore: '会接在已上传的照片后面',
-    alt: '拼接结果预览', countLine: n => `已拼接 ${n} 张 —— 顺序可以调整`,
-    up: '上移', down: '下移', remove: '移除',
-    dirs: ['⬇ 纵向拼接', '➡ 横向拼接'],
-    matchLabel: w => `把尺寸不同的照片按${w}对齐`, widthWord: '宽度', heightWord: '高度',
-    matchOff: '关掉则保持原尺寸并居中对齐',
-    gap: '照片之间的间距', gapColor: '留白颜色', gapColorAria: '留白颜色', pickGapColor: '自选留白颜色',
-  },
 };
 
 export const IMG_PALETTE_UI: Record<ImageLang, {
@@ -286,14 +221,5 @@ export const IMG_PALETTE_UI: Record<ImageLang, {
     pickedPoint: ' · picked point',
     noteBefore: 'The most used colour is ', noteAfter: ' — use it as a background or accent and it will sit well with the photo.',
     otherPhoto: 'New photo', savePalette: '⬇ Save palette as an image',
-  },
-  zh: {
-    hint: '照片、插画、截图都可以',
-    alt: '要取色的照片 —— 点一下会读取该位置的颜色',
-    how: '在照片上点一下，就能精确取到那个位置的颜色',
-    copy: '复制', copied: '已复制', copyHex: hex => `复制 ${hex}`,
-    pickedPoint: ' · 取样点',
-    noteBefore: '用得最多的颜色是 ', noteAfter: ' —— 直接拿它当背景色或点缀色，会和照片很搭。',
-    otherPhoto: '换张照片', savePalette: '⬇ 保存为配色图片',
   },
 };

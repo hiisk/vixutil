@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Free photo tests using real face detection: smile score, face symmetry and the golden ratio. Everything runs in your browser — no photo is ever uploaded.',
   alternates: {
     canonical: '/en/snap',
-    languages: { 'en': '/en/snap', 'zh': '/zh/snap', 'ko': '/snap', 'x-default': '/en/snap' },
+    languages: { 'en': '/en/snap', 'ko': '/snap', 'x-default': '/en/snap' },
   },
 };
 
@@ -38,7 +38,6 @@ export default function EnSnapHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Snap tests</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/snap" className="hover:text-fuchsia-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/snap" className="hover:text-fuchsia-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

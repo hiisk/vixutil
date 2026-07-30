@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: {
     // en/zh는 특정 국가의 복권을 지칭하지 않도록 slug를 lucky-numbers로 다르게 뒀다.
     canonical: '/fortune/lucky-lotto',
-    languages: { 'ko': '/fortune/lucky-lotto', 'en': '/en/fortune/lucky-numbers', 'zh': '/zh/fortune/lucky-numbers', 'x-default': '/en/fortune/lucky-numbers' },
+    languages: { 'ko': '/fortune/lucky-lotto', 'en': '/en/fortune/lucky-numbers', 'x-default': '/en/fortune/lucky-numbers' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

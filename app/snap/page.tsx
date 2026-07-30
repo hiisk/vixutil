@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: '관상·퍼스널컬러·동물상·사진 감성·얼굴 대칭·미소 지수까지, 사진 한 장으로 즐기는 참여형 테스트 모음. 실제 얼굴 인식·픽셀 분석 기반, 사진은 서버에 저장되지 않아요.',
   alternates: {
     canonical: '/snap',
-    languages: { 'ko': '/snap', 'en': '/en/snap', 'zh': '/zh/snap', 'x-default': '/en/snap' },
+    languages: { 'ko': '/snap', 'en': '/en/snap', 'x-default': '/en/snap' },
   },
 };
 

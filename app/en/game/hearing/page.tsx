@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Steps the frequency up bit by bit to find where you stop hearing it. The upper limit of human hearing drops with age, so the frequency you reach gives a rough sense of your ear age.',
   alternates: {
     canonical: '/en/game/hearing',
-    languages: { 'en': '/en/game/hearing', 'zh': '/zh/game/hearing', 'ko': '/game/hearing', 'x-default': '/en/game/hearing' },
+    languages: { 'en': '/en/game/hearing', 'ko': '/game/hearing', 'x-default': '/en/game/hearing' },
   },
 };
 

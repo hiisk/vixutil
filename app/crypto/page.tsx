@@ -31,6 +31,8 @@ const TOOLS = [
   // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
+  { href: '/crypto/slippage', icon: '📶', title: 'Slippage & Depth', desc: 'Walk the live order book \u2014 on thin pairs this dwarfs the fee', badge: 'NEW', color: 'from-indigo-400 to-blue-600' },
+  { href: '/crypto/impermanent-loss', icon: '💧', title: 'Impermanent Loss', desc: 'Exact for any price move \u2014 plus the trading volume needed to cover it', badge: 'NEW', color: 'from-cyan-400 to-sky-600' },
   { href: '/crypto/bitcoin-vs-gold', icon: '🥇', title: 'Bitcoin vs Gold', desc: '"Digital gold" is two claims \u2014 one fails outright, the other fails when it matters', color: 'from-yellow-400 to-amber-600' },
   { href: '/crypto/sold-at-top', icon: '😤', title: 'Sold at the Top?', desc: 'The best day came right after the worst \u2014 that is why you cannot have one without the other', color: 'from-rose-400 to-red-600' },
   { href: '/crypto/kelly-criterion', icon: '🎯', title: 'Kelly Criterion', desc: 'The optimal bet size — and what half of it buys you', color: 'from-violet-400 to-fuchsia-600' },

@@ -33,12 +33,11 @@ function makeBatch(gen: Generator, n = 6): string[] {
 
 const STR = {
   en: { back: 'All generators', other: '한국어', otherLang: 'ko' as const, otherHref: (s: string) => `/generator/${s}`, again: '🔄 Generate again', go: '✨ Generate names', reroll: 'Reroll this one', copy: 'Copy', copiedAll: '✓ All copied', copyAll: 'Copy all' },
-  zh: { back: '全部生成器', other: '한국어', otherLang: 'ko' as const, otherHref: (s: string) => `/generator/${s}`, again: '🔄 换一批', go: '✨ 生成名字', reroll: '重新生成这个', copy: '复制', copiedAll: '✓ 已全部复制', copyAll: '复制全部' },
 };
 
-export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator; lang?: 'en' | 'zh' }) {
+export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator; lang?: 'en' }) {
   const t = STR[lang];
-  const hubHref = lang === 'en' ? '/en/generator' : '/zh/generator';
+  const hubHref = `/${lang}/generator`;
   const [results, setResults] = useState<string[]>([]);
   const [animKey, setAnimKey] = useState(0);
   const [copiedAll, setCopiedAll] = useState(false);

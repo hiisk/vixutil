@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Check star sign compatibility for any two signs based on their elements — fire, earth, air and water — with a score, what it means and advice.',
   alternates: {
     canonical: '/en/fortune/star-match',
-    languages: { 'en': '/en/fortune/star-match', 'ko': '/fortune/star-match', 'zh': '/zh/fortune/star-match', 'x-default': '/en/fortune/star-match' },
+    languages: { 'en': '/en/fortune/star-match', 'ko': '/fortune/star-match', 'x-default': '/en/fortune/star-match' },
   },
 };
 

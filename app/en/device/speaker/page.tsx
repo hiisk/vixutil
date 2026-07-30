@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Sound the left and right sides separately to check the channels are not swapped and that neither side is silent. You can also step through 20Hz to 16kHz to find how far your headphones — and your ears — actually reach.',
   alternates: {
     canonical: '/en/device/speaker',
-    languages: { 'en': '/en/device/speaker', 'zh': '/zh/device/speaker', 'ko': '/device/speaker', 'x-default': '/en/device/speaker' },
+    languages: { 'en': '/en/device/speaker', 'ko': '/device/speaker', 'x-default': '/en/device/speaker' },
   },
 };
 

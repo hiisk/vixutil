@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Type the sentence you are given to measure words per minute and accuracy. Mistakes are marked as you go, and the sentence changes each round so you cannot memorise your way through it.',
   alternates: {
     canonical: '/en/game/typing',
-    languages: { 'en': '/en/game/typing', 'zh': '/zh/game/typing', 'ko': '/game/typing', 'x-default': '/en/game/typing' },
+    languages: { 'en': '/en/game/typing', 'ko': '/game/typing', 'x-default': '/en/game/typing' },
   },
 };
 

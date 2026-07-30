@@ -5,10 +5,8 @@ import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { BIRTH_INFO_EN } from '@/lib/fortune-en';
-import { BIRTH_INFO_ZH } from '@/lib/fortune-zh';
 import { t, type Lang } from '@/lib/fortune-intl';
 
-type Info = typeof BIRTH_INFO_EN[number] | typeof BIRTH_INFO_ZH[number];
 
 const COPY = {
   en: {
@@ -21,23 +19,16 @@ const COPY = {
     monthLabel: (m: number) => MONTHS_EN[m - 1].slice(0, 3),
     note: 'Birthstones and birth flowers are widely known traditions; the personality notes are just for fun.',
   },
-  zh: {
-    title: '诞生石与诞生花',
-    lead: '查看你出生月份的宝石与花，以及它们的含义',
-    stoneOf: (m: number) => `${m}月的诞生石`,
-    flowerOf: (m: number) => `${m}月的诞生花`,
-    meaning: '花语',
-    bornIn: (m: number) => `${m}月出生的你`,
-    monthLabel: (m: number) => `${m}月`,
-    note: '诞生石与诞生花为广泛流传的说法，性格描述仅供娱乐参考。',
-  },
 } as const;
+
+/** 탄생석 데이터의 모양 — 원래 fortune-zh.ts에서 가져오던 타입을 여기 둔다 */
+type Info = (typeof BIRTH_INFO_EN)[number];
 
 const MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
   const [result, setResult] = useState<Info | null>(null);
-  const data: readonly Info[] = lang === 'zh' ? BIRTH_INFO_ZH : BIRTH_INFO_EN;
+  const data: readonly Info[] = BIRTH_INFO_EN;
   const c = COPY[lang];
   const hubHref = `/${lang}/fortune`;
 

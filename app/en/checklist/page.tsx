@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free interactive checklists for moving house, international travel, job interviews, camping, weddings and more. Tick items off, progress saves automatically.',
   alternates: {
     canonical: '/en/checklist',
-    languages: { 'en': '/en/checklist', 'zh': '/zh/checklist', 'x-default': '/en/checklist' },
+    languages: { 'en': '/en/checklist', 'x-default': '/en/checklist' },
   },
 };
 
@@ -28,7 +28,6 @@ export default function EnChecklistHub() {
           <Link href="/en/checklist" className="font-black text-sky-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Checklists</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
-            <Link href="/zh/checklist" className="hover:text-sky-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

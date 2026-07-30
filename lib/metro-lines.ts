@@ -1,0 +1,32 @@
+/**
+ * 지하철 노선 카탈로그 — 도시별 파일을 모은다.
+ *
+ * 도시 목록은 데이터에서 뽑는다. 손으로 적어 두면 도시를 더할 때 한 곳을
+ * 빼먹는다.
+ */
+import type { MetroLine } from './metro/types.ts';
+import { SEOUL_LINES } from './metro/seoul.ts';
+import { WORLD_LINES } from './metro/world.ts';
+
+export const METRO_LINES: MetroLine[] = [...SEOUL_LINES, ...WORLD_LINES];
+
+export const metroLine = (slug: string): MetroLine | undefined =>
+  METRO_LINES.find(l => l.slug === slug);
+
+export const METRO_SLUGS = METRO_LINES.map(l => l.slug);
+
+/** 도시 열쇠 목록 — 데이터에 나온 순서를 지킨다 */
+export const METRO_CITIES: string[] = [...new Set(METRO_LINES.map(l => l.city))];
+
+/** 같은 도시를 먼저, 그다음 다른 도시로 채운다 */
+export function relatedLines(slug: string, limit = 6): MetroLine[] {
+  const me = metroLine(slug);
+  if (!me) return [];
+  const same = METRO_LINES.filter(l => l.city === me.city && l.slug !== slug);
+  const others = METRO_LINES.filter(l => l.city !== me.city && l.slug !== slug);
+  return [...same, ...others].slice(0, limit);
+}
+
+/** 노선의 역 수 합계 — 허브 배지에 쓴다 */
+export const totalStations = (): number =>
+  METRO_LINES.reduce((n, l) => n + l.stations.length, 0);

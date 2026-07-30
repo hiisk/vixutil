@@ -47,18 +47,14 @@ test('영역별 운세 점수가 세 언어에서 같다', () => {
   for (const s of samples()) {
     const ko = analyzeFortune(s.day, s.year, s.month, s.hour, s.gender, s.singang, s.ohaeng);
     const en = analyzeFortuneIntl(s.day, s.year, s.month, s.hour, s.gender, s.singang, s.ohaeng, 'en');
-    const zh = analyzeFortuneIntl(s.day, s.year, s.month, s.hour, s.gender, s.singang, s.ohaeng, 'zh');
     const where = `day=${s.day.stemIdx}/${s.day.branchIdx} ${s.gender} singang=${s.singang}`;
 
     assert.equal(en.length, ko.length, `영역 개수가 다르다 (${where})`);
-    assert.equal(zh.length, ko.length, `영역 개수가 다르다 (${where})`);
 
     for (let i = 0; i < ko.length; i++) {
       // id와 순서를 공유해야 화면에서 같은 자리에 같은 영역이 온다
       assert.equal(en[i].id, ko[i].id, `영역 순서가 다르다 (${where}, ${i}번째)`);
-      assert.equal(zh[i].id, ko[i].id, `영역 순서가 다르다 (${where}, ${i}번째)`);
       assert.equal(en[i].score, ko[i].score, `${ko[i].id} 점수가 다르다 (${where})`);
-      assert.equal(zh[i].score, ko[i].score, `${ko[i].id} 점수가 다르다 (${where})`);
       assert.equal(en[i].colorKey, ko[i].colorKey, `${ko[i].id} 색이 다르다 (${where})`);
     }
   }
@@ -66,7 +62,7 @@ test('영역별 운세 점수가 세 언어에서 같다', () => {
 
 test('열 영역이 모두 문장을 갖는다', () => {
   for (const s of samples().slice(0, 40)) {
-    for (const lang of ['en', 'zh'] as const) {
+    for (const lang of ['en'] as const) {
       const list = analyzeFortuneIntl(s.day, s.year, s.month, s.hour, s.gender, s.singang, s.ohaeng, lang);
       assert.equal(list.length, 10, `${lang}: 영역이 10개가 아니다`);
       for (const d of list) {
@@ -92,7 +88,7 @@ test('영어·중국어 문장에 한국어가 남아 있지 않다', () => {
   // 십성·오행 한자는 남겨 두지만 한글 음절이 섞이면 옮기다 만 것이다
   const hangul = /[가-힣]/;
   for (const s of samples().slice(0, 40)) {
-    for (const lang of ['en', 'zh'] as const) {
+    for (const lang of ['en'] as const) {
       for (const d of analyzeFortuneIntl(s.day, s.year, s.month, s.hour, s.gender, s.singang, s.ohaeng, lang)) {
         const all = [d.title, d.summary, d.intro, d.advice, ...d.points].join(' ');
         assert.ok(!hangul.test(all), `${lang}/${d.id}: 한글이 남아 있다 — ${all.match(/[가-힣]+/g)?.join(', ')}`);

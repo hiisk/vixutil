@@ -16,7 +16,7 @@ import { answerLine, inputRows, outputRows, scenarioTable, substituted } from '.
 import { termDesc } from '../lib/formula/glossary.ts';
 import type { SectionConfig } from '../lib/formula/section.ts';
 
-const LANGS: Lang[] = ['ko', 'en', 'zh'];
+const LANGS: Lang[] = ['ko', 'en'];
 const HANGUL = /[가-힣]/;
 
 export const withDefaults = (t: FormulaTool) => {
@@ -56,7 +56,7 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
       for (const lang of LANGS) {
         const x = t[lang];
         // 중국어는 글자당 정보량이 커서 같은 내용이 훨씬 짧다
-        const min = lang === 'zh' ? { title: 3, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
+        const min = false ? { title: 3, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
         for (const k of ['title', 'desc', 'long', 'note'] as const) {
           assert.ok(x[k].length >= min[k], `${t.slug}.${lang}.${k}가 너무 짧다: "${x[k]}"`);
         }
@@ -74,16 +74,13 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
 
   test(`${name} 영어·중국어 페이지에 한글이 새지 않는다`, () => {
     for (const t of tools) {
-      for (const lang of ['en', 'zh'] as const) {
+      for (const lang of ['en'] as const) {
         const joined = Object.values(t[lang]).join(' ');
         assert.ok(!HANGUL.test(joined), `${t.slug}.${lang}에 한글: ${joined.match(HANGUL)}`);
       }
     }
   });
 
-  test(`${name} 중국어 본문은 실제로 중국어다`, () => {
-    for (const t of tools) assert.match(t.zh.title + t.zh.long, /[一-鿿]/, `${t.slug} zh에 한자 없음`);
-  });
 
   test(`${name} 카테고리는 정해진 목록 안이고 전부 쓰인다`, () => {
     const used = new Set(tools.map(t => t.category));
@@ -169,7 +166,6 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
       if (!verdict) continue;
       for (const lang of LANGS) assert.ok(verdict[lang]?.length > 3, `${t.slug} verdict.${lang} 비었음`);
       assert.ok(!HANGUL.test(verdict.en), `${t.slug} verdict.en에 한글`);
-      assert.ok(!HANGUL.test(verdict.zh), `${t.slug} verdict.zh에 한글`);
     }
   });
 
@@ -193,32 +189,31 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
-  test(`${name} 세 언어 라우트가 모두 있다`, () => {
-    for (const p of [`app/${key}`, `app/en/${key}`, `app/zh/${key}`]) {
+  test(`${name} 두 언어 라우트가 모두 있다`, () => {
+    for (const p of [`app/${key}`, `app/en/${key}`]) {
       assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
       assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
       assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
     }
   });
 
-  test(`${name} hreflang은 네 줄이고 x-default는 영어를 가리킨다`, () => {
+  test(`${name} hreflang은 세 줄이고 x-default는 영어를 가리킨다`, () => {
     const slug = tools[0].slug;
     const a = sectionAlternates(key, slug);
-    assert.equal(Object.keys(a).length, 4);
+    assert.equal(Object.keys(a).length, 3);
     assert.equal(a.ko, `/${key}/${slug}`);
     assert.equal(a.en, `/en/${key}/${slug}`);
-    assert.equal(a.zh, `/zh/${key}/${slug}`);
     assert.equal(a['x-default'], `/en/${key}/${slug}`);
   });
 
-  test(`${name} 사이트맵에 세 언어가 들어 있다`, () => {
+  test(`${name} 사이트맵에 두 언어가 들어 있다`, () => {
     const src = readFileSync('app/sitemap.ts', 'utf8');
-    for (const p of [`/${key}`, `/en/${key}`, `/zh/${key}`]) {
+    for (const p of [`/${key}`, `/en/${key}`]) {
       assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
     }
   });
 
-  test(`${name} 본문 표가 세 언어로 다 채워진다`, () => {
+  test(`${name} 본문 표가 두 언어로 다 채워진다`, () => {
     for (const t of tools) {
       for (const lang of LANGS) {
         const ins = inputRows(t, lang);
@@ -274,19 +269,18 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     for (const k of described) {
       for (const lang of LANGS) {
         const d = termDesc(k, lang)!;
-        assert.ok(d.length > (lang === 'zh' ? 6 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
+        assert.ok(d.length > (false ? 6 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
         if (lang !== 'ko') assert.ok(!HANGUL.test(d), `${k} ${lang} 뜻풀이에 한글`);
       }
     }
   });
 
-  test(`${name} 섹션 메타가 세 언어로 다 있고 서로 다르다`, () => {
+  test(`${name} 섹션 메타가 두 언어로 다 있고 서로 다르다`, () => {
     const titles = LANGS.map(l => section.meta[l].metaTitle);
-    assert.equal(new Set(titles).size, 3);
+    assert.equal(new Set(titles).size, 2);
     for (const lang of LANGS) {
-      assert.ok(section.meta[lang].metaDesc.length > (lang === 'zh' ? 40 : 80), `${lang} 설명이 너무 짧다`);
+      assert.ok(section.meta[lang].metaDesc.length > 80, `${lang} 설명이 너무 짧다`);
     }
     assert.ok(!HANGUL.test(section.meta.en.metaTitle + section.meta.en.metaDesc));
-    assert.ok(!HANGUL.test(section.meta.zh.metaTitle + section.meta.zh.metaDesc));
   });
 }

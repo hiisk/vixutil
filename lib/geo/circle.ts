@@ -27,9 +27,6 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
     en: { title: 'Arc Length Calculator', desc: 'Length of a circular arc from radius and central angle.',
       long: 'An arc is a fraction of the circumference, so multiply the full circumference by angle over 360. In radians it simplifies to radius times angle.',
       note: 'Useful for curved cuts or measuring part of a circular border.' },
-    zh: { title: '弧长计算器', desc: '用半径和圆心角求圆弧的长度。',
-      long: '弧是周长的一部分，把整个周长乘以「圆心角除以360」即可。用弧度时更简单，就是半径乘角度。',
-      note: '适用于曲线裁切或计算圆形花坛的一段边长。' },
   },
   {
     slug: 'chord-length',
@@ -54,9 +51,6 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
     en: { title: 'Chord Length Calculator', desc: 'Length of the straight line across a circle for a given angle.',
       long: 'A chord joins the two ends of an arc. At 180° it equals the diameter, and the height shown is the maximum gap between arc and chord.',
       note: 'A chord is always shorter than its arc — the gap between them tells you how sharp the curve is.' },
-    zh: { title: '弦长计算器', desc: '用半径和圆心角求横跨圆的直线长度。',
-      long: '弦连接弧的两个端点。圆心角为180°时弦等于直径，一并给出的高度是弧与弦之间的最大间距。',
-      note: '弦总比弧短 — 两者之差反映曲率有多大。' },
   },
   {
     slug: 'circle-from-area',
@@ -78,9 +72,6 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
     en: { title: 'Radius from Area', desc: 'Work back from a circle’s area to its radius and diameter.',
       long: 'Divide the area by π and take the square root. This is how you size a circle when the required area is fixed.',
       note: 'An area of 314.16 cm² means a 10 cm radius. To double the area you only enlarge the radius by √2 (about 1.41×).' },
-    zh: { title: '由面积求半径', desc: '已知圆的面积，反推半径和直径。',
-      long: '把面积除以π再开平方根就是半径。当所需面积已定时，用它来确定圆的尺寸。',
-      note: '面积314.16平方厘米对应半径10厘米。要让面积翻倍，半径只需扩大√2倍(约1.41倍)。' },
   },
   {
     slug: 'circle-segment',
@@ -106,9 +97,6 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
     en: { title: 'Circular Segment Area', desc: 'Area of the crescent bounded by a chord and its arc.',
       long: 'Take the sector area and subtract the triangle inside it. This shape is exactly the cross-section of a partly filled cylindrical tank.',
       note: 'At 180° it becomes a semicircle. Tank gauging for horizontal cylinders uses this formula directly.' },
-    zh: { title: '弓形面积计算器', desc: '求由弦和弧围成的月牙形面积。',
-      long: '用扇形面积减去中间的三角形即为弓形。卧式圆柱罐部分装液时的横截面正是这个形状。',
-      note: '圆心角为180°时就是半圆。卧式圆柱罐的存量计算就直接用这个公式。' },
   },
   {
     slug: 'wheel-rotation',
@@ -133,9 +121,6 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
     en: { title: 'Wheel Turns to Distance', desc: 'Distance travelled from wheel diameter and revolutions.',
       long: 'One revolution covers the wheel’s circumference. Multiply π by the diameter, then by the number of turns.',
       note: 'A 26-inch bike wheel (about 66 cm) covers roughly 2.07 km in 1,000 turns. Tyre pressure shifts the effective diameter slightly.' },
-    zh: { title: '车轮转数换算距离', desc: '用车轮直径和转数求行驶距离。',
-      long: '转一圈走过的距离就是车轮周长。把π乘以直径，再乘以转数即可。',
-      note: '26英寸自行车轮(约66厘米)转1000圈约走2.07公里。胎压会让实际直径略有变化。' },
   },
   {
     slug: 'ring-area',
@@ -157,8 +142,5 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
     en: { title: 'Annulus (Ring) Area', desc: 'Area of a ring — the outer circle minus the inner one.',
       long: 'Subtract the inner circle’s area from the outer circle’s. The extra figures are the ring’s width and the circumference at its mid-radius.',
       note: 'Use it for washers, pipe cross-sections and the border of a circular bed.' },
-    zh: { title: '圆环面积计算器', desc: '求外圆减去内圆后的环形面积。',
-      long: '两个圆的面积之差就是环的面积。附带的数值是环宽和中径处的周长。',
-      note: '适用于垫圈、管道截面以及圆形花坛边缘等中空圆形的面积。' },
   },
 ];

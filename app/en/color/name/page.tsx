@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Enter a colour code and it finds the closest named colour — coral, teal, crimson — and shows HEX, RGB, HSL and CMYK together. For when you have to describe a colour in words.',
   alternates: {
     canonical: '/en/color/name',
-    languages: { 'en': '/en/color/name', 'zh': '/zh/color/name', 'ko': '/color/name', 'x-default': '/en/color/name' },
+    languages: { 'en': '/en/color/name', 'ko': '/color/name', 'x-default': '/en/color/name' },
   },
 };
 

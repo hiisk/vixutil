@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 const DICE_FACES = ['', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
-export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function CoinDice({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const ko = lang === 'ko';
-  const zh = lang === 'zh';
+  const zh = false;
   const [tab, setTab] = useState<'coin' | 'dice'>('coin');
 
   // 동전 — 내부 상태는 head/tail, 표시만 언어별

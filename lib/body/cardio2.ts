@@ -36,9 +36,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Karvonen Target Heart Rate', desc: 'A target zone that accounts for your resting heart rate.',
       long: 'Taking a percentage of maximum heart rate ignores how much resting rates differ between people. Karvonen works on heart-rate reserve — maximum minus resting — then adds resting back, so a fit body and an unfit one get different zones.',
       note: 'Measure resting rate the moment you wake. Taken sitting during the day it reads high and pushes the whole zone up.' },
-    zh: { title: 'Karvonen目标心率', desc: '结合静息心率计算目标心率区间。',
-      long: '只对最大心率取百分比，会忽略各人静息心率的差异。Karvonen公式作用于心率储备（最大减静息），再加回静息，因此体能好与不好的人得到的区间不同。',
-      note: '静息心率应在晨起时立即测量。白天坐着测会偏高，导致整个区间上移。' },
   },
   {
     slug: 'heart-rate-recovery',
@@ -57,10 +54,10 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const d = out[0].value;
       return d >= 25
-        ? { ko: `1분에 ${d}회 떨어졌습니다. 회복이 빠른 편입니다.`, en: `Down ${d} beats in a minute — brisk recovery.`, zh: `一分钟下降${d}次，恢复较快。`, tone: 'good' }
+        ? { ko: `1분에 ${d}회 떨어졌습니다. 회복이 빠른 편입니다.`, en: `Down ${d} beats in a minute — brisk recovery.`, tone: 'good' }
         : d >= 13
-          ? { ko: `1분에 ${d}회 떨어졌습니다. 보통 범위입니다.`, en: `Down ${d} beats in a minute — a normal range.`, zh: `一分钟下降${d}次，属于正常范围。`, tone: 'good' }
-          : { ko: `1분에 ${d}회는 느린 편입니다. 12회 이하가 반복되면 확인해 볼 신호로 봅니다.`, en: `${d} beats is slow; a repeated drop of 12 or fewer is treated as worth checking.`, zh: `一分钟仅下降${d}次偏慢，若反复低于12次则被视为需要检查的信号。`, tone: 'warn' };
+          ? { ko: `1분에 ${d}회 떨어졌습니다. 보통 범위입니다.`, en: `Down ${d} beats in a minute — a normal range.`, tone: 'good' }
+          : { ko: `1분에 ${d}회는 느린 편입니다. 12회 이하가 반복되면 확인해 볼 신호로 봅니다.`, en: `${d} beats is slow; a repeated drop of 12 or fewer is treated as worth checking.`, tone: 'warn' };
     },
     ko: { title: '심박수 회복 계산기', desc: '운동을 멈춘 뒤 1분 동안 심박이 얼마나 떨어지는지 봅니다.',
       long: '운동 직후 심박에서 1분 뒤 심박을 빼면 회복 심박수입니다. 심장이 부교감신경으로 얼마나 빠르게 돌아오는지를 보는 값이고, 체력이 늘면 이 숫자도 커집니다.',
@@ -68,9 +65,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Heart Rate Recovery', desc: 'How far your pulse falls in the minute after you stop.',
       long: 'Subtract the one-minute reading from the rate at the finish. It shows how quickly the heart hands back to the parasympathetic system, and the number grows as fitness improves.',
       note: 'Standing still versus walking it off changes the figure. Use the same posture every time if you want to compare.' },
-    zh: { title: '心率恢复计算器', desc: '看停止运动后一分钟内心率下降多少。',
-      long: '用运动结束时的心率减去一分钟后的心率即为心率恢复值。它反映心脏交回副交感调控的速度，体能提升后这个数字会变大。',
-      note: '停下后是站立还是慢走会影响结果。若要比较，请每次保持相同姿势。' },
   },
   {
     slug: 'max-heart-rate-tanaka',
@@ -94,9 +88,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Maximum Heart Rate (Tanaka)', desc: 'A better estimate than subtracting your age from 220.',
       long: '“220 minus age” was a rough guess made in the 1970s without data; it reads high for the young and low for the old. Tanaka’s 208 − 0.7 × age was fitted to measurements and holds up much better past forty.',
       note: 'Every formula carries about ±10 beats of individual variation. A real figure needs a graded exercise test.' },
-    zh: { title: '最大心率（Tanaka公式）', desc: '比“220减年龄”更准确的估算方式。',
-      long: '“220减年龄”是1970年代在缺乏数据下提出的粗略估计，对年轻人偏高、对年长者偏低。Tanaka公式（208 − 0.7×年龄）由实测数据拟合，四十岁以后尤其吻合。',
-      note: '任何公式都有约±10次的个体差异。需要精确数值应做运动负荷试验。' },
   },
   {
     slug: 'steps-calories',
@@ -122,9 +113,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Step Count to Calories', desc: 'Turn a step count and your weight into calories and distance.',
       long: 'Steps times stride gives distance, and walking costs roughly 0.9 kcal per kilogram per kilometre. A 68 kg person walking 5.6 km burns about 343 kcal.',
       note: 'Hills and a loaded bag push the real figure up; very slow walking pulls it down.' },
-    zh: { title: '步数换算热量', desc: '用步数和体重算出消耗的热量与行走距离。',
-      long: '步数乘以步幅得到距离，步行每公斤体重每公里约消耗0.9千卡。68公斤的人走5.6公里约消耗343千卡。',
-      note: '上坡或负重会使实际消耗更高；走得很慢则会低于此值。' },
   },
   {
     slug: 'vo2-to-met',
@@ -146,7 +134,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `최대 ${out[0].value} MET까지 낼 수 있습니다. 계단을 쉬지 않고 오르려면 4~5 MET, 조깅은 7 MET 정도가 필요합니다.`,
       en: `You can reach about ${out[0].value} METs. Stairs without stopping need 4–5; jogging needs around 7.`,
-      zh: `最大可达约${out[0].value} MET。不停歇上楼梯需4至5，慢跑约需7。`,
       tone: 'good',
     }),
     ko: { title: 'VO2max ↔ MET 환산기', desc: '심폐 능력을 운동 강도 단위로 바꿔 봅니다.',
@@ -155,9 +142,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'VO2max to METs', desc: 'Convert cardio capacity into units of exercise intensity.',
       long: 'At rest you use 3.5 mL of oxygen per kilogram per minute, and that was defined as one MET. Divide VO2max by 3.5 for the highest MET you can produce — useful for judging which activities are within reach.',
       note: 'You cannot hold your maximum MET for long. Sustainable intensity usually sits at 60–70% of it.' },
-    zh: { title: 'VO2max与MET换算', desc: '把心肺能力换算成运动强度单位。',
-      long: '静息时每公斤体重每分钟消耗3.5毫升氧气，这被定为1 MET。把VO2max除以3.5即得可达到的最大MET，用于判断能承担哪些运动。',
-      note: '最大MET无法长时间维持，可持续强度通常为最大值的60%至70%。' },
   },
   {
     slug: 'bike-speed',
@@ -183,9 +167,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Cycling Speed from Cadence', desc: 'Work out speed from pedal rpm and gear ratio.',
       long: 'Gear ratio is front teeth over rear teeth. One pedal turn spins the wheel that many times, and each wheel turn covers its circumference. Multiply by rpm and sixty minutes for km/h.',
       note: 'A 700×25c tyre rolls about 210 cm. Width and pressure shift that by a few centimetres, so roll the wheel out if you need precision.' },
-    zh: { title: '自行车速度计算器（踏频与齿比）', desc: '用踏频和齿比算出行进速度。',
-      long: '齿比是前齿数除以后齿数。踏板转一圈，车轮转齿比这么多圈，每圈前进一个轮周。再乘以每分钟转数和60分钟即为时速。',
-      note: '700×25c轮胎的轮周约210厘米。胎宽与气压会带来数厘米差异，需精确时请实测滚动周长。' },
   },
   {
     slug: 'rowing-split',
@@ -211,9 +192,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Rowing 500 m Split', desc: 'Turn a distance and a time into pace per 500 metres.',
       long: 'Rowing quotes speed as the time to cover 500 m. Two thousand metres in eight minutes is a 2:00 split. Lower is faster, the same way running pace reads.',
       note: 'Drag factor differs between machines, so the same effort gives different splits. Match the drag factor before comparing times.' },
-    zh: { title: '划船机500米分段', desc: '用距离和成绩算出每500米的配速。',
-      long: '划船以走完500米所需时间表示速度。2000米用8分钟，则每500米为2分00秒。数值越小越快，与跑步配速的读法一致。',
-      note: '各台机器的阻力设定（drag factor）不同，同样出力也会得到不同分段。比较成绩前请统一阻力设定。' },
   },
   {
     slug: 'training-volume',
@@ -236,9 +214,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Training Volume', desc: 'Weight × reps × sets — the total load of an exercise.',
       long: 'Looking at the weight alone hides the difference between 3×5 and 5×10. Multiplying all three gives volume, which is closer to the work the muscle actually did and is the usual basis for comparing weekly load.',
       note: 'Equal volume is not equal stress: heavy weight taxes the nervous system, high reps tax metabolism. Matching volume is not the whole story.' },
-    zh: { title: '训练容量计算器', desc: '用重量×次数×组数算出一个动作的总负荷。',
-      long: '只看重量，看不出5次×3组与10次×5组的差别。三者相乘得到的容量更接近肌肉实际完成的功，是比较每周训练量的常用基准。',
-      note: '容量相同也未必负担相同：大重量偏向神经系统压力，高次数偏向代谢压力。只对齐容量并不够。' },
   },
   {
     slug: 'rpe-to-percent',
@@ -266,9 +241,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'RPE to Percentage of 1RM', desc: 'Estimate what share of your max a set at a given RPE represents.',
       long: 'RPE 8 means you had two more in you. Add the reps left to the reps done for the maximum possible at that weight, then drop about 3% off your one-rep max per rep.',
       note: 'The 3%-per-rep rule is an approximation. It holds well up to five reps and drifts beyond ten.' },
-    zh: { title: 'RPE换算1RM百分比', desc: '用主观强度与次数估算相当于1RM的百分之几。',
-      long: 'RPE 8表示还能再做两次。把实际次数与剩余次数相加，得到该重量下的最大可完成次数，再按每次约3%从1RM往下推。',
-      note: '每次3%只是近似。5次以内较为吻合，超过10次误差会变大。' },
   },
   {
     slug: 'marathon-predict',
@@ -293,7 +265,6 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
       return {
         ko: `예상 완주 시간은 약 ${h}시간 ${m}분, 페이스는 km당 ${out[1].value}분입니다.`,
         en: `Predicted finish around ${h} h ${m} min, at ${out[1].value} min per kilometre.`,
-        zh: `预计完成时间约${h}小时${m}分，配速为每公里${out[1].value}分。`,
         tone: 'good',
       };
     },
@@ -303,8 +274,5 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     en: { title: 'Marathon Time from a Half', desc: 'Predict a full marathon finish from your half-marathon time.',
       long: 'Doubling the distance takes a little more than double the time. Riegel’s formula puts that “little more” at two to the power 1.06, so a 1:45 half predicts about 3:39 for the full.',
       note: 'It cannot see the wall past 30 km, so undertrained runners finish far later than predicted. Trust it only with solid long-run mileage behind you.' },
-    zh: { title: '用半马成绩预测全马', desc: '根据半程马拉松成绩推算全马完成时间。',
-      long: '距离翻倍所需时间会比两倍稍多。Riegel公式把这个“稍多”定为2的1.06次方，因此半马1小时45分对应全马约3小时39分。',
-      note: '该公式无法反映30公里后的“撞墙”，训练量不足者会比预测慢很多。只有具备充分长距离训练时才准确。' },
   },
 ];

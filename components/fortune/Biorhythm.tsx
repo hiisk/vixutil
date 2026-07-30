@@ -9,7 +9,6 @@ import {
   type BiorhythmResult, type ChartPoint, type Phase,
 } from '@/lib/biorhythm';
 import { CYCLES_EN, PHASE_LABEL_EN, BIORHYTHM_COMMENT_EN } from '@/lib/fortune-en';
-import { CYCLES_ZH, PHASE_LABEL_ZH, BIORHYTHM_COMMENT_ZH } from '@/lib/fortune-zh';
 import { t, type Lang } from '@/lib/fortune-intl';
 
 const CYCLE_COLOR: Record<string, string> = {
@@ -53,46 +52,24 @@ const COPY = {
     errInvalid: 'That date does not exist.',
     errFuture: 'Your date of birth is in the future.',
   },
-  zh: {
-    title: '生物节律计算器',
-    lead: '用出生日期查看身体、情绪与智力节律',
-    birthLabel: '出生日期',
-    yearPh: '例) 1995', monthPh: '月', dayPh: '日',
-    submit: '查看节律',
-    empty: '输入出生日期即可查看今日节律',
-    todayRhythm: '今日节律',
-    daysOld: (n: string) => `出生第 ${n} 天`,
-    chartNote: '虚线为今天 · 曲线穿过中线的那天是临界日',
-    cycleOf: (d: string, p: number) => `${d} · ${p} 天周期`,
-    criticalToday: '今天是临界日',
-    nextCritical: (n: number) => `距离下一个临界日还有 ${n} 天`,
-    chartAlt: '生物节律图表',
-    scienceQ: '生物节律是科学吗？',
-    scienceA: '不是。身体 23 天、情绪 28 天、智力 33 天的周期是 20 世纪初被提出后就沿用至今的数值，并没有确认过它能预测实际的状态或思维。不过计算本身是完全确定的 —— 同样的出生日期，在哪里算都会得到同样的曲线。数字算得精确，和数字说得准，是两回事。今天状态如何，你的身体比这张图更清楚。',
-    errAll: '请填写完整的出生日期。',
-    errMonth: '月份请填 1~12 之间。',
-    errDay: '日期请填 1~31 之间。',
-    errInvalid: '该日期不存在。',
-    errFuture: '出生日期晚于今天。',
-  },
 } as const;
 
 function cyclesFor(lang: IntlLang) {
-  return lang === 'zh' ? CYCLES_ZH : CYCLES_EN;
+  return CYCLES_EN;
 }
 
 function phaseLabel(lang: IntlLang, phase: Phase): string {
-  return (lang === 'zh' ? PHASE_LABEL_ZH : PHASE_LABEL_EN)[phase];
+  return (PHASE_LABEL_EN)[phase];
 }
 
 /** 세 리듬 평균으로 한 줄 총평 — 한국어 overallComment의 언어별 대응 */
 function comment(result: BiorhythmResult, lang: IntlLang): string {
   const cycles = cyclesFor(lang);
-  const co = lang === 'zh' ? BIORHYTHM_COMMENT_ZH : BIORHYTHM_COMMENT_EN;
+  const co = BIORHYTHM_COMMENT_EN;
   const criticals = result.cycles.filter(c => c.phase === 'critical');
 
   if (criticals.length >= 2) {
-    const sep = lang === 'zh' ? '、' : ' and ';
+    const sep = ' and ';
     return co.multiCritical(criticals.map(c => cycles.find(x => x.key === c.key)!.label).join(sep));
   }
   if (criticals.length === 1) {

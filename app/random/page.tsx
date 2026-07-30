@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: '룰렛 돌림판·사다리타기·팀 나누기·랜덤 뽑기·숫자 추첨·동전/주사위 — 공정하게 하나를 정하는 결정 도우미 모음',
   alternates: {
     canonical: '/random',
-    languages: { 'ko': '/random', 'en': '/en/random', 'zh': '/zh/random', 'x-default': '/en/random' },
+    languages: { 'ko': '/random', 'en': '/en/random', 'x-default': '/en/random' },
   },
 };
 
@@ -42,7 +42,6 @@ export default function RandomIndexPage() {
           <span className="ml-auto flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
             {RANDOM_TOOLS.length}개
             <Link href="/en/random" className="font-bold hover:text-rose-600" hrefLang="en">EN</Link>
-            <Link href="/zh/random" className="font-bold hover:text-rose-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

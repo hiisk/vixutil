@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Find your birthstone and birth flower by birth month, from garnet in January to turquoise in December, with what each one traditionally stands for.',
   alternates: {
     canonical: '/en/fortune/birth-stone',
-    languages: { 'en': '/en/fortune/birth-stone', 'ko': '/fortune/birth-stone', 'zh': '/zh/fortune/birth-stone', 'x-default': '/en/fortune/birth-stone' },
+    languages: { 'en': '/en/fortune/birth-stone', 'ko': '/fortune/birth-stone', 'x-default': '/en/fortune/birth-stone' },
   },
 };
 

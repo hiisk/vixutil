@@ -12,6 +12,7 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import ReferralCards from '@/components/ReferralCards';
 import PageGlow from '@/components/PageGlow';
+import Scorecard from './Scorecard';
 
 const PER_PAGE = 50;
 const TP_MULT = 1.5;
@@ -115,7 +116,7 @@ export default function SignalsPage() {
   const [pageComputing, setPageComputing] = useState(false);
   const [fullCompute, setFullCompute] = useState<{ active: boolean; done: number; total: number }>({ active: false, done: 0, total: 0 });
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
-  const [now, setNow] = useState(() => Date.now());
+  const [now, setNow] = useState<number | null>(null);
   const [btcSpark, setBtcSpark] = useState<number[]>([]);
 
   // Row cache: symbol -> consensus + forecast. undefined = 미계산.
@@ -261,6 +262,17 @@ export default function SignalsPage() {
     return list;
   }, [tickers, sortKey, sortDir, query, hitOnly, cache]);
 
+  /**
+   * 성적표에 쓸 코인 — 이미 받아둔 티커에서 거래량 상위만 고른다.
+   * 시장이 바뀌면 목록도 바뀌고 Scorecard가 알아서 다시 채점한다.
+   * 넉넉히 넘긴다 — 선물 거래량 상위에는 이력이 짧은 신규 상장이 많아서
+   * Scorecard가 이력이 충분한 코인을 찾을 때까지 아래로 내려가야 한다.
+   */
+  const scoreSymbols = useMemo(
+    () => [...tickers].sort((a, b) => b.quoteVolume - a.quoteVolume).slice(0, 40).map(t => t.symbol),
+    [tickers],
+  );
+
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
 
@@ -318,17 +330,24 @@ export default function SignalsPage() {
 
   const updatedLabel = useMemo(() => (updatedAt ? utcLabel(updatedAt) : null), [updatedAt]);
 
-  // 다음 00:00 UTC(전략 리셋)까지 남은 시간 — 매분 :00초에 갱신
+  // 다음 00:00 UTC(전략 리셋)까지 남은 시간 — 마운트 직후 한 번, 이후 매분 :00초에 갱신
+  //
+  // now를 Date.now()로 초기화하면 안 된다. 이 페이지는 정적으로 프리렌더되므로 그
+  // 값은 **빌드 시각**으로 HTML에 박히고, 방문자가 하이드레이션할 때 다른 값이 나와
+  // 텍스트가 어긋난다(React #418). 그러면 React가 해당 서브트리를 통째로 버리고 다시
+  // 그린다. 게다가 첫 tick이 다음 분 경계에야 오므로 최대 60초 동안 빌드 시각의
+  // 카운트다운이 그대로 보인다. 그래서 null로 시작하고 마운트 후에만 채운다.
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     const tick = () => {
       setNow(Date.now());
       timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
     };
-    timer = setTimeout(tick, 60_000 - (Date.now() % 60_000));
+    tick();
     return () => clearTimeout(timer);
   }, []);
   const resetIn = useMemo(() => {
+    if (now == null) return null;
     const d = new Date(now);
     const next = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 0, 0);
     const ms = next - now;
@@ -370,7 +389,7 @@ export default function SignalsPage() {
           <ToolIcon emoji="📈" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-1.5">Crypto Signal Board</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
-          <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">🕛 All times in UTC · strategy resets in <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> (00:00 UTC)</p>
+          <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">🕛 All times in UTC · strategy resets at <span className="text-amber-500/80 font-semibold tabular-nums">00:00 UTC</span>{resetIn ? <> · <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> from now</> : null}</p>
         </div>
 
         {/* Market summary strip + highlight cards */}
@@ -449,6 +468,8 @@ export default function SignalsPage() {
                 </div>
               ))}
             </div>
+
+            {scoreSymbols.length > 0 && <Scorecard symbols={scoreSymbols} market={market} />}
           </>
         )}
 

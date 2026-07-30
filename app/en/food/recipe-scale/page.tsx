@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Paste a recipe, change the servings, and every ingredient amount is recalculated. It finds the numbers and units itself, so you are not multiplying line by line.',
   alternates: {
     canonical: '/en/food/recipe-scale',
-    languages: { 'en': '/en/food/recipe-scale', 'zh': '/zh/food/recipe-scale', 'ko': '/food/recipe-scale', 'x-default': '/en/food/recipe-scale' },
+    languages: { 'en': '/en/food/recipe-scale', 'ko': '/food/recipe-scale', 'x-default': '/en/food/recipe-scale' },
   },
 };
 

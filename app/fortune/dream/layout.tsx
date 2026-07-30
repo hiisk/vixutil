@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '무료 꿈해몽 사전. 태몽·동물꿈·자연현상 등 다양한 꿈의 길흉과 의미를 검색해보세요.',
   alternates: {
     canonical: '/fortune/dream',
-    languages: { 'ko': '/fortune/dream', 'en': '/en/fortune/dream', 'zh': '/zh/fortune/dream', 'x-default': '/en/fortune/dream' },
+    languages: { 'ko': '/fortune/dream', 'en': '/en/fortune/dream', 'x-default': '/en/fortune/dream' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

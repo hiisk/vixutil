@@ -56,7 +56,6 @@ export interface Country {
   tld: string;
   ko: CountryText;
   en: CountryText;
-  zh: CountryText;
 }
 
 export const countryText = (c: Country, lang: Lang): CountryText => c[lang];

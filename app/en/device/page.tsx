@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free browser device tests: keyboard and N-key rollover, mouse chatter, microphone, webcam, speaker channels, dead pixels, refresh rate, touchscreen, gamepad drift and your device info.',
   alternates: {
     canonical: '/en/device',
-    languages: { 'en': '/en/device', 'zh': '/zh/device', 'ko': '/device', 'x-default': '/en/device' },
+    languages: { 'en': '/en/device', 'ko': '/device', 'x-default': '/en/device' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnDeviceHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/device" className="hover:text-sky-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/device" className="hover:text-sky-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

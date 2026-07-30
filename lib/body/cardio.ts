@@ -20,9 +20,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Max Heart Rate', desc: 'Estimate maximum heart rate from age using Tanaka and 220−age.',
       long: 'The familiar "220 − age" overestimates for the young and underestimates for older adults. The Tanaka equation (208 − 0.7 × age) tracks reality better.',
       note: 'Individual variation runs ±10–12 bpm — only a graded exercise test gives your true maximum.' },
-    zh: { title: '最大心率计算器', desc: '按年龄估算最大心率，同时给出Tanaka公式和220−年龄。',
-      long: '常见的「220−年龄」对年轻人偏高、对老年人偏低。Tanaka公式(208−0.7×年龄)被认为更准确。',
-      note: '个体差异约±10~12次/分 — 只有运动负荷试验才能测出真实最大心率。' },
   },
   {
     slug: 'target-heart-rate',
@@ -49,7 +46,7 @@ export const CARDIO_TOOLS: FormulaTool[] = [
       const ko = i < 60 ? '가벼운 유산소(지방 연소 구간)' : i < 70 ? '기초 체력 구간' : i < 80 ? '유산소 능력 향상 구간' : i < 90 ? '무산소 역치 구간' : '최대 강도 구간';
       const en = i < 60 ? 'light aerobic, fat-burning zone' : i < 70 ? 'base endurance zone' : i < 80 ? 'aerobic development zone' : i < 90 ? 'anaerobic threshold zone' : 'maximal effort zone';
       const zh = i < 60 ? '轻度有氧(燃脂区间)' : i < 70 ? '基础耐力区间' : i < 80 ? '有氧提升区间' : i < 90 ? '无氧阈区间' : '最大强度区间';
-      return { ko: `강도 ${i}%는 ${ko}입니다.`, en: `${i}% intensity is the ${en}.`, zh: `强度${i}%属于${zh}。`, tone: 'good' };
+      return { ko: `강도 ${i}%는 ${ko}입니다.`, en: `${i}% intensity is the ${en}.`, tone: 'good' };
     },
     ko: { title: '목표 심박수 계산기(카르보넨)', desc: '안정 심박수를 반영해 운동 강도별 목표 심박 구간을 구합니다.',
       long: '단순히 최대 심박수에 비율을 곱하는 방식과 달리, 카르보넨 식은 최대와 안정 심박수의 차이(심박 예비량)에 비율을 곱합니다. 체력이 좋아 안정 심박수가 낮은 사람에게 더 맞습니다.',
@@ -57,9 +54,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Target Heart Rate (Karvonen)', desc: 'Get training zones that account for your resting heart rate.',
       long: 'Instead of taking a percentage of maximum heart rate, the Karvonen method takes a percentage of heart rate reserve — max minus resting. It suits fitter people with low resting rates better.',
       note: 'Measure resting heart rate lying down, immediately after waking, for an accurate figure.' },
-    zh: { title: '目标心率计算器(卡氏公式)', desc: '结合静息心率算出各强度下的目标心率区间。',
-      long: '与直接用最大心率乘百分比不同，卡氏公式取「最大心率减静息心率」这一心率储备的百分比，更适合静息心率较低的健身者。',
-      note: '静息心率要在早晨刚醒、仍躺着时测量才准确。' },
   },
   {
     slug: 'vo2max-cooper',
@@ -77,7 +71,7 @@ export const CARDIO_TOOLS: FormulaTool[] = [
       const ko = ['매우 우수', '좋음', '보통', '낮음'][band];
       const en = ['excellent', 'good', 'average', 'below average'][band];
       const zh = ['优秀', '良好', '一般', '偏低'][band];
-      return { ko: `VO2max ${x}는 ${ko} 수준입니다.`, en: `A VO2max of ${x} is ${en}.`, zh: `最大摄氧量${x}属于${zh}水平。`, tone: band <= 1 ? 'good' : band === 2 ? 'warn' : 'bad' };
+      return { ko: `VO2max ${x}는 ${ko} 수준입니다.`, en: `A VO2max of ${x} is ${en}.`, tone: band <= 1 ? 'good' : band === 2 ? 'warn' : 'bad' };
     },
     ko: { title: '쿠퍼 테스트 VO2max', desc: '12분 동안 달린 거리로 최대 산소 섭취량을 추정합니다.',
       long: '평지에서 12분간 최대한 멀리 달린 거리를 미터로 넣습니다. VO2max는 심폐 능력의 대표 지표이고, 사망률과 가장 강하게 연관된 체력 지표입니다.',
@@ -85,9 +79,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Cooper Test VO2max', desc: 'Estimate maximal oxygen uptake from how far you run in 12 minutes.',
       long: 'Enter the metres covered running as far as possible in 12 minutes on level ground. VO2max is the headline measure of cardiorespiratory fitness and the fitness metric most strongly tied to mortality.',
       note: 'This is an all-out effort — check with a doctor first if you have heart disease or are untrained.' },
-    zh: { title: '库珀测试最大摄氧量', desc: '用12分钟跑出的距离估算最大摄氧量。',
-      long: '在平地上尽全力跑12分钟，填入跑过的米数。最大摄氧量是心肺能力的核心指标，也是与死亡率关联最强的体能指标。',
-      note: '这是全力测试 — 若有心脏疾病或平时缺乏锻炼，请先咨询医生。' },
   },
   {
     slug: 'vo2max-resting',
@@ -111,9 +102,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'VO2max from Resting HR', desc: 'Rough cardiorespiratory fitness estimate with no running required.',
       long: 'This shortcut multiplies max heart rate divided by resting heart rate by 15. A lower resting rate means the heart moves more blood per beat.',
       note: 'The error margin is wide — use the Cooper test or a lab measurement when accuracy matters.' },
-    zh: { title: '按静息心率估算最大摄氧量', desc: '不用跑步，仅凭静息心率粗估心肺能力。',
-      long: '这个简易方法把「最大心率除以静息心率」再乘15。静息心率越低，说明心脏每次跳动输送的血量越多。',
-      note: '简易法误差较大 — 需要准确数值时请做库珀测试或实验室测定。' },
   },
   {
     slug: 'one-rep-max',
@@ -138,9 +126,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'One-Rep Max Calculator', desc: 'Estimate your single-rep maximum from a set you completed.',
       long: 'Both the Epley and Brzycki formulas are shown. Above about 10 reps the two diverge, so a set of 5–8 gives the most reliable estimate.',
       note: 'This is an estimate — attempt a true 1RM only with a spotter and a full warm-up.' },
-    zh: { title: '1RM计算器', desc: '用举起的重量和次数估算单次最大重量。',
-      long: '同时给出Epley和Brzycki两个公式的结果。次数超过约10次后两者差异变大，所以用5~8次的组最可靠。',
-      note: '这是估算值 — 真正尝试1RM请有人保护并充分热身。' },
   },
   {
     slug: 'rep-weight',
@@ -161,9 +146,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Weight for Target Reps', desc: 'Work back from your 1RM to the load for a given rep count.',
       long: 'The percentage of 1RM is shown too. Strength responds best at 1–5 reps (85%+), size at 6–12 reps (65–80%).',
       note: 'The same percentage allows different rep counts per lift — squats give more reps than bench at equal percentages.' },
-    zh: { title: '目标次数重量计算器', desc: '从1RM反推做指定次数应该用多少重量。',
-      long: '同时显示这是1RM的百分之几。力量增长在1~5次(85%以上)最好，肌肉增大在6~12次(65~80%)最好。',
-      note: '同样的百分比在不同动作上可做次数不同 — 深蹲在相同百分比下比卧推能做更多次。' },
   },
   {
     slug: 'running-pace',
@@ -188,9 +170,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Running Pace Calculator', desc: 'Get pace per kilometre and speed from a distance and a time.',
       long: 'Pace comes out in decimal minutes, so the seconds part is shown separately — 5.5 min/km means 5:30 per kilometre.',
       note: '10 km in 55 minutes is a 5:30/km pace; holding it through a half marathon gives about 1:56.' },
-    zh: { title: '跑步配速计算器', desc: '用距离和时间算出每公里配速与速度。',
-      long: '配速以小数分钟显示，因此秒数单独给出 — 5.5分/公里就是每公里5分30秒。',
-      note: '10公里跑55分钟即配速5分30秒/公里；按此配速跑半马约需1小时56分。' },
   },
   {
     slug: 'race-time',
@@ -215,9 +194,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Race Finish Time', desc: 'See your finishing time for a target pace and distance.',
       long: 'Distance times pace gives total minutes, shown alongside the hours-and-minutes split. A marathon at 6:00/km finishes in 4:13.',
       note: 'Pace usually fades in the second half, so plan the first half slightly slower than target.' },
-    zh: { title: '完赛时间计算器', desc: '按目标配速跑完全程需要多长时间。',
-      long: '距离乘配速得到总分钟数，并同时给出小时与分钟。全马42.195公里按6分/公里跑完是4小时13分。',
-      note: '后半段掉速很常见，所以前半段最好比目标配速略慢一些。' },
   },
   {
     slug: 'treadmill-pace',
@@ -239,9 +215,6 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Treadmill Speed to Pace', desc: 'Convert a treadmill speed in km/h into pace per kilometre.',
       long: 'Treadmills read out speed while runners talk in pace. Divide 60 by the speed: 10 km/h is 6:00 per kilometre.',
       note: 'The third figure is the distance covered in 30 minutes. Even at 0% incline, a treadmill is slightly easier than road running.' },
-    zh: { title: '跑步机速度转配速', desc: '把跑步机的速度(公里/时)换算成每公里配速。',
-      long: '跑步机显示速度，而跑者习惯说配速。用60除以速度即可：10公里/时就是6分/公里。',
-      note: '第三个数值是以该速度跑30分钟的距离。即使坡度为0，跑步机也比路跑略轻松。' },
   },
   {
     slug: 'swim-pace',
@@ -266,8 +239,5 @@ export const CARDIO_TOOLS: FormulaTool[] = [
     en: { title: 'Swim Pace per 100 m', desc: 'Get your per-100-metre split from a swim distance and time.',
       long: 'Swimmers describe speed as time per 100 m. Covering 1,000 m in 22 minutes is 2:12 per 100 m.',
       note: 'A 25 m pool involves more turns than a 50 m pool, so times differ at equal fitness.' },
-    zh: { title: '游泳每100米配速', desc: '用游泳距离和时间算出每100米的用时。',
-      long: '游泳习惯用每100米的成绩来衡量水平。1000米游22分钟，就是每100米2分12秒。',
-      note: '25米池比50米池转身次数更多，所以同等水平下成绩会有差异。' },
   },
 ];

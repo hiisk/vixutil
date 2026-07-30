@@ -17,17 +17,17 @@ import {
 export type MatchKind = 'zodiac' | 'star' | 'mbti' | 'blood';
 
 const TITLES: Record<MatchKind, Record<IntlLang, string>> = {
-  zodiac: { en: 'Chinese Zodiac Compatibility', zh: '生肖配对' },
-  star:   { en: 'Star Sign Compatibility',      zh: '星座配对' },
-  mbti:   { en: 'MBTI Compatibility',           zh: 'MBTI 配对' },
-  blood:  { en: 'Blood Type Compatibility',     zh: '血型配对' },
+  zodiac: { en: 'Chinese Zodiac Compatibility' },
+  star:   { en: 'Star Sign Compatibility' },
+  mbti:   { en: 'MBTI Compatibility' },
+  blood:  { en: 'Blood Type Compatibility' },
 };
 
 const LEADS: Record<MatchKind, Record<IntlLang, string>> = {
-  zodiac: { en: 'Pick two animals to see how the traditional harmonies read them', zh: '选择两个生肖，看传统六合三合怎么说' },
-  star:   { en: 'Pick two signs to see how their elements match up', zh: '选择两个星座，看元素属性如何相配' },
-  mbti:   { en: 'Pick two types to see how the four axes line up', zh: '选择两个类型，看四个维度如何相配' },
-  blood:  { en: 'Pick two blood types to see how the pairing reads', zh: '选择两个血型，看这对组合怎么说' },
+  zodiac: { en: 'Pick two animals to see how the traditional harmonies read them' },
+  star:   { en: 'Pick two signs to see how their elements match up' },
+  mbti:   { en: 'Pick two types to see how the four axes line up' },
+  blood:  { en: 'Pick two blood types to see how the pairing reads' },
 };
 
 const ICONS: Record<MatchKind, string> = { zodiac: '🐲', star: '⭐', mbti: '🧠', blood: '🩸' };

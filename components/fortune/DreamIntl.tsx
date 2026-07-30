@@ -6,7 +6,6 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import type { DreamEntry } from '@/lib/dream-data';
 import { DREAM_DATA_EN, DREAM_CATEGORIES_EN } from '@/lib/dream-en';
-import { DREAM_DATA_ZH, DREAM_CATEGORIES_ZH } from '@/lib/dream-zh';
 import { t, type Lang } from '@/lib/fortune-intl';
 
 type IntlLang = Exclude<Lang, 'ko'>;
@@ -14,7 +13,6 @@ type IntlLang = Exclude<Lang, 'ko'>;
 /** 길흉 라벨 — 색은 한국어 LUCK_INFO와 같은 계열을 쓴다 */
 const LUCK_LABEL: Record<IntlLang, Record<string, string>> = {
   en: { '2': 'Very good', '1': 'Good', '0': 'Neutral', '-1': 'Caution', '-2': 'Warning' },
-  zh: { '2': '大吉', '1': '吉', '0': '中性', '-1': '需留意', '-2': '警示' },
 };
 
 const LUCK_STYLE: Record<string, string> = {
@@ -34,20 +32,12 @@ const COPY = {
     none: 'Nothing matched that search.',
     note: 'Dream interpretation has no scientific standing. What is described here is what these symbols are traditionally read as, and which situations they tend to be reported in — not a prediction.',
   },
-  zh: {
-    title: '周公解梦',
-    lead: '二十个跨文化都常见的梦境意象，以及它们通常被怎么解读',
-    search: '搜索意象…',
-    all: '全部',
-    none: '没有匹配的结果。',
-    note: '解梦没有科学依据。这里写的是这些意象在传统上被怎么解读、以及它们常在什么处境下被报告 —— 不是预言。',
-  },
 } as const;
 
 export default function DreamIntl({ lang }: { lang: IntlLang }) {
   const c = COPY[lang];
-  const data: DreamEntry[] = lang === 'zh' ? DREAM_DATA_ZH : DREAM_DATA_EN;
-  const categories: string[] = lang === 'zh' ? DREAM_CATEGORIES_ZH : DREAM_CATEGORIES_EN;
+  const data: DreamEntry[] = DREAM_DATA_EN;
+  const categories: string[] = DREAM_CATEGORIES_EN;
 
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string | null>(null);

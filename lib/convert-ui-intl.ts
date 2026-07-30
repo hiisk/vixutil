@@ -4,7 +4,7 @@
  * 다른 세션이 시간 도구에 쓴 lib/time-ui-intl.ts와 같은 방식이다 — 컴포넌트는
  * lang을 받아 사전에서 문구를 꺼내 쓰고, 계산 로직은 언어와 무관하게 하나만 둔다.
  */
-export type ConvertLang = 'ko' | 'en' | 'zh';
+export type ConvertLang = 'ko' | 'en';
 
 export const CONVERT_UI = {
   ko: {
@@ -49,34 +49,12 @@ export const CONVERT_UI = {
       `1 ${t} is ${one} ${f}. This converter works both ways, so typing in the right box updates the left one.`,
     faq3: 'Where is this unit used?',
   },
-  zh: {
-    section: '单位换算',
-    home: '首页',
-    quickTitle: '常用数值',
-    formula: '计算公式',
-    copy: (l: string, f: string, r: string, t: string) => `复制 ${l}${f} = ${r}${t}`,
-    copied: '✅ 已复制',
-    related: '其他单位换算',
-    hubTitle: '单位换算',
-    hubLead: '从英寸、磅到韩国的평(坪)、근(斤)等传统单位',
-    hubNotice: '🔢 双向换算 — 在任意一栏输入，另一栏自动变化。',
-    footNote: '传统单位(근、되、마지기等)的数值因地区和品类而异。',
-    suffix: '换算',
-    faq1: (f: string, t: string) => `1${f}等于多少${t}？`,
-    faq1a: (f: string, t: string, one: string, ten: string) =>
-      `1${f}等于${one}${t}，10${f}等于${ten}${t}。在上方输入框填入任意数值即可立即换算。`,
-    faq2: (f: string, t: string) => `反过来，1${t}等于多少${f}？`,
-    faq2a: (f: string, t: string, one: string) =>
-      `1${t}等于${one}${f}。本页为双向换算，在右栏输入数值时左栏会自动变化。`,
-    faq3: '这个单位用在哪里？',
-  },
 } as const;
 
 /** 언어 전환 링크 — 세 언어 어디서든 나머지 둘로 갈 수 있게 */
 export const LANG_LINKS: { lang: ConvertLang; label: string; prefix: string }[] = [
   { lang: 'ko', label: '한국어', prefix: '' },
   { lang: 'en', label: 'EN', prefix: '/en' },
-  { lang: 'zh', label: '中文', prefix: '/zh' },
 ];
 
 /** hreflang 묶음 — 세 언어가 모두 같은 slug를 쓰므로 기계적으로 만든다 */
@@ -85,7 +63,6 @@ export function convertAlternates(slug?: string) {
   return {
     'ko': path,
     'en': `/en${path}`,
-    'zh': `/zh${path}`,
     'x-default': `/en${path}`,
   };
 }

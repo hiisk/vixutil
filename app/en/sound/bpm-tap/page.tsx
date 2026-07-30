@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Tap any key along with the music and it calculates beats per minute. About eight taps is enough to settle, and because it weights recent taps it follows a tempo that changes mid-way.',
   alternates: {
     canonical: '/en/sound/bpm-tap',
-    languages: { 'en': '/en/sound/bpm-tap', 'zh': '/zh/sound/bpm-tap', 'ko': '/sound/bpm-tap', 'x-default': '/en/sound/bpm-tap' },
+    languages: { 'en': '/en/sound/bpm-tap', 'ko': '/sound/bpm-tap', 'x-default': '/en/sound/bpm-tap' },
   },
 };
 

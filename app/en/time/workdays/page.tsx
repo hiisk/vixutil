@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Counts working days between two dates with weekends excluded, and can also give the date a set number of working days ahead.",
   alternates: {
     canonical: '/en/time/workdays',
-    languages: { 'en': '/en/time/workdays', 'zh': '/zh/time/workdays', 'ko': '/time/workdays', 'x-default': '/en/time/workdays' },
+    languages: { 'en': '/en/time/workdays', 'ko': '/time/workdays', 'x-default': '/en/time/workdays' },
   },
 };
 

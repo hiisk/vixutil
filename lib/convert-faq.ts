@@ -17,7 +17,7 @@ export function convertFaq(tool: ConvertTool, lang: ConvertLang = 'ko'): FaqItem
   const ten = format(convert(10, tool), tool.digits);
 
   // 주의사항과 단위 기호도 그 언어의 것을 쓴다
-  const l = lang === 'en' ? CONVERT_EN[tool.slug] : lang === 'zh' ? CONVERT_ZH[tool.slug] : undefined;
+  const l = lang === 'en' ? CONVERT_EN[tool.slug] : undefined;
   const note = l?.note ?? tool.note;
   const from = l?.from ?? tool.from;
   const to = l?.to ?? tool.to;

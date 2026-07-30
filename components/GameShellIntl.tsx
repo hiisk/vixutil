@@ -27,7 +27,6 @@ export default function GameShellIntl({
   const ui = GAME_SHELL_UI[lang];
   const path = `/${lang}/game/${tool.slug}`;
   const related = relatedGameToolsIntl(lang, tool.slug);
-  const other = lang === 'en' ? 'zh' : 'en';
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
@@ -122,10 +121,6 @@ export default function GameShellIntl({
         <Link href={`/${lang}`} className="text-sm font-black text-emerald-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">
           <Link href={`/game/${slug}`} className="hover:text-emerald-600" hrefLang="ko">한국어</Link>
-          {' · '}
-          <Link href={`/${other}/game/${slug}`} className="hover:text-emerald-600" hrefLang={other}>
-            {other === 'zh' ? '中文' : 'EN'}
-          </Link>
         </p>
       </footer>
     </div>

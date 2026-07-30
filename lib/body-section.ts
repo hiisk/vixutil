@@ -24,16 +24,6 @@ export const BODY_META = {
     metaDesc:
       'BMI, ideal weight, body fat, BMR and TDEE, target heart rate, one-rep max, running pace, mean arterial pressure, LDL and HOMA-IR — 100 body metrics with the formula behind each one.',
   },
-  zh: {
-    section: '身体数值',
-    hubTitle: '身体数值计算器',
-    hubLead: 'BMI、基础代谢、心率区间、血压指标 — 100种身体数值',
-    hubNotice: '🩺 仅供参考 — 诊断与治疗请遵医嘱。',
-    footNote: '这些计算器用于帮助理解健康数值，不能替代诊断或处方。出现症状请就医。',
-    metaTitle: '身体数值计算器 — BMI、基础代谢、心率等100种',
-    metaDesc:
-      'BMI、标准体重、体脂率、基础代谢与每日总消耗、目标心率、1RM、跑步配速、平均动脉压、LDL和HOMA-IR — 100种身体数值，附计算公式。',
-  },
 } as const;
 
 export const BODY_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
@@ -44,10 +34,6 @@ export const BODY_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
   en: {
     '체중·체형': 'Weight & Shape', '대사·칼로리': 'Metabolism & Calories', '심장·운동': 'Heart & Exercise',
     '아이·성장': 'Children & Growth', '건강 지표': 'Health Markers', '생활 대사': 'Daily Metabolism',
-  },
-  zh: {
-    '체중·체형': '体重与体型', '대사·칼로리': '代谢与热量', '심장·운동': '心脏与运动',
-    '아이·성장': '儿童与成长', '건강 지표': '健康指标', '생활 대사': '日常代谢',
   },
 };
 

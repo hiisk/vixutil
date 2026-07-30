@@ -19,10 +19,6 @@ import { gameToolsIntl } from "@/lib/game-tools-intl";
 import { deviceToolsIntl } from "@/lib/device-tools-intl";
 import { textToolsIntl } from "@/lib/text-tools-intl";
 import { TESTS_EN } from "@/lib/test-en";
-import { TESTS_ZH } from "@/lib/test-zh";
-import { QUIZZES_ZH } from "@/lib/quiz-zh";
-import { CHECKLISTS_ZH } from "@/lib/checklist-zh";
-import { GENERATORS_ZH } from "@/lib/generator-zh";
 import { GAME_TOOLS } from "@/lib/game-tools";
 import { COLOR_TOOLS } from "@/lib/color-tools";
 import { TIME_TOOLS } from "@/lib/time-tools";
@@ -34,6 +30,7 @@ import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
 import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
+import { METRO_LINES } from "@/lib/metro-lines";
 
 const BASE = "https://vixutil.com";
 
@@ -152,39 +149,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/convert`, changeFrequency: weekly, priority: 0.9 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/convert`, changeFrequency: weekly, priority: 0.9 },
-    ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/rate`, changeFrequency: weekly, priority: 0.9 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/rate`, changeFrequency: weekly, priority: 0.9 },
-    ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/body`, changeFrequency: weekly, priority: 0.95 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/body/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/body`, changeFrequency: weekly, priority: 0.9 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/body/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/body`, changeFrequency: weekly, priority: 0.9 },
-    ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/body/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/geometry`, changeFrequency: weekly, priority: 0.95 },
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/geometry/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/geometry`, changeFrequency: weekly, priority: 0.9 },
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/geometry`, changeFrequency: weekly, priority: 0.9 },
-    ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/country`, changeFrequency: weekly, priority: 0.95 },
     ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/country/${c.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/country`, changeFrequency: weekly, priority: 0.9 },
     ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/en/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/country`, changeFrequency: weekly, priority: 0.9 },
-    ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/zh/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/en/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/hanja`, changeFrequency: weekly, priority: 0.9 },
-    ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/zh/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/metro`, changeFrequency: weekly, priority: 0.95 },
+    ...METRO_LINES.map((l: { slug: string }) => ({ url: `${BASE}/metro/${l.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/en/metro`, changeFrequency: weekly, priority: 0.9 },
+    ...METRO_LINES.map((l: { slug: string }) => ({ url: `${BASE}/en/metro/${l.slug}`, changeFrequency: weekly, priority: 0.85 })),
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/kimchi-premium`, changeFrequency: weekly, priority: 0.9 },
@@ -212,18 +201,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/kelly-criterion`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/sold-at-top`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/bitcoin-vs-gold`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/impermanent-loss`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/slippage`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },
-    { url: `${BASE}/zh`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/random`, changeFrequency: weekly, priority: 0.9 },
     ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/random/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/generator`, changeFrequency: weekly, priority: 0.9 },
-    ...GENERATORS_ZH.map((g: { slug: string }) => ({ url: `${BASE}/zh/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/random`, changeFrequency: weekly, priority: 0.9 },
-    ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/zh/random/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/fortune`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/en/fortune/zodiac`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/animal`, changeFrequency: weekly, priority: 0.8 },
@@ -254,18 +240,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap`, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/zh/snap/smile-score`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/face-symmetry`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/golden-ratio`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/photo-mood`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/expression`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/first-impression`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/handwriting`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/face-reading`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/zh/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/time`, changeFrequency: weekly, priority: 0.9 },
     ...timeToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
@@ -297,55 +271,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },
     ...CHECKLISTS_EN.map((c: { slug: string }) => ({ url: `${BASE}/en/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune`, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/zh/fortune/zodiac`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/animal`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/blood-type`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/biorhythm`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/birth-stone`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/today-color`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/tarot`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/zh/fortune/lucky-numbers`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/star-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/blood-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/daily`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/zh/fortune/daily-tarot`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/tarot-yesno`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/zh/fortune/dream`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/zh/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/zh/time`, changeFrequency: weekly, priority: 0.9 },
-    ...timeToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/color`, changeFrequency: weekly, priority: 0.9 },
-    ...colorToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/color/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/image`, changeFrequency: weekly, priority: 0.9 },
-    ...imageToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/image/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/sound`, changeFrequency: weekly, priority: 0.9 },
-    ...soundToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/food`, changeFrequency: weekly, priority: 0.9 },
-    ...foodToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/food/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/game`, changeFrequency: weekly, priority: 0.9 },
-    ...gameToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/game/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/device`, changeFrequency: weekly, priority: 0.9 },
-    ...deviceToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
-    { url: `${BASE}/zh/text`, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/zh/search`, changeFrequency: weekly, priority: 0.7 },
-    ...textToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
-    ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/quiz`, changeFrequency: weekly, priority: 0.9 },
-    ...QUIZZES_ZH.map((q: { slug: string }) => ({ url: `${BASE}/zh/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/checklist`, changeFrequency: weekly, priority: 0.9 },
-    ...CHECKLISTS_ZH.map((c: { slug: string }) => ({ url: `${BASE}/zh/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/zh/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/calculator/en`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, changeFrequency: monthly, priority: 0.8 })),

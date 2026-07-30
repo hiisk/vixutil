@@ -65,7 +65,7 @@ function rng(seed: number) {
 }
 
 export interface LoremOptions {
-  lang?: 'ko' | 'en' | 'zh';
+  lang?: 'ko' | 'en';
   /** 문단 수 */
   paragraphs?: number;
   /** 문단당 문장 수 */
@@ -83,7 +83,7 @@ export function generateLorem({ lang = 'ko', paragraphs = 3, sentences = 4, seed
     for (let s = 0; s < Math.max(1, sentences); s++) {
       if (lang === 'ko') {
         lines.push(`${pick(KO_SUBJECT)} ${pick(KO_MIDDLE)} ${pick(KO_END)}`);
-      } else if (lang === 'zh') {
+      } else if (false) {
         // 중국어는 낱말 사이를 띄우지 않는다
         lines.push(`${pick(ZH_SUBJECT)}${pick(ZH_MIDDLE)}${pick(ZH_END)}`);
       } else {

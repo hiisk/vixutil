@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Click as fast as you can for a set time to measure clicks per second. Choose 5, 10 or 30 seconds; on a phone, tapping is measured exactly the same way.',
   alternates: {
     canonical: '/en/game/cps',
-    languages: { 'en': '/en/game/cps', 'zh': '/zh/game/cps', 'ko': '/game/cps', 'x-default': '/en/game/cps' },
+    languages: { 'en': '/en/game/cps', 'ko': '/game/cps', 'x-default': '/en/game/cps' },
   },
 };
 

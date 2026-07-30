@@ -732,6 +732,66 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/slippage': [
+    {
+      q: 'What is slippage in crypto trading?',
+      a: 'It is the gap between the price on the screen and the price you actually get. A market order consumes resting orders one level at a time, so the average of those levels \u2014 not the best quote \u2014 is what you pay. This page walks the live order book to compute it for a range of order sizes.',
+    },
+    {
+      q: 'Is slippage bigger than the trading fee?',
+      a: 'On thin pairs, by a wide margin. A typical taker fee is around 10 basis points, and the table shows where slippage overtakes that for the pair you selected. People compare exchange fee schedules closely and almost never check this, even though it is charged on both entry and exit.',
+    },
+    {
+      q: 'Why does slippage grow faster than order size?',
+      a: 'Because the order book thins out as you move away from the mid. The first levels hold the most liquidity, so each additional unit of size reaches further into progressively emptier price levels. Doubling the order more than doubles the cost.',
+    },
+    {
+      q: 'How much money is resting near the price?',
+      a: 'The depth table sums resting orders within bands of the mid \u2014 0.1%, 0.5%, 1% and 2%. That figure is far more useful than the number of price levels, because it tells you directly how much size the market absorbs before the price moves.',
+    },
+    {
+      q: 'Does a thick wall of orders mean the price will hold?',
+      a: 'Not reliably. Resting orders are cancellable and are frequently cancelled the moment someone tries to trade through them. Read the imbalance as which side is cheaper to push, not as a prediction of direction.',
+    },
+    {
+      q: 'Are these numbers what I would actually pay?',
+      a: 'They are closer to a floor. The snapshot assumes every resting order stays put while your order consumes it, and market makers pull quotes when they see size arriving. Hidden and iceberg liquidity works the other way, so the small rows are reliable and the large ones indicative.',
+    },
+    {
+      q: 'How do I reduce slippage?',
+      a: 'Trade deeper pairs, use limit orders rather than market orders, and split large orders across time. The depth table shows exactly which size your chosen pair starts to struggle with, which is the number to split below.',
+    },
+  ],
+  'crypto/impermanent-loss': [
+    {
+      q: 'What is impermanent loss?',
+      a: 'It is the gap between holding two assets and putting them in a constant-product liquidity pool. The pool rebalances continuously, selling whichever asset rises and buying whichever falls, so you finish with less of the winner. The exact formula is 2\u221ar \u00f7 (1 + r), where r is the relative price at withdrawal.',
+    },
+    {
+      q: 'How much is impermanent loss for a 2x move?',
+      a: 'Exactly 5.72%, and a 4x move costs exactly 20%. Those are smaller than most people expect. The difficulty is not the size but that the number is negative for every price except no change at all.',
+    },
+    {
+      q: 'Is impermanent loss really impermanent?',
+      a: 'Only in the sense that it reverses if prices return to where they started. It becomes permanent the moment you withdraw, and most withdrawals happen before prices come back. Treat it as an unrealised loss with the same status as any other.',
+    },
+    {
+      q: 'Does being right about the direction help?',
+      a: 'No, and this is the part that surprises people. The formula is symmetric \u2014 a halving and a doubling cost identically \u2014 so the pool charges you for the move regardless of which way it goes. Only fee income offsets it.',
+    },
+    {
+      q: 'How much do I need to earn in fees to break even?',
+      a: 'The calculator gives the exact figure for your price move, and also converts it into the daily trading volume the pool must do relative to your liquidity. That second number is the honest test of an advertised APR, because the fee side depends on volume that has not happened yet.',
+    },
+    {
+      q: 'Do 80/20 pools have less impermanent loss?',
+      a: 'Yes, substantially. Skewing the weights reduces how much the pool rebalances, so an 80/20 pool loses far less than a 50/50 pool on the same price move. It does not remove the loss, and the position is more exposed to the heavier asset.',
+    },
+    {
+      q: 'Does this apply to concentrated liquidity?',
+      a: 'No. These figures are for constant-product pools such as Uniswap v2. Concentrated liquidity behaves differently and worse once price leaves your chosen range, because the position converts fully into the falling asset and stops earning fees.',
+    },
+  ],
   'crypto/bitcoin-vs-gold': [
     {
       q: 'Is Bitcoin really digital gold?',

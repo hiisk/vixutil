@@ -15,9 +15,9 @@ function shuffle<T>(arr: T[]): T[] {
 
 const CONFETTI = ['🎉', '🎊', '✨', '🎈', '⭐', '💫'];
 
-export default function RandomPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function RandomPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const ko = lang === 'ko';
-  const zh = lang === 'zh';
+  const zh = false;
   const [text, setText] = useState(ko ? '철수\n영희\n민수\n지연\n현우\n서준' : zh ? '张三\n李四\n王五\n赵六\n小明\n小红' : 'Alex\nSam\nJordan\nTaylor\nJamie\nCasey');
   const [count, setCount] = useState(1);
   const [winners, setWinners] = useState<string[] | null>(null);

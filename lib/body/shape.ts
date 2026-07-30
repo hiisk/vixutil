@@ -31,7 +31,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       return {
         ko: `BMI ${b}은 아시아·태평양 기준으로 ${ko}입니다.`,
         en: `A BMI of ${b} is ${en} by the Asia-Pacific classification.`,
-        zh: `BMI ${b}按亚太标准属于${zh}。`,
         tone: band === 1 ? 'good' : band === 2 || band === 0 ? 'warn' : 'bad',
       };
     },
@@ -41,9 +40,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'BMI Calculator', desc: 'Get your body mass index and ideal weight from height and weight.',
       long: 'BMI is weight divided by height in metres squared. The Asia-Pacific cut-offs treat 23 as overweight and 25 as obese — lower than the WHO international values of 25 and 30.',
       note: 'BMI cannot tell muscle from fat, so it reads high for people who train heavily.' },
-    zh: { title: 'BMI计算器', desc: '用身高和体重算出身体质量指数与标准体重。',
-      long: 'BMI是体重除以身高(米)的平方。亚太标准以23为超重、25为肥胖 — 低于WHO国际标准的25和30。',
-      note: 'BMI无法区分肌肉和脂肪，训练量大的人测出的数值会偏高。' },
   },
   {
     slug: 'ideal-weight',
@@ -70,9 +66,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Ideal Weight Calculator', desc: 'See ideal weight at BMI 22 alongside the clinical Devine formula.',
       long: 'BMI 22 sits near the lowest-mortality range, which is why it is used as a reference weight. The second figure is the Devine formula hospitals use for drug dosing.',
       note: 'Ideal weight is a reference line, not a goal — a healthy weight varies with frame and muscle mass.' },
-    zh: { title: '标准体重计算器', desc: '同时给出BMI 22对应的标准体重和临床Devine公式值。',
-      long: 'BMI 22接近死亡率最低区间，因此被用作参考体重。第二个数值是医院用于计算药物剂量的Devine公式结果。',
-      note: '标准体重是参考线而非目标 — 健康体重会因骨架和肌肉量而异。' },
   },
   {
     slug: 'bmi-target-weight',
@@ -98,9 +91,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Target Weight for a BMI', desc: 'Work backwards from a BMI goal to the weight it requires.',
       long: 'Multiply the target BMI by height in metres squared to get the weight that produces it. The gap from your current weight is what you need to lose or gain.',
       note: 'Losing more than about 4% of body weight a month costs muscle — give the goal enough time.' },
-    zh: { title: '目标BMI体重计算器', desc: '想达到某个BMI，体重需要是多少公斤？',
-      long: '把目标BMI乘以身高(米)的平方，就是达到该BMI的体重。与当前体重的差额就是需要减掉或增加的量。',
-      note: '每月减重超过体重的4%会明显流失肌肉 — 请给目标留足时间。' },
   },
   {
     slug: 'body-fat-navy',
@@ -132,8 +122,7 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const ok = p >= low && p < high;
       return {
         ko: ok ? `${p}%는 통상 권장 범위 안입니다.` : p >= high ? `${p}%는 권장 범위(${low}~${high}%)보다 높습니다.` : `${p}%는 권장 범위보다 낮습니다.`,
-        en: ok ? `${p}% falls inside the usual healthy range.` : p >= high ? `${p}% is above the usual range of ${low}–${high}%.` : `${p}% is below the usual healthy range.`,
-        zh: ok ? `${p}%在通常的健康范围内。` : p >= high ? `${p}%高于通常范围(${low}~${high}%)。` : `${p}%低于通常的健康范围。`,
+        en: ok ? `${p}% falls inside the usual healthy range.` : p >= high ? `${p}% is above the usual range of ${low}–${high}%.` : `${p}% is below the usual healthy range.` ? `${p}%在通常的健康范围内。` : p >= high ? `${p}%高于通常范围(${low}~${high}%)。` : `${p}%低于通常的健康范围。`,
         tone: ok ? 'good' : 'warn',
       };
     },
@@ -143,9 +132,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Body Fat (Navy Method)', desc: 'Estimate body fat percentage using only a tape measure.',
       long: 'The US Navy formula takes the waist-minus-neck girth and your height through logarithms to estimate fat percentage. The female version uses different coefficients.',
       note: 'This is an estimate with roughly 3–4 points of error — watch the trend rather than the absolute number.' },
-    zh: { title: '体脂率计算器(海军法)', desc: '只用一把软尺估算体脂率的美国海军公式。',
-      long: '该公式把「腰围减颈围」和身高取对数来估算体脂率。女性版本使用不同的系数。',
-      note: '这是估算值，误差约3~4个百分点 — 请关注变化趋势而非绝对数字。' },
   },
   {
     slug: 'lean-mass',
@@ -169,9 +155,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Lean Body Mass', desc: 'Get lean mass — muscle and bone — from weight and body fat percentage.',
       long: 'Lean mass is what remains after subtracting fat. If it holds steady while you lose weight, you lost fat and not muscle.',
       note: 'Cutting weight without protein and resistance training takes lean mass down with the fat.' },
-    zh: { title: '去脂体重计算器', desc: '用体重和体脂率算出包含肌肉与骨骼的去脂体重。',
-      long: '体重减去脂肪剩下的就是去脂体重。减重期间它保持不变，说明减掉的是脂肪而不是肌肉。',
-      note: '减重时若不补充蛋白质、不做力量训练，去脂体重也会一起下降。' },
   },
   {
     slug: 'whr',
@@ -193,8 +176,7 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const ok = r < limit;
       return {
         ko: ok ? `${r}은 기준선 ${limit} 아래입니다.` : `${r}은 복부 비만 기준 ${limit}을 넘었습니다.`,
-        en: ok ? `${r} is below the ${limit} threshold.` : `${r} exceeds the abdominal-obesity threshold of ${limit}.`,
-        zh: ok ? `${r}低于${limit}的界值。` : `${r}超过了腹型肥胖界值${limit}。`,
+        en: ok ? `${r} is below the ${limit} threshold.` : `${r} exceeds the abdominal-obesity threshold of ${limit}.` ? `${r}低于${limit}的界值。` : `${r}超过了腹型肥胖界值${limit}。`,
         tone: ok ? 'good' : 'bad',
       };
     },
@@ -204,9 +186,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Waist-to-Hip Ratio', desc: 'Check whether fat is concentrated around your abdomen.',
       long: 'The WHO treats 0.90 for men and 0.85 for women as abdominal obesity. At the same BMI, a higher ratio carries greater cardiovascular risk.',
       note: 'Measure the waist at navel height and the hips at their widest point, after breathing out.' },
-    zh: { title: '腰臀比计算器', desc: '判断脂肪是否集中在腹部的指标。',
-      long: 'WHO将男性0.90、女性0.85以上视为腹型肥胖。BMI相同时，腰臀比更高意味着心血管风险更大。',
-      note: '腰围在肚脐高度测量，臀围在最宽处测量，测时呼气放松。' },
   },
   {
     slug: 'whtr',
@@ -226,8 +205,7 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const ok = r < 0.5;
       return {
         ko: ok ? `${r}로 0.5 아래입니다 — 허리가 키의 절반보다 짧습니다.` : `${r}로 0.5를 넘었습니다 — 허리가 키의 절반보다 굵습니다.`,
-        en: ok ? `${r} is under 0.5 — your waist is less than half your height.` : `${r} is over 0.5 — your waist exceeds half your height.`,
-        zh: ok ? `${r}低于0.5 — 腰围小于身高的一半。` : `${r}高于0.5 — 腰围超过身高的一半。`,
+        en: ok ? `${r} is under 0.5 — your waist is less than half your height.` : `${r} is over 0.5 — your waist exceeds half your height.` ? `${r}低于0.5 — 腰围小于身高的一半。` : `${r}高于0.5 — 腰围超过身高的一半。`,
         tone: ok ? 'good' : 'bad',
       };
     },
@@ -237,9 +215,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Waist-to-Height Ratio', desc: 'Check whether your waist is more than half your height.',
       long: 'The rule is simply "keep your waist under half your height". Several studies find it predicts cardiometabolic risk better than BMI.',
       note: 'The 0.5 line applies to both children and adults, and the units cancel out — centimetres or inches both work.' },
-    zh: { title: '腰高比计算器', desc: '看腰围是否超过身高的一半。',
-      long: '规则很简单：「腰围保持在身高的一半以下」。多项研究发现它比BMI更能预测心血管与代谢风险。',
-      note: '0.5这条界线对儿童和成人都适用，单位会约掉 — 用厘米或英寸都可以。' },
   },
   {
     slug: 'bsa',
@@ -264,9 +239,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Body Surface Area', desc: 'Calculate BSA — used for chemotherapy dosing — with both Du Bois and Mosteller.',
       long: 'BSA tracks metabolic rate better than weight does, which is why drug doses are scaled to it. Du Bois is the classic formula; Mosteller is easier to compute and also widely used.',
       note: 'Actual dosing must follow the prescription — this figure is for understanding it, not for setting it.' },
-    zh: { title: '体表面积计算器', desc: '用Du Bois和Mosteller两个公式算出化疗给药常用的体表面积。',
-      long: '体表面积比体重更贴合代谢率，所以药物剂量常按它折算。Du Bois是经典公式，Mosteller更易心算也广泛使用。',
-      note: '实际给药必须遵照处方 — 此数值仅用于理解处方，不能用于自行决定剂量。' },
   },
   {
     slug: 'ponderal-index',
@@ -287,9 +259,6 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Ponderal Index', desc: 'A height-cubed index that corrects BMI at extreme heights.',
       long: 'Because BMI divides by height squared, it penalises tall people and flatters short ones. The Ponderal Index divides by height cubed and distorts less.',
       note: 'Roughly 11–15 is treated as normal in adults, but the cut-offs are far less standardised than BMI.' },
-    zh: { title: '体质指数(PI)', desc: '按身高立方计算的指数，弥补BMI在极端身高时的偏差。',
-      long: 'BMI除以身高的平方，因此对高个子偏严、对矮个子偏松。PI除以身高的立方，这种失真更小。',
-      note: '成人大致以11~15为正常范围，但其界值远不如BMI标准化。' },
   },
   {
     slug: 'adjusted-weight',
@@ -315,8 +284,5 @@ export const SHAPE_TOOLS: FormulaTool[] = [
     en: { title: 'Adjusted Body Weight', desc: 'Compute the adjusted weight used for drug dosing in obesity.',
       long: 'Because drugs distribute partly into fat tissue, dosing uses ideal weight plus 40% of the excess. Using actual weight can overdose.',
       note: 'It is typically applied above about 130% of ideal weight, and the right weight metric differs by drug — follow the prescription.' },
-    zh: { title: '调整体重计算器', desc: '算出肥胖者给药时使用的调整体重。',
-      long: '药物会部分分布到脂肪组织，因此按「标准体重加上超出部分的40%」计算。直接用实际体重可能导致过量。',
-      note: '一般在超过标准体重约30%时使用，且不同药物采用的体重指标不同 — 请遵照处方。' },
   },
 ];

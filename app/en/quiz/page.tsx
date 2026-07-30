@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Free online quizzes on world capitals, science, history, technology, the human body and film. Ten questions each, with explanations. No sign-up.',
   alternates: {
     canonical: '/en/quiz',
-    languages: { 'en': '/en/quiz', 'zh': '/zh/quiz', 'x-default': '/en/quiz' },
+    languages: { 'en': '/en/quiz', 'x-default': '/en/quiz' },
   },
 };
 
@@ -24,7 +24,6 @@ export default function EnQuizHub() {
           <Link href="/en/quiz" className="font-black text-amber-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Quizzes</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
-            <Link href="/zh/quiz" className="hover:text-amber-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

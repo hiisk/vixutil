@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Fills the screen with red, green, blue, white and black to reveal dots that stay off (dead pixels), dots that stay on (stuck pixels), and backlight bleed or patches around the edges. The first thing to do the day a new monitor arrives.',
   alternates: {
     canonical: '/en/device/monitor',
-    languages: { 'en': '/en/device/monitor', 'zh': '/zh/device/monitor', 'ko': '/device/monitor', 'x-default': '/en/device/monitor' },
+    languages: { 'en': '/en/device/monitor', 'ko': '/device/monitor', 'x-default': '/en/device/monitor' },
   },
 };
 

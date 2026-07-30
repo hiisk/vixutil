@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Set a BPM and it clicks at exact intervals. Choose a time signature like 4/4 and the first beat gets an accent, so you can hear which beat you are on.',
   alternates: {
     canonical: '/en/sound/metronome',
-    languages: { 'en': '/en/sound/metronome', 'zh': '/zh/sound/metronome', 'ko': '/sound/metronome', 'x-default': '/en/sound/metronome' },
+    languages: { 'en': '/en/sound/metronome', 'ko': '/sound/metronome', 'x-default': '/en/sound/metronome' },
   },
 };
 

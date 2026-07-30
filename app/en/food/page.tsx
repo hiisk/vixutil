@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free cooking calculators: cups to grams by ingredient, recipe scaling, brine salinity, oven temperature and gas mark, steak doneness, rice water, pasta ratios, coffee ratios and food storage times.',
   alternates: {
     canonical: '/en/food',
-    languages: { 'en': '/en/food', 'zh': '/zh/food', 'ko': '/food', 'x-default': '/en/food' },
+    languages: { 'en': '/en/food', 'ko': '/food', 'x-default': '/en/food' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnFoodHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/food" className="hover:text-amber-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/food" className="hover:text-amber-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

@@ -28,9 +28,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Square: Area, Perimeter, Diagonal', desc: 'One side gives you area, perimeter and the diagonal.',
       long: 'Area is the side squared, perimeter is four times the side, and the diagonal is the side times √2 (about 1.414). That 41% extra length is what matters when you carry furniture through a doorway.',
       note: 'Area units are length squared: enter centimetres and you get cm², metres and you get m². Do not mix them.' },
-    zh: { title: '正方形面积、周长与对角线', desc: '只需一条边长即可得出面积、周长和对角线。',
-      long: '面积是边长的平方，周长是边长的四倍，对角线是边长乘√2（约1.414）。对角线比边长多41%，这一点在搬家具过门时特别有用。',
-      note: '面积的单位是长度的平方：填厘米得平方厘米，填米得平方米，不要混用。' },
   },
   {
     slug: 'rect-diagonal',
@@ -53,9 +50,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Rectangle Diagonal', desc: 'Diagonal, area and perimeter from width and height.',
       long: 'The diagonal is the hypotenuse of a right triangle whose legs are the sides, so Pythagoras gives it. Screen sizes, picture frames and whether something clears a doorway all come down to this figure.',
       note: 'The diagonal alone is not enough for moving furniture. Anything with thickness needs room to rotate, so the opening has to be a little wider than the diagonal.' },
-    zh: { title: '长方形对角线计算器', desc: '用长和宽同时求出对角线、面积和周长。',
-      long: '对角线是以两边为直角边的直角三角形的斜边，用勾股定理即可求得。屏幕尺寸、画框、能否过门都由这个数值决定。',
-      note: '搬家具时只看对角线还不够。有厚度的物件需要转身余量，实际门洞要比对角线再宽一些。' },
   },
   {
     slug: 'equilateral-triangle',
@@ -75,9 +69,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Equilateral Triangle', desc: 'Area, height and both circle radii from one side.',
       long: 'Knowing one side fixes everything else. The height is √3÷2 of the side, the area is √3÷4 times the side squared, and the circumradius is exactly twice the inradius.',
       note: 'It is easy to assume the height is half the side. It is actually about 0.866 of it.' },
-    zh: { title: '等边三角形面积与高', desc: '由一条边长求出面积、高以及内切圆与外接圆半径。',
-      long: '等边三角形只要知道一条边，其余全部确定。高是边长的√3÷2倍，面积是√3÷4乘边长的平方，外接圆半径正好是内切圆半径的两倍。',
-      note: '容易误以为高等于边长的一半，实际约为边长的0.866倍。' },
   },
   {
     slug: 'hexagon-area',
@@ -97,9 +88,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Regular Hexagon Area', desc: 'Area and diagonals of a hexagon from one side.',
       long: 'A regular hexagon is six equilateral triangles, so its area is six times theirs. The longest diagonal is exactly twice the side, and the distance across the flats is √3 times the side.',
       note: 'Honeycomb and hex tiles use this shape because it encloses a given area with less perimeter than a square.' },
-    zh: { title: '正六边形面积计算器', desc: '由一条边长求出正六边形的面积与对角线。',
-      long: '正六边形由六个等边三角形拼成，面积即为其六倍。最长对角线正好是边长的两倍，对边之间的距离是边长的√3倍。',
-      note: '蜂巢与六角砖采用这一形状，是因为围出同样面积所需的周长比正方形更短。' },
   },
   {
     slug: 'triangle-sas-area',
@@ -126,9 +114,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Triangle Area from Two Sides and the Angle', desc: 'Find the area without knowing the height.',
       long: 'Base times height over two needs a height, which is often the hard thing to measure. With two sides and the angle between them, a sine gives the area directly. The third side comes from the cosine rule.',
       note: 'The angle has to be the one between the two sides. Any other angle breaks the formula.' },
-    zh: { title: '两边夹角求三角形面积', desc: '不需要知道高，用两边及其夹角即可求面积。',
-      long: '底乘高除二需要知道高，而高往往最难测量。已知两边及夹角时，用正弦即可直接得出面积；第三边由余弦定理一并给出。',
-      note: '该角必须是两边所夹的角，用其他角公式就不成立。' },
   },
   {
     slug: 'triangle-inradius',
@@ -155,9 +140,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Triangle Inradius', desc: 'The radius of the circle that fits snugly inside a triangle.',
       long: 'The incircle touches all three sides. Its radius is the area divided by half the perimeter, and since Heron’s formula gives the area from the sides alone, three sides are all you need.',
       note: 'If the sides cannot form a triangle — one longer than the other two combined — the area comes out as zero.' },
-    zh: { title: '三角形内切圆半径', desc: '由三条边求出恰好内切于三角形的圆半径。',
-      long: '内切圆与三边都相切，其半径等于三角形面积除以周长的一半。由于海伦公式仅用三边就能求面积，因此只需三条边即可。',
-      note: '若三边无法构成三角形（某边大于另两边之和），面积会算作0。' },
   },
   {
     slug: 'triangle-circumradius',
@@ -184,9 +166,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Triangle Circumradius', desc: 'The radius of the circle through all three vertices.',
       long: 'The circumcircle passes through every vertex. Divide the product of the three sides by four times the area. In a right triangle the hypotenuse is the diameter, so the radius is half of it.',
       note: 'The closer the three points come to a straight line, the larger the circumcircle grows. Perfectly collinear points have no circle at all.' },
-    zh: { title: '三角形外接圆半径', desc: '由三条边求出经过三个顶点的圆半径。',
-      long: '外接圆经过所有顶点。把三边之积除以面积的四倍即得半径。直角三角形中斜边即为直径，故半径为斜边的一半。',
-      note: '三点越接近一条直线，外接圆就急剧变大；完全共线时则无法作圆。' },
   },
   {
     slug: 'polygon-perimeter',
@@ -212,9 +191,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Regular Polygon: Both Radii', desc: 'Circumradius and inradius from the side count and side length.',
       long: 'Vertices sit on the circumcircle and the sides touch the incircle. Divide the side by 2·sin(180°/n) for the circumradius and by 2·tan(180°/n) for the inradius. As n grows the two converge and the shape becomes a circle.',
       note: 'The gap between the two radii tells you how large n must be to approximate a circle. At n = 36 they differ by under 0.4%.' },
-    zh: { title: '正多边形外接圆与内切圆半径', desc: '由边数和边长求出两个圆的半径。',
-      long: '正多边形的顶点落在外接圆上，各边与内切圆相切。把边长除以2·sin(180°/n)得外接圆半径，除以2·tan(180°/n)得内切圆半径。n增大时两者趋近，形状接近圆。',
-      note: '两个半径的差距可用于判断以多边形近似圆时n需要多大。n为36时差距在0.4%以内。' },
   },
   {
     slug: 'similar-scale',
@@ -233,7 +209,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `길이를 ${v.k}배로 키우면 면적은 ${out[0].value}배, 부피는 ${out[1].value}배가 됩니다.`,
       en: `Scale length by ${v.k} and area grows ${out[0].value}×, volume ${out[1].value}×.`,
-      zh: `长度放大${v.k}倍时，面积变为${out[0].value}倍，体积变为${out[1].value}倍。`,
       tone: 'good',
     }),
     ko: { title: '닮음비 → 면적비·부피비', desc: '길이를 몇 배로 키우면 면적과 부피가 몇 배가 되는지 계산합니다.',
@@ -242,9 +217,6 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Scale Factor to Area and Volume', desc: 'How area and volume grow when you scale length.',
       long: 'Scale length by k and area scales by k², volume by k³. Doubling a map takes four times the paper; doubling a cake’s diameter takes eight times the batter.',
       note: 'When comparing pizzas, 1.4 times the diameter is twice the food. A small-looking difference in diameter is a large difference in amount.' },
-    zh: { title: '相似比换算面积比与体积比', desc: '算出长度放大若干倍时面积与体积各变为多少倍。',
-      long: '长度变为k倍时，面积变为k²倍，体积变为k³倍。地图放大两倍需要四倍的纸；蛋糕直径加倍需要八倍的面糊。',
-      note: '比较比萨时，直径为1.4倍就意味着分量翻倍。直径差看起来不大，分量差却很大。' },
   },
   {
     slug: 'triangle-centroid',
@@ -273,8 +245,5 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     en: { title: 'Triangle Centroid', desc: 'Centroid and area from three vertex coordinates.',
       long: 'The centroid is simply the average of the three coordinates. It is where the medians meet, and a paper triangle balances on it. The area comes from the shoelace formula.',
       note: 'The centroid cuts each median in a 2:1 ratio — two parts towards the vertex, one towards the opposite side.' },
-    zh: { title: '三角形重心坐标', desc: '由三个顶点坐标求出重心与面积。',
-      long: '重心就是三个坐标的平均值。它是三条中线的交点，用纸做的三角形在该点可以平衡。面积由鞋带公式一并求出。',
-      note: '重心把每条中线分成2:1，靠顶点一侧为2，靠对边一侧为1。' },
   },
 ];

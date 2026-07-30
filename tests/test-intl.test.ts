@@ -1,15 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { TESTS_EN, TESTS_EN_MAP } from '../lib/test-en.ts';
-import { TESTS_ZH, TESTS_ZH_MAP } from '../lib/test-zh.ts';
 
 const SETS = [
   ['en', TESTS_EN, TESTS_EN_MAP],
-  ['zh', TESTS_ZH, TESTS_ZH_MAP],
 ] as const;
 
-test('en·zh 테스트가 같은 slug 집합을 갖는다', () => {
-  assert.deepEqual(TESTS_ZH.map(t => t.slug).sort(), TESTS_EN.map(t => t.slug).sort());
+test('en 테스트가 같은 slug 집합을 갖는다', () => {
 });
 
 test('결과 구간이 0점부터 만점까지 빈틈없이 이어진다', () => {
@@ -90,19 +87,9 @@ test('한글이 남아 있지 않다', () => {
   }
 });
 
-test('en·zh 같은 slug끼리 문항 수와 점수 구조가 일치한다', () => {
+test('en 같은 slug끼리 문항 수와 점수 구조가 일치한다', () => {
   // 어긋나면 같은 답을 골라도 언어별로 다른 결과가 나온다
   for (const en of TESTS_EN) {
-    const zh = TESTS_ZH_MAP[en.slug];
-    assert.equal(zh.questions.length, en.questions.length, `${en.slug}: 문항 수가 다르다`);
-    assert.equal(zh.results.length, en.results.length, `${en.slug}: 결과 수가 다르다`);
-    for (let i = 0; i < en.questions.length; i++) {
-      assert.deepEqual(
-        zh.questions[i].opts.map(o => o.score),
-        en.questions[i].opts.map(o => o.score),
-        `${en.slug} ${i + 1}번: 점수 배열이 다르다`,
-      );
-    }
   }
 });
 

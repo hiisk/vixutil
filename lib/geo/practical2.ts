@@ -35,9 +35,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Carpet & Flooring Area', desc: 'How much to buy, room size plus a waste allowance.',
       long: 'Add cutting waste to the floor area: 5–10% for plain material, 15–20% if you lay on the diagonal or match a pattern.',
       note: 'Rooms are rarely true rectangles. Measure the longest span and decide up front whether to include thresholds and the space under fitted units.' },
-    zh: { title: '地毯与地板用量计算器', desc: '按房间尺寸加上余量算出需购买的面积。',
-      long: '在地面面积上加裁切损耗：素色材料5%至10%，斜铺或需对花则按15%至20%计。',
-      note: '房间很少是完美矩形。应按最长边测量，并先确定是否计入门槛与定制柜下方。' },
   },
   {
     slug: 'fence-posts',
@@ -59,7 +56,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `기둥 ${out[0].value}개, 사이 칸 ${out[1].value}개입니다. 실제 간격은 ${out[2].value}m로 고르게 나눠집니다.`,
       en: `${out[0].value} posts for ${out[1].value} spans, giving an even ${out[2].value} m spacing.`,
-      zh: `需${out[0].value}根立柱、${out[1].value}个跨距，实际间距均分为${out[2].value}米。`,
       tone: 'good',
     }),
     ko: { title: '울타리 기둥 개수 계산기', desc: '전체 길이와 간격으로 필요한 기둥 수를 구합니다.',
@@ -68,9 +64,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Fence Post Count', desc: 'Posts needed from the total run and the spacing.',
       long: 'The number of spans is length over spacing, but you need one more post than that, because both ends carry a post. Forgetting that extra one is the classic materials mistake.',
       note: 'For a fence that closes in a loop, the start and end share a post, so posts equal spans.' },
-    zh: { title: '围栏立柱数量计算器', desc: '按总长与间距算出所需立柱数。',
-      long: '跨距数是总长除以间距，而立柱要比它多一根，因为两端都要立柱。漏掉这“多一根”是材料计算中最常见的错误。',
-      note: '若围栏闭合成环，起点与终点共用一根，立柱数与跨距数相同。' },
   },
   {
     slug: 'gravel-weight',
@@ -96,9 +89,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Gravel & Sand Volume and Weight', desc: 'Volume and tonnage from the area and layer depth.',
       long: 'Area times depth is the volume, and gravel runs about 1.6 tonnes per cubic metre. Suppliers usually sell by weight, so volume alone will not place the order.',
       note: 'Densities differ: gravel 1.6, dry sand 1.5, wet sand 1.9, topsoil about 1.3. Compaction takes another 10–15% off the depth.' },
-    zh: { title: '砾石与沙的体积和重量', desc: '按铺设面积与厚度求出所需体积与重量。',
-      long: '面积乘厚度即为体积，砾石约每立方米1.6吨。材料多按重量销售，只有体积无法下单。',
-      note: '密度各不相同：砾石1.6，干沙1.5，湿沙1.9，园土约1.3。铺设夯实后厚度还会减少10%至15%。' },
   },
   {
     slug: 'pool-fill-time',
@@ -125,9 +115,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Pool & Tank Fill Time', desc: 'Water volume and fill time from size and flow rate.',
       long: 'One cubic metre is 1,000 litres and weighs a tonne. Divide by the flow per minute, then by sixty, for hours. The weight matters for floor loading too.',
       note: 'A domestic tap delivers roughly 15–25 litres a minute, less if other outlets are running.' },
-    zh: { title: '泳池与水箱注水时间', desc: '按尺寸与水流量算出水量和注满所需时间。',
-      long: '1立方米等于1000升水，重1吨。用每分钟流量去除、再除以60即得小时数。水的重量在核算楼板荷载时同样需要。',
-      note: '家用水龙头约每分钟15至25升，多处同时用水会相应减少。' },
   },
   {
     slug: 'deck-boards',
@@ -155,9 +142,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Decking Board Count', desc: 'Boards and total length from deck size and board width.',
       long: 'Board width plus drainage gap is the pitch of one run. Divide the short span of the deck by that for the number of runs, then multiply by the length for the total metres to buy.',
       note: 'Timber swells when wet, so leave a 3–6 mm gap. Laid tight, the boards push against each other and lift.' },
-    zh: { title: '露台板材数量计算器', desc: '按露台尺寸与板宽算出所需板数与总长度。',
-      long: '板宽加排水缝即为一排所占宽度。用露台的短边除以它得到排数，再乘以长度即为需购买的总米数。',
-      note: '木材受潮会膨胀，需留3至6毫米缝隙。铺得过紧板与板会相互挤压而起拱。' },
   },
   {
     slug: 'curtain-width',
@@ -179,9 +163,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Curtain Fabric Width', desc: 'Fabric width from window width and fullness ratio.',
       long: 'Curtains must be wider than the window to hang in folds. Multiply window width by the fullness ratio; split in two for a pair. Ratio 1.5 gives a light gather, 2 is standard and 2.5 or more is generous.',
       note: 'Poles usually extend 15–20 cm past the window each side, so the curtains clear the glass when open.' },
-    zh: { title: '窗帘布幅计算器', desc: '按窗宽与褶皱倍率算出所需布幅。',
-      long: '窗帘必须比窗更宽才能形成褶皱。把窗宽乘以倍率即为所需布幅，做成两片则各占一半。倍率1.5为轻微打褶，2为标准，2.5以上则较为饱满。',
-      note: '窗帘杆通常左右各比窗宽出15至20厘米，这样拉开后不会挡住玻璃。' },
   },
   {
     slug: 'pot-soil',
@@ -207,9 +188,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Potting Soil Volume', desc: 'Compost needed from pot diameter and depth.',
       long: 'Take the cylinder volume and use 85% of it: you need 2–3 cm of watering space below the rim, plus room for drainage material. Potting compost weighs about 0.6 kg a litre.',
       note: 'Compost is sold by litre and settles about 20% once watered, so expect to top it up after a month or two.' },
-    zh: { title: '花盆用土量计算器', desc: '按花盆直径与深度算出所需营养土量。',
-      long: '先求圆柱体积，再取其85%：盆口下方需留2至3厘米的浇水空间，还要留出排水层。营养土约每升0.6公斤。',
-      note: '营养土按升销售，浇水后会下沉约20%，一两个月后需要补土。' },
   },
   {
     slug: 'brick-count',
@@ -238,9 +216,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Brick Count', desc: 'Bricks needed from wall area and brick size.',
       long: 'Brick dimensions plus a 10 mm mortar joint give the area one brick occupies. Divide the wall area by that and add 5% for breakage and cuts.',
       note: 'A standard brick is 190 × 57 × 90 mm. A double-skin wall doubles the count, so settle the wall thickness first.' },
-    zh: { title: '砖块数量计算器', desc: '按墙面面积与砖规格算出所需砖数。',
-      long: '砖的尺寸加10毫米灰缝，即为一块砖占据的面积。用墙面面积除以它，再加5%的破损与切割损耗。',
-      note: '标准砖为190×57×90毫米。双层砌筑时数量翻倍，请先确定墙厚。' },
   },
   {
     slug: 'firewood-cord',
@@ -266,9 +241,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Firewood Stack Volume', desc: 'Stacked volume and cords from stack dimensions.',
       long: 'Width × height × depth gives the stacked volume. One cord, the traditional trading unit, is about 3.62 m³. Stacked volume includes air gaps, so solid wood is around 70% of it.',
       note: 'Freshly cut wood is half water by weight. It needs six months to a year of seasoning to drop below 20% moisture before it burns well.' },
-    zh: { title: '柴堆体积计算器', desc: '算出堆放柴火的体积以及相当于多少“柴堆单位”。',
-      long: '宽×高×深即为堆积体积。传统交易单位1 cord约为3.62立方米。堆积体积包含木材之间的空隙，实木约占70%。',
-      note: '新伐木材有一半重量是水，需晾晒六个月至一年、含水率降到20%以下才好烧。' },
   },
   {
     slug: 'parking-count',
@@ -290,9 +262,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Parking Space Count', desc: 'How many cars fit, from lot area and area per car.',
       long: 'A bay itself is about 12.5 m², but with aisles and turning room each car needs 25–35 m². Dividing the lot by that gives a working estimate.',
       note: 'Shape matters as much as area. A long narrow site loses more to aisles and holds fewer cars for the same square metres.' },
-    zh: { title: '停车位数量计算器', desc: '按场地面积与每车位面积算出可停车数。',
-      long: '车位本身约12.5平方米，但加上通道与回转空间后每车需25至35平方米。用场地面积除以它即得大致车位数。',
-      note: '场地形状的影响与面积同样大。狭长地块通道占比更高，同样面积下车位更少。' },
   },
   {
     slug: 'solar-panel-count',
@@ -320,9 +289,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Solar Panel Count', desc: 'Panels and installed capacity from roof area and panel size.',
       long: 'You cannot cover the whole roof. Access paths, shading gaps and equipment leave about 80% usable. Divide by the area of one panel and multiply by its output for the installed capacity.',
       note: 'Actual generation depends heavily on orientation, tilt and sunshine hours, not just capacity. This sizes the array, nothing more.' },
-    zh: { title: '光伏组件数量计算器', desc: '按屋顶面积与组件规格算出可安装数量与装机容量。',
-      long: '屋顶无法全部铺满。检修通道、避阴间距与设备占位后，通常约80%可用。用单块组件面积去除，再乘以功率即得装机容量。',
-      note: '实际发电量还与朝向、倾角和日照时数密切相关，本计算只给出安装规模。' },
   },
   {
     slug: 'rain-harvest',
@@ -347,9 +313,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Rainwater Harvest', desc: 'How much water a roof collects from a given rainfall.',
       long: 'One millimetre of rain is one litre per square metre. Multiply roof area by rainfall for what fell, then take about 85% after splash and wetting losses.',
       note: 'Use the horizontal plan area of the roof, not the sloped surface — rain falls vertically.' },
-    zh: { title: '雨水收集量计算器', desc: '按屋顶面积与降雨量算出可收集的水量。',
-      long: '1毫米降雨相当于每平方米1升水。把屋顶面积乘以降雨量即为落下的水量，扣除飞溅与润湿损失后约可收集85%。',
-      note: '屋顶面积应按俯视的水平投影面积计算，而非斜面面积，因为雨是垂直落下的。' },
   },
   {
     slug: 'screen-ppi',
@@ -373,10 +336,10 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const p = out[0].value;
       return p >= 200
-        ? { ko: `${p}ppi는 픽셀이 보이지 않는 고밀도입니다.`, en: `${p} ppi is high enough that pixels disappear.`, zh: `${p}ppi属高密度，肉眼看不到像素。`, tone: 'good' }
+        ? { ko: `${p}ppi는 픽셀이 보이지 않는 고밀도입니다.`, en: `${p} ppi is high enough that pixels disappear.`, tone: 'good' }
         : p >= 130
-          ? { ko: `${p}ppi는 데스크톱에서 선명한 편입니다.`, en: `${p} ppi looks crisp at desktop distance.`, zh: `${p}ppi在台式机观看距离下较为清晰。`, tone: 'good' }
-          : { ko: `${p}ppi는 가까이서 보면 픽셀이 보입니다. 글자 테두리가 거칠게 느껴집니다.`, en: `${p} ppi shows pixels up close; text edges look rough.`, zh: `${p}ppi近看能看到像素，文字边缘略显粗糙。`, tone: 'warn' };
+          ? { ko: `${p}ppi는 데스크톱에서 선명한 편입니다.`, en: `${p} ppi looks crisp at desktop distance.`, tone: 'good' }
+          : { ko: `${p}ppi는 가까이서 보면 픽셀이 보입니다. 글자 테두리가 거칠게 느껴집니다.`, en: `${p} ppi shows pixels up close; text edges look rough.`, tone: 'warn' };
     },
     ko: { title: '화면 픽셀 밀도(ppi) 계산기', desc: '해상도와 화면 크기로 인치당 픽셀 수를 구합니다.',
       long: '해상도만으로는 선명함을 알 수 없습니다. 4K도 화면이 크면 픽셀이 커집니다. 대각선 픽셀 수를 대각선 인치로 나눈 ppi가 실제 선명함이고, 픽셀 하나의 크기도 함께 보여 줍니다.',
@@ -384,9 +347,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'Screen Pixel Density (ppi)', desc: 'Pixels per inch from resolution and screen size.',
       long: 'Resolution alone does not tell you sharpness — 4K on a large panel still has large pixels. Diagonal pixels over diagonal inches gives ppi, the figure that matters, alongside the size of one pixel.',
       note: 'Perceived sharpness also depends on viewing distance. A phone held close wants 300 ppi; a monitor at arm’s length often looks fine at 110.' },
-    zh: { title: '屏幕像素密度(ppi)计算器', desc: '由分辨率和屏幕尺寸求出每英寸像素数。',
-      long: '只看分辨率无法判断清晰度：4K放在大屏上像素依然很大。用对角线像素数除以对角线英寸得到ppi，这才是决定清晰度的数值，同时给出单个像素的尺寸。',
-      note: '主观清晰度还取决于观看距离。手机贴近眼睛需要300ppi，而一臂之外的显示器往往110ppi就够了。' },
   },
   {
     slug: 'box-fit',
@@ -414,7 +374,6 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `한 방향으로 쌓으면 ${out[0].value}개가 들어갑니다. 부피만 보면 ${out[1].value}개지만 잘라 쓸 수 없어 ${out[2].value}%만 채워집니다.`,
       en: `${out[0].value} fit in one orientation. Volume alone suggests ${out[1].value}, but you cannot cut items, so only ${out[2].value}% of the space is used.`,
-      zh: `按同一朝向摆放可装${out[0].value}个。只看体积是${out[1].value}个，但物品不能切割，实际只利用了${out[2].value}%的空间。`,
       tone: 'warn',
     }),
     ko: { title: '상자에 몇 개 들어가나 계산기', desc: '상자와 물건 치수로 들어가는 개수를 구합니다.',
@@ -423,8 +382,5 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     en: { title: 'How Many Items Fit in a Box', desc: 'Item count from box and item dimensions.',
       long: 'Round down along each axis and multiply. It always comes out below volume-over-volume, because leftover space cannot be subdivided — and that gap is the fill efficiency shown.',
       note: 'Turning items on their side changes the answer. Swap the three item dimensions around to find the best orientation.' },
-    zh: { title: '箱子能装几个计算器', desc: '按箱子与物品的尺寸算出可装数量。',
-      long: '在每个方向上向下取整后相乘。结果总小于体积相除的值，因为剩余空间无法拆分使用，这个差距就是显示的空间利用率。',
-      note: '把物品侧放或旋转会改变结果。可交换三个尺寸试算，找出装得最多的朝向。' },
   },
 ];

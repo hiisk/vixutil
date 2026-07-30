@@ -9,7 +9,7 @@ import { COLOR_TOOLS } from './color-tools.ts';
  * 사람이 읽는 문구만 여기서 갈아 끼운다. slug를 공유해야 hreflang이 세 언어를
  * 짝지을 수 있고, 번역이 없는 slug는 한국어로 폴백해 화면이 깨지지 않는다.
  */
-export type ColorIntlLang = 'en' | 'zh';
+export type ColorIntlLang = 'en';
 
 interface ToolCopy {
   title: string; desc: string; category: string;
@@ -79,68 +79,6 @@ const COPY: Record<ColorIntlLang, Record<string, ToolCopy>> = {
       features: ['1000K to 12000K slider', 'Warm, neutral and daylight presets', 'RGB and HEX values', 'Compare two temperatures side by side'],
     },
   },
-  zh: {
-    palette: {
-      title: '配色生成器', desc: '按色轮规则取出与基准色相配的颜色', category: '配色',
-      metaTitle: '配色生成器 — 生成协调的配色方案',
-      long: '选一个颜色，它就按色轮规则（互补色、类似色、三角配色）取出相配的颜色。按规则挑而不是靠感觉挑，配色不容易出大错。',
-      features: ['互补色、类似色、三角与四角配色', '单色明度阶梯', '每个色都能复制 HEX', '整套配色导出为 CSS'],
-    },
-    shades: {
-      title: '色阶生成器', desc: '用一个颜色生成 50~900 色阶', category: '配色',
-      metaTitle: '色阶生成器 — 一个颜色生成 50~900 色板',
-      long: '输入一个品牌色，它会往亮（tint）和暗（shade）两个方向生成十个阶。输出就是 Tailwind 与多数设计系统在用的 50·100·…·900 形式。',
-      features: ['50~900 共十阶', '每阶显示 HEX 与 HSL', '标出白字或黑字哪个能读', '整套复制为 CSS 变量'],
-    },
-    mixer: {
-      title: '颜色混合器', desc: '求两个颜色之间的中间色', category: '配色',
-      metaTitle: '颜色混合器 — 混合两色并取中间色',
-      long: '设定两个颜色并拖动比例，就能得到它们之间的颜色。适合取渐变中某一点的颜色，或找两个品牌色的中间调。',
-      features: ['用比例滑块调节混合', '一次查看多个中间阶', '复制 HEX 或 RGB', '检查混合色的对比度'],
-    },
-    random: {
-      title: '随机配色', desc: '锁住喜欢的，其余重新抽', category: '配色',
-      metaTitle: '随机配色生成器 — 可锁定的配色重抽',
-      long: '一次生成五个随机颜色。喜欢的可以上锁，只重抽其余的，这样能快速换到满意的组合。',
-      features: ['一次生成五个颜色', '锁定想保留的颜色', '饱和度控制在可用范围内', '一次复制全部 HEX'],
-    },
-    contrast: {
-      title: '对比度检查', desc: '按 WCAG 标准检查文字是否易读', category: '无障碍',
-      metaTitle: '颜色对比度检查 — WCAG AA／AAA 比值',
-      long: '计算背景色与文字色的对比度比值，并判断是否达到无障碍标准（WCAG AA 与 AAA），同时提供真实文字预览，可以用眼睛再确认一次。',
-      features: ['对比度比值 1~21', 'AA／AAA 是否通过', '大字号单独判定', '自动调整明度直到通过'],
-    },
-    colorblind: {
-      title: '色盲模拟器', desc: '色觉异常的人看到的颜色', category: '无障碍',
-      metaTitle: '色盲模拟器 — 预览红绿蓝色盲所见',
-      long: '把你的颜色转换成红色盲、绿色盲、蓝色盲与全色盲所看到的样子。为什么「只靠红绿区分状态」的界面有问题，一看就明白。',
-      features: ['四种色觉类型转换', '并排检查两色是否能区分', '整套配色一起模拟', '同时显示对比度'],
-    },
-    gradient: {
-      title: 'CSS 渐变生成器', desc: '用两三个颜色生成 CSS 渐变', category: 'CSS',
-      metaTitle: 'CSS 渐变生成器 — linear-gradient 代码',
-      long: '设好颜色与角度，它就写出 CSS linear-gradient。可以移动色标位置控制在哪里过渡，结果可以直接粘贴使用。',
-      features: ['两三个颜色与色标位置', '角度或径向可选', '即时复制 CSS 代码', '附 Tailwind 类名说明'],
-    },
-    shadow: {
-      title: 'CSS 阴影生成器', desc: '一边看效果一边调 box-shadow', category: 'CSS',
-      metaTitle: 'CSS box-shadow 生成器 — 实时预览与代码',
-      long: '一边调偏移、模糊、扩散、颜色与透明度，一边看效果，然后把 CSS 拿走。还内置了叠加多层阴影、做出更自然层次的预设。',
-      features: ['偏移、模糊、扩散与颜色', '支持内阴影（inset）', '自然的多层阴影预设', '复制 CSS 代码'],
-    },
-    name: {
-      title: '颜色名称查询', desc: '和这个颜色最接近的名字是什么', category: '换算',
-      metaTitle: '颜色名称查询 — 与 HEX 最接近的颜色名',
-      long: '输入色值，它会找出最接近的有名颜色（珊瑚色、青绿、绯红等），并同时给出 HEX、RGB、HSL 与 CMYK。适合需要用语言描述颜色的时候。',
-      features: ['最接近的有名颜色', 'HEX／RGB／HSL／CMYK 同时显示', '显示与该名色的差距', '各数值可分别复制'],
-    },
-    temperature: {
-      title: '色温换算', desc: '看看开尔文（K）值实际是什么颜色', category: '换算',
-      metaTitle: '色温换算 — 开尔文（K）转 RGB',
-      long: '看看 2700K 暖白光实际是什么颜色，6500K 日光又有多蓝。选灯具或理解摄影白平衡时很有帮助。',
-      features: ['1000K~12000K 滑块', '暖白、中性、日光预设', '显示 RGB 与 HEX 值', '两个色温并排对比'],
-    },
-  },
 };
 
 export function colorToolsIntl(lang: ColorIntlLang): ColorTool[] {
@@ -172,11 +110,5 @@ export const COLOR_SHELL_UI: Record<ColorIntlLang, {
     canDo: 'What this tool does', others: 'Other colour tools',
     notice: '🎨 Everything runs in your browser. No install, no sign-up.',
     footNote: 'Colours may look slightly different depending on your screen and its colour profile.',
-  },
-  zh: {
-    home: '首页', section: '颜色工具',
-    canDo: '这个工具能做什么', others: '其他颜色工具',
-    notice: '🎨 全部在你的浏览器内运行。无需安装，也无需注册。',
-    footNote: '不同屏幕与色彩配置下，颜色看起来可能略有差异。',
   },
 };

@@ -39,7 +39,7 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
-type Lang = 'ko' | 'en' | 'zh';
+type Lang = 'ko' | 'en';
 
 /** 사용자에게 보이는 문구만 언어별로 갈라둔다. 나머지 동작은 세 언어가 동일하다. */
 const UI: Record<Lang, {
@@ -67,15 +67,6 @@ const UI: Record<Lang, {
     fileSuffix: 'checklist',
     allLists: 'All checklists', share: 'Share', shareLink: 'Copy link', saveCard: 'Save as image',
     doneCount: n => `${n} done`,
-  },
-  zh: {
-    done: '完成', selectAll: '全选', deselectAll: '取消全选',
-    linkCopied: '链接已复制', copyFailed: '复制失败',
-    imageSaved: '图片已保存', imageFailed: '图片保存失败',
-    progress: (d, t) => `已完成 ${d}/${t}`,
-    fileSuffix: '清单',
-    allLists: '全部清单', share: '分享', shareLink: '复制链接', saveCard: '保存为图片',
-    doneCount: n => `已完成 ${n} 项`,
   },
 };
 

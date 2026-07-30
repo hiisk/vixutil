@@ -8,7 +8,7 @@
    무표정 사진이 나와도 부정적으로 읽히지 않게 모든 구간을 긍정적으로 서술하는
    한국어 쪽 원칙을 en/zh에도 그대로 지켰다.
 ──────────────────────────────────────────────── */
-export type SnapIntlLang = 'en' | 'zh';
+export type SnapIntlLang = 'en';
 
 /* ── 미소 지수 ── */
 export const SMILE_POOL_INTL: Record<SnapIntlLang, string[]> = {
@@ -23,18 +23,6 @@ export const SMILE_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'A big, confident smile. The corners lift wide and the expression reads as energetic and self-assured — the kind that draws the eye in a group photo.',
     'A wide, warm smile that has spread across the whole face. There is something contagious about it: it is hard to look at this photo without smiling.',
     'The brightest, fullest smile of the range. The corners are at their highest and the entire expression is given over to it — a single photo like this lifts the mood of a whole album.',
-  ],
-  zh: [
-    '一张沉静克制的表情。嘴角接近水平，透着收敛情绪的高冷氛围。接近无表情的脸反而显得都市感、有质感，很适合用作头像或概念照。',
-    '轻松自然、卸下力气的表情。嘴角只是稍稍放松，露出不加修饰的清爽魅力。没有硬挤出笑容的这种表情，往往反而给人真诚而舒服的印象。',
-    '带着几分从容的平静表情。嘴角微微上扬，形成不过分的笑意，是那种看久了也不会觉得累的脸。',
-    '笑意轻轻漾开的舒服表情。嘴角柔和上扬，温柔又不张扬，自然而然让人放下戒备。',
-    '自然笑容清晰可见的表情。嘴角舒服地上扬，不刻意、像是真的高兴，被认为是照片里最讨喜的表情之一。',
-    '满是好心情的笑容。嘴角舒展上扬，那份温和的能量会让看的人也跟着笑起来，显得明亮而好接近。',
-    '灿烂开朗的笑容。嘴角确实往上提，积极的能量透出画面。这样的笑脸照片能明显提升第一印象。',
-    '爽朗有魅力的笑容。嘴角大幅上扬，显得自信而有活力，在合照里也很吸引视线。',
-    '笑得开怀又可爱的表情。嘴角舒展，笑意铺满整张脸，有种会传染的感染力，看着就想跟着笑。',
-    '最灿烂、最舒展的满开笑容。嘴角上扬到最高，整张脸都是笑意，光靠一张照片就能把气氛点亮。',
   ],
 };
 
@@ -51,23 +39,10 @@ export const SMILE_TIP_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'A neutral expression has its own appeal, so there is no need to force the face into anything.',
     'Think of something you like as the photo is taken — the expression loosens on its own.',
   ],
-  zh: [
-    '先用眼睛笑，会比只动嘴自然得多。',
-    '按快门前短短呼一口气，脸上的力气会卸掉，出来更放松。',
-    '事先对着镜子练一次你觉得最自然的笑容。',
-    '与其只提嘴角，不如想着把整个脸颊往上提，会更自然。',
-    '别一直盯着镜头，先看向别处再回来，那一瞬的表情更松弛。',
-    '用连拍多拍几张，再从中挑最自然的一刻。',
-    '让熟悉的人一边聊天一边拍，笑容会放松很多。',
-    '嘴唇稍微张开一点笑，会显得更开朗明亮。',
-    '无表情的照片也有它的氛围感，不必在表情上太用力。',
-    '拍照时想一件你喜欢的事，表情会自己松下来。',
-  ],
 };
 
 export const SMILE_LABELS: Record<SnapIntlLang, { curve: string; openness: string; balance: string }> = {
   en: { curve: 'Corner lift', openness: 'Mouth opening', balance: 'Left–right balance' },
-  zh: { curve: '嘴角上扬', openness: '嘴部张开', balance: '左右平衡' },
 };
 
 export const SMILE_COMMENTS: Record<SnapIntlLang, {
@@ -79,11 +54,6 @@ export const SMILE_COMMENTS: Record<SnapIntlLang, {
     curve: p => p >= 75 ? 'corners lifted generously' : p >= 55 ? 'corners lifted slightly' : p >= 40 ? 'close to level' : 'a calm, closed mouth',
     openness: p => p >= 65 ? 'a wide, open smile' : p >= 35 ? 'naturally parted' : 'a quiet closed-mouth smile',
     balance: p => p >= 80 ? 'well balanced' : p >= 60 ? 'broadly even' : 'one side lifts a little more — a distinctive smile',
-  },
-  zh: {
-    curve: p => p >= 75 ? '嘴角舒展上扬' : p >= 55 ? '嘴角略微上扬' : p >= 40 ? '接近水平' : '沉静的闭唇线条',
-    openness: p => p >= 65 ? '开怀张开的笑' : p >= 35 ? '自然微启' : '闭唇的浅笑',
-    balance: p => p >= 80 ? '左右很均衡' : p >= 60 ? '大致均衡' : '一侧略高，是有个性的笑容',
   },
 };
 
@@ -103,23 +73,10 @@ export const SYMMETRY_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'Notably strong symmetry. The features sit almost evenly on both sides, which is why photos of this kind tend to come out especially stable and composed.',
     'Unusually strong symmetry. The balance holds from any angle — the kind of face people describe as photogenic, and one that sits comfortably with almost any hairstyle or framing.',
   ],
-  zh: [
-    '一张自然不对称很鲜明的脸。左右完全一样反而容易显得刻意，这种自然的左右差异会给表情增加灵动与立体感。演员、模特里以不对称为魅力点的也不少。',
-    '淡淡的不对称成了个性的脸。笑起来和无表情时的感觉略有不同，所以每张照片都能拍出不同的味道，能表现的印象范围比较宽。',
-    '一点点左右差异反而带来生气。也有研究认为，细微的不对称比完美对称更让人显得自然亲切。从哪一侧拍都各有各的好看。',
-    '在适度的均衡里保留着自然个性。左右差别不大又不是完全一致，所以表情不僵硬，显得柔和，是照片里让人放松的那种平衡。',
-    '整体上均衡得很稳妥。左右平衡稳定，从各种角度拍都不会有太大出入，读起来是让人有信任感的整齐脸型。',
-    '均衡感好、给人安定印象的脸。正面照尤其显得舒服端正，五官在中线两侧分布均匀，透着沉稳。',
-    '左右相当对称的脸。不管从哪一侧拍，印象都不会差太多，自拍还是别人拍结果都稳定 —— 这就是所谓上镜的底子。',
-    '对称度好、显得干净利落的脸。左右均匀，给人可靠端正的感觉，在证件照、头像这类强调正面的照片里特别有优势。',
-    '对称度相当高的脸。左右五官像镜像一样分布均匀，所以照片格外稳定协调，透着一种标准的和谐。',
-    '对称度非常高、相当少见的脸。无论从哪个角度拍都保持均衡，是典型的上镜类型，换发型或换角度也都稳稳撑得住。',
-  ],
 };
 
 export const SYMMETRY_REGION_LABELS: Record<SnapIntlLang, Record<string, string>> = {
   en: { eye: 'Eye level', brow: 'Eyebrows', mouth: 'Mouth corners', jaw: 'Jawline' },
-  zh: { eye: '眼睛高度', brow: '眉毛', mouth: '嘴角', jaw: '下颌线' },
 };
 
 export const SYMMETRY_REGION_COMMENT: Record<SnapIntlLang, { min: number; text: string }[]> = {
@@ -129,13 +86,6 @@ export const SYMMETRY_REGION_COMMENT: Record<SnapIntlLang, { min: number; text: 
     { min: 55, text: 'reasonably even' },
     { min: 40, text: 'slightly uneven' },
     { min: 0, text: 'distinctively uneven' },
-  ],
-  zh: [
-    { min: 85, text: '几乎完全对称' },
-    { min: 70, text: '相当均衡' },
-    { min: 55, text: '大致均衡' },
-    { min: 40, text: '略有不对称' },
-    { min: 0, text: '有个性的不对称' },
   ],
 };
 
@@ -152,18 +102,6 @@ export const SYMMETRY_TIP_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'Tilting the head just a little can soften the whole impression.',
     'Laugh once and then let the tension go right before the shutter — the expression comes out natural.',
   ],
-  zh: [
-    '比起完全正面，稍微 3/4 的角度往往更自然。',
-    '光只从一侧打过来会放大不对称，试试正面光。',
-    '不管左右是否均衡，稍微笑一下都会让印象柔和很多。',
-    '如果平时觉得某一侧更好看，把那个角度记下来是个好办法。',
-    '相机放得比视线略高一点，整体比例会更稳。',
-    '直接用相机拍的照片，比镜子自拍更接近你实际的样子。',
-    '在有自然光的窗边拍，五官会清晰很多。',
-    '用连拍多拍几张，挑表情最放松的那一张。',
-    '头稍微歪一点点，整体印象就会柔和不少。',
-    '按快门前先大笑一下再把力气卸掉，表情容易出来得自然。',
-  ],
 };
 
 /* ── 황금비율 ── */
@@ -176,14 +114,6 @@ export const GOLDEN_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
     'Proportions with real individuality. The appeal here is specifically not tied to the golden ratio.',
     'Distinctive, characterful proportions. Not being standard-issue is exactly what makes this face memorable.',
   ],
-  zh: [
-    '五官比例相当接近黄金比。这份均衡的和谐感，正是让整张脸显得安定的原因。',
-    '整体比例平衡得不错。没有哪一处特别失衡，这种协调本身就是魅力点。',
-    '五官分布很有均衡感，是那种既稳定又让人看着舒服的比例。',
-    '协调的比例很突出。各个部位彼此配合得好，形成自然的印象。',
-    '很有个性的比例。魅力恰恰不在于贴近黄金比，而在于自己的样子。',
-    '拥有独特而有个性的比例。不落俗套，反而更让人记得住。',
-  ],
 };
 
 export const GOLDEN_METRIC_LABELS: Record<SnapIntlLang, Record<string, { label: string; desc: string }>> = {
@@ -192,12 +122,6 @@ export const GOLDEN_METRIC_LABELS: Record<SnapIntlLang, Record<string, { label: 
     faceWidth:  { label: 'Length to width',    desc: 'face length versus cheekbone width' },
     eyeMouth:   { label: 'Eye–mouth balance',  desc: 'inner eye spacing versus mouth width' },
     noseMouth:  { label: 'Nose–mouth balance', desc: 'nose width versus mouth width' },
-  },
-  zh: {
-    faceThirds: { label: '脸部纵向比例', desc: '眉毛至鼻尖 与 鼻尖至下巴的比' },
-    faceWidth:  { label: '长宽比例',     desc: '脸的长度 与 颧骨宽度的比' },
-    eyeMouth:   { label: '眼—嘴均衡',    desc: '两眼内侧间距 与 嘴宽的比' },
-    noseMouth:  { label: '鼻—嘴均衡',    desc: '鼻宽 与 嘴宽的比' },
   },
 };
 
@@ -211,16 +135,6 @@ export const GOLDEN_TIP_INTL: Record<SnapIntlLang, string[]> = {
     'A slight three-quarter angle often flatters the proportions more than straight on.',
     'Soft light from above makes the features look clearer and better balanced.',
     'Spend a minute at the mirror finding the angle you actually like best.',
-  ],
-  zh: [
-    '黄金比只是一个参考标准，真正的魅力来自表情和氛围。',
-    '今天留一张自信笑着的照片吧。比起比例，笑容更能决定印象。',
-    '角度稍微一变，五官比例看起来就不一样。找到适合自己的那一个。',
-    '发型不同，脸的比例看起来也会不同。今天不妨试个新造型。',
-    '比例参考就好，有说法认为印象八成取决于表情管理。',
-    '比起正面，略微 3/4 的角度往往比例更好看。',
-    '光从上方柔和地打下来，五官会显得更清晰、更均衡。',
-    '今天对着镜子花一分钟，找出你自己最满意的角度。',
   ],
 };
 
@@ -243,15 +157,6 @@ export const SNAP_UI: Record<SnapIntlLang, {
     breakdown: 'Breakdown',
     tipLabel: 'Photo tip',
   },
-  zh: {
-    hubTitle: '照片测试',
-    hubLead: '上传一张照片，看看关键点怎么说 —— 照片不会上传到服务器',
-    hubKicker: '照片测试',
-    detail: '细项',
-    overall: '综合',
-    breakdown: '细项分析',
-    tipLabel: '拍照建议',
-  },
 };
 
 /* ── 사진 감성 ──
@@ -265,12 +170,6 @@ export const MOOD_META_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, { label: s
     vivid:  { label: 'Bright & Vivid', vibe: 'bright, high saturation, fresh' },
     moody:  { label: 'Moody Grey', vibe: 'dark, low saturation, cinematic' },
     neon:   { label: 'Dark Neon', vibe: 'dark, high saturation, dramatic' },
-  },
-  zh: {
-    pastel: { label: '白调质感', vibe: '明亮、低饱和、极简' },
-    vivid:  { label: '清爽鲜明', vibe: '明亮、高饱和、清新' },
-    moody:  { label: '灰调氛围', vibe: '暗调、低饱和、电影感' },
-    neon:   { label: '暗夜霓虹', vibe: '暗调、高饱和、戏剧感' },
   },
 };
 
@@ -325,56 +224,6 @@ export const MOOD_POOL_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, string[]>>
       'Bold colour lifted out of shadow — the most graphic of the four moods.',
     ],
   },
-  zh: {
-    pastel: [
-      '明亮柔和的白调照片。降低饱和度的浅色调让画面显得舒服而整洁，人物和静物都好看。',
-      '淡雅温柔的质感很突出。不过分的色彩让人看着舒服，很适合日常记录。',
-      '极简而整齐的白调照片。留白越多、颜色越克制，这种感觉就越明显。',
-      '温柔可爱的照片。饱和度只要稍微降一点，氛围感就出来了。',
-      '沉静优雅的白色与浅色搭配。配上干净的背景，效果会加倍。',
-      '明亮内敛的色调，自然让人产生信赖感。特别适合让整个主页保持统一。',
-      '米白、米色系的感觉很强。适合静物照或情绪板风格的组图。',
-      '柔和带点朦胧的质感。逆光或阴天拍摄时常会出现这种氛围。',
-      '干净且有留白的白调照片。氛围来自构图和留白，而不是颜色。',
-      '柔光与低饱和造就的放松感 —— 那种「精心又像没打理」的调子。',
-    ],
-    vivid: [
-      '清爽而有生气的鲜明照片。清晰的色彩带来开阔明亮的印象，特别适合夏天和户外。',
-      '色彩跳脱、很抓眼。主体和背景的色差越明显，这种感觉越好。',
-      '生机勃勃、充满活力。搭配通透的天空和鲜艳的原色小物，感觉会翻倍。',
-      '清新明快的糖果色感觉。很可能是不用滤镜色彩也立得住的照片。',
-      '明亮清晰的色彩很有存在感。高饱和带来积极活跃的氛围。',
-      '清爽感扑面而来。蓝绿色系的自然光照片里常见这种调子。',
-      '色彩鲜活、朝气十足。做缩略图特别抓人。',
-      '跳跃的配色让人挪不开眼。几张放在一起就是明亮统一的一组。',
-      '满是晴朗明亮的气息。旅行和户外照片里格外好看。',
-      '清晰色彩配上明亮曝光。不修图也有跳出来的感染力。',
-    ],
-    moody: [
-      '沉静而有深度的氛围照。压暗的色调与低饱和造出电影般的质感。',
-      '灰调与暗色营造的高级氛围。适合那种克制却传达得很浓的照片。',
-      '厚重沉稳的低饱和氛围。用在人像上会显得沉着、有思考感。',
-      '有胶片特有的味道。稍微压暗的曝光让画面更有层次。',
-      '克制的色彩配上明确的阴影。适合安静的室内场景。',
-      '不慌不忙的沉静氛围。下雨天和阴天的光线很容易出这个调子。',
-      '低饱和且有质感。氛围来自明暗层次，而不是颜色。',
-      '深阴影配上收窄的色域 —— 值得多看一眼的那种画面。',
-      '安静而有电影感。适合那些想让人停下来看的照片。',
-      '低调而克制。恰恰是没有鲜艳色彩，才成就了这张照片。',
-    ],
-    neon: [
-      '暗调却高饱和 —— 典型的夜色都市感，戏剧性强、对比大。',
-      '浓烈色彩落在深阴影上。招牌、屏幕和路灯很容易拍出这种感觉。',
-      '暗色画面里的鲜亮高光。整体虽暗，读起来却很有能量。',
-      '深色底加上强烈的点缀色，即使在小屏幕上也很有冲击力。',
-      '夜晚的色盘，但颜色都还在。霓虹与倒影会让效果更强。',
-      '深色调配上高饱和的点睛 —— 不亮，却很响亮。',
-      '暗环境与彩色光源之间的强对比。',
-      '有电影感的夜间氛围。湿地面和反光会明显加强这种感觉。',
-      '同时是暗的和鲜艳的，这正是它显得当代的原因。',
-      '从阴影里提出来的大胆色彩 —— 四种氛围里最有图形感的一种。',
-    ],
-  },
 };
 
 export const MOOD_CAPTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
@@ -392,20 +241,6 @@ export const MOOD_CAPTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
     'Sometimes posting with no caption at all is its own kind of statement.',
     'Let the strongest colour in the frame decide the mood of the caption.',
   ],
-  zh: [
-    '这张照片配一句简短平实的话更合适。与其解释，不如留白。',
-    '色彩越好的照片，配文越要短，加一个表情就够了。',
-    '试着用一个词表达此刻的心情，那就是很好的配文。',
-    '写当下的氛围，会比写日期和地点更让人记得住。',
-    '标签挑三四个就够，太多反而显得杂乱。',
-    '想@朋友的话，写在评论里比写在配文里更自然。',
-    '提问式的配文比长篇说明更容易带来互动。',
-    '这张作为一组照片的第一张，很能定下整体的调子。',
-    '今天也许不加滤镜的原片，比修过的更有味道。',
-    '和两三张同色调的照片放在一起，会成为很统一的一组。',
-    '有时候什么都不写，只放照片，本身就是一种表达。',
-    '让画面里最强的那个颜色来决定配文的语气。',
-  ],
 };
 
 /* ── 표정 감정 분석 ──
@@ -417,10 +252,6 @@ export const EMOTION_LABELS_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, st
   en: {
     happy: 'Happy', neutral: 'Neutral', surprised: 'Surprised',
     sad: 'Sad', angry: 'Angry', fearful: 'Fearful', disgusted: 'Displeased',
-  },
-  zh: {
-    happy: '开心', neutral: '无表情', surprised: '惊讶',
-    sad: '难过', angry: '生气', fearful: '害怕', disgusted: '不悦',
   },
 };
 
@@ -469,50 +300,6 @@ export const EMOTION_POOL_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, stri
       'The unimpressed face leads the spread. There is character in it, which is more than most posed shots manage.',
     ],
   },
-  zh: {
-    happy: [
-      '照片里最突出的是开心。嘴角和眼角自然的笑意让人跟着心情变好，这种积极表情能明显提升第一印象。',
-      '灿烂的快乐能量透出画面。开心的概率远高于其他情绪，说明这是发自内心的笑。拿来当头像好感度会直接上一个台阶。',
-      '笑容在情绪分布中占比最大。满是正向的气息，给人一种在一起会很开心的印象，明亮又好接近。',
-      '开心指数最高的一张。不勉强、很自然，像真的捕捉到了愉快的瞬间。这种真诚的笑比任何滤镜都好看。',
-    ],
-    neutral: [
-      '沉静的无表情在情绪分布中最突出。不外露情绪的高冷感是它的魅力，反而显得洗练、有都市感，很适合概念照。',
-      '看似无谓、实则沉稳的表情占主导。情绪起伏不写在脸上，给人稳重可靠的感觉。',
-      '克制而清爽的表情。因为不过分，所以看久了也舒服，那份不轻易外露的沉静本身就很有味道。',
-      '中性表情占比最高。有种看不透的神秘感，这样的氛围往往反而留下更强的印象。',
-    ],
-    surprised: [
-      '惊讶在情绪分布里最突出。眼睛睁大、表情舒展，是抓到了真实瞬间而不是摆拍的照片。',
-      '惊讶指数最高。显得生动、表现力强，情绪坦率地流露出来，很有活力。',
-      '睁大眼睛的惊讶占主导。透着单纯与好奇，有种显小的可爱，也很坦诚。',
-      '吓一跳般的表情正是魅力点。表现力足，照片像带着故事，反应生动、抓眼。',
-    ],
-    sad: [
-      '偏低落的情绪排在最前。这种调子的照片，往往比笑着的更有情绪张力。',
-      '表情里带着一点忧郁。这不是缺点 —— 柔软、带思绪的脸拍出来很有深度。',
-      '沉静的表情占主导。读起来更像在思考而不是不开心，适合安静的瞬间。',
-      '有几分怅然。人像的分量往往就来自这种情绪，而且这样的照片会越看越耐看。',
-    ],
-    angry: [
-      '坚定而有力度的表情得分最高。很多时候这只是专注而非生气 —— 专注的脸看着就有力量。',
-      '力量感与强度占主导。皱眉在模型里常被读成这一类，其实往往只是下定决心的样子。',
-      '认真不笑的脸排在最前。显得果断，用在某些人像里恰到好处。',
-      '绷住的表情占比最高。里面有笃定，而笃定是很上镜的。',
-    ],
-    fearful: [
-      '紧张的读数排在最前。眼睛睁大、眉毛上扬容易被读成这一类，通常只是快门抓到了你正在想事情的瞬间。',
-      '表情里有一点忐忑。这份不设防，常常正是抓拍照片显得真诚的原因。',
-      '警觉、微微绷住的样子得分最高。它给画面带来紧迫感和动势。',
-      '被抓个正着的感觉排在最前 —— 通常说明这是一张真正没有摆拍的照片。',
-    ],
-    disgusted: [
-      '皱起来的、不以为然的表情得分最高。这类照片往往是相册里最好笑的几张。',
-      '不悦排在最前 —— 很多时候只是被太阳晃到眯了眼，而不是真的有反应。',
-      '皱鼻子的表情占比最高。表现力强，而有表现力的照片让人记得住。',
-      '不买账的那张脸排在最前。里面有性格，这是大多数摆拍做不到的。',
-    ],
-  },
 };
 
 export const EMOTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
@@ -525,16 +312,6 @@ export const EMOTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
     'Neutral scoring high is extremely common. Most faces at rest are neutral.',
     'Glasses and hair over the brows can pull the reading around noticeably.',
     'Try a burst and see how much the numbers move between frames a second apart.',
-  ],
-  zh: [
-    '模型读的是像素，不是心情 —— 一张照片只是被冻住的一瞬，不等于当时的状态。',
-    '表情识别主要在摆拍数据上训练，所以细微的表情常常被读成无表情。',
-    '换个光线拍同一张脸试试，结果的变化可能比你想的大。',
-    '头稍微一歪，眼睛和眉毛的几何就变了，而这正是模型主要在看的地方。',
-    '比较同一天的两张照片，差别通常来自光线而不是心情。',
-    '无表情得分高非常常见，大多数人放松时的脸就是中性的。',
-    '眼镜和盖住眉毛的头发会明显影响读数。',
-    '连拍几张看看，相隔一秒的两帧数字能差多少。',
   ],
 };
 
@@ -554,18 +331,6 @@ export const SLANT_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'Clearly right-leaning. Read as warm and forward-moving, saying what is on your mind as it arrives.',
     'Strongly right-leaning. Read as expressive and sociable, acting the moment a thought lands.',
   ],
-  zh: [
-    '明显左斜的字迹。笔迹学上视为不太外露情感，行动前先把想法理清的谨慎倾向。',
-    '略微左斜的字迹。视为不冲动行事，先退一步观察情况的沉稳性格。',
-    '轻微偏左的字迹。被解读为内心想法多，做决定前会反复琢磨的类型。',
-    '接近垂直、略偏左的字迹。视为重视情感与理性的平衡，判断时冷静。',
-    '几乎笔直的字迹。视为不被情绪带着走、以理性判断的均衡性格。',
-    '接近垂直、略偏右的字迹。视为需要时也能自然表达情感的均衡类型。',
-    '轻微右斜的字迹。被解读为想到就能付诸行动，也享受与人交流。',
-    '略微右斜的字迹。视为情感表达坦率，不怕认识新朋友。',
-    '明显右斜的字迹。象征热情积极，想说的话会当下就说出来。',
-    '大幅右斜的字迹。视为情感表达丰富、善于社交，念头一起就立刻行动。',
-  ],
 };
 
 export const PRESSURE_POOL_INTL: Record<SnapIntlLang, string[]> = {
@@ -578,16 +343,6 @@ export const PRESSURE_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'Heavy pressure. Read as energetic and driven, pushing hard at what matters to you.',
     'Very heavy pressure. Read as expressing strongly and having a definite presence.',
     'Pressed hard into the page. Read as strong will and focus — once decided, carried through.',
-  ],
-  zh: [
-    '笔压很轻。视为细腻沉静，表达情感时有所克制的类型。',
-    '笔压偏轻。视为温和谨慎，不愿给别人添负担的体贴。',
-    '笔压柔和。视为拥有沉稳能量、情绪起伏较小的类型。',
-    '笔压适中。视为稳定均衡，能按情况灵活应对。',
-    '笔压清晰。表示想法明确，带着确信去行动。',
-    '笔压偏重。视为精力充沛、有热情，对想做的事推动力强。',
-    '笔压很重。视为情感表达强烈、存在感鲜明。',
-    '用力压进纸里的笔压。象征强烈的意志与专注，认定的事会做到底。',
   ],
 };
 
@@ -603,18 +358,6 @@ export const HANDWRITING_TIP_INTL: Record<SnapIntlLang, string[]> = {
     'Consider leaving someone a short thank-you in your own handwriting.',
     'There is evidence that writing a goal by hand makes you more likely to act on it.',
     'Switching the pen you use can change how the whole page feels.',
-  ],
-  zh: [
-    '今天先把想说的话写下来，思路会清楚很多。',
-    '今天一张手写便条，比消息更能传达心意。',
-    '今天不妨把真心话说得比平时更直接一点。',
-    '在本子上每天写一行，是值得开始的习惯。',
-    '重要的事，先写下来再开口，是很实用的方法。',
-    '换一种写法写满一页，意外地能转换心情。',
-    '随手涂鸦对缓解压力真的有用。',
-    '今天用手写给某个人留一句简短的感谢吧。',
-    '有研究认为，把目标手写下来更容易付诸行动。',
-    '换一支笔，整页的感觉都会不一样。',
   ],
 };
 
@@ -664,44 +407,6 @@ export const IMPRESSION_TYPES_INTL: Record<SnapIntlLang, Record<ImpressionIdIntl
       keywords: ['Lively', 'Energetic', 'Animated', 'Noticed'],
     },
   },
-  zh: {
-    bright: {
-      label: '明亮易亲近的印象', emoji: '☀️', color: 'from-amber-400 to-orange-500',
-      desc: '眼神清亮、嘴角放松，是初见就容易开口搭话的脸。表情里没有戒备，所以对方往往会先靠过来。一张照片就能给人「应该是个不错的人」的感觉。',
-      strength: '面试的第一句问候、初次见面 —— 需要在短短一瞬留下好感的场合',
-      keywords: ['亲切', '清亮', '好接近', '明亮'],
-    },
-    calm: {
-      label: '沉稳可信赖的印象', emoji: '🌿', color: 'from-emerald-400 to-teal-600',
-      desc: '眼神不锐利、表情卸了力，给人踏实的安定感。一开始看着安静，越相处越自在。这是用态度而非言语累积起来的信任，所以评价会随时间上升。',
-      strength: '需要长期共事的关系，以及要让对方安心的沟通与说服场合',
-      keywords: ['安定', '可信', '自在', '稳重'],
-    },
-    chic: {
-      label: '清晰高冷的印象', emoji: '🖤', color: 'from-slate-500 to-slate-700',
-      desc: '眼神清晰、脸部线条利落，透着都市感。因为表情克制，不容易被读懂，反而留下好奇。在照片里尤其有冲击力，无表情时魅力更明显。',
-      strength: '头像照，以及需要留下强烈印象的演讲或舞台',
-      keywords: ['高冷', '都市感', '克制', '存在感'],
-    },
-    soft: {
-      label: '柔和温暖的印象', emoji: '🌸', color: 'from-rose-400 to-pink-500',
-      desc: '脸部线条圆润、嘴角自然上扬，能感到实实在在的温度。有一种让对方松弛下来的力量，初次见面也容易聊起来。看久了也不会有压力。',
-      strength: '需要频繁与人打交道的工作，以及要让对方敞开心扉的场合',
-      keywords: ['温柔', '和煦', '包容', '舒服'],
-    },
-    elegant: {
-      label: '端正优雅的印象', emoji: '🕊️', color: 'from-violet-400 to-purple-600',
-      desc: '脸部线条偏长、五官分布均衡，给人整齐的印象。不靠张扬取胜，而是安静地留在别人记忆里。特别适合正式场合，也是那种越有年纪越有味道的魅力。',
-      strength: '正式场合，以及重视信任与风度的关系',
-      keywords: ['端正', '均衡', '优雅', '内敛'],
-    },
-    energetic: {
-      label: '生动活泼的印象', emoji: '⚡', color: 'from-sky-400 to-blue-600',
-      desc: '眼睛大、表情鲜活，能量比什么都先传过来。就算安静待着也有活力，所以常常担起带动气氛的角色。在合照里视线会先落到你身上。',
-      strength: '需要带动团队气氛的场合，以及任何需要提一提劲的时刻',
-      keywords: ['活力', '能量', '生动', '受注目'],
-    },
-  },
 };
 
 export const IMPRESSION_TIPS_INTL: Record<SnapIntlLang, string[]> = {
@@ -719,20 +424,6 @@ export const IMPRESSION_TIPS_INTL: Record<SnapIntlLang, string[]> = {
     'A light-coloured top bounces light onto the face and brightens the whole impression.',
     'If you are nervous, press through your feet rather than your hands — the face stays looser.',
   ],
-  zh: [
-    '有不少研究指出，第一印象更取决于表情而非五官。进门前先呼一口气，把力气卸掉。',
-    '眼神接触多停留一秒，好感度就会明显上升。',
-    '拍照时看向镜头稍上方，眼睛会显得更清亮。',
-    '把肩膀打开，印象的变化比表情还大 —— 姿态是先被看到的。',
-    '自然光会让脸上的阴影变柔，整体印象放松很多。',
-    '身体侧转约十五度，脸部线条会自然显出来。',
-    '听人说话时轻轻点头，是「我在听」的信号，好感会上升。',
-    '初次见面叫一次对方的名字，印象会留得久很多。',
-    '笑到眼睛才会被读成真笑，只提嘴角不会。',
-    '拍照前把舌头轻抵上颚，下颌线会更利落。',
-    '穿浅色上衣，光会反到脸上，整个人显得亮一些。',
-    '紧张的话，把力气放到脚上而不是手上，表情就不会僵。',
-  ],
 };
 
 /* ── 동물상 ──
@@ -747,11 +438,6 @@ export const ANIMAL_LABELS_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, stri
     dog: 'Puppy type', cat: 'Cat type', fox: 'Fox type', rabbit: 'Rabbit type',
     bear: 'Bear type', deer: 'Deer type', squirrel: 'Squirrel type', tiger: 'Tiger type',
     lamb: 'Lamb type', panda: 'Panda type', wolf: 'Wolf type', koala: 'Koala type',
-  },
-  zh: {
-    dog: '小狗脸', cat: '猫系脸', fox: '狐狸脸', rabbit: '兔子脸',
-    bear: '熊系脸', deer: '小鹿脸', squirrel: '松鼠脸', tiger: '老虎脸',
-    lamb: '绵羊脸', panda: '熊猫脸', wolf: '狼系脸', koala: '考拉脸',
   },
 };
 
@@ -806,56 +492,6 @@ export const ANIMAL_POOL_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, string
       'Rounded and quiet. The proportions read as unbothered, which is a rarer appeal than it sounds.',
     ],
   },
-  zh: {
-    dog: [
-      '圆润友善的眼睛配上柔和的下颌线 —— 就是那种一看就讨喜的脸。没有攻击性，初次见面通常都很顺。',
-      '温暖而开放。五官的排布读起来是好接近而不是抢眼，这本身就是一种优势。',
-    ],
-    cat: [
-      '眼尾上扬、脸型偏窄 —— 冷感又有主见的类型。读起来是独立，而不是疏远。',
-      '猫系比例：窄脸、上挑的眼睛。很上镜，不用刻意也能抓住视线。',
-    ],
-    fox: [
-      '眼睛上扬明显、脸型窄 —— 十二种里最锐利的一种。读起来聪明、反应快。',
-      '纤细而上挑的长相。有冲击力而不柔软，见一次就记得住。',
-    ],
-    rabbit: [
-      '小而窄的脸上一双大眼睛。读起来年轻、不设防，是让人本能想照顾的类型。',
-      '眼睛大、骨相细。比例读起来温柔又带点受惊的感觉，而这正是魅力所在。',
-    ],
-    bear: [
-      '宽而圆的脸配上扎实的下颌 —— 让人安心的类型。读起来可靠温厚而非锐利。',
-      '大气的比例，读起来很稳。这就是别人口中「待在旁边很舒服」的那种脸。',
-    ],
-    deer: [
-      '窄长的脸配上大眼睛 —— 优雅又略带纤细。读起来温柔且警觉。',
-      '骨相细致、眼睛大。安静而不喧哗，近景特写也很耐看。',
-    ],
-    squirrel: [
-      '小而窄的脸配上灵动的大眼睛。读起来机灵好奇，像是随时在盘算什么。',
-      '小巧而眼神明亮。比例读起来充满活力、显年轻。',
-    ],
-    tiger: [
-      '宽脸、下颌有力、眼睛上扬 —— 十二种里气场最强的一种。读起来自信。',
-      '骨架强、眼神有力度。在人群里会被第一眼注意到。',
-    ],
-    lamb: [
-      '柔和窄脸配上温顺的眼睛。读起来平和无害，而且会越长越有味道。',
-      '五官细致、没有硬线条。安静、温暖、相处轻松。',
-    ],
-    panda: [
-      '圆脸配上大而分得开的眼睛。读起来开朗不设防 —— 很难让人不喜欢。',
-      '圆润的比例加大眼睛。这个组合读起来友善，还带点俏皮。',
-    ],
-    wolf: [
-      '下颌有力、眼睛细长上扬。读起来沉着又有点看不透，这种感觉很吸引人。',
-      '轮廓分明、眼神有强度。侧脸和强光下尤其好看。',
-    ],
-    koala: [
-      '宽而柔和的脸配上小而平静的眼睛。读起来不慌不忙、温和 —— 十二种里最放松的一种。',
-      '圆润而安静。比例读起来是「不太在意」的感觉，这种魅力其实比想象中少见。',
-    ],
-  },
 };
 
 export const ANIMAL_TIP_INTL: Record<SnapIntlLang, string[]> = {
@@ -866,14 +502,6 @@ export const ANIMAL_TIP_INTL: Record<SnapIntlLang, string[]> = {
     'Hairstyle changes the face-shape ratio more than anything else — the result can move with a haircut.',
     'A smiling photo and a neutral one from the same day can give different types. Both are you.',
     'Lighting from below widens the jaw in the measurement. Front light gives the most representative result.',
-  ],
-  zh: [
-    '动物脸只是个游戏，不是颜值的测量 —— 十二种各有各的好看。',
-    '结果会随角度和表情变化。换张照片试试，看看落到哪一种。',
-    '第二名的类型，往往才是别人真正说你像的那一种。',
-    '发型对脸型比例的影响最大 —— 剪个头发结果就可能变。',
-    '同一天的笑脸照和无表情照可能给出不同类型。两个都是你。',
-    '从下往上打光会让下颌在测量里变宽。正面光的结果最有代表性。',
   ],
 };
 
@@ -887,10 +515,6 @@ export const FEATURE_LABELS_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, st
   en: {
     faceShape: 'Face shape', eyebrow: 'Eyebrows', eye: 'Eye size', eyeTilt: 'Eye tilt',
     nose: 'Nose', mouth: 'Mouth', chin: 'Jawline',
-  },
-  zh: {
-    faceShape: '脸型', eyebrow: '眉毛', eye: '眼睛大小', eyeTilt: '眼型',
-    nose: '鼻子', mouth: '嘴', chin: '下颌线',
   },
 };
 
@@ -953,64 +577,6 @@ export const FEATURE_POOL_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, stri
       'A strong, wide jaw. Read as resolute — the classic mark of someone who finishes what they start.',
     ],
   },
-  zh: {
-    faceShape: [
-      '偏长的窄脸。传统上视为沉静有想法 —— 先想清楚再行动，而不是被情绪带着走。初看似乎不好接近，熟了之后常被说很有内涵。',
-      '略长的脸型。视为冷静有分寸，比起立刻反应更倾向于先掂量。',
-      '比例均衡，不长也不圆。视为适应力强 —— 能根据在场的人调整自己的方式。',
-      '柔和的圆脸。视为温暖好相处，是那种让别人先放松下来的脸。',
-      '宽而圆润。视为大方可靠，容易成为别人依赖的那一个。',
-      '宽脸、骨架明显。视为果断踏实，愿意承担责任。',
-    ],
-    eyebrow: [
-      '平直的眉。视为沉稳不急躁 —— 远看很难读出情绪的那种人。',
-      '弧度柔和的眉。视为理性与感性之间取得平衡，按情况调整。',
-      '弧度清晰适中。视为有表达力但不情绪化，大多数人的落点。',
-      '弧度明确的眉。视为有主见，也愿意说出来。',
-      '弧度高而明显。视为有企图心、反应快，情绪外露。',
-      '大幅上扬的眉。视为强烈而有驱动力，不太能忍受拖延。',
-    ],
-    eye: [
-      '细长的眼睛。视为善观察、不外露 —— 看到的比说出来的多。',
-      '略细的眼睛。视为有分寸，会先观察再加入。',
-      '大小适中。视为好接近，同时又不至于毫无防备。',
-      '略大的眼睛。视为开放好奇，反应积极。',
-      '大眼睛。视为有表达力、温暖，情绪写在脸上。',
-      '非常大的眼睛。视为不设防、鲜活 —— 感受会立刻显现出来。',
-    ],
-    eyeTilt: [
-      '明显下垂的眼型。视为温和无害，是让人容易对视的眼神。',
-      '略微下垂。视为柔和好接近，眼神里有善意。',
-      '接近水平。视为性情平稳，两边都不偏。',
-      '略微上扬。视为机敏自信，眼神带点锐度。',
-      '明显上扬。视为有主见、抓眼，是典型的沉稳眼神。',
-      '大幅上扬。视为强烈而有气场 —— 一眼就会被记住的眼神。',
-    ],
-    nose: [
-      '偏窄的鼻子。视为讲究细致，注重细节。',
-      '略窄。视为周到，偏好精确而非粗线条。',
-      '宽度适中。视为均衡 —— 务实但不僵硬。',
-      '略宽。视为大方踏实，与人相处自在。',
-      '偏宽的鼻子。视为慷慨有韧性，传统上与稳定的财运相连。',
-      '明显宽阔。视为格局大、有自信，喜欢做大的事。',
-    ],
-    mouth: [
-      '小嘴。视为内敛、说话谨慎 —— 想的比说的多。',
-      '略小。视为言语有节制，用词经过挑选。',
-      '宽度适中。视为均衡 —— 该说时说，该收时收。',
-      '略宽。视为善社交、有表达欲，聊天时自在。',
-      '偏宽的嘴。视为大方外向，传统上与人缘福气相连。',
-      '明显宽阔。视为有表达力、温暖，是撑起对话的那个人。',
-    ],
-    chin: [
-      '偏窄的下颌线。视为纤细敏感，有精致感。',
-      '略窄。视为温和，有一种不用力的存在感。',
-      '宽度适中。视为均衡 —— 不软也不硬。',
-      '略宽。视为稳重可靠，说到做到。',
-      '偏宽的下颌线。视为有决心、踏实，传统上与坚持相连。',
-      '有力的宽下颌。视为果决 —— 典型的「开了头就会做完」的相。',
-    ],
-  },
 };
 
 export const FACE_READING_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
@@ -1021,14 +587,6 @@ export const FACE_READING_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
     'The overall arrangement reads as composed. Traditionally associated with people who are trusted with responsibility.',
     'Distinctive proportions with clear character. Read as someone who leaves a definite impression rather than blending in.',
     'A harmonious arrangement overall — the kind of face traditional reading calls fortunate simply for being at ease with itself.',
-  ],
-  zh: [
-    '整体来看比例均衡 —— 没有哪一处特别突出，传统上认为这样的人适应力好。',
-    '各部位彼此相配，给人稳定的印象。传统解读把这与长久的人际关系相连。',
-    '各部位之间有反差，这被读作「层次」：在不同场合会显出不同的一面。',
-    '整体排布沉稳。传统上与被托付责任的人相连。',
-    '比例有辨识度、个性鲜明。视为会留下明确印象、不会泯然众人的类型。',
-    '整体协调 —— 传统面相里，仅仅是这份自在本身就被称为有福。',
   ],
 };
 
@@ -1042,16 +600,6 @@ export const FACE_READING_LUCK_INTL: Record<SnapIntlLang, string[]> = {
     'Today is better for finishing than for starting.',
     'Someone will be glad you reached out first today.',
     'Trust the first instinct today; the second-guessing is what costs you.',
-  ],
-  zh: [
-    '今天适合把一直憋着的那句话说出口。',
-    '一直拖着的那场对话，今天谈比较顺。',
-    '钱的事今天多看一眼比快速决定好。',
-    '今天听比说更有收获。',
-    '今天的一点善意，会比你以为的更早回来。',
-    '今天更适合收尾，而不是开新的。',
-    '今天你先开口联系，对方会很高兴。',
-    '今天相信第一直觉，反复犹豫才是代价。',
   ],
 };
 
@@ -1080,20 +628,6 @@ export const SUBTYPE_LABELS_INTL: Record<SnapIntlLang, Record<SubtypeKeyIntl, { 
     trueWinter:   { label: 'True Winter',   vibe: 'clear, sharp cool tones' },
     brightWinter: { label: 'Bright Winter', vibe: 'bright, vivid cool tones' },
   },
-  zh: {
-    warmSpring:   { label: '暖春型',   vibe: '鲜明亮丽的暖色调' },
-    trueSpring:   { label: '正春型',   vibe: '明快有生气的暖色调' },
-    lightSpring:  { label: '浅春型',   vibe: '明亮清透的暖色调' },
-    softSummer:   { label: '柔夏型',   vibe: '低饱和、柔和的冷色调' },
-    trueSummer:   { label: '正夏型',   vibe: '柔美优雅的冷色调' },
-    lightSummer:  { label: '浅夏型',   vibe: '明亮轻盈的冷色调' },
-    deepAutumn:   { label: '深秋型',   vibe: '厚重有深度的暖色调' },
-    trueAutumn:   { label: '正秋型',   vibe: '沉稳精致的暖色调' },
-    softAutumn:   { label: '柔秋型',   vibe: '柔和低调的暖色调' },
-    deepWinter:   { label: '深冬型',   vibe: '强烈深邃的冷色调' },
-    trueWinter:   { label: '正冬型',   vibe: '鲜明清晰的冷色调' },
-    brightWinter: { label: '亮冬型',   vibe: '明亮鲜艳的冷色调' },
-  },
 };
 
 /** 계절별 앵커 색 이름 — hex는 한국어 lib이 계산해 주므로 이름만 옮긴다 */
@@ -1107,16 +641,6 @@ export const SWATCH_NAMES_INTL: Record<SnapIntlLang, Record<string, string>> = {
     '소프트그레이': 'Soft grey', '더스티로즈': 'Dusty rose', '라일락': 'Lilac',
     '로열블루': 'Royal blue', '퓨어화이트': 'Pure white', '버건디': 'Burgundy',
     '차콜': 'Charcoal', '푸시아': 'Fuchsia', '에메랄드': 'Emerald',
-  },
-  zh: {
-    '코랄': '珊瑚色', '피치핑크': '蜜桃粉', '아이보리': '象牙白', '라이트카멜': '浅驼色',
-    '선노랑': '阳光黄', '라임그린': '青柠绿',
-    '머스타드': '芥末黄', '테라코타': '陶土色', '카키': '卡其色', '브라운': '棕色',
-    '올리브': '橄榄绿', '러스트오렌지': '铁锈橙',
-    '라벤더': '薰衣草紫', '로즈핑크': '玫瑰粉', '파우더블루': '粉蓝色',
-    '소프트그레이': '柔灰色', '더스티로즈': '豆沙粉', '라일락': '丁香紫',
-    '로열블루': '宝蓝色', '퓨어화이트': '纯白', '버건디': '酒红色',
-    '차콜': '炭灰色', '푸시아': '桃红色', '에메랄드': '祖母绿',
   },
 };
 
@@ -1135,20 +659,6 @@ export const PERSONAL_COLOR_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'Cool and clear. High-contrast combinations, true white and sharp blue give a striking, defined impression.',
     'Cool and bright. Vivid clear colours — fuchsia, emerald, pure white — read as sharp and modern on you.',
   ],
-  zh: [
-    '肤色读起来偏暖且清透，所以高饱和的暖色 —— 珊瑚色、暖蜜桃、阳光黄 —— 会把脸提亮，而不是压住。你压得住浓一点的颜色。',
-    '偏暖而有生气的读数。黄调的颜色能明显提亮气色，而过深或发浊的颜色则容易让人显得平。',
-    '偏暖且明亮。清透的蜜桃、杏色会带出气色；厚重的深色反而会盖过你。',
-    '偏冷且低饱和。柔和的灰调色 —— 豆沙粉、柔灰、雾霾蓝 —— 很衬你，而过于鲜艳的颜色会和脸抢戏。',
-    '偏冷而柔美。薰衣草紫、玫瑰粉、粉蓝会给人优雅安静的印象，特别适合你。',
-    '偏冷且轻盈。浅淡细腻的色调很适合你；厚重高饱和的颜色压在皮肤上会显沉。',
-    '偏暖且深邃。厚重扎实的颜色 —— 棕色、橄榄绿、铁锈色 —— 在你身上很有分量，而发白的浅色则显得单薄。',
-    '偏暖且有大地感。芥末黄、陶土色、卡其色能给出精致沉稳的印象，是浅色系达不到的。',
-    '偏暖且柔和低调。温柔的大地色很适合你，强对比则要少用。',
-    '偏冷且深邃。浓重的深色 —— 炭灰、酒红、宝蓝 —— 撑得住你的气场，柔淡的颜色反而会消失。',
-    '偏冷且清晰。高对比的搭配、纯白与清亮的蓝会给出鲜明利落的印象。',
-    '偏冷且明亮。鲜艳清透的颜色 —— 桃红、祖母绿、纯白 —— 在你身上显得利落又当代。',
-  ],
 };
 
 export const PERSONAL_COLOR_TIP_INTL: Record<SnapIntlLang, string[]> = {
@@ -1162,16 +672,6 @@ export const PERSONAL_COLOR_TIP_INTL: Record<SnapIntlLang, string[]> = {
     'Lighting changes the reading. Try the same test in daylight and under indoor light and compare.',
     'The palette matters most for what touches your face — tops, scarves, collars. Trousers barely register.',
   ],
-  zh: [
-    '只换一支口红的颜色，往往就足以改变整体印象。用你色板里的代表色。',
-    '注意配饰的金属色 —— 暖色调选金，冷色调选银。皮肤读起来的差别是真实存在的。',
-    '有重要场合时，把色板里一个浓一点的颜色放在靠近脸的位置，而不是下半身。',
-    '要避开的颜色，收到衣柜里侧就好，不必扔掉。',
-    '要拍照的话，把色板里明亮的颜色放在脸旁边，通常会拍得更亮。',
-    '色彩诊断是参考而非规则。真心喜欢的颜色即使不在色板里，放在远离脸的位置照样能穿。',
-    '光线会改变结果。在自然光和室内光下各测一次，对比看看。',
-    '色板最重要的是贴近脸的部分 —— 上衣、围巾、领口。裤子几乎不影响。',
-  ],
 };
 
 /* ── 커플 관상 궁합 ──
@@ -1183,10 +683,6 @@ export const COUPLE_LABELS_INTL: Record<SnapIntlLang, Record<string, string>> = 
     faceShape: 'Face shape', eyeTilt: 'Eye tilt', eyeWidth: 'Eye size',
     jawWidth: 'Jawline', noseWidth: 'Nose', mouthWidth: 'Mouth',
   },
-  zh: {
-    faceShape: '脸型', eyeTilt: '眼型', eyeWidth: '眼睛大小',
-    jawWidth: '下颌线', noseWidth: '鼻子', mouthWidth: '嘴',
-  },
 };
 
 export const COUPLE_POOL_INTL: Record<SnapIntlLang, string[]> = {
@@ -1196,13 +692,6 @@ export const COUPLE_POOL_INTL: Record<SnapIntlLang, string[]> = {
     'Similar but not identical — a balance where the differences fill each other in.',
     'Two distinct personalities. The chemistry here comes from the contrast rather than the overlap.',
     'An unusual, characterful combination. Not like anyone else, which is rather the point.',
-  ],
-  zh: [
-    '两人的印象非常相像。属于第一次见面就显得很搭、看久了也不腻的组合。',
-    '气质很合的一对。别人多半会说你们很般配。',
-    '像又不完全一样 —— 差异刚好互相补足的那种平衡。',
-    '两种鲜明的个性。这里的火花来自反差，而不是相似。',
-    '独特而有个性的组合。和别人都不一样，而这正是重点。',
   ],
 };
 
@@ -1216,16 +705,6 @@ export const COUPLE_COMMENT_INTL: Record<SnapIntlLang, string[]> = {
     'The thing that makes couples suit each other is less looking alike than wanting to.',
     'The more photos you take together, the more the memories and the faces converge.',
     'Take a minute today to each name one thing you find appealing about the other.',
-  ],
-  zh: [
-    '有说法是长得像的情侣走得远。多看看对方的脸，多笑一笑。',
-    '今天试着用同一个角度各拍一张自拍，结果通常很好玩。',
-    '据说情侣相处越久，表情和神态会越来越像。',
-    '你们不一样的地方，往往正是让关系一直有意思的原因。',
-    '今天不妨留一张只属于你们俩的照片。',
-    '般配的秘诀，与其说是长得像，不如说是愿意变得像。',
-    '一起拍的照片越多，回忆和神态就越靠近。',
-    '今天花一分钟，各说一个你觉得对方最有魅力的地方。',
   ],
 };
 
@@ -1245,16 +724,5 @@ export const COUPLE_UI: Record<SnapIntlLang, {
     disclaimer: 'The proportions are genuinely measured; reading compatibility from them is entertainment.',
     reset: '🔄 Start over',
     noFace: 'No clear face was found in that photo. Try one in good light, facing the camera.',
-  },
-  zh: {
-    title: '情侣面相配对',
-    lead: '两张照片，六项实测比例，一个相似度分数',
-    privacy: '两张照片都在你的浏览器内测量，都不会上传。分数是两组真实测量值之间的距离 —— 至于「长得像的情侣更般配」，那是民间说法，不是研究结论。',
-    photoA: '第一张照片', photoB: '第二张照片',
-    pickBoth: '两张都上传后才会出结果',
-    score: '契合度', breakdown: '分部位', comment: '💡 今日',
-    disclaimer: '比例为真实测量，由此解读契合度则仅供娱乐。',
-    reset: '🔄 重新开始',
-    noFace: '没能在照片里清晰地找到人脸。请用光线充足的正脸照片再试一次。',
   },
 };

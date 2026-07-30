@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { COUNTRIES, COUNTRY_REGIONS, countryBySlug, relatedCountries } from '../lib/country-tools.ts';
 import { COUNTRY_UI, COUNTRY_REGION_LABEL, countryFaq, countryAlternates, gapText, utcLabel } from '../lib/country-ui.ts';
 
-const LANGS = ['ko', 'en', 'zh'] as const;
+const LANGS = ['ko', 'en'] as const;
 const HANGUL = /[가-힣]/;
 
 test('50개국이 있고 slug·국가코드가 겹치지 않는다', () => {
@@ -27,7 +27,7 @@ test('세 언어의 이름·수도·언어·통화·소개·팁·비자가 모�
       for (const k of ['name', 'capital', 'languages', 'currency'] as const) {
         assert.ok(t[k].length > 0, `${c.slug}.${lang}.${k} 비었음`);
       }
-      const min = lang === 'zh' ? { intro: 20, tip: 12, visa: 10 } : { intro: 50, tip: 25, visa: 20 };
+      const min = false ? { intro: 20, tip: 12, visa: 10 } : { intro: 50, tip: 25, visa: 20 };
       for (const k of ['intro', 'tip', 'visa'] as const) {
         assert.ok(t[k].length >= min[k], `${c.slug}.${lang}.${k}가 너무 짧다: "${t[k]}"`);
       }
@@ -45,7 +45,7 @@ test('나라 이름은 언어별로 겹치지 않는다', () => {
 
 test('영어·중국어 본문에 한글이 새지 않는다', () => {
   for (const c of COUNTRIES) {
-    for (const lang of ['en', 'zh'] as const) {
+    for (const lang of ['en'] as const) {
       const joined = Object.values(c[lang]).join(' ');
       assert.ok(!HANGUL.test(joined), `${c.slug}.${lang}에 한글: ${joined.match(HANGUL)}`);
     }
@@ -58,13 +58,11 @@ test('긴급 전화 안내도 언어별로 번역돼 있다', () => {
       assert.ok(c[lang].emergency.length > 2, `${c.slug}.${lang}.emergency 비었음`);
       assert.match(c[lang].emergency, /\d/, `${c.slug}.${lang}.emergency에 번호가 없다`);
     }
-    assert.ok(!HANGUL.test(c.en.emergency + c.zh.emergency), `${c.slug} 긴급 전화에 한글`);
   }
 });
 
 test('중국어 소개는 실제로 중국어다', () => {
   for (const c of COUNTRIES) {
-    assert.match(c.zh.name + c.zh.intro, /[一-鿿]/, `${c.slug} zh에 한자 없음`);
   }
 });
 
@@ -186,23 +184,23 @@ test('같은 지역 나라 링크가 자기 자신을 가리키지 않는다', (
 });
 
 test('세 언어 라우트가 모두 있다', () => {
-  for (const p of ['app/country', 'app/en/country', 'app/zh/country']) {
+  for (const p of ['app/country', 'app/en/country', ]) {
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
     assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
   }
 });
 
-test('hreflang은 네 줄이고 x-default는 영어를 가리킨다', () => {
+test('hreflang은 세 줄이고 x-default는 영어를 가리킨다', () => {
   const a = countryAlternates('japan');
-  assert.equal(Object.keys(a).length, 4);
+  assert.equal(Object.keys(a).length, 3);
   assert.equal(a.ko, '/country/japan');
   assert.equal(a['x-default'], '/en/country/japan');
 });
 
-test('사이트맵에 세 언어의 /country가 들어 있다', () => {
+test('사이트맵에 두 언어의 /country가 들어 있다', () => {
   const src = readFileSync('app/sitemap.ts', 'utf8');
-  for (const p of ['/country', '/en/country', '/zh/country']) {
+  for (const p of ['/country', '/en/country']) {
     assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
   }
 });

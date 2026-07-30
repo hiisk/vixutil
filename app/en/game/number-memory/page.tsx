@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'A number appears briefly, disappears, and you type it back. Get it right and it gains a digit. Most people hold around seven digits at once, so that is where it usually starts to break down.',
   alternates: {
     canonical: '/en/game/number-memory',
-    languages: { 'en': '/en/game/number-memory', 'zh': '/zh/game/number-memory', 'ko': '/game/number-memory', 'x-default': '/en/game/number-memory' },
+    languages: { 'en': '/en/game/number-memory', 'ko': '/game/number-memory', 'x-default': '/en/game/number-memory' },
   },
 };
 

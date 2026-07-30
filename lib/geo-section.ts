@@ -24,16 +24,6 @@ export const GEO_META = {
     metaDesc:
       'Circle, triangle and trapezoid areas, cylinder, sphere and cone volumes, the Pythagorean theorem and law of cosines, slope grade, tile counts and paint quantities — 100 geometry calculators with formulas.',
   },
-  zh: {
-    section: '几何计算',
-    hubTitle: '几何图形计算器',
-    hubLead: '面积、体积、三角函数、瓷砖与涂料 — 100种几何计算',
-    hubNotice: '📐 输入即时计算，每页都附上公式。',
-    footNote: '各项输入的长度单位要统一 — 厘米和米混用会使结果严重偏差。',
-    metaTitle: '几何计算器 — 面积、体积、三角函数等100种',
-    metaDesc:
-      '圆形、三角形、梯形面积，圆柱、球、圆锥体积，勾股定理与余弦定理，坡度，瓷砖数量与涂料用量 — 100种几何计算器，附计算公式。',
-  },
 } as const;
 
 export const GEO_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
@@ -44,10 +34,6 @@ export const GEO_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
   en: {
     '평면 도형': 'Plane Shapes', '입체 부피': 'Solid Volume', '삼각비·각': 'Trigonometry & Angles',
     '원·호': 'Circles & Arcs', '생활 계산': 'Everyday Measuring',
-  },
-  zh: {
-    '평면 도형': '平面图形', '입체 부피': '立体体积', '삼각비·각': '三角与角度',
-    '원·호': '圆与弧', '생활 계산': '生活测算',
   },
 };
 

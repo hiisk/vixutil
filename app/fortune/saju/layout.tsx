@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '생년월일시로 사주 4주를 분석하고 오행 균형·십성·세운(연간 운세)까지 확인하는 무료 사주 서비스입니다.',
   alternates: {
     canonical: '/fortune/saju',
-    languages: { 'ko': '/fortune/saju', 'en': '/en/fortune/saju', 'zh': '/zh/fortune/saju', 'x-default': '/en/fortune/saju' },
+    languages: { 'ko': '/fortune/saju', 'en': '/en/fortune/saju', 'x-default': '/en/fortune/saju' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

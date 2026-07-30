@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Generates and plays white, pink and brown noise. It masks the sounds around you to help with focus or sleep; brown noise, with its stronger low end, is closest to ocean waves and easiest on the ears.',
   alternates: {
     canonical: '/en/sound/noise',
-    languages: { 'en': '/en/sound/noise', 'zh': '/zh/sound/noise', 'ko': '/sound/noise', 'x-default': '/en/sound/noise' },
+    languages: { 'en': '/en/sound/noise', 'ko': '/sound/noise', 'x-default': '/en/sound/noise' },
   },
 };
 

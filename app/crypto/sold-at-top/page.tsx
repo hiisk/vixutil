@@ -60,6 +60,8 @@ export default function SoldAtTopPage() {
 
         <TimingBoard />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/*
           정적 렌더 영역. 위 보드는 브라우저에서 전체 이력을 받아 계산하므로
           자바스크립트를 실행하지 않는 크롤러에겐 아래 본문이 페이지의 내용이다.
@@ -90,8 +92,6 @@ export default function SoldAtTopPage() {
             slippage or tax, and past concentration of returns is not a promise about future ones. All decisions and risks are your own.
           </p>
         </div>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ['crypto/sold-at-top']} lang="en" />
       </div>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Free tools that run in your browser: unit conversion, checklists, quizzes, personality tests, name generators, random pickers, photo tests and daily horoscopes. No sign-up.',
   alternates: {
     canonical: '/en',
-    languages: { 'en': '/en', 'zh': '/zh', 'ko': '/', 'x-default': '/en' },
+    languages: { 'en': '/en', 'ko': '/', 'x-default': '/en' },
   },
 };
 
@@ -61,8 +61,7 @@ export default function EnHome() {
           <p className="text-slate-400 dark:text-slate-500 text-base">Free tools that run in your browser</p>
           <p className="mt-4 flex items-center justify-center gap-3 text-xs font-bold text-slate-400">
             <Link href="/" className="hover:text-blue-600" hrefLang="ko">한국어</Link>
-            <span className="text-slate-300 dark:text-slate-700">·</span>
-            <Link href="/zh" className="hover:text-blue-600" hrefLang="zh">中文</Link>
+            <span className="text-slate-300 dark:text-slate-700"></span>
           </p>
         </div>
 

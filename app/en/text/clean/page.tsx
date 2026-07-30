@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Text copied out of a PDF or a web page carries invisible characters, spaces that look normal but are not, and line breaks in the middle of sentences. This clears all of it in one pass and tells you how many of each it removed.',
   alternates: {
     canonical: '/en/text/clean',
-    languages: { 'en': '/en/text/clean', 'zh': '/zh/text/clean', 'ko': '/text/clean', 'x-default': '/en/text/clean' },
+    languages: { 'en': '/en/text/clean', 'ko': '/text/clean', 'x-default': '/en/text/clean' },
   },
 };
 

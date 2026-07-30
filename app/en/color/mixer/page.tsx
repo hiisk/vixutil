@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Set two colours and move the ratio to get what sits between them. Useful for pulling the colour at a specific point in a gradient, or finding a middle tone between two brand colours.',
   alternates: {
     canonical: '/en/color/mixer',
-    languages: { 'en': '/en/color/mixer', 'zh': '/zh/color/mixer', 'ko': '/color/mixer', 'x-default': '/en/color/mixer' },
+    languages: { 'en': '/en/color/mixer', 'ko': '/color/mixer', 'x-default': '/en/color/mixer' },
   },
 };
 

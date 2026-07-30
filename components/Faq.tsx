@@ -33,7 +33,7 @@ export default function Faq({
   tone?: keyof typeof TONE;
   className?: string;
   /** 페이지 언어. 영어 페이지에 한국어 제목이 붙지 않도록 한다. */
-  lang?: 'ko' | 'en' | 'zh';
+  lang?: 'ko' | 'en';
 }) {
   if (!items || items.length === 0) return null;
   const c = TONE[tone];
@@ -42,7 +42,7 @@ export default function Faq({
     <section className={className} aria-label="FAQ">
       <JsonLd data={faqJsonLd(items)} />
       <h2 className={`text-base font-black mb-3 ${c.heading}`}>
-        {lang === 'zh' ? '常见问题' : tone === 'dark' || lang === 'en' ? 'Frequently asked questions' : '자주 묻는 질문'}
+        {tone === 'dark' || lang === 'en' ? 'Frequently asked questions' : '자주 묻는 질문'}
       </h2>
       <div className="flex flex-col gap-2.5">
         {items.map((item, i) => (

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '가로·세로를 직접 입력하거나 비율(%)로 줄일 수 있고, 비율 고정을 켜두면 사진이 찌그러지지 않습니다. 인스타그램·유튜브 썸네일·프로필 사진 같은 자주 쓰는 크기는 버튼 하나로 맞춰집니다.',
   alternates: {
     canonical: '/image/resize',
-    languages: { 'ko': '/image/resize', 'en': '/en/image/resize', 'zh': '/zh/image/resize', 'x-default': '/en/image/resize' },
+    languages: { 'ko': '/image/resize', 'en': '/en/image/resize', 'x-default': '/en/image/resize' },
   },
 };
 

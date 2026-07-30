@@ -7,7 +7,7 @@
  * 재료 이름은 번역이 아니라 그 언어의 부엌에서 쓰는 말로 적는다 — 고추장을
  * 'red pepper paste'로 풀어 쓰는 대신 gochujang으로 두는 것이 실제로 찾기 쉽다.
  */
-export type FoodLang = 'ko' | 'en' | 'zh';
+export type FoodLang = 'ko' | 'en';
 
 /** INGREDIENTS의 id → 이름·주의 */
 export const INGREDIENT_INTL: Record<FoodLang, Record<string, { name: string; note?: string }>> = {
@@ -43,22 +43,6 @@ export const INGREDIENT_INTL: Record<FoodLang, Record<string, { name: string; no
     oat: { name: 'Rolled oats' },
     breadcrumb: { name: 'Breadcrumbs' },
   },
-  zh: {
-    water: { name: '水／牛奶' },
-    flour: { name: '面粉（低筋、中筋）', note: '过筛后刮平，不要堆高或压实' },
-    sugar: { name: '白砂糖' },
-    'brown-sugar': { name: '红糖（压实）' },
-    salt: { name: '盐（细盐）' },
-    rice: { name: '米（生米）' },
-    oil: { name: '食用油／橄榄油' },
-    butter: { name: '黄油（融化）' },
-    honey: { name: '蜂蜜／糖浆' },
-    soy: { name: '酱油' },
-    gochujang: { name: '韩式辣椒酱（gochujang）' },
-    cocoa: { name: '可可粉' },
-    oat: { name: '燕麦片' },
-    breadcrumb: { name: '面包糠' },
-  },
 };
 
 /** DONENESS의 id → 이름·설명 */
@@ -76,13 +60,6 @@ export const DONENESS_INTL: Record<FoodLang, Record<string, { name: string; desc
     medium: { name: 'Medium', desc: 'Still pink, still juicy' },
     'medium-well': { name: 'Medium well', desc: 'Almost no pink left' },
     well: { name: 'Well done', desc: 'Cooked through' },
-  },
-  zh: {
-    rare: { name: '一分熟（Rare）', desc: '中心呈红色且偏凉' },
-    'medium-rare': { name: '三分熟（Medium rare）', desc: '最常被推荐的熟度' },
-    medium: { name: '五分熟（Medium）', desc: '还带粉色，肉汁充足' },
-    'medium-well': { name: '七分熟（Medium well）', desc: '粉色几乎消失' },
-    well: { name: '全熟（Well done）', desc: '内部完全熟透' },
   },
 };
 
@@ -104,14 +81,6 @@ export const BREW_INTL: Record<FoodLang, Record<string, { name: string; note: st
     coldbrew: { name: 'Cold brew concentrate', note: 'Dilute before drinking' },
     espresso: { name: 'Espresso', note: '1 part coffee to 2 out' },
   },
-  zh: {
-    'filter-light': { name: '手冲（淡）', note: '水 17 : 咖啡 1' },
-    filter: { name: '手冲（标准）', note: '最稳妥的起始比例' },
-    'filter-strong': { name: '手冲（浓）', note: '酸度降低，body 更足' },
-    french: { name: '法压壶', note: '粗研磨，浸泡 4 分钟' },
-    coldbrew: { name: '冷萃原液', note: '需稀释后饮用' },
-    espresso: { name: '意式浓缩', note: '粉 1 : 液 2' },
-  },
 };
 
 /** 원두 분쇄도·시간 안내 (커피 도구) */
@@ -131,14 +100,6 @@ export const GRIND_INTL: Record<FoodLang, Record<string, string>> = {
     french: 'Very coarse · steep 4 minutes, then press',
     coldbrew: 'Coarse · 12–16 hours in the fridge',
     espresso: 'Very fine · 25–30 second shot',
-  },
-  zh: {
-    'filter-light': '中度研磨 · 2 分 30 秒~3 分',
-    filter: '中度研磨 · 2 分 30 秒~3 分',
-    'filter-strong': '比中度稍细 · 3 分',
-    french: '极粗研磨 · 浸泡 4 分钟后按压',
-    coldbrew: '粗研磨 · 冷藏 12~16 小时',
-    espresso: '极细研磨 · 25~30 秒萃取',
   },
 };
 
@@ -176,27 +137,10 @@ export const STORAGE_INTL: Record<FoodLang, { name: string; category: string; fr
     { name: 'Potatoes and onions', category: 'Produce', fridge: 'Do not refrigerate', freezer: '3 months once cooked', tip: 'Store them apart, somewhere cool and dark' },
     { name: 'Bananas and tomatoes', category: 'Produce', fridge: '2–3 days once ripe', freezer: '3 months mashed', tip: 'Leave them at room temperature until ripe' },
   ],
-  zh: [
-    { name: '生鸡肉', category: '肉类', fridge: '1~2 天', freezer: '9 个月', tip: '擦掉血水后密封，味道会小很多' },
-    { name: '肉末', category: '肉类', fridge: '1~2 天', freezer: '3~4 个月', tip: '表面积大，最容易坏' },
-    { name: '整块牛猪肉', category: '肉类', fridge: '3~5 天', freezer: '6~12 个月', tip: '按一次用量分装冷冻' },
-    { name: '白肉鱼', category: '水产', fridge: '1~2 天', freezer: '6 个月', tip: '去内脏、擦干水分后再存' },
-    { name: '虾与贝类', category: '水产', fridge: '1~2 天', freezer: '3~6 个月', tip: '解冻后不要再冷冻' },
-    { name: '牛奶', category: '乳制品', fridge: '开封后 2~3 天', freezer: '不建议', tip: '门边温度偏高，请放里侧' },
-    { name: '硬质奶酪', category: '乳制品', fridge: '3~4 周', freezer: '6 个月', tip: '冷冻后会碎，只适合烹饪用' },
-    { name: '鸡蛋', category: '乳制品', fridge: '3~5 周', freezer: '打散后可放 1 年', tip: '不要洗，尖端朝下摆放' },
-    { name: '熟米饭', category: '熟食', fridge: '1 天', freezer: '1 个月', tip: '趁热就冷冻，口感才留得住' },
-    { name: '汤与炖菜', category: '熟食', fridge: '2~3 天', freezer: '2~3 个月', tip: '放凉后再放入，回热时要煮沸' },
-    { name: '豆腐（已开封）', category: '熟食', fridge: '2~3 天', freezer: '3 个月', tip: '泡在水里，每天换水' },
-    { name: '叶菜', category: '果蔬', fridge: '3~7 天', freezer: '焯水后 8 个月', tip: '擦干水分，和厨房纸一起放' },
-    { name: '土豆与洋葱', category: '果蔬', fridge: '请勿冷藏', freezer: '煮过后 3 个月', tip: '分开存放在阴凉避光处' },
-    { name: '香蕉与番茄', category: '果蔬', fridge: '熟后 2~3 天', freezer: '压成泥可放 3 个月', tip: '没熟就放在室温下' },
-  ],
 };
 
 /** 보관 도구의 분류 탭 — 첫 항목은 '전체' */
 export const STORAGE_CATEGORIES: Record<FoodLang, string[]> = {
   ko: ['전체', '육류', '수산물', '유제품', '조리식품', '채소·과일'],
   en: ['All', 'Meat', 'Seafood', 'Dairy', 'Cooked food', 'Produce'],
-  zh: ['全部', '肉类', '水产', '乳制品', '熟食', '果蔬'],
 };

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '설정에 적힌 숫자 말고 지금 이 화면이 실제로 초당 몇 번 그려지는지 잽니다. 144Hz 모니터를 사고도 60Hz로 쓰고 있는 경우가 흔한데, 그걸 바로 확인할 수 있습니다.',
   alternates: {
     canonical: '/device/refresh-rate',
-    languages: { 'ko': '/device/refresh-rate', 'en': '/en/device/refresh-rate', 'zh': '/zh/device/refresh-rate', 'x-default': '/en/device/refresh-rate' },
+    languages: { 'ko': '/device/refresh-rate', 'en': '/en/device/refresh-rate', 'x-default': '/en/device/refresh-rate' },
   },
 };
 

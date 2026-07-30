@@ -166,7 +166,7 @@ const CARDS: Record<string, Card> = {
   'snap/couple-match/zh': { icon: '💞', eyebrow: 'Couple Match', title: '情侣面相配对', desc: '比较两张照片', from: '#f43f5e', to: '#db2777' },
 };
 
-export type OgLang = 'en' | 'zh';
+export type OgLang = 'en';
 
 /** 표에 있는 카드 — 없는 열쇠는 빌드가 죽어야 한다(조용히 빈 카드가 나가는 것보다 낫다) */
 export function intlOg(key: string): ReactElement {
@@ -229,8 +229,8 @@ export function soundOg(slug: string, lang: OgLang): ReactElement {
 export function randomOg(slug: string, lang: 'ko' | OgLang): ReactElement {
   const tool: RandomTool | undefined = RANDOM_TOOLS_MAP[slug];
   if (!tool) throw new Error(`og-intl: 랜덤 도구가 없다 — ${slug}`);
-  const title = lang === 'en' ? tool.titleEn : lang === 'zh' ? tool.titleZh : tool.title;
-  const desc = lang === 'en' ? tool.descEn : lang === 'zh' ? tool.descZh : tool.desc;
+  const title = lang === 'en' ? tool.titleEn : tool.title;
+  const desc = lang === 'en' ? tool.descEn : tool.desc;
   // 중국어 카테고리는 데이터에 없다. 한국어를 그대로 쓰면 중국어 카드에 한글이
   // 끼므로 섹션 라벨로 대신한다.
   const eyebrow = lang === 'ko' ? tool.category : lang === 'en' ? tool.categoryEn : 'Random Picker';

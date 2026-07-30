@@ -23,9 +23,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Circle Area Calculator', desc: 'Get the area and circumference of a circle from its radius.',
       long: 'Area is π times the radius squared; circumference is 2π times the radius. Double the radius and the circumference doubles while the area quadruples.',
       note: 'If you have the diameter, halve it first — entering the diameter gives four times the real area.' },
-    zh: { title: '圆面积计算器', desc: '用半径求圆的面积和周长。',
-      long: '面积是π乘半径的平方，周长是2π乘半径。半径加倍时周长加倍，而面积变为四倍。',
-      note: '若已知直径，请先除以2 — 直接填直径会得到四倍的面积。' },
   },
   {
     slug: 'circle-from-circumference',
@@ -47,9 +44,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Radius from Circumference', desc: 'Measure around an object and work back to radius and area.',
       long: 'Useful for tree trunks or pipes where the diameter cannot be measured directly. Divide the circumference by 2π (about 6.283).',
       note: 'A 100 cm circumference means a 15.9 cm radius. On trees, bark thickness inflates the result over the actual wood.' },
-    zh: { title: '由周长求半径', desc: '只用软尺量周长，反推半径和面积。',
-      long: '适用于树干、管道等无法直接量直径的情况。把周长除以2π(约6.283)即得半径。',
-      note: '周长100厘米对应半径15.9厘米。树木因树皮厚度，结果会大于实际木质部分。' },
   },
   {
     slug: 'triangle-area',
@@ -69,9 +63,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Triangle Area Calculator', desc: 'Find a triangle’s area from its base and height.',
       long: 'For any triangle, area is base times height over two. With the same base and height the area is identical no matter how skewed the shape.',
       note: 'Height means the perpendicular distance to the base — using a slanted side instead overstates the area.' },
-    zh: { title: '三角形面积计算器', desc: '用底边和高求三角形面积。',
-      long: '任意三角形的面积都是底乘高再除以2。底和高相同时，无论形状多倾斜，面积都一样。',
-      note: '高是指到底边的垂直距离 — 用斜边长度代替会把面积算大。' },
   },
   {
     slug: 'triangle-heron',
@@ -96,7 +87,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
       return a + b <= c ? {
         ko: '두 변의 합이 나머지 한 변보다 짧아 삼각형이 만들어지지 않습니다.',
         en: 'Two sides do not add up to more than the third, so no triangle exists.',
-        zh: '两边之和不大于第三边，无法构成三角形。',
         tone: 'bad',
       } : null;
     },
@@ -106,9 +96,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: "Heron's Formula Calculator", desc: 'Find a triangle’s area from three side lengths, without knowing the height.',
       long: 'Halve the perimeter to get s, multiply s by (s − each side), and take the square root. Surveyors use exactly this to measure plots of land.',
       note: 'Any two sides must sum to more than the third, otherwise no triangle exists and the area comes out zero.' },
-    zh: { title: '海伦公式计算器', desc: '不知道高，只用三边长度求三角形面积。',
-      long: '把周长的一半记作s，将s依次减去每条边后相乘，再开平方根。测量地块面积时用的就是这个方法。',
-      note: '任意两边之和必须大于第三边，否则不构成三角形，面积会算为0。' },
   },
   {
     slug: 'trapezoid-area',
@@ -130,9 +117,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Trapezoid Area Calculator', desc: 'Area of a trapezoid from its two parallel sides and height.',
       long: 'Average the two parallel sides to get the mean width, then multiply by the height. The second figure is that mean width.',
       note: 'Height is the perpendicular distance between the parallel sides, not the length of a slanted side.' },
-    zh: { title: '梯形面积计算器', desc: '用上底、下底和高求梯形面积。',
-      long: '上底加下底除以2得到平均宽度，再乘以高就是面积。第二个数值就是该平均宽度。',
-      note: '高是两条平行边之间的垂直距离，不是斜边的长度。' },
   },
   {
     slug: 'parallelogram-area',
@@ -154,9 +138,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Parallelogram Area', desc: 'Area and perimeter of a parallelogram from base, height and side.',
       long: 'A parallelogram is a sheared rectangle, so area stays base times height. The perimeter is twice the sum of the two side lengths.',
       note: 'Shearing reduces the height but not the side lengths — equal perimeters can mean very different areas.' },
-    zh: { title: '平行四边形面积计算器', desc: '用底、高和边长求平行四边形的面积与周长。',
-      long: '平行四边形是被推斜的矩形，面积仍然是底乘高。周长是两条边之和的两倍。',
-      note: '推斜会降低高但不改变边长 — 周长相同时面积可能相差很大。' },
   },
   {
     slug: 'rhombus-area',
@@ -181,9 +162,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Rhombus Area Calculator', desc: 'Area and side length of a rhombus from its two diagonals.',
       long: 'The diagonals of a rhombus cross at right angles, so the area is their product over two. The side is the hypotenuse of the triangle formed by the half-diagonals.',
       note: 'A square is a rhombus too — equal diagonals give you a square.' },
-    zh: { title: '菱形面积计算器', desc: '用两条对角线求菱形的面积和边长。',
-      long: '菱形的对角线互相垂直，所以面积是两对角线之积除以2。边长是由两条半对角线构成的直角三角形的斜边。',
-      note: '正方形也是菱形的一种 — 两条对角线相等时就是正方形。' },
   },
   {
     slug: 'regular-polygon-area',
@@ -209,9 +187,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Regular Polygon Area', desc: 'Area of a regular polygon from side count and side length.',
       long: 'A regular polygon splits into n isosceles triangles from the centre. More sides means more area for the same perimeter, approaching a circle in the limit.',
       note: 'A hexagon with 10 cm sides is 259.81 cm². A square of the same perimeter (15 cm sides) is only 225 cm².' },
-    zh: { title: '正多边形面积计算器', desc: '用边数和边长求正多边形的面积。',
-      long: '正多边形可从中心分割成n个等腰三角形。边数越多，相同周长下面积越大，极限即为圆。',
-      note: '边长10厘米的正六边形是259.81平方厘米；同周长的正方形(边长15厘米)只有225平方厘米。' },
   },
   {
     slug: 'ellipse-area',
@@ -237,9 +212,6 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Ellipse Area Calculator', desc: 'Area and perimeter of an ellipse from its two semi-axes.',
       long: 'Area is simply π times both semi-axes, but the perimeter has no closed elementary form — this uses Ramanujan’s approximation.',
       note: 'Equal semi-axes give a circle. Entering diameters instead of semi-axes quadruples the area.' },
-    zh: { title: '椭圆面积计算器', desc: '用长半轴和短半轴求椭圆的面积与周长。',
-      long: '面积就是π乘两个半轴，但周长没有初等的精确公式 — 这里采用拉马努金近似式。',
-      note: '两个半轴相等时就是圆。填直径而不是半轴会使面积变成四倍。' },
   },
   {
     slug: 'sector-area',
@@ -261,8 +233,5 @@ export const PLANE_TOOLS: FormulaTool[] = [
     en: { title: 'Circular Sector Area', desc: 'Area and arc length of a sector from radius and central angle.',
       long: 'A sector is a fraction of the circle, so multiply the full area by the angle over 360. The perimeter is the arc plus two radii.',
       note: 'Enter 360° and you get the whole circle. This is exactly how you size a slice of pizza.' },
-    zh: { title: '扇形面积计算器', desc: '用半径和圆心角求扇形的面积与弧长。',
-      long: '扇形是圆的一部分，把整圆面积乘以「圆心角除以360」即可。周长是弧长加两条半径。',
-      note: '填360°就是整个圆。算一块披萨的面积正是用这个公式。' },
   },
 ];

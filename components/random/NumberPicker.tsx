@@ -15,9 +15,9 @@ function pickNumbers(min: number, max: number, count: number, unique: boolean): 
   return Array.from({ length: count }, () => lo + Math.floor(Math.random() * span));
 }
 
-export default function NumberPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function NumberPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const ko = lang === 'ko';
-  const zh = lang === 'zh';
+  const zh = false;
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [count, setCount] = useState(1);

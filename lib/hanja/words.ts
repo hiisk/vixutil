@@ -12,9 +12,6 @@ export const WORDS_IDIOMS: Idiom[] = [
     en: { title: 'Eon-jung-yu-gol', meaning: 'There is bone inside the words — a hard meaning hidden in an ordinary remark.',
       origin: 'A phrase settled in Korean usage, for a sharp intent wrapped in a soft tone.',
       usage: 'Used when a smiling comment carried a criticism.' },
-    zh: { title: '言中有骨', meaning: '话里带着骨头，指平常话中藏有硬意。',
-      origin: '在韩国固定使用的说法，形容语气柔和而用意尖锐。',
-      usage: '用于笑着说出的话其实含有批评时；中文近似「话里有话」。' },
   },
   {
     slug: 'choncheolsarin', hanja: '寸鐵殺人', simplified: '寸铁杀人', reading: '촌철살인',
@@ -26,9 +23,6 @@ export const WORDS_IDIOMS: Idiom[] = [
     en: { title: 'Chon-cheol-sa-rin', meaning: 'Kill with an inch of steel — pierce the vital point with a few words.',
       origin: 'From a Chan Buddhist simile recorded in the Helin Yulu; in Korea it came to mean a devastatingly apt remark.',
       usage: 'Said of a one-sentence comment that nails the heart of the matter.' },
-    zh: { title: '寸铁杀人', meaning: '以寸许之铁杀人，比喻用极短的话直击要害。',
-      origin: '出自《鹤林玉露》所载禅家比喻；在韩国固定用来形容评论之犀利。',
-      usage: '形容一句话就点中核心的评论。' },
   },
   {
     slug: 'isimjeonsim', hanja: '以心傳心', simplified: '以心传心', reading: '이심전심',
@@ -40,9 +34,6 @@ export const WORDS_IDIOMS: Idiom[] = [
     en: { title: 'I-sim-jeon-sim', meaning: 'Mind transmits to mind — understanding without a word spoken.',
       origin: 'A Chan Buddhist term for passing on awakening without relying on written words.',
       usage: 'Used when long-standing companions understand each other without speaking.' },
-    zh: { title: '以心传心', meaning: '以心相传，指不必言语也能彼此领会。',
-      origin: '禅宗用语，指不假文字而传心印。',
-      usage: '用于相熟已久、无需言语便可会意时，中韩通用。' },
   },
   {
     slug: 'gamaniseol', hanja: '甘言利說', simplified: '甘言利说', reading: '감언이설',
@@ -54,9 +45,6 @@ export const WORDS_IDIOMS: Idiom[] = [
     en: { title: 'Gam-eon-i-seol', meaning: 'Sweet words and seemingly advantageous talk — the language of enticement.',
       origin: 'Common in Korean usage as a warning against deceit or coaxing.',
       usage: 'Frequently used when warning about investment pitches promising high returns.' },
-    zh: { title: '甘言利说', meaning: '甜言与看似有利之词，指诱人上钩的话。',
-      origin: '在韩国广泛使用，用于警惕欺骗与拉拢之语；中文多说「甜言蜜语」。',
-      usage: '常用于提醒警惕承诺高收益的投资推销。' },
   },
   {
     slug: 'yugumueon', hanja: '有口無言', simplified: '有口无言', reading: '유구무언',
@@ -68,9 +56,6 @@ export const WORDS_IDIOMS: Idiom[] = [
     en: { title: 'Yu-gu-mu-eon', meaning: 'You have a mouth but nothing to say.',
       origin: 'Settled in Korean usage for a state with no room left to excuse yourself.',
       usage: 'Used when the fault is so clear that nothing can be said.' },
-    zh: { title: '有口无言', meaning: '虽有口却无话可说。',
-      origin: '在韩国固定使用，形容毫无辩解余地的状态；中文多说「无话可说」。',
-      usage: '用于过错明显、无从辩解之时。' },
   },
   {
     slug: 'ileonjiha', hanja: '一言之下', simplified: '一言之下', reading: '일언지하',
@@ -82,8 +67,5 @@ export const WORDS_IDIOMS: Idiom[] = [
     en: { title: 'Il-eon-ji-ha', meaning: 'Settled in a single word — a flat, immediate response.',
       origin: 'Common in Korean, typically in the form "refused in a single word".',
       usage: 'Used when a proposal was turned down instantly and firmly.' },
-    zh: { title: '一言之下', meaning: '一句话就了结，形容毫不含糊地断然应对。',
-      origin: '在韩国广泛使用，多作「一言之下拒绝」；中文近似「一口回绝」。',
-      usage: '用于提议被立即断然拒绝的情形。' },
   },
 ];

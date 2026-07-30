@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '내 띠와 상대 띠를 고르면 삼합·육합·충 등 전통 십이지 상성으로 궁합 점수와 연애 궁합, 관계 조언을 보여줍니다. 두 사람의 띠 궁합을 재미로 확인하세요.',
   alternates: {
     canonical: '/fortune/zodiac-match',
-    languages: { 'ko': '/fortune/zodiac-match', 'en': '/en/fortune/zodiac-match', 'zh': '/zh/fortune/zodiac-match', 'x-default': '/en/fortune/zodiac-match' },
+    languages: { 'ko': '/fortune/zodiac-match', 'en': '/en/fortune/zodiac-match', 'x-default': '/en/fortune/zodiac-match' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

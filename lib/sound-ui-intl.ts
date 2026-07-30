@@ -4,7 +4,7 @@
  * WebAudio 생성·분석 코드는 한국어 구현을 그대로 쓴다. 주파수·BPM·데시벨은
  * 언어와 무관하므로 프리셋 배열에서는 숫자만 남기고 이름은 여기서 인덱스로 참조한다.
  */
-export type SoundLang = 'ko' | 'en' | 'zh';
+export type SoundLang = 'ko' | 'en';
 
 /** 열 도구가 공유하는 조각 — 재생 버튼, 마이크 게이트, 흔한 라벨 */
 export const SOUND_COMMON: Record<SoundLang, {
@@ -26,13 +26,6 @@ export const SOUND_COMMON: Record<SoundLang, {
     micFailed: 'Could not open the microphone. Check whether another app is using it.',
     reset: 'Reset the record', freq: 'Frequency',
   },
-  zh: {
-    play: '播放', stop: '■ 停止', volume: '音量',
-    micStart: '开启麦克风',
-    micDenied: '麦克风权限被拒绝。请在地址栏的锁形图标里改为允许。',
-    micFailed: '无法打开麦克风。请检查是否有其他应用正在使用。',
-    reset: '清空记录', freq: '频率',
-  },
 };
 
 export const METRONOME_UI: Record<SoundLang, {
@@ -50,12 +43,6 @@ export const METRONOME_UI: Record<SoundLang, {
     tempoNames: ['Largo — very slow', 'Adagio — slow', 'Andante — walking pace', 'Moderato — moderate', 'Allegro — fast', 'Presto — very fast'],
     beatSuffix: n => `${n}/4`, start: 'Start', tapBpm: '👆 Tap to find the BPM',
     note: 'Beats are scheduled ahead on the audio clock, so a brief stutter on screen does not shift the timing. The first beat is pitched higher, which means you can follow the count with your eyes closed.',
-  },
-  zh: {
-    tempo: '速度',
-    tempoNames: ['Largo — 极慢', 'Adagio — 慢', 'Andante — 行板', 'Moderato — 中速', 'Allegro — 快', 'Presto — 极快'],
-    beatSuffix: n => `${n} 拍`, start: '开始', tapBpm: '👆 敲击测出 BPM',
-    note: '节拍会提前预约在音频时钟上，画面偶尔卡一下也不会让声音的间隔跑掉。第一拍音更高，所以闭着眼也能数得清是第几拍。',
   },
 };
 
@@ -88,17 +75,6 @@ export const TUNER_UI: Record<SoundLang, {
     openStrings: 'Reference notes (open strings)', refA4: 'A4 reference', refA4Note: 'Hz — match whoever you are playing with',
     footNote: 'A cent is one hundredth of a semitone. Within ±5 cents sounds in tune to the human ear. A string wavers right after you pluck it, so read the value once the note has settled.',
   },
-  zh: {
-    gate: '把乐器的声音对着麦克风弹一下，它会告诉你这是什么音、高了还是低了多少。',
-    gateNote: '声音只在浏览器内分析，不会发送到任何地方。',
-    instruments: ['吉他', '尤克里里', '贝斯'],
-    waiting: '请弹一个音', inTune: '✓ 准了',
-    sharpBy: c => `高了 ${c} 音分 —— 请放松琴弦`,
-    flatBy: c => `低了 ${c} 音分 —— 请拧紧琴弦`,
-    note: '音名', freqLabel: '频率', errorLabel: '偏差', centsSuffix: c => `${c} 音分`,
-    openStrings: '试听标准音（空弦）', refA4: 'A4 基准', refA4Note: 'Hz —— 和合奏的人对齐',
-    footNote: '音分是把半音分成 100 份的单位。在 ±5 音分之内，人耳听起来就是准的。拨弦刚开始时音会晃，所以要看声音稳定之后的数值。',
-  },
 };
 
 export const PITCH_UI: Record<SoundLang, {
@@ -126,15 +102,6 @@ export const PITCH_UI: Record<SoundLang, {
     scoreLabel: 'Correct', rateLabel: 'Accuracy', streakLabel: 'Streak',
     note: 'Anchoring each interval to the first two notes of a song you know speeds this up a lot — a perfect fifth opens ‘Twinkle, Twinkle, Little Star’, and an octave opens ‘Somewhere Over the Rainbow’.',
   },
-  zh: {
-    intervals: ['小二度', '大二度', '小三度', '大三度', '纯四度', '纯五度', '小六度', '大六度', '小七度', '大七度', '八度'],
-    levels: ['简单', '普通', '困难'],
-    askInterval: '这两个音是什么音程？', replay: '🔊 再听一次', correct: '答对了！', wrongPrefix: '差一点 —— 正确答案是 ',
-    introTitle: '听两个音，判断音程', introNote: '基准音每次都变 —— 不需要绝对音感',
-    next: '下一题', start: '开始',
-    scoreLabel: '答对', rateLabel: '正确率', streakLabel: '连对',
-    note: '用熟悉歌曲的头两个音来记，进步会快得多 —— 纯五度是《小星星》的头两个音，八度是《Somewhere Over the Rainbow》的头两个音。',
-  },
 };
 
 export const BPM_TAP_UI: Record<SoundLang, {
@@ -150,11 +117,6 @@ export const BPM_TAP_UI: Record<SoundLang, {
     prompt: 'Tap along with the beat', tapCount: 'Taps', interval: 'Beat interval', jitter: 'Jitter',
     again: 'Start over',
     note: 'About eight taps is enough to settle. Jitter over ±60ms means you are drifting off the beat — count out loud and try again. Pause for more than three seconds and it starts a fresh count.',
-  },
-  zh: {
-    prompt: '跟着节奏敲', tapCount: '敲击次数', interval: '节拍间隔', jitter: '抖动',
-    again: '重新测',
-    note: '敲八次左右数值就稳定了。抖动超过 ±60ms 说明你偏离了节拍，可以大声数着拍子重来。停顿超过 3 秒会自动重新计数。',
   },
 };
 
@@ -178,14 +140,6 @@ export const NOISE_UI: Record<SoundLang, {
     stopsIn: n => `Stops automatically in ${n} minutes`,
     note: 'This does not remove the sounds around you — it ', noteBold: 'covers',
     noteAfter: ' them so they bother you less. That means you do not need it loud; just enough that conversation fades out is plenty. Playing it loud all night is hard on your ears, so use the auto stop.',
-  },
-  zh: {
-    kinds: ['白噪音', '粉噪音', '褐噪音'],
-    kindHints: ['各频段均匀 —— 最尖锐', '低频略强，更接近自然', '低频最强，像海浪声'],
-    smooth: '柔和度（切高频）', autoStop: '自动停止', off: '关闭', minSuffix: n => `${n} 分钟`,
-    stopsIn: n => `${n} 分钟后自动停止`,
-    note: '它不是消除周围的声音，而是把它们 ', noteBold: '盖住',
-    noteAfter: '，让人不那么在意。所以音量不用开大，刚好听不清说话声就够了。睡觉时长时间大声播放会让耳朵吃力，请配合自动停止使用。',
   },
 };
 
@@ -213,15 +167,6 @@ export const BINAURAL_UI: Record<SoundLang, {
     disclaimerTitle: 'The effect is still unclear',
     disclaimer: 'There is a claim that brainwaves follow the beat frequency, but the research is mixed and most of it points to a small effect at best. If it does help you focus or sleep, that may simply be the effect of listening to something quiet for a long time. Do not use it as a treatment.',
   },
-  zh: {
-    presets: ['Delta 2Hz', 'Theta 6Hz', 'Alpha 10Hz', 'Beta 18Hz'],
-    presetNotes: ['深睡频段', '困倦与冥想频段', '放松清醒频段', '专注频段'],
-    channels: (l, r) => `左 ${l}Hz · 右 ${r}Hz`,
-    headphones: '🎧 必须使用耳机。用音箱播放时两个声音会在空气中混在一起，不会产生拍频。',
-    beatFreq: '拍频频率', baseFreq: '基准频率',
-    disclaimerTitle: '效果目前仍不明确',
-    disclaimer: '有说法认为脑波会跟随拍频，但研究结论不一致，多数倾向于即便有效果也很小。如果它确实帮到了专注或睡眠，很可能只是长时间听安静声音本身带来的效果。请勿当作治疗手段。',
-  },
 };
 
 export const DECIBEL_UI: Record<SoundLang, {
@@ -244,14 +189,6 @@ export const DECIBEL_UI: Record<SoundLang, {
     aboutLevel: label => `about ${label}`,
     now: 'Now', peak: 'Peak', avg: 'Average', refsTitle: 'Reference',
     note: 'Mic sensitivity differs by device, so absolute sound pressure (dB SPL) cannot be measured here. These values are relative, with digital maximum set to 0 — use them only to compare loudness on the same device.',
-  },
-  zh: {
-    gate: '用麦克风测量周围声音的大小，并与日常噪音参照对比。',
-    gateNote: '声音只在浏览器内分析，不会保存。',
-    refs: ['非常安静的房间', '图书馆', '安静的办公室', '普通交谈', '闹市或地铁', '非常吵'],
-    aboutLevel: label => `大约相当于${label}`,
-    now: '当前', peak: '峰值', avg: '平均', refsTitle: '参照',
-    note: '各设备麦克风灵敏度不同，所以这里测不出绝对声压级（dB SPL）。这些数值以数字满量程为 0 的相对值，只适合在同一台设备上比较声音大小。',
   },
 };
 
@@ -277,14 +214,6 @@ export const RECORDER_UI: Record<SoundLang, {
     saveFile: '⬇ Save as a file', nothingToSave: 'Nothing to save', listen: 'Listen back',
     note: 'The recording is created inside this browser and only reaches your device when you press save. Nothing is sent to a server, so meeting notes and pronunciation practice are fine here. Close the tab and the recording is gone.',
   },
-  zh: {
-    micDenied: '麦克风权限被拒绝。请在地址栏的锁形图标里允许。',
-    micFailed: '无法打开麦克风。',
-    recording: '● 录音中', done: '录音已结束', idle: '请按录音键',
-    stopRec: '■ 停止录音', again: '重新录音', startRec: '● 开始录音',
-    saveFile: '⬇ 保存为文件', nothingToSave: '没有可保存的录音', listen: '回放',
-    note: '录音只在这个浏览器内生成，只有按下保存才会下载到设备上。它不会发送到服务器，所以会议记录、发音练习都可以用。关掉标签页，录音也就消失了。',
-  },
 };
 
 export const TONE_UI: Record<SoundLang, {
@@ -306,13 +235,6 @@ export const TONE_UI: Record<SoundLang, {
     playLabel: 'Play the tone',
     note: 'Volume is capped at 60%. A pure sine tone is far harder on the ears than music, and loud high frequencies over a long stretch can damage your hearing. Turn it up only until you can hear it.',
   },
-  zh: {
-    waveNotes: { sine: '正弦波 —— 最柔和', square: '方波 —— 电子味', triangle: '三角波 —— 介于正弦与方波之间', sawtooth: '锯齿波 —— 最粗糙' },
-    waveNames: { sine: '正弦', square: '方波', triangle: '三角', sawtooth: '锯齿' },
-    waveform: '波形', channel: '输出声道', channels: ['两边', '只有左', '只有右'],
-    playLabel: '发声',
-    note: '音量上限限制在 60%。纯正弦波比音乐更吃耳，尤其是高频长时间大声听可能损伤听力。只调到能听见为止就好。',
-  },
 };
 
 export const MOSQUITO_UI: Record<SoundLang, {
@@ -327,10 +249,5 @@ export const MOSQUITO_UI: Record<SoundLang, {
     ages: ['Almost everyone hears this', 'Most people up to their thirties', 'Usually up to the mid-twenties', 'Up to the early twenties', 'Up to the late teens', 'Hearing this is quite rare'],
     heard: 'Heard', check: 'Check', highestHeard: 'Highest tone you marked as heard',
     note: 'Not hearing one does not mean anything is wrong. The cells that pick up high frequencies are the first to wear, so the upper limit dropping is simply normal. Many speakers cannot produce this range at all, so try headphones. The volume is already limited.',
-  },
-  zh: {
-    ages: ['几乎所有年龄都听得到', '三十多岁以内大多听得到', '一般到二十五岁左右', '到二十出头', '到十几岁后期', '能听到的话相当少见'],
-    heard: '听到了', check: '勾选', highestHeard: '你标记为听得到的最高频率',
-    note: '听不到并不代表有问题。感知高频的细胞最先老化，所以可听上限下降是很自然的事。很多音箱本来就发不出这个频段，建议用耳机试。音量已经做了限制。',
   },
 };

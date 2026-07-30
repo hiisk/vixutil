@@ -27,7 +27,6 @@ export default function ColorShellIntl({
   const ui = COLOR_SHELL_UI[lang];
   const path = `/${lang}/color/${tool.slug}`;
   const related = relatedColorToolsIntl(lang, tool.slug);
-  const other = lang === 'en' ? 'zh' : 'en';
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
@@ -122,10 +121,6 @@ export default function ColorShellIntl({
         <Link href={`/${lang}`} className="text-sm font-black text-violet-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">
           <Link href={`/color/${slug}`} className="hover:text-violet-600" hrefLang="ko">한국어</Link>
-          {' · '}
-          <Link href={`/${other}/color/${slug}`} className="hover:text-violet-600" hrefLang={other}>
-            {other === 'zh' ? '中文' : 'EN'}
-          </Link>
         </p>
       </footer>
     </div>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free browser games that measure something: reaction time, click speed, aim, typing speed, sequence and number memory, colour discrimination, hearing range and mental maths.',
   alternates: {
     canonical: '/en/game',
-    languages: { 'en': '/en/game', 'zh': '/zh/game', 'ko': '/game', 'x-default': '/en/game' },
+    languages: { 'en': '/en/game', 'ko': '/game', 'x-default': '/en/game' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnGameHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/game" className="hover:text-emerald-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/game" className="hover:text-emerald-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

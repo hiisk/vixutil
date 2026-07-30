@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '키를 누르면 화면의 가상 키보드에 그대로 표시됩니다. 반응이 없는 키, 한 번 눌렀는데 두 번 입력되는 키, 동시에 몇 개까지 인식되는지(N키 롤오버)를 브라우저에서 바로 확인하세요.',
   alternates: {
     canonical: '/device/keyboard',
-    languages: { 'ko': '/device/keyboard', 'en': '/en/device/keyboard', 'zh': '/zh/device/keyboard', 'x-default': '/en/device/keyboard' },
+    languages: { 'ko': '/device/keyboard', 'en': '/en/device/keyboard', 'x-default': '/en/device/keyboard' },
   },
 };
 

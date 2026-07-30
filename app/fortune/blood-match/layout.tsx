@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: 'A·B·O·AB형 두 사람의 혈액형으로 보는 궁합 점수와 연애·조언을 재미로 확인하세요. 과학적 근거 없는 오락용입니다.',
   alternates: {
     canonical: '/fortune/blood-match',
-    languages: { 'ko': '/fortune/blood-match', 'en': '/en/fortune/blood-match', 'zh': '/zh/fortune/blood-match', 'x-default': '/en/fortune/blood-match' },
+    languages: { 'ko': '/fortune/blood-match', 'en': '/en/fortune/blood-match', 'x-default': '/en/fortune/blood-match' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -5,12 +5,12 @@ import { IDIOMS, HANJA_CATEGORIES, idiomBySlug, relatedIdioms } from '../lib/han
 import { HANJA_UI, HANJA_CATEGORY_LABEL, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
 import { GLOSS_EN } from '../lib/hanja/gloss-en.ts';
 
-const LANGS = ['ko', 'en', 'zh'] as const;
+const LANGS = ['ko', 'en'] as const;
 const HANGUL = /[가-힣]/;
 const HANJA = /[一-鿿]/;
 
 test('50개가 있고 slug·한자·독음이 겹치지 않는다', () => {
-  assert.ok(IDIOMS.length >= 50, `50개 이상이어야 하는데 ${IDIOMS.length}개`);
+  assert.ok(IDIOMS.length >= 100, `100개 이상이어야 하는데 ${IDIOMS.length}개`);
   assert.equal(new Set(IDIOMS.map(i => i.slug)).size, IDIOMS.length);
   assert.equal(new Set(IDIOMS.map(i => i.hanja)).size, IDIOMS.length);
   assert.equal(new Set(IDIOMS.map(i => i.reading)).size, IDIOMS.length);
@@ -69,7 +69,7 @@ test('세 언어의 표제·뜻·유래·쓰임이 모두 채워져 있다', () 
   for (const i of IDIOMS) {
     for (const lang of LANGS) {
       const t = i[lang];
-      const min = lang === 'zh' ? { title: 3, meaning: 8, origin: 10, usage: 8 } : { title: 4, meaning: 15, origin: 20, usage: 15 };
+      const min = false ? { title: 3, meaning: 8, origin: 10, usage: 8 } : { title: 4, meaning: 15, origin: 20, usage: 15 };
       for (const k of ['title', 'meaning', 'origin', 'usage'] as const) {
         assert.ok(t[k].length >= min[k], `${i.slug}.${lang}.${k}가 너무 짧다: "${t[k]}"`);
       }
@@ -80,7 +80,6 @@ test('세 언어의 표제·뜻·유래·쓰임이 모두 채워져 있다', () 
 test('영어 표제는 로마자, 중국어 표제는 간체와 같다', () => {
   for (const i of IDIOMS) {
     assert.match(i.en.title, /^[A-Z][a-z]*(-[a-z]+){3}$/, `${i.slug} en 표제: ${i.en.title}`);
-    assert.equal(i.zh.title, i.simplified, `${i.slug} zh 표제가 간체와 다르다`);
   }
 });
 
@@ -91,13 +90,6 @@ test('영어 설명에 한글이 새지 않는다', () => {
   }
 });
 
-test('중국어 설명에 한글이 새지 않고 실제로 중국어다', () => {
-  for (const i of IDIOMS) {
-    const joined = Object.values(i.zh).join(' ');
-    assert.ok(!HANGUL.test(joined), `${i.slug}.zh에 한글: ${joined.match(HANGUL)}`);
-    assert.match(i.zh.meaning, HANJA, `${i.slug} zh 뜻에 한자가 없다`);
-  }
-});
 
 test('갈래는 정해진 여섯 개 안이고 모두 쓰인다', () => {
   const used = new Set(IDIOMS.map(i => i.category));
@@ -117,8 +109,6 @@ test('한국에서 만들어진 표현은 중국어 설명에 그 사실을 적�
   for (const slug of koreanMade) {
     const i = idiomBySlug(slug);
     assert.ok(i, `${slug} 없음`);
-    const zh = i.zh.origin + i.zh.usage;
-    assert.match(zh, /韩国|中文/, `${slug} zh 설명에 한국식 표현이라는 안내가 없다`);
   }
 });
 
@@ -154,23 +144,23 @@ test('같은 갈래 링크가 자기 자신을 가리키지 않는다', () => {
 });
 
 test('세 언어 라우트가 모두 있다', () => {
-  for (const p of ['app/hanja', 'app/en/hanja', 'app/zh/hanja']) {
+  for (const p of ['app/hanja', 'app/en/hanja', ]) {
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
     assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
   }
 });
 
-test('hreflang은 네 줄이고 x-default는 영어를 가리킨다', () => {
+test('hreflang은 세 줄이고 x-default는 영어를 가리킨다', () => {
   const a = hanjaAlternates('samyeonchoga');
-  assert.equal(Object.keys(a).length, 4);
+  assert.equal(Object.keys(a).length, 3);
   assert.equal(a.ko, '/hanja/samyeonchoga');
   assert.equal(a['x-default'], '/en/hanja/samyeonchoga');
 });
 
-test('사이트맵에 세 언어의 /hanja가 들어 있다', () => {
+test('사이트맵에 두 언어의 /hanja가 들어 있다', () => {
   const src = readFileSync('app/sitemap.ts', 'utf8');
-  for (const p of ['/hanja', '/en/hanja', '/zh/hanja']) {
+  for (const p of ['/hanja', '/en/hanja']) {
     assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
   }
 });

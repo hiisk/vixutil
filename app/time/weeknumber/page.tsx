@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '날짜를 넣으면 그 해 몇 번째 주인지(ISO 기준), 몇 분기인지, 그 해의 며칠째인지 알려줍니다. 주차로 일정을 관리하는 회사에서 "몇 주차 회의"를 맞출 때 씁니다.',
   alternates: {
     canonical: '/time/weeknumber',
-    languages: { 'ko': '/time/weeknumber', 'en': '/en/time/weeknumber', 'zh': '/zh/time/weeknumber', 'x-default': '/en/time/weeknumber' },
+    languages: { 'ko': '/time/weeknumber', 'en': '/en/time/weeknumber', 'x-default': '/en/time/weeknumber' },
   },
 };
 

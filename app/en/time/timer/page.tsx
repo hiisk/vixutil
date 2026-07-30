@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Set minutes and seconds, watch the remaining time in large digits, and get a sound when it finishes. Common lengths like three minutes or ten are one button away.",
   alternates: {
     canonical: '/en/time/timer',
-    languages: { 'en': '/en/time/timer', 'zh': '/zh/time/timer', 'ko': '/time/timer', 'x-default': '/en/time/timer' },
+    languages: { 'en': '/en/time/timer', 'ko': '/time/timer', 'x-default': '/en/time/timer' },
   },
 };
 

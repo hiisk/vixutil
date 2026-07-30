@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-type Lang = 'ko' | 'en' | 'zh';
+type Lang = 'ko' | 'en';
 
 function parse(text: string): string[] {
   return text.split(/[\n,]/).map(s => s.trim()).filter(Boolean);
@@ -16,7 +16,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export default function OrderShuffler({ lang = 'ko' }: { lang?: Lang }) {
-  const t = (k: string, e: string, z: string) => (lang === 'ko' ? k : lang === 'zh' ? z : e);
+  const t = (k: string, e: string, z: string) => (lang === 'ko' ? k : e);
   const [text, setText] = useState(t('철수\n영희\n민수\n지연\n현우', 'Alex\nSam\nJordan\nTaylor\nJamie', '张三\n李四\n王五\n赵六\n小明'));
   const [order, setOrder] = useState<string[] | null>(null);
 

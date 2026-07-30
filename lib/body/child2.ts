@@ -33,9 +33,6 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     en: { title: 'Child’s Daily Fluid Need', desc: 'Daily fluid requirement from a child’s weight.',
       long: 'The Holliday–Segar method: 100 mL per kilogram for the first 10 kg, 50 mL for the next 10, and 20 mL for every kilogram above 20. An 18 kg child needs 1,000 + 400 = 1,400 mL.',
       note: 'That total includes water inside food. Fever and diarrhoea raise the requirement — see a clinician in those cases.' },
-    zh: { title: '儿童每日需水量', desc: '按体重计算孩子每天所需的水分总量。',
-      long: '采用Holliday-Segar法：前10公斤每公斤100毫升，接下来10公斤每公斤50毫升，超过20公斤部分每公斤20毫升。18公斤的孩子需1000+400=1400毫升。',
-      note: '该总量已包含食物中的水分。发热或腹泻时需水量会增加，此时应就医。' },
   },
   {
     slug: 'child-calorie-need',
@@ -61,9 +58,6 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     en: { title: 'Child’s Daily Calorie Need', desc: 'Estimate daily calories from a child’s age and weight.',
       long: 'Children need far more calories per kilogram than adults, and the figure falls as they grow — from around 100 kcal/kg near their first birthday down to the adult 35–40 by adolescence.',
       note: 'Very active children need 20–30% more. Tracking along their growth curve is the surest sign the intake is right.' },
-    zh: { title: '儿童每日热量需求', desc: '按年龄和体重估算孩子每天所需热量。',
-      long: '儿童每公斤体重的热量需求远高于成人，并随成长下降：一岁前后约为每公斤100千卡，到青春期降至成人水平的35至40千卡。',
-      note: '活动量大的孩子还需多20%至30%。是否沿着自己的生长曲线前进，是判断热量是否合适最可靠的信号。' },
   },
   {
     slug: 'growth-velocity',
@@ -86,8 +80,8 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const s = out[0].value;
       return s >= 5
-        ? { ko: `연 ${s}cm는 학령기 아이의 정상 속도(연 5~7cm) 안입니다.`, en: `${s} cm a year is inside the school-age normal band of 5–7 cm.`, zh: `每年${s}厘米在学龄期正常范围（每年5至7厘米）内。`, tone: 'good' }
-        : { ko: `연 ${s}cm는 느린 편입니다. 학령기에 연 4cm 아래면 원인을 확인해 볼 신호로 봅니다.`, en: `${s} cm a year is slow; under 4 cm during school years is treated as worth investigating.`, zh: `每年${s}厘米偏慢；学龄期低于每年4厘米被视为需要查找原因的信号。`, tone: 'warn' };
+        ? { ko: `연 ${s}cm는 학령기 아이의 정상 속도(연 5~7cm) 안입니다.`, en: `${s} cm a year is inside the school-age normal band of 5–7 cm.`, tone: 'good' }
+        : { ko: `연 ${s}cm는 느린 편입니다. 학령기에 연 4cm 아래면 원인을 확인해 볼 신호로 봅니다.`, en: `${s} cm a year is slow; under 4 cm during school years is treated as worth investigating.`, tone: 'warn' };
     },
     ko: { title: '성장 속도 계산기', desc: '두 시점의 키로 1년에 몇 cm 자라는지 계산합니다.',
       long: '키 차이를 기간으로 나눈 뒤 12를 곱해 연간 속도로 바꿉니다. 절대 키보다 속도가 중요한데, 작아도 제 속도로 자라면 정상이고 크더라도 속도가 꺾이면 살펴봐야 하기 때문입니다.',
@@ -95,9 +89,6 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     en: { title: 'Growth Velocity', desc: 'How many centimetres a year from two height measurements.',
       long: 'Divide the height gain by the months and multiply by twelve. Velocity matters more than absolute height: a small child growing at the right speed is fine, while a tall one whose speed drops needs a look.',
       note: 'Use at least six months between measurements, ideally a year. Over short gaps, measurement error swamps the signal.' },
-    zh: { title: '生长速度计算器', desc: '用两次身高测量算出每年长多少厘米。',
-      long: '把身高增量除以月数再乘12，换算为年速度。速度比绝对身高更重要：个子小但按正常速度生长是正常的，而个子高却速度下降则需要关注。',
-      note: '两次测量至少间隔6个月，最好满一年。间隔太短时测量误差会掩盖真实趋势。' },
   },
   {
     slug: 'formula-per-kg',
@@ -123,9 +114,6 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     en: { title: 'Formula Volume per Kilogram', desc: 'Daily and per-feed formula from a baby’s weight.',
       long: 'For the first months the reference is 150 mL per kilogram a day. At 5.2 kg that is 780 mL, or 130 mL across six feeds. Standard formula holds about 67 kcal per 100 mL.',
       note: 'Babies vary, and hunger cues come before arithmetic. If weight climbs along the growth curve, the volume is right.' },
-    zh: { title: '每公斤奶量计算器', desc: '按婴儿体重算出每日奶量与每次喂哺量。',
-      long: '出生后数月内的参考值是每公斤体重每天150毫升。5.2公斤即每天780毫升，分6次则每次130毫升。标准配方奶每100毫升约67千卡。',
-      note: '每个宝宝的进食量不同，遵循饥饿信号比数字更重要。体重沿生长曲线上升，说明奶量合适。' },
   },
   {
     slug: 'child-fever-dose',
@@ -151,9 +139,6 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     en: { title: 'Child Fever Medicine Dose by Weight', desc: 'Per-dose and daily totals from weight and mg per kilogram.',
       long: 'Children’s medicine is dosed by weight, not age — two children the same age can differ twofold in weight. Weight times the per-kilogram dose gives one dose; times the daily frequency gives the daily total.',
       note: 'The real dose and maximum frequency depend on the active ingredient and the product. Use this to check the label, and always follow the product instructions or your clinician before giving anything.' },
-    zh: { title: '儿童退热药按体重给药量', desc: '用体重与每公斤剂量算出单次剂量与每日总量。',
-      long: '儿童用药按体重而非年龄计算，因为同龄孩子的体重可能相差一倍。体重乘以每公斤剂量得到单次剂量，再乘每日次数即为每日总量。',
-      note: '实际剂量与最大次数取决于成分与具体产品。本计算仅用于核对药品标签，给药前务必遵循说明书或医护人员的指示。' },
   },
   {
     slug: 'corrected-age',
@@ -175,16 +160,13 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value < 0
-        ? { ko: `아직 예정일 전입니다. 예정일까지 ${round(-out[0].value, 1)}주 남았습니다.`, en: `Still before the due date — ${round(-out[0].value, 1)} weeks to go.`, zh: `尚未到预产期，还差${round(-out[0].value, 1)}周。`, tone: 'warn' }
-        : { ko: `교정 연령은 ${out[0].value}주(약 ${out[2].value}개월)입니다. 발달 이정표는 이 나이로 봅니다.`, en: `Corrected age is ${out[0].value} weeks (about ${out[2].value} months) — read milestones against this.`, zh: `矫正年龄为${out[0].value}周（约${out[2].value}个月），发育里程碑应按此年龄评估。`, tone: 'good' },
+        ? { ko: `아직 예정일 전입니다. 예정일까지 ${round(-out[0].value, 1)}주 남았습니다.`, en: `Still before the due date — ${round(-out[0].value, 1)} weeks to go.`, tone: 'warn' }
+        : { ko: `교정 연령은 ${out[0].value}주(약 ${out[2].value}개월)입니다. 발달 이정표는 이 나이로 봅니다.`, en: `Corrected age is ${out[0].value} weeks (about ${out[2].value} months) — read milestones against this.`, tone: 'good' },
     ko: { title: '조산아 교정 연령 계산기', desc: '예정일보다 이른 출생을 반영한 교정 연령을 구합니다.',
       long: '40주를 만삭으로 보고, 그보다 이르게 태어난 주 수를 지금 나이에서 뺍니다. 32주에 태어나 생후 20주라면 8주를 빼 교정 12주입니다. 발달 이정표는 이 나이를 기준으로 읽어야 합니다.',
       note: '보통 만 2세까지 교정 연령을 씁니다. 그 뒤로는 격차가 줄어 실제 나이로 봅니다.' },
     en: { title: 'Corrected Age for Preterm Babies', desc: 'Adjust a baby’s age for how early they arrived.',
       long: 'Treat 40 weeks as full term and subtract the weeks missed from the current age. Born at 32 weeks and now 20 weeks old means subtracting eight, for a corrected age of 12 weeks. Developmental milestones should be read against this figure.',
       note: 'Corrected age is generally used until about two years, after which the gap closes and actual age applies.' },
-    zh: { title: '早产儿矫正年龄计算器', desc: '按提前出生的周数校正婴儿的年龄。',
-      long: '以40周为足月，从当前年龄中减去提前的周数。32周出生、现已出生20周，减去8周即矫正年龄12周。发育里程碑应按此年龄评估。',
-      note: '矫正年龄通常使用到约两岁，之后差距缩小，即按实际年龄评估。' },
   },
 ];

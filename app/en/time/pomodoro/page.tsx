@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Runs focus and break periods and switches between them for you, with a longer break every fourth round.",
   alternates: {
     canonical: '/en/time/pomodoro',
-    languages: { 'en': '/en/time/pomodoro', 'zh': '/zh/time/pomodoro', 'ko': '/time/pomodoro', 'x-default': '/en/time/pomodoro' },
+    languages: { 'en': '/en/time/pomodoro', 'ko': '/time/pomodoro', 'x-default': '/en/time/pomodoro' },
   },
 };
 

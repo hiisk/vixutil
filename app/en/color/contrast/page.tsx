@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Calculates the contrast ratio between a background and a text colour and tells you whether it passes the web accessibility thresholds (WCAG AA and AAA), with a live text preview so you can judge it by eye too.',
   alternates: {
     canonical: '/en/color/contrast',
-    languages: { 'en': '/en/color/contrast', 'zh': '/zh/color/contrast', 'ko': '/color/contrast', 'x-default': '/en/color/contrast' },
+    languages: { 'en': '/en/color/contrast', 'ko': '/color/contrast', 'x-default': '/en/color/contrast' },
   },
 };
 

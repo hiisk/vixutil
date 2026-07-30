@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/en/search',
     // 한국어 /search는 계산기·크립토까지 포함한 다른 목록이라 짝으로 맺지 않는다
-    languages: { 'en': '/en/search', 'zh': '/zh/search', 'x-default': '/en/search' },
+    languages: { 'en': '/en/search', 'x-default': '/en/search' },
   },
 };
 

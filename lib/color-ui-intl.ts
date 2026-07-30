@@ -4,7 +4,7 @@
  * time-ui-intl.ts와 같은 방침 — 문구만 여기 모으고 컴포넌트는 lang으로 골라 쓴다.
  * 색 계산(HSL 변환·대비비·색각 변환)은 컴포넌트와 lib에 그대로 둔다.
  */
-export type ColorLang = 'ko' | 'en' | 'zh';
+export type ColorLang = 'ko' | 'en';
 
 type L<T> = Record<ColorLang, T>;
 
@@ -12,7 +12,6 @@ type L<T> = Record<ColorLang, T>;
 export const COLOR_COMMON: L<{ copy: string; copied: string }> = {
   ko: { copy: '복사', copied: '복사됨' },
   en: { copy: 'Copy', copied: 'Copied' },
-  zh: { copy: '复制', copied: '已复制' },
 };
 
 /* ── 팔레트 생성기 ── */
@@ -47,19 +46,6 @@ export const PALETTE_UI: L<{
       monochrome: 'The same hue with only the lightness changed. Almost impossible to get wrong, and the usual choice when you want one screen to read as a single colour family.',
     },
   },
-  zh: {
-    baseColor: '基准色', copyCss: '整套复制为 CSS 变量', copiedCss: '✅ 已复制为 CSS 变量',
-    ratioNote: '配色比例约 60:30:10',
-    ratioBody: '选完颜色之后怎么用更重要。大面积背景占 60%、辅助色占 30%、强调色占 10%，同样的配色会显得整齐得多。强调色一旦超过 30%，它就不再是强调了。',
-    schemes: { complementary: '互补色', analogous: '类似色', triadic: '三角配色', tetradic: '四角配色', monochrome: '单色' },
-    notes: {
-      complementary: '色轮上正对面的颜色。对比最强，很适合做强调色；但在大面积上五五对分会看得很累。',
-      analogous: '色轮上相邻的颜色。自然舒适，适合背景与正文这类大面积区域。',
-      triadic: '把色轮三等分得到的颜色。鲜亮又不失平衡，插画与品牌配色里很常见。',
-      tetradic: '把色轮四等分得到的颜色。可用的颜色多，也因此容易显乱 —— 要定一个主角，其余压住。',
-      monochrome: '只改明度、不改色相。几乎不会出错，想让整个画面读起来是同一个色系时就用它。',
-    },
-  },
 };
 
 /* ── 명도 단계 ── */
@@ -82,13 +68,6 @@ export const SHADES_UI: L<{
     useLight: 'Backgrounds, soft highlights, disabled states', useMid: 'Buttons and links — the brand colour proper', useDark: 'Pressed states, and text on dark backgrounds',
     copyAllCss: 'Copy all as CSS variables',
   },
-  zh: {
-    baseColor: '基准色（品牌色）', whereTitle: '各阶用在哪里',
-    contrastNote: '每行右侧的提示表示：以该色为背景时，白字或黑字是否达到无障碍标准（4.5:1）。',
-    whiteOk: '白字可用', blackOk: '黑字可用', bothOk: '白黑都可用', lowContrast: '文字对比不足',
-    useLight: '背景、浅色强调、禁用态', useMid: '按钮、链接 —— 品牌色本体', useDark: '按下态，以及深色背景上的文字',
-    copyAllCss: '复制全部 CSS 变量',
-  },
 };
 
 /* ── 색 섞기 ── */
@@ -103,10 +82,6 @@ export const MIXER_UI: L<{
     first: 'First colour', second: 'Second colour', ratio: 'Blend ratio', stepsNote: 'Steps at 10% intervals',
     note: c => `The blend sits at ${c}:1 contrast on white. An even fifty-fifty mix often loses saturation and turns muddy — tipping one side past 70% usually brings the colour back.`,
   },
-  zh: {
-    first: '第一个颜色', second: '第二个颜色', ratio: '混合比例', stepsNote: '每 10% 一个中间阶',
-    note: c => `混合色在白底上的对比度为 ${c}:1。五五对半混常会掉饱和度、显得发灰，这时把某一边调到 70% 以上，颜色就回来了。`,
-  },
 };
 
 /* ── 랜덤 색 ── */
@@ -120,11 +95,6 @@ export const RANDOM_UI: L<{ copyAll: string; copiedAll: string; reroll: string; 
     copyAll: 'Copy all five HEX values', copiedAll: '✅ Copied all five',
     reroll: '🎲 Reroll (spacebar)',
     note: 'When a colour you like comes up, lock it and reroll the rest. Rather than being fully random, colours are drawn from 45–85% saturation and 35–70% lightness, so what comes out is usable on a screen straight away.',
-  },
-  zh: {
-    copyAll: '一次复制五个 HEX', copiedAll: '✅ 已复制五个颜色',
-    reroll: '🎲 重新抽（空格键）',
-    note: '遇到喜欢的颜色就上锁，只重抽其余的。这里不是完全随机，而是从饱和度 45~85%、明度 35~70% 的范围里抽，所以抽出来的颜色可以直接用在界面上。',
   },
 };
 
@@ -172,23 +142,6 @@ export const CONTRAST_UI: L<{
     previewH: 'A heading looks like this', previewBody: 'Body text reads at about this weight.',
     previewSmall: 'Small text like a caption gets this small — insufficient contrast shows up here first.',
   },
-  zh: {
-    textColor: '文字颜色', bgColor: '背景颜色',
-    aaBody: 'AA 正文', aaLarge: 'AA 大字', aaaBody: 'AAA 正文', aaaLarge: 'AAA 大字',
-    pass: '通过', fail: '未达标',
-    verdictBest: '连最严格的 AAA 也通过',
-    verdictBody: '可用于正文（通过 AA）',
-    verdictLarge: '只适合大字号',
-    verdictFail: '这个组合很难读',
-    aaNote: ' —— 无障碍的基准线。正文必须越过这条线。',
-    aaaNote: ' —— 更严格的等级，公共部门网站有时会要求。',
-    largeNote: ' —— 18pt（粗体 14pt）以上，门槛会降低。',
-    ratio: '对比度', autoFix: '保持色相，只调明度直到通过 AA',
-    meaningTitle: '各等级的含义',
-    brightnessNote: '对比度取决于明度差，而不是色相差。所以黄底白字即使颜色不同，也一样读不清。',
-    previewH: '大标题看起来是这样', previewBody: '正文大小的文字大概是这个程度。',
-    previewSmall: '像图注这样的小字会缩到这么小 —— 对比不足时最先在这里露馅。',
-  },
 };
 
 /* ── 색맹 시뮬레이터 ── */
@@ -225,19 +178,6 @@ export const COLORBLIND_UI: L<{
     },
     approxNote: 'The simulation is an approximation, so it is not exactly what someone actually sees. Use it to judge whether a combination is risky, not as a precise rendering.',
   },
-  zh: {
-    first: '第一个颜色', second: '第二个颜色', normal: '正常色觉下看到的样子',
-    distinguishable: '可区分', hardToTell: '难以区分', adviceTitle: '不要只用颜色传达信息',
-    advice: '大约每二十名男性中就有一人存在色觉异常。用绿色表示成功、红色表示失败的界面，在他们中相当一部分人看来是同一个颜色。配上图标（✓ ✕）或文字，即使看不出颜色，意思也能传达。',
-    types: { protanopia: '红色盲', deuteranopia: '绿色盲', tritanopia: '蓝色盲', achromatopsia: '全色盲' },
-    descs: {
-      protanopia: '红色显得更暗，红与绿看起来相似',
-      deuteranopia: '最常见的类型 —— 红与绿几乎一样',
-      tritanopia: '较少见的类型，蓝与绿难以分辨',
-      achromatopsia: '完全无法分辨颜色，只剩明暗',
-    },
-    approxNote: '模拟只是近似换算，并不完全等于对方实际看到的颜色。请用它来判断某个配色是否有风险，而不是当作精确还原。',
-  },
 };
 
 /* ── 그라디언트 ── */
@@ -260,13 +200,6 @@ export const GRADIENT_UI: L<{
     presetNames: ['Sunset', 'Ocean', 'Forest', 'Night'],
     note: 'When you put text over a gradient, check the contrast at both the lightest and the darkest point. Tune it for one end only and the text disappears at the other.',
   },
-  zh: {
-    startColor: '起始色', midColor: '中间色', endColor: '结束色', angle: '角度',
-    addMid: '加一个中间色', radial: '从中心散开的径向渐变', presets: '预设',
-    copyCss: '复制 CSS', copiedCss: '✅ 已复制 CSS',
-    presetNames: ['晚霞', '海洋', '森林', '夜色'],
-    note: '在渐变上放文字时，要在最亮处和最暗处两端都检查对比度。只照一端调，另一端的文字就会消失。',
-  },
 };
 
 /* ── 그림자 ── */
@@ -287,12 +220,6 @@ export const SHADOW_UI: L<{
     presets: ['Subtle', 'Medium', 'Floating', 'Deep'],
     note: 'A natural shadow usually falls straight down (offset X of 0), and uses a faint navy rather than black — slightly darker than the background. Pure black shadows look muddy.',
   },
-  zh: {
-    shadowColor: '阴影颜色', opacity: '透明度', offsetX: '水平偏移', offsetY: '垂直偏移', blur: '模糊', spread: '扩散',
-    inset: '内阴影（inset）—— 按下去的感觉', copyCss: '复制 CSS', copiedCss: '✅ 已复制 CSS',
-    presets: ['轻微', '适中', '悬浮', '深'],
-    note: '自然的阴影通常只往下落一点（水平偏移 0），颜色用比背景略暗的深蓝而不是纯黑。纯黑阴影会显得发脏。',
-  },
 };
 
 /* ── 색 이름 찾기 ── */
@@ -311,12 +238,6 @@ export const NAME_UI: L<{
     almostSame: d => `Practically the same colour (difference ${d})`,
     differs: d => `Noticeably different from the named colour (difference ${d}) — treat it as the same family only`,
     cmykNote: 'The CMYK value is a straight conversion. Printed colour depends on the ink, the paper and the press, so for print work where the colour has to be right, specify a spot colour like Pantone or get a proof from the printer.',
-  },
-  zh: {
-    colorCode: '色值', nearest: '最接近的颜色名',
-    almostSame: d => `几乎是同一个颜色（差异 ${d}）`,
-    differs: d => `与该名色有明显差异（差异 ${d}）—— 只当作同一色系看`,
-    cmykNote: 'CMYK 值是直接换算的。实际印刷颜色取决于油墨、纸张与印刷机，所以对颜色要求准确的印品，请指定潘通等专色，或让印厂打样确认。',
   },
 };
 
@@ -346,16 +267,6 @@ export const TEMPERATURE_UI: L<{
     },
     rightCompare: 'Right temperature (for comparison)', commonTitle: 'Common values', colderTitle: 'Higher numbers are colder',
     colderBody: 'Counter to how it sounds, a lower Kelvin value is redder and warmer, and a higher one is bluer and colder. The scale comes from heating metal — first red, then white and bluish as it gets hotter. Home lighting sits around 2700–3000K, and a workspace around 4000–5000K.',
-  },
-  zh: {
-    left: '左侧色温', right: '右侧色温',
-    presets: { candle: '烛光', incandescent: '暖黄灯', warmWhite: '中性白', daylight: '日光色', overcast: '阴天天空', blue: '冷蓝' },
-    descs: {
-      candle: '非常红、非常暖', incandescent: '家用照明，温馨', warmWhite: '办公室、厨房',
-      daylight: '正午阳光', overcast: '偏蓝的白', blue: '摄影的基准光',
-    },
-    rightCompare: '右侧色温（用于对比）', commonTitle: '常用数值', colderTitle: '数字越大越冷',
-    colderBody: '与字面感觉相反：开尔文值越低越偏红、越暖，越高则越偏蓝、越冷。这套刻度来自加热金属 —— 先是红，越热则越白、越偏蓝。家用照明大约 2700~3000K，工作空间大约 4000~5000K。',
   },
 };
 

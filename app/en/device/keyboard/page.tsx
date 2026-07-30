@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Press a key and it lights up on the on-screen keyboard. Find keys that do not respond, keys that register twice from one press, and how many the board reads at once (N-key rollover) — all in the browser.',
   alternates: {
     canonical: '/en/device/keyboard',
-    languages: { 'en': '/en/device/keyboard', 'zh': '/zh/device/keyboard', 'ko': '/device/keyboard', 'x-default': '/en/device/keyboard' },
+    languages: { 'en': '/en/device/keyboard', 'ko': '/device/keyboard', 'x-default': '/en/device/keyboard' },
   },
 };
 

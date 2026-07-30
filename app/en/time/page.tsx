@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free time tools: timer, stopwatch, pomodoro, alarm clock, world clock, time zone converter, working day and date calculators. Runs in your browser, no install.',
   alternates: {
     canonical: '/en/time',
-    languages: { 'en': '/en/time', 'zh': '/zh/time', 'ko': '/time', 'x-default': '/en/time' },
+    languages: { 'en': '/en/time', 'ko': '/time', 'x-default': '/en/time' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnTimeHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/time" className="hover:text-sky-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/time" className="hover:text-sky-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

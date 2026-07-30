@@ -60,6 +60,8 @@ export default function KellyPage() {
 
         <KellyCalculator />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/*
           정적 렌더 영역. 위 계산기는 클라이언트 상태에 의존하므로
           자바스크립트 없는 크롤러에겐 아래 본문이 페이지의 실질 내용이다.
@@ -91,8 +93,6 @@ export default function KellyPage() {
             recommendation. All decisions and risks are your own.
           </p>
         </div>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ['crypto/kelly-criterion']} lang="en" />
       </div>

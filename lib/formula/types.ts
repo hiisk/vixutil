@@ -33,7 +33,6 @@ export interface Verdict {
   /** 결과를 한 줄로 해석한다. 숫자만 주면 "그래서 뭐"가 남는다 */
   ko: string;
   en: string;
-  zh: string;
   tone?: 'good' | 'warn' | 'bad';
 }
 
@@ -63,7 +62,6 @@ export interface FormulaTool {
   verdict?: (v: Record<string, number>, out: OutputSpec[]) => Verdict | null;
   ko: FormulaText;
   en: FormulaText;
-  zh: FormulaText;
 }
 
 export const textOf = (tool: FormulaTool, lang: Lang): FormulaText => tool[lang];

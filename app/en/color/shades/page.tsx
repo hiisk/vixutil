@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Give it one brand colour and it builds ten steps, lighter (tints) and darker (shades). The output comes out in the 50 · 100 · … · 900 form that Tailwind and most design systems expect.',
   alternates: {
     canonical: '/en/color/shades',
-    languages: { 'en': '/en/color/shades', 'zh': '/zh/color/shades', 'ko': '/color/shades', 'x-default': '/en/color/shades' },
+    languages: { 'en': '/en/color/shades', 'ko': '/color/shades', 'x-default': '/en/color/shades' },
   },
 };
 

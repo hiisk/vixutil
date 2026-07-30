@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: '계산기·운세·생성기·심리테스트·퀴즈 등 일상에 필요한 실용 유틸 모음 — vixutil.com',
   alternates: {
     canonical: '/',
-    languages: { 'ko': '/', 'en': '/en', 'zh': '/zh', 'x-default': '/en' },
+    languages: { 'ko': '/', 'en': '/en', 'x-default': '/en' },
   },
 };
 
@@ -266,10 +266,22 @@ const SECTIONS = [
     shadow: 'shadow-sky-100',
   },
   {
+    href: '/metro',
+    icon: '🚇',
+    title: '지하철 역 맞추기',
+    desc: '서울·도쿄·런던·뉴욕 노선의 역 이름을 노선도 힌트로 맞추기',
+    badge: `${SECTION_COUNTS.metro}개`,
+    color: 'from-slate-600 to-slate-800',
+    bgLight: 'bg-slate-50 dark:bg-slate-900/40',
+    textAccent: 'text-slate-700 dark:text-slate-300',
+    borderAccent: 'border-slate-200 dark:border-slate-700',
+    shadow: 'shadow-slate-100',
+  },
+  {
     href: '/hanja',
     icon: '📖',
     title: '사자성어',
-    desc: '뜻과 유래, 글자별 새김과 쓰는 예까지 사자성어 50개',
+    desc: '뜻과 유래, 글자별 새김과 쓰는 예까지 사자성어 100개',
     badge: `${SECTION_COUNTS.hanja}개`,
     color: 'from-amber-500 to-orange-600',
     bgLight: 'bg-amber-50 dark:bg-amber-950/30',

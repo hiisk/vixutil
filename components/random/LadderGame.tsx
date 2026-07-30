@@ -32,9 +32,9 @@ function trace(rungs: Rungs, start: number, cols: number): number[] {
   return path; // 길이 ROWS+1, 각 레벨 진입 후 열 위치
 }
 
-export default function LadderGame({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function LadderGame({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const ko = lang === 'ko';
-  const zh = lang === 'zh';
+  const zh = false;
   const [names, setNames] = useState<string[]>(ko ? ['철수', '영희', '민수', '지연'] : zh ? ['张三', '李四', '王五', '赵六'] : ['Alex', 'Sam', 'Jordan', 'Taylor']);
   const [results, setResults] = useState<string[]>(ko ? ['🎁 선물', '💸 벌금', '☕ 커피', '😆 통과'] : zh ? ['🎁 礼物', '💸 罚款', '☕ 咖啡', '😆 通过'] : ['🎁 Gift', '💸 Pay', '☕ Coffee', '😆 Free']);
   const [rungs, setRungs] = useState<Rungs>(() => buildRungs(4));

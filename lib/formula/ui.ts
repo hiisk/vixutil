@@ -86,58 +86,18 @@ export const FORMULA_UI = {
     stepAnswer: 'Answer',
     tableLead: (pivot: string) => `Results when only ${pivot} changes and everything else stays put.`,
   },
-  zh: {
-    home: '首页',
-    inputs: '输入数值',
-    result: '结果',
-    formula: '计算公式',
-    interpret: '结果解读',
-    related: '相关计算器',
-    reset: '恢复默认值',
-    copy: '复制结果',
-    copied: '✅ 已复制',
-    categoryAll: '全部',
-    faqHow: (t: string) => `${t}是怎么计算的？`,
-    faqExample: '能举个例子吗？',
-    faqCaution: '有什么需要注意的？',
-    exampleLead: (input: string, out: string) => `当${input}时，结果是${out}。`,
-    faqInputs: '需要输入哪些数值？',
-    faqInputsLead: (list: string) => `需要输入${list}。修改后结果会立即重算，留空按0处理。`,
-    faqAnother: '改动数值后结果会差多少？',
-    faqAnotherLead: (pivot: string, a: string, b: string) => `只改${pivot}时，结果分别变成${a}和${b}。下方表格列出了五档。`,
-    faqRounding: '结果保留几位小数？',
-    faqRoundingLead: '金额取整到最小货币单位，百分比保留一位小数，其余保留两位。显示值是四舍五入后的结果，计算过程使用未舍入的数值。',
-    articleInputs: '需要输入什么',
-    articleSteps: '计算步骤',
-    articleTable: '不同数值下的结果',
-    articleOutputs: '各项结果的含义',
-    articleGlossary: '术语说明',
-    articleCaution: '常见错误',
-    articleAbout: '什么时候用得上',
-    colInput: '输入项',
-    colDefault: '默认值',
-    colRange: '可填范围',
-    colOutput: '结果项',
-    colValue: '默认值下的结果',
-    colMeaning: '含义',
-    stepFormula: '公式',
-    stepSubstitute: '代入默认值',
-    stepAnswer: '答案',
-    tableLead: (pivot: string) => `其他数值保持不变，只改动${pivot}时的结果。`,
-  },
 } as const;
 
 /** 언어 전환 링크 — 세 언어가 같은 slug를 쓴다 */
 export const FORMULA_LANGS: { lang: Lang; label: string; prefix: string }[] = [
   { lang: 'ko', label: '한국어', prefix: '' },
   { lang: 'en', label: 'EN', prefix: '/en' },
-  { lang: 'zh', label: '中文', prefix: '/zh' },
 ];
 
 /** hreflang 묶음 — 섹션과 slug만 넣으면 네 줄이 기계적으로 나온다 */
 export function sectionAlternates(section: string, slug?: string) {
   const path = slug ? `/${section}/${slug}` : `/${section}`;
-  return { 'ko': path, 'en': `/en${path}`, 'zh': `/zh${path}`, 'x-default': `/en${path}` };
+  return { 'ko': path, 'en': `/en${path}`, 'x-default': `/en${path}` };
 }
 
 /** 1,200,000처럼 세 자리마다 끊는다. 세 언어 모두 쉼표를 쓴다 */

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '면 100g에 물 1L, 소금 10g이 기본 비율입니다. 면 양을 넣으면 물과 소금을 계산해 주고, 면 종류별 삶는 시간도 함께 알려줍니다.',
   alternates: {
     canonical: '/food/pasta',
-    languages: { 'ko': '/food/pasta', 'en': '/en/food/pasta', 'zh': '/zh/food/pasta', 'x-default': '/en/food/pasta' },
+    languages: { 'ko': '/food/pasta', 'en': '/en/food/pasta', 'x-default': '/en/food/pasta' },
   },
 };
 

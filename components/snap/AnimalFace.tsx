@@ -31,15 +31,6 @@ const COPY = {
     tip: '💡 Note',
     disclaimer: 'The four ratios are real measurements; matching them to an animal is a game.',
   },
-  zh: {
-    title: '动物脸测试',
-    lead: '四项实测比例与十二种动物基准向量做匹配',
-    privacy: '眼型倾斜、脸型、眼睛大小与下颌宽度都在你的浏览器内由关键点位置测出，再与十二个基准向量比较。这是最近邻匹配，不是评判 —— 十二种都是好看的。',
-    result: '🐾 最接近的类型',
-    runnerUp: '第二接近',
-    tip: '💡 说明',
-    disclaimer: '四项比例为真实测量，把它对应到动物则是个游戏。',
-  },
 } as const;
 
 interface Result {

@@ -31,9 +31,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Room Area Calculator', desc: 'Floor area of a room in square metres and Korean pyeong.',
       long: 'Multiply length by width for square metres, then divide by 3.305785 for pyeong. The perimeter is what you need for skirting or moulding.',
       note: 'Advertised apartment size in Korea includes shared corridors and stairs — this is the actual floor area.' },
-    zh: { title: '房间面积计算器', desc: '用长和宽求房间面积(平方米与坪)。',
-      long: '长乘宽得到平方米，再除以3.305785换成坪。周长用于计算踢脚线或装饰条的长度。',
-      note: '韩国的公摊面积包含走廊、楼梯等公共部分 — 这里算出的是实际地面面积。' },
   },
   {
     slug: 'room-volume',
@@ -59,9 +56,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Room Volume Calculator', desc: 'Interior volume from length, width and ceiling height.',
       long: 'Air conditioner sizing, air purifier ratings and air-change rates all key off volume, not floor area. A high ceiling needs more capacity at the same floor size.',
       note: 'Residential ceilings usually run 2.3–2.5 m. The last figure converts that air volume into litres.' },
-    zh: { title: '房间体积计算器', desc: '用长、宽和层高求室内空间体积。',
-      long: '空调容量、空气净化器规格和换气次数都以体积为准，而不是地面面积。层高高的房间，同样面积也需要更大容量。',
-      note: '住宅层高通常为2.3~2.5米。最后一个数值把该空气体积换算成升。' },
   },
   {
     slug: 'wall-paint',
@@ -83,9 +77,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Paint Quantity Calculator', desc: 'How much paint you need from wall area and number of coats.',
       long: 'Coverage per litre varies by product; interior water-based paints typically cover 8–12 m² per litre.',
       note: 'Dark colours over white walls often need three coats for an even finish — buy about 10% extra.' },
-    zh: { title: '涂料用量计算器', desc: '按墙面面积和涂刷遍数算出所需涂料量。',
-      long: '每升的涂布面积因产品而异，室内水性漆通常每升8~12平方米。',
-      note: '白墙上刷深色往往需要三遍才能均匀 — 建议多买约10%作余量。' },
   },
   {
     slug: 'tile-count',
@@ -112,9 +103,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Tile Count Calculator', desc: 'Number of tiles needed from floor area and tile size.',
       long: 'Divide the area by the area of one tile, then add a waste allowance. 10–15% extra is normal to cover cuts and breakage.',
       note: 'The second figure is the bare minimum with no allowance. Diagonal layouts waste more — budget 15% or above.' },
-    zh: { title: '瓷砖数量计算器', desc: '按地面面积和瓷砖尺寸算出所需砖数。',
-      long: '用总面积除以单块瓷砖的面积，再加上损耗率。考虑切割和破损，通常多算10~15%。',
-      note: '第二个数值是不含余量的最少数量。斜铺切割损耗更大，建议预留15%以上。' },
   },
   {
     slug: 'wallpaper-rolls',
@@ -140,9 +128,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Wallpaper Roll Calculator', desc: 'Rolls needed from wall area and roll dimensions.',
       long: 'Korean paper-backed rolls are 93 cm wide and silk 106 cm, at roughly 15.6 m per roll. The headline figure already includes a 10% allowance.',
       note: 'Patterned paper wastes more because repeats must line up — allow 20% or more for large patterns.' },
-    zh: { title: '壁纸卷数计算器', desc: '按墙面面积和壁纸规格算出所需卷数。',
-      long: '韩国纸基壁纸幅宽93厘米、丝质106厘米，每卷约15.6米。上方数值已包含10%的余量。',
-      note: '带重复图案的壁纸因需对花而损耗更大 — 图案较大时请预留20%以上。' },
   },
   {
     slug: 'concrete-volume',
@@ -168,9 +153,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Concrete Volume Calculator', desc: 'Concrete volume and weight from area and slab thickness.',
       long: 'Length times width times thickness gives cubic metres. Bag count is estimated at seven 40 kg bags per cubic metre.',
       note: 'Concrete runs about 2,400 kg/m³. The real bag count varies with the mix ratio and aggregate.' },
-    zh: { title: '混凝土用量计算器', desc: '用面积和厚度求混凝土体积与重量。',
-      long: '长乘宽再乘厚度得到立方米。水泥袋数按每立方米7袋(40公斤)估算。',
-      note: '混凝土密度约2400公斤/立方米。实际袋数会因配合比和骨料而异。' },
   },
   {
     slug: 'water-tank',
@@ -195,9 +177,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Cylindrical Tank Capacity', desc: 'Litres held by a cylindrical tank from diameter and height.',
       long: 'Base area times height in cm³, divided by 1,000, gives litres. Since a litre of water weighs a kilogram, the weight is the same number.',
       note: 'Tanks are never filled to the brim — plan on about 90% of this figure.' },
-    zh: { title: '圆柱水箱容量计算器', desc: '用直径和高度求圆柱形水箱的容量(升)。',
-      long: '底面积乘高得到立方厘米，除以1000即为升。1升水重1公斤，所以重量与升数相同。',
-      note: '水箱不会装到齐平 — 请按此数值的约90%计算。' },
   },
   {
     slug: 'aquarium-weight',
@@ -223,9 +202,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Aquarium Volume & Weight', desc: 'Water volume and total weight from tank dimensions.',
       long: 'Multiply length, width and water depth, divide by 1,000 for litres — and since a litre weighs a kilogram, that is also the water weight. The last figure adds a rough allowance for glass and substrate.',
       note: 'A 60 cm tank holds about 65 kg of water alone. Ordinary furniture may not take that — check the stand.' },
-    zh: { title: '鱼缸水量与重量计算器', desc: '用鱼缸尺寸求水量和总重量。',
-      long: '长、宽、水深相乘再除以1000得到升数；1升水重1公斤，所以水重与升数相同。最后一个数值粗略计入了玻璃和底砂。',
-      note: '60厘米的鱼缸仅水就约65公斤。普通家具可能承受不住 — 请确认支撑架。' },
   },
   {
     slug: 'pizza-compare',
@@ -252,8 +228,7 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
       const pct = round(Math.abs(r - 1) * 100, 1);
       return {
         ko: bigWins ? `${v.a}cm 한 판이 ${v.b}cm ${v.n}판보다 ${pct}% 큽니다.` : `${v.b}cm ${v.n}판이 ${v.a}cm 한 판보다 ${round((1 / r - 1) * 100, 1)}% 큽니다.`,
-        en: bigWins ? `One ${v.a} cm pizza is ${pct}% more pizza than ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm gives ${round((1 / r - 1) * 100, 1)}% more than one ${v.a} cm.`,
-        zh: bigWins ? `一个${v.a}厘米的披萨比${v.n}个${v.b}厘米的多${pct}%。` : `${v.n}个${v.b}厘米的披萨比一个${v.a}厘米的多${round((1 / r - 1) * 100, 1)}%。`,
+        en: bigWins ? `One ${v.a} cm pizza is ${pct}% more pizza than ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm gives ${round((1 / r - 1) * 100, 1)}% more than one ${v.a} cm.` ? `一个${v.a}厘米的披萨比${v.n}个${v.b}厘米的多${pct}%。` : `${v.n}个${v.b}厘米的披萨比一个${v.a}厘米的多${round((1 / r - 1) * 100, 1)}%。`,
         tone: 'good',
       };
     },
@@ -263,9 +238,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Pizza Size Comparison', desc: 'Compare one large pizza against several smaller ones.',
       long: 'Pizza scales with area, not diameter — that is, with the square of the diameter. One 45 cm pizza beats two 30 cm ones: 1.5× the diameter is 2.25× the area.',
       note: 'This assumes equal crust thickness. Thin and deep-dish bases differ in volume.' },
-    zh: { title: '披萨大小比较计算器', desc: '一个大的和几个小的，哪边分量更多？',
-      long: '披萨的分量取决于面积，也就是直径的平方，而不是直径本身。一个45厘米的比两个30厘米的更大 — 直径1.5倍，面积就是2.25倍。',
-      note: '此比较假设饼底厚度相同。薄底与厚底的体积不一样。' },
   },
   {
     slug: 'tv-size',
@@ -294,9 +266,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'TV Inches to Width & Height', desc: 'Actual screen dimensions in cm from a diagonal size and aspect ratio.',
       long: 'Inches measure the diagonal. At 16:9 the width is 0.871× the diagonal and the height 0.49× — a 55-inch set is 121.8 cm by 68.5 cm.',
       note: 'Bezels and stands are not included — check the outer dimensions before fitting it into furniture.' },
-    zh: { title: '电视英寸转宽高', desc: '用英寸和画面比例算出实际屏幕尺寸(厘米)。',
-      long: '英寸指的是对角线长度。16:9时宽是对角线的0.871倍、高是0.49倍 — 55英寸即121.8×68.5厘米。',
-      note: '不含边框和底座 — 要放进家具前请另行确认产品外廓尺寸。' },
   },
   {
     slug: 'paper-size',
@@ -326,9 +295,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'A-Series Paper Size', desc: 'Millimetre dimensions of A0 through A10 paper.',
       long: 'A0 is 841 × 1189 mm, an area of exactly one square metre. Each step up the number halves the long side, so A4 lands at 210 × 297 mm.',
       note: 'The 1:√2 side ratio is what lets the proportions survive every fold in half.' },
-    zh: { title: 'A系列纸张尺寸计算器', desc: '查A0到A10纸张的长宽(毫米)。',
-      long: 'A0为841×1189毫米，面积正好1平方米。编号每加1就把长边对折一次，所以A4是210×297毫米。',
-      note: '长宽比为1:√2，这正是对折后比例仍然不变的原因。' },
   },
   {
     slug: 'stair-steps',
@@ -356,8 +322,7 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
       const ok = sum >= 60 && sum <= 65;
       return {
         ko: ok ? `2×단높이+단너비 = ${round(sum, 1)}cm로 걷기 편한 범위(60~65cm)입니다.` : `2×단높이+단너비 = ${round(sum, 1)}cm입니다. 60~65cm가 걷기 편한 범위입니다.`,
-        en: ok ? `2 × riser + tread = ${round(sum, 1)} cm, inside the comfortable 60–65 cm range.` : `2 × riser + tread = ${round(sum, 1)} cm; the comfortable range is 60–65 cm.`,
-        zh: ok ? `2×级高+踏面 = ${round(sum, 1)}厘米，处于舒适区间(60~65厘米)。` : `2×级高+踏面 = ${round(sum, 1)}厘米；舒适区间为60~65厘米。`,
+        en: ok ? `2 × riser + tread = ${round(sum, 1)} cm, inside the comfortable 60–65 cm range.` : `2 × riser + tread = ${round(sum, 1)} cm; the comfortable range is 60–65 cm.` ? `2×级高+踏面 = ${round(sum, 1)}厘米，处于舒适区间(60~65厘米)。` : `2×级高+踏面 = ${round(sum, 1)}厘米；舒适区间为60~65厘米。`,
         tone: ok ? 'good' : 'warn',
       };
     },
@@ -367,9 +332,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Stair Step Calculator', desc: 'Step count and true riser height from total rise.',
       long: 'The number of steps must be a whole number, so it is rounded up and the total rise divided again for the actual riser. Every riser must match, or people trip.',
       note: 'The long-standing rule for comfortable stairs is 2 × riser + tread = 60–65 cm.' },
-    zh: { title: '楼梯级数计算器', desc: '用总高度和单级高度求级数与实际级高。',
-      long: '级数必须是整数，因此先向上取整，再用总高度重新相除得到实际级高。所有级高必须一致，否则容易绊倒。',
-      note: '「2×级高＋踏面 = 60~65厘米」是长期沿用的舒适楼梯标准。' },
   },
   {
     slug: 'roof-area',
@@ -394,9 +356,6 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Pitched Roof Area', desc: 'Actual roof surface from footprint area and pitch.',
       long: 'A pitched roof covers more surface than its plan view. Multiply by the hypotenuse ratio implied by the slope to get the real area.',
       note: 'At a 30% pitch the roof is 1.044× the footprint. Eave overhangs must be added separately.' },
-    zh: { title: '坡屋顶面积计算器', desc: '用投影面积和坡度求实际屋顶面积。',
-      long: '坡屋顶的实际表面比俯视投影更大。乘上由坡度确定的斜边比例即得真实面积。',
-      note: '坡度30%时屋顶面积是投影的1.044倍。屋檐外伸部分需另行加上。' },
   },
   {
     slug: 'lumber-volume',
@@ -423,8 +382,5 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
     en: { title: 'Lumber Volume Calculator', desc: 'Timber volume in cubic metres from section, length and piece count.',
       long: 'Timber is traded by the cubic metre. Convert the section in millimetres to metres, then multiply by length and the number of pieces.',
       note: 'Weight assumes 500 kg/m³. Pine runs 400–500 and oak over 700, so species matters a great deal.' },
-    zh: { title: '木材材积计算器', desc: '用截面、长度和根数求木材体积(立方米)。',
-      long: '木材按立方米交易。把截面的毫米数各除以1000换成米，再乘以长度和根数。',
-      note: '重量按500公斤/立方米估算。松木为400~500，橡木超过700，树种差异很大。' },
   },
 ];

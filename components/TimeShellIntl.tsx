@@ -28,7 +28,6 @@ export default function TimeShellIntl({
   const ui = TIME_SHELL_UI[lang];
   const path = `/${lang}/time/${tool.slug}`;
   const related = relatedTimeToolsIntl(lang, tool.slug);
-  const other = lang === 'en' ? 'zh' : 'en';
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
@@ -123,10 +122,6 @@ export default function TimeShellIntl({
         <Link href={`/${lang}`} className="text-sm font-black text-sky-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">
           <Link href={`/time/${slug}`} className="hover:text-sky-600" hrefLang="ko">한국어</Link>
-          {' · '}
-          <Link href={`/${other}/time/${slug}`} className="hover:text-sky-600" hrefLang={other}>
-            {other === 'zh' ? '中文' : 'EN'}
-          </Link>
         </p>
       </footer>
     </div>

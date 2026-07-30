@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Hit as many targets as you can before time runs out, each appearing in a random spot. It counts your misses too and works out accuracy, so it works as mouse practice rather than just a score.',
   alternates: {
     canonical: '/en/game/aim',
-    languages: { 'en': '/en/game/aim', 'zh': '/zh/game/aim', 'ko': '/game/aim', 'x-default': '/en/game/aim' },
+    languages: { 'en': '/en/game/aim', 'ko': '/game/aim', 'x-default': '/en/game/aim' },
   },
 };
 

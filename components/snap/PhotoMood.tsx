@@ -36,17 +36,6 @@ const COPY = {
     brightness: 'Brightness', saturation: 'Saturation', warmth: 'Warm ↔ cool', contrast: 'Contrast',
     disclaimer: 'The pixel statistics are real measurements; the mood naming is entertainment.',
   },
-  zh: {
-    title: '照片氛围分析',
-    lead: '任意照片 —— 从像素测量亮度、饱和度、冷暖与对比',
-    privacy: '像素在你的浏览器内读取，不会上传任何内容。不需要人脸，所以风景、静物、宠物照都可以。',
-    result: '🎨 照片氛围',
-    metrics: '📊 实测数据',
-    palette: '🎨 主要色彩',
-    tip: '✍️ 配文建议',
-    brightness: '亮度', saturation: '饱和度', warmth: '暖 ↔ 冷', contrast: '对比',
-    disclaimer: '像素统计为真实测量，氛围命名仅供娱乐。',
-  },
 } as const;
 
 interface Result {

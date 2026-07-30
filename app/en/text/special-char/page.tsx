@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Arrows (→ ⇒), shapes (★ ◆ ▶), punctuation (※ 「」), maths and units (㎡ ℃ ±), currency (€ ₩) and enclosed characters (① ㉠) — tap any of them to copy. No more hunting for a symbol your keyboard cannot type.',
   alternates: {
     canonical: '/en/text/special-char',
-    languages: { 'en': '/en/text/special-char', 'zh': '/zh/text/special-char', 'ko': '/text/special-char', 'x-default': '/en/text/special-char' },
+    languages: { 'en': '/en/text/special-char', 'ko': '/text/special-char', 'x-default': '/en/text/special-char' },
   },
 };
 

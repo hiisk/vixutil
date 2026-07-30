@@ -4,19 +4,19 @@ import type { ReactNode } from 'react';
 import type { RandomTool } from '@/lib/random-tools';
 import PageGlow from '@/components/PageGlow';
 
-type Lang = 'ko' | 'en' | 'zh';
+type Lang = 'ko' | 'en';
 
 /** 랜덤 뽑기 도구들의 공용 껍데기 — 헤더·상단 바·히어로 타이틀·본문 슬롯. */
 export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool: RandomTool; children: ReactNode; lang?: Lang }) {
-  const title = lang === 'ko' ? tool.title : lang === 'zh' ? tool.titleZh : tool.titleEn;
-  const desc = lang === 'ko' ? tool.desc : lang === 'zh' ? tool.descZh : tool.descEn;
-  const hubHref = lang === 'ko' ? '/random' : lang === 'zh' ? '/zh/random' : '/en/random';
+  const title = lang === 'ko' ? tool.title : tool.titleEn;
+  const desc = lang === 'ko' ? tool.desc : tool.descEn;
+  const hubHref = lang === 'ko' ? '/random' : '/en/random';
   // 언어 전환 링크: 현재 아닌 두 언어로
   const alt: { href: string; label: string; hl: string }[] =
     lang === 'ko'
-      ? [{ href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }, { href: `/zh/random/${tool.slug}`, label: '中文', hl: 'zh' }]
+      ? [{ href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }]
       : lang === 'en'
-        ? [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }, { href: `/zh/random/${tool.slug}`, label: '中文', hl: 'zh' }]
+        ? [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }]
         : [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }, { href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }];
 
   return (

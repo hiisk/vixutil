@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Convert to all caps, all lowercase or title case, and to developer conventions like camelCase, snake_case and kebab-case. Each result can be copied on its own.',
   alternates: {
     canonical: '/en/text/case',
-    languages: { 'en': '/en/text/case', 'zh': '/zh/text/case', 'ko': '/text/case', 'x-default': '/en/text/case' },
+    languages: { 'en': '/en/text/case', 'ko': '/text/case', 'x-default': '/en/text/case' },
   },
 };
 

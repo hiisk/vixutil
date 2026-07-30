@@ -8,7 +8,7 @@
  * 스프레드 id와 장수는 한국어와 공유한다. 자리 순서가 어긋나면 같은 카드가
  * 다른 뜻으로 읽히므로 배열 순서도 그대로 맞춘다.
  */
-export type TarotSpreadLang = 'en' | 'zh';
+export type TarotSpreadLang = 'en';
 
 export interface SpreadCopy {
   label: string;
@@ -63,43 +63,6 @@ export const SPREADS_INTL: Record<TarotSpreadLang, Record<string, SpreadCopy>> =
       ],
     },
   },
-  zh: {
-    one: {
-      label: '单张', desc: '今天的一句话',
-      positions: ['今日讯息'],
-      posDesc: ['此刻最值得听的那一件事'],
-    },
-    three: {
-      label: '过去 · 现在 · 未来', desc: '按时间看的三张牌',
-      positions: ['过去', '现在', '未来'],
-      posDesc: ['塑造了当下处境的过去', '你现在所处位置的核心', '这股流向要去的地方'],
-    },
-    relationship: {
-      label: '关系牌阵', desc: '五张牌看关系的两边',
-      positions: ['你', '对方', '关系的核心', '阻碍', '走向'],
-      posDesc: ['你自己的情绪与状态', '对方的情绪与状态', '真正定义这段关系的能量', '挡在两人之间的东西', '这段关系正在走的方向'],
-    },
-    celtic: {
-      label: '凯尔特十字', desc: '完整的十张牌阵',
-      positions: [
-        '当前处境', '横在其上的', '意识层目标', '潜意识根基',
-        '刚过去的过去', '临近的未来', '你的态度',
-        '外部环境', '希望与恐惧', '最终结果',
-      ],
-      posDesc: [
-        '此刻你所处处境的核心',
-        '阻挡或挑战你这条路的能量',
-        '你有意识地想要与在想的事',
-        '底下那层未被审视的情绪与根基',
-        '塑造了这个处境的近期过去',
-        '接下来可能会到来的事',
-        '你在这件事上采取的立场与态度',
-        '周围的人与环境带来的影响',
-        '你怀着的期望，或是害怕的事',
-        '整股流向最终要去的地方',
-      ],
-    },
-  },
 };
 
 /** 수트 이름·주제 — 색·이모지는 SUIT_INFO를 그대로 쓴다 */
@@ -109,12 +72,6 @@ export const SUIT_INTL: Record<TarotSpreadLang, Record<string, { name: string; t
     cups: { name: 'Cups', theme: 'emotion, relationships, intuition' },
     swords: { name: 'Swords', theme: 'thought, conflict, truth' },
     pentacles: { name: 'Pentacles', theme: 'material life, stability' },
-  },
-  zh: {
-    wands: { name: '权杖', theme: '热情、创造、意志' },
-    cups: { name: '圣杯', theme: '情感、关系、直觉' },
-    swords: { name: '宝剑', theme: '思考、冲突、真相' },
-    pentacles: { name: '星币', theme: '物质、现实、安稳' },
   },
 };
 
@@ -148,22 +105,5 @@ export const SPREAD_UI: Record<TarotSpreadLang, {
     privacy: 'The draw is random each time and nothing is stored or sent anywhere.',
     disclaimer: 'Tarot is for reflection and entertainment. Decisions that matter deserve real information and your own judgement.',
     home: 'Home', section: 'Horoscopes',
-  },
-  zh: {
-    metaTitle: '在线塔罗占卜 — 免费 78 张全牌阵',
-    metaDesc: '用完整的 78 张塔罗牌免费占卜：单张、过去现在未来、关系牌阵，或完整的凯尔特十字。每张牌都有正位与逆位解释。',
-    h1: '塔罗占卜',
-    lead: '选一个牌阵，从完整的 78 张牌里抽牌，逐个位置读正位与逆位的含义。',
-    spreadTitle: '牌阵', cardCount: n => `${n} 张`,
-    deckTitle: '牌组', fullDeck: '全 78 张', majorOnly: '大牌 22 张',
-    drawBtn: (label, n) => `✦ 抽${label}（${n} 张）`,
-    revealAll: '全部翻开', revealed: (a, b) => `已翻开 ${a}/${b}`, drawAgain: '重新抽牌',
-    tapToReveal: '点一下翻开',
-    tabDraw: '🃏 抽牌', tabList: '📚 全部牌',
-    majorHeading: '大阿尔卡纳', minorHeading: '小阿尔卡纳',
-    upright: '正位', reversed: '逆位',
-    privacy: '每次抽牌都是随机的，不保存任何内容，也不会发送到任何地方。',
-    disclaimer: '塔罗用于自省与娱乐。重要的决定值得用充分的信息和自己的判断来做。',
-    home: '首页', section: '运势',
   },
 };

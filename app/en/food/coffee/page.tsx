@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Works out the coffee-to-water ratio for pour over, French press and cold brew, which are all different. Decide how much you want to drink and it tells you how many grams to grind.',
   alternates: {
     canonical: '/en/food/coffee',
-    languages: { 'en': '/en/food/coffee', 'zh': '/zh/food/coffee', 'ko': '/food/coffee', 'x-default': '/en/food/coffee' },
+    languages: { 'en': '/en/food/coffee', 'ko': '/food/coffee', 'x-default': '/en/food/coffee' },
   },
 };
 

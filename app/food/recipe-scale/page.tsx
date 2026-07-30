@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '레시피를 붙여 넣고 인분만 바꾸면 재료 양을 전부 다시 계산해 줍니다. 숫자와 단위를 알아서 찾아 바꾸므로 한 줄씩 곱하지 않아도 됩니다.',
   alternates: {
     canonical: '/food/recipe-scale',
-    languages: { 'ko': '/food/recipe-scale', 'en': '/en/food/recipe-scale', 'zh': '/zh/food/recipe-scale', 'x-default': '/en/food/recipe-scale' },
+    languages: { 'ko': '/food/recipe-scale', 'en': '/en/food/recipe-scale', 'x-default': '/en/food/recipe-scale' },
   },
 };
 

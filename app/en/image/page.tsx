@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free image tools that run in your browser: compress, resize, convert format, crop, rotate, pixelate faces, combine photos and extract colours. Nothing is uploaded.',
   alternates: {
     canonical: '/en/image',
-    languages: { 'en': '/en/image', 'zh': '/zh/image', 'ko': '/image', 'x-default': '/en/image' },
+    languages: { 'en': '/en/image', 'ko': '/image', 'x-default': '/en/image' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnImageHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/image" className="hover:text-violet-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/image" className="hover:text-violet-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

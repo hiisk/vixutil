@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Read today’s free horoscope for all 12 star signs: love, money, work and health, with a lucky colour, number and item. Updated every day.',
   alternates: {
     canonical: '/en/fortune/zodiac',
-    languages: { 'en': '/en/fortune/zodiac', 'ko': '/fortune/zodiac', 'zh': '/zh/fortune/zodiac', 'x-default': '/en/fortune/zodiac' },
+    languages: { 'en': '/en/fortune/zodiac', 'ko': '/fortune/zodiac', 'x-default': '/en/fortune/zodiac' },
   },
 };
 

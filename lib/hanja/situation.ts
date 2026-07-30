@@ -12,9 +12,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Sa-myeon-cho-ga', meaning: 'Chu songs on all four sides — surrounded with nowhere to turn.',
       origin: 'From the Records of the Grand Historian: encircled by Han troops, Xiang Yu heard Chu songs from every direction and his soldiers melted away.',
       usage: 'Used of a predicament with no way out.' },
-    zh: { title: '四面楚歌', meaning: '四面都传来楚歌，比喻孤立无援、走投无路。',
-      origin: '出自《史记·项羽本纪》，项羽被汉军围困，闻四面楚歌而军心尽散。',
-      usage: '形容毫无退路的困境，中韩通用。' },
   },
   {
     slug: 'jintoeyangnan', hanja: '進退兩難', simplified: '进退两难', reading: '진퇴양난',
@@ -26,9 +23,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Jin-toe-yang-nan', meaning: 'Hard to advance and hard to retreat.',
       origin: 'Common in Chinese classics, describing a situation where either choice costs you.',
       usage: 'Used when both options are bad.' },
-    zh: { title: '进退两难', meaning: '前进和后退都很困难。',
-      origin: '古籍常见，指无论选哪一边都要吃亏的处境。',
-      usage: '用于两个选择都不好的情形，中韩通用。' },
   },
   {
     slug: 'nuranjiwi', hanja: '累卵之危', simplified: '累卵之危', reading: '누란지위',
@@ -40,9 +34,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Nu-ran-ji-wi', meaning: 'As precarious as a stack of eggs.',
       origin: 'From the Records of the Grand Historian, where Qin’s position is called more perilous than piled eggs.',
       usage: 'Describes a situation that will collapse at the slightest touch.' },
-    zh: { title: '累卵之危', meaning: '像堆叠的蛋一样危险。',
-      origin: '出自《史记·范雎列传》，形容秦国形势「危于累卵」。',
-      usage: '形容一碰即塌的局面，中韩通用。' },
   },
   {
     slug: 'pungjeondeunghwa', hanja: '風前燈火', simplified: '风前灯火', reading: '풍전등화',
@@ -54,9 +45,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Pung-jeon-deung-hwa', meaning: 'A lamp flame before the wind — an extremely precarious state.',
       origin: 'A simile used in Buddhist texts and classical poetry for a life or fate hanging by a thread.',
       usage: 'Used for a crisis where survival itself is at stake.' },
-    zh: { title: '风前灯火', meaning: '风中的灯火，比喻极其危险的处境。',
-      origin: '佛典与古诗中的比喻，形容性命或命运危如悬丝。',
-      usage: '用于存亡攸关的危机；中文多说「风中残烛」。' },
   },
   {
     slug: 'orimujung', hanja: '五里霧中', simplified: '五里雾中', reading: '오리무중',
@@ -68,9 +56,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'O-ri-mu-jung', meaning: 'Inside a fog five li deep — completely unable to make sense of things.',
       origin: 'From the Book of the Later Han, where Zhang Kai could conjure a fog five li across.',
       usage: 'Used when an investigation or situation is going nowhere.' },
-    zh: { title: '五里雾中', meaning: '身处五里之雾，比喻茫无头绪。',
-      origin: '出自《后汉书·张楷传》，张楷能作五里雾。',
-      usage: '形容调查或状况毫无进展；中文多说「一头雾水」。' },
   },
   {
     slug: 'seolsanggasang', hanja: '雪上加霜', simplified: '雪上加霜', reading: '설상가상',
@@ -82,9 +67,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Seol-sang-ga-sang', meaning: 'Frost on top of snow — one misfortune stacked on another.',
       origin: 'Found in Chan Buddhist records such as the Blue Cliff Record.',
       usage: 'Said when bad things happen back to back.' },
-    zh: { title: '雪上加霜', meaning: '雪上又结霜，比喻灾祸接连而来。',
-      origin: '见于《碧岩录》等禅宗语录。',
-      usage: '用于坏事接连发生时，中韩通用。' },
   },
   {
     slug: 'jeonhwawibok', hanja: '轉禍爲福', simplified: '转祸为福', reading: '전화위복',
@@ -96,9 +78,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Jeon-hwa-wi-bok', meaning: 'Disaster turned into good fortune.',
       origin: 'From the Strategies of the Warring States and the Records of the Grand Historian, of crises turned into openings.',
       usage: 'Used when a loss ended up working out in your favour.' },
-    zh: { title: '转祸为福', meaning: '把灾祸转变为福气。',
-      origin: '见于《战国策》与《史记》，用于化危机为契机之事。',
-      usage: '用于损失最终变成好事时，中韩通用。' },
   },
   {
     slug: 'saeongjima', hanja: '塞翁之馬', simplified: '塞翁之马', reading: '새옹지마',
@@ -110,9 +89,6 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Sae-ong-ji-ma', meaning: 'The old frontiersman’s horse — fortune and misfortune cannot be predicted.',
       origin: 'From the Huainanzi: a horse lost, a horse gained, a son injured — each turn reversing what looked like luck.',
       usage: 'Said to counsel against reacting too strongly to either good news or bad.' },
-    zh: { title: '塞翁之马', meaning: '塞翁的马，比喻福祸难以预料。',
-      origin: '出自《淮南子》，失马、得马、子伤等事接连反转吉凶。',
-      usage: '劝人不要因一时好坏而大喜大悲；中文多说「塞翁失马」。' },
   },
   {
     slug: 'ilchokjeukbal', hanja: '一觸卽發', simplified: '一触即发', reading: '일촉즉발',
@@ -124,8 +100,5 @@ export const SITUATION_IDIOMS: Idiom[] = [
     en: { title: 'Il-chok-jeuk-bal', meaning: 'One touch and it goes off — an extremely volatile state.',
       origin: 'Widely used since the modern era for a standoff stretched taut.',
       usage: 'Common in reporting on confrontations on the brink of breaking out.' },
-    zh: { title: '一触即发', meaning: '一碰就会爆发，形容形势极其危急。',
-      origin: '近代以来广泛使用，指绷紧的对峙状态。',
-      usage: '常用于报道濒临冲突的对峙，中韩通用。' },
   },
 ];

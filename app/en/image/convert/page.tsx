@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'For uploading somewhere that will not take WebP, or the other way round when you want a smaller file. A PNG with a transparent background gets that background filled when it becomes a JPG, so you can pick the fill colour too.',
   alternates: {
     canonical: '/en/image/convert',
-    languages: { 'en': '/en/image/convert', 'zh': '/zh/image/convert', 'ko': '/image/convert', 'x-default': '/en/image/convert' },
+    languages: { 'en': '/en/image/convert', 'ko': '/image/convert', 'x-default': '/en/image/convert' },
   },
 };
 

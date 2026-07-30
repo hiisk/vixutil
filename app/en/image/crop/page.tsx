@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Drag over the photo to keep only the part you want. Lock to 1:1, 16:9 or a profile ratio to match a spec, or leave it free and take whatever shape you like.',
   alternates: {
     canonical: '/en/image/crop',
-    languages: { 'en': '/en/image/crop', 'zh': '/zh/image/crop', 'ko': '/image/crop', 'x-default': '/en/image/crop' },
+    languages: { 'en': '/en/image/crop', 'ko': '/image/crop', 'x-default': '/en/image/crop' },
   },
 };
 

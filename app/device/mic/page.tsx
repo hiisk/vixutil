@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '마이크가 소리를 받고 있는지 실시간 레벨 미터로 확인하고, 몇 초 녹음해 바로 들어보며 실제로 어떻게 들리는지 점검합니다. 화상회의·게임 전 1분 점검용입니다.',
   alternates: {
     canonical: '/device/mic',
-    languages: { 'ko': '/device/mic', 'en': '/en/device/mic', 'zh': '/zh/device/mic', 'x-default': '/en/device/mic' },
+    languages: { 'ko': '/device/mic', 'en': '/en/device/mic', 'x-default': '/en/device/mic' },
   },
 };
 

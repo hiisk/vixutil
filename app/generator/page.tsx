@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: '닉네임, 비밀번호, 명언, 메뉴 등 100가지 랜덤 생성기 모음',
   alternates: {
     canonical: '/generator',
-    languages: { 'ko': '/generator', 'en': '/en/generator', 'zh': '/zh/generator', 'x-default': '/en/generator' },
+    languages: { 'ko': '/generator', 'en': '/en/generator', 'x-default': '/en/generator' },
   },
 };
 

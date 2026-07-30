@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Times to a hundredth of a second and records laps, so you can compare each split and see which was quickest.",
   alternates: {
     canonical: '/en/time/stopwatch',
-    languages: { 'en': '/en/time/stopwatch', 'zh': '/zh/time/stopwatch', 'ko': '/time/stopwatch', 'x-default': '/en/time/stopwatch' },
+    languages: { 'en': '/en/time/stopwatch', 'ko': '/time/stopwatch', 'x-default': '/en/time/stopwatch' },
   },
 };
 

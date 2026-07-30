@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free text tools: clean pasted text, remove duplicate lines, convert case, find and replace, count words and characters, special characters, kaomoji and lorem ipsum.',
   alternates: {
     canonical: '/en/text',
-    languages: { 'en': '/en/text', 'zh': '/zh/text', 'ko': '/text', 'x-default': '/en/text' },
+    languages: { 'en': '/en/text', 'ko': '/text', 'x-default': '/en/text' },
   },
 };
 
@@ -33,7 +33,6 @@ export default function EnTextHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/text" className="hover:text-indigo-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/text" className="hover:text-indigo-600" hrefLang="zh">中文</Link>
           </span>
         </div>
       </header>

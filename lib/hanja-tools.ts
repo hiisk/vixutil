@@ -1,16 +1,27 @@
 /**
- * 사자성어 50개 — 갈래별 파일을 모아 하나의 카탈로그로 낸다.
+ * 사자성어 100개 — 갈래별 파일을 모아 하나의 카탈로그로 낸다.
  */
 import type { Idiom } from './hanja/types.ts';
 import { ATTITUDE_IDIOMS } from './hanja/attitude.ts';
+import { ATTITUDE2_IDIOMS } from './hanja/attitude2.ts';
 import { EFFORT_IDIOMS } from './hanja/effort.ts';
+import { EFFORT2_IDIOMS } from './hanja/effort2.ts';
 import { PEOPLE_IDIOMS } from './hanja/people.ts';
+import { PEOPLE2_IDIOMS } from './hanja/people2.ts';
 import { SITUATION_IDIOMS } from './hanja/situation.ts';
+import { SITUATION2_IDIOMS } from './hanja/situation2.ts';
 import { LEARNING_IDIOMS } from './hanja/learning.ts';
+import { LEARNING2_IDIOMS } from './hanja/learning2.ts';
 import { WORDS_IDIOMS } from './hanja/words.ts';
+import { WORDS2_IDIOMS } from './hanja/words2.ts';
 
 export const IDIOMS: Idiom[] = [
-  ...ATTITUDE_IDIOMS, ...EFFORT_IDIOMS, ...PEOPLE_IDIOMS, ...SITUATION_IDIOMS, ...LEARNING_IDIOMS, ...WORDS_IDIOMS,
+  ...ATTITUDE_IDIOMS, ...ATTITUDE2_IDIOMS,
+  ...EFFORT_IDIOMS, ...EFFORT2_IDIOMS,
+  ...PEOPLE_IDIOMS, ...PEOPLE2_IDIOMS,
+  ...SITUATION_IDIOMS, ...SITUATION2_IDIOMS,
+  ...LEARNING_IDIOMS, ...LEARNING2_IDIOMS,
+  ...WORDS_IDIOMS, ...WORDS2_IDIOMS,
 ];
 
 export const HANJA_CATEGORIES = ['처세·태도', '노력·인내', '관계·사람', '상황·형세', '배움·지혜', '말·글'] as const;

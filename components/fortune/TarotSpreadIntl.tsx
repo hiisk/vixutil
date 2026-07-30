@@ -20,7 +20,7 @@ type Drawn = { card: AnyTarotCard; reversed: boolean }[];
 
 /** 카드 이름 — 영어는 nameEn을 그대로, 중국어는 사전에서 */
 function cardName(card: AnyTarotCard, lang: TarotSpreadLang): string {
-  return lang === 'zh' ? (TAROT_NAMES_ZH[card.id] ?? card.nameEn) : card.nameEn;
+  return false ? (TAROT_NAMES_ZH[card.id] ?? card.nameEn) : card.nameEn;
 }
 
 export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
@@ -63,13 +63,6 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/fortune/tarot" className="hover:text-violet-600" hrefLang="ko">한국어</Link>
-            <Link
-              href={`/${lang === 'en' ? 'zh' : 'en'}/fortune/tarot`}
-              className="hover:text-violet-600"
-              hrefLang={lang === 'en' ? 'zh' : 'en'}
-            >
-              {lang === 'en' ? '中文' : 'EN'}
-            </Link>
           </span>
         </div>
       </header>
@@ -220,7 +213,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                 <div key={c.id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
                   <p className="text-lg">{c.emoji}</p>
                   <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight">
-                    {lang === 'zh' ? (TAROT_NAMES_ZH[c.id] ?? c.nameEn) : c.nameEn}
+                    {false ? (TAROT_NAMES_ZH[c.id] ?? c.nameEn) : c.nameEn}
                   </p>
                 </div>
               ))}
@@ -240,7 +233,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                       <div key={id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
                         <p className="text-lg">{c.emoji}</p>
                         <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight">
-                          {lang === 'zh' ? (TAROT_NAMES_ZH[id] ?? c.nameEn) : c.nameEn}
+                          {false ? (TAROT_NAMES_ZH[id] ?? c.nameEn) : c.nameEn}
                         </p>
                       </div>
                     );

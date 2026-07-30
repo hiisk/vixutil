@@ -39,18 +39,6 @@ const COPY = {
     warmth: 'Warm ↔ cool', clarity: 'Clarity', value: 'Lightness',
     disclaimer: 'The skin tone is genuinely sampled and white-balanced. Seasonal colour analysis is a styling convention, not a measurement standard.',
   },
-  zh: {
-    title: '个人色彩分析',
-    lead: '取样脸颊肤色，判定你属于十二种四季型中的哪一种',
-    privacy: '脸颊像素在你的浏览器内读取，并以整张照片做白平衡校正 —— 否则室内光会把冷皮判成暖皮，反之亦然。光线仍会影响结果，建议在不同光线下各测一次再下结论。',
-    result: '🎨 你的类型',
-    palette: '✅ 适合你的颜色',
-    avoid: '🚫 建议少用的颜色',
-    metrics: '📊 实测数据',
-    tip: '💡 搭配建议',
-    warmth: '暖 ↔ 冷', clarity: '清透度', value: '明度',
-    disclaimer: '肤色为真实取样并做过白平衡。四季色彩理论是一种搭配惯例，而非测量标准。',
-  },
 } as const;
 
 interface Swatch { name: string; hex: string }
