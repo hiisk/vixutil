@@ -3,13 +3,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import { colorToolsIntl, COLOR_SHELL_UI } from '@/lib/color-tools-intl';
+import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
+import { COLOR_UI, colorAlternates } from '@/lib/color/ui';
 
 export const metadata: Metadata = {
   title: 'Colour Tools — Palette, Contrast, CSS Gradient',
   description: 'Free colour tools: palette generator, shade scale, contrast checker, colour blindness simulator, CSS gradient and box-shadow. Runs in your browser, no install.',
   alternates: {
     canonical: '/en/color',
-    languages: { 'en': '/en/color', 'ko': '/color', 'x-default': '/en/color' },
+    languages: colorAlternates(),
   },
 };
 
@@ -59,6 +61,37 @@ export default function EnColorHub() {
             </div>
           </section>
         ))}
+
+        {/*
+          110 named colours. The tools above are for making colours; this is for
+          looking one up — someone who needs a hex code is not building a palette.
+        */}
+        <section className="mb-8" aria-label={COLOR_UI.en.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{COLOR_UI.en.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{COLOR_UI.en.hubLead}</p>
+          {COLOR_FAMILIES.map(family => (
+            <div key={family} className="mb-4">
+              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
+                {COLOR_UI.en.familyLabel[family]}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2">
+                {colorsOfFamily(family).map(c => (
+                  <Link
+                    key={c.slug}
+                    href={`/en/color/${c.slug}`}
+                    className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-sm hover:border-fuchsia-200 transition-all"
+                  >
+                    <span className="block h-11" style={{ background: c.hex }} />
+                    <span className="block px-2 py-1.5 bg-white dark:bg-slate-900">
+                      <span className="block text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">{c.name.en}</span>
+                      <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">{c.hex.toUpperCase()}</span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
       </div>

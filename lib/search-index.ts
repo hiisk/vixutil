@@ -21,6 +21,7 @@ import { IDIOMS } from './hanja-tools';
 import { METRO_LINES } from './metro-lines';
 import { lineIcon, lineTitle } from './metro/types';
 import { MUSIC_ITEMS, iconOf, symbolOf, titleOf } from './music/catalog';
+import { NAMED_COLORS_8 } from './color/named8';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -140,6 +141,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...IDIOMS.map(i => ({ href: `/hanja/${i.slug}`, title: `${i.reading} ${i.hanja}`, desc: i.ko.meaning.slice(0, 60), section: 'hanja' as const, icon: i.icon })),
   ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${lineTitle(l, 'ko')} 역 이름 맞추기`, desc: l.text.ko.intro.slice(0, 60), section: 'metro' as const, icon: lineIcon(l) })),
   ...MUSIC_ITEMS.map(i => ({ href: `/music/${i.slug}`, title: `${titleOf(i, 'ko')} 구성음`, desc: `${symbolOf(i)} — ${titleOf(i, 'en')}`, section: 'music' as const, icon: iconOf(i) })),
+  ...NAMED_COLORS_8.map(c => ({ href: `/color/${c.slug}`, title: `${c.name.ko} 색상 코드`, desc: `${c.hex.toUpperCase()} — ${c.name.en}`, section: 'color' as const, icon: '🎨' })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];
