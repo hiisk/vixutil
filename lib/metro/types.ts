@@ -141,12 +141,22 @@ export function layout(line: MetroLine): { x: number; y: number }[] {
 /**
  * 정답 비교용으로 다듬는다.
  *
- * 공백·하이픈·가운뎃점을 지우고 소문자로 내린다. 역 이름에는 표기 차이가
- * 많다 — "Oxford Circus"와 "oxfordcircus", "신촌"과 "신 촌"이 모두 같은
- * 답이어야 한다.
+ * 공백·하이픈·가운뎃점·슬래시를 지우고 소문자로 내린다. 역 이름에는 표기 차이가
+ * 많다 — "Oxford Circus"와 "oxfordcircus", "신촌"과 "신 촌", 시카고의
+ * "Clark/Lake"와 "Clark Lake"가 모두 같은 답이어야 한다.
+ *
+ * 라틴 문자의 덧표시와 독일어 ß도 지운다. Châtelet를 Chatelet로,
+ * Kurfürstenstraße를 Kurfuerstenstrasse나 Kurfurstenstrasse로 치는 사람이
+ * 실제로 대부분이고, 그 키를 못 넣는 자판도 많다. 데바나가리·가나의 모음
+ * 기호는 남긴다 — 그것을 지우면 다른 역이 같은 이름이 된다.
  */
 export const normalize = (s: string): string =>
-  s.toLowerCase().replace(/[\s·'’`.\-_()[\]]/g, '');
+  s
+    .toLowerCase()
+    .replace(/ß/g, 'ss')
+    .normalize('NFD')
+    .replace(/([a-z])\p{Mn}+/gu, '$1')
+    .replace(/[\s·'’`.\-_()[\]/]/g, '');
 
 /** 입력이 그 역의 답인가 — 현지 표기와 로마자를 모두 받는다 */
 export function matches(input: string, st: MetroStation): boolean {

@@ -105,7 +105,7 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Metro
 
   return (
     <div>
-      <MetroMap line={line} solved={solved} focus={Math.min(at, total - 1)} />
+      <MetroMap line={line} solved={solved} focus={Math.min(at, total - 1)} lang={lang} />
 
       <div className="grid grid-cols-4 gap-2 mt-3">
         <Stat value={ui.solvedOf(at, total)} label={ui.stations} color={line.color} />

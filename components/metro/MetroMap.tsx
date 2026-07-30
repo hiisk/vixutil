@@ -1,7 +1,8 @@
 'use client';
 import { useMemo } from 'react';
 import type { MetroLine } from '@/lib/metro/types';
-import { layout } from '@/lib/metro/types';
+import { layout, lineName } from '@/lib/metro/types';
+import type { MetroLang } from '@/lib/metro/lang';
 
 /**
  * 노선도 — 맞힐 역 쪽으로 화면이 움직이며 힌트를 준다.
@@ -17,12 +18,15 @@ export default function MetroMap({
   line,
   solved,
   focus,
+  lang,
 }: {
   line: MetroLine;
   /** 역마다 맞혔는지 */
   solved: boolean[];
   /** 화면을 가져다 놓을 역의 자리 */
   focus: number;
+  /** 노선 이름을 읽어 주는 데만 쓴다 — 역 이름은 현지 표기 그대로다 */
+  lang: MetroLang;
 }) {
   const pts = useMemo(() => layout(line), [line]);
 
@@ -106,7 +110,7 @@ export default function MetroMap({
         viewBox={viewBox}
         className="w-full h-[220px] sm:h-[260px] [transition:all_600ms_cubic-bezier(0.22,1,0.36,1)]"
         role="img"
-        aria-label={line.ko.line}
+        aria-label={lineName(line, lang)}
       >
         <path d={path} fill="none" stroke={line.color} strokeWidth={LINE_W} strokeLinecap="round" strokeLinejoin="round" opacity={0.28} />
         {px.map((p, i) => {
