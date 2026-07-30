@@ -329,7 +329,8 @@ const SPEC: Spec = {
     (name: string, symbol: string, z: number) => `${name}(${symbol}) — 원자번호 ${z}번 원소`,
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — element number ${z}`,
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — elemento número ${z}`,
-    (name: string, symbol: string, z: number) => `${name} (${symbol}) — elemento número ${z}`,
+    // 포르투갈어는 스페인어와 이름이 같은 원소가 열둘이라, 제목이 통째로 겹치지 않게 뒤를 달리 적는다
+    (name: string, symbol: string, z: number) => `${name} (${symbol}) — elemento ${z} da tabela periódica`,
     (name: string, symbol: string, z: number) => `${name}（${symbol}）— 原子番号${z}の元素`,
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — Element Nummer ${z}`,
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — élément numéro ${z}`,

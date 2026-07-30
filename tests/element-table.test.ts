@@ -259,6 +259,20 @@ test('모든 원소가 여덟 언어 메타를 만든다', () => {
   }
 });
 
+test('여덟 언어를 통틀어 제목이 겹치지 않는다', () => {
+  // 스페인어와 포르투갈어는 이름이 같은 원소가 열둘이라, 제목 틀까지 같으면 통째로 겹친다
+  const seen = new Map<string, string>();
+  for (const lang of LANG8_CODES) {
+    for (const x of ELEMENTS) {
+      const ui = ELEMENT_UI[lang];
+      const title = `${ui.metaTitle(nameOf(x.z, lang), x.symbol, x.z)} — ${ui.section}`;
+      const before = seen.get(title);
+      assert.equal(before, undefined, `"${title}"를 ${before}와 ${lang}/${x.z}가 함께 쓴다`);
+      seen.set(title, `${lang}/${x.z}`);
+    }
+  }
+});
+
 test('원소 아이콘은 목록과 카드가 같은 그림을 쓴다', async () => {
   const { ICON_FOR } = await import('../lib/og-icon-map.ts');
   assert.equal(ICON_FOR[ELEMENT_ICON], 'atom', '이모지가 원자 아이콘으로 이어지지 않는다');
