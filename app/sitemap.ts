@@ -37,6 +37,7 @@ import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
+import { SCREENS } from "@/lib/device/screens";
 
 const BASE = "https://vixutil.com";
 
@@ -184,6 +185,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // 화면 규격 108장도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
+      ...SCREENS.map((sc: { slug: string }) => ({
+        url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 재료 무게 125장도 여덟 언어다 — 도구는 따로 실려 있고 이건 이름 페이지다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
       INGREDIENTS.map((i: { slug: string }) => ({

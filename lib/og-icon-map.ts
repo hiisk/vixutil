@@ -56,7 +56,8 @@ export const GROUPS: Record<string, string[]> = {
   calendar: ['📅', '📆'],
 
   laptop: ['💻'],
-  tv: ['📺', '🖥️'],
+  tv: ['📺'],
+  screen: ['🖥️'],
   phone: ['📱', '📲', '🤳'],
   keyboard: ['⌨️'],
   mouse: ['🖱️'],

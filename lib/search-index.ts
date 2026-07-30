@@ -24,6 +24,8 @@ import { MUSIC_ITEMS, iconOf, symbolOf, titleOf } from './music/catalog';
 import { NAMED_COLORS_8 } from './color/named8';
 import { INGREDIENTS } from './food/ingredients8';
 import { TIME_CITIES, timeCountry } from './time/cities8';
+import { SCREENS, SCREEN_ICON } from './device/screens';
+import { screenFacts } from './device/facts';
 import { foodFacts } from './food/facts';
 
 /**
@@ -147,6 +149,13 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...NAMED_COLORS_8.map(c => ({ href: `/color/${c.slug}`, title: `${c.name.ko} 색상 코드`, desc: `${c.hex.toUpperCase()} — ${c.name.en}`, section: 'color' as const, icon: '🎨' })),
   ...INGREDIENTS.map(i => ({ href: `/food/${i.slug}`, title: `${i.name.ko} 1컵 무게`, desc: `미국컵 ${foodFacts(i).grams.cupUs}g · 한국컵 ${foodFacts(i).grams.cupMetric}g`, section: 'food' as const, icon: '⚖️' })),
   ...TIME_CITIES.map(c => ({ href: `/time/${c.slug}`, title: `${c.name.ko} 현재 시각`, desc: `${timeCountry(c.country)?.name.ko ?? ''} · ${c.zone}`, section: 'time' as const, icon: '🕰️' })),
+  ...SCREENS.map(sc => ({
+    href: `/device/screen/${sc.slug}`,
+    title: `${sc.name} 화면 규격`,
+    desc: `${sc.w}×${sc.h} · ${sc.inch}인치 · ${screenFacts(sc).ppi}ppi`,
+    section: 'device' as const,
+    icon: SCREEN_ICON,
+  })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];
