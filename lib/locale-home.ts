@@ -89,6 +89,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/fortune/card', icon: '🃏', color: 'from-violet-500 to-fuchsia-500',
+    accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
+    copy: {
+      en: { title: 'Tarot Card Meanings', desc: 'All 78 cards, upright and reversed, major and minor arcana' },
+      es: { title: 'Significado del tarot', desc: 'Las 78 cartas al derecho y al revés, arcanos mayores y menores' },
+      'pt-br': { title: 'Significado do tarô', desc: 'As 78 cartas normais e invertidas, arcanos maiores e menores' },
+      ja: { title: 'タロットの意味', desc: '78枚すべての正位置・逆位置、大小アルカナ' },
+      de: { title: 'Tarot-Bedeutungen', desc: 'Alle 78 Karten, aufrecht und umgekehrt, große und kleine Arkana' },
+      fr: { title: 'Signification du tarot', desc: "Les 78 cartes à l'endroit et à l'envers, arcanes majeurs et mineurs" },
+      hi: { title: 'टैरो कार्ड के अर्थ', desc: 'सभी 78 पत्ते — सीधे और उल्टे, बड़े और छोटे आर्काना' },
+    },
+  },
+  {
     route: '/time', icon: '⏱️', color: 'from-sky-400 to-cyan-600',
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {

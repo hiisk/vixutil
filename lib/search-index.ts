@@ -27,6 +27,8 @@ import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
 import { EXTS, EXT_ICON } from './ext/list';
+import { CARDS, TAROT_ICON } from './tarot/deck';
+import { cardView } from './tarot/facts';
 import { extFacts } from './ext/facts';
 import { freqFacts } from './sound/facts';
 import { screenFacts } from './device/facts';
@@ -178,6 +180,16 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'ext' as const,
     icon: EXT_ICON,
   })),
+  ...CARDS.map(c => {
+    const v = cardView(c.slug, 'ko')!;
+    return {
+      href: `/fortune/card/${c.slug}`,
+      title: `타로 ${v.name}`,
+      desc: v.kindLine,
+      section: 'fortune' as const,
+      icon: TAROT_ICON,
+    };
+  }),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

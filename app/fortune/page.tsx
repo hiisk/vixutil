@@ -6,6 +6,8 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import { TAROT_UI } from '@/lib/tarot/ui';
+import { TAROT_ICON } from '@/lib/tarot/deck';
 
 export const metadata: Metadata = {
   title: '오늘의 운세',
@@ -122,6 +124,20 @@ export default function FortunePage() {
         </Link>
 
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-10">운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다</p>
+
+        {/* 타로 78장 자료는 뽑기 도구가 아니라 찾아보는 목록이라 따로 세운다 */}
+        <Link
+          href="/fortune/card"
+          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-violet-500 to-fuchsia-500">
+            <ToolIcon emoji={TAROT_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{TAROT_UI.ko.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{TAROT_UI.ko.hubLead}</span>
+          </span>
+        </Link>
 
         <Faq items={SECTION_FAQ.fortune} />
       </div>
