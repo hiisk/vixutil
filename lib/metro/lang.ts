@@ -1,78 +1,25 @@
 /**
- * 지하철 섹션의 언어 — 여덟 개.
+ * 지하철 섹션의 언어 — 공용 레지스트리를 그대로 쓴다.
  *
- * 예전에는 사이트 전체가 ko·en·zh 셋이었지만 중국어는 걷어냈고, 이 섹션부터는
- * 각 나라의 언어를 넣는다. 노선을 담은 도시가 서울·도쿄·런던·파리·베를린·
- * 마드리드·상파울루·뭄바이로 퍼져 있으므로, 그 도시 사람이 자기 언어로
- * 자기 노선을 풀 수 있어야 이 게임이 뜻을 가진다.
- *
- * 포르투갈어는 브라질 표기(pt-BR)를 쓴다 — 상파울루·리우 노선을 담았으니 유럽
- * 포르투갈어가 아니다. 경로도 /pt가 아니라 /pt-br로 두어 주소만 봐도 어느
- * 포르투갈어인지 알 수 있게 한다.
+ * 여덟 언어 목록은 lib/i18n/lang8.ts 한 곳에만 둔다. 이 섹션에서 처음 쓴 목록이
+ * 다음 섹션에도 쓰이므로, 섹션마다 다시 적으면 언어를 더하거나 뺄 때 한 곳이
+ * 남고 그 한 곳은 틀린 hreflang과 빈 화면으로만 드러난다.
  */
-export type MetroLang = 'ko' | 'en' | 'es' | 'pt' | 'ja' | 'de' | 'fr' | 'hi';
+import {
+  LANGS8, LANG8_CODES, alternates8, lang8Info, numberedLine8, prefix8,
+  type L8, type Lang8, type Lang8Info,
+} from '../i18n/lang8.ts';
 
-/** 여덟 언어를 다 채워야 하는 값 */
-export type L8<T> = Record<MetroLang, T>;
+export type MetroLang = Lang8;
+export type { L8 };
+export type MetroLangInfo = Lang8Info;
 
-export interface MetroLangInfo {
-  lang: MetroLang;
-  /** 화면의 언어 전환에 보이는 이름 — 그 언어로 적는다 */
-  label: string;
-  /** 경로 앞머리. 한국어는 없다 */
-  prefix: string;
-  /** hreflang 값 — 경로와 다를 수 있다 */
-  hreflang: string;
-  /** <html lang> 값 */
-  htmlLang: string;
-}
+export const METRO_LANGS = LANGS8;
+export const METRO_LANG_CODES = LANG8_CODES;
+export const langInfo = lang8Info;
+export const metroPrefix = prefix8;
+export const numberedLine = numberedLine8;
 
-export const METRO_LANGS: MetroLangInfo[] = [
-  { lang: 'ko', label: '한국어', prefix: '', hreflang: 'ko', htmlLang: 'ko' },
-  { lang: 'en', label: 'English', prefix: '/en', hreflang: 'en', htmlLang: 'en' },
-  { lang: 'es', label: 'Español', prefix: '/es', hreflang: 'es', htmlLang: 'es' },
-  { lang: 'pt', label: 'Português', prefix: '/pt-br', hreflang: 'pt-BR', htmlLang: 'pt-BR' },
-  { lang: 'ja', label: '日本語', prefix: '/ja', hreflang: 'ja', htmlLang: 'ja' },
-  { lang: 'de', label: 'Deutsch', prefix: '/de', hreflang: 'de', htmlLang: 'de' },
-  { lang: 'fr', label: 'Français', prefix: '/fr', hreflang: 'fr', htmlLang: 'fr' },
-  { lang: 'hi', label: 'हिन्दी', prefix: '/hi', hreflang: 'hi', htmlLang: 'hi' },
-];
-
-export const METRO_LANG_CODES: MetroLang[] = METRO_LANGS.map(l => l.lang);
-
-export const langInfo = (lang: MetroLang): MetroLangInfo =>
-  METRO_LANGS.find(l => l.lang === lang) ?? METRO_LANGS[0];
-
-export const metroPrefix = (lang: MetroLang): string => langInfo(lang).prefix;
-
-/**
- * hreflang 묶음 — 여덟 줄 + x-default.
- *
- * 손으로 적으면 언어를 더할 때 한 곳을 빼먹는다. 목록에서 만들어 낸다.
- */
-export function metroAlternates(slug?: string): Record<string, string> {
-  const path = slug ? `/metro/${slug}` : '/metro';
-  const out: Record<string, string> = {};
-  for (const l of METRO_LANGS) out[l.hreflang] = `${l.prefix}${path}`;
-  out['x-default'] = `/en${path}`;
-  return out;
-}
-
-/**
- * 번호가 붙은 노선의 이름을 언어별로 만든다.
- *
- * "2호선"은 언어마다 형태가 정해져 있어 노선마다 여덟 벌을 적을 필요가 없다.
- * 번호가 아닌 이름(Victoria line, 山手線)은 label로 따로 준다.
- */
-const NUMBERED: L8<(n: string) => string> = {
-  ko: n => `${n}호선`,
-  en: n => `Line ${n}`,
-  es: n => `Línea ${n}`,
-  pt: n => `Linha ${n}`,
-  ja: n => `${n}号線`,
-  de: n => `Linie ${n}`,
-  fr: n => `Ligne ${n}`,
-  hi: n => `लाइन ${n}`,
-};
-
-export const numberedLine = (n: string, lang: MetroLang): string => NUMBERED[lang](n);
+/** hreflang 묶음 — 노선 slug만 넣으면 아홉 줄이 기계적으로 나온다 */
+export const metroAlternates = (slug?: string): Record<string, string> =>
+  alternates8(slug ? `/metro/${slug}` : '/metro');
