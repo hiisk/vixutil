@@ -60,6 +60,8 @@ export default function RiskAdjustedPage() {
 
         <RiskAdjustedBoard />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/*
           아래는 서버에서 정적으로 렌더된다. 위 보드는 브라우저에서 시세를 받아
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
@@ -90,8 +92,6 @@ export default function RiskAdjustedPage() {
             not persist. The risk-free rate is taken as zero. All decisions and risks are your own.
           </p>
         </div>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ['crypto/risk-adjusted']} lang="en" />
       </div>

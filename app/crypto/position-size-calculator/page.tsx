@@ -60,6 +60,8 @@ export default function PositionSizeCalculatorPage() {
 
         <PositionSizer />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/*
           아래는 서버에서 정적으로 렌더된다. 위 계산기는 브라우저에서 동작하므로
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
@@ -91,8 +93,6 @@ export default function PositionSizeCalculatorPage() {
             stop if leverage is high enough. All trading decisions and risks are your own.
           </p>
         </div>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ['crypto/position-size-calculator']} lang="en" />
       </div>

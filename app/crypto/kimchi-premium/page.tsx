@@ -68,6 +68,8 @@ export default function KimchiPremiumPage() {
 
         <KimchiBoard />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/* 서버에서 정적으로 렌더된다 — 위 보드는 브라우저에서 시세를 받아 그리므로
             자바스크립트를 실행하지 않는 크롤러에게는 빈 껍데기로 보인다. */}
         <section className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/50 p-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed [&>p]:max-w-[80ch]">
@@ -90,8 +92,6 @@ export default function KimchiPremiumPage() {
             숫자만 보지 말고 옆의 거래대금을 함께 확인하세요.
           </p>
         </section>
-
-        <ReferralCards lang="ko" />
 
         <Faq items={SECTION_FAQ['crypto/kimchi-premium'] ?? []} />
 

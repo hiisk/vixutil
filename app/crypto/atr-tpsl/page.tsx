@@ -263,7 +263,7 @@ export default function AtrTpslPage() {
           </div>
         )}
 
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
+        <ReferralCards lang="en" placement="result" />
 
         <Faq items={SECTION_FAQ['crypto/atr-tpsl']} lang="en" />
       </div>

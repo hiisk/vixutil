@@ -60,6 +60,8 @@ export default function RiskOfRuinPage() {
 
         <RuinCalculator />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/*
           이 페이지는 순수 계산이라 서버에서 그려도 되지만, 입력 상호작용이 필요해
           클라이언트 컴포넌트로 둔다. 아래 설명은 서버에서 정적으로 렌더된다.
@@ -90,8 +92,6 @@ export default function RiskOfRuinPage() {
             and risks are your own.
           </p>
         </div>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ['crypto/risk-of-ruin']} lang="en" />
       </div>

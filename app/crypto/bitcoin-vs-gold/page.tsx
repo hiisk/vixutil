@@ -60,6 +60,8 @@ export default function BitcoinVsGoldPage() {
 
         <GoldBoard />
 
+        <ReferralCards lang="en" placement="result" />
+
         {/*
           정적 렌더 영역. 위 보드는 브라우저에서 두 이력을 받아 맞춰 계산하므로
           자바스크립트를 실행하지 않는 크롤러에겐 아래 본문이 페이지의 내용이다.
@@ -91,8 +93,6 @@ export default function BitcoinVsGoldPage() {
             bullion. All figures are historical and measured over whatever window the two series share. All decisions and risks are your own.
           </p>
         </div>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ['crypto/bitcoin-vs-gold']} lang="en" />
       </div>
