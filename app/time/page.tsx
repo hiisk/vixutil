@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { alternateLanguages } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     '타이머, 스톱워치, 뽀모도로, 알람, 세계 시계, 시차 계산, 근무일 계산, 날짜 더하기, 주차 확인까지 한 곳에서. 설치 없이 브라우저에서 바로.',
   alternates: {
     canonical: '/time',
-    languages: { 'ko': '/time', 'en': '/en/time', 'x-default': '/en/time' },
+    languages: alternateLanguages('/time'),
   },
 };
 

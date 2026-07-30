@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { alternateLanguages } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     '사진 용량 줄이기, 크기 조절, JPG·PNG·WebP 변환, 자르기, 회전, 모자이크, 이어붙이기, 색상 추출까지 설치 없이 브라우저에서. 사진은 서버에 올라가지 않습니다.',
   alternates: {
     canonical: '/image',
-    languages: { 'ko': '/image', 'en': '/en/image', 'x-default': '/en/image' },
+    languages: alternateLanguages('/image'),
   },
 };
 

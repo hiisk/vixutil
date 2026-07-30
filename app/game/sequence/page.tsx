@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { alternateLanguages } from '@/lib/locales';
 import GameShell from '@/components/GameShell';
 import SequenceGame from '@/components/game/SequenceGame';
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: '격자에서 몇 칸이 잠깐 켜졌다가 꺼집니다. 어디였는지 기억해 그 칸들을 누르세요. 단계가 오를수록 켜지는 칸이 늘고 격자도 넓어집니다.',
   alternates: {
     canonical: '/game/sequence',
-    languages: { 'ko': '/game/sequence', 'en': '/en/game/sequence', 'x-default': '/en/game/sequence' },
+    languages: alternateLanguages('/game/sequence'),
   },
 };
 
