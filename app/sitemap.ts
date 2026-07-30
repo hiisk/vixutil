@@ -288,6 +288,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...deviceToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
     { url: `${BASE}/en/text`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/en/search`, changeFrequency: weekly, priority: 0.7 },
     ...textToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
@@ -336,6 +337,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...deviceToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
 
     { url: `${BASE}/zh/text`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/zh/search`, changeFrequency: weekly, priority: 0.7 },
     ...textToolsIntl("zh").map((t: { slug: string }) => ({ url: `${BASE}/zh/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_ZH.map((t: { slug: string }) => ({ url: `${BASE}/zh/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),

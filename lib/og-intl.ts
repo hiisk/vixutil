@@ -51,6 +51,8 @@ const CARDS: Record<string, Card> = {
   'image/zh': { icon: '🖼️', eyebrow: 'Image Tools', title: '图片工具', desc: '压缩 · 调整尺寸 · 格式转换 · 裁剪，浏览器内运行', from: '#8b5cf6', to: '#0ea5e9' },
   'food/en': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Cooking Tools', desc: 'Cups to grams · recipe scaling · oven temperatures', from: '#f59e0b', to: '#dc2626' },
   'food/zh': { icon: '🍳', eyebrow: 'Cooking Tools', title: '厨房工具', desc: '量杯换克 · 配方缩放 · 烤箱温度', from: '#f59e0b', to: '#dc2626' },
+  'search/en': { icon: '🔍', eyebrow: 'Search', title: 'Search Every Tool', desc: 'Converters · tests · quizzes · checklists · games', from: '#6366f1', to: '#8b5cf6' },
+  'search/zh': { icon: '🔍', eyebrow: 'Search', title: '搜索全部工具', desc: '换算 · 测试 · 问答 · 清单 · 小游戏', from: '#6366f1', to: '#8b5cf6' },
   'game/en': { icon: '🎮', eyebrow: 'Brain Games', title: 'Brain Games', desc: 'Reaction · memory · typing · aim · mental maths', from: '#10b981', to: '#0d9488' },
   'game/zh': { icon: '🎮', eyebrow: 'Brain Games', title: '脑力小游戏', desc: '反应 · 记忆 · 打字 · 瞄准 · 心算', from: '#10b981', to: '#0d9488' },
   'device/en': { icon: '🔧', eyebrow: 'Device Tests', title: 'Device Tests', desc: 'Keyboard · mouse · mic · webcam · dead pixels', from: '#0ea5e9', to: '#2563eb' },

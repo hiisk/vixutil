@@ -59,6 +59,18 @@ export default function ZhHome() {
           </p>
         </div>
 
+        {/* 통합 검색 진입점 — 어느 섹션에 있는지 몰라도 찾을 수 있게 한다 */}
+        <Link
+          href="/zh/search"
+          className="group flex items-center gap-3 mb-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-2 border-white/70 dark:border-slate-700/70 rounded-2xl px-4 py-3.5 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all"
+        >
+          <svg aria-hidden="true" className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <span className="text-base text-slate-400 dark:text-slate-500 group-hover:text-slate-500 transition-colors">计时器、坏点、量杯换克…</span>
+          <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-400 transition-colors shrink-0">搜索全部</span>
+        </Link>
+
         <div className="grid sm:grid-cols-2 gap-4">
           {SECTIONS.map(s => (
             <Link
