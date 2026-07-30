@@ -26,6 +26,8 @@ import { INGREDIENTS } from './food/ingredients8';
 import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
 import { LENSES, LENS_ICON } from './lens/list';
+import { ALGS, CUBE_ICON } from './cube/list';
+import { caseFacts } from './cube/facts';
 import { lensFacts } from './lens/facts';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
 import { EXTS, EXT_ICON } from './ext/list';
@@ -178,6 +180,16 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'device' as const,
     icon: SCREEN_ICON,
   })),
+  ...ALGS.map(a => {
+    const f = caseFacts(a);
+    return {
+      href: `/game/cube/${a.slug}`,
+      title: `큐브 ${a.label} 공식`,
+      desc: `${a.alg} — ${f.moves}수`,
+      section: 'game' as const,
+      icon: CUBE_ICON,
+    };
+  }),
   ...LENSES.map(l => {
     const f = lensFacts(l);
     return {
@@ -218,6 +230,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   /* 자료 목록의 첫 장 — 개별 항목만 싣고 목록을 빼면 "타로"로 검색해도 안 나온다 */
   { href: '/fortune/card', title: '타로 78장 뜻', desc: '메이저 22장과 마이너 56장의 정방향·역방향', section: 'fortune' as const, icon: TAROT_ICON },
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
+  { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
   { href: '/snap/lens', title: '렌즈 화각 계산', desc: '초점거리와 센서로 보는 104가지 화각', section: 'snap' as const, icon: LENS_ICON },
   { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
   { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },

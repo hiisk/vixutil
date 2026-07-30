@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SECTION_COUNTS } from '@/lib/search-index';
 import { LENSES } from '@/lib/lens/list';
+import { ALGS } from '@/lib/cube/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages } from '@/lib/locales';
 
@@ -327,6 +328,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/game/cube',
+    icon: '🧩',
+    title: '큐브 공식',
+    desc: 'F2L·OLL·PLL 119가지 — 경우 그림은 공식을 실제로 돌려서 그렸습니다',
+    badge: `${ALGS.length}가지`,
+    color: 'from-amber-500 to-rose-500',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/snap/lens',

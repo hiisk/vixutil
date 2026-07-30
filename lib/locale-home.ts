@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/game/cube', icon: '🧩', color: 'from-amber-500 to-rose-500',
+    accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
+    copy: {
+      en: { title: 'Rubik’s Cube Algorithms', desc: 'All 119 F2L, OLL and PLL cases with diagrams' },
+      es: { title: 'Algoritmos del cubo de Rubik', desc: 'Los 119 casos de F2L, OLL y PLL con diagramas' },
+      'pt-br': { title: 'Algoritmos do cubo mágico', desc: 'Os 119 casos de F2L, OLL e PLL com diagramas' },
+      ja: { title: 'キューブの手順', desc: 'F2L・OLL・PLL 119種を図つきで' },
+      de: { title: 'Zauberwürfel-Algorithmen', desc: 'Alle 119 F2L-, OLL- und PLL-Fälle mit Diagrammen' },
+      fr: { title: 'Algorithmes du Rubik’s cube', desc: 'Les 119 cas de F2L, OLL et PLL avec schémas' },
+      hi: { title: 'रूबिक क्यूब एल्गोरिद्म', desc: 'F2L, OLL और PLL के सभी 119 मामले चित्रों के साथ' },
+    },
+  },
+  {
     route: '/snap/lens', icon: '📷', color: 'from-indigo-600 to-violet-500',
     accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
     copy: {

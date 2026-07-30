@@ -39,6 +39,7 @@ import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
 import { LENSES } from "@/lib/lens/list";
+import { ALGS } from "@/lib/cube/list";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -280,7 +281,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
-    // 렌즈 화각 100장도 여덟 언어다 — 초점거리 스물다섯에 센서 넷
+    // 큐브 공식 119장도 여덟 언어다 — F2L·OLL·PLL을 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/game/cube`, changeFrequency: weekly, priority: 0.85 },
+      ...ALGS.map((a: { slug: string }) => ({
+        url: `${BASE}${prefix}/game/cube/${a.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 렌즈 화각 104장도 여덟 언어다 — 초점거리 스물여섯에 센서 넷
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/snap/lens`, changeFrequency: weekly, priority: 0.85 },
       ...LENSES.map((l: { slug: string }) => ({

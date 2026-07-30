@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import ToolIcon from '@/components/ToolIcon';
+import { ALGS, CUBE_ICON } from '@/lib/cube/list';
+import { CUBE_UI } from '@/lib/cube/ui';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { gameToolsIntl, GAME_CATEGORY_ORDER, GAME_SHELL_UI, type GameIntlLang } from '@/lib/game-tools-intl';
@@ -12,6 +14,7 @@ import { gameToolsIntl, GAME_CATEGORY_ORDER, GAME_SHELL_UI, type GameIntlLang } 
  * 화면을 열어 보기 전까지 드러나지 않는다.
  */
 export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
+  const cube = CUBE_UI[lang === 'pt-br' ? 'pt' : lang];
   const tools = gameToolsIntl(lang);
   const ui = GAME_SHELL_UI[lang];
   const grouped = GAME_CATEGORY_ORDER[lang]
@@ -58,6 +61,20 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
             </div>
           </section>
         ))}
+
+        <Link
+          href={`/${lang}/game/cube`}
+          className="group flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-amber-500 to-rose-500">
+            <ToolIcon emoji={CUBE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{cube.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{cube.hubLead}</span>
+          </span>
+          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ALGS.length}</span>
+        </Link>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
