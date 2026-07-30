@@ -54,7 +54,7 @@ export default function RandomTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
       <div className="grid grid-cols-5 gap-2">
         {colors.map((c, i) => (
           <div key={i} className="flex flex-col gap-1.5">
-            <Swatch hex={c} height="h-36" />
+            <Swatch hex={c} height="h-36" lang={lang} />
             <button
               onClick={() => setLocked(prev => prev.map((v, k) => (k === i ? !v : v)))}
               className={`rounded-lg py-1.5 text-xs font-bold border transition-colors ${

@@ -44,14 +44,14 @@ export default function MixerTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
       </div>
 
       <div className="flex flex-col gap-2 mt-4">
-        <ValueRow label="HEX" value={hex.toUpperCase()} />
-        {blended && <ValueRow label="RGB" value={`rgb(${blended.r}, ${blended.g}, ${blended.b})`} />}
+        <ValueRow label="HEX" value={hex.toUpperCase()} lang={lang} />
+        {blended && <ValueRow label="RGB" value={`rgb(${blended.r}, ${blended.g}, ${blended.b})`} lang={lang} />}
       </div>
 
       <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.stepsNote}</p>
       <div className="grid grid-cols-9 gap-1.5">
         {steps.map((s, i) => (
-          <Swatch key={i} hex={s} height="h-14" />
+          <Swatch key={i} hex={s} height="h-14" lang={lang} />
         ))}
       </div>
 

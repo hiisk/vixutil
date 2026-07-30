@@ -168,7 +168,7 @@ export default function CropTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [img, sel, scale, outW, outH]);
 
-  if (!img) return <ImageDrop onFiles={accept} />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const handle = 'absolute w-5 h-5 rounded-full bg-white border-2 border-violet-500 shadow touch-none';
 

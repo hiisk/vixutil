@@ -75,8 +75,8 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
       </div>
 
       <div className="flex flex-col gap-2 mt-4">
-        <ValueRow label="HEX" value={rgbToHex(a).toUpperCase()} />
-        <ValueRow label="RGB" value={rgbString(a)} />
+        <ValueRow label="HEX" value={rgbToHex(a).toUpperCase()} lang={lang} />
+        <ValueRow label="RGB" value={rgbString(a)} lang={lang} />
       </div>
 
       <div className={`${CARD} mt-4`}>

@@ -29,15 +29,15 @@ export const CHAR_GROUP_INTL: Record<TextLang, Record<string, string>> = {
 export const EMOTICON_GROUP_INTL: Record<TextLang, Record<string, string>> = {
   ko: {
     happy: '기쁨·웃음', sad: '슬픔·눈물', angry: '화남·당황',
-    blank: '무표정·시크', love: '사랑·부탁', action: '동작·기타',
+    shrug: '무표정·시크', love: '사랑·부탁', action: '동작·기타',
   },
   en: {
     happy: 'Happy', sad: 'Sad', angry: 'Angry & flustered',
-    blank: 'Deadpan', love: 'Love & pleading', action: 'Actions & other',
+    shrug: 'Deadpan', love: 'Love & pleading', action: 'Actions & other',
   },
   zh: {
     happy: '开心与笑', sad: '难过与流泪', angry: '生气与慌乱',
-    blank: '面无表情', love: '爱与求人', action: '动作与其他',
+    shrug: '面无表情', love: '爱与求人', action: '动作与其他',
   },
 };
 

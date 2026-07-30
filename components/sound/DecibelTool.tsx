@@ -27,7 +27,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
   const [db, setDb] = useState(-60);
   const [peak, setPeak] = useState(-100);
   const [avg, setAvg] = useState(-60);
-  const { analyser, error } = useMicAnalyser(on, 2048);
+  const { analyser, error } = useMicAnalyser(on, 2048, lang);
   const rafRef = useRef(0);
   const historyRef = useRef<number[]>([]);
 
@@ -54,7 +54,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
 
   if (!on) {
     return (
-      <MicGate onStart={() => setOn(true)} error={error} icon="📢" gradient="from-rose-500 to-orange-500">
+      <MicGate onStart={() => setOn(true)} error={error} icon="📢" gradient="from-rose-500 to-orange-500" lang={lang}>
         {ui.gate}
         <br />
         {ui.gateNote}

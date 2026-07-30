@@ -1,6 +1,5 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { STORAGE } from '@/lib/food';
 import { CARD } from './ui';
 import { STORAGE_CATEGORIES, STORAGE_INTL } from '@/lib/food-intl';
 import { STORAGE_UI, type FoodLang } from '@/lib/food-ui-intl';
@@ -16,8 +15,10 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
 
   const items = useMemo(() => {
     const q = query.trim();
-    return STORAGE.filter(
-      (s, i) => (category === cats[0] || rows[i].category === category) && (!q || rows[i].name.toLowerCase().includes(q.toLowerCase())),
+    // 언어별 행을 직접 걸러 낸다. 한국어 STORAGE를 돌리면서 인덱스로 되짚으면
+    // 이름·분류·요령이 한국어로 새어 나온다.
+    return rows.filter(
+      r => (category === cats[0] || r.category === category) && (!q || r.name.toLowerCase().includes(q.toLowerCase())),
     );
   }, [category, query]);
 
@@ -56,8 +57,8 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
                 <span className="block text-[11px] text-slate-400 dark:text-slate-500">{s.category}</span>
               </span>
               <span className="shrink-0 text-right">
-                <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.fridge} <b className="text-cyan-600">{rows[STORAGE.indexOf(s)].fridge}</b></span>
-                <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.freezer} <b className="text-blue-600">{rows[STORAGE.indexOf(s)].freezer}</b></span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.fridge} <b className="text-cyan-600">{s.fridge}</b></span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.freezer} <b className="text-blue-600">{s.freezer}</b></span>
               </span>
             </div>
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">💡 {s.tip}</p>

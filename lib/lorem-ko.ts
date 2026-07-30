@@ -23,6 +23,25 @@ const KO_END = [
   '사용하는 대체 문장입니다.', '들어가 있는 예시입니다.',
 ];
 
+/*
+  중국어 재료. 한글과 같은 이유로 필요하다 — 한자는 글자 하나가 넓고 띄어쓰기가
+  아예 없어서, 라틴 문자 로렘입숨으로 짠 版面에 실제 중국어를 넣으면 줄 수가 달라진다.
+*/
+const ZH_SUBJECT = [
+  '这份文档', '界面结构', '用户', '默认设置', '下面的内容', '该功能',
+  '整个列表', '选中的项目', '显示的数值', '相关的信息', '本次改动', '准备好的示例',
+];
+const ZH_MIDDLE = [
+  '在真实数据进来之前', '为了确认版面', '用来估计长度',
+  '在设计评审的过程中', '为了看清画面密度', '为了看换行会怎样',
+  '在定下字号之前', '在调整留白的时候',
+];
+const ZH_END = [
+  '暂时填进来的句子。', '用来展示的示例文字。', '正在代为占位。',
+  '放在这里的内容，稍后会替换。', '使用的样例句子。', '显示出来的临时文本。',
+  '所用的替代句子。', '放进去的示例。',
+];
+
 const EN_WORDS = [
   'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do',
   'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua', 'enim',
@@ -46,7 +65,7 @@ function rng(seed: number) {
 }
 
 export interface LoremOptions {
-  lang?: 'ko' | 'en';
+  lang?: 'ko' | 'en' | 'zh';
   /** 문단 수 */
   paragraphs?: number;
   /** 문단당 문장 수 */
@@ -64,6 +83,9 @@ export function generateLorem({ lang = 'ko', paragraphs = 3, sentences = 4, seed
     for (let s = 0; s < Math.max(1, sentences); s++) {
       if (lang === 'ko') {
         lines.push(`${pick(KO_SUBJECT)} ${pick(KO_MIDDLE)} ${pick(KO_END)}`);
+      } else if (lang === 'zh') {
+        // 중국어는 낱말 사이를 띄우지 않는다
+        lines.push(`${pick(ZH_SUBJECT)}${pick(ZH_MIDDLE)}${pick(ZH_END)}`);
       } else {
         const len = 8 + Math.floor(rand() * 8);
         const words = Array.from({ length: len }, () => pick(EN_WORDS));

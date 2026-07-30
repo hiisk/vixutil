@@ -46,6 +46,8 @@ const UI: Record<Lang, {
   linkCopied: string; copyFailed: string; imageSaved: string; imageFailed: string;
   progress: (done: number, total: number) => string;
   fileSuffix: string;
+  allLists: string; share: string; shareLink: string; saveCard: string;
+  doneCount: (n: number) => string;
 }> = {
   ko: {
     done: '완료', selectAll: '전체 선택', deselectAll: '전체 선택 해제',
@@ -53,6 +55,8 @@ const UI: Record<Lang, {
     imageSaved: '카드 이미지가 저장됐어요!', imageFailed: '이미지 저장에 실패했어요',
     progress: (d, t) => `${d}/${t}개 완료 중`,
     fileSuffix: '체크리스트',
+    allLists: '전체 체크리스트', share: '공유', shareLink: '링크 공유', saveCard: '카드 이미지 저장',
+    doneCount: n => `${n}개 완료`,
   },
   en: {
     done: 'done', selectAll: 'Select all', deselectAll: 'Clear all',
@@ -60,6 +64,8 @@ const UI: Record<Lang, {
     imageSaved: 'Image saved', imageFailed: 'Could not save the image',
     progress: (d, t) => `${d} of ${t} done`,
     fileSuffix: 'checklist',
+    allLists: 'All checklists', share: 'Share', shareLink: 'Copy link', saveCard: 'Save as image',
+    doneCount: n => `${n} done`,
   },
   zh: {
     done: '完成', selectAll: '全选', deselectAll: '取消全选',
@@ -67,6 +73,8 @@ const UI: Record<Lang, {
     imageSaved: '图片已保存', imageFailed: '图片保存失败',
     progress: (d, t) => `已完成 ${d}/${t}`,
     fileSuffix: '清单',
+    allLists: '全部清单', share: '分享', shareLink: '复制链接', saveCard: '保存为图片',
+    doneCount: n => `已完成 ${n} 项`,
   },
 };
 
@@ -392,11 +400,11 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
       {/* 헤더 */}
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/checklist" className="text-sm text-slate-400 dark:text-slate-500 hover:text-sky-600 flex items-center gap-1.5 font-medium shrink-0">
+          <Link href={lang === 'ko' ? '/checklist' : `/${lang}/checklist`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-sky-600 flex items-center gap-1.5 font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            전체 체크리스트
+            {ui.allLists}
           </Link>
           <span className="flex-1" />
           <span className={`text-sm font-bold tabular-nums ${isAllDone ? 'text-emerald-600' : 'text-sky-600'}`}>
@@ -409,7 +417,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
             </svg>
-            공유
+            {ui.share}
           </button>
         </div>
       </header>
@@ -434,7 +442,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
             />
           </div>
           <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
-            <span>{done}개 완료</span>
+            <span>{ui.doneCount(done)}</span>
             <span className={`font-bold ${isAllDone ? 'text-emerald-600' : 'text-sky-600'}`}>{pct}%</span>
           </div>
         </div>
@@ -453,7 +461,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
                 </svg>
-                링크 공유
+                {ui.shareLink}
               </button>
               <button
                 onClick={handleSaveCard}
@@ -545,7 +553,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
               </svg>
-              링크 공유
+              {ui.shareLink}
             </button>
             <button
               onClick={handleSaveCard}
@@ -559,7 +567,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                 </svg>
               )}
-              카드 이미지 저장
+              {ui.saveCard}
             </button>
           </div>
           {done > 0 && (

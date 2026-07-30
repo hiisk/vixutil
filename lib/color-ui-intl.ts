@@ -358,3 +358,42 @@ export const TEMPERATURE_UI: L<{
     colderBody: '与字面感觉相反：开尔文值越低越偏红、越暖，越高则越偏蓝、越冷。这套刻度来自加热金属 —— 先是红，越热则越白、越偏蓝。家用照明大约 2700~3000K，工作空间大约 4000~5000K。',
   },
 };
+
+/**
+ * 색 이름의 언어별 표기 — NAMED_COLORS의 name을 열쇠로 쓴다.
+ *
+ * hex와 배열 순서는 그대로 두고 이름만 갈아 끼운다. 영어는 name을 그대로 쓰면
+ * 되므로 중국어만 둔다 — 'skyblue'는 영어권에서 그 자체가 색 이름이다.
+ */
+export const NAMED_COLOR_ZH: Record<string, string> = {
+  black: '黑',
+  white: '白',
+  gray: '灰',
+  silver: '银',
+  red: '红',
+  maroon: '栗红',
+  crimson: '绯红',
+  tomato: '番茄红',
+  coral: '珊瑚色',
+  orange: '橙',
+  gold: '金',
+  yellow: '黄',
+  olive: '橄榄绿',
+  lime: '黄绿',
+  green: '绿',
+  seagreen: '海绿',
+  teal: '青',
+  cyan: '青蓝',
+  skyblue: '天蓝',
+  blue: '蓝',
+  navy: '藏青',
+  indigo: '靛',
+  purple: '紫',
+  violet: '紫罗兰',
+  magenta: '洋红',
+  pink: '粉',
+  brown: '棕',
+  chocolate: '巧克力色',
+  tan: '茶色',
+  beige: '米色',
+};

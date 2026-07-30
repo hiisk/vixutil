@@ -82,7 +82,7 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
     return () => { alive = false; window.clearTimeout(timer); };
   }, [img, w, h]);
 
-  if (!img) return <ImageDrop onFiles={accept} />;
+  if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const field = 'w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums';
 

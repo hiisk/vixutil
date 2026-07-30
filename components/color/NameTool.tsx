@@ -2,7 +2,14 @@
 import { useMemo, useState } from 'react';
 import { hexToRgb, rgbToHsl, rgbToCmyk, nearestNamed, hslString, rgbString } from '@/lib/color';
 import { CARD, ColorInput, ValueRow } from './ui';
-import { NAME_UI, type ColorLang } from '@/lib/color-ui-intl';
+import { NAME_UI, NAMED_COLOR_ZH, type ColorLang } from '@/lib/color-ui-intl';
+
+/** 가까운 색의 이름 — 영어는 name 그대로, 중국어는 표에서 */
+function colorName(near: { name: string; ko: string }, lang: ColorLang): string {
+  if (lang === 'ko') return near.ko;
+  if (lang === 'zh') return NAMED_COLOR_ZH[near.name] ?? near.name;
+  return near.name;
+}
 
 export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
   const ui = NAME_UI[lang];
@@ -33,7 +40,7 @@ export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
           <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 text-center">
             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.nearest}</p>
             <p className="text-2xl font-black text-slate-900 dark:text-slate-100">
-              {info.near.ko} <span className="text-slate-400 dark:text-slate-500 font-mono text-lg">{info.near.name}</span>
+              {colorName(info.near, lang)} <span className="text-slate-400 dark:text-slate-500 font-mono text-lg">{info.near.name}</span>
             </p>
             <div className="flex items-center justify-center gap-2 mt-3">
               <span className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700" style={{ background: hex }} />
@@ -48,10 +55,10 @@ export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
           </div>
 
           <div className="flex flex-col gap-2 mt-4">
-            <ValueRow label="HEX" value={hex.toUpperCase()} />
-            <ValueRow label="RGB" value={rgbString(info.rgb)} />
-            <ValueRow label="HSL" value={hslString(info.hsl)} />
-            <ValueRow label="CMYK" value={`${info.cmyk.c}%, ${info.cmyk.m}%, ${info.cmyk.y}%, ${info.cmyk.k}%`} />
+            <ValueRow label="HEX" value={hex.toUpperCase()} lang={lang} />
+            <ValueRow label="RGB" value={rgbString(info.rgb)} lang={lang} />
+            <ValueRow label="HSL" value={hslString(info.hsl)} lang={lang} />
+            <ValueRow label="CMYK" value={`${info.cmyk.c}%, ${info.cmyk.m}%, ${info.cmyk.y}%, ${info.cmyk.k}%`} lang={lang} />
           </div>
 
           <div className={`${CARD} mt-4`}>

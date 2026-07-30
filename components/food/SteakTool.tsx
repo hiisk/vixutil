@@ -30,9 +30,9 @@ export default function SteakTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
           >
             <span className="min-w-0 flex-1">
               <span className={`block text-sm font-black ${pick === d.id ? 'text-red-700 dark:text-red-300' : 'text-slate-800 dark:text-slate-100'}`}>
-                {d.name}
+                {names[d.id].name}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{d.desc}</span>
+              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{names[d.id].desc}</span>
             </span>
             <span className="shrink-0 text-right">
               <span className="block text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums">{d.final}℃</span>

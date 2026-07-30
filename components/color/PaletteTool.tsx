@@ -42,7 +42,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ColorLang } = {}) 
 
       <div className="grid gap-2 mt-4" style={{ gridTemplateColumns: `repeat(${Math.min(colors.length, 5)}, minmax(0, 1fr))` }}>
         {colors.map((c, i) => (
-          <Swatch key={`${c}-${i}`} hex={c} height="h-28" />
+          <Swatch key={`${c}-${i}`} hex={c} height="h-28" lang={lang} />
         ))}
       </div>
 
