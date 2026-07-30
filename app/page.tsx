@@ -280,6 +280,18 @@ const SECTIONS = [
     shadow: 'shadow-slate-100',
   },
   {
+    href: '/http',
+    icon: '🗄️',
+    title: 'HTTP 코드 사전',
+    desc: '404·500이 무슨 뜻인지, 헤더가 무엇을 하는지 132가지',
+    badge: `${SECTION_COUNTS.http}개`,
+    color: 'from-teal-600 to-emerald-500',
+    bgLight: 'bg-teal-50 dark:bg-teal-950/30',
+    textAccent: 'text-teal-700 dark:text-teal-300',
+    borderAccent: 'border-teal-200 dark:border-teal-900/50',
+    shadow: 'shadow-teal-100',
+  },
+  {
     href: '/css',
     icon: '🎨',
     title: 'CSS 속성 사전',

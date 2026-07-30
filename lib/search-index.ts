@@ -31,6 +31,8 @@ import { CARDS, TAROT_ICON } from './tarot/deck';
 import { GLYPHS, GLYPH_ICON } from './glyph/list';
 import { TAGS, TAG_ICON } from './html/tags';
 import { CSS_PROPS, CSS_ICON } from './css/props';
+import { HTTP_ITEMS, HTTP_ICON } from './http/list';
+import { httpDesc } from './http/desc';
 import { propDesc } from './css/desc';
 import { IMG_SIZES, IMG_SIZE_ICON } from './imgsize/list';
 import { sizeFacts } from './imgsize/facts';
@@ -51,7 +53,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http';
 
 export interface SearchItem {
   href: string;
@@ -89,6 +91,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   ext:        { label: '파일 확장자', icon: '📄', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   html:       { label: 'HTML 태그', icon: '🪟', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   css:        { label: 'CSS 속성', icon: '🎨', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
+  http:       { label: 'HTTP 코드', icon: '🗄️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
 };
 
 /**
@@ -206,6 +209,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
   { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
   { href: '/image/size', title: '이미지 크기 모음', desc: '썸네일·인쇄·증명사진 116가지 규격', section: 'image' as const, icon: IMG_SIZE_ICON },
+  { href: '/http', title: 'HTTP 코드 사전', desc: '상태 코드와 헤더 132가지의 뜻', section: 'http' as const, icon: HTTP_ICON },
   { href: '/css', title: 'CSS 속성 사전', desc: '154개 속성의 쓰임과 값, 상속', section: 'css' as const, icon: CSS_ICON },
   { href: '/html', title: 'HTML 태그 사전', desc: '126개 태그의 쓰임과 속성', section: 'html' as const, icon: TAG_ICON },
   { href: '/ext', title: '파일 확장자 사전', desc: '140가지 확장자의 여는 프로그램과 MIME 타입', section: 'ext' as const, icon: EXT_ICON },
@@ -236,6 +240,13 @@ export const SEARCH_INDEX: SearchItem[] = [
     desc: propDesc(p.name, 'ko'),
     section: 'css' as const,
     icon: CSS_ICON,
+  })),
+  ...HTTP_ITEMS.map(x => ({
+    href: `/http/${x.slug}`,
+    title: `HTTP ${x.name}`,
+    desc: httpDesc(x.slug, 'ko'),
+    section: 'http' as const,
+    icon: HTTP_ICON,
   })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,

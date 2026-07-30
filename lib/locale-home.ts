@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/http', icon: '🗄️', color: 'from-teal-600 to-emerald-500',
+    accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
+    copy: {
+      en: { title: 'HTTP Codes and Headers', desc: 'What 404, 500 and 132 codes and headers mean' },
+      es: { title: 'Códigos y cabeceras HTTP', desc: 'Qué significan 404, 500 y otros 132 códigos y cabeceras' },
+      'pt-br': { title: 'Códigos e cabeçalhos HTTP', desc: 'O que significam 404, 500 e outros 132 itens' },
+      ja: { title: 'HTTPコードとヘッダー', desc: '404や500など132のコードとヘッダーの意味' },
+      de: { title: 'HTTP-Codes und -Header', desc: 'Was 404, 500 und 132 weitere bedeuten' },
+      fr: { title: 'Codes et en-têtes HTTP', desc: 'Ce que signifient 404, 500 et 132 autres' },
+      hi: { title: 'HTTP कोड और हेडर', desc: '404, 500 समेत 132 कोड और हेडर का अर्थ' },
+    },
+  },
+  {
     route: '/css', icon: '🎨', color: 'from-blue-600 to-sky-500',
     accent: 'text-blue-700 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900/50', bg: 'bg-blue-50 dark:bg-blue-950/30',
     copy: {
