@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { alternateLanguages } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     '밀가루 1컵이 몇 그램인지, 2인분을 4인분으로 어떻게 늘리는지, 350°F가 몇 도인지. 밥물·파스타·커피 비율과 식품 보관 기간까지 요리하며 검색하게 되는 것들.',
   alternates: {
     canonical: '/food',
-    languages: { 'ko': '/food', 'en': '/en/food', 'x-default': '/en/food' },
+    languages: alternateLanguages('/food'),
   },
 };
 

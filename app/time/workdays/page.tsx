@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { alternateLanguages } from '@/lib/locales';
 import TimeShell from '@/components/TimeShell';
 import WorkdaysTool from '@/components/time/WorkdaysTool';
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: '두 날짜 사이의 근무일(주말 제외)을 셉니다. 공휴일을 직접 넣어 뺄 수 있고, "오늘부터 근무일 10일 뒤"처럼 반대 방향으로도 계산합니다.',
   alternates: {
     canonical: '/time/workdays',
-    languages: { 'ko': '/time/workdays', 'en': '/en/time/workdays', 'x-default': '/en/time/workdays' },
+    languages: alternateLanguages('/time/workdays'),
   },
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { alternateLanguages } from '@/lib/locales';
 import GameShell from '@/components/GameShell';
 import NumberMemoryGame from '@/components/game/NumberMemoryGame';
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: '숫자가 잠깐 보였다가 사라지면 그대로 입력하세요. 맞히면 한 자리가 늘어납니다. 사람이 한 번에 외우는 숫자는 보통 일곱 자리 안팎이라 그 근처에서 갈립니다.',
   alternates: {
     canonical: '/game/number-memory',
-    languages: { 'ko': '/game/number-memory', 'en': '/en/game/number-memory', 'x-default': '/en/game/number-memory' },
+    languages: alternateLanguages('/game/number-memory'),
   },
 };
 

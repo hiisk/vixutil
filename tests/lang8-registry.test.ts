@@ -12,7 +12,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { LOCALES, localeLabel, localePrefix, localeTag, type AnyLocale } from '../lib/locales.ts';
+import { LOCALES, alternateLanguages, localeLabel, localePrefix, localeTag, type AnyLocale } from '../lib/locales.ts';
 import { LANG8_CODES, LANGS8, alternates8, lang8Info } from '../lib/i18n/lang8.ts';
 
 test('레지스트리와 언어 수·순서가 같다', () => {
@@ -57,4 +57,19 @@ test('hreflang 묶음은 언어 수 + x-default다', () => {
     assert.equal(a[l.tag], want, `${l.tag} 주소가 다르다`);
   }
   assert.equal(a['x-default'], '/en/color/red');
+});
+
+test('두 방식으로 만든 hreflang 표가 한 글자도 다르지 않다', () => {
+  /*
+    같은 경로의 대안 목록을 alternates8(lang8)과 alternateLanguages(locales)가 각각
+    만든다. 둘 중 하나만 고쳐지면 섹션에 따라 hreflang이 갈라지는데, 페이지는 멀쩡히
+    떠서 사이트맵을 대조해 보기 전까지 드러나지 않는다.
+  */
+  for (const path of ['/color', '/metro/seoul-line-2', '/music/c-major']) {
+    assert.deepEqual(
+      Object.entries(alternates8(path)).sort(),
+      Object.entries(alternateLanguages(path)).sort(),
+      `${path}: 두 표가 다르다`,
+    );
+  }
 });

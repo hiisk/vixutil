@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { alternateLanguages } from '@/lib/locales';
 import TimeShell from '@/components/TimeShell';
 import PomodoroTool from '@/components/time/PomodoroTool';
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: '25분 집중하고 5분 쉬는 것을 네 번 반복한 뒤 길게 쉬는 방법입니다. 지금이 집중 시간인지 휴식 시간인지 화면 색으로 바로 알 수 있고, 몇 번째인지도 세어 줍니다.',
   alternates: {
     canonical: '/time/pomodoro',
-    languages: { 'ko': '/time/pomodoro', 'en': '/en/time/pomodoro', 'x-default': '/en/time/pomodoro' },
+    languages: alternateLanguages('/time/pomodoro'),
   },
 };
 

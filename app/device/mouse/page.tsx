@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { alternateLanguages } from '@/lib/locales';
 import DeviceShell from '@/components/DeviceShell';
 import MouseTest from '@/components/device/MouseTest';
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: '좌클릭·우클릭·휠클릭·사이드 버튼이 제대로 인식되는지, 한 번 눌렀는데 두 번 입력되는 채터링이 있는지 클릭 간격(ms)으로 확인합니다. 스크롤 방향과 커서 이동 폴링도 함께 봅니다.',
   alternates: {
     canonical: '/device/mouse',
-    languages: { 'ko': '/device/mouse', 'en': '/en/device/mouse', 'x-default': '/en/device/mouse' },
+    languages: alternateLanguages('/device/mouse'),
   },
 };
 

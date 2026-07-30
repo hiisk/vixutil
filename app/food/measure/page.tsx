@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { alternateLanguages } from '@/lib/locales';
 import FoodShell from '@/components/FoodShell';
 import MeasureTool from '@/components/food/MeasureTool';
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: '밀가루 1컵은 120g, 설탕 1컵은 200g입니다. 같은 부피라도 재료마다 무게가 다르므로 재료를 골라야 정확합니다. 저울이 없을 때는 반대로 그램을 컵·큰술로 바꿔 볼 수도 있습니다.',
   alternates: {
     canonical: '/food/measure',
-    languages: { 'ko': '/food/measure', 'en': '/en/food/measure', 'x-default': '/en/food/measure' },
+    languages: alternateLanguages('/food/measure'),
   },
 };
 
