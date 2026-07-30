@@ -203,7 +203,6 @@ export const JA: FormulaL10n = {
     milkMl: '1日のミルク量',
     minutes: '分',
     mmolL: 'mmol/L',
-    months: 'か月',
     monthsGap: '測定の間隔（月）',
     motherCm: '母の身長',
     neckCm: '首まわり（cm）',

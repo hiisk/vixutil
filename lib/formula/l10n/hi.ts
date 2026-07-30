@@ -203,7 +203,6 @@ export const HI: FormulaL10n = {
     milkMl: 'रोज़ का दूध',
     minutes: 'मिनट',
     mmolL: 'mmol/L',
-    months: 'महीने',
     monthsGap: 'दो माप के बीच महीने',
     motherCm: 'माता की लंबाई',
     neckCm: 'गर्दन (सेमी)',

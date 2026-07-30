@@ -203,7 +203,6 @@ export const ES: FormulaL10n = {
     milkMl: 'Leche al día',
     minutes: 'Minutos',
     mmolL: 'mmol/L',
-    months: 'Meses',
     monthsGap: 'Meses entre medidas',
     motherCm: 'Estatura de la madre',
     neckCm: 'Cuello (cm)',
