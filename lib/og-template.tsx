@@ -33,6 +33,11 @@ const TEXT_BOX = 624;
  */
 export function stripForCard(text: string): string {
   return text
+    // 합자 기호는 폰트 서비스가 400을 낸다 — 지우지 말고 같은 뜻의 ASCII로 편다
+    .replace(/\u2103/g, '°C')
+    .replace(/\u2109/g, '°F')
+    .replace(/\u33A1/g, 'm2')
+    .replace(/\u33A5/g, 'm3')
     .replace(/[\u{1F000}-\u{1FAFF}\u{2300}-\u{23FF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu, '')
     .replace(/[\u{2500}-\u{259F}\u{25A0}-\u{25FF}]/gu, '')
     .replace(/\s{2,}/g, ' ')

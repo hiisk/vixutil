@@ -10,6 +10,8 @@
  * 섞여 있다. 관습값은 지역·품목에 따라 다르므로 note에 그 사실을 적는다 —
  * 숫자만 보여주고 넘어가면 잘못 쓰는 사람이 생긴다.
  */
+import { CONVERT_TOOLS2, CONVERT_CATEGORIES2 } from './convert-tools2.ts';
+
 export interface ConvertTool {
   slug: string;
   title: string;
@@ -23,6 +25,14 @@ export interface ConvertTool {
   /** 1 from = factor × to (+ offset) */
   factor: number;
   offset?: number;
+  /**
+   * 반비례 변환 — to = factor ÷ from.
+   *
+   * 달리기 페이스(분/km)와 시속, 음악 BPM과 한 박의 길이가 그렇다. 곱셈으로는
+   * 표현이 안 되므로 이 표시를 보고 나누기로 바꾼다. 자기 자신이 역변환이라
+   * 왕복하면 원래 값으로 돌아온다.
+   */
+  reciprocal?: boolean;
   /** 결과 소수 자리 */
   digits: number;
   /** 자주 찾는 값 — 표로 미리 보여준다 */
@@ -412,21 +422,25 @@ const PRESSURE: ConvertTool[] = [
 
 export const CONVERT_TOOLS: ConvertTool[] = [
   ...LENGTH, ...WEIGHT, ...VOLUME, ...AREA, ...TEMPERATURE, ...SPEED, ...DATA, ...ENERGY, ...PRESSURE,
+  ...CONVERT_TOOLS2,
 ];
 
 export const CONVERT_MAP: Record<string, ConvertTool> = Object.fromEntries(
   CONVERT_TOOLS.map(t => [t.slug, t]),
 );
 
-export const CONVERT_CATEGORIES = ['길이', '무게', '부피', '넓이', '온도', '속도', '데이터', '에너지', '압력·기타'];
+export const CONVERT_CATEGORIES = ['길이', '무게', '부피', '넓이', '온도', '속도', '데이터', '에너지', '압력·기타', ...CONVERT_CATEGORIES2];
 
 /** from → to */
 export function convert(value: number, tool: ConvertTool): number {
+  if (tool.reciprocal) return value === 0 ? 0 : tool.factor / value;
   return value * tool.factor + (tool.offset ?? 0);
 }
 
 /** to → from (역방향) */
 export function convertBack(value: number, tool: ConvertTool): number {
+  // 반비례는 자기 자신이 역변환이다
+  if (tool.reciprocal) return value === 0 ? 0 : tool.factor / value;
   return (value - (tool.offset ?? 0)) / tool.factor;
 }
 

@@ -3,9 +3,9 @@ import ConvertHub from '@/components/ConvertHub';
 import { convertAlternates } from '@/lib/convert-ui-intl';
 
 export const metadata: Metadata = {
-  title: 'Unit Converter — 50 conversions incl. Korean units',
+  title: 'Unit Converter — 100 conversions incl. Korean units',
   description:
-    'cm to inches, kg to pounds, Celsius to Fahrenheit, Mbps to MB/s and Korean units like pyeong, geun and don — 50 converters with common-value tables. Free, no sign-up.',
+    'cm to inches, kg to pounds, Celsius to Fahrenheit, troy ounces, KiB versus KB, running pace and Korean units like pyeong, geun and don — 100 converters with common-value tables. Free, no sign-up.',
   alternates: { canonical: '/en/convert', languages: convertAlternates() },
 };
 

@@ -81,7 +81,12 @@ test('허브 페이지가 상세 콘텐츠를 통째로 싣지 않는다', { ski
   // 허브는 카드 그리드만 그린다. 클라이언트 컴포넌트에 전체 객체를 넘기면
   // 모든 문항·결과·섹션이 HTML에 직렬화된다. 실제로 /test가 1.2MB였다.
   // 카드에 필요한 건 slug·title·desc·category(+icon)뿐이다.
-  const LIMIT = 400 * 1024;
+  //
+  // 상한을 440KB로 둔 이유: 카드 아이콘을 이모지에서 그린 아이콘으로 바꾸면서
+  // 카드마다 <svg><use>가 붙어 /test가 389KB에서 434KB가 됐다. 도형 자체는
+  // <symbol>로 한 번만 싣지만(ToolIconSprite) 참조 태그는 장수만큼 붙는다.
+  // 이 검사가 잡으려는 것은 상세 콘텐츠 직렬화(1.2MB급)이므로 그 감시는 유지된다.
+  const LIMIT = 440 * 1024;
   const oversized: string[] = [];
 
   for (const hub of ['test', 'quiz', 'generator', 'checklist']) {

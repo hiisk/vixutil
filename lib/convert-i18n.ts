@@ -9,6 +9,8 @@
  * 다른 값이고, 평(坪)은 일본·대만에서도 쓰지만 우리와 같은 3.3058㎡다.
  * 그런 차이는 note에 적어 둔다.
  */
+import { CONVERT_EN2, CONVERT_ZH2 } from './convert-i18n2.ts';
+
 export interface ConvertL10n {
   title: string;
   desc: string;
@@ -22,14 +24,16 @@ export interface ConvertL10n {
 export const CONVERT_CATEGORY_EN: Record<string, string> = {
   '길이': 'Length', '무게': 'Weight', '부피': 'Volume', '넓이': 'Area',
   '온도': 'Temperature', '속도': 'Speed', '데이터': 'Data', '에너지': 'Energy', '압력·기타': 'Pressure & more',
+  '시간': 'Time', '각도': 'Angle',
 };
 
 export const CONVERT_CATEGORY_ZH: Record<string, string> = {
   '길이': '长度', '무게': '重量', '부피': '体积', '넓이': '面积',
   '온도': '温度', '속도': '速度', '데이터': '数据', '에너지': '能量', '압력·기타': '压力及其他',
+  '시간': '时间', '각도': '角度',
 };
 
-export const CONVERT_EN: Record<string, ConvertL10n> = {
+const CONVERT_EN_1: Record<string, ConvertL10n> = {
   'cm-inch': {
     title: 'cm to Inches', desc: 'Convert centimeters and inches both ways',
     long: 'Convert centimeters to inches and back. Useful for screen sizes, clothing measurements and wheel diameters that are labeled in inches.',
@@ -298,7 +302,7 @@ export const CONVERT_EN: Record<string, ConvertL10n> = {
   },
 };
 
-export const CONVERT_ZH: Record<string, ConvertL10n> = {
+const CONVERT_ZH_1: Record<string, ConvertL10n> = {
   'cm-inch': {
     title: '厘米换算英寸', desc: '厘米与英寸双向换算',
     long: '厘米与英寸互相换算。显示器尺寸、衣服尺码、轮径等以英寸标注的场合都用得上。',
@@ -566,3 +570,7 @@ export const CONVERT_ZH: Record<string, ConvertL10n> = {
     note: '按美制加仑计算，30 mpg约为12.8 km/L。英制加仑的mpg数值会高出约20%，需确认来源。',
   },
 };
+
+/* 둘째 묶음 50종을 합친다 — 파일을 나눠 두지 않으면 무엇이 빠졌는지 안 보인다 */
+export const CONVERT_EN: Record<string, ConvertL10n> = { ...CONVERT_EN_1, ...CONVERT_EN2 };
+export const CONVERT_ZH: Record<string, ConvertL10n> = { ...CONVERT_ZH_1, ...CONVERT_ZH2 };

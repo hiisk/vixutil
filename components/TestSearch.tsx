@@ -1,5 +1,5 @@
 'use client';
-import ToolIcon from '@/components/ToolIcon';
+import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
@@ -18,9 +18,8 @@ function TestCard({ t }: { t: CardItem }) {
         그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
       */}
       <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(t.slug, 'test')}`}>
-        <ToolIcon
+        <ToolIconRef
           emoji={t.icon}
-          accent="rgba(255,255,255,0.6)"
           className="w-14 h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110"
         />
       </div>
@@ -49,6 +48,9 @@ export default function TestSearch({ tests }: { tests: CardItem[] }) {
 
   return (
     <>
+      {/* 도형은 여기 한 번만 — 카드는 <use>로 가리킨다 */}
+      <ToolIconDefs emojis={tests.map(t => t.icon)} accent="rgba(255,255,255,0.6)" />
+
       <div className="relative mb-10">
         <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />

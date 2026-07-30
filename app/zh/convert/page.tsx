@@ -3,9 +3,9 @@ import ConvertHub from '@/components/ConvertHub';
 import { convertAlternates } from '@/lib/convert-ui-intl';
 
 export const metadata: Metadata = {
-  title: '单位换算 — 50种换算，含韩国传统单位',
+  title: '单位换算 — 100种换算，含韩国传统单位',
   description:
-    '厘米换英寸、公斤换磅、摄氏换华氏、Mbps换MB/s，以及평(坪)、근(斤)、돈等韩国传统单位共50种换算。附常用数值表与计算公式，免费免注册。',
+    '厘米换英寸、公斤换磅、摄氏换华氏、金衡盎司、KiB与KB之别、跑步配速，以及평(坪)、근(斤)、돈等韩国传统单位共100种换算。附常用数值表与计算公式，免费免注册。',
   alternates: { canonical: '/zh/convert', languages: convertAlternates() },
 };
 

@@ -257,6 +257,14 @@ export const GROUPS: Record<string, string[]> = {
   window: ['🪟'],
   parking: ['🅿️'],
   rainCloud: ['🌧️'],
+  galaxy: ['🌌'],
+  horse: ['🐎', '🐴'],
+  chopsticks: ['🥢'],
+  shell: ['🦪'],
+  ship: ['🚢'],
+  glass: ['🥛'],
+  corn: ['🌽'],
+  stadium: ['🏟️'],
 };
 
 /** 이모지 → 아이콘 이름 (GROUPS를 뒤집은 것) */
