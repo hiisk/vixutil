@@ -155,6 +155,19 @@ test('133개 모두 여덟 언어 설명이 있다', () => {
   assert.deepEqual(extra, [], `데이터에 없는 항목의 설명: ${extra.join(', ')}`);
 });
 
+test('한 언어 안에서 설명이 겹치지 않는다', () => {
+  // 설명이 곧 화면 제목이 된다 — 겹치면 두 페이지가 같은 제목으로 색인된다
+  for (const lang of LANG8_CODES) {
+    const seen = new Map<string, string>();
+    for (const x of PATTERNS) {
+      const w = whatOf(x.slug, lang);
+      const before = seen.get(w);
+      assert.equal(before, undefined, `${lang}: "${w}"를 ${before}와 ${x.slug}가 함께 쓴다`);
+      seen.set(w, x.slug);
+    }
+  }
+});
+
 test('언어끼리 글자가 섞이지 않는다', () => {
   for (const x of PATTERNS) {
     for (const lang of LANG8_CODES) {

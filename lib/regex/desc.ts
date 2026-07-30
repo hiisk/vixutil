@@ -117,7 +117,7 @@ const VALIDATE_WHAT: Record<string, Eight> = {
   longitude: ['경도 값', 'a longitude value', 'un valor de longitud', 'um valor de longitude', '経度の値', 'ein Längengrad', 'une longitude', 'देशांतर मान'],
   'no-leading-zero': ['앞에 0이 붙지 않은 수', 'a number with no leading zero', 'un número sin cero a la izquierda', 'um número sem zero à esquerda', '先頭に0が付かない数', 'eine Zahl ohne führende Null', 'un nombre sans zéro initial', 'बिना शुरुआती शून्य वाली संख्या'],
   'even-number': ['짝수', 'an even number', 'un número par', 'um número par', '偶数', 'eine gerade Zahl', 'un nombre pair', 'सम संख्या'],
-  'blank-line': ['빈 줄', 'a blank line', 'una línea en blanco', 'uma linha em branco', '空行', 'eine leere Zeile', 'une ligne vide', 'ख़ाली पंक्ति'],
+  'blank-line': ['아무것도 없는 줄', 'a blank line', 'una línea en blanco', 'uma linha em branco', '空行', 'eine leere Zeile', 'une ligne vide', 'ख़ाली पंक्ति'],
 };
 
 /** 골라내거나 다듬을 때 쓰는 식들 */
@@ -126,7 +126,7 @@ const EXTRACT_WHAT: Record<string, Eight> = {
   'leading-space': ['줄 앞에 붙은 공백', 'space at the start of a line', 'espacio al principio', 'espaço no início', '行頭の空白', 'Leerraum am Zeilenanfang', 'espace en début de ligne', 'पंक्ति की शुरुआत का स्थान'],
   'outer-space': ['앞뒤 공백', 'space at either end', 'espacio en ambos extremos', 'espaço nas duas pontas', '前後の空白', 'Leerraum an beiden Enden', 'espace aux deux bouts', 'दोनों सिरों का स्थान'],
   'repeated-space': ['두 칸 이상 이어진 공백', 'two or more spaces in a row', 'dos o más espacios seguidos', 'dois ou mais espaços seguidos', '2つ以上続く空白', 'zwei oder mehr Leerzeichen hintereinander', 'deux espaces ou plus à la suite', 'लगातार दो या अधिक स्थान'],
-  'empty-lines': ['빈 줄', 'an empty line between two lines', 'una línea vacía entre dos', 'uma linha vazia entre duas', '行間の空行', 'eine Leerzeile zwischen zwei Zeilen', 'une ligne vide entre deux lignes', 'दो पंक्तियों के बीच ख़ाली पंक्ति'],
+  'empty-lines': ['줄과 줄 사이의 빈 줄', 'an empty line between two lines', 'una línea vacía entre dos', 'uma linha vazia entre duas', '行間の空行', 'eine Leerzeile zwischen zwei Zeilen', 'une ligne vide entre deux lignes', 'दो पंक्तियों के बीच ख़ाली पंक्ति'],
   'non-digit-strip': ['숫자가 아닌 부분', 'everything that is not a digit', 'todo lo que no es dígito', 'tudo o que não é dígito', '数字でない部分', 'alles, was keine Ziffer ist', 'tout ce qui n’est pas un chiffre', 'जो अंक नहीं है'],
   'non-ascii': ['아스키가 아닌 글자', 'a character outside ASCII', 'un carácter fuera de ASCII', 'um caractere fora do ASCII', 'ASCII以外の文字', 'ein Zeichen außerhalb von ASCII', 'un caractère hors ASCII', 'ASCII से बाहर का वर्ण'],
   'control-char': ['눈에 보이지 않는 제어 문자', 'an invisible control character', 'un carácter de control invisible', 'um caractere de controle invisível', '目に見えない制御文字', 'ein unsichtbares Steuerzeichen', 'un caractère de contrôle invisible', 'अदृश्य नियंत्रण वर्ण'],

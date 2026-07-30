@@ -50,12 +50,15 @@ export function patternCard(lang: Lang8, slug: string): ReactElement {
   const ui = REGEX_UI[card];
   const x = patternOf(slug);
   if (!x) return hubCard(card);
+  // 카드에는 식을 그대로 싣는다 — 링크를 보는 자리에서 바로 베껴 쓸 수 있다.
+  // 다만 카드 글꼴이 ₩·€ 같은 글자를 갖고 있지 않아, 그런 식은 설명을 제목으로 올린다.
+  const drawable = /^[\x20-\x7E]*$/.test(x.re);
+  const short = x.re.length > 42 ? `${x.re.slice(0, 40)}…` : x.re;
   return ogCard({
     icon: REGEX_ICON,
     eyebrow: `${ui.section} · ${ui.kindLabel[x.kind]}`,
-    // 카드에는 식을 그대로 싣는다 — 링크를 보는 자리에서 바로 베껴 쓸 수 있다
-    title: x.re.length > 42 ? `${x.re.slice(0, 40)}…` : x.re,
-    desc: whatOf(slug, card),
+    title: drawable ? short : whatOf(slug, card),
+    desc: drawable ? whatOf(slug, card) : ui.section,
     from: FROM,
     to: TO,
   });
