@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/day-of-week': [
+    {
+      q: 'Is there a best day of the week to buy crypto?',
+      a: 'The table shows what each weekday has averaged, but the honest answer is that any effect is far smaller than the daily noise it sits inside. A tenth of a percent tendency cannot be separated from three to four percent daily swings, however many observations you have.',
+    },
+    {
+      q: 'The sample is hundreds of days per weekday. Why is that not enough?',
+      a: 'Because sample size is not the constraint — effect size is. Nine years gives roughly 470 observations of each weekday, and the t-statistic can still sit near zero because the signal being looked for is two orders of magnitude smaller than the variation around it.',
+    },
+    {
+      q: 'Why compare the mean to the median?',
+      a: 'Because when they disagree, the mean is being carried by outliers. A weekday whose mean is several times its median has one or two enormous days in it rather than a consistent tendency, and that is precisely the case where a t-test overstates significance on fat-tailed returns.',
+    },
+    {
+      q: 'One weekday shows a significant t-statistic. Does that settle it?',
+      a: 'No. Seven weekdays tested at a 5% threshold produce about a third of a false positive by chance, so a single flagged day is unremarkable. Even two deserve scrutiny, especially if the mean-versus-median check suggests outliers are responsible.',
+    },
+    {
+      q: 'Why would crypto have weaker weekday effects than stocks?',
+      a: 'Because the mechanisms are absent. Weekday patterns in traditional markets come from exchange closes, multi-day settlement, scheduled fund reporting and timed news releases. Crypto trades continuously with none of that structure.',
+    },
+    {
+      q: 'Does the timezone matter?',
+      a: 'Yes. Days here are assigned by UTC close, which is the convention Binance candles use. A table built on a local timezone would split returns differently and could shift which weekday looks strongest.',
+    },
+  ],
   'crypto/rebalancing': [
     {
       q: 'Does rebalancing a crypto portfolio actually help?',
