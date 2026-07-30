@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { SECTION_COUNTS } from '@/lib/search-index';
 import { LENSES } from '@/lib/lens/list';
 import { ALGS } from '@/lib/cube/list';
+import { ROLLS } from '@/lib/dice/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages } from '@/lib/locales';
 
@@ -328,6 +329,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/random/dice',
+    icon: '🎲',
+    title: '주사위 확률',
+    desc: '한 개부터 여섯 개까지, 합마다의 경우의 수와 확률을 계산했습니다',
+    badge: `${ROLLS.length}가지`,
+    color: 'from-rose-600 to-orange-500',
+    bgLight: 'bg-rose-50 dark:bg-rose-950/30',
+    textAccent: 'text-rose-700 dark:text-rose-300',
+    borderAccent: 'border-rose-200 dark:border-rose-900/50',
+    shadow: 'shadow-rose-100',
   },
   {
     href: '/game/cube',

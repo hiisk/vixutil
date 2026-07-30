@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/random/dice', icon: '🎲', color: 'from-rose-600 to-orange-500',
+    accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
+    copy: {
+      en: { title: 'Dice Odds', desc: 'Every sum from one to six dice, with the ways and the odds' },
+      es: { title: 'Probabilidad de dados', desc: 'Cada suma de uno a seis dados, con formas y probabilidad' },
+      'pt-br': { title: 'Probabilidade dos dados', desc: 'Cada soma de um a seis dados, com formas e chance' },
+      ja: { title: 'サイコロの確率', desc: '1個から6個までの合計ごとの場合の数と確率' },
+      de: { title: 'Würfelwahrscheinlichkeit', desc: 'Jede Summe von einem bis sechs Würfeln, mit Wegen und Chance' },
+      fr: { title: 'Probabilités aux dés', desc: 'Chaque somme de un à six dés, avec combinaisons et probabilité' },
+      hi: { title: 'पासे की संभावना', desc: 'एक से छह पासों के हर जोड़ के तरीक़े और संभावना' },
+    },
+  },
+  {
     route: '/game/cube', icon: '🧩', color: 'from-amber-500 to-rose-500',
     accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
     copy: {

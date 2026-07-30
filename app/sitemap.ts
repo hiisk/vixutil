@@ -40,6 +40,7 @@ import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
 import { LENSES } from "@/lib/lens/list";
 import { ALGS } from "@/lib/cube/list";
+import { ROLLS } from "@/lib/dice/list";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -277,6 +278,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 주사위 확률 111장도 여덟 언어다 — 한 개부터 여섯 개까지의 모든 합
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/random/dice`, changeFrequency: weekly, priority: 0.85 },
+      ...ROLLS.map((r: { slug: string }) => ({
+        url: `${BASE}${prefix}/random/dice/${r.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

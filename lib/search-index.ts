@@ -27,6 +27,8 @@ import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
 import { LENSES, LENS_ICON } from './lens/list';
 import { ALGS, CUBE_ICON } from './cube/list';
+import { ROLLS, DICE_ICON } from './dice/list';
+import { rollFacts } from './dice/facts';
 import { caseFacts } from './cube/facts';
 import { lensFacts } from './lens/facts';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
@@ -180,6 +182,16 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'device' as const,
     icon: SCREEN_ICON,
   })),
+  ...ROLLS.map(r => {
+    const f = rollFacts(r);
+    return {
+      href: `/random/dice/${r.slug}`,
+      title: `주사위 ${r.dice}개 합 ${r.sum} 확률`,
+      desc: `${f.percent}% — ${f.total}가지 중 ${f.ways}가지`,
+      section: 'random' as const,
+      icon: DICE_ICON,
+    };
+  }),
   ...ALGS.map(a => {
     const f = caseFacts(a);
     return {
@@ -230,6 +242,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   /* 자료 목록의 첫 장 — 개별 항목만 싣고 목록을 빼면 "타로"로 검색해도 안 나온다 */
   { href: '/fortune/card', title: '타로 78장 뜻', desc: '메이저 22장과 마이너 56장의 정방향·역방향', section: 'fortune' as const, icon: TAROT_ICON },
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
+  { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
   { href: '/snap/lens', title: '렌즈 화각 계산', desc: '초점거리와 센서로 보는 104가지 화각', section: 'snap' as const, icon: LENS_ICON },
   { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
