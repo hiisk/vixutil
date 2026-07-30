@@ -94,9 +94,9 @@ export default function FundingRatesPage() {
 
         <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
-        <Faq items={SECTION_FAQ['crypto/funding-rates']} />
+        <Faq items={SECTION_FAQ['crypto/funding-rates']} lang="en" />
       </div>
-      <SiteFooter />
+      <SiteFooter lang="en" />
     </div>
   );
 }
