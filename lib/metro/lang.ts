@@ -6,8 +6,9 @@
  * 마드리드·상파울루·뭄바이로 퍼져 있으므로, 그 도시 사람이 자기 언어로
  * 자기 노선을 풀 수 있어야 이 게임이 뜻을 가진다.
  *
- * 포르투갈어는 브라질 표기(pt-BR)를 쓴다. 경로는 /pt로 짧게 두고 hreflang만
- * pt-BR로 낸다 — 상파울루·리우 노선을 담았으니 유럽 포르투갈어가 아니다.
+ * 포르투갈어는 브라질 표기(pt-BR)를 쓴다 — 상파울루·리우 노선을 담았으니 유럽
+ * 포르투갈어가 아니다. 경로도 /pt가 아니라 /pt-br로 두어 주소만 봐도 어느
+ * 포르투갈어인지 알 수 있게 한다.
  */
 export type MetroLang = 'ko' | 'en' | 'es' | 'pt' | 'ja' | 'de' | 'fr' | 'hi';
 
@@ -30,7 +31,7 @@ export const METRO_LANGS: MetroLangInfo[] = [
   { lang: 'ko', label: '한국어', prefix: '', hreflang: 'ko', htmlLang: 'ko' },
   { lang: 'en', label: 'English', prefix: '/en', hreflang: 'en', htmlLang: 'en' },
   { lang: 'es', label: 'Español', prefix: '/es', hreflang: 'es', htmlLang: 'es' },
-  { lang: 'pt', label: 'Português', prefix: '/pt', hreflang: 'pt-BR', htmlLang: 'pt-BR' },
+  { lang: 'pt', label: 'Português', prefix: '/pt-br', hreflang: 'pt-BR', htmlLang: 'pt-BR' },
   { lang: 'ja', label: '日本語', prefix: '/ja', hreflang: 'ja', htmlLang: 'ja' },
   { lang: 'de', label: 'Deutsch', prefix: '/de', hreflang: 'de', htmlLang: 'de' },
   { lang: 'fr', label: 'Français', prefix: '/fr', hreflang: 'fr', htmlLang: 'fr' },

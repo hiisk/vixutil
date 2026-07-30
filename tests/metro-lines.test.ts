@@ -209,8 +209,8 @@ test('hreflang은 아홉 줄이고 x-default는 영어를 가리킨다', () => {
   assert.equal(a.ko, '/metro/seoul-line-2');
   assert.equal(a.en, '/en/metro/seoul-line-2');
   assert.equal(a.es, '/es/metro/seoul-line-2');
-  // 상파울루·리우 노선을 담았으니 경로는 /pt, hreflang은 pt-BR이다
-  assert.equal(a['pt-BR'], '/pt/metro/seoul-line-2');
+  // 상파울루·리우 노선을 담았으니 경로도 /pt-br, hreflang도 pt-BR이다
+  assert.equal(a['pt-BR'], '/pt-br/metro/seoul-line-2');
   assert.equal(a.hi, '/hi/metro/seoul-line-2');
   assert.equal(a['x-default'], '/en/metro/seoul-line-2');
   assert.equal(metroAlternates().ko, '/metro');

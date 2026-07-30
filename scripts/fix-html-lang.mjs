@@ -35,8 +35,8 @@ const RULES = [
   [p => p === 'zh' || p.startsWith('zh/'), 'zh-Hans'],
   // 지하철 섹션부터 쓰는 여섯 언어. 목록은 lib/metro/lang.ts와 같아야 한다
   [p => p === 'es' || p.startsWith('es/'), 'es'],
-  // 상파울루·리우 노선을 담았으니 유럽 포르투갈어가 아니다
-  [p => p === 'pt' || p.startsWith('pt/'), 'pt-BR'],
+  // 상파울루·리우 노선을 담았으니 유럽 포르투갈어가 아니다 — 경로도 /pt-br이다
+  [p => p === 'pt-br' || p.startsWith('pt-br/'), 'pt-BR'],
   [p => p === 'ja' || p.startsWith('ja/'), 'ja'],
   [p => p === 'de' || p.startsWith('de/'), 'de'],
   [p => p === 'fr' || p.startsWith('fr/'), 'fr'],

@@ -41,9 +41,9 @@ function expected(path: string): string {
   return 'ko';
 }
 
-/** 경로 앞머리 → lang. pt는 상파울루·리우 노선을 담았으니 pt-BR이다 */
+/** 경로 앞머리 → lang. 포르투갈어는 경로도 /pt-br이고 태그도 pt-BR이다 */
 const NEW_LOCALES: [string, string][] = [
-  ['es', 'es'], ['pt', 'pt-BR'], ['ja', 'ja'], ['de', 'de'], ['fr', 'fr'], ['hi', 'hi'],
+  ['es', 'es'], ['pt-br', 'pt-BR'], ['ja', 'ja'], ['de', 'de'], ['fr', 'fr'], ['hi', 'hi'],
 ];
 
 test('모든 페이지의 html lang이 경로의 언어와 맞는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
