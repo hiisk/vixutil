@@ -732,6 +732,36 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/kelly-criterion': [
+    {
+      q: 'What is the Kelly criterion?',
+      a: 'It is the bet size that maximises the long-run growth rate of capital given a known edge: (p·b \u2212 q) \u00f7 b, where p is the win rate, q is 1 \u2212 p, and b is the reward-to-risk ratio. Betting more than it prescribes lowers growth rather than raising it.',
+    },
+    {
+      q: 'Why do people say never to use full Kelly?',
+      a: 'Two reasons. It assumes you know your edge exactly, and overstating it pushes the recommended size up while the penalty for overbetting rises steeply. It is also violent: full Kelly carries roughly a one-in-two chance of the account halving at some point.',
+    },
+    {
+      q: 'What does half Kelly actually cost?',
+      a: 'About a quarter of the growth rate. Betting half of the Kelly fraction keeps roughly 75% of the long-run growth while cutting the chance of ever halving the account from one-in-two to one-in-eight. That asymmetry is the entire argument for fractional Kelly.',
+    },
+    {
+      q: 'Does a better strategy make full Kelly safer?',
+      a: 'No, and this surprises people. Under the standard approximation the chance of ever falling to a fraction of your peak depends only on what multiple of Kelly you bet, not on the win rate or reward ratio. A stronger edge earns more and recovers faster, but the drawdown profile is set by bet size.',
+    },
+    {
+      q: 'What happens if I bet more than Kelly?',
+      a: 'Growth falls, and it reaches zero at roughly twice the Kelly fraction \u2014 the same long-run result as never trading, after living through every drawdown on the way. Beyond that point capital declines even though every individual trade still has positive expectancy.',
+    },
+    {
+      q: 'Can Kelly be used if my edge is negative?',
+      a: 'The formula returns a negative number, which means the correct bet is zero. No position size makes a negative-expectancy strategy profitable; reducing size only slows the loss.',
+    },
+    {
+      q: 'Why does the calculator show a break-even win rate?',
+      a: 'Because win rate alone says nothing without the reward ratio. At 2:1 you break even at 33.3%, at 1:1 you need 50%. The break-even figure tells you which side of the line your inputs fall on before any sizing question arises.',
+    },
+  ],
   'crypto/day-of-week': [
     {
       q: 'Is there a best day of the week to buy crypto?',
