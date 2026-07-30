@@ -26,9 +26,21 @@ test('도구마다 페이지와 OG 이미지가 있다', () => {
 test('페이지 폴더마다 카탈로그 항목이 있다', () => {
   const orphans = readdirSync(APP, { withFileTypes: true })
     .filter(e => e.isDirectory())
+    // size는 도구가 아니라 이미지 크기 116가지를 그리는 자료 갈래다 —
+    // 목록이 lib/imgsize/list.ts에서 오므로 도구 카탈로그가 셀 대상이 아니다
+    .filter(e => e.name !== 'size')
     .map(e => e.name)
     .filter(name => !findImageTool(name));
   assert.deepEqual(orphans, [], `카탈로그에 없는 페이지 폴더: ${orphans.join(', ')}`);
+});
+
+test('이미지 크기 라우트는 크기 목록에서 페이지를 만든다', () => {
+  // 위 검사에서 size를 빼 주었으니, 그 라우트가 실제로 크기 목록을 쓰는지 여기서 본다
+  const src = readFileSync(join(APP, 'size', '[slug]', 'page.tsx'), 'utf8');
+  assert.ok(src.includes('sizeParams'), '[slug] 라우트가 크기 목록을 돌지 않는다');
+  assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
+  assert.ok(existsSync(join(APP, 'size', 'page.tsx')), '이미지 크기 목록 페이지가 없다');
+  assert.ok(existsSync(join(APP, 'size', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('slug가 중복되지 않는다', () => {

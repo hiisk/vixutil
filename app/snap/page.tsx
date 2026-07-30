@@ -6,6 +6,8 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import { LENSES, LENS_ICON } from '@/lib/lens/list';
+import { LENS_UI } from '@/lib/lens/ui';
 
 export const metadata: Metadata = {
   title: '스냅테스트 — 사진으로 하는 참여형 테스트',
@@ -95,6 +97,20 @@ export default function SnapPage() {
             </Link>
           ))}
         </div>
+
+        <Link
+          href="/snap/lens"
+          className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-indigo-600 to-violet-500">
+            <ToolIcon emoji={LENS_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{LENS_UI.ko.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{LENS_UI.ko.hubLead}</span>
+          </span>
+          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{LENSES.length}</span>
+        </Link>
 
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-10">모든 해석은 참고·오락 목적이며 과학적·의학적 근거가 없습니다</p>
 

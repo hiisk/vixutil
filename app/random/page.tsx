@@ -2,6 +2,8 @@ import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { RANDOM_TOOLS } from '@/lib/random-tools';
+import { ROLLS, DICE_ICON } from '@/lib/dice/list';
+import { DICE_UI } from '@/lib/dice/ui';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -68,6 +70,20 @@ export default function RandomIndexPage() {
             </Link>
           ))}
         </div>
+
+        <Link
+          href="/random/dice"
+          className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-rose-600 to-orange-500">
+            <ToolIcon emoji={DICE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{DICE_UI.ko.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{DICE_UI.ko.hubLead}</span>
+          </span>
+          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ROLLS.length}</span>
+        </Link>
 
         <Faq items={SECTION_FAQ.random} />
       </div>

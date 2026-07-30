@@ -6,6 +6,8 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import { ALGS, CUBE_ICON } from '@/lib/cube/list';
+import { CUBE_UI } from '@/lib/cube/ui';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { GAME_TOOLS } from '@/lib/game-tools';
 
@@ -104,6 +106,20 @@ export default function GameHubPage() {
             </section>
           ))}
         </div>
+
+        <Link
+          href="/game/cube"
+          className="group mt-8 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-amber-500 to-rose-500">
+            <ToolIcon emoji={CUBE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{CUBE_UI.ko.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{CUBE_UI.ko.hubLead}</span>
+          </span>
+          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ALGS.length}</span>
+        </Link>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>

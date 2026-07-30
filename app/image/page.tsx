@@ -8,6 +8,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { IMAGE_TOOLS } from '@/lib/image-tools';
+import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
+import { IMG_SIZE_ICON } from '@/lib/imgsize/list';
 
 export const metadata: Metadata = {
   title: '이미지 도구 — 사진 용량 줄이기·크기 조절·자르기 온라인',
@@ -114,6 +116,33 @@ export default function ImageHubPage() {
             <li>🖥️ <b className="text-slate-800 dark:text-slate-100">업로드 규격이 정해져 있을 때</b> — 크기 조절과 자르기로 규격을 맞추세요</li>
           </ul>
         </div>
+
+        {/* 크기 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다 */}
+
+        <Link
+
+          href="/image/size"
+
+          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+
+        >
+
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-pink-500 to-rose-500">
+
+            <ToolIcon emoji={IMG_SIZE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+
+          </span>
+
+          <span className="min-w-0">
+
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{IMG_SIZE_UI.ko.hubTitle}</span>
+
+            <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{IMG_SIZE_UI.ko.hubLead}</span>
+
+          </span>
+
+        </Link>
+
 
         <Faq items={SECTION_FAQ.image} />
 

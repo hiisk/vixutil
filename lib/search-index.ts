@@ -25,8 +25,31 @@ import { NAMED_COLORS_8 } from './color/named8';
 import { INGREDIENTS } from './food/ingredients8';
 import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
+import { LENSES, LENS_ICON } from './lens/list';
+import { ALGS, CUBE_ICON } from './cube/list';
+import { ROLLS, DICE_ICON } from './dice/list';
+import { PATTERNS, REGEX_ICON } from './regex/list';
+import { ELEMENTS, ELEMENT_ICON } from './element/list';
+import { elementFacts } from './element/facts';
+import { nameOf } from './element/names';
+import { whatOf } from './regex/desc';
+import { rollFacts } from './dice/facts';
+import { caseFacts } from './cube/facts';
+import { lensFacts } from './lens/facts';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
 import { EXTS, EXT_ICON } from './ext/list';
+import { CARDS, TAROT_ICON } from './tarot/deck';
+import { GLYPHS, GLYPH_ICON } from './glyph/list';
+import { TAGS, TAG_ICON } from './html/tags';
+import { CSS_PROPS, CSS_ICON } from './css/props';
+import { HTTP_ITEMS, HTTP_ICON } from './http/list';
+import { httpDesc } from './http/desc';
+import { propDesc } from './css/desc';
+import { IMG_SIZES, IMG_SIZE_ICON } from './imgsize/list';
+import { sizeFacts } from './imgsize/facts';
+import { tagDesc } from './html/desc';
+import { glyphFacts } from './glyph/facts';
+import { cardView } from './tarot/facts';
 import { extFacts } from './ext/facts';
 import { freqFacts } from './sound/facts';
 import { screenFacts } from './device/facts';
@@ -41,7 +64,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element';
 
 export interface SearchItem {
   href: string;
@@ -77,6 +100,10 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   music:      { label: '음악 이론', icon: '🎹', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   ext:        { label: '파일 확장자', icon: '📄', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+  html:       { label: 'HTML 태그', icon: '🪟', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
+  css:        { label: 'CSS 속성', icon: '🎨', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
+  http:       { label: 'HTTP 코드', icon: '🗄️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
+  element:    { label: '원소',      icon: '⚛️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
 };
 
 /**
@@ -161,6 +188,53 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'device' as const,
     icon: SCREEN_ICON,
   })),
+  ...ELEMENTS.map(x => {
+    const f = elementFacts(x);
+    return {
+      href: `/element/${x.z}`,
+      title: `${nameOf(x.z, 'ko')} ${x.symbol}`,
+      desc: `원자번호 ${x.z} · 원자량 ${x.mass} · ${f.period}주기`,
+      section: 'element' as const,
+      icon: ELEMENT_ICON,
+    };
+  }),
+  ...PATTERNS.map(x => ({
+    href: `/text/regex/${x.slug}`,
+    title: `${whatOf(x.slug, 'ko')} 정규식`,
+    desc: x.re,
+    section: 'text' as const,
+    icon: REGEX_ICON,
+  })),
+  ...ROLLS.map(r => {
+    const f = rollFacts(r);
+    return {
+      href: `/random/dice/${r.slug}`,
+      title: `주사위 ${r.dice}개 합 ${r.sum} 확률`,
+      desc: `${f.percent}% — ${f.total}가지 중 ${f.ways}가지`,
+      section: 'random' as const,
+      icon: DICE_ICON,
+    };
+  }),
+  ...ALGS.map(a => {
+    const f = caseFacts(a);
+    return {
+      href: `/game/cube/${a.slug}`,
+      title: `큐브 ${a.label} 공식`,
+      desc: `${a.alg} — ${f.moves}수`,
+      section: 'game' as const,
+      icon: CUBE_ICON,
+    };
+  }),
+  ...LENSES.map(l => {
+    const f = lensFacts(l);
+    return {
+      href: `/snap/lens/${l.slug}`,
+      title: `${l.focal}mm ${f.sensorName} 화각`,
+      desc: `대각 ${f.diagonal}도 · 35mm 환산 ${f.equiv}mm`,
+      section: 'snap' as const,
+      icon: LENS_ICON,
+    };
+  }),
   ...FREQS.map(f => {
     const facts = freqFacts(f);
     return {
@@ -177,6 +251,66 @@ export const SEARCH_INDEX: SearchItem[] = [
     desc: `${extFacts(x).mime} · ${x.apps.slice(0, 2).join(', ')}`,
     section: 'ext' as const,
     icon: EXT_ICON,
+  })),
+  ...CARDS.map(c => {
+    const v = cardView(c.slug, 'ko')!;
+    return {
+      href: `/fortune/card/${c.slug}`,
+      title: `타로 ${v.name}`,
+      desc: v.kindLine,
+      section: 'fortune' as const,
+      icon: TAROT_ICON,
+    };
+  }),
+  /* 자료 목록의 첫 장 — 개별 항목만 싣고 목록을 빼면 "타로"로 검색해도 안 나온다 */
+  { href: '/fortune/card', title: '타로 78장 뜻', desc: '메이저 22장과 마이너 56장의 정방향·역방향', section: 'fortune' as const, icon: TAROT_ICON },
+  { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
+  { href: '/element', title: '주기율표', desc: '원소 118가지의 기호·원자량·전자 배치', section: 'element' as const, icon: ELEMENT_ICON },
+  { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
+  { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
+  { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
+  { href: '/snap/lens', title: '렌즈 화각 계산', desc: '초점거리와 센서로 보는 104가지 화각', section: 'snap' as const, icon: LENS_ICON },
+  { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
+  { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
+  { href: '/image/size', title: '이미지 크기 모음', desc: '썸네일·인쇄·증명사진 116가지 규격', section: 'image' as const, icon: IMG_SIZE_ICON },
+  { href: '/http', title: 'HTTP 코드 사전', desc: '상태 코드와 헤더 132가지의 뜻', section: 'http' as const, icon: HTTP_ICON },
+  { href: '/css', title: 'CSS 속성 사전', desc: '154개 속성의 쓰임과 값, 상속', section: 'css' as const, icon: CSS_ICON },
+  { href: '/html', title: 'HTML 태그 사전', desc: '126개 태그의 쓰임과 속성', section: 'html' as const, icon: TAG_ICON },
+  { href: '/ext', title: '파일 확장자 사전', desc: '140가지 확장자의 여는 프로그램과 MIME 타입', section: 'ext' as const, icon: EXT_ICON },
+  ...GLYPHS.map(g => ({
+    href: `/text/char/${g.slug}`,
+    title: `${g.char} 특수문자`,
+    desc: `${glyphFacts(g).unicode} · ${glyphFacts(g).entity}`,
+    section: 'text' as const,
+    icon: GLYPH_ICON,
+  })),
+  ...TAGS.map(t => ({
+    href: `/html/${t.name}`,
+    title: `<${t.name}> 태그`,
+    desc: tagDesc(t.name, 'ko'),
+    section: 'html' as const,
+    icon: TAG_ICON,
+  })),
+  ...IMG_SIZES.map(x => ({
+    href: `/image/size/${x.slug}`,
+    title: `${x.name} 크기`,
+    desc: `${x.w}×${x.h} · ${sizeFacts(x).ratioLabel}`,
+    section: 'image' as const,
+    icon: IMG_SIZE_ICON,
+  })),
+  ...CSS_PROPS.map(p => ({
+    href: `/css/${p.name}`,
+    title: `CSS ${p.name}`,
+    desc: propDesc(p.name, 'ko'),
+    section: 'css' as const,
+    icon: CSS_ICON,
+  })),
+  ...HTTP_ITEMS.map(x => ({
+    href: `/http/${x.slug}`,
+    title: `HTTP ${x.name}`,
+    desc: httpDesc(x.slug, 'ko'),
+    section: 'http' as const,
+    icon: HTTP_ICON,
   })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,

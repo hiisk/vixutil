@@ -38,8 +38,19 @@ import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
+import { LENSES } from "@/lib/lens/list";
+import { ALGS } from "@/lib/cube/list";
+import { ROLLS } from "@/lib/dice/list";
+import { PATTERNS } from "@/lib/regex/list";
+import { ELEMENTS } from "@/lib/element/list";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
+import { CARDS } from "@/lib/tarot/deck";
+import { GLYPHS } from "@/lib/glyph/list";
+import { TAGS } from "@/lib/html/tags";
+import { IMG_SIZES } from "@/lib/imgsize/list";
+import { CSS_PROPS } from "@/lib/css/props";
+import { HTTP_ITEMS } from "@/lib/http/list";
 
 const BASE = "https://vixutil.com";
 
@@ -197,6 +208,60 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // HTTP 상태 코드와 헤더 132가지도 여덟 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/http`, changeFrequency: weekly, priority: 0.9 },
+      ...HTTP_ITEMS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/http/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // CSS 속성 154개도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/css`, changeFrequency: weekly, priority: 0.9 },
+      ...CSS_PROPS.map((p: { name: string }) => ({
+        url: `${BASE}${prefix}/css/${p.name}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 이미지 크기 116가지도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/image/size`, changeFrequency: weekly, priority: 0.9 },
+      ...IMG_SIZES.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/image/size/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // HTML 태그 126개도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/html`, changeFrequency: weekly, priority: 0.9 },
+      ...TAGS.map((t: { name: string }) => ({
+        url: `${BASE}${prefix}/html/${t.name}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 특수문자 168자도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/text/char`, changeFrequency: weekly, priority: 0.9 },
+      ...GLYPHS.map((g: { slug: string }) => ({
+        url: `${BASE}${prefix}/text/char/${g.slug}`,
+        changeFrequency: monthly,
+        priority: 0.75,
+      })),
+    ]),
+    // 타로 78장도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/fortune/card`, changeFrequency: weekly, priority: 0.85 },
+      ...CARDS.map((c: { slug: string }) => ({
+        url: `${BASE}${prefix}/fortune/card/${c.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 확장자 140장도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/ext`, changeFrequency: weekly, priority: 0.9 },
@@ -220,6 +285,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 원소 118장도 여덟 언어다 — 주기율표 자체가 목록이다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/element`, changeFrequency: weekly, priority: 0.85 },
+      ...ELEMENTS.map((x: { z: number }) => ({
+        url: `${BASE}${prefix}/element/${x.z}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 정규식 133장도 여덟 언어다 — 표기법과 검사식을 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/text/regex`, changeFrequency: weekly, priority: 0.85 },
+      ...PATTERNS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/text/regex/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 주사위 확률 111장도 여덟 언어다 — 한 개부터 여섯 개까지의 모든 합
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/random/dice`, changeFrequency: weekly, priority: 0.85 },
+      ...ROLLS.map((r: { slug: string }) => ({
+        url: `${BASE}${prefix}/random/dice/${r.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 큐브 공식 119장도 여덟 언어다 — F2L·OLL·PLL을 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/game/cube`, changeFrequency: weekly, priority: 0.85 },
+      ...ALGS.map((a: { slug: string }) => ({
+        url: `${BASE}${prefix}/game/cube/${a.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 렌즈 화각 104장도 여덟 언어다 — 초점거리 스물여섯에 센서 넷
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/snap/lens`, changeFrequency: weekly, priority: 0.85 },
+      ...LENSES.map((l: { slug: string }) => ({
+        url: `${BASE}${prefix}/snap/lens/${l.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

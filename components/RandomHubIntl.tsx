@@ -2,6 +2,8 @@ import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import { RANDOM_TOOLS } from '@/lib/random-tools';
+import { ROLLS, DICE_ICON } from '@/lib/dice/list';
+import { DICE_UI } from '@/lib/dice/ui';
 import { RANDOM_UI, randomL10n, type RandomLang } from '@/lib/random-ui-intl';
 import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
 
@@ -13,6 +15,7 @@ import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
  * 아니라 그냥 없어서 어떤 검사에도 안 걸린다.
  */
 export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
+  const dice = DICE_UI[lang === 'pt-br' ? 'pt' : lang];
   const ui = RANDOM_UI[lang];
   const hubHref = localeHref(lang, '/random');
 
@@ -57,6 +60,19 @@ export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
             );
           })}
         </div>
+        <Link
+          href={localeHref(lang, '/random/dice')}
+          className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-rose-600 to-orange-500">
+            <ToolIcon emoji={DICE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{dice.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{dice.hubLead}</span>
+          </span>
+          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ROLLS.length}</span>
+        </Link>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
