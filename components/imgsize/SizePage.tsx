@@ -1,0 +1,163 @@
+import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
+import PageGlow from '@/components/PageGlow';
+import Faq from '@/components/Faq';
+import ToolIcon from '@/components/ToolIcon';
+import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
+import SizeShape from '@/components/imgsize/SizeShape';
+import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { IMG_SIZE_ICON, imgSizeOf } from '@/lib/imgsize/list';
+import { sameKind, sameRatio, sizeFacts } from '@/lib/imgsize/facts';
+import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
+
+/**
+ * 이미지 크기 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
+ *
+ * 픽셀 크기가 맨 위다. 이 화면에 오는 사람은 "유튜브 썸네일 몇 픽셀"을 알러
+ * 왔고, 인쇄 크기나 용량은 그다음에 읽을 거리다.
+ */
+export default function SizePage({ slug, lang }: { slug: string; lang: Lang8 }) {
+  const x = imgSizeOf(slug);
+  if (!x) return null;
+
+  const ui = IMG_SIZE_UI[lang];
+  const f = sizeFacts(x);
+  const kind = ui.kindLabel[x.kind];
+  const prefix = prefix8(lang);
+  const homeHref = lang === 'ko' ? '/' : `${prefix}/image/size`;
+  const path = `${prefix}/image/size/${slug}`;
+  const base = lang === 'ko' ? 'ko' : 'en';
+  const ratioMates = sameRatio(slug);
+  const kindMates = sameKind(slug);
+
+  const rows: { label: string; value: string }[] = [
+    { label: ui.pixelLabel, value: `${x.w} × ${x.h} px` },
+    { label: ui.ratioLabel, value: f.ratioLabel === f.ratio ? f.ratioLabel : `${f.ratioLabel} (${f.ratio})` },
+    { label: ui.megapixelLabel, value: `${f.pixels.toLocaleString(base)} · ${f.megapixels} MP` },
+    { label: ui.printLabel, value: `${f.mm[0]} × ${f.mm[1]} mm` },
+    { label: ui.orientationLabel, value: f.square ? ui.square : f.portrait ? ui.portrait : ui.landscape },
+    { label: ui.rawLabel, value: `${f.rawMb} MB` },
+    { label: ui.jpegLabel, value: `${f.jpegKb} KB` },
+  ];
+
+  return (
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: ui.home, path: homeHref },
+          { name: ui.section, path: `${prefix}/image/size` },
+          { name: x.name, path },
+        ])}
+      />
+      <JsonLd data={webAppJsonLd(x.name, ui.metaDesc(f, kind), path)} />
+
+      <PageGlow accent="rose" />
+      <div className="h-1 bg-gradient-to-r from-pink-500 to-rose-500" />
+
+      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
+          <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            {ui.home}
+          </Link>
+          <span className="text-slate-200 dark:text-slate-700">·</span>
+          <Link href={`${prefix}/image/size`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+            {ui.section}
+          </Link>
+        </div>
+      </header>
+
+      <main className="relative max-w-2xl mx-auto px-4 py-8">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-pink-500 to-rose-500">
+            <ToolIcon emoji={IMG_SIZE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white" />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{x.name}</h1>
+          <p className="text-3xl font-black text-pink-600 dark:text-pink-400 tabular-nums mb-1">{x.w} × {x.h}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500">{kind} · {f.ratioLabel}</p>
+        </div>
+
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-5 mb-6 flex justify-center">
+          <SizeShape w={x.w} h={x.h} label={f.ratioLabel} />
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="w-full text-sm">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {rows.map(r => (
+                <tr key={r.label}>
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2 bg-slate-50 dark:bg-slate-900/40">
+                    {r.label}
+                  </th>
+                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+          {ui.kindNote[x.kind]}
+        </p>
+
+        <section className="mt-8">
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
+            {ui.how.map(h => (
+              <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>
+            ))}
+          </ul>
+        </section>
+
+        <Faq items={ui.sizeFaq(f, kind)} lang={base} title={ui.faqTitle} />
+
+        {ratioMates.length > 0 && (
+          <section className="mt-8">
+            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.sameRatioTitle}</h2>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.sameRatioNote}</p>
+            <div className="grid grid-cols-2 gap-2">
+              {ratioMates.map(o => (
+                <Link
+                  key={o.slug}
+                  href={`${prefix}/image/size/${o.slug}`}
+                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 hover:shadow-sm transition-all"
+                >
+                  <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{o.name}</span>
+                  <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{o.w}×{o.h}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mt-8">
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.sameKindTitle}</h2>
+          <div className="grid grid-cols-2 gap-2">
+            {kindMates.map(o => (
+              <Link
+                key={o.slug}
+                href={`${prefix}/image/size/${o.slug}`}
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 hover:shadow-sm transition-all"
+              >
+                <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{o.name}</span>
+                <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{o.w}×{o.h}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+          {LANGS8.filter(l => l.lang !== lang).map(l => (
+            <Link key={l.lang} href={`${l.prefix}/image/size/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      </main>
+
+      <SiteFooter lang={base} />
+    </div>
+  );
+}

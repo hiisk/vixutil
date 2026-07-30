@@ -5,11 +5,22 @@
 import { LOCALES } from '@/lib/locales';
 
 export default function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
+  /*
+    꺾쇠를 유니코드 이스케이프로 바꾼다.
+
+    JSON은 <를 그대로 둬도 되지만, 그 JSON이 <script> 안에 들어가면 이야기가
+    다르다. HTML 태그 사전이 생기면서 "<h1>"이라는 값이 JSON-LD에 실렸고,
+    브라우저는 그것을 문자열이 아니라 진짜 h1 태그로 읽었다 — 한 페이지에 h1이
+    열 개로 세어졌다. </script>가 값에 들어가면 스크립트가 그 자리에서 끊긴다.
+
+    JSON 파서는 \u003c를 <로 되돌리므로 구조화 데이터의 뜻은 그대로다.
+  */
+  const json = JSON.stringify(data).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
   return (
     <script
       type="application/ld+json"
       // 구조화 데이터는 신뢰된 정적 데이터만 넣는다.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }

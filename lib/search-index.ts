@@ -30,6 +30,8 @@ import { EXTS, EXT_ICON } from './ext/list';
 import { CARDS, TAROT_ICON } from './tarot/deck';
 import { GLYPHS, GLYPH_ICON } from './glyph/list';
 import { TAGS, TAG_ICON } from './html/tags';
+import { IMG_SIZES, IMG_SIZE_ICON } from './imgsize/list';
+import { sizeFacts } from './imgsize/facts';
 import { tagDesc } from './html/desc';
 import { glyphFacts } from './glyph/facts';
 import { cardView } from './tarot/facts';
@@ -200,6 +202,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
   { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
   { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
+  { href: '/image/size', title: '이미지 크기 모음', desc: '썸네일·인쇄·증명사진 116가지 규격', section: 'image' as const, icon: IMG_SIZE_ICON },
   { href: '/html', title: 'HTML 태그 사전', desc: '126개 태그의 쓰임과 속성', section: 'html' as const, icon: TAG_ICON },
   { href: '/ext', title: '파일 확장자 사전', desc: '140가지 확장자의 여는 프로그램과 MIME 타입', section: 'ext' as const, icon: EXT_ICON },
   ...GLYPHS.map(g => ({
@@ -215,6 +218,13 @@ export const SEARCH_INDEX: SearchItem[] = [
     desc: tagDesc(t.name, 'ko'),
     section: 'html' as const,
     icon: TAG_ICON,
+  })),
+  ...IMG_SIZES.map(x => ({
+    href: `/image/size/${x.slug}`,
+    title: `${x.name} 크기`,
+    desc: `${x.w}×${x.h} · ${sizeFacts(x).ratioLabel}`,
+    section: 'image' as const,
+    icon: IMG_SIZE_ICON,
   })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,

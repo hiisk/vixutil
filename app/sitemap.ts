@@ -43,6 +43,7 @@ import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
 import { GLYPHS } from "@/lib/glyph/list";
 import { TAGS } from "@/lib/html/tags";
+import { IMG_SIZES } from "@/lib/imgsize/list";
 
 const BASE = "https://vixutil.com";
 
@@ -195,6 +196,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // 이미지 크기 116가지도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/image/size`, changeFrequency: weekly, priority: 0.9 },
+      ...IMG_SIZES.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/image/size/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // HTML 태그 126개도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/html`, changeFrequency: weekly, priority: 0.9 },
