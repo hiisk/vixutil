@@ -124,7 +124,7 @@ export const SEARCH_INTL_UI: Record<SearchIntlLang, {
     all: 'All',
   },
   es: {
-    title: 'Buscar',
+    title: 'Buscar herramientas',
     desc: 'Busca de una vez todas las herramientas del sitio: conversores, colores, imágenes, sonido, cocina, juegos, aparatos y texto. No hace falta saber en qué sección está.',
     heading: 'Buscar', h1: 'Busca cualquier herramienta de vixutil',
     countSuffix: n => `${n} herramientas`,
@@ -134,7 +134,7 @@ export const SEARCH_INTL_UI: Record<SearchIntlLang, {
     all: 'Todo',
   },
   'pt-br': {
-    title: 'Buscar',
+    title: 'Buscar ferramentas',
     desc: 'Busque de uma vez todas as ferramentas do site: conversores, cores, imagens, som, cozinha, jogos, aparelhos e texto. Você não precisa saber em qual seção está.',
     heading: 'Buscar', h1: 'Busque qualquer ferramenta do vixutil',
     countSuffix: n => `${n} ferramentas`,
