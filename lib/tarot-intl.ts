@@ -7,18 +7,23 @@
 
    카드 이름은 이미 nameEn이 있어 영어는 그대로 쓰고, 중국어만 새로 붙였다.
 ──────────────────────────────────────────────── */
+import { MINOR_NAMES_ZH, MINOR_READINGS_EN, MINOR_READINGS_ZH } from './tarot-minor-intl.ts';
+
 export type TarotIntlLang = 'en' | 'zh';
 
 interface Reading { upright: string; reversed: string }
 
-export const TAROT_NAMES_ZH: Record<number, string> = {
+const MAJOR_NAMES_ZH: Record<number, string> = {
   0: '愚者', 1: '魔术师', 2: '女祭司', 3: '皇后', 4: '皇帝', 5: '教皇',
   6: '恋人', 7: '战车', 8: '力量', 9: '隐者', 10: '命运之轮', 11: '正义',
   12: '倒吊人', 13: '死神', 14: '节制', 15: '恶魔', 16: '高塔', 17: '星星',
   18: '月亮', 19: '太阳', 20: '审判', 21: '世界',
 };
 
-export const TAROT_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
+/** 78장 전체 중국어 이름 — 메이저 22장 + 마이너 56장 */
+export const TAROT_NAMES_ZH: Record<number, string> = { ...MAJOR_NAMES_ZH, ...MINOR_NAMES_ZH };
+
+const MAJOR_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
   en: {
     0: { upright: 'A card for the start of a journey. You are standing in front of possibility that has not been shaped yet, and what it asks for is the plain courage to take a first step without a complete plan. Trust the instinct and keep the mind open — it tends to lead somewhere better than the plan would have.',
          reversed: 'Enthusiasm may be running ahead of judgement. Either you are about to leap without checking anything, or fear has you standing still while a genuine opening passes. Pause, do the minimum reality check, and then move.' },
@@ -111,6 +116,17 @@ export const TAROT_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
     21: { upright: '圆满。一个循环妥当地合上了，各部分都归了位。接下来的事，会从一个真正完成的基础上开始。',
          reversed: '差一点就完成，但还没收口。去找那最后一块，而不是把下一件事直接叠上去。' },
   },
+};
+
+/**
+ * 78장 전체 해석 — 메이저 22장에 마이너 56장을 합친다.
+ *
+ * fortune-data.ts의 getFullDeck()이 22~77을 마이너에 매기므로 id가 그대로 맞는다.
+ * 세 언어가 같은 id를 봐야 같은 카드가 나온다.
+ */
+export const TAROT_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
+  en: { ...MAJOR_READINGS.en, ...MINOR_READINGS_EN },
+  zh: { ...MAJOR_READINGS.zh, ...MINOR_READINGS_ZH },
 };
 
 export const TAROT_UI: Record<TarotIntlLang, {

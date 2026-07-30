@@ -201,6 +201,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/drawdown`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/volatility`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/rebalancing`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/day-of-week`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },
@@ -220,6 +221,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/fortune/biorhythm`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/birth-stone`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/today-color`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/en/fortune/tarot`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/en/fortune/lucky-numbers`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/star-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.8 },
@@ -291,6 +293,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/zh/fortune/biorhythm`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/birth-stone`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/today-color`, changeFrequency: weekly, priority: 0.8 },
+    { url: `${BASE}/zh/fortune/tarot`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/zh/fortune/lucky-numbers`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/star-match`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/zh/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.8 },
