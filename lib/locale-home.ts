@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/text/regex', icon: '🔤', color: 'from-sky-500 to-indigo-500',
+    accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
+    copy: {
+      en: { title: 'Regex Patterns', desc: '133 tested expressions, each with matching and non-matching examples' },
+      es: { title: 'Patrones de regex', desc: '133 expresiones probadas, con ejemplos que coinciden y que no' },
+      'pt-br': { title: 'Padrões de regex', desc: '133 expressões testadas, com exemplos que casam e que não casam' },
+      ja: { title: '正規表現集', desc: '検査済みの式133種、合う例と合わない例つき' },
+      de: { title: 'Regex-Muster', desc: '133 geprüfte Ausdrücke mit passenden und unpassenden Beispielen' },
+      fr: { title: 'Motifs regex', desc: '133 expressions testées, avec exemples correspondants et non correspondants' },
+      hi: { title: 'रेगेक्स पैटर्न', desc: '133 परखे हुए एक्सप्रेशन, मिलने और न मिलने वाले उदाहरणों के साथ' },
+    },
+  },
+  {
     route: '/random/dice', icon: '🎲', color: 'from-rose-600 to-orange-500',
     accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
     copy: {

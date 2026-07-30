@@ -41,6 +41,7 @@ import { SCREENS } from "@/lib/device/screens";
 import { LENSES } from "@/lib/lens/list";
 import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
+import { PATTERNS } from "@/lib/regex/list";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -278,6 +279,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 정규식 133장도 여덟 언어다 — 표기법과 검사식을 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/text/regex`, changeFrequency: weekly, priority: 0.85 },
+      ...PATTERNS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/text/regex/${x.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

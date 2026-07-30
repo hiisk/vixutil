@@ -5,6 +5,7 @@ import { SECTION_COUNTS } from '@/lib/search-index';
 import { LENSES } from '@/lib/lens/list';
 import { ALGS } from '@/lib/cube/list';
 import { ROLLS } from '@/lib/dice/list';
+import { PATTERNS } from '@/lib/regex/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages } from '@/lib/locales';
 
@@ -329,6 +330,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/text/regex',
+    icon: '🔤',
+    title: '정규식 모음',
+    desc: '이메일·날짜·IP 검사부터 표기법까지 — 맞는 보기와 맞지 않는 보기를 함께',
+    badge: `${PATTERNS.length}가지`,
+    color: 'from-sky-500 to-indigo-500',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/random/dice',

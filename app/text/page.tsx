@@ -10,6 +10,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { TEXT_TOOLS } from '@/lib/text-tools';
 import { GLYPH_UI } from '@/lib/glyph/ui';
 import { GLYPH_ICON } from '@/lib/glyph/list';
+import { REGEX_ICON } from '@/lib/regex/list';
+import { REGEX_UI } from '@/lib/regex/ui';
 
 export const metadata: Metadata = {
   title: '텍스트 도구 — 한영타 변환·영문 이름·특수문자',
@@ -128,6 +130,19 @@ export default function TextHubPage() {
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{GLYPH_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{GLYPH_UI.ko.hubLead}</span>
+          </span>
+        </Link>
+
+        <Link
+          href="/text/regex"
+          className="group mt-4 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-sky-500 to-indigo-500">
+            <ToolIcon emoji={REGEX_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{REGEX_UI.ko.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{REGEX_UI.ko.hubLead}</span>
           </span>
         </Link>
 

@@ -6,6 +6,8 @@ import { textToolsIntl, TEXT_CATEGORY_ORDER, TEXT_SHELL_UI, type TextIntlLang } 
 import { lang8OfLocale } from '@/lib/i18n/lang8';
 import { GLYPH_UI } from '@/lib/glyph/ui';
 import { GLYPH_ICON } from '@/lib/glyph/list';
+import { REGEX_ICON } from '@/lib/regex/list';
+import { REGEX_UI } from '@/lib/regex/ui';
 
 /**
  * 텍스트 도구 허브의 번역 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -17,6 +19,7 @@ import { GLYPH_ICON } from '@/lib/glyph/list';
 export default function TextHubIntl({ lang }: { lang: TextIntlLang }) {
   // 특수문자 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
   const glyphUi = GLYPH_UI[lang8OfLocale(lang)];
+  const regexUi = REGEX_UI[lang8OfLocale(lang)];
   const tools = textToolsIntl(lang);
   const ui = TEXT_SHELL_UI[lang];
   const grouped = TEXT_CATEGORY_ORDER[lang]
@@ -74,6 +77,19 @@ export default function TextHubIntl({ lang }: { lang: TextIntlLang }) {
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{glyphUi.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{glyphUi.hubLead}</span>
+          </span>
+        </Link>
+
+        <Link
+          href={`/${lang}/text/regex`}
+          className="group mt-4 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-sky-500 to-indigo-500">
+            <ToolIcon emoji={REGEX_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{regexUi.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{regexUi.hubLead}</span>
           </span>
         </Link>
 

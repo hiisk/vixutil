@@ -33,9 +33,9 @@ test('도구마다 페이지와 OG 이미지가 있다', () => {
 test('페이지 폴더마다 카탈로그 항목이 있다', () => {
   const orphans = readdirSync(APP, { withFileTypes: true })
     .filter(e => e.isDirectory())
-    // char는 도구가 아니라 특수문자 168자를 그리는 자료 갈래다 —
-    // 목록이 lib/glyph/list.ts에서 오므로 도구 카탈로그가 셀 대상이 아니다
-    .filter(e => e.name !== 'char')
+    // char와 regex는 도구가 아니라 자료 갈래다 — 특수문자 168자와 정규식 133가지를
+    // 각각 lib/glyph/list.ts, lib/regex/list.ts에서 받아 그리므로 도구 카탈로그가 셀 대상이 아니다
+    .filter(e => e.name !== 'char' && e.name !== 'regex')
     .map(e => e.name)
     .filter(name => !findTextTool(name));
   assert.deepEqual(orphans, [], `카탈로그에 없는 페이지 폴더: ${orphans.join(', ')}`);
@@ -48,6 +48,15 @@ test('특수문자 라우트는 글자 목록에서 페이지를 만든다', () 
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'char', 'page.tsx')), '특수문자 목록 페이지가 없다');
   assert.ok(existsSync(join(APP, 'char', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
+});
+
+test('정규식 라우트는 식 목록에서 페이지를 만든다', () => {
+  // 위 검사에서 regex를 빼 주었으니, 그 라우트가 실제로 식 목록을 쓰는지 여기서 본다
+  const src = readFileSync(join(APP, 'regex', '[slug]', 'page.tsx'), 'utf8');
+  assert.ok(src.includes('patternParams'), '[slug] 라우트가 식 목록을 돌지 않는다');
+  assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
+  assert.ok(existsSync(join(APP, 'regex', 'page.tsx')), '정규식 목록 페이지가 없다');
+  assert.ok(existsSync(join(APP, 'regex', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('slug가 중복되지 않는다', () => {
