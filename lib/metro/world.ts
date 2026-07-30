@@ -33,9 +33,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'Tokyo', line: 'Yamanote Line', country: 'Japan',
       intro: 'A loop around central Tokyo that takes about an hour to complete. Tokyo Station, Shinjuku, Shibuya and Ikebukuro all sit on it.',
       hint: 'Station names are in kanji, but romanised spellings count. Place Shinjuku, Shibuya and Ikebukuro first, then fill the gaps.' },
-    zh: { city: '东京', line: '山手线', country: '日本',
-      intro: '环绕东京市中心的环线，绕一圈约需一小时。东京站、新宿、涉谷、池袋等大站都在这条线上。',
-      hint: '站名为日文汉字，用罗马字拼写也算对。先定下新宿、涉谷、池袋，再填中间会更顺。' },
   },
   {
     slug: 'tokyo-ginza', city: 'tokyo', icon: '🇯🇵', color: '#f39700',
@@ -54,9 +51,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'Tokyo', line: 'Ginza Line', country: 'Japan',
       intro: 'Opened in 1927, this was Asia’s first subway line. It runs diagonally through the centre from Shibuya to Asakusa.',
       hint: 'Being the oldest, it has only eighteen stations. Ginza, Ueno and Asakusa are the anchors.' },
-    zh: { city: '东京', line: '银座线', country: '日本',
-      intro: '1927年通车，是亚洲最早的地铁线。从涉谷斜穿市中心直到浅草。',
-      hint: '作为亚洲最老的地铁，全线只有十八站。银座、上野、浅草是骨架。' },
   },
   {
     slug: 'london-victoria', city: 'london', icon: '🇬🇧', color: '#0098d4',
@@ -76,9 +70,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'London', line: 'Victoria line', country: 'United Kingdom',
       intro: 'Entirely underground, and every one of its sixteen stations offers an interchange. It runs north–south from Brixton to Walthamstow.',
       hint: 'Only sixteen stations, so it is a short one. Victoria, Oxford Circus and King’s Cross are the anchors.' },
-    zh: { city: '伦敦', line: 'Victoria line', country: '英国',
-      intro: '全线均在地下，十六座车站每一站都能换乘其他线路。自布里克斯顿向北通往沃尔瑟姆斯托。',
-      hint: '仅十六站，属于短线。维多利亚、牛津圆环、国王十字是骨架。' },
   },
   {
     slug: 'london-jubilee', city: 'london', icon: '🇬🇧', color: '#a0a5a9',
@@ -100,9 +91,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'London', line: 'Jubilee line', country: 'United Kingdom',
       intro: 'From Stanmore to Stratford, taking in Canary Wharf and Greenwich east of the Thames. The south-eastern extension opened in 1999 with notably large stations.',
       hint: 'The western half is suburban names; the eastern half is riverside redevelopment.' },
-    zh: { city: '伦敦', line: 'Jubilee line', country: '英国',
-      intro: '从斯坦莫尔通往斯特拉特福，途经泰晤士河东岸的金丝雀码头与格林尼治。东南段于1999年新建，车站格外宽大。',
-      hint: '西半段多为住宅区地名，东半段则是河畔再开发区。' },
   },
   {
     slug: 'nyc-7', city: 'newyork', icon: '🇺🇸', color: '#b933ad',
@@ -124,9 +112,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'New York', line: '7 train', country: 'United States',
       intro: 'Running east–west across Queens from Flushing to Hudson Yards in Manhattan. It threads so many immigrant neighbourhoods that it earned the nickname International Express.',
       hint: 'Many stops are numbered streets, and the numbers fall as you head west — 111 St, 103 St, and so on.' },
-    zh: { city: '纽约', line: '7号线', country: '美国',
-      intro: '自法拉盛横穿皇后区，直到曼哈顿的哈德逊广场。沿线串起众多移民社区，因而被称为“国际快线”。',
-      hint: '许多站名以街道编号开头，向西编号依次减小：111街、103街等。' },
   },
   {
     slug: 'paris-1', city: 'paris', icon: '🇫🇷', color: '#ffcd00',
@@ -150,9 +135,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'Paris', line: 'Ligne 1', country: 'France',
       intro: 'Opened in 1900 as the city’s first line and now fully automated. It strings the Louvre, the Champs-Élysées and Bastille onto one route.',
       hint: 'Spellings without accents count. Use Concorde, Châtelet and Bastille as anchors.' },
-    zh: { city: '巴黎', line: 'Ligne 1', country: '法国',
-      intro: '1900年通车，是巴黎最早的一条线，如今已实现无人驾驶。它把卢浮宫、香榭丽舍与巴士底连成一线。',
-      hint: '不带法语音符的拼写也算对。可以用协和广场、夏特雷、巴士底作为骨架。' },
   },
   {
     slug: 'beijing-2', city: 'beijing', icon: '🇨🇳', color: '#0000d1', loop: true,
@@ -172,9 +154,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'Beijing', line: 'Line 2', country: 'China',
       intro: 'A loop that follows the line of the old city wall, which is why so many stations end in “men” — gate.',
       hint: 'Eight stations end in “-men”. Work round the old city gates in order.' },
-    zh: { city: '北京', line: '2号线', country: '中国',
-      intro: '沿旧城墙位置环行的环线，因此站名中带“门”字的特别多。',
-      hint: '以“门”结尾的车站有八个，可按顺时针顺序回忆各座城门。' },
   },
   {
     slug: 'hongkong-island', city: 'hongkong', icon: '🇭🇰', color: '#0075c2',
@@ -193,9 +172,6 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'Hong Kong', line: 'Island line', country: 'Hong Kong',
       intro: 'Running west to east along the northern shore of Hong Kong Island, with interchanges at Central and Admiralty.',
       hint: 'Both English and Chinese names count. Central is 中環 and Admiralty is 金鐘.' },
-    zh: { city: '香港', line: '港岛线', country: '香港',
-      intro: '沿香港岛北岸自西向东行驶，在中环与金钟可换乘其他线路。',
-      hint: '英文名与中文名都算对。Central即中环，Admiralty即金钟。' },
   },
   {
     slug: 'singapore-ne', city: 'singapore', icon: '🇸🇬', color: '#9e28b5',
@@ -213,8 +189,5 @@ export const WORLD_LINES: MetroLine[] = [
     en: { city: 'Singapore', line: 'North East line', country: 'Singapore',
       intro: 'On opening it was the world’s first fully automated underground line. It runs from HarbourFront north-east to Punggol.',
       hint: 'Many names come from Malay. Reading them in two syllables — Boon Keng, Hougang, Buangkok — helps recall.' },
-    zh: { city: '新加坡', line: '东北线', country: '新加坡',
-      intro: '通车时是世界上第一条全线无人驾驶的地下线路，从港湾一直通往东北部的榜鹅。',
-      hint: '许多站名源自马来语，按两个音节来读会更容易想起：Boon Keng、Hougang、Buangkok。' },
   },
 ];

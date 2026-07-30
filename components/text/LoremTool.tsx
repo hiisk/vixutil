@@ -11,7 +11,8 @@ export default function LoremTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
     다만 CJK 쪽을 고르면 그 화면의 언어를 따라야 한다. 중국어 화면에서 한글 더미가
     나오면 그건 고를 수 있는 선택지가 아니라 그냥 잘못 나온 값이다.
   */
-  const cjk: 'ko' | 'zh' = 'ko';
+  // CJK 더미는 지금 한국어만 있다. 일본어를 붙이면 여기서 갈라진다.
+  const cjk = 'ko' as const;
   const [dummy, setDummy] = useState<'ko' | 'en'>(lang === 'en' ? 'en' : cjk);
   const [paragraphs, setParagraphs] = useState(3);
   const [sentences, setSentences] = useState(4);

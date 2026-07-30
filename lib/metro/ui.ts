@@ -80,51 +80,11 @@ export const METRO_UI = {
     lineColor: 'Line colour',
     loopNote: 'Loop line',
   },
-  zh: {
-    home: '首页',
-    section: '猜车站名',
-    hubTitle: '地铁线路车站名挑战',
-    hubLead: '选一条首尔、东京、伦敦或纽约的线路，从起点站开始按顺序打出车站名',
-    placeholder: '打出下一站的站名…',
-    start: '开始',
-    skip: '跳过',
-    perMin: '每分钟站数',
-    accuracy: '准确率',
-    wrongTry: '还不对',
-    nextIs: (n: number, t: number) => `第${n}站 / 共${t}站`,
-    restart: '再玩一次',
-    giveUp: '查看答案',
-    hint: '提示',
-    solvedOf: (a: number, b: number) => `${a} / ${b}`,
-    elapsed: '用时',
-    remaining: '剩余',
-    done: '全部答对',
-    doneIn: (t: string) => `用${t}完成`,
-    already: '已经答过',
-    notFound: '本线没有这一站',
-    hintFirst: (c: string) => `下一站以“${c}”开头`,
-    hintLen: (n: number) => `下一站有${n}个字`,
-    hintNear: (a: string) => `就在${a}旁边`,
-    hintUsed: (n: number) => `已用${n}次提示`,
-    listTitle: '车站列表',
-    howTitle: '玩法',
-    how: [
-      '从起点站开始按顺序打出下一站的站名，打完即自动进入下一站，无需按回车。',
-      '线路图会跟着当前车站移动，已经走过的站会留在画面上作为线索。',
-      '罗马字拼写同样算对，空格、连字符与大小写都会被忽略。',
-      '卡住时可以点提示，或直接跳过该站 —— 跳过会计为一次失误。',
-    ],
-    related: '其他线路',
-    stations: '车站数',
-    lineColor: '线路颜色',
-    loopNote: '环线',
-  },
 } as const;
 
 export const METRO_LANGS: { lang: Lang; label: string; prefix: string }[] = [
   { lang: 'ko', label: '한국어', prefix: '' },
   { lang: 'en', label: 'EN', prefix: '/en' },
-  { lang: 'zh', label: '中文', prefix: '/zh' },
 ];
 
 /** 경과 시간을 분:초로 */
@@ -138,5 +98,5 @@ export const clock = (ms: number): string => {
 /** hreflang 묶음 — 노선 slug만 넣으면 네 줄이 기계적으로 나온다 */
 export function metroAlternates(slug?: string) {
   const path = slug ? `/metro/${slug}` : '/metro';
-  return { 'ko': path, 'en': `/en${path}`, 'zh': `/zh${path}`, 'x-default': `/en${path}` };
+  return { 'ko': path, 'en': `/en${path}`, 'x-default': `/en${path}` };
 }

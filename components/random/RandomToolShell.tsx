@@ -14,9 +14,9 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
   // 언어 전환 링크: 현재 아닌 두 언어로
   const alt: { href: string; label: string; hl: string }[] =
     lang === 'ko'
-      ? [{ href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }, { href: `/zh/random/${tool.slug}`, label: '中文', hl: 'zh' }]
+      ? [{ href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }]
       : lang === 'en'
-        ? [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }, { href: `/zh/random/${tool.slug}`, label: '中文', hl: 'zh' }]
+        ? [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }]
         : [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }, { href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }];
 
   return (

@@ -56,8 +56,7 @@ export default async function EnChecklistPage({ params }: { params: Promise<{ sl
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link href="/en/checklist" className="text-sm font-black text-sky-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">
-          Free checklists · <Link href={`/zh/checklist/${slug}`} className="hover:text-sky-600" hrefLang="zh">中文</Link>
-        </p>
+          Free checklists </p>
       </footer>
     </>
   );

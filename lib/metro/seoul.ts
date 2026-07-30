@@ -34,9 +34,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 1', country: 'South Korea',
       intro: 'Korea’s first subway line, now running from Soyosan down to Guro, where it splits towards Incheon and Suwon.',
       hint: 'The Jongno stretch is numbered — 3-ga, 5-ga — which makes the order easy. North of Seoul the names come from Dongducheon and Yangju.' },
-    zh: { city: '首尔', line: '1号线', country: '韩国',
-      intro: '韩国最早开通的地铁线，如今从逍遥山通到九老，并在九老以南分向仁川与水原两支。',
-      hint: '钟路一段带有“3街”“5街”这样的编号，顺序容易记。首尔以北则是东豆川、杨州一带的地名。' },
   },
   {
     slug: 'seoul-line-2', city: 'seoul', icon: '🇰🇷', color: '#00a84d', loop: true,
@@ -64,9 +61,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 2', country: 'South Korea',
       intro: 'A loop around central Seoul and one of the longest circular metro lines in the world. It leaves City Hall, runs through Gangnam and comes back to City Hall.',
       hint: 'Being a loop, it starts and ends at the same place. Pin down the big interchanges — Gangnam, Jamsil, Hongik Univ. — then fill the gaps.' },
-    zh: { city: '首尔', line: '2号线', country: '韩国',
-      intro: '环绕首尔市中心的环线，是世界上最长的环形地铁线之一。从市厅出发经过江南，再回到市厅。',
-      hint: '环线的起点与终点相同。先想起江南、蠶室、弘大入口这些大站，再填中间会更顺。' },
   },
   {
     slug: 'seoul-line-3', city: 'seoul', icon: '🇰🇷', color: '#ef7c1c',
@@ -92,9 +86,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 3', country: 'South Korea',
       intro: 'From Daehwa in Goyang to Ogeum in Songpa, cutting north-west to south-east across Seoul. It passes the palaces at Gyeongbokgung and Anguk before reaching Apgujeong.',
       hint: 'The north-west stretch is Ilsan new-town names; the south-east is the Gangnam study district. Recall it in two blocks.' },
-    zh: { city: '首尔', line: '3号线', country: '韩国',
-      intro: '从高阳大化到松坡梧琴，自西北向东南贯穿首尔。途经景福宫、安国等故宫一带，再到狎鸥亭与高速客运站。',
-      hint: '西北段多为一山新城的地名，东南段则是江南补习街一带。分成两段回忆会更容易。' },
   },
   {
     slug: 'seoul-line-4', city: 'seoul', icon: '🇰🇷', color: '#00a5de',
@@ -122,9 +113,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 4', country: 'South Korea',
       intro: 'From Danggogae in Nowon down to Oido in Siheung, taking in Seoul Station, Myeongdong and Dongdaemun on one ride. The southern half continues onto the Ansan line and reaches the west coast.',
       hint: 'Inside Seoul the line strings together university stations — Sungshin, Hansung and Sookmyung come in order.' },
-    zh: { city: '首尔', line: '4号线', country: '韩国',
-      intro: '从芦原堂皋崖通往始兴梧耳岛，一线串起首尔站、明洞与东大门。南段接安山线，一直延伸到西海岸。',
-      hint: '在首尔市内会连续出现以大学命名的车站：诚信女大入口、汉城大入口、淑明女大入口依次排列。' },
   },
   {
     slug: 'seoul-line-5', city: 'seoul', icon: '🇰🇷', color: '#996cac',
@@ -152,9 +140,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 5', country: 'South Korea',
       intro: 'The longest east–west run across Seoul, from Gimpo Airport out to Hanam. Yeouido, Gwanghwamun and Wangsimni all sit on this one line.',
       hint: 'It crosses the Han twice and tunnels beneath it around Yeouido. The west end carries Mokdong and Hwagok names, the east end Hanam ones.' },
-    zh: { city: '首尔', line: '5号线', country: '韩国',
-      intro: '从金浦机场直到河南，是东西向贯穿首尔最长的一条线。汝矣岛、光化门与往十里都在这一条线上。',
-      hint: '它两次跨越汉江，并在汝矣岛一带从江底穿过。西端多为木洞、禾谷等地名，东端则是河南一带。' },
   },
   {
     slug: 'seoul-line-6', city: 'seoul', icon: '🇰🇷', color: '#cd7c2f',
@@ -180,9 +165,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 6', country: 'South Korea',
       intro: 'A long arc across northern Seoul from Eungam to Sinnae. The walkable neighbourhoods — Itaewon, Sangsu, Hapjeong — cluster on this line.',
       hint: 'The Eungam end runs as a one-way loop, so up and down trains differ. Around Itaewon the hills give their names to the stations.' },
-    zh: { city: '首尔', line: '6号线', country: '韩国',
-      intro: '从恩平鹰岩到中浪新内，沿首尔北部划出一道长弧。梨泰院、上水、合井等适合步行的街区都集中在这条线上。',
-      hint: '鹰岩一端为单向环形支线，上行与下行路径不同。梨泰院一带的车站名直接取自当地山坡地名。' },
   },
   {
     slug: 'seoul-line-7', city: 'seoul', icon: '🇰🇷', color: '#747f00',
@@ -212,9 +194,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 7', country: 'South Korea',
       intro: 'A diagonal sweep from Jangam in Uijeongbu to Bupyeong-gu Office in Incheon, taking in Gangnam-gu Office and the Express Bus Terminal on the way.',
       hint: 'Near Nowon several stations end in “-gye”; the south-western end carries Bucheon and Incheon names.' },
-    zh: { city: '首尔', line: '7号线', country: '韩国',
-      intro: '从议政府长岩到仁川富平区厅，斜穿整个首尔。途经江南区厅与高速客运站，再延伸至光明与富川。',
-      hint: '芦原附近连续出现以“溪”结尾的车站，西南端则多为富川、仁川一带的地名。' },
   },
   {
     slug: 'seoul-line-8', city: 'seoul', icon: '🇰🇷', color: '#e6186c',
@@ -235,9 +214,6 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 8', country: 'South Korea',
       intro: 'Once the shortest line on the Seoul network, extended northward to Byeollae. It links Jamsil down to Moran in Seongnam.',
       hint: 'In the Seongnam stretch several station names still carry old junction names like “ogeori” — five-way crossing.' },
-    zh: { city: '首尔', line: '8号线', country: '韩国',
-      intro: '曾是首尔地铁最短的一条线，向北延伸至别内后南北变长。连接蠶室与城南牡丹。',
-      hint: '城南段的多个站名仍保留着“五岔路口”“三岔路口”这类旧路口名称。' },
   },
   {
     slug: 'seoul-line-9', city: 'seoul', icon: '🇰🇷', color: '#bdb092',
@@ -262,8 +238,5 @@ export const SEOUL_LINES: MetroLine[] = [
     en: { city: 'Seoul', line: 'Line 9', country: 'South Korea',
       intro: 'Running east–west south of the Han, this is the line with express services. It links Gimpo Airport through Gangnam to Gangdong.',
       hint: 'Express trains call at only some stations, which is why the map shows two service types. Several Gangnam-area names are short — Eonju, Sapyeong.' },
-    zh: { city: '首尔', line: '9号线', country: '韩国',
-      intro: '在汉江以南东西向运行，是设有快速列车的线路。从金浦机场经江南通往江东。',
-      hint: '快车只停部分车站，因此线路图会标出两种运行方式。江南一带有不少两字短名，如彦州、沙坪。' },
   },
 ];

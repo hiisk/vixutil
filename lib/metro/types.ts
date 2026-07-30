@@ -60,7 +60,6 @@ export interface MetroLine {
   stations: MetroStation[];
   ko: MetroText;
   en: MetroText;
-  zh: MetroText;
 }
 
 export const metroText = (l: MetroLine, lang: Lang): MetroText => l[lang];

@@ -59,39 +59,7 @@ const POPULAR_EN: { href: string; label: string }[] = [
   { href: "/crypto/atr-tpsl", label: "ATR TP/SL" },
 ];
 
-/** 중국어 페이지가 있는 섹션만 — app/zh 아래 허브가 실제로 있는 것들이다 */
-const SECTIONS_ZH: { href: string; icon: string; label: string }[] = [
-  { href: "/zh/convert", icon: "🔄", label: "单位换算" },
-  { href: "/zh/rate", icon: "📊", label: "比率计算" },
-  { href: "/zh/body", icon: "🩺", label: "身体数值" },
-  { href: "/zh/geometry", icon: "📐", label: "几何计算" },
-  { href: "/zh/country", icon: "🧭", label: "国家资讯" },
-  { href: "/zh/hanja", icon: "📖", label: "四字成语" },
-  { href: "/zh/color", icon: "🎨", label: "色彩工具" },
-  { href: "/zh/time", icon: "⏰", label: "时间工具" },
-  { href: "/zh/image", icon: "🖼️", label: "图片工具" },
-  { href: "/zh/text", icon: "✍️", label: "文本工具" },
-  { href: "/zh/sound", icon: "🔊", label: "声音工具" },
-  { href: "/zh/food", icon: "🍳", label: "计量与料理" },
-  { href: "/zh/device", icon: "🧰", label: "设备检测" },
-  { href: "/zh/game", icon: "🕹️", label: "益智游戏" },
-  { href: "/zh/quiz", icon: "🏆", label: "知识问答" },
-  { href: "/zh/test", icon: "🧠", label: "心理测试" },
-  { href: "/zh/generator", icon: "⚙️", label: "生成器" },
-  { href: "/zh/checklist", icon: "✅", label: "清单" },
-  { href: "/zh/random", icon: "🎲", label: "随机抽取" },
-  { href: "/zh/fortune", icon: "🔮", label: "今日运势" },
-  { href: "/zh/snap", icon: "📸", label: "拍照测试" },
-];
 
-const POPULAR_ZH: { href: string; label: string }[] = [
-  { href: "/zh/convert/cm-inch", label: "厘米英寸换算" },
-  { href: "/zh/rate/discount", label: "折扣计算" },
-  { href: "/zh/body/bmi", label: "BMI计算" },
-  { href: "/zh/geometry/circle-area", label: "圆面积" },
-  { href: "/zh/country/japan", label: "日本旅行资讯" },
-  { href: "/zh/hanja/samyeonchoga", label: "四面楚歌" },
-];
 
 const COPY = {
   ko: {
