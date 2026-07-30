@@ -3,21 +3,13 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { RandomTool } from '@/lib/random-tools';
 import PageGlow from '@/components/PageGlow';
-
-type Lang = 'ko' | 'en';
+import { randomL10n, type RandomLang } from '@/lib/random-ui-intl';
+import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
 
 /** 랜덤 뽑기 도구들의 공용 껍데기 — 헤더·상단 바·히어로 타이틀·본문 슬롯. */
-export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool: RandomTool; children: ReactNode; lang?: Lang }) {
-  const title = lang === 'ko' ? tool.title : tool.titleEn;
-  const desc = lang === 'ko' ? tool.desc : tool.descEn;
-  const hubHref = lang === 'ko' ? '/random' : '/en/random';
-  // 언어 전환 링크: 현재 아닌 두 언어로
-  const alt: { href: string; label: string; hl: string }[] =
-    lang === 'ko'
-      ? [{ href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }]
-      : lang === 'en'
-        ? [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }]
-        : [{ href: `/random/${tool.slug}`, label: '한국어', hl: 'ko' }, { href: `/en/random/${tool.slug}`, label: 'EN', hl: 'en' }];
+export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool: RandomTool; children: ReactNode; lang?: RandomLang }) {
+  const t = randomL10n(tool.slug, lang);
+  const hubHref = localeHref(lang, '/random');
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
@@ -28,11 +20,19 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
           <Link href={hubHref} className="font-black text-rose-600 text-lg shrink-0">{lang === 'ko' ? 'vix.' : 'vixutil'}</Link>
           <Link href={hubHref} className="text-sm font-bold text-slate-700 dark:text-slate-200 truncate">
             <ToolIcon emoji={tool.icon} className="inline-block w-4 h-4 -mt-0.5 mr-1 align-middle" />
-            {title}
+            {t.title}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
-            {alt.map(a => (
-              <Link key={a.hl} href={a.href} className="hover:text-rose-600" hrefLang={a.hl}>{a.label}</Link>
+          {/* 언어 전환 — 여덟 언어가 같은 slug를 쓰므로 레지스트리에서 만든다 */}
+          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 overflow-x-auto">
+            {ALL_LOCALES.filter(l => l !== lang).map(l => (
+              <Link
+                key={l}
+                href={localeHref(l, `/random/${tool.slug}`)}
+                hrefLang={localeTag(l)}
+                className="hover:text-rose-600 shrink-0"
+              >
+                {localeLabel(l)}
+              </Link>
             ))}
           </span>
         </div>
@@ -41,8 +41,8 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
       <div className="max-w-lg mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji={tool.icon} className="text-slate-800 dark:text-slate-100 w-14 h-14 mx-auto mb-2" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{desc}</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{t.title}</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{t.desc}</p>
         </div>
         {children}
       </div>

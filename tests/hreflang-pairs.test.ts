@@ -22,7 +22,7 @@ const OUT = join(import.meta.dirname, '..', 'out');
 const built = existsSync(OUT);
 
 /** 여덟 언어 모두에 페이지가 있는 섹션 */
-const SECTIONS = ['color', 'image', 'sound', 'food', 'game', 'device', 'text', 'time'];
+const SECTIONS = ['convert', 'color', 'image', 'sound', 'food', 'game', 'device', 'text', 'time'];
 
 /** 그 언어의 그 경로에 해당하는 빌드 산출물 */
 function pageFor(locale: (typeof ALL_LOCALES)[number], route: string): string {

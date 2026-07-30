@@ -78,6 +78,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
     copy: {
       en: { title: 'Random Pickers', desc: 'Wheel, name picker, teams, dice, Secret Santa' },
+      es: { title: 'Sorteos al azar', desc: 'Ruleta, nombres, equipos, dados, amigo invisible' },
+      'pt-br': { title: 'Sorteios aleatórios', desc: 'Roleta, nomes, times, dados, amigo secreto' },
+      ja: { title: 'ランダム選び', desc: 'ルーレット、あみだくじ、チーム分け、サイコロ' },
+      de: { title: 'Zufallswerkzeuge', desc: 'Glücksrad, Namen ziehen, Teams, Würfel, Wichteln' },
+      fr: { title: 'Tirage au sort', desc: 'Roue, tirage de noms, équipes, dés, Père Noël secret' },
+      hi: { title: 'रैंडम चुनाव', desc: 'चक्का, नाम, टीम, पासा, सीक्रेट सैंटा' },
     },
   },
   {

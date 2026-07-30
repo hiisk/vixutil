@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { RANDOM_UI, type RandomLang } from '@/lib/random-ui-intl';
 
 function pickNumbers(min: number, max: number, count: number, unique: boolean): number[] {
   const lo = Math.min(min, max), hi = Math.max(min, max);
@@ -15,9 +16,8 @@ function pickNumbers(min: number, max: number, count: number, unique: boolean): 
   return Array.from({ length: count }, () => lo + Math.floor(Math.random() * span));
 }
 
-export default function NumberPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
-  const ko = lang === 'ko';
-  const zh = false;
+export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
+  const ui = RANDOM_UI[lang];
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [count, setCount] = useState(1);
@@ -46,31 +46,31 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   return (
     <div>
       <div className="flex gap-3 mb-3">
-        {num(min, setMin, ko ? '최소' : zh ? '最小' : 'Min')}
-        {num(max, setMax, ko ? '최대' : zh ? '最大' : 'Max')}
-        {num(count, v => setCount(Math.max(1, v)), ko ? '개수' : zh ? '数量' : 'Count')}
+        {num(min, setMin, ui.min)}
+        {num(max, setMax, ui.max)}
+        {num(count, v => setCount(Math.max(1, v)), ui.count)}
       </div>
       <label className="flex items-center gap-2 mb-5 text-sm text-slate-600 dark:text-slate-300 cursor-pointer">
         <input type="checkbox" checked={unique} onChange={e => setUnique(e.target.checked)} className="w-4 h-4 accent-emerald-500" />
-        {ko ? '중복 없이 뽑기' : zh ? '不重复' : 'No duplicates'}
+        {ui.noDuplicates}
       </label>
 
       <button
         onClick={draw}
         className="w-full bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-black text-lg rounded-2xl py-4 mb-3 shadow-lg shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
-        {ko ? '🔢 숫자 뽑기' : zh ? '🔢 生成数字' : '🔢 Generate numbers'}
+        {ui.generate}
       </button>
       <button
         onClick={lotto}
         className="w-full border-2 border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold rounded-2xl py-3 mb-6 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
       >
-        {ko ? '🍀 로또 번호 (1~45 중 6개)' : zh ? '🍀 彩票号码（1~45 选 6）' : '🍀 Lottery (6 of 1–45)'}
+        {ui.lottery}
       </button>
 
       {result && (
         <div className="rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white p-6 text-center">
-          <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? (ko ? '이번 주 행운의 번호 🍀' : zh ? '你的幸运号码 🍀' : 'Your lucky numbers 🍀') : (ko ? '결과' : zh ? '结果' : 'Result')}</div>
+          <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? ui.luckyNumbers : ui.result}</div>
           <div className="flex flex-wrap justify-center gap-2">
             {result.map((n, i) => (
               <span key={i} className="wc-pop flex items-center justify-center w-12 h-12 rounded-full bg-white text-emerald-700 text-lg font-black" style={{ animationDelay: `${i * 90}ms` }}>

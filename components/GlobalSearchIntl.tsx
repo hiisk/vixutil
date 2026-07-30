@@ -5,21 +5,48 @@ import ToolIcon from '@/components/ToolIcon';
 import { SEARCH_INTL_UI, type SearchIntlItem, type SearchIntlLang } from '@/lib/search-index-intl';
 
 /**
- * 영어·중국어 통합 검색 화면.
+ * 번역 언어 통합 검색 화면.
  *
  * 한국어 GlobalSearch는 SECTION_META와 '전체' 필터가 한국어에 묶여 있어 그대로
  * 쓸 수 없다. 정렬 규칙(제목 완전일치 → 앞부분 일치 → 제목 포함 → 설명 포함)은
  * 같게 두고 문구와 섹션 라벨만 갈아 끼운다.
+ *
+ * 섹션 라벨은 그 섹션 허브의 제목과 같은 낱말로 맞춘다 — 검색 결과의 꼬리표와
+ * 눌러서 도착한 페이지의 제목이 다른 말이면 같은 곳으로 안 읽힌다.
  */
 const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   en: {
-    color: 'Colour', time: 'Time', image: 'Image', sound: 'Sound', food: 'Cooking',
+    convert: 'Convert', color: 'Colour', time: 'Time', image: 'Image', sound: 'Sound', food: 'Cooking',
     game: 'Games', device: 'Device', text: 'Text', checklist: 'Checklist',
     quiz: 'Quiz', test: 'Test', fortune: 'Fortune', snap: 'Snap',
   },
+  es: {
+    convert: 'Unidades', color: 'Color', time: 'Tiempo', image: 'Imagen', sound: 'Sonido', food: 'Cocina',
+    game: 'Juegos', device: 'Aparatos', text: 'Texto',
+  },
+  'pt-br': {
+    convert: 'Unidades', color: 'Cor', time: 'Tempo', image: 'Imagem', sound: 'Som', food: 'Cozinha',
+    game: 'Jogos', device: 'Aparelhos', text: 'Texto',
+  },
+  ja: {
+    convert: '単位', color: '配色', time: '時間', image: '画像', sound: '音', food: '料理',
+    game: 'ゲーム', device: '端末', text: 'テキスト',
+  },
+  de: {
+    convert: 'Einheiten', color: 'Farbe', time: 'Zeit', image: 'Bild', sound: 'Klang', food: 'Küche',
+    game: 'Spiele', device: 'Geräte', text: 'Text',
+  },
+  fr: {
+    convert: 'Unités', color: 'Couleur', time: 'Temps', image: 'Image', sound: 'Son', food: 'Cuisine',
+    game: 'Jeux', device: 'Appareils', text: 'Texte',
+  },
+  hi: {
+    convert: 'इकाई', color: 'रंग', time: 'समय', image: 'इमेज', sound: 'ध्वनि', food: 'रसोई',
+    game: 'खेल', device: 'उपकरण', text: 'टेक्स्ट',
+  },
 };
 
-const SECTION_ORDER = ['color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'fortune', 'snap'];
+const SECTION_ORDER = ['convert', 'color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'fortune', 'snap'];
 
 /** 제목이 앞에서 맞을수록, 그다음 제목 포함, 마지막이 설명 포함 순으로 올린다. */
 function score(item: SearchIntlItem, q: string): number {
@@ -65,7 +92,7 @@ export default function GlobalSearchIntl({ items, lang }: { items: SearchIntlIte
   }, [results]);
 
   const shown = active === ALL ? results : results.filter(r => r.section === active);
-  const allLabel = lang === 'en' ? 'All' : '全部';
+  const allLabel = ui.all;
 
   return (
     <div>

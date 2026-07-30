@@ -27,6 +27,7 @@ import { TEXT_TOOLS } from './text-tools';
 import { RANDOM_TOOLS_MAP, type RandomTool } from './random-tools';
 import { CONVERT_MAP } from './convert-tools';
 import { CONVERT_CATEGORY, convertL10n } from './convert-i18n';
+import { randomL10n } from './random-ui-intl';
 
 /**
  * 다국어 공유 카드.
@@ -41,8 +42,8 @@ import { CONVERT_CATEGORY, convertL10n } from './convert-i18n';
  * 카드가 다른 도구처럼 보인다.
  *
  * 색상·시간 도구는 이미 섹션 사전(color-tools-intl·time-tools-intl)에 언어별
- * 문구가 있어서 표에 넣지 않고 그쪽을 읽는다. 랜덤 뽑기도 random-tools의
- * titleEn/titleZh를 쓴다.
+ * 문구가 있어서 표에 넣지 않고 그쪽을 읽는다. 단위 변환·랜덤 뽑기도 마찬가지로
+ * 각 섹션 사전에서 꺼낸다 — 같은 문장을 표에 한 번 더 적으면 곧 서로 어긋난다.
  */
 
 type Card = { icon: string; eyebrow: string; title: string; desc: string; from: string; to: string };
@@ -87,6 +88,12 @@ const CARDS: Record<string, Card> = {
   'food/fr': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Outils de cuisine', desc: 'Tasses en grammes · four · riz · café', from: '#f59e0b', to: '#dc2626' },
   'food/hi': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'रसोई उपकरण', desc: 'कप से ग्राम · ओवन · चावल · कॉफ़ी', from: '#f59e0b', to: '#dc2626' },
   'search/en': { icon: '🔍', eyebrow: 'Search', title: 'Search Every Tool', desc: 'Converters · tests · quizzes · checklists · games', from: '#6366f1', to: '#8b5cf6' },
+  'search/es': { icon: '🔍', eyebrow: 'Search', title: 'Busca cualquier herramienta', desc: 'Unidades · color · imagen · sonido · cocina · juegos', from: '#6366f1', to: '#8b5cf6' },
+  'search/pt-br': { icon: '🔍', eyebrow: 'Search', title: 'Busque qualquer ferramenta', desc: 'Unidades · cor · imagem · som · cozinha · jogos', from: '#6366f1', to: '#8b5cf6' },
+  'search/ja': { icon: '🔍', eyebrow: 'Search', title: 'ツールをまとめて検索', desc: '単位 · 配色 · 画像 · 音 · 料理 · ゲーム', from: '#6366f1', to: '#8b5cf6' },
+  'search/de': { icon: '🔍', eyebrow: 'Search', title: 'Alle Werkzeuge durchsuchen', desc: 'Einheiten · Farbe · Bild · Klang · Küche · Spiele', from: '#6366f1', to: '#8b5cf6' },
+  'search/fr': { icon: '🔍', eyebrow: 'Search', title: 'Chercher tous les outils', desc: 'Unités · couleur · image · son · cuisine · jeux', from: '#6366f1', to: '#8b5cf6' },
+  'search/hi': { icon: '🔍', eyebrow: 'Search', title: 'सारे उपकरण खोजें', desc: 'इकाई · रंग · इमेज · ध्वनि · रसोई · खेल', from: '#6366f1', to: '#8b5cf6' },
   'game/en': { icon: '🎮', eyebrow: 'Brain Games', title: 'Brain Games', desc: 'Reaction · memory · typing · aim · mental maths', from: '#10b981', to: '#0d9488' },
   'game/es': { icon: '🎮', eyebrow: 'Brain Games', title: 'Juegos mentales', desc: 'Reacción · memoria · escritura · puntería · cálculo', from: '#10b981', to: '#0d9488' },
   'game/pt-br': { icon: '🎮', eyebrow: 'Brain Games', title: 'Jogos mentais', desc: 'Reação · memória · digitação · mira · cálculo', from: '#10b981', to: '#0d9488' },
@@ -129,6 +136,12 @@ const CARDS: Record<string, Card> = {
   'generator/en': { icon: '⚙️', eyebrow: 'Generator', title: 'Free Name Generators', desc: 'Fantasy · sci-fi · dragon · superhero · guild names', from: '#10b981', to: '#0d9488' },
   'random/en': { icon: '🎲', eyebrow: 'Random Picker', title: 'Random Picker Tools', desc: 'Wheel · name picker · teams · dice · Secret Santa', from: '#6366f1', to: '#a855f7' },
   'random/ko': { icon: '🎲', eyebrow: 'Random Picker', title: '랜덤 뽑기', desc: '룰렛 · 사다리타기 · 팀 나누기 · 숫자 추첨 · 동전/주사위', from: '#6366f1', to: '#a855f7' },
+  'random/es': { icon: '🎲', eyebrow: 'Random Picker', title: 'Herramientas de azar', desc: 'Ruleta · nombres · equipos · números · dados', from: '#6366f1', to: '#a855f7' },
+  'random/pt-br': { icon: '🎲', eyebrow: 'Random Picker', title: 'Ferramentas de sorteio', desc: 'Roleta · nomes · times · números · dados', from: '#6366f1', to: '#a855f7' },
+  'random/ja': { icon: '🎲', eyebrow: 'Random Picker', title: 'ランダム選び', desc: 'ルーレット · あみだ · チーム分け · 乱数 · サイコロ', from: '#6366f1', to: '#a855f7' },
+  'random/de': { icon: '🎲', eyebrow: 'Random Picker', title: 'Zufallswerkzeuge', desc: 'Glücksrad · Namen · Teams · Zahlen · Würfel', from: '#6366f1', to: '#a855f7' },
+  'random/fr': { icon: '🎲', eyebrow: 'Random Picker', title: 'Tirage au sort', desc: 'Roue · noms · équipes · nombres · dés', from: '#6366f1', to: '#a855f7' },
+  'random/hi': { icon: '🎲', eyebrow: 'Random Picker', title: 'रैंडम उपकरण', desc: 'चक्का · नाम · टीम · संख्या · पासा', from: '#6366f1', to: '#a855f7' },
   'calculator/en': { icon: '🧮', eyebrow: 'Calculator', title: 'Korean Calculators', desc: 'Salary · tax · loan · property calculators for Korea', from: '#1d4ed8', to: '#3b82f6' },
   'calculator/ja': { icon: '🧮', eyebrow: 'Calculator', title: '生活計算機まとめ', desc: '給与・税金・ローン・不動産の計算機', from: '#1d4ed8', to: '#3b82f6' },
   'fortune/dream/ko': { icon: '🌙', eyebrow: 'Dream', title: '꿈 해몽', desc: '돼지·뱀·불 등 50가지 꿈의 의미 분석', from: '#334155', to: '#3730a3' },
@@ -250,17 +263,14 @@ export function soundOg(slug: string, lang: SoundIntlLang): ReactElement {
   });
 }
 
-/** 랜덤 뽑기 — 도구 메타에 언어별 문구가 같이 들어 있다 */
-export function randomOg(slug: string, lang: 'ko' | 'en'): ReactElement {
+/** 랜덤 뽑기 — 문구는 lib/random-ui-intl.ts의 사전에서 꺼낸다 */
+export function randomOg(slug: string, lang: AnyLocale): ReactElement {
   const tool: RandomTool | undefined = RANDOM_TOOLS_MAP[slug];
   if (!tool) throw new Error(`og-intl: 랜덤 도구가 없다 — ${slug}`);
-  const title = lang === 'en' ? tool.titleEn : tool.title;
-  const desc = lang === 'en' ? tool.descEn : tool.desc;
-  // 중국어 카테고리는 데이터에 없다. 한국어를 그대로 쓰면 중국어 카드에 한글이
-  // 끼므로 섹션 라벨로 대신한다.
-  const eyebrow = lang === 'ko' ? tool.category : lang === 'en' ? tool.categoryEn : 'Random Picker';
-  const hub = CARDS[`random/${lang}`];
-  return ogCard({ icon: tool.icon, eyebrow, title, desc, from: hub.from, to: hub.to });
+  const l = randomL10n(slug, lang);
+  // 색은 여덟 언어가 같다 — 언어마다 다르면 같은 도구의 카드가 다른 도구처럼 보인다
+  const hub = CARDS['random/en'];
+  return ogCard({ icon: tool.icon, eyebrow: l.category, title: l.title, desc: l.desc, from: hub.from, to: hub.to });
 }
 
 /** 두뇌 게임 — 색상 도구와 같은 방식 */
