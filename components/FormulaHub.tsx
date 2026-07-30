@@ -91,7 +91,7 @@ export default function FormulaHub({ lang, section }: { lang: Lang; section: Sec
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-4 leading-relaxed">{meta.footNote}</p>
       </main>
 
-      <SiteFooter lang={lang === 'ko' ? 'ko' : 'en'} />
+      <SiteFooter lang={lang} />
     </div>
   );
 }

@@ -88,7 +88,7 @@ export default function CountryHub({ lang }: { lang: Lang }) {
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-4 leading-relaxed">{ui.footNote}</p>
       </main>
 
-      <SiteFooter lang={lang === 'ko' ? 'ko' : 'en'} />
+      <SiteFooter lang={lang} />
     </div>
   );
 }

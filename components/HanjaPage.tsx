@@ -143,7 +143,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">{ui.footNote}</p>
       </main>
 
-      <SiteFooter lang={lang === 'ko' ? 'ko' : 'en'} />
+      <SiteFooter lang={lang} />
     </div>
   );
 }

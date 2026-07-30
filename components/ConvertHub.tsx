@@ -107,7 +107,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">{ui.footNote}</p>
       </main>
 
-      <SiteFooter lang={lang === 'ko' ? 'ko' : 'en'} />
+      <SiteFooter lang={lang} />
     </div>
   );
 }

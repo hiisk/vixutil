@@ -126,7 +126,7 @@ export default function FormulaPage({
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">{meta.footNote}</p>
       </main>
 
-      <SiteFooter lang={lang === 'ko' ? 'ko' : 'en'} />
+      <SiteFooter lang={lang} />
     </div>
   );
 }
