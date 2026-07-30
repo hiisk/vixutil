@@ -732,6 +732,36 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/sold-at-top': [
+    {
+      q: 'What would selling at the top and buying the bottom have returned?',
+      a: 'An amount that is not meaningful. Holding only on days that closed higher produces a figure with more digits than there is money in existence. The size of that number is the finding: it is the arithmetic ceiling, not a target anyone approaches.',
+    },
+    {
+      q: 'How much does missing just a few days cost?',
+      a: 'Far more than the days suggest. Crypto returns are concentrated into a small number of sessions, so sitting out the twenty best days of several thousand is enough to erase most of the return \u2014 and for Bitcoin over its full listed history, enough to turn it negative.',
+    },
+    {
+      q: 'Why can I not just avoid the worst days instead?',
+      a: 'Because the best days and the worst days are the same week. Violent rebounds follow capitulation, so the largest single-day gains sit immediately beside the largest single-day losses. Bitcoin\u2019s best day in its listed history came the day after its worst.',
+    },
+    {
+      q: 'What happens if I dodge every crash but also miss every rally?',
+      a: 'For Bitcoin, you end up behind having simply held. That row is on the page because it is the realistic outcome of active timing \u2014 you do not get to keep the crash avoidance and the rebounds separately.',
+    },
+    {
+      q: 'Are fees included in these numbers?',
+      a: 'No, and that omission favours the timing scenarios. Every market-timing row requires dozens or thousands of round trips that buy and hold never pays for, so the real gap is wider than shown, in the direction of doing nothing.',
+    },
+    {
+      q: 'Does sitting out a day mean it is removed from the series?',
+      a: 'No. A day sat out simply earns zero for that scenario. Every row covers exactly the same calendar period and the same number of days, so the comparison isolates participation rather than changing the window.',
+    },
+    {
+      q: 'Why does the history start at different dates for different coins?',
+      a: 'The window is each coin\u2019s full daily history on the exchange, so it begins when the pair was listed. A newer coin therefore covers fewer days and fewer market cycles, which makes its extreme-day statistics less settled.',
+    },
+  ],
   'crypto/kelly-criterion': [
     {
       q: 'What is the Kelly criterion?',
