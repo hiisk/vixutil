@@ -281,7 +281,7 @@ const SECTIONS = [
     href: '/hanja',
     icon: '📖',
     title: '사자성어',
-    desc: '뜻과 유래, 글자별 새김과 쓰는 예까지 사자성어 50개',
+    desc: '뜻과 유래, 글자별 새김과 쓰는 예까지 사자성어 100개',
     badge: `${SECTION_COUNTS.hanja}개`,
     color: 'from-amber-500 to-orange-600',
     bgLight: 'bg-amber-50 dark:bg-amber-950/30',

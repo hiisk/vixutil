@@ -10,7 +10,7 @@ const HANGUL = /[가-힣]/;
 const HANJA = /[一-鿿]/;
 
 test('50개가 있고 slug·한자·독음이 겹치지 않는다', () => {
-  assert.ok(IDIOMS.length >= 50, `50개 이상이어야 하는데 ${IDIOMS.length}개`);
+  assert.ok(IDIOMS.length >= 100, `100개 이상이어야 하는데 ${IDIOMS.length}개`);
   assert.equal(new Set(IDIOMS.map(i => i.slug)).size, IDIOMS.length);
   assert.equal(new Set(IDIOMS.map(i => i.hanja)).size, IDIOMS.length);
   assert.equal(new Set(IDIOMS.map(i => i.reading)).size, IDIOMS.length);

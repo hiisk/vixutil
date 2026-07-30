@@ -266,6 +266,20 @@ export const GROUPS: Record<string, string[]> = {
   corn: ['🌽'],
   stadium: ['🏟️'],
   subway: ['🚇', '🚋'],
+  fingersCrossed: ['🤞'],
+  axe: ['🪓'],
+  twoPeople: ['👬'],
+  swan: ['🦢'],
+  sailboat: ['⛵'],
+  openHands: ['🙌'],
+  tiger: ['🐅'],
+  jockey: ['🏇'],
+  thread: ['🧵'],
+  repeatOne: ['🔂'],
+  cross: ['❌'],
+  pinch: ['🤏'],
+  sheep: ['🐑'],
+  forbidden: ['🚫'],
 };
 
 /** 이모지 → 아이콘 이름 (GROUPS를 뒤집은 것) */
