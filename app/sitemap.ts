@@ -39,6 +39,7 @@ import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
+import { EXTS } from "@/lib/ext/list";
 
 const BASE = "https://vixutil.com";
 
@@ -186,6 +187,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // 확장자 140장도 여덟 언어다 — 목록과 상세를 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/ext`, changeFrequency: weekly, priority: 0.9 },
+      ...EXTS.map((x: { ext: string }) => ({
+        url: `${BASE}${prefix}/ext/${x.ext}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 주파수 113장도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/sound/hz`, changeFrequency: weekly, priority: 0.85 },

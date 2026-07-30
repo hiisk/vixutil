@@ -26,6 +26,8 @@ import { INGREDIENTS } from './food/ingredients8';
 import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
+import { EXTS, EXT_ICON } from './ext/list';
+import { extFacts } from './ext/facts';
 import { freqFacts } from './sound/facts';
 import { screenFacts } from './device/facts';
 import { foodFacts } from './food/facts';
@@ -39,7 +41,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext';
 
 export interface SearchItem {
   href: string;
@@ -74,6 +76,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   hanja:      { label: '사자성어', icon: '📖', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   music:      { label: '음악 이론', icon: '🎹', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  ext:        { label: '파일 확장자', icon: '📄', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
 };
 
 /**
@@ -168,6 +171,13 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: FREQ_ICON,
     };
   }),
+  ...EXTS.map(x => ({
+    href: `/ext/${x.ext}`,
+    title: `.${x.ext} 파일`,
+    desc: `${extFacts(x).mime} · ${x.apps.slice(0, 2).join(', ')}`,
+    section: 'ext' as const,
+    icon: EXT_ICON,
+  })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

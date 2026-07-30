@@ -280,6 +280,18 @@ const SECTIONS = [
     shadow: 'shadow-slate-100',
   },
   {
+    href: '/ext',
+    icon: '📄',
+    title: '파일 확장자',
+    desc: '이 파일 뭘로 열지 — 확장자 140가지의 여는 프로그램과 MIME 타입',
+    badge: `${SECTION_COUNTS.ext}개`,
+    color: 'from-indigo-500 to-violet-600',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
+  },
+  {
     href: '/hanja',
     icon: '📖',
     title: '사자성어',
