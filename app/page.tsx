@@ -6,6 +6,7 @@ import { LENSES } from '@/lib/lens/list';
 import { ALGS } from '@/lib/cube/list';
 import { ROLLS } from '@/lib/dice/list';
 import { PATTERNS } from '@/lib/regex/list';
+import { ELEMENTS } from '@/lib/element/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages } from '@/lib/locales';
 
@@ -330,6 +331,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/element',
+    icon: '⚛️',
+    title: '주기율표',
+    desc: '원소 118가지 — 기호와 원자량, 주기와 족, 전자 배치까지',
+    badge: `${ELEMENTS.length}종`,
+    color: 'from-cyan-600 to-sky-500',
+    bgLight: 'bg-cyan-50 dark:bg-cyan-950/30',
+    textAccent: 'text-cyan-700 dark:text-cyan-300',
+    borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
+    shadow: 'shadow-cyan-100',
   },
   {
     href: '/text/regex',

@@ -42,6 +42,7 @@ import { LENSES } from "@/lib/lens/list";
 import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
+import { ELEMENTS } from "@/lib/element/list";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -279,6 +280,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 원소 118장도 여덟 언어다 — 주기율표 자체가 목록이다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/element`, changeFrequency: weekly, priority: 0.85 },
+      ...ELEMENTS.map((x: { z: number }) => ({
+        url: `${BASE}${prefix}/element/${x.z}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

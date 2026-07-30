@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/element', icon: '⚛️', color: 'from-cyan-600 to-sky-500',
+    accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
+    copy: {
+      en: { title: 'Periodic Table', desc: 'All 118 elements with symbols, weights and electron configurations' },
+      es: { title: 'Tabla periódica', desc: 'Los 118 elementos con símbolos, pesos y configuraciones' },
+      'pt-br': { title: 'Tabela periódica', desc: 'Os 118 elementos com símbolos, pesos e configurações' },
+      ja: { title: '周期表', desc: '元素118種の記号・原子量・電子配置' },
+      de: { title: 'Periodensystem', desc: 'Alle 118 Elemente mit Symbol, Gewicht und Konfiguration' },
+      fr: { title: 'Tableau périodique', desc: 'Les 118 éléments avec symboles, masses et configurations' },
+      hi: { title: 'आवर्त सारणी', desc: 'सभी 118 तत्व — प्रतीक, द्रव्यमान और इलेक्ट्रॉन विन्यास' },
+    },
+  },
+  {
     route: '/text/regex', icon: '🔤', color: 'from-sky-500 to-indigo-500',
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {
