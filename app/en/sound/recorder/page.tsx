@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Record with nothing installed, listen back straight away and download the file. Recording happens inside the browser and is never sent to a server, so meeting notes or pronunciation practice are safe here.',
   alternates: {
     canonical: '/en/sound/recorder',
-    languages: { 'en': '/en/sound/recorder', 'zh': '/zh/sound/recorder', 'ko': '/sound/recorder', 'x-default': '/en/sound/recorder' },
+    languages: { 'en': '/en/sound/recorder', 'ko': '/sound/recorder', 'x-default': '/en/sound/recorder' },
   },
 };
 

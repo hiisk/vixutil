@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Frequencies around 17kHz become harder to hear as you get older. It is called a mosquito tone because supposedly only teenagers hear it — play through the frequencies and find where yours stops.',
   alternates: {
     canonical: '/en/sound/mosquito',
-    languages: { 'en': '/en/sound/mosquito', 'zh': '/zh/sound/mosquito', 'ko': '/sound/mosquito', 'x-default': '/en/sound/mosquito' },
+    languages: { 'en': '/en/sound/mosquito', 'ko': '/sound/mosquito', 'x-default': '/en/sound/mosquito' },
   },
 };
 

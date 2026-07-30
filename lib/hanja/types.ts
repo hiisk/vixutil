@@ -34,7 +34,6 @@ export interface Idiom {
   icon: string;
   ko: IdiomText;
   en: IdiomText;
-  zh: IdiomText;
 }
 
 export const idiomText = (i: Idiom, lang: Lang): IdiomText => i[lang];

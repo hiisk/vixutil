@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free sound tools generated in your browser: metronome, guitar tuner, ear training, BPM tap, white noise, binaural beats, sound level meter, voice recorder and tone generator.',
   alternates: {
     canonical: '/en/sound',
-    languages: { 'en': '/en/sound', 'zh': '/zh/sound', 'ko': '/sound', 'x-default': '/en/sound' },
+    languages: { 'en': '/en/sound', 'ko': '/sound', 'x-default': '/en/sound' },
   },
 };
 

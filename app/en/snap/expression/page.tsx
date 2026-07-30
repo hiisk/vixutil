@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "A trained neural network infers seven emotion probabilities from your photo, right in your browser. Real model outputs, nothing uploaded to a server.",
   alternates: {
     canonical: '/en/snap/expression',
-    languages: { 'en': '/en/snap/expression', 'zh': '/zh/snap/expression', 'ko': '/snap/expression', 'x-default': '/en/snap/expression' },
+    languages: { 'en': '/en/snap/expression', 'ko': '/snap/expression', 'x-default': '/en/snap/expression' },
   },
 };
 

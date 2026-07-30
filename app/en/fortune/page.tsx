@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Free daily horoscopes: read today’s reading by star sign, Chinese zodiac animal or blood type. Love, money, work and health, updated every day.',
   alternates: {
     canonical: '/en/fortune',
-    languages: { 'en': '/en/fortune', 'ko': '/fortune', 'zh': '/zh/fortune', 'x-default': '/en/fortune' },
+    languages: { 'en': '/en/fortune', 'ko': '/fortune', 'x-default': '/en/fortune' },
   },
 };
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free time tools: timer, stopwatch, pomodoro, alarm clock, world clock, time zone converter, working day and date calculators. Runs in your browser, no install.',
   alternates: {
     canonical: '/en/time',
-    languages: { 'en': '/en/time', 'zh': '/zh/time', 'ko': '/time', 'x-default': '/en/time' },
+    languages: { 'en': '/en/time', 'ko': '/time', 'x-default': '/en/time' },
   },
 };
 

@@ -158,7 +158,7 @@ test('분류 이름도 3언어가 다 있다', () => {
 });
 
 test('세 언어 라우트가 모두 있다', () => {
-  for (const prefix of ['', 'en', 'zh']) {
+  for (const prefix of ['', 'en']) {
     const base = prefix ? join(ROOT, 'app', prefix, 'convert') : join(ROOT, 'app', 'convert');
     assert.ok(existsSync(join(base, 'page.tsx')), `${prefix || 'ko'} 허브 없음`);
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${prefix || 'ko'} 상세 없음`);
@@ -171,35 +171,31 @@ test('hreflang이 세 언어를 모두 가리킨다', () => {
   const alt = convertAlternates('cm-inch');
   assert.equal(alt.ko, '/convert/cm-inch');
   assert.equal(alt.en, '/en/convert/cm-inch');
-  assert.equal(alt.zh, '/zh/convert/cm-inch');
   assert.equal(alt['x-default'], '/en/convert/cm-inch');
 
   const hub = convertAlternates();
   assert.equal(hub.ko, '/convert');
-  assert.equal(hub.zh, '/zh/convert');
 });
 
 test('FAQ가 언어마다 그 언어로 나온다', () => {
   const tool = CONVERT_MAP['cm-inch'];
   const ko = convertFaq(tool, 'ko');
   const en = convertFaq(tool, 'en');
-  const zh = convertFaq(tool, 'zh');
 
   assert.ok(/[가-힣]/.test(ko[0].q), '한국어 FAQ에 한글이 없다');
   assert.ok(!/[가-힣]/.test(en[0].q), '영어 FAQ에 한글이 섞였다');
   assert.ok(!/[가-힣]/.test(en[2].a), '영어 주의사항에 한글이 섞였다');
-  assert.ok(/[\u4e00-\u9fff]/.test(zh[0].q), '중국어 FAQ에 한자가 없다');
 
   // 세 언어 모두 같은 계산값을 담아야 한다
   const one = format(convert(1, tool), Math.max(tool.digits, 2));
-  for (const [name, faq] of [['ko', ko], ['en', en], ['zh', zh]] as const) {
+  for (const [name, faq] of [['ko', ko], ['en', en]] as const) {
     assert.ok(faq[0].a.includes(one), `${name}: 계산값이 답에 없다`);
   }
 });
 
 test('사이트맵에 세 언어가 다 실린다', () => {
   const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
-  for (const path of ['/convert', '/en/convert', '/zh/convert']) {
+  for (const path of ['/convert', '/en/convert']) {
     assert.ok(sitemap.includes(`${path}\``) || sitemap.includes(`${path}/`), `사이트맵에 ${path} 없음`);
   }
 });
@@ -216,10 +212,6 @@ test('한글 단위 기호는 영어·중국어에서 바뀐다', () => {
     if (!hangul.test(t.from) && !hangul.test(t.to)) continue;
     const en = CONVERT_EN[t.slug];
     if (hangul.test(en.from ?? t.from) || hangul.test(en.to ?? t.to)) bad.push(`${t.slug}(en)`);
-    const zh = CONVERT_ZH[t.slug];
-    // 중국어는 한글 병기를 허용하되 한자가 반드시 함께 있어야 한다
-    const zhFrom = zh.from ?? t.from;
-    if (hangul.test(zhFrom) && !/[\u4e00-\u9fff]/.test(zhFrom)) bad.push(`${t.slug}(zh)`);
   }
   assert.deepEqual(bad, [], `기호를 안 바꾼 곳: ${bad.join(', ')}`);
 });

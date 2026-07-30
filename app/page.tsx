@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: '계산기·운세·생성기·심리테스트·퀴즈 등 일상에 필요한 실용 유틸 모음 — vixutil.com',
   alternates: {
     canonical: '/',
-    languages: { 'ko': '/', 'en': '/en', 'zh': '/zh', 'x-default': '/en' },
+    languages: { 'ko': '/', 'en': '/en', 'x-default': '/en' },
   },
 };
 

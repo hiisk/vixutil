@@ -30,10 +30,10 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const d = out[0].value;
       return d === 0
-        ? { ko: '부채가 없습니다.', en: 'No debt accumulated.', zh: '没有累积睡眠债。', tone: 'good' }
+        ? { ko: '부채가 없습니다.', en: 'No debt accumulated.', tone: 'good' }
         : d < 5
-          ? { ko: `${d}시간이 쌓였습니다. 주말에 1~2시간씩 더 자면 메울 수 있는 정도입니다.`, en: `${d} hours accumulated — an extra hour or two at the weekend clears it.`, zh: `累积${d}小时，周末多睡一两小时即可补回。`, tone: 'warn' }
-          : { ko: `${d}시간이 쌓였습니다. 하루 몰아 자는 것으로는 회복되지 않으니 취침 시간을 앞당기세요.`, en: `${d} hours is too much for one long lie-in — move bedtime earlier instead.`, zh: `累积${d}小时，靠一天补觉难以恢复，应提前入睡时间。`, tone: 'bad' };
+          ? { ko: `${d}시간이 쌓였습니다. 주말에 1~2시간씩 더 자면 메울 수 있는 정도입니다.`, en: `${d} hours accumulated — an extra hour or two at the weekend clears it.`, tone: 'warn' }
+          : { ko: `${d}시간이 쌓였습니다. 하루 몰아 자는 것으로는 회복되지 않으니 취침 시간을 앞당기세요.`, en: `${d} hours is too much for one long lie-in — move bedtime earlier instead.`, tone: 'bad' };
     },
     ko: { title: '수면 부채 계산기', desc: '필요한 만큼 못 잔 시간이 며칠 동안 얼마나 쌓였는지 계산합니다.',
       long: '하루 부족분에 날 수를 곱합니다. 잠은 저축과 달라서 미리 몰아 자 둘 수는 없지만 부족분은 쌓이고, 쌓인 만큼 반응 속도와 판단력이 떨어집니다.',
@@ -41,9 +41,6 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     en: { title: 'Sleep Debt', desc: 'How many hours of sleep you have fallen behind over several days.',
       long: 'Multiply the nightly shortfall by the number of days. Sleep is not a savings account you can pay into ahead of time, but the shortfall does accumulate, and reaction time and judgement fall with it.',
       note: 'One long weekend lie-in only partly repays it. The larger the debt, the more reliable it is to move bedtime 30 minutes earlier every night.' },
-    zh: { title: '睡眠债计算器', desc: '算出几天内累积了多少睡眠不足。',
-      long: '把每晚的不足量乘以天数。睡眠不像储蓄那样可以提前存入，但不足会累积，反应速度与判断力也随之下降。',
-      note: '周末一次补足只能部分偿还。睡眠债越大，越应该每天提前30分钟入睡。' },
   },
   {
     slug: 'jet-lag-days',
@@ -66,17 +63,14 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     },
     verdict: (v, out) =>
       v.east === 1
-        ? { ko: `동쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 동쪽은 하루를 짧게 만들어야 해서 더 힘듭니다.`, en: `Eight zones east takes about ${out[0].value} days; going east shortens your day, which is harder.`, zh: `向东${v.gap}小时约需${out[0].value}天。向东需要缩短一天，因此更难适应。`, tone: 'warn' }
-        : { ko: `서쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 서쪽은 하루를 늘리는 방향이라 비교적 수월합니다.`, en: `${v.gap} zones west takes about ${out[0].value} days; westward lengthens your day and is easier.`, zh: `向西${v.gap}小时约需${out[0].value}天。向西是延长一天，相对容易。`, tone: 'good' },
+        ? { ko: `동쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 동쪽은 하루를 짧게 만들어야 해서 더 힘듭니다.`, en: `Eight zones east takes about ${out[0].value} days; going east shortens your day, which is harder.`, tone: 'warn' }
+        : { ko: `서쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 서쪽은 하루를 늘리는 방향이라 비교적 수월합니다.`, en: `${v.gap} zones west takes about ${out[0].value} days; westward lengthens your day and is easier.`, tone: 'good' },
     ko: { title: '시차 적응 일수 계산기', desc: '시차와 이동 방향으로 적응에 걸리는 날을 추정합니다.',
       long: '몸속 시계는 하루에 한두 시간씩만 옮겨집니다. 동쪽으로 갈 때는 하루 약 1시간, 서쪽으로 갈 때는 약 1.5시간이 기준이라 같은 시차라도 방향에 따라 적응 기간이 달라집니다.',
       note: '아침 햇빛을 쬐면 동쪽 이동이, 저녁 빛을 쬐면 서쪽 이동이 빨라집니다. 도착지 시간에 맞춰 바로 식사와 취침을 옮기는 것이 가장 효과가 큽니다.' },
     en: { title: 'Jet Lag Adjustment Days', desc: 'Estimate how long adaptation takes from the time shift and direction.',
       long: 'The body clock only moves an hour or so a day: roughly 1 hour when travelling east and 1.5 westward. The same number of time zones therefore costs different amounts depending on direction.',
       note: 'Morning light speeds up eastward shifts and evening light speeds up westward ones. Moving meals and bedtime to local time on arrival helps most of all.' },
-    zh: { title: '时差适应天数计算器', desc: '按时差与飞行方向估算适应所需的天数。',
-      long: '生物钟每天只能移动一到两小时：向东约每天1小时，向西约1.5小时。因此同样的时差，方向不同所需时间也不同。',
-      note: '晨光有助于向东调整，晚间光照有助于向西调整。抵达后立即按当地时间安排进餐与就寝效果最好。' },
   },
   {
     slug: 'standard-drinks',
@@ -98,7 +92,6 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `순알코올 ${out[0].value}g입니다. 10g을 한 잔으로 세는 기준(WHO)으로는 ${out[1].value}잔이고, 열량은 ${out[2].value}kcal입니다.`,
       en: `That is ${out[0].value} g of pure alcohol — ${out[1].value} standard drinks at the WHO 10 g unit, and ${out[2].value} kcal.`,
-      zh: `纯酒精${out[0].value}克。按世卫组织每单位10克计为${out[1].value}标准杯，热量${out[2].value}千卡。`,
       tone: 'warn',
     }),
     ko: { title: '표준 잔 수 계산기', desc: '마신 양과 도수로 순알코올 그램과 표준 잔 수를 구합니다.',
@@ -107,9 +100,6 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     en: { title: 'Standard Drinks Calculator', desc: 'Grams of pure alcohol and standard drinks from volume and strength.',
       long: 'Alcohol is lighter than water, so multiply the volume by 0.789 to get grams. A 500 mL beer at 5% holds about 20 g. At 7 kcal a gram, alcohol is second only to fat for energy density.',
       note: 'A “standard drink” differs by country: the WHO and most of Europe use 10 g, the US 14 g, and a UK unit is 8 g. That is why the grams matter for comparison.' },
-    zh: { title: '标准杯数计算器', desc: '用饮酒量与度数算出纯酒精克数和标准杯数。',
-      long: '酒精比水轻，体积需乘0.789才能换算成克。500毫升5度的啤酒约含20克纯酒精。酒精每克7千卡，能量密度仅次于脂肪。',
-      note: '“标准一杯”的定义各国不同：世卫组织与欧洲多数国家为10克，美国为14克，英国的1单位为8克。因此比较时应看克数。' },
   },
   {
     slug: 'pack-years',
@@ -131,10 +121,10 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const py = out[0].value;
       return py === 0
-        ? { ko: '흡연력이 없습니다.', en: 'No smoking history.', zh: '无吸烟史。', tone: 'good' }
+        ? { ko: '흡연력이 없습니다.', en: 'No smoking history.', tone: 'good' }
         : py >= 20
-          ? { ko: `${py}갑년입니다. 20갑년 이상은 폐암 검진 대상을 정하는 기준으로 쓰이는 수준입니다.`, en: `${py} pack-years. Twenty or more is the threshold used to select people for lung cancer screening.`, zh: `${py}包年。20包年以上是筛选肺癌筛查对象所用的界值。`, tone: 'bad' }
-          : { ko: `${py}갑년입니다. 끊은 뒤에도 이 값은 줄지 않지만 위험은 시간이 지나며 내려갑니다.`, en: `${py} pack-years. The figure does not fall after quitting, but the risk does over time.`, zh: `${py}包年。戒烟后这个数字不会减少，但风险会随时间下降。`, tone: 'warn' };
+          ? { ko: `${py}갑년입니다. 20갑년 이상은 폐암 검진 대상을 정하는 기준으로 쓰이는 수준입니다.`, en: `${py} pack-years. Twenty or more is the threshold used to select people for lung cancer screening.`, tone: 'bad' }
+          : { ko: `${py}갑년입니다. 끊은 뒤에도 이 값은 줄지 않지만 위험은 시간이 지나며 내려갑니다.`, en: `${py} pack-years. The figure does not fall after quitting, but the risk does over time.`, tone: 'warn' };
     },
     ko: { title: '흡연 갑년 계산기', desc: '하루 개비 수와 흡연 기간으로 누적 흡연량을 구합니다.',
       long: '하루 한 갑(20개비)을 1년 피운 것을 1갑년으로 셉니다. 하루 개비 수를 20으로 나눠 갑 수로 바꾸고 기간을 곱합니다. 하루 반 갑 40년과 두 갑 10년은 모두 20갑년입니다.',
@@ -142,9 +132,6 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     en: { title: 'Smoking Pack-Years', desc: 'Cumulative tobacco exposure from cigarettes a day and years smoked.',
       long: 'One pack-year is a pack a day (20 cigarettes) for one year. Divide daily cigarettes by 20 for packs and multiply by the years. Half a pack for forty years and two packs for ten both come to 20 pack-years.',
       note: 'For the same total, how recently you smoked weighs more heavily on risk. Pack-years is only one axis of it.' },
-    zh: { title: '吸烟包年计算器', desc: '用每天支数与吸烟年数算出累积吸烟量。',
-      long: '每天一包（20支）持续一年记为1包年。把每天支数除以20换成包数，再乘以年数。每天半包吸40年与每天两包吸10年，都是20包年。',
-      note: '累积量相同时，距今多久仍在吸烟对风险影响更大。包年只是风险的一个维度。' },
   },
   {
     slug: 'sweat-rate',
@@ -167,8 +154,8 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r >= 1500
-        ? { ko: `시간당 ${r}ml는 많은 편입니다. 물만으로는 나트륨이 부족해지므로 전해질을 함께 보충하세요.`, en: `${r} mL an hour is heavy sweating — water alone leaves you short of sodium, so add electrolytes.`, zh: `每小时${r}毫升属于大量出汗，仅补水会导致钠不足，应同时补充电解质。`, tone: 'warn' }
-        : { ko: `시간당 ${r}ml입니다. 이 정도면 운동 중 이 양에 가깝게 마시는 것을 목표로 하세요.`, en: `${r} mL an hour — aim to drink close to this rate while training.`, zh: `每小时${r}毫升，训练时应以接近这一速率补水为目标。`, tone: 'good' };
+        ? { ko: `시간당 ${r}ml는 많은 편입니다. 물만으로는 나트륨이 부족해지므로 전해질을 함께 보충하세요.`, en: `${r} mL an hour is heavy sweating — water alone leaves you short of sodium, so add electrolytes.`, tone: 'warn' }
+        : { ko: `시간당 ${r}ml입니다. 이 정도면 운동 중 이 양에 가깝게 마시는 것을 목표로 하세요.`, en: `${r} mL an hour — aim to drink close to this rate while training.`, tone: 'good' };
     },
     ko: { title: '땀 손실량 계산기', desc: '운동 전후 체중 변화로 시간당 수분 손실을 구합니다.',
       long: '운동 중 줄어든 체중은 거의 전부 물입니다. 줄어든 무게(1kg = 1,000ml)에 마신 양을 더하면 실제로 빠져나간 수분이고, 시간으로 나누면 시간당 손실률이 됩니다.',
@@ -176,9 +163,6 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     en: { title: 'Sweat Rate', desc: 'Hourly fluid loss from weight change across a session.',
       long: 'Weight lost during exercise is almost entirely water. Add what you drank to the weight lost (1 kg = 1,000 mL) for the fluid that actually left, then divide by the hours for an hourly rate.',
       note: 'Losing more than 2% of body weight degrades performance. For a 70 kg athlete that line sits at 1.4 kg.' },
-    zh: { title: '汗液流失量计算器', desc: '用运动前后的体重变化算出每小时水分流失。',
-      long: '运动中减少的体重几乎全是水分。把减少的重量（1公斤=1000毫升）加上已饮水量，即为实际流失的水分，再除以小时数得到每小时流失率。',
-      note: '流失超过体重的2%会降低运动表现。70公斤者的这条线约在1.4公斤。' },
   },
   {
     slug: 'alcohol-calories',
@@ -205,8 +189,5 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     en: { title: 'Calories in a Drink', desc: 'Energy from the alcohol itself, from volume and strength.',
       long: 'Alcohol carries 7 kcal a gram — above carbohydrate and protein at 4, below fat at 9. A 350 mL bottle of 17% spirit holds about 47 g of alcohol and 330 kcal. Food alongside it is not included.',
       note: 'Alcohol calories are not stored; they get burned first, which pushes fat oxidation to the back of the queue. That is why the effect on weight is often worse than the calorie count suggests.' },
-    zh: { title: '酒的热量计算器', desc: '按酒量与度数算出酒精本身带来的热量。',
-      long: '酒精每克7千卡，高于碳水与蛋白质的4千卡，低于脂肪的9千卡。350毫升17度的白酒约含47克纯酒精、330千卡，不含佐餐食物。',
-      note: '酒精热量不会被储存而是优先燃烧，这会把脂肪氧化推到后面。因此它对体重的影响往往比热量数字看起来更不利。' },
   },
 ];

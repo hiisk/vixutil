@@ -22,7 +22,7 @@ export function localized(tool: ConvertTool, lang: ConvertLang) {
     읽을 수 없는 글자가 입력칸 라벨에 박힌다. 한자권에서는 같은 한자라도 값이
     달라서(근 600g ↔ 斤 500g) '근(斤)'처럼 둘을 함께 적어 오해를 막는다.
   */
-  const l = lang === 'en' ? CONVERT_EN[tool.slug] : lang === 'zh' ? CONVERT_ZH[tool.slug] : undefined;
+  const l = lang === 'en' ? CONVERT_EN[tool.slug] : undefined;
   return {
     title: l?.title ?? tool.title,
     desc: l?.desc ?? tool.desc,

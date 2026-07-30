@@ -31,9 +31,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Pythagorean Theorem', desc: 'Find the hypotenuse from the two legs of a right triangle.',
       long: 'Square both legs, add them, take the square root. Enter 3 and 4 and you get exactly 5.',
       note: 'The angle shown is the one opposite side a. Only the two legs adjoining the right angle belong in the inputs.' },
-    zh: { title: '勾股定理计算器', desc: '用直角三角形的两条直角边求斜边。',
-      long: '把两边分别平方后相加，再开平方根就是斜边。填3和4正好得到5。',
-      note: '一并给出的角是边a的对角。输入必须是夹直角的两条边。' },
   },
   {
     slug: 'pythagoras-leg',
@@ -54,7 +51,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     verdict: v => v.a >= v.c ? {
       ko: '빗변은 다른 어떤 변보다 길어야 합니다. 값을 바꿔 넣으세요.',
       en: 'The hypotenuse must be longer than either leg — swap the values.',
-      zh: '斜边必须比任一直角边长 — 请调换数值。',
       tone: 'bad',
     } : null,
     ko: { title: '직각삼각형 나머지 변', desc: '빗변과 한 변으로 남은 변의 길이를 구합니다.',
@@ -63,9 +59,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Missing Leg of a Right Triangle', desc: 'Find the remaining side from the hypotenuse and one leg.',
       long: 'Subtract the known leg squared from the hypotenuse squared and take the root. This is how you work out how far a leaning ladder’s base sits from the wall.',
       note: 'The hypotenuse is always the longest side — entering a longer leg returns zero.' },
-    zh: { title: '直角三角形求另一边', desc: '用斜边和一条直角边求剩下的那条边。',
-      long: '用斜边的平方减去已知边的平方，再开平方根。计算靠墙梯子底部离墙多远，用的就是这个。',
-      note: '斜边永远是最长边 — 若填入比斜边更长的边，结果会是0。' },
   },
   {
     slug: 'right-triangle-angle',
@@ -90,9 +83,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Angle from Two Sides', desc: 'Get the angle of a slope from its rise and run.',
       long: 'Rise divided by run is the tangent; the inverse tangent gives the angle. A 3:4 slope is 36.87°.',
       note: 'Use it for ramps, stairs and roof pitches. To express the same slope as a percentage, use the grade calculator.' },
-    zh: { title: '由两边求角度', desc: '用垂直高度和水平距离求倾斜角度。',
-      long: '高度除以水平距离是正切值，取反正切即为角度。3:4的坡度是36.87°。',
-      note: '适用于坡道、楼梯和屋顶坡度。要换成百分比坡度，请用坡度计算器。' },
   },
   {
     slug: 'trig-values',
@@ -112,7 +102,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     verdict: v => Math.abs(((v.angle % 180) + 180) % 180 - 90) < 1e-9 ? {
       ko: '90°와 270°에서 tan은 정의되지 않습니다 — 표에는 0으로 표시했습니다.',
       en: 'Tangent is undefined at 90° and 270° — it is shown as 0 here.',
-      zh: '在90°和270°处正切无定义 — 此处显示为0。',
       tone: 'warn',
     } : null,
     ko: { title: '삼각비 값 계산기', desc: '각도를 넣으면 sin·cos·tan 값을 한 번에 봅니다.',
@@ -121,9 +110,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Trig Function Values', desc: 'Enter an angle and see sine, cosine and tangent at once.',
       long: 'At 30°, sine is 0.5, cosine 0.866 and tangent 0.577. The angle is converted to radians internally and shown to six decimals.',
       note: 'Tangent diverges to infinity at 90° and 270°, where it is undefined.' },
-    zh: { title: '三角函数值计算器', desc: '输入角度，一次查看sin、cos、tan的值。',
-      long: '30°的sin是0.5，cos是0.866，tan是0.577。内部先换算成弧度，结果保留六位小数。',
-      note: 'tan在90°和270°处发散为无穷，无定义。' },
   },
   {
     slug: 'slope-grade',
@@ -148,9 +134,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Slope Grade Calculator', desc: 'Convert rise over run into a percentage grade and an angle.',
       long: 'Grade is rise divided by run as a percentage. 100% equals 45°, and 8.33% (1:12) is the usual accessible-ramp standard.',
       note: 'Grade and angle are not proportional — a 100% grade is 45°, not 90°.' },
-    zh: { title: '坡度计算器', desc: '用垂直高度和水平距离求坡度(%)和角度。',
-      long: '坡度是高度除以水平距离的百分比。100%等于45°，8.33%(1:12)是常见的无障碍坡道标准。',
-      note: '坡度与角度并不成正比 — 坡度100%是45°，不是90°。' },
   },
   {
     slug: 'distance-2d',
@@ -173,9 +156,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Distance Between Two Points', desc: 'Straight-line distance and bearing from two coordinates.',
       long: 'Square the x-difference and the y-difference, add, take the root — the Pythagorean theorem applied to coordinates.',
       note: 'From (1,2) to (7,10) the distance is exactly 10. The angle is measured counter-clockwise from the x-axis.' },
-    zh: { title: '两点间距离计算器', desc: '用两个坐标求直线距离和方向角。',
-      long: '把x之差和y之差分别平方后相加再开平方根 — 就是把勾股定理用在坐标上。',
-      note: '(1,2)到(7,10)的距离正好是10。角度以x轴为基准逆时针计量。' },
   },
   {
     slug: 'midpoint',
@@ -199,9 +179,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Midpoint Calculator', desc: 'The exact centre point between two coordinates.',
       long: 'Average the x values and average the y values. It is the point that halves the segment, which comes up constantly in drafting.',
       note: 'For three or more points, the centroid is the mean of all coordinates — the midpoint is just the two-point case.' },
-    zh: { title: '中点计算器', desc: '求两个坐标之间的精确中点。',
-      long: 'x取平均、y取平均即为中点。它是把线段等分的点，在制图中经常用到。',
-      note: '三个以上点的重心是所有坐标的平均值 — 中点只是两点时的特例。' },
   },
   {
     slug: 'polygon-angle',
@@ -223,9 +200,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Polygon Angle Calculator', desc: 'Interior angle, exterior angle and angle sum from the side count.',
       long: 'The interior angles sum to (n − 2) × 180°, and in a regular polygon each one is that divided by n. Exterior angles always total 360°, whatever n is.',
       note: 'A regular octagon has 135° interior angles. As sides increase, each interior angle approaches 180°.' },
-    zh: { title: '正多边形内角计算器', desc: '用边数求单个内角、单个外角和内角之和。',
-      long: '内角和是(边数−2)×180°，正多边形中每个内角就是它除以边数。外角之和无论边数多少都恒为360°。',
-      note: '正八边形的内角是135°。边数越多，每个内角越接近180°。' },
   },
   {
     slug: 'degree-radian',
@@ -243,9 +217,6 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Degrees to Radians', desc: 'Convert an angle to radians and see it as a multiple of π.',
       long: 'Since 180° is π radians, multiply degrees by π/180. The second figure is the multiple of π, so you can match π/2 or 2π at a glance.',
       note: 'Trig functions in nearly every programming language take radians — passing degrees silently gives wrong answers.' },
-    zh: { title: '度与弧度换算', desc: '把角度换成弧度，并显示它是π的多少倍。',
-      long: '因为180°等于π弧度，把度数乘以π/180即可。第二个数值是π的倍数，便于直接对照π/2、2π等写法。',
-      note: '几乎所有编程语言的三角函数都接受弧度 — 直接传入度数会得到错误结果。' },
   },
   {
     slug: 'cosine-rule',
@@ -274,8 +245,5 @@ export const TRIG_TOOLS: FormulaTool[] = [
     en: { title: 'Law of Cosines Calculator', desc: 'Find all three angles of a triangle from its three sides.',
       long: 'You do not need a right angle — three sides are enough. The cosine of an angle is the sum of the other two sides squared, minus the opposite side squared, over twice their product.',
       note: 'The angle facing the longest side is the largest; if it exceeds 90° the triangle is obtuse.' },
-    zh: { title: '余弦定理计算器', desc: '用三条边长求出三角形的三个角。',
-      long: '不需要直角，只要知道三边即可。某角的余弦等于另外两边的平方和减去对边的平方，再除以两边乘积的两倍。',
-      note: '最长边所对的角最大；若该角超过90°，则为钝角三角形。' },
   },
 ];

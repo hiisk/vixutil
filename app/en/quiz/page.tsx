@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Free online quizzes on world capitals, science, history, technology, the human body and film. Ten questions each, with explanations. No sign-up.',
   alternates: {
     canonical: '/en/quiz',
-    languages: { 'en': '/en/quiz', 'zh': '/zh/quiz', 'x-default': '/en/quiz' },
+    languages: { 'en': '/en/quiz', 'x-default': '/en/quiz' },
   },
 };
 

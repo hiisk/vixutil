@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'A few squares in a grid flash on and off. Remember where they were and press them. Higher levels light more squares, and the grid itself gets bigger.',
   alternates: {
     canonical: '/en/game/sequence',
-    languages: { 'en': '/en/game/sequence', 'zh': '/zh/game/sequence', 'ko': '/game/sequence', 'x-default': '/en/game/sequence' },
+    languages: { 'en': '/en/game/sequence', 'ko': '/game/sequence', 'x-default': '/en/game/sequence' },
   },
 };
 

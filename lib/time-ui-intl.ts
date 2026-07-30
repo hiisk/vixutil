@@ -7,7 +7,7 @@
  * 계산·타이밍 로직은 컴포넌트에 그대로 둔다 — 문구와 동작을 같은 파일에서
  * 섞으면 번역이 동작을 건드릴 위험이 생긴다.
  */
-export type TimeLang = 'ko' | 'en' | 'zh';
+export type TimeLang = 'ko' | 'en';
 
 type L<T> = Record<TimeLang, T>;
 
@@ -35,14 +35,6 @@ export const TIMER_UI: L<{
     presets: 'Quick set', minSuffix: m => `${m} min`,
     note: 'The remaining time is recalculated against the finish time rather than counted down, so switching tabs and coming back does not make it drift. The countdown also appears in the tab title. If you close the tab entirely, the sound will not fire.',
   },
-  zh: {
-    tabTitle: '计时器 | vixutil', tabDone: '⏰ 时间到！| vixutil',
-    done: '时间到了', running: '进行中', paused: '已暂停', idle: '按开始',
-    min: '分', sec: '秒',
-    start: '▶ 开始', resume: '▶ 继续', pause: '⏸ 暂停', reset: '重置',
-    presets: '快捷设定', minSuffix: m => `${m} 分`,
-    note: '剩余时间是按结束时刻反算的，而不是自己往下数，所以切到别的标签页再回来也不会走偏。标签页标题也会显示倒计时。不过完全关闭标签页后，提示音不会响。',
-  },
 };
 
 export const STOPWATCH_UI: L<{
@@ -62,12 +54,6 @@ export const STOPWATCH_UI: L<{
     start: '▶ Start', resume: '▶ Resume', stop: '■ Stop', lap: 'Lap', reset: 'Reset',
     lapCount: 'Laps', fastest: 'Fastest lap', slowest: 'Slowest lap', cumulative: 'Total',
     note: 'Each lap shows both the split and the running total, so when you repeat the same thing — sets, drills, batches — it is immediately clear which round slowed down. The fastest lap is marked green and the slowest red.',
-  },
-  zh: {
-    measuring: '计时中', stopped: '已停止', idle: '按开始',
-    start: '▶ 开始', resume: '▶ 继续', stop: '■ 停止', lap: '记分段', reset: '重置',
-    lapCount: '分段数', fastest: '最快的一段', slowest: '最慢的一段', cumulative: '累计',
-    note: '每一段都同时显示本段用时与累计时间，所以在重复同一件事（组数、练习、批次）时，哪一轮慢下来会立刻显现。最快的一段标绿，最慢的一段标红。',
   },
 };
 
@@ -97,15 +83,6 @@ export const POMODORO_UI: L<{
     whyTitle: 'Why 25 minutes?',
     whyBody: 'Twenty-five minutes is the length Francesco Cirillo proposed in the 1980s. There is no particular evidence behind that specific number — most of the effect comes from the rule itself, that you do not switch tasks while the timer runs. Adjust the length to whatever actually works for you.',
   },
-  zh: {
-    focus: '专注', shortBreak: '短休息', longBreak: '长休息', breakLabel: '休息',
-    breakTime: '休息时间', focusTime: '回到专注',
-    start: '▶ 开始', resume: '▶ 继续', pause: '⏸ 暂停',
-    next: '下一段', completed: '完成的番茄数', focused: '专注时长',
-    skip: '跳过这一段', minUnit: ' 分',
-    whyTitle: '为什么是 25 分钟？',
-    whyBody: '25 分钟是弗朗切斯科·奇里洛在 1980 年代提出的长度。这个具体数字并没有特别的科学依据 —— 效果主要来自规则本身：计时器转着的时候不去做别的事。你可以改成适合自己的长度。',
-  },
 };
 
 export const ALARM_UI: L<{
@@ -133,15 +110,6 @@ export const ALARM_UI: L<{
     until: (day, t) => `until ${day} ${t}`,
     note: 'A time already past today is set for tomorrow instead. The alarm runs inside the browser, so this tab has to stay open for it to fire, and a sleeping device may not play the sound. For a morning alarm you actually need to wake up to, use your phone alarm as well.',
   },
-  zh: {
-    set: '设定闹钟', reset: '重新设定', ringing: '⏰ 闹钟',
-    alarmAt: '闹钟时刻', currentTime: '当前时刻', remaining: '后响',
-    today: '今天', tomorrow: '明天', keepOpen: '需保持此标签页开启才会响',
-    stop: '关闭闹钟',
-    itIsNow: t => `已经 ${t} 了`,
-    until: (day, t) => `距离${day} ${t}`,
-    note: '填入今天已经过去的时刻，会自动设到明天。闹钟只在浏览器里运行，所以这个标签页要保持开启才会响，设备进入休眠时也可能没有声音。非要起来的早晨闹钟，请同时用手机闹钟。',
-  },
 };
 
 export const WORLDCLOCK_UI: L<{
@@ -163,13 +131,6 @@ export const WORLDCLOCK_UI: L<{
     behind: (base, h) => `${h}h behind ${base}`,
     yourTime: 'your time',
     note: 'The card colour tells you what time of day it is there — green is working hours, black is the middle of the night. A glance at the colour tells you whether now is a reasonable moment to message. Daylight saving is applied automatically, since the browser knows each country’s rules.',
-  },
-  zh: {
-    manage: '增删城市', now: '现在',
-    ahead: (base, h) => `比${base}快 ${h} 小时`,
-    behind: (base, h) => `比${base}慢 ${h} 小时`,
-    yourTime: '你所在地',
-    note: '卡片颜色代表当地是什么时候 —— 绿色是工作时间，黑色是深夜。联系之前看一眼颜色，就知道现在发消息合不合适。夏令时会自动处理，因为浏览器知道各国的规则。',
   },
 };
 
@@ -205,17 +166,6 @@ export const TIMEZONE_UI: L<{
     dayCompare: n => `Full day — green rows are working hours in both (${n}h)`,
     dstNote: 'The offset shown is the real one, with daylight saving applied. The US and Europe shift by an hour between March and November, so for a meeting a month out, check that daylight saving does not change in between.',
   },
-  zh: {
-    baseCity: '基准城市', targetCity: '目标城市', baseTime: '基准时刻',
-    sameDay: '同一天', nextDay: '次日', prevDay: '前一天', bothWorking: '双方都在工作时间',
-    note: '标绿的时段是两个城市都处在工作时间的小时。约会议时从这里面挑，就不会有人凌晨上线。夏令时会自动处理。',
-    atIs: (city, t) => `${city} ${t} 是`,
-    inCity: (city, rel) => `${city}的${rel}`,
-    offsetLabel: (sign, h) => ` · 时差 ${sign}${h} 小时`,
-    cityTime: city => `${city}时刻`,
-    dayCompare: n => `全天对照 —— 标绿的是双方都在工作时间的小时（${n} 小时）`,
-    dstNote: '显示的时差是包含夏令时的实际值。美国与欧洲在 3 月至 11 月之间会拨快一小时，所以一个月之后的会议，要确认这期间夏令时不会变。',
-  },
 };
 
 export const WORKDAYS_UI: L<{
@@ -241,15 +191,6 @@ export const WORKDAYS_UI: L<{
     holidayPlaceholder: 'Enter dates like 2026-01-01, 2026-03-01 to exclude them',
     holidaysApplied: n => `${n} date${n === 1 ? '' : 's'} excluded as holidays`,
     nAfterNote: 'Skips weekends and any holidays you listed above. Useful for counting document or filing deadlines.',
-  },
-  zh: {
-    startDate: '开始日', endDate: '结束日', workdays: '工作日', totalDays: '总天数', weekendHoliday: '周末与假日',
-    addHolidays: '排除节假日', nAfterTitle: 'n 个工作日之后的日期', nAfterResult: '个工作日之后是',
-    holidayNote: '各国的公共假日不同，每年日期也会变，请自行添加适用于你的假日。',
-    dayUnit: n => `${n} 天`, inclusive: '起始日与结束日都计入',
-    holidayPlaceholder: '按 2026-01-01, 2026-03-01 这样填写，会从工作日中扣除',
-    holidaysApplied: n => `已扣除 ${n} 个假日`,
-    nAfterNote: '会跳过周末以及你在上面填写的假日。计算文件处理期限时很有用。',
   },
 };
 
@@ -281,16 +222,6 @@ export const DATEADD_UI: L<{
     gapAfter: n => `${n} days after the base date`, gapBefore: n => `${n} days before the base date`,
     weekUnit: n => `${n} weeks`, locale: 'en-US',
   },
-  zh: {
-    baseDate: '基准日期', result: '结果', weekday: '星期', diffDays: '相差（天）', diffWeeks: '相差（周）',
-    day: '天', week: '周', month: '个月', year: '年',
-    negativeNote: '填负数则往过去计算',
-    monthEndTitle: '月末这样处理',
-    monthEndBody: '1 月 31 日加一个月得到 2 月 28 日（闰年为 29 日）。为了不跳到不存在的日期，会取该月的最后一天。',
-    presets: ['100 天后', '1 年后', '2 周后', '30 天前'],
-    gapAfter: n => `基准日之后 ${n} 天`, gapBefore: n => `基准日之前 ${n} 天`,
-    weekUnit: n => `${n} 周`, locale: 'zh-CN',
-  },
 };
 
 export const WEEKNUMBER_UI: L<{
@@ -316,15 +247,6 @@ export const WEEKNUMBER_UI: L<{
     weekBig: w => `Week ${w}`, yearQuarter: (y, q) => `${y} · Q${q}`,
     doyValue: d => `day ${d}`, daysValue: d => `${d} days`,
     isoBody: 'Weeks start on Monday, and the year a week belongs to is decided by which year its Thursday falls in. That means when 1 January lands on a Friday, Saturday or Sunday, it belongs to the last week of the previous year. Most companies that schedule by week number use this convention.',
-  },
-  zh: {
-    date: '日期', week: '第几周', quarter: '季度', dayOfYear: '年内第几天', daysLeft: '今年剩余天数',
-    progress: '今年进度', rangeTitle: '这一周的起止',
-    isoNote: '采用 ISO 8601 —— 含第一个星期四的那一周为该年第一周。',
-    prevYearNote: '上一年的最后一周',
-    weekBig: w => `第 ${w} 周`, yearQuarter: (y, q) => `${y} 年 · 第 ${q} 季度`,
-    doyValue: d => `第 ${d} 天`, daysValue: d => `${d} 天`,
-    isoBody: '一周从星期一开始，而这一周属于哪一年，由它的星期四落在哪一年决定。所以当 1 月 1 日是周五、周六或周日时，它属于上一年的最后一周。按周编号排期的公司多数采用这个标准。',
   },
 };
 
@@ -353,14 +275,5 @@ export const LIVED_UI: L<{
     milestoneLine: (n, date) => `${n} days — ${date}`, milestoneLeft: n => `${n} days to go`,
     beatsNote: (beats, sleepDays) => `Your heart has beaten roughly ${beats} million times (a rough figure at 70 beats per minute at rest). At seven hours a night, you have spent about ${sleepDays} days asleep.`,
     locale: 'en-US',
-  },
-  zh: {
-    birth: '出生日期', livedFor: '你已经活了', milestones: '即将到来的纪念日',
-    week: '周', hour: '小时', minute: '分钟', second: '秒',
-    computing: '正在计算…', futureError: '请填写今天之前的日期',
-    ymd: (y, m, d) => `${y} 年 ${m} 个月 ${d} 天`, totalToday: n => `到今天是第 ${n} 天`,
-    milestoneLine: (n, date) => `${n} 天 — ${date}`, milestoneLeft: n => `还有 ${n} 天`,
-    beatsNote: (beats, sleepDays) => `这段时间里心脏大约跳了 ${beats} 百万次（按静息 70 次／分的粗略估算）。若每晚睡七小时，你大约有 ${sleepDays} 天是在睡眠中度过的。`,
-    locale: 'zh-CN',
   },
 };

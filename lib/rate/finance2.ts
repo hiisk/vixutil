@@ -43,9 +43,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Monthly Amount to Reach a Goal', desc: 'How much to set aside each month to hit a target by a date.',
       long: 'Run the compound-savings maths backwards: with interest working for you, the monthly figure comes out below the target simply divided by the months.',
       note: 'Tax on interest means you need slightly more. Where interest is taxed, set the goal on an after-tax basis.' },
-    zh: { title: '达成目标的每月存款额', desc: '算出在期限内攒到目标金额，每月需要存多少。',
-      long: '把复利储蓄的算式反推，即可得到所需月供。因为有利息在起作用，每月要存的钱少于把目标直接除以月数的结果。',
-      note: '若利息需纳税，实际要多存一些。在对利息征税的地区，请按税后口径设定目标。' },
   },
   {
     slug: 'present-value',
@@ -71,9 +68,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Present Value', desc: 'What money arriving years from now is worth today.',
       long: 'Ten million in ten years is not ten million today. If you can earn 4%, putting 6.75 million aside now becomes ten million by then — so that is its present value.',
       note: 'The discount rate drives the answer. Decide up front whether you mean inflation, a deposit rate or an expected return.' },
-    zh: { title: '现值计算器', desc: '算出未来某年拿到的钱，在今天值多少。',
-      long: '十年后的1000万不等于今天的1000万。若能按年4%增值，今天放675万十年后即为1000万，所以其现值是675万。',
-      note: '折现率的选择会大幅改变结果。请先确定用通胀率、存款利率还是期望收益率。' },
   },
   {
     slug: 'loan-limit',
@@ -102,9 +96,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Borrowing Limit from a Monthly Payment', desc: 'Turn what you can pay each month into how much you can borrow.',
       long: 'Solve the level-payment formula for the principal instead. Paying 800,000 a month for twenty years at 4.5% supports a loan of about 126 million.',
       note: 'A higher rate shrinks the loan a given payment supports, sharply. On a variable rate, run it again with two points added.' },
-    zh: { title: '按月供反算可贷金额', desc: '用每月能负担的还款额算出可借本金。',
-      long: '把等额本息公式对本金求解即可。若每月能还80万、期限20年、年利率4.5%，可承担约1.26亿的本金。',
-      note: '利率上升时，同样月供能借到的金额会大幅减少。浮动利率请再按当前利率加2个百分点算一遍。' },
   },
   {
     slug: 'early-repayment',
@@ -134,9 +125,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Interest Saved by Overpaying', desc: 'How much interest disappears when you pay down principal early.',
       long: 'Less principal means less interest riding on it. This keeps the term fixed and lowers the monthly payment; choosing to shorten the term instead saves even more.',
       note: 'Subtract any early-repayment charge to get the real gain. The earlier in the loan you do it, the more interest vanishes.' },
-    zh: { title: '提前还款省息计算器', desc: '算出提前偿还本金能省下多少利息。',
-      long: '本金减少，附着其上的利息就消失。此处按“期限不变、月供下降”计算；若改为缩短期限，省下的利息会更多。',
-      note: '若有提前还款手续费，需从省息中扣除才是真实收益。越早还款省下的利息越多。' },
   },
   {
     slug: 'daily-interest',
@@ -162,9 +150,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Daily Interest', desc: 'Interest for a handful of days, worked out day by day.',
       long: 'Divide the annual rate by 365 for one day’s interest, then multiply by the days. Overdrafts, short deposits and late-payment charges all work this way.',
       note: 'Products differ on whether the year is 365 or 360 days. A 360-day basis makes each day about 1.4% dearer.' },
-    zh: { title: '按日计息计算器', desc: '按天计算短期借入或存入的利息。',
-      long: '把年利率除以365得到每日利息，再乘以天数。透支账户、短期存款和逾期利息都用这种方式。',
-      note: '各产品的年基准有365天与360天之别，按360天计算每日利息约高1.4%。' },
   },
   {
     slug: 'first-payment-split',
@@ -190,7 +175,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `첫 달 상환액의 ${out[3].value}%가 이자입니다. 원금은 ${out[1].value}밖에 줄지 않습니다.`,
       en: `${out[3].value}% of the first payment is interest — only ${out[1].value} comes off the principal.`,
-      zh: `首月还款中${out[3].value}%是利息，本金只减少${out[1].value}。`,
       tone: 'warn',
     }),
     ko: { title: '첫 달 원금·이자 분해', desc: '대출 첫 달 상환액에서 이자와 원금이 각각 얼마인지 봅니다.',
@@ -199,9 +183,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'First Payment: Interest vs Principal', desc: 'Split the first month’s payment into interest and principal.',
       long: 'The first month’s interest is the balance times the monthly rate. Take that off the payment and what remains is the principal actually retired. Early on almost all of it is interest.',
       note: 'The mix shifts every month towards principal. On a thirty-year loan you cross the halfway mark on principal at around year twenty.' },
-    zh: { title: '首月本金与利息拆分', desc: '把贷款第一个月的还款额拆成利息和本金。',
-      long: '首月利息等于本金乘以月利率。从月供中减去它，剩下的才是真正偿还的本金。初期几乎全是利息，本金几乎不减。',
-      note: '随着月份推进，利息占比下降、本金占比上升。30年期贷款约在第20年才还掉一半本金。' },
   },
   {
     slug: 'installment-apr',
@@ -225,7 +206,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `표시 수수료 ${v.fee}%는 실질 연이율 약 ${out[0].value}%에 해당합니다.`,
       en: `A quoted fee of ${v.fee}% works out to an effective APR of about ${out[0].value}%.`,
-      zh: `名义费率${v.fee}%相当于实际年利率约${out[0].value}%。`,
       tone: 'warn',
     }),
     ko: { title: '할부 수수료 → 실질 연이율', desc: '표시된 할부 수수료율이 실제로 연 몇 %인지 환산합니다.',
@@ -234,9 +214,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Instalment Fee to Effective APR', desc: 'Convert a flat instalment fee into the annual rate it really represents.',
       long: 'The fee is charged on the full amount, but you only owe the shrinking balance. With the average balance near half, the effective rate lands close to double the quoted fee.',
       note: 'The exact APR needs a cash-flow solve and this is an approximation — but it is enough to dispel the idea that 6% is cheap.' },
-    zh: { title: '分期费率换算实际年利率', desc: '把标示的分期手续费率换算成真实的年利率。',
-      long: '手续费按初始全额收取，但实际占用的资金逐月减少。平均余额约为一半，因此实际利率接近名义费率的两倍。',
-      note: '精确年利率需按现金流求解，此处为近似值，但足以打破“6%很便宜”的错觉。' },
   },
   {
     slug: 'inflation-future-price',
@@ -262,9 +239,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Future Price with Inflation', desc: 'What today’s price becomes after a number of years.',
       long: 'Inflation compounds. At 2.5% a year, twenty years multiplies the price by 1.025 to the twentieth — a factor of 1.64. A 5,000 coffee becomes 8,193.',
       note: 'Individual items stray far from the average: education and healthcare outpace it, while electronics often fall in price.' },
-    zh: { title: '含通胀的未来价格', desc: '算出今天的价格在若干年后会变成多少。',
-      long: '通胀是复利累积的。年通胀2.5%时，20年后价格为1.025的20次方，即1.64倍：5000元的咖啡会变成8193元。',
-      note: '不同品类与平均值差别很大：教育与医疗涨得更快，电子产品往往反而降价。' },
   },
   {
     slug: 'average-buy-price',
@@ -294,9 +268,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Average Cost of Two Buys', desc: 'The blended price when you bought in two lots.',
       long: 'Use a quantity-weighted average, not the plain average of the prices. Ten at 70,000 and twenty at 50,000 averages 56,667 — not 60,000.',
       note: 'Leaving out commission understates your break-even. Add buying fees into the cost side.' },
-    zh: { title: '分批买入平均成本', desc: '算出分两次买入后的平均单价。',
-      long: '要用按数量加权的平均，而不是两个价格的算术平均。7万买10个、5万买20个，平均是56667而不是60000。',
-      note: '不计手续费会低估真实回本点，买入费用应计入成本一侧。' },
   },
   {
     slug: 'break-even-return',
@@ -321,9 +292,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Return Needed to Break Even', desc: 'How far it must rise to cover the fees you already paid.',
       long: 'If fees take 1.5%, the remaining 98.5% has to climb back to 100%. One divided by 0.985 is 1.523, so you need 1.523% — not 1.5%.',
       note: 'Trading often means clearing this hurdle every time. A 0.5% round trip taken twenty times a year hands over 10%.' },
-    zh: { title: '计入手续费的回本收益率', desc: '算出扣掉手续费后需要上涨多少才能回本。',
-      long: '若手续费拿走1.5%，剩下的98.5%必须回到100%。1除以0.985等于1.523，所以需要上涨1.523%而不是1.5%。',
-      note: '频繁交易意味着每次都要跨过这道门槛。往返0.5%的交易一年做20次，等于交出10%。' },
   },
   {
     slug: 'emergency-fund',
@@ -347,10 +315,10 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const pct = out[2].value;
       return pct >= 100
-        ? { ko: '비상금 목표를 채웠습니다.', en: 'Your emergency fund is fully stocked.', zh: '应急金已达标。', tone: 'good' }
+        ? { ko: '비상금 목표를 채웠습니다.', en: 'Your emergency fund is fully stocked.', tone: 'good' }
         : pct >= 50
-          ? { ko: `목표의 ${pct}%를 모았습니다. 지금 잔액으로 ${out[3].value}개월을 버틸 수 있습니다.`, en: `You are ${pct}% of the way there — enough for ${out[3].value} months.`, zh: `已攒到目标的${pct}%，可支撑${out[3].value}个月。`, tone: 'warn' }
-          : { ko: `목표의 ${pct}%뿐입니다. 지금 잔액으로는 ${out[3].value}개월치입니다.`, en: `Only ${pct}% of the target — that covers ${out[3].value} months.`, zh: `仅为目标的${pct}%，只能支撑${out[3].value}个月。`, tone: 'bad' };
+          ? { ko: `목표의 ${pct}%를 모았습니다. 지금 잔액으로 ${out[3].value}개월을 버틸 수 있습니다.`, en: `You are ${pct}% of the way there — enough for ${out[3].value} months.`, tone: 'warn' }
+          : { ko: `목표의 ${pct}%뿐입니다. 지금 잔액으로는 ${out[3].value}개월치입니다.`, en: `Only ${pct}% of the target — that covers ${out[3].value} months.`, tone: 'bad' };
     },
     ko: { title: '비상금 목표 계산기', desc: '몇 달치 생활비를 비상금으로 두어야 하는지 계산합니다.',
       long: '월 생활비에 버틸 개월을 곱합니다. 소득이 일정한 직장인은 3~6개월, 프리랜서나 자영업은 6~12개월을 잡는 편이 무난합니다.',
@@ -358,9 +326,6 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     en: { title: 'Emergency Fund Target', desc: 'How many months of expenses to keep in reserve.',
       long: 'Multiply monthly spending by the months of cover you want. Three to six months suits steady salaries; six to twelve is safer for freelance or self-employed income.',
       note: 'The fund has to be reachable at any moment. Chasing yield by locking it up means selling at a loss exactly when you need it.' },
-    zh: { title: '应急金目标计算器', desc: '算出应该储备几个月的生活费作为应急金。',
-      long: '把月生活费乘以想覆盖的月数。收入稳定的上班族3至6个月即可，自由职业或自营者建议6至12个月。',
-      note: '应急金必须随时可取。为追求收益而锁定，往往会在真正需要时被迫亏损取出。' },
   },
   {
     slug: 'bond-current-yield',
@@ -382,16 +347,13 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
     },
     verdict: (v, out) =>
       v.price < v.face
-        ? { ko: `액면보다 싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 높습니다.`, en: `Bought below par, so the ${out[0].value}% current yield beats the ${v.coupon}% coupon.`, zh: `低于面值买入，当期收益率${out[0].value}%高于票面利率${v.coupon}%。`, tone: 'good' }
-        : { ko: `액면보다 비싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 낮습니다.`, en: `Bought above par, so the ${out[0].value}% current yield falls short of the ${v.coupon}% coupon.`, zh: `高于面值买入，当期收益率${out[0].value}%低于票面利率${v.coupon}%。`, tone: 'warn' },
+        ? { ko: `액면보다 싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 높습니다.`, en: `Bought below par, so the ${out[0].value}% current yield beats the ${v.coupon}% coupon.`, tone: 'good' }
+        : { ko: `액면보다 비싸게 사서 현재 수익률 ${out[0].value}%가 표면 금리 ${v.coupon}%보다 낮습니다.`, en: `Bought above par, so the ${out[0].value}% current yield falls short of the ${v.coupon}% coupon.`, tone: 'warn' },
     ko: { title: '채권 현재 수익률 계산기', desc: '액면·표면금리·매입가로 실제 이자 수익률을 계산합니다.',
       long: '해마다 받는 이자는 액면에 표면금리를 곱한 값으로 고정입니다. 그 이자를 실제로 낸 값으로 나누면 현재 수익률이 나옵니다 — 싸게 살수록 수익률이 올라갑니다.',
       note: '현재 수익률은 만기까지 가는 동안의 가격 회복(또는 하락)을 반영하지 않습니다. 만기 보유가 목적이면 만기수익률을 함께 보세요.' },
     en: { title: 'Bond Current Yield', desc: 'Turn face value, coupon and purchase price into the yield you actually get.',
       long: 'The annual coupon is fixed at face value times the coupon rate. Divide it by what you paid to get the current yield — the cheaper you buy, the higher it goes.',
       note: 'Current yield ignores the price pulling back to par by maturity. If you plan to hold to the end, look at yield to maturity too.' },
-    zh: { title: '债券当期收益率', desc: '用面值、票面利率和买入价算出实际的利息收益率。',
-      long: '每年利息固定为面值乘票面利率。用它除以实际支付的价格即得当期收益率——买得越便宜，收益率越高。',
-      note: '当期收益率未计入价格向面值回归的部分。若打算持有到期，还应看到期收益率。' },
   },
 ];

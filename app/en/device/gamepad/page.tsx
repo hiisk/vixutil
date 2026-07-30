@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Connect a controller, press the buttons to confirm they register, and leave the sticks alone to see whether the coordinates wander — stick drift. Xbox, PlayStation and Nintendo pads are all read through the standard browser API.',
   alternates: {
     canonical: '/en/device/gamepad',
-    languages: { 'en': '/en/device/gamepad', 'zh': '/zh/device/gamepad', 'ko': '/device/gamepad', 'x-default': '/en/device/gamepad' },
+    languages: { 'en': '/en/device/gamepad', 'ko': '/device/gamepad', 'x-default': '/en/device/gamepad' },
   },
 };
 

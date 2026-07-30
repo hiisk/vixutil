@@ -39,9 +39,9 @@ function clip(s: string): string {
   return s.length > 8 ? s.slice(0, 7) + '…' : s;
 }
 
-export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const ko = lang === 'ko';
-  const zh = lang === 'zh';
+  const zh = false;
   const PRESETS = ko ? PRESETS_KO : zh ? PRESETS_ZH : PRESETS_EN;
   const [options, setOptions] = useState<string[]>(ko ? ['치킨', '피자', '떡볶이', '초밥', '햄버거', '마라탕'] : zh ? ['火锅', '披萨', '烧烤', '寿司', '汉堡', '麻辣烫'] : ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Ramen']);
   const [rotation, setRotation] = useState(0);

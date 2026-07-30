@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Paste your text and get the word count, the character count with and without spaces, and roughly how many pages that is. Set the limit an application or a brief gives you and it shows how much you have left.',
   alternates: {
     canonical: '/en/text/manuscript',
-    languages: { 'en': '/en/text/manuscript', 'zh': '/zh/text/manuscript', 'ko': '/text/manuscript', 'x-default': '/en/text/manuscript' },
+    languages: { 'en': '/en/text/manuscript', 'ko': '/text/manuscript', 'x-default': '/en/text/manuscript' },
   },
 };
 

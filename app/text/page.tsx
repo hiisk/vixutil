@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     '한/영 잘못 친 글자 되돌리기, 여권 영문 이름, 한글 금액, 초성 변환, 특수문자·이모티콘, 중복 줄 제거, 원고지 매수까지 한 곳에서. 설치 없이 브라우저에서 바로.',
   alternates: {
     canonical: '/text',
-    languages: { 'ko': '/text', 'en': '/en/text', 'zh': '/zh/text', 'x-default': '/en/text' },
+    languages: { 'ko': '/text', 'en': '/en/text', 'x-default': '/en/text' },
   },
 };
 

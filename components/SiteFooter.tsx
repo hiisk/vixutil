@@ -10,7 +10,7 @@ import ThemeToggle from "./ThemeToggle";
  * 영어 사용자에게 한국어 전용 계산기(실수령액·퇴직금 등)를 내보내면 클릭한 순간
  * 읽을 수 없는 페이지가 나오기 때문이다. 그 언어로 실제 존재하는 섹션만 건다.
  */
-type Lang = 'ko' | 'en' | 'zh';
+type Lang = 'ko' | 'en';
 
 const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/calculator", icon: "📊", label: "계산기" },
@@ -108,19 +108,12 @@ const COPY = {
     popular: "Popular tools",
     tagline: "Practical everyday tools · 2026",
   },
-  zh: {
-    searchHint: "还在找别的工具吗？",
-    searchCta: "全站搜索",
-    browse: "浏览其他工具",
-    popular: "热门工具",
-    tagline: "日常实用工具 · 2026",
-  },
 } as const;
 
 export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
   const t = COPY[lang];
-  const sections = lang === 'en' ? SECTIONS_EN : lang === 'zh' ? SECTIONS_ZH : SECTIONS;
-  const popular = lang === 'en' ? POPULAR_EN : lang === 'zh' ? POPULAR_ZH : POPULAR;
+  const sections = lang === 'en' ? SECTIONS_EN : SECTIONS;
+  const popular = lang === 'en' ? POPULAR_EN : POPULAR;
 
   return (
     <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">

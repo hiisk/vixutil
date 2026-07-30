@@ -37,7 +37,7 @@ export const CITIES: City[] = [
 
 export const DEFAULT_CITY_IDS = ['seoul', 'newyork', 'london', 'tokyo', 'losangeles'];
 
-export type CityLang = 'ko' | 'en' | 'zh';
+export type CityLang = 'ko' | 'en';
 
 /**
  * 도시·국가 이름의 en/zh 표기. id·zone·flag는 세 언어가 공유하므로 여기엔 이름만 둔다.
@@ -64,27 +64,6 @@ const CITY_NAMES: Record<Exclude<CityLang, 'ko'>, Record<string, { city: string;
     saopaulo: { city: 'São Paulo', country: 'Brazil' },
     sydney: { city: 'Sydney', country: 'Australia' },
     auckland: { city: 'Auckland', country: 'New Zealand' },
-  },
-  zh: {
-    seoul: { city: '首尔', country: '韩国' },
-    tokyo: { city: '东京', country: '日本' },
-    beijing: { city: '北京', country: '中国' },
-    hongkong: { city: '香港', country: '香港' },
-    singapore: { city: '新加坡', country: '新加坡' },
-    bangkok: { city: '曼谷', country: '泰国' },
-    hanoi: { city: '河内', country: '越南' },
-    delhi: { city: '新德里', country: '印度' },
-    dubai: { city: '迪拜', country: '阿联酋' },
-    moscow: { city: '莫斯科', country: '俄罗斯' },
-    london: { city: '伦敦', country: '英国' },
-    paris: { city: '巴黎', country: '法国' },
-    berlin: { city: '柏林', country: '德国' },
-    newyork: { city: '纽约', country: '美国' },
-    chicago: { city: '芝加哥', country: '美国' },
-    losangeles: { city: '洛杉矶', country: '美国' },
-    saopaulo: { city: '圣保罗', country: '巴西' },
-    sydney: { city: '悉尼', country: '澳大利亚' },
-    auckland: { city: '奥克兰', country: '新西兰' },
   },
 };
 
@@ -114,7 +93,7 @@ export function baseZoneFor(lang: CityLang): string {
   }
 }
 
-const LOCALE: Record<CityLang, string> = { ko: 'ko-KR', en: 'en-US', zh: 'zh-CN' };
+const LOCALE: Record<CityLang, string> = { ko: 'ko-KR', en: 'en-US' };
 
 export const findCity = (id: string) => CITIES.find(c => c.id === id);
 
@@ -167,5 +146,4 @@ export const DAY_PART_LABEL: Record<DayPart, string> = {
 export const DAY_PART_LABEL_INTL: Record<CityLang, Record<DayPart, string>> = {
   ko: DAY_PART_LABEL,
   en: { night: 'Middle of the night', morning: 'Early morning', work: 'Working hours', evening: 'Evening' },
-  zh: { night: '深夜', morning: '清晨', work: '工作时间', evening: '傍晚' },
 };

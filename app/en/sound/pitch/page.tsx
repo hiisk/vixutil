@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'It plays two notes in turn and you name the interval between them — a major third, a perfect fifth. You do not need perfect pitch; once you know the distances, chords and melodies get much easier to follow.',
   alternates: {
     canonical: '/en/sound/pitch',
-    languages: { 'en': '/en/sound/pitch', 'zh': '/zh/sound/pitch', 'ko': '/sound/pitch', 'x-default': '/en/sound/pitch' },
+    languages: { 'en': '/en/sound/pitch', 'ko': '/sound/pitch', 'x-default': '/en/sound/pitch' },
   },
 };
 

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "What falling, losing teeth, flying, being chased and 16 other common dream symbols are traditionally read as, and which situations they tend to be reported in.",
   alternates: {
     canonical: '/en/fortune/dream',
-    languages: { 'en': '/en/fortune/dream', 'zh': '/zh/fortune/dream', 'ko': '/fortune/dream', 'x-default': '/en/fortune/dream' },
+    languages: { 'en': '/en/fortune/dream', 'ko': '/fortune/dream', 'x-default': '/en/fortune/dream' },
   },
 };
 

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '내 MBTI 유형에 맞는 오늘의 운세를 무료로 확인해보세요.',
   alternates: {
     canonical: '/fortune/mbti',
-    languages: { 'ko': '/fortune/mbti', 'en': '/en/fortune/mbti', 'zh': '/zh/fortune/mbti', 'x-default': '/en/fortune/mbti' },
+    languages: { 'ko': '/fortune/mbti', 'en': '/en/fortune/mbti', 'x-default': '/en/fortune/mbti' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

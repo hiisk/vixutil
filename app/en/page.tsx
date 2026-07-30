@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Free tools that run in your browser: unit conversion, checklists, quizzes, personality tests, name generators, random pickers, photo tests and daily horoscopes. No sign-up.',
   alternates: {
     canonical: '/en',
-    languages: { 'en': '/en', 'zh': '/zh', 'ko': '/', 'x-default': '/en' },
+    languages: { 'en': '/en', 'ko': '/', 'x-default': '/en' },
   },
 };
 

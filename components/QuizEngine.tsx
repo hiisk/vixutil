@@ -10,7 +10,7 @@ import { thumbGradient } from '@/lib/thumbnail';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
-export type QuizLang = 'ko' | 'en' | 'zh';
+export type QuizLang = 'ko' | 'en';
 
 /** 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점·진행 로직은 세 언어가 동일하다. */
 const UI: Record<QuizLang, {
@@ -39,15 +39,6 @@ const UI: Record<QuizLang, {
     wrongCount: n => `Missed (${n})`,
     grades: ['Perfect', 'Excellent', 'Good', 'Fair', 'Keep going'],
     msgs: ['Perfect — every single one right.', 'Excellent, that is a strong score.', 'You know this reasonably well.', 'Worth another look at this one.', 'Give it another go.'],
-  },
-  zh: {
-    allQuizzes: '全部测验', start: '开始测验 →', correct: '✓ 答对了', wrong: '✗ 答错了',
-    explanation: '💡 解析', next: '下一题 →', seeResult: '查看结果 →', retry: '再做一次', more: '更多测验',
-    meta: n => `${n} 题 · 四选一 · 附解析`,
-    score: p => `${p} 分`,
-    wrongCount: n => `答错的题（${n} 题）`,
-    grades: ['满分！', '优秀', '良好', '一般', '加油'],
-    msgs: ['太完美了，全部答对！', '很棒，分数很高！', '掌握得还不错。', '再多看看这部分吧。', '再挑战一次吧。'],
   },
 };
 

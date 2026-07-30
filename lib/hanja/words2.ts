@@ -12,9 +12,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Eo-bul-seong-seol', meaning: 'The words do not add up to a statement — it makes no sense.',
       origin: 'A Korean coinage rather than a Chinese classic, common in Joseon-era petitions.',
       usage: 'A blunt way to say an argument has collapsed on its own logic.' },
-    zh: { title: '语不成说', meaning: '话说不通，前后矛盾。',
-      origin: '并非出自中国古籍，是朝鲜时代奏疏中常用的韩式四字语。',
-      usage: '在韩国用于直指论点不成立；中文多说「不成体统」或「说不通」。' },
   },
   {
     slug: 'gapronulbak', hanja: '甲論乙駁', simplified: '甲论乙驳', reading: '갑론을박',
@@ -26,9 +23,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Gap-ron-eul-bak', meaning: 'A argues, B refutes — a back-and-forth dispute.',
       origin: 'A Korean coinage using gap and eul, the conventional stand-ins for the first and second party.',
       usage: 'Used when a meeting splits into evenly matched positions.' },
-    zh: { title: '甲论乙驳', meaning: '甲方主张、乙方反驳，来回争论。',
-      origin: '取自以甲、乙代指当事双方的惯例，为韩式四字语。',
-      usage: '在韩国用于会议上意见僵持不下时；中文多说「各执一词」。' },
   },
   {
     slug: 'hoengseolsuseol', hanja: '橫說竪說', simplified: '横说竖说', reading: '횡설수설',
@@ -40,9 +34,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Hoeng-seol-su-seol', meaning: 'Talking across and up and down — rambling without thread.',
       origin: 'Once meant explaining deftly from every angle; it now means incoherence.',
       usage: 'Used of speech that falls apart from drink or panic.' },
-    zh: { title: '横说竖说', meaning: '横七竖八地说，指言语没有条理。',
-      origin: '本指从各角度娴熟阐述，今在韩国专指语无伦次。',
-      usage: '用于形容因醉酒或慌乱而语无伦次；中文多说「胡言乱语」。' },
   },
   {
     slug: 'ileonbangu', hanja: '一言半句', simplified: '一言半句', reading: '일언반구',
@@ -54,9 +45,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Il-eon-ban-gu', meaning: 'A word and half a phrase — even the smallest utterance.',
       origin: 'A set phrase that emphasises the barest minimum of speech.',
       usage: 'Almost always used with a negative: "not a word of it was said".' },
-    zh: { title: '一言半句', meaning: '一句话半个词，指极少的言语。',
-      origin: '强调言语极少的固定说法。',
-      usage: '多与否定连用，如「一言半句也没提」；中文常说「一言半语」。' },
   },
   {
     slug: 'gyoeonyeongsaek', hanja: '巧言令色', simplified: '巧言令色', reading: '교언영색',
@@ -68,9 +56,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Gyo-eon-yeong-saek', meaning: 'Polished words and an arranged face, put on to win favour.',
       origin: 'From the Analects: Confucius said such people rarely have real benevolence in them.',
       usage: 'Used to warn against someone whose talk is all surface.' },
-    zh: { title: '巧言令色', meaning: '用花言巧语与讨好的神色博取好感。',
-      origin: '出自《论语·学而》「巧言令色，鲜矣仁」。',
-      usage: '用于警惕只会说漂亮话的人，中韩通用。' },
   },
   {
     slug: 'myeongsilsangbu', hanja: '名實相符', simplified: '名实相符', reading: '명실상부',
@@ -82,9 +67,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Myeong-sil-sang-bu', meaning: 'Name and reality matching each other.',
       origin: 'From pre-Qin debates on the relation between names and the things they denote.',
       usage: 'Used when a title or reputation is matched by actual ability.' },
-    zh: { title: '名实相符', meaning: '名称与实际相一致。',
-      origin: '源自先秦关于名与实关系的名实之辩。',
-      usage: '用于头衔或声誉与真实能力相称时；中文常说「名副其实」。' },
   },
   {
     slug: 'buhwanoedong', hanja: '附和雷同', simplified: '附和雷同', reading: '부화뇌동',
@@ -96,9 +78,6 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Bu-hwa-noe-dong', meaning: 'Falling in with others and echoing them like thunder.',
       origin: 'Noe-dong comes from the Book of Rites, on how all things answer at once when thunder sounds.',
       usage: 'Used to criticise going along with opinion without judging for oneself.' },
-    zh: { title: '附和雷同', meaning: '附和他人，如雷响时万物齐应般盲从。',
-      origin: '「雷同」出自《礼记》，指雷鸣时万物同时相应。',
-      usage: '用于批评没有主见、随波逐流；中文多说「随声附和」。' },
   },
   {
     slug: 'eoneododan', hanja: '言語道斷', simplified: '言语道断', reading: '언어도단',
@@ -110,8 +89,5 @@ export const WORDS2_IDIOMS: Idiom[] = [
     en: { title: 'Eon-eo-do-dan', meaning: 'Where words run out — in Korean use, utterly unreasonable.',
       origin: 'Originally Buddhist, meaning truth cannot be exhausted in words; Korean usage shifted it to "absurd".',
       usage: 'A strong rejection of what someone has just claimed.' },
-    zh: { title: '言语道断', meaning: '在韩语中指荒谬到不成话的程度。',
-      origin: '本为佛教用语，谓真理非言语所能尽；韩语中转为「荒唐无理」之意。',
-      usage: '用于强烈否定对方主张；中文仍多取佛教本义，需注意差异。' },
   },
 ];

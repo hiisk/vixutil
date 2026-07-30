@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Play into the mic and it tells you which note it is and how far above or below pitch you are, in cents. You can also listen to the open-string reference notes for guitar, ukulele and bass.',
   alternates: {
     canonical: '/en/sound/tuner',
-    languages: { 'en': '/en/sound/tuner', 'zh': '/zh/sound/tuner', 'ko': '/sound/tuner', 'x-default': '/en/sound/tuner' },
+    languages: { 'en': '/en/sound/tuner', 'ko': '/sound/tuner', 'x-default': '/en/sound/tuner' },
   },
 };
 

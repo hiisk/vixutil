@@ -32,17 +32,6 @@ const COPY = {
     noStrokes: 'Not enough stroke edges were found. Try a photo with clear, dark writing on a light background, filling most of the frame.',
     disclaimer: 'Slant and pressure are genuinely measured. Graphology is not an established science — read the interpretation as entertainment.',
   },
-  zh: {
-    title: '笔迹分析',
-    lead: '拍一张手写字 —— 从笔画测量倾斜度与笔压',
-    privacy: '倾斜度用结构张量分析图像梯度方向得出（指纹识别也用这个方法），笔压则由笔画的深浅计算。测量是真实的，但附在上面的性格解读属于笔迹学，仅供娱乐而非科学结论。',
-    result: '✍️ 你的笔迹',
-    slant: '倾斜度',
-    pressure: '笔压',
-    tip: '💡 今日建议',
-    noStrokes: '没有找到足够的笔画边缘。请用浅色背景、字迹清晰且占满画面的照片再试一次。',
-    disclaimer: '倾斜度与笔压为真实测量。笔迹学并非公认的科学，解读部分仅供娱乐。',
-  },
 } as const;
 
 interface Result {

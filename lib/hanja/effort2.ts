@@ -12,9 +12,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Sip-beol-ji-mok', meaning: 'No tree stands after ten swings of the axe.',
       origin: 'A four-character rendering of the Korean proverb about the tenth swing.',
       usage: 'Encouragement to try again after being turned down.' },
-    zh: { title: '十伐之木', meaning: '砍十次没有不倒的树。',
-      origin: '将韩国谚语「砍十次没有不倒的树」压缩成的四字语。',
-      usage: '在韩国用于劝人被拒后再试；中文近似「锲而不舍」。' },
   },
   {
     slug: 'jeoktoseongsan', hanja: '積土成山', simplified: '积土成山', reading: '적토성산',
@@ -26,9 +23,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Jeok-to-seong-san', meaning: 'Pile up earth and you make a mountain.',
       origin: 'From Xunzi’s chapter on learning: pile earth into a mountain and wind and rain arise from it.',
       usage: 'Used to describe the power of a day’s study or a day’s saving.' },
-    zh: { title: '积土成山', meaning: '把土堆积起来就能成山。',
-      origin: '出自《荀子·劝学》「积土成山，风雨兴焉」。',
-      usage: '用于说明每日学习或储蓄的累积之力，中韩通用。' },
   },
   {
     slug: 'jumagapyeon', hanja: '走馬加鞭', simplified: '走马加鞭', reading: '주마가편',
@@ -40,9 +34,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Ju-ma-ga-pyeon', meaning: 'Whip the horse that is already running — push the one already doing well.',
       origin: 'A classical phrase for adding momentum to something already going strongly.',
       usage: 'Said to urge one more effort from someone performing well; overdone, it becomes pressure.' },
-    zh: { title: '走马加鞭', meaning: '给正在奔跑的马再加一鞭。',
-      origin: '源自古籍，指为势头正好的事再添助力。',
-      usage: '用于催促本已表现良好的人再努力一分，中文多说「快马加鞭」。' },
   },
   {
     slug: 'subulseokgwon', hanja: '手不釋卷', simplified: '手不释卷', reading: '수불석권',
@@ -54,9 +45,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Su-bul-seok-gwon', meaning: 'Never letting the book leave your hand.',
       origin: 'From the Records of the Three Kingdoms, describing Lü Meng of Wu after Sun Quan urged him to study.',
       usage: 'Praise for someone whose reading habit has become second nature.' },
-    zh: { title: '手不释卷', meaning: '手中的书从不放下，形容勤读不倦。',
-      origin: '出自《三国志》，写吴国吕蒙受孙权劝勉而勤学之事。',
-      usage: '用于称赞已把读书变成习惯的人，中韩通用。' },
   },
   {
     slug: 'gakgomyeollyeo', hanja: '刻苦勉勵', simplified: '刻苦勉励', reading: '각고면려',
@@ -68,9 +56,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Gak-go-myeol-lyeo', meaning: 'Bear the hardship and drive yourself on.',
       origin: 'A compound of two classical terms — enduring hardship and urging oneself forward.',
       usage: 'A compact way to describe someone’s long stretch of preparation.' },
-    zh: { title: '刻苦勉励', meaning: '忍受艰苦并自我勉励。',
-      origin: '由古籍中各自使用的「刻苦」与「勉励」合成。',
-      usage: '用于概括某人长期准备的付出，中韩通用。' },
   },
   {
     slug: 'jagangbulsik', hanja: '自强不息', simplified: '自强不息', reading: '자강불식',
@@ -82,9 +67,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Ja-gang-bul-sik', meaning: 'Strengthen yourself and never rest.',
       origin: 'From the Book of Changes: heaven moves with vigour, so the noble person strengthens himself without cease.',
       usage: 'Applied to someone who keeps at it even when nobody is watching.' },
-    zh: { title: '自强不息', meaning: '自我奋发而不停歇。',
-      origin: '出自《周易·乾卦》「天行健，君子以自强不息」。',
-      usage: '形容无人看时也持之以恒的人，中韩通用。' },
   },
   {
     slug: 'yujigyeongseong', hanja: '有志竟成', simplified: '有志竟成', reading: '유지경성',
@@ -96,9 +78,6 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Yu-ji-gyeong-seong', meaning: 'Where there is will, it is accomplished in the end.',
       origin: 'From the Book of the Later Han, in Emperor Guangwu’s praise of the general Geng Yan.',
       usage: 'Encouragement for a goal someone has held onto for a long time.' },
-    zh: { title: '有志竟成', meaning: '有志向终能成事。',
-      origin: '出自《后汉书》，光武帝赞将军耿弇时所言。',
-      usage: '用于鼓励长期坚守目标的人，中韩通用。' },
   },
   {
     slug: 'jeolchatakma', hanja: '切磋琢磨', simplified: '切磋琢磨', reading: '절차탁마',
@@ -110,8 +89,5 @@ export const EFFORT2_IDIOMS: Idiom[] = [
     en: { title: 'Jeol-cha-tak-ma', meaning: 'Cut, file, chisel and polish — refine learning and character without cease.',
       origin: 'From the Book of Songs, naming the four stages of working a piece of jade.',
       usage: 'Used for the long refinement of a craft or a body of learning.' },
-    zh: { title: '切磋琢磨', meaning: '如治玉般不断切、磋、琢、磨，精进学问与品行。',
-      origin: '出自《诗经·卫风·淇奥》，本指治玉的四道工序。',
-      usage: '用于形容长期锤炼技艺或学问，中韩通用。' },
   },
 ];

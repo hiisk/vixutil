@@ -34,12 +34,12 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const g = out[0].value;
       return g >= 90
-        ? { ko: `${g}은 정상 범위(90 이상)입니다.`, en: `${g} is in the normal range (90 or above).`, zh: `${g}处于正常范围（90以上）。`, tone: 'good' }
+        ? { ko: `${g}은 정상 범위(90 이상)입니다.`, en: `${g} is in the normal range (90 or above).`, tone: 'good' }
         : g >= 60
-          ? { ko: `${g}은 경미한 감소입니다. 다른 소견이 없으면 만성 신장병으로 보지 않습니다.`, en: `${g} is a mild reduction; without other findings it is not classed as chronic kidney disease.`, zh: `${g}属轻度下降，若无其他异常则不诊断为慢性肾病。`, tone: 'warn' }
+          ? { ko: `${g}은 경미한 감소입니다. 다른 소견이 없으면 만성 신장병으로 보지 않습니다.`, en: `${g} is a mild reduction; without other findings it is not classed as chronic kidney disease.`, tone: 'warn' }
           : g >= 30
-            ? { ko: `${g}은 중등도 감소입니다. 신장 기능을 정기적으로 볼 구간입니다.`, en: `${g} is a moderate reduction — the range that calls for regular monitoring.`, zh: `${g}属中度下降，需要定期监测肾功能。`, tone: 'bad' }
-            : { ko: `${g}은 크게 감소한 상태입니다. 전문의 진료가 필요합니다.`, en: `${g} is a severe reduction and needs specialist care.`, zh: `${g}属重度下降，需要专科诊治。`, tone: 'bad' };
+            ? { ko: `${g}은 중등도 감소입니다. 신장 기능을 정기적으로 볼 구간입니다.`, en: `${g} is a moderate reduction — the range that calls for regular monitoring.`, tone: 'bad' }
+            : { ko: `${g}은 크게 감소한 상태입니다. 전문의 진료가 필요합니다.`, en: `${g} is a severe reduction and needs specialist care.`, tone: 'bad' };
     },
     ko: { title: 'eGFR 신장 기능 계산기', desc: '크레아티닌·나이·성별로 추정 사구체여과율을 구합니다.',
       long: '2021년 CKD-EPI 식을 씁니다. 크레아티닌 수치 자체는 근육량에 따라 흔들리므로 나이와 성별로 보정해야 신장이 1분에 얼마를 걸러 내는지에 가까워집니다. 90 이상이 정상, 60 아래가 지속되면 만성 신장병 범주입니다.',
@@ -47,9 +47,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'eGFR Kidney Function', desc: 'Estimated filtration rate from creatinine, age and sex.',
       long: 'This uses the 2021 CKD-EPI equation. Raw creatinine swings with muscle mass, so it has to be adjusted for age and sex to approximate how much the kidneys filter per minute. Ninety and above is normal; sustained values under sixty fall into chronic kidney disease.',
       note: 'The equation drifts at very high or very low muscle mass. This is a reading aid, not a diagnosis — interpret it with a clinician.' },
-    zh: { title: 'eGFR肾功能计算器', desc: '用肌酐、年龄和性别估算肾小球滤过率。',
-      long: '采用2021年CKD-EPI公式。肌酐本身会随肌肉量波动，需按年龄与性别校正，才能接近肾脏每分钟的滤过量。90以上为正常，持续低于60则属于慢性肾病范畴。',
-      note: '肌肉量极高或极低时公式会偏离。此值仅用于理解检查结果，不构成诊断，请与医护人员共同判断。' },
   },
   {
     slug: 'creatinine-clearance',
@@ -77,9 +74,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'Creatinine Clearance (Cockcroft–Gault)', desc: 'Kidney clearance that takes body weight into account.',
       long: 'Published in 1976, this equation still governs drug dosing because weight enters it directly. Age lowers the result through (140 − age), and women are multiplied by 0.85 for muscle mass.',
       note: 'It overestimates in obesity; the convention there is to use ideal or adjusted body weight instead of actual.' },
-    zh: { title: '肌酐清除率（Cockcroft-Gault）', desc: '计算计入体重的肾脏清除率。',
-      long: '这个1976年提出的公式因直接纳入体重，至今仍用于药物剂量调整。年龄通过(140 − 年龄)降低结果，女性因肌肉量差异需乘0.85。',
-      note: '肥胖者会被高估，惯例是改用理想体重或校正体重代替实际体重。' },
   },
   {
     slug: 'triglyceride-hdl-ratio',
@@ -98,10 +92,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r < 2
-        ? { ko: `${r}은 좋은 편입니다. 2 아래를 목표로 봅니다.`, en: `${r} is good — under 2 is the target.`, zh: `${r}属良好，目标是低于2。`, tone: 'good' }
+        ? { ko: `${r}은 좋은 편입니다. 2 아래를 목표로 봅니다.`, en: `${r} is good — under 2 is the target.`, tone: 'good' }
         : r < 3.5
-          ? { ko: `${r}은 경계 구간입니다.`, en: `${r} sits in the borderline band.`, zh: `${r}处于临界区间。`, tone: 'warn' }
-          : { ko: `${r}은 높습니다. 인슐린 저항성과 함께 오는 경우가 많습니다.`, en: `${r} is high and often travels with insulin resistance.`, zh: `${r}偏高，常与胰岛素抵抗同时出现。`, tone: 'bad' };
+          ? { ko: `${r}은 경계 구간입니다.`, en: `${r} sits in the borderline band.`, tone: 'warn' }
+          : { ko: `${r}은 높습니다. 인슐린 저항성과 함께 오는 경우가 많습니다.`, en: `${r} is high and often travels with insulin resistance.`, tone: 'bad' };
     },
     ko: { title: '중성지방·HDL 비율 계산기', desc: '중성지방을 HDL로 나눠 대사 상태를 봅니다.',
       long: '두 값을 따로 보는 것보다 비율이 대사 상태를 잘 나타냅니다. 중성지방이 높고 HDL이 낮은 조합이 인슐린 저항성과 함께 오는 패턴이라, 비율이 그 조합을 한 숫자로 잡아 줍니다.',
@@ -109,9 +103,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'Triglyceride to HDL Ratio', desc: 'Divide triglycerides by HDL for a metabolic read.',
       long: 'The ratio says more about metabolic state than either number alone. High triglycerides with low HDL is the pattern that travels with insulin resistance, and the ratio captures that pairing in one figure.',
       note: 'Triglycerides spike after eating. Use a value taken after 9–12 hours of fasting.' },
-    zh: { title: '甘油三酯与HDL比值', desc: '用甘油三酯除以HDL来观察代谢状态。',
-      long: '比值比单看任一数值更能反映代谢状态。甘油三酯高而HDL低的组合常与胰岛素抵抗并行，比值把这一组合浓缩为一个数字。',
-      note: '甘油三酯在进食后会明显升高，应使用空腹9至12小时后的检测值。' },
   },
   {
     slug: 'quicki',
@@ -133,10 +124,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const q = out[0].value;
       return q >= 0.357
-        ? { ko: `${q}는 인슐린 감수성이 좋은 쪽입니다. 값이 클수록 좋습니다.`, en: `${q} indicates good insulin sensitivity — higher is better.`, zh: `${q}表示胰岛素敏感性较好，数值越大越好。`, tone: 'good' }
+        ? { ko: `${q}는 인슐린 감수성이 좋은 쪽입니다. 값이 클수록 좋습니다.`, en: `${q} indicates good insulin sensitivity — higher is better.`, tone: 'good' }
         : q >= 0.33
-          ? { ko: `${q}는 경계 구간입니다.`, en: `${q} sits in the borderline band.`, zh: `${q}处于临界区间。`, tone: 'warn' }
-          : { ko: `${q}는 인슐린 저항성이 있는 쪽입니다. 값이 작을수록 저항성이 큽니다.`, en: `${q} points to insulin resistance — lower means more resistant.`, zh: `${q}提示存在胰岛素抵抗，数值越小抵抗越强。`, tone: 'bad' };
+          ? { ko: `${q}는 경계 구간입니다.`, en: `${q} sits in the borderline band.`, tone: 'warn' }
+          : { ko: `${q}는 인슐린 저항성이 있는 쪽입니다. 값이 작을수록 저항성이 큽니다.`, en: `${q} points to insulin resistance — lower means more resistant.`, tone: 'bad' };
     },
     ko: { title: 'QUICKI 인슐린 감수성 지수', desc: '공복 혈당과 인슐린으로 인슐린 감수성을 계산합니다.',
       long: 'HOMA-IR과 같은 두 값을 쓰지만 로그를 취해 분포를 고르게 만든 지수입니다. 방향이 반대로, HOMA-IR은 클수록 나쁘고 QUICKI는 클수록 좋습니다. 0.357 부근을 정상 기준으로 봅니다.',
@@ -144,9 +135,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'QUICKI Insulin Sensitivity Index', desc: 'Insulin sensitivity from fasting glucose and insulin.',
       long: 'It uses the same two values as HOMA-IR but takes logarithms to even out the distribution. The direction flips: HOMA-IR is worse when high, QUICKI is better when high, with about 0.357 as the normal reference.',
       note: 'Both inputs need at least eight hours of fasting. Stress and short sleep alone raise insulin, so the figure moves with the day.' },
-    zh: { title: 'QUICKI胰岛素敏感指数', desc: '用空腹血糖与胰岛素计算胰岛素敏感性。',
-      long: '它与HOMA-IR使用同样两个数值，但取对数以使分布更均匀。方向相反：HOMA-IR越高越差，QUICKI越高越好，约0.357为正常参考值。',
-      note: '两项输入都需空腹8小时以上。仅压力与睡眠不足也会升高胰岛素，因此数值会随当日状态波动。' },
   },
   {
     slug: 'tyg-index',
@@ -168,10 +156,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const t = out[0].value;
       return t < 8.5
-        ? { ko: `${t}는 낮은 쪽입니다. 인슐린 저항성 가능성이 작습니다.`, en: `${t} is on the low side — insulin resistance is less likely.`, zh: `${t}偏低，胰岛素抵抗的可能性较小。`, tone: 'good' }
+        ? { ko: `${t}는 낮은 쪽입니다. 인슐린 저항성 가능성이 작습니다.`, en: `${t} is on the low side — insulin resistance is less likely.`, tone: 'good' }
         : t < 8.8
-          ? { ko: `${t}는 경계 구간입니다.`, en: `${t} sits in the borderline band.`, zh: `${t}处于临界区间。`, tone: 'warn' }
-          : { ko: `${t}는 높은 쪽입니다. 인슐린 저항성을 의심하는 구간입니다.`, en: `${t} is high — the range where insulin resistance is suspected.`, zh: `${t}偏高，属于怀疑胰岛素抵抗的区间。`, tone: 'bad' };
+          ? { ko: `${t}는 경계 구간입니다.`, en: `${t} sits in the borderline band.`, tone: 'warn' }
+          : { ko: `${t}는 높은 쪽입니다. 인슐린 저항성을 의심하는 구간입니다.`, en: `${t} is high — the range where insulin resistance is suspected.`, tone: 'bad' };
     },
     ko: { title: 'TyG 지수 계산기', desc: '중성지방과 혈당만으로 인슐린 저항성을 가늠합니다.',
       long: '인슐린 검사 없이 흔한 혈액검사 두 항목만으로 인슐린 저항성을 추정하는 지수입니다. 인슐린 수치를 재지 않는 건강검진 결과로도 계산할 수 있는 것이 장점입니다.',
@@ -179,9 +167,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'TyG Index', desc: 'Gauge insulin resistance from triglycerides and glucose alone.',
       long: 'This index estimates insulin resistance without an insulin assay, using two of the commonest blood results. Its appeal is that a standard health check-up already contains both numbers.',
       note: 'Cut-offs vary between study populations, roughly 8.5 to 8.8. It works better for tracking one person over time than as an absolute threshold.' },
-    zh: { title: 'TyG指数计算器', desc: '仅用甘油三酯与血糖评估胰岛素抵抗。',
-      long: '该指数无需胰岛素检测，仅用两项最常见的血液指标即可估算胰岛素抵抗。优点是常规体检报告中已包含这两个数值。',
-      note: '界值在不同研究人群中约在8.5至8.8之间。相比绝对阈值，更适合追踪同一个人的变化。' },
   },
   {
     slug: 'fib-4',
@@ -206,10 +191,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
       const f = out[0].value;
       const lo = v.age >= 65 ? 2.0 : 1.3;
       return f < lo
-        ? { ko: `${f}는 낮은 구간(${lo} 미만)입니다. 진행된 섬유화 가능성이 낮습니다.`, en: `${f} is in the low band (under ${lo}); advanced fibrosis is unlikely.`, zh: `${f}处于低值区间（低于${lo}），进展性纤维化可能性较低。`, tone: 'good' }
+        ? { ko: `${f}는 낮은 구간(${lo} 미만)입니다. 진행된 섬유화 가능성이 낮습니다.`, en: `${f} is in the low band (under ${lo}); advanced fibrosis is unlikely.`, tone: 'good' }
         : f <= 2.67
-          ? { ko: `${f}는 중간 구간입니다. 추가 검사로 가려야 하는 범위입니다.`, en: `${f} is indeterminate — the range where further testing is needed.`, zh: `${f}处于中间区间，需要进一步检查以判定。`, tone: 'warn' }
-          : { ko: `${f}는 높은 구간(2.67 초과)입니다. 전문의 평가가 필요합니다.`, en: `${f} is in the high band (above 2.67) and needs specialist assessment.`, zh: `${f}处于高值区间（高于2.67），需要专科评估。`, tone: 'bad' };
+          ? { ko: `${f}는 중간 구간입니다. 추가 검사로 가려야 하는 범위입니다.`, en: `${f} is indeterminate — the range where further testing is needed.`, tone: 'warn' }
+          : { ko: `${f}는 높은 구간(2.67 초과)입니다. 전문의 평가가 필요합니다.`, en: `${f} is in the high band (above 2.67) and needs specialist assessment.`, tone: 'bad' };
     },
     ko: { title: 'FIB-4 간 섬유화 지수', desc: '나이와 간 수치, 혈소판으로 간 섬유화 위험을 가늠합니다.',
       long: '간 조직검사 없이 흔한 혈액검사만으로 섬유화 가능성을 가려내는 지수입니다. 낮으면 진행된 섬유화가 거의 없다고 볼 수 있어, 추가 검사가 필요한 사람을 골라내는 1차 도구로 쓰입니다.',
@@ -217,9 +202,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'FIB-4 Liver Fibrosis Index', desc: 'Gauge fibrosis risk from age, liver enzymes and platelets.',
       long: 'This index screens for fibrosis without a biopsy, using ordinary blood results. A low value largely rules out advanced fibrosis, which makes it a first-line filter for deciding who needs further testing.',
       note: 'Above 65 the lower cut-off rises to 2.0. Acute hepatitis or recent heavy drinking spikes the enzymes and distorts the result.' },
-    zh: { title: 'FIB-4肝纤维化指数', desc: '用年龄、肝酶和血小板评估肝纤维化风险。',
-      long: '该指数无需肝穿刺，仅用常规血液指标筛查纤维化。数值低基本可排除进展性纤维化，因此常作为筛选需进一步检查者的一线工具。',
-      note: '65岁以上时低值界限升至2.0。急性肝炎或近期大量饮酒会使肝酶升高，导致结果失真。' },
   },
   {
     slug: 'remnant-cholesterol',
@@ -242,8 +224,8 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r <= 30
-        ? { ko: `${r}은 낮은 편입니다. 30 아래를 바람직하게 봅니다.`, en: `${r} is low — under 30 is considered desirable.`, zh: `${r}偏低，低于30被视为理想。`, tone: 'good' }
-        : { ko: `${r}은 높은 편입니다. LDL이 정상인데도 위험이 남아 있는 경우가 여기서 드러납니다.`, en: `${r} is high; this is where risk that survives a normal LDL shows up.`, zh: `${r}偏高，即使LDL正常也可能残留风险，正体现在此。`, tone: 'warn' };
+        ? { ko: `${r}은 낮은 편입니다. 30 아래를 바람직하게 봅니다.`, en: `${r} is low — under 30 is considered desirable.`, tone: 'good' }
+        : { ko: `${r}은 높은 편입니다. LDL이 정상인데도 위험이 남아 있는 경우가 여기서 드러납니다.`, en: `${r} is high; this is where risk that survives a normal LDL shows up.`, tone: 'warn' };
     },
     ko: { title: '잔여 콜레스테롤 계산기', desc: '총콜레스테롤에서 HDL과 LDL을 빼 남는 부분을 구합니다.',
       long: 'LDL이 정상인데도 혈관 위험이 남는 이유를 설명하는 값입니다. 중성지방을 실어 다니는 지단백에 든 콜레스테롤이 여기 잡히는데, 이 부분은 LDL 검사에 안 나옵니다.',
@@ -251,9 +233,6 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'Remnant Cholesterol', desc: 'Total cholesterol minus HDL and LDL — what is left over.',
       long: 'This is the figure that explains vascular risk persisting despite a normal LDL. It captures cholesterol carried in triglyceride-rich lipoproteins, which an LDL measurement does not see.',
       note: 'Use total, HDL and LDL from the same panel on the same day. Mixing dates can even produce a negative number.' },
-    zh: { title: '残余胆固醇计算器', desc: '用总胆固醇减去HDL与LDL，得到剩余部分。',
-      long: '这个数值解释了为何LDL正常仍可能存在血管风险。它反映富含甘油三酯的脂蛋白所携带的胆固醇，而LDL检测看不到这部分。',
-      note: '总胆固醇、HDL与LDL应取自同一天的同一份报告。混用不同日期的数值甚至可能得到负数。' },
   },
   {
     slug: 'a1c-ifcc',
@@ -277,8 +256,5 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     en: { title: 'HbA1c Unit Converter (% ↔ IFCC)', desc: 'Convert between NGSP percent and IFCC mmol/mol.',
       long: 'It is the same test reported in different units: the US, Korea and Japan use percent (NGSP) while much of Europe uses mmol/mol (IFCC). 6.5% is 48 mmol/mol. The estimated average glucose is shown too.',
       note: 'The two units are linearly related, so the conversion is exact. The average-glucose estimate, however, is statistical and varies between people.' },
-    zh: { title: '糖化血红蛋白单位换算（% ↔ IFCC）', desc: '在NGSP百分比与IFCC毫摩尔/摩尔之间换算。',
-      long: '同一项检查在各国用不同单位表示：美国、韩国、日本用百分比(NGSP)，欧洲多地用mmol/mol(IFCC)。6.5%等于48 mmol/mol，同时给出估算平均血糖。',
-      note: '两种单位为线性关系，换算无误差；但平均血糖的换算式属统计估算，存在个体差异。' },
   },
 ];

@@ -31,9 +31,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Discount Calculator', desc: 'Find the final price and how much you save from a list price and a percentage off.',
       long: '30% off means you pay 70% of the list price. Multiply the price by (100 − rate) and divide by 100 to get what you pay; the rest is what you keep.',
       note: 'Stacking a second discount on the reduced price saves less than adding the two percentages together.' },
-    zh: { title: '折扣计算器', desc: '输入原价和折扣百分比，算出最终价格与省下的金额。',
-      long: '打七折（省30%）意味着你支付原价的70%。把原价乘以(100 − 折扣率)再除以100就是应付金额，差额就是省下的钱。',
-      note: '在已折后的价格上再打一次折，总折扣小于两个百分比相加。' },
   },
   {
     slug: 'discount-rate',
@@ -54,9 +51,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Reverse Discount', desc: 'Work out the percentage off when you only know the list price and the sale price.',
       long: 'Divide the amount taken off by the list price. Dividing by the sale price instead inflates the number.',
       note: '50 down to 35 is 30% off. The 42.9% you get by dividing 15 by 35 is a markup, not a discount.' },
-    zh: { title: '折扣率反算', desc: '只知道原价和售价时，算出打了几折、省了百分之几。',
-      long: '把降价金额除以原价就是折扣率。除以售价会得到偏大的数字。',
-      note: '5万降到3.5万是省30%（七折）。用1.5万除以3.5万得到的42.9%是加价率，不是折扣率。' },
   },
   {
     slug: 'double-discount',
@@ -83,7 +77,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
       return {
         ko: `더한 값 ${naive}%가 아니라 실제로는 ${real}% 할인입니다 — ${gap}%p 차이납니다.`,
         en: `The real discount is ${real}%, not the ${naive}% you get by adding — a gap of ${gap} points.`,
-        zh: `实际折扣是${real}%，而不是相加得到的${naive}% — 相差${gap}个百分点。`,
         tone: 'warn',
       };
     },
@@ -93,9 +86,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Stacked Discount', desc: 'See the true percentage off when a coupon is applied on top of an already reduced price.',
       long: 'The second discount only applies to what is left after the first, so 30% plus 20% is 44% off, not 50%.',
       note: 'Swapping the order changes nothing — it is multiplication, so the final price is identical either way.' },
-    zh: { title: '双重折扣计算器', desc: '先打七折再用八折优惠券，实际到底省了百分之几。',
-      long: '第二次折扣只作用于第一次折后的余额，所以30%加20%实际是省44%，而不是50%。',
-      note: '两个折扣的顺序无所谓 — 乘法可交换，最终价格完全相同。' },
   },
   {
     slug: 'coupon-vs-percent',
@@ -124,8 +114,7 @@ export const PRICE_TOOLS: FormulaTool[] = [
           : `${v.rate}% 할인이 유리합니다. ${even.toLocaleString()}원 아래에서는 정액 쿠폰이 낫습니다.`,
         en: couponWins
           ? `The fixed coupon wins here. Above ${even.toLocaleString()}, the ${v.rate}% discount takes over.`
-          : `The ${v.rate}% discount wins here. Below ${even.toLocaleString()}, the fixed coupon is better.`,
-        zh: couponWins
+          : `The ${v.rate}% discount wins here. Below ${even.toLocaleString()}, the fixed coupon is better.`
           ? `定额优惠券更划算。金额超过${even.toLocaleString()}后，${v.rate}%折扣反超。`
           : `${v.rate}%折扣更划算。金额低于${even.toLocaleString()}时，定额优惠券更好。`,
         tone: 'good',
@@ -137,9 +126,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Fixed Coupon vs Percent Off', desc: 'Compare a flat-amount coupon against a percentage discount to see which saves more.',
       long: 'A flat coupon wins on small baskets and a percentage wins on large ones. The break-even point is where the two are equal.',
       note: 'Check the coupon terms first — minimum spend and maximum discount caps often decide it for you.' },
-    zh: { title: '定额券与百分比折扣对比', desc: '10元优惠券和打八折，哪个更省钱？',
-      long: '金额小的时候定额券更划算，金额大的时候百分比折扣更划算。两者相等的金额就是分界点。',
-      note: '先看优惠券条款 — 起用金额和最高抵扣上限往往直接决定了结果。' },
   },
   {
     slug: 'markup',
@@ -164,9 +150,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Markup Pricing', desc: 'Set a selling price by adding a markup percentage to your cost.',
       long: 'A 40% markup makes the price 1.4× cost. Note the margin on revenue is then 28.6%, not 40%.',
       note: 'Markup on cost and margin on revenue are different numbers. Confusing them overstates what you actually keep.' },
-    zh: { title: '成本加价定价', desc: '在成本上加上加价率，得出售价。',
-      long: '加价40%意味着售价是成本的1.4倍。但此时相对销售额的利润率是28.6%，不是40%。',
-      note: '相对成本的加价率和相对销售额的利润率是两个数。混用会高估实际赚到的钱。' },
   },
   {
     slug: 'margin',
@@ -188,9 +171,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Profit Margin Calculator', desc: 'Get profit, margin on revenue, and markup on cost from a cost and a selling price.',
       long: 'The same 8,000 profit is 40% of revenue but 66.7% of cost. Which one is meant is almost always the real question.',
       note: 'Leave marketplace fees and card fees out of your cost and the real margin will be lower than this.' },
-    zh: { title: '利润率计算器', desc: '输入成本和售价，同时得到利润、销售利润率和成本加价率。',
-      long: '同样8000元的利润，除以销售额是40%，除以成本是66.7%。问题往往在于说的是哪一个。',
-      note: '如果没把平台佣金和刷卡手续费算进成本，实际利润率会低于这里的结果。' },
   },
   {
     slug: 'margin-price',
@@ -214,9 +194,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Price for Target Margin', desc: 'Work backwards from the margin you want to the price you need to charge.',
       long: 'For a 35% margin you divide cost by 0.65 — you do not add 35% to cost. Adding falls short of the target.',
       note: 'Margin can never reach 100%. Push the target past 90% and the required price climbs very fast.' },
-    zh: { title: '目标利润率定价', desc: '想要达到某个利润率，应该定价多少？反向算给你。',
-      long: '要35%的利润率，是把成本除以0.65，而不是在成本上加35%。用加法算会达不到目标。',
-      note: '利润率永远到不了100%。目标超过90%后，所需售价会急剧上升。' },
   },
   {
     slug: 'breakeven',
@@ -240,7 +217,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     verdict: v => v.price <= v.variable ? {
       ko: '단가가 변동비보다 낮아 팔수록 손실이 커집니다. 손익분기점이 존재하지 않습니다.',
       en: 'The price is below the variable cost, so every sale deepens the loss — there is no break-even point.',
-      zh: '售价低于变动成本，卖得越多亏得越多 — 不存在盈亏平衡点。',
       tone: 'bad',
     } : null,
     ko: { title: '손익분기점 수량', desc: '고정비를 메우려면 몇 개를 팔아야 하는지 계산합니다.',
@@ -249,9 +225,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Break-Even Units', desc: 'How many units you must sell to cover your fixed costs.',
       long: 'Price minus variable cost is what each sale contributes. Divide fixed costs by that to get the units needed to break even.',
       note: 'Rent and salaries are fixed costs; materials and packaging that scale per unit are variable costs.' },
-    zh: { title: '盈亏平衡销量', desc: '要覆盖固定成本，需要卖出多少件？',
-      long: '售价减去变动成本，就是每卖一件的贡献额。固定成本除以贡献额，就是保本所需的销量。',
-      note: '房租、工资属于固定成本；随件数变化的原料和包装属于变动成本。' },
   },
   {
     slug: 'unit-price',
@@ -272,9 +245,6 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Price per 100g', desc: 'Compare products of different sizes on the same per-unit basis.',
       long: 'The bigger tub is not always cheaper. Divide price by size and normalise to 100 units and the real winner is obvious.',
       note: 'For multipacks, enter the total volume — three 200 mL bottles means 600.' },
-    zh: { title: '每100克单价', desc: '把规格不同的商品换算成统一单价来比较。',
-      long: '大包装不一定更便宜。用价格除以规格并统一到每100单位，哪个真便宜一眼就看出来。',
-      note: '组合装要填总容量 — 三瓶200毫升就填600。' },
   },
   {
     slug: 'price-increase',
@@ -298,8 +268,5 @@ export const PRICE_TOOLS: FormulaTool[] = [
     en: { title: 'Price Increase', desc: 'Apply a percentage increase and see the new price and the difference.',
       long: 'Multiply by 1 plus the rate over 100. Enter a negative rate and it becomes a price cut.',
       note: 'Up 10% then down 10% does not return to the original — the base changed in between.' },
-    zh: { title: '涨价计算器', desc: '按百分比涨价后的新价格和涨了多少钱。',
-      long: '乘以「1加上涨幅除以100」就是涨价后的价格。填负数则变成降价计算。',
-      note: '先涨10%再降10%回不到原价 — 因为中间基准变了。' },
   },
 ];

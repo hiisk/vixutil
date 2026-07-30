@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Set the colours and the angle and it writes the CSS linear-gradient for you. Move the colour stops to control where the transition happens, and paste the result straight in.',
   alternates: {
     canonical: '/en/color/gradient',
-    languages: { 'en': '/en/color/gradient', 'zh': '/zh/color/gradient', 'ko': '/color/gradient', 'x-default': '/en/color/gradient' },
+    languages: { 'en': '/en/color/gradient', 'ko': '/color/gradient', 'x-default': '/en/color/gradient' },
   },
 };
 

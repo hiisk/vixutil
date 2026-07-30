@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '사진 한 장으로 강아지상부터 여우상까지, 12가지 동물상 중 나와 가장 닮은 동물을 실제 얼굴 인식으로 찾아보세요.',
   alternates: {
     canonical: '/snap/animal-face',
-    languages: { 'ko': '/snap/animal-face', 'en': '/en/snap/animal-face', 'zh': '/zh/snap/animal-face', 'x-default': '/en/snap/animal-face' },
+    languages: { 'ko': '/snap/animal-face', 'en': '/en/snap/animal-face', 'x-default': '/en/snap/animal-face' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Today’s free blood type horoscope for A, B, O and AB — love, money, work and health, plus a lucky colour, number and item. Updated daily.',
   alternates: {
     canonical: '/en/fortune/blood-type',
-    languages: { 'en': '/en/fortune/blood-type', 'ko': '/fortune/blood-type', 'zh': '/zh/fortune/blood-type', 'x-default': '/en/fortune/blood-type' },
+    languages: { 'en': '/en/fortune/blood-type', 'ko': '/fortune/blood-type', 'x-default': '/en/fortune/blood-type' },
   },
 };
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free cooking calculators: cups to grams by ingredient, recipe scaling, brine salinity, oven temperature and gas mark, steak doneness, rice water, pasta ratios, coffee ratios and food storage times.',
   alternates: {
     canonical: '/en/food',
-    languages: { 'en': '/en/food', 'zh': '/zh/food', 'ko': '/food', 'x-default': '/en/food' },
+    languages: { 'en': '/en/food', 'ko': '/food', 'x-default': '/en/food' },
   },
 };
 

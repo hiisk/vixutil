@@ -29,9 +29,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Add Sales Tax (Any Rate)', desc: 'Enter your own tax rate to get the price with tax added.',
       long: 'Multiply the pre-tax amount by (1 + rate). The same formula covers 10% VAT in Korea, 19% in Germany, 9% GST in Singapore and 20% in the UK — only the rate changes.',
       note: 'Most countries run several rates. Food, books and medicine are often taxed lower, so check the rate for the item and not just the country.' },
-    zh: { title: '加计销售税（自定税率）', desc: '自行填入税率，算出含税后的最终金额。',
-      long: '把税前金额乘以(1 + 税率)即为含税金额。韩国增值税10%、德国19%、新加坡9%、英国20%，同一个公式只需换税率。',
-      note: '多数国家设有多档税率，食品、书籍、药品往往适用低税率，请按品项而非仅按国家确认税率。' },
   },
   {
     slug: 'taxable-equivalent-yield',
@@ -54,7 +51,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `비과세 ${v.free}%는 과세 상품 ${out[0].value}%와 같습니다. 과세 상품이 그보다 낮으면 비과세 쪽이 유리합니다.`,
       en: `A tax-free ${v.free}% matches a taxable ${out[0].value}%. Anything below that and the tax-free option wins.`,
-      zh: `免税${v.free}%等同于应税产品的${out[0].value}%。应税收益低于此值时，免税产品更有利。`,
       tone: 'good',
     }),
     ko: { title: '비과세 → 과세 등가 수익률', desc: '비과세 상품과 같은 효과를 내려면 과세 상품이 몇 %여야 하는지 계산합니다.',
@@ -63,9 +59,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Tax-Free to Taxable Equivalent Yield', desc: 'What a taxable product must pay to match a tax-free one.',
       long: 'A taxable product hands part of the interest to tax, so you keep less than the headline rate. Divide the tax-free rate by (1 − tax rate) to find the taxable rate that leaves you the same money.',
       note: 'Rates on investment income differ by country and, within a country, by product and holding period. Check the rate on each product you are comparing.' },
-    zh: { title: '免税与应税等效收益率', desc: '算出应税产品要达到多少收益率，才等同于免税产品。',
-      long: '应税产品的利息要先纳税，所以到手低于标示收益率。把免税收益率除以(1 − 税率)，即得留下同样金额所需的应税收益率。',
-      note: '利息所得税率因国家而异，同一国家内也会因产品与期限不同。请分别确认所比较两种产品的税率。' },
   },
   {
     slug: 'service-plus-tax',
@@ -93,9 +86,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Service Charge Plus Tax', desc: 'Work out a hotel or restaurant bill where tax is charged on the service charge too.',
       long: 'A 10% service charge and 10% tax add 21%, not 20%, because the tax lands on the amount that already includes service. 1.1 × 1.1 = 1.21.',
       note: 'Some places do not tax the service charge. A bill marked “++” means both are added on top; “inclusive” means they are already in the price.' },
-    zh: { title: '服务费加税计算器', desc: '计算酒店、餐厅中对服务费再征税的账单总额。',
-      long: '10%服务费加10%税，合计不是20%而是21%，因为税是按含服务费后的金额计征的：1.1×1.1=1.21。',
-      note: '有些场所不对服务费征税。账单标注“++”表示两项另加，标注“已含”则表示价格中已包含。' },
   },
   {
     slug: 'double-fee',
@@ -122,9 +112,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Two Fees Stacked', desc: 'What lands in your account when a platform cut and tax are taken in turn.',
       long: 'Two fees apply one after the other to what is left, so 8% then 3.3% takes slightly less than the 11.3% you get by adding. Multiply the survivors: 0.92 × 0.967 = 0.8896, an effective 11.04%.',
       note: 'Some platforms take tax on the gross but their fee on the net. That is subtraction from the same base, not this multiplication — check the remittance statement.' },
-    zh: { title: '双重手续费扣除计算器', desc: '平台佣金与税款先后扣除后，实际到手多少。',
-      long: '两笔费用依次作用于剩余金额，所以8%与3.3%合计略低于相加的11.3%。把剩余比例相乘：0.92×0.967=0.8896，实际扣除11.04%。',
-      note: '有些平台按总额计税、按净额收佣。那种情况应各自从总额中扣除，而非相乘，请核对结算明细。' },
   },
   {
     slug: 'refund-proration',
@@ -150,9 +137,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Pro-Rata Refund', desc: 'How much comes back when you cancel part-way through a term.',
       long: 'Take the days left out of the total days and refund that share. The per-day figure — total over days — makes it easy to sanity-check the answer.',
       note: 'Real contracts often add a cancellation fee or claw back a signing discount, so you get less than this. Treat it as the no-penalty baseline.' },
-    zh: { title: '中途退订退款计算器', desc: '按剩余期间的比例算出可退回的金额。',
-      long: '用总天数减去已用天数得到剩余天数，按该比例退款。每日金额等于总额除以总天数，便于核验结果。',
-      note: '实际合同常附违约金或收回签约优惠，实得会少于此数。本计算是不含违约金的基准值。' },
   },
   {
     slug: 'import-duty',
@@ -181,9 +165,6 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Import Landed Cost', desc: 'The real total once customs duty and consumption tax are added.',
       long: 'The taxable base is usually goods plus shipping. Duty goes on that, then tax goes on the duty-inclusive figure — so adding the two rates together understates the bill.',
       note: 'Duty rates vary by product and drop to zero under many trade agreements. Below the de minimis threshold neither applies, so check the allowance first.' },
-    zh: { title: '海淘到岸总成本计算器', desc: '算出加上关税与消费税后实际要付的总金额。',
-      long: '计税基础通常是货价加运费。先对它征关税，再对含关税的金额征消费税，因此把两个税率直接相加会低估实际税负。',
-      note: '关税率因品类而异，适用自由贸易协定时可能为0。低于免税额度则两者都不征，请先确认额度。' },
   },
   {
     slug: 'duty-free-over',
@@ -205,17 +186,14 @@ export const TAX2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[1].value === 0
-        ? { ko: '면세 한도 안이라 세금이 붙지 않습니다.', en: 'You are inside the allowance — nothing to pay.', zh: '在免税额度内，无需缴税。', tone: 'good' }
-        : { ko: `한도를 ${out[1].value} 넘겼습니다. 초과분에만 세금이 붙습니다.`, en: `You are ${out[1].value} over. Tax applies to the excess only.`, zh: `超出额度${out[1].value}，仅对超出部分征税。`, tone: 'warn' },
+        ? { ko: '면세 한도 안이라 세금이 붙지 않습니다.', en: 'You are inside the allowance — nothing to pay.', tone: 'good' }
+        : { ko: `한도를 ${out[1].value} 넘겼습니다. 초과분에만 세금이 붙습니다.`, en: `You are ${out[1].value} over. Tax applies to the excess only.`, tone: 'warn' },
     ko: { title: '면세 한도 초과 세금 계산기', desc: '면세 한도를 넘긴 금액에만 붙는 세금을 계산합니다.',
       long: '구매액에서 면세 한도를 뺀 초과분에만 세금이 매겨집니다. 한도가 80만이고 120만을 샀다면 40만에만 세금이 붙습니다. 전체 금액에 세금을 매기는 것이 아닙니다.',
       note: '나라마다 한도와 계산 방식이 다릅니다. 전체 금액에 과세하는 나라도 있고, 술·담배는 수량으로 따로 한도를 두는 곳이 많습니다.' },
     en: { title: 'Over the Duty-Free Allowance', desc: 'Tax on the part of your purchase that exceeds the allowance.',
       long: 'Only the excess is taxed. Buy 1,200 against an 800 allowance and tax lands on 400, not on the whole 1,200.',
       note: 'Allowances and methods differ by country — some tax the full amount once you cross the line, and alcohol and tobacco usually have separate quantity limits.' },
-    zh: { title: '超出免税额度的税款', desc: '算出仅对超过免税额度部分征收的税款。',
-      long: '只有超出部分计税。免税额度80万而购买120万，只对40万征税，而不是对全部120万征税。',
-      note: '各国额度与计算方式不同：有的国家一旦超线便对全额征税，酒类与烟草通常另设数量限制。' },
   },
   {
     slug: 'after-tax-hourly',
@@ -241,8 +219,5 @@ export const TAX2_TOOLS: FormulaTool[] = [
     en: { title: 'Take-Home Hourly Rate', desc: 'Turn a monthly salary, deduction rate and hours into a real hourly wage.',
       long: 'Strip the deductions off gross pay, then divide by hours worked in the month. Long overtime raises the hours and lowers the rate, which is why this beats salary for comparing two jobs.',
       note: 'Fold in the commute for a truer number — a two-hour round trip means adding two hours to every working day.' },
-    zh: { title: '税后时薪计算器', desc: '用月薪、扣除比例和工时算出真实时薪。',
-      long: '先从税前月薪中扣除各项得到实收金额，再除以当月工时。加班多则工时上升、时薪下降，所以比较两份工作应看这个数字而非年薪。',
-      note: '把通勤时间与费用一并计入会更准确：往返两小时，就在每个工作日加上两小时。' },
   },
 ];

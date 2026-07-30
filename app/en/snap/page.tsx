@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Free photo tests using real face detection: smile score, face symmetry and the golden ratio. Everything runs in your browser — no photo is ever uploaded.',
   alternates: {
     canonical: '/en/snap',
-    languages: { 'en': '/en/snap', 'zh': '/zh/snap', 'ko': '/snap', 'x-default': '/en/snap' },
+    languages: { 'en': '/en/snap', 'ko': '/snap', 'x-default': '/en/snap' },
   },
 };
 

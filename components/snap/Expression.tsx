@@ -33,15 +33,6 @@ const COPY = {
     tip: '💡 About the reading',
     disclaimer: 'The probabilities are genuine model outputs; the commentary on them is entertainment.',
   },
-  zh: {
-    title: '表情分析',
-    lead: '训练好的模型会从照片推断七种情绪的概率',
-    privacy: '七个概率由在你浏览器内运行的神经网络推断得出 —— 这是模型真实的输出，不是随机数。不过它读的是被冻住的一瞬间的几何形状，并不等于你当时的心情。',
-    result: '🎭 最强的读数',
-    breakdown: '📊 七项全部',
-    tip: '💡 关于这个结果',
-    disclaimer: '概率为模型真实输出，对它的解读仅供娱乐。',
-  },
 } as const;
 
 interface Result {

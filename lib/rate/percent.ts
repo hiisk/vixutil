@@ -23,9 +23,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Percent of a Number', desc: 'Find what a given percentage of a value comes to.',
       long: 'Multiply the base by the percentage and divide by 100. 15% of 84,000 is 12,600.',
       note: 'Percent means hundredths, so taking 15% is the same as multiplying by 0.15.' },
-    zh: { title: '某数的百分之几', desc: '计算一个数的某个百分比是多少。',
-      long: '基准值乘以百分比再除以100即可。84000的15%是12600。',
-      note: '百分比就是百分之一，取15%等同于乘以0.15。' },
   },
   {
     slug: 'what-percent',
@@ -46,9 +43,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'A is What Percent of B', desc: 'Find what share a part represents out of a whole.',
       long: 'Divide the part by the whole and multiply by 100. 37 out of 250 is 14.8%.',
       note: 'If the part is larger than the whole you get more than 100% — sometimes that is correct, not a typo.' },
-    zh: { title: 'A是B的百分之几', desc: '计算部分在整体中所占的比例。',
-      long: '用部分除以整体再乘100就是占比。250中的37是14.8%。',
-      note: '部分大于整体时结果会超过100% — 有时这是对的，不是输错。' },
   },
   {
     slug: 'percent-change',
@@ -65,13 +59,12 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     ],
     verdict: (v, out) => {
       const c = out[0].value;
-      if (c === 0) return { ko: '변화가 없습니다.', en: 'No change.', zh: '没有变化。' };
+      if (c === 0) return { ko: '변화가 없습니다.', en: 'No change.' };
       const up = c > 0;
       const abs = Math.abs(c);
       return {
         ko: up ? `${abs}% 증가했습니다.` : `${abs}% 감소했습니다.`,
-        en: up ? `An increase of ${abs}%.` : `A decrease of ${abs}%.`,
-        zh: up ? `增长了${abs}%。` : `下降了${abs}%。`,
+        en: up ? `An increase of ${abs}%.` : `A decrease of ${abs}%.` ? `增长了${abs}%。` : `下降了${abs}%。`,
         tone: up ? 'good' : 'bad',
       };
     },
@@ -81,9 +74,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Percent Change', desc: 'Find the percentage increase or decrease between two values.',
       long: 'Divide the change by the earlier value. Dividing by the later value gives a different figure, so the base must be the "before".',
       note: 'Percent change is undefined when the starting value is zero — report the absolute increase instead.' },
-    zh: { title: '增减率计算器', desc: '用变化前后的两个值，算出增加或减少了百分之几。',
-      long: '用变化量除以变化前的值。除以变化后的值会得到不同结果，所以基准必须是「之前」。',
-      note: '起始值为0时增减率无法定义 — 这时应该直接说绝对增加量。' },
   },
   {
     slug: 'percent-diff',
@@ -104,9 +94,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Percentage Difference', desc: 'Compare two values relative to each other when neither is the baseline.',
       long: 'The difference is divided by the average of the two, so unlike percent change, swapping A and B gives the same answer.',
       note: 'Use this for two measurements. If the values are before-and-after in time, percent change is the right tool.' },
-    zh: { title: '百分比差异计算器', desc: '当两个值都不是基准时，计算它们的相对差异。',
-      long: '用差值除以两者的平均数。与增减率不同，交换A和B结果相同。',
-      note: '适合比较两个测量值。若两值有时间先后关系，应该用增减率。' },
   },
   {
     slug: 'percent-point',
@@ -124,7 +111,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `${out[0].value}%p 올랐고, 비율로는 ${out[1].value}% 증가입니다.`,
       en: `Up ${out[0].value} percentage points, which is a ${out[1].value}% increase in relative terms.`,
-      zh: `上升了${out[0].value}个百分点，相对增幅为${out[1].value}%。`,
       tone: 'warn',
     }),
     ko: { title: '퍼센트포인트 계산기', desc: '4%에서 5%로 오른 것이 1%p인지 25% 증가인지 구분합니다.',
@@ -133,9 +119,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Percentage Point vs Percent', desc: 'Tell apart a 1-point rise and a 25% rise when a rate goes from 4% to 5%.',
       long: 'Subtracting one rate from another gives percentage points; dividing that gap by the original rate gives percent change. Both describe the same fact.',
       note: '"Rates rose 25%" and "rates rose 1 point" can describe the same move — always check which is meant.' },
-    zh: { title: '百分点与百分比', desc: '从4%涨到5%，是涨了1个百分点还是涨了25%？',
-      long: '两个比率相减得到的是百分点；把这个差再除以原比率得到的是百分比增幅。两者描述同一个事实。',
-      note: '新闻里「利率上涨25%」和「上涨1个百分点」可能说的是同一件事 — 务必确认是哪一种。' },
   },
   {
     slug: 'reverse-percent',
@@ -159,9 +142,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Reverse Percentage', desc: 'Recover the original value when you only know the value after a change.',
       long: 'If a 10% rise ended at 66,000, the original was 60,000. Taking 10% off 66,000 gives 59,400, which is wrong.',
       note: 'For a decrease, enter a negative rate — after a 20% discount, use −20.' },
-    zh: { title: '原始值反算', desc: '只知道变动后的值时，反推变动前的原始值。',
-      long: '涨10%后是66000，原值是60000。从66000减去10%得到59400，那是错的。',
-      note: '下降的情况填负数 — 打八折后的价格就填−20。' },
   },
   {
     slug: 'ratio-split',
@@ -188,9 +168,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Split by Ratio', desc: 'Divide an amount in a ratio like 3:2 and see each share.',
       long: 'Divide the total by the sum of the ratio parts, then multiply by each part. 1,200,000 split 3:2 gives 720,000 and 480,000.',
       note: 'Rounding can leave the two shares off by one unit — give the remainder to one side to reconcile.' },
-    zh: { title: '按比例分配计算器', desc: '把金额按3:2这样的比例分配，得出各自份额。',
-      long: '先用比例之和去除总额，再乘以各自的份数。120万按3:2分是72万和48万。',
-      note: '四舍五入可能让两份之和与总额差1元 — 把余额归到一方即可对上。' },
   },
   {
     slug: 'ratio-simplify',
@@ -215,9 +192,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Simplify a Ratio', desc: 'Reduce a ratio of two numbers to its smallest whole-number form.',
       long: 'Divide both by their greatest common divisor and nothing further cancels. 1920:1080 becomes 16:9.',
       note: 'Decimals are rounded to integers first. For an exact result, scale both sides by the same factor until they are whole.' },
-    zh: { title: '比例化简计算器', desc: '把两个数的比化简为最简整数比。',
-      long: '两数同除最大公约数后就无法再约。1920:1080就是16:9。',
-      note: '小数会先四舍五入成整数。需要精确结果时，请把两边同乘一个倍数变成整数再填。' },
   },
   {
     slug: 'proportion',
@@ -239,9 +213,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Proportion Solver', desc: 'Solve for the missing term in A : B = C : ?',
       long: 'In a proportion the cross products are equal, so the unknown is B × C ÷ A. 3:8 = 12:32.',
       note: 'This is the same maths you use to scale a recipe up for more people or enlarge a drawing.' },
-    zh: { title: '比例式计算器', desc: '求解 A : B = C : ? 中的未知项。',
-      long: '比例式的交叉相乘相等，所以未知项等于B乘C再除以A。3:8 = 12:32。',
-      note: '按人数放大食谱、按倍数放大图纸，用的都是这套算法。' },
   },
   {
     slug: 'cagr',
@@ -267,9 +238,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'CAGR Calculator', desc: 'Convert total growth over several years into one steady annual rate.',
       long: 'You cannot just divide total growth by the number of years — growth compounds, so the annual rate needs a root, not a division.',
       note: '140% over five years is 19.14% a year, not 28%. Dividing overstates the yearly rate.' },
-    zh: { title: '年均复合增长率(CAGR)', desc: '把多年的总增长换算成每年相同的增长率。',
-      long: '不能把总增长率直接除以年数 — 增长是复利累积的，必须开方才能得到真实的年增长率。',
-      note: '5年增长140%是每年19.14%，而不是28%。用除法会高估年增长。' },
   },
   {
     slug: 'ratio-to-percent',
@@ -293,9 +261,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Ratio to Percentage', desc: 'Turn a ratio like 7:3 into the percentage each side represents.',
       long: 'Divide each term by the sum of both. 7:3 is 70% and 30%, and the two always add to 100%.',
       note: 'A ratio relates two values; a percentage relates one to the whole. In 7:3, the 7 is 2.33× the 3 and 70% of the total.' },
-    zh: { title: '比例转百分比', desc: '把7:3这样的比换算成各自占百分之几。',
-      long: '把每一项除以两项之和。7:3就是70%和30%，两者相加永远是100%。',
-      note: '比表示两个值的关系，百分比表示对整体的占比。7:3中的7既是3的2.33倍，也是整体的70%。' },
   },
   {
     slug: 'weighted-percent',
@@ -319,7 +284,6 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `가중평균 ${out[0].value}%는 단순평균 ${out[1].value}%와 다릅니다 — 양이 많은 쪽으로 끌립니다.`,
       en: `The weighted ${out[0].value}% differs from the simple average of ${out[1].value}% — it leans toward the larger group.`,
-      zh: `加权平均${out[0].value}%与简单平均${out[1].value}%不同 — 它会向数量多的一方靠。`,
       tone: 'warn',
     }),
     ko: { title: '가중평균 비율', desc: '크기가 다른 두 집단의 비율을 합쳐 전체 비율을 구합니다.',
@@ -328,8 +292,5 @@ export const PERCENT_TOOLS: FormulaTool[] = [
     en: { title: 'Weighted Average Rate', desc: 'Combine the rates of two groups of different sizes into one overall rate.',
       long: 'Averaging two rates directly is wrong. Multiply each rate by its group size, add them, then divide by the total size.',
       note: 'A 20% defect rate on 300 units plus 5% on 700 gives 9.5% overall, not the 12.5% a simple average suggests.' },
-    zh: { title: '加权平均比率', desc: '把规模不同的两组比率合并为整体比率。',
-      long: '直接对两个比率取平均是错的。要先把各比率乘以对应的规模再相加，然后除以总规模。',
-      note: '300件中20%不良加上700件中5%不良，整体不良率是9.5%，而不是简单平均的12.5%。' },
   },
 ];

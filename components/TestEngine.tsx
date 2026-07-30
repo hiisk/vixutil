@@ -19,7 +19,7 @@ function getMbtiType(scores: Record<string, number>): string {
 }
 
 
-export type TestLang = 'ko' | 'en' | 'zh';
+export type TestLang = 'ko' | 'en';
 
 /** 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점 로직은 세 언어가 동일하다. */
 const UI: Record<TestLang, {
@@ -40,13 +40,6 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat} test result`,
     meta: n => `${n} questions · about 2 minutes`,
     myMbti: t => `My MBTI is ${t}!`,
-  },
-  zh: {
-    allTests: '全部测试', start: '开始测试 →', restart: '重新开始',
-    retake: '再测一次', more: '更多测试', traits: '主要特征',
-    resultOf: cat => `${cat}测试结果`,
-    meta: n => `${n} 题 · 约 2 分钟`,
-    myMbti: t => `我的 MBTI 是 ${t}！`,
   },
 };
 

@@ -27,7 +27,7 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Lang 
 
   const faq = [
     { q: ui.howTitle, a: ui.how.join(' ') },
-    { q: `${title} — ${ui.stations}?`, a: `${line.stations.length}${lang === 'ko' ? '개입니다. ' : lang === 'zh' ? '站。' : '. '}${t.intro}` },
+    { q: `${title} — ${ui.stations}?`, a: `${line.stations.length}${lang === 'ko' ? '개입니다. ' : '. '}${t.intro}` },
     { q: ui.hint, a: t.hint },
   ];
 

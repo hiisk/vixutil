@@ -28,9 +28,6 @@ export const CHILD_TOOLS: FormulaTool[] = [
     en: { title: "Child's Predicted Height", desc: 'Estimate a child’s adult height from the parents’ heights.',
       long: 'Take the average of both parents, then add 6.5 cm for a boy or subtract 6.5 cm for a girl. Actual adult height usually lands within about 8.5 cm either side.',
       note: 'Genetics explains roughly 80% of height — sleep, nutrition and illness often push the result outside the range.' },
-    zh: { title: '儿童身高预测计算器', desc: '用父母身高估算孩子成年后的身高。',
-      long: '取父母身高的平均值，男孩加6.5厘米、女孩减6.5厘米。实际成年身高多落在该值上下约8.5厘米的范围内。',
-      note: '遗传约解释身高的80% — 睡眠、营养和疾病常使结果超出该范围。' },
   },
   {
     slug: 'baby-milk',
@@ -54,9 +51,6 @@ export const CHILD_TOOLS: FormulaTool[] = [
     en: { title: 'Newborn Feeding Amount', desc: 'Get daily formula volume and per-feed amount from a baby’s weight.',
       long: 'Newborns take roughly 150 mL per kilogram per day. A 4.5 kg baby feeding seven times a day takes about 96 mL per feed.',
       note: 'Babies vary widely — if weight gain and nappy counts are normal, differing from this number is fine.' },
-    zh: { title: '新生儿奶量计算器', desc: '按体重算出每日总奶量和每次奶量。',
-      long: '新生儿每公斤体重每天约需150毫升。4.5公斤的宝宝每天喂7次，每次约96毫升。',
-      note: '每个宝宝差异很大 — 只要体重增长和尿布次数正常，与此数值不同也没关系。' },
   },
   {
     slug: 'baby-weight-gain',
@@ -77,7 +71,6 @@ export const CHILD_TOOLS: FormulaTool[] = [
       return lost && pct > 10 ? {
         ko: `출생 체중보다 ${round(pct, 1)}% 줄었습니다. 10%를 넘는 감소는 진료가 필요합니다.`,
         en: `Down ${round(pct, 1)}% from birth weight — a loss over 10% needs medical review.`,
-        zh: `比出生体重下降了${round(pct, 1)}% — 下降超过10%需要就医评估。`,
         tone: 'bad',
       } : null;
     },
@@ -87,9 +80,6 @@ export const CHILD_TOOLS: FormulaTool[] = [
     en: { title: 'Newborn Weight Gain', desc: 'Compare current weight against birth weight as a percentage.',
       long: 'Newborns typically lose 5–7% in the first days and regain birth weight by about two weeks, then gain 20–30 g a day.',
       note: 'A loss over 10%, or failure to regain birth weight by two weeks, warrants medical review.' },
-    zh: { title: '新生儿体重增长率', desc: '看当前体重相对出生体重的增长百分比。',
-      long: '新生儿出生后几天通常会减少5~7%，约两周恢复到出生体重，之后每天增加20~30克。',
-      note: '若下降超过10%，或两周仍未恢复出生体重，需要就医。' },
   },
   {
     slug: 'child-dose',
@@ -114,9 +104,6 @@ export const CHILD_TOOLS: FormulaTool[] = [
     en: { title: 'Paediatric Dose by Weight', desc: 'Compute a single dose and daily total from a mg/kg figure.',
       long: 'Children’s medication is dosed by body weight. Paracetamol, for instance, is commonly 10–15 mg/kg per dose with a daily ceiling near 75 mg/kg.',
       note: 'Always follow the prescription and package insert — this tool is for checking a dose, never for setting one.' },
-    zh: { title: '按体重计算儿童用药剂量', desc: '按每公斤毫克数算出单次剂量和每日总量。',
-      long: '儿童用药按体重定剂量。例如对乙酰氨基酚常见为每次10~15毫克/公斤，每日上限约75毫克/公斤。',
-      note: '务必遵照处方和说明书 — 本工具用于核对剂量，不能替代处方。' },
   },
   {
     slug: 'blood-volume',
@@ -140,9 +127,6 @@ export const CHILD_TOOLS: FormulaTool[] = [
     en: { title: 'Blood Volume Calculator', desc: 'Estimate total blood volume from body weight.',
       long: 'Adults hold about 70 mL per kilogram; newborns 85–90 mL. The second figure shows what share of your volume a 400 mL donation represents.',
       note: 'Donations are kept within roughly 10% of blood volume, which is why whole-blood donation has a minimum weight.' },
-    zh: { title: '血容量计算器', desc: '按体重估算体内总血量。',
-      long: '成人约每公斤70毫升，新生儿为85~90毫升。第二个数值显示献血400毫升占总血量的百分比。',
-      note: '献血一般限制在总血量的10%以内，因此全血献血设有体重下限。' },
   },
   {
     slug: 'growth-percent',
@@ -166,8 +150,7 @@ export const CHILD_TOOLS: FormulaTool[] = [
       const slow = y < 4;
       return {
         ko: slow ? `연 ${y}cm는 학령기 평균(5~6cm)보다 느립니다.` : `연 ${y}cm로 자라고 있습니다.`,
-        en: slow ? `${y} cm a year is slower than the 5–6 cm typical of school age.` : `Growing at ${y} cm a year.`,
-        zh: slow ? `每年${y}厘米低于学龄期常见的5~6厘米。` : `目前以每年${y}厘米的速度生长。`,
+        en: slow ? `${y} cm a year is slower than the 5–6 cm typical of school age.` : `Growing at ${y} cm a year.` ? `每年${y}厘米低于学龄期常见的5~6厘米。` : `目前以每年${y}厘米的速度生长。`,
         tone: slow ? 'warn' : 'good',
       };
     },
@@ -177,8 +160,5 @@ export const CHILD_TOOLS: FormulaTool[] = [
     en: { title: 'Annual Growth Rate', desc: 'Convert two height measurements into centimetres gained per year.',
       long: 'Any interval can be rescaled to a yearly rate for comparison. Between age 3 and puberty, 5–6 cm a year is typical.',
       note: 'Sustained growth under 4 cm a year is worth a specialist review; during puberty the rate rises to 7–9 cm.' },
-    zh: { title: '年生长速度计算器', desc: '用两次身高测量换算成每年生长多少厘米。',
-      long: '任意时间间隔都可换算成年速度以便比较。3岁到青春期前，每年5~6厘米较为常见。',
-      note: '若长期低于每年4厘米，建议就诊生长专科；青春期速度会升至每年7~9厘米。' },
   },
 ];

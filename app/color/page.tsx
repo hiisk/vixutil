@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     '어울리는 색 조합 만들기, 글자가 읽히는지 WCAG 대비 검사, 색맹 시뮬레이션, CSS 그라디언트·그림자 코드 생성, 색온도 변환까지 한 곳에서. 무료·설치 없음.',
   alternates: {
     canonical: '/color',
-    languages: { 'ko': '/color', 'en': '/en/color', 'zh': '/zh/color', 'x-default': '/en/color' },
+    languages: { 'ko': '/color', 'en': '/en/color', 'x-default': '/en/color' },
   },
 };
 

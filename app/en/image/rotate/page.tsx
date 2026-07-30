@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Turn a photo that saved sideways back upright in 90° steps, and undo a mirrored selfie with a horizontal flip. You can also nudge the angle one degree at a time to level a horizon.',
   alternates: {
     canonical: '/en/image/rotate',
-    languages: { 'en': '/en/image/rotate', 'zh': '/zh/image/rotate', 'ko': '/image/rotate', 'x-default': '/en/image/rotate' },
+    languages: { 'en': '/en/image/rotate', 'ko': '/image/rotate', 'x-default': '/en/image/rotate' },
   },
 };
 

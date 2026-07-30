@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free colour tools: palette generator, shade scale, contrast checker, colour blindness simulator, CSS gradient and box-shadow. Runs in your browser, no install.',
   alternates: {
     canonical: '/en/color',
-    languages: { 'en': '/en/color', 'zh': '/zh/color', 'ko': '/color', 'x-default': '/en/color' },
+    languages: { 'en': '/en/color', 'ko': '/color', 'x-default': '/en/color' },
   },
 };
 

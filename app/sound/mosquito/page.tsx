@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '17kHz 안팎의 고주파는 나이가 들수록 잘 들리지 않습니다. 청소년에게만 들린다고 해서 모기 소리로 불리는데, 여러 주파수를 들어 보며 어디까지 들리는지 확인할 수 있습니다.',
   alternates: {
     canonical: '/sound/mosquito',
-    languages: { 'ko': '/sound/mosquito', 'en': '/en/sound/mosquito', 'zh': '/zh/sound/mosquito', 'x-default': '/en/sound/mosquito' },
+    languages: { 'ko': '/sound/mosquito', 'en': '/en/sound/mosquito', 'x-default': '/en/sound/mosquito' },
   },
 };
 

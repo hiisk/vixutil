@@ -17,11 +17,6 @@ const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     game: 'Games', device: 'Device', text: 'Text', checklist: 'Checklist',
     quiz: 'Quiz', test: 'Test', fortune: 'Fortune', snap: 'Snap',
   },
-  zh: {
-    color: '颜色', time: '时间', image: '图片', sound: '声音', food: '厨房',
-    game: '游戏', device: '设备', text: '文本', checklist: '清单',
-    quiz: '问答', test: '测试', fortune: '运势', snap: '照片',
-  },
 };
 
 const SECTION_ORDER = ['color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'fortune', 'snap'];

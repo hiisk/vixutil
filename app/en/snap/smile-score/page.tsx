@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Upload a photo and measure how far your mouth corners lift, how open the smile is and how balanced it looks. Runs entirely in your browser — nothing is uploaded.',
   alternates: {
     canonical: '/en/snap/smile-score',
-    languages: { 'en': '/en/snap/smile-score', 'zh': '/zh/snap/smile-score', 'ko': '/snap/smile-score', 'x-default': '/en/snap/smile-score' },
+    languages: { 'en': '/en/snap/smile-score', 'ko': '/snap/smile-score', 'x-default': '/en/snap/smile-score' },
   },
 };
 

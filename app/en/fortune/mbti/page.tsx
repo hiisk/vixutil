@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Today’s free horoscope for all 16 MBTI types: love, money, work and health, plus a lucky colour, number and item. Updated every day.',
   alternates: {
     canonical: '/en/fortune/mbti',
-    languages: { 'en': '/en/fortune/mbti', 'ko': '/fortune/mbti', 'zh': '/zh/fortune/mbti', 'x-default': '/en/fortune/mbti' },
+    languages: { 'en': '/en/fortune/mbti', 'ko': '/fortune/mbti', 'x-default': '/en/fortune/mbti' },
   },
 };
 

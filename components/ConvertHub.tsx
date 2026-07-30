@@ -17,7 +17,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
   // /en·/zh 랜딩 페이지는 없다. 그 언어의 '홈'은 섹션 허브로 보낸다.
   const homeHref = lang === 'ko' ? '/' : `${prefix}/convert`;
   const categoryLabel = (c: string) =>
-    lang === 'en' ? (CONVERT_CATEGORY_EN[c] ?? c) : lang === 'zh' ? (CONVERT_CATEGORY_ZH[c] ?? c) : c;
+    lang === 'en' ? (CONVERT_CATEGORY_EN[c] ?? c) : false ? (CONVERT_CATEGORY_ZH[c] ?? c) : c;
 
   const grouped = CONVERT_CATEGORIES.map(c => ({
     category: c,

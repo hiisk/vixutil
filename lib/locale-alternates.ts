@@ -1,12 +1,9 @@
 import { CHECKLISTS_MAP } from './checklist-data.ts';
 import { CHECKLISTS_EN_MAP } from './checklist-en.ts';
-import { CHECKLISTS_ZH_MAP } from './checklist-zh.ts';
 import { QUIZ_MAP } from './quiz-data.ts';
 import { QUIZZES_EN_MAP } from './quiz-en.ts';
-import { QUIZZES_ZH_MAP } from './quiz-zh.ts';
 import { TEST_MAP } from './test-data.ts';
 import { TESTS_EN_MAP } from './test-en.ts';
-import { TESTS_ZH_MAP } from './test-zh.ts';
 
 /**
  * 체크리스트·퀴즈·심리테스트의 hreflang 짝을 고른다.
@@ -21,13 +18,13 @@ import { TESTS_ZH_MAP } from './test-zh.ts';
  * 도구 목록이 자기 자신을 세므로, 나중에 어느 언어에 항목이 추가되면 여기를
  * 고치지 않아도 짝이 자동으로 늘어난다.
  */
-export type AltLang = 'ko' | 'en' | 'zh';
+export type AltLang = 'ko' | 'en';
 export type AltSection = 'checklist' | 'quiz' | 'test';
 
 const MAPS: Record<AltSection, Record<AltLang, Record<string, unknown>>> = {
-  checklist: { ko: CHECKLISTS_MAP, en: CHECKLISTS_EN_MAP, zh: CHECKLISTS_ZH_MAP },
-  quiz: { ko: QUIZ_MAP, en: QUIZZES_EN_MAP, zh: QUIZZES_ZH_MAP },
-  test: { ko: TEST_MAP, en: TESTS_EN_MAP, zh: TESTS_ZH_MAP },
+  checklist: { ko: CHECKLISTS_MAP, en: CHECKLISTS_EN_MAP },
+  quiz: { ko: QUIZ_MAP, en: QUIZZES_EN_MAP },
+  test: { ko: TEST_MAP, en: TESTS_EN_MAP },
 };
 
 const path = (lang: AltLang, section: AstSectionPath, slug: string) =>
@@ -44,7 +41,7 @@ type AstSectionPath = AltSection;
 export function localeAlternates(section: AltSection, slug: string): Record<string, string> {
   const maps = MAPS[section];
   const out: Record<string, string> = {};
-  for (const lang of ['ko', 'en', 'zh'] as AltLang[]) {
+  for (const lang of ['ko', 'en'] as AltLang[]) {
     if (maps[lang]?.[slug]) out[lang] = path(lang, section, slug);
   }
   if (out.en) out['x-default'] = out.en;

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Among identical squares, exactly one is a different colour. Each level shrinks the difference until you can no longer tell — and that point is the limit of your colour discrimination.',
   alternates: {
     canonical: '/en/game/color-blind',
-    languages: { 'en': '/en/game/color-blind', 'zh': '/zh/game/color-blind', 'ko': '/game/color-blind', 'x-default': '/en/game/color-blind' },
+    languages: { 'en': '/en/game/color-blind', 'ko': '/game/color-blind', 'x-default': '/en/game/color-blind' },
   },
 };
 

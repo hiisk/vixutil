@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: t.longEn,
     alternates: {
       canonical: `/en/random/${slug}`,
-      languages: { 'en': `/en/random/${slug}`, 'ko': `/random/${slug}`, 'zh': `/zh/random/${slug}`, 'x-default': `/en/random/${slug}` },
+      languages: { 'en': `/en/random/${slug}`, 'ko': `/random/${slug}`, 'x-default': `/en/random/${slug}` },
     },
   };
 }

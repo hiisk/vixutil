@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free browser games that measure something: reaction time, click speed, aim, typing speed, sequence and number memory, colour discrimination, hearing range and mental maths.',
   alternates: {
     canonical: '/en/game',
-    languages: { 'en': '/en/game', 'zh': '/zh/game', 'ko': '/game', 'x-default': '/en/game' },
+    languages: { 'en': '/en/game', 'ko': '/game', 'x-default': '/en/game' },
   },
 };
 

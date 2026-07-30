@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Measure four facial proportions against the golden ratio from one photo. Real landmark coordinates, calculated in your browser — nothing is uploaded.',
   alternates: {
     canonical: '/en/snap/golden-ratio',
-    languages: { 'en': '/en/snap/golden-ratio', 'zh': '/zh/snap/golden-ratio', 'ko': '/snap/golden-ratio', 'x-default': '/en/snap/golden-ratio' },
+    languages: { 'en': '/en/snap/golden-ratio', 'ko': '/snap/golden-ratio', 'x-default': '/en/snap/golden-ratio' },
   },
 };
 

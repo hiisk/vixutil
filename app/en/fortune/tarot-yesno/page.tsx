@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Hold a question in mind and draw a single tarot card for a yes, no or not-yet answer. Free, with the full card reading.",
   alternates: {
     canonical: '/en/fortune/tarot-yesno',
-    languages: { 'en': '/en/fortune/tarot-yesno', 'zh': '/zh/fortune/tarot-yesno', 'ko': '/fortune/tarot-yesno', 'x-default': '/en/fortune/tarot-yesno' },
+    languages: { 'en': '/en/fortune/tarot-yesno', 'ko': '/fortune/tarot-yesno', 'x-default': '/en/fortune/tarot-yesno' },
   },
 };
 

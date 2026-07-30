@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Seven facial proportions are measured from your photo and read in the traditional physiognomy style. Real measurements, entertainment interpretation, nothing uploaded.",
   alternates: {
     canonical: '/en/snap/face-reading',
-    languages: { 'en': '/en/snap/face-reading', 'zh': '/zh/snap/face-reading', 'ko': '/snap/face-reading', 'x-default': '/en/snap/face-reading' },
+    languages: { 'en': '/en/snap/face-reading', 'ko': '/snap/face-reading', 'x-default': '/en/snap/face-reading' },
   },
 };
 

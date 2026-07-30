@@ -32,15 +32,6 @@ export const MEASURE_UI: Record<FoodLang, {
     why: 'A cup of flour is 120g, a cup of sugar is 200g, a cup of honey is 284g. Same volume, different density. Treat every cup as the same weight and your baking will almost certainly fail.',
     standardNote: cupMl => `Currently using a ${cupMl}ml cup, 15ml tablespoon and 5ml teaspoon. Check which cup your recipe was written with — the two differ by 20%.`,
   },
-  zh: {
-    ingredient: '材料', modes: ['量具 → 克', '克 → 量具'],
-    cup: '杯', cupUnit: '杯', tbsp: '大勺', tsp: '小勺', weight: '重量',
-    basedOn: (name, ml) => `按${name}计 · 体积 ${ml}ml`,
-    cupStandard: '量杯标准', standards: ['公制 200ml', '美式 240ml'],
-    whyTitle: '为什么一定要选材料',
-    why: '同样一杯，面粉是 120g，糖是 200g，蜂蜜是 284g。体积一样，密度不同。要是都按「一杯 = 200g」算，烘焙基本会失败。',
-    standardNote: cupMl => `当前按 1 杯 ${cupMl}ml、1 大勺 15ml、1 小勺 5ml 计算。请确认你的菜谱用的是哪种量杯 —— 两者相差 20%。`,
-  },
 };
 
 export const RECIPE_SCALE_UI: Record<FoodLang, {
@@ -73,17 +64,6 @@ export const RECIPE_SCALE_UI: Record<FoodLang, {
     empty: 'Paste a recipe above',
     noteTitle: 'Temperatures and times are left alone',
     note: 'Multiply the numbers in ‘20 minutes at 180°C’ and you end up with a 360°C oven. Anything attached to a degree, a minute, a second or a serving count stays as it is. Do bear in mind that double the quantity takes longer to cook, so add a little time for anything in the oven and check partway. Salt and spices scaled exactly can come out too strong — start slightly under.',
-  },
-  zh: {
-    keepUnits: /^(度|℃|°C|°F|分钟|分|秒|小时|人份|份|%|次|cm|mm)/,
-    fromLabel: '原菜谱', toLabel: '要做', servingUnit: '人份',
-    scaleUp: f => `所有材料放大到 ${f} 倍`, scaleDown: f => `所有材料缩小到 ${f} 倍`,
-    pasteLabel: '粘贴菜谱',
-    placeholder: '猪肉 300g\n洋葱 1 个\n酱油 2 大勺\n糖 1/2 大勺\n180 度烤 20 分钟',
-    resultLabel: n => `${n} 人份材料`, copy: '复制', copied: '✅ 已复制',
-    empty: '请在上面粘贴菜谱',
-    noteTitle: '温度和时间不会被换算',
-    note: '要是把「180 度烤 20 分钟」里的数字也乘上去，烤箱就变成 360 度了。凡是带度、分、秒、人份的数字都原样保留。不过量翻倍后确实更难熟，所以烤箱菜可以稍微加长时间并中途查看。盐和香料按倍数放容易过咸，建议先少放一点。',
   },
 };
 
@@ -118,18 +98,6 @@ export const SALT_UI: Record<FoodLang, {
     presetTitle: 'Suggested salinity by purpose',
     note: 'The same volume of different salts weighs a different amount. Coarse salt has air between the grains, so a cup of it weighs less, and table salt with additives tastes saltier. Weighing on a scale is the reliable way.',
   },
-  zh: {
-    presets: ['即食浅腌', '腌白菜', '酱菜', '重盐腌渍'],
-    presetNotes: ['只稍微腌一下', '泡菜的基本盐度', '要放一段时间', '长期保存'],
-    modes: ['求盐量', '求盐度'],
-    water: '水', targetPct: '想要的盐度', saltAdded: '已放的盐',
-    subSalt: '按水的重量计 · 按总重的算法见下', subPct: '相对水 / 相对总重',
-    saltWord: '盐',
-    byTotalExact: (pct, g) => `若要按总重（水+盐）正好达到 ${pct}%，需要 ${g}g`,
-    byTotalPct: p => `按总重（水+盐）计为 ${p}%`,
-    presetTitle: '各用途建议盐度',
-    note: '不同种类的盐，同样体积重量也不同。粗盐颗粒之间有空隙，同一杯装会更轻；加了添加剂的精盐则更咸。用秤称重最靠得住。',
-  },
 };
 
 export const OVEN_UI: Record<FoodLang, {
@@ -159,16 +127,6 @@ export const OVEN_UI: Record<FoodLang, {
     presetTitle: 'Common temperatures',
     note: 'A home oven can be up to 20°C away from what the dial says. If it is an oven you use often, put a thermometer in it and find out. For preheating, waiting another five minutes after the light goes out is the safer bet.',
   },
-  zh: {
-    modes: ['按摄氏（℃）输入', '按华氏（°F）输入'],
-    temp: '烤箱温度', time: '烘烤时间', minUnit: '分钟',
-    gasMarkSub: (mark, min) => `Gas Mark ${mark} · ${min} 分钟`,
-    celsius: '摄氏', fahrenheit: '华氏', gasMark: 'Gas Mark',
-    airTitle: '如果用空气炸锅', airValue: (c, m) => `${c}℃ · ${m} 分钟`,
-    airNote: '这是把温度降低 20 度、时间减少 20% 后的值。热风直接吹到食材上，同样温度也熟得快得多。中途开一次查看更稳妥。',
-    presetTitle: '常用温度',
-    note: '家用烤箱的显示温度和实际温度可能差到 20 度。如果是常用的烤箱，建议放一个烤箱温度计确认实际温度。预热时，指示灯灭了之后再等 5 分钟更可靠。',
-  },
 };
 
 export const STEAK_UI: Record<FoodLang, {
@@ -194,15 +152,6 @@ export const STEAK_UI: Record<FoodLang, {
     whyTitle: 'Why pull it below the target',
     why: 'Heat from the surface keeps moving inward after it leaves the pan, and the centre climbs another 3–5°C. Pull it at the target and you get meat one level more done than you wanted. Rest it for roughly twice the thickness in minutes and the juices redistribute, so they do not run out when you cut.',
     note: 'Cooking times are rough — pan temperature, meat temperature and the amount of oil all change them a lot. Use a probe thermometer if you want it exact. Minced meat and poultry must be cooked all the way through because of the food poisoning risk.',
-  },
-  zh: {
-    finalCenter: '最终中心', pullAt: name => `${name} —— 离火时的温度`,
-    afterRest: t => `静置后会升到 ${t}℃`,
-    thickness: '肉的厚度', perSide: '每面煎制', aboutMin: m => `约 ${m} 分钟`,
-    restTime: '静置时间', minSuffix: m => `${m} 分钟`, pullTemp: '离火温度',
-    whyTitle: '为什么要比目标温度更早离火',
-    why: '离火之后表层的热还会往里传，中心温度还会再升 3~5 度。要是到了目标温度才离火，就会比想要的熟一档。离火后按厚度的两倍分钟数静置，肉汁会重新分布，切开时就不会流一片。',
-    note: '煎制时间只是估值，锅温、肉温、油量都会让它变化很大。想精确就用探针温度计。肉末和禽肉因为食物中毒风险，必须彻底煮熟。',
   },
 };
 
@@ -243,20 +192,6 @@ export const RICE_UI: Record<FoodLang, {
     rinseNote: 'Rinse the rice, drain it in a sieve, then measure — wet rice has already taken on water.',
     waterTimes: r => `${r}× water`,
   },
-  zh: {
-    grains: ['白米', '糙米', '杂粮'],
-    grainNotes: ['新米按 1.1，陈米按 1.3', '糠层不太吸水', '豆类要单独多泡一会儿'],
-    soaks: ['30 分钟', '2 小时以上', '1 小时'],
-    textures: ['偏硬', '普通', '偏软'],
-    riceCups: '米（量杯）', cupUnit: '杯',
-    grainTitle: '米的种类', textureTitle: '米饭的软硬',
-    ratioSub: (ratio, cups) => `米 : 水 = 1 : ${ratio} · 水 ${cups} 杯`, waterWord: '水',
-    riceLabel: '米', waterLabel: '水', soakLabel: '浸泡时间',
-    tipTitle: grain => `${grain}的要点`,
-    knuckle: '用手背法的话，把米铺平后加水到刚好没过手背（约 1.5cm），就是白米的普通软硬。不过这跟锅的直径关系很大，只有一直用同一口锅时才靠得住。',
-    rinseNote: '米洗过后要用筛子沥干再量才准。湿的米已经吸了水。',
-    waterTimes: r => `水 ${r} 倍`,
-  },
 };
 
 export const PASTA_UI: Record<FoodLang, {
@@ -288,17 +223,6 @@ export const PASTA_UI: Record<FoodLang, {
     saltNote: 'This is the only chance the pasta itself gets seasoned. Most of the salt goes down the drain with the water and only a little stays in the pasta. Add it once the water is at a full boil, and stir before the pasta goes in.',
     waterNote: 'Do not throw all the pasta water away — keep a ladle of it. The starch in it keeps the sauce clinging to the pasta instead of sliding off.',
   },
-  zh: {
-    shapes: ['意面（细直面）', '扁意面', '通心粉', '螺旋面', '蝴蝶面', '宽扁面'],
-    noodle: '面', servingNote: '一人份一般是 80~100g（吃得多就 120g）',
-    ratioSub: '每 100g 面配 1L 水、10g 盐', waterWord: '水', saltWord: '盐',
-    waterLabel: '水', saltLabel: '盐', timeLabel: '煮制时间', minSuffix: m => `${m} 分钟`,
-    shapeTitle: '面的种类',
-    alDente: 'al dente（少煮 1 分钟）', alDenteNote: '如果之后要和酱一起炒，请打开',
-    saltTitle: '为什么要放这么多盐',
-    saltNote: '因为这是面本身唯一能入味的机会。大部分盐会随水倒掉，真正留在面里的很少。等水完全沸腾后再放盐，下面之前搅一下让它化开。',
-    waterNote: '面汤不要全倒掉，留一勺。里面溶了淀粉，能让酱汁挂在面上而不是滑开。',
-  },
 };
 
 export const COFFEE_UI: Record<FoodLang, {
@@ -320,13 +244,6 @@ export const COFFEE_UI: Record<FoodLang, {
     beanWord: 'Coffee', waterWord: 'Water',
     beanStat: 'Coffee', waterStat: 'Water', ratioStat: 'Ratio',
     note: 'The ratio is only a starting point. At the same ratio, water temperature (90–95°C) and grind size still change the taste a lot. Bitter and muddy means grind coarser or drop the temperature; thin and sour means grind finer or brew longer.',
-  },
-  zh: {
-    modes: ['按水量计算', '按豆量计算'],
-    drinkWater: '要喝的水量', yieldLabel: '萃取量', beanLabel: '咖啡豆',
-    beanWord: '咖啡豆', waterWord: '水',
-    beanStat: '咖啡豆', waterStat: '水', ratioStat: '比例',
-    note: '比例只是起点。就算比例一样，水温（90~95℃）和研磨度也会让味道差很多。又苦又涩就磨粗一点或降低水温；淡而只有酸味就磨细一点或延长时间。',
   },
 };
 
@@ -360,17 +277,6 @@ export const PAN_UI: Record<FoodLang, {
     timeSame: 'The areas are close enough that you can leave the time roughly as it is.',
     note: 'This compares by area, so it is right when the tins are a similar depth. If the depths differ a lot the batter thickness changes and the bake time shifts considerably. Fill a tin only 60–70% of the way.',
   },
-  zh: {
-    shapes: ['圆形', '方形'], diameter: '直径', width: '长', height: '宽',
-    fromTitle: '菜谱用的模具', toTitle: '我要用的模具',
-    areaSub: (from, to) => `面积 ${from}cm² → ${to}cm²`, batter: '面糊', timesUnit: '倍',
-    fromArea: '菜谱模具面积', toArea: '我的模具面积', scaleStat: '面糊倍数', timesSuffix: n => `${n} 倍`,
-    timeTitle: '烘烤时间也要调整',
-    timeBigger: '模具变大后面糊摊得更薄，会熟得更快。建议在原时间的 80% 处就开始查看。',
-    timeSmaller: '模具变小后面糊更厚，中间容易不熟。把温度降低 10 度并延长时间。',
-    timeSame: '面积相近，时间基本可以照原样。',
-    note: '这是按面积比例计算的，所以适用于模具高度接近时。深度差别很大时面糊厚度会变，烘烤时间也会差很多。面糊只装到模具的 60~70%。',
-  },
 };
 
 export const STORAGE_UI: Record<FoodLang, {
@@ -392,13 +298,5 @@ export const STORAGE_UI: Record<FoodLang, {
     note: 'The times here are how long the taste and texture hold up. Frozen food does not become unsafe after that, it just gets worse. In the fridge, the opposite applies — even inside the window, a warm fridge or a door opened often can spoil things sooner, so',
     noteBold: ' check the smell and the colour first.',
     refreeze: 'Do not refreeze food you have thawed. The bacteria that multiplied while it thawed are still there.',
-  },
-  zh: {
-    searchPlaceholder: '按名称查找 —— 鸡肉、牛奶、豆腐…',
-    fridge: '冷藏', freezer: '冷冻', notFound: '列表里没有这个食材',
-    noteTitle: '这些天数是品质标准',
-    note: '这里写的天数是「风味和口感能维持」的标准。冷冻超过之后也不会坏，只是味道变差。冷藏则相反 —— 就算在期限内，温度偏高或开门次数多也可能更早坏，所以',
-    noteBold: '请先确认气味和颜色。',
-    refreeze: '解冻过的食品不要再冷冻。解冻期间增长的细菌还在里面。',
   },
 };

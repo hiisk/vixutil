@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free random decision tools: spin the wheel, random name picker, team generator, number generator, coin flip, dice roller and Secret Santa. Instant, no sign-up.',
   alternates: {
     canonical: '/en/random',
-    languages: { 'en': '/en/random', 'ko': '/random', 'zh': '/zh/random', 'x-default': '/en/random' },
+    languages: { 'en': '/en/random', 'ko': '/random', 'x-default': '/en/random' },
   },
 };
 

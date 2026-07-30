@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free text tools: clean pasted text, remove duplicate lines, convert case, find and replace, count words and characters, special characters, kaomoji and lorem ipsum.',
   alternates: {
     canonical: '/en/text',
-    languages: { 'en': '/en/text', 'zh': '/zh/text', 'ko': '/text', 'x-default': '/en/text' },
+    languages: { 'en': '/en/text', 'ko': '/text', 'x-default': '/en/text' },
   },
 };
 

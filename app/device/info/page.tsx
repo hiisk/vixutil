@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '지금 쓰는 화면 해상도와 브라우저 창 크기, 픽셀 배율, 브라우저·운영체제 버전, CPU 코어 수까지 한 화면에 모아 보여줍니다. 원격 지원을 요청하거나 사양을 물어봤을 때 그대로 복사해 보내면 됩니다.',
   alternates: {
     canonical: '/device/info',
-    languages: { 'ko': '/device/info', 'en': '/en/device/info', 'zh': '/zh/device/info', 'x-default': '/en/device/info' },
+    languages: { 'ko': '/device/info', 'en': '/en/device/info', 'x-default': '/en/device/info' },
   },
 };
 

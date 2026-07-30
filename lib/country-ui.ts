@@ -78,42 +78,6 @@ export const COUNTRY_UI = {
     faq2: (n: string) => `Will Korean electronics work in ${n}?`,
     faq3: (n: string) => `Do I need a visa for ${n}?`,
   },
-  zh: {
-    home: '首页',
-    section: '国家资讯',
-    hubTitle: '各国旅行资讯',
-    hubLead: '时差、电压、插头、国际电话代码和入境条件，一国一页',
-    hubNotice: '🧭 签证与入境规定常有变动 — 出行前请查看官方公告。',
-    footNote: '签证与入境要求随政策变动，请务必确认目的地最新的官方公告。电压和插头类型可能因建筑而异。',
-    metaTitle: '各国旅行资讯 — 100国时差、电压与插头',
-    metaDesc:
-      '日本、越南、法国、美国、冰岛、肯尼亚等100个国家的时差与当地时间、电压与插头类型、国际电话代码、行车方向、紧急电话及入境条件，一页尽览。',
-    capital: '首都',
-    languages: '官方语言',
-    currency: '货币',
-    timezone: '标准时间',
-    nowLocal: '当地时间',
-    koreaGap: '与韩国时差',
-    dial: '国家代码',
-    volt: '电压',
-    plug: '插头',
-    drive: '行车方向',
-    driveLeft: '左侧通行',
-    driveRight: '右侧通行',
-    emergency: '紧急电话',
-    tld: '域名',
-    visaTitle: '入境与签证',
-    tipTitle: '值得知道',
-    related: '同地区的国家',
-    dstYes: '实行夏令时',
-    dstNo: '不实行夏令时',
-    sameTime: '与韩国无时差',
-    ahead: (h: string) => `比韩国早${h}小时`,
-    behind: (h: string) => `比韩国晚${h}小时`,
-    faq1: (n: string) => `${n}与韩国的时差是多少？`,
-    faq2: (n: string) => `韩国的电器能在${n}使用吗？`,
-    faq3: (n: string) => `去${n}需要签证吗？`,
-  },
 } as const;
 
 export const COUNTRY_REGION_LABEL: Record<Lang, Record<string, string>> = {
@@ -124,10 +88,6 @@ export const COUNTRY_REGION_LABEL: Record<Lang, Record<string, string>> = {
   en: {
     '동아시아': 'East Asia', '동남아시아': 'Southeast Asia', '서·남아시아': 'West & South Asia',
     '유럽': 'Europe', '미주': 'Americas', '오세아니아·아프리카': 'Oceania & Africa',
-  },
-  zh: {
-    '동아시아': '东亚', '동남아시아': '东南亚', '서·남아시아': '西亚与南亚',
-    '유럽': '欧洲', '미주': '美洲', '오세아니아·아프리카': '大洋洲与非洲',
   },
 };
 
@@ -177,5 +137,5 @@ export function countryFaq(c: Country, lang: Lang) {
 
 export function countryAlternates(slug?: string) {
   const path = slug ? `/country/${slug}` : '/country';
-  return { 'ko': path, 'en': `/en${path}`, 'zh': `/zh${path}`, 'x-default': `/en${path}` };
+  return { 'ko': path, 'en': `/en${path}`, 'x-default': `/en${path}` };
 }

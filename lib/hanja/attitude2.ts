@@ -12,9 +12,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Gwa-yu-bul-geup', meaning: 'Going too far is no better than falling short.',
       origin: 'From the Analects, where Confucius compares two disciples and finds excess no better than deficiency.',
       usage: 'Used when exercise, thrift or anything else crosses the line into harm.' },
-    zh: { title: '过犹不及', meaning: '过头与不足同样不好。',
-      origin: '出自《论语·先进》，孔子比较子张与子夏时所言。',
-      usage: '用于指出锻炼、节俭等事一旦过度反而有害，中韩通用。' },
   },
   {
     slug: 'myeonggyeongjisu', hanja: '明鏡止水', simplified: '明镜止水', reading: '명경지수',
@@ -26,9 +23,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Myeong-gyeong-ji-su', meaning: 'A mind as clear as a bright mirror and still water.',
       origin: 'From the Zhuangzi, which likens the sage’s mind to water at rest.',
       usage: 'Used to advise settling the mind before making a judgement.' },
-    zh: { title: '明镜止水', meaning: '心境像明镜与静水一样澄澈无杂念。',
-      origin: '出自《庄子·德充符》，以静水比喻圣人之心。',
-      usage: '劝人在做决定前先让心静下来，中韩通用。' },
   },
   {
     slug: 'taeyeonjajak', hanja: '泰然自若', simplified: '泰然自若', reading: '태연자약',
@@ -40,9 +34,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Tae-yeon-ja-jak', meaning: 'Composed and unchanged even facing something momentous.',
       origin: 'A classical phrase for someone whose expression does not shift in a crisis.',
       usage: 'Praise for keeping calm before an accident, an exam or a presentation.' },
-    zh: { title: '泰然自若', meaning: '面对大事仍镇定如常。',
-      origin: '古籍中用来形容危难之际面不改色的人。',
-      usage: '称赞人在事故或演讲前保持沉着，中韩通用。' },
   },
   {
     slug: 'ilseogijo', hanja: '一石二鳥', simplified: '一石二鸟', reading: '일석이조',
@@ -54,9 +45,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Il-seog-i-jo', meaning: 'Two birds with one stone — two gains from a single act.',
       origin: 'A modern coinage rendering the English idiom into four Chinese characters.',
       usage: 'Used when one action solves two problems at once.' },
-    zh: { title: '一石二鸟', meaning: '一举而得两利，如一石打下两鸟。',
-      origin: '近代由英语「kill two birds with one stone」译成的四字形式。',
-      usage: '一件事同时解决两个问题时使用；中文传统说法为「一举两得」。' },
   },
   {
     slug: 'gojingamnae', hanja: '苦盡甘來', simplified: '苦尽甘来', reading: '고진감래',
@@ -68,9 +56,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Go-jin-gam-nae', meaning: 'When the bitter ends, the sweet arrives — hardship gives way to better days.',
       origin: 'A phrase common in Yuan-era drama that settled into everyday proverb.',
       usage: 'Said as encouragement to someone enduring a long stretch of difficulty.' },
-    zh: { title: '苦尽甘来', meaning: '苦的过去了，甜的就来了。',
-      origin: '元代戏曲中常见，后固定为民间俗语。',
-      usage: '用于鼓励长期坚持的人，中韩通用。' },
   },
   {
     slug: 'eonhaengilchi', hanja: '言行一致', simplified: '言行一致', reading: '언행일치',
@@ -82,9 +67,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Eon-haeng-il-chi', meaning: 'Words and deeds in agreement.',
       origin: 'A four-character condensation of the Analects’ repeated call to let action lead speech.',
       usage: 'Praise for someone who keeps promises, or a rebuke for someone who does not.' },
-    zh: { title: '言行一致', meaning: '说的和做的相符。',
-      origin: '概括《论语》中多处「先行后言」的教诲而成的四字语。',
-      usage: '既可称赞守信之人，也可用于责备言行不符者。' },
   },
   {
     slug: 'jeoksoseongdae', hanja: '積小成大', simplified: '积小成大', reading: '적소성대',
@@ -96,9 +78,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Jeok-so-seong-dae', meaning: 'Accumulate the small and you build the large.',
       origin: 'From the same family of sayings as Xunzi’s "pile earth and you make a mountain".',
       usage: 'Applied to savings, habits — anything built by small amounts over long stretches.' },
-    zh: { title: '积小成大', meaning: '把小的积累起来就能成就大的。',
-      origin: '与《荀子·劝学》「积土成山」同一脉络。',
-      usage: '用于储蓄、习惯等靠长期小量累积的事，中韩通用。' },
   },
   {
     slug: 'gyeonmulsaengsim', hanja: '見物生心', simplified: '见物生心', reading: '견물생심',
@@ -110,9 +89,6 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Gyeon-mul-saeng-sim', meaning: 'See the thing and the wanting begins.',
       origin: 'A Korean coinage rather than a Chinese classic, appearing in late Joseon writing.',
       usage: 'Used to warn against impulse buying, or to argue for keeping temptations out of sight.' },
-    zh: { title: '见物生心', meaning: '看到东西就起了想要的心。',
-      origin: '并非出自中国古籍，而是朝鲜后期形成的韩式四字语。',
-      usage: '在韩国用于警惕冲动消费；中文多说「见财起意」。' },
   },
   {
     slug: 'myeongcheolbosin', hanja: '明哲保身', simplified: '明哲保身', reading: '명철보신',
@@ -124,8 +100,5 @@ export const ATTITUDE2_IDIOMS: Idiom[] = [
     en: { title: 'Myeong-cheol-bo-sin', meaning: 'Understand clearly and thereby keep yourself safe.',
       origin: 'From the Book of Songs, originally positive advice to conduct oneself wisely.',
       usage: 'Now often carries a critical edge — playing safe to avoid trouble.' },
-    zh: { title: '明哲保身', meaning: '通达事理而保全自身。',
-      origin: '出自《诗经·大雅》，本为褒义，劝人以智慧处世。',
-      usage: '今多带贬义，指为避险而只顾自保，中韩用法相近。' },
   },
 ];

@@ -12,9 +12,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'U-gong-i-san', meaning: 'Old Man Yu moves the mountain — persistence accomplishes anything.',
       origin: 'From the Liezi: a ninety-year-old vowed his descendants would keep carrying the soil, and heaven moved the mountain for him.',
       usage: 'A reminder to yourself when the goal is far off but the work continues.' },
-    zh: { title: '愚公移山', meaning: '愚公移走大山，比喻只要坚持不懈，没有做不成的事。',
-      origin: '出自《列子·汤问》，九十岁的愚公发誓子孙世代搬土，天帝遂为他移山。',
-      usage: '用于目标遥远却仍要长期坚持时自我勉励，中韩通用。' },
   },
   {
     slug: 'maburakchim', hanja: '磨斧作針', simplified: '磨斧作针', reading: '마부작침',
@@ -26,9 +23,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Ma-bu-jak-chim', meaning: 'Grind an axe into a needle — dogged effort achieves even the impossible.',
       origin: 'The poet Li Bai, quitting his studies, met an old woman grinding an axe to make a needle and turned back.',
       usage: 'Encouragement for effort that is slow but never stops.' },
-    zh: { title: '磨斧作针', meaning: '把斧头磨成针，比喻只要有恒心，难事也能成。',
-      origin: '相传李白弃学下山，见老妇磨斧作针而幡然醒悟。',
-      usage: '用于鼓励缓慢但不停歇的努力；中文更常说「铁杵成针」。' },
   },
   {
     slug: 'hyeongseoljigong', hanja: '螢雪之功', simplified: '萤雪之功', reading: '형설지공',
@@ -40,9 +34,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Hyeong-seol-ji-gong', meaning: 'Merit earned reading by fireflies and snow-light — study achieved in hardship.',
       origin: 'Che Yin of Jin gathered fireflies for light, and Sun Kang read by the glare off snow.',
       usage: 'Said of someone who completed their education in poverty.' },
-    zh: { title: '萤雪之功', meaning: '借萤火与雪光读书所得的成就，喻在困境中苦学的功劳。',
-      origin: '晋代车胤囊萤照读、孙康映雪读书的典故。',
-      usage: '形容贫寒中完成学业的人；中文常说「囊萤映雪」。' },
   },
   {
     slug: 'jeolchibusim', hanja: '切齒腐心', simplified: '切齿腐心', reading: '절치부심',
@@ -54,9 +45,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Jeol-chi-bu-sim', meaning: 'Grinding your teeth and letting your heart rot — nursing a grievance.',
       origin: 'From the Records of the Grand Historian, describing someone enduring while vowing revenge.',
       usage: 'Used of preparing for the next attempt while chewing over a defeat.' },
-    zh: { title: '切齿腐心', meaning: '咬牙切齿、心中郁结，形容深怀怨恨而隐忍。',
-      origin: '见于《史记》，描写忍辱含恨、誓图报复的状态。',
-      usage: '用于反复咀嚼失败并准备下一次的情形，中韩通用。' },
   },
   {
     slug: 'wasinsangdam', hanja: '臥薪嘗膽', simplified: '卧薪尝胆', reading: '와신상담',
@@ -68,9 +56,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Wa-sin-sang-dam', meaning: 'Sleep on firewood and taste gall — endure any hardship to settle a score.',
       origin: 'King Goujian of Yue, defeated by Wu, slept on brushwood and tasted gall while preparing his revenge.',
       usage: 'Describes years of preparation for a comeback after a heavy defeat.' },
-    zh: { title: '卧薪尝胆', meaning: '睡在柴草上、口尝苦胆，形容为报仇雪恨而甘受磨难。',
-      origin: '越王勾践败于吴国后卧薪尝胆，图谋复国。',
-      usage: '形容大败之后数年砺志再起，中韩通用。' },
   },
   {
     slug: 'baekjeolbulgul', hanja: '百折不屈', simplified: '百折不屈', reading: '백절불굴',
@@ -82,9 +67,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Baek-jeol-bul-gul', meaning: 'Broken a hundred times and still unbent.',
       origin: 'Traced to Han-dynasty texts; in Chinese the more common form is bǎi zhé bù náo.',
       usage: 'Said of someone whose resolve survives repeated failure.' },
-    zh: { title: '百折不屈', meaning: '受到百般挫折仍不屈服。',
-      origin: '源自汉代文献；现代汉语更常用「百折不挠」。',
-      usage: '形容屡遭失败而志向不改的人，韩国多用「不屈」一形。' },
   },
   {
     slug: 'chiljeonpalgi', hanja: '七顚八起', simplified: '七颠八起', reading: '칠전팔기',
@@ -96,9 +78,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Chil-jeon-pal-gi', meaning: 'Fall seven times, rise eight.',
       origin: 'Widely used in Korea and identical in form to the Japanese phrase nana-korobi ya-oki.',
       usage: 'The go-to encouragement for someone who keeps trying after repeated failure.' },
-    zh: { title: '七颠八起', meaning: '摔倒七次也要站起八次。',
-      origin: '在韩国广泛使用，与日语「七転八起」形式相同；中文多说「屡败屡战」。',
-      usage: '用于鼓励屡败屡试的人。' },
   },
   {
     slug: 'jugyeongyadok', hanja: '晝耕夜讀', simplified: '昼耕夜读', reading: '주경야독',
@@ -110,9 +89,6 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Ju-gyeong-ya-dok', meaning: 'Plough by day and read by night — studying on despite hardship.',
       origin: 'Similar phrasing appears in the Book of Wei; in Korea it settled into meaning working while studying.',
       usage: 'Said of someone holding a job while continuing their education.' },
-    zh: { title: '昼耕夜读', meaning: '白天耕田、夜里读书，形容在困境中坚持求学。',
-      origin: '《魏书》等有类似表述；在韩国固定用来指边工作边读书的生活。',
-      usage: '形容一边上班一边完成学业的人，中韩通用。' },
   },
   {
     slug: 'ilchwiwoljang', hanja: '日就月將', simplified: '日就月将', reading: '일취월장',
@@ -124,8 +100,5 @@ export const EFFORT_IDIOMS: Idiom[] = [
     en: { title: 'Il-chwi-wol-jang', meaning: 'Advancing by the day and growing by the month — improving fast.',
       origin: 'From the Book of Odes, in the Zhou hymns.',
       usage: 'Used when a beginner’s skill is visibly improving.' },
-    zh: { title: '日就月将', meaning: '日日有进、月月有长，形容进步迅速。',
-      origin: '出自《诗经·周颂》。',
-      usage: '用于初学者水平明显提升时，中韩通用。' },
   },
 ];

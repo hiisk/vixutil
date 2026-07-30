@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '핸드드립·프렌치프레스·콜드브루마다 다른 원두와 물의 비율을 계산합니다. 마실 양을 정하면 원두 몇 그램을 갈아야 하는지 바로 나옵니다.',
   alternates: {
     canonical: '/food/coffee',
-    languages: { 'ko': '/food/coffee', 'en': '/en/food/coffee', 'zh': '/zh/food/coffee', 'x-default': '/en/food/coffee' },
+    languages: { 'ko': '/food/coffee', 'en': '/en/food/coffee', 'x-default': '/en/food/coffee' },
   },
 };
 

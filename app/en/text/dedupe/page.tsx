@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Paste a list and it removes the repeated lines and sorts what is left alphabetically. You can choose whether lines that differ only in surrounding whitespace or letter case count as the same, which is what real lists actually need.',
   alternates: {
     canonical: '/en/text/dedupe',
-    languages: { 'en': '/en/text/dedupe', 'zh': '/zh/text/dedupe', 'ko': '/text/dedupe', 'x-default': '/en/text/dedupe' },
+    languages: { 'en': '/en/text/dedupe', 'ko': '/text/dedupe', 'x-default': '/en/text/dedupe' },
   },
 };
 

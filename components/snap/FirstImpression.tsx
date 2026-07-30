@@ -27,17 +27,6 @@ const COPY = {
     eye: 'Eye size', face: 'Face length', mouth: 'Mouth lift',
     disclaimer: 'The ratios are measured; naming an impression from them is entertainment.',
   },
-  zh: {
-    title: '第一印象分析',
-    lead: '眼睛大小、脸型比例与嘴角上扬决定你属于六种印象中的哪一种',
-    privacy: '三项比例来自在你浏览器内实测的关键点位置。它描述的是这一张照片的几何形状 —— 换个角度或光线，结果就会变，而第一印象本来也是这样运作的。',
-    result: '✨ 你的第一印象',
-    scores: '📊 实测数据',
-    strength: '💪 这在什么场合有优势',
-    tip: '💡 小建议',
-    eye: '眼睛大小', face: '脸部长度', mouth: '嘴角上扬',
-    disclaimer: '比例为实测，由此命名印象类型则仅供娱乐。',
-  },
 } as const;
 
 interface Result {

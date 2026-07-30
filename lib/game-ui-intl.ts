@@ -6,7 +6,7 @@
  * 타자 게임은 예외적으로 데이터까지 갈린다 — 한국어 문장을 영어권 사용자에게
  * 치라고 할 수는 없고, 재는 단위도 다르다(타/분 vs WPM vs 字/分).
  */
-export type GameLang = 'ko' | 'en' | 'zh';
+export type GameLang = 'ko' | 'en';
 
 /** 열 게임이 공통으로 쓰는 라벨 */
 export const GAME_COMMON: Record<GameLang, {
@@ -20,10 +20,6 @@ export const GAME_COMMON: Record<GameLang, {
   en: {
     start: 'Start', retry: 'Try again', running: 'Running…', again: 'Go again', fromStart: 'Start over',
     best: 'Best', level: 'Level', accuracy: 'Accuracy', secLeft: s => `${s}s left`,
-  },
-  zh: {
-    start: '开始', retry: '再挑战', running: '进行中…', again: '再来一次', fromStart: '重新开始',
-    best: '最高记录', level: '关卡', accuracy: '正确率', secLeft: s => `剩余 ${s} 秒`,
   },
 };
 
@@ -64,20 +60,6 @@ export const REACTION_UI: Record<GameLang, {
     noteTitle: 'About human reaction time',
     note: 'Reacting to light usually takes 200–250ms. That is the eye receiving the signal, the brain deciding, and the command reaching your finger — which is why practice rarely gets anyone below 100ms. Your screen refresh rate and mouse latency add another 20–30ms on top.',
   },
-  zh: {
-    idleTitle: '准备好就点一下', idleSub: '然后在变绿的那一刻再点一次',
-    waitTitle: '等一下…', waitSub: '变绿之前点击不算',
-    nowTitle: '现在！',
-    resultSub: '结果在下面', roundSub: (n, total) => `${n}/${total} 次 —— 点击继续`,
-    earlyTitle: '太早了', earlySub: '要等变绿之后再点 —— 点击重来',
-    thisRound: '本次成绩', avgOf: n => `平均（${n} 次）`, fastest: '最快',
-    gradeTop: ms => `平均 ${ms}ms —— 属于前列`,
-    gradeFast: ms => `平均 ${ms}ms —— 比平均更快`,
-    gradeNormal: ms => `平均 ${ms}ms —— 属于普通水平`,
-    gradeSlow: ms => `平均 ${ms}ms —— 稍慢。盯住屏幕再试一次`,
-    noteTitle: '关于人的反应速度',
-    note: '看到光并作出反应通常要 200~250ms。这段时间里眼睛收到信号、大脑判断、指令再传到手指 —— 所以再怎么练也很难降到 100ms 以下。屏幕刷新率和鼠标延迟还会再加上 20~30ms。',
-  },
 };
 
 export const CPS_UI: Record<GameLang, {
@@ -108,16 +90,6 @@ export const CPS_UI: Record<GameLang, {
     gradeSlow: c => `${c} CPS — alternating two fingers gets you more`,
     note: 'One finger usually tops out around 6–8 CPS. Alternating two fingers (butterfly clicking) or vibrating your wrist can push past 10 CPS, but it is hard on both the mouse and your wrist — do not keep it up for long.',
   },
-  zh: {
-    secSuffix: n => `${n} 秒`, clicksSuffix: n => `点了 ${n} 次`,
-    tapHere: '在这里一直点', startsOnFirst: d => `第一次点击时开始计 ${d} 秒`,
-    clicks: '点击次数', cps: '每秒点击（CPS）', bestOf: d => `最高记录（${d} 秒）`,
-    gradeVeryFast: c => `${c} CPS —— 非常快`,
-    gradeFast: c => `${c} CPS —— 算快的`,
-    gradeNormal: c => `${c} CPS —— 普通水平`,
-    gradeSlow: c => `${c} CPS —— 两根手指交替能更快`,
-    note: '单指一般在 6~8 CPS 左右到顶。用两指交替（蝴蝶点击）或抖手腕能超过 10 CPS，但对鼠标和手腕都很吃力，别长时间这么做。',
-  },
 };
 
 export const AIM_UI: Record<GameLang, {
@@ -146,16 +118,6 @@ export const AIM_UI: Record<GameLang, {
     gradeGood: h => `${h} hits — good going`,
     gradeSlow: h => `${h} hits — try the large targets first to get a feel for it`,
     note: 'Low accuracy usually means your mouse DPI is too high. Turn the sensitivity down and move from the arm, and your hit rate on small targets goes up. On a phone, small targets are unfair simply because of finger size.',
-  },
-  zh: {
-    sizes: ['大', '中', '小'], targetPrefix: '靶子', targetAria: '靶子',
-    hitsSub: acc => `命中 · 正确率 ${acc}%`,
-    introTitle: d => `${d} 秒内打靶`, introSub: '打空也会计数 —— 乱点会拉低命中率',
-    hits: '命中', misses: '打空',
-    gradeFast: h => `命中 ${h} 个 —— 非常快`,
-    gradeGood: h => `命中 ${h} 个 —— 相当不错`,
-    gradeSlow: h => `命中 ${h} 个 —— 先用大靶子找找感觉`,
-    note: '命中率低，多半是鼠标灵敏度（DPI）太高。把灵敏度降下来、用手臂大幅移动，小靶子的命中率就会上来。手机上因为手指粗细的关系，小靶子本来就吃亏。',
   },
 };
 
@@ -207,25 +169,6 @@ export const TYPING_UI: Record<GameLang, {
     gradeSlow: (v, acc) => `${v} CPM · ${acc}% accuracy — get accuracy up before speed`,
     note: 'CPM counts characters per minute; divide by five for the usual WPM figure, so 250 CPM is about 50 WPM. Most adults land between 150 and 300 CPM. If your accuracy is under 95%, slowing down actually finishes the text sooner.',
   },
-  zh: {
-    sentences: [
-      '今天也要过得好好的',
-      '现在开始练习打字',
-      '千里之行始于足下',
-      '小小的习惯会带来大的改变',
-      '一开始要稳，不要求快',
-      '打字先求准，再求快',
-      '开始做一件事最好的时候就是现在',
-      '打字的时候手腕要放松',
-    ],
-    countStrokes: false,
-    placeholder: '在这里照着上面的句子输入',
-    currentSpeed: '当前字/分', avgOf: n => `平均（${n} 句）`, bestSpeed: '最高字/分',
-    gradeFast: (v, acc) => `平均 ${v} 字/分 · 正确率 ${acc}% —— 非常快`,
-    gradeGood: (v, acc) => `平均 ${v} 字/分 · 正确率 ${acc}% —— 高于平均`,
-    gradeSlow: (v, acc) => `平均 ${v} 字/分 · 正确率 ${acc}% —— 先把正确率提上来再求速度`,
-    note: '这里按每分钟输入的字数计算。中文输入还取决于输入法与选字，所以同样的手速数值也会不同。正确率低于 95% 时，稍微放慢反而整体更快。',
-  },
 };
 
 export const MEMORY_UI: Record<GameLang, {
@@ -255,16 +198,6 @@ export const MEMORY_UI: Record<GameLang, {
     gradeSlow: l => `Level ${l} — saying the order out loud makes it stick longer`,
     note: 'People hold about five to nine chunks at once. Binding the sequence into words — ‘green-red-blue’ — cuts the number of chunks, which is how you get further.',
   },
-  zh: {
-    buttonAria: n => `第 ${n} 个按钮`,
-    idle: '记住顺序，然后照样按回去', show: '看仔细…',
-    input: (a, b) => `照着按回去（${a}/${b}）`, over: l => `你走到了第 ${l} 关`,
-    currentLevel: '当前关卡', toRemember: '要记的个数', bestLevel: '最高关卡',
-    gradeGreat: l => `第 ${l} 关 —— 记忆力很好`,
-    gradeGood: l => `第 ${l} 关 —— 高于平均`,
-    gradeSlow: l => `第 ${l} 关 —— 把顺序念出声能记得更久`,
-    note: '人一次能抓住的信息通常是五到九个「块」。把顺序编成话来记，比如「绿-红-蓝」，块数就少了，也就能走得更远。',
-  },
 };
 
 export const NUMBER_MEMORY_UI: Record<GameLang, {
@@ -284,12 +217,6 @@ export const NUMBER_MEMORY_UI: Record<GameLang, {
     reached: d => `You held ${d} digits`, answerVs: (a, i) => `Answer ${a} · you typed ${i}`, nothing: 'nothing',
     confirm: 'Check', currentDigits: 'Current digits', memorised: 'Digits held',
     note: 'People usually hold around seven digits at once — it is no coincidence that phone numbers are about that long. Reading them in chunks of two or three, ‘thirty-four, twenty-five’, gets some people past ten.',
-  },
-  zh: {
-    memorise: '记住这个数字', briefly: '它会短暂出现后消失', typeBack: '输入你刚看到的数字',
-    reached: d => `你记住了 ${d} 位`, answerVs: (a, i) => `正确答案 ${a} · 你输入的是 ${i}`, nothing: '空',
-    confirm: '确认', currentDigits: '当前位数', memorised: '记住的位数',
-    note: '人一次能记住的数字通常在七位左右 —— 电话号码是这个长度并非偶然。把数字按两三个一组来读，比如「三四-二五」，有人能超过十位。',
   },
 };
 
@@ -319,16 +246,6 @@ export const SEQUENCE_UI: Record<GameLang, {
     gradeGood: l => `Level ${l} — good spatial memory`,
     gradeSlow: l => `Level ${l} — grouping them into a shape gets you further`,
     note: 'Instead of memorising each cell, remember the shape the lit cells make — an L, a diagonal. Spatial memory is a different faculty from sequence memory, so being good at one does not mean you are good at the other.',
-  },
-  zh: {
-    cellAria: n => `第 ${n} 格`,
-    idle: '记住亮起的格子在哪', show: '看仔细…',
-    input: (a, b) => `点出亮过的格子（${a}/${b}）`,
-    over: l => `你走到了第 ${l} 关 —— 红色的是点错的格子`,
-    grid: '格子', bestLevel: '最高关卡',
-    gradeGood: l => `第 ${l} 关 —— 空间记忆不错`,
-    gradeSlow: l => `第 ${l} 关 —— 把它们当成一个形状来记会走得更远`,
-    note: '不要一格一格地记，而是记亮起的格子组成的形状（L 形、对角线）。空间记忆和顺序记忆是两种不同的能力，一边强不代表另一边也强。',
   },
 };
 
@@ -360,17 +277,6 @@ export const COLOR_BLIND_UI: Record<GameLang, {
     gradeSlow: l => `Level ${l} — turn your screen brightness up and try again`,
     noteTitle: 'This is not a colour blindness test',
     note: 'This game measures how well you tell shades apart. Colour blindness can only be identified by a test built on specific colour combinations, like Ishihara plates, and a real diagnosis has to come from an optometrist. Results also swing considerably with screen quality, brightness and the light in the room.',
-  },
-  zh: {
-    cellAria: n => `第 ${n} 个颜色`,
-    over: l => `你走到了第 ${l} 关 —— 标出的那格才是答案`,
-    idle: '找出颜色不一样的那一格并点它',
-    colorDiff: '色差', bestLevel: '最高关卡',
-    gradeSharp: l => `第 ${l} 关 —— 眼睛非常敏锐`,
-    gradeGood: l => `第 ${l} 关 —— 高于平均`,
-    gradeSlow: l => `第 ${l} 关 —— 把屏幕亮度调高再试一次`,
-    noteTitle: '这不是色盲检查',
-    note: '这个游戏测的是分辨明度差异的能力。是否色弱、色盲只能通过石原氏检查这类使用特定配色的检查来判断，准确诊断要去眼科。结果也会随屏幕品质、亮度和环境光变化很大。',
   },
 };
 
@@ -412,21 +318,6 @@ export const HEARING_UI: Record<GameLang, {
       '· This is for curiosity, not a hearing test. If one ear cannot hear it, see an audiologist.',
     ],
   },
-  zh: {
-    ages: ['相当于十几岁后期到二十出头的水平', '相当于二十五岁左右的水平', '相当于三十多岁的水平', '相当于四十多岁的水平', '相当于五十多岁的水平', '如果只听得到 8kHz 以下，请在安静处戴耳机重测'],
-    nowPlaying: '当前播放的频率', stepOf: (i, total) => `${i} / ${total} 级`,
-    stopSound: '■ 停止播放', playThis: '▶ 试听这个频率',
-    canHear: '听得到 → 再高一点', cannotHear: '听不到',
-    limitLabel: '能听到的上限', belowOne: '低于 1kHz',
-    currentStep: '当前级别', currentFreq: '当前频率', limitStat: '能听到的上限', measuring: '测量中',
-    tipsTitle: '想测得准一点',
-    tips: [
-      '· 请用耳机。笔记本音箱基本发不出 15kHz 以上 —— 那是音箱的极限，不是你耳朵的。',
-      '· 在安静的地方测。有环境噪音时高频会被盖掉。',
-      '· 音量保持小。开大并不会提高上限，只会伤耳朵。',
-      '· 这个结果只是玩玩，不是听力检查。如果只有一只耳朵听不到，请去耳鼻喉科。',
-    ],
-  },
 };
 
 export const MATH_UI: Record<GameLang, {
@@ -456,15 +347,5 @@ export const MATH_UI: Record<GameLang, {
     gradeGood: n => `${n} solved — above average`,
     gradeSlow: n => `${n} solved — try practising with one operation at a time`,
     skippedTitle: 'The ones you skipped',
-  },
-  zh: {
-    levels: ['简单', '普通', '困难'], opTitle: '选择运算', levelTitle: '难度',
-    timeLeft: (s, solved) => `剩余 ${s} 秒 · 已做 ${solved} 题`, answerPlaceholder: '答案', skip: '不会 —— 跳过',
-    solvedIn: d => `${d} 秒内做出的题数`, startIn: d => `开始 ${d} 秒`,
-    solved: '做对', skipped: '跳过', perQuestion: '每题平均', secSuffix: s => `${s} 秒`,
-    gradeFast: n => `${n} 题 —— 心算非常快`,
-    gradeGood: n => `${n} 题 —— 高于平均`,
-    gradeSlow: n => `${n} 题 —— 可以一次只练一种运算`,
-    skippedTitle: '跳过的题',
   },
 };

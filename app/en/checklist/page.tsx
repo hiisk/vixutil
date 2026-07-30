@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free interactive checklists for moving house, international travel, job interviews, camping, weddings and more. Tick items off, progress saves automatically.',
   alternates: {
     canonical: '/en/checklist',
-    languages: { 'en': '/en/checklist', 'zh': '/zh/checklist', 'x-default': '/en/checklist' },
+    languages: { 'en': '/en/checklist', 'x-default': '/en/checklist' },
   },
 };
 

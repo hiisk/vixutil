@@ -12,9 +12,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Dok-seo-sam-mae', meaning: 'So absorbed in a book that everything else falls away.',
       origin: 'Sammae transliterates the Sanskrit samadhi, the Buddhist term for one-pointed absorption.',
       usage: 'Used to describe someone deep in a book.' },
-    zh: { title: '读书三昧', meaning: '沉浸于读书而忘却其他。',
-      origin: '「三昧」为梵语samadhi的音译，佛教中指专注一境的状态。',
-      usage: '用于形容全神贯注地阅读，中韩通用。' },
   },
   {
     slug: 'gaegwonyuik', hanja: '開卷有益', simplified: '开卷有益', reading: '개권유익',
@@ -26,9 +23,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Gae-gwon-yu-ik', meaning: 'Open a book and there is gain in it.',
       origin: 'Attributed to Emperor Taizong of Song, who read the Taiping Yulan daily.',
       usage: 'Said to someone agonising over what to read — just open one.' },
-    zh: { title: '开卷有益', meaning: '打开书就有收获。',
-      origin: '相传为宋太宗日读《太平御览》时所言。',
-      usage: '用于劝仍在挑书的人先翻开看看，中韩通用。' },
   },
   {
     slug: 'bakhakdasik', hanja: '博學多識', simplified: '博学多识', reading: '박학다식',
@@ -40,9 +34,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Bak-hak-da-sik', meaning: 'Widely learned and knowing much.',
       origin: 'Bak-hak — broad learning — appears as the first of the five stages of study in the Doctrine of the Mean.',
       usage: 'Praise for someone knowledgeable across fields.' },
-    zh: { title: '博学多识', meaning: '学识广博，见闻丰富。',
-      origin: '「博学」见于《中庸》，为治学五阶之首。',
-      usage: '用于称赞跨领域皆有见识的人，中韩通用。' },
   },
   {
     slug: 'iigwanji', hanja: '一以貫之', simplified: '一以贯之', reading: '일이관지',
@@ -54,9 +45,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'I-i-gwan-ji', meaning: 'Threading the whole through with a single principle.',
       origin: 'From the Analects, where Confucius describes his own learning this way.',
       usage: 'Used when scattered facts are explained by one underlying rule.' },
-    zh: { title: '一以贯之', meaning: '用一个道理贯通全部。',
-      origin: '出自《论语·卫灵公》，孔子自述其学。',
-      usage: '用于以一条原理解释纷杂事实时，中韩通用。' },
   },
   {
     slug: 'jihaenghabil', hanja: '知行合一', simplified: '知行合一', reading: '지행합일',
@@ -68,9 +56,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Ji-haeng-hab-il', meaning: 'Knowing and doing are one.',
       origin: 'The thesis of Wang Yangming of Ming China: knowledge that does not show in action is not knowledge.',
       usage: 'Used to criticise theory without practice, or to urge acting on what one has learned.' },
-    zh: { title: '知行合一', meaning: '知与行本为一体。',
-      origin: '明代王阳明所立命题：不见于行的知，并非真知。',
-      usage: '用于批评只懂理论，或劝人把所学付诸实践，中韩通用。' },
   },
   {
     slug: 'dokseobaekpyeon', hanja: '讀書百遍', simplified: '读书百遍', reading: '독서백편',
@@ -82,9 +67,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Dok-seo-baek-pyeon', meaning: 'Read it a hundred times and the meaning reveals itself.',
       origin: 'From the Wei records in the Three Kingdoms, where Dong Yu told his students the sense comes of itself after a hundred readings.',
       usage: 'Advice to someone stuck on a difficult text: read it again.' },
-    zh: { title: '读书百遍', meaning: '读上百遍，其义自见。',
-      origin: '出自《三国志·魏书》，董遇谓「读书百遍，其义自见」。',
-      usage: '用于劝人反复研读难解的文章，中韩通用。' },
   },
   {
     slug: 'baramgangi', hanja: '博覽强記', simplified: '博览强记', reading: '박람강기',
@@ -96,9 +78,6 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Ba-ram-gang-gi', meaning: 'Reads widely and remembers well.',
       origin: 'A standing phrase in Chinese histories for someone of broad learning and strong memory.',
       usage: 'Praise for someone who can pull up what they have read.' },
-    zh: { title: '博览强记', meaning: '博览群书而记忆力强。',
-      origin: '中国史书中评价学识广博、记性极佳者的惯用语。',
-      usage: '用于称赞能随时调用所读内容的人，中韩通用。' },
   },
   {
     slug: 'cheongunjiji', hanja: '靑雲之志', simplified: '青云之志', reading: '청운지지',
@@ -110,8 +89,5 @@ export const LEARNING2_IDIOMS: Idiom[] = [
     en: { title: 'Cheong-un-ji-ji', meaning: 'The ambition to rise to the blue clouds — high aspiration.',
       origin: 'Widely known from Wang Bo’s Preface to the Pavilion of Prince Teng, on not letting hardship lower one’s aim.',
       usage: 'Used of someone starting study or work with a large ambition.' },
-    zh: { title: '青云之志', meaning: '直上青云的志向，指远大的抱负。',
-      origin: '因王勃《滕王阁序》「穷且益坚，不坠青云之志」而广为人知。',
-      usage: '用于怀抱远志开始学业或事业的人，中韩通用。' },
   },
 ];

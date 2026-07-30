@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Your cheek tone is sampled and white-balanced in your browser to place you in one of twelve seasonal colour types, with a palette generated from your own measurements.",
   alternates: {
     canonical: '/en/snap/personal-color',
-    languages: { 'en': '/en/snap/personal-color', 'zh': '/zh/snap/personal-color', 'ko': '/snap/personal-color', 'x-default': '/en/snap/personal-color' },
+    languages: { 'en': '/en/snap/personal-color', 'ko': '/snap/personal-color', 'x-default': '/en/snap/personal-color' },
   },
 };
 

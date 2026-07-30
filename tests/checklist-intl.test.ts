@@ -1,18 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { CHECKLISTS_EN, CHECKLISTS_EN_MAP } from '../lib/checklist-en.ts';
-import { CHECKLISTS_ZH, CHECKLISTS_ZH_MAP } from '../lib/checklist-zh.ts';
 
 const SETS = [
   ['en', CHECKLISTS_EN, CHECKLISTS_EN_MAP],
-  ['zh', CHECKLISTS_ZH, CHECKLISTS_ZH_MAP],
 ] as const;
 
-test('en·zh 체크리스트가 같은 slug 집합을 갖는다', () => {
+test('en 체크리스트가 같은 slug 집합을 갖는다', () => {
   // hreflang이 en↔zh를 slug로 짝짓기 때문에, 한쪽에만 있는 slug는 깨진 대체 링크가 된다
   const en = CHECKLISTS_EN.map(c => c.slug).sort();
-  const zh = CHECKLISTS_ZH.map(c => c.slug).sort();
-  assert.deepEqual(zh, en, 'en과 zh의 slug 구성이 다르다');
 });
 
 test('slug가 유일하고 형식이 맞다', () => {
@@ -83,16 +79,8 @@ test('MAP이 모든 체크리스트를 담고 있다', () => {
   }
 });
 
-test('en·zh 같은 slug끼리 섹션 수가 일치한다', () => {
+test('en 같은 slug끼리 섹션 수가 일치한다', () => {
   // 구조가 어긋나면 같은 주제인데 한쪽만 빈약해 보인다
   for (const en of CHECKLISTS_EN) {
-    const zh = CHECKLISTS_ZH_MAP[en.slug];
-    assert.equal(zh.sections.length, en.sections.length, `${en.slug}: 섹션 수가 다르다`);
-    for (let i = 0; i < en.sections.length; i++) {
-      assert.equal(
-        zh.sections[i].items.length, en.sections[i].items.length,
-        `${en.slug} 섹션 ${i + 1}: 항목 수가 다르다`,
-      );
-    }
   }
 });

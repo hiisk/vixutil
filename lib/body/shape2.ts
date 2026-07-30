@@ -31,10 +31,10 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const p = out[0].value;
       return p < 0.74
-        ? { ko: `${p}은 저체중 쪽입니다. 1보다 얼마나 작은지가 그대로 여유입니다.`, en: `${p} sits in the underweight range; how far below one is your margin.`, zh: `${p}偏于体重不足，与1的差距就是余量。`, tone: 'warn' }
+        ? { ko: `${p}은 저체중 쪽입니다. 1보다 얼마나 작은지가 그대로 여유입니다.`, en: `${p} sits in the underweight range; how far below one is your margin.`, tone: 'warn' }
         : p <= 1
-          ? { ko: `${p}은 정상 범위입니다. 1이 과체중 문턱입니다.`, en: `${p} is in range — one is the overweight threshold.`, zh: `${p}处于正常范围，1即为超重的门槛。`, tone: 'good' }
-          : { ko: `${p}은 과체중 문턱을 ${round((p - 1) * 100, 0)}% 넘겼습니다.`, en: `${p} is ${round((p - 1) * 100, 0)}% past the overweight threshold.`, zh: `${p}已超出超重门槛${round((p - 1) * 100, 0)}%。`, tone: 'bad' };
+          ? { ko: `${p}은 정상 범위입니다. 1이 과체중 문턱입니다.`, en: `${p} is in range — one is the overweight threshold.`, tone: 'good' }
+          : { ko: `${p}은 과체중 문턱을 ${round((p - 1) * 100, 0)}% 넘겼습니다.`, en: `${p} is ${round((p - 1) * 100, 0)}% past the overweight threshold.`, tone: 'bad' };
     },
     ko: { title: 'BMI 프라임 계산기', desc: 'BMI를 과체중 기준선으로 나눠 1을 기준으로 읽습니다.',
       long: 'BMI 25가 과체중 문턱이라면 BMI를 25로 나눈 값은 1이 문턱이 됩니다. 0.92면 문턱의 92%, 1.15면 15% 넘긴 것이라 숫자를 외우지 않아도 위치가 바로 보입니다.',
@@ -42,9 +42,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'BMI Prime', desc: 'BMI divided by the overweight cut-off, so one is the line.',
       long: 'If BMI 25 is the overweight threshold, dividing BMI by 25 puts the line at exactly one. 0.92 means 92% of the way there; 1.15 means 15% past it — no need to remember the cut-offs.',
       note: 'The 25 cut-off is the WHO international standard. Asia-Pacific guidance treats 23 as overweight, so divide by 23 to read it that way.' },
-    zh: { title: 'BMI Prime计算器', desc: '把BMI除以超重界值，以1为分界线来读。',
-      long: '若BMI 25是超重门槛，那么BMI除以25后1就是分界线。0.92表示达到门槛的92%，1.15表示超出15%，无需记住各档界值。',
-      note: '25的界值是世界卫生组织的国际标准。亚太标准以23为超重界值，按该标准阅读请改除以23。' },
   },
   {
     slug: 'healthy-weight-range',
@@ -69,10 +66,10 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => {
       const gap = out[3].value;
       return gap === 0
-        ? { ko: `${out[0].value}~${out[1].value}kg 범위 안에 있습니다.`, en: `You are inside the ${out[0].value}–${out[1].value} kg band.`, zh: `处于${out[0].value}~${out[1].value}公斤区间内。`, tone: 'good' }
+        ? { ko: `${out[0].value}~${out[1].value}kg 범위 안에 있습니다.`, en: `You are inside the ${out[0].value}–${out[1].value} kg band.`, tone: 'good' }
         : gap > 0
-          ? { ko: `범위 위쪽을 ${round(gap, 1)}kg 넘겼습니다.`, en: `You are ${round(gap, 1)} kg above the band.`, zh: `超出区间上限${round(gap, 1)}公斤。`, tone: 'warn' }
-          : { ko: `범위 아래쪽보다 ${round(-gap, 1)}kg 적습니다.`, en: `You are ${round(-gap, 1)} kg below the band.`, zh: `低于区间下限${round(-gap, 1)}公斤。`, tone: 'warn' };
+          ? { ko: `범위 위쪽을 ${round(gap, 1)}kg 넘겼습니다.`, en: `You are ${round(gap, 1)} kg above the band.`, tone: 'warn' }
+          : { ko: `범위 아래쪽보다 ${round(-gap, 1)}kg 적습니다.`, en: `You are ${round(-gap, 1)} kg below the band.`, tone: 'warn' };
     },
     ko: { title: '정상 체중 범위 계산기', desc: '키로 BMI 정상 구간에 해당하는 체중 범위를 구합니다.',
       long: 'BMI 18.5부터 24.9까지가 정상 구간이므로, 키(m)의 제곱에 두 숫자를 각각 곱하면 체중 범위가 나옵니다. 정상 체중은 한 점이 아니라 폭이 넓은 띠입니다.',
@@ -80,9 +77,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Healthy Weight Range', desc: 'The weight band that puts your BMI in the normal range.',
       long: 'The normal band runs from BMI 18.5 to 24.9, so multiply your height in metres squared by each number. Healthy weight is a wide band, not a single figure.',
       note: 'Plenty of muscle can push you above the band without any problem. If you fall outside it, look at waist and body fat too.' },
-    zh: { title: '正常体重范围计算器', desc: '根据身高算出BMI处于正常区间的体重范围。',
-      long: 'BMI 18.5至24.9为正常区间，把身高（米）的平方分别乘以这两个数字即得体重范围。健康体重是一个较宽的区间，而不是一个点。',
-      note: '肌肉量大的人超出该区间并不代表有问题。若落在区间之外，请同时看腰围与体脂率。' },
   },
   {
     slug: 'waist-target',
@@ -103,17 +97,14 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[2].value <= 0
-        ? { ko: `목표 안에 있습니다. 허리·키 비율이 ${out[1].value}입니다.`, en: `Inside target — your waist-to-height is ${out[1].value}.`, zh: `处于目标之内，腰身比为${out[1].value}。`, tone: 'good' }
-        : { ko: `목표보다 ${out[2].value}cm 굵습니다. 허리·키 비율 ${out[1].value}는 0.5를 넘습니다.`, en: `${out[2].value} cm over target; a ratio of ${out[1].value} is past 0.5.`, zh: `比目标粗${out[2].value}厘米，腰身比${out[1].value}已超过0.5。`, tone: 'warn' },
+        ? { ko: `목표 안에 있습니다. 허리·키 비율이 ${out[1].value}입니다.`, en: `Inside target — your waist-to-height is ${out[1].value}.`, tone: 'good' }
+        : { ko: `목표보다 ${out[2].value}cm 굵습니다. 허리·키 비율 ${out[1].value}는 0.5를 넘습니다.`, en: `${out[2].value} cm over target; a ratio of ${out[1].value} is past 0.5.`, tone: 'warn' },
     ko: { title: '목표 허리둘레 계산기', desc: '키의 절반을 기준으로 목표 허리둘레를 구합니다.',
       long: '허리둘레가 키의 절반을 넘지 않으면 된다는 기준은 남녀·인종을 가리지 않고 쓸 수 있어 간단합니다. 172cm라면 86cm가 상한입니다.',
       note: '허리는 배꼽 높이에서 숨을 내쉰 뒤 재야 합니다. 배에 힘을 주거나 옷 위로 재면 실제보다 작게 나옵니다.' },
     en: { title: 'Target Waist Size', desc: 'Keep your waist under half your height.',
       long: 'The “waist under half your height” rule works across sexes and populations, which is why it is so widely quoted. At 172 cm the ceiling is 86 cm.',
       note: 'Measure at navel height after breathing out. Holding your stomach in or measuring over clothes reads smaller than reality.' },
-    zh: { title: '目标腰围计算器', desc: '以身高的一半作为腰围上限。',
-      long: '“腰围不超过身高一半”这一标准不分性别与人群，简单易用。身高172厘米时上限为86厘米。',
-      note: '应在肚脐高度、呼气后测量。收腹或隔着衣服测量会比实际偏小。' },
   },
   {
     slug: 'body-fat-bmi',
@@ -142,9 +133,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Body Fat from BMI', desc: 'Estimate body fat percentage from BMI, age and sex alone.',
       long: 'This is the estimate to use when you have neither a tape measure nor a scale that reads composition. At the same BMI, older bodies carry more fat, and women read about 11 points higher than men.',
       note: 'It overestimates for muscular people. If you have a tape measure, the neck-and-waist method is more accurate.' },
-    zh: { title: '用BMI估算体脂率', desc: '仅凭BMI、年龄和性别估算体脂百分比。',
-      long: '在既没有软尺也没有体成分秤时可用这个估算式。同样的BMI下年龄越大脂肪比例越高，女性比男性约高11个百分点。',
-      note: '对肌肉发达者会高估。若手边有软尺，用颈围与腰围测算更准确。' },
   },
   {
     slug: 'ffmi',
@@ -169,10 +157,10 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const f = out[0].value;
       return f < 18
-        ? { ko: `${f}은 근육이 적은 편입니다.`, en: `${f} is on the light side for muscle.`, zh: `${f}属于肌肉量偏少。`, tone: 'warn' }
+        ? { ko: `${f}은 근육이 적은 편입니다.`, en: `${f} is on the light side for muscle.`, tone: 'warn' }
         : f < 22
-          ? { ko: `${f}은 꾸준히 운동한 몸의 범위입니다.`, en: `${f} is the range of a consistently trained body.`, zh: `${f}属于长期训练者的范围。`, tone: 'good' }
-          : { ko: `${f}은 매우 높습니다. 25 부근은 자연적으로 도달하기 어려운 수준으로 봅니다.`, en: `${f} is very high; around 25 is considered hard to reach naturally.`, zh: `${f}非常高，25左右通常被视为自然状态下难以达到。`, tone: 'good' };
+          ? { ko: `${f}은 꾸준히 운동한 몸의 범위입니다.`, en: `${f} is the range of a consistently trained body.`, tone: 'good' }
+          : { ko: `${f}은 매우 높습니다. 25 부근은 자연적으로 도달하기 어려운 수준으로 봅니다.`, en: `${f} is very high; around 25 is considered hard to reach naturally.`, tone: 'good' };
     },
     ko: { title: 'FFMI 제지방 지수 계산기', desc: '지방을 뺀 몸무게를 키로 나눠 근육량 수준을 봅니다.',
       long: 'BMI는 근육과 지방을 구분하지 못하므로, 지방을 뺀 무게만으로 같은 계산을 하면 근육량 지표가 됩니다. 키에 따른 편향을 줄이기 위해 1.8m 기준으로 보정합니다.',
@@ -180,9 +168,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'FFMI (Fat-Free Mass Index)', desc: 'Divide your fat-free weight by height to gauge muscle.',
       long: 'BMI cannot separate muscle from fat, so running the same calculation on fat-free weight turns it into a muscle index. A correction to a 1.8 m reference removes most of the height bias.',
       note: 'A wrong body-fat input carries straight through. Bioimpedance readings swing several points in a day with hydration.' },
-    zh: { title: 'FFMI去脂体重指数', desc: '用去脂体重除以身高来衡量肌肉量水平。',
-      long: 'BMI无法区分肌肉与脂肪，把同样的算法用在去脂体重上，就成了肌肉量指标。以1.8米为基准做修正可消除大部分身高偏差。',
-      note: '体脂率填错，结果就跟着错。体成分秤的读数会随水分状态一天内波动数个百分点。' },
   },
   {
     slug: 'weight-change-percent',
@@ -206,10 +191,10 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
       const drop = -out[0].value;
       const fast = drop / v.months > 2.5;
       return drop >= 5 && v.months <= 6
-        ? { ko: `6개월 안에 5% 이상 줄었습니다(${round(drop, 1)}%). 의도한 감량이 아니라면 확인이 필요한 변화입니다.`, en: `A drop of ${round(drop, 1)}% within six months is the level clinicians flag if it was not intentional.`, zh: `半年内下降${round(drop, 1)}%，若非有意减重，属于需要就医确认的变化。`, tone: 'warn' }
+        ? { ko: `6개월 안에 5% 이상 줄었습니다(${round(drop, 1)}%). 의도한 감량이 아니라면 확인이 필요한 변화입니다.`, en: `A drop of ${round(drop, 1)}% within six months is the level clinicians flag if it was not intentional.`, tone: 'warn' }
         : fast
-          ? { ko: `월 ${round(drop / v.months, 1)}% 감량은 빠른 편입니다. 근육 손실이 함께 오기 쉽습니다.`, en: `Losing ${round(drop / v.months, 1)}% a month is brisk; muscle tends to go with it.`, zh: `每月下降${round(drop / v.months, 1)}%偏快，容易同时流失肌肉。`, tone: 'warn' }
-          : { ko: `기간과 폭이 무리 없는 범위입니다.`, en: `The pace and size of the change look reasonable.`, zh: `变化的速度与幅度都在合理范围。`, tone: 'good' };
+          ? { ko: `월 ${round(drop / v.months, 1)}% 감량은 빠른 편입니다. 근육 손실이 함께 오기 쉽습니다.`, en: `Losing ${round(drop / v.months, 1)}% a month is brisk; muscle tends to go with it.`, tone: 'warn' }
+          : { ko: `기간과 폭이 무리 없는 범위입니다.`, en: `The pace and size of the change look reasonable.`, tone: 'good' };
     },
     ko: { title: '체중 변화율 계산기', desc: '체중이 몇 % 변했는지와 주당 변화 속도를 함께 봅니다.',
       long: '차이를 이전 체중으로 나눕니다. 절대 kg보다 비율이 의미 있는데, 50kg인 사람의 3kg과 100kg인 사람의 3kg은 몸에 주는 부담이 다르기 때문입니다.',
@@ -217,9 +202,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Weight Change Percentage', desc: 'How much your weight moved in percent, and the weekly pace.',
       long: 'Divide the difference by the earlier weight. The percentage matters more than the kilograms: 3 kg off a 50 kg frame is not the same event as 3 kg off 100 kg.',
       note: 'Unintentional loss above 5% in six months, or 10% in a year, is treated as a signal worth investigating.' },
-    zh: { title: '体重变化率计算器', desc: '同时查看体重变化的百分比与每周变化速度。',
-      long: '用差值除以之前的体重。百分比比公斤数更有意义：50公斤的人减3公斤与100公斤的人减3公斤，对身体的影响并不相同。',
-      note: '非有意的体重下降在半年内超过5%或一年内超过10%，被视为需要查找原因的信号。' },
   },
   {
     slug: 'frame-size',
@@ -238,10 +220,10 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r > 10.4
-        ? { ko: `${r}은 뼈대가 가는 쪽입니다. 같은 키에서 표준 체중이 조금 낮게 잡힙니다.`, en: `${r} indicates a small frame — expect a slightly lower reference weight at this height.`, zh: `${r}属于骨架偏细，同样身高下标准体重会略低。`, tone: 'good' }
+        ? { ko: `${r}은 뼈대가 가는 쪽입니다. 같은 키에서 표준 체중이 조금 낮게 잡힙니다.`, en: `${r} indicates a small frame — expect a slightly lower reference weight at this height.`, tone: 'good' }
         : r >= 9.6
-          ? { ko: `${r}은 보통 뼈대입니다.`, en: `${r} is a medium frame.`, zh: `${r}属于中等骨架。`, tone: 'good' }
-          : { ko: `${r}은 뼈대가 굵은 쪽입니다. 같은 키에서 표준 체중이 조금 높게 잡힙니다.`, en: `${r} indicates a large frame — the reference weight sits a little higher.`, zh: `${r}属于骨架偏粗，同样身高下标准体重会略高。`, tone: 'good' };
+          ? { ko: `${r}은 보통 뼈대입니다.`, en: `${r} is a medium frame.`, tone: 'good' }
+          : { ko: `${r}은 뼈대가 굵은 쪽입니다. 같은 키에서 표준 체중이 조금 높게 잡힙니다.`, en: `${r} indicates a large frame — the reference weight sits a little higher.`, tone: 'good' };
     },
     ko: { title: '골격 크기 계산기', desc: '키를 손목둘레로 나눠 뼈대가 가는지 굵은지 봅니다.',
       long: '손목은 지방이 거의 붙지 않아 뼈대 크기를 재는 자리로 쓰입니다. 키를 손목둘레로 나눈 값이 클수록 뼈대가 가늘다는 뜻입니다.',
@@ -249,9 +231,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Body Frame Size', desc: 'Divide height by wrist circumference to gauge how heavy your skeleton is.',
       long: 'The wrist carries almost no fat, which makes it a clean place to measure frame. A larger height-to-wrist figure means a finer frame.',
       note: 'Frame size only nudges a reference weight by a few kilograms; it is not a health measure. A big frame says nothing about body fat.' },
-    zh: { title: '骨架大小计算器', desc: '用身高除以腕围判断骨架偏细还是偏粗。',
-      long: '腕部几乎不附着脂肪，是测量骨架的理想位置。身高与腕围之比越大，表示骨架越细。',
-      note: '骨架大小只是把标准体重上下调几公斤的参考值，并非健康指标。骨架粗并不代表体脂低。' },
   },
   {
     slug: 'muscle-mass-index',
@@ -276,8 +255,8 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => {
       const cut = v.fat >= 25 ? 5.7 : 7.0;
       return out[0].value >= cut
-        ? { ko: `${out[0].value}는 기준선 ${cut} 위입니다.`, en: `${out[0].value} sits above the ${cut} cut-off.`, zh: `${out[0].value}高于${cut}的界值。`, tone: 'good' }
-        : { ko: `${out[0].value}는 기준선 ${cut}보다 낮습니다. 근력 운동과 단백질 섭취를 함께 보세요.`, en: `${out[0].value} is below the ${cut} cut-off — look at resistance training and protein together.`, zh: `${out[0].value}低于${cut}的界值，建议同时关注力量训练与蛋白质摄入。`, tone: 'warn' };
+        ? { ko: `${out[0].value}는 기준선 ${cut} 위입니다.`, en: `${out[0].value} sits above the ${cut} cut-off.`, tone: 'good' }
+        : { ko: `${out[0].value}는 기준선 ${cut}보다 낮습니다. 근력 운동과 단백질 섭취를 함께 보세요.`, en: `${out[0].value} is below the ${cut} cut-off — look at resistance training and protein together.`, tone: 'warn' };
     },
     ko: { title: '사지근육지수 추정 계산기', desc: '팔다리 근육량을 키로 나눠 근육이 부족한지 봅니다.',
       long: '근육이 나이와 함께 줄어드는 것을 보는 지표입니다. 제지방량의 약 4분의 3을 사지 근육으로 잡고 키의 제곱으로 나눕니다. 낮으면 걷기·계단 오르기부터 힘들어집니다.',
@@ -285,9 +264,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Skeletal Muscle Index (Estimate)', desc: 'Limb muscle divided by height, to spot muscle shortfall.',
       long: 'This is the index used to track muscle lost with age. Take about three quarters of fat-free mass as limb muscle and divide by height squared. Low values show up first as trouble with stairs and walking.',
       note: 'A proper measurement needs body-composition equipment. This works backwards from body fat, so treat it as a direction rather than a number.' },
-    zh: { title: '四肢肌肉指数（估算）', desc: '用四肢肌肉量除以身高，判断肌肉是否不足。',
-      long: '这是用于追踪随年龄流失肌肉的指标。把去脂体重的约四分之三视为四肢肌肉，再除以身高的平方。数值偏低时，最先表现为走路和上楼梯吃力。',
-      note: '准确测量需要体成分设备。此处由体脂率反推，只宜作趋势参考。' },
   },
   {
     slug: 'ideal-weight-broca',
@@ -314,9 +290,6 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Broca Index Ideal Weight', desc: 'The classic “height minus 100, times a factor” reference weight.',
       long: 'A nineteenth-century calculation still printed on hospital forms. Multiply by 0.9 for men and 0.85 for women. Its virtue is that you can do it in your head; it lands a little below BMI-based figures.',
       note: 'Accuracy falls away at the extremes. Below 150 cm or above 190 cm, use the BMI-based healthy range instead.' },
-    zh: { title: '布罗卡标准体重', desc: '用“身高减100再乘系数”的经典方式计算标准体重。',
-      long: '这是19世纪提出、至今仍见于医院表格的算法。男性乘0.9，女性乘0.85。优点是可以口算，结果略低于基于BMI的数值。',
-      note: '身高过高或过矮时误差较大。低于150厘米或高于190厘米时，建议改用基于BMI的正常范围。' },
   },
   {
     slug: 'waist-chest-ratio',
@@ -337,10 +310,10 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
       const wc = out[0].value;
       const whr = out[1].value;
       return wc < 0.85 && whr < 0.9
-        ? { ko: `가슴·엉덩이보다 허리가 뚜렷하게 좁습니다. 옷을 고를 때 허리 라인이 있는 쪽이 잘 맞습니다.`, en: `Your waist is clearly narrower than both chest and hip — fitted cuts suit this shape.`, zh: `腰部明显窄于胸围与臀围，收腰版型更合身。`, tone: 'good' }
+        ? { ko: `가슴·엉덩이보다 허리가 뚜렷하게 좁습니다. 옷을 고를 때 허리 라인이 있는 쪽이 잘 맞습니다.`, en: `Your waist is clearly narrower than both chest and hip — fitted cuts suit this shape.`, tone: 'good' }
         : v.waist >= v.chest
-          ? { ko: `허리가 가슴보다 굵습니다. 허리둘레를 키의 절반 아래로 두는 것을 먼저 보세요.`, en: `Your waist is wider than your chest; the first target is getting it under half your height.`, zh: `腰围大于胸围，首要目标是把腰围降到身高的一半以下。`, tone: 'warn' }
-          : { ko: `허리와 가슴 차이가 크지 않은 직선형입니다.`, en: `Waist and chest are close — a straighter shape.`, zh: `腰围与胸围接近，属于直筒型。`, tone: 'good' };
+          ? { ko: `허리가 가슴보다 굵습니다. 허리둘레를 키의 절반 아래로 두는 것을 먼저 보세요.`, en: `Your waist is wider than your chest; the first target is getting it under half your height.`, tone: 'warn' }
+          : { ko: `허리와 가슴 차이가 크지 않은 직선형입니다.`, en: `Waist and chest are close — a straighter shape.`, tone: 'good' };
     },
     ko: { title: '허리·가슴·엉덩이 비율 계산기', desc: '세 둘레로 체형이 어느 쪽에 가까운지 봅니다.',
       long: '허리를 가슴으로 나눈 값과 허리를 엉덩이로 나눈 값을 함께 봅니다. 두 값이 모두 작으면 허리가 들어간 체형, 허리가 가슴보다 굵으면 복부에 지방이 몰린 체형입니다.',
@@ -348,8 +321,5 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
     en: { title: 'Waist, Chest & Hip Ratios', desc: 'Read your shape from three circumferences.',
       long: 'Look at waist over chest alongside waist over hip. Both small means a defined waist; a waist wider than the chest means fat has gathered around the middle.',
       note: 'Shape is not good or bad — it helps with clothes and shows fat distribution. For health, use waist-to-height.' },
-    zh: { title: '腰胸臀比例计算器', desc: '用三个围度判断体型偏向哪一类。',
-      long: '同时看腰围除以胸围与腰围除以臀围。两者都小说明腰线明显；腰围大于胸围则说明脂肪集中在腹部。',
-      note: '体型没有好坏，只用于选衣与观察脂肪分布。健康判断请用腰身比。' },
   },
 ];

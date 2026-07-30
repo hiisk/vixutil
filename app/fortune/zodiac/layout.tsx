@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '양자리부터 물고기자리까지 12개 별자리별 오늘의 운세를 매일 무료로 확인하세요.',
   alternates: {
     canonical: '/fortune/zodiac',
-    languages: { 'ko': '/fortune/zodiac', 'en': '/en/fortune/zodiac', 'zh': '/zh/fortune/zodiac', 'x-default': '/en/fortune/zodiac' },
+    languages: { 'ko': '/fortune/zodiac', 'en': '/en/fortune/zodiac', 'x-default': '/en/fortune/zodiac' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

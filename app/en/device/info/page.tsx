@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Your screen resolution and browser window size, pixel ratio, browser and operating system version, and CPU core count — all on one screen. Copy it straight out when you are asking for remote support or someone asks about your specs.',
   alternates: {
     canonical: '/en/device/info',
-    languages: { 'en': '/en/device/info', 'zh': '/zh/device/info', 'ko': '/device/info', 'x-default': '/en/device/info' },
+    languages: { 'en': '/en/device/info', 'ko': '/device/info', 'x-default': '/en/device/info' },
   },
 };
 

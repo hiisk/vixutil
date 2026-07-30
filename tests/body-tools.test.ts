@@ -184,7 +184,7 @@ test('혈중 알코올 안내문은 어떤 경우에도 운전을 권하지 않�
 });
 
 test('의료 면책 문구가 세 언어 모두에 있다', () => {
-  for (const lang of ['ko', 'en', 'zh'] as const) {
+  for (const lang of ['ko', 'en'] as const) {
     const foot = BODY_SECTION.meta[lang].footNote;
     assert.ok(foot.length > 30, `${lang} 면책 문구가 없다`);
   }

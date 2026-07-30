@@ -50,29 +50,6 @@ export const HANJA_UI = {
     faq2: (r: string) => `Where does ${r} come from?`,
     faq3: (r: string) => `How is ${r} used?`,
   },
-  zh: {
-    home: '首页',
-    section: '四字成语',
-    hubTitle: '韩国四字成语词典',
-    hubLead: '100个四字成语的含义、出处和实际用法',
-    hubNotice: '📖 逐字注释，让你看清四个字如何组成一个意思。',
-    footNote: '韩国使用的四字成语中，既有源自中国古籍的，也有在韩国自行形成的。凡在中文里不通用的说法，条目中均已注明。',
-    metaTitle: '韩国四字成语词典 — 含义、出处与用法100则',
-    metaDesc:
-      '四面楚歌、塞翁之马、愚公移山、青出于蓝等100个韩国常用四字成语，附含义、古籍出处、逐字注释、韩文读音与拼音。',
-    reading: '韩文读音',
-    hanjaLabel: '正体',
-    simplified: '简体',
-    pinyin: '拼音',
-    charsTitle: '逐字与韩文读音',
-    meaningTitle: '含义',
-    originTitle: '出处',
-    usageTitle: '用法',
-    related: '同类成语',
-    faq1: (r: string) => `${r}是什么意思？`,
-    faq2: (r: string) => `${r}出自哪里？`,
-    faq3: (r: string) => `${r}怎么用？`,
-  },
 } as const;
 
 export const HANJA_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
@@ -83,10 +60,6 @@ export const HANJA_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
   en: {
     '처세·태도': 'Conduct & Attitude', '노력·인내': 'Effort & Endurance', '관계·사람': 'People & Bonds',
     '상황·형세': 'Situations', '배움·지혜': 'Learning & Wisdom', '말·글': 'Words & Speech',
-  },
-  zh: {
-    '처세·태도': '处世与态度', '노력·인내': '努力与忍耐', '관계·사람': '人际与情谊',
-    '상황·형세': '情势与处境', '배움·지혜': '学习与智慧', '말·글': '言语与文辞',
   },
 };
 
@@ -106,13 +79,13 @@ export const HANJA_SECTION = {
 
 /** 표제 — 언어마다 무엇을 앞에 둘지 다르다 */
 export function idiomHeading(i: Idiom, lang: Lang): string {
-  return lang === 'zh' ? i.simplified : lang === 'en' ? i[lang].title : i.reading;
+  return lang === 'en' ? i[lang].title : i.reading;
 }
 
 export function hanjaFaq(i: Idiom, lang: Lang) {
   const ui = HANJA_UI[lang];
   const t = i[lang];
-  const key = lang === 'ko' ? i.reading : lang === 'zh' ? i.simplified : t.title;
+  const key = lang === 'ko' ? i.reading : t.title;
   return [
     { q: ui.faq1(key), a: `${i.hanja} · ${t.meaning}` },
     { q: ui.faq2(key), a: t.origin },
@@ -122,5 +95,5 @@ export function hanjaFaq(i: Idiom, lang: Lang) {
 
 export function hanjaAlternates(slug?: string) {
   const path = slug ? `/hanja/${slug}` : '/hanja';
-  return { 'ko': path, 'en': `/en${path}`, 'zh': `/zh${path}`, 'x-default': `/en${path}` };
+  return { 'ko': path, 'en': `/en${path}`, 'x-default': `/en${path}` };
 }

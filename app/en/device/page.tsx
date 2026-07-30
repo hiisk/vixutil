@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free browser device tests: keyboard and N-key rollover, mouse chatter, microphone, webcam, speaker channels, dead pixels, refresh rate, touchscreen, gamepad drift and your device info.',
   alternates: {
     canonical: '/en/device',
-    languages: { 'en': '/en/device', 'zh': '/zh/device', 'ko': '/device', 'x-default': '/en/device' },
+    languages: { 'en': '/en/device', 'ko': '/device', 'x-default': '/en/device' },
   },
 };
 

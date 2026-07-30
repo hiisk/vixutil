@@ -23,7 +23,6 @@ export const SCORE_TOOLS: FormulaTool[] = [
       return {
         ko: `100점 환산 ${p}점, 통상 기준 ${label[0]} 구간입니다.`,
         en: `That is ${p} out of 100, which usually falls in the ${label[1]} range.`,
-        zh: `折算成百分制是${p}分，通常属于${label[2]}档。`,
         tone: p >= 70 ? 'good' : p >= 60 ? 'warn' : 'bad',
       };
     },
@@ -33,9 +32,6 @@ export const SCORE_TOOLS: FormulaTool[] = [
     en: { title: 'Score to Percentage', desc: 'Convert a mark out of any total onto a 100-point scale.',
       long: 'Divide the score by the total and multiply by 100. 43 out of 55 is 78.2.',
       note: 'When subjects have different totals you must convert to percentages first — raw scores are not comparable.' },
-    zh: { title: '分数百分比换算器', desc: '把满分不是100的考试成绩换算成百分制。',
-      long: '用得分除以满分再乘100。55分满分中得43分，折算为78.2分。',
-      note: '各科满分不同时必须先换算成百分比才能比较 — 原始分之间无法直接对比。' },
   },
   {
     slug: 'attendance',
@@ -61,8 +57,7 @@ export const SCORE_TOOLS: FormulaTool[] = [
       const short = Math.max(0, out[2].value - v.attended);
       return {
         ko: ok ? `기준 ${v.need}%를 넘었습니다. ${out[1].value}번 더 빠져도 유지됩니다.` : `기준에 ${short}번 모자랍니다.`,
-        en: ok ? `Above the ${v.need}% requirement — you can miss ${out[1].value} more and still qualify.` : `You are ${short} sessions short of the requirement.`,
-        zh: ok ? `已超过${v.need}%的要求，还可以再缺席${out[1].value}次。` : `距离要求还差${short}次。`,
+        en: ok ? `Above the ${v.need}% requirement — you can miss ${out[1].value} more and still qualify.` : `You are ${short} sessions short of the requirement.` ? `已超过${v.need}%的要求，还可以再缺席${out[1].value}次。` : `距离要求还差${short}次。`,
         tone: ok ? 'good' : 'bad',
       };
     },
@@ -72,9 +67,6 @@ export const SCORE_TOOLS: FormulaTool[] = [
     en: { title: 'Attendance Calculator', desc: 'Get your attendance rate and how many more sessions you can miss.',
       long: 'Attendance is sessions attended over total sessions. Enter the required threshold and it also shows the minimum needed and your remaining slack.',
       note: 'Institutions differ on how many late arrivals count as one absence — check the rule before entering counts.' },
-    zh: { title: '出席率计算器', desc: '算出出席率，以及还能缺席多少次。',
-      long: '出席率是出席次数除以总次数。填入要求的最低标准，还会显示达标所需的最少出席次数和剩余余量。',
-      note: '各学校对「迟到几次算一次缺席」的规定不同 — 请先确认规则再填次数。' },
   },
   {
     slug: 'achieve-rate',
@@ -93,8 +85,7 @@ export const SCORE_TOOLS: FormulaTool[] = [
       const done = out[0].value >= 100;
       return {
         ko: done ? `목표를 ${round(out[0].value - 100, 1)}% 초과 달성했습니다.` : `목표까지 ${round(100 - out[0].value, 1)}% 남았습니다.`,
-        en: done ? `You are ${round(out[0].value - 100, 1)}% over target.` : `${round(100 - out[0].value, 1)}% left to reach the target.`,
-        zh: done ? `已超额完成目标${round(out[0].value - 100, 1)}%。` : `距离目标还差${round(100 - out[0].value, 1)}%。`,
+        en: done ? `You are ${round(out[0].value - 100, 1)}% over target.` : `${round(100 - out[0].value, 1)}% left to reach the target.` ? `已超额完成目标${round(out[0].value - 100, 1)}%。` : `距离目标还差${round(100 - out[0].value, 1)}%。`,
         tone: done ? 'good' : 'warn',
       };
     },
@@ -104,9 +95,6 @@ export const SCORE_TOOLS: FormulaTool[] = [
     en: { title: 'Achievement Rate', desc: 'Compare actual results against a target and see what is left.',
       long: 'Divide actual by target and multiply by 100. Anything past 100% is over-achievement.',
       note: 'Halfway through a period, 50% is on pace. Reading the rate without the elapsed time hides whether you are behind.' },
-    zh: { title: '完成率计算器', desc: '用目标和实际业绩算出完成率与剩余量。',
-      long: '用实际除以目标再乘100。超过100%的部分就是超额完成率。',
-      note: '周期过半时达到50%属于正常进度。只看完成率不看时间进度，容易误判。' },
   },
   {
     slug: 'win-rate',
@@ -131,7 +119,6 @@ export const SCORE_TOOLS: FormulaTool[] = [
       return {
         ko: r >= 50 ? `승률 5할을 넘었습니다.` : `5할까지 ${needed}승이 더 필요합니다.`,
         en: r >= 50 ? `Above a .500 record.` : `${needed} more wins to reach .500.`,
-        zh: r >= 50 ? `胜率已超过五成。` : `还需再赢${needed}场才能达到五成。`,
         tone: r >= 50 ? 'good' : 'warn',
       };
     },
@@ -141,8 +128,5 @@ export const SCORE_TOOLS: FormulaTool[] = [
     en: { title: 'Win Rate Calculator', desc: 'Get win percentage and the win-loss gap from a record.',
       long: 'Divide wins by total games. In sports with draws, ties are usually excluded from the denominator.',
       note: 'A .500 record means equal wins and losses. Games behind is normally the win-loss gap divided by two.' },
-    zh: { title: '胜率计算器', desc: '用胜场和负场算出胜率与胜负差。',
-      long: '用胜场除以总场次。有平局的项目通常把平局排除在分母之外。',
-      note: '五成胜率意味着胜负场次相同。胜场差通常按「胜减负」再除以2计算。' },
   },
 ];

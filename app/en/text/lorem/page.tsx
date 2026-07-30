@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Generates the filler text you need while building a design or a screen. Set how many paragraphs and how long each one runs, or cut it to an exact character count so it fits the box you are testing.',
   alternates: {
     canonical: '/en/text/lorem',
-    languages: { 'en': '/en/text/lorem', 'zh': '/zh/text/lorem', 'ko': '/text/lorem', 'x-default': '/en/text/lorem' },
+    languages: { 'en': '/en/text/lorem', 'ko': '/text/lorem', 'x-default': '/en/text/lorem' },
   },
 };
 

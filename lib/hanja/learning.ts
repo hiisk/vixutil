@@ -12,9 +12,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Gwal-mok-sang-dae', meaning: 'Rub your eyes and look again — someone’s ability has grown astonishingly.',
       origin: 'From the Records of the Three Kingdoms: Lu Su said Lü Meng’s learning deserved a second, eye-rubbing look.',
       usage: 'A compliment for someone who improved sharply in a short time.' },
-    zh: { title: '刮目相对', meaning: '擦亮眼睛重新看待，形容对方进步惊人。',
-      origin: '出自《三国志》，鲁肃称吕蒙学识大进，当「刮目相待」。',
-      usage: '称赞短期内明显成长的人；中文多作「刮目相待」。' },
   },
   {
     slug: 'gyohaksangjang', hanja: '敎學相長', simplified: '教学相长', reading: '교학상장',
@@ -26,9 +23,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Gyo-hak-sang-jang', meaning: 'Teaching and learning grow each other.',
       origin: 'From the "Records of Learning" chapter of the Book of Rites.',
       usage: 'Used to describe learning more by teaching than by studying alone.' },
-    zh: { title: '教学相长', meaning: '教与学互相促进、共同增长。',
-      origin: '出自《礼记·学记》。',
-      usage: '用于形容在教学中反而学到更多，中韩通用。' },
   },
   {
     slug: 'dadaikseon', hanja: '多多益善', simplified: '多多益善', reading: '다다익선',
@@ -40,9 +34,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Da-da-ik-seon', meaning: 'The more, the better.',
       origin: 'From the Records of the Grand Historian, where Han Xin said the more troops the better.',
       usage: 'Used of things like reference material or practice, where quantity helps.' },
-    zh: { title: '多多益善', meaning: '数量越多越好、越有利。',
-      origin: '出自《史记·淮阴侯列传》，韩信谓兵越多越好。',
-      usage: '用于资料、练习量等越多越有利的事，中韩通用。' },
   },
   {
     slug: 'muniljisip', hanja: '聞一知十', simplified: '闻一知十', reading: '문일지십',
@@ -54,9 +45,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Mun-il-ji-sip', meaning: 'Hear one thing and know ten — exceptional quickness of mind.',
       origin: 'From the Analects, where Zigong says this of Yan Hui.',
       usage: 'Said of someone who grasps the whole from a single explanation.' },
-    zh: { title: '闻一知十', meaning: '听到一点就能推知十分，形容极为聪慧。',
-      origin: '出自《论语·公冶长》，子贡评颜回之语。',
-      usage: '形容一说便通的人，中韩通用。' },
   },
   {
     slug: 'gyeongmulchiji', hanja: '格物致知', simplified: '格物致知', reading: '격물치지',
@@ -68,9 +56,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Gyeong-mul-chi-ji', meaning: 'Investigate things to reach knowledge.',
       origin: 'From the Great Learning; it became the central method of Neo-Confucian study.',
       usage: 'Describes getting at principles by digging into the phenomena themselves.' },
-    zh: { title: '格物致知', meaning: '深入探究事物以获得知识。',
-      origin: '出自《大学》，后成为理学的核心治学方法。',
-      usage: '形容直接钻研现象以求原理的态度，中韩通用。' },
   },
   {
     slug: 'hagisiseup', hanja: '學而時習', simplified: '学而时习', reading: '학이시습',
@@ -82,9 +67,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Hak-i-si-seup', meaning: 'Learn, and practise it in due time.',
       origin: 'The opening line of the Analects: "To learn and practise in season — is that not a joy?"',
       usage: 'Quoted on the importance of reviewing what you have learned.' },
-    zh: { title: '学而时习', meaning: '学过之后按时温习。',
-      origin: '出自《论语》开篇「学而时习之，不亦说乎」。',
-      usage: '用于强调复习习惯的重要性，中韩通用。' },
   },
   {
     slug: 'bulchihamun', hanja: '不恥下問', simplified: '不耻下问', reading: '불치하문',
@@ -96,9 +78,6 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Bul-chi-ha-mun', meaning: 'Not ashamed to ask those below you.',
       origin: 'From the Analects, in Confucius’ assessment of Kong Wenzi.',
       usage: 'Describes a willingness to learn even from someone junior to you.' },
-    zh: { title: '不耻下问', meaning: '不以向地位或学识较低者请教为耻。',
-      origin: '出自《论语·公冶长》，孔子评孔文子之语。',
-      usage: '形容愿意向资历浅者学习的态度，中韩通用。' },
   },
   {
     slug: 'simsasukgo', hanja: '深思熟考', simplified: '深思熟考', reading: '심사숙고',
@@ -110,8 +89,5 @@ export const LEARNING_IDIOMS: Idiom[] = [
     en: { title: 'Sim-sa-suk-go', meaning: 'Think deeply and weigh it thoroughly.',
       origin: 'Common in Korea; Chinese more often uses the form ending in 熟慮.',
       usage: 'Said when urging someone not to rush an important decision.' },
-    zh: { title: '深思熟考', meaning: '深入思考、反复斟酌。',
-      origin: '在韩国常用；现代汉语更常说「深思熟虑」。',
-      usage: '用于劝人重大决定不要仓促。' },
   },
 ];

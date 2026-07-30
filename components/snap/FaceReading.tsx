@@ -29,15 +29,6 @@ const COPY = {
     luck: '🍀 Today',
     disclaimer: 'The proportions are genuinely measured. Physiognomy has no scientific basis — read the interpretation as entertainment.',
   },
-  zh: {
-    title: '面相分析',
-    lead: '实测七处五官比例，按传统面相解读',
-    privacy: '七项比例来自在你浏览器内实测的关键点位置。附上的解读出自面相学 —— 这是传统说法，并无科学依据。测量是真的，解读只是图个乐子。',
-    overall: '🔮 整体面相',
-    features: '📊 分部位解读',
-    luck: '🍀 今日',
-    disclaimer: '比例为真实测量。面相学没有科学依据，解读部分仅供娱乐。',
-  },
 } as const;
 
 interface Result {

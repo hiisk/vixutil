@@ -18,12 +18,8 @@ import {
   FORTUNE_POOL_EN, ADVICE_POOL_EN, LUCKY_ITEMS_EN, KEYWORD_POOL_EN, LUCKY_COLORS_EN, LUCKY_DIRECTIONS_EN,
   ZODIAC_SIGNS_EN, ANIMALS_EN, BLOOD_TYPES_EN, MBTI_TYPES_EN,
 } from './fortune-en.ts';
-import {
-  FORTUNE_POOL_ZH, ADVICE_POOL_ZH, LUCKY_ITEMS_ZH, KEYWORD_POOL_ZH, LUCKY_COLORS_ZH, LUCKY_DIRECTIONS_ZH,
-  ZODIAC_SIGNS_ZH, ANIMALS_ZH, BLOOD_TYPES_ZH, MBTI_TYPES_ZH,
-} from './fortune-zh.ts';
 
-export type Lang = 'ko' | 'en' | 'zh';
+export type Lang = 'ko' | 'en';
 
 /** 언어별 주제 목록 — id는 세 언어가 동일하다 */
 export interface Subject {
@@ -38,19 +34,19 @@ export interface Subject {
 }
 
 export function zodiacSigns(lang: Lang): readonly Subject[] {
-  return lang === 'ko' ? ZODIAC_SIGNS : lang === 'zh' ? ZODIAC_SIGNS_ZH : ZODIAC_SIGNS_EN;
+  return lang === 'ko' ? ZODIAC_SIGNS : ZODIAC_SIGNS_EN;
 }
 
 export function animals(lang: Lang): readonly Subject[] {
-  return lang === 'ko' ? ANIMALS : lang === 'zh' ? ANIMALS_ZH : ANIMALS_EN;
+  return lang === 'ko' ? ANIMALS : ANIMALS_EN;
 }
 
 export function bloodTypes(lang: Lang): readonly Subject[] {
-  return lang === 'ko' ? BLOOD_TYPES : lang === 'zh' ? BLOOD_TYPES_ZH : BLOOD_TYPES_EN;
+  return lang === 'ko' ? BLOOD_TYPES : BLOOD_TYPES_EN;
 }
 
 export function mbtiTypes(lang: Lang): readonly Subject[] {
-  return lang === 'ko' ? MBTI_TYPES : lang === 'zh' ? MBTI_TYPES_ZH : MBTI_TYPES_EN;
+  return lang === 'ko' ? MBTI_TYPES : MBTI_TYPES_EN;
 }
 
 interface Pools {
@@ -67,12 +63,6 @@ function pools(lang: Lang): Pools {
     return {
       fortune: FORTUNE_POOL, advice: ADVICE_POOL, items: LUCKY_ITEMS,
       keywords: KEYWORD_POOL, colors: LUCKY_COLORS, directions: LUCKY_DIRECTIONS,
-    };
-  }
-  if (lang === 'zh') {
-    return {
-      fortune: FORTUNE_POOL_ZH, advice: ADVICE_POOL_ZH, items: LUCKY_ITEMS_ZH,
-      keywords: KEYWORD_POOL_ZH, colors: LUCKY_COLORS_ZH, directions: LUCKY_DIRECTIONS_ZH,
     };
   }
   return {
@@ -116,28 +106,27 @@ export function getTodayFortuneIntl(subjectId: string, lang: Lang) {
 
 /* ── UI 문구 ── */
 type Copy = Record<Lang, string>;
-const c = (ko: string, en: string, zh: string): Copy => ({ ko, en, zh });
+const c = (ko: string, en: string): Copy => ({ ko, en });
 
 export const FORTUNE_UI = {
-  fortuneOf:     c('운세', 'Horoscope', '运势'),
-  todaysFortune: c('오늘의 종합운', 'Today’s overall', '今日综合运'),
-  overall:       c('✨ 오늘의 총운', '✨ Overall', '✨ 今日总运'),
-  advice:        c('💡 오늘의 조언', '💡 Advice', '💡 今日建议'),
-  luck:          c('🍀 오늘의 행운', '🍀 Today’s luck', '🍀 今日幸运'),
-  luckyColor:    c('행운의 색', 'Lucky colour', '幸运色'),
-  luckyNumber:   c('행운의 숫자', 'Lucky number', '幸运数字'),
-  luckyDirection: c('행운의 방향', 'Lucky direction', '幸运方位'),
-  luckyItem:     c('행운의 아이템', 'Lucky item', '幸运物'),
-  love:          c('연애운', 'Love', '爱情运'),
-  money:         c('금전운', 'Money', '财运'),
-  work:          c('직업운', 'Work', '事业运'),
-  health:        c('건강운', 'Health', '健康运'),
-  share:         c('공유', 'Share', '分享'),
-  copied:        c('복사됨', 'Copied', '已复制'),
+  fortuneOf:     c('운세', 'Horoscope'),
+  todaysFortune: c('오늘의 종합운', 'Today’s overall'),
+  overall:       c('✨ 오늘의 총운', '✨ Overall'),
+  advice:        c('💡 오늘의 조언', '💡 Advice'),
+  luck:          c('🍀 오늘의 행운', '🍀 Today’s luck'),
+  luckyColor:    c('행운의 색', 'Lucky colour'),
+  luckyNumber:   c('행운의 숫자', 'Lucky number'),
+  luckyDirection: c('행운의 방향', 'Lucky direction'),
+  luckyItem:     c('행운의 아이템', 'Lucky item'),
+  love:          c('연애운', 'Love'),
+  money:         c('금전운', 'Money'),
+  work:          c('직업운', 'Work'),
+  health:        c('건강운', 'Health'),
+  share:         c('공유', 'Share'),
+  copied:        c('복사됨', 'Copied'),
   disclaimer: c(
     '운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다',
     'Horoscopes are generated from today’s date and are for entertainment only',
-    '运势根据当天日期生成，仅供娱乐参考',
   ),
 } as const;
 
@@ -151,6 +140,6 @@ export function formatToday(lang: Lang, d = new Date()): string {
   const m = d.getMonth() + 1;
   const day = d.getDate();
   if (lang === 'ko') return `${y}년 ${m}월 ${day}일`;
-  if (lang === 'zh') return `${y}年${m}月${day}日`;
+  if (false) return `${y}年${m}月${day}日`;
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }

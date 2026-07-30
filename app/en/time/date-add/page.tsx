@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Adds or subtracts days, weeks, months or years from a date, handling month-end properly and showing the resulting weekday.",
   alternates: {
     canonical: '/en/time/date-add',
-    languages: { 'en': '/en/time/date-add', 'zh': '/zh/time/date-add', 'ko': '/time/date-add', 'x-default': '/en/time/date-add' },
+    languages: { 'en': '/en/time/date-add', 'ko': '/time/date-add', 'x-default': '/en/time/date-add' },
   },
 };
 

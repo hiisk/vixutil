@@ -13,7 +13,7 @@ import PageGlow from '@/components/PageGlow';
  * 얼굴 검출 문턱값·최소 대기시간 같은 값도 한 곳에 있어야 한다. 페이지마다
  * 흩어져 있으면 한 곳만 고쳐놓고 나머지는 다르게 동작하는 상황이 생긴다.
  */
-export type SnapLang = 'ko' | 'en' | 'zh';
+export type SnapLang = 'ko' | 'en';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -78,20 +78,6 @@ const UI: Record<SnapLang, {
     previewAlt: 'Preview of the photo you uploaded',
     privacyTitle: '🔒 Your photo never leaves this device',
     noFace: 'No clear face was found in that photo. Try one taken in good light, facing the camera, with the face filling more of the frame.',
-  },
-  zh: {
-    hub: '照片测试',
-    loadingModel: '正在加载人脸识别模型…',
-    modelFailed: '人脸识别模型加载失败',
-    modelFailedHint: '请检查网络后刷新页面',
-    pickPhoto: '选择一张照片',
-    analyzing: '分析中…',
-    tryAnother: '换一张照片试试',
-    pickAnother: '选择其他照片',
-    again: '🔄 换一张照片再试',
-    previewAlt: '上传照片的预览',
-    privacyTitle: '🔒 照片不会上传到服务器',
-    noFace: '没能在照片里清晰地找到人脸。请在光线充足的地方，用正脸且占画面较大的照片再试一次。',
   },
 };
 

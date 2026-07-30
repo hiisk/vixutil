@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Upload any photo and measure its brightness, saturation, warmth and contrast from the pixels, with the dominant colour palette. No face needed, nothing uploaded.",
   alternates: {
     canonical: '/en/snap/photo-mood',
-    languages: { 'en': '/en/snap/photo-mood', 'zh': '/zh/snap/photo-mood', 'ko': '/snap/photo-mood', 'x-default': '/en/snap/photo-mood' },
+    languages: { 'en': '/en/snap/photo-mood', 'ko': '/snap/photo-mood', 'x-default': '/en/snap/photo-mood' },
   },
 };
 

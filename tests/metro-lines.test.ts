@@ -12,7 +12,7 @@ import { METRO_LINES, METRO_CITIES, metroLine, relatedLines, totalStations } fro
 import { charCount, findStation, firstChar, layout, matches, normalize } from '../lib/metro/types.ts';
 import { METRO_UI, metroAlternates, clock } from '../lib/metro/ui.ts';
 
-const LANGS = ['ko', 'en', 'zh'] as const;
+const LANGS = ['ko', 'en'] as const;
 const HANGUL = /[가-힣]/;
 
 test('노선이 있고 slug가 겹치지 않는다', () => {
@@ -47,12 +47,11 @@ test('세 언어 문구가 다 있고 영어·중국어에 한글이 없다', ()
     for (const lang of LANGS) {
       const t = l[lang];
       assert.ok(t.city.trim() && t.line.trim() && t.country.trim(), `${l.slug} ${lang}: 이름 누락`);
-      assert.ok(t.intro.length > (lang === 'zh' ? 20 : 40), `${l.slug} ${lang}: 소개가 짧다`);
-      assert.ok(t.hint.length > (lang === 'zh' ? 12 : 25), `${l.slug} ${lang}: 힌트가 짧다`);
+      assert.ok(t.intro.length > (false ? 20 : 40), `${l.slug} ${lang}: 소개가 짧다`);
+      assert.ok(t.hint.length > (false ? 12 : 25), `${l.slug} ${lang}: 힌트가 짧다`);
     }
     // 역 이름은 현지 표기라 그대로 두지만, 화면 문구에는 한글이 새면 안 된다
     assert.ok(!HANGUL.test(l.en.intro + l.en.hint + l.en.country), `${l.slug}: en에 한글`);
-    assert.ok(!HANGUL.test(l.zh.intro + l.zh.hint + l.zh.country), `${l.slug}: zh에 한글`);
   }
 });
 
@@ -139,7 +138,7 @@ test('역 수 합계가 실제와 맞는다', () => {
 });
 
 test('세 언어 라우트와 공유 카드가 다 있다', () => {
-  for (const p of ['app/metro', 'app/en/metro', 'app/zh/metro']) {
+  for (const p of ['app/metro', 'app/en/metro', ]) {
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
     assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
@@ -147,18 +146,17 @@ test('세 언어 라우트와 공유 카드가 다 있다', () => {
   }
 });
 
-test('hreflang은 네 줄이고 x-default는 영어를 가리킨다', () => {
+test('hreflang은 세 줄이고 x-default는 영어를 가리킨다', () => {
   const a = metroAlternates('seoul-line-2');
-  assert.equal(Object.keys(a).length, 4);
+  assert.equal(Object.keys(a).length, 3);
   assert.equal(a.ko, '/metro/seoul-line-2');
   assert.equal(a.en, '/en/metro/seoul-line-2');
-  assert.equal(a.zh, '/zh/metro/seoul-line-2');
   assert.equal(a['x-default'], '/en/metro/seoul-line-2');
 });
 
 test('사이트맵과 검색 인덱스에 세 언어가 들어 있다', () => {
   const map = readFileSync('app/sitemap.ts', 'utf8');
-  for (const p of ['/metro', '/en/metro', '/zh/metro']) {
+  for (const p of ['/metro', '/en/metro']) {
     assert.ok(map.includes(`${p}\``) || map.includes(`${p}/`), `사이트맵에 ${p} 없음`);
   }
   const idx = readFileSync('lib/search-index.ts', 'utf8');
@@ -173,5 +171,4 @@ test('화면 문구가 세 언어로 다 있다', () => {
     for (const h of ui.how) assert.ok(h.length > 15, `${lang}: 설명이 짧다 — ${h}`);
   }
   assert.ok(!HANGUL.test(METRO_UI.en.hubTitle + METRO_UI.en.hubLead + METRO_UI.en.how.join('')));
-  assert.ok(!HANGUL.test(METRO_UI.zh.hubTitle + METRO_UI.zh.hubLead + METRO_UI.zh.how.join('')));
 });

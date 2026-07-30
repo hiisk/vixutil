@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Eye size, face proportion and mouth lift are measured from one photo to place you in one of six first impressions. Runs in your browser, nothing uploaded.",
   alternates: {
     canonical: '/en/snap/first-impression',
-    languages: { 'en': '/en/snap/first-impression', 'zh': '/zh/snap/first-impression', 'ko': '/snap/first-impression', 'x-default': '/en/snap/first-impression' },
+    languages: { 'en': '/en/snap/first-impression', 'ko': '/snap/first-impression', 'x-default': '/en/snap/first-impression' },
   },
 };
 

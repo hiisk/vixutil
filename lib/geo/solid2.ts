@@ -28,9 +28,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Cube Surface Area', desc: 'Surface area, volume and space diagonal from one edge.',
       long: 'Six square faces means the surface area is six times the edge squared. The space diagonal — corner to opposite corner through the middle — is the edge times √3.',
       note: 'Wrapping paper needs more than the surface area. Folds and overlaps usually take another 15–20%.' },
-    zh: { title: '正方体表面积计算器', desc: '由棱长求出表面积、体积和空间对角线。',
-      long: '六个面都是正方形，所以表面积等于棱长平方的6倍。空间对角线是从一角穿过内部到对角的距离，为棱长的√3倍。',
-      note: '买包装纸需要多于表面积的量，折叠与重叠部分通常还要多留15%至20%。' },
   },
   {
     slug: 'box-surface',
@@ -54,9 +51,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Box Surface Area & Diagonal', desc: 'Surface, volume and space diagonal from three edges.',
       long: 'There are three pairs of matching faces, so add the three products and double. The space diagonal is the square root of all three squares added — Pythagoras in three dimensions.',
       note: 'Courier size limits usually go by the sum of the three edges. Two boxes of equal volume can differ on whether they qualify.' },
-    zh: { title: '长方体表面积与对角线', desc: '由三条棱求出表面积、体积和空间对角线。',
-      long: '相对的面共三对，所以把三个乘积相加再乘二。空间对角线是三边平方和的平方根，即三维勾股定理。',
-      note: '快递规格通常按三边之和限制。体积相同的两个箱子，可能一个合规一个超标。' },
   },
   {
     slug: 'cylinder-surface',
@@ -79,9 +73,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Cylinder Surface Area', desc: 'Total and lateral surface from radius and height.',
       long: 'Unroll the side and it becomes a rectangle of circumference by height, so 2πrh. Add the two circular ends for the total. For a wraparound label, the lateral area is all you need.',
       note: 'A can uses least material when diameter equals height. Real cans are taller because of grip and shelf presentation.' },
-    zh: { title: '圆柱表面积计算器', desc: '由半径和高求出总表面积与侧面积。',
-      long: '把侧面展开就是宽为周长、高为柱高的长方形，即2πrh。加上上下两个圆面即为总表面积。计算环绕标签只需侧面积。',
-      note: '罐体最省材料的比例是直径等于高。实际饮料罐偏细高，是出于握持感与货架陈列的考虑。' },
   },
   {
     slug: 'sphere-surface',
@@ -100,9 +91,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Sphere Surface Area', desc: 'Surface area and volume from the radius.',
       long: 'A sphere’s surface is 4πr², exactly four times the area of a circle with the same radius. Archimedes showed it also equals the lateral area of the cylinder that wraps it.',
       note: 'For a given volume no shape has less surface than a sphere. That is why droplets and bubbles are round.' },
-    zh: { title: '球表面积计算器', desc: '由半径求出球的表面积与体积。',
-      long: '球的表面积为4πr²，正好是同半径圆面积(πr²)的四倍。阿基米德证明它也等于外切圆柱的侧面积。',
-      note: '在容纳同样体积时，球的表面积最小。这就是水滴与肥皂泡呈球形的原因。' },
   },
   {
     slug: 'cone-surface',
@@ -128,9 +116,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Cone Surface Area & Slant', desc: 'Slant height and surface area from radius and height.',
       long: 'The slant height runs from apex to base edge and is the hypotenuse of radius and height. The lateral area is πrl; add the base circle for the total. This is what you need to cut a paper cone.',
       note: 'Confusing height with slant height throws the lateral area badly off. The slant is always longer.' },
-    zh: { title: '圆锥表面积与母线', desc: '由半径和高求出母线长度与表面积。',
-      long: '母线是从顶点斜量到底边的长度，即半径与高的斜边。侧面积为πrl，加上底面圆即为总表面积。用纸做圆锥帽时正需要这个值。',
-      note: '把高与母线混淆会让侧面积严重偏差。母线总是比高更长。' },
   },
   {
     slug: 'frustum-volume',
@@ -158,9 +143,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Frustum Volume (Cup Shape)', desc: 'Volume of a shape whose two ends differ in radius.',
       long: 'Takeaway cups, plant pots and buckets are all frustums. Add the squares of both radii and their product, then multiply by height and π and divide by three. Equal radii collapse it to the cylinder formula.',
       note: 'A cup’s stated capacity is not filled to the rim. Usable volume normally stops 1–2 cm below it.' },
-    zh: { title: '圆台体积计算器（杯形）', desc: '计算上下半径不同的杯形体积。',
-      long: '外带杯、花盆、水桶都是圆台。把上下半径的平方与两半径之积相加，再乘高和π并除以3。两半径相等时即退化为圆柱公式。',
-      note: '杯子的标称容量并非灌到杯口。实用容量通常止于杯口下方1至2厘米。' },
   },
   {
     slug: 'capsule-volume',
@@ -185,9 +167,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Capsule Volume', desc: 'Volume of a cylinder with hemispherical ends.',
       long: 'Take the middle cylinder and add the two hemispherical caps. Since two hemispheres make one sphere, it is simply cylinder plus sphere. Horizontal water tanks and LPG vessels have this shape.',
       note: 'Enter only the straight body length, excluding the rounded ends. Using the overall length overstates the volume.' },
-    zh: { title: '胶囊形体积计算器', desc: '计算两端为半球的圆柱（胶囊、储罐）体积。',
-      long: '中间圆柱加上两端各一个半球。两个半球等于一个整球，所以就是圆柱体积加球体积。卧式水罐与液化气罐即为此形状。',
-      note: '筒身长度只填直段部分，不含两端圆头。若填总长会高估体积。' },
   },
   {
     slug: 'ellipsoid-volume',
@@ -213,9 +192,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Ellipsoid Volume', desc: 'Volume of an egg-shaped solid with three different radii.',
       long: 'Replace r³ in the sphere formula with the product of the three semi-axes. All three equal collapses it back to the sphere formula. Handy for estimating eggs, melons and rugby balls.',
       note: 'These are radii, not diameters. Entering diameters gives eight times the volume.' },
-    zh: { title: '椭球体积计算器', desc: '计算三个半轴各不相同的椭球（蛋形）体积。',
-      long: '把球公式中的r³换成三个半轴之积。三者相等时即完全退回球体公式。可用于估算鸡蛋、西瓜、橄榄球的体积。',
-      note: '要填半轴而不是直径。填直径会得到八倍的体积。' },
   },
   {
     slug: 'spherical-cap',
@@ -240,7 +216,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `반지름 ${v.r}인 구형 탱크에 ${v.h}만큼 찼다면 전체의 ${out[2].value}%입니다. 절반 높이가 정확히 50%지만 그 아래는 훨씬 적게 찹니다.`,
       en: `Filled to ${v.h} in a sphere of radius ${v.r} is ${out[2].value}% of the total. Half the height is exactly 50%, but below that it fills far less than it looks.`,
-      zh: `半径${v.r}的球罐充到${v.h}时为总量的${out[2].value}%。半高处正好是50%，但低于半高时装的比看起来少得多。`,
       tone: 'good',
     }),
     ko: { title: '구형 탱크 부분 부피 계산기', desc: '구 모양 통에 어느 높이까지 찼을 때의 부피를 구합니다.',
@@ -249,9 +224,6 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Spherical Cap (Partly Filled Sphere)', desc: 'Volume in a spherical vessel filled to a given depth.',
       long: 'This is the chunk left when you slice a sphere with a plane. Multiply the depth squared by (3R − depth), then by π over three. It converts a level reading in a spherical tank into a volume.',
       note: 'At half depth the volume is exactly half, but below that it drops away much faster than the level suggests, because the bottom is narrow.' },
-    zh: { title: '球形罐部分体积计算器', desc: '计算球形容器充到某一高度时的体积。',
-      long: '这是用平面切球后下方部分的体积。把深度的平方乘以(3R − 深度)，再乘π并除以3。可把球形水罐的液位换算成水量。',
-      note: '液位到半高时体积正好是一半，但低于半高时体积下降得比液位快得多，因为下部更窄。' },
   },
   {
     slug: 'pyramid-surface',
@@ -277,8 +249,5 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     en: { title: 'Square Pyramid Surface Area', desc: 'Surface and volume of a pyramid on a square base.',
       long: 'The sides are four triangles with the base edge as their base and the slant height as their height. That slant is the hypotenuse of the height and half the base edge. Four faces plus the base gives the total.',
       note: 'Slant height is not the same as edge length. The edge runs to a base corner; the slant runs to the midpoint of a base edge.' },
-    zh: { title: '正四棱锥表面积计算器', desc: '计算方形底四棱锥的表面积与体积。',
-      long: '侧面是四个三角形，底为底边、高为斜高。斜高是由锥高与半个底边构成的直角三角形的斜边。四个侧面加底面即为总表面积。',
-      note: '斜高与棱长不同：棱通向底面顶点，斜高通向底边中点。' },
   },
 ];

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'See what 2700K warm white actually looks like, and how blue 6500K daylight really is. Useful when choosing lighting or getting a feel for white balance in photography.',
   alternates: {
     canonical: '/en/color/temperature',
-    languages: { 'en': '/en/color/temperature', 'zh': '/zh/color/temperature', 'ko': '/color/temperature', 'x-default': '/en/color/temperature' },
+    languages: { 'en': '/en/color/temperature', 'ko': '/color/temperature', 'x-default': '/en/color/temperature' },
   },
 };
 

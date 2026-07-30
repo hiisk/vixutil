@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Free personality tests: social battery, how you handle stress, your decision style, working style and how you show affection. Ten questions each, no sign-up.',
   alternates: {
     canonical: '/en/test',
-    languages: { 'en': '/en/test', 'zh': '/zh/test', 'x-default': '/en/test' },
+    languages: { 'en': '/en/test', 'x-default': '/en/test' },
   },
 };
 

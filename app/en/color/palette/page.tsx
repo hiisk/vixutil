@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Pick one colour and it derives the colours that go with it using colour-wheel rules — complementary, analogous, triadic. Choosing by rule rather than by eye keeps a scheme from going badly wrong.',
   alternates: {
     canonical: '/en/color/palette',
-    languages: { 'en': '/en/color/palette', 'zh': '/zh/color/palette', 'ko': '/color/palette', 'x-default': '/en/color/palette' },
+    languages: { 'en': '/en/color/palette', 'ko': '/color/palette', 'x-default': '/en/color/palette' },
   },
 };
 

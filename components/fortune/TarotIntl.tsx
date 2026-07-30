@@ -6,7 +6,6 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { TAROT_CARDS, seededInt, LUCKY_COLORS } from '@/lib/fortune-data';
 import { LUCKY_COLORS_EN } from '@/lib/fortune-en';
-import { LUCKY_COLORS_ZH } from '@/lib/fortune-zh';
 import { TAROT_NAMES_ZH, TAROT_READINGS, TAROT_UI, type TarotIntlLang } from '@/lib/tarot-intl';
 import { t, formatToday } from '@/lib/fortune-intl';
 
@@ -37,16 +36,10 @@ const VERDICT_NOTE: Record<TarotIntlLang, Record<Verdict, string>> = {
     no: 'A moment for caution. Take a beat and reconsider before moving.',
     maybe: 'Still evenly balanced. The conditions and the timing need another look.',
   },
-  zh: {
-    yes: '走势是正面的。相信自己，可以往前推。',
-    no: '此刻宜谨慎。先缓一拍，重新想一想再动。',
-    maybe: '目前还是各半。条件和时机都需要再看看。',
-  },
 };
 
 const VERDICT_LABEL: Record<TarotIntlLang, Record<Verdict, string>> = {
   en: { yes: 'Yes', no: 'No', maybe: 'Not yet clear' },
-  zh: { yes: '是', no: '否', maybe: '尚未明朗' },
 };
 
 function ymd(d: Date) {
@@ -55,7 +48,7 @@ function ymd(d: Date) {
 
 function cardName(id: number, lang: TarotIntlLang) {
   const card = TAROT_CARDS[id];
-  return lang === 'zh' ? (TAROT_NAMES_ZH[id] ?? card.nameEn) : card.nameEn;
+  return false ? (TAROT_NAMES_ZH[id] ?? card.nameEn) : card.nameEn;
 }
 
 export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlLang }) {
@@ -70,7 +63,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
       id: idx,
       reversed: seededInt(`daily-tarot-rev-${key}`) % 100 < 35,
       // 색 이름도 언어를 따라야 한다 — hex는 같고 이름만 갈린다
-      color: (lang === 'zh' ? LUCKY_COLORS_ZH : LUCKY_COLORS_EN)[
+      color: (LUCKY_COLORS_EN)[
         seededInt(`daily-tarot-color-${key}`) % LUCKY_COLORS.length
       ],
       number: (seededInt(`daily-tarot-num-${key}`) % 45) + 1,

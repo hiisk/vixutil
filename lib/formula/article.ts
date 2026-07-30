@@ -40,13 +40,13 @@ export interface InputRow {
 }
 
 export function inputRows(tool: FormulaTool, lang: Lang): InputRow[] {
-  const anyRange = { ko: '제한 없음', en: 'No limit', zh: '不限' }[lang];
+  const anyRange = { ko: '제한 없음', en: 'No limit' }[lang];
   return tool.fields.map(f => {
     const lo = f.min, hi = f.max;
     const range =
       lo !== undefined && hi !== undefined ? `${fmt(lo, 2)} ~ ${fmt(hi, 2)}`
-      : lo !== undefined ? `${fmt(lo, 2)} ${lang === 'ko' ? '이상' : lang === 'zh' ? '以上' : 'and up'}`
-      : hi !== undefined ? `${fmt(hi, 2)} ${lang === 'ko' ? '이하' : lang === 'zh' ? '以下' : 'and below'}`
+      : lo !== undefined ? `${fmt(lo, 2)} ${lang === 'ko' ? '이상' : 'and up'}`
+      : hi !== undefined ? `${fmt(hi, 2)} ${lang === 'ko' ? '이하' : 'and below'}`
       : anyRange;
     return { label: labelOf(f.term, f.unit, lang), def: fmt(f.def, 4), range, desc: termDesc(f.term, lang) };
   });

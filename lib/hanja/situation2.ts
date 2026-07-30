@@ -12,9 +12,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Cho-mi-ji-geup', meaning: 'Urgent enough to singe your eyebrows.',
       origin: 'From Chan Buddhist dialogue, in an exchange about what matters most urgently.',
       usage: 'Used for deadlines and incident response — things that must be handled now.' },
-    zh: { title: '焦眉之急', meaning: '急到快烧着眉毛的程度。',
-      origin: '出自禅宗问答，源于追问何事最为紧急。',
-      usage: '用于截止期限或事故处理等须立刻应对之事；中文常说「燃眉之急」。' },
   },
   {
     slug: 'baekcheokgandu', hanja: '百尺竿頭', simplified: '百尺竿头', reading: '백척간두',
@@ -26,9 +23,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Baek-cheok-gan-du', meaning: 'At the tip of a hundred-foot pole — a position of extreme peril.',
       origin: 'From the Chan koan urging one more step even at the pole’s very top.',
       usage: 'Used when there is nowhere left to retreat to.' },
-    zh: { title: '百尺竿头', meaning: '站在百尺竿的顶端，形容处境极其危险。',
-      origin: '出自禅宗话头「百尺竿头须进步」。',
-      usage: '用于已无退路的处境；中文另有「更进一步」的积极用法，需看语境。' },
   },
   {
     slug: 'myeongjaegyeonggak', hanja: '命在頃刻', simplified: '命在顷刻', reading: '명재경각',
@@ -40,9 +34,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Myeong-jae-gyeong-gak', meaning: 'Life hanging on a single moment.',
       origin: 'Gyeong-gak means the briefest instant; the phrase runs through classical fiction and petitions.',
       usage: 'Used for medical emergencies, or a company on the edge of collapse.' },
-    zh: { title: '命在顷刻', meaning: '性命只在一瞬之间。',
-      origin: '「顷刻」意为极短的时间，该语常见于古典小说与奏疏。',
-      usage: '用于急救场面或公司濒临破产之际，中韩通用。' },
   },
   {
     slug: 'soksumuchaek', hanja: '束手無策', simplified: '束手无策', reading: '속수무책',
@@ -54,9 +45,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Sok-su-mu-chaek', meaning: 'Hands tied and no plan left.',
       origin: 'A classical phrase for standing with bound hands and no stratagem.',
       usage: 'Used when there is simply no means of responding.' },
-    zh: { title: '束手无策', meaning: '像被绑住手一样，毫无办法。',
-      origin: '古籍中形容束手而无计可施的状态。',
-      usage: '用于完全无应对手段的情形，中韩通用。' },
   },
   {
     slug: 'gihojise', hanja: '騎虎之勢', simplified: '骑虎之势', reading: '기호지세',
@@ -68,9 +56,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Gi-ho-ji-se', meaning: 'Riding a tiger — you cannot get off part-way.',
       origin: 'From the Book of Sui, in Lady Dugu’s urging that her husband see the venture through.',
       usage: 'Used for something already begun that cannot now be abandoned.' },
-    zh: { title: '骑虎之势', meaning: '骑在虎背上，中途下不来，只能一路走到底。',
-      origin: '出自《隋书》，独孤氏劝其夫将大事推行到底。',
-      usage: '用于已经开始、无法退出之事；中文常说「骑虎难下」。' },
   },
   {
     slug: 'geumsangcheomhwa', hanja: '錦上添花', simplified: '锦上添花', reading: '금상첨화',
@@ -82,9 +67,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Geum-sang-cheom-hwa', meaning: 'Adding flowers to brocade — good on top of good.',
       origin: 'From a line of verse by the Song poet and statesman Wang Anshi.',
       usage: 'Used when one more advantage lands on an already satisfying arrangement.' },
-    zh: { title: '锦上添花', meaning: '在锦缎上再添花，好上加好。',
-      origin: '出自宋代王安石诗句。',
-      usage: '用于本已满意的条件上又多一项好处，中韩通用。' },
   },
   {
     slug: 'eobujiri', hanja: '漁父之利', simplified: '渔父之利', reading: '어부지리',
@@ -96,9 +78,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Eo-bu-ji-ri', meaning: 'The fisherman’s gain — a third party profits while two fight.',
       origin: 'From the Strategies of the Warring States: a clam and a snipe locked in struggle are both taken by a fisherman.',
       usage: 'Used when a third company takes the market while two rivals fight.' },
-    zh: { title: '渔父之利', meaning: '两者相争，第三方得利。',
-      origin: '出自《战国策》，鹬蚌相争而渔者得之。',
-      usage: '用于两家竞争之际被第三方抢走市场；中文常说「鹬蚌相争，渔翁得利」。' },
   },
   {
     slug: 'gyeranyugol', hanja: '鷄卵有骨', simplified: '鸡卵有骨', reading: '계란유골',
@@ -110,9 +89,6 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Gye-ran-yu-gol', meaning: 'Even the egg has a bone — for the unlucky, everything snags.',
       origin: 'A Korean coinage from an anecdote about the famously frugal Joseon minister Hwang Hui.',
       usage: 'Said with sympathy about someone whose plans keep going wrong.' },
-    zh: { title: '鸡卵有骨', meaning: '连鸡蛋里也有骨头，形容倒霉的人事事碰壁。',
-      origin: '源自朝鲜世宗时期清廉宰相黄喜的轶事，是韩式四字语。',
-      usage: '在韩国用于同情屡屡不顺的人；中文无此说法。' },
   },
   {
     slug: 'jumagansan', hanja: '走馬看山', simplified: '走马看山', reading: '주마간산',
@@ -124,8 +100,5 @@ export const SITUATION2_IDIOMS: Idiom[] = [
     en: { title: 'Ju-ma-gan-san', meaning: 'Viewing the hills from a galloping horse — a glance, not a look.',
       origin: 'Traced to a line by the Tang poet Meng Jiao.',
       usage: 'Used for skimming a report, or rushing a trip without really seeing it.' },
-    zh: { title: '走马看山', meaning: '骑马疾行看山，只是粗略一瞥。',
-      origin: '一般溯源至唐代孟郊的诗句。',
-      usage: '用于草草看完报告或匆匆走完行程；中文多说「走马观花」。' },
   },
 ];

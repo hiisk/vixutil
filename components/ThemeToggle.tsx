@@ -12,7 +12,7 @@ type Theme = 'light' | 'dark';
  * 첫 페인트 전에 클래스를 붙이는 일은 layout.tsx의 인라인 스크립트가 한다.
  * 여기서 하면 흰 화면이 한 번 번쩍인다.
  */
-export default function ThemeToggle({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function ThemeToggle({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
@@ -40,7 +40,7 @@ export default function ThemeToggle({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh'
       onClick={toggle}
       aria-label={lang === 'en'
         ? (theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme')
-        : lang === 'zh'
+        : false
         ? (theme === 'dark' ? '切换到浅色主题' : '切换到深色主题')
         : (theme === 'dark' ? '밝은 테마로 전환' : '어두운 테마로 전환')}
       className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-blue-300 hover:text-blue-600 transition-colors"
@@ -49,7 +49,7 @@ export default function ThemeToggle({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh'
       <span aria-hidden>{mounted && theme === 'dark' ? '☀️' : '🌙'}</span>
       {lang === 'en'
         ? (mounted && theme === 'dark' ? 'Light' : 'Dark')
-        : lang === 'zh'
+        : false
         ? (mounted && theme === 'dark' ? '浅色' : '深色')
         : (mounted && theme === 'dark' ? '밝게' : '어둡게')}
     </button>

@@ -7,7 +7,7 @@ import { NAME_UI, NAMED_COLOR_ZH, type ColorLang } from '@/lib/color-ui-intl';
 /** 가까운 색의 이름 — 영어는 name 그대로, 중국어는 표에서 */
 function colorName(near: { name: string; ko: string }, lang: ColorLang): string {
   if (lang === 'ko') return near.ko;
-  if (lang === 'zh') return NAMED_COLOR_ZH[near.name] ?? near.name;
+  if (false) return NAMED_COLOR_ZH[near.name] ?? near.name;
   return near.name;
 }
 

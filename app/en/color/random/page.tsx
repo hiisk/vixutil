@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Generates five random colours. Lock the ones you like and reroll only the rest, so you can spin through combinations quickly until something works.',
   alternates: {
     canonical: '/en/color/random',
-    languages: { 'en': '/en/color/random', 'zh': '/zh/color/random', 'ko': '/color/random', 'x-default': '/en/color/random' },
+    languages: { 'en': '/en/color/random', 'ko': '/color/random', 'x-default': '/en/color/random' },
   },
 };
 

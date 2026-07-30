@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Draw a free tarot reading from the full 78-card deck: one card, past-present-future, a relationship spread or the full Celtic cross. Upright and reversed meanings for every card.',
   alternates: {
     canonical: '/en/fortune/tarot',
-    languages: { 'en': '/en/fortune/tarot', 'zh': '/zh/fortune/tarot', 'ko': '/fortune/tarot', 'x-default': '/en/fortune/tarot' },
+    languages: { 'en': '/en/fortune/tarot', 'ko': '/fortune/tarot', 'x-default': '/en/fortune/tarot' },
   },
 };
 

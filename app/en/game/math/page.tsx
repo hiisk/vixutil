@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Solve as many arithmetic problems as you can before the clock runs out. Pick the operations and difficulty, and it reports how many you got, your accuracy and the average time per problem.',
   alternates: {
     canonical: '/en/game/math',
-    languages: { 'en': '/en/game/math', 'zh': '/zh/game/math', 'ko': '/game/math', 'x-default': '/en/game/math' },
+    languages: { 'en': '/en/game/math', 'ko': '/game/math', 'x-default': '/en/game/math' },
   },
 };
 

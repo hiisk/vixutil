@@ -23,23 +23,22 @@ const KIND_META: Record<SubjectKind, { seedPrefix: string; icon: string; cols: s
 };
 
 const TITLES: Record<SubjectKind, Record<Lang, string>> = {
-  zodiac: { ko: '별자리 운세', en: 'Daily Horoscope', zh: '星座运势' },
-  animal: { ko: '띠 운세',     en: 'Chinese Zodiac Horoscope', zh: '生肖运势' },
-  blood:  { ko: '혈액형 운세', en: 'Blood Type Horoscope', zh: '血型运势' },
-  mbti:   { ko: 'MBTI 운세',   en: 'MBTI Daily Horoscope', zh: 'MBTI 今日运势' },
+  zodiac: { ko: '별자리 운세', en: 'Daily Horoscope' },
+  animal: { ko: '띠 운세',     en: 'Chinese Zodiac Horoscope' },
+  blood:  { ko: '혈액형 운세', en: 'Blood Type Horoscope' },
+  mbti:   { ko: 'MBTI 운세',   en: 'MBTI Daily Horoscope' },
 };
 
 const PROMPTS: Record<SubjectKind, Record<Lang, string>> = {
-  zodiac: { ko: '내 별자리를 선택하세요', en: 'Choose your star sign', zh: '选择你的星座' },
-  animal: { ko: '내 띠를 선택하세요',     en: 'Choose your zodiac animal', zh: '选择你的生肖' },
-  blood:  { ko: '내 혈액형을 선택하세요', en: 'Choose your blood type', zh: '选择你的血型' },
-  mbti:   { ko: '내 MBTI를 선택하세요',   en: 'Choose your MBTI type', zh: '选择你的 MBTI 类型' },
+  zodiac: { ko: '내 별자리를 선택하세요', en: 'Choose your star sign' },
+  animal: { ko: '내 띠를 선택하세요',     en: 'Choose your zodiac animal' },
+  blood:  { ko: '내 혈액형을 선택하세요', en: 'Choose your blood type' },
+  mbti:   { ko: '내 MBTI를 선택하세요',   en: 'Choose your MBTI type' },
 };
 
 const EMPTY: Record<Lang, string> = {
   ko: '선택하면 오늘의 운세를 볼 수 있습니다',
   en: 'Pick one above to see today’s reading',
-  zh: '选择后即可查看今日运势',
 };
 
 function subjectsFor(kind: SubjectKind, lang: Lang): readonly Subject[] {

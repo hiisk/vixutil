@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Free image tools that run in your browser: compress, resize, convert format, crop, rotate, pixelate faces, combine photos and extract colours. Nothing is uploaded.',
   alternates: {
     canonical: '/en/image',
-    languages: { 'en': '/en/image', 'zh': '/zh/image', 'ko': '/image', 'x-default': '/en/image' },
+    languages: { 'en': '/en/image', 'ko': '/image', 'x-default': '/en/image' },
   },
 };
 

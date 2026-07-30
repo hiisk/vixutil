@@ -24,18 +24,14 @@ export default function MetroHub({ lang }: { lang: Lang }) {
     { q: ui.howTitle, a: ui.how.join(' ') },
     {
       q: lang === 'ko' ? '역 이름은 어느 언어로 적어야 하나요?'
-        : lang === 'zh' ? '车站名要用哪种语言填写？'
         : 'Which language do I type station names in?',
       a: lang === 'ko' ? '그 도시에서 부르는 이름으로 적습니다. 도쿄 노선은 한자, 런던 노선은 영어 철자입니다. 한자·한글 노선은 로마자로 적어도 정답으로 받습니다.'
-        : lang === 'zh' ? '按当地的叫法填写：东京线路用日文汉字，伦敦线路用英文拼写。汉字与韩文的线路也接受罗马字拼写。'
         : 'Use the name the city itself uses — kanji for Tokyo lines, English spellings for London. For kanji and Hangul lines, romanised spellings also count.',
     },
     {
       q: lang === 'ko' ? '노선도는 실제 지도인가요?'
-        : lang === 'zh' ? '线路图是真实地图吗？'
         : 'Is the map geographically accurate?',
       a: lang === 'ko' ? '도식입니다. 실제 좌표로 그리면 역이 한곳에 뭉쳐 이름을 얹을 자리가 없어서, 굽이의 순서만 맞춘 노선도로 그렸습니다.'
-        : lang === 'zh' ? '这是示意图。若按真实坐标绘制，车站会挤在一起而无处放站名，因此只保留了走向与转折的顺序。'
         : 'It is a schematic. Real coordinates bunch the stations together with no room for labels, so the map keeps only the order of the turns.',
     },
   ];

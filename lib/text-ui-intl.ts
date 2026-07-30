@@ -20,10 +20,6 @@ export const TEXT_COMMON: Record<TextLang, {
     input: 'Input', output: 'Result', empty: 'Type something above and the result appears here', clear: 'Clear',
     copy: 'Copy', copied: '✅ Copied', copiedShort: 'Copied', copyShort: 'Copy',
   },
-  zh: {
-    input: '输入', output: '结果', empty: '在上面输入内容，结果会显示在这里', clear: '清空',
-    copy: '复制', copied: '✅ 已复制', copiedShort: '已复制', copyShort: '复制',
-  },
 };
 
 export const CLEAN_UI: Record<TextLang, {
@@ -48,15 +44,6 @@ export const CLEAN_UI: Record<TextLang, {
     whatTitle: 'What to clean',
     nothing: 'Nothing to fix — this text is already clean',
     shrunk: n => `${n} characters removed`, cleaned: 'Cleaned', outputLabel: 'Cleaned text',
-  },
-  zh: {
-    labels: ['去除不可见字符', '把特殊空格换成普通空格', '合并重复空格', '去掉每行首尾空格', '压缩连续空行', '接上断掉的换行', '把弯引号换成直引号', '去除 HTML 标签'],
-    hints: ['零宽空格、BOM 之类 —— 只会撑大字数并破坏搜索', '看着像空格但其实不是的字符（如 NBSP）', '两个以上空格合成一个', '', '连续三行以上空行只留一行', '从 PDF 复制会在句子中间断行', '“ ” ‘ ’ → " \'', '删掉 <p> 这类标签'],
-    inputLabel: '把要清理的文字贴进来',
-    placeholder: '直接把从 PDF、网页或 Word 复制的文字贴进来即可',
-    whatTitle: '要清理什么',
-    nothing: '没有需要修的地方 —— 这段文字已经很干净',
-    shrunk: n => `减少了 ${n} 个字符`, cleaned: '已清理', outputLabel: '清理后的文字',
   },
 };
 
@@ -86,15 +73,6 @@ export const DEDUPE_UI: Record<TextLang, {
     sortTitle: 'Sort', sortModes: ['Original order', 'A → Z', 'Z → A'],
     totalLines: 'Lines in', keptLines: 'Lines kept', removedLines: 'Lines removed', outputLabel: 'Tidied list',
   },
-  zh: {
-    inputLabel: '把列表贴进来（每行一个）', placeholder: '张三\n李四\n张三\n王五',
-    dedupe: '去除重复行',
-    ignoreSpace: '空格差异算作同一行', ignoreSpaceHint: "把「张三」和「张三 」当成一个",
-    ignoreCase: '大小写差异算作同一行', ignoreCaseHint: '把 Apple 和 apple 当成一个',
-    removeBlank: '删除空行', numbered: '添加编号', numberedHint: '在前面加上 1. 2. 3.',
-    sortTitle: '排序', sortModes: ['原顺序', '正序', '倒序'],
-    totalLines: '原有行数', keptLines: '剩余行数', removedLines: '删除行数', outputLabel: '整理后的列表',
-  },
 };
 
 export const CASE_UI: Record<TextLang, {
@@ -115,13 +93,6 @@ export const CASE_UI: Record<TextLang, {
     inputLabel: 'Enter your text', placeholder: 'e.g. hello world example',
     noteTitle: 'What about scripts without case?',
     note: 'Scripts like Hangul, Chinese and Japanese have no upper or lower case, so those characters pass through unchanged. In mixed text only the Latin letters change.',
-  },
-  zh: {
-    labels: ['全部大写（UPPERCASE）', '全部小写（lowercase）', '每词首字母大写（Title Case）', '仅句首大写（Sentence case）', 'camelCase', 'PascalCase', 'snake_case', 'kebab-case', 'CONSTANT_CASE', '大小写反转'],
-    hints: ['', '', '用于标题和人名', '', '变量名', '类名与组件名', '数据库字段、Python', 'URL、CSS 类名', '环境变量、常量', ''],
-    inputLabel: '请输入文本', placeholder: '例）hello world example',
-    noteTitle: '中文会怎样？',
-    note: '中文没有大小写之分，所以汉字会原样保留。中英混排时只有英文部分会变。',
   },
 };
 
@@ -150,15 +121,6 @@ export const REPLACE_UI: Record<TextLang, {
     escapeNoteBefore: 'Put ', escapeNoteMid: ' in the find field to match a newline, and ', escapeNoteAfter: ' for a tab.',
     regexError: msg => `Regex error: ${msg}`,
     willChange: n => `${n} matches will change`, noMatch: 'No matches found', outputLabel: 'Result',
-  },
-  zh: {
-    sourceLabel: '原文', sourcePlaceholder: '把包含要替换内容的文字贴进来',
-    findLabel: '查找内容', findPlaceholder: '要替换的词', toLabel: '替换为', toPlaceholder: '新的词（留空表示删除）',
-    caseSensitive: '区分大小写', caseSensitiveHint: '关闭时 Apple 和 apple 都会被找到',
-    regex: '用正则表达式查找', regexHint: '可以用 \\d+ 这样的模式',
-    escapeNoteBefore: '在查找框里输入 ', escapeNoteMid: ' 可匹配换行，', escapeNoteAfter: ' 匹配制表符。',
-    regexError: msg => `正则错误：${msg}`,
-    willChange: n => `将替换 ${n} 处`, noMatch: '没有找到匹配内容', outputLabel: '替换结果',
   },
 };
 
@@ -205,22 +167,6 @@ export const MANUSCRIPT_UI: Record<TextLang, {
       '· Sites with a character limit on the input field nearly always include spaces in it.',
     ],
   },
-  zh: {
-    inputLabel: '把文字贴进来', placeholder: '直接把自荐信或稿件贴进来即可',
-    withSpaces: '含空格', withoutSpaces: '不含空格', sheets200: '200 字稿纸', sheets400: '400 字稿纸',
-    sheetSuffix: n => `${n} 张`,
-    words: '词数', lines: '行数', paragraphs: '段数', bytes: '字节（UTF-8）',
-    targetTitle: '目标字数', countingWith: '正按含空格统计', countingWithout: '正按不含空格统计',
-    charSuffix: n => `${n} 字`, emptyHint: '输入文字后会算出还剩多少字',
-    used: (used, target, left) => `${used} 字 / ${target} 字 · 还能写 ${left} 字`,
-    over: (used, target, over) => `${used} 字 / ${target} 字 · 超出 ${over} 字`,
-    noteTitle: '不确定按哪个标准时',
-    notes: [
-      '· 自荐信一般按含空格统计。招聘公告没写明的话，按含空格算更保险。',
-      '· 稿纸是数格子的，空格也占一格，所以稿纸张数按含空格的字数计算。',
-      '· 输入框有字数限制的网站，大多把空格也算进去。',
-    ],
-  },
 };
 
 export const LOREM_UI: Record<TextLang, {
@@ -252,16 +198,6 @@ export const LOREM_UI: Record<TextLang, {
     noteTitle: 'Why the CJK option',
     note: 'Latin lorem ipsum has narrower glyphs and far more spaces than Chinese, Japanese or Korean text. Design a layout against Latin filler and real CJK content will run to more lines and break it. If the screen ships in a CJK language, test it with CJK filler.',
   },
-  zh: {
-    noLimit: '不限', langs: ['中文假字', '英文（Lorem ipsum）'],
-    paragraphCount: '段数', paragraphUnit: '段',
-    sentenceCount: '每段句数', sentenceUnit: '句',
-    charLimit: '字数上限', charUnit: '字',
-    regenerate: '🔄 换一批文字重新生成', sameSeed: seed => `设置相同时结果也相同（当前第 ${seed} 批）`,
-    charCount: '字数', paragraphs: '段数', words: '词数', outputLabel: '生成的文本',
-    noteTitle: '为什么需要中文假字',
-    note: '英文 lorem ipsum 的字形更窄、空格更多，用它排好的版面换成真正的中文，行数会变多、版式会散掉。要做中文界面时，请用中文假字来确认。',
-  },
 };
 
 export const COPY_PICKER_UI: Record<TextLang, {
@@ -278,11 +214,6 @@ export const COPY_PICKER_UI: Record<TextLang, {
     recentTitle: 'Recently used',
     foundCount: n => `${n} results`, notFound: 'No symbol matches that. Try another name.',
   },
-  zh: {
-    copied: '已复制', searchPlaceholder: '按名称查找 —— 箭头、平方米、心形…',
-    recentTitle: '最近用过',
-    foundCount: n => `找到 ${n} 个`, notFound: '没有匹配的符号。换个名称试试。',
-  },
 };
 
 export const SYMBOL_TOOL_UI: Record<TextLang, { specialHint: string; emoticonHint: string }> = {
@@ -293,9 +224,5 @@ export const SYMBOL_TOOL_UI: Record<TextLang, { specialHint: string; emoticonHin
   en: {
     specialHint: 'Tap to copy to your clipboard. If the font where you paste it does not have that glyph you will see a box (□) instead — use a different symbol or change the font.',
     emoticonHint: 'These are built from characters, not images. They work in places that reject emoji, like usernames and status messages, and they look the same on every device.',
-  },
-  zh: {
-    specialHint: '点一下就复制到剪贴板。如果粘贴处的字体没有这个字形，会显示成方框（□），这时换个符号或换字体。',
-    emoticonHint: '这些是用字符拼出来的，不是图片。在昵称、签名这类不能用表情图的地方也能用，而且在任何设备上看起来都一样。',
   },
 };

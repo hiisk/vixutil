@@ -27,24 +27,6 @@ const COPY = {
     errInvalid: 'That date does not exist.',
     errFuture: 'Your date of birth is in the future.',
   },
-  zh: {
-    title: '今日综合运势',
-    lead: '按出生日期查看今天的总运、爱情、财运、事业与健康',
-    birthLabel: '出生日期',
-    yearPh: '例) 1995', monthPh: '月', dayPh: '日',
-    submit: '查看今日运势',
-    empty: '输入出生日期即可查看今日运势',
-    bornOn: (y: number, m: number, d: number) => `${y}年${m}月${d}日生`,
-    basis: '以今天为准',
-    badge: '今日综合运势',
-    howQ: '运势是怎么定的？',
-    howA: '把出生日期与当天日期混合成一个值，用它从准备好的运势文句中挑一条。所以同一天、同一个生日，刷新多少次结果都一样，日期一变才会换新的。你输入的出生日期只在浏览器里参与计算，不会传送到服务器。运势仅供娱乐与自省，重要的决定请用充分的信息和自己的判断来做。',
-    errAll: '请填写完整的出生日期。',
-    errMonth: '月份请填 1~12 之间。',
-    errDay: '日期请填 1~31 之间。',
-    errInvalid: '该日期不存在。',
-    errFuture: '出生日期晚于今天。',
-  },
 } as const;
 
 export default function DailyFortune({ lang }: { lang: IntlLang }) {

@@ -12,9 +12,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Gwan-po-ji-gyo', meaning: 'The friendship of Guan Zhong and Bao Shuya — friends who truly know each other.',
       origin: 'From the Records of the Grand Historian: Bao Shuya recognised Guan Zhong’s talent and yielded his own position to him.',
       usage: 'Describes a long friendship that does not keep accounts.' },
-    zh: { title: '管鲍之交', meaning: '管仲与鲍叔牙的交情，比喻彼此深知的挚友。',
-      origin: '出自《史记·管晏列传》，鲍叔牙识管仲之才而让位于他。',
-      usage: '形容不计得失的多年挚友之情，中韩通用。' },
   },
   {
     slug: 'jukmagou', hanja: '竹馬故友', simplified: '竹马故友', reading: '죽마고우',
@@ -26,9 +23,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Juk-ma-go-u', meaning: 'An old friend from bamboo-horse days — someone you grew up with.',
       origin: 'From the Shishuo Xinyu, referring to children who played together on bamboo hobby-horses.',
       usage: 'How you introduce a friend you have known since primary school.' },
-    zh: { title: '竹马故友', meaning: '骑竹马一起玩过的老朋友，指从小一起长大的伙伴。',
-      origin: '出自《世说新语》；中文更常说「青梅竹马」或「总角之交」。',
-      usage: '介绍从小学起就相识的朋友时使用。' },
   },
   {
     slug: 'baengnyeonhaero', hanja: '百年偕老', simplified: '百年偕老', reading: '백년해로',
@@ -40,9 +34,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Baeng-nyeon-hae-ro', meaning: 'Growing old together for a hundred years.',
       origin: 'Derived from the Book of Odes line about growing old alongside one another.',
       usage: 'The most common phrase in Korean wedding toasts and invitations.' },
-    zh: { title: '百年偕老', meaning: '夫妻相伴到老，共度百年。',
-      origin: '源自《诗经》「与子偕老」。',
-      usage: '韩国婚礼致辞和请帖中最常见的祝词；中文多说「白头偕老」。' },
   },
   {
     slug: 'donggodongnak', hanja: '同苦同樂', simplified: '同苦同乐', reading: '동고동락',
@@ -54,9 +45,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Dong-go-dong-nak', meaning: 'Sharing the hardship and the joy alike.',
       origin: 'Widely used in Korea, in the same idiom family as the classical phrase about sharing joy with the people.',
       usage: 'Said of colleagues or comrades who have been through a lot together.' },
-    zh: { title: '同苦同乐', meaning: '苦与乐都一同承担、一同享受。',
-      origin: '在韩国广泛使用，与古典「与民同乐」的语法同源；中文多说「同甘共苦」。',
-      usage: '用于共事多年的同事或战友。' },
   },
   {
     slug: 'injisangjeong', hanja: '人之常情', simplified: '人之常情', reading: '인지상정',
@@ -68,9 +56,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'In-ji-sang-jeong', meaning: 'The ordinary feeling any human being would have.',
       origin: 'A phrase common in Chinese classics, referring to natural human emotion.',
       usage: 'Used to say that someone’s disappointment or wanting is understandable.' },
-    zh: { title: '人之常情', meaning: '人人都会有的寻常心情。',
-      origin: '古籍中常见，指人自然而然的情感。',
-      usage: '用于表示某人的失落或欲望情有可原，中韩通用。' },
   },
   {
     slug: 'yuyusangjong', hanja: '類類相從', simplified: '类类相从', reading: '유유상종',
@@ -82,9 +67,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Yu-yu-sang-jong', meaning: 'Like follows like — similar people gather together.',
       origin: 'From the Book of Changes: things group by kind and divide by category.',
       usage: 'Sometimes neutral, but more often said of a bad crowd.' },
-    zh: { title: '类类相从', meaning: '同类互相追随，比喻相似的人聚在一起。',
-      origin: '语出《易经·系辞》「方以类聚，物以群分」；中文多说「物以类聚」。',
-      usage: '可中性使用，但在韩国更常带贬义。' },
   },
   {
     slug: 'gyeolchoboeun', hanja: '結草報恩', simplified: '结草报恩', reading: '결초보은',
@@ -96,9 +78,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Gyeol-cho-bo-eun', meaning: 'Tie the grass to repay a kindness — gratitude that outlasts death.',
       origin: 'From the Zuo Commentary: the spirit of a man who had been shown mercy knotted grass to trip an enemy’s horse and save his benefactor.',
       usage: 'Said when vowing to repay a great favour.' },
-    zh: { title: '结草报恩', meaning: '打结草茎以报恩，形容至死不忘恩情。',
-      origin: '出自《左传》，受恩者的魂灵结草绊倒敌马，救了恩人。',
-      usage: '受到大恩时表达报答之心；中文多说「结草衔环」。' },
   },
   {
     slug: 'baeeunmangdeok', hanja: '背恩忘德', simplified: '背恩忘德', reading: '배은망덕',
@@ -110,9 +89,6 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Bae-eun-mang-deok', meaning: 'Turning your back on kindness and forgetting the good done to you.',
       origin: 'From classical Chinese phrasing; in Korean it hardened into a strong rebuke for ingratitude.',
       usage: 'Used to condemn someone who harmed the person who helped them.' },
-    zh: { title: '背恩忘德', meaning: '背弃恩情、忘掉他人的好处。',
-      origin: '源自古汉语表述；在韩国固定为对忘恩行为的严厉指责。',
-      usage: '用于谴责恩将仇报者；中文多说「忘恩负义」。' },
   },
   {
     slug: 'jogangjicheo', hanja: '糟糠之妻', simplified: '糟糠之妻', reading: '조강지처',
@@ -124,8 +100,5 @@ export const PEOPLE_IDIOMS: Idiom[] = [
     en: { title: 'Jo-gang-ji-cheo', meaning: 'The wife who shared the dregs and chaff — a spouse who endured poverty with you.',
       origin: 'From the Book of the Later Han: Song Hong refused to set aside the wife who had been with him when he was poor.',
       usage: 'Said of a partner who came through the hard years with you.' },
-    zh: { title: '糟糠之妻', meaning: '共食酒糟米糠、一同受苦的妻子。',
-      origin: '出自《后汉书·宋弘传》，宋弘富贵后仍不弃贫贱时的妻子。',
-      usage: '指共渡艰难岁月的伴侣，中韩通用。' },
   },
 ];

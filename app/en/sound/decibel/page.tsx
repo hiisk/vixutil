@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Shows the level of what comes through your mic in relative decibels. Compare against references like a library, conversation or a subway to gauge where you are. Mics differ by device, so this is not an absolute measurement.',
   alternates: {
     canonical: '/en/sound/decibel',
-    languages: { 'en': '/en/sound/decibel', 'zh': '/zh/sound/decibel', 'ko': '/sound/decibel', 'x-default': '/en/sound/decibel' },
+    languages: { 'en': '/en/sound/decibel', 'ko': '/sound/decibel', 'x-default': '/en/sound/decibel' },
   },
 };
 

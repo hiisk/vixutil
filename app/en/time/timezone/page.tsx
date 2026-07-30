@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Converts a time between two cities in both directions and lays the whole day out side by side, so the overlap in working hours is obvious.",
   alternates: {
     canonical: '/en/time/timezone',
-    languages: { 'en': '/en/time/timezone', 'zh': '/zh/time/timezone', 'ko': '/time/timezone', 'x-default': '/en/time/timezone' },
+    languages: { 'en': '/en/time/timezone', 'ko': '/time/timezone', 'x-default': '/en/time/timezone' },
   },
 };
 

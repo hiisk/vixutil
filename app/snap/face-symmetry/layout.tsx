@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '사진 한 장으로 얼굴 랜드마크를 실측해 좌우 대칭 지수를 측정해보는 재미있는 테스트입니다.',
   alternates: {
     canonical: '/snap/face-symmetry',
-    languages: { 'ko': '/snap/face-symmetry', 'en': '/en/snap/face-symmetry', 'zh': '/zh/snap/face-symmetry', 'x-default': '/en/snap/face-symmetry' },
+    languages: { 'ko': '/snap/face-symmetry', 'en': '/en/snap/face-symmetry', 'x-default': '/en/snap/face-symmetry' },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

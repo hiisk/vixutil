@@ -32,9 +32,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'BMR Calculator', desc: 'Find the minimum calories your body burns doing nothing at all.',
       long: 'The Mifflin-St Jeor equation estimates basal metabolic rate from weight, height, age and sex. It fits modern populations better than the older Harris-Benedict formula.',
       note: 'The second figure assumes moderate activity (factor 1.55) — adjust activity in the TDEE calculator.' },
-    zh: { title: '基础代谢率计算器', desc: '算出躺着不动也会消耗的每日最低热量。',
-      long: 'Mifflin-St Jeor公式根据体重、身高、年龄和性别估算基础代谢率，比更早的Harris-Benedict公式更贴合现代人。',
-      note: '第二个数值假设中等活动量(系数1.55) — 活动量请在TDEE计算器中调整。' },
   },
   {
     slug: 'bmr-katch',
@@ -57,9 +54,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'BMR from Lean Mass', desc: 'The Katch-McArdle formula, more accurate when you know your body fat.',
       long: 'Fat tissue is nearly inert metabolically, so working from lean mass alone avoids underestimating people who carry a lot of muscle.',
       note: 'This only helps if you have a measured body fat percentage — otherwise use Mifflin-St Jeor.' },
-    zh: { title: '按去脂体重算基础代谢', desc: '知道体脂率时更准确的Katch-McArdle公式。',
-      long: '脂肪几乎不参与代谢，所以只用去脂体重计算，就不会低估肌肉量大的人的代谢率。',
-      note: '只有在有实测体脂率时才有意义 — 不知道的话请用Mifflin-St Jeor公式。' },
   },
   {
     slug: 'tdee',
@@ -79,7 +73,7 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
       const ko = a < 1.35 ? '거의 앉아서 생활' : a < 1.5 ? '주 1~3회 운동' : a < 1.7 ? '주 3~5회 운동' : a < 1.95 ? '주 6~7회 운동' : '하루 두 번 훈련';
       const en = a < 1.35 ? 'mostly sedentary' : a < 1.5 ? 'light exercise 1–3×/week' : a < 1.7 ? 'moderate 3–5×/week' : a < 1.95 ? 'hard 6–7×/week' : 'twice-daily training';
       const zh = a < 1.35 ? '几乎久坐' : a < 1.5 ? '每周运动1~3次' : a < 1.7 ? '每周运动3~5次' : a < 1.95 ? '每周运动6~7次' : '每天两练';
-      return { ko: `활동계수 ${a}는 "${ko}" 수준입니다.`, en: `An activity factor of ${a} means ${en}.`, zh: `活动系数${a}相当于「${zh}」。`, tone: 'good' };
+      return { ko: `활동계수 ${a}는 "${ko}" 수준입니다.`, en: `An activity factor of ${a} means ${en}.`, tone: 'good' };
     },
     ko: { title: '활동대사량(TDEE) 계산기', desc: '기초대사량에 활동계수를 곱해 하루 총 소모 칼로리를 구합니다.',
       long: '활동계수는 앉아서 생활하면 1.2, 주 3~5회 운동하면 1.55, 매일 훈련하면 1.9 정도를 씁니다. 아래 값은 하루 500kcal 적자 기준 섭취량입니다.',
@@ -87,9 +81,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'TDEE Calculator', desc: 'Multiply BMR by an activity factor for total daily calories burned.',
       long: 'Use about 1.2 if you sit all day, 1.55 for training 3–5 times a week, and 1.9 for daily hard training. The second figure is intake at a 500 kcal deficit.',
       note: 'Activity factors are rough. Your real TDEE is the intake at which your weight holds steady for two weeks.' },
-    zh: { title: '每日总消耗(TDEE)计算器', desc: '把基础代谢率乘以活动系数，得到每日总消耗热量。',
-      long: '久坐约取1.2，每周训练3~5次取1.55，每天高强度训练取1.9。第二个数值是每日500千卡热量缺口下的摄入量。',
-      note: '活动系数只是估值。让体重两周不变的摄入量才是你真实的TDEE。' },
   },
   {
     slug: 'calorie-deficit',
@@ -113,8 +104,7 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
       const tooLow = intake < 1200;
       return {
         ko: tooLow ? `하루 ${intake}kcal는 너무 적습니다. 감량 속도를 늦추세요.` : `하루 ${intake}kcal를 먹으면 주 ${v.perWeek}kg 속도입니다.`,
-        en: tooLow ? `${intake} kcal a day is too low — slow the target down.` : `Eating ${intake} kcal a day gives about ${v.perWeek} kg per week.`,
-        zh: tooLow ? `每天${intake}千卡过低 — 请放慢减重速度。` : `每天摄入${intake}千卡，约为每周${v.perWeek}公斤的速度。`,
+        en: tooLow ? `${intake} kcal a day is too low — slow the target down.` : `Eating ${intake} kcal a day gives about ${v.perWeek} kg per week.` ? `每天${intake}千卡过低 — 请放慢减重速度。` : `每天摄入${intake}千卡，约为每周${v.perWeek}公斤的速度。`,
         tone: tooLow ? 'bad' : 'good',
       };
     },
@@ -124,9 +114,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'Calorie Deficit Calculator', desc: 'Set daily intake to match the rate of weight loss you want.',
       long: 'A kilogram of body fat holds roughly 7,700 kcal, so losing 0.5 kg a week needs a deficit of about 550 kcal a day.',
       note: 'Dropping below roughly 1,200 kcal for women or 1,500 for men risks nutrient shortfalls and muscle loss.' },
-    zh: { title: '减脂热量计算器', desc: '按你想要的减重速度定出每日摄入热量。',
-      long: '1公斤体脂约含7700千卡，所以每周减0.5公斤需要每天约550千卡的缺口。',
-      note: '女性低于约1200千卡、男性低于约1500千卡时，营养不足和肌肉流失的风险明显上升。' },
   },
   {
     slug: 'weight-loss-time',
@@ -153,9 +140,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'Weight Loss Timeline', desc: 'See how many weeks reaching your goal weight will take.',
       long: 'Multiply the kilos to lose by 7,700 kcal and divide by the daily deficit. Losing 10 kg at 500 kcal a day takes about 22 weeks.',
       note: 'BMR falls as you lose weight, so the later weeks run slower than the maths suggests — allow extra time.' },
-    zh: { title: '减重周期计算器', desc: '算出达到目标体重需要多少周。',
-      long: '把要减的公斤数乘以7700千卡，再除以每日缺口即为所需天数。每天缺口500千卡减10公斤约需22周。',
-      note: '体重下降后基础代谢也会下降，所以后期实际会更慢 — 请比计算值多留些时间。' },
   },
   {
     slug: 'protein-need',
@@ -180,9 +164,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'Protein Requirement', desc: 'Work out daily protein from a target per kilogram of body weight.',
       long: 'Sedentary adults are advised 0.8–1 g per kg; people doing resistance training aim for 1.6–2.2 g. Since absorption per meal is limited, the per-meal share is shown too.',
       note: 'Kidney disease can require restricting protein — check with your clinician before raising intake.' },
-    zh: { title: '蛋白质需求计算器', desc: '按每公斤体重的目标量算出每日蛋白质摄入。',
-      long: '一般成人建议每公斤0.8~1克，进行力量训练者取1.6~2.2克。单餐吸收有上限，因此同时给出分三餐的量。',
-      note: '有肾脏疾病时可能需要限制蛋白质摄入 — 提高摄入前请咨询医生。' },
   },
   {
     slug: 'water-need',
@@ -208,9 +189,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'Daily Water Intake', desc: 'Estimate how much water to drink from body weight and exercise time.',
       long: 'The usual guide is 30–35 mL per kilogram, plus roughly 350 mL for every 30 minutes of exercise. The count of 250 mL glasses is shown as well.',
       note: 'Food and soup contribute water too, so you need to drink less than this. Heart or kidney conditions may require limits.' },
-    zh: { title: '每日饮水量计算器', desc: '按体重和运动时长估算建议饮水量。',
-      long: '常见建议是每公斤体重30~35毫升，每运动30分钟再补约350毫升。同时显示折合多少杯250毫升的水。',
-      note: '食物和汤里也含水分，实际需要喝的比这更少。有心脏或肾脏疾病时可能需要限水。' },
   },
   {
     slug: 'macro-split',
@@ -235,7 +213,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
       return fatPct < 15 ? {
         ko: `지방 비율이 ${Math.max(0, fatPct)}%로 너무 낮습니다. 호르몬 합성에 지방이 필요합니다.`,
         en: `Fat is only ${Math.max(0, fatPct)}% — too low; the body needs fat for hormone synthesis.`,
-        zh: `脂肪只占${Math.max(0, fatPct)}%，过低 — 身体合成激素需要脂肪。`,
         tone: 'bad',
       } : null;
     },
@@ -245,9 +222,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'Macro Split Calculator', desc: 'Turn a daily calorie target into grams of carbs, protein and fat.',
       long: 'Carbs and protein give 4 kcal per gram, fat gives 9. Choose the percentages and this converts them to grams.',
       note: 'Most guidance keeps fat at 20% or more — it is needed for hormone synthesis and fat-soluble vitamin absorption.' },
-    zh: { title: '三大营养素配比计算器', desc: '把每日热量目标换算成碳水、蛋白质和脂肪的克数。',
-      long: '碳水和蛋白质每克4千卡，脂肪每克9千卡。设定比例后即可换算成克数。',
-      note: '通常建议脂肪至少占20% — 合成激素和吸收脂溶性维生素都需要脂肪。' },
   },
   {
     slug: 'met-calories',
@@ -272,9 +246,6 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'MET Calorie Burn', desc: 'Calculate calories burned from exercise intensity (MET) and duration.',
       long: 'A MET is a multiple of your resting energy use: walking is about 3.5, jogging 7, cycling 8, swimming 8–10.',
       note: 'This is total expenditure including your resting rate — subtract resting burn to get the extra from exercise alone.' },
-    zh: { title: 'MET运动消耗计算器', desc: '按运动强度(MET)和时长算出消耗的热量。',
-      long: 'MET表示能量消耗是静息状态的多少倍：走路约3.5，慢跑7，骑车8，游泳8~10。',
-      note: '这是含静息代谢的总消耗 — 想知道「运动额外多烧的」需再减去静息消耗。' },
   },
   {
     slug: 'walk-calories',
@@ -300,8 +271,5 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
     en: { title: 'Steps to Calories', desc: 'Convert step count and stride into distance walked and calories burned.',
       long: 'Walking costs roughly 0.75 kcal per kilogram per kilometre. Stride is about 0.4× your height, so 10,000 steps is usually 6–7 km.',
       note: 'Phone pedometers assume an average stride, so they drift. If you know a real distance, back-calculate your stride from it.' },
-    zh: { title: '步数热量计算器', desc: '用步数和步幅算出步行距离与消耗热量。',
-      long: '步行每公斤体重每公里约消耗0.75千卡。步幅约为身高的0.4倍，所以一万步通常是6~7公里。',
-      note: '手机计步器按平均步幅估算，会有偏差。若知道真实距离，可反推自己的步幅。' },
   },
 ];

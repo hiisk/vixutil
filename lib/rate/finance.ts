@@ -27,9 +27,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Simple Interest', desc: 'Find the final amount when interest is paid on the principal only.',
       long: 'With simple interest only the principal earns, so the same amount accrues every year and you just multiply by the term.',
       note: 'Most term deposits are simple; instalment products and loans behave closer to compound. Check the product terms.' },
-    zh: { title: '单利计算器', desc: '利息只按本金计算时的到期金额。',
-      long: '单利只有本金生息，每年累加相同金额，所以直接乘以年数即可。',
-      note: '大多数定期存款是单利；分期产品和贷款更接近复利。请查看产品条款的计息方式。' },
   },
   {
     slug: 'compound-interest',
@@ -55,9 +52,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Compound Interest', desc: 'Find the final amount when interest earns interest.',
       long: 'Compounding applies the rate to the whole balance each year. At 6% for 10 years you end with 1.79× the principal, where simple interest gives only 1.6×.',
       note: 'The gap over simple interest widens sharply with time — compounding gets its power from years more than from the rate.' },
-    zh: { title: '复利计算器', desc: '利息再生利息时的到期金额。',
-      long: '复利每年按全部余额计息。年利率6%持续10年会变成本金的1.79倍，而单利只有1.6倍。',
-      note: '时间越长，与单利的差距扩大得越快 — 复利的威力来自年数，而非利率。' },
   },
   {
     slug: 'monthly-saving',
@@ -88,9 +82,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Savings Plan Maturity', desc: 'See what a fixed monthly deposit grows to by the end of the term.',
       long: 'The first deposit earns interest for the whole term while the last earns almost none, which is why an instalment plan pays roughly half what a lump-sum deposit at the same rate would.',
       note: 'The interest shown is before tax — Korean interest income tax of 15.4% reduces what you actually receive.' },
-    zh: { title: '定期储蓄到期计算器', desc: '每月存入固定金额，到期能拿到多少。',
-      long: '第一个月存的钱能享受全期利息，最后一个月几乎没有，所以同样利率下零存整取的利息约为整存整取的一半。',
-      note: '显示的利息是税前 — 扣除15.4%利息所得税后实际到手会少一些。' },
   },
   {
     slug: 'loan-payment',
@@ -118,9 +109,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Loan Monthly Payment', desc: 'Calculate the level monthly payment on a loan from amount, rate and term.',
       long: 'With an amortising loan every payment is the same size. Early on most of it is interest; over time more goes to principal.',
       note: '200M at 4.5% over 30 years costs over 160M in interest. A shorter term raises the monthly figure but cuts total interest sharply.' },
-    zh: { title: '等额本息月供计算器', desc: '用贷款金额、利率和年限算出每月还款额。',
-      long: '等额本息每月还款总额相同。前期其中利息占比大，越往后本金占比越高。',
-      note: '2亿按年利率4.5%借30年，总利息超过1.6亿。缩短年限会提高月供，但总利息大幅下降。' },
   },
   {
     slug: 'rule-of-72',
@@ -144,9 +132,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Rule of 72', desc: 'Estimate in your head how long money takes to double at a given rate.',
       long: 'Divide 72 by the rate for a quick doubling time: 12 years at 6%, 8 years at 9%.',
       note: 'The shortcut is most accurate between about 6% and 10%. The exact figure is shown alongside so you can see the gap.' },
-    zh: { title: '72法则计算器', desc: '心算估计年利率多少时本金能翻倍。',
-      long: '用72除以利率就能大致得到翻倍年数：6%约12年，9%约8年。',
-      note: '这个速算法在6%~10%区间最准。旁边同时给出精确值，可以对比差距。' },
   },
   {
     slug: 'roi',
@@ -166,7 +151,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
       return {
         ko: r >= 0 ? `투자금의 ${r}%를 벌었습니다.` : `투자금의 ${Math.abs(r)}%를 잃었습니다.`,
         en: r >= 0 ? `You gained ${r}% of what you put in.` : `You lost ${Math.abs(r)}% of what you put in.`,
-        zh: r >= 0 ? `赚到了投入金额的${r}%。` : `亏损了投入金额的${Math.abs(r)}%。`,
         tone: r >= 0 ? 'good' : 'bad',
       };
     },
@@ -176,9 +160,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'ROI Calculator', desc: 'Get return on investment and profit from what you put in and got back.',
       long: 'Divide the gain by the amount invested. Dividing by the amount returned understates the return.',
       note: 'Subtract trading fees and tax from the returned amount first to get your real return.' },
-    zh: { title: '收益率计算器', desc: '用投入金额和回收金额算出收益率和收益金额。',
-      long: '用赚到的钱除以投入金额。除以回收金额会低估收益率。',
-      note: '先从回收金额中扣除交易手续费和税费，才是真实收益率。' },
   },
   {
     slug: 'annualized-return',
@@ -203,9 +184,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Annualised Return', desc: 'Convert a short-period return into a yearly equivalent.',
       long: 'Earning 8% in 90 days scales linearly to 32.4% a year, or 36.5% if you assume compounding. The second figure shown is the linear one.',
       note: 'Annualising a short run inflates the headline number — be wary of ads that turn a few days of gains into hundreds of percent.' },
-    zh: { title: '年化收益率计算器', desc: '把短期收益率换算成一年的等效收益率。',
-      long: '90天赚8%，简单换算是年32.4%，若假设复利再投资则是年36.5%。下方显示的是简单换算值。',
-      note: '把短期业绩年化会让数字显得夸张 — 要警惕把几天的收益说成年化几百%的宣传。' },
   },
   {
     slug: 'loss-recovery',
@@ -222,7 +200,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `${v.loss}% 하락을 만회하려면 ${out[0].value}% 올라야 합니다 — 내린 만큼 오르면 본전이 아닙니다.`,
       en: `Recovering a ${v.loss}% drop takes a ${out[0].value}% rise — gaining back the same percentage is not enough.`,
-      zh: `要挽回${v.loss}%的下跌需要上涨${out[0].value}% — 涨回同样的百分比并不等于回本。`,
       tone: 'warn',
     }),
     ko: { title: '손실 회복률 계산기', desc: '몇 % 떨어진 뒤 원금으로 돌아오려면 몇 % 올라야 하는지 구합니다.',
@@ -231,9 +208,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Loss Recovery Calculator', desc: 'How big a gain you need to get back to even after a given drop.',
       long: 'A 30% loss leaves 70%, and climbing from 70 back to 100 takes a 42.9% gain — the base shrank.',
       note: 'A 50% loss needs a 100% gain; a 90% loss needs 900%. That asymmetry is why avoiding big losses beats chasing big gains.' },
-    zh: { title: '亏损回本涨幅计算器', desc: '下跌一定百分比后，需要上涨多少才能回本。',
-      long: '下跌30%后只剩70%，要从70回到100需要上涨42.9% — 因为基数变小了。',
-      note: '亏50%要涨100%，亏90%要涨900%。正因这种不对称，避免大亏比追求大赚更重要。' },
   },
   {
     slug: 'real-rate',
@@ -256,7 +230,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
       return {
         ko: real >= 0 ? `물가를 감안해도 연 ${real}% 남습니다.` : `물가를 감안하면 실질 ${Math.abs(real)}% 손실입니다.`,
         en: real >= 0 ? `After inflation you still gain ${real}% a year.` : `After inflation this loses ${Math.abs(real)}% a year in real terms.`,
-        zh: real >= 0 ? `扣除通胀后每年仍有${real}%的实际收益。` : `扣除通胀后实际每年亏损${Math.abs(real)}%。`,
         tone: real >= 0 ? 'good' : 'bad',
       };
     },
@@ -266,9 +239,6 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Real Interest Rate', desc: 'Strip inflation out of a nominal rate to see the gain in purchasing power.',
       long: 'Subtracting inflation from the nominal rate is only an approximation; dividing the two gross factors is exact. The simple subtraction is shown below.',
       note: 'A 3.5% deposit with 3.5% inflation gains you almost nothing — and after interest tax it turns negative.' },
-    zh: { title: '实际利率计算器', desc: '从名义利率中剔除通胀，看真实购买力收益。',
-      long: '直接用名义利率减通胀率只是近似值，精确做法是两者各加1后相除。下方给出的是简单相减的结果。',
-      note: '存款利率3.5%而通胀也是3.5%时，实际收益几乎为零 — 再扣利息税就变成负的。' },
   },
   {
     slug: 'deposit-tax',
@@ -292,8 +262,5 @@ export const FINANCE_TOOLS: FormulaTool[] = [
     en: { title: 'Interest Income Tax', desc: 'Take the 15.4% tax off your interest to see what you actually receive.',
       long: "Korea's interest income tax is 14% income tax plus 1.4% local tax, or 15.4%. The bank withholds it and deposits the rest.",
       note: 'Once interest and dividends together pass 20M a year, the income is taxed comprehensively at a different rate.' },
-    zh: { title: '利息所得税计算器', desc: '从利息中扣除15.4%，算出实际到手金额。',
-      long: '韩国利息所得税为所得税14%加地方所得税1.4%，合计15.4%。银行会先代扣再入账。',
-      note: '利息与股息合计超过每年2000万元时，将纳入金融所得综合课税，税率不同。' },
   },
 ];

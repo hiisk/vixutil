@@ -30,15 +30,6 @@ const COPY = {
     tip: '📸 Photo tip',
     disclaimer: 'The mouth-corner measurement is real; the interpretation is entertainment.',
   },
-  zh: {
-    title: '微笑指数',
-    lead: '用真实的人脸识别分析嘴角上扬程度',
-    privacy: '嘴角位置确实是在这个浏览器里实测的，不过无表情的照片并不代表不好。和表情无关的好照片多得是，看个乐子就好。',
-    overall: '😊 综合微笑指数',
-    breakdown: '📊 微笑细项分析',
-    tip: '📸 拍照建议',
-    disclaimer: '嘴角位置为实测，表情解读仅供娱乐参考。',
-  },
 } as const;
 
 interface Result {

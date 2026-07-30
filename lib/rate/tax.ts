@@ -26,9 +26,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Add VAT', desc: 'Add VAT to a net amount to get the total you should invoice.',
       long: 'VAT is the rate applied to the net amount, and the two together are what the customer pays. Change the rate for your country or product class.',
       note: 'If your quote said "plus VAT", the total shown here is the amount that will actually be transferred.' },
-    zh: { title: '含税金额计算', desc: '在不含税金额上加上增值税，得出应开票的总额。',
-      long: '增值税按税率乘以不含税金额得出，两者相加就是客户实付金额。税率可按国家和品类调整。',
-      note: '如果报价写的是「不含税」，这里算出的合计才是实际到账金额。' },
   },
   {
     slug: 'vat-extract',
@@ -52,9 +49,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Extract VAT', desc: 'Split a VAT-inclusive total into the net amount and the tax.',
       long: 'At a 10% rate, divide the total by 1.1 to get the net amount. Taking 10% off the total instead overstates the tax.',
       note: 'The VAT inside 110 is 10, not 11 — the tax is charged on the net amount, not on the total.' },
-    zh: { title: '增值税反算', desc: '从含税总额中拆分出不含税金额和税额。',
-      long: '税率10%时，总额除以1.1就是不含税金额。直接从总额减去10%会把税额算大。',
-      note: '11万元中的增值税是1万元，不是1.1万元 — 税是按不含税金额计征的。' },
   },
   {
     slug: 'tip',
@@ -81,9 +75,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Tip Calculator', desc: 'Add a tip to the bill and split it across the table.',
       long: 'Multiply the bill by the tip rate, add it on, then divide by the number of people. 15–20% is the usual range in the US.',
       note: 'If the receipt already lists gratuity or a service charge, the tip is included — check before adding a second one.' },
-    zh: { title: '小费计算器', desc: '在餐费上加小费，并按人数平摊。',
-      long: '餐费乘以小费比例后相加得到总额，再除以人数就是每人应付。美国通常按15~20%给。',
-      note: '如果账单上已列出 gratuity 或服务费，小费已包含在内 — 别重复支付。' },
   },
   {
     slug: 'dutch-pay',
@@ -108,9 +99,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Split the Bill', desc: 'Divide a total across people and round up to a convenient amount.',
       long: 'An exact split usually leaves awkward change, so this rounds up to the nearest 100 and shows the surplus you collect.',
       note: 'The surplus normally goes to whoever paid the card, or towards the next round.' },
-    zh: { title: 'AA制计算器', desc: '把总额按人数平分，并向上取整到便于收取的金额。',
-      long: '精确平分常留下零钱，所以这里向上取整到100，并显示这样收会多出多少。',
-      note: '多出的钱通常归垫付的人，或留作下一场的费用。' },
   },
   {
     slug: 'withholding',
@@ -134,9 +122,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Withholding Tax', desc: 'Take withholding tax off a freelance payment to see the net amount.',
       long: "Korea's business-income withholding is 3% income tax plus 0.3% local tax, or 3.3% in total. What is left after that is what reaches your account.",
       note: 'The withheld amount is settled when you file your annual return — with low income much of it comes back as a refund.' },
-    zh: { title: '预扣税3.3%计算器', desc: '从自由职业报酬中扣除预扣税，算出实收金额。',
-      long: '韩国的经营所得预扣税为所得税3%加地方所得税0.3%，合计3.3%。扣除后剩下的才是到账金额。',
-      note: '被预扣的税会在次年综合所得税申报时汇算清缴 — 收入较低时大部分可以退回。' },
   },
   {
     slug: 'commission',
@@ -160,9 +145,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Commission & Payout', desc: 'Subtract a platform commission from your sales to see the actual payout.',
       long: 'Marketplaces and delivery apps take a percentage of each sale. The payout is what remains — your own costs still come out of that.',
       note: 'Commission is often subject to VAT too. If your contract says "plus VAT", your real cost is higher than shown.' },
-    zh: { title: '佣金结算计算器', desc: '从销售额中扣除平台佣金，算出实际结算金额。',
-      long: '电商平台和外卖App会按销售额抽取一定比例的佣金。结算金额是剩下的部分，成本还要从这里再扣。',
-      note: '佣金本身往往还要加增值税。若合同写「不含税」，实际负担会高于这里的数字。' },
   },
   {
     slug: 'effective-rate',
@@ -183,9 +165,6 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Effective Tax Rate', desc: 'From gross and net pay, see what share was actually deducted.',
       long: 'Payslips split deductions across many lines, which hides the total. Enter gross and net and the whole deduction rate comes out as one number.',
       note: 'A tax bracket is not an effective rate. Even in a 24% bracket, the average across your income is much lower.' },
-    zh: { title: '实际税率计算器', desc: '用税前金额和实收金额，算出实际被扣掉的百分比。',
-      long: '工资单上的扣款项目分成好多行，很难看出总额。只填税前和实收，整体扣除率就变成一个数字。',
-      note: '税率档次不等于实际税率。即使最高档是24%，全部收入的平均税率也远低于此。' },
   },
   {
     slug: 'gross-up',
@@ -209,8 +188,5 @@ export const TAX_TOOLS: FormulaTool[] = [
     en: { title: 'Gross-Up Calculator', desc: 'Work out the contract amount needed to hit a target net payment.',
       long: 'To net 1,000,000 with 3.3% withheld, the contract is not 1,033,000 — you divide 1,000,000 by 0.967.',
       note: 'Quoting by simply adding the tax rate leaves you a little short of the target every time.' },
-    zh: { title: '税前金额反算', desc: '想拿到某个实收金额，合同金额该写多少？',
-      long: '想实收100万且预扣3.3%，合同金额不是103.3万，而要用100万除以0.967。',
-      note: '报价时直接把税率加上去，每次实收都会比目标少一点。' },
   },
 ];

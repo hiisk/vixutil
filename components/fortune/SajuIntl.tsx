@@ -286,7 +286,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
                   const b = BRANCHES[w.pillar.branchIdx];
                   return (
                     <div key={w.age} className="rounded-xl border border-slate-200 dark:border-slate-700 p-2 text-center">
-                      <p className="text-[10px] text-slate-400 dark:text-slate-500">{w.age}{lang === 'zh' ? ui.age : ''}</p>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500">{w.age}{''}</p>
                       <p className="text-base font-black leading-tight" style={{ color: ELEMENT_COLOR[s.element] }}>{s.hanja}</p>
                       <p className="text-base font-black leading-tight" style={{ color: ELEMENT_COLOR[b.element] }}>{b.hanja}</p>
                     </div>

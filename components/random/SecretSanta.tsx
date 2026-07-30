@@ -30,9 +30,9 @@ function derange(names: string[]): Record<string, string> {
   return map;
 }
 
-export default function SecretSanta({ lang = 'ko' }: { lang?: 'ko' | 'en' | 'zh' }) {
+export default function SecretSanta({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
   const ko = lang === 'ko';
-  const zh = lang === 'zh';
+  const zh = false;
   const [text, setText] = useState(ko ? '철수\n영희\n민수\n지연\n현우' : zh ? '张三\n李四\n王五\n赵六\n小明' : 'Alex\nSam\nJordan\nTaylor\nJamie');
   const [assign, setAssign] = useState<Record<string, string> | null>(null);
   const [order, setOrder] = useState<string[]>([]);

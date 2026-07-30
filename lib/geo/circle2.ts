@@ -35,9 +35,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     en: { title: 'Sector Perimeter', desc: 'Perimeter and area of a sector from radius and central angle.',
       long: 'A sector’s perimeter is one curved arc plus two straight radii. Forgetting the radii is a common slip — when cutting fabric or trimming an edge, those two straight sides need finishing too.',
       note: 'At 360° the formula still adds two radii. Use the plain circumference formula for a full circle.' },
-    zh: { title: '扇形周长计算器', desc: '由半径和圆心角求出扇形的周长与面积。',
-      long: '扇形周长是一段弧加两条半径。常见的失误是只算弧、忘了半径——裁布或收边时，这两条直边同样需要处理。',
-      note: '圆心角为360°时公式仍会加上两条半径。要整圆请使用圆周公式。' },
   },
   {
     slug: 'segment-from-chord',
@@ -65,9 +62,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     en: { title: 'Circular Segment from a Chord', desc: 'Segment area and central angle from radius and chord.',
       long: 'Half the chord over the radius is the sine of the half-angle, which gives the central angle. The segment is the sector minus the triangle, so the area is r²/2 × (angle − sin angle), with the angle in radians.',
       note: 'A chord cannot exceed the diameter. Enter one that does and the angle saturates at 180°.' },
-    zh: { title: '由弦求弓形面积', desc: '用半径和弦长求出弓形面积与圆心角。',
-      long: '半弦除以半径即为半角的正弦，由此得到圆心角。弓形面积等于扇形减去三角形，即r²/2 ×(角 − sin角)，其中角需用弧度。',
-      note: '弦不可能长于直径。若填入超过直径的值，圆心角会被压到180°。' },
   },
   {
     slug: 'sagitta',
@@ -94,9 +88,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     en: { title: 'Radius from Chord and Sagitta', desc: 'Recover a circle’s radius from a chord and its bulge height.',
       long: 'This finds the radius of a large circle from a fragment, without locating the centre. Lay a straight edge across the chord and measure the height at the fullest point. It is how you recover the curvature of a broken plate or an arch.',
       note: 'A very small sagitta makes the radius blow up and amplifies measurement error with it. Use a longer chord for accuracy.' },
-    zh: { title: '由弦与弓高反推半径', desc: '只量弦长与弓高即可求出原圆的半径。',
-      long: '这是在只剩一段圆弧时、不必找圆心也能求半径的方法。把直尺横搭在弦上，量出最鼓处的高度即可。用于复原破碎盘子或拱券的曲率。',
-      note: '弓高很小时半径会急剧变大，测量误差也随之放大。弦取得越长越准确。' },
   },
   {
     slug: 'belt-length',
@@ -119,7 +110,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `벨트 길이는 약 ${out[0].value}이고 감속비는 ${out[1].value}:1입니다. 큰 풀리가 한 바퀴 돌 때 작은 풀리는 ${out[1].value}바퀴 돕니다.`,
       en: `About ${out[0].value} of belt, with a ${out[1].value}:1 ratio — the small pulley turns ${out[1].value} times for each turn of the large one.`,
-      zh: `皮带长约${out[0].value}，传动比为${out[1].value}:1；大轮转一圈时小轮转${out[1].value}圈。`,
       tone: 'good',
     }),
     ko: { title: '벨트 길이 계산기 (두 풀리)', desc: '두 풀리의 지름과 축간 거리로 벨트 길이를 구합니다.',
@@ -128,9 +118,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     en: { title: 'Belt Length Between Two Pulleys', desc: 'Belt length from two pulley diameters and the centre distance.',
       long: 'The belt wraps both pulleys and runs straight between them. The widely used approximation adds the two straight runs to the wrapped arcs, plus a correction term for when the diameters differ a lot.',
       note: 'Real belts are chosen slightly shorter to leave tensioning travel, and only come in standard lengths.' },
-    zh: { title: '两轮皮带长度计算器', desc: '由两个轮的直径与轴间距求出皮带长度。',
-      long: '皮带绕过两个轮并在其间走直线。常用的近似式把两段直线与包在轮上的弧相加，并加入直径差较大时的修正项。',
-      note: '需要留张紧行程，实际选型会比计算值略短，且成品皮带只有标准长度。' },
   },
   {
     slug: 'pipe-flow',
@@ -156,9 +143,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     en: { title: 'Pipe Flow Rate', desc: 'Litres per minute from bore diameter and flow speed.',
       long: 'Cross-sectional area times speed is the volumetric flow. Double the diameter and the area quadruples, so the flow quadruples too — which is why widening a pipe beats raising the pressure.',
       note: 'Use the internal bore. Pipe is usually specified by outside or nominal diameter, so subtract the wall thickness.' },
-    zh: { title: '管道流量计算器', desc: '由内径与流速求出每分钟通过的水量。',
-      long: '截面积乘流速即为体积流量。直径加倍时截面积变为四倍，流量也变为四倍——这就是加大管径比提高压力更有效的原因。',
-      note: '要填内径。管材通常按外径或公称直径标注，需扣除壁厚后计算。' },
   },
   {
     slug: 'circles-in-circle',
@@ -181,7 +165,6 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `약 ${out[0].value}개가 들어갑니다. 면적비로는 ${out[1].value}개지만 원 사이에 빈틈이 생겨 90.7%만 채워집니다.`,
       en: `About ${out[0].value} fit. The area ratio suggests ${out[1].value}, but gaps between circles leave only 90.7% usable.`,
-      zh: `大约能放${out[0].value}个。按面积比是${out[1].value}个，但圆之间存在空隙，只能填满90.7%。`,
       tone: 'warn',
     }),
     ko: { title: '큰 원 안에 작은 원 몇 개', desc: '지름 비율로 원 안에 들어가는 작은 원 개수를 어림합니다.',
@@ -190,8 +173,5 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     en: { title: 'How Many Small Circles Fit in a Big One', desc: 'Estimate the count from the diameter ratio.',
       long: 'Dividing areas straight across overcounts. However neatly you arrange circles, gaps remain: even on an infinite plane the best hexagonal packing reaches only 90.69%. This multiplies by that limit.',
       note: 'For small counts — under ten or so — the error is large. Edge effects usually mean fewer fit than this suggests.' },
-    zh: { title: '大圆内能放几个小圆', desc: '按直径比估算大圆内可容纳的小圆数量。',
-      long: '直接用面积相除会高估。无论如何排布，圆之间总有空隙：即便在无限大平面上，六方最密排布的填充率也只有90.69%。此处乘上了这一上限。',
-      note: '数量较少（十个以内）时误差很大。边界效应会使实际数量往往低于估算值。' },
   },
 ];

@@ -26,16 +26,6 @@ const COPY = {
     phiNote: `Closer to φ ≈ ${PHI} scores higher`,
     disclaimer: 'The ratios are measured from real coordinates; calling any of them "ideal" is entertainment.',
   },
-  zh: {
-    title: '黄金比例测试',
-    lead: '测量五官比例与 φ ≈ 1.618 的接近程度',
-    privacy: '各项比例是在这个浏览器里，根据真实关键点坐标算出来的，不是随机数。不过黄金比并不是美的绝对标准，只是历史上的一个参考，分数看个乐子就好。',
-    overall: '📐 黄金比例得分',
-    breakdown: '📊 实测比例',
-    tip: '💡 小建议',
-    phiNote: `越接近 φ ≈ ${PHI} 分数越高`,
-    disclaimer: '比例为真实坐标实测，把某个数值称为「理想」则仅供娱乐。',
-  },
 } as const;
 
 interface Result {

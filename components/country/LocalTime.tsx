@@ -24,7 +24,7 @@ export default function LocalTime({ tz, lang }: { tz: string; lang: Lang }) {
 
   if (!now) return <span className="text-slate-300 dark:text-slate-600">--:--</span>;
 
-  const locale = lang === 'ko' ? 'ko-KR' : lang === 'zh' ? 'zh-CN' : 'en-US';
+  const locale = lang === 'ko' ? 'ko-KR' : 'en-US';
   const time = new Intl.DateTimeFormat(locale, {
     timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
   }).format(now);

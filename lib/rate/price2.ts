@@ -35,7 +35,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
       return {
         ko: `더한 값 ${round(sum, 1)}%가 아니라 실제로는 ${real}% 깎입니다. 차이는 ${round(sum - real, 1)}%p입니다.`,
         en: `Not the ${round(sum, 1)}% you get by adding — the real cut is ${real}%, a gap of ${round(sum - real, 1)} points.`,
-        zh: `不是相加得到的${round(sum, 1)}%，实际只减${real}%，相差${round(sum - real, 1)}个百分点。`,
         tone: 'warn',
       };
     },
@@ -45,9 +44,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     en: { title: 'Stacked Discount (3 Coupons)', desc: 'Find the real percentage off when three discounts pile up.',
       long: 'Each discount applies to what is left, so 30% + 20% + 10% is not 60%. Multiply what survives: 0.7 × 0.8 × 0.9 = 0.504, which is 49.6% off.',
       note: 'With percentage discounts the order never changes the answer. Mix in a fixed-amount coupon and it suddenly does.' },
-    zh: { title: '三重折扣计算器', desc: '三个折扣叠加时，算出实际优惠了百分之几。',
-      long: '折扣是对剩余金额逐次生效，所以30%+20%+10%并不等于60%。把剩余比例相乘：0.7×0.8×0.9=0.504，实际优惠49.6%。',
-      note: '纯百分比折扣的先后顺序不影响结果；一旦混入固定金额优惠券，顺序就会改变最终价格。' },
   },
   {
     slug: 'buy-x-get-y',
@@ -70,7 +66,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `1+1은 50%, 2+1은 33.3% 할인입니다. 이 조건은 ${out[0].value}%입니다.`,
       en: `Buy-one-get-one is 50% off; two-for-three is 33.3%. This deal is ${out[0].value}%.`,
-      zh: `买一送一相当于5折，买二送一约省33.3%。本组合为${out[0].value}%。`,
       tone: 'good',
     }),
     ko: { title: 'N+1 할인율 계산기', desc: '1+1, 2+1처럼 덤을 주는 행사가 몇 % 할인인지 계산합니다.',
@@ -79,9 +74,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     en: { title: 'Buy X Get Y Free', desc: 'Turn a “buy two get one free” offer into a plain percentage off.',
       long: 'Divide the free items by everything you carry home. Dividing by the items you paid for instead is how people end up calling BOGO “100% off”.',
       note: 'If the extra spoils before you use it, the real saving is smaller than the number. Check that you can finish it first.' },
-    zh: { title: '买N送M折扣率', desc: '把“买二送一”这类赠品活动换算成百分之几的折扣。',
-      long: '用赠送数量除以最终拿到的总数量。若除以付费数量，就会把“买一送一”误算成100%优惠。',
-      note: '保质期短的商品若赠品用不完被丢掉，实际优惠会低于算出的数字。先确认自己用得完。' },
   },
   {
     slug: 'cost-per-use',
@@ -104,9 +96,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     en: { title: 'Cost per Use', desc: 'Divide a big purchase by the number of times you will actually use it.',
       long: 'Spend 240,000 and use it 200 times and each use costs 1,200. Price tags make the dearer option look worse, but for things used often the cost per use frequently lands below the cheap alternative.',
       note: 'Optimistic use counts make the answer flattering. Base the number on how many times you actually used one last year.' },
-    zh: { title: '单次使用成本', desc: '把一件贵重物品的价格除以实际使用次数。',
-      long: '24万的东西用200次，每次1200。只看标价会觉得贵的一定亏，但经常使用的东西，单次成本往往低于便宜替代品。',
-      note: '使用次数填得太乐观，结果就会好看。请以过去一年真实使用的次数为准。' },
   },
   {
     slug: 'bundle-vs-single',
@@ -128,17 +117,14 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value >= 0
-        ? { ko: `세트가 ${out[0].value}% 저렴합니다.`, en: `The bundle is ${out[0].value}% cheaper.`, zh: `套装便宜${out[0].value}%。`, tone: 'good' }
-        : { ko: `세트가 오히려 ${Math.abs(out[0].value)}% 비쌉니다. 낱개로 사세요.`, en: `The bundle is actually ${Math.abs(out[0].value)}% dearer — buy singles.`, zh: `套装反而贵${Math.abs(out[0].value)}%，建议单买。`, tone: 'bad' },
+        ? { ko: `세트가 ${out[0].value}% 저렴합니다.`, en: `The bundle is ${out[0].value}% cheaper.`, tone: 'good' }
+        : { ko: `세트가 오히려 ${Math.abs(out[0].value)}% 비쌉니다. 낱개로 사세요.`, en: `The bundle is actually ${Math.abs(out[0].value)}% dearer — buy singles.`, tone: 'bad' },
     ko: { title: '세트 vs 낱개 비교', desc: '묶음으로 사는 게 정말 싼지 낱개 가격과 견줍니다.',
       long: '낱개 가격에 개수를 곱해 따로 살 때의 금액을 만들고, 세트 가격을 그 값으로 나눕니다. 1에서 빼면 세트가 몇 % 싼지 나옵니다.',
       note: '세트가 더 비싼 경우가 드물지 않습니다. 특히 낱개가 할인 중일 때는 묶음이 정가 기준이라 역전됩니다.' },
     en: { title: 'Bundle vs Singles', desc: 'Check whether the multipack is actually cheaper than buying singles.',
       long: 'Multiply the single price by the count to get what buying separately costs, then divide the bundle price by it. One minus that is how much the bundle saves.',
       note: 'Bundles being dearer is not rare. When singles go on offer the multipack often stays at full price and loses.' },
-    zh: { title: '套装与单买对比', desc: '核对整箱购买是否真的比单买便宜。',
-      long: '把单价乘以数量得到分开买的金额，再用套装价格除以它。用1减去这个比值，就是套装省下的百分比。',
-      note: '套装更贵的情况并不少见，尤其单品正在促销时，按原价定的整箱往往会反超。' },
   },
   {
     slug: 'free-shipping',
@@ -160,10 +146,10 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (v, out) => {
       const add = out[0].value;
-      if (add === 0) return { ko: '이미 무료배송 기준을 넘었습니다.', en: 'You already clear the free-shipping bar.', zh: '已达到免运门槛。', tone: 'good' };
+      if (add === 0) return { ko: '이미 무료배송 기준을 넘었습니다.', en: 'You already clear the free-shipping bar.', tone: 'good' };
       return add <= v.ship
-        ? { ko: `${add}원어치를 더 담는 값이 배송비 ${v.ship}원보다 싸므로 더 담는 편이 이득입니다.`, en: `Adding ${add} costs less than the ${v.ship} shipping fee, so top up the basket.`, zh: `再买${add}比${v.ship}的运费更便宜，建议加购。`, tone: 'good' }
-        : { ko: `배송비 ${v.ship}원보다 ${add - v.ship}원을 더 써야 합니다. 그냥 배송비를 내는 편이 낫습니다.`, en: `You would spend ${add - v.ship} more than the ${v.ship} fee — just pay the shipping.`, zh: `比运费${v.ship}还多花${add - v.ship}，不如直接付运费。`, tone: 'warn' };
+        ? { ko: `${add}원어치를 더 담는 값이 배송비 ${v.ship}원보다 싸므로 더 담는 편이 이득입니다.`, en: `Adding ${add} costs less than the ${v.ship} shipping fee, so top up the basket.`, tone: 'good' }
+        : { ko: `배송비 ${v.ship}원보다 ${add - v.ship}원을 더 써야 합니다. 그냥 배송비를 내는 편이 낫습니다.`, en: `You would spend ${add - v.ship} more than the ${v.ship} fee — just pay the shipping.`, tone: 'warn' };
     },
     ko: { title: '무료배송 채우기 계산기', desc: '배송비를 아끼려고 더 담는 게 이득인지 판단합니다.',
       long: '기준 금액에서 지금 담은 금액을 빼면 더 담아야 할 금액이 나옵니다. 그 값이 배송비보다 작으면 더 담는 쪽이 싸고, 크면 배송비를 내는 쪽이 쌉니다.',
@@ -171,9 +157,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     en: { title: 'Free Shipping Top-Up', desc: 'Decide whether adding to your basket beats paying for delivery.',
       long: 'Subtract your basket from the threshold to see how much more you need. If that is less than the shipping fee, top up; if more, pay the fee.',
       note: 'This only works for things you would buy anyway. Padding the basket with items you will not use wastes more than the delivery charge.' },
-    zh: { title: '凑单免运费计算器', desc: '判断为省运费而加购是否划算。',
-      long: '用免运门槛减去当前购物车金额，得到还需加购的数额。若小于运费就值得加购，若大于则直接付运费更省。',
-      note: '只有加购本来就要买的东西才划算。为凑单买了用不上的商品，损失会超过运费本身。' },
   },
   {
     slug: 'membership-breakeven',
@@ -196,17 +179,14 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value > 0
-        ? { ko: `연 ${out[0].value}번 이상 쓰면 회비를 뽑습니다. 그보다 적게 쓸 것 같으면 가입하지 않는 편이 낫습니다.`, en: `Use it ${out[0].value} times a year and the fee pays for itself; fewer than that and skip it.`, zh: `一年使用${out[0].value}次以上即可回本，低于这个次数就不必办。`, tone: 'good' }
-        : { ko: '회원가가 일반가보다 싸지 않아 회비를 회수할 수 없습니다.', en: 'The member price is not lower, so the fee never comes back.', zh: '会员价并不更低，年费无法回本。', tone: 'bad' },
+        ? { ko: `연 ${out[0].value}번 이상 쓰면 회비를 뽑습니다. 그보다 적게 쓸 것 같으면 가입하지 않는 편이 낫습니다.`, en: `Use it ${out[0].value} times a year and the fee pays for itself; fewer than that and skip it.`, tone: 'good' }
+        : { ko: '회원가가 일반가보다 싸지 않아 회비를 회수할 수 없습니다.', en: 'The member price is not lower, so the fee never comes back.', tone: 'bad' },
     ko: { title: '유료 멤버십 손익분기 계산기', desc: '연회비를 뽑으려면 몇 번을 써야 하는지 계산합니다.',
       long: '한 번 쓸 때 아끼는 금액은 일반가에서 회원가를 뺀 값입니다. 연회비를 그 값으로 나누면 본전이 되는 횟수가 나오고, 나머지가 있으면 한 번을 더 써야 하므로 올림합니다.',
       note: '무료배송·적립처럼 돈으로 환산되는 혜택이 더 있으면 회당 절약액에 더해 계산하세요.' },
     en: { title: 'Paid Membership Break-Even', desc: 'How many uses it takes before the annual fee pays for itself.',
       long: 'Each use saves the normal price minus the member price. Divide the annual fee by that to get the break-even count, rounding up because a partial use does not count.',
       note: 'If the membership also gives free delivery or points, add their cash value to the per-use saving before dividing.' },
-    zh: { title: '付费会员回本次数', desc: '算出一年要用几次才能把年费赚回来。',
-      long: '每次使用省下的是一般价减会员价。用年费除以它得到回本次数，有余数就要向上取整，因为不足一次不算。',
-      note: '若会员还附带免运费或积分等可折现的权益，应先把它们折算进每次的节省额。' },
   },
   {
     slug: 'exchange-spread',
@@ -226,10 +206,10 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const s = out[0].value;
       return s <= 0.5
-        ? { ko: `스프레드 ${s}%는 좋은 조건입니다.`, en: `A ${s}% spread is a good deal.`, zh: `${s}%的汇率差属于优惠条件。`, tone: 'good' }
+        ? { ko: `스프레드 ${s}%는 좋은 조건입니다.`, en: `A ${s}% spread is a good deal.`, tone: 'good' }
         : s <= 2
-          ? { ko: `스프레드 ${s}%는 보통 수준입니다.`, en: `A ${s}% spread is about average.`, zh: `${s}%的汇率差属于一般水平。`, tone: 'warn' }
-          : { ko: `스프레드 ${s}%는 비쌉니다. 다른 창구를 알아보세요.`, en: `A ${s}% spread is expensive — shop around.`, zh: `${s}%的汇率差偏贵，建议比较其他渠道。`, tone: 'bad' };
+          ? { ko: `스프레드 ${s}%는 보통 수준입니다.`, en: `A ${s}% spread is about average.`, tone: 'warn' }
+          : { ko: `스프레드 ${s}%는 비쌉니다. 다른 창구를 알아보세요.`, en: `A ${s}% spread is expensive — shop around.`, tone: 'bad' };
     },
     ko: { title: '환전 스프레드 계산기', desc: '적용 환율이 기준 환율보다 몇 % 나쁜지, 수수료가 얼마인지 계산합니다.',
       long: '"수수료 없음"이라고 적어 두고 환율에 얹는 곳이 많습니다. 적용 환율에서 기준 환율을 빼고 기준 환율로 나누면 그 숨은 수수료가 비율로 드러납니다.',
@@ -237,9 +217,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     en: { title: 'Currency Exchange Spread', desc: 'See how far the rate you were given sits from the mid-market rate.',
       long: 'Plenty of places advertise “no commission” and bury the charge in the rate. Subtract the mid-market rate from the rate you got and divide by the mid rate to expose it.',
       note: 'Use the mid-market rate as the base. Comparing a buy rate against a sell rate double-counts the spread.' },
-    zh: { title: '换汇点差计算器', desc: '算出实际汇率比基准汇率差了百分之几、隐含手续费是多少。',
-      long: '很多渠道写着“免手续费”，却把成本加进汇率里。用实际汇率减基准汇率再除以基准汇率，隐藏费用就以百分比显现。',
-      note: '基准应使用中间汇率。若拿买入价与卖出价相比，点差会被算成两倍。' },
   },
   {
     slug: 'resale-value',
@@ -265,9 +242,6 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     en: { title: 'Resale Value Depreciation', desc: 'What something is worth after losing a fixed share of its value each year.',
       long: 'Depreciation eats what is left, so 25% a year for three years leaves 0.75 cubed — 42% of the original, not 25%. Electronics and cars follow this curve.',
       note: 'Real second-hand prices step down when a new model lands. This smooth average misses those cliffs just before and after a launch.' },
-    zh: { title: '二手价值折旧计算器', desc: '按每年固定比例贬值时，算出当前的价值。',
-      long: '折旧作用于剩余价值，所以每年25%、三年后剩下的是0.75的三次方，即原价的42%，而不是25%。电子产品和汽车都走这条曲线。',
-      note: '真实二手价会在新款发布时阶梯式下跌。本计算给的是平滑均线，在新品发布前后偏差较大。' },
   },
   {
     slug: 'max-discount',
@@ -291,17 +265,14 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value > 0
-        ? { ko: `${out[0].value}%까지 깎아도 목표 이익률이 지켜집니다.`, en: `You can go to ${out[0].value}% off and still hold the margin.`, zh: `最多打到${out[0].value}%的折扣仍能守住目标利润率。`, tone: 'good' }
-        : { ko: '정가가 낮아 목표 이익률을 지키면서 할인할 여지가 없습니다.', en: 'The list price is too low to discount at all and keep that margin.', zh: '原价过低，在守住目标利润率的前提下没有折扣空间。', tone: 'bad' },
+        ? { ko: `${out[0].value}%까지 깎아도 목표 이익률이 지켜집니다.`, en: `You can go to ${out[0].value}% off and still hold the margin.`, tone: 'good' }
+        : { ko: '정가가 낮아 목표 이익률을 지키면서 할인할 여지가 없습니다.', en: 'The list price is too low to discount at all and keep that margin.', tone: 'bad' },
     ko: { title: '최대 할인율 계산기', desc: '목표 이익률을 지키면서 줄 수 있는 최대 할인율을 구합니다.',
       long: '이익률을 지키는 최저 판매가는 원가를 (1 − 이익률)로 나눈 값입니다. 그 값이 정가의 몇 %인지 보고 1에서 빼면 줄 수 있는 할인율이 나옵니다.',
       note: '이익률은 판매가 기준입니다. 원가 기준(마크업)으로 20%를 지키려면 최저가가 달라지므로 어느 기준인지 먼저 확인하세요.' },
     en: { title: 'Discount Ceiling', desc: 'The deepest discount you can give and still keep your target margin.',
       long: 'The lowest price that holds a margin is cost divided by (1 − margin). Work out what share of the list price that is, and one minus it is the discount you can afford.',
       note: 'This margin is measured on the sale price. Holding 20% as a markup on cost gives a different floor, so check which one you mean.' },
-    zh: { title: '最大折扣率计算器', desc: '在守住目标利润率的前提下，最多能打多少折。',
-      long: '守住利润率的最低售价等于成本除以(1 − 利润率)。看它占原价的百分比，用1减去即可得到能给出的折扣率。',
-      note: '这里的利润率以售价为基准。若按成本加价率守住20%，最低价会不同，请先确认口径。' },
   },
   {
     slug: 'installment-vs-lump',
@@ -327,16 +298,13 @@ export const PRICE2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value >= 0
-        ? { ko: `일시불이 ${out[0].value}원 유리합니다.`, en: `Paying in full wins by ${out[0].value}.`, zh: `一次性付清更划算${out[0].value}。`, tone: 'good' }
-        : { ko: `무이자 할부가 ${Math.abs(out[0].value)}원 유리합니다.`, en: `The interest-free instalments win by ${Math.abs(out[0].value)}.`, zh: `免息分期更划算${Math.abs(out[0].value)}。`, tone: 'good' },
+        ? { ko: `일시불이 ${out[0].value}원 유리합니다.`, en: `Paying in full wins by ${out[0].value}.`, tone: 'good' }
+        : { ko: `무이자 할부가 ${Math.abs(out[0].value)}원 유리합니다.`, en: `The interest-free instalments win by ${Math.abs(out[0].value)}.`, tone: 'good' },
     ko: { title: '일시불 할인 vs 무이자 할부', desc: '일시불 할인과 무이자 할부 중 어느 쪽이 이득인지 비교합니다.',
       long: '일시불로 아끼는 돈은 가격 × 할인율입니다. 할부로 미룬 돈은 예금에 둘 수 있는데, 잔액이 매달 줄어 평균이 원금의 절반이므로 이자도 절반만 붙습니다. 두 값을 견주면 됩니다.',
       note: '무이자 할부가 카드사 혜택·적립을 깎는 조건이면 그만큼을 이자 쪽에서 빼야 합니다. 할부 원금이 다음 달 지출을 밀어내는지도 함께 보세요.' },
     en: { title: 'Pay in Full vs Interest-Free Instalments', desc: 'Compare an upfront discount against spreading the cost for free.',
       long: 'Paying in full saves price × discount. Deferring lets the money sit in savings, but the balance falls each month so the average is half the principal and the interest is halved too. Compare the two figures.',
       note: 'If interest-free instalments forfeit cashback or points, subtract that from the interest side. Also check whether the instalments crowd out next month’s spending.' },
-    zh: { title: '一次性付清折扣与免息分期对比', desc: '比较一次性付款折扣和免息分期哪个更划算。',
-      long: '一次性付清省下价格×折扣率。选择分期则可把钱放在存款里，但余额逐月减少、平均为本金的一半，利息也只有一半。两个数字对比即可。',
-      note: '若免息分期会失去返现或积分，需从利息一侧扣除。也要看分期款是否会挤压下个月的开支。' },
   },
 ];

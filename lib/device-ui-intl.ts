@@ -7,7 +7,7 @@
  * 브라우저·OS 이름은 예외다 — 사용자가 "설정에서 본 이름"과 같아야 쓸모가
  * 있으므로 언어별로 그 언어권에서 통하는 표기를 쓴다.
  */
-export type DeviceLang = 'ko' | 'en' | 'zh';
+export type DeviceLang = 'ko' | 'en';
 
 export const DEVICE_COMMON: Record<DeviceLang, {
   reset: string; clearRecord: string; stop: string;
@@ -24,12 +24,6 @@ export const DEVICE_COMMON: Record<DeviceLang, {
     allowPrompt: 'Press the button and the browser will ask for permission.',
     noDevice: 'No connected device found.',
     cannotOpen: 'Could not open the device. Check whether another app is using it.',
-  },
-  zh: {
-    reset: '重新开始', clearRecord: '清除记录', stop: '■ 停止',
-    allowPrompt: '按下按钮后浏览器会询问权限。',
-    noDevice: '没有找到已连接的设备。',
-    cannotOpen: '无法打开设备。请检查是否有其他应用正在使用。',
   },
 };
 
@@ -52,13 +46,6 @@ export const KEYBOARD_UI: Record<DeviceLang, {
     recognised: 'Keys registered', maxSimul: 'Max simultaneous', nowDown: 'Held now', countSuffix: n => `${n}`,
     recentInput: 'Recent input', noInput: 'Nothing pressed yet.',
     untested: n => `${n} keys not tried yet`, allGood: '🎉 Every key on this layout registered correctly.',
-  },
-  zh: {
-    langKey: '中/英',
-    how: '按任意键试试。蓝色是当前按住的键，浅蓝色是至少被识别过一次的键。',
-    recognised: '已识别的键', maxSimul: '最多同时按下', nowDown: '当前按住', countSuffix: n => `${n} 个`,
-    recentInput: '最近输入', noInput: '还没有任何输入。',
-    untested: n => `还有 ${n} 个键没按过`, allGood: '🎉 这个布局上的所有键都被正确识别了。',
   },
 };
 
@@ -94,17 +81,6 @@ export const MOUSE_UI: Record<DeviceLang, {
     totalClicks: 'Total clicks', chatterTotal: 'Suspected chatter', wheelWord: 'Wheel', scrollWord: 'scroll',
     chatterNote: (ms, n) => `The same button registered again within ${ms}ms, ${n} times. Unless you were deliberately double-clicking fast, that could be switch chatter. Try again with slow single clicks to confirm.`,
   },
-  zh: {
-    buttons: ['左键', '中键（滚轮）', '右键', '后退（侧键）', '前进（侧键）'],
-    wheelDirs: { up: '向上', down: '向下', left: '向左', right: '向右' },
-    pressed: label => `${label}已按下`, buttonN: n => `按键 ${n}`, hint: '在这个区域里点击、滚动试试',
-    cursorAt: (x, y) => `光标 ${x}, ${y}`, contextNote: '仅在这个区域内暂时屏蔽右键菜单',
-    moveEvents: rate => `移动事件 ${rate}/秒`, timesSuffix: n => `${n} 次`,
-    lastGap: ms => `距上次点击 ${ms}ms`, noInputYet: '还没有输入',
-    chatterSuspect: n => ` · 疑似连击 ${n} 次`,
-    totalClicks: '总点击', chatterTotal: '疑似连击', wheelWord: '滚轮', scrollWord: '滚动',
-    chatterNote: (ms, n) => `同一个按键在 ${ms}ms 内再次被按下，共 ${n} 次。如果不是你故意快速双击，那可能是微动开关连击。请慢慢单击几次再确认。`,
-  },
 };
 
 export const TOUCH_UI: Record<DeviceLang, {
@@ -130,15 +106,6 @@ export const TOUCH_UI: Record<DeviceLang, {
     rubNote: 'Rub a finger carefully over the whole area. Any gap that does not get coloured in is a spot that is not receiving touch.',
     noTouchNote: ' (This device has no touch support, so the mouse is shown instead.)',
     clearWith: n => `Clear and retry (${n} touches so far)`,
-  },
-  zh: {
-    pressHere: '用手指按这个区域试试', multiOk: '可以多根手指同时放上去',
-    nowTouching: '当前触点', maxSimul: '最多同时识别', deviceSupports: '设备支持点数',
-    detailTitle: '触摸详情',
-    detailLine: (id, type, pressure, size) => `#${id} · ${type} · 压力 ${pressure} · 大小 ${size}`,
-    rubNote: '用手指把整个区域仔细划一遍。如果有涂不上颜色的空洞，那个位置就是收不到触摸的地方。',
-    noTouchNote: '（这台设备不支持触摸，所以用鼠标代替显示。）',
-    clearWith: n => `清空重来（共按了 ${n} 次）`,
   },
 };
 
@@ -170,17 +137,6 @@ export const GAMEPAD_UI: Record<DeviceLang, {
     vibrate: 'Test vibration', leftStick: 'Left stick', rightStick: 'Right stick',
     driftNote: 'If the values sit away from 0 with your hands off the sticks, that is stick drift. Let go completely and check whether the numbers above stay near 0.00.',
     buttonNote: 'Press every button once. Any button whose colour does not change is not being registered.',
-  },
-  zh: {
-    buttonNames: ['左摇杆', '右摇杆', '↑', '↓', '←', '→', 'Home'],
-    unsupported: '这个浏览器不支持 Gamepad API。请用 Chrome、Edge 或 Firefox 打开。',
-    waiting: '正在等待手柄…',
-    connectHint: '用 USB 插上或通过蓝牙连接后，', connectHintBold: '请按任意键一次。',
-    needsInput: '浏览器要收到一次输入才能识别手柄。',
-    padInfo: (i, buttons, axes) => `第 ${i} 个 · ${buttons} 个键 · ${axes} 个轴`, standardMapping: ' · 标准布局',
-    vibrate: '振动测试', leftStick: '左摇杆', rightStick: '右摇杆',
-    driftNote: '手离开摇杆后数值还偏离 0，就是摇杆漂移。完全松手，看看上面的数字是否接近 0.00。',
-    buttonNote: '把每个键都按一次。颜色不变的键就是没被识别的键。',
   },
 };
 
@@ -222,21 +178,6 @@ export const MIC_TEST_UI: Record<DeviceLang, {
     recording: '● Recording… (6s)', recordAndListen: 'Record 6 seconds and listen back', turnOff: 'Turn the mic off',
     resultTitle: 'Your recording — play it back to check',
   },
-  zh: {
-    denied: '麦克风权限被拒绝。请在地址栏的锁形图标里把麦克风改为允许。',
-    notFound: '没有找到已连接的麦克风。请确认设备已插好。',
-    cannotOpen: '无法打开麦克风。请检查是否有其他应用正在使用。',
-    prompt1: '按下按钮后浏览器会询问麦克风权限。', prompt2: '允许之后就能立刻看到输入电平。',
-    opening: '正在打开麦克风…', startTest: '开始麦克风测试',
-    inputLevel: '输入电平', levelPeak: (l, p) => `${l}% · 峰值 ${p}%`,
-    saySomething: '说点什么…',
-    tooQuiet: '几乎收不到声音 —— 请检查静音开关和输入音量',
-    tooLoud: '太大了 —— 声音可能会爆掉',
-    working: '✅ 麦克风工作正常',
-    deviceLabel: '麦克风设备', deviceN: n => `麦克风 ${n}`,
-    recording: '● 录音中…（6 秒）', recordAndListen: '录 6 秒并回放', turnOff: '关闭麦克风',
-    resultTitle: '录音结果 —— 播放确认一下',
-  },
 };
 
 export const WEBCAM_UI: Record<DeviceLang, {
@@ -270,18 +211,6 @@ export const WEBCAM_UI: Record<DeviceLang, {
     deviceLabel: 'Camera', deviceN: n => `Camera ${n}`,
     snapshot: '📸 Snapshot', mirrorOn: 'Turn mirror off', mirrorOff: 'Turn mirror on', turnOff: 'Turn the camera off',
     snapshotTitle: 'Snapshot', saveImage: 'Save the image', snapshotAlt: 'Webcam snapshot',
-  },
-  zh: {
-    cameraWord: '摄像头',
-    denied: '摄像头权限被拒绝。请在地址栏的锁形图标里把摄像头改为允许。',
-    notFound: '没有找到已连接的摄像头。',
-    cannotOpen: '无法打开摄像头。请检查视频会议软件等其他程序是否正在使用。',
-    prompt: '按下按钮后浏览器会询问摄像头权限。',
-    opening: '正在打开摄像头…', startTest: '开始摄像头测试',
-    resolution: '分辨率', measuredFps: '实测 fps', setFps: '标称 fps',
-    deviceLabel: '摄像头设备', deviceN: n => `摄像头 ${n}`,
-    snapshot: '📸 快照', mirrorOn: '关闭镜像', mirrorOff: '开启镜像', turnOff: '关闭摄像头',
-    snapshotTitle: '快照', saveImage: '保存图片', snapshotAlt: '摄像头快照',
   },
 };
 
@@ -325,23 +254,6 @@ export const SPEAKER_UI: Record<DeviceLang, {
       'No crackling or cutting out',
     ],
     allGood: '✅ Your speakers or headphones are fine.',
-  },
-  zh: {
-    bandDescs: ['低音（能感到振动）', '中低音', '基准音', '高音', '超高音', '听得到说明耳朵不错'],
-    leftSide: 'LEFT · 左', rightSide: 'RIGHT · 右',
-    playingNote: '确认听到声音的一边和屏幕上亮起的一边是否一致。如果相反，就是左右声道对调了。',
-    idleNote: '用下面的按钮一边一边地试。音量从 30% 开始。',
-    modes: ['只有左', '只有右', '两边一起', '左 ↔ 右 交替'],
-    freq: '频率', volume: '音量',
-    hearingWarn: '不要用大音量长时间听高频。对听力不好。',
-    checkTitle: '请自己确认并勾选',
-    checkItems: [
-      '只按左边时，只有左边出声',
-      '只按右边时，只有右边出声',
-      '两边的音量差不多',
-      '没有杂音或断断续续',
-    ],
-    allGood: '✅ 音箱／耳机正常。',
   },
 };
 
@@ -404,30 +316,6 @@ export const MONITOR_UI: Record<DeviceLang, {
     patchTerm: 'Patches', patchNote: ' — a broad dark area on the grey screen can mean the panel has been pressed.',
     warrantyNote: 'Manufacturers set different thresholds for a replacement (how many bad pixels). Check on the day it arrives and take photos.',
   },
-  zh: {
-    colors: ['红', '绿', '蓝', '白', '黑', '灰', '渐变', 'RGB 三分'],
-    tips: [
-      '红屏上的黑点 = 死点',
-      '绿屏上看不到，说明绿色子像素有问题',
-      '蓝屏上发花，说明背光不均',
-      '在白屏上找黑点和灰尘',
-      '在黑屏上找边缘漏光和亮点',
-      '找斑块和整体色偏',
-      '出现台阶感就是色带',
-      '看三色的分界是否清晰',
-    ],
-    screenAria: label => `${label}屏 —— 点一下切到下一个颜色`,
-    fullscreenHint: '点击 · → 下一色  |  Esc 退出', exit: '✕ 退出（Esc）',
-    how: '选一个颜色，整个屏幕就会被它铺满。把脸靠近屏幕，扫一遍有没有其他颜色的点。',
-    keysHint: '点击或按 → 切换下一色，按 Esc 退出。把亮度调到最高会看得更清楚。',
-    autoCycle: '▶ 每 2.5 秒自动切换全部颜色',
-    judgeTitle: '这样判断',
-    deadTerm: '死点', deadNote: ' —— 在所有颜色下都一直发黑，那个像素就是坏了。',
-    stuckTerm: '亮点', stuckNote: ' —— 黑屏时有一个红、绿或蓝的点亮着，说明子像素卡住了。有时用几天会自己恢复。',
-    bleedTerm: '漏光', bleedNote: ' —— 黑屏时边缘泛白是背光漏出来了，在 LCD 上一定程度是正常的。',
-    patchTerm: '斑块', patchNote: ' —— 灰屏上出现大片偏暗的区域，可能是面板被压过。',
-    warrantyNote: '各厂商的换机标准（坏点数量）不同。到手当天就检查，并留下照片。',
-  },
 };
 
 export const REFRESH_UI: Record<DeviceLang, {
@@ -462,18 +350,6 @@ export const REFRESH_UI: Record<DeviceLang, {
     droppedNote: n => `${n} frames arrived much later than the rest. That shows up when a lot is running in the background.`,
     motionTitle: 'Check motion smoothness', move: 'Start moving', stopMove: 'Stop',
     motionNote: 'If the square looks like it is stepping rather than gliding, either the refresh rate is low or something else has hold of the graphics.',
-  },
-  zh: {
-    measuring: '测量中', resultLabel: '测量结果', ready: '就绪',
-    measuringBtn: '测量中…', again: '重新测量', startBtn: '开始测刷新率（约 2 秒）',
-    stayHere: '测量期间请让这个标签页保持在前台。切到别的窗口，浏览器会降低帧率。',
-    frameInterval: '帧间隔', fastestFrame: '最快的一帧', slowestFrame: '最慢的一帧', jitter: '抖动（偏差）',
-    oddNote: (hz, nearest) => `${hz}Hz 和常见规格（${nearest}Hz）有差距。测量中可能被别的任务打断了，再测一次看看。`,
-    normalNote: nearest => `这块屏幕大约运行在 ${nearest}Hz。`,
-    sixtyHint: ' 如果你用的是高刷显示器，请检查显示设置里是不是被锁在 60Hz。',
-    droppedNote: n => `测量中有 ${n} 帧比其他帧慢得多。后台程序多的时候会出现这种情况。`,
-    motionTitle: '确认运动流畅度', move: '开始移动', stopMove: '停止',
-    motionNote: '如果方块看起来是一跳一跳而不是滑过去，说明刷新率偏低，或者有别的程序占着显卡。',
   },
 };
 
@@ -530,24 +406,5 @@ export const DEVICE_INFO_UI: Record<DeviceLang, {
     loading: 'Reading device info…', copy: '📋 Copy all of this', copied: '✅ Copied',
     privacy1: 'Everything here comes from what the browser reports, and none of it is sent anywhere.',
     privacy2: 'Personal data — IP, location, accounts — is neither collected nor shown.',
-  },
-  zh: {
-    browsers: { edge: 'Edge', opera: 'Opera', samsung: '三星浏览器', whale: 'Whale', firefox: 'Firefox', chrome: 'Chrome', safari: 'Safari' },
-    unknown: '未知', windows10or11: 'Windows 10 或 11',
-    screenTitle: '屏幕', browserTitle: '浏览器', hardwareTitle: '硬件',
-    monitorRes: '屏幕分辨率', monitorResHint: '操作系统报告的逻辑分辨率', windowSize: '浏览器窗口大小',
-    workArea: '工作区域', workAreaHint: '已扣除任务栏等占用', dpr: '像素比（DPR）', dprHint: '2 以上就是高分（Retina）屏',
-    realPixels: '实际像素估算', colorDepth: '色深', bitSuffix: n => `${n} 位`,
-    orientation: '屏幕方向',
-    browser: '浏览器', os: '操作系统', language: '语言',
-    cookies: 'Cookie', cookiesOn: '已允许', cookiesOff: '已阻止',
-    network: '网络状态', online: '在线', offline: '离线', timezone: '时区',
-    cores: 'CPU 逻辑核心', coresHint: '浏览器可用的线程数', countSuffix: n => `${n} 个`,
-    memory: '内存（约）', memoryValue: gb => `${gb}GB 以上`, memoryUnknown: '浏览器未提供',
-    memoryHint: '只有 Chromium 系提供，且数值已取整',
-    touchPoints: '同时触摸点数', touchHint: '为 0 表示不支持触摸',
-    loading: '正在读取设备信息…', copy: '📋 复制全部信息', copied: '✅ 已复制',
-    privacy1: '这里的值都来自浏览器提供的信息，不会发送到任何地方。',
-    privacy2: '个人信息（IP、位置、账号）既不收集也不显示。',
   },
 };

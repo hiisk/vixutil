@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'How long meat, fish, dairy and cooked food last in the fridge and the freezer, and how to store them so they last. It cuts down on both throwing away food that was fine and eating food that was not.',
   alternates: {
     canonical: '/en/food/storage',
-    languages: { 'en': '/en/food/storage', 'zh': '/zh/food/storage', 'ko': '/food/storage', 'x-default': '/en/food/storage' },
+    languages: { 'en': '/en/food/storage', 'ko': '/food/storage', 'x-default': '/en/food/storage' },
   },
 };
 

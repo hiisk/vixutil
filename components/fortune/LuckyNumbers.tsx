@@ -6,7 +6,6 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { getLuckyLotto, ballColor, ymdOf } from '@/lib/lucky-lotto';
 import { LOTTO_EN } from '@/lib/fortune-en';
-import { LOTTO_ZH } from '@/lib/fortune-zh';
 import { t, type Lang } from '@/lib/fortune-intl';
 
 type IntlLang = Exclude<Lang, 'ko'>;
@@ -36,24 +35,6 @@ const COPY = {
     errFuture: 'Your date of birth is in the future.',
     note: 'These numbers are generated from your birth date and today’s date. They are for fun — they cannot improve the odds of any lottery, and this page is not a suggestion to buy tickets.',
   },
-  zh: {
-    title: '今日幸运数字',
-    lead: '根据出生日期与当天日期，从 1~45 中生成 6 个幸运数字',
-    birthLabel: '出生日期',
-    yearPh: '例) 1995', monthPh: '月', dayPh: '日',
-    submit: '查看幸运数字',
-    empty: '输入出生日期即可查看今日数字',
-    bonus: '特别号',
-    direction: '幸运方位',
-    weekday: '幸运日',
-    timeSlot: '幸运时段',
-    errAll: '请填写完整的出生日期。',
-    errMonth: '月份请填 1~12 之间。',
-    errDay: '日期请填 1~31 之间。',
-    errInvalid: '该日期不存在。',
-    errFuture: '出生日期晚于今天。',
-    note: '这些数字由出生日期与当天日期生成，仅供娱乐。它无法提高任何彩票的中奖概率，本页也不建议购买彩票。',
-  },
 } as const;
 
 export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
@@ -61,7 +42,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
   const [result, setResult] = useState<ReturnType<typeof getLuckyLotto> | null>(null);
   const [error, setError] = useState('');
   const c = COPY[lang];
-  const labels = lang === 'zh' ? LOTTO_ZH : LOTTO_EN;
+  const labels = LOTTO_EN;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -196,6 +177,6 @@ function timeSlotIndex(ko: string): number {
 }
 function directionLabel(ko: string, lang: IntlLang): string {
   const i = KO_DIRECTIONS.indexOf(ko);
-  const table = lang === 'zh' ? DIRECTIONS_ZH : DIRECTIONS_EN;
+  const table = DIRECTIONS_EN;
   return table[i < 0 ? 0 : i];
 }

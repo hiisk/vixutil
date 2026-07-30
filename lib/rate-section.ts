@@ -29,16 +29,6 @@ export const RATE_META = {
     metaDesc:
       'Discounts, stacked discounts, buy-one-get-one, VAT, import duty, effective tax rate, percent change, percentage points, percentiles, compound interest, borrowing limits, dilution and blending — 100 rate calculators, each with the formula, an input guide and a reference table.',
   },
-  zh: {
-    section: '比率计算',
-    hubTitle: '百分比与比率计算器',
-    hubLead: '折扣、税务、利息、浓度 — 一个公式解决的100种计算',
-    hubNotice: '📐 输入即时计算，每页都附上计算公式。',
-    footNote: '税率和计息方式因国家与产品而异 — 实际交易请以合同条款为准。',
-    metaTitle: '百分比计算器 — 100种比率换算工具',
-    metaDesc:
-      '折扣率、三重折扣、买N送M、增值税、关税、实际税率、增减率、百分点、百分位、复利、贷款额度、提前还款、浓度与稀释 — 100种比率计算器，附计算公式、输入说明与数值对照表。',
-  },
 } as const;
 
 /** 카테고리 이름의 3언어 — 카탈로그는 한국어 키를 쓰고 화면에서만 갈아 끼운다 */
@@ -50,10 +40,6 @@ export const RATE_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
   en: {
     '할인·가격': 'Price & Discount', '세금·정산': 'Tax & Payout', '비율·증감': 'Percentage & Change',
     '금융·이자': 'Interest & Return', '농도·배합': 'Concentration', '점수·달성': 'Scores & Targets',
-  },
-  zh: {
-    '할인·가격': '价格与折扣', '세금·정산': '税务与结算', '비율·증감': '百分比与增减',
-    '금융·이자': '利息与收益', '농도·배합': '浓度与配比', '점수·달성': '分数与达成',
   },
 };
 

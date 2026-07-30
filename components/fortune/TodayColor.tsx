@@ -6,11 +6,9 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { ymdOf } from '@/lib/lucky-color';
 import { LUCKY_COLOR_INFO_EN } from '@/lib/fortune-en';
-import { LUCKY_COLOR_INFO_ZH } from '@/lib/fortune-zh';
 import { t, type Lang } from '@/lib/fortune-intl';
 
 type IntlLang = Exclude<Lang, 'ko'>;
-type ColorInfo = typeof LUCKY_COLOR_INFO_EN[number] | typeof LUCKY_COLOR_INFO_ZH[number];
 
 /**
  * 한국어 lucky-color.ts의 seededInt와 같은 FNV-1a. 색 배열의 순서와 hex를
@@ -37,24 +35,16 @@ const COPY = {
     tipLabel: 'Tip',
     note: 'The colour is generated from the name and today’s date, and is for entertainment only.',
   },
-  zh: {
-    title: '今日幸运色',
-    lead: '输入名字（可留空）查看今天的幸运色，以及今天要避开的颜色',
-    nameLabel: '名字（可选）',
-    namePh: '留空即为「今天大家的颜色」',
-    submit: '查看今日幸运色',
-    luckyLabel: '幸运色',
-    avoidLabel: '今天要避开的颜色',
-    tipLabel: '小建议',
-    note: '幸运色根据名字与当天日期生成，仅供娱乐参考。',
-  },
 } as const;
+
+/** 행운의 색 데이터의 모양 */
+type ColorInfo = (typeof LUCKY_COLOR_INFO_EN)[number];
 
 export default function TodayColor({ lang }: { lang: IntlLang }) {
   const [name, setName] = useState('');
   const [result, setResult] = useState<{ lucky: ColorInfo; avoid: ColorInfo } | null>(null);
   const c = COPY[lang];
-  const colors: readonly ColorInfo[] = lang === 'zh' ? LUCKY_COLOR_INFO_ZH : LUCKY_COLOR_INFO_EN;
+  const colors: readonly ColorInfo[] = LUCKY_COLOR_INFO_EN;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();

@@ -12,9 +12,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Yu-bi-mu-hwan', meaning: 'If you prepare in advance, there is nothing to worry about.',
       origin: 'From the Book of Documents, in advice the Shang minister Fu Yue gave his king.',
       usage: 'The standard phrase in Korea for urging disaster drills or buying insurance.' },
-    zh: { title: '有备无患', meaning: '事先做好准备，就不会有后患。',
-      origin: '出自《尚书》，为商代大臣傅说进谏君王时所言。',
-      usage: '在韩国常用于劝人做防灾演练或投保，中文里同样通用。' },
   },
   {
     slug: 'yeokjisaji', hanja: '易地思之', simplified: '易地思之', reading: '역지사지',
@@ -26,9 +23,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Yeok-ji-sa-ji', meaning: 'Think about it after swapping places with the other person.',
       origin: 'A Korean coinage drawn from Mencius’ line that "swapping positions, all would act the same".',
       usage: 'Used in mediating conflict, to ask someone to see it from the other side.' },
-    zh: { title: '易地思之', meaning: '换到对方的位置上去想。',
-      origin: '取自《孟子》「易地则皆然」，四字形式主要在韩国使用。',
-      usage: '调解矛盾时劝人站在对方立场考虑，中文多说「设身处地」。' },
   },
   {
     slug: 'chojiilgwan', hanja: '初志一貫', simplified: '初志一贯', reading: '초지일관',
@@ -40,9 +34,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Cho-ji-il-gwan', meaning: 'Carry the resolve you started with all the way through, unchanged.',
       origin: 'Widely used in Korea, without a pinned classical source — a modern formation.',
       usage: 'Said of someone who has held to one path for years without wavering.' },
-    zh: { title: '初志一贯', meaning: '把最初立下的志向一以贯之地坚持到底。',
-      origin: '在韩国广泛使用，没有确定的古籍出处，属近代形成的说法。',
-      usage: '用来评价长年坚持一件事而不动摇的人；中文近似「初衷不改」。' },
   },
   {
     slug: 'myeongbulheojeon', hanja: '名不虛傳', simplified: '名不虚传', reading: '명불허전',
@@ -54,9 +45,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Myeong-bul-heo-jeon', meaning: 'The reputation was not passed on in vain — it lives up to the name.',
       origin: 'Used in Chinese classics including the Records of the Grand Historian, said when a famed skill proves real.',
       usage: 'The compliment you pay a much-hyped restaurant or an expert who turns out to deserve the praise.' },
-    zh: { title: '名不虚传', meaning: '名声不是白传的，确实名副其实。',
-      origin: '见于《史记》等古籍，用于亲眼验证了传闻中的本事之后。',
-      usage: '称赞久闻大名的餐馆或高手时使用，中韩用法一致。' },
   },
   {
     slug: 'cheongchuleoram', hanja: '靑出於藍', simplified: '青出于蓝', reading: '청출어람',
@@ -68,9 +56,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Cheong-chul-eo-ram', meaning: 'The blue drawn from the indigo plant is bluer than the plant — the student surpasses the teacher.',
       origin: 'From the "Encouraging Learning" chapter of the Xunzi.',
       usage: 'Said with pride by a teacher whose student has outgrown them.' },
-    zh: { title: '青出于蓝', meaning: '从蓝草中提取的青色比蓝草更青，比喻学生胜过老师。',
-      origin: '出自《荀子·劝学》「青取之于蓝而青于蓝」。',
-      usage: '老师自豪地形容徒弟超过自己时使用，中韩通用。' },
   },
   {
     slug: 'daegimanseong', hanja: '大器晩成', simplified: '大器晚成', reading: '대기만성',
@@ -82,9 +67,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Dae-gi-man-seong', meaning: 'A great vessel takes long to finish — those destined for greatness succeed late.',
       origin: 'From chapter 41 of the Laozi, originally meaning the larger the vessel, the longer it takes to complete.',
       usage: 'Encouragement for a late bloomer, or for someone whose results have not arrived yet.' },
-    zh: { title: '大器晚成', meaning: '大的器物要晚些才能做成，比喻大才之人成就较晚。',
-      origin: '出自《老子》第四十一章，原指器越大越费时。',
-      usage: '用来鼓励成名较晚或尚未见成果的人，中韩用法相同。' },
   },
   {
     slug: 'ongojisin', hanja: '溫故知新', simplified: '温故知新', reading: '온고지신',
@@ -96,9 +78,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'On-go-ji-sin', meaning: 'Study the old to understand the new.',
       origin: 'From the Analects, book two: "reviewing the old, one knows the new".',
       usage: 'Describes solving present problems by studying tradition.' },
-    zh: { title: '温故知新', meaning: '温习旧知识，从而领悟新道理。',
-      origin: '出自《论语·为政》「温故而知新」。',
-      usage: '形容通过研习传统来解决当下问题的态度，中韩通用。' },
   },
   {
     slug: 'susinjega', hanja: '修身齊家', simplified: '修身齐家', reading: '수신제가',
@@ -110,9 +89,6 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'Su-sin-je-ga', meaning: 'Cultivate yourself and put your household in order.',
       origin: 'The first four characters of the Great Learning’s sequence: cultivate the self, order the family, govern the state, bring peace to the world.',
       usage: 'Quoted to say that governing others must begin with governing oneself.' },
-    zh: { title: '修身齐家', meaning: '修养自身，整治家庭。',
-      origin: '取自《大学》「修身齐家治国平天下」的前四字。',
-      usage: '用以说明治人先治己，中韩用法一致。' },
   },
   {
     slug: 'anbunjijok', hanja: '安分知足', simplified: '安分知足', reading: '안분지족',
@@ -124,8 +100,5 @@ export const ATTITUDE_IDIOMS: Idiom[] = [
     en: { title: 'An-bun-ji-jok', meaning: 'Keep to your station and know contentment.',
       origin: 'Similar phrasing appears in both Confucian and Daoist texts; it was common in Joseon-era Korean writing.',
       usage: 'Describes a life of reduced wants and satisfaction with what one has.' },
-    zh: { title: '安分知足', meaning: '守住本分，懂得满足。',
-      origin: '儒道文献均有类似表述，在韩国朝鲜时代文集中使用广泛。',
-      usage: '形容少欲知足的生活态度，中文亦说「知足常乐」。' },
   },
 ];

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Check Chinese zodiac compatibility for any two animals using the traditional Six Harmonies, Three Harmonies and clash relationships, with a score and advice.',
   alternates: {
     canonical: '/en/fortune/zodiac-match',
-    languages: { 'en': '/en/fortune/zodiac-match', 'ko': '/fortune/zodiac-match', 'zh': '/zh/fortune/zodiac-match', 'x-default': '/en/fortune/zodiac-match' },
+    languages: { 'en': '/en/fortune/zodiac-match', 'ko': '/fortune/zodiac-match', 'x-default': '/en/fortune/zodiac-match' },
   },
 };
 

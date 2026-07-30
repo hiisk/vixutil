@@ -12,9 +12,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Mak-sang-mak-ha', meaning: 'Neither above nor below — evenly matched.',
       origin: 'A Korean coinage rather than a Chinese classic, settled into meaning that neither side can be ranked higher.',
       usage: 'Used when a match or a contest is too close to call.' },
-    zh: { title: '莫上莫下', meaning: '不分上下，实力相当。',
-      origin: '并非出自中国古籍，是韩国形成的四字语。',
-      usage: '在韩国用于难分胜负的比赛；中文多说「不分上下」。' },
   },
   {
     slug: 'nanhyeongnanje', hanja: '難兄難弟', simplified: '难兄难弟', reading: '난형난제',
@@ -26,9 +23,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Nan-hyeong-nan-je', meaning: 'Hard to say which is the elder brother — both are outstanding.',
       origin: 'From the Shishuo Xinyu, on the two sons of Chen Shi, neither of whom could be ranked above the other.',
       usage: 'Used when two candidates or two works are both excellent.' },
-    zh: { title: '难兄难弟', meaning: '难分谁是兄谁是弟，指两者都出色。',
-      origin: '出自《世说新语》，评陈寔二子难分优劣。',
-      usage: '用于两位人选或两部作品同样出色时；中文另有「共患难」的用法，需看语境。' },
   },
   {
     slug: 'taesanbukdu', hanja: '泰山北斗', simplified: '泰山北斗', reading: '태산북두',
@@ -40,9 +34,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Tae-san-buk-du', meaning: 'Mount Tai and the Northern Dipper — a towering figure in a field.',
       origin: 'From the New History of Tang, where scholars looked up to Han Yu as to Mount Tai and the Dipper.',
       usage: 'An honorific for an elder statesman of a discipline or an art.' },
-    zh: { title: '泰山北斗', meaning: '如泰山与北斗，指某一领域中令人仰望的大家。',
-      origin: '出自《新唐书》，谓学者仰慕韩愈如泰山北斗。',
-      usage: '用于尊称学界或艺术界的泰斗，中韩通用。' },
   },
   {
     slug: 'gungyeilhak', hanja: '群鷄一鶴', simplified: '群鸡一鹤', reading: '군계일학',
@@ -54,9 +45,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Gun-gye-il-hak', meaning: 'One crane among the chickens — the standout in a crowd.',
       origin: 'From the Book of Jin, where Xi Shao was likened to a crane among fowl.',
       usage: 'Used when one person’s ability is plainly a level above the rest.' },
-    zh: { title: '群鸡一鹤', meaning: '鸡群中的一只鹤，比喻众人中格外出众者。',
-      origin: '出自《晋书·嵇绍传》，谓嵇绍如鸡群之鹤。',
-      usage: '用于某人能力明显高出周围时；中文常说「鹤立鸡群」。' },
   },
   {
     slug: 'owoldongju', hanja: '呉越同舟', simplified: '吴越同舟', reading: '오월동주',
@@ -68,9 +56,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'O-wol-dong-ju', meaning: 'Wu and Yue in the same boat — enemies forced to share a situation.',
       origin: 'From Sun Tzu, on how even enemies help each other when the boat is about to capsize.',
       usage: 'Used when rival companies join on a single project.' },
-    zh: { title: '吴越同舟', meaning: '仇敌同乘一舟，指关系恶劣者不得不共处。',
-      origin: '出自《孙子·九地》，谓舟将覆时仇敌亦相救。',
-      usage: '用于竞争对手在同一项目上携手，中韩通用。' },
   },
   {
     slug: 'dongsangimong', hanja: '同床異夢', simplified: '同床异梦', reading: '동상이몽',
@@ -82,9 +67,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Dong-sang-i-mong', meaning: 'Same bed, different dreams — together in place but not in intent.',
       origin: 'From a Song-era text by Chen Liang, describing agreement that is only on the surface.',
       usage: 'Used when two sides sign the same document with different intentions.' },
-    zh: { title: '同床异梦', meaning: '同睡一床却各做各的梦，指共处而心思不同。',
-      origin: '出自宋代陈亮文中，形容表面一致而实则各异。',
-      usage: '用于双方虽签同一份协议却各有打算，中韩通用。' },
   },
   {
     slug: 'gandamsangjo', hanja: '肝膽相照', simplified: '肝胆相照', reading: '간담상조',
@@ -96,9 +78,6 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Gan-dam-sang-jo', meaning: 'Liver and gall lit up to each other — friendship with nothing held back.',
       origin: 'From Han Yu’s memorial for Liu Zongyuan, on the nature of true friendship.',
       usage: 'Used for the deep trust between long-standing friends.' },
-    zh: { title: '肝胆相照', meaning: '肝胆相互照见，指彼此坦诚无隐。',
-      origin: '出自韩愈悼柳宗元之文，论真挚的交友之道。',
-      usage: '用于形容老友之间的深厚信任，中韩通用。' },
   },
   {
     slug: 'sueojigyo', hanja: '水魚之交', simplified: '水鱼之交', reading: '수어지교',
@@ -110,8 +89,5 @@ export const PEOPLE2_IDIOMS: Idiom[] = [
     en: { title: 'Su-eo-ji-gyo', meaning: 'The bond of water and fish — a tie that cannot be undone.',
       origin: 'From the Records of the Three Kingdoms, where Liu Bei likened his bond with Zhuge Liang to water and fish.',
       usage: 'Used for colleagues or partners who cannot function without each other.' },
-    zh: { title: '水鱼之交', meaning: '如水与鱼的交情，指彼此不可分离。',
-      origin: '出自《三国志》，刘备以水鱼比喻自己与诸葛亮的关系。',
-      usage: '用于形容彼此离不开的同伴或夫妻，中韩通用。' },
   },
 ];

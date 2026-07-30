@@ -23,9 +23,6 @@ export const MIX_TOOLS: FormulaTool[] = [
     en: { title: 'Concentration Calculator', desc: 'Get percent concentration from the mass of solute and solution.',
       long: 'Concentration is solute divided by the whole solution. Dissolving 30 g of salt in 200 g of water gives 230 g of solution, so 13%.',
       note: 'Divide by the solution (water plus solute), not by the water alone — dividing by 200 gives 15%, which is wrong.' },
-    zh: { title: '浓度计算器', desc: '用溶质和溶液的质量算出百分比浓度。',
-      long: '浓度是溶质除以整个溶液。在200克水中溶解30克盐，溶液共230克，浓度为13%。',
-      note: '要除以溶液(水加溶质)，不是只除以水 — 除以200会得到15%，那是错的。' },
   },
   {
     slug: 'dilute-water',
@@ -47,7 +44,6 @@ export const MIX_TOOLS: FormulaTool[] = [
     verdict: v => v.target > v.conc ? {
       ko: '목표 농도가 현재보다 높습니다. 물을 넣어서는 농도를 올릴 수 없습니다.',
       en: 'The target is higher than the current concentration — adding water cannot raise it.',
-      zh: '目标浓度高于当前浓度 — 加水无法提高浓度。',
       tone: 'bad',
     } : null,
     ko: { title: '희석에 넣을 물 계산기', desc: '농도를 목표까지 낮추려면 물을 얼마나 더 넣어야 하는지 구합니다.',
@@ -56,9 +52,6 @@ export const MIX_TOOLS: FormulaTool[] = [
     en: { title: 'Water Needed to Dilute', desc: 'How much water to add to bring a solution down to a target concentration.',
       long: 'Diluting does not change the amount of solute, so the final mass grows by the ratio of the starting concentration to the target.',
       note: 'Taking 300 g of 20% down to 5% needs 900 g more water for 1,200 g total — quartering the strength quadruples the volume.' },
-    zh: { title: '稀释加水量计算器', desc: '要把浓度降到目标值，需要再加多少水。',
-      long: '稀释不改变溶质的量，所以最终质量按「初始浓度除以目标浓度」的倍数增加。',
-      note: '把300克20%的溶液稀释到5%，需再加900克水，总量变成1200克 — 浓度降到四分之一，体积就变成4倍。' },
   },
   {
     slug: 'mix-two',
@@ -85,9 +78,6 @@ export const MIX_TOOLS: FormulaTool[] = [
     en: { title: 'Mixing Two Solutions', desc: 'Find the resulting concentration when two solutions of different strengths are combined.',
       long: 'Add up the solute from both, then divide by the combined mass. Averaging the two concentrations fails when the amounts differ.',
       note: '200 g of 30% plus 300 g of 10% gives 18%, not the 20% you get by averaging.' },
-    zh: { title: '两液混合浓度计算器', desc: '把浓度不同的两种溶液混合后的最终浓度。',
-      long: '先把两者的溶质相加，再除以混合后的总质量。当两者量不同时，对浓度取平均是错的。',
-      note: '200克30%与300克10%混合得到18%，不是取平均的20%。' },
   },
   {
     slug: 'salt-water',
@@ -111,9 +101,6 @@ export const MIX_TOOLS: FormulaTool[] = [
     en: { title: 'Make a Saline Solution', desc: 'Work out the mix needed to make a given amount at a target concentration.',
       long: 'Multiply the batch size by the concentration for the solute; the rest is water. 1 kg of 3% saline is 30 g of salt and 970 g of water.',
       note: 'That is not the same as adding 30 g of salt to 1 L of water — that gives 1,030 g total and only 2.9%.' },
-    zh: { title: '配制盐水计算器', desc: '要配制指定量、指定浓度的溶液，各成分该放多少。',
-      long: '用配制总量乘以浓度得到所需盐量，其余是水。1公斤3%盐水是30克盐加970克水。',
-      note: '这与「往1升水里加30克盐」不同 — 那样总量变成1030克，浓度只有2.9%。' },
   },
   {
     slug: 'dilution-fold',
@@ -134,9 +121,6 @@ export const MIX_TOOLS: FormulaTool[] = [
     en: { title: 'Fold Dilution Calculator', desc: 'Convert a dilution like "1:1000" into the millilitres of stock you need.',
       long: 'Pesticides and nutrients are labelled by fold. 1:1000 means 1 mL of stock per litre of water, so a 20 L sprayer takes 20 mL.',
       note: 'A larger fold means less stock — 1:500 is twice as strong as 1:1000, not half.' },
-    zh: { title: '倍数稀释计算器', desc: '把「稀释1000倍」这类倍数换算成需要的原液毫升数。',
-      long: '农药和营养液常按倍数标注。稀释1000倍表示每升水加1毫升原液，20升的喷雾器就需要20毫升。',
-      note: '倍数越大原液越少 — 500倍比1000倍浓一倍，别搞反。' },
   },
   {
     slug: 'ppm-percent',
@@ -156,8 +140,5 @@ export const MIX_TOOLS: FormulaTool[] = [
     en: { title: '% to ppm Converter', desc: 'Convert a percentage concentration into ppm and mg/L.',
       long: 'ppm is parts per million and percent is parts per hundred, so 1% is 10,000 ppm. In dilute water solutions 1 ppm is about 1 mg/L.',
       note: 'The mg/L equivalence only holds where density is near 1 g/mL. For organic solvents you must apply the actual density.' },
-    zh: { title: '% 与 ppm 换算', desc: '把百分比浓度换算成 ppm 和 毫克/升。',
-      long: 'ppm是百万分之一，%是百分之一，所以1%等于10000ppm。在稀水溶液中1ppm约等于1毫克/升。',
-      note: '毫克/升的等价关系只在密度接近1克/毫升时成立。有机溶剂需要按实际密度换算。' },
   },
 ];

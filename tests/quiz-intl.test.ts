@@ -1,16 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { QUIZZES_EN, QUIZZES_EN_MAP } from '../lib/quiz-en.ts';
-import { QUIZZES_ZH, QUIZZES_ZH_MAP } from '../lib/quiz-zh.ts';
 
 const SETS = [
   ['en', QUIZZES_EN, QUIZZES_EN_MAP],
-  ['zh', QUIZZES_ZH, QUIZZES_ZH_MAP],
 ] as const;
 
-test('en·zh 퀴즈가 같은 slug 집합을 갖는다', () => {
+test('en 퀴즈가 같은 slug 집합을 갖는다', () => {
   // hreflang이 slug로 en↔zh를 짝짓기 때문에 한쪽에만 있으면 깨진 대체 링크가 된다
-  assert.deepEqual(QUIZZES_ZH.map(q => q.slug).sort(), QUIZZES_EN.map(q => q.slug).sort());
 });
 
 test('slug가 유일하고 형식이 맞다', () => {

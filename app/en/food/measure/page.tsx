@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'A cup of flour is 120g; a cup of sugar is 200g. The same volume weighs a different amount depending on what is in it, so you have to pick the ingredient to get this right. With no scale, you can also go the other way and turn grams into cups and spoons.',
   alternates: {
     canonical: '/en/food/measure',
-    languages: { 'en': '/en/food/measure', 'zh': '/zh/food/measure', 'ko': '/food/measure', 'x-default': '/en/food/measure' },
+    languages: { 'en': '/en/food/measure', 'ko': '/food/measure', 'x-default': '/en/food/measure' },
   },
 };
 
