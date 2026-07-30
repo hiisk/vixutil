@@ -732,6 +732,36 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/bitcoin-vs-gold': [
+    {
+      q: 'Is Bitcoin really digital gold?',
+      a: 'The phrase bundles two separate claims. On stability it fails clearly \u2014 Bitcoin has been several times more volatile than gold with a much deeper worst drawdown. On protection it fails in a subtler way: the correlation is low on average, but gold did not offset Bitcoin\u2019s worst days, which is when a hedge would need to work.',
+    },
+    {
+      q: 'How volatile is Bitcoin compared to gold?',
+      a: 'The page measures both from the same daily candles over their shared window. Bitcoin has run around three times gold\u2019s annualised volatility, and its worst peak-to-trough loss has been several times deeper. Those are direct measurements that need no modelling assumptions.',
+    },
+    {
+      q: 'Are Bitcoin and gold correlated?',
+      a: 'Weakly and positively, not independently. Across the full window the daily correlation is small but its confidence interval excludes zero, so it is a real link rather than no relationship \u2014 which is the opposite of what a diversification argument needs.',
+    },
+    {
+      q: 'Why show a rolling correlation instead of one number?',
+      a: 'Because the single number hides how much it moves. Measured over rolling 90-day windows the correlation swings between clearly negative and clearly positive, so whichever value supports an argument, some stretch of history produced it. A relationship that unstable cannot carry an allocation decision.',
+    },
+    {
+      q: 'Does Bitcoin rise when gold falls?',
+      a: 'Not reliably. The page checks gold\u2019s worst days directly and reports what Bitcoin did on each of them \u2014 both the average return and how often it rose. That test is the point, because average-condition correlation says little about behaviour during stress.',
+    },
+    {
+      q: 'Why use PAXG instead of the spot gold price?',
+      a: 'Because it trades continuously on the same exchange and the same UTC daily candles as crypto. A traditional gold feed closes on weekends while crypto keeps trading, and the mismatched days would distort a daily correlation badly.',
+    },
+    {
+      q: 'Is PAXG the same as owning gold?',
+      a: 'No. It is a token redeemable for allocated physical gold, so it carries issuer and redemption risk that bullion does not, and it can trade at a small premium or discount. It tracks the exchange\u2019s gold futures at roughly 0.99 daily correlation, which makes it a sound price proxy but not a substitute in any argument about counterparty risk.',
+    },
+  ],
   'crypto/sold-at-top': [
     {
       q: 'What would selling at the top and buying the bottom have returned?',
