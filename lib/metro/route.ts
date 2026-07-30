@@ -17,6 +17,16 @@ import { lineFacts } from './facts.ts';
 const HUB_FROM = '#475569';
 const HUB_TO = '#0f172a';
 
+/**
+ * 공유 카드만 라틴 표기로 내는 언어.
+ *
+ * 카드를 그리는 satori에는 복잡 문자 정형(shaping)이 없다. 데바나가리는 자음에
+ * 붙는 모음 기호의 자리를 바꿔 그려야 하는데 그것을 못 해서 "दिल्ली"가
+ * "दलि्ली"로, "स्टेशन"이 "स ्टेशन"으로 나온다 — 빌드한 카드를 열어 보고 알았다.
+ * 페이지 본문은 브라우저가 그리니 멀쩡하므로 카드만 영어 표기를 쓴다.
+ */
+const cardLang = (lang: MetroLang): MetroLang => (lang === 'hi' ? 'en' : lang);
+
 export function hubMetadata(lang: MetroLang): Metadata {
   const ui = METRO_UI[lang];
   const path = `${metroPrefix(lang)}/metro`;
@@ -42,7 +52,7 @@ export function detailMetadata(lang: MetroLang, slug: string): Metadata {
 }
 
 export function hubCard(lang: MetroLang): ReactElement {
-  const ui = METRO_UI[lang];
+  const ui = METRO_UI[cardLang(lang)];
   return ogCard({
     icon: '🚇',
     eyebrow: ui.section,
@@ -55,13 +65,14 @@ export function hubCard(lang: MetroLang): ReactElement {
 
 export function lineCard(lang: MetroLang, slug: string): ReactElement {
   const line = metroLine(slug);
-  const ui = METRO_UI[lang];
+  const card = cardLang(lang);
+  const ui = METRO_UI[card];
   if (!line) return hubCard(lang);
   return ogCard({
     icon: lineIcon(line),
-    eyebrow: `${ui.section} · ${countryName(line.city, lang)}`,
-    title: lineTitle(line, lang),
-    desc: `${line.stations.length} ${ui.stations}${line.loop ? ` · ${ui.loopNote}` : ''}`,
+    eyebrow: `${ui.section} · ${countryName(line.city, card)}`,
+    title: lineTitle(line, card),
+    desc: `${ui.stationCount(line.stations.length)}${line.loop ? ` · ${ui.loopNote}` : ''}`,
     from: line.color,
     to: HUB_TO,
   });

@@ -55,6 +55,8 @@ export interface MetroUI {
   how: string[];
   related: string;
   stations: string;
+  /** "20駅" / "33 estaciones" — 라벨이 아니라 문장에 넣는 꼴 */
+  stationCount: (n: number) => string;
   lineColor: string;
   loopNote: string;
   /** 허브에서 도시를 두 덩이로 나눌 때의 머리말 */
@@ -106,6 +108,7 @@ const ko: MetroUI = {
   ],
   related: '다른 노선',
   stations: '역 수',
+  stationCount: n => `${n}개 역`,
   lineColor: '노선색',
   loopNote: '순환선',
   capitalGroup: '수도의 지하철',
@@ -197,6 +200,7 @@ const en: MetroUI = {
   ],
   related: 'Other lines',
   stations: 'Stations',
+  stationCount: n => `${n} stations`,
   lineColor: 'Line colour',
   loopNote: 'Loop line',
   capitalGroup: 'Capital city metros',
@@ -288,6 +292,7 @@ const es: MetroUI = {
   ],
   related: 'Otras líneas',
   stations: 'Estaciones',
+  stationCount: n => `${n} estaciones`,
   lineColor: 'Color de la línea',
   loopNote: 'Línea circular',
   capitalGroup: 'Metros de capitales',
@@ -379,6 +384,7 @@ const pt: MetroUI = {
   ],
   related: 'Outras linhas',
   stations: 'Estações',
+  stationCount: n => `${n} estações`,
   lineColor: 'Cor da linha',
   loopNote: 'Linha circular',
   capitalGroup: 'Metrôs de capitais',
@@ -470,6 +476,7 @@ const ja: MetroUI = {
   ],
   related: 'ほかの路線',
   stations: '駅数',
+  stationCount: n => `${n}駅`,
   lineColor: '路線色',
   loopNote: '環状線',
   capitalGroup: '首都の地下鉄',
@@ -561,6 +568,7 @@ const de: MetroUI = {
   ],
   related: 'Andere Linien',
   stations: 'Stationen',
+  stationCount: n => `${n} Stationen`,
   lineColor: 'Linienfarbe',
   loopNote: 'Ringlinie',
   capitalGroup: 'U-Bahnen in Hauptstädten',
@@ -652,6 +660,7 @@ const fr: MetroUI = {
   ],
   related: 'Autres lignes',
   stations: 'Stations',
+  stationCount: n => `${n} stations`,
   lineColor: 'Couleur de la ligne',
   loopNote: 'Ligne circulaire',
   capitalGroup: 'Métros de capitales',
@@ -743,6 +752,7 @@ const hi: MetroUI = {
   ],
   related: 'अन्य लाइनें',
   stations: 'स्टेशन',
+  stationCount: n => `${n} स्टेशन`,
   lineColor: 'लाइन का रंग',
   loopNote: 'रिंग लाइन',
   capitalGroup: 'राजधानियों की मेट्रो',

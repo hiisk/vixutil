@@ -75,7 +75,7 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Metro
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{title}</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-2">
-            {countryName(line.city, lang)} · {line.stations.length} {ui.stations}
+            {countryName(line.city, lang)} · {ui.stationCount(line.stations.length)}
             {line.loop ? ` · ${ui.loopNote}` : ''}
           </p>
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">{t.intro}</p>
@@ -109,7 +109,7 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Metro
                     {lineTitle(r, lang)}
                   </span>
                   <span className="block text-xs text-slate-500 dark:text-slate-400">
-                    {countryName(r.city, lang)} · {r.stations.length} {ui.stations}
+                    {countryName(r.city, lang)} · {ui.stationCount(r.stations.length)}
                   </span>
                 </span>
               </Link>

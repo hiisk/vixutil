@@ -241,6 +241,10 @@ test('화면 문구가 여덟 언어로 다 있다', () => {
     for (const k of ['home', 'section', 'placeholder', 'skip', 'hint', 'stations', 'capitalGroup', 'secondGroup', 'faqTitle'] as const) {
       assert.ok(ui[k].trim().length > 0, `${lang}.${k}가 비었다`);
     }
+    // "40 역 수"가 아니라 "40개 역"으로 읽혀야 한다 — 라벨과 문장 꼴은 다르다
+    const count = ui.stationCount(40);
+    assert.ok(count.includes('40'), `${lang}: 역 수 표기에 숫자가 없다 — ${count}`);
+    assert.ok(count.trim() !== '40' && count.length > 2, `${lang}: 역 수 표기가 숫자뿐 — ${count}`);
     if (lang !== 'ko') {
       const joined = ui.hubTitle + ui.hubLead + ui.how.join('') + ui.capitalGroup + ui.secondGroup;
       assert.ok(!HANGUL.test(joined), `${lang} 화면 문구에 한글`);

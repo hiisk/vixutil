@@ -50,7 +50,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
                   {lineName(l, lang)}
                 </span>
                 <span className="block text-xs text-slate-500 dark:text-slate-400">
-                  {l.stations.length} {ui.stations}{l.loop ? ` · ${ui.loopNote}` : ''}
+                  {ui.stationCount(l.stations.length)}{l.loop ? ` · ${ui.loopNote}` : ''}
                 </span>
               </span>
             </Link>
@@ -81,7 +81,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.hubTitle}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">{ui.hubLead}</p>
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 tabular-nums">
-            {ui.linesIn(METRO_LINES.length)} · {totalStations()} {ui.stations}
+            {ui.linesIn(METRO_LINES.length)} · {ui.stationCount(totalStations())}
           </p>
         </div>
 
