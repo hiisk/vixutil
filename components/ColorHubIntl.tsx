@@ -3,9 +3,9 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { colorToolsIntl, COLOR_CATEGORY_ORDER, COLOR_SHELL_UI, type ColorIntlLang } from '@/lib/color-tools-intl';
+import { lang8OfLocale } from '@/lib/i18n/lang8';
 import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
 import { COLOR_UI } from '@/lib/color/ui';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
 
 /**
  * 색상 도구 허브의 번역 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -14,17 +14,16 @@ import { lang8OfLocale } from '@/lib/i18n/lang8';
  * 한 곳을 빼먹은 것은 화면을 열어 보기 전까지 드러나지 않는다. 그래서 라우트는
  * 얇게 두고 화면은 여기 한 곳에 모은다.
  *
- * 아래에 색 이름 110가지를 함께 싣는다 — 한국어 허브(app/color/page.tsx)와 같은
- * 구성이다. 도구가 "만드는" 쪽이라면 색 이름은 "찾는" 쪽이라, hex 코드 하나가
- * 필요해 들어온 사람은 팔레트를 만들 생각이 없다. 한쪽만 두면 그 사람은 빈손으로
- * 나간다. /color/<이름>은 색 이름 상세이고 /color/palette 같은 정적 경로가 먼저
- * 걸리므로 둘이 부딪히지 않는다.
+ * 도구 아래에 색 이름 110가지를 함께 싣는다. 도구가 "색을 만드는" 쪽이라면 이름은
+ * "색을 찾는" 쪽이고, hex 코드 하나가 필요해 들어온 사람은 팔레트를 만들 생각이
+ * 없다. 두 쪽이 한 허브에 있어야 어느 쪽으로 들어와도 다음 걸음이 보인다.
  */
 export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
   const tools = colorToolsIntl(lang);
   const ui = COLOR_SHELL_UI[lang];
-  // 색 이름 사전은 lang8 열쇠를 쓴다 — 포르투갈어가 'pt-br'이 아니라 'pt'다
-  const named = COLOR_UI[lang8OfLocale(lang)];
+  // 색 이름 쪽 문구는 짧은 열쇠를 쓴다 — 'pt-br'과 'pt'가 만나는 자리다
+  const key = lang8OfLocale(lang);
+  const names = COLOR_UI[key];
   const grouped = COLOR_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
     .filter(g => g.tools.length > 0);
@@ -70,16 +69,15 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
           </section>
         ))}
 
-        {/* 색 이름 110가지 — 계열로 묶는다. 한 줄로 늘어놓으면 찾을 수 없다 */}
-        <section className="mt-4" aria-label={named.section}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{named.hubTitle}</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{named.hubLead}</p>
+        <section className="mb-8" aria-label={names.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{names.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{names.hubLead}</p>
           {COLOR_FAMILIES.map(family => (
             <div key={family} className="mb-4">
               <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
-                {named.familyLabel[family]}
+                {names.familyLabel[family]}
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2">
                 {colorsOfFamily(family).map(c => (
                   <Link
                     key={c.slug}
@@ -89,9 +87,11 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
                     <span className="block h-11" style={{ background: c.hex }} />
                     <span className="block px-2 py-1.5 bg-white dark:bg-slate-900">
                       <span className="block text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
-                        {c.name[lang8OfLocale(lang)]}
+                        {c.name[key]}
                       </span>
-                      <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">{c.hex.toUpperCase()}</span>
+                      <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">
+                        {c.hex.toUpperCase()}
+                      </span>
                     </span>
                   </Link>
                 ))}

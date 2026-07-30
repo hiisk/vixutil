@@ -8,6 +8,9 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { FOOD_TOOLS } from '@/lib/food-tools';
+import { FOOD_CATEGORIES, ingredientsOfCategory } from '@/lib/food/ingredients8';
+import { foodFacts } from '@/lib/food/facts';
+import { FOOD_UI, foodAlternates } from '@/lib/food/ui';
 
 export const metadata: Metadata = {
   title: '계량·요리 — 컵을 그램으로, 레시피 배율, 오븐 온도',
@@ -104,6 +107,37 @@ export default function FoodHubPage() {
             </section>
           ))}
         </div>
+
+        {/*
+          재료 125가지의 컵·큰술 무게. 도구가 "계산하는" 쪽이라면 이쪽은 "찾는"
+          쪽이다 — 레시피를 펴 놓고 밀가루 1컵이 몇 g인지만 알고 싶은 사람은
+          변환기를 열 생각이 없다.
+        */}
+        <section className="mt-10" aria-label={FOOD_UI.ko.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{FOOD_UI.ko.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{FOOD_UI.ko.hubLead}</p>
+          {FOOD_CATEGORIES.map(cat => (
+            <div key={cat} className="mb-4">
+              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
+                {FOOD_UI.ko.categoryLabel[cat]}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {ingredientsOfCategory(cat).map(i => (
+                  <Link
+                    key={i.slug}
+                    href={`/food/${i.slug}`}
+                    className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-amber-300 transition-all"
+                  >
+                    <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">{i.name.ko}</span>
+                    <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+                      {foodFacts(i).grams.cupUs}g
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>

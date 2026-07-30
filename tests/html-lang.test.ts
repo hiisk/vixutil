@@ -31,21 +31,17 @@ function walk(dir: string): string[] {
 /**
  * 경로에서 기대되는 lang.
  *
- * 목록을 여기 적지 않는다 — lib/locales.ts가 원천이다. 같은 목록을 테스트에
- * 또 두면 언어를 늘렸을 때 이 검사만 옛 목록을 보고 통과해 버린다. 실제로
- * 중국어를 걷어낸 뒤에도 여기엔 zh 규칙이 남아 있었고, 새 언어 여섯 개는
- * 기대값이 'ko'로 떨어져 오류를 못 잡을 상태였다.
- *
- * 계산기 영어·일본어판만 /calculator/en처럼 언어가 뒤에 온다.
+ * 언어 목록은 레지스트리에서 가져오되 판정은 여기서 따로 쓴다 —
+ * scripts/fix-html-lang.mjs의 RULES를 그대로 불러오면 그 파일이 틀렸을 때
+ * 검사도 같이 틀려서 아무것도 못 잡는다. 목록은 공유하고 논리는 나눈다.
  */
 function expected(path: string): string {
-  // 언어가 뒤에 오는 형태를 먼저 본다
-  for (const { path: p, tag } of LOCALES) {
-    if (p && path === `calculator/${p}`) return tag;
-  }
-  // 접두어는 긴 것부터 — pt-br이 pt보다 먼저 걸려야 한다
+  // 계산기 카탈로그는 /calculator/en처럼 섹션 안에 언어가 있다 — 접두어보다 먼저 본다
+  const inSection = LOCALES.find(l => l.path !== '' && path === `calculator/${l.path}`);
+  if (inSection) return inSection.tag;
+  // 긴 접두어부터: pt-br이 pt보다 먼저 걸려야 한다
   const prefixed = [...LOCALES]
-    .filter(l => l.path)
+    .filter(l => l.path !== '')
     .sort((a, b) => b.path.length - a.path.length)
     .find(l => path === l.path || path.startsWith(`${l.path}/`));
   return prefixed ? prefixed.tag : 'ko';
