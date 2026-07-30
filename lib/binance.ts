@@ -195,6 +195,31 @@ export async function fetchDailyOHLCV(symbol: string, limit = 30, market: Market
 }
 
 /**
+ * 호가창 스냅샷. limit은 현물 5000, 선물 1000이 상한이다.
+ *
+ * 문자열로 오는 값을 숫자로 바꿔 [가격, 수량] 쌍으로 돌려준다. 파싱에 실패한
+ * 호가는 버린다 — 슬리피지 계산에 NaN이 하나만 섞여도 결과 전체가 망가진다.
+ */
+export async function fetchDepth(
+  symbol: string,
+  market: Market = 'spot',
+  limit = 5000,
+): Promise<{ bids: [number, number][]; asks: [number, number][] } | null> {
+  const cap = market === 'futures' ? 1000 : 5000;
+  const res = await fetch(`${BASES[market]}/depth?symbol=${symbol}&limit=${Math.min(limit, cap)}`);
+  if (!res.ok) return null;
+  const j: { bids?: [string, string][]; asks?: [string, string][] } = await res.json();
+  const parse = (rows?: [string, string][]): [number, number][] =>
+    (rows ?? [])
+      .map(([p, q]) => [Number(p), Number(q)] as [number, number])
+      .filter(([p, q]) => isFinite(p) && isFinite(q) && p > 0 && q > 0);
+  const bids = parse(j.bids);
+  const asks = parse(j.asks);
+  if (!bids.length || !asks.length) return null;
+  return { bids, asks };
+}
+
+/**
  * 동시성 제한 실행기 — 배열 항목을 최대 `concurrency`개씩 병렬로 처리한다.
  * 한 페이지(50개) klines를 한꺼번에 쏘지 않고 나눠 보내 레이트리밋을 피한다.
  */

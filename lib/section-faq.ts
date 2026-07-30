@@ -732,6 +732,36 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/slippage': [
+    {
+      q: 'What is slippage in crypto trading?',
+      a: 'It is the gap between the price on the screen and the price you actually get. A market order consumes resting orders one level at a time, so the average of those levels \u2014 not the best quote \u2014 is what you pay. This page walks the live order book to compute it for a range of order sizes.',
+    },
+    {
+      q: 'Is slippage bigger than the trading fee?',
+      a: 'On thin pairs, by a wide margin. A typical taker fee is around 10 basis points, and the table shows where slippage overtakes that for the pair you selected. People compare exchange fee schedules closely and almost never check this, even though it is charged on both entry and exit.',
+    },
+    {
+      q: 'Why does slippage grow faster than order size?',
+      a: 'Because the order book thins out as you move away from the mid. The first levels hold the most liquidity, so each additional unit of size reaches further into progressively emptier price levels. Doubling the order more than doubles the cost.',
+    },
+    {
+      q: 'How much money is resting near the price?',
+      a: 'The depth table sums resting orders within bands of the mid \u2014 0.1%, 0.5%, 1% and 2%. That figure is far more useful than the number of price levels, because it tells you directly how much size the market absorbs before the price moves.',
+    },
+    {
+      q: 'Does a thick wall of orders mean the price will hold?',
+      a: 'Not reliably. Resting orders are cancellable and are frequently cancelled the moment someone tries to trade through them. Read the imbalance as which side is cheaper to push, not as a prediction of direction.',
+    },
+    {
+      q: 'Are these numbers what I would actually pay?',
+      a: 'They are closer to a floor. The snapshot assumes every resting order stays put while your order consumes it, and market makers pull quotes when they see size arriving. Hidden and iceberg liquidity works the other way, so the small rows are reliable and the large ones indicative.',
+    },
+    {
+      q: 'How do I reduce slippage?',
+      a: 'Trade deeper pairs, use limit orders rather than market orders, and split large orders across time. The depth table shows exactly which size your chosen pair starts to struggle with, which is the number to split below.',
+    },
+  ],
   'crypto/impermanent-loss': [
     {
       q: 'What is impermanent loss?',
