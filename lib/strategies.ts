@@ -4,7 +4,7 @@
  * 선택한 전략(추세·볼린저밴드·RSI 등)이 결정한다. 모두 실제 지표 계산이며 투자
  * 자문이 아니다.
  */
-import { computeATR, computeTpSl, type Direction, type Candle } from './atr';
+import { computeATR, computeTpSl, type Direction, type Candle } from './atr.ts';
 
 export type StrategyKey = 'trend' | 'bollinger' | 'rsi' | 'atr';
 export type Bias = 'bullish' | 'bearish' | 'neutral';

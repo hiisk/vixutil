@@ -12,6 +12,7 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import ReferralCards from '@/components/ReferralCards';
 import PageGlow from '@/components/PageGlow';
+import Scorecard from './Scorecard';
 
 const PER_PAGE = 50;
 const TP_MULT = 1.5;
@@ -261,6 +262,17 @@ export default function SignalsPage() {
     return list;
   }, [tickers, sortKey, sortDir, query, hitOnly, cache]);
 
+  /**
+   * 성적표에 쓸 코인 — 이미 받아둔 티커에서 거래량 상위만 고른다.
+   * 시장이 바뀌면 목록도 바뀌고 Scorecard가 알아서 다시 채점한다.
+   * 넉넉히 넘긴다 — 선물 거래량 상위에는 이력이 짧은 신규 상장이 많아서
+   * Scorecard가 이력이 충분한 코인을 찾을 때까지 아래로 내려가야 한다.
+   */
+  const scoreSymbols = useMemo(
+    () => [...tickers].sort((a, b) => b.quoteVolume - a.quoteVolume).slice(0, 40).map(t => t.symbol),
+    [tickers],
+  );
+
   const totalPages = Math.max(1, Math.ceil(sortedTickers.length / PER_PAGE));
   const pageTickers = useMemo(() => sortedTickers.slice((page - 1) * PER_PAGE, page * PER_PAGE), [sortedTickers, page]);
 
@@ -456,6 +468,8 @@ export default function SignalsPage() {
                 </div>
               ))}
             </div>
+
+            {scoreSymbols.length > 0 && <Scorecard symbols={scoreSymbols} market={market} />}
           </>
         )}
 
