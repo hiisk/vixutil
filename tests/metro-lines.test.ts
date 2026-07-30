@@ -8,6 +8,7 @@
  * 도시 이름·라우트·hreflang·사이트맵을 언어 목록에서 돌면서 본다 — 목록에 언어를
  * 더하는 순간 빠진 곳이 전부 드러나야 한다.
  */
+import { LOCALES } from '../lib/locales.ts';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -223,11 +224,19 @@ test('사이트맵과 검색 인덱스, lang 교정에 여덟 언어가 들어 �
   assert.ok(map.includes('/metro'), '사이트맵에 /metro 없음');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
   assert.ok(idx.includes("'metro'"), '검색 인덱스에 metro 없음');
-  // 빌드 뒤 <html lang>을 고치는 곳에도 새 언어가 등록돼 있어야 한다
+  // 빌드 뒤 <html lang>을 고치는 곳이 언어 목록을 손으로 들고 있으면 새 언어를
+  // 넣을 때 그것만 빠뜨린다. 실제로 중국어를 걷어낸 뒤에도 zh 규칙이 남아 있었다.
+  // 그래서 목록을 적었는지 보지 않고 lib/locales.ts에서 파생하는지를 본다 —
+  // 파생하면 언어를 늘리는 순간 자동으로 따라온다.
   const fixer = readFileSync('scripts/fix-html-lang.mjs', 'utf8');
+  assert.ok(
+    /from '\.\.\/lib\/locales\.ts'/.test(fixer) && fixer.includes('LOCALES'),
+    'fix-html-lang.mjs가 lib/locales.ts의 목록을 쓰지 않는다',
+  );
+  // 지하철이 쓰는 언어가 그 레지스트리에 다 있는지도 본다
+  const tags = new Set<string>(LOCALES.map(l => l.tag));
   for (const { htmlLang } of METRO_LANGS) {
-    if (htmlLang === 'ko') continue;
-    assert.ok(fixer.includes(`'${htmlLang}'`), `fix-html-lang.mjs에 ${htmlLang} 없음`);
+    assert.ok(tags.has(htmlLang), `lib/locales.ts에 ${htmlLang} 없음`);
   }
 });
 

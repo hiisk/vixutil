@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { LOCALES } from '../lib/locales.ts';
 
 /**
  * <html lang>이 경로의 언어와 맞는지 본다.
@@ -27,24 +28,24 @@ function walk(dir: string): string[] {
   return out;
 }
 
-/** 경로에서 기대되는 lang */
+/**
+ * 경로에서 기대되는 lang.
+ *
+ * 목록을 여기 적지 않는다 — lib/locales.ts가 원천이다. 같은 목록을 테스트에
+ * 또 두면 언어를 늘렸을 때 이 검사만 옛 목록을 보고 통과해 버린다. 실제로
+ * 중국어를 걷어낸 뒤에도 여기엔 zh 규칙이 남아 있었고, 새 언어 여섯 개는
+ * 기대값이 'ko'로 떨어져 오류를 못 잡을 상태였다.
+ *
+ * 계산기 영어·일본어판만 /calculator/en처럼 언어가 뒤에 온다.
+ */
 function expected(path: string): string {
-  if (path === 'calculator/en') return 'en';
-  if (path === 'calculator/ja') return 'ja';
-  if (path === 'en' || path.startsWith('en/')) return 'en';
-  // 본문이 간체라 zh보다 정확하다
-  if (path === 'zh' || path.startsWith('zh/')) return 'zh-Hans';
-  // 지하철 섹션부터 쓰는 여섯 언어. 목록은 lib/metro/lang.ts와 같아야 한다
-  for (const [prefix, lang] of NEW_LOCALES) {
-    if (path === prefix || path.startsWith(`${prefix}/`)) return lang;
+  for (const { path: p, tag } of LOCALES) {
+    if (!p) continue;
+    if (path === `calculator/${p}`) return tag;
+    if (path === p || path.startsWith(`${p}/`)) return tag;
   }
   return 'ko';
 }
-
-/** 경로 앞머리 → lang. 포르투갈어는 경로도 /pt-br이고 태그도 pt-BR이다 */
-const NEW_LOCALES: [string, string][] = [
-  ['es', 'es'], ['pt-br', 'pt-BR'], ['ja', 'ja'], ['de', 'de'], ['fr', 'fr'], ['hi', 'hi'],
-];
 
 test('모든 페이지의 html lang이 경로의 언어와 맞는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
   const wrong: string[] = [];

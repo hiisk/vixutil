@@ -18,30 +18,30 @@
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { LOCALES } from '../lib/locales.ts';
 
 const OUT = new URL('../out/', import.meta.url).pathname;
 
 /**
- * URL 경로 → lang 값. 위에서부터 먼저 맞는 것을 쓴다.
+ * URL 경로 → lang 값.
  *
- * 파일 이름이 아니라 URL 경로로 판단한다 — /en은 en.html로 나오고 /en/color는
- * en/color.html로 나와서, 파일 이름만 보면 앞의 것을 놓친다.
+ * 목록을 여기 적지 않는다 — lib/locales.ts가 "언어를 늘리거나 줄일 때 여기만
+ * 고친다"고 선언한 원천이고, 같은 목록을 두 군데 두면 한쪽만 고쳐진다.
+ * 실제로 그렇게 됐다: 중국어를 걷어낸 뒤에도 이 파일에는 zh 규칙이 남아 있었고,
+ * 새로 들어온 여섯 언어는 손으로 다시 적어야 했다.
+ *
+ * 경로(pt-br)와 선언(pt-BR)이 다른 것은 의도된 것이다 — locales.ts의 주석 참고.
+ *
+ * 파일 이름이 아니라 URL 경로로 판단한다. /en은 en.html로, /en/color는
+ * en/color.html로 나와서 파일 이름 앞부분만 보면 앞의 것을 놓친다.
+ *
+ * 계산기 영어·일본어판은 /calculator/en처럼 언어가 뒤에 온다. 이 형태는 그
+ * 두 장뿐이라 규칙으로 같이 만든다.
  */
-const RULES = [
-  [p => p === 'calculator/en', 'en'],
-  [p => p === 'calculator/ja', 'ja'],
-  [p => p === 'en' || p.startsWith('en/'), 'en'],
-  // 본문이 간체라 zh보다 정확하다 (음성 합성·글꼴 선택에 쓰인다)
-  [p => p === 'zh' || p.startsWith('zh/'), 'zh-Hans'],
-  // 지하철 섹션부터 쓰는 여섯 언어. 목록은 lib/metro/lang.ts와 같아야 한다
-  [p => p === 'es' || p.startsWith('es/'), 'es'],
-  // 상파울루·리우 노선을 담았으니 유럽 포르투갈어가 아니다 — 경로도 /pt-br이다
-  [p => p === 'pt-br' || p.startsWith('pt-br/'), 'pt-BR'],
-  [p => p === 'ja' || p.startsWith('ja/'), 'ja'],
-  [p => p === 'de' || p.startsWith('de/'), 'de'],
-  [p => p === 'fr' || p.startsWith('fr/'), 'fr'],
-  [p => p === 'hi' || p.startsWith('hi/'), 'hi'],
-];
+const RULES = LOCALES.filter(l => l.path).flatMap(({ path, tag }) => [
+  [p => p === `calculator/${path}`, tag],
+  [p => p === path || p.startsWith(`${path}/`), tag],
+]);
 
 async function walk(dir) {
   const out = [];
