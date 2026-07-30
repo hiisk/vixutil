@@ -5,7 +5,10 @@ import StopwatchTool from '@/components/time/StopwatchTool';
 export const metadata: Metadata = {
   title: '스톱워치 - 온라인 랩타임 측정',
   description: '시작한 순간부터 흐른 시간을 100분의 1초까지 잽니다. 랩 버튼으로 구간을 나눠 기록할 수 있어 운동 세트나 반복 작업 시간을 비교할 때 씁니다.',
-  alternates: { canonical: '/time/stopwatch' },
+  alternates: {
+    canonical: '/time/stopwatch',
+    languages: { 'ko': '/time/stopwatch', 'en': '/en/time/stopwatch', 'zh': '/zh/time/stopwatch', 'x-default': '/en/time/stopwatch' },
+  },
 };
 
 export default function Page() {

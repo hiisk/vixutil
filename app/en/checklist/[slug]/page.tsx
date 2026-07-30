@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CHECKLISTS_EN, CHECKLISTS_EN_MAP } from '@/lib/checklist-en';
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${checklist.desc}. ${total} items, progress saved in your browser. Free, no sign-up.`,
     alternates: {
       canonical: `/en/checklist/${slug}`,
-      languages: { 'en': `/en/checklist/${slug}`, 'zh': `/zh/checklist/${slug}`, 'x-default': `/en/checklist/${slug}` },
+      languages: localeAlternates('checklist', slug),
     },
   };
 }

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { hasAlternates, localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import { CHECKLISTS, CHECKLISTS_MAP } from '@/lib/checklist-data';
 import ChecklistEngine from '@/components/ChecklistEngine';
@@ -21,7 +22,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: checklist.title,
     description: `${checklist.desc} — ${total}개 항목, 진행 상황 자동 저장`,
-    alternates: { canonical: `/checklist/${slug}` },
+    alternates: {
+      canonical: `/checklist/${slug}`,
+      // 언어별로 내용을 따로 쓴 섹션이라 슬러그가 겹치는 것만 짝으로 맺는다
+      ...(hasAlternates('checklist', slug) ? { languages: localeAlternates('checklist', slug) } : {}),
+    },
   };
 }
 

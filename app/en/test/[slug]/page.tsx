@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TESTS_EN, TESTS_EN_MAP } from '@/lib/test-en';
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${test.desc}. Ten questions, about two minutes. Free, no sign-up.`,
     alternates: {
       canonical: '/en/test/' + slug,
-      languages: { 'en': '/en/test/' + slug, 'zh': '/zh/test/' + slug, 'x-default': '/en/test/' + slug },
+      languages: localeAlternates('test', slug),
     },
   };
 }

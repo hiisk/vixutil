@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { hasAlternates, localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import { QUIZZES, QUIZ_MAP } from '@/lib/quiz-data';
 import QuizEngine from '@/components/QuizEngine';
@@ -17,7 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const quiz = QUIZ_MAP[slug];
   if (!quiz) return {};
-  return { title: quiz.title, description: quiz.desc, alternates: { canonical: `/quiz/${slug}` } };
+  return { title: quiz.title, description: quiz.desc, alternates: {
+      canonical: `/quiz/${slug}`,
+      // 언어별로 내용을 따로 쓴 섹션이라 슬러그가 겹치는 것만 짝으로 맺는다
+      ...(hasAlternates('quiz', slug) ? { languages: localeAlternates('quiz', slug) } : {}),
+    } };
 }
 
 export default async function QuizPage({ params }: { params: Promise<{ slug: string }> }) {

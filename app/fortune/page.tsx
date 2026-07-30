@@ -9,7 +9,10 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: '오늘의 운세',
   description: '꿈해몽·사주·별자리·타로·MBTI 운세를 무료로 확인하세요. 매일 새롭게 업데이트되는 오늘의 운세',
-  alternates: { canonical: '/fortune' },
+  alternates: {
+    canonical: '/fortune',
+    languages: { 'ko': '/fortune', 'en': '/en/fortune', 'zh': '/zh/fortune', 'x-default': '/en/fortune' },
+  },
 };
 
 const TYPES = [

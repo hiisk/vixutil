@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TESTS_ZH, TESTS_ZH_MAP } from '@/lib/test-zh';
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${test.desc}. 十道题，约两分钟。免费、免注册。`,
     alternates: {
       canonical: '/zh/test/' + slug,
-      languages: { 'en': '/en/test/' + slug, 'zh': '/zh/test/' + slug, 'x-default': '/en/test/' + slug },
+      languages: localeAlternates('test', slug),
     },
   };
 }

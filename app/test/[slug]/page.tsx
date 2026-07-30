@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { hasAlternates, localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import { TESTS, TEST_MAP } from '@/lib/test-data';
 import TestEngine from '@/components/TestEngine';
@@ -17,7 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const test = TEST_MAP[slug];
   if (!test) return {};
-  return { title: test.title, description: test.desc, alternates: { canonical: `/test/${slug}` } };
+  return { title: test.title, description: test.desc, alternates: {
+      canonical: `/test/${slug}`,
+      // 언어별로 내용을 따로 쓴 섹션이라 슬러그가 겹치는 것만 짝으로 맺는다
+      ...(hasAlternates('test', slug) ? { languages: localeAlternates('test', slug) } : {}),
+    } };
 }
 
 export default async function TestPage({ params }: { params: Promise<{ slug: string }> }) {

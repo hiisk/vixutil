@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { QUIZZES_ZH, QUIZZES_ZH_MAP } from '@/lib/quiz-zh';
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${quiz.desc}. 十道题，附解析。免费、免注册。`,
     alternates: {
       canonical: '/zh/quiz/' + slug,
-      languages: { 'en': '/en/quiz/' + slug, 'zh': '/zh/quiz/' + slug, 'x-default': '/en/quiz/' + slug },
+      languages: localeAlternates('quiz', slug),
     },
   };
 }

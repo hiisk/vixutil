@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { QUIZZES_EN, QUIZZES_EN_MAP } from '@/lib/quiz-en';
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${quiz.desc}. Ten questions with explanations. Free, no sign-up.`,
     alternates: {
       canonical: '/en/quiz/' + slug,
-      languages: { 'en': '/en/quiz/' + slug, 'zh': '/zh/quiz/' + slug, 'x-default': '/en/quiz/' + slug },
+      languages: localeAlternates('quiz', slug),
     },
   };
 }

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { localeAlternates } from '@/lib/locale-alternates';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CHECKLISTS_ZH, CHECKLISTS_ZH_MAP } from '@/lib/checklist-zh';
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${checklist.desc}。共 ${total} 项，进度自动保存在浏览器。免费、免注册。`,
     alternates: {
       canonical: `/zh/checklist/${slug}`,
-      languages: { 'en': `/zh/checklist/${slug}`, 'zh': `/zh/checklist/${slug}`, 'x-default': `/zh/checklist/${slug}` },
+      languages: localeAlternates('checklist', slug),
     },
   };
 }
