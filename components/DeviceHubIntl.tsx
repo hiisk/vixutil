@@ -3,6 +3,9 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { deviceToolsIntl, DEVICE_CATEGORY_ORDER, DEVICE_SHELL_UI, type DeviceIntlLang } from '@/lib/device-tools-intl';
+import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { DEVICE_UI } from '@/lib/device/ui';
+import { SCREEN_ICON } from '@/lib/device/route';
 
 /**
  * 기기 점검 허브의 번역 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -14,6 +17,8 @@ import { deviceToolsIntl, DEVICE_CATEGORY_ORDER, DEVICE_SHELL_UI, type DeviceInt
 export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
   const tools = deviceToolsIntl(lang);
   const ui = DEVICE_SHELL_UI[lang];
+  // 화면 규격 목록은 점검 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
+  const screenUi = DEVICE_UI[lang8OfLocale(lang)];
   const grouped = DEVICE_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
     .filter(g => g.tools.length > 0);
@@ -58,6 +63,21 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
             </div>
           </section>
         ))}
+
+        <Link
+          href={`/${lang}/device/screen`}
+          className="group flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-sky-400 to-indigo-500">
+            <ToolIcon emoji={SCREEN_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">
+              {screenUi.hubTitle}
+            </span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{screenUi.hubLead}</span>
+          </span>
+        </Link>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
       </div>

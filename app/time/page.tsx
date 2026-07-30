@@ -1,4 +1,6 @@
 import ToolIcon from '@/components/ToolIcon';
+import { TIME_REGIONS, citiesOfRegion, timeCountry } from '@/lib/time/cities8';
+import { TIME_UI } from '@/lib/time/ui';
 import { alternateLanguages } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -104,6 +106,34 @@ export default function TimeHubPage() {
             </section>
           ))}
         </div>
+
+        {/*
+          도시 116곳의 현재 시각. 도구가 "재는" 쪽이라면 이쪽은 "보는" 쪽이다 —
+          뉴욕이 지금 몇 시인지 알고 싶은 사람은 타이머를 열 생각이 없다.
+        */}
+        <section className="mt-10" aria-label={TIME_UI.ko.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{TIME_UI.ko.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{TIME_UI.ko.hubLead}</p>
+          {TIME_REGIONS.map(region => (
+            <div key={region} className="mb-4">
+              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
+                {TIME_UI.ko.regionLabel[region]}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {citiesOfRegion(region).map(city => (
+                  <Link
+                    key={city.slug}
+                    href={`/time/${city.slug}`}
+                    className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-sky-300 transition-all"
+                  >
+                    <span className="shrink-0">{timeCountry(city.country)?.flag}</span>
+                    <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">{city.name.ko}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>

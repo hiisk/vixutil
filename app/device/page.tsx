@@ -8,6 +8,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { DEVICE_TOOLS } from '@/lib/device-tools';
+import { DEVICE_UI } from '@/lib/device/ui';
+import { SCREEN_ICON } from '@/lib/device/route';
 
 export const metadata: Metadata = {
   title: '기기 점검 — 키보드·마우스·마이크·웹캠 온라인 테스트',
@@ -111,6 +113,22 @@ export default function DeviceHubPage() {
             </section>
           ))}
         </div>
+
+        {/* 화면 규격은 점검 도구가 아니라 자료라서 갈래 바깥에 따로 세운다 */}
+        <Link
+          href="/device/screen"
+          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-sky-400 to-indigo-500">
+            <ToolIcon emoji={SCREEN_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">
+              {DEVICE_UI.ko.hubTitle}
+            </span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{DEVICE_UI.ko.hubLead}</span>
+          </span>
+        </Link>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>

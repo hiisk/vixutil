@@ -29,9 +29,21 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
   // 고아 페이지가 색인된다.
   const orphans = readdirSync(APP, { withFileTypes: true })
     .filter(e => e.isDirectory())
+    // screen은 점검 도구가 아니라 화면 규격 108가지를 그리는 자료 갈래다 —
+    // 목록이 lib/device/screens.ts에서 오므로 도구 카탈로그가 셀 대상이 아니다
+    .filter(e => e.name !== 'screen')
     .map(e => e.name)
     .filter(name => !findDeviceTool(name));
   assert.deepEqual(orphans, [], `카탈로그에 없는 페이지 폴더: ${orphans.join(', ')}`);
+});
+
+test('화면 규격 라우트는 화면 목록에서 페이지를 만든다', () => {
+  // 위 검사에서 screen을 빼 주었으니, 그 라우트가 실제로 화면 목록을 쓰는지 여기서 본다
+  const src = readFileSync(join(APP, 'screen', '[slug]', 'page.tsx'), 'utf8');
+  assert.ok(src.includes('screenParams'), '[slug] 라우트가 화면 목록을 돌지 않는다');
+  assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
+  assert.ok(existsSync(join(APP, 'screen', 'page.tsx')), '화면 규격 목록 페이지가 없다');
+  assert.ok(existsSync(join(APP, 'screen', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('slug가 중복되지 않는다', () => {

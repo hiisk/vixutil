@@ -3,6 +3,9 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { soundToolsIntl, SOUND_CATEGORY_ORDER, SOUND_SHELL_UI, type SoundIntlLang } from '@/lib/sound-tools-intl';
+import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { SOUND_UI } from '@/lib/sound/ui';
+import { FREQ_ICON } from '@/lib/sound/freqs';
 
 /**
  * 소리 도구 허브의 번역 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -12,6 +15,8 @@ import { soundToolsIntl, SOUND_CATEGORY_ORDER, SOUND_SHELL_UI, type SoundIntlLan
  * 화면을 열어 보기 전까지 드러나지 않는다.
  */
 export default function SoundHubIntl({ lang }: { lang: SoundIntlLang }) {
+  // 주파수 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
+  const freqUi = SOUND_UI[lang8OfLocale(lang)];
   const tools = soundToolsIntl(lang);
   const ui = SOUND_SHELL_UI[lang];
   const grouped = SOUND_CATEGORY_ORDER[lang]
@@ -58,6 +63,19 @@ export default function SoundHubIntl({ lang }: { lang: SoundIntlLang }) {
             </div>
           </section>
         ))}
+
+        <Link
+          href={`/${lang}/sound/hz`}
+          className="group flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+        >
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-emerald-400 to-teal-500">
+            <ToolIcon emoji={FREQ_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{freqUi.hubTitle}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{freqUi.hubLead}</span>
+          </span>
+        </Link>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
