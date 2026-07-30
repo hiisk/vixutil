@@ -25,6 +25,8 @@ import { NAMED_COLORS_8 } from './color/named8';
 import { INGREDIENTS } from './food/ingredients8';
 import { TIME_CITIES, timeCountry } from './time/cities8';
 import { SCREENS, SCREEN_ICON } from './device/screens';
+import { LENSES, LENS_ICON } from './lens/list';
+import { lensFacts } from './lens/facts';
 import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs';
 import { EXTS, EXT_ICON } from './ext/list';
 import { CARDS, TAROT_ICON } from './tarot/deck';
@@ -176,6 +178,16 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'device' as const,
     icon: SCREEN_ICON,
   })),
+  ...LENSES.map(l => {
+    const f = lensFacts(l);
+    return {
+      href: `/snap/lens/${l.slug}`,
+      title: `${l.focal}mm ${f.sensorName} 화각`,
+      desc: `대각 ${f.diagonal}도 · 35mm 환산 ${f.equiv}mm`,
+      section: 'snap' as const,
+      icon: LENS_ICON,
+    };
+  }),
   ...FREQS.map(f => {
     const facts = freqFacts(f);
     return {
@@ -206,6 +218,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   /* 자료 목록의 첫 장 — 개별 항목만 싣고 목록을 빼면 "타로"로 검색해도 안 나온다 */
   { href: '/fortune/card', title: '타로 78장 뜻', desc: '메이저 22장과 마이너 56장의 정방향·역방향', section: 'fortune' as const, icon: TAROT_ICON },
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
+  { href: '/snap/lens', title: '렌즈 화각 계산', desc: '초점거리와 센서로 보는 104가지 화각', section: 'snap' as const, icon: LENS_ICON },
   { href: '/device/screen', title: '기기 화면 규격', desc: '해상도·인치·PPI를 108가지 화면에서', section: 'device' as const, icon: SCREEN_ICON },
   { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
   { href: '/image/size', title: '이미지 크기 모음', desc: '썸네일·인쇄·증명사진 116가지 규격', section: 'image' as const, icon: IMG_SIZE_ICON },

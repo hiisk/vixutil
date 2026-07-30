@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/snap/lens', icon: '📷', color: 'from-indigo-600 to-violet-500',
+    accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
+    copy: {
+      en: { title: 'Lens Angle of View', desc: 'What 104 focal length and sensor pairs actually frame' },
+      es: { title: 'Ángulo de visión de objetivos', desc: 'Qué encuadran de verdad 104 pares de focal y sensor' },
+      'pt-br': { title: 'Ângulo de visão das lentes', desc: 'O que 104 pares de focal e sensor realmente enquadram' },
+      ja: { title: 'レンズの画角', desc: '焦点距離とセンサー104通りで実際に写る範囲' },
+      de: { title: 'Bildwinkel von Objektiven', desc: 'Was 104 Kombinationen aus Brennweite und Sensor erfassen' },
+      fr: { title: 'Angle de champ des objectifs', desc: 'Ce que cadrent vraiment 104 couples focale et capteur' },
+      hi: { title: 'लेंस का दृश्य कोण', desc: 'फ़ोकल लंबाई और सेंसर के 104 जोड़े क्या समेटते हैं' },
+    },
+  },
+  {
     route: '/http', icon: '🗄️', color: 'from-teal-600 to-emerald-500',
     accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
     copy: {

@@ -238,7 +238,9 @@ test('스냅 11개 페이지가 모두 결과 지점 노출을 갖는다', () =>
 
   assert.ok(pages.length >= 11, `스냅 페이지가 ${pages.length}개뿐 — 경로가 바뀌었나`);
 
-  const missing = pages.filter(slug => {
+  // lens는 렌즈 화각 104가지를 찾아보는 자료 목록이라 "내 결과"가 없다 — 공유할 결과 지점도 없다
+  const REFERENCE_ONLY = ['lens'];
+  const missing = pages.filter(slug => !REFERENCE_ONLY.includes(slug)).filter(slug => {
     const src = readFileSync(join(snapDir, slug, 'page.tsx'), 'utf8');
     return !src.includes('SaveResultCard') && !src.includes('ReferralCards');
   });

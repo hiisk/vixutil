@@ -38,6 +38,7 @@ import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
+import { LENSES } from "@/lib/lens/list";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -275,6 +276,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 렌즈 화각 100장도 여덟 언어다 — 초점거리 스물다섯에 센서 넷
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/snap/lens`, changeFrequency: weekly, priority: 0.85 },
+      ...LENSES.map((l: { slug: string }) => ({
+        url: `${BASE}${prefix}/snap/lens/${l.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
