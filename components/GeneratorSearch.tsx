@@ -91,7 +91,9 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
                 : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-300 hover:text-emerald-600'
             }`}
           >
-            {cat !== '전체' && <span className="text-xs">{CAT_META[cat]?.icon}</span>}
+            {cat !== '전체' && CAT_META[cat] && (
+              <ToolIcon emoji={CAT_META[cat].icon} className="w-3.5 h-3.5 shrink-0" />
+            )}
             {cat}
           </button>
         ))}
