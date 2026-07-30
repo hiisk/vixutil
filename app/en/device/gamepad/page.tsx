@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
 import DeviceShellIntl from '@/components/DeviceShellIntl';
 import GamepadTest from '@/components/device/GamepadTest';
+import { deviceMetaIntl } from '@/lib/device-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Gamepad Test — Check Controller Buttons and Stick Drift',
-  description: 'Connect a controller, press the buttons to confirm they register, and leave the sticks alone to see whether the coordinates wander — stick drift. Xbox, PlayStation and Nintendo pads are all read through the standard browser API.',
-  alternates: {
-    canonical: '/en/device/gamepad',
-    languages: { 'en': '/en/device/gamepad', 'ko': '/device/gamepad', 'x-default': '/en/device/gamepad' },
-  },
-};
+export const metadata: Metadata = deviceMetaIntl('en', 'gamepad');
 
 export default function EnDeviceGamepadPage() {
   return (

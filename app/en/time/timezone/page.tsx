@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
 import TimeShellIntl from '@/components/TimeShellIntl';
 import TimezoneTool from '@/components/time/TimezoneTool';
+import { timeMetaIntl } from '@/lib/time-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Time Zone Converter — Compare Two Cities Hour by Hour",
-  description: "Converts a time between two cities in both directions and lays the whole day out side by side, so the overlap in working hours is obvious.",
-  alternates: {
-    canonical: '/en/time/timezone',
-    languages: { 'en': '/en/time/timezone', 'ko': '/time/timezone', 'x-default': '/en/time/timezone' },
-  },
-};
+export const metadata: Metadata = timeMetaIntl('en', 'timezone');
 
-export default function EnTimezonePage() {
+export default function EnTimeTimezonePage() {
   return (
     <TimeShellIntl slug="timezone" lang="en">
       <TimezoneTool lang="en" />

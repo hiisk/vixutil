@@ -242,8 +242,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/time`, changeFrequency: weekly, priority: 0.9 },
-    ...timeToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/time/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/time`, changeFrequency: weekly, priority: 0.9 },
+      ...timeToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/time/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
     // 색상 도구는 번역 일곱 언어 전부 나간다 — 언어를 늘리면 INTL_LOCALES만 커지면 된다
     ...INTL_LOCALES.flatMap((lang) => [
@@ -274,15 +278,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })),
     ]),
 
-    { url: `${BASE}/en/game`, changeFrequency: weekly, priority: 0.9 },
-    ...gameToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/game/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/game`, changeFrequency: weekly, priority: 0.9 },
+      ...gameToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/game/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/device`, changeFrequency: weekly, priority: 0.9 },
-    ...deviceToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/device/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/device`, changeFrequency: weekly, priority: 0.9 },
+      ...deviceToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/device/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
 
-    { url: `${BASE}/en/text`, changeFrequency: weekly, priority: 0.9 },
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/text`, changeFrequency: weekly, priority: 0.9 },
+      ...textToolsIntl(lang).map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/text/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/en/search`, changeFrequency: weekly, priority: 0.7 },
-    ...textToolsIntl("en").map((t: { slug: string }) => ({ url: `${BASE}/en/text/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },

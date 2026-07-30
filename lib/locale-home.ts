@@ -93,6 +93,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {
       en: { title: 'Time Tools', desc: 'Timer, stopwatch, world clock, date maths' },
+      es: { title: 'Herramientas de tiempo', desc: 'Temporizador, cronómetro, reloj mundial, fechas' },
+      'pt-br': { title: 'Ferramentas de tempo', desc: 'Timer, cronômetro, relógio mundial, datas' },
+      ja: { title: '時間ツール', desc: 'タイマー・ストップウォッチ・世界時計・日付計算' },
+      de: { title: 'Zeitwerkzeuge', desc: 'Timer, Stoppuhr, Weltzeituhr, Datumsrechnen' },
+      fr: { title: 'Outils de temps', desc: 'Minuteur, chronomètre, horloge mondiale, dates' },
+      hi: { title: 'समय उपकरण', desc: 'टाइमर, स्टॉपवॉच, विश्व घड़ी, तारीख़ गणित' },
     },
   },
   {
@@ -152,6 +158,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30',
     copy: {
       en: { title: 'Brain Games', desc: 'Reaction, memory, typing, aim, mental maths' },
+      es: { title: 'Juegos mentales', desc: 'Reacción, memoria, escritura, puntería, cálculo' },
+      'pt-br': { title: 'Jogos mentais', desc: 'Reação, memória, digitação, mira, cálculo' },
+      ja: { title: '脳トレゲーム', desc: '反応速度・記憶・タイピング・エイム・暗算' },
+      de: { title: 'Denkspiele', desc: 'Reaktion, Gedächtnis, Tippen, Zielen, Kopfrechnen' },
+      fr: { title: 'Jeux de cerveau', desc: 'Réaction, mémoire, frappe, visée, calcul' },
+      hi: { title: 'दिमाग़ी खेल', desc: 'प्रतिक्रिया, स्मृति, टाइपिंग, निशाना, गणित' },
     },
   },
   {
@@ -159,6 +171,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {
       en: { title: 'Device Tests', desc: 'Keyboard, mouse, mic, webcam, dead pixels' },
+      es: { title: 'Tests de aparatos', desc: 'Teclado, ratón, micro, webcam, píxeles muertos' },
+      'pt-br': { title: 'Testes de aparelho', desc: 'Teclado, mouse, microfone, webcam, pixel morto' },
+      ja: { title: '端末チェック', desc: 'キーボード・マウス・マイク・カメラ・ドット抜け' },
+      de: { title: 'Gerätetests', desc: 'Tastatur, Maus, Mikrofon, Webcam, Pixelfehler' },
+      fr: { title: 'Tests d’appareil', desc: 'Clavier, souris, micro, webcam, pixels morts' },
+      hi: { title: 'उपकरण जाँच', desc: 'कीबोर्ड, माउस, माइक, वेबकैम, डेड पिक्सेल' },
     },
   },
   {
@@ -166,6 +184,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
     copy: {
       en: { title: 'Text Tools', desc: 'Clean up, dedupe, case convert, count' },
+      es: { title: 'Herramientas de texto', desc: 'Limpiar, deduplicar, mayúsculas, contar' },
+      'pt-br': { title: 'Ferramentas de texto', desc: 'Limpar, deduplicar, maiúsculas, contar' },
+      ja: { title: 'テキストツール', desc: '整形・重複削除・大文字小文字・文字数' },
+      de: { title: 'Textwerkzeuge', desc: 'Aufräumen, Entdoppeln, Schreibweise, Zählen' },
+      fr: { title: 'Outils de texte', desc: 'Nettoyer, dédoublonner, casse, compter' },
+      hi: { title: 'टेक्स्ट उपकरण', desc: 'सफ़ाई, दोहराव हटाना, अक्षर-आकार, गिनती' },
     },
   },
   {
