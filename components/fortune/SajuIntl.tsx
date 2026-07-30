@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
+import { analyzeFortuneIntl, DOMAIN_UI } from '@/lib/saju-fortune-intl';
 import {
   STEMS, BRANCHES, type Element, type Pillar,
   getYearPillar, getMonthPillar, getDayPillar, getHourPillar,
@@ -48,6 +49,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
   const elements = ELEMENT_INTL[lang];
 
   const [form, setForm] = useState({ year: '', month: '', day: '', hour: '' });
+  const [allDomains, setAllDomains] = useState(false);
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [chart, setChart] = useState<Chart | null>(null);
   const [error, setError] = useState('');
@@ -108,6 +110,11 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
   const dayStemIntl = dayStem ? stems[dayStem.hanja] : null;
   const total = chart ? ELEMENTS.reduce((s, el) => s + chart.counts[el], 0) : 0;
   const missing = chart ? ELEMENTS.filter(el => chart.counts[el] === 0) : [];
+  const du = DOMAIN_UI[lang];
+  // 점수 계산은 한국어와 같은 한 벌을 쓴다 — 같은 사주면 세 언어가 같은 등급을 낸다
+  const domains = chart
+    ? analyzeFortuneIntl(chart.day, chart.year, chart.month, chart.hour, gender, chart.strong, chart.counts, lang)
+    : [];
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -285,6 +292,54 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
                   );
                 })}
               </div>
+            </div>
+
+            {/*
+              영역별 운세 — 점수는 lib/saju-fortune-facts.ts가 계산하므로 한국어 화면과
+              같은 값이 나온다. 열 개를 한 번에 펼치면 화면이 너무 길어져 넷만 먼저 보인다.
+            */}
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{du.title}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed mb-4">{du.lead}</p>
+              <div className="flex flex-col gap-3">
+                {domains.slice(0, allDomains ? domains.length : 4).map(d => (
+                  <div key={d.id} className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3.5">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-lg">{d.emoji}</span>
+                      <span className="text-sm font-black text-slate-800 dark:text-slate-100">{d.title}</span>
+                      <span className="ml-auto flex items-center gap-1.5">
+                        <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">{du.scoreOf(d.score)}</span>
+                        <span className={`text-[11px] font-black px-2 py-0.5 rounded-full ${
+                          d.score >= 4
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
+                            : d.score === 3
+                              ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                              : 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
+                        }`}>
+                          {d.grade}
+                        </span>
+                      </span>
+                    </div>
+                    <p className="text-xs font-bold text-slate-600 dark:text-slate-300 leading-relaxed mb-2">{d.summary}</p>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed mb-2">{d.intro}</p>
+                    <ul className="flex flex-col gap-1.5 mb-2">
+                      {d.points.map(pt => (
+                        <li key={pt} className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pl-3 relative">
+                          <span className="absolute left-0 text-slate-300 dark:text-slate-600">·</span>
+                          {pt}
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-[11px] text-violet-600 dark:text-violet-300 leading-relaxed">{d.advice}</p>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => setAllDomains(v => !v)}
+                className="w-full mt-3 rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-violet-300 transition-colors"
+              >
+                {allDomains ? du.collapse : du.showAll}
+              </button>
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">

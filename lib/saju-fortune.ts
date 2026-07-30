@@ -1,5 +1,6 @@
-import { STEMS, BRANCHES, getSipseong } from './saju-data';
-import type { Pillar, Element } from './saju-data';
+import { STEMS, BRANCHES } from './saju-data.ts';
+import type { Pillar, Element } from './saju-data.ts';
+import { sajuFacts, clamp, type SipCats } from './saju-fortune-facts.ts';
 
 export interface DomainFortune {
   id: string;
@@ -14,36 +15,9 @@ export interface DomainFortune {
   colorKey: 'rose'|'pink'|'blue'|'amber'|'indigo'|'green'|'teal'|'violet'|'purple'|'orange';
 }
 
-type SipCats = { 비겁:number; 식상:number; 재성:number; 관성:number; 인성:number };
-
-const SS_CAT: Record<string, keyof SipCats> = {
-  비견:'비겁', 겁재:'비겁', 식신:'식상', 상관:'식상',
-  편재:'재성', 정재:'재성', 편관:'관성', 정관:'관성',
-  편인:'인성', 정인:'인성',
-};
-
 const GRADES: Record<1|2|3|4|5, '대길'|'길'|'보통'|'주의'|'흉'> = {
   5:'대길', 4:'길', 3:'보통', 2:'주의', 1:'흉',
 };
-
-function countSip(ilganIdx: number, pillars: (Pillar|null)[]): SipCats {
-  const c: SipCats = { 비겁:0, 식상:0, 재성:0, 관성:0, 인성:0 };
-  for (const p of pillars) {
-    if (!p) continue;
-    const cat = SS_CAT[getSipseong(ilganIdx, p.stemIdx)];
-    if (cat) c[cat]++;
-  }
-  return c;
-}
-
-function clamp(n: number): 1|2|3|4|5 {
-  return Math.min(5, Math.max(1, Math.round(n))) as 1|2|3|4|5;
-}
-
-// 도화살 지지: 子(0)卯(3)午(6)酉(9)
-const PEACH = new Set([0, 3, 6, 9]);
-// 역마살 지지: 寅(2)申(8)巳(5)亥(11)
-const YONGMA = new Set([2, 8, 5, 11]);
 
 export function analyzeFortune(
   dayPillar: Pillar,
@@ -54,21 +28,17 @@ export function analyzeFortune(
   singang: boolean,
   ohaengCounts: Record<string, number>,
 ): DomainFortune[] {
+  // 계산은 lib/saju-fortune-facts.ts에 한 벌만 둔다 — 세 언어가 같은 점수를 쓰려면
+  // 식이 한 곳에만 있어야 한다. 여기서는 그 결과를 문장으로 바꾸기만 한다.
+  const F = sajuFacts(dayPillar, yearPillar, monthPillar, hourPillar, gender, singang, ohaengCounts);
   const ilg = dayPillar.stemIdx;
   const dayStem   = STEMS[ilg];
   const dayBranch = BRANCHES[dayPillar.branchIdx];
-  const allPillars = [yearPillar, monthPillar, dayPillar, hourPillar];
-  const others     = [yearPillar, monthPillar, hourPillar];
-  const sc  = countSip(ilg, others);
-
-  const ySS = getSipseong(ilg, yearPillar.stemIdx);
-  const mSS = getSipseong(ilg, monthPillar.stemIdx);
-  const hSS = hourPillar ? getSipseong(ilg, hourPillar.stemIdx) : '';
-  const allSS = [ySS, mSS, hSS];
-
-  const hasPeach  = allPillars.some(p => p && PEACH.has(p.branchIdx));
-  const hasYongma = allPillars.some(p => p && YONGMA.has(p.branchIdx));
-  const missingEls = (['목','화','토','금','수'] as Element[]).filter(e => !ohaengCounts[e]);
+  const sc: SipCats = F.sc;
+  const allSS = F.allSS;
+  const hasPeach  = F.hasPeach;
+  const hasYongma = F.hasYongma;
+  const missingEls = F.missingEls as Element[];
   const dominantEl = (Object.entries(ohaengCounts) as [Element,number][]).sort((a,b)=>b[1]-a[1])[0]?.[0];
 
   const partnerCat  = gender === 'female' ? sc.관성 : sc.재성;
