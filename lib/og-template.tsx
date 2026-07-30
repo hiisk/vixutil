@@ -26,10 +26,15 @@ const TEXT_BOX = 624;
  *
  * 화살표(U+2190~21FF)는 건드리지 않는다 — 계산기 설명이 "월급 → 실수령액"처럼
  * 화살표를 문장 부호로 쓴다.
+ *
+ * 괘선(U+2500~257F)과 도형(U+25A0~25FF)도 뺀다. 이모지가 아니라서 남겨 뒀는데,
+ * 카드용 동적 폰트가 이 글자들을 받지 못해 빌드 로그에 400이 찍히고 카드에는
+ * 빈 칸이 그려졌다 — 문자 이모티콘 설명의 "(╯°□°）╯"가 그랬다.
  */
-function stripEmoji(text: string): string {
+export function stripForCard(text: string): string {
   return text
     .replace(/[\u{1F000}-\u{1FAFF}\u{2300}-\u{23FF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu, '')
+    .replace(/[\u{2500}-\u{259F}\u{25A0}-\u{25FF}]/gu, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
@@ -155,8 +160,8 @@ export function ogCard({
   to: string;
 }): ReactElement {
   const glyph = ogGlyph(icon, to);
-  const headline = stripEmoji(title);
-  const sub = stripEmoji(desc);
+  const headline = stripForCard(title);
+  const sub = stripForCard(desc);
   return (
     <div
       style={{
