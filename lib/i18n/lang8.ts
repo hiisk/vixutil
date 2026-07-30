@@ -1,13 +1,16 @@
 /**
- * 여덟 언어 레지스트리 — 새로 만드는 섹션이 모두 이것을 쓴다.
+ * 여덟 언어를 데이터 열쇠로 쓰기 위한 얇은 층 — 목록 자체는 lib/locales.ts가 갖는다.
  *
- * 2026-07-30부터 중국어를 걷어내고 각 나라의 언어를 넣는다. 지하철 섹션에서
- * 처음 쓴 목록을 여기로 옮겼다 — 섹션마다 목록을 다시 적으면 언어를 더하거나
- * 뺄 때 한 곳이 남고, 그 한 곳은 조용히 틀린 hreflang과 빈 화면으로만 드러난다.
+ * 언어를 늘리거나 줄이는 곳은 lib/locales.ts 한 곳이다. 여기서 그 목록을 그대로
+ * 받아 쓰고, 데이터 파일이 쓸 짧은 열쇠(ko·en·es·pt·ja·de·fr·hi)만 붙인다.
  *
- * 포르투갈어는 브라질 표기다(상파울루·리우 노선을 담았다). 경로도 /pt가 아니라
- * /pt-br로 두어 주소만 봐도 어느 포르투갈어인지 알 수 있게 한다.
+ * 열쇠를 경로와 따로 두는 이유: 경로는 pt-br이지만 데이터 파일 수백 곳이
+ * `pt:`를 열쇠로 쓴다. 열쇠에 하이픈이 들어가면 `'pt-br':`처럼 따옴표를 늘 붙여야
+ * 하고, 이미 쓰인 곳을 전부 고쳐야 한다. 그래서 열쇠는 짧게 두고 주소·hreflang·
+ * 이름은 레지스트리에서 가져온다. 둘이 어긋나지 않는지는 검사로 지킨다.
  */
+import { LOCALES } from '../locales.ts';
+
 export type Lang8 = 'ko' | 'en' | 'es' | 'pt' | 'ja' | 'de' | 'fr' | 'hi';
 
 /** 여덟 언어를 다 채워야 하는 값 */
@@ -25,16 +28,21 @@ export interface Lang8Info {
   htmlLang: string;
 }
 
-export const LANGS8: Lang8Info[] = [
-  { lang: 'ko', label: '한국어', prefix: '', hreflang: 'ko', htmlLang: 'ko' },
-  { lang: 'en', label: 'English', prefix: '/en', hreflang: 'en', htmlLang: 'en' },
-  { lang: 'es', label: 'Español', prefix: '/es', hreflang: 'es', htmlLang: 'es' },
-  { lang: 'pt', label: 'Português', prefix: '/pt-br', hreflang: 'pt-BR', htmlLang: 'pt-BR' },
-  { lang: 'ja', label: '日本語', prefix: '/ja', hreflang: 'ja', htmlLang: 'ja' },
-  { lang: 'de', label: 'Deutsch', prefix: '/de', hreflang: 'de', htmlLang: 'de' },
-  { lang: 'fr', label: 'Français', prefix: '/fr', hreflang: 'fr', htmlLang: 'fr' },
-  { lang: 'hi', label: 'हिन्दी', prefix: '/hi', hreflang: 'hi', htmlLang: 'hi' },
-];
+/**
+ * 경로 → 데이터 열쇠. 레지스트리에 언어를 더하면 여기도 한 줄 늘어난다.
+ * 빠뜨리면 tests/lang8-registry.test.ts가 잡는다.
+ */
+const KEY_OF_PATH: Record<string, Lang8> = {
+  '': 'ko', en: 'en', es: 'es', 'pt-br': 'pt', ja: 'ja', de: 'de', fr: 'fr', hi: 'hi',
+};
+
+export const LANGS8: Lang8Info[] = LOCALES.map(l => ({
+  lang: KEY_OF_PATH[l.path],
+  label: l.label,
+  prefix: l.path === '' ? '' : `/${l.path}`,
+  hreflang: l.tag,
+  htmlLang: l.tag,
+}));
 
 export const LANG8_CODES: Lang8[] = LANGS8.map(l => l.lang);
 
