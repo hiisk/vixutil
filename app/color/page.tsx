@@ -7,6 +7,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { COLOR_TOOLS } from '@/lib/color-tools';
+import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
+import { COLOR_UI, colorAlternates } from '@/lib/color/ui';
 
 export const metadata: Metadata = {
   title: '색상 도구 — 팔레트·대비 검사·그라디언트',
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
     '어울리는 색 조합 만들기, 글자가 읽히는지 WCAG 대비 검사, 색맹 시뮬레이션, CSS 그라디언트·그림자 코드 생성, 색온도 변환까지 한 곳에서. 무료·설치 없음.',
   alternates: {
     canonical: '/color',
-    languages: { 'ko': '/color', 'en': '/en/color', 'x-default': '/en/color' },
+    languages: colorAlternates(),
   },
 };
 
@@ -103,6 +105,37 @@ export default function ColorHubPage() {
             </section>
           ))}
         </div>
+
+        {/*
+          색 이름 110가지. 도구가 "만드는" 쪽이라면 이쪽은 "찾는" 쪽이다 —
+          hex 코드 하나가 필요해 들어온 사람은 팔레트를 만들 생각이 없다.
+        */}
+        <section className="mt-10" aria-label={COLOR_UI.ko.section}>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{COLOR_UI.ko.hubTitle}</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{COLOR_UI.ko.hubLead}</p>
+          {COLOR_FAMILIES.map(family => (
+            <div key={family} className="mb-4">
+              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
+                {COLOR_UI.ko.familyLabel[family]}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {colorsOfFamily(family).map(c => (
+                  <Link
+                    key={c.slug}
+                    href={`/color/${c.slug}`}
+                    className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-sm hover:border-violet-200 transition-all"
+                  >
+                    <span className="block h-11" style={{ background: c.hex }} />
+                    <span className="block px-2 py-1.5 bg-white dark:bg-slate-900">
+                      <span className="block text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">{c.name.ko}</span>
+                      <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">{c.hex.toUpperCase()}</span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>

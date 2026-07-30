@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import MetroMap from './MetroMap';
 import { charCount, firstChar, matches, type MetroLine } from '@/lib/metro/types';
 import { METRO_UI, clock } from '@/lib/metro/ui';
-import type { Lang } from '@/lib/formula/terms';
+import type { MetroLang } from '@/lib/metro/lang';
 
 /**
  * 역 이름 타이핑 — 기점부터 순서대로 다음 역을 쳐 나간다.
@@ -18,7 +18,7 @@ import type { Lang } from '@/lib/formula/terms';
  * 시각은 마운트 뒤에 센다 — 서버에는 지금 시각이 없어서 SSR과 어긋나면
  * 하이드레이션이 깨진다.
  */
-export default function MetroGame({ line, lang }: { line: MetroLine; lang: Lang }) {
+export default function MetroGame({ line, lang }: { line: MetroLine; lang: MetroLang }) {
   const ui = METRO_UI[lang];
   const total = line.stations.length;
 
@@ -105,63 +105,78 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Lang 
 
   return (
     <div>
-      <MetroMap line={line} solved={solved} focus={Math.min(at, total - 1)} />
+      {/*
+        노선도를 무대로 쓴다 — 지도를 크게 깔고 입력창과 계기를 그 위에 얹는다.
+        지도가 작고 입력창이 따로 있을 때는 눈이 두 곳을 오갔고, 다음 역이 어디로
+        가는지 보려면 시선을 올려야 했다. 이렇게 두면 치는 자리 바로 위에서 선이
+        흐르고 화면이 따라 움직인다.
+      */}
+      <div className="relative rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 overflow-hidden shadow-sm">
+        <MetroMap line={line} solved={solved} focus={Math.min(at, total - 1)} lang={lang} />
 
-      <div className="grid grid-cols-4 gap-2 mt-3">
-        <Stat value={ui.solvedOf(at, total)} label={ui.stations} color={line.color} />
-        <Stat value={clock(elapsed)} label={ui.elapsed} />
-        <Stat value={perMin === null ? '—' : `${perMin}`} label={ui.perMin} />
-        <Stat value={`${accuracy}%`} label={ui.accuracy} />
-      </div>
+        {/* 진행 막대는 카드 맨 위에 실선으로 — 계기 넷을 다시 읽지 않아도 보인다 */}
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-slate-200/70 dark:bg-slate-800/70">
+          <div
+            className="h-full [transition:width_250ms_ease-out]"
+            style={{ width: `${(at / total) * 100}%`, background: line.color }}
+          />
+        </div>
 
-      <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-        <div
-          className="h-full [transition:width_250ms_ease-out]"
-          style={{ width: `${(at / total) * 100}%`, background: line.color }}
-        />
-      </div>
+        <div className="absolute inset-x-0 top-0 p-3 flex items-start gap-1.5 pointer-events-none">
+          <Pill value={ui.solvedOf(at, total)} label={ui.stations} color={line.color} />
+          <Pill value={clock(elapsed)} label={ui.elapsed} />
+          <span className="ml-auto flex gap-1.5">
+            <Pill value={perMin === null ? '—' : `${perMin}`} label={ui.perMin} />
+            <Pill value={`${accuracy}%`} label={ui.accuracy} />
+          </span>
+        </div>
 
-      {!finished ? (
-        <>
-          <p className="mt-4 text-center text-xs font-bold text-slate-400 dark:text-slate-500">
-            {ui.nextIs(at + 1, total)}
-          </p>
-          <form className="mt-2 flex gap-2" onSubmit={onSubmit}>
-            <input
-              ref={inputRef}
-              value={value}
-              onChange={e => onType(e.target.value)}
-              placeholder={ui.placeholder}
-              data-metro-input
-              autoComplete="off"
-              autoCapitalize="off"
-              spellCheck={false}
-              className="flex-1 min-w-0 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-base font-black text-slate-800 dark:text-slate-100 text-center placeholder:font-normal placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none"
-              style={{ borderColor: value.length > 0 ? line.color : undefined }}
-            />
-            <button
-              type="button"
-              onClick={skip}
-              className="shrink-0 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-rose-300 transition-colors"
-            >
-              {ui.skip}
-            </button>
-          </form>
-        </>
-      ) : (
-        <div className="mt-4 rounded-2xl px-5 py-6 text-center text-white" style={{ background: line.color }}>
-          <p className="text-lg font-black" data-metro-done>{revealed ? ui.giveUp : ui.done}</p>
-          {!revealed && (
-            <p className="text-sm text-white/85 mt-1">
-              {ui.doneIn(clock(elapsed))} · {ui.accuracy} {accuracy}%
-            </p>
+        {/* 아래쪽 그러데이션 — 선과 역 이름 위에 글자를 얹어도 읽히게 한다 */}
+        <div className="absolute inset-x-0 bottom-0 p-3 pt-10 bg-gradient-to-t from-slate-50 via-slate-50/95 dark:from-slate-900 dark:via-slate-900/95 to-transparent">
+          <div className="flex items-center justify-center gap-2 mb-1.5 min-h-[1.25rem]">
+            {flash ? (
+              <span className={`text-sm font-black ${tone}`} data-metro-flash>{flash.text}</span>
+            ) : (
+              <span className="text-xs font-bold text-slate-400 dark:text-slate-500">
+                {finished ? '' : ui.nextIs(at + 1, total)}
+              </span>
+            )}
+            {hints > 0 && <span className="text-[11px] text-slate-400 dark:text-slate-500">{ui.hintUsed(hints)}</span>}
+          </div>
+
+          {!finished ? (
+            <form className="flex gap-2" onSubmit={onSubmit}>
+              <input
+                ref={inputRef}
+                value={value}
+                onChange={e => onType(e.target.value)}
+                placeholder={ui.placeholder}
+                data-metro-input
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                className="flex-1 min-w-0 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur px-4 py-3.5 text-base font-black text-slate-800 dark:text-slate-100 text-center placeholder:font-normal placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none shadow-sm"
+                style={{ borderColor: value.length > 0 ? line.color : undefined }}
+              />
+              <button
+                type="button"
+                onClick={skip}
+                className="shrink-0 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-800/95 backdrop-blur px-4 py-3.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-rose-300 transition-colors"
+              >
+                {ui.skip}
+              </button>
+            </form>
+          ) : (
+            <div className="rounded-2xl px-5 py-4 text-center text-white shadow-sm" style={{ background: line.color }}>
+              <p className="text-lg font-black" data-metro-done>{revealed ? ui.giveUp : ui.done}</p>
+              {!revealed && (
+                <p className="text-sm text-white/85 mt-0.5">
+                  {ui.doneIn(clock(elapsed))} · {ui.accuracy} {accuracy}%
+                </p>
+              )}
+            </div>
           )}
         </div>
-      )}
-
-      <div className="mt-2 flex items-center gap-2 flex-wrap min-h-[1.75rem]">
-        {flash && <span className={`text-sm font-bold ${tone}`} data-metro-flash>{flash.text}</span>}
-        {hints > 0 && <span className="text-xs text-slate-400 dark:text-slate-500">{ui.hintUsed(hints)}</span>}
       </div>
 
       <div className="mt-2 flex gap-2">
@@ -209,11 +224,12 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Lang 
   );
 }
 
-function Stat({ value, label, color }: { value: string; label: string; color?: string }) {
+/** 지도 위에 얹는 작은 계기 — 지도를 가리지 않게 반투명하고 낮게 만든다 */
+function Pill({ value, label, color }: { value: string; label: string; color?: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-2.5 text-center">
-      <p className="text-sm font-black tabular-nums" style={color ? { color } : undefined}>{value}</p>
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
-    </div>
+    <span className="rounded-xl bg-white/85 dark:bg-slate-900/85 backdrop-blur border border-slate-200/80 dark:border-slate-700/80 px-2.5 py-1 text-center leading-tight">
+      <span className="block text-xs font-black tabular-nums" style={color ? { color } : undefined}>{value}</span>
+      <span className="block text-[9px] text-slate-400 dark:text-slate-500">{label}</span>
+    </span>
   );
 }

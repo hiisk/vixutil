@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -229,7 +230,7 @@ export default function FirstImpressionPage() {
                   </div>
                 ) : (
                   <label className="flex flex-col items-center gap-3 cursor-pointer py-6">
-                    <span className="text-5xl">📷</span>
+                    <ToolIcon emoji="📷" className="w-12 h-12 text-slate-800 dark:text-slate-100" />
                     <span className="text-sm font-bold text-slate-700 dark:text-slate-200">사진 올리기</span>
                     <span className="text-xs text-slate-400 dark:text-slate-500 text-center leading-relaxed">
                       정면·밝은 곳에서 찍은 사진일수록 정확해요<br />

@@ -32,6 +32,9 @@ import { GEO_TOOLS } from "@/lib/geo-tools";
 import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
 import { METRO_LINES } from "@/lib/metro-lines";
+import { METRO_LANGS } from "@/lib/metro/lang";
+import { MUSIC_ITEMS } from "@/lib/music/catalog";
+import { NAMED_COLORS_8 } from "@/lib/color/named8";
 
 const BASE = "https://vixutil.com";
 
@@ -171,10 +174,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/en/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/metro`, changeFrequency: weekly, priority: 0.95 },
-    ...METRO_LINES.map((l: { slug: string }) => ({ url: `${BASE}/metro/${l.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/metro`, changeFrequency: weekly, priority: 0.9 },
-    ...METRO_LINES.map((l: { slug: string }) => ({ url: `${BASE}/en/metro/${l.slug}`, changeFrequency: weekly, priority: 0.85 })),
+    // 색 이름 110장도 여덟 언어다 — 도구는 ko·en뿐이지만 이름 페이지는 전부 있다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+      NAMED_COLORS_8.map((c: { slug: string }) => ({
+        url: `${BASE}${prefix}/color/${c.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ),
+    // 새로 쓰는 여섯 언어에는 색 이름 허브가 있다
+    ...METRO_LANGS.filter(({ prefix }: { prefix: string }) => prefix !== '' && prefix !== '/en')
+      .map(({ prefix }: { prefix: string }) => ({
+        url: `${BASE}${prefix}/color`, changeFrequency: weekly, priority: 0.85,
+      })),
+    // 음악 이론도 여덟 언어다 — 지하철과 같은 목록을 돈다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/music`, changeFrequency: weekly, priority: prefix === '' ? 0.9 : 0.85 },
+      ...MUSIC_ITEMS.map((i: { slug: string }) => ({
+        url: `${BASE}${prefix}/music/${i.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 지하철은 여덟 언어다. 언어를 손으로 적으면 하나를 빼먹으니 목록에서 돈다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/metro`, changeFrequency: weekly, priority: prefix === '' ? 0.95 : 0.9 },
+      ...METRO_LINES.map((l: { slug: string }) => ({
+        url: `${BASE}${prefix}/metro/${l.slug}`,
+        changeFrequency: weekly,
+        priority: prefix === '' ? 0.9 : 0.85,
+      })),
+    ]),
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/kimchi-premium`, changeFrequency: weekly, priority: 0.9 },

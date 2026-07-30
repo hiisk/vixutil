@@ -221,10 +221,29 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/music', icon: '🎹', color: 'from-purple-500 to-fuchsia-600',
+    accent: 'text-purple-700 dark:text-purple-300', border: 'border-purple-200 dark:border-purple-900/50', bg: 'bg-purple-50 dark:bg-purple-950/30',
+    copy: {
+      en: { title: 'Music Theory', desc: 'Chords, scales and intervals on a keyboard' },
+      es: { title: 'Teoría musical', desc: 'Acordes, escalas e intervalos en el teclado' },
+      'pt-br': { title: 'Teoria musical', desc: 'Acordes, escalas e intervalos no teclado' },
+      ja: { title: '音楽理論', desc: 'コード・スケール・音程を鍵盤で' },
+      de: { title: 'Musiktheorie', desc: 'Akkorde, Tonleitern und Intervalle auf der Klaviatur' },
+      fr: { title: 'Théorie musicale', desc: 'Accords, gammes et intervalles sur le clavier' },
+      hi: { title: 'संगीत सिद्धांत', desc: 'कीबोर्ड पर कॉर्ड, स्केल और अंतराल' },
+    },
+  },
+  {
     route: '/metro', icon: '🚇', color: 'from-blue-500 to-indigo-600',
     accent: 'text-blue-700 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900/50', bg: 'bg-blue-50 dark:bg-blue-950/30',
     copy: {
-      en: { title: 'Metro Station Quiz', desc: 'Seoul, Tokyo, London and New York lines' },
+      en: { title: 'Name the Stations', desc: 'Metro lines in Seoul, Tokyo, London and New York' },
+      es: { title: 'Adivina las estaciones', desc: 'Líneas de metro de Seúl, Tokio, Londres y Nueva York' },
+      'pt-br': { title: 'Adivinhe as estações', desc: 'Linhas de metrô de Seul, Tóquio, Londres e Nova York' },
+      ja: { title: '駅名当て', desc: 'ソウル・東京・ロンドン・ニューヨークの路線' },
+      de: { title: 'Stationen erraten', desc: 'U-Bahn-Linien in Seoul, Tokio, London und New York' },
+      fr: { title: 'Devinez les stations', desc: 'Lignes de métro de Séoul, Tokyo, Londres et New York' },
+      hi: { title: 'स्टेशन के नाम बताइए', desc: 'सियोल, टोक्यो, लंदन और न्यूयॉर्क की मेट्रो लाइनें' },
     },
   },
   {

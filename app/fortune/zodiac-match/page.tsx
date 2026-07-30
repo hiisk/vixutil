@@ -120,7 +120,7 @@ export default function ZodiacMatchPage() {
                     <span className="text-4xl">{meAnimal.emoji}</span>
                     <span className="text-[11px] font-bold mt-1">{meAnimal.name}</span>
                   </div>
-                  <span className="text-2xl opacity-80">💗</span>
+                  <ToolIcon emoji="💗" className="w-7 h-7 opacity-80 text-slate-800 dark:text-slate-100" />
                   <div className="flex flex-col items-center">
                     <span className="text-4xl">{partnerAnimal.emoji}</span>
                     <span className="text-[11px] font-bold mt-1">{partnerAnimal.name}</span>

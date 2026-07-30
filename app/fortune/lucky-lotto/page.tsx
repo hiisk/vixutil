@@ -101,17 +101,17 @@ export default function LuckyLottoPage() {
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">판매점 방향</div>
-                <div className="text-2xl mb-0.5">🧭</div>
+                <ToolIcon emoji="🧭" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{result.direction}</div>
               </div>
               <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 요일</div>
-                <div className="text-2xl mb-0.5">📅</div>
+                <ToolIcon emoji="📅" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{result.weekday}</div>
               </div>
               <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">추천 시간대</div>
-                <div className="text-2xl mb-0.5">⏰</div>
+                <ToolIcon emoji="⏰" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-[11px] font-black text-slate-700 dark:text-slate-200 leading-tight">{result.timeSlot}</div>
               </div>
             </div>

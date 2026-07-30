@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { TOUCH_UI, type DeviceLang } from '@/lib/device-ui-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -132,7 +133,7 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
         {points.length === 0 && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="text-4xl mb-2">👆</span>
+            <ToolIcon emoji="👆" className="w-9 h-9 mb-2 text-slate-800 dark:text-slate-100" />
             <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.pressHere}</p>
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{ui.multiOk}</p>
           </div>

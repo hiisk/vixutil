@@ -19,6 +19,9 @@ import { GEO_TOOLS } from './geo-tools';
 import { COUNTRIES } from './country-tools';
 import { IDIOMS } from './hanja-tools';
 import { METRO_LINES } from './metro-lines';
+import { lineIcon, lineTitle } from './metro/types';
+import { MUSIC_ITEMS, iconOf, symbolOf, titleOf } from './music/catalog';
+import { NAMED_COLORS_8 } from './color/named8';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -29,7 +32,7 @@ import { METRO_LINES } from './metro-lines';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music';
 
 export interface SearchItem {
   href: string;
@@ -63,6 +66,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   country:    { label: '나라 정보', icon: '🧭', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   hanja:      { label: '사자성어', icon: '📖', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
+  music:      { label: '음악 이론', icon: '🎹', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
 };
 
 /**
@@ -135,7 +139,9 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...GEO_TOOLS.map(t => ({ href: `/geometry/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'geometry' as const, icon: t.icon })),
   ...COUNTRIES.map(c => ({ href: `/country/${c.slug}`, title: `${c.ko.name} 여행 정보`, desc: c.ko.intro.slice(0, 60), section: 'country' as const, icon: c.icon })),
   ...IDIOMS.map(i => ({ href: `/hanja/${i.slug}`, title: `${i.reading} ${i.hanja}`, desc: i.ko.meaning.slice(0, 60), section: 'hanja' as const, icon: i.icon })),
-  ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${l.ko.city} ${l.ko.line} 역 이름 맞추기`, desc: l.ko.intro.slice(0, 60), section: 'metro' as const, icon: l.icon })),
+  ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${lineTitle(l, 'ko')} 역 이름 맞추기`, desc: l.text.ko.intro.slice(0, 60), section: 'metro' as const, icon: lineIcon(l) })),
+  ...MUSIC_ITEMS.map(i => ({ href: `/music/${i.slug}`, title: `${titleOf(i, 'ko')} 구성음`, desc: `${symbolOf(i)} — ${titleOf(i, 'en')}`, section: 'music' as const, icon: iconOf(i) })),
+  ...NAMED_COLORS_8.map(c => ({ href: `/color/${c.slug}`, title: `${c.name.ko} 색상 코드`, desc: `${c.hex.toUpperCase()} — ${c.name.en}`, section: 'color' as const, icon: '🎨' })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

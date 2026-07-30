@@ -1,4 +1,5 @@
 'use client';
+import ToolIcon from '@/components/ToolIcon';
 import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -105,12 +106,12 @@ export default function DailyTarotPage() {
               </div>
               <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 방향</div>
-                <div className="text-2xl mb-0.5">🧭</div>
+                <ToolIcon emoji="🧭" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.direction}</div>
               </div>
               <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 숫자</div>
-                <div className="text-2xl mb-0.5">🍀</div>
+                <ToolIcon emoji="🍀" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.number}</div>
               </div>
             </div>

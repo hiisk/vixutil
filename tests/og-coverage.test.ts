@@ -119,9 +119,21 @@ function cardEmojis(): Map<string, string> {
   return found;
 }
 
+/**
+ * 국기는 일부러 이모지로 둔다.
+ *
+ * 지역표시 두 글자로 된 국기(🇰🇷 🇰🇪 …)를 일반 깃발 윤곽 하나로 묶으면 나라
+ * 100곳이 전부 같은 그림이 된다. 국기는 그 나라의 정체성이라 흑백 선으로
+ * 대체할 수 있는 것이 아니다. ToolIcon·ogGlyph가 이모지로 폴백한다.
+ */
+function isNationalFlag(emoji: string): boolean {
+  const cps = [...emoji].map(c => c.codePointAt(0)!);
+  return cps.length === 2 && cps.every(c => c >= 0x1f1e6 && c <= 0x1f1ff);
+}
+
 test('카드에 쓰는 모든 이모지에 그린 아이콘이 있다', () => {
   const missing = [...cardEmojis()]
-    .filter(([emoji]) => !ICON_FOR[emoji])
+    .filter(([emoji]) => !ICON_FOR[emoji] && !isNationalFlag(emoji))
     .map(([emoji, where]) => `${emoji}  (${where})`);
   assert.deepEqual(
     missing, [],

@@ -219,7 +219,7 @@ export default function GoldenRatioPage() {
 
         {modelState === 'error' && (
           <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
-            <span className="text-3xl">⚠️</span>
+            <ToolIcon emoji="⚠️" className="w-8 h-8 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-rose-600">얼굴 인식 모델을 불러오지 못했어요</span>
             <span className="text-xs text-rose-400">네트워크 상태를 확인하고 새로고침 해주세요</span>
           </div>
@@ -230,7 +230,7 @@ export default function GoldenRatioPage() {
             onClick={() => fileInputRef.current?.click()}
             className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-amber-950/40 transition-colors"
           >
-            <span className="text-4xl">📷</span>
+            <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
             <span className="text-xs text-slate-400 dark:text-slate-500">정면으로 크게 나온 사진일수록 정확해요</span>
           </button>

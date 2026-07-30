@@ -92,7 +92,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
 
             <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
               <div className="flex items-center gap-3">
-                <span className="text-4xl">🌸</span>
+                <ToolIcon emoji="🌸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
                 <div>
                   <div className="text-xs font-bold text-slate-400">{c.flowerOf(result.month)}</div>
                   <div className="text-lg font-black text-slate-800 dark:text-slate-100">{result.flower}</div>

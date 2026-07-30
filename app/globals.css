@@ -149,3 +149,35 @@ html.dark .scroll-x {
 html.dark ::-webkit-scrollbar-track { background: #1e293b; }
 html.dark ::-webkit-scrollbar-thumb { background: #475569; }
 html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+/* ── 지하철 노선도 ── */
+/*
+ * 노선도가 가만히 있으면 정답을 기다리는 정지 화면이 된다. 선 위로 빛이 흐르고
+ * 지도 전체가 아주 느리게 떠다니게 해서, 다음 역을 떠올리는 동안에도 화면이
+ * 살아 있게 만든다. dashoffset은 무늬 한 칸만큼만 움직여 이어질 때 튀지 않는다.
+ */
+@keyframes metro-flow { to { stroke-dashoffset: calc(var(--metro-dash, 60px) * -1); } }
+.metro-flow { animation: metro-flow 2.4s linear infinite; }
+
+@keyframes metro-drift {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(-7px, 5px); }
+  100% { transform: translate(0, 0); }
+}
+.metro-drift { animation: metro-drift 24s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .metro-flow, .metro-drift { animation: none; }
+}
+
+/* ── 도구 아이콘 (components/ToolIcon.tsx) ──
+   선 굵기·마감은 아이콘 1,600여 개가 전부 같다. svg 태그마다 적으면
+   같은 속성 다섯 개가 그만큼 반복돼 목록 페이지 HTML이 수십 KB 불어난다.
+   /test 허브는 카드가 228장이라 이 차이가 400KB 상한을 넘기고 말았다. */
+.ti {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

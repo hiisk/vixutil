@@ -111,7 +111,7 @@ export default function StarMatchPage() {
                     <span className="text-[11px] font-bold mt-1">{meSign.name}</span>
                     <span className="text-[9px] opacity-80">{ELEMENT_LABEL[meSign.element].emoji} {ELEMENT_LABEL[meSign.element].label}</span>
                   </div>
-                  <span className="text-2xl opacity-80">💗</span>
+                  <ToolIcon emoji="💗" className="w-7 h-7 opacity-80 text-slate-800 dark:text-slate-100" />
                   <div className="flex flex-col items-center">
                     <span className="text-4xl">{partnerSign.emoji}</span>
                     <span className="text-[11px] font-bold mt-1">{partnerSign.name}</span>
