@@ -6,14 +6,25 @@
  */
 import type { FormulaTool } from './formula/types.ts';
 import { SHAPE_TOOLS } from './body/shape.ts';
+import { SHAPE2_TOOLS } from './body/shape2.ts';
 import { METABOLISM_TOOLS } from './body/metabolism.ts';
+import { METABOLISM2_TOOLS } from './body/metabolism2.ts';
 import { CARDIO_TOOLS } from './body/cardio.ts';
+import { CARDIO2_TOOLS } from './body/cardio2.ts';
 import { CHILD_TOOLS } from './body/child.ts';
+import { CHILD2_TOOLS } from './body/child2.ts';
 import { HEALTH_TOOLS } from './body/health.ts';
+import { HEALTH2_TOOLS } from './body/health2.ts';
 import { LIFE_TOOLS } from './body/life.ts';
+import { LIFE2_TOOLS } from './body/life2.ts';
 
 export const BODY_TOOLS: FormulaTool[] = [
-  ...SHAPE_TOOLS, ...METABOLISM_TOOLS, ...CARDIO_TOOLS, ...CHILD_TOOLS, ...HEALTH_TOOLS, ...LIFE_TOOLS,
+  ...SHAPE_TOOLS, ...SHAPE2_TOOLS,
+  ...METABOLISM_TOOLS, ...METABOLISM2_TOOLS,
+  ...CARDIO_TOOLS, ...CARDIO2_TOOLS,
+  ...CHILD_TOOLS, ...CHILD2_TOOLS,
+  ...HEALTH_TOOLS, ...HEALTH2_TOOLS,
+  ...LIFE_TOOLS, ...LIFE2_TOOLS,
 ];
 
 export const BODY_CATEGORIES = ['체중·체형', '대사·칼로리', '심장·운동', '아이·성장', '건강 지표', '생활 대사'] as const;

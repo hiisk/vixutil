@@ -78,7 +78,7 @@ export const GROUPS: Record<string, string[]> = {
   equals: ['🟰'],
   thermometer: ['🌡️'],
   boat: ['⚓'],
-  drop: ['💧', '🚰', '🐠', '🍯'],
+  drop: ['💧', '🚰', '🐠', '🍯', '💦'],
   compress: ['🗜️'],
   touch: ['👆'],
 
@@ -239,6 +239,14 @@ export const GROUPS: Record<string, string[]> = {
   loop: ['🔁'],
   steam: ['♨️'],
   luggage: ['🛄', '🧳'],
+  bone: ['🦴'],
+  drumstick: ['🍗'],
+  lungs: ['🫁'],
+  bicycle: ['🚲'],
+  rowboat: ['🚣'],
+  slider: ['🎚️'],
+  kidney: ['🫘'],
+  cigarette: ['🚬'],
 };
 
 /** 이모지 → 아이콘 이름 (GROUPS를 뒤집은 것) */

@@ -10,6 +10,7 @@
  */
 import type { Lang, Term } from './terms.ts';
 import { RATE_DESC } from './glossary-rate.ts';
+import { BODY2_DESC } from './glossary-body.ts';
 
 const CORE_DESC: Record<string, Term> = {
   /* ───────── 가격·거래 ───────── */
@@ -290,6 +291,6 @@ const CORE_DESC: Record<string, Term> = {
 };
 
 /* 섹션별 뜻풀이는 파일을 나눠 둔다 — 한 파일에 삼백 줄이면 무엇이 빠졌는지 안 보인다 */
-export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC };
+export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC, ...BODY2_DESC };
 
 export const termDesc = (key: string, lang: Lang): string | null => TERM_DESC[key]?.[lang] ?? null;
