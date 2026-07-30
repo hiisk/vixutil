@@ -42,6 +42,13 @@ export interface FormulaText {
   desc: string;
   long: string;
   note: string;
+  /**
+   * 손으로 쓴 본문 — 자동 본문(입력표·계산 과정·값별 표)으로 안 되는 이야기만.
+   *
+   * 없어도 페이지는 충분히 찬다. 그 주제에만 있는 배경·기준·읽는 법이 있을 때
+   * 두세 덩이 적는다.
+   */
+  body?: { h: string; p: string }[];
 }
 
 export interface FormulaTool {

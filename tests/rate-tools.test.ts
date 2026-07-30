@@ -6,7 +6,7 @@ import { groupNum } from '../lib/formula/ui.ts';
 import { checkFormulaSection, primaryOf as primaryIn } from './formula-section-checks.ts';
 
 /* 구조·i18n·라우트 검사는 세 섹션이 공유한다 (tests/formula-section-checks.ts) */
-checkFormulaSection(RATE_SECTION);
+checkFormulaSection(RATE_SECTION, 100);
 
 const primaryOf = (slug: string, v: Record<string, number>) => primaryIn(RATE_TOOLS, slug, v);
 

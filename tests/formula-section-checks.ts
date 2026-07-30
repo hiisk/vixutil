@@ -12,6 +12,8 @@ import type { FormulaTool } from '../lib/formula/types.ts';
 import { TERMS, UNITS, type Lang } from '../lib/formula/terms.ts';
 import { sectionAlternates, groupNum } from '../lib/formula/ui.ts';
 import { formulaFaq, renderFormula } from '../lib/formula/faq.ts';
+import { answerLine, inputRows, outputRows, scenarioTable, substituted } from '../lib/formula/article.ts';
+import { termDesc } from '../lib/formula/glossary.ts';
 import type { SectionConfig } from '../lib/formula/section.ts';
 
 const LANGS: Lang[] = ['ko', 'en', 'zh'];
@@ -171,11 +173,12 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
-  test(`${name} FAQ는 3개이고 실제 계산값이 들어간다`, () => {
+  test(`${name} FAQ는 다섯 개 이상이고 실제 계산값이 들어간다`, () => {
     for (const t of tools) {
       for (const lang of LANGS) {
         const faq = formulaFaq(t, lang);
-        assert.equal(faq.length, 3, `${t.slug} ${lang}`);
+        assert.ok(faq.length >= 5, `${t.slug} ${lang} FAQ ${faq.length}개`);
+        assert.equal(new Set(faq.map(f => f.q)).size, faq.length, `${t.slug} ${lang} FAQ 질문 중복`);
         for (const item of faq) assert.ok(item.q.length > 4 && item.a.length > 10, `${t.slug} ${lang} 빈 FAQ`);
         const { out } = withDefaults(t);
         const primary = out.find(o => o.primary) ?? out[0];
@@ -212,6 +215,68 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     const src = readFileSync('app/sitemap.ts', 'utf8');
     for (const p of [`/${key}`, `/en/${key}`, `/zh/${key}`]) {
       assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
+    }
+  });
+
+  test(`${name} 본문 표가 세 언어로 다 채워진다`, () => {
+    for (const t of tools) {
+      for (const lang of LANGS) {
+        const ins = inputRows(t, lang);
+        assert.equal(ins.length, t.fields.length, `${t.slug} ${lang} 입력 표 줄 수`);
+        for (const r of ins) {
+          assert.ok(r.label.length > 0 && !r.label.includes('{'), `${t.slug} ${lang} 입력 라벨: ${r.label}`);
+          assert.ok(r.range.length > 0, `${t.slug} ${lang} 범위 비었음`);
+        }
+        const outs = outputRows(t, lang);
+        assert.ok(outs.length > 0, `${t.slug} ${lang} 결과 표 비었음`);
+        for (const r of outs) assert.ok(r.value !== '—', `${t.slug} ${lang} 결과값이 계산 안 됨`);
+
+        // 대입한 식에는 치환 안 된 중괄호가 남지 않는다
+        const sub = substituted(t, lang);
+        assert.ok(!sub.includes('{') && !sub.includes('}'), `${t.slug} ${lang} 대입식에 {} 남음: ${sub}`);
+        assert.ok(!/NaN|Infinity/.test(sub + answerLine(t, lang)), `${t.slug} ${lang} 대입식이 NaN`);
+
+        if (lang !== 'ko') {
+          const blob = [...ins.map(r => r.label + r.range + (r.desc ?? '')), ...outs.map(r => r.label + (r.desc ?? ''))].join('');
+          assert.ok(!HANGUL.test(blob), `${t.slug} ${lang} 본문 표에 한글`);
+        }
+      }
+    }
+  });
+
+  test(`${name} 값별 결과 표는 세 줄 이상이고 숫자가 다르다`, () => {
+    let missing = 0;
+    for (const t of tools) {
+      const table = scenarioTable(t, 'ko');
+      if (!table) { missing++; continue; }
+      assert.ok(table.rows.length >= 3, `${t.slug} 표가 ${table.rows.length}줄`);
+      assert.equal(new Set(table.rows.map(r => r[0])).size, table.rows.length, `${t.slug} 표의 입력값 중복`);
+      for (const r of table.rows) assert.ok(!r.includes('NaN'), `${t.slug} 표에 NaN`);
+      // 입력을 두 배로 바꿨는데 결과가 하나도 안 움직이면 대표 입력을 잘못 골랐다
+      const firstCol = table.rows.map(r => r[1]);
+      assert.ok(new Set(firstCol).size > 1, `${t.slug} 대표 입력을 바꿔도 결과가 그대로`);
+    }
+    assert.ok(missing === 0, `값별 표가 안 만들어진 도구 ${missing}개`);
+  });
+
+  test(`${name} 뜻풀이가 붙은 용어가 절반을 넘는다`, () => {
+    const used = new Set<string>();
+    for (const t of tools) {
+      for (const f of t.fields) used.add(f.term);
+      for (const o of withDefaults(t).out) used.add(o.term);
+    }
+    const described = [...used].filter(k => termDesc(k, 'ko'));
+    // 전부 채우기 전에도 통과해야 한다 — 다만 절반은 넘겨 둔다
+    assert.ok(
+      described.length * 2 >= used.size,
+      `용어 ${used.size}개 중 뜻풀이 ${described.length}개뿐: ${[...used].filter(k => !termDesc(k, 'ko')).slice(0, 12).join(', ')}`,
+    );
+    for (const k of described) {
+      for (const lang of LANGS) {
+        const d = termDesc(k, lang)!;
+        assert.ok(d.length > (lang === 'zh' ? 6 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
+        if (lang !== 'ko') assert.ok(!HANGUL.test(d), `${k} ${lang} 뜻풀이에 한글`);
+      }
     }
   });
 

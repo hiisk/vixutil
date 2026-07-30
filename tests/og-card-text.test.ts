@@ -17,7 +17,7 @@ function stripForCard(text: string): string {
   assert.ok(patterns.length >= 3, `replace 규칙을 못 찾음 (${patterns.length}개)`);
   let out = text;
   for (const [, re, to] of patterns) {
-    const m = re.match(/^\/(.*)\/([gu]*)$/s);
+    const m = re.match(/^\/([\s\S]*)\/([gu]*)$/);
     out = out.replace(new RegExp(m![1], m![2]), to);
   }
   return out.trim();

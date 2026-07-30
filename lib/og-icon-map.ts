@@ -46,7 +46,7 @@ export const GROUPS: Record<string, string[]> = {
   ruler: ['📐', '🪜'],
   letters: ['🔤', '🀄', '🟨'],
   hash: ['#️⃣'],
-  mail: ['📧', '💌'],
+  mail: ['📧', '💌', '📮'],
   megaphone: ['📣', '📢', '🗣️'],
   bubble: ['💬', '🗨️', '💭'],
   question: ['❓', '🤔'],
@@ -214,7 +214,7 @@ export const GROUPS: Record<string, string[]> = {
   tire: ['🛞'],
   server: ['🗄️'],
   rulerStraight: ['📏'],
-  truck: ['🚛'],
+  truck: ['🚛', '🚚'],
   raceCar: ['🏎️'],
   fuelPump: ['⛽'],
   seedling: ['🌱'],
@@ -233,6 +233,12 @@ export const GROUPS: Record<string, string[]> = {
   swim: ['🏊'],
   shoe: ['👟'],
   kettlebell: ['💪'],
+  swap: ['💱'],
+  chain: ['🔗'],
+  undo: ['↩️'],
+  loop: ['🔁'],
+  steam: ['♨️'],
+  luggage: ['🛄', '🧳'],
 };
 
 /** 이모지 → 아이콘 이름 (GROUPS를 뒤집은 것) */

@@ -2,6 +2,7 @@ import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
+import FormulaArticle from '@/components/FormulaArticle';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import type { FormulaTool } from '@/lib/formula/types';
@@ -100,6 +101,8 @@ export default function FormulaPage({
           textAccent={section.textAccent}
           focusBorder={section.focusBorder}
         />
+
+        <FormulaArticle tool={tool} lang={lang} section={section} />
 
         <Faq items={formulaFaq(tool, lang)} lang={lang} />
 

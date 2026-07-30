@@ -7,6 +7,7 @@
 import type { FormulaTool } from './types.ts';
 import { term, unitLabel, type Lang } from './terms.ts';
 import { FORMULA_UI, groupNum } from './ui.ts';
+import { scenarioTable } from './article.ts';
 
 /** {키}를 그 언어의 용어로 바꾼다 */
 export function renderFormula(formula: string, lang: Lang): string {
@@ -26,9 +27,22 @@ export function formulaFaq(tool: FormulaTool, lang: Lang) {
     .join(', ');
   const outStr = `${term(primary.term, lang)} ${groupNum(primary.value, primary.digits ?? 2)}${unitLabel(primary.unit ?? 'none', lang)}`;
 
-  return [
+  const items = [
     { q: ui.faqHow(text.title), a: `${renderFormula(tool.formula, lang)} — ${text.long}` },
     { q: ui.faqExample, a: ui.exampleLead(inputStr, outStr) },
-    { q: ui.faqCaution, a: text.note },
+    { q: ui.faqInputs, a: ui.faqInputsLead(tool.fields.map(f => term(f.term, lang)).join(', ')) },
   ];
+
+  // 값이 달라지면 답이 어디로 가는지 — 표와 같은 계산을 문장으로 한 번 더
+  const table = scenarioTable(tool, lang);
+  if (table && table.rows.length >= 3) {
+    const first = table.rows[0];
+    const last = table.rows[table.rows.length - 1];
+    const cell = (row: string[]) => `${table.cols[0]} ${row[0]} → ${table.cols[1]} ${row[1]}`;
+    items.push({ q: ui.faqAnother, a: ui.faqAnotherLead(table.pivot, cell(first), cell(last)) });
+  }
+
+  items.push({ q: ui.faqRounding, a: ui.faqRoundingLead });
+  items.push({ q: ui.faqCaution, a: text.note });
+  return items;
 }
