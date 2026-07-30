@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '文本工具 — 清理、去重、大小写转换、字数统计',
   description: '免费文本工具：清理复制来的文字、去除重复行、大小写转换、查找替换、字数统计、特殊符号、颜文字与占位文本。',
   alternates: {
-    canonical: '/en/device',
+    canonical: '/zh/text',
     languages: { 'en': '/en/text', 'zh': '/zh/text', 'ko': '/text', 'x-default': '/en/text' },
   },
 };
@@ -32,7 +32,7 @@ export default function ZhTextHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/text" className="hover:text-indigo-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/device" className="hover:text-indigo-600" hrefLang="zh">中文</Link>
+            <Link href="/en/text" className="hover:text-indigo-600" hrefLang="en">EN</Link>
           </span>
         </div>
       </header>

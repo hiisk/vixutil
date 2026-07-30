@@ -128,7 +128,7 @@ export default function DeviceShellIntl({
         <p className="text-xs text-slate-400 mt-1">
           <Link href={`/device/${slug}`} className="hover:text-sky-600" hrefLang="ko">한국어</Link>
           {' · '}
-          <Link href={`/${other}/time/${slug}`} className="hover:text-sky-600" hrefLang={other}>
+          <Link href={`/${other}/device/${slug}`} className="hover:text-sky-600" hrefLang={other}>
             {other === 'zh' ? '中文' : 'EN'}
           </Link>
         </p>

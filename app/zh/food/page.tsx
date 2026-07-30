@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '厨房工具 — 量杯换克、烤箱温度、各种比例',
   description: '免费厨房计算器：按材料换算量杯与克、菜谱份量换算、盐水浓度、烤箱温度与 Gas Mark、牛排熟度、米水比例、意面比例、咖啡粉水比与食品保存期限。',
   alternates: {
-    canonical: '/en/sound',
+    canonical: '/zh/food',
     languages: { 'en': '/en/food', 'zh': '/zh/food', 'ko': '/food', 'x-default': '/en/food' },
   },
 };
@@ -32,7 +32,7 @@ export default function ZhFoodHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/food" className="hover:text-amber-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/sound" className="hover:text-amber-600" hrefLang="zh">中文</Link>
+            <Link href="/en/food" className="hover:text-amber-600" hrefLang="en">EN</Link>
           </span>
         </div>
       </header>

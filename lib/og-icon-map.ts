@@ -14,7 +14,7 @@
 export const GROUPS: Record<string, string[]> = {
   smile: ['😊', '😄', '😀', '🙂', '😌', '😇', '😆', '😎', '🪞'],
   frown: ['😤', '😰', '😬', '😵', '😭'],
-  mask: ['🎭', '🤥', '🙈', '😏', '🤪', '🤫'],
+  mask: ['🎭', '🤥', '🙈', '😏', '🤪', '🤫', '🤐'],
   eye: ['👀', '👁️'],
   person: ['👤', '🧒', '🙇', '🧓', '👵', '🙋', '🧍', '🧑‍⚕️'],
   people: ['👥', '👫', '👨‍👩‍👧‍👦', '🫂', '🤝', '🤲', '🙏', '🫰'],
@@ -78,7 +78,7 @@ export const GROUPS: Record<string, string[]> = {
   equals: ['🟰'],
   thermometer: ['🌡️'],
   boat: ['⚓', '🛥️'],
-  drop: ['💧', '🚰', '🧈', '🐠'],
+  drop: ['💧', '🚰', '🧈', '🐠', '🍯'],
   compress: ['🗜️'],
   touch: ['👆'],
 
@@ -183,7 +183,7 @@ export const GROUPS: Record<string, string[]> = {
   dragon: ['🐉', '🐲'],
 
   crystalBall: ['🔮'],
-  cards: ['🃏'],
+  cards: ['🃏', '🎴'],
   hexagram: ['🔯'],
   star: ['⭐', '🌟', '💫', '🌠'],
   sparkles: ['✨', '💄'],

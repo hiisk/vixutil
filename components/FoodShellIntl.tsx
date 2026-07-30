@@ -122,7 +122,7 @@ export default function FoodShellIntl({
         <p className="text-xs text-slate-400 mt-1">
           <Link href={`/food/${slug}`} className="hover:text-amber-600" hrefLang="ko">한국어</Link>
           {' · '}
-          <Link href={`/${other}/time/${slug}`} className="hover:text-amber-600" hrefLang={other}>
+          <Link href={`/${other}/food/${slug}`} className="hover:text-amber-600" hrefLang={other}>
             {other === 'zh' ? '中文' : 'EN'}
           </Link>
         </p>

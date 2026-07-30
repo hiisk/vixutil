@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '设备检测 — 键盘、鼠标、麦克风、摄像头、坏点',
   description: '免费的浏览器设备检测：键盘与 N 键无冲、鼠标连击、麦克风、摄像头、音箱声道、屏幕坏点、刷新率、触摸屏、手柄漂移与设备信息。',
   alternates: {
-    canonical: '/en/game',
+    canonical: '/zh/device',
     languages: { 'en': '/en/device', 'zh': '/zh/device', 'ko': '/device', 'x-default': '/en/device' },
   },
 };
@@ -32,7 +32,7 @@ export default function ZhDeviceHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/device" className="hover:text-sky-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/game" className="hover:text-sky-600" hrefLang="zh">中文</Link>
+            <Link href="/en/device" className="hover:text-sky-600" hrefLang="en">EN</Link>
           </span>
         </div>
       </header>

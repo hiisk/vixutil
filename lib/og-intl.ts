@@ -5,11 +5,17 @@ import { findTimeToolIntl } from './time-tools-intl';
 import { findImageToolIntl } from './image-tools-intl';
 import { findFoodToolIntl } from './food-tools-intl';
 import { findSoundToolIntl } from './sound-tools-intl';
+import { findGameToolIntl } from './game-tools-intl';
+import { findDeviceToolIntl } from './device-tools-intl';
+import { findTextToolIntl } from './text-tools-intl';
 import { COLOR_TOOLS } from './color-tools';
 import { TIME_TOOLS } from './time-tools';
 import { IMAGE_TOOLS } from './image-tools';
 import { FOOD_TOOLS } from './food-tools';
 import { SOUND_TOOLS } from './sound-tools';
+import { GAME_TOOLS } from './game-tools';
+import { DEVICE_TOOLS } from './device-tools';
+import { TEXT_TOOLS } from './text-tools';
 import { RANDOM_TOOLS_MAP, type RandomTool } from './random-tools';
 
 /**
@@ -45,6 +51,14 @@ const CARDS: Record<string, Card> = {
   'image/zh': { icon: '🖼️', eyebrow: 'Image Tools', title: '图片工具', desc: '压缩 · 调整尺寸 · 格式转换 · 裁剪，浏览器内运行', from: '#8b5cf6', to: '#0ea5e9' },
   'food/en': { icon: '🍳', eyebrow: 'Cooking Tools', title: 'Cooking Tools', desc: 'Cups to grams · recipe scaling · oven temperatures', from: '#f59e0b', to: '#dc2626' },
   'food/zh': { icon: '🍳', eyebrow: 'Cooking Tools', title: '厨房工具', desc: '量杯换克 · 配方缩放 · 烤箱温度', from: '#f59e0b', to: '#dc2626' },
+  'game/en': { icon: '🎮', eyebrow: 'Brain Games', title: 'Brain Games', desc: 'Reaction · memory · typing · aim · mental maths', from: '#10b981', to: '#0d9488' },
+  'game/zh': { icon: '🎮', eyebrow: 'Brain Games', title: '脑力小游戏', desc: '反应 · 记忆 · 打字 · 瞄准 · 心算', from: '#10b981', to: '#0d9488' },
+  'device/en': { icon: '🔧', eyebrow: 'Device Tests', title: 'Device Tests', desc: 'Keyboard · mouse · mic · webcam · dead pixels', from: '#0ea5e9', to: '#2563eb' },
+  'device/zh': { icon: '🔧', eyebrow: 'Device Tests', title: '设备检测', desc: '键盘 · 鼠标 · 麦克风 · 摄像头 · 坏点', from: '#0ea5e9', to: '#2563eb' },
+  'text/en': { icon: '✏️', eyebrow: 'Text Tools', title: 'Text Tools', desc: 'Clean up · dedupe · case convert · count', from: '#6366f1', to: '#7c3aed' },
+  'text/zh': { icon: '✏️', eyebrow: 'Text Tools', title: '文本工具', desc: '清理 · 去重 · 大小写 · 字数统计', from: '#6366f1', to: '#7c3aed' },
+  'tarot/en': { icon: '🎴', eyebrow: 'Tarot', title: 'Tarot Reading', desc: 'Full 78-card deck · four spreads · upright and reversed', from: '#8b5cf6', to: '#6d28d9' },
+  'tarot/zh': { icon: '🎴', eyebrow: 'Tarot', title: '塔罗占卜', desc: '完整 78 张牌 · 四种牌阵 · 正位与逆位', from: '#8b5cf6', to: '#6d28d9' },
   'sound/en': { icon: '🔊', eyebrow: 'Sound Tools', title: 'Sound Tools', desc: 'Metronome · tuner · white noise, made by the browser', from: '#6366f1', to: '#0ea5e9' },
   'sound/zh': { icon: '🔊', eyebrow: 'Sound Tools', title: '声音工具', desc: '节拍器 · 调音器 · 白噪音，浏览器直接生成', from: '#6366f1', to: '#0ea5e9' },
   'time/en': { icon: '⏰', eyebrow: 'Time Tools', title: 'Time Tools', desc: 'Timer · stopwatch · world clock · date maths', from: '#0ea5e9', to: '#f43f5e' },
@@ -220,4 +234,34 @@ export function randomOg(slug: string, lang: 'ko' | OgLang): ReactElement {
   const eyebrow = lang === 'ko' ? tool.category : lang === 'en' ? tool.categoryEn : 'Random Picker';
   const hub = CARDS[`random/${lang}`];
   return ogCard({ icon: tool.icon, eyebrow, title, desc, from: hub.from, to: hub.to });
+}
+
+/** 두뇌 게임 — 색상 도구와 같은 방식 */
+export function gameOg(slug: string, lang: OgLang): ReactElement {
+  const tool = findGameToolIntl(lang, slug) ?? GAME_TOOLS.find(t => t.slug === slug);
+  if (!tool) throw new Error(`og-intl: 게임이 없다 — ${slug}`);
+  return ogCard({
+    icon: tool.icon, eyebrow: tool.category, title: tool.title, desc: tool.desc,
+    from: tool.og[0], to: tool.og[1],
+  });
+}
+
+/** 기기 점검 — 색상 도구와 같은 방식 */
+export function deviceOg(slug: string, lang: OgLang): ReactElement {
+  const tool = findDeviceToolIntl(lang, slug) ?? DEVICE_TOOLS.find(t => t.slug === slug);
+  if (!tool) throw new Error(`og-intl: 기기 점검이 없다 — ${slug}`);
+  return ogCard({
+    icon: tool.icon, eyebrow: tool.category, title: tool.title, desc: tool.desc,
+    from: tool.og[0], to: tool.og[1],
+  });
+}
+
+/** 텍스트 도구 — 한글 전용 네 종은 en/zh 목록에 없어 한국어로 폴백한다 */
+export function textOg(slug: string, lang: OgLang): ReactElement {
+  const tool = findTextToolIntl(lang, slug) ?? TEXT_TOOLS.find(t => t.slug === slug);
+  if (!tool) throw new Error(`og-intl: 텍스트 도구가 없다 — ${slug}`);
+  return ogCard({
+    icon: tool.icon, eyebrow: tool.category, title: tool.title, desc: tool.desc,
+    from: tool.og[0], to: tool.og[1],
+  });
 }

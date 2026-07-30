@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '脑力小游戏 — 反应速度、记忆力、打字速度',
   description: '能测出点东西的免费浏览器小游戏：反应速度、点击速度、瞄准、打字速度、顺序与数字记忆、辨色力、听力范围与心算。',
   alternates: {
-    canonical: '/en/food',
+    canonical: '/zh/game',
     languages: { 'en': '/en/game', 'zh': '/zh/game', 'ko': '/game', 'x-default': '/en/game' },
   },
 };
@@ -32,7 +32,7 @@ export default function ZhGameHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/game" className="hover:text-emerald-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/food" className="hover:text-emerald-600" hrefLang="zh">中文</Link>
+            <Link href="/en/game" className="hover:text-emerald-600" hrefLang="en">EN</Link>
           </span>
         </div>
       </header>

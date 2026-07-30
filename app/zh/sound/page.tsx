@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '声音工具 — 节拍器、调音器、白噪音',
   description: '在浏览器内生成的免费声音工具：节拍器、吉他调音器、音程听辨、BPM 测速、白噪音、双耳节拍、噪音测量、录音机与频率发生器。',
   alternates: {
-    canonical: '/en/image',
+    canonical: '/zh/sound',
     languages: { 'en': '/en/sound', 'zh': '/zh/sound', 'ko': '/sound', 'x-default': '/en/sound' },
   },
 };
@@ -32,7 +32,7 @@ export default function ZhSoundHub() {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/sound" className="hover:text-indigo-600" hrefLang="ko">한국어</Link>
-            <Link href="/zh/image" className="hover:text-indigo-600" hrefLang="zh">中文</Link>
+            <Link href="/en/sound" className="hover:text-indigo-600" hrefLang="en">EN</Link>
           </span>
         </div>
       </header>
