@@ -33,6 +33,7 @@ import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
 import { COUNTRIES } from "@/lib/country-tools";
+import { IDIOMS } from "@/lib/hanja-tools";
 
 const BASE = "https://vixutil.com";
 
@@ -177,6 +178,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/en/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/zh/country`, changeFrequency: weekly, priority: 0.9 },
     ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/zh/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
+    ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
+    ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/en/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    { url: `${BASE}/zh/hanja`, changeFrequency: weekly, priority: 0.9 },
+    ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/zh/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
@@ -203,6 +210,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/crypto/rebalancing`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/day-of-week`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/kelly-criterion`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/crypto/sold-at-top`, changeFrequency: weekly, priority: 0.9 },
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     { url: `${BASE}/en`, changeFrequency: weekly, priority: 0.95 },

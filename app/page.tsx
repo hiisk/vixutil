@@ -263,6 +263,18 @@ const SECTIONS = [
     shadow: 'shadow-sky-100',
   },
   {
+    href: '/hanja',
+    icon: '📖',
+    title: '사자성어',
+    desc: '뜻과 유래, 글자별 새김과 쓰는 예까지 사자성어 50개',
+    badge: `${SECTION_COUNTS.hanja}개`,
+    color: 'from-amber-500 to-orange-600',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
+  },
+  {
     href: '/crypto',
     icon: '🪙',
     title: 'Crypto Trading Tools',
