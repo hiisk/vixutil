@@ -732,6 +732,36 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/impermanent-loss': [
+    {
+      q: 'What is impermanent loss?',
+      a: 'It is the gap between holding two assets and putting them in a constant-product liquidity pool. The pool rebalances continuously, selling whichever asset rises and buying whichever falls, so you finish with less of the winner. The exact formula is 2\u221ar \u00f7 (1 + r), where r is the relative price at withdrawal.',
+    },
+    {
+      q: 'How much is impermanent loss for a 2x move?',
+      a: 'Exactly 5.72%, and a 4x move costs exactly 20%. Those are smaller than most people expect. The difficulty is not the size but that the number is negative for every price except no change at all.',
+    },
+    {
+      q: 'Is impermanent loss really impermanent?',
+      a: 'Only in the sense that it reverses if prices return to where they started. It becomes permanent the moment you withdraw, and most withdrawals happen before prices come back. Treat it as an unrealised loss with the same status as any other.',
+    },
+    {
+      q: 'Does being right about the direction help?',
+      a: 'No, and this is the part that surprises people. The formula is symmetric \u2014 a halving and a doubling cost identically \u2014 so the pool charges you for the move regardless of which way it goes. Only fee income offsets it.',
+    },
+    {
+      q: 'How much do I need to earn in fees to break even?',
+      a: 'The calculator gives the exact figure for your price move, and also converts it into the daily trading volume the pool must do relative to your liquidity. That second number is the honest test of an advertised APR, because the fee side depends on volume that has not happened yet.',
+    },
+    {
+      q: 'Do 80/20 pools have less impermanent loss?',
+      a: 'Yes, substantially. Skewing the weights reduces how much the pool rebalances, so an 80/20 pool loses far less than a 50/50 pool on the same price move. It does not remove the loss, and the position is more exposed to the heavier asset.',
+    },
+    {
+      q: 'Does this apply to concentrated liquidity?',
+      a: 'No. These figures are for constant-product pools such as Uniswap v2. Concentrated liquidity behaves differently and worse once price leaves your chosen range, because the position converts fully into the falling asset and stops earning fees.',
+    },
+  ],
   'crypto/bitcoin-vs-gold': [
     {
       q: 'Is Bitcoin really digital gold?',
