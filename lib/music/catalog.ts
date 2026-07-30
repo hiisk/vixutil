@@ -10,7 +10,7 @@
  * 사람이 자기 말로 검색하는 이름과 어긋나므로 언어마다 조립 규칙을 둔다.
  */
 import type { L8, Lang8 } from '../i18n/lang8.ts';
-import { CHORD_QUALITIES, INTERVALS, SCALE_MODES } from './theory.ts';
+import { CHORD_QUALITIES, INTERVALS, INTERVAL_SENTENCE, SCALE_MODES } from './theory.ts';
 import { noteName, noteSymbol, prefersFlat, slugOf, type Pc } from './notes.ts';
 
 export type MusicKind = 'chord' | 'scale' | 'interval';
@@ -150,22 +150,26 @@ const SCALE_TITLE: L8<(root: string, mode: string) => string> = {
   hi: (r, m) => `${r} ${m}`,
 };
 
+/** 제목 첫 글자를 올린다 — "escala mayor de Mib"가 h1의 첫 글자로 들어간다 */
+const upper1 = (s: string): string => (s ? s[0].toUpperCase() + s.slice(1) : s);
+
 export function titleOf(item: MusicItem, lang: Lang8): string {
   const root = noteName(item.root, lang, accidentalOf(item));
   if (item.kind === 'chord') {
-    return CHORD_TITLE[lang](root, chordQuality(item.id)?.name[lang] ?? item.id);
+    return upper1(CHORD_TITLE[lang](root, chordQuality(item.id)?.name[lang] ?? item.id));
   }
   if (item.kind === 'scale') {
-    return SCALE_TITLE[lang](root, scaleMode(item.id)?.name[lang] ?? item.id);
+    return upper1(SCALE_TITLE[lang](root, scaleMode(item.id)?.name[lang] ?? item.id));
   }
-  return intervalDef(item.id)?.name[lang] ?? item.id;
+  return upper1(intervalDef(item.id)?.name[lang] ?? item.id);
 }
 
 /** 이 항목이 어떤 소리인지 한 줄 */
 export function feelOf(item: MusicItem, lang: Lang8): string {
   if (item.kind === 'chord') return chordQuality(item.id)?.feel[lang] ?? '';
   if (item.kind === 'scale') return scaleMode(item.id)?.feel[lang] ?? '';
-  return intervalDef(item.id)?.ear[lang] ?? '';
+  const iv = intervalDef(item.id);
+  return iv ? INTERVAL_SENTENCE[lang](iv.semitones, iv.ear[lang]) : '';
 }
 
 /** 구성음을 그 언어 표기로 나열한다 — "C · E · G" */
@@ -188,3 +192,23 @@ export const itemsOfKind = (kind: MusicKind): MusicItem[] =>
 /** 허브에서 성질별로 묶어 보여 준다 */
 export const chordsByQuality = (id: string): MusicItem[] =>
   MUSIC_ITEMS.filter(i => i.kind === 'chord' && i.id === id);
+
+/**
+ * 항목마다 색과 아이콘.
+ *
+ * 성질별로 색을 달리 둔다 — 코드 96장이 같은 색이면 목록에서 어느 성질인지
+ * 색으로 구분되지 않는다. 아이콘은 이모지를 열쇠로 그린 아이콘이 붙으므로
+ * 그린 그림이 있는 것만 쓴다(건반·음표·헤드폰).
+ */
+const COLOR: Record<string, string> = {
+  major: '#0ea5e9', minor: '#8b5cf6', dom7: '#f59e0b', maj7: '#10b981',
+  min7: '#6366f1', dim: '#ef4444', aug: '#ec4899', sus4: '#14b8a6',
+  dorian: '#0d9488', mixolydian: '#ea580c', pentatonic: '#16a34a',
+};
+
+export const colorOf = (item: MusicItem): string =>
+  COLOR[item.id] ?? (item.kind === 'interval' ? '#475569' : '#0ea5e9');
+
+/** 목록과 공유 카드가 같은 그림을 쓴다 */
+export const iconOf = (item: MusicItem): string =>
+  item.kind === 'chord' ? '🎹' : item.kind === 'scale' ? '🎵' : '🎧';

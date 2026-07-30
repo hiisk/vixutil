@@ -32,6 +32,7 @@ import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
 import { METRO_LINES } from "@/lib/metro-lines";
 import { METRO_LANGS } from "@/lib/metro/lang";
+import { MUSIC_ITEMS } from "@/lib/music/catalog";
 
 const BASE = "https://vixutil.com";
 
@@ -171,6 +172,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/en/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
+    // 음악 이론도 여덟 언어다 — 지하철과 같은 목록을 돈다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/music`, changeFrequency: weekly, priority: prefix === '' ? 0.9 : 0.85 },
+      ...MUSIC_ITEMS.map((i: { slug: string }) => ({
+        url: `${BASE}${prefix}/music/${i.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 지하철은 여덟 언어다. 언어를 손으로 적으면 하나를 빼먹으니 목록에서 돈다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/metro`, changeFrequency: weekly, priority: prefix === '' ? 0.95 : 0.9 },

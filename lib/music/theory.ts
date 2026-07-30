@@ -224,6 +224,23 @@ export interface IntervalDef {
   ear: L8<string>;
 }
 
+/**
+ * 음정 설명 문장.
+ *
+ * ear에는 "영화 「조스」의 두 음"처럼 짧은 연상만 적는다 — 열두 음정 × 여덟 언어에
+ * 긴 설명을 적는 대신, 반음 수와 그 연상을 문장에 끼워 넣는다.
+ */
+export const INTERVAL_SENTENCE: L8<(semitones: number, ear: string) => string> = {
+  ko: (n, ear) => `밑음에서 ${n}반음 떨어진 음정입니다. ${ear}을 떠올리면 귀에 붙습니다.`,
+  en: (n, ear) => `An interval of ${n} semitones. ${ear} is the quickest way to fix it in your ear.`,
+  es: (n, ear) => `Un intervalo de ${n} semitonos. ${ear} es la forma más rápida de fijarlo al oído.`,
+  pt: (n, ear) => `Um intervalo de ${n} semitons. ${ear} é o jeito mais rápido de fixá-lo no ouvido.`,
+  ja: (n, ear) => `根音から${n}半音離れた音程です。${ear}を思い出すと耳に残ります。`,
+  de: (n, ear) => `Ein Intervall von ${n} Halbtönen. ${ear} prägt es am schnellsten ins Ohr.`,
+  fr: (n, ear) => `Un intervalle de ${n} demi-tons. ${ear} est le plus rapide pour l’avoir dans l’oreille.`,
+  hi: (n, ear) => `मूल स्वर से ${n} आधे सुर का अंतराल। ${ear} याद कर लें तो यह कान में बैठ जाता है।`,
+};
+
 export const INTERVALS: IntervalDef[] = [
   {
     semitones: 1, slug: 'minor-second',
