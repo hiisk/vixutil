@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import ToolIcon from '@/components/ToolIcon';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
@@ -77,10 +76,15 @@ export default function MetroHub({ lang }: { lang: Lang }) {
           const lines = METRO_LINES.filter(l => l.city === city);
           return (
             <section key={city} className="mb-8">
-              <h2 className="flex items-center gap-2 text-base font-black text-slate-800 dark:text-slate-100 mb-3">
-                <ToolIcon emoji={lines[0].icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+              {/*
+                도시 머리에는 아이콘을 안 붙인다. 국기 이모지는 모두 같은 깃발
+                도형으로 그려지므로 아홉 줄이 똑같은 그림이 되어 알려 주는 것이 없다.
+                국기는 공유 카드에서만 쓴다.
+              */}
+              <h2 className="flex items-baseline gap-2 text-base font-black text-slate-800 dark:text-slate-100 mb-3">
                 {cityName(city)}
                 <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{lines.length}</span>
+                <span className="text-xs font-normal text-slate-400 dark:text-slate-500">{lines[0][lang].country}</span>
               </h2>
               <div className="grid sm:grid-cols-2 gap-2">
                 {lines.map(l => (

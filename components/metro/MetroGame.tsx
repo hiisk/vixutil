@@ -45,7 +45,8 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Lang 
   }, [startedAt, finished]);
 
   const elapsed = startedAt === null ? 0 : Math.max(0, now - startedAt);
-  const perMin = elapsed > 0 ? Math.round((at / (elapsed / 60000)) * 10) / 10 : 0;
+  // 10초는 지나야 의미가 있다. 2초에 두 역을 치면 분당 60역이라고 나와 우습다.
+  const perMin = elapsed >= 10000 ? Math.round((at / (elapsed / 60000)) * 10) / 10 : null;
   const accuracy = at + miss > 0 ? Math.round((at / (at + miss)) * 100) : 100;
 
   /** 한 글자 칠 때마다 본다 — 다 치면 엔터 없이 넘어간다 */
@@ -109,7 +110,7 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Lang 
       <div className="grid grid-cols-4 gap-2 mt-3">
         <Stat value={ui.solvedOf(at, total)} label={ui.stations} color={line.color} />
         <Stat value={clock(elapsed)} label={ui.elapsed} />
-        <Stat value={`${perMin}`} label={ui.perMin} />
+        <Stat value={perMin === null ? '—' : `${perMin}`} label={ui.perMin} />
         <Stat value={`${accuracy}%`} label={ui.accuracy} />
       </div>
 
