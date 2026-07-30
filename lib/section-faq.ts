@@ -732,6 +732,32 @@ export const SECTION_FAQ: Record<string, FaqItem[]> = {
       a: 'Spot is buy-only (long). The LONG/SHORT labels apply to futures trading only, where you can also take a short position.',
     },
   ],
+  'crypto/rebalancing': [
+    {
+      q: 'Does rebalancing a crypto portfolio actually help?',
+      a: 'It depends on whether the assets take turns leading. Rebalancing sells what rose and buys what fell, which pays off under mean reversion and costs money when one asset simply keeps winning. Crypto has mostly been the second case, so the advice is worth testing rather than assuming.',
+    },
+    {
+      q: 'How often should I rebalance?',
+      a: 'The table compares weekly, monthly and quarterly against never touching the portfolio, with fees deducted. More frequent rebalancing means more trades and more cost — weekly trades roughly thirteen times as often as quarterly for the same portfolio.',
+    },
+    {
+      q: 'Does rebalancing reduce risk?',
+      a: 'Only conditionally. In a sustained decline it makes drawdown worse, because each rebalance moves money into the falling asset. It cushions drawdown only when the assets mean-revert against each other, which is why both drawdown figures are shown rather than one.',
+    },
+    {
+      q: 'Why does buy-and-hold usually win here?',
+      a: 'Because one asset tends to dominate. Left alone, the winner grows into most of the portfolio, and rebalancing would have kept cutting it. The drift panel shows what the untouched weights became, which is also a reminder that the portfolio you end up holding is not the one you chose.',
+    },
+    {
+      q: 'Are fees and taxes included?',
+      a: 'Fees are included and deducted from the values shown, because leaving them out flatters rebalancing. Taxes are not modelled at all, and in jurisdictions where each rebalance is a taxable disposal they can outweigh every other effect on the page.',
+    },
+    {
+      q: 'How reliable is this backtest?',
+      a: 'It covers one window and a handful of coins that survived to be listed today, so it inherits survivorship bias — tokens that collapsed are absent from the comparison. Treat the direction of the result as informative and the exact figures as specific to this period.',
+    },
+  ],
   'crypto/volatility': [
     {
       q: 'Which crypto is the most volatile?',
