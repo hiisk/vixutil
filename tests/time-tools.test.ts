@@ -31,9 +31,19 @@ test('도구마다 페이지와 OG 이미지가 있다', () => {
 test('페이지 폴더마다 카탈로그 항목이 있다', () => {
   const orphans = readdirSync(APP, { withFileTypes: true })
     .filter(e => e.isDirectory())
+    // [slug]는 도시 116곳을 그리는 동적 라우트다 — 도구 카탈로그가 아니라
+    // lib/time/cities8.ts에서 목록이 오므로 여기서 셀 대상이 아니다
+    .filter(e => !e.name.startsWith('['))
     .map(e => e.name)
     .filter(name => !findTimeTool(name));
   assert.deepEqual(orphans, [], `카탈로그에 없는 페이지 폴더: ${orphans.join(', ')}`);
+});
+
+test('도시 동적 라우트는 도시 목록에서 페이지를 만든다', () => {
+  // 위 검사에서 [slug]를 빼 주었으니, 그 라우트가 실제로 도시 목록을 쓰는지 본다
+  const src = readFileSync(join(APP, '[slug]', 'page.tsx'), 'utf8');
+  assert.ok(src.includes('TIME_CITIES'), '[slug] 라우트가 도시 목록을 돌지 않는다');
+  assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
 });
 
 test('slug가 중복되지 않는다', () => {
