@@ -10,6 +10,13 @@
  * 그런 차이는 note에 적어 둔다.
  */
 import { CONVERT_EN2 } from './convert-i18n2.ts';
+import { CONVERT_ES } from './convert-l10n/es.ts';
+import { CONVERT_PT_BR } from './convert-l10n/pt-br.ts';
+import { CONVERT_JA } from './convert-l10n/ja.ts';
+import { CONVERT_DE } from './convert-l10n/de.ts';
+import { CONVERT_FR } from './convert-l10n/fr.ts';
+import { CONVERT_HI } from './convert-l10n/hi.ts';
+import type { AnyLocale, IntlLocale } from './locales.ts';
 
 export interface ConvertL10n {
   title: string;
@@ -25,6 +32,51 @@ export const CONVERT_CATEGORY_EN: Record<string, string> = {
   '길이': 'Length', '무게': 'Weight', '부피': 'Volume', '넓이': 'Area',
   '온도': 'Temperature', '속도': 'Speed', '데이터': 'Data', '에너지': 'Energy', '압력·기타': 'Pressure & more',
   '시간': 'Time', '각도': 'Angle',
+};
+
+/**
+ * 분류 이름의 여덟 언어 표.
+ *
+ * 열쇠는 lib/convert-tools.ts의 category 문자열 그대로다 — 한 글자만 달라도 그 묶음이
+ * 허브에서 조용히 사라진다(라벨이 빈 문자열이 되는 게 아니라 그룹이 안 잡힌다).
+ */
+export const CONVERT_CATEGORY: Record<AnyLocale, Record<string, string>> = {
+  ko: {
+    '길이': '길이', '무게': '무게', '부피': '부피', '넓이': '넓이', '온도': '온도',
+    '속도': '속도', '데이터': '데이터', '에너지': '에너지', '압력·기타': '압력·기타',
+    '시간': '시간', '각도': '각도',
+  },
+  en: CONVERT_CATEGORY_EN,
+  es: {
+    '길이': 'Longitud', '무게': 'Peso', '부피': 'Volumen', '넓이': 'Superficie', '온도': 'Temperatura',
+    '속도': 'Velocidad', '데이터': 'Datos', '에너지': 'Energía', '압력·기타': 'Presión y más',
+    '시간': 'Tiempo', '각도': 'Ángulo',
+  },
+  'pt-br': {
+    '길이': 'Comprimento', '무게': 'Peso', '부피': 'Volume', '넓이': 'Área', '온도': 'Temperatura',
+    '속도': 'Velocidade', '데이터': 'Dados', '에너지': 'Energia', '압력·기타': 'Pressão e mais',
+    '시간': 'Tempo', '각도': 'Ângulo',
+  },
+  ja: {
+    '길이': '長さ', '무게': '重さ', '부피': '体積', '넓이': '面積', '온도': '温度',
+    '속도': '速さ', '데이터': 'データ', '에너지': 'エネルギー', '압력·기타': '圧力・その他',
+    '시간': '時間', '각도': '角度',
+  },
+  de: {
+    '길이': 'Länge', '무게': 'Gewicht', '부피': 'Volumen', '넓이': 'Fläche', '온도': 'Temperatur',
+    '속도': 'Geschwindigkeit', '데이터': 'Daten', '에너지': 'Energie', '압력·기타': 'Druck und mehr',
+    '시간': 'Zeit', '각도': 'Winkel',
+  },
+  fr: {
+    '길이': 'Longueur', '무게': 'Poids', '부피': 'Volume', '넓이': 'Surface', '온도': 'Température',
+    '속도': 'Vitesse', '데이터': 'Données', '에너지': 'Énergie', '압력·기타': 'Pression et autres',
+    '시간': 'Temps', '각도': 'Angle',
+  },
+  hi: {
+    '길이': 'लंबाई', '무게': 'वज़न', '부피': 'आयतन', '넓이': 'क्षेत्रफल', '온도': 'तापमान',
+    '속도': 'गति', '데이터': 'डेटा', '에너지': 'ऊर्जा', '압력·기타': 'दबाव और अन्य',
+    '시간': 'समय', '각도': 'कोण',
+  },
 };
 
 const CONVERT_EN_1: Record<string, ConvertL10n> = {
@@ -299,3 +351,28 @@ const CONVERT_EN_1: Record<string, ConvertL10n> = {
 
 /* 둘째 묶음 50종을 합친다 — 파일을 나눠 두지 않으면 무엇이 빠졌는지 안 보인다 */
 export const CONVERT_EN: Record<string, ConvertL10n> = { ...CONVERT_EN_1, ...CONVERT_EN2 };
+
+/**
+ * 언어별 사전을 한 표로 모은다.
+ *
+ * 영어만 있을 때는 화면에서 `lang === 'en' ? CONVERT_EN[slug] : undefined`로 됐지만
+ * 일곱 언어가 되면 그 삼항이 일곱 겹이 된다. 언어를 늘릴 때 고칠 곳은 여기 한 줄로 둔다.
+ *
+ * 파일을 언어마다 나눈 이유는 100종이 한 파일에 들어가면 무엇이 빠졌는지 안 보이기
+ * 때문이다. 빠진 항목은 아래 convertL10n()이 조용히 한국어로 되돌린다 — 화면이
+ * 깨지지는 않지만 한글이 섞이므로, tests/convert-tools.ts가 누락을 잡는다.
+ */
+export const CONVERT_L10N: Record<IntlLocale, Record<string, ConvertL10n>> = {
+  en: CONVERT_EN,
+  es: CONVERT_ES,
+  'pt-br': CONVERT_PT_BR,
+  ja: CONVERT_JA,
+  de: CONVERT_DE,
+  fr: CONVERT_FR,
+  hi: CONVERT_HI,
+};
+
+/** 그 언어의 문구. 한국어이거나 항목이 없으면 undefined — 부르는 쪽이 원본으로 되돌린다. */
+export function convertL10n(slug: string, lang: AnyLocale): ConvertL10n | undefined {
+  return lang === 'ko' ? undefined : CONVERT_L10N[lang]?.[slug];
+}

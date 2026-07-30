@@ -37,6 +37,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-slate-700 dark:text-slate-300', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/40',
     copy: {
       en: { title: 'Unit Converter', desc: 'Length, weight, temperature, area and more' },
+      es: { title: 'Conversor de unidades', desc: 'Longitud, peso, temperatura, superficie y más' },
+      'pt-br': { title: 'Conversor de unidades', desc: 'Comprimento, peso, temperatura, área e mais' },
+      ja: { title: '単位変換', desc: '長さ・重さ・温度・面積・データ量まで100種' },
+      de: { title: 'Einheitenrechner', desc: 'Länge, Gewicht, Temperatur, Fläche und mehr' },
+      fr: { title: 'Convertisseur d’unités', desc: 'Longueur, poids, température, surface et plus' },
+      hi: { title: 'इकाई कनवर्टर', desc: 'लंबाई, वज़न, तापमान, क्षेत्रफल और बहुत कुछ' },
     },
   },
   {
@@ -72,6 +78,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
     copy: {
       en: { title: 'Random Pickers', desc: 'Wheel, name picker, teams, dice, Secret Santa' },
+      es: { title: 'Sorteos al azar', desc: 'Ruleta, nombres, equipos, dados, amigo invisible' },
+      'pt-br': { title: 'Sorteios aleatórios', desc: 'Roleta, nomes, times, dados, amigo secreto' },
+      ja: { title: 'ランダム選び', desc: 'ルーレット、あみだくじ、チーム分け、サイコロ' },
+      de: { title: 'Zufallswerkzeuge', desc: 'Glücksrad, Namen ziehen, Teams, Würfel, Wichteln' },
+      fr: { title: 'Tirage au sort', desc: 'Roue, tirage de noms, équipes, dés, Père Noël secret' },
+      hi: { title: 'रैंडम चुनाव', desc: 'चक्का, नाम, टीम, पासा, सीक्रेट सैंटा' },
     },
   },
   {

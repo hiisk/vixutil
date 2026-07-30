@@ -158,8 +158,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/convert`, changeFrequency: weekly, priority: 0.9 },
-    ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 단위 변환은 slug가 여덟 언어에서 같다 — 언어 목록만 돌리면 된다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/convert`, changeFrequency: weekly, priority: 0.9 },
+      ...CONVERT_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/rate`, changeFrequency: weekly, priority: 0.9 },
@@ -308,8 +313,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
-    { url: `${BASE}/en/random`, changeFrequency: weekly, priority: 0.9 },
-    ...RANDOM_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/random/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 랜덤 뽑기도 slug가 여덟 언어에서 같다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/random`, changeFrequency: weekly, priority: 0.9 },
+      ...RANDOM_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/random/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/en/fortune`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/en/fortune/zodiac`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/animal`, changeFrequency: weekly, priority: 0.8 },
@@ -396,7 +406,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE}/${lang}/text/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
-    { url: `${BASE}/en/search`, changeFrequency: weekly, priority: 0.7 },
+    // 통합 검색은 번역 일곱 언어 모두 나간다
+    ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}/search`, changeFrequency: weekly, priority: 0.7 })),
     { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
     ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },

@@ -1,0 +1,599 @@
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import { alternateLanguages, localeHref, openGraphFor, type AnyLocale, type IntlLocale } from './locales.ts';
+import { RANDOM_TOOLS_MAP } from './random-tools.ts';
+
+/**
+ * 랜덤 뽑기 화면의 여덟 언어 문구.
+ *
+ * 이 섹션은 문구가 컴포넌트 안에 삼항으로 박혀 있었다 — `ko ? '앞' : zh ? '正面' : 'Heads'`
+ * 같은 줄이 아홉 파일에 예순 개 넘게 흩어져 있었고, zh는 이미 `const zh = false`라
+ * 닿지 않는 코드였다. 언어를 여덟으로 늘리면 그 삼항이 여덟 겹이 되므로 문구를
+ * 전부 여기로 옮긴다. 컴포넌트는 RANDOM_UI[lang]만 읽는다.
+ *
+ * 예시 이름과 룰렛 항목은 번역이 아니라 그 언어권에서 실제로 쓰는 것으로 바꾼다.
+ * 'Alex'를 힌디어 화면에 그대로 두면 예시가 아니라 남의 나라 이야기가 된다.
+ */
+
+export type RandomLang = AnyLocale;
+
+export interface RandomUi {
+  /* 허브 */
+  eyebrow: string;
+  hubTitle: string;
+  hubLead: string;
+  hubFoot: string;
+  metaTitle: string;
+  metaDesc: string;
+
+  /* 도구 페이지 */
+  privacyNote: string;
+  aboutTitle: (name: string) => string;
+  moreTools: string;
+
+  /* 룰렛 */
+  spin: string;
+  spinning: string;
+  winner: string;
+  optionPlaceholder: (i: number) => string;
+  addOption: string;
+  remove: string;
+  rouletteDefaults: string[];
+  presets: { label: string; items: string[] }[];
+
+  /* 이름 뽑기·순서·팀·마니또가 함께 쓰는 것 */
+  sampleNames: string[];
+  listPlaceholder: string;
+  peopleCount: (n: number) => string;
+  itemCount: (n: number) => string;
+
+  /* 이름 뽑기 */
+  howMany: string;
+  pickLine: (n: number, c: number) => string;
+  drumroll: string;
+  whoWillIt: string;
+  drawing: string;
+  drawAgain: string;
+  draw: string;
+
+  /* 순서 섞기 */
+  shuffleOrder: string;
+
+  /* 팀 나누기 */
+  teamCount: string;
+  makeTeams: string;
+  teamLabel: (i: number, n: number) => string;
+
+  /* 숫자 뽑기 */
+  min: string;
+  max: string;
+  count: string;
+  noDuplicates: string;
+  generate: string;
+  lottery: string;
+  luckyNumbers: string;
+  result: string;
+
+  /* 동전·주사위 */
+  coinTab: string;
+  diceTab: string;
+  heads: string;
+  tails: string;
+  coinResult: (face: string) => string;
+  flipping: string;
+  flip: string;
+  diceCount: string;
+  diceTotal: (n: number) => string;
+  rolling: string;
+  roll: string;
+
+  /* 사다리 */
+  ladderNames: string[];
+  ladderResults: string[];
+  reshuffle: string;
+  players: string;
+  results: string;
+  playerPlaceholder: (i: number) => string;
+  resultPlaceholder: (i: number) => string;
+  newPlayer: (i: number) => string;
+  newResult: string;
+  fewer: string;
+  more: string;
+
+  /* 마니또 */
+  santaPlaceholder: string;
+  santaDuplicate: string;
+  santaDraw: string;
+  santaHint: string;
+  santaMatched: string;
+  santaTapName: string;
+  santaOnly: (name: string) => string;
+  santaReveal: string;
+  santaYourMatch: string;
+  santaGotIt: string;
+}
+
+export const RANDOM_UI: Record<RandomLang, RandomUi> = {
+  ko: {
+    eyebrow: '랜덤 뽑기', hubTitle: '랜덤 뽑기',
+    hubLead: '고민될 땐 운에 맡기세요 — 공정하게, 바로, 무료로.',
+    hubFoot: '무료 랜덤 결정 도구',
+    metaTitle: '랜덤 뽑기 — 룰렛·사다리타기·팀 나누기·주사위',
+    metaDesc: '룰렛 돌림판, 사다리타기, 이름 뽑기, 팀 나누기, 숫자 추첨, 동전 던지기, 주사위, 마니또까지. 설치 없이 바로 쓰는 무료 랜덤 결정 도구.',
+    privacyNote: '결과는 브라우저에서 그때그때 만들어집니다. 입력한 내용은 저장되지도, 어디로 보내지지도 않습니다.',
+    aboutTitle: n => `${n}란`,
+    moreTools: '다른 도구',
+    spin: '돌리기 🎡', spinning: '돌아가는 중…', winner: '당첨 🎉',
+    optionPlaceholder: i => `항목 ${i}`, addOption: '+ 항목 추가', remove: '삭제',
+    rouletteDefaults: ['치킨', '피자', '떡볶이', '초밥', '햄버거', '마라탕'],
+    presets: [
+      { label: '점심 메뉴', items: ['한식', '중식', '일식', '분식', '치킨', '피자', '햄버거', '샐러드'] },
+      { label: '예 / 아니오', items: ['예', '아니오'] },
+      { label: '벌칙', items: ['꿀밤', '노래', '개인기', '심부름', '통과', '한 잔'] },
+      { label: '커피 내기', items: ['1번', '2번', '3번', '4번'] },
+    ],
+    sampleNames: ['철수', '영희', '민수', '지연', '현우', '서준', '하은', '도윤'],
+    listPlaceholder: '한 줄에 하나씩, 또는 쉼표로 구분해 입력하세요',
+    peopleCount: n => `총 ${n}명`, itemCount: n => `총 ${n}개`,
+    howMany: '뽑을 인원', pickLine: (n, c) => `총 ${n}명 · ${c}명 뽑기`,
+    drumroll: '두구두구두구…', whoWillIt: '누가 뽑힐까요? 🎯',
+    drawing: '뽑는 중…', drawAgain: '🎯 다시 뽑기', draw: '🎯 뽑기 시작!',
+    shuffleOrder: '🔀 순서 정하기',
+    teamCount: '팀 개수', makeTeams: '👥 팀 나누기', teamLabel: (i, n) => `${i}팀 · ${n}명`,
+    min: '최소', max: '최대', count: '개수', noDuplicates: '중복 없이 뽑기',
+    generate: '🔢 숫자 뽑기', lottery: '🍀 로또 번호 (1~45 중 6개)',
+    luckyNumbers: '이번 주 행운의 번호 🍀', result: '결과',
+    coinTab: '🪙 동전', diceTab: '🎲 주사위', heads: '앞', tails: '뒤',
+    coinResult: f => `${f}면!`, flipping: '던지는 중…', flip: '동전 던지기',
+    diceCount: '주사위 개수', diceTotal: n => `합계 ${n}`, rolling: '굴리는 중…', roll: '주사위 굴리기',
+    ladderNames: ['철수', '영희', '민수', '지연'],
+    ladderResults: ['🎁 선물', '💸 벌금', '☕ 커피', '😆 통과'],
+    reshuffle: '🔀 사다리 다시 섞기', players: '참가자', results: '결과',
+    playerPlaceholder: i => `참가 ${i}`, resultPlaceholder: i => `결과 ${i}`,
+    newPlayer: i => `참가${i}`, newResult: '결과', fewer: '− 줄이기', more: '+ 추가',
+    santaPlaceholder: '참가자 이름을 한 줄에 하나씩 (3명 이상)',
+    santaDuplicate: '이름이 겹쳐요. 구분되게 입력해 주세요(예: 김철수, 이철수).',
+    santaDraw: '🎁 마니또 뽑기',
+    santaHint: '뽑은 뒤 폰을 돌려가며 각자 자기 마니또만 몰래 확인하세요.',
+    santaMatched: '배정 완료! 🎁', santaTapName: '이름을 눌러 각자 자기 마니또를 확인하세요',
+    santaOnly: n => `${n}님만 보세요 🤫`, santaReveal: '🎁 내 마니또 확인하기',
+    santaYourMatch: '당신의 마니또는', santaGotIt: '확인했어요, 닫기',
+  },
+
+  en: {
+    eyebrow: 'Random Picker', hubTitle: 'Random Tools',
+    hubLead: 'Let chance decide — fair, instant, free.',
+    hubFoot: 'Free random decision tools',
+    metaTitle: 'Random Picker Tools — Wheel, Name Picker, Dice & More',
+    metaDesc: 'Free random decision tools: spin the wheel, ghost leg ladder, random name picker, team generator, number generator, coin flip, dice roller and Secret Santa. Instant, no sign-up.',
+    privacyNote: 'Results are generated live in your browser with real randomness. Nothing you enter is stored or sent.',
+    aboutTitle: n => `About the ${n}`,
+    moreTools: 'More tools',
+    spin: 'Spin 🎡', spinning: 'Spinning…', winner: 'Winner 🎉',
+    optionPlaceholder: i => `Option ${i}`, addOption: '+ Add option', remove: 'Remove',
+    rouletteDefaults: ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Ramen'],
+    presets: [
+      { label: 'Lunch', items: ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Pasta', 'BBQ', 'Ramen'] },
+      { label: 'Yes / No', items: ['Yes', 'No'] },
+      { label: 'Dare', items: ['Sing', 'Dance', 'Push-ups', 'Tell a joke', 'Skip', 'Free pass'] },
+      { label: 'Who pays', items: ['#1', '#2', '#3', '#4'] },
+    ],
+    sampleNames: ['Alex', 'Sam', 'Jordan', 'Taylor', 'Jamie', 'Casey', 'Riley', 'Morgan'],
+    listPlaceholder: 'One per line, or separated by commas',
+    peopleCount: n => `${n} people`, itemCount: n => `${n} items`,
+    howMany: 'How many', pickLine: (n, c) => `${n} names · pick ${c}`,
+    drumroll: 'drumroll…', whoWillIt: 'Who will it be? 🎯',
+    drawing: 'Drawing…', drawAgain: '🎯 Draw again', draw: '🎯 Draw!',
+    shuffleOrder: '🔀 Shuffle order',
+    teamCount: 'Teams', makeTeams: '👥 Make teams', teamLabel: (i, n) => `Team ${i} · ${n}`,
+    min: 'Min', max: 'Max', count: 'Count', noDuplicates: 'No duplicates',
+    generate: '🔢 Generate numbers', lottery: '🍀 Lottery (6 of 1–45)',
+    luckyNumbers: 'Your lucky numbers 🍀', result: 'Result',
+    coinTab: '🪙 Coin', diceTab: '🎲 Dice', heads: 'Heads', tails: 'Tails',
+    coinResult: f => `${f}!`, flipping: 'Flipping…', flip: 'Flip coin',
+    diceCount: 'Dice', diceTotal: n => `Total ${n}`, rolling: 'Rolling…', roll: 'Roll dice',
+    ladderNames: ['Alex', 'Sam', 'Jordan', 'Taylor'],
+    ladderResults: ['🎁 Gift', '💸 Pay', '☕ Coffee', '😆 Free'],
+    reshuffle: '🔀 Reshuffle ladder', players: 'Players', results: 'Results',
+    playerPlaceholder: i => `Player ${i}`, resultPlaceholder: i => `Result ${i}`,
+    newPlayer: i => `Player ${i}`, newResult: 'Result', fewer: '− Remove', more: '+ Add',
+    santaPlaceholder: 'One name per line (3 or more)',
+    santaDuplicate: 'Duplicate names — make them unique (e.g. John S, John K).',
+    santaDraw: '🎁 Draw Secret Santa',
+    santaHint: 'After drawing, pass the phone around so each person privately checks their own match.',
+    santaMatched: 'All matched! 🎁', santaTapName: 'Tap your name to see your match',
+    santaOnly: n => `${n} only 🤫`, santaReveal: '🎁 Reveal my match',
+    santaYourMatch: 'Your match is', santaGotIt: 'Got it, close',
+  },
+
+  es: {
+    eyebrow: 'Sorteo', hubTitle: 'Herramientas de azar',
+    hubLead: 'Deja que decida la suerte — justo, al instante y gratis.',
+    hubFoot: 'Herramientas de decisión al azar, gratis',
+    metaTitle: 'Sorteos al azar — ruleta, sorteo de nombres, dados y más',
+    metaDesc: 'Herramientas gratis para decidir al azar: ruleta, amidakuji, sorteo de nombres, generador de equipos, números aleatorios, cara o cruz, dados y amigo invisible. Al instante y sin registro.',
+    privacyNote: 'Los resultados se generan en tu navegador en el momento. Nada de lo que escribes se guarda ni se envía.',
+    aboutTitle: n => `Sobre ${n}`,
+    moreTools: 'Más herramientas',
+    spin: 'Girar 🎡', spinning: 'Girando…', winner: 'Ganador 🎉',
+    optionPlaceholder: i => `Opción ${i}`, addOption: '+ Añadir opción', remove: 'Quitar',
+    rouletteDefaults: ['Pizza', 'Hamburguesa', 'Sushi', 'Tacos', 'Ensalada', 'Ramen'],
+    presets: [
+      { label: 'Comida', items: ['Pizza', 'Hamburguesa', 'Sushi', 'Tacos', 'Ensalada', 'Pasta', 'Asado', 'Ramen'] },
+      { label: 'Sí / No', items: ['Sí', 'No'] },
+      { label: 'Prenda', items: ['Cantar', 'Bailar', 'Flexiones', 'Contar un chiste', 'Pasar', 'Te salvas'] },
+      { label: 'Quién paga', items: ['N.º 1', 'N.º 2', 'N.º 3', 'N.º 4'] },
+    ],
+    sampleNames: ['Alejandro', 'Sofía', 'Mateo', 'Lucía', 'Diego', 'Valeria', 'Pablo', 'Carmen'],
+    listPlaceholder: 'Uno por línea, o separados por comas',
+    peopleCount: n => `${n} personas`, itemCount: n => `${n} elementos`,
+    howMany: 'Cuántos', pickLine: (n, c) => `${n} nombres · sacar ${c}`,
+    drumroll: 'redoble…', whoWillIt: '¿Quién será? 🎯',
+    drawing: 'Sorteando…', drawAgain: '🎯 Sortear otra vez', draw: '🎯 ¡Sortear!',
+    shuffleOrder: '🔀 Ordenar al azar',
+    teamCount: 'Equipos', makeTeams: '👥 Hacer equipos', teamLabel: (i, n) => `Equipo ${i} · ${n}`,
+    min: 'Mín', max: 'Máx', count: 'Cantidad', noDuplicates: 'Sin repetidos',
+    generate: '🔢 Generar números', lottery: '🍀 Lotería (6 de 1–45)',
+    luckyNumbers: 'Tus números de la suerte 🍀', result: 'Resultado',
+    coinTab: '🪙 Moneda', diceTab: '🎲 Dados', heads: 'Cara', tails: 'Cruz',
+    coinResult: f => `¡${f}!`, flipping: 'Lanzando…', flip: 'Lanzar moneda',
+    diceCount: 'Dados', diceTotal: n => `Total ${n}`, rolling: 'Tirando…', roll: 'Tirar dados',
+    ladderNames: ['Alejandro', 'Sofía', 'Mateo', 'Lucía'],
+    ladderResults: ['🎁 Regalo', '💸 Paga', '☕ Café', '😆 Libre'],
+    reshuffle: '🔀 Rehacer la escalera', players: 'Participantes', results: 'Resultados',
+    playerPlaceholder: i => `Participante ${i}`, resultPlaceholder: i => `Resultado ${i}`,
+    newPlayer: i => `Participante ${i}`, newResult: 'Resultado', fewer: '− Quitar', more: '+ Añadir',
+    santaPlaceholder: 'Un nombre por línea (3 o más)',
+    santaDuplicate: 'Hay nombres repetidos. Escríbelos de forma que se distingan (por ejemplo, Ana G. y Ana M.).',
+    santaDraw: '🎁 Sortear amigo invisible',
+    santaHint: 'Después del sorteo, pasad el móvil para que cada uno vea en privado a quién le ha tocado.',
+    santaMatched: '¡Sorteo hecho! 🎁', santaTapName: 'Toca tu nombre para ver a quién te ha tocado',
+    santaOnly: n => `Solo ${n} 🤫`, santaReveal: '🎁 Ver a quién me ha tocado',
+    santaYourMatch: 'Te ha tocado', santaGotIt: 'Ya está, cerrar',
+  },
+
+  'pt-br': {
+    eyebrow: 'Sorteio', hubTitle: 'Ferramentas de sorteio',
+    hubLead: 'Deixe a sorte decidir — justo, na hora e de graça.',
+    hubFoot: 'Ferramentas de decisão aleatória, grátis',
+    metaTitle: 'Sorteio aleatório — roleta, sorteio de nomes, dados e mais',
+    metaDesc: 'Ferramentas grátis para decidir no aleatório: roleta, jogo da escadinha, sorteio de nomes, gerador de times, números aleatórios, cara ou coroa, dados e amigo secreto. Na hora e sem cadastro.',
+    privacyNote: 'Os resultados são gerados no seu navegador na hora. Nada do que você digita é guardado nem enviado.',
+    aboutTitle: n => `Sobre ${n}`,
+    moreTools: 'Mais ferramentas',
+    spin: 'Girar 🎡', spinning: 'Girando…', winner: 'Ganhador 🎉',
+    optionPlaceholder: i => `Opção ${i}`, addOption: '+ Adicionar opção', remove: 'Remover',
+    rouletteDefaults: ['Pizza', 'Hambúrguer', 'Sushi', 'Feijoada', 'Salada', 'Lámen'],
+    presets: [
+      { label: 'Almoço', items: ['Pizza', 'Hambúrguer', 'Sushi', 'Feijoada', 'Salada', 'Massa', 'Churrasco', 'Lámen'] },
+      { label: 'Sim / Não', items: ['Sim', 'Não'] },
+      { label: 'Prenda', items: ['Cantar', 'Dançar', 'Flexões', 'Contar uma piada', 'Passar', 'Escapou'] },
+      { label: 'Quem paga', items: ['N.º 1', 'N.º 2', 'N.º 3', 'N.º 4'] },
+    ],
+    sampleNames: ['João', 'Maria', 'Pedro', 'Ana', 'Lucas', 'Beatriz', 'Rafael', 'Juliana'],
+    listPlaceholder: 'Um por linha, ou separados por vírgula',
+    peopleCount: n => `${n} pessoas`, itemCount: n => `${n} itens`,
+    howMany: 'Quantos', pickLine: (n, c) => `${n} nomes · sortear ${c}`,
+    drumroll: 'rufem os tambores…', whoWillIt: 'Quem será? 🎯',
+    drawing: 'Sorteando…', drawAgain: '🎯 Sortear de novo', draw: '🎯 Sortear!',
+    shuffleOrder: '🔀 Definir a ordem',
+    teamCount: 'Times', makeTeams: '👥 Formar times', teamLabel: (i, n) => `Time ${i} · ${n}`,
+    min: 'Mín', max: 'Máx', count: 'Quantidade', noDuplicates: 'Sem repetir',
+    generate: '🔢 Gerar números', lottery: '🍀 Loteria (6 de 1–45)',
+    luckyNumbers: 'Seus números da sorte 🍀', result: 'Resultado',
+    coinTab: '🪙 Moeda', diceTab: '🎲 Dados', heads: 'Cara', tails: 'Coroa',
+    coinResult: f => `${f}!`, flipping: 'Jogando…', flip: 'Jogar moeda',
+    diceCount: 'Dados', diceTotal: n => `Total ${n}`, rolling: 'Rolando…', roll: 'Rolar dados',
+    ladderNames: ['João', 'Maria', 'Pedro', 'Ana'],
+    ladderResults: ['🎁 Presente', '💸 Paga', '☕ Café', '😆 Livre'],
+    reshuffle: '🔀 Refazer a escadinha', players: 'Participantes', results: 'Resultados',
+    playerPlaceholder: i => `Participante ${i}`, resultPlaceholder: i => `Resultado ${i}`,
+    newPlayer: i => `Participante ${i}`, newResult: 'Resultado', fewer: '− Remover', more: '+ Adicionar',
+    santaPlaceholder: 'Um nome por linha (3 ou mais)',
+    santaDuplicate: 'Há nomes repetidos. Escreva de um jeito que dê para distinguir (por exemplo, Ana S. e Ana C.).',
+    santaDraw: '🎁 Sortear amigo secreto',
+    santaHint: 'Depois do sorteio, passem o celular para cada um ver em segredo quem tirou.',
+    santaMatched: 'Sorteio feito! 🎁', santaTapName: 'Toque no seu nome para ver quem você tirou',
+    santaOnly: n => `Só ${n} 🤫`, santaReveal: '🎁 Ver quem eu tirei',
+    santaYourMatch: 'Você tirou', santaGotIt: 'Entendi, fechar',
+  },
+
+  ja: {
+    eyebrow: 'ランダム', hubTitle: 'ランダム選び',
+    hubLead: '迷ったら運に任せましょう — 公平に、すぐに、無料で。',
+    hubFoot: '無料のランダム決定ツール',
+    metaTitle: 'ランダム選び — ルーレット・あみだくじ・チーム分け・サイコロ',
+    metaDesc: 'ルーレット、あみだくじ、名前抽選、チーム分け、乱数、コイントス、サイコロ、シークレットサンタまで。インストール不要ですぐ使える無料のランダム決定ツール。',
+    privacyNote: '結果はブラウザ上でその場で作られます。入力した内容は保存も送信もされません。',
+    aboutTitle: n => `${n}について`,
+    moreTools: 'ほかのツール',
+    spin: '回す 🎡', spinning: '回転中…', winner: '当たり 🎉',
+    optionPlaceholder: i => `項目 ${i}`, addOption: '+ 項目を追加', remove: '削除',
+    rouletteDefaults: ['ラーメン', 'カレー', '寿司', 'ピザ', '焼肉', 'パスタ'],
+    presets: [
+      { label: 'ランチ', items: ['ラーメン', 'カレー', '寿司', 'ピザ', '焼肉', 'パスタ', '定食', 'そば'] },
+      { label: 'はい / いいえ', items: ['はい', 'いいえ'] },
+      { label: '罰ゲーム', items: ['歌う', '踊る', '腕立て', '一発ギャグ', 'パス', '免除'] },
+      { label: '誰がおごる', items: ['1番', '2番', '3番', '4番'] },
+    ],
+    sampleNames: ['太郎', '花子', '健太', 'さくら', '大輔', '美咲', '翔太', '結衣'],
+    listPlaceholder: '1行に1つ、またはカンマ区切りで入力してください',
+    peopleCount: n => `${n}人`, itemCount: n => `${n}件`,
+    howMany: '選ぶ人数', pickLine: (n, c) => `${n}人中 ${c}人を選ぶ`,
+    drumroll: 'ドコドコドコ…', whoWillIt: '誰が選ばれる？🎯',
+    drawing: '抽選中…', drawAgain: '🎯 もう一度', draw: '🎯 抽選する！',
+    shuffleOrder: '🔀 順番を決める',
+    teamCount: 'チーム数', makeTeams: '👥 チーム分け', teamLabel: (i, n) => `${i}チーム · ${n}人`,
+    min: '最小', max: '最大', count: '個数', noDuplicates: '重複なし',
+    generate: '🔢 数字を出す', lottery: '🍀 ロト番号（1〜45から6個）',
+    luckyNumbers: '今週のラッキーナンバー 🍀', result: '結果',
+    coinTab: '🪙 コイン', diceTab: '🎲 サイコロ', heads: '表', tails: '裏',
+    coinResult: f => `${f}！`, flipping: '投げ中…', flip: 'コインを投げる',
+    diceCount: 'サイコロの数', diceTotal: n => `合計 ${n}`, rolling: '振り中…', roll: 'サイコロを振る',
+    ladderNames: ['太郎', '花子', '健太', 'さくら'],
+    ladderResults: ['🎁 プレゼント', '💸 おごり', '☕ コーヒー', '😆 セーフ'],
+    reshuffle: '🔀 あみだを引き直す', players: '参加者', results: '結果',
+    playerPlaceholder: i => `参加者 ${i}`, resultPlaceholder: i => `結果 ${i}`,
+    newPlayer: i => `参加者${i}`, newResult: '結果', fewer: '− 減らす', more: '+ 増やす',
+    santaPlaceholder: '参加者の名前を1行に1つ（3人以上）',
+    santaDuplicate: '同じ名前があります。区別できるように入力してください（例：田中A、田中B）。',
+    santaDraw: '🎁 シークレットサンタを決める',
+    santaHint: '決めたあとはスマホを回して、各自が自分の相手だけをこっそり確認してください。',
+    santaMatched: '割り当て完了！🎁', santaTapName: '名前を押して自分の相手を確認してください',
+    santaOnly: n => `${n}さんだけ見てください 🤫`, santaReveal: '🎁 自分の相手を見る',
+    santaYourMatch: 'あなたの相手は', santaGotIt: '確認しました、閉じる',
+  },
+
+  de: {
+    eyebrow: 'Zufall', hubTitle: 'Zufallswerkzeuge',
+    hubLead: 'Lass den Zufall entscheiden — fair, sofort, kostenlos.',
+    hubFoot: 'Kostenlose Werkzeuge für Zufallsentscheidungen',
+    metaTitle: 'Zufallsgenerator — Glücksrad, Namen ziehen, Würfel und mehr',
+    metaDesc: 'Kostenlose Werkzeuge für Zufallsentscheidungen: Glücksrad, Amidakuji-Leiter, Namen ziehen, Teams bilden, Zufallszahlen, Münzwurf, Würfel und Wichteln. Sofort, ohne Anmeldung.',
+    privacyNote: 'Die Ergebnisse entstehen direkt in deinem Browser. Was du eingibst, wird weder gespeichert noch verschickt.',
+    aboutTitle: n => `Über ${n}`,
+    moreTools: 'Weitere Werkzeuge',
+    spin: 'Drehen 🎡', spinning: 'Dreht…', winner: 'Gewinner 🎉',
+    optionPlaceholder: i => `Option ${i}`, addOption: '+ Option hinzufügen', remove: 'Entfernen',
+    rouletteDefaults: ['Pizza', 'Burger', 'Sushi', 'Döner', 'Salat', 'Pasta'],
+    presets: [
+      { label: 'Mittagessen', items: ['Pizza', 'Burger', 'Sushi', 'Döner', 'Salat', 'Pasta', 'Grillen', 'Ramen'] },
+      { label: 'Ja / Nein', items: ['Ja', 'Nein'] },
+      { label: 'Aufgabe', items: ['Singen', 'Tanzen', 'Liegestütze', 'Witz erzählen', 'Aussetzen', 'Freilos'] },
+      { label: 'Wer zahlt', items: ['Nr. 1', 'Nr. 2', 'Nr. 3', 'Nr. 4'] },
+    ],
+    sampleNames: ['Lukas', 'Anna', 'Felix', 'Marie', 'Jonas', 'Lena', 'Paul', 'Sophie'],
+    listPlaceholder: 'Eins pro Zeile, oder mit Komma getrennt',
+    peopleCount: n => `${n} Personen`, itemCount: n => `${n} Einträge`,
+    howMany: 'Wie viele', pickLine: (n, c) => `${n} Namen · ${c} ziehen`,
+    drumroll: 'Trommelwirbel…', whoWillIt: 'Wer wird es? 🎯',
+    drawing: 'Wird gezogen…', drawAgain: '🎯 Nochmal ziehen', draw: '🎯 Ziehen!',
+    shuffleOrder: '🔀 Reihenfolge auslosen',
+    teamCount: 'Teams', makeTeams: '👥 Teams bilden', teamLabel: (i, n) => `Team ${i} · ${n}`,
+    min: 'Min', max: 'Max', count: 'Anzahl', noDuplicates: 'Ohne Wiederholung',
+    generate: '🔢 Zahlen ziehen', lottery: '🍀 Lotto (6 aus 1–45)',
+    luckyNumbers: 'Deine Glückszahlen 🍀', result: 'Ergebnis',
+    coinTab: '🪙 Münze', diceTab: '🎲 Würfel', heads: 'Kopf', tails: 'Zahl',
+    coinResult: f => `${f}!`, flipping: 'Wirft…', flip: 'Münze werfen',
+    diceCount: 'Würfel', diceTotal: n => `Summe ${n}`, rolling: 'Würfelt…', roll: 'Würfeln',
+    ladderNames: ['Lukas', 'Anna', 'Felix', 'Marie'],
+    ladderResults: ['🎁 Geschenk', '💸 Zahlt', '☕ Kaffee', '😆 Frei'],
+    reshuffle: '🔀 Leiter neu mischen', players: 'Teilnehmer', results: 'Ergebnisse',
+    playerPlaceholder: i => `Teilnehmer ${i}`, resultPlaceholder: i => `Ergebnis ${i}`,
+    newPlayer: i => `Teilnehmer ${i}`, newResult: 'Ergebnis', fewer: '− Weniger', more: '+ Mehr',
+    santaPlaceholder: 'Ein Name pro Zeile (mindestens 3)',
+    santaDuplicate: 'Doppelte Namen — schreib sie unterscheidbar (zum Beispiel Anna K. und Anna M.).',
+    santaDraw: '🎁 Wichtel auslosen',
+    santaHint: 'Nach der Auslosung das Handy herumreichen, damit jede Person nur den eigenen Namen aufdeckt.',
+    santaMatched: 'Alles zugeteilt! 🎁', santaTapName: 'Tipp auf deinen Namen, um zu sehen, wen du hast',
+    santaOnly: n => `Nur ${n} 🤫`, santaReveal: '🎁 Meinen Wichtel aufdecken',
+    santaYourMatch: 'Du beschenkst', santaGotIt: 'Alles klar, schließen',
+  },
+
+  fr: {
+    eyebrow: 'Hasard', hubTitle: 'Outils de tirage au sort',
+    hubLead: 'Laisse le hasard trancher — équitable, immédiat, gratuit.',
+    hubFoot: 'Outils gratuits pour décider au hasard',
+    metaTitle: 'Tirage au sort — roue, tirage de noms, dés et plus',
+    metaDesc: 'Outils gratuits pour décider au hasard : roue de la fortune, amidakuji, tirage de noms, générateur d’équipes, nombres aléatoires, pile ou face, dés et Père Noël secret. Immédiat, sans inscription.',
+    privacyNote: 'Les résultats sont générés à la volée dans ton navigateur. Rien de ce que tu saisis n’est conservé ni envoyé.',
+    aboutTitle: n => `À propos de ${n}`,
+    moreTools: 'Autres outils',
+    spin: 'Tourner 🎡', spinning: 'Ça tourne…', winner: 'Gagnant 🎉',
+    optionPlaceholder: i => `Option ${i}`, addOption: '+ Ajouter une option', remove: 'Retirer',
+    rouletteDefaults: ['Pizza', 'Burger', 'Sushi', 'Crêpes', 'Salade', 'Pâtes'],
+    presets: [
+      { label: 'Déjeuner', items: ['Pizza', 'Burger', 'Sushi', 'Crêpes', 'Salade', 'Pâtes', 'Barbecue', 'Ramen'] },
+      { label: 'Oui / Non', items: ['Oui', 'Non'] },
+      { label: 'Gage', items: ['Chanter', 'Danser', 'Pompes', 'Raconter une blague', 'Passer', 'Épargné'] },
+      { label: 'Qui paie', items: ['N° 1', 'N° 2', 'N° 3', 'N° 4'] },
+    ],
+    sampleNames: ['Lucas', 'Emma', 'Hugo', 'Chloé', 'Louis', 'Léa', 'Jules', 'Manon'],
+    listPlaceholder: 'Un par ligne, ou séparés par des virgules',
+    peopleCount: n => `${n} personnes`, itemCount: n => `${n} éléments`,
+    howMany: 'Combien', pickLine: (n, c) => `${n} noms · en tirer ${c}`,
+    drumroll: 'roulement de tambour…', whoWillIt: 'Qui sera-ce ? 🎯',
+    drawing: 'Tirage…', drawAgain: '🎯 Retirer au sort', draw: '🎯 Tirer !',
+    shuffleOrder: '🔀 Tirer l’ordre',
+    teamCount: 'Équipes', makeTeams: '👥 Former les équipes', teamLabel: (i, n) => `Équipe ${i} · ${n}`,
+    min: 'Min', max: 'Max', count: 'Nombre', noDuplicates: 'Sans doublon',
+    generate: '🔢 Générer des nombres', lottery: '🍀 Loto (6 parmi 1–45)',
+    luckyNumbers: 'Tes numéros porte-bonheur 🍀', result: 'Résultat',
+    coinTab: '🪙 Pièce', diceTab: '🎲 Dés', heads: 'Pile', tails: 'Face',
+    coinResult: f => `${f} !`, flipping: 'Lancer…', flip: 'Lancer la pièce',
+    diceCount: 'Dés', diceTotal: n => `Total ${n}`, rolling: 'Ça roule…', roll: 'Lancer les dés',
+    ladderNames: ['Lucas', 'Emma', 'Hugo', 'Chloé'],
+    ladderResults: ['🎁 Cadeau', '💸 Paie', '☕ Café', '😆 Libre'],
+    reshuffle: '🔀 Refaire l’échelle', players: 'Participants', results: 'Résultats',
+    playerPlaceholder: i => `Participant ${i}`, resultPlaceholder: i => `Résultat ${i}`,
+    newPlayer: i => `Participant ${i}`, newResult: 'Résultat', fewer: '− Retirer', more: '+ Ajouter',
+    santaPlaceholder: 'Un nom par ligne (3 minimum)',
+    santaDuplicate: 'Des noms se répètent. Écris-les de façon distincte (par exemple Marie D. et Marie L.).',
+    santaDraw: '🎁 Tirer le Père Noël secret',
+    santaHint: 'Après le tirage, faites passer le téléphone pour que chacun découvre seulement son propre nom.',
+    santaMatched: 'Tirage terminé ! 🎁', santaTapName: 'Touche ton nom pour voir à qui tu offres',
+    santaOnly: n => `${n} uniquement 🤫`, santaReveal: '🎁 Découvrir mon tirage',
+    santaYourMatch: 'Tu offres à', santaGotIt: 'C’est noté, fermer',
+  },
+
+  hi: {
+    eyebrow: 'रैंडम', hubTitle: 'रैंडम चुनने के उपकरण',
+    hubLead: 'तय न हो तो किस्मत पर छोड़ दें — निष्पक्ष, तुरंत, मुफ़्त।',
+    hubFoot: 'मुफ़्त रैंडम निर्णय उपकरण',
+    metaTitle: 'रैंडम चुनाव — चक्का, नाम निकालना, पासा और बहुत कुछ',
+    metaDesc: 'रैंडम फ़ैसले के मुफ़्त उपकरण: घूमने वाला चक्का, सीढ़ी खेल, नाम निकालना, टीम बनाना, रैंडम संख्या, सिक्का उछालना, पासा और सीक्रेट सैंटा। तुरंत, बिना खाता बनाए।',
+    privacyNote: 'परिणाम आपके ब्राउज़र में उसी समय बनते हैं। आप जो लिखते हैं वह न सहेजा जाता है, न कहीं भेजा जाता है।',
+    aboutTitle: n => `${n} के बारे में`,
+    moreTools: 'और उपकरण',
+    spin: 'घुमाएँ 🎡', spinning: 'घूम रहा है…', winner: 'विजेता 🎉',
+    optionPlaceholder: i => `विकल्प ${i}`, addOption: '+ विकल्प जोड़ें', remove: 'हटाएँ',
+    rouletteDefaults: ['बिरयानी', 'डोसा', 'पिज़्ज़ा', 'छोले भटूरे', 'थाली', 'नूडल्स'],
+    presets: [
+      { label: 'दोपहर का खाना', items: ['बिरयानी', 'डोसा', 'पिज़्ज़ा', 'छोले भटूरे', 'थाली', 'नूडल्स', 'पराठा', 'रोल'] },
+      { label: 'हाँ / नहीं', items: ['हाँ', 'नहीं'] },
+      { label: 'चुनौती', items: ['गाना गाएँ', 'नाचें', 'पुश-अप', 'चुटकुला सुनाएँ', 'छोड़ दें', 'बच गए'] },
+      { label: 'कौन देगा', items: ['नं. 1', 'नं. 2', 'नं. 3', 'नं. 4'] },
+    ],
+    sampleNames: ['आर्यन', 'प्रिया', 'रोहन', 'अनन्या', 'विवेक', 'नेहा', 'कबीर', 'मीरा'],
+    listPlaceholder: 'हर पंक्ति में एक, या अल्पविराम से अलग करके लिखें',
+    peopleCount: n => `${n} लोग`, itemCount: n => `${n} चीज़ें`,
+    howMany: 'कितने', pickLine: (n, c) => `${n} नाम · ${c} चुनें`,
+    drumroll: 'ढोल बज रहा है…', whoWillIt: 'कौन निकलेगा? 🎯',
+    drawing: 'निकाल रहे हैं…', drawAgain: '🎯 फिर से निकालें', draw: '🎯 निकालें!',
+    shuffleOrder: '🔀 क्रम तय करें',
+    teamCount: 'टीमें', makeTeams: '👥 टीम बनाएँ', teamLabel: (i, n) => `टीम ${i} · ${n}`,
+    min: 'न्यूनतम', max: 'अधिकतम', count: 'गिनती', noDuplicates: 'बिना दोहराव',
+    generate: '🔢 संख्या निकालें', lottery: '🍀 लॉटरी (1–45 में से 6)',
+    luckyNumbers: 'आपके भाग्यशाली अंक 🍀', result: 'परिणाम',
+    coinTab: '🪙 सिक्का', diceTab: '🎲 पासा', heads: 'चित', tails: 'पट',
+    coinResult: f => `${f}!`, flipping: 'उछल रहा है…', flip: 'सिक्का उछालें',
+    diceCount: 'पासों की संख्या', diceTotal: n => `कुल ${n}`, rolling: 'चल रहा है…', roll: 'पासा फेंकें',
+    ladderNames: ['आर्यन', 'प्रिया', 'रोहन', 'अनन्या'],
+    ladderResults: ['🎁 तोहफ़ा', '💸 बिल', '☕ कॉफ़ी', '😆 छूट'],
+    reshuffle: '🔀 सीढ़ी दोबारा बनाएँ', players: 'खिलाड़ी', results: 'परिणाम',
+    playerPlaceholder: i => `खिलाड़ी ${i}`, resultPlaceholder: i => `परिणाम ${i}`,
+    newPlayer: i => `खिलाड़ी ${i}`, newResult: 'परिणाम', fewer: '− घटाएँ', more: '+ बढ़ाएँ',
+    santaPlaceholder: 'हर पंक्ति में एक नाम (कम से कम 3)',
+    santaDuplicate: 'नाम दोहरा रहे हैं। ऐसे लिखें कि फ़र्क़ पता चले (जैसे प्रिया श. और प्रिया व.)।',
+    santaDraw: '🎁 सीक्रेट सैंटा निकालें',
+    santaHint: 'निकालने के बाद फ़ोन घुमाएँ, हर कोई सिर्फ़ अपना नाम चुपचाप देख ले।',
+    santaMatched: 'सब तय हो गया! 🎁', santaTapName: 'अपना नाम दबाकर देखें किसे तोहफ़ा देना है',
+    santaOnly: n => `सिर्फ़ ${n} 🤫`, santaReveal: '🎁 अपना नाम देखें',
+    santaYourMatch: 'आपको तोहफ़ा देना है', santaGotIt: 'समझ गया, बंद करें',
+  },
+};
+
+/**
+ * 도구 아홉 종의 언어별 제목·설명.
+ *
+ * 문화색이 없는 도구라 개념은 그대로 옮기지만 이름은 그 나라에서 부르는 말을 쓴다 —
+ * 사다리타기는 일본에서 あみだくじ, 영어권에서 ghost leg, 마니또는 영어권에서
+ * Secret Santa, 독일에서 Wichteln이다. 직역하면 검색에서 안 잡힌다.
+ */
+export interface RandomL10n { title: string; desc: string; long: string; category: string }
+
+export const RANDOM_L10N: Record<IntlLocale, Record<string, RandomL10n>> = {
+  en: {
+    roulette: { title: 'Spin the Wheel', desc: 'Add options and spin to pick one at random', category: 'Pick', long: 'Add lunch options, penalties or chores and spin the wheel to decide at random. Includes handy presets like yes/no and food picks. Free and instant.' },
+    ladder: { title: 'Ladder Game (Ghost Leg)', desc: 'Connect players to outcomes with a random ladder', category: 'Pick', long: 'Enter players and outcomes to build a random ladder (amidakuji / ghost leg). Tap a name to trace where it leads. Great for chores, gifts and turn order.' },
+    pick: { title: 'Random Name Picker', desc: 'Draw winners from a list at random', category: 'Draw', long: 'Paste a list of names or items and draw as many random winners as you like. Perfect for giveaways, picking a presenter or choosing who does the chores.' },
+    order: { title: 'Random Order Generator', desc: 'Shuffle a list into a random order', category: 'Draw', long: 'Enter names or items and get them back in a random order. Great for fairly deciding presentation order, game turns or who goes first.' },
+    'secret-santa': { title: 'Secret Santa Generator', desc: 'Assign secret gift partners — no one gets themselves', category: 'Draw', long: 'Enter everyone and get a Secret Santa assignment where no one draws themselves. Pass the phone around so each person privately checks their own match. Perfect for holiday parties.' },
+    team: { title: 'Random Team Generator', desc: 'Split people into balanced random teams', category: 'Draw', long: 'Enter a list of names and choose how many teams — everyone is split fairly at random. Great for group projects, game teams and study groups.' },
+    number: { title: 'Random Number Generator', desc: 'Pick random numbers in any range', category: 'Numbers', long: 'Generate random numbers within any range. Draw several with no duplicates, or use the lottery preset (6 numbers from 1–45). Free and instant.' },
+    'coin-dice': { title: 'Coin Flip & Dice Roller', desc: 'Flip a coin or roll dice instantly', category: 'Numbers', long: 'Flip a heads-or-tails coin and roll 1–6 dice in one place. Quick for simple decisions and games — roll several dice at once too.' },
+  },
+  es: {
+    roulette: { title: 'Ruleta de opciones', desc: 'Añade opciones y gira para sacar una al azar', category: 'Elegir', long: 'Escribe opciones de comida, prendas o tareas y gira la ruleta para decidir al azar. Trae ajustes rápidos como sí/no y menú del día. Gratis y al instante.' },
+    ladder: { title: 'Amidakuji (escalera japonesa)', desc: 'Une participantes con resultados por una escalera al azar', category: 'Elegir', long: 'Escribe participantes y resultados y se dibuja una escalera al azar (amidakuji). Toca un nombre para seguir su camino. Va bien para tareas, regalos y turnos.' },
+    pick: { title: 'Sorteo de nombres', desc: 'Saca ganadores de una lista al azar', category: 'Sortear', long: 'Pega una lista de nombres o elementos y saca tantos ganadores como quieras. Ideal para sorteos, elegir quién presenta o a quién le toca la tarea.' },
+    order: { title: 'Generador de orden al azar', desc: 'Baraja una lista y devuelve un orden nuevo', category: 'Sortear', long: 'Escribe nombres o elementos y te los devuelve en orden aleatorio. Va bien para decidir el orden de las presentaciones, los turnos de juego o quién empieza.' },
+    'secret-santa': { title: 'Amigo invisible', desc: 'Reparte regalos en secreto — nadie se saca a sí mismo', category: 'Sortear', long: 'Escribe a todo el grupo y el sorteo reparte el amigo invisible sin que nadie se saque a sí mismo. Pasad el móvil para que cada uno vea el suyo en privado. Perfecto para las fiestas.' },
+    team: { title: 'Generador de equipos', desc: 'Reparte a las personas en equipos al azar', category: 'Sortear', long: 'Escribe la lista de nombres y elige cuántos equipos: el reparto es aleatorio y equilibrado. Va bien para trabajos en grupo, partidos y grupos de estudio.' },
+    number: { title: 'Generador de números aleatorios', desc: 'Saca números al azar en cualquier rango', category: 'Números', long: 'Genera números aleatorios en el rango que quieras. Saca varios sin repetir, o usa el ajuste de lotería (6 números del 1 al 45). Gratis y al instante.' },
+    'coin-dice': { title: 'Cara o cruz y dados', desc: 'Lanza una moneda o tira los dados al momento', category: 'Números', long: 'Lanza una moneda a cara o cruz y tira de 1 a 6 dados en el mismo sitio. Rápido para decisiones sencillas y para jugar, con varios dados a la vez.' },
+  },
+  'pt-br': {
+    roulette: { title: 'Roleta de opções', desc: 'Coloque as opções e gire para sortear uma', category: 'Escolher', long: 'Escreva opções de comida, prendas ou tarefas e gire a roleta para decidir no sorteio. Vem com atalhos como sim/não e sugestão de almoço. Grátis e na hora.' },
+    ladder: { title: 'Jogo da escadinha (amidakuji)', desc: 'Liga participantes a resultados por uma escada sorteada', category: 'Escolher', long: 'Escreva participantes e resultados e a escada sai sorteada (amidakuji). Toque num nome para seguir o caminho. Bom para tarefas, presentes e ordem de vez.' },
+    pick: { title: 'Sorteio de nomes', desc: 'Sorteia ganhadores de uma lista', category: 'Sortear', long: 'Cole uma lista de nomes ou itens e sorteie quantos ganhadores quiser. Ideal para sorteios, escolher quem apresenta ou quem faz a tarefa.' },
+    order: { title: 'Gerador de ordem aleatória', desc: 'Embaralha a lista e devolve uma nova ordem', category: 'Sortear', long: 'Escreva nomes ou itens e receba tudo em ordem aleatória. Bom para decidir a ordem das apresentações, os turnos do jogo ou quem começa.' },
+    'secret-santa': { title: 'Amigo secreto', desc: 'Sorteia os pares — ninguém tira a si mesmo', category: 'Sortear', long: 'Escreva o grupo todo e o sorteio distribui o amigo secreto sem ninguém tirar a si mesmo. Passem o celular para cada um ver o seu em segredo. Perfeito para a festa de fim de ano.' },
+    team: { title: 'Gerador de times', desc: 'Divide as pessoas em times aleatórios', category: 'Sortear', long: 'Escreva a lista de nomes e escolha quantos times: a divisão sai no aleatório e equilibrada. Bom para trabalhos em grupo, peladas e grupos de estudo.' },
+    number: { title: 'Gerador de números aleatórios', desc: 'Sorteia números em qualquer intervalo', category: 'Números', long: 'Gera números aleatórios no intervalo que você quiser. Sorteie vários sem repetir, ou use o atalho de loteria (6 números de 1 a 45). Grátis e na hora.' },
+    'coin-dice': { title: 'Cara ou coroa e dados', desc: 'Jogue a moeda ou role os dados na hora', category: 'Números', long: 'Jogue cara ou coroa e role de 1 a 6 dados no mesmo lugar. Rápido para decisões simples e para jogar, com vários dados de uma vez.' },
+  },
+  ja: {
+    roulette: { title: 'ルーレット', desc: '項目を入れて回し、ランダムに1つ選ぶ', category: '選ぶ', long: 'ランチの候補や罰ゲーム、当番などを入れて回すだけ。はい／いいえやメニュー決めのプリセットもあります。無料ですぐ使えます。' },
+    ladder: { title: 'あみだくじ', desc: '参加者と結果をランダムなあみだで結ぶ', category: '選ぶ', long: '参加者と結果を入れるとあみだくじが自動で引かれます。名前を押すとどこにつながるかたどれます。当番決め、プレゼント交換、順番決めに。' },
+    pick: { title: '名前の抽選', desc: 'リストからランダムに当選者を選ぶ', category: '抽選', long: '名前や項目のリストを貼り付けて、好きな人数だけランダムに選びます。プレゼント企画、発表者決め、当番決めに向いています。' },
+    order: { title: '順番シャッフル', desc: 'リストの順番をランダムに並べ替える', category: '抽選', long: '名前や項目を入れるとランダムな順番で返ってきます。発表の順、ゲームの手番、先攻後攻を公平に決めるのに使えます。' },
+    'secret-santa': { title: 'シークレットサンタ', desc: '自分自身に当たらないように相手を割り当てる', category: '抽選', long: '参加者全員を入れると、誰も自分自身に当たらないように相手が決まります。スマホを回して各自が自分の相手だけを確認できます。年末のパーティーに。' },
+    team: { title: 'チーム分け', desc: '参加者をランダムなチームに分ける', category: '抽選', long: '名前のリストとチーム数を入れると、人数が偏らないようランダムに分けます。グループ課題、試合、勉強会に向いています。' },
+    number: { title: '乱数ジェネレーター', desc: '好きな範囲でランダムな数字を出す', category: '数字', long: '指定した範囲でランダムな数字を出します。重複なしでまとめて出すことも、ロトのプリセット（1〜45から6個）を使うこともできます。無料ですぐ使えます。' },
+    'coin-dice': { title: 'コイントス・サイコロ', desc: 'コインを投げる、サイコロを振る', category: '数字', long: '表裏のコイントスと1〜6個のサイコロを同じ画面で。ちょっとした決めごとやゲームに便利で、複数のサイコロも一度に振れます。' },
+  },
+  de: {
+    roulette: { title: 'Glücksrad', desc: 'Optionen eintragen und drehen — der Zufall wählt', category: 'Wählen', long: 'Trag Essensoptionen, Aufgaben oder Strafen ein und dreh das Rad. Fertige Vorlagen für Ja/Nein und Mittagessen sind dabei. Kostenlos und sofort.' },
+    ladder: { title: 'Amidakuji-Leiter', desc: 'Verbindet Teilnehmer und Ergebnisse über eine zufällige Leiter', category: 'Wählen', long: 'Trag Teilnehmer und Ergebnisse ein, und die Leiter (Amidakuji, Ghost Leg) wird zufällig gezogen. Tipp auf einen Namen, um seinem Weg zu folgen. Gut für Aufgaben, Geschenke und Reihenfolge.' },
+    pick: { title: 'Namen ziehen', desc: 'Zieht Gewinner zufällig aus einer Liste', category: 'Ziehen', long: 'Füg eine Liste mit Namen oder Einträgen ein und zieh so viele Gewinner, wie du willst. Passt für Verlosungen, für die Wahl der vortragenden Person oder für den Abwasch.' },
+    order: { title: 'Zufällige Reihenfolge', desc: 'Mischt eine Liste in eine neue Reihenfolge', category: 'Ziehen', long: 'Trag Namen oder Einträge ein und bekomm sie in zufälliger Reihenfolge zurück. Gut, um Vortragsreihenfolge, Spielzüge oder den Anfang fair zu klären.' },
+    'secret-santa': { title: 'Wichteln auslosen', desc: 'Verteilt die Wichtel — niemand zieht sich selbst', category: 'Ziehen', long: 'Trag alle ein, und die Auslosung verteilt die Wichtel so, dass niemand sich selbst zieht. Reicht das Handy herum, damit jede Person nur den eigenen Namen aufdeckt. Perfekt für die Weihnachtsfeier.' },
+    team: { title: 'Teams auslosen', desc: 'Teilt Leute zufällig in gleich große Teams', category: 'Ziehen', long: 'Trag die Namen ein und wähl die Anzahl der Teams — aufgeteilt wird zufällig und gleichmäßig. Gut für Gruppenarbeit, Spiele und Lerngruppen.' },
+    number: { title: 'Zufallszahlen', desc: 'Zieht Zufallszahlen in jedem Bereich', category: 'Zahlen', long: 'Erzeugt Zufallszahlen in einem beliebigen Bereich. Zieh mehrere ohne Wiederholung, oder nimm die Lotto-Vorlage (6 aus 1–45). Kostenlos und sofort.' },
+    'coin-dice': { title: 'Münzwurf und Würfel', desc: 'Münze werfen oder würfeln, sofort', category: 'Zahlen', long: 'Kopf oder Zahl werfen und 1 bis 6 Würfel rollen, alles an einer Stelle. Schnell für einfache Entscheidungen und Spiele, auch mit mehreren Würfeln gleichzeitig.' },
+  },
+  fr: {
+    roulette: { title: 'Roue de la fortune', desc: 'Ajoute des options et fais tourner pour en tirer une', category: 'Choisir', long: 'Inscris des options de repas, des gages ou des corvées et fais tourner la roue. Des réglages tout prêts existent pour oui/non et le menu du midi. Gratuit et immédiat.' },
+    ladder: { title: 'Amidakuji (échelle japonaise)', desc: 'Relie les participants aux résultats par une échelle tirée au sort', category: 'Choisir', long: 'Inscris les participants et les résultats, et l’échelle (amidakuji, ghost leg) se trace au hasard. Touche un nom pour suivre son chemin. Pratique pour les corvées, les cadeaux et l’ordre de passage.' },
+    pick: { title: 'Tirage de noms', desc: 'Tire des gagnants au hasard dans une liste', category: 'Tirer', long: 'Colle une liste de noms ou d’éléments et tire autant de gagnants que tu veux. Parfait pour un concours, pour choisir qui présente ou qui fait la vaisselle.' },
+    order: { title: 'Ordre aléatoire', desc: 'Mélange une liste et rend un nouvel ordre', category: 'Tirer', long: 'Inscris des noms ou des éléments et récupère-les dans un ordre aléatoire. Pratique pour fixer l’ordre des exposés, les tours de jeu ou qui commence.' },
+    'secret-santa': { title: 'Père Noël secret', desc: 'Attribue les cadeaux — personne ne se tire soi-même', category: 'Tirer', long: 'Inscris tout le monde et le tirage attribue le Père Noël secret sans que personne ne se tire soi-même. Faites passer le téléphone pour que chacun découvre le sien en privé. Parfait pour les fêtes.' },
+    team: { title: 'Générateur d’équipes', desc: 'Répartit les personnes en équipes tirées au sort', category: 'Tirer', long: 'Inscris la liste des noms et choisis le nombre d’équipes : la répartition est aléatoire et équilibrée. Pratique pour les travaux de groupe, les matchs et les groupes de révision.' },
+    number: { title: 'Nombres aléatoires', desc: 'Tire des nombres au hasard dans n’importe quelle plage', category: 'Nombres', long: 'Génère des nombres aléatoires dans la plage de ton choix. Tires-en plusieurs sans doublon, ou utilise le réglage loto (6 numéros parmi 1–45). Gratuit et immédiat.' },
+    'coin-dice': { title: 'Pile ou face et dés', desc: 'Lance une pièce ou des dés tout de suite', category: 'Nombres', long: 'Lance une pièce à pile ou face et jette 1 à 6 dés au même endroit. Rapide pour les décisions simples et pour jouer, avec plusieurs dés à la fois.' },
+  },
+  hi: {
+    roulette: { title: 'घूमने वाला चक्का', desc: 'विकल्प डालें और घुमाकर एक चुनें', category: 'चुनें', long: 'खाने के विकल्प, चुनौतियाँ या काम लिखें और चक्का घुमाकर तय करें। हाँ/नहीं और खाने के तैयार सेट भी हैं। मुफ़्त और तुरंत।' },
+    ladder: { title: 'सीढ़ी खेल (अमिदाकुजी)', desc: 'खिलाड़ियों और परिणामों को रैंडम सीढ़ी से जोड़ता है', category: 'चुनें', long: 'खिलाड़ी और परिणाम लिखें, सीढ़ी अपने आप रैंडम बन जाती है। नाम दबाकर देखें रास्ता कहाँ जाता है। काम बाँटने, तोहफ़े और बारी तय करने के लिए।' },
+    pick: { title: 'नाम निकालना', desc: 'सूची से रैंडम विजेता निकालें', category: 'निकालें', long: 'नामों या चीज़ों की सूची चिपकाएँ और जितने चाहें उतने विजेता निकालें। लकी ड्रॉ, प्रस्तुति देने वाले का चुनाव या काम बाँटने के लिए बढ़िया।' },
+    order: { title: 'रैंडम क्रम', desc: 'सूची को मिलाकर नया क्रम देता है', category: 'निकालें', long: 'नाम या चीज़ें लिखें और उन्हें रैंडम क्रम में वापस पाएँ। प्रस्तुति का क्रम, खेल की बारी या कौन पहले — सब निष्पक्ष तय हो जाता है।' },
+    'secret-santa': { title: 'सीक्रेट सैंटा', desc: 'तोहफ़े के जोड़े बनाता है — किसी को अपना नाम नहीं मिलता', category: 'निकालें', long: 'सबके नाम लिखें और सीक्रेट सैंटा ऐसे बँटता है कि किसी को अपना ही नाम न मिले। फ़ोन घुमाएँ ताकि हर कोई सिर्फ़ अपना नाम देखे। पार्टी के लिए बढ़िया।' },
+    team: { title: 'टीम बनाना', desc: 'लोगों को रैंडम टीमों में बाँटता है', category: 'निकालें', long: 'नामों की सूची लिखें और टीमों की संख्या चुनें — बँटवारा रैंडम और बराबर होता है। ग्रुप प्रोजेक्ट, मैच और पढ़ाई के समूह के लिए।' },
+    number: { title: 'रैंडम संख्या', desc: 'किसी भी दायरे में रैंडम संख्या निकालें', category: 'संख्या', long: 'अपनी पसंद के दायरे में रैंडम संख्याएँ बनाएँ। बिना दोहराव के कई निकालें, या लॉटरी सेट (1–45 में से 6) इस्तेमाल करें। मुफ़्त और तुरंत।' },
+    'coin-dice': { title: 'सिक्का और पासा', desc: 'सिक्का उछालें या पासा फेंकें', category: 'संख्या', long: 'चित-पट का सिक्का और 1 से 6 पासे एक ही जगह। छोटे फ़ैसलों और खेल के लिए तेज़, और कई पासे एक साथ भी फेंक सकते हैं।' },
+  },
+};
+
+/** 그 언어의 도구 문구. 한국어는 데이터의 원문을 쓴다. */
+export function randomL10n(slug: string, lang: RandomLang): RandomL10n {
+  const tool = RANDOM_TOOLS_MAP[slug];
+  if (!tool) throw new Error(`random-ui-intl: 도구가 없다 — ${slug}`);
+  return lang === 'ko'
+    ? { title: tool.title, desc: tool.desc, long: tool.long, category: tool.category }
+    : RANDOM_L10N[lang][slug];
+}
+
+/** 허브 라우트의 metadata */
+export function randomHubMetaIntl(lang: RandomLang) {
+  const ui = RANDOM_UI[lang];
+  return {
+    title: ui.metaTitle,
+    description: ui.metaDesc,
+    openGraph: openGraphFor(lang),
+    alternates: { canonical: localeHref(lang, '/random'), languages: alternateLanguages('/random') },
+  };
+}
+
+/** 도구 라우트의 metadata */
+export function randomMetaIntl(lang: RandomLang, slug: string) {
+  const t = randomL10n(slug, lang);
+  return {
+    title: `${t.title} — vixutil`,
+    description: t.long,
+    openGraph: openGraphFor(lang),
+    alternates: {
+      canonical: localeHref(lang, `/random/${slug}`),
+      languages: alternateLanguages(`/random/${slug}`),
+    },
+  };
+}

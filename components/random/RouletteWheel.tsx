@@ -1,25 +1,13 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
 import { useRef, useState } from 'react';
+import { RANDOM_UI, type RandomLang } from '@/lib/random-ui-intl';
 
 const COLORS = [
   '#f43f5e', '#f59e0b', '#3b82f6', '#8b5cf6', '#10b981', '#ec4899',
   '#f97316', '#06b6d4', '#84cc16', '#a855f7', '#ef4444', '#14b8a6',
 ];
 
-type Preset = { label: string; items: string[] };
-const PRESETS_KO: Preset[] = [
-  { label: '점심 메뉴', items: ['한식', '중식', '일식', '분식', '치킨', '피자', '햄버거', '샐러드'] },
-  { label: '예 / 아니오', items: ['예', '아니오'] },
-  { label: '벌칙', items: ['꿀밤', '노래', '개인기', '심부름', '통과', '한 잔'] },
-  { label: '커피 내기', items: ['1번', '2번', '3번', '4번'] },
-];
-const PRESETS_EN: Preset[] = [
-  { label: 'Lunch', items: ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Pasta', 'BBQ', 'Ramen'] },
-  { label: 'Yes / No', items: ['Yes', 'No'] },
-  { label: 'Dare', items: ['Sing', 'Dance', 'Push-ups', 'Tell a joke', 'Skip', 'Free pass'] },
-  { label: 'Who pays', items: ['#1', '#2', '#3', '#4'] },
-];
 const R = 150;
 const CX = 160;
 const CY = 160;
@@ -33,10 +21,9 @@ function clip(s: string): string {
   return s.length > 8 ? s.slice(0, 7) + '…' : s;
 }
 
-export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
-  const ko = lang === 'ko';
-  const PRESETS = ko ? PRESETS_KO : PRESETS_EN;
-  const [options, setOptions] = useState<string[]>(ko ? ['치킨', '피자', '떡볶이', '초밥', '햄버거', '마라탕'] : ['Pizza', 'Burgers', 'Sushi', 'Tacos', 'Salad', 'Ramen']);
+export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
+  const ui = RANDOM_UI[lang];
+  const [options, setOptions] = useState<string[]>([...ui.rouletteDefaults]);
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
@@ -132,7 +119,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
       {/* 결과 */}
       {winner && (
         <div className="wc-pop text-center rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white py-5 mb-6">
-          <div className="text-xs font-bold text-rose-100 mb-1">{ko ? '당첨 🎉' : 'Winner 🎉'}</div>
+          <div className="text-xs font-bold text-rose-100 mb-1">{ui.winner}</div>
           <div className="text-3xl font-black">{winner}</div>
         </div>
       )}
@@ -142,15 +129,15 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         disabled={spinning || !filled}
         className="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
-        {spinning ? (ko ? '돌아가는 중…' : 'Spinning…') : (ko ? '돌리기 🎡' : 'Spin 🎡')}
+        {spinning ? ui.spinning : ui.spin}
       </button>
 
       {/* 프리셋 */}
       <div className="flex flex-wrap gap-2 mb-4">
-        {PRESETS.map(p => (
+        {ui.presets.map(p => (
           <button
             key={p.label}
-            onClick={() => { setOptions(p.items); setWinner(null); }}
+            onClick={() => { setOptions([...p.items]); setWinner(null); }}
             className="text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 rounded-full px-3 py-1.5 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors"
           >
             {p.label}
@@ -166,14 +153,14 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
             <input
               value={opt}
               onChange={e => setOpt(i, e.target.value)}
-              placeholder={ko ? `항목 ${i + 1}` : `Option ${i + 1}`}
+              placeholder={ui.optionPlaceholder(i + 1)}
               className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-400"
             />
             <button
               onClick={() => removeOpt(i)}
               disabled={options.length <= 2}
               className="w-8 h-8 shrink-0 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-30 transition-colors"
-              aria-label={ko ? '삭제' : 'Remove'}
+              aria-label={ui.remove}
             >
               ✕
             </button>
@@ -185,7 +172,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: 'ko' | 'en' }) {
         disabled={options.length >= 12}
         className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold py-2.5 hover:border-rose-300 hover:text-rose-500 disabled:opacity-40 transition-colors"
       >
-        {ko ? '+ 항목 추가' : '+ Add option'}
+        {ui.addOption}
       </button>
 
       <style jsx>{`

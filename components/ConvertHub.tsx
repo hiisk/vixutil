@@ -6,18 +6,17 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { CONVERT_TOOLS, CONVERT_CATEGORIES, convert, format } from '@/lib/convert-tools';
-import { CONVERT_CATEGORY_EN } from '@/lib/convert-i18n';
-import { CONVERT_UI, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
+import { CONVERT_CATEGORY } from '@/lib/convert-i18n';
+import { CONVERT_UI, CONVERT_HUB_FAQ, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
 import { localized } from '@/components/ConvertPage';
+import { localeHref, localePrefix } from '@/lib/locales';
 
-/** 허브도 세 언어가 공유한다 */
+/** 허브도 여덟 언어가 공유한다 */
 export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q: string; a: string }[] }) {
   const ui = CONVERT_UI[lang];
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  // /en·/zh 랜딩 페이지는 없다. 그 언어의 '홈'은 섹션 허브로 보낸다.
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/convert`;
-  const categoryLabel = (c: string) =>
-    lang === 'en' ? (CONVERT_CATEGORY_EN[c] ?? c) : c;
+  const prefix = localePrefix(lang);
+  const homeHref = localeHref(lang, '/');
+  const categoryLabel = (c: string) => CONVERT_CATEGORY[lang][c] ?? c;
 
   const grouped = CONVERT_CATEGORIES.map(c => ({
     category: c,
@@ -50,7 +49,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
             {LANG_LINKS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/convert`} hrefLang={l.lang} className="hover:text-blue-600 transition-colors">
+              <Link key={l.lang} href={`${l.prefix}/convert`} hrefLang={l.tag} className="hover:text-blue-600 transition-colors">
                 {l.label}
               </Link>
             ))}
@@ -103,7 +102,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
           ))}
         </div>
 
-        <Faq items={faq ?? SECTION_FAQ.convert} lang={lang} />
+        <Faq items={faq ?? (lang === 'ko' ? SECTION_FAQ.convert : CONVERT_HUB_FAQ[lang])} lang={lang} />
 
         <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">{ui.footNote}</p>
       </main>

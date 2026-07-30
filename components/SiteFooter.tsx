@@ -1,3 +1,5 @@
+import { localeHref, type AnyLocale } from '@/lib/locales';
+import { homeSections } from '@/lib/locale-home';
 import ToolIcon from '@/components/ToolIcon';
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
@@ -10,7 +12,7 @@ import ThemeToggle from "./ThemeToggle";
  * 영어 사용자에게 한국어 전용 계산기(실수령액·퇴직금 등)를 내보내면 클릭한 순간
  * 읽을 수 없는 페이지가 나오기 때문이다. 그 언어로 실제 존재하는 섹션만 건다.
  */
-type Lang = 'ko' | 'en';
+type Lang = AnyLocale;
 
 const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/calculator", icon: "📊", label: "계산기" },
@@ -61,7 +63,9 @@ const POPULAR_EN: { href: string; label: string }[] = [
 
 
 
-const COPY = {
+const COPY: Record<Lang, {
+  searchHint: string; searchCta: string; browse: string; popular: string; tagline: string;
+}> = {
   ko: {
     searchHint: "찾는 도구가 있나요?",
     searchCta: "전체 검색",
@@ -76,12 +80,68 @@ const COPY = {
     popular: "Popular tools",
     tagline: "Practical everyday tools · 2026",
   },
-} as const;
+  es: {
+    searchHint: "¿Buscas otra cosa?",
+    searchCta: "Buscar todo",
+    browse: "Explorar otras herramientas",
+    popular: "Herramientas populares",
+    tagline: "Herramientas prácticas para el día a día · 2026",
+  },
+  'pt-br': {
+    searchHint: "Procurando outra coisa?",
+    searchCta: "Buscar tudo",
+    browse: "Ver outras ferramentas",
+    popular: "Ferramentas populares",
+    tagline: "Ferramentas práticas para o dia a dia · 2026",
+  },
+  ja: {
+    searchHint: "ほかに探しているものがありますか？",
+    searchCta: "すべて検索",
+    browse: "ほかのツールを見る",
+    popular: "よく使われるツール",
+    tagline: "毎日に役立つ実用ツール · 2026",
+  },
+  de: {
+    searchHint: "Suchst du etwas anderes?",
+    searchCta: "Alles durchsuchen",
+    browse: "Weitere Werkzeuge ansehen",
+    popular: "Beliebte Werkzeuge",
+    tagline: "Praktische Alltagswerkzeuge · 2026",
+  },
+  fr: {
+    searchHint: "Tu cherches autre chose ?",
+    searchCta: "Tout chercher",
+    browse: "Voir d’autres outils",
+    popular: "Outils populaires",
+    tagline: "Des outils pratiques du quotidien · 2026",
+  },
+  hi: {
+    searchHint: "कुछ और खोज रहे हैं?",
+    searchCta: "सब खोजें",
+    browse: "अन्य उपकरण देखें",
+    popular: "लोकप्रिय उपकरण",
+    tagline: "रोज़मर्रा के काम के उपकरण · 2026",
+  },
+};
 
 export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
   const t = COPY[lang];
-  const sections = lang === 'en' ? SECTIONS_EN : SECTIONS;
-  const popular = lang === 'en' ? POPULAR_EN : POPULAR;
+  /*
+    섹션 목록을 언어마다 다시 적지 않는다 — lib/locale-home.ts가 "그 언어에 실제로
+    있는 섹션"을 이미 갖고 있고, 언어 첫 화면이 그것으로 그려진다. 여기서 또 적으면
+    섹션을 번역할 때 두 곳을 고쳐야 하고, 푸터만 옛 목록으로 남는다.
+
+    인기 도구는 한국어 계산기 목록이라 다른 언어에서는 감춘다. 클릭한 순간 읽을 수
+    없는 페이지가 나오는 것보다 없는 편이 낫다.
+  */
+  const translated = lang !== 'ko' && lang !== 'en';
+  const sections = lang === 'ko'
+    ? SECTIONS
+    : lang === 'en'
+      ? SECTIONS_EN
+      : homeSections(lang).map(s => ({ href: localeHref(lang, s.route), icon: s.icon, label: s.title }));
+  const popular = translated ? [] : lang === 'en' ? POPULAR_EN : POPULAR;
+  const searchHref = localeHref(lang, '/search');
 
   return (
     <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">
@@ -91,7 +151,7 @@ export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
           푸터는 모든 페이지에 있으므로 여기가 가장 확실한 진입점이다.
         */}
         <Link
-          href="/search"
+          href={searchHref}
           className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
         >
           <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
