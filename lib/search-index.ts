@@ -18,6 +18,7 @@ import { BODY_TOOLS } from './body-tools';
 import { GEO_TOOLS } from './geo-tools';
 import { COUNTRIES } from './country-tools';
 import { IDIOMS } from './hanja-tools';
+import { METRO_LINES } from './metro-lines';
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -28,7 +29,7 @@ import { IDIOMS } from './hanja-tools';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro';
 
 export interface SearchItem {
   href: string;
@@ -61,6 +62,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   geometry:   { label: '도형·수학', icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   country:    { label: '나라 정보', icon: '🧭', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   hanja:      { label: '사자성어', icon: '📖', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
+  metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
 };
 
 /**
@@ -133,6 +135,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...GEO_TOOLS.map(t => ({ href: `/geometry/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'geometry' as const, icon: t.icon })),
   ...COUNTRIES.map(c => ({ href: `/country/${c.slug}`, title: `${c.ko.name} 여행 정보`, desc: c.ko.intro.slice(0, 60), section: 'country' as const, icon: c.icon })),
   ...IDIOMS.map(i => ({ href: `/hanja/${i.slug}`, title: `${i.reading} ${i.hanja}`, desc: i.ko.meaning.slice(0, 60), section: 'hanja' as const, icon: i.icon })),
+  ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${l.ko.city} ${l.ko.line} 역 이름 맞추기`, desc: l.ko.intro.slice(0, 60), section: 'metro' as const, icon: l.icon })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

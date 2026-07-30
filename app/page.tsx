@@ -266,6 +266,18 @@ const SECTIONS = [
     shadow: 'shadow-sky-100',
   },
   {
+    href: '/metro',
+    icon: '🚇',
+    title: '지하철 역 맞추기',
+    desc: '서울·도쿄·런던·뉴욕 노선의 역 이름을 노선도 힌트로 맞추기',
+    badge: `${SECTION_COUNTS.metro}개`,
+    color: 'from-slate-600 to-slate-800',
+    bgLight: 'bg-slate-50 dark:bg-slate-900/40',
+    textAccent: 'text-slate-700 dark:text-slate-300',
+    borderAccent: 'border-slate-200 dark:border-slate-700',
+    shadow: 'shadow-slate-100',
+  },
+  {
     href: '/hanja',
     icon: '📖',
     title: '사자성어',

@@ -265,6 +265,7 @@ export const GROUPS: Record<string, string[]> = {
   glass: ['🥛'],
   corn: ['🌽'],
   stadium: ['🏟️'],
+  subway: ['🚇', '🚋'],
 };
 
 /** 이모지 → 아이콘 이름 (GROUPS를 뒤집은 것) */
