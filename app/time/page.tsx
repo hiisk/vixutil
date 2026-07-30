@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import PageGlow from '@/components/PageGlow';
+import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { TIME_TOOLS } from '@/lib/time-tools';
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
   title: '시간 도구 — 타이머·스톱워치·세계시계',
   description:
     '타이머, 스톱워치, 뽀모도로, 알람, 세계 시계, 시차 계산, 근무일 계산, 날짜 더하기, 주차 확인까지 한 곳에서. 설치 없이 브라우저에서 바로.',
-  alternates: { canonical: '/time' },
+  alternates: {
+    canonical: '/time',
+    languages: { 'ko': '/time', 'en': '/en/time', 'zh': '/zh/time', 'x-default': '/en/time' },
+  },
 };
 
 const CATEGORY_ORDER = ['재기', '세계 시간', '날짜 세기'];
@@ -56,7 +60,7 @@ export default function TimeHubPage() {
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
-          <div className="text-5xl mb-4">⏰</div>
+          <ToolIcon emoji="⏰" title="시간 도구" color="#0ea5e9" accent="#f43f5e" className="w-14 h-14 mx-auto mb-4" />
           <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">시간 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             재는 것과 세는 것
@@ -83,7 +87,7 @@ export default function TimeHubPage() {
                   >
                     <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
-                      <span className="text-3xl block mb-3">{t.icon}</span>
+                      <ToolIcon emoji={t.icon} title={t.title} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-sky-600">
