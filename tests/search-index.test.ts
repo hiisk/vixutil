@@ -104,8 +104,12 @@ test('푸터가 모든 섹션과 통합 검색으로 이어진다', () => {
   // 푸터는 모든 페이지에 있어 도구 페이지가 고립되지 않게 하는 장치다.
   // 섹션이 빠지면 그 섹션은 깊은 페이지에서 닿을 수 없다 (스냅테스트가 그랬다).
   const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  // 번역 언어의 /search는 localeHref(lang, '/search')로 만든다 — 따옴표 종류를 가리지 않는다
   for (const href of ['/search', '/calculator', '/test', '/quiz', '/generator', '/checklist', '/fortune', '/snap']) {
-    assert.ok(footer.includes(`"${href}"`), `푸터에 ${href} 링크가 없다`);
+    assert.ok(
+      footer.includes(`"${href}"`) || footer.includes(`'${href}'`),
+      `푸터에 ${href} 링크가 없다`,
+    );
   }
 });
 

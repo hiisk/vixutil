@@ -152,8 +152,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/convert`, changeFrequency: weekly, priority: 0.9 },
-    ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 단위 변환은 slug가 여덟 언어에서 같다 — 언어 목록만 돌리면 된다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/convert`, changeFrequency: weekly, priority: 0.9 },
+      ...CONVERT_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/rate`, changeFrequency: weekly, priority: 0.9 },

@@ -8,10 +8,11 @@ import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { relatedConvertTools, type ConvertTool } from '@/lib/convert-tools';
 import { convertFaq } from '@/lib/convert-faq';
 import { CONVERT_UI, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
-import { CONVERT_EN } from '@/lib/convert-i18n';
+import { convertL10n } from '@/lib/convert-i18n';
+import { localeHref, localePrefix } from '@/lib/locales';
 
 /**
- * 단위 변환 상세 화면 — 세 언어가 이 컴포넌트 하나를 쓴다.
+ * 단위 변환 상세 화면 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
  *
  * 언어마다 페이지를 따로 그리면 곧 서로 달라진다. 실제로 다른 섹션에서 영어
  * 페이지에 한국어 푸터가 나가는 일이 있었다. 화면은 하나만 두고 문구만 갈아 끼운다.
@@ -22,7 +23,7 @@ export function localized(tool: ConvertTool, lang: ConvertLang) {
     읽을 수 없는 글자가 입력칸 라벨에 박힌다. 한자권에서는 같은 한자라도 값이
     달라서(근 600g ↔ 斤 500g) '근(斤)'처럼 둘을 함께 적어 오해를 막는다.
   */
-  const l = lang === 'en' ? CONVERT_EN[tool.slug] : undefined;
+  const l = convertL10n(tool.slug, lang);
   return {
     title: l?.title ?? tool.title,
     desc: l?.desc ?? tool.desc,
@@ -35,9 +36,9 @@ export function localized(tool: ConvertTool, lang: ConvertLang) {
 
 export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: ConvertLang }) {
   const ui = CONVERT_UI[lang];
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  // /en·/zh 랜딩 페이지는 없다. 그 언어의 '홈'은 섹션 허브로 보낸다.
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/convert`;
+  // 경로는 레지스트리에서 만든다 — pt-BR은 hreflang이 pt-BR이고 경로는 /pt-br이다
+  const prefix = localePrefix(lang);
+  const homeHref = localeHref(lang, '/');
   const text = localized(tool, lang);
   const path = `${prefix}/convert/${tool.slug}`;
   const related = relatedConvertTools(tool.slug);
@@ -70,7 +71,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
             {LANG_LINKS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/convert/${tool.slug}`} hrefLang={l.lang} className="hover:text-blue-600 transition-colors">
+              <Link key={l.lang} href={`${l.prefix}/convert/${tool.slug}`} hrefLang={l.tag} className="hover:text-blue-600 transition-colors">
                 {l.label}
               </Link>
             ))}

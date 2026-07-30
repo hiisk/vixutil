@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CONVERT_TOOLS, CONVERT_MAP } from '@/lib/convert-tools';
-import { convertAlternates, CONVERT_UI } from '@/lib/convert-ui-intl';
-import ConvertPage, { localized } from '@/components/ConvertPage';
+import { convertMetaIntl } from '@/lib/convert-ui-intl';
+import ConvertPage from '@/components/ConvertPage';
 
 export function generateStaticParams() {
   return CONVERT_TOOLS.map(t => ({ slug: t.slug }));
@@ -10,14 +10,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const tool = CONVERT_MAP[slug];
-  if (!tool) return {};
-  const text = localized(tool, 'en');
-  return {
-    title: `${text.title} — ${CONVERT_UI['en'].suffix}`,
-    description: text.long,
-    alternates: { canonical: `/en/convert/${slug}`, languages: convertAlternates(slug) },
-  };
+  if (!CONVERT_MAP[slug]) return {};
+  return convertMetaIntl('en', slug);
 }
 
 export default async function EnConvertPage({ params }: { params: Promise<{ slug: string }> }) {

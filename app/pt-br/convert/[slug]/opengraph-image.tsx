@@ -13,5 +13,5 @@ export function generateStaticParams() {
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (!CONVERT_MAP[slug]) return new Response('Not found', { status: 404 });
-  return new ImageResponse(convertOg(slug, 'ko'), { ...size });
+  return new ImageResponse(convertOg(slug, 'pt-br'), { ...size });
 }

@@ -7,8 +7,9 @@ import {
   findConvertTool, relatedConvertTools,
 } from '../lib/convert-tools.ts';
 import { convertFaq } from '../lib/convert-faq.ts';
-import { CONVERT_EN, CONVERT_CATEGORY_EN } from '../lib/convert-i18n.ts';
-import { convertAlternates } from '../lib/convert-ui-intl.ts';
+import { CONVERT_EN, CONVERT_CATEGORY, CONVERT_L10N } from '../lib/convert-i18n.ts';
+import { convertAlternates, CONVERT_HUB_FAQ } from '../lib/convert-ui-intl.ts';
+import { ALL_LOCALES, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -128,78 +129,115 @@ test('관련 도구가 자기 자신을 넣지 않는다', () => {
   assert.deepEqual(relatedConvertTools('없는변환'), []);
 });
 
-test('번역 문구가 백 개 모두 있다', () => {
-  for (const [name, map] of [['영어', CONVERT_EN]] as const) {
+test('번역 문구가 백 개 × 일곱 언어 모두 있다', () => {
+  /*
+    빠진 항목은 화면을 깨뜨리지 않는다 — convertL10n()이 조용히 한국어로 되돌리므로
+    스페인어 페이지에 한글 한 줄이 섞인 채 배포된다. 그러니 여기서 세어 둔다.
+
+    일본어는 같은 내용을 절반 이하의 글자로 담는다. 길이 기준을 로마자에 맞추면
+    멀쩡한 문장이 스물한 개나 걸린다(실제로 걸렸다).
+  */
+  for (const lang of INTL_LOCALES) {
+    const map = CONVERT_L10N[lang];
     const missing = CONVERT_TOOLS.filter(t => !map[t.slug]).map(t => t.slug);
-    assert.deepEqual(missing, [], `${name} 문구 누락: ${missing.join(', ')}`);
+    assert.deepEqual(missing, [], `${lang} 문구 누락: ${missing.join(', ')}`);
+
+    const extra = Object.keys(map).filter(k => !CONVERT_MAP[k]);
+    assert.deepEqual(extra, [], `${lang}에 없는 slug가 있다: ${extra.join(', ')}`);
+
+    const dense = lang === 'ja';
+    const minLong = dense ? 22 : 40, minNote = dense ? 16 : 20;
     for (const t of CONVERT_TOOLS) {
       const l = map[t.slug];
-      assert.ok(l.title.trim() && l.desc.trim(), `${t.slug}: ${name} 제목·설명 누락`);
-      assert.ok(l.long.length >= 25, `${t.slug}: ${name} 설명이 짧다`);
-      assert.ok(l.note.length >= 20, `${t.slug}: ${name} 주의사항이 짧다`);
+      assert.ok(l.title.trim() && l.desc.trim(), `${t.slug}: ${lang} 제목·설명 누락`);
+      assert.ok(l.long.length >= minLong, `${t.slug}: ${lang} 설명이 짧다`);
+      assert.ok(l.note.length >= minNote, `${t.slug}: ${lang} 주의사항이 짧다`);
     }
   }
 });
 
 test('언어별 제목이 서로 겹치지 않는다', () => {
   // 겹치면 검색엔진이 중복 페이지로 본다
-  for (const [name, map] of [['영어', CONVERT_EN]] as const) {
-    const titles = CONVERT_TOOLS.map(t => map[t.slug].title);
+  for (const lang of INTL_LOCALES) {
+    const titles = CONVERT_TOOLS.map(t => CONVERT_L10N[lang][t.slug].title);
     const dup = [...new Set(titles.filter((v, i) => titles.indexOf(v) !== i))];
-    assert.deepEqual(dup, [], `${name} 제목이 겹친다: ${dup.join(' / ')}`);
+    assert.deepEqual(dup, [], `${lang} 제목이 겹친다: ${dup.join(' / ')}`);
   }
 });
 
-test('분류 이름이 번역돼 있다', () => {
-  for (const c of CONVERT_CATEGORIES) {
-    assert.ok(CONVERT_CATEGORY_EN[c], `영어 분류 누락: ${c}`);
+test('분류 이름이 여덟 언어로 번역돼 있다', () => {
+  // 열쇠가 한 글자만 달라도 그 묶음이 허브에서 조용히 사라진다
+  for (const lang of ALL_LOCALES) {
+    for (const c of CONVERT_CATEGORIES) {
+      assert.ok(CONVERT_CATEGORY[lang][c], `${lang} 분류 누락: ${c}`);
+    }
   }
 });
 
-test('번역 라우트가 있다', () => {
-  for (const prefix of ['', 'en']) {
-    const base = prefix ? join(ROOT, 'app', prefix, 'convert') : join(ROOT, 'app', 'convert');
-    assert.ok(existsSync(join(base, 'page.tsx')), `${prefix || 'ko'} 허브 없음`);
-    assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${prefix || 'ko'} 상세 없음`);
-    assert.ok(existsSync(join(base, '[slug]', 'opengraph-image.tsx')), `${prefix || 'ko'} OG 없음`);
+test('허브 FAQ가 일곱 언어에 다 있다', () => {
+  for (const lang of INTL_LOCALES) {
+    const faq = CONVERT_HUB_FAQ[lang];
+    assert.ok(faq.length >= 3, `${lang} 허브 FAQ가 ${faq.length}문항뿐`);
+    for (const { q, a } of faq) {
+      assert.ok(q.trim().length >= 8 && a.trim().length >= 30, `${lang} FAQ 문장이 짧다: ${q}`);
+      assert.ok(!/[가-힣]/.test(q + a), `${lang} 허브 FAQ에 한글이 섞였다: ${q}`);
+    }
   }
 });
 
-test('hreflang이 세 언어를 모두 가리킨다', () => {
+test('여덟 언어 라우트가 다 있다', () => {
+  for (const lang of ALL_LOCALES) {
+    const base = join(ROOT, 'app', ...localeHref(lang, '/convert').split('/').filter(Boolean));
+    assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
+    assert.ok(existsSync(join(base, 'opengraph-image.tsx')), `${lang} 허브 OG 없음`);
+    assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
+    assert.ok(existsSync(join(base, '[slug]', 'opengraph-image.tsx')), `${lang} 상세 OG 없음`);
+  }
+});
+
+test('hreflang이 여덟 언어를 모두 가리킨다', () => {
   // 한 언어라도 빠지면 그 언어 페이지가 중복으로 취급된다
   const alt = convertAlternates('cm-inch');
-  assert.equal(alt.ko, '/convert/cm-inch');
-  assert.equal(alt.en, '/en/convert/cm-inch');
+  for (const lang of ALL_LOCALES) {
+    assert.equal(alt[localeTag(lang)], localeHref(lang, '/convert/cm-inch'), `${lang} 대안 주소가 틀렸다`);
+  }
   assert.equal(alt['x-default'], '/en/convert/cm-inch');
+  // 경로는 소문자, 선언은 BCP 47 — 브라질만 둘이 다르다
+  assert.equal(alt['pt-BR'], '/pt-br/convert/cm-inch');
 
   const hub = convertAlternates();
   assert.equal(hub.ko, '/convert');
+  assert.equal(Object.keys(hub).length, ALL_LOCALES.length + 1);
 });
 
 test('FAQ가 언어마다 그 언어로 나온다', () => {
   const tool = CONVERT_MAP['cm-inch'];
-  const ko = convertFaq(tool, 'ko');
-  const en = convertFaq(tool, 'en');
-
-  assert.ok(/[가-힣]/.test(ko[0].q), '한국어 FAQ에 한글이 없다');
-  assert.ok(!/[가-힣]/.test(en[0].q), '영어 FAQ에 한글이 섞였다');
-  assert.ok(!/[가-힣]/.test(en[2].a), '영어 주의사항에 한글이 섞였다');
-
-  // 세 언어 모두 같은 계산값을 담아야 한다
   const one = format(convert(1, tool), Math.max(tool.digits, 2));
-  for (const [name, faq] of [['ko', ko], ['en', en]] as const) {
-    assert.ok(faq[0].a.includes(one), `${name}: 계산값이 답에 없다`);
+
+  assert.ok(/[가-힣]/.test(convertFaq(tool, 'ko')[0].q), '한국어 FAQ에 한글이 없다');
+
+  for (const lang of INTL_LOCALES) {
+    const faq = convertFaq(tool, lang);
+    assert.equal(faq.length, 3, `${lang} FAQ 문항 수가 다르다`);
+    for (const [i, item] of faq.entries()) {
+      assert.ok(!/[가-힣]/.test(item.q + item.a), `${lang} FAQ ${i + 1}번에 한글이 섞였다`);
+    }
+    // 어느 언어에서도 답에 실제 계산값이 들어가야 한다
+    assert.ok(faq[0].a.includes(one), `${lang}: 계산값이 답에 없다`);
   }
 });
 
-test('사이트맵에 세 언어가 다 실린다', () => {
+test('사이트맵에 여덟 언어가 다 실린다', () => {
+  /*
+    번역 일곱 언어는 INTL_LOCALES를 돌려 만든다. 주소를 한 줄씩 적어 두면 언어를
+    늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다.
+  */
   const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
-  for (const path of ['/convert', '/en/convert']) {
-    assert.ok(sitemap.includes(`${path}\``) || sitemap.includes(`${path}/`), `사이트맵에 ${path} 없음`);
-  }
+  assert.ok(sitemap.includes('/convert`') || sitemap.includes('/convert/'), '사이트맵에 한국어 /convert 없음');
+  assert.match(sitemap, /INTL_LOCALES\.flatMap[\s\S]{0,200}\/convert/, '번역 언어를 목록에서 만들지 않는다');
 });
 
-test('한글 단위 기호는 영어·중국어에서 바뀐다', () => {
+test('한글 단위 기호는 번역 일곱 언어에서 바뀐다', () => {
   /*
     '리'·'자'·'돈' 같은 기호를 그대로 두면 영어 페이지 입력칸에 읽을 수 없는
     글자가 박힌다. 한자권에서는 같은 한자라도 값이 달라(근 600g ↔ 斤 500g)
@@ -209,8 +247,10 @@ test('한글 단위 기호는 영어·중국어에서 바뀐다', () => {
   const bad: string[] = [];
   for (const t of CONVERT_TOOLS) {
     if (!hangul.test(t.from) && !hangul.test(t.to)) continue;
-    const en = CONVERT_EN[t.slug];
-    if (hangul.test(en.from ?? t.from) || hangul.test(en.to ?? t.to)) bad.push(`${t.slug}(en)`);
+    for (const lang of INTL_LOCALES) {
+      const l = CONVERT_L10N[lang][t.slug];
+      if (hangul.test(l.from ?? t.from) || hangul.test(l.to ?? t.to)) bad.push(`${t.slug}(${lang})`);
+    }
   }
   assert.deepEqual(bad, [], `기호를 안 바꾼 곳: ${bad.join(', ')}`);
 });

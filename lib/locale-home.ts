@@ -37,6 +37,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-slate-700 dark:text-slate-300', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/40',
     copy: {
       en: { title: 'Unit Converter', desc: 'Length, weight, temperature, area and more' },
+      es: { title: 'Conversor de unidades', desc: 'Longitud, peso, temperatura, superficie y más' },
+      'pt-br': { title: 'Conversor de unidades', desc: 'Comprimento, peso, temperatura, área e mais' },
+      ja: { title: '単位変換', desc: '長さ・重さ・温度・面積・データ量まで100種' },
+      de: { title: 'Einheitenrechner', desc: 'Länge, Gewicht, Temperatur, Fläche und mehr' },
+      fr: { title: 'Convertisseur d’unités', desc: 'Longueur, poids, température, surface et plus' },
+      hi: { title: 'इकाई कनवर्टर', desc: 'लंबाई, वज़न, तापमान, क्षेत्रफल और बहुत कुछ' },
     },
   },
   {

@@ -11,12 +11,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   if (!CONVERT_MAP[slug]) return {};
-  return convertMetaIntl('ko', slug);
+  return convertMetaIntl('de', slug);
 }
 
-export default async function ConvertPageKo({ params }: { params: Promise<{ slug: string }> }) {
+export default async function DeConvertToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = CONVERT_MAP[slug];
   if (!tool) notFound();
-  return <ConvertPage tool={tool} lang="ko" />;
+  return <ConvertPage tool={tool} lang="de" />;
 }

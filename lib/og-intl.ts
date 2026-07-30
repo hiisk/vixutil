@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import { ogCard } from './og-template';
-import type { IntlLocale } from './locales';
+import type { AnyLocale, IntlLocale } from './locales';
 import type { ToolIntlLang } from './time-tools-intl';
 import type { ImageIntlLang } from './image-tools-intl';
 import type { FoodIntlLang } from './food-tools-intl';
@@ -25,6 +25,8 @@ import { GAME_TOOLS } from './game-tools';
 import { DEVICE_TOOLS } from './device-tools';
 import { TEXT_TOOLS } from './text-tools';
 import { RANDOM_TOOLS_MAP, type RandomTool } from './random-tools';
+import { CONVERT_MAP } from './convert-tools';
+import { CONVERT_CATEGORY, convertL10n } from './convert-i18n';
 
 /**
  * 다국어 공유 카드.
@@ -63,6 +65,13 @@ const CARDS: Record<string, Card> = {
   'color/de': { icon: '🎨', eyebrow: 'Colour', title: 'Farbwerkzeuge', desc: 'Paletten · Kontrast · CSS-Verlauf · Schatten', from: '#d946ef', to: '#f43f5e' },
   'color/fr': { icon: '🎨', eyebrow: 'Colour', title: 'Outils de couleur', desc: 'Palettes · contraste · dégradé CSS · ombres', from: '#d946ef', to: '#f43f5e' },
   'color/hi': { icon: '🎨', eyebrow: 'Colour', title: 'रंग उपकरण', desc: 'पैलेट · कंट्रास्ट · CSS ग्रेडिएंट · छाया', from: '#d946ef', to: '#f43f5e' },
+  'convert/en': { icon: '🔄', eyebrow: 'Unit Converter', title: 'Unit Converter', desc: '100 converters incl. Korean pyeong, geun, don', from: '#3b82f6', to: '#4f46e5' },
+  'convert/es': { icon: '🔄', eyebrow: 'Unit Converter', title: 'Conversor de unidades', desc: 'Longitud · peso · volumen · temperatura · datos', from: '#3b82f6', to: '#4f46e5' },
+  'convert/pt-br': { icon: '🔄', eyebrow: 'Unit Converter', title: 'Conversor de unidades', desc: 'Comprimento · peso · volume · temperatura · dados', from: '#3b82f6', to: '#4f46e5' },
+  'convert/ja': { icon: '🔄', eyebrow: 'Unit Converter', title: '単位変換', desc: '長さ · 重さ · 体積 · 温度 · データ', from: '#3b82f6', to: '#4f46e5' },
+  'convert/de': { icon: '🔄', eyebrow: 'Unit Converter', title: 'Einheitenrechner', desc: 'Länge · Gewicht · Volumen · Temperatur · Daten', from: '#3b82f6', to: '#4f46e5' },
+  'convert/fr': { icon: '🔄', eyebrow: 'Unit Converter', title: 'Convertisseur d’unités', desc: 'Longueur · poids · volume · température · données', from: '#3b82f6', to: '#4f46e5' },
+  'convert/hi': { icon: '🔄', eyebrow: 'Unit Converter', title: 'इकाई कनवर्टर', desc: 'लंबाई · वज़न · आयतन · तापमान · डेटा', from: '#3b82f6', to: '#4f46e5' },
   'image/en': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Image Tools', desc: 'Compress · resize · convert · crop, in the browser', from: '#8b5cf6', to: '#0ea5e9' },
   'image/es': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Herramientas de imagen', desc: 'Comprimir · redimensionar · convertir · recortar, en el navegador', from: '#8b5cf6', to: '#0ea5e9' },
   'image/pt-br': { icon: '🖼️', eyebrow: 'Image Tools', title: 'Ferramentas de imagem', desc: 'Comprimir · redimensionar · converter · recortar, no navegador', from: '#8b5cf6', to: '#0ea5e9' },
@@ -271,6 +280,26 @@ export function deviceOg(slug: string, lang: DeviceIntlLang): ReactElement {
   return ogCard({
     icon: tool.icon, eyebrow: tool.category, title: tool.title, desc: tool.desc,
     from: tool.og[0], to: tool.og[1],
+  });
+}
+
+/**
+ * 단위 변환 — 도구 100종 × 여덟 언어를 한 함수로 그린다.
+ *
+ * 색은 여덟 언어가 같다. 언어마다 다르면 같은 도구의 카드가 다른 도구처럼 보인다.
+ * eyebrow는 그 언어의 분류 이름을 쓴다 — 카드만 보고도 길이인지 무게인지 알 수 있다.
+ */
+export function convertOg(slug: string, lang: AnyLocale): ReactElement {
+  const tool = CONVERT_MAP[slug];
+  if (!tool) throw new Error(`og-intl: 단위 변환 도구가 없다 — ${slug}`);
+  const l = convertL10n(slug, lang);
+  return ogCard({
+    icon: tool.icon,
+    eyebrow: CONVERT_CATEGORY[lang][tool.category] ?? tool.category,
+    title: l?.title ?? tool.title,
+    desc: l?.desc ?? tool.desc,
+    from: '#3b82f6',
+    to: '#4f46e5',
   });
 }
 
