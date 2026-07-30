@@ -246,6 +246,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/ext', icon: '📄', color: 'from-indigo-500 to-violet-600',
+    accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
+    copy: {
+      en: { title: 'File Extensions', desc: 'What opens .hwp, .webp, .mkv — 140 extensions and their MIME types' },
+      es: { title: 'Extensiones de archivo', desc: 'Con qué se abren .webp, .mkv y otras 140 extensiones, con su tipo MIME' },
+      'pt-br': { title: 'Extensões de arquivo', desc: 'O que abre .webp, .mkv e outras 140 extensões, com o tipo MIME' },
+      ja: { title: 'ファイル拡張子', desc: '.webp や .mkv は何で開く? 拡張子140種とMIMEタイプ' },
+      de: { title: 'Dateiendungen', desc: 'Womit man .webp, .mkv und 140 weitere Endungen öffnet — samt MIME-Typ' },
+      fr: { title: 'Extensions de fichier', desc: 'Avec quoi ouvrir .webp, .mkv et 140 autres extensions, avec leur type MIME' },
+      hi: { title: 'फ़ाइल एक्सटेंशन', desc: '.webp, .mkv समेत 140 एक्सटेंशन किससे खुलते हैं और उनका MIME टाइप' },
+    },
+  },
+  {
     route: '/music', icon: '🎹', color: 'from-sky-500 to-indigo-600',
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {
