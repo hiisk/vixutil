@@ -280,6 +280,18 @@ const SECTIONS = [
     shadow: 'shadow-slate-100',
   },
   {
+    href: '/css',
+    icon: '🎨',
+    title: 'CSS 속성 사전',
+    desc: '속성 154개의 쓰임과 자주 쓰는 값, 상속 여부를 한 장에',
+    badge: `${SECTION_COUNTS.css}개`,
+    color: 'from-blue-600 to-sky-500',
+    bgLight: 'bg-blue-50 dark:bg-blue-950/30',
+    textAccent: 'text-blue-700 dark:text-blue-300',
+    borderAccent: 'border-blue-200 dark:border-blue-900/50',
+    shadow: 'shadow-blue-100',
+  },
+  {
     href: '/html',
     icon: '🪟',
     title: 'HTML 태그 사전',

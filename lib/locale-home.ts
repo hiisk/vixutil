@@ -272,6 +272,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/css', icon: '🎨', color: 'from-blue-600 to-sky-500',
+    accent: 'text-blue-700 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900/50', bg: 'bg-blue-50 dark:bg-blue-950/30',
+    copy: {
+      en: { title: 'CSS Property Reference', desc: 'What 154 properties do, their values and whether they inherit' },
+      es: { title: 'Referencia de propiedades CSS', desc: 'Qué hacen 154 propiedades, sus valores y si se heredan' },
+      'pt-br': { title: 'Referência de propriedades CSS', desc: 'O que 154 propriedades fazem, seus valores e se herdam' },
+      ja: { title: 'CSSプロパティ辞典', desc: '154プロパティの役割・よく使う値・継承の有無' },
+      de: { title: 'CSS-Eigenschaften-Referenz', desc: 'Was 154 Eigenschaften tun, ihre Werte und ob sie vererben' },
+      fr: { title: 'Référence des propriétés CSS', desc: 'Ce que font 154 propriétés, leurs valeurs et leur héritage' },
+      hi: { title: 'CSS प्रॉपर्टी संदर्भ', desc: '154 प्रॉपर्टी क्या करती हैं, उनके मान और विरासत' },
+    },
+  },
+  {
     route: '/html', icon: '🪟', color: 'from-orange-500 to-amber-500',
     accent: 'text-orange-700 dark:text-orange-300', border: 'border-orange-200 dark:border-orange-900/50', bg: 'bg-orange-50 dark:bg-orange-950/30',
     copy: {
