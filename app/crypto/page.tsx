@@ -31,30 +31,30 @@ const TOOLS = [
   // 다만 허브는 영어이므로 카드 문구는 영어로 두고, 페이지가 한국어임을 밝힌다.
   { href: '/crypto/kimchi-premium', icon: '🇰🇷', title: 'Kimchi Premium', desc: 'Upbit & Bithumb vs Binance in real time, on both the FX and USDT basis (page in Korean)', badge: 'KR', color: 'from-rose-400 to-amber-500' },
   { href: '/crypto/signals', icon: '📈', title: 'Signal Board', desc: 'Multi-strategy signals + 1D–3Y price prediction ranges for every Binance coin', badge: 'Live', color: 'from-amber-400 to-orange-600' },
-  { href: '/crypto/bitcoin-vs-gold', icon: '🥇', title: 'Bitcoin vs Gold', desc: '"Digital gold" is two claims \u2014 one fails outright, the other fails when it matters', badge: 'NEW', color: 'from-yellow-400 to-amber-600' },
-  { href: '/crypto/sold-at-top', icon: '😤', title: 'Sold at the Top?', desc: 'The best day came right after the worst \u2014 that is why you cannot have one without the other', badge: 'NEW', color: 'from-rose-400 to-red-600' },
-  { href: '/crypto/kelly-criterion', icon: '🎯', title: 'Kelly Criterion', desc: 'The optimal bet size — and what half of it buys you', badge: 'NEW', color: 'from-violet-400 to-fuchsia-600' },
-  { href: '/crypto/day-of-week', icon: '📆', title: 'Best Day of the Week', desc: '"Buy Monday, sell Friday" — with the test that usually gets skipped', badge: 'NEW', color: 'from-violet-400 to-indigo-500' },
-  { href: '/crypto/rebalancing', icon: '⚗️', title: 'Rebalancing Simulator', desc: 'The advice is everywhere — this measures whether it worked', badge: 'NEW', color: 'from-emerald-400 to-green-600' },
-  { href: '/crypto/volatility', icon: '⚡', title: 'Volatility Ranking', desc: 'Wild right now, or always wild? Four windows tell them apart', badge: 'NEW', color: 'from-yellow-400 to-orange-500' },
-  { href: '/crypto/drawdown', icon: '🌊', title: 'Drawdown & Time Underwater', desc: 'Depth is quoted everywhere — duration is what you live through', badge: 'NEW', color: 'from-sky-400 to-blue-600' },
-  { href: '/crypto/stablecoin-depeg', icon: '⚓', title: 'Stablecoin Depeg', desc: 'In basis points — and measured against the right yardstick', badge: 'NEW', color: 'from-blue-400 to-sky-500' },
-  { href: '/crypto/risk-of-ruin', icon: '💀', title: 'Risk of Ruin', desc: 'Same edge, wildly different odds — bet size decides it', badge: 'NEW', color: 'from-red-400 to-rose-600' },
-  { href: '/crypto/risk-adjusted', icon: '📐', title: 'Risk-Adjusted Returns', desc: 'Sharpe, Sortino and Calmar — and how much the three disagree', badge: 'NEW', color: 'from-slate-400 to-slate-600' },
-  { href: '/crypto/compound-calculator', icon: '🌱', title: 'Compound & Staking', desc: 'APR vs APY — and the price fall that erases the whole yield', badge: 'NEW', color: 'from-green-400 to-lime-500' },
-  { href: '/crypto/compare', icon: '⚖️', title: 'Compare Two Coins', desc: 'Returns, risk — and whether the two are really different bets at all', badge: 'NEW', color: 'from-amber-400 to-yellow-500' },
-  { href: '/crypto/correlation', icon: '🕸️', title: 'Correlation Matrix', desc: 'Not just the number — how far it drifts, and what happens when BTC drops', badge: 'NEW', color: 'from-purple-400 to-fuchsia-500' },
-  { href: '/crypto/seasonality', icon: '🗓️', title: 'Monthly Seasonality', desc: '"Uptober" and the rest — with the sample size that usually gets left out', badge: 'NEW', color: 'from-indigo-400 to-blue-500' },
-  { href: '/crypto/long-short-ratio', icon: '⚔️', title: 'Long/Short Ratio', desc: 'Where the traders are vs where the money is — plus open interest', badge: 'NEW', color: 'from-teal-400 to-cyan-500' },
-  { href: '/crypto/fear-greed-index', icon: '😱', title: 'Fear & Greed Index', desc: 'The index — plus a direct test of whether "buy the fear" has actually paid', badge: 'NEW', color: 'from-rose-400 to-pink-500' },
-  { href: '/crypto/halving-countdown', icon: '⛏️', title: 'Halving Countdown', desc: 'Counted in blocks from the live chain height — and why countdowns disagree', badge: 'NEW', color: 'from-orange-400 to-red-500' },
-  { href: '/crypto/profit-calculator', icon: '🧮', title: 'Profit Calculator', desc: 'P&L with fees on both sides — and the break-even price they create', badge: 'NEW', color: 'from-lime-400 to-emerald-500' },
-  { href: '/crypto/all-time-high', icon: '🏔️', title: 'All-Time High Tracker', desc: 'How far below the high — and the gain it takes to get back (not the same number)', badge: 'NEW', color: 'from-cyan-400 to-blue-500' },
-  { href: '/crypto/altseason-index', icon: '🌗', title: 'Altcoin Season Index', desc: 'The index — shown with every coin it is built from, not just the number', badge: 'NEW', color: 'from-fuchsia-400 to-violet-500' },
-  { href: '/crypto/position-size-calculator', icon: '⚖️', title: 'Position Size Calculator', desc: 'Size from risk, not from leverage — plus the odds your stop gets hit by noise', badge: 'NEW', color: 'from-violet-400 to-purple-500' },
-  { href: '/crypto/funding-rates', icon: '💸', title: 'Funding Rates', desc: 'Every USDT perp, annualised with its real settlement interval — not a blanket 8h', badge: 'NEW', color: 'from-sky-400 to-indigo-500' },
-  { href: '/crypto/dca-calculator', icon: '📅', title: 'DCA Calculator', desc: 'What a recurring buy would be worth — and whether that start date was lucky', badge: 'NEW', color: 'from-emerald-400 to-teal-500' },
-  { href: '/crypto/liquidation-calculator', icon: '⚠️', title: 'Liquidation Calculator', desc: 'Liquidation price for any leverage — plus the odds of actually reaching it', badge: 'NEW', color: 'from-rose-400 to-orange-500' },
+  { href: '/crypto/bitcoin-vs-gold', icon: '🥇', title: 'Bitcoin vs Gold', desc: '"Digital gold" is two claims \u2014 one fails outright, the other fails when it matters', color: 'from-yellow-400 to-amber-600' },
+  { href: '/crypto/sold-at-top', icon: '😤', title: 'Sold at the Top?', desc: 'The best day came right after the worst \u2014 that is why you cannot have one without the other', color: 'from-rose-400 to-red-600' },
+  { href: '/crypto/kelly-criterion', icon: '🎯', title: 'Kelly Criterion', desc: 'The optimal bet size — and what half of it buys you', color: 'from-violet-400 to-fuchsia-600' },
+  { href: '/crypto/day-of-week', icon: '📆', title: 'Best Day of the Week', desc: '"Buy Monday, sell Friday" — with the test that usually gets skipped', color: 'from-violet-400 to-indigo-500' },
+  { href: '/crypto/rebalancing', icon: '⚗️', title: 'Rebalancing Simulator', desc: 'The advice is everywhere — this measures whether it worked', color: 'from-emerald-400 to-green-600' },
+  { href: '/crypto/volatility', icon: '⚡', title: 'Volatility Ranking', desc: 'Wild right now, or always wild? Four windows tell them apart', color: 'from-yellow-400 to-orange-500' },
+  { href: '/crypto/drawdown', icon: '🌊', title: 'Drawdown & Time Underwater', desc: 'Depth is quoted everywhere — duration is what you live through', color: 'from-sky-400 to-blue-600' },
+  { href: '/crypto/stablecoin-depeg', icon: '⚓', title: 'Stablecoin Depeg', desc: 'In basis points — and measured against the right yardstick', color: 'from-blue-400 to-sky-500' },
+  { href: '/crypto/risk-of-ruin', icon: '💀', title: 'Risk of Ruin', desc: 'Same edge, wildly different odds — bet size decides it', color: 'from-red-400 to-rose-600' },
+  { href: '/crypto/risk-adjusted', icon: '📐', title: 'Risk-Adjusted Returns', desc: 'Sharpe, Sortino and Calmar — and how much the three disagree', color: 'from-slate-400 to-slate-600' },
+  { href: '/crypto/compound-calculator', icon: '🌱', title: 'Compound & Staking', desc: 'APR vs APY — and the price fall that erases the whole yield', color: 'from-green-400 to-lime-500' },
+  { href: '/crypto/compare', icon: '⚖️', title: 'Compare Two Coins', desc: 'Returns, risk — and whether the two are really different bets at all', color: 'from-amber-400 to-yellow-500' },
+  { href: '/crypto/correlation', icon: '🕸️', title: 'Correlation Matrix', desc: 'Not just the number — how far it drifts, and what happens when BTC drops', color: 'from-purple-400 to-fuchsia-500' },
+  { href: '/crypto/seasonality', icon: '🗓️', title: 'Monthly Seasonality', desc: '"Uptober" and the rest — with the sample size that usually gets left out', color: 'from-indigo-400 to-blue-500' },
+  { href: '/crypto/long-short-ratio', icon: '⚔️', title: 'Long/Short Ratio', desc: 'Where the traders are vs where the money is — plus open interest', color: 'from-teal-400 to-cyan-500' },
+  { href: '/crypto/fear-greed-index', icon: '😱', title: 'Fear & Greed Index', desc: 'The index — plus a direct test of whether "buy the fear" has actually paid', color: 'from-rose-400 to-pink-500' },
+  { href: '/crypto/halving-countdown', icon: '⛏️', title: 'Halving Countdown', desc: 'Counted in blocks from the live chain height — and why countdowns disagree', color: 'from-orange-400 to-red-500' },
+  { href: '/crypto/profit-calculator', icon: '🧮', title: 'Profit Calculator', desc: 'P&L with fees on both sides — and the break-even price they create', color: 'from-lime-400 to-emerald-500' },
+  { href: '/crypto/all-time-high', icon: '🏔️', title: 'All-Time High Tracker', desc: 'How far below the high — and the gain it takes to get back (not the same number)', color: 'from-cyan-400 to-blue-500' },
+  { href: '/crypto/altseason-index', icon: '🌗', title: 'Altcoin Season Index', desc: 'The index — shown with every coin it is built from, not just the number', color: 'from-fuchsia-400 to-violet-500' },
+  { href: '/crypto/position-size-calculator', icon: '⚖️', title: 'Position Size Calculator', desc: 'Size from risk, not from leverage — plus the odds your stop gets hit by noise', color: 'from-violet-400 to-purple-500' },
+  { href: '/crypto/funding-rates', icon: '💸', title: 'Funding Rates', desc: 'Every USDT perp, annualised with its real settlement interval — not a blanket 8h', color: 'from-sky-400 to-indigo-500' },
+  { href: '/crypto/dca-calculator', icon: '📅', title: 'DCA Calculator', desc: 'What a recurring buy would be worth — and whether that start date was lucky', color: 'from-emerald-400 to-teal-500' },
+  { href: '/crypto/liquidation-calculator', icon: '⚠️', title: 'Liquidation Calculator', desc: 'Liquidation price for any leverage — plus the odds of actually reaching it', color: 'from-rose-400 to-orange-500' },
   { href: '/crypto/atr-tpsl', icon: '📊', title: 'ATR TP/SL Calculator', desc: 'Pick a coin, set entry and multipliers, get take-profit & stop-loss', badge: 'Calc', color: 'from-yellow-400 to-amber-600' },
 ];
 
@@ -93,7 +93,7 @@ export default function CryptoPage() {
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-500/25">{t.badge}</span>
+                  {t.badge && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-500/25">{t.badge}</span>}
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>

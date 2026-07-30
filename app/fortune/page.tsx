@@ -31,11 +31,11 @@ const TYPES = [
   { href: '/fortune/blood-match',  icon: '🩸', title: '혈액형 궁합',  desc: 'A·B·O·AB형으로 보는 두 사람 궁합',      badge: '4가지',   color: 'from-rose-500 to-orange-600' },
   { href: '/fortune/mbti-match',   icon: '🧠', title: 'MBTI 궁합',   desc: '16유형으로 보는 두 사람 궁합 점수',     badge: '16유형',  color: 'from-violet-500 to-indigo-600' },
   { href: '/fortune/daily',        icon: '🔮', title: '오늘의 종합운세', desc: '생년월일로 보는 오늘의 총운·연애·금전운', badge: '생년월일', color: 'from-purple-500 to-pink-600' },
-  { href: '/fortune/daily-tarot',  icon: '🃏', title: '오늘의 타로',   desc: '매일 자정 바뀌는 오늘의 타로 카드 한 장', badge: 'NEW',     color: 'from-amber-500 to-orange-600' },
-  { href: '/fortune/tarot-yesno',  icon: '🔮', title: '타로 예스/노',  desc: '질문을 떠올리고 카드로 받는 예·아니오',   badge: 'NEW',     color: 'from-indigo-500 to-violet-700' },
-  { href: '/fortune/lucky-lotto',  icon: '🍀', title: '행운의 로또 번호', desc: '생년월일로 보는 오늘의 행운 번호 6개',   badge: 'NEW',     color: 'from-emerald-500 to-teal-600' },
-  { href: '/fortune/birth-stone',  icon: '💎', title: '탄생석·탄생화',   desc: '태어난 달의 보석과 꽃, 그 의미',       badge: 'NEW',     color: 'from-fuchsia-500 to-violet-600' },
-  { href: '/fortune/today-color',  icon: '🎨', title: '오늘의 행운 색',   desc: '이름·날짜로 보는 오늘의 행운 컬러',    badge: 'NEW',     color: 'from-pink-500 to-violet-600' },
+  { href: '/fortune/daily-tarot',  icon: '🃏', title: '오늘의 타로',   desc: '매일 자정 바뀌는 오늘의 타로 카드 한 장', color: 'from-amber-500 to-orange-600' },
+  { href: '/fortune/tarot-yesno',  icon: '🔮', title: '타로 예스/노',  desc: '질문을 떠올리고 카드로 받는 예·아니오',   color: 'from-indigo-500 to-violet-700' },
+  { href: '/fortune/lucky-lotto',  icon: '🍀', title: '행운의 로또 번호', desc: '생년월일로 보는 오늘의 행운 번호 6개',   color: 'from-emerald-500 to-teal-600' },
+  { href: '/fortune/birth-stone',  icon: '💎', title: '탄생석·탄생화',   desc: '태어난 달의 보석과 꽃, 그 의미',       color: 'from-fuchsia-500 to-violet-600' },
+  { href: '/fortune/today-color',  icon: '🎨', title: '오늘의 행운 색',   desc: '이름·날짜로 보는 오늘의 행운 컬러',    color: 'from-pink-500 to-violet-600' },
 ];
 
 export default function FortunePage() {
@@ -88,7 +88,7 @@ export default function FortunePage() {
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>
+                  {t.badge && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>}
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>

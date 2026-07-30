@@ -91,7 +91,6 @@ const SECTIONS = [
     icon: '🎲',
     title: '랜덤 뽑기',
     desc: '룰렛·사다리타기·팀 나누기·숫자 뽑기 등 결정 도우미',
-    badge: 'NEW',
     color: 'from-rose-500 to-pink-600',
     bgLight: 'bg-rose-50 dark:bg-rose-950/30',
     textAccent: 'text-rose-700 dark:text-rose-300',
@@ -283,7 +282,6 @@ const SECTIONS = [
     icon: '🪙',
     title: 'Crypto Trading Tools',
     desc: '바이낸스 전체 코인 멀티전략 타점(진입·TP·SL)·수익률 실시간',
-    badge: 'NEW',
     color: 'from-amber-400 to-orange-600',
     bgLight: 'bg-amber-50 dark:bg-amber-950/30',
     textAccent: 'text-amber-700 dark:text-amber-300',
@@ -349,9 +347,11 @@ export default function HubPage() {
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-4">
                   <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
-                    {s.badge}
-                  </span>
+                  {s.badge && (
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
+                      {s.badge}
+                    </span>
+                  )}
                 </div>
                 <h2 className={`text-lg font-black ${s.textAccent} mb-1`}>{s.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{s.desc}</p>

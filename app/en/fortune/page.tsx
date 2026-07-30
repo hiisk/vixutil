@@ -70,7 +70,7 @@ export default function EnFortuneHub() {
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>
+                  {t.badge && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>}
                 </div>
                 <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>

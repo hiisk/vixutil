@@ -417,7 +417,7 @@ export default function SignalsPage() {
                 <div key={card.key} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 flex flex-col">
                   <div className="flex items-center justify-between mb-3">
                     <span className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-white">
-                      <ToolIcon emoji={card.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />{card.title}
+                      <ToolIcon emoji={card.icon} className="w-5 h-5 shrink-0" />{card.title}
                     </span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">{card.hint}</span>
                   </div>

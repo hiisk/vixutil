@@ -3,7 +3,6 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { ChecklistCardItem } from '@/lib/card';
-import { NEW_CHECKLIST_SLUGS } from '@/lib/new-content';
 
 const CATEGORIES = ['이사·생활', '취업·직장', '여행', '건강·운동', '재테크', '학습·시험', '행사·기념', '디지털·IT'];
 
@@ -15,11 +14,6 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
       <div className="flex items-start justify-between gap-2">
         <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
         <div className="flex items-center gap-1.5 shrink-0">
-          {NEW_CHECKLIST_SLUGS.has(c.slug) && (
-            <span className="text-[10px] font-black text-white bg-rose-500 px-1.5 py-0.5 rounded-full shadow-sm">
-              NEW
-            </span>
-          )}
           <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-2 py-0.5 rounded-full">
             {total}항목
           </span>

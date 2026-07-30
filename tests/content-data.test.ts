@@ -70,26 +70,6 @@ test('허브 카테고리 탭에 빈 칸이 없다', () => {
   assert.deepEqual(empty, [], `항목이 없는 카테고리 탭:\n  ${empty.join('\n  ')}`);
 });
 
-test('NEW 배지 목록이 실제 존재하는 slug만 가리킨다', async () => {
-  // 오타나 삭제된 slug가 남아 있으면 배지가 조용히 안 뜬다.
-  const mod = await import('../lib/new-content.ts');
-  const registries: Record<string, Set<string>> = {
-    test: mod.NEW_TEST_SLUGS,
-    quiz: mod.NEW_QUIZ_SLUGS,
-    generator: mod.NEW_GENERATOR_SLUGS,
-    checklist: mod.NEW_CHECKLIST_SLUGS,
-  };
-
-  const bad: string[] = [];
-  for (const { name, items } of SECTIONS) {
-    const known = new Set(items.map(i => i.slug));
-    for (const slug of registries[name]) {
-      if (!known.has(slug)) bad.push(`${name}/${slug}`);
-    }
-  }
-  assert.deepEqual(bad, [], `존재하지 않는 slug를 가리키는 NEW 배지: ${bad.join(', ')}`);
-});
-
 /** 퀴즈 문항의 보기 수와 정답 인덱스를 소스에서 뽑는다. */
 function quizQuestions(): { slug: string; optCount: number; correct: number }[] {
   const out: { slug: string; optCount: number; correct: number }[] = [];
