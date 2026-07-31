@@ -8,7 +8,7 @@
  * 도시 이름·라우트·hreflang·사이트맵을 언어 목록에서 돌면서 본다 — 목록에 언어를
  * 더하는 순간 빠진 곳이 전부 드러나야 한다.
  */
-import { LOCALES } from '../lib/locales.ts';
+import { LOCALES, NEXT_LOCALES } from '../lib/locales.ts';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -23,8 +23,11 @@ import { lineFacts } from '../lib/metro/facts.ts';
 const LANGS = METRO_LANG_CODES;
 const HANGUL = /[가-힣]/;
 
-/** 한 글자에 담기는 뜻이 많은 언어는 같은 내용이 짧다 */
-const dense = (lang: MetroLang) => lang === 'ja';
+/**
+ * 한 글자에 담기는 뜻이 많은 언어는 같은 내용이 짧다.
+ * 한국어는 문구가 원본이라 늘 길게 적혀서 여기 넣지 않아도 걸리지 않는다.
+ */
+const dense = (lang: MetroLang) => lang === 'ja' || lang === 'zh' || lang === 'tw';
 const minIntro = (lang: MetroLang) => (dense(lang) ? 28 : 40);
 const minHint = (lang: MetroLang) => (dense(lang) ? 18 : 25);
 const minAnswer = (lang: MetroLang) => (dense(lang) ? 20 : 30);
@@ -65,7 +68,7 @@ test('노선 색은 여섯 자리 hex이고 도시 열쇠는 등록된 것이다
   }
 });
 
-test('도시와 나라 이름이 여덟 언어로 다 있다', () => {
+test('도시와 나라 이름이 열 언어로 다 있다', () => {
   for (const city of METRO_CITIES) {
     const info = CITIES[city];
     for (const lang of LANGS) {
@@ -77,7 +80,7 @@ test('도시와 나라 이름이 여덟 언어로 다 있다', () => {
   }
 });
 
-test('여덟 언어 소개와 힌트가 다 있고 한국어 밖 화면에 한글이 없다', () => {
+test('열 언어 소개와 힌트가 다 있고 한국어 밖 화면에 한글이 없다', () => {
   for (const l of METRO_LINES) {
     for (const lang of LANGS) {
       const t = lineCopy(l, lang);
@@ -192,7 +195,7 @@ test('역 수 합계가 실제와 맞는다', () => {
   assert.ok(sum >= 600, `역이 ${sum}개뿐`);
 });
 
-test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
+test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of METRO_LANGS) {
     const p = `app${prefix}/metro`;
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
@@ -218,7 +221,7 @@ test('hreflang은 아홉 줄이고 x-default는 영어를 가리킨다', () => {
   assert.ok(!('zh' in a), 'hreflang에 zh가 남아 있다');
 });
 
-test('사이트맵과 검색 인덱스, lang 교정에 여덟 언어가 들어 있다', () => {
+test('사이트맵과 검색 인덱스, lang 교정에 열 언어가 들어 있다', () => {
   const map = readFileSync('app/sitemap.ts', 'utf8');
   assert.ok(map.includes('METRO_LANGS'), '사이트맵이 언어 목록을 돌지 않는다');
   assert.ok(map.includes('/metro'), '사이트맵에 /metro 없음');
@@ -234,13 +237,14 @@ test('사이트맵과 검색 인덱스, lang 교정에 여덟 언어가 들어 �
     'fix-html-lang.mjs가 lib/locales.ts의 목록을 쓰지 않는다',
   );
   // 지하철이 쓰는 언어가 그 레지스트리에 다 있는지도 본다
-  const tags = new Set<string>(LOCALES.map(l => l.tag));
+  // 중국어 둘은 아직 NEXT_LOCALES에 있다 — 모든 섹션이 넘어오면 위로 합쳐진다
+  const tags = new Set<string>([...LOCALES, ...NEXT_LOCALES].map(l => l.tag));
   for (const { htmlLang } of METRO_LANGS) {
     assert.ok(tags.has(htmlLang), `lib/locales.ts에 ${htmlLang} 없음`);
   }
 });
 
-test('화면 문구가 여덟 언어로 다 있다', () => {
+test('화면 문구가 열 언어로 다 있다', () => {
   for (const lang of LANGS) {
     const ui = METRO_UI[lang];
     assert.ok(ui, `${lang}: 문구 묶음이 없다`);
@@ -270,12 +274,12 @@ test('SEO 문구가 언어마다 실제 노선 사실을 담는다', () => {
     assert.equal(f.count, line.stations.length);
     assert.equal(f.first, line.stations[0].name);
     assert.ok(ui.hubMetaTitle.length > 15, `${lang}: 허브 메타 제목이 짧다`);
-    assert.ok(ui.hubMetaDesc.length > 60, `${lang}: 허브 메타 설명이 짧다`);
+    assert.ok(ui.hubMetaDesc.length > (dense(lang) ? 45 : 60), `${lang}: 허브 메타 설명이 짧다`);
     const title = ui.metaTitle(f.title);
     const desc = ui.metaDesc(f);
     assert.ok(title.includes(f.title), `${lang}: 메타 제목에 노선 이름이 없다 — ${title}`);
     assert.ok(desc.includes(String(f.count)), `${lang}: 메타 설명에 역 수가 없다 — ${desc}`);
-    assert.ok(desc.length > 60, `${lang}: 메타 설명이 짧다 (${desc.length}자)`);
+    assert.ok(desc.length > (dense(lang) ? 40 : 60), `${lang}: 메타 설명이 짧다 (${desc.length}자)`);
     if (lang !== 'ko') assert.ok(!HANGUL.test(title + ui.hubMetaTitle + ui.hubMetaDesc), `${lang} 메타에 한글`);
   }
 });

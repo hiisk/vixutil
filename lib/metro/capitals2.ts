@@ -46,6 +46,10 @@ export const CAPITAL2_LINES: MetroLine[] = [
        'Les graphies sans accents comptent. Posez Sol, Gran Vía et Atocha, puis complétez le tronçon de Vallecas au sud.'],
       ['1919 में खुली स्पेन की पहली मेट्रो लाइन। यह मैड्रिड को उत्तर से दक्षिण पार करती है और Sol तथा Gran Vía जैसे केंद्र से गुज़रती है।',
        'बिना उच्चारण-चिह्न वाली वर्तनी भी चलती है। Sol, Gran Vía और Atocha को ढाँचा बनाकर दक्षिण का Vallecas हिस्सा भरें।'],
+      ['1919 年通车，是西班牙的第一条地铁线。它自北向南穿过马德里，途经太阳门和格兰大道这样的市中心地带。',
+       '不打重音符号也算对。先把 Sol、Gran Vía、Atocha 立成骨架，再去填南边巴列卡斯那一段。'],
+      ['1919 年通車，是西班牙的第一條地鐵線。它自北向南穿過馬德里，途經太陽門和格蘭大道這樣的市中心地帶。',
+       '不打重音符號也算對。先把 Sol、Gran Vía、Atocha 立成骨架，再去填南邊巴列卡斯那一段。'],
     ),
   },
   {
@@ -77,6 +81,10 @@ export const CAPITAL2_LINES: MetroLine[] = [
        'On peut taper ss à la place de ß. Commencez par les stations « Tor » : Kottbusser Tor, Hallesches Tor, Schlesisches Tor.'],
       ['बर्लिन की सबसे पुरानी यू-बान लाइन; Kreuzberg में यह ऊपर पुल पर चलती है। बड़ा हिस्सा सड़क के ऊपर से जाता है, इसलिए शहर देखने के लिए अच्छी है।',
        'ß की जगह ss लिखने पर भी सही माना जाता है। “Tor” वाले स्टेशनों से शुरू करें — Kottbusser Tor, Hallesches Tor, Schlesisches Tor।'],
+      ['柏林最老的一条地铁线，克罗伊茨贝格那一段跑在高架上。窗外能看见街景的路段很长，很适合顺便看看这座城市。',
+       'ß 打成 ss 也算对。先想想 Kottbusser Tor 和 Schlesisches Tor 这些带「Tor」的站。'],
+      ['柏林最老的一條地鐵線，克羅伊茨貝格那一段跑在高架上。窗外能看見街景的路段很長，很適合順便看看這座城市。',
+       'ß 打成 ss 也算對。先想想 Kottbusser Tor 和 Schlesisches Tor 這些帶「Tor」的站。'],
     ),
   },
   {
@@ -119,6 +127,10 @@ export const CAPITAL2_LINES: MetroLine[] = [
        'La graphie anglaise comme la graphie devanagari comptent. Prenez Rajiv Chowk, Hauz Khas et AIIMS comme repères.'],
       ['दिल्ली मेट्रो की रीढ़ — शहर को उत्तर से दक्षिण पार करती है और हरियाणा के गुरुग्राम तक जाती है। नई दिल्ली और राजीव चौक बड़े इंटरचेंज हैं।',
        'अंग्रेज़ी और देवनागरी दोनों वर्तनी सही मानी जाती हैं। राजीव चौक, हौज़ ख़ास और एम्स को ढाँचा बनाकर चलें।'],
+      ['南北向贯穿德里，一路通到哈里亚纳邦的古尔冈，是德里地铁的中枢线路。在新德里站和拉吉夫广场可以换乘其他线路。',
+       '英文拼写和天城文写法都算对。先拿 Rajiv Chowk、Hauz Khas、AIIMS 当骨架。'],
+      ['南北向貫穿德里，一路通到哈里亞納邦的古爾岡，是德里地鐵的中樞路線。在新德里站和拉吉夫廣場可以換乘其他路線。',
+       '英文拼寫和天城文寫法都算對。先拿 Rajiv Chowk、Hauz Khas、AIIMS 當骨架。'],
     ),
   },
 ];

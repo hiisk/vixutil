@@ -15,7 +15,7 @@
  * 방향을 적어 두면 좌표는 계산해서 만든다 — 역마다 x·y를 손으로 적으면
  * 백 노선에 삼천 쌍을 적어야 하고, 역 하나를 끼워 넣을 때 전부 밀어야 한다.
  */
-import { numberedLine, type L8, type MetroLang } from './lang.ts';
+import { numberedLine, type L, type MetroLang } from './lang.ts';
 import { CITIES } from './cities.ts';
 
 export interface MetroStation {
@@ -49,7 +49,7 @@ export interface MetroCopy {
  * 어느 언어에서나 같게 부르는 이름(U2, L3)은 문자열 하나로 끝낸다.
  * 언어마다 다른 이름(야마노테선 / Yamanote Line / 山手線)은 언어별로 적는다.
  */
-export type LineLabel = string | Partial<L8<string>>;
+export type LineLabel = string | Partial<L<string>>;
 
 export interface MetroLine {
   slug: string;
@@ -67,7 +67,7 @@ export interface MetroLine {
   shape: Dir[];
   stations: MetroStation[];
   /** 여덟 언어의 소개와 힌트 */
-  text: L8<MetroCopy>;
+  text: L<MetroCopy>;
 }
 
 export const lineCopy = (l: MetroLine, lang: MetroLang): MetroCopy => l.text[lang];
