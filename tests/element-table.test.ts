@@ -19,7 +19,8 @@ import {
 } from '../lib/element/facts.ts';
 import { NAMES, nameOf } from '../lib/element/names.ts';
 import { ELEMENT_UI } from '../lib/element/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(ELEMENTS.length >= 100, `${ELEMENTS.length}가지뿐이다`);
@@ -172,12 +173,12 @@ test('같은 족과 이웃이 자기 자신을 뺀다', () => {
   assert.ok(sameGroup(8).some(o => o.symbol === 'S'));
 });
 
-test('118개 모두 여덟 언어 이름이 있다', () => {
+test('118개 모두 열 언어 이름이 있다', () => {
   for (const x of ELEMENTS) {
     const row = NAMES[x.z];
     assert.ok(row, `${x.z}: 이름이 없다`);
-    assert.equal(row.length, 8, `${x.z}: 여덟 칸이 아니다`);
-    for (const lang of LANG8_CODES) assert.ok(nameOf(x.z, lang).trim().length > 0, `${x.z}/${lang}: 이름이 비었다`);
+    assert.equal(row.length, 10, `${x.z}: 열 칸이 아니다`);
+    for (const lang of LANG_CODES) assert.ok(nameOf(x.z, lang).trim().length > 0, `${x.z}/${lang}: 이름이 비었다`);
   }
   const extra = Object.keys(NAMES).filter(k => !ELEMENT_SLUGS.includes(k));
   assert.deepEqual(extra, [], `데이터에 없는 원소의 이름: ${extra.join(', ')}`);
@@ -185,31 +186,37 @@ test('118개 모두 여덟 언어 이름이 있다', () => {
 
 test('한 언어 안에서 이름이 겹치지 않는다', () => {
   // 베껴 적다 한 줄 밀리면 같은 이름이 두 번 나온다
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const names = ELEMENTS.map(x => nameOf(x.z, lang));
     const dup = [...new Set(names.filter((n, i) => names.indexOf(n) !== i))];
     assert.deepEqual(dup, [], `${lang}: 이름이 겹친다 — ${dup.join(', ')}`);
   }
 });
 
+/** 한자가 제 글자인 언어 */
+const HAN_OK = new Set(['ja', 'zh', 'tw']);
+
 test('언어끼리 글자가 섞이지 않는다', () => {
   for (const x of ELEMENTS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const n = nameOf(x.z, lang);
       if (lang !== 'ko') assert.ok(!/[가-힣]/.test(n), `${x.z}/${lang}: 한글이 섞였다 — ${n}`);
-      if (lang !== 'ja' && lang !== 'ko') assert.ok(!/[ぁ-んァ-ヶ一-龯]/.test(n), `${x.z}/${lang}: 가나·한자가 섞였다 — ${n}`);
+      if (lang !== 'ja') assert.ok(!/[ぁ-んァ-ヶ]/.test(n), `${x.z}/${lang}: 가나가 섞였다 — ${n}`);
+      // 한자는 중국어 두 벌과 일본어의 정상 표기다. 한국어 원소 이름은 한글로만 적으므로 여기 남는다.
+      if (!HAN_OK.has(lang)) assert.ok(!/[一-龯]/.test(n), `${x.z}/${lang}: 한자가 섞였다 — ${n}`);
       if (lang !== 'hi') assert.ok(!/[ऀ-ॿ]/.test(n), `${x.z}/${lang}: 데바나가리가 섞였다 — ${n}`);
     }
   }
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = elementFacts(elementOf('26')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = ELEMENT_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 읽는 방법 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -235,34 +242,34 @@ test('언어마다 소수점 기호가 제자리에 있다', () => {
 test('설명이 모든 원소에서 만들어진다', () => {
   for (const x of ELEMENTS) {
     const f = elementFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = ELEMENT_UI[lang].desc(f, nameOf(x.z, lang));
-      const floor = lang === 'ja' || lang === 'ko' ? 20 : 35;
+      const floor = DENSE.has(lang) ? 20 : 35;
       assert.ok(d.length > floor, `${lang}/${x.z}: 설명이 너무 짧다 — ${d}`);
       assert.ok(d.includes(x.symbol), `${lang}/${x.z}: 설명에 기호가 없다`);
     }
   }
 });
 
-test('모든 원소가 여덟 언어 메타를 만든다', () => {
+test('모든 원소가 열 언어 메타를 만든다', () => {
   for (const x of ELEMENTS) {
     const f = elementFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = ELEMENT_UI[lang];
       const name = nameOf(x.z, lang);
       assert.ok(ui.metaTitle(name, x.symbol, x.z).includes(name), `${lang}/${x.z}: 제목에 이름이 없다`);
       const desc = ui.metaDesc(f, name, ui.categoryLabel[f.category]);
       assert.ok(desc.includes(x.symbol), `${lang}/${x.z}: 설명에 기호가 없다`);
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${x.z}: 설명이 너무 짧다`);
     }
   }
 });
 
-test('여덟 언어를 통틀어 제목이 겹치지 않는다', () => {
+test('열 언어를 통틀어 제목이 겹치지 않는다', () => {
   // 스페인어와 포르투갈어는 이름이 같은 원소가 열둘이라, 제목 틀까지 같으면 통째로 겹친다
   const seen = new Map<string, string>();
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     for (const x of ELEMENTS) {
       const ui = ELEMENT_UI[lang];
       const title = `${ui.metaTitle(nameOf(x.z, lang), x.symbol, x.z)} — ${ui.section}`;

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import PeriodicTable from '@/components/element/PeriodicTable';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { elementOf } from '@/lib/element/list';
 import { elementFacts, neighbours, sameGroup } from '@/lib/element/facts';
 import { nameOf } from '@/lib/element/names';
@@ -16,7 +16,7 @@ import { ELEMENT_UI } from '@/lib/element/ui';
  * 주기율표 칸을 크게 그려 두면 기호와 번호와 원자량이 한눈에 들어온다.
  * 표 전체도 함께 두어, 이 원소가 어디에 앉아 있는지 보이게 한다.
  */
-export default function ElementPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function ElementPage({ slug, lang }: { slug: string; lang: Lang }) {
   const x = elementOf(slug);
   if (!x) return null;
   const f = elementFacts(x);
@@ -145,7 +145,7 @@ export default function ElementPage({ slug, lang }: { slug: string; lang: Lang8 
         <Faq items={faq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/element/${x.z}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

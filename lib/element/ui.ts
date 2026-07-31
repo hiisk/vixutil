@@ -1,10 +1,10 @@
 /**
- * 원소 화면의 문구 — 여덟 언어.
+ * 원소 화면의 문구 — 열 언어.
  *
  * 원소 이름은 names.ts에 따로 두고, 여기에는 화면 틀과 갈래 이름만 둔다.
  * 항목마다의 설명은 계산한 자리(주기·족·갈래)에서 문장을 만든다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { Block, Category, ElementFacts } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }
@@ -47,18 +47,18 @@ export interface ElementUI {
   elementFaq: (f: ElementFacts, name: string, category: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
 /** 소수점 기호는 언어마다 다르다 */
 const N = (tag: string) => (v: number) => v.toLocaleString(tag, { maximumFractionDigits: 6 });
 
-type Spec = { [K in keyof ElementUI]: L8<ElementUI[K]> };
+type Spec = { [K in keyof ElementUI]: L<ElementUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('원소', 'Elements', 'Elementos', 'Elementos', '元素', 'Elemente', 'Éléments', 'तत्व'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('원소', 'Elements', 'Elementos', 'Elementos', '元素', 'Elemente', 'Éléments', 'तत्व', '元素', '元素'),
 
   hubTitle: T(
     '주기율표 원소 118가지',
@@ -69,6 +69,8 @@ const SPEC: Spec = {
     'Alle 118 Elemente',
     'Les 118 éléments',
     'सभी 118 तत्व',
+    '元素周期表 118 种元素',
+    '元素週期表 118 種元素',
   ),
 
   hubLead: T(
@@ -80,6 +82,8 @@ const SPEC: Spec = {
     'Ordnungszahl, Symbol und Atomgewicht — Periode, Gruppe und Elektronenkonfiguration daraus berechnet. Selbst der Platz im System folgt aus der Zahl.',
     'Numéro atomique, symbole et masse, avec la période, le groupe et la configuration électronique déduits. Même la place dans le tableau vient du numéro.',
     'परमाणु क्रमांक, प्रतीक और द्रव्यमान — इन्हीं से आवर्त, समूह और इलेक्ट्रॉन विन्यास निकाले गए हैं। तालिका में जगह भी क्रमांक से आती है।',
+    '从原子序数、符号和原子量，一路算出周期、族和电子排布。连它在表里坐哪一格，也是从序数推出来的。',
+    '從原子序、符號和原子量，一路算出週期、族和電子組態。連它在表裡坐哪一格，也是從原子序推出來的。',
   ),
 
   categoryLabel: T(
@@ -91,6 +95,8 @@ const SPEC: Spec = {
     { nonmetal: 'Nichtmetall', noble: 'Edelgas', halogen: 'Halogen', alkali: 'Alkalimetall', alkaline: 'Erdalkalimetall', transition: 'Übergangsmetall', 'post-transition': 'Metall der p-Gruppe', metalloid: 'Halbmetall', lanthanide: 'Lanthanoid', actinide: 'Actinoid' },
     { nonmetal: 'Non-métal', noble: 'Gaz noble', halogen: 'Halogène', alkali: 'Métal alcalin', alkaline: 'Métal alcalino-terreux', transition: 'Métal de transition', 'post-transition': 'Métal pauvre', metalloid: 'Métalloïde', lanthanide: 'Lanthanide', actinide: 'Actinide' },
     { nonmetal: 'अधातु', noble: 'उत्कृष्ट गैस', halogen: 'हैलोजन', alkali: 'क्षार धातु', alkaline: 'क्षारीय मृदा धातु', transition: 'संक्रमण धातु', 'post-transition': 'संक्रमणोत्तर धातु', metalloid: 'उपधातु', lanthanide: 'लैंथेनाइड', actinide: 'ऐक्टिनाइड' },
+    { nonmetal: '非金属', noble: '稀有气体', halogen: '卤素', alkali: '碱金属', alkaline: '碱土金属', transition: '过渡金属', 'post-transition': '贫金属', metalloid: '类金属', lanthanide: '镧系', actinide: '锕系' },
+    { nonmetal: '非金屬', noble: '惰性氣體', halogen: '鹵素', alkali: '鹼金屬', alkaline: '鹼土金屬', transition: '過渡金屬', 'post-transition': '貧金屬', metalloid: '類金屬', lanthanide: '鑭系', actinide: '錒系' },
   ),
 
   categoryNote: T(
@@ -190,6 +196,30 @@ const SPEC: Spec = {
       lanthanide: 'तालिका के नीचे निकाली दो पंक्तियों में पहली। आपस में इतने मिलते-जुलते कि अलग करना कठिन है।',
       actinide: 'तालिका के नीचे दूसरी पंक्ति। सभी रेडियोधर्मी और अधिकतर मानव-निर्मित।',
     },
+    {
+      nonmetal: '不太导电，容易接过电子变成阴离子。',
+      noble: '最外层已经填满，所以很难和别的元素反应。',
+      halogen: '只要再接一个电子外层就满了，因此反应性极强。',
+      alkali: '很容易把最外层那一个电子送出去，遇水都会剧烈反应。',
+      alkaline: '会送出两个电子的金属，比碱金属温和一些。',
+      transition: '一边填内层一边往右走的金属，能有多种氧化态，还会显色。',
+      'post-transition': '过渡金属右边的金属，偏软，熔点也偏低。',
+      metalloid: '金属和非金属的性质各占一半，所以用来做半导体。',
+      lanthanide: '被挪到表下第一行的那十四个。彼此性质太像，分离起来很难。',
+      actinide: '被挪到表下第二行的那十四个。全都有放射性，多数是人造的。',
+    },
+    {
+      nonmetal: '不太導電，容易接過電子變成陰離子。',
+      noble: '最外層已經填滿，所以很難和別的元素反應。',
+      halogen: '只要再接一個電子外層就滿了，因此反應性極強。',
+      alkali: '很容易把最外層那一個電子送出去，遇水都會劇烈反應。',
+      alkaline: '會送出兩個電子的金屬，比鹼金屬溫和一些。',
+      transition: '一邊填內層一邊往右走的金屬，能有多種氧化態，還會顯色。',
+      'post-transition': '過渡金屬右邊的金屬，偏軟，熔點也偏低。',
+      metalloid: '金屬和非金屬的性質各占一半，所以用來做半導體。',
+      lanthanide: '被挪到表下第一列的那十四個。彼此性質太像，分離起來很難。',
+      actinide: '被挪到表下第二列的那十四個。全都有放射性，多數是人造的。',
+    },
   ),
 
   blockLabel: T(
@@ -201,30 +231,36 @@ const SPEC: Spec = {
     { s: 's-Block', p: 'p-Block', d: 'd-Block', f: 'f-Block' },
     { s: 'bloc s', p: 'bloc p', d: 'bloc d', f: 'bloc f' },
     { s: 's खंड', p: 'p खंड', d: 'd खंड', f: 'f खंड' },
+    { s: 's 区', p: 'p 区', d: 'd 区', f: 'f 区' },
+    { s: 's 區', p: 'p 區', d: 'd 區', f: 'f 區' },
   ),
 
-  fmt: T(N('ko'), N('en'), N('es'), N('pt-BR'), N('ja'), N('de'), N('fr'), N('en')),
-  symbolLabel: T('기호', 'Symbol', 'Símbolo', 'Símbolo', '元素記号', 'Symbol', 'Symbole', 'प्रतीक'),
-  numberLabel: T('원자번호', 'Atomic number', 'Número atómico', 'Número atômico', '原子番号', 'Ordnungszahl', 'Numéro atomique', 'परमाणु क्रमांक'),
-  massLabel: T('원자량', 'Atomic weight', 'Peso atómico', 'Peso atômico', '原子量', 'Atomgewicht', 'Masse atomique', 'परमाणु द्रव्यमान'),
-  periodLabel: T('주기', 'Period', 'Periodo', 'Período', '周期', 'Periode', 'Période', 'आवर्त'),
-  groupLabel: T('족', 'Group', 'Grupo', 'Grupo', '族', 'Gruppe', 'Groupe', 'समूह'),
-  blockTitle: T('블록', 'Block', 'Bloque', 'Bloco', 'ブロック', 'Block', 'Bloc', 'खंड'),
-  configLabel: T('전자 배치', 'Electron configuration', 'Configuración electrónica', 'Configuração eletrônica', '電子配置', 'Elektronenkonfiguration', 'Configuration électronique', 'इलेक्ट्रॉन विन्यास'),
-  valenceLabel: T('최외각 전자', 'Outer-shell electrons', 'Electrones de valencia', 'Elétrons de valência', '最外殻電子', 'Außenelektronen', 'Électrons de valence', 'बाहरी कोश के इलेक्ट्रॉन'),
-  neutronLabel: T('중성자 수', 'Neutrons', 'Neutrones', 'Nêutrons', '中性子数', 'Neutronen', 'Neutrons', 'न्यूट्रॉन'),
+  fmt: T(N('ko'), N('en'), N('es'), N('pt-BR'), N('ja'), N('de'), N('fr'), N('en'), N('zh'), N('zh-Hant')),
+  symbolLabel: T('기호', 'Symbol', 'Símbolo', 'Símbolo', '元素記号', 'Symbol', 'Symbole', 'प्रतीक', '符号', '符號'),
+  numberLabel: T('원자번호', 'Atomic number', 'Número atómico', 'Número atômico', '原子番号', 'Ordnungszahl', 'Numéro atomique', 'परमाणु क्रमांक', '原子序数', '原子序'),
+  massLabel: T('원자량', 'Atomic weight', 'Peso atómico', 'Peso atômico', '原子量', 'Atomgewicht', 'Masse atomique', 'परमाणु द्रव्यमान', '原子量', '原子量'),
+  periodLabel: T('주기', 'Period', 'Periodo', 'Período', '周期', 'Periode', 'Période', 'आवर्त', '周期', '週期'),
+  groupLabel: T('족', 'Group', 'Grupo', 'Grupo', '族', 'Gruppe', 'Groupe', 'समूह', '族', '族'),
+  blockTitle: T('블록', 'Block', 'Bloque', 'Bloco', 'ブロック', 'Block', 'Bloc', 'खंड', '区', '區'),
+  configLabel: T('전자 배치', 'Electron configuration', 'Configuración electrónica', 'Configuração eletrônica', '電子配置', 'Elektronenkonfiguration', 'Configuration électronique', 'इलेक्ट्रॉन विन्यास', '电子排布', '電子組態'),
+  valenceLabel: T('최외각 전자', 'Outer-shell electrons', 'Electrones de valencia', 'Elétrons de valência', '最外殻電子', 'Außenelektronen', 'Électrons de valence', 'बाहरी कोश के इलेक्ट्रॉन', '最外层电子', '最外層電子'),
+  neutronLabel: T('중성자 수', 'Neutrons', 'Neutrones', 'Nêutrons', '中性子数', 'Neutronen', 'Neutrons', 'न्यूट्रॉन', '中子数', '中子數'),
 
   periodValue: T(
     (n: number) => `${n}주기`, (n: number) => `Period ${n}`, (n: number) => `Periodo ${n}`, (n: number) => `Período ${n}`,
     (n: number) => `第${n}周期`, (n: number) => `${n}. Periode`, (n: number) => `Période ${n}`, (n: number) => `आवर्त ${n}`,
+    (n: number) => `第${n}周期`,
+    (n: number) => `第${n}週期`,
   ),
   groupValue: T(
     (n: number) => `${n}족`, (n: number) => `Group ${n}`, (n: number) => `Grupo ${n}`, (n: number) => `Grupo ${n}`,
     (n: number) => `第${n}族`, (n: number) => `Gruppe ${n}`, (n: number) => `Groupe ${n}`, (n: number) => `समूह ${n}`,
+    (n: number) => `第${n}族`,
+    (n: number) => `第${n}族`,
   ),
-  groupNone: T('표 아래로 빠짐', 'set below the table', 'fuera de la tabla', 'fora da tabela', '表の下', 'unter dem System', 'sous le tableau', 'तालिका के नीचे'),
+  groupNone: T('표 아래로 빠짐', 'set below the table', 'fuera de la tabla', 'fora da tabela', '表の下', 'unter dem System', 'sous le tableau', 'तालिका के नीचे', '挪到表格下方', '挪到表格下方'),
 
-  tableTitle: T('주기율표', 'The periodic table', 'La tabla periódica', 'A tabela periódica', '周期表', 'Das Periodensystem', 'Le tableau périodique', 'आवर्त सारणी'),
+  tableTitle: T('주기율표', 'The periodic table', 'La tabla periódica', 'A tabela periódica', '周期表', 'Das Periodensystem', 'Le tableau périodique', 'आवर्त सारणी', '元素周期表', '元素週期表'),
   tableNote: T(
     '가로줄이 주기, 세로줄이 족입니다. 눌러서 원소 하나를 펼쳐 보세요.',
     'Rows are periods, columns are groups. Tap any square to open that element.',
@@ -234,9 +270,11 @@ const SPEC: Spec = {
     'Zeilen sind Perioden, Spalten sind Gruppen. Auf ein Feld tippen, um das Element zu öffnen.',
     'Les lignes sont les périodes, les colonnes les groupes. Touchez une case pour ouvrir l’élément.',
     'पंक्तियाँ आवर्त हैं और स्तंभ समूह। किसी खाने को दबाकर वह तत्व खोलिए।',
+    '横行是周期，竖列是族。点一格就能展开那个元素。',
+    '橫列是週期，直行是族。點一格就能展開那個元素。',
   ),
-  sameGroupTitle: T('같은 족의 원소', 'Others in the same group', 'Otros del mismo grupo', 'Outros do mesmo grupo', '同じ族の元素', 'Andere derselben Gruppe', 'Autres du même groupe', 'इसी समूह के अन्य'),
-  neighbourTitle: T('번호가 이웃한 원소', 'Neighbours by number', 'Vecinos por número', 'Vizinhos por número', '番号が隣の元素', 'Nachbarn nach Zahl', 'Voisins par numéro', 'क्रमांक में पड़ोसी'),
+  sameGroupTitle: T('같은 족의 원소', 'Others in the same group', 'Otros del mismo grupo', 'Outros do mesmo grupo', '同じ族の元素', 'Andere derselben Gruppe', 'Autres du même groupe', 'इसी समूह के अन्य', '同族的其他元素', '同族的其他元素'),
+  neighbourTitle: T('번호가 이웃한 원소', 'Neighbours by number', 'Vecinos por número', 'Vizinhos por número', '番号が隣の元素', 'Nachbarn nach Zahl', 'Voisins par numéro', 'क्रमांक में पड़ोसी', '序数相邻的元素', '原子序相鄰的元素'),
 
   desc: T(
     (f: ElementFacts, name: string) => `원자번호 ${f.z}번, 기호는 ${f.symbol}입니다. ${f.period}주기 ${f.group ? `${f.group}족` : '표 아래'}에 자리하고, 원자량은 ${N('ko')(f.mass)}입니다.`,
@@ -247,9 +285,11 @@ const SPEC: Spec = {
     (f: ElementFacts, name: string) => `${name} ist Element ${f.z}, Symbol ${f.symbol}. Es steht in Periode ${f.period}${f.group ? `, Gruppe ${f.group}` : ', in den Reihen unter dem System'} und wiegt ${N('de')(f.mass)}.`,
     (f: ElementFacts, name: string) => `${name} est l’élément ${f.z}, symbole ${f.symbol}. Il se place en période ${f.period}${f.group ? `, groupe ${f.group}` : ', dans les lignes sous le tableau'}, et pèse ${N('fr')(f.mass)}.`,
     (f: ElementFacts, name: string) => `${name} तत्व क्रमांक ${f.z} है, प्रतीक ${f.symbol}। यह आवर्त ${f.period}${f.group ? `, समूह ${f.group}` : ', तालिका के नीचे की पंक्तियों'} में है और इसका द्रव्यमान ${N('en')(f.mass)} है।`,
+    (f: ElementFacts, name: string) => `${name} 的原子序数是 ${f.z}，符号 ${f.symbol}。它在第 ${f.period} 周期${f.group ? `第 ${f.group} 族` : '，被挪到表格下方的那两行'}，原子量为 ${N('zh')(f.mass)}。`,
+    (f: ElementFacts, name: string) => `${name} 的原子序是 ${f.z}，符號 ${f.symbol}。它在第 ${f.period} 週期${f.group ? `第 ${f.group} 族` : '，被挪到表格下方的那兩列'}，原子量為 ${N('zh-Hant')(f.mass)}。`,
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这张表', '怎麼看這張表'),
 
   how: T(
     [
@@ -300,9 +340,21 @@ const SPEC: Spec = {
       'परमाणु द्रव्यमान लगभग क्रमांक का दोगुना होता है: प्रोटॉन जितने ही न्यूट्रॉन मान लीजिए।',
       '28 लैंथेनाइड और ऐक्टिनाइड तालिका के नीचे दिखाए जाते हैं। भीतर रखने पर तालिका 32 स्तंभ चौड़ी हो जाती।',
     ],
+    [
+      '横行（周期）是电子壳层的层数。第 3 周期的元素，外面裹了三层壳。',
+      '竖列（族）指最外层有几个电子。同一族性质相近，原因就在这里。',
+      '原子量大致是原子序数的两倍。把中子数当成和质子数差不多，估起来八九不离十。',
+      '镧系和锕系那二十八个被挪到了表格下方。硬塞回去的话，整张表会撑到三十二格宽。',
+    ],
+    [
+      '橫列（週期）是電子殼層的層數。第 3 週期的元素，外面裹了三層殼。',
+      '直行（族）指最外層有幾個電子。同一族性質相近，原因就在這裡。',
+      '原子量大致是原子序的兩倍。把中子數當成和質子數差不多，估起來八九不離十。',
+      '鑭系和錒系那二十八個被挪到了表格下方。硬塞回去的話，整張表會撐到三十二格寬。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '주기율표 118원소 — 기호·원자량·전자 배치',
@@ -313,6 +365,8 @@ const SPEC: Spec = {
     'Periodensystem — alle 118 Elemente mit Symbol und Gewicht',
     'Tableau périodique — les 118 éléments avec symboles et masses',
     'आवर्त सारणी — प्रतीक और द्रव्यमान सहित सभी 118 तत्व',
+    '元素周期表 118 种元素 — 符号、原子量与电子排布',
+    '元素週期表 118 種元素 — 符號、原子量與電子組態',
   ),
   hubMetaDesc: T(
     '원소 118가지의 기호와 원자량, 주기와 족, 전자 배치를 한자리에 모았습니다. 자리와 갈래는 원자번호에서 계산한 값이라 표와 설명이 어긋나지 않습니다.',
@@ -323,6 +377,8 @@ const SPEC: Spec = {
     'Symbole, Atomgewichte, Perioden, Gruppen und Elektronenkonfigurationen aller 118 Elemente. Platz und Kategorie folgen aus der Ordnungszahl — Tabelle und Text können nicht auseinanderlaufen.',
     'Symboles, masses atomiques, périodes, groupes et configurations électroniques des 118 éléments. Place et catégorie sont calculées à partir du numéro : le tableau et le texte ne peuvent pas diverger.',
     'सभी 118 तत्वों के प्रतीक, परमाणु द्रव्यमान, आवर्त, समूह और इलेक्ट्रॉन विन्यास। स्थान और श्रेणी परमाणु क्रमांक से गणना होती है, इसलिए तालिका और विवरण अलग नहीं हो सकते।',
+    '118 种元素的符号、原子量、周期、族和电子排布，全收在一处。位置和分类都是从原子序数算出来的，所以表格和说明不可能对不上。',
+    '118 種元素的符號、原子量、週期、族和電子組態，全收在一處。位置和分類都是從原子序算出來的，所以表格和說明不可能對不上。',
   ),
 
   metaTitle: T(
@@ -335,6 +391,8 @@ const SPEC: Spec = {
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — Element Nummer ${z}`,
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — élément numéro ${z}`,
     (name: string, symbol: string, z: number) => `${name} (${symbol}) — तत्व क्रमांक ${z}`,
+    (name: string, symbol: string, z: number) => `${name}（${symbol}）— 原子序数 ${z} 的元素`,
+    (name: string, symbol: string, z: number) => `${name}（${symbol}）— 原子序 ${z} 的元素`,
   ),
 
   metaDesc: T(
@@ -346,6 +404,8 @@ const SPEC: Spec = {
     (f: ElementFacts, name: string, category: string) => `${name} (${f.symbol}) ist Element ${f.z}, ein ${category} mit dem Atomgewicht ${N('de')(f.mass)}. Es steht in Periode ${f.period}, die Elektronenkonfiguration lautet ${f.shortConfig}.`,
     (f: ElementFacts, name: string, category: string) => `${name} (${f.symbol}) est l’élément ${f.z}, un ${category.toLowerCase()} de masse atomique ${N('fr')(f.mass)}. Il est en période ${f.period} et sa configuration électronique est ${f.shortConfig}.`,
     (f: ElementFacts, name: string, category: string) => `${name} (${f.symbol}) तत्व क्रमांक ${f.z} है — ${category}, परमाणु द्रव्यमान ${N('en')(f.mass)}। यह आवर्त ${f.period} में है और इसका इलेक्ट्रॉन विन्यास ${f.shortConfig} है।`,
+    (f: ElementFacts, name: string, category: string) => `${name}（${f.symbol}）是第 ${f.z} 号元素，属于${category}，原子量 ${N('zh')(f.mass)}。它在第 ${f.period} 周期，电子排布为 ${f.shortConfig}。`,
+    (f: ElementFacts, name: string, category: string) => `${name}（${f.symbol}）是第 ${f.z} 號元素，屬於${category}，原子量 ${N('zh-Hant')(f.mass)}。它在第 ${f.period} 週期，電子組態為 ${f.shortConfig}。`,
   ),
 
   hubFaq: T(
@@ -405,6 +465,20 @@ const SPEC: Spec = {
       { q: 'परमाणु द्रव्यमान पूर्णांक क्यों नहीं होते?', a: 'एक ही तत्व अलग-अलग न्यूट्रॉन वाले समस्थानिकों के मिश्रण में मिलता है, और द्रव्यमान प्राकृतिक अनुपात का औसत होता है। जहाँ कोई स्थायी समस्थानिक नहीं, वहाँ सबसे लंबे समय टिकने वाले की द्रव्यमान संख्या दी गई है।' },
       { q: 'ये मान कहाँ से आए?', a: 'दर्ज सिर्फ़ परमाणु क्रमांक, प्रतीक और द्रव्यमान हैं। आवर्त, समूह, खंड, श्रेणी और इलेक्ट्रॉन विन्यास क्रमांक से गणना होते हैं, इसलिए तालिका की जगह और विवरण अलग नहीं हो सकते।' },
     ],
+    [
+      { q: '元素周期表是按什么排的？', a: '按原子序数，也就是质子数。顺着排下去，在性质开始重复的地方换一行，性质相近的就自然竖着聚成一列。本页里每个元素坐哪一格，也是从序数算出来的。' },
+      { q: '族和周期分别是什么意思？', a: '周期（横行）是电子壳层的层数，族（竖列）是最外层的电子数。同一族反应起来相像，就是因为最外层电子数一样。' },
+      { q: '为什么到 118 就停了？', a: '因为到目前为止造出来并得到确认的元素只到 118 号。119 号往上一直有人在尝试，但还没被确认。从 93 号镎开始，绝大多数都是人造元素。' },
+      { q: '原子量为什么不是整数？', a: '同一种元素也混着中子数不同的同位素，原子量是按自然界的比例平均出来的。没有稳定同位素的元素，写的是寿命最长那个同位素的质量数。' },
+      { q: '这张表的数值是哪来的？', a: '记录下来的只有原子序数、符号和原子量。周期、族、区、分类和电子排布全部由序数算出。所以表格里的位置和文字说明不可能对不上。' },
+    ],
+    [
+      { q: '元素週期表是按什麼排的？', a: '按原子序，也就是質子數。順著排下去，在性質開始重複的地方換一列，性質相近的就自然直著聚成一行。本頁裡每個元素坐哪一格，也是從原子序算出來的。' },
+      { q: '族和週期分別是什麼意思？', a: '週期（橫列）是電子殼層的層數，族（直行）是最外層的電子數。同一族反應起來相像，就是因為最外層電子數一樣。' },
+      { q: '為什麼到 118 就停了？', a: '因為到目前為止造出來並得到確認的元素只到 118 號。119 號往上一直有人在嘗試，但還沒被確認。從 93 號錼開始，絕大多數都是人造元素。' },
+      { q: '原子量為什麼不是整數？', a: '同一種元素也混著中子數不同的同位素，原子量是按自然界的比例平均出來的。沒有穩定同位素的元素，寫的是壽命最長那個同位素的質量數。' },
+      { q: '這張表的數值是哪來的？', a: '記錄下來的只有原子序、符號和原子量。週期、族、區、分類和電子組態全部由原子序算出。所以表格裡的位置和文字說明不可能對不上。' },
+    ],
   ),
 
   elementFaq: T(
@@ -456,13 +530,25 @@ const SPEC: Spec = {
       { q: `इसका इलेक्ट्रॉन विन्यास क्या है?`, a: `${f.config}, संक्षेप में ${f.shortConfig}।` },
       { q: `इसमें कितने न्यूट्रॉन हैं?`, a: `परमाणु द्रव्यमान को पूर्णांकित कर क्रमांक घटाने पर ${f.neutrons} मिलते हैं। सटीक संख्या समस्थानिक पर निर्भर है।` },
     ],
+    (f: ElementFacts, name: string, category: string) => [
+      { q: `${name} 的原子序数和符号是什么？`, a: `原子序数是 ${f.z}，符号是 ${f.symbol}，原子量为 ${N('zh')(f.mass)}。` },
+      { q: `它在周期表的什么位置？`, a: f.group ? `第 ${f.period} 周期第 ${f.group} 族，属于${category}。` : `第 ${f.period} 周期，属于被挪到表格下方的${category}。` },
+      { q: `它的电子排布是怎样的？`, a: `是 ${f.config}。写短一点就是 ${f.shortConfig}。` },
+      { q: `它有多少个中子？`, a: `把原子量四舍五入再减去原子序数，得 ${f.neutrons} 个。同位素不同，这个数也会变。` },
+    ],
+    (f: ElementFacts, name: string, category: string) => [
+      { q: `${name} 的原子序和符號是什麼？`, a: `原子序是 ${f.z}，符號是 ${f.symbol}，原子量為 ${N('zh-Hant')(f.mass)}。` },
+      { q: `它在週期表的什麼位置？`, a: f.group ? `第 ${f.period} 週期第 ${f.group} 族，屬於${category}。` : `第 ${f.period} 週期，屬於被挪到表格下方的${category}。` },
+      { q: `它的電子組態是怎樣的？`, a: `是 ${f.config}。寫短一點就是 ${f.shortConfig}。` },
+      { q: `它有多少個中子？`, a: `把原子量四捨五入再減去原子序，得 ${f.neutrons} 個。同位素不同，這個數也會變。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const ELEMENT_UI: L8<ElementUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const ELEMENT_UI: L<ElementUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<ElementUI>;
+) as unknown as L<ElementUI>;

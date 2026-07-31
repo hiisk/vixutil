@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import PeriodicTable from '@/components/element/PeriodicTable';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { ELEMENTS, ELEMENT_ICON } from '@/lib/element/list';
 import { CATEGORIES, elementFacts, elementsOfCategory } from '@/lib/element/facts';
 import { nameOf } from '@/lib/element/names';
@@ -16,7 +16,7 @@ import { ELEMENT_UI } from '@/lib/element/ui';
  *
  * 주기율표는 그림이자 목차다. 표에서 바로 누를 수 있으면 목록을 훑을 일이 줄어든다.
  */
-export default function ElementHubPage({ lang }: { lang: Lang8 }) {
+export default function ElementHubPage({ lang }: { lang: Lang }) {
   const ui = ELEMENT_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -105,7 +105,7 @@ export default function ElementHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/element`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
