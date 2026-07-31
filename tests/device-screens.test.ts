@@ -13,7 +13,8 @@ import assert from 'node:assert/strict';
 import { SCREENS, SCREEN_KINDS, SCREEN_SLUGS, screen, screensOfKind } from '../lib/device/screens.ts';
 import { commonRatio, resolutionClass, retinaDistanceIn, screenFacts, screenView, similarScreens } from '../lib/device/facts.ts';
 import { DEVICE_UI } from '../lib/device/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(SCREENS.length >= 100, `${SCREENS.length}가지뿐이다`);
@@ -144,13 +145,14 @@ test('견줄 화면은 자기 자신을 빼고 같은 갈래를 먼저 준다', 
   }
 });
 
-test('여덟 언어가 모두 채워져 있다', () => {
+test('열 언어가 모두 채워져 있다', () => {
   const v = screenView('iphone-16-pro')!;
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = DEVICE_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -161,16 +163,17 @@ test('여덟 언어가 모두 채워져 있다', () => {
 });
 
 test('FAQ 답이 그 화면의 숫자를 담고 있다', () => {
-  // 틀만 여덟 벌 두고 값을 끼워 넣는 구조라, 값이 안 끼워진 채 나가면 모든 기기가 같은 글이 된다
+  // 틀만 열 벌 두고 값을 끼워 넣는 구조라, 값이 안 끼워진 채 나가면 모든 기기가 같은 글이 된다
   for (const slug of ['iphone-16-pro', 'tv-65-4k', 'macbook-air-13-m3']) {
     const v = screenView(slug)!;
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const faq = DEVICE_UI[lang].screenFaq(v);
       const joined = faq.map(f => `${f.q} ${f.a}`).join(' ');
       assert.ok(joined.includes(v.name), `${lang}/${slug}: 이름이 안 들어갔다`);
       assert.ok(joined.includes(String(v.ppi)), `${lang}/${slug}: 밀도가 안 들어갔다`);
       assert.ok(joined.includes(String(v.w)), `${lang}/${slug}: 해상도가 안 들어갔다`);
       for (const item of faq) assert.ok(item.q.trim() && item.a.trim(), `${lang}/${slug}: 빈 FAQ`);
+      assert.equal(hanProblem(lang, joined), '');
     }
   }
 });
@@ -205,7 +208,7 @@ test('모든 화면이 라우트 값을 만들 수 있다', () => {
     const v = screenView(s.slug);
     assert.ok(v, `${s.slug}: 값을 못 만든다`);
     assert.equal(v!.name, s.name);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const title = DEVICE_UI[lang].metaTitle(v!.name);
       const desc = DEVICE_UI[lang].metaDesc(v!);
       assert.ok(title.includes(s.name), `${lang}/${s.slug}: 제목에 이름이 없다`);

@@ -8,7 +8,7 @@
  * 항목마다 여덟 언어를 나란히 적는다. 한 언어씩 통째로 적으면 어느 항목이
  * 빠졌는지 눈으로 못 찾는데, 이렇게 두면 여덟 칸 중 빈 칸이 바로 보인다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { ScreenKind } from './screens.ts';
 import type { ScreenView } from './facts.ts';
 
@@ -62,16 +62,16 @@ export interface DeviceUI {
 const frLe = (name: string): string => (/^[aeiouâéêèîôùû]/i.test(name) ? `l'${name}` : `le ${name}`);
 const frDu = (name: string): string => (/^[aeiouâéêèîôùû]/i.test(name) ? `de l'${name}` : `du ${name}`);
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof DeviceUI]: L8<DeviceUI[K]> };
+type Spec = { [K in keyof DeviceUI]: L<DeviceUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
 
-  section: T('화면 규격', 'Screen specs', 'Pantallas', 'Telas', '画面スペック', 'Bildschirmdaten', 'Écrans', 'स्क्रीन स्पेक्स'),
+  section: T('화면 규격', 'Screen specs', 'Pantallas', 'Telas', '画面スペック', 'Bildschirmdaten', 'Écrans', 'स्क्रीन स्पेक्स', '屏幕规格', '螢幕規格'),
 
   hubTitle: T(
     '기기 화면 규격 108가지',
@@ -82,6 +82,8 @@ const SPEC: Spec = {
     'Bildschirmdaten von 108 Geräten',
     "Caractéristiques d'écran de 108 appareils",
     '108 डिवाइस के स्क्रीन स्पेक्स',
+    '108 款设备的屏幕规格',
+    '108 款裝置的螢幕規格',
   ),
 
   hubLead: T(
@@ -93,6 +95,8 @@ const SPEC: Spec = {
     'Auflösung, Größe und Pixeldichte an einem Ort — dazu Seitenverhältnis, echte Maße und die Distanz, ab der Pixel unsichtbar werden.',
     "Résolution, taille et densité de pixels au même endroit, avec le format d'image, les dimensions réelles et la distance à laquelle les pixels disparaissent.",
     'रिज़ॉल्यूशन, आकार और पिक्सेल घनत्व एक जगह — साथ में आस्पेक्ट रेशियो, असली माप और वह दूरी जहाँ पिक्सेल दिखना बंद हो जाते हैं।',
+    '分辨率、尺寸、像素密度一次看完，还算出宽高比、实际尺寸，以及像素开始看不见的距离。',
+    '解析度、尺寸、像素密度一次看完，還算出長寬比、實際尺寸，以及像素開始看不見的距離。',
   ),
 
   kindLabel: T(
@@ -104,42 +108,49 @@ const SPEC: Spec = {
     { phone: 'Smartphones', tablet: 'Tablets', laptop: 'Notebooks', monitor: 'Monitore', tv: 'Fernseher', watch: 'Smartwatches', console: 'Handhelds' },
     { phone: 'Téléphones', tablet: 'Tablettes', laptop: 'Ordinateurs portables', monitor: 'Écrans', tv: 'Téléviseurs', watch: 'Montres connectées', console: 'Consoles portables' },
     { phone: 'फ़ोन', tablet: 'टैबलेट', laptop: 'लैपटॉप', monitor: 'मॉनिटर', tv: 'टीवी', watch: 'स्मार्टवॉच', console: 'हैंडहेल्ड' },
+    { phone: '手机', tablet: '平板', laptop: '笔记本电脑', monitor: '显示器', tv: '电视', watch: '智能手表', console: '掌机' },
+    { phone: '手機', tablet: '平板', laptop: '筆記型電腦', monitor: '顯示器', tv: '電視', watch: '智慧型手錶', console: '掌上型主機' },
   ),
 
-  resolution: T('해상도', 'Resolution', 'Resolución', 'Resolução', '解像度', 'Auflösung', 'Résolution', 'रिज़ॉल्यूशन'),
-  diagonal: T('대각선', 'Diagonal', 'Diagonal', 'Diagonal', '対角サイズ', 'Diagonale', 'Diagonale', 'विकर्ण'),
-  density: T('픽셀 밀도', 'Pixel density', 'Densidad de píxeles', 'Densidade de pixels', '画素密度', 'Pixeldichte', 'Densité de pixels', 'पिक्सेल घनत्व'),
-  ratio: T('화면비', 'Aspect ratio', 'Relación de aspecto', 'Proporção de tela', 'アスペクト比', 'Seitenverhältnis', "Format d'image", 'आस्पेक्ट रेशियो'),
-  pixels: T('픽셀 수', 'Total pixels', 'Píxeles totales', 'Total de pixels', '総画素数', 'Gesamtpixel', 'Nombre de pixels', 'कुल पिक्सेल'),
-  physical: T('실제 크기', 'Physical size', 'Tamaño físico', 'Tamanho físico', '実寸', 'Physische Größe', 'Taille réelle', 'वास्तविक आकार'),
-  area: T('화면 넓이', 'Screen area', 'Área de pantalla', 'Área da tela', '表示面積', 'Bildfläche', "Surface d'écran", 'स्क्रीन क्षेत्रफल'),
-  pitch: T('픽셀 크기', 'Pixel pitch', 'Tamaño de píxel', 'Tamanho do pixel', '画素ピッチ', 'Pixelabstand', 'Pas de pixel', 'पिक्सेल आकार'),
+  resolution: T('해상도', 'Resolution', 'Resolución', 'Resolução', '解像度', 'Auflösung', 'Résolution', 'रिज़ॉल्यूशन', '分辨率', '解析度'),
+  diagonal: T('대각선', 'Diagonal', 'Diagonal', 'Diagonal', '対角サイズ', 'Diagonale', 'Diagonale', 'विकर्ण', '对角线', '對角線'),
+  density: T('픽셀 밀도', 'Pixel density', 'Densidad de píxeles', 'Densidade de pixels', '画素密度', 'Pixeldichte', 'Densité de pixels', 'पिक्सेल घनत्व', '像素密度', '像素密度'),
+  ratio: T('화면비', 'Aspect ratio', 'Relación de aspecto', 'Proporção de tela', 'アスペクト比', 'Seitenverhältnis', "Format d'image", 'आस्पेक्ट रेशियो', '宽高比', '長寬比'),
+  pixels: T('픽셀 수', 'Total pixels', 'Píxeles totales', 'Total de pixels', '総画素数', 'Gesamtpixel', 'Nombre de pixels', 'कुल पिक्सेल', '像素总数', '像素總數'),
+  physical: T('실제 크기', 'Physical size', 'Tamaño físico', 'Tamanho físico', '実寸', 'Physische Größe', 'Taille réelle', 'वास्तविक आकार', '实际尺寸', '實際尺寸'),
+  area: T('화면 넓이', 'Screen area', 'Área de pantalla', 'Área da tela', '表示面積', 'Bildfläche', "Surface d'écran", 'स्क्रीन क्षेत्रफल', '显示面积', '顯示面積'),
+  pitch: T('픽셀 크기', 'Pixel pitch', 'Tamaño de píxel', 'Tamanho do pixel', '画素ピッチ', 'Pixelabstand', 'Pas de pixel', 'पिक्सेल आकार', '像素间距', '像素間距'),
   retina: T(
     '픽셀이 안 보이는 거리', 'Pixels vanish at', 'Los píxeles desaparecen a', 'Os pixels somem a',
     '画素が見えなくなる距離', 'Pixel unsichtbar ab', 'Pixels invisibles à', 'पिक्सेल गायब होने की दूरी',
+    '像素看不见的距离', '像素看不見的距離',
   ),
-  klass: T('해상도 등급', 'Resolution class', 'Clase de resolución', 'Classe de resolução', '解像度クラス', 'Auflösungsklasse', 'Classe de résolution', 'रिज़ॉल्यूशन श्रेणी'),
-  released: T('출시', 'Released', 'Lanzamiento', 'Lançamento', '発売', 'Erschienen', 'Sortie', 'रिलीज़'),
-  orientation: T('화면 방향', 'Orientation', 'Orientación', 'Orientação', '画面の向き', 'Ausrichtung', 'Orientation', 'दिशा'),
-  portrait: T('세로', 'Portrait', 'Vertical', 'Retrato', '縦長', 'Hochformat', 'Portrait', 'पोर्ट्रेट'),
-  landscape: T('가로', 'Landscape', 'Horizontal', 'Paisagem', '横長', 'Querformat', 'Paysage', 'लैंडस्केप'),
+  klass: T('해상도 등급', 'Resolution class', 'Clase de resolución', 'Classe de resolução', '解像度クラス', 'Auflösungsklasse', 'Classe de résolution', 'रिज़ॉल्यूशन श्रेणी', '分辨率等级', '解析度等級'),
+  released: T('출시', 'Released', 'Lanzamiento', 'Lançamento', '発売', 'Erschienen', 'Sortie', 'रिलीज़', '上市', '上市'),
+  orientation: T('화면 방향', 'Orientation', 'Orientación', 'Orientação', '画面の向き', 'Ausrichtung', 'Orientation', 'दिशा', '屏幕方向', '螢幕方向'),
+  portrait: T('세로', 'Portrait', 'Vertical', 'Retrato', '縦長', 'Hochformat', 'Portrait', 'पोर्ट्रेट', '竖向', '直向'),
+  landscape: T('가로', 'Landscape', 'Horizontal', 'Paisagem', '横長', 'Querformat', 'Paysage', 'लैंडस्केप', '横向', '橫向'),
 
   inchUnit: T(
     (n: number) => `${n}인치`, (n: number) => `${n}"`, (n: number) => `${n}"`, (n: number) => `${n}"`,
     (n: number) => `${n}インチ`, (n: number) => `${n}"`, (n: number) => `${n}"`, (n: number) => `${n}"`,
+    (n: number) => `${n}英寸`, (n: number) => `${n}吋`,
   ),
   cmUnit: T(
     (n: number) => `${n}cm`, (n: number) => `${n} cm`, (n: number) => `${n} cm`, (n: number) => `${n} cm`,
     (n: number) => `${n}cm`, (n: number) => `${n} cm`, (n: number) => `${n} cm`, (n: number) => `${n} सेमी`,
+    (n: number) => `${n}厘米`, (n: number) => `${n}公分`,
   ),
   mpUnit: T(
     (n: number) => `${n}메가픽셀`, (n: number) => `${n} MP`, (n: number) => `${n} MP`, (n: number) => `${n} MP`,
     (n: number) => `${n}メガピクセル`, (n: number) => `${n} MP`, (n: number) => `${n} MP`, (n: number) => `${n} MP`,
+    (n: number) => `${n}百万像素`, (n: number) => `${n}百萬像素`,
   ),
 
   compareTitle: T(
     '크기가 가까운 화면', 'Screens of a similar size', 'Pantallas de tamaño parecido', 'Telas de tamanho parecido',
     'サイズが近い画面', 'Ähnlich große Bildschirme', 'Écrans de taille proche', 'मिलते-जुलते आकार की स्क्रीन',
+    '尺寸相近的屏幕', '尺寸相近的螢幕',
   ),
   compareNote: T(
     '같은 인치라도 해상도가 다르면 밀도가 달라집니다. 같은 4K라도 27인치는 163ppi, 65인치 TV는 68ppi입니다.',
@@ -150,6 +161,8 @@ const SPEC: Spec = {
     'Gleiche Diagonale bei anderer Auflösung heißt andere Dichte: 4K sind 163 ppi auf 27 Zoll und 68 ppi auf einem 65-Zoll-Fernseher.',
     "La même diagonale avec une autre résolution donne une autre densité : la 4K fait 163 ppp sur un 27\" et 68 ppp sur un téléviseur de 65\".",
     'एक ही विकर्ण पर अलग रिज़ॉल्यूशन का मतलब अलग घनत्व है: 4K एक 27" मॉनिटर पर 163 ppi और 65" टीवी पर 68 ppi होता है।',
+    '同样的对角线尺寸，分辨率不同，密度就不同。同样是 4K，27 英寸显示器是 163 ppi，65 英寸电视只有 68 ppi。',
+    '同樣的對角線尺寸，解析度不同，密度就不同。同樣是 4K，27 吋顯示器是 163 ppi，65 吋電視只有 68 ppi。',
   ),
   compareCols: T(
     ['기기', '해상도', '대각선', '밀도'],
@@ -160,9 +173,11 @@ const SPEC: Spec = {
     ['Gerät', 'Auflösung', 'Diagonale', 'Dichte'],
     ['Appareil', 'Résolution', 'Diagonale', 'Densité'],
     ['डिवाइस', 'रिज़ॉल्यूशन', 'विकर्ण', 'घनत्व'],
+    ['设备', '分辨率', '对角线', '密度'],
+    ['裝置', '解析度', '對角線', '密度'],
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些数字', '怎麼看這些數字'),
 
   how: T(
     [
@@ -213,9 +228,21 @@ const SPEC: Spec = {
       'पिक्सेल गायब होने की दूरी एक आर्कमिनट से निकलती है, जो मानव दृष्टि की सीमा है। पिक्सेल उससे छोटा दिखे तो कोई भी आँख जाली नहीं ढूँढ़ पाती।',
       'आस्पेक्ट रेशियो चौड़ाई और ऊँचाई को सबसे सरल पूर्णांकों में घटाया गया रूप है। आज के फ़ोन 19.5:9 या 20:9 हैं, इसलिए 16:9 वीडियो पर किनारों पर काली पट्टियाँ रहती हैं।',
     ],
+    [
+      '像素密度（ppi）指一英寸里能放下多少像素。只看分辨率是算不出来的，得除以对角线长度。',
+      '同样是 4K，27 英寸显示器是 163 ppi，65 英寸电视只有 68 ppi。差了一倍多，但电视本来就是远看的，所以不成问题。',
+      '像素看不见的距离，是从人眼能分辨的极限——一角分——推出来的。单个像素看起来小于这个角度时，再好的眼睛也找不出网格。',
+      '宽高比是把宽和高约成最简整数比。如今的手机是 19.5:9 或 20:9 这样的长条形，所以播 16:9 的视频时两侧会留下黑边。',
+    ],
+    [
+      '像素密度（ppi）指一吋裡能放下多少像素。只看解析度是算不出來的，得除以對角線長度。',
+      '同樣是 4K，27 吋顯示器是 163 ppi，65 吋電視只有 68 ppi。差了一倍多，但電視本來就是遠看的，所以不成問題。',
+      '像素看不見的距離，是從人眼能分辨的極限——一角分——推出來的。單個像素看起來小於這個角度時，再好的眼睛也找不出網格。',
+      '長寬比是把寬和高約成最簡整數比。如今的手機是 19.5:9 或 20:9 這樣的長條形，所以播 16:9 的影片時兩側會留下黑邊。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '기기 화면 규격 108가지 — 해상도·인치·PPI',
@@ -226,6 +253,8 @@ const SPEC: Spec = {
     'Bildschirmdaten von 108 Geräten — Auflösung, Größe, PPI',
     "Écrans de 108 appareils — résolution, taille, PPP",
     '108 डिवाइस के स्क्रीन स्पेक्स — रिज़ॉल्यूशन, आकार, PPI',
+    '108 款设备的屏幕规格 — 分辨率、尺寸、PPI',
+    '108 款裝置的螢幕規格 — 解析度、尺寸、PPI',
   ),
   hubMetaDesc: T(
     '아이폰·갤럭시·아이패드·맥북부터 모니터와 TV까지 108가지 화면의 해상도, 대각선 인치, 픽셀 밀도, 화면비, 실제 크기를 계산해 보여 줍니다.',
@@ -236,6 +265,8 @@ const SPEC: Spec = {
     'Auflösung, Diagonale, Pixeldichte, Seitenverhältnis und echte Maße von 108 Bildschirmen — iPhone, Galaxy, iPad, MacBook, Monitore und Fernseher.',
     "Résolution, diagonale, densité de pixels, format et dimensions réelles de 108 écrans : iPhone, Galaxy, iPad, MacBook, moniteurs et téléviseurs.",
     '108 स्क्रीन का रिज़ॉल्यूशन, विकर्ण, पिक्सेल घनत्व, आस्पेक्ट रेशियो और असली माप — iPhone, Galaxy, iPad, MacBook, मॉनिटर और टीवी।',
+    '从 iPhone、Galaxy、iPad、MacBook 到显示器和电视，108 块屏幕的分辨率、对角线尺寸、像素密度、宽高比和实际尺寸，全部算好列出。',
+    '從 iPhone、Galaxy、iPad、MacBook 到顯示器和電視，108 塊螢幕的解析度、對角線尺寸、像素密度、長寬比和實際尺寸，全部算好列出。',
   ),
 
   metaTitle: T(
@@ -247,6 +278,8 @@ const SPEC: Spec = {
     (n: string) => `${n} Bildschirm — Auflösung, PPI, Größe`,
     (n: string) => `Écran ${n} — résolution, PPP, taille`,
     (n: string) => `${n} स्क्रीन स्पेक्स — रिज़ॉल्यूशन, PPI, आकार`,
+    (n: string) => `${n} 屏幕规格 — 分辨率、PPI、尺寸`,
+    (n: string) => `${n} 螢幕規格 — 解析度、PPI、尺寸`,
   ),
 
   metaDesc: T(
@@ -258,6 +291,8 @@ const SPEC: Spec = {
     (v: ScreenView) => `Der Bildschirm des ${v.name} hat ${v.w}×${v.h} auf ${v.inch} Zoll, also ${v.ppi} ppi. Seitenverhältnis ${v.ratioLabel}, echte Maße ${v.widthMm}×${v.heightMm} mm.`,
     (v: ScreenView) => `L'écran du ${v.name} affiche ${v.w}×${v.h} sur ${v.inch}", soit ${v.ppi} ppp. Format ${v.ratioLabel}, dimensions réelles ${v.widthMm}×${v.heightMm} mm.`,
     (v: ScreenView) => `${v.name} की स्क्रीन ${v.inch}" पर ${v.w}×${v.h} है, यानी ${v.ppi} ppi। आस्पेक्ट रेशियो ${v.ratioLabel}, असली माप ${v.widthMm}×${v.heightMm} मिमी।`,
+    (v: ScreenView) => `${v.name} 的屏幕为 ${v.w}×${v.h}，尺寸 ${v.inch} 英寸，像素密度 ${v.ppi} ppi。宽高比 ${v.ratioLabel}，实际尺寸 ${v.widthMm}×${v.heightMm} 毫米。`,
+    (v: ScreenView) => `${v.name} 的螢幕為 ${v.w}×${v.h}，尺寸 ${v.inch} 吋，像素密度 ${v.ppi} ppi。長寬比 ${v.ratioLabel}，實際尺寸 ${v.widthMm}×${v.heightMm} 公釐。`,
   ),
 
   hubFaq: T(
@@ -316,6 +351,20 @@ const SPEC: Spec = {
       { q: 'क्या "रेटिना" कोई तय मानक है?', a: 'यह Apple का व्यापारिक नाम है, इसके पीछे कोई तय संख्या नहीं। जब सामान्य उपयोग की दूरी पर पिक्सेल अलग-अलग दिखना बंद हो जाएँ, तब डिस्प्ले को यह नाम मिलता है। इसीलिए फ़ोन के 326 ppi और MacBook के 224 ppi एक ही नाम रखते हैं।' },
       { q: 'आजकल फ़ोन इतने लंबे क्यों हैं?', a: 'एक हाथ में समाने वाली चौड़ाई बनाए रखते हुए स्क्रीन बड़ी करनी हो तो ऊपर की ओर बढ़ने के सिवा रास्ता नहीं। इसी से 16:9 से 19.5:9 और 20:9 तक पहुँचे — कीमत यह कि 16:9 वीडियो पर किनारे काली पट्टियाँ रहती हैं।' },
       { q: 'ये आँकड़े कहाँ से आए?', a: 'सिर्फ़ रिज़ॉल्यूशन और विकर्ण लिखे गए हैं। घनत्व, आस्पेक्ट रेशियो, असली माप और पिक्सेल आकार इन्हीं तीन संख्याओं से निकाले जाते हैं, और निकाला हुआ घनत्व निर्माता के घोषित आँकड़े से मिलाया जाता है।' },
+    ],
+    [
+      { q: 'PPI 越高就一定越好吗？', a: '这要看观看距离。手机拿在手里离眼睛约 20 厘米，得超过 400 ppi 才看不出网格；而 2 米外看的 65 英寸电视，68 ppi 就够了。密度每提高一分，电池和图形性能就多付出一分。' },
+      { q: '分辨率和屏幕尺寸哪个更重要？', a: '两者不能分开看。同样是 4K，27 英寸下是 163 ppi，文字非常锐利；55 英寸下只有 80 ppi，凑近就能看到像素。这两个数字必须一起读。' },
+      { q: '「Retina」是固定标准吗？', a: '这是苹果起的名字，背后没有固定数值。只要在该设备的正常使用距离下无法分辨出单个像素，就叫 Retina。所以手机的 326 ppi 和 MacBook 的 224 ppi 共用同一个名字。' },
+      { q: '现在的手机为什么这么长？', a: '要保持单手握得住的宽度、同时把屏幕做大，就只剩往上长这一条路。于是从 16:9 走到 19.5:9、20:9，代价是播 16:9 视频时两侧留黑边。' },
+      { q: '这些数值是怎么来的？', a: '记录下来的只有分辨率和对角线长度。密度、宽高比、实际尺寸、像素间距全部由这三个数字算出，算出的密度还会和厂商公布的数值对照，对不上检查就会失败。' },
+    ],
+    [
+      { q: 'PPI 越高就一定越好嗎？', a: '這要看觀看距離。手機拿在手裡離眼睛約 20 公分，得超過 400 ppi 才看不出網格；而 2 公尺外看的 65 吋電視，68 ppi 就夠了。密度每提高一分，電池和圖形效能就多付出一分。' },
+      { q: '解析度和螢幕尺寸哪個更重要？', a: '兩者不能分開看。同樣是 4K，27 吋下是 163 ppi，文字非常銳利；55 吋下只有 80 ppi，湊近就能看到像素。這兩個數字必須一起讀。' },
+      { q: '「Retina」是固定標準嗎？', a: '這是蘋果取的名字，背後沒有固定數值。只要在該裝置的正常使用距離下無法分辨出單個像素，就叫 Retina。所以手機的 326 ppi 和 MacBook 的 224 ppi 共用同一個名字。' },
+      { q: '現在的手機為什麼這麼長？', a: '要保持單手握得住的寬度、同時把螢幕做大，就只剩往上長這一條路。於是從 16:9 走到 19.5:9、20:9，代價是播 16:9 影片時兩側留黑邊。' },
+      { q: '這些數值是怎麼來的？', a: '記錄下來的只有解析度和對角線長度。密度、長寬比、實際尺寸、像素間距全部由這三個數字算出，算出的密度還會和廠商公布的數值對照，對不上檢查就會失敗。' },
     ],
   ),
 
@@ -376,13 +425,27 @@ const SPEC: Spec = {
       { q: `${v.name} पर कितनी दूरी से पिक्सेल दिखना बंद हो जाते हैं?`, a: `लगभग ${v.retinaCm} सेमी। वहाँ हर पिक्सेल एक आर्कमिनट से कम जगह घेरता है, जो मानव दृष्टि की सीमा है — इससे पास आने पर जाली दिखने लगती है।` },
       { q: `${v.name} का आस्पेक्ट रेशियो क्या है?`, a: `${v.ratioLabel}${v.ratioLabel === v.ratio ? '' : ` (ठीक-ठीक ${v.ratio})`}, लंबी भुजा छोटी भुजा की ${v.ratioValue} गुना है। ${v.portrait ? 'यह चौड़ाई से ज़्यादा ऊँची है, जो हाथ में पकड़े जाने वाले डिवाइस के लिए ठीक है।' : 'यह ऊँचाई से ज़्यादा चौड़ी है, जो वीडियो और साथ-साथ रखे दस्तावेज़ों के लिए ठीक है।'}` },
     ],
+    (v: ScreenView) => [
+      { q: `${v.name} 的分辨率是多少？`, a: `${v.w}×${v.h} 像素，合计 ${v.pixels.toLocaleString('zh')} 个，约 ${v.megapixels} 百万像素，按分辨率等级属于 ${v.className}。` },
+      { q: `${v.name} 的像素密度是多少 ppi？`, a: `${v.ppi} ppi。这是 ${v.w}×${v.h} 网格的对角线像素数除以 ${v.inch} 英寸屏幕对角线得出的，每个像素的边长约 ${v.pixelUm} 微米。` },
+      { q: `${v.name} 的屏幕实际有多大？`, a: `宽 ${v.widthMm} 毫米，高 ${v.heightMm} 毫米，由 ${v.inch} 英寸对角线和 ${v.ratio} 的宽高比算出。可视面积约 ${v.areaIn2} 平方英寸。` },
+      { q: `离 ${v.name} 多远就看不见像素了？`, a: `约 ${v.retinaCm} 厘米。在这个距离上，单个像素所占的视角小于一角分，也就是人眼分辨的极限；比这更近，网格就开始显形。` },
+      { q: `${v.name} 的宽高比是多少？`, a: `${v.ratioLabel}${v.ratioLabel === v.ratio ? '' : `（精确整数比为 ${v.ratio}）`}，长边是短边的 ${v.ratioValue} 倍。${v.portrait ? '屏幕竖着更长，适合拿在手里使用的设备。' : '屏幕横着更长，适合看视频和并排放文档。'}` },
+    ],
+    (v: ScreenView) => [
+      { q: `${v.name} 的解析度是多少？`, a: `${v.w}×${v.h} 像素，合計 ${v.pixels.toLocaleString('zh-Hant')} 個，約 ${v.megapixels} 百萬像素，按解析度等級屬於 ${v.className}。` },
+      { q: `${v.name} 的像素密度是多少 ppi？`, a: `${v.ppi} ppi。這是 ${v.w}×${v.h} 網格的對角線像素數除以 ${v.inch} 吋螢幕對角線得出的，每個像素的邊長約 ${v.pixelUm} 微米。` },
+      { q: `${v.name} 的螢幕實際有多大？`, a: `寬 ${v.widthMm} 公釐，高 ${v.heightMm} 公釐，由 ${v.inch} 吋對角線和 ${v.ratio} 的長寬比算出。可視面積約 ${v.areaIn2} 平方吋。` },
+      { q: `離 ${v.name} 多遠就看不見像素了？`, a: `約 ${v.retinaCm} 公分。在這個距離上，單個像素所占的視角小於一角分，也就是人眼分辨的極限；比這更近，網格就開始顯形。` },
+      { q: `${v.name} 的長寬比是多少？`, a: `${v.ratioLabel}${v.ratioLabel === v.ratio ? '' : `（精確整數比為 ${v.ratio}）`}，長邊是短邊的 ${v.ratioValue} 倍。${v.portrait ? '螢幕直著更長，適合拿在手裡使用的裝置。' : '螢幕橫著更長，適合看影片和並排放文件。'}` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const DEVICE_UI: L8<DeviceUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const DEVICE_UI: L<DeviceUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<DeviceUI>;
+) as unknown as L<DeviceUI>;

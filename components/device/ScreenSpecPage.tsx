@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import ScreenShape from '@/components/device/ScreenShape';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { screen } from '@/lib/device/screens';
 import { screenFacts, similarScreens } from '@/lib/device/facts';
 import { DEVICE_UI } from '@/lib/device/ui';
@@ -18,7 +18,7 @@ import { SCREEN_ICON, screenView } from '@/lib/device/route';
  * 오는 사람은 "아이폰 16 Pro 해상도"를 알고 싶어 들어오고, 픽셀 크기나 화면 넓이는
  * 그 뒤에 읽을 거리다.
  */
-export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lang }) {
   const sc = screen(slug);
   const v = screenView(slug);
   if (!sc || !v) return null;
@@ -173,7 +173,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/device/screen/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

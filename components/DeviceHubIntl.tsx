@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { deviceToolsIntl, DEVICE_CATEGORY_ORDER, DEVICE_SHELL_UI, type DeviceIntlLang } from '@/lib/device-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { DEVICE_UI } from '@/lib/device/ui';
 import { SCREEN_ICON } from '@/lib/device/route';
 
@@ -18,7 +18,7 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
   const tools = deviceToolsIntl(lang);
   const ui = DEVICE_SHELL_UI[lang];
   // 화면 규격 목록은 점검 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
-  const screenUi = DEVICE_UI[lang8OfLocale(lang)];
+  const screenUi = DEVICE_UI[langOfLocale(lang)];
   const grouped = DEVICE_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
     .filter(g => g.tools.length > 0);
