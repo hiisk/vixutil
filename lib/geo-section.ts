@@ -98,6 +98,24 @@ export const GEO_META_INTL: Partial<Record<FormulaLang, SectionMeta>> = {
     metaTitle: 'क्षेत्रफल और आयतन कैलकुलेटर — ज्यामिति के 100 औज़ार',
     metaDesc: 'वृत्त, त्रिभुज और समलंब के क्षेत्रफल, बेलन, गोले और शंकु के आयतन, पाइथागोरस प्रमेय और कोज्या नियम, ढाल, टाइलों की गिनती और पेंट की मात्रा — ज्यामिति के 100 कैलकुलेटर, हर एक अपने सूत्र के साथ।',
   },
+'zh-hans': {
+    section: '图形·数学',
+    hubTitle: '图形与数学计算器',
+    hubLead: '面积、体积、三角比，到瓷砖块数和油漆用量，用图形解的100种计算',
+    hubNotice: '📐 边填边算，公式也一起摆出来。',
+    footNote: '各个输入的长度单位要统一。cm和m混着填，结果会差得很远。',
+    metaTitle: '面积·体积·三角比计算器 — 图形计算 100种',
+    metaDesc: '圆、三角形、梯形的面积，圆柱、球、圆锥的体积，勾股定理与余弦定理，坡度，还有瓷砖块数和油漆用量，共100种图形计算，每种都附公式。',
+  },
+  'zh-hant': {
+    section: '圖形·數學',
+    hubTitle: '圖形與數學計算器',
+    hubLead: '面積、體積、三角比，到磁磚塊數和油漆用量，用圖形解的100種計算',
+    hubNotice: '📐 邊填邊算，公式也一起擺出來。',
+    footNote: '各個輸入的長度單位要統一。cm和m混著填，結果會差得很遠。',
+    metaTitle: '面積·體積·三角比計算器 — 圖形計算 100種',
+    metaDesc: '圓、三角形、梯形的面積，圓柱、球、圓錐的體積，畢氏定理與餘弦定理，坡度，還有磁磚塊數和油漆用量，共100種圖形計算，每種都附公式。',
+  },
 };
 
 export const GEO_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, string>>> = {
@@ -125,10 +143,18 @@ export const GEO_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, strin
     '평면 도형': 'समतल आकृतियाँ', '입체 부피': 'ठोसों का आयतन', '삼각비·각': 'त्रिकोणमिति और कोण',
     '원·호': 'वृत्त और चाप', '생활 계산': 'रोज़मर्रा की नाप',
   },
+'zh-hans': {
+    '평면 도형': '平面图形', '입체 부피': '立体体积', '삼각비·각': '三角比·角度',
+    '원·호': '圆·弧', '생활 계산': '生活里的计算',
+  },
+  'zh-hant': {
+    '평면 도형': '平面圖形', '입체 부피': '立體體積', '삼각비·각': '三角比·角度',
+    '원·호': '圓·弧', '생활 계산': '生活裡的計算',
+  },
 };
 
 /** ko·en에 번역 여섯 언어를 더한 여덟 — geometry도 전 언어가 열려 있다 */
-export const GEO_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+export const GEO_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
 export const GEO_SECTION: SectionConfig = {
   key: 'geometry',

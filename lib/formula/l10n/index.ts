@@ -1,11 +1,13 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
-import type { IntlLocale } from '../../locales.ts';
+import type { AnyLocale10 } from '../../locales.ts';
 import { ES } from './es.ts';
 import { PT_BR } from './pt-br.ts';
 import { JA } from './ja.ts';
 import { DE } from './de.ts';
 import { FR } from './fr.ts';
 import { HI } from './hi.ts';
+import { ZH_HANS } from './zh-hans.ts';
+import { ZH_HANT } from './zh-hant.ts';
 
 /**
  * 공식 도구가 쓰는 용어·단위·뜻풀이의 번역.
@@ -26,11 +28,13 @@ export interface FormulaL10n {
   DESC: Record<string, string>;
 }
 
-export const FORMULA_L10N: Record<Exclude<IntlLocale, 'en'>, FormulaL10n> = {
+export const FORMULA_L10N: Record<Exclude<AnyLocale10, 'ko' | 'en'>, FormulaL10n> = {
   es: ES,
   'pt-br': PT_BR,
   ja: JA,
   de: DE,
   fr: FR,
   hi: HI,
+  'zh-hans': ZH_HANS,
+  'zh-hant': ZH_HANT,
 };

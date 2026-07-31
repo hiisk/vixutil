@@ -1,4 +1,4 @@
-/** 사자성어 화면의 여덟 언어 문구와 섹션 설정 */
+/** 사자성어 화면의 열 언어 문구와 섹션 설정 */
 import type { Lang, FormulaLang } from './formula/terms.ts';
 import { IDIOMS, HANJA_CATEGORIES } from './hanja-tools.ts';
 import type { Idiom } from './hanja/types.ts';
@@ -184,6 +184,52 @@ export const HANJA_UI = {
     faq2: (r: string) => `${r} कहाँ से आया है?`,
     faq3: (r: string) => `${r} का इस्तेमाल कैसे होता है?`,
   },
+  'zh-hans': {
+    home: '首页',
+    section: '韩国四字成语',
+    hubTitle: '四字成语词典',
+    hubLead: '一百条韩国四字成语，含义、出处和实际用法都在一页里',
+    hubNotice: '📖 每个字都给了训读，让你看清四个字怎么合成一个意思。',
+    footNote: '韩国在用的四字成语，有的出自中国典籍，有的是韩国自己造的。中文里不这么说的，条目里都注明了。',
+    metaTitle: '韩国四字成语词典 — 含义·出处·用法 100条',
+    metaDesc:
+      '四面楚歌、塞翁失马、愚公移山、青出于蓝等一百条常用韩国四字成语，含义、典故出处、逐字训读、实际例句，并附韩文读音、汉字与拼音。',
+    reading: '韩文读音',
+    hanjaLabel: '汉字',
+    simplified: '简体',
+    pinyin: '拼音',
+    charsTitle: '逐字看',
+    meaningTitle: '含义',
+    originTitle: '出处',
+    usageTitle: '这样用',
+    related: '同一类的成语',
+    faq1: (r: string) => `${r}是什么意思？`,
+    faq2: (r: string) => `${r}出自哪里？`,
+    faq3: (r: string) => `${r}怎么用？`,
+  },
+  'zh-hant': {
+    home: '首頁',
+    section: '韓國四字成語',
+    hubTitle: '四字成語詞典',
+    hubLead: '一百條韓國四字成語，含義、出處和實際用法都在一頁裡',
+    hubNotice: '📖 每個字都給了訓讀，讓你看清四個字怎麼合成一個意思。',
+    footNote: '韓國在用的四字成語，有的出自中國典籍，有的是韓國自己造的。中文裡不這麼說的，條目裡都註明了。',
+    metaTitle: '韓國四字成語詞典 — 含義·出處·用法 100條',
+    metaDesc:
+      '四面楚歌、塞翁失馬、愚公移山、青出於藍等一百條常用韓國四字成語，含義、典故出處、逐字訓讀、實際例句，並附韓文讀音、漢字與拼音。',
+    reading: '韓文讀音',
+    hanjaLabel: '漢字',
+    simplified: '簡體',
+    pinyin: '拼音',
+    charsTitle: '逐字看',
+    meaningTitle: '含義',
+    originTitle: '出處',
+    usageTitle: '這樣用',
+    related: '同一類的成語',
+    faq1: (r: string) => `${r}是什麼意思？`,
+    faq2: (r: string) => `${r}出自哪裡？`,
+    faq3: (r: string) => `${r}怎麼用？`,
+  },
 } as const;
 
 export const HANJA_CATEGORY_LABEL: Record<Lang, Record<string, string>> = {
@@ -222,10 +268,18 @@ export const HANJA_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, str
     '처세·태도': 'आचरण और रवैया', '노력·인내': 'मेहनत और धैर्य', '관계·사람': 'रिश्ते और लोग',
     '상황·형세': 'परिस्थितियाँ', '배움·지혜': 'सीख और समझ', '말·글': 'बोली और लेखन',
   },
+  'zh-hans': {
+    '처세·태도': '处世·态度', '노력·인내': '努力·忍耐', '관계·사람': '关系·人',
+    '상황·형세': '处境·形势', '배움·지혜': '学习·智慧', '말·글': '言语·文章',
+  },
+  'zh-hant': {
+    '처세·태도': '處世·態度', '노력·인내': '努力·忍耐', '관계·사람': '關係·人',
+    '상황·형세': '處境·形勢', '배움·지혜': '學習·智慧', '말·글': '言語·文章',
+  },
 };
 
-/** 여덟 언어가 다 열려 있다 */
-export const HANJA_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+/** 열 언어가 다 열려 있다 */
+export const HANJA_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
 /** 갈래 이름 — 번역이 없으면 영어로 떨어뜨린다 */
 export const hanjaCategories = (lang: FormulaLang): Record<string, string> =>

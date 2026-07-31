@@ -1,6 +1,6 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { FormulaText } from './types.ts';
-import type { IntlLocale } from '../locales.ts';
+import type { AnyLocale10 } from '../locales.ts';
 import { RATE_ES } from '../rate-l10n/es.ts';
 import { RATE_PT_BR } from '../rate-l10n/pt-br.ts';
 import { RATE_JA } from '../rate-l10n/ja.ts';
@@ -26,7 +26,7 @@ import { GEO_HI } from '../geo-l10n/hi.ts';
  * 세 섹션(rate·body·geometry)이 같은 엔진을 쓰고 slug가 서로 겹치지 않으므로
  * 한 표에 담아도 된다. 섹션을 옮길 때마다 여기 한 줄씩 늘리면 된다.
  */
-export const TOOL_L10N: Partial<Record<IntlLocale, Record<string, FormulaText>>> = {
+export const TOOL_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<string, FormulaText>>> = {
   es: { ...RATE_ES, ...BODY_ES, ...GEO_ES },
   'pt-br': { ...RATE_PT_BR, ...BODY_PT_BR, ...GEO_PT_BR },
   ja: { ...RATE_JA, ...BODY_JA, ...GEO_JA },

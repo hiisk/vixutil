@@ -1,6 +1,6 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { CountryText } from '../country/types.ts';
-import type { IntlLocale } from '../locales.ts';
+import type { AnyLocale10 } from '../locales.ts';
 import { COUNTRY_ES } from './es.ts';
 import { COUNTRY_PT_BR } from './pt-br.ts';
 import { COUNTRY_JA } from './ja.ts';
@@ -15,7 +15,7 @@ import { COUNTRY_HI } from './hi.ts';
  * 추가할 때 여섯 파일을 다 고쳐야 하는 건 맞지만, 빠뜨려도 영어로 떨어질 뿐
  * 화면이 비지는 않는다.
  */
-export const COUNTRY_L10N: Partial<Record<IntlLocale, Record<string, CountryText>>> = {
+export const COUNTRY_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<string, CountryText>>> = {
   es: COUNTRY_ES,
   'pt-br': COUNTRY_PT_BR,
   ja: COUNTRY_JA,

@@ -26,7 +26,10 @@ export default function LocalTime({ tz, lang }: { tz: string; lang: FormulaLang 
   if (!now) return <span className="text-slate-300 dark:text-slate-600">--:--</span>;
 
   // ko-KR·es-ES처럼 지역까지 붙은 태그라야 Intl이 그 나라 표기를 쓴다
-  const locale = { ko: 'ko-KR', en: 'en-US', es: 'es-ES', 'pt-br': 'pt-BR', ja: 'ja-JP', de: 'de-DE', fr: 'fr-FR', hi: 'hi-IN' }[lang] ?? localeTag(lang);
+  const locale = {
+    ko: 'ko-KR', en: 'en-US', es: 'es-ES', 'pt-br': 'pt-BR', ja: 'ja-JP',
+    de: 'de-DE', fr: 'fr-FR', hi: 'hi-IN', 'zh-hans': 'zh-CN', 'zh-hant': 'zh-TW',
+  }[lang] ?? localeTag(lang);
   const time = new Intl.DateTimeFormat(locale, {
     timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
   }).format(now);

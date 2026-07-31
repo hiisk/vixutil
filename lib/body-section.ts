@@ -99,6 +99,24 @@ export const BODY_META_INTL: Partial<Record<FormulaLang, SectionMeta>> = {
     metaTitle: 'BMI, बेसल चयापचय और हृदय गति कैलकुलेटर — 100 आँकड़े',
     metaDesc: 'BMI, आदर्श वज़न, शरीर में वसा का प्रतिशत, बेसल चयापचय और TDEE, लक्ष्य हृदय गति, 1RM, दौड़ की रफ़्तार, औसत धमनी दाब, LDL और HOMA-IR — शरीर के 100 आँकड़े, हर एक अपने सूत्र के साथ।',
   },
+'zh-hans': {
+    section: '身体数值',
+    hubTitle: '身体数值计算器',
+    hubLead: 'BMI、基础代谢、心率区间、血压指标，用身体量出来的100种数值',
+    hubNotice: '🩺 仅供参考。诊断和治疗请听医生的。',
+    footNote: '这些计算器是帮你读懂身体数值的参考，代替不了诊断和处方。有症状请去医院。',
+    metaTitle: 'BMI·基础代谢·心率计算器 — 身体数值 100种',
+    metaDesc: 'BMI、标准体重、体脂率、基础代谢与TDEE、目标心率、1RM、跑步配速、平均动脉压、LDL、HOMA-IR，共100种身体数值，每种都附算式。',
+  },
+  'zh-hant': {
+    section: '身體數值',
+    hubTitle: '身體數值計算器',
+    hubLead: 'BMI、基礎代謝、心率區間、血壓指標，用身體量出來的100種數值',
+    hubNotice: '🩺 僅供參考。診斷和治療請聽醫生的。',
+    footNote: '這些計算器是幫你讀懂身體數值的參考，代替不了診斷和處方。有症狀請去醫院。',
+    metaTitle: 'BMI·基礎代謝·心率計算器 — 身體數值 100種',
+    metaDesc: 'BMI、標準體重、體脂率、基礎代謝與TDEE、目標心率、1RM、跑步配速、平均動脈壓、LDL、HOMA-IR，共100種身體數值，每種都附算式。',
+  },
 };
 
 export const BODY_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, string>>> = {
@@ -126,10 +144,18 @@ export const BODY_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, stri
     '체중·체형': 'वज़न और आकार', '대사·칼로리': 'चयापचय और कैलोरी', '심장·운동': 'हृदय और व्यायाम',
     '아이·성장': 'बच्चे और वृद्धि', '건강 지표': 'सेहत के संकेतक', '생활 대사': 'रोज़मर्रा का चयापचय',
   },
+'zh-hans': {
+    '체중·체형': '体重·体型', '대사·칼로리': '代谢·热量', '심장·운동': '心脏·运动',
+    '아이·성장': '孩子·成长', '건강 지표': '健康指标', '생활 대사': '日常代谢',
+  },
+  'zh-hant': {
+    '체중·체형': '體重·體型', '대사·칼로리': '代謝·熱量', '심장·운동': '心臟·運動',
+    '아이·성장': '孩子·成長', '건강 지표': '健康指標', '생활 대사': '日常代謝',
+  },
 };
 
 /** ko·en에 번역 여섯 언어를 더한 여덟 — body는 전 언어가 열려 있다 */
-export const BODY_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+export const BODY_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
 export const BODY_SECTION: SectionConfig = {
   key: 'body',

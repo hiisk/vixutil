@@ -19,8 +19,19 @@ import type { SectionConfig } from '../lib/formula/section.ts';
 import { sectionMeta, sectionCategories } from '../lib/formula/section.ts';
 import { verdictText } from '../lib/formula/types.ts';
 
-const LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+const LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 const HANGUL = /[가-힣]/;
+
+/**
+ * 글자 수 바닥은 라틴 문자에 맞춰져 있다.
+ *
+ * 한자로 쓰는 언어는 같은 내용을 절반 남짓의 글자에 담는다 — "售价减掉成本的值。"는
+ * 아홉 자지만 "Sale price minus cost."와 같은 말이다. 중국어는 일본어보다도 촘촘하다
+ * (가나가 없어서). 바닥을 라틴 기준으로 두면 제대로 쓴 문장이 짧다고 걸린다.
+ *
+ * 그렇다고 바닥을 없애지는 않는다 — 진짜 토막 난 문장을 잡아야 하므로 낮춰서 둔다.
+ */
+const DENSE = new Set<FormulaLang>(['ja', 'zh-hans', 'zh-hant']);
 
 export const withDefaults = (t: FormulaTool) => {
   const v: Record<string, number> = {};
@@ -54,17 +65,40 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     for (const t of tools) assert.match(t.slug, /^[a-z0-9-]+$/, t.slug);
   });
 
-  test(`${name} 여덟 언어의 제목·설명·본문·주의가 모두 채워져 있다`, () => {
+  test(`${name} 열 언어의 제목·설명·본문·주의가 모두 채워져 있다`, () => {
     for (const t of tools) {
       for (const lang of LANGS) {
         const x = textOf(t, lang);
-        // 일본어는 한자로 같은 내용을 절반쯤의 글자 수에 담는다 — 길이 기준을 따로 둔다
-        const min = lang === 'ja' ? { title: 2, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
+        // 한자로 쓰는 언어는 같은 내용을 절반쯤의 글자 수에 담는다 — 길이 기준을 따로 둔다
+        const min = DENSE.has(lang) ? { title: 2, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
         for (const k of ['title', 'desc', 'long', 'note'] as const) {
           assert.ok(x[k].length >= min[k], `${t.slug}.${lang}.${k}가 너무 짧다: "${x[k]}"`);
         }
       }
     }
+  });
+
+  /**
+   * 위 검사는 길이만 본다 — 번역이 없으면 영어가 대신 나오고, 영어는 길이를 통과한다.
+   *
+   * 그래서 "채워져 있다"가 "영어가 나온다"와 구별되지 않는다. 실제로 중국어를 열고도
+   * 백 페이지가 통째로 영어인 채 검사가 다 초록이었다.
+   *
+   * 제목 하나만 비교하면 안 된다 — 독일어 'BMI Prime'처럼 제 나라 말로 옮겨도
+   * 영어와 똑같이 적히는 이름이 있다. 제목·설명·본문이 셋 다 글자까지 같을 때만
+   * 사전에 그 항목이 없는 것으로 본다.
+   */
+  test(`${name} 번역이 영어를 그대로 물려받지 않는다`, () => {
+    const bad: string[] = [];
+    for (const lang of LANGS) {
+      if (lang === 'ko' || lang === 'en') continue;
+      const same = tools.filter(t => {
+        const x = textOf(t, lang);
+        return x.title === t.en.title && x.desc === t.en.desc && x.long === t.en.long;
+      });
+      if (same.length) bad.push(`${lang}: ${same.length}/${tools.length}종이 영어 그대로 (${same.slice(0, 3).map(t => t.slug).join(', ')}…)`);
+    }
+    assert.deepEqual(bad, [], `번역이 비어 영어로 떨어지고 있다:\n  ${bad.join('\n  ')}`);
   });
 
   test(`${name} 제목은 언어별로 서로 겹치지 않는다`, () => {
@@ -280,19 +314,19 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
         // 번역이 아직 없으면 null이다 — 영어를 대신 내놓기보다 안 보이는 편이 낫다고 정했다
         const d = termDesc(k, lang);
         if (!d) continue;
-        assert.ok(d.length > (lang === 'ja' ? 4 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
+        assert.ok(d.length > (DENSE.has(lang) ? 4 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
         if (lang !== 'ko') assert.ok(!HANGUL.test(d), `${k} ${lang} 뜻풀이에 한글`);
       }
     }
   });
 
-  test(`${name} 섹션 메타가 여덟 언어로 다 있고 서로 다르다`, () => {
+  test(`${name} 섹션 메타가 열 언어로 다 있고 서로 다르다`, () => {
     const titles = LANGS.map(l => sectionMeta(section, l).metaTitle);
-    // 여덟 개가 모두 달라야 한다 — 같은 게 있으면 한 언어가 다른 언어 문구를 물려받은 것이다
+    // 열 개가 모두 달라야 한다 — 같은 게 있으면 한 언어가 다른 언어 문구를 물려받은 것이다
     assert.equal(new Set(titles).size, LANGS.length, `제목이 겹친다: ${titles.join(' / ')}`);
     for (const lang of LANGS) {
       // 일본어는 한자로 같은 내용을 절반쯤의 글자 수에 담는다
-      const min = lang === 'ja' ? 45 : 80;
+      const min = DENSE.has(lang) ? 45 : 80;
       assert.ok(sectionMeta(section, lang).metaDesc.length > min, `${lang} 설명이 너무 짧다`);
     }
     assert.ok(!HANGUL.test(section.meta.en.metaTitle + section.meta.en.metaDesc));
