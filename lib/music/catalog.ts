@@ -9,7 +9,7 @@
  * "C-Dur-Akkord", 스페인어는 "Acorde de Do mayor"다. 한 틀로 찍으면 그 나라
  * 사람이 자기 말로 검색하는 이름과 어긋나므로 언어마다 조립 규칙을 둔다.
  */
-import type { L8, Lang8 } from '../i18n/lang.ts';
+import type { L, Lang } from '../i18n/lang.ts';
 import { CHORD_QUALITIES, INTERVALS, INTERVAL_SENTENCE, SCALE_MODES } from './theory.ts';
 import { noteName, noteSymbol, prefersFlat, slugOf, type Pc } from './notes.ts';
 
@@ -109,7 +109,7 @@ export function symbolOf(item: MusicItem): string {
 }
 
 /** "코드"·"음계"·"음정" — 언어마다 */
-export const KIND_WORD: L8<Record<MusicKind, string>> = {
+export const KIND_WORD: L<Record<MusicKind, string>> = {
   ko: { chord: '코드', scale: '음계', interval: '음정' },
   en: { chord: 'chord', scale: 'scale', interval: 'interval' },
   es: { chord: 'acorde', scale: 'escala', interval: 'intervalo' },
@@ -118,13 +118,15 @@ export const KIND_WORD: L8<Record<MusicKind, string>> = {
   de: { chord: 'Akkord', scale: 'Tonleiter', interval: 'Intervall' },
   fr: { chord: 'accord', scale: 'gamme', interval: 'intervalle' },
   hi: { chord: 'कॉर्ड', scale: 'स्केल', interval: 'अंतराल' },
+  zh: { chord: '和弦', scale: '音阶', interval: '音程' },
+  tw: { chord: '和弦', scale: '音階', interval: '音程' },
 };
 
 /**
  * 코드 이름 조립 — 어순이 언어마다 다르다.
  * 라틴 계열은 "종류 + de + 음 + 성질", 독일어는 붙임표로 잇는다.
  */
-const CHORD_TITLE: L8<(root: string, quality: string) => string> = {
+const CHORD_TITLE: L<(root: string, quality: string) => string> = {
   ko: (r, q) => `${r} ${q} 코드`,
   en: (r, q) => `${r} ${q} chord`,
   es: (r, q) => `Acorde de ${r} ${q}`,
@@ -135,10 +137,13 @@ const CHORD_TITLE: L8<(root: string, quality: string) => string> = {
   de: (r, q) => (/akkord$/i.test(q) ? `${q} auf ${r}` : `${r}-${q}-Akkord`),
   fr: (r, q) => `Accord de ${r} ${q}`,
   hi: (r, q) => `${r} ${q} कॉर्ड`,
+  // 중국어 화성 이름은 "C大三和弦"처럼 붙여 쓴다 — 이름 안에 이미 和弦이 들어 있다
+  zh: (r, q) => `${r}${q}`,
+  tw: (r, q) => `${r}${q}`,
 };
 
 /** 음계 이름 — 선법 이름에 이미 "음계"가 들어 있어 종류 말을 덧붙이지 않는다 */
-const SCALE_TITLE: L8<(root: string, mode: string) => string> = {
+const SCALE_TITLE: L<(root: string, mode: string) => string> = {
   ko: (r, m) => `${r} ${m}`,
   en: (r, m) => `${r} ${m}`,
   es: (r, m) => `${m} de ${r}`,
@@ -148,12 +153,14 @@ const SCALE_TITLE: L8<(root: string, mode: string) => string> = {
   de: (r, m) => `${m} in ${r}`,
   fr: (r, m) => `${m} de ${r}`,
   hi: (r, m) => `${r} ${m}`,
+  zh: (r, m) => `${r}${m}`,
+  tw: (r, m) => `${r}${m}`,
 };
 
 /** 제목 첫 글자를 올린다 — "escala mayor de Mib"가 h1의 첫 글자로 들어간다 */
 const upper1 = (s: string): string => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
-export function titleOf(item: MusicItem, lang: Lang8): string {
+export function titleOf(item: MusicItem, lang: Lang): string {
   const root = noteName(item.root, lang, accidentalOf(item));
   if (item.kind === 'chord') {
     return upper1(CHORD_TITLE[lang](root, chordQuality(item.id)?.name[lang] ?? item.id));
@@ -165,7 +172,7 @@ export function titleOf(item: MusicItem, lang: Lang8): string {
 }
 
 /** 이 항목이 어떤 소리인지 한 줄 */
-export function feelOf(item: MusicItem, lang: Lang8): string {
+export function feelOf(item: MusicItem, lang: Lang): string {
   if (item.kind === 'chord') return chordQuality(item.id)?.feel[lang] ?? '';
   if (item.kind === 'scale') return scaleMode(item.id)?.feel[lang] ?? '';
   const iv = intervalDef(item.id);
@@ -173,7 +180,7 @@ export function feelOf(item: MusicItem, lang: Lang8): string {
 }
 
 /** 구성음을 그 언어 표기로 나열한다 — "C · E · G" */
-export const noteListOf = (item: MusicItem, lang: Lang8): string[] =>
+export const noteListOf = (item: MusicItem, lang: Lang): string[] =>
   notesOf(item).map(pc => noteName(pc, lang, accidentalOf(item)));
 
 /** 같은 밑음의 다른 성질, 또는 같은 성질의 다른 밑음 — 아래 추천에 쓴다 */

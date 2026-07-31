@@ -6,7 +6,7 @@
  * 붙는다. 손으로 적으면 135 × 8 = 1080벌이고, 하나가 틀려도 음악을 아는
  * 사람만 알아챈다.
  */
-import type { L8 } from '../i18n/lang.ts';
+import type { L } from '../i18n/lang.ts';
 
 export interface ChordQuality {
   id: string;
@@ -14,15 +14,15 @@ export interface ChordQuality {
   suffix: string;
   /** 밑음에서의 반음 거리 */
   steps: number[];
-  name: L8<string>;
+  name: L<string>;
   /** 어떤 소리로 들리는지 한 줄 */
-  feel: L8<string>;
+  feel: L<string>;
 }
 
 export const CHORD_QUALITIES: ChordQuality[] = [
   {
     id: 'major', suffix: '', steps: [0, 4, 7],
-    name: { ko: '메이저', en: 'major', es: 'mayor', pt: 'maior', ja: 'メジャー', de: 'Dur', fr: 'majeur', hi: 'मेजर' },
+    name: { ko: '메이저', en: 'major', es: 'mayor', pt: 'maior', ja: 'メジャー', de: 'Dur', fr: 'majeur', hi: 'मेजर', zh: '大三和弦', tw: '大三和弦' },
     feel: {
       ko: '밝고 안정된 소리로 대중가요의 뼈대가 되는 세 음짜리 코드입니다.',
       en: 'The bright, settled three-note chord that most popular songs are built on.',
@@ -32,11 +32,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Der helle, in sich ruhende Dreiklang, auf dem die meiste populäre Musik aufbaut.',
       fr: 'L’accord de trois notes, lumineux et stable, sur lequel repose l’essentiel de la musique populaire.',
       hi: 'चमकीली और स्थिर आवाज़ वाला तीन-स्वर का कॉर्ड, जिस पर ज़्यादातर लोकप्रिय संगीत खड़ा है।',
+      zh: '明亮又安稳的三音和弦，流行歌的骨架几乎都搭在它上面。',
+      tw: '明亮又安穩的三音和弦，流行歌的骨架幾乎都搭在它上面。',
     },
   },
   {
     id: 'minor', suffix: 'm', steps: [0, 3, 7],
-    name: { ko: '마이너', en: 'minor', es: 'menor', pt: 'menor', ja: 'マイナー', de: 'Moll', fr: 'mineur', hi: 'माइनर' },
+    name: { ko: '마이너', en: 'minor', es: 'menor', pt: 'menor', ja: 'マイナー', de: 'Moll', fr: 'mineur', hi: 'माइनर', zh: '小三和弦', tw: '小三和弦' },
     feel: {
       ko: '가운데 음이 반음 낮아 어둡고 잠긴 소리가 납니다. 메이저와 한 음만 다릅니다.',
       en: 'Lowering the middle note a semitone darkens it. One note apart from the major.',
@@ -46,11 +48,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Die mittlere Note einen Halbton tiefer — schon klingt er dunkel. Nur ein Ton trennt ihn von Dur.',
       fr: 'La note du milieu baissée d’un demi-ton l’assombrit. Une seule note le sépare du majeur.',
       hi: 'बीच का स्वर आधा सुर नीचे आते ही आवाज़ गहरी और उदास हो जाती है — मेजर से बस एक स्वर का फ़र्क़।',
+      zh: '中间那个音降半音，声音就暗下去、沉下去。和大三和弦只差一个音。',
+      tw: '中間那個音降半音，聲音就暗下去、沉下去。和大三和弦只差一個音。',
     },
   },
   {
     id: 'dom7', suffix: '7', steps: [0, 4, 7, 10],
-    name: { ko: '세븐스', en: 'dominant 7th', es: 'séptima dominante', pt: 'sétima dominante', ja: 'セブンス', de: 'Dominantseptakkord', fr: 'septième de dominante', hi: 'डॉमिनेंट सेवंथ' },
+    name: { ko: '세븐스', en: 'dominant 7th', es: 'séptima dominante', pt: 'sétima dominante', ja: 'セブンス', de: 'Dominantseptakkord', fr: 'septième de dominante', hi: 'डॉमिनेंट सेवंथ', zh: '属七和弦', tw: '屬七和弦' },
     feel: {
       ko: '어딘가로 가야 할 것 같은 긴장을 만들어 블루스와 재즈에서 끊임없이 쓰입니다.',
       en: 'It creates a pull towards somewhere else, which is why blues and jazz lean on it constantly.',
@@ -60,11 +64,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Er erzeugt einen Zug nach vorn — deshalb stützen sich Blues und Jazz ständig darauf.',
       fr: 'Il crée une tension qui appelle une suite : blues et jazz s’y appuient sans cesse.',
       hi: 'यह आगे बढ़ने की खिंचाव भरी तनाव पैदा करता है, इसीलिए ब्लूज़ और जैज़ इसे लगातार बरतते हैं।',
+      zh: '它造出一种非往别处走不可的张力，所以布鲁斯和爵士离不开它。',
+      tw: '它造出一種非往別處走不可的張力，所以藍調和爵士離不開它。',
     },
   },
   {
     id: 'maj7', suffix: 'maj7', steps: [0, 4, 7, 11],
-    name: { ko: '메이저 세븐스', en: 'major 7th', es: 'séptima mayor', pt: 'sétima maior', ja: 'メジャーセブンス', de: 'großer Septakkord', fr: 'septième majeure', hi: 'मेजर सेवंथ' },
+    name: { ko: '메이저 세븐스', en: 'major 7th', es: 'séptima mayor', pt: 'sétima maior', ja: 'メジャーセブンス', de: 'großer Septakkord', fr: 'septième majeure', hi: 'मेजर सेवंथ', zh: '大七和弦', tw: '大七和弦' },
     feel: {
       ko: '메이저에 반음 아래 음을 얹어 부드럽고 나른한 소리가 됩니다. 시티팝과 발라드의 색입니다.',
       en: 'A note a semitone below the octave makes it soft and languid — the colour of city pop and ballads.',
@@ -74,11 +80,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Eine Note einen Halbton unter der Oktave macht ihn weich und träge — die Farbe von City Pop und Balladen.',
       fr: 'Une note à un demi-ton de l’octave le rend doux et languide : la couleur de la city pop et des ballades.',
       hi: 'ऑक्टेव से आधा सुर नीचे का स्वर इसे मुलायम और सुस्त बना देता है — सिटी पॉप और बैलड का रंग।',
+      zh: '在大三和弦上叠一个低半音的音，声音变得柔软而慵懒。城市流行和抒情歌的底色。',
+      tw: '在大三和弦上疊一個低半音的音，聲音變得柔軟而慵懶。城市流行和抒情歌的底色。',
     },
   },
   {
     id: 'min7', suffix: 'm7', steps: [0, 3, 7, 10],
-    name: { ko: '마이너 세븐스', en: 'minor 7th', es: 'séptima menor', pt: 'sétima menor', ja: 'マイナーセブンス', de: 'Mollseptakkord', fr: 'septième mineure', hi: 'माइनर सेवंथ' },
+    name: { ko: '마이너 세븐스', en: 'minor 7th', es: 'séptima menor', pt: 'sétima menor', ja: 'マイナーセブンス', de: 'Mollseptakkord', fr: 'septième mineure', hi: 'माइनर सेवंथ', zh: '小七和弦', tw: '小七和弦' },
     feel: {
       ko: '마이너의 어두움을 덜어 낸 소리로 재즈에서 ii-V-I의 첫 자리를 맡습니다.',
       en: 'It takes the edge off the minor and opens the ii–V–I turn that jazz runs on.',
@@ -88,11 +96,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Er nimmt Moll die Härte und eröffnet die ii–V–I-Wendung, von der Jazz lebt.',
       fr: 'Il adoucit la dureté du mineur et ouvre la cadence ii–V–I dont vit le jazz.',
       hi: 'यह माइनर की कठोरता कम करता है और जैज़ की ii–V–I चाल की शुरुआत बनता है।',
+      zh: '把小三和弦的阴郁削掉一层，在爵士里坐 ii-V-I 的头一把交椅。',
+      tw: '把小三和弦的陰鬱削掉一層，在爵士裡坐 ii-V-I 的頭一把交椅。',
     },
   },
   {
     id: 'dim', suffix: 'dim', steps: [0, 3, 6],
-    name: { ko: '디미니시드', en: 'diminished', es: 'disminuido', pt: 'diminuto', ja: 'ディミニッシュ', de: 'verminderter Akkord', fr: 'diminué', hi: 'डिमिनिश्ड' },
+    name: { ko: '디미니시드', en: 'diminished', es: 'disminuido', pt: 'diminuto', ja: 'ディミニッシュ', de: 'verminderter Akkord', fr: 'diminué', hi: 'डिमिनिश्ड', zh: '减三和弦', tw: '減三和弦' },
     feel: {
       ko: '두 음 사이가 모두 세 반음이라 어디에도 기대지 못하는 불안한 소리가 납니다.',
       en: 'Every gap is three semitones, so it leans on nothing — an unsettled, suspenseful sound.',
@@ -102,11 +112,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Jeder Abstand misst drei Halbtöne — er lehnt sich an nichts und klingt spannungsvoll.',
       fr: 'Tous les intervalles font trois demi-tons : il ne s’appuie sur rien et sonne inquiétant.',
       hi: 'हर अंतराल तीन आधे सुर का है, इसलिए यह किसी पर टिकता नहीं — बेचैन और रहस्यमय आवाज़।',
+      zh: '音与音之间全是三个半音，谁也靠不住，听着就不安。',
+      tw: '音與音之間全是三個半音，誰也靠不住，聽著就不安。',
     },
   },
   {
     id: 'aug', suffix: 'aug', steps: [0, 4, 8],
-    name: { ko: '오그멘티드', en: 'augmented', es: 'aumentado', pt: 'aumentado', ja: 'オーグメント', de: 'übermäßiger Akkord', fr: 'augmenté', hi: 'ऑगमेंटेड' },
+    name: { ko: '오그멘티드', en: 'augmented', es: 'aumentado', pt: 'aumentado', ja: 'オーグメント', de: 'übermäßiger Akkord', fr: 'augmenté', hi: 'ऑगमेंटेड', zh: '增三和弦', tw: '增三和弦' },
     feel: {
       ko: '가장 위 음을 반음 올려 붕 떠 있는 소리가 납니다. 장면이 바뀌는 자리에 씁니다.',
       en: 'Raising the top note a semitone leaves it floating — useful where a scene changes.',
@@ -116,11 +128,13 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Die oberste Note einen Halbton höher — er schwebt. Gut dort, wo die Szene wechselt.',
       fr: 'La note du haut montée d’un demi-ton le laisse en suspension : utile là où la scène change.',
       hi: 'सबसे ऊपर का स्वर आधा सुर ऊपर करने से आवाज़ हवा में तैरती है — दृश्य बदलने की जगह पर काम आता है।',
+      zh: '最上面那个音升半音，声音便悬在半空。用在场景转换的地方。',
+      tw: '最上面那個音升半音，聲音便懸在半空。用在場景轉換的地方。',
     },
   },
   {
     id: 'sus4', suffix: 'sus4', steps: [0, 5, 7],
-    name: { ko: '서스포', en: 'suspended 4th', es: 'cuarta suspendida', pt: 'quarta suspensa', ja: 'サスフォー', de: 'Sus4-Akkord', fr: 'quarte suspendue', hi: 'सस्पेंडेड फोर्थ' },
+    name: { ko: '서스포', en: 'suspended 4th', es: 'cuarta suspendida', pt: 'quarta suspensa', ja: 'サスフォー', de: 'Sus4-Akkord', fr: 'quarte suspendue', hi: 'सस्पेंडेड फोर्थ', zh: '挂四和弦', tw: '掛四和弦' },
     feel: {
       ko: '가운데 음을 한 음 올려 메이저도 마이너도 아닌, 풀리기를 기다리는 소리가 됩니다.',
       en: 'The middle note steps up, leaving it neither major nor minor but waiting to resolve.',
@@ -130,6 +144,8 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       de: 'Die mittlere Note rückt hoch: weder Dur noch Moll, sondern auf Auflösung wartend.',
       fr: 'La note du milieu monte : ni majeur ni mineur, mais en attente de résolution.',
       hi: 'बीच का स्वर एक सुर ऊपर जाता है — न मेजर न माइनर, बस हल होने की प्रतीक्षा।',
+      zh: '中间那个音往上挪一个全音，既不是大也不是小，就那么等着被解开。',
+      tw: '中間那個音往上挪一個全音，既不是大也不是小，就那麼等著被解開。',
     },
   },
 ];
@@ -137,8 +153,8 @@ export const CHORD_QUALITIES: ChordQuality[] = [
 export interface ScaleMode {
   id: string;
   steps: number[];
-  name: L8<string>;
-  feel: L8<string>;
+  name: L<string>;
+  feel: L<string>;
   /** 밑음마다 페이지를 만드는가 — 교회 선법은 C에서만 만든다 */
   everyRoot: boolean;
 }
@@ -146,7 +162,7 @@ export interface ScaleMode {
 export const SCALE_MODES: ScaleMode[] = [
   {
     id: 'major', everyRoot: true, steps: [0, 2, 4, 5, 7, 9, 11],
-    name: { ko: '장음계', en: 'major scale', es: 'escala mayor', pt: 'escala maior', ja: '長音階', de: 'Dur-Tonleiter', fr: 'gamme majeure', hi: 'मेजर स्केल' },
+    name: { ko: '장음계', en: 'major scale', es: 'escala mayor', pt: 'escala maior', ja: '長音階', de: 'Dur-Tonleiter', fr: 'gamme majeure', hi: 'मेजर स्केल', zh: '大调音阶', tw: '大調音階' },
     feel: {
       ko: '도에서 도까지 흰 건반만 밟는 그 음계입니다. 온음·온음·반음의 배열이 밝은 느낌을 만듭니다.',
       en: 'The one you get playing only white keys from Do to Do. Its tone–tone–semitone pattern is what sounds bright.',
@@ -156,11 +172,13 @@ export const SCALE_MODES: ScaleMode[] = [
       de: 'Die Leiter, die entsteht, wenn man nur weiße Tasten von Do zu Do spielt. Ganzton–Ganzton–Halbton klingt hell.',
       fr: 'Celle qu’on obtient en ne jouant que les touches blanches de Do à Do. Ton–ton–demi-ton, d’où la clarté.',
       hi: 'वही स्केल जो Do से Do तक सिर्फ़ सफ़ेद कुंजियाँ बजाने पर बनता है। पूर्ण–पूर्ण–आधा का क्रम ही चमक देता है।',
+      zh: '从 Do 到 Do 只踩白键的那个音阶。全音、全音、半音的排法造出明亮的感觉。',
+      tw: '從 Do 到 Do 只踩白鍵的那個音階。全音、全音、半音的排法造出明亮的感覺。',
     },
   },
   {
     id: 'minor', everyRoot: true, steps: [0, 2, 3, 5, 7, 8, 10],
-    name: { ko: '단음계', en: 'natural minor scale', es: 'escala menor natural', pt: 'escala menor natural', ja: '自然短音階', de: 'natürliche Moll-Tonleiter', fr: 'gamme mineure naturelle', hi: 'नैचुरल माइनर स्केल' },
+    name: { ko: '단음계', en: 'natural minor scale', es: 'escala menor natural', pt: 'escala menor natural', ja: '自然短音階', de: 'natürliche Moll-Tonleiter', fr: 'gamme mineure naturelle', hi: 'नैचुरल माइनर स्केल', zh: '小调音阶', tw: '小調音階' },
     feel: {
       ko: '세 번째·여섯 번째·일곱 번째 음이 반음 낮아 어둡게 들립니다. 같은 조표를 쓰는 장조가 짝으로 있습니다.',
       en: 'Its third, sixth and seventh sit a semitone lower, which is what darkens it. Every one pairs with a major key sharing its key signature.',
@@ -170,11 +188,13 @@ export const SCALE_MODES: ScaleMode[] = [
       de: 'Terz, Sexte und Septime liegen einen Halbton tiefer — das macht sie dunkel. Zu jeder gehört eine Durtonart mit gleicher Vorzeichnung.',
       fr: 'Tierce, sixte et septième descendent d’un demi-ton, d’où sa noirceur. Chacune a une tonalité majeure de même armure.',
       hi: 'इसका तीसरा, छठा और सातवाँ स्वर आधा सुर नीचे रहता है, इसी से गहराई आती है। हर एक का एक मेजर जोड़ा होता है जिसकी की-सिग्नेचर वही है।',
+      zh: '第三、第六、第七个音降了半音，所以听着暗。每个小调都有一个共用调号的大调作伴。',
+      tw: '第三、第六、第七個音降了半音，所以聽著暗。每個小調都有一個共用調號的大調作伴。',
     },
   },
   {
     id: 'dorian', everyRoot: false, steps: [0, 2, 3, 5, 7, 9, 10],
-    name: { ko: '도리안 선법', en: 'Dorian mode', es: 'modo dórico', pt: 'modo dórico', ja: 'ドリアン旋法', de: 'dorischer Modus', fr: 'mode dorien', hi: 'डोरियन मोड' },
+    name: { ko: '도리안 선법', en: 'Dorian mode', es: 'modo dórico', pt: 'modo dórico', ja: 'ドリアン旋法', de: 'dorischer Modus', fr: 'mode dorien', hi: 'डोरियन मोड', zh: '多利亚调式', tw: '多利安調式' },
     feel: {
       ko: '단음계에서 여섯 번째 음만 올린 선법으로, 어둡지만 눌리지 않는 소리가 납니다.',
       en: 'A minor scale with the sixth raised — dark but not heavy.',
@@ -184,11 +204,13 @@ export const SCALE_MODES: ScaleMode[] = [
       de: 'Eine Moll-Leiter mit erhöhter Sexte — dunkel, aber nicht schwer.',
       fr: 'Une gamme mineure à sixte haussée : sombre sans être lourde.',
       hi: 'माइनर स्केल जिसमें छठा स्वर ऊपर उठा है — गहरा, पर भारी नहीं।',
+      zh: '在小调音阶上只把第六个音升回去的调式，暗，却不压抑。',
+      tw: '在小調音階上只把第六個音升回去的調式，暗，卻不壓抑。',
     },
   },
   {
     id: 'mixolydian', everyRoot: false, steps: [0, 2, 4, 5, 7, 9, 10],
-    name: { ko: '믹솔리디안 선법', en: 'Mixolydian mode', es: 'modo mixolidio', pt: 'modo mixolídio', ja: 'ミクソリディアン旋法', de: 'mixolydischer Modus', fr: 'mode mixolydien', hi: 'मिक्सोलिडियन मोड' },
+    name: { ko: '믹솔리디안 선법', en: 'Mixolydian mode', es: 'modo mixolidio', pt: 'modo mixolídio', ja: 'ミクソリディアン旋法', de: 'mixolydischer Modus', fr: 'mode mixolydien', hi: 'मिक्सोलिडियन मोड', zh: '混合利底亚调式', tw: '混合利地安調式' },
     feel: {
       ko: '장음계에서 일곱 번째 음만 내린 선법입니다. 록과 블루스의 솔로가 여기서 나옵니다.',
       en: 'A major scale with the seventh lowered. Rock and blues solos live here.',
@@ -198,11 +220,13 @@ export const SCALE_MODES: ScaleMode[] = [
       de: 'Eine Dur-Leiter mit erniedrigter Septime. Hier wohnen Rock- und Bluessoli.',
       fr: 'Une gamme majeure à septième abaissée. C’est là que vivent les solos de rock et de blues.',
       hi: 'मेजर स्केल जिसमें सातवाँ स्वर नीचे है। रॉक और ब्लूज़ के सोलो यहीं से आते हैं।',
+      zh: '在大调音阶上只把第七个音降下来的调式。摇滚和布鲁斯的独奏就从这儿来。',
+      tw: '在大調音階上只把第七個音降下來的調式。搖滾和藍調的獨奏就從這兒來。',
     },
   },
   {
     id: 'pentatonic', everyRoot: false, steps: [0, 2, 4, 7, 9],
-    name: { ko: '5음 음계', en: 'major pentatonic scale', es: 'escala pentatónica mayor', pt: 'escala pentatônica maior', ja: '五音音階', de: 'Dur-Pentatonik', fr: 'gamme pentatonique majeure', hi: 'मेजर पेंटाटॉनिक स्केल' },
+    name: { ko: '5음 음계', en: 'major pentatonic scale', es: 'escala pentatónica mayor', pt: 'escala pentatônica maior', ja: '五音音階', de: 'Dur-Pentatonik', fr: 'gamme pentatonique majeure', hi: 'मेजर पेंटाटॉनिक स्केल', zh: '五声音阶', tw: '五聲音階' },
     feel: {
       ko: '반음이 없는 다섯 음이라 아무 순서로 눌러도 어긋나지 않습니다. 민요와 기타 솔로의 바탕입니다.',
       en: 'Five notes with no semitones, so any order sounds right. The basis of folk tunes and guitar solos.',
@@ -212,6 +236,8 @@ export const SCALE_MODES: ScaleMode[] = [
       de: 'Fünf Töne ohne Halbtonschritte — jede Reihenfolge klingt richtig. Grundlage von Volksliedern und Gitarrensoli.',
       fr: 'Cinq notes sans demi-tons : n’importe quel ordre sonne juste. La base des airs populaires et des solos de guitare.',
       hi: 'पाँच स्वर, कोई आधा सुर नहीं — किसी भी क्रम में बजाइए, बेसुरा नहीं होता। लोकधुनों और गिटार सोलो की बुनियाद।',
+      zh: '五个音里没有半音，所以随便按哪个顺序都不会撞。民谣和吉他独奏的底子。',
+      tw: '五個音裡沒有半音，所以隨便按哪個順序都不會撞。民謠和吉他獨奏的底子。',
     },
   },
 ];
@@ -219,9 +245,9 @@ export const SCALE_MODES: ScaleMode[] = [
 export interface IntervalDef {
   semitones: number;
   slug: string;
-  name: L8<string>;
+  name: L<string>;
   /** 이 음정으로 시작하는 널리 알려진 노래 — 귀로 익히는 가장 빠른 길 */
-  ear: L8<string>;
+  ear: L<string>;
 }
 
 /**
@@ -230,7 +256,7 @@ export interface IntervalDef {
  * ear에는 "영화 「조스」의 두 음"처럼 짧은 연상만 적는다 — 열두 음정 × 여덟 언어에
  * 긴 설명을 적는 대신, 반음 수와 그 연상을 문장에 끼워 넣는다.
  */
-export const INTERVAL_SENTENCE: L8<(semitones: number, ear: string) => string> = {
+export const INTERVAL_SENTENCE: L<(semitones: number, ear: string) => string> = {
   ko: (n, ear) => `밑음에서 ${n}반음 떨어진 음정입니다. ${ear}을 떠올리면 귀에 붙습니다.`,
   en: (n, ear) => `An interval of ${n} semitones. ${ear} is the quickest way to fix it in your ear.`,
   es: (n, ear) => `Un intervalo de ${n} semitonos. ${ear} es la forma más rápida de fijarlo al oído.`,
@@ -239,67 +265,69 @@ export const INTERVAL_SENTENCE: L8<(semitones: number, ear: string) => string> =
   de: (n, ear) => `Ein Intervall von ${n} Halbtönen. ${ear} prägt es am schnellsten ins Ohr.`,
   fr: (n, ear) => `Un intervalle de ${n} demi-tons. ${ear} est le plus rapide pour l’avoir dans l’oreille.`,
   hi: (n, ear) => `मूल स्वर से ${n} आधे सुर का अंतराल। ${ear} याद कर लें तो यह कान में बैठ जाता है।`,
+  zh: (n, ear) => `距离根音 ${n} 个半音的音程。想一想${ear}，它就贴在耳朵上了。`,
+  tw: (n, ear) => `距離根音 ${n} 個半音的音程。想一想${ear}，它就貼在耳朵上了。`,
 };
 
 export const INTERVALS: IntervalDef[] = [
   {
     semitones: 1, slug: 'minor-second',
-    name: { ko: '단2도', en: 'minor 2nd', es: 'segunda menor', pt: 'segunda menor', ja: '短2度', de: 'kleine Sekunde', fr: 'seconde mineure', hi: 'माइनर सेकंड' },
-    ear: { ko: '영화 「조스」의 두 음', en: 'the two notes from Jaws', es: 'las dos notas de Tiburón', pt: 'as duas notas de Tubarão', ja: '映画『ジョーズ』の二音', de: 'die zwei Töne aus „Der weiße Hai“', fr: 'les deux notes des Dents de la mer', hi: 'फ़िल्म Jaws के दो स्वर' },
+    name: { ko: '단2도', en: 'minor 2nd', es: 'segunda menor', pt: 'segunda menor', ja: '短2度', de: 'kleine Sekunde', fr: 'seconde mineure', hi: 'माइनर सेकंड', zh: '小二度', tw: '小二度' },
+    ear: { ko: '영화 「조스」의 두 음', en: 'the two notes from Jaws', es: 'las dos notas de Tiburón', pt: 'as duas notas de Tubarão', ja: '映画『ジョーズ』の二音', de: 'die zwei Töne aus „Der weiße Hai“', fr: 'les deux notes des Dents de la mer', hi: 'फ़िल्म Jaws के दो स्वर', zh: '电影《大白鲨》的那两个音', tw: '電影《大白鯊》的那兩個音' },
   },
   {
     semitones: 2, slug: 'major-second',
-    name: { ko: '장2도', en: 'major 2nd', es: 'segunda mayor', pt: 'segunda maior', ja: '長2度', de: 'große Sekunde', fr: 'seconde majeure', hi: 'मेजर सेकंड' },
-    ear: { ko: '「생일 축하합니다」의 첫 두 음', en: 'the first two notes of Happy Birthday', es: 'las dos primeras notas de Cumpleaños feliz', pt: 'as duas primeiras notas de Parabéns a Você', ja: '「ハッピーバースデー」の最初の二音', de: 'die ersten zwei Töne von „Happy Birthday“', fr: 'les deux premières notes de Joyeux anniversaire', hi: 'Happy Birthday के पहले दो स्वर' },
+    name: { ko: '장2도', en: 'major 2nd', es: 'segunda mayor', pt: 'segunda maior', ja: '長2度', de: 'große Sekunde', fr: 'seconde majeure', hi: 'मेजर सेकंड', zh: '大二度', tw: '大二度' },
+    ear: { ko: '「생일 축하합니다」의 첫 두 음', en: 'the first two notes of Happy Birthday', es: 'las dos primeras notas de Cumpleaños feliz', pt: 'as duas primeiras notas de Parabéns a Você', ja: '「ハッピーバースデー」の最初の二音', de: 'die ersten zwei Töne von „Happy Birthday“', fr: 'les deux premières notes de Joyeux anniversaire', hi: 'Happy Birthday के पहले दो स्वर', zh: '《生日快乐》开头的两个音', tw: '《生日快樂》開頭的兩個音' },
   },
   {
     semitones: 3, slug: 'minor-third',
-    name: { ko: '단3도', en: 'minor 3rd', es: 'tercera menor', pt: 'terça menor', ja: '短3度', de: 'kleine Terz', fr: 'tierce mineure', hi: 'माइनर थर्ड' },
-    ear: { ko: '마이너 코드의 밑에서 두 번째 음', en: 'the second note up in a minor chord', es: 'la segunda nota de un acorde menor', pt: 'a segunda nota de um acorde menor', ja: 'マイナーコードの下から二番目の音', de: 'der zweite Ton im Mollakkord', fr: 'la deuxième note d’un accord mineur', hi: 'माइनर कॉर्ड का नीचे से दूसरा स्वर' },
+    name: { ko: '단3도', en: 'minor 3rd', es: 'tercera menor', pt: 'terça menor', ja: '短3度', de: 'kleine Terz', fr: 'tierce mineure', hi: 'माइनर थर्ड', zh: '小三度', tw: '小三度' },
+    ear: { ko: '마이너 코드의 밑에서 두 번째 음', en: 'the second note up in a minor chord', es: 'la segunda nota de un acorde menor', pt: 'a segunda nota de um acorde menor', ja: 'マイナーコードの下から二番目の音', de: 'der zweite Ton im Mollakkord', fr: 'la deuxième note d’un accord mineur', hi: 'माइनर कॉर्ड का नीचे से दूसरा स्वर', zh: '小三和弦里从下往上第二个音', tw: '小三和弦裡從下往上第二個音' },
   },
   {
     semitones: 4, slug: 'major-third',
-    name: { ko: '장3도', en: 'major 3rd', es: 'tercera mayor', pt: 'terça maior', ja: '長3度', de: 'große Terz', fr: 'tierce majeure', hi: 'मेजर थर्ड' },
-    ear: { ko: '메이저 코드를 밝게 만드는 그 음', en: 'the note that makes a major chord bright', es: 'la nota que da brillo al acorde mayor', pt: 'a nota que dá brilho ao acorde maior', ja: 'メジャーコードを明るくするあの音', de: 'der Ton, der den Durakkord hell macht', fr: 'la note qui éclaire l’accord majeur', hi: 'वही स्वर जो मेजर कॉर्ड को चमकीला बनाता है' },
+    name: { ko: '장3도', en: 'major 3rd', es: 'tercera mayor', pt: 'terça maior', ja: '長3度', de: 'große Terz', fr: 'tierce majeure', hi: 'मेजर थर्ड', zh: '大三度', tw: '大三度' },
+    ear: { ko: '메이저 코드를 밝게 만드는 그 음', en: 'the note that makes a major chord bright', es: 'la nota que da brillo al acorde mayor', pt: 'a nota que dá brilho ao acorde maior', ja: 'メジャーコードを明るくするあの音', de: 'der Ton, der den Durakkord hell macht', fr: 'la note qui éclaire l’accord majeur', hi: 'वही स्वर जो मेजर कॉर्ड को चमकीला बनाता है', zh: '让大三和弦变明亮的正是这个音', tw: '讓大三和弦變明亮的正是這個音' },
   },
   {
     semitones: 5, slug: 'perfect-fourth',
-    name: { ko: '완전4도', en: 'perfect 4th', es: 'cuarta justa', pt: 'quarta justa', ja: '完全4度', de: 'Quarte', fr: 'quarte juste', hi: 'परफेक्ट फोर्थ' },
-    ear: { ko: '「위 아 더 챔피언」의 시작', en: 'the start of We Are the Champions', es: 'el comienzo de We Are the Champions', pt: 'o início de We Are the Champions', ja: '「We Are the Champions」の始まり', de: 'der Anfang von „We Are the Champions“', fr: 'le début de We Are the Champions', hi: 'We Are the Champions की शुरुआत' },
+    name: { ko: '완전4도', en: 'perfect 4th', es: 'cuarta justa', pt: 'quarta justa', ja: '完全4度', de: 'Quarte', fr: 'quarte juste', hi: 'परफेक्ट फोर्थ', zh: '纯四度', tw: '完全四度' },
+    ear: { ko: '「위 아 더 챔피언」의 시작', en: 'the start of We Are the Champions', es: 'el comienzo de We Are the Champions', pt: 'o início de We Are the Champions', ja: '「We Are the Champions」の始まり', de: 'der Anfang von „We Are the Champions“', fr: 'le début de We Are the Champions', hi: 'We Are the Champions की शुरुआत', zh: '《We Are the Champions》的开头', tw: '《We Are the Champions》的開頭' },
   },
   {
     semitones: 6, slug: 'tritone',
-    name: { ko: '증4도(트라이톤)', en: 'tritone', es: 'tritono', pt: 'trítono', ja: '三全音', de: 'Tritonus', fr: 'triton', hi: 'ट्राइटोन' },
-    ear: { ko: '「심슨 가족」 주제가의 도입', en: 'the opening of The Simpsons theme', es: 'la entrada del tema de Los Simpson', pt: 'a entrada do tema dos Simpsons', ja: '『ザ・シンプソンズ』のテーマの入り', de: 'der Beginn der Simpsons-Titelmusik', fr: 'l’entrée du thème des Simpson', hi: 'The Simpsons थीम की शुरुआत' },
+    name: { ko: '증4도(트라이톤)', en: 'tritone', es: 'tritono', pt: 'trítono', ja: '三全音', de: 'Tritonus', fr: 'triton', hi: 'ट्राइटोन', zh: '三全音', tw: '三全音' },
+    ear: { ko: '「심슨 가족」 주제가의 도입', en: 'the opening of The Simpsons theme', es: 'la entrada del tema de Los Simpson', pt: 'a entrada do tema dos Simpsons', ja: '『ザ・シンプソンズ』のテーマの入り', de: 'der Beginn der Simpsons-Titelmusik', fr: 'l’entrée du thème des Simpson', hi: 'The Simpsons थीम की शुरुआत', zh: '《辛普森一家》主题曲的开头', tw: '《辛普森家庭》主題曲的開頭' },
   },
   {
     semitones: 7, slug: 'perfect-fifth',
-    name: { ko: '완전5도', en: 'perfect 5th', es: 'quinta justa', pt: 'quinta justa', ja: '完全5度', de: 'Quinte', fr: 'quinte juste', hi: 'परफेक्ट फिफ्थ' },
-    ear: { ko: '「스타워즈」 주제가의 첫 도약', en: 'the first leap in the Star Wars theme', es: 'el primer salto del tema de Star Wars', pt: 'o primeiro salto do tema de Star Wars', ja: '『スター・ウォーズ』のテーマ最初の跳躍', de: 'der erste Sprung im Star-Wars-Thema', fr: 'le premier saut du thème de Star Wars', hi: 'Star Wars थीम की पहली छलांग' },
+    name: { ko: '완전5도', en: 'perfect 5th', es: 'quinta justa', pt: 'quinta justa', ja: '完全5度', de: 'Quinte', fr: 'quinte juste', hi: 'परफेक्ट फिफ्थ', zh: '纯五度', tw: '完全五度' },
+    ear: { ko: '「스타워즈」 주제가의 첫 도약', en: 'the first leap in the Star Wars theme', es: 'el primer salto del tema de Star Wars', pt: 'o primeiro salto do tema de Star Wars', ja: '『スター・ウォーズ』のテーマ最初の跳躍', de: 'der erste Sprung im Star-Wars-Thema', fr: 'le premier saut du thème de Star Wars', hi: 'Star Wars थीम की पहली छलांग', zh: '《星球大战》主题曲的第一跳', tw: '《星際大戰》主題曲的第一跳' },
   },
   {
     semitones: 8, slug: 'minor-sixth',
-    name: { ko: '단6도', en: 'minor 6th', es: 'sexta menor', pt: 'sexta menor', ja: '短6度', de: 'kleine Sexte', fr: 'sixte mineure', hi: 'माइनर सिक्स्थ' },
-    ear: { ko: '「사랑의 테마」류의 애틋한 도약', en: 'the wistful leap of a love theme', es: 'el salto melancólico de un tema de amor', pt: 'o salto melancólico de um tema de amor', ja: 'ラブテーマ風の切ない跳躍', de: 'der wehmütige Sprung eines Liebesthemas', fr: 'le saut nostalgique d’un thème d’amour', hi: 'किसी प्रेम-धुन की उदास छलांग' },
+    name: { ko: '단6도', en: 'minor 6th', es: 'sexta menor', pt: 'sexta menor', ja: '短6度', de: 'kleine Sexte', fr: 'sixte mineure', hi: 'माइनर सिक्स्थ', zh: '小六度', tw: '小六度' },
+    ear: { ko: '「사랑의 테마」류의 애틋한 도약', en: 'the wistful leap of a love theme', es: 'el salto melancólico de un tema de amor', pt: 'o salto melancólico de um tema de amor', ja: 'ラブテーマ風の切ない跳躍', de: 'der wehmütige Sprung eines Liebesthemas', fr: 'le saut nostalgique d’un thème d’amour', hi: 'किसी प्रेम-धुन की उदास छलांग', zh: '《爱的主题》一类曲子里那个揪心的跳进', tw: '《愛的主題》一類曲子裡那個揪心的跳進' },
   },
   {
     semitones: 9, slug: 'major-sixth',
-    name: { ko: '장6도', en: 'major 6th', es: 'sexta mayor', pt: 'sexta maior', ja: '長6度', de: 'große Sexte', fr: 'sixte majeure', hi: 'मेजर सिक्स्थ' },
-    ear: { ko: 'NBC 방송 시그널의 세 음', en: 'the three-note NBC chime', es: 'las tres notas del logo sonoro de NBC', pt: 'as três notas do sinal da NBC', ja: 'NBCのサウンドロゴの三音', de: 'die drei Töne des NBC-Jingles', fr: 'les trois notes du logo sonore de NBC', hi: 'NBC की तीन-स्वर वाली धुन' },
+    name: { ko: '장6도', en: 'major 6th', es: 'sexta mayor', pt: 'sexta maior', ja: '長6度', de: 'große Sexte', fr: 'sixte majeure', hi: 'मेजर सिक्स्थ', zh: '大六度', tw: '大六度' },
+    ear: { ko: 'NBC 방송 시그널의 세 음', en: 'the three-note NBC chime', es: 'las tres notas del logo sonoro de NBC', pt: 'as três notas do sinal da NBC', ja: 'NBCのサウンドロゴの三音', de: 'die drei Töne des NBC-Jingles', fr: 'les trois notes du logo sonore de NBC', hi: 'NBC की तीन-स्वर वाली धुन', zh: 'NBC 电视台台标音的三个音', tw: 'NBC 電視台台標音的三個音' },
   },
   {
     semitones: 10, slug: 'minor-seventh',
-    name: { ko: '단7도', en: 'minor 7th', es: 'séptima menor', pt: 'sétima menor', ja: '短7度', de: 'kleine Septime', fr: 'septième mineure', hi: 'माइनर सेवंथ' },
-    ear: { ko: '「웨스트 사이드 스토리」의 “There’s a place…”', en: 'Somewhere from West Side Story', es: 'Somewhere de West Side Story', pt: 'Somewhere de West Side Story', ja: '『ウエスト・サイド物語』の Somewhere', de: '„Somewhere“ aus der West Side Story', fr: 'Somewhere de West Side Story', hi: 'West Side Story का Somewhere' },
+    name: { ko: '단7도', en: 'minor 7th', es: 'séptima menor', pt: 'sétima menor', ja: '短7度', de: 'kleine Septime', fr: 'septième mineure', hi: 'माइनर सेवंथ', zh: '小七度', tw: '小七度' },
+    ear: { ko: '「웨스트 사이드 스토리」의 “There’s a place…”', en: 'Somewhere from West Side Story', es: 'Somewhere de West Side Story', pt: 'Somewhere de West Side Story', ja: '『ウエスト・サイド物語』の Somewhere', de: '„Somewhere“ aus der West Side Story', fr: 'Somewhere de West Side Story', hi: 'West Side Story का Somewhere', zh: '《西区故事》里那句 “There’s a place…”', tw: '《西城故事》裡那句 “There’s a place…”' },
   },
   {
     semitones: 11, slug: 'major-seventh',
-    name: { ko: '장7도', en: 'major 7th', es: 'séptima mayor', pt: 'sétima maior', ja: '長7度', de: 'große Septime', fr: 'septième majeure', hi: 'मेजर सेवंथ' },
-    ear: { ko: '옥타브에 반음 못 미치는 아릿한 거리', en: 'a semitone short of the octave — that ache', es: 'a medio tono de la octava: ese punzada', pt: 'a meio tom da oitava: aquela pontada', ja: 'オクターブに半音届かない、あの切なさ', de: 'einen Halbton unter der Oktave — dieses Ziehen', fr: 'à un demi-ton de l’octave : ce pincement', hi: 'ऑक्टेव से आधा सुर कम — वही टीस' },
+    name: { ko: '장7도', en: 'major 7th', es: 'séptima mayor', pt: 'sétima maior', ja: '長7度', de: 'große Septime', fr: 'septième majeure', hi: 'मेजर सेवंथ', zh: '大七度', tw: '大七度' },
+    ear: { ko: '옥타브에 반음 못 미치는 아릿한 거리', en: 'a semitone short of the octave — that ache', es: 'a medio tono de la octava: ese punzada', pt: 'a meio tom da oitava: aquela pontada', ja: 'オクターブに半音届かない、あの切なさ', de: 'einen Halbton unter der Oktave — dieses Ziehen', fr: 'à un demi-ton de l’octave : ce pincement', hi: 'ऑक्टेव से आधा सुर कम — वही टीस', zh: '离八度差半音的那点酸涩距离', tw: '離八度差半音的那點酸澀距離' },
   },
   {
     semitones: 12, slug: 'octave',
-    name: { ko: '완전8도(옥타브)', en: 'octave', es: 'octava', pt: 'oitava', ja: 'オクターブ', de: 'Oktave', fr: 'octave', hi: 'ऑक्टेव' },
-    ear: { ko: '「Somewhere over the rainbow」의 첫 도약', en: 'the first leap of Over the Rainbow', es: 'el primer salto de Over the Rainbow', pt: 'o primeiro salto de Over the Rainbow', ja: '「Over the Rainbow」の最初の跳躍', de: 'der erste Sprung von „Over the Rainbow“', fr: 'le premier saut d’Over the Rainbow', hi: 'Over the Rainbow की पहली छलांग' },
+    name: { ko: '완전8도(옥타브)', en: 'octave', es: 'octava', pt: 'oitava', ja: 'オクターブ', de: 'Oktave', fr: 'octave', hi: 'ऑक्टेव', zh: '八度', tw: '八度' },
+    ear: { ko: '「Somewhere over the rainbow」의 첫 도약', en: 'the first leap of Over the Rainbow', es: 'el primer salto de Over the Rainbow', pt: 'o primeiro salto de Over the Rainbow', ja: '「Over the Rainbow」の最初の跳躍', de: 'der erste Sprung von „Over the Rainbow“', fr: 'le premier saut d’Over the Rainbow', hi: 'Over the Rainbow की पहली छलांग', zh: '《Somewhere over the rainbow》的第一跳', tw: '《Somewhere over the rainbow》的第一跳' },
   },
 ];

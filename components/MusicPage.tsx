@@ -5,7 +5,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import MusicKeyboard from '@/components/music/MusicKeyboard';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import {
   KIND_WORD, accidentalOf, colorOf, feelOf, iconOf, notesOf, relatedItems,
   symbolOf, titleOf, type MusicItem,
@@ -21,7 +21,7 @@ import { MUSIC_UI } from '@/lib/music/ui';
  * 빨리 읽히고, 검은 건반이 어디에 끼는지가 코드 모양의 절반이기 때문이다.
  * 표와 문장은 그 아래에 둔다.
  */
-export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang8 }) {
+export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang }) {
   const ui = MUSIC_UI[lang];
   const f = itemFacts(item, lang);
   const prefix = langPrefix(lang);
@@ -153,7 +153,7 @@ export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang8
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link
               key={l.lang}
               href={`${l.prefix}/music/${item.slug}`}

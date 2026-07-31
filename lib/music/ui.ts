@@ -1,11 +1,11 @@
 /**
- * 음악 이론 섹션의 화면 문구 — 여덟 언어.
+ * 음악 이론 섹션의 화면 문구 — 열 언어.
  *
  * FAQ와 메타 설명은 135장 × 8언어 = 1080벌이라 손으로 쓸 수 없다. 항목의 사실
  * (이름·구성음·기호·주파수)만 받아 문장을 조립한다 — 숫자가 계산에서 오므로
  * 틀릴 수 없고, 항목을 더해도 문구를 다시 쓰지 않는다.
  */
-import { alternates8, type L8, type Lang8 } from '../i18n/lang.ts';
+import { alternates, type L, type Lang } from '../i18n/lang.ts';
 
 export interface FaqItem { q: string; a: string }
 
@@ -649,10 +649,158 @@ const hi: MusicUI = {
   ],
 };
 
-export const MUSIC_UI: L8<MusicUI> = { ko, en, es, pt, ja, de, fr, hi };
+const zh: MusicUI = {
+  home: '首页',
+  section: '乐理',
+  hubTitle: '和弦、音阶、音程词典',
+  hubLead: '和弦的组成音、音阶和音程，都能在键盘图上看到、也能直接听。十二个根音 × 八种性质，全都收齐了',
+  chordGroup: '和弦',
+  scaleGroup: '音阶与调式',
+  intervalGroup: '音程',
+  notesLabel: '组成音',
+  stepsLabel: '半音间隔',
+  symbolLabel: '和弦记号',
+  hzLabel: '频率',
+  degreeLabel: '唱名',
+  keyboardLabel: '在键盘上的位置',
+  playLabel: '听一听',
+  stopLabel: '停止',
+  relatedLabel: '相近的和弦与音阶',
+  howTitle: '怎么看这些内容',
+  how: [
+    '组成音由「离根音几个半音」定下来。大三和弦是 0·4·7，小三和弦是 0·3·7。',
+    '键盘图上着色的键就是这个和弦的音。低音排在左边。',
+    '按下听一听，会按真实频率发声。声音在浏览器里生成，不下载任何音频。',
+    '音名各国不同。德国把 B 写成 H，西班牙和法国则用 Do、Re、Mi 来叫。',
+  ],
+  faqTitle: '常见问题',
+  countLabel: n => `${n} 个音`,
+  semitone: n => `${n} 个半音`,
+  hubMetaTitle: '和弦组成音·音阶·音程词典 — 配键盘图与声音',
+  hubMetaDesc: '大三、小三、属七等 96 种和弦，加上 27 种音阶和 12 种音程，组成音全部画在键盘图上，还能按真实频率听。德式 H 记法和 Do-Re-Mi 唱名也一并处理。',
+  metaTitle: f => `${f.title}的组成音`,
+  metaDesc: f =>
+    `${f.title}（${f.symbol}）的组成音是 ${f.notes.join(' · ')}。这 ${f.notes.length} 个音距离根音 ${f.steps.join('·')} 个半音，可以在键盘图上看清位置，也能按真实频率直接听一遍。`,
+  hubFaq: [
+    {
+      q: '和弦的组成音是怎么定的？',
+      a: '由「离根音几个半音」定下来。大三和弦是 0·4·7 个半音，小三和弦是 0·3·7。只要换根音，这套间隔就整体平移过去，所以十二个根音的和弦用一条规则就全有了。',
+    },
+    {
+      q: '同一个音为什么有时写 C#、有时写 Db？',
+      a: '在键盘上是同一个键，调号却不一样。这本词典跟着调号写 —— 降 D 大调有五个降号，所以写 Db；升 C 小调有四个升号，所以写 C#。因此 D 小调音阶的第六个音是 Bb 而不是 A#。',
+    },
+    {
+      q: '德式的 H 记法是怎么回事？',
+      a: '德语区把 B 写成 H，把 B♭ 写成 B。巴赫能把自己的名字 BACH 写成 B♭·A·C·B 四个音，靠的就是这套记法。本词典在德语界面上用它。',
+    },
+    {
+      q: '声音是怎么来的？',
+      a: '十二平均律的频率由浏览器当场算出来发声。把 A4 定为 440Hz，每升半音乘上 2 的 12 次方根。不下载音频文件，所以也不费流量。',
+    },
+  ],
+  itemFaq: f => [
+    {
+      q: `${f.title}的组成音是什么？`,
+      a: `是 ${f.notes.join(' · ')} 这 ${f.notes.length} 个音。它们距离根音 ${f.steps.join('·')} 个半音，和弦表上记作 ${f.symbol}。`,
+    },
+    {
+      q: `${f.title}听起来是什么感觉？`,
+      a: f.feel,
+    },
+    {
+      q: '根音的频率是多少？',
+      a: `把最低音当作第 4 八度的话是 ${f.hz}Hz。这是把 A4 定为 440Hz 的十二平均律算法，升高一个八度就翻一倍。`,
+    },
+    {
+      q: '想换个根音该怎么做？',
+      a: `半音间隔（${f.steps.join('·')}）保持不动，只把根音挪过去就行。下面的列表里可以直接跳到同性质、不同根音的${f.kindWord}。`,
+    },
+    {
+      q: '键盘图该怎么看？',
+      a: '着色的键就是组成音。左边是低音，黑键是带升降号的音。只用白键的和弦，初学者最适合先按按看。',
+    },
+  ],
+};
 
-export const musicUi = (lang: Lang8): MusicUI => MUSIC_UI[lang];
+const tw: MusicUI = {
+  home: '首頁',
+  section: '樂理',
+  hubTitle: '和弦、音階、音程辭典',
+  hubLead: '和弦的組成音、音階和音程，都能在鍵盤圖上看到、也能直接聽。十二個根音 × 八種性質，全都收齊了',
+  chordGroup: '和弦',
+  scaleGroup: '音階與調式',
+  intervalGroup: '音程',
+  notesLabel: '組成音',
+  stepsLabel: '半音間隔',
+  symbolLabel: '和弦記號',
+  hzLabel: '頻率',
+  degreeLabel: '唱名',
+  keyboardLabel: '在鍵盤上的位置',
+  playLabel: '聽一聽',
+  stopLabel: '停止',
+  relatedLabel: '相近的和弦與音階',
+  howTitle: '怎麼看這些內容',
+  how: [
+    '組成音由「離根音幾個半音」定下來。大三和弦是 0·4·7，小三和弦是 0·3·7。',
+    '鍵盤圖上著色的鍵就是這個和弦的音。低音排在左邊。',
+    '按下聽一聽，會按真實頻率發聲。聲音在瀏覽器裡生成，不下載任何音訊。',
+    '音名各國不同。德國把 B 寫成 H，西班牙和法國則用 Do、Re、Mi 來叫。',
+  ],
+  faqTitle: '常見問題',
+  countLabel: n => `${n} 個音`,
+  semitone: n => `${n} 個半音`,
+  hubMetaTitle: '和弦組成音·音階·音程辭典 — 配鍵盤圖與聲音',
+  hubMetaDesc: '大三、小三、屬七等 96 種和弦，加上 27 種音階和 12 種音程，組成音全部畫在鍵盤圖上，還能按真實頻率聽。德式 H 記法和 Do-Re-Mi 唱名也一併處理。',
+  metaTitle: f => `${f.title}的組成音`,
+  metaDesc: f =>
+    `${f.title}（${f.symbol}）的組成音是 ${f.notes.join(' · ')}。這 ${f.notes.length} 個音距離根音 ${f.steps.join('·')} 個半音，可以在鍵盤圖上看清位置，也能按真實頻率直接聽一遍。`,
+  hubFaq: [
+    {
+      q: '和弦的組成音是怎麼定的？',
+      a: '由「離根音幾個半音」定下來。大三和弦是 0·4·7 個半音，小三和弦是 0·3·7。只要換根音，這套間隔就整體平移過去，所以十二個根音的和弦用一條規則就全有了。',
+    },
+    {
+      q: '同一個音為什麼有時寫 C#、有時寫 Db？',
+      a: '在鍵盤上是同一個鍵，調號卻不一樣。這本辭典跟著調號寫 —— 降 D 大調有五個降記號，所以寫 Db；升 C 小調有四個升記號，所以寫 C#。因此 D 小調音階的第六個音是 Bb 而不是 A#。',
+    },
+    {
+      q: '德式的 H 記法是怎麼回事？',
+      a: '德語區把 B 寫成 H，把 B♭ 寫成 B。巴赫能把自己的名字 BACH 寫成 B♭·A·C·B 四個音，靠的就是這套記法。本辭典在德語介面上用它。',
+    },
+    {
+      q: '聲音是怎麼來的？',
+      a: '十二平均律的頻率由瀏覽器當場算出來發聲。把 A4 定為 440Hz，每升半音乘上 2 的 12 次方根。不下載音訊檔，所以也不費流量。',
+    },
+  ],
+  itemFaq: f => [
+    {
+      q: `${f.title}的組成音是什麼？`,
+      a: `是 ${f.notes.join(' · ')} 這 ${f.notes.length} 個音。它們距離根音 ${f.steps.join('·')} 個半音，和弦表上記作 ${f.symbol}。`,
+    },
+    {
+      q: `${f.title}聽起來是什麼感覺？`,
+      a: f.feel,
+    },
+    {
+      q: '根音的頻率是多少？',
+      a: `把最低音當作第 4 八度的話是 ${f.hz}Hz。這是把 A4 定為 440Hz 的十二平均律算法，升高一個八度就翻一倍。`,
+    },
+    {
+      q: '想換個根音該怎麼做？',
+      a: `半音間隔（${f.steps.join('·')}）保持不動，只把根音挪過去就行。下面的清單裡可以直接跳到同性質、不同根音的${f.kindWord}。`,
+    },
+    {
+      q: '鍵盤圖該怎麼看？',
+      a: '著色的鍵就是組成音。左邊是低音，黑鍵是帶升降記號的音。只用白鍵的和弦，初學者最適合先按按看。',
+    },
+  ],
+};
+
+export const MUSIC_UI: L<MusicUI> = { ko, en, es, pt, ja, de, fr, hi, zh, tw };
+
+export const musicUi = (lang: Lang): MusicUI => MUSIC_UI[lang];
 
 /** hreflang 묶음 — 항목 slug만 넣으면 아홉 줄이 나온다 */
 export const musicAlternates = (slug?: string): Record<string, string> =>
-  alternates8(slug ? `/music/${slug}` : '/music');
+  alternates(slug ? `/music/${slug}` : '/music');

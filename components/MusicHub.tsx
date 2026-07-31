@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { MUSIC_ITEMS, colorOf, itemsOfKind, symbolOf, titleOf, type MusicItem } from '@/lib/music/catalog';
 import { CHORD_QUALITIES, SCALE_MODES } from '@/lib/music/theory';
 import { MUSIC_UI } from '@/lib/music/ui';
@@ -15,7 +15,7 @@ import { MUSIC_UI } from '@/lib/music/ui';
  * 알 수 없다. 성질(메이저·마이너·세븐스…)로 묶으면 한 묶음이 열두 밑음이라
  * 원하는 코드를 두 번 눈으로 찾아 누를 수 있다.
  */
-export default function MusicHub({ lang }: { lang: Lang8 }) {
+export default function MusicHub({ lang }: { lang: Lang }) {
   const ui = MUSIC_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/music`;
@@ -92,7 +92,7 @@ export default function MusicHub({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/music`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

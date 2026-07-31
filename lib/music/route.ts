@@ -7,7 +7,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
+import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { KIND_WORD, colorOf, iconOf, musicItem } from './catalog.ts';
 import { itemFacts } from './facts.ts';
 import { MUSIC_UI } from './ui.ts';
@@ -21,18 +21,18 @@ const HUB_TO = '#0f172a';
  * 카드를 그리는 satori에는 복잡 문자 정형이 없어 데바나가리의 모음 기호 자리를
  * 바꿔 주지 못한다 — 지하철 카드에서 "दिल्ली"가 "दलि्ली"로 나온 것과 같은 문제다.
  */
-const cardLang = (lang: Lang8): Lang8 => (lang === 'hi' ? 'en' : lang);
+const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
-export function hubMetadata(lang: Lang8): Metadata {
+export function hubMetadata(lang: Lang): Metadata {
   const ui = MUSIC_UI[lang];
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${langPrefix(lang)}/music`, languages: alternates8('/music') },
+    alternates: { canonical: `${langPrefix(lang)}/music`, languages: alternates('/music') },
   };
 }
 
-export function detailMetadata(lang: Lang8, slug: string): Metadata {
+export function detailMetadata(lang: Lang, slug: string): Metadata {
   const item = musicItem(slug);
   if (!item) return {};
   const ui = MUSIC_UI[lang];
@@ -42,12 +42,12 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/music/${slug}`,
-      languages: alternates8(`/music/${slug}`),
+      languages: alternates(`/music/${slug}`),
     },
   };
 }
 
-export function hubCard(lang: Lang8): ReactElement {
+export function hubCard(lang: Lang): ReactElement {
   const ui = MUSIC_UI[cardLang(lang)];
   return ogCard({
     icon: '🎹',
@@ -59,7 +59,7 @@ export function hubCard(lang: Lang8): ReactElement {
   });
 }
 
-export function itemCard(lang: Lang8, slug: string): ReactElement {
+export function itemCard(lang: Lang, slug: string): ReactElement {
   const item = musicItem(slug);
   const card = cardLang(lang);
   const ui = MUSIC_UI[card];

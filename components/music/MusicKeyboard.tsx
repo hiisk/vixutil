@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
-import type { Lang8 } from '@/lib/i18n/lang';
+import type { Lang } from '@/lib/i18n/lang';
 import { isBlack, noteName, type Pc } from '@/lib/music/notes';
 
 /**
@@ -36,7 +36,7 @@ export default function MusicKeyboard({
   /** 눌러 놓을 음들 */
   notes: Pc[];
   color: string;
-  lang: Lang8;
+  lang: Lang;
   accidental: 'sharp' | 'flat';
   playLabel: string;
   stopLabel: string;

@@ -10,7 +10,7 @@
  * 계열을 쓰고, 힌디어에는 사·레·가(사르감)가 있다. 그래서 문자 이름과 계이름을
  * 갈라 두고 언어별로 고른다.
  */
-import type { L8, Lang8 } from '../i18n/lang.ts';
+import type { L, Lang } from '../i18n/lang.ts';
 
 /** 0=C … 11=B */
 export type Pc = number;
@@ -51,7 +51,7 @@ const LATIN_FLAT: Record<'es' | 'pt' | 'fr', string[]> = {
  *  - 스페인·포르투갈·프랑스: Do·Ré·Mi 계열
  *  - 한국·영어·일본·힌디: 문자 이름
  */
-export function noteName(pc: Pc, lang: Lang8, prefer: 'sharp' | 'flat' = 'sharp'): string {
+export function noteName(pc: Pc, lang: Lang, prefer: 'sharp' | 'flat' = 'sharp'): string {
   const i = ((pc % 12) + 12) % 12;
   if (lang === 'es' || lang === 'pt' || lang === 'fr') {
     return (prefer === 'flat' ? LATIN_FLAT : LATIN_SHARP)[lang][i];
@@ -93,8 +93,10 @@ export const isBlack = (pc: Pc): boolean => [1, 3, 6, 8, 10].includes(((pc % 12)
  *  - 문자 이름을 그대로 쓰는 곳: 영어·독일어(도레미를 계이름으로 안 쓴다)
  *  - Do·Ré·Mi 계열: 스페인·포르투갈·프랑스, 그리고 한국·일본의 도레미
  *  - 사르감: 힌디어의 사·레·가·마·파·다·니
+ *  - 중국어는 계이름을 Do·Re·Mi로 적고, 음 이름은 문자 그대로 쓴다. 숫자보(简谱)로
+ *    1234567을 쓰기도 하지만 그것은 계이름이 아니라 자리 번호에 가깝다.
  */
-export const SOLFEGE: L8<string[]> = {
+export const SOLFEGE: L<string[]> = {
   ko: ['도', '레', '미', '파', '솔', '라', '시'],
   en: ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Ti'],
   es: ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'],
@@ -103,10 +105,12 @@ export const SOLFEGE: L8<string[]> = {
   de: ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'],
   fr: ['Do', 'Ré', 'Mi', 'Fa', 'Sol', 'La', 'Si'],
   hi: ['सा', 'रे', 'ग', 'म', 'प', 'ध', 'नि'],
+  zh: ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'],
+  tw: ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'],
 };
 
 /** 자리 번호(1~7)의 이름 */
-export const degreeName = (i: number, lang: Lang8): string => SOLFEGE[lang][i % 7];
+export const degreeName = (i: number, lang: Lang): string => SOLFEGE[lang][i % 7];
 
 /**
  * 다섯도권에서의 자리 — 조표 개수로 쓴다.

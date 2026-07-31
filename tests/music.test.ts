@@ -5,14 +5,14 @@
  * 잘못 골라 A♯로 적어도 화면은 멀쩡하고, 음악을 아는 사람만 알아챈다. 그래서
  * 아는 답을 박아 두고 잰다 — C 메이저는 C·E·G, D 단음계의 여섯 번째 음은 B♭.
  *
- * 여덟 언어도 같은 방식으로 본다. 한 언어만 빠지거나 어순이 한 틀로 찍히면
+ * 열 언어도 같은 방식으로 본다. 한 언어만 빠지거나 어순이 한 틀로 찍히면
  * 그 나라 사람이 자기 말로 검색하는 이름과 어긋난다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, alternates8, type Lang8 } from '../lib/i18n/lang.ts';
+import { LANGS as LANG_INFO, LANG_CODES, alternates, type Lang } from '../lib/i18n/lang.ts';
 import {
   KIND_WORD, MUSIC_ITEMS, accidentalOf, colorOf, feelOf, iconOf, itemsOfKind,
   musicItem, noteListOf, notesOf, relatedItems, stepsOf, symbolOf, titleOf,
@@ -22,9 +22,9 @@ import { SOLFEGE, freq, isBlack, keySignature, noteName, noteSymbol, slugOf } fr
 import { frequencies, itemFacts } from '../lib/music/facts.ts';
 import { MUSIC_UI, musicAlternates } from '../lib/music/ui.ts';
 
-const LANGS = LANG8_CODES;
+const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
-const dense = (lang: Lang8) => lang === 'ja';
+const dense = (lang: Lang) => lang === 'ja';
 
 test('항목이 100개를 넘고 slug가 겹치지 않는다', () => {
   assert.ok(MUSIC_ITEMS.length >= 100, `${MUSIC_ITEMS.length}개뿐`);
@@ -118,7 +118,7 @@ test('색은 여섯 자리 hex이고 아이콘은 그린 그림이 있는 이모
   }
 });
 
-test('여덟 언어 이름과 설명이 다 있고 언어마다 다른 이름이 나온다', () => {
+test('열 언어 이름과 설명이 다 있고 언어마다 다른 이름이 나온다', () => {
   for (const item of MUSIC_ITEMS) {
     for (const lang of LANGS) {
       const t = titleOf(item, lang);
@@ -207,8 +207,8 @@ test('추천 항목은 자기를 넣지 않고 비지 않는다', () => {
   assert.equal(musicItem('없는항목'), undefined);
 });
 
-test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
-  for (const { prefix } of LANGS8) {
+test('열 언어 라우트와 공유 카드가 다 있다', () => {
+  for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/music`;
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
@@ -219,13 +219,13 @@ test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
 
 test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
   const a = musicAlternates('c-major-chord');
-  assert.equal(Object.keys(a).length, LANGS8.length + 1);
+  assert.equal(Object.keys(a).length, LANGS.length + 1);
   assert.equal(a.ko, '/music/c-major-chord');
   assert.equal(a.en, '/en/music/c-major-chord');
   assert.equal(a['pt-BR'], '/pt-br/music/c-major-chord');
   assert.equal(a['x-default'], '/en/music/c-major-chord');
   assert.equal(musicAlternates().ko, '/music');
-  assert.equal(alternates8('/music').hi, '/hi/music');
+  assert.equal(alternates('/music').hi, '/hi/music');
 });
 
 test('사이트맵과 검색 인덱스에 음악 이론이 들어 있다', () => {
@@ -236,7 +236,7 @@ test('사이트맵과 검색 인덱스에 음악 이론이 들어 있다', () =>
   assert.ok(idx.includes("'music'"), '검색 인덱스에 music 없음');
 });
 
-test('화면 문구가 여덟 언어로 다 있다', () => {
+test('화면 문구가 열 언어로 다 있다', () => {
   for (const lang of LANGS) {
     const ui = MUSIC_UI[lang];
     assert.ok(ui, `${lang}: 문구 묶음이 없다`);
@@ -303,7 +303,7 @@ test('FAQ가 항목마다 다섯 개 이상이고 언어마다 채워져 있다'
   }
 });
 
-test('성질과 선법 정의가 여덟 언어로 채워져 있다', () => {
+test('성질과 선법 정의가 열 언어로 채워져 있다', () => {
   for (const q of [...CHORD_QUALITIES, ...SCALE_MODES]) {
     for (const lang of LANGS) {
       assert.ok(q.name[lang]?.trim(), `${q.id} ${lang}: 이름 없음`);
