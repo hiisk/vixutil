@@ -11,7 +11,7 @@ import { QUIZZES_EN } from './quiz-en.ts';
 import { TESTS_EN } from './test-en.ts';
 import { CONVERT_TOOLS } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
-import { alternateLanguagesFor, INTL_LOCALES, localeHref, type IntlLocale } from './locales.ts';
+import { alternateLanguagesFor, ALL_LOCALES10, localeHref, type AnyLocale10 } from './locales.ts';
 
 /**
  * 번역 언어 통합 검색의 목록.
@@ -27,7 +27,7 @@ import { alternateLanguagesFor, INTL_LOCALES, localeHref, type IntlLocale } from
  * 아직 영어까지만 있어서 스페인어 검색에 넣으면 결과가 전부 404가 된다. 그 섹션을
  * 번역하면 아래 조건만 지우면 된다.
  */
-export type SearchIntlLang = IntlLocale;
+export type SearchIntlLang = Exclude<AnyLocale10, 'ko'>;
 
 export interface SearchIntlItem {
   href: string;
@@ -183,6 +183,26 @@ export const SEARCH_INTL_UI: Record<SearchIntlLang, {
     hint: 'सब कुछ आपके ब्राउज़र में चलता है। कोई खाता नहीं, कुछ अपलोड नहीं।',
     all: 'सब',
   },
+  'zh-hans': {
+    title: '搜索',
+    desc: '一次搜遍站内所有工具 — 换算、检测、测验、清单、小游戏都在内。不用先知道它在哪个分类。',
+    heading: '搜索', h1: '搜遍 vixutil 的所有工具',
+    countSuffix: n => `${n}个工具`,
+    placeholder: '按名字搜 — 计时器、坏点、杯换克…',
+    noResult: '没有对上的。换个更短的词，或者直接搜你想量的东西的名字。',
+    hint: '这里的一切都在你的浏览器里跑。不用注册，什么都不上传。',
+    all: '全部',
+  },
+  'zh-hant': {
+    title: '搜尋',
+    desc: '一次搜遍站內所有工具 — 換算、檢測、測驗、清單、小遊戲都在內。不用先知道它在哪個分類。',
+    heading: '搜尋', h1: '搜遍 vixutil 的所有工具',
+    countSuffix: n => `${n}個工具`,
+    placeholder: '按名字搜 — 計時器、壞點、杯換公克…',
+    noResult: '沒有對上的。換個更短的詞，或者直接搜你想量的東西的名字。',
+    hint: '這裡的一切都在你的瀏覽器裡跑。不用註冊，什麼都不上傳。',
+    all: '全部',
+  },
 };
 
 /**
@@ -193,5 +213,5 @@ export const SEARCH_INTL_UI: Record<SearchIntlLang, {
  * 걸린 hreflang은 구글이 짝으로 인정하지 않는다.
  */
 export function searchAlternates(): Record<string, string> {
-  return alternateLanguagesFor('/search', [...INTL_LOCALES]);
+  return alternateLanguagesFor('/search', [...ALL_LOCALES10.filter(l => l !== 'ko')]);
 }

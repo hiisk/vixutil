@@ -44,6 +44,16 @@ const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     convert: 'इकाई', color: 'रंग', time: 'समय', image: 'इमेज', sound: 'ध्वनि', food: 'रसोई',
     game: 'खेल', device: 'उपकरण', text: 'टेक्स्ट',
   },
+  'zh-hans': {
+    convert: '换算', color: '颜色', time: '时间', image: '图片', sound: '声音', food: '烹饪',
+    game: '游戏', device: '设备', text: '文本', checklist: '清单',
+    quiz: '测验', test: '测试', fortune: '运势', snap: '拍照',
+  },
+  'zh-hant': {
+    convert: '換算', color: '顏色', time: '時間', image: '圖片', sound: '聲音', food: '烹飪',
+    game: '遊戲', device: '裝置', text: '文字', checklist: '清單',
+    quiz: '測驗', test: '測試', fortune: '運勢', snap: '拍照',
+  },
 };
 
 const SECTION_ORDER = ['convert', 'color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'fortune', 'snap'];
