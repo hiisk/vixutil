@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { ImageTool } from './image-tools.ts';
 import { IMAGE_TOOLS } from './image-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 이미지 도구(/image) 섹션의 번역 메타데이터.
@@ -12,7 +12,7 @@ import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from '.
  * 이 섹션의 판매 포인트는 "사진이 브라우저를 떠나지 않는다"는 점이다. 사진을
  * 서버로 올리는 무료 도구가 흔하니 어느 언어에서도 이 이야기를 앞세운다.
  */
-export type ImageIntlLang = IntlLocale;
+export type ImageIntlLang = Exclude<AnyLocale10, 'ko'>;
 
 interface ToolCopy {
   title: string; desc: string; category: string;
@@ -376,6 +376,106 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       features: ['मुख्य रंगों की पैलेट अपने आप', 'हर रंग तस्वीर का कितना हिस्सा है', 'चुने हुए बिंदु के लिए ड्रॉपर', 'HEX कोड एक क्लिक में कॉपी'],
     },
   },
+  'zh-hans': {
+    compress: {
+      title: '图片压缩', desc: '牺牲一点画质，把照片文件变小', category: '大小',
+      metaTitle: '图片压缩 — 免费缩小照片文件大小',
+      long: '附件超过大小限制时用。一档一档往下调画质，把原图和结果并排比，还能看到省下了百分之几。照片在浏览器里处理，绝不上传。',
+      features: ['用滑块定压缩程度', '立刻显示省了百分之几', '原图和结果并排看', '存成JPG或WebP'],
+    },
+    resize: {
+      title: '图片尺寸调整', desc: '把宽高改成任意像素大小', category: '大小',
+      metaTitle: '图片尺寸调整 — 按像素改照片尺寸',
+      long: '直接填宽和高，或者按百分比缩放，还能锁住长宽比让照片不被拉变形。常用尺寸 — Instagram贴文、YouTube缩略图、头像 — 都是一按就好。',
+      features: ['填像素或按百分比缩放', '锁住长宽比', '常用尺寸预设', '预览成品的文件大小'],
+    },
+    convert: {
+      title: '图片格式转换', desc: '在JPG、PNG和WebP之间转', category: '大小',
+      metaTitle: '图片转换器 — JPG、PNG和WebP双向转',
+      long: '要传到不收WebP的地方时用，或者反过来 — 想把文件弄小的时候。透明背景的PNG转成JPG时那块背景会被填上，所以填什么颜色也可以自己挑。',
+      features: ['JPG、PNG、WebP任意方向互转', '有损格式可调画质', '挑填补透明的颜色', '转换前后的文件大小'],
+    },
+    crop: {
+      title: '图片裁剪', desc: '只留下需要的那一块', category: '编辑',
+      metaTitle: '图片裁剪 — 按任意区域或比例裁照片',
+      long: '在照片上拖一下，只留你要的那块。要对上规格就锁成1:1、16:9或者头像比例；不想锁就自由拖，想裁成什么形状都行。',
+      features: ['拖动决定裁剪范围', '可锁1:1、4:3、16:9等等', '实时显示裁完的尺寸', '按原画质保存'],
+    },
+    rotate: {
+      title: '图片旋转与翻转', desc: '把躺倒的照片扶正，或者左右镜像', category: '编辑',
+      metaTitle: '图片旋转与翻转 — 转正照片、做镜像',
+      long: '存下来变成横躺的照片，按90°一档一档转回来；自拍被镜像了，用水平翻转翻回去。也能一度一度微调角度，把地平线摆平。',
+      features: ['左转或右转90°', '水平或垂直翻转', '按1°微调角度', '挑填补边角的颜色'],
+    },
+    mosaic: {
+      title: '照片模糊与马赛克', desc: '在脸或地址上涂一下就挡住', category: '编辑',
+      metaTitle: '给照片打码或模糊 — 挡住人脸和个人信息',
+      long: '用手指或鼠标在要挡的地方涂一下 — 二手交易照片里的地址、合影里别人的脸 — 只有涂过的地方会打上马赛克。什么都不上传，所以带个人信息的截图也能放心处理。',
+      features: ['只在涂过的地方打码', '笔刷大小可调', '用纯黑整块盖掉', '只撤销涂错的那一笔'],
+    },
+    merge: {
+      title: '图片拼接', desc: '把几张照片竖着或横着拼成一张', category: '编辑',
+      metaTitle: '图片拼接 — 把几张照片合成一张',
+      long: '把聊天截图接成一整张，或者把前后对比摆在一起时用。宽度不一样的照片会自动对齐，中间的间距和背景色也能自己定。',
+      features: ['竖着拼或横着拼', '宽度不同会自动对齐', '设定间距和背景色', '调整照片顺序'],
+    },
+    palette: {
+      title: '图片取色', desc: '把照片里的主色抽成HEX码', category: '分析',
+      metaTitle: '图片取色 — 从照片拿到HEX色码',
+      long: '想借用一张喜欢的照片的调子时，它会把用得最多的几个颜色抽出来，给你HEX和RGB的码。在照片上点哪儿，就拿到那一点的颜色。',
+      features: ['自动抽出主色色板', '每个颜色占画面的比例', '任意点取色的吸管', '一键复制HEX码'],
+    },
+  },
+  'zh-hant': {
+    compress: {
+      title: '圖片壓縮', desc: '犧牲一點畫質，把照片檔案變小', category: '大小',
+      metaTitle: '圖片壓縮 — 免費縮小照片檔案大小',
+      long: '附件超過大小限制時用。一檔一檔往下調畫質，把原圖和結果並排比，還能看到省下了百分之幾。照片在瀏覽器裡處理，絕不上傳。',
+      features: ['用滑桿定壓縮程度', '立刻顯示省了百分之幾', '原圖和結果並排看', '存成JPG或WebP'],
+    },
+    resize: {
+      title: '圖片尺寸調整', desc: '把寬高改成任意像素大小', category: '大小',
+      metaTitle: '圖片尺寸調整 — 按像素改照片尺寸',
+      long: '直接填寬和高，或者按百分比縮放，還能鎖住長寬比讓照片不被拉變形。常用尺寸 — Instagram貼文、YouTube縮圖、大頭貼 — 都是一按就好。',
+      features: ['填像素或按百分比縮放', '鎖住長寬比', '常用尺寸預設', '預覽成品的檔案大小'],
+    },
+    convert: {
+      title: '圖片格式轉換', desc: '在JPG、PNG和WebP之間轉', category: '大小',
+      metaTitle: '圖片轉換器 — JPG、PNG和WebP雙向轉',
+      long: '要傳到不收WebP的地方時用，或者反過來 — 想把檔案弄小的時候。透明背景的PNG轉成JPG時那塊背景會被填上，所以填什麼顏色也可以自己挑。',
+      features: ['JPG、PNG、WebP任意方向互轉', '有損格式可調畫質', '挑填補透明的顏色', '轉換前後的檔案大小'],
+    },
+    crop: {
+      title: '圖片裁切', desc: '只留下需要的那一塊', category: '編輯',
+      metaTitle: '圖片裁切 — 按任意區域或比例裁照片',
+      long: '在照片上拖一下，只留你要的那塊。要對上規格就鎖成1:1、16:9或者大頭貼比例；不想鎖就自由拖，想裁成什麼形狀都行。',
+      features: ['拖動決定裁切範圍', '可鎖1:1、4:3、16:9等等', '即時顯示裁完的尺寸', '按原畫質儲存'],
+    },
+    rotate: {
+      title: '圖片旋轉與翻轉', desc: '把躺倒的照片扶正，或者左右鏡像', category: '編輯',
+      metaTitle: '圖片旋轉與翻轉 — 轉正照片、做鏡像',
+      long: '存下來變成橫躺的照片，按90°一檔一檔轉回來；自拍被鏡像了，用水平翻轉翻回去。也能一度一度微調角度，把地平線擺平。',
+      features: ['左轉或右轉90°', '水平或垂直翻轉', '按1°微調角度', '挑填補邊角的顏色'],
+    },
+    mosaic: {
+      title: '照片模糊與馬賽克', desc: '在臉或地址上塗一下就擋住', category: '編輯',
+      metaTitle: '給照片打碼或模糊 — 擋住人臉和個人資訊',
+      long: '用手指或滑鼠在要擋的地方塗一下 — 二手交易照片裡的地址、合照裡別人的臉 — 只有塗過的地方會打上馬賽克。什麼都不上傳，所以帶個人資訊的截圖也能放心處理。',
+      features: ['只在塗過的地方打碼', '筆刷大小可調', '用純黑整塊蓋掉', '只復原塗錯的那一筆'],
+    },
+    merge: {
+      title: '圖片拼接', desc: '把幾張照片豎著或橫著拼成一張', category: '編輯',
+      metaTitle: '圖片拼接 — 把幾張照片合成一張',
+      long: '把聊天截圖接成一整張，或者把前後對比擺在一起時用。寬度不一樣的照片會自動對齊，中間的間距和背景色也能自己定。',
+      features: ['豎著拼或橫著拼', '寬度不同會自動對齊', '設定間距和背景色', '調整照片順序'],
+    },
+    palette: {
+      title: '圖片取色', desc: '把照片裡的主色抽成HEX碼', category: '分析',
+      metaTitle: '圖片取色 — 從照片拿到HEX色碼',
+      long: '想借用一張喜歡的照片的調子時，它會把用得最多的幾個顏色抽出來，給你HEX和RGB的碼。在照片上點哪兒，就拿到那一點的顏色。',
+      features: ['自動抽出主色色票', '每個顏色占畫面的比例', '任意點取色的滴管', '一鍵複製HEX碼'],
+    },
+  },
 };
 
 /**
@@ -393,6 +493,8 @@ export const IMAGE_CATEGORY_ORDER: Record<ImageIntlLang, string[]> = {
   de: ['Größe', 'Bearbeiten', 'Analysieren'],
   fr: ['Taille', 'Retoucher', 'Analyser'],
   hi: ['आकार', 'संपादन', 'विश्लेषण'],
+  'zh-hans': ['大小', '编辑', '分析'],
+  'zh-hant': ['大小', '編輯', '分析'],
 };
 
 /** 언어별 도구 목록 — 번역이 없는 slug는 한국어로 폴백해 화면이 깨지지 않는다 */
@@ -525,5 +627,31 @@ export const IMAGE_SHELL_UI: Record<ImageIntlLang, {
     hubDesc: 'ब्राउज़र में चलने वाले मुफ़्त इमेज उपकरण: कंप्रेस, आकार बदलना, फ़ॉर्मेट बदलना, क्रॉप, घुमाना, चेहरे पिक्सेल करना, फ़ोटो जोड़ना और रंग निकालना। कुछ भी अपलोड नहीं होता।',
     hubLead: 'कंप्रेस, क्रॉप और संपादन — फ़ोटो ब्राउज़र से बाहर नहीं जाती।',
     hubFoot: 'मुफ़्त इमेज उपकरण', eyebrow: 'इमेज',
+  },
+  'zh-hans': {
+    home: '首页',
+    section: '图片工具',
+    canDo: '这个工具做什么',
+    others: '其他图片工具',
+    notice: '🔒 照片在浏览器里处理，绝不上传。',
+    footNote: '很大的照片会慢一点，旧手机上会比较吃力。',
+    hubTitle: '图片工具 — 压缩、调整尺寸、裁剪、打码',
+    hubDesc: '在浏览器里跑的免费图片工具：压缩、调整尺寸、转格式、裁剪、旋转、给人脸打码、拼接照片、抽取颜色。什么都不上传。',
+    hubLead: '压缩、裁剪、修图 — 什么都不会离开你的浏览器。',
+    hubFoot: '免费图片工具',
+    eyebrow: '图片',
+  },
+  'zh-hant': {
+    home: '首頁',
+    section: '圖片工具',
+    canDo: '這個工具做什麼',
+    others: '其他圖片工具',
+    notice: '🔒 照片在瀏覽器裡處理，絕不上傳。',
+    footNote: '很大的照片會慢一點，舊手機上會比較吃力。',
+    hubTitle: '圖片工具 — 壓縮、調整尺寸、裁切、打碼',
+    hubDesc: '在瀏覽器裡跑的免費圖片工具：壓縮、調整尺寸、轉格式、裁切、旋轉、給人臉打碼、拼接照片、抽取顏色。什麼都不上傳。',
+    hubLead: '壓縮、裁切、修圖 — 什麼都不會離開你的瀏覽器。',
+    hubFoot: '免費圖片工具',
+    eyebrow: '圖片',
   },
 };

@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { TextTool } from './text-tools.ts';
 import { TEXT_TOOLS } from './text-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 텍스트 도구(/text) 섹션의 번역 메타데이터.
@@ -14,7 +14,7 @@ import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from '.
  * 재는 단위는 낱말이라 낱말 수 중심으로 쓰고, 일본어권에는 실제로 원고용지가
  * 있으므로 그 말을 그대로 쓴다.
  */
-export type TextIntlLang = IntlLocale;
+export type TextIntlLang = Exclude<AnyLocale10, 'ko'>;
 
 interface ToolCopy {
   title: string; desc: string; category: string;
@@ -381,6 +381,106 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       features: ['क्लासिक लैटिन लोरेम इप्सम', 'अनुच्छेदों की संख्या और लंबाई तय करें', 'ठीक उतने अक्षरों पर काटें', 'पूरा नतीजा एक बार में कॉपी करें'],
     },
   },
+  'zh-hans': {
+    clean: {
+      title: '文本清理', desc: '把贴进来的文字里乱掉的空格和换行理干净', category: '整理',
+      metaTitle: '文本清理 — 删掉看不见的字符、修好断行',
+      long: '从PDF或网页复制出来的文字，带着看不见的字符、看起来正常其实不是的空格，还有句子中间断掉的换行。这里一次全清掉，并告诉你每种各删了多少。',
+      features: ['删掉看不见的字符和怪空格', '把句子中间的换行接回去', '把重复的空格和空行并成一个', '智能引号换成直引号'],
+    },
+    dedupe: {
+      title: '删除重复行', desc: '把列表里重复的行去掉再排序', category: '整理',
+      metaTitle: '删除重复行 — 在线去重并排序列表',
+      long: '贴一份列表进来，它会去掉重复的行，再把剩下的按字母排好。要不要把「只差首尾空格」或「只差大小写」的行当成同一行，可以自己选 — 真实的列表就是需要这个。',
+      features: ['去掉重复（并显示删了几行）', '按A→Z或Z→A排序', '忽略空格或大小写', '删掉空行、加上行号'],
+    },
+    case: {
+      title: '大小写转换', desc: '把文字转成任何一种大小写写法', category: '整理',
+      metaTitle: '大小写转换 — UPPERCASE、lowercase、Title Case、camelCase',
+      long: '转成全大写、全小写或标题式大写，也能转成camelCase、snake_case、kebab-case这些开发上的写法。每一种结果都能单独复制。',
+      features: ['UPPERCASE、lowercase、Title Case', '句首大写', 'camelCase、snake_case、kebab-case', '每一种单独复制'],
+    },
+    'special-char': {
+      title: '特殊符号', desc: '点一下箭头、图形或符号就复制', category: '符号',
+      metaTitle: '特殊符号 — 复制箭头、图形和各种符号',
+      long: '箭头（→ ⇒）、图形（★ ◆ ▶）、标点（※ 「」）、数学和单位（㎡ ℃ ±）、货币（€ ¥）还有带圈字符（① ㉠）— 点哪个就复制哪个。不用再到处找键盘打不出来的符号了。',
+      features: ['按类别分好的符号', '点一下立刻复制', '按名字搜', '记住你用过的'],
+    },
+    emoticon: {
+      title: '颜文字', desc: '复制 (╯°□°）╯ 这类颜文字', category: '符号',
+      metaTitle: '颜文字 — 复制kaomoji和ASCII表情',
+      long: '纯用字符搭出来的表情 — ¯\\\\_(ツ)_/¯、(╯°□°）╯、ಠ_ಠ — 按心情收好了。因为是文字不是图片，贴到哪儿都不会坏，用户名和状态栏里也能用。',
+      features: ['按心情分：开心、难过、生气等等', 'kaomoji和ASCII表情', '点一下立刻复制', '记住你用过的'],
+    },
+    replace: {
+      title: '查找替换', desc: '把长文里的某个词一次全换掉', category: '整理',
+      metaTitle: '在线查找替换 — 批量替换，支持正则',
+      long: '名字或术语改了，不必一处一处地改。区分大小写和正则表达式都可以打开，动手之前还会先数出有多少处会被改。',
+      features: ['替换前先数出匹配数', '大小写敏感开关', '支持正则表达式', '能替换换行（\\\\n）和制表符'],
+    },
+    manuscript: {
+      title: '字数统计', desc: '数字数、字符数和页数，还能对上限', category: '计数',
+      metaTitle: '字数统计 — 含空格与不含空格',
+      long: '把文字贴进来，就能拿到词数、含空格和不含空格的字符数，还有大概几页。填上申请书或稿约给的上限，它会告诉你还剩多少。',
+      features: ['词数、含空格与不含空格的字符数', '估算页数和阅读时间', '对着上限算还剩多少', '字节数（给上传限制用）'],
+    },
+    lorem: {
+      title: 'Lorem Ipsum 生成器', desc: '用来填版面的占位文字', category: '计数',
+      metaTitle: 'Lorem Ipsum 生成器 — 任意长度的占位文字',
+      long: '做设计或做界面时需要的填充文字，这里生成。可以定几段、每段多长，也能裁到刚好的字符数，正好塞进你要试的那个框。',
+      features: ['经典的拉丁文lorem ipsum', '设定段数和每段长度', '裁到精确的字符数', '一次复制全部结果'],
+    },
+  },
+  'zh-hant': {
+    clean: {
+      title: '文字清理', desc: '把貼進來的文字裡亂掉的空格和換行理乾淨', category: '整理',
+      metaTitle: '文字清理 — 刪掉看不見的字元、修好斷行',
+      long: '從PDF或網頁複製出來的文字，帶著看不見的字元、看起來正常其實不是的空格，還有句子中間斷掉的換行。這裡一次全清掉，並告訴你每種各刪了多少。',
+      features: ['刪掉看不見的字元和怪空格', '把句子中間的換行接回去', '把重複的空格和空行併成一個', '智慧引號換成直引號'],
+    },
+    dedupe: {
+      title: '刪除重複行', desc: '把清單裡重複的行去掉再排序', category: '整理',
+      metaTitle: '刪除重複行 — 線上去重並排序清單',
+      long: '貼一份清單進來，它會去掉重複的行，再把剩下的按字母排好。要不要把「只差首尾空格」或「只差大小寫」的行當成同一行，可以自己選 — 真實的清單就是需要這個。',
+      features: ['去掉重複（並顯示刪了幾行）', '按A→Z或Z→A排序', '忽略空格或大小寫', '刪掉空行、加上行號'],
+    },
+    case: {
+      title: '大小寫轉換', desc: '把文字轉成任何一種大小寫寫法', category: '整理',
+      metaTitle: '大小寫轉換 — UPPERCASE、lowercase、Title Case、camelCase',
+      long: '轉成全大寫、全小寫或標題式大寫，也能轉成camelCase、snake_case、kebab-case這些開發上的寫法。每一種結果都能單獨複製。',
+      features: ['UPPERCASE、lowercase、Title Case', '句首大寫', 'camelCase、snake_case、kebab-case', '每一種單獨複製'],
+    },
+    'special-char': {
+      title: '特殊符號', desc: '點一下箭頭、圖形或符號就複製', category: '符號',
+      metaTitle: '特殊符號 — 複製箭頭、圖形和各種符號',
+      long: '箭頭（→ ⇒）、圖形（★ ◆ ▶）、標點（※ 「」）、數學和單位（㎡ ℃ ±）、貨幣（€ ¥）還有帶圈字元（① ㉠）— 點哪個就複製哪個。不用再到處找鍵盤打不出來的符號了。',
+      features: ['按類別分好的符號', '點一下立刻複製', '按名字搜', '記住你用過的'],
+    },
+    emoticon: {
+      title: '顏文字', desc: '複製 (╯°□°）╯ 這類顏文字', category: '符號',
+      metaTitle: '顏文字 — 複製kaomoji和ASCII表情',
+      long: '純用字元搭出來的表情 — ¯\\\\_(ツ)_/¯、(╯°□°）╯、ಠ_ಠ — 按心情收好了。因為是文字不是圖片，貼到哪兒都不會壞，使用者名稱和狀態欄裡也能用。',
+      features: ['按心情分：開心、難過、生氣等等', 'kaomoji和ASCII表情', '點一下立刻複製', '記住你用過的'],
+    },
+    replace: {
+      title: '尋找取代', desc: '把長文裡的某個詞一次全換掉', category: '整理',
+      metaTitle: '線上尋找取代 — 批次取代，支援正規表示式',
+      long: '名字或術語改了，不必一處一處地改。區分大小寫和正規表示式都可以打開，動手之前還會先數出有多少處會被改。',
+      features: ['取代前先數出符合數', '大小寫敏感開關', '支援正規表示式', '能取代換行（\\\\n）和定位字元'],
+    },
+    manuscript: {
+      title: '字數統計', desc: '數字數、字元數和頁數，還能對上限', category: '計數',
+      metaTitle: '字數統計 — 含空格與不含空格',
+      long: '把文字貼進來，就能拿到詞數、含空格和不含空格的字元數，還有大概幾頁。填上申請書或稿約給的上限，它會告訴你還剩多少。',
+      features: ['詞數、含空格與不含空格的字元數', '估算頁數和閱讀時間', '對著上限算還剩多少', '位元組數（給上傳限制用）'],
+    },
+    lorem: {
+      title: 'Lorem Ipsum 產生器', desc: '用來填版面的佔位文字', category: '計數',
+      metaTitle: 'Lorem Ipsum 產生器 — 任意長度的佔位文字',
+      long: '做設計或做介面時需要的填充文字，這裡產生。可以定幾段、每段多長，也能裁到剛好的字元數，正好塞進你要試的那個框。',
+      features: ['經典的拉丁文lorem ipsum', '設定段數和每段長度', '裁到精確的字元數', '一次複製全部結果'],
+    },
+  },
 };
 
 /** 언어별 분류 순서. 여기 문자열은 위 category와 글자까지 같아야 한다 */
@@ -392,6 +492,8 @@ export const TEXT_CATEGORY_ORDER: Record<TextIntlLang, string[]> = {
   de: ['Aufräumen', 'Zählen', 'Zeichen'],
   fr: ['Nettoyer', 'Compter', 'Symboles'],
   hi: ['सफ़ाई', 'गिनती', 'चिह्न'],
+  'zh-hans': ['整理', '计数', '符号'],
+  'zh-hant': ['整理', '計數', '符號'],
 };
 
 /** 언어별 도구 목록 — 한글 전용 네 개는 빠진다 */
@@ -518,5 +620,31 @@ export const TEXT_SHELL_UI: Record<TextIntlLang, {
     hubDesc: 'ब्राउज़र में मुफ़्त टेक्स्ट उपकरण: चिपकाया पाठ साफ़ करना, दोहराई पंक्तियाँ हटाना, अक्षर-आकार बदलना, खोजें और बदलें, शब्द-अक्षर गिनना, विशेष चिह्न और काओमोजी कॉपी करना, लोरेम इप्सम बनाना।',
     hubLead: 'सब कुछ ब्राउज़र में प्रोसेस होता है — चिपकाया पाठ पन्ने से बाहर नहीं जाता।',
     hubFoot: 'मुफ़्त टेक्स्ट उपकरण', eyebrow: 'टेक्स्ट',
+  },
+  'zh-hans': {
+    home: '首页',
+    section: '文本工具',
+    canDo: '这个工具做什么',
+    others: '其他文本工具',
+    notice: '📝 文字在浏览器里处理，什么都不上传。',
+    footNote: '贴进来的东西不会离开这一页，草稿和私人笔记放这里是安全的。',
+    hubTitle: '文本工具 — 清理、去重、大小写转换、字数统计',
+    hubDesc: '浏览器里的免费文本工具：清理贴进来的文字、删除重复行、转换大小写、查找替换、统计字数和字符数、复制特殊符号和颜文字、生成lorem ipsum。',
+    hubLead: '全部在浏览器里处理 — 你贴进来的东西不会离开这一页。',
+    hubFoot: '免费文本工具',
+    eyebrow: '文本',
+  },
+  'zh-hant': {
+    home: '首頁',
+    section: '文字工具',
+    canDo: '這個工具做什麼',
+    others: '其他文字工具',
+    notice: '📝 文字在瀏覽器裡處理，什麼都不上傳。',
+    footNote: '貼進來的東西不會離開這一頁，草稿和私人筆記放這裡是安全的。',
+    hubTitle: '文字工具 — 清理、去重、大小寫轉換、字數統計',
+    hubDesc: '瀏覽器裡的免費文字工具：清理貼進來的文字、刪除重複行、轉換大小寫、尋找取代、統計字數和字元數、複製特殊符號和顏文字、產生lorem ipsum。',
+    hubLead: '全部在瀏覽器裡處理 — 你貼進來的東西不會離開這一頁。',
+    hubFoot: '免費文字工具',
+    eyebrow: '文字',
   },
 };

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ToolIcon from '@/components/ToolIcon';
 import { ALGS, CUBE_ICON } from '@/lib/cube/list';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { CUBE_UI } from '@/lib/cube/ui';
 import { OPENINGS, CHESS_ICON } from '@/lib/chess/list';
 import { chessUi, fill } from '@/lib/chess/ui';
@@ -18,9 +19,11 @@ import { gameToolsIntl, GAME_CATEGORY_ORDER, GAME_SHELL_UI, type GameIntlLang } 
  * 화면을 열어 보기 전까지 드러나지 않는다.
  */
 export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
-  const cube = CUBE_UI[lang === 'pt-br' ? 'pt' : lang];
-  const chess = chessUi(lang === 'pt-br' ? 'pt' : lang);
-  const poker = pokerUi(lang === 'pt-br' ? 'pt' : lang);
+  // 데이터 섹션은 짧은 열쇠(pt·zh·tw)를 쓰고 도구 계층은 경로 꼴(pt-br·zh-hans)을 쓴다
+  const short = langOfLocale(lang);
+  const cube = CUBE_UI[short];
+  const chess = chessUi(short);
+  const poker = pokerUi(short);
   const tools = gameToolsIntl(lang);
   const ui = GAME_SHELL_UI[lang];
   const grouped = GAME_CATEGORY_ORDER[lang]
