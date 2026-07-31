@@ -318,7 +318,7 @@ const SPEC: Spec = {
     '頻率要翻一倍才是一個八度。所以遠近也不是用減法算，而是看差幾倍。',
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些数字', '怎麼看這些數字'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

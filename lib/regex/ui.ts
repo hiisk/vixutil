@@ -227,7 +227,7 @@ const SPEC: Spec = {
     (f: RegexFacts, what: string) => `符合${what}。${f.anchored ? '兩端都錨住了，整個字串合上才算通過' : '文中任何位置都能找出來'}。${f.groups ? `擷取群組有 ${f.groups} 個。` : '沒有擷取群組。'}`,
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些式子', '怎麼看這些式子'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

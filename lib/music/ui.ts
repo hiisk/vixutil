@@ -222,7 +222,7 @@ const es: MusicUI = {
   playLabel: 'Escuchar',
   stopLabel: 'Parar',
   relatedLabel: 'Acordes y escalas cercanas',
-  howTitle: 'Cómo se lee',
+  howTitle: 'Cómo leerlo',
   how: [
     'Las notas salen de cuántos semitonos están por encima de la tónica: mayor es 0·4·7, menor es 0·3·7.',
     'En el teclado, las teclas marcadas son las notas del acorde; la más grave queda a la izquierda.',
@@ -599,7 +599,7 @@ const hi: MusicUI = {
     '“सुनें” दबाने पर असली आवृत्तियों पर आवाज़ बनती है। ध्वनि ब्राउज़र में बनती है, कुछ डाउनलोड नहीं होता।',
     'स्वरों के नाम देश के हिसाब से बदलते हैं: जर्मनी में B को H लिखते हैं, स्पेन-फ़्रांस में Do, Re, Mi कहते हैं।',
   ],
-  faqTitle: 'आम सवाल',
+  faqTitle: 'अक्सर पूछे जाने वाले सवाल',
   countLabel: n => `${n} स्वर`,
   semitone: n => `${n} आधे सुर`,
   hubMetaTitle: 'कॉर्ड, स्केल और अंतराल का शब्दकोश — कीबोर्ड चित्र और ध्वनि के साथ',
@@ -666,7 +666,7 @@ const zh: MusicUI = {
   playLabel: '听一听',
   stopLabel: '停止',
   relatedLabel: '相近的和弦与音阶',
-  howTitle: '怎么看这些内容',
+  howTitle: '怎么看这一页',
   how: [
     '组成音由「离根音几个半音」定下来。大三和弦是 0·4·7，小三和弦是 0·3·7。',
     '键盘图上着色的键就是这个和弦的音。低音排在左边。',
@@ -740,7 +740,7 @@ const tw: MusicUI = {
   playLabel: '聽一聽',
   stopLabel: '停止',
   relatedLabel: '相近的和弦與音階',
-  howTitle: '怎麼看這些內容',
+  howTitle: '怎麼看這一頁',
   how: [
     '組成音由「離根音幾個半音」定下來。大三和弦是 0·4·7，小三和弦是 0·3·7。',
     '鍵盤圖上著色的鍵就是這個和弦的音。低音排在左邊。',

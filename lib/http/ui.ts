@@ -240,7 +240,7 @@ const SPEC: Spec = {
   docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़', '标准文档', '標準文件'),
   relatedTitle: T('같은 갈래', 'Same group', 'Mismo grupo', 'Mesmo grupo', '同じ分類', 'Gleiche Gruppe', 'Même groupe', 'वही समूह', '同一分类', '同一分類'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

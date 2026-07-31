@@ -250,7 +250,7 @@ const SPEC: Spec = {
   ),
 
   mimeLabel: T('MIME 타입', 'MIME type', 'Tipo MIME', 'Tipo MIME', 'MIMEタイプ', 'MIME-Typ', 'Type MIME', 'MIME टाइप', 'MIME 类型', 'MIME 類型'),
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '種類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
   openWith: T('여는 프로그램', 'Opens with', 'Se abre con', 'Abre com', '開くプログラム', 'Öffnen mit', 'Ouvrir avec', 'किससे खुलती है', '用什么打开', '用什麼開啟'),
   textLabel: T('글자 파일', 'Plain text', 'Texto plano', 'Texto simples', '文字ファイル', 'Reiner Text', 'Texte brut', 'सादा टेक्स्ट', '纯文本', '純文字'),
   textYes: T('맞음', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ', '是', '是'),
@@ -276,9 +276,9 @@ const SPEC: Spec = {
     '它們的 MIME 類型相同。互相改個副檔名，多半照樣打得開。',
   ),
 
-  relatedTitle: T('같은 갈래', 'Same category', 'Misma categoría', 'Mesma categoria', '同じ種類', 'Gleiche Kategorie', 'Même catégorie', 'वही श्रेणी', '同一分类', '同一分類'),
+  relatedTitle: T('같은 갈래', 'Same group', 'Mismo grupo', 'Mesmo grupo', '同じ分類', 'Gleiche Gruppe', 'Même groupe', 'वही समूह', '同一分类', '同一分類'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

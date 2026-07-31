@@ -292,7 +292,7 @@ const SPEC: Spec = {
   kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
   relatedTitle: T('같은 갈래의 다른 문자', 'Other characters in the same group', 'Otros caracteres del mismo grupo', 'Outros caracteres do mesmo grupo', '同じ分類のほかの文字', 'Weitere Zeichen derselben Gruppe', 'Autres caractères du même groupe', 'उसी समूह के अन्य वर्ण', '同一类的其他符号', '同一類的其他符號'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

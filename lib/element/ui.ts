@@ -289,7 +289,7 @@ const SPEC: Spec = {
     (f: ElementFacts, name: string) => `${name} 的原子序是 ${f.z}，符號 ${f.symbol}。它在第 ${f.period} 週期${f.group ? `第 ${f.group} 族` : '，被挪到表格下方的那兩列'}，原子量為 ${N('zh-Hant')(f.mass)}。`,
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这张表', '怎麼看這張表'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

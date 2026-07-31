@@ -264,7 +264,7 @@ const SPEC: Spec = {
   ),
   neighbourTitle: T('같은 센서의 이웃 초점거리', 'Nearby focal lengths', 'Focales cercanas', 'Focais próximas', '同じセンサーの近い焦点距離', 'Benachbarte Brennweiten', 'Focales voisines', 'निकट की फ़ोकल लंबाइयाँ', '同一传感器上相邻的焦距', '同一感光元件上相鄰的焦距'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些数字', '怎麼看這些數字'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

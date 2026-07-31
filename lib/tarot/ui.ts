@@ -315,7 +315,7 @@ const SPEC: Spec = {
   sameSuitTitle: T('같은 수트', 'Same suit', 'Mismo palo', 'Mesmo naipe', '同じスート', 'Gleiche Farbe', 'Même couleur', 'वही सूट', '同花色', '同花色'),
   sameRankTitle: T('같은 숫자', 'Same rank', 'Mismo rango', 'Mesmo posto', '同じ数字', 'Gleicher Rang', 'Même rang', 'वही दर्जा', '同数字', '同數字'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么读这些牌', '怎麼讀這些牌'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

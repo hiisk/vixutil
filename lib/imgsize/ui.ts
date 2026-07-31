@@ -233,7 +233,7 @@ const SPEC: Spec = {
   ),
   sameKindTitle: T('같은 갈래의 크기', 'Sizes in the same group', 'Tamaños del mismo grupo', 'Tamanhos do mesmo grupo', '同じ分類の寸法', 'Größen derselben Gruppe', 'Tailles du même groupe', 'उसी समूह के आकार', '同一类的尺寸', '同一類的尺寸'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些尺寸', '怎麼看這些尺寸'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

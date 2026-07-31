@@ -168,7 +168,7 @@ const SPEC: Spec = {
     (f: RollFacts) => `擲${f.dice}顆骰子，${f.total.toLocaleString('zh-Hant')}種擲法中有${f.ways.toLocaleString('zh-Hant')}種點數為${f.sum}，機率${f.percent}%。${f.isPeak ? '這是這個數量下最常出現的點數。' : ''}`,
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这张表', '怎麼看這張表'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这一页', '怎麼看這一頁'),
 
   how: T(
     [

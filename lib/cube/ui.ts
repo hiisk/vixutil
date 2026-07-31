@@ -472,7 +472,7 @@ const SPEC: Spec = {
     ],
   ),
 
-  howTitle: T('보는 방법', 'How to use this', 'Cómo usarlo', 'Como usar', '使い方', 'So nutzt man das', 'Comment s’en servir', 'कैसे इस्तेमाल करें', '怎么用这份表', '怎麼用這份表'),
+  howTitle: T('보는 방법', 'How to use this', 'Cómo usarlo', 'Como usar', '使い方', 'So nutzt man das', 'Comment s’en servir', 'कैसे इस्तेमाल करें', '怎么用这一页', '怎麼用這一頁'),
 
   how: T(
     [

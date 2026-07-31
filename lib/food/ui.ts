@@ -653,7 +653,7 @@ const zh: FoodUI = {
   cupTableTitle: '各杯量对照表',
   cupOf: label => `${label} 杯`,
   similarTitle: '重量相近的食材',
-  howTitle: '怎么看这些数字',
+  howTitle: '怎么看这一页',
   how: [
     '杯这个单位各国不同。美国是 240ml，韩国和日本是 200ml，旧英式食谱是 284ml。所以同样一「杯」，最多能差两成。',
     '这张表按「舀起来再刮平」的状态计算。要是拿杯子把面粉使劲压实，同样一杯会多出 30 克。',
@@ -727,7 +727,7 @@ const tw: FoodUI = {
   cupTableTitle: '各杯量對照表',
   cupOf: label => `${label} 杯`,
   similarTitle: '重量相近的食材',
-  howTitle: '怎麼看這些數字',
+  howTitle: '怎麼看這一頁',
   how: [
     '杯這個單位各國不同。美國是 240ml，韓國和日本是 200ml，舊英式食譜是 284ml。所以同樣一「杯」，最多能差兩成。',
     '這張表按「舀起來再刮平」的狀態計算。要是拿杯子把麵粉使勁壓實，同樣一杯會多出 30 公克。',
