@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
+import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { DICE_ICON, ROLLS, rollOf } from './list.ts';
 import { rollFacts } from './facts.ts';
 import { DICE_UI } from './ui.ts';
@@ -13,18 +13,18 @@ const FROM = '#e11d48';
 const TO = '#0f172a';
 
 /** 데바나가리는 카드에서 정형되지 않는다 — 앞선 섹션들과 같은 이유다 */
-const cardLang = (lang: Lang8): Lang8 => (lang === 'hi' ? 'en' : lang);
+const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
-export function hubMetadata(lang: Lang8): Metadata {
+export function hubMetadata(lang: Lang): Metadata {
   const ui = DICE_UI[lang];
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${langPrefix(lang)}/random/dice`, languages: alternates8('/random/dice') },
+    alternates: { canonical: `${langPrefix(lang)}/random/dice`, languages: alternates('/random/dice') },
   };
 }
 
-export function detailMetadata(lang: Lang8, slug: string): Metadata {
+export function detailMetadata(lang: Lang, slug: string): Metadata {
   const r = rollOf(slug);
   if (!r) return {};
   const ui = DICE_UI[lang];
@@ -34,17 +34,17 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/random/dice/${slug}`,
-      languages: alternates8(`/random/dice/${slug}`),
+      languages: alternates(`/random/dice/${slug}`),
     },
   };
 }
 
-export function hubCard(lang: Lang8): ReactElement {
+export function hubCard(lang: Lang): ReactElement {
   const ui = DICE_UI[cardLang(lang)];
   return ogCard({ icon: DICE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export function rollCard(lang: Lang8, slug: string): ReactElement {
+export function rollCard(lang: Lang, slug: string): ReactElement {
   const card = cardLang(lang);
   const ui = DICE_UI[card];
   const r = rollOf(slug);

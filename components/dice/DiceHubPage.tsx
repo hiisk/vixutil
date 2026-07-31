@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import SumBars from '@/components/dice/SumBars';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { DICE_COUNTS, DICE_ICON, ROLLS, rollsOfDice } from '@/lib/dice/list';
 import { rollFacts } from '@/lib/dice/facts';
 import { DICE_UI } from '@/lib/dice/ui';
@@ -15,7 +15,7 @@ import { DICE_UI } from '@/lib/dice/ui';
  *
  * 개수마다 분포 그림을 한 장 두면, 표를 읽기 전에 모양이 먼저 들어온다.
  */
-export default function DiceHubPage({ lang }: { lang: Lang8 }) {
+export default function DiceHubPage({ lang }: { lang: Lang }) {
   const ui = DICE_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -110,7 +110,7 @@ export default function DiceHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/random/dice`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

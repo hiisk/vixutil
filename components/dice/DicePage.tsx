@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SumBars from '@/components/dice/SumBars';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { DICE_ICON, rollOf } from '@/lib/dice/list';
 import { neighbourSums, rollFacts, similarOdds } from '@/lib/dice/facts';
 import { DICE_UI } from '@/lib/dice/ui';
@@ -16,7 +16,7 @@ import { DICE_UI } from '@/lib/dice/ui';
  * 확률만 적으면 감이 오지 않는다. 몇 번에 한 번인지, 이 값 이상이 얼마나
  * 자주 나오는지까지 있어야 판단이 선다.
  */
-export default function DicePage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function DicePage({ slug, lang }: { slug: string; lang: Lang }) {
   const r = rollOf(slug);
   if (!r) return null;
   const f = rollFacts(r);
@@ -144,7 +144,7 @@ export default function DicePage({ slug, lang }: { slug: string; lang: Lang8 }) 
         <Faq items={faq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(x => x.lang !== lang).map(x => (
+          {LANGS.filter(x => x.lang !== lang).map(x => (
             <Link key={x.lang} href={`${x.prefix}/random/dice/${slug}`} hrefLang={x.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {x.label}
             </Link>

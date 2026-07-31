@@ -1,10 +1,10 @@
 /**
- * 주사위 확률 화면의 문구 — 여덟 언어.
+ * 주사위 확률 화면의 문구 — 열 언어.
  *
  * 항목 이름은 "2d6 = 7"이라 옮길 것이 없고, 항목마다의 설명도 손으로 적지 않는다.
  * 계산해 낸 경우의 수와 순위에서 문장을 만든다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { RollFacts } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }
@@ -41,9 +41,9 @@ export interface DiceUI {
   rollFaq: (f: RollFacts) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
 /**
  * 소수점 기호는 언어마다 다르다 — 독일어와 프랑스어는 16,67이라고 쓴다.
@@ -60,11 +60,11 @@ const N = (() => {
   };
 })();
 
-type Spec = { [K in keyof DiceUI]: L8<DiceUI[K]> };
+type Spec = { [K in keyof DiceUI]: L<DiceUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('주사위 확률', 'Dice odds', 'Probabilidad de dados', 'Probabilidade dos dados', 'サイコロの確率', 'Würfelwahrscheinlichkeit', 'Probabilités aux dés', 'पासे की संभावना'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('주사위 확률', 'Dice odds', 'Probabilidad de dados', 'Probabilidade dos dados', 'サイコロの確率', 'Würfelwahrscheinlichkeit', 'Probabilités aux dés', 'पासे की संभावना', '骰子概率', '骰子機率'),
 
   hubTitle: T(
     '주사위 합 확률 111가지',
@@ -75,6 +75,8 @@ const SPEC: Spec = {
     'Würfelsummen — alle 111 Ergebnisse',
     'Probabilités des sommes — les 111 résultats',
     'पासों के जोड़ की संभावना — सभी 111 परिणाम',
+    '骰子点数概率 111 种',
+    '骰子點數機率 111 種',
   ),
 
   hubLead: T(
@@ -86,6 +88,8 @@ const SPEC: Spec = {
     'Alle Summen, die mit einem bis sechs normalen Würfeln fallen können — mit der Zahl der Möglichkeiten und der Wahrscheinlichkeit. Praktisch, um einen Brettspielwurf einzuschätzen.',
     'Toutes les sommes possibles avec un à six dés ordinaires, le nombre de combinaisons et la probabilité de chacune. Pratique pour évaluer un jet au jeu de plateau.',
     'एक से छह साधारण पासों से बनने वाले हर जोड़ के लिए कितने तरीक़े हैं और कितनी संभावना — बोर्ड गेम की चाल आँकने के काम आता है।',
+    '一颗到六颗普通骰子能掷出的所有点数，各有多少种组合、概率是多少，全部算好了。想估算桌游里这一掷能走几格时很好用。',
+    '一顆到六顆普通骰子能擲出的所有點數，各有多少種組合、機率是多少，全部算好了。想估算桌遊裡這一擲能走幾格時很好用。',
   ),
 
   fmt: T(
@@ -97,6 +101,8 @@ const SPEC: Spec = {
     N.de,
     N.fr,
     (v: number) => v.toLocaleString('en', { maximumFractionDigits: 6 }),
+    (v: number) => v.toLocaleString('zh', { maximumFractionDigits: 6 }),
+    (v: number) => v.toLocaleString('zh-Hant', { maximumFractionDigits: 6 }),
   ),
 
   diceTitle: T(
@@ -108,6 +114,8 @@ const SPEC: Spec = {
     (n: number) => (n === 1 ? 'Ein Würfel' : `${n} Würfel`),
     (n: number) => (n === 1 ? 'Un dé' : `${n} dés`),
     (n: number) => (n === 1 ? '1 पासा' : `${n} पासे`),
+    (n: number) => `${n}颗骰子`,
+    (n: number) => `${n}顆骰子`,
   ),
 
   diceNote: T(
@@ -119,19 +127,21 @@ const SPEC: Spec = {
     (n: number) => `${(6 ** n).toLocaleString('de')} gleich wahrscheinliche Würfe, Summen von ${n} bis ${n * 6}.`,
     (n: number) => `${(6 ** n).toLocaleString('fr')} lancers également probables, sommes de ${n} à ${n * 6}.`,
     (n: number) => `${(6 ** n).toLocaleString('en')} समान संभावना वाले फेंक, जोड़ ${n} से ${n * 6} तक।`,
+    (n: number) => `共有${(6 ** n).toLocaleString('zh')}种等可能的掷法，点数从${n}到${n * 6}。`,
+    (n: number) => `共有${(6 ** n).toLocaleString('zh-Hant')}種等可能的擲法，點數從${n}到${n * 6}。`,
   ),
 
-  waysLabel: T('경우의 수', 'Ways to roll it', 'Formas de sacarlo', 'Formas de obter', '場合の数', 'Möglichkeiten', 'Combinaisons', 'तरीक़े'),
-  percentLabel: T('확률', 'Probability', 'Probabilidad', 'Probabilidade', '確率', 'Wahrscheinlichkeit', 'Probabilité', 'संभावना'),
-  oneInLabel: T('몇 번에 한 번', 'One roll in', 'Una de cada', 'Uma a cada', '何回に一度', 'Einmal in', 'Une fois sur', 'कितनी बार में एक'),
-  atLeastLabel: T('이 값 이상', 'This or higher', 'Este o más', 'Este ou mais', 'これ以上', 'Diese oder höher', 'Ce résultat ou plus', 'इससे अधिक या बराबर'),
-  atMostLabel: T('이 값 이하', 'This or lower', 'Este o menos', 'Este ou menos', 'これ以下', 'Diese oder niedriger', 'Ce résultat ou moins', 'इससे कम या बराबर'),
-  meanLabel: T('평균 합', 'Average sum', 'Suma media', 'Soma média', '平均の合計', 'Durchschnittssumme', 'Somme moyenne', 'औसत जोड़'),
-  peakLabel: T('가장 흔한 합', 'Most likely sum', 'Suma más probable', 'Soma mais provável', 'いちばん出やすい合計', 'Häufigste Summe', 'Somme la plus probable', 'सबसे संभावित जोड़'),
+  waysLabel: T('경우의 수', 'Ways to roll it', 'Formas de sacarlo', 'Formas de obter', '場合の数', 'Möglichkeiten', 'Combinaisons', 'तरीक़े', '组合数', '組合數'),
+  percentLabel: T('확률', 'Probability', 'Probabilidad', 'Probabilidade', '確率', 'Wahrscheinlichkeit', 'Probabilité', 'संभावना', '概率', '機率'),
+  oneInLabel: T('몇 번에 한 번', 'One roll in', 'Una de cada', 'Uma a cada', '何回に一度', 'Einmal in', 'Une fois sur', 'कितनी बार में एक', '多少次出一次', '多少次出一次'),
+  atLeastLabel: T('이 값 이상', 'This or higher', 'Este o más', 'Este ou mais', 'これ以上', 'Diese oder höher', 'Ce résultat ou plus', 'इससे अधिक या बराबर', '大于等于此值', '大於等於此值'),
+  atMostLabel: T('이 값 이하', 'This or lower', 'Este o menos', 'Este ou menos', 'これ以下', 'Diese oder niedriger', 'Ce résultat ou moins', 'इससे कम या बराबर', '小于等于此值', '小於等於此值'),
+  meanLabel: T('평균 합', 'Average sum', 'Suma media', 'Soma média', '平均の合計', 'Durchschnittssumme', 'Somme moyenne', 'औसत जोड़', '平均点数', '平均點數'),
+  peakLabel: T('가장 흔한 합', 'Most likely sum', 'Suma más probable', 'Soma mais provável', 'いちばん出やすい合計', 'Häufigste Summe', 'Somme la plus probable', 'सबसे संभावित जोड़', '最常出现的点数', '最常出現的點數'),
 
-  curveTitle: T('합마다의 경우의 수', 'Ways for each sum', 'Formas para cada suma', 'Formas para cada soma', '合計ごとの場合の数', 'Möglichkeiten je Summe', 'Combinaisons par somme', 'हर जोड़ के तरीक़े'),
-  neighbourTitle: T('이웃한 합', 'Nearby sums', 'Sumas cercanas', 'Somas próximas', '近い合計', 'Benachbarte Summen', 'Sommes voisines', 'आस-पास के जोड़'),
-  similarTitle: T('확률이 비슷한 굴림', 'Rolls with similar odds', 'Tiradas con probabilidad parecida', 'Jogadas com chance parecida', '確率が近い出目', 'Würfe mit ähnlicher Chance', 'Jets de probabilité voisine', 'मिलती-जुलती संभावना वाले फेंक'),
+  curveTitle: T('합마다의 경우의 수', 'Ways for each sum', 'Formas para cada suma', 'Formas para cada soma', '合計ごとの場合の数', 'Möglichkeiten je Summe', 'Combinaisons par somme', 'हर जोड़ के तरीक़े', '各点数的组合数', '各點數的組合數'),
+  neighbourTitle: T('이웃한 합', 'Nearby sums', 'Sumas cercanas', 'Somas próximas', '近い合計', 'Benachbarte Summen', 'Sommes voisines', 'आस-पास के जोड़', '相邻点数', '相鄰點數'),
+  similarTitle: T('확률이 비슷한 굴림', 'Rolls with similar odds', 'Tiradas con probabilidad parecida', 'Jogadas com chance parecida', '確率が近い出目', 'Würfe mit ähnlicher Chance', 'Jets de probabilité voisine', 'मिलती-जुलती संभावना वाले फेंक', '概率相近的掷法', '機率相近的擲法'),
   similarNote: T(
     '개수가 달라도 확률이 비슷하면 체감도 비슷합니다.',
     'A different number of dice can land on much the same chance.',
@@ -141,6 +151,8 @@ const SPEC: Spec = {
     'Auch mit anderer Würfelzahl kommt fast dieselbe Chance heraus.',
     'Avec un autre nombre de dés, on retombe parfois sur presque la même chance.',
     'पासों की संख्या अलग हो तब भी संभावना लगभग वही हो सकती है।',
+    '骰子数量不同，概率也可能几乎一样。',
+    '骰子數量不同，機率也可能幾乎一樣。',
   ),
 
   desc: T(
@@ -152,9 +164,11 @@ const SPEC: Spec = {
     (f: RollFacts) => `Mit ${f.dice} ${f.dice === 1 ? 'Würfel' : 'Würfeln'} ${f.ways === 1 ? 'ergibt' : 'ergeben'} ${N.de(f.ways)} von ${f.total.toLocaleString('de')} Würfen die Summe ${f.sum} — ${N.de(f.percent)}%.${f.isPeak ? ' Das ist die häufigste Summe bei dieser Würfelzahl.' : ''}`,
     (f: RollFacts) => `Avec ${f.dice} ${f.dice === 1 ? 'dé' : 'dés'}, ${N.fr(f.ways)} des ${f.total.toLocaleString('fr')} lancers ${f.ways === 1 ? 'donne' : 'donnent'} ${f.sum}, soit ${N.fr(f.percent)}%.${f.isPeak ? ' C’est la somme la plus probable avec ce nombre de dés.' : ''}`,
     (f: RollFacts) => `${f.dice} पासों में ${f.total.toLocaleString('en')} में से ${f.ways} फेंक का जोड़ ${f.sum} होता है — ${f.percent}% संभावना।${f.isPeak ? ' इतने पासों में यही सबसे संभावित जोड़ है।' : ''}`,
+    (f: RollFacts) => `掷${f.dice}颗骰子，${f.total.toLocaleString('zh')}种掷法中有${f.ways.toLocaleString('zh')}种点数为${f.sum}，概率${f.percent}%。${f.isPeak ? '这是这个数量下最常出现的点数。' : ''}`,
+    (f: RollFacts) => `擲${f.dice}顆骰子，${f.total.toLocaleString('zh-Hant')}種擲法中有${f.ways.toLocaleString('zh-Hant')}種點數為${f.sum}，機率${f.percent}%。${f.isPeak ? '這是這個數量下最常出現的點數。' : ''}`,
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这张表', '怎麼看這張表'),
 
   how: T(
     [
@@ -205,9 +219,21 @@ const SPEC: Spec = {
       'औसत जोड़ प्रति पासा 3.5 होता है, क्योंकि एक पासे का औसत 3.5 है।',
       'दुर्लभ का मतलब असंभव भी नहीं और “अब तो आना ही चाहिए” भी नहीं: दो पासे छत्तीस बार फेंकिए, फिर भी लगभग 36% संभावना है कि 2 एक बार भी न आए।',
     ],
+    [
+      '两颗骰子的点数并不均匀。凑成 7 有六条路，凑成 2 只有一条。',
+      '骰子越多，结果越往中间挤。六颗骰子几乎都落在 21 附近，而 6 或 36 大约四万七千次才出现一次。',
+      '平均点数是每颗 3.5，因为单颗骰子的平均值就是 3.5。',
+      '罕见不等于不会出现，也不等于“该轮到了”。两颗骰子掷三十六次，仍有约 36% 的概率一次 2 都没出现。',
+    ],
+    [
+      '兩顆骰子的點數並不均勻。湊成 7 有六條路，湊成 2 只有一條。',
+      '骰子越多，結果越往中間擠。六顆骰子幾乎都落在 21 附近，而 6 或 36 大約四萬七千次才出現一次。',
+      '平均點數是每顆 3.5，因為單顆骰子的平均值就是 3.5。',
+      '罕見不等於不會出現，也不等於「該輪到了」。兩顆骰子擲三十六次，仍有約 36% 的機率一次 2 都沒出現。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '주사위 확률표 111가지 — 개수별 합의 경우의 수',
@@ -218,6 +244,8 @@ const SPEC: Spec = {
     'Würfel-Wahrscheinlichkeitstabelle — 111 Summen von einem bis sechs Würfeln',
     'Table des probabilités aux dés — 111 sommes de un à six dés',
     'पासा संभावना तालिका — एक से छह पासों के 111 जोड़',
+    '骰子概率表 111 种 — 一到六颗骰子的点数组合',
+    '骰子機率表 111 種 — 一到六顆骰子的點數組合',
   ),
   hubMetaDesc: T(
     '주사위 1~6개로 나올 수 있는 모든 합의 경우의 수와 확률, 이 값 이상·이하가 나올 확률까지 계산했습니다. 2d6에서 7이 나올 확률은 16.67%입니다.',
@@ -228,6 +256,8 @@ const SPEC: Spec = {
     'Möglichkeiten und Wahrscheinlichkeit jeder Summe mit einem bis sechs Würfeln, dazu die Chance auf mindestens oder höchstens diese Summe. Eine 7 mit zwei Würfeln fällt in 16,67% der Fälle.',
     'Le nombre de combinaisons et la probabilité de chaque somme avec un à six dés, plus la chance d’obtenir cette somme ou davantage, ou cette somme ou moins. Le 7 à deux dés sort 16,67% du temps.',
     'एक से छह पासों के हर जोड़ के तरीक़े और संभावना, साथ ही उससे अधिक या कम आने की संभावना। दो पासों पर 7 आने की संभावना 16.67% है।',
+    '一到六颗骰子能掷出的每个点数各有多少种组合、概率是多少，以及掷出该点数以上或以下的概率。两颗骰子掷出 7 的概率是 16.67%。',
+    '一到六顆骰子能擲出的每個點數各有多少種組合、機率是多少，以及擲出該點數以上或以下的機率。兩顆骰子擲出 7 的機率是 16.67%。',
   ),
 
   metaTitle: T(
@@ -239,6 +269,8 @@ const SPEC: Spec = {
     (f: RollFacts) => `Wahrscheinlichkeit für Summe ${f.sum} mit ${f.dice} ${f.dice === 1 ? 'Würfel' : 'Würfeln'}`,
     (f: RollFacts) => `Probabilité d’obtenir ${f.sum} avec ${f.dice} ${f.dice === 1 ? 'dé' : 'dés'}`,
     (f: RollFacts) => `${f.dice} पासों से जोड़ ${f.sum} आने की संभावना`,
+    (f: RollFacts) => `${f.dice}颗骰子掷出${f.sum}点的概率`,
+    (f: RollFacts) => `${f.dice}顆骰子擲出${f.sum}點的機率`,
   ),
 
   metaDesc: T(
@@ -250,6 +282,8 @@ const SPEC: Spec = {
     (f: RollFacts) => `Mit ${f.dice} ${f.dice === 1 ? 'Würfel' : 'Würfeln'} ergeben ${N.de(f.ways)} von ${f.total.toLocaleString('de')} Würfen die Summe ${f.sum} — ${N.de(f.percent)}%, also einmal in ${N.de(f.oneIn)} Würfen. ${f.sum} oder mehr fällt in ${N.de(f.atLeast)}% der Fälle.`,
     (f: RollFacts) => `Avec ${f.dice} ${f.dice === 1 ? 'dé' : 'dés'}, ${N.fr(f.ways)} lancer${f.ways === 1 ? '' : 's'} sur ${f.total.toLocaleString('fr')} ${f.ways === 1 ? 'donne' : 'donnent'} ${f.sum} : ${N.fr(f.percent)}%, soit une fois sur ${N.fr(f.oneIn)}. Obtenir ${f.sum} ou plus arrive dans ${N.fr(f.atLeast)}% des cas.`,
     (f: RollFacts) => `${f.dice} पासों में ${f.total.toLocaleString('en')} में से ${f.ways} फेंक का जोड़ ${f.sum} होता है — ${f.percent}% यानी हर ${f.oneIn} फेंक में एक बार। ${f.sum} या उससे अधिक ${f.atLeast}% बार आता है।`,
+    (f: RollFacts) => `${f.dice}颗骰子掷出${f.sum}点的组合，在${f.total.toLocaleString('zh')}种掷法中占${f.ways.toLocaleString('zh')}种，概率${f.percent}%，约每${f.oneIn}次出现一次。掷出${f.sum}点或以上的概率是${f.atLeast}%。`,
+    (f: RollFacts) => `${f.dice}顆骰子擲出${f.sum}點的組合，在${f.total.toLocaleString('zh-Hant')}種擲法中占${f.ways.toLocaleString('zh-Hant')}種，機率${f.percent}%，約每${f.oneIn}次出現一次。擲出${f.sum}點或以上的機率是${f.atLeast}%。`,
   ),
 
   hubFaq: T(
@@ -309,6 +343,20 @@ const SPEC: Spec = {
       { q: 'ज़्यादा पासों पर सब कुछ बीच में क्यों सिमटता है?', a: 'बड़े और छोटे अंक एक-दूसरे को काट देते हैं। छह बार 1 आने के लिए छह चीज़ों का एक साथ एक जैसा होना ज़रूरी है, जबकि 21 बनाने के हज़ारों तरीक़े हैं।' },
       { q: 'ये आँकड़े कैसे निकाले गए?', a: 'सिर्फ़ पासों की संख्या और जोड़ दर्ज हैं। एक पासे के वितरण पर एक-एक पासा जोड़ते हुए तरीक़े गिने जाते हैं, और छह की उतनी घात से भाग देकर संभावना निकलती है।' },
     ],
+    [
+      { q: '两颗骰子掷出 7 的概率是多少？', a: '三十六种结果中有六种是 7，所以是 16.67%，大约六次出现一次。它由 1+6、2+5、3+4 各自的两种顺序组成，共六条路，因此是两颗骰子最常见的点数。' },
+      { q: '为什么有的点数比别的更容易出现？', a: '每颗骰子都是公平的，但凑出各个点数的路数不一样。凑成 2 只有一条路，凑成 7 有六条，路多的点数自然出得更频繁。' },
+      { q: '很久没出的点数是不是“该出了”？', a: '不是。骰子不会记得之前掷了什么。连续掷出六个 1 之后，下一次再出 1 的概率仍然是六分之一。' },
+      { q: '为什么骰子越多，结果越挤在中间？', a: '大点和小点会互相抵消。六颗全是 1，意味着六件事同时朝同一个方向偏；而凑成 21 的组合有好几千种。' },
+      { q: '这些数字是怎么算出来的？', a: '存下来的只有骰子数量和点数。程序把单颗骰子的分布逐颗卷积，数出组合数，再除以 6 的骰子数次方，得到概率。' },
+    ],
+    [
+      { q: '兩顆骰子擲出 7 的機率是多少？', a: '三十六種結果中有六種是 7，所以是 16.67%，大約六次出現一次。它由 1+6、2+5、3+4 各自的兩種順序組成，共六條路，因此是兩顆骰子最常見的點數。' },
+      { q: '為什麼有的點數比別的更容易出現？', a: '每顆骰子都是公平的，但湊出各個點數的路數不一樣。湊成 2 只有一條路，湊成 7 有六條，路多的點數自然出得更頻繁。' },
+      { q: '很久沒出的點數是不是「該出了」？', a: '不是。骰子不會記得之前擲了什麼。連續擲出六個 1 之後，下一次再出 1 的機率仍然是六分之一。' },
+      { q: '為什麼骰子越多，結果越擠在中間？', a: '大點和小點會互相抵消。六顆全是 1，意味著六件事同時朝同一個方向偏；而湊成 21 的組合有好幾千種。' },
+      { q: '這些數字是怎麼算出來的？', a: '存下來的只有骰子數量和點數。程式把單顆骰子的分布逐顆摺積，數出組合數，再除以 6 的骰子數次方，得到機率。' },
+    ],
   ),
 
   rollFaq: T(
@@ -360,13 +408,25 @@ const SPEC: Spec = {
       { q: `इतने पासों में सबसे संभावित जोड़ कौन-सा है?`, a: f.isPeak ? `यही। औसत जोड़ ${f.mean} है।` : `औसत ${f.mean} के आस-पास। ${f.sum} से ज़्यादा बार आने वाले ${f.rank} जोड़ हैं।` },
       { q: `बार-बार फेंकने पर क्या यह ज़रूर आएगा?`, a: `नहीं। हर फेंक पिछली से स्वतंत्र है। हर ${f.oneIn} में एक बार लंबे समय का औसत है, कोई बारी नहीं।` },
     ],
+    (f: RollFacts) => [
+      { q: `${f.dice}颗骰子掷出${f.sum}点的概率是多少？`, a: `${f.percent}%。${f.total.toLocaleString('zh')}种掷法中有${f.ways.toLocaleString('zh')}种，大约每${f.oneIn}次出现一次。` },
+      { q: `掷出${f.sum}点或以上的概率是多少？`, a: `${f.atLeast}%。反过来，${f.sum}点或以下是${f.atMost}%。` },
+      { q: `这个数量下最常出现的点数是哪个？`, a: f.isPeak ? `就是${f.sum}点。平均点数是${f.mean}。` : `在平均值${f.mean}附近。比${f.sum}点更常出现的点数有${f.rank}个。` },
+      { q: `一直掷下去就一定会出吗？`, a: `不会。每一次掷都与上一次无关。每${f.oneIn}次一次说的是长期平均，并不排出场次。` },
+    ],
+    (f: RollFacts) => [
+      { q: `${f.dice}顆骰子擲出${f.sum}點的機率是多少？`, a: `${f.percent}%。${f.total.toLocaleString('zh-Hant')}種擲法中有${f.ways.toLocaleString('zh-Hant')}種，大約每${f.oneIn}次出現一次。` },
+      { q: `擲出${f.sum}點或以上的機率是多少？`, a: `${f.atLeast}%。反過來，${f.sum}點或以下是${f.atMost}%。` },
+      { q: `這個數量下最常出現的點數是哪個？`, a: f.isPeak ? `就是${f.sum}點。平均點數是${f.mean}。` : `在平均值${f.mean}附近。比${f.sum}點更常出現的點數有${f.rank}個。` },
+      { q: `一直擲下去就一定會出嗎？`, a: `不會。每一次擲都與上一次無關。每${f.oneIn}次一次說的是長期平均，並不排出場次。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const DICE_UI: L8<DiceUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const DICE_UI: L<DiceUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<DiceUI>;
+) as unknown as L<DiceUI>;

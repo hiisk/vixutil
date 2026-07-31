@@ -12,7 +12,8 @@ import assert from 'node:assert/strict';
 import { DICE_COUNTS, DICE_ICON, FACES, ROLLS, ROLL_SLUGS, rollOf, rollsOfDice } from '../lib/dice/list.ts';
 import { neighbourSums, peakSums, rollFacts, similarOdds, totalFor, waysFor } from '../lib/dice/facts.ts';
 import { DICE_UI } from '../lib/dice/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(ROLLS.length >= 100, `${ROLLS.length}가지뿐이다`);
@@ -133,9 +134,9 @@ test('이웃과 비슷한 굴림이 자기 자신을 빼고 나온다', () => {
   }
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = rollFacts(rollOf('2d6-7')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = DICE_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
@@ -154,7 +155,7 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 test('설명이 모든 항목에서 만들어진다', () => {
   for (const r of ROLLS) {
     const f = rollFacts(r);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = DICE_UI[lang].desc(f);
       const floor = lang === 'ja' || lang === 'ko' ? 15 : 25;
       assert.ok(d.length > floor, `${lang}/${r.slug}: 설명이 너무 짧다 — ${d}`);
@@ -182,7 +183,7 @@ test('언어마다 소수점 기호가 제자리에 있다', () => {
     assert.equal(DICE_UI[lang].fmt(12.5), '12.5', `${lang}: 표의 소수점이 점이 아니다`);
   }
   // 작은 확률이 표에서도 0으로 뭉개지지 않아야 한다
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     assert.ok(Number.parseFloat(DICE_UI[lang].fmt(0.0021).replace(',', '.')) > 0, `${lang}: 표에서 확률이 0이 된다`);
   }
 });
@@ -203,7 +204,7 @@ test('주사위가 한 개일 때 단수로 적는다', () => {
 
 test('언어끼리 글자가 섞이지 않는다', () => {
   const f = rollFacts(rollOf('3d6-10')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = DICE_UI[lang];
     const texts = [
       ui.hubTitle, ui.hubLead, ui.hubMetaTitle, ui.hubMetaDesc, ui.section, ui.similarNote,
@@ -216,14 +217,15 @@ test('언어끼리 글자가 섞이지 않는다', () => {
       if (lang !== 'ko') assert.ok(!/[가-힣]/.test(t), `${lang}: 한글이 섞였다 — ${t}`);
       if (lang !== 'ja' && lang !== 'ko') assert.ok(!/[ぁ-んァ-ヶ]/.test(t), `${lang}: 가나가 섞였다 — ${t}`);
       if (lang !== 'hi') assert.ok(!/[ऀ-ॿ]/.test(t), `${lang}: 데바나가리가 섞였다 — ${t}`);
+      assert.equal(hanProblem(lang, t), '');
     }
   }
 });
 
-test('모든 굴림이 여덟 언어 메타를 만든다', () => {
+test('모든 굴림이 열 언어 메타를 만든다', () => {
   for (const r of ROLLS) {
     const f = rollFacts(r);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = DICE_UI[lang];
       assert.ok(ui.metaTitle(f).includes(String(f.sum)), `${lang}/${r.slug}: 제목에 합이 없다`);
       const desc = ui.metaDesc(f);
