@@ -50,14 +50,22 @@ test('빌드된 페이지에 끊어진 내부 링크가 없다', { skip: built ?
   assert.deepEqual(list, [], `존재하지 않는 곳을 가리키는 링크:\n  ${list.join('\n  ')}`);
 });
 
-test('페이지마다 고유한 title과 description을 갖는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
-  // 여러 페이지가 같은 title/description을 쓰면 검색엔진이 중복으로 보고
-  // 하나만 색인하거나 순위를 깎는다.
+test('한 언어 안에서 title과 description이 겹치지 않는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  // 같은 언어의 두 페이지가 같은 title/description을 쓰면 검색엔진이 중복으로
+  // 보고 하나만 색인하거나 순위를 깎는다.
+  //
+  // 언어를 가로질러서는 세지 않는다. 스페인어와 포르투갈어는 가까워서 "Calculadora
+  // de IMC"처럼 같은 말이 나오는 자리가 61곳 있는데, 두 페이지는 서로를 hreflang으로
+  // 가리키고 있어 검색엔진이 언어 변형으로 읽는다 — 중복이 아니다. 억지로 떼어놓으면
+  // 어색한 포르투갈어를 쓰게 된다. 여기서 볼 것은 "같은 독자를 두고 경쟁하는 두
+  // 페이지가 같은 제목인가"이고, 그건 언어 안에서만 성립한다.
+  const LOCALE_DIRS = new Set(['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant']);
   const titles = new Map<string, string[]>();
   const descs = new Map<string, string[]>();
 
   for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
-    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+    const rel = relative(OUT, f).replace(/\.html$/, '');
+    const route = '/' + rel;
     if (route === '/404' || route === '/_not-found') continue;
 
     const html = readFileSync(f, 'utf8');
@@ -67,14 +75,20 @@ test('페이지마다 고유한 title과 description을 갖는다', { skip: buil
     assert.ok(t, `${route}: <title>이 없다`);
     assert.ok(d, `${route}: description이 없다`);
 
-    (titles.get(t) ?? titles.set(t, []).get(t)!).push(route);
-    (descs.get(d) ?? descs.set(d, []).get(d)!).push(route);
+    // 첫 칸이 언어 폴더면 그 언어, 아니면 한국어(루트)
+    const head = rel.split('/')[0];
+    const lang = LOCALE_DIRS.has(head) ? head : 'ko';
+    const tk = `${lang}\u0000${t}`;
+    const dk = `${lang}\u0000${d}`;
+    (titles.get(tk) ?? titles.set(tk, []).get(tk)!).push(route);
+    (descs.get(dk) ?? descs.set(dk, []).get(dk)!).push(route);
   }
 
-  const dupT = [...titles].filter(([, v]) => v.length > 1).map(([k, v]) => `title "${k}" ← ${v.join(', ')}`);
-  const dupD = [...descs].filter(([, v]) => v.length > 1).map(([k, v]) => `desc "${k.slice(0, 40)}…" ← ${v.join(', ')}`);
+  const show = (k: string) => k.split('\u0000')[1];
+  const dupT = [...titles].filter(([, v]) => v.length > 1).map(([k, v]) => `title "${show(k)}" ← ${v.join(', ')}`);
+  const dupD = [...descs].filter(([, v]) => v.length > 1).map(([k, v]) => `desc "${show(k).slice(0, 40)}…" ← ${v.join(', ')}`);
 
-  assert.deepEqual([...dupT, ...dupD], [], `중복 메타데이터:\n  ${[...dupT, ...dupD].join('\n  ')}`);
+  assert.deepEqual([...dupT, ...dupD], [], `한 언어 안에서 메타데이터가 겹친다:\n  ${[...dupT, ...dupD].join('\n  ')}`);
 });
 
 test('허브 페이지가 상세 콘텐츠를 통째로 싣지 않는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
