@@ -216,8 +216,8 @@ export function intlOg(key: string): ReactElement {
 }
 
 /** 색상 도구 — 사전에서 언어별 문구를, 카탈로그에서 아이콘·색을 읽는다 */
-export function colorOg(slug: string, lang: OgLang): ReactElement {
-  const tool = findColorToolIntl(lang as ColorIntlLang, slug) ?? COLOR_TOOLS.find(t => t.slug === slug);
+export function colorOg(slug: string, lang: ColorIntlLang): ReactElement {
+  const tool = findColorToolIntl(lang, slug) ?? COLOR_TOOLS.find(t => t.slug === slug);
   if (!tool) throw new Error(`og-intl: 색상 도구가 없다 — ${slug}`);
   return ogCard({
     icon: tool.icon, eyebrow: tool.category, title: tool.title, desc: tool.desc,

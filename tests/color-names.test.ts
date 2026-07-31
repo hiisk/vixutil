@@ -13,7 +13,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
+import { LANGS as LANG_INFO, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { COLOR_FAMILIES, NAMED_COLORS_8, colorsOfFamily, namedColor } from '../lib/color/named8.ts';
 import { colorFacts, nearbyColors } from '../lib/color/facts.ts';
 import { COLOR_UI, colorAlternates, colorFaq } from '../lib/color/ui.ts';
@@ -144,8 +144,8 @@ test('가까운 색은 자기를 넣지 않고 실제로 가깝다', () => {
   assert.equal(namedColor('없는색'), undefined);
 });
 
-test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
-  for (const { prefix } of LANGS8) {
+test('열 언어 라우트와 공유 카드가 다 있다', () => {
+  for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/color`;
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
@@ -155,7 +155,7 @@ test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
 
 test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
   const a = colorAlternates('red');
-  assert.equal(Object.keys(a).length, LANGS8.length + 1);
+  assert.equal(Object.keys(a).length, LANG_INFO.length + 1);
   assert.equal(a.ko, '/color/red');
   assert.equal(a.en, '/en/color/red');
   assert.equal(a['pt-BR'], '/pt-br/color/red');

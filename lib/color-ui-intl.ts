@@ -6,7 +6,11 @@ import type { AnyLocale } from './locales.ts';
  * 문구만 여기 모으고 컴포넌트는 lang으로 골라 쓴다. 색 계산(HSL 변환·대비비·
  * 색각 변환)은 컴포넌트와 lib에 그대로 둔다 — 숫자는 언어와 무관하다.
  */
-export type ColorLang = AnyLocale;
+/**
+ * 색상 도구가 쓰는 언어 — AnyLocale에 중국어 둘을 더한다.
+ * 공용 IntlLocale을 넓히지 않는 이유는 lib/food-intl.ts에 적어 두었다.
+ */
+export type ColorLang = AnyLocale | 'zh-hans' | 'zh-hant';
 
 type L<T> = Record<ColorLang, T>;
 
@@ -20,6 +24,8 @@ export const COLOR_COMMON: L<{ copy: string; copied: string }> = {
   de: { copy: 'Kopieren', copied: 'Kopiert' },
   fr: { copy: 'Copier', copied: 'Copié' },
   hi: { copy: 'कॉपी', copied: 'कॉपी हो गया' },
+  'zh-hans': { copy: '复制', copied: '已复制' },
+  'zh-hant': { copy: '複製', copied: '已複製' },
 };
 
 /* ── 팔레트 생성기 ── */
@@ -132,6 +138,32 @@ export const PALETTE_UI: L<{
       monochrome: 'रंग वही रखकर सिर्फ़ चमक बदली गई है। ग़लत होने की गुंजाइश लगभग नहीं, और जब पूरी स्क्रीन को एक ही रंग-परिवार में बाँधना हो तो यही चुना जाता है।',
     },
   },
+  'zh-hans': {
+    baseColor: '基准色', copyCss: '一次复制成 CSS 变量', copiedCss: '✅ 已复制成 CSS 变量',
+    ratioNote: '配色比例 60:30:10',
+    ratioBody: '色选完之后的事更要紧。大面积背景占 60%，辅助色 30%，强调色 10% —— 同样一组颜色，这样用起来会整齐得多。强调色一超过 30%，就不再是强调了。',
+    schemes: { complementary: '补色', analogous: '邻近色', triadic: '三角配色', tetradic: '四角配色', monochrome: '单色' },
+    notes: {
+      complementary: '色环上正对面的颜色。对比最强，做强调色很好，但大面积对半用会让眼睛发累。',
+      analogous: '色环上挨着的颜色。自然又舒服，适合背景和正文这类大面积的地方。',
+      triadic: '把色环三等分取到的颜色。既鲜亮又平衡，插画和品牌配色常用。',
+      tetradic: '把色环四等分取到的颜色。能用的色多，也因此容易乱，得先定下一个当主角。',
+      monochrome: '色相不动，只改明暗。几乎不会失手，适合把整屏统一到一个色系里。',
+    },
+  },
+  'zh-hant': {
+    baseColor: '基準色', copyCss: '一次複製成 CSS 變數', copiedCss: '✅ 已複製成 CSS 變數',
+    ratioNote: '配色比例 60:30:10',
+    ratioBody: '色選完之後的事更要緊。大面積背景占 60%，輔助色 30%，強調色 10% —— 同樣一組顏色，這樣用起來會整齊得多。強調色一超過 30%，就不再是強調了。',
+    schemes: { complementary: '補色', analogous: '鄰近色', triadic: '三角配色', tetradic: '四角配色', monochrome: '單色' },
+    notes: {
+      complementary: '色環上正對面的顏色。對比最強，做強調色很好，但大面積對半用會讓眼睛發累。',
+      analogous: '色環上挨著的顏色。自然又舒服，適合背景和內文這類大面積的地方。',
+      triadic: '把色環三等分取到的顏色。既鮮亮又平衡，插畫和品牌配色常用。',
+      tetradic: '把色環四等分取到的顏色。能用的色多，也因此容易亂，得先定下一個當主角。',
+      monochrome: '色相不動，只改明暗。幾乎不會失手，適合把整屏統一到一個色系裡。',
+    },
+  },
 };
 
 /* ── 명도 단계 ── */
@@ -196,6 +228,20 @@ export const SHADES_UI: L<{
     useLight: 'बैकग्राउंड, हल्का ज़ोर, निष्क्रिय अवस्था', useMid: 'बटन और लिंक — ब्रांड रंग स्वयं', useDark: 'दबी अवस्था, और गहरे बैकग्राउंड पर टेक्स्ट',
     copyAllCss: 'सारे CSS वेरिएबल कॉपी करें',
   },
+  'zh-hans': {
+    baseColor: '基准色（品牌色）', whereTitle: '用在哪里',
+    contrastNote: '每一行右边的提示，说的是拿那个颜色当背景时，白字或黑字有没有过无障碍标准（4.5:1）。',
+    whiteOk: '白字 OK', blackOk: '黑字 OK', bothOk: '白黑都 OK', lowContrast: '文字对比不足',
+    useLight: '背景、淡强调、禁用状态', useMid: '按钮、链接 —— 品牌色的主体', useDark: '按下状态、深色背景上的文字',
+    copyAllCss: '复制全部 CSS 变量',
+  },
+  'zh-hant': {
+    baseColor: '基準色（品牌色）', whereTitle: '用在哪裡',
+    contrastNote: '每一行右邊的提示，說的是拿那個顏色當背景時，白字或黑字有沒有過無障礙標準（4.5:1）。',
+    whiteOk: '白字 OK', blackOk: '黑字 OK', bothOk: '白黑都 OK', lowContrast: '文字對比不足',
+    useLight: '背景、淡強調、停用狀態', useMid: '按鈕、連結 —— 品牌色的主體', useDark: '按下狀態、深色背景上的文字',
+    copyAllCss: '複製全部 CSS 變數',
+  },
 };
 
 /* ── 색 섞기 ── */
@@ -233,6 +279,14 @@ export const MIXER_UI: L<{
   hi: {
     first: 'पहला रंग', second: 'दूसरा रंग', ratio: 'मिलाने का अनुपात', stepsNote: '10% के अंतराल पर बीच के चरण',
     note: c => `मिला हुआ रंग सफ़ेद बैकग्राउंड पर ${c}:1 कंट्रास्ट देता है। आधा-आधा मिलाने पर सैचुरेशन गिरकर रंग मैला हो जाता है; ऐसे में एक तरफ़ को 70% से ऊपर झुका दें तो रंग वापस आ जाता है।`,
+  },
+  'zh-hans': {
+    first: '第一个颜色', second: '第二个颜色', ratio: '混合比例', stepsNote: '每 10% 一档的中间色',
+    note: c => `混出来的颜色在白底上的对比度是 ${c}:1。两色各一半地混，往往会掉饱和度、显得发灰；这时把其中一边推到 70% 以上，颜色就活过来了。`,
+  },
+  'zh-hant': {
+    first: '第一個顏色', second: '第二個顏色', ratio: '混合比例', stepsNote: '每 10% 一檔的中間色',
+    note: c => `混出來的顏色在白底上的對比度是 ${c}:1。兩色各一半地混，往往會掉飽和度、顯得發灰；這時把其中一邊推到 70% 以上，顏色就活過來了。`,
   },
 };
 
@@ -277,6 +331,16 @@ export const RANDOM_UI: L<{ copyAll: string; copiedAll: string; reroll: string; 
     copyAll: 'पाँचों HEX एक साथ कॉपी करें', copiedAll: '✅ पाँचों कॉपी हो गए',
     reroll: '🎲 दोबारा निकालें (स्पेसबार)',
     note: 'पसंद का रंग आ जाए तो उसे लॉक कर दें और बाक़ी ही दोबारा निकालें। पूरी तरह रैंडम की जगह 45–85% सैचुरेशन और 35–70% चमक के दायरे से निकाला जाता है, इसलिए जो आता है वह सीधे स्क्रीन पर काम आ जाता है।',
+  },
+  'zh-hans': {
+    copyAll: '一次复制五个 HEX', copiedAll: '✅ 已复制五个颜色',
+    reroll: '🎲 重新抽（空格键）',
+    note: '抽到中意的颜色就用锁锁住，只让其余的重抽。这里不是完全随机，而是在饱和度 45~85%、明度 35~70% 的范围里抽，所以抽出来的颜色可以直接拿去用。',
+  },
+  'zh-hant': {
+    copyAll: '一次複製五個 HEX', copiedAll: '✅ 已複製五個顏色',
+    reroll: '🎲 重新抽（空白鍵）',
+    note: '抽到中意的顏色就用鎖鎖住，只讓其餘的重抽。這裡不是完全隨機，而是在飽和度 45~85%、明度 35~70% 的範圍裡抽，所以抽出來的顏色可以直接拿去用。',
   },
 };
 
@@ -426,6 +490,40 @@ export const CONTRAST_UI: L<{
     previewH: 'बड़ा शीर्षक ऐसा दिखता है', previewBody: 'मुख्य टेक्स्ट लगभग इसी वज़न में पढ़ा जाता है।',
     previewSmall: 'कैप्शन जैसा छोटा टेक्स्ट इतना छोटा हो जाता है — कंट्रास्ट कम हो तो सबसे पहले यहीं पता चलता है।',
   },
+  'zh-hans': {
+    textColor: '文字色', bgColor: '背景色',
+    aaBody: 'AA 正文', aaLarge: 'AA 大字', aaaBody: 'AAA 正文', aaaLarge: 'AAA 大字',
+    pass: '通过', fail: '未达',
+    verdictBest: '连最高标准（AAA）也过了',
+    verdictBody: '可以用在正文上（AA 通过）',
+    verdictLarge: '只能用在大字上',
+    verdictFail: '这个组合读起来太吃力',
+    aaNote: ' —— 这是网页无障碍的底线。正文必须过这一关。',
+    aaaNote: ' —— 更严的标准，公共网站有时会要求。',
+    largeNote: ' —— 18pt（粗体 14pt）以上时标准会放宽。',
+    ratio: '对比度', autoFix: '色相不动，只调明度，让它过 AA',
+    meaningTitle: '这些标准是什么意思',
+    brightnessNote: '对比度取决于明暗差，不是色差。所以黄底上放白字，颜色明明不同，还是读不出来。',
+    previewH: '大标题看起来是这样', previewBody: '正文大小的字，读起来是这个程度。',
+    previewSmall: '小字（图说）会缩到这么小 —— 对比不够的话，最先露馅的就是这里。',
+  },
+  'zh-hant': {
+    textColor: '文字色', bgColor: '背景色',
+    aaBody: 'AA 內文', aaLarge: 'AA 大字', aaaBody: 'AAA 內文', aaaLarge: 'AAA 大字',
+    pass: '通過', fail: '未達',
+    verdictBest: '連最高標準（AAA）也過了',
+    verdictBody: '可以用在內文上（AA 通過）',
+    verdictLarge: '只能用在大字上',
+    verdictFail: '這個組合讀起來太吃力',
+    aaNote: ' —— 這是網頁無障礙的底線。內文必須過這一關。',
+    aaaNote: ' —— 更嚴的標準，公共網站有時會要求。',
+    largeNote: ' —— 18pt（粗體 14pt）以上時標準會放寬。',
+    ratio: '對比度', autoFix: '色相不動，只調明度，讓它過 AA',
+    meaningTitle: '這些標準是什麼意思',
+    brightnessNote: '對比度取決於明暗差，不是色差。所以黃底上放白字，顏色明明不同，還是讀不出來。',
+    previewH: '大標題看起來是這樣', previewBody: '內文大小的字，讀起來是這個程度。',
+    previewSmall: '小字（圖說）會縮到這麼小 —— 對比不夠的話，最先露餡的就是這裡。',
+  },
 };
 
 /* ── 색맹 시뮬레이터 ── */
@@ -540,6 +638,32 @@ export const COLORBLIND_UI: L<{
     },
     approxNote: 'यह सिम्युलेशन अनुमानित रूपांतरण है, इसलिए वह ठीक वैसा नहीं है जैसा कोई असल में देखता है। किसी संयोजन का जोखिम आँकने के लिए इसका इस्तेमाल करें, सटीक चित्रण के लिए नहीं।',
   },
+  'zh-hans': {
+    first: '第一个颜色', second: '第二个颜色', normal: '一般色觉看到的样子',
+    distinguishable: '分得出', hardToTell: '难以分辨', adviceTitle: '别只靠颜色传达信息',
+    advice: '大约每二十个男性里就有一个色觉异常。成功用绿、失败用红这样只靠颜色区分的界面，在他们中相当一部分人眼里是同一个颜色。配上图标（✓ ✕）或文字，看不出颜色也能明白意思。',
+    types: { protanopia: '红色盲', deuteranopia: '绿色盲', tritanopia: '蓝色盲', achromatopsia: '全色盲' },
+    descs: {
+      protanopia: '把红色感觉得偏暗，所以红和绿看起来相近',
+      deuteranopia: '最常见的一种，红和绿几乎一模一样',
+      tritanopia: '较少见，蓝和绿难以分辨',
+      achromatopsia: '完全分不出颜色，只剩明暗',
+    },
+    approxNote: '模拟用的是近似转换，和当事人真正看到的颜色并不完全一样。请把它当成判断「这个组合危不危险」的工具。',
+  },
+  'zh-hant': {
+    first: '第一個顏色', second: '第二個顏色', normal: '一般色覺看到的樣子',
+    distinguishable: '分得出', hardToTell: '難以分辨', adviceTitle: '別只靠顏色傳達資訊',
+    advice: '大約每二十個男性裡就有一個色覺異常。成功用綠、失敗用紅這樣只靠顏色區分的介面，在他們中相當一部分人眼裡是同一個顏色。配上圖示（✓ ✕）或文字，看不出顏色也能明白意思。',
+    types: { protanopia: '紅色盲', deuteranopia: '綠色盲', tritanopia: '藍色盲', achromatopsia: '全色盲' },
+    descs: {
+      protanopia: '把紅色感覺得偏暗，所以紅和綠看起來相近',
+      deuteranopia: '最常見的一種，紅和綠幾乎一模一樣',
+      tritanopia: '較少見，藍和綠難以分辨',
+      achromatopsia: '完全分不出顏色，只剩明暗',
+    },
+    approxNote: '模擬用的是近似轉換，和當事人真正看到的顏色並不完全一樣。請把它當成判斷「這個組合危不危險」的工具。',
+  },
 };
 
 /* ── 그라디언트 ── */
@@ -604,6 +728,20 @@ export const GRADIENT_UI: L<{
     presetNames: ['सूर्यास्त', 'समुद्र', 'जंगल', 'रात'],
     note: 'ग्रेडिएंट पर टेक्स्ट रखते समय सबसे हल्के और सबसे गहरे — दोनों बिंदुओं पर कंट्रास्ट जाँचें। सिर्फ़ एक सिरे के हिसाब से सेट करेंगे तो दूसरे सिरे पर टेक्स्ट ग़ायब हो जाएगा।',
   },
+  'zh-hans': {
+    startColor: '起始色', midColor: '中间色', endColor: '结束色', angle: '角度',
+    addMid: '加一个中间色', radial: '改成从中心散开的径向渐变', presets: '预设',
+    copyCss: '复制 CSS', copiedCss: '✅ 已复制 CSS',
+    presetNames: ['晚霞', '海', '森林', '夜'],
+    note: '要在渐变上放文字，最亮的那一端和最暗的那一端都得量一遍对比度。只按一边调，字到了另一边就消失了。',
+  },
+  'zh-hant': {
+    startColor: '起始色', midColor: '中間色', endColor: '結束色', angle: '角度',
+    addMid: '加一個中間色', radial: '改成從中心散開的放射狀漸層', presets: '預設',
+    copyCss: '複製 CSS', copiedCss: '✅ 已複製 CSS',
+    presetNames: ['晚霞', '海', '森林', '夜'],
+    note: '要在漸層上放文字，最亮的那一端和最暗的那一端都得量一遍對比度。只按一邊調，字到了另一邊就消失了。',
+  },
 };
 
 /* ── 그림자 ── */
@@ -660,6 +798,18 @@ export const SHADOW_UI: L<{
     presets: ['हल्की', 'सामान्य', 'तैरती', 'गहरी'],
     note: 'स्वाभाविक छाया अक्सर सीधे नीचे गिरती है (क्षैतिज ऑफ़सेट 0) और काले की जगह बैकग्राउंड से थोड़ा गहरा हल्का नेवी रंग लेती है। पूरी काली छाया मैली दिखती है।',
   },
+  'zh-hans': {
+    shadowColor: '阴影颜色', opacity: '不透明度', offsetX: '横向偏移', offsetY: '纵向偏移', blur: '模糊', spread: '扩散',
+    inset: '内阴影（inset）—— 按下去的感觉', copyCss: '复制 CSS', copiedCss: '✅ 已复制 CSS',
+    presets: ['浅', '普通', '浮起', '深'],
+    note: '自然的阴影一般只往下稍微落一点（横向为 0），颜色也不用纯黑，而是比背景略暗的藏青系淡淡铺一层。纯黑的阴影看着发脏。',
+  },
+  'zh-hant': {
+    shadowColor: '陰影顏色', opacity: '不透明度', offsetX: '橫向偏移', offsetY: '縱向偏移', blur: '模糊', spread: '擴散',
+    inset: '內陰影（inset）—— 按下去的感覺', copyCss: '複製 CSS', copiedCss: '✅ 已複製 CSS',
+    presets: ['淺', '普通', '浮起', '深'],
+    note: '自然的陰影一般只往下稍微落一點（橫向為 0），顏色也不用純黑，而是比背景略暗的藏青系淡淡鋪一層。純黑的陰影看著發髒。',
+  },
 };
 
 /* ── 색 이름 찾기 ── */
@@ -714,6 +864,18 @@ export const NAME_UI: L<{
     almostSame: d => `लगभग वही रंग है (अंतर ${d})`,
     differs: d => `उस नामित रंग से साफ़ अंतर है (अंतर ${d}) — इसे सिर्फ़ एक ही परिवार का मानें`,
     cmykNote: 'CMYK मान सीधा रूपांतरण है। छपा हुआ रंग स्याही, काग़ज़ और मशीन पर निर्भर करता है, इसलिए जहाँ रंग सही आना ज़रूरी हो, वहाँ Pantone जैसा स्पॉट कलर तय करें या प्रेस से प्रूफ़ लें।',
+  },
+  'zh-hans': {
+    colorCode: '颜色代码', nearest: '最接近的名字',
+    almostSame: d => `几乎就是同一个颜色（差 ${d}）`,
+    differs: d => `和这个名字的颜色有出入（差 ${d}）—— 只当同一色系看就好`,
+    cmykNote: 'CMYK 是简单换算出来的。实际印出来的颜色会随油墨、纸张和印刷机变化，颜色要紧的印刷品，得指定潘通这类特别色，或者走印刷厂打样。',
+  },
+  'zh-hant': {
+    colorCode: '顏色代碼', nearest: '最接近的名字',
+    almostSame: d => `幾乎就是同一個顏色（差 ${d}）`,
+    differs: d => `和這個名字的顏色有出入（差 ${d}）—— 只當同一色系看就好`,
+    cmykNote: 'CMYK 是簡單換算出來的。實際印出來的顏色會隨油墨、紙張和印刷機變化，顏色要緊的印刷品，得指定 Pantone 這類特別色，或者走印刷廠打樣。',
   },
 };
 
@@ -804,6 +966,26 @@ export const TEMPERATURE_UI: L<{
     rightCompare: 'दाईं ओर का रंग तापमान (तुलना के लिए)', commonTitle: 'आम मान', colderTitle: 'अंक जितना बड़ा, उतना ठंडा',
     colderBody: 'नाम से उलट, केल्विन मान जितना कम हो रोशनी उतनी लाल और गर्म होती है, और जितना ज़्यादा हो उतनी नीली और ठंडी। यह पैमाना धातु को गर्म करने से आया है — पहले लाल, और ज़्यादा गर्म होने पर सफ़ेद और नीली। घर की रोशनी 2700–3000K के आसपास और काम की जगह 4000–5000K के आसपास ठीक रहती है।',
   },
+  'zh-hans': {
+    left: '左侧色温', right: '右侧色温',
+    presets: { candle: '烛光', incandescent: '白炽灯色', warmWhite: '暖白', daylight: '日光色', overcast: '阴天', blue: '冷蓝' },
+    descs: {
+      candle: '非常红、非常暖', incandescent: '家里的照明，温馨', warmWhite: '办公室与厨房',
+      daylight: '正午的阳光', overcast: '泛蓝的白光', blue: '摄影的基准光',
+    },
+    rightCompare: '右侧色温（用来对照）', commonTitle: '常用的值', colderTitle: '数字越大越冷',
+    colderBody: '和直觉相反：开尔文值越低，光越红越暖；越高，光越蓝越冷。这是因为它以铁块加热为准 —— 起初烧红，越热就越白、越蓝。家里的照明用 2700~3000K，工作区域用 4000~5000K 都比较稳妥。',
+  },
+  'zh-hant': {
+    left: '左側色溫', right: '右側色溫',
+    presets: { candle: '燭光', incandescent: '白熾燈色', warmWhite: '暖白', daylight: '日光色', overcast: '陰天', blue: '冷藍' },
+    descs: {
+      candle: '非常紅、非常暖', incandescent: '家裡的照明，溫馨', warmWhite: '辦公室與廚房',
+      daylight: '正午的陽光', overcast: '泛藍的白光', blue: '攝影的基準光',
+    },
+    rightCompare: '右側色溫（用來對照）', commonTitle: '常用的值', colderTitle: '數字越大越冷',
+    colderBody: '和直覺相反：克耳文值越低，光越紅越暖；越高，光越藍越冷。這是因為它以鐵塊加熱為準 —— 起初燒紅，越熱就越白、越藍。家裡的照明用 2700~3000K，工作區域用 4000~5000K 都比較穩妥。',
+  },
 };
 
 /**
@@ -860,5 +1042,21 @@ export const NAMED_COLOR_INTL: Record<Exclude<ColorLang, 'ko' | 'en'>, Record<st
     skyblue: 'आसमानी', blue: 'नीला', navy: 'गहरा नीला', indigo: 'जामुनी नील', purple: 'बैंजनी',
     violet: 'वायलेट', magenta: 'मैजेंटा', pink: 'गुलाबी', brown: 'भूरा', chocolate: 'चॉकलेटी',
     tan: 'हल्का भूरा', beige: 'बेज',
+  },
+  'zh-hans': {
+    black: '黑', white: '白', gray: '灰', silver: '银', red: '红', maroon: '栗',
+    crimson: '绯红', tomato: '番茄红', coral: '珊瑚', orange: '橙', gold: '金', yellow: '黄',
+    olive: '橄榄', lime: '青柠绿', green: '绿', seagreen: '海绿', teal: '鸭绿', cyan: '青',
+    skyblue: '天蓝', blue: '蓝', navy: '藏青', indigo: '靛', purple: '紫',
+    violet: '紫罗兰', magenta: '洋红', pink: '粉红', brown: '棕', chocolate: '巧克力色',
+    tan: '浅褐', beige: '米色',
+  },
+  'zh-hant': {
+    black: '黑', white: '白', gray: '灰', silver: '銀', red: '紅', maroon: '栗',
+    crimson: '緋紅', tomato: '番茄紅', coral: '珊瑚', orange: '橙', gold: '金', yellow: '黃',
+    olive: '橄欖', lime: '青檸綠', green: '綠', seagreen: '海綠', teal: '鴨綠', cyan: '青',
+    skyblue: '天藍', blue: '藍', navy: '藏青', indigo: '靛', purple: '紫',
+    violet: '紫羅蘭', magenta: '洋紅', pink: '粉紅', brown: '棕', chocolate: '巧克力色',
+    tan: '淺褐', beige: '米色',
   },
 };

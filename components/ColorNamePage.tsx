@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { colorFacts, nearbyColors } from '@/lib/color/facts';
 import { COLOR_UI, colorFaq } from '@/lib/color/ui';
 import type { NamedColor } from '@/lib/color/named8';
@@ -18,7 +18,7 @@ import type { NamedColor } from '@/lib/color/named8';
  * 모든 숫자는 hex에서 계산한다. 색은 눈으로 맞다/틀리다를 알 수 없으므로
  * 손으로 적어 두면 틀린 것을 아무도 못 잡는다.
  */
-export default function ColorNamePage({ color, lang }: { color: NamedColor; lang: Lang8 }) {
+export default function ColorNamePage({ color, lang }: { color: NamedColor; lang: Lang }) {
   const ui = COLOR_UI[lang];
   const f = colorFacts(color.hex);
   const name = color.name[lang];

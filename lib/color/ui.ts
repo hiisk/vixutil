@@ -5,7 +5,7 @@
  * 숫자뿐이므로, 문장 틀을 한 벌만 두고 계산된 값을 끼워 넣는다. 숫자가 계산에서
  * 오니 틀릴 수 없고, 색을 더해도 문구를 다시 쓰지 않는다.
  */
-import { alternates8, type L, type Lang } from '../i18n/lang.ts';
+import { alternates, type L, type Lang } from '../i18n/lang.ts';
 import type { ColorFacts } from './facts.ts';
 import type { ColorFamily } from './named8.ts';
 
@@ -891,4 +891,4 @@ export function colorFaq(lang: Lang, name: string, f: ColorFacts): FaqItem[] {
 
 /** hreflang 묶음 — 색 slug만 넣으면 아홉 줄이 나온다 */
 export const colorAlternates = (slug?: string): Record<string, string> =>
-  alternates8(slug ? `/color/${slug}` : '/color');
+  alternates(slug ? `/color/${slug}` : '/color');

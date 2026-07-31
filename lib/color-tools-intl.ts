@@ -14,7 +14,11 @@ import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from '.
  * 영어권은 'colour palette generator'로 찾고 독일어권은 'Farbpalette Generator'로
  * 찾는다. 직역하면 어느 쪽 검색어에도 걸리지 않는 문장이 나온다.
  */
-export type ColorIntlLang = IntlLocale;
+/**
+ * 색상 도구 허브가 쓰는 언어 — 공용 IntlLocale에 중국어 둘을 더한다.
+ * IntlLocale 자체를 넓히지 않는 이유는 lib/food-tools-intl.ts에 적어 두었다.
+ */
+export type ColorIntlLang = IntlLocale | 'zh-hans' | 'zh-hant';
 
 interface ToolCopy {
   title: string; desc: string; category: string;
@@ -462,6 +466,130 @@ const COPY: Record<ColorIntlLang, Record<string, ToolCopy>> = {
       features: ['1000K से 12000K तक स्लाइडर', 'वॉर्म, न्यूट्रल और डेलाइट प्रीसेट', 'RGB और HEX मान', 'दो तापमान साथ रखकर तुलना करें'],
     },
   },
+  'zh-hans': {
+    palette: {
+      title: '配色方案生成器', desc: '按色彩规则从一个基准色推出配得上的颜色', category: '配色',
+      metaTitle: '配色方案生成器 — 一键生成协调的色彩组合',
+      long: '选一个颜色，它就照色环规则推出跟它配得上的颜色 —— 补色、邻近色、三角配色。用规则挑而不是凭眼睛挑，方案就不至于跑偏。',
+      features: ['补色、邻近色、三角与四角配色', '单色系的明度阶', '每个 HEX 都能单独复制', '整套方案可复制成 CSS'],
+    },
+    shades: {
+      title: '色阶生成器', desc: '把一个颜色摊成 50–900 的色阶', category: '配色',
+      metaTitle: '色阶生成器 — 从一个颜色生成 50 到 900',
+      long: '给它一个品牌色，它就做出十档，往浅（tint）和往深（shade）各走一段。输出直接是 50 · 100 · … · 900 的写法，Tailwind 和大多数设计系统拿去就能用。',
+      features: ['从 50 到 900 共十档', '每一档的 HEX 和 HSL', '标出白字还是黑字读得动', '整套复制成 CSS 变量'],
+    },
+    mixer: {
+      title: '颜色混合器', desc: '找出两个颜色之间的那个颜色', category: '配色',
+      metaTitle: '颜色混合器 — 把两色混合并取中间值',
+      long: '定好两个颜色，拉一下比例就得到它们之间的色。想取渐变上某一点的颜色，或者在两个品牌色之间找个中间调，用它正合适。',
+      features: ['用滑块调混合比例', '一次看到好几档中间色', '复制 HEX 或 RGB', '顺便查混出来的对比度'],
+    },
+    random: {
+      title: '随机颜色生成器', desc: '中意的锁住，其余的重抽', category: '配色',
+      metaTitle: '随机颜色生成器 — 带锁定的配色重抽',
+      long: '一次抽五个随机颜色。中意的锁住，只让其余的重抽，就能飞快地翻过一组组组合，直到抽出合意的为止。',
+      features: ['一次五个颜色', '想留下的可以锁住', '饱和度控制在能用的范围里', '一次复制全部 HEX'],
+    },
+    contrast: {
+      title: '颜色对比度检查', desc: '照 WCAG 标准查文字读不读得动', category: '无障碍',
+      metaTitle: '颜色对比度检查 — WCAG AA 与 AAA 比值',
+      long: '算出背景色和文字色之间的对比度，告诉你有没有过网页无障碍的门槛（WCAG AA 和 AAA），还配了实时的文字预览，可以直接用眼睛判断。',
+      features: ['1 到 21 的对比度', 'AA 与 AAA 是否通过', '大字另有一套判定', '自动调明度直到通过'],
+    },
+    colorblind: {
+      title: '色盲模拟器', desc: '色觉异常的人看到的是什么颜色', category: '无障碍',
+      metaTitle: '色盲模拟器 — 预览红色盲、绿色盲等',
+      long: '把你的颜色换算成红色盲、绿色盲、蓝色盲和全色盲眼中的样子。一眼就能看出，为什么只靠红绿来区分状态的界面是有问题的。',
+      features: ['四种色觉异常', '并排检查两色分不分得开', '整套配色一起模拟', '同时显示对比度'],
+    },
+    gradient: {
+      title: 'CSS 渐变生成器', desc: '用两三个颜色做出 CSS 渐变', category: 'CSS',
+      metaTitle: 'CSS 渐变生成器 — linear-gradient 代码',
+      long: '定好颜色和角度，它就把 CSS 的 linear-gradient 写给你。拖动色标能控制过渡发生在哪儿，结果直接粘进去就行。',
+      features: ['两到三个颜色，带色标位置', '可选角度或径向', '当场复制 CSS', '附 Tailwind 类名的用法'],
+    },
+    shadow: {
+      title: 'CSS 阴影生成器', desc: '一边看效果一边调 box-shadow', category: 'CSS',
+      metaTitle: 'CSS 阴影生成器 — 实时预览与代码',
+      long: '一边看着结果一边调偏移、模糊、扩散、颜色和透明度，调好把 CSS 拿走。还带了几组叠多层阴影的预设，做出来的层次更自然。',
+      features: ['偏移、模糊、扩散和颜色', '支持内阴影', '多层叠加的自然预设', '复制 CSS'],
+    },
+    name: {
+      title: '颜色名称查找', desc: '这个颜色最接近哪个名字', category: '换算',
+      metaTitle: '颜色名称查找 — 任意 HEX 最接近的具名颜色',
+      long: '输入一个颜色代码，它就找出最接近的具名颜色 —— 珊瑚色、鸭绿、绯红 —— 并把 HEX、RGB、HSL 和 CMYK 一起列出来。需要用文字描述一个颜色时特别好使。',
+      features: ['最接近的具名颜色', 'HEX、RGB、HSL、CMYK 一次看全', '显示和那个名字的颜色差多少', '每个值可单独复制'],
+    },
+    temperature: {
+      title: '色温换算器', desc: '看看一个开尔文值到底长什么样', category: '换算',
+      metaTitle: '色温换算器 — 开尔文转 RGB',
+      long: '看看 2700K 的暖白到底是什么颜色，6500K 的日光又蓝到什么程度。挑照明、或者想对摄影白平衡有点手感时用得上。',
+      features: ['1000K 到 12000K 的滑块', '暖光、中性、日光的预设', 'RGB 和 HEX 数值', '两个色温可并排对照'],
+    },
+  },
+  'zh-hant': {
+    palette: {
+      title: '配色方案產生器', desc: '按色彩規則從一個基準色推出配得上的顏色', category: '配色',
+      metaTitle: '配色方案產生器 — 一鍵產生協調的色彩組合',
+      long: '選一個顏色，它就照色環規則推出跟它配得上的顏色 —— 補色、鄰近色、三角配色。用規則挑而不是憑眼睛挑，方案就不至於跑偏。',
+      features: ['補色、鄰近色、三角與四角配色', '單色系的明度階', '每個 HEX 都能單獨複製', '整套方案可複製成 CSS'],
+    },
+    shades: {
+      title: '色階產生器', desc: '把一個顏色攤成 50–900 的色階', category: '配色',
+      metaTitle: '色階產生器 — 從一個顏色產生 50 到 900',
+      long: '給它一個品牌色，它就做出十檔，往淺（tint）和往深（shade）各走一段。輸出直接是 50 · 100 · … · 900 的寫法，Tailwind 和大多數設計系統拿去就能用。',
+      features: ['從 50 到 900 共十檔', '每一檔的 HEX 和 HSL', '標出白字還是黑字讀得動', '整套複製成 CSS 變數'],
+    },
+    mixer: {
+      title: '顏色混合器', desc: '找出兩個顏色之間的那個顏色', category: '配色',
+      metaTitle: '顏色混合器 — 把兩色混合並取中間值',
+      long: '定好兩個顏色，拉一下比例就得到它們之間的色。想取漸層上某一點的顏色，或者在兩個品牌色之間找個中間調，用它正合適。',
+      features: ['用滑桿調混合比例', '一次看到好幾檔中間色', '複製 HEX 或 RGB', '順便查混出來的對比度'],
+    },
+    random: {
+      title: '隨機顏色產生器', desc: '中意的鎖住，其餘的重抽', category: '配色',
+      metaTitle: '隨機顏色產生器 — 帶鎖定的配色重抽',
+      long: '一次抽五個隨機顏色。中意的鎖住，只讓其餘的重抽，就能飛快地翻過一組組組合，直到抽出合意的為止。',
+      features: ['一次五個顏色', '想留下的可以鎖住', '飽和度控制在能用的範圍裡', '一次複製全部 HEX'],
+    },
+    contrast: {
+      title: '顏色對比度檢查', desc: '照 WCAG 標準查文字讀不讀得動', category: '無障礙',
+      metaTitle: '顏色對比度檢查 — WCAG AA 與 AAA 比值',
+      long: '算出背景色和文字色之間的對比度，告訴你有沒有過網頁無障礙的門檻（WCAG AA 和 AAA），還配了即時的文字預覽，可以直接用眼睛判斷。',
+      features: ['1 到 21 的對比度', 'AA 與 AAA 是否通過', '大字另有一套判定', '自動調明度直到通過'],
+    },
+    colorblind: {
+      title: '色盲模擬器', desc: '色覺異常的人看到的是什麼顏色', category: '無障礙',
+      metaTitle: '色盲模擬器 — 預覽紅色盲、綠色盲等',
+      long: '把你的顏色換算成紅色盲、綠色盲、藍色盲和全色盲眼中的樣子。一眼就能看出，為什麼只靠紅綠來區分狀態的介面是有問題的。',
+      features: ['四種色覺異常', '並排檢查兩色分不分得開', '整套配色一起模擬', '同時顯示對比度'],
+    },
+    gradient: {
+      title: 'CSS 漸層產生器', desc: '用兩三個顏色做出 CSS 漸層', category: 'CSS',
+      metaTitle: 'CSS 漸層產生器 — linear-gradient 程式碼',
+      long: '定好顏色和角度，它就把 CSS 的 linear-gradient 寫給你。拖動色標能控制過渡發生在哪兒，結果直接貼進去就行。',
+      features: ['兩到三個顏色，帶色標位置', '可選角度或放射狀', '當場複製 CSS', '附 Tailwind 類名的用法'],
+    },
+    shadow: {
+      title: 'CSS 陰影產生器', desc: '一邊看效果一邊調 box-shadow', category: 'CSS',
+      metaTitle: 'CSS 陰影產生器 — 即時預覽與程式碼',
+      long: '一邊看著結果一邊調偏移、模糊、擴散、顏色和透明度，調好把 CSS 拿走。還帶了幾組疊多層陰影的預設，做出來的層次更自然。',
+      features: ['偏移、模糊、擴散和顏色', '支援內陰影', '多層疊加的自然預設', '複製 CSS'],
+    },
+    name: {
+      title: '顏色名稱查找', desc: '這個顏色最接近哪個名字', category: '換算',
+      metaTitle: '顏色名稱查找 — 任意 HEX 最接近的具名顏色',
+      long: '輸入一個顏色代碼，它就找出最接近的具名顏色 —— 珊瑚色、鴨綠、緋紅 —— 並把 HEX、RGB、HSL 和 CMYK 一起列出來。需要用文字描述一個顏色時特別好使。',
+      features: ['最接近的具名顏色', 'HEX、RGB、HSL、CMYK 一次看全', '顯示和那個名字的顏色差多少', '每個值可單獨複製'],
+    },
+    temperature: {
+      title: '色溫換算器', desc: '看看一個克耳文值到底長什麼樣', category: '換算',
+      metaTitle: '色溫換算器 — 克耳文轉 RGB',
+      long: '看看 2700K 的暖白到底是什麼顏色，6500K 的日光又藍到什麼程度。挑照明、或者想對攝影白平衡有點手感時用得上。',
+      features: ['1000K 到 12000K 的滑桿', '暖光、中性、日光的預設', 'RGB 和 HEX 數值', '兩個色溫可並排對照'],
+    },
+  },
 };
 
 export function colorToolsIntl(lang: ColorIntlLang): ColorTool[] {
@@ -493,6 +621,8 @@ export const COLOR_CATEGORY_ORDER: Record<ColorIntlLang, string[]> = {
   de: ['Palette', 'Barrierefreiheit', 'CSS', 'Umrechnung'],
   fr: ['Palette', 'Accessibilité', 'CSS', 'Conversion'],
   hi: ['पैलेट', 'सुगम्यता', 'CSS', 'रूपांतरण'],
+  'zh-hans': ['配色', '无障碍', 'CSS', '换算'],
+  'zh-hant': ['配色', '無障礙', 'CSS', '換算'],
 };
 
 export const COLOR_SHELL_UI: Record<ColorIntlLang, {
@@ -569,6 +699,26 @@ export const COLOR_SHELL_UI: Record<ColorIntlLang, {
     hubDesc: 'मुफ़्त रंग उपकरण: पैलेट जनरेटर, शेड श्रेणी, कंट्रास्ट जाँच, वर्णांधता सिम्युलेटर, CSS ग्रेडिएंट और छाया। ब्राउज़र में चलता है, इंस्टॉल करने की ज़रूरत नहीं।',
     hubLead: 'पैलेट, कंट्रास्ट और CSS कोड — सब आपके ब्राउज़र में।',
     hubFoot: 'मुफ़्त रंग उपकरण', eyebrow: 'रंग',
+  },
+  'zh-hans': {
+    home: '首页', section: '颜色工具',
+    canDo: '这个工具能做什么', others: '其他颜色工具',
+    notice: '🎨 全部在你的浏览器里运行。不用装，也不用注册。',
+    footNote: '颜色会因屏幕和色彩配置文件而略有差别。',
+    hubTitle: '颜色工具 — 配色方案、对比度、CSS 渐变',
+    hubDesc: '免费的颜色工具：配色方案生成、色阶、对比度检查、色盲模拟、CSS 渐变和阴影。在浏览器里运行，不用安装。',
+    hubLead: '配色、对比度和 CSS 代码 —— 全都在浏览器里跑。',
+    hubFoot: '免费颜色工具', eyebrow: '颜色',
+  },
+  'zh-hant': {
+    home: '首頁', section: '顏色工具',
+    canDo: '這個工具能做什麼', others: '其他顏色工具',
+    notice: '🎨 全部在你的瀏覽器裡執行。不用裝，也不用註冊。',
+    footNote: '顏色會因螢幕和色彩描述檔而略有差別。',
+    hubTitle: '顏色工具 — 配色方案、對比度、CSS 漸層',
+    hubDesc: '免費的顏色工具：配色方案產生、色階、對比度檢查、色盲模擬、CSS 漸層和陰影。在瀏覽器裡執行，不用安裝。',
+    hubLead: '配色、對比度和 CSS 程式碼 —— 全都在瀏覽器裡跑。',
+    hubFoot: '免費顏色工具', eyebrow: '顏色',
   },
 };
 

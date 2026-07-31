@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { colorToolsIntl, COLOR_CATEGORY_ORDER, COLOR_SHELL_UI, type ColorIntlLang } from '@/lib/color-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
 import { COLOR_UI } from '@/lib/color/ui';
 
@@ -22,7 +22,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
   const tools = colorToolsIntl(lang);
   const ui = COLOR_SHELL_UI[lang];
   // 색 이름 쪽 문구는 짧은 열쇠를 쓴다 — 'pt-br'과 'pt'가 만나는 자리다
-  const key = lang8OfLocale(lang);
+  const key = langOfLocale(lang);
   const names = COLOR_UI[key];
   const grouped = COLOR_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
