@@ -126,10 +126,18 @@ test('허브 카드가 OG 이미지를 썸네일로 쓰지 않는다', { skip: b
 test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? false : 'out/ 없음' }, () => {
   // 카드 썸네일로는 안 쓰지만 소셜 공유 미리보기에는 반드시 필요하다.
   // 공유는 이 사이트의 주요 유입 채널이라 실수로 지우면 안 된다.
-  for (const p of ['test/mbti/opengraph-image', 'quiz/wine/opengraph-image']) {
-    const f = join(OUT, p);
-    assert.ok(existsSync(f), `${p}가 없다 — 공유 미리보기가 깨진다`);
-    assert.ok(statSync(f).size > 1000, `${p}가 비어 있다`);
+  //
+  // 예전에는 상세 페이지마다 카드를 따로 구웠는데, 그게 3만 1천 장 5.8GB라
+  // 빌드가 디스크를 넘겼다. 지금은 섹션 카드 하나를 물려받는다 — 그래서 검사할
+  // 것은 "상세 페이지에 파일이 있느냐"가 아니라 "상세 페이지가 가리키는 주소에
+  // 파일이 있느냐"다. 앞의 것을 보면 멀쩡한 공유를 깨졌다고 한다.
+  for (const page of ['test/mbti.html', 'quiz/wine.html']) {
+    const html = readFileSync(join(OUT, page), 'utf8');
+    const m = html.match(/property="og:image" content="https:\/\/vixutil\.com([^"?]+)/);
+    assert.ok(m, `${page}에 og:image가 없다 — 공유 미리보기가 깨진다`);
+    const f = join(OUT, m[1]);
+    assert.ok(existsSync(f), `${page}가 가리키는 ${m[1]}가 없다 — 공유 미리보기가 깨진다`);
+    assert.ok(statSync(f).size > 1000, `${m[1]}가 비어 있다`);
   }
 });
 

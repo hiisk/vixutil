@@ -1,5 +1,5 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
-import type { AnyLocale } from './locales.ts';
+import type { AnyLocale10 } from './locales.ts';
 
 /**
  * 이미지 도구 화면에 뜨는 문구의 여덟 언어 사전.
@@ -11,7 +11,7 @@ import type { AnyLocale } from './locales.ts';
  * 배열은 언어마다 길이와 순서가 같아야 한다 — 인덱스로 짝지으므로 하나를 빼면
  * 그 뒤가 전부 한 칸씩 밀린다.
  */
-export type ImageLang = AnyLocale;
+export type ImageLang = AnyLocale10;
 
 /** 여덟 도구가 공통으로 쓰는 조각 — 입구, 결과 요약, 저장 버튼 */
 export const IMAGE_COMMON: Record<ImageLang, {
@@ -93,6 +93,44 @@ export const IMAGE_COMMON: Record<ImageLang, {
     quality: 'क्वालिटी', smaller: 'हल्का', sharper: 'साफ़',
     bgFill: 'पारदर्शिता भरने वाला रंग', pickBg: 'बैकग्राउंड रंग चुनें', bgColor: 'बैकग्राउंड',
   },
+  'zh-hans': {
+    dropOne: '把照片拖到这里',
+    dropMany: '把几张照片拖到这里',
+    dropHow: '点这里，或者把文件拖进来',
+    notImage: '这不是图片文件。试试JPG、PNG、WebP或GIF。',
+    original: '原图',
+    result: '结果',
+    saved: '省下',
+    grew: '变大',
+    otherPhoto: '换一张',
+    save: '保存',
+    working: '处理中…',
+    quality: '画质',
+    smaller: '更小',
+    sharper: '更清晰',
+    bgFill: '填补透明的颜色',
+    pickBg: '挑一个背景色',
+    bgColor: '背景',
+  },
+  'zh-hant': {
+    dropOne: '把照片拖到這裡',
+    dropMany: '把幾張照片拖到這裡',
+    dropHow: '點這裡，或者把檔案拖進來',
+    notImage: '這不是圖片檔。試試JPG、PNG、WebP或GIF。',
+    original: '原圖',
+    result: '結果',
+    saved: '省下',
+    grew: '變大',
+    otherPhoto: '換一張',
+    save: '儲存',
+    working: '處理中…',
+    quality: '畫質',
+    smaller: '更小',
+    sharper: '更清晰',
+    bgFill: '填補透明的顏色',
+    pickBg: '挑一個背景色',
+    bgColor: '背景',
+  },
 };
 
 /** 붙여넣기 안내 — kbd 태그가 끼어 있어 앞뒤를 나눈다 */
@@ -105,6 +143,14 @@ export const PASTE_HINT: Record<ImageLang, { before: string; after: string }> = 
   de: { before: ' · oder einfügen mit ', after: '' },
   fr: { before: ' · ou colle avec ', after: '' },
   hi: { before: ' · या ', after: ' से पेस्ट करें' },
+  'zh-hans': {
+    before: ' · 或者按 ',
+    after: '',
+  },
+  'zh-hant': {
+    before: ' · 或者按 ',
+    after: '',
+  },
 };
 
 export const COMPRESS_UI: Record<ImageLang, {
@@ -183,6 +229,30 @@ export const COMPRESS_UI: Record<ImageLang, {
     viewingOriginal: 'मूल फ़ोटो दिख रही है', tapForOriginal: 'दबाएँ तो मूल',
     note: 'पिक्सेल नाप वही रहते हैं — सिर्फ़ क्वालिटी घटती है। और छोटा करना हो तो साथ में ',
     noteLink: 'इमेज का आकार बदलें',
+  },
+  'zh-hans': {
+    hint: 'JPG、PNG、WebP都能用',
+    formats: ['JPG', 'WebP'],
+    formatHints: ['照片用它最稳', '同样画质下更小'],
+    saveAs: '保存为',
+    altOriginal: '原来的照片',
+    altResult: '压缩结果的预览',
+    viewingOriginal: '正在看原图',
+    tapForOriginal: '点一下看原图',
+    note: '像素尺寸不变 — 只有画质降下来。还想更小的话，再用一次',
+    noteLink: '图片尺寸调整',
+  },
+  'zh-hant': {
+    hint: 'JPG、PNG、WebP都能用',
+    formats: ['JPG', 'WebP'],
+    formatHints: ['照片用它最穩', '同樣畫質下更小'],
+    saveAs: '儲存為',
+    altOriginal: '原來的照片',
+    altResult: '壓縮結果的預覽',
+    viewingOriginal: '正在看原圖',
+    tapForOriginal: '點一下看原圖',
+    note: '像素尺寸不變 — 只有畫質降下來。還想更小的話，再用一次',
+    noteLink: '圖片尺寸調整',
   },
 };
 
@@ -263,6 +333,32 @@ export const RESIZE_UI: Record<ImageLang, {
     presets: ['इंस्टाग्राम वर्ग', 'यूट्यूब थंबनेल', 'प्रोफ़ाइल 512'],
     note: 'मूल से बड़ा करने पर बारीकी नहीं बढ़ती — बस धुँधला हो जाता है।',
   },
+  'zh-hans': {
+    hint: '按像素填宽和高',
+    alt: '调整尺寸后的预览',
+    width: '宽（px）',
+    height: '高（px）',
+    lockOn: '解开长宽比',
+    lockOff: '锁住长宽比',
+    byRatio: '按百分比缩放',
+    originalLabel: '原图',
+    presetsTitle: '常用尺寸',
+    presets: ['Instagram 方形', 'YouTube 缩略图', '头像 512'],
+    note: '放得比原图还大不会多出细节 — 只会变糊。',
+  },
+  'zh-hant': {
+    hint: '按像素填寬和高',
+    alt: '調整尺寸後的預覽',
+    width: '寬（px）',
+    height: '高（px）',
+    lockOn: '解開長寬比',
+    lockOff: '鎖住長寬比',
+    byRatio: '按百分比縮放',
+    originalLabel: '原圖',
+    presetsTitle: '常用尺寸',
+    presets: ['Instagram 方形', 'YouTube 縮圖', '大頭貼 512'],
+    note: '放得比原圖還大不會多出細節 — 只會變糊。',
+  },
 };
 
 export const CONVERT_UI: Record<ImageLang, {
@@ -307,6 +403,18 @@ export const CONVERT_UI: Record<ImageLang, {
     hint: 'GIF, BMP और HEIC भी पढ़कर बदले जाते हैं', alt: 'बदले नतीजे की झलक',
     targetFormat: 'इसमें बदलें',
     note: 'JPG और क्वालिटी तय किए WebP में पारदर्शिता नहीं होती, इसलिए जो पारदर्शी था वह इस रंग से भर जाता है।',
+  },
+  'zh-hans': {
+    hint: 'GIF、BMP、HEIC也读得进来并转换',
+    alt: '转换结果的预览',
+    targetFormat: '转成',
+    note: 'JPG和设了画质的WebP没有透明通道，原本透明的地方会被填上这个颜色。',
+  },
+  'zh-hant': {
+    hint: 'GIF、BMP、HEIC也讀得進來並轉換',
+    alt: '轉換結果的預覽',
+    targetFormat: '轉成',
+    note: 'JPG和設了畫質的WebP沒有透明通道，原本透明的地方會被填上這個顏色。',
   },
 };
 
@@ -361,6 +469,22 @@ export const CROP_UI: Record<ImageLang, {
     ratioTitle: 'अनुपात लॉक', ratios: ['खुला', '1:1', '4:3', '3:4', '16:9', '9:16'],
     how: 'फ़ोटो पर खींचकर नया क्षेत्र बनाएँ, या किसी कोने को पकड़कर आकार बदलें। बीच से खींचें तो जगह बदलती है।',
     keeps: (ow, oh, w, h) => `मूल ${ow} × ${oh}px में से ${w} × ${h}px रखे जाएँगे।`,
+  },
+  'zh-hans': {
+    hint: '只留下需要的那一块',
+    alt: '要裁的照片',
+    ratioTitle: '锁定比例',
+    ratios: ['自由', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: '在照片上拖出新的范围，或者拉角来改大小。拖中间可以移动。',
+    keeps: (ow, oh, w, h) => `从原来的 ${ow} × ${oh}px 里留下 ${w} × ${h}px。`,
+  },
+  'zh-hant': {
+    hint: '只留下需要的那一塊',
+    alt: '要裁的照片',
+    ratioTitle: '鎖定比例',
+    ratios: ['自由', '1:1', '4:3', '3:4', '16:9', '9:16'],
+    how: '在照片上拖出新的範圍，或者拉角來改大小。拖中間可以移動。',
+    keeps: (ow, oh, w, h) => `從原來的 ${ow} × ${oh}px 裡留下 ${w} × ${h}px。`,
   },
 };
 
@@ -432,6 +556,34 @@ export const ROTATE_UI: Record<ImageLang, {
     cornerColor: 'कोनों को भरने वाला रंग',
     cornerNote: '90 के गुणक न होने वाले कोण पर कोनों में खाली जगह बचती है',
     dimension: a => `${a}° घुमाया`,
+  },
+  'zh-hans': {
+    hint: '给存下来变成横躺的照片用',
+    alt: '旋转结果的预览',
+    left: '↺ 左转',
+    right: '↻ 右转',
+    flipH: '↔ 翻转',
+    flipV: '↕ 翻转',
+    fineAngle: '微调角度',
+    angleAria: '旋转角度',
+    toZero: '回到0°',
+    cornerColor: '填补边角的颜色',
+    cornerNote: '不是90°倍数的角度，边角会留出空隙',
+    dimension: a => `旋转了${a}°`,
+  },
+  'zh-hant': {
+    hint: '給存下來變成橫躺的照片用',
+    alt: '旋轉結果的預覽',
+    left: '↺ 左轉',
+    right: '↻ 右轉',
+    flipH: '↔ 翻轉',
+    flipV: '↕ 翻轉',
+    fineAngle: '微調角度',
+    angleAria: '旋轉角度',
+    toZero: '回到0°',
+    cornerColor: '填補邊角的顏色',
+    cornerNote: '不是90°倍數的角度，邊角會留出空隙',
+    dimension: a => `旋轉了${a}°`,
   },
 };
 
@@ -511,6 +663,30 @@ export const MOSAIC_UI: Record<ImageLang, {
     cellNote: 'खाने बड़े हों तो पढ़ना मुश्किल होता है। लिखावट ढकते समय बड़ा रखें।',
     undo: '↩ आख़िरी स्ट्रोक वापस लें', clear: 'सब मिटाएँ',
     dimension: n => `${n} स्ट्रोक`,
+  },
+  'zh-hans': {
+    hint: '带地址、账号或人脸的截图，一步都不会离开浏览器',
+    how: '用手指或鼠标在要挡的地方涂一下',
+    modes: ['🔳 马赛克', '⬛ 纯黑遮住'],
+    modeHints: ['把它糊掉', '完全挡住'],
+    brush: '笔刷大小',
+    cellSize: '马赛克方块大小',
+    cellNote: '方块越大越读不回来。遮文字的时候调大一点。',
+    undo: '↩ 撤销上一笔',
+    clear: '全部清除',
+    dimension: n => `${n}笔`,
+  },
+  'zh-hant': {
+    hint: '帶地址、帳號或人臉的截圖，一步都不會離開瀏覽器',
+    how: '用手指或滑鼠在要擋的地方塗一下',
+    modes: ['🔳 馬賽克', '⬛ 純黑遮住'],
+    modeHints: ['把它糊掉', '完全擋住'],
+    brush: '筆刷大小',
+    cellSize: '馬賽克方塊大小',
+    cellNote: '方塊越大越讀不回來。遮文字的時候調大一點。',
+    undo: '↩ 復原上一筆',
+    clear: '全部清除',
+    dimension: n => `${n}筆`,
   },
 };
 
@@ -592,6 +768,42 @@ export const MERGE_UI: Record<ImageLang, {
     matchOff: 'बंद करें तो मूल नाप में बीच में सजाया जाता है',
     gap: 'फ़ोटो के बीच अंतर', gapColor: 'खाली जगह का रंग', gapColorAria: 'खाली जगह का रंग', pickGapColor: 'खाली जगह का रंग चुनें',
   },
+  'zh-hans': {
+    hint: '可以一次选好几张',
+    hintMore: '这些会接在已经加载的照片后面',
+    alt: '拼接结果的预览',
+    countLine: n => `拼了${n}张 — 顺序可以调`,
+    up: '往上移',
+    down: '往下移',
+    remove: '移除',
+    dirs: ['⬇ 竖着拼', '➡ 横着拼'],
+    matchLabel: w => `把大小不同的照片按${w}对齐`,
+    widthWord: '宽',
+    heightWord: '高',
+    matchOff: '关掉的话就保持原尺寸、居中摆放',
+    gap: '照片之间的间距',
+    gapColor: '间距颜色',
+    gapColorAria: '间距颜色',
+    pickGapColor: '挑一个间距颜色',
+  },
+  'zh-hant': {
+    hint: '可以一次選好幾張',
+    hintMore: '這些會接在已經載入的照片後面',
+    alt: '拼接結果的預覽',
+    countLine: n => `拼了${n}張 — 順序可以調`,
+    up: '往上移',
+    down: '往下移',
+    remove: '移除',
+    dirs: ['⬇ 豎著拼', '➡ 橫著拼'],
+    matchLabel: w => `把大小不同的照片按${w}對齊`,
+    widthWord: '寬',
+    heightWord: '高',
+    matchOff: '關掉的話就保持原尺寸、置中擺放',
+    gap: '照片之間的間距',
+    gapColor: '間距顏色',
+    gapColorAria: '間距顏色',
+    pickGapColor: '挑一個間距顏色',
+  },
 };
 
 export const IMG_PALETTE_UI: Record<ImageLang, {
@@ -671,5 +883,31 @@ export const IMG_PALETTE_UI: Record<ImageLang, {
     pickedPoint: ' · चुना बिंदु',
     noteBefore: 'सबसे ज़्यादा इस्तेमाल हुआ रंग ', noteAfter: ' है — बैकग्राउंड या हाइलाइट में यही रखें तो फ़ोटो से मेल खाएगा।',
     otherPhoto: 'दूसरी फ़ोटो', savePalette: '⬇ पैलेट को इमेज में सेव करें',
+  },
+  'zh-hans': {
+    hint: '照片、插画、截图 — 什么都行',
+    alt: '要取色的照片 — 点一下读出那一点的颜色',
+    how: '在照片上点哪儿，就取到那一点的准确颜色',
+    copy: '复制',
+    copied: '已复制',
+    copyHex: hex => `复制 ${hex}`,
+    pickedPoint: ' · 取色点',
+    noteBefore: '用得最多的颜色是 ',
+    noteAfter: ' — 拿它当背景或点缀色，会和照片很搭。',
+    otherPhoto: '换一张',
+    savePalette: '⬇ 把色板存成图片',
+  },
+  'zh-hant': {
+    hint: '照片、插畫、截圖 — 什麼都行',
+    alt: '要取色的照片 — 點一下讀出那一點的顏色',
+    how: '在照片上點哪兒，就取到那一點的準確顏色',
+    copy: '複製',
+    copied: '已複製',
+    copyHex: hex => `複製 ${hex}`,
+    pickedPoint: ' · 取色點',
+    noteBefore: '用得最多的顏色是 ',
+    noteAfter: ' — 拿它當背景或點綴色，會和照片很搭。',
+    otherPhoto: '換一張',
+    savePalette: '⬇ 把色票存成圖片',
   },
 };

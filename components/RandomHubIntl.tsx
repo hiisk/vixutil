@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import { RANDOM_TOOLS } from '@/lib/random-tools';
 import { ROLLS, DICE_ICON } from '@/lib/dice/list';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { DICE_UI } from '@/lib/dice/ui';
 import { RANDOM_UI, randomL10n, type RandomLang } from '@/lib/random-ui-intl';
 import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
@@ -15,7 +16,8 @@ import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
  * 아니라 그냥 없어서 어떤 검사에도 안 걸린다.
  */
 export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
-  const dice = DICE_UI[lang === 'pt-br' ? 'pt' : lang];
+  // 데이터 섹션은 짧은 열쇠(pt·zh·tw)를 쓰고 도구 계층은 경로 꼴(pt-br·zh-hans)을 쓴다
+  const dice = DICE_UI[langOfLocale(lang)];
   const ui = RANDOM_UI[lang];
   const hubHref = localeHref(lang, '/random');
 
