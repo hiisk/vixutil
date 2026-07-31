@@ -135,7 +135,11 @@ export function handFacts(h: Hand): HandFacts {
   const score = chenScore(h);
   const gap = h.kind === 'pair' ? 0 : h.high - h.low - 1;
 
-  // 가까운 핸드 — 같은 두 장의 다른 무늬, 그리고 순위 하나 위아래
+  // 가까운 핸드 — 세 갈래로 모은다.
+  //  1) 같은 두 장의 다른 무늬 (AKs ↔ AKo)
+  //  2) 순위 하나 위아래의 같은 갈래 (AKs ↔ AQs)
+  //  3) 두 순위의 포켓 페어 (AKs → AA, KK)
+  // 페어에서 출발할 때는 3)이 자기 자신이라 걸러진다.
   const kin = new Set<string>();
   const name = `${RANKS[h.high]}${RANKS[h.low]}`.toLowerCase();
   if (h.kind === 'suited') kin.add(`${name}o`);
@@ -145,6 +149,10 @@ export function handFacts(h: Hand): HandFacts {
     const sameKind = other.kind === h.kind;
     const near = Math.abs(other.high - h.high) + Math.abs(other.low - h.low) === 1;
     if (sameKind && near) kin.add(other.slug);
+  }
+  for (const rank of [h.high, h.low]) {
+    const pair = `${RANKS[rank]}${RANKS[rank]}`.toLowerCase();
+    if (pair !== h.slug && kin.size < 6) kin.add(pair);
   }
 
   const facts: HandFacts = {
