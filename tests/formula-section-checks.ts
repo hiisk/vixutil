@@ -9,14 +9,17 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import type { FormulaTool } from '../lib/formula/types.ts';
-import { TERMS, UNITS, type Lang } from '../lib/formula/terms.ts';
+import { textOf } from '../lib/formula/types.ts';
+import { TERMS, UNITS, type FormulaLang } from '../lib/formula/terms.ts';
 import { sectionAlternates, groupNum } from '../lib/formula/ui.ts';
 import { formulaFaq, renderFormula } from '../lib/formula/faq.ts';
 import { answerLine, inputRows, outputRows, scenarioTable, substituted } from '../lib/formula/article.ts';
 import { termDesc } from '../lib/formula/glossary.ts';
 import type { SectionConfig } from '../lib/formula/section.ts';
+import { sectionMeta, sectionCategories } from '../lib/formula/section.ts';
+import { verdictText } from '../lib/formula/types.ts';
 
-const LANGS: Lang[] = ['ko', 'en'];
+const LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
 const HANGUL = /[가-힣]/;
 
 export const withDefaults = (t: FormulaTool) => {
@@ -51,12 +54,12 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     for (const t of tools) assert.match(t.slug, /^[a-z0-9-]+$/, t.slug);
   });
 
-  test(`${name} 세 언어의 제목·설명·본문·주의가 모두 채워져 있다`, () => {
+  test(`${name} 여덟 언어의 제목·설명·본문·주의가 모두 채워져 있다`, () => {
     for (const t of tools) {
       for (const lang of LANGS) {
-        const x = t[lang];
-        // 중국어는 글자당 정보량이 커서 같은 내용이 훨씬 짧다
-        const min = false ? { title: 3, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
+        const x = textOf(t, lang);
+        // 일본어는 한자로 같은 내용을 절반쯤의 글자 수에 담는다 — 길이 기준을 따로 둔다
+        const min = lang === 'ja' ? { title: 2, desc: 6, long: 20, note: 12 } : { title: 5, desc: 12, long: 40, note: 20 };
         for (const k of ['title', 'desc', 'long', 'note'] as const) {
           assert.ok(x[k].length >= min[k], `${t.slug}.${lang}.${k}가 너무 짧다: "${x[k]}"`);
         }
@@ -66,16 +69,16 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
 
   test(`${name} 제목은 언어별로 서로 겹치지 않는다`, () => {
     for (const lang of LANGS) {
-      const titles = tools.map(t => t[lang].title);
+      const titles = tools.map(t => textOf(t, lang).title);
       const dup = titles.filter((x, i) => titles.indexOf(x) !== i);
       assert.deepEqual(dup, [], `${lang} 중복 제목: ${dup.join(', ')}`);
     }
   });
 
-  test(`${name} 영어·중국어 페이지에 한글이 새지 않는다`, () => {
+  test(`${name} 번역 일곱 언어에 한글이 새지 않는다`, () => {
     for (const t of tools) {
-      for (const lang of ['en'] as const) {
-        const joined = Object.values(t[lang]).join(' ');
+      for (const lang of LANGS.filter(l => l !== 'ko')) {
+        const joined = Object.values(textOf(t, lang)).join(' ');
         assert.ok(!HANGUL.test(joined), `${t.slug}.${lang}에 한글: ${joined.match(HANGUL)}`);
       }
     }
@@ -88,9 +91,9 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     for (const c of section.categories) assert.ok(used.has(c), `안 쓰인 카테고리 ${c}`);
   });
 
-  test(`${name} 카테고리 이름이 세 언어로 다 있다`, () => {
+  test(`${name} 카테고리 이름이 여덟 언어로 다 있다`, () => {
     for (const lang of LANGS) {
-      for (const c of section.categories) assert.ok(section.categoryLabel[lang][c], `${lang}에 ${c} 라벨 없음`);
+      for (const c of section.categories) assert.ok(sectionCategories(section, lang)[c], `${lang}에 ${c} 라벨 없음`);
     }
   });
 
@@ -164,7 +167,7 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
       const { v, out } = withDefaults(t);
       const verdict = t.verdict(v, out);
       if (!verdict) continue;
-      for (const lang of LANGS) assert.ok(verdict[lang]?.length > 3, `${t.slug} verdict.${lang} 비었음`);
+      for (const lang of LANGS) assert.ok(verdictText(verdict, lang).length > 3, `${t.slug} verdict.${lang} 비었음`);
       assert.ok(!HANGUL.test(verdict.en), `${t.slug} verdict.en에 한글`);
     }
   });
@@ -274,18 +277,23 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     );
     for (const k of described) {
       for (const lang of LANGS) {
-        const d = termDesc(k, lang)!;
-        assert.ok(d.length > (false ? 6 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
+        // 번역이 아직 없으면 null이다 — 영어를 대신 내놓기보다 안 보이는 편이 낫다고 정했다
+        const d = termDesc(k, lang);
+        if (!d) continue;
+        assert.ok(d.length > (lang === 'ja' ? 4 : 10), `${k} ${lang} 뜻풀이가 너무 짧다`);
         if (lang !== 'ko') assert.ok(!HANGUL.test(d), `${k} ${lang} 뜻풀이에 한글`);
       }
     }
   });
 
-  test(`${name} 섹션 메타가 두 언어로 다 있고 서로 다르다`, () => {
-    const titles = LANGS.map(l => section.meta[l].metaTitle);
-    assert.equal(new Set(titles).size, 2);
+  test(`${name} 섹션 메타가 여덟 언어로 다 있고 서로 다르다`, () => {
+    const titles = LANGS.map(l => sectionMeta(section, l).metaTitle);
+    // 여덟 개가 모두 달라야 한다 — 같은 게 있으면 한 언어가 다른 언어 문구를 물려받은 것이다
+    assert.equal(new Set(titles).size, LANGS.length, `제목이 겹친다: ${titles.join(' / ')}`);
     for (const lang of LANGS) {
-      assert.ok(section.meta[lang].metaDesc.length > 80, `${lang} 설명이 너무 짧다`);
+      // 일본어는 한자로 같은 내용을 절반쯤의 글자 수에 담는다
+      const min = lang === 'ja' ? 45 : 80;
+      assert.ok(sectionMeta(section, lang).metaDesc.length > min, `${lang} 설명이 너무 짧다`);
     }
     assert.ok(!HANGUL.test(section.meta.en.metaTitle + section.meta.en.metaDesc));
   });

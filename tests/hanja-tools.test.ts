@@ -2,10 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { IDIOMS, HANJA_CATEGORIES, idiomBySlug, relatedIdioms } from '../lib/hanja-tools.ts';
-import { HANJA_UI, HANJA_CATEGORY_LABEL, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
+import { idiomText } from '../lib/hanja/types.ts';
+import { HANJA_UI, hanjaCategories, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
 import { GLOSS_EN } from '../lib/hanja/gloss-en.ts';
 
-const LANGS = ['ko', 'en'] as const;
+const LANGS = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'] as const;
 const HANGUL = /[가-힣]/;
 const HANJA = /[一-鿿]/;
 
@@ -65,11 +66,12 @@ test('영어 새김이 성어마다 네 개씩 있고 한글이 없다', () => {
   }
 });
 
-test('세 언어의 표제·뜻·유래·쓰임이 모두 채워져 있다', () => {
+test('여덟 언어의 표제·뜻·유래·쓰임이 모두 채워져 있다', () => {
   for (const i of IDIOMS) {
     for (const lang of LANGS) {
-      const t = i[lang];
-      const min = false ? { title: 3, meaning: 8, origin: 10, usage: 8 } : { title: 4, meaning: 15, origin: 20, usage: 15 };
+      const t = idiomText(i, lang);
+      // 일본어는 한자로 같은 내용을 절반쯤의 글자 수에 담는다 — 길이 기준을 따로 둔다
+      const min = lang === 'ja' ? { title: 3, meaning: 8, origin: 10, usage: 8 } : { title: 4, meaning: 15, origin: 20, usage: 15 };
       for (const k of ['title', 'meaning', 'origin', 'usage'] as const) {
         assert.ok(t[k].length >= min[k], `${i.slug}.${lang}.${k}가 너무 짧다: "${t[k]}"`);
       }
@@ -99,7 +101,7 @@ test('갈래는 정해진 여섯 개 안이고 모두 쓰인다', () => {
 
 test('갈래 이름이 세 언어로 다 있다', () => {
   for (const lang of LANGS) {
-    for (const c of HANJA_CATEGORIES) assert.ok(HANJA_CATEGORY_LABEL[lang][c], `${lang}에 ${c} 라벨 없음`);
+    for (const c of HANJA_CATEGORIES) assert.ok(hanjaCategories(lang)[c], `${lang}에 ${c} 라벨 없음`);
   }
 });
 
@@ -126,8 +128,8 @@ test('FAQ는 3개이고 뜻·유래·쓰임을 그대로 담는다', () => {
       const faq = hanjaFaq(i, lang);
       assert.equal(faq.length, 3, `${i.slug} ${lang}`);
       assert.ok(faq[0].a.includes(i.hanja), `${i.slug} ${lang} 첫 FAQ에 한자가 없다`);
-      assert.equal(faq[1].a, i[lang].origin);
-      assert.equal(faq[2].a, i[lang].usage);
+      assert.equal(faq[1].a, idiomText(i, lang).origin);
+      assert.equal(faq[2].a, idiomText(i, lang).usage);
       if (lang !== 'ko') {
         for (const item of faq) assert.ok(!HANGUL.test(item.q + item.a), `${i.slug} ${lang} FAQ에 한글`);
       }
@@ -151,21 +153,21 @@ test('세 언어 라우트가 모두 있다', () => {
   }
 });
 
-test('hreflang은 세 줄이고 x-default는 영어를 가리킨다', () => {
+test('hreflang이 여덟 언어와 x-default를 낸다', () => {
   const a = hanjaAlternates('samyeonchoga');
-  assert.equal(Object.keys(a).length, 3);
+  assert.equal(Object.keys(a).length, 9);
   assert.equal(a.ko, '/hanja/samyeonchoga');
+  assert.equal(a['pt-BR'], '/pt-br/hanja/samyeonchoga');
   assert.equal(a['x-default'], '/en/hanja/samyeonchoga');
 });
 
-test('사이트맵에 두 언어의 /hanja가 들어 있다', () => {
+test('사이트맵이 여덟 언어의 /hanja를 낸다', () => {
   const src = readFileSync('app/sitemap.ts', 'utf8');
-  for (const p of ['/hanja', '/en/hanja']) {
-    assert.ok(src.includes(`${p}\``) || src.includes(`${p}/`), `사이트맵에 ${p} 없음`);
-  }
+  assert.ok(src.includes('/hanja`'), '사이트맵에 /hanja 없음');
+  assert.match(src, /INTL_LOCALES\.flatMap[\s\S]{0,400}\/hanja/, '사이트맵이 /hanja를 언어별로 돌리지 않는다');
 });
 
-test('한국식·중국 고전 출처가 섞여 있다는 안내가 세 언어에 있다', () => {
+test('한국식·중국 고전 출처가 섞여 있다는 안내가 여덟 언어에 있다', () => {
   for (const lang of LANGS) assert.ok(HANJA_UI[lang].footNote.length > 40, `${lang} 안내문이 짧다`);
 });
 
