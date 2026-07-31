@@ -118,6 +118,20 @@ export function alternateLanguages(route: string): Record<string, string> {
 }
 
 /**
+ * 열 언어를 모두 갖춘 경로의 hreflang.
+ *
+ * 첫 화면과 열 언어 섹션이 쓴다. 여덟 언어짜리 alternateLanguages와 나눠 둔 이유는
+ * 짝이 맞아야 하기 때문이다 — 중국어 페이지가 없는 경로에서 중국어를 선언하면
+ * 구글이 404를 받는다.
+ */
+export function alternateLanguages10(route: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const l of ALL_LOCALES10) out[localeTag(l)] = localeHref(l, route);
+  out['x-default'] = localeHref('en', route);
+  return out;
+}
+
+/**
  * 일부 언어에만 있는 페이지의 hreflang.
  *
  * 체크리스트·퀴즈처럼 언어별로 내용을 따로 쓴 섹션은 항목이 다 있지 않다.

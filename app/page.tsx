@@ -10,7 +10,7 @@ import { ELEMENTS } from '@/lib/element/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
     // 여덟 언어 전부를 적는다. 한쪽만 가리키는 짝은 구글이 무시한다
-    languages: alternateLanguages('/'),
+    languages: alternateLanguages10('/'),
   },
 };
 

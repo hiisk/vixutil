@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import Cards from '@/components/poker/Cards';
 import HandGrid from '@/components/poker/HandGrid';
-import { LANGS10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
 import { HANDS, handOf, labelOf } from '@/lib/poker/list';
 import { handFacts } from '@/lib/poker/facts';
 import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
@@ -25,7 +25,8 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/game/poker`;
   const path = `${hub}/${slug}`;
-  const base = lang === 'ko' ? 'ko' : 'en';
+  // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
+  const base = localeOfLang10(lang);
   const n = HANDS.length;
   const pct = numFmt(lang, f.dealtPct, 3);
   const oneIn = numFmt(lang, f.oneIn, 1);
@@ -37,8 +38,8 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
     [ui.score, String(f.score)],
     [ui.rankLabel, fill(ui.rankValue, { n: f.rank, total: n })],
     [ui.gapLabel, fill(ui.gapValue, { n: f.gap })],
-    [ui.connected, f.connected ? ui.connected : ui.no],
-    [ui.broadway, f.broadway ? ui.broadway : ui.no],
+    [ui.connected, f.connected ? ui.yes : ui.no],
+    [ui.broadway, f.broadway ? ui.yes : ui.no],
   ];
 
   const faq = [

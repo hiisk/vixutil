@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import StepBoard from '@/components/chess/StepBoard';
-import { LANGS10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
 import { openingOf } from '@/lib/chess/list';
 import { openingFacts } from '@/lib/chess/facts';
 import { fullName } from '@/lib/chess/names';
@@ -27,7 +27,8 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/game/chess`;
   const path = `${hub}/${slug}`;
-  const base = lang === 'ko' ? 'ko' : 'en';
+  // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
+  const base = localeOfLang10(lang);
   const side = f.turn === 'w' ? ui.white : ui.black;
   const plies = fill(f.ply === 1 ? ui.movesOne : ui.moves, { n: f.ply });
 

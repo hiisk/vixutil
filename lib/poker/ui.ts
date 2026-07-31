@@ -49,6 +49,7 @@ export interface PokerUI {
   gapValue: string;
   connected: string;
   broadway: string;
+  yes: string;
   no: string;
   flopTitle: string;
   flopNote: string;
@@ -174,6 +175,7 @@ const FLAT: Record<string, L10<string>> = {
   gapValue: T('{n}칸', '{n}', '{n}', '{n}', '{n}', '{n}', '{n}', '{n}', '{n}', '{n}'),
   connected: T('붙어 있는 두 장', 'Connected', 'Conectadas', 'Conectadas', 'コネクター', 'Verbunden', 'Connectées', 'जुड़े हुए', '连牌', '連牌'),
   broadway: T('둘 다 10 이상', 'Both broadway cards', 'Ambas altas (10+)', 'Ambas altas (10+)', '両方10以上', 'Beide Broadway-Karten', 'Deux cartes hautes', 'दोनों बड़े पत्ते', '两张都是大牌', '兩張都是大牌'),
+  yes: T('예', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ', '是', '是'),
   no: T('아니오', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं', '否', '否'),
   flopTitle: T('플롭에서 무엇이 나오나', 'What the flop brings', 'Qué trae el flop', 'O que o flop traz', 'フロップで何が来るか', 'Was der Flop bringt', 'Ce que le flop apporte', 'फ्लॉप क्या लाता है', '翻牌能中什么', '翻牌能中什麼'),
   flopNote: T(

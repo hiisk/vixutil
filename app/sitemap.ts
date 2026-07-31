@@ -427,6 +427,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     // 언어별 첫 화면. 레지스트리에서 만들어야 언어를 늘렸을 때 여기가 안 빠진다
     ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
+    // 중국어 첫 화면 — 아직 체스·포커만 실리지만 주소는 있어야 색인된다
+    { url: `${BASE}/zh-hans`, changeFrequency: weekly, priority: 0.95 },
+    { url: `${BASE}/zh-hant`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     // 랜덤 뽑기도 slug가 여덟 언어에서 같다

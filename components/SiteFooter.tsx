@@ -1,4 +1,4 @@
-import { localeHref, type AnyLocale } from '@/lib/locales';
+import { localeHref, type AnyLocale10 } from '@/lib/locales';
 import { homeSections } from '@/lib/locale-home';
 import ToolIcon from '@/components/ToolIcon';
 import Link from "next/link";
@@ -12,7 +12,7 @@ import ThemeToggle from "./ThemeToggle";
  * 영어 사용자에게 한국어 전용 계산기(실수령액·퇴직금 등)를 내보내면 클릭한 순간
  * 읽을 수 없는 페이지가 나오기 때문이다. 그 언어로 실제 존재하는 섹션만 건다.
  */
-type Lang = AnyLocale;
+type Lang = AnyLocale10;
 
 const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/calculator", icon: "📊", label: "계산기" },
@@ -86,6 +86,20 @@ const COPY: Record<Lang, {
     browse: "Explorar otras herramientas",
     popular: "Herramientas populares",
     tagline: "Herramientas prácticas para el día a día · 2026",
+  },
+  'zh-hans': {
+    searchHint: "还想找点别的？",
+    searchCta: "搜索全部",
+    browse: "看看其他工具",
+    popular: "热门工具",
+    tagline: "日常实用小工具 · 2026",
+  },
+  'zh-hant': {
+    searchHint: "還想找點別的？",
+    searchCta: "搜尋全部",
+    browse: "看看其他工具",
+    popular: "熱門工具",
+    tagline: "日常實用小工具 · 2026",
   },
   'pt-br': {
     searchHint: "Procurando outra coisa?",

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import Board from '@/components/chess/Board';
-import { LANGS10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
 import { OPENINGS } from '@/lib/chess/list';
 import { groupCounts, groupOf, openingFacts, type Group } from '@/lib/chess/facts';
 import { fullName } from '@/lib/chess/names';
@@ -24,7 +24,8 @@ export default function ChessHubPage({ lang }: { lang: Lang10 }) {
   const prefix = prefix10(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/game/chess`;
-  const base = lang === 'ko' ? 'ko' : 'en';
+  // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
+  const base = localeOfLang10(lang);
   const counts = groupCounts();
   const n = OPENINGS.length;
 
