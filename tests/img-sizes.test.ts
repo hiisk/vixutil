@@ -11,7 +11,8 @@ import assert from 'node:assert/strict';
 import { IMG_SIZES, IMG_SIZE_ICON, IMG_SIZE_SLUGS, SIZE_KINDS, imgSizeOf, sizesOfKind } from '../lib/imgsize/list.ts';
 import { commonRatio, sameKind, sameRatio, sizeFacts } from '../lib/imgsize/facts.ts';
 import { IMG_SIZE_UI } from '../lib/imgsize/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(IMG_SIZES.length >= 100, `${IMG_SIZES.length}가지뿐이다`);
@@ -123,13 +124,14 @@ test('용량 어림이 픽셀 수를 따른다', () => {
   assert.ok(Math.abs(uhd.rawMb / fhd.rawMb - 4) < 0.05, '4K는 Full HD의 네 배여야 한다');
 });
 
-test('여덟 언어가 모두 채워져 있다', () => {
+test('열 언어가 모두 채워져 있다', () => {
   const f = sizeFacts(imgSizeOf('youtube-thumbnail')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = IMG_SIZE_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -145,7 +147,7 @@ test('FAQ 답이 그 크기의 숫자를 담고 있다', () => {
   for (const slug of ['youtube-thumbnail', 'a4-300dpi', 'favicon-16']) {
     const x = imgSizeOf(slug)!;
     const f = sizeFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = IMG_SIZE_UI[lang];
       const joined = ui.sizeFaq(f, ui.kindLabel[x.kind]).map(q => `${q.q} ${q.a}`).join(' ');
       assert.ok(joined.includes(String(x.w)), `${lang}/${slug}: 가로가 안 들어갔다`);
@@ -155,16 +157,16 @@ test('FAQ 답이 그 크기의 숫자를 담고 있다', () => {
   }
 });
 
-test('모든 크기가 여덟 언어 메타를 만든다', () => {
+test('모든 크기가 열 언어 메타를 만든다', () => {
   for (const x of IMG_SIZES) {
     const f = sizeFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = IMG_SIZE_UI[lang];
       const title = ui.metaTitle(x.name, x.w, x.h);
       const desc = ui.metaDesc(f, ui.kindLabel[x.kind]);
       assert.ok(title.includes(String(x.w)), `${lang}/${x.slug}: 제목에 가로가 없다`);
       assert.ok(desc.includes(x.name), `${lang}/${x.slug}: 설명에 이름이 없다`);
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${x.slug}: 설명이 너무 짧다`);
     }
   }

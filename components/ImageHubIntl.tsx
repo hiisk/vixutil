@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { imageToolsIntl, IMAGE_CATEGORY_ORDER, IMAGE_SHELL_UI, type ImageIntlLang } from '@/lib/image-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
 import { IMG_SIZE_ICON } from '@/lib/imgsize/list';
 
@@ -16,7 +16,7 @@ import { IMG_SIZE_ICON } from '@/lib/imgsize/list';
  */
 export default function ImageHubIntl({ lang }: { lang: ImageIntlLang }) {
   // 크기 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
-  const sizeUi = IMG_SIZE_UI[lang8OfLocale(lang)];
+  const sizeUi = IMG_SIZE_UI[langOfLocale(lang)];
   const tools = imageToolsIntl(lang);
   const ui = IMAGE_SHELL_UI[lang];
   const grouped = IMAGE_CATEGORY_ORDER[lang]

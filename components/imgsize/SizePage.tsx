@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import SizeShape from '@/components/imgsize/SizeShape';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { IMG_SIZE_ICON, imgSizeOf } from '@/lib/imgsize/list';
 import { sameKind, sameRatio, sizeFacts } from '@/lib/imgsize/facts';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
@@ -16,7 +16,7 @@ import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
  * 픽셀 크기가 맨 위다. 이 화면에 오는 사람은 "유튜브 썸네일 몇 픽셀"을 알러
  * 왔고, 인쇄 크기나 용량은 그다음에 읽을 거리다.
  */
-export default function SizePage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
   const x = imgSizeOf(slug);
   if (!x) return null;
 
@@ -149,7 +149,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang8 }) 
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/image/size/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

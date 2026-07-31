@@ -1,10 +1,10 @@
 /**
- * 이미지 크기 화면의 문구 — 여덟 언어.
+ * 이미지 크기 화면의 문구 — 열 언어.
  *
  * 크기 이름은 플랫폼과 규격 이름이라 옮기지 않는다. 옮기는 것은 갈래 이름과
- * 설명, 화면 틀뿐이다 — 116 × 8이 아니라 9 × 8로 끝난다.
+ * 설명, 화면 틀뿐이다 — 116 × 10이 아니라 9 × 10으로 끝난다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { SizeKind } from './list.ts';
 import type { SizeFacts } from './facts.ts';
 
@@ -43,15 +43,15 @@ export interface ImgSizeUI {
   sizeFaq: (f: SizeFacts, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof ImgSizeUI]: L8<ImgSizeUI[K]> };
+type Spec = { [K in keyof ImgSizeUI]: L<ImgSizeUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('이미지 크기', 'Image sizes', 'Tamaños de imagen', 'Tamanhos de imagem', '画像サイズ', 'Bildgrößen', "Tailles d'image", 'छवि आकार'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('이미지 크기', 'Image sizes', 'Tamaños de imagen', 'Tamanhos de imagem', '画像サイズ', 'Bildgrößen', "Tailles d'image", 'छवि आकार', '图片尺寸', '圖片尺寸'),
 
   hubTitle: T(
     '이미지 크기 116가지',
@@ -62,6 +62,8 @@ const SPEC: Spec = {
     '116 Bildgrößen',
     "116 tailles d'image",
     '116 छवि आकार',
+    '常用图片尺寸 116 种',
+    '常用圖片尺寸 116 種',
   ),
 
   hubLead: T(
@@ -73,6 +75,8 @@ const SPEC: Spec = {
     'Von YouTube-Vorschaubildern über A4-Drucke bis zum Passfoto — die Größen, die wirklich gebraucht werden, samt Seitenverhältnis, Druckmaß und grober Dateigröße.',
     "Des miniatures YouTube aux impressions A4 et photos d'identité : les tailles réellement utilisées, avec format, dimensions à l'impression et poids approximatif.",
     'YouTube थंबनेल से A4 प्रिंट और पासपोर्ट फ़ोटो तक — असल में इस्तेमाल होने वाले आकार, आस्पेक्ट रेशियो, प्रिंट माप और अनुमानित फ़ाइल आकार के साथ।',
+    '从 YouTube 封面到 A4 打印、证件照，把常用的尺寸都收在一起，连宽高比、印出来多大、文件大概多重都算好了。',
+    '從 YouTube 封面到 A4 列印、證件照，把常用的尺寸都收在一起，連長寬比、印出來多大、檔案大概多重都算好了。',
   ),
 
   kindLabel: T(
@@ -84,6 +88,8 @@ const SPEC: Spec = {
     { social: 'Social-Media-Posts', profile: 'Profile und Banner', video: 'Video', print: 'Druck', photo: 'Fotoabzüge', web: 'Web und Hintergründe', icon: 'Symbole', ad: 'Werbebanner', doc: 'Passfotos' },
     { social: 'Publications', profile: 'Profils et bannières', video: 'Vidéo', print: 'Impression', photo: 'Tirages photo', web: 'Web et fonds d’écran', icon: 'Icônes', ad: 'Bannières publicitaires', doc: "Photos d'identité" },
     { social: 'सोशल पोस्ट', profile: 'प्रोफ़ाइल और बैनर', video: 'वीडियो', print: 'प्रिंट', photo: 'फ़ोटो प्रिंट', web: 'वेब और वॉलपेपर', icon: 'आइकन', ad: 'विज्ञापन बैनर', doc: 'पहचान फ़ोटो' },
+    { social: '社交帖子', profile: '头像与横幅', video: '视频', print: '打印', photo: '照片冲印', web: '网页与壁纸', icon: '图标', ad: '广告横幅', doc: '证件照' },
+    { social: '社群貼文', profile: '大頭貼與橫幅', video: '影片', print: '列印', photo: '相片沖印', web: '網頁與桌布', icon: '圖示', ad: '廣告橫幅', doc: '證件照' },
   ),
 
   kindNote: T(
@@ -175,22 +181,44 @@ const SPEC: Spec = {
       ad: 'विज्ञापन स्थानों के माप तय हैं। सूची के मान ठीक वैसे ही बनाएँ, वरना विज्ञापन नहीं चलेगा।',
       doc: 'ऐसे फ़ोटो जिनका माप नियम से तय है। मिलीमीटर पहले आते हैं; पिक्सेल 300 dpi के बराबर मान हैं।',
     },
+    {
+      social: '为发帖时不被裁掉而对齐的尺寸。正方形和竖版占屏幕更多。',
+      profile: '头像通常会被裁成圆形，重要的内容别放在边缘。',
+      video: '视频规格几乎都是 16:9，只有竖屏视频翻成 9:16。',
+      print: '打印默认按 300dpi 算。像素除以 300 得英寸，再乘 25.4 得毫米。',
+      photo: '照相馆冲印的尺寸。宽高比对不上，就会裁掉上下或左右。',
+      web: '铺满屏幕用的尺寸。壁纸按自己设备的分辨率来就行。',
+      icon: '缩小之后还得认得出来，所以线条太细就会糊成一团。',
+      ad: '广告位的尺寸是定死的。必须照列表上的数值做，否则投不出去。',
+      doc: '尺寸由规定写死的照片。毫米在先，像素是按 300dpi 换算出来的。',
+    },
+    {
+      social: '為發文時不被裁掉而對齊的尺寸。正方形和直式占螢幕更多。',
+      profile: '大頭貼通常會被裁成圓形，重要的內容別放在邊緣。',
+      video: '影片規格幾乎都是 16:9，只有直式影片翻成 9:16。',
+      print: '列印預設按 300dpi 算。像素除以 300 得吋，再乘 25.4 得公釐。',
+      photo: '相館沖印的尺寸。長寬比對不上，就會裁掉上下或左右。',
+      web: '鋪滿螢幕用的尺寸。桌布按自己裝置的解析度來就行。',
+      icon: '縮小之後還得認得出來，所以線條太細就會糊成一團。',
+      ad: '廣告版位的尺寸是定死的。必須照清單上的數值做，否則投不出去。',
+      doc: '尺寸由規定寫死的照片。公釐在先，像素是按 300dpi 換算出來的。',
+    },
   ),
 
-  pixelLabel: T('픽셀 크기', 'Pixel size', 'Tamaño en píxeles', 'Tamanho em pixels', '画素サイズ', 'Pixelmaß', 'Taille en pixels', 'पिक्सेल आकार'),
-  ratioLabel: T('화면비', 'Aspect ratio', 'Relación de aspecto', 'Proporção', 'アスペクト比', 'Seitenverhältnis', "Format d'image", 'आस्पेक्ट रेशियो'),
-  megapixelLabel: T('픽셀 수', 'Total pixels', 'Píxeles totales', 'Total de pixels', '総画素数', 'Gesamtpixel', 'Nombre de pixels', 'कुल पिक्सेल'),
-  printLabel: T('인쇄 크기 (300dpi)', 'Print size at 300 dpi', 'Tamaño impreso a 300 ppp', 'Tamanho impresso a 300 dpi', '印刷サイズ（300dpi）', 'Druckmaß bei 300 dpi', 'Taille imprimée à 300 ppp', '300 dpi पर प्रिंट आकार'),
-  orientationLabel: T('방향', 'Orientation', 'Orientación', 'Orientação', '向き', 'Ausrichtung', 'Orientation', 'दिशा'),
-  portrait: T('세로', 'Portrait', 'Vertical', 'Retrato', '縦長', 'Hochformat', 'Portrait', 'पोर्ट्रेट'),
-  landscape: T('가로', 'Landscape', 'Horizontal', 'Paisagem', '横長', 'Querformat', 'Paysage', 'लैंडस्केप'),
-  square: T('정사각', 'Square', 'Cuadrado', 'Quadrado', '正方形', 'Quadratisch', 'Carré', 'वर्गाकार'),
-  rawLabel: T('무압축 크기', 'Uncompressed size', 'Tamaño sin comprimir', 'Tamanho sem compressão', '無圧縮サイズ', 'Unkomprimiert', 'Taille non compressée', 'बिना संपीड़न आकार'),
-  jpegLabel: T('JPEG 어림', 'Rough JPEG size', 'Peso JPEG aproximado', 'Peso JPEG aproximado', 'JPEGの目安', 'JPEG etwa', 'JPEG approximatif', 'अनुमानित JPEG आकार'),
-  copyLabel: T('크기 복사', 'Copy size', 'Copiar tamaño', 'Copiar tamanho', 'サイズをコピー', 'Maß kopieren', 'Copier la taille', 'आकार कॉपी करें'),
-  copiedLabel: T('복사했습니다', 'Copied', 'Copiado', 'Copiado', 'コピーしました', 'Kopiert', 'Copié', 'कॉपी हो गया'),
+  pixelLabel: T('픽셀 크기', 'Pixel size', 'Tamaño en píxeles', 'Tamanho em pixels', '画素サイズ', 'Pixelmaß', 'Taille en pixels', 'पिक्सेल आकार', '像素尺寸', '像素尺寸'),
+  ratioLabel: T('화면비', 'Aspect ratio', 'Relación de aspecto', 'Proporção', 'アスペクト比', 'Seitenverhältnis', "Format d'image", 'आस्पेक्ट रेशियो', '宽高比', '長寬比'),
+  megapixelLabel: T('픽셀 수', 'Total pixels', 'Píxeles totales', 'Total de pixels', '総画素数', 'Gesamtpixel', 'Nombre de pixels', 'कुल पिक्सेल', '像素总数', '像素總數'),
+  printLabel: T('인쇄 크기 (300dpi)', 'Print size at 300 dpi', 'Tamaño impreso a 300 ppp', 'Tamanho impresso a 300 dpi', '印刷サイズ（300dpi）', 'Druckmaß bei 300 dpi', 'Taille imprimée à 300 ppp', '300 dpi पर प्रिंट आकार', '300dpi 打印尺寸', '300dpi 列印尺寸'),
+  orientationLabel: T('방향', 'Orientation', 'Orientación', 'Orientação', '向き', 'Ausrichtung', 'Orientation', 'दिशा', '方向', '方向'),
+  portrait: T('세로', 'Portrait', 'Vertical', 'Retrato', '縦長', 'Hochformat', 'Portrait', 'पोर्ट्रेट', '竖版', '直式'),
+  landscape: T('가로', 'Landscape', 'Horizontal', 'Paisagem', '横長', 'Querformat', 'Paysage', 'लैंडस्केप', '横版', '橫式'),
+  square: T('정사각', 'Square', 'Cuadrado', 'Quadrado', '正方形', 'Quadratisch', 'Carré', 'वर्गाकार', '正方形', '正方形'),
+  rawLabel: T('무압축 크기', 'Uncompressed size', 'Tamaño sin comprimir', 'Tamanho sem compressão', '無圧縮サイズ', 'Unkomprimiert', 'Taille non compressée', 'बिना संपीड़न आकार', '未压缩大小', '未壓縮大小'),
+  jpegLabel: T('JPEG 어림', 'Rough JPEG size', 'Peso JPEG aproximado', 'Peso JPEG aproximado', 'JPEGの目安', 'JPEG etwa', 'JPEG approximatif', 'अनुमानित JPEG आकार', 'JPEG 估算', 'JPEG 估算'),
+  copyLabel: T('크기 복사', 'Copy size', 'Copiar tamaño', 'Copiar tamanho', 'サイズをコピー', 'Maß kopieren', 'Copier la taille', 'आकार कॉपी करें', '复制尺寸', '複製尺寸'),
+  copiedLabel: T('복사했습니다', 'Copied', 'Copiado', 'Copiado', 'コピーしました', 'Kopiert', 'Copié', 'कॉपी हो गया', '已复制', '已複製'),
 
-  sameRatioTitle: T('화면비가 같은 크기', 'Same aspect ratio', 'Misma relación de aspecto', 'Mesma proporção', 'アスペクト比が同じ寸法', 'Gleiches Seitenverhältnis', 'Même format', 'वही आस्पेक्ट रेशियो'),
+  sameRatioTitle: T('화면비가 같은 크기', 'Same aspect ratio', 'Misma relación de aspecto', 'Mesma proporção', 'アスペクト比が同じ寸法', 'Gleiches Seitenverhältnis', 'Même format', 'वही आस्पेक्ट रेशियो', '宽高比相同的尺寸', '長寬比相同的尺寸'),
   sameRatioNote: T(
     '비가 같으면 잘라내지 않고 크기만 바꿔 쓸 수 있습니다.',
     'When the ratio matches you can just resize — no cropping needed.',
@@ -200,10 +228,12 @@ const SPEC: Spec = {
     'Bei gleichem Verhältnis genügt Skalieren — kein Zuschnitt nötig.',
     'À format identique, il suffit de redimensionner : aucun rognage.',
     'अनुपात मिलता हो तो सिर्फ़ आकार बदलें — कटाई की ज़रूरत नहीं।',
+    '比例一样的话，直接缩放就行，不用裁切。',
+    '比例一樣的話，直接縮放就行，不用裁切。',
   ),
-  sameKindTitle: T('같은 갈래의 크기', 'Sizes in the same group', 'Tamaños del mismo grupo', 'Tamanhos do mesmo grupo', '同じ分類の寸法', 'Größen derselben Gruppe', 'Tailles du même groupe', 'उसी समूह के आकार'),
+  sameKindTitle: T('같은 갈래의 크기', 'Sizes in the same group', 'Tamaños del mismo grupo', 'Tamanhos do mesmo grupo', '同じ分類の寸法', 'Größen derselben Gruppe', 'Tailles du même groupe', 'उसी समूह के आकार', '同一类的尺寸', '同一類的尺寸'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些尺寸', '怎麼看這些尺寸'),
 
   how: T(
     [
@@ -254,9 +284,21 @@ const SPEC: Spec = {
       'स्क्रीन पर dpi का कोई मतलब नहीं — सिर्फ़ पिक्सेल आकार गिना जाता है। dpi केवल छपाई में अर्थ रखता है।',
       'छोटी छवि को बड़ा करने पर वह धुँधली हो जाती है। ज़रूरत से बड़ा बनाकर घटाना बेहतर है।',
     ],
+    [
+      '宽高比不对，平台上传时就会裁掉。比起改像素数，先把比例对上更要紧。',
+      '打印默认 300dpi：像素除以 300 得英寸，再乘 25.4 就是毫米。',
+      '在屏幕上看，dpi 毫无影响。网页只要像素对就行，dpi 只有打印时才有意义。',
+      '把小图放大会变糊。原图做得比要用的尺寸大一些，再缩下去，才稳妥。',
+    ],
+    [
+      '長寬比不對，平台上傳時就會裁掉。比起改像素數，先把比例對上更要緊。',
+      '列印預設 300dpi：像素除以 300 得吋，再乘 25.4 就是公釐。',
+      '在螢幕上看，dpi 毫無影響。網頁只要像素對就行，dpi 只有列印時才有意義。',
+      '把小圖放大會變糊。原圖做得比要用的尺寸大一些，再縮下去，才穩妥。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '이미지 크기 116가지 — 썸네일·인쇄·증명사진 규격',
@@ -267,6 +309,8 @@ const SPEC: Spec = {
     '116 Bildgrößen — Vorschaubilder, Druck und Passfotos',
     "116 tailles d'image — miniatures, impression et photos d'identité",
     '116 छवि आकार — थंबनेल, प्रिंट और पहचान फ़ोटो',
+    '图片尺寸 116 种 — 封面、打印与证件照规格',
+    '圖片尺寸 116 種 — 封面、列印與證件照規格',
   ),
   hubMetaDesc: T(
     '유튜브 썸네일 1280×720, 인스타 1080×1080, A4 300dpi 2480×3508처럼 자주 찾는 이미지 크기 116가지를 갈래별로 모았습니다. 화면비와 인쇄 크기, 용량 어림까지 함께 확인하세요.',
@@ -277,6 +321,8 @@ const SPEC: Spec = {
     '116 nachgeschlagene Bildgrößen — 1280×720 für YouTube-Vorschaubilder, 1080×1080 für Instagram, 2480×3508 für A4 bei 300 dpi — nach Verwendung geordnet, mit Seitenverhältnis, Druckmaß und grober Dateigröße.',
     "116 tailles d'image souvent recherchées — 1280×720 pour YouTube, 1080×1080 pour Instagram, 2480×3508 pour un A4 à 300 ppp — classées par usage, avec format, taille imprimée et poids approximatif.",
     '116 छवि आकार जिन्हें लोग खोजते हैं — YouTube के 1280×720, Instagram के 1080×1080, 300 dpi पर A4 के 2480×3508 — उपयोग के अनुसार, आस्पेक्ट रेशियो, प्रिंट माप और अनुमानित फ़ाइल आकार के साथ।',
+    'YouTube 封面 1280×720、Instagram 1080×1080、A4 在 300dpi 下的 2480×3508 —— 把最常查的 116 种图片尺寸按用途分好类，宽高比、打印尺寸、文件大小估算都一并给出。',
+    'YouTube 封面 1280×720、Instagram 1080×1080、A4 在 300dpi 下的 2480×3508 —— 把最常查的 116 種圖片尺寸按用途分好類，長寬比、列印尺寸、檔案大小估算都一併給出。',
   ),
 
   metaTitle: T(
@@ -288,6 +334,8 @@ const SPEC: Spec = {
     (n: string, w: number, h: number) => `${n} Größe — ${w}×${h} Pixel`,
     (n: string, w: number, h: number) => `Taille ${n} — ${w}×${h} pixels`,
     (n: string, w: number, h: number) => `${n} आकार — ${w}×${h} पिक्सेल`,
+    (n: string, w: number, h: number) => `${n} 尺寸 — ${w}×${h} 像素`,
+    (n: string, w: number, h: number) => `${n} 尺寸 — ${w}×${h} 像素`,
   ),
 
   metaDesc: T(
@@ -299,6 +347,8 @@ const SPEC: Spec = {
     (f: SizeFacts, kind: string) => `${f.name} misst ${f.w}×${f.h} Pixel bei einem Seitenverhältnis von ${f.ratioLabel}. Bei 300 dpi gedruckt sind das ${f.mm[0]}×${f.mm[1]} mm; es gehört zur Gruppe ${kind}.`,
     (f: SizeFacts, kind: string) => `${f.name} fait ${f.w}×${f.h} pixels, au format ${f.ratioLabel}. Imprimé à 300 ppp, cela donne ${f.mm[0]}×${f.mm[1]} mm ; il appartient au groupe ${kind.toLowerCase()}.`,
     (f: SizeFacts, kind: string) => `${f.name} ${f.w}×${f.h} पिक्सेल है और आस्पेक्ट रेशियो ${f.ratioLabel} है। 300 dpi पर छापने पर यह ${f.mm[0]}×${f.mm[1]} मिमी होता है और ${kind} समूह में आता है।`,
+    (f: SizeFacts, kind: string) => `${f.name} 是 ${f.w}×${f.h} 像素，宽高比 ${f.ratioLabel}。按 300dpi 打印为 ${f.mm[0]}×${f.mm[1]} 毫米，归在${kind}这一类。`,
+    (f: SizeFacts, kind: string) => `${f.name} 是 ${f.w}×${f.h} 像素，長寬比 ${f.ratioLabel}。按 300dpi 列印為 ${f.mm[0]}×${f.mm[1]} 公釐，歸在${kind}這一類。`,
   ),
 
   hubFaq: T(
@@ -358,6 +408,20 @@ const SPEC: Spec = {
       { q: 'क्या dpi बढ़ाने से गुणवत्ता सुधरती है?', a: 'स्क्रीन पर नहीं। dpi केवल तय करता है कि वही पिक्सेल काग़ज़ पर कितने सघन रखे जाएँ, इसलिए यह सिर्फ़ छपाई में मायने रखता है। स्क्रीन के लिए पिक्सेल आकार ही काफ़ी है।' },
       { q: 'पासपोर्ट फ़ोटो का आकार क्या है?', a: 'आमतौर पर 35×45 मिमी, यानी 300 dpi पर 413×531 पिक्सेल। अमेरिकी वीज़ा फ़ोटो वर्गाकार 51×51 मिमी (600×600 पिक्सेल) है। नियम देश के अनुसार बदलते हैं, इसलिए पहले संबंधित कार्यालय की शर्त देखें।' },
     ],
+    [
+      { q: 'YouTube 封面用多大尺寸？', a: '基准是 1280×720 像素。只要保持 16:9，做成 1920×1080 也会等比缩下去，没有问题。文件控制在 2MB 以内比较稳妥。' },
+      { q: '为什么图片传到 Instagram 就被裁了？', a: '因为你上传的宽高比不在 Instagram 接受的范围内（1:1、4:5、1.91:1），其余一律从中间裁。先把比例对上，再谈像素大小，就不会被裁。' },
+      { q: 'A4 换算成像素是多少？', a: '按 300dpi 打印是 2480×3508 像素。150dpi 则减半为 1240×1754，屏幕用的 72dpi 是 595×842。A 系列纸张定为 1:√2，就是为了对折之后比例不变。' },
+      { q: '把 dpi 调高，画质会变好吗？', a: '在屏幕上毫无差别。dpi 只决定同样的像素铺到纸上有多密，因此只有打印时才有意义。屏幕用的图，把像素数对上就够了。' },
+      { q: '证件照的规格是怎样的？', a: '护照照片一般是 35×45 毫米，300dpi 下为 413×531 像素。美国签证照是 51×51 毫米（600×600 像素）的正方形。各国规定不同，先确认受理单位的要求。' },
+    ],
+    [
+      { q: 'YouTube 封面用多大尺寸？', a: '基準是 1280×720 像素。只要保持 16:9，做成 1920×1080 也會等比縮下去，沒有問題。檔案控制在 2MB 以內比較穩妥。' },
+      { q: '為什麼圖片傳到 Instagram 就被裁了？', a: '因為你上傳的長寬比不在 Instagram 接受的範圍內（1:1、4:5、1.91:1），其餘一律從中間裁。先把比例對上，再談像素大小，就不會被裁。' },
+      { q: 'A4 換算成像素是多少？', a: '按 300dpi 列印是 2480×3508 像素。150dpi 則減半為 1240×1754，螢幕用的 72dpi 是 595×842。A 系列紙張定為 1:√2，就是為了對折之後比例不變。' },
+      { q: '把 dpi 調高，畫質會變好嗎？', a: '在螢幕上毫無差別。dpi 只決定同樣的像素鋪到紙上有多密，因此只有列印時才有意義。螢幕用的圖，把像素數對上就夠了。' },
+      { q: '證件照的規格是怎樣的？', a: '護照照片一般是 35×45 公釐，300dpi 下為 413×531 像素。美國簽證照是 51×51 公釐（600×600 像素）的正方形。各國規定不同，先確認受理單位的要求。' },
+    ],
   ),
 
   sizeFaq: T(
@@ -409,13 +473,25 @@ const SPEC: Spec = {
       { q: `${f.name} फ़ाइल कितनी बड़ी होती है?`, a: `बिना संपीड़न लगभग ${f.rawMb} MB; JPEG में सहेजने पर आमतौर पर ${f.jpegKb} KB के आसपास। तस्वीर और सपाट ग्राफ़िक में कई गुना अंतर हो सकता है।` },
       { q: `${f.name} किस समूह में आता है?`, a: `${kind} समूह में, और यह ${f.square ? 'वर्गाकार' : f.portrait ? 'चौड़ाई से ऊँचा' : 'ऊँचाई से चौड़ा'} है। उसी अनुपात के अन्य आकार नीचे दिए हैं।` },
     ],
+    (f: SizeFacts, kind: string) => [
+      { q: `${f.name} 的尺寸是多少？`, a: `${f.w}×${f.h} 像素，宽高比 ${f.ratioLabel}，合计 ${f.pixels.toLocaleString('zh')} 个像素，约 ${f.megapixels} 百万像素。` },
+      { q: `${f.name} 打印出来有多大？`, a: `按 300dpi 输出是 ${f.mm[0]}×${f.mm[1]} 毫米 —— 像素除以 300 得英寸，再乘 25.4。` },
+      { q: `${f.name} 的文件有多大？`, a: `不压缩约 ${f.rawMb} MB；存成 JPEG 通常在 ${f.jpegKb} KB 上下。是照片还是纯色图，差上几倍都有可能。` },
+      { q: `${f.name} 属于哪一类？`, a: `属于${kind}，是${f.square ? '正方形' : f.portrait ? '竖着更长的' : '横着更长的'}尺寸。同样比例的其他尺寸列在本页下方。` },
+    ],
+    (f: SizeFacts, kind: string) => [
+      { q: `${f.name} 的尺寸是多少？`, a: `${f.w}×${f.h} 像素，長寬比 ${f.ratioLabel}，合計 ${f.pixels.toLocaleString('zh-Hant')} 個像素，約 ${f.megapixels} 百萬像素。` },
+      { q: `${f.name} 列印出來有多大？`, a: `按 300dpi 輸出是 ${f.mm[0]}×${f.mm[1]} 公釐 —— 像素除以 300 得吋，再乘 25.4。` },
+      { q: `${f.name} 的檔案有多大？`, a: `不壓縮約 ${f.rawMb} MB；存成 JPEG 通常在 ${f.jpegKb} KB 上下。是照片還是純色圖，差上幾倍都有可能。` },
+      { q: `${f.name} 屬於哪一類？`, a: `屬於${kind}，是${f.square ? '正方形' : f.portrait ? '直著更長的' : '橫著更長的'}尺寸。同樣比例的其他尺寸列在本頁下方。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const IMG_SIZE_UI: L8<ImgSizeUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const IMG_SIZE_UI: L<ImgSizeUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<ImgSizeUI>;
+) as unknown as L<ImgSizeUI>;

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { IMG_SIZES, IMG_SIZE_ICON, SIZE_KINDS, sizesOfKind } from '@/lib/imgsize/list';
 import { sizeFacts } from '@/lib/imgsize/facts';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
@@ -15,7 +15,7 @@ import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
  * 줄마다 픽셀과 화면비를 함께 적는다. 대개는 목록에서 숫자만 보고 가므로,
  * 상세로 들어가지 않아도 답이 보여야 한다.
  */
-export default function SizeHubPage({ lang }: { lang: Lang8 }) {
+export default function SizeHubPage({ lang }: { lang: Lang }) {
   const ui = IMG_SIZE_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -97,7 +97,7 @@ export default function SizeHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/image/size`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
