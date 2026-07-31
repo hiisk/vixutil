@@ -13,10 +13,12 @@ import { CONVERT_EN2 } from './convert-i18n2.ts';
 import { CONVERT_ES } from './convert-l10n/es.ts';
 import { CONVERT_PT_BR } from './convert-l10n/pt-br.ts';
 import { CONVERT_JA } from './convert-l10n/ja.ts';
+import { CONVERT_ZH_HANS } from './convert-l10n/zh-hans.ts';
+import { CONVERT_ZH_HANT } from './convert-l10n/zh-hant.ts';
 import { CONVERT_DE } from './convert-l10n/de.ts';
 import { CONVERT_FR } from './convert-l10n/fr.ts';
 import { CONVERT_HI } from './convert-l10n/hi.ts';
-import type { AnyLocale, IntlLocale } from './locales.ts';
+import type { AnyLocale, AnyLocale10 } from './locales.ts';
 
 export interface ConvertL10n {
   title: string;
@@ -35,12 +37,12 @@ export const CONVERT_CATEGORY_EN: Record<string, string> = {
 };
 
 /**
- * 분류 이름의 여덟 언어 표.
+ * 분류 이름의 열 언어 표.
  *
  * 열쇠는 lib/convert-tools.ts의 category 문자열 그대로다 — 한 글자만 달라도 그 묶음이
  * 허브에서 조용히 사라진다(라벨이 빈 문자열이 되는 게 아니라 그룹이 안 잡힌다).
  */
-export const CONVERT_CATEGORY: Record<AnyLocale, Record<string, string>> = {
+export const CONVERT_CATEGORY: Record<AnyLocale10, Record<string, string>> = {
   ko: {
     '길이': '길이', '무게': '무게', '부피': '부피', '넓이': '넓이', '온도': '온도',
     '속도': '속도', '데이터': '데이터', '에너지': '에너지', '압력·기타': '압력·기타',
@@ -76,6 +78,16 @@ export const CONVERT_CATEGORY: Record<AnyLocale, Record<string, string>> = {
     '길이': 'लंबाई', '무게': 'वज़न', '부피': 'आयतन', '넓이': 'क्षेत्रफल', '온도': 'तापमान',
     '속도': 'गति', '데이터': 'डेटा', '에너지': 'ऊर्जा', '압력·기타': 'दबाव और अन्य',
     '시간': 'समय', '각도': 'कोण',
+  },
+  'zh-hans': {
+    '길이': '长度', '무게': '重量', '부피': '体积', '넓이': '面积',
+    '온도': '温度', '속도': '速度', '데이터': '数据', '에너지': '能量', '압력·기타': '压力·其他',
+    '시간': '时间', '각도': '角度',
+  },
+  'zh-hant': {
+    '길이': '長度', '무게': '重量', '부피': '體積', '넓이': '面積',
+    '온도': '溫度', '속도': '速度', '데이터': '資料', '에너지': '能量', '압력·기타': '壓力·其他',
+    '시간': '時間', '각도': '角度',
   },
 };
 
@@ -362,7 +374,7 @@ export const CONVERT_EN: Record<string, ConvertL10n> = { ...CONVERT_EN_1, ...CON
  * 때문이다. 빠진 항목은 아래 convertL10n()이 조용히 한국어로 되돌린다 — 화면이
  * 깨지지는 않지만 한글이 섞이므로, tests/convert-tools.ts가 누락을 잡는다.
  */
-export const CONVERT_L10N: Record<IntlLocale, Record<string, ConvertL10n>> = {
+export const CONVERT_L10N: Record<Exclude<AnyLocale10, 'ko'>, Record<string, ConvertL10n>> = {
   en: CONVERT_EN,
   es: CONVERT_ES,
   'pt-br': CONVERT_PT_BR,
@@ -370,9 +382,11 @@ export const CONVERT_L10N: Record<IntlLocale, Record<string, ConvertL10n>> = {
   de: CONVERT_DE,
   fr: CONVERT_FR,
   hi: CONVERT_HI,
+  'zh-hans': CONVERT_ZH_HANS,
+  'zh-hant': CONVERT_ZH_HANT,
 };
 
 /** 그 언어의 문구. 한국어이거나 항목이 없으면 undefined — 부르는 쪽이 원본으로 되돌린다. */
-export function convertL10n(slug: string, lang: AnyLocale): ConvertL10n | undefined {
+export function convertL10n(slug: string, lang: AnyLocale10): ConvertL10n | undefined {
   return lang === 'ko' ? undefined : CONVERT_L10N[lang]?.[slug];
 }

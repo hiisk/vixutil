@@ -7,7 +7,8 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { CONVERT_TOOLS, CONVERT_CATEGORIES, convert, format } from '@/lib/convert-tools';
 import { CONVERT_CATEGORY } from '@/lib/convert-i18n';
-import { CONVERT_UI, CONVERT_HUB_FAQ, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
+import { CONVERT_UI, CONVERT_HUB_FAQ, type ConvertLang } from '@/lib/convert-ui-intl';
+import LangPicker from '@/components/LangPicker';
 import { localized } from '@/components/ConvertPage';
 import { localeHref, localePrefix } from '@/lib/locales';
 
@@ -47,12 +48,8 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{ui.section}</span>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
-            {LANG_LINKS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/convert`} hrefLang={l.tag} className="hover:text-blue-600 transition-colors">
-                {l.label}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={'/convert'} />
           </span>
         </div>
       </header>

@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import {
-  ALL_LOCALES, alternateLanguages, localeHref, localeTag, openGraphFor,
-  type AnyLocale, type IntlLocale,
+  ALL_LOCALES10, alternateLanguages, localeHref, localeTag, openGraphFor,
+  type AnyLocale10,
 } from './locales.ts';
 import { CONVERT_MAP } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
@@ -15,7 +15,7 @@ import { convertL10n } from './convert-i18n.ts';
  * FAQ 문장은 단위 이름을 끼워 넣는 함수다. 언어마다 어순이 다르므로 문장 틀을
  * 그대로 옮기지 않고 그 언어에서 자연스러운 순서로 다시 쓴다.
  */
-export type ConvertLang = AnyLocale;
+export type ConvertLang = AnyLocale10;
 
 export const CONVERT_UI = {
   ko: {
@@ -194,16 +194,60 @@ export const CONVERT_UI = {
       `1 ${t} = ${one} ${f}। यह पन्ना दोनों दिशाओं में चलता है, इसलिए दाएँ खाने में लिखने पर बायाँ अपने आप बदल जाता है।`,
     faq3: 'यह इकाई कहाँ इस्तेमाल होती है?',
   },
+  'zh-hans': {
+    langLabel: '简体中文',
+    section: '单位换算',
+    home: '首页',
+    quickTitle: '常用数值',
+    formula: '算式',
+    copy: (l: string, f: string, r: string, t: string) => `复制 ${l}${f} = ${r}${t}`,
+    copied: '✅ 已复制',
+    related: '其他单位换算',
+    hubTitle: '单位换算',
+    hubLead: '从英寸、磅，到市斤、市尺、亩这些还在用的传统单位',
+    hubNotice: '🔢 双向计算。填哪一边，另一边都会跟着变。',
+    footNote: '传统单位（斤·되·마지기等）会因国家、地区和品项而取值不同。',
+    suffix: '换算',
+    faq1: (f: string, t: string) => `1${f}是多少${t}？`,
+    faq1a: (f: string, t: string, one: string, ten: string) =>
+      `1${f}是${one}${t}。10${f}是${ten}${t}，在上面的框里填任何值都会立刻算出来。`,
+    faq2: (f: string, t: string) => `反过来，1${t}是多少${f}？`,
+    faq2a: (f: string, t: string, one: string) =>
+      `1${t}是${one}${f}。这一页是双向的，在右边框里填值，左边会自动跟着变。`,
+    faq3: '这个单位用在哪里？',
+  },
+  'zh-hant': {
+    langLabel: '繁體中文',
+    section: '單位換算',
+    home: '首頁',
+    quickTitle: '常用數值',
+    formula: '算式',
+    copy: (l: string, f: string, r: string, t: string) => `複製 ${l}${f} = ${r}${t}`,
+    copied: '✅ 已複製',
+    related: '其他單位換算',
+    hubTitle: '單位換算',
+    hubLead: '從英吋、磅，到坪、台斤、市尺這些還在用的傳統單位',
+    hubNotice: '🔢 雙向計算。填哪一邊，另一邊都會跟著變。',
+    footNote: '傳統單位（斤·되·마지기等）會因國家、地區和品項而取值不同。',
+    suffix: '換算',
+    faq1: (f: string, t: string) => `1${f}是多少${t}？`,
+    faq1a: (f: string, t: string, one: string, ten: string) =>
+      `1${f}是${one}${t}。10${f}是${ten}${t}，在上面的框裡填任何值都會立刻算出來。`,
+    faq2: (f: string, t: string) => `反過來，1${t}是多少${f}？`,
+    faq2a: (f: string, t: string, one: string) =>
+      `1${t}是${one}${f}。這一頁是雙向的，在右邊框裡填值，左邊會自動跟著變。`,
+    faq3: '這個單位用在哪裡？',
+  },
 } as const;
 
 /**
- * 언어 전환 링크 — 어느 언어에서든 나머지 일곱으로 갈 수 있게.
+ * 언어 전환 링크 — 어느 언어에서든 나머지 아홉으로 갈 수 있게.
  *
  * tag를 따로 담는다. hreflang은 BCP 47 표기여서 경로(/pt-br)와 다르다(pt-BR).
  * 경로를 그대로 hreflang에 넣으면 브라질 대상 선언이 조용히 무효가 된다.
  */
 export const LANG_LINKS: { lang: ConvertLang; tag: string; label: string; prefix: string }[] =
-  ALL_LOCALES.map(l => ({
+  ALL_LOCALES10.map(l => ({
     lang: l,
     tag: localeTag(l),
     label: CONVERT_UI[l].langLabel,
@@ -215,9 +259,9 @@ export const LANG_LINKS: { lang: ConvertLang; tag: string; label: string; prefix
  *
  * 도구 페이지 FAQ는 계수에서 만들지만(lib/convert-faq.ts) 허브는 "어느 칸에
  * 넣나요"처럼 사이트 사용법을 묻는 문항이라 손으로 쓴다. 한국어는
- * lib/section-faq.ts에 이미 있어서 여기에는 나머지 일곱만 둔다.
+ * lib/section-faq.ts에 이미 있어서 여기에는 나머지 아홉만 둔다.
  */
-export const CONVERT_HUB_FAQ: Record<IntlLocale, { q: string; a: string }[]> = {
+export const CONVERT_HUB_FAQ: Record<Exclude<AnyLocale10, 'ko'>, { q: string; a: string }[]> = {
   en: [
     { q: 'Which box do I type in?', a: 'Either one. Typing on the left updates the right, and typing on the right updates the left, so it works whichever direction you came from.' },
     { q: 'Why do Korean traditional units differ from what I know?', a: 'Units like geun, doe and majigi vary by region and product — a geun of meat is 600 g but a geun of vegetables is 375 g. Each page notes where the value splits.' },
@@ -260,9 +304,21 @@ export const CONVERT_HUB_FAQ: Record<IntlLocale, { q: string; a: string }[]> = {
     { q: 'ये अंक कितने सटीक हैं?', a: '1 इंच = 2.54 सेमी जैसे तय मान बिलकुल सटीक हैं। जो हालात पर निर्भर हैं — मैक या पारंपरिक इकाइयाँ — उनकी शर्त पन्ने पर लिखी है।' },
     { q: 'मेरी डिस्क कम क्षमता क्यों दिखाती है?', a: 'यह साइट 1 GB = 1,024 MB (द्विआधारी) लेती है। बनाने वाली कंपनियाँ 1 GB को 1,000 MB गिनती हैं, इसलिए 1 TB का SSD 931 GB दिखता है।' },
   ],
+'zh-hans': [
+    { q: '该填在哪个框里？', a: '哪个都行。填左边右边就变，填右边左边就变，所以从哪个方向来都能直接用。' },
+    { q: '加仑怎么和我算的对不上？', a: '美制加仑是3.785 L，英制加仑是4.546 L，差了两成。这些页面用的是美制加仑，注意事项里都写明了。' },
+    { q: '这些数字有多准？', a: '像1英寸 = 2.54厘米这种定义值是完全精确的。看情况而定的——马赫和传统单位——页面上都写清了条件。' },
+    { q: '我的硬盘怎么显示的容量偏少？', a: '本站按1 GB = 1,024 MB（二进制）算。制造商把1 GB当成1,000 MB，所以1 TB的SSD显示成931 GB。' },
+  ],
+  'zh-hant': [
+    { q: '該填在哪個框裡？', a: '哪個都行。填左邊右邊就變，填右邊左邊就變，所以從哪個方向來都能直接用。' },
+    { q: '加侖怎麼和我算的對不上？', a: '美制加侖是3.785 L，英制加侖是4.546 L，差了兩成。這些頁面用的是美制加侖，注意事項裡都寫明了。' },
+    { q: '這些數字有多準？', a: '像1英吋 = 2.54公分這種定義值是完全精確的。看情況而定的——馬赫和傳統單位——頁面上都寫清了條件。' },
+    { q: '我的硬碟怎麼顯示的容量偏少？', a: '本站按1 GB = 1,024 MB（二進位）算。製造商把1 GB當成1,000 MB，所以1 TB的SSD顯示成931 GB。' },
+  ],
 };
 
-/** hreflang 묶음 — 여덟 언어가 모두 같은 slug를 쓰므로 레지스트리에서 만든다 */
+/** hreflang 묶음 — 열 언어가 모두 같은 slug를 쓰므로 레지스트리에서 만든다 */
 export function convertAlternates(slug?: string) {
   return alternateLanguages(slug ? `/convert/${slug}` : '/convert');
 }
@@ -273,7 +329,7 @@ export function convertAlternates(slug?: string) {
  * 화면에 보이는 hubTitle과 달리 여기에는 대표 단위 이름을 늘어놓는다 — 사람들이
  * 검색창에 치는 말이 "단위 변환"보다 "cm 인치"인 경우가 훨씬 많다.
  */
-const HUB_META: Record<AnyLocale, { title: string; desc: string }> = {
+const HUB_META: Record<AnyLocale10, { title: string; desc: string }> = {
   ko: {
     title: '단위 변환 — 평·근·돈부터 인치·파운드까지 100종',
     desc: '평↔㎡, 근↔g, 돈↔g, cm↔인치, kg↔파운드, 섭씨↔화씨, Mbps↔MB/s에 트로이온스·중국 근·KiB↔KB·달리기 페이스까지 100가지 단위 변환을 한 곳에서. 자주 찾는 값 표와 계산식까지 함께 봅니다.',
@@ -305,6 +361,14 @@ const HUB_META: Record<AnyLocale, { title: string; desc: string }> = {
   hi: {
     title: 'इकाई कनवर्टर — 100 रूपांतरण',
     desc: 'सेमी से इंच, किग्रा से पाउंड, सेल्सियस से फ़ारेनहाइट, ट्रॉय औंस, KiB और KB, दौड़ का पेस और प्योंग, गुन, दोन जैसी कोरियाई इकाइयाँ — आम मानों की सारणी के साथ 100 कनवर्टर। मुफ़्त, बिना खाता।',
+  },
+  'zh-hans': {
+    title: '单位换算 — 从市斤·市尺到英寸·磅共100种',
+    desc: '厘米到英寸、千克到磅、摄氏到华氏、金衡盎司、KiB和KB、跑步配速，还有市斤·市尺·亩和韩国的坪·돈这些传统单位 — 100种换算，都带常用数值表。免费，不用注册。',
+  },
+  'zh-hant': {
+    title: '單位換算 — 從坪·台斤到英吋·磅共100種',
+    desc: '公分到英吋、公斤到磅、攝氏到華氏、金衡盎司、KiB和KB、跑步配速，還有坪·台斤·市尺和韓國的돈·되這些傳統單位 — 100種換算，都帶常用數值表。免費，不用註冊。',
   },
 };
 

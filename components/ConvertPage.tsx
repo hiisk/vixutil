@@ -7,7 +7,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { relatedConvertTools, type ConvertTool } from '@/lib/convert-tools';
 import { convertFaq } from '@/lib/convert-faq';
-import { CONVERT_UI, LANG_LINKS, type ConvertLang } from '@/lib/convert-ui-intl';
+import { CONVERT_UI, type ConvertLang } from '@/lib/convert-ui-intl';
+import LangPicker from '@/components/LangPicker';
 import { convertL10n } from '@/lib/convert-i18n';
 import { localeHref, localePrefix } from '@/lib/locales';
 
@@ -69,12 +70,8 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
           <Link href={`${prefix}/convert`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors font-medium truncate">
             {ui.section}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
-            {LANG_LINKS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/convert/${tool.slug}`} hrefLang={l.tag} className="hover:text-blue-600 transition-colors">
-                {l.label}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/convert/${tool.slug}`} />
           </span>
         </div>
       </header>
