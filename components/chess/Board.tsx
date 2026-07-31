@@ -79,7 +79,7 @@ export default function Board({
       aria-label={label}
       className="max-w-full h-auto rounded-lg shadow-sm"
     >
-      {squares.map((piece, i) => {
+      {squares.map((_, i) => {
         const file = i % 8;
         const rank = Math.floor(i / 8);
         const dark = (file + rank) % 2 === 1;

@@ -68,6 +68,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
       <JsonLd
         data={breadcrumbJsonLd([
+          { name: ui.home, path: homeHref },
           { name: ui.section, path: hub },
           { name, path },
         ])}
