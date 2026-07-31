@@ -1,0 +1,23 @@
+import type { Metadata } from 'next';
+import FormulaHub from '@/components/FormulaHub';
+import { BODY_SECTION, BODY_LANGS } from '@/lib/body-section';
+import { sectionAlternates } from '@/lib/formula/ui';
+import { sectionMeta } from '@/lib/formula/section';
+import { localeHref, openGraphFor } from '@/lib/locales';
+
+/* 화면은 components/FormulaHub.tsx 하나를 열 언어가 같이 쓴다 */
+const meta = sectionMeta(BODY_SECTION, 'zh-hant');
+
+export const metadata: Metadata = {
+  title: meta.metaTitle,
+  description: meta.metaDesc,
+  openGraph: openGraphFor('zh-hant'),
+  alternates: {
+    canonical: localeHref('zh-hant', '/body'),
+    languages: sectionAlternates('body', undefined, BODY_LANGS),
+  },
+};
+
+export default function BodyHubZhHant() {
+  return <FormulaHub lang="zh-hant" section={BODY_SECTION} />;
+}
