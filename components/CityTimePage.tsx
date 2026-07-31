@@ -5,10 +5,11 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import CityClock from '@/components/time/CityClock';
-import { LANGS, langInfo, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langInfo, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { timeCountry, type TimeCity } from '@/lib/time/cities8';
 import { cityFacts, gapLabel, gapMinutes, sameZoneCities } from '@/lib/time/facts';
 import { TIME_UI } from '@/lib/time/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 도시 시계 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -62,6 +63,9 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
           <Link href={`${prefix}/time`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/time/${city.slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

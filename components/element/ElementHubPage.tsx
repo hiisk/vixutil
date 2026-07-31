@@ -5,11 +5,12 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import PeriodicTable from '@/components/element/PeriodicTable';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { ELEMENTS, ELEMENT_ICON } from '@/lib/element/list';
 import { CATEGORIES, elementFacts, elementsOfCategory } from '@/lib/element/facts';
 import { nameOf } from '@/lib/element/names';
 import { ELEMENT_UI } from '@/lib/element/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 원소 목록 — 표를 먼저 보이고, 그 아래에 갈래별 목록을 둔다.
@@ -48,6 +49,9 @@ export default function ElementHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/element`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

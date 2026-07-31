@@ -13,14 +13,14 @@
  * 페이지에 전부 실려서, 스페인어 글을 공유하면 한국어 미리보기가 떴다.
  */
 export const LOCALES = [
-  { path: '',       tag: 'ko',    og: 'ko_KR', label: '한국어',   english: 'Korean' },
-  { path: 'en',     tag: 'en',    og: 'en_US', label: 'English',  english: 'English' },
-  { path: 'es',     tag: 'es',    og: 'es_ES', label: 'Español',  english: 'Spanish' },
-  { path: 'pt-br',  tag: 'pt-BR', og: 'pt_BR', label: 'Português', english: 'Portuguese (Brazil)' },
-  { path: 'ja',     tag: 'ja',    og: 'ja_JP', label: '日本語',    english: 'Japanese' },
-  { path: 'de',     tag: 'de',    og: 'de_DE', label: 'Deutsch',  english: 'German' },
-  { path: 'fr',     tag: 'fr',    og: 'fr_FR', label: 'Français', english: 'French' },
-  { path: 'hi',     tag: 'hi',    og: 'hi_IN', label: 'हिन्दी',      english: 'Hindi' },
+  { path: '',       tag: 'ko',    og: 'ko_KR', label: '한국어',   english: 'Korean', flag: '🇰🇷' },
+  { path: 'en',     tag: 'en',    og: 'en_US', label: 'English',  english: 'English', flag: '🇺🇸' },
+  { path: 'es',     tag: 'es',    og: 'es_ES', label: 'Español',  english: 'Spanish', flag: '🇪🇸' },
+  { path: 'pt-br',  tag: 'pt-BR', og: 'pt_BR', label: 'Português', english: 'Portuguese (Brazil)', flag: '🇧🇷' },
+  { path: 'ja',     tag: 'ja',    og: 'ja_JP', label: '日本語',    english: 'Japanese', flag: '🇯🇵' },
+  { path: 'de',     tag: 'de',    og: 'de_DE', label: 'Deutsch',  english: 'German', flag: '🇩🇪' },
+  { path: 'fr',     tag: 'fr',    og: 'fr_FR', label: 'Français', english: 'French', flag: '🇫🇷' },
+  { path: 'hi',     tag: 'hi',    og: 'hi_IN', label: 'हिन्दी',      english: 'Hindi', flag: '🇮🇳' },
 ] as const;
 
 export type LocalePath = typeof LOCALES[number]['path'];
@@ -39,8 +39,8 @@ export type LocaleTag = typeof LOCALES[number]['tag'];
  * 있어서(防御/防禦) 한쪽에서 기계로 바꾸면 어색해진다. 그래서 두 벌을 따로 적는다.
  */
 export const NEXT_LOCALES = [
-  { path: 'zh-hans', tag: 'zh-Hans', og: 'zh_CN', label: '简体中文', english: 'Chinese (Simplified)' },
-  { path: 'zh-hant', tag: 'zh-Hant', og: 'zh_TW', label: '繁體中文', english: 'Chinese (Traditional)' },
+  { path: 'zh-hans', tag: 'zh-Hans', og: 'zh_CN', label: '简体中文', english: 'Chinese (Simplified)', flag: '🇨🇳' },
+  { path: 'zh-hant', tag: 'zh-Hant', og: 'zh_TW', label: '繁體中文', english: 'Chinese (Traditional)', flag: '🇹🇼' },
 ] as const;
 
 /** 열 언어를 갖춘 섹션이 쓰는 목록 */
@@ -90,6 +90,20 @@ export function openGraphFor(locale: AnyLocale10) {
 /** 언어 전환 링크에 쓰는 그 언어의 자기 이름 */
 export function localeLabel(locale: AnyLocale10): string {
   return BY_PATH[locale]?.label ?? locale;
+}
+
+/**
+ * 언어 전환 버튼에 붙는 깃발.
+ *
+ * 깃발은 나라이지 언어가 아니다 — 영어는 미국만 쓰는 말이 아니고, 스페인어는
+ * 스페인보다 중남미에서 쓰는 사람이 훨씬 많다. 그래도 목록을 훑을 때 글자보다
+ * 그림이 먼저 눈에 걸려서, 자기 언어를 찾는 속도가 확연히 빠르다.
+ *
+ * 그래서 깃발은 곁들이고 이름은 그대로 둔다. 깃발만 두면 위의 부정확함이 그대로
+ * 뜻이 되고, 이모지를 못 그리는 환경에서는 목록이 통째로 빈칸이 된다.
+ */
+export function localeFlag(locale: AnyLocale10): string {
+  return BY_PATH[locale]?.flag ?? '';
 }
 
 /** 경로 앞에 붙는 부분. 한국어는 접두어가 없다. */

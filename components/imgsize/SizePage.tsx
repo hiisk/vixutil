@@ -5,10 +5,11 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import SizeShape from '@/components/imgsize/SizeShape';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { IMG_SIZE_ICON, imgSizeOf } from '@/lib/imgsize/list';
 import { sameKind, sameRatio, sizeFacts } from '@/lib/imgsize/facts';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 이미지 크기 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -66,6 +67,9 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
           <Link href={`${prefix}/image/size`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/image/size/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

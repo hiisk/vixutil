@@ -4,11 +4,12 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { TAG_ICON, tagOf } from '@/lib/html/tags';
 import { relatedTags, tagFacts } from '@/lib/html/facts';
 import { tagDesc } from '@/lib/html/desc';
 import { HTML_UI } from '@/lib/html/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * HTML 태그 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -64,6 +65,9 @@ export default function TagPage({ slug, lang }: { slug: string; lang: Lang }) {
           <Link href={`${prefix}/html`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/html/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

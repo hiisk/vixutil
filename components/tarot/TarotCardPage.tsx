@@ -4,10 +4,11 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { TAROT_ICON } from '@/lib/tarot/deck';
 import { cardView, majorNeighbours, sameRank, sameSuit } from '@/lib/tarot/facts';
 import { TAROT_UI } from '@/lib/tarot/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 타로 카드 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -62,6 +63,9 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
           <Link href={`${prefix}/fortune/card`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/fortune/card/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

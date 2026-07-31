@@ -5,10 +5,11 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import SumBars from '@/components/dice/SumBars';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { DICE_COUNTS, DICE_ICON, ROLLS, rollsOfDice } from '@/lib/dice/list';
 import { rollFacts } from '@/lib/dice/facts';
 import { DICE_UI } from '@/lib/dice/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 주사위 확률 목록 — 개수별로 끊어 늘어놓는다.
@@ -48,6 +49,9 @@ export default function DiceHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/random/dice`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

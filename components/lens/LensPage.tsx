@@ -6,10 +6,11 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import AngleFan from '@/components/lens/AngleFan';
 import SensorBox from '@/components/lens/SensorBox';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { LENS_ICON, lensOf } from '@/lib/lens/list';
 import { lensFacts, neighbourFocals, sameFieldOfView } from '@/lib/lens/facts';
 import { LENS_UI } from '@/lib/lens/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 렌즈 한 장 — 부채꼴 그림 하나와 숫자 여섯 개.
@@ -62,6 +63,9 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{title}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

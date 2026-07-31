@@ -4,10 +4,11 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { KINDS, PATTERNS, REGEX_ICON, patternsOfKind } from '@/lib/regex/list';
 import { whatOf } from '@/lib/regex/desc';
 import { REGEX_UI } from '@/lib/regex/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 정규식 목록 — 갈래별로 끊어 늘어놓는다.
@@ -46,6 +47,9 @@ export default function RegexHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/text/regex`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ALL_LOCALES, ALL_LOCALES10, localeHref, localeLabel, localeTag, type AnyLocale10 } from '@/lib/locales';
+import { ALL_LOCALES, ALL_LOCALES10, localeFlag, localeHref, localeLabel, localeTag, type AnyLocale10 } from '@/lib/locales';
 
 /**
  * 언어 선택 버튼.
@@ -11,6 +11,11 @@ import { ALL_LOCALES, ALL_LOCALES10, localeHref, localeLabel, localeTag, type An
  *
  * 각 항목은 그 언어의 이름을 그 언어로 적는다 — Español, 日本語, हिन्दी. 영어로
  * 'Spanish'라고 적으면 스페인어만 읽는 사람이 자기 언어를 못 찾는다.
+ *
+ * 이름 앞에 깃발을 곁들인다. 열 줄을 눈으로 훑을 때 글자보다 그림이 먼저 걸려서
+ * 자기 언어를 찾는 속도가 눈에 띄게 빠르다. 다만 깃발은 나라이지 언어가 아니므로
+ * (영어는 미국만의 말이 아니다) 이름을 대신하지 않고 곁들이기만 한다 — 이모지를
+ * 못 그리는 환경에서도 목록이 그대로 읽혀야 한다.
  *
  * hreflang은 여기 링크가 아니라 metadata.alternates가 담당한다. 이 버튼은 사람이
  * 누르는 것이고, 검색 엔진에 알리는 일은 <head>에서 따로 한다 — 화면에 없는
@@ -66,9 +71,7 @@ export default function LangPicker({
         aria-label="Change language"
         className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
       >
-        <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0c2.5 0 4.5-4.03 4.5-9S14.5 3 12 3 7.5 7.03 7.5 12s2 9 4.5 9zM3.6 9h16.8M3.6 15h16.8" />
-        </svg>
+        <span aria-hidden="true" className="text-sm leading-none">{localeFlag(current)}</span>
         <span className="max-w-[6.5rem] truncate">{localeLabel(current)}</span>
         <svg aria-hidden="true" className={`w-3 h-3 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -89,13 +92,14 @@ export default function LangPicker({
               hrefLang={localeTag(l)}
               role="menuitem"
               onClick={() => setOpen(false)}
-              className={`block px-3.5 py-2 text-xs font-bold transition-colors ${
+              className={`flex items-center gap-2 px-3.5 py-2 text-xs font-bold transition-colors ${
                 l === current
                   ? 'bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
                   : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
-              {localeLabel(l)}
+              <span aria-hidden="true" className="text-sm leading-none">{localeFlag(l)}</span>
+              <span className="truncate">{localeLabel(l)}</span>
             </Link>
           ))}
         </div>

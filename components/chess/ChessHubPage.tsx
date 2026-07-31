@@ -4,11 +4,12 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import Board from '@/components/chess/Board';
-import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { OPENINGS } from '@/lib/chess/list';
 import { groupCounts, groupOf, openingFacts, type Group } from '@/lib/chess/facts';
 import { fullName } from '@/lib/chess/names';
 import { chessUi, fill } from '@/lib/chess/ui';
+import LangPicker from '@/components/LangPicker';
 
 const GROUP_ORDER: Group[] = ['open', 'semiopen', 'closed', 'indian', 'flank'];
 
@@ -71,6 +72,9 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/game/chess`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

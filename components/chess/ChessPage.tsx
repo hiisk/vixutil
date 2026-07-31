@@ -4,11 +4,12 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import StepBoard from '@/components/chess/StepBoard';
-import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { openingOf } from '@/lib/chess/list';
 import { openingFacts } from '@/lib/chess/facts';
 import { fullName } from '@/lib/chess/names';
 import { chessUi, fill } from '@/lib/chess/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 오프닝 한 장 — 판, 수순, 그 자리에서 읽어낸 것들.
@@ -88,6 +89,9 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{name}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

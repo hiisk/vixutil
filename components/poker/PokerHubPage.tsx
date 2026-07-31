@@ -4,10 +4,11 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import HandGrid from '@/components/poker/HandGrid';
-import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { HANDS, labelOf } from '@/lib/poker/list';
 import { chenScore, handFacts, kindCounts, tierCounts, tierOf, type Tier } from '@/lib/poker/facts';
 import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
+import LangPicker from '@/components/LangPicker';
 
 const TIER_ORDER: Tier[] = ['premium', 'strong', 'playable', 'marginal', 'weak'];
 
@@ -64,6 +65,9 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/game/poker`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

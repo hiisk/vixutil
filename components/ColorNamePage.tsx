@@ -3,10 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { colorFacts, nearbyColors } from '@/lib/color/facts';
 import { COLOR_UI, colorFaq } from '@/lib/color/ui';
 import type { NamedColor } from '@/lib/color/named8';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 색 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -79,6 +80,9 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
           <Link href={`${prefix}/color`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/color/${color.slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

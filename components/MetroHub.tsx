@@ -7,6 +7,8 @@ import { METRO_LANGS, metroPrefix, type MetroLang } from '@/lib/metro/lang';
 import { METRO_UI } from '@/lib/metro/ui';
 import { cityName, countryName, lineName } from '@/lib/metro/types';
 import { CAPITAL_CITIES, SECOND_CITIES, METRO_LINES, linesOfCity, totalStations } from '@/lib/metro-lines';
+import LangPicker from '@/components/LangPicker';
+import { LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 
 /**
  * 지하철 게임 허브 — 도시별로 노선을 모아 보여준다.
@@ -73,6 +75,9 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route="/metro" available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

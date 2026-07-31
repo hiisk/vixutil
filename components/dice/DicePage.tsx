@@ -5,10 +5,11 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SumBars from '@/components/dice/SumBars';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { DICE_ICON, rollOf } from '@/lib/dice/list';
 import { neighbourSums, rollFacts, similarOdds } from '@/lib/dice/facts';
 import { DICE_UI } from '@/lib/dice/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 굴림 한 장 — 분포 그림 하나와 숫자 여섯 개.
@@ -63,6 +64,9 @@ export default function DicePage({ slug, lang }: { slug: string; lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{title}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

@@ -6,10 +6,11 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import TonePlayer from '@/components/sound/TonePlayer';
 import WaveShape from '@/components/sound/WaveShape';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { FREQ_ICON, freqOf, freqSlug } from '@/lib/sound/freqs';
 import { dtmfKeys, freqFacts, nearbyFreqs } from '@/lib/sound/facts';
 import { SOUND_UI } from '@/lib/sound/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 주파수 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -67,6 +68,9 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
           <Link href={`${prefix}/sound/hz`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/sound/hz/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

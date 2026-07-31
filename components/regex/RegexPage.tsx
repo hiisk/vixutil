@@ -5,11 +5,12 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import RegexTry from '@/components/regex/RegexTry';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { REGEX_ICON, patternOf } from '@/lib/regex/list';
 import { regexFacts, siblingPatterns } from '@/lib/regex/facts';
 import { whatOf } from '@/lib/regex/desc';
 import { REGEX_UI } from '@/lib/regex/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 보기를 화면에 적을 때 — 눈에 보이지 않는 글자를 보이게 한다.
@@ -62,6 +63,9 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{what}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

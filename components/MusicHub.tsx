@@ -7,6 +7,8 @@ import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { MUSIC_ITEMS, colorOf, itemsOfKind, symbolOf, titleOf, type MusicItem } from '@/lib/music/catalog';
 import { CHORD_QUALITIES, SCALE_MODES } from '@/lib/music/theory';
 import { MUSIC_UI } from '@/lib/music/ui';
+import LangPicker from '@/components/LangPicker';
+import { LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 
 /**
  * 음악 이론 허브 — 성질별로 묶어 보여 준다.
@@ -60,6 +62,9 @@ export default function MusicHub({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route="/music" available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

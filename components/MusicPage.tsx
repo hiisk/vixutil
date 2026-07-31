@@ -5,7 +5,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import MusicKeyboard from '@/components/music/MusicKeyboard';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import {
   KIND_WORD, accidentalOf, colorOf, feelOf, iconOf, notesOf, relatedItems,
   symbolOf, titleOf, type MusicItem,
@@ -13,6 +13,7 @@ import {
 import { degreeName } from '@/lib/music/notes';
 import { frequencies, itemFacts } from '@/lib/music/facts';
 import { MUSIC_UI } from '@/lib/music/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 코드·음계·음정 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -72,6 +73,9 @@ export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang 
           <Link href={`${prefix}/music`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/music/${item.slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

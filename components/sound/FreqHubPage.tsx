@@ -4,10 +4,11 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { FREQS, FREQ_ICON, FREQ_RANGES, freqSlug, freqsOfRange } from '@/lib/sound/freqs';
 import { freqFacts } from '@/lib/sound/facts';
 import { SOUND_UI } from '@/lib/sound/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 주파수 목록 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -52,6 +53,9 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/sound/hz`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

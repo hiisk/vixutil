@@ -5,11 +5,12 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import ScreenShape from '@/components/device/ScreenShape';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { screen } from '@/lib/device/screens';
 import { screenFacts, similarScreens } from '@/lib/device/facts';
 import { DEVICE_UI } from '@/lib/device/ui';
 import { SCREEN_ICON, screenView } from '@/lib/device/route';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 화면 규격 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -71,6 +72,9 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
           <Link href={`${prefix}/device/screen`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/device/screen/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

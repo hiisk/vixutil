@@ -4,10 +4,11 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { foodFacts, similarIngredients } from '@/lib/food/facts';
 import { FOOD_UI } from '@/lib/food/ui';
 import type { Ingredient } from '@/lib/food/ingredients8';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 재료 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -63,6 +64,9 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           <Link href={`${prefix}/food`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/food/${ing.slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

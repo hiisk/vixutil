@@ -4,11 +4,12 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { CSS_ICON, cssPropOf } from '@/lib/css/props';
 import { propFacts, relatedProps } from '@/lib/css/facts';
 import { propDesc } from '@/lib/css/desc';
 import { CSS_UI } from '@/lib/css/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * CSS 속성 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -65,6 +66,9 @@ export default function PropPage({ slug, lang }: { slug: string; lang: Lang }) {
           <Link href={`${prefix}/css`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/css/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

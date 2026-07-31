@@ -4,11 +4,12 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { HTTP_ICON, httpItemOf } from '@/lib/http/list';
 import { httpFacts, relatedHttp } from '@/lib/http/facts';
 import { httpDesc } from '@/lib/http/desc';
 import { HTTP_UI } from '@/lib/http/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 상태 코드나 헤더 한 장 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -62,6 +63,9 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
           <Link href={`${prefix}/http`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/http/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

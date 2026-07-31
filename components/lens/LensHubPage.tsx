@@ -5,10 +5,11 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import SensorBox from '@/components/lens/SensorBox';
-import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { LENSES, LENS_ICON, SENSORS, lensesOfSensor } from '@/lib/lens/list';
 import { lensFacts } from '@/lib/lens/facts';
 import { LENS_UI } from '@/lib/lens/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 렌즈 화각 목록 — 센서 넷, 초점거리 스물다섯.
@@ -52,6 +53,9 @@ export default function LensHubPage({ lang }: { lang: Lang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/snap/lens`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 

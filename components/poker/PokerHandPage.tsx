@@ -5,10 +5,11 @@ import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import Cards from '@/components/poker/Cards';
 import HandGrid from '@/components/poker/HandGrid';
-import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { HANDS, handOf, labelOf } from '@/lib/poker/list';
 import { handFacts } from '@/lib/poker/facts';
 import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 시작 핸드 한 장 — 카드 두 장과 그 핸드에서 나오는 숫자들.
@@ -71,6 +72,9 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{f.label}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/${slug}`} available={LOCALE_PATHS} />
+          </div>
         </div>
       </header>
 
