@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { TAROT_ICON } from '@/lib/tarot/deck';
 import { cardView, majorNeighbours, sameRank, sameSuit } from '@/lib/tarot/facts';
 import { TAROT_UI } from '@/lib/tarot/ui';
@@ -15,7 +15,7 @@ import { TAROT_UI } from '@/lib/tarot/ui';
  * 메이저든 마이너든 같은 모양으로 그린다. 이름과 해석은 facts가 이미 만들어
  * 주므로, 여기서는 어느 쪽인지 구별할 필요가 없다.
  */
-export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang }) {
   const v = cardView(slug, lang);
   if (!v) return null;
 
@@ -148,7 +148,7 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
         )}
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/fortune/card/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { CARDS, MAJORS, SUITS, SUIT_ELEMENT, TAROT_ICON, cardsOfSuit } from '@/lib/tarot/deck';
 import { cardView } from '@/lib/tarot/facts';
 import { TAROT_UI } from '@/lib/tarot/ui';
@@ -15,7 +15,7 @@ import { TAROT_UI } from '@/lib/tarot/ui';
  * 메이저는 번호 순으로 한 줄씩, 마이너는 수트별로 묶는다. 수트마다 무엇을
  * 다루는지 한 줄씩 붙여 두면, 목록만 훑어도 읽는 방법이 눈에 들어온다.
  */
-export default function TarotHubPage({ lang }: { lang: Lang8 }) {
+export default function TarotHubPage({ lang }: { lang: Lang }) {
   const ui = TAROT_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -119,7 +119,7 @@ export default function TarotHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/fortune/card`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

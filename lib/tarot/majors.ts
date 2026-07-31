@@ -1,5 +1,5 @@
 /**
- * 메이저 아르카나 22장의 이름과 해석 — 여덟 언어.
+ * 메이저 아르카나 22장의 이름과 해석 — 열 언어.
  *
  * 마이너 56장은 수트와 계급을 겹쳐 만들지만, 메이저는 카드마다 고유한 그림과
  * 이야기가 있어 조합으로 만들 수 없다. 그래서 이 스물두 장만 손으로 적는다.
@@ -11,23 +11,23 @@
  * 해석은 한 문장씩만 적는다. 여기는 뽑기 도구가 아니라 카드를 찾아보는
  * 자료 페이지라, 길게 쓰면 78장이 다 비슷해 보인다.
  */
-import type { L8 } from '../i18n/lang.ts';
+import type { L } from '../i18n/lang.ts';
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = (ko: string, en: string, es: string, pt: string, ja: string, de: string, fr: string, hi: string): L8<string> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = (ko: string, en: string, es: string, pt: string, ja: string, de: string, fr: string, hi: string, zh: string, tw: string): L<string> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
 export interface MajorCopy {
-  name: L8<string>;
-  up: L8<string>;
-  rev: L8<string>;
+  name: L<string>;
+  up: L<string>;
+  rev: L<string>;
 }
 
-const M = (name: L8<string>, up: L8<string>, rev: L8<string>): MajorCopy => ({ name, up, rev });
+const M = (name: L<string>, up: L<string>, rev: L<string>): MajorCopy => ({ name, up, rev });
 
 export const MAJOR_COPY: Record<string, MajorCopy> = {
   'the-fool': M(
-    T('광대', 'The Fool', 'El Loco', 'O Louco', '愚者', 'Der Narr', 'Le Mat', 'मूर्ख'),
+    T('광대', 'The Fool', 'El Loco', 'O Louco', '愚者', 'Der Narr', 'Le Mat', 'मूर्ख', '愚者', '愚者'),
     T(
       '새로운 시작과 순수한 모험심. 계획이 완성되기 전에 첫걸음을 내딛는 용기를 말합니다.',
       'A new beginning and open-hearted adventure — the courage to take a first step before the plan is finished.',
@@ -37,6 +37,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Ein neuer Anfang und offene Abenteuerlust — der Mut, den ersten Schritt zu tun, bevor der Plan fertig ist.',
       "Un nouveau départ et un esprit d'aventure : le courage de faire le premier pas avant que le plan soit prêt.",
       'नई शुरुआत और निश्छल साहस — योजना पूरी होने से पहले पहला कदम उठाने का हौसला।',
+      '全新的开始，和一颗不设防的冒险心。计划还没成形就先迈出一步，靠的正是这份勇气。',
+      '全新的開始，和一顆不設防的冒險心。計畫還沒成形就先邁出一步，靠的正是這份勇氣。',
     ),
     T(
       '무모함이거나 지나친 망설임. 뛰기 전에 최소한의 확인은 필요합니다.',
@@ -47,11 +49,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Leichtsinn oder zu viel Zögern — prüfen Sie wenigstens das Nötigste, bevor Sie springen.',
       "Imprudence ou hésitation excessive : faites la vérification minimale avant de sauter.",
       'लापरवाही या हद से ज़्यादा हिचक — छलाँग से पहले कम से कम जाँच तो कर लें।',
+      '要么鲁莽，要么犹豫得过了头。往下跳之前，最起码该确认一下脚下。',
+      '要麼魯莽，要麼猶豫得過了頭。往下跳之前，最起碼該確認一下腳下。',
     ),
   ),
 
   'the-magician': M(
-    T('마법사', 'The Magician', 'El Mago', 'O Mago', '魔術師', 'Der Magier', 'Le Bateleur', 'जादूगर'),
+    T('마법사', 'The Magician', 'El Mago', 'O Mago', '魔術師', 'Der Magier', 'Le Bateleur', 'जादूगर', '魔术师', '魔術師'),
     T(
       '가진 재능을 실제로 쓰는 때. 의지와 집중이 그대로 결과로 이어집니다.',
       'The moment to put your talent to work — will and focus turn straight into results.',
@@ -61,6 +65,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Der Moment, das Talent einzusetzen — Wille und Konzentration werden unmittelbar zu Ergebnissen.',
       "Le moment de mettre son talent en œuvre : volonté et concentration deviennent des résultats.",
       'अपनी क्षमता को काम में लगाने का समय — इच्छा और एकाग्रता सीधे नतीजे बनते हैं।',
+      '把手上的才能真正用起来的时候。意志和专注会直接变成结果。',
+      '把手上的才能真正用起來的時候。意志和專注會直接變成結果。',
     ),
     T(
       '재능이 놀고 있거나 엉뚱한 쪽으로 쓰입니다. 의도를 먼저 확인하세요.',
@@ -71,11 +77,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Talent liegt brach oder zielt in die falsche Richtung — prüfen Sie zuerst die Absicht.',
       "Un talent inutilisé ou mal orienté : vérifiez d'abord l'intention.",
       'क्षमता बेकार पड़ी है या ग़लत दिशा में लगी है — पहले नीयत जाँचें।',
+      '才能闲置着，或者用错了方向。先把动机弄清楚。',
+      '才能閒置著，或者用錯了方向。先把動機弄清楚。',
     ),
   ),
 
   'the-high-priestess': M(
-    T('여사제', 'The High Priestess', 'La Sacerdotisa', 'A Sacerdotisa', '女教皇', 'Die Hohepriesterin', 'La Papesse', 'महायाजिका'),
+    T('여사제', 'The High Priestess', 'La Sacerdotisa', 'A Sacerdotisa', '女教皇', 'Die Hohepriesterin', 'La Papesse', 'महायाजिका', '女祭司', '女祭司'),
     T(
       '말하기보다 듣는 때. 이성보다 직관이 먼저 아는 것이 있습니다.',
       'A time for listening rather than speaking — intuition knows this one before reason does.',
@@ -85,6 +93,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Eine Zeit zum Zuhören statt zum Reden — hier weiß die Intuition mehr als der Verstand.',
       "Un temps pour écouter plutôt que parler : ici l'intuition sait avant la raison.",
       'बोलने से ज़्यादा सुनने का समय — यहाँ तर्क से पहले अंतर्ज्ञान जानता है।',
+      '少说多听的时候。有些事，直觉比理性先知道。',
+      '少說多聽的時候。有些事，直覺比理性先知道。',
     ),
     T(
       '내면의 소리를 덮어 두었거나, 아직 드러나지 않은 사실이 남아 있습니다.',
@@ -95,11 +105,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Sie überhören die eigene innere Stimme, oder etwas ist noch nicht ans Licht gekommen.',
       "Vous avez fait taire votre voix intérieure, ou quelque chose n'a pas encore fait surface.",
       'आपने अपनी भीतरी आवाज़ दबा दी है, या कुछ अब तक सामने नहीं आया है।',
+      '你把自己内心的声音按住了，或者还有事情没浮上来。',
+      '你把自己內心的聲音按住了，或者還有事情沒浮上來。',
     ),
   ),
 
   'the-empress': M(
-    T('여황제', 'The Empress', 'La Emperatriz', 'A Imperatriz', '女帝', 'Die Herrscherin', "L'Impératrice", 'महारानी'),
+    T('여황제', 'The Empress', 'La Emperatriz', 'A Imperatriz', '女帝', 'Die Herrscherin', "L'Impératrice", 'महारानी', '皇后', '皇后'),
     T(
       '풍요와 창조. 돌보고 자라게 하는 힘이 지금 가장 잘 통합니다.',
       'Abundance and creation — the power to nurture and let things grow works best right now.',
@@ -109,6 +121,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Fülle und Schöpfung — die Kraft zu nähren und wachsen zu lassen wirkt jetzt am stärksten.',
       "Abondance et création : le pouvoir de nourrir et de laisser croître agit mieux que jamais.",
       'समृद्धि और सृजन — पोषने और बढ़ने देने की शक्ति अभी सबसे अच्छी तरह काम करती है।',
+      '丰饶与创造。此刻最管用的，是照料和让事物生长的那股力量。',
+      '豐饒與創造。此刻最管用的，是照料和讓事物生長的那股力量。',
     ),
     T(
       '자신을 돌보지 않거나, 반대로 너무 꽉 쥐고 있습니다.',
@@ -119,11 +133,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Sie vernachlässigen sich selbst — oder halten viel zu fest.',
       'Vous vous négligez, ou bien vous serrez beaucoup trop fort.',
       'आप खुद की उपेक्षा कर रहे हैं, या फिर बहुत कसकर पकड़े हुए हैं।',
+      '要么疏于照顾自己，要么反过来抓得太紧。',
+      '要麼疏於照顧自己，要麼反過來抓得太緊。',
     ),
   ),
 
   'the-emperor': M(
-    T('황제', 'The Emperor', 'El Emperador', 'O Imperador', '皇帝', 'Der Herrscher', "L'Empereur", 'सम्राट'),
+    T('황제', 'The Emperor', 'El Emperador', 'O Imperador', '皇帝', 'Der Herrscher', "L'Empereur", 'सम्राट', '皇帝', '皇帝'),
     T(
       '질서와 책임. 틀을 세우고 그 안에서 꾸준히 하면 성과가 따라옵니다.',
       'Order and responsibility — set the frame, work steadily inside it, and results follow.',
@@ -133,6 +149,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Ordnung und Verantwortung — setzen Sie den Rahmen, arbeiten Sie stetig darin, dann folgen Ergebnisse.',
       "Ordre et responsabilité : posez le cadre, travaillez-y régulièrement, les résultats suivront.",
       'व्यवस्था और ज़िम्मेदारी — ढाँचा बनाइए, उसी में लगातार काम कीजिए, नतीजे पीछे-पीछे आएँगे।',
+      '秩序与责任。先把框架立起来，在里面稳稳地做，成果自然跟上。',
+      '秩序與責任。先把框架立起來，在裡面穩穩地做，成果自然跟上。',
     ),
     T(
       '틀이 굳어 버렸거나, 반대로 아무 틀도 없어 흘러가고 있습니다.',
@@ -143,11 +161,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Struktur ist erstarrt — oder es gibt gar keine, und alles treibt dahin.',
       "Le cadre s'est figé, ou bien il n'y en a aucun et tout part à la dérive.",
       'ढाँचा जड़ हो गया है, या कोई ढाँचा ही नहीं और सब बहा जा रहा है।',
+      '框架僵住了，或者反过来根本没有框架，任事情漂着。',
+      '框架僵住了，或者反過來根本沒有框架，任事情漂著。',
     ),
   ),
 
   'the-hierophant': M(
-    T('교황', 'The Hierophant', 'El Sumo Sacerdote', 'O Hierofante', '教皇', 'Der Hierophant', 'Le Pape', 'धर्मगुरु'),
+    T('교황', 'The Hierophant', 'El Sumo Sacerdote', 'O Hierofante', '教皇', 'Der Hierophant', 'Le Pape', 'धर्मगुरु', '教皇', '教皇'),
     T(
       '전통과 배움. 먼저 그 길을 걸어 본 사람에게 묻는 편이 빠릅니다.',
       'Tradition and learning — asking someone who has walked the road already saves the detour.',
@@ -157,6 +177,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Tradition und Lernen — wer den Weg schon gegangen ist, erspart Ihnen den Umweg.',
       "Tradition et apprentissage : demander à qui a déjà parcouru le chemin évite le détour.",
       'परंपरा और सीख — जो पहले इस राह पर चल चुका है, उससे पूछना चक्कर बचाता है।',
+      '传统与学习。去问一个已经走过这条路的人，比自己摸索快得多。',
+      '傳統與學習。去問一個已經走過這條路的人，比自己摸索快得多。',
     ),
     T(
       '관습이 도움이 아니라 굴레가 되었습니다. 따르던 규칙을 한 번 의심해 보세요.',
@@ -167,11 +189,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Konvention hilft nicht mehr, sie fesselt — hinterfragen Sie die Regel, die Sie nie geprüft haben.',
       "La convention entrave au lieu d'aider : interrogez la règle que vous n'avez jamais examinée.",
       'परंपरा अब मदद नहीं, बंधन बन गई है — जिस नियम को कभी परखा नहीं, उसे परखिए।',
+      '惯例成了束缚，而不再是帮助。把那条从没细想过的规矩拿出来质疑一次。',
+      '慣例成了束縛，而不再是幫助。把那條從沒細想過的規矩拿出來質疑一次。',
     ),
   ),
 
   'the-lovers': M(
-    T('연인', 'The Lovers', 'Los Enamorados', 'Os Amantes', '恋人', 'Die Liebenden', 'Les Amoureux', 'प्रेमी'),
+    T('연인', 'The Lovers', 'Los Enamorados', 'Os Amantes', '恋人', 'Die Liebenden', 'Les Amoureux', 'प्रेमी', '恋人', '戀人'),
     T(
       '관계와 선택. 남 보기 좋은 쪽이 아니라 정말 소중히 여기는 쪽을 고르라는 카드입니다.',
       'Connection and choice — pick what you actually value, not what looks right to others.',
@@ -181,6 +205,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Verbindung und Wahl — entscheiden Sie nach dem, was Ihnen wirklich wichtig ist, nicht nach dem Eindruck.',
       "Lien et choix : choisissez ce à quoi vous tenez vraiment, pas ce qui fait bonne figure.",
       'रिश्ता और चुनाव — वही चुनिए जो सचमुच आपको प्रिय है, वह नहीं जो दूसरों को अच्छा लगे।',
+      '关系与选择。这张牌要你挑真正看重的那一边，而不是在别人眼里好看的那一边。',
+      '關係與選擇。這張牌要你挑真正看重的那一邊，而不是在別人眼裡好看的那一邊。',
     ),
     T(
       '어긋난 관계이거나, 스스로 정해지기를 바라며 미뤄 둔 결정입니다.',
@@ -191,11 +217,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Eine aus dem Gleichgewicht geratene Beziehung — oder eine Entscheidung, die sich selbst treffen soll.',
       "Une relation déséquilibrée, ou une décision repoussée en espérant qu'elle se prenne seule.",
       'बेमेल रिश्ता, या यह उम्मीद कि फ़ैसला अपने आप हो जाएगा और इसलिए टाला गया।',
+      '关系失了平衡，或者一个决定被拖着，指望它自己有个了结。',
+      '關係失了平衡，或者一個決定被拖著，指望它自己有個了結。',
     ),
   ),
 
   'the-chariot': M(
-    T('전차', 'The Chariot', 'El Carro', 'O Carro', '戦車', 'Der Wagen', 'Le Chariot', 'रथ'),
+    T('전차', 'The Chariot', 'El Carro', 'O Carro', '戦車', 'Der Wagen', 'Le Chariot', 'रथ', '战车', '戰車'),
     T(
       '의지로 밀고 나갑니다. 방향만 분명하면 지금은 속도가 붙습니다.',
       'Forward by force of will — with the direction clear, this is when momentum builds.',
@@ -205,6 +233,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Vorwärts durch Willenskraft — ist die Richtung klar, kommt jetzt Schwung auf.',
       "Avancer par la volonté : la direction étant claire, l'élan se prend maintenant.",
       'इच्छाशक्ति से आगे बढ़ना — दिशा साफ़ हो तो अभी गति बनती है।',
+      '靠意志往前推。只要方向清楚，此刻正是加速的时候。',
+      '靠意志往前推。只要方向清楚，此刻正是加速的時候。',
     ),
     T(
       '방향을 잃었거나, 힘만 쓰고 있습니다. 더 밀기 전에 어디로 가는지부터 보세요.',
@@ -215,11 +245,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Richtung fehlt, oder Kraft wird dort verbraucht, wo sie nichts nützt — erst peilen, dann drücken.',
       "Le cap est perdu, ou la force s'épuise là où elle ne sert à rien : vérifiez la direction avant de forcer.",
       'दिशा खो गई है, या ताक़त वहाँ लग रही है जहाँ काम नहीं आती — और ज़ोर लगाने से पहले रास्ता देखिए।',
+      '方向丢了，或者力气花在了没用的地方。再使劲之前，先看清要去哪儿。',
+      '方向丟了，或者力氣花在了沒用的地方。再使勁之前，先看清要去哪兒。',
     ),
   ),
 
   strength: M(
-    T('힘', 'Strength', 'La Fuerza', 'A Força', '力', 'Die Kraft', 'La Force', 'शक्ति'),
+    T('힘', 'Strength', 'La Fuerza', 'A Força', '力', 'Die Kraft', 'La Force', 'शक्ति', '力量', '力量'),
     T(
       '부드러운 힘. 누르는 쪽이 아니라 견디는 쪽이 이기는 국면입니다.',
       'Quiet strength — here it is patience, not pressure, that wins.',
@@ -229,6 +261,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Sanfte Stärke — hier gewinnt Geduld, nicht Druck.',
       'Force tranquille : ici, c’est la patience qui l’emporte, pas la pression.',
       'कोमल शक्ति — यहाँ दबाव नहीं, धैर्य जीतता है।',
+      '柔和的力量。这个局面里，赢的是能忍的一方，不是压得住的一方。',
+      '柔和的力量。這個局面裡，贏的是能忍的一方，不是壓得住的一方。',
     ),
     T(
       '자신을 못 믿고 있거나 조급합니다. 힘은 그대로이고 믿음만 흔들린 것입니다.',
@@ -239,11 +273,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Selbstzweifel oder Ungeduld — die Kraft ist noch da, nur das Vertrauen darin wankt.',
       "Doute ou impatience : la force est intacte, seule la confiance en elle a vacillé.",
       'ख़ुद पर शक या जल्दबाज़ी — शक्ति वहीं है, डगमगाया सिर्फ़ उस पर भरोसा है।',
+      '你不信自己，或者太着急了。力量一点没少，动摇的只是对它的信心。',
+      '你不信自己，或者太著急了。力量一點沒少，動搖的只是對它的信心。',
     ),
   ),
 
   'the-hermit': M(
-    T('은둔자', 'The Hermit', 'El Ermitaño', 'O Eremita', '隠者', 'Der Eremit', "L'Ermite", 'सन्यासी'),
+    T('은둔자', 'The Hermit', 'El Ermitaño', 'O Eremita', '隠者', 'Der Eremit', "L'Ermite", 'सन्यासी', '隐士', '隱者'),
     T(
       '물러나 스스로에게 묻는 시간. 사람들 속보다 혼자일 때 얻을 것이 많습니다.',
       'Time to step back and ask yourself — solitude has more to give here than company.',
@@ -253,6 +289,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Zeit, sich zurückzuziehen und sich selbst zu fragen — Alleinsein bringt jetzt mehr als Gesellschaft.',
       "Un temps de retrait et de questionnement : la solitude apporte ici plus que la compagnie.",
       'पीछे हटकर ख़ुद से पूछने का समय — अभी भीड़ से ज़्यादा एकांत देता है।',
+      '退开一步，问问自己。此刻独处能给你的，比待在人群里多。',
+      '退開一步，問問自己。此刻獨處能給你的，比待在人群裡多。',
     ),
     T(
       '고립이 쓸모를 넘어섰거나, 내미는 손을 거절하고 있습니다.',
@@ -263,11 +301,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Der Rückzug ist über das Nützliche hinaus — oder eine ehrlich gereichte Hand wird ausgeschlagen.',
       "Le retrait a dépassé son utilité, ou vous refusez une main sincèrement tendue.",
       'एकांत उपयोगी सीमा से आगे बढ़ गया है, या सच्ची मदद ठुकराई जा रही है।',
+      '独处已经超出了有用的限度，或者你正在拒绝一只真心伸来的手。',
+      '獨處已經超出了有用的限度，或者你正在拒絕一隻真心伸來的手。',
     ),
   ),
 
   'wheel-of-fortune': M(
-    T('운명의 수레바퀴', 'Wheel of Fortune', 'La Rueda de la Fortuna', 'A Roda da Fortuna', '運命の輪', 'Das Rad des Schicksals', 'La Roue de Fortune', 'भाग्य चक्र'),
+    T('운명의 수레바퀴', 'Wheel of Fortune', 'La Rueda de la Fortuna', 'A Roda da Fortuna', '運命の輪', 'Das Rad des Schicksals', 'La Roue de Fortune', 'भाग्य चक्र', '命运之轮', '命運之輪'),
     T(
       '흐름이 바뀝니다. 거스르기보다 올라타는 편이 이롭습니다.',
       'The current is turning — better to ride it than to fight it.',
@@ -277,6 +317,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Strömung dreht — besser mitfahren als dagegenhalten.',
       "Le courant tourne : mieux vaut s'y laisser porter que le combattre.",
       'धारा बदल रही है — उससे भिड़ने से बेहतर है उस पर सवार हो जाना।',
+      '潮水在转向。与其逆着走，不如顺势上去。',
+      '潮水在轉向。與其逆著走，不如順勢上去。',
     ),
     T(
       '변화에 버티느라 같은 자리를 돕니다. 되풀이되는 것이 무엇인지 보세요.',
@@ -287,11 +329,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Der Widerstand gegen den Wandel lässt Sie im Kreis laufen — sehen Sie, was immer wiederkommt.',
       "Résister au changement vous fait tourner en rond : regardez ce qui revient sans cesse.",
       'बदलाव से लड़ते हुए आप उसी जगह चक्कर काट रहे हैं — देखिए बार-बार क्या लौटता है।',
+      '硬扛着变化，结果在原地打转。看一看，反复回来的到底是什么。',
+      '硬扛著變化，結果在原地打轉。看一看，反覆回來的到底是什麼。',
     ),
   ),
 
   justice: M(
-    T('정의', 'Justice', 'La Justicia', 'A Justiça', '正義', 'Die Gerechtigkeit', 'La Justice', 'न्याय'),
+    T('정의', 'Justice', 'La Justicia', 'A Justiça', '正義', 'Die Gerechtigkeit', 'La Justice', 'न्याय', '正义', '正義'),
     T(
       '한 대로 돌아옵니다. 의도가 아니라 실제로 한 일에 따라 정리되는 때입니다.',
       'Things settle by what was actually done, not what was meant — act fairly and the outcome follows.',
@@ -301,6 +345,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Es kommt so zurück, wie gehandelt wurde — nicht wie gemeint war. Handeln Sie fair, das Ergebnis folgt.',
       "Les choses se règlent selon ce qui a été fait, non ce qui était voulu : agissez avec justice, le résultat suivra.",
       'जैसा किया, वैसा लौटता है — इरादे से नहीं, असल काम से। न्यायसंगत रहिए, नतीजा पीछे आएगा।',
+      '账按你实际做过的事来算，不按你原本想做的。行事公道，结果自会跟上。',
+      '帳按你實際做過的事來算，不按你原本想做的。行事公道，結果自會跟上。',
     ),
     T(
       '균형이 깨졌거나 책임을 피하고 있습니다. 남을 재기 전에 자기 몫부터 보세요.',
@@ -311,11 +357,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Etwas ist aus dem Gleichgewicht, oder Verantwortung wird umgangen — sehen Sie zuerst auf den eigenen Anteil.',
       "Quelque chose est déséquilibré, ou la responsabilité est esquivée : regardez d'abord votre part.",
       'संतुलन बिगड़ा है या ज़िम्मेदारी टाली जा रही है — दूसरों को तौलने से पहले अपना हिस्सा देखिए।',
+      '有什么失了平衡，或者有人在躲责任。先看自己那一份，再去衡量别人。',
+      '有什麼失了平衡，或者有人在躲責任。先看自己那一份，再去衡量別人。',
     ),
   ),
 
   'the-hanged-man': M(
-    T('매달린 사람', 'The Hanged Man', 'El Colgado', 'O Enforcado', '吊るされた男', 'Der Gehängte', 'Le Pendu', 'लटका हुआ व्यक्ति'),
+    T('매달린 사람', 'The Hanged Man', 'El Colgado', 'O Enforcado', '吊るされた男', 'Der Gehängte', 'Le Pendu', 'लटका हुआ व्यक्ति', '倒吊人', '倒吊人'),
     T(
       '멈춤과 다른 각도. 억지로 움직이기보다 기다림이 일하게 두는 때입니다.',
       'A pause and a change of angle — let the waiting do its work instead of forcing motion.',
@@ -325,6 +373,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Eine Pause und ein anderer Blickwinkel — lassen Sie das Warten arbeiten, statt Bewegung zu erzwingen.',
       "Une pause et un autre angle : laissez l'attente travailler plutôt que de forcer le mouvement.",
       'ठहराव और नज़रिए का बदलना — ज़बरन हिलने के बजाय प्रतीक्षा को काम करने दीजिए।',
+      '停一停，换个角度。与其硬要动，不如让等待替你做事。',
+      '停一停，換個角度。與其硬要動，不如讓等待替你做事。',
     ),
     T(
       '멈춤이 회피가 되었습니다. 작더라도 무언가는 움직여야 합니다.',
@@ -335,11 +385,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Pause ist zur Vermeidung geworden — etwas muss sich bewegen, und sei es wenig.',
       "La pause est devenue de l'évitement : quelque chose doit bouger, même un peu.",
       'ठहराव अब टालमटोल बन गया है — कुछ तो हिलना ही चाहिए, चाहे छोटा हो।',
+      '停顿变成了逃避。哪怕再小，也得让什么动起来。',
+      '停頓變成了逃避。哪怕再小，也得讓什麼動起來。',
     ),
   ),
 
   death: M(
-    T('죽음', 'Death', 'La Muerte', 'A Morte', '死神', 'Der Tod', 'La Mort', 'मृत्यु'),
+    T('죽음', 'Death', 'La Muerte', 'A Morte', '死神', 'Der Tod', 'La Mort', 'मृत्यु', '死神', '死神'),
     T(
       '끝나야 자리가 생깁니다. 상실이 아니라 정리를 말하는 카드입니다.',
       'An ending that makes room — this card is about clearing, not loss.',
@@ -349,6 +401,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Ein Ende, das Platz schafft — diese Karte meint Aufräumen, nicht Verlust.',
       "Une fin qui fait de la place : cette carte parle de dégager, pas de perdre.",
       'अंत जो जगह बनाता है — यह पत्ता हानि नहीं, सफ़ाई की बात करता है।',
+      '结束了才腾得出位置。这张牌说的是清理，不是失去。',
+      '結束了才騰得出位置。這張牌說的是清理，不是失去。',
     ),
     T(
       '이미 끝난 것을 붙들고 있습니다. 사실은 끝났는데 인정만 남았습니다.',
@@ -359,11 +413,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Sie halten fest, was schon vorbei ist — faktisch beendet, nur nicht eingestanden.',
       "Vous vous accrochez à ce qui est déjà fini : c'est terminé en fait, il ne manque que l'aveu.",
       'जो ख़त्म हो चुका है उसे थामे हैं — असल में वह बीत गया, बस स्वीकारना बाक़ी है।',
+      '你还攥着一件早就结束的事。事实上它已经完了，只差你承认。',
+      '你還攥著一件早就結束的事。事實上它已經完了，只差你承認。',
     ),
   ),
 
   temperance: M(
-    T('절제', 'Temperance', 'La Templanza', 'A Temperança', '節制', 'Die Mäßigkeit', 'Tempérance', 'संयम'),
+    T('절제', 'Temperance', 'La Templanza', 'A Temperança', '節制', 'Die Mäßigkeit', 'Tempérance', 'संयम', '节制', '節制'),
     T(
       '섞고 조절합니다. 답은 한쪽 끝이 아니라 가운데에 있습니다.',
       'Blending and adjusting — the answer is in the middle, not at either end.',
@@ -373,6 +429,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Mischen und abstimmen — die Antwort liegt in der Mitte, nicht an einem der Enden.',
       "Mélanger et ajuster : la réponse est au milieu, pas aux extrêmes.",
       'मिलाना और संतुलित करना — उत्तर किसी छोर पर नहीं, बीच में है।',
+      '调和与拿捏。答案不在两端，在中间。',
+      '調和與拿捏。答案不在兩端，在中間。',
     ),
     T(
       '한쪽으로 치우쳤습니다. 더 비싸지기 전에 비율을 되돌리세요.',
@@ -383,11 +441,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Es kippt zu weit in eine Richtung — stellen Sie das Maß wieder her, bevor es teurer wird.',
       "Cela penche trop d'un côté : rétablissez la proportion avant que cela coûte davantage.",
       'एक ओर बहुत झुक गया है — और महँगा पड़ने से पहले अनुपात लौटाइए।',
+      '往一边偏得太多了。在代价变大之前，把比例调回来。',
+      '往一邊偏得太多了。在代價變大之前，把比例調回來。',
     ),
   ),
 
   'the-devil': M(
-    T('악마', 'The Devil', 'El Diablo', 'O Diabo', '悪魔', 'Der Teufel', 'Le Diable', 'शैतान'),
+    T('악마', 'The Devil', 'El Diablo', 'O Diabo', '悪魔', 'Der Teufel', 'Le Diable', 'शैतान', '恶魔', '惡魔'),
     T(
       '집착과 매임. 그림 속 사슬은 느슨하고, 이름을 붙이는 것이 이미 절반입니다.',
       'Attachment and constraint — the chain in the picture is loose, and naming it is already half the work.',
@@ -397,6 +457,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Bindung und Fessel — die Kette im Bild sitzt locker, und sie zu benennen ist schon die halbe Arbeit.',
       "Attachement et entrave : la chaîne de l'image est lâche, et la nommer, c'est déjà la moitié du travail.",
       'आसक्ति और बंधन — चित्र की ज़ंजीर ढीली है, और उसे नाम देना ही आधा काम है।',
+      '执着与束缚。画里那条锁链其实是松的，能叫出它的名字，就已经做完了一半。',
+      '執著與束縛。畫裡那條鎖鏈其實是鬆的，能叫出它的名字，就已經做完了一半。',
     ),
     T(
       '매임이 풀리는 중입니다. 알아차림이 시작되었으니 계속 가면 됩니다.',
@@ -407,11 +469,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Fessel lockert sich — das Erkennen hat begonnen, machen Sie weiter.',
       "L'entrave se desserre : la prise de conscience a commencé, continuez.",
       'बंधन ढीला पड़ रहा है — पहचान शुरू हो चुकी है, बस चलते रहिए।',
+      '束缚正在松开。既然已经看清楚了，接着走下去就行。',
+      '束縛正在鬆開。既然已經看清楚了，接著走下去就行。',
     ),
   ),
 
   'the-tower': M(
-    T('탑', 'The Tower', 'La Torre', 'A Torre', '塔', 'Der Turm', 'La Maison Dieu', 'मीनार'),
+    T('탑', 'The Tower', 'La Torre', 'A Torre', '塔', 'Der Turm', 'La Maison Dieu', 'मीनार', '高塔', '高塔'),
     T(
       '갑작스러운 무너짐. 부실한 토대 위에 세운 것이 갈라지고, 남는 것이 진짜입니다.',
       'A sudden collapse — what stood on an unsound base gives way, and what survives was actually solid.',
@@ -421,6 +485,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Ein plötzlicher Einsturz — was auf schwachem Grund stand, gibt nach; was bleibt, war tragfähig.',
       "Un effondrement soudain : ce qui reposait sur de mauvaises fondations cède, et ce qui tient était solide.",
       'अचानक ढहना — कमज़ोर नींव पर खड़ा गिर जाता है, और जो बचता है वही ठोस था।',
+      '突然的崩塌。立在虚浮地基上的东西垮下来，剩下的才是真的结实。',
+      '突然的崩塌。立在虛浮地基上的東西垮下來，剩下的才是真的結實。',
     ),
     T(
       '무너짐을 겨우 비켜 갔거나, 넘어질 것을 억지로 받치고 있습니다.',
@@ -431,11 +497,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Ein Einsturz knapp vermieden — oder Sie stützen, was besser fallen sollte.',
       "Un effondrement évité de justesse, ou vous étayez ce qu'il vaudrait mieux lâcher.",
       'ढहना बाल-बाल टला, या जिसे गिरने देना बेहतर था उसे थामे हुए हैं।',
+      '崩塌险险避了过去，或者你正硬撑着一件本该放手的事。',
+      '崩塌險險避了過去，或者你正硬撐著一件本該放手的事。',
     ),
   ),
 
   'the-star': M(
-    T('별', 'The Star', 'La Estrella', 'A Estrela', '星', 'Der Stern', "L'Étoile", 'तारा'),
+    T('별', 'The Star', 'La Estrella', 'A Estrela', '星', 'Der Stern', "L'Étoile", 'तारा', '星星', '星星'),
     T(
       '어려움 뒤의 희망과 회복. 조용하지만 방향은 생각보다 단단합니다.',
       'Hope and repair after hardship — quiet, but steadier than it feels.',
@@ -445,6 +513,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Hoffnung und Erholung nach der Härte — leise, doch fester, als es sich anfühlt.',
       "Espoir et réparation après l'épreuve : discrets, mais plus solides qu'il n'y paraît.",
       'कठिनाई के बाद आशा और सुधार — शांत, पर लगने से कहीं ज़्यादा टिकाऊ।',
+      '难关之后的希望与修复。声音很轻，方向却比感觉上更稳。',
+      '難關之後的希望與修復。聲音很輕，方向卻比感覺上更穩。',
     ),
     T(
       '희망이 옅어졌거나, 기대가 현실에서 떠 있습니다.',
@@ -455,11 +525,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Die Hoffnung wird dünn, oder die Erwartung hat sich vom Wirklichen gelöst.',
       "L'espoir s'amenuise, ou l'attente s'est détachée du réel.",
       'आशा क्षीण हो रही है, या उम्मीद हक़ीक़त से कट गई है।',
+      '希望在变薄，或者期待已经飘离了现实。',
+      '希望在變薄，或者期待已經飄離了現實。',
     ),
   ),
 
   'the-moon': M(
-    T('달', 'The Moon', 'La Luna', 'A Lua', '月', 'Der Mond', 'La Lune', 'चंद्रमा'),
+    T('달', 'The Moon', 'La Luna', 'A Lua', '月', 'Der Mond', 'La Lune', 'चंद्रमा', '月亮', '月亮'),
     T(
       '불확실함과 상상. 보이는 것이 다가 아니니 천천히 확인하며 가세요.',
       'Uncertainty and imagination — not everything here is as it appears, so move slowly and check.',
@@ -469,6 +541,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Ungewissheit und Einbildung — nicht alles ist, wie es scheint; gehen Sie langsam und prüfen Sie.',
       "Incertitude et imagination : tout n'est pas ce qu'il paraît, avancez lentement en vérifiant.",
       'अनिश्चय और कल्पना — जो दिखता है वही सब नहीं, धीरे चलिए और जाँचते रहिए।',
+      '不确定与想象。眼前所见并非全部，慢一点走，边走边确认。',
+      '不確定與想像。眼前所見並非全部，慢一點走，邊走邊確認。',
     ),
     T(
       '안개가 걷힙니다. 불분명하던 것이 풀리고 붙어 있던 두려움도 힘을 잃습니다.',
@@ -479,11 +553,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Der Nebel hebt sich — Unklares klärt sich, und die daran hängende Angst verliert ihren Griff.',
       "Le brouillard se lève : ce qui était flou se dénoue et la peur attachée perd prise.",
       'कोहरा छँट रहा है — जो अस्पष्ट था सुलझता है और उससे जुड़ा डर पकड़ खो देता है।',
+      '雾正在散。原本看不清的解开了，附在上面的恐惧也随之失了力气。',
+      '霧正在散。原本看不清的解開了，附在上面的恐懼也隨之失了力氣。',
     ),
   ),
 
   'the-sun': M(
-    T('태양', 'The Sun', 'El Sol', 'O Sol', '太陽', 'Die Sonne', 'Le Soleil', 'सूर्य'),
+    T('태양', 'The Sun', 'El Sol', 'O Sol', '太陽', 'Die Sonne', 'Le Soleil', 'सूर्य', '太阳', '太陽'),
     T(
       '선명함과 성공. 있는 그대로 좋은, 덱에서 가장 밝은 카드입니다.',
       'Clarity and success — plainly good, the brightest card in the deck.',
@@ -493,6 +569,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Klarheit und Erfolg — schlicht gut, die hellste Karte des Decks.',
       "Clarté et réussite : franchement bonne, la carte la plus lumineuse du jeu.",
       'स्पष्टता और सफलता — सीधे-सीधे शुभ, गड्डी का सबसे उजला पत्ता।',
+      '清明与顺遂。就是明明白白的好，整副牌里最亮的一张。',
+      '清明與順遂。就是明明白白的好，整副牌裡最亮的一張。',
     ),
     T(
       '좋은 것이 가려져 있습니다. 전체가 밝아지기를 기다리기보다 작고 분명한 것을 보세요.',
@@ -503,11 +581,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Das Gute ist verdeckt — suchen Sie das eine kleine Klare, statt auf das ganze Bild zu warten.',
       "Le bon est masqué : cherchez la petite chose claire au lieu d'attendre le tableau entier.",
       'भला ढका हुआ है — पूरी तस्वीर की प्रतीक्षा के बजाय एक छोटी साफ़ चीज़ देखिए।',
+      '好的那部分被遮住了。别等整幅画面都亮起来，先去找那一件小而清楚的事。',
+      '好的那部分被遮住了。別等整幅畫面都亮起來，先去找那一件小而清楚的事。',
     ),
   ),
 
   judgement: M(
-    T('심판', 'Judgement', 'El Juicio', 'O Julgamento', '審判', 'Das Gericht', 'Le Jugement', 'न्याय-दिवस'),
+    T('심판', 'Judgement', 'El Juicio', 'O Julgamento', '審判', 'Das Gericht', 'Le Jugement', 'न्याय-दिवस', '审判', '審判'),
     T(
       '결산과 부름. 지나온 것이 정리되고 새 국면이 열립니다.',
       'A reckoning and a call — what has passed gets settled, and a new phase opens.',
@@ -517,6 +597,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Abrechnung und Ruf — Vergangenes klärt sich, ein neuer Abschnitt beginnt.',
       "Un bilan et un appel : le passé se règle et une nouvelle phase s'ouvre.",
       'हिसाब और पुकार — जो बीता वह निपटता है और नया दौर खुलता है।',
+      '结算与召唤。走过的路有了了结，新的一段随之打开。',
+      '結算與召喚。走過的路有了了結，新的一段隨之打開。',
     ),
     T(
       '부름을 못 들은 척하고 있거나, 스스로를 지나치게 심판하고 있습니다.',
@@ -527,11 +609,13 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Sie überhören den Ruf absichtlich — oder richten viel zu hart über sich selbst.',
       "Vous faites la sourde oreille à l'appel, ou vous vous jugez bien trop durement.",
       'पुकार अनसुनी की जा रही है, या आप ख़ुद को कहीं ज़्यादा कठोरता से आँक रहे हैं।',
+      '你在装作没听见那声召唤，或者把自己审判得太重了。',
+      '你在裝作沒聽見那聲召喚，或者把自己審判得太重了。',
     ),
   ),
 
   'the-world': M(
-    T('세계', 'The World', 'El Mundo', 'O Mundo', '世界', 'Die Welt', 'Le Monde', 'संसार'),
+    T('세계', 'The World', 'El Mundo', 'O Mundo', '世界', 'Die Welt', 'Le Monde', 'संसार', '世界', '世界'),
     T(
       '완성과 한 바퀴의 끝. 한 장을 덮고 다음 장으로 넘어가도 좋은 자리입니다.',
       'Completion and a full circle — a good place to close one chapter and open the next.',
@@ -541,6 +625,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Vollendung und geschlossener Kreis — ein guter Punkt, ein Kapitel zu schließen und das nächste zu öffnen.',
       "Achèvement et boucle bouclée : un bon endroit pour clore un chapitre et en ouvrir un autre.",
       'पूर्णता और एक चक्र का अंत — एक अध्याय बंद कर अगला खोलने की सही जगह।',
+      '完成，也是绕完了一整圈。正好在这里合上一章，翻开下一章。',
+      '完成，也是繞完了一整圈。正好在這裡合上一章，翻開下一章。',
     ),
     T(
       '마무리가 조금 남았습니다. 거의 다 왔는데 마지막 한 단계를 미루고 있습니다.',
@@ -551,6 +637,8 @@ export const MAJOR_COPY: Record<string, MajorCopy> = {
       'Der Abschluss fehlt noch — fast am Ziel, doch der letzte Schritt wird aufgeschoben.',
       "La finition manque encore : vous y êtes presque et repoussez la dernière étape.",
       'समापन थोड़ा बाक़ी है — लगभग पहुँच चुके हैं, पर आख़िरी क़दम टाल रहे हैं।',
+      '收尾还差一点。明明快到了，却把最后一步往后拖。',
+      '收尾還差一點。明明快到了，卻把最後一步往後拖。',
     ),
   ),
 };

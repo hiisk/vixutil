@@ -4,7 +4,7 @@
  * 화면은 두 종류를 구별할 필요가 없다. 이름도 해석도 여기서 만들어 같은 모양으로
  * 내보내므로, 페이지는 78장을 한 가지 방식으로 그린다.
  */
-import type { Lang8 } from '../i18n/lang.ts';
+import type { Lang } from '../i18n/lang.ts';
 import { CARDS, SUIT_ELEMENT, cardOf, cardsOfSuit, type Card, type Rank, type Suit } from './deck.ts';
 import { MAJOR_COPY } from './majors.ts';
 import { TAROT_UI } from './ui.ts';
@@ -26,7 +26,7 @@ export interface CardView {
   elementName?: string;
 }
 
-export function cardView(slug: string, lang: Lang8): CardView | null {
+export function cardView(slug: string, lang: Lang): CardView | null {
   const card = cardOf(slug);
   if (!card) return null;
   const ui = TAROT_UI[lang];

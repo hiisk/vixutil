@@ -1,5 +1,5 @@
 /**
- * 타로 화면의 문구 — 여덟 언어.
+ * 타로 화면의 문구 — 열 언어.
  *
  * 마이너 56장의 이름과 해석은 여기서 조합된다. "컵 3"은 수트 이름 + 계급 이름이고,
  * 해석은 계급이 가진 단계(3 = 자라남)와 수트가 가진 주제(컵 = 감정)를 겹쳐 읽는
@@ -8,7 +8,7 @@
  * 언어마다 다른 것은 잇는 순서다. 한국어는 "컵 3", 영어는 "Three of Cups",
  * 프랑스어는 "Trois de Coupe" — 그래서 이름을 만드는 함수도 언어마다 둔다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { Rank, Suit } from './deck.ts';
 
 export interface FaqItem { q: string; a: string }
@@ -59,15 +59,15 @@ export interface TarotUI {
   cardFaq: (name: string, up: string, rev: string, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof TarotUI]: L8<TarotUI[K]> };
+type Spec = { [K in keyof TarotUI]: L<TarotUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('타로 카드', 'Tarot cards', 'Cartas del tarot', 'Cartas de tarô', 'タロットカード', 'Tarotkarten', 'Cartes de tarot', 'टैरो कार्ड'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('타로 카드', 'Tarot cards', 'Cartas del tarot', 'Cartas de tarô', 'タロットカード', 'Tarotkarten', 'Cartes de tarot', 'टैरो कार्ड', '塔罗牌', '塔羅牌'),
 
   hubTitle: T(
     '타로 78장의 뜻',
@@ -78,6 +78,8 @@ const SPEC: Spec = {
     'Die Bedeutung aller 78 Tarotkarten',
     'La signification des 78 cartes du tarot',
     'सभी 78 टैरो कार्ड के अर्थ',
+    '塔罗 78 张牌的含义',
+    '塔羅 78 張牌的含義',
   ),
 
   hubLead: T(
@@ -89,9 +91,11 @@ const SPEC: Spec = {
     'Aufrechte und umgekehrte Bedeutungen der 22 großen und 56 kleinen Arkana — samt der Frage, wie Farbe und Zahl zusammen die Deutung ergeben.',
     "Significations à l'endroit et à l'envers des 22 arcanes majeurs et des 56 mineurs, avec la façon dont couleur et nombre se combinent.",
     '22 बड़े और 56 छोटे आर्काना के सीधे और उल्टे अर्थ — साथ में यह भी कि सूट और अंक मिलकर पाठ कैसे बनाते हैं।',
+    '22 张大阿卡纳和 56 张小阿卡纳的正位与逆位含义，一处看全。花色和数字怎样叠在一起读，也一并说清。',
+    '22 張大阿爾克那和 56 張小阿爾克那的正位與逆位含義，一處看全。花色和數字怎樣疊在一起讀，也一併說清。',
   ),
 
-  majorTitle: T('메이저 아르카나 22장', 'The 22 major arcana', 'Los 22 arcanos mayores', 'Os 22 arcanos maiores', '大アルカナ22枚', 'Die 22 großen Arkana', 'Les 22 arcanes majeurs', '22 बड़े आर्काना'),
+  majorTitle: T('메이저 아르카나 22장', 'The 22 major arcana', 'Los 22 arcanos mayores', 'Os 22 arcanos maiores', '大アルカナ22枚', 'Die 22 großen Arkana', 'Les 22 arcanes majeurs', '22 बड़े आर्काना', '大阿卡纳 22 张', '大阿爾克那 22 張'),
 
   majorLead: T(
     '광대에서 세계까지, 큰 흐름과 전환점을 말하는 카드들입니다.',
@@ -102,9 +106,11 @@ const SPEC: Spec = {
     'Vom Narren bis zur Welt — die Karten der großen Bewegungen und Wendepunkte.',
     "Du Mat au Monde : les cartes qui parlent des grands mouvements et des tournants.",
     'मूर्ख से संसार तक — वे पत्ते जो बड़े प्रवाह और मोड़ की बात करते हैं।',
+    '从愚者到世界 —— 讲大势和转折点的那些牌。',
+    '從愚者到世界 —— 講大勢和轉折點的那些牌。',
   ),
 
-  minorTitle: T('마이너 아르카나 56장', 'The 56 minor arcana', 'Los 56 arcanos menores', 'Os 56 arcanos menores', '小アルカナ56枚', 'Die 56 kleinen Arkana', 'Les 56 arcanes mineurs', '56 छोटे आर्काना'),
+  minorTitle: T('마이너 아르카나 56장', 'The 56 minor arcana', 'Los 56 arcanos menores', 'Os 56 arcanos menores', '小アルカナ56枚', 'Die 56 kleinen Arkana', 'Les 56 arcanes mineurs', '56 छोटे आर्काना', '小阿卡纳 56 张', '小阿爾克那 56 張'),
 
   suitLabel: T(
     { wands: '완드', cups: '컵', swords: '소드', pentacles: '펜타클' },
@@ -115,6 +121,8 @@ const SPEC: Spec = {
     { wands: 'Stäbe', cups: 'Kelche', swords: 'Schwerter', pentacles: 'Münzen' },
     { wands: 'Bâtons', cups: 'Coupes', swords: 'Épées', pentacles: 'Deniers' },
     { wands: 'वैंड', cups: 'कप', swords: 'स्वॉर्ड', pentacles: 'पेंटाकल' },
+    { wands: '权杖', cups: '圣杯', swords: '宝剑', pentacles: '星币' },
+    { wands: '權杖', cups: '聖杯', swords: '寶劍', pentacles: '錢幣' },
   ),
 
   suitTheme: T(
@@ -126,6 +134,8 @@ const SPEC: Spec = {
     { wands: 'Wille und Handeln, was man anfängt', cups: 'Gefühl und Beziehung, was zwischen Menschen läuft', swords: 'Denken und Sprechen, was entschieden und gesagt wird', pentacles: 'Geld und Körper, greifbare Ergebnisse' },
     { wands: "la volonté et l'action, ce que l'on entreprend", cups: 'le sentiment et le lien, ce qui circule entre les gens', swords: 'la pensée et la parole, ce qui se décide et se dit', pentacles: "l'argent et le corps, les résultats tangibles" },
     { wands: 'इच्छा और कर्म, जो आप शुरू करते हैं', cups: 'भाव और रिश्ते, जो लोगों के बीच बहता है', swords: 'विचार और वाणी, जो तय और कहा जाता है', pentacles: 'धन और देह, हाथ में आने वाले नतीजे' },
+    { wands: '意志与行动，新开的局面', cups: '情感与关系，心之所往', swords: '思考与言语，分辨和判断', pentacles: '金钱与身体，抓得住的结果' },
+    { wands: '意志與行動，新開的局面', cups: '情感與關係，心之所往', swords: '思考與言語，分辨和判斷', pentacles: '金錢與身體，抓得住的結果' },
   ),
 
   elementLabel: T(
@@ -137,6 +147,8 @@ const SPEC: Spec = {
     { fire: 'Feuer', water: 'Wasser', air: 'Luft', earth: 'Erde' },
     { fire: 'Feu', water: 'Eau', air: 'Air', earth: 'Terre' },
     { fire: 'अग्नि', water: 'जल', air: 'वायु', earth: 'पृथ्वी' },
+    { fire: '火', water: '水', air: '风', earth: '土' },
+    { fire: '火', water: '水', air: '風', earth: '土' },
   ),
 
   rankLabel: T(
@@ -148,6 +160,8 @@ const SPEC: Spec = {
     { 1: 'Ass', 2: 'Zwei', 3: 'Drei', 4: 'Vier', 5: 'Fünf', 6: 'Sechs', 7: 'Sieben', 8: 'Acht', 9: 'Neun', 10: 'Zehn', 11: 'Bube', 12: 'Ritter', 13: 'Königin', 14: 'König' },
     { 1: 'As', 2: 'Deux', 3: 'Trois', 4: 'Quatre', 5: 'Cinq', 6: 'Six', 7: 'Sept', 8: 'Huit', 9: 'Neuf', 10: 'Dix', 11: 'Valet', 12: 'Cavalier', 13: 'Reine', 14: 'Roi' },
     { 1: 'इक्का', 2: 'दो', 3: 'तीन', 4: 'चार', 5: 'पाँच', 6: 'छह', 7: 'सात', 8: 'आठ', 9: 'नौ', 10: 'दस', 11: 'पेज', 12: 'नाइट', 13: 'रानी', 14: 'राजा' },
+    { 1: '王牌', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10', 11: '侍从', 12: '骑士', 13: '王后', 14: '国王' },
+    { 1: '王牌', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10', 11: '侍者', 12: '騎士', 13: '王后', 14: '國王' },
   ),
 
   rankTheme: T(
@@ -207,6 +221,20 @@ const SPEC: Spec = {
       10: 'एक चक्र पूरा और उसका पूरा भार', 11: 'सीखना शुरू करने वाले का भाव', 12: 'बिना पीछे देखे कूद पड़ने का भाव',
       13: 'भीतर से थामने और समझने का भाव', 14: 'ज़िम्मा लेकर शासन करने का भाव',
     },
+    {
+      1: '某样东西刚刚开启的位置', 2: '两者之间的平衡与取舍', 3: '幼苗长开、有了形状的阶段',
+      4: '站稳并守住的阶段', 5: '碰撞与失去的阶段', 6: '有来有往、逐渐复原的阶段',
+      7: '独自撑住、接受考验的阶段', 8: '加了速、开始跑动的阶段', 9: '快到终点却最吃力的阶段',
+      10: '一圈走完、分量压上来的阶段', 11: '刚开始学的人的姿态', 12: '不顾前后一头扎进去的姿态',
+      13: '在内里涵容与体察的姿态', 14: '对外承担与治理的姿态',
+    },
+    {
+      1: '某樣東西剛剛開啟的位置', 2: '兩者之間的平衡與取捨', 3: '幼苗長開、有了形狀的階段',
+      4: '站穩並守住的階段', 5: '碰撞與失去的階段', 6: '有來有往、逐漸復原的階段',
+      7: '獨自撐住、接受考驗的階段', 8: '加了速、開始跑動的階段', 9: '快到終點卻最吃力的階段',
+      10: '一圈走完、分量壓上來的階段', 11: '剛開始學的人的姿態', 12: '不顧前後一頭扎進去的姿態',
+      13: '在內裡涵容與體察的姿態', 14: '對外承擔與治理的姿態',
+    },
   ),
 
   minorName: T(
@@ -218,6 +246,8 @@ const SPEC: Spec = {
     (s: string, r: string) => `${r} der ${s}`,
     (s: string, r: string) => `${r} ${/^[aeiouéèêh]/i.test(s) ? "d'" : 'de '}${s}`,
     (s: string, r: string) => `${s} का ${r}`,
+    (s: string, r: string) => `${s}${r}`,
+    (s: string, r: string) => `${s}${r}`,
   ),
 
   majorLine: T(
@@ -229,6 +259,8 @@ const SPEC: Spec = {
     (n: number) => `Großes Arkanum, Nummer ${n}`,
     (n: number) => `Arcane majeur, numéro ${n}`,
     (n: number) => `बड़ा आर्काना, संख्या ${n}`,
+    (n: number) => `大阿卡纳第 ${n} 号`,
+    (n: number) => `大阿爾克那第 ${n} 號`,
   ),
 
   minorLine: T(
@@ -240,6 +272,8 @@ const SPEC: Spec = {
     (s: string, r: string) => `Kleines Arkanum · ${r} der ${s}`,
     (s: string, r: string) => `Arcane mineur · ${r} ${/^[aeiouéèêh]/i.test(s) ? "d'" : 'de '}${s}`,
     (s: string, r: string) => `छोटा आर्काना · ${s} का ${r}`,
+    (s: string, r: string) => `小阿卡纳 · ${s}${r}`,
+    (s: string, r: string) => `小阿爾克那 · ${s}${r}`,
   ),
 
   minorReading: T(
@@ -251,6 +285,8 @@ const SPEC: Spec = {
     (rank: string, suit: string) => `Das ist ${rank}. Die Farbe handelt von ${suit}, also spielt sich diese Stufe in diesem Bereich ab.`,
     (rank: string, suit: string) => `C'est ${rank}. La couleur traite de ${suit} : cette étape se joue donc dans ce domaine.`,
     (rank: string, suit: string) => `यह ${rank} है। यह सूट ${suit} से जुड़ा है, इसलिए यह चरण उसी क्षेत्र में घटता है।`,
+    (rank: string, suit: string) => `这是${rank}。这个花色管的是${suit}，所以把这个阶段读作发生在那一片领域里。`,
+    (rank: string, suit: string) => `這是${rank}。這個花色管的是${suit}，所以把這個階段讀作發生在那一片領域裡。`,
   ),
 
   minorReversed: T(
@@ -262,22 +298,24 @@ const SPEC: Spec = {
     (rank: string, suit: string) => `Umgekehrt stockt die Stufe oder schießt übers Ziel — prüfen Sie, ob ${rank} in ${suit} seine Arbeit nicht tut.`,
     (rank: string, suit: string) => `À l'envers, l'étape se bloque ou déborde : voyez si ${rank} ne remplit pas son rôle dans ${suit}.`,
     (rank: string, suit: string) => `उल्टा होने पर यह चरण अटकता है या हद पार करता है — देखिए कि ${suit} में ${rank} अपना काम कर पा रहा है या नहीं।`,
+    (rank: string, suit: string) => `逆位时，这个阶段要么卡住，要么过了头。看一看在${suit}这一片里，${rank}是不是没能起到它该起的作用。`,
+    (rank: string, suit: string) => `逆位時，這個階段要麼卡住，要麼過了頭。看一看在${suit}這一片裡，${rank}是不是沒能起到它該起的作用。`,
   ),
 
-  uprightLabel: T('정방향', 'Upright', 'Al derecho', 'Normal', '正位置', 'Aufrecht', "À l'endroit", 'सीधा'),
-  reversedLabel: T('역방향', 'Reversed', 'Invertida', 'Invertida', '逆位置', 'Umgekehrt', "À l'envers", 'उल्टा'),
-  arcanaLabel: T('아르카나', 'Arcana', 'Arcano', 'Arcano', 'アルカナ', 'Arkana', 'Arcane', 'आर्काना'),
-  majorWord: T('메이저', 'Major', 'Mayor', 'Maior', '大', 'Groß', 'Majeur', 'बड़ा'),
-  minorWord: T('마이너', 'Minor', 'Menor', 'Menor', '小', 'Klein', 'Mineur', 'छोटा'),
-  numberLabel: T('번호', 'Number', 'Número', 'Número', '番号', 'Nummer', 'Numéro', 'संख्या'),
-  suitWord: T('수트', 'Suit', 'Palo', 'Naipe', 'スート', 'Farbe', 'Couleur', 'सूट'),
-  rankWord: T('계급', 'Rank', 'Rango', 'Posto', '位', 'Rang', 'Rang', 'दर्जा'),
-  elementWord: T('원소', 'Element', 'Elemento', 'Elemento', '元素', 'Element', 'Élément', 'तत्व'),
+  uprightLabel: T('정방향', 'Upright', 'Al derecho', 'Normal', '正位置', 'Aufrecht', "À l'endroit", 'सीधा', '正位', '正位'),
+  reversedLabel: T('역방향', 'Reversed', 'Invertida', 'Invertida', '逆位置', 'Umgekehrt', "À l'envers", 'उल्टा', '逆位', '逆位'),
+  arcanaLabel: T('아르카나', 'Arcana', 'Arcano', 'Arcano', 'アルカナ', 'Arkana', 'Arcane', 'आर्काना', '阿卡纳', '阿爾克那'),
+  majorWord: T('메이저', 'Major', 'Mayor', 'Maior', '大', 'Groß', 'Majeur', 'बड़ा', '大', '大'),
+  minorWord: T('마이너', 'Minor', 'Menor', 'Menor', '小', 'Klein', 'Mineur', 'छोटा', '小', '小'),
+  numberLabel: T('번호', 'Number', 'Número', 'Número', '番号', 'Nummer', 'Numéro', 'संख्या', '编号', '編號'),
+  suitWord: T('수트', 'Suit', 'Palo', 'Naipe', 'スート', 'Farbe', 'Couleur', 'सूट', '花色', '花色'),
+  rankWord: T('계급', 'Rank', 'Rango', 'Posto', '位', 'Rang', 'Rang', 'दर्जा', '阶级', '階級'),
+  elementWord: T('원소', 'Element', 'Elemento', 'Elemento', '元素', 'Element', 'Élément', 'तत्व', '元素', '元素'),
 
-  sameSuitTitle: T('같은 수트', 'Same suit', 'Mismo palo', 'Mesmo naipe', '同じスート', 'Gleiche Farbe', 'Même couleur', 'वही सूट'),
-  sameRankTitle: T('같은 숫자', 'Same rank', 'Mismo rango', 'Mesmo posto', '同じ数字', 'Gleicher Rang', 'Même rang', 'वही दर्जा'),
+  sameSuitTitle: T('같은 수트', 'Same suit', 'Mismo palo', 'Mesmo naipe', '同じスート', 'Gleiche Farbe', 'Même couleur', 'वही सूट', '同花色', '同花色'),
+  sameRankTitle: T('같은 숫자', 'Same rank', 'Mismo rango', 'Mesmo posto', '同じ数字', 'Gleicher Rang', 'Même rang', 'वही दर्जा', '同数字', '同數字'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么读这些牌', '怎麼讀這些牌'),
 
   how: T(
     [
@@ -328,11 +366,23 @@ const SPEC: Spec = {
       'उल्टा होना विपरीत से ज़्यादा यह है कि वही शक्ति अटकी है या हद पार कर गई है। अर्थ पलटने से पहले देखिए कि वह शक्ति अभी कहाँ बह रही है।',
       'पत्ता तय भविष्य नहीं, वर्तमान स्थिति का चित्र है। वही पत्ता इस पर निर्भर करके अलग पढ़ा जाता है कि आपने क्या पूछा।',
     ],
+    [
+      '大阿卡纳 22 张讲的是大势，小阿卡纳 56 张讲的是这势头里的具体事。抽到一张先看它属哪一类，就能掂出分量。',
+      '小阿卡纳要把花色和数字叠着读。花色告诉你「是哪一片领域」，数字告诉你「走到那片领域的哪一步」。',
+      '逆位与其说是意思反过来，不如说是同一股力量卡住了或者过了头。急着把含义倒过来之前，先看这股力量眼下往哪儿流。',
+      '牌不是定死的未来，而是照见眼下处境的一幅画。同一张牌，问的问题不同，读法也不同。',
+    ],
+    [
+      '大阿爾克那 22 張講的是大勢，小阿爾克那 56 張講的是這勢頭裡的具體事。抽到一張先看它屬哪一類，就能掂出分量。',
+      '小阿爾克那要把花色和數字疊著讀。花色告訴你「是哪一片領域」，數字告訴你「走到那片領域的哪一步」。',
+      '逆位與其說是意思反過來，不如說是同一股力量卡住了或者過了頭。急著把含義倒過來之前，先看這股力量眼下往哪兒流。',
+      '牌不是定死的未來，而是照見眼下處境的一幅畫。同一張牌，問的問題不同，讀法也不同。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
-  drawCta: T('타로 뽑아 보기', 'Draw a card', 'Sacar una carta', 'Tirar uma carta', 'カードを引く', 'Karte ziehen', 'Tirer une carte', 'एक पत्ता निकालें'),
+  drawCta: T('타로 뽑아 보기', 'Draw a card', 'Sacar una carta', 'Tirar uma carta', 'カードを引く', 'Karte ziehen', 'Tirer une carte', 'एक पत्ता निकालें', '抽一张试试', '抽一張試試'),
 
   hubMetaTitle: T(
     '타로 78장 뜻 — 메이저·마이너 정방향과 역방향',
@@ -343,6 +393,8 @@ const SPEC: Spec = {
     'Alle 78 Tarotkarten und ihre Bedeutung — große und kleine Arkana, aufrecht und umgekehrt',
     'Signification des 78 cartes du tarot — arcanes majeurs et mineurs, endroit et envers',
     'सभी 78 टैरो कार्ड के अर्थ — बड़े और छोटे आर्काना, सीधे और उल्टे',
+    '塔罗 78 张牌含义 — 大小阿卡纳的正位与逆位',
+    '塔羅 78 張牌含義 — 大小阿爾克那的正位與逆位',
   ),
   hubMetaDesc: T(
     '메이저 아르카나 22장과 마이너 아르카나 56장의 뜻을 카드마다 한 장씩 정리했습니다. 정방향·역방향 해석, 수트가 다루는 영역과 숫자가 뜻하는 단계를 함께 볼 수 있습니다.',
@@ -353,6 +405,8 @@ const SPEC: Spec = {
     'Eine Seite für jede der 78 Tarotkarten: aufrechte und umgekehrte Bedeutung, der Lebensbereich jeder Farbe und die Stufe jeder Zahl.',
     "Une page pour chacune des 78 cartes du tarot : significations à l'endroit et à l'envers, le domaine de chaque couleur et l'étape de chaque nombre.",
     '78 टैरो कार्ड में से हर एक के लिए एक पन्ना: सीधे और उल्टे अर्थ, हर सूट का क्षेत्र और हर अंक का चरण।',
+    '78 张塔罗牌，每张一页：正位和逆位的含义、每个花色管的是哪一片领域、每个数字标着哪一个阶段，都能一起看到。',
+    '78 張塔羅牌，每張一頁：正位和逆位的含義、每個花色管的是哪一片領域、每個數字標著哪一個階段，都能一起看到。',
   ),
 
   metaTitle: T(
@@ -364,6 +418,8 @@ const SPEC: Spec = {
     (n: string) => `${n} — Bedeutung aufrecht und umgekehrt`,
     (n: string) => `${n} — signification à l'endroit et à l'envers`,
     (n: string) => `${n} — सीधा और उल्टा अर्थ`,
+    (n: string) => `${n} 塔罗牌含义 — 正位与逆位`,
+    (n: string) => `${n} 塔羅牌含義 — 正位與逆位`,
   ),
 
   metaDesc: T(
@@ -375,6 +431,8 @@ const SPEC: Spec = {
     (n: string, up: string) => `Die Bedeutung der Tarotkarte ${n}. Aufrecht: ${up} Auch die umgekehrte Deutung und die Karten gleicher Farbe und Zahl stehen hier.`,
     (n: string, up: string) => `La signification de la carte ${n}. À l'endroit : ${up} La lecture à l'envers et les cartes de même couleur et de même rang figurent aussi.`,
     (n: string, up: string) => `टैरो कार्ड ${n} का अर्थ। सीधा: ${up} उल्टा पाठ और उसी सूट व अंक के पत्ते भी यहीं हैं।`,
+    (n: string, up: string) => `塔罗牌 ${n} 的含义。正位：${up} 逆位的读法，以及同花色、同数字的牌，也都在这一页。`,
+    (n: string, up: string) => `塔羅牌 ${n} 的含義。正位：${up} 逆位的讀法，以及同花色、同數字的牌，也都在這一頁。`,
   ),
 
   hubFaq: T(
@@ -434,6 +492,20 @@ const SPEC: Spec = {
       { q: 'हर सूट किसका प्रतीक है?', a: 'वैंड अग्नि है — इच्छा और कर्म। कप जल है — भाव और रिश्ते। स्वॉर्ड वायु है — विचार और वाणी। पेंटाकल पृथ्वी है — धन और देह। सूट बताता है कि बात जीवन के किस हिस्से की है।' },
       { q: 'क्या टैरो भविष्य बता देता है?', a: 'ये पन्ने पत्तों को तय भविष्यवाणी नहीं, वर्तमान स्थिति का चित्र मानते हैं। वही पत्ता प्रश्न के अनुसार अलग पढ़ा जाता है, और अर्थ अंततः निकालने वाले का होता है।' },
     ],
+    [
+      { q: '塔罗牌一共几张？', a: '一副 78 张。讲大势的大阿卡纳 22 张，加上权杖、圣杯、宝剑、星币四个花色各十四张、合计 56 张的小阿卡纳。' },
+      { q: '大阿卡纳和小阿卡纳有什么不同？', a: '大阿卡纳说的是人生的大转折和走向，小阿卡纳说的是这走向之中发生的具体事。抽到大阿卡纳，就读作眼下这个主题分量不轻。' },
+      { q: '逆位是不是意思正好相反？', a: '与其说相反，不如说是同一股力量卡住了或者用过了头。比如力量牌正位是能忍住的那股劲，逆位就是不再相信自己有这股劲。也有不少读法干脆不用逆位，全按正位读。' },
+      { q: '四个花色分别代表什么？', a: '权杖属火，管意志和行动；圣杯属水，管情感和关系；宝剑属风，管思考和言语；星币属土，管金钱和身体。抽到哪个花色，就等于告诉你这是哪一片领域的事。' },
+      { q: '塔罗能算准未来吗？', a: '这份资料的立场是：与其把它当成能告知既定未来的工具，不如当成照见眼下处境和心境的一幅画。同一张牌，问题不同读法就不同，最后怎么解，还是抽牌的人自己的事。' },
+    ],
+    [
+      { q: '塔羅牌一共幾張？', a: '一副 78 張。講大勢的大阿爾克那 22 張，加上權杖、聖杯、寶劍、錢幣四個花色各十四張、合計 56 張的小阿爾克那。' },
+      { q: '大阿爾克那和小阿爾克那有什麼不同？', a: '大阿爾克那說的是人生的大轉折和走向，小阿爾克那說的是這走向之中發生的具體事。抽到大阿爾克那，就讀作眼下這個主題分量不輕。' },
+      { q: '逆位是不是意思正好相反？', a: '與其說相反，不如說是同一股力量卡住了或者用過了頭。比如力量牌正位是能忍住的那股勁，逆位就是不再相信自己有這股勁。也有不少讀法乾脆不用逆位，全按正位讀。' },
+      { q: '四個花色分別代表什麼？', a: '權杖屬火，管意志和行動；聖杯屬水，管情感和關係；寶劍屬風，管思考和言語；錢幣屬土，管金錢和身體。抽到哪個花色，就等於告訴你這是哪一片領域的事。' },
+      { q: '塔羅能算準未來嗎？', a: '這份資料的立場是：與其把它當成能告知既定未來的工具，不如當成照見眼下處境和心境的一幅畫。同一張牌，問題不同讀法就不同，最後怎麼解，還是抽牌的人自己的事。' },
+    ],
   ),
 
   cardFaq: T(
@@ -477,13 +549,23 @@ const SPEC: Spec = {
       { q: `${n} उल्टा निकले तो क्या अर्थ है?`, a: rev },
       { q: `${n} गड्डी में कहाँ आता है?`, a: `${kind}` },
     ],
+    (n: string, up: string, rev: string, kind: string) => [
+      { q: `塔罗牌 ${n} 是什么意思？`, a: `正位的读法是：${up}` },
+      { q: `${n} 出现逆位怎么读？`, a: rev },
+      { q: `${n} 是一张什么样的牌？`, a: `${kind}` },
+    ],
+    (n: string, up: string, rev: string, kind: string) => [
+      { q: `塔羅牌 ${n} 是什麼意思？`, a: `正位的讀法是：${up}` },
+      { q: `${n} 出現逆位怎麼讀？`, a: rev },
+      { q: `${n} 是一張什麼樣的牌？`, a: `${kind}` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const TAROT_UI: L8<TarotUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const TAROT_UI: L<TarotUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<TarotUI>;
+) as unknown as L<TarotUI>;

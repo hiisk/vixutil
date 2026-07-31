@@ -3,7 +3,7 @@
  *
  * 마이너 56장은 수트 × 계급으로 만들기 때문에, 표 한 칸이 비면 열네 장이 한꺼번에
  * 이상해진다. 그런데 화면에는 빈칸이 그냥 공백으로 나와서 눈으로는 못 잡는다.
- * 그래서 78장 × 여덟 언어를 전부 만들어 보고 빈 곳이 없는지 확인한다.
+ * 그래서 78장 × 열 언어를 전부 만들어 보고 빈 곳이 없는지 확인한다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -12,7 +12,8 @@ import { CARDS, CARD_SLUGS, MAJORS, MAJOR_SLUGS, RANKS, SUITS, SUIT_ELEMENT, TAR
 import { MAJOR_COPY } from '../lib/tarot/majors.ts';
 import { cardView, majorNeighbours, sameRank, sameSuit } from '../lib/tarot/facts.ts';
 import { TAROT_UI } from '../lib/tarot/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { hanProblem } from './han.ts';
 
 test('한 벌은 78장이다', () => {
   assert.equal(CARDS.length, 78);
@@ -53,10 +54,10 @@ test('수트마다 원소가 하나씩 붙는다', () => {
   assert.equal(new Set(Object.values(SUIT_ELEMENT)).size, 4, '두 수트가 같은 원소를 쓴다');
 });
 
-test('78장 × 여덟 언어가 모두 채워진다', () => {
+test('78장 × 열 언어가 모두 채워진다', () => {
   // 마이너는 표에서 조합되므로, 표 한 칸이 비면 열네 장이 함께 무너진다
   for (const card of CARDS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const v = cardView(card.slug, lang);
       assert.ok(v, `${card.slug}/${lang}: 값을 못 만든다`);
       assert.ok(v!.name.trim().length > 0, `${card.slug}/${lang}: 이름이 비었다`);
@@ -69,7 +70,7 @@ test('78장 × 여덟 언어가 모두 채워진다', () => {
 
 test('한 언어 안에서 카드 이름이 겹치지 않는다', () => {
   // 수트나 계급 이름을 잘못 적으면 두 카드가 같은 이름이 되는데, 목록에서는 티가 안 난다
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const names = CARDS.map(c => cardView(c.slug, lang)!.name);
     const dup = [...new Set(names.filter((n, i) => names.indexOf(n) !== i))];
     assert.deepEqual(dup, [], `${lang}: 이름이 겹친다 — ${dup.join(', ')}`);
@@ -77,7 +78,7 @@ test('한 언어 안에서 카드 이름이 겹치지 않는다', () => {
 });
 
 test('마이너 이름에 수트와 계급이 모두 들어간다', () => {
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = TAROT_UI[lang];
     for (const suit of SUITS) {
       for (const rank of RANKS) {
@@ -91,7 +92,7 @@ test('마이너 이름에 수트와 계급이 모두 들어간다', () => {
 
 test('마이너 해석에 수트 주제와 계급 단계가 겹쳐 들어간다', () => {
   // 조합이 끊기면 "이 수트는 를 다루므로" 같은 빈 문장이 나간다
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = TAROT_UI[lang];
     const v = cardView('three-of-cups', lang)!;
     assert.ok(v.upright.includes(ui.suitTheme.cups), `${lang}: 수트 주제가 안 들어갔다`);
@@ -128,12 +129,13 @@ test('같은 수트·같은 숫자·이웃 카드가 자기 자신을 빼고 나
   assert.equal(sameSuit('the-fool').length, 0, '메이저에는 수트 동료가 없다');
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
-  for (const lang of LANG8_CODES) {
+test('열 언어 문구가 모두 채워져 있다', () => {
+  for (const lang of LANG_CODES) {
     const ui = TAROT_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -150,9 +152,9 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 });
 
 test('언어끼리 글자가 섞이지 않는다', () => {
-  // 여덟 칸을 나란히 적다 보면 한 칸에 다른 언어가 흘러 들어간다 — 실제로 한 번 났다
+  // 열 칸을 나란히 적다 보면 한 칸에 다른 언어가 흘러 들어간다 — 실제로 한 번 났다
   for (const [slug, copy] of Object.entries(MAJOR_COPY)) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       for (const field of ['name', 'up', 'rev'] as const) {
         const t = copy[field][lang];
         if (lang !== 'ko') assert.ok(!/[가-힣]/.test(t), `${slug}/${lang}/${field}: 한글이 섞였다`);
@@ -165,7 +167,7 @@ test('언어끼리 글자가 섞이지 않는다', () => {
 
 test('메타 문구가 카드 이름을 담는다', () => {
   for (const card of CARDS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const v = cardView(card.slug, lang)!;
       const ui = TAROT_UI[lang];
       assert.ok(ui.metaTitle(v.name).includes(v.name), `${lang}/${card.slug}: 제목에 이름이 없다`);
