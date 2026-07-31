@@ -6,7 +6,7 @@
  * 통째로 맞아야 한다", "잡는 묶음이 둘이다" 같은 말은 식에서 계산해 붙인다
  * (ui.ts). 계산으로 나오는 말은 틀릴 수가 없다.
  */
-import { LANG8_CODES, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type Lang8 } from '../i18n/lang.ts';
 
 /** ko·en·es·pt·ja·de·fr·hi 여덟 칸 */
 export type Eight = [string, string, string, string, string, string, string, string];

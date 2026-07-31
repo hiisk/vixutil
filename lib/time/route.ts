@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { timeCity, timeCountry } from './cities8.ts';
 import { cityFacts } from './facts.ts';
 import { TIME_UI } from './ui.ts';
@@ -23,7 +23,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(f.city)} — ${ui.section}`,
     description: ui.metaDesc(f),
     alternates: {
-      canonical: `${prefix8(lang)}/time/${slug}`,
+      canonical: `${langPrefix(lang)}/time/${slug}`,
       languages: alternates8(`/time/${slug}`),
     },
   };

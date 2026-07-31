@@ -6,7 +6,7 @@
  * 119개를 여덟 언어로 손으로 적으면 952줄이고, 그중 한 줄이 그림과 어긋나도
  * 아무도 못 잡는다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { Step } from './list.ts';
 import type { CaseFacts, EdgeShape, PairPlace, PllMoves } from './facts.ts';
 

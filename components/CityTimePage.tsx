@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import CityClock from '@/components/time/CityClock';
-import { LANGS8, lang8Info, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langInfo, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { timeCountry, type TimeCity } from '@/lib/time/cities8';
 import { cityFacts, gapLabel, gapMinutes, sameZoneCities } from '@/lib/time/facts';
 import { TIME_UI } from '@/lib/time/ui';
@@ -22,7 +22,7 @@ import { TIME_UI } from '@/lib/time/ui';
 export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lang8 }) {
   const ui = TIME_UI[lang];
   const f = cityFacts(city, lang);
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/time`;
   const path = `${prefix}/time/${city.slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';
@@ -75,7 +75,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
             {country?.flag} {f.country} · UTC {f.standardLabel}
           </p>
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.nowLabel}</p>
-          <CityClock zone={city.zone} locale={lang8Info(lang).htmlLang} />
+          <CityClock zone={city.zone} locale={langInfo(lang).htmlLang} />
         </div>
 
         <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">

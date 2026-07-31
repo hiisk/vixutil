@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { EXT_ICON, extOf } from '@/lib/ext/list';
 import { extFacts, relatedExts } from '@/lib/ext/facts';
 import { EXT_UI } from '@/lib/ext/ui';
@@ -22,7 +22,7 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang8 }) {
   const ui = EXT_UI[lang];
   const f = extFacts(x);
   const kind = ui.kindLabel[x.kind];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/ext`;
   const path = `${prefix}/ext/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

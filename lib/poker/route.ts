@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates10, prefix10, type Lang10 } from '../i18n/lang10.ts';
+import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { HANDS, POKER_ICON, handOf } from './list.ts';
 import { handFacts } from './facts.ts';
 import { fill, numFmt, pokerUi } from './ui.ts';
@@ -13,20 +13,20 @@ const FROM = '#059669';
 const TO = '#064e3b';
 
 /** 데바나가리는 카드에서 정형되지 않는다 — 앞선 섹션들과 같은 이유다 */
-const cardLang = (lang: Lang10): Lang10 => (lang === 'hi' ? 'en' : lang);
+const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 const N = HANDS.length;
 
-export function hubMetadata(lang: Lang10): Metadata {
+export function hubMetadata(lang: Lang): Metadata {
   const ui = pokerUi(lang);
   return {
     title: fill(ui.hubMetaTitle, { n: N }),
     description: fill(ui.hubMetaDesc, { n: N }),
-    alternates: { canonical: `${prefix10(lang)}/game/poker`, languages: alternates10('/game/poker') },
+    alternates: { canonical: `${langPrefix(lang)}/game/poker`, languages: alternates('/game/poker') },
   };
 }
 
-export function detailMetadata(lang: Lang10, slug: string): Metadata {
+export function detailMetadata(lang: Lang, slug: string): Metadata {
   const h = handOf(slug);
   if (!h) return {};
   const ui = pokerUi(lang);
@@ -40,13 +40,13 @@ export function detailMetadata(lang: Lang10, slug: string): Metadata {
       score: f.score,
     }),
     alternates: {
-      canonical: `${prefix10(lang)}/game/poker/${slug}`,
-      languages: alternates10(`/game/poker/${slug}`),
+      canonical: `${langPrefix(lang)}/game/poker/${slug}`,
+      languages: alternates(`/game/poker/${slug}`),
     },
   };
 }
 
-export function hubCard(lang: Lang10): ReactElement {
+export function hubCard(lang: Lang): ReactElement {
   const ui = pokerUi(cardLang(lang));
   return ogCard({
     icon: POKER_ICON,
@@ -58,7 +58,7 @@ export function hubCard(lang: Lang10): ReactElement {
   });
 }
 
-export function handCard(lang: Lang10, slug: string): ReactElement {
+export function handCard(lang: Lang, slug: string): ReactElement {
   const card = cardLang(lang);
   const ui = pokerUi(card);
   const h = handOf(slug);

@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import SensorBox from '@/components/lens/SensorBox';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { LENSES, LENS_ICON, SENSORS, lensesOfSensor } from '@/lib/lens/list';
 import { lensFacts } from '@/lib/lens/facts';
 import { LENS_UI } from '@/lib/lens/ui';
@@ -18,7 +18,7 @@ import { LENS_UI } from '@/lib/lens/ui';
  */
 export default function LensHubPage({ lang }: { lang: Lang8 }) {
   const ui = LENS_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/snap/lens`;
   const base = lang === 'ko' ? 'ko' : 'en';

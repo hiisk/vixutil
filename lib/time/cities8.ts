@@ -12,7 +12,7 @@
  * 나라 이름은 도시마다 적지 않는다. 한 나라에 도시가 여럿이라 같은 말을 여덟 벌씩
  * 되풀이하게 되므로, 나라를 열쇠로 한 번만 적고 도시는 열쇠만 참조한다.
  */
-import type { L8 } from '../i18n/lang8.ts';
+import type { L8 } from '../i18n/lang.ts';
 
 export interface TimeCountry {
   name: L8<string>;

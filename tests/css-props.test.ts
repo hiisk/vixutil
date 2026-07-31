@@ -12,7 +12,7 @@ import { CSS_PROPS, CSS_ICON, CSS_PROP_NAMES, PROP_KINDS, cssPropOf, propsOfKind
 import { propFacts, relatedProps } from '../lib/css/facts.ts';
 import { CSS_DESC, propDesc } from '../lib/css/desc.ts';
 import { CSS_UI } from '../lib/css/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100개가 넘는다', () => {
   assert.ok(CSS_PROPS.length >= 100, `${CSS_PROPS.length}개뿐이다`);

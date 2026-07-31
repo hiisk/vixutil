@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { FOOD_CATEGORIES, ingredientsOfCategory } from '@/lib/food/ingredients8';
 import { foodFacts } from '@/lib/food/facts';
 import { FOOD_UI } from '@/lib/food/ui';

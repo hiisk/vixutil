@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { TAG_ICON, tagOf } from '@/lib/html/tags';
 import { relatedTags, tagFacts } from '@/lib/html/facts';
 import { tagDesc } from '@/lib/html/desc';
@@ -24,7 +24,7 @@ export default function TagPage({ slug, lang }: { slug: string; lang: Lang8 }) {
   const f = tagFacts(t);
   const desc = tagDesc(t.name, lang);
   const kind = ui.kindLabel[t.kind];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/html`;
   const path = `${prefix}/html/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

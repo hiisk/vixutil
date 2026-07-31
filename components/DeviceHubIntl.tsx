@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { deviceToolsIntl, DEVICE_CATEGORY_ORDER, DEVICE_SHELL_UI, type DeviceIntlLang } from '@/lib/device-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { DEVICE_UI } from '@/lib/device/ui';
 import { SCREEN_ICON } from '@/lib/device/route';
 

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import PeriodicTable from '@/components/element/PeriodicTable';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { elementOf } from '@/lib/element/list';
 import { elementFacts, neighbours, sameGroup } from '@/lib/element/facts';
 import { nameOf } from '@/lib/element/names';
@@ -23,7 +23,7 @@ export default function ElementPage({ slug, lang }: { slug: string; lang: Lang8 
   const ui = ELEMENT_UI[lang];
   const name = nameOf(x.z, lang);
   const category = ui.categoryLabel[f.category];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/element`;
   const path = `${hub}/${x.z}`;

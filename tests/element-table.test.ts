@@ -19,7 +19,7 @@ import {
 } from '../lib/element/facts.ts';
 import { NAMES, nameOf } from '../lib/element/names.ts';
 import { ELEMENT_UI } from '../lib/element/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(ELEMENTS.length >= 100, `${ELEMENTS.length}가지뿐이다`);

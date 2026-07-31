@@ -5,7 +5,7 @@
  * 오는 사람은 이름이 아니라 글자를 복사하러 온다. 그래서 제목은 글자 자체이고,
  * 옮기는 것은 갈래 이름과 설명뿐이다 — 168 × 8이 아니라 16 × 8로 끝난다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { GlyphKind } from './list.ts';
 import type { GlyphFacts } from './facts.ts';
 

@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import CopyGlyph from '@/components/glyph/CopyGlyph';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { GLYPH_ICON, glyphOf } from '@/lib/glyph/list';
 import { glyphFacts, relatedGlyphs } from '@/lib/glyph/facts';
 import { GLYPH_UI } from '@/lib/glyph/ui';
@@ -23,7 +23,7 @@ export default function GlyphPage({ slug, lang }: { slug: string; lang: Lang8 })
   const ui = GLYPH_UI[lang];
   const f = glyphFacts(g);
   const kind = ui.kindLabel[g.kind];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/text/char`;
   const path = `${prefix}/text/char/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

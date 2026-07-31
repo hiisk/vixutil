@@ -14,7 +14,7 @@
  * 꾹 눌러 담으면 같은 컵에 30g이 더 들어가는데, 그것이 제과에서 무게를 쓰라고
  * 하는 이유다. 그 차이는 페이지에서 문장으로 알려 준다.
  */
-import type { L8 } from '../i18n/lang8.ts';
+import type { L8 } from '../i18n/lang.ts';
 
 export type FoodCategory =
   | 'flour' | 'sugar' | 'grain' | 'dairy' | 'fat' | 'nut' | 'legume'

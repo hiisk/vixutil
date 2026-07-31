@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { EXTS, EXT_ICON, EXT_KINDS, EXT_SLUGS, extOf, extsOfKind } from '../lib/ext/list.ts';
 import { extFacts, relatedExts } from '../lib/ext/facts.ts';
 import { EXT_UI } from '../lib/ext/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(EXTS.length >= 100, `${EXTS.length}가지뿐이다`);

@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { colorToolsIntl, COLOR_CATEGORY_ORDER, COLOR_SHELL_UI, type ColorIntlLang } from '@/lib/color-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
 import { COLOR_UI } from '@/lib/color/ui';
 

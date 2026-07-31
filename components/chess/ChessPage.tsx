@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import StepBoard from '@/components/chess/StepBoard';
-import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { openingOf } from '@/lib/chess/list';
 import { openingFacts } from '@/lib/chess/facts';
 import { fullName } from '@/lib/chess/names';
@@ -17,18 +17,18 @@ import { chessUi, fill } from '@/lib/chess/ui';
  * 그 자리를 세어 만든 말이라 수순이 바뀌면 문장도 함께 바뀐다. 손으로 적은
  * 소개글은 수순이 바뀌어도 그대로 남아 어긋나지만, 이쪽은 어긋날 수가 없다.
  */
-export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }) {
+export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) {
   const x = openingOf(slug);
   if (!x) return null;
   const f = openingFacts(x);
   const ui = chessUi(lang);
   const name = fullName(x.family, x.line, lang);
-  const prefix = prefix10(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/game/chess`;
   const path = `${hub}/${slug}`;
   // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
-  const base = localeOfLang10(lang);
+  const base = localeOfLang(lang);
   const side = f.turn === 'w' ? ui.white : ui.black;
   const plies = fill(f.ply === 1 ? ui.movesOne : ui.moves, { n: f.ply });
 
@@ -184,7 +184,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }
         <Faq items={faq} lang={base} title={ui.faq} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS10.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/chess/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

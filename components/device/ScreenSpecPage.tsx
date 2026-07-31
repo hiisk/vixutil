@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import ScreenShape from '@/components/device/ScreenShape';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { screen } from '@/lib/device/screens';
 import { screenFacts, similarScreens } from '@/lib/device/facts';
 import { DEVICE_UI } from '@/lib/device/ui';
@@ -24,7 +24,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
   if (!sc || !v) return null;
 
   const ui = DEVICE_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/device/screen`;
   const path = `${prefix}/device/screen/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

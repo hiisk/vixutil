@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { FOCALS, LENSES, LENS_ICON, LENS_SLUGS, SENSORS, lensOf, lensesOfSensor, sensorOf } from '../lib/lens/list.ts';
 import { angleOf, lensFacts, neighbourFocals, sameFieldOfView } from '../lib/lens/facts.ts';
 import { LENS_UI } from '../lib/lens/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(LENSES.length >= 100, `${LENSES.length}가지뿐이다`);

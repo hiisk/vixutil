@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { IMG_SIZES, IMG_SIZE_ICON, IMG_SIZE_SLUGS, SIZE_KINDS, imgSizeOf, sizesOfKind } from '../lib/imgsize/list.ts';
 import { commonRatio, sameKind, sameRatio, sizeFacts } from '../lib/imgsize/facts.ts';
 import { IMG_SIZE_UI } from '../lib/imgsize/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(IMG_SIZES.length >= 100, `${IMG_SIZES.length}가지뿐이다`);

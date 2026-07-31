@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { PATTERNS, REGEX_ICON, patternOf } from './list.ts';
 import { regexFacts } from './facts.ts';
 import { whatOf } from './desc.ts';
@@ -21,7 +21,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/text/regex`, languages: alternates8('/text/regex') },
+    alternates: { canonical: `${langPrefix(lang)}/text/regex`, languages: alternates8('/text/regex') },
   };
 }
 
@@ -34,7 +34,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(whatOf(slug, lang))} — ${ui.section}`,
     description: ui.metaDesc(f, whatOf(slug, lang)),
     alternates: {
-      canonical: `${prefix8(lang)}/text/regex/${slug}`,
+      canonical: `${langPrefix(lang)}/text/regex/${slug}`,
       languages: alternates8(`/text/regex/${slug}`),
     },
   };

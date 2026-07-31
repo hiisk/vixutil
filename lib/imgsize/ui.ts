@@ -4,7 +4,7 @@
  * 크기 이름은 플랫폼과 규격 이름이라 옮기지 않는다. 옮기는 것은 갈래 이름과
  * 설명, 화면 틀뿐이다 — 116 × 8이 아니라 9 × 8로 끝난다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { SizeKind } from './list.ts';
 import type { SizeFacts } from './facts.ts';
 

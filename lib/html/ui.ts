@@ -4,7 +4,7 @@
  * 태그마다 다른 설명은 desc.ts에 있고, 여기에는 화면 틀과 갈래 이름만 둔다.
  * 태그 이름과 속성 이름은 표준이 정한 영어라 옮기지 않는다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { TagKind } from './tags.ts';
 import type { TagFacts } from './facts.ts';
 

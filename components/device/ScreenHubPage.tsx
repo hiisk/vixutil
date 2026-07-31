@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { SCREENS, SCREEN_KINDS, screensOfKind } from '@/lib/device/screens';
 import { screenFacts } from '@/lib/device/facts';
 import { DEVICE_UI } from '@/lib/device/ui';
@@ -18,7 +18,7 @@ import { SCREEN_ICON } from '@/lib/device/route';
  */
 export default function ScreenHubPage({ lang }: { lang: Lang8 }) {
   const ui = DEVICE_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/device/screen`;
   const base = lang === 'ko' ? 'ko' : 'en';

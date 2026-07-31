@@ -13,7 +13,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang8.ts';
+import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang.ts';
 import {
   TIME_CITIES, TIME_COUNTRIES, TIME_REGIONS, citiesOfRegion, timeCity, timeCountry, zoneRegion,
 } from '../lib/time/cities8.ts';

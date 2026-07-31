@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
-import type { Lang8 } from '@/lib/i18n/lang8';
+import type { Lang8 } from '@/lib/i18n/lang';
 import { isBlack, noteName, type Pc } from '@/lib/music/notes';
 
 /**

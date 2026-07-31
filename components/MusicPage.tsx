@@ -5,7 +5,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import MusicKeyboard from '@/components/music/MusicKeyboard';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import {
   KIND_WORD, accidentalOf, colorOf, feelOf, iconOf, notesOf, relatedItems,
   symbolOf, titleOf, type MusicItem,
@@ -24,7 +24,7 @@ import { MUSIC_UI } from '@/lib/music/ui';
 export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang8 }) {
   const ui = MUSIC_UI[lang];
   const f = itemFacts(item, lang);
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/music`;
   const path = `${prefix}/music/${item.slug}`;
   const color = colorOf(item);

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { foodFacts, similarIngredients } from '@/lib/food/facts';
 import { FOOD_UI } from '@/lib/food/ui';
 import type { Ingredient } from '@/lib/food/ingredients8';
@@ -23,7 +23,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
   const ui = FOOD_UI[lang];
   const f = foodFacts(ing);
   const name = ing.name[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/food`;
   const path = `${prefix}/food/${ing.slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

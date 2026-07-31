@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { colorFacts, nearbyColors } from '@/lib/color/facts';
 import { COLOR_UI, colorFaq } from '@/lib/color/ui';
 import type { NamedColor } from '@/lib/color/named8';
@@ -22,7 +22,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
   const ui = COLOR_UI[lang];
   const f = colorFacts(color.hex);
   const name = color.name[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/color`;
   const path = `${prefix}/color/${color.slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

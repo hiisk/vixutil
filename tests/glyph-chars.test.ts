@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { GLYPHS, GLYPH_ICON, GLYPH_KINDS, GLYPH_SLUGS, glyphOf, glyphsOfKind } from '../lib/glyph/list.ts';
 import { glyphFacts, relatedGlyphs } from '../lib/glyph/facts.ts';
 import { GLYPH_UI } from '../lib/glyph/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100자가 넘는다', () => {
   assert.ok(GLYPHS.length >= 100, `${GLYPHS.length}자뿐이다`);

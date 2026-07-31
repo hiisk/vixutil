@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import Cards from '@/components/poker/Cards';
 import HandGrid from '@/components/poker/HandGrid';
-import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { HANDS, handOf, labelOf } from '@/lib/poker/list';
 import { handFacts } from '@/lib/poker/facts';
 import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
@@ -16,17 +16,17 @@ import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
  * 숫자는 전부 조합에서 나온다. 확률표를 옮겨 적지 않으므로 표가 바뀌어도
  * 문장과 어긋날 자리가 없다.
  */
-export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang10 }) {
+export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang }) {
   const h = handOf(slug);
   if (!h) return null;
   const f = handFacts(h);
   const ui = pokerUi(lang);
-  const prefix = prefix10(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/game/poker`;
   const path = `${hub}/${slug}`;
   // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
-  const base = localeOfLang10(lang);
+  const base = localeOfLang(lang);
   const n = HANDS.length;
   const pct = numFmt(lang, f.dealtPct, 3);
   const oneIn = numFmt(lang, f.oneIn, 1);
@@ -152,7 +152,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
         <Faq items={faq} lang={base} title={ui.faq} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS10.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/poker/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

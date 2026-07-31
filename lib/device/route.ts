@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { SCREENS, SCREEN_ICON } from './screens.ts';
 import { screenView } from './facts.ts';
 import { DEVICE_UI } from './ui.ts';
@@ -22,7 +22,7 @@ export function hubMetadata(lang: Lang8): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: {
-      canonical: `${prefix8(lang)}/device/screen`,
+      canonical: `${langPrefix(lang)}/device/screen`,
       languages: alternates8('/device/screen'),
     },
   };
@@ -36,7 +36,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(v.name)} — ${ui.section}`,
     description: ui.metaDesc(v),
     alternates: {
-      canonical: `${prefix8(lang)}/device/screen/${slug}`,
+      canonical: `${langPrefix(lang)}/device/screen/${slug}`,
       languages: alternates8(`/device/screen/${slug}`),
     },
   };

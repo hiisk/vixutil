@@ -12,7 +12,7 @@ import assert from 'node:assert/strict';
 import { DICE_COUNTS, DICE_ICON, FACES, ROLLS, ROLL_SLUGS, rollOf, rollsOfDice } from '../lib/dice/list.ts';
 import { neighbourSums, peakSums, rollFacts, similarOdds, totalFor, waysFor } from '../lib/dice/facts.ts';
 import { DICE_UI } from '../lib/dice/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(ROLLS.length >= 100, `${ROLLS.length}가지뿐이다`);

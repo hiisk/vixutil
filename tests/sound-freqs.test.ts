@@ -12,7 +12,7 @@ import assert from 'node:assert/strict';
 import { FREQS, FREQ_ICON, FREQ_RANGES, FREQ_SLUGS, freqOf, freqRange, freqSlug, freqsOfRange } from '../lib/sound/freqs.ts';
 import { AUDIBLE_MAX, AUDIBLE_MIN, SPEED_OF_SOUND, dtmfKeys, freqFacts, nearbyFreqs, nearestNote } from '../lib/sound/facts.ts';
 import { SOUND_UI } from '../lib/sound/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(FREQS.length >= 100, `${FREQS.length}가지뿐이다`);

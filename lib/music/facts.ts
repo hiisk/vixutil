@@ -4,7 +4,7 @@
  * FAQ·메타 설명이 135장 × 8언어라 문장 틀은 ui.ts에 한 벌만 두고, 항목마다
  * 다른 숫자와 이름을 여기서 계산해 넘긴다. 숫자가 계산에서 오므로 틀릴 수 없다.
  */
-import type { Lang8 } from '../i18n/lang8.ts';
+import type { Lang8 } from '../i18n/lang.ts';
 import {
   KIND_WORD, accidentalOf, feelOf, noteListOf, notesOf, stepsOf, symbolOf, titleOf,
   type MusicItem,

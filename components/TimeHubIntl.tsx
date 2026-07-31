@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { TIME_REGIONS, citiesOfRegion, timeCountry } from '@/lib/time/cities8';
 import { TIME_UI } from '@/lib/time/ui';
 import ToolIcon from '@/components/ToolIcon';

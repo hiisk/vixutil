@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { CARDS, MAJORS, SUITS, SUIT_ELEMENT, TAROT_ICON, cardsOfSuit } from '@/lib/tarot/deck';
 import { cardView } from '@/lib/tarot/facts';
 import { TAROT_UI } from '@/lib/tarot/ui';
@@ -17,7 +17,7 @@ import { TAROT_UI } from '@/lib/tarot/ui';
  */
 export default function TarotHubPage({ lang }: { lang: Lang8 }) {
   const ui = TAROT_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/fortune/card`;
   const base = lang === 'ko' ? 'ko' : 'en';

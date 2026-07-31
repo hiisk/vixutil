@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { CSS_ICON, cssPropOf } from '@/lib/css/props';
 import { propFacts, relatedProps } from '@/lib/css/facts';
 import { propDesc } from '@/lib/css/desc';
@@ -24,7 +24,7 @@ export default function PropPage({ slug, lang }: { slug: string; lang: Lang8 }) 
   const f = propFacts(p);
   const desc = propDesc(p.name, lang);
   const kind = ui.kindLabel[p.kind];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/css`;
   const path = `${prefix}/css/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

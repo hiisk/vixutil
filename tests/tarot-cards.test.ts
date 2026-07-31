@@ -12,7 +12,7 @@ import { CARDS, CARD_SLUGS, MAJORS, MAJOR_SLUGS, RANKS, SUITS, SUIT_ELEMENT, TAR
 import { MAJOR_COPY } from '../lib/tarot/majors.ts';
 import { cardView, majorNeighbours, sameRank, sameSuit } from '../lib/tarot/facts.ts';
 import { TAROT_UI } from '../lib/tarot/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('한 벌은 78장이다', () => {
   assert.equal(CARDS.length, 78);

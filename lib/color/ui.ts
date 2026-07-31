@@ -5,7 +5,7 @@
  * 숫자뿐이므로, 문장 틀을 한 벌만 두고 계산된 값을 끼워 넣는다. 숫자가 계산에서
  * 오니 틀릴 수 없고, 색을 더해도 문구를 다시 쓰지 않는다.
  */
-import { alternates8, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { ColorFacts } from './facts.ts';
 import type { ColorFamily } from './named8.ts';
 

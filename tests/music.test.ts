@@ -12,7 +12,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, alternates8, type Lang8 } from '../lib/i18n/lang8.ts';
+import { LANGS8, LANG8_CODES, alternates8, type Lang8 } from '../lib/i18n/lang.ts';
 import {
   KIND_WORD, MUSIC_ITEMS, accidentalOf, colorOf, feelOf, iconOf, itemsOfKind,
   musicItem, noteListOf, notesOf, relatedItems, stepsOf, symbolOf, titleOf,

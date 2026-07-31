@@ -12,7 +12,7 @@ import { HEADERS, HTTP_ICON, HTTP_ITEMS, HTTP_SLUGS, STATUSES, headersOfSide, ht
 import { httpFacts, relatedHttp } from '../lib/http/facts.ts';
 import { HTTP_DESC, httpDesc } from '../lib/http/desc.ts';
 import { HTTP_UI } from '../lib/http/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(HTTP_ITEMS.length >= 100, `${HTTP_ITEMS.length}가지뿐이다`);

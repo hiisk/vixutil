@@ -15,7 +15,7 @@ import {
   rankedSlugs, tierCounts, tierOf,
 } from '../lib/poker/facts.ts';
 import { POKER_UI, fill, numFmt } from '../lib/poker/ui.ts';
-import { LANG10_CODES } from '../lib/i18n/lang10.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
 
 test('조합을 세는 함수가 맞다', () => {
   assert.equal(choose(52, 2), 1326);
@@ -148,7 +148,7 @@ test('가까운 핸드가 자기 자신을 가리키지 않는다', () => {
 
 test('화면 문구가 열 언어에 모두 있다', () => {
   const keys = Object.keys(POKER_UI.ko);
-  for (const lang of LANG10_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = POKER_UI[lang] as unknown as Record<string, unknown>;
     assert.deepEqual(Object.keys(ui).sort(), keys.sort(), `${lang}: 열쇠가 다르다`);
     for (const [key, value] of Object.entries(ui)) {
@@ -162,7 +162,7 @@ test('화면 문구가 열 언어에 모두 있다', () => {
 
 test('문장의 빈자리가 모두 채워진다', () => {
   const k = kindCounts();
-  for (const lang of LANG10_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = POKER_UI[lang];
     const filled = [
       fill(ui.hubTitle, { n: 169 }),

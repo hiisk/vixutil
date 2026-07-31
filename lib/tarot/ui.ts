@@ -8,7 +8,7 @@
  * 언어마다 다른 것은 잇는 순서다. 한국어는 "컵 3", 영어는 "Three of Cups",
  * 프랑스어는 "Trois de Coupe" — 그래서 이름을 만드는 함수도 언어마다 둔다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { Rank, Suit } from './deck.ts';
 
 export interface FaqItem { q: string; a: string }

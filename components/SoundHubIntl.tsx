@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { soundToolsIntl, SOUND_CATEGORY_ORDER, SOUND_SHELL_UI, type SoundIntlLang } from '@/lib/sound-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { SOUND_UI } from '@/lib/sound/ui';
 import { FREQ_ICON } from '@/lib/sound/freqs';
 

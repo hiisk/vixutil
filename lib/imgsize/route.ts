@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { IMG_SIZES, IMG_SIZE_ICON, imgSizeOf } from './list.ts';
 import { sizeFacts } from './facts.ts';
 import { IMG_SIZE_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/image/size`, languages: alternates8('/image/size') },
+    alternates: { canonical: `${langPrefix(lang)}/image/size`, languages: alternates8('/image/size') },
   };
 }
 
@@ -33,7 +33,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(x.name, x.w, x.h)} — ${ui.section}`,
     description: ui.metaDesc(f, ui.kindLabel[x.kind]),
     alternates: {
-      canonical: `${prefix8(lang)}/image/size/${slug}`,
+      canonical: `${langPrefix(lang)}/image/size/${slug}`,
       languages: alternates8(`/image/size/${slug}`),
     },
   };

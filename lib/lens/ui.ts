@@ -4,7 +4,7 @@
  * 초점거리와 센서 이름은 만국 공통이라 옮기지 않는다. 50mm는 어디서나 50mm이고
  * APS-C는 APS-C다. 옮기는 것은 갈래 이름과 설명, 화면 틀뿐이다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { SensorKey } from './list.ts';
 import type { LensFacts } from './facts.ts';
 

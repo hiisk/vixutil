@@ -13,7 +13,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang8.ts';
+import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang.ts';
 import { COLOR_FAMILIES, NAMED_COLORS_8, colorsOfFamily, namedColor } from '../lib/color/named8.ts';
 import { colorFacts, nearbyColors } from '../lib/color/facts.ts';
 import { COLOR_UI, colorAlternates, colorFaq } from '../lib/color/ui.ts';

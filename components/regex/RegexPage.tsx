@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import RegexTry from '@/components/regex/RegexTry';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { REGEX_ICON, patternOf } from '@/lib/regex/list';
 import { regexFacts, siblingPatterns } from '@/lib/regex/facts';
 import { whatOf } from '@/lib/regex/desc';
@@ -31,7 +31,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang8 })
   const f = regexFacts(x);
   const ui = REGEX_UI[lang];
   const what = whatOf(slug, lang);
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/text/regex`;
   const path = `${hub}/${slug}`;

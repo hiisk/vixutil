@@ -5,7 +5,7 @@
  * 속성 이름과 값은 표준이 정한 영어라 옮기지 않는다 — display: flex는 어디서나
  * display: flex다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { PropKind } from './props.ts';
 import type { PropFacts } from './facts.ts';
 

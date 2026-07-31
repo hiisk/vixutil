@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SumBars from '@/components/dice/SumBars';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { DICE_ICON, rollOf } from '@/lib/dice/list';
 import { neighbourSums, rollFacts, similarOdds } from '@/lib/dice/facts';
 import { DICE_UI } from '@/lib/dice/ui';
@@ -21,7 +21,7 @@ export default function DicePage({ slug, lang }: { slug: string; lang: Lang8 }) 
   if (!r) return null;
   const f = rollFacts(r);
   const ui = DICE_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/random/dice`;
   const path = `${hub}/${slug}`;

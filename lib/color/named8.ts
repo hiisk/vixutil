@@ -10,7 +10,7 @@
  * 일본에서는 コーラル, 인도에서는 मूंगा라고 찾는다. 기본색은 그 나라 고유어를
  * 쓰고(赤·लाल), 디자인에서 외래어로 굳은 색은 그 표기를 쓴다.
  */
-import type { L8 } from '../i18n/lang8.ts';
+import type { L8 } from '../i18n/lang.ts';
 
 export type ColorFamily =
   | 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'pink' | 'brown' | 'neutral' | 'metal';

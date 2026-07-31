@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { KINDS, PATTERNS, REGEX_ICON, patternsOfKind } from '@/lib/regex/list';
 import { whatOf } from '@/lib/regex/desc';
 import { REGEX_UI } from '@/lib/regex/ui';
@@ -16,7 +16,7 @@ import { REGEX_UI } from '@/lib/regex/ui';
  */
 export default function RegexHubPage({ lang }: { lang: Lang8 }) {
   const ui = REGEX_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/text/regex`;
   const base = lang === 'ko' ? 'ko' : 'en';

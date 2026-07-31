@@ -6,7 +6,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { ingredient } from './ingredients8.ts';
 import { foodFacts } from './facts.ts';
 import { FOOD_UI } from './ui.ts';
@@ -25,7 +25,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(ing.name[lang], f.grams.cupUs)} — ${ui.section}`,
     description: ui.metaDesc(ing.name[lang], f),
     alternates: {
-      canonical: `${prefix8(lang)}/food/${slug}`,
+      canonical: `${langPrefix(lang)}/food/${slug}`,
       languages: alternates8(`/food/${slug}`),
     },
   };

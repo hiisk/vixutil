@@ -10,7 +10,7 @@
  * 계열을 쓰고, 힌디어에는 사·레·가(사르감)가 있다. 그래서 문자 이름과 계이름을
  * 갈라 두고 언어별로 고른다.
  */
-import type { L8, Lang8 } from '../i18n/lang8.ts';
+import type { L8, Lang8 } from '../i18n/lang.ts';
 
 /** 0=C … 11=B */
 export type Pc = number;

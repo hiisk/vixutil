@@ -6,7 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import AngleFan from '@/components/lens/AngleFan';
 import SensorBox from '@/components/lens/SensorBox';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { LENS_ICON, lensOf } from '@/lib/lens/list';
 import { lensFacts, neighbourFocals, sameFieldOfView } from '@/lib/lens/facts';
 import { LENS_UI } from '@/lib/lens/ui';
@@ -22,7 +22,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang8 }) 
   if (!l) return null;
   const f = lensFacts(l);
   const ui = LENS_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const hub = `${prefix}/snap/lens`;
   const path = `${hub}/${slug}`;

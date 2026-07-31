@@ -8,7 +8,7 @@
  * 항목마다 여덟 언어를 나란히 적는다. 한 언어씩 통째로 적으면 어느 항목이
  * 빠졌는지 눈으로 못 찾는데, 이렇게 두면 여덟 칸 중 빈 칸이 바로 보인다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { ScreenKind } from './screens.ts';
 import type { ScreenView } from './facts.ts';
 

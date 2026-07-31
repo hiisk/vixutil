@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import Board from '@/components/chess/Board';
-import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { OPENINGS } from '@/lib/chess/list';
 import { groupCounts, groupOf, openingFacts, type Group } from '@/lib/chess/facts';
 import { fullName } from '@/lib/chess/names';
@@ -19,13 +19,13 @@ const GROUP_ORDER: Group[] = ['open', 'semiopen', 'closed', 'indian', 'flank'];
  * 대신 맨 위에 첫 수 네 개의 자리만 보여 주고, 나머지는 수순 글자로 둔다 —
  * 수순은 어느 언어에서나 같은 글자라 목록을 훑는 데는 그림보다 빠르다.
  */
-export default function ChessHubPage({ lang }: { lang: Lang10 }) {
+export default function ChessHubPage({ lang }: { lang: Lang }) {
   const ui = chessUi(lang);
-  const prefix = prefix10(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/game/chess`;
   // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
-  const base = localeOfLang10(lang);
+  const base = localeOfLang(lang);
   const counts = groupCounts();
   const n = OPENINGS.length;
 
@@ -132,7 +132,7 @@ export default function ChessHubPage({ lang }: { lang: Lang10 }) {
         <Faq items={faq} lang={base} title={ui.faq} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS10.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/chess`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

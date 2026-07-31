@@ -5,7 +5,7 @@
  * (이름·구성음·기호·주파수)만 받아 문장을 조립한다 — 숫자가 계산에서 오므로
  * 틀릴 수 없고, 항목을 더해도 문구를 다시 쓰지 않는다.
  */
-import { alternates8, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, type L8, type Lang8 } from '../i18n/lang.ts';
 
 export interface FaqItem { q: string; a: string }
 

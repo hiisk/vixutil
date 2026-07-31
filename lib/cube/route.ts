@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { ALGS, CUBE_ICON, algOf } from './list.ts';
 import { caseFacts } from './facts.ts';
 import { CUBE_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/game/cube`, languages: alternates8('/game/cube') },
+    alternates: { canonical: `${langPrefix(lang)}/game/cube`, languages: alternates8('/game/cube') },
   };
 }
 
@@ -32,7 +32,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(item.label)} — ${ui.section}`,
     description: ui.metaDesc(caseFacts(item)),
     alternates: {
-      canonical: `${prefix8(lang)}/game/cube/${slug}`,
+      canonical: `${langPrefix(lang)}/game/cube/${slug}`,
       languages: alternates8(`/game/cube/${slug}`),
     },
   };

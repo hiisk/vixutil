@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import PeriodicTable from '@/components/element/PeriodicTable';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { ELEMENTS, ELEMENT_ICON } from '@/lib/element/list';
 import { CATEGORIES, elementFacts, elementsOfCategory } from '@/lib/element/facts';
 import { nameOf } from '@/lib/element/names';
@@ -18,7 +18,7 @@ import { ELEMENT_UI } from '@/lib/element/ui';
  */
 export default function ElementHubPage({ lang }: { lang: Lang8 }) {
   const ui = ELEMENT_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/element`;
   const base = lang === 'ko' ? 'ko' : 'en';

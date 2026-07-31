@@ -4,7 +4,7 @@
  * 116곳 × 8언어 = 928벌을 손으로 쓸 수 없다. 도시마다 다른 것은 이름과 오프셋뿐
  * 이므로 문장 틀을 한 벌만 두고 계산된 값을 끼워 넣는다.
  */
-import { alternates8, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { TimeFacts } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }

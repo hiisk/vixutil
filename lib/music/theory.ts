@@ -6,7 +6,7 @@
  * 붙는다. 손으로 적으면 135 × 8 = 1080벌이고, 하나가 틀려도 음악을 아는
  * 사람만 알아챈다.
  */
-import type { L8 } from '../i18n/lang8.ts';
+import type { L8 } from '../i18n/lang.ts';
 
 export interface ChordQuality {
   id: string;

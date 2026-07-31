@@ -5,7 +5,7 @@
  * "무엇에 맞는가" 한 마디에, 식에서 계산한 사실(앞뒤가 묶였는지, 잡는 묶음이
  * 몇 개인지)을 붙여 만든다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { RegexKind } from './list.ts';
 import type { RegexFacts } from './facts.ts';
 

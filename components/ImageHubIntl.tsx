@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { imageToolsIntl, IMAGE_CATEGORY_ORDER, IMAGE_SHELL_UI, type ImageIntlLang } from '@/lib/image-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
 import { IMG_SIZE_ICON } from '@/lib/imgsize/list';
 

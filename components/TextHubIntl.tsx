@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { textToolsIntl, TEXT_CATEGORY_ORDER, TEXT_SHELL_UI, type TextIntlLang } from '@/lib/text-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang8';
+import { lang8OfLocale } from '@/lib/i18n/lang';
 import { GLYPH_UI } from '@/lib/glyph/ui';
 import { GLYPH_ICON } from '@/lib/glyph/list';
 import { REGEX_ICON } from '@/lib/regex/list';

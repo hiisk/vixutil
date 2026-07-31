@@ -7,7 +7,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { KIND_WORD, colorOf, iconOf, musicItem } from './catalog.ts';
 import { itemFacts } from './facts.ts';
 import { MUSIC_UI } from './ui.ts';
@@ -28,7 +28,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/music`, languages: alternates8('/music') },
+    alternates: { canonical: `${langPrefix(lang)}/music`, languages: alternates8('/music') },
   };
 }
 
@@ -41,7 +41,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(f)} — ${ui.section}`,
     description: ui.metaDesc(f),
     alternates: {
-      canonical: `${prefix8(lang)}/music/${slug}`,
+      canonical: `${langPrefix(lang)}/music/${slug}`,
       languages: alternates8(`/music/${slug}`),
     },
   };

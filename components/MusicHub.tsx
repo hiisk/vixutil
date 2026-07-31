@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { MUSIC_ITEMS, colorOf, itemsOfKind, symbolOf, titleOf, type MusicItem } from '@/lib/music/catalog';
 import { CHORD_QUALITIES, SCALE_MODES } from '@/lib/music/theory';
 import { MUSIC_UI } from '@/lib/music/ui';
@@ -17,7 +17,7 @@ import { MUSIC_UI } from '@/lib/music/ui';
  */
 export default function MusicHub({ lang }: { lang: Lang8 }) {
   const ui = MUSIC_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/music`;
   const base = lang === 'ko' ? 'ko' : 'en';
 

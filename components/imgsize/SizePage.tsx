@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import SizeShape from '@/components/imgsize/SizeShape';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { IMG_SIZE_ICON, imgSizeOf } from '@/lib/imgsize/list';
 import { sameKind, sameRatio, sizeFacts } from '@/lib/imgsize/facts';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
@@ -23,7 +23,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang8 }) 
   const ui = IMG_SIZE_UI[lang];
   const f = sizeFacts(x);
   const kind = ui.kindLabel[x.kind];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/image/size`;
   const path = `${prefix}/image/size/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

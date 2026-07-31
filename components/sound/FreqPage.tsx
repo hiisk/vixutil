@@ -6,7 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import TonePlayer from '@/components/sound/TonePlayer';
 import WaveShape from '@/components/sound/WaveShape';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { FREQ_ICON, freqOf, freqSlug } from '@/lib/sound/freqs';
 import { dtmfKeys, freqFacts, nearbyFreqs } from '@/lib/sound/facts';
 import { SOUND_UI } from '@/lib/sound/ui';
@@ -23,7 +23,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang8 }) 
 
   const ui = SOUND_UI[lang];
   const f = freqFacts(freq);
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/sound/hz`;
   const path = `${prefix}/sound/hz/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

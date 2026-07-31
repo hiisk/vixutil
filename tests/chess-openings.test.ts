@@ -19,7 +19,7 @@ import { FAMILY_TRAITS, OPENINGS, openingOf } from '../lib/chess/list.ts';
 import { FAMILIES, LINES, familyName, fullName, lineName } from '../lib/chess/names.ts';
 import { groupCounts, groupOf, openingFacts } from '../lib/chess/facts.ts';
 import { CHESS_UI, fill } from '../lib/chess/ui.ts';
-import { LANG10_CODES, LANGS10, alternates10 } from '../lib/i18n/lang10.ts';
+import { LANG_CODES, LANGS, alternates } from '../lib/i18n/lang.ts';
 
 const perft = (p: Position, depth: number): number =>
   depth === 0 ? 1 : legalMoves(p).reduce((n, m) => n + perft(apply(p, m), depth - 1), 0);
@@ -158,7 +158,7 @@ test('계열·갈래·성격 열쇠가 모두 있다', () => {
 });
 
 test('이름이 열 언어에서 모두 채워지고 겹치지 않는다', () => {
-  for (const lang of LANG10_CODES) {
+  for (const lang of LANG_CODES) {
     const seen = new Map<string, string>();
     for (const x of OPENINGS) {
       const name = fullName(x.family, x.line, lang);
@@ -177,7 +177,7 @@ test('쓰이지 않는 계열·갈래가 남아 있지 않다', () => {
   for (const id of Object.keys(FAMILIES)) assert.ok(usedFamily.has(id), `쓰이지 않는 계열: ${id}`);
   for (const id of Object.keys(LINES)) assert.ok(usedLine.has(id), `쓰이지 않는 갈래: ${id}`);
   // 이름 만들기가 열 언어에서 다 도는지도 함께 본다
-  for (const lang of LANG10_CODES) {
+  for (const lang of LANG_CODES) {
     for (const id of Object.keys(FAMILIES)) assert.ok(familyName(id, lang).length > 0);
     for (const id of Object.keys(LINES)) assert.ok(lineName(id, lang).length > 0);
   }
@@ -200,7 +200,7 @@ test('형제는 서로를 가리키는 앞수를 정말 함께 쓴다', () => {
 
 test('화면 문구가 열 언어에 모두 있다', () => {
   const keys = Object.keys(CHESS_UI.ko);
-  for (const lang of LANG10_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = CHESS_UI[lang] as unknown as Record<string, unknown>;
     assert.deepEqual(Object.keys(ui).sort(), keys.sort(), `${lang}: 열쇠가 다르다`);
     for (const [key, value] of Object.entries(ui)) {
@@ -216,7 +216,7 @@ test('화면 문구가 열 언어에 모두 있다', () => {
 });
 
 test('문장의 빈자리가 모두 채워진다', () => {
-  for (const lang of LANG10_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = CHESS_UI[lang];
     const filled = [
       fill(ui.hubTitle, { n: OPENINGS.length }),
@@ -243,10 +243,10 @@ test('문장의 빈자리가 모두 채워진다', () => {
 });
 
 test('열 언어 주소가 모두 다르고 hreflang과 짝이 맞는다', () => {
-  const alt = alternates10('/game/chess');
-  assert.equal(Object.keys(alt).length, LANGS10.length + 1, 'x-default까지 세면 열한 개다');
+  const alt = alternates('/game/chess');
+  assert.equal(Object.keys(alt).length, LANGS.length + 1, 'x-default까지 세면 열한 개다');
   const hrefs = new Set(Object.values(alt));
-  assert.equal(hrefs.size, LANGS10.length, '같은 주소를 두 언어가 쓴다');
+  assert.equal(hrefs.size, LANGS.length, '같은 주소를 두 언어가 쓴다');
   assert.equal(alt['zh-Hans'], '/zh-hans/game/chess');
   assert.equal(alt['zh-Hant'], '/zh-hant/game/chess');
   assert.equal(alt['x-default'], '/en/game/chess');

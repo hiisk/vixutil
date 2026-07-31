@@ -12,7 +12,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang8.ts';
+import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang.ts';
 import { FOOD_CATEGORIES, INGREDIENTS, ingredient, ingredientsOfCategory } from '../lib/food/ingredients8.ts';
 import { VOLUMES, foodFacts, mlOfGrams, similarIngredients } from '../lib/food/facts.ts';
 import { FOOD_UI, foodAlternates } from '../lib/food/ui.ts';

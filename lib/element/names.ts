@@ -6,7 +6,7 @@
  * 옮긴 언어(스페인어·포르투갈어·프랑스어)도 어미가 제각각이라 규칙으로
  * 만들 수 없어, 한 줄씩 적는다.
  */
-import { type Lang8 } from '../i18n/lang8.ts';
+import { type Lang8 } from '../i18n/lang.ts';
 
 /** ko·en·es·pt·ja·de·fr·hi 여덟 칸 */
 export type Eight = [string, string, string, string, string, string, string, string];

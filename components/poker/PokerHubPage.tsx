@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import HandGrid from '@/components/poker/HandGrid';
-import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { LANGS, localeOfLang, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { HANDS, labelOf } from '@/lib/poker/list';
 import { chenScore, handFacts, kindCounts, tierCounts, tierOf, type Tier } from '@/lib/poker/facts';
 import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
@@ -16,13 +16,13 @@ const TIER_ORDER: Tier[] = ['premium', 'strong', 'playable', 'marginal', 'weak']
  *
  * 표가 곧 목차다. 169줄을 훑는 것보다 표에서 칸을 누르는 편이 빠르다.
  */
-export default function PokerHubPage({ lang }: { lang: Lang10 }) {
+export default function PokerHubPage({ lang }: { lang: Lang }) {
   const ui = pokerUi(lang);
-  const prefix = prefix10(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/game/poker`;
   // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
-  const base = localeOfLang10(lang);
+  const base = localeOfLang(lang);
   const n = HANDS.length;
   const kinds = kindCounts();
   const tiers = tierCounts();
@@ -126,7 +126,7 @@ export default function PokerHubPage({ lang }: { lang: Lang10 }) {
         <Faq items={faq} lang={base} title={ui.faq} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS10.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/poker`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

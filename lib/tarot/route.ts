@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { CARDS, TAROT_ICON } from './deck.ts';
 import { cardView } from './facts.ts';
 import { TAROT_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/fortune/card`, languages: alternates8('/fortune/card') },
+    alternates: { canonical: `${langPrefix(lang)}/fortune/card`, languages: alternates8('/fortune/card') },
   };
 }
 
@@ -32,7 +32,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(v.name)} — ${ui.section}`,
     description: ui.metaDesc(v.name, v.upright),
     alternates: {
-      canonical: `${prefix8(lang)}/fortune/card/${slug}`,
+      canonical: `${langPrefix(lang)}/fortune/card/${slug}`,
       languages: alternates8(`/fortune/card/${slug}`),
     },
   };

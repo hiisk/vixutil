@@ -6,7 +6,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { namedColor } from './named8.ts';
 import { colorFacts } from './facts.ts';
 import { COLOR_UI } from './ui.ts';
@@ -21,7 +21,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/color`, languages: alternates8('/color') },
+    alternates: { canonical: `${langPrefix(lang)}/color`, languages: alternates8('/color') },
   };
 }
 
@@ -34,7 +34,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(color.name[lang], f.hex)} — ${ui.section}`,
     description: ui.metaDesc(color.name[lang], f),
     alternates: {
-      canonical: `${prefix8(lang)}/color/${slug}`,
+      canonical: `${langPrefix(lang)}/color/${slug}`,
       languages: alternates8(`/color/${slug}`),
     },
   };

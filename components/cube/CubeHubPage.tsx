@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import CubeTop from '@/components/cube/CubeTop';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { ALGS, CUBE_ICON, STEPS, algsOfStep } from '@/lib/cube/list';
 import { caseFacts, diagram } from '@/lib/cube/facts';
 import { CUBE_UI } from '@/lib/cube/ui';
@@ -18,7 +18,7 @@ import { CUBE_UI } from '@/lib/cube/ui';
  */
 export default function CubeHubPage({ lang }: { lang: Lang8 }) {
   const ui = CUBE_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/game/cube`;
   const base = lang === 'ko' ? 'ko' : 'en';

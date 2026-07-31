@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { CSS_PROPS, CSS_ICON, PROP_KINDS, propsOfKind } from '@/lib/css/props';
 import { propDesc } from '@/lib/css/desc';
 import { CSS_UI } from '@/lib/css/ui';
@@ -17,7 +17,7 @@ import { CSS_UI } from '@/lib/css/ui';
  */
 export default function PropHubPage({ lang }: { lang: Lang8 }) {
   const ui = CSS_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/css`;
   const base = lang === 'ko' ? 'ko' : 'en';

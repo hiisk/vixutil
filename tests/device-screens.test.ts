@@ -13,7 +13,7 @@ import assert from 'node:assert/strict';
 import { SCREENS, SCREEN_KINDS, SCREEN_SLUGS, screen, screensOfKind } from '../lib/device/screens.ts';
 import { commonRatio, resolutionClass, retinaDistanceIn, screenFacts, screenView, similarScreens } from '../lib/device/facts.ts';
 import { DEVICE_UI } from '../lib/device/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(SCREENS.length >= 100, `${SCREENS.length}가지뿐이다`);

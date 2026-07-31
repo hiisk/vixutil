@@ -8,11 +8,11 @@
  * 하나·여럿을 가르는 언어가 있어서(1 move / 2 moves) `_one` 짝을 따로 둔다.
  * 첫 수 하나짜리 오프닝이 스무 개 넘으므로 이 자리는 늘 밟힌다.
  */
-import { LANG10_CODES, type L10, type Lang10 } from '../i18n/lang10.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { Group } from './facts.ts';
 import type { Trait } from './list.ts';
 
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L10<V> =>
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
   ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
 /** `{n}` 자리를 채운다 */
@@ -85,7 +85,7 @@ export interface ChessUI {
   trait: Record<Trait, string>;
 }
 
-const FLAT: Record<string, L10<string>> = {
+const FLAT: Record<string, L<string>> = {
   home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
   section: T('체스 오프닝', 'Chess Openings', 'Aperturas de ajedrez', 'Aberturas de xadrez', 'チェス・オープニング', 'Schacheröffnungen', "Ouvertures d'échecs", 'शतरंज ओपनिंग', '国际象棋开局', '西洋棋開局'),
 
@@ -281,7 +281,7 @@ const FLAT: Record<string, L10<string>> = {
   boardAlt: T('{name}의 판', 'Board after {name}', 'Tablero de {name}', 'Tabuleiro de {name}', '{name}の盤面', 'Stellung nach {name}', 'Échiquier de {name}', '{name} का बोर्ड', '{name}的局面', '{name}的局面'),
 };
 
-const PIECE: Record<string, L10<string>> = {
+const PIECE: Record<string, L<string>> = {
   P: T('폰', 'Pawn', 'Peón', 'Peão', 'ポーン', 'Bauer', 'Pion', 'प्यादा', '兵', '兵'),
   N: T('나이트', 'Knight', 'Caballo', 'Cavalo', 'ナイト', 'Springer', 'Cavalier', 'घोड़ा', '马', '馬'),
   B: T('비숍', 'Bishop', 'Alfil', 'Bispo', 'ビショップ', 'Läufer', 'Fou', 'ऊँट', '象', '象'),
@@ -290,7 +290,7 @@ const PIECE: Record<string, L10<string>> = {
   K: T('킹', 'King', 'Rey', 'Rei', 'キング', 'König', 'Roi', 'राजा', '王', '王'),
 };
 
-const GROUP: Record<Group, L10<string>> = {
+const GROUP: Record<Group, L<string>> = {
   open: T('열린 게임', 'Open Game', 'Juego abierto', 'Jogo aberto', 'オープンゲーム', 'Offene Spiele', 'Jeu ouvert', 'ओपन गेम', '开放性开局', '開放性開局'),
   semiopen: T('반열린 게임', 'Semi-Open Game', 'Juego semiabierto', 'Jogo semiaberto', 'セミオープンゲーム', 'Halboffene Spiele', 'Jeu semi-ouvert', 'सेमी-ओपन गेम', '半开放开局', '半開放開局'),
   closed: T('닫힌 게임', 'Closed Game', 'Juego cerrado', 'Jogo fechado', 'クローズドゲーム', 'Geschlossene Spiele', 'Jeu fermé', 'क्लोज्ड गेम', '封闭性开局', '封閉性開局'),
@@ -298,7 +298,7 @@ const GROUP: Record<Group, L10<string>> = {
   flank: T('옆줄 오프닝', 'Flank Opening', 'Aperturas de flanco', 'Aberturas de flanco', 'フランク・オープニング', 'Flankeneröffnungen', 'Ouvertures de flanc', 'फ्लैंक ओपनिंग', '侧翼开局', '側翼開局'),
 };
 
-const GROUP_NOTE: Record<Group, L10<string>> = {
+const GROUP_NOTE: Record<Group, L<string>> = {
   open: T(
     '1.e4에 흑이 1…e5로 맞선 자리에서 갈라져 나옵니다.',
     'Everything that starts 1.e4 e5.',
@@ -361,7 +361,7 @@ const GROUP_NOTE: Record<Group, L10<string>> = {
   ),
 };
 
-const TRAIT: Record<Trait, L10<string>> = {
+const TRAIT: Record<Trait, L<string>> = {
   'center-grab': T(
     '첫 수부터 폰으로 중앙을 차지합니다.',
     'A pawn takes the centre from the very first move.',
@@ -604,19 +604,19 @@ const TRAIT: Record<Trait, L10<string>> = {
   ),
 };
 
-const invert = <T,>(spec: Record<string, L10<T>>): L10<Record<string, T>> =>
+const invert = <T,>(spec: Record<string, L<T>>): L<Record<string, T>> =>
   Object.fromEntries(
-    LANG10_CODES.map(lang => [lang, Object.fromEntries(Object.entries(spec).map(([k, v]) => [k, v[lang]]))]),
-  ) as L10<Record<string, T>>;
+    LANG_CODES.map(lang => [lang, Object.fromEntries(Object.entries(spec).map(([k, v]) => [k, v[lang]]))]),
+  ) as L<Record<string, T>>;
 
 const flat = invert(FLAT);
-const group = invert(GROUP as unknown as Record<string, L10<string>>);
-const groupNote = invert(GROUP_NOTE as unknown as Record<string, L10<string>>);
-const trait = invert(TRAIT as unknown as Record<string, L10<string>>);
+const group = invert(GROUP as unknown as Record<string, L<string>>);
+const groupNote = invert(GROUP_NOTE as unknown as Record<string, L<string>>);
+const trait = invert(TRAIT as unknown as Record<string, L<string>>);
 const piece = invert(PIECE);
 
-export const CHESS_UI: L10<ChessUI> = Object.fromEntries(
-  LANG10_CODES.map(lang => [
+export const CHESS_UI: L<ChessUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
     {
       ...flat[lang],
@@ -626,6 +626,6 @@ export const CHESS_UI: L10<ChessUI> = Object.fromEntries(
       trait: trait[lang],
     },
   ]),
-) as unknown as L10<ChessUI>;
+) as unknown as L<ChessUI>;
 
-export const chessUi = (lang: Lang10): ChessUI => CHESS_UI[lang];
+export const chessUi = (lang: Lang): ChessUI => CHESS_UI[lang];

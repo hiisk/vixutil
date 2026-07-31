@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { EXTS, EXT_ICON, EXT_KINDS, extsOfKind } from '@/lib/ext/list';
 import { extFacts } from '@/lib/ext/facts';
 import { EXT_UI } from '@/lib/ext/ui';
@@ -17,7 +17,7 @@ import { EXT_UI } from '@/lib/ext/ui';
  */
 export default function ExtHubPage({ lang }: { lang: Lang8 }) {
   const ui = EXT_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/ext`;
   const base = lang === 'ko' ? 'ko' : 'en';

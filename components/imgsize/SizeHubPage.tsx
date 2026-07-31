@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { IMG_SIZES, IMG_SIZE_ICON, SIZE_KINDS, sizesOfKind } from '@/lib/imgsize/list';
 import { sizeFacts } from '@/lib/imgsize/facts';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
@@ -17,7 +17,7 @@ import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
  */
 export default function SizeHubPage({ lang }: { lang: Lang8 }) {
   const ui = IMG_SIZE_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/image/size`;
   const base = lang === 'ko' ? 'ko' : 'en';

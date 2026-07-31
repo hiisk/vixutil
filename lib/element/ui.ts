@@ -4,7 +4,7 @@
  * 원소 이름은 names.ts에 따로 두고, 여기에는 화면 틀과 갈래 이름만 둔다.
  * 항목마다의 설명은 계산한 자리(주기·족·갈래)에서 문장을 만든다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { Block, Category, ElementFacts } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }

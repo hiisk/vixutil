@@ -14,7 +14,7 @@ import { KINDS, PATTERNS, PATTERN_SLUGS, REGEX_ICON, patternOf, patternsOfKind }
 import { countGroups, groupNames, regexFacts, siblingPatterns, tryPattern } from '../lib/regex/facts.ts';
 import { WHAT, whatOf } from '../lib/regex/desc.ts';
 import { REGEX_UI } from '../lib/regex/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(PATTERNS.length >= 100, `${PATTERNS.length}가지뿐이다`);

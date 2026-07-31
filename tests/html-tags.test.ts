@@ -12,7 +12,7 @@ import { TAGS, TAG_ICON, TAG_KINDS, TAG_NAMES, tagOf, tagsOfKind } from '../lib/
 import { relatedTags, tagFacts } from '../lib/html/facts.ts';
 import { TAG_DESC, tagDesc } from '../lib/html/desc.ts';
 import { HTML_UI } from '../lib/html/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('100개가 넘는다', () => {
   assert.ok(TAGS.length >= 100, `${TAGS.length}개뿐이다`);

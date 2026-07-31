@@ -12,7 +12,7 @@
  * 중국어는 간체와 번체를 따로 적는다. 글자만 바뀌는 것이 아니라 낱말이 갈리는
  * 자리가 있어서(弃兵/棄兵, 后翼/後翼) 한쪽을 기계로 바꾸면 어긋난다.
  */
-import type { L10, Lang10 } from '../i18n/lang10.ts';
+import type { L, Lang } from '../i18n/lang.ts';
 
 export type Kind =
   | 'opening' | 'defence' | 'gambit' | 'attack' | 'system' | 'game'
@@ -38,10 +38,10 @@ export interface Word {
   de?: string;
   adj?: boolean;
   /** 성질 낱말을 붙이지 않고 통째로 쓰는 언어. true면 열 언어 모두 */
-  whole?: Partial<L10<string>> | true;
+  whole?: Partial<L<string>> | true;
 }
 
-const KIND_WORD: Record<Kind, L10<string>> = {
+const KIND_WORD: Record<Kind, L<string>> = {
   opening: { ko: '오프닝', en: 'Opening', es: 'Apertura', pt: 'Abertura', ja: 'オープニング', de: 'Eröffnung', fr: 'Ouverture', hi: 'ओपनिंग', zh: '开局', tw: '開局' },
   defence: { ko: '방어', en: 'Defence', es: 'Defensa', pt: 'Defesa', ja: 'ディフェンス', de: 'Verteidigung', fr: 'Défense', hi: 'डिफेंस', zh: '防御', tw: '防禦' },
   gambit: { ko: '갬빗', en: 'Gambit', es: 'Gambito', pt: 'Gambito', ja: 'ギャンビット', de: 'Gambit', fr: 'Gambit', hi: 'गैम्बिट', zh: '弃兵', tw: '棄兵' },
@@ -60,7 +60,7 @@ const KIND_WORD: Record<Kind, L10<string>> = {
  * 스페인어·포르투갈어·프랑스어는 성질 낱말이 앞에 온다(Defensa siciliana).
  * 독일어는 사람 이름이면 하이픈, 형용사면 빈칸이다. 중국어는 붙여 쓴다.
  */
-function join(lang: Lang10, word: string, kind: string, adj: boolean): string {
+function join(lang: Lang, word: string, kind: string, adj: boolean): string {
   switch (lang) {
     case 'es':
     case 'pt':
@@ -79,7 +79,7 @@ function join(lang: Lang10, word: string, kind: string, adj: boolean): string {
   }
 }
 
-export function wordName(w: Word, kind: Kind, lang: Lang10): string {
+export function wordName(w: Word, kind: Kind, lang: Lang): string {
   const pick = (w as unknown as Record<string, string | undefined>)[lang];
   if (w.whole === true) return pick ?? w.en;
   const whole = w.whole?.[lang];
@@ -250,13 +250,13 @@ export const LINES: Record<string, Entry> = {
 };
 
 /** 계열 이름만 */
-export const familyName = (id: string, lang: Lang10): string => {
+export const familyName = (id: string, lang: Lang): string => {
   const f = FAMILIES[id];
   return f ? wordName(f.word, f.kind, lang) : id;
 };
 
 /** 갈래 이름만 */
-export const lineName = (id: string, lang: Lang10): string => {
+export const lineName = (id: string, lang: Lang): string => {
   const l = LINES[id];
   return l ? wordName(l.word, l.kind, lang) : id;
 };
@@ -265,12 +265,12 @@ export const lineName = (id: string, lang: Lang10): string => {
  * 계열을 잇는 부호. 일본어·중국어는 온각 부호를 쓴다 — 반각 쉼표는 글자 사이가
  * 붙어 보여서 두 이름이 한 낱말처럼 읽힌다.
  */
-const SEP: L10<string> = {
+const SEP: L<string> = {
   ko: ', ', en: ', ', es: ', ', pt: ', ', ja: '、', de: ', ', fr: ', ', hi: ', ', zh: '，', tw: '，',
 };
 
 /** 계열 + 갈래 — "Sicilian Defence, Najdorf Variation" */
-export function fullName(family: string, line: string | undefined, lang: Lang10): string {
+export function fullName(family: string, line: string | undefined, lang: Lang): string {
   const head = familyName(family, lang);
   if (!line) return head;
   const tail = lineName(line, lang);

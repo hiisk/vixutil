@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { TAGS, TAG_ICON, TAG_KINDS, tagsOfKind } from '@/lib/html/tags';
 import { tagDesc } from '@/lib/html/desc';
 import { HTML_UI } from '@/lib/html/ui';
@@ -17,7 +17,7 @@ import { HTML_UI } from '@/lib/html/ui';
  */
 export default function TagHubPage({ lang }: { lang: Lang8 }) {
   const ui = HTML_UI[lang];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
   const path = `${prefix}/html`;
   const base = lang === 'ko' ? 'ko' : 'en';

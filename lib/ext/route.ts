@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { EXTS, EXT_ICON, extOf } from './list.ts';
 import { extFacts } from './facts.ts';
 import { EXT_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/ext`, languages: alternates8('/ext') },
+    alternates: { canonical: `${langPrefix(lang)}/ext`, languages: alternates8('/ext') },
   };
 }
 
@@ -32,7 +32,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(x.ext)} — ${ui.section}`,
     description: ui.metaDesc(extFacts(x), ui.kindLabel[x.kind]),
     alternates: {
-      canonical: `${prefix8(lang)}/ext/${slug}`,
+      canonical: `${langPrefix(lang)}/ext/${slug}`,
       languages: alternates8(`/ext/${slug}`),
     },
   };

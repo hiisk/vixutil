@@ -15,7 +15,7 @@ import { apply, f2lIntact, isSolved, reverseAlg, solved, tokens } from '../lib/c
 import { ALGS, ALG_SLUGS, CUBE_ICON, F2L, OLL, PLL, STEPS, algOf, algsOfStep } from '../lib/cube/list.ts';
 import { caseFacts, diagram, readLastLayer } from '../lib/cube/facts.ts';
 import { CUBE_UI } from '../lib/cube/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang8.ts';
+import { LANG8_CODES } from '../lib/i18n/lang.ts';
 
 test('한 수를 네 번 돌리면 제자리로 온다', () => {
   for (const m of ['U', 'D', 'R', 'L', 'F', 'B', 'M', 'E', 'S', 'r', 'l', 'u', 'd', 'f', 'b', 'x', 'y', 'z']) {

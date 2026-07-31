@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, prefix8, type Lang8 } from '@/lib/i18n/lang8';
+import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { HTTP_ICON, httpItemOf } from '@/lib/http/list';
 import { httpFacts, relatedHttp } from '@/lib/http/facts';
 import { httpDesc } from '@/lib/http/desc';
@@ -23,7 +23,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang8 }) 
   const f = httpFacts(x);
   const desc = httpDesc(slug, lang);
   const kind = f.kind === 'status' ? ui.classLabel[f.klass!] : ui.sideLabel[f.side!];
-  const prefix = prefix8(lang);
+  const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/http`;
   const path = `${prefix}/http/${slug}`;
   const base = lang === 'ko' ? 'ko' : 'en';

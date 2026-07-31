@@ -118,7 +118,7 @@ export function sameZoneCities(city: TimeCity, limit = 8): TimeCity[] {
  * 시차는 기준 도시들과의 차이를 그 언어 이름으로 적어 둔다. FAQ와 메타 설명이
  * 116곳 × 여덟 언어라 문장 틀에서 바로 쓸 수 있는 꼴로 넘겨야 한다.
  */
-import type { Lang8 } from '../i18n/lang8.ts';
+import type { Lang8 } from '../i18n/lang.ts';
 import { timeCountry } from './cities8.ts';
 import type { CityFacts } from './ui.ts';
 

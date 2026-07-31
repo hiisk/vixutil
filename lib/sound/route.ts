@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { FREQS, FREQ_ICON, freqOf, freqSlug } from './freqs.ts';
 import { freqFacts } from './facts.ts';
 import { SOUND_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/sound/hz`, languages: alternates8('/sound/hz') },
+    alternates: { canonical: `${langPrefix(lang)}/sound/hz`, languages: alternates8('/sound/hz') },
   };
 }
 
@@ -33,7 +33,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(f.hz)} — ${ui.section}`,
     description: ui.metaDesc(facts),
     alternates: {
-      canonical: `${prefix8(lang)}/sound/hz/${slug}`,
+      canonical: `${langPrefix(lang)}/sound/hz/${slug}`,
       languages: alternates8(`/sound/hz/${slug}`),
     },
   };

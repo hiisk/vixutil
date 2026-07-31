@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { GLYPHS, GLYPH_ICON, glyphOf } from './list.ts';
 import { glyphFacts } from './facts.ts';
 import { GLYPH_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/text/char`, languages: alternates8('/text/char') },
+    alternates: { canonical: `${langPrefix(lang)}/text/char`, languages: alternates8('/text/char') },
   };
 }
 
@@ -32,7 +32,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(g.char)} — ${ui.section}`,
     description: ui.metaDesc(glyphFacts(g), ui.kindLabel[g.kind]),
     alternates: {
-      canonical: `${prefix8(lang)}/text/char/${slug}`,
+      canonical: `${langPrefix(lang)}/text/char/${slug}`,
       languages: alternates8(`/text/char/${slug}`),
     },
   };

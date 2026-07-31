@@ -4,7 +4,7 @@
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, prefix8, type Lang8 } from '../i18n/lang8.ts';
+import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
 import { LENSES, LENS_ICON, lensOf } from './list.ts';
 import { lensFacts } from './facts.ts';
 import { LENS_UI } from './ui.ts';
@@ -20,7 +20,7 @@ export function hubMetadata(lang: Lang8): Metadata {
   return {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
-    alternates: { canonical: `${prefix8(lang)}/snap/lens`, languages: alternates8('/snap/lens') },
+    alternates: { canonical: `${langPrefix(lang)}/snap/lens`, languages: alternates8('/snap/lens') },
   };
 }
 
@@ -33,7 +33,7 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     title: `${ui.metaTitle(f.focal, f.sensorName)} — ${ui.section}`,
     description: ui.metaDesc(f, ui.kindLabel[f.kind]),
     alternates: {
-      canonical: `${prefix8(lang)}/snap/lens/${slug}`,
+      canonical: `${langPrefix(lang)}/snap/lens/${slug}`,
       languages: alternates8(`/snap/lens/${slug}`),
     },
   };

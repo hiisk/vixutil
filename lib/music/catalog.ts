@@ -9,7 +9,7 @@
  * "C-Dur-Akkord", 스페인어는 "Acorde de Do mayor"다. 한 틀로 찍으면 그 나라
  * 사람이 자기 말로 검색하는 이름과 어긋나므로 언어마다 조립 규칙을 둔다.
  */
-import type { L8, Lang8 } from '../i18n/lang8.ts';
+import type { L8, Lang8 } from '../i18n/lang.ts';
 import { CHORD_QUALITIES, INTERVALS, INTERVAL_SENTENCE, SCALE_MODES } from './theory.ts';
 import { noteName, noteSymbol, prefersFlat, slugOf, type Pc } from './notes.ts';
 

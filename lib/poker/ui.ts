@@ -5,22 +5,22 @@
  * 0,45%) 숫자를 문장에 끼우기 전에 그 언어의 형식으로 만든다 — 표와 본문이
  * 따로 놀면 같은 값이 두 모양으로 보인다.
  */
-import { LANG10_CODES, type L10, type Lang10 } from '../i18n/lang10.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { HandKind } from './list.ts';
 import type { Tier } from './facts.ts';
 
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L10<V> =>
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
   ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
 export const fill = (tpl: string, vars: Record<string, string | number>): string =>
   tpl.replace(/\{(\w+)\}/g, (_, key: string) => String(vars[key] ?? ''));
 
 /** 그 언어의 숫자 형식. 자릿수는 부르는 쪽이 정한다 */
-const NUM: L10<string> = {
+const NUM: L<string> = {
   ko: 'ko', en: 'en', es: 'es', pt: 'pt-BR', ja: 'ja', de: 'de', fr: 'fr', hi: 'hi', zh: 'zh-Hans', tw: 'zh-Hant',
 };
 
-export const numFmt = (lang: Lang10, value: number, digits = 2): string =>
+export const numFmt = (lang: Lang, value: number, digits = 2): string =>
   new Intl.NumberFormat(NUM[lang], { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(value);
 
 export interface PokerUI {
@@ -72,7 +72,7 @@ export interface PokerUI {
   flop: Record<string, string>;
 }
 
-const FLAT: Record<string, L10<string>> = {
+const FLAT: Record<string, L<string>> = {
   home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
   section: T('홀덤 시작 핸드', "Hold'em Starting Hands", 'Manos iniciales de Hold’em', 'Mãos iniciais de Hold’em', 'ホールデムのスターティングハンド', "Hold'em-Starthände", 'Mains de départ au Hold’em', 'होल्डम शुरुआती हाथ', '德州扑克起手牌', '德州撲克起手牌'),
   hubTitle: T(
@@ -248,13 +248,13 @@ const FLAT: Record<string, L10<string>> = {
   ),
 };
 
-const KIND: Record<HandKind, L10<string>> = {
+const KIND: Record<HandKind, L<string>> = {
   pair: T('포켓 페어', 'Pocket pair', 'Pareja servida', 'Par servido', 'ポケットペア', 'Pocketpaar', 'Paire servie', 'पॉकेट पेयर', '口袋对子', '口袋對子'),
   suited: T('수티드', 'Suited', 'Del mismo palo', 'Do mesmo naipe', 'スーテッド', 'Suited', 'Assortie', 'सूटेड', '同花', '同花'),
   offsuit: T('오프수트', 'Offsuit', 'De distinto palo', 'De naipes diferentes', 'オフスート', 'Offsuit', 'Dépareillée', 'ऑफसूट', '非同花', '非同花'),
 };
 
-const KIND_NOTE: Record<HandKind, L10<string>> = {
+const KIND_NOTE: Record<HandKind, L<string>> = {
   pair: T(
     '같은 순위 두 장. 무늬 짝이 여섯 가지라 가장 드물게 들어옵니다.',
     'Two cards of the same rank. Six suit pairings, so the rarest type to be dealt.',
@@ -293,7 +293,7 @@ const KIND_NOTE: Record<HandKind, L10<string>> = {
   ),
 };
 
-const TIER: Record<Tier, L10<string>> = {
+const TIER: Record<Tier, L<string>> = {
   premium: T('최상위', 'Premium', 'Premium', 'Premium', 'プレミアム', 'Premium', 'Premium', 'प्रीमियम', '顶级', '頂級'),
   strong: T('강한 핸드', 'Strong', 'Fuerte', 'Forte', '強い手', 'Stark', 'Forte', 'मज़बूत', '较强', '較強'),
   playable: T('둘 만한 핸드', 'Playable', 'Jugable', 'Jogável', '打てる手', 'Spielbar', 'Jouable', 'खेलने लायक', '可玩', '可玩'),
@@ -301,7 +301,7 @@ const TIER: Record<Tier, L10<string>> = {
   weak: T('약한 핸드', 'Weak', 'Débil', 'Fraca', '弱い手', 'Schwach', 'Faible', 'कमज़ोर', '偏弱', '偏弱'),
 };
 
-const TIER_NOTE: Record<Tier, L10<string>> = {
+const TIER_NOTE: Record<Tier, L<string>> = {
   premium: T('첸 점수 10점 이상 — 어느 자리에서도 들어갈 수 있는 핸드입니다.', 'Chen 10 or more — playable from any seat.', 'Chen 10 o más: jugable desde cualquier posición.', 'Chen 10 ou mais: jogável de qualquer posição.', 'チェン10点以上 — どの席からでも入れる手です。', 'Chen 10 oder mehr — von jeder Position spielbar.', 'Chen 10 ou plus — jouable depuis n’importe quelle position.', 'चेन 10 या ज़्यादा — किसी भी पोज़िशन से खेलने लायक।', '陈氏10分以上 — 任何位置都能进池。', '陳氏10分以上 — 任何位置都能進池。'),
   strong: T('첸 점수 8~9점 — 앞자리만 아니면 대개 들어갑니다.', 'Chen 8–9 — usually fine outside of early position.', 'Chen 8–9: bien salvo en posición temprana.', 'Chen 8–9: bem, exceto em posição inicial.', 'チェン8〜9点 — 早い席でなければたいてい入れます。', 'Chen 8–9 — außerhalb früher Position meist in Ordnung.', 'Chen 8–9 — correct hors position précoce.', 'चेन 8–9 — शुरुआती पोज़िशन के अलावा ठीक।', '陈氏8~9分 — 除前位外一般可以打。', '陳氏8~9分 — 除前位外一般可以打。'),
   playable: T('첸 점수 6~7점 — 뒷자리나 사람이 적을 때 쓰는 핸드입니다.', 'Chen 6–7 — for late position or a short table.', 'Chen 6–7: para posición tardía o mesa corta.', 'Chen 6–7: para posição tardia ou mesa curta.', 'チェン6〜7点 — 遅い席や人数が少ないときの手です。', 'Chen 6–7 — für späte Position oder wenige Gegner.', 'Chen 6–7 — pour position tardive ou table courte.', 'चेन 6–7 — लेट पोज़िशन या कम खिलाड़ियों के लिए।', '陈氏6~7分 — 适合后位或人少的桌子。', '陳氏6~7分 — 適合後位或人少的桌子。'),
@@ -309,7 +309,7 @@ const TIER_NOTE: Record<Tier, L10<string>> = {
   weak: T('첸 점수 3점 이하 — 대체로 접는 쪽이 낫습니다.', 'Chen 3 or less — usually a fold.', 'Chen 3 o menos: normalmente, retirarse.', 'Chen 3 ou menos: normalmente, desistir.', 'チェン3点以下 — たいていは降りる手です。', 'Chen 3 oder weniger — meist ein Fold.', 'Chen 3 ou moins — en général, on se couche.', 'चेन 3 या कम — आम तौर पर फोल्ड।', '陈氏3分以下 — 一般选择弃牌。', '陳氏3分以下 — 一般選擇棄牌。'),
 };
 
-const FLOP: Record<string, L10<string>> = {
+const FLOP: Record<string, L<string>> = {
   set: T('셋 이상', 'Set or better', 'Trío o mejor', 'Trinca ou melhor', 'セット以上', 'Set oder besser', 'Brelan ou mieux', 'सेट या बेहतर', '中三条或更好', '中三條或更好'),
   quads: T('포카드', 'Quads', 'Póker', 'Quadra', 'クアッズ', 'Vierling', 'Carré', 'क्वाड्स', '四条', '四條'),
   noOver: T('오버카드 없는 플롭', 'No overcard on the flop', 'Flop sin sobrecartas', 'Flop sem cartas maiores', 'オーバーカード無しのフロップ', 'Flop ohne höhere Karte', 'Flop sans surcarte', 'फ्लॉप पर कोई बड़ा पत्ता नहीं', '翻牌无超牌', '翻牌無超牌'),
@@ -320,23 +320,23 @@ const FLOP: Record<string, L10<string>> = {
   flush: T('바로 플러시', 'Flopped flush', 'Color en el flop', 'Flush no flop', 'フロップでフラッシュ', 'Flush im Flop', 'Couleur au flop', 'फ्लॉप पर फ्लश', '翻牌成同花', '翻牌成同花'),
 };
 
-const invert = <T,>(spec: Record<string, L10<T>>): L10<Record<string, T>> =>
+const invert = <T,>(spec: Record<string, L<T>>): L<Record<string, T>> =>
   Object.fromEntries(
-    LANG10_CODES.map(lang => [lang, Object.fromEntries(Object.entries(spec).map(([k, v]) => [k, v[lang]]))]),
-  ) as L10<Record<string, T>>;
+    LANG_CODES.map(lang => [lang, Object.fromEntries(Object.entries(spec).map(([k, v]) => [k, v[lang]]))]),
+  ) as L<Record<string, T>>;
 
 const flat = invert(FLAT);
-const kind = invert(KIND as unknown as Record<string, L10<string>>);
-const kindNote = invert(KIND_NOTE as unknown as Record<string, L10<string>>);
-const tier = invert(TIER as unknown as Record<string, L10<string>>);
-const tierNote = invert(TIER_NOTE as unknown as Record<string, L10<string>>);
+const kind = invert(KIND as unknown as Record<string, L<string>>);
+const kindNote = invert(KIND_NOTE as unknown as Record<string, L<string>>);
+const tier = invert(TIER as unknown as Record<string, L<string>>);
+const tierNote = invert(TIER_NOTE as unknown as Record<string, L<string>>);
 const flop = invert(FLOP);
 
-export const POKER_UI: L10<PokerUI> = Object.fromEntries(
-  LANG10_CODES.map(lang => [
+export const POKER_UI: L<PokerUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
     { ...flat[lang], kind: kind[lang], kindNote: kindNote[lang], tier: tier[lang], tierNote: tierNote[lang], flop: flop[lang] },
   ]),
-) as unknown as L10<PokerUI>;
+) as unknown as L<PokerUI>;
 
-export const pokerUi = (lang: Lang10): PokerUI => POKER_UI[lang];
+export const pokerUi = (lang: Lang): PokerUI => POKER_UI[lang];

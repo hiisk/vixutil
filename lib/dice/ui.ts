@@ -4,7 +4,7 @@
  * 항목 이름은 "2d6 = 7"이라 옮길 것이 없고, 항목마다의 설명도 손으로 적지 않는다.
  * 계산해 낸 경우의 수와 순위에서 문장을 만든다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang8.ts';
+import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
 import type { RollFacts } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }

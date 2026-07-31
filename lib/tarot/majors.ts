@@ -11,7 +11,7 @@
  * 해석은 한 문장씩만 적는다. 여기는 뽑기 도구가 아니라 카드를 찾아보는
  * 자료 페이지라, 길게 쓰면 78장이 다 비슷해 보인다.
  */
-import type { L8 } from '../i18n/lang8.ts';
+import type { L8 } from '../i18n/lang.ts';
 
 /** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
 const T = (ko: string, en: string, es: string, pt: string, ja: string, de: string, fr: string, hi: string): L8<string> =>
