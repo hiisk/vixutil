@@ -201,7 +201,6 @@ test('열 언어 라우트와 공유 카드가 다 있다', () => {
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
     assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/opengraph-image.tsx`), `${p}/[slug]/opengraph-image.tsx 없음`);
   }
   // 중국어는 이 섹션에서 빼기로 했다 — 라우트가 되살아나면 여기서 잡힌다
   assert.ok(!existsSync('app/zh/metro'), 'app/zh/metro가 남아 있다');

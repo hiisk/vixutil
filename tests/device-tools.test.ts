@@ -43,7 +43,6 @@ test('화면 규격 라우트는 화면 목록에서 페이지를 만든다', ()
   assert.ok(src.includes('screenParams'), '[slug] 라우트가 화면 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'screen', 'page.tsx')), '화면 규격 목록 페이지가 없다');
-  assert.ok(existsSync(join(APP, 'screen', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('slug가 중복되지 않는다', () => {

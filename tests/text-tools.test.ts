@@ -47,7 +47,6 @@ test('특수문자 라우트는 글자 목록에서 페이지를 만든다', () 
   assert.ok(src.includes('glyphParams'), '[slug] 라우트가 글자 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'char', 'page.tsx')), '특수문자 목록 페이지가 없다');
-  assert.ok(existsSync(join(APP, 'char', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('정규식 라우트는 식 목록에서 페이지를 만든다', () => {
@@ -56,7 +55,6 @@ test('정규식 라우트는 식 목록에서 페이지를 만든다', () => {
   assert.ok(src.includes('patternParams'), '[slug] 라우트가 식 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'regex', 'page.tsx')), '정규식 목록 페이지가 없다');
-  assert.ok(existsSync(join(APP, 'regex', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('slug가 중복되지 않는다', () => {

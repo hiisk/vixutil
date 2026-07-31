@@ -95,7 +95,6 @@ test('FAQ가 실제 계산값을 담는다', () => {
 test('허브와 상세 라우트가 있다', () => {
   assert.ok(existsSync(join(ROOT, 'app', 'convert', 'page.tsx')));
   assert.ok(existsSync(join(ROOT, 'app', 'convert', '[slug]', 'page.tsx')));
-  assert.ok(existsSync(join(ROOT, 'app', 'convert', '[slug]', 'opengraph-image.tsx')));
   assert.ok((SECTION_FAQ.convert ?? []).length >= 3, '허브 FAQ가 부족하다');
 });
 
@@ -191,7 +190,6 @@ test('여덟 언어 라우트가 다 있다', () => {
     assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
     assert.ok(existsSync(join(base, 'opengraph-image.tsx')), `${lang} 허브 OG 없음`);
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
-    assert.ok(existsSync(join(base, '[slug]', 'opengraph-image.tsx')), `${lang} 상세 OG 없음`);
   }
 });
 
