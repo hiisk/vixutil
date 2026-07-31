@@ -14,7 +14,8 @@ import { KINDS, PATTERNS, PATTERN_SLUGS, REGEX_ICON, patternOf, patternsOfKind }
 import { countGroups, groupNames, regexFacts, siblingPatterns, tryPattern } from '../lib/regex/facts.ts';
 import { WHAT, whatOf } from '../lib/regex/desc.ts';
 import { REGEX_UI } from '../lib/regex/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(PATTERNS.length >= 100, `${PATTERNS.length}가지뿐이다`);
@@ -142,12 +143,12 @@ test('갈래가 빈 곳 없이 덮는다', () => {
   for (const k of KINDS) assert.ok(patternsOfKind(k).length >= 5, `${k}가 너무 적다`);
 });
 
-test('133개 모두 여덟 언어 설명이 있다', () => {
+test('133개 모두 열 언어 설명이 있다', () => {
   for (const x of PATTERNS) {
     const row = WHAT[x.slug];
     assert.ok(row, `${x.slug}: 설명이 없다`);
-    assert.equal(row.length, 8, `${x.slug}: 여덟 칸이 아니다`);
-    for (const lang of LANG8_CODES) {
+    assert.equal(row.length, 10, `${x.slug}: 열 칸이 아니다`);
+    for (const lang of LANG_CODES) {
       assert.ok(whatOf(x.slug, lang).trim().length > 1, `${x.slug}/${lang}: 설명이 비었다`);
     }
   }
@@ -157,7 +158,7 @@ test('133개 모두 여덟 언어 설명이 있다', () => {
 
 test('한 언어 안에서 설명이 겹치지 않는다', () => {
   // 설명이 곧 화면 제목이 된다 — 겹치면 두 페이지가 같은 제목으로 색인된다
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const seen = new Map<string, string>();
     for (const x of PATTERNS) {
       const w = whatOf(x.slug, lang);
@@ -170,7 +171,7 @@ test('한 언어 안에서 설명이 겹치지 않는다', () => {
 
 test('언어끼리 글자가 섞이지 않는다', () => {
   for (const x of PATTERNS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = whatOf(x.slug, lang);
       if (lang !== 'ko') assert.ok(!/[가-힣]/.test(d), `${x.slug}/${lang}: 한글이 섞였다 — ${d}`);
       if (lang !== 'ja' && lang !== 'ko') assert.ok(!/[ぁ-んァ-ヶ]/.test(d), `${x.slug}/${lang}: 가나가 섞였다 — ${d}`);
@@ -179,13 +180,14 @@ test('언어끼리 글자가 섞이지 않는다', () => {
   }
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = regexFacts(patternOf('email')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = REGEX_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 읽는 방법 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -202,9 +204,9 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 test('설명이 모든 항목에서 만들어진다', () => {
   for (const x of PATTERNS) {
     const f = regexFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = REGEX_UI[lang].desc(f, whatOf(x.slug, lang));
-      const floor = lang === 'ja' || lang === 'ko' ? 20 : 35;
+      const floor = DENSE.has(lang) ? 20 : 35;
       assert.ok(d.length > floor, `${lang}/${x.slug}: 설명이 너무 짧다 — ${d}`);
     }
   }
@@ -212,7 +214,7 @@ test('설명이 모든 항목에서 만들어진다', () => {
 
 test('앵커 여부가 설명에 그대로 드러난다', () => {
   // 계산한 사실이 문장에 반영되지 않으면, 검사식과 찾기식을 같은 말로 설명하게 된다
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = REGEX_UI[lang];
     const anchored = ui.desc(regexFacts(patternOf('email')!), 'x');
     const loose = ui.desc(regexFacts(patternOf('digit')!), 'x');
@@ -220,16 +222,16 @@ test('앵커 여부가 설명에 그대로 드러난다', () => {
   }
 });
 
-test('모든 식이 여덟 언어 메타를 만든다', () => {
+test('모든 식이 열 언어 메타를 만든다', () => {
   for (const x of PATTERNS) {
     const f = regexFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = REGEX_UI[lang];
       const what = whatOf(x.slug, lang);
       assert.ok(ui.metaTitle(what).includes(what), `${lang}/${x.slug}: 제목에 대상이 없다`);
       const desc = ui.metaDesc(f, what);
       assert.ok(desc.includes(x.re), `${lang}/${x.slug}: 설명에 식이 없다`);
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${x.slug}: 설명이 너무 짧다`);
     }
   }

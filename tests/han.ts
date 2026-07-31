@@ -66,3 +66,12 @@ export function hanProblem(lang: string, text: string): string {
   const side = lang === 'zh' ? '번체' : '간체';
   return `${lang}: ${side} 글자 ${stray.join('·')}가 섞였다 — ${text}`;
 }
+
+/**
+ * 한 글자가 한 낱말을 하는 글자체.
+ *
+ * 검사에서 "설명이 너무 짧다"를 볼 때 쓴다. 같은 내용을 적어도 한글·가나·한자는
+ * 로마자의 절반 남짓이라, 길이 하한을 하나로 두면 멀쩡한 중국어 문장이 걸린다.
+ * 하한의 목적은 문장이 아예 안 만들어진 것을 잡는 데 있지 길이를 재는 데 있지 않다.
+ */
+export const DENSE: ReadonlySet<string> = new Set(['ko', 'ja', 'zh', 'tw']);

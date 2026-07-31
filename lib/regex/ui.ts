@@ -5,7 +5,7 @@
  * "무엇에 맞는가" 한 마디에, 식에서 계산한 사실(앞뒤가 묶였는지, 잡는 묶음이
  * 몇 개인지)을 붙여 만든다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { RegexKind } from './list.ts';
 import type { RegexFacts } from './facts.ts';
 
@@ -48,15 +48,15 @@ export interface RegexUI {
   patternFaq: (f: RegexFacts, what: string, okOne: string, noOne: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof RegexUI]: L8<RegexUI[K]> };
+type Spec = { [K in keyof RegexUI]: L<RegexUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('정규식', 'Regular expressions', 'Expresiones regulares', 'Expressões regulares', '正規表現', 'Reguläre Ausdrücke', 'Expressions régulières', 'रेगुलर एक्सप्रेशन'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('정규식', 'Regular expressions', 'Expresiones regulares', 'Expressões regulares', '正規表現', 'Reguläre Ausdrücke', 'Expressions régulières', 'रेगुलर एक्सप्रेशन', '正则表达式', '正規表示式'),
 
   hubTitle: T(
     '정규식 133가지',
@@ -67,6 +67,8 @@ const SPEC: Spec = {
     '133 reguläre Ausdrücke',
     '133 expressions régulières',
     '133 रेगुलर एक्सप्रेशन',
+    '正则表达式 133 例',
+    '正規表示式 133 例',
   ),
 
   hubLead: T(
@@ -78,6 +80,8 @@ const SPEC: Spec = {
     'Von der Notation bis zur Prüfung von E-Mails, Daten und Adressen. Zu jedem Ausdruck gehören Beispiele, die passen sollen, und solche, die nicht passen dürfen — und die Tests führen sie wirklich aus.',
     'De la notation jusqu’aux contrôles d’e-mails, de dates et d’adresses. Chaque expression est livrée avec des exemples qui doivent correspondre et d’autres non — et les tests les exécutent vraiment.',
     'संकेतन से लेकर ईमेल, तारीख़ और पते की जाँच तक। हर एक्सप्रेशन के साथ मिलने वाले और न मिलने वाले उदाहरण हैं, और जाँच उन्हें सचमुच चलाती है।',
+    '从写法本身，到电子邮件、日期、地址的校验。每个式子都配了该匹配的例子和不该匹配的例子，而且测试每次都真的跑一遍。',
+    '從寫法本身，到電子郵件、日期、位址的檢查。每個式子都配了該符合的例子和不該符合的例子，而且測試每次都真的跑一遍。',
   ),
 
   kindLabel: T(
@@ -89,6 +93,8 @@ const SPEC: Spec = {
     { syntax: 'Notation', quantifier: 'Wiederholung und Gruppen', lookaround: 'Umschauen', validate: 'Prüfung der ganzen Zeichenkette', extract: 'Finden und säubern' },
     { syntax: 'Notation', quantifier: 'Répétitions et groupes', lookaround: 'Regarder autour', validate: 'Contrôle de la chaîne entière', extract: 'Trouver et nettoyer' },
     { syntax: 'संकेतन', quantifier: 'दोहराव और समूह', lookaround: 'आगे-पीछे देखना', validate: 'पूरी स्ट्रिंग की जाँच', extract: 'खोजना और साफ़ करना' },
+    { syntax: '写法', quantifier: '重复与分组', lookaround: '前后查看', validate: '整串校验', extract: '提取与清理' },
+    { syntax: '寫法', quantifier: '重複與分組', lookaround: '前後查看', validate: '整串檢查', extract: '擷取與清理' },
   ),
 
   kindNote: T(
@@ -148,6 +154,20 @@ const SPEC: Spec = {
       validate: 'दोनों सिरों पर लंगर — पूरी स्ट्रिंग मिलनी चाहिए। इनपुट जाँच यही इस्तेमाल करती है।',
       extract: 'बड़े पाठ में से सिर्फ़ ज़रूरी हिस्सा निकालने या हटाने के लिए।',
     },
+    {
+      syntax: '规定怎样指向单个字符的写法。其余一切都从这里开始。',
+      quantifier: '规定重复多少次，以及把哪一段看作一个整体。',
+      lookaround: '只查看前后有什么，并不把它吃掉。叠加条件时用得上。',
+      validate: '两端都锚住，整个字符串合上才算通过。输入校验用的就是这类。',
+      extract: '用来从一段文字里只挑出、或只删掉需要的那部分。',
+    },
+    {
+      syntax: '規定怎樣指向單個字元的寫法。其餘一切都從這裡開始。',
+      quantifier: '規定重複多少次，以及把哪一段看作一個整體。',
+      lookaround: '只查看前後有什麼，並不把它吃掉。疊加條件時用得上。',
+      validate: '兩端都錨住，整個字串合上才算通過。輸入檢查用的就是這類。',
+      extract: '用來從一段文字裡只挑出、或只刪掉需要的那部分。',
+    },
   ),
 
   flagLabel: T(
@@ -159,20 +179,22 @@ const SPEC: Spec = {
     { i: 'Groß/Klein egal', g: 'alle finden', m: 'je Zeile', s: 'Punkt trifft Zeilenumbruch', u: 'Unicode', y: 'haftend' },
     { i: 'casse ignorée', g: 'tout trouver', m: 'par ligne', s: 'le point inclut le saut', u: 'unicode', y: 'collant' },
     { i: 'केस अनदेखा', g: 'सब खोजें', m: 'प्रति पंक्ति', s: 'बिंदु लाइन ब्रेक भी', u: 'यूनिकोड', y: 'चिपकू' },
+    { i: '不分大小写', g: '全部查找', m: '逐行', s: '点号含换行', u: 'Unicode', y: '紧贴上次位置' },
+    { i: '不分大小寫', g: '全部尋找', m: '逐行', s: '點號含換行', u: 'Unicode', y: '緊貼上次位置' },
   ),
 
-  patternLabel: T('식', 'Pattern', 'Patrón', 'Padrão', '式', 'Muster', 'Motif', 'पैटर्न'),
-  flagsLabel: T('플래그', 'Flags', 'Banderas', 'Flags', 'フラグ', 'Flags', 'Options', 'फ़्लैग'),
-  groupsLabel: T('잡는 묶음', 'Capture groups', 'Grupos de captura', 'Grupos de captura', '取り出すグループ', 'Fanggruppen', 'Groupes capturants', 'कैप्चर समूह'),
-  anchoredLabel: T('맞춤 범위', 'Match scope', 'Alcance', 'Alcance', '一致の範囲', 'Trefferbereich', 'Portée', 'मिलान का दायरा'),
-  anchoredYes: T('문자열 전체', 'the whole string', 'la cadena entera', 'a cadeia inteira', '文字列全体', 'die ganze Zeichenkette', 'la chaîne entière', 'पूरी स्ट्रिंग'),
-  anchoredNo: T('글 안 어디든', 'anywhere inside the text', 'en cualquier parte del texto', 'em qualquer parte do texto', '文中のどこでも', 'irgendwo im Text', "n'importe où dans le texte", 'पाठ में कहीं भी'),
-  sampleLabel: T('첫 보기에서 잡히는 부분', 'What it catches in the first example', 'Lo que captura en el primer ejemplo', 'O que captura no primeiro exemplo', '最初の例で取れる部分', 'Was es im ersten Beispiel fängt', 'Ce qu’il capture dans le premier exemple', 'पहले उदाहरण में क्या पकड़ता है'),
+  patternLabel: T('식', 'Pattern', 'Patrón', 'Padrão', '式', 'Muster', 'Motif', 'पैटर्न', '表达式', '表示式'),
+  flagsLabel: T('플래그', 'Flags', 'Banderas', 'Flags', 'フラグ', 'Flags', 'Options', 'फ़्लैग', '标志', '旗標'),
+  groupsLabel: T('잡는 묶음', 'Capture groups', 'Grupos de captura', 'Grupos de captura', '取り出すグループ', 'Fanggruppen', 'Groupes capturants', 'कैप्चर समूह', '捕获组', '擷取群組'),
+  anchoredLabel: T('맞춤 범위', 'Match scope', 'Alcance', 'Alcance', '一致の範囲', 'Trefferbereich', 'Portée', 'मिलान का दायरा', '匹配范围', '比對範圍'),
+  anchoredYes: T('문자열 전체', 'the whole string', 'la cadena entera', 'a cadeia inteira', '文字列全体', 'die ganze Zeichenkette', 'la chaîne entière', 'पूरी स्ट्रिंग', '整个字符串', '整個字串'),
+  anchoredNo: T('글 안 어디든', 'anywhere inside the text', 'en cualquier parte del texto', 'em qualquer parte do texto', '文中のどこでも', 'irgendwo im Text', "n'importe où dans le texte", 'पाठ में कहीं भी', '文中任意位置', '文中任意位置'),
+  sampleLabel: T('첫 보기에서 잡히는 부분', 'What it catches in the first example', 'Lo que captura en el primer ejemplo', 'O que captura no primeiro exemplo', '最初の例で取れる部分', 'Was es im ersten Beispiel fängt', 'Ce qu’il capture dans le premier exemple', 'पहले उदाहरण में क्या पकड़ता है', '在第一个例子里抓到的部分', '在第一個例子裡抓到的部分'),
 
-  okTitle: T('맞는 보기', 'Examples that match', 'Ejemplos que coinciden', 'Exemplos que casam', '合う例', 'Beispiele, die passen', 'Exemples qui correspondent', 'मिलने वाले उदाहरण'),
-  noTitle: T('맞지 않는 보기', 'Examples that do not match', 'Ejemplos que no coinciden', 'Exemplos que não casam', '合わない例', 'Beispiele, die nicht passen', 'Exemples qui ne correspondent pas', 'न मिलने वाले उदाहरण'),
+  okTitle: T('맞는 보기', 'Examples that match', 'Ejemplos que coinciden', 'Exemplos que casam', '合う例', 'Beispiele, die passen', 'Exemples qui correspondent', 'मिलने वाले उदाहरण', '匹配的例子', '符合的例子'),
+  noTitle: T('맞지 않는 보기', 'Examples that do not match', 'Ejemplos que no coinciden', 'Exemplos que não casam', '合わない例', 'Beispiele, die nicht passen', 'Exemples qui ne correspondent pas', 'न मिलने वाले उदाहरण', '不匹配的例子', '不符合的例子'),
 
-  tryTitle: T('직접 넣어 보기', 'Try it yourself', 'Pruébalo', 'Experimente', '試してみる', 'Selbst ausprobieren', 'Essayez', 'ख़ुद आज़माएँ'),
+  tryTitle: T('직접 넣어 보기', 'Try it yourself', 'Pruébalo', 'Experimente', '試してみる', 'Selbst ausprobieren', 'Essayez', 'ख़ुद आज़माएँ', '自己试一试', '自己試一試'),
   tryNote: T(
     '아무 글이나 넣으면 이 식이 잡는 부분을 표시합니다. 브라우저 안에서만 처리되고 어디에도 보내지 않습니다.',
     'Type any text and the parts this expression catches are highlighted. It runs in your browser and is never sent anywhere.',
@@ -182,13 +204,15 @@ const SPEC: Spec = {
     'Beliebigen Text eingeben — die gefundenen Stellen werden hervorgehoben. Läuft im Browser und wird nirgendwohin gesendet.',
     'Tapez un texte : les parties capturées sont surlignées. Tout se passe dans votre navigateur, rien n’est envoyé.',
     'कोई भी पाठ लिखिए, यह एक्सप्रेशन जो पकड़ता है वह उजागर हो जाएगा। सब कुछ आपके ब्राउज़र में चलता है, कहीं भेजा नहीं जाता।',
+    '随便输入一段文字，这个式子抓到的部分就会高亮出来。全部在你的浏览器里运行，不会发往任何地方。',
+    '隨便輸入一段文字，這個式子抓到的部分就會標示出來。全部在你的瀏覽器裡執行，不會送往任何地方。',
   ),
-  tryPlaceholder: T('여기에 글을 넣어 보세요', 'Type or paste text here', 'Escribe o pega texto aquí', 'Digite ou cole um texto aqui', 'ここに文を入れてください', 'Text hier eingeben oder einfügen', 'Saisissez ou collez un texte', 'यहाँ पाठ लिखें या चिपकाएँ'),
-  tryHitOne: T('한 군데 잡혔습니다', '1 match', '1 coincidencia', '1 correspondência', '1か所に一致', '1 Treffer', '1 correspondance', '1 मिलान'),
-  tryHitMany: T('{n}군데 잡혔습니다', '{n} matches', '{n} coincidencias', '{n} correspondências', '{n}か所に一致', '{n} Treffer', '{n} correspondances', '{n} मिलान'),
-  tryMiss: T('맞는 곳이 없습니다', 'No match', 'Sin coincidencias', 'Sem correspondência', '一致なし', 'Kein Treffer', 'Aucune correspondance', 'कोई मिलान नहीं'),
+  tryPlaceholder: T('여기에 글을 넣어 보세요', 'Type or paste text here', 'Escribe o pega texto aquí', 'Digite ou cole um texto aqui', 'ここに文を入れてください', 'Text hier eingeben oder einfügen', 'Saisissez ou collez un texte', 'यहाँ पाठ लिखें या चिपकाएँ', '在这里输入或粘贴文字', '在這裡輸入或貼上文字'),
+  tryHitOne: T('한 군데 잡혔습니다', '1 match', '1 coincidencia', '1 correspondência', '1か所に一致', '1 Treffer', '1 correspondance', '1 मिलान', '匹配到 1 处', '符合 1 處'),
+  tryHitMany: T('{n}군데 잡혔습니다', '{n} matches', '{n} coincidencias', '{n} correspondências', '{n}か所に一致', '{n} Treffer', '{n} correspondances', '{n} मिलान', '匹配到 {n} 处', '符合 {n} 處'),
+  tryMiss: T('맞는 곳이 없습니다', 'No match', 'Sin coincidencias', 'Sem correspondência', '一致なし', 'Kein Treffer', 'Aucune correspondance', 'कोई मिलान नहीं', '没有匹配', '沒有符合'),
 
-  siblingTitle: T('같은 갈래의 다른 식', 'Other expressions in this group', 'Otras expresiones del grupo', 'Outras expressões do grupo', '同じ組の別の式', 'Andere Ausdrücke dieser Gruppe', 'Autres expressions du groupe', 'इसी समूह के अन्य एक्सप्रेशन'),
+  siblingTitle: T('같은 갈래의 다른 식', 'Other expressions in this group', 'Otras expresiones del grupo', 'Outras expressões do grupo', '同じ組の別の式', 'Andere Ausdrücke dieser Gruppe', 'Autres expressions du groupe', 'इसी समूह के अन्य एक्सप्रेशन', '同一类的其他式子', '同一類的其他式子'),
 
   desc: T(
     (f: RegexFacts, what: string) => `${what}에 맞습니다. ${f.anchored ? '앞뒤가 묶여 있어 문자열 전체가 맞아야 합니다' : '글 안 어디에 있든 찾아냅니다'}. ${f.groups ? `잡는 묶음이 ${f.groups}개입니다.` : '잡는 묶음은 없습니다.'}`,
@@ -199,9 +223,11 @@ const SPEC: Spec = {
     (f: RegexFacts, what: string) => `Passt auf ${what}. ${f.anchored ? 'Es ist an beiden Enden verankert, die ganze Zeichenkette muss also passen' : 'Es findet die Stelle irgendwo im Text'}. ${f.groups ? `Es gibt ${f.groups} Fanggruppe${f.groups === 1 ? '' : 'n'}.` : 'Es gibt keine Fanggruppen.'}`,
     (f: RegexFacts, what: string) => `Correspond à ${what}. ${f.anchored ? 'Il est ancré aux deux bouts : la chaîne entière doit correspondre' : 'Il trouve la correspondance n’importe où dans le texte'}. ${f.groups ? `Il y a ${f.groups} groupe${f.groups === 1 ? '' : 's'} capturant${f.groups === 1 ? '' : 's'}.` : 'Il n’y a pas de groupe capturant.'}`,
     (f: RegexFacts, what: string) => `${what} से मिलता है। ${f.anchored ? 'यह दोनों सिरों पर लंगर डाले है, इसलिए पूरी स्ट्रिंग मिलनी चाहिए' : 'यह पाठ में कहीं भी मिलान ढूँढ़ लेता है'}। ${f.groups ? `इसमें ${f.groups} कैप्चर समूह हैं।` : 'इसमें कोई कैप्चर समूह नहीं है।'}`,
+    (f: RegexFacts, what: string) => `匹配${what}。${f.anchored ? '两端都锚住了，整个字符串合上才算通过' : '文中任何位置都能找出来'}。${f.groups ? `捕获组有 ${f.groups} 个。` : '没有捕获组。'}`,
+    (f: RegexFacts, what: string) => `符合${what}。${f.anchored ? '兩端都錨住了，整個字串合上才算通過' : '文中任何位置都能找出來'}。${f.groups ? `擷取群組有 ${f.groups} 個。` : '沒有擷取群組。'}`,
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些式子', '怎麼看這些式子'),
 
   how: T(
     [
@@ -252,9 +278,21 @@ const SPEC: Spec = {
       'यहाँ के हर एक्सप्रेशन को उसके उदाहरणों से जाँचा जाता है। फिर भी "ईमेल जैसा दिखता है" और "सचमुच का पता है" अलग बातें हैं।',
       '(a+)+ जैसी खुली-अंत दोहराव वाली नेस्टिंग कुछ इनपुट पर समय को फोड़ सकती है। किसी और का एक्सप्रेशन चिपकाने से पहले यह आकार देख लीजिए।',
     ],
+    [
+      '两端加上 ^ 和 $，整个字符串就必须合上；不加，匹配落在文中任何位置都行。用来做输入校验的式子，一定要加锚。',
+      '圆括号 ( ) 会把括住的部分捕获下来。只是想分组的话写成 (?: )，后面各组的编号才不会往后挪。',
+      '这里的每个式子都拿它自己的例子跑过。不过「长得像电子邮件」和「真有这个信箱」始终是两回事。',
+      '开放式重复层层嵌套（比如 (a+)+）时，遇到某些输入耗时会爆炸式增长。把别人的式子粘进代码前，先找找有没有这种形状。',
+    ],
+    [
+      '兩端加上 ^ 和 $，整個字串就必須合上；不加，比對落在文中任何位置都行。用來做輸入檢查的式子，一定要加錨。',
+      '圓括號 ( ) 會把括住的部分擷取下來。只是想分組的話寫成 (?: )，後面各組的編號才不會往後挪。',
+      '這裡的每個式子都拿它自己的例子跑過。不過「長得像電子郵件」和「真有這個信箱」始終是兩回事。',
+      '開放式重複層層巢狀（比如 (a+)+）時，遇到某些輸入耗時會爆炸式增長。把別人的式子貼進程式前，先找找有沒有這種形狀。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '정규식 133가지 — 표기법부터 이메일·날짜 검사까지',
@@ -265,6 +303,8 @@ const SPEC: Spec = {
     'Regex-Spickzettel — 133 geprüfte Muster',
     'Aide-mémoire regex — 133 motifs testés',
     'रेगेक्स संदर्भ — 133 परखे हुए पैटर्न',
+    '正则表达式速查 — 133 个跑过测试的式子',
+    '正規表示式速查 — 133 個跑過測試的式子',
   ),
   hubMetaDesc: T(
     '이메일·날짜·IP·색상 코드 검사부터 \\d \\w \\b 같은 표기법까지 133가지. 식마다 맞는 보기와 맞지 않는 보기를 함께 실었고, 검사가 133개를 모두 실제로 돌려 확인합니다.',
@@ -275,6 +315,8 @@ const SPEC: Spec = {
     'Prüfungen für E-Mail, Datum, IP und Farbe neben Notation wie \\d, \\w und \\b — insgesamt 133 Muster. Jedes mit passenden und unpassenden Beispielen, und die Tests führen alle aus.',
     'Contrôles d’e-mail, de date, d’IP et de couleur, plus la notation \\d, \\w, \\b — 133 motifs. Chacun avec des exemples qui correspondent et d’autres non, tous exécutés par les tests.',
     'ईमेल, तारीख़, IP और रंग की जाँच के साथ \\d, \\w, \\b जैसे संकेतन — कुल 133 पैटर्न। हर एक के साथ मिलने और न मिलने वाले उदाहरण, और जाँच सबको चलाती है।',
+    '从电子邮件、日期、IP、颜色代码的校验，到 \\d \\w \\b 这类写法，共 133 个。每个都配了该匹配和不该匹配的例子，测试会把 133 个全部真跑一遍。',
+    '從電子郵件、日期、IP、色碼的檢查，到 \\d \\w \\b 這類寫法，共 133 個。每個都配了該符合和不該符合的例子，測試會把 133 個全部真跑一遍。',
   ),
 
   metaTitle: T(
@@ -286,6 +328,8 @@ const SPEC: Spec = {
     (what: string) => `Regex für ${what}`,
     (what: string) => `Regex pour ${what}`,
     (what: string) => `${what} के लिए रेगेक्स`,
+    (what: string) => `匹配${what}的正则表达式`,
+    (what: string) => `符合${what}的正規表示式`,
   ),
 
   metaDesc: T(
@@ -297,6 +341,8 @@ const SPEC: Spec = {
     (f: RegexFacts, what: string) => `Der reguläre Ausdruck für ${what} lautet ${f.re}. Passende und unpassende Beispiele sind dabei, und Sie können ihn hier mit eigenem Text ausprobieren.`,
     (f: RegexFacts, what: string) => `L’expression régulière pour ${what} est ${f.re}. Des exemples correspondants et non correspondants sont fournis, et vous pouvez l’essayer sur votre texte.`,
     (f: RegexFacts, what: string) => `${what} के लिए रेगुलर एक्सप्रेशन ${f.re} है। मिलने और न मिलने वाले उदाहरण साथ हैं, और आप इसे अपने पाठ पर आज़मा सकते हैं।`,
+    (f: RegexFacts, what: string) => `匹配${what}的正则表达式是 ${f.re}。页面上配了该匹配和不该匹配的例子，你也可以当场用自己的文字试。`,
+    (f: RegexFacts, what: string) => `符合${what}的正規表示式是 ${f.re}。頁面上配了該符合和不該符合的例子，你也可以當場用自己的文字試。`,
   ),
 
   hubFaq: T(
@@ -356,6 +402,20 @@ const SPEC: Spec = {
       { q: 'पैटर्न धीमा हो सकता है, इसका क्या मतलब?', a: '(a+)+ जैसी खुली-अंत दोहराव नेस्ट हो जाए तो न मिलने वाले इनपुट पर पीछे लौटने के रास्ते फट पड़ते हैं। तब छोटी स्ट्रिंग भी कई सेकंड ले सकती है, जो सर्वर पर ख़तरनाक है।' },
       { q: 'क्या इन पैटर्नों पर भरोसा किया जा सकता है?', a: 'हर पैटर्न के साथ मिलने वाले और न मिलने वाले उदाहरण दर्ज हैं, और जाँच सभी 133 को सचमुच चलाती है। पन्ने पर दिखने वाले उदाहरण वही हैं जो जाँच इस्तेमाल करती है, इसलिए विवरण और पैटर्न अलग नहीं हो सकते।' },
     ],
+    [
+      { q: '什么是正则表达式？', a: '它是一门小语言，用来描述你想在文字里找的「形状」。写 \\d{4} 而不是「四位数字」，程序就能找出每一处符合这个形状的地方。JavaScript、Python、Java 等大多数语言用的写法几乎相同。' },
+      { q: '电子邮件的校验式为什么这么短？', a: '完全照标准写的邮件式子长达数千字符，而且照样说不出这个信箱是否真的存在。挡住手滑打错，才是正则表达式能做的事；真正的确认只有发一封验证邮件。' },
+      { q: '为什么同一个式子在各语言里略有不同？', a: '骨架一样，细节不同。JavaScript 没有 \\A，Python 要单独打开 re.MULTILINE。这里列出的式子都是按在 JavaScript 里原样能跑的形式写的。' },
+      { q: '说式子可能很慢，是什么意思？', a: '像 (a+)+ 这样开放式重复嵌在一起时，遇到匹配不上的输入，回溯的路数会爆炸。这时哪怕很短的字符串也可能耗上好几秒，放在服务器上很危险。' },
+      { q: '这里的式子可信吗？', a: '每个式子都带着「必须匹配」和「必须不匹配」两组例子，测试会把 133 个全部真跑一遍。页面上看到的例子就是测试用的例子，所以说明和式子不可能各走各的。' },
+    ],
+    [
+      { q: '什麼是正規表示式？', a: '它是一門小語言，用來描述你想在文字裡找的「形狀」。寫 \\d{4} 而不是「四位數字」，程式就能找出每一處符合這個形狀的地方。JavaScript、Python、Java 等大多數語言用的寫法幾乎相同。' },
+      { q: '電子郵件的檢查式為什麼這麼短？', a: '完全照標準寫的郵件式子長達數千字元，而且照樣說不出這個信箱是否真的存在。擋住手滑打錯，才是正規表示式能做的事；真正的確認只有寄一封驗證信。' },
+      { q: '為什麼同一個式子在各語言裡略有不同？', a: '骨架一樣，細節不同。JavaScript 沒有 \\A，Python 要單獨打開 re.MULTILINE。這裡列出的式子都是按在 JavaScript 裡原樣能跑的形式寫的。' },
+      { q: '說式子可能很慢，是什麼意思？', a: '像 (a+)+ 這樣開放式重複巢在一起時，遇到比對不上的輸入，回溯的路數會爆炸。這時哪怕很短的字串也可能耗上好幾秒，放在伺服器上很危險。' },
+      { q: '這裡的式子可信嗎？', a: '每個式子都帶著「必須符合」和「必須不符合」兩組例子，測試會把 133 個全部真跑一遍。頁面上看到的例子就是測試用的例子，所以說明和式子不可能各走各的。' },
+    ],
   ),
 
   patternFaq: T(
@@ -407,13 +467,25 @@ const SPEC: Spec = {
       { q: 'क्या पूरी स्ट्रिंग मिलनी चाहिए?', a: f.anchored ? 'हाँ। यह ^ और $ के बीच है, इसलिए पूरा मिलान ही पास होता है।' : 'नहीं। यह पाठ में कहीं भी वह हिस्सा ढूँढ़ लेता है। पूरी स्ट्रिंग जाँचनी हो तो आगे-पीछे ^ और $ लगाइए।' },
       { q: 'पकड़े गए हिस्से का उपयोग कैसे करें?', a: f.groups ? `${f.groups} कैप्चर समूह हैं, इसलिए match[1] से आगे पढ़ सकते हैं।` : 'कोई कैप्चर समूह नहीं है, इसलिए सिर्फ़ पूरा मिलान (match[0]) मिलता है। जो हिस्सा चाहिए उसे कोष्ठक में लपेटिए।' },
     ],
+    (f: RegexFacts, what: string, okOne: string, noOne: string) => [
+      { q: `匹配${what}的正则表达式是什么？`, a: `${f.re}${f.flags ? `，标志用 ${f.flags}` : ''}。` },
+      { q: '哪些字符串能匹配？', a: `像 ${okOne} 这样的文字能匹配，像 ${noOne} 这样的不能。` },
+      { q: '必须整个字符串都匹配吗？', a: f.anchored ? '是的。它被 ^ 和 $ 括住，只有整串合上才算通过。' : '不必。文中任何位置只要有那一段就能找出来。想校验整串，就在两端加上 ^ 和 $。' },
+      { q: '抓到的内容怎么用？', a: f.groups ? `有 ${f.groups} 个捕获组，可以从 match[1] 开始依次取出。` : '没有捕获组，所以只会返回整段匹配（match[0]）。只需要其中一部分的话，把那一段用圆括号括起来。' },
+    ],
+    (f: RegexFacts, what: string, okOne: string, noOne: string) => [
+      { q: `符合${what}的正規表示式是什麼？`, a: `${f.re}${f.flags ? `，旗標用 ${f.flags}` : ''}。` },
+      { q: '哪些字串能符合？', a: `像 ${okOne} 這樣的文字能符合，像 ${noOne} 這樣的不能。` },
+      { q: '必須整個字串都符合嗎？', a: f.anchored ? '是的。它被 ^ 和 $ 括住，只有整串合上才算通過。' : '不必。文中任何位置只要有那一段就能找出來。想檢查整串，就在兩端加上 ^ 和 $。' },
+      { q: '抓到的內容怎麼用？', a: f.groups ? `有 ${f.groups} 個擷取群組，可以從 match[1] 開始依序取出。` : '沒有擷取群組，所以只會回傳整段比對結果（match[0]）。只需要其中一部分的話，把那一段用圓括號括起來。' },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const REGEX_UI: L8<RegexUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const REGEX_UI: L<RegexUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<RegexUI>;
+) as unknown as L<RegexUI>;

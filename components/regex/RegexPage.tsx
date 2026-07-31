@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import RegexTry from '@/components/regex/RegexTry';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { REGEX_ICON, patternOf } from '@/lib/regex/list';
 import { regexFacts, siblingPatterns } from '@/lib/regex/facts';
 import { whatOf } from '@/lib/regex/desc';
@@ -25,7 +25,7 @@ const show = (s: string): string =>
  * 그래서 보기를 넣어 둔 입력칸을 함께 둔다. 앞뒤가 묶인 식에는 한 줄만 넣는다 —
  * 여러 줄을 넣으면 ^와 $가 글 전체를 가리켜 하나도 맞지 않게 되기 때문이다.
  */
-export default function RegexPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) {
   const x = patternOf(slug);
   if (!x) return null;
   const f = regexFacts(x);
@@ -168,7 +168,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang8 })
         <Faq items={faq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/text/regex/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
