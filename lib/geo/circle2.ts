@@ -110,6 +110,7 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `벨트 길이는 약 ${out[0].value}이고 감속비는 ${out[1].value}:1입니다. 큰 풀리가 한 바퀴 돌 때 작은 풀리는 ${out[1].value}바퀴 돕니다.`,
       en: `About ${out[0].value} of belt, with a ${out[1].value}:1 ratio — the small pulley turns ${out[1].value} times for each turn of the large one.`,
+      l10n: { es: `Unos ${out[0].value} de correa, con una relación de ${out[1].value}:1 — la polea pequeña da ${out[1].value} vueltas por cada vuelta de la grande.`, 'pt-br': `Cerca de ${out[0].value} de correia, com relação de ${out[1].value}:1 — a polia pequena dá ${out[1].value} voltas a cada volta da grande.`, ja: `ベルトの長さは約${out[0].value}、減速比は${out[1].value}:1です。大きいプーリーが一周する間に小さいプーリーは${out[1].value}周します。`, de: `Rund ${out[0].value} Riemen, bei einem Verhältnis von ${out[1].value}:1 — die kleine Scheibe dreht sich ${out[1].value}-mal je Umdrehung der großen.`, fr: `Environ ${out[0].value} de courroie, avec un rapport de ${out[1].value}:1 — la petite poulie fait ${out[1].value} tours par tour de la grande.`, hi: `लगभग ${out[0].value} बेल्ट, और अनुपात ${out[1].value}:1 — बड़ी पुली के हर चक्कर पर छोटी पुली ${out[1].value} चक्कर लगाती है।` },
       tone: 'good',
     }),
     ko: { title: '벨트 길이 계산기 (두 풀리)', desc: '두 풀리의 지름과 축간 거리로 벨트 길이를 구합니다.',
@@ -165,6 +166,7 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `약 ${out[0].value}개가 들어갑니다. 면적비로는 ${out[1].value}개지만 원 사이에 빈틈이 생겨 90.7%만 채워집니다.`,
       en: `About ${out[0].value} fit. The area ratio suggests ${out[1].value}, but gaps between circles leave only 90.7% usable.`,
+      l10n: { es: `Caben unos ${out[0].value}. La razón de áreas sugiere ${out[1].value}, pero los huecos entre círculos dejan solo un 90,7 % aprovechable.`, 'pt-br': `Cabem cerca de ${out[0].value}. A razão de áreas sugere ${out[1].value}, mas os vãos entre os círculos deixam só 90,7 % aproveitável.`, ja: `およそ${out[0].value}個が入ります。面積比では${out[1].value}個ですが、円と円のあいだにすき間ができるので90.7%しか埋まりません。`, de: `Es passen etwa ${out[0].value} hinein. Das Flächenverhältnis legt ${out[1].value} nahe, aber die Lücken zwischen den Kreisen lassen nur 90,7 % nutzbar.`, fr: `Il en tient environ ${out[0].value}. Le rapport des aires en suggère ${out[1].value}, mais les vides entre cercles ne laissent que 90,7 % d’utilisable.`, hi: `लगभग ${out[0].value} समाते हैं। क्षेत्रफल के अनुपात से ${out[1].value} लगते हैं, पर वृत्तों के बीच ख़ाली जगह रहने से सिर्फ़ 90.7% ही भरता है।` },
       tone: 'warn',
     }),
     ko: { title: '큰 원 안에 작은 원 몇 개', desc: '지름 비율로 원 안에 들어가는 작은 원 개수를 어림합니다.',

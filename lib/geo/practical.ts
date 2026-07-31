@@ -229,6 +229,7 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
       return {
         ko: bigWins ? `${v.a}cm 한 판이 ${v.b}cm ${v.n}판보다 ${pct}% 큽니다.` : `${v.b}cm ${v.n}판이 ${v.a}cm 한 판보다 ${round((1 / r - 1) * 100, 1)}% 큽니다.`,
         en: bigWins ? `One ${v.a} cm pizza is ${pct}% more pizza than ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm gives ${round((1 / r - 1) * 100, 1)}% more than one ${v.a} cm.`,
+        l10n: { es: bigWins ? `Una pizza de ${v.a} cm da un ${pct} % más que ${v.n} de ${v.b} cm.` : `${v.n} de ${v.b} cm dan un ${round((1 / r - 1) * 100, 1)} % más que una de ${v.a} cm.`, 'pt-br': bigWins ? `Uma pizza de ${v.a} cm rende ${pct} % a mais que ${v.n} de ${v.b} cm.` : `${v.n} de ${v.b} cm rendem ${round((1 / r - 1) * 100, 1)} % a mais que uma de ${v.a} cm.`, ja: bigWins ? `${v.a}cm一枚のほうが${v.b}cm${v.n}枚より${pct}%多くなります。` : `${v.b}cm${v.n}枚のほうが${v.a}cm一枚より${round((1 / r - 1) * 100, 1)}%多くなります。`, de: bigWins ? `Eine Pizza mit ${v.a} cm bringt ${pct} % mehr als ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm bringen ${round((1 / r - 1) * 100, 1)} % mehr als eine mit ${v.a} cm.`, fr: bigWins ? `Une pizza de ${v.a} cm donne ${pct} % de plus que ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm donnent ${round((1 / r - 1) * 100, 1)} % de plus qu’une de ${v.a} cm.`, hi: bigWins ? `${v.a} सेमी का एक पिज़्ज़ा ${v.b} सेमी के ${v.n} पिज़्ज़ों से ${pct}% ज़्यादा पड़ता है।` : `${v.b} सेमी के ${v.n} पिज़्ज़े ${v.a} सेमी के एक से ${round((1 / r - 1) * 100, 1)}% ज़्यादा पड़ते हैं।` },
         tone: 'good',
       };
     },
@@ -323,6 +324,7 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
       return {
         ko: ok ? `2×단높이+단너비 = ${round(sum, 1)}cm로 걷기 편한 범위(60~65cm)입니다.` : `2×단높이+단너비 = ${round(sum, 1)}cm입니다. 60~65cm가 걷기 편한 범위입니다.`,
         en: ok ? `2 × riser + tread = ${round(sum, 1)} cm, inside the comfortable 60–65 cm range.` : `2 × riser + tread = ${round(sum, 1)} cm; the comfortable range is 60–65 cm.`,
+        l10n: { es: ok ? `2 × contrahuella + huella = ${round(sum, 1)} cm, dentro del rango cómodo de 60–65 cm.` : `2 × contrahuella + huella = ${round(sum, 1)} cm; el rango cómodo es de 60 a 65 cm.`, 'pt-br': ok ? `2 × espelho + piso = ${round(sum, 1)} cm, dentro da faixa confortável de 60–65 cm.` : `2 × espelho + piso = ${round(sum, 1)} cm; a faixa confortável é de 60 a 65 cm.`, ja: ok ? `2×蹴上げ+踏面 = ${round(sum, 1)}cmで、上りやすい範囲(60〜65cm)に収まっています。` : `2×蹴上げ+踏面 = ${round(sum, 1)}cmです。上りやすいのは60〜65cmの範囲です。`, de: ok ? `2 × Steigung + Auftritt = ${round(sum, 1)} cm, im bequemen Bereich von 60–65 cm.` : `2 × Steigung + Auftritt = ${round(sum, 1)} cm; bequem sind 60–65 cm.`, fr: ok ? `2 × hauteur de marche + giron = ${round(sum, 1)} cm, dans la plage confortable de 60 à 65 cm.` : `2 × hauteur de marche + giron = ${round(sum, 1)} cm ; la plage confortable va de 60 à 65 cm.`, hi: ok ? `2 × सीढ़ी की ऊँचाई + चौड़ाई = ${round(sum, 1)} सेमी, यानी आरामदेह दायरे (60–65 सेमी) के भीतर।` : `2 × सीढ़ी की ऊँचाई + चौड़ाई = ${round(sum, 1)} सेमी है; आरामदेह दायरा 60–65 सेमी का होता है।` },
         tone: ok ? 'good' : 'warn',
       };
     },

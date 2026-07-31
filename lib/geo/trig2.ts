@@ -61,10 +61,10 @@ export const TRIG2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const max = Math.max(out[0].value, out[1].value, out[2].value);
       return max > 90.5
-        ? { ko: `가장 큰 각이 ${round(max, 1)}°로 둔각삼각형입니다.`, en: `The largest angle is ${round(max, 1)}° — an obtuse triangle.`, tone: 'good' }
+        ? { ko: `가장 큰 각이 ${round(max, 1)}°로 둔각삼각형입니다.`, en: `The largest angle is ${round(max, 1)}° — an obtuse triangle.`, l10n: { es: `El mayor ángulo mide ${round(max, 1)}°: es un triángulo obtusángulo.`, 'pt-br': `O maior ângulo mede ${round(max, 1)}°: é um triângulo obtusângulo.`, ja: `いちばん大きい角が${round(max, 1)}°で、鈍角三角形です。`, de: `Der größte Winkel misst ${round(max, 1)}° — ein stumpfwinkliges Dreieck.`, fr: `Le plus grand angle vaut ${round(max, 1)}° : c’est un triangle obtusangle.`, hi: `सबसे बड़ा कोण ${round(max, 1)}° का है — यह अधिककोण त्रिभुज है।` }, tone: 'good' }
         : max > 89.5
-          ? { ko: `가장 큰 각이 ${round(max, 1)}°로 직각삼각형입니다.`, en: `The largest angle is ${round(max, 1)}° — a right triangle.`, tone: 'good' }
-          : { ko: `모든 각이 90° 미만인 예각삼각형입니다.`, en: `Every angle is under 90° — an acute triangle.`, tone: 'good' };
+          ? { ko: `가장 큰 각이 ${round(max, 1)}°로 직각삼각형입니다.`, en: `The largest angle is ${round(max, 1)}° — a right triangle.`, l10n: { es: `El mayor ángulo mide ${round(max, 1)}°: es un triángulo rectángulo.`, 'pt-br': `O maior ângulo mede ${round(max, 1)}°: é um triângulo retângulo.`, ja: `いちばん大きい角が${round(max, 1)}°で、直角三角形です。`, de: `Der größte Winkel misst ${round(max, 1)}° — ein rechtwinkliges Dreieck.`, fr: `Le plus grand angle vaut ${round(max, 1)}° : c’est un triangle rectangle.`, hi: `सबसे बड़ा कोण ${round(max, 1)}° का है — यह समकोण त्रिभुज है।` }, tone: 'good' }
+          : { ko: `모든 각이 90° 미만인 예각삼각형입니다.`, en: `Every angle is under 90° — an acute triangle.`, l10n: { es: `Todos los ángulos quedan por debajo de 90°: es un triángulo acutángulo.`, 'pt-br': `Todos os ângulos ficam abaixo de 90°: é um triângulo acutângulo.`, ja: `すべての角が90°未満で、鋭角三角形です。`, de: `Jeder Winkel liegt unter 90° — ein spitzwinkliges Dreieck.`, fr: `Tous les angles sont sous 90° : c’est un triangle acutangle.`, hi: `हर कोण 90° से कम है — यह न्यूनकोण त्रिभुज है।` }, tone: 'good' };
     },
     ko: { title: '세 변으로 세 각 구하기', desc: '변 길이만 재서 삼각형의 세 각을 모두 구합니다.',
       long: '코사인 법칙을 각에 대해 풀면 세 변만으로 각이 나옵니다. 각도기 없이 줄자만으로 각을 아는 방법이라 목공과 측량에서 씁니다. 세 각의 합이 180°인지 확인하면 검산이 됩니다.',
@@ -144,10 +144,10 @@ export const TRIG2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const a = out[0].value;
       return Math.abs(a - 90) < 0.5
-        ? { ko: '두 벡터가 서로 수직입니다. 내적이 0이면 항상 90°입니다.', en: 'The vectors are perpendicular — a zero dot product always means 90°.', tone: 'good' }
+        ? { ko: '두 벡터가 서로 수직입니다. 내적이 0이면 항상 90°입니다.', en: 'The vectors are perpendicular — a zero dot product always means 90°.', l10n: { es: 'Los vectores son perpendiculares: un producto escalar nulo siempre significa 90°.', 'pt-br': 'Os vetores são perpendiculares: produto escalar nulo sempre significa 90°.', ja: '二つのベクトルは互いに垂直です。内積が0なら必ず90°になります。', de: 'Die Vektoren stehen senkrecht — ein Skalarprodukt von null bedeutet immer 90°.', fr: 'Les vecteurs sont perpendiculaires : un produit scalaire nul veut toujours dire 90°.', hi: 'दोनों सदिश एक-दूसरे पर लंब हैं — अदिश गुणनफल शून्य हो तो कोण हमेशा 90° होता है।' }, tone: 'good' }
         : a < 90
-          ? { ko: `${a}°로 같은 쪽을 향합니다.`, en: `At ${a}° they point broadly the same way.`, tone: 'good' }
-          : { ko: `${a}°로 반대쪽을 향합니다.`, en: `At ${a}° they point broadly opposite ways.`, tone: 'good' };
+          ? { ko: `${a}°로 같은 쪽을 향합니다.`, en: `At ${a}° they point broadly the same way.`, l10n: { es: `Con ${a}° apuntan grosso modo en la misma dirección.`, 'pt-br': `Com ${a}° eles apontam grosso modo na mesma direção.`, ja: `${a}°で、おおむね同じ向きを指しています。`, de: `Bei ${a}° zeigen sie grob in dieselbe Richtung.`, fr: `À ${a}°, ils pointent globalement dans le même sens.`, hi: `${a}° पर दोनों मोटे तौर पर एक ही ओर इशारा करते हैं।` }, tone: 'good' }
+          : { ko: `${a}°로 반대쪽을 향합니다.`, en: `At ${a}° they point broadly opposite ways.`, l10n: { es: `Con ${a}° apuntan grosso modo en direcciones opuestas.`, 'pt-br': `Com ${a}° eles apontam grosso modo em direções opostas.`, ja: `${a}°で、おおむね反対の向きを指しています。`, de: `Bei ${a}° zeigen sie grob in entgegengesetzte Richtungen.`, fr: `À ${a}°, ils pointent globalement en sens opposés.`, hi: `${a}° पर दोनों मोटे तौर पर उलटी दिशाओं में इशारा करते हैं।` }, tone: 'good' };
     },
     ko: { title: '두 벡터 사이 각 계산기', desc: '내적으로 두 방향이 이루는 각을 구합니다.',
       long: '내적을 두 크기의 곱으로 나누면 코사인이 나오고, 역코사인을 취하면 각입니다. 내적이 0이면 수직, 양수면 같은 쪽, 음수면 반대쪽을 향한다는 것을 바로 알 수 있습니다.',
@@ -177,16 +177,22 @@ export const TRIG2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) => {
       const d = out[0].value;
+      // 방위 이름은 여덟 언어분을 한 줄씩 묶어 둔다 — 8×8이라 표로 두는 편이 읽힌다
       const dirs = [
-        { ko: '북', en: 'north' }, { ko: '북동', en: 'north-east' },
-        { ko: '동', en: 'east' }, { ko: '남동', en: 'south-east' },
-        { ko: '남', en: 'south' }, { ko: '남서', en: 'south-west' },
-        { ko: '서', en: 'west' }, { ko: '북서', en: 'north-west' },
+        { ko: '북', en: 'north', es: 'al norte', 'pt-br': 'ao norte', ja: '北', de: 'nach Norden', fr: 'vers le nord', hi: 'उत्तर' },
+        { ko: '북동', en: 'north-east', es: 'al noreste', 'pt-br': 'a nordeste', ja: '北東', de: 'nach Nordosten', fr: 'vers le nord-est', hi: 'उत्तर-पूर्व' },
+        { ko: '동', en: 'east', es: 'al este', 'pt-br': 'a leste', ja: '東', de: 'nach Osten', fr: 'vers l’est', hi: 'पूर्व' },
+        { ko: '남동', en: 'south-east', es: 'al sureste', 'pt-br': 'a sudeste', ja: '南東', de: 'nach Südosten', fr: 'vers le sud-est', hi: 'दक्षिण-पूर्व' },
+        { ko: '남', en: 'south', es: 'al sur', 'pt-br': 'ao sul', ja: '南', de: 'nach Süden', fr: 'vers le sud', hi: 'दक्षिण' },
+        { ko: '남서', en: 'south-west', es: 'al suroeste', 'pt-br': 'a sudoeste', ja: '南西', de: 'nach Südwesten', fr: 'vers le sud-ouest', hi: 'दक्षिण-पश्चिम' },
+        { ko: '서', en: 'west', es: 'al oeste', 'pt-br': 'a oeste', ja: '西', de: 'nach Westen', fr: 'vers l’ouest', hi: 'पश्चिम' },
+        { ko: '북서', en: 'north-west', es: 'al noroeste', 'pt-br': 'a noroeste', ja: '北西', de: 'nach Nordwesten', fr: 'vers le nord-ouest', hi: 'उत्तर-पश्चिम' },
       ];
       const i = Math.round(d / 45) % 8;
       return {
         ko: `방위각 ${d}°는 ${dirs[i].ko}쪽입니다. 돌아오는 방향은 ${out[2].value}°입니다.`,
         en: `A bearing of ${d}° points ${dirs[i].en}; the return bearing is ${out[2].value}°.`,
+        l10n: { es: `Un rumbo de ${d}° apunta ${dirs[i].es}; el rumbo de vuelta es ${out[2].value}°.`, 'pt-br': `Um azimute de ${d}° aponta ${dirs[i]['pt-br']}; o azimute de volta é ${out[2].value}°.`, ja: `方位角${d}°は${dirs[i].ja}の方角です。戻る向きは${out[2].value}°になります。`, de: `Eine Peilung von ${d}° zeigt ${dirs[i].de}; die Gegenpeilung beträgt ${out[2].value}°.`, fr: `Un azimut de ${d}° pointe ${dirs[i].fr} ; l’azimut de retour est ${out[2].value}°.`, hi: `${d}° का दिक्मान ${dirs[i].hi} की ओर है; लौटने का दिक्मान ${out[2].value}° होगा।` },
         tone: 'good',
       };
     },
@@ -237,10 +243,10 @@ export const TRIG2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const a = out[0].value;
       return a >= 70 && a <= 80
-        ? { ko: `${a}°는 권장 범위(70~80°) 안입니다. 벽에서 사다리 길이의 4분의 1만큼 띄우면 약 75.5°가 됩니다.`, en: `${a}° is inside the recommended 70–80°. Standing the foot a quarter of the length out gives about 75.5°.`, tone: 'good' }
+        ? { ko: `${a}°는 권장 범위(70~80°) 안입니다. 벽에서 사다리 길이의 4분의 1만큼 띄우면 약 75.5°가 됩니다.`, en: `${a}° is inside the recommended 70–80°. Standing the foot a quarter of the length out gives about 75.5°.`, l10n: { es: `${a}° está dentro de los 70–80° recomendados. Separar el pie una cuarta parte de la longitud deja unos 75,5°.`, 'pt-br': `${a}° está dentro dos 70–80° recomendados. Afastar o pé um quarto do comprimento dá cerca de 75,5°.`, ja: `${a}°は推奨範囲(70〜80°)の内側です。足元を長さの四分の一だけ壁から離すと約75.5°になります。`, de: `${a}° liegen im empfohlenen Bereich von 70–80°. Den Fuß ein Viertel der Länge herauszustellen ergibt rund 75,5°.`, fr: `${a}° est dans la plage recommandée de 70 à 80°. Écarter le pied d’un quart de la longueur donne environ 75,5°.`, hi: `${a}° सुझाए गए दायरे (70–80°) के भीतर है। पैर को सीढ़ी की लंबाई के चौथाई जितना बाहर रखने पर यह लगभग 75.5° बैठता है।` }, tone: 'good' }
         : a > 80
-          ? { ko: `${a}°는 너무 섭니다. 뒤로 넘어질 위험이 있으니 발을 더 띄우세요.`, en: `${a}° is too steep — the ladder can topple backwards. Move the foot out.`, tone: 'bad' }
-          : { ko: `${a}°는 너무 눕습니다. 발이 미끄러질 위험이 있으니 벽에 더 붙이세요.`, en: `${a}° is too shallow — the foot can slide out. Bring it closer to the wall.`, tone: 'bad' };
+          ? { ko: `${a}°는 너무 섭니다. 뒤로 넘어질 위험이 있으니 발을 더 띄우세요.`, en: `${a}° is too steep — the ladder can topple backwards. Move the foot out.`, l10n: { es: `${a}° es demasiado vertical: la escalera puede volcar hacia atrás. Separa más el pie.`, 'pt-br': `${a}° é vertical demais: a escada pode tombar para trás. Afaste mais o pé.`, ja: `${a}°は立ちすぎです。後ろに倒れる危険があるので、足元をもっと離してください。`, de: `${a}° ist zu steil — die Leiter kann nach hinten kippen. Stell den Fuß weiter heraus.`, fr: `${a}°, c’est trop droit : l’échelle peut basculer en arrière. Écarte davantage le pied.`, hi: `${a}° बहुत सीधा है — सीढ़ी पीछे की ओर गिर सकती है। पैर को और बाहर करें।` }, tone: 'bad' }
+          : { ko: `${a}°는 너무 눕습니다. 발이 미끄러질 위험이 있으니 벽에 더 붙이세요.`, en: `${a}° is too shallow — the foot can slide out. Bring it closer to the wall.`, l10n: { es: `${a}° es demasiado tumbado: el pie puede resbalar. Acércalo más a la pared.`, 'pt-br': `${a}° é deitado demais: o pé pode escorregar. Aproxime-o mais da parede.`, ja: `${a}°は寝すぎです。足元が滑る危険があるので、もっと壁に寄せてください。`, de: `${a}° ist zu flach — der Fuß kann wegrutschen. Rück ihn näher an die Wand.`, fr: `${a}°, c’est trop couché : le pied peut glisser. Rapproche-le du mur.`, hi: `${a}° बहुत लेटा हुआ है — पैर फिसल सकता है। इसे दीवार के और पास लाएँ।` }, tone: 'bad' };
     },
     ko: { title: '사다리 안전 각도 계산기', desc: '사다리 길이와 벽에서 띄운 거리로 기대는 각도를 구합니다.',
       long: '기대는 각도는 벽에서 띄운 거리를 사다리 길이로 나눈 값의 역코사인입니다. 안전 기준은 70~80°이고, 발을 사다리 길이의 4분의 1만큼 띄우면 약 75.5°가 나옵니다.',

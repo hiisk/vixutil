@@ -56,6 +56,7 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `기둥 ${out[0].value}개, 사이 칸 ${out[1].value}개입니다. 실제 간격은 ${out[2].value}m로 고르게 나눠집니다.`,
       en: `${out[0].value} posts for ${out[1].value} spans, giving an even ${out[2].value} m spacing.`,
+      l10n: { es: `${out[0].value} postes para ${out[1].value} vanos, con una separación pareja de ${out[2].value} m.`, 'pt-br': `${out[0].value} mourões para ${out[1].value} vãos, com espaçamento parelho de ${out[2].value} m.`, ja: `支柱${out[0].value}本、区間${out[1].value}個です。実際の間隔は${out[2].value}mで均等に割り切れます。`, de: `${out[0].value} Pfosten für ${out[1].value} Felder, das ergibt gleichmäßige ${out[2].value} m Abstand.`, fr: `${out[0].value} poteaux pour ${out[1].value} travées, soit un écart régulier de ${out[2].value} m.`, hi: `${out[1].value} खंडों के लिए ${out[0].value} खंभे, और असली दूरी बराबर ${out[2].value} मीटर बैठती है।` },
       tone: 'good',
     }),
     ko: { title: '울타리 기둥 개수 계산기', desc: '전체 길이와 간격으로 필요한 기둥 수를 구합니다.',
@@ -336,10 +337,10 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const p = out[0].value;
       return p >= 200
-        ? { ko: `${p}ppi는 픽셀이 보이지 않는 고밀도입니다.`, en: `${p} ppi is high enough that pixels disappear.`, tone: 'good' }
+        ? { ko: `${p}ppi는 픽셀이 보이지 않는 고밀도입니다.`, en: `${p} ppi is high enough that pixels disappear.`, l10n: { es: `${p} ppi es tan alto que los píxeles desaparecen.`, 'pt-br': `${p} ppi é alto o bastante para os pixels sumirem.`, ja: `${p}ppiは画素が見えない高密度です。`, de: `${p} ppi reichen aus, dass die Pixel verschwinden.`, fr: `${p} ppi, c’est assez pour que les pixels disparaissent.`, hi: `${p} ppi इतना ऊँचा है कि पिक्सेल दिखते ही नहीं।` }, tone: 'good' }
         : p >= 130
-          ? { ko: `${p}ppi는 데스크톱에서 선명한 편입니다.`, en: `${p} ppi looks crisp at desktop distance.`, tone: 'good' }
-          : { ko: `${p}ppi는 가까이서 보면 픽셀이 보입니다. 글자 테두리가 거칠게 느껴집니다.`, en: `${p} ppi shows pixels up close; text edges look rough.`, tone: 'warn' };
+          ? { ko: `${p}ppi는 데스크톱에서 선명한 편입니다.`, en: `${p} ppi looks crisp at desktop distance.`, l10n: { es: `${p} ppi se ve nítido a distancia de escritorio.`, 'pt-br': `${p} ppi fica nítido à distância de mesa.`, ja: `${p}ppiはデスクトップの距離なら十分きれいに見えます。`, de: `${p} ppi wirken auf Schreibtischabstand knackig.`, fr: `${p} ppi rend net à distance de bureau.`, hi: `${p} ppi डेस्क की दूरी पर साफ़ दिखता है।` }, tone: 'good' }
+          : { ko: `${p}ppi는 가까이서 보면 픽셀이 보입니다. 글자 테두리가 거칠게 느껴집니다.`, en: `${p} ppi shows pixels up close; text edges look rough.`, l10n: { es: `${p} ppi deja ver los píxeles de cerca; los bordes de las letras se notan ásperos.`, 'pt-br': `${p} ppi deixa os pixels aparecerem de perto; as bordas das letras ficam ásperas.`, ja: `${p}ppiは近くで見ると画素が見えます。文字の輪郭が粗く感じられます。`, de: `${p} ppi zeigen aus der Nähe Pixel; Textkanten wirken rau.`, fr: `${p} ppi laisse voir les pixels de près ; les bords des lettres paraissent rugueux.`, hi: `${p} ppi पर पास से देखने पर पिक्सेल दिखते हैं; अक्षरों के किनारे खुरदरे लगते हैं।` }, tone: 'warn' };
     },
     ko: { title: '화면 픽셀 밀도(ppi) 계산기', desc: '해상도와 화면 크기로 인치당 픽셀 수를 구합니다.',
       long: '해상도만으로는 선명함을 알 수 없습니다. 4K도 화면이 크면 픽셀이 커집니다. 대각선 픽셀 수를 대각선 인치로 나눈 ppi가 실제 선명함이고, 픽셀 하나의 크기도 함께 보여 줍니다.',
@@ -374,6 +375,7 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `한 방향으로 쌓으면 ${out[0].value}개가 들어갑니다. 부피만 보면 ${out[1].value}개지만 잘라 쓸 수 없어 ${out[2].value}%만 채워집니다.`,
       en: `${out[0].value} fit in one orientation. Volume alone suggests ${out[1].value}, but you cannot cut items, so only ${out[2].value}% of the space is used.`,
+      l10n: { es: `Caben ${out[0].value} en una misma orientación. Solo por volumen saldrían ${out[1].value}, pero los artículos no se pueden partir, así que solo se aprovecha el ${out[2].value} % del espacio.`, 'pt-br': `Cabem ${out[0].value} em uma mesma orientação. Só pelo volume dariam ${out[1].value}, mas os itens não podem ser partidos, então só ${out[2].value} % do espaço é aproveitado.`, ja: `向きをそろえて積むと${out[0].value}個入ります。体積だけなら${out[1].value}個ですが、品物は切って詰められないので${out[2].value}%しか埋まりません。`, de: `${out[0].value} passen in einer Ausrichtung. Nach Volumen wären es ${out[1].value}, aber Artikel lassen sich nicht zerschneiden, also werden nur ${out[2].value} % des Raums genutzt.`, fr: `Il en tient ${out[0].value} dans une même orientation. Le volume seul en donnerait ${out[1].value}, mais on ne coupe pas les articles : seuls ${out[2].value} % de l’espace servent.`, hi: `एक ही दिशा में जमाने पर ${out[0].value} समाते हैं। सिर्फ़ आयतन देखें तो ${out[1].value} बनते हैं, पर चीज़ें काटी नहीं जा सकतीं, इसलिए जगह का सिर्फ़ ${out[2].value}% ही काम आता है।` },
       tone: 'warn',
     }),
     ko: { title: '상자에 몇 개 들어가나 계산기', desc: '상자와 물건 치수로 들어가는 개수를 구합니다.',

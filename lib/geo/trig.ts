@@ -51,6 +51,7 @@ export const TRIG_TOOLS: FormulaTool[] = [
     verdict: v => v.a >= v.c ? {
       ko: '빗변은 다른 어떤 변보다 길어야 합니다. 값을 바꿔 넣으세요.',
       en: 'The hypotenuse must be longer than either leg — swap the values.',
+      l10n: { es: 'La hipotenusa tiene que ser más larga que cualquiera de los catetos: intercambia los valores.', 'pt-br': 'A hipotenusa precisa ser maior que qualquer um dos catetos: troque os valores.', ja: '斜辺はどの辺よりも長くなければなりません。値を入れ替えてください。', de: 'Die Hypotenuse muss länger sein als jede Kathete — vertausch die Werte.', fr: 'L’hypoténuse doit être plus longue que chacune des cathètes : échange les valeurs.', hi: 'कर्ण दोनों भुजाओं से लंबा होना चाहिए — मानों को आपस में बदल दें।' },
       tone: 'bad',
     } : null,
     ko: { title: '직각삼각형 나머지 변', desc: '빗변과 한 변으로 남은 변의 길이를 구합니다.',
@@ -102,6 +103,7 @@ export const TRIG_TOOLS: FormulaTool[] = [
     verdict: v => Math.abs(((v.angle % 180) + 180) % 180 - 90) < 1e-9 ? {
       ko: '90°와 270°에서 tan은 정의되지 않습니다 — 표에는 0으로 표시했습니다.',
       en: 'Tangent is undefined at 90° and 270° — it is shown as 0 here.',
+      l10n: { es: 'La tangente no está definida en 90° ni en 270°; aquí se muestra como 0.', 'pt-br': 'A tangente não é definida em 90° nem em 270°; aqui aparece como 0.', ja: '90°と270°でtanは定義されません — ここでは0として表示しています。', de: 'Der Tangens ist bei 90° und 270° nicht definiert — hier steht er als 0.', fr: 'La tangente n’est pas définie à 90° ni à 270° — elle est affichée à 0 ici.', hi: '90° और 270° पर स्पर्शज्या परिभाषित नहीं है — यहाँ इसे 0 दिखाया गया है।' },
       tone: 'warn',
     } : null,
     ko: { title: '삼각비 값 계산기', desc: '각도를 넣으면 sin·cos·tan 값을 한 번에 봅니다.',

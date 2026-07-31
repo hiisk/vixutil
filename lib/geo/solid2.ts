@@ -216,6 +216,7 @@ export const SOLID2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `반지름 ${v.r}인 구형 탱크에 ${v.h}만큼 찼다면 전체의 ${out[2].value}%입니다. 절반 높이가 정확히 50%지만 그 아래는 훨씬 적게 찹니다.`,
       en: `Filled to ${v.h} in a sphere of radius ${v.r} is ${out[2].value}% of the total. Half the height is exactly 50%, but below that it fills far less than it looks.`,
+      l10n: { es: `Lleno hasta ${v.h} en una esfera de radio ${v.r} es el ${out[2].value} % del total. A media altura es exactamente el 50 %, pero por debajo se llena mucho menos de lo que parece.`, 'pt-br': `Cheio até ${v.h} numa esfera de raio ${v.r} dá ${out[2].value} % do total. Na metade da altura é exatamente 50 %, mas abaixo disso enche bem menos do que parece.`, ja: `半径${v.r}の球形タンクに${v.h}まで入っているなら全体の${out[2].value}%です。高さが半分ならちょうど50%ですが、そこから下は見た目よりずっと少ししか入りません。`, de: `Bis ${v.h} gefüllt bei einem Kugelradius von ${v.r} sind ${out[2].value} % des Gesamtvolumens. Auf halber Höhe sind es genau 50 %, darunter füllt sich weit weniger, als es aussieht.`, fr: `Rempli jusqu’à ${v.h} dans une sphère de rayon ${v.r}, cela fait ${out[2].value} % du total. À mi-hauteur, c’est exactement 50 %, mais en dessous cela se remplit bien moins qu’il n’y paraît.`, hi: `${v.r} त्रिज्या के गोल टैंक में ${v.h} तक भरा हो तो यह कुल का ${out[2].value}% है। आधी ऊँचाई पर ठीक 50% होता है, पर उससे नीचे दिखने से कहीं कम भरता है।` },
       tone: 'good',
     }),
     ko: { title: '구형 탱크 부분 부피 계산기', desc: '구 모양 통에 어느 높이까지 찼을 때의 부피를 구합니다.',

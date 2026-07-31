@@ -209,6 +209,7 @@ export const PLANE2_TOOLS: FormulaTool[] = [
     verdict: (v, out) => ({
       ko: `길이를 ${v.k}배로 키우면 면적은 ${out[0].value}배, 부피는 ${out[1].value}배가 됩니다.`,
       en: `Scale length by ${v.k} and area grows ${out[0].value}×, volume ${out[1].value}×.`,
+      l10n: { es: `Escala la longitud por ${v.k} y el área crece ${out[0].value}×, el volumen ${out[1].value}×.`, 'pt-br': `Escale o comprimento por ${v.k} e a área cresce ${out[0].value}×, o volume ${out[1].value}×.`, ja: `長さを${v.k}倍にすると、面積は${out[0].value}倍、体積は${out[1].value}倍になります。`, de: `Skalier die Länge mit ${v.k} und die Fläche wächst um das ${out[0].value}-Fache, das Volumen um das ${out[1].value}-Fache.`, fr: `Multiplie la longueur par ${v.k} et l’aire est multipliée par ${out[0].value}, le volume par ${out[1].value}.`, hi: `लंबाई ${v.k} गुना करें तो क्षेत्रफल ${out[0].value} गुना और आयतन ${out[1].value} गुना हो जाता है।` },
       tone: 'good',
     }),
     ko: { title: '닮음비 → 면적비·부피비', desc: '길이를 몇 배로 키우면 면적과 부피가 몇 배가 되는지 계산합니다.',

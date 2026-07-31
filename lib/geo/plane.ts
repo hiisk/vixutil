@@ -87,6 +87,7 @@ export const PLANE_TOOLS: FormulaTool[] = [
       return a + b <= c ? {
         ko: '두 변의 합이 나머지 한 변보다 짧아 삼각형이 만들어지지 않습니다.',
         en: 'Two sides do not add up to more than the third, so no triangle exists.',
+        l10n: { es: 'Dos de los lados no suman más que el tercero, así que no existe ningún triángulo.', 'pt-br': 'Dois dos lados não somam mais que o terceiro, então não existe triângulo.', ja: '二辺の和が残りの一辺より短く、三角形になりません。', de: 'Zwei Seiten ergeben zusammen nicht mehr als die dritte, es gibt also kein Dreieck.', fr: 'Deux des côtés ne totalisent pas plus que le troisième : aucun triangle n’existe.', hi: 'दो भुजाओं का जोड़ तीसरी से बड़ा नहीं है, इसलिए त्रिभुज बनता ही नहीं।' },
         tone: 'bad',
       } : null;
     },

@@ -248,6 +248,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {
       en: { title: 'Geometry', desc: 'Areas, volumes, Pythagoras, angles' },
+      es: { title: 'Geometría', desc: 'Áreas, volúmenes, Pitágoras, ángulos' },
+      'pt-br': { title: 'Geometria', desc: 'Áreas, volumes, Pitágoras, ângulos' },
+      ja: { title: '図形・数学', desc: '面積・体積・三平方の定理・角度' },
+      de: { title: 'Geometrie', desc: 'Flächen, Volumen, Pythagoras, Winkel' },
+      fr: { title: 'Géométrie', desc: 'Aires, volumes, Pythagore, angles' },
+      hi: { title: 'ज्यामिति', desc: 'क्षेत्रफल, आयतन, पाइथागोरस, कोण' },
     },
   },
   {
