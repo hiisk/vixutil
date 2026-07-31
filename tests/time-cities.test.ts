@@ -13,16 +13,16 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang.ts';
+import { LANGS8, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import {
   TIME_CITIES, TIME_COUNTRIES, TIME_REGIONS, citiesOfRegion, timeCity, timeCountry, zoneRegion,
 } from '../lib/time/cities8.ts';
 import { cityFacts, gapLabel, gapMinutes, offsetLabel, sameZoneCities, timeFacts, usesDst } from '../lib/time/facts.ts';
 import { TIME_UI, timeAlternates } from '../lib/time/ui.ts';
 
-const LANGS = LANG8_CODES;
+const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
-const dense = (lang: Lang8) => lang === 'ja';
+const dense = (lang: Lang) => lang === 'ja';
 const facts = (slug: string) => {
   const c = timeCity(slug);
   assert.ok(c, `${slug} 없음`);
@@ -172,6 +172,7 @@ test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
 
 test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
   const a = timeAlternates('new-york');
+  // 자료는 열 언어인데 주소는 여덟이다 — 사정은 lib/time/route.ts에 적어 두었다
   assert.equal(Object.keys(a).length, LANGS8.length + 1);
   assert.equal(a.ko, '/time/new-york');
   assert.equal(a['pt-BR'], '/pt-br/time/new-york');

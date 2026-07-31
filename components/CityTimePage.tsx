@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import CityClock from '@/components/time/CityClock';
-import { LANGS8, langInfo, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langInfo, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { timeCountry, type TimeCity } from '@/lib/time/cities8';
 import { cityFacts, gapLabel, gapMinutes, sameZoneCities } from '@/lib/time/facts';
 import { TIME_UI } from '@/lib/time/ui';
@@ -140,7 +140,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
         )}
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/time/${city.slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
