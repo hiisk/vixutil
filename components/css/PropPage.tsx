@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { CSS_ICON, cssPropOf } from '@/lib/css/props';
 import { propFacts, relatedProps } from '@/lib/css/facts';
 import { propDesc } from '@/lib/css/desc';
@@ -16,7 +16,7 @@ import { CSS_UI } from '@/lib/css/ui';
  * 맨 위에 한 줄 설명과 쓰는 꼴을 놓는다. 찾아오는 사람은 이름은 이미 알고
  * 어떻게 쓰는지를 알러 온다.
  */
-export default function PropPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function PropPage({ slug, lang }: { slug: string; lang: Lang }) {
   const p = cssPropOf(slug);
   if (!p) return null;
 
@@ -129,7 +129,7 @@ export default function PropPage({ slug, lang }: { slug: string; lang: Lang8 }) 
         </p>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/css/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

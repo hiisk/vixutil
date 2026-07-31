@@ -1,11 +1,11 @@
 /**
- * CSS 속성 화면의 문구 — 여덟 언어.
+ * CSS 속성 화면의 문구 — 열 언어.
  *
  * 속성마다 다른 설명은 desc.ts에 있고, 여기에는 화면 틀과 갈래 이름만 둔다.
  * 속성 이름과 값은 표준이 정한 영어라 옮기지 않는다 — display: flex는 어디서나
  * display: flex다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { PropKind } from './props.ts';
 import type { PropFacts } from './facts.ts';
 
@@ -39,15 +39,15 @@ export interface CssUI {
   propFaq: (f: PropFacts, desc: string, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof CssUI]: L8<CssUI[K]> };
+type Spec = { [K in keyof CssUI]: L<CssUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('CSS 속성', 'CSS properties', 'Propiedades CSS', 'Propriedades CSS', 'CSSプロパティ', 'CSS-Eigenschaften', 'Propriétés CSS', 'CSS प्रॉपर्टी'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('CSS 속성', 'CSS properties', 'Propiedades CSS', 'Propriedades CSS', 'CSSプロパティ', 'CSS-Eigenschaften', 'Propriétés CSS', 'CSS प्रॉपर्टी', 'CSS 属性', 'CSS 屬性'),
 
   hubTitle: T(
     'CSS 속성 154개 사전',
@@ -58,6 +58,8 @@ const SPEC: Spec = {
     'Nachschlagewerk mit 154 CSS-Eigenschaften',
     'Référence de 154 propriétés CSS',
     '154 CSS प्रॉपर्टी की संदर्भ सूची',
+    'CSS 属性词典 154 条',
+    'CSS 屬性辭典 154 條',
   ),
 
   hubLead: T(
@@ -69,6 +71,8 @@ const SPEC: Spec = {
     'Was jede Eigenschaft tut, welche Werte man wirklich nutzt und ob sie vererbt wird — je eine Zeile.',
     "Ce que fait chaque propriété, les valeurs réellement utilisées et si elle s'hérite — une ligne chacune.",
     'हर प्रॉपर्टी क्या करती है, कौन-से मान असल में काम आते हैं और क्या वह विरासत में जाती है — एक-एक पंक्ति में।',
+    '每个属性做什么、常用的值有哪些、会不会传给子元素，一行说清。',
+    '每個屬性做什麼、常用的值有哪些、會不會傳給子元素，一行說清。',
   ),
 
   kindLabel: T(
@@ -80,6 +84,8 @@ const SPEC: Spec = {
     { layout: 'Layout', flexgrid: 'Flexbox und Grid', box: 'Box und Abstände', text: 'Text', color: 'Farbe und Hintergrund', border: 'Rahmen', effect: 'Effekte', transform: 'Transformation und Bewegung', position: 'Positionierung', table: 'Tabellen', list: 'Listen', interaction: 'Interaktion', print: 'Druck und Sonstiges' },
     { layout: 'Mise en page', flexgrid: 'Flexbox et grille', box: 'Boîte et espacements', text: 'Texte', color: 'Couleur et fond', border: 'Bordures', effect: 'Effets', transform: 'Transformations et animations', position: 'Positionnement', table: 'Tableaux', list: 'Listes', interaction: 'Interaction', print: 'Impression et divers' },
     { layout: 'लेआउट', flexgrid: 'फ़्लेक्स और ग्रिड', box: 'बॉक्स और जगह', text: 'पाठ', color: 'रंग और पृष्ठभूमि', border: 'बॉर्डर', effect: 'प्रभाव', transform: 'रूपांतरण और गति', position: 'स्थिति', table: 'तालिकाएँ', list: 'सूचियाँ', interaction: 'परस्पर क्रिया', print: 'प्रिंट और अन्य' },
+    { layout: '布局', flexgrid: '弹性与网格', box: '盒子与间距', text: '文字', color: '颜色与背景', border: '边框', effect: '效果', transform: '变形与动效', position: '定位', table: '表格', list: '列表', interaction: '交互', print: '打印与其他' },
+    { layout: '版面', flexgrid: '彈性與格線', box: '盒子與間距', text: '文字', color: '顏色與背景', border: '邊框', effect: '效果', transform: '變形與動效', position: '定位', table: '表格', list: '清單', interaction: '互動', print: '列印與其他' },
   ),
 
   kindNote: T(
@@ -203,20 +209,50 @@ const SPEC: Spec = {
       interaction: 'तत्व माउस, उँगली और स्क्रॉल पर कैसे प्रतिक्रिया दे।',
       print: 'बाक़ी सब — छपाई, उत्पन्न सामग्री और स्वतः संख्यांकन।',
     },
+    {
+      layout: '决定元素当作哪种盒子处理、内容溢出时怎么办的一类属性。',
+      flexgrid: '把元素排成行、摆进格子的一类属性。今天的布局大半靠这两套。',
+      box: '尺寸和间距。外边距上下会合并，内边距上会铺背景色。',
+      text: '字体、行高、对齐这些决定读起来什么样的属性。大多会传给子元素。',
+      color: '文字色、背景色、渐变和透明度。',
+      border: '边框、圆角和阴影。outline 不占位置。',
+      effect: '模糊、裁切、遮罩这类画完之后再加上去的效果。',
+      transform: '位移、旋转和平滑过渡。不动布局，所以画面不容易抖。',
+      position: '把元素从文档流里拎出来放到指定位置。前后顺序由 z-index 定。',
+      table: '管表格边框和列宽的一类属性。',
+      list: '决定列表标记的样子和位置。',
+      interaction: '决定怎么响应鼠标、手指和滚动。',
+      print: '打印和自动编号这些剩下的用途。',
+    },
+    {
+      layout: '決定元素當作哪種盒子處理、內容溢出時怎麼辦的一類屬性。',
+      flexgrid: '把元素排成行、擺進格子的一類屬性。今天的版面大半靠這兩套。',
+      box: '尺寸和間距。外距上下會合併，內距上會鋪背景色。',
+      text: '字型、行高、對齊這些決定讀起來什麼樣的屬性。大多會傳給子元素。',
+      color: '文字色、背景色、漸層和透明度。',
+      border: '邊框、圓角和陰影。outline 不占位置。',
+      effect: '模糊、裁切、遮罩這類畫完之後再加上去的效果。',
+      transform: '位移、旋轉和平滑過渡。不動版面，所以畫面不容易抖。',
+      position: '把元素從文件流裡拎出來放到指定位置。前後順序由 z-index 定。',
+      table: '管表格邊框和欄寬的一類屬性。',
+      list: '決定清單標記的樣子和位置。',
+      interaction: '決定怎麼回應滑鼠、手指和捲動。',
+      print: '列印和自動編號這些剩下的用途。',
+    },
   ),
 
-  writeLabel: T('쓰는 법', 'How to write it', 'Cómo se escribe', 'Como escrever', '書き方', 'Schreibweise', 'Écriture', 'कैसे लिखें'),
-  valuesLabel: T('자주 쓰는 값', 'Common values', 'Valores habituales', 'Valores comuns', 'よく使う値', 'Gängige Werte', 'Valeurs courantes', 'सामान्य मान'),
-  inheritLabel: T('상속', 'Inherited', 'Se hereda', 'Herdada', '継承', 'Vererbt', 'Héritée', 'विरासत'),
-  inheritYes: T('자식에게 물려줍니다', 'Yes — children receive it', 'Sí, los hijos la reciben', 'Sim, os filhos recebem', 'はい — 子に受け継がれます', 'Ja — Kinder übernehmen sie', 'Oui — les enfants en héritent', 'हाँ — बच्चों को मिलती है'),
-  inheritNo: T('물려주지 않습니다', 'No — it stops at this element', 'No, se queda en este elemento', 'Não, para neste elemento', 'いいえ — この要素で止まります', 'Nein — sie endet hier', 'Non — elle s’arrête ici', 'नहीं — यहीं रुक जाती है'),
-  shorthandLabel: T('한꺼번에 정하는 것', 'Sets all of', 'Define a la vez', 'Define de uma vez', 'まとめて決めるもの', 'Setzt zugleich', 'Définit à la fois', 'एक साथ तय करता है'),
-  partOfLabel: T('이 단축에 속함', 'Part of', 'Forma parte de', 'Faz parte de', 'この一括指定に含まれる', 'Teil von', 'Fait partie de', 'इसका हिस्सा'),
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी'),
-  docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़'),
-  relatedTitle: T('같은 갈래의 속성', 'Properties in the same group', 'Propiedades del mismo grupo', 'Propriedades do mesmo grupo', '同じ分類のプロパティ', 'Eigenschaften derselben Gruppe', 'Propriétés du même groupe', 'उसी समूह की प्रॉपर्टी'),
+  writeLabel: T('쓰는 법', 'How to write it', 'Cómo se escribe', 'Como escrever', '書き方', 'Schreibweise', 'Écriture', 'कैसे लिखें', '怎么写', '怎麼寫'),
+  valuesLabel: T('자주 쓰는 값', 'Common values', 'Valores habituales', 'Valores comuns', 'よく使う値', 'Gängige Werte', 'Valeurs courantes', 'सामान्य मान', '常用的值', '常用的值'),
+  inheritLabel: T('상속', 'Inherited', 'Se hereda', 'Herdada', '継承', 'Vererbt', 'Héritée', 'विरासत', '继承', '繼承'),
+  inheritYes: T('자식에게 물려줍니다', 'Yes — children receive it', 'Sí, los hijos la reciben', 'Sim, os filhos recebem', 'はい — 子に受け継がれます', 'Ja — Kinder übernehmen sie', 'Oui — les enfants en héritent', 'हाँ — बच्चों को मिलती है', '会传给子元素', '會傳給子元素'),
+  inheritNo: T('물려주지 않습니다', 'No — it stops at this element', 'No, se queda en este elemento', 'Não, para neste elemento', 'いいえ — この要素で止まります', 'Nein — sie endet hier', 'Non — elle s’arrête ici', 'नहीं — यहीं रुक जाती है', '不往下传，到这个元素为止', '不往下傳，到這個元素為止'),
+  shorthandLabel: T('한꺼번에 정하는 것', 'Sets all of', 'Define a la vez', 'Define de uma vez', 'まとめて決めるもの', 'Setzt zugleich', 'Définit à la fois', 'एक साथ तय करता है', '一次设定这些', '一次設定這些'),
+  partOfLabel: T('이 단축에 속함', 'Part of', 'Forma parte de', 'Faz parte de', 'この一括指定に含まれる', 'Teil von', 'Fait partie de', 'इसका हिस्सा', '属于这个简写', '屬於這個簡寫'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
+  docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़', '标准文档', '標準文件'),
+  relatedTitle: T('같은 갈래의 속성', 'Properties in the same group', 'Propiedades del mismo grupo', 'Propriedades do mesmo grupo', '同じ分類のプロパティ', 'Eigenschaften derselben Gruppe', 'Propriétés du même groupe', 'उसी समूह की प्रॉपर्टी', '同一类的属性', '同一類的屬性'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
 
   how: T(
     [
@@ -267,9 +303,21 @@ const SPEC: Spec = {
       'नियम टकराएँ तो अधिक विशिष्ट सिलेक्टर जीतता है; विशिष्टता बराबर हो तभी क्रम तय करता है।',
       'सहजता के लिए transform और opacity एनिमेट करें। width या top बदलने पर लेआउट दोबारा गणना करनी पड़ती है।',
     ],
+    [
+      '会继承的属性，在父元素上写一次，所有子元素都跟着用。和文字有关的属性大多如此。',
+      '简写属性会把你没写到的值悄悄退回默认值。只写 background: red，先前设的背景图也一并没了。',
+      '同一个元素上规则撞车时，选择器越具体的赢。只有具体度一样时，才轮到写在后面的赢。',
+      '做动效尽量用 transform 和 opacity，会顺滑得多。改 width 或 top 得重新算一遍布局。',
+    ],
+    [
+      '會繼承的屬性，在父元素上寫一次，所有子元素都跟著用。和文字有關的屬性大多如此。',
+      '簡寫屬性會把你沒寫到的值悄悄退回預設值。只寫 background: red，先前設的背景圖也一併沒了。',
+      '同一個元素上規則撞車時，選擇器越具體的贏。只有具體度一樣時，才輪到寫在後面的贏。',
+      '做動效盡量用 transform 和 opacity，會順滑得多。改 width 或 top 得重新算一遍版面。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     'CSS 속성 154개 사전 — 쓰임과 값, 상속',
@@ -280,6 +328,8 @@ const SPEC: Spec = {
     'CSS-Eigenschaften-Referenz — 154 mit Werten und Vererbung',
     'Référence des propriétés CSS — 154 propriétés, valeurs et héritage',
     '154 CSS प्रॉपर्टी संदर्भ — काम, मान और विरासत',
+    'CSS 属性词典 154 条 — 用途、取值与继承',
+    'CSS 屬性辭典 154 條 — 用途、取值與繼承',
   ),
   hubMetaDesc: T(
     'display·flex·grid·position 등 CSS 속성 154개를 갈래별로 정리했습니다. 속성마다 무엇을 하는지, 자주 쓰는 값과 상속 여부, 단축 속성 관계를 함께 볼 수 있습니다.',
@@ -290,6 +340,8 @@ const SPEC: Spec = {
     'Eine Referenz zu 154 CSS-Eigenschaften nach Zweck geordnet — display, flex, grid, position und mehr — mit Aufgabe, gängigen Werten, Vererbung und Kurzschreibweisen.',
     "Une référence de 154 propriétés CSS classées par usage — display, flex, grid, position et les autres — avec leur rôle, leurs valeurs courantes, l'héritage et les raccourcis.",
     '154 CSS प्रॉपर्टी उद्देश्य के अनुसार — display, flex, grid, position और बाक़ी — हर एक का काम, सामान्य मान, विरासत और शॉर्टहैंड संबंध।',
+    'display、flex、grid、position 等 154 个 CSS 属性，按用途分好类。每个属性做什么、常用值有哪些、会不会继承、和简写属性是什么关系，都能一起看到。',
+    'display、flex、grid、position 等 154 個 CSS 屬性，按用途分好類。每個屬性做什麼、常用值有哪些、會不會繼承、和簡寫屬性是什麼關係，都能一起看到。',
   ),
 
   metaTitle: T(
@@ -301,6 +353,8 @@ const SPEC: Spec = {
     (n: string) => `CSS ${n} — Aufgabe und Werte`,
     (n: string) => `CSS ${n} — rôle et valeurs`,
     (n: string) => `CSS ${n} — काम और मान`,
+    (n: string) => `CSS ${n} 属性 — 用途与取值`,
+    (n: string) => `CSS ${n} 屬性 — 用途與取值`,
   ),
 
   metaDesc: T(
@@ -312,6 +366,8 @@ const SPEC: Spec = {
     (n: string, d: string) => `Was die CSS-Eigenschaft ${n} bedeutet und wie man sie schreibt. ${d}`,
     (n: string, d: string) => `Ce que signifie la propriété CSS ${n} et comment l'écrire. ${d}`,
     (n: string, d: string) => `CSS ${n} प्रॉपर्टी का अर्थ और उसे लिखने का तरीक़ा। ${d}`,
+    (n: string, d: string) => `CSS ${n} 属性的含义和写法。${d}`,
+    (n: string, d: string) => `CSS ${n} 屬性的含義和寫法。${d}`,
   ),
 
   hubFaq: T(
@@ -371,6 +427,20 @@ const SPEC: Spec = {
       { q: 'एक ही प्रॉपर्टी दो बार लिखी हो तो कौन जीतती है?', a: 'पहले विशिष्टता देखी जाती है: id क्लास से और क्लास टैग से भारी है। विशिष्टता बराबर हो तभी बाद वाला नियम जीतता है। !important सब पलट देता है, इसीलिए उससे बचना बेहतर है।' },
       { q: 'px लें या rem?', a: 'rem मूल फ़ॉन्ट आकार का गुणक है, इसलिए पाठक द्वारा ब्राउज़र में अक्षर बड़े करने पर यह भी बढ़ता है। अक्षर और जगह के लिए rem सुरक्षित है; जहाँ मान कभी न बदले, जैसे बारीक बॉर्डर, वहाँ px ठीक है।' },
     ],
+    [
+      { q: 'CSS 属性一共有多少个？', a: '光是写进标准的就有五百多个，但真正常动手的只是其中一部分。这里按用途收了做页面时会反复用到的 154 个。' },
+      { q: '「继承」是什么意思？', a: '意思是写在父元素上，子元素不用另写也照着用。字体、文字色、行高这些和文字有关的属性大多会继承；间距和边框则不会。' },
+      { q: '用简写属性有什么不一样？', a: '一行能设好几个值，但没写到的那些会退回默认值。只写 background: red，先前设的背景图就跟着没了，原因就在这里。' },
+      { q: '同一个属性写了两遍，哪个赢？', a: '先比选择器有多具体：id 强过 class，class 强过标签。具体度一样时，才轮到写在后面的赢。!important 能掀翻这套规则，但最好别用。' },
+      { q: 'px 和 rem 该用哪个？', a: 'rem 是根字号的倍数，用户在浏览器里把字调大，它会跟着变大。文字和间距用 rem 更稳妥；像细边框这种必须始终一样的值，px 更合适。' },
+    ],
+    [
+      { q: 'CSS 屬性一共有多少個？', a: '光是寫進標準的就有五百多個，但真正常動手的只是其中一部分。這裡按用途收了做頁面時會反覆用到的 154 個。' },
+      { q: '「繼承」是什麼意思？', a: '意思是寫在父元素上，子元素不用另寫也照著用。字型、文字色、行高這些和文字有關的屬性大多會繼承；間距和邊框則不會。' },
+      { q: '用簡寫屬性有什麼不一樣？', a: '一行能設好幾個值，但沒寫到的那些會退回預設值。只寫 background: red，先前設的背景圖就跟著沒了，原因就在這裡。' },
+      { q: '同一個屬性寫了兩遍，哪個贏？', a: '先比選擇器有多具體：id 強過 class，class 強過標籤。具體度一樣時，才輪到寫在後面的贏。!important 能掀翻這套規則，但最好別用。' },
+      { q: 'px 和 rem 該用哪個？', a: 'rem 是根字級的倍數，使用者在瀏覽器裡把字調大，它會跟著變大。文字和間距用 rem 更穩妥；像細邊框這種必須始終一樣的值，px 更合適。' },
+    ],
   ),
 
   propFaq: T(
@@ -422,13 +492,25 @@ const SPEC: Spec = {
       { q: `क्या ${f.name} विरासत में जाती है?`, a: f.inherited ? 'हाँ। मूल तत्व पर एक बार लिखिए, सभी बच्चे वही मान इस्तेमाल करते हैं।' : 'नहीं। यह वहीं लागू होती है जहाँ लिखी जाए, इसलिए हर तत्व के लिए अलग लिखनी पड़ती है।' },
       { q: f.shorthandFor.length ? `${f.name} शॉर्टहैंड क्या-क्या तय करता है?` : f.partOf.length ? `${f.name} को कौन-सा शॉर्टहैंड तय करता है?` : `${f.name} किस समूह की है?`, a: f.shorthandFor.length ? `${f.shorthandFor.join(', ')} — और जो छोड़ा जाए वह डिफ़ॉल्ट पर लौट जाता है।` : f.partOf.length ? `${f.partOf.join(', ')} इसे एक पंक्ति में तय कर देता है।` : `${kind} समूह की।` },
     ],
+    (f: PropFacts, d: string, kind: string) => [
+      { q: `CSS 的 ${f.name} 属性是做什么的？`, a: d },
+      { q: `${f.name} 怎么写？`, a: `写成 ${f.example} 这样。${f.values.length > 1 ? `常用的值有 ${f.values.slice(0, 4).join('、')} 等。` : ''}` },
+      { q: `${f.name} 会传给子元素吗？`, a: f.inherited ? '会。在父元素上写一次，子元素不用另写也照着用。' : '不会。需要的元素得各写各的。' },
+      { q: f.shorthandFor.length ? `${f.name} 一次能设定哪些属性？` : f.partOf.length ? `有没有能一次设定 ${f.name} 的简写属性？` : `${f.name} 属于哪一类？`, a: f.shorthandFor.length ? `它会一并设定 ${f.shorthandFor.join('、')}。没写到的值会退回默认值。` : f.partOf.length ? `可以用 ${f.partOf.join('、')} 一次设好。` : `属于${kind}这一类。` },
+    ],
+    (f: PropFacts, d: string, kind: string) => [
+      { q: `CSS 的 ${f.name} 屬性是做什麼的？`, a: d },
+      { q: `${f.name} 怎麼寫？`, a: `寫成 ${f.example} 這樣。${f.values.length > 1 ? `常用的值有 ${f.values.slice(0, 4).join('、')} 等。` : ''}` },
+      { q: `${f.name} 會傳給子元素嗎？`, a: f.inherited ? '會。在父元素上寫一次，子元素不用另寫也照著用。' : '不會。需要的元素得各寫各的。' },
+      { q: f.shorthandFor.length ? `${f.name} 一次能設定哪些屬性？` : f.partOf.length ? `有沒有能一次設定 ${f.name} 的簡寫屬性？` : `${f.name} 屬於哪一類？`, a: f.shorthandFor.length ? `它會一併設定 ${f.shorthandFor.join('、')}。沒寫到的值會退回預設值。` : f.partOf.length ? `可以用 ${f.partOf.join('、')} 一次設好。` : `屬於${kind}這一類。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const CSS_UI: L8<CssUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const CSS_UI: L<CssUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<CssUI>;
+) as unknown as L<CssUI>;

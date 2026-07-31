@@ -12,7 +12,8 @@ import { CSS_PROPS, CSS_ICON, CSS_PROP_NAMES, PROP_KINDS, cssPropOf, propsOfKind
 import { propFacts, relatedProps } from '../lib/css/facts.ts';
 import { CSS_DESC, propDesc } from '../lib/css/desc.ts';
 import { CSS_UI } from '../lib/css/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('100개가 넘는다', () => {
   assert.ok(CSS_PROPS.length >= 100, `${CSS_PROPS.length}개뿐이다`);
@@ -76,14 +77,14 @@ test('갈래가 빈 곳 없이 덮는다', () => {
   );
 });
 
-test('154개 모두 여덟 언어 설명이 있다', () => {
+test('154개 모두 열 언어 설명이 있다', () => {
   for (const p of CSS_PROPS) {
     const row = CSS_DESC[p.name];
     assert.ok(row, `${p.name}: 설명이 없다`);
-    assert.equal(row.length, 8, `${p.name}: 여덟 칸이 아니다`);
-    for (const lang of LANG8_CODES) {
+    assert.equal(row.length, 10, `${p.name}: 열 칸이 아니다`);
+    for (const lang of LANG_CODES) {
       // 한국어와 일본어는 같은 뜻을 절반 길이로 적는다 — "上側の外の余白です。"가 열 자다
-      const floor = lang === 'ja' || lang === 'ko' ? 6 : 10;
+      const floor = DENSE.has(lang) ? 6 : 10;
       const d = propDesc(p.name, lang).trim();
       assert.ok(d.length > floor, `${p.name}/${lang}: 설명이 비었거나 너무 짧다 (${d.length}자)`);
     }
@@ -94,7 +95,7 @@ test('154개 모두 여덟 언어 설명이 있다', () => {
 
 test('언어끼리 글자가 섞이지 않는다', () => {
   for (const p of CSS_PROPS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = propDesc(p.name, lang);
       if (lang !== 'ko') assert.ok(!/[가-힣]/.test(d), `${p.name}/${lang}: 한글이 섞였다`);
       if (lang !== 'ja' && lang !== 'ko') assert.ok(!/[ぁ-んァ-ヶ]/.test(d), `${p.name}/${lang}: 가나가 섞였다`);
@@ -122,13 +123,14 @@ test('문서 주소가 속성 이름을 담는다', () => {
   }
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = propFacts(cssPropOf('margin')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = CSS_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -141,7 +143,7 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 });
 
 test('FAQ가 상속되는 속성과 아닌 속성을 다르게 말한다', () => {
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = CSS_UI[lang];
     const color = ui.propFaq(propFacts(cssPropOf('color')!), 'x', 'y')[2].a;
     const margin = ui.propFaq(propFacts(cssPropOf('margin')!), 'x', 'y')[2].a;
@@ -149,16 +151,16 @@ test('FAQ가 상속되는 속성과 아닌 속성을 다르게 말한다', () =>
   }
 });
 
-test('모든 속성이 여덟 언어 메타를 만든다', () => {
+test('모든 속성이 열 언어 메타를 만든다', () => {
   for (const p of CSS_PROPS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = CSS_UI[lang];
       const title = ui.metaTitle(p.name);
       const desc = ui.metaDesc(p.name, propDesc(p.name, lang));
       assert.ok(title.includes(p.name), `${lang}/${p.name}: 제목에 이름이 없다`);
       assert.ok(desc.includes(p.name), `${lang}/${p.name}: 설명에 이름이 없다`);
       // 한국어와 일본어는 같은 뜻을 절반 길이로 적는다
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${p.name}: 설명이 너무 짧다 (${desc.length}자)`);
     }
   }
