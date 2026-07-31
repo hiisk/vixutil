@@ -21,8 +21,22 @@
 import { readdir, stat, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const OUT = 'out';
-const NEXT_APP = '.next/server/app';
+/**
+ * 치울 자리가 셋이다. 빌드 한 번에 같은 사이트가 세 벌 만들어지기 때문이다.
+ *
+ *  out/                    — output:'export'가 내보내는 정적 파일
+ *  .next/server/app/       — next build가 렌더한 원본(.rsc·.html)
+ *  .next/output/static/    — Vercel에서만 생기는 Build Output API 형식의 사본
+ *
+ * 세 번째는 로컬에 없어서 두 번 헛짚었다. Vercel이 실제로 복사해 가는 것은
+ * 이것이고(ENOSPC 로그의 copyfile 원본), 앞의 둘을 아무리 치워도 이게 남아
+ * 있으면 디스크는 그대로다. 그래서 셋을 다 돈다.
+ */
+const TARGETS = [
+  { dir: 'out', mode: 'rsc', label: 'out/' },
+  { dir: '.next/server/app', mode: 'render', label: '.next/server/app' },
+  { dir: '.next/output/static', mode: 'rsc', label: '.next/output/static' },
+];
 
 let files = 0;
 let bytes = 0;
@@ -97,13 +111,16 @@ async function dropBuildLeftovers(dir) {
 
 // 검사가 shouldDrop만 가져다 쓸 때 파일을 건드리지 않도록, 직접 실행일 때만 돈다
 if (import.meta.url === `file://${process.argv[1]}`) {
-  await walk(OUT);
-  const afterOut = { files, bytes };
-  await dropBuildLeftovers(NEXT_APP);
   const gb = n => (n / 1024 ** 3).toFixed(2);
-  console.log(
-    `RSC payload 정리: ${afterOut.files.toLocaleString()}개 · ${gb(afterOut.bytes)}GB 회수 (out/)\n` +
-    `중간 산출물 정리: ${(files - afterOut.files).toLocaleString()}개 · ` +
-    `${gb(bytes - afterOut.bytes)}GB 회수 (.next/server/app)`,
-  );
+  let total = 0;
+  for (const t of TARGETS) {
+    const before = { files, bytes };
+    await (t.mode === 'rsc' ? walk(t.dir) : dropBuildLeftovers(t.dir));
+    const n = files - before.files;
+    const b = bytes - before.bytes;
+    total += b;
+    // 없는 자리도 0개로 찍는다 — 다음에 또 막혔을 때 어디가 안 치워졌는지 보여야 한다
+    console.log(`정리 ${t.label.padEnd(20)} ${n.toLocaleString().padStart(9)}개 · ${gb(b)}GB`);
+  }
+  console.log(`합계 ${gb(total)}GB 회수`);
 }
