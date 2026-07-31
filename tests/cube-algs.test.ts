@@ -15,7 +15,8 @@ import { apply, f2lIntact, isSolved, reverseAlg, solved, tokens } from '../lib/c
 import { ALGS, ALG_SLUGS, CUBE_ICON, F2L, OLL, PLL, STEPS, algOf, algsOfStep } from '../lib/cube/list.ts';
 import { caseFacts, diagram, readLastLayer } from '../lib/cube/facts.ts';
 import { CUBE_UI } from '../lib/cube/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('한 수를 네 번 돌리면 제자리로 온다', () => {
   for (const m of ['U', 'D', 'R', 'L', 'F', 'B', 'M', 'E', 'S', 'r', 'l', 'u', 'd', 'f', 'b', 'x', 'y', 'z']) {
@@ -146,7 +147,7 @@ test('OLL 그림에서 노란 칸 수가 방향과 맞는다', () => {
   for (const a of OLL) {
     const f = caseFacts(a);
     const d = diagram(f);
-    // 윗면 여덟 칸 중 노란 칸 = 방향이 맞은 조각 수
+    // 윗면 열 칸 중 노란 칸 = 방향이 맞은 조각 수
     const lit = [0, 1, 2, 3, 5, 6, 7, 8].filter(i => d[i] === 0).length;
     const ll = readLastLayer(f.state);
     const oriented = ll.co.filter(v => v === 0).length + ll.eo.filter(v => v === 0).length;
@@ -163,13 +164,14 @@ test('갈래가 빈 곳 없이 덮는다', () => {
   for (const p of ['both-up', 'corner-in', 'edge-in', 'both-in']) assert.ok(places.has(p as never), `F2L에 ${p}가 없다`);
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = caseFacts(algOf('oll-27')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = CUBE_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 보는 방법 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -185,9 +187,9 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 test('설명이 모든 항목에서 만들어진다', () => {
   for (const a of ALGS) {
     const f = caseFacts(a);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = CUBE_UI[lang].desc(f);
-      const floor = lang === 'ja' || lang === 'ko' ? 12 : 20;
+      const floor = DENSE.has(lang) ? 12 : 20;
       assert.ok(d.length > floor, `${lang}/${a.slug}: 설명이 너무 짧다 — ${d}`);
       assert.ok(d.includes(String(f.moves)), `${lang}/${a.slug}: 설명에 수가 없다`);
     }
@@ -197,7 +199,7 @@ test('설명이 모든 항목에서 만들어진다', () => {
 test('언어끼리 글자가 섞이지 않는다', () => {
   // 공식 표기와 단계 이름(F2L·OLL·PLL)은 어느 언어에서나 로마자 그대로 쓴다
   const f = caseFacts(algOf('pll-t')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = CUBE_UI[lang];
     const texts = [
       ui.hubTitle, ui.hubLead, ui.hubMetaTitle, ui.hubMetaDesc, ui.section, ui.notationNote,
@@ -217,15 +219,15 @@ test('언어끼리 글자가 섞이지 않는다', () => {
   }
 });
 
-test('모든 공식이 여덟 언어 메타를 만든다', () => {
+test('모든 공식이 열 언어 메타를 만든다', () => {
   for (const a of ALGS) {
     const f = caseFacts(a);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = CUBE_UI[lang];
       assert.ok(ui.metaTitle(a.label).includes(a.label), `${lang}/${a.slug}: 제목에 이름이 없다`);
       const desc = ui.metaDesc(f);
       assert.ok(desc.includes(a.alg), `${lang}/${a.slug}: 설명에 공식이 없다`);
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${a.slug}: 설명이 너무 짧다`);
     }
   }

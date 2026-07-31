@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import CubeTop from '@/components/cube/CubeTop';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { CUBE_ICON, algOf, algsOfStep } from '@/lib/cube/list';
 import { caseFacts, diagram } from '@/lib/cube/facts';
 import { reverseAlg } from '@/lib/cube/sim';
@@ -25,7 +25,7 @@ function siblings(slug: string) {
  *
  * 큐브를 손에 들고 보는 화면이라 공식이 가장 크고, 나머지는 아래로 내린다.
  */
-export default function CubePage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
   const item = algOf(slug);
   if (!item) return null;
   const f = caseFacts(item);
@@ -132,7 +132,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang8 }) 
         <Faq items={faq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(x => x.lang !== lang).map(x => (
+          {LANGS.filter(x => x.lang !== lang).map(x => (
             <Link key={x.lang} href={`${x.prefix}/game/cube/${slug}`} hrefLang={x.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {x.label}
             </Link>

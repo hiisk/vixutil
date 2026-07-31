@@ -1,12 +1,12 @@
 /**
- * 큐브 공식 화면의 문구 — 여덟 언어.
+ * 큐브 공식 화면의 문구 — 열 언어.
  *
  * 공식(R U R')과 경우 이름(OLL 21, T perm)은 만국 공통이라 옮기지 않는다.
  * 항목마다의 설명도 손으로 적지 않는다 — 계산해 낸 모양에서 문장을 만든다.
- * 119개를 여덟 언어로 손으로 적으면 952줄이고, 그중 한 줄이 그림과 어긋나도
+ * 119개를 열 언어로 손으로 적으면 952줄이고, 그중 한 줄이 그림과 어긋나도
  * 아무도 못 잡는다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { Step } from './list.ts';
 import type { CaseFacts, EdgeShape, PairPlace, PllMoves } from './facts.ts';
 
@@ -45,15 +45,15 @@ export interface CubeUI {
   caseFaq: (f: CaseFacts) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof CubeUI]: L8<CubeUI[K]> };
+type Spec = { [K in keyof CubeUI]: L<CubeUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('큐브 공식', 'Cube algorithms', 'Algoritmos de cubo', 'Algoritmos de cubo', 'キューブの手順', 'Cube-Algorithmen', 'Algorithmes de cube', 'क्यूब एल्गोरिद्म'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('큐브 공식', 'Cube algorithms', 'Algoritmos de cubo', 'Algoritmos de cubo', 'キューブの手順', 'Cube-Algorithmen', 'Algorithmes de cube', 'क्यूब एल्गोरिद्म', '魔方公式', '魔術方塊公式'),
 
   hubTitle: T(
     '큐브 공식 119가지',
@@ -64,6 +64,8 @@ const SPEC: Spec = {
     '119 Zauberwürfel-Algorithmen',
     '119 algorithmes du Rubik’s cube',
     'रूबिक क्यूब के 119 एल्गोरिद्म',
+    '魔方公式 119 条',
+    '魔術方塊公式 119 條',
   ),
 
   hubLead: T(
@@ -75,6 +77,8 @@ const SPEC: Spec = {
     'Die drei CFOP-Stufen an einem Ort: 41 F2L-Fälle, 57 OLL und 21 PLL. Jedes Diagramm entsteht, indem der Algorithmus tatsächlich ausgeführt wird.',
     'Les trois étapes du CFOP réunies : 41 cas de F2L, 57 d’OLL et 21 de PLL. Chaque schéma est tracé en exécutant réellement l’algorithme.',
     'CFOP के तीनों चरण एक जगह: F2L के 41, OLL के 57 और PLL के 21 मामले। हर चित्र एल्गोरिद्म को सचमुच चलाकर बनाया गया है।',
+    'CFOP 的三个阶段收在一处 —— F2L 41 种、OLL 57 种、PLL 21 种。每张情形图都是把公式真的转一遍画出来的。',
+    'CFOP 的三個階段收在一處 —— F2L 41 種、OLL 57 種、PLL 21 種。每張情形圖都是把公式真的轉一遍畫出來的。',
   ),
 
   stepLabel: T(
@@ -86,6 +90,8 @@ const SPEC: Spec = {
     { f2l: 'F2L — erste zwei Ebenen', oll: 'OLL — letzte Ebene ausrichten', pll: 'PLL — letzte Ebene vertauschen' },
     { f2l: 'F2L — deux premières couronnes', oll: 'OLL — orienter la dernière couronne', pll: 'PLL — permuter la dernière couronne' },
     { f2l: 'F2L — पहली दो परतें', oll: 'OLL — ऊपरी परत का रंग', pll: 'PLL — अंतिम परत की अदला-बदली' },
+    { f2l: 'F2L — 下面两层', oll: 'OLL — 把顶面转成一色', pll: 'PLL — 把顶层归位' },
+    { f2l: 'F2L — 下面兩層', oll: 'OLL — 把頂面轉成一色', pll: 'PLL — 把頂層歸位' },
   ),
 
   stepNote: T(
@@ -129,6 +135,16 @@ const SPEC: Spec = {
       oll: 'नीचे की दो परतें बिगाड़े बिना ऊपरी सतह को एक रंग का करें। मामले ठीक 57 ही हैं।',
       pll: 'जब रंग हो चुका हो और सिर्फ़ जगहें बची हों तब काम आता है। टुकड़े अपनी जगह भेजें और क्यूब हल।',
     },
+    {
+      f2l: '把角块和棱块配成一对塞进槽里。41 种，是把这一对的位置和朝向全数出来的结果。',
+      oll: '在不打乱下面两层的前提下，把顶面转成同一个颜色。情形只有 57 种。',
+      pll: '颜色已经对了，只剩位置的时候用。把顶层的块送回各自的位子就结束了。',
+    },
+    {
+      f2l: '把角塊和稜塊配成一對塞進槽裡。41 種，是把這一對的位置和朝向全數出來的結果。',
+      oll: '在不打亂下面兩層的前提下，把頂面轉成同一個顏色。情形只有 57 種。',
+      pll: '顏色已經對了，只剩位置的時候用。把頂層的塊送回各自的位子就結束了。',
+    },
   ),
 
   shapeLabel: T(
@@ -140,6 +156,8 @@ const SPEC: Spec = {
     { dot: 'Punkt', corner: 'L-Form', line: 'Linie', cross: 'Kreuz' },
     { dot: 'Point', corner: 'Forme en L', line: 'Ligne', cross: 'Croix' },
     { dot: 'बिंदु', corner: 'L आकार', line: 'रेखा', cross: 'क्रॉस' },
+    { dot: '点', corner: 'L 形', line: '一字', cross: '十字' },
+    { dot: '點', corner: 'L 形', line: '一字', cross: '十字' },
   ),
 
   movingLabel: T(
@@ -151,6 +169,8 @@ const SPEC: Spec = {
     { corners: 'Nur Ecken', edges: 'Nur Kanten', both: 'Ecken und Kanten' },
     { corners: 'Coins seuls', edges: 'Arêtes seules', both: 'Coins et arêtes' },
     { corners: 'सिर्फ़ कोने', edges: 'सिर्फ़ किनारे', both: 'कोने और किनारे' },
+    { corners: '只动角块', edges: '只动棱块', both: '角块和棱块一起动' },
+    { corners: '只動角塊', edges: '只動稜塊', both: '角塊和稜塊一起動' },
   ),
 
   placeLabel: T(
@@ -162,6 +182,8 @@ const SPEC: Spec = {
     { 'both-up': 'Beide oben', 'corner-in': 'Ecke schon im Fach', 'edge-in': 'Kante schon im Fach', 'both-in': 'Beide im Fach verkeilt' },
     { 'both-up': 'Les deux en haut', 'corner-in': 'Coin déjà dans la fente', 'edge-in': 'Arête déjà dans la fente', 'both-in': 'Les deux coincés dans la fente' },
     { 'both-up': 'दोनों ऊपरी परत में', 'corner-in': 'कोना पहले से स्लॉट में', 'edge-in': 'किनारा पहले से स्लॉट में', 'both-in': 'दोनों स्लॉट में फँसे' },
+    { 'both-up': '两块都在顶面', 'corner-in': '角块已在槽内', 'edge-in': '棱块已在槽内', 'both-in': '两块都在槽内' },
+    { 'both-up': '兩塊都在頂面', 'corner-in': '角塊已在槽內', 'edge-in': '稜塊已在槽內', 'both-in': '兩塊都在槽內' },
   ),
 
   moveCount: T(
@@ -173,15 +195,17 @@ const SPEC: Spec = {
     (n: number) => `${n} Züge`,
     (n: number) => `${n} mouvements`,
     (n: number) => `${n} चालें`,
+    (n: number) => `${n} 步`,
+    (n: number) => `${n} 步`,
   ),
 
-  algLabel: T('공식', 'Algorithm', 'Algoritmo', 'Algoritmo', '手順', 'Algorithmus', 'Algorithme', 'एल्गोरिद्म'),
-  reverseLabel: T('역순', 'Reverse', 'Inverso', 'Inverso', '逆手順', 'Umkehrung', 'Inverse', 'उलटा क्रम'),
-  stepTitle: T('단계', 'Stage', 'Etapa', 'Etapa', '段階', 'Stufe', 'Étape', 'चरण'),
-  shapeTitle: T('윗면 모양', 'Top shape', 'Forma superior', 'Forma de cima', '上面の形', 'Form oben', 'Forme du dessus', 'ऊपरी आकार'),
-  movingTitle: T('움직이는 조각', 'What moves', 'Qué se mueve', 'O que se move', '動く駒', 'Was sich bewegt', 'Ce qui bouge', 'क्या हिलता है'),
-  placeTitle: T('짝의 자리', 'Where the pair is', 'Dónde está el par', 'Onde está o par', '組の位置', 'Wo das Paar liegt', 'Où est la paire', 'जोड़ी कहाँ है'),
-  siblingTitle: T('같은 갈래의 다른 경우', 'Other cases in this group', 'Otros casos del grupo', 'Outros casos do grupo', '同じ組の別の場合', 'Andere Fälle dieser Gruppe', 'Autres cas du groupe', 'इसी समूह के अन्य मामले'),
+  algLabel: T('공식', 'Algorithm', 'Algoritmo', 'Algoritmo', '手順', 'Algorithmus', 'Algorithme', 'एल्गोरिद्म', '公式', '公式'),
+  reverseLabel: T('역순', 'Reverse', 'Inverso', 'Inverso', '逆手順', 'Umkehrung', 'Inverse', 'उलटा क्रम', '逆序', '逆序'),
+  stepTitle: T('단계', 'Stage', 'Etapa', 'Etapa', '段階', 'Stufe', 'Étape', 'चरण', '阶段', '階段'),
+  shapeTitle: T('윗면 모양', 'Top shape', 'Forma superior', 'Forma de cima', '上面の形', 'Form oben', 'Forme du dessus', 'ऊपरी आकार', '顶面形状', '頂面形狀'),
+  movingTitle: T('움직이는 조각', 'What moves', 'Qué se mueve', 'O que se move', '動く駒', 'Was sich bewegt', 'Ce qui bouge', 'क्या हिलता है', '哪些块在动', '哪些塊在動'),
+  placeTitle: T('짝의 자리', 'Where the pair is', 'Dónde está el par', 'Onde está o par', '組の位置', 'Wo das Paar liegt', 'Où est la paire', 'जोड़ी कहाँ है', '这一对在哪里', '這一對在哪裡'),
+  siblingTitle: T('같은 갈래의 다른 경우', 'Other cases in this group', 'Otros casos del grupo', 'Outros casos do grupo', '同じ組の別の場合', 'Andere Fälle dieser Gruppe', 'Autres cas du groupe', 'इसी समूह के अन्य मामले', '同一类的其他情形', '同一類的其他情形'),
 
   desc: T(
     (f: CaseFacts) => {
@@ -293,9 +317,35 @@ const SPEC: Spec = {
       const corners = f.cornersUp === 0 ? 'अभी कोई कोना ऊपर नहीं देख रहा' : `${f.cornersUp} कोने पहले से ऊपर देख रहे हैं`;
       return `ऊपरी किनारे ${shape} बनाते हैं और ${corners}। ${f.moves} चालें।`;
     },
+    (f: CaseFacts) => {
+      if (f.step === 'f2l') {
+        const where = { 'both-up': '这一对两块都在顶面', 'corner-in': '角块已经进了槽', 'edge-in': '棱块已经进了槽', 'both-in': '两块都进了槽，但朝向不对' }[f.place!];
+        return `${where}。用 ${f.moves} 步塞进去。`;
+      }
+      if (f.step === 'pll') {
+        const what = { corners: '只有角块换位置', edges: '只有棱块换位置', both: '角块和棱块一起换位置' }[f.moving!];
+        return `${what}。一共 ${f.moves} 步。`;
+      }
+      const shape = { dot: '点', corner: 'L 形', line: '一字', cross: '十字' }[f.shape!];
+      const corners = f.cornersUp === 0 ? '一个角块都没立起来' : `有 ${f.cornersUp} 个角块立着`;
+      return `顶面的棱块排成${shape}，${corners}。一共 ${f.moves} 步。`;
+    },
+    (f: CaseFacts) => {
+      if (f.step === 'f2l') {
+        const where = { 'both-up': '這一對兩塊都在頂面', 'corner-in': '角塊已經進了槽', 'edge-in': '稜塊已經進了槽', 'both-in': '兩塊都進了槽，但朝向不對' }[f.place!];
+        return `${where}。用 ${f.moves} 步塞進去。`;
+      }
+      if (f.step === 'pll') {
+        const what = { corners: '只有角塊換位置', edges: '只有稜塊換位置', both: '角塊和稜塊一起換位置' }[f.moving!];
+        return `${what}。一共 ${f.moves} 步。`;
+      }
+      const shape = { dot: '點', corner: 'L 形', line: '一字', cross: '十字' }[f.shape!];
+      const corners = f.cornersUp === 0 ? '一個角塊都沒立起來' : `有 ${f.cornersUp} 個角塊立著`;
+      return `頂面的稜塊排成${shape}，${corners}。一共 ${f.moves} 步。`;
+    },
   ),
 
-  notationTitle: T('표기 읽는 법', 'Reading the notation', 'Cómo leer la notación', 'Como ler a notação', '表記の読み方', 'Die Notation lesen', 'Lire la notation', 'संकेत कैसे पढ़ें'),
+  notationTitle: T('표기 읽는 법', 'Reading the notation', 'Cómo leer la notación', 'Como ler a notação', '表記の読み方', 'Die Notation lesen', 'Lire la notation', 'संकेत कैसे पढ़ें', '怎么读这套记号', '怎麼讀這套記號'),
   notationNote: T(
     '글자 하나가 면 하나입니다. 그냥 적으면 시계 방향, 따옴표가 붙으면 반시계 방향, 2가 붙으면 반 바퀴입니다.',
     'Each letter is a face. Plain means a quarter turn clockwise, an apostrophe means counter-clockwise, a 2 means a half turn.',
@@ -305,6 +355,8 @@ const SPEC: Spec = {
     'Jeder Buchstabe ist eine Fläche. Ohne Zusatz eine Vierteldrehung im Uhrzeigersinn, mit Apostroph gegen den Uhrzeigersinn, mit 2 eine halbe Drehung.',
     'Chaque lettre est une face. Seule, c’est un quart de tour horaire ; avec une apostrophe, antihoraire ; avec un 2, un demi-tour.',
     'हर अक्षर एक सतह है। अकेला हो तो घड़ी की दिशा में चौथाई घुमाव, एपॉस्ट्रॉफ़ी हो तो उल्टी दिशा, 2 हो तो आधा घुमाव।',
+    '一个字母代表一个面。单写是顺时针转九十度，带撇是逆时针，带 2 是转半圈。',
+    '一個字母代表一個面。單寫是順時針轉九十度，帶撇是逆時針，帶 2 是轉半圈。',
   ),
 
   notation: T(
@@ -396,9 +448,31 @@ const SPEC: Spec = {
       { token: 'E · S', text: 'U–D के बीच और F–B के बीच की परतें' },
       { token: 'x · y · z', text: 'पूरे क्यूब को R, U और F की दिशा में घुमाना' },
     ],
+    [
+      { token: 'U · D', text: '顶面和底面' },
+      { token: 'R · L', text: '右面和左面' },
+      { token: 'F · B', text: '前面和后面' },
+      { token: "R'", text: '逆时针转九十度' },
+      { token: 'R2', text: '转半圈 —— 方向无所谓' },
+      { token: 'r · Rw', text: '右边两层一起转' },
+      { token: 'M', text: 'R 和 L 之间的中层，跟着 L 走' },
+      { token: 'E · S', text: 'U 与 D 之间、F 与 B 之间的中层' },
+      { token: 'x · y · z', text: '整个魔方按 R·U·F 的方向转' },
+    ],
+    [
+      { token: 'U · D', text: '頂面和底面' },
+      { token: 'R · L', text: '右面和左面' },
+      { token: 'F · B', text: '前面和後面' },
+      { token: "R'", text: '逆時針轉九十度' },
+      { token: 'R2', text: '轉半圈 —— 方向無所謂' },
+      { token: 'r · Rw', text: '右邊兩層一起轉' },
+      { token: 'M', text: 'R 和 L 之間的中層，跟著 L 走' },
+      { token: 'E · S', text: 'U 與 D 之間、F 與 B 之間的中層' },
+      { token: 'x · y · z', text: '整個魔術方塊按 R·U·F 的方向轉' },
+    ],
   ),
 
-  howTitle: T('보는 방법', 'How to use this', 'Cómo usarlo', 'Como usar', '使い方', 'So nutzt man das', 'Comment s’en servir', 'कैसे इस्तेमाल करें'),
+  howTitle: T('보는 방법', 'How to use this', 'Cómo usarlo', 'Como usar', '使い方', 'So nutzt man das', 'Comment s’en servir', 'कैसे इस्तेमाल करें', '怎么用这份表', '怎麼用這份表'),
 
   how: T(
     [
@@ -449,9 +523,21 @@ const SPEC: Spec = {
       'कुछ न मिले तो क्यूब को चौथाई-चौथाई घुमाकर चारों ओर से देखिए। एक ही मामला हर कोण से अलग दिखता है।',
       'हर चित्र एल्गोरिद्म चलाकर बना है, किसी तालिका से नक़ल करके नहीं: यह हल किए क्यूब पर एल्गोरिद्म उल्टा चलाने का नतीजा है।',
     ],
+    [
+      '图是从上往下俯视魔方的样子。中间九格是顶面，外面伸出去的那一圈是侧面的第一排。',
+      '涂了色的格子就是要对上的颜色。找出和自己魔方顶面一样的图，用那条公式就行。',
+      '公式对不上时，把魔方一格一格转过去，从四个方向重新看一遍。同一种情形，从哪边看长得并不一样。',
+      '所有的图都是把公式真的转一遍画出来的 —— 不是人照着抄的，而是在还原好的魔方上倒着走一遍公式得到的结果。',
+    ],
+    [
+      '圖是從上往下俯視魔術方塊的樣子。中間九格是頂面，外面伸出去的那一圈是側面的第一排。',
+      '塗了色的格子就是要對上的顏色。找出和自己方塊頂面一樣的圖，用那條公式就行。',
+      '公式對不上時，把方塊一格一格轉過去，從四個方向重新看一遍。同一種情形，從哪邊看長得並不一樣。',
+      '所有的圖都是把公式真的轉一遍畫出來的 —— 不是人照著抄的，而是在還原好的方塊上倒著走一遍公式得到的結果。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '큐브 공식 119가지 — F2L·OLL·PLL 전체 표',
@@ -462,6 +548,8 @@ const SPEC: Spec = {
     'Zauberwürfel-Algorithmen — alle 119 F2L-, OLL- und PLL-Fälle',
     'Algorithmes du Rubik’s cube — les 119 cas de F2L, OLL et PLL',
     'रूबिक क्यूब एल्गोरिद्म — F2L, OLL और PLL के सभी 119 मामले',
+    '魔方公式 119 条 — F2L、OLL、PLL 全表',
+    '魔術方塊公式 119 條 — F2L、OLL、PLL 全表',
   ),
   hubMetaDesc: T(
     'CFOP 세 단계의 공식을 한 장에 모았습니다. F2L 41가지, OLL 57가지, PLL 21가지 — 경우 그림은 공식을 실제로 돌려 그렸고, 수 개수와 갈래도 계산한 값입니다.',
@@ -472,6 +560,8 @@ const SPEC: Spec = {
     'Alle drei CFOP-Stufen auf einer Seite: 41 F2L-Fälle, 57 OLL und 21 PLL. Jedes Diagramm entsteht durch Ausführen des Algorithmus; Zugzahlen und Gruppen sind berechnet.',
     'Les trois étapes du CFOP sur une page : 41 cas de F2L, 57 d’OLL et 21 de PLL. Chaque schéma vient de l’exécution de l’algorithme, et les comptes de mouvements sont calculés.',
     'CFOP के तीनों चरण एक पन्ने पर: F2L के 41, OLL के 57 और PLL के 21 मामले। हर चित्र एल्गोरिद्म चलाकर बना है और चालों की गिनती भी गणना से आई है।',
+    'CFOP 三个阶段的公式收在一页：F2L 41 种、OLL 57 种、PLL 21 种。情形图是把公式真的转一遍画出来的，步数和分类也都是算出来的。',
+    'CFOP 三個階段的公式收在一頁：F2L 41 種、OLL 57 種、PLL 21 種。情形圖是把公式真的轉一遍畫出來的，步數和分類也都是算出來的。',
   ),
 
   metaTitle: T(
@@ -483,6 +573,8 @@ const SPEC: Spec = {
     (l: string) => `${l} — der Algorithmus und was er löst`,
     (l: string) => `${l} — l’algorithme et ce qu’il résout`,
     (l: string) => `${l} — एल्गोरिद्म और वह क्या हल करता है`,
+    (l: string) => `${l} 公式 — 它解的是哪一种情形`,
+    (l: string) => `${l} 公式 — 它解的是哪一種情形`,
   ),
 
   metaDesc: T(
@@ -494,6 +586,8 @@ const SPEC: Spec = {
     (f: CaseFacts) => `${f.label}: ${f.alg}. ${f.moves} Züge. Das Diagramm zeigt genau den Fall, den dieser Algorithmus löst.`,
     (f: CaseFacts) => `${f.label} : ${f.alg}. ${f.moves} mouvements. Le schéma montre exactement le cas que cet algorithme résout.`,
     (f: CaseFacts) => `${f.label}: ${f.alg}. ${f.moves} चालें। यह एल्गोरिद्म जो मामला हल करता है उसका चित्र देखिए।`,
+    (f: CaseFacts) => `${f.label}：${f.alg}，一共 ${f.moves} 步。这条公式解的是什么形状，看图就知道。`,
+    (f: CaseFacts) => `${f.label}：${f.alg}，一共 ${f.moves} 步。這條公式解的是什麼形狀，看圖就知道。`,
   ),
 
   hubFaq: T(
@@ -553,6 +647,20 @@ const SPEC: Spec = {
       { q: 'चित्र मेरे क्यूब जैसा नहीं दिखता।', a: 'क्यूब को चौथाई-चौथाई घुमाकर चारों ओर से देखिए — कौन-सी सतह सामने है इससे वही मामला अलग दिखता है। एल्गोरिद्म से पहले ऊपरी परत मिलाना न भूलें।' },
       { q: 'ये चित्र कहाँ से आए?', a: 'सिर्फ़ एल्गोरिद्म दर्ज हैं। हल किए क्यूब पर एल्गोरिद्म उल्टा चलाने से ठीक वही मामला बनता है जिसे वह हल करता है, और वही खींचा जाता है — इसलिए चित्र और एल्गोरिद्म कभी अलग नहीं हो सकते।' },
     ],
+    [
+      { q: 'CFOP 是什么？', a: '是十字（Cross）、下面两层（F2L）、顶面转成一色（OLL）、顶层归位（PLL）四个词的首字母。比赛里用得最多的方法，这份表收的就是其中需要背公式的三个阶段。' },
+      { q: '119 条都得背下来吗？', a: '不用。OLL 有分两次做的办法，十来条就够；PLL 只记六条也能还原。F2L 与其背，不如把「配对塞槽」的道理弄通，反而更快。这份表当成随时来查的手册就好。' },
+      { q: '同一种情形为什么有好几条公式？', a: '解同一个形状的路本来就不止一条。顺手的公式因人而异，所以每种情形只收了流传最广的一条。你手上已经在用别的公式，接着用就好。' },
+      { q: '图和我的魔方看着不一样。', a: '把魔方每次转九十度，从四个方向都看一遍。同一种情形，把哪一面朝前，看上去就不一样。转公式之前先转顶面对齐侧面颜色（AUF），这一步也别忘。' },
+      { q: '这份表的图是哪来的？', a: '记录下来的只有公式。在还原好的魔方上把公式倒着走一遍，得到的就是这条公式该解的形状，我们把那个结果原样画了下来。所以图和公式不可能对不上。' },
+    ],
+    [
+      { q: 'CFOP 是什麼？', a: '是十字（Cross）、下面兩層（F2L）、頂面轉成一色（OLL）、頂層歸位（PLL）四個詞的首字母。比賽裡用得最多的方法，這份表收的就是其中需要背公式的三個階段。' },
+      { q: '119 條都得背下來嗎？', a: '不用。OLL 有分兩次做的辦法，十來條就夠；PLL 只記六條也能還原。F2L 與其背，不如把「配對塞槽」的道理弄通，反而更快。這份表當成隨時來查的手冊就好。' },
+      { q: '同一種情形為什麼有好幾條公式？', a: '解同一個形狀的路本來就不止一條。順手的公式因人而異，所以每種情形只收了流傳最廣的一條。你手上已經在用別的公式，接著用就好。' },
+      { q: '圖和我的方塊看著不一樣。', a: '把方塊每次轉九十度，從四個方向都看一遍。同一種情形，把哪一面朝前，看上去就不一樣。轉公式之前先轉頂面對齊側面顏色（AUF），這一步也別忘。' },
+      { q: '這份表的圖是哪來的？', a: '記錄下來的只有公式。在還原好的方塊上把公式倒著走一遍，得到的就是這條公式該解的形狀，我們把那個結果原樣畫了下來。所以圖和公式不可能對不上。' },
+    ],
   ),
 
   caseFaq: T(
@@ -604,13 +712,25 @@ const SPEC: Spec = {
       { q: 'उल्टा चलाने पर क्या होता है?', a: 'हल किए क्यूब पर उल्टा चलाने से यही मामला बन जाता है — अभ्यास के लिए स्थिति बनाने में काम आता है।' },
       { q: 'एल्गोरिद्म काम नहीं कर रहा।', a: 'पहले ऊपरी परत घुमाकर बग़ल के रंग मिलाइए, फिर शुरू कीजिए। तब भी न बने तो क्यूब को चौथाई-चौथाई घुमाकर चारों ओर से आकृति मिलाइए।' },
     ],
+    (f: CaseFacts) => [
+      { q: `${f.label} 的公式是什么？`, a: `是 ${f.alg}，一共 ${f.moves} 步。` },
+      { q: '什么形状的时候用它？', a: `${SPEC.desc.zh(f)} 顶面长得和上图一样，就用这条公式。` },
+      { q: '倒着转会怎么样？', a: '在还原好的魔方上走一遍逆序，就能造出这种情形。想练某个形状时，这样最省事。' },
+      { q: '公式转下来没效果。', a: '转公式之前得先转顶面，把侧面的颜色对齐。要是还不行，就把魔方每次转九十度，从四个方向重新比对一下形状。' },
+    ],
+    (f: CaseFacts) => [
+      { q: `${f.label} 的公式是什麼？`, a: `是 ${f.alg}，一共 ${f.moves} 步。` },
+      { q: '什麼形狀的時候用它？', a: `${SPEC.desc.tw(f)} 頂面長得和上圖一樣，就用這條公式。` },
+      { q: '倒著轉會怎麼樣？', a: '在還原好的方塊上走一遍逆序，就能造出這種情形。想練某個形狀時，這樣最省事。' },
+      { q: '公式轉下來沒效果。', a: '轉公式之前得先轉頂面，把側面的顏色對齊。要是還不行，就把方塊每次轉九十度，從四個方向重新比對一下形狀。' },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const CUBE_UI: L8<CubeUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const CUBE_UI: L<CubeUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<CubeUI>;
+) as unknown as L<CubeUI>;
