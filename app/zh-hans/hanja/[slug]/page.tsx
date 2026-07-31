@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import HanjaPage from '@/components/HanjaPage';
 import { IDIOMS, idiomBySlug } from '@/lib/hanja-tools';
 import { HANJA_UI, hanjaAlternates, idiomHeading } from '@/lib/hanja-ui';
-import { openGraphFor } from '@/lib/locales';
+import { idiomText } from '@/lib/hanja/types';
+import { localeHref, openGraphFor } from '@/lib/locales';
 
 export function generateStaticParams() {
   return IDIOMS.map(i => ({ slug: i.slug }));
@@ -13,10 +14,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const i = idiomBySlug(slug);
   if (!i) return {};
-  const t = i['en'];
-  const ui = HANJA_UI['en'];
-  // 중국어는 표제가 간체라 정자와 같을 때가 있다 — 같으면 제목에 한 번만 적는다
-  const heading = idiomHeading(i, 'en');
+  const t = idiomText(i, 'zh-hans');
+  const ui = HANJA_UI['zh-hans'];
+  // 일본어 표제는 한자를 포함하므로 정자와 겹칠 수 있다 — 겹치면 한 번만 적는다
+  const heading = idiomHeading(i, 'zh-hans');
   return {
     // 표제가 한자와 같으면 한 번만 적는다. 중국어 간체는 표제가 简体라
     // 번체 원자와 글자가 달라, 둘을 함께 견줘야 "鷄卵有骨 鸡卵有骨"처럼 겹쳐 나오지 않는다.
@@ -24,14 +25,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       ? `${i.hanja} — ${ui.section}`
       : `${i.hanja} ${heading} — ${ui.section}`,
     description: `${t.meaning} ${t.origin}`,
-    openGraph: openGraphFor('en'),
-    alternates: { canonical: '/en/hanja/' + slug, languages: hanjaAlternates(slug) },
+    openGraph: openGraphFor('zh-hans'),
+    alternates: { canonical: localeHref('zh-hans', `/hanja/${slug}`), languages: hanjaAlternates(slug) },
   };
 }
 
-export default async function HanjaDetailEN({ params }: { params: Promise<{ slug: string }> }) {
+export default async function HanjaDetailZhHans({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const i = idiomBySlug(slug);
   if (!i) notFound();
-  return <HanjaPage idiom={i} lang="en" />;
+  return <HanjaPage idiom={i} lang="zh-hans" />;
 }

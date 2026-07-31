@@ -7,10 +7,13 @@ import { HANJA_JA, GLOSS_JA } from './ja.ts';
 import { HANJA_DE, GLOSS_DE } from './de.ts';
 import { HANJA_FR, GLOSS_FR } from './fr.ts';
 import { HANJA_HI, GLOSS_HI } from './hi.ts';
+import { HANJA_ZH_HANS, GLOSS_ZH_HANS } from './zh-hans.ts';
+import { HANJA_ZH_HANT, GLOSS_ZH_HANT } from './zh-hant.ts';
 
 /** 사자성어 문구의 번역 — slug가 열쇠다 */
 export const HANJA_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<string, IdiomText>>> = {
   es: HANJA_ES, 'pt-br': HANJA_PT_BR, ja: HANJA_JA, de: HANJA_DE, fr: HANJA_FR, hi: HANJA_HI,
+  'zh-hans': HANJA_ZH_HANS, 'zh-hant': HANJA_ZH_HANT,
 };
 
 /**
@@ -21,4 +24,5 @@ export const HANJA_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<strin
  */
 export const GLOSS_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<string, [string, string, string, string]>>> = {
   es: GLOSS_ES, 'pt-br': GLOSS_PT_BR, ja: GLOSS_JA, de: GLOSS_DE, fr: GLOSS_FR, hi: GLOSS_HI,
+  'zh-hans': GLOSS_ZH_HANS, 'zh-hant': GLOSS_ZH_HANT,
 };

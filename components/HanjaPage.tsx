@@ -8,7 +8,8 @@ import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import type { Idiom } from '@/lib/hanja/types';
 import type { FormulaLang } from '@/lib/formula/terms';
-import { HANJA_UI, hanjaCategories, HANJA_SECTION, hanjaFaq, idiomHeading } from '@/lib/hanja-ui';
+import { HANJA_UI, hanjaCategories, HANJA_SECTION, hanjaFaq, idiomHeading, HANJA_LANGS } from '@/lib/hanja-ui';
+import LangPicker from '@/components/LangPicker';
 import { relatedIdioms } from '@/lib/hanja-tools';
 
 /**
@@ -65,12 +66,8 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
           <Link href={localeHref(lang, '/hanja')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
             {ui.section}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
-            {ALL_LOCALES.filter(l => l !== lang).map(l => (
-              <Link key={l} href={localeHref(l, `/hanja/${i.slug}`)} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
-                {localeLabel(l)}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/hanja/${i.slug}`} available={HANJA_LANGS} />
           </span>
         </div>
       </header>
@@ -129,7 +126,11 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
                 <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                 <span className="min-w-0 flex-1">
                   <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
-                    {r.hanja} <span className="font-medium text-slate-500 dark:text-slate-400">{idiomHeading(r, lang)}</span>
+                    {r.hanja}
+                    {/* 중국어 표제는 한자(또는 간체)와 글자가 같다 — 그대로 두면 "四面楚歌 四面楚歌"가 된다 */}
+                    {idiomHeading(r, lang) !== r.hanja && idiomHeading(r, lang) !== r.simplified && (
+                      <span className="font-medium text-slate-500 dark:text-slate-400"> {idiomHeading(r, lang)}</span>
+                    )}
                   </span>
                   <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{idiomText(r, lang).meaning}</span>
                 </span>
