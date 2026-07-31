@@ -1,9 +1,11 @@
 /**
  * 나라 정보 화면의 3언어 문구와 섹션 설정.
  */
-import type { Lang } from './formula/terms.ts';
+import type { Lang, FormulaLang } from './formula/terms.ts';
 import { COUNTRIES, COUNTRY_REGIONS } from './country-tools.ts';
 import type { Country } from './country/types.ts';
+import { countryText } from './country/types.ts';
+import { ALL_LOCALES, alternateLanguagesFor } from './locales.ts';
 
 export const COUNTRY_UI = {
   ko: {
@@ -78,7 +80,231 @@ export const COUNTRY_UI = {
     faq2: (n: string) => `Will Korean electronics work in ${n}?`,
     faq3: (n: string) => `Do I need a visa for ${n}?`,
   },
+  es: {
+    home: 'Inicio',
+    section: 'Guía de países',
+    hubTitle: 'Datos de viaje por país',
+    hubLead: 'Diferencia horaria, voltaje, enchufes, prefijos y normas de entrada, una página por país',
+    hubNotice: '🧭 Las normas de visado y entrada cambian a menudo: consulta el aviso oficial antes de volar.',
+    footNote: 'Los requisitos de entrada dependen de tu pasaporte y cambian con la política, así que confirma siempre el aviso oficial del país de destino. El voltaje y el tipo de enchufe pueden variar según el edificio. La diferencia horaria se da en hora estándar; el horario de verano la mueve en cualquiera de los dos extremos.',
+    metaTitle: 'Datos de viaje por país — husos, voltaje y enchufes de 100 países',
+    metaDesc: 'Diferencia horaria y hora local actual, voltaje y tipo de enchufe, prefijo telefónico, por qué lado se conduce, teléfonos de emergencia y normas de entrada de 100 países, entre ellos Japón, Vietnam, Francia, Islandia y Kenia.',
+    capital: 'Capital',
+    languages: 'Idiomas',
+    currency: 'Moneda',
+    timezone: 'Hora estándar',
+    nowLocal: 'Hora local ahora',
+    koreaGap: 'Diferencia con Madrid',
+    dial: 'Prefijo',
+    volt: 'Voltaje',
+    plug: 'Enchufe',
+    drive: 'Sentido de circulación',
+    driveLeft: 'Por la izquierda',
+    driveRight: 'Por la derecha',
+    emergency: 'Emergencias',
+    tld: 'Dominio',
+    visaTitle: 'Entrada y visado',
+    tipTitle: 'Conviene saber',
+    related: 'Países de la misma región',
+    dstYes: 'Aplica horario de verano',
+    dstNo: 'Sin horario de verano',
+    sameTime: 'La misma hora que Madrid',
+    ahead: (h: string) => `${h} horas por delante de Madrid`,
+    behind: (h: string) => `${h} horas por detrás de Madrid`,
+    faq1: (n: string) => `¿Cuánta diferencia horaria hay entre ${n} y España?`,
+    faq2: (n: string) => `¿Funcionarán mis aparatos en ${n}?`,
+    faq3: (n: string) => `¿Necesito visado para ${n}?`,
+  },
+  'pt-br': {
+    home: 'Início',
+    section: 'Guia de países',
+    hubTitle: 'Informações de viagem por país',
+    hubLead: 'Fuso, voltagem, tomadas, código telefônico e regras de entrada, uma página por país',
+    hubNotice: '🧭 Regras de visto e entrada mudam com frequência — confira o aviso oficial antes de viajar.',
+    footNote: 'As exigências de entrada dependem do seu passaporte e mudam conforme a política, então confirme sempre o aviso oficial do país de destino. Voltagem e tipo de tomada podem variar de prédio para prédio. A diferença de fuso é dada em hora padrão; o horário de verão desloca qualquer uma das duas pontas.',
+    metaTitle: 'Informações de viagem por país — fuso, voltagem e tomadas de 100 países',
+    metaDesc: 'Diferença de fuso e hora local atual, voltagem e tipo de tomada, código telefônico internacional, de que lado se dirige, telefones de emergência e regras de entrada de 100 países, entre eles Japão, Vietnã, França, Islândia e Quênia.',
+    capital: 'Capital',
+    languages: 'Idiomas',
+    currency: 'Moeda',
+    timezone: 'Hora padrão',
+    nowLocal: 'Hora local agora',
+    koreaGap: 'Diferença para São Paulo',
+    dial: 'Código do país',
+    volt: 'Voltagem',
+    plug: 'Tomada',
+    drive: 'Mão de direção',
+    driveLeft: 'Mão inglesa',
+    driveRight: 'Mão direita',
+    emergency: 'Emergência',
+    tld: 'Domínio',
+    visaTitle: 'Entrada e visto',
+    tipTitle: 'Bom saber',
+    related: 'Países da mesma região',
+    dstYes: 'Adota horário de verão',
+    dstNo: 'Sem horário de verão',
+    sameTime: 'Mesma hora de São Paulo',
+    ahead: (h: string) => `${h} horas à frente de São Paulo`,
+    behind: (h: string) => `${h} horas atrás de São Paulo`,
+    faq1: (n: string) => `Qual é a diferença de fuso entre ${n} e o Brasil?`,
+    faq2: (n: string) => `Meus aparelhos vão funcionar em ${n}?`,
+    faq3: (n: string) => `Preciso de visto para ${n}?`,
+  },
+  ja: {
+    home: 'ホーム',
+    section: '国の情報',
+    hubTitle: '国別の旅行情報',
+    hubLead: '時差・電圧・プラグ・国番号・入国条件を国ごとに一枚で',
+    hubNotice: '🧭 ビザと入国条件はよく変わります。出発前に公式の案内を確認してください。',
+    footNote: '入国の条件は持っている旅券によって違い、方針しだいで変わります。渡航先の公式案内を必ず確認してください。電圧とプラグは建物によって違うことがあります。時差は標準時での値で、サマータイムがあるとどちらの側でも一時間ずれます。',
+    metaTitle: '国別の旅行情報 — 時差・電圧・プラグ・国番号100か国',
+    metaDesc: '日本・ベトナム・フランス・アイスランド・ケニアなど100か国の時差と現地時刻、電圧とプラグの形、国際電話の国番号、通行の左右、緊急電話、入国条件を一枚にまとめました。',
+    capital: '首都',
+    languages: '公用語',
+    currency: '通貨',
+    timezone: '標準時',
+    nowLocal: '現地の時刻',
+    koreaGap: '日本との時差',
+    dial: '国番号',
+    volt: '電圧',
+    plug: 'プラグ',
+    drive: '通行',
+    driveLeft: '左側通行',
+    driveRight: '右側通行',
+    emergency: '緊急電話',
+    tld: 'ドメイン',
+    visaTitle: '入国・ビザ',
+    tipTitle: '知っておくと役立つこと',
+    related: '同じ地域の国',
+    dstYes: 'サマータイムあり',
+    dstNo: 'サマータイムなし',
+    sameTime: '時差なし',
+    ahead: (h: string) => `日本より${h}時間進んでいます`,
+    behind: (h: string) => `日本より${h}時間遅れています`,
+    faq1: (n: string) => `${n}と日本の時差は何時間ですか。`,
+    faq2: (n: string) => `${n}で日本の電化製品は使えますか。`,
+    faq3: (n: string) => `${n}に行くのにビザは必要ですか。`,
+  },
+  de: {
+    home: 'Start',
+    section: 'Länderinfos',
+    hubTitle: 'Reisefakten nach Land',
+    hubLead: 'Zeitverschiebung, Spannung, Stecker, Vorwahl und Einreiseregeln — eine Seite je Land',
+    hubNotice: '🧭 Visa- und Einreiseregeln ändern sich oft — prüf vor dem Abflug die amtliche Auskunft.',
+    footNote: 'Die Einreisebedingungen hängen von deinem Pass ab und ändern sich mit der Politik, prüf also immer die amtliche Auskunft des Ziellandes. Spannung und Steckertyp können je nach Gebäude abweichen. Die Zeitverschiebung gilt für Normalzeit; die Sommerzeit verschiebt sie auf jeder der beiden Seiten.',
+    metaTitle: 'Reisefakten nach Land — Zeitzonen, Spannung und Stecker für 100 Länder',
+    metaDesc: 'Zeitverschiebung und aktuelle Ortszeit, Spannung und Steckertyp, Ländervorwahl, Verkehrsseite, Notrufnummern und Einreiseregeln für 100 Länder, darunter Japan, Vietnam, Frankreich, Island und Kenia.',
+    capital: 'Hauptstadt',
+    languages: 'Sprachen',
+    currency: 'Währung',
+    timezone: 'Normalzeit',
+    nowLocal: 'Ortszeit jetzt',
+    koreaGap: 'Unterschied zu Berlin',
+    dial: 'Vorwahl',
+    volt: 'Spannung',
+    plug: 'Stecker',
+    drive: 'Verkehrsseite',
+    driveLeft: 'Linksverkehr',
+    driveRight: 'Rechtsverkehr',
+    emergency: 'Notruf',
+    tld: 'Domain',
+    visaTitle: 'Einreise und Visum',
+    tipTitle: 'Gut zu wissen',
+    related: 'Länder derselben Region',
+    dstYes: 'Mit Sommerzeit',
+    dstNo: 'Ohne Sommerzeit',
+    sameTime: 'Gleiche Zeit wie Berlin',
+    ahead: (h: string) => `${h} Stunden vor Berlin`,
+    behind: (h: string) => `${h} Stunden hinter Berlin`,
+    faq1: (n: string) => `Wie groß ist die Zeitverschiebung zwischen ${n} und Deutschland?`,
+    faq2: (n: string) => `Funktionieren meine Geräte in ${n}?`,
+    faq3: (n: string) => `Brauche ich ein Visum für ${n}?`,
+  },
+  fr: {
+    home: 'Accueil',
+    section: 'Fiches pays',
+    hubTitle: 'Infos voyage par pays',
+    hubLead: 'Décalage horaire, tension, prises, indicatif et conditions d’entrée — une page par pays',
+    hubNotice: '🧭 Les règles de visa et d’entrée changent souvent — vérifie l’avis officiel avant de partir.',
+    footNote: 'Les conditions d’entrée dépendent de ton passeport et changent selon la politique du pays : vérifie toujours l’avis officiel de la destination. La tension et le type de prise peuvent varier d’un bâtiment à l’autre. Le décalage est donné en heure standard ; l’heure d’été le déplace d’un côté comme de l’autre.',
+    metaTitle: 'Infos voyage par pays — fuseaux, tension et prises de 100 pays',
+    metaDesc: 'Décalage horaire et heure locale, tension et type de prise, indicatif téléphonique, côté de circulation, numéros d’urgence et conditions d’entrée pour 100 pays, dont le Japon, le Vietnam, la France, l’Islande et le Kenya.',
+    capital: 'Capitale',
+    languages: 'Langues',
+    currency: 'Monnaie',
+    timezone: 'Heure standard',
+    nowLocal: 'Heure locale',
+    koreaGap: 'Décalage avec Paris',
+    dial: 'Indicatif',
+    volt: 'Tension',
+    plug: 'Prise',
+    drive: 'Sens de circulation',
+    driveLeft: 'Conduite à gauche',
+    driveRight: 'Conduite à droite',
+    emergency: 'Urgences',
+    tld: 'Domaine',
+    visaTitle: 'Entrée et visa',
+    tipTitle: 'Bon à savoir',
+    related: 'Pays de la même région',
+    dstYes: 'Applique l’heure d’été',
+    dstNo: 'Pas d’heure d’été',
+    sameTime: 'Même heure qu’à Paris',
+    ahead: (h: string) => `${h} heures d’avance sur Paris`,
+    behind: (h: string) => `${h} heures de retard sur Paris`,
+    faq1: (n: string) => `Quel est le décalage horaire entre ${n} et la France ?`,
+    faq2: (n: string) => `Mes appareils fonctionneront-ils en ${n} ?`,
+    faq3: (n: string) => `Faut-il un visa pour ${n} ?`,
+  },
+  hi: {
+    home: 'होम',
+    section: 'देशों की जानकारी',
+    hubTitle: 'देश के हिसाब से यात्रा की जानकारी',
+    hubLead: 'समय का फ़र्क़, वोल्टेज, प्लग, देश कोड और प्रवेश के नियम — हर देश का एक पन्ना',
+    hubNotice: '🧭 वीज़ा और प्रवेश के नियम अक्सर बदलते हैं — उड़ान से पहले आधिकारिक सूचना देख लें।',
+    footNote: 'प्रवेश की शर्तें आपके पासपोर्ट पर निर्भर करती हैं और नीति के साथ बदलती रहती हैं, इसलिए गंतव्य देश की आधिकारिक सूचना हमेशा जाँच लें। वोल्टेज और प्लग इमारत दर इमारत बदल सकते हैं। समय का फ़र्क़ मानक समय के हिसाब से है; डेलाइट सेविंग होने पर यह किसी भी छोर पर खिसक जाता है।',
+    metaTitle: 'देशों की यात्रा जानकारी — 100 देशों के समय क्षेत्र, वोल्टेज और प्लग',
+    metaDesc: 'जापान, वियतनाम, फ़्रांस, आइसलैंड और केन्या समेत 100 देशों का समय का फ़र्क़ और वहाँ का मौजूदा समय, वोल्टेज और प्लग का प्रकार, अंतरराष्ट्रीय देश कोड, गाड़ी किस ओर चलती है, आपात नंबर और प्रवेश के नियम — सब एक जगह।',
+    capital: 'राजधानी',
+    languages: 'भाषाएँ',
+    currency: 'मुद्रा',
+    timezone: 'मानक समय',
+    nowLocal: 'वहाँ का समय',
+    koreaGap: 'नई दिल्ली से फ़र्क़',
+    dial: 'देश कोड',
+    volt: 'वोल्टेज',
+    plug: 'प्लग',
+    drive: 'यातायात की दिशा',
+    driveLeft: 'बाएँ चलना',
+    driveRight: 'दाएँ चलना',
+    emergency: 'आपात नंबर',
+    tld: 'डोमेन',
+    visaTitle: 'प्रवेश और वीज़ा',
+    tipTitle: 'जानने लायक़ बात',
+    related: 'इसी क्षेत्र के देश',
+    dstYes: 'डेलाइट सेविंग लागू',
+    dstNo: 'डेलाइट सेविंग नहीं',
+    sameTime: 'नई दिल्ली जैसा ही समय',
+    ahead: (h: string) => `नई दिल्ली से ${h} घंटे आगे`,
+    behind: (h: string) => `नई दिल्ली से ${h} घंटे पीछे`,
+    faq1: (n: string) => `${n} और भारत के बीच कितने घंटे का फ़र्क़ है?`,
+    faq2: (n: string) => `क्या ${n} में मेरे उपकरण चलेंगे?`,
+    faq3: (n: string) => `${n} जाने के लिए वीज़ा चाहिए?`,
+  },
 } as const;
+
+/**
+ * 시차를 재는 기준 도시의 UTC 오프셋.
+ *
+ * "한국보다 두 시간 빠름"은 독일 독자에게 아무 쓸모가 없다. 언어마다 그 언어를
+ * 읽는 사람이 있을 법한 도시를 하나 정하고, 화면 문구도 그 도시 이름으로 쓴다.
+ * metro·music 섹션이 이미 같은 방식으로 도시를 언어별로 잡고 있다.
+ *
+ * en은 한국 기준 그대로 둔다 — 영어 본문 100편이 이미 서울과의 거리·시차를
+ * 이야기하고 있어서, 기준만 바꾸면 표와 본문이 서로 어긋난다.
+ */
+export const REF_UTC: Record<FormulaLang, number> = {
+  ko: 9, en: 9, es: 1, 'pt-br': -3, ja: 9, de: 1, fr: 1, hi: 5.5,
+};
 
 export const COUNTRY_REGION_LABEL: Record<Lang, Record<string, string>> = {
   ko: {
@@ -90,6 +316,42 @@ export const COUNTRY_REGION_LABEL: Record<Lang, Record<string, string>> = {
     '유럽': 'Europe', '미주': 'Americas', '오세아니아·아프리카': 'Oceania & Africa',
   },
 };
+
+export const COUNTRY_REGION_INTL: Partial<Record<FormulaLang, Record<string, string>>> = {
+  es: {
+    '동아시아': 'Asia Oriental', '동남아시아': 'Sudeste Asiático', '서·남아시아': 'Asia Occidental y Meridional',
+    '유럽': 'Europa', '미주': 'América', '오세아니아·아프리카': 'Oceanía y África',
+  },
+  'pt-br': {
+    '동아시아': 'Ásia Oriental', '동남아시아': 'Sudeste Asiático', '서·남아시아': 'Ásia Ocidental e Meridional',
+    '유럽': 'Europa', '미주': 'Américas', '오세아니아·아프리카': 'Oceania e África',
+  },
+  ja: {
+    '동아시아': '東アジア', '동남아시아': '東南アジア', '서·남아시아': '西・南アジア',
+    '유럽': 'ヨーロッパ', '미주': '南北アメリカ', '오세아니아·아프리카': 'オセアニア・アフリカ',
+  },
+  de: {
+    '동아시아': 'Ostasien', '동남아시아': 'Südostasien', '서·남아시아': 'West- und Südasien',
+    '유럽': 'Europa', '미주': 'Amerika', '오세아니아·아프리카': 'Ozeanien und Afrika',
+  },
+  fr: {
+    '동아시아': 'Asie de l’Est', '동남아시아': 'Asie du Sud-Est', '서·남아시아': 'Asie de l’Ouest et du Sud',
+    '유럽': 'Europe', '미주': 'Amériques', '오세아니아·아프리카': 'Océanie et Afrique',
+  },
+  hi: {
+    '동아시아': 'पूर्वी एशिया', '동남아시아': 'दक्षिण-पूर्व एशिया', '서·남아시아': 'पश्चिम और दक्षिण एशिया',
+    '유럽': 'यूरोप', '미주': 'अमेरिका महाद्वीप', '오세아니아·아프리카': 'ओशिनिया और अफ़्रीका',
+  },
+};
+
+/** 여덟 언어가 다 열려 있다 */
+export const COUNTRY_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+
+/** 지역 이름 — 번역이 없으면 영어로 떨어뜨린다 */
+export const countryRegions = (lang: FormulaLang): Record<string, string> =>
+  lang === 'ko' || lang === 'en'
+    ? COUNTRY_REGION_LABEL[lang]
+    : COUNTRY_REGION_INTL[lang] ?? COUNTRY_REGION_LABEL.en;
 
 export const COUNTRY_SECTION = {
   key: 'country',
@@ -106,9 +368,9 @@ export const COUNTRY_SECTION = {
 };
 
 /** 시차를 사람이 읽는 문장으로 — 30분·45분 단위 나라가 있어 소수를 그대로 못 쓴다 */
-export function gapText(c: Country, lang: Lang): string {
+export function gapText(c: Country, lang: FormulaLang): string {
   const ui = COUNTRY_UI[lang];
-  const diff = c.utc - 9;
+  const diff = c.utc - REF_UTC[lang];
   if (diff === 0) return ui.sameTime;
   const abs = Math.abs(diff);
   const label = Number.isInteger(abs) ? String(abs) : abs.toFixed(2).replace(/0+$/, '').replace(/\.$/, '');
@@ -125,9 +387,9 @@ export function utcLabel(utc: number): string {
   return `UTC${sign}${h}${m ? `:${String(m).padStart(2, '0')}` : ''}`;
 }
 
-export function countryFaq(c: Country, lang: Lang) {
+export function countryFaq(c: Country, lang: FormulaLang) {
   const ui = COUNTRY_UI[lang];
-  const t = c[lang];
+  const t = countryText(c, lang);
   return [
     { q: ui.faq1(t.name), a: `${gapText(c, lang)} (${utcLabel(c.utc)}). ${c.dst ? ui.dstYes : ui.dstNo}.` },
     { q: ui.faq2(t.name), a: `${ui.volt} ${c.volt} / ${c.hz}, ${ui.plug} ${c.plug}.` },
@@ -137,5 +399,5 @@ export function countryFaq(c: Country, lang: Lang) {
 
 export function countryAlternates(slug?: string) {
   const path = slug ? `/country/${slug}` : '/country';
-  return { 'ko': path, 'en': `/en${path}`, 'x-default': `/en${path}` };
+  return alternateLanguagesFor(path, [...ALL_LOCALES]);
 }

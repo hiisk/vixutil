@@ -6,7 +6,8 @@
  * 국가번호, 시차, 운전 방향, 통화 — 을 중심에 두고, 변동이 잦은 비자는
  * 값 대신 "확인하라"는 문구를 항상 함께 낸다.
  */
-import type { Lang } from '../formula/terms.ts';
+import type { Lang, FormulaLang } from '../formula/terms.ts';
+import { COUNTRY_L10N } from '../country-l10n/index.ts';
 
 export interface CountryText {
   /** 나라 이름 */
@@ -21,7 +22,14 @@ export interface CountryText {
   intro: string;
   /** 여행자가 알면 도움이 되는 한 가지 */
   tip: string;
-  /** 한국 여권 기준 입국 조건 */
+  /**
+   * 입국 조건.
+   *
+   * ko·en은 한국 여권 기준으로 쓰여 있다. 번역 언어에서는 여권별 일수를 단정하지
+   * 않는다 — 독일 독자에게 "한국 여권은 90일 무비자"는 그냥 틀린 정보이기 때문이다.
+   * 대신 여권을 가리지 않는 것(전자여행허가·사전등록·여권 잔여기간·왕복 항공권)만
+   * 적고, 일수는 본인 여권으로 확인하라고 넘긴다.
+   */
   visa: string;
   /** 긴급 전화 — "경찰"처럼 설명이 붙어 언어별로 둔다 */
   emergency: string;
@@ -58,7 +66,16 @@ export interface Country {
   en: CountryText;
 }
 
-export const countryText = (c: Country, lang: Lang): CountryText => c[lang];
+/**
+ * 나라 문구를 언어별로 고른다.
+ *
+ * ko·en은 파일 안에 그대로 있고, 번역 여섯 언어는 lib/country-l10n에서 꺼낸다.
+ * 빠진 나라가 있으면 영어로 떨어뜨린다 — 빈 화면보다는 읽히는 편이 낫다.
+ */
+export const countryText = (c: Country, lang: FormulaLang): CountryText => {
+  if (lang === 'ko' || lang === 'en') return c[lang];
+  return COUNTRY_L10N[lang]?.[c.slug] ?? c.en;
+};
 
 /** 한국(UTC+9)과의 시차 — 음수면 한국보다 느리다 */
 export const koreaOffset = (c: Country): number => c.utc - 9;
