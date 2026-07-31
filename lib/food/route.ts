@@ -2,18 +2,11 @@
  * 재료 라우트가 함께 쓰는 부분 — 메타와 공유 카드.
  *
  * 언어 여덟 × 파일 둘이라 문구 규칙을 라우트에 적지 않는다.
- *
- * ── 자료는 열 언어인데 라우트가 여덟인 이유 ─────────────
- * 재료 이름과 화면 문구는 중국어까지 채웠지만 주소는 아직 여덟이다. 이 섹션의
- * 상위 페이지 /food가 재료 목록 전용이 아니라 요리 도구 허브(FoodHubIntl)와
- * 같은 페이지이고, 그 허브는 일곱 언어짜리 *-tools-intl 층에 묶여 있다.
- * 중국어 상세 페이지만 먼저 내보내면 "목록으로" 링크가 없는 주소를 가리킨다.
- * 도구 허브가 열 언어로 넘어오면 여기 alternates8을 alternates로 바꾸면 된다.
  */
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
+import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { ingredient } from './ingredients8.ts';
 import { foodFacts } from './facts.ts';
 import { FOOD_UI } from './ui.ts';
@@ -21,9 +14,9 @@ import { FOOD_UI } from './ui.ts';
 const TO = '#0f172a';
 
 /** 데바나가리는 카드에서 정형되지 않는다 — 지하철·음악·색상에서와 같은 이유다 */
-const cardLang = (lang: Lang8): Lang8 => (lang === 'hi' ? 'en' : lang);
+const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
-export function detailMetadata(lang: Lang8, slug: string): Metadata {
+export function detailMetadata(lang: Lang, slug: string): Metadata {
   const ing = ingredient(slug);
   if (!ing) return {};
   const ui = FOOD_UI[lang];
@@ -33,12 +26,12 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     description: ui.metaDesc(ing.name[lang], f),
     alternates: {
       canonical: `${langPrefix(lang)}/food/${slug}`,
-      languages: alternates8(`/food/${slug}`),
+      languages: alternates(`/food/${slug}`),
     },
   };
 }
 
-export function ingredientCard(lang: Lang8, slug: string): ReactElement {
+export function ingredientCard(lang: Lang, slug: string): ReactElement {
   const ing = ingredient(slug);
   const card = cardLang(lang);
   const ui = FOOD_UI[card];

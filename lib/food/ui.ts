@@ -4,7 +4,7 @@
  * 125가지 × 10언어 = 1250벌의 설명을 손으로 쓸 수 없다. 재료마다 다른 것은 이름과
  * 숫자뿐이므로 문장 틀을 한 벌만 두고 계산된 값을 끼워 넣는다.
  */
-import { alternates8, type L, type Lang } from '../i18n/lang.ts';
+import { alternates, type L, type Lang } from '../i18n/lang.ts';
 import type { FoodFacts } from './facts.ts';
 import type { FoodCategory } from './ingredients8.ts';
 
@@ -791,4 +791,4 @@ export const foodUi = (lang: Lang): FoodUI => FOOD_UI[lang];
 
 /** hreflang 묶음 — 재료 slug만 넣으면 아홉 줄이 나온다 */
 export const foodAlternates = (slug?: string): Record<string, string> =>
-  alternates8(slug ? `/food/${slug}` : '/food');
+  alternates(slug ? `/food/${slug}` : '/food');

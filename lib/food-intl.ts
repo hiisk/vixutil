@@ -10,7 +10,15 @@ import type { AnyLocale } from './locales.ts';
  * 재료 이름은 번역이 아니라 그 언어의 부엌에서 쓰는 말로 적는다 — 고추장을
  * 'red pepper paste'로 풀어 쓰는 대신 gochujang으로 두는 것이 실제로 찾기 쉽다.
  */
-export type FoodLang = AnyLocale;
+/**
+ * 요리 도구가 쓰는 언어.
+ *
+ * AnyLocale(여덟)에 중국어 둘을 더한다. 공용 IntlLocale을 넓히지 않는 이유는
+ * 그 타입을 convert(도구 100개)·country를 비롯한 열 몇 개 층이 함께 쓰고 있어서,
+ * 넓히는 순간 아직 중국어가 없는 층까지 전부 타입 오류가 나기 때문이다.
+ * 섹션이 하나씩 넘어올 때마다 그 섹션의 타입만 넓힌다.
+ */
+export type FoodLang = AnyLocale | 'zh-hans' | 'zh-hant';
 
 /** INGREDIENTS의 id → 이름·주의 */
 export const INGREDIENT_INTL: Record<FoodLang, Record<string, { name: string; note?: string }>> = {
@@ -142,6 +150,38 @@ export const INGREDIENT_INTL: Record<FoodLang, Record<string, { name: string; no
     oat: { name: 'ओट्स' },
     breadcrumb: { name: 'ब्रेडक्रम्ब' },
   },
+  'zh-hans': {
+    water: { name: '水·牛奶' },
+    flour: { name: '面粉（低筋·中筋）', note: '过筛后刮平，别堆着装' },
+    sugar: { name: '砂糖（白砂糖）' },
+    'brown-sugar': { name: '红糖（压实装）' },
+    salt: { name: '盐（细盐）' },
+    rice: { name: '米（生米）' },
+    oil: { name: '食用油·橄榄油' },
+    butter: { name: '黄油（融化的）' },
+    honey: { name: '蜂蜜·糖稀' },
+    soy: { name: '酱油' },
+    gochujang: { name: '韩式辣椒酱' },
+    cocoa: { name: '可可粉' },
+    oat: { name: '燕麦片' },
+    breadcrumb: { name: '面包糠' },
+  },
+  'zh-hant': {
+    water: { name: '水·牛奶' },
+    flour: { name: '麵粉（低筋·中筋）', note: '過篩後刮平，別堆著裝' },
+    sugar: { name: '砂糖（白砂糖）' },
+    'brown-sugar': { name: '黑糖（壓實裝）' },
+    salt: { name: '鹽（細鹽）' },
+    rice: { name: '米（生米）' },
+    oil: { name: '食用油·橄欖油' },
+    butter: { name: '奶油（融化的）' },
+    honey: { name: '蜂蜜·糖漿' },
+    soy: { name: '醬油' },
+    gochujang: { name: '韓式辣椒醬' },
+    cocoa: { name: '可可粉' },
+    oat: { name: '燕麥片' },
+    breadcrumb: { name: '麵包粉' },
+  },
 };
 
 /** DONENESS의 id → 이름·설명 */
@@ -201,6 +241,20 @@ export const DONENESS_INTL: Record<FoodLang, Record<string, { name: string; desc
     medium: { name: 'मीडियम', desc: 'गुलाबी रंग बचा हुआ, रसीला' },
     'medium-well': { name: 'मीडियम वेल', desc: 'गुलाबी रंग लगभग ख़त्म' },
     well: { name: 'वेल डन', desc: 'भीतर तक पूरा पका' },
+  },
+  'zh-hans': {
+    rare: { name: '一分熟', desc: '中间是红的，还带凉意' },
+    'medium-rare': { name: '三分熟', desc: '最多人推荐的熟度' },
+    medium: { name: '五分熟', desc: '还留着粉色，肉汁充足' },
+    'medium-well': { name: '七分熟', desc: '粉色几乎看不见了' },
+    well: { name: '全熟', desc: '里外都熟透' },
+  },
+  'zh-hant': {
+    rare: { name: '一分熟', desc: '中間是紅的，還帶涼意' },
+    'medium-rare': { name: '三分熟', desc: '最多人推薦的熟度' },
+    medium: { name: '五分熟', desc: '還留著粉色，肉汁充足' },
+    'medium-well': { name: '七分熟', desc: '粉色幾乎看不見了' },
+    well: { name: '全熟', desc: '裡外都熟透' },
   },
 };
 
@@ -270,6 +324,22 @@ export const BREW_INTL: Record<FoodLang, Record<string, { name: string; note: st
     coldbrew: { name: 'कोल्ड ब्रू सत', note: 'पतला करके पीजिए' },
     espresso: { name: 'एस्प्रेसो', note: '1 भाग कॉफ़ी : 2 भाग निकास' },
   },
+  'zh-hans': {
+    'filter-light': { name: '手冲（淡）', note: '水 17 : 豆 1' },
+    filter: { name: '手冲（中）', note: '最不容易出错的比例' },
+    'filter-strong': { name: '手冲（浓）', note: '酸味退下去，醇厚感上来' },
+    french: { name: '法压壶', note: '磨粗，浸泡 4 分钟' },
+    coldbrew: { name: '冷萃原液', note: '兑水之后再喝' },
+    espresso: { name: '意式浓缩', note: '豆 1 : 萃取量 2' },
+  },
+  'zh-hant': {
+    'filter-light': { name: '手沖（淡）', note: '水 17 : 豆 1' },
+    filter: { name: '手沖（中）', note: '最不容易出錯的比例' },
+    'filter-strong': { name: '手沖（濃）', note: '酸味退下去，醇厚感上來' },
+    french: { name: '法式濾壓壺', note: '磨粗，浸泡 4 分鐘' },
+    coldbrew: { name: '冷萃原液', note: '兌水之後再喝' },
+    espresso: { name: '義式濃縮', note: '豆 1 : 萃取量 2' },
+  },
 };
 
 /** 원두 분쇄도·시간 안내 (커피 도구) */
@@ -337,6 +407,22 @@ export const GRIND_INTL: Record<FoodLang, Record<string, string>> = {
     french: 'बहुत मोटा · 4 मिनट भिगोकर दबाएँ',
     coldbrew: 'मोटा · फ़्रिज में 12–16 घंटे',
     espresso: 'बहुत बारीक · 25–30 सेकंड में निकास',
+  },
+  'zh-hans': {
+    'filter-light': '中等粗细 · 2 分 30 秒~3 分钟',
+    filter: '中等粗细 · 2 分 30 秒~3 分钟',
+    'filter-strong': '比中等再细一点 · 3 分钟',
+    french: '磨得很粗 · 浸 4 分钟后压下去',
+    coldbrew: '粗 · 冷藏 12~16 小时',
+    espresso: '磨得很细 · 25~30 秒萃取',
+  },
+  'zh-hant': {
+    'filter-light': '中等粗細 · 2 分 30 秒~3 分鐘',
+    filter: '中等粗細 · 2 分 30 秒~3 分鐘',
+    'filter-strong': '比中等再細一點 · 3 分鐘',
+    french: '磨得很粗 · 浸 4 分鐘後壓下去',
+    coldbrew: '粗 · 冷藏 12~16 小時',
+    espresso: '磨得很細 · 25~30 秒萃取',
   },
 };
 
@@ -470,6 +556,38 @@ export const STORAGE_INTL: Record<FoodLang, { name: string; category: string; fr
     { name: 'आलू और प्याज़', category: 'फल और सब्ज़ी', fridge: 'फ़्रिज में न रखें', freezer: 'पकाने के बाद 3 महीने', tip: 'ठंडी अँधेरी जगह पर अलग-अलग रखें' },
     { name: 'केला और टमाटर', category: 'फल और सब्ज़ी', fridge: 'पकने के बाद 2–3 दिन', freezer: 'मसलकर 3 महीने', tip: 'कच्चे हों तो कमरे के तापमान पर रखें' },
   ],
+  'zh-hans': [
+    { name: '生鸡肉', category: '肉类', fridge: '1~2 天', freezer: '9 个月', tip: '擦掉血水再密封，味道没那么重' },
+    { name: '绞肉', category: '肉类', fridge: '1~2 天', freezer: '3~4 个月', tip: '表面积大，坏得最快' },
+    { name: '整块牛肉·猪肉', category: '肉类', fridge: '3~5 天', freezer: '6~12 个月', tip: '按一次要用的量分开冻' },
+    { name: '白肉鱼', category: '水产', fridge: '1~2 天', freezer: '6 个月', tip: '去内脏、擦干水分再存' },
+    { name: '虾·贝类', category: '水产', fridge: '1~2 天', freezer: '3~6 个月', tip: '解冻后别再冻回去' },
+    { name: '牛奶', category: '乳制品', fridge: '开封后 2~3 天', freezer: '不建议', tip: '门边温度高，请放里侧' },
+    { name: '硬质奶酪', category: '乳制品', fridge: '3~4 周', freezer: '6 个月', tip: '冻过会碎，只适合下锅用' },
+    { name: '鸡蛋', category: '乳制品', fridge: '3~5 周', freezer: '打散的可存 1 年', tip: '别洗，尖头朝下放' },
+    { name: '米饭（煮好的）', category: '熟食', fridge: '1 天', freezer: '1 个月', tip: '趁热马上冻，味道才留得住' },
+    { name: '汤·炖菜', category: '熟食', fridge: '2~3 天', freezer: '2~3 个月', tip: '放凉再收，回热时要煮滚' },
+    { name: '豆腐（开封）', category: '熟食', fridge: '2~3 天', freezer: '3 个月', tip: '泡在水里，每天换一次水' },
+    { name: '叶菜', category: '蔬果', fridge: '3~7 天', freezer: '汆烫后 8 个月', tip: '擦干水分，和厨房纸一起装' },
+    { name: '土豆·洋葱', category: '蔬果', fridge: '别放冰箱', freezer: '煮过的 3 个月', tip: '放在阴凉避光处，两者分开' },
+    { name: '香蕉·番茄', category: '蔬果', fridge: '熟了之后 2~3 天', freezer: '压成泥 3 个月', tip: '还没熟就放在室温下' },
+  ],
+  'zh-hant': [
+    { name: '生雞肉', category: '肉類', fridge: '1~2 天', freezer: '9 個月', tip: '擦掉血水再密封，味道沒那麼重' },
+    { name: '絞肉', category: '肉類', fridge: '1~2 天', freezer: '3~4 個月', tip: '表面積大，壞得最快' },
+    { name: '整塊牛肉·豬肉', category: '肉類', fridge: '3~5 天', freezer: '6~12 個月', tip: '按一次要用的量分開凍' },
+    { name: '白肉魚', category: '水產', fridge: '1~2 天', freezer: '6 個月', tip: '去內臟、擦乾水分再存' },
+    { name: '蝦·貝類', category: '水產', fridge: '1~2 天', freezer: '3~6 個月', tip: '解凍後別再凍回去' },
+    { name: '牛奶', category: '乳製品', fridge: '開封後 2~3 天', freezer: '不建議', tip: '門邊溫度高，請放裡側' },
+    { name: '硬質起司', category: '乳製品', fridge: '3~4 週', freezer: '6 個月', tip: '凍過會碎，只適合下鍋用' },
+    { name: '雞蛋', category: '乳製品', fridge: '3~5 週', freezer: '打散的可存 1 年', tip: '別洗，尖頭朝下放' },
+    { name: '白飯（煮好的）', category: '熟食', fridge: '1 天', freezer: '1 個月', tip: '趁熱馬上凍，味道才留得住' },
+    { name: '湯·燉菜', category: '熟食', fridge: '2~3 天', freezer: '2~3 個月', tip: '放涼再收，回熱時要煮滾' },
+    { name: '豆腐（開封）', category: '熟食', fridge: '2~3 天', freezer: '3 個月', tip: '泡在水裡，每天換一次水' },
+    { name: '葉菜', category: '蔬果', fridge: '3~7 天', freezer: '汆燙後 8 個月', tip: '擦乾水分，和廚房紙一起裝' },
+    { name: '馬鈴薯·洋蔥', category: '蔬果', fridge: '別放冰箱', freezer: '煮過的 3 個月', tip: '放在陰涼避光處，兩者分開' },
+    { name: '香蕉·番茄', category: '蔬果', fridge: '熟了之後 2~3 天', freezer: '壓成泥 3 個月', tip: '還沒熟就放在室溫下' },
+  ],
 };
 
 /**
@@ -487,4 +605,6 @@ export const STORAGE_CATEGORIES: Record<FoodLang, string[]> = {
   de: ['Alle', 'Fleisch', 'Fisch', 'Milchprodukte', 'Gekochtes', 'Obst und Gemüse'],
   fr: ['Tout', 'Viande', 'Poisson', 'Produits laitiers', 'Plats cuisinés', 'Fruits et légumes'],
   hi: ['सभी', 'मांस', 'मछली', 'दुग्ध उत्पाद', 'पका खाना', 'फल और सब्ज़ी'],
+  'zh-hans': ['全部', '肉类', '水产', '乳制品', '熟食', '蔬果'],
+  'zh-hant': ['全部', '肉類', '水產', '乳製品', '熟食', '蔬果'],
 };

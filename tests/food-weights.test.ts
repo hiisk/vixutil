@@ -12,18 +12,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
+import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { FOOD_CATEGORIES, INGREDIENTS, ingredient, ingredientsOfCategory } from '../lib/food/ingredients8.ts';
 import { VOLUMES, foodFacts, mlOfGrams, similarIngredients } from '../lib/food/facts.ts';
 import { FOOD_UI, foodAlternates } from '../lib/food/ui.ts';
 
-const LANGS = LANG_CODES;
-
-/**
- * 자료는 열 언어인데 주소는 아직 여덟이다 — 상위 /food가 일곱 언어짜리 도구
- * 허브와 같은 페이지라서다. 자세한 사정은 lib/food/route.ts에 적어 두었다.
- */
-const ROUTE_LANGS = LANGS8;
+const LANG_KEYS = LANG_CODES;
+const ROUTE_LANGS = LANGS;
 const HANGUL = /[가-힣]/;
 const dense = (lang: Lang) => lang === 'ja';
 const facts = (slug: string) => {
@@ -127,7 +122,7 @@ test('물보다 무거운지 판정이 밀도와 맞는다', () => {
 
 test('열 언어 이름이 다 있고 한국어 밖에 한글이 없다', () => {
   for (const i of INGREDIENTS) {
-    for (const lang of LANGS) {
+    for (const lang of LANG_KEYS) {
       const n = i.name[lang];
       assert.ok(n && n.trim().length > 0, `${i.slug} ${lang}: 이름 없음`);
       if (lang !== 'ko') assert.ok(!HANGUL.test(n), `${i.slug} ${lang}에 한글: ${n}`);
@@ -137,7 +132,7 @@ test('열 언어 이름이 다 있고 한국어 밖에 한글이 없다', () => 
 });
 
 test('언어마다 재료 이름이 서로 겹치지 않는다', () => {
-  for (const lang of LANGS) {
+  for (const lang of LANG_KEYS) {
     const names = INGREDIENTS.map(i => i.name[lang]);
     const dup = [...new Set(names.filter((n, k) => names.indexOf(n) !== k))];
     assert.deepEqual(dup, [], `${lang} 중복 이름: ${dup.join(', ')}`);
@@ -156,7 +151,7 @@ test('비슷한 재료는 자기를 넣지 않고 같은 갈래를 먼저 준다
   assert.equal(ingredient('없는재료'), undefined);
 });
 
-test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
+test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of ROUTE_LANGS) {
     const p = `app${prefix}/food`;
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
@@ -186,7 +181,7 @@ test('사이트맵·검색·허브에 재료가 걸려 있다', () => {
 });
 
 test('화면 문구가 열 언어로 다 있다', () => {
-  for (const lang of LANGS) {
+  for (const lang of LANG_KEYS) {
     const ui = FOOD_UI[lang];
     assert.ok(ui, `${lang}: 문구 묶음이 없다`);
     assert.ok(ui.hubTitle.length > 6 && ui.hubLead.length > 20, `${lang}: 허브 문구가 짧다`);
@@ -211,7 +206,7 @@ test('SEO 문구가 언어마다 실제 값을 담는다', () => {
   const ing = ingredient('all-purpose-flour');
   assert.ok(ing);
   const f = foodFacts(ing);
-  for (const lang of LANGS) {
+  for (const lang of LANG_KEYS) {
     const ui = FOOD_UI[lang];
     const name = ing.name[lang];
     const title = ui.metaTitle(name, f.grams.cupUs);
@@ -226,7 +221,7 @@ test('SEO 문구가 언어마다 실제 값을 담는다', () => {
 });
 
 test('FAQ가 재료마다 다섯 개 이상이고 언어마다 채워져 있다', () => {
-  for (const lang of LANGS) {
+  for (const lang of LANG_KEYS) {
     const ui = FOOD_UI[lang];
     assert.ok(ui.hubFaq.length >= 4, `${lang}: 허브 FAQ가 ${ui.hubFaq.length}개`);
     for (const it of ui.hubFaq) {

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { foodFacts, similarIngredients } from '@/lib/food/facts';
 import { FOOD_UI } from '@/lib/food/ui';
 import type { Ingredient } from '@/lib/food/ingredients8';
@@ -19,7 +19,7 @@ import type { Ingredient } from '@/lib/food/ingredients8';
  * 모든 숫자는 밀도 하나에서 계산한다. 재료마다 표를 손으로 적으면 125 × 다섯 칸이고,
  * 하나가 틀려도 반죽을 망쳐 본 사람만 알아챈다.
  */
-export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: Lang8 }) {
+export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: Lang }) {
   const ui = FOOD_UI[lang];
   const f = foodFacts(ing);
   const name = ing.name[lang];

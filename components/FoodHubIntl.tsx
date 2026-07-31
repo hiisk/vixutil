@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { lang8OfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { FOOD_CATEGORIES, ingredientsOfCategory } from '@/lib/food/ingredients8';
 import { foodFacts } from '@/lib/food/facts';
 import { FOOD_UI } from '@/lib/food/ui';
@@ -19,7 +19,7 @@ export default function FoodHubIntl({ lang }: { lang: FoodIntlLang }) {
   const tools = foodToolsIntl(lang);
   const ui = FOOD_SHELL_UI[lang];
   // 재료 무게 쪽 문구는 짧은 열쇠를 쓴다 — 'pt-br'과 'pt'가 만나는 자리다
-  const key = lang8OfLocale(lang);
+  const key = langOfLocale(lang);
   const w = FOOD_UI[key];
   const grouped = FOOD_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))
