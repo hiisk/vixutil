@@ -30,6 +30,8 @@ import { ALGS, CUBE_ICON } from './cube/list';
 import { ROLLS, DICE_ICON } from './dice/list';
 import { PATTERNS, REGEX_ICON } from './regex/list';
 import { ELEMENTS, ELEMENT_ICON } from './element/list';
+import { OPENINGS, CHESS_ICON } from './chess/list';
+import { fullName } from './chess/names';
 import { elementFacts } from './element/facts';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -64,7 +66,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess';
 
 export interface SearchItem {
   href: string;
@@ -104,6 +106,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   css:        { label: 'CSS 속성', icon: '🎨', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
   http:       { label: 'HTTP 코드', icon: '🗄️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   element:    { label: '원소',      icon: '⚛️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  chess:      { label: '체스',      icon: '♟️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
 };
 
 /**
@@ -188,6 +191,13 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'device' as const,
     icon: SCREEN_ICON,
   })),
+  ...OPENINGS.map(x => ({
+    href: `/game/chess/${x.slug}`,
+    title: fullName(x.family, x.line, 'ko'),
+    desc: x.moves.join(' '),
+    section: 'chess' as const,
+    icon: CHESS_ICON,
+  })),
   ...ELEMENTS.map(x => {
     const f = elementFacts(x);
     return {
@@ -265,6 +275,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   /* 자료 목록의 첫 장 — 개별 항목만 싣고 목록을 빼면 "타로"로 검색해도 안 나온다 */
   { href: '/fortune/card', title: '타로 78장 뜻', desc: '메이저 22장과 마이너 56장의 정방향·역방향', section: 'fortune' as const, icon: TAROT_ICON },
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
+  { href: '/game/chess', title: '체스 오프닝', desc: '오프닝 174가지의 수순과 판 그림', section: 'chess' as const, icon: CHESS_ICON },
   { href: '/element', title: '주기율표', desc: '원소 118가지의 기호·원자량·전자 배치', section: 'element' as const, icon: ELEMENT_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },

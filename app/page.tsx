@@ -7,6 +7,7 @@ import { ALGS } from '@/lib/cube/list';
 import { ROLLS } from '@/lib/dice/list';
 import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
+import { OPENINGS } from '@/lib/chess/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages } from '@/lib/locales';
 
@@ -331,6 +332,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/game/chess',
+    icon: '♟️',
+    title: '체스 오프닝',
+    desc: '오프닝 174가지 — 수순과 판 그림, 자리(FEN)까지',
+    badge: `${OPENINGS.length}종`,
+    color: 'from-violet-600 to-indigo-500',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/element',

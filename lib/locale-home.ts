@@ -278,6 +278,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/game/chess', icon: '♟️', color: 'from-violet-600 to-indigo-500',
+    accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
+    copy: {
+      en: { title: 'Chess Openings', desc: '174 openings with moves, board diagrams and FEN' },
+      es: { title: 'Aperturas de ajedrez', desc: '174 aperturas con jugadas, diagramas y FEN' },
+      'pt-br': { title: 'Aberturas de xadrez', desc: '174 aberturas com jogadas, diagramas e FEN' },
+      ja: { title: 'チェス・オープニング', desc: 'オープニング174種の手順・盤面図・FEN' },
+      de: { title: 'Schacheröffnungen', desc: '174 Eröffnungen mit Zügen, Diagrammen und FEN' },
+      fr: { title: "Ouvertures d'échecs", desc: '174 ouvertures avec coups, diagrammes et FEN' },
+      hi: { title: 'शतरंज ओपनिंग', desc: '174 ओपनिंग — चालें, बोर्ड आरेख और FEN' },
+    },
+  },
+  {
     route: '/element', icon: '⚛️', color: 'from-cyan-600 to-sky-500',
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {

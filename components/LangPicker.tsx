@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ALL_LOCALES, localeHref, localeLabel, localeTag, type AnyLocale } from '@/lib/locales';
+import { ALL_LOCALES, ALL_LOCALES10, localeHref, localeLabel, localeTag, type AnyLocale10 } from '@/lib/locales';
 
 /**
  * 언어 선택 버튼.
@@ -23,17 +23,19 @@ export default function LangPicker({
   align = 'right',
 }: {
   /** 지금 보고 있는 언어 */
-  current: AnyLocale;
+  current: AnyLocale10;
   /** 언어 접두어를 뺀 경로. 예: '/color/palette' */
   route: string;
   /** 이 페이지가 실제로 있는 언어. 생략하면 여덟 개 전부 */
-  available?: readonly AnyLocale[];
+  available?: readonly AnyLocale10[];
   align?: 'left' | 'right';
 }) {
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
 
-  const locales = (available ?? ALL_LOCALES).filter(l => ALL_LOCALES.includes(l));
+  // 거르는 기준은 열 언어다 — 중국어까지 갖춘 섹션이 available로 넘겨 준다.
+  // 여덟 언어만 있는 페이지는 available을 넘기지 않으므로 예전과 같이 여덟 개가 뜬다.
+  const locales = (available ?? ALL_LOCALES).filter(l => ALL_LOCALES10.includes(l));
 
   // 바깥을 누르면 닫는다. 열린 목록이 화면에 남아 있으면 다음 조작을 가린다.
   useEffect(() => {

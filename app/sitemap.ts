@@ -43,6 +43,8 @@ import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { ELEMENTS } from "@/lib/element/list";
+import { OPENINGS } from "@/lib/chess/list";
+import { LANGS10 } from "@/lib/i18n/lang10";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -285,6 +287,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 체스 오프닝 174장은 열 언어다 — 중국어 간체·번체가 여기서 처음 들어간다
+    ...LANGS10.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/game/chess`, changeFrequency: weekly, priority: 0.9 },
+      ...OPENINGS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/game/chess/${x.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

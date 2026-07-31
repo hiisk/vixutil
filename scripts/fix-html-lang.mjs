@@ -18,7 +18,7 @@
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { LOCALES } from '../lib/locales.ts';
+import { LOCALES, NEXT_LOCALES } from '../lib/locales.ts';
 
 const OUT = new URL('../out/', import.meta.url).pathname;
 
@@ -37,7 +37,9 @@ const OUT = new URL('../out/', import.meta.url).pathname;
   규칙보다 먼저 봐야 한다. 접두어는 긴 것부터 본다 — pt-br이 pt보다 먼저 걸려야
   한다(지금은 pt가 없지만, 나중에 유럽 포르투갈어를 더하면 순서가 문제가 된다).
 */
-const PREFIXED = LOCALES.filter(l => l.path !== '');
+// 늘리는 중인 언어(중국어)도 함께 본다 — 여기서 빠뜨리면 그 언어 페이지가
+// 전부 lang="ko"로 나가고, 빌드는 통과한다.
+const PREFIXED = [...LOCALES, ...NEXT_LOCALES].filter(l => l.path !== '');
 
 const RULES = [
   ...PREFIXED.map(l => [p => p === `calculator/${l.path}`, l.tag]),

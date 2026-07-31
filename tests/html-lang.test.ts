@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { LOCALES } from '../lib/locales.ts';
+import { LOCALES, NEXT_LOCALES } from '../lib/locales.ts';
 
 /**
  * <html lang>이 경로의 언어와 맞는지 본다.
@@ -39,8 +39,8 @@ function expected(path: string): string {
   // 계산기 카탈로그는 /calculator/en처럼 섹션 안에 언어가 있다 — 접두어보다 먼저 본다
   const inSection = LOCALES.find(l => l.path !== '' && path === `calculator/${l.path}`);
   if (inSection) return inSection.tag;
-  // 긴 접두어부터: pt-br이 pt보다 먼저 걸려야 한다
-  const prefixed = [...LOCALES]
+  // 긴 접두어부터: pt-br이 pt보다, zh-hant가 zh보다 먼저 걸려야 한다
+  const prefixed = [...LOCALES, ...NEXT_LOCALES]
     .filter(l => l.path !== '')
     .sort((a, b) => b.path.length - a.path.length)
     .find(l => path === l.path || path.startsWith(`${l.path}/`));

@@ -27,6 +27,27 @@ export type LocalePath = typeof LOCALES[number]['path'];
 export type LocaleTag = typeof LOCALES[number]['tag'];
 
 /**
+ * 늘리는 중인 언어 — 중국어 간체·번체.
+ *
+ * 위 목록과 따로 두는 이유는 하나다. LOCALES에 바로 넣으면 hreflang을 만드는
+ * alternateLanguages가 사이트의 모든 페이지에서 중국어 주소를 선언하는데, 그
+ * 주소에 아직 페이지가 없다 — 구글이 404를 받는다. 그래서 새 언어는 여기 두고,
+ * 섹션이 열 언어를 갖추면 그 섹션만 열 언어로 선언한다. 모든 섹션이 옮겨 오면
+ * 이 배열을 위로 합치고 이 주석을 지운다.
+ *
+ * 간체와 번체는 글자만 다른 것이 아니다. 같은 뜻에 다른 낱말을 쓰는 자리가
+ * 있어서(防御/防禦) 한쪽에서 기계로 바꾸면 어색해진다. 그래서 두 벌을 따로 적는다.
+ */
+export const NEXT_LOCALES = [
+  { path: 'zh-hans', tag: 'zh-Hans', og: 'zh_CN', label: '简体中文', english: 'Chinese (Simplified)' },
+  { path: 'zh-hant', tag: 'zh-Hant', og: 'zh_TW', label: '繁體中文', english: 'Chinese (Traditional)' },
+] as const;
+
+/** 열 언어를 갖춘 섹션이 쓰는 목록 */
+export const ALL_LOCALES10 = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'] as const;
+export type AnyLocale10 = typeof ALL_LOCALES10[number];
+
+/**
  * 한국어가 아닌 언어들.
  *
  * 한국어는 원본이라 문구가 컴포넌트나 데이터에 그대로 있는 경우가 많고, 번역
@@ -40,12 +61,14 @@ export type IntlLocale = typeof INTL_LOCALES[number];
 export const ALL_LOCALES = ['ko', ...INTL_LOCALES] as const;
 export type AnyLocale = typeof ALL_LOCALES[number];
 
-const BY_PATH: Record<string, typeof LOCALES[number]> = Object.fromEntries(
-  LOCALES.map(l => [l.path || 'ko', l]),
+type LocaleRow = typeof LOCALES[number] | typeof NEXT_LOCALES[number];
+
+const BY_PATH: Record<string, LocaleRow> = Object.fromEntries(
+  [...LOCALES, ...NEXT_LOCALES].map(l => [l.path || 'ko', l]),
 );
 
 /** hreflang·<html lang>에 쓰는 BCP 47 표기 */
-export function localeTag(locale: AnyLocale): string {
+export function localeTag(locale: AnyLocale10): string {
   return BY_PATH[locale]?.tag ?? locale;
 }
 
@@ -56,7 +79,7 @@ export function localeTag(locale: AnyLocale): string {
  * locale만 바꿀 수 없고 type·siteName까지 같이 적어야 한다 — 빠뜨리면 미리보기에
  * 사이트 이름이 사라진다.
  */
-export function openGraphFor(locale: AnyLocale) {
+export function openGraphFor(locale: AnyLocale10) {
   return {
     type: 'website' as const,
     siteName: 'vixutil',
@@ -65,17 +88,17 @@ export function openGraphFor(locale: AnyLocale) {
 }
 
 /** 언어 전환 링크에 쓰는 그 언어의 자기 이름 */
-export function localeLabel(locale: AnyLocale): string {
+export function localeLabel(locale: AnyLocale10): string {
   return BY_PATH[locale]?.label ?? locale;
 }
 
 /** 경로 앞에 붙는 부분. 한국어는 접두어가 없다. */
-export function localePrefix(locale: AnyLocale): string {
+export function localePrefix(locale: AnyLocale10): string {
   return locale === 'ko' ? '' : `/${locale}`;
 }
 
 /** 어떤 라우트의 그 언어 주소 */
-export function localeHref(locale: AnyLocale, route: string): string {
+export function localeHref(locale: AnyLocale10, route: string): string {
   const r = route === '/' ? '' : route;
   return `${localePrefix(locale)}${r}` || '/';
 }
@@ -100,7 +123,7 @@ export function alternateLanguages(route: string): Record<string, string> {
  * 체크리스트·퀴즈처럼 언어별로 내용을 따로 쓴 섹션은 항목이 다 있지 않다.
  * 없는 페이지를 대안으로 선언하면 구글이 404를 받는다.
  */
-export function alternateLanguagesFor(route: string, locales: AnyLocale[]): Record<string, string> {
+export function alternateLanguagesFor(route: string, locales: AnyLocale10[]): Record<string, string> {
   const out: Record<string, string> = {};
   for (const l of locales) out[localeTag(l)] = localeHref(l, route);
   if (locales.includes('en')) out['x-default'] = localeHref('en', route);
