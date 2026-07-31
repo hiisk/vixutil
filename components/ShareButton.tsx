@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const TEST_CTA = ['친구도 테스트 해보기', '내 결과 자랑하기', '친구 결과와 비교하기', '친구는 어떤 결과일까?', '생각보다 정확한 테스트', '친구한테도 보내보기', '이건 친구도 해봐야 함', '의외로 정확해서 공유'];
 const QUIZ_CTA = ['내 점수 자랑하기', '친구도 도전해보기', '몇 점 받을 수 있을까?', '친구와 퀴즈 대결하기', '친구도 맞출 수 있을까?', '점수 공유하기'];
@@ -9,9 +9,10 @@ const FORTUNE_CTA = ['오늘 운세 공유하기', '친구 운세도 보여주�
 // 계산기는 CalcShareBtn이 자체 공유를 구현하므로 여기 타입에 없다.
 type CTAType = 'test' | 'quiz' | 'generator' | 'fortune';
 
+const POOLS: Record<CTAType, string[]> = { test: TEST_CTA, quiz: QUIZ_CTA, generator: GEN_CTA, fortune: FORTUNE_CTA };
+
 function getCTA(type: CTAType): string {
-  const pools: Record<CTAType, string[]> = { test: TEST_CTA, quiz: QUIZ_CTA, generator: GEN_CTA, fortune: FORTUNE_CTA };
-  const pool = pools[type];
+  const pool = POOLS[type];
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -33,7 +34,21 @@ function ShareIcon() {
 
 export default function ShareButton({ title, description, type = 'test' }: Props) {
   const [copied, setCopied] = useState(false);
-  const [cta] = useState(() => getCTA(type));
+
+  /**
+   * 문구는 붙은 뒤에 고른다.
+   *
+   * 예전에는 useState 초기값에서 골랐는데, 그 자리는 서버에서도 한 번 돌아간다.
+   * 서버가 "점수 공유하기"를, 브라우저가 "몇 점 받을 수 있을까?"를 그리면
+   * hydration이 깨지고 React가 그 가지를 통째로 다시 그린다. 화면은 멀쩡해
+   * 보여서 콘솔을 열기 전까지 아무도 모른다 — ShareButton을 쓰는 27장이 전부
+   * 그 상태였다.
+   *
+   * 그래서 서버는 늘 첫 문구를 그리고, 붙은 뒤에 바꿔 끼운다. 무작위는 그대로
+   * 살아 있고 서버와 브라우저가 어긋나지 않는다.
+   */
+  const [cta, setCta] = useState(POOLS[type][0]);
+  useEffect(() => { setCta(getCTA(type)); }, [type]);
 
   async function share() {
     const url = window.location.href;

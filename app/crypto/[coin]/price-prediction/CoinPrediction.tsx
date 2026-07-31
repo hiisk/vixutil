@@ -116,7 +116,16 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
   const [target, setTarget] = useState('');
   const [amount, setAmount] = useState('1000');
   const [holdDays, setHoldDays] = useState(365);
-  const [year, setYear] = useState(() => new Date().getUTCFullYear());
+  /**
+   * 올해는 붙은 뒤에 읽는다.
+   *
+   * 이 자리는 서버에서도 돌아서, 그대로 두면 빌드한 해가 HTML에 박힌다. 지금은
+   * 연도 탭이 시세를 받아 온 뒤에만 그려져 눈에 띄지 않지만, 조건이 한 번
+   * 바뀌면 해가 바뀐 1월에 작년이 찍힌 채로 나간다. YEARS의 첫 해를 서버 몫으로
+   * 두고 붙은 뒤에 올해로 맞춘다.
+   */
+  const [year, setYear] = useState(YEARS[0]);
+  useEffect(() => { setYear(new Date().getUTCFullYear()); }, []);
 
   // 코인 티커로 시드를 고정해 리렌더/재방문에도 같은 시나리오가 나오게 한다
   const pathSeed = useMemo(() => [...coin.base].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7), [coin.base]);

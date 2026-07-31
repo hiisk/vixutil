@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RANDOM_UI, type RandomLang } from '@/lib/random-ui-intl';
 
 const ROWS = 9;
@@ -22,6 +22,11 @@ function buildRungs(cols: number): Rungs {
   return rows;
 }
 
+/** 서버가 그리는 사다리 — 가로줄이 아직 없다 */
+function emptyRungs(cols: number): Rungs {
+  return Array.from({ length: ROWS }, () => new Array(cols - 1).fill(false) as boolean[]);
+}
+
 function trace(rungs: Rungs, start: number, cols: number): number[] {
   let pos = start;
   const path = [pos];
@@ -37,7 +42,18 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
   const ui = RANDOM_UI[lang];
   const [names, setNames] = useState<string[]>([...ui.ladderNames]);
   const [results, setResults] = useState<string[]>([...ui.ladderResults]);
-  const [rungs, setRungs] = useState<Rungs>(() => buildRungs(4));
+  /**
+   * 가로줄은 붙은 뒤에 놓는다.
+   *
+   * useState 초기값에서 buildRungs를 부르면 그 자리가 서버에서도 한 번 돌아가,
+   * 서버가 그린 사다리와 브라우저가 그린 사다리가 달라진다. hydration이 깨지고
+   * 사다리가 눈앞에서 한 번 다시 그려진다 — 무작위라 매번 다르게 보이니
+   * "원래 그런가 보다" 하고 넘기기 쉬운 종류의 고장이다.
+   *
+   * 서버는 빈 사다리를 그리고, 붙은 뒤에 채운다.
+   */
+  const [rungs, setRungs] = useState<Rungs>(() => emptyRungs(4));
+  useEffect(() => { setRungs(buildRungs(4)); }, []);
   const [rungsCols, setRungsCols] = useState(4);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState<Record<number, number>>({});

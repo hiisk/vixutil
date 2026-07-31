@@ -18,6 +18,15 @@ import type { MetroLang } from '@/lib/metro/lang';
  * 시각은 마운트 뒤에 센다 — 서버에는 지금 시각이 없어서 SSR과 어긋나면
  * 하이드레이션이 깨진다.
  */
+/**
+ * 역 하나에 주는 힌트 — 첫 글자, 글자 수, 옆 역.
+ *
+ * 기점에서는 둘뿐이다. 세 번째가 "옆 역"인데 앞 역이 없어서, 그대로 두면 두
+ * 번째와 똑같은 글자 수 힌트가 한 번 더 나온다. 남은 횟수는 세는데 얻는 것이
+ * 없으니 쓰는 사람에게는 버튼이 헛도는 것으로 보인다.
+ */
+const hintsFor = (at: number) => (at > 0 ? 3 : 2);
+
 export default function MetroGame({ line, lang }: { line: MetroLine; lang: MetroLang }) {
   const ui = METRO_UI[lang];
   const total = line.stations.length;
@@ -29,6 +38,15 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Metro
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [now, setNow] = useState(0);
   const [hints, setHints] = useState(0);
+  /**
+   * 힌트는 역마다 첫 글자 → 글자 수 → 옆 역 순으로 셋뿐이다.
+   *
+   * 예전에는 누른 횟수를 게임 전체로 세어 3으로 나눈 나머지를 단계로 썼다.
+   * 그래서 앞 역에서 두 번 썼으면 다음 역은 첫 글자가 아니라 "옆 역"부터
+   * 나왔고, 세 번을 넘겨 계속 누르면 같은 셋이 끝없이 돌았다. 어느 쪽도
+   * 쓰는 사람에게는 고장으로 보인다 — 역이 바뀌면 단계도 처음으로 돌린다.
+   */
+  const [hintStep, setHintStep] = useState<{ at: number; step: number }>({ at: 0, step: 0 });
   const [revealed, setRevealed] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -69,17 +87,22 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Metro
     setFlash({ kind: 'no', text: ui.wrongTry });
   };
 
+  /** 이 역에서 이미 쓴 힌트 수 — 역이 바뀌면 0부터다 */
+  const usedHere = hintStep.at === at ? hintStep.step : 0;
+  const hintsHere = hintsFor(at);
+  const hintsLeft = hintsHere - usedHere;
+
   const showHint = () => {
-    if (!target) return;
+    if (!target || hintsLeft <= 0) return;
     setHints(h => h + 1);
+    setHintStep({ at, step: usedHere + 1 });
     if (startedAt === null) setStartedAt(Date.now());
     const before = at > 0 ? line.stations[at - 1] : null;
-    const step = hints % 3;
     setFlash({
       kind: 'hint',
-      text: step === 0 ? ui.hintFirst(firstChar(target))
-        : step === 1 ? ui.hintLen(charCount(target))
-        : before ? ui.hintNear(before.name) : ui.hintLen(charCount(target)),
+      text: usedHere === 0 ? ui.hintFirst(firstChar(target))
+        : usedHere === 1 ? ui.hintLen(charCount(target))
+        : ui.hintNear(before!.name),
     });
   };
 
@@ -93,7 +116,7 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Metro
 
   const reset = () => {
     setAt(0); setValue(''); setMiss(0); setFlash(null);
-    setStartedAt(null); setNow(0); setHints(0); setRevealed(false);
+    setStartedAt(null); setNow(0); setHints(0); setHintStep({ at: 0, step: 0 }); setRevealed(false);
     inputRef.current?.focus();
   };
 
@@ -182,10 +205,10 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Metro
       <div className="mt-2 flex gap-2">
         <button
           onClick={showHint}
-          disabled={finished}
+          disabled={finished || hintsLeft <= 0}
           className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-slate-400 disabled:opacity-40 transition-colors"
         >
-          {ui.hint}
+          {ui.hint}{finished ? '' : ` ${hintsLeft}/${hintsHere}`}
         </button>
         <button
           onClick={reveal}
