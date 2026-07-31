@@ -1,13 +1,13 @@
 /**
- * 확장자 화면의 문구 — 여덟 언어.
+ * 확장자 화면의 문구 — 열 언어.
  *
  * 140가지 × 8언어를 손으로 쓸 수 없다. 확장자마다 다른 것은 이름과 MIME과 여는
  * 프로그램인데 셋 다 만국 공통이라, 문장 틀만 여덟 벌 두면 된다.
  *
- * 항목마다 여덟 언어를 나란히 적는다. 한 언어씩 통째로 적으면 어느 항목이
- * 빠졌는지 눈으로 못 찾는데, 이렇게 두면 여덟 칸 중 빈 칸이 바로 보인다.
+ * 항목마다 열 언어를 나란히 적는다. 한 언어씩 통째로 적으면 어느 항목이
+ * 빠졌는지 눈으로 못 찾는데, 이렇게 두면 열 칸 중 빈 칸이 바로 보인다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { ExtKind } from './list.ts';
 import type { ExtFacts } from './facts.ts';
 
@@ -46,16 +46,16 @@ export interface ExtUI {
   extFaq: (f: ExtFacts, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof ExtUI]: L8<ExtUI[K]> };
+type Spec = { [K in keyof ExtUI]: L<ExtUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
 
-  section: T('파일 확장자', 'File extensions', 'Extensiones de archivo', 'Extensões de arquivo', 'ファイル拡張子', 'Dateiendungen', 'Extensions de fichier', 'फ़ाइल एक्सटेंशन'),
+  section: T('파일 확장자', 'File extensions', 'Extensiones de archivo', 'Extensões de arquivo', 'ファイル拡張子', 'Dateiendungen', 'Extensions de fichier', 'फ़ाइल एक्सटेंशन', '文件扩展名', '檔案副檔名'),
 
   hubTitle: T(
     '파일 확장자 140가지',
@@ -66,6 +66,8 @@ const SPEC: Spec = {
     '140 Dateiendungen',
     '140 extensions de fichier',
     '140 फ़ाइल एक्सटेंशन',
+    '文件扩展名 140 种',
+    '檔案副檔名 140 種',
   ),
 
   hubLead: T(
@@ -77,6 +79,8 @@ const SPEC: Spec = {
     'Finden Sie über die Endung heraus, was eine Datei ist und womit man sie öffnet — samt MIME-Typ und der Frage, ob ein Browser sie direkt anzeigt.',
     "Découvrez à partir de l'extension ce qu'est un fichier et avec quoi l'ouvrir, avec son type MIME et la possibilité de l'ouvrir directement dans un navigateur.",
     'एक्सटेंशन से जानें कि फ़ाइल क्या है और किससे खुलती है — साथ में MIME टाइप और यह भी कि ब्राउज़र इसे सीधे खोल सकता है या नहीं।',
+    '从扩展名入手，查这是什么文件、拿什么打开。MIME 类型和浏览器能不能直接打开，也一并列出。',
+    '從副檔名入手，查這是什麼檔案、拿什麼開啟。MIME 類型和瀏覽器能不能直接開啟，也一併列出。',
   ),
 
   kindLabel: T(
@@ -88,6 +92,8 @@ const SPEC: Spec = {
     { image: 'Bilder', video: 'Video', audio: 'Audio', doc: 'Dokumente', archive: 'Archive', code: 'Code', data: 'Daten', subtitle: 'Untertitel', font: 'Schriften', ebook: 'E-Books', model: '3D-Modelle', disk: 'Datenträgerabbilder', exec: 'Programme' },
     { image: 'Images', video: 'Vidéo', audio: 'Audio', doc: 'Documents', archive: 'Archives', code: 'Code', data: 'Données', subtitle: 'Sous-titres', font: 'Polices', ebook: 'Livres numériques', model: 'Modèles 3D', disk: 'Images disque', exec: 'Programmes' },
     { image: 'छवियाँ', video: 'वीडियो', audio: 'ऑडियो', doc: 'दस्तावेज़', archive: 'संग्रह', code: 'कोड', data: 'डेटा', subtitle: 'सबटाइटल', font: 'फ़ॉन्ट', ebook: 'ई-बुक', model: '3D मॉडल', disk: 'डिस्क इमेज', exec: 'प्रोग्राम' },
+    { image: '图像', video: '视频', audio: '音频', doc: '文档', archive: '压缩', code: '代码', data: '数据', subtitle: '字幕', font: '字体', ebook: '电子书', model: '3D 模型', disk: '磁盘映像', exec: '程序与安装' },
+    { image: '影像', video: '影片', audio: '音訊', doc: '文件', archive: '壓縮', code: '程式碼', data: '資料', subtitle: '字幕', font: '字型', ebook: '電子書', model: '3D 模型', disk: '磁碟映像', exec: '程式與安裝' },
   ),
 
   kindNote: T(
@@ -211,22 +217,52 @@ const SPEC: Spec = {
       disk: 'पूरी डिस्क एक फ़ाइल में। खोलने पर वह असली डिस्क की तरह माउंट हो जाती है।',
       exec: 'प्रोग्राम खुद या उनके इंस्टॉलर। स्रोत पता न हो तो न खोलना ही सुरक्षित है।',
     },
+    {
+      image: '装照片和图画的格式。同一张图换个格式，大小和画质会差很多。',
+      video: '把动起来的画面和声音装在一起。扩展名只是容器的名字，真正能不能播由里面的编码决定。',
+      audio: '只装声音的格式。分成压缩时丢掉一部分声音的，和一点不丢的两类。',
+      doc: '装文字、表格和演示稿。很多都定了标准，不是原来那个软件也打得开。',
+      archive: '把多个文件捆成一个并缩小体积。解开之前只看得到里面的清单。',
+      code: '人读人写的源码文件。里面就是纯文字，记事本也打得开。',
+      data: '装表格和记录的格式，用来在程序之间搬运数据。',
+      subtitle: '叠在视频上的字幕。就是时间配台词的文本文件，可以直接改。',
+      font: '装字形的文件。装上之后所有程序都能用。',
+      ebook: '电子书格式。文字会跟着屏幕大小重新排流，这是它和纸书最大的不同。',
+      model: '装立体形状的文件，3D 打印机和游戏引擎读的就是它。',
+      disk: '把一整张盘原样装成一个文件。打开后会像原来的盘一样挂载上去。',
+      exec: '程序本身或者安装包。来路不明就别打开，这样最稳妥。',
+    },
+    {
+      image: '裝照片和圖畫的格式。同一張圖換個格式，大小和畫質會差很多。',
+      video: '把動起來的畫面和聲音裝在一起。副檔名只是容器的名字，真正能不能播由裡面的編碼決定。',
+      audio: '只裝聲音的格式。分成壓縮時丟掉一部分聲音的，和一點不丟的兩類。',
+      doc: '裝文字、表格和簡報。很多都定了標準，不是原來那個軟體也打得開。',
+      archive: '把多個檔案綁成一個並縮小體積。解開之前只看得到裡面的清單。',
+      code: '人讀人寫的原始碼檔案。裡面就是純文字，記事本也打得開。',
+      data: '裝表格和紀錄的格式，用來在程式之間搬運資料。',
+      subtitle: '疊在影片上的字幕。就是時間配台詞的文字檔，可以直接改。',
+      font: '裝字形的檔案。裝上之後所有程式都能用。',
+      ebook: '電子書格式。文字會跟著螢幕大小重新排流，這是它和紙本書最大的不同。',
+      model: '裝立體形狀的檔案，3D 列印機和遊戲引擎讀的就是它。',
+      disk: '把一整張碟原樣裝成一個檔案。開啟後會像原來的碟一樣掛載上去。',
+      exec: '程式本身或者安裝檔。來路不明就別開啟，這樣最穩妥。',
+    },
   ),
 
-  mimeLabel: T('MIME 타입', 'MIME type', 'Tipo MIME', 'Tipo MIME', 'MIMEタイプ', 'MIME-Typ', 'Type MIME', 'MIME टाइप'),
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '種類', 'Kategorie', 'Catégorie', 'श्रेणी'),
-  openWith: T('여는 프로그램', 'Opens with', 'Se abre con', 'Abre com', '開くプログラム', 'Öffnen mit', 'Ouvrir avec', 'किससे खुलती है'),
-  textLabel: T('글자 파일', 'Plain text', 'Texto plano', 'Texto simples', '文字ファイル', 'Reiner Text', 'Texte brut', 'सादा टेक्स्ट'),
-  textYes: T('맞음', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ'),
-  textNo: T('아님', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं'),
-  webLabel: T('브라우저에서 열림', 'Opens in a browser', 'Se abre en el navegador', 'Abre no navegador', 'ブラウザーで開く', 'Im Browser', 'Dans le navigateur', 'ब्राउज़र में खुलती है'),
-  webYes: T('바로 열림', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ'),
-  webNo: T('안 열림', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं'),
-  officialLabel: T('표준 등록', 'Registered type', 'Tipo registrado', 'Tipo registrado', '標準登録', 'Registriert', 'Type enregistré', 'पंजीकृत टाइप'),
-  officialYes: T('등록됨', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ'),
-  officialNo: T('비공식 (x-)', 'Unofficial (x-)', 'No oficial (x-)', 'Não oficial (x-)', '非公式 (x-)', 'Inoffiziell (x-)', 'Non officiel (x-)', 'अनौपचारिक (x-)'),
+  mimeLabel: T('MIME 타입', 'MIME type', 'Tipo MIME', 'Tipo MIME', 'MIMEタイプ', 'MIME-Typ', 'Type MIME', 'MIME टाइप', 'MIME 类型', 'MIME 類型'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '種類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
+  openWith: T('여는 프로그램', 'Opens with', 'Se abre con', 'Abre com', '開くプログラム', 'Öffnen mit', 'Ouvrir avec', 'किससे खुलती है', '用什么打开', '用什麼開啟'),
+  textLabel: T('글자 파일', 'Plain text', 'Texto plano', 'Texto simples', '文字ファイル', 'Reiner Text', 'Texte brut', 'सादा टेक्स्ट', '纯文本', '純文字'),
+  textYes: T('맞음', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ', '是', '是'),
+  textNo: T('아님', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं', '不是', '不是'),
+  webLabel: T('브라우저에서 열림', 'Opens in a browser', 'Se abre en el navegador', 'Abre no navegador', 'ブラウザーで開く', 'Im Browser', 'Dans le navigateur', 'ब्राउज़र में खुलती है', '浏览器能打开', '瀏覽器能開啟'),
+  webYes: T('바로 열림', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ', '能直接打开', '能直接開啟'),
+  webNo: T('안 열림', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं', '打不开', '開不了'),
+  officialLabel: T('표준 등록', 'Registered type', 'Tipo registrado', 'Tipo registrado', '標準登録', 'Registriert', 'Type enregistré', 'पंजीकृत टाइप', '标准登记', '標準登記'),
+  officialYes: T('등록됨', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ', '已登记', '已登記'),
+  officialNo: T('비공식 (x-)', 'Unofficial (x-)', 'No oficial (x-)', 'Não oficial (x-)', '非公式 (x-)', 'Inoffiziell (x-)', 'Non officiel (x-)', 'अनौपचारिक (x-)', '非正式（x-）', '非正式（x-）'),
 
-  twinsTitle: T('사실상 같은 파일', 'The same file, another name', 'El mismo archivo con otro nombre', 'O mesmo arquivo com outro nome', '中身が同じ拡張子', 'Dieselbe Datei, andere Endung', 'Le même fichier, autre nom', 'वही फ़ाइल, दूसरा नाम'),
+  twinsTitle: T('사실상 같은 파일', 'The same file, another name', 'El mismo archivo con otro nombre', 'O mesmo arquivo com outro nome', '中身が同じ拡張子', 'Dieselbe Datei, andere Endung', 'Le même fichier, autre nom', 'वही फ़ाइल, दूसरा नाम', '其实是同一种文件', '其實是同一種檔案'),
   twinsNote: T(
     'MIME 타입이 같습니다. 확장자만 바꿔도 대부분 그대로 열립니다.',
     'These share a MIME type. Renaming between them usually just works.',
@@ -236,11 +272,13 @@ const SPEC: Spec = {
     'Sie teilen denselben MIME-Typ. Ein Umbenennen genügt meist.',
     'Ils partagent le même type MIME : renommer de l’un à l’autre suffit généralement.',
     'इनका MIME टाइप एक ही है। एक्सटेंशन बदल देने भर से आमतौर पर काम चल जाता है।',
+    '它们的 MIME 类型相同。互相改个扩展名，多半照样打得开。',
+    '它們的 MIME 類型相同。互相改個副檔名，多半照樣打得開。',
   ),
 
-  relatedTitle: T('같은 갈래', 'Same category', 'Misma categoría', 'Mesma categoria', '同じ種類', 'Gleiche Kategorie', 'Même catégorie', 'वही श्रेणी'),
+  relatedTitle: T('같은 갈래', 'Same category', 'Misma categoría', 'Mesma categoria', '同じ種類', 'Gleiche Kategorie', 'Même catégorie', 'वही श्रेणी', '同一分类', '同一分類'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
 
   how: T(
     [
@@ -291,9 +329,21 @@ const SPEC: Spec = {
       'x- से शुरू होने वाला MIME टाइप कभी मानक के रूप में दर्ज नहीं हुआ। बहुत चलन में होने के बावजूद वे आधिकारिक नाम नहीं हैं।',
       'वीडियो एक्सटेंशन कंटेनर का नाम होते हैं। वही .mp4 अंदर के कोडेक के अनुसार किसी डिवाइस पर चलती है और किसी पर नहीं।',
     ],
+    [
+      '扩展名只是个名牌，不是文件的内容。把名字改成 .png，里面装的要是 JPEG，那它还是 JPEG。',
+      'MIME 类型是互联网上告知文件种类的名字。浏览器看的是这个值而不是扩展名，据此决定打开还是下载。',
+      '以 x- 开头的 MIME 表示没在标准里登记过。用的人很多，但不是官方名字。',
+      '视频扩展名是容器的名字。同样是 .mp4，里面的编码不同，有的设备能播，有的播不了。',
+    ],
+    [
+      '副檔名只是個名牌，不是檔案的內容。把名字改成 .png，裡面裝的要是 JPEG，那它還是 JPEG。',
+      'MIME 類型是網際網路上告知檔案種類的名字。瀏覽器看的是這個值而不是副檔名，據此決定開啟還是下載。',
+      '以 x- 開頭的 MIME 表示沒在標準裡登記過。用的人很多，但不是官方名字。',
+      '影片副檔名是容器的名字。同樣是 .mp4，裡面的編碼不同，有的裝置能播，有的播不了。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '파일 확장자 140가지 — 무엇으로 여는지, MIME 타입',
@@ -304,6 +354,8 @@ const SPEC: Spec = {
     '140 Dateiendungen — womit man sie öffnet und ihr MIME-Typ',
     '140 extensions de fichier — avec quoi les ouvrir et leur type MIME',
     '140 फ़ाइल एक्सटेंशन — किससे खुलती हैं और उनका MIME टाइप',
+    '文件扩展名 140 种 — 用什么打开、MIME 类型',
+    '檔案副檔名 140 種 — 用什麼開啟、MIME 類型',
   ),
   hubMetaDesc: T(
     'jpg·webp·hwp·mkv 등 확장자 140가지를 갈래별로 정리했습니다. 각 확장자의 MIME 타입, 여는 프로그램, 브라우저에서 바로 열리는지, 이름만 다른 같은 형식까지 확인하세요.',
@@ -314,6 +366,8 @@ const SPEC: Spec = {
     'Eine geordnete Liste von 140 Endungen — jpg, webp, mkv, epub und mehr — mit MIME-Typ, den öffnenden Programmen, der Browser-Anzeige und den Endungen, die dasselbe Format anders benennen.',
     "Une liste classée de 140 extensions — jpg, webp, mkv, epub et d'autres — avec le type MIME, les logiciels qui les ouvrent, l'affichage direct dans le navigateur et les extensions qui désignent le même format.",
     'jpg, webp, mkv, epub समेत 140 एक्सटेंशन श्रेणीवार — हर एक का MIME टाइप, खोलने वाले प्रोग्राम, ब्राउज़र में सीधे खुलती है या नहीं, और कौन-से एक्सटेंशन एक ही फ़ॉर्मैट के दूसरे नाम हैं।',
+    'jpg、webp、mkv、epub 等 140 种扩展名，按分类整理好。每一种的 MIME 类型、能打开它的程序、浏览器会不会直接显示，以及哪些扩展名其实是同一种格式的另一个名字，全都能查到。',
+    'jpg、webp、mkv、epub 等 140 種副檔名，按分類整理好。每一種的 MIME 類型、能開啟它的程式、瀏覽器會不會直接顯示，以及哪些副檔名其實是同一種格式的另一個名字，全都能查到。',
   ),
 
   metaTitle: T(
@@ -325,6 +379,8 @@ const SPEC: Spec = {
     (x: string) => `.${x}-Datei — was das ist und wie man sie öffnet`,
     (x: string) => `Fichier .${x} — ce que c'est et comment l'ouvrir`,
     (x: string) => `.${x} फ़ाइल — यह क्या है और कैसे खोलें`,
+    (x: string) => `.${x} 文件是什么 — 怎么打开和 MIME 类型`,
+    (x: string) => `.${x} 檔案是什麼 — 怎麼開啟和 MIME 類型`,
   ),
 
   metaDesc: T(
@@ -336,6 +392,8 @@ const SPEC: Spec = {
     (f: ExtFacts, kind: string) => `.${f.ext} ist eine Datei der Kategorie ${kind} mit dem MIME-Typ ${f.mime}. Öffnen lässt sie sich mit ${f.apps.slice(0, 3).join(', ')}; ein Browser ${f.web ? 'zeigt sie direkt an' : 'lädt sie herunter, statt sie anzuzeigen'}.`,
     (f: ExtFacts, kind: string) => `.${f.ext} est un fichier de type ${kind.toLowerCase()}, dont le type MIME est ${f.mime}. Il s'ouvre avec ${f.apps.slice(0, 3).join(', ')}, et le navigateur ${f.web ? "l'affiche directement" : 'le télécharge au lieu de l\'afficher'}.`,
     (f: ExtFacts, kind: string) => `.${f.ext} एक ${kind} फ़ाइल है और इसका MIME टाइप ${f.mime} है। इसे ${f.apps.slice(0, 3).join(', ')} से खोला जा सकता है, और ब्राउज़र इसे ${f.web ? 'सीधे दिखा देता है' : 'दिखाने के बजाय डाउनलोड करता है'}।`,
+    (f: ExtFacts, kind: string) => `.${f.ext} 是${kind}文件，MIME 类型为 ${f.mime}。可以用 ${f.apps.slice(0, 3).join('、')} 打开，浏览器${f.web ? '能直接显示' : '不显示，会直接下载'}。`,
+    (f: ExtFacts, kind: string) => `.${f.ext} 是${kind}檔案，MIME 類型為 ${f.mime}。可以用 ${f.apps.slice(0, 3).join('、')} 開啟，瀏覽器${f.web ? '能直接顯示' : '不顯示，會直接下載'}。`,
   ),
 
   hubFaq: T(
@@ -394,6 +452,20 @@ const SPEC: Spec = {
       { q: 'क्या अनजान किस्म की फ़ाइल खोलना सुरक्षित है?', a: 'एग्ज़ीक्यूटेबल (.exe, .msi, .apk, .jar) तब तक न खोलें जब तक स्रोत पता न हो। दस्तावेज़ और संग्रह फ़ाइलों के भीतर भी एग्ज़ीक्यूटेबल हो सकते हैं, इसलिए जिसकी उत्पत्ति की गारंटी न हो उसे पहले एंटीवायरस से जाँचें।' },
       { q: 'MIME टाइप किस काम आता है?', a: 'यह वह लेबल है जो वेब सर्वर फ़ाइल के साथ भेजता है — "यह image/png है"। ब्राउज़र दिखाने या डाउनलोड करने का फ़ैसला एक्सटेंशन से नहीं, इसी मान से करता है; मान ग़लत हो तो छवि अटपटे अक्षरों में दिखती है या सीधे डाउनलोड हो जाती है।' },
       { q: 'कुछ फ़ॉर्मैट के दो एक्सटेंशन क्यों होते हैं?', a: 'इतिहास की वजह से। .jpg और .jpeg एक ही फ़ॉर्मैट हैं और MIME टाइप भी एक ही, image/jpeg — छोटा रूप इसलिए बना कि पुराना DOS सिर्फ़ तीन अक्षर मानता था। यही बात .sqlite और .db, या .mpg और .mpeg पर लागू होती है।' },
+    ],
+    [
+      { q: '改了扩展名，文件格式也跟着变吗？', a: '不会。扩展名只是个名牌，文件里的内容原封不动。把 JPEG 的名字改成 .png，它依旧是 JPEG，会查格式的程序反而打不开了。真要转格式，得用转换软件重新存一遍。' },
+      { q: '看不到扩展名，该怎么显示出来？', a: 'Windows 在资源管理器的「查看」里勾上「文件扩展名」；Mac 在访达设置里勾上「显示所有文件扩展名」。默认是藏起来的，所以「照片.jpg.exe」这种名字很容易骗到人。' },
+      { q: '不认识的扩展名文件能打开吗？', a: '可执行文件（.exe、.msi、.apk、.jar）来路不明就别打开，这样最稳妥。文档和压缩包里也可能夹着可执行文件，来源不明的话先用杀毒软件扫一遍。' },
+      { q: 'MIME 类型是用在哪里的？', a: '它是网页服务器送文件时一并告知的名字 ——「这是 image/png」。浏览器看的是这个值而不是扩展名，据此决定画在页面上还是下载下来；值写错了，图片就会变成一堆乱码，或者干脆被下载走。' },
+      { q: '同一种文件会有好几个扩展名吗？', a: '会。.jpg 和 .jpeg 完全是同一种格式，MIME 也同为 image/jpeg。这是当年 DOS 只允许三个字母的扩展名留下的分岔。.sqlite 和 .db、.mpg 和 .mpeg 也是一样的情况。' },
+    ],
+    [
+      { q: '改了副檔名，檔案格式也跟著變嗎？', a: '不會。副檔名只是個名牌，檔案裡的內容原封不動。把 JPEG 的名字改成 .png，它依舊是 JPEG，會查格式的程式反而打不開了。真要轉格式，得用轉換軟體重新存一遍。' },
+      { q: '看不到副檔名，該怎麼顯示出來？', a: 'Windows 在檔案總管的「檢視」裡勾上「副檔名」；Mac 在 Finder 設定裡勾上「顯示所有檔案副檔名」。預設是藏起來的，所以「照片.jpg.exe」這種名字很容易騙到人。' },
+      { q: '不認識的副檔名檔案能開嗎？', a: '可執行檔（.exe、.msi、.apk、.jar）來路不明就別開，這樣最穩妥。文件和壓縮檔裡也可能夾著可執行檔，來源不明的話先用防毒軟體掃一遍。' },
+      { q: 'MIME 類型是用在哪裡的？', a: '它是網頁伺服器送檔案時一併告知的名字 ——「這是 image/png」。瀏覽器看的是這個值而不是副檔名，據此決定畫在頁面上還是下載下來；值寫錯了，圖片就會變成一堆亂碼，或者乾脆被下載走。' },
+      { q: '同一種檔案會有好幾個副檔名嗎？', a: '會。.jpg 和 .jpeg 完全是同一種格式，MIME 也同為 image/jpeg。這是當年 DOS 只允許三個字母的副檔名留下的分岔。.sqlite 和 .db、.mpg 和 .mpeg 也是一樣的情況。' },
     ],
   ),
 
@@ -454,13 +526,27 @@ const SPEC: Spec = {
       { q: f.twins.length > 0 ? `क्या .${f.ext} जैसा ही कोई और एक्सटेंशन है?` : `क्या .${f.ext} फ़ाइल को दूसरे फ़ॉर्मैट में बदला जा सकता है?`, a: f.twins.length > 0 ? `${f.twins.map(t => `.${t}`).join(', ')} का MIME टाइप बिल्कुल यही है। आपस में नाम बदल देने भर से आमतौर पर काम चल जाता है।` : `हाँ — कन्वर्टर में खोलकर दोबारा सहेजें। सिर्फ़ नाम बदलने से लेबल बदलता है, बाइट वही रहते हैं, और असली फ़ॉर्मैट जाँचने वाले प्रोग्राम फिर मना कर सकते हैं।` },
       { q: `मेरी .${f.ext} फ़ाइल नहीं खुल रही।`, a: `पहले देखें कि ${f.apps[0]} इंस्टॉल है या नहीं। फिर भी न खुले तो डाउनलोड बीच में टूटा हो सकता है, या नाम भर .${f.ext} हो और अंदर कोई और फ़ॉर्मैट हो।` },
     ],
+    (f: ExtFacts, kind: string) => [
+      { q: `.${f.ext} 是什么文件？`, a: `属于${kind}这一类，MIME 类型为 ${f.mime}。${f.text ? '里面是纯文字，用记事本也能打开来看。' : '里面是二进制数据，用记事本打开会是一堆乱码。'}` },
+      { q: `.${f.ext} 文件用什么打开？`, a: `${f.apps.join('、')} 都能打开。浏览器${f.web ? '不用另装程序就能直接打开。' : '打不开，会直接下载下来。'}` },
+      { q: `.${f.ext} 的 MIME 类型是什么？`, a: `是 ${f.mime}。前半段 ${f.mimeType} 指大类，后半段 ${f.mimeSubtype} 指具体格式。${f.official ? '这是在标准里登记过的名字。' : '它以 x- 开头，说明没在标准里登记过。'}` },
+      { q: f.twins.length > 0 ? `有没有和 .${f.ext} 同一种格式的扩展名？` : `.${f.ext} 文件能转成别的格式吗？`, a: f.twins.length > 0 ? `${f.twins.map(t => `.${t}`).join('、')} 连 MIME 类型都一样。只改名字，多半照样打得开。` : `用转换软件重新存一遍就行。单改扩展名不管用 —— 文件内容一点没变。` },
+      { q: `.${f.ext} 文件打不开怎么办？`, a: `先确认装没装 ${f.apps[0]}。装了还打不开，可能是下载时断了，或者名字虽是 .${f.ext}、里面装的却是别的格式。` },
+    ],
+    (f: ExtFacts, kind: string) => [
+      { q: `.${f.ext} 是什麼檔案？`, a: `屬於${kind}這一類，MIME 類型為 ${f.mime}。${f.text ? '裡面是純文字，用記事本也能開來看。' : '裡面是二進位資料，用記事本開會是一堆亂碼。'}` },
+      { q: `.${f.ext} 檔案用什麼開？`, a: `${f.apps.join('、')} 都能開。瀏覽器${f.web ? '不用另裝程式就能直接開。' : '開不了，會直接下載下來。'}` },
+      { q: `.${f.ext} 的 MIME 類型是什麼？`, a: `是 ${f.mime}。前半段 ${f.mimeType} 指大類，後半段 ${f.mimeSubtype} 指具體格式。${f.official ? '這是在標準裡登記過的名字。' : '它以 x- 開頭，說明沒在標準裡登記過。'}` },
+      { q: f.twins.length > 0 ? `有沒有和 .${f.ext} 同一種格式的副檔名？` : `.${f.ext} 檔案能轉成別的格式嗎？`, a: f.twins.length > 0 ? `${f.twins.map(t => `.${t}`).join('、')} 連 MIME 類型都一樣。只改名字，多半照樣打得開。` : `用轉換軟體重新存一遍就行。單改副檔名不管用 —— 檔案內容一點沒變。` },
+      { q: `.${f.ext} 檔案開不了怎麼辦？`, a: `先確認裝沒裝 ${f.apps[0]}。裝了還開不了，可能是下載時斷了，或者名字雖是 .${f.ext}、裡面裝的卻是別的格式。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const EXT_UI: L8<ExtUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const EXT_UI: L<ExtUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<ExtUI>;
+) as unknown as L<ExtUI>;

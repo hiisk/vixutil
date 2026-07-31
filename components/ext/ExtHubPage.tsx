@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { EXTS, EXT_ICON, EXT_KINDS, extsOfKind } from '@/lib/ext/list';
 import { extFacts } from '@/lib/ext/facts';
 import { EXT_UI } from '@/lib/ext/ui';
@@ -15,7 +15,7 @@ import { EXT_UI } from '@/lib/ext/ui';
  * 갈래로 나누고, 줄마다 MIME 타입을 함께 적는다. 찾는 사람은 대개 확장자를
  * 이미 알고 들어오므로 이름이 크게 보여야 한다.
  */
-export default function ExtHubPage({ lang }: { lang: Lang8 }) {
+export default function ExtHubPage({ lang }: { lang: Lang }) {
   const ui = EXT_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -96,7 +96,7 @@ export default function ExtHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/ext`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

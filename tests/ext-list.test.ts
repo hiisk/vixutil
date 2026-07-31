@@ -11,7 +11,8 @@ import assert from 'node:assert/strict';
 import { EXTS, EXT_ICON, EXT_KINDS, EXT_SLUGS, extOf, extsOfKind } from '../lib/ext/list.ts';
 import { extFacts, relatedExts } from '../lib/ext/facts.ts';
 import { EXT_UI } from '../lib/ext/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(EXTS.length >= 100, `${EXTS.length}가지뿐이다`);
@@ -104,13 +105,14 @@ test('견줄 확장자는 자기 자신을 빼고 쌍둥이를 먼저 준다', (
   }
 });
 
-test('여덟 언어가 모두 채워져 있다', () => {
+test('열 언어가 모두 채워져 있다', () => {
   const f = extFacts(extOf('webp')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = EXT_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -123,11 +125,11 @@ test('여덟 언어가 모두 채워져 있다', () => {
 });
 
 test('FAQ 답이 그 확장자의 값을 담고 있다', () => {
-  // 틀만 여덟 벌 두고 값을 끼워 넣는 구조라, 값이 안 끼워지면 140장이 같은 글이 된다
+  // 틀만 열 벌 두고 값을 끼워 넣는 구조라, 값이 안 끼워지면 140장이 같은 글이 된다
   for (const e of ['webp', 'hwp', 'mkv']) {
     const x = extOf(e)!;
     const f = extFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = EXT_UI[lang];
       const joined = ui.extFaq(f, ui.kindLabel[x.kind]).map(q => `${q.q} ${q.a}`).join(' ');
       assert.ok(joined.includes(`.${e}`), `${lang}/${e}: 확장자가 안 들어갔다`);
@@ -137,10 +139,10 @@ test('FAQ 답이 그 확장자의 값을 담고 있다', () => {
   }
 });
 
-test('모든 확장자가 여덟 언어 메타를 만든다', () => {
+test('모든 확장자가 열 언어 메타를 만든다', () => {
   for (const x of EXTS) {
     const f = extFacts(x);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = EXT_UI[lang];
       const title = ui.metaTitle(x.ext);
       const desc = ui.metaDesc(f, ui.kindLabel[x.kind]);

@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { EXT_ICON, extOf } from '@/lib/ext/list';
 import { extFacts, relatedExts } from '@/lib/ext/facts';
 import { EXT_UI } from '@/lib/ext/ui';
@@ -15,7 +15,7 @@ import { EXT_UI } from '@/lib/ext/ui';
  * "이거 뭘로 열지"가 이 화면에 오는 이유다. 그래서 여는 프로그램을 맨 위에 놓고,
  * MIME 타입과 갈래 설명은 그 뒤에 둔다.
  */
-export default function ExtPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
   const x = extOf(slug);
   if (!x) return null;
 
@@ -147,7 +147,7 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang8 }) {
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/ext/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
