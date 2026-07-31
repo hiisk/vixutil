@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { GEO_LANGS } from '@/lib/geo-section';
 import type { Metadata } from 'next';
 import FormulaPage from '@/components/FormulaPage';
 import GeoEngine from '@/components/geometry/GeoEngine';
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: text.title,
     description: text.long,
     openGraph: openGraphFor('en'),
-    alternates: { canonical: '/en/geometry/' + slug, languages: sectionAlternates('geometry', slug) },
+    alternates: { canonical: '/en/geometry/' + slug, languages: sectionAlternates('geometry', slug, GEO_LANGS) },
   };
 }
 

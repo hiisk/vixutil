@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { BODY_LANGS } from '@/lib/body-section';
 import FormulaHub from '@/components/FormulaHub';
 import { BODY_SECTION } from '@/lib/body-section';
 import { sectionAlternates } from '@/lib/formula/ui';
@@ -8,7 +9,7 @@ const meta = BODY_SECTION.meta['ko'];
 export const metadata: Metadata = {
   title: meta.metaTitle,
   description: meta.metaDesc,
-  alternates: { canonical: '/body', languages: sectionAlternates('body') },
+  alternates: { canonical: '/body', languages: sectionAlternates('body', undefined, BODY_LANGS) },
 };
 
 export default function BodyHubKO() {

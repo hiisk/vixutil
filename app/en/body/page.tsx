@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { BODY_LANGS } from '@/lib/body-section';
 import FormulaHub from '@/components/FormulaHub';
 import { BODY_SECTION } from '@/lib/body-section';
 import { sectionAlternates } from '@/lib/formula/ui';
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: meta.metaTitle,
   description: meta.metaDesc,
   openGraph: openGraphFor('en'),
-  alternates: { canonical: '/en/body', languages: sectionAlternates('body') },
+  alternates: { canonical: '/en/body', languages: sectionAlternates('body', undefined, BODY_LANGS) },
 };
 
 export default function BodyHubEN() {

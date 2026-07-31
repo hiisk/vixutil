@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { BODY_LANGS } from '@/lib/body-section';
 import type { Metadata } from 'next';
 import FormulaPage from '@/components/FormulaPage';
 import BodyEngine from '@/components/body/BodyEngine';
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: text.title,
     description: text.long,
     openGraph: openGraphFor('en'),
-    alternates: { canonical: '/en/body/' + slug, languages: sectionAlternates('body', slug) },
+    alternates: { canonical: '/en/body/' + slug, languages: sectionAlternates('body', slug, BODY_LANGS) },
   };
 }
 

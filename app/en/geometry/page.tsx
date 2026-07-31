@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { GEO_LANGS } from '@/lib/geo-section';
 import FormulaHub from '@/components/FormulaHub';
 import { GEO_SECTION } from '@/lib/geo-section';
 import { sectionAlternates } from '@/lib/formula/ui';
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: meta.metaTitle,
   description: meta.metaDesc,
   openGraph: openGraphFor('en'),
-  alternates: { canonical: '/en/geometry', languages: sectionAlternates('geometry') },
+  alternates: { canonical: '/en/geometry', languages: sectionAlternates('geometry', undefined, GEO_LANGS) },
 };
 
 export default function GeoHubEN() {
