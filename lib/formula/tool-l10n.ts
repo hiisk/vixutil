@@ -9,6 +9,10 @@ import { RATE_FR } from '../rate-l10n/fr.ts';
 import { RATE_HI } from '../rate-l10n/hi.ts';
 import { RATE_ZH_HANS } from '../rate-l10n/zh-hans.ts';
 import { RATE_ZH_HANT } from '../rate-l10n/zh-hant.ts';
+import { BODY_ZH_HANS } from '../body-l10n/zh-hans.ts';
+import { BODY_ZH_HANT } from '../body-l10n/zh-hant.ts';
+import { GEO_ZH_HANS } from '../geo-l10n/zh-hans.ts';
+import { GEO_ZH_HANT } from '../geo-l10n/zh-hant.ts';
 import { BODY_ES } from '../body-l10n/es.ts';
 import { BODY_PT_BR } from '../body-l10n/pt-br.ts';
 import { BODY_JA } from '../body-l10n/ja.ts';
@@ -35,6 +39,6 @@ export const TOOL_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<string
   de: { ...RATE_DE, ...BODY_DE, ...GEO_DE },
   fr: { ...RATE_FR, ...BODY_FR, ...GEO_FR },
   hi: { ...RATE_HI, ...BODY_HI, ...GEO_HI },
-  'zh-hans': { ...RATE_ZH_HANS },
-  'zh-hant': { ...RATE_ZH_HANT },
+  'zh-hans': { ...RATE_ZH_HANS, ...BODY_ZH_HANS, ...GEO_ZH_HANS },
+  'zh-hant': { ...RATE_ZH_HANT, ...BODY_ZH_HANT, ...GEO_ZH_HANT },
 };
