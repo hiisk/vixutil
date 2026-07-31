@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/fix-html-lang.mjs",
+    "build": "next build && node scripts/fix-html-lang.mjs && node scripts/drop-rsc-payloads.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test 'tests/*.test.ts'"
