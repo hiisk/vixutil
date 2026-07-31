@@ -2,6 +2,12 @@
  * 색 라우트가 함께 쓰는 부분 — 메타와 공유 카드.
  *
  * 언어 여덟 × 파일 넷이라 문구 규칙을 라우트에 적지 않는다.
+ *
+ * ── 자료는 열 언어인데 라우트가 여덟인 이유 ─────────────
+ * 색 이름과 화면 문구는 중국어까지 채웠지만 주소는 아직 여덟이다. 이 섹션의
+ * 상위 페이지 /color가 색 목록 전용이 아니라 색상 도구 허브(ColorHubIntl)와 같은
+ * 페이지이고, 그 허브는 일곱 언어짜리 *-tools-intl 층에 묶여 있다.
+ * 도구 허브가 열 언어로 넘어오면 alternates8을 alternates로 바꾸면 된다.
  */
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';

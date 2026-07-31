@@ -13,14 +13,14 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang.ts';
+import { LANGS8, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { COLOR_FAMILIES, NAMED_COLORS_8, colorsOfFamily, namedColor } from '../lib/color/named8.ts';
 import { colorFacts, nearbyColors } from '../lib/color/facts.ts';
 import { COLOR_UI, colorAlternates, colorFaq } from '../lib/color/ui.ts';
 
-const LANGS = LANG8_CODES;
+const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
-const dense = (lang: Lang8) => lang === 'ja';
+const dense = (lang: Lang) => lang === 'ja';
 
 test('색이 100가지를 넘고 slug·hex가 겹치지 않는다', () => {
   assert.ok(NAMED_COLORS_8.length >= 100, `${NAMED_COLORS_8.length}가지뿐`);

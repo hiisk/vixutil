@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { colorFacts, nearbyColors } from '@/lib/color/facts';
 import { COLOR_UI, colorFaq } from '@/lib/color/ui';
 import type { NamedColor } from '@/lib/color/named8';
@@ -195,7 +195,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link
               key={l.lang}
               href={`${l.prefix}/color/${color.slug}`}

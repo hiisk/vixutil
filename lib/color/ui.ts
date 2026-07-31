@@ -1,11 +1,11 @@
 /**
- * 색 페이지의 화면 문구 — 여덟 언어.
+ * 색 페이지의 화면 문구 — 열 언어.
  *
  * 110색 × 8언어 = 880벌의 설명을 손으로 쓸 수 없다. 색마다 다른 것은 이름과
  * 숫자뿐이므로, 문장 틀을 한 벌만 두고 계산된 값을 끼워 넣는다. 숫자가 계산에서
  * 오니 틀릴 수 없고, 색을 더해도 문구를 다시 쓰지 않는다.
  */
-import { alternates8, type L8, type Lang8 } from '../i18n/lang.ts';
+import { alternates8, type L, type Lang } from '../i18n/lang.ts';
 import type { ColorFacts } from './facts.ts';
 import type { ColorFamily } from './named8.ts';
 
@@ -710,9 +710,173 @@ const hi: ColorUI = {
   ],
 };
 
-export const COLOR_UI: L8<ColorUI> = { ko, en, es, pt, ja, de, fr, hi };
+const zh: ColorUI = {
+  home: '首页',
+  section: '颜色名称词典',
+  hubTitle: '110 种颜色名称 — hex、RGB 与对比度',
+  hubLead: '用颜色的名字查 hex 代码，RGB、HSL、CMYK 数值，文字对比度，还有补色和明度阶，全在一屏里看完',
+  hexLabel: 'HEX',
+  rgbLabel: 'RGB',
+  hslLabel: 'HSL',
+  cmykLabel: 'CMYK',
+  lumLabel: '相对亮度',
+  contrastLabel: '文字对比度',
+  onWhite: '在白底上',
+  onBlack: '在黑底上',
+  passAa: '通过 AA',
+  failAa: '未达 AA',
+  harmonyTitle: '搭得上的颜色',
+  complementLabel: '补色',
+  analogousLabel: '邻近色',
+  triadLabel: '三角配色',
+  shadesTitle: '明度阶',
+  cvdTitle: '色觉障碍下的样子',
+  protan: '红色盲（P 型）',
+  deutan: '绿色盲（D 型）',
+  tritan: '蓝色盲（T 型）',
+  nearbyTitle: '相近的颜色',
+  copyHint: '点一下代码就能复制',
+  howTitle: '怎么看这些数值',
+  how: [
+    'HEX 是把红、绿、蓝各写成两位十六进制。#ff0000 就是红色拉满、其余为 0。',
+    'HSL 用色相（0~360°）、饱和度、明度来写。想让颜色稍微亮一点，只调明度就行，用手改起来最顺。',
+    '文字对比度按 WCAG 标准。正文大小的字要 4.5:1 以上才读得动，黑白之间的 21:1 是上限。',
+    '色觉障碍那一栏，是算出这个颜色在三种色觉异常下会变成什么样。这正是不能只靠颜色区分信息的原因。',
+  ],
+  faqTitle: '常见问题',
+  familyLabel: FAM('红色系', '橙色系', '黄色系', '绿色系', '蓝色系', '紫色系', '粉色系', '棕色系', '无彩色', '金属色'),
+  hubMetaTitle: '110 种颜色名称 — hex 代码、RGB、CMYK 与对比度词典',
+  hubMetaDesc: '从红色到玫瑰金，110 种有名字的颜色，每种一页，收齐 hex 代码、RGB、HSL、CMYK 数值、WCAG 文字对比度、补色和明度阶。',
+  metaTitle: (name, hex) => `${name}的颜色代码 ${hex.toUpperCase()}`,
+  metaDesc: (name, f) =>
+    `${name}的 hex 代码是 ${f.hex.toUpperCase()}，RGB 为 ${f.rgb.r}·${f.rgb.g}·${f.rgb.b}，HSL 为 ${f.hsl.h}°·${f.hsl.s}%·${f.hsl.l}%。在白底上的对比度是 ${f.onWhite}:1，补色为 ${f.complement.toUpperCase()}，明度阶和色觉障碍模拟也一并列出。`,
+  hubFaq: [
+    {
+      q: 'hex 代码该怎么读？',
+      a: '把 # 后面的六位每两位一断，分别当作红、绿、蓝的强度。每一段是十六进制，从 00 到 ff（255），所以 #ff0000 是只有红色拉满的颜色。缩写成三位的 #f00 指的是同一个色。',
+    },
+    {
+      q: 'RGB 和 CMYK 为什么不一样？',
+      a: 'RGB 是加光造色（屏幕），CMYK 是叠油墨减光造色（印刷）。所以屏幕上鲜艳的颜色，印出来可能发闷。本词典的 CMYK 是按换算公式算的，和实际印刷机会有出入。',
+    },
+    {
+      q: '文字对比度 4.5:1 是什么意思？',
+      a: '是两个颜色相对亮度的比值。WCAG 建议正文大小的字至少 4.5:1，大字至少 3:1。最大值是黑白之间的 21:1。这个数字一低，视力好的人也会觉得小字难读。',
+    },
+    {
+      q: '色觉障碍模拟准吗？',
+      a: '它是用通行的转换矩阵算出的近似。每个人实际看到的颜色并不相同，但「这两个颜色在色觉障碍下分不开」这件事，靠这个计算就足够暴露出来 —— 意思就是别只靠颜色来区分信息。',
+    },
+  ],
+  itemFaq: (name, f) => [
+    {
+      q: `${name}的 hex 代码是什么？`,
+      a: `是 ${f.hex.toUpperCase()}。换成 RGB 是 ${f.rgb.r}、${f.rgb.g}、${f.rgb.b}，换成 HSL 是色相 ${f.hsl.h}°、饱和度 ${f.hsl.s}%、明度 ${f.hsl.l}%。`,
+    },
+    {
+      q: `${name}上面该配什么颜色的字？`,
+      a: `配${f.textOn === 'white' ? '白' : '黑'}字。这个颜色和白色的对比度是 ${f.onWhite}:1，和黑色是 ${f.onBlack}:1，得挑对比度大的那一边，正文大小的字才读得动。`,
+    },
+    {
+      q: `${name}的补色是什么？`,
+      a: `是色环上正对面 180° 的 ${f.complement.toUpperCase()}。两色并排时互相推得最开，拿来做强调色很好，但大面积一起用会让眼睛发累。`,
+    },
+    {
+      q: 'CMYK 数值能直接拿去印刷吗？',
+      a: `算出来是 C ${f.cmyk.c}% · M ${f.cmyk.m}% · Y ${f.cmyk.y}% · K ${f.cmyk.k}%。不过实际印刷会随纸张和油墨变化，颜色要紧的印刷品，还是得拿印刷厂的色样对一遍。`,
+    },
+    {
+      q: '色觉障碍的人分得出这个颜色吗？',
+      a: `红色盲看到的是 ${f.cvd.protan.toUpperCase()}，绿色盲是 ${f.cvd.deutan.toUpperCase()}，蓝色盲是 ${f.cvd.tritan.toUpperCase()}。哪两个颜色在这里变得接近，就不能只靠颜色区分，得再加上形状或文字。`,
+    },
+  ],
+};
 
-export const colorUi = (lang: Lang8): ColorUI => COLOR_UI[lang];
+const tw: ColorUI = {
+  home: '首頁',
+  section: '顏色名稱辭典',
+  hubTitle: '110 種顏色名稱 — hex、RGB 與對比度',
+  hubLead: '用顏色的名字查 hex 代碼，RGB、HSL、CMYK 數值，文字對比度，還有補色和明度階，全在一屏裡看完',
+  hexLabel: 'HEX',
+  rgbLabel: 'RGB',
+  hslLabel: 'HSL',
+  cmykLabel: 'CMYK',
+  lumLabel: '相對亮度',
+  contrastLabel: '文字對比度',
+  onWhite: '在白底上',
+  onBlack: '在黑底上',
+  passAa: '通過 AA',
+  failAa: '未達 AA',
+  harmonyTitle: '搭得上的顏色',
+  complementLabel: '補色',
+  analogousLabel: '鄰近色',
+  triadLabel: '三角配色',
+  shadesTitle: '明度階',
+  cvdTitle: '色覺障礙下的樣子',
+  protan: '紅色盲（P 型）',
+  deutan: '綠色盲（D 型）',
+  tritan: '藍色盲（T 型）',
+  nearbyTitle: '相近的顏色',
+  copyHint: '點一下代碼就能複製',
+  howTitle: '怎麼看這些數值',
+  how: [
+    'HEX 是把紅、綠、藍各寫成兩位十六進位。#ff0000 就是紅色拉滿、其餘為 0。',
+    'HSL 用色相（0~360°）、飽和度、明度來寫。想讓顏色稍微亮一點，只調明度就行，用手改起來最順。',
+    '文字對比度按 WCAG 標準。內文大小的字要 4.5:1 以上才讀得動，黑白之間的 21:1 是上限。',
+    '色覺障礙那一欄，是算出這個顏色在三種色覺異常下會變成什麼樣。這正是不能只靠顏色區分資訊的原因。',
+  ],
+  faqTitle: '常見問題',
+  familyLabel: FAM('紅色系', '橙色系', '黃色系', '綠色系', '藍色系', '紫色系', '粉色系', '棕色系', '無彩色', '金屬色'),
+  hubMetaTitle: '110 種顏色名稱 — hex 代碼、RGB、CMYK 與對比度辭典',
+  hubMetaDesc: '從紅色到玫瑰金，110 種有名字的顏色，每種一頁，收齊 hex 代碼、RGB、HSL、CMYK 數值、WCAG 文字對比度、補色和明度階。',
+  metaTitle: (name, hex) => `${name}的顏色代碼 ${hex.toUpperCase()}`,
+  metaDesc: (name, f) =>
+    `${name}的 hex 代碼是 ${f.hex.toUpperCase()}，RGB 為 ${f.rgb.r}·${f.rgb.g}·${f.rgb.b}，HSL 為 ${f.hsl.h}°·${f.hsl.s}%·${f.hsl.l}%。在白底上的對比度是 ${f.onWhite}:1，補色為 ${f.complement.toUpperCase()}，明度階和色覺障礙模擬也一併列出。`,
+  hubFaq: [
+    {
+      q: 'hex 代碼該怎麼讀？',
+      a: '把 # 後面的六位每兩位一斷，分別當作紅、綠、藍的強度。每一段是十六進位，從 00 到 ff（255），所以 #ff0000 是只有紅色拉滿的顏色。縮寫成三位的 #f00 指的是同一個色。',
+    },
+    {
+      q: 'RGB 和 CMYK 為什麼不一樣？',
+      a: 'RGB 是加光造色（螢幕），CMYK 是疊油墨減光造色（印刷）。所以螢幕上鮮豔的顏色，印出來可能發悶。本辭典的 CMYK 是按換算公式算的，和實際印刷機會有出入。',
+    },
+    {
+      q: '文字對比度 4.5:1 是什麼意思？',
+      a: '是兩個顏色相對亮度的比值。WCAG 建議內文大小的字至少 4.5:1，大字至少 3:1。最大值是黑白之間的 21:1。這個數字一低，視力好的人也會覺得小字難讀。',
+    },
+    {
+      q: '色覺障礙模擬準嗎？',
+      a: '它是用通行的轉換矩陣算出的近似。每個人實際看到的顏色並不相同，但「這兩個顏色在色覺障礙下分不開」這件事，靠這個計算就足夠暴露出來 —— 意思就是別只靠顏色來區分資訊。',
+    },
+  ],
+  itemFaq: (name, f) => [
+    {
+      q: `${name}的 hex 代碼是什麼？`,
+      a: `是 ${f.hex.toUpperCase()}。換成 RGB 是 ${f.rgb.r}、${f.rgb.g}、${f.rgb.b}，換成 HSL 是色相 ${f.hsl.h}°、飽和度 ${f.hsl.s}%、明度 ${f.hsl.l}%。`,
+    },
+    {
+      q: `${name}上面該配什麼顏色的字？`,
+      a: `配${f.textOn === 'white' ? '白' : '黑'}字。這個顏色和白色的對比度是 ${f.onWhite}:1，和黑色是 ${f.onBlack}:1，得挑對比度大的那一邊，內文大小的字才讀得動。`,
+    },
+    {
+      q: `${name}的補色是什麼？`,
+      a: `是色環上正對面 180° 的 ${f.complement.toUpperCase()}。兩色並排時互相推得最開，拿來做強調色很好，但大面積一起用會讓眼睛發累。`,
+    },
+    {
+      q: 'CMYK 數值能直接拿去印刷嗎？',
+      a: `算出來是 C ${f.cmyk.c}% · M ${f.cmyk.m}% · Y ${f.cmyk.y}% · K ${f.cmyk.k}%。不過實際印刷會隨紙張和油墨變化，顏色要緊的印刷品，還是得拿印刷廠的色樣對一遍。`,
+    },
+    {
+      q: '色覺障礙的人分得出這個顏色嗎？',
+      a: `紅色盲看到的是 ${f.cvd.protan.toUpperCase()}，綠色盲是 ${f.cvd.deutan.toUpperCase()}，藍色盲是 ${f.cvd.tritan.toUpperCase()}。哪兩個顏色在這裡變得接近，就不能只靠顏色區分，得再加上形狀或文字。`,
+    },
+  ],
+};
+
+export const COLOR_UI: L<ColorUI> = { ko, en, es, pt, ja, de, fr, hi, zh, tw };
+
+export const colorUi = (lang: Lang): ColorUI => COLOR_UI[lang];
 
 /**
  * 그 색에 뜻이 있는 FAQ만 남긴다.
@@ -720,7 +884,7 @@ export const colorUi = (lang: Lang8): ColorUI => COLOR_UI[lang];
  * 무채색에서는 보색 질문의 답이 자기 색이 된다 — 채도가 0이면 색상환을 돌려도
  * 같은 자리다. 물어봐야 알려 주는 것이 없으므로 그 항목을 뺀다.
  */
-export function colorFaq(lang: Lang8, name: string, f: ColorFacts): FaqItem[] {
+export function colorFaq(lang: Lang, name: string, f: ColorFacts): FaqItem[] {
   const all = COLOR_UI[lang].itemFaq(name, f);
   return f.chromatic ? all : all.filter((_, i) => i !== 2);
 }
