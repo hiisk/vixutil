@@ -1,10 +1,10 @@
 /**
- * HTML 태그 화면의 문구 — 여덟 언어.
+ * HTML 태그 화면의 문구 — 열 언어.
  *
  * 태그마다 다른 설명은 desc.ts에 있고, 여기에는 화면 틀과 갈래 이름만 둔다.
  * 태그 이름과 속성 이름은 표준이 정한 영어라 옮기지 않는다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { TagKind } from './tags.ts';
 import type { TagFacts } from './facts.ts';
 
@@ -39,15 +39,15 @@ export interface HtmlUI {
   tagFaq: (f: TagFacts, desc: string, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof HtmlUI]: L8<HtmlUI[K]> };
+type Spec = { [K in keyof HtmlUI]: L<HtmlUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('HTML 태그', 'HTML tags', 'Etiquetas HTML', 'Tags HTML', 'HTMLタグ', 'HTML-Tags', 'Balises HTML', 'HTML टैग'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('HTML 태그', 'HTML tags', 'Etiquetas HTML', 'Tags HTML', 'HTMLタグ', 'HTML-Tags', 'Balises HTML', 'HTML टैग', 'HTML 标签', 'HTML 標籤'),
 
   hubTitle: T(
     'HTML 태그 126개 사전',
@@ -58,6 +58,8 @@ const SPEC: Spec = {
     'Nachschlagewerk mit 126 HTML-Tags',
     'Référence de 126 balises HTML',
     '126 HTML टैग की संदर्भ सूची',
+    'HTML 标签词典 126 个',
+    'HTML 標籤辭典 126 個',
   ),
 
   hubLead: T(
@@ -69,6 +71,8 @@ const SPEC: Spec = {
     'Was jedes Tag tut, ob es ein End-Tag braucht und welche Attribute man wirklich nutzt — je eine Zeile.',
     "Ce que fait chaque balise, si elle exige une fermeture et quels attributs servent vraiment — une ligne chacune.",
     'हर टैग क्या करता है, बंद टैग चाहिए या नहीं, और कौन-से विशेषण असल में काम आते हैं — एक-एक पंक्ति में।',
+    '每个标签做什么、要不要写闭合标签、常配哪些属性，一行说清。',
+    '每個標籤做什麼、要不要寫閉合標籤、常配哪些屬性，一行說清。',
   ),
 
   kindLabel: T(
@@ -80,6 +84,8 @@ const SPEC: Spec = {
     { structure: 'Grundgerüst', section: 'Abschnitte', text: 'Textblöcke', inline: 'Inline-Auszeichnung', list: 'Listen', table: 'Tabellen', form: 'Formulare', media: 'Medien', embed: 'Einbettung', script: 'Skript und Stil', meta: 'Dokumentinfo', interactive: 'Aufklappbares', deprecated: 'Veraltet' },
     { structure: 'Squelette', section: 'Sections', text: 'Blocs de texte', inline: 'Balisage en ligne', list: 'Listes', table: 'Tableaux', form: 'Formulaires', media: 'Médias', embed: 'Intégration', script: 'Script et style', meta: 'Infos du document', interactive: 'Dépliables', deprecated: 'Obsolètes' },
     { structure: 'दस्तावेज़ ढाँचा', section: 'खंड', text: 'पाठ खंड', inline: 'पंक्ति-अंतर्गत चिह्न', list: 'सूचियाँ', table: 'तालिकाएँ', form: 'फ़ॉर्म', media: 'मीडिया', embed: 'एम्बेड', script: 'स्क्रिप्ट और स्टाइल', meta: 'दस्तावेज़ जानकारी', interactive: 'खुलने-बंद होने वाले', deprecated: 'अप्रचलित' },
+    { structure: '文档骨架', section: '分区', text: '文本', inline: '行内标记', list: '列表', table: '表格', form: '输入', media: '图像·声音·视频', embed: '嵌入', script: '脚本与样式', meta: '文档信息', interactive: '展开收起', deprecated: '已不再使用' },
+    { structure: '文件骨架', section: '分區', text: '文字', inline: '行內標記', list: '清單', table: '表格', form: '輸入', media: '影像·聲音·影片', embed: '嵌入', script: '腳本與樣式', meta: '文件資訊', interactive: '展開收合', deprecated: '已不再使用' },
   ),
 
   kindNote: T(
@@ -203,16 +209,46 @@ const SPEC: Spec = {
       interactive: 'बिना जावास्क्रिप्ट क्लिक पर खुलने-बंद होने वाली चीज़ें।',
       deprecated: 'मानक से हटाए गए टैग; ये केवल पुराने दस्तावेज़ों में मिलते हैं।',
     },
+    {
+      structure: '每份文档都有的骨架，顺序和位置都是定死的。',
+      section: '把文档切成有意义的块。搜索引擎和读屏工具就顺着这个结构走。',
+      text: '段落、引用、代码块这类成块流动的文字。',
+      inline: '只标出一句话里的一部分，不会另起一行。',
+      list: '有序或无序的列表，还有术语解释。',
+      table: '横竖排开的数据。不是拿来排版面的。',
+      form: '接收并送出值的各种输入。',
+      media: '图像、声音、视频，以及现画出来的画面。',
+      embed: '把别的文档或资源嵌进本页。',
+      script: '给文档加上行为和外观。',
+      meta: '给浏览器和搜索引擎读的信息，不是给人看的。',
+      interactive: '不写 JavaScript 也能点开点合的那些。',
+      deprecated: '已经退出标准的标签，只在读旧文档时才会遇到。',
+    },
+    {
+      structure: '每份文件都有的骨架，順序和位置都是定死的。',
+      section: '把文件切成有意義的區塊。搜尋引擎和螢幕閱讀器就順著這個結構走。',
+      text: '段落、引用、程式碼區塊這類成塊流動的文字。',
+      inline: '只標出一句話裡的一部分，不會另起一行。',
+      list: '有序或無序的清單，還有術語解釋。',
+      table: '橫豎排開的資料。不是拿來排版面的。',
+      form: '接收並送出值的各種輸入。',
+      media: '影像、聲音、影片，以及現畫出來的畫面。',
+      embed: '把別的文件或資源嵌進本頁。',
+      script: '給文件加上行為和外觀。',
+      meta: '給瀏覽器和搜尋引擎讀的資訊，不是給人看的。',
+      interactive: '不寫 JavaScript 也能點開點合的那些。',
+      deprecated: '已經退出標準的標籤，只在讀舊文件時才會遇到。',
+    },
   ),
 
-  writeLabel: T('쓰는 법', 'How to write it', 'Cómo se escribe', 'Como escrever', '書き方', 'Schreibweise', 'Écriture', 'कैसे लिखें'),
-  closeLabel: T('닫는 태그', 'Closing tag', 'Etiqueta de cierre', 'Tag de fechamento', '閉じタグ', 'End-Tag', 'Balise fermante', 'बंद टैग'),
-  voidLabel: T('닫지 않는 태그', 'Void element', 'Elemento vacío', 'Elemento vazio', '空要素', 'Leeres Element', 'Élément vide', 'रिक्त तत्व'),
-  voidYes: T('맞음 — 닫지 않습니다', 'Yes — no closing tag', 'Sí, sin cierre', 'Sim, sem fechamento', 'はい — 閉じません', 'Ja — kein End-Tag', 'Oui — pas de fermeture', 'हाँ — बंद टैग नहीं'),
-  voidNo: T('아님 — 닫아야 합니다', 'No — it must be closed', 'No, debe cerrarse', 'Não, precisa fechar', 'いいえ — 閉じます', 'Nein — muss geschlossen werden', 'Non — doit être fermée', 'नहीं — बंद करना होगा'),
-  attrsLabel: T('자주 쓰는 속성', 'Common attributes', 'Atributos habituales', 'Atributos comuns', 'よく使う属性', 'Gängige Attribute', 'Attributs courants', 'सामान्य विशेषण'),
-  attrsNone: T('특별히 없음', 'None in particular', 'Ninguno en especial', 'Nenhum em especial', '特にありません', 'Keine besonderen', 'Aucun en particulier', 'कोई विशेष नहीं'),
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी'),
+  writeLabel: T('쓰는 법', 'How to write it', 'Cómo se escribe', 'Como escrever', '書き方', 'Schreibweise', 'Écriture', 'कैसे लिखें', '怎么写', '怎麼寫'),
+  closeLabel: T('닫는 태그', 'Closing tag', 'Etiqueta de cierre', 'Tag de fechamento', '閉じタグ', 'End-Tag', 'Balise fermante', 'बंद टैग', '闭合标签', '閉合標籤'),
+  voidLabel: T('닫지 않는 태그', 'Void element', 'Elemento vacío', 'Elemento vazio', '空要素', 'Leeres Element', 'Élément vide', 'रिक्त तत्व', '空元素', '空元素'),
+  voidYes: T('맞음 — 닫지 않습니다', 'Yes — no closing tag', 'Sí, sin cierre', 'Sim, sem fechamento', 'はい — 閉じません', 'Ja — kein End-Tag', 'Oui — pas de fermeture', 'हाँ — बंद टैग नहीं', '是 —— 不用闭合', '是 —— 不用閉合'),
+  voidNo: T('아님 — 닫아야 합니다', 'No — it must be closed', 'No, debe cerrarse', 'Não, precisa fechar', 'いいえ — 閉じます', 'Nein — muss geschlossen werden', 'Non — doit être fermée', 'नहीं — बंद करना होगा', '不是 —— 必须闭合', '不是 —— 必須閉合'),
+  attrsLabel: T('자주 쓰는 속성', 'Common attributes', 'Atributos habituales', 'Atributos comuns', 'よく使う属性', 'Gängige Attribute', 'Attributs courants', 'सामान्य विशेषण', '常用属性', '常用屬性'),
+  attrsNone: T('특별히 없음', 'None in particular', 'Ninguno en especial', 'Nenhum em especial', '特にありません', 'Keine besonderen', 'Aucun en particulier', 'कोई विशेष नहीं', '没有特别的', '沒有特別的'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
 
   deprecatedWarn: T(
     '표준에서 물러난 태그입니다. 새로 쓰지 말고, 옛 문서를 고칠 때만 참고하세요.',
@@ -223,12 +259,14 @@ const SPEC: Spec = {
     'Dieses Tag wurde aus dem Standard entfernt. Nicht mehr verwenden — es steht hier fürs Lesen alter Seiten.',
     "Cette balise a été retirée de la norme. Ne l'utilisez plus : elle figure ici pour lire d'anciennes pages.",
     'यह टैग मानक से हटाया जा चुका है। नए पन्नों में इसका प्रयोग न करें — यह पुराने पढ़ने के लिए है।',
+    '这个标签已经退出标准。新写的页面别用它，只在修旧文档时参考。',
+    '這個標籤已經退出標準。新寫的頁面別用它，只在修舊文件時參考。',
   ),
 
-  docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़'),
-  relatedTitle: T('같은 갈래의 태그', 'Tags in the same group', 'Etiquetas del mismo grupo', 'Tags do mesmo grupo', '同じ分類のタグ', 'Tags derselben Gruppe', 'Balises du même groupe', 'उसी समूह के टैग'),
+  docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़', '标准文档', '標準文件'),
+  relatedTitle: T('같은 갈래의 태그', 'Tags in the same group', 'Etiquetas del mismo grupo', 'Tags do mesmo grupo', '同じ分類のタグ', 'Tags derselben Gruppe', 'Balises du même groupe', 'उसी समूह के टैग', '同一类的标签', '同一類的標籤'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
 
   how: T(
     [
@@ -279,9 +317,21 @@ const SPEC: Spec = {
       'दिखावट CSS का काम है। टैग बताता है कि चीज़ क्या है; मोटा या तिरछा होना उसका परिणाम भर है।',
       'अर्थ से मेल खाता टैग चुनना खोज इंजन और स्क्रीन रीडर दोनों के लिए अच्छा है। सब कुछ div में लपेटना यह जानकारी फेंक देता है।',
     ],
+    [
+      '标签大多是开合成对的。只有 img、br 这种里面没内容的才不写闭合标签。',
+      '给空元素补一个 </br>，浏览器要么当没看见，要么给你多出一个空行。',
+      '长什么样由 CSS 说了算。标签说的是「这是什么」，加粗、倾斜只是随之而来的效果。',
+      '挑对语义的标签，搜索和读屏会一起变好。全用 div 包起来，这些信息就丢光了。',
+    ],
+    [
+      '標籤大多是開合成對的。只有 img、br 這種裡面沒內容的才不寫閉合標籤。',
+      '給空元素補一個 </br>，瀏覽器要麼當沒看見，要麼給你多出一個空行。',
+      '長什麼樣由 CSS 說了算。標籤說的是「這是什麼」，加粗、傾斜只是隨之而來的效果。',
+      '挑對語意的標籤，搜尋和螢幕閱讀會一起變好。全用 div 包起來，這些資訊就丟光了。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     'HTML 태그 126개 사전 — 쓰임과 닫는 태그, 속성',
@@ -292,6 +342,8 @@ const SPEC: Spec = {
     'HTML-Tag-Referenz — 126 Tags mit Zweck, Schließregel und Attributen',
     'Référence des balises HTML — 126 balises : usage, fermeture, attributs',
     'HTML टैग संदर्भ — 126 टैग, उनका उपयोग, बंद नियम और विशेषण',
+    'HTML 标签词典 126 个 — 用途、闭合与属性',
+    'HTML 標籤辭典 126 個 — 用途、閉合與屬性',
   ),
   hubMetaDesc: T(
     'div·section·input·img 등 HTML 태그 126개를 갈래별로 정리했습니다. 태그마다 무엇을 하는지, 닫는 태그가 필요한지, 자주 쓰는 속성과 같은 갈래의 다른 태그를 함께 볼 수 있습니다.',
@@ -302,6 +354,8 @@ const SPEC: Spec = {
     'Eine Referenz zu 126 HTML-Tags nach Zweck geordnet — div, section, input, img und mehr — mit Aufgabe, Schließregel, gängigen Attributen und Verwandten.',
     "Une référence de 126 balises HTML classées par usage — div, section, input, img et les autres — avec leur rôle, la règle de fermeture, les attributs courants et les balises voisines.",
     '126 HTML टैग उद्देश्य के अनुसार — div, section, input, img और बाक़ी — हर एक का काम, बंद नियम, सामान्य विशेषण और सहवर्ती टैग।',
+    'div、section、input、img 等 126 个 HTML 标签，按用途分好类。每个标签做什么、要不要闭合、常配哪些属性、同类还有哪些标签，都能一起看到。',
+    'div、section、input、img 等 126 個 HTML 標籤，按用途分好類。每個標籤做什麼、要不要閉合、常配哪些屬性、同類還有哪些標籤，都能一起看到。',
   ),
 
   metaTitle: T(
@@ -313,6 +367,8 @@ const SPEC: Spec = {
     (n: string) => `Das <${n}>-Tag — Aufgabe und Attribute`,
     (n: string) => `La balise <${n}> — rôle et attributs`,
     (n: string) => `<${n}> टैग — काम और विशेषण`,
+    (n: string) => `<${n}> 标签 — 用途与属性`,
+    (n: string) => `<${n}> 標籤 — 用途與屬性`,
   ),
 
   metaDesc: T(
@@ -324,6 +380,8 @@ const SPEC: Spec = {
     (n: string, d: string) => `Was das HTML-Tag <${n}> bedeutet und wie man es schreibt. ${d}`,
     (n: string, d: string) => `Ce que signifie la balise HTML <${n}> et comment l'écrire. ${d}`,
     (n: string, d: string) => `HTML <${n}> टैग का अर्थ और उसे लिखने का तरीक़ा। ${d}`,
+    (n: string, d: string) => `HTML <${n}> 标签的含义和写法。${d}`,
+    (n: string, d: string) => `HTML <${n}> 標籤的含義和寫法。${d}`,
   ),
 
   hubFaq: T(
@@ -383,6 +441,20 @@ const SPEC: Spec = {
       { q: 'क्या टैग नाम बड़े अक्षरों में लिख सकते हैं?', a: 'HTML में अक्षर-भेद नहीं है, इसलिए <DIV> भी चलता है। प्रचलन छोटे अक्षरों का है, और XHTML या SVG जैसे XML संदर्भों में केवल छोटे अक्षर मान्य हैं।' },
       { q: 'अप्रचलित टैग इस्तेमाल करने पर क्या होता है?', a: 'ज़्यादातर ब्राउज़र अब भी उन्हें दिखाते हैं। पर मानक ने उन्हें हटा दिया है, वे कभी भी ग़ायब हो सकते हैं — और विकल्प पहले से हैं: center और font के लिए CSS, marquee के लिए CSS एनिमेशन।' },
     ],
+    [
+      { q: 'HTML 标签一共有多少个？', a: '还留在标准里的大约 110 个，把废弃的也算上就有 130 上下。这里把现在还在用的和读旧文档会碰到的合起来收了 126 个。' },
+      { q: '哪些标签不用写闭合标签？', a: 'img、br、hr、input、meta、link 这些里面装不下内容的标签。给它们补一个 </img>，浏览器会直接忽略。照 XHTML 的老习惯写成 <br /> 也行，但在 HTML 里加不加都一样。' },
+      { q: 'div 和 section 有什么区别？', a: 'div 是没有语义的盒子，section 是带标题的一个主题块。那个位置配得上一个标题，就用 section；只是想圈起来设个样式，那就是 div。' },
+      { q: '标签名可以写成大写吗？', a: 'HTML 不分大小写，<DIV> 照样能跑。不过惯例是小写，而且在 XHTML 和 SVG 这类遵守 XML 规则的地方，只有小写才算数。' },
+      { q: '用了废弃的标签会怎样？', a: '大多数浏览器眼下还会画出来。但它已经退出标准，哪天不认了也不奇怪，而且替代的做法早就有了 —— center 用 CSS，font 也用 CSS，marquee 用 CSS 动画。' },
+    ],
+    [
+      { q: 'HTML 標籤一共有多少個？', a: '還留在標準裡的大約 110 個，把廢棄的也算上就有 130 上下。這裡把現在還在用的和讀舊文件會碰到的合起來收了 126 個。' },
+      { q: '哪些標籤不用寫閉合標籤？', a: 'img、br、hr、input、meta、link 這些裡面裝不下內容的標籤。給它們補一個 </img>，瀏覽器會直接忽略。照 XHTML 的老習慣寫成 <br /> 也行，但在 HTML 裡加不加都一樣。' },
+      { q: 'div 和 section 有什麼區別？', a: 'div 是沒有語意的盒子，section 是帶標題的一個主題區塊。那個位置配得上一個標題，就用 section；只是想圈起來設個樣式，那就是 div。' },
+      { q: '標籤名可以寫成大寫嗎？', a: 'HTML 不分大小寫，<DIV> 照樣能跑。不過慣例是小寫，而且在 XHTML 和 SVG 這類遵守 XML 規則的地方，只有小寫才算數。' },
+      { q: '用了廢棄的標籤會怎樣？', a: '大多數瀏覽器眼下還會畫出來。但它已經退出標準，哪天不認了也不奇怪，而且替代的做法早就有了 —— center 用 CSS，font 也用 CSS，marquee 用 CSS 動畫。' },
+    ],
   ),
 
   tagFaq: T(
@@ -434,13 +506,25 @@ const SPEC: Spec = {
       { q: `<${f.name}> पर कौन-से विशेषण आम हैं?`, a: f.attrs.length ? `आम तौर पर ${f.attrs.join(', ')} इस्तेमाल होते हैं।` : 'कोई विशेष नहीं। हर तत्व के वैश्विक विशेषण — class, id, style — फिर भी लागू होते हैं।' },
       { q: `<${f.name}> किस समूह का है?`, a: `${kind} समूह का।${f.deprecated ? ' यह मानक से हटाया जा चुका है, इसलिए नए पन्नों में इसका स्थान नहीं।' : ''}` },
     ],
+    (f: TagFacts, d: string, kind: string) => [
+      { q: `HTML 的 <${f.name}> 标签是做什么的？`, a: d },
+      { q: `<${f.name}> 怎么写？`, a: `写成 ${f.example} 这样。${f.isVoid ? '它里面装不下内容，所以不写闭合标签。' : `开合成对，${f.open} 配 ${f.close}。`}` },
+      { q: `<${f.name}> 常配哪些属性？`, a: f.attrs.length ? `常和 ${f.attrs.join('、')} 一起用。` : '这个标签没有特别常用的属性。所有标签共通的 class、id、style 照样能写。' },
+      { q: `<${f.name}> 属于哪一类？`, a: `属于${kind}这一类。${f.deprecated ? '它已经退出标准，新写的文档别再用。' : ''}` },
+    ],
+    (f: TagFacts, d: string, kind: string) => [
+      { q: `HTML 的 <${f.name}> 標籤是做什麼的？`, a: d },
+      { q: `<${f.name}> 怎麼寫？`, a: `寫成 ${f.example} 這樣。${f.isVoid ? '它裡面裝不下內容，所以不寫閉合標籤。' : `開合成對，${f.open} 配 ${f.close}。`}` },
+      { q: `<${f.name}> 常配哪些屬性？`, a: f.attrs.length ? `常和 ${f.attrs.join('、')} 一起用。` : '這個標籤沒有特別常用的屬性。所有標籤共通的 class、id、style 照樣能寫。' },
+      { q: `<${f.name}> 屬於哪一類？`, a: `屬於${kind}這一類。${f.deprecated ? '它已經退出標準，新寫的文件別再用。' : ''}` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const HTML_UI: L8<HtmlUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const HTML_UI: L<HtmlUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<HtmlUI>;
+) as unknown as L<HtmlUI>;

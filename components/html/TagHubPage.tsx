@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { TAGS, TAG_ICON, TAG_KINDS, tagsOfKind } from '@/lib/html/tags';
 import { tagDesc } from '@/lib/html/desc';
 import { HTML_UI } from '@/lib/html/ui';
@@ -15,7 +15,7 @@ import { HTML_UI } from '@/lib/html/ui';
  * 갈래로 나누고 줄마다 한 줄 설명을 함께 적는다. 목록만 훑어도 어느 태그를
  * 골라야 하는지 보이는 것이 이 화면의 몫이다.
  */
-export default function TagHubPage({ lang }: { lang: Lang8 }) {
+export default function TagHubPage({ lang }: { lang: Lang }) {
   const ui = HTML_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -91,7 +91,7 @@ export default function TagHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/html`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

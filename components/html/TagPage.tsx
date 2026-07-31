@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { TAG_ICON, tagOf } from '@/lib/html/tags';
 import { relatedTags, tagFacts } from '@/lib/html/facts';
 import { tagDesc } from '@/lib/html/desc';
@@ -16,7 +16,7 @@ import { HTML_UI } from '@/lib/html/ui';
  * 맨 위에 "무엇을 하는가" 한 줄과 쓰는 꼴을 놓는다. 이 화면에 오는 사람은
  * 대개 태그 이름은 이미 알고, 어떻게 쓰는지를 알러 온다.
  */
-export default function TagPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function TagPage({ slug, lang }: { slug: string; lang: Lang }) {
   const t = tagOf(slug);
   if (!t) return null;
 
@@ -139,7 +139,7 @@ export default function TagPage({ slug, lang }: { slug: string; lang: Lang8 }) {
         </p>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/html/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
