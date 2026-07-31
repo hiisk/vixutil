@@ -17,7 +17,8 @@
  * 생겼을 것이다.
  *
  * 이제 한 곳이다. 언어를 더하는 일은 lib/locales.ts에 한 줄, 여기 KEY_OF_PATH에
- * 한 줄이 전부다. 다만 자료를 몇 칸 채우느냐는 별개 문제라 아래 L8을 한시적으로 남겼다.
+ * 한 줄이 전부다. 여덟 칸짜리 한시적인 층(Lang8·L8·alternates8 …)도 모든 섹션이
+ * 열 언어로 넘어오면서 사라졌다.
  */
 import { LOCALES, NEXT_LOCALES, type AnyLocale10 } from '../locales.ts';
 
@@ -26,16 +27,6 @@ export type Lang = 'ko' | 'en' | 'es' | 'pt' | 'ja' | 'de' | 'fr' | 'hi' | 'zh' 
 
 /** 모든 언어를 다 채워야 하는 값 */
 export type L<T> = Record<Lang, T>;
-
-/**
- * 아직 중국어를 채우지 못한 섹션용 — 한시적이다.
- *
- * 자료 파일이 여덟 칸으로 적혀 있는 섹션이 아직 남아 있다. 빈 칸을 넣어 열 칸을
- * 흉내 내면 그 언어에서 글자가 사라진 페이지가 조용히 나가므로, 옮기기 전까지는
- * 여덟 칸임을 타입으로 밝혀 둔다. 마지막 섹션이 넘어오면 이 두 줄을 지운다.
- */
-export type Lang8 = Exclude<Lang, 'zh' | 'tw'>;
-export type L8<T> = Record<Lang8, T>;
 
 export interface LangInfo {
   lang: Lang;
@@ -76,13 +67,6 @@ export const LANG_CODES: Lang[] = LANGS.map(l => l.lang);
 /** 이 섹션이 있는 언어 목록 — LangPicker에 그대로 넘긴다 */
 export const LOCALE_PATHS: AnyLocale10[] = LANGS.map(l => l.locale);
 
-/**
- * 아직 여덟 언어인 섹션이 쓰는 목록 — L8과 함께 사라진다.
- * 중국어 둘을 뺀 나머지이고, 순서는 LANGS와 같다.
- */
-export const LANGS8: LangInfo[] = LOCALES.map(info);
-export const LANG8_CODES: Lang8[] = LANGS8.map(l => l.lang as Lang8);
-
 export const langInfo = (lang: Lang): LangInfo =>
   LANGS.find(l => l.lang === lang) ?? LANGS[0];
 
@@ -101,15 +85,6 @@ export const langPrefix = (lang: Lang): string => langInfo(lang).prefix;
 export const langOfLocale = (locale: string): Lang =>
   KEY_OF_PATH[locale === 'ko' ? '' : locale] ?? 'en';
 
-/**
- * 여덟 언어 섹션이 쓰는 좁은 판 — L8과 함께 사라진다.
- *
- * 넓은 langOfLocale과 합치면 안 된다. 반환형이 Lang이 되어 L8<T>를 색인할 수 없고,
- * 실제로 한 번 합쳤다가 화면 컴포넌트 일곱 곳이 타입 오류를 냈다.
- */
-export const lang8OfLocale = (locale: string): Lang8 =>
-  (KEY_OF_PATH[locale === 'ko' ? '' : locale] ?? 'en') as Lang8;
-
 /** 자료 열쇠를 경로형 로케일로 */
 export const localeOfLang = (lang: Lang): AnyLocale10 => langInfo(lang).locale;
 
@@ -120,18 +95,12 @@ export const localeOfLang = (lang: Lang): AnyLocale10 => langInfo(lang).locale;
  * 손으로 적으면 언어를 더할 때 한 곳을 빼먹으므로 목록에서 만들어 낸다.
  * path는 언어 앞머리를 뺀 경로다 — "/metro/seoul-line-2", "/music/c-major".
  */
-const buildAlternates = (langs: LangInfo[], path: string): Record<string, string> => {
+export const alternates = (path: string): Record<string, string> => {
   const out: Record<string, string> = {};
-  for (const l of langs) out[l.hreflang] = `${l.prefix}${path}`;
+  for (const l of LANGS) out[l.hreflang] = `${l.prefix}${path}`;
   out['x-default'] = `/en${path}`;
   return out;
 };
-
-/** 모든 언어를 서로 가리킨다 */
-export const alternates = (path: string): Record<string, string> => buildAlternates(LANGS, path);
-
-/** 아직 여덟 언어인 섹션용 — 없는 페이지를 대안으로 선언하면 구글이 404를 받는다 */
-export const alternates8 = (path: string): Record<string, string> => buildAlternates(LANGS8, path);
 
 /**
  * 번호가 붙은 것의 이름을 언어별로 만든다.

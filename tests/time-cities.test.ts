@@ -13,7 +13,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
+import { LANGS as LANG_INFO, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import {
   TIME_CITIES, TIME_COUNTRIES, TIME_REGIONS, citiesOfRegion, timeCity, timeCountry, zoneRegion,
 } from '../lib/time/cities8.ts';
@@ -161,8 +161,8 @@ test('한 언어 안에서 도시 이름이 겹치지 않는다', () => {
   }
 });
 
-test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
-  for (const { prefix } of LANGS8) {
+test('열 언어 라우트와 공유 카드가 다 있다', () => {
+  for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/time`;
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
@@ -170,10 +170,9 @@ test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
   }
 });
 
-test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
+test('hreflang은 열한 줄이고 포르투갈어는 /pt-br이다', () => {
   const a = timeAlternates('new-york');
-  // 자료는 열 언어인데 주소는 여덟이다 — 사정은 lib/time/route.ts에 적어 두었다
-  assert.equal(Object.keys(a).length, LANGS8.length + 1);
+  assert.equal(Object.keys(a).length, LANG_INFO.length + 1);
   assert.equal(a.ko, '/time/new-york');
   assert.equal(a['pt-BR'], '/pt-br/time/new-york');
   assert.equal(a['x-default'], '/en/time/new-york');

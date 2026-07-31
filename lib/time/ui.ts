@@ -4,7 +4,7 @@
  * 116곳 × 8언어 = 928벌을 손으로 쓸 수 없다. 도시마다 다른 것은 이름과 오프셋뿐
  * 이므로 문장 틀을 한 벌만 두고 계산된 값을 끼워 넣는다.
  */
-import { alternates8, type L, type Lang8 } from '../i18n/lang.ts';
+import { alternates, type L, type Lang } from '../i18n/lang.ts';
 import type { TimeFacts } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }
@@ -802,8 +802,8 @@ const tw: TimeUI = {
 
 export const TIME_UI: L<TimeUI> = { ko, en, es, pt, ja, de, fr, hi, zh, tw };
 
-export const timeUi = (lang: Lang8): TimeUI => TIME_UI[lang];
+export const timeUi = (lang: Lang): TimeUI => TIME_UI[lang];
 
 /** hreflang 묶음 — 도시 slug만 넣으면 아홉 줄이 나온다 */
 export const timeAlternates = (slug?: string): Record<string, string> =>
-  alternates8(slug ? `/time/${slug}` : '/time');
+  alternates(slug ? `/time/${slug}` : '/time');

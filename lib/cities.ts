@@ -40,10 +40,14 @@ export const CITIES: City[] = [
 
 export const DEFAULT_CITY_IDS = ['seoul', 'newyork', 'london', 'tokyo', 'losangeles'];
 
-export type CityLang = AnyLocale;
+/**
+ * 세계 시계가 쓰는 언어 — AnyLocale에 중국어 둘을 더한다.
+ * 공용 IntlLocale을 넓히지 않는 이유는 lib/food-intl.ts에 적어 두었다.
+ */
+export type CityLang = AnyLocale | 'zh-hans' | 'zh-hant';
 
 /**
- * 도시·국가 이름의 언어별 표기. id·zone·flag는 여덟 언어가 공유하므로 여기엔 이름만 둔다.
+ * 도시·국가 이름의 언어별 표기. id·zone·flag는 열 언어가 공유하므로 여기엔 이름만 둔다.
  * 표기가 없는 id는 한국어를 그대로 쓴다 — 도시를 추가해도 화면이 깨지지 않는다.
  */
 const CITY_NAMES: Record<Exclude<CityLang, 'ko'>, Record<string, { city: string; country: string }>> = {
@@ -194,6 +198,48 @@ const CITY_NAMES: Record<Exclude<CityLang, 'ko'>, Record<string, { city: string;
     sydney: { city: 'सिडनी', country: 'ऑस्ट्रेलिया' },
     auckland: { city: 'ऑकलैंड', country: 'न्यूज़ीलैंड' },
   },
+  'zh-hans': {
+    seoul: { city: '首尔', country: '韩国' },
+    tokyo: { city: '东京', country: '日本' },
+    beijing: { city: '北京', country: '中国' },
+    hongkong: { city: '香港', country: '中国香港' },
+    singapore: { city: '新加坡', country: '新加坡' },
+    bangkok: { city: '曼谷', country: '泰国' },
+    hanoi: { city: '河内', country: '越南' },
+    delhi: { city: '新德里', country: '印度' },
+    dubai: { city: '迪拜', country: '阿联酋' },
+    moscow: { city: '莫斯科', country: '俄罗斯' },
+    london: { city: '伦敦', country: '英国' },
+    paris: { city: '巴黎', country: '法国' },
+    berlin: { city: '柏林', country: '德国' },
+    newyork: { city: '纽约', country: '美国' },
+    chicago: { city: '芝加哥', country: '美国' },
+    losangeles: { city: '洛杉矶', country: '美国' },
+    saopaulo: { city: '圣保罗', country: '巴西' },
+    sydney: { city: '悉尼', country: '澳大利亚' },
+    auckland: { city: '奥克兰', country: '新西兰' },
+  },
+  'zh-hant': {
+    seoul: { city: '首爾', country: '韓國' },
+    tokyo: { city: '東京', country: '日本' },
+    beijing: { city: '北京', country: '中國' },
+    hongkong: { city: '香港', country: '中國香港' },
+    singapore: { city: '新加坡', country: '新加坡' },
+    bangkok: { city: '曼谷', country: '泰國' },
+    hanoi: { city: '河內', country: '越南' },
+    delhi: { city: '新德里', country: '印度' },
+    dubai: { city: '杜拜', country: '阿聯' },
+    moscow: { city: '莫斯科', country: '俄羅斯' },
+    london: { city: '倫敦', country: '英國' },
+    paris: { city: '巴黎', country: '法國' },
+    berlin: { city: '柏林', country: '德國' },
+    newyork: { city: '紐約', country: '美國' },
+    chicago: { city: '芝加哥', country: '美國' },
+    losangeles: { city: '洛杉磯', country: '美國' },
+    saopaulo: { city: '聖保羅', country: '巴西' },
+    sydney: { city: '雪梨', country: '澳洲' },
+    auckland: { city: '奧克蘭', country: '紐西蘭' },
+  },
 };
 
 /** 언어별 도시 목록 */
@@ -225,6 +271,7 @@ export function baseZoneFor(lang: CityLang): string {
 const LOCALE: Record<CityLang, string> = {
   ko: 'ko-KR', en: 'en-US', es: 'es-ES', 'pt-br': 'pt-BR',
   ja: 'ja-JP', de: 'de-DE', fr: 'fr-FR', hi: 'hi-IN',
+  'zh-hans': 'zh-CN', 'zh-hant': 'zh-TW',
 };
 
 export const findCity = (id: string) => CITIES.find(c => c.id === id);
@@ -284,4 +331,6 @@ export const DAY_PART_LABEL_INTL: Record<CityLang, Record<DayPart, string>> = {
   de: { night: 'Mitten in der Nacht', morning: 'Früher Morgen', work: 'Arbeitszeit', evening: 'Abend' },
   fr: { night: 'Milieu de la nuit', morning: 'Tôt le matin', work: 'Heures de travail', evening: 'Soirée' },
   hi: { night: 'आधी रात', morning: 'तड़के', work: 'कामकाजी घंटे', evening: 'शाम' },
+  'zh-hans': { night: '深夜', morning: '清晨', work: '上班时间', evening: '傍晚' },
+  'zh-hant': { night: '深夜', morning: '清晨', work: '上班時間', evening: '傍晚' },
 };

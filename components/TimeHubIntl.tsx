@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { lang8OfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { TIME_REGIONS, citiesOfRegion, timeCountry } from '@/lib/time/cities8';
 import { TIME_UI } from '@/lib/time/ui';
 import ToolIcon from '@/components/ToolIcon';
@@ -18,7 +18,7 @@ export default function TimeHubIntl({ lang }: { lang: ToolIntlLang }) {
   const tools = timeToolsIntl(lang);
   const ui = TIME_SHELL_UI[lang];
   // 도시 시계 쪽 문구는 짧은 열쇠를 쓴다 — 'pt-br'과 'pt'가 만나는 자리다
-  const key = lang8OfLocale(lang);
+  const key = langOfLocale(lang);
   const w = TIME_UI[key];
   const grouped = TIME_CATEGORY_ORDER[lang]
     .map(c => ({ category: c, tools: tools.filter(t => t.category === c) }))

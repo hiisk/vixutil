@@ -1,16 +1,10 @@
 /**
  * 도시 시계 라우트가 함께 쓰는 부분 — 메타와 공유 카드.
- *
- * ── 자료는 열 언어인데 라우트가 여덟인 이유 ─────────────
- * 도시·나라 이름과 화면 문구는 중국어까지 채웠지만 주소는 아직 여덟이다. 이
- * 섹션의 상위 페이지 /time이 도시 목록 전용이 아니라 시간 도구 허브(TimeHubIntl)와
- * 같은 페이지이고, 그 허브는 일곱 언어짜리 *-tools-intl 층에 묶여 있다.
- * 도구 허브가 열 언어로 넘어오면 alternates8을 alternates로 바꾸면 된다.
  */
 import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
-import { alternates8, langPrefix, type Lang8 } from '../i18n/lang.ts';
+import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { timeCity, timeCountry } from './cities8.ts';
 import { cityFacts } from './facts.ts';
 import { TIME_UI } from './ui.ts';
@@ -18,9 +12,9 @@ import { TIME_UI } from './ui.ts';
 const TO = '#0f172a';
 
 /** 데바나가리는 카드에서 정형되지 않는다 — 앞선 섹션들과 같은 이유다 */
-const cardLang = (lang: Lang8): Lang8 => (lang === 'hi' ? 'en' : lang);
+const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
-export function detailMetadata(lang: Lang8, slug: string): Metadata {
+export function detailMetadata(lang: Lang, slug: string): Metadata {
   const city = timeCity(slug);
   if (!city) return {};
   const ui = TIME_UI[lang];
@@ -30,12 +24,12 @@ export function detailMetadata(lang: Lang8, slug: string): Metadata {
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/time/${slug}`,
-      languages: alternates8(`/time/${slug}`),
+      languages: alternates(`/time/${slug}`),
     },
   };
 }
 
-export function cityCard(lang: Lang8, slug: string): ReactElement {
+export function cityCard(lang: Lang, slug: string): ReactElement {
   const city = timeCity(slug);
   const card = cardLang(lang);
   const ui = TIME_UI[card];

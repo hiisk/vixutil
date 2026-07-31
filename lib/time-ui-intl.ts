@@ -10,7 +10,11 @@ import type { AnyLocale } from './locales.ts';
  * 계산·타이밍 로직은 컴포넌트에 그대로 둔다 — 문구와 동작을 같은 파일에서
  * 섞으면 번역이 동작을 건드릴 위험이 생긴다.
  */
-export type TimeLang = AnyLocale;
+/**
+ * 시간 도구가 쓰는 언어 — AnyLocale에 중국어 둘을 더한다.
+ * 공용 IntlLocale을 넓히지 않는 이유는 lib/food-intl.ts에 적어 두었다.
+ */
+export type TimeLang = AnyLocale | 'zh-hans' | 'zh-hant';
 
 type L<T> = Record<TimeLang, T>;
 
@@ -86,6 +90,22 @@ export const TIMER_UI: L<{
     presets: 'तुरंत सेटिंग', minSuffix: m => `${m} मिनट`,
     note: 'बचा समय ख़त्म होने के समय के हिसाब से फिर गिना जाता है, घटाकर नहीं। इसलिए दूसरी टैब देखकर लौटने पर समय नहीं खिसकता। उल्टी गिनती टैब के शीर्षक में भी दिखती है, तो खिड़की बदलने पर भी पता चलता है। पर टैब पूरी तरह बंद कर दें तो आवाज़ नहीं बजेगी।',
   },
+  'zh-hans': {
+    tabTitle: '计时器 | vixutil', tabDone: '⏰ 时间到！| vixutil',
+    done: '时间到了', running: '进行中', paused: '已暂停', idle: '请按开始',
+    min: '分', sec: '秒',
+    start: '▶ 开始', resume: '▶ 继续', pause: '⏸ 暂停', reset: '回到开头',
+    presets: '快捷设定', minSuffix: m => `${m} 分钟`,
+    note: '剩余时间是照结束时刻反推出来的，所以你去别的标签页转一圈回来，时间也不会走偏。浏览器标签标题上也会显示剩余时间，换窗口照样看得到。不过把标签整个关掉，提示音就不会响了。',
+  },
+  'zh-hant': {
+    tabTitle: '計時器 | vixutil', tabDone: '⏰ 時間到！| vixutil',
+    done: '時間到了', running: '進行中', paused: '已暫停', idle: '請按開始',
+    min: '分', sec: '秒',
+    start: '▶ 開始', resume: '▶ 繼續', pause: '⏸ 暫停', reset: '回到開頭',
+    presets: '快捷設定', minSuffix: m => `${m} 分鐘`,
+    note: '剩餘時間是照結束時刻反推出來的，所以你去別的分頁轉一圈回來，時間也不會走偏。瀏覽器分頁標題上也會顯示剩餘時間，換視窗照樣看得到。不過把分頁整個關掉，提示音就不會響了。',
+  },
 };
 
 export const STOPWATCH_UI: L<{
@@ -141,6 +161,18 @@ export const STOPWATCH_UI: L<{
     start: '▶ शुरू', resume: '▶ आगे', stop: '■ रोकें', lap: 'लैप दर्ज करें', reset: 'शुरू से',
     lapCount: 'लैप', fastest: 'सबसे तेज़ हिस्सा', slowest: 'सबसे धीमा हिस्सा', cumulative: 'कुल',
     note: 'हर लैप हिस्से का समय और कुल समय दोनों दिखाता है, तो जब आप एक ही काम बार-बार करते हैं — कसरत के सेट, दोहराए काम — तो साफ़ पता चलता है कि कौन-सा दौर धीमा पड़ा। सबसे तेज़ हिस्सा हरे और सबसे धीमा लाल रंग में दिखता है।',
+  },
+  'zh-hans': {
+    measuring: '计时中', stopped: '已停止', idle: '请按开始',
+    start: '▶ 开始', resume: '▶ 继续', stop: '■ 停止', lap: '记一圈', reset: '清零',
+    lapCount: '圈数', fastest: '最快的一段', slowest: '最慢的一段', cumulative: '累计',
+    note: '每一圈会同时显示这一段的时间和累计时间。做运动组数或重复性工作时，哪一段慢下来一眼就看得出。最快的一段标绿，最慢的标红。',
+  },
+  'zh-hant': {
+    measuring: '計時中', stopped: '已停止', idle: '請按開始',
+    start: '▶ 開始', resume: '▶ 繼續', stop: '■ 停止', lap: '記一圈', reset: '歸零',
+    lapCount: '圈數', fastest: '最快的一段', slowest: '最慢的一段', cumulative: '累計',
+    note: '每一圈會同時顯示這一段的時間和累計時間。做運動組數或重複性工作時，哪一段慢下來一眼就看得出。最快的一段標綠，最慢的標紅。',
   },
 };
 
@@ -224,6 +256,24 @@ export const POMODORO_UI: L<{
     whyTitle: '25 मिनट क्यों?',
     whyBody: 'पच्चीस मिनट वह अवधि है जो फ़्रांचेस्को चिरिलो ने 1980 के दशक में सुझाई थी। इस अंक के पीछे कोई ख़ास प्रमाण नहीं है — असर का ज़्यादातर हिस्सा नियम से ही आता है, कि जब तक टाइमर चल रहा है तब तक काम नहीं बदलना। अपने हिसाब से अवधि बदल लीजिए।',
   },
+  'zh-hans': {
+    focus: '专注', shortBreak: '短休息', longBreak: '长休息', breakLabel: '休息',
+    breakTime: '该休息了', focusTime: '该继续专注了',
+    start: '▶ 开始', resume: '▶ 继续', pause: '⏸ 暂停',
+    next: '下一段', completed: '完成的番茄钟', focused: '专注的时间',
+    skip: '跳过这一段', minUnit: '分钟',
+    whyTitle: '为什么是 25 分钟',
+    whyBody: '25 分钟是弗朗切斯科·西里洛在 1980 年代提出的长度。这个数字本身并没有什么科学依据，真正起作用的是「计时器在转的时候不干别的」这条规则。你完全可以改成适合自己的长度。',
+  },
+  'zh-hant': {
+    focus: '專注', shortBreak: '短休息', longBreak: '長休息', breakLabel: '休息',
+    breakTime: '該休息了', focusTime: '該繼續專注了',
+    start: '▶ 開始', resume: '▶ 繼續', pause: '⏸ 暫停',
+    next: '下一段', completed: '完成的番茄鐘', focused: '專注的時間',
+    skip: '跳過這一段', minUnit: '分鐘',
+    whyTitle: '為什麼是 25 分鐘',
+    whyBody: '25 分鐘是弗朗切斯科·西里洛在 1980 年代提出的長度。這個數字本身並沒有什麼科學依據，真正起作用的是「計時器在轉的時候不幹別的」這條規則。你完全可以改成適合自己的長度。',
+  },
 };
 
 export const ALARM_UI: L<{
@@ -305,6 +355,24 @@ export const ALARM_UI: L<{
     until: (day, t) => `${day} ${t} तक`,
     note: 'आज बीत चुका समय डालें तो वह कल के उसी समय पर लग जाता है। अलार्म ब्राउज़र के भीतर ही चलता है, इसलिए बजने के लिए यह टैब खुला रहना चाहिए, और उपकरण सो जाए तो आवाज़ न आए। जिस सुबह के अलार्म पर आपको भरोसा करना है, उसके लिए फ़ोन का अलार्म भी लगा लें।',
   },
+  'zh-hans': {
+    set: '设定闹钟', reset: '重新设定', ringing: '⏰ 闹钟响了！',
+    alarmAt: '闹钟时刻', currentTime: '当前时间', remaining: '还剩',
+    today: '今天', tomorrow: '明天', keepOpen: '这个标签页得开着',
+    stop: '关掉闹钟',
+    itIsNow: t => `${t} 到了`,
+    until: (day, t) => `到${day} ${t} 为止`,
+    note: '填一个已经过去的时刻，它会自动排到明天的那个点。这个闹钟只在浏览器里跑，所以标签页得一直开着才响。设备一睡下就可能没声音，非起不可的早晨闹钟，请同时用手机的。',
+  },
+  'zh-hant': {
+    set: '設定鬧鐘', reset: '重新設定', ringing: '⏰ 鬧鐘響了！',
+    alarmAt: '鬧鐘時刻', currentTime: '目前時間', remaining: '還剩',
+    today: '今天', tomorrow: '明天', keepOpen: '這個分頁得開著',
+    stop: '關掉鬧鐘',
+    itIsNow: t => `${t} 到了`,
+    until: (day, t) => `到${day} ${t} 為止`,
+    note: '填一個已經過去的時刻，它會自動排到明天的那個點。這個鬧鐘只在瀏覽器裡跑，所以分頁得一直開著才響。裝置一睡下就可能沒聲音，非起不可的早晨鬧鐘，請同時用手機的。',
+  },
 };
 
 export const WORLDCLOCK_UI: L<{
@@ -368,6 +436,20 @@ export const WORLDCLOCK_UI: L<{
     behind: (base, h) => `${base} से ${h} घंटे पीछे`,
     yourTime: 'आपका समय',
     note: 'कार्ड का रंग बताता है कि वहाँ दिन का कौन-सा समय है — हरा कामकाजी घंटे, काला आधी रात। संदेश भेजने से पहले सिर्फ़ रंग देख लेने से पता चल जाता है कि यह ठीक समय है या नहीं। डेलाइट सेविंग अपने आप लागू हो जाती है, क्योंकि ब्राउज़र हर देश के नियम जानता है।',
+  },
+  'zh-hans': {
+    manage: '添加或移除城市', now: '现在',
+    ahead: (base, h) => `比${base}快 ${h} 小时`,
+    behind: (base, h) => `比${base}慢 ${h} 小时`,
+    yourTime: '首尔',
+    note: '卡片的颜色代表那边正处在一天中的什么时候 —— 绿色是上班时间，黑色是半夜。联络之前只看颜色，就知道这会儿发过去合不合适。夏令时由浏览器按各国规则自动处理。',
+  },
+  'zh-hant': {
+    manage: '新增或移除城市', now: '現在',
+    ahead: (base, h) => `比${base}快 ${h} 小時`,
+    behind: (base, h) => `比${base}慢 ${h} 小時`,
+    yourTime: '首爾',
+    note: '卡片的顏色代表那邊正處在一天中的什麼時候 —— 綠色是上班時間，黑色是半夜。聯絡之前只看顏色，就知道這會兒發過去合不合適。日光節約時間由瀏覽器按各國規則自動處理。',
   },
 };
 
@@ -469,6 +551,28 @@ export const TIMEZONE_UI: L<{
     dayCompare: n => `पूरे दिन की तुलना — हरे खाने दोनों के कामकाजी घंटे हैं (${n} घंटे)`,
     dstNote: 'दिखाया गया अंतर असली है, जिसमें डेलाइट सेविंग शामिल है। अमेरिका और यूरोप मार्च से नवंबर के बीच एक घंटा खिसकते हैं, इसलिए एक महीने बाद की बैठक हो तो देख लें कि बीच में डेलाइट सेविंग नहीं बदल रही।',
   },
+  'zh-hans': {
+    baseCity: '基准城市', targetCity: '对方城市', baseTime: '基准时刻',
+    sameDay: '同一天', nextDay: '第二天', prevDay: '前一天', bothWorking: '双方都在上班时间',
+    note: '绿色重叠的那一段，是两座城市都在上班的时间。开会时间挑在那里面，就不会有一方要在半夜爬起来。夏令时会自动算进去。',
+    atIs: (city, t) => `${city} ${t} 是`,
+    inCity: (city, rel) => `${city}的${rel}`,
+    offsetLabel: (sign, h) => ` · 时差 ${sign}${h} 小时`,
+    cityTime: city => `${city}时间`,
+    dayCompare: n => `一天的对照 —— 绿格是双方都在上班的时间（${n} 小时）`,
+    dstNote: '这里的时差已经把夏令时算进去了。美国和欧洲在三月到十一月之间会往前拨一小时，所以一个月后的会议，记得确认那期间夏令时会不会变。',
+  },
+  'zh-hant': {
+    baseCity: '基準城市', targetCity: '對方城市', baseTime: '基準時刻',
+    sameDay: '同一天', nextDay: '第二天', prevDay: '前一天', bothWorking: '雙方都在上班時間',
+    note: '綠色重疊的那一段，是兩座城市都在上班的時間。開會時間挑在那裡面，就不會有一方要在半夜爬起來。日光節約時間會自動算進去。',
+    atIs: (city, t) => `${city} ${t} 是`,
+    inCity: (city, rel) => `${city}的${rel}`,
+    offsetLabel: (sign, h) => ` · 時差 ${sign}${h} 小時`,
+    cityTime: city => `${city}時間`,
+    dayCompare: n => `一天的對照 —— 綠格是雙方都在上班的時間（${n} 小時）`,
+    dstNote: '這裡的時差已經把日光節約時間算進去了。美國和歐洲在三月到十一月之間會往前撥一小時，所以一個月後的會議，記得確認那期間日光節約時間會不會變。',
+  },
 };
 
 export const WORKDAYS_UI: L<{
@@ -548,6 +652,24 @@ export const WORKDAYS_UI: L<{
     holidayPlaceholder: '2026-01-01, 2026-03-01 जैसी तारीख़ें लिखें तो वे हटा दी जाएँगी',
     holidaysApplied: n => `${n} तारीख़ें छुट्टी मानकर हटाई गईं`,
     nAfterNote: 'सप्ताहांत और ऊपर लिखी छुट्टियाँ छोड़कर निकली तारीख़ है। काग़ज़ात की समय-सीमा गिनने में काम आता है।',
+  },
+  'zh-hans': {
+    startDate: '开始日', endDate: '结束日', workdays: '工作日', totalDays: '总天数', weekendHoliday: '周末与节假日',
+    addHolidays: '扣掉节假日', nAfterTitle: '按工作日算的 n 天后', nAfterResult: '个工作日之后是',
+    holidayNote: '韩国的节假日因为农历和补休制度每年都不一样，所以做成手动填写',
+    dayUnit: n => `${n} 天`, inclusive: '开始日和结束日都算在内',
+    holidayPlaceholder: '照 2026-01-01, 2026-03-01 这样写上日期，就会从工作日里扣掉',
+    holidaysApplied: n => `已按节假日扣掉 ${n} 个日期`,
+    nAfterNote: '这是跳过周末和你上面填的节假日之后的日期。用来数公文办理的期限。',
+  },
+  'zh-hant': {
+    startDate: '開始日', endDate: '結束日', workdays: '工作日', totalDays: '總天數', weekendHoliday: '週末與國定假日',
+    addHolidays: '扣掉國定假日', nAfterTitle: '按工作日算的 n 天後', nAfterResult: '個工作日之後是',
+    holidayNote: '韓國的國定假日因為農曆和補假制度每年都不一樣，所以做成手動填寫',
+    dayUnit: n => `${n} 天`, inclusive: '開始日和結束日都算在內',
+    holidayPlaceholder: '照 2026-01-01, 2026-03-01 這樣寫上日期，就會從工作日裡扣掉',
+    holidaysApplied: n => `已按國定假日扣掉 ${n} 個日期`,
+    nAfterNote: '這是跳過週末和你上面填的國定假日之後的日期。用來數公文辦理的期限。',
   },
 };
 
@@ -639,6 +761,26 @@ export const DATEADD_UI: L<{
     gapAfter: n => `आधार तारीख़ से ${n} दिन बाद`, gapBefore: n => `आधार तारीख़ से ${n} दिन पहले`,
     weekUnit: n => `${n} सप्ताह`, locale: 'hi-IN',
   },
+  'zh-hans': {
+    baseDate: '基准日期', result: '结果', weekday: '星期', diffDays: '相差（天）', diffWeeks: '相差（周）',
+    day: '天', week: '周', month: '个月', year: '年',
+    negativeNote: '填负数就往过去算',
+    monthEndTitle: '月底是这么处理的',
+    monthEndBody: '1 月 31 日加一个月，得到的是 2 月 28 日（闰年则是 29 日）。为了不跑到不存在的日期上，会对齐到那个月的最后一天。',
+    presets: ['100 天后', '1 年后', '2 周后', '30 天前'],
+    gapAfter: n => `距基准日 ${n} 天后`, gapBefore: n => `距基准日 ${n} 天前`,
+    weekUnit: n => `${n} 周`, locale: 'zh-CN',
+  },
+  'zh-hant': {
+    baseDate: '基準日期', result: '結果', weekday: '星期', diffDays: '相差（天）', diffWeeks: '相差（週）',
+    day: '天', week: '週', month: '個月', year: '年',
+    negativeNote: '填負數就往過去算',
+    monthEndTitle: '月底是這麼處理的',
+    monthEndBody: '1 月 31 日加一個月，得到的是 2 月 28 日（閏年則是 29 日）。為了不跑到不存在的日期上，會對齊到那個月的最後一天。',
+    presets: ['100 天後', '1 年後', '2 週後', '30 天前'],
+    gapAfter: n => `距基準日 ${n} 天後`, gapBefore: n => `距基準日 ${n} 天前`,
+    weekUnit: n => `${n} 週`, locale: 'zh-TW',
+  },
 };
 
 export const WEEKNUMBER_UI: L<{
@@ -718,6 +860,24 @@ export const WEEKNUMBER_UI: L<{
     weekBig: w => `सप्ताह ${w}`, yearQuarter: (y, q) => `${y} · तिमाही ${q}`,
     doyValue: d => `${d}वाँ दिन`, daysValue: d => `${d} दिन`,
     isoBody: 'सप्ताह सोमवार से शुरू होता है, और कोई सप्ताह किस साल का है यह उसके गुरुवार से तय होता है। इसलिए 1 जनवरी शुक्र, शनि या रविवार को पड़े तो वह पिछले साल का आख़िरी सप्ताह बन जाता है। जो कंपनियाँ सप्ताह संख्या से योजना बनाती हैं, वे आम तौर पर यही मानक इस्तेमाल करती हैं।',
+  },
+  'zh-hans': {
+    date: '日期', week: '第几周', quarter: '季度', dayOfYear: '年内第几天', daysLeft: '今年还剩',
+    progress: '今年的进度', rangeTitle: '这一周从哪天到哪天',
+    isoNote: '按 ISO 8601 计算 —— 含有星期四的那一周算作当年的第一周。',
+    prevYearNote: '上一年的最后一周',
+    weekBig: w => `第 ${w} 周`, yearQuarter: (y, q) => `${y} 年 · 第 ${q} 季度`,
+    doyValue: d => `第 ${d} 天`, daysValue: d => `${d} 天`,
+    isoBody: '一周从星期一开始，那一周的星期四落在哪一年，就按那一年来数第几周。所以 1 月 1 日要是碰上周五、周六或周日，它就归到上一年的最后一周。公司里用周次排进度的话，多半用的就是这套。',
+  },
+  'zh-hant': {
+    date: '日期', week: '第幾週', quarter: '季', dayOfYear: '年內第幾天', daysLeft: '今年還剩',
+    progress: '今年的進度', rangeTitle: '這一週從哪天到哪天',
+    isoNote: '按 ISO 8601 計算 —— 含有星期四的那一週算作當年的第一週。',
+    prevYearNote: '上一年的最後一週',
+    weekBig: w => `第 ${w} 週`, yearQuarter: (y, q) => `${y} 年 · 第 ${q} 季`,
+    doyValue: d => `第 ${d} 天`, daysValue: d => `${d} 天`,
+    isoBody: '一週從星期一開始，那一週的星期四落在哪一年，就按那一年來數第幾週。所以 1 月 1 日要是碰上週五、週六或週日，它就歸到上一年的最後一週。公司裡用週次排進度的話，多半用的就是這套。',
   },
 };
 
@@ -800,5 +960,23 @@ export const LIVED_UI: L<{
     milestoneLine: (n, date) => `${n} दिन — ${date}`, milestoneLeft: n => `${n} दिन बाकी`,
     beatsNote: (beats, sleepDays) => `इस बीच आपका दिल लगभग ${beats} लाख बार धड़का (आराम की स्थिति में 70 धड़कन प्रति मिनट मानकर निकाला मोटा अंदाज़ा)। रात के सात घंटे मानें तो आपने करीब ${sleepDays} दिन सोकर बिताए।`,
     locale: 'hi-IN',
+  },
+  'zh-hans': {
+    birth: '出生日期', livedFor: '已经活了', milestones: '快到的纪念日',
+    week: '周', hour: '小时', minute: '分', second: '秒',
+    computing: '正在准备计算…', futureError: '请填一个不晚于今天的日期',
+    ymd: (y, m, d) => `${y} 年 ${m} 个月 ${d} 天`, totalToday: n => `到今天是第 ${n} 天`,
+    milestoneLine: (n, date) => `第 ${n} 天 — ${date}`, milestoneLeft: n => `还有 ${n} 天`,
+    beatsNote: (beats, sleepDays) => `这段时间里，心脏大约跳了 ${beats} 百万次（按静息 70 次/分粗估）。要是每天睡 7 小时，睡掉的时间加起来约有 ${sleepDays} 天。`,
+    locale: 'zh-CN',
+  },
+  'zh-hant': {
+    birth: '出生日期', livedFor: '已經活了', milestones: '快到的紀念日',
+    week: '週', hour: '小時', minute: '分', second: '秒',
+    computing: '正在準備計算…', futureError: '請填一個不晚於今天的日期',
+    ymd: (y, m, d) => `${y} 年 ${m} 個月 ${d} 天`, totalToday: n => `到今天是第 ${n} 天`,
+    milestoneLine: (n, date) => `第 ${n} 天 — ${date}`, milestoneLeft: n => `還有 ${n} 天`,
+    beatsNote: (beats, sleepDays) => `這段時間裡，心臟大約跳了 ${beats} 百萬次（按靜息 70 次/分粗估）。要是每天睡 7 小時，睡掉的時間加起來約有 ${sleepDays} 天。`,
+    locale: 'zh-TW',
   },
 };

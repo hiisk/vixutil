@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import CityClock from '@/components/time/CityClock';
-import { LANGS, langInfo, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langInfo, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { timeCountry, type TimeCity } from '@/lib/time/cities8';
 import { cityFacts, gapLabel, gapMinutes, sameZoneCities } from '@/lib/time/facts';
 import { TIME_UI } from '@/lib/time/ui';
@@ -19,7 +19,7 @@ import { TIME_UI } from '@/lib/time/ui';
  * 시계만 브라우저가 그리고 나머지는 정적이다 — 오프셋과 시차는 시간대 규칙에서
  * 나오는 사실이라 빌드 때 계산해도 틀리지 않는다.
  */
-export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lang8 }) {
+export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lang }) {
   const ui = TIME_UI[lang];
   const f = cityFacts(city, lang);
   const prefix = langPrefix(lang);

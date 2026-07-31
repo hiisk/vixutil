@@ -11,15 +11,16 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { LOCALES, NEXT_LOCALES, ALL_LOCALES10, alternateLanguages, localeLabel, localePrefix, localeTag, type AnyLocale } from '../lib/locales.ts';
+import { LOCALES, NEXT_LOCALES, ALL_LOCALES10, alternateLanguages10, localeLabel, localePrefix, localeTag, type AnyLocale } from '../lib/locales.ts';
 import {
-  LANGS, LANG_CODES, LANGS8, LANG8_CODES, LOCALE_PATHS,
-  alternates, alternates8, langInfo, langOfLocale, langPrefix, localeOfLang,
+  LANGS, LANG_CODES, LOCALE_PATHS,
+  alternates, langInfo, langOfLocale, langPrefix, localeOfLang,
 } from '../lib/i18n/lang.ts';
 
-test('여덟 언어를 그대로 품고 둘이 더 있다', () => {
-  assert.equal(LANG_CODES.length, LANG8_CODES.length + 2);
-  assert.deepEqual(LANG_CODES.slice(0, LANG8_CODES.length), LANG8_CODES, '앞쪽 순서가 lang8과 다르다');
+test('중국어 둘이 뒤에 붙어 있다', () => {
+  // 앞 여덟은 기존 순서 그대로여야 한다 — 자료 파일 수백 곳이 이 순서로 적혀 있다
+  assert.equal(LANG_CODES.length, LOCALES.length + NEXT_LOCALES.length);
+  assert.deepEqual(LANG_CODES.slice(0, LOCALES.length), ['ko', 'en', 'es', 'pt', 'ja', 'de', 'fr', 'hi']);
   assert.deepEqual(LANG_CODES.slice(-2), ['zh', 'tw']);
   assert.equal(new Set(LANG_CODES).size, LANG_CODES.length, '열쇠 중복');
 });
@@ -68,25 +69,19 @@ test('hreflang 묶음은 언어 수 + x-default다', () => {
 });
 
 
-test('레지스트리와 언어 수·순서가 같다', () => {
-  assert.equal(LANGS8.length, LOCALES.length, '언어 수가 다르다');
-  LANGS8.forEach((l, i) => {
-    assert.equal(l.hreflang, LOCALES[i].tag, `${i}번째 언어의 태그가 다르다`);
-    assert.equal(l.label, LOCALES[i].label, `${i}번째 언어의 이름이 다르다`);
-  });
-});
+
 
 test('열쇠가 모두 채워져 있다', () => {
   // 경로→열쇠 표에서 한 줄이 빠지면 여기서 undefined가 나온다
-  for (const l of LANGS8) {
+  for (const l of LANGS) {
     assert.ok(l.lang, `열쇠가 없는 언어: ${l.hreflang}`);
     assert.match(l.lang, /^[a-z]{2}$/, `열쇠가 두 글자 소문자가 아니다: ${l.lang}`);
   }
-  assert.equal(new Set(LANG8_CODES).size, LANG8_CODES.length, '열쇠 중복');
+  assert.equal(new Set(LANG_CODES).size, LANG_CODES.length, '열쇠 중복');
 });
 
 test('주소와 선언이 레지스트리와 같다', () => {
-  for (const l of LANGS8) {
+  for (const l of LANGS) {
     const locale = (l.prefix === '' ? 'ko' : l.prefix.slice(1)) as AnyLocale;
     assert.equal(l.prefix, localePrefix(locale), `${l.lang}: 경로가 다르다`);
     assert.equal(l.hreflang, localeTag(locale), `${l.lang}: 태그가 다르다`);
@@ -103,9 +98,9 @@ test('포르투갈어는 경로와 선언이 다르다', () => {
 });
 
 test('hreflang 묶음은 언어 수 + x-default다', () => {
-  const a = alternates8('/color/red');
-  assert.equal(Object.keys(a).length, LOCALES.length + 1);
-  for (const l of LOCALES) {
+  const a = alternates('/color/red');
+  assert.equal(Object.keys(a).length, LOCALES.length + NEXT_LOCALES.length + 1);
+  for (const l of [...LOCALES, ...NEXT_LOCALES]) {
     const want = `${l.path === '' ? '' : `/${l.path}`}/color/red`;
     assert.equal(a[l.tag], want, `${l.tag} 주소가 다르다`);
   }
@@ -114,14 +109,14 @@ test('hreflang 묶음은 언어 수 + x-default다', () => {
 
 test('두 방식으로 만든 hreflang 표가 한 글자도 다르지 않다', () => {
   /*
-    같은 경로의 대안 목록을 alternates8(lang8)과 alternateLanguages(locales)가 각각
-    만든다. 둘 중 하나만 고쳐지면 섹션에 따라 hreflang이 갈라지는데, 페이지는 멀쩡히
-    떠서 사이트맵을 대조해 보기 전까지 드러나지 않는다.
+    같은 경로의 대안 목록을 alternates(i18n/lang)와 alternateLanguages10(locales)이
+    각각 만든다. 둘 중 하나만 고쳐지면 섹션에 따라 hreflang이 갈라지는데, 페이지는
+    멀쩡히 떠서 사이트맵을 대조해 보기 전까지 드러나지 않는다.
   */
   for (const path of ['/color', '/metro/seoul-line-2', '/music/c-major']) {
     assert.deepEqual(
-      Object.entries(alternates8(path)).sort(),
-      Object.entries(alternateLanguages(path)).sort(),
+      Object.entries(alternates(path)).sort(),
+      Object.entries(alternateLanguages10(path)).sort(),
       `${path}: 두 표가 다르다`,
     );
   }
