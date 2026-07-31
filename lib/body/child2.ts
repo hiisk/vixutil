@@ -80,8 +80,8 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const s = out[0].value;
       return s >= 5
-        ? { ko: `연 ${s}cm는 학령기 아이의 정상 속도(연 5~7cm) 안입니다.`, en: `${s} cm a year is inside the school-age normal band of 5–7 cm.`, tone: 'good' }
-        : { ko: `연 ${s}cm는 느린 편입니다. 학령기에 연 4cm 아래면 원인을 확인해 볼 신호로 봅니다.`, en: `${s} cm a year is slow; under 4 cm during school years is treated as worth investigating.`, tone: 'warn' };
+        ? { ko: `연 ${s}cm는 학령기 아이의 정상 속도(연 5~7cm) 안입니다.`, en: `${s} cm a year is inside the school-age normal band of 5–7 cm.`, l10n: { es: `${s} cm al año está dentro de la franja normal de 5–7 cm en edad escolar.`, 'pt-br': `${s} cm por ano está dentro da faixa normal de 5–7 cm na idade escolar.`, ja: `年${s}cmは学齢期の正常範囲(年5〜7cm)の内側です。`, de: `${s} cm im Jahr liegen im normalen Schulalter-Bereich von 5–7 cm.`, fr: `${s} cm par an entre dans la plage normale de 5 à 7 cm à l’âge scolaire.`, hi: `साल में ${s} सेमी स्कूल-उम्र के सामान्य दायरे (5–7 सेमी) के भीतर है।` }, tone: 'good' }
+        : { ko: `연 ${s}cm는 느린 편입니다. 학령기에 연 4cm 아래면 원인을 확인해 볼 신호로 봅니다.`, en: `${s} cm a year is slow; under 4 cm during school years is treated as worth investigating.`, l10n: { es: `${s} cm al año es lento; por debajo de 4 cm en edad escolar se considera motivo para investigar.`, 'pt-br': `${s} cm por ano é lento; abaixo de 4 cm na idade escolar é tido como motivo para investigar.`, ja: `年${s}cmは遅い方です。学齢期に年4cmを下回るなら原因を確認しておきたい合図と見ます。`, de: `${s} cm im Jahr sind langsam; unter 4 cm in der Schulzeit gilt als Grund, der Ursache nachzugehen.`, fr: `${s} cm par an, c’est lent ; sous 4 cm pendant les années d’école, on cherche la cause.`, hi: `साल में ${s} सेमी धीमा है; स्कूल के वर्षों में 4 सेमी से कम हो तो कारण जाँचने लायक़ माना जाता है।` }, tone: 'warn' };
     },
     ko: { title: '성장 속도 계산기', desc: '두 시점의 키로 1년에 몇 cm 자라는지 계산합니다.',
       long: '키 차이를 기간으로 나눈 뒤 12를 곱해 연간 속도로 바꿉니다. 절대 키보다 속도가 중요한데, 작아도 제 속도로 자라면 정상이고 크더라도 속도가 꺾이면 살펴봐야 하기 때문입니다.',
@@ -160,8 +160,8 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     },
     verdict: (_v, out) =>
       out[0].value < 0
-        ? { ko: `아직 예정일 전입니다. 예정일까지 ${round(-out[0].value, 1)}주 남았습니다.`, en: `Still before the due date — ${round(-out[0].value, 1)} weeks to go.`, tone: 'warn' }
-        : { ko: `교정 연령은 ${out[0].value}주(약 ${out[2].value}개월)입니다. 발달 이정표는 이 나이로 봅니다.`, en: `Corrected age is ${out[0].value} weeks (about ${out[2].value} months) — read milestones against this.`, tone: 'good' },
+        ? { ko: `아직 예정일 전입니다. 예정일까지 ${round(-out[0].value, 1)}주 남았습니다.`, en: `Still before the due date — ${round(-out[0].value, 1)} weeks to go.`, l10n: { es: `Todavía antes de la fecha prevista: faltan ${round(-out[0].value, 1)} semanas.`, 'pt-br': `Ainda antes da data prevista: faltam ${round(-out[0].value, 1)} semanas.`, ja: `まだ予定日前です。予定日まであと${round(-out[0].value, 1)}週あります。`, de: `Noch vor dem Termin — es fehlen ${round(-out[0].value, 1)} Wochen.`, fr: `Encore avant le terme : il reste ${round(-out[0].value, 1)} semaines.`, hi: `अभी नियत तिथि से पहले हैं — ${round(-out[0].value, 1)} हफ़्ते बाक़ी हैं।` }, tone: 'warn' }
+        : { ko: `교정 연령은 ${out[0].value}주(약 ${out[2].value}개월)입니다. 발달 이정표는 이 나이로 봅니다.`, en: `Corrected age is ${out[0].value} weeks (about ${out[2].value} months) — read milestones against this.`, l10n: { es: `La edad corregida es de ${out[0].value} semanas (unos ${out[2].value} meses): lee los hitos del desarrollo con esta edad.`, 'pt-br': `A idade corrigida é de ${out[0].value} semanas (cerca de ${out[2].value} meses): leia os marcos do desenvolvimento por essa idade.`, ja: `修正月齢は${out[0].value}週(約${out[2].value}か月)です。発達の目安はこの年齢で読んでください。`, de: `Das korrigierte Alter beträgt ${out[0].value} Wochen (etwa ${out[2].value} Monate) — Entwicklungsschritte danach lesen.`, fr: `L’âge corrigé est de ${out[0].value} semaines (environ ${out[2].value} mois) : lis les étapes du développement à cet âge.`, hi: `सुधारी हुई आयु ${out[0].value} हफ़्ते (लगभग ${out[2].value} महीने) है — विकास के पड़ाव इसी उम्र के हिसाब से देखें।` }, tone: 'good' },
     ko: { title: '조산아 교정 연령 계산기', desc: '예정일보다 이른 출생을 반영한 교정 연령을 구합니다.',
       long: '40주를 만삭으로 보고, 그보다 이르게 태어난 주 수를 지금 나이에서 뺍니다. 32주에 태어나 생후 20주라면 8주를 빼 교정 12주입니다. 발달 이정표는 이 나이를 기준으로 읽어야 합니다.',
       note: '보통 만 2세까지 교정 연령을 씁니다. 그 뒤로는 격차가 줄어 실제 나이로 봅니다.' },

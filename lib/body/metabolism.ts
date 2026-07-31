@@ -72,8 +72,7 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
       const a = v.activity;
       const ko = a < 1.35 ? '거의 앉아서 생활' : a < 1.5 ? '주 1~3회 운동' : a < 1.7 ? '주 3~5회 운동' : a < 1.95 ? '주 6~7회 운동' : '하루 두 번 훈련';
       const en = a < 1.35 ? 'mostly sedentary' : a < 1.5 ? 'light exercise 1–3×/week' : a < 1.7 ? 'moderate 3–5×/week' : a < 1.95 ? 'hard 6–7×/week' : 'twice-daily training';
-      const zh = a < 1.35 ? '几乎久坐' : a < 1.5 ? '每周运动1~3次' : a < 1.7 ? '每周运动3~5次' : a < 1.95 ? '每周运动6~7次' : '每天两练';
-      return { ko: `활동계수 ${a}는 "${ko}" 수준입니다.`, en: `An activity factor of ${a} means ${en}.`, tone: 'good' };
+      return { ko: `활동계수 ${a}는 "${ko}" 수준입니다.`, en: `An activity factor of ${a} means ${en}.`, l10n: { es: `Un factor de actividad de ${a} significa ${a < 1.35 ? 'una vida casi sedentaria' : a < 1.5 ? 'ejercicio ligero 1–3 veces por semana' : a < 1.7 ? 'ejercicio moderado 3–5 veces por semana' : a < 1.95 ? 'ejercicio intenso 6–7 veces por semana' : 'dos entrenamientos al día'}.`, 'pt-br': `Um fator de atividade de ${a} significa ${a < 1.35 ? 'uma vida quase sedentária' : a < 1.5 ? 'exercício leve 1–3 vezes por semana' : a < 1.7 ? 'exercício moderado 3–5 vezes por semana' : a < 1.95 ? 'exercício pesado 6–7 vezes por semana' : 'dois treinos por dia'}.`, ja: `活動係数${a}は「${a < 1.35 ? 'ほとんど座って生活' : a < 1.5 ? '週1〜3回の運動' : a < 1.7 ? '週3〜5回の運動' : a < 1.95 ? '週6〜7回の運動' : '一日二回のトレーニング'}」の水準です。`, de: `Ein Aktivitätsfaktor von ${a} bedeutet ${a < 1.35 ? 'überwiegend sitzend' : a < 1.5 ? 'leichter Sport 1–3× pro Woche' : a < 1.7 ? 'mäßiger Sport 3–5× pro Woche' : a < 1.95 ? 'harter Sport 6–7× pro Woche' : 'zweimal tägliches Training'}.`, fr: `Un coefficient d’activité de ${a} correspond à ${a < 1.35 ? 'une vie surtout assise' : a < 1.5 ? 'du sport léger 1 à 3 fois par semaine' : a < 1.7 ? 'du sport modéré 3 à 5 fois par semaine' : a < 1.95 ? 'du sport intense 6 à 7 fois par semaine' : 'deux entraînements par jour'}.`, hi: `${a} का गतिविधि गुणक यानी ${a < 1.35 ? 'लगभग बैठे रहने वाली ज़िंदगी' : a < 1.5 ? 'हफ़्ते में 1–3 बार हल्की कसरत' : a < 1.7 ? 'हफ़्ते में 3–5 बार मध्यम कसरत' : a < 1.95 ? 'हफ़्ते में 6–7 बार कड़ी कसरत' : 'दिन में दो बार अभ्यास'}।` }, tone: 'good' };
     },
     ko: { title: '활동대사량(TDEE) 계산기', desc: '기초대사량에 활동계수를 곱해 하루 총 소모 칼로리를 구합니다.',
       long: '활동계수는 앉아서 생활하면 1.2, 주 3~5회 운동하면 1.55, 매일 훈련하면 1.9 정도를 씁니다. 아래 값은 하루 500kcal 적자 기준 섭취량입니다.',
@@ -104,7 +103,8 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
       const tooLow = intake < 1200;
       return {
         ko: tooLow ? `하루 ${intake}kcal는 너무 적습니다. 감량 속도를 늦추세요.` : `하루 ${intake}kcal를 먹으면 주 ${v.perWeek}kg 속도입니다.`,
-        en: tooLow ? `${intake} kcal a day is too low — slow the target down.` : `Eating ${intake} kcal a day gives about ${v.perWeek} kg per week.` ? `每天${intake}千卡过低 — 请放慢减重速度。` : `每天摄入${intake}千卡，约为每周${v.perWeek}公斤的速度。`,
+        en: tooLow ? `${intake} kcal a day is too low — slow the target down.` : `Eating ${intake} kcal a day gives about ${v.perWeek} kg per week.`,
+        l10n: { es: tooLow ? `${intake} kcal al día es demasiado poco: baja el ritmo del objetivo.` : `Comer ${intake} kcal al día da alrededor de ${v.perWeek} kg por semana.`, 'pt-br': tooLow ? `${intake} kcal por dia é pouco demais: diminua o ritmo da meta.` : `Comer ${intake} kcal por dia dá cerca de ${v.perWeek} kg por semana.`, ja: tooLow ? `一日${intake}kcalは少なすぎます。減量のペースを落としてください。` : `一日${intake}kcalなら週${v.perWeek}kgのペースになります。`, de: tooLow ? `${intake} kcal am Tag sind zu wenig — nimm das Tempo heraus.` : `${intake} kcal am Tag ergeben etwa ${v.perWeek} kg pro Woche.`, fr: tooLow ? `${intake} kcal par jour, c’est trop peu : ralentis l’objectif.` : `Manger ${intake} kcal par jour donne environ ${v.perWeek} kg par semaine.`, hi: tooLow ? `दिन में ${intake} kcal बहुत कम है — लक्ष्य की रफ़्तार घटा दें।` : `रोज़ ${intake} kcal खाने पर हफ़्ते में लगभग ${v.perWeek} किग्रा की रफ़्तार बनती है।` },
         tone: tooLow ? 'bad' : 'good',
       };
     },
@@ -213,6 +213,7 @@ export const METABOLISM_TOOLS: FormulaTool[] = [
       return fatPct < 15 ? {
         ko: `지방 비율이 ${Math.max(0, fatPct)}%로 너무 낮습니다. 호르몬 합성에 지방이 필요합니다.`,
         en: `Fat is only ${Math.max(0, fatPct)}% — too low; the body needs fat for hormone synthesis.`,
+        l10n: { es: `La grasa se queda en el ${Math.max(0, fatPct)} %: demasiado poco; el cuerpo necesita grasa para fabricar hormonas.`, 'pt-br': `A gordura fica em ${Math.max(0, fatPct)} %: pouco demais; o corpo precisa de gordura para produzir hormônios.`, ja: `脂質が${Math.max(0, fatPct)}%しかなく、低すぎます。ホルモンの合成には脂質が必要です。`, de: `Fett liegt bei nur ${Math.max(0, fatPct)} % — zu wenig; der Körper braucht Fett, um Hormone zu bilden.`, fr: `Les lipides ne font que ${Math.max(0, fatPct)} % : trop peu ; le corps a besoin de gras pour fabriquer ses hormones.`, hi: `वसा सिर्फ़ ${Math.max(0, fatPct)}% है — यह बहुत कम है; हार्मोन बनाने के लिए शरीर को वसा चाहिए।` },
         tone: 'bad',
       } : null;
     },

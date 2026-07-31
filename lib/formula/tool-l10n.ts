@@ -7,6 +7,12 @@ import { RATE_JA } from '../rate-l10n/ja.ts';
 import { RATE_DE } from '../rate-l10n/de.ts';
 import { RATE_FR } from '../rate-l10n/fr.ts';
 import { RATE_HI } from '../rate-l10n/hi.ts';
+import { BODY_ES } from '../body-l10n/es.ts';
+import { BODY_PT_BR } from '../body-l10n/pt-br.ts';
+import { BODY_JA } from '../body-l10n/ja.ts';
+import { BODY_DE } from '../body-l10n/de.ts';
+import { BODY_FR } from '../body-l10n/fr.ts';
+import { BODY_HI } from '../body-l10n/hi.ts';
 
 /**
  * 도구 문구의 번역을 언어별로 한 표에 모은다.
@@ -15,10 +21,10 @@ import { RATE_HI } from '../rate-l10n/hi.ts';
  * 한 표에 담아도 된다. 섹션을 옮길 때마다 여기 한 줄씩 늘리면 된다.
  */
 export const TOOL_L10N: Partial<Record<IntlLocale, Record<string, FormulaText>>> = {
-  es: { ...RATE_ES },
-  'pt-br': { ...RATE_PT_BR },
-  ja: { ...RATE_JA },
-  de: { ...RATE_DE },
-  fr: { ...RATE_FR },
-  hi: { ...RATE_HI },
+  es: { ...RATE_ES, ...BODY_ES },
+  'pt-br': { ...RATE_PT_BR, ...BODY_PT_BR },
+  ja: { ...RATE_JA, ...BODY_JA },
+  de: { ...RATE_DE, ...BODY_DE },
+  fr: { ...RATE_FR, ...BODY_FR },
+  hi: { ...RATE_HI, ...BODY_HI },
 };

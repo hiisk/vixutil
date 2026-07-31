@@ -56,8 +56,8 @@ export const METABOLISM2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const w = out[0].value;
       return w <= 0.35
-        ? { ko: `주당 ${w}kg은 지방이 덜 붙는 속도입니다. 근력 운동과 함께면 대부분 근육으로 갑니다.`, en: `${w} kg a week is the lean-gain pace; with resistance training most of it is muscle.`, tone: 'good' }
-        : { ko: `주당 ${w}kg은 빠릅니다. 늘어난 무게의 절반 이상이 지방일 수 있습니다.`, en: `${w} kg a week is fast — over half of it may be fat.`, tone: 'warn' };
+        ? { ko: `주당 ${w}kg은 지방이 덜 붙는 속도입니다. 근력 운동과 함께면 대부분 근육으로 갑니다.`, en: `${w} kg a week is the lean-gain pace; with resistance training most of it is muscle.`, l10n: { es: `${w} kg por semana es el ritmo de ganancia limpia; con entrenamiento de fuerza la mayor parte va a músculo.`, 'pt-br': `${w} kg por semana é o ritmo de ganho limpo; com treino de força a maior parte vira músculo.`, ja: `週${w}kgは脂肪がつきにくいペースです。筋力トレーニングと合わせればほとんどが筋肉に向かいます。`, de: `${w} kg pro Woche ist das Tempo für sauberen Zuwachs; mit Krafttraining geht das meiste in Muskeln.`, fr: `${w} kg par semaine, c’est le rythme d’une prise sèche ; avec de la musculation, l’essentiel part en muscle.`, hi: `हफ़्ते में ${w} किग्रा वह रफ़्तार है जिस पर वसा कम चढ़ती है; वज़न वाली कसरत के साथ ज़्यादातर हिस्सा मांसपेशी बनता है।` }, tone: 'good' }
+        : { ko: `주당 ${w}kg은 빠릅니다. 늘어난 무게의 절반 이상이 지방일 수 있습니다.`, en: `${w} kg a week is fast — over half of it may be fat.`, l10n: { es: `${w} kg por semana es rápido: más de la mitad puede ser grasa.`, 'pt-br': `${w} kg por semana é rápido: mais da metade pode ser gordura.`, ja: `週${w}kgは速い方です。増えた重さの半分以上が脂肪になりかねません。`, de: `${w} kg pro Woche ist schnell — über die Hälfte davon kann Fett sein.`, fr: `${w} kg par semaine, c’est rapide : plus de la moitié peut être du gras.`, hi: `हफ़्ते में ${w} किग्रा तेज़ है — बढ़े हुए वज़न का आधे से ज़्यादा हिस्सा वसा हो सकता है।` }, tone: 'warn' };
     },
     ko: { title: '증량 속도 계산기', desc: '하루 잉여 열량으로 주당 몇 kg 늘어나는지 계산합니다.',
       long: '체중 1kg을 늘리는 데 약 7,700kcal이 필요하다고 봅니다. 하루 잉여를 7배 해 한 주치로 만들고 7,700으로 나눕니다. 하루 300kcal이면 주당 약 0.27kg입니다.',
@@ -87,10 +87,10 @@ export const METABOLISM2_TOOLS: FormulaTool[] = [
       const eat = out[1].value;
       const pct = out[2].value;
       return eat < 1200
-        ? { ko: `하루 ${eat}kcal은 너무 적습니다. 목표 속도를 낮추거나 활동량을 늘려 적자를 만드세요.`, en: `Eating ${eat} kcal a day is too little — slow the target or add activity instead.`, tone: 'bad' }
+        ? { ko: `하루 ${eat}kcal은 너무 적습니다. 목표 속도를 낮추거나 활동량을 늘려 적자를 만드세요.`, en: `Eating ${eat} kcal a day is too little — slow the target or add activity instead.`, l10n: { es: `Comer ${eat} kcal al día es muy poco: baja el ritmo del objetivo o suma actividad en su lugar.`, 'pt-br': `Comer ${eat} kcal por dia é pouco demais: diminua o ritmo da meta ou acrescente atividade.`, ja: `一日${eat}kcalは少なすぎます。目標のペースを落とすか、活動量を増やして赤字を作ってください。`, de: `${eat} kcal am Tag sind zu wenig — nimm das Ziel zurück oder beweg dich stattdessen mehr.`, fr: `Manger ${eat} kcal par jour, c’est trop peu : ralentis l’objectif ou ajoute de l’activité.`, hi: `दिन में ${eat} kcal बहुत कम है — लक्ष्य धीमा करें या इसके बजाय गतिविधि बढ़ाकर घाटा बनाएँ।` }, tone: 'bad' }
         : pct > 25
-          ? { ko: `소비의 ${pct}%를 깎는 것은 큽니다. 20% 안쪽이 지키기 쉽습니다.`, en: `Cutting ${pct}% of your burn is steep; under 20% is easier to sustain.`, tone: 'warn' }
-          : { ko: `하루 ${out[0].value}kcal 적자, 섭취 ${eat}kcal이면 무리 없는 속도입니다.`, en: `A ${out[0].value} kcal deficit eating ${eat} kcal a day is a sustainable pace.`, tone: 'good' };
+          ? { ko: `소비의 ${pct}%를 깎는 것은 큽니다. 20% 안쪽이 지키기 쉽습니다.`, en: `Cutting ${pct}% of your burn is steep; under 20% is easier to sustain.`, l10n: { es: `Recortar el ${pct} % de lo que gastas es mucho; por debajo del 20 % se sostiene mejor.`, 'pt-br': `Cortar ${pct} % do que você gasta é muito; abaixo de 20 % se sustenta melhor.`, ja: `消費の${pct}%を削るのは大きい方です。20%以内なら続けやすくなります。`, de: `${pct} % deines Verbrauchs zu streichen ist viel; unter 20 % hält man leichter durch.`, fr: `Couper ${pct} % de ta dépense, c’est beaucoup ; sous 20 %, ça tient mieux dans la durée.`, hi: `अपने ख़र्च का ${pct}% काटना बड़ा है; 20% के भीतर रहना निभाना आसान है।` }, tone: 'warn' }
+          : { ko: `하루 ${out[0].value}kcal 적자, 섭취 ${eat}kcal이면 무리 없는 속도입니다.`, en: `A ${out[0].value} kcal deficit eating ${eat} kcal a day is a sustainable pace.`, l10n: { es: `Un déficit de ${out[0].value} kcal comiendo ${eat} kcal al día es un ritmo sostenible.`, 'pt-br': `Um déficit de ${out[0].value} kcal comendo ${eat} kcal por dia é um ritmo sustentável.`, ja: `一日${out[0].value}kcalの赤字、摂取${eat}kcalなら無理のないペースです。`, de: `Ein Defizit von ${out[0].value} kcal bei ${eat} kcal am Tag ist ein durchhaltbares Tempo.`, fr: `Un déficit de ${out[0].value} kcal en mangeant ${eat} kcal par jour, c’est un rythme tenable.`, hi: `रोज़ ${eat} kcal खाकर ${out[0].value} kcal का घाटा — यह निभने लायक़ रफ़्तार है।` }, tone: 'good' };
     },
     ko: { title: '주당 감량 목표 → 필요 적자', desc: '주당 몇 kg을 빼려면 하루에 얼마를 줄여야 하는지 계산합니다.',
       long: '주당 목표에 7,700을 곱해 한 주에 필요한 적자를 만들고 7로 나눕니다. 주 0.5kg이면 하루 약 550kcal입니다. 소비 열량에서 그만큼 뺀 값이 먹어야 할 양입니다.',
@@ -141,10 +141,10 @@ export const METABOLISM2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const k = out[0].value;
       return k >= 22
-        ? { ko: `체중 1kg당 ${k}kcal은 높은 편입니다. 근육 비율이 높거나 젊은 편입니다.`, en: `${k} kcal per kilogram is on the high side — more muscle or a younger body.`, tone: 'good' }
+        ? { ko: `체중 1kg당 ${k}kcal은 높은 편입니다. 근육 비율이 높거나 젊은 편입니다.`, en: `${k} kcal per kilogram is on the high side — more muscle or a younger body.`, l10n: { es: `${k} kcal por kilo está en la parte alta: más músculo o un cuerpo más joven.`, 'pt-br': `${k} kcal por quilo está no lado alto: mais músculo ou um corpo mais jovem.`, ja: `体重1kgあたり${k}kcalは高めです。筋肉の割合が高いか、若い体です。`, de: `${k} kcal pro Kilogramm ist eher hoch — mehr Muskeln oder ein jüngerer Körper.`, fr: `${k} kcal par kilo, c’est plutôt haut : plus de muscle, ou un corps plus jeune.`, hi: `प्रति किलो ${k} kcal ऊँची तरफ़ है — मांसपेशी ज़्यादा है या शरीर जवान है।` }, tone: 'good' }
         : k >= 18
-          ? { ko: `체중 1kg당 ${k}kcal은 보통 범위입니다.`, en: `${k} kcal per kilogram is a typical range.`, tone: 'good' }
-          : { ko: `체중 1kg당 ${k}kcal은 낮은 편입니다. 근육이 적거나 나이가 있는 경우입니다.`, en: `${k} kcal per kilogram is low — less muscle, or an older body.`, tone: 'warn' };
+          ? { ko: `체중 1kg당 ${k}kcal은 보통 범위입니다.`, en: `${k} kcal per kilogram is a typical range.`, l10n: { es: `${k} kcal por kilo es un rango típico.`, 'pt-br': `${k} kcal por quilo é uma faixa típica.`, ja: `体重1kgあたり${k}kcalは標準的な範囲です。`, de: `${k} kcal pro Kilogramm ist ein üblicher Bereich.`, fr: `${k} kcal par kilo, c’est une plage classique.`, hi: `प्रति किलो ${k} kcal सामान्य दायरा है।` }, tone: 'good' }
+          : { ko: `체중 1kg당 ${k}kcal은 낮은 편입니다. 근육이 적거나 나이가 있는 경우입니다.`, en: `${k} kcal per kilogram is low — less muscle, or an older body.`, l10n: { es: `${k} kcal por kilo es bajo: menos músculo, o un cuerpo de más edad.`, 'pt-br': `${k} kcal por quilo é baixo: menos músculo, ou um corpo de mais idade.`, ja: `体重1kgあたり${k}kcalは低めです。筋肉が少ないか、年齢を重ねた体です。`, de: `${k} kcal pro Kilogramm ist niedrig — weniger Muskeln oder ein älterer Körper.`, fr: `${k} kcal par kilo, c’est bas : moins de muscle, ou un corps plus âgé.`, hi: `प्रति किलो ${k} kcal कम है — मांसपेशी कम है या उम्र ज़्यादा।` }, tone: 'warn' };
     },
     ko: { title: '체중당 기초대사량 계산기', desc: '기초대사량을 체중으로 나눠 대사가 활발한지 봅니다.',
       long: '몸무게가 다른 사람끼리 기초대사량을 그냥 비교할 수는 없습니다. 체중으로 나누면 같은 자로 잴 수 있고, 보통 성인은 kg당 20kcal 안팎입니다.',
@@ -174,10 +174,10 @@ export const METABOLISM2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const per = out[0].value;
       return per >= 20 && per <= 45
-        ? { ko: `한 끼 ${per}g은 근육 합성이 잘 도는 구간입니다.`, en: `${per} g a meal sits in the range that drives muscle synthesis well.`, tone: 'good' }
+        ? { ko: `한 끼 ${per}g은 근육 합성이 잘 도는 구간입니다.`, en: `${per} g a meal sits in the range that drives muscle synthesis well.`, l10n: { es: `${per} g por comida cae en el rango que mueve bien la síntesis muscular.`, 'pt-br': `${per} g por refeição fica na faixa que puxa bem a síntese muscular.`, ja: `一食${per}gは筋肉の合成がよく回る範囲です。`, de: `${per} g pro Mahlzeit liegen im Bereich, der die Muskelsynthese gut antreibt.`, fr: `${per} g par repas tombe dans la fourchette qui fait bien tourner la synthèse musculaire.`, hi: `एक बार में ${per} g वह दायरा है जिसमें मांसपेशी बनने की प्रक्रिया अच्छी चलती है।` }, tone: 'good' }
         : per < 20
-          ? { ko: `한 끼 ${per}g은 적습니다. 끼니를 줄여 한 번에 20g 이상 모으는 편이 낫습니다.`, en: `${per} g a meal is low; fewer, larger meals clearing 20 g work better.`, tone: 'warn' }
-          : { ko: `한 끼 ${per}g은 많습니다. 한 번에 다 쓰지 못하므로 끼니를 나누는 편이 낫습니다.`, en: `${per} g in one sitting is more than the body uses at once — spread it out.`, tone: 'warn' };
+          ? { ko: `한 끼 ${per}g은 적습니다. 끼니를 줄여 한 번에 20g 이상 모으는 편이 낫습니다.`, en: `${per} g a meal is low; fewer, larger meals clearing 20 g work better.`, l10n: { es: `${per} g por comida es poco; conviene hacer menos comidas y más grandes que pasen de 20 g.`, 'pt-br': `${per} g por refeição é pouco; melhor fazer menos refeições e maiores, passando de 20 g.`, ja: `一食${per}gは少なめです。食事の回数を減らして一度に20g以上まとめる方が効きます。`, de: `${per} g pro Mahlzeit sind wenig; lieber weniger, dafür größere Mahlzeiten über 20 g.`, fr: `${per} g par repas, c’est peu ; mieux vaut moins de repas, plus copieux, dépassant 20 g.`, hi: `एक बार में ${per} g कम है; कम बार पर बड़ी मात्रा में, 20 g से ऊपर लेना बेहतर काम करता है।` }, tone: 'warn' }
+          : { ko: `한 끼 ${per}g은 많습니다. 한 번에 다 쓰지 못하므로 끼니를 나누는 편이 낫습니다.`, en: `${per} g in one sitting is more than the body uses at once — spread it out.`, l10n: { es: `${per} g de una sentada es más de lo que el cuerpo aprovecha a la vez: repártelo.`, 'pt-br': `${per} g de uma vez é mais do que o corpo aproveita de uma só vez: divida ao longo do dia.`, ja: `一食${per}gは多めです。一度に使い切れないので、食事を分けた方が無駄がありません。`, de: `${per} g auf einmal sind mehr, als der Körper in einem Zug verwertet — verteil es.`, fr: `${per} g d’un coup, c’est plus que ce que le corps utilise à la fois : répartis-les.`, hi: `एक बार में ${per} g उससे ज़्यादा है जितना शरीर एक साथ काम में लाता है — इसे बाँट लें।` }, tone: 'warn' };
     },
     ko: { title: '한 끼 단백질 배분 계산기', desc: '하루 단백질을 끼니 수로 나눠 한 끼에 얼마씩 먹을지 정합니다.',
       long: '하루 총량만 맞추는 것보다 끼니마다 20~40g씩 고르게 나누는 편이 근육 합성에 유리합니다. 체중에 g/kg을 곱해 하루 총량을 만들고 끼니 수로 나눕니다.',
@@ -245,8 +245,8 @@ export const METABOLISM2_TOOLS: FormulaTool[] = [
     ],
     verdict: (v) =>
       v.sodium <= 2000
-        ? { ko: '세계보건기구 권고인 하루 나트륨 2,000mg 안입니다.', en: 'Inside the WHO guidance of 2,000 mg of sodium a day.', tone: 'good' }
-        : { ko: `권고 2,000mg을 ${Math.round(v.sodium - 2000)}mg 넘겼습니다.`, en: `${Math.round(v.sodium - 2000)} mg over the 2,000 mg guidance.`, tone: 'warn' },
+        ? { ko: '세계보건기구 권고인 하루 나트륨 2,000mg 안입니다.', en: 'Inside the WHO guidance of 2,000 mg of sodium a day.', l10n: { es: 'Dentro de la recomendación de la OMS de 2.000 mg de sodio al día.', 'pt-br': 'Dentro da recomendação da OMS de 2.000 mg de sódio por dia.', ja: '世界保健機関の勧告である一日ナトリウム2,000mgの内側です。', de: 'Innerhalb der WHO-Empfehlung von 2.000 mg Natrium pro Tag.', fr: 'Dans la limite de l’OMS de 2 000 mg de sodium par jour.', hi: 'विश्व स्वास्थ्य संगठन की रोज़ाना 2,000 mg सोडियम की सलाह के भीतर।' }, tone: 'good' }
+        : { ko: `권고 2,000mg을 ${Math.round(v.sodium - 2000)}mg 넘겼습니다.`, en: `${Math.round(v.sodium - 2000)} mg over the 2,000 mg guidance.`, l10n: { es: `${Math.round(v.sodium - 2000)} mg por encima de la recomendación de 2.000 mg.`, 'pt-br': `${Math.round(v.sodium - 2000)} mg acima da recomendação de 2.000 mg.`, ja: `勧告の2,000mgを${Math.round(v.sodium - 2000)}mg超えています。`, de: `${Math.round(v.sodium - 2000)} mg über der Empfehlung von 2.000 mg.`, fr: `${Math.round(v.sodium - 2000)} mg au-dessus de la limite de 2 000 mg.`, hi: `2,000 mg की सलाह से ${Math.round(v.sodium - 2000)} mg ज़्यादा।` }, tone: 'warn' },
     ko: { title: '나트륨 ↔ 소금 환산기', desc: '영양표시의 나트륨을 소금 몇 g인지로 바꿉니다.',
       long: '소금은 나트륨과 염소가 결합한 물질이라 나트륨보다 무겁습니다. 나트륨 1g은 소금 약 2.54g에 해당합니다. 영양표시는 나트륨으로, 요리법은 소금으로 적혀 있어 이 환산이 자주 필요합니다.',
       note: '세계보건기구 권고는 나트륨 2,000mg, 소금으로는 약 5g입니다. 국·찌개 한 그릇에 그 절반이 들어 있는 경우가 흔합니다.' },
@@ -274,6 +274,7 @@ export const METABOLISM2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `하루 ${out[0].value}mg, 이 잔으로는 ${out[1].value}잔까지입니다. 성인 상한은 400mg에서 더 올라가지 않습니다.`,
       en: `${out[0].value} mg a day — about ${out[1].value} of these cups. The adult ceiling does not rise above 400 mg.`,
+      l10n: { es: `${out[0].value} mg al día, unas ${out[1].value} tazas de estas. El techo para adultos no pasa de 400 mg.`, 'pt-br': `${out[0].value} mg por dia, cerca de ${out[1].value} xícaras dessas. O teto para adultos não passa de 400 mg.`, ja: `一日${out[0].value}mg、このカップで${out[1].value}杯までです。成人の上限は400mgから上には動きません。`, de: `${out[0].value} mg am Tag — etwa ${out[1].value} solcher Tassen. Die Obergrenze für Erwachsene steigt nicht über 400 mg.`, fr: `${out[0].value} mg par jour, soit environ ${out[1].value} tasses comme celle-ci. Le plafond adulte ne dépasse pas 400 mg.`, hi: `दिन में ${out[0].value} mg, यानी ऐसे लगभग ${out[1].value} कप। वयस्कों की ऊपरी सीमा 400 mg से आगे नहीं बढ़ती।` },
       tone: 'good',
     }),
     ko: { title: '카페인 하루 상한 계산기', desc: '체중을 기준으로 하루 카페인 상한과 커피 잔 수를 구합니다.',

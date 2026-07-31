@@ -45,8 +45,7 @@ export const CARDIO_TOOLS: FormulaTool[] = [
       const i = v.intensity;
       const ko = i < 60 ? '가벼운 유산소(지방 연소 구간)' : i < 70 ? '기초 체력 구간' : i < 80 ? '유산소 능력 향상 구간' : i < 90 ? '무산소 역치 구간' : '최대 강도 구간';
       const en = i < 60 ? 'light aerobic, fat-burning zone' : i < 70 ? 'base endurance zone' : i < 80 ? 'aerobic development zone' : i < 90 ? 'anaerobic threshold zone' : 'maximal effort zone';
-      const zh = i < 60 ? '轻度有氧(燃脂区间)' : i < 70 ? '基础耐力区间' : i < 80 ? '有氧提升区间' : i < 90 ? '无氧阈区间' : '最大强度区间';
-      return { ko: `강도 ${i}%는 ${ko}입니다.`, en: `${i}% intensity is the ${en}.`, tone: 'good' };
+      return { ko: `강도 ${i}%는 ${ko}입니다.`, en: `${i}% intensity is the ${en}.`, l10n: { es: `Una intensidad del ${i} % es la ${i < 60 ? 'zona aeróbica ligera, la de quemar grasa' : i < 70 ? 'zona de base aeróbica' : i < 80 ? 'zona de desarrollo aeróbico' : i < 90 ? 'zona de umbral anaeróbico' : 'zona de esfuerzo máximo'}.`, 'pt-br': `Uma intensidade de ${i} % é a ${i < 60 ? 'zona aeróbica leve, a de queimar gordura' : i < 70 ? 'zona de base aeróbica' : i < 80 ? 'zona de desenvolvimento aeróbico' : i < 90 ? 'zona de limiar anaeróbico' : 'zona de esforço máximo'}.`, ja: `強度${i}%は${i < 60 ? '軽い有酸素、脂肪を燃やす領域' : i < 70 ? '基礎持久力の領域' : i < 80 ? '有酸素能力を伸ばす領域' : i < 90 ? '無酸素性作業閾値の領域' : '最大強度の領域'}です。`, de: `${i} % Intensität ist die ${i < 60 ? 'leichte aerobe Zone, in der Fett verbrannt wird' : i < 70 ? 'Grundlagenausdauerzone' : i < 80 ? 'Zone für die aerobe Entwicklung' : i < 90 ? 'Zone der anaeroben Schwelle' : 'Zone maximaler Belastung'}.`, fr: `Une intensité de ${i} % correspond à la ${i < 60 ? 'zone aérobie légère, celle où l’on brûle du gras' : i < 70 ? 'zone d’endurance de base' : i < 80 ? 'zone de développement aérobie' : i < 90 ? 'zone du seuil anaérobie' : 'zone d’effort maximal'}.`, hi: `${i}% तीव्रता ${i < 60 ? 'हल्का एरोबिक, वसा जलाने वाला' : i < 70 ? 'बुनियादी सहनशक्ति का' : i < 80 ? 'एरोबिक क्षमता बढ़ाने वाला' : i < 90 ? 'अवायवीय दहलीज़ का' : 'अधिकतम ज़ोर का'} क्षेत्र है।` }, tone: 'good' };
     },
     ko: { title: '목표 심박수 계산기(카르보넨)', desc: '안정 심박수를 반영해 운동 강도별 목표 심박 구간을 구합니다.',
       long: '단순히 최대 심박수에 비율을 곱하는 방식과 달리, 카르보넨 식은 최대와 안정 심박수의 차이(심박 예비량)에 비율을 곱합니다. 체력이 좋아 안정 심박수가 낮은 사람에게 더 맞습니다.',
@@ -70,8 +69,7 @@ export const CARDIO_TOOLS: FormulaTool[] = [
       const band = x >= 55 ? 0 : x >= 45 ? 1 : x >= 35 ? 2 : 3;
       const ko = ['매우 우수', '좋음', '보통', '낮음'][band];
       const en = ['excellent', 'good', 'average', 'below average'][band];
-      const zh = ['优秀', '良好', '一般', '偏低'][band];
-      return { ko: `VO2max ${x}는 ${ko} 수준입니다.`, en: `A VO2max of ${x} is ${en}.`, tone: band <= 1 ? 'good' : band === 2 ? 'warn' : 'bad' };
+      return { ko: `VO2max ${x}는 ${ko} 수준입니다.`, en: `A VO2max of ${x} is ${en}.`, l10n: { es: `Un VO2max de ${x} es ${['excelente', 'bueno', 'medio', 'por debajo de la media'][band]}.`, 'pt-br': `Um VO2max de ${x} é ${['excelente', 'bom', 'médio', 'abaixo da média'][band]}.`, ja: `VO2max ${x}は${['非常に優秀', '良好', '平均的', '平均以下'][band]}な水準です。`, de: `Eine VO2max von ${x} ist ${['ausgezeichnet', 'gut', 'durchschnittlich', 'unterdurchschnittlich'][band]}.`, fr: `Une VO2max de ${x} est ${['excellente', 'bonne', 'moyenne', 'sous la moyenne'][band]}.`, hi: `${x} का VO2max ${['बहुत बढ़िया', 'अच्छा', 'औसत', 'औसत से नीचे'][band]} है।` }, tone: band <= 1 ? 'good' : band === 2 ? 'warn' : 'bad' };
     },
     ko: { title: '쿠퍼 테스트 VO2max', desc: '12분 동안 달린 거리로 최대 산소 섭취량을 추정합니다.',
       long: '평지에서 12분간 최대한 멀리 달린 거리를 미터로 넣습니다. VO2max는 심폐 능력의 대표 지표이고, 사망률과 가장 강하게 연관된 체력 지표입니다.',

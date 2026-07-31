@@ -34,12 +34,12 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const g = out[0].value;
       return g >= 90
-        ? { ko: `${g}은 정상 범위(90 이상)입니다.`, en: `${g} is in the normal range (90 or above).`, tone: 'good' }
+        ? { ko: `${g}은 정상 범위(90 이상)입니다.`, en: `${g} is in the normal range (90 or above).`, l10n: { es: `${g} está en el rango normal (90 o más).`, 'pt-br': `${g} está na faixa normal (90 ou mais).`, ja: `${g}は正常範囲(90以上)です。`, de: `${g} liegt im Normbereich (90 oder darüber).`, fr: `${g} est dans la plage normale (90 ou plus).`, hi: `${g} सामान्य दायरे (90 या ऊपर) में है।` }, tone: 'good' }
         : g >= 60
-          ? { ko: `${g}은 경미한 감소입니다. 다른 소견이 없으면 만성 신장병으로 보지 않습니다.`, en: `${g} is a mild reduction; without other findings it is not classed as chronic kidney disease.`, tone: 'warn' }
+          ? { ko: `${g}은 경미한 감소입니다. 다른 소견이 없으면 만성 신장병으로 보지 않습니다.`, en: `${g} is a mild reduction; without other findings it is not classed as chronic kidney disease.`, l10n: { es: `${g} es una reducción leve; sin otros hallazgos no se clasifica como enfermedad renal crónica.`, 'pt-br': `${g} é uma redução leve; sem outros achados não se classifica como doença renal crônica.`, ja: `${g}は軽度の低下です。他の所見がなければ慢性腎臓病とは扱いません。`, de: `${g} ist eine leichte Minderung; ohne weitere Befunde gilt das nicht als chronische Nierenerkrankung.`, fr: `${g} est une baisse légère ; sans autre anomalie, on ne parle pas de maladie rénale chronique.`, hi: `${g} हल्की गिरावट है; दूसरे लक्षण न हों तो इसे दीर्घकालिक गुर्दा रोग नहीं माना जाता।` }, tone: 'warn' }
           : g >= 30
-            ? { ko: `${g}은 중등도 감소입니다. 신장 기능을 정기적으로 볼 구간입니다.`, en: `${g} is a moderate reduction — the range that calls for regular monitoring.`, tone: 'bad' }
-            : { ko: `${g}은 크게 감소한 상태입니다. 전문의 진료가 필요합니다.`, en: `${g} is a severe reduction and needs specialist care.`, tone: 'bad' };
+            ? { ko: `${g}은 중등도 감소입니다. 신장 기능을 정기적으로 볼 구간입니다.`, en: `${g} is a moderate reduction — the range that calls for regular monitoring.`, l10n: { es: `${g} es una reducción moderada: el rango que pide seguimiento regular.`, 'pt-br': `${g} é uma redução moderada: a faixa que pede acompanhamento regular.`, ja: `${g}は中等度の低下です。腎機能を定期的に見ていく領域です。`, de: `${g} ist eine mäßige Minderung — der Bereich, der regelmäßige Kontrollen verlangt.`, fr: `${g} est une baisse modérée : la plage qui appelle un suivi régulier.`, hi: `${g} मध्यम गिरावट है — इस दायरे में गुर्दे की नियमित जाँच चाहिए।` }, tone: 'bad' }
+            : { ko: `${g}은 크게 감소한 상태입니다. 전문의 진료가 필요합니다.`, en: `${g} is a severe reduction and needs specialist care.`, l10n: { es: `${g} es una reducción grave y necesita atención especializada.`, 'pt-br': `${g} é uma redução grave e precisa de atendimento especializado.`, ja: `${g}は大きく低下した状態です。専門医の診療が必要です。`, de: `${g} ist eine schwere Minderung und gehört in fachärztliche Betreuung.`, fr: `${g} est une baisse sévère et demande une prise en charge spécialisée.`, hi: `${g} भारी गिरावट है और इसके लिए विशेषज्ञ की देखभाल चाहिए।` }, tone: 'bad' };
     },
     ko: { title: 'eGFR 신장 기능 계산기', desc: '크레아티닌·나이·성별로 추정 사구체여과율을 구합니다.',
       long: '2021년 CKD-EPI 식을 씁니다. 크레아티닌 수치 자체는 근육량에 따라 흔들리므로 나이와 성별로 보정해야 신장이 1분에 얼마를 걸러 내는지에 가까워집니다. 90 이상이 정상, 60 아래가 지속되면 만성 신장병 범주입니다.',
@@ -92,10 +92,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r < 2
-        ? { ko: `${r}은 좋은 편입니다. 2 아래를 목표로 봅니다.`, en: `${r} is good — under 2 is the target.`, tone: 'good' }
+        ? { ko: `${r}은 좋은 편입니다. 2 아래를 목표로 봅니다.`, en: `${r} is good — under 2 is the target.`, l10n: { es: `${r} está bien: el objetivo es por debajo de 2.`, 'pt-br': `${r} está bom: a meta é abaixo de 2.`, ja: `${r}は良い方です。2未満を目標と見ます。`, de: `${r} ist gut — unter 2 ist das Ziel.`, fr: `${r} est bon : la cible est sous 2.`, hi: `${r} अच्छा है — लक्ष्य 2 से नीचे है।` }, tone: 'good' }
         : r < 3.5
-          ? { ko: `${r}은 경계 구간입니다.`, en: `${r} sits in the borderline band.`, tone: 'warn' }
-          : { ko: `${r}은 높습니다. 인슐린 저항성과 함께 오는 경우가 많습니다.`, en: `${r} is high and often travels with insulin resistance.`, tone: 'bad' };
+          ? { ko: `${r}은 경계 구간입니다.`, en: `${r} sits in the borderline band.`, l10n: { es: `${r} cae en la franja límite.`, 'pt-br': `${r} fica na faixa limítrofe.`, ja: `${r}は境界域です。`, de: `${r} liegt im Grenzbereich.`, fr: `${r} se situe dans la zone limite.`, hi: `${r} सीमावर्ती दायरे में है।` }, tone: 'warn' }
+          : { ko: `${r}은 높습니다. 인슐린 저항성과 함께 오는 경우가 많습니다.`, en: `${r} is high and often travels with insulin resistance.`, l10n: { es: `${r} es alto y suele venir acompañado de resistencia a la insulina.`, 'pt-br': `${r} é alto e costuma vir junto com resistência à insulina.`, ja: `${r}は高めです。インスリン抵抗性と一緒に現れることが多い値です。`, de: `${r} ist hoch und geht oft mit Insulinresistenz einher.`, fr: `${r} est élevé et va souvent de pair avec une résistance à l’insuline.`, hi: `${r} ऊँचा है और अक्सर इंसुलिन प्रतिरोध के साथ आता है।` }, tone: 'bad' };
     },
     ko: { title: '중성지방·HDL 비율 계산기', desc: '중성지방을 HDL로 나눠 대사 상태를 봅니다.',
       long: '두 값을 따로 보는 것보다 비율이 대사 상태를 잘 나타냅니다. 중성지방이 높고 HDL이 낮은 조합이 인슐린 저항성과 함께 오는 패턴이라, 비율이 그 조합을 한 숫자로 잡아 줍니다.',
@@ -124,10 +124,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const q = out[0].value;
       return q >= 0.357
-        ? { ko: `${q}는 인슐린 감수성이 좋은 쪽입니다. 값이 클수록 좋습니다.`, en: `${q} indicates good insulin sensitivity — higher is better.`, tone: 'good' }
+        ? { ko: `${q}는 인슐린 감수성이 좋은 쪽입니다. 값이 클수록 좋습니다.`, en: `${q} indicates good insulin sensitivity — higher is better.`, l10n: { es: `${q} indica buena sensibilidad a la insulina: cuanto más alto, mejor.`, 'pt-br': `${q} indica boa sensibilidade à insulina: quanto mais alto, melhor.`, ja: `${q}はインスリン感受性が良い方です。値が大きいほど良好です。`, de: `${q} spricht für eine gute Insulinempfindlichkeit — höher ist besser.`, fr: `${q} indique une bonne sensibilité à l’insuline : plus c’est haut, mieux c’est.`, hi: `${q} अच्छी इंसुलिन संवेदनशीलता दिखाता है — जितना ऊँचा, उतना अच्छा।` }, tone: 'good' }
         : q >= 0.33
-          ? { ko: `${q}는 경계 구간입니다.`, en: `${q} sits in the borderline band.`, tone: 'warn' }
-          : { ko: `${q}는 인슐린 저항성이 있는 쪽입니다. 값이 작을수록 저항성이 큽니다.`, en: `${q} points to insulin resistance — lower means more resistant.`, tone: 'bad' };
+          ? { ko: `${q}는 경계 구간입니다.`, en: `${q} sits in the borderline band.`, l10n: { es: `${q} cae en la franja límite.`, 'pt-br': `${q} fica na faixa limítrofe.`, ja: `${q}は境界域です。`, de: `${q} liegt im Grenzbereich.`, fr: `${q} se situe dans la zone limite.`, hi: `${q} सीमावर्ती दायरे में है।` }, tone: 'warn' }
+          : { ko: `${q}는 인슐린 저항성이 있는 쪽입니다. 값이 작을수록 저항성이 큽니다.`, en: `${q} points to insulin resistance — lower means more resistant.`, l10n: { es: `${q} apunta a resistencia a la insulina: cuanto más bajo, mayor la resistencia.`, 'pt-br': `${q} aponta resistência à insulina: quanto mais baixo, maior a resistência.`, ja: `${q}はインスリン抵抗性がある方です。値が小さいほど抵抗性が強くなります。`, de: `${q} deutet auf Insulinresistenz hin — niedriger heißt widerstandsfähiger.`, fr: `${q} pointe vers une résistance à l’insuline : plus c’est bas, plus la résistance est forte.`, hi: `${q} इंसुलिन प्रतिरोध की ओर इशारा करता है — जितना कम, उतना ज़्यादा प्रतिरोध।` }, tone: 'bad' };
     },
     ko: { title: 'QUICKI 인슐린 감수성 지수', desc: '공복 혈당과 인슐린으로 인슐린 감수성을 계산합니다.',
       long: 'HOMA-IR과 같은 두 값을 쓰지만 로그를 취해 분포를 고르게 만든 지수입니다. 방향이 반대로, HOMA-IR은 클수록 나쁘고 QUICKI는 클수록 좋습니다. 0.357 부근을 정상 기준으로 봅니다.',
@@ -156,10 +156,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const t = out[0].value;
       return t < 8.5
-        ? { ko: `${t}는 낮은 쪽입니다. 인슐린 저항성 가능성이 작습니다.`, en: `${t} is on the low side — insulin resistance is less likely.`, tone: 'good' }
+        ? { ko: `${t}는 낮은 쪽입니다. 인슐린 저항성 가능성이 작습니다.`, en: `${t} is on the low side — insulin resistance is less likely.`, l10n: { es: `${t} está en la parte baja: la resistencia a la insulina es menos probable.`, 'pt-br': `${t} está no lado baixo: a resistência à insulina é menos provável.`, ja: `${t}は低い方です。インスリン抵抗性の可能性は小さめです。`, de: `${t} liegt eher niedrig — Insulinresistenz ist weniger wahrscheinlich.`, fr: `${t} est plutôt bas : une résistance à l’insuline est moins probable.`, hi: `${t} कम की तरफ़ है — इंसुलिन प्रतिरोध की संभावना कम है।` }, tone: 'good' }
         : t < 8.8
-          ? { ko: `${t}는 경계 구간입니다.`, en: `${t} sits in the borderline band.`, tone: 'warn' }
-          : { ko: `${t}는 높은 쪽입니다. 인슐린 저항성을 의심하는 구간입니다.`, en: `${t} is high — the range where insulin resistance is suspected.`, tone: 'bad' };
+          ? { ko: `${t}는 경계 구간입니다.`, en: `${t} sits in the borderline band.`, l10n: { es: `${t} cae en la franja límite.`, 'pt-br': `${t} fica na faixa limítrofe.`, ja: `${t}は境界域です。`, de: `${t} liegt im Grenzbereich.`, fr: `${t} se situe dans la zone limite.`, hi: `${t} सीमावर्ती दायरे में है।` }, tone: 'warn' }
+          : { ko: `${t}는 높은 쪽입니다. 인슐린 저항성을 의심하는 구간입니다.`, en: `${t} is high — the range where insulin resistance is suspected.`, l10n: { es: `${t} es alto: el rango donde se sospecha resistencia a la insulina.`, 'pt-br': `${t} é alto: a faixa em que se suspeita de resistência à insulina.`, ja: `${t}は高い方です。インスリン抵抗性を疑う領域です。`, de: `${t} ist hoch — der Bereich, in dem Insulinresistenz vermutet wird.`, fr: `${t} est élevé : la plage où l’on suspecte une résistance à l’insuline.`, hi: `${t} ऊँचा है — इसी दायरे में इंसुलिन प्रतिरोध का शक होता है।` }, tone: 'bad' };
     },
     ko: { title: 'TyG 지수 계산기', desc: '중성지방과 혈당만으로 인슐린 저항성을 가늠합니다.',
       long: '인슐린 검사 없이 흔한 혈액검사 두 항목만으로 인슐린 저항성을 추정하는 지수입니다. 인슐린 수치를 재지 않는 건강검진 결과로도 계산할 수 있는 것이 장점입니다.',
@@ -191,10 +191,10 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
       const f = out[0].value;
       const lo = v.age >= 65 ? 2.0 : 1.3;
       return f < lo
-        ? { ko: `${f}는 낮은 구간(${lo} 미만)입니다. 진행된 섬유화 가능성이 낮습니다.`, en: `${f} is in the low band (under ${lo}); advanced fibrosis is unlikely.`, tone: 'good' }
+        ? { ko: `${f}는 낮은 구간(${lo} 미만)입니다. 진행된 섬유화 가능성이 낮습니다.`, en: `${f} is in the low band (under ${lo}); advanced fibrosis is unlikely.`, l10n: { es: `${f} está en la franja baja (por debajo de ${lo}); una fibrosis avanzada es poco probable.`, 'pt-br': `${f} está na faixa baixa (abaixo de ${lo}); fibrose avançada é pouco provável.`, ja: `${f}は低い区分(${lo}未満)です。進行した線維化の可能性は低めです。`, de: `${f} liegt im niedrigen Bereich (unter ${lo}); eine fortgeschrittene Fibrose ist unwahrscheinlich.`, fr: `${f} est dans la zone basse (sous ${lo}) ; une fibrose avancée est peu probable.`, hi: `${f} निचले दायरे (${lo} से कम) में है; बढ़ी हुई फ़ाइब्रोसिस की संभावना कम है।` }, tone: 'good' }
         : f <= 2.67
-          ? { ko: `${f}는 중간 구간입니다. 추가 검사로 가려야 하는 범위입니다.`, en: `${f} is indeterminate — the range where further testing is needed.`, tone: 'warn' }
-          : { ko: `${f}는 높은 구간(2.67 초과)입니다. 전문의 평가가 필요합니다.`, en: `${f} is in the high band (above 2.67) and needs specialist assessment.`, tone: 'bad' };
+          ? { ko: `${f}는 중간 구간입니다. 추가 검사로 가려야 하는 범위입니다.`, en: `${f} is indeterminate — the range where further testing is needed.`, l10n: { es: `${f} es indeterminado: el rango en que hacen falta más pruebas.`, 'pt-br': `${f} é indeterminado: a faixa em que são necessários mais exames.`, ja: `${f}は中間の区分です。追加の検査で切り分ける必要がある範囲です。`, de: `${f} ist unbestimmt — der Bereich, in dem weitere Tests nötig sind.`, fr: `${f} est indéterminé : la zone où d’autres examens sont nécessaires.`, hi: `${f} अनिश्चित दायरे में है — यहाँ और जाँच करके तय करना पड़ता है।` }, tone: 'warn' }
+          : { ko: `${f}는 높은 구간(2.67 초과)입니다. 전문의 평가가 필요합니다.`, en: `${f} is in the high band (above 2.67) and needs specialist assessment.`, l10n: { es: `${f} está en la franja alta (por encima de 2,67) y requiere valoración especializada.`, 'pt-br': `${f} está na faixa alta (acima de 2,67) e pede avaliação especializada.`, ja: `${f}は高い区分(2.67超)です。専門医の評価が必要です。`, de: `${f} liegt im hohen Bereich (über 2,67) und braucht eine fachärztliche Abklärung.`, fr: `${f} est dans la zone haute (au-dessus de 2,67) et demande un avis spécialisé.`, hi: `${f} ऊपरी दायरे (2.67 से ज़्यादा) में है और इसके लिए विशेषज्ञ का आकलन चाहिए।` }, tone: 'bad' };
     },
     ko: { title: 'FIB-4 간 섬유화 지수', desc: '나이와 간 수치, 혈소판으로 간 섬유화 위험을 가늠합니다.',
       long: '간 조직검사 없이 흔한 혈액검사만으로 섬유화 가능성을 가려내는 지수입니다. 낮으면 진행된 섬유화가 거의 없다고 볼 수 있어, 추가 검사가 필요한 사람을 골라내는 1차 도구로 쓰입니다.',
@@ -224,8 +224,8 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r <= 30
-        ? { ko: `${r}은 낮은 편입니다. 30 아래를 바람직하게 봅니다.`, en: `${r} is low — under 30 is considered desirable.`, tone: 'good' }
-        : { ko: `${r}은 높은 편입니다. LDL이 정상인데도 위험이 남아 있는 경우가 여기서 드러납니다.`, en: `${r} is high; this is where risk that survives a normal LDL shows up.`, tone: 'warn' };
+        ? { ko: `${r}은 낮은 편입니다. 30 아래를 바람직하게 봅니다.`, en: `${r} is low — under 30 is considered desirable.`, l10n: { es: `${r} es bajo: por debajo de 30 se considera deseable.`, 'pt-br': `${r} é baixo: abaixo de 30 é considerado desejável.`, ja: `${r}は低い方です。30未満が望ましいとされます。`, de: `${r} ist niedrig — unter 30 gilt als wünschenswert.`, fr: `${r} est bas : sous 30 est considéré comme souhaitable.`, hi: `${r} कम है — 30 से नीचे रहना बेहतर माना जाता है।` }, tone: 'good' }
+        : { ko: `${r}은 높은 편입니다. LDL이 정상인데도 위험이 남아 있는 경우가 여기서 드러납니다.`, en: `${r} is high; this is where risk that survives a normal LDL shows up.`, l10n: { es: `${r} es alto; aquí es donde aparece el riesgo que sobrevive a un LDL normal.`, 'pt-br': `${r} é alto; é aqui que aparece o risco que sobrevive a um LDL normal.`, ja: `${r}は高い方です。LDLが正常でも残る危険は、ここに現れます。`, de: `${r} ist hoch; hier zeigt sich das Risiko, das ein normales LDL überlebt.`, fr: `${r} est élevé ; c’est ici qu’apparaît le risque qui survit à un LDL normal.`, hi: `${r} ऊँचा है; LDL सामान्य होने पर भी जो जोखिम बचा रहता है, वह यहीं दिखता है।` }, tone: 'warn' };
     },
     ko: { title: '잔여 콜레스테롤 계산기', desc: '총콜레스테롤에서 HDL과 LDL을 빼 남는 부분을 구합니다.',
       long: 'LDL이 정상인데도 혈관 위험이 남는 이유를 설명하는 값입니다. 중성지방을 실어 다니는 지단백에 든 콜레스테롤이 여기 잡히는데, 이 부분은 LDL 검사에 안 나옵니다.',

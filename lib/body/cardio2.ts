@@ -54,10 +54,10 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const d = out[0].value;
       return d >= 25
-        ? { ko: `1분에 ${d}회 떨어졌습니다. 회복이 빠른 편입니다.`, en: `Down ${d} beats in a minute — brisk recovery.`, tone: 'good' }
+        ? { ko: `1분에 ${d}회 떨어졌습니다. 회복이 빠른 편입니다.`, en: `Down ${d} beats in a minute — brisk recovery.`, l10n: { es: `Bajó ${d} pulsaciones en un minuto: una recuperación rápida.`, 'pt-br': `Caiu ${d} batimentos em um minuto: recuperação rápida.`, ja: `1分で${d}拍下がりました。回復が速い方です。`, de: `${d} Schläge in einer Minute weniger — eine flotte Erholung.`, fr: `${d} battements en moins en une minute : une récupération rapide.`, hi: `एक मिनट में ${d} धड़कन गिरी — जल्दी उबरने वाली बात।` }, tone: 'good' }
         : d >= 13
-          ? { ko: `1분에 ${d}회 떨어졌습니다. 보통 범위입니다.`, en: `Down ${d} beats in a minute — a normal range.`, tone: 'good' }
-          : { ko: `1분에 ${d}회는 느린 편입니다. 12회 이하가 반복되면 확인해 볼 신호로 봅니다.`, en: `${d} beats is slow; a repeated drop of 12 or fewer is treated as worth checking.`, tone: 'warn' };
+          ? { ko: `1분에 ${d}회 떨어졌습니다. 보통 범위입니다.`, en: `Down ${d} beats in a minute — a normal range.`, l10n: { es: `Bajó ${d} pulsaciones en un minuto: un rango normal.`, 'pt-br': `Caiu ${d} batimentos em um minuto: faixa normal.`, ja: `1分で${d}拍下がりました。通常の範囲です。`, de: `${d} Schläge in einer Minute weniger — ein normaler Bereich.`, fr: `${d} battements en moins en une minute : une plage normale.`, hi: `एक मिनट में ${d} धड़कन गिरी — यह सामान्य दायरा है।` }, tone: 'good' }
+          : { ko: `1분에 ${d}회는 느린 편입니다. 12회 이하가 반복되면 확인해 볼 신호로 봅니다.`, en: `${d} beats is slow; a repeated drop of 12 or fewer is treated as worth checking.`, l10n: { es: `${d} pulsaciones es lento; una caída repetida de 12 o menos se considera digna de revisar.`, 'pt-br': `${d} batimentos é lento; uma queda repetida de 12 ou menos é considerada digna de checar.`, ja: `${d}拍は遅い方です。12拍以下が繰り返すなら確認しておきたい合図と見ます。`, de: `${d} Schläge sind langsam; wiederholt 12 oder weniger gilt als Grund, das abklären zu lassen.`, fr: `${d} battements, c’est lent ; une baisse répétée de 12 ou moins mérite d’être vérifiée.`, hi: `${d} धड़कन धीमी है; बार-बार 12 या उससे कम गिरे तो इसे जाँचने लायक़ संकेत माना जाता है।` }, tone: 'warn' };
     },
     ko: { title: '심박수 회복 계산기', desc: '운동을 멈춘 뒤 1분 동안 심박이 얼마나 떨어지는지 봅니다.',
       long: '운동 직후 심박에서 1분 뒤 심박을 빼면 회복 심박수입니다. 심장이 부교감신경으로 얼마나 빠르게 돌아오는지를 보는 값이고, 체력이 늘면 이 숫자도 커집니다.',
@@ -134,6 +134,7 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `최대 ${out[0].value} MET까지 낼 수 있습니다. 계단을 쉬지 않고 오르려면 4~5 MET, 조깅은 7 MET 정도가 필요합니다.`,
       en: `You can reach about ${out[0].value} METs. Stairs without stopping need 4–5; jogging needs around 7.`,
+      l10n: { es: `Puedes llegar a unos ${out[0].value} MET. Subir escaleras sin parar pide 4–5; trotar, alrededor de 7.`, 'pt-br': `Você chega a cerca de ${out[0].value} MET. Subir escada sem parar pede 4–5; trotar, perto de 7.`, ja: `最大で約${out[0].value} METまで出せます。階段を止まらずに上るには4〜5 MET、ジョギングは7 MET程度が必要です。`, de: `Du erreichst etwa ${out[0].value} MET. Treppen ohne Pause brauchen 4–5, Joggen rund 7.`, fr: `Tu peux atteindre environ ${out[0].value} MET. Monter les escaliers sans t’arrêter demande 4–5 ; courir, autour de 7.`, hi: `आप लगभग ${out[0].value} MET तक पहुँच सकते हैं। बिना रुके सीढ़ी चढ़ने के लिए 4–5, और जॉगिंग के लिए क़रीब 7 चाहिए।` },
       tone: 'good',
     }),
     ko: { title: 'VO2max ↔ MET 환산기', desc: '심폐 능력을 운동 강도 단위로 바꿔 봅니다.',
@@ -265,6 +266,7 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
       return {
         ko: `예상 완주 시간은 약 ${h}시간 ${m}분, 페이스는 km당 ${out[1].value}분입니다.`,
         en: `Predicted finish around ${h} h ${m} min, at ${out[1].value} min per kilometre.`,
+        l10n: { es: `Llegada prevista en torno a ${h} h ${m} min, a ${out[1].value} min por kilómetro.`, 'pt-br': `Chegada prevista por volta de ${h} h ${m} min, a ${out[1].value} min por quilômetro.`, ja: `予想完走タイムは約${h}時間${m}分、ペースは1kmあたり${out[1].value}分です。`, de: `Voraussichtliche Zielzeit rund ${h} h ${m} min, bei ${out[1].value} min pro Kilometer.`, fr: `Arrivée prévue autour de ${h} h ${m} min, à ${out[1].value} min au kilomètre.`, hi: `अनुमानित समय क़रीब ${h} घंटे ${m} मिनट, रफ़्तार ${out[1].value} मिनट प्रति किलोमीटर।` },
         tone: 'good',
       };
     },

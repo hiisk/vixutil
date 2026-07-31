@@ -185,8 +185,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/body`, changeFrequency: weekly, priority: 0.95 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/body/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/body`, changeFrequency: weekly, priority: 0.9 },
-    ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/en/body/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 몸 수치도 slug가 여덟 언어에서 같다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/body`, changeFrequency: weekly, priority: 0.9 },
+      ...BODY_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/body/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/geometry`, changeFrequency: weekly, priority: 0.95 },
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/geometry/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/geometry`, changeFrequency: weekly, priority: 0.9 },

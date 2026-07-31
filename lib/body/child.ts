@@ -71,6 +71,7 @@ export const CHILD_TOOLS: FormulaTool[] = [
       return lost && pct > 10 ? {
         ko: `출생 체중보다 ${round(pct, 1)}% 줄었습니다. 10%를 넘는 감소는 진료가 필요합니다.`,
         en: `Down ${round(pct, 1)}% from birth weight — a loss over 10% needs medical review.`,
+        l10n: { es: `Ha bajado un ${round(pct, 1)} % desde el peso al nacer: una pérdida superior al 10 % requiere revisión médica.`, 'pt-br': `Caiu ${round(pct, 1)} % em relação ao peso de nascimento: uma perda acima de 10 % pede avaliação médica.`, ja: `出生体重より${round(pct, 1)}%減っています。10%を超える減少は受診が必要です。`, de: `${round(pct, 1)} % unter dem Geburtsgewicht — ein Verlust über 10 % gehört ärztlich abgeklärt.`, fr: `${round(pct, 1)} % de moins que le poids de naissance : une perte de plus de 10 % demande un avis médical.`, hi: `जन्म के वज़न से ${round(pct, 1)}% कम — 10% से ज़्यादा गिरावट पर डॉक्टर को दिखाना ज़रूरी है।` },
         tone: 'bad',
       } : null;
     },
@@ -150,7 +151,8 @@ export const CHILD_TOOLS: FormulaTool[] = [
       const slow = y < 4;
       return {
         ko: slow ? `연 ${y}cm는 학령기 평균(5~6cm)보다 느립니다.` : `연 ${y}cm로 자라고 있습니다.`,
-        en: slow ? `${y} cm a year is slower than the 5–6 cm typical of school age.` : `Growing at ${y} cm a year.` ? `每年${y}厘米低于学龄期常见的5~6厘米。` : `目前以每年${y}厘米的速度生长。`,
+        en: slow ? `${y} cm a year is slower than the 5–6 cm typical of school age.` : `Growing at ${y} cm a year.`,
+        l10n: { es: slow ? `${y} cm al año es más lento que los 5–6 cm habituales en edad escolar.` : `Crece a ${y} cm al año.`, 'pt-br': slow ? `${y} cm por ano é mais lento que os 5–6 cm comuns na idade escolar.` : `Cresce ${y} cm por ano.`, ja: slow ? `年${y}cmは学齢期の平均(5〜6cm)より遅めです。` : `年${y}cmのペースで伸びています。`, de: slow ? `${y} cm im Jahr sind langsamer als die 5–6 cm, die im Schulalter üblich sind.` : `Wächst um ${y} cm im Jahr.`, fr: slow ? `${y} cm par an, c’est plus lent que les 5–6 cm habituels à l’âge scolaire.` : `Grandit de ${y} cm par an.`, hi: slow ? `साल में ${y} सेमी स्कूल-उम्र के आम 5–6 सेमी से धीमा है।` : `साल में ${y} सेमी की रफ़्तार से बढ़ रहे हैं।` },
         tone: slow ? 'warn' : 'good',
       };
     },

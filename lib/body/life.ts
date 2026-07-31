@@ -59,7 +59,8 @@ export const LIFE_TOOLS: FormulaTool[] = [
       const enough = h >= 7 && h <= 9;
       return {
         ko: enough ? `${h}시간은 성인 권장 수면(7~9시간) 안입니다.` : h < 7 ? `${h}시간은 권장 수면보다 짧습니다.` : `${h}시간은 권장 수면보다 깁니다.`,
-        en: enough ? `${h} hours falls inside the recommended 7–9 for adults.` : h < 7 ? `${h} hours is short of the recommended range.` : `${h} hours is longer than the recommended range.` ? `${h}小时在成人推荐睡眠(7~9小时)范围内。` : h < 7 ? `${h}小时少于推荐睡眠时长。` : `${h}小时长于推荐睡眠时长。`,
+        en: enough ? `${h} hours falls inside the recommended 7–9 for adults.` : h < 7 ? `${h} hours is short of the recommended range.` : `${h} hours is longer than the recommended range.`,
+        l10n: { es: enough ? `${h} horas entra en las 7–9 recomendadas para adultos.` : h < 7 ? `${h} horas se queda corto respecto al rango recomendado.` : `${h} horas es más largo que el rango recomendado.`, 'pt-br': enough ? `${h} horas entra nas 7–9 recomendadas para adultos.` : h < 7 ? `${h} horas fica aquém da faixa recomendada.` : `${h} horas é mais longo que a faixa recomendada.`, ja: enough ? `${h}時間は成人の推奨睡眠(7〜9時間)の内側です。` : h < 7 ? `${h}時間は推奨より短いです。` : `${h}時間は推奨より長いです。`, de: enough ? `${h} Stunden liegen in den empfohlenen 7–9 für Erwachsene.` : h < 7 ? `${h} Stunden bleiben unter dem empfohlenen Bereich.` : `${h} Stunden liegen über dem empfohlenen Bereich.`, fr: enough ? `${h} heures entre dans les 7 à 9 recommandées chez l’adulte.` : h < 7 ? `${h} heures reste sous la plage recommandée.` : `${h} heures dépasse la plage recommandée.`, hi: enough ? `${h} घंटे वयस्कों के लिए सुझाई गई 7–9 घंटे की नींद के भीतर है।` : h < 7 ? `${h} घंटे सुझाए गए दायरे से कम है।` : `${h} घंटे सुझाए गए दायरे से ज़्यादा है।` },
         tone: enough ? 'good' : 'warn',
       };
     },
@@ -95,9 +96,12 @@ export const LIFE_TOOLS: FormulaTool[] = [
     verdict: (v, out) => {
       const b = out[0].value;
       const over = b >= 0.03;
+      // 음주운전 단속 기준은 나라마다 다르다 — 언어별로 그 나라 숫자를 쓴다
+      const over05 = b >= 0.05;
       return {
         ko: over ? `추정 ${b}%는 한국 음주운전 기준(0.03%)을 넘습니다 — 운전하지 마세요.` : `추정 ${b}%입니다. 추정값이므로 운전 가능 여부의 근거로 쓸 수 없습니다.`,
-        en: over ? `An estimated ${b}% exceeds Korea’s 0.03% driving limit — do not drive.` : `Estimated at ${b}%. This is only an estimate and must not be used to decide whether to drive.` ? `估算${b}%已超过韩国酒驾标准(0.03%) — 请勿驾车。` : `估算为${b}%。这只是估算值，不能作为能否驾车的依据。`,
+        en: over ? `An estimated ${b}% exceeds Korea’s 0.03% driving limit — do not drive.` : `Estimated at ${b}%. This is only an estimate and must not be used to decide whether to drive.`,
+        l10n: { es: over05 ? `El ${b} % estimado supera el límite español de 0,05 % — no conduzcas.` : `Estimado en ${b} %. Es solo una estimación y no puede servir para decidir si conducir.`, 'pt-br': `Estimado em ${b} %. No Brasil a tolerância é zero: qualquer álcool detectado já é infração, e nem por isso este número serve para decidir se você pode dirigir.`, ja: over ? `推定${b}%は日本の酒気帯び基準(0.03%)を超えています — 運転しないでください。` : `推定${b}%です。あくまで推定値なので、運転できるかどうかの判断には使えません。`, de: over05 ? `Geschätzte ${b} % liegen über der deutschen Grenze von 0,05 % — fahr nicht.` : `Geschätzt ${b} %. Das ist nur eine Schätzung und darf nicht darüber entscheiden, ob du fährst.`, fr: over05 ? `Les ${b} % estimés dépassent la limite française de 0,05 % — ne conduis pas.` : `Estimé à ${b} %. Ce n’est qu’une estimation et elle ne peut pas servir à décider si tu conduis.`, hi: over ? `अनुमानित ${b}% भारत की सीमा (0.03%) से ऊपर है — गाड़ी न चलाएँ।` : `अनुमान ${b}% है। यह सिर्फ़ अनुमान है और इससे यह तय नहीं किया जा सकता कि आप गाड़ी चला सकते हैं या नहीं।` },
         tone: over ? 'bad' : 'warn',
       };
     },
@@ -153,7 +157,8 @@ export const LIFE_TOOLS: FormulaTool[] = [
       const much = left >= 50;
       return {
         ko: much ? `${v.hours}시간 뒤에도 ${left}mg가 남습니다 — 수면에 영향을 줄 수 있습니다.` : `${v.hours}시간 뒤 ${left}mg가 남습니다.`,
-        en: much ? `${left} mg remains after ${v.hours} hours — enough to affect sleep.` : `${left} mg remains after ${v.hours} hours.` ? `${v.hours}小时后仍残留${left}毫克 — 足以影响睡眠。` : `${v.hours}小时后残留${left}毫克。`,
+        en: much ? `${left} mg remains after ${v.hours} hours — enough to affect sleep.` : `${left} mg remains after ${v.hours} hours.`,
+        l10n: { es: much ? `Quedan ${left} mg tras ${v.hours} horas: suficiente para afectar al sueño.` : `Quedan ${left} mg tras ${v.hours} horas.`, 'pt-br': much ? `Restam ${left} mg depois de ${v.hours} horas: o bastante para atrapalhar o sono.` : `Restam ${left} mg depois de ${v.hours} horas.`, ja: much ? `${v.hours}時間後も${left}mgが残っています — 睡眠に響く量です。` : `${v.hours}時間後に${left}mgが残ります。`, de: much ? `Nach ${v.hours} Stunden sind noch ${left} mg da — genug, um den Schlaf zu stören.` : `Nach ${v.hours} Stunden sind noch ${left} mg da.`, fr: much ? `Il reste ${left} mg après ${v.hours} heures : de quoi gêner le sommeil.` : `Il reste ${left} mg après ${v.hours} heures.`, hi: much ? `${v.hours} घंटे बाद भी ${left} mg बचा है — नींद पर असर डालने लायक़।` : `${v.hours} घंटे बाद ${left} mg बचा है।` },
         tone: much ? 'warn' : 'good',
       };
     },

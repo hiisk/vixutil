@@ -235,6 +235,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
     copy: {
       en: { title: 'Body Metrics', desc: 'BMI, body fat, BMR, running pace, one-rep max' },
+      es: { title: 'Medidas del cuerpo', desc: 'IMC, grasa corporal, metabolismo basal, ritmo, 1RM' },
+      'pt-br': { title: 'Medidas do corpo', desc: 'IMC, gordura corporal, metabolismo basal, ritmo, 1RM' },
+      ja: { title: '体の数値', desc: 'BMI・体脂肪率・基礎代謝・ペース・1RM' },
+      de: { title: 'Körperwerte', desc: 'BMI, Körperfett, Grundumsatz, Lauftempo, 1RM' },
+      fr: { title: 'Mesures du corps', desc: 'IMC, masse grasse, métabolisme de base, allure, 1RM' },
+      hi: { title: 'शरीर के आँकड़े', desc: 'BMI, शरीर की वसा, बेसल चयापचय, दौड़ की रफ़्तार, 1RM' },
     },
   },
   {

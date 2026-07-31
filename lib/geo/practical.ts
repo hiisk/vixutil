@@ -228,7 +228,7 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
       const pct = round(Math.abs(r - 1) * 100, 1);
       return {
         ko: bigWins ? `${v.a}cm 한 판이 ${v.b}cm ${v.n}판보다 ${pct}% 큽니다.` : `${v.b}cm ${v.n}판이 ${v.a}cm 한 판보다 ${round((1 / r - 1) * 100, 1)}% 큽니다.`,
-        en: bigWins ? `One ${v.a} cm pizza is ${pct}% more pizza than ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm gives ${round((1 / r - 1) * 100, 1)}% more than one ${v.a} cm.` ? `一个${v.a}厘米的披萨比${v.n}个${v.b}厘米的多${pct}%。` : `${v.n}个${v.b}厘米的披萨比一个${v.a}厘米的多${round((1 / r - 1) * 100, 1)}%。`,
+        en: bigWins ? `One ${v.a} cm pizza is ${pct}% more pizza than ${v.n} × ${v.b} cm.` : `${v.n} × ${v.b} cm gives ${round((1 / r - 1) * 100, 1)}% more than one ${v.a} cm.`,
         tone: 'good',
       };
     },
@@ -322,7 +322,7 @@ export const PRACTICAL_TOOLS: FormulaTool[] = [
       const ok = sum >= 60 && sum <= 65;
       return {
         ko: ok ? `2×단높이+단너비 = ${round(sum, 1)}cm로 걷기 편한 범위(60~65cm)입니다.` : `2×단높이+단너비 = ${round(sum, 1)}cm입니다. 60~65cm가 걷기 편한 범위입니다.`,
-        en: ok ? `2 × riser + tread = ${round(sum, 1)} cm, inside the comfortable 60–65 cm range.` : `2 × riser + tread = ${round(sum, 1)} cm; the comfortable range is 60–65 cm.` ? `2×级高+踏面 = ${round(sum, 1)}厘米，处于舒适区间(60~65厘米)。` : `2×级高+踏面 = ${round(sum, 1)}厘米；舒适区间为60~65厘米。`,
+        en: ok ? `2 × riser + tread = ${round(sum, 1)} cm, inside the comfortable 60–65 cm range.` : `2 × riser + tread = ${round(sum, 1)} cm; the comfortable range is 60–65 cm.`,
         tone: ok ? 'good' : 'warn',
       };
     },

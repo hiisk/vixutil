@@ -23,7 +23,8 @@ export const HEALTH_TOOLS: FormulaTool[] = [
       const high = m > 100;
       return {
         ko: low ? `평균 동맥압 ${m}mmHg는 낮습니다 — 장기 관류가 부족할 수 있습니다.` : high ? `평균 동맥압 ${m}mmHg는 높습니다.` : `평균 동맥압 ${m}mmHg는 통상 범위(70~100) 안입니다.`,
-        en: low ? `A MAP of ${m} mmHg is low — organ perfusion may be inadequate.` : high ? `A MAP of ${m} mmHg is elevated.` : `A MAP of ${m} mmHg sits in the usual 70–100 range.` ? `平均动脉压${m}毫米汞柱偏低 — 器官灌注可能不足。` : high ? `平均动脉压${m}毫米汞柱偏高。` : `平均动脉压${m}毫米汞柱在通常范围(70~100)内。`,
+        en: low ? `A MAP of ${m} mmHg is low — organ perfusion may be inadequate.` : high ? `A MAP of ${m} mmHg is elevated.` : `A MAP of ${m} mmHg sits in the usual 70–100 range.`,
+        l10n: { es: low ? `Una presión arterial media de ${m} mmHg es baja: la perfusión de los órganos puede quedarse corta.` : high ? `Una presión arterial media de ${m} mmHg está elevada.` : `Una presión arterial media de ${m} mmHg cae en el rango habitual de 70–100.`, 'pt-br': low ? `Uma pressão arterial média de ${m} mmHg é baixa: a perfusão dos órgãos pode ficar insuficiente.` : high ? `Uma pressão arterial média de ${m} mmHg está elevada.` : `Uma pressão arterial média de ${m} mmHg fica na faixa habitual de 70–100.`, ja: low ? `平均動脈圧${m}mmHgは低めです — 臓器への血流が足りない可能性があります。` : high ? `平均動脈圧${m}mmHgは高めです。` : `平均動脈圧${m}mmHgは通常の範囲(70〜100)内です。`, de: low ? `Ein mittlerer arterieller Druck von ${m} mmHg ist niedrig — die Organdurchblutung könnte nicht reichen.` : high ? `Ein mittlerer arterieller Druck von ${m} mmHg ist erhöht.` : `Ein mittlerer arterieller Druck von ${m} mmHg liegt im üblichen Bereich von 70–100.`, fr: low ? `Une pression artérielle moyenne de ${m} mmHg est basse : la perfusion des organes peut être insuffisante.` : high ? `Une pression artérielle moyenne de ${m} mmHg est élevée.` : `Une pression artérielle moyenne de ${m} mmHg se situe dans la plage habituelle de 70 à 100.`, hi: low ? `${m} mmHg का औसत धमनी दाब कम है — अंगों तक ख़ून की पहुँच अधूरी पड़ सकती है।` : high ? `${m} mmHg का औसत धमनी दाब बढ़ा हुआ है।` : `${m} mmHg का औसत धमनी दाब सामान्य दायरे (70–100) में है।` },
         tone: low || high ? 'warn' : 'good',
       };
     },
@@ -53,7 +54,8 @@ export const HEALTH_TOOLS: FormulaTool[] = [
       const narrow = p < 30;
       return {
         ko: wide ? `맥압 ${p}mmHg는 넓습니다 — 혈관이 굳으면 넓어집니다.` : narrow ? `맥압 ${p}mmHg는 좁습니다.` : `맥압 ${p}mmHg는 통상 범위(30~50)입니다.`,
-        en: wide ? `A pulse pressure of ${p} mmHg is wide — stiff arteries widen it.` : narrow ? `A pulse pressure of ${p} mmHg is narrow.` : `A pulse pressure of ${p} mmHg is in the usual 30–50 range.` ? `脉压${p}毫米汞柱偏宽 — 血管硬化会使其变宽。` : narrow ? `脉压${p}毫米汞柱偏窄。` : `脉压${p}毫米汞柱在通常范围(30~50)内。`,
+        en: wide ? `A pulse pressure of ${p} mmHg is wide — stiff arteries widen it.` : narrow ? `A pulse pressure of ${p} mmHg is narrow.` : `A pulse pressure of ${p} mmHg is in the usual 30–50 range.`,
+        l10n: { es: wide ? `Una presión de pulso de ${p} mmHg es ancha: las arterias rígidas la ensanchan.` : narrow ? `Una presión de pulso de ${p} mmHg es estrecha.` : `Una presión de pulso de ${p} mmHg está en el rango habitual de 30–50.`, 'pt-br': wide ? `Uma pressão de pulso de ${p} mmHg é larga: artérias endurecidas a alargam.` : narrow ? `Uma pressão de pulso de ${p} mmHg é estreita.` : `Uma pressão de pulso de ${p} mmHg está na faixa habitual de 30–50.`, ja: wide ? `脈圧${p}mmHgは広めです — 血管が硬くなると広がります。` : narrow ? `脈圧${p}mmHgは狭めです。` : `脈圧${p}mmHgは通常の範囲(30〜50)です。`, de: wide ? `Eine Blutdruckamplitude von ${p} mmHg ist weit — steife Arterien machen sie weiter.` : narrow ? `Eine Blutdruckamplitude von ${p} mmHg ist schmal.` : `Eine Blutdruckamplitude von ${p} mmHg liegt im üblichen Bereich von 30–50.`, fr: wide ? `Une pression pulsée de ${p} mmHg est large : des artères rigides l’élargissent.` : narrow ? `Une pression pulsée de ${p} mmHg est étroite.` : `Une pression pulsée de ${p} mmHg est dans la plage habituelle de 30 à 50.`, hi: wide ? `${p} mmHg की नाड़ी दाब चौड़ी है — धमनियाँ कड़ी होने पर यह चौड़ी हो जाती है।` : narrow ? `${p} mmHg की नाड़ी दाब सँकरी है।` : `${p} mmHg की नाड़ी दाब सामान्य दायरे (30–50) में है।` },
         tone: wide || narrow ? 'warn' : 'good',
       };
     },
@@ -83,7 +85,8 @@ export const HEALTH_TOOLS: FormulaTool[] = [
       const bad = r >= 5;
       return {
         ko: good ? `비율 ${r}은 양호합니다.` : bad ? `비율 ${r}은 위험 구간입니다 — 5 이상은 관리가 필요합니다.` : `비율 ${r}은 보통입니다. 목표는 3.5 아래입니다.`,
-        en: good ? `A ratio of ${r} is favourable.` : bad ? `A ratio of ${r} is in the risk range — 5 or above needs attention.` : `A ratio of ${r} is average; aim below 3.5.` ? `比值${r}良好。` : bad ? `比值${r}处于风险区间 — 5以上需要干预。` : `比值${r}属一般，目标是低于3.5。`,
+        en: good ? `A ratio of ${r} is favourable.` : bad ? `A ratio of ${r} is in the risk range — 5 or above needs attention.` : `A ratio of ${r} is average; aim below 3.5.`,
+        l10n: { es: good ? `Una relación de ${r} es favorable.` : bad ? `Una relación de ${r} entra en la zona de riesgo: 5 o más pide atención.` : `Una relación de ${r} es normal; apunta por debajo de 3,5.`, 'pt-br': good ? `Uma relação de ${r} é favorável.` : bad ? `Uma relação de ${r} entra na zona de risco: 5 ou mais pede atenção.` : `Uma relação de ${r} é mediana; mire abaixo de 3,5.`, ja: good ? `比${r}は良好です。` : bad ? `比${r}は危険域です — 5以上は対応が必要です。` : `比${r}は平均的です。目標は3.5未満です。`, de: good ? `Ein Verhältnis von ${r} ist günstig.` : bad ? `Ein Verhältnis von ${r} liegt im Risikobereich — ab 5 ist Handeln gefragt.` : `Ein Verhältnis von ${r} ist durchschnittlich; ziel auf unter 3,5.`, fr: good ? `Un rapport de ${r} est favorable.` : bad ? `Un rapport de ${r} entre dans la zone à risque : 5 ou plus demande une prise en charge.` : `Un rapport de ${r} est moyen ; vise sous 3,5.`, hi: good ? `${r} का अनुपात अच्छा है।` : bad ? `${r} का अनुपात जोखिम के दायरे में है — 5 या ऊपर पर ध्यान देना ज़रूरी है।` : `${r} का अनुपात औसत है; लक्ष्य 3.5 से नीचे रखें।` },
         tone: good ? 'good' : bad ? 'bad' : 'warn',
       };
     },
@@ -111,6 +114,7 @@ export const HEALTH_TOOLS: FormulaTool[] = [
     verdict: v => v.tg >= 400 ? {
       ko: '중성지방이 400 이상이면 이 공식은 쓸 수 없습니다. 직접 측정한 LDL이 필요합니다.',
       en: 'Above 400 mg/dL of triglycerides this formula breaks down — a directly measured LDL is needed.',
+      l10n: { es: 'Por encima de 400 mg/dL de triglicéridos esta fórmula deja de servir: hace falta un LDL medido directamente.', 'pt-br': 'Acima de 400 mg/dL de triglicerídeos esta fórmula deixa de valer: é preciso um LDL medido diretamente.', ja: '中性脂肪が400 mg/dLを超えるとこの式は使えません。直接測定したLDLが必要です。', de: 'Über 400 mg/dL Triglyzeride versagt diese Formel — dann braucht es ein direkt gemessenes LDL.', fr: 'Au-delà de 400 mg/dL de triglycérides, cette formule ne tient plus : il faut un LDL mesuré directement.', hi: 'ट्राइग्लिसराइड 400 mg/dL से ऊपर हो तो यह सूत्र काम नहीं करता — सीधे नापा गया LDL चाहिए।' },
       tone: 'bad',
     } : null,
     ko: { title: 'LDL 콜레스테롤 계산기', desc: '검사지의 세 값으로 LDL을 계산합니다(프리드발트 식).',
@@ -138,7 +142,8 @@ export const HEALTH_TOOLS: FormulaTool[] = [
       const high = n >= 160;
       return {
         ko: high ? `non-HDL ${n}은 높습니다 — 130 아래가 일반 목표입니다.` : `non-HDL ${n}입니다. 일반 목표는 130 아래입니다.`,
-        en: high ? `Non-HDL of ${n} is high — the general target is under 130.` : `Non-HDL is ${n}; the general target is under 130.` ? `非HDL胆固醇${n}偏高 — 一般目标是低于130。` : `非HDL胆固醇为${n}，一般目标是低于130。`,
+        en: high ? `Non-HDL of ${n} is high — the general target is under 130.` : `Non-HDL is ${n}; the general target is under 130.`,
+        l10n: { es: high ? `Un no-HDL de ${n} es alto: el objetivo general está por debajo de 130.` : `El no-HDL es ${n}; el objetivo general está por debajo de 130.`, 'pt-br': high ? `Um não-HDL de ${n} é alto: a meta geral fica abaixo de 130.` : `O não-HDL é ${n}; a meta geral fica abaixo de 130.`, ja: high ? `non-HDL ${n}は高めです — 一般的な目標は130未満です。` : `non-HDLは${n}です。一般的な目標は130未満です。`, de: high ? `Ein Nicht-HDL von ${n} ist hoch — das allgemeine Ziel liegt unter 130.` : `Das Nicht-HDL beträgt ${n}; das allgemeine Ziel liegt unter 130.`, fr: high ? `Un non-HDL de ${n} est élevé : la cible générale est sous 130.` : `Le non-HDL est de ${n} ; la cible générale est sous 130.`, hi: high ? `${n} का non-HDL ऊँचा है — आम लक्ष्य 130 से नीचे है।` : `non-HDL ${n} है; आम लक्ष्य 130 से नीचे रहता है।` },
         tone: high ? 'bad' : 'good',
       };
     },
@@ -166,7 +171,8 @@ export const HEALTH_TOOLS: FormulaTool[] = [
       const high = x >= 2.5;
       return {
         ko: high ? `HOMA-IR ${x}는 인슐린 저항성이 의심되는 구간입니다.` : `HOMA-IR ${x}는 통상 범위(2.5 미만)입니다.`,
-        en: high ? `A HOMA-IR of ${x} suggests insulin resistance.` : `A HOMA-IR of ${x} is within the usual range (under 2.5).` ? `HOMA-IR为${x}，提示可能存在胰岛素抵抗。` : `HOMA-IR为${x}，在通常范围内(低于2.5)。`,
+        en: high ? `A HOMA-IR of ${x} suggests insulin resistance.` : `A HOMA-IR of ${x} is within the usual range (under 2.5).`,
+        l10n: { es: high ? `Un HOMA-IR de ${x} apunta a resistencia a la insulina.` : `Un HOMA-IR de ${x} está dentro del rango habitual (por debajo de 2,5).`, 'pt-br': high ? `Um HOMA-IR de ${x} aponta resistência à insulina.` : `Um HOMA-IR de ${x} está dentro da faixa habitual (abaixo de 2,5).`, ja: high ? `HOMA-IR ${x}はインスリン抵抗性が疑われる領域です。` : `HOMA-IR ${x}は通常の範囲(2.5未満)です。`, de: high ? `Ein HOMA-IR von ${x} deutet auf Insulinresistenz hin.` : `Ein HOMA-IR von ${x} liegt im üblichen Bereich (unter 2,5).`, fr: high ? `Un HOMA-IR de ${x} évoque une résistance à l’insuline.` : `Un HOMA-IR de ${x} reste dans la plage habituelle (sous 2,5).`, hi: high ? `${x} का HOMA-IR इंसुलिन प्रतिरोध की ओर इशारा करता है।` : `${x} का HOMA-IR सामान्य दायरे (2.5 से कम) में है।` },
         tone: high ? 'warn' : 'good',
       };
     },
@@ -192,8 +198,7 @@ export const HEALTH_TOOLS: FormulaTool[] = [
       const band = a < 5.7 ? 0 : a < 6.5 ? 1 : 2;
       const ko = ['정상', '당뇨 전 단계', '당뇨 진단 기준 이상'][band];
       const en = ['normal', 'pre-diabetes range', 'at or above the diabetes threshold'][band];
-      const zh = ['正常', '糖尿病前期', '达到或超过糖尿病诊断标准'][band];
-      return { ko: `HbA1c ${a}%는 ${ko}입니다.`, en: `An HbA1c of ${a}% is ${en}.`, tone: band === 0 ? 'good' : band === 1 ? 'warn' : 'bad' };
+      return { ko: `HbA1c ${a}%는 ${ko}입니다.`, en: `An HbA1c of ${a}% is ${en}.`, l10n: { es: `Una HbA1c del ${a} % es ${['normal', 'prediabetes', 'igual o superior al umbral de diabetes'][band]}.`, 'pt-br': `Uma HbA1c de ${a} % é ${['normal', 'pré-diabetes', 'igual ou acima do limiar de diabetes'][band]}.`, ja: `HbA1c ${a}%は${['正常', '糖尿病予備群', '糖尿病の診断基準以上'][band]}です。`, de: `Ein HbA1c von ${a} % ist ${['normal', 'Prädiabetes', 'auf oder über der Diabetes-Schwelle'][band]}.`, fr: `Une HbA1c de ${a} % est ${['normale', 'un prédiabète', 'au niveau ou au-delà du seuil du diabète'][band]}.`, hi: `${a}% की HbA1c ${['सामान्य', 'मधुमेह-पूर्व अवस्था', 'मधुमेह की सीमा पर या ऊपर'][band]} है।` }, tone: band === 0 ? 'good' : band === 1 ? 'warn' : 'bad' };
     },
     ko: { title: 'HbA1c → 평균 혈당 변환', desc: '당화혈색소로 지난 2~3개월의 평균 혈당을 환산합니다.',
       long: 'HbA1c는 적혈구에 붙은 당의 비율이라 최근 2~3개월의 평균 혈당을 반영합니다. 6.5% 이상이면 당뇨 진단 기준입니다.',

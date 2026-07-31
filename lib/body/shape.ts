@@ -27,10 +27,12 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const band = b < 18.5 ? 0 : b < 23 ? 1 : b < 25 ? 2 : b < 30 ? 3 : 4;
       const ko = ['저체중', '정상', '과체중', '경도 비만', '중등도 이상 비만'][band];
       const en = ['underweight', 'normal', 'overweight', 'obese class I', 'obese class II or higher'][band];
-      const zh = ['体重不足', '正常', '超重', '轻度肥胖', '中度以上肥胖'][band];
+      // WHO 국제 기준은 25·30에서 끊는다 — 아시아·태평양 기준(23·25)보다 높다
+      const who = b < 18.5 ? 0 : b < 25 ? 1 : b < 30 ? 2 : b < 35 ? 3 : 4;
       return {
         ko: `BMI ${b}은 아시아·태평양 기준으로 ${ko}입니다.`,
         en: `A BMI of ${b} is ${en} by the Asia-Pacific classification.`,
+        l10n: { es: `Un IMC de ${b} es ${['bajo peso', 'normal', 'sobrepeso', 'obesidad grado I', 'obesidad grado II o mayor'][who]} según la OMS.`, 'pt-br': `Um IMC de ${b} é ${['abaixo do peso', 'normal', 'sobrepeso', 'obesidade grau I', 'obesidade grau II ou maior'][who]} pela OMS.`, ja: `BMI ${b}はアジア太平洋基準で${['低体重', '普通', '過体重', '肥満1度', '肥満2度以上'][band]}です。`, de: `Ein BMI von ${b} gilt nach WHO als ${['Untergewicht', 'Normalgewicht', 'Übergewicht', 'Adipositas Grad I', 'Adipositas Grad II oder höher'][who]}.`, fr: `Un IMC de ${b} correspond à ${['une insuffisance pondérale', 'un poids normal', 'un surpoids', 'une obésité de grade I', 'une obésité de grade II ou plus'][who]} selon l’OMS.`, hi: `BMI ${b} एशिया-प्रशांत मानक के हिसाब से ${['कम वज़न', 'सामान्य', 'अधिक वज़न', 'मोटापा श्रेणी I', 'मोटापा श्रेणी II या ऊपर'][band]} है।` },
         tone: band === 1 ? 'good' : band === 2 || band === 0 ? 'warn' : 'bad',
       };
     },
@@ -122,7 +124,8 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const ok = p >= low && p < high;
       return {
         ko: ok ? `${p}%는 통상 권장 범위 안입니다.` : p >= high ? `${p}%는 권장 범위(${low}~${high}%)보다 높습니다.` : `${p}%는 권장 범위보다 낮습니다.`,
-        en: ok ? `${p}% falls inside the usual healthy range.` : p >= high ? `${p}% is above the usual range of ${low}–${high}%.` : `${p}% is below the usual healthy range.` ? `${p}%在通常的健康范围内。` : p >= high ? `${p}%高于通常范围(${low}~${high}%)。` : `${p}%低于通常的健康范围。`,
+        en: ok ? `${p}% falls inside the usual healthy range.` : p >= high ? `${p}% is above the usual range of ${low}–${high}%.` : `${p}% is below the usual healthy range.`,
+        l10n: { es: ok ? `El ${p} % cae dentro del rango saludable habitual.` : p >= high ? `El ${p} % supera el rango habitual de ${low}–${high} %.` : `El ${p} % queda por debajo del rango saludable habitual.`, 'pt-br': ok ? `${p} % fica dentro da faixa saudável habitual.` : p >= high ? `${p} % está acima da faixa habitual de ${low}–${high} %.` : `${p} % está abaixo da faixa saudável habitual.`, ja: ok ? `${p}%は通常の適正範囲に入っています。` : p >= high ? `${p}%は通常の範囲(${low}〜${high}%)より高めです。` : `${p}%は通常の適正範囲より低めです。`, de: ok ? `${p} % liegen im üblichen gesunden Bereich.` : p >= high ? `${p} % liegen über dem üblichen Bereich von ${low}–${high} %.` : `${p} % liegen unter dem üblichen gesunden Bereich.`, fr: ok ? `${p} % se situe dans la fourchette saine habituelle.` : p >= high ? `${p} % dépasse la fourchette habituelle de ${low} à ${high} %.` : `${p} % est sous la fourchette saine habituelle.`, hi: ok ? `${p}% सामान्य स्वस्थ दायरे के भीतर है।` : p >= high ? `${p}% सामान्य दायरे (${low}–${high}%) से ऊपर है।` : `${p}% सामान्य स्वस्थ दायरे से नीचे है।` },
         tone: ok ? 'good' : 'warn',
       };
     },
@@ -176,7 +179,8 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const ok = r < limit;
       return {
         ko: ok ? `${r}은 기준선 ${limit} 아래입니다.` : `${r}은 복부 비만 기준 ${limit}을 넘었습니다.`,
-        en: ok ? `${r} is below the ${limit} threshold.` : `${r} exceeds the abdominal-obesity threshold of ${limit}.` ? `${r}低于${limit}的界值。` : `${r}超过了腹型肥胖界值${limit}。`,
+        en: ok ? `${r} is below the ${limit} threshold.` : `${r} exceeds the abdominal-obesity threshold of ${limit}.`,
+        l10n: { es: ok ? `${r} queda por debajo del umbral de ${limit}.` : `${r} supera el umbral de obesidad abdominal de ${limit}.`, 'pt-br': ok ? `${r} fica abaixo do limite de ${limit}.` : `${r} passa do limite de obesidade abdominal de ${limit}.`, ja: ok ? `${r}は基準値${limit}を下回っています。` : `${r}は腹部肥満の基準${limit}を超えています。`, de: ok ? `${r} liegt unter dem Grenzwert von ${limit}.` : `${r} überschreitet den Grenzwert für Bauchfettleibigkeit von ${limit}.`, fr: ok ? `${r} reste sous le seuil de ${limit}.` : `${r} dépasse le seuil d’obésité abdominale de ${limit}.`, hi: ok ? `${r} सीमा ${limit} से नीचे है।` : `${r} पेट के मोटापे की सीमा ${limit} पार कर गया है।` },
         tone: ok ? 'good' : 'bad',
       };
     },
@@ -205,7 +209,8 @@ export const SHAPE_TOOLS: FormulaTool[] = [
       const ok = r < 0.5;
       return {
         ko: ok ? `${r}로 0.5 아래입니다 — 허리가 키의 절반보다 짧습니다.` : `${r}로 0.5를 넘었습니다 — 허리가 키의 절반보다 굵습니다.`,
-        en: ok ? `${r} is under 0.5 — your waist is less than half your height.` : `${r} is over 0.5 — your waist exceeds half your height.` ? `${r}低于0.5 — 腰围小于身高的一半。` : `${r}高于0.5 — 腰围超过身高的一半。`,
+        en: ok ? `${r} is under 0.5 — your waist is less than half your height.` : `${r} is over 0.5 — your waist exceeds half your height.`,
+        l10n: { es: ok ? `${r} está por debajo de 0,5: tu cintura mide menos de la mitad de tu estatura.` : `${r} pasa de 0,5: tu cintura supera la mitad de tu estatura.`, 'pt-br': ok ? `${r} está abaixo de 0,5: sua cintura mede menos que metade da sua altura.` : `${r} passa de 0,5: sua cintura passa da metade da sua altura.`, ja: ok ? `${r}で0.5を下回っています — ウエストが身長の半分より細いということです。` : `${r}で0.5を超えています — ウエストが身長の半分より太いということです。`, de: ok ? `${r} liegt unter 0,5 — dein Taillenumfang ist kleiner als die halbe Körpergröße.` : `${r} liegt über 0,5 — dein Taillenumfang übertrifft die halbe Körpergröße.`, fr: ok ? `${r} est sous 0,5 : ton tour de taille fait moins de la moitié de ta taille.` : `${r} dépasse 0,5 : ton tour de taille dépasse la moitié de ta taille.`, hi: ok ? `${r} यानी 0.5 से नीचे — आपकी कमर आपकी लंबाई के आधे से कम है।` : `${r} यानी 0.5 से ऊपर — आपकी कमर आपकी लंबाई के आधे से ज़्यादा है।` },
         tone: ok ? 'good' : 'bad',
       };
     },

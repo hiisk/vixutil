@@ -30,10 +30,10 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const d = out[0].value;
       return d === 0
-        ? { ko: '부채가 없습니다.', en: 'No debt accumulated.', tone: 'good' }
+        ? { ko: '부채가 없습니다.', en: 'No debt accumulated.', l10n: { es: 'No hay deuda acumulada.', 'pt-br': 'Nenhuma dívida acumulada.', ja: '負債はありません。', de: 'Keine Schuld angehäuft.', fr: 'Aucune dette accumulée.', hi: 'कोई घाटा जमा नहीं हुआ।' }, tone: 'good' }
         : d < 5
-          ? { ko: `${d}시간이 쌓였습니다. 주말에 1~2시간씩 더 자면 메울 수 있는 정도입니다.`, en: `${d} hours accumulated — an extra hour or two at the weekend clears it.`, tone: 'warn' }
-          : { ko: `${d}시간이 쌓였습니다. 하루 몰아 자는 것으로는 회복되지 않으니 취침 시간을 앞당기세요.`, en: `${d} hours is too much for one long lie-in — move bedtime earlier instead.`, tone: 'bad' };
+          ? { ko: `${d}시간이 쌓였습니다. 주말에 1~2시간씩 더 자면 메울 수 있는 정도입니다.`, en: `${d} hours accumulated — an extra hour or two at the weekend clears it.`, l10n: { es: `Se han acumulado ${d} horas: una o dos horas extra el fin de semana lo saldan.`, 'pt-br': `Acumularam-se ${d} horas: uma ou duas horas a mais no fim de semana quitam isso.`, ja: `${d}時間たまっています。週末に1〜2時間多く眠れば埋められる程度です。`, de: `${d} Stunden haben sich angesammelt — ein, zwei Stunden extra am Wochenende gleichen das aus.`, fr: `${d} heures se sont accumulées : une ou deux heures de plus le week-end suffisent à combler.`, hi: `${d} घंटे जमा हो चुके हैं। सप्ताहांत पर एक-दो घंटे ज़्यादा सो लेने से यह भर जाता है।` }, tone: 'warn' }
+          : { ko: `${d}시간이 쌓였습니다. 하루 몰아 자는 것으로는 회복되지 않으니 취침 시간을 앞당기세요.`, en: `${d} hours is too much for one long lie-in — move bedtime earlier instead.`, l10n: { es: `${d} horas es demasiado para arreglarlo durmiendo de más un día: adelanta la hora de acostarte.`, 'pt-br': `${d} horas é demais para resolver dormindo até tarde um dia: adiante a hora de dormir.`, ja: `${d}時間たまっています。一日まとめて寝ても戻りません。就寝時間を前倒ししてください。`, de: `${d} Stunden sind zu viel für ein einziges Ausschlafen — geh lieber früher ins Bett.`, fr: `${d} heures, c’est trop pour une seule grasse matinée : couche-toi plus tôt.`, hi: `${d} घंटे इतने ज़्यादा हैं कि एक दिन देर तक सोने से नहीं भरते — सोने का समय पहले कर लें।` }, tone: 'bad' };
     },
     ko: { title: '수면 부채 계산기', desc: '필요한 만큼 못 잔 시간이 며칠 동안 얼마나 쌓였는지 계산합니다.',
       long: '하루 부족분에 날 수를 곱합니다. 잠은 저축과 달라서 미리 몰아 자 둘 수는 없지만 부족분은 쌓이고, 쌓인 만큼 반응 속도와 판단력이 떨어집니다.',
@@ -63,8 +63,8 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     },
     verdict: (v, out) =>
       v.east === 1
-        ? { ko: `동쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 동쪽은 하루를 짧게 만들어야 해서 더 힘듭니다.`, en: `Eight zones east takes about ${out[0].value} days; going east shortens your day, which is harder.`, tone: 'warn' }
-        : { ko: `서쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 서쪽은 하루를 늘리는 방향이라 비교적 수월합니다.`, en: `${v.gap} zones west takes about ${out[0].value} days; westward lengthens your day and is easier.`, tone: 'good' },
+        ? { ko: `동쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 동쪽은 하루를 짧게 만들어야 해서 더 힘듭니다.`, en: `${v.gap} zones east takes about ${out[0].value} days; going east shortens your day, which is harder.`, l10n: { es: `${v.gap} husos al este llevan unos ${out[0].value} días; ir al este acorta el día, y eso cuesta más.`, 'pt-br': `${v.gap} fusos a leste levam cerca de ${out[0].value} dias; ir para leste encurta o dia, e isso custa mais.`, ja: `東へ${v.gap}時間なら約${out[0].value}日かかります。東は一日を短くする方向なので、その分きつくなります。`, de: `${v.gap} Zonen nach Osten dauern etwa ${out[0].value} Tage; ostwärts verkürzt den Tag, und das fällt schwerer.`, fr: `${v.gap} fuseaux vers l’est prennent environ ${out[0].value} jours ; aller à l’est raccourcit la journée, et c’est plus dur.`, hi: `पूर्व की ओर ${v.gap} घंटे में लगभग ${out[0].value} दिन लगते हैं; पूर्व जाने पर दिन छोटा करना पड़ता है, इसलिए यह भारी पड़ता है।` }, tone: 'warn' }
+        : { ko: `서쪽으로 ${v.gap}시간이면 약 ${out[0].value}일 걸립니다. 서쪽은 하루를 늘리는 방향이라 비교적 수월합니다.`, en: `${v.gap} zones west takes about ${out[0].value} days; westward lengthens your day and is easier.`, l10n: { es: `${v.gap} husos al oeste llevan unos ${out[0].value} días; hacia el oeste el día se alarga y resulta más llevadero.`, 'pt-br': `${v.gap} fusos a oeste levam cerca de ${out[0].value} dias; para oeste o dia se alonga e fica mais fácil.`, ja: `西へ${v.gap}時間なら約${out[0].value}日かかります。西は一日を延ばす方向なので比較的楽です。`, de: `${v.gap} Zonen nach Westen dauern etwa ${out[0].value} Tage; westwärts verlängert den Tag und fällt leichter.`, fr: `${v.gap} fuseaux vers l’ouest prennent environ ${out[0].value} jours ; vers l’ouest la journée s’allonge, c’est plus facile.`, hi: `पश्चिम की ओर ${v.gap} घंटे में लगभग ${out[0].value} दिन लगते हैं; पश्चिम जाने पर दिन लंबा हो जाता है, इसलिए यह आसान पड़ता है।` }, tone: 'good' },
     ko: { title: '시차 적응 일수 계산기', desc: '시차와 이동 방향으로 적응에 걸리는 날을 추정합니다.',
       long: '몸속 시계는 하루에 한두 시간씩만 옮겨집니다. 동쪽으로 갈 때는 하루 약 1시간, 서쪽으로 갈 때는 약 1.5시간이 기준이라 같은 시차라도 방향에 따라 적응 기간이 달라집니다.',
       note: '아침 햇빛을 쬐면 동쪽 이동이, 저녁 빛을 쬐면 서쪽 이동이 빨라집니다. 도착지 시간에 맞춰 바로 식사와 취침을 옮기는 것이 가장 효과가 큽니다.' },
@@ -92,6 +92,7 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => ({
       ko: `순알코올 ${out[0].value}g입니다. 10g을 한 잔으로 세는 기준(WHO)으로는 ${out[1].value}잔이고, 열량은 ${out[2].value}kcal입니다.`,
       en: `That is ${out[0].value} g of pure alcohol — ${out[1].value} standard drinks at the WHO 10 g unit, and ${out[2].value} kcal.`,
+      l10n: { es: `Son ${out[0].value} g de alcohol puro: ${out[1].value} bebidas estándar con la unidad de 10 g de la OMS, y ${out[2].value} kcal.`, 'pt-br': `São ${out[0].value} g de álcool puro: ${out[1].value} doses padrão pela unidade de 10 g da OMS, e ${out[2].value} kcal.`, ja: `純アルコール${out[0].value}gです。10gを1杯と数えるWHO基準では${out[1].value}杯、熱量は${out[2].value}kcalになります。`, de: `Das sind ${out[0].value} g reiner Alkohol — ${out[1].value} Standardgläser nach der 10-g-Einheit der WHO und ${out[2].value} kcal.`, fr: `Cela fait ${out[0].value} g d’alcool pur : ${out[1].value} verres standard selon l’unité de 10 g de l’OMS, et ${out[2].value} kcal.`, hi: `यह ${out[0].value} g शुद्ध अल्कोहल है — WHO की 10 g वाली इकाई से ${out[1].value} मानक पेग, और ${out[2].value} kcal।` },
       tone: 'warn',
     }),
     ko: { title: '표준 잔 수 계산기', desc: '마신 양과 도수로 순알코올 그램과 표준 잔 수를 구합니다.',
@@ -121,10 +122,10 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const py = out[0].value;
       return py === 0
-        ? { ko: '흡연력이 없습니다.', en: 'No smoking history.', tone: 'good' }
+        ? { ko: '흡연력이 없습니다.', en: 'No smoking history.', l10n: { es: 'Sin historial de tabaquismo.', 'pt-br': 'Sem histórico de tabagismo.', ja: '喫煙歴はありません。', de: 'Keine Rauchergeschichte.', fr: 'Aucun antécédent tabagique.', hi: 'धूम्रपान का कोई इतिहास नहीं।' }, tone: 'good' }
         : py >= 20
-          ? { ko: `${py}갑년입니다. 20갑년 이상은 폐암 검진 대상을 정하는 기준으로 쓰이는 수준입니다.`, en: `${py} pack-years. Twenty or more is the threshold used to select people for lung cancer screening.`, tone: 'bad' }
-          : { ko: `${py}갑년입니다. 끊은 뒤에도 이 값은 줄지 않지만 위험은 시간이 지나며 내려갑니다.`, en: `${py} pack-years. The figure does not fall after quitting, but the risk does over time.`, tone: 'warn' };
+          ? { ko: `${py}갑년입니다. 20갑년 이상은 폐암 검진 대상을 정하는 기준으로 쓰이는 수준입니다.`, en: `${py} pack-years. Twenty or more is the threshold used to select people for lung cancer screening.`, l10n: { es: `${py} paquetes-año. Veinte o más es el umbral con que se selecciona a quién se le hace cribado de cáncer de pulmón.`, 'pt-br': `${py} maços-ano. Vinte ou mais é o limiar usado para selecionar quem faz rastreamento de câncer de pulmão.`, ja: `${py}箱年です。20箱年以上は肺がん検診の対象を決める基準として使われる水準です。`, de: `${py} Packungsjahre. Zwanzig oder mehr ist die Schwelle, ab der zur Lungenkrebs-Früherkennung eingeladen wird.`, fr: `${py} paquets-années. Vingt ou plus, c’est le seuil qui sert à sélectionner les personnes pour le dépistage du cancer du poumon.`, hi: `${py} पैक-वर्ष। बीस या उससे ज़्यादा वह सीमा है जिससे फेफड़ों के कैंसर की जाँच के लिए लोग चुने जाते हैं।` }, tone: 'bad' }
+          : { ko: `${py}갑년입니다. 끊은 뒤에도 이 값은 줄지 않지만 위험은 시간이 지나며 내려갑니다.`, en: `${py} pack-years. The figure does not fall after quitting, but the risk does over time.`, l10n: { es: `${py} paquetes-año. La cifra no baja al dejarlo, pero el riesgo sí baja con el tiempo.`, 'pt-br': `${py} maços-ano. O número não cai depois que você para, mas o risco cai com o tempo.`, ja: `${py}箱年です。やめてもこの値は減りませんが、危険そのものは時間とともに下がります。`, de: `${py} Packungsjahre. Die Zahl sinkt nach dem Aufhören nicht, das Risiko mit der Zeit schon.`, fr: `${py} paquets-années. Le chiffre ne baisse pas après l’arrêt, mais le risque, si, avec le temps.`, hi: `${py} पैक-वर्ष। छोड़ने के बाद यह अंक नहीं घटता, पर जोखिम समय के साथ ज़रूर घटता है।` }, tone: 'warn' };
     },
     ko: { title: '흡연 갑년 계산기', desc: '하루 개비 수와 흡연 기간으로 누적 흡연량을 구합니다.',
       long: '하루 한 갑(20개비)을 1년 피운 것을 1갑년으로 셉니다. 하루 개비 수를 20으로 나눠 갑 수로 바꾸고 기간을 곱합니다. 하루 반 갑 40년과 두 갑 10년은 모두 20갑년입니다.',
@@ -154,8 +155,8 @@ export const LIFE2_TOOLS: FormulaTool[] = [
     verdict: (_v, out) => {
       const r = out[0].value;
       return r >= 1500
-        ? { ko: `시간당 ${r}ml는 많은 편입니다. 물만으로는 나트륨이 부족해지므로 전해질을 함께 보충하세요.`, en: `${r} mL an hour is heavy sweating — water alone leaves you short of sodium, so add electrolytes.`, tone: 'warn' }
-        : { ko: `시간당 ${r}ml입니다. 이 정도면 운동 중 이 양에 가깝게 마시는 것을 목표로 하세요.`, en: `${r} mL an hour — aim to drink close to this rate while training.`, tone: 'good' };
+        ? { ko: `시간당 ${r}ml는 많은 편입니다. 물만으로는 나트륨이 부족해지므로 전해질을 함께 보충하세요.`, en: `${r} mL an hour is heavy sweating — water alone leaves you short of sodium, so add electrolytes.`, l10n: { es: `${r} mL a la hora es sudar mucho: solo con agua te quedas corto de sodio, así que añade electrolitos.`, 'pt-br': `${r} mL por hora é suar muito: só água deixa você sem sódio, então acrescente eletrólitos.`, ja: `時間あたり${r}mlは多い方です。水だけではナトリウムが足りなくなるので、電解質も一緒に補ってください。`, de: `${r} mL pro Stunde ist starkes Schwitzen — mit Wasser allein fehlt dir Natrium, nimm Elektrolyte dazu.`, fr: `${r} mL par heure, c’est beaucoup transpirer : l’eau seule te laisse en manque de sodium, ajoute des électrolytes.`, hi: `प्रति घंटा ${r} ml ज़्यादा है — सिर्फ़ पानी से सोडियम की कमी रह जाती है, इसलिए इलेक्ट्रोलाइट भी लें।` }, tone: 'warn' }
+        : { ko: `시간당 ${r}ml입니다. 이 정도면 운동 중 이 양에 가깝게 마시는 것을 목표로 하세요.`, en: `${r} mL an hour — aim to drink close to this rate while training.`, l10n: { es: `${r} mL a la hora: intenta beber a un ritmo parecido mientras entrenas.`, 'pt-br': `${r} mL por hora: tente beber num ritmo parecido enquanto treina.`, ja: `時間あたり${r}mlです。運動中はこれに近い量を飲むことを目安にしてください。`, de: `${r} mL pro Stunde — trink beim Training möglichst in diesem Tempo nach.`, fr: `${r} mL par heure : vise à boire à peu près à ce rythme pendant l’effort.`, hi: `प्रति घंटा ${r} ml — कसरत के दौरान लगभग इसी रफ़्तार से पीने का लक्ष्य रखें।` }, tone: 'good' };
     },
     ko: { title: '땀 손실량 계산기', desc: '운동 전후 체중 변화로 시간당 수분 손실을 구합니다.',
       long: '운동 중 줄어든 체중은 거의 전부 물입니다. 줄어든 무게(1kg = 1,000ml)에 마신 양을 더하면 실제로 빠져나간 수분이고, 시간으로 나누면 시간당 손실률이 됩니다.',
