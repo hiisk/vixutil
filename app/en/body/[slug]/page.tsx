@@ -5,6 +5,7 @@ import BodyEngine from '@/components/body/BodyEngine';
 import { BODY_SECTION } from '@/lib/body-section';
 import { bodyTool, BODY_TOOLS } from '@/lib/body-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
+import { openGraphFor } from '@/lib/locales';
 
 export function generateStaticParams() {
   return BODY_TOOLS.map(t => ({ slug: t.slug }));
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: text.title,
     description: text.long,
+    openGraph: openGraphFor('en'),
     alternates: { canonical: '/en/body/' + slug, languages: sectionAlternates('body', slug) },
   };
 }

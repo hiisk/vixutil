@@ -5,6 +5,7 @@ import GeoEngine from '@/components/geometry/GeoEngine';
 import { GEO_SECTION } from '@/lib/geo-section';
 import { geoTool, GEO_TOOLS } from '@/lib/geo-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
+import { openGraphFor } from '@/lib/locales';
 
 export function generateStaticParams() {
   return GEO_TOOLS.map(t => ({ slug: t.slug }));
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: text.title,
     description: text.long,
+    openGraph: openGraphFor('en'),
     alternates: { canonical: '/en/geometry/' + slug, languages: sectionAlternates('geometry', slug) },
   };
 }
