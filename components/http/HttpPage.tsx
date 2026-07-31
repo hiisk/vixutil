@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { HTTP_ICON, httpItemOf } from '@/lib/http/list';
 import { httpFacts, relatedHttp } from '@/lib/http/facts';
 import { httpDesc } from '@/lib/http/desc';
@@ -15,7 +15,7 @@ import { HTTP_UI } from '@/lib/http/ui';
  *
  * 뜻이 맨 위다. "404 무슨 뜻"으로 들어온 사람에게 그 답을 첫 화면에서 준다.
  */
-export default function HttpPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
   const x = httpItemOf(slug);
   if (!x) return null;
 
@@ -130,7 +130,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang8 }) 
         </p>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/http/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

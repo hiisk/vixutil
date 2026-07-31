@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { HTTP_ITEMS, HTTP_ICON, headersOfSide, statusesOfClass, type StatusClass } from '@/lib/http/list';
 import { httpDesc } from '@/lib/http/desc';
 import { HTTP_UI } from '@/lib/http/ui';
@@ -18,7 +18,7 @@ const SIDES: ('request' | 'response' | 'both')[] = ['request', 'response', 'both
  * 상태 코드는 첫 자리로, 헤더는 요청·응답으로 나눈다. 줄마다 한 줄 설명을
  * 붙여 목록만 훑어도 답이 보이게 한다.
  */
-export default function HttpHubPage({ lang }: { lang: Lang8 }) {
+export default function HttpHubPage({ lang }: { lang: Lang }) {
   const ui = HTTP_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -118,7 +118,7 @@ export default function HttpHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/http`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

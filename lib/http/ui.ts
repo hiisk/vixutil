@@ -1,10 +1,10 @@
 /**
- * HTTP 화면의 문구 — 여덟 언어.
+ * HTTP 화면의 문구 — 열 언어.
  *
  * 항목마다 다른 설명은 desc.ts에 있고, 여기에는 화면 틀과 갈래 이름만 둔다.
  * 코드 번호와 헤더 이름은 표준이 정한 것이라 옮기지 않는다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { StatusClass } from './list.ts';
 import type { HttpFacts } from './facts.ts';
 
@@ -40,15 +40,15 @@ export interface HttpUI {
   itemFaq: (f: HttpFacts, desc: string, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof HttpUI]: L8<HttpUI[K]> };
+type Spec = { [K in keyof HttpUI]: L<HttpUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('HTTP 코드와 헤더', 'HTTP codes and headers', 'Códigos y cabeceras HTTP', 'Códigos e cabeçalhos HTTP', 'HTTPコードとヘッダー', 'HTTP-Codes und -Header', 'Codes et en-têtes HTTP', 'HTTP कोड और हेडर'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('HTTP 코드와 헤더', 'HTTP codes and headers', 'Códigos y cabeceras HTTP', 'Códigos e cabeçalhos HTTP', 'HTTPコードとヘッダー', 'HTTP-Codes und -Header', 'Codes et en-têtes HTTP', 'HTTP कोड और हेडर', 'HTTP 状态码与标头', 'HTTP 狀態碼與標頭'),
 
   hubTitle: T(
     'HTTP 상태 코드와 헤더 132가지',
@@ -59,6 +59,8 @@ const SPEC: Spec = {
     '132 HTTP-Statuscodes und -Header',
     '132 codes de statut et en-têtes HTTP',
     '132 HTTP स्थिति कोड और हेडर',
+    'HTTP 状态码与标头 132 项',
+    'HTTP 狀態碼與標頭 132 項',
   ),
 
   hubLead: T(
@@ -70,10 +72,12 @@ const SPEC: Spec = {
     'Was 404 und 500 wirklich bedeuten und was Content-Type oder Cache-Control tun — je eine Zeile.',
     "Ce que veulent dire 404 et 500, et ce que font Content-Type ou Cache-Control — une ligne chacun.",
     '404 और 500 का असल अर्थ, और Content-Type या Cache-Control क्या करते हैं — एक-एक पंक्ति में।',
+    '404 和 500 到底是什么意思，Content-Type 和 Cache-Control 各管什么，一行说清。',
+    '404 和 500 到底是什麼意思，Content-Type 和 Cache-Control 各管什麼，一行說清。',
   ),
 
-  statusTitle: T('상태 코드', 'Status codes', 'Códigos de estado', 'Códigos de status', 'ステータスコード', 'Statuscodes', 'Codes de statut', 'स्थिति कोड'),
-  headerTitle: T('헤더', 'Headers', 'Cabeceras', 'Cabeçalhos', 'ヘッダー', 'Header', 'En-têtes', 'हेडर'),
+  statusTitle: T('상태 코드', 'Status codes', 'Códigos de estado', 'Códigos de status', 'ステータスコード', 'Statuscodes', 'Codes de statut', 'स्थिति कोड', '状态码', '狀態碼'),
+  headerTitle: T('헤더', 'Headers', 'Cabeceras', 'Cabeçalhos', 'ヘッダー', 'Header', 'En-têtes', 'हेडर', '标头', '標頭'),
 
   classLabel: T(
     { '1xx': '1xx 정보', '2xx': '2xx 성공', '3xx': '3xx 넘김', '4xx': '4xx 요청 잘못', '5xx': '5xx 서버 잘못' },
@@ -84,6 +88,8 @@ const SPEC: Spec = {
     { '1xx': '1xx Information', '2xx': '2xx Erfolg', '3xx': '3xx Umleitung', '4xx': '4xx Client-Fehler', '5xx': '5xx Server-Fehler' },
     { '1xx': '1xx Information', '2xx': '2xx Succès', '3xx': '3xx Redirection', '4xx': '4xx Erreur client', '5xx': '5xx Erreur serveur' },
     { '1xx': '1xx सूचना', '2xx': '2xx सफलता', '3xx': '3xx पुनर्निर्देश', '4xx': '4xx क्लाइंट त्रुटि', '5xx': '5xx सर्वर त्रुटि' },
+    { '1xx': '1xx 信息', '2xx': '2xx 成功', '3xx': '3xx 重定向', '4xx': '4xx 请求有误', '5xx': '5xx 服务器有误' },
+    { '1xx': '1xx 資訊', '2xx': '2xx 成功', '3xx': '3xx 重新導向', '4xx': '4xx 請求有誤', '5xx': '5xx 伺服器有誤' },
   ),
 
   classNote: T(
@@ -143,6 +149,20 @@ const SPEC: Spec = {
       '4xx': 'समस्या अनुरोध की ओर है; वही दोबारा भेजने पर फिर विफल होगा।',
       '5xx': 'समस्या सर्वर की ओर है; कुछ देर बाद फिर कोशिश करना अक्सर काम आता है।',
     },
+    {
+      '1xx': '只是告诉你还在进行中，真正的答复随后就到。',
+      '2xx': '请求已经妥善处理完了。',
+      '3xx': '让你去别的地方 —— 区别在于是永久还是临时。',
+      '4xx': '问题出在请求这一侧。原样再发一次，还是会失败。',
+      '5xx': '问题出在服务器那一侧。过一会儿再试往往值得。',
+    },
+    {
+      '1xx': '只是告訴你還在進行中，真正的答覆隨後就到。',
+      '2xx': '請求已經妥善處理完了。',
+      '3xx': '讓你去別的地方 —— 區別在於是永久還是暫時。',
+      '4xx': '問題出在請求這一側。原樣再發一次，還是會失敗。',
+      '5xx': '問題出在伺服器那一側。過一會兒再試往往值得。',
+    },
   ),
 
   sideLabel: T(
@@ -154,6 +174,8 @@ const SPEC: Spec = {
     { request: 'Request-Header', response: 'Response-Header', both: 'In beide Richtungen' },
     { request: 'En-têtes de requête', response: 'En-têtes de réponse', both: 'Dans les deux sens' },
     { request: 'अनुरोध हेडर', response: 'प्रतिक्रिया हेडर', both: 'दोनों दिशाओं में' },
+    { request: '请求标头', response: '响应标头', both: '两边通用' },
+    { request: '請求標頭', response: '回應標頭', both: '兩邊通用' },
   ),
 
   sideNote: T(
@@ -197,18 +219,28 @@ const SPEC: Spec = {
       response: 'उत्तर देते समय सर्वर जो हेडर जोड़ता है।',
       both: 'ऐसे हेडर जो दोनों ओर आ सकते हैं।',
     },
+    {
+      request: '浏览器往服务器发的时候带上的标头。',
+      response: '服务器答复浏览器的时候带上的标头。',
+      both: '请求和响应两边都可能出现的标头。',
+    },
+    {
+      request: '瀏覽器往伺服器發的時候帶上的標頭。',
+      response: '伺服器答覆瀏覽器的時候帶上的標頭。',
+      both: '請求和回應兩邊都可能出現的標頭。',
+    },
   ),
 
-  writeLabel: T('실제 줄', 'On the wire', 'En la línea', 'Na linha', '実際の行', 'In der Leitung', 'Sur le fil', 'असली पंक्ति'),
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी'),
-  codeLabel: T('코드', 'Code', 'Código', 'Código', 'コード', 'Code', 'Code', 'कोड'),
-  errorLabel: T('오류 여부', 'Is it an error', '¿Es un error?', 'É um erro?', 'エラーかどうか', 'Fehler?', 'Est-ce une erreur ?', 'क्या यह त्रुटि है'),
-  errorYes: T('오류입니다', 'Yes — this is an error', 'Sí, es un error', 'Sim, é um erro', 'はい — エラーです', 'Ja — ein Fehler', 'Oui — une erreur', 'हाँ — यह त्रुटि है'),
-  errorNo: T('오류가 아닙니다', 'No — not an error', 'No, no es un error', 'Não, não é um erro', 'いいえ — エラーではありません', 'Nein — kein Fehler', 'Non — pas une erreur', 'नहीं — त्रुटि नहीं'),
-  docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़'),
-  relatedTitle: T('같은 갈래', 'Same group', 'Mismo grupo', 'Mesmo grupo', '同じ分類', 'Gleiche Gruppe', 'Même groupe', 'वही समूह'),
+  writeLabel: T('실제 줄', 'On the wire', 'En la línea', 'Na linha', '実際の行', 'In der Leitung', 'Sur le fil', 'असली पंक्ति', '实际的一行', '實際的一行'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
+  codeLabel: T('코드', 'Code', 'Código', 'Código', 'コード', 'Code', 'Code', 'कोड', '代码', '代碼'),
+  errorLabel: T('오류 여부', 'Is it an error', '¿Es un error?', 'É um erro?', 'エラーかどうか', 'Fehler?', 'Est-ce une erreur ?', 'क्या यह त्रुटि है', '是不是错误', '是不是錯誤'),
+  errorYes: T('오류입니다', 'Yes — this is an error', 'Sí, es un error', 'Sim, é um erro', 'はい — エラーです', 'Ja — ein Fehler', 'Oui — une erreur', 'हाँ — यह त्रुटि है', '是 —— 这是错误', '是 —— 這是錯誤'),
+  errorNo: T('오류가 아닙니다', 'No — not an error', 'No, no es un error', 'Não, não é um erro', 'いいえ — エラーではありません', 'Nein — kein Fehler', 'Non — pas une erreur', 'नहीं — त्रुटि नहीं', '不是错误', '不是錯誤'),
+  docLabel: T('표준 문서', 'Reference docs', 'Documentación', 'Documentação', '標準ドキュメント', 'Referenzdoku', 'Documentation', 'संदर्भ दस्तावेज़', '标准文档', '標準文件'),
+  relatedTitle: T('같은 갈래', 'Same group', 'Mismo grupo', 'Mesmo grupo', '同じ分類', 'Gleiche Gruppe', 'Même groupe', 'वही समूह', '同一分类', '同一分類'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
 
   how: T(
     [
@@ -259,9 +291,21 @@ const SPEC: Spec = {
       'हेडर नामों में अक्षर-भेद नहीं होता — Content-Type और content-type एक ही हैं।',
       'कैश और CORS की दिक़्क़तें अक्सर एक हेडर पंक्ति पर टिकी होती हैं, जो नेटवर्क टैब में दिखती है।',
     ],
+    [
+      '状态码的第一位定了大方向：4 开头是请求那侧的问题，5 开头是服务器那侧的问题。',
+      '404 是「没有」，403 是「有，但不给你」。两个混着用，排查起来只会更慢。',
+      '标头名不分大小写。Content-Type 和 content-type 是同一个标头。',
+      '缓存和 CORS 的毛病，多半就差一行标头。在浏览器开发者工具的网络面板里能直接看到。',
+    ],
+    [
+      '狀態碼的第一位定了大方向：4 開頭是請求那側的問題，5 開頭是伺服器那側的問題。',
+      '404 是「沒有」，403 是「有，但不給你」。兩個混著用，排查起來只會更慢。',
+      '標頭名不分大小寫。Content-Type 和 content-type 是同一個標頭。',
+      '快取和 CORS 的毛病，多半就差一行標頭。在瀏覽器開發者工具的網路面板裡能直接看到。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     'HTTP 상태 코드와 헤더 132가지 — 404·500의 뜻',
@@ -272,6 +316,8 @@ const SPEC: Spec = {
     'HTTP-Statuscodes und -Header — was 404, 500 und 132 weitere bedeuten',
     'Codes et en-têtes HTTP — ce que signifient 404, 500 et 132 autres',
     'HTTP स्थिति कोड और हेडर — 404, 500 और 132 अन्य का अर्थ',
+    'HTTP 状态码与标头 132 项 — 404、500 是什么意思',
+    'HTTP 狀態碼與標頭 132 項 — 404、500 是什麼意思',
   ),
   hubMetaDesc: T(
     '404·403·500·503처럼 자주 만나는 상태 코드와 Content-Type·Cache-Control 같은 헤더 132가지를 갈래별로 정리했습니다. 각 항목이 무슨 뜻인지, 실제 줄에서 어떻게 생겼는지 확인하세요.',
@@ -282,6 +328,8 @@ const SPEC: Spec = {
     'Eine Referenz zu 132 HTTP-Statuscodes und -Headern nach Zweck geordnet — 404, 403, 500, 503, Content-Type, Cache-Control und mehr — mit Bedeutung und Zeilenform.',
     "Une référence de 132 codes et en-têtes HTTP classés par usage — 404, 403, 500, 503, Content-Type, Cache-Control et les autres — avec leur sens et leur forme sur le fil.",
     '132 HTTP स्थिति कोड और हेडर उद्देश्य के अनुसार — 404, 403, 500, 503, Content-Type, Cache-Control और बाक़ी — अर्थ और असली पंक्ति के रूप के साथ।',
+    '404、403、500、503 这些常遇到的状态码，加上 Content-Type、Cache-Control 等标头，共 132 项按用途分好类。每一项是什么意思、在实际的一行里长什么样，都能查到。',
+    '404、403、500、503 這些常遇到的狀態碼，加上 Content-Type、Cache-Control 等標頭，共 132 項按用途分好類。每一項是什麼意思、在實際的一行裡長什麼樣，都能查到。',
   ),
 
   metaTitle: T(
@@ -293,6 +341,8 @@ const SPEC: Spec = {
     (n: string) => `${n} — was es bedeutet`,
     (n: string) => `${n} — ce que cela signifie`,
     (n: string) => `${n} — इसका अर्थ`,
+    (n: string) => `${n} — 是什么意思`,
+    (n: string) => `${n} — 是什麼意思`,
   ),
 
   metaDesc: T(
@@ -304,6 +354,8 @@ const SPEC: Spec = {
     (n: string, d: string) => `Was HTTP ${n} bedeutet und wann es auftritt. ${d}`,
     (n: string, d: string) => `Ce que signifie HTTP ${n} et quand on le rencontre. ${d}`,
     (n: string, d: string) => `HTTP ${n} का अर्थ और यह कब मिलता है। ${d}`,
+    (n: string, d: string) => `HTTP ${n} 的含义和用处。${d}`,
+    (n: string, d: string) => `HTTP ${n} 的含義和用處。${d}`,
   ),
 
   hubFaq: T(
@@ -363,6 +415,20 @@ const SPEC: Spec = {
       { q: 'क्या हेडर नामों में अक्षर-भेद होता है?', a: 'नहीं। Content-Type और content-type एक ही हेडर हैं, और HTTP/2 से तो वे छोटे अक्षरों में ही भेजे जाते हैं।' },
       { q: 'CORS त्रुटियाँ क्यों आती हैं?', a: 'जब कोई पन्ना दूसरे मूल का उत्तर पढ़ना चाहे और सर्वर ने Access-Control-Allow-Origin से अनुमति न दी हो, तो ब्राउज़र रोक देता है। सर्वर ने उत्तर तो भेजा — ब्राउज़र बस उसे आपके कोड तक नहीं पहुँचाता, इसलिए नेटवर्क टैब में दिखता है पर स्क्रिप्ट पढ़ नहीं पाती।' },
     ],
+    [
+      { q: '404 和 403 有什么区别？', a: '404 说的是那个地址上什么都没有；403 说的是东西在，但你没资格看。不过也有服务器故意回 404，好把「这里存在一个资源」这件事本身藏起来。' },
+      { q: '碰到 500 我能做点什么？', a: '5 开头的都是服务器那侧的问题，多半只能等。不过 502 和 504 是前后两台服务器之间的事，隔一会儿重试常常就好了。' },
+      { q: '301 和 302 怎么选？', a: '地址永久搬走用 301，只是临时绕道用 302。要留意浏览器和搜索引擎会把 301 记很久，改回来很麻烦。' },
+      { q: '标头名分大小写吗？', a: '不分。Content-Type 和 content-type 是同一个标头；从 HTTP/2 起，干脆规定一律用小写发送。' },
+      { q: 'CORS 错误是怎么来的？', a: '页面想读另一个源的响应，而服务器没用 Access-Control-Allow-Origin 放行，浏览器就会拦下来。服务器其实已经把响应发回来了，只是浏览器不肯把正文交给你的代码 —— 所以网络面板里看得见，脚本里却读不到。' },
+    ],
+    [
+      { q: '404 和 403 有什麼區別？', a: '404 說的是那個位址上什麼都沒有；403 說的是東西在，但你沒資格看。不過也有伺服器故意回 404，好把「這裡存在一個資源」這件事本身藏起來。' },
+      { q: '碰到 500 我能做點什麼？', a: '5 開頭的都是伺服器那側的問題，多半只能等。不過 502 和 504 是前後兩台伺服器之間的事，隔一會兒重試常常就好了。' },
+      { q: '301 和 302 怎麼選？', a: '位址永久搬走用 301，只是暫時繞道用 302。要留意瀏覽器和搜尋引擎會把 301 記很久，改回來很麻煩。' },
+      { q: '標頭名分大小寫嗎？', a: '不分。Content-Type 和 content-type 是同一個標頭；從 HTTP/2 起，乾脆規定一律用小寫傳送。' },
+      { q: 'CORS 錯誤是怎麼來的？', a: '頁面想讀另一個來源的回應，而伺服器沒用 Access-Control-Allow-Origin 放行，瀏覽器就會攔下來。伺服器其實已經把回應發回來了，只是瀏覽器不肯把正文交給你的程式 —— 所以網路面板裡看得見，腳本裡卻讀不到。' },
+    ],
   ),
 
   itemFaq: T(
@@ -414,13 +480,25 @@ const SPEC: Spec = {
       { q: f.kind === 'status' ? `क्या ${f.name} त्रुटि है?` : `${f.name} कहाँ लगता है?`, a: f.kind === 'status' ? (f.isError ? 'हाँ। 4 से शुरू होने पर दोष अनुरोध का, 5 से शुरू होने पर सर्वर का।' : 'नहीं — यह सामान्य आदान-प्रदान का हिस्सा है, विफलता नहीं।') : `${kind} में।` },
       { q: `${f.name} किस समूह का है?`, a: `${kind} समूह का; उसी समूह के बाक़ी नीचे दिए हैं।` },
     ],
+    (f: HttpFacts, d: string, kind: string) => [
+      { q: `HTTP ${f.name} 是什么意思？`, a: d },
+      { q: `${f.name} 实际长什么样？`, a: `以 ${f.example} 这样的形式来回。` },
+      { q: f.kind === 'status' ? `${f.name} 算错误吗？` : `${f.name} 加在哪一边？`, a: f.kind === 'status' ? (f.isError ? '算错误。4 开头是请求那侧的问题，5 开头是服务器那侧的问题。' : '不算错误。它是正常流程里会出现的响应。') : `属于${kind}。` },
+      { q: `${f.name} 属于哪一类？`, a: `属于${kind}这一类。同类的其他条目列在本页下方。` },
+    ],
+    (f: HttpFacts, d: string, kind: string) => [
+      { q: `HTTP ${f.name} 是什麼意思？`, a: d },
+      { q: `${f.name} 實際長什麼樣？`, a: `以 ${f.example} 這樣的形式來回。` },
+      { q: f.kind === 'status' ? `${f.name} 算錯誤嗎？` : `${f.name} 加在哪一邊？`, a: f.kind === 'status' ? (f.isError ? '算錯誤。4 開頭是請求那側的問題，5 開頭是伺服器那側的問題。' : '不算錯誤。它是正常流程裡會出現的回應。') : `屬於${kind}。` },
+      { q: `${f.name} 屬於哪一類？`, a: `屬於${kind}這一類。同類的其他條目列在本頁下方。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const HTTP_UI: L8<HttpUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const HTTP_UI: L<HttpUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<HttpUI>;
+) as unknown as L<HttpUI>;

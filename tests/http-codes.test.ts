@@ -12,7 +12,8 @@ import { HEADERS, HTTP_ICON, HTTP_ITEMS, HTTP_SLUGS, STATUSES, headersOfSide, ht
 import { httpFacts, relatedHttp } from '../lib/http/facts.ts';
 import { HTTP_DESC, httpDesc } from '../lib/http/desc.ts';
 import { HTTP_UI } from '../lib/http/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(HTTP_ITEMS.length >= 100, `${HTTP_ITEMS.length}가지뿐이다`);
@@ -77,13 +78,13 @@ test('실제 줄 꼴이 갈래에 맞는다', () => {
   }
 });
 
-test('132개 모두 여덟 언어 설명이 있다', () => {
+test('132개 모두 열 언어 설명이 있다', () => {
   for (const x of HTTP_ITEMS) {
     const row = HTTP_DESC[x.slug];
     assert.ok(row, `${x.slug}: 설명이 없다`);
-    assert.equal(row.length, 8, `${x.slug}: 여덟 칸이 아니다`);
-    for (const lang of LANG8_CODES) {
-      const floor = lang === 'ja' || lang === 'ko' ? 6 : 10;
+    assert.equal(row.length, 10, `${x.slug}: 열 칸이 아니다`);
+    for (const lang of LANG_CODES) {
+      const floor = DENSE.has(lang) ? 6 : 10;
       assert.ok(httpDesc(x.slug, lang).trim().length > floor, `${x.slug}/${lang}: 설명이 비었거나 너무 짧다`);
     }
   }
@@ -93,7 +94,7 @@ test('132개 모두 여덟 언어 설명이 있다', () => {
 
 test('언어끼리 글자가 섞이지 않는다', () => {
   for (const x of HTTP_ITEMS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const d = httpDesc(x.slug, lang);
       if (lang !== 'ko') assert.ok(!/[가-힣]/.test(d), `${x.slug}/${lang}: 한글이 섞였다`);
       if (lang !== 'ja' && lang !== 'ko') assert.ok(!/[ぁ-んァ-ヶ]/.test(d), `${x.slug}/${lang}: 가나가 섞였다`);
@@ -121,13 +122,14 @@ test('문서 주소가 항목을 가리킨다', () => {
   for (const x of HTTP_ITEMS) assert.match(httpFacts(x).docUrl, /^https:\/\//, `${x.slug}: 주소 꼴이 아니다`);
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = httpFacts(httpItemOf('404')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = HTTP_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -144,7 +146,7 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 });
 
 test('FAQ가 오류와 정상 코드를 다르게 말한다', () => {
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = HTTP_UI[lang];
     const err = ui.itemFaq(httpFacts(httpItemOf('500')!), 'x', 'y')[2].a;
     const ok = ui.itemFaq(httpFacts(httpItemOf('200')!), 'x', 'y')[2].a;
@@ -152,14 +154,14 @@ test('FAQ가 오류와 정상 코드를 다르게 말한다', () => {
   }
 });
 
-test('모든 항목이 여덟 언어 메타를 만든다', () => {
+test('모든 항목이 열 언어 메타를 만든다', () => {
   for (const x of HTTP_ITEMS) {
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = HTTP_UI[lang];
       assert.ok(ui.metaTitle(x.name).includes(x.name), `${lang}/${x.slug}: 제목에 이름이 없다`);
       const desc = ui.metaDesc(x.name, httpDesc(x.slug, lang));
       assert.ok(desc.includes(x.name), `${lang}/${x.slug}: 설명에 이름이 없다`);
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${x.slug}: 설명이 너무 짧다`);
     }
   }
