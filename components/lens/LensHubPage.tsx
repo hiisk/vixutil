@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import SensorBox from '@/components/lens/SensorBox';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { LENSES, LENS_ICON, SENSORS, lensesOfSensor } from '@/lib/lens/list';
 import { lensFacts } from '@/lib/lens/facts';
 import { LENS_UI } from '@/lib/lens/ui';
@@ -16,7 +16,7 @@ import { LENS_UI } from '@/lib/lens/ui';
  * 표를 센서별로 끊어야 읽힌다. 같은 50mm가 판마다 다른 화각을 낸다는 것이
  * 이 화면이 말하려는 전부다.
  */
-export default function LensHubPage({ lang }: { lang: Lang8 }) {
+export default function LensHubPage({ lang }: { lang: Lang }) {
   const ui = LENS_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -118,7 +118,7 @@ export default function LensHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/snap/lens`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

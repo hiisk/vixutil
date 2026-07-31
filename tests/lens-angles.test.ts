@@ -11,7 +11,8 @@ import assert from 'node:assert/strict';
 import { FOCALS, LENSES, LENS_ICON, LENS_SLUGS, SENSORS, lensOf, lensesOfSensor, sensorOf } from '../lib/lens/list.ts';
 import { angleOf, lensFacts, neighbourFocals, sameFieldOfView } from '../lib/lens/facts.ts';
 import { LENS_UI } from '../lib/lens/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { DENSE, hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(LENSES.length >= 100, `${LENSES.length}가지뿐이다`);
@@ -132,13 +133,14 @@ test('이웃 초점거리는 같은 센서에서 초점거리 순으로 준다',
   }
 });
 
-test('여덟 언어 문구가 모두 채워져 있다', () => {
+test('열 언어 문구가 모두 채워져 있다', () => {
   const f = lensFacts(lensOf('50mm-ff')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = LENS_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 읽는 방법 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -154,7 +156,7 @@ test('여덟 언어 문구가 모두 채워져 있다', () => {
 test('언어끼리 글자가 섞이지 않는다', () => {
   // 센서 이름과 mm 단위는 어느 언어에서나 로마자 그대로 쓴다 — 그 밖의 글자만 본다
   const f = lensFacts(lensOf('85mm-apsc')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = LENS_UI[lang];
     const texts = [
       ui.hubTitle, ui.hubLead, ui.hubMetaTitle, ui.hubMetaDesc, ui.section,
@@ -171,24 +173,24 @@ test('언어끼리 글자가 섞이지 않는다', () => {
   }
 });
 
-test('모든 렌즈가 여덟 언어 메타를 만든다', () => {
+test('모든 렌즈가 열 언어 메타를 만든다', () => {
   for (const l of LENSES) {
     const f = lensFacts(l);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = LENS_UI[lang];
       const title = ui.metaTitle(f.focal, f.sensorName);
       assert.ok(title.includes(String(f.focal)), `${lang}/${l.slug}: 제목에 초점거리가 없다`);
       assert.ok(title.includes(f.sensorName), `${lang}/${l.slug}: 제목에 센서가 없다`);
       const desc = ui.metaDesc(f, ui.kindLabel[f.kind]);
       assert.ok(desc.includes(String(f.diagonal)), `${lang}/${l.slug}: 설명에 화각이 없다`);
-      const floor = lang === 'ja' || lang === 'ko' ? 25 : 40;
+      const floor = DENSE.has(lang) ? 25 : 40;
       assert.ok(desc.length > floor, `${lang}/${l.slug}: 설명이 너무 짧다`);
     }
   }
 });
 
 test('상세 FAQ가 렌즈마다 다른 답을 준다', () => {
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = LENS_UI[lang];
     const wide = ui.lensFaq(lensFacts(lensOf('16mm-ff')!), 'x')[0].a;
     const tele = ui.lensFaq(lensFacts(lensOf('300mm-ff')!), 'x')[0].a;

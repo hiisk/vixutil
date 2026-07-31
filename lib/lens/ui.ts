@@ -1,10 +1,10 @@
 /**
- * 렌즈 화각 화면의 문구 — 여덟 언어.
+ * 렌즈 화각 화면의 문구 — 열 언어.
  *
  * 초점거리와 센서 이름은 만국 공통이라 옮기지 않는다. 50mm는 어디서나 50mm이고
  * APS-C는 APS-C다. 옮기는 것은 갈래 이름과 설명, 화면 틀뿐이다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { SensorKey } from './list.ts';
 import type { LensFacts } from './facts.ts';
 
@@ -43,15 +43,15 @@ export interface LensUI {
   lensFaq: (f: LensFacts, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof LensUI]: L8<LensUI[K]> };
+type Spec = { [K in keyof LensUI]: L<LensUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('렌즈 화각', 'Lens angle of view', 'Ángulo de visión', 'Ângulo de visão', 'レンズの画角', 'Bildwinkel', 'Angle de champ', 'लेंस दृश्य कोण'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('렌즈 화각', 'Lens angle of view', 'Ángulo de visión', 'Ângulo de visão', 'レンズの画角', 'Bildwinkel', 'Angle de champ', 'लेंस दृश्य कोण', '镜头视角', '鏡頭視角'),
 
   hubTitle: T(
     '렌즈 화각 104가지',
@@ -62,6 +62,8 @@ const SPEC: Spec = {
     'Bildwinkel von 104 Objektiven',
     "Angle de champ de 104 objectifs",
     '104 लेंस के दृश्य कोण',
+    '镜头视角 104 种',
+    '鏡頭視角 104 種',
   ),
 
   hubLead: T(
@@ -73,6 +75,8 @@ const SPEC: Spec = {
     'Brennweite und Sensor wählen — und Bildwinkel, Kleinbildäquivalent sowie die erfasste Breite auf zwei Meter ablesen.',
     "Choisissez focale et capteur pour voir l'angle de champ, l'équivalent 24×36 et la largeur cadrée à deux pas.",
     'फ़ोकल लंबाई और सेंसर चुनें और देखें दृश्य कोण, 35 मिमी समतुल्य और दो क़दम की दूरी पर कितनी चौड़ाई आती है।',
+    '选好焦距和传感器尺寸，视角、35mm 等效焦距，以及两米开外能拍进多宽，都一并算给你。',
+    '選好焦距和感光元件尺寸，視角、35mm 等效焦距，以及兩公尺開外能拍進多寬，都一併算給你。',
   ),
 
   sensorNote: T(
@@ -124,6 +128,18 @@ const SPEC: Spec = {
       mft: '17.3×13 मिमी का फ़ॉर्मैट, क्रॉप फ़ैक्टर 2 — फ़ोकल लंबाई दोगुनी पढ़ लीजिए।',
       'one-inch': 'उन्नत कॉम्पैक्ट कैमरों और ड्रोन में मिलने वाला आकार, क्रॉप फ़ैक्टर लगभग 2.7।',
     },
+    {
+      ff: '36×24 毫米的画幅。视角的基准就是它，所以等效倍率为 1。',
+      apsc: '比全画幅小一档。装同一支镜头，视角会变窄，看着像长焦。',
+      mft: '17.3×13 毫米的画幅。等效倍率是 2，焦距直接读两倍就行。',
+      'one-inch': '高端卡片机和无人机上用的尺寸，等效倍率在 2.7 上下。',
+    },
+    {
+      ff: '36×24 公釐的片幅。視角的基準就是它，所以等效倍率為 1。',
+      apsc: '比全片幅小一階。裝同一支鏡頭，視角會變窄，看著像長焦。',
+      mft: '17.3×13 公釐的片幅。等效倍率是 2，焦距直接讀兩倍就行。',
+      'one-inch': '高階隨身機和空拍機上用的尺寸，等效倍率在 2.7 上下。',
+    },
   ),
 
   kindLabel: T(
@@ -135,6 +151,8 @@ const SPEC: Spec = {
     { ultrawide: 'Ultraweitwinkel', wide: 'Weitwinkel', standard: 'Normal', tele: 'Tele', supertele: 'Supertele' },
     { ultrawide: 'Ultra grand-angle', wide: 'Grand-angle', standard: 'Standard', tele: 'Téléobjectif', supertele: 'Super téléobjectif' },
     { ultrawide: 'अल्ट्रा-वाइड', wide: 'वाइड', standard: 'स्टैंडर्ड', tele: 'टेलीफ़ोटो', supertele: 'सुपर टेलीफ़ोटो' },
+    { ultrawide: '超广角', wide: '广角', standard: '标准', tele: '长焦', supertele: '超长焦' },
+    { ultrawide: '超廣角', wide: '廣角', standard: '標準', tele: '望遠', supertele: '超望遠' },
   ),
 
   kindNote: T(
@@ -194,26 +212,44 @@ const SPEC: Spec = {
       tele: 'दूर की चीज़ पास लाता है, पृष्ठभूमि को दबाकर धुँधला करता है — पोर्ट्रेट के लिए अच्छा।',
       supertele: 'जिनके पास नहीं जा सकते उनके लिए — पक्षी, स्टेडियम। हिलने के प्रति बेहद संवेदनशील।',
     },
+    {
+      ultrawide: '一个画面装得下很多东西。边缘会被拉长，所以别把人放在角落。',
+      wide: '用在狭窄的室内和风景上。凑近了拍，眼前的东西会被放得很大。',
+      standard: '最接近人眼看东西的感觉，日常拍照最稳妥的视角。',
+      tele: '把远处的东西拉近，背景被压缩又虚化，很适合拍人。',
+      supertele: '用在鸟和赛场这种走不近的对象上。对抖动极其敏感。',
+    },
+    {
+      ultrawide: '一個畫面裝得下很多東西。邊緣會被拉長，所以別把人放在角落。',
+      wide: '用在狹窄的室內和風景上。湊近了拍，眼前的東西會被放得很大。',
+      standard: '最接近人眼看東西的感覺，日常拍照最穩妥的視角。',
+      tele: '把遠處的東西拉近，背景被壓縮又柔化，很適合拍人。',
+      supertele: '用在鳥和賽場這種走不近的對象上。對晃動極其敏感。',
+    },
   ),
 
-  diagonalLabel: T('대각 화각', 'Diagonal angle', 'Ángulo diagonal', 'Ângulo diagonal', '対角画角', 'Diagonaler Bildwinkel', 'Angle diagonal', 'विकर्ण कोण'),
-  horizontalLabel: T('가로 화각', 'Horizontal angle', 'Ángulo horizontal', 'Ângulo horizontal', '水平画角', 'Horizontaler Bildwinkel', 'Angle horizontal', 'क्षैतिज कोण'),
-  verticalLabel: T('세로 화각', 'Vertical angle', 'Ángulo vertical', 'Ângulo vertical', '垂直画角', 'Vertikaler Bildwinkel', 'Angle vertical', 'ऊर्ध्व कोण'),
-  cropLabel: T('크롭 배수', 'Crop factor', 'Factor de recorte', 'Fator de corte', 'クロップ倍率', 'Cropfaktor', 'Facteur de recadrage', 'क्रॉप फ़ैक्टर'),
-  equivLabel: T('35mm 환산', '35 mm equivalent', 'Equivalente a 35 mm', 'Equivalente a 35 mm', '35mm換算', 'Kleinbildäquivalent', 'Équivalent 24×36', '35 मिमी समतुल्य'),
-  widthLabel: T('2m 앞 가로 폭', 'Frame width at 2 m', 'Ancho encuadrado a 2 m', 'Largura enquadrada a 2 m', '2m先で写る幅', 'Bildbreite auf 2 m', 'Largeur cadrée à 2 m', '2 मीटर पर चौड़ाई'),
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी'),
+  diagonalLabel: T('대각 화각', 'Diagonal angle', 'Ángulo diagonal', 'Ângulo diagonal', '対角画角', 'Diagonaler Bildwinkel', 'Angle diagonal', 'विकर्ण कोण', '对角视角', '對角視角'),
+  horizontalLabel: T('가로 화각', 'Horizontal angle', 'Ángulo horizontal', 'Ângulo horizontal', '水平画角', 'Horizontaler Bildwinkel', 'Angle horizontal', 'क्षैतिज कोण', '水平视角', '水平視角'),
+  verticalLabel: T('세로 화각', 'Vertical angle', 'Ángulo vertical', 'Ângulo vertical', '垂直画角', 'Vertikaler Bildwinkel', 'Angle vertical', 'ऊर्ध्व कोण', '垂直视角', '垂直視角'),
+  cropLabel: T('크롭 배수', 'Crop factor', 'Factor de recorte', 'Fator de corte', 'クロップ倍率', 'Cropfaktor', 'Facteur de recadrage', 'क्रॉप फ़ैक्टर', '等效倍率', '等效倍率'),
+  equivLabel: T('35mm 환산', '35 mm equivalent', 'Equivalente a 35 mm', 'Equivalente a 35 mm', '35mm換算', 'Kleinbildäquivalent', 'Équivalent 24×36', '35 मिमी समतुल्य', '35mm 等效', '35mm 等效'),
+  widthLabel: T('2m 앞 가로 폭', 'Frame width at 2 m', 'Ancho encuadrado a 2 m', 'Largura enquadrada a 2 m', '2m先で写る幅', 'Bildbreite auf 2 m', 'Largeur cadrée à 2 m', '2 मीटर पर चौड़ाई', '2 米处的画面宽度', '2 公尺處的畫面寬度'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
 
   degUnit: T(
     (n: number) => `${n}도`, (n: number) => `${n}°`, (n: number) => `${n}°`, (n: number) => `${n}°`,
     (n: number) => `${n}度`, (n: number) => `${n}°`, (n: number) => `${n}°`, (n: number) => `${n}°`,
+    (n: number) => `${n}度`,
+    (n: number) => `${n}度`,
   ),
   meterUnit: T(
     (n: number) => `${n}m`, (n: number) => `${n} m`, (n: number) => `${n} m`, (n: number) => `${n} m`,
     (n: number) => `${n}m`, (n: number) => `${n} m`, (n: number) => `${n} m`, (n: number) => `${n} मी`,
+    (n: number) => `${n}米`,
+    (n: number) => `${n}公尺`,
   ),
 
-  sameFovTitle: T('같은 화각을 주는 조합', 'Same field of view elsewhere', 'El mismo encuadre en otros sensores', 'O mesmo enquadramento em outros sensores', '同じ画角になる組み合わせ', 'Gleicher Bildwinkel anderswo', 'Même champ ailleurs', 'वही दृश्य अन्य सेंसर पर'),
+  sameFovTitle: T('같은 화각을 주는 조합', 'Same field of view elsewhere', 'El mismo encuadre en otros sensores', 'O mesmo enquadramento em outros sensores', '同じ画角になる組み合わせ', 'Gleicher Bildwinkel anderswo', 'Même champ ailleurs', 'वही दृश्य अन्य सेंसर पर', '能拍出同样视角的组合', '能拍出同樣視角的組合'),
   sameFovNote: T(
     '센서가 다르면 초점거리도 달라야 같은 화면이 됩니다.',
     'A different sensor needs a different focal length to frame the same scene.',
@@ -223,10 +259,12 @@ const SPEC: Spec = {
     'Ein anderer Sensor braucht eine andere Brennweite für denselben Ausschnitt.',
     "Un autre capteur exige une autre focale pour le même cadrage.",
     'दूसरा सेंसर हो तो वही दृश्य पाने के लिए फ़ोकल लंबाई भी बदलनी पड़ती है।',
+    '传感器不同，要拍出同一个画面，焦距也得跟着变。',
+    '感光元件不同，要拍出同一個畫面，焦距也得跟著變。',
   ),
-  neighbourTitle: T('같은 센서의 이웃 초점거리', 'Nearby focal lengths', 'Focales cercanas', 'Focais próximas', '同じセンサーの近い焦点距離', 'Benachbarte Brennweiten', 'Focales voisines', 'निकट की फ़ोकल लंबाइयाँ'),
+  neighbourTitle: T('같은 센서의 이웃 초점거리', 'Nearby focal lengths', 'Focales cercanas', 'Focais próximas', '同じセンサーの近い焦点距離', 'Benachbarte Brennweiten', 'Focales voisines', 'निकट की फ़ोकल लंबाइयाँ', '同一传感器上相邻的焦距', '同一感光元件上相鄰的焦距'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些数字', '怎麼看這些數字'),
 
   how: T(
     [
@@ -277,9 +315,21 @@ const SPEC: Spec = {
       'लंबे लेंस हिलने को बढ़ा देते हैं। हाथ में लेकर शटर गति समतुल्य फ़ोकल लंबाई के व्युत्क्रम से तेज़ रखें।',
       'चौड़ा कोण सिर्फ़ ज़्यादा दृश्य नहीं देता: किनारे खिंचते हैं, इसलिए चेहरे बीच में रखें।',
     ],
+    [
+      '视角不是光靠焦距定的。同样是 50mm，传感器小了，拍进去的范围就窄。',
+      '等效倍率是传感器对角线除以 35mm 画幅对角线。拿它乘焦距，就得到等效焦距。',
+      '越长焦，抖动看起来越明显。手持拍摄的诀窍是把快门速度调到快过「等效焦距分之一秒」。',
+      '视角广不等于拍到的东西一定更好。边缘会被拉长，人脸还是放在中间为好。',
+    ],
+    [
+      '視角不是光靠焦距定的。同樣是 50mm，感光元件小了，拍進去的範圍就窄。',
+      '等效倍率是感光元件對角線除以 35mm 片幅對角線。拿它乘焦距，就得到等效焦距。',
+      '越望遠，晃動看起來越明顯。手持拍攝的訣竅是把快門速度調到快過「等效焦距分之一秒」。',
+      '視角廣不等於拍到的東西一定更好。邊緣會被拉長，人臉還是放在中間為好。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '렌즈 화각 계산 104가지 — 초점거리와 센서별 각도',
@@ -290,6 +340,8 @@ const SPEC: Spec = {
     'Bildwinkel — 104 Kombinationen aus Brennweite und Sensor',
     "Angle de champ — 104 combinaisons focale et capteur",
     'लेंस दृश्य कोण — फ़ोकल लंबाई और सेंसर के 104 संयोजन',
+    '镜头视角换算 104 种 — 各焦距在各传感器上的角度',
+    '鏡頭視角換算 104 種 — 各焦距在各感光元件上的角度',
   ),
   hubMetaDesc: T(
     '35mm·50mm·85mm 같은 초점거리를 풀프레임·APS-C·마이크로포서드·1인치 센서에 물렸을 때의 대각·가로·세로 화각과 35mm 환산 초점거리를 계산해 정리했습니다.',
@@ -300,6 +352,8 @@ const SPEC: Spec = {
     'Diagonaler, horizontaler und vertikaler Bildwinkel samt Kleinbildäquivalent für Brennweiten von 8 bis 800 mm an Vollformat, APS-C, MFT und 1 Zoll.',
     "Angles diagonal, horizontal et vertical et équivalent 24×36 pour des focales de 8 à 800 mm sur plein format, APS-C, Micro 4/3 et 1 pouce.",
     'फ़ुल फ़्रेम, APS-C, माइक्रो फ़ोर थर्ड्स और 1-इंच सेंसर पर 8 से 800 मिमी फ़ोकल लंबाई के विकर्ण, क्षैतिज और ऊर्ध्व कोण तथा 35 मिमी समतुल्य।',
+    '把 35mm、50mm、85mm 这些焦距装到全画幅、APS-C、M4/3、1 英寸传感器上，对角、水平、垂直视角各是多少度，35mm 等效焦距又是多少，全部算好列出。',
+    '把 35mm、50mm、85mm 這些焦距裝到全片幅、APS-C、M4/3、1 吋感光元件上，對角、水平、垂直視角各是多少度，35mm 等效焦距又是多少，全部算好列出。',
   ),
 
   metaTitle: T(
@@ -311,6 +365,8 @@ const SPEC: Spec = {
     (f: number, s: string) => `${f} mm an ${s} — welcher Bildwinkel`,
     (f: number, s: string) => `${f} mm sur ${s} — quel angle de champ`,
     (f: number, s: string) => `${s} पर ${f} मिमी — कितना दृश्य कोण`,
+    (f: number, s: string) => `${f}mm 配 ${s} 的视角是多少度`,
+    (f: number, s: string) => `${f}mm 配 ${s} 的視角是多少度`,
   ),
 
   metaDesc: T(
@@ -322,6 +378,8 @@ const SPEC: Spec = {
     (f: LensFacts, kind: string) => `${f.focal} mm an ${f.sensorName} ergeben ${f.diagonal}° diagonalen Bildwinkel, kleinbildäquivalent ${f.equiv} mm. Damit gehört es zur Gruppe ${kind}.`,
     (f: LensFacts, kind: string) => `Un ${f.focal} mm sur ${f.sensorName} donne un angle diagonal de ${f.diagonal}°, soit ${f.equiv} mm en équivalent 24×36. Il relève du groupe ${kind.toLowerCase()}.`,
     (f: LensFacts, kind: string) => `${f.sensorName} पर ${f.focal} मिमी से विकर्ण दृश्य कोण ${f.diagonal}° बनता है, जो 35 मिमी में ${f.equiv} मिमी के बराबर है। यह ${kind} समूह में आता है।`,
+    (f: LensFacts, kind: string) => `${f.sensorName} 传感器装上 ${f.focal}mm，对角视角为 ${f.diagonal} 度，35mm 等效焦距是 ${f.equiv}mm，属于${kind}这一类。`,
+    (f: LensFacts, kind: string) => `${f.sensorName} 感光元件裝上 ${f.focal}mm，對角視角為 ${f.diagonal} 度，35mm 等效焦距是 ${f.equiv}mm，屬於${kind}這一類。`,
   ),
 
   hubFaq: T(
@@ -381,6 +439,20 @@ const SPEC: Spec = {
       { q: 'क्या वही लेंस दूसरे कैमरे पर अलग कोण देता है?', a: 'लेंस नहीं बदलता, पर छोटा सेंसर उसकी छवि से कम हिस्सा काटता है, इसलिए कोण सँकरा हो जाता है। फ़ुल फ़्रेम के 50 मिमी जैसा दृश्य APS-C पर लगभग 35 मिमी से मिलता है।' },
       { q: 'ये आँकड़े कैसे निकाले गए?', a: 'सिर्फ़ फ़ोकल लंबाई और सेंसर के माप दर्ज हैं। हर कोण सेंसर की एक भुजा को फ़ोकल लंबाई के दोगुने से भाग देकर उसका आर्कटैंजेंट दोगुना करने पर मिलता है, और क्रॉप फ़ैक्टर विकर्णों का अनुपात है।' },
     ],
+    [
+      { q: '等效倍率是什么？', a: '它衡量传感器比 35mm 画幅小多少，按对角线长度来量。APS-C 大约 1.5 倍，M4/3 是 2 倍。拿焦距乘上它，就得到能拍出同样视角的 35mm 镜头焦距。' },
+      { q: '说 50mm 等于人眼，这话对吗？', a: '这话的意思是：全画幅上 50mm 的对角视角约 47 度，和人一眼专注看过去的范围差不多。人眼的整个视野要宽得多，所以当成「近似」来听更准确。' },
+      { q: '拍人像该用什么镜头？', a: '常用 35mm 等效的 85 到 135mm。这个距离拍，脸的比例自然，背景又虚化得好，人就突出来了。地方窄的话，等效 50mm 也够用。' },
+      { q: '镜头没换，换了机身视角就变了吗？', a: '镜头本身没变，但传感器裁下来的范围变了，结果视角就跟着变。想在 APS-C 上得到全画幅 50mm 的画面，得用 35mm 左右。' },
+      { q: '这些数值是怎么算的？', a: '记录下来的只有焦距和传感器的长宽。视角是「传感器一边除以两倍焦距」的反正切再乘 2，等效倍率则是对角线之比。' },
+    ],
+    [
+      { q: '等效倍率是什麼？', a: '它衡量感光元件比 35mm 片幅小多少，按對角線長度來量。APS-C 大約 1.5 倍，M4/3 是 2 倍。拿焦距乘上它，就得到能拍出同樣視角的 35mm 鏡頭焦距。' },
+      { q: '說 50mm 等於人眼，這話對嗎？', a: '這話的意思是：全片幅上 50mm 的對角視角約 47 度，和人一眼專注看過去的範圍差不多。人眼的整個視野要寬得多，所以當成「近似」來聽更準確。' },
+      { q: '拍人像該用什麼鏡頭？', a: '常用 35mm 等效的 85 到 135mm。這個距離拍，臉的比例自然，背景又柔化得好，人就突出來了。地方窄的話，等效 50mm 也夠用。' },
+      { q: '鏡頭沒換，換了機身視角就變了嗎？', a: '鏡頭本身沒變，但感光元件裁下來的範圍變了，結果視角就跟著變。想在 APS-C 上得到全片幅 50mm 的畫面，得用 35mm 左右。' },
+      { q: '這些數值是怎麼算的？', a: '記錄下來的只有焦距和感光元件的長寬。視角是「感光元件一邊除以兩倍焦距」的反正切再乘 2，等效倍率則是對角線之比。' },
+    ],
   ),
 
   lensFaq: T(
@@ -432,13 +504,25 @@ const SPEC: Spec = {
       { q: `यह संयोजन किस काम के लिए अच्छा है?`, a: `यह ${kind} समूह में आता है। दो मीटर की दूरी से यह ${f.widthAt2m} मीटर चौड़ाई समेटता है।` },
       { q: `दूसरे कैमरे पर वही दृश्य कैसे पाएँ?`, a: `दूसरा सेंसर हो तो फ़ोकल लंबाई भी बदलनी होगी; समतुल्य संयोजन इसी पन्ने पर नीचे दिए हैं।` },
     ],
+    (f: LensFacts, kind: string) => [
+      { q: `${f.sensorName} 装上 ${f.focal}mm，视角是多少度？`, a: `对角 ${f.diagonal} 度，水平 ${f.horizontal} 度，垂直 ${f.vertical} 度。` },
+      { q: `${f.focal}mm 换算成 35mm 是多少？`, a: `${f.equiv}mm。就是乘上这块传感器 ${f.crop} 倍的等效倍率。` },
+      { q: `这个组合适合拍什么？`, a: `它的视角属于${kind}。站在 2 米开外，画面里能装下 ${f.widthAt2m} 米宽。` },
+      { q: `想用别的机身拍出同样的画面呢？`, a: `传感器不同，焦距也得跟着变。本页下方列出了能拍出同样视角的组合。` },
+    ],
+    (f: LensFacts, kind: string) => [
+      { q: `${f.sensorName} 裝上 ${f.focal}mm，視角是多少度？`, a: `對角 ${f.diagonal} 度，水平 ${f.horizontal} 度，垂直 ${f.vertical} 度。` },
+      { q: `${f.focal}mm 換算成 35mm 是多少？`, a: `${f.equiv}mm。就是乘上這塊感光元件 ${f.crop} 倍的等效倍率。` },
+      { q: `這個組合適合拍什麼？`, a: `它的視角屬於${kind}。站在 2 公尺開外，畫面裡能裝下 ${f.widthAt2m} 公尺寬。` },
+      { q: `想用別的機身拍出同樣的畫面呢？`, a: `感光元件不同，焦距也得跟著變。本頁下方列出了能拍出同樣視角的組合。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const LENS_UI: L8<LensUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const LENS_UI: L<LensUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<LensUI>;
+) as unknown as L<LensUI>;

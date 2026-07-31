@@ -6,7 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import AngleFan from '@/components/lens/AngleFan';
 import SensorBox from '@/components/lens/SensorBox';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { LENS_ICON, lensOf } from '@/lib/lens/list';
 import { lensFacts, neighbourFocals, sameFieldOfView } from '@/lib/lens/facts';
 import { LENS_UI } from '@/lib/lens/ui';
@@ -17,7 +17,7 @@ import { LENS_UI } from '@/lib/lens/ui';
  * 화각을 글자로만 적으면 8mm와 24mm의 차이가 와닿지 않는다. 그림을 먼저 두고
  * 숫자를 아래에 붙인다.
  */
-export default function LensPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
   const l = lensOf(slug);
   if (!l) return null;
   const f = lensFacts(l);
@@ -144,7 +144,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang8 }) 
         <Faq items={faq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(x => x.lang !== lang).map(x => (
+          {LANGS.filter(x => x.lang !== lang).map(x => (
             <Link key={x.lang} href={`${x.prefix}/snap/lens/${slug}`} hrefLang={x.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {x.label}
             </Link>
