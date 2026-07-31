@@ -1,13 +1,13 @@
 /**
- * 주파수 화면의 문구 — 여덟 언어.
+ * 주파수 화면의 문구 — 열 언어.
  *
  * 113가지 × 8언어를 손으로 쓸 수 없다. 주파수마다 다른 것은 숫자와 쓰임뿐이므로
  * 문장 틀을 한 벌 두고 계산된 값을 끼워 넣는다.
  *
- * 항목마다 여덟 언어를 나란히 적는다. 한 언어씩 통째로 적으면 어느 항목이
- * 빠졌는지 눈으로 못 찾는데, 이렇게 두면 여덟 칸 중 빈 칸이 바로 보인다.
+ * 항목마다 열 언어를 나란히 적는다. 한 언어씩 통째로 적으면 어느 항목이
+ * 빠졌는지 눈으로 못 찾는데, 이렇게 두면 열 칸 중 빈 칸이 바로 보인다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { FreqRange, FreqTag } from './freqs.ts';
 import type { FreqFacts } from './facts.ts';
 
@@ -52,16 +52,16 @@ export interface SoundUI {
   freqFaq: (f: FreqFacts) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof SoundUI]: L8<SoundUI[K]> };
+type Spec = { [K in keyof SoundUI]: L<SoundUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
 
-  section: T('주파수', 'Frequencies', 'Frecuencias', 'Frequências', '周波数', 'Frequenzen', 'Fréquences', 'फ़्रीक्वेंसी'),
+  section: T('주파수', 'Frequencies', 'Frecuencias', 'Frequências', '周波数', 'Frequenzen', 'Fréquences', 'फ़्रीक्वेंसी', '频率', '頻率'),
 
   hubTitle: T(
     '주파수 113가지 소리 듣기',
@@ -72,6 +72,8 @@ const SPEC: Spec = {
     '113 Frequenzen anhören',
     'Écouter 113 fréquences',
     '113 फ़्रीक्वेंसी सुनें',
+    '听听这 113 种频率',
+    '聽聽這 113 種頻率',
   ),
 
   hubLead: T(
@@ -83,6 +85,8 @@ const SPEC: Spec = {
     'Von 20 Hz bis 24 kHz — Frequenz wählen und sofort hören, samt Wellenlänge, Periode und nächstgelegenem Notennamen.',
     "De 20 Hz à 24 kHz : choisissez une fréquence et écoutez-la aussitôt, avec sa longueur d'onde, sa période et la note la plus proche déjà calculées.",
     '20Hz से 24kHz तक — फ़्रीक्वेंसी चुनें और तुरंत सुनें, साथ में तरंगदैर्ध्य, आवर्तकाल और सबसे नज़दीकी संगीत स्वर की गणना भी।',
+    '从 20Hz 到 24kHz，选一个频率就能马上听。波长、周期和最接近的音名，也一并算好给你。',
+    '從 20Hz 到 24kHz，選一個頻率就能馬上聽。波長、週期和最接近的音名，也一併算好給你。',
   ),
 
   rangeLabel: T(
@@ -94,6 +98,8 @@ const SPEC: Spec = {
     { sub: 'Infraschall (unter 20 Hz)', low: 'Bass (20–250 Hz)', mid: 'Mitten (250 Hz–4 kHz)', high: 'Höhen (4–20 kHz)', ultra: 'Ultraschall (über 20 kHz)' },
     { sub: 'Infrasons (moins de 20 Hz)', low: 'Graves (20–250 Hz)', mid: 'Médiums (250 Hz–4 kHz)', high: 'Aigus (4–20 kHz)', ultra: 'Ultrasons (plus de 20 kHz)' },
     { sub: 'इन्फ़्रासाउंड (20 Hz से नीचे)', low: 'बास (20–250 Hz)', mid: 'मिडरेंज (250 Hz–4 kHz)', high: 'ट्रेबल (4–20 kHz)', ultra: 'अल्ट्रासाउंड (20 kHz से ऊपर)' },
+    { sub: '次声（低于 20Hz）', low: '低频（20~250Hz）', mid: '中频（250Hz~4kHz）', high: '高频（4~20kHz）', ultra: '超声（高于 20kHz）' },
+    { sub: '次聲（低於 20Hz）', low: '低頻（20~250Hz）', mid: '中頻（250Hz~4kHz）', high: '高頻（4~20kHz）', ultra: '超聲（高於 20kHz）' },
   ),
 
   tagLabel: T(
@@ -105,6 +111,8 @@ const SPEC: Spec = {
     { band: 'Normband', audiometry: 'Hörtest', pitch: 'Stimmton', note: 'Notenname', mains: 'Netzbrummen', dtmf: 'Telefontastatur', mosquito: 'Mückenton', solfeggio: 'Solfeggio', subsonic: 'Infraschall', ultrasonic: 'Ultraschall', round: 'Gängiger Wert' },
     { band: 'Bande normalisée', audiometry: 'Test auditif', pitch: 'Diapason', note: 'Note de musique', mains: 'Ronflement secteur', dtmf: 'Clavier téléphonique', mosquito: 'Son moustique', solfeggio: 'Solfeggio', subsonic: 'Infrasons', ultrasonic: 'Ultrasons', round: 'Valeur courante' },
     { band: 'मानक बैंड', audiometry: 'श्रवण जाँच', pitch: 'ट्यूनिंग मानक', note: 'संगीत स्वर', mains: 'बिजली की भनभनाहट', dtmf: 'फ़ोन कीपैड', mosquito: 'मॉस्किटो टोन', solfeggio: 'सोल्फ़ेजियो', subsonic: 'इन्फ़्रासाउंड', ultrasonic: 'अल्ट्रासाउंड', round: 'आम मान' },
+    { band: '标准频带', audiometry: '听力检查', pitch: '调音基准', note: '音名', mains: '电源噪声', dtmf: '电话按键音', mosquito: '蚊音', solfeggio: '索尔菲吉欧', subsonic: '次声', ultrasonic: '超声', round: '常查的值' },
+    { band: '標準頻帶', audiometry: '聽力檢查', pitch: '調音基準', note: '音名', mains: '電源雜訊', dtmf: '電話按鍵音', mosquito: '蚊音', solfeggio: '索爾菲吉歐', subsonic: '次聲', ultrasonic: '超聲', round: '常查的值' },
   ),
 
   tagNote: T(
@@ -212,11 +220,37 @@ const SPEC: Spec = {
       ultrasonic: 'मानव श्रवण सीमा से ऊपर, इसलिए सुनाई नहीं देगा। उपकरण और जानवर फिर भी प्रतिक्रिया दे सकते हैं।',
       round: 'खोज और परीक्षण में अक्सर आने वाला मान।',
     },
+    {
+      band: '量噪声、调音箱时用的 1/3 倍频程标准频带的中心频率。',
+      audiometry: '医院查听力时真正放给你听的频率。这一段正好和人说话的声音重叠。',
+      pitch: '调乐器时拿来当基准的音。',
+      note: '键盘上有名字的那些音。',
+      mains: '通电的地方漏出来的噪声。各国是 50Hz 或 60Hz，它的倍频也一起听得到。',
+      dtmf: '按电话键时发出的声音。四横四竖组成一张格子，每次响的是两个音叠在一起。',
+      mosquito: '上了年纪之后最先听不到的高音。二十岁时听得见，过了四十大多就没了。',
+      solfeggio: '被说成「疗愈频率」而流传很广的一组值。这种效果没有依据，但查的人多，就一并收了进来。',
+      subsonic: '耳朵听不见、身体却感觉得到的低音。音箱在这以下也几乎发不出声。',
+      ultrasonic: '在人耳可听范围之上，所以听不见。仪器和动物则可能有反应。',
+      round: '搜索和考试里常用到的值。',
+    },
+    {
+      band: '量噪音、調音箱時用的 1/3 倍頻程標準頻帶的中心頻率。',
+      audiometry: '醫院查聽力時真正放給你聽的頻率。這一段正好和人說話的聲音重疊。',
+      pitch: '調樂器時拿來當基準的音。',
+      note: '鍵盤上有名字的那些音。',
+      mains: '通電的地方漏出來的雜訊。各國是 50Hz 或 60Hz，它的倍頻也一起聽得到。',
+      dtmf: '按電話鍵時發出的聲音。四橫四直組成一張格子，每次響的是兩個音疊在一起。',
+      mosquito: '上了年紀之後最先聽不到的高音。二十歲時聽得見，過了四十大多就沒了。',
+      solfeggio: '被說成「療癒頻率」而流傳很廣的一組值。這種效果沒有依據，但查的人多，就一併收了進來。',
+      subsonic: '耳朵聽不見、身體卻感覺得到的低音。喇叭在這以下也幾乎發不出聲。',
+      ultrasonic: '在人耳可聽範圍之上，所以聽不見。儀器和動物則可能有反應。',
+      round: '搜尋和考試裡常用到的值。',
+    },
   ),
 
-  play: T('재생', 'Play', 'Reproducir', 'Tocar', '再生', 'Abspielen', 'Écouter', 'चलाएँ'),
-  stop: T('정지', 'Stop', 'Detener', 'Parar', '停止', 'Stopp', 'Arrêter', 'रोकें'),
-  volume: T('음량', 'Volume', 'Volumen', 'Volume', '音量', 'Lautstärke', 'Volume', 'आवाज़'),
+  play: T('재생', 'Play', 'Reproducir', 'Tocar', '再生', 'Abspielen', 'Écouter', 'चलाएँ', '播放', '播放'),
+  stop: T('정지', 'Stop', 'Detener', 'Parar', '停止', 'Stopp', 'Arrêter', 'रोकें', '停止', '停止'),
+  volume: T('음량', 'Volume', 'Volumen', 'Volume', '音量', 'Lautstärke', 'Volume', 'आवाज़', '音量', '音量'),
 
   safety: T(
     '음량을 낮춘 뒤 재생하세요. 순음은 같은 크기라도 귀에 부담이 큽니다.',
@@ -227,6 +261,8 @@ const SPEC: Spec = {
     'Erst die Lautstärke senken. Ein reiner Ton belastet die Ohren stärker als Musik bei gleichem Pegel.',
     "Baissez le volume avant d'écouter. Un son pur fatigue plus l'oreille que de la musique au même niveau.",
     'चलाने से पहले आवाज़ कम कर लें। शुद्ध स्वर उसी स्तर के संगीत से कहीं ज़्यादा कान पर पड़ता है।',
+    '请先把音量调低再播放。同样的响度下，纯音对耳朵的负担比音乐大得多。',
+    '請先把音量調低再播放。同樣的響度下，純音對耳朵的負擔比音樂大得多。',
   ),
 
   noAudio: T(
@@ -238,18 +274,20 @@ const SPEC: Spec = {
     'Dieser Browser kann keinen Ton erzeugen.',
     'Ce navigateur ne peut pas générer de son.',
     'यह ब्राउज़र ध्वनि नहीं बना सकता।',
+    '这个浏览器发不出声音。',
+    '這個瀏覽器發不出聲音。',
   ),
 
-  wavelength: T('파장', 'Wavelength', 'Longitud de onda', 'Comprimento de onda', '波長', 'Wellenlänge', "Longueur d'onde", 'तरंगदैर्ध्य'),
-  period: T('주기', 'Period', 'Periodo', 'Período', '周期', 'Periode', 'Période', 'आवर्तकाल'),
-  note: T('가장 가까운 음', 'Nearest note', 'Nota más cercana', 'Nota mais próxima', 'いちばん近い音', 'Nächster Ton', 'Note la plus proche', 'सबसे नज़दीकी स्वर'),
-  cents: T('음 차이', 'Off by', 'Diferencia', 'Diferença', '音のずれ', 'Abweichung', 'Écart', 'अंतर'),
-  audible: T('가청 여부', 'Audible', 'Audible', 'Audível', '可聴', 'Hörbar', 'Audible', 'सुनाई देता है'),
-  audibleYes: T('들림', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ'),
-  audibleNo: T('안 들림', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं'),
-  harmonics: T('배음', 'Harmonics', 'Armónicos', 'Harmônicos', '倍音', 'Oberwellen', 'Harmoniques', 'हार्मोनिक'),
-  octaveDown: T('한 옥타브 아래', 'One octave down', 'Una octava abajo', 'Uma oitava abaixo', '1オクターブ下', 'Eine Oktave tiefer', 'Une octave plus bas', 'एक ऑक्टेव नीचे'),
-  octaveUp: T('한 옥타브 위', 'One octave up', 'Una octava arriba', 'Uma oitava acima', '1オクターブ上', 'Eine Oktave höher', 'Une octave plus haut', 'एक ऑक्टेव ऊपर'),
+  wavelength: T('파장', 'Wavelength', 'Longitud de onda', 'Comprimento de onda', '波長', 'Wellenlänge', "Longueur d'onde", 'तरंगदैर्ध्य', '波长', '波長'),
+  period: T('주기', 'Period', 'Periodo', 'Período', '周期', 'Periode', 'Période', 'आवर्तकाल', '周期', '週期'),
+  note: T('가장 가까운 음', 'Nearest note', 'Nota más cercana', 'Nota mais próxima', 'いちばん近い音', 'Nächster Ton', 'Note la plus proche', 'सबसे नज़दीकी स्वर', '最接近的音', '最接近的音'),
+  cents: T('음 차이', 'Off by', 'Diferencia', 'Diferença', '音のずれ', 'Abweichung', 'Écart', 'अंतर', '相差', '相差'),
+  audible: T('가청 여부', 'Audible', 'Audible', 'Audível', '可聴', 'Hörbar', 'Audible', 'सुनाई देता है', '能否听到', '能否聽到'),
+  audibleYes: T('들림', 'Yes', 'Sí', 'Sim', 'はい', 'Ja', 'Oui', 'हाँ', '听得到', '聽得到'),
+  audibleNo: T('안 들림', 'No', 'No', 'Não', 'いいえ', 'Nein', 'Non', 'नहीं', '听不到', '聽不到'),
+  harmonics: T('배음', 'Harmonics', 'Armónicos', 'Harmônicos', '倍音', 'Oberwellen', 'Harmoniques', 'हार्मोनिक', '泛音', '泛音'),
+  octaveDown: T('한 옥타브 아래', 'One octave down', 'Una octava abajo', 'Uma oitava abaixo', '1オクターブ下', 'Eine Oktave tiefer', 'Une octave plus bas', 'एक ऑक्टेव नीचे', '低八度', '低八度'),
+  octaveUp: T('한 옥타브 위', 'One octave up', 'Una octava arriba', 'Uma oitava acima', '1オクターブ上', 'Eine Oktave höher', 'Une octave plus haut', 'एक ऑक्टेव ऊपर', '高八度', '高八度'),
 
   centsLabel: T(
     (n: number) => `${n > 0 ? '+' : ''}${n}센트`,
@@ -260,11 +298,13 @@ const SPEC: Spec = {
     (n: number) => `${n > 0 ? '+' : ''}${n} Cent`,
     (n: number) => `${n > 0 ? '+' : ''}${n} cents`,
     (n: number) => `${n > 0 ? '+' : ''}${n} सेंट`,
+    (n: number) => `${n > 0 ? '+' : ''}${n} 音分`,
+    (n: number) => `${n > 0 ? '+' : ''}${n} 音分`,
   ),
 
-  onPitchLabel: T('딱 맞음', 'In tune', 'Afinado', 'Afinado', 'ぴったり', 'Genau', 'Juste', 'सटीक'),
+  onPitchLabel: T('딱 맞음', 'In tune', 'Afinado', 'Afinado', 'ぴったり', 'Genau', 'Juste', 'सटीक', '正好对上', '正好對上'),
 
-  nearbyTitle: T('가까운 주파수', 'Nearby frequencies', 'Frecuencias cercanas', 'Frequências próximas', '近い周波数', 'Nahe Frequenzen', 'Fréquences proches', 'नज़दीकी फ़्रीक्वेंसी'),
+  nearbyTitle: T('가까운 주파수', 'Nearby frequencies', 'Frecuencias cercanas', 'Frequências próximas', '近い周波数', 'Nahe Frequenzen', 'Fréquences proches', 'नज़दीकी फ़्रीक्वेंसी', '相近的频率', '相近的頻率'),
   nearbyNote: T(
     '주파수는 배로 올라가야 한 옥타브입니다. 그래서 가까운 정도도 뺄셈이 아니라 몇 배인지로 잽니다.',
     'Frequency doubles for every octave, so closeness is measured in ratios, not differences.',
@@ -274,9 +314,11 @@ const SPEC: Spec = {
     'Die Frequenz verdoppelt sich pro Oktave, Nähe misst man daher als Verhältnis, nicht als Differenz.',
     "La fréquence double à chaque octave : la proximité se mesure donc en rapports, pas en différences.",
     'हर ऑक्टेव पर फ़्रीक्वेंसी दोगुनी होती है, इसलिए नज़दीकी अंतर से नहीं, अनुपात से नापी जाती है।',
+    '频率要翻一倍才是一个八度。所以远近也不是用减法算，而是看差几倍。',
+    '頻率要翻一倍才是一個八度。所以遠近也不是用減法算，而是看差幾倍。',
   ),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些数字', '怎麼看這些數字'),
 
   how: T(
     [
@@ -327,9 +369,21 @@ const SPEC: Spec = {
       'इंसान करीब 20 Hz से 20 kHz तक सुनता है, पर ऊपरी सीमा उम्र के साथ गिरती है। 15 kHz के बाद किसी को सुनाई देता है, किसी को नहीं।',
       'कुछ सुनाई न देने का मतलब उपकरण खराब होना नहीं है। छोटे स्पीकर नीचे के स्वर नहीं बना पाते, और ऊपर के स्वरों में कान पहले हार मानता है।',
     ],
+    [
+      '赫兹说的是空气一秒钟抖多少次。数字越大，听起来越高。',
+      '波长是声速（20°C 时每秒 343 米）除以频率。20Hz 是 17 米，20kHz 只有 1.7 厘米，差了一千多倍。',
+      '人一般能听到 20Hz 到 20kHz，但上限会随年龄往下掉。所以过了 15kHz，就开始有人听得见、有人听不见。',
+      '听不到不代表设备坏了。小音箱发不出低音，而高音那头，是耳朵先跟不上。',
+    ],
+    [
+      '赫茲說的是空氣一秒鐘抖多少次。數字越大，聽起來越高。',
+      '波長是聲速（20°C 時每秒 343 公尺）除以頻率。20Hz 是 17 公尺，20kHz 只有 1.7 公分，差了一千多倍。',
+      '人一般能聽到 20Hz 到 20kHz，但上限會隨年齡往下掉。所以過了 15kHz，就開始有人聽得見、有人聽不見。',
+      '聽不到不代表裝置壞了。小喇叭發不出低音，而高音那頭，是耳朵先跟不上。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '주파수 113가지 소리 듣기 — 20Hz~24kHz 순음',
@@ -340,6 +394,8 @@ const SPEC: Spec = {
     '113 Frequenzen anhören — reine Töne von 20 Hz bis 24 kHz',
     'Écouter 113 fréquences — sons purs de 20 Hz à 24 kHz',
     '113 फ़्रीक्वेंसी सुनें — 20 Hz से 24 kHz तक शुद्ध स्वर',
+    '听 113 种频率 — 20Hz 到 24kHz 的纯音',
+    '聽 113 種頻率 — 20Hz 到 24kHz 的純音',
   ),
   hubMetaDesc: T(
     '20Hz부터 24kHz까지 주파수 113가지를 브라우저에서 바로 들어 보세요. 파장·주기·가장 가까운 음이름을 함께 계산하고, 청력 검사 주파수와 모기 소리, 전화 버튼음도 함께 담았습니다.',
@@ -350,6 +406,8 @@ const SPEC: Spec = {
     'Spielen Sie 113 Frequenzen von 20 Hz bis 24 kHz direkt im Browser ab — samt Wellenlänge, Periode und nächstem Notennamen, inklusive Hörtest-, Mücken- und Telefontönen.',
     "Écoutez 113 fréquences de 20 Hz à 24 kHz directement dans le navigateur, avec longueur d'onde, période et note la plus proche calculées — y compris les tons de test auditif, le son moustique et les tonalités du clavier téléphonique.",
     '20 Hz से 24 kHz तक की 113 फ़्रीक्वेंसी ब्राउज़र में ही सुनें — तरंगदैर्ध्य, आवर्तकाल और सबसे नज़दीकी स्वर की गणना के साथ, श्रवण जाँच, मॉस्किटो टोन और फ़ोन कीपैड के स्वर भी शामिल।',
+    '从 20Hz 到 24kHz 的 113 种频率，在浏览器里直接播放。波长、周期、最接近的音名都算好了，还收了听力检查用的频率、蚊音和电话按键音。',
+    '從 20Hz 到 24kHz 的 113 種頻率，在瀏覽器裡直接播放。波長、週期、最接近的音名都算好了，還收了聽力檢查用的頻率、蚊音和電話按鍵音。',
   ),
 
   metaTitle: T(
@@ -361,6 +419,8 @@ const SPEC: Spec = {
     (hz: number) => `${hz}-Hz-Ton — Wellenlänge und Note`,
     (hz: number) => `Son de ${hz} Hz — longueur d'onde et note`,
     (hz: number) => `${hz} Hz की ध्वनि — तरंगदैर्ध्य और स्वर`,
+    (hz: number) => `听 ${hz}Hz 的声音 — 波长与音名`,
+    (hz: number) => `聽 ${hz}Hz 的聲音 — 波長與音名`,
   ),
 
   metaDesc: T(
@@ -372,6 +432,8 @@ const SPEC: Spec = {
     (f: FreqFacts) => `Hören Sie einen reinen ${f.hz}-Hz-Ton. Die Wellenlänge in Luft beträgt ${f.wavelengthLabel}, die Periode ${f.periodLabel}, der nächste Ton ist ${f.note}.`,
     (f: FreqFacts) => `Écoutez un son pur de ${f.hz} Hz. Sa longueur d'onde dans l'air est de ${f.wavelengthLabel}, sa période de ${f.periodLabel}, et la note la plus proche est ${f.note}.`,
     (f: FreqFacts) => `${f.hz} Hz का शुद्ध स्वर सुनें। हवा में इसकी तरंगदैर्ध्य ${f.wavelengthLabel}, आवर्तकाल ${f.periodLabel} और सबसे नज़दीकी स्वर ${f.note} है।`,
+    (f: FreqFacts) => `直接听一段 ${f.hz}Hz 的纯音。它在空气中的波长是 ${f.wavelengthLabel}，周期为 ${f.periodLabel}，最接近的音是 ${f.note}。`,
+    (f: FreqFacts) => `直接聽一段 ${f.hz}Hz 的純音。它在空氣中的波長是 ${f.wavelengthLabel}，週期為 ${f.periodLabel}，最接近的音是 ${f.note}。`,
   ),
 
   hubFaq: T(
@@ -430,6 +492,20 @@ const SPEC: Spec = {
       { q: 'क्या शुद्ध स्वर देर तक सुनना ठीक है?', a: 'आवाज़ कम रखें और थोड़ी देर ही सुनें। शुद्ध स्वर की पूरी ऊर्जा एक ही फ़्रीक्वेंसी पर टिकी होती है, इसलिए वह उसी स्तर के संगीत से ज़्यादा दबाव डालता है। बाद में कान भारी लगें या घंटी बजे तो रोक दें।' },
       { q: '440 Hz और 432 Hz में क्या फ़र्क है?', a: 'दोनों ही "ला" स्वर हैं, पर 432 Hz, 440 Hz से 32 सेंट नीचे बैठता है — करीब एक तिहाई सेमीटोन, जो साथ-साथ सुनने पर पकड़ में आता है। अंतरराष्ट्रीय मानक 440 Hz है, और 432 Hz के बेहतर होने का कोई प्रमाण नहीं।' },
       { q: 'ये आँकड़े कैसे निकाले गए?', a: 'सिर्फ़ फ़्रीक्वेंसी दर्ज है। तरंगदैर्ध्य 20 °C हवा में ध्वनि की गति 343 मी/से को फ़्रीक्वेंसी से भाग देकर मिलती है; स्वर का नाम 440 Hz को A4 मानकर और इस तथ्य से निकलता है कि एक सेमीटोन दो का बारहवाँ मूल है।' },
+    ],
+    [
+      { q: '人能听到多少 Hz？', a: '一般说是 20Hz 到 20kHz。不过上限会随年龄往下掉：二十岁听得见 18kHz 的人，过了四十常常在 14kHz 附近就到头了。下限那头的 20Hz，与其说是听见，不如说是身体感觉到。' },
+      { q: '听不到声音，是音箱坏了吗？', a: '多半不是。笔记本和手机上的小喇叭几乎发不出 100Hz 以下的音；而过了 15kHz，跟不上的不是设备而是耳朵。换副耳机再听一遍，就能分清是哪一头的问题。' },
+      { q: '纯音听久了要紧吗？', a: '把音量调低，短时间听。纯音的能量全挤在一个频率上，同样响度下比音乐更伤耳朵。要是听完觉得耳朵发闷或有耳鸣，就该马上停下。' },
+      { q: '440Hz 和 432Hz 有什么不同？', a: '两个都是 A 音，但 432Hz 比 440Hz 低 32 音分，大约是半音的三分之一，挨着听就能听出来。国际标准是 440Hz；说 432Hz 更好，是没有依据的。' },
+      { q: '这些数值是怎么算的？', a: '记录下来的只有赫兹这一个数字。波长是 20°C 空气中的声速 343 m/s 除以频率；音名则是把 440Hz 定为 A4，再按「半音等于 2 的 12 次方根倍」这个关系推出来的。' },
+    ],
+    [
+      { q: '人能聽到多少 Hz？', a: '一般說是 20Hz 到 20kHz。不過上限會隨年齡往下掉：二十歲聽得見 18kHz 的人，過了四十常常在 14kHz 附近就到頭了。下限那頭的 20Hz，與其說是聽見，不如說是身體感覺到。' },
+      { q: '聽不到聲音，是喇叭壞了嗎？', a: '多半不是。筆電和手機上的小喇叭幾乎發不出 100Hz 以下的音；而過了 15kHz，跟不上的不是裝置而是耳朵。換副耳機再聽一遍，就能分清是哪一頭的問題。' },
+      { q: '純音聽久了要緊嗎？', a: '把音量調低，短時間聽。純音的能量全擠在一個頻率上，同樣響度下比音樂更傷耳朵。要是聽完覺得耳朵發悶或有耳鳴，就該馬上停下。' },
+      { q: '440Hz 和 432Hz 有什麼不同？', a: '兩個都是 A 音，但 432Hz 比 440Hz 低 32 音分，大約是半音的三分之一，挨著聽就能聽出來。國際標準是 440Hz；說 432Hz 更好，是沒有依據的。' },
+      { q: '這些數值是怎麼算的？', a: '記錄下來的只有赫茲這一個數字。波長是 20°C 空氣中的聲速 343 m/s 除以頻率；音名則是把 440Hz 定為 A4，再按「半音等於 2 的 12 次方根倍」這個關係推出來的。' },
     ],
   ),
 
@@ -490,13 +566,27 @@ const SPEC: Spec = {
       { q: `${f.hz} Hz सुनाई नहीं दे रहा — क्या कोई गड़बड़ है?`, a: `${f.hz >= 14000 ? 'ऊँचे स्वर उम्र के साथ सबसे पहले जाते हैं। बीस की उम्र में यह ऊँचाई ज़्यादातर लोग सुनते हैं, चालीस के बाद कई नहीं।' : f.hz <= 40 ? 'इतने नीचे के बास छोटे स्पीकर मुश्किल से बनाते हैं। कुछ खराब मानने से पहले हेडफ़ोन या बड़े स्पीकर पर आज़माएँ।' : 'यह बैंड ज़्यादातर उपकरणों और कानों के लिए आसान है, इसलिए पहले आवाज़ और आउटपुट डिवाइस जाँचें।'}` },
       { q: `${f.hz} Hz के हार्मोनिक क्या हैं?`, a: `पूर्णांक गुणज: ${f.harmonics.join(' Hz, ')} Hz। एक ऑक्टेव ऊपर दोगुना ${f.octaveUp} Hz, और एक ऑक्टेव नीचे आधा ${f.octaveDown} Hz होता है।` },
     ],
+    (f: FreqFacts) => [
+      { q: `${f.hz}Hz 是什么样的声音？`, a: `是一秒钟抖 ${f.hz} 次的纯音。${f.audible ? `它落在人能听到的范围里，最接近的音名是 ${f.note}。` : `它在人耳可听范围（20Hz~20kHz）之外，大多数人听不到。`}` },
+      { q: `${f.hz}Hz 的波长是多少？`, a: `在空气中是 ${f.wavelengthLabel}。20°C 的空气里声音一秒走 343 米，把这个距离除以 ${f.hz} 就得到它。` },
+      { q: `${f.hz}Hz 是什么音？`, a: `最接近的音是 ${f.note}，${f.onPitch ? '而且几乎正好就是那个音。' : `比它${f.cents > 0 ? '高' : '低'} ${Math.abs(f.cents)} 音分。半音是 100 音分，所以差了大约半音的 ${Math.round(Math.abs(f.cents))}%。`}` },
+      { q: `听不到 ${f.hz}Hz 是有问题吗？`, a: `${f.hz >= 14000 ? '高音是随年龄最先听不到的。这个高度二十岁时大多听得见，过了四十就有不少人听不到了。' : f.hz <= 40 ? '这么低的音，小喇叭几乎发不出来。换耳机或大音箱再听一次看看。' : '这一段是大多数设备和耳朵都应付得来的范围，听不到的话，先查一下音量和输出设备。'}` },
+      { q: `${f.hz}Hz 的泛音有哪些？`, a: `是它的整数倍：${f.harmonics.join('Hz、')}Hz。高八度是两倍的 ${f.octaveUp}Hz，低八度是一半的 ${f.octaveDown}Hz。` },
+    ],
+    (f: FreqFacts) => [
+      { q: `${f.hz}Hz 是什麼樣的聲音？`, a: `是一秒鐘抖 ${f.hz} 次的純音。${f.audible ? `它落在人能聽到的範圍裡，最接近的音名是 ${f.note}。` : `它在人耳可聽範圍（20Hz~20kHz）之外，大多數人聽不到。`}` },
+      { q: `${f.hz}Hz 的波長是多少？`, a: `在空氣中是 ${f.wavelengthLabel}。20°C 的空氣裡聲音一秒走 343 公尺，把這個距離除以 ${f.hz} 就得到它。` },
+      { q: `${f.hz}Hz 是什麼音？`, a: `最接近的音是 ${f.note}，${f.onPitch ? '而且幾乎正好就是那個音。' : `比它${f.cents > 0 ? '高' : '低'} ${Math.abs(f.cents)} 音分。半音是 100 音分，所以差了大約半音的 ${Math.round(Math.abs(f.cents))}%。`}` },
+      { q: `聽不到 ${f.hz}Hz 是有問題嗎？`, a: `${f.hz >= 14000 ? '高音是隨年齡最先聽不到的。這個高度二十歲時大多聽得見，過了四十就有不少人聽不到了。' : f.hz <= 40 ? '這麼低的音，小喇叭幾乎發不出來。換耳機或大喇叭再聽一次看看。' : '這一段是大多數裝置和耳朵都應付得來的範圍，聽不到的話，先查一下音量和輸出裝置。'}` },
+      { q: `${f.hz}Hz 的泛音有哪些？`, a: `是它的整數倍：${f.harmonics.join('Hz、')}Hz。高八度是兩倍的 ${f.octaveUp}Hz，低八度是一半的 ${f.octaveDown}Hz。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const SOUND_UI: L8<SoundUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const SOUND_UI: L<SoundUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<SoundUI>;
+) as unknown as L<SoundUI>;

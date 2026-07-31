@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { soundToolsIntl, SOUND_CATEGORY_ORDER, SOUND_SHELL_UI, type SoundIntlLang } from '@/lib/sound-tools-intl';
-import { lang8OfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { SOUND_UI } from '@/lib/sound/ui';
 import { FREQ_ICON } from '@/lib/sound/freqs';
 
@@ -16,7 +16,7 @@ import { FREQ_ICON } from '@/lib/sound/freqs';
  */
 export default function SoundHubIntl({ lang }: { lang: SoundIntlLang }) {
   // 주파수 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
-  const freqUi = SOUND_UI[lang8OfLocale(lang)];
+  const freqUi = SOUND_UI[langOfLocale(lang)];
   const tools = soundToolsIntl(lang);
   const ui = SOUND_SHELL_UI[lang];
   const grouped = SOUND_CATEGORY_ORDER[lang]

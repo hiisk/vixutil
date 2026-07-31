@@ -12,7 +12,8 @@ import assert from 'node:assert/strict';
 import { FREQS, FREQ_ICON, FREQ_RANGES, FREQ_SLUGS, freqOf, freqRange, freqSlug, freqsOfRange } from '../lib/sound/freqs.ts';
 import { AUDIBLE_MAX, AUDIBLE_MIN, SPEED_OF_SOUND, dtmfKeys, freqFacts, nearbyFreqs, nearestNote } from '../lib/sound/facts.ts';
 import { SOUND_UI } from '../lib/sound/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { hanProblem } from './han.ts';
 
 test('100가지가 넘는다', () => {
   assert.ok(FREQS.length >= 100, `${FREQS.length}가지뿐이다`);
@@ -151,13 +152,14 @@ test('가까운 주파수는 배수로 재고 자기 자신을 뺀다', () => {
   assert.ok(around.some(h => h < 1000) && around.some(h => h > 1000), '한쪽으로 쏠렸다');
 });
 
-test('여덟 언어가 모두 채워져 있다', () => {
+test('열 언어가 모두 채워져 있다', () => {
   const f = freqFacts(freqOf('440')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = SOUND_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -173,10 +175,10 @@ test('여덟 언어가 모두 채워져 있다', () => {
 });
 
 test('FAQ 답이 그 주파수의 숫자를 담고 있다', () => {
-  // 틀만 여덟 벌 두고 값을 끼워 넣는 구조라, 값이 안 끼워지면 113장이 같은 글이 된다
+  // 틀만 열 벌 두고 값을 끼워 넣는 구조라, 값이 안 끼워지면 113장이 같은 글이 된다
   for (const slug of ['440', '17000', '60']) {
     const f = freqFacts(freqOf(slug)!);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const joined = SOUND_UI[lang].freqFaq(f).map(x => `${x.q} ${x.a}`).join(' ');
       assert.ok(joined.includes(String(f.hz)), `${lang}/${slug}: 주파수가 안 들어갔다`);
       assert.ok(joined.includes(f.note), `${lang}/${slug}: 음이름이 안 들어갔다`);
@@ -191,7 +193,7 @@ test('딱 맞는 음에는 센트 차이를 적지 않는다', () => {
   assert.ok(a4.onPitch);
   const off = freqFacts(freqOf('432')!);
   assert.ok(!off.onPitch);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     assert.ok(SOUND_UI[lang].onPitchLabel.trim().length > 0, `${lang}: 딱 맞음 표시가 없다`);
     assert.ok(SOUND_UI[lang].centsLabel(-32).includes('32'), `${lang}: 센트 표기가 숫자를 안 담는다`);
     assert.ok(SOUND_UI[lang].centsLabel(21).startsWith('+'), `${lang}: 양수에 부호가 없다`);

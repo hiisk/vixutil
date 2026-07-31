@@ -6,7 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import TonePlayer from '@/components/sound/TonePlayer';
 import WaveShape from '@/components/sound/WaveShape';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { FREQ_ICON, freqOf, freqSlug } from '@/lib/sound/freqs';
 import { dtmfKeys, freqFacts, nearbyFreqs } from '@/lib/sound/facts';
 import { SOUND_UI } from '@/lib/sound/ui';
@@ -17,7 +17,7 @@ import { SOUND_UI } from '@/lib/sound/ui';
  * 재생 단추가 맨 위다. 이 화면에 오는 사람은 "8000Hz 소리"를 들으러 왔고,
  * 파장과 음이름은 듣고 나서 읽을 거리다.
  */
-export default function FreqPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
   const freq = freqOf(slug);
   if (!freq) return null;
 
@@ -158,7 +158,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang8 }) 
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/sound/hz/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

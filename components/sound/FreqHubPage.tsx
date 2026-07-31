@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { FREQS, FREQ_ICON, FREQ_RANGES, freqSlug, freqsOfRange } from '@/lib/sound/freqs';
 import { freqFacts } from '@/lib/sound/facts';
 import { SOUND_UI } from '@/lib/sound/ui';
@@ -16,7 +16,7 @@ import { SOUND_UI } from '@/lib/sound/ui';
  * 저음·중음·고음으로 나누고, 줄마다 음이름과 파장을 함께 적어 목록에서
  * 이미 견줄 수 있게 한다.
  */
-export default function FreqHubPage({ lang }: { lang: Lang8 }) {
+export default function FreqHubPage({ lang }: { lang: Lang }) {
   const ui = SOUND_UI[lang];
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : prefix || '/';
@@ -110,7 +110,7 @@ export default function FreqHubPage({ lang }: { lang: Lang8 }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/sound/hz`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>
