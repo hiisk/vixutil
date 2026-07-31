@@ -7,6 +7,8 @@ import { COUNTRY_JA } from './ja.ts';
 import { COUNTRY_DE } from './de.ts';
 import { COUNTRY_FR } from './fr.ts';
 import { COUNTRY_HI } from './hi.ts';
+import { COUNTRY_ZH_HANS } from './zh-hans.ts';
+import { COUNTRY_ZH_HANT } from './zh-hant.ts';
 
 /**
  * 나라 문구의 번역을 언어별로 모은다 — slug가 열쇠다.
@@ -22,4 +24,6 @@ export const COUNTRY_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<str
   de: COUNTRY_DE,
   fr: COUNTRY_FR,
   hi: COUNTRY_HI,
+  'zh-hans': COUNTRY_ZH_HANS,
+  'zh-hant': COUNTRY_ZH_HANT,
 };

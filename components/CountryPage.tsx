@@ -7,10 +7,11 @@ import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import LocalTime from '@/components/country/LocalTime';
 import type { Country } from '@/lib/country/types';
 import { countryText } from '@/lib/country/types';
-import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
+import { localeHref } from '@/lib/locales';
+import LangPicker from '@/components/LangPicker';
 import type { FormulaLang } from '@/lib/formula/terms';
 import {
-  COUNTRY_UI, countryRegions, COUNTRY_SECTION, countryFaq, gapText, utcLabel,
+  COUNTRY_UI, countryRegions, COUNTRY_SECTION, countryFaq, gapText, utcLabel, COUNTRY_LANGS,
 } from '@/lib/country-ui';
 import { relatedCountries } from '@/lib/country-tools';
 
@@ -61,12 +62,8 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
           <Link href={localeHref(lang, '/country')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
             {ui.section}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
-            {ALL_LOCALES.filter(l => l !== lang).map(l => (
-              <Link key={l} href={localeHref(l, `/country/${c.slug}`)} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
-                {localeLabel(l)}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/country/${c.slug}`} available={COUNTRY_LANGS} />
           </span>
         </div>
       </header>

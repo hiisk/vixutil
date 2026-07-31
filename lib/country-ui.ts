@@ -416,7 +416,7 @@ export const COUNTRY_REGION_INTL: Partial<Record<FormulaLang, Record<string, str
 };
 
 /** 여덟 언어가 다 열려 있다 */
-export const COUNTRY_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'];
+export const COUNTRY_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
 /** 지역 이름 — 번역이 없으면 영어로 떨어뜨린다 */
 export const countryRegions = (lang: FormulaLang): Record<string, string> =>

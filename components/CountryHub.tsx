@@ -4,9 +4,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { FormulaLang } from '@/lib/formula/terms';
-import { COUNTRY_UI, countryRegions, COUNTRY_SECTION, utcLabel } from '@/lib/country-ui';
+import { COUNTRY_UI, countryRegions, COUNTRY_SECTION, utcLabel, COUNTRY_LANGS } from '@/lib/country-ui';
 import { countryText } from '@/lib/country/types';
-import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
+import { localeHref } from '@/lib/locales';
+import LangPicker from '@/components/LangPicker';
 
 /** 나라 정보 허브 — 지역별로 묶어 50개국을 한 화면에 */
 export default function CountryHub({ lang }: { lang: FormulaLang }) {
@@ -35,12 +36,8 @@ export default function CountryHub({ lang }: { lang: FormulaLang }) {
             </svg>
             {ui.home}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
-            {ALL_LOCALES.filter(l => l !== lang).map(l => (
-              <Link key={l} href={localeHref(l, '/country')} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
-                {localeLabel(l)}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={'/country'} available={COUNTRY_LANGS} />
           </span>
         </div>
       </header>
