@@ -7,8 +7,10 @@ import { ALGS } from '@/lib/cube/list';
 import { ROLLS } from '@/lib/dice/list';
 import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
+import { OPENINGS } from '@/lib/chess/list';
+import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: 'vixutil — 실용 도구 모음',
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
     // 여덟 언어 전부를 적는다. 한쪽만 가리키는 짝은 구글이 무시한다
-    languages: alternateLanguages('/'),
+    languages: alternateLanguages10('/'),
   },
 };
 
@@ -331,6 +333,30 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/game/poker',
+    icon: '🃏',
+    title: '홀덤 시작 핸드',
+    desc: '시작 핸드 169가지 — 조합과 확률, 플롭에서 무엇이 나오는지까지',
+    badge: `${HANDS.length}종`,
+    color: 'from-emerald-600 to-teal-500',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-950/30',
+    textAccent: 'text-emerald-700 dark:text-emerald-300',
+    borderAccent: 'border-emerald-200 dark:border-emerald-900/50',
+    shadow: 'shadow-emerald-100',
+  },
+  {
+    href: '/game/chess',
+    icon: '♟️',
+    title: '체스 오프닝',
+    desc: '오프닝 174가지 — 수순과 판 그림, 자리(FEN)까지',
+    badge: `${OPENINGS.length}종`,
+    color: 'from-violet-600 to-indigo-500',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/element',

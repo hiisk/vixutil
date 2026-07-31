@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import LocaleHome from '@/components/LocaleHome';
 import { HOME_UI } from '@/lib/locale-home';
-import { alternateLanguages, openGraphFor } from '@/lib/locales';
+import { alternateLanguages10, openGraphFor } from '@/lib/locales';
 
 /* 화면은 components/LocaleHome.tsx 하나를 일곱 언어가 같이 쓴다 */
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: { absolute: HOME_UI['en'].metaTitle },
   description: HOME_UI['en'].metaDesc,
   openGraph: openGraphFor('en'),
-  alternates: { canonical: '/en', languages: alternateLanguages('/') },
+  alternates: { canonical: '/en', languages: alternateLanguages10('/') },
 };
 
 export default function EnHome() {

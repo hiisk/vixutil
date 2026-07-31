@@ -1,12 +1,12 @@
 import type { FaqItem } from '@/lib/calc-faq';
-import type { AnyLocale } from '@/lib/locales';
+import type { AnyLocale10 } from '@/lib/locales';
 
 /**
  * 제목만 언어별로 둔다. 질문·답은 부르는 쪽이 그 언어로 넘긴다.
  *
  * tone이 'dark'인 곳은 영어 전용 화면이라 언어와 무관하게 영어로 둔다.
  */
-const FAQ_TITLE: Record<AnyLocale, string> = {
+const FAQ_TITLE: Record<AnyLocale10, string> = {
   ko: '자주 묻는 질문',
   en: 'Frequently asked questions',
   es: 'Preguntas frecuentes',
@@ -15,6 +15,8 @@ const FAQ_TITLE: Record<AnyLocale, string> = {
   de: 'Häufige Fragen',
   fr: 'Questions fréquentes',
   hi: 'अक्सर पूछे जाने वाले सवाल',
+  'zh-hans': '常见问题',
+  'zh-hant': '常見問題',
 };
 import JsonLd, { faqJsonLd } from './JsonLd';
 
@@ -51,7 +53,7 @@ export default function Faq({
   tone?: keyof typeof TONE;
   className?: string;
   /** 페이지 언어. 다른 언어 페이지에 한국어 제목이 붙지 않도록 한다. */
-  lang?: AnyLocale;
+  lang?: AnyLocale10;
   /** 제목을 직접 정할 때만 — 섹션 사전에 이미 문구가 있는 경우 */
   title?: string;
 }) {

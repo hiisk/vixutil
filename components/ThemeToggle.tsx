@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import type { AnyLocale } from '@/lib/locales';
+import type { AnyLocale10 } from '@/lib/locales';
 
 type Theme = 'light' | 'dark';
 
@@ -20,7 +20,7 @@ type Theme = 'light' | 'dark';
  * false로 바꿔 둔 자리다 — 타입 검사와 빌드를 통과하고 화면에도 영향이 없어서
  * 남아 있었다. 표로 두면 언어를 늘릴 때 빠뜨린 곳이 타입 오류로 드러난다.
  */
-const COPY: Record<AnyLocale, { toLight: string; toDark: string; light: string; dark: string }> = {
+const COPY: Record<AnyLocale10, { toLight: string; toDark: string; light: string; dark: string }> = {
   ko: { toLight: '밝은 테마로 전환', toDark: '어두운 테마로 전환', light: '밝게', dark: '어둡게' },
   en: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme', light: 'Light', dark: 'Dark' },
   es: { toLight: 'Cambiar al tema claro', toDark: 'Cambiar al tema oscuro', light: 'Claro', dark: 'Oscuro' },
@@ -29,9 +29,11 @@ const COPY: Record<AnyLocale, { toLight: string; toDark: string; light: string; 
   de: { toLight: 'Zum hellen Thema wechseln', toDark: 'Zum dunklen Thema wechseln', light: 'Hell', dark: 'Dunkel' },
   fr: { toLight: 'Passer au thème clair', toDark: 'Passer au thème sombre', light: 'Clair', dark: 'Sombre' },
   hi: { toLight: 'हल्की थीम पर जाएँ', toDark: 'गहरी थीम पर जाएँ', light: 'हल्की', dark: 'गहरी' },
+  'zh-hans': { toLight: '切换到浅色主题', toDark: '切换到深色主题', light: '浅色', dark: '深色' },
+  'zh-hant': { toLight: '切換到淺色主題', toDark: '切換到深色主題', light: '淺色', dark: '深色' },
 };
 
-export default function ThemeToggle({ lang = 'ko' }: { lang?: AnyLocale }) {
+export default function ThemeToggle({ lang = 'ko' }: { lang?: AnyLocale10 }) {
   const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 

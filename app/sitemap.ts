@@ -43,6 +43,9 @@ import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { ELEMENTS } from "@/lib/element/list";
+import { OPENINGS } from "@/lib/chess/list";
+import { HANDS } from "@/lib/poker/list";
+import { LANGS10 } from "@/lib/i18n/lang10";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
@@ -309,6 +312,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
+    // 홀덤 시작 핸드 169장도 열 언어다
+    ...LANGS10.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/game/poker`, changeFrequency: weekly, priority: 0.9 },
+      ...HANDS.map((h: { slug: string }) => ({
+        url: `${BASE}${prefix}/game/poker/${h.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 체스 오프닝 174장은 열 언어다 — 중국어 간체·번체가 여기서 처음 들어간다
+    ...LANGS10.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/game/chess`, changeFrequency: weekly, priority: 0.9 },
+      ...OPENINGS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/game/chess/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 원소 118장도 여덟 언어다 — 주기율표 자체가 목록이다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/element`, changeFrequency: weekly, priority: 0.85 },
@@ -426,6 +447,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     // 언어별 첫 화면. 레지스트리에서 만들어야 언어를 늘렸을 때 여기가 안 빠진다
     ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
+    // 중국어 첫 화면 — 아직 체스·포커만 실리지만 주소는 있어야 색인된다
+    { url: `${BASE}/zh-hans`, changeFrequency: weekly, priority: 0.95 },
+    { url: `${BASE}/zh-hant`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     // 랜덤 뽑기도 slug가 여덟 언어에서 같다

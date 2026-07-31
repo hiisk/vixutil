@@ -1,4 +1,4 @@
-import type { AnyLocale } from './locales';
+import type { AnyLocale10 } from './locales';
 
 /**
  * 언어별 첫 화면에 무엇을 싣는지 한 곳에 모은다.
@@ -28,7 +28,7 @@ export type HomeSection = {
   border: string;
   bg: string;
   /** 이 섹션이 있는 언어만 적는다 */
-  copy: Partial<Record<AnyLocale, Copy>>;
+  copy: Partial<Record<AnyLocale10, Copy>>;
 };
 
 const SECTIONS: HomeSection[] = [
@@ -296,6 +296,36 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/game/poker', icon: '🃏', color: 'from-emerald-600 to-teal-500',
+    accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30',
+    copy: {
+      en: { title: "Hold'em Starting Hands", desc: '169 starting hands with combinations, odds and flop chances' },
+      es: { title: 'Manos iniciales de Hold’em', desc: '169 manos con combinaciones, probabilidades y chances en el flop' },
+      'pt-br': { title: 'Mãos iniciais de Hold’em', desc: '169 mãos com combinações, probabilidades e chances no flop' },
+      ja: { title: 'ホールデムのスターティングハンド', desc: '169種の組み合わせ・確率・フロップ確率' },
+      de: { title: "Hold'em-Starthände", desc: '169 Starthände mit Kombinationen, Chancen und Flop-Wahrscheinlichkeiten' },
+      fr: { title: 'Mains de départ au Hold’em', desc: '169 mains avec combinaisons, probabilités et chances au flop' },
+      hi: { title: 'होल्डम शुरुआती हाथ', desc: '169 हाथ — संयोजन, संभावना और फ्लॉप चांस' },
+      'zh-hans': { title: '德州扑克起手牌', desc: '169种起手牌的组合、概率与翻牌机会' },
+      'zh-hant': { title: '德州撲克起手牌', desc: '169種起手牌的組合、機率與翻牌機會' },
+    },
+  },
+  {
+    route: '/game/chess', icon: '♟️', color: 'from-violet-600 to-indigo-500',
+    accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
+    copy: {
+      en: { title: 'Chess Openings', desc: '174 openings with moves, board diagrams and FEN' },
+      es: { title: 'Aperturas de ajedrez', desc: '174 aperturas con jugadas, diagramas y FEN' },
+      'pt-br': { title: 'Aberturas de xadrez', desc: '174 aberturas com jogadas, diagramas e FEN' },
+      ja: { title: 'チェス・オープニング', desc: 'オープニング174種の手順・盤面図・FEN' },
+      de: { title: 'Schacheröffnungen', desc: '174 Eröffnungen mit Zügen, Diagrammen und FEN' },
+      fr: { title: "Ouvertures d'échecs", desc: '174 ouvertures avec coups, diagrammes et FEN' },
+      hi: { title: 'शतरंज ओपनिंग', desc: '174 ओपनिंग — चालें, बोर्ड आरेख और FEN' },
+      'zh-hans': { title: '国际象棋开局', desc: '174种开局的着法、棋图与FEN' },
+      'zh-hant': { title: '西洋棋開局', desc: '174種開局的著法、棋圖與FEN' },
+    },
+  },
+  {
     route: '/element', icon: '⚛️', color: 'from-cyan-600 to-sky-500',
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {
@@ -428,7 +458,7 @@ const SECTIONS: HomeSection[] = [
 ];
 
 /** 그 언어의 첫 화면에 실을 섹션. 선언 순서를 지킨다 */
-export function homeSections(lang: AnyLocale): (Omit<HomeSection, 'copy'> & Copy)[] {
+export function homeSections(lang: AnyLocale10): (Omit<HomeSection, 'copy'> & Copy)[] {
   return SECTIONS.flatMap(s => {
     const c = s.copy[lang];
     if (!c) return [];
@@ -438,9 +468,9 @@ export function homeSections(lang: AnyLocale): (Omit<HomeSection, 'copy'> & Copy
 }
 
 /** 그 언어에 이 섹션이 있는지 — LangPicker의 available을 만들 때 쓴다 */
-export function localesWithSection(route: string): AnyLocale[] {
+export function localesWithSection(route: string): AnyLocale10[] {
   const s = SECTIONS.find(x => x.route === route);
-  return s ? (Object.keys(s.copy) as AnyLocale[]) : [];
+  return s ? (Object.keys(s.copy) as AnyLocale10[]) : [];
 }
 
 export type HomeUi = {
@@ -456,7 +486,23 @@ export type HomeUi = {
   notice: string;
 };
 
-export const HOME_UI: Record<Exclude<AnyLocale, 'ko'>, HomeUi> = {
+export const HOME_UI: Record<Exclude<AnyLocale10, 'ko'>, HomeUi> = {
+  'zh-hans': {
+    metaTitle: 'vixutil — 免费的日常小工具',
+    metaDesc: '在浏览器里直接用的免费工具：国际象棋开局174种、德州扑克起手牌169种，着法、棋图与概率一应俱全。无需注册。',
+    srTagline: ' — 免费的日常小工具',
+    tagline: '在浏览器里直接用的免费工具',
+    open: '打开',
+    notice: '所有内容都在你的浏览器里运行，不上传任何数据，也不需要账号。',
+  },
+  'zh-hant': {
+    metaTitle: 'vixutil — 免費的日常小工具',
+    metaDesc: '在瀏覽器裡直接用的免費工具：西洋棋開局174種、德州撲克起手牌169種，著法、棋圖與機率一應俱全。無需註冊。',
+    srTagline: ' — 免費的日常小工具',
+    tagline: '在瀏覽器裡直接用的免費工具',
+    open: '開啟',
+    notice: '所有內容都在你的瀏覽器裡執行，不上傳任何資料，也不需要帳號。',
+  },
   en: {
     metaTitle: 'vixutil — Free Everyday Tools',
     metaDesc: 'Free tools that run in your browser: unit conversion, checklists, quizzes, personality tests, name generators, random pickers, photo tests and daily horoscopes. No sign-up.',

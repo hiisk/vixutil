@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { HOME_UI, homeSections } from '@/lib/locale-home';
-import { localeHref, type AnyLocale } from '@/lib/locales';
+import { ALL_LOCALES10, localeHref, type AnyLocale10 } from '@/lib/locales';
 
 /**
  * 번역 언어의 첫 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -14,7 +14,7 @@ import { localeHref, type AnyLocale } from '@/lib/locales';
  *
  * 실을 섹션은 lib/locale-home.ts가 정한다. 여기서는 그리는 일만 한다.
  */
-export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale, 'ko'> }) {
+export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> }) {
   const ui = HOME_UI[lang];
   const sections = homeSections(lang);
 
@@ -33,7 +33,7 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale, 'ko'> })
           <p className="text-slate-400 dark:text-slate-500 text-base">{ui.tagline}</p>
           {/* 첫 화면은 여덟 언어 전부 있으니 available을 좁히지 않는다 */}
           <div className="mt-5 flex justify-center">
-            <LangPicker current={lang} route="/" align="left" />
+            <LangPicker current={lang} route="/" align="left" available={ALL_LOCALES10} />
           </div>
         </div>
 

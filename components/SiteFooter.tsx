@@ -1,4 +1,4 @@
-import { localeHref, type AnyLocale } from '@/lib/locales';
+import { localeHref, type AnyLocale10 } from '@/lib/locales';
 import { homeSections } from '@/lib/locale-home';
 import ToolIcon from '@/components/ToolIcon';
 import Link from "next/link";
@@ -12,7 +12,7 @@ import ThemeToggle from "./ThemeToggle";
  * 영어 사용자에게 한국어 전용 계산기(실수령액·퇴직금 등)를 내보내면 클릭한 순간
  * 읽을 수 없는 페이지가 나오기 때문이다. 그 언어로 실제 존재하는 섹션만 건다.
  */
-type Lang = AnyLocale;
+type Lang = AnyLocale10;
 
 const SECTIONS: { href: string; icon: string; label: string }[] = [
   { href: "/calculator", icon: "📊", label: "계산기" },
@@ -87,6 +87,20 @@ const COPY: Record<Lang, {
     popular: "Herramientas populares",
     tagline: "Herramientas prácticas para el día a día · 2026",
   },
+  'zh-hans': {
+    searchHint: "还想找点别的？",
+    searchCta: "搜索全部",
+    browse: "看看其他工具",
+    popular: "热门工具",
+    tagline: "日常实用小工具 · 2026",
+  },
+  'zh-hant': {
+    searchHint: "還想找點別的？",
+    searchCta: "搜尋全部",
+    browse: "看看其他工具",
+    popular: "熱門工具",
+    tagline: "日常實用小工具 · 2026",
+  },
   'pt-br': {
     searchHint: "Procurando outra coisa?",
     searchCta: "Buscar tudo",
@@ -142,6 +156,9 @@ export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
       : homeSections(lang).map(s => ({ href: localeHref(lang, s.route), icon: s.icon, label: s.title }));
   const popular = translated ? [] : lang === 'en' ? POPULAR_EN : POPULAR;
   const searchHref = localeHref(lang, '/search');
+  // 통합 검색은 여덟 언어에만 있다. 중국어에는 아직 없어서 링크를 걸면 404다 —
+  // 빌드된 페이지를 훑는 검사가 실제로 이걸 잡았다.
+  const hasSearch = !lang.startsWith('zh-');
 
   return (
     <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">
@@ -150,20 +167,22 @@ export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
           통합 검색 — 홈에만 있으면 도구 페이지에 깊이 들어온 사용자가 닿을 수 없다.
           푸터는 모든 페이지에 있으므로 여기가 가장 확실한 진입점이다.
         */}
-        <Link
-          href={searchHref}
-          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
-        >
-          <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-          <span className="text-sm text-slate-400 dark:text-slate-500 group-hover:text-slate-600 transition-colors">
-            {t.searchHint}
-          </span>
-          <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">
-            {t.searchCta}
-          </span>
-        </Link>
+        {hasSearch && (
+          <Link
+            href={searchHref}
+            className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
+          >
+            <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <span className="text-sm text-slate-400 dark:text-slate-500 group-hover:text-slate-600 transition-colors">
+              {t.searchHint}
+            </span>
+            <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">
+              {t.searchCta}
+            </span>
+          </Link>
+        )}
 
         {/* 섹션 바로가기 */}
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">

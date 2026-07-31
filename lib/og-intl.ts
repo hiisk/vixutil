@@ -56,6 +56,8 @@ const CARDS: Record<string, Card> = {
   'home/ja': { icon: '🧰', eyebrow: 'vixutil', title: '無料の便利ツール', desc: '配色 · コントラスト比 · CSSグラデーション、ブラウザで完結', from: '#7c3aed', to: '#0ea5e9' },
   'home/de': { icon: '🧰', eyebrow: 'vixutil', title: 'Kostenlose Werkzeuge', desc: 'Farben · Paletten · Kontrast · CSS-Verläufe, im Browser', from: '#7c3aed', to: '#0ea5e9' },
   'home/fr': { icon: '🧰', eyebrow: 'vixutil', title: 'Outils gratuits', desc: 'Couleurs · palettes · contraste · dégradés CSS, dans le navigateur', from: '#7c3aed', to: '#0ea5e9' },
+  'home/zh-hans': { icon: '🧰', eyebrow: 'vixutil', title: '免费的日常小工具', desc: '国际象棋开局 · 德州扑克起手牌 · 着法与概率', from: '#7c3aed', to: '#0ea5e9' },
+  'home/zh-hant': { icon: '🧰', eyebrow: 'vixutil', title: '免費的日常小工具', desc: '西洋棋開局 · 德州撲克起手牌 · 著法與機率', from: '#7c3aed', to: '#0ea5e9' },
   'home/hi': { icon: '🧰', eyebrow: 'vixutil', title: 'मुफ़्त उपकरण', desc: 'रंग · पैलेट · कंट्रास्ट · CSS ग्रेडिएंट, ब्राउज़र में', from: '#7c3aed', to: '#0ea5e9' },
   'fortune/en': { icon: '🔮', eyebrow: 'Fortune', title: 'Free Daily Horoscope', desc: 'Star signs · Chinese zodiac · blood type · MBTI · tarot', from: '#7c3aed', to: '#db2777' },
   'snap/en': { icon: '📸', eyebrow: 'Snap Test', title: 'Snap Tests', desc: 'Photo tests that run in your browser — nothing is uploaded', from: '#d946ef', to: '#0ea5e9' },

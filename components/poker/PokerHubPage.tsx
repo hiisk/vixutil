@@ -1,0 +1,140 @@
+import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
+import PageGlow from '@/components/PageGlow';
+import Faq from '@/components/Faq';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import HandGrid from '@/components/poker/HandGrid';
+import { LANGS10, localeOfLang10, prefix10, type Lang10 } from '@/lib/i18n/lang10';
+import { HANDS, labelOf } from '@/lib/poker/list';
+import { chenScore, handFacts, kindCounts, tierCounts, tierOf, type Tier } from '@/lib/poker/facts';
+import { fill, numFmt, pokerUi } from '@/lib/poker/ui';
+
+const TIER_ORDER: Tier[] = ['premium', 'strong', 'playable', 'marginal', 'weak'];
+
+/**
+ * 시작 핸드 목록 — 13×13 표를 먼저 보이고 그 아래에 등급별 목록을 둔다.
+ *
+ * 표가 곧 목차다. 169줄을 훑는 것보다 표에서 칸을 누르는 편이 빠르다.
+ */
+export default function PokerHubPage({ lang }: { lang: Lang10 }) {
+  const ui = pokerUi(lang);
+  const prefix = prefix10(lang);
+  const homeHref = lang === 'ko' ? '/' : prefix || '/';
+  const path = `${prefix}/game/poker`;
+  // 바닥글과 FAQ 제목은 그 언어 그대로 — 중국어 페이지에 영어 바닥글이 붙지 않게 한다
+  const base = localeOfLang10(lang);
+  const n = HANDS.length;
+  const kinds = kindCounts();
+  const tiers = tierCounts();
+  const suited = handFacts(HANDS.find(h => h.slug === 'aks')!);
+
+  const faq = [
+    { q: fill(ui.hq1, { n }), a: fill(ui.ha1, { n, pair: kinds.pair, suited: kinds.suited, offsuit: kinds.offsuit }) },
+    { q: ui.hq2, a: ui.scoreNote },
+    {
+      q: ui.hq3,
+      a: fill(ui.ha3, {
+        draw: numFmt(lang, suited.flop.find(x => x.key === 'flushDraw')?.pct ?? 0),
+        flush: numFmt(lang, suited.flop.find(x => x.key === 'flush')?.pct ?? 0),
+      }),
+    },
+  ];
+
+  return (
+    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      <JsonLd data={breadcrumbJsonLd([{ name: ui.home, path: homeHref }, { name: ui.section, path }])} />
+      <JsonLd
+        data={itemListJsonLd(
+          fill(ui.hubTitle, { n }),
+          path,
+          HANDS.map(h => ({ name: labelOf(h), path: `${path}/${h.slug}` })),
+        )}
+      />
+
+      <PageGlow accent="emerald" />
+      <div className="h-1 bg-gradient-to-r from-emerald-600 to-teal-500" />
+
+      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
+          <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            {ui.home}
+          </Link>
+          <span className="text-slate-200 dark:text-slate-700">·</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+        </div>
+      </header>
+
+      <main className="relative max-w-2xl mx-auto px-4 py-8">
+        <div className="text-center mb-7">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{fill(ui.hubTitle, { n })}</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{fill(ui.hubLead, { n })}</p>
+        </div>
+
+        <section className="mb-8">
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.chart}</h2>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.chartNote}</p>
+          <HandGrid path={path} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.byKind}</h2>
+          <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            {(['pair', 'suited', 'offsuit'] as const).map(k => (
+              <div key={k} className="px-4 py-3 bg-white dark:bg-slate-900">
+                <div className="flex items-baseline justify-between gap-3">
+                  <dt className="text-sm font-bold text-slate-800 dark:text-slate-100">{ui.kind[k]}</dt>
+                  <dd className="text-sm font-bold text-emerald-700 dark:text-emerald-400 tabular-nums">{kinds[k]}</dd>
+                </div>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.kindNote[k]}</p>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section>
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.byTier}</h2>
+          {TIER_ORDER.map(tier => {
+            const rows = HANDS.filter(h => tierOf(chenScore(h)) === tier)
+              .map(handFacts)
+              .sort((a, b) => a.rank - b.rank);
+            return (
+              <div key={tier} className="mb-7">
+                <div className="flex items-baseline gap-2 mb-1">
+                  <h3 className="text-sm font-black text-emerald-700 dark:text-emerald-400">{ui.tier[tier]}</h3>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{tiers[tier]}</span>
+                </div>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.tierNote[tier]}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {rows.map(f => (
+                    <Link
+                      key={f.slug}
+                      href={`${path}/${f.slug}`}
+                      className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-mono text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                    >
+                      {f.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </section>
+
+        <Faq items={faq} lang={base} title={ui.faq} />
+
+        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+          {LANGS10.filter(l => l.lang !== lang).map(l => (
+            <Link key={l.lang} href={`${l.prefix}/game/poker`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      </main>
+
+      <SiteFooter lang={base} />
+    </div>
+  );
+}
