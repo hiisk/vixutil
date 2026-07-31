@@ -31,10 +31,10 @@ test('도구마다 페이지와 OG 이미지가 있다', () => {
 test('페이지 폴더마다 카탈로그 항목이 있다', () => {
   const orphans = readdirSync(APP, { withFileTypes: true })
     .filter(e => e.isDirectory())
-    // cube·chess는 게임이 아니라 자료 갈래다 — 큐브 공식 119가지와 체스 오프닝
-    // 174가지를 그린다. 목록이 lib/cube/list.ts와 lib/chess/list.ts에서 오므로
+    // cube·chess·poker는 게임이 아니라 자료 갈래다 — 큐브 공식 119가지, 체스 오프닝
+    // 174가지, 홀덤 시작 핸드 169가지를 그린다. 목록이 lib/<갈래>/list.ts에서 오므로
     // 게임 카탈로그가 셀 대상이 아니다
-    .filter(e => e.name !== 'cube' && e.name !== 'chess')
+    .filter(e => !['cube', 'chess', 'poker'].includes(e.name))
     .map(e => e.name)
     .filter(name => !findGameTool(name));
   assert.deepEqual(orphans, [], `카탈로그에 없는 페이지 폴더: ${orphans.join(', ')}`);
@@ -56,6 +56,14 @@ test('체스 오프닝 라우트는 오프닝 목록에서 페이지를 만든�
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'chess', 'page.tsx')), '오프닝 목록 페이지가 없다');
   assert.ok(existsSync(join(APP, 'chess', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
+});
+
+test('홀덤 핸드 라우트는 핸드 목록에서 페이지를 만든다', () => {
+  const src = readFileSync(join(APP, 'poker', '[slug]', 'page.tsx'), 'utf8');
+  assert.ok(src.includes('handParams'), '[slug] 라우트가 핸드 목록을 돌지 않는다');
+  assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
+  assert.ok(existsSync(join(APP, 'poker', 'page.tsx')), '핸드 목록 페이지가 없다');
+  assert.ok(existsSync(join(APP, 'poker', '[slug]', 'opengraph-image.tsx')), '공유 카드가 없다');
 });
 
 test('slug가 중복되지 않는다', () => {

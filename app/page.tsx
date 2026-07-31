@@ -8,6 +8,7 @@ import { ROLLS } from '@/lib/dice/list';
 import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
 import { OPENINGS } from '@/lib/chess/list';
+import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages } from '@/lib/locales';
 
@@ -332,6 +333,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/game/poker',
+    icon: '🃏',
+    title: '홀덤 시작 핸드',
+    desc: '시작 핸드 169가지 — 조합과 확률, 플롭에서 무엇이 나오는지까지',
+    badge: `${HANDS.length}종`,
+    color: 'from-emerald-600 to-teal-500',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-950/30',
+    textAccent: 'text-emerald-700 dark:text-emerald-300',
+    borderAccent: 'border-emerald-200 dark:border-emerald-900/50',
+    shadow: 'shadow-emerald-100',
   },
   {
     href: '/game/chess',

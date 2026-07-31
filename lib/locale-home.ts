@@ -278,6 +278,19 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/game/poker', icon: '🃏', color: 'from-emerald-600 to-teal-500',
+    accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30',
+    copy: {
+      en: { title: "Hold'em Starting Hands", desc: '169 starting hands with combinations, odds and flop chances' },
+      es: { title: 'Manos iniciales de Hold’em', desc: '169 manos con combinaciones, probabilidades y chances en el flop' },
+      'pt-br': { title: 'Mãos iniciais de Hold’em', desc: '169 mãos com combinações, probabilidades e chances no flop' },
+      ja: { title: 'ホールデムのスターティングハンド', desc: '169種の組み合わせ・確率・フロップ確率' },
+      de: { title: "Hold'em-Starthände", desc: '169 Starthände mit Kombinationen, Chancen und Flop-Wahrscheinlichkeiten' },
+      fr: { title: 'Mains de départ au Hold’em', desc: '169 mains avec combinaisons, probabilités et chances au flop' },
+      hi: { title: 'होल्डम शुरुआती हाथ', desc: '169 हाथ — संयोजन, संभावना और फ्लॉप चांस' },
+    },
+  },
+  {
     route: '/game/chess', icon: '♟️', color: 'from-violet-600 to-indigo-500',
     accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
     copy: {
