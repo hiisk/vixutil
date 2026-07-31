@@ -12,14 +12,20 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
-import { LANGS8, LANG8_CODES, type Lang8 } from '../lib/i18n/lang.ts';
+import { LANGS8, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { FOOD_CATEGORIES, INGREDIENTS, ingredient, ingredientsOfCategory } from '../lib/food/ingredients8.ts';
 import { VOLUMES, foodFacts, mlOfGrams, similarIngredients } from '../lib/food/facts.ts';
 import { FOOD_UI, foodAlternates } from '../lib/food/ui.ts';
 
-const LANGS = LANG8_CODES;
+const LANGS = LANG_CODES;
+
+/**
+ * 자료는 열 언어인데 주소는 아직 여덟이다 — 상위 /food가 일곱 언어짜리 도구
+ * 허브와 같은 페이지라서다. 자세한 사정은 lib/food/route.ts에 적어 두었다.
+ */
+const ROUTE_LANGS = LANGS8;
 const HANGUL = /[가-힣]/;
-const dense = (lang: Lang8) => lang === 'ja';
+const dense = (lang: Lang) => lang === 'ja';
 const facts = (slug: string) => {
   const ing = ingredient(slug);
   assert.ok(ing, `${slug} 없음`);
@@ -119,14 +125,14 @@ test('물보다 무거운지 판정이 밀도와 맞는다', () => {
   assert.equal(facts('all-purpose-flour').denserThanWater, false);
 });
 
-test('여덟 언어 이름이 다 있고 한국어 밖에 한글이 없다', () => {
+test('열 언어 이름이 다 있고 한국어 밖에 한글이 없다', () => {
   for (const i of INGREDIENTS) {
     for (const lang of LANGS) {
       const n = i.name[lang];
       assert.ok(n && n.trim().length > 0, `${i.slug} ${lang}: 이름 없음`);
       if (lang !== 'ko') assert.ok(!HANGUL.test(n), `${i.slug} ${lang}에 한글: ${n}`);
     }
-    assert.ok(new Set(Object.values(i.name)).size >= 2, `${i.slug}: 여덟 언어가 모두 같은 이름`);
+    assert.ok(new Set(Object.values(i.name)).size >= 2, `${i.slug}: 열 언어가 모두 같은 이름`);
   }
 });
 
@@ -151,7 +157,7 @@ test('비슷한 재료는 자기를 넣지 않고 같은 갈래를 먼저 준다
 });
 
 test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
-  for (const { prefix } of LANGS8) {
+  for (const { prefix } of ROUTE_LANGS) {
     const p = `app${prefix}/food`;
     assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
     assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
@@ -161,7 +167,7 @@ test('여덟 언어 라우트와 공유 카드가 다 있다', () => {
 
 test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
   const a = foodAlternates('all-purpose-flour');
-  assert.equal(Object.keys(a).length, LANGS8.length + 1);
+  assert.equal(Object.keys(a).length, ROUTE_LANGS.length + 1);
   assert.equal(a.ko, '/food/all-purpose-flour');
   assert.equal(a['pt-BR'], '/pt-br/food/all-purpose-flour');
   assert.equal(a['x-default'], '/en/food/all-purpose-flour');
@@ -179,7 +185,7 @@ test('사이트맵·검색·허브에 재료가 걸려 있다', () => {
   }
 });
 
-test('화면 문구가 여덟 언어로 다 있다', () => {
+test('화면 문구가 열 언어로 다 있다', () => {
   for (const lang of LANGS) {
     const ui = FOOD_UI[lang];
     assert.ok(ui, `${lang}: 문구 묶음이 없다`);

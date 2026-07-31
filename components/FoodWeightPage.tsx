@@ -4,7 +4,7 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang8 } from '@/lib/i18n/lang';
 import { foodFacts, similarIngredients } from '@/lib/food/facts';
 import { FOOD_UI } from '@/lib/food/ui';
 import type { Ingredient } from '@/lib/food/ingredients8';
@@ -166,7 +166,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link
               key={l.lang}
               href={`${l.prefix}/food/${ing.slug}`}
