@@ -113,6 +113,29 @@ test('수순과 자리가 서로 맞는다', () => {
   }
 });
 
+test('수 풀이가 표기와 어긋나지 않는다', () => {
+  for (const x of OPENINGS) {
+    const f = openingFacts(x);
+    assert.equal(f.steps.length, x.moves.length, `${x.slug}: 풀이 수가 다르다`);
+    f.steps.forEach((step, i) => {
+      assert.equal(step.san, f.san[i]);
+      assert.equal(step.side, i % 2 === 0 ? 'w' : 'b');
+      assert.equal(step.no, Math.floor(i / 2) + 1);
+      assert.match(step.from, /^[a-h][1-8]$/, `${x.slug}: 출발 칸이 이상하다 (${step.from})`);
+      assert.match(step.to, /^[a-h][1-8]$/, `${x.slug}: 도착 칸이 이상하다 (${step.to})`);
+      assert.notEqual(step.from, step.to, `${x.slug}: 제자리에 두었다`);
+      assert.ok('PNBRQK'.includes(step.piece), `${x.slug}: 기물이 이상하다 (${step.piece})`);
+      // 표기와 맞는지 — 캐슬링이 아니면 도착 칸이 표기에 들어 있다
+      if (step.castle) assert.match(step.san, /^O-O/, `${x.slug}: 캐슬링인데 표기가 다르다`);
+      else assert.ok(step.san.includes(step.to), `${x.slug}: ${step.san}에 ${step.to}가 없다`);
+      assert.equal(step.capture, step.san.includes('x'), `${x.slug}: 잡기 표시가 어긋난다 (${step.san})`);
+      assert.equal(step.check, /[+#]$/.test(step.san), `${x.slug}: 장군 표시가 어긋난다 (${step.san})`);
+      // 폰이 아닌 기물은 표기 첫 글자가 그 기물이다
+      if (!step.castle && step.piece !== 'P') assert.equal(step.san[0], step.piece, `${x.slug}: ${step.san}의 기물이 다르다`);
+    });
+  }
+});
+
 test('갈래는 첫 두 수가 정한다', () => {
   for (const x of OPENINGS) {
     const [a, b] = x.moves;

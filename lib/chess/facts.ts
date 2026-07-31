@@ -13,6 +13,21 @@ import { FAMILY_TRAITS, OPENINGS, type Opening, type Trait } from './list.ts';
 /** 첫 두 수로 갈리는 큰 갈래 — ECO의 A~E와 같은 나눔이다 */
 export type Group = 'open' | 'semiopen' | 'closed' | 'indian' | 'flank';
 
+/** 한 수를 말로 풀 때 필요한 것 — 어느 쪽이 무엇을 어디서 어디로 */
+export interface Step {
+  /** 수 번호 */
+  no: number;
+  side: Color;
+  san: string;
+  /** 기물 종류 — P N B R Q K */
+  piece: string;
+  from: string;
+  to: string;
+  capture: boolean;
+  castle: boolean;
+  check: boolean;
+}
+
 export interface OpeningFacts {
   slug: string;
   /** 둔 수의 개수(반수) */
@@ -53,6 +68,8 @@ export interface OpeningFacts {
   sharedPly: number;
   /** 지금 자리에서 둘 수 있는 수의 가짓수 */
   replies: number;
+  /** 수마다의 풀이 자료 */
+  steps: Step[];
 }
 
 const HOME_MINORS: Record<Color, number[]> = {
@@ -111,7 +128,7 @@ export function openingFacts(x: Opening): OpeningFacts {
   const cached = CACHE.get(x.slug);
   if (cached) return cached;
 
-  const { positions, san } = play(x.moves);
+  const { positions, san, moves } = play(x.moves);
   const last = positions[positions.length - 1];
 
   // 형제 — 앞수를 가장 많이 나눠 가진 쪽부터. 첫 수가 다르면 형제가 아니다.
@@ -146,6 +163,17 @@ export function openingFacts(x: Opening): OpeningFacts {
     siblings: kin.slice(0, 6).map(y => y.slug),
     sharedPly: bestShare,
     replies: legalMoves(last).length,
+    steps: moves.map((m, i) => ({
+      no: Math.floor(i / 2) + 1,
+      side: (i % 2 === 0 ? 'w' : 'b') as Color,
+      san: san[i],
+      piece: m.piece,
+      from: sqName(m.from),
+      to: sqName(m.to),
+      capture: m.capture,
+      castle: !!m.castle,
+      check: /[+#]$/.test(san[i]),
+    })),
   };
   CACHE.set(x.slug, facts);
   return facts;

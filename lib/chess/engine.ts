@@ -368,19 +368,23 @@ export interface Played {
   positions: Position[];
   /** 장군 표시까지 붙은 정식 표기 */
   san: string[];
+  /** 실제로 둔 수 — 어느 기물이 어디서 어디로 갔는지 */
+  moves: Move[];
 }
 
 /** 수순을 처음부터 둬 본다. 하나라도 어긋나면 예외가 난다. */
-export function play(moves: string[]): Played {
+export function play(text: string[]): Played {
   const positions: Position[] = [startPosition()];
   const san: string[] = [];
-  for (const text of moves) {
+  const moves: Move[] = [];
+  for (const one of text) {
     const p = positions[positions.length - 1];
-    const m = moveFromSan(p, text);
+    const m = moveFromSan(p, one);
     san.push(sanOf(p, m));
+    moves.push(m);
     positions.push(apply(p, m));
   }
-  return { positions, san };
+  return { positions, san, moves };
 }
 
 /** "1.e4 c5 2.Nf3 d6" 처럼 번호를 붙인다 */

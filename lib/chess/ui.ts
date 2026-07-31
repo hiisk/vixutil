@@ -74,6 +74,12 @@ export interface ChessUI {
   prev: string;
   next: string;
   boardAlt: string;
+  movesTitle: string;
+  movesNote: string;
+  captureTag: string;
+  castleTag: string;
+  checkTag: string;
+  piece: Record<string, string>;
   group: Record<Group, string>;
   groupNote: Record<Group, string>;
   trait: Record<Trait, string>;
@@ -151,6 +157,22 @@ const FLAT: Record<string, L10<string>> = {
   plyLabel: T('수순 길이', 'Length', 'Longitud', 'Comprimento', '手数', 'Länge', 'Longueur', 'लंबाई', '手数', '手數'),
   moves: T('{n}수', '{n} moves', '{n} jugadas', '{n} jogadas', '{n}手', '{n} Züge', '{n} coups', '{n} चालें', '{n}手', '{n}手'),
   movesOne: T('{n}수', '{n} move', '{n} jugada', '{n} jogada', '{n}手', '{n} Zug', '{n} coup', '{n} चाल', '{n}手', '{n}手'),
+  movesTitle: T('수순 풀이', 'Move by move', 'Jugada a jugada', 'Jogada a jogada', '手順の解説', 'Zug für Zug', 'Coup par coup', 'चाल दर चाल', '逐着解读', '逐著解讀'),
+  movesNote: T(
+    '어느 기물이 어디서 어디로 갔는지 한 수씩 적었습니다.',
+    'Each move spelled out: which piece went from where to where.',
+    'Cada jugada explicada: qué pieza fue de dónde a dónde.',
+    'Cada jogada explicada: que peça foi de onde para onde.',
+    'どの駒がどこからどこへ動いたかを一手ずつ書きました。',
+    'Jeder Zug ausgeschrieben: welche Figur von wo nach wo ging.',
+    'Chaque coup détaillé : quelle pièce est allée d’où à où.',
+    'हर चाल विस्तार से — कौन सा मोहरा कहाँ से कहाँ गया।',
+    '逐着写清楚：哪个子从哪里走到哪里。',
+    '逐著寫清楚：哪個子從哪裡走到哪裡。',
+  ),
+  captureTag: T('잡기', 'capture', 'captura', 'captura', '取る', 'Schlag', 'prise', 'कटाई', '吃子', '吃子'),
+  castleTag: T('캐슬링', 'castling', 'enroque', 'roque', 'キャスリング', 'Rochade', 'roque', 'कैसलिंग', '易位', '易位'),
+  checkTag: T('장군', 'check', 'jaque', 'xeque', '王手', 'Schach', 'échec', 'शह', '将军', '將軍'),
   position: T('이 자리', 'The position', 'La posición', 'A posição', 'この局面', 'Die Stellung', 'La position', 'यह स्थिति', '这个局面', '這個局面'),
   fen: T('자리 표기(FEN)', 'FEN', 'FEN', 'FEN', 'FEN', 'FEN', 'FEN', 'FEN', 'FEN', 'FEN'),
   turn: T('다음 차례', 'To move', 'Juegan', 'Jogam', '手番', 'Am Zug', 'Trait', 'चाल किसकी', '轮到', '輪到'),
@@ -257,6 +279,15 @@ const FLAT: Record<string, L10<string>> = {
   prev: T('이전 수', 'Previous move', 'Jugada anterior', 'Jogada anterior', '前の手', 'Zug zurück', 'Coup précédent', 'पिछली चाल', '上一着', '上一著'),
   next: T('다음 수', 'Next move', 'Jugada siguiente', 'Próxima jogada', '次の手', 'Zug vor', 'Coup suivant', 'अगली चाल', '下一着', '下一著'),
   boardAlt: T('{name}의 판', 'Board after {name}', 'Tablero de {name}', 'Tabuleiro de {name}', '{name}の盤面', 'Stellung nach {name}', 'Échiquier de {name}', '{name} का बोर्ड', '{name}的局面', '{name}的局面'),
+};
+
+const PIECE: Record<string, L10<string>> = {
+  P: T('폰', 'Pawn', 'Peón', 'Peão', 'ポーン', 'Bauer', 'Pion', 'प्यादा', '兵', '兵'),
+  N: T('나이트', 'Knight', 'Caballo', 'Cavalo', 'ナイト', 'Springer', 'Cavalier', 'घोड़ा', '马', '馬'),
+  B: T('비숍', 'Bishop', 'Alfil', 'Bispo', 'ビショップ', 'Läufer', 'Fou', 'ऊँट', '象', '象'),
+  R: T('룩', 'Rook', 'Torre', 'Torre', 'ルーク', 'Turm', 'Tour', 'हाथी', '车', '車'),
+  Q: T('퀸', 'Queen', 'Dama', 'Dama', 'クイーン', 'Dame', 'Dame', 'वज़ीर', '后', '后'),
+  K: T('킹', 'King', 'Rey', 'Rei', 'キング', 'König', 'Roi', 'राजा', '王', '王'),
 };
 
 const GROUP: Record<Group, L10<string>> = {
@@ -582,12 +613,14 @@ const flat = invert(FLAT);
 const group = invert(GROUP as unknown as Record<string, L10<string>>);
 const groupNote = invert(GROUP_NOTE as unknown as Record<string, L10<string>>);
 const trait = invert(TRAIT as unknown as Record<string, L10<string>>);
+const piece = invert(PIECE);
 
 export const CHESS_UI: L10<ChessUI> = Object.fromEntries(
   LANG10_CODES.map(lang => [
     lang,
     {
       ...flat[lang],
+      piece: piece[lang],
       group: group[lang],
       groupNote: groupNote[lang],
       trait: trait[lang],

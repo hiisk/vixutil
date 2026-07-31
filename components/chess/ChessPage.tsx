@@ -122,6 +122,27 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }
           </dl>
         </section>
 
+        <section className="mb-8">
+          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.movesTitle}</h2>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.movesNote}</p>
+          <ol className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            {f.steps.map((step, i) => (
+              <li key={`${step.san}-${i}`} className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
+                <span className="shrink-0 w-14 font-mono text-xs font-bold text-slate-400 dark:text-slate-500 tabular-nums">
+                  {step.no}{step.side === 'w' ? '.' : '…'}
+                </span>
+                <span className="shrink-0 w-16 font-mono text-sm font-black text-violet-700 dark:text-violet-400">{step.san}</span>
+                <span className="text-sm text-slate-600 dark:text-slate-300">
+                  {step.side === 'w' ? ui.white : ui.black}: {ui.piece[step.piece]} {step.from}→{step.to}
+                  {step.castle ? ` (${ui.castleTag})` : ''}
+                  {step.capture ? ` (${ui.captureTag})` : ''}
+                  {step.check ? ` (${ui.checkTag})` : ''}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         {f.siblings.length > 0 && (
           <section className="mb-8">
             <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.related}</h2>
@@ -132,6 +153,15 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }
               {f.siblings.map(kin => {
                 const y = openingOf(kin);
                 if (!y) return null;
+                // 앞수가 같으니 그 뒤부터 보여 준다 — 같은 수를 여섯 줄 늘어놓으면
+                // 무엇이 다른지가 안 보인다
+                let same = 0;
+                while (same < y.moves.length && y.moves[same] === x.moves[same]) same++;
+                const diff = y.moves.slice(same, same + 4);
+                // 앞수를 통째로 나눠 갖는 짧은 수순은 갈라지는 수가 없다 — 그때는 끝쪽을 보인다
+                const preview = diff.length
+                  ? `…${diff.join(' ')}`
+                  : y.moves.length > 3 ? `…${y.moves.slice(-3).join(' ')}` : y.moves.join(' ');
                 return (
                   <Link
                     key={kin}
@@ -139,7 +169,9 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang10 }
                     className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                   >
                     <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{fullName(y.family, y.line, lang)}</span>
-                    <span className="ml-auto shrink-0 font-mono text-[11px] text-slate-400 dark:text-slate-500">{y.moves.slice(0, 4).join(' ')}</span>
+                    <span className="ml-auto shrink-0 font-mono text-[11px] text-slate-400 dark:text-slate-500">
+                      {preview}
+                    </span>
                   </Link>
                 );
               })}
