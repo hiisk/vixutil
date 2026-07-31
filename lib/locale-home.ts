@@ -416,7 +416,13 @@ const SECTIONS: HomeSection[] = [
     route: '/hanja', icon: '🀄', color: 'from-amber-600 to-yellow-700',
     accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
     copy: {
-      en: { title: 'Four-Character Idioms', desc: 'Fifty Korean idioms with meaning and origin' },
+      en: { title: 'Four-Character Idioms', desc: 'A hundred Korean idioms with meaning and origin' },
+      es: { title: 'Modismos de cuatro caracteres', desc: 'Cien modismos coreanos con su sentido y su origen' },
+      'pt-br': { title: 'Expressões de quatro caracteres', desc: 'Cem expressões coreanas com sentido e origem' },
+      ja: { title: '四字熟語', desc: '韓国の四字熟語100語を意味と由来つきで' },
+      de: { title: 'Vier-Zeichen-Redewendungen', desc: 'Hundert koreanische Redewendungen mit Bedeutung und Herkunft' },
+      fr: { title: 'Expressions à quatre caractères', desc: 'Cent expressions coréennes avec leur sens et leur origine' },
+      hi: { title: 'चार-अक्षरी मुहावरे', desc: 'सौ कोरियाई मुहावरे, अर्थ और उद्गम के साथ' },
     },
   },
 ];

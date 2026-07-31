@@ -1,26 +1,26 @@
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
+import { idiomText } from '@/lib/hanja/types';
+import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
-import type { Lang } from '@/lib/formula/terms';
-import { FORMULA_LANGS } from '@/lib/formula/ui';
-import { HANJA_UI, HANJA_CATEGORY_LABEL, HANJA_SECTION, idiomHeading } from '@/lib/hanja-ui';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { HANJA_UI, hanjaCategories, HANJA_SECTION, idiomHeading } from '@/lib/hanja-ui';
 
 /** 사자성어 허브 — 갈래별로 묶어 50개를 한 화면에 */
-export default function HanjaHub({ lang }: { lang: Lang }) {
+export default function HanjaHub({ lang }: { lang: FormulaLang }) {
   const ui = HANJA_UI[lang];
   const s = HANJA_SECTION;
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/hanja`;
-  const label = HANJA_CATEGORY_LABEL[lang];
+  const homeHref = localeHref(lang, '/hanja');
+  const label = hanjaCategories(lang);
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
-          { name: ui.section, path: `${prefix}/hanja` },
+          { name: ui.section, path: localeHref(lang, '/hanja') },
         ])}
       />
 
@@ -36,9 +36,9 @@ export default function HanjaHub({ lang }: { lang: Lang }) {
             {ui.home}
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
-            {FORMULA_LANGS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/hanja`} hrefLang={l.lang} className={`${s.linkHover} transition-colors`}>
-                {l.label}
+            {ALL_LOCALES.filter(l => l !== lang).map(l => (
+              <Link key={l} href={localeHref(l, '/hanja')} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
+                {localeLabel(l)}
               </Link>
             ))}
           </span>
@@ -67,7 +67,7 @@ export default function HanjaHub({ lang }: { lang: Lang }) {
                 {list.map(i => (
                   <Link
                     key={i.slug}
-                    href={`${prefix}/hanja/${i.slug}`}
+                    href={localeHref(lang, `/hanja/${i.slug}`)}
                     className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
                   >
                     <ToolIcon emoji={i.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
@@ -76,7 +76,7 @@ export default function HanjaHub({ lang }: { lang: Lang }) {
                         {i.hanja}
                         <span className="ml-1.5 font-medium text-slate-500 dark:text-slate-400">{idiomHeading(i, lang)}</span>
                       </span>
-                      <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{i[lang].meaning}</span>
+                      <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{idiomText(i, lang).meaning}</span>
                     </span>
                   </Link>
                 ))}

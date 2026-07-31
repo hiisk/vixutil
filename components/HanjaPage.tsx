@@ -1,15 +1,15 @@
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
+import { idiomText, idiomGloss } from '@/lib/hanja/types';
+import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import type { Idiom } from '@/lib/hanja/types';
-import type { Lang } from '@/lib/formula/terms';
-import { FORMULA_LANGS } from '@/lib/formula/ui';
-import { HANJA_UI, HANJA_CATEGORY_LABEL, HANJA_SECTION, hanjaFaq, idiomHeading } from '@/lib/hanja-ui';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { HANJA_UI, hanjaCategories, HANJA_SECTION, hanjaFaq, idiomHeading } from '@/lib/hanja-ui';
 import { relatedIdioms } from '@/lib/hanja-tools';
-import { GLOSS_EN } from '@/lib/hanja/gloss-en';
 
 /**
  * 사자성어 상세 — 세 언어가 이 컴포넌트 하나를 쓴다.
@@ -17,23 +17,20 @@ import { GLOSS_EN } from '@/lib/hanja/gloss-en';
  * 네 글자를 한 덩어리로만 보여주면 외울 수밖에 없다. 글자마다 새김을 붙여
  * 쪼개 보여주면 왜 그 뜻이 되는지가 보인다.
  */
-export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang }) {
+export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: FormulaLang }) {
   const ui = HANJA_UI[lang];
-  const t = i[lang];
+  const t = idiomText(i, lang);
   const s = HANJA_SECTION;
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/hanja`;
-  const path = `${prefix}/hanja/${i.slug}`;
+  const homeHref = localeHref(lang, '/hanja');
+  const path = localeHref(lang, `/hanja/${i.slug}`);
   const related = relatedIdioms(i.slug);
   const chars = [...i.hanja];
   /*
-    새김은 언어마다 쓸모가 다르다. 한국어는 훈음("넉 사"), 영어는 글자의 뜻,
-    중국어 독자는 글자를 이미 알므로 그 글자의 한국어 음을 보여주는 편이 낫다.
+    새김은 언어마다 쓸모가 다르다. 한국어는 훈음("넉 사")을 그대로 쓰고,
+    나머지 언어는 그 글자의 뜻만 한 낱말로 적는다 — 훈음은 우리 방식이라
+    다른 언어에서는 읽히지 않는다.
   */
-  const glossOf = (n: number): string =>
-    lang === 'ko' ? i.chars[n]
-    : lang === 'en' ? (GLOSS_EN[i.slug]?.[n] ?? i.chars[n])
-    : [...i.reading][n];
+  const glossOf = (n: number): string => idiomGloss(i, lang, n);
 
   const block = (label: string, body: string) => (
     <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
@@ -47,7 +44,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
-          { name: ui.section, path: `${prefix}/hanja` },
+          { name: ui.section, path: localeHref(lang, '/hanja') },
           { name: idiomHeading(i, lang), path },
         ])}
       />
@@ -65,13 +62,13 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/hanja`} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
+          <Link href={localeHref(lang, '/hanja')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
             {ui.section}
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
-            {FORMULA_LANGS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/hanja/${i.slug}`} hrefLang={l.lang} className={`${s.linkHover} transition-colors`}>
-                {l.label}
+            {ALL_LOCALES.filter(l => l !== lang).map(l => (
+              <Link key={l} href={localeHref(l, `/hanja/${i.slug}`)} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
+                {localeLabel(l)}
               </Link>
             ))}
           </span>
@@ -81,7 +78,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-3">
-            {HANJA_CATEGORY_LABEL[lang][i.category] ?? i.category}
+            {hanjaCategories(lang)[i.category] ?? i.category}
           </p>
           <div className={`rounded-2xl bg-gradient-to-br ${s.grad} text-white px-6 py-7`}>
             <p className="text-4xl sm:text-5xl font-black tracking-[0.15em]">{i.hanja}</p>
@@ -126,7 +123,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang
             {related.map(r => (
               <Link
                 key={r.slug}
-                href={`${prefix}/hanja/${r.slug}`}
+                href={localeHref(lang, `/hanja/${r.slug}`)}
                 className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
               >
                 <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
@@ -134,7 +131,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Lang
                   <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
                     {r.hanja} <span className="font-medium text-slate-500 dark:text-slate-400">{idiomHeading(r, lang)}</span>
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{r[lang].meaning}</span>
+                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{idiomText(r, lang).meaning}</span>
                 </span>
               </Link>
             ))}

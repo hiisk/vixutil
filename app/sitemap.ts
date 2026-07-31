@@ -212,8 +212,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
-    ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/en/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 사자성어도 slug가 여덟 언어에서 같다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/hanja`, changeFrequency: weekly, priority: 0.9 },
+      ...IDIOMS.map((i: { slug: string }) => ({
+        url: `${BASE}/${lang}/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     // 도시 시계 116장도 여덟 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
