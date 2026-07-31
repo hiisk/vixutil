@@ -3,7 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { textToolsIntl, TEXT_CATEGORY_ORDER, TEXT_SHELL_UI, type TextIntlLang } from '@/lib/text-tools-intl';
-import { lang8OfLocale, langOfLocale } from '@/lib/i18n/lang';
+import { langOfLocale } from '@/lib/i18n/lang';
 import { GLYPH_UI } from '@/lib/glyph/ui';
 import { GLYPH_ICON } from '@/lib/glyph/list';
 import { REGEX_ICON } from '@/lib/regex/list';
@@ -17,9 +17,8 @@ import { REGEX_UI } from '@/lib/regex/ui';
  * 화면을 열어 보기 전까지 드러나지 않는다.
  */
 export default function TextHubIntl({ lang }: { lang: TextIntlLang }) {
-  // 특수문자 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다.
-  // 글자 목록은 아직 여덟 언어라 좁은 판을 쓴다 — 그쪽이 넘어오면 위와 같아진다.
-  const glyphUi = GLYPH_UI[lang8OfLocale(lang)];
+  // 특수문자 목록은 도구가 아니라 자료라서 갈래 바깥에 따로 세운다
+  const glyphUi = GLYPH_UI[langOfLocale(lang)];
   const regexUi = REGEX_UI[langOfLocale(lang)];
   const tools = textToolsIntl(lang);
   const ui = TEXT_SHELL_UI[lang];

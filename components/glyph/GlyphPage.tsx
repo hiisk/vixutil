@@ -5,7 +5,7 @@ import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import CopyGlyph from '@/components/glyph/CopyGlyph';
-import { LANGS8, langPrefix, type Lang8 } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang } from '@/lib/i18n/lang';
 import { GLYPH_ICON, glyphOf } from '@/lib/glyph/list';
 import { glyphFacts, relatedGlyphs } from '@/lib/glyph/facts';
 import { GLYPH_UI } from '@/lib/glyph/ui';
@@ -16,7 +16,7 @@ import { GLYPH_UI } from '@/lib/glyph/ui';
  * 복사 단추가 맨 위다. 유니코드 번호나 엔티티는 복사한 다음에 필요한 값이라
  * 그 아래에 둔다.
  */
-export default function GlyphPage({ slug, lang }: { slug: string; lang: Lang8 }) {
+export default function GlyphPage({ slug, lang }: { slug: string; lang: Lang }) {
   const g = glyphOf(slug);
   if (!g) return null;
 
@@ -136,7 +136,7 @@ export default function GlyphPage({ slug, lang }: { slug: string; lang: Lang8 })
         </section>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
-          {LANGS8.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/text/char/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}
             </Link>

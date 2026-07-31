@@ -1,11 +1,11 @@
 /**
- * 특수문자 화면의 문구 — 여덟 언어.
+ * 특수문자 화면의 문구 — 열 언어.
  *
- * 글자마다 이름을 여덟 언어로 붙이지 않는다. ★의 이름은 ★이고, 이 화면에
+ * 글자마다 이름을 열 언어로 붙이지 않는다. ★의 이름은 ★이고, 이 화면에
  * 오는 사람은 이름이 아니라 글자를 복사하러 온다. 그래서 제목은 글자 자체이고,
  * 옮기는 것은 갈래 이름과 설명뿐이다 — 168 × 8이 아니라 16 × 8로 끝난다.
  */
-import { LANG8_CODES, type L8, type Lang8 } from '../i18n/lang.ts';
+import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { GlyphKind } from './list.ts';
 import type { GlyphFacts } from './facts.ts';
 
@@ -41,15 +41,15 @@ export interface GlyphUI {
   glyphFaq: (f: GlyphFacts, kind: string) => FaqItem[];
 }
 
-/** 여덟 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi */
-const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V): L8<V> =>
-  ({ ko, en, es, pt, ja, de, fr, hi });
+/** 열 언어를 한 줄에 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
+const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw: V): L<V> =>
+  ({ ko, en, es, pt, ja, de, fr, hi, zh, tw });
 
-type Spec = { [K in keyof GlyphUI]: L8<GlyphUI[K]> };
+type Spec = { [K in keyof GlyphUI]: L<GlyphUI[K]> };
 
 const SPEC: Spec = {
-  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम'),
-  section: T('특수문자', 'Special characters', 'Caracteres especiales', 'Caracteres especiais', '特殊文字', 'Sonderzeichen', 'Caractères spéciaux', 'विशेष वर्ण'),
+  home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
+  section: T('특수문자', 'Special characters', 'Caracteres especiales', 'Caracteres especiais', '特殊文字', 'Sonderzeichen', 'Caractères spéciaux', 'विशेष वर्ण', '特殊符号', '特殊符號'),
 
   hubTitle: T(
     '특수문자 168개 복사',
@@ -60,6 +60,8 @@ const SPEC: Spec = {
     '168 Sonderzeichen zum Kopieren',
     'Copier 168 caractères spéciaux',
     '168 विशेष वर्ण कॉपी करें',
+    '168 个特殊符号，点了就复制',
+    '168 個特殊符號，點了就複製',
   ),
 
   hubLead: T(
@@ -71,6 +73,8 @@ const SPEC: Spec = {
     'Pfeile, Mathezeichen, Währungssymbole, Sterne und Häkchen antippen und kopieren — samt Unicode-Codepunkt, HTML-Entity und CSS-Escape.',
     "Touchez pour copier flèches, symboles mathématiques, devises, étoiles et coches, avec le point de code Unicode, l'entité HTML et l'échappement CSS.",
     'तीर, गणितीय चिह्न, मुद्रा, तारे और चेक मार्क छूकर कॉपी करें — साथ में यूनिकोड कोड पॉइंट, HTML एंटिटी और CSS एस्केप।',
+    '箭头、数学符号、货币、星星、勾号，点一下直接复制。每个还配了 Unicode 码位、HTML 实体和 CSS 转义。',
+    '箭頭、數學符號、貨幣、星星、勾號，點一下直接複製。每個還配了 Unicode 碼位、HTML 實體和 CSS 跳脫。',
   ),
 
   kindLabel: T(
@@ -82,6 +86,8 @@ const SPEC: Spec = {
     { arrow: 'Pfeile', math: 'Mathematik', currency: 'Währungen', punct: 'Satzzeichen', shape: 'Formen', star: 'Sterne und Herzen', check: 'Haken und Warnungen', bracket: 'Klammern', greek: 'Griechische Buchstaben', number: 'Zahlen und Brüche', music: 'Musik', weather: 'Wetter', zodiac: 'Sternzeichen', game: 'Karten und Würfel', key: 'Tastatur', misc: 'Sonstiges' },
     { arrow: 'Flèches', math: 'Mathématiques', currency: 'Devises', punct: 'Ponctuation', shape: 'Formes', star: 'Étoiles et cœurs', check: 'Coches et avertissements', bracket: 'Crochets', greek: 'Lettres grecques', number: 'Nombres et fractions', music: 'Musique', weather: 'Météo', zodiac: 'Zodiaque', game: 'Cartes et dés', key: 'Clavier', misc: 'Divers' },
     { arrow: 'तीर', math: 'गणित', currency: 'मुद्रा', punct: 'विराम चिह्न', shape: 'आकृतियाँ', star: 'तारे और दिल', check: 'चेक और चेतावनी', bracket: 'कोष्ठक', greek: 'ग्रीक अक्षर', number: 'संख्याएँ और भिन्न', music: 'संगीत', weather: 'मौसम', zodiac: 'राशि', game: 'ताश और पासे', key: 'कीबोर्ड', misc: 'अन्य' },
+    { arrow: '箭头', math: '数学符号', currency: '货币', punct: '标点', shape: '图形', star: '星星与心形', check: '勾号与警告', bracket: '括号', greek: '希腊字母', number: '数字与分数', music: '音乐', weather: '天气', zodiac: '星座', game: '扑克与骰子', key: '键盘', misc: '其他' },
+    { arrow: '箭頭', math: '數學符號', currency: '貨幣', punct: '標點', shape: '圖形', star: '星星與心形', check: '勾號與警告', bracket: '括號', greek: '希臘字母', number: '數字與分數', music: '音樂', weather: '天氣', zodiac: '星座', game: '撲克與骰子', key: '鍵盤', misc: '其他' },
   ),
 
   kindNote: T(
@@ -229,26 +235,64 @@ const SPEC: Spec = {
       key: 'Command और Option जैसे कीबोर्ड चिह्न, शॉर्टकट लिखने के लिए।',
       misc: 'वे चिह्न जो कहीं और नहीं बैठते, जैसे कॉपीराइट और तापमान के निशान।',
     },
+    {
+      arrow: '用来指方向。在表格和提示里，比写字更短也更清楚。',
+      math: '写算式用的符号。键盘上没有，多半靠复制。',
+      currency: '各国不同的货币符号。放在数字前面还是后面，也各国不同。',
+      punct: '省略号、间隔号这类键盘上没有、文档里却常用的符号。',
+      shape: '方块、三角、圆圈。用在列表前面，或者在表格里表示状态。',
+      star: '星星、心形和花。常用来打分或强调。',
+      check: '勾号、叉号和警告标志。表格里表示行不行，就靠它们。',
+      bracket: '中日韩文档里用的单直角引号、双直角引号和方括号。',
+      greek: '算式和学术记法里用的希腊字母。',
+      number: '带圈数字、分数和上标。',
+      music: '各种音符，以及升号、降号、还原号。',
+      weather: '太阳、云、雪这类表示天气的黑白符号。它们和彩色表情符号不是同一个字。',
+      zodiac: '表示十二星座的符号。',
+      game: '扑克花色、国际象棋棋子和骰子点数。',
+      key: 'Mac 键盘上 Command、Option 这类写快捷键时用的符号。',
+      misc: '版权标记、温度这些放不进其他分类的符号。',
+    },
+    {
+      arrow: '用來指方向。在表格和提示裡，比寫字更短也更清楚。',
+      math: '寫算式用的符號。鍵盤上沒有，多半靠複製。',
+      currency: '各國不同的貨幣符號。放在數字前面還是後面，也各國不同。',
+      punct: '刪節號、間隔號這類鍵盤上沒有、文件裡卻常用的符號。',
+      shape: '方塊、三角、圓圈。用在清單前面，或者在表格裡表示狀態。',
+      star: '星星、心形和花。常用來打分或強調。',
+      check: '勾號、叉號和警告標誌。表格裡表示行不行，就靠它們。',
+      bracket: '中日韓文件裡用的單直角引號、雙直角引號和方括號。',
+      greek: '算式和學術記法裡用的希臘字母。',
+      number: '帶圈數字、分數和上標。',
+      music: '各種音符，以及升記號、降記號、還原記號。',
+      weather: '太陽、雲、雪這類表示天氣的黑白符號。它們和彩色表情符號不是同一個字。',
+      zodiac: '表示十二星座的符號。',
+      game: '撲克花色、西洋棋棋子和骰子點數。',
+      key: 'Mac 鍵盤上 Command、Option 這類寫快速鍵時用的符號。',
+      misc: '版權標記、溫度這些放不進其他分類的符號。',
+    },
   ),
 
-  copyLabel: T('복사', 'Copy', 'Copiar', 'Copiar', 'コピー', 'Kopieren', 'Copier', 'कॉपी'),
-  copiedLabel: T('복사했습니다', 'Copied', 'Copiado', 'Copiado', 'コピーしました', 'Kopiert', 'Copié', 'कॉपी हो गया'),
-  unicodeLabel: T('유니코드', 'Unicode', 'Unicode', 'Unicode', 'Unicode', 'Unicode', 'Unicode', 'यूनिकोड'),
-  entityLabel: T('HTML 엔티티', 'HTML entity', 'Entidad HTML', 'Entidade HTML', 'HTMLエンティティ', 'HTML-Entity', 'Entité HTML', 'HTML एंटिटी'),
-  namedEntityLabel: T('이름 엔티티', 'Named entity', 'Entidad con nombre', 'Entidade nomeada', '名前付きエンティティ', 'Benannte Entity', 'Entité nommée', 'नामित एंटिटी'),
-  cssLabel: T('CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS'),
-  jsLabel: T('자바스크립트', 'JavaScript', 'JavaScript', 'JavaScript', 'JavaScript', 'JavaScript', 'JavaScript', 'जावास्क्रिप्ट'),
-  urlLabel: T('주소 인코딩', 'URL encoded', 'Codificado para URL', 'Codificado para URL', 'URLエンコード', 'URL-kodiert', 'Encodé pour URL', 'URL एन्कोडेड'),
-  bytesLabel: T('UTF-8 크기', 'UTF-8 size', 'Tamaño UTF-8', 'Tamanho UTF-8', 'UTF-8のサイズ', 'UTF-8-Größe', 'Taille UTF-8', 'UTF-8 आकार'),
+  copyLabel: T('복사', 'Copy', 'Copiar', 'Copiar', 'コピー', 'Kopieren', 'Copier', 'कॉपी', '复制', '複製'),
+  copiedLabel: T('복사했습니다', 'Copied', 'Copiado', 'Copiado', 'コピーしました', 'Kopiert', 'Copié', 'कॉपी हो गया', '已复制', '已複製'),
+  unicodeLabel: T('유니코드', 'Unicode', 'Unicode', 'Unicode', 'Unicode', 'Unicode', 'Unicode', 'यूनिकोड', 'Unicode', 'Unicode'),
+  entityLabel: T('HTML 엔티티', 'HTML entity', 'Entidad HTML', 'Entidade HTML', 'HTMLエンティティ', 'HTML-Entity', 'Entité HTML', 'HTML एंटिटी', 'HTML 实体', 'HTML 實體'),
+  namedEntityLabel: T('이름 엔티티', 'Named entity', 'Entidad con nombre', 'Entidade nomeada', '名前付きエンティティ', 'Benannte Entity', 'Entité nommée', 'नामित एंटिटी', '具名实体', '具名實體'),
+  cssLabel: T('CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS', 'CSS'),
+  jsLabel: T('자바스크립트', 'JavaScript', 'JavaScript', 'JavaScript', 'JavaScript', 'JavaScript', 'JavaScript', 'जावास्क्रिप्ट', 'JavaScript', 'JavaScript'),
+  urlLabel: T('주소 인코딩', 'URL encoded', 'Codificado para URL', 'Codificado para URL', 'URLエンコード', 'URL-kodiert', 'Encodé pour URL', 'URL एन्कोडेड', 'URL 编码', 'URL 編碼'),
+  bytesLabel: T('UTF-8 크기', 'UTF-8 size', 'Tamaño UTF-8', 'Tamanho UTF-8', 'UTF-8のサイズ', 'UTF-8-Größe', 'Taille UTF-8', 'UTF-8 आकार', 'UTF-8 大小', 'UTF-8 大小'),
   bytesValue: T(
     (n: number) => `${n}바이트`, (n: number) => `${n} bytes`, (n: number) => `${n} bytes`, (n: number) => `${n} bytes`,
     (n: number) => `${n}バイト`, (n: number) => `${n} Bytes`, (n: number) => `${n} octets`, (n: number) => `${n} बाइट`,
+    (n: number) => `${n}字节`,
+    (n: number) => `${n}位元組`,
   ),
 
-  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी'),
-  relatedTitle: T('같은 갈래의 다른 문자', 'Other characters in the same group', 'Otros caracteres del mismo grupo', 'Outros caracteres do mesmo grupo', '同じ分類のほかの文字', 'Weitere Zeichen derselben Gruppe', 'Autres caractères du même groupe', 'उसी समूह के अन्य वर्ण'),
+  kindTitle: T('갈래', 'Category', 'Categoría', 'Categoria', '分類', 'Kategorie', 'Catégorie', 'श्रेणी', '分类', '分類'),
+  relatedTitle: T('같은 갈래의 다른 문자', 'Other characters in the same group', 'Otros caracteres del mismo grupo', 'Outros caracteres do mesmo grupo', '同じ分類のほかの文字', 'Weitere Zeichen derselben Gruppe', 'Autres caractères du même groupe', 'उसी समूह के अन्य वर्ण', '同一类的其他符号', '同一類的其他符號'),
 
-  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें'),
+  howTitle: T('읽는 방법', 'How to read this', 'Cómo leerlo', 'Como ler', '読み方', 'So liest man das', 'Comment lire', 'कैसे पढ़ें', '怎么看这些条目', '怎麼看這些條目'),
 
   how: T(
     [
@@ -299,9 +343,21 @@ const SPEC: Spec = {
       'CSS में बैकस्लैश और हेक्साडेसिमल लिखें: content: "\\2764"।',
       'अगर वर्ण डिब्बे जैसा दिखे तो कॉपी ग़लत नहीं हुई — उस फ़ॉन्ट में वह वर्ण ही नहीं है। दूसरे फ़ॉन्ट में सही दिखेगा।',
     ],
+    [
+      'Unicode 码位是每个字独一无二的名牌。字体换了也没关系，码位一样就是同一个字。',
+      '在 HTML 里写成 &#码位; 的形式，到哪儿都通。&hearts; 这种具名实体好看，但只有部分字才有名字。',
+      '在 CSS 里当图标用时，写成 content: "\\2764" 这样，一个反斜杠加十六进制。',
+      '字显示成方框，不是复制错了，而是那套字体里没有这个字的字形。换套字体看就正常了。',
+    ],
+    [
+      'Unicode 碼位是每個字獨一無二的名牌。字型換了也沒關係，碼位一樣就是同一個字。',
+      '在 HTML 裡寫成 &#碼位; 的形式，到哪兒都通。&hearts; 這種具名實體好看，但只有部分字才有名字。',
+      '在 CSS 裡當圖示用時，寫成 content: "\\2764" 這樣，一個反斜線加十六進位。',
+      '字顯示成方框，不是複製錯了，而是那套字型裡沒有這個字的字形。換套字型看就正常了。',
+    ],
   ),
 
-  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल'),
+  faqTitle: T('자주 묻는 질문', 'Frequently asked questions', 'Preguntas frecuentes', 'Perguntas frequentes', 'よくある質問', 'Häufige Fragen', 'Questions fréquentes', 'अक्सर पूछे जाने वाले सवाल', '常见问题', '常見問題'),
 
   hubMetaTitle: T(
     '특수문자 168개 모음 — 화살표·별·체크 복사',
@@ -312,6 +368,8 @@ const SPEC: Spec = {
     '168 Sonderzeichen zum Kopieren — Pfeile, Sterne, Haken',
     '168 caractères spéciaux à copier — flèches, étoiles, coches',
     '168 विशेष वर्ण कॉपी करें — तीर, तारे, चेक मार्क',
+    '特殊符号 168 个 — 箭头、星星、勾号一点就复制',
+    '特殊符號 168 個 — 箭頭、星星、勾號一點就複製',
   ),
   hubMetaDesc: T(
     '화살표·수학 기호·화폐·별·하트·체크 등 특수문자 168개를 갈래별로 모았습니다. 누르면 바로 복사되고, 유니코드 번호와 HTML 엔티티, CSS 이스케이프도 함께 확인할 수 있습니다.',
@@ -322,6 +380,8 @@ const SPEC: Spec = {
     '168 Sonderzeichen nach Art geordnet — Pfeile, Mathematik, Währungen, Sterne, Herzen, Haken. Antippen kopiert; Codepunkt, HTML-Entity und CSS-Escape stehen dabei.',
     "168 caractères spéciaux classés par type : flèches, mathématiques, devises, étoiles, cœurs, coches. Touchez pour copier et consultez le point de code Unicode, l'entité HTML et l'échappement CSS.",
     '168 विशेष वर्ण श्रेणी के अनुसार — तीर, गणित, मुद्रा, तारे, दिल, चेक। छूकर कॉपी करें और यूनिकोड कोड, HTML एंटिटी व CSS एस्केप देखें।',
+    '箭头、数学符号、货币、星星、心形、勾号等 168 个特殊符号，按类别收好。点一下直接复制，Unicode 码位、HTML 实体和 CSS 转义也能一并查到。',
+    '箭頭、數學符號、貨幣、星星、心形、勾號等 168 個特殊符號，按類別收好。點一下直接複製，Unicode 碼位、HTML 實體和 CSS 跳脫也能一併查到。',
   ),
 
   metaTitle: T(
@@ -333,6 +393,8 @@ const SPEC: Spec = {
     (c: string) => `Sonderzeichen ${c} — kopieren, Unicode und HTML-Entity`,
     (c: string) => `Caractère spécial ${c} — copier, Unicode et entité HTML`,
     (c: string) => `${c} विशेष वर्ण — कॉपी, यूनिकोड और HTML एंटिटी`,
+    (c: string) => `${c} 特殊符号复制 — Unicode 与 HTML 实体`,
+    (c: string) => `${c} 特殊符號複製 — Unicode 與 HTML 實體`,
   ),
 
   metaDesc: T(
@@ -344,6 +406,8 @@ const SPEC: Spec = {
     (f: GlyphFacts, kind: string) => `${f.char} antippen und kopieren. Der Unicode-Codepunkt ist ${f.unicode}, die HTML-Entity ${f.entity}, das CSS-Escape ${f.cssEscape}; es gehört zur Gruppe ${kind}.`,
     (f: GlyphFacts, kind: string) => `Touchez pour copier ${f.char}. Son point de code Unicode est ${f.unicode}, son entité HTML ${f.entity}, son échappement CSS ${f.cssEscape}, et il appartient au groupe ${kind.toLowerCase()}.`,
     (f: GlyphFacts, kind: string) => `${f.char} को छूकर कॉपी करें। इसका यूनिकोड ${f.unicode}, HTML एंटिटी ${f.entity}, CSS एस्केप ${f.cssEscape} है और यह ${kind} समूह में आता है।`,
+    (f: GlyphFacts, kind: string) => `点一下 ${f.char} 就能直接复制。它的 Unicode 是 ${f.unicode}，HTML 实体是 ${f.entity}，CSS 里写作 ${f.cssEscape}，属于${kind}这一类。`,
+    (f: GlyphFacts, kind: string) => `點一下 ${f.char} 就能直接複製。它的 Unicode 是 ${f.unicode}，HTML 實體是 ${f.entity}，CSS 裡寫作 ${f.cssEscape}，屬於${kind}這一類。`,
   ),
 
   hubFaq: T(
@@ -403,6 +467,20 @@ const SPEC: Spec = {
       { q: 'HTML में कैसे लिखें?', a: '&#संख्या; वाला रूप हर ब्राउज़र में चलता है। &hearts; जैसी नामित एंटिटी भी हैं, पर वे कुछ ही वर्णों के लिए हैं, इसलिए संख्या वाला रूप सुरक्षित है। पेज UTF-8 हो तो वर्ण सीधे भी चिपकाया जा सकता है।' },
       { q: 'क्या इन्हें सीधे टाइप किया जा सकता है?', a: 'विंडोज़ में विंडोज़ कुंजी और फ़ुल स्टॉप से चिह्न चुनने की खिड़की खुलती है; macOS में Control-Command-Space से कैरेक्टर व्यूअर खुलता है।' },
     ],
+    [
+      { q: '特殊符号怎么复制？', a: '点一下那个符号，它就进了剪贴板，之后到要用的地方粘贴即可。字体不同也是同一个字，所以文档、聊天软件、游戏昵称里都能原样放进去。' },
+      { q: '粘贴过去显示成方框。', a: '不是复制错了，而是那个程序用的字体里没有这个字的字形。换套字体，或者换台设备打开就正常了。像游戏昵称这种没法换字体的地方，还是另挑一个符号更省事。' },
+      { q: '特殊符号和表情符号是一回事吗？', a: '都是 Unicode 字符，但用法不一样。☀ 这种黑白符号按文字处理，会跟着文字的颜色和大小走；☀️ 这种彩色表情则像图片一样单独画出来。写文档时，黑白的那套不那么抢眼。' },
+      { q: '放进 HTML 里该怎么写？', a: '写成 &#码位; 的形式，任何浏览器都认。也有 &hearts; 这样的具名实体，但只有一部分字才有，所以数字形式更保险。文档编码是 UTF-8 的话，直接把字放进去也行。' },
+      { q: '能不能直接用键盘打出来？', a: 'Windows 按 Win 键加句号可以调出符号面板，Mac 按 Control、Command、空格可以打开字符检视器。中文输入法里也大多带有符号面板。' },
+    ],
+    [
+      { q: '特殊符號怎麼複製？', a: '點一下那個符號，它就進了剪貼簿，之後到要用的地方貼上即可。字型不同也是同一個字，所以文件、聊天軟體、遊戲暱稱裡都能原樣放進去。' },
+      { q: '貼過去顯示成方框。', a: '不是複製錯了，而是那個程式用的字型裡沒有這個字的字形。換套字型，或者換台裝置開啟就正常了。像遊戲暱稱這種沒法換字型的地方，還是另挑一個符號更省事。' },
+      { q: '特殊符號和表情符號是一回事嗎？', a: '都是 Unicode 字元，但用法不一樣。☀ 這種黑白符號按文字處理，會跟著文字的顏色和大小走；☀️ 這種彩色表情則像圖片一樣單獨畫出來。寫文件時，黑白的那套不那麼搶眼。' },
+      { q: '放進 HTML 裡該怎麼寫？', a: '寫成 &#碼位; 的形式，任何瀏覽器都認。也有 &hearts; 這樣的具名實體，但只有一部分字才有，所以數字形式更保險。文件編碼是 UTF-8 的話，直接把字放進去也行。' },
+      { q: '能不能直接用鍵盤打出來？', a: 'Windows 按 Win 鍵加句號可以叫出符號面板，Mac 按 Control、Command、空白鍵可以開啟字元檢視器。中文輸入法裡也大多帶有符號表。' },
+    ],
   ),
 
   glyphFaq: T(
@@ -454,13 +532,25 @@ const SPEC: Spec = {
       { q: `${f.char} को CSS या जावास्क्रिप्ट में कैसे इस्तेमाल करें?`, a: `CSS में content: "${f.cssEscape}", जावास्क्रिप्ट में "${f.jsEscape}"। URL में यह ${f.urlEncoded} बन जाता है।` },
       { q: `${f.char} किस श्रेणी का वर्ण है?`, a: `यह ${kind} समूह में आता है। उसी समूह के बाक़ी वर्ण इसी पन्ने पर नीचे कॉपी करने के लिए मौजूद हैं।` },
     ],
+    (f: GlyphFacts, kind: string) => [
+      { q: `${f.char} 这个字的 Unicode 是多少？`, a: `是 ${f.unicode}。十进制为 ${f.code}，存成 UTF-8 时占 ${f.utf8Bytes} 个字节。` },
+      { q: `想把 ${f.char} 放进 HTML 该怎么写？`, a: `写 ${f.entity}，在任何浏览器里都会显示成同一个字。${f.namedEntity ? ` 也可以用具名的 ${f.namedEntity}。` : ' 这个字没有具名实体，所以用数字形式。'}` },
+      { q: `在 CSS 或 JavaScript 里怎么写 ${f.char}？`, a: `CSS 里写 content: "${f.cssEscape}"，JavaScript 里写 "${f.jsEscape}"。放进网址时会变成 ${f.urlEncoded}。` },
+      { q: `${f.char} 属于哪一类符号？`, a: `属于${kind}这一类。同一类的其他符号列在本页下方，也可以一并复制。` },
+    ],
+    (f: GlyphFacts, kind: string) => [
+      { q: `${f.char} 這個字的 Unicode 是多少？`, a: `是 ${f.unicode}。十進位為 ${f.code}，存成 UTF-8 時占 ${f.utf8Bytes} 個位元組。` },
+      { q: `想把 ${f.char} 放進 HTML 該怎麼寫？`, a: `寫 ${f.entity}，在任何瀏覽器裡都會顯示成同一個字。${f.namedEntity ? ` 也可以用具名的 ${f.namedEntity}。` : ' 這個字沒有具名實體，所以用數字形式。'}` },
+      { q: `在 CSS 或 JavaScript 裡怎麼寫 ${f.char}？`, a: `CSS 裡寫 content: "${f.cssEscape}"，JavaScript 裡寫 "${f.jsEscape}"。放進網址時會變成 ${f.urlEncoded}。` },
+      { q: `${f.char} 屬於哪一類符號？`, a: `屬於${kind}這一類。同一類的其他符號列在本頁下方，也可以一併複製。` },
+    ],
   ),
 };
 
-/** 항목별 여덟 언어 표를 언어별 한 벌로 뒤집는다 */
-export const GLYPH_UI: L8<GlyphUI> = Object.fromEntries(
-  LANG8_CODES.map(lang => [
+/** 항목별 열 언어 표를 언어별 한 벌로 뒤집는다 */
+export const GLYPH_UI: L<GlyphUI> = Object.fromEntries(
+  LANG_CODES.map(lang => [
     lang,
-    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L8<unknown>)[lang as Lang8]])),
+    Object.fromEntries(Object.entries(SPEC).map(([key, byLang]) => [key, (byLang as L<unknown>)[lang as Lang]])),
   ]),
-) as unknown as L8<GlyphUI>;
+) as unknown as L<GlyphUI>;

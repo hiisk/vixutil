@@ -11,7 +11,8 @@ import assert from 'node:assert/strict';
 import { GLYPHS, GLYPH_ICON, GLYPH_KINDS, GLYPH_SLUGS, glyphOf, glyphsOfKind } from '../lib/glyph/list.ts';
 import { glyphFacts, relatedGlyphs } from '../lib/glyph/facts.ts';
 import { GLYPH_UI } from '../lib/glyph/ui.ts';
-import { LANG8_CODES } from '../lib/i18n/lang.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { hanProblem } from './han.ts';
 
 test('100자가 넘는다', () => {
   assert.ok(GLYPHS.length >= 100, `${GLYPHS.length}자뿐이다`);
@@ -93,13 +94,14 @@ test('같은 갈래 글자는 자기 자신을 뺀다', () => {
   }
 });
 
-test('여덟 언어가 모두 채워져 있다', () => {
+test('열 언어가 모두 채워져 있다', () => {
   const f = glyphFacts(glyphOf('black-star')!);
-  for (const lang of LANG8_CODES) {
+  for (const lang of LANG_CODES) {
     const ui = GLYPH_UI[lang];
     for (const [key, val] of Object.entries(ui)) {
       assert.ok(val != null, `${lang}.${key}가 비었다`);
       if (typeof val === 'string') assert.ok(val.trim().length > 0, `${lang}.${key}가 빈 문자열이다`);
+      if (typeof val === 'string') assert.equal(hanProblem(lang, val), '');
     }
     assert.equal(ui.how.length, 4, `${lang}: 설명 수가 다르다`);
     assert.equal(ui.hubFaq.length, 5, `${lang}: 허브 FAQ 수가 다르다`);
@@ -115,7 +117,7 @@ test('FAQ 답이 그 글자의 값을 담고 있다', () => {
   for (const slug of ['heavy-heart', 'arrow-right', 'won']) {
     const g = glyphOf(slug)!;
     const f = glyphFacts(g);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = GLYPH_UI[lang];
       const joined = ui.glyphFaq(f, ui.kindLabel[g.kind]).map(x => `${x.q} ${x.a}`).join(' ');
       assert.ok(joined.includes(g.char), `${lang}/${slug}: 글자가 안 들어갔다`);
@@ -125,10 +127,10 @@ test('FAQ 답이 그 글자의 값을 담고 있다', () => {
   }
 });
 
-test('모든 글자가 여덟 언어 메타를 만든다', () => {
+test('모든 글자가 열 언어 메타를 만든다', () => {
   for (const g of GLYPHS) {
     const f = glyphFacts(g);
-    for (const lang of LANG8_CODES) {
+    for (const lang of LANG_CODES) {
       const ui = GLYPH_UI[lang];
       assert.ok(ui.metaTitle(g.char).includes(g.char), `${lang}/${g.slug}: 제목에 글자가 없다`);
       const desc = ui.metaDesc(f, ui.kindLabel[g.kind]);
