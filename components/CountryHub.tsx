@@ -3,24 +3,24 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
-import type { Lang } from '@/lib/formula/terms';
-import { FORMULA_LANGS } from '@/lib/formula/ui';
-import { COUNTRY_UI, COUNTRY_REGION_LABEL, COUNTRY_SECTION, utcLabel } from '@/lib/country-ui';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { COUNTRY_UI, countryRegions, COUNTRY_SECTION, utcLabel } from '@/lib/country-ui';
+import { countryText } from '@/lib/country/types';
+import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
 
 /** 나라 정보 허브 — 지역별로 묶어 50개국을 한 화면에 */
-export default function CountryHub({ lang }: { lang: Lang }) {
+export default function CountryHub({ lang }: { lang: FormulaLang }) {
   const ui = COUNTRY_UI[lang];
   const s = COUNTRY_SECTION;
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/country`;
-  const label = COUNTRY_REGION_LABEL[lang];
+    const homeHref = localeHref(lang, '/country');
+  const label = countryRegions(lang);
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
-          { name: ui.section, path: `${prefix}/country` },
+          { name: ui.section, path: localeHref(lang, '/country') },
         ])}
       />
 
@@ -36,9 +36,9 @@ export default function CountryHub({ lang }: { lang: Lang }) {
             {ui.home}
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
-            {FORMULA_LANGS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/country`} hrefLang={l.lang} className={`${s.linkHover} transition-colors`}>
-                {l.label}
+            {ALL_LOCALES.filter(l => l !== lang).map(l => (
+              <Link key={l} href={localeHref(l, '/country')} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
+                {localeLabel(l)}
               </Link>
             ))}
           </span>
@@ -67,13 +67,13 @@ export default function CountryHub({ lang }: { lang: Lang }) {
                 {list.map(c => (
                   <Link
                     key={c.slug}
-                    href={`${prefix}/country/${c.slug}`}
+                    href={localeHref(lang, `/country/${c.slug}`)}
                     className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
                   >
                     <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                     <span className="min-w-0 flex-1">
                       <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
-                        {c[lang].name}
+                        {countryText(c, lang).name}
                       </span>
                       <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">
                         {utcLabel(c.utc)} · {c.volt} · {c.dial}

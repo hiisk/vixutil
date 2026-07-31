@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { OG_SIZE, OG_CONTENT_TYPE, ogCard } from '@/lib/og-template';
 import { COUNTRIES, countryBySlug } from '@/lib/country-tools';
-import { COUNTRY_UI, COUNTRY_REGION_LABEL, COUNTRY_SECTION, utcLabel } from '@/lib/country-ui';
+import { COUNTRY_UI, countryRegions, COUNTRY_SECTION, utcLabel } from '@/lib/country-ui';
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
@@ -20,7 +20,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   return new ImageResponse(
     ogCard({
       icon: '🧭',
-      eyebrow: COUNTRY_REGION_LABEL['en'][c.region] ?? ui.section,
+      eyebrow: countryRegions('en')[c.region] ?? ui.section,
       title: t.name,
       desc: `${utcLabel(c.utc)} · ${c.volt} ${c.hz} · ${c.dial}`,
       from: COUNTRY_SECTION.ogFrom,

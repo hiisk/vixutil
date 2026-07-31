@@ -261,6 +261,12 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
     copy: {
       en: { title: 'Country Facts', desc: 'Time difference, plugs, dialling codes, currency' },
+      es: { title: 'Datos por país', desc: 'Diferencia horaria, enchufes, prefijos, moneda' },
+      'pt-br': { title: 'Dados por país', desc: 'Fuso, tomadas, código do país, moeda' },
+      ja: { title: '国の情報', desc: '時差・プラグ・国番号・通貨' },
+      de: { title: 'Länderinfos', desc: 'Zeitverschiebung, Stecker, Vorwahl, Währung' },
+      fr: { title: 'Fiches pays', desc: 'Décalage horaire, prises, indicatif, monnaie' },
+      hi: { title: 'देशों की जानकारी', desc: 'समय का फ़र्क़, प्लग, देश कोड, मुद्रा' },
     },
   },
   {

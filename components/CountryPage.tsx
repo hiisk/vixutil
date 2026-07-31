@@ -6,10 +6,11 @@ import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import LocalTime from '@/components/country/LocalTime';
 import type { Country } from '@/lib/country/types';
-import type { Lang } from '@/lib/formula/terms';
-import { FORMULA_LANGS } from '@/lib/formula/ui';
+import { countryText } from '@/lib/country/types';
+import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
+import type { FormulaLang } from '@/lib/formula/terms';
 import {
-  COUNTRY_UI, COUNTRY_REGION_LABEL, COUNTRY_SECTION, countryFaq, gapText, utcLabel,
+  COUNTRY_UI, countryRegions, COUNTRY_SECTION, countryFaq, gapText, utcLabel,
 } from '@/lib/country-ui';
 import { relatedCountries } from '@/lib/country-tools';
 
@@ -19,13 +20,12 @@ import { relatedCountries } from '@/lib/country-tools';
  * 사실은 표로, 맥락은 문장으로 나눈다. 시차와 전압처럼 찾으러 온 값은 표에서
  * 바로 보이게 하고, 왜 그런지와 무엇을 주의할지는 아래 문단에서 설명한다.
  */
-export default function CountryPage({ country: c, lang }: { country: Country; lang: Lang }) {
+export default function CountryPage({ country: c, lang }: { country: Country; lang: FormulaLang }) {
   const ui = COUNTRY_UI[lang];
-  const t = c[lang];
+  const t = countryText(c, lang);
   const s = COUNTRY_SECTION;
-  const prefix = lang === 'ko' ? '' : `/${lang}`;
-  const homeHref = lang === 'ko' ? '/' : `${prefix}/country`;
-  const path = `${prefix}/country/${c.slug}`;
+    const homeHref = localeHref(lang, '/country');
+  const path = localeHref(lang, `/country/${c.slug}`);
   const related = relatedCountries(c.slug);
 
   const row = (label: string, value: React.ReactNode) => (
@@ -40,7 +40,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
-          { name: ui.section, path: `${prefix}/country` },
+          { name: ui.section, path: localeHref(lang, '/country') },
           { name: t.name, path },
         ])}
       />
@@ -58,13 +58,13 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/country`} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
+          <Link href={localeHref(lang, '/country')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
             {ui.section}
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
-            {FORMULA_LANGS.filter(l => l.lang !== lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/country/${c.slug}`} hrefLang={l.lang} className={`${s.linkHover} transition-colors`}>
-                {l.label}
+            {ALL_LOCALES.filter(l => l !== lang).map(l => (
+              <Link key={l} href={localeHref(l, `/country/${c.slug}`)} hrefLang={localeTag(l)} className={`${s.linkHover} transition-colors`}>
+                {localeLabel(l)}
               </Link>
             ))}
           </span>
@@ -76,7 +76,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
           <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-14 h-14 mx-auto mb-3" />
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{t.name}</h1>
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500">
-            {COUNTRY_REGION_LABEL[lang][c.region] ?? c.region} · {c.code}
+            {countryRegions(lang)[c.region] ?? c.region} · {c.code}
           </p>
         </div>
 
@@ -121,13 +121,13 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
             {related.map(r => (
               <Link
                 key={r.slug}
-                href={`${prefix}/country/${r.slug}`}
+                href={localeHref(lang, `/country/${r.slug}`)}
                 className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
               >
                 <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
                 <span className="min-w-0 flex-1">
                   <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
-                    {r[lang].name}
+                    {countryText(r, lang).name}
                   </span>
                   <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">
                     {utcLabel(r.utc)} · {r.volt} · {r.dial}

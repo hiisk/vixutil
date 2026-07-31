@@ -203,8 +203,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/country`, changeFrequency: weekly, priority: 0.95 },
     ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/country/${c.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    { url: `${BASE}/en/country`, changeFrequency: weekly, priority: 0.9 },
-    ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/en/country/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 나라 정보도 slug가 여덟 언어에서 같다
+    ...INTL_LOCALES.flatMap((lang) => [
+      { url: `${BASE}/${lang}/country`, changeFrequency: weekly, priority: 0.9 },
+      ...COUNTRIES.map((c: { slug: string }) => ({
+        url: `${BASE}/${lang}/country/${c.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/en/hanja`, changeFrequency: weekly, priority: 0.9 },
