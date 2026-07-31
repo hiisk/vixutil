@@ -5,6 +5,7 @@ import { join, relative } from 'node:path';
 import {
   REFERRALS, RANKED_REFERRALS, REFERRAL_REL, hasRankBasis,
 } from '../lib/referral.ts';
+import { ALL_LOCALES10 } from '../lib/locales.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const OUT = join(ROOT, 'out');
@@ -79,8 +80,9 @@ test('"1위" 문구는 무엇에 대한 1위인지 밝힌다', () => {
   // 근거 없는 종합 순위("코인 선물 사이트 1위")를 사실처럼 내보내지 않기 위한 규칙이다.
   // 돈이 오가는 결정을 앞둔 사람에게 확인할 수 없는 순위를 보여주면 안 된다.
   for (const r of REFERRALS) {
-    assert.ok(hasRankBasis(r.ko.rankLabel), `${r.id}: 한국어 순위 근거 없음 — "${r.ko.rankLabel}"`);
-    assert.ok(hasRankBasis(r.en.rankLabel), `${r.id}: 영어 순위 근거 없음 — "${r.en.rankLabel}"`);
+    for (const [lang, copy] of Object.entries(r.copy)) {
+      assert.ok(hasRankBasis(copy.rankLabel), `${r.id}.${lang}: 순위 근거 없음 — "${copy.rankLabel}"`);
+    }
   }
 });
 
@@ -92,10 +94,12 @@ test('근거 없는 순위 문구는 규칙에 걸린다', () => {
   assert.equal(hasRankBasis('#1 new-user bonus'), true);
 });
 
-test('모든 제휴 항목에 한국어·영어 문구가 모두 있다', () => {
-  // crypto 섹션은 영어, 나머지는 한국어라 두 벌이 항상 있어야 한다.
+test('모든 제휴 항목에 열 언어 문구가 다 있다', () => {
+  // 이 카드는 푸터에 있어 모든 화면에 뜬다. 한 언어라도 비면 그 언어권 화면
+  // 아래에 빈 카드나 남의 언어 광고가 붙는다.
   for (const r of REFERRALS) {
-    for (const [lang, copy] of [['ko', r.ko], ['en', r.en]] as const) {
+    assert.equal(Object.keys(r.copy).length, ALL_LOCALES10.length, `${r.id}: 언어 수가 다르다`);
+    for (const [lang, copy] of Object.entries(r.copy)) {
       assert.ok(copy.rankLabel.length > 0, `${r.id}.${lang}: rankLabel 누락`);
       assert.ok(copy.bonus.length > 0, `${r.id}.${lang}: bonus 누락`);
       assert.ok(copy.perks.length > 0, `${r.id}.${lang}: perks 비어 있음`);
@@ -115,7 +119,7 @@ test('노출 순서에 중복이나 빈틈이 없다', () => {
 test('혜택 금액이 화면 쪽에 하드코딩돼 있지 않다', () => {
   // 예전에는 푸터와 signals 페이지가 각각 금액을 박아두고 있었다.
   // 프로모션이 바뀔 때 한 군데만 고치면 두 화면이 다른 금액을 말하게 된다.
-  const amounts = REFERRALS.flatMap(r => [r.ko.bonus, r.en.bonus])
+  const amounts = REFERRALS.flatMap(r => Object.values(r.copy).map(c => c.bonus))
     .map(b => b.replace(/[^0-9,]/g, ''))
     .filter(n => n.length > 0);
 
@@ -253,9 +257,22 @@ test('SaveResultCard가 제휴 카드를 들고 있다', () => {
   assert.match(src, /<ReferralCards placement="result" \/>/, 'SaveResultCard에 제휴 카드가 없다');
 });
 
-test('푸터에는 제휴 링크를 두지 않는다', () => {
-  // 결과 지점 노출과 겹쳐 한 페이지에 카드가 두 번 얹히던 것을 정리했다.
-  // 무심코 되돌리면 짧은 계산기 페이지의 광고 대 콘텐츠 비율이 다시 나빠진다.
+test('푸터가 제휴 카드를 세우되 끌 수 있다', () => {
+  /*
+    한때 푸터에서 카드를 뺐던 적이 있다. 이유는 둘이었다 — 결과 지점 카드와
+    겹쳐 한 페이지에 두 번 얹혔고, 짧은 계산기 페이지에서 광고 대 콘텐츠 비율이
+    나빠졌다.
+
+    그래서 손으로 넣는 방식으로 돌아갔는데, 그쪽의 값이 더 컸다. 카드가 코인·
+    운세·뽑기·관상 네 섹션에만 남고 나머지 스물일곱 섹션 — 방문의 대부분 — 에는
+    아예 없었다. 새 페이지를 만들 때마다 또 빠졌다.
+
+    지금은 푸터가 기본으로 세우고, 자기 카드를 세운 페이지가 referral={false}로
+    끈다. 겹침은 tests/referral-coverage.test.ts가 양방향으로 막는다. 계산기는
+    CalcShell이 이미 자기 카드를 갖고 있어 예전 밀도 그대로다.
+  */
   const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
-  assert.ok(!/<ReferralCards/.test(footer), '푸터가 다시 제휴 카드를 렌더한다');
+  assert.match(footer, /<ReferralCards lang=\{lang\} \/>/, '푸터에 제휴 카드가 없다');
+  assert.match(footer, /referral = true/, '푸터 카드를 끌 수 있는 문이 없다');
+  assert.match(footer, /\{referral &&/, 'referral을 실제로 보고 있지 않다');
 });

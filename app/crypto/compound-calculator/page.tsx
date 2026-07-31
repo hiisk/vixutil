@@ -96,7 +96,7 @@ export default function CompoundCalculatorPage() {
 
         <Faq items={SECTION_FAQ['crypto/compound-calculator']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

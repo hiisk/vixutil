@@ -96,7 +96,7 @@ export default function AltseasonIndexPage() {
 
         <Faq items={SECTION_FAQ['crypto/altseason-index']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

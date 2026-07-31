@@ -96,7 +96,7 @@ export default function DayOfWeekPage() {
 
         <Faq items={SECTION_FAQ['crypto/day-of-week']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

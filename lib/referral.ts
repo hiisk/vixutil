@@ -15,6 +15,8 @@
  * 링크 스팸으로 취급될 수 있다. "광고" 표기도 숨기지 않는다.
  */
 
+import type { AnyLocale10 } from './locales.ts';
+
 export interface ReferralCopy {
   /** 기준을 밝힌 순위 문구 */
   rankLabel: string;
@@ -31,8 +33,12 @@ export interface Referral {
   href: string;
   /** 노출 순서 (1이 위) */
   rank: number;
-  ko: ReferralCopy;
-  en: ReferralCopy;
+  /**
+   * 언어별 문구. 열 언어를 다 채운다 — 이 카드는 이제 푸터에 있어서 모든 화면에
+   * 뜨고, 그중 대부분이 번역된 페이지다. 영어로 남겨 두면 일본어 화면 아래에
+   * 영어 광고만 하나 붙는다.
+   */
+  copy: Record<AnyLocale10, ReferralCopy>;
 }
 
 export const REFERRALS: Referral[] = [
@@ -41,17 +47,67 @@ export const REFERRALS: Referral[] = [
     name: 'Bybit',
     href: 'https://partner.bybit.com/b/127153',
     rank: 1,
-    ko: {
+    copy: {
+      ko: {
       rankLabel: '신규 가입 혜택 1위',
       bonus: '최대 $30,000',
       perks: ['가입 즉시 $20 보너스', '거래 수수료 할인 혜택'],
       cta: '🎁 무료 보너스 받기',
-    },
-    en: {
+      },
+      en: {
       rankLabel: '#1 new-user bonus',
       bonus: 'Up to $30,000',
       perks: ['Instant $20 welcome bonus', 'Trading fee discount'],
       cta: '🎁 Claim free bonus',
+      },
+    es: {
+      rankLabel: '#1 en bono de bienvenida',
+      bonus: 'Hasta 30.000 USD',
+      perks: ['Bono de 20 USD al registrarte', 'Descuento en comisiones'],
+      cta: '🎁 Reclamar bono gratis',
+    },
+    'pt-br': {
+      rankLabel: '#1 em bônus de boas-vindas',
+      bonus: 'Até US$ 30.000',
+      perks: ['Bônus de US$ 20 na inscrição', 'Desconto nas taxas'],
+      cta: '🎁 Resgatar bônus grátis',
+    },
+    ja: {
+      rankLabel: '新規登録特典1位',
+      bonus: '最大 $30,000',
+      perks: ['登録するとすぐ $20 ボーナス', '取引手数料の割引'],
+      cta: '🎁 無料ボーナスを受け取る',
+    },
+    de: {
+      rankLabel: '#1 Neukundenbonus',
+      bonus: 'Bis zu 30.000 $',
+      perks: ['20 $ Bonus sofort bei Anmeldung', 'Rabatt auf Handelsgebühren'],
+      cta: '🎁 Gratis-Bonus sichern',
+    },
+    fr: {
+      rankLabel: '#1 bonus de bienvenue',
+      bonus: 'Jusqu’à 30 000 $',
+      perks: ['20 $ offerts dès l’inscription', 'Réduction sur les frais'],
+      cta: '🎁 Obtenir le bonus gratuit',
+    },
+    hi: {
+      rankLabel: '#1 नए यूज़र बोनस',
+      bonus: '$30,000 तक',
+      perks: ['साइन अप पर तुरंत $20 बोनस', 'ट्रेडिंग फ़ीस पर छूट'],
+      cta: '🎁 मुफ़्त बोनस लें',
+    },
+    'zh-hans': {
+      rankLabel: '新用户福利第一',
+      bonus: '最高 $30,000',
+      perks: ['注册即得 $20 奖金', '交易手续费折扣'],
+      cta: '🎁 领取免费奖金',
+    },
+    'zh-hant': {
+      rankLabel: '新用戶優惠第一',
+      bonus: '最高 $30,000',
+      perks: ['註冊即得 $20 獎金', '交易手續費折扣'],
+      cta: '🎁 領取免費獎金',
+    },
     },
   },
   {
@@ -59,17 +115,67 @@ export const REFERRALS: Referral[] = [
     name: 'Binance',
     href: 'https://accounts.binance.com/register?ref=KLLDA01Q',
     rank: 2,
-    ko: {
+    copy: {
+      ko: {
       rankLabel: '선물 거래량 1위',
       bonus: '최대 $600',
       perks: ['거래 수수료 10% 할인'],
       cta: '🎁 무료 보너스 받기',
-    },
-    en: {
+      },
+      en: {
       rankLabel: '#1 by futures volume',
       bonus: 'Up to $600',
       perks: ['10% off trading fees'],
       cta: '🎁 Claim free bonus',
+      },
+    es: {
+      rankLabel: '#1 por volumen de futuros',
+      bonus: 'Hasta 600 USD',
+      perks: ['10 % de descuento en comisiones'],
+      cta: '🎁 Reclamar bono gratis',
+    },
+    'pt-br': {
+      rankLabel: '#1 em volume de futuros',
+      bonus: 'Até US$ 600',
+      perks: ['10% de desconto nas taxas'],
+      cta: '🎁 Resgatar bônus grátis',
+    },
+    ja: {
+      rankLabel: '先物取引高1位',
+      bonus: '最大 $600',
+      perks: ['取引手数料が10%割引'],
+      cta: '🎁 無料ボーナスを受け取る',
+    },
+    de: {
+      rankLabel: '#1 nach Futures-Volumen',
+      bonus: 'Bis zu 600 $',
+      perks: ['10 % Rabatt auf Handelsgebühren'],
+      cta: '🎁 Gratis-Bonus sichern',
+    },
+    fr: {
+      rankLabel: '#1 en volume de futures',
+      bonus: 'Jusqu’à 600 $',
+      perks: ['10 % de réduction sur les frais'],
+      cta: '🎁 Obtenir le bonus gratuit',
+    },
+    hi: {
+      rankLabel: 'फ़्यूचर्स वॉल्यूम में #1',
+      bonus: '$600 तक',
+      perks: ['ट्रेडिंग फ़ीस पर 10% छूट'],
+      cta: '🎁 मुफ़्त बोनस लें',
+    },
+    'zh-hans': {
+      rankLabel: '合约交易量第一',
+      bonus: '最高 $600',
+      perks: ['交易手续费九折'],
+      cta: '🎁 领取免费奖金',
+    },
+    'zh-hant': {
+      rankLabel: '合約交易量第一',
+      bonus: '最高 $600',
+      perks: ['交易手續費九折'],
+      cta: '🎁 領取免費獎金',
+    },
     },
   },
 ];

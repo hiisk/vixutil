@@ -271,7 +271,7 @@ export default function DreamPage() {
           </div>
         </div>
       )}
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

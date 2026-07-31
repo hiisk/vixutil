@@ -92,7 +92,7 @@ export default function LiquidationCalculatorPage() {
 
         <Faq items={SECTION_FAQ['crypto/liquidation-calculator']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

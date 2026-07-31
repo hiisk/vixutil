@@ -96,7 +96,7 @@ export default function SlippagePage() {
 
         <Faq items={SECTION_FAQ['crypto/slippage']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

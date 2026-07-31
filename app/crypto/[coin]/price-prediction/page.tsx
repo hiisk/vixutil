@@ -152,7 +152,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
       </div>
       <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

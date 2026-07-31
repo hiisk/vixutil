@@ -97,7 +97,7 @@ export default function DcaCalculatorPage() {
 
         <Faq items={SECTION_FAQ['crypto/dca-calculator']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

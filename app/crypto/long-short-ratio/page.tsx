@@ -94,7 +94,7 @@ export default function LongShortRatioPage() {
 
         <Faq items={SECTION_FAQ['crypto/long-short-ratio']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

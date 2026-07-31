@@ -94,7 +94,7 @@ export default function ImpermanentLossPage() {
 
         <Faq items={SECTION_FAQ['crypto/impermanent-loss']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

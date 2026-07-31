@@ -96,7 +96,7 @@ export default function KellyPage() {
 
         <Faq items={SECTION_FAQ['crypto/kelly-criterion']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

@@ -98,7 +98,7 @@ export default async function RandomToolPage({ params }: { params: Promise<{ slu
           <ReferralCards placement="result" />
         </div>
       </RandomToolShell>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </>
   );
 }

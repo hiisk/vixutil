@@ -116,7 +116,7 @@ export default function CryptoPage() {
 
         <Faq items={SECTION_FAQ.crypto} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

@@ -106,7 +106,7 @@ export default function KimchiPremiumPage() {
           </p>
         </div>
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

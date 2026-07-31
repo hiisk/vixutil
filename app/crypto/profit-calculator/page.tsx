@@ -96,7 +96,7 @@ export default function ProfitCalculatorPage() {
 
         <Faq items={SECTION_FAQ['crypto/profit-calculator']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

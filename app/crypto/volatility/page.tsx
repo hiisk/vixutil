@@ -95,7 +95,7 @@ export default function VolatilityPage() {
 
         <Faq items={SECTION_FAQ['crypto/volatility']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

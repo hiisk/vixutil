@@ -27,7 +27,13 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
   const prefix = langPrefix(lang);
   const homeHref = lang === 'ko' ? '/' : `${prefix}/food`;
   const path = `${prefix}/food/${ing.slug}`;
-  const base = lang === 'ko' ? 'ko' : 'en';
+  /*
+    푸터와 FAQ에 실제 언어를 그대로 넘긴다.
+    예전에는 여기서 ko와 en 둘로 좁혔다. 두 컴포넌트가 그 둘만 알던 시절의
+    흔적인데, 지금은 둘 다 열 언어를 받는다. 좁혀 둔 채로 두면 중국어 화면
+    아래에 영어 푸터와 영어 제휴 카드가 붙는다 — 실제로 그 상태였다.
+  */
+  const base = localeOfLang(lang);
   const similar = similarIngredients(ing.slug);
 
   const volumes: { label: string; grams: number; hero?: boolean }[] = [

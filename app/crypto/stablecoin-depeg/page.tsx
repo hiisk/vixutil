@@ -101,7 +101,7 @@ export default function StablecoinDepegPage() {
 
         <Faq items={SECTION_FAQ['crypto/stablecoin-depeg']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

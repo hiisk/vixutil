@@ -95,7 +95,7 @@ export default function RiskOfRuinPage() {
 
         <Faq items={SECTION_FAQ['crypto/risk-of-ruin']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

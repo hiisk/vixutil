@@ -95,7 +95,7 @@ export default function DrawdownPage() {
 
         <Faq items={SECTION_FAQ['crypto/drawdown']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

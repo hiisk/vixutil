@@ -97,7 +97,7 @@ export default function CorrelationPage() {
 
         <Faq items={SECTION_FAQ['crypto/correlation']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

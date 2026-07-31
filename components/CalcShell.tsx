@@ -113,7 +113,7 @@ export default function CalcShell({
           <CalcFaq items={faq} />
         </main>
 
-        <SiteFooter />
+        <SiteFooter referral={false} />
       </div>
     </div>
   );

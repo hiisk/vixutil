@@ -96,7 +96,7 @@ export default function RebalancingPage() {
 
         <Faq items={SECTION_FAQ['crypto/rebalancing']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

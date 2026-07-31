@@ -96,7 +96,7 @@ export default function FundingRatesPage() {
 
         <Faq items={SECTION_FAQ['crypto/funding-rates']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

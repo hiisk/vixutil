@@ -96,7 +96,7 @@ export default function PositionSizeCalculatorPage() {
 
         <Faq items={SECTION_FAQ['crypto/position-size-calculator']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { homeSections } from '@/lib/locale-home';
 import ToolIcon from '@/components/ToolIcon';
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import ReferralCards from '@/components/ReferralCards';
 
 /**
  * 사이트 전역 푸터 — 섹션 간 이동 동선 + 내부링크(SEO) + 인기 도구 노출.
@@ -138,7 +139,7 @@ const COPY: Record<Lang, {
   },
 };
 
-export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
+export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: Lang; referral?: boolean }) {
   const t = COPY[lang];
   /*
     섹션 목록을 언어마다 다시 적지 않는다 — lib/locale-home.ts가 "그 언어에 실제로
@@ -163,6 +164,25 @@ export default function SiteFooter({ lang = 'ko' }: { lang?: Lang }) {
   return (
     <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">
       <div className="max-w-3xl mx-auto px-4 py-10">
+        {/*
+          제휴 카드는 푸터에 둔다.
+          예전에는 코인·운세·뽑기·관상 네 섹션에만 있었다. 나머지 스물일곱 섹션은
+          카드를 아예 못 봤는데, 그쪽이 방문의 대부분이다. 화면마다 손으로 넣으면
+          새 페이지를 만들 때 또 빠지므로, 모든 화면이 이미 쓰고 있는 이 자리에
+          한 번만 둔다.
+
+          본문 아래·푸터 목록 위가 자리다. 읽던 것을 끝낸 사람만 만나고, 읽는
+          중인 사람을 가로막지 않는다.
+
+          결과 화면처럼 본문 한가운데에 이미 카드를 세운 페이지는 referral={false}로
+          이 자리를 끈다. 한 화면에 같은 광고가 두 번 뜨면 둘 다 값이 떨어진다.
+        */}
+        {referral && (
+          <div className="mb-8">
+            <ReferralCards lang={lang} />
+          </div>
+        )}
+
         {/*
           통합 검색 — 홈에만 있으면 도구 페이지에 깊이 들어온 사용자가 닿을 수 없다.
           푸터는 모든 페이지에 있으므로 여기가 가장 확실한 진입점이다.

@@ -1,4 +1,5 @@
 import { RANKED_REFERRALS, REFERRAL_REL } from '@/lib/referral';
+import type { AnyLocale10 } from '@/lib/locales';
 
 /**
  * 제휴 거래소 카드 — 푸터(한국어)와 crypto 섹션(영어)이 같이 쓴다.
@@ -49,8 +50,27 @@ function BrandMark({ id }: { id: string }) {
   return null;
 }
 
+/**
+ * 카드 머리글 — 언어마다.
+ *
+ * "광고" 표기는 어느 언어에서도 뺀 자리가 없어야 한다. 크게 노출할수록 더
+ * 필요하다 — 푸터에 들어가면서 이 카드는 이제 모든 화면에 뜬다.
+ */
+const HEADING: Record<AnyLocale10, { ad: string; section: string; result: string }> = {
+  ko: { ad: '광고', section: '코인 선물 거래소 가입 혜택', result: '결과를 본 김에 — 코인 거래소 가입 혜택' },
+  en: { ad: 'Ad', section: 'Claim your crypto exchange bonus', result: 'While you’re here — claim a crypto exchange bonus' },
+  es: { ad: 'Publicidad', section: 'Consigue tu bono en un exchange de criptomonedas', result: 'Ya que estás — consigue un bono de exchange' },
+  'pt-br': { ad: 'Publicidade', section: 'Garanta seu bônus em uma corretora de cripto', result: 'Já que está aqui — garanta um bônus de corretora' },
+  ja: { ad: '広告', section: '暗号資産取引所の登録特典', result: 'ついでに — 暗号資産取引所の登録特典' },
+  de: { ad: 'Anzeige', section: 'Krypto-Börsenbonus sichern', result: 'Wenn Sie schon hier sind — Krypto-Börsenbonus sichern' },
+  fr: { ad: 'Publicité', section: 'Obtenez votre bonus de plateforme crypto', result: 'Tant que vous êtes là — un bonus de plateforme crypto' },
+  hi: { ad: 'विज्ञापन', section: 'क्रिप्टो एक्सचेंज बोनस पाएँ', result: 'आए ही हैं तो — क्रिप्टो एक्सचेंज बोनस पाएँ' },
+  'zh-hans': { ad: '广告', section: '加密货币交易所注册福利', result: '顺便看看 — 加密货币交易所注册福利' },
+  'zh-hant': { ad: '廣告', section: '加密貨幣交易所註冊優惠', result: '順便看看 — 加密貨幣交易所註冊優惠' },
+};
+
 interface Props {
-  lang?: 'ko' | 'en';
+  lang?: AnyLocale10;
   /** 섹션 제목. 생략하면 기본 문구 */
   heading?: string;
   /**
@@ -65,11 +85,9 @@ interface Props {
 }
 
 export default function ReferralCards({ lang = 'ko', heading, placement = 'section' }: Props) {
-  const ko = lang === 'ko';
   const inResult = placement === 'result';
-  const title = heading ?? (ko
-    ? (inResult ? '결과를 본 김에 — 코인 거래소 가입 혜택' : '코인 선물 거래소 가입 혜택')
-    : (inResult ? 'While you’re here — claim a crypto exchange bonus' : 'Claim your crypto exchange bonus'));
+  const t = HEADING[lang] ?? HEADING.en;
+  const title = heading ?? (inResult ? t.result : t.section);
 
   return (
     <section
@@ -82,14 +100,14 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
       <div className="flex items-center gap-2 mb-3">
         {/* "광고" 표기를 눈에 띄게 둔다. 숨기면 당장 클릭이 늘어도 신뢰를 잃는다. */}
         <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-          {ko ? '광고' : 'Ad'}
+          {t.ad}
         </span>
         <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">{title}</h2>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-3">
         {RANKED_REFERRALS.map(r => {
-          const copy = ko ? r.ko : r.en;
+          const copy = r.copy[lang] ?? r.copy.en;
           const top = r.rank === 1;
           return (
             <a

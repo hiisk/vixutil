@@ -95,7 +95,7 @@ export default function SoldAtTopPage() {
 
         <Faq items={SECTION_FAQ['crypto/sold-at-top']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }

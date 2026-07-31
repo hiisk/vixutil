@@ -95,7 +95,7 @@ export default function AllTimeHighPage() {
 
         <Faq items={SECTION_FAQ['crypto/all-time-high']} lang="en" />
       </div>
-      <SiteFooter lang="en" />
+      <SiteFooter lang="en" referral={false} />
     </div>
   );
 }
