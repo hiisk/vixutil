@@ -5,7 +5,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { FormulaLang } from '@/lib/formula/terms';
 import { textOf } from '@/lib/formula/types';
-import { FORMULA_UI, formulaLangs } from '@/lib/formula/ui';
+import { FORMULA_UI, formulaLocales } from '@/lib/formula/ui';
+import LangPicker from '@/components/LangPicker';
 import { sectionCategories, sectionMeta, type SectionConfig } from '@/lib/formula/section';
 import { localeHref, localePrefix } from '@/lib/locales';
 
@@ -42,12 +43,8 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
             </svg>
             {ui.home}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
-            {formulaLangs(section, lang).map(l => (
-              <Link key={l.lang} href={`${l.prefix}/${section.key}`} hrefLang={l.tag} className={`${section.linkHover} transition-colors`}>
-                {l.label}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/${section.key}`} available={formulaLocales(section)} />
           </span>
         </div>
       </header>

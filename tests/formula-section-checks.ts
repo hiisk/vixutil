@@ -11,7 +11,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import type { FormulaTool } from '../lib/formula/types.ts';
 import { textOf } from '../lib/formula/types.ts';
 import { TERMS, UNITS, type FormulaLang } from '../lib/formula/terms.ts';
-import { sectionAlternates, groupNum } from '../lib/formula/ui.ts';
+import { sectionAlternates, groupNum, formulaLocales } from '../lib/formula/ui.ts';
 import { formulaFaq, renderFormula } from '../lib/formula/faq.ts';
 import { answerLine, inputRows, outputRows, scenarioTable, substituted } from '../lib/formula/article.ts';
 import { termDesc } from '../lib/formula/glossary.ts';
@@ -109,7 +109,7 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
-  test(`${name} 번역 일곱 언어에 한글이 새지 않는다`, () => {
+  test(`${name} 번역 아홉 언어에 한글이 새지 않는다`, () => {
     for (const t of tools) {
       for (const lang of LANGS.filter(l => l !== 'ko')) {
         const joined = Object.values(textOf(t, lang)).join(' ');
@@ -119,13 +119,31 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
   });
 
 
+  /**
+   * 번역해 놓고 링크를 안 걸면 아무도 못 본다.
+   *
+   * 언어 전환 목록을 만드는 자리가 여덟 언어 목록(ALL_LOCALES)으로 거르고 있어서,
+   * 중국어 300종을 다 옮긴 뒤에도 목록에 안 떴다. 주소를 직접 치지 않는 한 그
+   * 페이지에 닿을 방법이 없었고, 검사는 전부 초록이었다.
+   *
+   * 그래서 "이 섹션이 나가는 언어"와 "전환 목록에 뜨는 언어"가 같은지 본다.
+   */
+  test(`${name} 전환 목록이 이 섹션의 언어를 빠짐없이 담는다`, () => {
+    const shown = formulaLocales(section);
+    const missing = LANGS.filter(l => !shown.includes(l));
+    assert.deepEqual(
+      missing, [],
+      `${section.key}가 나가는 언어인데 전환 목록에 없다 — 주소를 직접 치지 않으면 닿을 수 없다: ${missing.join(', ')}`,
+    );
+  });
+
   test(`${name} 카테고리는 정해진 목록 안이고 전부 쓰인다`, () => {
     const used = new Set(tools.map(t => t.category));
     for (const c of used) assert.ok(section.categories.includes(c), `모르는 카테고리 ${c}`);
     for (const c of section.categories) assert.ok(used.has(c), `안 쓰인 카테고리 ${c}`);
   });
 
-  test(`${name} 카테고리 이름이 여덟 언어로 다 있다`, () => {
+  test(`${name} 카테고리 이름이 열 언어로 다 있다`, () => {
     for (const lang of LANGS) {
       for (const c of section.categories) assert.ok(sectionCategories(section, lang)[c], `${lang}에 ${c} 라벨 없음`);
     }
@@ -171,7 +189,7 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
-  test(`${name} 공식에 한글이 없다 — 세 언어가 같은 문자열을 쓴다`, () => {
+  test(`${name} 공식에 한글이 없다 — 열 언어가 같은 문자열을 쓴다`, () => {
     for (const t of tools) {
       assert.ok(!HANGUL.test(t.formula), `${t.slug} 공식에 한글: ${t.formula}`);
     }
@@ -195,7 +213,7 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
-  test(`${name} 해석 문구는 세 언어가 함께 나온다`, () => {
+  test(`${name} 해석 문구가 열 언어로 다 나온다`, () => {
     for (const t of tools) {
       if (!t.verdict) continue;
       const { v, out } = withDefaults(t);

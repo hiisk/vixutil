@@ -8,7 +8,8 @@
 import type { FormulaLang, Lang } from './terms.ts';
 import { sectionHasLang, type SectionConfig } from './section.ts';
 import {
-  ALL_LOCALES, alternateLanguagesFor, localeLabel, localePrefix, localeTag,
+  ALL_LOCALES10, alternateLanguagesFor, localeLabel, localePrefix, localeTag,
+  type AnyLocale10,
 } from '../locales.ts';
 
 export const FORMULA_UI = {
@@ -446,14 +447,29 @@ export const FORMULA_LANGS: { lang: Lang; label: string; prefix: string }[] = [
 ];
 
 /**
- * 언어 전환 링크.
+ * 이 섹션이 실제로 나가는 언어.
  *
- * 섹션마다 번역된 언어가 다르다 — rate는 여덟, body·geometry는 아직 둘이다.
- * 없는 언어를 링크하면 404이므로 섹션 설정을 보고 있는 언어만 낸다.
+ * 섹션마다 번역된 언어가 다르다. 없는 언어를 링크하면 404이므로 섹션 설정을
+ * 보고 있는 것만 낸다. 지금 보고 있는 언어도 포함한다 — 언어 선택 버튼이
+ * "지금 이 언어"를 표시해야 하기 때문이다.
+ *
+ * 거르는 기준은 ALL_LOCALES(여덟)가 아니라 ALL_LOCALES10이다. 여덟짜리로 거르면
+ * 중국어를 다 옮겨 놓고도 전환 목록에 안 떠서, 주소를 직접 치지 않는 한 아무도
+ * 그 페이지에 닿지 못한다. 실제로 그 상태였다.
+ */
+export function formulaLocales(section: SectionConfig): AnyLocale10[] {
+  return ALL_LOCALES10.filter(l => sectionHasLang(section, l));
+}
+
+/**
+ * 언어 전환 링크(옛 방식).
+ *
+ * 지금은 components/LangPicker.tsx가 국기와 원어 이름을 곁들여 그린다.
+ * 이 함수는 아직 그쪽으로 안 옮긴 자리를 위해 남겨 둔다.
  */
 export function formulaLangs(section: SectionConfig, lang: FormulaLang) {
-  return ALL_LOCALES
-    .filter(l => l !== lang && sectionHasLang(section, l))
+  return formulaLocales(section)
+    .filter(l => l !== lang)
     .map(l => ({ lang: l, label: localeLabel(l), tag: localeTag(l), prefix: localePrefix(l) }));
 }
 
