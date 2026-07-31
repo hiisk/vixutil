@@ -22,6 +22,7 @@ import { readdir, stat, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const OUT = 'out';
+const NEXT_APP = '.next/server/app';
 
 let files = 0;
 let bytes = 0;
@@ -66,9 +67,43 @@ async function walk(dir) {
   }
 }
 
-// 검사가 shouldDrop만 가져다 쓸 때 out/을 건드리지 않도록, 직접 실행일 때만 돈다
+/**
+ * export가 끝나면 .next/server/app은 out/의 복제본이다.
+ *
+ * 실측: .rsc 320,788개 6.08GB + .html 34,591개 3.95GB = 10.34GB. out/에 이미
+ * 같은 것이 나와 있고, Vercel이 복사해 가는 원본은 .next/output/static/이지
+ * 여기가 아니다(ENOSPC 로그의 copyfile 원본 경로가 그렇다). 그래서 이 둘은
+ * export 이후 아무도 읽지 않는다.
+ *
+ * .meta·.json·.js와 매니페스트는 남긴다 — 크기가 0.3GB뿐이라 얻는 게 없고,
+ * 빌더가 구조를 훑을 여지를 굳이 없앨 이유가 없다.
+ */
+async function dropBuildLeftovers(dir) {
+  let entries;
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch {
+    return; // .next가 없으면(로컬에서 스크립트만 돌릴 때) 조용히 지나간다
+  }
+  for (const e of entries) {
+    const p = join(dir, e.name);
+    if (e.isDirectory()) { await dropBuildLeftovers(p); continue; }
+    if (!e.name.endsWith('.rsc') && !e.name.endsWith('.html')) continue;
+    bytes += (await stat(p)).size;
+    await unlink(p);
+    files++;
+  }
+}
+
+// 검사가 shouldDrop만 가져다 쓸 때 파일을 건드리지 않도록, 직접 실행일 때만 돈다
 if (import.meta.url === `file://${process.argv[1]}`) {
   await walk(OUT);
-  const gb = (bytes / 1024 ** 3).toFixed(2);
-  console.log(`RSC payload 정리: ${files.toLocaleString()}개 · ${gb}GB 회수`);
+  const afterOut = { files, bytes };
+  await dropBuildLeftovers(NEXT_APP);
+  const gb = n => (n / 1024 ** 3).toFixed(2);
+  console.log(
+    `RSC payload 정리: ${afterOut.files.toLocaleString()}개 · ${gb(afterOut.bytes)}GB 회수 (out/)\n` +
+    `중간 산출물 정리: ${(files - afterOut.files).toLocaleString()}개 · ` +
+    `${gb(bytes - afterOut.bytes)}GB 회수 (.next/server/app)`,
+  );
 }
