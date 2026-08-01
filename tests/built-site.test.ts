@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
+import { ALL_LOCALES10, localeTag } from '../lib/locales.ts';
+
 const OUT = join(import.meta.dirname, '..', 'out');
 
 /**
@@ -255,4 +257,28 @@ test('아이콘 파일이 실제로 출력된다', { skip: built ? false : 'out/
     assert.ok(existsSync(p), `${icon}이 빌드 출력에 없다`);
     assert.ok(statSync(p).size > 0, `${icon}이 비어 있다`);
   }
+});
+
+test('hreflang 표기가 BCP 47이다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  /*
+   * 경로는 소문자(`/pt-br/…`)지만 hreflang은 BCP 47이라 지역 부분이 대문자다
+   * (`pt-BR`, `zh-Hans`). 심리테스트를 아홉 언어로 넓힐 때 languages 열쇠에
+   * 경로를 그대로 넣어서 `hrefLang="pt-br"`이 나갔다. 화면은 멀쩡하고 링크도
+   * 살아 있어서 어느 검사에도 안 걸렸다 — 구글만 조용히 무시한다.
+   *
+   * 그래서 레지스트리가 아니라 **빌드된 HTML**을 본다. 표가 맞아도 그것을
+   * 쓰지 않는 페이지가 있으면 소용이 없다.
+   */
+  const known = new Set([...ALL_LOCALES10.map(localeTag), 'x-default']);
+  const bad = new Map<string, string>();
+  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+    for (const m of readFileSync(f, 'utf8').matchAll(/hrefLang="([^"]+)"/g)) {
+      if (!known.has(m[1])) bad.set(m[1], relative(OUT, f));
+    }
+  }
+  assert.deepEqual(
+    [...bad], [],
+    `등록되지 않은 hreflang 표기 — 경로를 그대로 쓰면 pt-br이 나간다:\n  ${
+      [...bad].map(([t, f]) => `${t} (${f})`).join('\n  ')}`,
+  );
 });

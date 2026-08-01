@@ -72,6 +72,14 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
     copy: {
       en: { title: 'Quizzes', desc: 'Capitals, science, history, tech, film' },
+      es: { title: 'Tests de conocimiento', desc: 'Capitales, ciencia, historia, tecnología, cine' },
+      'pt-br': { title: 'Quizzes', desc: 'Capitais, ciência, história, tecnologia, cinema' },
+      ja: { title: 'クイズ', desc: '首都・科学・歴史・テクノロジー・映画' },
+      de: { title: 'Quiz', desc: 'Hauptstädte, Wissenschaft, Geschichte, Technik, Film' },
+      fr: { title: 'Quiz', desc: 'Capitales, sciences, histoire, technologie, cinéma' },
+      hi: { title: 'क्विज़', desc: 'राजधानियाँ, विज्ञान, इतिहास, तकनीक, सिनेमा' },
+      'zh-hans': { title: '知识测验', desc: '首都、科学、历史、科技、电影' },
+      'zh-hant': { title: '知識測驗', desc: '首都、科學、歷史、科技、電影' },
     },
   },
   {

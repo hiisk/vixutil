@@ -3,6 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
+import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
@@ -10,9 +11,13 @@ import { thumbGradient } from '@/lib/thumbnail';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
-export type QuizLang = 'ko' | 'en';
+export type QuizLang = AnyLocale10;
 
-/** 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점·진행 로직은 세 언어가 동일하다. */
+/**
+ * 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점·진행 로직은 열 언어가 동일하다.
+ *
+ * Partial이 아니라 Record<QuizLang, …>다 — 언어가 빠지면 tsc가 잡는다.
+ */
 const UI: Record<QuizLang, {
   allQuizzes: string; start: string; correct: string; wrong: string;
   explanation: string; next: string; seeResult: string; retry: string; more: string;
@@ -40,8 +45,79 @@ const UI: Record<QuizLang, {
     grades: ['Perfect', 'Excellent', 'Good', 'Fair', 'Keep going'],
     msgs: ['Perfect — every single one right.', 'Excellent, that is a strong score.', 'You know this reasonably well.', 'Worth another look at this one.', 'Give it another go.'],
   },
+  es: {
+    allQuizzes: 'Todos los tests', start: 'Empezar el test →', correct: '✓ ¡Correcto!', wrong: '✗ Incorrecto',
+    explanation: '💡 Explicación', next: 'Siguiente →', seeResult: 'Ver resultados →', retry: 'Volver a intentarlo', more: 'Más tests',
+    meta: n => `${n} preguntas · cuatro opciones · con explicación`,
+    score: p => `${p}%`,
+    wrongCount: n => `Falladas (${n})`,
+    grades: ['Perfecto', 'Excelente', 'Bien', 'Regular', 'A seguir'],
+    msgs: ['¡Perfecto, todas acertadas!', 'Excelente, es una nota alta.', 'Se te da bastante bien.', 'Merece otra vuelta.', 'Inténtalo otra vez.'],
+  },
+  'pt-br': {
+    allQuizzes: 'Todos os quizzes', start: 'Começar o quiz →', correct: '✓ Certo!', wrong: '✗ Errado',
+    explanation: '💡 Explicação', next: 'Próxima →', seeResult: 'Ver resultado →', retry: 'Tentar de novo', more: 'Mais quizzes',
+    meta: n => `${n} perguntas · quatro opções · com explicação`,
+    score: p => `${p}%`,
+    wrongCount: n => `Erradas (${n})`,
+    grades: ['Perfeito', 'Excelente', 'Bom', 'Razoável', 'Continue'],
+    msgs: ['Perfeito — acertou todas.', 'Excelente, nota alta.', 'Você manja bem disso.', 'Vale dar mais uma olhada.', 'Tente de novo.'],
+  },
+  ja: {
+    allQuizzes: 'クイズ一覧', start: 'クイズをはじめる →', correct: '✓ 正解！', wrong: '✗ 不正解',
+    explanation: '💡 解説', next: '次の問題 →', seeResult: '結果を見る →', retry: 'もう一度', more: 'ほかのクイズ',
+    meta: n => `全${n}問 · 4択 · 解説つき`,
+    score: p => `${p}点`,
+    wrongCount: n => `間違えた問題（${n}問）`,
+    grades: ['満点！', '優秀', '良好', 'まずまず', 'もう一歩'],
+    msgs: ['完璧です。全問正解！', 'お見事、高得点です。', 'なかなかよくご存じですね。', 'もう少し見直してみましょう。', 'もう一度挑戦してみましょう。'],
+  },
+  de: {
+    allQuizzes: 'Alle Quiz', start: 'Quiz starten →', correct: '✓ Richtig!', wrong: '✗ Falsch',
+    explanation: '💡 Erklärung', next: 'Weiter →', seeResult: 'Ergebnis ansehen →', retry: 'Nochmal versuchen', more: 'Mehr Quiz',
+    meta: n => `${n} Fragen · vier Antworten · mit Erklärung`,
+    score: p => `${p} %`,
+    wrongCount: n => `Falsch (${n})`,
+    grades: ['Perfekt', 'Ausgezeichnet', 'Gut', 'Geht so', 'Weiter üben'],
+    msgs: ['Perfekt — alles richtig.', 'Ausgezeichnet, starkes Ergebnis.', 'Da kennst du dich ordentlich aus.', 'Da lohnt sich ein zweiter Blick.', 'Versuch es noch einmal.'],
+  },
+  fr: {
+    allQuizzes: 'Tous les quiz', start: 'Commencer le quiz →', correct: '✓ Correct !', wrong: '✗ Faux',
+    explanation: '💡 Explication', next: 'Suivante →', seeResult: 'Voir le résultat →', retry: 'Réessayer', more: 'Plus de quiz',
+    meta: n => `${n} questions · quatre choix · avec explication`,
+    score: p => `${p} %`,
+    wrongCount: n => `Ratées (${n})`,
+    grades: ['Parfait', 'Excellent', 'Bien', 'Passable', 'Continue'],
+    msgs: ['Parfait — tout juste.', 'Excellent, beau score.', 'Tu maîtrises plutôt bien.', 'Ça mérite une relecture.', 'Retente ta chance.'],
+  },
+  hi: {
+    allQuizzes: 'सभी क्विज़', start: 'क्विज़ शुरू करें →', correct: '✓ सही!', wrong: '✗ ग़लत',
+    explanation: '💡 व्याख्या', next: 'अगला सवाल →', seeResult: 'नतीजा देखें →', retry: 'फिर से हल करें', more: 'और क्विज़',
+    meta: n => `${n} सवाल · चार विकल्प · व्याख्या सहित`,
+    score: p => `${p}%`,
+    wrongCount: n => `ग़लत (${n})`,
+    grades: ['पूरे अंक!', 'बहुत बढ़िया', 'अच्छा', 'ठीक-ठाक', 'और मेहनत'],
+    msgs: ['बिल्कुल सही — सारे सवाल सही निकले!', 'बहुत बढ़िया, स्कोर ऊँचा है।', 'आप इसे ठीक-ठाक जानते हैं।', 'इस पर एक बार और नज़र डालिए।', 'एक बार और कोशिश कीजिए।'],
+  },
+  'zh-hans': {
+    allQuizzes: '全部测验', start: '开始测验 →', correct: '✓ 答对了！', wrong: '✗ 答错了',
+    explanation: '💡 解析', next: '下一题 →', seeResult: '看结果 →', retry: '再做一次', more: '别的测验',
+    meta: n => `${n}道题 · 四选一 · 附解析`,
+    score: p => `${p}分`,
+    wrongCount: n => `答错的题（${n}道）`,
+    grades: ['满分！', '优秀', '良好', '一般', '再加把劲'],
+    msgs: ['完美，全部答对！', '很棒，分数很高。', '这块你掌握得不错。', '这部分值得再看一遍。', '再来一次试试。'],
+  },
+  'zh-hant': {
+    allQuizzes: '全部測驗', start: '開始測驗 →', correct: '✓ 答對了！', wrong: '✗ 答錯了',
+    explanation: '💡 解析', next: '下一題 →', seeResult: '看結果 →', retry: '再做一次', more: '別的測驗',
+    meta: n => `${n}道題 · 四選一 · 附解析`,
+    score: p => `${p}分`,
+    wrongCount: n => `答錯的題（${n}道）`,
+    grades: ['滿分！', '優秀', '良好', '普通', '再加把勁'],
+    msgs: ['完美，全部答對！', '很棒，分數很高。', '這塊你掌握得不錯。', '這部分值得再看一遍。', '再來一次試試。'],
+  },
 };
-
 
 
 function medal(pct: number) {

@@ -9,7 +9,7 @@ import { IMAGE_TOOLS } from "@/lib/image-tools";
 import { TEXT_TOOLS } from "@/lib/text-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
 import { CHECKLISTS_EN } from "@/lib/checklist-en";
-import { QUIZZES_EN } from "@/lib/quiz-en";
+import { QUIZZES_INTL } from "@/lib/quiz-l10n/index";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { INTL_LOCALES } from "@/lib/locales";
@@ -552,8 +552,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}/${lang}/test`, changeFrequency: weekly, priority: 0.9 },
       ...tests.map(t => ({ url: `${BASE}/${lang}/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     ]),
-    { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
-    ...QUIZZES_EN.map((q: { slug: string }) => ({ url: `${BASE}/en/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 퀴즈도 한국어를 뺀 아홉 언어가 같은 여섯 종을 가진다
+    ...(Object.entries(QUIZZES_INTL) as [string, { slug: string }[]][]).flatMap(([lang, quizzes]) => [
+      { url: `${BASE}/${lang}/quiz`, changeFrequency: weekly, priority: 0.9 },
+      ...quizzes.map(q => ({ url: `${BASE}/${lang}/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ]),
     { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },
     ...CHECKLISTS_EN.map((c: { slug: string }) => ({ url: `${BASE}/en/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },

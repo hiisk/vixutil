@@ -1,10 +1,10 @@
 import { CHECKLISTS_MAP } from './checklist-data.ts';
 import { CHECKLISTS_EN_MAP } from './checklist-en.ts';
 import { QUIZ_MAP } from './quiz-data.ts';
-import { QUIZZES_EN_MAP } from './quiz-en.ts';
+import { QUIZZES_INTL_MAP } from './quiz-l10n/index.ts';
 import { TEST_MAP } from './test-data.ts';
 import { TESTS_INTL_MAP } from './test-l10n/index.ts';
-import { ALL_LOCALES10, type AnyLocale10 } from './locales.ts';
+import { ALL_LOCALES10, localeTag, type AnyLocale10 } from './locales.ts';
 
 /**
  * 체크리스트·퀴즈·심리테스트의 hreflang 짝을 고른다.
@@ -33,7 +33,7 @@ export type AltSection = 'checklist' | 'quiz' | 'test';
  */
 const MAPS: Record<AltSection, Partial<Record<AltLang, Record<string, unknown>>>> = {
   checklist: { ko: CHECKLISTS_MAP, en: CHECKLISTS_EN_MAP },
-  quiz: { ko: QUIZ_MAP, en: QUIZZES_EN_MAP },
+  quiz: { ko: QUIZ_MAP, ...QUIZZES_INTL_MAP },
   test: { ko: TEST_MAP, ...TESTS_INTL_MAP },
 };
 
@@ -50,7 +50,8 @@ export function localeAlternates(section: AltSection, slug: string): Record<stri
   const maps = MAPS[section];
   const out: Record<string, string> = {};
   for (const lang of ALL_LOCALES10) {
-    if (maps[lang]?.[slug]) out[lang] = path(lang, section, slug);
+    // 열쇠는 경로가 아니라 BCP 47 태그다 — pt-br이 아니라 pt-BR로 나가야 한다
+    if (maps[lang]?.[slug]) out[localeTag(lang)] = path(lang, section, slug);
   }
   if (out.en) out['x-default'] = out.en;
   else if (out.ko) out['x-default'] = out.ko;

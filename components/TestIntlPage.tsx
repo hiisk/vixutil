@@ -6,6 +6,7 @@ import TestEngine from '@/components/TestEngine';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import { thumbGradient } from '@/lib/thumbnail';
 import { TESTS_INTL, TESTS_INTL_MAP, type TestIntlLang } from '@/lib/test-l10n/index';
+import { localeTag } from '@/lib/locales';
 import type { Test } from '@/lib/types';
 
 /**
@@ -122,7 +123,7 @@ export function testIntlMeta(lang: TestIntlLang) {
     alternates: {
       canonical: `/${lang}/test`,
       languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [l, `/${l}/test`])),
+        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/test`])),
         'x-default': '/en/test',
       },
     },
@@ -186,7 +187,7 @@ export function testIntlDetailMeta(lang: TestIntlLang, slug: string) {
     alternates: {
       canonical: `/${lang}/test/${slug}`,
       languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [l, `/${l}/test/${slug}`])),
+        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/test/${slug}`])),
         'x-default': `/en/test/${slug}`,
       },
     },

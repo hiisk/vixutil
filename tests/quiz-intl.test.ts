@@ -1,14 +1,27 @@
+/**
+ * 한국어를 뺀 아홉 언어 퀴즈 검사.
+ *
+ * 전에는 영어 하나만 봤고, 중국어를 걷어내면서 남은 빈 test() 하나가
+ * 아무것도 검사하지 않은 채 초록으로 세어지고 있었다. 아홉 언어로 넓히면서
+ * 그것도 지웠다.
+ *
+ * correct는 opts의 **번호**다. 번역하면서 보기 순서를 바꾸면 정답이 조용히
+ * 다른 보기를 가리킨다 — 화면도 멀쩡하고 타입도 통과한다. 그래서 아홉 언어의
+ * correct 배열이 영어와 같은지 직접 맞춰 본다.
+ */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { QUIZZES_EN, QUIZZES_EN_MAP } from '../lib/quiz-en.ts';
+import { QUIZZES_INTL, QUIZZES_INTL_MAP, type QuizIntlLang } from '../lib/quiz-l10n/index.ts';
+import { hanProblem } from './han.ts';
+import type { Quiz } from '../lib/types.ts';
 
-const SETS = [
-  ['en', QUIZZES_EN, QUIZZES_EN_MAP],
-] as const;
+const SETS = Object.entries(QUIZZES_INTL) as [QuizIntlLang, Quiz[]][];
 
-test('en 퀴즈가 같은 slug 집합을 갖는다', () => {
-  // hreflang이 slug로 en↔zh를 짝짓기 때문에 한쪽에만 있으면 깨진 대체 링크가 된다
-});
+/** 그 퀴즈에서 사람 눈에 보이는 문자열을 전부 모은다 */
+function textOf(q: Quiz): string[] {
+  return [q.title, q.desc, q.category,
+    ...q.questions.flatMap(x => [x.q, ...x.opts, x.explanation ?? ''])];
+}
 
 test('slug가 유일하고 형식이 맞다', () => {
   for (const [label, list] of SETS) {
@@ -85,7 +98,54 @@ test('정답 위치가 한쪽으로 쏠리지 않는다', () => {
 });
 
 test('MAP이 모든 퀴즈를 담고 있다', () => {
-  for (const [label, list, map] of SETS) {
-    for (const q of list) assert.equal(map[q.slug], q, `${label}: 맵에 없음 ${q.slug}`);
+  for (const [label, list] of SETS) {
+    for (const q of list) assert.equal(QUIZZES_INTL_MAP[label][q.slug], q, `${label}: 맵에 없음 ${q.slug}`);
   }
+});
+
+test('아홉 언어가 같은 여섯 종을 가진다', () => {
+  const en = QUIZZES_INTL.en.map(q => q.slug).sort();
+  for (const [label, list] of SETS) {
+    assert.deepEqual(list.map(q => q.slug).sort(), en, `${label}의 슬러그가 영어와 다르다`);
+  }
+});
+
+test('정답 번호와 문항 수가 아홉 언어에서 같다', () => {
+  // 보기 순서를 바꾸면 correct가 다른 보기를 가리킨다 — 조용히 틀린다
+  for (const en of QUIZZES_INTL.en) {
+    const shape = en.questions.map(q => q.correct);
+    for (const [label, list] of SETS) {
+      if (label === 'en') continue;
+      const q = list.find(x => x.slug === en.slug);
+      assert.ok(q, `${label}: ${en.slug}가 없다`);
+      assert.deepEqual(q.questions.map(x => x.correct), shape, `${label} ${en.slug}: 정답 번호가 영어와 다르다`);
+    }
+  }
+});
+
+test('번역이 영어를 그대로 물려받지 않는다', () => {
+  const bad: string[] = [];
+  for (const [label, list] of SETS) {
+    if (label === 'en') continue;
+    for (const q of list) {
+      const en = QUIZZES_INTL.en.find(e => e.slug === q.slug)!;
+      if (q.title === en.title && q.desc === en.desc) bad.push(`${label}/${q.slug}`);
+    }
+  }
+  assert.deepEqual(bad, [], `영어 그대로인 항목:\n  ${bad.join('\n  ')}`);
+});
+
+test('번체 자리에 간체가 섞이지 않았다', () => {
+  const bad: string[] = [];
+  for (const [label, list] of SETS) {
+    const key = label === 'zh-hant' ? 'tw' : label === 'zh-hans' ? 'zh' : null;
+    if (!key) continue;
+    for (const q of list) {
+      for (const s of textOf(q)) {
+        const p = hanProblem(key, s);
+        if (p) bad.push(`${label} ${q.slug}: ${p}`);
+      }
+    }
+  }
+  assert.deepEqual(bad, [], `글자가 섞인 자리:\n  ${bad.join('\n  ')}`);
 });
