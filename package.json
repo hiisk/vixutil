@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsc --noEmit && NODE_OPTIONS=--max-old-space-size=2048 next build && node scripts/fix-html-lang.mjs && node scripts/drop-rsc-payloads.mjs",
+    "build": "tsc --noEmit && NODE_OPTIONS=--max-old-space-size=1536 next build && node scripts/fix-html-lang.mjs && node scripts/drop-rsc-payloads.mjs",
     "typecheck": "tsc --noEmit",
     "start": "next start",
     "lint": "eslint",
