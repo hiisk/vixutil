@@ -3,6 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
+import type { SnapIntlLang } from '@/lib/snap-intl';
 
 /**
  * 스냅테스트 공용 껍데기.
@@ -14,7 +15,7 @@ import PageGlow from '@/components/PageGlow';
  * 얼굴 검출 문턱값·최소 대기시간 같은 값도 한 곳에 있어야 한다. 페이지마다
  * 흩어져 있으면 한 곳만 고쳐놓고 나머지는 다르게 동작하는 상황이 생긴다.
  */
-export type SnapLang = 'ko' | 'en';
+export type SnapLang = 'ko' | SnapIntlLang;
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -79,6 +80,118 @@ const UI: Record<SnapLang, {
     previewAlt: 'Preview of the photo you uploaded',
     privacyTitle: '🔒 Your photo never leaves this device',
     noFace: 'No clear face was found in that photo. Try one taken in good light, facing the camera, with the face filling more of the frame.',
+  },
+  es: {
+    hub: 'Tests de foto',
+    loadingModel: 'Cargando el modelo de detección facial…',
+    modelFailed: 'No se pudo cargar el modelo de detección facial',
+    modelFailedHint: 'Comprueba tu conexión y recarga la página',
+    pickPhoto: 'Elige una foto',
+    analyzing: 'Analizando…',
+    tryAnother: 'Probar con otra foto',
+    pickAnother: 'Elegir otra foto',
+    again: '🔄 Probar con otra foto',
+    previewAlt: 'Vista previa de la foto que subiste',
+    privacyTitle: '🔒 Tu foto nunca sale de este dispositivo',
+    noFace: 'No se encontró ninguna cara clara en esa foto. Prueba con una tomada con buena luz, de frente y con la cara ocupando más del encuadre.',
+  },
+  'pt-br': {
+    hub: 'Testes de foto',
+    loadingModel: 'Carregando o modelo de detecção facial…',
+    modelFailed: 'Não foi possível carregar o modelo de detecção facial',
+    modelFailedHint: 'Verifique sua conexão e recarregue a página',
+    pickPhoto: 'Escolha uma foto',
+    analyzing: 'Analisando…',
+    tryAnother: 'Tentar com outra foto',
+    pickAnother: 'Escolher outra foto',
+    again: '🔄 Tentar com outra foto',
+    previewAlt: 'Prévia da foto que você enviou',
+    privacyTitle: '🔒 Sua foto nunca sai deste aparelho',
+    noFace: 'Nenhum rosto nítido foi encontrado nessa foto. Tente uma com boa luz, de frente, com o rosto ocupando mais do enquadramento.',
+  },
+  ja: {
+    hub: 'スナップテスト',
+    loadingModel: '顔認識モデルを読み込んでいます…',
+    modelFailed: '顔認識モデルを読み込めませんでした',
+    modelFailedHint: '通信状態を確認してページを再読み込みしてください',
+    pickPhoto: '写真を選んでください',
+    analyzing: '解析中…',
+    tryAnother: '別の写真でもう一度',
+    pickAnother: '別の写真を選ぶ',
+    again: '🔄 別の写真でもう一度',
+    previewAlt: 'アップロードした写真のプレビュー',
+    privacyTitle: '🔒 写真はこの端末から出ません',
+    noFace: 'この写真では顔をはっきり見つけられませんでした。明るい場所で正面から、顔が大きく写った写真で試してください。',
+  },
+  de: {
+    hub: 'Foto-Tests',
+    loadingModel: 'Gesichtserkennungsmodell wird geladen…',
+    modelFailed: 'Das Gesichtserkennungsmodell konnte nicht geladen werden',
+    modelFailedHint: 'Prüfe deine Verbindung und lade die Seite neu',
+    pickPhoto: 'Foto auswählen',
+    analyzing: 'Wird ausgewertet…',
+    tryAnother: 'Anderes Foto probieren',
+    pickAnother: 'Anderes Foto wählen',
+    again: '🔄 Anderes Foto probieren',
+    previewAlt: 'Vorschau des hochgeladenen Fotos',
+    privacyTitle: '🔒 Dein Foto verlässt dieses Gerät nie',
+    noFace: 'Auf diesem Foto war kein klares Gesicht zu finden. Versuch es mit einem bei gutem Licht, frontal aufgenommen und mit dem Gesicht größer im Bild.',
+  },
+  fr: {
+    hub: 'Tests photo',
+    loadingModel: 'Chargement du modèle de détection de visage…',
+    modelFailed: 'Impossible de charger le modèle de détection de visage',
+    modelFailedHint: 'Vérifiez votre connexion et rechargez la page',
+    pickPhoto: 'Choisissez une photo',
+    analyzing: 'Analyse en cours…',
+    tryAnother: 'Essayer une autre photo',
+    pickAnother: 'Choisir une autre photo',
+    again: '🔄 Essayer une autre photo',
+    previewAlt: 'Aperçu de la photo que vous avez envoyée',
+    privacyTitle: '🔒 Votre photo ne quitte jamais cet appareil',
+    noFace: 'Aucun visage net n’a été trouvé sur cette photo. Essayez-en une prise avec une bonne lumière, de face, le visage occupant davantage le cadre.',
+  },
+  hi: {
+    hub: 'फ़ोटो टेस्ट',
+    loadingModel: 'चेहरा पहचानने वाला मॉडल लोड हो रहा है…',
+    modelFailed: 'चेहरा पहचानने वाला मॉडल लोड नहीं हो सका',
+    modelFailedHint: 'अपना कनेक्शन देखकर पेज दोबारा लोड करें',
+    pickPhoto: 'एक फ़ोटो चुनें',
+    analyzing: 'विश्लेषण हो रहा है…',
+    tryAnother: 'दूसरी फ़ोटो से देखें',
+    pickAnother: 'दूसरी फ़ोटो चुनें',
+    again: '🔄 दूसरी फ़ोटो से दोबारा',
+    previewAlt: 'आपने जो फ़ोटो दी उसकी झलक',
+    privacyTitle: '🔒 आपकी फ़ोटो इस डिवाइस से बाहर नहीं जाती',
+    noFace: 'इस फ़ोटो में साफ़ चेहरा नहीं मिला। अच्छी रोशनी में, सामने से ली गई और चेहरा बड़ा दिखने वाली फ़ोटो से कोशिश करें।',
+  },
+  'zh-hans': {
+    hub: '拍照测验',
+    loadingModel: '正在加载人脸识别模型…',
+    modelFailed: '人脸识别模型加载失败',
+    modelFailedHint: '请检查网络后刷新页面',
+    pickPhoto: '请选择一张照片',
+    analyzing: '分析中…',
+    tryAnother: '换一张照片再试',
+    pickAnother: '选择其他照片',
+    again: '🔄 换一张照片再来',
+    previewAlt: '你上传的照片预览',
+    privacyTitle: '🔒 照片不会离开这台设备',
+    noFace: '这张照片里没找到清晰的人脸。换一张光线好、正面、脸占画面更大的照片试试。',
+  },
+  'zh-hant': {
+    hub: '拍照測驗',
+    loadingModel: '正在載入人臉辨識模型…',
+    modelFailed: '人臉辨識模型載入失敗',
+    modelFailedHint: '請檢查網路後重新整理頁面',
+    pickPhoto: '請選擇一張照片',
+    analyzing: '分析中…',
+    tryAnother: '換一張照片再試',
+    pickAnother: '選擇其他照片',
+    again: '🔄 換一張照片再來',
+    previewAlt: '你上傳的照片預覽',
+    privacyTitle: '🔒 照片不會離開這台裝置',
+    noFace: '這張照片裡沒找到清楚的臉。換一張光線好、正面、臉佔畫面更大的照片試試。',
   },
 };
 

@@ -1,3 +1,4 @@
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   description: '사진 한 장으로 입꼬리 위치를 실측해 미소 지수를 측정해보세요.',
   alternates: {
     canonical: '/snap/smile-score',
-    languages: { 'ko': '/snap/smile-score', 'en': '/en/snap/smile-score', 'x-default': '/en/snap/smile-score' },
+    languages: alternateLanguages10('/snap/smile-score'),
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

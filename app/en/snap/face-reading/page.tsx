@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import FaceReading from '@/components/snap/FaceReading';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Face Reading — Seven Features Read in the Traditional Style",
-  description: "Seven facial proportions are measured from your photo and read in the traditional physiognomy style. Real measurements, entertainment interpretation, nothing uploaded.",
-  alternates: {
-    canonical: '/en/snap/face-reading',
-    languages: { 'en': '/en/snap/face-reading', 'ko': '/snap/face-reading', 'x-default': '/en/snap/face-reading' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'face-reading');
 
 export default function EnFaceReadingPage() {
-  return <FaceReading lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'face-reading').title, path: '/en/snap/face-reading' },
+      ])} />
+      <FaceReading lang="en" />
+    </>
+  );
 }

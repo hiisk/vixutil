@@ -13,7 +13,8 @@ import { QUIZZES_INTL } from './quiz-l10n/index.ts';
 import { TESTS_INTL } from './test-l10n/index.ts';
 import { CONVERT_TOOLS } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
-import { alternateLanguagesFor, ALL_LOCALES10, localeHref, type AnyLocale10 } from './locales.ts';
+import { alternateLanguagesFor, ALL_LOCALES10, INTL_LOCALES10, localeHref, type AnyLocale10 } from './locales.ts';
+import { SNAP_TOOLS, snapToolCopy } from './snap-tools-intl.ts';
 
 /**
  * 번역 언어 통합 검색의 목록.
@@ -135,71 +136,22 @@ export const FORTUNE_INTL: Partial<Record<SearchIntlLang, Entry[]>> = {
   ],
 };
 
-export const SNAP_INTL: Partial<Record<SearchIntlLang, Entry[]>> = {
-  en: [
-    { slug: 'smile-score', title: 'Smile Score', desc: 'One photo, and it scores the smile', icon: '😄' },
-    { slug: 'face-symmetry', title: 'Face Symmetry', desc: 'How closely the two halves match', icon: '🪞' },
-    { slug: 'face-shape', title: 'Face Shape', desc: 'Oval, round, square or heart', icon: '🥚' },
-    { slug: 'golden-ratio', title: 'Golden Ratio', desc: 'Facial proportions against 1:1.618', icon: '📐' },
-    { slug: 'personal-color', title: 'Personal Colour', desc: 'Warm or cool, from the photo', icon: '🎨' },
-  ],
-  'es': [
-    { slug: 'smile-score', title: 'Puntuación de la sonrisa', desc: 'Una foto y te puntúa la sonrisa', icon: '😄' },
-    { slug: 'face-symmetry', title: 'Simetría facial', desc: 'Cuánto se parecen las dos mitades', icon: '🪞' },
-    { slug: 'face-shape', title: 'Forma del rostro', desc: 'Ovalada, redonda, cuadrada o de corazón', icon: '🥚' },
-    { slug: 'golden-ratio', title: 'Proporción áurea', desc: 'Proporciones del rostro frente a 1:1,618', icon: '📐' },
-    { slug: 'personal-color', title: 'Color personal', desc: 'Cálido o frío, a partir de la foto', icon: '🎨' },
-  ],
-  'pt-br': [
-    { slug: 'smile-score', title: 'Nota do sorriso', desc: 'Uma foto e ele dá nota ao sorriso', icon: '😄' },
-    { slug: 'face-symmetry', title: 'Simetria facial', desc: 'O quanto as duas metades combinam', icon: '🪞' },
-    { slug: 'face-shape', title: 'Formato do rosto', desc: 'Oval, redondo, quadrado ou coração', icon: '🥚' },
-    { slug: 'golden-ratio', title: 'Proporção áurea', desc: 'Proporções do rosto em relação a 1:1,618', icon: '📐' },
-    { slug: 'personal-color', title: 'Cor pessoal', desc: 'Quente ou frio, a partir da foto', icon: '🎨' },
-  ],
-  'ja': [
-    { slug: 'smile-score', title: 'スマイル判定', desc: '写真を1枚、笑顔を採点します', icon: '😄' },
-    { slug: 'face-symmetry', title: '顔の左右対称', desc: '左右がどれだけ揃っているか', icon: '🪞' },
-    { slug: 'face-shape', title: '顔型診断', desc: '卵型・丸型・四角・ハート型', icon: '🥚' },
-    { slug: 'golden-ratio', title: '黄金比', desc: '顔の比率を1:1.618と見比べる', icon: '📐' },
-    { slug: 'personal-color', title: 'パーソナルカラー', desc: '写真からイエベかブルベか', icon: '🎨' },
-  ],
-  'de': [
-    { slug: 'smile-score', title: 'Lächel-Score', desc: 'Ein Foto, und es bewertet das Lächeln', icon: '😄' },
-    { slug: 'face-symmetry', title: 'Gesichtssymmetrie', desc: 'Wie genau die beiden Hälften zusammenpassen', icon: '🪞' },
-    { slug: 'face-shape', title: 'Gesichtsform', desc: 'Oval, rund, eckig oder herzförmig', icon: '🥚' },
-    { slug: 'golden-ratio', title: 'Goldener Schnitt', desc: 'Gesichtsproportionen im Vergleich zu 1:1,618', icon: '📐' },
-    { slug: 'personal-color', title: 'Personal Color', desc: 'Warm oder kühl, anhand des Fotos', icon: '🎨' },
-  ],
-  'fr': [
-    { slug: 'smile-score', title: 'Score du sourire', desc: 'Une photo et il note le sourire', icon: '😄' },
-    { slug: 'face-symmetry', title: 'Symétrie du visage', desc: 'À quel point les deux moitiés se ressemblent', icon: '🪞' },
-    { slug: 'face-shape', title: 'Forme du visage', desc: 'Ovale, rond, carré ou en cœur', icon: '🥚' },
-    { slug: 'golden-ratio', title: 'Nombre d’or', desc: 'Proportions du visage face à 1:1,618', icon: '📐' },
-    { slug: 'personal-color', title: 'Colorimétrie personnelle', desc: 'Chaud ou froid, à partir de la photo', icon: '🎨' },
-  ],
-  'hi': [
-    { slug: 'smile-score', title: 'स्माइल स्कोर', desc: 'एक फ़ोटो, और मुस्कान को अंक मिलते हैं', icon: '😄' },
-    { slug: 'face-symmetry', title: 'चेहरे की समरूपता', desc: 'दोनों हिस्से कितने मिलते हैं', icon: '🪞' },
-    { slug: 'face-shape', title: 'चेहरे का आकार', desc: 'अंडाकार, गोल, चौकोर या दिल जैसा', icon: '🥚' },
-    { slug: 'golden-ratio', title: 'स्वर्ण अनुपात', desc: 'चेहरे के अनुपात 1:1.618 के मुक़ाबले', icon: '📐' },
-    { slug: 'personal-color', title: 'पर्सनल कलर', desc: 'फ़ोटो से — गर्म या ठंडा टोन', icon: '🎨' },
-  ],
-  'zh-hans': [
-    { slug: 'smile-score', title: '微笑评分', desc: '一张照片，给你的笑容打分', icon: '😄' },
-    { slug: 'face-symmetry', title: '脸部对称度', desc: '左右两半有多接近', icon: '🪞' },
-    { slug: 'face-shape', title: '脸型判断', desc: '鹅蛋、圆、方还是心形', icon: '🥚' },
-    { slug: 'golden-ratio', title: '黄金比例', desc: '把脸部比例和1:1.618对照', icon: '📐' },
-    { slug: 'personal-color', title: '个人色彩', desc: '从照片看是暖调还是冷调', icon: '🎨' },
-  ],
-  'zh-hant': [
-    { slug: 'smile-score', title: '微笑評分', desc: '一張照片，給你的笑容打分', icon: '😄' },
-    { slug: 'face-symmetry', title: '臉部對稱度', desc: '左右兩半有多接近', icon: '🪞' },
-    { slug: 'face-shape', title: '臉型判斷', desc: '鵝蛋、圓、方還是心形', icon: '🥚' },
-    { slug: 'golden-ratio', title: '黃金比例', desc: '把臉部比例和1:1.618對照', icon: '📐' },
-    { slug: 'personal-color', title: '個人色彩', desc: '從照片看是暖調還是冷調', icon: '🎨' },
-  ],
-};
+/**
+ * 스냅테스트는 라우트가 열한 장이고 아홉 언어 모두 있다.
+ *
+ * 예전에는 여기에 다섯 줄을 손으로 적어 두었는데, 그중 face-shape는 만든 적이
+ * 없는 페이지였다 — 검색에서 누르면 404였다. 목록을 손으로 두면 라우트와
+ * 어긋나는 것을 아무도 모른다. 그래서 [[lib/snap-tools-intl.ts]]에서 만든다.
+ */
+export const SNAP_INTL: Partial<Record<SearchIntlLang, Entry[]>> = Object.fromEntries(
+  INTL_LOCALES10.map(lang => [
+    lang,
+    SNAP_TOOLS.map(t => {
+      const c = snapToolCopy(lang, t.slug);
+      return { slug: t.slug, title: c.title, desc: c.desc, icon: t.icon };
+    }),
+  ]),
+);
 
 /**
  * 단위 변환 100종.

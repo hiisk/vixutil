@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import CoupleMatch from '@/components/snap/CoupleMatch';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Couple Face Match — Compare Two Photos",
-  description: "Upload two photos and compare six measured facial proportions to get a similarity score. Both photos are analysed in your browser and never uploaded.",
-  alternates: {
-    canonical: '/en/snap/couple-match',
-    languages: { 'en': '/en/snap/couple-match', 'ko': '/snap/couple-match', 'x-default': '/en/snap/couple-match' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'couple-match');
 
 export default function EnCoupleMatchPage() {
-  return <CoupleMatch lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'couple-match').title, path: '/en/snap/couple-match' },
+      ])} />
+      <CoupleMatch lang="en" />
+    </>
+  );
 }

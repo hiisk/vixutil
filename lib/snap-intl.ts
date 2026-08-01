@@ -1,17 +1,25 @@
 /* ────────────────────────────────────────────────
-   스냅테스트 영어·중국어 문구.
+   스냅테스트 아홉 언어 문구.
 
    측정 자체(랜드마크 계산)는 언어와 무관하므로 한국어 lib의 순수 함수를 그대로
-   쓰고, 결과 문장 풀만 언어별로 갈아 끼운다. 같은 사진이면 세 언어가 같은
+   쓰고, 결과 문장 풀만 언어별로 갈아 끼운다. 같은 사진이면 아홉 언어가 같은
    퍼센트를 낸다.
 
    무표정 사진이 나와도 부정적으로 읽히지 않게 모든 구간을 긍정적으로 서술하는
-   한국어 쪽 원칙을 en/zh에도 그대로 지켰다.
+   한국어 쪽 원칙을 아홉 언어에 그대로 지켰다.
+
+   영어는 이 파일에 그대로 두고, 나중에 옮긴 여덟 언어는 언어당 파일 하나
+   ([[lib/snap-l10n/index.ts]])에 모아 spread()로 표마다 펼친다. 표가 서른여덟
+   개라 언어를 한 줄씩 끼워 넣는 방식으로는 한 언어를 손볼 때 서른여덟 곳을
+   오가야 했다.
 ──────────────────────────────────────────────── */
-export type SnapIntlLang = 'en';
+import { spread } from './snap-l10n/index.ts';
+
+export type SnapIntlLang = 'en' | 'es' | 'pt-br' | 'ja' | 'de' | 'fr' | 'hi' | 'zh-hans' | 'zh-hant';
 
 /* ── 미소 지수 ── */
 export const SMILE_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('smilePool'),
   en: [
     'A calm, unforced expression. The corners of the mouth sit close to level, which reads as composed and quietly stylish. Near-neutral faces often photograph as the most modern and self-possessed — good for a profile or a concept shot.',
     'Relaxed and easy, with the tension let out of the mouth. Nothing is being performed here, and that plainness usually comes across as honest and comfortable to be around.',
@@ -27,6 +35,7 @@ export const SMILE_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const SMILE_TIP_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('smileTip'),
   en: [
     'Smile with the eyes first — it produces a far more natural expression than the mouth alone.',
     'Breathe out briefly just before the shutter; the tension leaves your face and it comes out easier.',
@@ -42,6 +51,7 @@ export const SMILE_TIP_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const SMILE_LABELS: Record<SnapIntlLang, { curve: string; openness: string; balance: string }> = {
+  ...spread('smileLabels'),
   en: { curve: 'Corner lift', openness: 'Mouth opening', balance: 'Left–right balance' },
 };
 
@@ -50,6 +60,7 @@ export const SMILE_COMMENTS: Record<SnapIntlLang, {
   openness: (p: number) => string;
   balance: (p: number) => string;
 }> = {
+  ...spread('smileComments'),
   en: {
     curve: p => p >= 75 ? 'corners lifted generously' : p >= 55 ? 'corners lifted slightly' : p >= 40 ? 'close to level' : 'a calm, closed mouth',
     openness: p => p >= 65 ? 'a wide, open smile' : p >= 35 ? 'naturally parted' : 'a quiet closed-mouth smile',
@@ -61,6 +72,7 @@ export const SMILE_COMMENTS: Record<SnapIntlLang, {
    완벽한 좌우 대칭인 얼굴은 거의 없고 자연스러운 비대칭이 오히려 개성이 된다는
    한국어 쪽 서술 방침을 그대로 지킨다. 낮은 점수도 부정적으로 읽히면 안 된다. */
 export const SYMMETRY_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('symmetryPool'),
   en: [
     'A face with a distinct, natural asymmetry. Perfectly matched halves tend to read as artificial; differences like these add movement and depth to an expression. Plenty of actors and models count asymmetry among their strongest features.',
     'A gentle asymmetry that reads as character. Your face shifts slightly between smiling and neutral, so different photos bring out different sides — the range of impressions you can give is wide.',
@@ -76,10 +88,12 @@ export const SYMMETRY_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const SYMMETRY_REGION_LABELS: Record<SnapIntlLang, Record<string, string>> = {
+  ...spread('symmetryRegionLabels'),
   en: { eye: 'Eye level', brow: 'Eyebrows', mouth: 'Mouth corners', jaw: 'Jawline' },
 };
 
 export const SYMMETRY_REGION_COMMENT: Record<SnapIntlLang, { min: number; text: string }[]> = {
+  ...spread('symmetryRegionComment'),
   en: [
     { min: 85, text: 'almost perfectly even' },
     { min: 70, text: 'well matched' },
@@ -90,6 +104,7 @@ export const SYMMETRY_REGION_COMMENT: Record<SnapIntlLang, { min: number; text: 
 };
 
 export const SYMMETRY_TIP_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('symmetryTip'),
   en: [
     'A slight three-quarter angle often looks more natural than dead-on.',
     'Light from one side alone exaggerates asymmetry — try front-on lighting.',
@@ -106,6 +121,7 @@ export const SYMMETRY_TIP_POOL_INTL: Record<SnapIntlLang, string[]> = {
 
 /* ── 황금비율 ── */
 export const GOLDEN_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('goldenOverall'),
   en: [
     'Your feature proportions sit quite close to the golden ratio. That balance is what gives the face its settled, harmonious impression.',
     'Well-balanced proportions overall. Nothing pulls too far in one direction, and that evenness is the appeal.',
@@ -117,6 +133,7 @@ export const GOLDEN_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const GOLDEN_METRIC_LABELS: Record<SnapIntlLang, Record<string, { label: string; desc: string }>> = {
+  ...spread('goldenMetricLabels'),
   en: {
     faceThirds: { label: 'Vertical proportion', desc: 'brow-to-nose versus nose-to-chin' },
     faceWidth:  { label: 'Length to width',    desc: 'face length versus cheekbone width' },
@@ -126,6 +143,7 @@ export const GOLDEN_METRIC_LABELS: Record<SnapIntlLang, Record<string, { label: 
 };
 
 export const GOLDEN_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('goldenTip'),
   en: [
     'The golden ratio is a reference point, not a verdict — expression and mood do far more for how you come across.',
     'Take one photo today where you are smiling with confidence. The smile moves the impression more than the proportions do.',
@@ -148,6 +166,7 @@ export const SNAP_UI: Record<SnapIntlLang, {
   breakdown: string;
   tipLabel: string;
 }> = {
+  ...spread('ui'),
   en: {
     hubTitle: 'Snap Tests',
     hubLead: 'Upload one photo and see what the landmarks say — nothing is uploaded to a server',
@@ -165,6 +184,7 @@ export const SNAP_UI: Record<SnapIntlLang, {
 export type MoodKeyIntl = 'pastel' | 'vivid' | 'moody' | 'neon';
 
 export const MOOD_META_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, { label: string; vibe: string }>> = {
+  ...spread('moodMeta'),
   en: {
     pastel: { label: 'Soft & Light', vibe: 'bright, low saturation, minimal' },
     vivid:  { label: 'Bright & Vivid', vibe: 'bright, high saturation, fresh' },
@@ -174,6 +194,7 @@ export const MOOD_META_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, { label: s
 };
 
 export const MOOD_POOL_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, string[]>> = {
+  ...spread('moodPool'),
   en: {
     pastel: [
       'A bright, softly desaturated photo. The light tone reads as calm and tidy, and it flatters people and objects alike.',
@@ -227,6 +248,7 @@ export const MOOD_POOL_INTL: Record<SnapIntlLang, Record<MoodKeyIntl, string[]>>
 };
 
 export const MOOD_CAPTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('moodCaptionTip'),
   en: [
     'A short, plain line suits this photo better. Leave space rather than explaining.',
     'The better the colour, the shorter the caption should be — one emoji is plenty.',
@@ -249,6 +271,7 @@ export const MOOD_CAPTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
 export type EmotionKeyIntl = 'neutral' | 'happy' | 'sad' | 'angry' | 'fearful' | 'disgusted' | 'surprised';
 
 export const EMOTION_LABELS_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, string>> = {
+  ...spread('emotionLabels'),
   en: {
     happy: 'Happy', neutral: 'Neutral', surprised: 'Surprised',
     sad: 'Sad', angry: 'Angry', fearful: 'Fearful', disgusted: 'Displeased',
@@ -256,6 +279,7 @@ export const EMOTION_LABELS_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, st
 };
 
 export const EMOTION_POOL_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, string[]>> = {
+  ...spread('emotionPool'),
   en: {
     happy: [
       'Happiness comes through most strongly here. The lift at the mouth and the crease at the eyes read as genuine, and that kind of positive expression measurably lifts a first impression.',
@@ -303,6 +327,7 @@ export const EMOTION_POOL_INTL: Record<SnapIntlLang, Record<EmotionKeyIntl, stri
 };
 
 export const EMOTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('emotionTip'),
   en: [
     'The model reads pixels, not feelings — a photo is one frozen instant, not a mood.',
     'Expression recognition is trained mostly on posed faces, so subtle expressions often land as neutral.',
@@ -319,6 +344,7 @@ export const EMOTION_TIP_INTL: Record<SnapIntlLang, string[]> = {
    기울기는 구조텐서로 실제 획 방향을 구하고, 필압은 어두운 픽셀 비율로 잰다.
    측정은 진짜지만 거기 붙는 성격 해석은 필적학 기반의 오락 콘텐츠다. */
 export const SLANT_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('slantPool'),
   en: [
     'Strongly left-leaning writing. In graphology this is read as holding feeling back and thinking a situation through before acting.',
     'Slightly left-leaning. Read as stepping back to read the room rather than moving on impulse.',
@@ -334,6 +360,7 @@ export const SLANT_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const PRESSURE_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('pressurePool'),
   en: [
     'Very light pressure. Read as delicate and composed, expressing feeling with restraint.',
     'Light pressure. Read as gentle and careful, with a habit of not wanting to impose.',
@@ -347,6 +374,7 @@ export const PRESSURE_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const HANDWRITING_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('handwritingTip'),
   en: [
     'Writing out what you want to say first tends to make the thought much clearer.',
     'A handwritten note carries further than a message today.',
@@ -369,6 +397,7 @@ export type ImpressionIdIntl = 'bright' | 'calm' | 'chic' | 'soft' | 'elegant' |
 export const IMPRESSION_TYPES_INTL: Record<SnapIntlLang, Record<ImpressionIdIntl, {
   label: string; emoji: string; desc: string; strength: string; keywords: string[]; color: string;
 }>> = {
+  ...spread('impressionTypes'),
   en: {
     bright: {
       label: 'Bright and approachable', emoji: '☀️', color: 'from-amber-400 to-orange-500',
@@ -410,6 +439,7 @@ export const IMPRESSION_TYPES_INTL: Record<SnapIntlLang, Record<ImpressionIdIntl
 };
 
 export const IMPRESSION_TIPS_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('impressionTips'),
   en: [
     'Research consistently puts expression above features for first impressions. Breathe out once and let the tension go before you walk in.',
     'Holding eye contact one second longer measurably raises how warmly you are read.',
@@ -434,6 +464,7 @@ export type AnimalKeyIntl =
   | 'squirrel' | 'tiger' | 'lamb' | 'panda' | 'wolf' | 'koala';
 
 export const ANIMAL_LABELS_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, string>> = {
+  ...spread('animalLabels'),
   en: {
     dog: 'Puppy type', cat: 'Cat type', fox: 'Fox type', rabbit: 'Rabbit type',
     bear: 'Bear type', deer: 'Deer type', squirrel: 'Squirrel type', tiger: 'Tiger type',
@@ -442,6 +473,7 @@ export const ANIMAL_LABELS_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, stri
 };
 
 export const ANIMAL_POOL_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, string[]>> = {
+  ...spread('animalPool'),
   en: {
     dog: [
       'Round, friendly eyes and a soft jawline — the face people describe as easy to like. There is no edge to it, so first meetings tend to go smoothly.',
@@ -495,6 +527,7 @@ export const ANIMAL_POOL_INTL: Record<SnapIntlLang, Record<AnimalKeyIntl, string
 };
 
 export const ANIMAL_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('animalTip'),
   en: [
     'Animal-face typing is a game, not a measurement of attractiveness — every one of the twelve has its own appeal.',
     'The result shifts with angle and expression. Try a different photo and see which type you land on.',
@@ -512,6 +545,7 @@ export const ANIMAL_TIP_INTL: Record<SnapIntlLang, string[]> = {
 export type FeatureKeyIntl = 'faceShape' | 'eyebrow' | 'eye' | 'eyeTilt' | 'nose' | 'mouth' | 'chin';
 
 export const FEATURE_LABELS_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, string>> = {
+  ...spread('featureLabels'),
   en: {
     faceShape: 'Face shape', eyebrow: 'Eyebrows', eye: 'Eye size', eyeTilt: 'Eye tilt',
     nose: 'Nose', mouth: 'Mouth', chin: 'Jawline',
@@ -519,6 +553,7 @@ export const FEATURE_LABELS_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, st
 };
 
 export const FEATURE_POOL_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, string[]>> = {
+  ...spread('featurePool'),
   en: {
     faceShape: [
       'A long, slim face. Traditionally read as composed and thoughtful — someone who thinks before moving rather than leading with feeling. May seem hard to approach at first, but is usually described as having depth once known.',
@@ -580,6 +615,7 @@ export const FEATURE_POOL_INTL: Record<SnapIntlLang, Record<FeatureKeyIntl, stri
 };
 
 export const FACE_READING_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('faceReadingOverall'),
   en: [
     'Taken together, the proportions read as balanced — no single feature dominates, which traditionally suggests someone who adapts well.',
     'The features complement each other, giving an impression of steadiness. Traditional reading links this to relationships that last.',
@@ -591,6 +627,7 @@ export const FACE_READING_OVERALL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const FACE_READING_LUCK_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('faceReadingLuck'),
   en: [
     'Today favours saying the thing you have been holding back.',
     'A good day for the conversation you have been putting off.',
@@ -614,6 +651,7 @@ export type SubtypeKeyIntl =
   | 'deepWinter' | 'trueWinter' | 'brightWinter';
 
 export const SUBTYPE_LABELS_INTL: Record<SnapIntlLang, Record<SubtypeKeyIntl, { label: string; vibe: string }>> = {
+  ...spread('subtypeLabels'),
   en: {
     warmSpring:   { label: 'Warm Spring',   vibe: 'clear, bright warm tones' },
     trueSpring:   { label: 'True Spring',   vibe: 'fresh, lively warm tones' },
@@ -632,6 +670,7 @@ export const SUBTYPE_LABELS_INTL: Record<SnapIntlLang, Record<SubtypeKeyIntl, { 
 
 /** 계절별 앵커 색 이름 — hex는 한국어 lib이 계산해 주므로 이름만 옮긴다 */
 export const SWATCH_NAMES_INTL: Record<SnapIntlLang, Record<string, string>> = {
+  ...spread('swatchNames'),
   en: {
     '코랄': 'Coral', '피치핑크': 'Peach pink', '아이보리': 'Ivory', '라이트카멜': 'Light camel',
     '선노랑': 'Sun yellow', '라임그린': 'Lime green',
@@ -645,6 +684,7 @@ export const SWATCH_NAMES_INTL: Record<SnapIntlLang, Record<string, string>> = {
 };
 
 export const PERSONAL_COLOR_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('personalColorPool'),
   en: [
     'Your skin reads warm and clear, so saturated warm colours — coral, warm peach, sunny yellow — lift the face rather than washing it out. Strong colour suits you.',
     'A warm, lively reading. Yellow-based colours brighten the impression noticeably, while very dark or dulled shades tend to flatten it.',
@@ -662,6 +702,7 @@ export const PERSONAL_COLOR_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const PERSONAL_COLOR_TIP_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('personalColorTip'),
   en: [
     'Changing only the lip colour is often enough to shift the whole impression. Use a lead colour from your palette.',
     'Match the metal in your accessories — gold for warm, silver for cool. The difference in how the skin reads is real.',
@@ -679,6 +720,7 @@ export const PERSONAL_COLOR_TIP_INTL: Record<SnapIntlLang, string[]> = {
    "닮은 커플이 잘 어울린다"는 속설을 재미로 푼 것이고, 무작위가 아니라
    두 얼굴의 실측값 차이에 기반한다. */
 export const COUPLE_LABELS_INTL: Record<SnapIntlLang, Record<string, string>> = {
+  ...spread('coupleLabels'),
   en: {
     faceShape: 'Face shape', eyeTilt: 'Eye tilt', eyeWidth: 'Eye size',
     jawWidth: 'Jawline', noseWidth: 'Nose', mouthWidth: 'Mouth',
@@ -686,6 +728,7 @@ export const COUPLE_LABELS_INTL: Record<SnapIntlLang, Record<string, string>> = 
 };
 
 export const COUPLE_POOL_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('couplePool'),
   en: [
     'Strikingly similar impressions. The kind of pair that looks settled together from the first meeting and does not tire on a long look.',
     'A harmonious match. People probably tell you the two of you suit each other.',
@@ -696,6 +739,7 @@ export const COUPLE_POOL_INTL: Record<SnapIntlLang, string[]> = {
 };
 
 export const COUPLE_COMMENT_INTL: Record<SnapIntlLang, string[]> = {
+  ...spread('coupleComment'),
   en: [
     'They say couples who look alike last. Look at each other’s faces more, and smile.',
     'Try taking a selfie from the same angle today — the result is usually funny.',
@@ -714,6 +758,7 @@ export const COUPLE_UI: Record<SnapIntlLang, {
   score: string; breakdown: string; comment: string;
   disclaimer: string; reset: string; noFace: string;
 }> = {
+  ...spread('coupleUi'),
   en: {
     title: 'Couple Face Match',
     lead: 'Two photos, six measured proportions, one similarity score',

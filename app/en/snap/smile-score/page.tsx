@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SmileScore from '@/components/snap/SmileScore';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Smile Score — Measure Your Smile From One Photo',
-  description: 'Upload a photo and measure how far your mouth corners lift, how open the smile is and how balanced it looks. Runs entirely in your browser — nothing is uploaded.',
-  alternates: {
-    canonical: '/en/snap/smile-score',
-    languages: { 'en': '/en/snap/smile-score', 'ko': '/snap/smile-score', 'x-default': '/en/snap/smile-score' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'smile-score');
 
 export default function EnSmileScorePage() {
-  return <SmileScore lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'smile-score').title, path: '/en/snap/smile-score' },
+      ])} />
+      <SmileScore lang="en" />
+    </>
+  );
 }

@@ -123,6 +123,14 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-fuchsia-700 dark:text-fuchsia-300', border: 'border-fuchsia-200 dark:border-fuchsia-900/50', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30',
     copy: {
       en: { title: 'Snap Tests', desc: 'One photo: smile score, symmetry, face reading' },
+      es: { title: 'Tests de foto', desc: 'Una foto: sonrisa, simetría, lectura del rostro' },
+      'pt-br': { title: 'Testes de foto', desc: 'Uma foto: sorriso, simetria, leitura de rosto' },
+      ja: { title: 'スナップテスト', desc: '写真1枚でスマイル指数・左右対称・顔相' },
+      de: { title: 'Foto-Tests', desc: 'Ein Foto: Lächel-Index, Symmetrie, Gesichtsdeutung' },
+      fr: { title: 'Tests photo', desc: 'Une photo : sourire, symétrie, lecture du visage' },
+      hi: { title: 'फ़ोटो टेस्ट', desc: 'एक फ़ोटो: मुस्कान स्कोर, समरूपता, चेहरा पढ़ना' },
+      'zh-hans': { title: '拍照测验', desc: '一张照片：微笑指数、对称、面相' },
+      'zh-hant': { title: '拍照測驗', desc: '一張照片：微笑指數、對稱、面相' },
     },
   },
   {

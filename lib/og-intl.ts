@@ -28,6 +28,7 @@ import { RANDOM_TOOLS_MAP, type RandomTool } from './random-tools';
 import { CONVERT_MAP } from './convert-tools';
 import { CONVERT_CATEGORY, convertL10n } from './convert-i18n';
 import { randomL10n } from './random-ui-intl';
+import { snapIntlCards } from './snap-tools-intl';
 
 /**
  * 다국어 공유 카드.
@@ -60,7 +61,6 @@ const CARDS: Record<string, Card> = {
   'home/zh-hant': { icon: '🧰', eyebrow: 'vixutil', title: '免費的日常小工具', desc: '西洋棋開局 · 德州撲克起手牌 · 著法與機率', from: '#7c3aed', to: '#0ea5e9' },
   'home/hi': { icon: '🧰', eyebrow: 'vixutil', title: 'मुफ़्त उपकरण', desc: 'रंग · पैलेट · कंट्रास्ट · CSS ग्रेडिएंट, ब्राउज़र में', from: '#7c3aed', to: '#0ea5e9' },
   'fortune/en': { icon: '🔮', eyebrow: 'Fortune', title: 'Free Daily Horoscope', desc: 'Star signs · Chinese zodiac · blood type · MBTI · tarot', from: '#7c3aed', to: '#db2777' },
-  'snap/en': { icon: '📸', eyebrow: 'Snap Test', title: 'Snap Tests', desc: 'Photo tests that run in your browser — nothing is uploaded', from: '#d946ef', to: '#0ea5e9' },
   'color/en': { icon: '🎨', eyebrow: 'Color Tools', title: 'Colour Tools', desc: 'Palette · contrast · CSS gradient, in the browser', from: '#8b5cf6', to: '#d946ef' },
   'color/es': { icon: '🎨', eyebrow: 'Colour', title: 'Herramientas de color', desc: 'Paletas · contraste · gradiente CSS · sombras', from: '#d946ef', to: '#f43f5e' },
   'color/pt-br': { icon: '🎨', eyebrow: 'Colour', title: 'Ferramentas de cor', desc: 'Paletas · contraste · gradiente CSS · sombras', from: '#d946ef', to: '#f43f5e' },
@@ -225,17 +225,9 @@ const CARDS: Record<string, Card> = {
   'fortune/tarot-yesno/en': { icon: '🔮', eyebrow: 'Tarot Yes/No', title: 'Tarot Yes or No', desc: 'Draw one card for an answer', from: '#6366f1', to: '#6d28d9' },
   'fortune/dream/en': { icon: '🌙', eyebrow: 'Dream', title: 'Dream Dictionary', desc: '20 common dream symbols', from: '#334155', to: '#3730a3' },
   'fortune/saju/en': { icon: '🔯', eyebrow: 'Saju', title: 'Saju — Korean Four Pillars', desc: 'Your four-pillar chart from birth date', from: '#6366f1', to: '#6d28d9' },
-  'snap/smile-score/en': { icon: '😊', eyebrow: 'Smile Score', title: 'Smile Score', desc: 'How far your mouth corners lift', from: '#fbbf24', to: '#f43f5e' },
-  'snap/face-symmetry/en': { icon: '⚖️', eyebrow: 'Face Symmetry', title: 'Face Symmetry', desc: 'Left–right balance, feature by feature', from: '#6366f1', to: '#06b6d4' },
-  'snap/golden-ratio/en': { icon: '📐', eyebrow: 'Golden Ratio', title: 'Golden Ratio Test', desc: 'How close your proportions sit to φ', from: '#f59e0b', to: '#ea580c' },
-  'snap/photo-mood/en': { icon: '🎨', eyebrow: 'Photo Mood', title: 'Photo Mood', desc: 'Colour mood from any photo', from: '#d946ef', to: '#0ea5e9' },
-  'snap/expression/en': { icon: '🎭', eyebrow: 'Expression', title: 'Expression Analyser', desc: 'Seven emotions, inferred by a model', from: '#ec4899', to: '#7c3aed' },
-  'snap/first-impression/en': { icon: '✨', eyebrow: 'First Impression', title: 'First Impression', desc: 'Which of six impressions you read as', from: '#d946ef', to: '#7c3aed' },
-  'snap/handwriting/en': { icon: '✍️', eyebrow: 'Handwriting', title: 'Handwriting', desc: 'Slant and pressure from your writing', from: '#475569', to: '#4338ca' },
-  'snap/face-reading/en': { icon: '🔮', eyebrow: 'Face Reading', title: 'Face Reading', desc: 'Seven features, traditional style', from: '#0d9488', to: '#0369a1' },
-  'snap/animal-face/en': { icon: '🐾', eyebrow: 'Animal Face', title: 'Animal Face Type', desc: 'Which of twelve animals you match', from: '#f97316', to: '#db2777' },
-  'snap/personal-color/en': { icon: '🎨', eyebrow: 'Personal Color', title: 'Personal Colour', desc: 'Your seasonal type and palette', from: '#fb923c', to: '#6366f1' },
-  'snap/couple-match/en': { icon: '💞', eyebrow: 'Couple Match', title: 'Couple Face Match', desc: 'Compare two photos', from: '#f43f5e', to: '#db2777' },
+
+  // 스냅테스트는 아홉 언어 × 열두 장이라 108줄이 된다 — 섹션 사전에서 만들어 받는다
+  ...snapIntlCards(),
 };
 
 export type OgLang = IntlLocale;

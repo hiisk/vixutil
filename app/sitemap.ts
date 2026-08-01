@@ -14,6 +14,7 @@ import { QUIZZES_INTL } from "@/lib/quiz-l10n/index";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { INTL_LOCALES10 } from "@/lib/locales";
+import { SNAP_TOOLS } from "@/lib/snap-tools-intl";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
 import { foodToolsIntl } from "@/lib/food-tools-intl";
@@ -483,18 +484,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/fortune/tarot-yesno`, changeFrequency: weekly, priority: 0.8 },
     { url: `${BASE}/en/fortune/dream`, changeFrequency: weekly, priority: 0.85 },
     { url: `${BASE}/en/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/en/snap`, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/en/snap/smile-score`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/face-symmetry`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/golden-ratio`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/photo-mood`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/expression`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/first-impression`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/handwriting`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/face-reading`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
-    { url: `${BASE}/en/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
+    // 스냅테스트 열두 장 × 아홉 언어. 한국어는 위쪽 블록에 따로 실려 있다.
+    ...INTL_LOCALES10.flatMap((lang) => [
+      { url: `${BASE}/${lang}/snap`, changeFrequency: weekly, priority: 0.9 },
+      ...SNAP_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/snap/${t.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/time`, changeFrequency: weekly, priority: 0.9 },
       ...timeToolsIntl(lang).map((t: { slug: string }) => ({

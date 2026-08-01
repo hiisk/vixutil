@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import AnimalFace from '@/components/snap/AnimalFace';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Animal Face Test — Which of 12 Animals Do You Match",
-  description: "Four facial ratios are measured from your photo and matched against twelve animal archetypes. Runs in your browser; nothing is uploaded.",
-  alternates: {
-    canonical: '/en/snap/animal-face',
-    languages: { 'en': '/en/snap/animal-face', 'ko': '/snap/animal-face', 'x-default': '/en/snap/animal-face' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'animal-face');
 
 export default function EnAnimalFacePage() {
-  return <AnimalFace lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'animal-face').title, path: '/en/snap/animal-face' },
+      ])} />
+      <AnimalFace lang="en" />
+    </>
+  );
 }

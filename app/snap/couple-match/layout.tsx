@@ -1,3 +1,4 @@
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   description: '두 사람의 사진을 올리면 각자의 이목구비 비율을 실제로 측정해 인상이 얼마나 닮았는지 커플 궁합 점수를 알려주는 참여형 테스트입니다.',
   alternates: {
     canonical: '/snap/couple-match',
-    languages: { 'ko': '/snap/couple-match', 'en': '/en/snap/couple-match', 'x-default': '/en/snap/couple-match' },
+    languages: alternateLanguages10('/snap/couple-match'),
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

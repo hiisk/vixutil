@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import FirstImpression from '@/components/snap/FirstImpression';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: "First Impression Analyser — Which of Six Do You Read As",
-  description: "Eye size, face proportion and mouth lift are measured from one photo to place you in one of six first impressions. Runs in your browser, nothing uploaded.",
-  alternates: {
-    canonical: '/en/snap/first-impression',
-    languages: { 'en': '/en/snap/first-impression', 'ko': '/snap/first-impression', 'x-default': '/en/snap/first-impression' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'first-impression');
 
 export default function EnFirstImpressionPage() {
-  return <FirstImpression lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'first-impression').title, path: '/en/snap/first-impression' },
+      ])} />
+      <FirstImpression lang="en" />
+    </>
+  );
 }

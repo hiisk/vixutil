@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import Expression from '@/components/snap/Expression';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Expression Analyser — Seven Emotions From One Photo",
-  description: "A trained neural network infers seven emotion probabilities from your photo, right in your browser. Real model outputs, nothing uploaded to a server.",
-  alternates: {
-    canonical: '/en/snap/expression',
-    languages: { 'en': '/en/snap/expression', 'ko': '/snap/expression', 'x-default': '/en/snap/expression' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'expression');
 
 export default function EnExpressionPage() {
-  return <Expression lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'expression').title, path: '/en/snap/expression' },
+      ])} />
+      <Expression lang="en" />
+    </>
+  );
 }

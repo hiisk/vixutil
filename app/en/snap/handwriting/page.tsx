@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import Handwriting from '@/components/snap/Handwriting';
+import { snapHubCopy, snapToolCopy, snapToolMetadata } from '@/lib/snap-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Handwriting Analysis — Slant and Pressure From a Photo",
-  description: "Photograph handwriting and measure the stroke slant with a structure tensor plus the pressure from stroke darkness. Runs in your browser; nothing is uploaded.",
-  alternates: {
-    canonical: '/en/snap/handwriting',
-    languages: { 'en': '/en/snap/handwriting', 'ko': '/snap/handwriting', 'x-default': '/en/snap/handwriting' },
-  },
-};
+export const metadata: Metadata = snapToolMetadata('en', 'handwriting');
 
 export default function EnHandwritingPage() {
-  return <Handwriting lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: snapHubCopy('en').title, path: '/en/snap' },
+        { name: snapToolCopy('en', 'handwriting').title, path: '/en/snap/handwriting' },
+      ])} />
+      <Handwriting lang="en" />
+    </>
+  );
 }
