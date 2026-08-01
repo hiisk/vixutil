@@ -3,10 +3,14 @@ import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
 import PageGlow from '@/components/PageGlow';
 import QuizEngine from '@/components/QuizEngine';
-import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
+import { quizFaqIntl } from '@/lib/content-faq-intl';
 import { thumbGradient } from '@/lib/thumbnail';
 import { QUIZZES_INTL, QUIZZES_INTL_MAP, type QuizIntlLang } from '@/lib/quiz-l10n/index';
 import { localeTag } from '@/lib/locales';
+import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Quiz } from '@/lib/types';
 
 /**
@@ -114,10 +118,8 @@ export function quizIntlMeta(lang: QuizIntlLang) {
     description: ui.metaDesc,
     alternates: {
       canonical: `/${lang}/quiz`,
-      languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/quiz`])),
-        'x-default': '/en/quiz',
-      },
+      // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
+      languages: hubAlternates('quiz'),
     },
   };
 }
@@ -127,6 +129,21 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
   const quizzes = QUIZZES_INTL[lang];
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      {/* 한국어 허브가 내던 구조화 데이터를 아홉 언어에도 낸다 — 목록 페이지는
+          CollectionPage와 ItemList가 있어야 검색 결과에서 목록으로 읽힌다 */}
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: ui.home, path: `/${lang}` },
+          { name: ui.crumb, path: `/${lang}/quiz` },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          ui.crumb,
+          `/${lang}/quiz`,
+          QUIZZES_INTL[lang].map(x => ({ name: x.title, path: `/${lang}/quiz/${x.slug}` })),
+        )}
+      />
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
@@ -159,6 +176,10 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
             </Link>
           ))}
         </div>
+
+        {/* 한국어 허브에만 있던 FAQ를 아홉 언어에도 붙인다 — FAQPage 구조화 데이터가
+            함께 나가야 검색 결과에서 접힘 항목을 받을 수 있다 */}
+        <Faq items={SECTION_FAQ_INTL[lang].quiz} lang={lang} />
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
@@ -178,10 +199,9 @@ export function quizIntlDetailMeta(lang: QuizIntlLang, slug: string) {
     description: ui.detailDesc(quiz.desc),
     alternates: {
       canonical: `/${lang}/quiz/${slug}`,
-      languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/quiz/${slug}`])),
-        'x-default': `/en/quiz/${slug}`,
-      },
+      // 한국어에 같은 슬러그가 있으면 그것까지 넣는다 — 상호 선언이 아니면
+      // 구글이 무시한다. 어느 언어에 실제로 있는지는 이 함수가 안다.
+      languages: localeAlternates('quiz', slug),
     },
   };
 }
@@ -202,7 +222,11 @@ export function QuizIntlDetail({ lang, quiz }: { lang: QuizIntlLang; quiz: Quiz 
         <LangPicker current={lang} route={`/quiz/${quiz.slug}`} available={INTL_LANGS} />
       </div>
       <QuizEngine quiz={quiz} lang={lang} />
-      <div className="max-w-lg mx-auto px-4 w-full pb-10">
+      <div className="max-w-lg mx-auto px-4 w-full">
+        {/* 상세 FAQ도 한국어에만 있었다. 데이터에서 만들어 페이지마다 답이 달라진다 */}
+        <Faq items={quizFaqIntl(lang, quiz)} lang={lang} className="" />
+      </div>
+      <div className="max-w-lg mx-auto px-4 w-full pb-10 pt-8">
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (

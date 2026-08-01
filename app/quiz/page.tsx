@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { hubAlternates } from '@/lib/locale-alternates';
 import { QUIZZES } from '@/lib/quiz-data';
 import QuizSearch from '@/components/QuizSearch';
 import { toCard } from '@/lib/card';
@@ -12,7 +13,12 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: '지식 퀴즈',
   description: '한국사, IT, K-POP, 건강 상식 등 100가지 퀴즈 모음',
-  alternates: { canonical: '/quiz' },
+  alternates: {
+    canonical: '/quiz',
+    // 번역 아홉 언어가 이 페이지를 대안으로 선언하므로 이쪽도 돌려줘야 한다 —
+    // 한쪽만 걸린 hreflang은 구글이 짝으로 인정하지 않는다.
+    languages: hubAlternates('quiz'),
+  },
 };
 
 export default function QuizIndexPage() {

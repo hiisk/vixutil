@@ -3,9 +3,13 @@ import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
 import PageGlow from '@/components/PageGlow';
 import ChecklistEngine from '@/components/ChecklistEngine';
-import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
+import { checklistFaqIntl } from '@/lib/content-faq-intl';
 import { CHECKLISTS_INTL, CHECKLISTS_INTL_MAP, type ChecklistIntlLang } from '@/lib/checklist-l10n/index';
 import { localeTag } from '@/lib/locales';
+import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Checklist } from '@/lib/types';
 
 /**
@@ -141,10 +145,8 @@ export function checklistIntlMeta(lang: ChecklistIntlLang) {
     description: ui.metaDesc,
     alternates: {
       canonical: `/${lang}/checklist`,
-      languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/checklist`])),
-        'x-default': '/en/checklist',
-      },
+      // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
+      languages: hubAlternates('checklist'),
     },
   };
 }
@@ -154,6 +156,21 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
   const lists = CHECKLISTS_INTL[lang];
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      {/* 한국어 허브가 내던 구조화 데이터를 아홉 언어에도 낸다 — 목록 페이지는
+          CollectionPage와 ItemList가 있어야 검색 결과에서 목록으로 읽힌다 */}
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: ui.home, path: `/${lang}` },
+          { name: ui.crumb, path: `/${lang}/checklist` },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          ui.crumb,
+          `/${lang}/checklist`,
+          CHECKLISTS_INTL[lang].map(x => ({ name: x.title, path: `/${lang}/checklist/${x.slug}` })),
+        )}
+      />
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-400 to-cyan-600" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
@@ -188,6 +205,10 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
             </Link>
           ))}
         </div>
+
+        {/* 한국어 허브에만 있던 FAQ를 아홉 언어에도 붙인다 — FAQPage 구조화 데이터가
+            함께 나가야 검색 결과에서 접힘 항목을 받을 수 있다 */}
+        <Faq items={SECTION_FAQ_INTL[lang].checklist} lang={lang} />
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
@@ -208,10 +229,9 @@ export function checklistIntlDetailMeta(lang: ChecklistIntlLang, slug: string) {
     description: ui.detailDesc(checklist.desc, n),
     alternates: {
       canonical: `/${lang}/checklist/${slug}`,
-      languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/checklist/${slug}`])),
-        'x-default': `/en/checklist/${slug}`,
-      },
+      // 한국어에 같은 슬러그가 있으면 그것까지 넣는다 — 상호 선언이 아니면
+      // 구글이 무시한다. 어느 언어에 실제로 있는지는 이 함수가 안다.
+      languages: localeAlternates('checklist', slug),
     },
   };
 }
@@ -232,7 +252,11 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
         <LangPicker current={lang} route={`/checklist/${checklist.slug}`} available={INTL_LANGS} />
       </div>
       <ChecklistEngine checklist={checklist} lang={lang} />
-      <div className="max-w-lg mx-auto px-4 w-full pb-10">
+      <div className="max-w-lg mx-auto px-4 w-full">
+        {/* 상세 FAQ도 한국어에만 있었다. 데이터에서 만들어 페이지마다 답이 달라진다 */}
+        <Faq items={checklistFaqIntl(lang, checklist)} lang={lang} className="" />
+      </div>
+      <div className="max-w-lg mx-auto px-4 w-full pb-10 pt-8">
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (

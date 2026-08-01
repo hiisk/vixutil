@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { hubAlternates } from '@/lib/locale-alternates';
 import { CHECKLISTS } from '@/lib/checklist-data';
 import ChecklistSearch from '@/components/ChecklistSearch';
 import { toChecklistCard } from '@/lib/card';
@@ -12,7 +13,12 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: '체크리스트',
   description: '이사·취업·여행·건강 등 상황별 체크리스트 모음 — 진행 상황을 저장하며 빠짐없이 준비하세요',
-  alternates: { canonical: '/checklist' },
+  alternates: {
+    canonical: '/checklist',
+    // 번역 아홉 언어가 이 페이지를 대안으로 선언하므로 이쪽도 돌려줘야 한다 —
+    // 한쪽만 걸린 hreflang은 구글이 짝으로 인정하지 않는다.
+    languages: hubAlternates('checklist'),
+  },
 };
 
 export default function ChecklistIndexPage() {

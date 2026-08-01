@@ -282,3 +282,55 @@ test('hreflang 표기가 BCP 47이다', { skip: built ? false : 'out/ 없음 —
       [...bad].map(([t, f]) => `${t} (${f})`).join('\n  ')}`,
   );
 });
+
+test('hreflang이 서로를 가리킨다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+  /*
+   * A가 B를 대안으로 선언하면 B도 A를 선언해야 한다. 한쪽만 걸린 hreflang은
+   * 구글이 통째로 무시하므로, 있으나 마나가 아니라 **없느니만 못하다**.
+   *
+   * 실제로 이렇게 깨졌다: 심리테스트를 아홉 언어로 넓히면서 languages에 언어
+   * 목록을 직접 박았더니, 한국어에도 같은 슬러그가 있는 9개(social-battery 등)에서
+   * 한국어 쪽은 영어를 선언하는데 영어 쪽은 한국어를 빠뜨렸다. 두 페이지 다
+   * 멀쩡히 뜨고 링크도 살아 있어서 눈으로는 알 수 없다.
+   */
+  const declared = new Map<string, Set<string>>();
+  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+    // out/index.html의 주소는 '/index'가 아니라 '/'다. 이걸 안 맞추면
+    // 모든 언어 첫 화면이 서로를 못 가리키는 것으로 잘못 세어진다.
+    const rel = relative(OUT, f).replace(/\.html$/, '');
+    const self = rel === 'index' ? '/' : '/' + rel.replace(/\/index$/, '');
+    const set = new Set<string>();
+    for (const m of readFileSync(f, 'utf8').matchAll(/hrefLang="([^"]+)" href="https:\/\/vixutil\.com([^"]*)"/g)) {
+      if (m[1] !== 'x-default') set.add(m[2] === '' ? '/' : m[2].replace(/\/$/, '') || '/');
+    }
+    if (set.size) declared.set(self, set);
+  }
+  /*
+   * 지금은 세 섹션(test·quiz·checklist)만 본다.
+   *
+   * 사이트 전체로 돌리면 6,448건이 걸린다. 원인은 하나다 — color·fortune·snap 등
+   * **한국어 페이지 136곳이 아직 `{ko, en}` 두 언어 표를 손으로 박아 두고** 있는데,
+   * 그쪽 번역 페이지는 여덟 언어를 선언한다. 세 섹션과 무관한 기존 부채이고,
+   * 고치려면 섹션마다 "그 언어에 실제로 그 페이지가 있는가"를 따져야 한다.
+   * lib/i18n/lang.ts의 alternates()를 그냥 씌우면 없는 페이지를 대안으로
+   * 선언하게 되어 지금보다 나빠진다.
+   *
+   * 그래서 범위를 넓힐 때는 그 섹션의 언어 목록을 확인한 뒤 함께 넓힌다.
+   * 좁혀 둔 채로 두면 새로 만드는 페이지가 같은 실수를 반복하지 않는다.
+   */
+  const SCOPE = /^\/([a-z-]+\/)?(test|quiz|checklist)(\/|$)/;
+  const bad: string[] = [];
+  for (const [self, targets] of declared) {
+    if (!SCOPE.test(self)) continue;
+    for (const t of targets) {
+      if (t === self) continue;
+      const back = declared.get(t);
+      if (!back) continue;              // 상대가 hreflang을 아예 안 달았으면 이 검사 밖이다
+      if (!back.has(self)) bad.push(`${self} → ${t} (돌아오는 선언 없음)`);
+    }
+  }
+  assert.deepEqual(
+    bad.slice(0, 20), [],
+    `한쪽으로만 걸린 hreflang ${bad.length}건 — 구글은 상호 선언이 아니면 무시한다:\n  ${bad.slice(0, 20).join('\n  ')}`,
+  );
+});

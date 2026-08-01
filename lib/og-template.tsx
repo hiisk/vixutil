@@ -15,6 +15,9 @@ export function alpha(hex: string, a: number): string {
 }
 
 /** 왼쪽 글 영역의 안쪽 폭. 이보다 넘치면 오른쪽 그림을 침범한다. */
+/** 자간을 벌리면 결합 문자가 흩어지는 문자 계열 (데바나가리) */
+const INDIC = /[\u0900-\u097F]/;
+
 const TEXT_BOX = 624;
 
 /**
@@ -221,8 +224,13 @@ export function ogCard({
               background: to,
             }}
           />
-          <div style={{ display: 'flex', fontSize: 20, fontWeight: 900, letterSpacing: '0.2em', color: alpha(to, 0.95) }}>
-            {eyebrow.toUpperCase()}
+          {/*
+            자간은 라틴·한글에서는 눈에 좋지만 데바나가리에서는 결합 문자를
+            흩뜨린다 — 힌디어 카드에서 "चेकलिस्ट"가 "चे क ल सि् ट"로 깨져 나왔다.
+            대문자 변환도 그 문자에는 뜻이 없다. 그래서 글자를 보고 정한다.
+          */}
+          <div style={{ display: 'flex', fontSize: 20, fontWeight: 900, letterSpacing: INDIC.test(eyebrow) ? 0 : '0.2em', color: alpha(to, 0.95) }}>
+            {INDIC.test(eyebrow) ? eyebrow : eyebrow.toUpperCase()}
           </div>
         </div>
 

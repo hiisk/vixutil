@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { hubAlternates } from '@/lib/locale-alternates';
 import { TESTS } from '@/lib/test-data';
 import TestSearch from '@/components/TestSearch';
 import { toCard } from '@/lib/card';
@@ -12,7 +13,12 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: '심리 테스트',
   description: 'MBTI, 연애 성향, 번아웃 등 다양한 심리 테스트 모음',
-  alternates: { canonical: '/test' },
+  alternates: {
+    canonical: '/test',
+    // 번역 아홉 언어가 이 페이지를 대안으로 선언하므로 이쪽도 돌려줘야 한다 —
+    // 한쪽만 걸린 hreflang은 구글이 짝으로 인정하지 않는다.
+    languages: hubAlternates('test'),
+  },
 };
 
 export default function TestIndexPage() {

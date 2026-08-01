@@ -62,3 +62,21 @@ export function localeAlternates(section: AltSection, slug: string): Record<stri
 export function hasAlternates(section: AltSection, slug: string): boolean {
   return Object.keys(localeAlternates(section, slug)).length > 2;
 }
+
+/**
+ * 섹션 허브의 hreflang. 상세와 달리 슬러그가 없으므로 표를 볼 필요가 없다 —
+ * 세 섹션 모두 한국어와 번역 아홉 언어에 허브가 있다.
+ *
+ * 목록 내용은 언어마다 크게 다르다(한국어 228종 vs 번역 5종). 그래도 같은
+ * 섹션의 입구라는 점에서 hreflang의 대상이 맞고, 무엇보다 **한쪽만 걸어 두면
+ * 구글이 통째로 무시하므로** 걸 거면 양쪽 다 걸어야 한다.
+ */
+export function hubAlternates(section: AltSection): Record<string, string> {
+  const out: Record<string, string> = { ko: `/${section}` };
+  for (const lang of ALL_LOCALES10) {
+    if (lang === 'ko') continue;
+    out[localeTag(lang)] = `/${lang}/${section}`;
+  }
+  out['x-default'] = `/en/${section}`;
+  return out;
+}

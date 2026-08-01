@@ -3,10 +3,14 @@ import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
 import PageGlow from '@/components/PageGlow';
 import TestEngine from '@/components/TestEngine';
-import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import Faq from '@/components/Faq';
+import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
+import { testFaqIntl } from '@/lib/content-faq-intl';
 import { thumbGradient } from '@/lib/thumbnail';
 import { TESTS_INTL, TESTS_INTL_MAP, type TestIntlLang } from '@/lib/test-l10n/index';
 import { localeTag } from '@/lib/locales';
+import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Test } from '@/lib/types';
 
 /**
@@ -122,10 +126,8 @@ export function testIntlMeta(lang: TestIntlLang) {
     description: ui.metaDesc,
     alternates: {
       canonical: `/${lang}/test`,
-      languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/test`])),
-        'x-default': '/en/test',
-      },
+      // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
+      languages: hubAlternates('test'),
     },
   };
 }
@@ -135,6 +137,21 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
   const tests = TESTS_INTL[lang];
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900">
+      {/* 한국어 허브가 내던 구조화 데이터를 아홉 언어에도 낸다 — 목록 페이지는
+          CollectionPage와 ItemList가 있어야 검색 결과에서 목록으로 읽힌다 */}
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: ui.home, path: `/${lang}` },
+          { name: ui.crumb, path: `/${lang}/test` },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          ui.crumb,
+          `/${lang}/test`,
+          TESTS_INTL[lang].map(x => ({ name: x.title, path: `/${lang}/test/${x.slug}` })),
+        )}
+      />
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-600" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
@@ -167,6 +184,10 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
             </Link>
           ))}
         </div>
+
+        {/* 한국어 허브에만 있던 FAQ를 아홉 언어에도 붙인다 — FAQPage 구조화 데이터가
+            함께 나가야 검색 결과에서 접힘 항목을 받을 수 있다 */}
+        <Faq items={SECTION_FAQ_INTL[lang].test} lang={lang} />
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
@@ -186,10 +207,9 @@ export function testIntlDetailMeta(lang: TestIntlLang, slug: string) {
     description: ui.detailDesc(test.desc),
     alternates: {
       canonical: `/${lang}/test/${slug}`,
-      languages: {
-        ...Object.fromEntries(INTL_LANGS.map(l => [localeTag(l), `/${l}/test/${slug}`])),
-        'x-default': `/en/test/${slug}`,
-      },
+      // 한국어에 같은 슬러그가 있으면 그것까지 넣는다 — 상호 선언이 아니면
+      // 구글이 무시한다. 어느 언어에 실제로 있는지는 이 함수가 안다.
+      languages: localeAlternates('test', slug),
     },
   };
 }
@@ -210,7 +230,11 @@ export function TestIntlDetail({ lang, test }: { lang: TestIntlLang; test: Test 
         <LangPicker current={lang} route={`/test/${test.slug}`} available={INTL_LANGS} />
       </div>
       <TestEngine test={test} lang={lang} />
-      <div className="max-w-lg mx-auto px-4 w-full pb-10">
+      <div className="max-w-lg mx-auto px-4 w-full">
+        {/* 상세 FAQ도 한국어에만 있었다. 데이터에서 만들어 페이지마다 답이 달라진다 */}
+        <Faq items={testFaqIntl(lang, test)} lang={lang} className="" />
+      </div>
+      <div className="max-w-lg mx-auto px-4 w-full pb-10 pt-8">
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (
