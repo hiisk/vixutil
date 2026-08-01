@@ -3,6 +3,8 @@ import { EN } from './en.ts';
 import { ES } from './es.ts';
 import { PT } from './pt-br.ts';
 import { JA } from './ja.ts';
+import { DE } from './de.ts';
+import { FR } from './fr.ts';
 
 /**
  * 사주 아홉 언어.
@@ -13,7 +15,7 @@ import { JA } from './ja.ts';
 export type SajuL10nLang = 'en' | 'es' | 'pt-br' | 'ja' | 'de' | 'fr' | 'hi' | 'zh-hans' | 'zh-hant';
 
 export const SAJU_L10N: Record<SajuL10nLang, SajuCopy> = {
-  en: EN, es: ES, 'pt-br': PT, ja: JA,
+  en: EN, es: ES, 'pt-br': PT, ja: JA, de: DE, fr: FR,
 } as Record<SajuL10nLang, SajuCopy>;
 
 /** 표 하나를 아홉 언어로 펼친다 */
