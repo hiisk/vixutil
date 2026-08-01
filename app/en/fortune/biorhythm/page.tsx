@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import Biorhythm from '@/components/fortune/Biorhythm';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Biorhythm Calculator — Physical, Emotional & Intellectual',
-  description: 'Free biorhythm calculator: enter your date of birth to chart your 23-day physical, 28-day emotional and 33-day intellectual cycles, with critical days marked.',
-  alternates: {
-    canonical: '/en/fortune/biorhythm',
-    languages: { 'en': '/en/fortune/biorhythm', 'ko': '/fortune/biorhythm', 'x-default': '/en/fortune/biorhythm' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'biorhythm');
 
 export default function EnBiorhythmPage() {
-  return <Biorhythm lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'biorhythm').title, path: '/en/fortune/biorhythm' },
+      ])} />
+      <Biorhythm lang="en" />
+    </>
+  );
 }

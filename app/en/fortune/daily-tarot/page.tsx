@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import TarotIntl from '@/components/fortune/TarotIntl';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Today’s Tarot Card — One Card, Free, Daily",
-  description: "Draw today's tarot card from the 22 major arcana. Chosen from the date, so it stays the same all day. Free, with upright and reversed readings.",
-  alternates: {
-    canonical: '/en/fortune/daily-tarot',
-    languages: { 'en': '/en/fortune/daily-tarot', 'ko': '/fortune/daily-tarot', 'x-default': '/en/fortune/daily-tarot' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'daily-tarot');
 
 export default function EnDailyTarotPage() {
-  return <TarotIntl mode="daily" lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'daily-tarot').title, path: '/en/fortune/daily-tarot' },
+      ])} />
+      <TarotIntl mode="daily" lang="en" />
+    </>
+  );
 }

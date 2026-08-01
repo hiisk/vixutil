@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import MatchFortune from '@/components/fortune/MatchFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Star Sign Compatibility — All 12 Zodiac Pairings',
-  description: 'Check star sign compatibility for any two signs based on their elements — fire, earth, air and water — with a score, what it means and advice.',
-  alternates: {
-    canonical: '/en/fortune/star-match',
-    languages: { 'en': '/en/fortune/star-match', 'ko': '/fortune/star-match', 'x-default': '/en/fortune/star-match' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'star-match');
 
 export default function EnStarMatchPage() {
-  return <MatchFortune kind="star" lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'star-match').title, path: '/en/fortune/star-match' },
+      ])} />
+      <MatchFortune kind="star" lang="en" />
+    </>
+  );
 }

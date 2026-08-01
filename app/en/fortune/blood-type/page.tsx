@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SubjectFortune from '@/components/fortune/SubjectFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Blood Type Horoscope — A, B, O and AB Today',
-  description: 'Today’s free blood type horoscope for A, B, O and AB — love, money, work and health, plus a lucky colour, number and item. Updated daily.',
-  alternates: {
-    canonical: '/en/fortune/blood-type',
-    languages: { 'en': '/en/fortune/blood-type', 'ko': '/fortune/blood-type', 'x-default': '/en/fortune/blood-type' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'blood-type');
 
 export default function EnBloodTypePage() {
-  return <SubjectFortune kind="blood" lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'blood-type').title, path: '/en/fortune/blood-type' },
+      ])} />
+      <SubjectFortune kind="blood" lang="en" />
+    </>
+  );
 }

@@ -1,0 +1,19 @@
+import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
+import MatchFortune from '@/components/fortune/MatchFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
+
+export const metadata: Metadata = fortuneToolMetadata('pt-br', 'mbti-match');
+
+export default function PtBrMbtiMatchPage() {
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/pt-br' },
+        { name: fortuneHubCopy('pt-br').title, path: '/pt-br/fortune' },
+        { name: fortuneToolCopy('pt-br', 'mbti-match').title, path: '/pt-br/fortune/mbti-match' },
+      ])} />
+      <MatchFortune kind="mbti" lang="pt-br" />
+    </>
+  );
+}

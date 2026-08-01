@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SubjectFortune from '@/components/fortune/SubjectFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'MBTI Daily Horoscope — All 16 Personality Types',
-  description: 'Today’s free horoscope for all 16 MBTI types: love, money, work and health, plus a lucky colour, number and item. Updated every day.',
-  alternates: {
-    canonical: '/en/fortune/mbti',
-    languages: { 'en': '/en/fortune/mbti', 'ko': '/fortune/mbti', 'x-default': '/en/fortune/mbti' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'mbti');
 
-export default function EnMbtiFortunePage() {
-  return <SubjectFortune kind="mbti" lang="en" />;
+export default function EnMbtiPage() {
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'mbti').title, path: '/en/fortune/mbti' },
+      ])} />
+      <SubjectFortune kind="mbti" lang="en" />
+    </>
+  );
 }

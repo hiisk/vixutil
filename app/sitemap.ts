@@ -15,6 +15,7 @@ import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { INTL_LOCALES10 } from "@/lib/locales";
 import { SNAP_TOOLS } from "@/lib/snap-tools-intl";
+import { FORTUNE_TOOLS } from "@/lib/fortune-tools-intl";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
 import { foodToolsIntl } from "@/lib/food-tools-intl";
@@ -466,24 +467,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE}/${lang}/random/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
-    { url: `${BASE}/en/fortune`, changeFrequency: weekly, priority: 0.9 },
-    { url: `${BASE}/en/fortune/zodiac`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/animal`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/blood-type`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/biorhythm`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/birth-stone`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/today-color`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/tarot`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/en/fortune/lucky-numbers`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/star-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/mbti-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/blood-match`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/daily`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/en/fortune/daily-tarot`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/tarot-yesno`, changeFrequency: weekly, priority: 0.8 },
-    { url: `${BASE}/en/fortune/dream`, changeFrequency: weekly, priority: 0.85 },
-    { url: `${BASE}/en/fortune/saju`, changeFrequency: weekly, priority: 0.85 },
+    // 운세 열아홉 장 × 아홉 언어. 한국어는 위쪽 블록에 따로 실려 있다.
+    ...INTL_LOCALES10.flatMap((lang) => [
+      { url: `${BASE}/${lang}/fortune`, changeFrequency: weekly, priority: 0.9 },
+      ...FORTUNE_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/fortune/${t.slug}`,
+        changeFrequency: weekly,
+        priority: 0.8,
+      })),
+    ]),
     // 스냅테스트 열두 장 × 아홉 언어. 한국어는 위쪽 블록에 따로 실려 있다.
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/snap`, changeFrequency: weekly, priority: 0.9 },
@@ -566,7 +558,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}/${lang}/checklist`, changeFrequency: weekly, priority: 0.9 },
       ...lists.map(c => ({ url: `${BASE}/${lang}/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
     ]),
-    { url: `${BASE}/en/fortune/mbti`, changeFrequency: weekly, priority: 0.8 },
 
 
 

@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import TarotSpreadIntl from '@/components/fortune/TarotSpreadIntl';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Tarot Reading Online — Free 78-Card Spreads',
-  description: 'Draw a free tarot reading from the full 78-card deck: one card, past-present-future, a relationship spread or the full Celtic cross. Upright and reversed meanings for every card.',
-  alternates: {
-    canonical: '/en/fortune/tarot',
-    languages: { 'en': '/en/fortune/tarot', 'ko': '/fortune/tarot', 'x-default': '/en/fortune/tarot' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'tarot');
 
-export default function EnTarotSpreadPage() {
-  return <TarotSpreadIntl lang="en" />;
+export default function EnTarotPage() {
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'tarot').title, path: '/en/fortune/tarot' },
+      ])} />
+      <TarotSpreadIntl lang="en" />
+    </>
+  );
 }

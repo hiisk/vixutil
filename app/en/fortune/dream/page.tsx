@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import DreamIntl from '@/components/fortune/DreamIntl';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Dream Dictionary — 20 Common Dream Symbols Explained",
-  description: "What falling, losing teeth, flying, being chased and 16 other common dream symbols are traditionally read as, and which situations they tend to be reported in.",
-  alternates: {
-    canonical: '/en/fortune/dream',
-    languages: { 'en': '/en/fortune/dream', 'ko': '/fortune/dream', 'x-default': '/en/fortune/dream' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'dream');
 
 export default function EnDreamPage() {
-  return <DreamIntl lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'dream').title, path: '/en/fortune/dream' },
+      ])} />
+      <DreamIntl lang="en" />
+    </>
+  );
 }

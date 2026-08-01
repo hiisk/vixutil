@@ -7,5 +7,5 @@ export const contentType = OG_CONTENT_TYPE;
 export const dynamic = 'force-static';
 
 export default function Image() {
-  return new ImageResponse(intlOg('tarot/en'), { ...size });
+  return new ImageResponse(intlOg('fortune/tarot/en'), { ...size });
 }

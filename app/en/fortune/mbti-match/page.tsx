@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import MatchFortune from '@/components/fortune/MatchFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'MBTI Compatibility — Match Any Two of the 16 Types',
-  description: 'Check MBTI compatibility between any two of the 16 types. See how the E/I, N/S, T/F and J/P axes line up, with a score and practical advice.',
-  alternates: {
-    canonical: '/en/fortune/mbti-match',
-    languages: { 'en': '/en/fortune/mbti-match', 'ko': '/fortune/mbti-match', 'x-default': '/en/fortune/mbti-match' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'mbti-match');
 
 export default function EnMbtiMatchPage() {
-  return <MatchFortune kind="mbti" lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'mbti-match').title, path: '/en/fortune/mbti-match' },
+      ])} />
+      <MatchFortune kind="mbti" lang="en" />
+    </>
+  );
 }

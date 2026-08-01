@@ -1,3 +1,4 @@
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   description: '생년월일을 넣으면 신체(23일)·감성(28일)·지성(33일) 리듬을 그래프로 보여주고, 오늘의 상태와 다음 위험일까지 남은 날짜를 계산합니다.',
   alternates: {
     canonical: '/fortune/biorhythm',
-    languages: { 'ko': '/fortune/biorhythm', 'en': '/en/fortune/biorhythm', 'x-default': '/en/fortune/biorhythm' },
+    languages: alternateLanguages10('/fortune/biorhythm'),
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

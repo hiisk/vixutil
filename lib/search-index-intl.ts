@@ -15,6 +15,7 @@ import { CONVERT_TOOLS } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
 import { alternateLanguagesFor, ALL_LOCALES10, INTL_LOCALES10, localeHref, type AnyLocale10 } from './locales.ts';
 import { SNAP_TOOLS, snapToolCopy } from './snap-tools-intl.ts';
+import { FORTUNE_TOOLS, fortuneToolCopy } from './fortune-tools-intl.ts';
 
 /**
  * 번역 언어 통합 검색의 목록.
@@ -43,98 +44,22 @@ export interface SearchIntlItem {
 type Entry = { slug: string; title: string; desc: string; icon: string };
 
 /** 운세·스냅은 슬러그가 언어에 상관없이 같아 목록을 여기 둔다 */
-export const FORTUNE_INTL: Partial<Record<SearchIntlLang, Entry[]>> = {
-  en: [
-    { slug: 'today', title: 'Today’s Fortune', desc: 'A reading for today by star sign, zodiac animal, blood type or MBTI', icon: '🔮' },
-    { slug: 'daily-tarot', title: 'Today’s Tarot Card', desc: 'One card from the major arcana, the same all day', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'Tarot Yes or No', desc: 'Hold a question in mind and draw one card', icon: '🔮' },
-    { slug: 'tarot', title: 'Tarot Reading', desc: 'Full 78-card deck, four spreads, upright and reversed', icon: '🎴' },
-    { slug: 'saju', title: 'Saju — Korean Four Pillars', desc: 'Your four pillars, five elements, day master and luck pillars', icon: '🀄' },
-    { slug: 'today-color', title: 'Today’s Lucky Colour', desc: 'A colour and a number for today', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'Lucky Numbers', desc: 'Six numbers from your date of birth, new each day', icon: '🍀' },
-    { slug: 'biorhythm', title: 'Biorhythm', desc: 'Physical, emotional and intellectual cycles from your birth date', icon: '📈' },
-  ],
-  'es': [
-    { slug: 'today', title: 'Horóscopo de hoy', desc: 'Lectura del día por signo, animal del zodiaco, grupo sanguíneo o MBTI', icon: '🔮' },
-    { slug: 'daily-tarot', title: 'Carta del tarot de hoy', desc: 'Una carta de los arcanos mayores, la misma todo el día', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'Tarot sí o no', desc: 'Piensa una pregunta y saca una carta', icon: '🔮' },
-    { slug: 'tarot', title: 'Lectura de tarot', desc: 'Baraja completa de 78 cartas, cuatro tiradas, derechas e invertidas', icon: '🎴' },
-    { slug: 'saju', title: 'Saju — Cuatro Pilares coreanos', desc: 'Tus cuatro pilares, los cinco elementos, el pilar del día y los ciclos de suerte', icon: '🀄' },
-    { slug: 'today-color', title: 'Color de la suerte de hoy', desc: 'Un color y un número para hoy', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'Números de la suerte', desc: 'Seis números a partir de tu fecha de nacimiento, nuevos cada día', icon: '🍀' },
-    { slug: 'biorhythm', title: 'Biorritmo', desc: 'Ciclos físico, emocional e intelectual desde tu fecha de nacimiento', icon: '📈' },
-  ],
-  'pt-br': [
-    { slug: 'today', title: 'Horóscopo de hoje', desc: 'Leitura do dia por signo, animal do zodíaco, tipo sanguíneo ou MBTI', icon: '🔮' },
-    { slug: 'daily-tarot', title: 'Carta de tarô de hoje', desc: 'Uma carta dos arcanos maiores, a mesma o dia todo', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'Tarô sim ou não', desc: 'Pense numa pergunta e tire uma carta', icon: '🔮' },
-    { slug: 'tarot', title: 'Leitura de tarô', desc: 'Baralho completo de 78 cartas, quatro tiragens, normais e invertidas', icon: '🎴' },
-    { slug: 'saju', title: 'Saju — Quatro Pilares coreanos', desc: 'Seus quatro pilares, os cinco elementos, o pilar do dia e os ciclos de sorte', icon: '🀄' },
-    { slug: 'today-color', title: 'Cor da sorte de hoje', desc: 'Uma cor e um número para hoje', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'Números da sorte', desc: 'Seis números a partir da sua data de nascimento, novos a cada dia', icon: '🍀' },
-    { slug: 'biorhythm', title: 'Biorritmo', desc: 'Ciclos físico, emocional e intelectual a partir da sua data de nascimento', icon: '📈' },
-  ],
-  'ja': [
-    { slug: 'today', title: '今日の運勢', desc: '星座・干支・血液型・MBTIで見る今日の運勢', icon: '🔮' },
-    { slug: 'daily-tarot', title: '今日のタロット', desc: '大アルカナから一枚、その日はずっと同じ', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'タロット イエス・ノー', desc: '質問を思い浮かべて一枚引く', icon: '🔮' },
-    { slug: 'tarot', title: 'タロット占い', desc: '78枚フルデッキ、4種のスプレッド、正位置と逆位置', icon: '🎴' },
-    { slug: 'saju', title: '四柱推命（韓国式サジュ）', desc: '四つの柱、五行、日主、大運', icon: '🀄' },
-    { slug: 'today-color', title: '今日のラッキーカラー', desc: '今日の色と数字', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'ラッキーナンバー', desc: '生年月日から6つ、毎日変わります', icon: '🍀' },
-    { slug: 'biorhythm', title: 'バイオリズム', desc: '生年月日から身体・感情・知性の3つの波', icon: '📈' },
-  ],
-  'de': [
-    { slug: 'today', title: 'Tageshoroskop', desc: 'Deutung für heute nach Sternzeichen, Tierkreiszeichen, Blutgruppe oder MBTI', icon: '🔮' },
-    { slug: 'daily-tarot', title: 'Tageskarte Tarot', desc: 'Eine Karte aus der Großen Arkana, den ganzen Tag dieselbe', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'Tarot Ja oder Nein', desc: 'Denk an eine Frage und zieh eine Karte', icon: '🔮' },
-    { slug: 'tarot', title: 'Tarot-Legung', desc: 'Volles Deck mit 78 Karten, vier Legesysteme, aufrecht und umgekehrt', icon: '🎴' },
-    { slug: 'saju', title: 'Saju — koreanische Vier Säulen', desc: 'Deine vier Säulen, die fünf Elemente, der Tagesherr und die Glückssäulen', icon: '🀄' },
-    { slug: 'today-color', title: 'Glücksfarbe des Tages', desc: 'Eine Farbe und eine Zahl für heute', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'Glückszahlen', desc: 'Sechs Zahlen aus deinem Geburtsdatum, jeden Tag neu', icon: '🍀' },
-    { slug: 'biorhythm', title: 'Biorhythmus', desc: 'Körperliche, emotionale und geistige Zyklen ab deinem Geburtsdatum', icon: '📈' },
-  ],
-  'fr': [
-    { slug: 'today', title: 'Horoscope du jour', desc: 'Lecture du jour par signe, animal du zodiaque, groupe sanguin ou MBTI', icon: '🔮' },
-    { slug: 'daily-tarot', title: 'Carte de tarot du jour', desc: 'Une carte des arcanes majeurs, la même toute la journée', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'Tarot oui ou non', desc: 'Pense à une question et tire une carte', icon: '🔮' },
-    { slug: 'tarot', title: 'Tirage de tarot', desc: 'Jeu complet de 78 cartes, quatre tirages, à l’endroit et à l’envers', icon: '🎴' },
-    { slug: 'saju', title: 'Saju — Quatre Piliers coréens', desc: 'Tes quatre piliers, les cinq éléments, le maître du jour et les cycles de chance', icon: '🀄' },
-    { slug: 'today-color', title: 'Couleur porte-bonheur du jour', desc: 'Une couleur et un chiffre pour aujourd’hui', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'Numéros porte-bonheur', desc: 'Six numéros tirés de ta date de naissance, nouveaux chaque jour', icon: '🍀' },
-    { slug: 'biorhythm', title: 'Biorythme', desc: 'Cycles physique, émotionnel et intellectuel depuis ta date de naissance', icon: '📈' },
-  ],
-  'hi': [
-    { slug: 'today', title: 'आज का राशिफल', desc: 'राशि, चीनी राशि, ब्लड ग्रुप या MBTI से आज का हाल', icon: '🔮' },
-    { slug: 'daily-tarot', title: 'आज का टैरो कार्ड', desc: 'मेजर आर्काना से एक कार्ड, पूरे दिन वही', icon: '🃏' },
-    { slug: 'tarot-yesno', title: 'टैरो हाँ या ना', desc: 'मन में सवाल रखो और एक कार्ड खींचो', icon: '🔮' },
-    { slug: 'tarot', title: 'टैरो रीडिंग', desc: 'पूरा 78-कार्ड डेक, चार स्प्रेड, सीधे और उलटे', icon: '🎴' },
-    { slug: 'saju', title: 'साजू — कोरियाई चार स्तंभ', desc: 'तुम्हारे चार स्तंभ, पाँच तत्व, दिन का स्वामी और भाग्य-चक्र', icon: '🀄' },
-    { slug: 'today-color', title: 'आज का लकी रंग', desc: 'आज के लिए एक रंग और एक अंक', icon: '🎨' },
-    { slug: 'lucky-numbers', title: 'लकी नंबर', desc: 'जन्मतिथि से छह अंक, हर दिन नए', icon: '🍀' },
-    { slug: 'biorhythm', title: 'बायोरिदम', desc: 'जन्मतिथि से शारीरिक, भावनात्मक और बौद्धिक चक्र', icon: '📈' },
-  ],
-  'zh-hans': [
-    { slug: 'today', title: '今日运势', desc: '按星座、生肖、血型或MBTI看今天', icon: '🔮' },
-    { slug: 'daily-tarot', title: '今日塔罗牌', desc: '从大阿尔卡纳抽一张，一整天都是它', icon: '🃏' },
-    { slug: 'tarot-yesno', title: '塔罗是或否', desc: '心里想着一个问题，抽一张牌', icon: '🔮' },
-    { slug: 'tarot', title: '塔罗占卜', desc: '78张全套牌、四种牌阵、正位与逆位', icon: '🎴' },
-    { slug: 'saju', title: '四柱八字（韩式四柱）', desc: '你的四柱、五行、日主和大运', icon: '🀄' },
-    { slug: 'today-color', title: '今日幸运色', desc: '今天的一个颜色和一个数字', icon: '🎨' },
-    { slug: 'lucky-numbers', title: '幸运数字', desc: '按出生日期出六个数字，每天都换', icon: '🍀' },
-    { slug: 'biorhythm', title: '生物节律', desc: '从出生日期算体力、情绪和智力三条曲线', icon: '📈' },
-  ],
-  'zh-hant': [
-    { slug: 'today', title: '今日運勢', desc: '按星座、生肖、血型或MBTI看今天', icon: '🔮' },
-    { slug: 'daily-tarot', title: '今日塔羅牌', desc: '從大阿爾克那抽一張，一整天都是它', icon: '🃏' },
-    { slug: 'tarot-yesno', title: '塔羅是或否', desc: '心裡想著一個問題，抽一張牌', icon: '🔮' },
-    { slug: 'tarot', title: '塔羅占卜', desc: '78張全套牌、四種牌陣、正位與逆位', icon: '🎴' },
-    { slug: 'saju', title: '四柱八字（韓式四柱）', desc: '你的四柱、五行、日主和大運', icon: '🀄' },
-    { slug: 'today-color', title: '今日幸運色', desc: '今天的一個顏色和一個數字', icon: '🎨' },
-    { slug: 'lucky-numbers', title: '幸運數字', desc: '按出生日期出六個數字，每天都換', icon: '🍀' },
-    { slug: 'biorhythm', title: '生物節律', desc: '從出生日期算體力、情緒和智力三條曲線', icon: '📈' },
-  ],
-};
+/**
+ * 운세 열아홉 장 — 아홉 언어 모두 있다.
+ *
+ * 예전에는 여기에 여덟 줄을 손으로 적어 두었는데, 그중 today는 만든 적이 없는
+ * 페이지였다(도구 이름은 daily다) — 검색에서 누르면 404였다. 스냅에서와 같은
+ * 실수라 같은 방법으로 고친다: 라우트 목록에서 만든다.
+ */
+export const FORTUNE_INTL: Partial<Record<SearchIntlLang, Entry[]>> = Object.fromEntries(
+  INTL_LOCALES10.map(lang => [
+    lang,
+    FORTUNE_TOOLS.map(t => {
+      const c = fortuneToolCopy(lang, t.slug);
+      return { slug: t.slug, title: c.title, desc: c.desc, icon: t.icon };
+    }),
+  ]),
+);
 
 /**
  * 스냅테스트는 라우트가 열한 장이고 아홉 언어 모두 있다.

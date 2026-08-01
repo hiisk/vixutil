@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SajuIntl from '@/components/fortune/SajuIntl';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: "Saju — Korean Four Pillars Reading, Free",
-  description: "Read your saju — the Korean four-pillar chart — from your date and time of birth: heavenly stems, earthly branches, five-element balance, ten gods and luck pillars. Also known as BaZi. Free, calculated in your browser.",
-  alternates: {
-    canonical: '/en/fortune/saju',
-    languages: { 'en': '/en/fortune/saju', 'ko': '/fortune/saju', 'x-default': '/en/fortune/saju' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'saju');
 
 export default function EnSajuPage() {
-  return <SajuIntl lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'saju').title, path: '/en/fortune/saju' },
+      ])} />
+      <SajuIntl lang="en" />
+    </>
+  );
 }

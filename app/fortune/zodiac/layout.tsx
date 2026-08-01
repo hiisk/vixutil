@@ -1,3 +1,4 @@
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   description: '양자리부터 물고기자리까지 12개 별자리별 오늘의 운세를 매일 무료로 확인하세요.',
   alternates: {
     canonical: '/fortune/zodiac',
-    languages: { 'ko': '/fortune/zodiac', 'en': '/en/fortune/zodiac', 'x-default': '/en/fortune/zodiac' },
+    languages: alternateLanguages10('/fortune/zodiac'),
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

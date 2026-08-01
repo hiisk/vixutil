@@ -1,3 +1,4 @@
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   description: '78장 정식 타로 덱에서 카드를 뽑아 오늘의 메시지를 확인하는 무료 타로 서비스입니다.',
   alternates: {
     canonical: '/fortune/tarot',
-    languages: { 'ko': '/fortune/tarot', 'en': '/en/fortune/tarot', 'x-default': '/en/fortune/tarot' },
+    languages: alternateLanguages10('/fortune/tarot'),
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import BirthStone from '@/components/fortune/BirthStone';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Birthstone & Birth Flower by Month — Meanings',
-  description: 'Find your birthstone and birth flower by birth month, from garnet in January to turquoise in December, with what each one traditionally stands for.',
-  alternates: {
-    canonical: '/en/fortune/birth-stone',
-    languages: { 'en': '/en/fortune/birth-stone', 'ko': '/fortune/birth-stone', 'x-default': '/en/fortune/birth-stone' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'birth-stone');
 
 export default function EnBirthStonePage() {
-  return <BirthStone lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'birth-stone').title, path: '/en/fortune/birth-stone' },
+      ])} />
+      <BirthStone lang="en" />
+    </>
+  );
 }

@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import DailyFortune from '@/components/fortune/DailyFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Today’s Horoscope by Birth Date — Free Daily Reading',
-  description: 'Enter your date of birth for today’s free reading: overall, love, money, work and health, plus a lucky colour, number, direction and item. Updated daily.',
-  alternates: {
-    canonical: '/en/fortune/daily',
-    languages: { 'en': '/en/fortune/daily', 'ko': '/fortune/daily', 'x-default': '/en/fortune/daily' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'daily');
 
-export default function EnDailyFortunePage() {
-  return <DailyFortune lang="en" />;
+export default function EnDailyPage() {
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'daily').title, path: '/en/fortune/daily' },
+      ])} />
+      <DailyFortune lang="en" />
+    </>
+  );
 }

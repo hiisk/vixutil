@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SubjectFortune from '@/components/fortune/SubjectFortune';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Daily Horoscope — All 12 Star Signs, Free',
-  description: 'Read today’s free horoscope for all 12 star signs: love, money, work and health, with a lucky colour, number and item. Updated every day.',
-  alternates: {
-    canonical: '/en/fortune/zodiac',
-    languages: { 'en': '/en/fortune/zodiac', 'ko': '/fortune/zodiac', 'x-default': '/en/fortune/zodiac' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'zodiac');
 
 export default function EnZodiacPage() {
-  return <SubjectFortune kind="zodiac" lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'zodiac').title, path: '/en/fortune/zodiac' },
+      ])} />
+      <SubjectFortune kind="zodiac" lang="en" />
+    </>
+  );
 }

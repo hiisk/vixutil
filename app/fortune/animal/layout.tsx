@@ -1,3 +1,4 @@
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   description: '쥐띠부터 돼지띠까지 12띠별 오늘의 운세를 매일 무료로 확인하세요.',
   alternates: {
     canonical: '/fortune/animal',
-    languages: { 'ko': '/fortune/animal', 'en': '/en/fortune/animal', 'x-default': '/en/fortune/animal' },
+    languages: alternateLanguages10('/fortune/animal'),
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

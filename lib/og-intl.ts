@@ -29,6 +29,7 @@ import { CONVERT_MAP } from './convert-tools';
 import { CONVERT_CATEGORY, convertL10n } from './convert-i18n';
 import { randomL10n } from './random-ui-intl';
 import { snapIntlCards } from './snap-tools-intl';
+import { fortuneIntlCards } from './fortune-tools-intl';
 
 /**
  * 다국어 공유 카드.
@@ -60,7 +61,6 @@ const CARDS: Record<string, Card> = {
   'home/zh-hans': { icon: '🧰', eyebrow: 'vixutil', title: '免费的日常小工具', desc: '国际象棋开局 · 德州扑克起手牌 · 着法与概率', from: '#7c3aed', to: '#0ea5e9' },
   'home/zh-hant': { icon: '🧰', eyebrow: 'vixutil', title: '免費的日常小工具', desc: '西洋棋開局 · 德州撲克起手牌 · 著法與機率', from: '#7c3aed', to: '#0ea5e9' },
   'home/hi': { icon: '🧰', eyebrow: 'vixutil', title: 'मुफ़्त उपकरण', desc: 'रंग · पैलेट · कंट्रास्ट · CSS ग्रेडिएंट, ब्राउज़र में', from: '#7c3aed', to: '#0ea5e9' },
-  'fortune/en': { icon: '🔮', eyebrow: 'Fortune', title: 'Free Daily Horoscope', desc: 'Star signs · Chinese zodiac · blood type · MBTI · tarot', from: '#7c3aed', to: '#db2777' },
   'color/en': { icon: '🎨', eyebrow: 'Color Tools', title: 'Colour Tools', desc: 'Palette · contrast · CSS gradient, in the browser', from: '#8b5cf6', to: '#d946ef' },
   'color/es': { icon: '🎨', eyebrow: 'Colour', title: 'Herramientas de color', desc: 'Paletas · contraste · gradiente CSS · sombras', from: '#d946ef', to: '#f43f5e' },
   'color/pt-br': { icon: '🎨', eyebrow: 'Colour', title: 'Ferramentas de cor', desc: 'Paletas · contraste · gradiente CSS · sombras', from: '#d946ef', to: '#f43f5e' },
@@ -208,26 +208,12 @@ const CARDS: Record<string, Card> = {
   'snap/face-symmetry/ko': { icon: '⚖️', eyebrow: 'Face Symmetry', title: '얼굴 대칭 분석', desc: '사진 한 장으로 보는 좌우 밸런스 지수', from: '#6366f1', to: '#06b6d4' },
   'snap/smile-score/ko': { icon: '😊', eyebrow: 'Smile Score', title: '미소 지수 측정', desc: '사진 한 장으로 보는 내 미소 지수', from: '#fbbf24', to: '#f43f5e' },
   'snap/handwriting/ko': { icon: '✍️', eyebrow: 'Handwriting', title: '손글씨 심리 테스트', desc: '손글씨 사진으로 보는 기울기·필압 분석', from: '#475569', to: '#4338ca' },
-  'fortune/daily/en': { icon: '🔮', eyebrow: '오늘의 종합운세', title: 'Today’s Horoscope', desc: 'Your reading from your birth date', from: '#7c3aed', to: '#db2777' },
-  'fortune/zodiac/en': { icon: '⭐', eyebrow: 'Zodiac', title: 'Daily Horoscope', desc: 'Today’s reading for all 12 star signs', from: '#8b5cf6', to: '#7e22ce' },
-  'fortune/animal/en': { icon: '🐉', eyebrow: 'Animal Sign', title: 'Chinese Zodiac', desc: 'Today’s reading for all 12 animals', from: '#f43f5e', to: '#db2777' },
-  'fortune/blood-type/en': { icon: '🩸', eyebrow: '혈액형', title: 'Blood Type Horoscope', desc: 'Today’s reading for A, B, O and AB', from: '#f43f5e', to: '#dc2626' },
-  'fortune/biorhythm/en': { icon: '📈', eyebrow: '바이오리듬', title: 'Biorhythm Calculator', desc: 'Chart your physical, emotional and intellectual cycles', from: '#10b981', to: '#0d9488' },
-  'fortune/birth-stone/en': { icon: '💎', eyebrow: 'Birth Stone', title: 'Birthstone & Flower', desc: 'The gem and flower of your birth month', from: '#d946ef', to: '#7c3aed' },
-  'fortune/today-color/en': { icon: '🎨', eyebrow: 'Lucky Colour', title: 'Today’s Lucky Colour', desc: 'Your colour for today — and the one to skip', from: '#ec4899', to: '#7c3aed' },
-  'fortune/lucky-numbers/en': { icon: '🍀', eyebrow: 'Lucky Numbers', title: 'Lucky Numbers', desc: 'Six numbers from your birth date', from: '#10b981', to: '#0d9488' },
-  'fortune/star-match/en': { icon: '💞', eyebrow: '별자리 궁합', title: 'Star Sign Compatibility', desc: 'How two signs match by element', from: '#8b5cf6', to: '#c026d3' },
-  'fortune/zodiac-match/en': { icon: '🐲', eyebrow: '띠 궁합', title: 'Chinese Zodiac Compatibility', desc: 'Six Harmonies, Three Harmonies and clashes', from: '#f43f5e', to: '#db2777' },
-  'fortune/mbti-match/en': { icon: '🧠', eyebrow: 'MBTI 궁합', title: 'MBTI Compatibility', desc: 'How two of the 16 types line up', from: '#8b5cf6', to: '#4f46e5' },
-  'fortune/blood-match/en': { icon: '🩸', eyebrow: '혈액형 궁합', title: 'Blood Type Compatibility', desc: 'How A, B, O and AB pair up', from: '#f43f5e', to: '#ea580c' },
-  'fortune/mbti/en': { icon: '🧠', eyebrow: 'MBTI', title: 'MBTI Daily Horoscope', desc: 'Today’s reading for all 16 types', from: '#0ea5e9', to: '#2563eb' },
-  'fortune/daily-tarot/en': { icon: '🃏', eyebrow: 'Daily Tarot', title: 'Today’s Tarot', desc: 'One card from the major arcana', from: '#f59e0b', to: '#ea580c' },
-  'fortune/tarot-yesno/en': { icon: '🔮', eyebrow: 'Tarot Yes/No', title: 'Tarot Yes or No', desc: 'Draw one card for an answer', from: '#6366f1', to: '#6d28d9' },
-  'fortune/dream/en': { icon: '🌙', eyebrow: 'Dream', title: 'Dream Dictionary', desc: '20 common dream symbols', from: '#334155', to: '#3730a3' },
-  'fortune/saju/en': { icon: '🔯', eyebrow: 'Saju', title: 'Saju — Korean Four Pillars', desc: 'Your four-pillar chart from birth date', from: '#6366f1', to: '#6d28d9' },
 
   // 스냅테스트는 아홉 언어 × 열두 장이라 108줄이 된다 — 섹션 사전에서 만들어 받는다
   ...snapIntlCards(),
+
+  // 운세도 아홉 언어 × 열아홉 장이다
+  ...fortuneIntlCards(),
 };
 
 export type OgLang = IntlLocale;

@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LuckyNumbers from '@/components/fortune/LuckyNumbers';
+import { fortuneHubCopy, fortuneToolCopy, fortuneToolMetadata } from '@/lib/fortune-tools-intl';
 
-export const metadata: Metadata = {
-  title: 'Today’s Lucky Numbers — Six Numbers From Your Birth Date',
-  description: 'Get six lucky numbers from 1–45 generated from your date of birth and today’s date, plus a lucky direction, day and time. Free and for fun.',
-  alternates: {
-    canonical: '/en/fortune/lucky-numbers',
-    languages: { 'en': '/en/fortune/lucky-numbers', 'ko': '/fortune/lucky-lotto', 'x-default': '/en/fortune/lucky-numbers' },
-  },
-};
+export const metadata: Metadata = fortuneToolMetadata('en', 'lucky-numbers');
 
 export default function EnLuckyNumbersPage() {
-  return <LuckyNumbers lang="en" />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'vixutil', path: '/en' },
+        { name: fortuneHubCopy('en').title, path: '/en/fortune' },
+        { name: fortuneToolCopy('en', 'lucky-numbers').title, path: '/en/fortune/lucky-numbers' },
+      ])} />
+      <LuckyNumbers lang="en" />
+    </>
+  );
 }

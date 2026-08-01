@@ -1,3 +1,4 @@
+import { INTL_LOCALES10, localeTag } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -6,7 +7,12 @@ export const metadata: Metadata = {
   alternates: {
     // en/zh는 특정 국가의 복권을 지칭하지 않도록 slug를 lucky-numbers로 다르게 뒀다.
     canonical: '/fortune/lucky-lotto',
-    languages: { 'ko': '/fortune/lucky-lotto', 'en': '/en/fortune/lucky-numbers', 'x-default': '/en/fortune/lucky-numbers' },
+    // 다국어는 lucky-numbers다 — 한국 로또 전용이라는 뜻이 안 통해 이름을 바꿨다
+    languages: {
+      ko: '/fortune/lucky-lotto',
+      ...Object.fromEntries(INTL_LOCALES10.map(l => [localeTag(l), `/${l}/fortune/lucky-numbers`])),
+      'x-default': '/en/fortune/lucky-numbers',
+    },
   },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

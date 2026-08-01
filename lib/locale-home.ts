@@ -138,6 +138,14 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-purple-700 dark:text-purple-300', border: 'border-purple-200 dark:border-purple-900/50', bg: 'bg-purple-50 dark:bg-purple-950/30',
     copy: {
       en: { title: 'Horoscopes', desc: 'Star signs, Chinese zodiac, tarot, BaZi' },
+      es: { title: 'Horóscopos', desc: 'Signos, horóscopo chino, tarot, BaZi' },
+      'pt-br': { title: 'Horóscopos', desc: 'Signos, horóscopo chinês, tarô, BaZi' },
+      ja: { title: '占い', desc: '星座・干支・タロット・四柱推命' },
+      de: { title: 'Horoskope', desc: 'Sternzeichen, chinesischer Tierkreis, Tarot, BaZi' },
+      fr: { title: 'Horoscopes', desc: 'Signes, horoscope chinois, tarot, BaZi' },
+      hi: { title: 'राशिफल', desc: 'राशियाँ, चीनी राशिचक्र, टैरो, बाज़ी' },
+      'zh-hans': { title: '运势', desc: '星座、生肖、塔罗、八字' },
+      'zh-hant': { title: '運勢', desc: '星座、生肖、塔羅、八字' },
     },
   },
   {
