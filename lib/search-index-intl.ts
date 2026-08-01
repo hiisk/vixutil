@@ -8,7 +8,7 @@ import { deviceToolsIntl } from './device-tools-intl.ts';
 import { textToolsIntl } from './text-tools-intl.ts';
 import { CHECKLISTS_EN } from './checklist-en.ts';
 import { QUIZZES_EN } from './quiz-en.ts';
-import { TESTS_EN } from './test-en.ts';
+import { TESTS_INTL } from './test-l10n/index.ts';
 import { CONVERT_TOOLS } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
 import { alternateLanguagesFor, ALL_LOCALES10, localeHref, type AnyLocale10 } from './locales.ts';
@@ -236,7 +236,8 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('text', textToolsIntl(lang)),
     ...(enOnly ? tools('checklist', CHECKLISTS_EN) : []),
     ...(enOnly ? tools('quiz', QUIZZES_EN) : []),
-    ...(enOnly ? tools('test', TESTS_EN) : []),
+    // 심리테스트는 아홉 언어 모두 있다 — 체크리스트·퀴즈만 아직 영어뿐이다
+    ...tools('test', TESTS_INTL[lang]),
     ...tools('fortune', FORTUNE_INTL[lang]),
     ...tools('snap', SNAP_INTL[lang]),
   ];

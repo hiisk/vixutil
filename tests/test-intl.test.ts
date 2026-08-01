@@ -1,12 +1,35 @@
+/**
+ * 한국어를 뺀 아홉 언어 심리테스트 검사.
+ *
+ * 전에는 영어 하나만 봤고, 중국어를 걷어내면서 남은 빈 test() 두 개가 아무것도
+ * 검사하지 않은 채 초록으로 세어지고 있었다. 아홉 언어로 넓히면서 그것도 지웠다.
+ *
+ * 점수·구간은 언어와 무관하게 같아야 한다 — 어긋나면 같은 답을 골라도 언어마다
+ * 다른 결과가 나온다. 글자는 언어마다 달라야 한다 — 같으면 옮기다 만 것이다.
+ */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { TESTS_EN, TESTS_EN_MAP } from '../lib/test-en.ts';
+import { TESTS_INTL, TESTS_INTL_MAP, type TestIntlLang } from '../lib/test-l10n/index.ts';
+import { hanProblem } from './han.ts';
+import type { Test } from '../lib/types.ts';
 
-const SETS = [
-  ['en', TESTS_EN, TESTS_EN_MAP],
-] as const;
+const SETS = Object.entries(TESTS_INTL) as [TestIntlLang, Test[]][];
 
-test('en 테스트가 같은 slug 집합을 갖는다', () => {
+/** 그 테스트에서 사람 눈에 보이는 문자열을 전부 모은다 */
+function textOf(t: Test): string[] {
+  return [
+    t.title, t.desc, t.category,
+    ...t.questions.flatMap(q => [q.q, ...q.opts.map(o => o.text)]),
+    ...t.results.flatMap(r => [r.title, r.desc, ...(r.traits ?? [])]),
+  ];
+}
+
+test('slug가 유일하고 형식이 맞다', () => {
+  for (const [label, list] of SETS) {
+    const slugs = list.map(t => t.slug);
+    assert.equal(new Set(slugs).size, slugs.length, `${label}: 중복 slug`);
+    for (const s of slugs) assert.match(s, /^[a-z0-9-]+$/, `${label}: 잘못된 slug ${s}`);
+  }
 });
 
 test('결과 구간이 0점부터 만점까지 빈틈없이 이어진다', () => {
@@ -60,12 +83,15 @@ test('문항·선택지 구조가 갖춰져 있다', () => {
 });
 
 test('결과마다 제목·설명·특징이 있다', () => {
+  // 글자가 촘촘한 언어는 같은 내용이 짧게 적히므로 기준을 따로 둔다
+  const DENSE = new Set<TestIntlLang>(['ja', 'zh-hans', 'zh-hant']);
   for (const [label, list] of SETS) {
+    const floor = DENSE.has(label) ? 25 : 40;
     for (const t of list) {
       assert.ok(t.results.length >= 3, `${label} ${t.slug}: 결과가 ${t.results.length}개뿐`);
       for (const r of t.results) {
         assert.ok(r.title.trim().length > 0, `${label} ${t.slug}: 결과 제목 없음`);
-        assert.ok(r.desc.trim().length >= 40, `${label} ${t.slug}/${r.title}: 설명이 너무 짧다`);
+        assert.ok(r.desc.trim().length >= floor, `${label} ${t.slug}/${r.title}: 설명이 너무 짧다`);
         assert.ok(r.traits && r.traits.length >= 3, `${label} ${t.slug}/${r.title}: 특징이 부족하다`);
       }
     }
@@ -74,27 +100,53 @@ test('결과마다 제목·설명·특징이 있다', () => {
 
 test('한글이 남아 있지 않다', () => {
   const hangul = /[가-힣]/;
+  const bad: string[] = [];
   for (const [label, list] of SETS) {
     for (const t of list) {
-      assert.ok(!hangul.test(t.title + t.desc + t.category), `${label} ${t.slug}: 메타에 한글`);
-      for (const q of t.questions) {
-        assert.ok(!hangul.test(q.q + q.opts.map(o => o.text).join('')), `${label} ${t.slug}: 문항에 한글`);
+      for (const s of textOf(t)) if (hangul.test(s)) bad.push(`${label} ${t.slug}: ${s.slice(0, 40)}`);
+    }
+  }
+  assert.deepEqual(bad, [], `한국어에서 옮기다 만 자리:\n  ${bad.join('\n  ')}`);
+});
+
+test('번체 자리에 간체가 섞이지 않았다', () => {
+  // 간체를 그대로 두면 뜻은 통해도 대만·홍콩 사람에게는 남의 글자로 읽힌다
+  const bad: string[] = [];
+  for (const [label, list] of SETS) {
+    const key = label === 'zh-hant' ? 'tw' : label === 'zh-hans' ? 'zh' : null;
+    if (!key) continue;
+    for (const t of list) {
+      for (const s of textOf(t)) {
+        const p = hanProblem(key, s);
+        if (p) bad.push(`${label} ${t.slug}: ${p}`);
       }
-      for (const r of t.results) {
-        assert.ok(!hangul.test(r.title + r.desc + (r.traits ?? []).join('')), `${label} ${t.slug}: 결과에 한글`);
-      }
+    }
+  }
+  assert.deepEqual(bad, [], `글자가 섞인 자리:\n  ${bad.join('\n  ')}`);
+});
+
+test('같은 slug끼리 문항 수와 점수 구조가 일치한다', () => {
+  // 어긋나면 같은 답을 골라도 언어별로 다른 결과가 나온다
+  for (const en of TESTS_INTL.en) {
+    const shape = en.questions.map(q => q.opts.map(o => o.score).join(','));
+    for (const [label, list] of SETS) {
+      if (label === 'en') continue;
+      const t = list.find(x => x.slug === en.slug);
+      assert.ok(t, `${label}: ${en.slug}가 없다`);
+      assert.deepEqual(
+        t.questions.map(q => q.opts.map(o => o.score).join(',')), shape,
+        `${label} ${en.slug}: 점수 배치가 영어와 다르다`,
+      );
+      assert.deepEqual(
+        t.results.map(r => [r.min, r.max]), en.results.map(r => [r.min, r.max]),
+        `${label} ${en.slug}: 결과 구간이 영어와 다르다`,
+      );
     }
   }
 });
 
-test('en 같은 slug끼리 문항 수와 점수 구조가 일치한다', () => {
-  // 어긋나면 같은 답을 골라도 언어별로 다른 결과가 나온다
-  for (const en of TESTS_EN) {
-  }
-});
-
 test('MAP이 모든 테스트를 담고 있다', () => {
-  for (const [label, list, map] of SETS) {
-    for (const t of list) assert.equal(map[t.slug], t, `${label}: 맵에 없음 ${t.slug}`);
+  for (const [label, list] of SETS) {
+    for (const t of list) assert.equal(TESTS_INTL_MAP[label][t.slug], t, `${label}: 맵에 없음 ${t.slug}`);
   }
 });

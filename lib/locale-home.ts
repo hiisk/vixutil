@@ -57,6 +57,14 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
     copy: {
       en: { title: 'Personality Tests', desc: 'Social battery, stress, decisions, work style' },
+      es: { title: 'Tests de personalidad', desc: 'Batería social, estrés, decisiones, forma de trabajar' },
+      'pt-br': { title: 'Testes de personalidade', desc: 'Bateria social, estresse, decisões, jeito de trabalhar' },
+      ja: { title: '心理テスト', desc: 'ソーシャルバッテリー・ストレス・決め方・仕事のスタイル' },
+      de: { title: 'Persönlichkeitstests', desc: 'Social Battery, Stress, Entscheidungen, Arbeitsstil' },
+      fr: { title: 'Tests de personnalité', desc: 'Batterie sociale, stress, décisions, façon de travailler' },
+      hi: { title: 'पर्सनैलिटी टेस्ट', desc: 'सोशल बैटरी, तनाव, फ़ैसले, काम करने का तरीक़ा' },
+      'zh-hans': { title: '心理测试', desc: '社交电量、压力、决策方式、工作方式' },
+      'zh-hant': { title: '心理測驗', desc: '社交電量、壓力、決策方式、工作方式' },
     },
   },
   {

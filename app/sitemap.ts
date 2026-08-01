@@ -19,7 +19,7 @@ import { foodToolsIntl } from "@/lib/food-tools-intl";
 import { gameToolsIntl } from "@/lib/game-tools-intl";
 import { deviceToolsIntl } from "@/lib/device-tools-intl";
 import { textToolsIntl } from "@/lib/text-tools-intl";
-import { TESTS_EN } from "@/lib/test-en";
+import { TESTS_INTL } from "@/lib/test-l10n/index";
 import { GAME_TOOLS } from "@/lib/game-tools";
 import { COLOR_TOOLS } from "@/lib/color-tools";
 import { TIME_TOOLS } from "@/lib/time-tools";
@@ -547,8 +547,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]),
     // 통합 검색은 번역 일곱 언어 모두 나간다
     ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}/search`, changeFrequency: weekly, priority: 0.7 })),
-    { url: `${BASE}/en/test`, changeFrequency: weekly, priority: 0.9 },
-    ...TESTS_EN.map((t: { slug: string }) => ({ url: `${BASE}/en/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    // 심리테스트는 한국어를 뺀 아홉 언어가 같은 다섯 종을 가진다
+    ...(Object.entries(TESTS_INTL) as [string, { slug: string }[]][]).flatMap(([lang, tests]) => [
+      { url: `${BASE}/${lang}/test`, changeFrequency: weekly, priority: 0.9 },
+      ...tests.map(t => ({ url: `${BASE}/${lang}/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ]),
     { url: `${BASE}/en/quiz`, changeFrequency: weekly, priority: 0.9 },
     ...QUIZZES_EN.map((q: { slug: string }) => ({ url: `${BASE}/en/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),
     { url: `${BASE}/en/checklist`, changeFrequency: weekly, priority: 0.9 },

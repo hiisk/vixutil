@@ -25,6 +25,7 @@ import { GEO_META_INTL, GEO_CATEGORY_INTL } from '../lib/geo-section.ts';
 import { HANJA_CATEGORY_INTL } from '../lib/hanja-ui.ts';
 import { COUNTRY_REGION_INTL } from '../lib/country-ui.ts';
 import { FORTUNE_INTL, SNAP_INTL } from '../lib/search-index-intl.ts';
+import { TESTS_INTL } from '../lib/test-l10n/index.ts';
 
 /** ko는 원본이라 곁사전에 없는 것이 정상. en도 데이터 파일에 붙어 있는 표가 있다. */
 const NON_KO = ALL_LOCALES10.filter(l => l !== 'ko');
@@ -47,7 +48,49 @@ const TABLES: [string, Record<string, unknown>, readonly AnyLocale10[]][] = [
   ['COUNTRY_REGION_INTL', COUNTRY_REGION_INTL, NON_KO_EN],
   ['FORTUNE_INTL', FORTUNE_INTL, NON_KO],
   ['SNAP_INTL', SNAP_INTL, NON_KO],
+  // 심리테스트는 한국어 228종을 옮기지 않고 문화 중립인 다섯 종만 아홉 언어로 썼다
+  ['TESTS_INTL', TESTS_INTL, NON_KO],
 ];
+
+test('심리테스트가 아홉 언어에서 같은 다섯 종을 가진다', () => {
+  // 슬러그가 갈리면 hreflang 짝이 끊기고, 언어를 바꿨을 때 404가 뜬다.
+  const en = TESTS_INTL.en.map(t => t.slug).sort();
+  for (const [lang, tests] of Object.entries(TESTS_INTL)) {
+    assert.deepEqual(tests.map(t => t.slug).sort(), en, `${lang}의 슬러그가 영어와 다르다`);
+  }
+});
+
+test('심리테스트 번역이 영어를 그대로 물려받지 않는다', () => {
+  // 길이만 세는 검사는 영어가 그대로 복사돼 있어도 초록이 뜬다.
+  const bad: string[] = [];
+  for (const [lang, tests] of Object.entries(TESTS_INTL)) {
+    if (lang === 'en') continue;
+    for (const t of tests) {
+      const en = TESTS_INTL.en.find(e => e.slug === t.slug)!;
+      if (t.title === en.title && t.desc === en.desc) bad.push(`${lang}/${t.slug}`);
+    }
+  }
+  assert.deepEqual(bad, [], `영어 그대로인 항목:\n  ${bad.join('\n  ')}`);
+});
+
+test('심리테스트 결과 구간이 0~30을 빈틈없이 덮는다', () => {
+  // 겹치면 앞의 것이 늘 이기고, 비면 그 점수에 해당하는 결과가 없어 화면이 빈다.
+  const bad: string[] = [];
+  for (const [lang, tests] of Object.entries(TESTS_INTL)) {
+    for (const t of tests) {
+      const max = t.questions.reduce((s, q) => s + Math.max(...q.opts.map(o => o.score)), 0);
+      const sorted = [...t.results].sort((a, b) => a.min - b.min);
+      if (sorted[0].min !== 0) bad.push(`${lang}/${t.slug}: 0점에 결과가 없다`);
+      if (sorted[sorted.length - 1].max < max) bad.push(`${lang}/${t.slug}: 만점 ${max}에 결과가 없다`);
+      for (let i = 1; i < sorted.length; i++) {
+        if (sorted[i].min !== sorted[i - 1].max + 1) {
+          bad.push(`${lang}/${t.slug}: ${sorted[i - 1].max}과 ${sorted[i].min} 사이가 어긋난다`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(bad, [], `구간이 어긋난 곳:\n  ${bad.join('\n  ')}`);
+});
 
 test('곁사전이 내건 언어를 하나도 빠뜨리지 않는다', () => {
   const bad: string[] = [];

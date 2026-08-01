@@ -3,6 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Test } from '@/lib/types';
+import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
@@ -19,9 +20,14 @@ function getMbtiType(scores: Record<string, number>): string {
 }
 
 
-export type TestLang = 'ko' | 'en';
+export type TestLang = AnyLocale10;
 
-/** 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점 로직은 세 언어가 동일하다. */
+/**
+ * 사용자에게 보이는 문구만 언어별로 갈라둔다. 채점 로직은 열 언어가 동일하다.
+ *
+ * Partial이 아니라 Record<TestLang, …>다. 언어가 빠지면 tsc가 잡는다 —
+ * Partial이면 그 언어만 화면이 조용히 비고 검사도 초록이 뜬다.
+ */
 const UI: Record<TestLang, {
   allTests: string; start: string; restart: string; retake: string; more: string;
   traits: string; resultOf: (cat: string) => string; meta: (n: number) => string;
@@ -40,6 +46,62 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat} test result`,
     meta: n => `${n} questions · about 2 minutes`,
     myMbti: t => `My MBTI is ${t}!`,
+  },
+  es: {
+    allTests: 'Todos los tests', start: 'Empezar el test →', restart: 'Volver a empezar',
+    retake: 'Hacerlo otra vez', more: 'Más tests', traits: 'Rasgos principales',
+    resultOf: cat => `Resultado del test de ${cat}`,
+    meta: n => `${n} preguntas · unos 2 minutos`,
+    myMbti: t => `¡Mi MBTI es ${t}!`,
+  },
+  'pt-br': {
+    allTests: 'Todos os testes', start: 'Começar o teste →', restart: 'Começar de novo',
+    retake: 'Fazer de novo', more: 'Mais testes', traits: 'Traços principais',
+    resultOf: cat => `Resultado do teste de ${cat}`,
+    meta: n => `${n} perguntas · cerca de 2 minutos`,
+    myMbti: t => `Meu MBTI é ${t}!`,
+  },
+  ja: {
+    allTests: '診断一覧', start: '診断をはじめる →', restart: 'やり直す',
+    retake: 'もう一度診断する', more: 'ほかの診断を見る', traits: '主な特徴',
+    resultOf: cat => `${cat}診断の結果`,
+    meta: n => `全${n}問 · 約2分`,
+    myMbti: t => `私のMBTIは${t}！`,
+  },
+  de: {
+    allTests: 'Alle Tests', start: 'Test starten →', restart: 'Von vorn',
+    retake: 'Noch einmal machen', more: 'Mehr Tests', traits: 'Wichtigste Merkmale',
+    resultOf: cat => `Ergebnis: ${cat}`,
+    meta: n => `${n} Fragen · etwa 2 Minuten`,
+    myMbti: t => `Mein MBTI ist ${t}!`,
+  },
+  fr: {
+    allTests: 'Tous les tests', start: 'Commencer le test →', restart: 'Recommencer',
+    retake: 'Refaire le test', more: 'Plus de tests', traits: 'Traits principaux',
+    resultOf: cat => `Résultat du test ${cat}`,
+    meta: n => `${n} questions · environ 2 minutes`,
+    myMbti: t => `Mon MBTI est ${t} !`,
+  },
+  hi: {
+    allTests: 'सभी टेस्ट', start: 'टेस्ट शुरू करें →', restart: 'फिर से शुरू',
+    retake: 'दोबारा टेस्ट करें', more: 'और टेस्ट देखें', traits: 'मुख्य ख़ूबियाँ',
+    resultOf: cat => `${cat} टेस्ट का नतीजा`,
+    meta: n => `${n} सवाल · लगभग 2 मिनट`,
+    myMbti: t => `मेरा MBTI है ${t}!`,
+  },
+  'zh-hans': {
+    allTests: '全部测试', start: '开始测试 →', restart: '重新开始',
+    retake: '再测一次', more: '看看别的测试', traits: '主要特点',
+    resultOf: cat => `${cat}测试结果`,
+    meta: n => `${n}道题 · 约2分钟`,
+    myMbti: t => `我的MBTI是${t}！`,
+  },
+  'zh-hant': {
+    allTests: '全部測驗', start: '開始測驗 →', restart: '重新開始',
+    retake: '再測一次', more: '看看別的測驗', traits: '主要特點',
+    resultOf: cat => `${cat}測驗結果`,
+    meta: n => `${n}道題 · 約2分鐘`,
+    myMbti: t => `我的MBTI是${t}！`,
   },
 };
 
