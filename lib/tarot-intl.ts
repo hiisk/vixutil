@@ -8,14 +8,18 @@
    카드 이름은 이미 nameEn이 있어 영어는 그대로 쓰고, 중국어만 새로 붙였다.
 ──────────────────────────────────────────────── */
 import { MINOR_READINGS_EN } from './tarot-minor-intl.ts';
+import { tarotReadingsOf, tarotNamesOf } from './tarot-l10n.ts';
 
-export type TarotIntlLang = 'en';
+export type TarotIntlLang = 'en' | 'es' | 'pt-br' | 'ja' | 'de' | 'fr' | 'hi' | 'zh-hans' | 'zh-hant';
+
+/** 영어 말고 여덟 언어 */
+const L8 = ['es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'] as const;
 
 interface Reading { upright: string; reversed: string }
 
 /** 78장 전체 중국어 이름 — 메이저 22장 + 마이너 56장 */
 
-const MAJOR_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
+const MAJOR_READINGS: Record<'en', Record<number, Reading>> = {
   en: {
     0: { upright: 'A card for the start of a journey. You are standing in front of possibility that has not been shaped yet, and what it asks for is the plain courage to take a first step without a complete plan. Trust the instinct and keep the mind open — it tends to lead somewhere better than the plan would have.',
          reversed: 'Enthusiasm may be running ahead of judgement. Either you are about to leap without checking anything, or fear has you standing still while a genuine opening passes. Pause, do the minimum reality check, and then move.' },
@@ -72,6 +76,16 @@ const MAJOR_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
  */
 export const TAROT_READINGS: Record<TarotIntlLang, Record<number, Reading>> = {
   en: { ...MAJOR_READINGS.en, ...MINOR_READINGS_EN },
+  ...Object.fromEntries(L8.map(l => [l, tarotReadingsOf(l)])) as Record<typeof L8[number], Record<number, Reading>>,
+};
+
+/**
+ * 카드 이름 — 예전에는 화면이 nameEn을 그대로 찍어서, 아홉 언어 어디서나
+ * 카드만 영어로 나왔다. 사전과 같은 이름을 쓴다.
+ */
+export const TAROT_NAMES: Record<TarotIntlLang, Record<number, string>> = {
+  en: tarotNamesOf('en'),
+  ...Object.fromEntries(L8.map(l => [l, tarotNamesOf(l)])) as Record<typeof L8[number], Record<number, string>>,
 };
 
 export const TAROT_UI: Record<TarotIntlLang, {
@@ -94,5 +108,109 @@ export const TAROT_UI: Record<TarotIntlLang, {
     yes: 'Yes', no: 'No', maybe: 'Not yet clear',
     question: 'Think of your question, then draw.',
     disclaimer: 'Tarot is for reflection and entertainment. Make decisions that matter with real information and your own judgement.',
+  },
+  es: {
+    dailyTitle: 'La carta de tarot de hoy',
+    dailyLead: 'Una carta de los 22 arcanos mayores, la misma todo el día',
+    dailyPrivacy: 'La carta se elige a partir de la fecha de hoy, así que no cambia por muchas veces que recargues, y cambia cuando cambia el día.',
+    yesnoTitle: 'Tarot sí o no',
+    yesnoLead: 'Ten una pregunta en mente y saca una carta',
+    yesnoPrivacy: 'Cada tirada es aleatoria. No se guarda nada ni se envía nada a ninguna parte.',
+    draw: 'Sacar una carta', drawn: 'Tu carta', again: '🔄 Sacar otra',
+    upright: 'Del derecho', reversed: 'Invertida',
+    yes: 'Sí', no: 'No', maybe: 'Aún no está claro',
+    question: 'Piensa tu pregunta y saca la carta.',
+    disclaimer: 'El tarot sirve para pensar y para entretenerse. Las decisiones que importan tómalas con información real y con tu propio criterio.',
+  },
+  'pt-br': {
+    dailyTitle: 'A carta de tarô de hoje',
+    dailyLead: 'Uma carta dos 22 arcanos maiores, a mesma o dia inteiro',
+    dailyPrivacy: 'A carta é escolhida pela data de hoje, então ela não muda por mais que você recarregue — e muda quando o dia muda.',
+    yesnoTitle: 'Tarô sim ou não',
+    yesnoLead: 'Tenha uma pergunta em mente e tire uma carta',
+    yesnoPrivacy: 'Cada tiragem é aleatória. Nada é guardado e nada é enviado a lugar nenhum.',
+    draw: 'Tirar uma carta', drawn: 'Sua carta', again: '🔄 Tirar outra',
+    upright: 'Em pé', reversed: 'Invertida',
+    yes: 'Sim', no: 'Não', maybe: 'Ainda não está claro',
+    question: 'Pense na sua pergunta e tire a carta.',
+    disclaimer: 'O tarô serve para refletir e para entreter. As decisões que importam, tome com informação real e com o seu próprio julgamento.',
+  },
+  ja: {
+    dailyTitle: '今日のタロット',
+    dailyLead: '大アルカナ22枚から1枚。今日一日は同じカードです',
+    dailyPrivacy: 'カードは今日の日付から選ばれるので、何度読み込んでも同じで、日付が変わると変わります。',
+    yesnoTitle: 'タロット イエス／ノー',
+    yesnoLead: '質問を思い浮かべて1枚引いてください',
+    yesnoPrivacy: '引くたびにランダムです。何も保存せず、どこにも送りません。',
+    draw: 'カードを引く', drawn: 'あなたのカード', again: '🔄 もう一度引く',
+    upright: '正位置', reversed: '逆位置',
+    yes: 'はい', no: 'いいえ', maybe: 'まだはっきりしません',
+    question: '質問を思い浮かべてから引いてください。',
+    disclaimer: 'タロットは考えを整理するためと、楽しむためのものです。大事な判断は実際の情報と自分の考えで決めてください。',
+  },
+  de: {
+    dailyTitle: 'Die Tarotkarte des Tages',
+    dailyLead: 'Eine Karte aus den 22 großen Arkana — den ganzen Tag dieselbe',
+    dailyPrivacy: 'Die Karte wird aus dem heutigen Datum gewählt, bleibt also gleich, so oft du auch neu lädst — und wechselt, wenn das Datum wechselt.',
+    yesnoTitle: 'Tarot Ja oder Nein',
+    yesnoLead: 'Halt eine Frage im Kopf und zieh eine Karte',
+    yesnoPrivacy: 'Jeder Zug ist zufällig. Nichts wird gespeichert und nichts irgendwohin geschickt.',
+    draw: 'Karte ziehen', drawn: 'Deine Karte', again: '🔄 Neu ziehen',
+    upright: 'Aufrecht', reversed: 'Umgekehrt',
+    yes: 'Ja', no: 'Nein', maybe: 'Noch nicht klar',
+    question: 'Denk an deine Frage und zieh dann.',
+    disclaimer: 'Tarot dient dem Nachdenken und der Unterhaltung. Wichtige Entscheidungen triffst du mit echten Informationen und eigenem Urteil.',
+  },
+  fr: {
+    dailyTitle: 'La carte de tarot du jour',
+    dailyLead: 'Une carte parmi les 22 arcanes majeurs, la même toute la journée',
+    dailyPrivacy: 'La carte est choisie à partir de la date du jour : elle ne change pas quel que soit le nombre de rechargements, et change quand la date change.',
+    yesnoTitle: 'Tarot oui ou non',
+    yesnoLead: 'Gardez une question en tête et tirez une carte',
+    yesnoPrivacy: 'Chaque tirage est aléatoire. Rien n’est conservé ni envoyé nulle part.',
+    draw: 'Tirer une carte', drawn: 'Votre carte', again: '🔄 Retirer une carte',
+    upright: 'À l’endroit', reversed: 'À l’envers',
+    yes: 'Oui', no: 'Non', maybe: 'Pas encore clair',
+    question: 'Pensez à votre question, puis tirez.',
+    disclaimer: 'Le tarot sert à réfléchir et à se divertir. Les décisions qui comptent se prennent avec de vraies informations et votre propre jugement.',
+  },
+  hi: {
+    dailyTitle: 'आज का टैरो कार्ड',
+    dailyLead: '22 मेजर अर्काना में से एक कार्ड, पूरे दिन वही',
+    dailyPrivacy: 'कार्ड आज की तारीख़ से चुना जाता है, इसलिए कितनी भी बार पेज खोलिए वही रहेगा — और तारीख़ बदलते ही बदल जाएगा।',
+    yesnoTitle: 'टैरो हाँ या ना',
+    yesnoLead: 'मन में एक सवाल रखिए और एक कार्ड निकालिए',
+    yesnoPrivacy: 'हर बार का चुनाव अनियमित है। कुछ भी सहेजा नहीं जाता और कहीं नहीं भेजा जाता।',
+    draw: 'कार्ड निकालें', drawn: 'आपका कार्ड', again: '🔄 दोबारा निकालें',
+    upright: 'सीधा', reversed: 'उल्टा',
+    yes: 'हाँ', no: 'नहीं', maybe: 'अभी साफ़ नहीं',
+    question: 'अपना सवाल सोचिए, फिर कार्ड निकालिए।',
+    disclaimer: 'टैरो सोचने और मन बहलाने के लिए है। जो फ़ैसले मायने रखते हैं, वे सही जानकारी और अपनी समझ से लीजिए।',
+  },
+  'zh-hans': {
+    dailyTitle: '今天的塔罗牌',
+    dailyLead: '从22张大阿尔卡纳里抽一张，一整天都是同一张',
+    dailyPrivacy: '牌是按今天的日期选的，所以刷新多少次都一样，换一天才会换。',
+    yesnoTitle: '塔罗是或否',
+    yesnoLead: '心里想着一个问题，抽一张牌',
+    yesnoPrivacy: '每次抽牌都是随机的。什么都不保存，也不会送到任何地方。',
+    draw: '抽一张牌', drawn: '你的牌', again: '🔄 再抽一次',
+    upright: '正位', reversed: '逆位',
+    yes: '是', no: '否', maybe: '还看不清楚',
+    question: '想好你的问题，再抽牌。',
+    disclaimer: '塔罗是用来整理思路和图个乐的。要紧的决定，请用真实的信息和自己的判断。',
+  },
+  'zh-hant': {
+    dailyTitle: '今天的塔羅牌',
+    dailyLead: '從22張大阿爾克那裡抽一張，一整天都是同一張',
+    dailyPrivacy: '牌是按今天的日期選的，所以重新整理多少次都一樣，換一天才會換。',
+    yesnoTitle: '塔羅是或否',
+    yesnoLead: '心裡想著一個問題，抽一張牌',
+    yesnoPrivacy: '每次抽牌都是隨機的。什麼都不儲存，也不會送到任何地方。',
+    draw: '抽一張牌', drawn: '你的牌', again: '🔄 再抽一次',
+    upright: '正位', reversed: '逆位',
+    yes: '是', no: '否', maybe: '還看不清楚',
+    question: '想好你的問題，再抽牌。',
+    disclaimer: '塔羅是用來整理思路和圖個樂的。要緊的決定，請用真實的資訊和自己的判斷。',
   },
 };

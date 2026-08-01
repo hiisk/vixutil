@@ -6,7 +6,7 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { TAROT_CARDS, seededInt, LUCKY_COLORS } from '@/lib/fortune-data';
 import { LUCKY_COLORS_EN } from '@/lib/fortune-en';
-import { TAROT_READINGS, TAROT_UI, type TarotIntlLang } from '@/lib/tarot-intl';
+import { TAROT_READINGS, TAROT_NAMES, TAROT_UI, type TarotIntlLang } from '@/lib/tarot-intl';
 import { t, formatToday } from '@/lib/fortune-intl';
 
 /**
@@ -36,19 +36,62 @@ const VERDICT_NOTE: Record<TarotIntlLang, Record<Verdict, string>> = {
     no: 'A moment for caution. Take a beat and reconsider before moving.',
     maybe: 'Still evenly balanced. The conditions and the timing need another look.',
   },
+  es: {
+    yes: 'La corriente va a tu favor. Confía en ti y sigue adelante.',
+    no: 'Momento de prudencia. Respira y replantéalo antes de moverte.',
+    maybe: 'Todavía está igualado. Hay que volver a mirar las condiciones y el momento.',
+  },
+  'pt-br': {
+    yes: 'A corrente está a seu favor. Confie em você e siga.',
+    no: 'Hora de cautela. Respire e repense antes de agir.',
+    maybe: 'Ainda está equilibrado. Vale rever as condições e o momento.',
+  },
+  ja: {
+    yes: '流れは味方しています。自分を信じて進んでください。',
+    no: '今は慎重にいく場面です。ひと呼吸おいて考え直してから動いてください。',
+    maybe: 'まだ拮抗しています。条件とタイミングをもう一度見てください。',
+  },
+  de: {
+    yes: 'Die Strömung läuft für dich. Vertrau dir und mach weiter.',
+    no: 'Ein Moment für Vorsicht. Kurz durchatmen und noch mal überlegen, bevor du handelst.',
+    maybe: 'Noch ausgeglichen. Bedingungen und Zeitpunkt wollen einen zweiten Blick.',
+  },
+  fr: {
+    yes: 'Le courant va dans votre sens. Faites-vous confiance et avancez.',
+    no: 'Un moment de prudence. Reprenez votre souffle et reconsidérez avant d’agir.',
+    maybe: 'Encore à égalité. Les conditions et le moment méritent un second regard.',
+  },
+  hi: {
+    yes: 'धारा आपके पक्ष में है। ख़ुद पर भरोसा कीजिए और आगे बढ़िए।',
+    no: 'यह सँभलकर चलने का समय है। एक साँस लीजिए और चलने से पहले दोबारा सोचिए।',
+    maybe: 'अभी बराबरी पर है। हालात और समय को एक बार और देखना होगा।',
+  },
+  'zh-hans': {
+    yes: '势头站在你这边。相信自己，往前走。',
+    no: '现在适合谨慎。缓一口气，重新想过再动。',
+    maybe: '还势均力敌。条件和时机都得再看一遍。',
+  },
+  'zh-hant': {
+    yes: '勢頭站在你這邊。相信自己，往前走。',
+    no: '現在適合謹慎。緩一口氣，重新想過再動。',
+    maybe: '還勢均力敵。條件和時機都得再看一遍。',
+  },
 };
 
-const VERDICT_LABEL: Record<TarotIntlLang, Record<Verdict, string>> = {
-  en: { yes: 'Yes', no: 'No', maybe: 'Not yet clear' },
-};
+/** 판정 라벨은 TAROT_UI에 이미 있다 — 같은 말을 두 곳에 두면 곧 어긋난다 */
+const VERDICT_LABEL: Record<TarotIntlLang, Record<Verdict, string>> = Object.fromEntries(
+  (Object.keys(TAROT_UI) as TarotIntlLang[]).map(l => [
+    l, { yes: TAROT_UI[l].yes, no: TAROT_UI[l].no, maybe: TAROT_UI[l].maybe },
+  ]),
+) as Record<TarotIntlLang, Record<Verdict, string>>;
 
 function ymd(d: Date) {
   return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
 }
 
 function cardName(id: number, lang: TarotIntlLang) {
-  const card = TAROT_CARDS[id];
-  return card.nameEn;
+  // 예전에는 nameEn을 그대로 찍어서 아홉 언어 전부 카드 이름만 영어였다
+  return TAROT_NAMES[lang][id] ?? TAROT_CARDS[id].nameEn;
 }
 
 export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlLang }) {
