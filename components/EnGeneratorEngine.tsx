@@ -3,6 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Generator } from '@/lib/types';
+import type { GeneratorIntlLang } from '@/lib/generator-l10n';
 import PageGlow from './PageGlow';
 import { thumbGradient } from '@/lib/thumbnail';
 
@@ -31,11 +32,30 @@ function makeBatch(gen: Generator, n = 6): string[] {
   return out;
 }
 
-const STR = {
-  en: { back: 'All generators', other: '한국어', otherLang: 'ko' as const, otherHref: (s: string) => `/generator/${s}`, again: '🔄 Generate again', go: '✨ Generate names', reroll: 'Reroll this one', copy: 'Copy', copiedAll: '✓ All copied', copyAll: 'Copy all' },
+/**
+ * 화면 문구 — 한국어를 뺀 아홉 언어.
+ *
+ * other/otherHref는 "한국어판으로" 링크다. 어느 언어에서든 한국어를 가리키므로
+ * 값이 같지만, 언어마다 적어 두면 나중에 다른 언어를 가리키게 바꾸기 쉽다.
+ */
+const KO = { other: '한국어', otherLang: 'ko' as const, otherHref: (s: string) => `/generator/${s}` };
+
+const STR: Record<GeneratorIntlLang | 'en', {
+  back: string; other: string; otherLang: 'ko'; otherHref: (s: string) => string;
+  again: string; go: string; reroll: string; copy: string; copiedAll: string; copyAll: string;
+}> = {
+  en: { ...KO, back: 'All generators', again: '🔄 Generate again', go: '✨ Generate names', reroll: 'Reroll this one', copy: 'Copy', copiedAll: '✓ All copied', copyAll: 'Copy all' },
+  es: { ...KO, back: 'Todos los generadores', again: '🔄 Generar otra vez', go: '✨ Generar nombres', reroll: 'Cambiar este', copy: 'Copiar', copiedAll: '✓ Todo copiado', copyAll: 'Copiar todo' },
+  'pt-br': { ...KO, back: 'Todos os geradores', again: '🔄 Gerar de novo', go: '✨ Gerar nomes', reroll: 'Trocar este', copy: 'Copiar', copiedAll: '✓ Tudo copiado', copyAll: 'Copiar tudo' },
+  ja: { ...KO, back: 'ジェネレーター一覧', again: '🔄 もう一度', go: '✨ 名前を作る', reroll: 'これだけ引き直す', copy: 'コピー', copiedAll: '✓ すべてコピーしました', copyAll: 'すべてコピー' },
+  de: { ...KO, back: 'Alle Generatoren', again: '🔄 Nochmal generieren', go: '✨ Namen generieren', reroll: 'Diesen neu würfeln', copy: 'Kopieren', copiedAll: '✓ Alles kopiert', copyAll: 'Alle kopieren' },
+  fr: { ...KO, back: 'Tous les générateurs', again: '🔄 Générer encore', go: '✨ Générer des noms', reroll: 'Relancer celui-ci', copy: 'Copier', copiedAll: '✓ Tout copié', copyAll: 'Tout copier' },
+  hi: { ...KO, back: 'सभी जनरेटर', again: '🔄 फिर से बनाएँ', go: '✨ नाम बनाएँ', reroll: 'इसे बदलें', copy: 'कॉपी', copiedAll: '✓ सब कॉपी हो गया', copyAll: 'सब कॉपी करें' },
+  'zh-hans': { ...KO, back: '全部生成器', again: '🔄 再来一次', go: '✨ 生成名字', reroll: '只换这个', copy: '复制', copiedAll: '✓ 已全部复制', copyAll: '全部复制' },
+  'zh-hant': { ...KO, back: '全部產生器', again: '🔄 再來一次', go: '✨ 產生名字', reroll: '只換這個', copy: '複製', copiedAll: '✓ 已全部複製', copyAll: '全部複製' },
 };
 
-export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator; lang?: 'en' }) {
+export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator; lang?: GeneratorIntlLang | 'en' }) {
   const t = STR[lang];
   const hubHref = `/${lang}/generator`;
   const [results, setResults] = useState<string[]>([]);

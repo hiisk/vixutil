@@ -8,6 +8,7 @@ import { DEVICE_TOOLS } from "@/lib/device-tools";
 import { IMAGE_TOOLS } from "@/lib/image-tools";
 import { TEXT_TOOLS } from "@/lib/text-tools";
 import { GENERATORS_EN } from "@/lib/generator-en";
+import { GENERATORS_INTL } from "@/lib/generator-l10n";
 import { CHECKLISTS_INTL } from "@/lib/checklist-l10n/index";
 import { QUIZZES_INTL } from "@/lib/quiz-l10n/index";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
@@ -450,8 +451,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 중국어 첫 화면 — 아직 체스·포커만 실리지만 주소는 있어야 색인된다
     { url: `${BASE}/zh-hans`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/zh-hant`, changeFrequency: weekly, priority: 0.95 },
+    // 생성기는 영어 + 여덟 언어가 같은 스무 종을 가진다
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ...(Object.entries(GENERATORS_INTL) as [string, { slug: string }[]][]).flatMap(([lang, gens]) => [
+      { url: `${BASE}/${lang}/generator`, changeFrequency: weekly, priority: 0.9 },
+      ...gens.map(g => ({ url: `${BASE}/${lang}/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
+    ]),
     // 랜덤 뽑기도 slug가 여덟 언어에서 같다
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/random`, changeFrequency: weekly, priority: 0.9 },

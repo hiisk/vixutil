@@ -1,0 +1,8 @@
+import type { Metadata } from 'next';
+import { GeneratorIntlHub, generatorIntlMeta } from '@/components/GeneratorIntlPage';
+
+export const metadata: Metadata = generatorIntlMeta('zh-hans');
+
+export default function GeneratorHub() {
+  return <GeneratorIntlHub lang="zh-hans" />;
+}

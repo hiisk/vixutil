@@ -7,6 +7,8 @@ import { gameToolsIntl } from './game-tools-intl.ts';
 import { deviceToolsIntl } from './device-tools-intl.ts';
 import { textToolsIntl } from './text-tools-intl.ts';
 import { CHECKLISTS_INTL } from './checklist-l10n/index.ts';
+import { GENERATORS_EN } from './generator-en.ts';
+import { GENERATORS_INTL } from './generator-l10n.ts';
 import { QUIZZES_INTL } from './quiz-l10n/index.ts';
 import { TESTS_INTL } from './test-l10n/index.ts';
 import { CONVERT_TOOLS } from './convert-tools.ts';
@@ -235,6 +237,8 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('device', deviceToolsIntl(lang)),
     ...tools('text', textToolsIntl(lang)),
     ...tools('checklist', CHECKLISTS_INTL[lang]),
+    // 생성기는 영어와 여덟 언어가 같은 스무 종을 가진다
+    ...tools('generator', lang === 'en' ? GENERATORS_EN : GENERATORS_INTL[lang]),
     ...tools('quiz', QUIZZES_INTL[lang]),
     // 심리테스트는 아홉 언어 모두 있다 — 체크리스트·퀴즈만 아직 영어뿐이다
     ...tools('test', TESTS_INTL[lang]),

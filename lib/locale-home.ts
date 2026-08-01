@@ -95,6 +95,14 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900/50', bg: 'bg-emerald-50 dark:bg-emerald-950/30',
     copy: {
       en: { title: 'Name Generators', desc: 'Fantasy, sci-fi, superhero, villain names' },
+      es: { title: 'Generadores de nombres', desc: 'Fantasía, ciencia ficción, superhéroes, villanos' },
+      'pt-br': { title: 'Geradores de nomes', desc: 'Fantasia, ficção científica, super-heróis, vilões' },
+      ja: { title: '名前ジェネレーター', desc: 'ファンタジー・SF・ヒーロー・悪役の名前' },
+      de: { title: 'Namensgeneratoren', desc: 'Fantasy, Sci-Fi, Superhelden, Schurken' },
+      fr: { title: 'Générateurs de noms', desc: 'Fantasy, science-fiction, super-héros, méchants' },
+      hi: { title: 'नाम जनरेटर', desc: 'फैंटेसी, साइ-फ़ाई, सुपरहीरो, विलेन' },
+      'zh-hans': { title: '名字生成器', desc: '奇幻、科幻、超级英雄、反派' },
+      'zh-hant': { title: '名字產生器', desc: '奇幻、科幻、超級英雄、反派' },
     },
   },
   {
