@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { ChecklistIntlHub, checklistIntlMeta } from '@/components/ChecklistIntlPage';
 
-export const metadata: Metadata = checklistIntlMeta('en');
+export const metadata: Metadata = checklistIntlMeta('hi');
 
 export default function ChecklistHub() {
-  return <ChecklistIntlHub lang="en" />;
+  return <ChecklistIntlHub lang="hi" />;
 }

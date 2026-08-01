@@ -50,6 +50,14 @@ const SECTIONS: HomeSection[] = [
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {
       en: { title: 'Checklists', desc: 'Moving, travel, interviews, camping, weddings' },
+      es: { title: 'Listas de comprobación', desc: 'Mudanza, viajes, entrevistas, acampada, bodas' },
+      'pt-br': { title: 'Checklists', desc: 'Mudança, viagem, entrevistas, acampamento, casamento' },
+      ja: { title: 'チェックリスト', desc: '引っ越し・旅行・面接・キャンプ・結婚式' },
+      de: { title: 'Checklisten', desc: 'Umzug, Reise, Bewerbung, Camping, Hochzeit' },
+      fr: { title: 'Checklists', desc: 'Déménagement, voyage, entretien, camping, mariage' },
+      hi: { title: 'चेकलिस्ट', desc: 'घर बदलना, यात्रा, इंटरव्यू, कैंपिंग, शादी' },
+      'zh-hans': { title: '清单', desc: '搬家、旅行、面试、露营、婚礼' },
+      'zh-hant': { title: '清單', desc: '搬家、旅行、面試、露營、婚禮' },
     },
   },
   {

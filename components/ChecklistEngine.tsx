@@ -3,6 +3,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
+import type { AnyLocale10 } from '@/lib/locales';
 import PageGlow from './PageGlow';
 import { thumbGradient } from '@/lib/thumbnail';
 import ReferralCards from './ReferralCards';
@@ -39,7 +40,7 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
-type Lang = 'ko' | 'en';
+type Lang = AnyLocale10;
 
 /** 사용자에게 보이는 문구만 언어별로 갈라둔다. 나머지 동작은 세 언어가 동일하다. */
 const UI: Record<Lang, {
@@ -67,6 +68,78 @@ const UI: Record<Lang, {
     fileSuffix: 'checklist',
     allLists: 'All checklists', share: 'Share', shareLink: 'Copy link', saveCard: 'Save as image',
     doneCount: n => `${n} done`,
+  },
+  es: {
+    done: 'Hecho', selectAll: 'Marcar todo', deselectAll: 'Desmarcar todo',
+    linkCopied: '¡Enlace copiado!', copyFailed: 'No se pudo copiar',
+    imageSaved: '¡Imagen guardada!', imageFailed: 'No se pudo guardar la imagen',
+    progress: (d, t) => `${d}/${t} completado`,
+    fileSuffix: 'lista',
+    allLists: 'Todas las listas', share: 'Compartir', shareLink: 'Compartir enlace', saveCard: 'Guardar imagen',
+    doneCount: n => `${n} hechos`,
+  },
+  'pt-br': {
+    done: 'Feito', selectAll: 'Marcar tudo', deselectAll: 'Desmarcar tudo',
+    linkCopied: 'Link copiado!', copyFailed: 'Não foi possível copiar',
+    imageSaved: 'Imagem salva!', imageFailed: 'Não foi possível salvar a imagem',
+    progress: (d, t) => `${d}/${t} concluído`,
+    fileSuffix: 'checklist',
+    allLists: 'Todas as listas', share: 'Compartilhar', shareLink: 'Compartilhar link', saveCard: 'Salvar imagem',
+    doneCount: n => `${n} feitos`,
+  },
+  ja: {
+    done: '完了', selectAll: 'すべて選択', deselectAll: 'すべて解除',
+    linkCopied: 'リンクをコピーしました', copyFailed: 'コピーできませんでした',
+    imageSaved: '画像を保存しました', imageFailed: '画像を保存できませんでした',
+    progress: (d, t) => `${t}件中${d}件`,
+    fileSuffix: 'チェックリスト',
+    allLists: 'チェックリスト一覧', share: '共有', shareLink: 'リンクを共有', saveCard: '画像を保存',
+    doneCount: n => `${n}件完了`,
+  },
+  de: {
+    done: 'Erledigt', selectAll: 'Alle auswählen', deselectAll: 'Auswahl aufheben',
+    linkCopied: 'Link kopiert!', copyFailed: 'Kopieren fehlgeschlagen',
+    imageSaved: 'Bild gespeichert!', imageFailed: 'Bild konnte nicht gespeichert werden',
+    progress: (d, t) => `${d}/${t} erledigt`,
+    fileSuffix: 'Checkliste',
+    allLists: 'Alle Checklisten', share: 'Teilen', shareLink: 'Link teilen', saveCard: 'Bild speichern',
+    doneCount: n => `${n} erledigt`,
+  },
+  fr: {
+    done: 'Fait', selectAll: 'Tout cocher', deselectAll: 'Tout décocher',
+    linkCopied: 'Lien copié !', copyFailed: 'Échec de la copie',
+    imageSaved: 'Image enregistrée !', imageFailed: 'Échec de l’enregistrement',
+    progress: (d, t) => `${d}/${t} fait`,
+    fileSuffix: 'checklist',
+    allLists: 'Toutes les listes', share: 'Partager', shareLink: 'Partager le lien', saveCard: 'Enregistrer l’image',
+    doneCount: n => `${n} faits`,
+  },
+  hi: {
+    done: 'हो गया', selectAll: 'सब चुनें', deselectAll: 'सब हटाएँ',
+    linkCopied: 'लिंक कॉपी हो गया!', copyFailed: 'कॉपी नहीं हो सका',
+    imageSaved: 'इमेज सेव हो गई!', imageFailed: 'इमेज सेव नहीं हो सकी',
+    progress: (d, t) => `${t} में से ${d} पूरे`,
+    fileSuffix: 'चेकलिस्ट',
+    allLists: 'सभी चेकलिस्ट', share: 'शेयर', shareLink: 'लिंक शेयर करें', saveCard: 'इमेज सेव करें',
+    doneCount: n => `${n} पूरे`,
+  },
+  'zh-hans': {
+    done: '完成', selectAll: '全选', deselectAll: '取消全选',
+    linkCopied: '链接已复制！', copyFailed: '复制失败',
+    imageSaved: '图片已保存！', imageFailed: '图片保存失败',
+    progress: (d, t) => `已完成 ${d}/${t}`,
+    fileSuffix: '清单',
+    allLists: '全部清单', share: '分享', shareLink: '分享链接', saveCard: '保存图片',
+    doneCount: n => `完成${n}项`,
+  },
+  'zh-hant': {
+    done: '完成', selectAll: '全選', deselectAll: '取消全選',
+    linkCopied: '連結已複製！', copyFailed: '複製失敗',
+    imageSaved: '圖片已儲存！', imageFailed: '圖片儲存失敗',
+    progress: (d, t) => `已完成 ${d}/${t}`,
+    fileSuffix: '清單',
+    allLists: '全部清單', share: '分享', shareLink: '分享連結', saveCard: '儲存圖片',
+    doneCount: n => `完成${n}項`,
   },
 };
 

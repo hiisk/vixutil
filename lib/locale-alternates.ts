@@ -1,5 +1,5 @@
 import { CHECKLISTS_MAP } from './checklist-data.ts';
-import { CHECKLISTS_EN_MAP } from './checklist-en.ts';
+import { CHECKLISTS_INTL_MAP } from './checklist-l10n/index.ts';
 import { QUIZ_MAP } from './quiz-data.ts';
 import { QUIZZES_INTL_MAP } from './quiz-l10n/index.ts';
 import { TEST_MAP } from './test-data.ts';
@@ -32,7 +32,7 @@ export type AltSection = 'checklist' | 'quiz' | 'test';
  * 골라 넣으므로 표가 비어도 조용히 틀리지 않는다.
  */
 const MAPS: Record<AltSection, Partial<Record<AltLang, Record<string, unknown>>>> = {
-  checklist: { ko: CHECKLISTS_MAP, en: CHECKLISTS_EN_MAP },
+  checklist: { ko: CHECKLISTS_MAP, ...CHECKLISTS_INTL_MAP },
   quiz: { ko: QUIZ_MAP, ...QUIZZES_INTL_MAP },
   test: { ko: TEST_MAP, ...TESTS_INTL_MAP },
 };

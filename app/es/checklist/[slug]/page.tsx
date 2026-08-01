@@ -4,17 +4,17 @@ import { ChecklistIntlDetail, checklistIntlDetailMeta } from '@/components/Check
 import { CHECKLISTS_INTL, CHECKLISTS_INTL_MAP } from '@/lib/checklist-l10n/index';
 
 export function generateStaticParams() {
-  return CHECKLISTS_INTL['en'].map(c => ({ slug: c.slug }));
+  return CHECKLISTS_INTL['es'].map(c => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  return checklistIntlDetailMeta('en', slug);
+  return checklistIntlDetailMeta('es', slug);
 }
 
 export default async function ChecklistPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const checklist = CHECKLISTS_INTL_MAP['en'][slug];
+  const checklist = CHECKLISTS_INTL_MAP['es'][slug];
   if (!checklist) notFound();
-  return <ChecklistIntlDetail lang="en" checklist={checklist} />;
+  return <ChecklistIntlDetail lang="es" checklist={checklist} />;
 }

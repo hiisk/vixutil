@@ -27,6 +27,7 @@ import { COUNTRY_REGION_INTL } from '../lib/country-ui.ts';
 import { FORTUNE_INTL, SNAP_INTL } from '../lib/search-index-intl.ts';
 import { TESTS_INTL } from '../lib/test-l10n/index.ts';
 import { QUIZZES_INTL } from '../lib/quiz-l10n/index.ts';
+import { CHECKLISTS_INTL } from '../lib/checklist-l10n/index.ts';
 
 /** ko는 원본이라 곁사전에 없는 것이 정상. en도 데이터 파일에 붙어 있는 표가 있다. */
 const NON_KO = ALL_LOCALES10.filter(l => l !== 'ko');
@@ -52,6 +53,7 @@ const TABLES: [string, Record<string, unknown>, readonly AnyLocale10[]][] = [
   // 심리테스트는 한국어 228종을 옮기지 않고 문화 중립인 다섯 종만 아홉 언어로 썼다
   ['TESTS_INTL', TESTS_INTL, NON_KO],
   ['QUIZZES_INTL', QUIZZES_INTL, NON_KO],
+  ['CHECKLISTS_INTL', CHECKLISTS_INTL, NON_KO],
 ];
 
 test('심리테스트가 아홉 언어에서 같은 다섯 종을 가진다', () => {

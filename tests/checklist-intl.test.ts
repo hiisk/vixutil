@@ -1,15 +1,30 @@
+/**
+ * 한국어를 뺀 아홉 언어 체크리스트 검사.
+ *
+ * 전에는 영어 하나만 봤고, 중국어를 걷어내면서 남은 빈 test()가 아무것도
+ * 검사하지 않은 채 초록으로 세어지고 있었다. 아홉 언어로 넓히면서 지웠다.
+ *
+ * **id는 아홉 언어에서 같아야 한다.** 체크 상태를 id로 저장하기 때문에,
+ * 하나라도 어긋나면 언어를 바꿨을 때 체크가 조용히 날아간다.
+ */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { CHECKLISTS_EN, CHECKLISTS_EN_MAP } from '../lib/checklist-en.ts';
+import { CHECKLISTS_INTL, CHECKLISTS_INTL_MAP, type ChecklistIntlLang } from '../lib/checklist-l10n/index.ts';
+import { hanProblem } from './han.ts';
+import type { Checklist } from '../lib/types.ts';
 
-const SETS = [
-  ['en', CHECKLISTS_EN, CHECKLISTS_EN_MAP],
-] as const;
+const SETS = Object.entries(CHECKLISTS_INTL) as [ChecklistIntlLang, Checklist[]][];
 
-test('en 체크리스트가 같은 slug 집합을 갖는다', () => {
-  // hreflang이 en↔zh를 slug로 짝짓기 때문에, 한쪽에만 있는 slug는 깨진 대체 링크가 된다
-  const en = CHECKLISTS_EN.map(c => c.slug).sort();
-});
+/** 그 체크리스트에서 사람 눈에 보이는 문자열을 전부 모은다 */
+function textOf(c: Checklist): string[] {
+  return [c.title, c.desc, c.category,
+    ...c.sections.flatMap(s => [s.title, ...s.items.flatMap(i => [i.text, i.note ?? ''])])];
+}
+
+/** id를 순서대로 늘어놓는다 */
+function idsOf(c: Checklist): string[] {
+  return c.sections.flatMap(s => s.items.map(i => i.id));
+}
 
 test('slug가 유일하고 형식이 맞다', () => {
   for (const [label, list] of SETS) {
@@ -71,16 +86,77 @@ test('모든 체크리스트에 섹션과 항목이 충분히 있다', () => {
   }
 });
 
-test('MAP이 모든 체크리스트를 담고 있다', () => {
-  for (const [label, list, map] of SETS) {
-    for (const c of list) {
-      assert.equal(map[c.slug], c, `${label}: 맵에 없음 ${c.slug}`);
+test('같은 slug끼리 섹션 수와 항목 수가 일치한다', () => {
+  // 구조가 어긋나면 같은 주제인데 한쪽만 빈약해 보인다
+  for (const en of CHECKLISTS_INTL.en) {
+    const shape = en.sections.map(s => s.items.length);
+    for (const [label, list] of SETS) {
+      if (label === 'en') continue;
+      const c = list.find(x => x.slug === en.slug)!;
+      assert.deepEqual(c.sections.map(s => s.items.length), shape,
+        `${label} ${en.slug}: 섹션·항목 수가 영어와 다르다`);
     }
   }
 });
 
-test('en 같은 slug끼리 섹션 수가 일치한다', () => {
-  // 구조가 어긋나면 같은 주제인데 한쪽만 빈약해 보인다
-  for (const en of CHECKLISTS_EN) {
+test('아홉 언어가 같은 12종을 가진다', () => {
+  const en = CHECKLISTS_INTL.en.map(c => c.slug).sort();
+  for (const [label, list] of SETS) {
+    assert.deepEqual(list.map(c => c.slug).sort(), en, `${label}의 슬러그가 영어와 다르다`);
+  }
+});
+
+test('항목 id가 아홉 언어에서 같다', () => {
+  // 체크 상태를 id로 저장하므로, 어긋나면 언어를 바꿨을 때 체크가 날아간다
+  for (const en of CHECKLISTS_INTL.en) {
+    const ids = idsOf(en);
+    for (const [label, list] of SETS) {
+      if (label === 'en') continue;
+      const c = list.find(x => x.slug === en.slug);
+      assert.ok(c, `${label}: ${en.slug}가 없다`);
+      assert.deepEqual(idsOf(c), ids, `${label} ${en.slug}: 항목 id가 영어와 다르다`);
+    }
+  }
+});
+
+test('id가 한 체크리스트 안에서 유일하다', () => {
+  for (const [label, list] of SETS) {
+    for (const c of list) {
+      const ids = idsOf(c);
+      assert.equal(new Set(ids).size, ids.length, `${label} ${c.slug}: 중복 id`);
+    }
+  }
+});
+
+test('번역이 영어를 그대로 물려받지 않는다', () => {
+  const bad: string[] = [];
+  for (const [label, list] of SETS) {
+    if (label === 'en') continue;
+    for (const c of list) {
+      const en = CHECKLISTS_INTL.en.find(e => e.slug === c.slug)!;
+      if (c.title === en.title && c.desc === en.desc) bad.push(`${label}/${c.slug}`);
+    }
+  }
+  assert.deepEqual(bad, [], `영어 그대로인 항목:\n  ${bad.join('\n  ')}`);
+});
+
+test('번체 자리에 간체가 섞이지 않았다', () => {
+  const bad: string[] = [];
+  for (const [label, list] of SETS) {
+    const key = label === 'zh-hant' ? 'tw' : label === 'zh-hans' ? 'zh' : null;
+    if (!key) continue;
+    for (const c of list) {
+      for (const s of textOf(c)) {
+        const p = hanProblem(key, s);
+        if (p) bad.push(`${label} ${c.slug}: ${p}`);
+      }
+    }
+  }
+  assert.deepEqual(bad, [], `글자가 섞인 자리:\n  ${bad.join('\n  ')}`);
+});
+
+test('MAP이 모든 체크리스트를 담고 있다', () => {
+  for (const [label, list] of SETS) {
+    for (const c of list) assert.equal(CHECKLISTS_INTL_MAP[label][c.slug], c, `${label}: 맵에 없음 ${c.slug}`);
   }
 });
