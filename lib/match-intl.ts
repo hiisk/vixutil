@@ -12,10 +12,10 @@ import type { MatchType } from './zodiac-match.ts';
 import type { StarMatchType } from './star-match.ts';
 import type { MatchBand } from './mbti-match.ts';
 import type { Lang } from './fortune-intl.ts';
+import { spread } from './match-l10n/index.ts';
+import type { Texts, MatchUi } from './match-l10n/types.ts';
 
 export type IntlLang = Exclude<Lang, 'ko'>;
-
-interface Texts { label: string; headline: string; reason: string; love: string; advice: string }
 
 /* ── 띠 궁합 ── */
 export const ZODIAC_MATCH_TEXT: Record<IntlLang, Record<MatchType, Texts>> = {
@@ -51,6 +51,7 @@ export const ZODIAC_MATCH_TEXT: Record<IntlLang, Record<MatchType, Texts>> = {
       advice: 'The key is not reading "different" as "wrong". Give a step each and the clash turns into chemistry.',
     },
   },
+  ...spread('zodiac'),
 };
 
 /* ── 별자리 궁합 ── */
@@ -81,6 +82,7 @@ export const STAR_MATCH_TEXT: Record<IntlLang, Record<StarMatchType, Texts>> = {
       advice: 'Do not read "different" as "wrong". Step toward each other and the friction becomes chemistry.',
     },
   },
+  ...spread('star'),
 };
 
 /* ── MBTI 궁합 ── */
@@ -111,6 +113,7 @@ export const MBTI_MATCH_TEXT: Record<IntlLang, Record<MatchBand, Texts>> = {
       advice: 'Read it as "different", not "wrong". Step toward each other and the friction becomes chemistry.',
     },
   },
+  ...spread('mbti'),
 };
 
 /** MBTI 이유 문장은 축별로 조립한다 — 한국어 reasonText와 같은 규칙 */
@@ -126,6 +129,7 @@ export const MBTI_AXIS_TEXT: Record<IntlLang, {
     jpDiff: 'You live differently (J/P), blending flexibility with planning',
     join: '. ', end: '.',
   },
+  ...spread('axis'),
 };
 
 /* ── 혈액형 궁합 ──
@@ -193,10 +197,11 @@ export const BLOOD_MATCH_TEXT: Record<IntlLang, Record<string, Texts>> = {
       advice: 'You can both swing emotionally. Clear the misunderstandings often, with plain conversation.',
     },
   },
+  ...spread('blood'),
 };
 
 /* ── 공통 UI 문구 ── */
-export const MATCH_UI: Record<IntlLang, Record<string, string>> = {
+export const MATCH_UI: Record<IntlLang, MatchUi> = {
   en: {
     pickBoth: 'Choose both sides to see the result',
     you: 'You', partner: 'Them',
@@ -207,4 +212,5 @@ export const MATCH_UI: Record<IntlLang, Record<string, string>> = {
     reset: 'Start over',
     disclaimer: 'Compatibility here follows traditional rules and is for entertainment. What actually decides a relationship is how two people treat each other.',
   },
+  ...spread('ui'),
 };

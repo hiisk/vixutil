@@ -134,7 +134,7 @@ test('MBTI 16유형이 세 언어 모두 같은 순서다', async () => {
 });
 
 test('궁합 UI 문구가 en 모두 채워져 있다', () => {
-  const keys = ['pickBoth', 'you', 'partner', 'score', 'why', 'love', 'advice', 'reset', 'disclaimer'];
+  const keys = ['pickBoth', 'you', 'partner', 'score', 'why', 'love', 'advice', 'reset', 'disclaimer'] as const;
   for (const lang of LANGS) {
     for (const k of keys) {
       assert.ok(MATCH_UI[lang][k] && MATCH_UI[lang][k].trim().length > 0, `${lang}.${k} 비어 있음`);

@@ -4,31 +4,121 @@ import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
-import { BIRTH_INFO_EN } from '@/lib/fortune-en';
-import { t, type Lang } from '@/lib/fortune-intl';
+import { t, birthInfo, type Lang } from '@/lib/fortune-intl';
+import type { BirthInfo } from '@/lib/fortune-l10n/index';
+import { MONTHS, MONTHS_SHORT } from '@/lib/fortune-form-intl';
 
 
-const COPY = {
+type IntlLang = Exclude<Lang, 'ko'>;
+
+const COPY: Record<IntlLang, {
+  title: string; lead: string;
+  stoneOf: (m: number) => string;
+  flowerOf: (m: number) => string;
+  meaning: string;
+  bornIn: (m: number) => string;
+  monthLabel: (m: number) => string;
+  note: string;
+}> = {
   en: {
     title: 'Birthstone & Birth Flower',
     lead: 'Find the gem and flower of your birth month, and what they stand for',
-    stoneOf: (m: number) => `Birthstone for ${MONTHS_EN[m - 1]}`,
-    flowerOf: (m: number) => `Birth flower for ${MONTHS_EN[m - 1]}`,
+    stoneOf: m => `Birthstone for ${MONTHS.en[m - 1]}`,
+    flowerOf: m => `Birth flower for ${MONTHS.en[m - 1]}`,
     meaning: 'Meaning',
-    bornIn: (m: number) => `If you were born in ${MONTHS_EN[m - 1]}`,
-    monthLabel: (m: number) => MONTHS_EN[m - 1].slice(0, 3),
+    bornIn: m => `If you were born in ${MONTHS.en[m - 1]}`,
+    monthLabel: m => MONTHS_SHORT.en[m - 1],
     note: 'Birthstones and birth flowers are widely known traditions; the personality notes are just for fun.',
   },
-} as const;
+  es: {
+    title: 'Piedra y flor de nacimiento',
+    lead: 'Descubre la gema y la flor de tu mes de nacimiento, y qué representan',
+    stoneOf: m => `Piedra de ${MONTHS.es[m - 1]}`,
+    flowerOf: m => `Flor de ${MONTHS.es[m - 1]}`,
+    meaning: 'Significado',
+    bornIn: m => `Si naciste en ${MONTHS.es[m - 1]}`,
+    monthLabel: m => MONTHS_SHORT.es[m - 1],
+    note: 'Las piedras y flores de nacimiento son tradiciones muy conocidas; las notas de personalidad son solo para divertirse.',
+  },
+  'pt-br': {
+    title: 'Pedra e flor de nascimento',
+    lead: 'Descubra a gema e a flor do seu mês de nascimento, e o que elas representam',
+    stoneOf: m => `Pedra de ${MONTHS['pt-br'][m - 1]}`,
+    flowerOf: m => `Flor de ${MONTHS['pt-br'][m - 1]}`,
+    meaning: 'Significado',
+    bornIn: m => `Se você nasceu em ${MONTHS['pt-br'][m - 1]}`,
+    monthLabel: m => MONTHS_SHORT['pt-br'][m - 1],
+    note: 'Pedras e flores de nascimento são tradições bem conhecidas; as notas de personalidade são só por diversão.',
+  },
+  ja: {
+    title: '誕生石と誕生花',
+    lead: '生まれ月の宝石と花、そしてその意味を見ます',
+    stoneOf: m => `${MONTHS.ja[m - 1]}の誕生石`,
+    flowerOf: m => `${MONTHS.ja[m - 1]}の誕生花`,
+    meaning: '意味',
+    bornIn: m => `${MONTHS.ja[m - 1]}生まれの人は`,
+    monthLabel: m => MONTHS_SHORT.ja[m - 1],
+    note: '誕生石と誕生花は広く知られた慣習です。性格の話は遊びとして読んでください。',
+  },
+  de: {
+    title: 'Geburtsstein und Geburtsblume',
+    lead: 'Finde Edelstein und Blume deines Geburtsmonats — und wofür sie stehen',
+    stoneOf: m => `Geburtsstein für ${MONTHS.de[m - 1]}`,
+    flowerOf: m => `Geburtsblume für ${MONTHS.de[m - 1]}`,
+    meaning: 'Bedeutung',
+    bornIn: m => `Wenn du im ${MONTHS.de[m - 1]} geboren bist`,
+    monthLabel: m => MONTHS_SHORT.de[m - 1],
+    note: 'Geburtssteine und Geburtsblumen sind weithin bekannte Überlieferungen; die Bemerkungen zur Persönlichkeit sind reiner Spaß.',
+  },
+  fr: {
+    title: 'Pierre et fleur de naissance',
+    lead: 'Trouvez la gemme et la fleur de votre mois de naissance, et ce qu’elles représentent',
+    stoneOf: m => `Pierre de ${MONTHS.fr[m - 1]}`,
+    flowerOf: m => `Fleur de ${MONTHS.fr[m - 1]}`,
+    meaning: 'Signification',
+    bornIn: m => `Si vous êtes né en ${MONTHS.fr[m - 1]}`,
+    monthLabel: m => MONTHS_SHORT.fr[m - 1],
+    note: 'Les pierres et fleurs de naissance sont des traditions largement connues ; les notes de personnalité sont purement ludiques.',
+  },
+  hi: {
+    title: 'जन्म रत्न और जन्म पुष्प',
+    lead: 'अपने जन्म महीने का रत्न और फूल जानिए, और वे किसका प्रतीक हैं',
+    stoneOf: m => `${MONTHS.hi[m - 1]} का जन्म रत्न`,
+    flowerOf: m => `${MONTHS.hi[m - 1]} का जन्म पुष्प`,
+    meaning: 'अर्थ',
+    bornIn: m => `अगर आप ${MONTHS.hi[m - 1]} में जन्मे हैं`,
+    monthLabel: m => MONTHS_SHORT.hi[m - 1],
+    note: 'जन्म रत्न और जन्म पुष्प जानी-मानी परंपराएँ हैं; व्यक्तित्व वाली बातें सिर्फ़ मज़े के लिए हैं।',
+  },
+  'zh-hans': {
+    title: '诞生石与诞生花',
+    lead: '看看你出生月份的宝石和花，以及它们代表什么',
+    stoneOf: m => `${MONTHS['zh-hans'][m - 1]}的诞生石`,
+    flowerOf: m => `${MONTHS['zh-hans'][m - 1]}的诞生花`,
+    meaning: '含义',
+    bornIn: m => `${MONTHS['zh-hans'][m - 1]}出生的人`,
+    monthLabel: m => MONTHS_SHORT['zh-hans'][m - 1],
+    note: '诞生石和诞生花是流传很广的说法；性格部分只是图个乐。',
+  },
+  'zh-hant': {
+    title: '誕生石與誕生花',
+    lead: '看看你出生月份的寶石和花，以及它們代表什麼',
+    stoneOf: m => `${MONTHS['zh-hant'][m - 1]}的誕生石`,
+    flowerOf: m => `${MONTHS['zh-hant'][m - 1]}的誕生花`,
+    meaning: '含義',
+    bornIn: m => `${MONTHS['zh-hant'][m - 1]}出生的人`,
+    monthLabel: m => MONTHS_SHORT['zh-hant'][m - 1],
+    note: '誕生石和誕生花是流傳很廣的說法；性格部分只是圖個樂。',
+  },
+};
 
 /** 탄생석 데이터의 모양 — 원래 fortune-zh.ts에서 가져오던 타입을 여기 둔다 */
-type Info = (typeof BIRTH_INFO_EN)[number];
+type Info = BirthInfo;
 
-const MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
   const [result, setResult] = useState<Info | null>(null);
-  const data: readonly Info[] = BIRTH_INFO_EN;
+  const data: readonly Info[] = birthInfo(lang);
   const c = COPY[lang];
   const hubHref = `/${lang}/fortune`;
 

@@ -23,22 +23,62 @@ const KIND_META: Record<SubjectKind, { seedPrefix: string; icon: string; cols: s
 };
 
 const TITLES: Record<SubjectKind, Record<Lang, string>> = {
-  zodiac: { ko: '별자리 운세', en: 'Daily Horoscope' },
-  animal: { ko: '띠 운세',     en: 'Chinese Zodiac Horoscope' },
-  blood:  { ko: '혈액형 운세', en: 'Blood Type Horoscope' },
-  mbti:   { ko: 'MBTI 운세',   en: 'MBTI Daily Horoscope' },
+  zodiac: {
+    ko: '별자리 운세', en: 'Daily Horoscope', es: 'Horóscopo del día', 'pt-br': 'Horóscopo do dia',
+    ja: '星座占い', de: 'Tageshoroskop', fr: 'Horoscope du jour', hi: 'राशिफल',
+    'zh-hans': '星座运势', 'zh-hant': '星座運勢',
+  },
+  animal: {
+    ko: '띠 운세', en: 'Chinese Zodiac Horoscope', es: 'Horóscopo chino', 'pt-br': 'Horóscopo chinês',
+    ja: '干支占い', de: 'Chinesisches Horoskop', fr: 'Horoscope chinois', hi: 'चीनी राशिफल',
+    'zh-hans': '生肖运势', 'zh-hant': '生肖運勢',
+  },
+  blood: {
+    ko: '혈액형 운세', en: 'Blood Type Horoscope', es: 'Horóscopo por grupo sanguíneo', 'pt-br': 'Horóscopo por tipo sanguíneo',
+    ja: '血液型占い', de: 'Blutgruppen-Horoskop', fr: 'Horoscope par groupe sanguin', hi: 'ब्लड ग्रुप राशिफल',
+    'zh-hans': '血型运势', 'zh-hant': '血型運勢',
+  },
+  mbti: {
+    ko: 'MBTI 운세', en: 'MBTI Daily Horoscope', es: 'Horóscopo MBTI', 'pt-br': 'Horóscopo MBTI',
+    ja: 'MBTI占い', de: 'MBTI-Tageshoroskop', fr: 'Horoscope MBTI', hi: 'MBTI राशिफल',
+    'zh-hans': 'MBTI 运势', 'zh-hant': 'MBTI 運勢',
+  },
 };
 
 const PROMPTS: Record<SubjectKind, Record<Lang, string>> = {
-  zodiac: { ko: '내 별자리를 선택하세요', en: 'Choose your star sign' },
-  animal: { ko: '내 띠를 선택하세요',     en: 'Choose your zodiac animal' },
-  blood:  { ko: '내 혈액형을 선택하세요', en: 'Choose your blood type' },
-  mbti:   { ko: '내 MBTI를 선택하세요',   en: 'Choose your MBTI type' },
+  zodiac: {
+    ko: '내 별자리를 선택하세요', en: 'Choose your star sign', es: 'Elige tu signo', 'pt-br': 'Escolha seu signo',
+    ja: '星座を選んでください', de: 'Wähl dein Sternzeichen', fr: 'Choisissez votre signe', hi: 'अपनी राशि चुनें',
+    'zh-hans': '选择你的星座', 'zh-hant': '選擇你的星座',
+  },
+  animal: {
+    ko: '내 띠를 선택하세요', en: 'Choose your zodiac animal', es: 'Elige tu animal', 'pt-br': 'Escolha seu animal',
+    ja: '干支を選んでください', de: 'Wähl dein Tierkreiszeichen', fr: 'Choisissez votre animal', hi: 'अपना राशि-पशु चुनें',
+    'zh-hans': '选择你的生肖', 'zh-hant': '選擇你的生肖',
+  },
+  blood: {
+    ko: '내 혈액형을 선택하세요', en: 'Choose your blood type', es: 'Elige tu grupo sanguíneo', 'pt-br': 'Escolha seu tipo sanguíneo',
+    ja: '血液型を選んでください', de: 'Wähl deine Blutgruppe', fr: 'Choisissez votre groupe sanguin', hi: 'अपना ब्लड ग्रुप चुनें',
+    'zh-hans': '选择你的血型', 'zh-hant': '選擇你的血型',
+  },
+  mbti: {
+    ko: '내 MBTI를 선택하세요', en: 'Choose your MBTI type', es: 'Elige tu tipo MBTI', 'pt-br': 'Escolha seu tipo MBTI',
+    ja: 'MBTIを選んでください', de: 'Wähl deinen MBTI-Typ', fr: 'Choisissez votre type MBTI', hi: 'अपना MBTI टाइप चुनें',
+    'zh-hans': '选择你的 MBTI', 'zh-hant': '選擇你的 MBTI',
+  },
 };
 
 const EMPTY: Record<Lang, string> = {
   ko: '선택하면 오늘의 운세를 볼 수 있습니다',
   en: 'Pick one above to see today’s reading',
+  es: 'Elige uno arriba para ver la lectura de hoy',
+  'pt-br': 'Escolha um acima para ver a leitura de hoje',
+  ja: '上から選ぶと今日の運勢が出ます',
+  de: 'Wähl oben eines aus, um das Tageshoroskop zu sehen',
+  fr: 'Choisissez ci-dessus pour voir la lecture du jour',
+  hi: 'ऊपर से एक चुनिए और आज का हाल देखिए',
+  'zh-hans': '在上面选一个，看今天的运势',
+  'zh-hant': '在上面選一個，看今天的運勢',
 };
 
 function subjectsFor(kind: SubjectKind, lang: Lang): readonly Subject[] {

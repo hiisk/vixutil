@@ -6,7 +6,8 @@ import {
   FORTUNE_POOL_EN, ADVICE_POOL_EN, LUCKY_ITEMS_EN, KEYWORD_POOL_EN,
   LUCKY_COLORS_EN, LUCKY_DIRECTIONS_EN,
 } from '../lib/fortune-en.ts';
-import { getTodayFortuneIntl, formatToday, FORTUNE_UI } from '../lib/fortune-intl.ts';
+import { getTodayFortuneIntl, formatToday, t } from '../lib/fortune-intl.ts';
+import { INTL_LOCALES10 } from '../lib/locales.ts';
 
 const DOMAINS = ['overall', 'love', 'money', 'health', 'work'] as const;
 
@@ -81,10 +82,17 @@ test('운세 결과의 모든 문자열 필드가 채워진다', () => {
   }
 });
 
-test('UI 문구가 두 언어 모두 채워져 있다', () => {
-  for (const [key, copy] of Object.entries(FORTUNE_UI)) {
-    for (const lang of ['ko', 'en'] as const) {
-      assert.ok(copy[lang] && copy[lang].trim().length > 0, `FORTUNE_UI.${key}.${lang}가 비어 있다`);
+test('UI 문구가 열 언어 모두 채워져 있다', () => {
+  // t()는 열쇠가 빠지면 undefined를 준다 — 화면에서는 빈칸으로 조용히 지나간다
+  const KEYS = [
+    'fortuneOf', 'todaysFortune', 'overall', 'advice', 'luck',
+    'luckyColor', 'luckyNumber', 'luckyDirection', 'luckyItem',
+    'love', 'money', 'work', 'health', 'share', 'copied', 'disclaimer',
+  ] as const;
+  for (const lang of ['ko', ...INTL_LOCALES10] as const) {
+    for (const key of KEYS) {
+      const v = t(key, lang);
+      assert.ok(v && v.trim().length > 0, `${lang}.${key}가 비어 있다`);
     }
   }
 });

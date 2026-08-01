@@ -8,8 +8,8 @@ import {
   getBiorhythm, getChartSeries,
   type BiorhythmResult, type ChartPoint, type Phase,
 } from '@/lib/biorhythm';
-import { CYCLES_EN, PHASE_LABEL_EN, BIORHYTHM_COMMENT_EN } from '@/lib/fortune-en';
-import { t, type Lang } from '@/lib/fortune-intl';
+import { t, cycles, phaseLabels, biorhythmComment, type Lang } from '@/lib/fortune-intl';
+import { DATE_FORM, type DateForm } from '@/lib/fortune-form-intl';
 
 const CYCLE_COLOR: Record<string, string> = {
   physical: '#ef4444',
@@ -29,43 +29,174 @@ const PAD = 8;
 
 type IntlLang = Exclude<Lang, 'ko'>;
 
-const COPY = {
+const COPY: Record<IntlLang, {
+  title: string; lead: string;
+  submit: string; empty: string; todayRhythm: string;
+  daysOld: (n: string) => string;
+  chartNote: string;
+  cycleOf: (d: string, p: number) => string;
+  criticalToday: string;
+  nextCritical: (n: number) => string;
+  chartAlt: string; scienceQ: string; scienceA: string;
+} & DateForm> = {
   en: {
+    ...DATE_FORM.en,
     title: 'Biorhythm Calculator',
     lead: 'See your physical, emotional and intellectual rhythms from your date of birth',
-    birthLabel: 'Date of birth',
-    yearPh: 'e.g. 1995', monthPh: 'Month', dayPh: 'Day',
     submit: 'Show my rhythms',
     empty: 'Enter your date of birth to see today’s rhythms',
     todayRhythm: 'Today’s rhythms',
-    daysOld: (n: string) => `${n} days since birth`,
+    daysOld: n => `${n} days since birth`,
     chartNote: 'Dashed line is today · a critical day is where a curve crosses the centre line',
-    cycleOf: (d: string, p: number) => `${d} · ${p}-day cycle`,
+    cycleOf: (d, p) => `${d} · ${p}-day cycle`,
     criticalToday: 'Today is a critical day',
-    nextCritical: (n: number) => `${n} days to the next critical day`,
+    nextCritical: n => `${n} days to the next critical day`,
     chartAlt: 'Biorhythm chart',
     scienceQ: 'Is biorhythm science?',
     scienceA: 'No. The 23-day physical, 28-day emotional and 33-day intellectual cycles were proposed in the early twentieth century and have simply stuck; there is no confirmed evidence that they predict how you actually feel or think. The calculation itself is fully deterministic — the same birth date produces the same chart anywhere. A number being precise and a number being right are two different things. Your body will tell you how today is going more accurately than this graph will.',
-    errAll: 'Please fill in the full date of birth.',
-    errMonth: 'Month must be between 1 and 12.',
-    errDay: 'Day must be between 1 and 31.',
-    errInvalid: 'That date does not exist.',
-    errFuture: 'Your date of birth is in the future.',
   },
-} as const;
+  es: {
+    ...DATE_FORM.es,
+    title: 'Calculadora de biorritmo',
+    lead: 'Mira tus ritmos físico, emocional e intelectual a partir de tu fecha de nacimiento',
+    submit: 'Ver mis ritmos',
+    empty: 'Escribe tu fecha de nacimiento para ver los ritmos de hoy',
+    todayRhythm: 'Los ritmos de hoy',
+    daysOld: n => `${n} días desde el nacimiento`,
+    chartNote: 'La línea discontinua es hoy · el día crítico es donde una curva cruza la línea central',
+    cycleOf: (d, p) => `${d} · ciclo de ${p} días`,
+    criticalToday: 'Hoy es un día crítico',
+    nextCritical: n => `${n} días hasta el próximo día crítico`,
+    chartAlt: 'Gráfico de biorritmo',
+    scienceQ: '¿El biorritmo es ciencia?',
+    scienceA: 'No. Los ciclos de 23 días (físico), 28 (emocional) y 33 (intelectual) se propusieron a principios del siglo XX y simplemente se quedaron; no hay pruebas confirmadas de que predigan cómo te sientes o piensas. El cálculo sí es completamente determinista: la misma fecha de nacimiento da el mismo gráfico en cualquier parte. Que un número sea preciso y que sea correcto son cosas distintas. Tu cuerpo te dirá cómo va el día con más exactitud que esta gráfica.',
+  },
+  'pt-br': {
+    ...DATE_FORM['pt-br'],
+    title: 'Calculadora de biorritmo',
+    lead: 'Veja seus ritmos físico, emocional e intelectual a partir da data de nascimento',
+    submit: 'Ver meus ritmos',
+    empty: 'Digite sua data de nascimento para ver os ritmos de hoje',
+    todayRhythm: 'Os ritmos de hoje',
+    daysOld: n => `${n} dias desde o nascimento`,
+    chartNote: 'A linha tracejada é hoje · o dia crítico é onde uma curva cruza a linha central',
+    cycleOf: (d, p) => `${d} · ciclo de ${p} dias`,
+    criticalToday: 'Hoje é um dia crítico',
+    nextCritical: n => `${n} dias até o próximo dia crítico`,
+    chartAlt: 'Gráfico de biorritmo',
+    scienceQ: 'Biorritmo é ciência?',
+    scienceA: 'Não. Os ciclos de 23 dias (físico), 28 (emocional) e 33 (intelectual) foram propostos no início do século XX e simplesmente ficaram; não há evidência confirmada de que prevejam como você se sente ou pensa. O cálculo em si é totalmente determinístico: a mesma data de nascimento gera o mesmo gráfico em qualquer lugar. Um número ser preciso e um número ser certo são coisas diferentes. Seu corpo vai dizer como está o dia com mais exatidão do que este gráfico.',
+  },
+  ja: {
+    ...DATE_FORM.ja,
+    title: 'バイオリズム計算',
+    lead: '生年月日から身体・感情・知性の三つのリズムを見ます',
+    submit: 'リズムを見る',
+    empty: '生年月日を入れると今日のリズムが出ます',
+    todayRhythm: '今日のリズム',
+    daysOld: n => `生まれてから${n}日`,
+    chartNote: '破線が今日 · 曲線が中央線を横切る日が要注意日です',
+    cycleOf: (d, p) => `${d} · ${p}日周期`,
+    criticalToday: '今日は要注意日です',
+    nextCritical: n => `次の要注意日まで${n}日`,
+    chartAlt: 'バイオリズムのグラフ',
+    scienceQ: 'バイオリズムは科学ですか',
+    scienceA: 'いいえ。身体23日・感情28日・知性33日という周期は20世紀初めに提唱され、そのまま広まったものです。実際の体調や思考を予測できるという確かな証拠はありません。計算そのものは完全に決まっていて、同じ生年月日ならどこで計算しても同じグラフになります。数字が正確であることと、数字が正しいことは別です。今日の調子は、このグラフより自分の体のほうが正確に教えてくれます。',
+  },
+  de: {
+    ...DATE_FORM.de,
+    title: 'Biorhythmus-Rechner',
+    lead: 'Sieh deinen körperlichen, emotionalen und geistigen Rhythmus aus deinem Geburtsdatum',
+    submit: 'Rhythmen anzeigen',
+    empty: 'Gib dein Geburtsdatum ein, um die Rhythmen von heute zu sehen',
+    todayRhythm: 'Die Rhythmen von heute',
+    daysOld: n => `${n} Tage seit der Geburt`,
+    chartNote: 'Die gestrichelte Linie ist heute · ein kritischer Tag ist dort, wo eine Kurve die Mittellinie kreuzt',
+    cycleOf: (d, p) => `${d} · ${p}-Tage-Zyklus`,
+    criticalToday: 'Heute ist ein kritischer Tag',
+    nextCritical: n => `${n} Tage bis zum nächsten kritischen Tag`,
+    chartAlt: 'Biorhythmus-Diagramm',
+    scienceQ: 'Ist Biorhythmus Wissenschaft?',
+    scienceA: 'Nein. Die Zyklen von 23 Tagen (körperlich), 28 (emotional) und 33 (geistig) wurden zu Beginn des 20. Jahrhunderts vorgeschlagen und haben sich schlicht gehalten; es gibt keinen bestätigten Beleg, dass sie vorhersagen, wie du dich tatsächlich fühlst oder denkst. Die Rechnung selbst ist vollständig determiniert — dasselbe Geburtsdatum ergibt überall dieselbe Kurve. Dass eine Zahl genau ist, heißt nicht, dass sie stimmt. Dein Körper sagt dir zuverlässiger, wie der Tag läuft, als dieses Diagramm.',
+  },
+  fr: {
+    ...DATE_FORM.fr,
+    title: 'Calculateur de biorythme',
+    lead: 'Voyez vos rythmes physique, émotionnel et intellectuel à partir de votre date de naissance',
+    submit: 'Voir mes rythmes',
+    empty: 'Saisissez votre date de naissance pour voir les rythmes du jour',
+    todayRhythm: 'Les rythmes du jour',
+    daysOld: n => `${n} jours depuis la naissance`,
+    chartNote: 'La ligne en pointillés est aujourd’hui · le jour critique est là où une courbe croise l’axe central',
+    cycleOf: (d, p) => `${d} · cycle de ${p} jours`,
+    criticalToday: 'Aujourd’hui est un jour critique',
+    nextCritical: n => `${n} jours avant le prochain jour critique`,
+    chartAlt: 'Graphique de biorythme',
+    scienceQ: 'Le biorythme est-il une science ?',
+    scienceA: 'Non. Les cycles de 23 jours (physique), 28 (émotionnel) et 33 (intellectuel) ont été proposés au début du XXᵉ siècle et sont simplement restés ; rien ne confirme qu’ils prédisent ce que vous ressentez ou pensez réellement. Le calcul, lui, est entièrement déterministe : la même date de naissance donne partout la même courbe. Qu’un nombre soit précis et qu’il soit juste sont deux choses différentes. Votre corps vous dira comment se passe la journée plus fidèlement que ce graphique.',
+  },
+  hi: {
+    ...DATE_FORM.hi,
+    title: 'बायोरिदम कैलकुलेटर',
+    lead: 'जन्म तिथि से अपनी शारीरिक, भावनात्मक और बौद्धिक लय देखिए',
+    submit: 'मेरी लय दिखाइए',
+    empty: 'आज की लय देखने के लिए जन्म तिथि भरिए',
+    todayRhythm: 'आज की लय',
+    daysOld: n => `जन्म से ${n} दिन`,
+    chartNote: 'बिंदुदार रेखा आज है · जहाँ कोई वक्र बीच की रेखा काटता है वही नाज़ुक दिन है',
+    cycleOf: (d, p) => `${d} · ${p} दिन का चक्र`,
+    criticalToday: 'आज नाज़ुक दिन है',
+    nextCritical: n => `अगले नाज़ुक दिन में ${n} दिन`,
+    chartAlt: 'बायोरिदम चार्ट',
+    scienceQ: 'क्या बायोरिदम विज्ञान है?',
+    scienceA: 'नहीं। 23 दिन (शारीरिक), 28 (भावनात्मक) और 33 (बौद्धिक) के चक्र बीसवीं सदी की शुरुआत में सुझाए गए थे और बस चलते रहे; इसका कोई पक्का प्रमाण नहीं कि ये बताते हों कि आप सचमुच कैसा महसूस करते या सोचते हैं। गणना ज़रूर पूरी तरह तय है — वही जन्म तिथि हर जगह वही चार्ट देती है। किसी अंक का सटीक होना और सही होना दो अलग बातें हैं। आज कैसा जा रहा है, यह इस ग्राफ़ से ज़्यादा सही आपका शरीर बताएगा।',
+  },
+  'zh-hans': {
+    ...DATE_FORM['zh-hans'],
+    title: '生物节律计算',
+    lead: '用出生日期看你的体力、情绪和智力三条节律',
+    submit: '查看我的节律',
+    empty: '填入出生日期就能看到今天的节律',
+    todayRhythm: '今天的节律',
+    daysOld: n => `出生至今 ${n} 天`,
+    chartNote: '虚线是今天 · 曲线穿过中线的那天就是临界日',
+    cycleOf: (d, p) => `${d} · ${p} 天周期`,
+    criticalToday: '今天是临界日',
+    nextCritical: n => `距离下一个临界日还有 ${n} 天`,
+    chartAlt: '生物节律曲线图',
+    scienceQ: '生物节律是科学吗？',
+    scienceA: '不是。体力23天、情绪28天、智力33天这三个周期是二十世纪初提出来的，后来就一直沿用；并没有确凿证据表明它们能预测你真实的身心状态。计算本身完全是确定的——同一个出生日期在哪里算都得到同一张图。数字精确和数字正确是两回事。今天状态如何，你的身体比这张图更准。',
+  },
+  'zh-hant': {
+    ...DATE_FORM['zh-hant'],
+    title: '生物節律計算',
+    lead: '用出生日期看你的體力、情緒和智力三條節律',
+    submit: '查看我的節律',
+    empty: '填入出生日期就能看到今天的節律',
+    todayRhythm: '今天的節律',
+    daysOld: n => `出生至今 ${n} 天`,
+    chartNote: '虛線是今天 · 曲線穿過中線的那天就是臨界日',
+    cycleOf: (d, p) => `${d} · ${p} 天週期`,
+    criticalToday: '今天是臨界日',
+    nextCritical: n => `距離下一個臨界日還有 ${n} 天`,
+    chartAlt: '生物節律曲線圖',
+    scienceQ: '生物節律是科學嗎？',
+    scienceA: '不是。體力23天、情緒28天、智力33天這三個週期是二十世紀初提出來的，後來就一直沿用；並沒有確鑿證據表明它們能預測你真實的身心狀態。計算本身完全是確定的——同一個出生日期在哪裡算都得到同一張圖。數字精確和數字正確是兩回事。今天狀態如何，你的身體比這張圖更準。',
+  },
+};
 
 function cyclesFor(lang: IntlLang) {
-  return CYCLES_EN;
+  return cycles(lang);
 }
 
 function phaseLabel(lang: IntlLang, phase: Phase): string {
-  return (PHASE_LABEL_EN)[phase];
+  return phaseLabels(lang)[phase];
 }
 
 /** 세 리듬 평균으로 한 줄 총평 — 한국어 overallComment의 언어별 대응 */
 function comment(result: BiorhythmResult, lang: IntlLang): string {
   const cycles = cyclesFor(lang);
-  const co = BIORHYTHM_COMMENT_EN;
+  const co = biorhythmComment(lang);
   const criticals = result.cycles.filter(c => c.phase === 'critical');
 
   if (criticals.length >= 2) {

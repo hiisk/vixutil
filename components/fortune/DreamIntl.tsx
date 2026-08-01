@@ -6,6 +6,8 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import type { DreamEntry } from '@/lib/dream-data';
 import { DREAM_DATA_EN, DREAM_CATEGORIES_EN } from '@/lib/dream-en';
+import { dreamDataOf, dreamCategoriesOf, spreadDream } from '@/lib/dream-l10n/index';
+import type { DreamCopy } from '@/lib/dream-l10n/types';
 import { t, type Lang } from '@/lib/fortune-intl';
 
 type IntlLang = Exclude<Lang, 'ko'>;
@@ -13,6 +15,7 @@ type IntlLang = Exclude<Lang, 'ko'>;
 /** 길흉 라벨 — 색은 한국어 LUCK_INFO와 같은 계열을 쓴다 */
 const LUCK_LABEL: Record<IntlLang, Record<string, string>> = {
   en: { '2': 'Very good', '1': 'Good', '0': 'Neutral', '-1': 'Caution', '-2': 'Warning' },
+  ...spreadDream('luck'),
 };
 
 const LUCK_STYLE: Record<string, string> = {
@@ -23,7 +26,9 @@ const LUCK_STYLE: Record<string, string> = {
   '-2': 'text-red-700 bg-red-50 border-red-200 dark:text-red-300 dark:bg-red-950/30 dark:border-red-900/50',
 };
 
-const COPY = {
+type DreamUi = DreamCopy['ui'];
+
+const COPY: Record<IntlLang, DreamUi> = {
   en: {
     title: 'Dream Dictionary',
     lead: 'Twenty dream symbols that show up across cultures, and what they are usually read as',
@@ -32,12 +37,13 @@ const COPY = {
     none: 'Nothing matched that search.',
     note: 'Dream interpretation has no scientific standing. What is described here is what these symbols are traditionally read as, and which situations they tend to be reported in — not a prediction.',
   },
-} as const;
+  ...spreadDream('ui'),
+};
 
 export default function DreamIntl({ lang }: { lang: IntlLang }) {
   const c = COPY[lang];
-  const data: DreamEntry[] = DREAM_DATA_EN;
-  const categories: string[] = DREAM_CATEGORIES_EN;
+  const data: DreamEntry[] = lang === 'en' ? DREAM_DATA_EN : dreamDataOf(lang);
+  const categories: string[] = lang === 'en' ? DREAM_CATEGORIES_EN : dreamCategoriesOf(lang);
 
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string | null>(null);

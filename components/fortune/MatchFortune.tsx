@@ -17,17 +17,73 @@ import {
 export type MatchKind = 'zodiac' | 'star' | 'mbti' | 'blood';
 
 const TITLES: Record<MatchKind, Record<IntlLang, string>> = {
-  zodiac: { en: 'Chinese Zodiac Compatibility' },
-  star:   { en: 'Star Sign Compatibility' },
-  mbti:   { en: 'MBTI Compatibility' },
-  blood:  { en: 'Blood Type Compatibility' },
+  zodiac: {
+    en: 'Chinese Zodiac Compatibility', es: 'Compatibilidad del horóscopo chino', 'pt-br': 'Compatibilidade do horóscopo chinês',
+    ja: '干支の相性', de: 'Chinesische Tierkreis-Kompatibilität', fr: 'Compatibilité de l’horoscope chinois',
+    hi: 'चीनी राशि की जोड़ी', 'zh-hans': '生肖配对', 'zh-hant': '生肖配對',
+  },
+  star: {
+    en: 'Star Sign Compatibility', es: 'Compatibilidad de signos', 'pt-br': 'Compatibilidade de signos',
+    ja: '星座の相性', de: 'Sternzeichen-Kompatibilität', fr: 'Compatibilité des signes',
+    hi: 'राशियों की जोड़ी', 'zh-hans': '星座配对', 'zh-hant': '星座配對',
+  },
+  mbti: {
+    en: 'MBTI Compatibility', es: 'Compatibilidad MBTI', 'pt-br': 'Compatibilidade MBTI',
+    ja: 'MBTIの相性', de: 'MBTI-Kompatibilität', fr: 'Compatibilité MBTI',
+    hi: 'MBTI जोड़ी', 'zh-hans': 'MBTI 配对', 'zh-hant': 'MBTI 配對',
+  },
+  blood: {
+    en: 'Blood Type Compatibility', es: 'Compatibilidad por grupo sanguíneo', 'pt-br': 'Compatibilidade por tipo sanguíneo',
+    ja: '血液型の相性', de: 'Blutgruppen-Kompatibilität', fr: 'Compatibilité des groupes sanguins',
+    hi: 'ब्लड ग्रुप जोड़ी', 'zh-hans': '血型配对', 'zh-hant': '血型配對',
+  },
 };
 
 const LEADS: Record<MatchKind, Record<IntlLang, string>> = {
-  zodiac: { en: 'Pick two animals to see how the traditional harmonies read them' },
-  star:   { en: 'Pick two signs to see how their elements match up' },
-  mbti:   { en: 'Pick two types to see how the four axes line up' },
-  blood:  { en: 'Pick two blood types to see how the pairing reads' },
+  zodiac: {
+    en: 'Pick two animals to see how the traditional harmonies read them',
+    es: 'Elige dos animales y mira cómo los leen las armonías tradicionales',
+    'pt-br': 'Escolha dois animais e veja como as harmonias tradicionais os leem',
+    ja: '干支を二つ選ぶと、伝統的な相性の見方でどう読まれるかが出ます',
+    de: 'Wähl zwei Tiere und sieh, wie die überlieferten Harmonien sie lesen',
+    fr: 'Choisissez deux animaux et voyez ce qu’en disent les harmonies traditionnelles',
+    hi: 'दो राशि-पशु चुनिए और देखिए कि परंपरागत मेल उन्हें कैसे पढ़ते हैं',
+    'zh-hans': '选两个生肖，看看传统的合冲怎么说',
+    'zh-hant': '選兩個生肖，看看傳統的合沖怎麼說',
+  },
+  star: {
+    en: 'Pick two signs to see how their elements match up',
+    es: 'Elige dos signos y mira cómo encajan sus elementos',
+    'pt-br': 'Escolha dois signos e veja como os elementos combinam',
+    ja: '星座を二つ選ぶと、エレメントの噛み合い方が出ます',
+    de: 'Wähl zwei Sternzeichen und sieh, wie ihre Elemente zusammenpassen',
+    fr: 'Choisissez deux signes et voyez comment leurs éléments s’accordent',
+    hi: 'दो राशियाँ चुनिए और देखिए उनके तत्व कैसे मिलते हैं',
+    'zh-hans': '选两个星座，看看两者的元素合不合',
+    'zh-hant': '選兩個星座，看看兩者的元素合不合',
+  },
+  mbti: {
+    en: 'Pick two types to see how the four axes line up',
+    es: 'Elige dos tipos y mira cómo se alinean los cuatro ejes',
+    'pt-br': 'Escolha dois tipos e veja como os quatro eixos se alinham',
+    ja: 'タイプを二つ選ぶと、四つの指標の並び方が出ます',
+    de: 'Wähl zwei Typen und sieh, wie die vier Achsen zusammenlaufen',
+    fr: 'Choisissez deux types et voyez comment les quatre axes s’alignent',
+    hi: 'दो टाइप चुनिए और देखिए चारों अक्ष कैसे मिलते हैं',
+    'zh-hans': '选两个类型，看看四个维度怎么对上',
+    'zh-hant': '選兩個類型，看看四個維度怎麼對上',
+  },
+  blood: {
+    en: 'Pick two blood types to see how the pairing reads',
+    es: 'Elige dos grupos sanguíneos y mira cómo se lee la pareja',
+    'pt-br': 'Escolha dois tipos sanguíneos e veja como a dupla é lida',
+    ja: '血液型を二つ選ぶと、その組み合わせの読みが出ます',
+    de: 'Wähl zwei Blutgruppen und sieh, wie das Paar gelesen wird',
+    fr: 'Choisissez deux groupes sanguins et voyez ce que donne la paire',
+    hi: 'दो ब्लड ग्रुप चुनिए और देखिए यह जोड़ी कैसी पढ़ी जाती है',
+    'zh-hans': '选两个血型，看看这组配对怎么读',
+    'zh-hant': '選兩個血型，看看這組配對怎麼讀',
+  },
 };
 
 const ICONS: Record<MatchKind, string> = { zodiac: '🐲', star: '⭐', mbti: '🧠', blood: '🩸' };

@@ -17,11 +17,22 @@ import {
 import {
   FORTUNE_POOL_EN, ADVICE_POOL_EN, LUCKY_ITEMS_EN, KEYWORD_POOL_EN, LUCKY_COLORS_EN, LUCKY_DIRECTIONS_EN,
   ZODIAC_SIGNS_EN, ANIMALS_EN, BLOOD_TYPES_EN, MBTI_TYPES_EN,
+  BIRTH_INFO_EN, LUCKY_COLOR_INFO_EN, LOTTO_EN, CYCLES_EN, PHASE_LABEL_EN, BIORHYTHM_COMMENT_EN,
 } from './fortune-en.ts';
+import {
+  FORTUNE_L10N, zodiacOf, animalsOf, bloodTypesOf, mbtiTypesOf, colorsOf,
+  birthInfoOf, colorInfoOf, cyclesOf,
+  type FortuneL10nLang, type BirthInfo, type ColorInfo, type Cycle, type CycleKey,
+} from './fortune-l10n/index.ts';
 
-export type Lang = 'ko' | 'en';
+export type Lang = 'ko' | 'en' | FortuneL10nLang;
 
-/** 언어별 주제 목록 — id는 세 언어가 동일하다 */
+/** 나중에 옮긴 여덟 언어인지 — 영어·한국어는 예전 자료 파일을 그대로 쓴다 */
+function l10n(lang: Lang): lang is FortuneL10nLang {
+  return lang !== 'ko' && lang !== 'en';
+}
+
+/** 언어별 주제 목록 — id는 열 언어가 동일하다 */
 export interface Subject {
   id: string;
   name: string;
@@ -34,19 +45,51 @@ export interface Subject {
 }
 
 export function zodiacSigns(lang: Lang): readonly Subject[] {
+  if (l10n(lang)) return zodiacOf(lang);
   return lang === 'ko' ? ZODIAC_SIGNS : ZODIAC_SIGNS_EN;
 }
 
 export function animals(lang: Lang): readonly Subject[] {
+  if (l10n(lang)) return animalsOf(lang);
   return lang === 'ko' ? ANIMALS : ANIMALS_EN;
 }
 
 export function bloodTypes(lang: Lang): readonly Subject[] {
+  if (l10n(lang)) return bloodTypesOf(lang);
   return lang === 'ko' ? BLOOD_TYPES : BLOOD_TYPES_EN;
 }
 
 export function mbtiTypes(lang: Lang): readonly Subject[] {
+  if (l10n(lang)) return mbtiTypesOf(lang);
   return lang === 'ko' ? MBTI_TYPES : MBTI_TYPES_EN;
+}
+
+/* ── 도구별 자료 — 예전에는 컴포넌트가 _EN 상수를 직접 읽어서 언어를 무시했다 ── */
+
+export function birthInfo(lang: Lang): readonly BirthInfo[] {
+  return l10n(lang) ? birthInfoOf(lang) : BIRTH_INFO_EN;
+}
+
+export function luckyColorInfo(lang: Lang): readonly ColorInfo[] {
+  return l10n(lang) ? colorInfoOf(lang) : LUCKY_COLOR_INFO_EN;
+}
+
+export function lottoLabels(lang: Lang): { weekdays: readonly string[]; timeSlots: readonly string[] } {
+  return l10n(lang) ? FORTUNE_L10N[lang].lotto : LOTTO_EN;
+}
+
+export type { CycleKey };
+
+export function cycles(lang: Lang): readonly Cycle[] {
+  return l10n(lang) ? cyclesOf(lang) : CYCLES_EN;
+}
+
+export function phaseLabels(lang: Lang): { high: string; low: string; critical: string } {
+  return l10n(lang) ? FORTUNE_L10N[lang].phaseLabel : PHASE_LABEL_EN;
+}
+
+export function biorhythmComment(lang: Lang) {
+  return l10n(lang) ? FORTUNE_L10N[lang].biorhythm : BIORHYTHM_COMMENT_EN;
 }
 
 interface Pools {
@@ -59,6 +102,13 @@ interface Pools {
 }
 
 function pools(lang: Lang): Pools {
+  if (l10n(lang)) {
+    const c = FORTUNE_L10N[lang];
+    return {
+      fortune: c.pool, advice: c.advice, items: c.items,
+      keywords: c.keywords, colors: colorsOf(lang), directions: [...c.directions],
+    };
+  }
   if (lang === 'ko') {
     return {
       fortune: FORTUNE_POOL, advice: ADVICE_POOL, items: LUCKY_ITEMS,
@@ -105,41 +155,58 @@ export function getTodayFortuneIntl(subjectId: string, lang: Lang) {
 }
 
 /* ── UI 문구 ── */
-type Copy = Record<Lang, string>;
-const c = (ko: string, en: string): Copy => ({ ko, en });
 
-export const FORTUNE_UI = {
-  fortuneOf:     c('운세', 'Horoscope'),
-  todaysFortune: c('오늘의 종합운', 'Today’s overall'),
-  overall:       c('✨ 오늘의 총운', '✨ Overall'),
-  advice:        c('💡 오늘의 조언', '💡 Advice'),
-  luck:          c('🍀 오늘의 행운', '🍀 Today’s luck'),
-  luckyColor:    c('행운의 색', 'Lucky colour'),
-  luckyNumber:   c('행운의 숫자', 'Lucky number'),
-  luckyDirection: c('행운의 방향', 'Lucky direction'),
-  luckyItem:     c('행운의 아이템', 'Lucky item'),
-  love:          c('연애운', 'Love'),
-  money:         c('금전운', 'Money'),
-  work:          c('직업운', 'Work'),
-  health:        c('건강운', 'Health'),
-  share:         c('공유', 'Share'),
-  copied:        c('복사됨', 'Copied'),
-  disclaimer: c(
+/**
+ * 한국어와 영어만 여기 적고, 나머지 여덟 언어는 언어 파일의 ui에서 꺼낸다.
+ * 열쇠가 같아서 tsc가 빠진 항목을 잡는다.
+ */
+type UiKey = keyof FortuneCopyUi;
+type FortuneCopyUi = (typeof FORTUNE_L10N)['es']['ui'];
+
+const KO_EN: Record<UiKey, [string, string]> = {
+  fortuneOf: ['운세', 'Horoscope'],
+  todaysFortune: ['오늘의 종합운', 'Today’s overall'],
+  overall: ['✨ 오늘의 총운', '✨ Overall'],
+  advice: ['💡 오늘의 조언', '💡 Advice'],
+  luck: ['🍀 오늘의 행운', '🍀 Today’s luck'],
+  luckyColor: ['행운의 색', 'Lucky colour'],
+  luckyNumber: ['행운의 숫자', 'Lucky number'],
+  luckyDirection: ['행운의 방향', 'Lucky direction'],
+  luckyItem: ['행운의 아이템', 'Lucky item'],
+  love: ['연애운', 'Love'],
+  money: ['금전운', 'Money'],
+  work: ['직업운', 'Work'],
+  health: ['건강운', 'Health'],
+  share: ['공유', 'Share'],
+  copied: ['복사됨', 'Copied'],
+  disclaimer: [
     '운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다',
     'Horoscopes are generated from today’s date and are for entertainment only',
-  ),
-} as const;
+  ],
+};
 
-export function t(key: keyof typeof FORTUNE_UI, lang: Lang): string {
-  return FORTUNE_UI[key][lang];
+export function t(key: UiKey, lang: Lang): string {
+  if (l10n(lang)) return FORTUNE_L10N[lang].ui[key];
+  return KO_EN[key][lang === 'ko' ? 0 : 1];
 }
 
-/** 언어별 오늘 날짜 표기 */
+/**
+ * 언어별 오늘 날짜 표기.
+ *
+ * toLocaleDateString에 언어 태그를 넘긴다 — 언어마다 순서와 구분자가 다르고
+ * (스페인어는 "1 de agosto de 2026", 독일어는 "1. August 2026") 그걸 직접
+ * 적기 시작하면 열 벌이 된다. 한자권만 예전처럼 손으로 만든다.
+ */
+const DATE_TAG: Record<Lang, string> = {
+  ko: 'ko-KR', en: 'en-US', es: 'es-ES', 'pt-br': 'pt-BR', ja: 'ja-JP',
+  de: 'de-DE', fr: 'fr-FR', hi: 'hi-IN', 'zh-hans': 'zh-Hans', 'zh-hant': 'zh-Hant',
+};
+
 export function formatToday(lang: Lang, d = new Date()): string {
   const y = d.getFullYear();
   const m = d.getMonth() + 1;
   const day = d.getDate();
   if (lang === 'ko') return `${y}년 ${m}월 ${day}일`;
-  if (false) return `${y}年${m}月${day}日`;
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  if (lang === 'ja' || lang === 'zh-hans' || lang === 'zh-hant') return `${y}年${m}月${day}日`;
+  return d.toLocaleDateString(DATE_TAG[lang], { year: 'numeric', month: 'long', day: 'numeric' });
 }
