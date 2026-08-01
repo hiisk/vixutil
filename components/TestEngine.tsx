@@ -29,7 +29,7 @@ const UI: Record<TestLang, {
 }> = {
   ko: {
     allTests: '전체 테스트', start: '테스트 시작하기 →', restart: '다시하기',
-    retake: '다시 테스트하기', more: '다른 테스트 보기', traits: '{ui.traits}',
+    retake: '다시 테스트하기', more: '다른 테스트 보기', traits: '주요 특성',
     resultOf: cat => `${cat} 테스트 결과`,
     meta: n => `${n}문항 · 약 2분 소요`,
     myMbti: t => `나의 MBTI는 ${t}!`,

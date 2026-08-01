@@ -24,7 +24,7 @@ const UI: Record<QuizLang, {
 }> = {
   ko: {
     allQuizzes: '전체 퀴즈', start: '퀴즈 시작하기 →', correct: '✓ 정답!', wrong: '✗ 오답',
-    explanation: '{ui.explanation}', next: '다음 문제 →', seeResult: '결과 보기 →', retry: '다시 풀기', more: '다른 퀴즈 보기',
+    explanation: '💡 해설', next: '다음 문제 →', seeResult: '결과 보기 →', retry: '다시 풀기', more: '다른 퀴즈 보기',
     meta: n => `${n}문항 · 4지선다 · 해설 포함`,
     score: p => `${p}점`,
     wrongCount: n => `틀린 문제 (${n}개)`,
