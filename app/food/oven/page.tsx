@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import FoodShell from '@/components/FoodShell';
 import OvenTool from '@/components/food/OvenTool';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: '외국 레시피의 350°F가 몇 도인지, 가스마크 4가 얼마인지 바꿔 줍니다. 같은 요리를 에어프라이어로 할 때의 온도와 시간도 함께 계산합니다.',
   alternates: {
     canonical: '/food/oven',
-    languages: alternateLanguages('/food/oven'),
+    languages: alternateLanguages10('/food/oven'),
   },
 };
 

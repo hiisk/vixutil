@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { ColorTool } from './color-tools.ts';
 import { COLOR_TOOLS } from './color-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 
 /**
  * 색상 도구(/color) 섹션의 번역 메타데이터.
@@ -737,7 +737,7 @@ export function colorMetaIntl(lang: ColorIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/color/${slug}`),
-      languages: alternateLanguages(`/color/${slug}`),
+      languages: alternateLanguages10(`/color/${slug}`),
     },
   };
 }
@@ -750,7 +750,7 @@ export function colorHubMetaIntl(lang: ColorIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/color'),
-      languages: alternateLanguages('/color'),
+      languages: alternateLanguages10('/color'),
     },
   };
 }

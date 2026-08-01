@@ -3,7 +3,7 @@ import type { Lang, FormulaLang } from './formula/terms.ts';
 import { IDIOMS, HANJA_CATEGORIES } from './hanja-tools.ts';
 import type { Idiom } from './hanja/types.ts';
 import { idiomText } from './hanja/types.ts';
-import { ALL_LOCALES, alternateLanguagesFor } from './locales.ts';
+import { ALL_LOCALES10, alternateLanguagesFor } from './locales.ts';
 
 export const HANJA_UI = {
   ko: {
@@ -324,5 +324,5 @@ export function hanjaFaq(i: Idiom, lang: FormulaLang) {
 
 export function hanjaAlternates(slug?: string) {
   const path = slug ? `/hanja/${slug}` : '/hanja';
-  return alternateLanguagesFor(path, [...ALL_LOCALES]);
+  return alternateLanguagesFor(path, [...ALL_LOCALES10]);
 }

@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { TimeTool } from './time-tools.ts';
 import { TIME_TOOLS } from './time-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 
 /**
  * 시간 도구(/time) 섹션의 번역 메타데이터.
@@ -638,7 +638,7 @@ export function timeMetaIntl(lang: ToolIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/time/${slug}`),
-      languages: alternateLanguages(`/time/${slug}`),
+      languages: alternateLanguages10(`/time/${slug}`),
     },
   };
 }
@@ -651,7 +651,7 @@ export function timeHubMetaIntl(lang: ToolIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/time'),
-      languages: alternateLanguages('/time'),
+      languages: alternateLanguages10('/time'),
     },
   };
 }

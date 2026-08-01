@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import TextShell from '@/components/TextShell';
 import ReplaceTool from '@/components/text/ReplaceTool';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: '이름이나 용어가 통째로 바뀌었을 때 긴 글에서 하나씩 고치지 않아도 됩니다. 대소문자 구분과 정규식을 켤 수 있고, 바꾸기 전에 몇 군데가 바뀌는지 미리 세어 알려줍니다.',
   alternates: {
     canonical: '/text/replace',
-    languages: alternateLanguages('/text/replace'),
+    languages: alternateLanguages10('/text/replace'),
   },
 };
 

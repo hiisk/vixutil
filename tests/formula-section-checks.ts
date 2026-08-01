@@ -263,12 +263,13 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
 
   test(`${name} 사이트맵에 그 섹션의 모든 언어가 들어 있다`, () => {
     /*
-      번역 언어는 INTL_LOCALES를 돌려 만든다. 주소를 한 줄씩 적어 두면 언어를
-      늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다.
+      번역 언어는 INTL_LOCALES10을 돌려 만든다. 주소를 한 줄씩 적어 두면 언어를
+      늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다 —
+      실제로 중국어가 그렇게 빠져 섹션마다 100장이 사이트맵에 0건이었다.
     */
     const src = readFileSync('app/sitemap.ts', 'utf8');
     assert.ok(src.includes(`/${key}\``) || src.includes(`/${key}/`), `사이트맵에 /${key} 없음`);
-    const intl = new RegExp(`INTL_LOCALES\\.flatMap[\\s\\S]{0,240}/${key}`);
+    const intl = new RegExp(`INTL_LOCALES10\\.flatMap[\\s\\S]{0,240}/${key}`);
     const hasIntl = intl.test(src);
     const hasEn = src.includes(`/en/${key}\``) || src.includes(`/en/${key}/`);
     assert.ok(hasIntl || hasEn, `사이트맵에 /en/${key} 없음`);

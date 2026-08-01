@@ -1,5 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     '메트로놈, 악기 튜너, BPM 측정, 백색소음, 바이노럴 비트, 소음 측정, 음성 녹음, 주파수 생성까지. 음원 파일 없이 브라우저가 직접 소리를 만듭니다.',
   alternates: {
     canonical: '/sound',
-    languages: alternateLanguages('/sound'),
+    languages: alternateLanguages10('/sound'),
   },
 };
 

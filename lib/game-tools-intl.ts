@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { GameTool } from './game-tools.ts';
 import { GAME_TOOLS } from './game-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 두뇌 게임(/game) 섹션의 번역 메타데이터.
@@ -633,7 +633,7 @@ export function gameMetaIntl(lang: GameIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/game/${slug}`),
-      languages: alternateLanguages(`/game/${slug}`),
+      languages: alternateLanguages10(`/game/${slug}`),
     },
   };
 }
@@ -646,7 +646,7 @@ export function gameHubMetaIntl(lang: GameIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/game'),
-      languages: alternateLanguages('/game'),
+      languages: alternateLanguages10('/game'),
     },
   };
 }

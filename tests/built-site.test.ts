@@ -306,22 +306,17 @@ test('hreflang이 서로를 가리킨다', { skip: built ? false : 'out/ 없음 
     if (set.size) declared.set(self, set);
   }
   /*
-   * 지금은 세 섹션(test·quiz·checklist)만 본다.
+   * 사이트 전체를 본다. 한때 6,448건이 걸렸는데 원인은 하나였다 —
+   * 중국어 두 언어를 더한 뒤에도 대부분의 섹션이 여덟 언어짜리
+   * `alternateLanguages()`를 부르고 있어서, **중국어 페이지는 존재하는데
+   * 아무도(자기 자신조차) 선언하지 않았다.** 열 언어짜리로 바꿔 풀었다.
    *
-   * 사이트 전체로 돌리면 6,448건이 걸린다. 원인은 하나다 — color·fortune·snap 등
-   * **한국어 페이지 136곳이 아직 `{ko, en}` 두 언어 표를 손으로 박아 두고** 있는데,
-   * 그쪽 번역 페이지는 여덟 언어를 선언한다. 세 섹션과 무관한 기존 부채이고,
-   * 고치려면 섹션마다 "그 언어에 실제로 그 페이지가 있는가"를 따져야 한다.
-   * lib/i18n/lang.ts의 alternates()를 그냥 씌우면 없는 페이지를 대안으로
-   * 선언하게 되어 지금보다 나빠진다.
-   *
-   * 그래서 범위를 넓힐 때는 그 섹션의 언어 목록을 확인한 뒤 함께 넓힌다.
-   * 좁혀 둔 채로 두면 새로 만드는 페이지가 같은 실수를 반복하지 않는다.
+   * 넓히기 전에 반드시 슬러그가 실제로 다 있는지 확인한다. 없는 페이지를
+   * 대안으로 선언하면 구글이 404를 받아 지금보다 나빠진다 —
+   * 그래서 두 함수가 따로 있는 것이다(lib/locales.ts).
    */
-  const SCOPE = /^\/([a-z-]+\/)?(test|quiz|checklist)(\/|$)/;
   const bad: string[] = [];
   for (const [self, targets] of declared) {
-    if (!SCOPE.test(self)) continue;
     for (const t of targets) {
       if (t === self) continue;
       const back = declared.get(t);

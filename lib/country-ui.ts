@@ -5,7 +5,7 @@ import type { Lang, FormulaLang } from './formula/terms.ts';
 import { COUNTRIES, COUNTRY_REGIONS } from './country-tools.ts';
 import type { Country } from './country/types.ts';
 import { countryText } from './country/types.ts';
-import { ALL_LOCALES, alternateLanguagesFor } from './locales.ts';
+import { ALL_LOCALES10, alternateLanguagesFor } from './locales.ts';
 
 export const COUNTRY_UI = {
   ko: {
@@ -478,5 +478,5 @@ export function countryFaq(c: Country, lang: FormulaLang) {
 
 export function countryAlternates(slug?: string) {
   const path = slug ? `/country/${slug}` : '/country';
-  return alternateLanguagesFor(path, [...ALL_LOCALES]);
+  return alternateLanguagesFor(path, [...ALL_LOCALES10]);
 }

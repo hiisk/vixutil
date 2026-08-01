@@ -1,5 +1,5 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
-import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10, type IntlLocale } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10, type IntlLocale } from './locales.ts';
 import { RANDOM_TOOLS_MAP } from './random-tools.ts';
 
 /**
@@ -758,7 +758,7 @@ export function randomHubMetaIntl(lang: RandomLang) {
     title: ui.metaTitle,
     description: ui.metaDesc,
     openGraph: openGraphFor(lang),
-    alternates: { canonical: localeHref(lang, '/random'), languages: alternateLanguages('/random') },
+    alternates: { canonical: localeHref(lang, '/random'), languages: alternateLanguages10('/random') },
   };
 }
 
@@ -771,7 +771,7 @@ export function randomMetaIntl(lang: RandomLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/random/${slug}`),
-      languages: alternateLanguages(`/random/${slug}`),
+      languages: alternateLanguages10(`/random/${slug}`),
     },
   };
 }

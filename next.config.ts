@@ -17,6 +17,20 @@ const nextConfig: NextConfig = {
    * 두 번째는 가장 나쁜 시점에 한다.
    */
   typescript: { ignoreBuildErrors: true },
+
+  experimental: {
+    /*
+     * 정적 페이지 3만 6천 장을 워커 여러 개가 동시에 그린다. 워커마다 자기 힙을
+     * 가지므로 컨테이너 메모리(8GB)는 워커 수에 거의 비례해 찬다 — Vercel이
+     * exit 137로 죽은 자리가 여기다.
+     *
+     * memoryBasedWorkersCount는 남은 메모리를 보고 워커 수를 정한다. cpus는 그
+     * 위에 두는 천장이다. 코어가 많은 기계에서 7~8개가 뜨는 것을 막는다.
+     * 빌드는 느려지지만, 안 끝나는 빌드보다 느린 빌드가 낫다.
+     */
+    memoryBasedWorkersCount: true,
+    cpus: 4,
+  },
 };
 
 export default nextConfig;

@@ -12,7 +12,7 @@ import { CHECKLISTS_INTL } from "@/lib/checklist-l10n/index";
 import { QUIZZES_INTL } from "@/lib/quiz-l10n/index";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
-import { INTL_LOCALES } from "@/lib/locales";
+import { INTL_LOCALES10 } from "@/lib/locales";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
 import { foodToolsIntl } from "@/lib/food-tools-intl";
@@ -171,7 +171,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 단위 변환은 slug가 여덟 언어에서 같다 — 언어 목록만 돌리면 된다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/convert`, changeFrequency: weekly, priority: 0.9 },
       ...CONVERT_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -180,7 +180,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 비율 계산도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/rate`, changeFrequency: weekly, priority: 0.9 },
       ...RATE_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/rate/${t.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -189,7 +189,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/body`, changeFrequency: weekly, priority: 0.95 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/body/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 몸 수치도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/body`, changeFrequency: weekly, priority: 0.9 },
       ...BODY_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/body/${t.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -198,7 +198,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/geometry`, changeFrequency: weekly, priority: 0.95 },
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/geometry/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 도형 계산도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/geometry`, changeFrequency: weekly, priority: 0.9 },
       ...GEO_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/geometry/${t.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -207,7 +207,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/country`, changeFrequency: weekly, priority: 0.95 },
     ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/country/${c.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 나라 정보도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/country`, changeFrequency: weekly, priority: 0.9 },
       ...COUNTRIES.map((c: { slug: string }) => ({
         url: `${BASE}/${lang}/country/${c.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -216,7 +216,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 사자성어도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/hanja`, changeFrequency: weekly, priority: 0.9 },
       ...IDIOMS.map((i: { slug: string }) => ({
         url: `${BASE}/${lang}/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -446,14 +446,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 코인별 price-prediction 페이지는 noindex 처리했으므로 사이트맵에서 제외한다.
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     // 언어별 첫 화면. 레지스트리에서 만들어야 언어를 늘렸을 때 여기가 안 빠진다
-    ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
+    ...INTL_LOCALES10.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
     // 중국어 첫 화면 — 아직 체스·포커만 실리지만 주소는 있어야 색인된다
     { url: `${BASE}/zh-hans`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/zh-hant`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     // 랜덤 뽑기도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/random`, changeFrequency: weekly, priority: 0.9 },
       ...RANDOM_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/random/${t.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -489,64 +489,64 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/en/snap/animal-face`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/personal-color`, changeFrequency: monthly, priority: 0.8 },
     { url: `${BASE}/en/snap/couple-match`, changeFrequency: monthly, priority: 0.8 },
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/time`, changeFrequency: weekly, priority: 0.9 },
       ...timeToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/time/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    // 색상 도구는 번역 일곱 언어 전부 나간다 — 언어를 늘리면 INTL_LOCALES만 커지면 된다
-    ...INTL_LOCALES.flatMap((lang) => [
+    // 색상 도구는 번역 열 언어 전부 나간다 — 언어를 늘리면 INTL_LOCALES10만 커지면 된다
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/color`, changeFrequency: weekly, priority: 0.9 },
       ...colorToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/color/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/image`, changeFrequency: weekly, priority: 0.9 },
       ...imageToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/image/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/sound`, changeFrequency: weekly, priority: 0.9 },
       ...soundToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/sound/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/food`, changeFrequency: weekly, priority: 0.9 },
       ...foodToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/food/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/game`, changeFrequency: weekly, priority: 0.9 },
       ...gameToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/game/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/device`, changeFrequency: weekly, priority: 0.9 },
       ...deviceToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/device/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
 
-    ...INTL_LOCALES.flatMap((lang) => [
+    ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/text`, changeFrequency: weekly, priority: 0.9 },
       ...textToolsIntl(lang).map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/text/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
     // 통합 검색은 번역 일곱 언어 모두 나간다
-    ...INTL_LOCALES.map((lang) => ({ url: `${BASE}/${lang}/search`, changeFrequency: weekly, priority: 0.7 })),
+    ...INTL_LOCALES10.map((lang) => ({ url: `${BASE}/${lang}/search`, changeFrequency: weekly, priority: 0.7 })),
     // 심리테스트는 한국어를 뺀 아홉 언어가 같은 다섯 종을 가진다
     ...(Object.entries(TESTS_INTL) as [string, { slug: string }[]][]).flatMap(([lang, tests]) => [
       { url: `${BASE}/${lang}/test`, changeFrequency: weekly, priority: 0.9 },

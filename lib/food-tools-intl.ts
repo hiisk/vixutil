@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { FoodTool } from './food-tools.ts';
 import { FOOD_TOOLS } from './food-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 
 /**
  * 요리 도구(/food) 섹션의 번역 메타데이터.
@@ -641,7 +641,7 @@ export function foodMetaIntl(lang: FoodIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/food/${slug}`),
-      languages: alternateLanguages(`/food/${slug}`),
+      languages: alternateLanguages10(`/food/${slug}`),
     },
   };
 }
@@ -654,7 +654,7 @@ export function foodHubMetaIntl(lang: FoodIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/food'),
-      languages: alternateLanguages('/food'),
+      languages: alternateLanguages10('/food'),
     },
   };
 }

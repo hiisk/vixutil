@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { DeviceTool } from './device-tools.ts';
 import { DEVICE_TOOLS } from './device-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 기기 점검(/device) 섹션의 번역 메타데이터.
@@ -631,7 +631,7 @@ export function deviceMetaIntl(lang: DeviceIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/device/${slug}`),
-      languages: alternateLanguages(`/device/${slug}`),
+      languages: alternateLanguages10(`/device/${slug}`),
     },
   };
 }
@@ -644,7 +644,7 @@ export function deviceHubMetaIntl(lang: DeviceIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/device'),
-      languages: alternateLanguages('/device'),
+      languages: alternateLanguages10('/device'),
     },
   };
 }

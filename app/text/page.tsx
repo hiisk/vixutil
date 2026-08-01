@@ -1,5 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     '한/영 잘못 친 글자 되돌리기, 여권 영문 이름, 한글 금액, 초성 변환, 특수문자·이모티콘, 중복 줄 제거, 원고지 매수까지 한 곳에서. 설치 없이 브라우저에서 바로.',
   alternates: {
     canonical: '/text',
-    languages: alternateLanguages('/text'),
+    languages: alternateLanguages10('/text'),
   },
 };
 

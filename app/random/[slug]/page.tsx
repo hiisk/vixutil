@@ -1,6 +1,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { alternateLanguages10 } from '@/lib/locales';
 import Link from 'next/link';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '@/lib/random-tools';
 import RandomToolShell from '@/components/random/RandomToolShell';
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: t.long,
     alternates: {
       canonical: `/random/${slug}`,
-      languages: { 'ko': `/random/${slug}`, 'en': `/en/random/${slug}`, 'x-default': `/en/random/${slug}` },
+      languages: alternateLanguages10(`/random/${slug}`),
     },
   };
 }

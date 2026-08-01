@@ -1,6 +1,6 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import {
-  ALL_LOCALES10, alternateLanguages, localeHref, localeTag, openGraphFor,
+  ALL_LOCALES10, alternateLanguages10, localeHref, localeTag, openGraphFor,
   type AnyLocale10,
 } from './locales.ts';
 import { CONVERT_MAP } from './convert-tools.ts';
@@ -320,7 +320,7 @@ export const CONVERT_HUB_FAQ: Record<Exclude<AnyLocale10, 'ko'>, { q: string; a:
 
 /** hreflang 묶음 — 열 언어가 모두 같은 slug를 쓰므로 레지스트리에서 만든다 */
 export function convertAlternates(slug?: string) {
-  return alternateLanguages(slug ? `/convert/${slug}` : '/convert');
+  return alternateLanguages10(slug ? `/convert/${slug}` : '/convert');
 }
 
 /**

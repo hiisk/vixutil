@@ -153,18 +153,18 @@ test('세 언어 라우트가 모두 있다', () => {
   }
 });
 
-test('hreflang이 여덟 언어와 x-default를 낸다', () => {
+test('hreflang이 열 언어와 x-default를 낸다', () => {
   const a = hanjaAlternates('samyeonchoga');
-  assert.equal(Object.keys(a).length, 9);
+  assert.equal(Object.keys(a).length, 11);
   assert.equal(a.ko, '/hanja/samyeonchoga');
   assert.equal(a['pt-BR'], '/pt-br/hanja/samyeonchoga');
   assert.equal(a['x-default'], '/en/hanja/samyeonchoga');
 });
 
-test('사이트맵이 여덟 언어의 /hanja를 낸다', () => {
+test('사이트맵이 열 언어의 /hanja를 낸다', () => {
   const src = readFileSync('app/sitemap.ts', 'utf8');
   assert.ok(src.includes('/hanja`'), '사이트맵에 /hanja 없음');
-  assert.match(src, /INTL_LOCALES\.flatMap[\s\S]{0,400}\/hanja/, '사이트맵이 /hanja를 언어별로 돌리지 않는다');
+  assert.match(src, /INTL_LOCALES10\.flatMap[\s\S]{0,400}\/hanja/, '사이트맵이 /hanja를 언어별로 돌리지 않는다');
 });
 
 test('한국식·중국 고전 출처가 섞여 있다는 안내가 여덟 언어에 있다', () => {

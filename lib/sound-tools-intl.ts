@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { SoundTool } from './sound-tools.ts';
 import { SOUND_TOOLS } from './sound-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 소리 도구(/sound) 섹션의 번역 메타데이터.
@@ -637,7 +637,7 @@ export function soundMetaIntl(lang: SoundIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/sound/${slug}`),
-      languages: alternateLanguages(`/sound/${slug}`),
+      languages: alternateLanguages10(`/sound/${slug}`),
     },
   };
 }
@@ -650,7 +650,7 @@ export function soundHubMetaIntl(lang: SoundIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/sound'),
-      languages: alternateLanguages('/sound'),
+      languages: alternateLanguages10('/sound'),
     },
   };
 }

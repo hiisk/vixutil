@@ -55,6 +55,19 @@ export type AnyLocale10 = typeof ALL_LOCALES10[number];
  * 있어서(예: 요리·게임) 두 타입을 함께 둔다.
  */
 export const INTL_LOCALES = ['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'] as const;
+
+/**
+ * 번역 언어 열 개 — 한국어만 뺀 것. 사이트맵이 쓴다.
+ *
+ * INTL_LOCALES(일곱)로 도는 자리가 열아홉 곳 있었는데, 중국어 두 언어를 더한
+ * 뒤에도 그대로여서 **중국어 페이지 수천 장이 사이트맵에서 통째로 빠져 있었다**
+ * (convert만 해도 100장이 0건이었다). 구글이 페이지를 찾는 주 경로가 사이트맵이라
+ * 링크가 살아 있어도 발견이 늦어진다.
+ *
+ * 넣기 전에 그 섹션에 중국어가 실제로 있는지 확인한다 — 없는 주소를 사이트맵에
+ * 실으면 404가 색인 대기열에 쌓인다.
+ */
+export const INTL_LOCALES10 = [...INTL_LOCALES, 'zh-hans', 'zh-hant'] as const;
 export type IntlLocale = typeof INTL_LOCALES[number];
 
 /** 한국어까지 포함 */

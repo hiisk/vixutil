@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import TextShell from '@/components/TextShell';
 import EmoticonTool from '@/components/text/EmoticonTool';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'ㅇㅅㅇ, (╯°□°）╯, ¯\\_(ツ)_/¯ 처럼 문자로만 만든 이모티콘을 감정별로 모았습니다. 이미지가 아니라 글자라서 어디에 붙여 넣어도 깨지지 않고, 닉네임이나 상태 메시지에도 쓸 수 있습니다.',
   alternates: {
     canonical: '/text/emoticon',
-    languages: alternateLanguages('/text/emoticon'),
+    languages: alternateLanguages10('/text/emoticon'),
   },
 };
 

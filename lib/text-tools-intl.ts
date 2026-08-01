@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { TextTool } from './text-tools.ts';
 import { TEXT_TOOLS } from './text-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 텍스트 도구(/text) 섹션의 번역 메타데이터.
@@ -527,7 +527,7 @@ export function textMetaIntl(lang: TextIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/text/${slug}`),
-      languages: alternateLanguages(`/text/${slug}`),
+      languages: alternateLanguages10(`/text/${slug}`),
     },
   };
 }
@@ -540,7 +540,7 @@ export function textHubMetaIntl(lang: TextIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/text'),
-      languages: alternateLanguages('/text'),
+      languages: alternateLanguages10('/text'),
     },
   };
 }

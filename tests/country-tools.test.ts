@@ -188,20 +188,22 @@ test('세 언어 라우트가 모두 있다', () => {
   }
 });
 
-test('hreflang이 여덟 언어와 x-default를 낸다', () => {
+test('hreflang이 열 언어와 x-default를 낸다', () => {
   const a = countryAlternates('japan');
-  // 여덟 언어 + x-default. 하나라도 빠지면 구글이 묶음을 통째로 무시한다
-  assert.equal(Object.keys(a).length, 9);
+  // 열 언어 + x-default. 하나라도 빠지면 구글이 묶음을 통째로 무시한다.
+  // 중국어를 더한 뒤에도 여덟 언어짜리를 부르던 탓에, 중국어 페이지 100장이
+  // 있는데 아무도 선언하지 않는 상태였다.
+  assert.equal(Object.keys(a).length, 11);
   assert.equal(a.ko, '/country/japan');
   assert.equal(a['pt-BR'], '/pt-br/country/japan');
   assert.equal(a['x-default'], '/en/country/japan');
 });
 
-test('사이트맵이 여덟 언어의 /country를 낸다', () => {
+test('사이트맵이 열 언어의 /country를 낸다', () => {
   const src = readFileSync('app/sitemap.ts', 'utf8');
-  // ko는 그대로 적히고, 나머지 일곱은 INTL_LOCALES를 돌려 만든다
+  // ko는 그대로 적히고, 나머지 아홉은 INTL_LOCALES10을 돌려 만든다
   assert.ok(src.includes('/country`'), '사이트맵에 /country 없음');
-  assert.match(src, /INTL_LOCALES\.flatMap[\s\S]{0,400}\/country/, '사이트맵이 /country를 언어별로 돌리지 않는다');
+  assert.match(src, /INTL_LOCALES10\.flatMap[\s\S]{0,400}\/country/, '사이트맵이 /country를 언어별로 돌리지 않는다');
 });
 
 test('비자 정책이 바뀔 수 있다는 안내가 여덟 언어에 모두 있다', () => {

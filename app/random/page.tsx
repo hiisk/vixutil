@@ -1,6 +1,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { alternateLanguages10 } from '@/lib/locales';
 import { RANDOM_TOOLS } from '@/lib/random-tools';
 import { ROLLS, DICE_ICON } from '@/lib/dice/list';
 import { DICE_UI } from '@/lib/dice/ui';
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   description: '룰렛 돌림판·사다리타기·팀 나누기·랜덤 뽑기·숫자 추첨·동전/주사위 — 공정하게 하나를 정하는 결정 도우미 모음',
   alternates: {
     canonical: '/random',
-    languages: { 'ko': '/random', 'en': '/en/random', 'x-default': '/en/random' },
+    languages: alternateLanguages10('/random'),
   },
 };
 

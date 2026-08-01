@@ -1,7 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import type { ImageTool } from './image-tools.ts';
 import { IMAGE_TOOLS } from './image-tools.ts';
-import { alternateLanguages, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 
 /**
  * 이미지 도구(/image) 섹션의 번역 메타데이터.
@@ -534,7 +534,7 @@ export function imageMetaIntl(lang: ImageIntlLang, slug: string) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, `/image/${slug}`),
-      languages: alternateLanguages(`/image/${slug}`),
+      languages: alternateLanguages10(`/image/${slug}`),
     },
   };
 }
@@ -547,7 +547,7 @@ export function imageHubMetaIntl(lang: ImageIntlLang) {
     openGraph: openGraphFor(lang),
     alternates: {
       canonical: localeHref(lang, '/image'),
-      languages: alternateLanguages('/image'),
+      languages: alternateLanguages10('/image'),
     },
   };
 }

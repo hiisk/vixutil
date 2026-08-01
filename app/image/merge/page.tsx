@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import ImageShell from '@/components/ImageShell';
 import MergeTool from '@/components/image/MergeTool';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: '대화 캡처를 한 장으로 잇거나 비포·애프터를 나란히 붙일 때 씁니다. 폭이 다른 사진도 자동으로 맞춰 정렬하고, 사진 사이 간격과 배경색을 고를 수 있습니다.',
   alternates: {
     canonical: '/image/merge',
-    languages: alternateLanguages('/image/merge'),
+    languages: alternateLanguages10('/image/merge'),
   },
 };
 

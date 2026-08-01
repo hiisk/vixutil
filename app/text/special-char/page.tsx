@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { alternateLanguages } from '@/lib/locales';
+import { alternateLanguages10 } from '@/lib/locales';
 import TextShell from '@/components/TextShell';
 import SpecialCharTool from '@/components/text/SpecialCharTool';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: '화살표(→ ⇒), 도형(★ ◆ ▶), 문장부호(※ 「」), 수학·단위(㎡ ℃ ±), 화폐(₩ €), 원문자(① ㉠)를 눌러서 바로 복사합니다. 자판으로 칠 수 없는 기호를 찾아 헤매지 않아도 됩니다.',
   alternates: {
     canonical: '/text/special-char',
-    languages: alternateLanguages('/text/special-char'),
+    languages: alternateLanguages10('/text/special-char'),
   },
 };
 

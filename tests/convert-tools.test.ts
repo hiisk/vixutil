@@ -9,7 +9,7 @@ import {
 import { convertFaq } from '../lib/convert-faq.ts';
 import { CONVERT_EN, CONVERT_CATEGORY, CONVERT_L10N } from '../lib/convert-i18n.ts';
 import { convertAlternates, CONVERT_HUB_FAQ } from '../lib/convert-ui-intl.ts';
-import { ALL_LOCALES, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
+import { ALL_LOCALES10, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -164,9 +164,9 @@ test('언어별 제목이 서로 겹치지 않는다', () => {
   }
 });
 
-test('분류 이름이 여덟 언어로 번역돼 있다', () => {
+test('분류 이름이 열 언어로 번역돼 있다', () => {
   // 열쇠가 한 글자만 달라도 그 묶음이 허브에서 조용히 사라진다
-  for (const lang of ALL_LOCALES) {
+  for (const lang of ALL_LOCALES10) {
     for (const c of CONVERT_CATEGORIES) {
       assert.ok(CONVERT_CATEGORY[lang][c], `${lang} 분류 누락: ${c}`);
     }
@@ -184,8 +184,8 @@ test('허브 FAQ가 일곱 언어에 다 있다', () => {
   }
 });
 
-test('여덟 언어 라우트가 다 있다', () => {
-  for (const lang of ALL_LOCALES) {
+test('열 언어 라우트가 다 있다', () => {
+  for (const lang of ALL_LOCALES10) {
     const base = join(ROOT, 'app', ...localeHref(lang, '/convert').split('/').filter(Boolean));
     assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
     assert.ok(existsSync(join(base, 'opengraph-image.tsx')), `${lang} 허브 OG 없음`);
@@ -193,10 +193,12 @@ test('여덟 언어 라우트가 다 있다', () => {
   }
 });
 
-test('hreflang이 여덟 언어를 모두 가리킨다', () => {
-  // 한 언어라도 빠지면 그 언어 페이지가 중복으로 취급된다
+test('hreflang이 열 언어를 모두 가리킨다', () => {
+  // 한 언어라도 빠지면 그 언어 페이지가 중복으로 취급된다.
+  // 중국어 둘을 더한 뒤에도 여덟 언어짜리를 부르고 있어서, 중국어 페이지는
+  // 있는데 아무도 선언하지 않는 상태가 오래 갔다.
   const alt = convertAlternates('cm-inch');
-  for (const lang of ALL_LOCALES) {
+  for (const lang of ALL_LOCALES10) {
     assert.equal(alt[localeTag(lang)], localeHref(lang, '/convert/cm-inch'), `${lang} 대안 주소가 틀렸다`);
   }
   assert.equal(alt['x-default'], '/en/convert/cm-inch');
@@ -205,7 +207,7 @@ test('hreflang이 여덟 언어를 모두 가리킨다', () => {
 
   const hub = convertAlternates();
   assert.equal(hub.ko, '/convert');
-  assert.equal(Object.keys(hub).length, ALL_LOCALES.length + 1);
+  assert.equal(Object.keys(hub).length, ALL_LOCALES10.length + 1);
 });
 
 test('FAQ가 언어마다 그 언어로 나온다', () => {
@@ -225,14 +227,15 @@ test('FAQ가 언어마다 그 언어로 나온다', () => {
   }
 });
 
-test('사이트맵에 여덟 언어가 다 실린다', () => {
+test('사이트맵에 열 언어가 다 실린다', () => {
   /*
-    번역 일곱 언어는 INTL_LOCALES를 돌려 만든다. 주소를 한 줄씩 적어 두면 언어를
-    늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다.
+    번역 아홉 언어는 INTL_LOCALES10을 돌려 만든다. 주소를 한 줄씩 적어 두면 언어를
+    늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다 —
+    실제로 중국어가 그렇게 빠져 convert 100쪽이 사이트맵에 0건이었다.
   */
   const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/convert`') || sitemap.includes('/convert/'), '사이트맵에 한국어 /convert 없음');
-  assert.match(sitemap, /INTL_LOCALES\.flatMap[\s\S]{0,200}\/convert/, '번역 언어를 목록에서 만들지 않는다');
+  assert.match(sitemap, /INTL_LOCALES10\.flatMap[\s\S]{0,200}\/convert/, '번역 언어를 목록에서 만들지 않는다');
 });
 
 test('한글 단위 기호는 번역 일곱 언어에서 바뀐다', () => {
