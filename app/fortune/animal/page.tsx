@@ -8,6 +8,8 @@ import FortuneDisplay from '@/components/FortuneDisplay';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export default function AnimalPage() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -44,6 +46,9 @@ export default function AnimalPage() {
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1 truncate">
             {animal ? animal.name : '사주·띠 운세'}
+          </span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/animal" available={ALL_LOCALES10} />
           </span>
         </div>
       </header>

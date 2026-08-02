@@ -1,7 +1,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import { idiomText, idiomGloss } from '@/lib/hanja/types';
-import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
+import { localeHref } from '@/lib/locales';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';

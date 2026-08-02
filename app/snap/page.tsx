@@ -9,6 +9,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { LENSES, LENS_ICON } from '@/lib/lens/list';
 import { LENS_UI } from '@/lib/lens/ui';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '스냅테스트 — 사진으로 하는 참여형 테스트',
@@ -62,6 +64,9 @@ export default function SnapPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">스냅테스트</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/snap" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

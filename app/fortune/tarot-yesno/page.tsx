@@ -8,6 +8,8 @@ import ShareButton from '@/components/ShareButton';
 import PageGlow from '@/components/PageGlow';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { TAROT_CARDS } from '@/lib/fortune-data';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type Verdict = 'yes' | 'no' | 'maybe';
 
@@ -83,6 +85,9 @@ export default function TarotYesNoPage() {
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/" className="font-black text-violet-600 text-lg shrink-0">vix.</Link>
           <Link href="/fortune" className="text-sm font-bold text-slate-700 dark:text-slate-200">🔮 타로 예스/노</Link>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/tarot-yesno" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

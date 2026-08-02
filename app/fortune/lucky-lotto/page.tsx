@@ -9,6 +9,8 @@ import ShareButton from '@/components/ShareButton';
 import PageGlow from '@/components/PageGlow';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { getLuckyLotto, ballColor, ymdOf, type LuckyLotto } from '@/lib/lucky-lotto';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function Ball({ n, bonus }: { n: number; bonus?: boolean }) {
   return (
@@ -57,6 +59,11 @@ export default function LuckyLottoPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">행운의 로또 번호</span>
+          {/* 한국어만 주소가 다르다 — 한국 로또 전용으로 만들어 lucky-lotto다 */}
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/lucky-numbers"
+              overrides={{ ko: '/fortune/lucky-lotto' }} available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

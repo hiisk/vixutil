@@ -9,6 +9,8 @@ import { getFaceReading, type FaceReadingResult, type FaceRatios } from '@/lib/f
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -246,6 +248,9 @@ export default function FaceReadingPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">관상 테스트</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/snap/face-reading" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

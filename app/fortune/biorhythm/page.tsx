@@ -7,6 +7,8 @@ import Faq from '@/components/Faq';
 import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import {
   CYCLES, PHASE_LABEL, getBiorhythm, getChartSeries, overallComment,
   type BiorhythmResult, type ChartPoint,
@@ -152,6 +154,9 @@ export default function BiorhythmPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">바이오리듬</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/biorhythm" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

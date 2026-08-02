@@ -9,6 +9,8 @@ import { getExpressionResult, EMOTION_ORDER, type ExpressionResult, type Emotion
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -141,6 +143,9 @@ export default function ExpressionPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">표정 감정 분석</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/snap/expression" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

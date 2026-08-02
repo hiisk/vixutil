@@ -8,6 +8,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import MatchResultCard from '@/components/MatchResultCard';
 import { BLOOD_TYPES, calcBloodMatch, type BloodType } from '@/lib/blood-match';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function TypeRow({
   label, value, onChange, accent,
@@ -66,6 +68,9 @@ export default function BloodMatchPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">혈액형 궁합</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/blood-match" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

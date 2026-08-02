@@ -9,6 +9,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { TAROT_UI } from '@/lib/tarot/ui';
 import { TAROT_ICON } from '@/lib/tarot/deck';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '오늘의 운세',
@@ -71,6 +73,9 @@ export default function FortunePage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">운세</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

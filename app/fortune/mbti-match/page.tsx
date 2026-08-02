@@ -8,6 +8,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import MatchResultCard from '@/components/MatchResultCard';
 import { MBTI_TYPES, calcMbtiMatch, type MbtiType } from '@/lib/mbti-match';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function MbtiPicker({
   label, value, onChange, accent,
@@ -63,6 +65,9 @@ export default function MbtiMatchPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">MBTI 궁합</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/mbti-match" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

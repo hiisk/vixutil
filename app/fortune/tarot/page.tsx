@@ -8,6 +8,8 @@ import Faq from '@/components/Faq';
 import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /* ═══════════════════════════════════════════
    스프레드 정의
@@ -514,6 +516,9 @@ export default function TarotPage() {
               {t === 'draw' ? '🃏 뽑기' : '📚 카드 목록'}
             </button>
           ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/tarot" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

@@ -17,6 +17,8 @@ import { analyzeFortune } from '@/lib/saju-fortune';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /* ── 기둥 카드 ── */
 function PillarCard({ label, pillar, isDay, ilganIdx }: {
@@ -284,6 +286,9 @@ export default function SajuPage() {
               공유
             </button>
           )}
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/saju" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

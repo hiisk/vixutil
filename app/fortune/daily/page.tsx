@@ -7,6 +7,8 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import FortuneDisplay from '@/components/FortuneDisplay';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /** 생년월일로 오늘의 종합운세를 본다. FortuneDisplay가 날짜+생일 시드로 운세를 뽑는다. */
 export default function DailyFortunePage() {
@@ -44,6 +46,9 @@ export default function DailyFortunePage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">오늘의 종합운세</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/fortune/daily" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

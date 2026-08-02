@@ -9,6 +9,8 @@ import { getHandwritingResult, type HandwritingResult } from '@/lib/handwriting-
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function clampUnit(x: number) {
   return Math.max(0, Math.min(1, x));
@@ -178,6 +180,9 @@ export default function HandwritingPage() {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">손글씨 심리 테스트</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/snap/handwriting" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 
