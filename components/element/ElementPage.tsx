@@ -72,7 +72,7 @@ export default function ElementPage({ slug, lang }: { slug: string; lang: Lang }
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{name}</span>
           <div className="ml-auto shrink-0">
-            <LangPicker current={localeOfLang(lang)} route={`/${x.z}`} available={LOCALE_PATHS} />
+            <LangPicker current={localeOfLang(lang)} route={`/element/${x.z}`} available={LOCALE_PATHS} />
           </div>
         </div>
       </header>

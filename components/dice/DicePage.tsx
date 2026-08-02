@@ -71,7 +71,7 @@ export default function DicePage({ slug, lang }: { slug: string; lang: Lang }) {
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{title}</span>
           <div className="ml-auto shrink-0">
-            <LangPicker current={localeOfLang(lang)} route={`/${slug}`} available={LOCALE_PATHS} />
+            <LangPicker current={localeOfLang(lang)} route={`/random/dice/${slug}`} available={LOCALE_PATHS} />
           </div>
         </div>
       </header>
