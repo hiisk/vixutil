@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   description: '닉네임, 비밀번호, 명언, 메뉴 등 100가지 랜덤 생성기 모음',
   alternates: {
     canonical: '/generator',
-    languages: { 'ko': '/generator', 'en': '/en/generator', 'x-default': '/en/generator' },
+    languages: alternateLanguages10('/generator'),
   },
 };
 

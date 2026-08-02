@@ -8,6 +8,7 @@ import ReferralCards from '@/components/ReferralCards';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
+import { alternateLanguages10 } from '@/lib/locales';
 
 export function generateStaticParams() {
   return GENERATORS_EN.map(g => ({ slug: g.slug }));
@@ -20,13 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${gen.title} — free & instant`,
     description: `${gen.desc} Generate unique ideas in one click — free, no sign-up.`,
+    // 스무 개는 열 언어가 모두 같은 슬러그를 쓴다 — 여기서 영어·한국어만
+    // 선언하면 나머지 여덟이 이쪽을 가리켜도 짝이 맞지 않는다
     alternates: {
       canonical: `/en/generator/${slug}`,
-      languages: {
-        'en': `/en/generator/${slug}`,
-        'ko': `/generator/${slug}`,
-        'x-default': `/en/generator/${slug}`,
-      },
+      languages: alternateLanguages10(`/generator/${slug}`),
     },
   };
 }

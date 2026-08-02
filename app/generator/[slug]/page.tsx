@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { GENERATORS, GENERATOR_MAP } from '@/lib/generator-data';
 import { EN_GENERATOR_SLUGS } from '@/lib/generator-en';
+import { alternateLanguages10 } from '@/lib/locales';
 import GeneratorEngine from '@/components/GeneratorEngine';
 import GeneratorContent from '@/components/GeneratorContent';
 import RelatedContent from '@/components/RelatedContent';
@@ -18,15 +19,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const gen = GENERATOR_MAP[slug];
   if (!gen) return {};
-  // 영어·중국어판이 있는 생성기는 hreflang으로 언어별 대체 URL을 연결 —
-  // 해당 언어로 검색해 들어오면 그 언어 페이지로 간다.
-  const languages: Record<string, string> = { 'ko': `/generator/${slug}` };
-  if (EN_GENERATOR_SLUGS.has(slug)) { languages['en'] = `/en/generator/${slug}`; languages['x-default'] = `/en/generator/${slug}`; }
-  const hasAlt = Object.keys(languages).length > 1;
+  /*
+   * 번역판이 있는 스무 개만 hreflang을 단다 — 나머지 백여든넷은 한국어뿐이라
+   * 대안이 없다. EN_GENERATOR_SLUGS가 그 스무 개이고, 아홉 언어가 모두 같은
+   * 슬러그를 쓰므로 열 언어를 그대로 선언해도 404가 나지 않는다.
+   *
+   * 예전에는 여기서 영어만 선언했다. 그래서 독일어판이 한국어를 가리키는데
+   * 한국어는 독일어를 안 가리키는 짝짝이가 됐고, 구글은 한쪽만 걸린 hreflang을
+   * 짝으로 인정하지 않는다 — 페이지는 멀쩡한데 연결만 끊겨 있었다.
+   */
+  const translated = EN_GENERATOR_SLUGS.has(slug);
   return {
     title: gen.title,
     description: gen.desc,
-    alternates: { canonical: `/generator/${slug}`, ...(hasAlt ? { languages } : {}) },
+    alternates: {
+      canonical: `/generator/${slug}`,
+      ...(translated ? { languages: alternateLanguages10(`/generator/${slug}`) } : {}),
+    },
   };
 }
 

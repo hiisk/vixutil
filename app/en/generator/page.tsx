@@ -5,19 +5,16 @@ import { GENERATORS_EN } from '@/lib/generator-en';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
+import { alternateLanguages10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: 'Free Name Generators — Fantasy, Sci-Fi & More',
   description: 'Free online name generators: fantasy, sci-fi, dragon, superhero, villain, guild, pirate names and more. Instant, unlimited, no sign-up.',
   alternates: {
     canonical: '/en/generator',
-    languages: {
-      'en': '/en/generator',
-      'ko': '/generator',
-      // 중국어판이 /en/generator를 가리키는데 여기서 되받지 않으면 상호 참조가
-      // 끊겨 구글이 이 hreflang 묶음을 무시한다.
-      'x-default': '/en/generator',
-    },
+    // 여덟 언어판이 /en/generator를 가리키는데 여기서 되받지 않으면 상호 참조가
+    // 끊겨 구글이 이 hreflang 묶음을 무시한다 — 열 언어를 모두 선언한다.
+    languages: alternateLanguages10('/generator'),
   },
 };
 
