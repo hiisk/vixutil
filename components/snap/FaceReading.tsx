@@ -188,6 +188,7 @@ export default function FaceReading({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="face-reading"
       lang={lang}
       icon="🔮"
       title={c.title}

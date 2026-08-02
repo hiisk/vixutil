@@ -173,6 +173,7 @@ export default function FaceSymmetry({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="face-symmetry"
       lang={lang}
       icon="⚖️"
       title={c.title}

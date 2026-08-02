@@ -170,6 +170,7 @@ export default function SmileScore({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="smile-score"
       lang={lang}
       icon="😊"
       title={c.title}

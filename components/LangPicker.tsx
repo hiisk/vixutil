@@ -25,6 +25,7 @@ export default function LangPicker({
   current,
   route,
   available,
+  overrides,
   align = 'right',
 }: {
   /** 지금 보고 있는 언어 */
@@ -33,6 +34,15 @@ export default function LangPicker({
   route: string;
   /** 이 페이지가 실제로 있는 언어. 생략하면 여덟 개 전부 */
   available?: readonly AnyLocale10[];
+  /**
+   * 그 언어만 주소가 다를 때 쓴다.
+   *
+   * 행운의 숫자가 그렇다 — 한국어는 /fortune/lucky-lotto다. 한국 로또(6/45)
+   * 전용으로 만든 도구라 그 이름이 붙었는데, 다른 나라에서는 복권 형식이 달라
+   * 틀린 말이 되므로 다국어는 lucky-numbers로 두었다. 같은 도구이므로 목록에는
+   * 있어야 하고, 주소만 갈아 끼운다.
+   */
+  overrides?: Partial<Record<AnyLocale10, string>>;
   align?: 'left' | 'right';
 }) {
   const [open, setOpen] = useState(false);
@@ -88,7 +98,7 @@ export default function LangPicker({
           {locales.map(l => (
             <Link
               key={l}
-              href={localeHref(l, route)}
+              href={localeHref(l, overrides?.[l] ?? route)}
               hrefLang={localeTag(l)}
               role="menuitem"
               onClick={() => setOpen(false)}

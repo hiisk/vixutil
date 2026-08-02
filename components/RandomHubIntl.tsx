@@ -6,7 +6,8 @@ import { ROLLS, DICE_ICON } from '@/lib/dice/list';
 import { langOfLocale } from '@/lib/i18n/lang';
 import { DICE_UI } from '@/lib/dice/ui';
 import { RANDOM_UI, randomL10n, type RandomLang } from '@/lib/random-ui-intl';
-import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
+import { ALL_LOCALES10, localeHref } from '@/lib/locales';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 랜덤 뽑기 허브 — 여덟 언어가 이 컴포넌트 하나를 쓴다.
@@ -29,12 +30,8 @@ export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href={hubHref} className="font-black text-rose-600 text-lg shrink-0">{lang === 'ko' ? 'vix.' : 'vixutil'}</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.hubTitle}</span>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 overflow-x-auto">
-            {ALL_LOCALES.filter(l => l !== lang).map(l => (
-              <Link key={l} href={localeHref(l, '/random')} hrefLang={localeTag(l)} className="hover:text-rose-600 shrink-0">
-                {localeLabel(l)}
-              </Link>
-            ))}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route="/random" available={ALL_LOCALES10} />
           </span>
         </div>
       </header>

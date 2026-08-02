@@ -202,6 +202,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="handwriting"
       lang={lang}
       icon="✍️"
       title={c.title}

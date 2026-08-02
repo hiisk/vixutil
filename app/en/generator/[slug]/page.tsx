@@ -6,6 +6,8 @@ import { GENERATORS_EN, GENERATORS_EN_MAP } from '@/lib/generator-en';
 import EnGeneratorEngine from '@/components/EnGeneratorEngine';
 import ReferralCards from '@/components/ReferralCards';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
+import LangPicker from '@/components/LangPicker';
+import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
 
 export function generateStaticParams() {
   return GENERATORS_EN.map(g => ({ slug: g.slug }));
@@ -43,6 +45,9 @@ export default async function EnGeneratorPage({ params }: { params: Promise<{ sl
           { name: gen.title, path: `/en/generator/${slug}` },
         ])}
       />
+      <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
+        <LangPicker current="en" route={`/generator/${slug}`} available={GENERATOR_LANGS} />
+      </div>
       <EnGeneratorEngine gen={gen} />
 
       <div className="max-w-lg mx-auto px-4 w-full pb-12">

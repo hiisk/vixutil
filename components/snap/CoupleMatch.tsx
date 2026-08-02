@@ -1,5 +1,8 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
+import { snapHubCopy } from '@/lib/snap-tools-intl';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -178,10 +181,13 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
             <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            {lang === 'en' ? 'Snap tests' : '照片测试'}
+            {snapHubCopy(lang).kicker}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{ui.title}</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.title}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route="/snap/couple-match" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

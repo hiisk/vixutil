@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -149,6 +151,15 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{c.title}</span>
+          <span className="ml-auto shrink-0">
+            {/* 한국어만 주소가 다르다 — 한국 로또 전용으로 만들어 lucky-lotto다 */}
+            <LangPicker
+              current={lang}
+              route="/fortune/lucky-numbers"
+              overrides={{ ko: '/fortune/lucky-lotto' }}
+              available={ALL_LOCALES10}
+            />
+          </span>
         </div>
       </header>
 

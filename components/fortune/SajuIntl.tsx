@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -131,6 +133,9 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{ui.title}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={"/fortune/saju"} available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

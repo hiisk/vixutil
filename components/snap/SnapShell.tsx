@@ -4,6 +4,8 @@ import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react'
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import type { SnapIntlLang } from '@/lib/snap-intl';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /**
  * 스냅테스트 공용 껍데기.
@@ -213,6 +215,8 @@ export type SnapModels = 'landmarks' | 'landmarks+expressions';
 
 interface Props<T> {
   lang: SnapLang;
+  /** 주소의 도구 부분 — 언어 바꾸기 버튼이 /{언어}/snap/{slug}를 만든다 */
+  slug: string;
   /** 히어로 이모지 */
   icon: string;
   title: string;
@@ -257,7 +261,7 @@ const MIN_CONFIDENCE = 0.6;
 const MIN_ANALYZE_MS = 800;
 
 export default function SnapShell<T>({
-  lang, icon, title, lead, privacyBody, bar, theme, glow = 'indigo',
+  lang, slug, icon, title, lead, privacyBody, bar, theme, glow = 'indigo',
   models = 'landmarks', requiresFace = true, resultId, analyze, children, disclaimer,
   noResultMessage,
 }: Props<T>) {
@@ -386,7 +390,10 @@ export default function SnapShell<T>({
             {ui.hub}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{title}</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{title}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/snap/${slug}`} available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

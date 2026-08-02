@@ -178,6 +178,7 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="golden-ratio"
       lang={lang}
       icon="📐"
       title={c.title}

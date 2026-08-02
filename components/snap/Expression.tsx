@@ -155,6 +155,7 @@ export default function Expression({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="expression"
       lang={lang}
       icon="🎭"
       title={c.title}

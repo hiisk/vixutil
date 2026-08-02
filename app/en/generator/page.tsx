@@ -3,6 +3,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { GENERATORS_EN } from '@/lib/generator-en';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
+import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
 
 export const metadata: Metadata = {
   title: 'Free Name Generators — Fantasy, Sci-Fi & More',
@@ -33,7 +35,9 @@ export default function EnGeneratorHub() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/en/generator" className="font-black text-emerald-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Name Generators</span>
-          <Link href="/generator" className="ml-auto text-xs font-bold text-slate-400 hover:text-emerald-600" hrefLang="ko">한국어</Link>
+          <span className="ml-auto flex items-center gap-2">
+            <LangPicker current="en" route="/generator" available={GENERATOR_LANGS} />
+          </span>
         </div>
       </header>
 

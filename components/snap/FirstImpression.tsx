@@ -185,6 +185,7 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="first-impression"
       lang={lang}
       icon="✨"
       title={c.title}

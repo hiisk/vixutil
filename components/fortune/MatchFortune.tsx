@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -148,6 +150,11 @@ function scoreColor(score: number): string {
   return 'from-slate-500 to-slate-600';
 }
 
+const SLUG_OF: Record<MatchKind, string> = {
+  star: '/fortune/star-match', zodiac: '/fortune/zodiac-match',
+  mbti: '/fortune/mbti-match', blood: '/fortune/blood-match',
+};
+
 export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: IntlLang }) {
   const [a, setA] = useState<number | null>(null);
   const [b, setB] = useState<number | null>(null);
@@ -198,6 +205,9 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{TITLES[kind][lang]}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={SLUG_OF[kind]} available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

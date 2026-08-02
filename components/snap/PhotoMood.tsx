@@ -241,6 +241,7 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="photo-mood"
       lang={lang}
       icon="🎨"
       title={c.title}

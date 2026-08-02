@@ -156,8 +156,11 @@ const UI: Record<GeneratorIntlLang, {
   },
 };
 
-/** 여덟 언어 + 영어가 같은 스무 종을 가진다 */
-const INTL_LANGS = [...(Object.keys(GENERATORS_INTL) as GeneratorIntlLang[]), 'en'] as const;
+/**
+ * 여덟 언어 + 영어가 같은 스무 종을 가진다. 한국어는 이백 종이 넘고 그 스무 개를
+ * 모두 품고 있어서, 어느 상세 페이지에서 넘어가도 같은 슬러그가 있다.
+ */
+export const GENERATOR_LANGS = [...(Object.keys(GENERATORS_INTL) as GeneratorIntlLang[]), 'en', 'ko'] as const;
 const countOf = (g: Generator) => g.count ?? 6;
 
 export function generatorIntlMeta(lang: GeneratorIntlLang) {
@@ -183,7 +186,7 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
           <Link href={`/${lang}/generator`} className="font-black text-emerald-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
-            <LangPicker current={lang} route="/generator" available={INTL_LANGS} />
+            <LangPicker current={lang} route="/generator" available={GENERATOR_LANGS} />
           </span>
         </div>
       </header>
@@ -239,7 +242,7 @@ export function GeneratorIntlDetail({ lang, gen }: { lang: GeneratorIntlLang; ge
         ])}
       />
       <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-        <LangPicker current={lang} route={`/generator/${gen.slug}`} available={INTL_LANGS} />
+        <LangPicker current={lang} route={`/generator/${gen.slug}`} available={GENERATOR_LANGS} />
       </div>
       <EnGeneratorEngine gen={gen} lang={lang} />
 

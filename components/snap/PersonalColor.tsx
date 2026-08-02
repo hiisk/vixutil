@@ -204,6 +204,7 @@ export default function PersonalColor({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="personal-color"
       lang={lang}
       icon="🎨"
       title={c.title}

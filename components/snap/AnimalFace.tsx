@@ -187,6 +187,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
 
   return (
     <SnapShell<Result>
+      slug="animal-face"
       lang={lang}
       icon="🐾"
       title={c.title}

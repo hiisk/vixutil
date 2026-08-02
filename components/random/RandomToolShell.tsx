@@ -4,7 +4,8 @@ import type { ReactNode } from 'react';
 import type { RandomTool } from '@/lib/random-tools';
 import PageGlow from '@/components/PageGlow';
 import { randomL10n, type RandomLang } from '@/lib/random-ui-intl';
-import { ALL_LOCALES, localeHref, localeLabel, localeTag } from '@/lib/locales';
+import { ALL_LOCALES10, localeHref } from '@/lib/locales';
+import LangPicker from '@/components/LangPicker';
 
 /** 랜덤 뽑기 도구들의 공용 껍데기 — 헤더·상단 바·히어로 타이틀·본문 슬롯. */
 export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool: RandomTool; children: ReactNode; lang?: RandomLang }) {
@@ -22,18 +23,9 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
             <ToolIcon emoji={tool.icon} className="inline-block w-4 h-4 -mt-0.5 mr-1 align-middle" />
             {t.title}
           </Link>
-          {/* 언어 전환 — 여덟 언어가 같은 slug를 쓰므로 레지스트리에서 만든다 */}
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400 overflow-x-auto">
-            {ALL_LOCALES.filter(l => l !== lang).map(l => (
-              <Link
-                key={l}
-                href={localeHref(l, `/random/${tool.slug}`)}
-                hrefLang={localeTag(l)}
-                className="hover:text-rose-600 shrink-0"
-              >
-                {localeLabel(l)}
-              </Link>
-            ))}
+          {/* 언어 전환 — 열 언어가 같은 slug를 쓰므로 레지스트리에서 만든다 */}
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={`/random/${tool.slug}`} available={ALL_LOCALES10} />
           </span>
         </div>
       </header>

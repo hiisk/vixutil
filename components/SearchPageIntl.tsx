@@ -2,7 +2,8 @@ import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import GlobalSearchIntl from '@/components/GlobalSearchIntl';
 import { searchIndexIntl, searchAlternates, SEARCH_INTL_UI, type SearchIntlLang } from '@/lib/search-index-intl';
-import { localeHref, openGraphFor } from '@/lib/locales';
+import { INTL_LOCALES10, localeHref, openGraphFor } from '@/lib/locales';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 통합 검색 화면 — 번역 일곱 언어가 이 컴포넌트 하나를 쓴다.
@@ -35,7 +36,11 @@ export default function SearchPageIntl({ lang }: { lang: SearchIntlLang }) {
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href={home} className="font-black text-indigo-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.heading}</span>
-          <span className="ml-auto text-xs text-slate-400 dark:text-slate-500">{ui.countSuffix(items.length)}</span>
+          <span className="ml-auto flex items-center gap-3 shrink-0">
+            <span className="text-xs text-slate-400 dark:text-slate-500">{ui.countSuffix(items.length)}</span>
+            {/* 한국어 /search는 색인이 따로라 alternates에도 안 들어간다 — 아홉 언어만 건넨다 */}
+            <LangPicker current={lang} route="/search" available={INTL_LOCALES10} />
+          </span>
         </div>
       </header>
 

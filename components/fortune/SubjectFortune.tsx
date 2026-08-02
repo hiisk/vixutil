@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -88,6 +90,11 @@ function subjectsFor(kind: SubjectKind, lang: Lang): readonly Subject[] {
   return bloodTypes(lang);
 }
 
+const SLUG_OF: Record<SubjectKind, string> = {
+  zodiac: '/fortune/zodiac', animal: '/fortune/animal',
+  blood: '/fortune/blood-type', mbti: '/fortune/mbti',
+};
+
 export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang: Lang }) {
   const [selected, setSelected] = useState<string | null>(null);
   const meta = KIND_META[kind];
@@ -124,6 +131,9 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1 truncate">
             {subject ? subject.name : title}
+          </span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={SLUG_OF[kind]} available={ALL_LOCALES10} />
           </span>
         </div>
       </header>

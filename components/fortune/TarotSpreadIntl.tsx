@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -63,6 +65,9 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           </Link>
           <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
             <Link href="/fortune/tarot" className="hover:text-violet-600" hrefLang="ko">한국어</Link>
+          </span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current={lang} route={"/fortune/tarot"} available={ALL_LOCALES10} />
           </span>
         </div>
       </header>
