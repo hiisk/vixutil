@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type Mode = 'ratio' | 'amount' | 'change';
 
@@ -36,6 +38,9 @@ export default function PercentPage() {
   return (
     <CalcShell path="/calculator/percent" title="퍼센트 계산기" description="비율·금액·증감율 즉시 계산">
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/percent" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[
             { value: 'ratio', label: 'X는 Y의 몇%' },

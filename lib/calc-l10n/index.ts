@@ -7,6 +7,9 @@ export { CALC_SHELL } from './shell.ts';
 import { UNIT_TEMP } from './unit-temp.ts';
 import { BINARY } from './binary.ts';
 import { BMI } from './bmi.ts';
+import { PERCENT } from './percent.ts';
+import { TIP } from './tip.ts';
+import { DUTCH_PAY } from './dutch-pay.ts';
 
 /**
  * 다국어로 낸 계산기 목록.
@@ -18,6 +21,9 @@ import { BMI } from './bmi.ts';
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
 const TABLES: Record<string, CalcTable> = {
+  'dutch-pay': DUTCH_PAY,
+  'tip': TIP,
+  'percent': PERCENT,
   'bmi': BMI,
   'binary': BINARY,
   'unit-temp': UNIT_TEMP,
