@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { hasAlternates, localeAlternates } from '@/lib/locale-alternates';
+import { hasAlternates, localeAlternates, localesWithItem } from '@/lib/locale-alternates';
+import LangPicker from '@/components/LangPicker';
 import type { Metadata } from 'next';
 import { CHECKLISTS, CHECKLISTS_MAP } from '@/lib/checklist-data';
 import ChecklistEngine from '@/components/ChecklistEngine';
@@ -43,6 +44,12 @@ export default async function ChecklistPage({ params }: { params: Promise<{ slug
           { name: checklist.title, path: `/checklist/${slug}` },
         ])}
       />
+      {/* 번역판이 있는 슬러그에서만 — 없는데 띄우면 그 언어가 404다 */}
+      {hasAlternates('checklist', slug) && (
+        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
+          <LangPicker current="ko" route={`/checklist/${slug}`} available={localesWithItem('checklist', slug)} />
+        </div>
+      )}
       <ChecklistEngine checklist={checklist} />
       <div className="max-w-lg mx-auto px-4 w-full">
         <Faq items={contentFaq('checklist', slug, checklist)} className="mb-8" />

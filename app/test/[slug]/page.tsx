@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { hasAlternates, localeAlternates } from '@/lib/locale-alternates';
+import { hasAlternates, localeAlternates, localesWithItem } from '@/lib/locale-alternates';
+import LangPicker from '@/components/LangPicker';
 import type { Metadata } from 'next';
 import { TESTS, TEST_MAP } from '@/lib/test-data';
 import TestEngine from '@/components/TestEngine';
@@ -38,6 +39,12 @@ export default async function TestPage({ params }: { params: Promise<{ slug: str
           { name: test.title, path: `/test/${slug}` },
         ])}
       />
+      {/* 번역판이 있는 슬러그에서만 — 없는데 띄우면 그 언어가 404다 */}
+      {hasAlternates('test', slug) && (
+        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
+          <LangPicker current="ko" route={`/test/${slug}`} available={localesWithItem('test', slug)} />
+        </div>
+      )}
       <TestEngine test={test} />
       <TestContent test={test} />
       <div className="bg-white dark:bg-slate-900">

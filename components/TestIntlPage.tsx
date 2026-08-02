@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { localesWithItem } from '@/lib/locale-alternates';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
@@ -237,7 +238,7 @@ export function TestIntlDetail({ lang, test }: { lang: TestIntlLang; test: Test 
         ])}
       />
       <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-        <LangPicker current={lang} route={`/test/${test.slug}`} available={INTL_LANGS} />
+        <LangPicker current={lang} route={`/test/${test.slug}`} available={localesWithItem('test', test.slug)} />
       </div>
       <TestEngine test={test} lang={lang} />
       <div className="max-w-lg mx-auto px-4 w-full">

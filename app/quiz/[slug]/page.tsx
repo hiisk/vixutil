@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { hasAlternates, localeAlternates } from '@/lib/locale-alternates';
+import { hasAlternates, localeAlternates, localesWithItem } from '@/lib/locale-alternates';
+import LangPicker from '@/components/LangPicker';
 import type { Metadata } from 'next';
 import { QUIZZES, QUIZ_MAP } from '@/lib/quiz-data';
 import QuizEngine from '@/components/QuizEngine';
@@ -38,6 +39,12 @@ export default async function QuizPage({ params }: { params: Promise<{ slug: str
           { name: quiz.title, path: `/quiz/${slug}` },
         ])}
       />
+      {/* 번역판이 있는 슬러그에서만 — 없는데 띄우면 그 언어가 404다 */}
+      {hasAlternates('quiz', slug) && (
+        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
+          <LangPicker current="ko" route={`/quiz/${slug}`} available={localesWithItem('quiz', slug)} />
+        </div>
+      )}
       <QuizEngine quiz={quiz} />
       <QuizContent quiz={quiz} />
       <div className="bg-white dark:bg-slate-900">

@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { localesWithItem } from '@/lib/locale-alternates';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
@@ -229,7 +230,7 @@ export function QuizIntlDetail({ lang, quiz }: { lang: QuizIntlLang; quiz: Quiz 
         ])}
       />
       <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-        <LangPicker current={lang} route={`/quiz/${quiz.slug}`} available={INTL_LANGS} />
+        <LangPicker current={lang} route={`/quiz/${quiz.slug}`} available={localesWithItem('quiz', quiz.slug)} />
       </div>
       <QuizEngine quiz={quiz} lang={lang} />
       <div className="max-w-lg mx-auto px-4 w-full">

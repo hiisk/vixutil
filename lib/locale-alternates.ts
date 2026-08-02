@@ -58,6 +58,19 @@ export function localeAlternates(section: AltSection, slug: string): Record<stri
   return out;
 }
 
+/**
+ * 그 슬러그를 실제로 가진 언어들. 언어 버튼(LangPicker)의 available이 쓴다.
+ *
+ * hreflang과 같은 표에서 계산한다. 둘을 따로 두면 한쪽만 늘어난다 — 실제로
+ * 그랬다. 상세 페이지가 "번역판이 하나도 안 겹친다"는 전제로 아홉 언어를
+ * 통째로 넘기고 있었는데, 겹치는 항목이 아홉 개 있었다. 그 아홉은 양쪽에
+ * 페이지가 멀쩡히 있는데 서로 건너갈 수 없었다.
+ */
+export function localesWithItem(section: AltSection, slug: string): AltLang[] {
+  const maps = MAPS[section];
+  return ALL_LOCALES10.filter(lang => maps[lang]?.[slug]);
+}
+
 /** 짝이 자기 자신뿐이면 hreflang을 달 이유가 없다 */
 export function hasAlternates(section: AltSection, slug: string): boolean {
   return Object.keys(localeAlternates(section, slug)).length > 2;

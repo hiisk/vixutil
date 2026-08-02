@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { localesWithItem } from '@/lib/locale-alternates';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
@@ -259,7 +260,7 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
         ])}
       />
       <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-        <LangPicker current={lang} route={`/checklist/${checklist.slug}`} available={INTL_LANGS} />
+        <LangPicker current={lang} route={`/checklist/${checklist.slug}`} available={localesWithItem('checklist', checklist.slug)} />
       </div>
       <ChecklistEngine checklist={checklist} lang={lang} />
       <div className="max-w-lg mx-auto px-4 w-full">
