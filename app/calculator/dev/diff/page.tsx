@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // LCS 기반 줄 단위 diff 알고리즘 (외부 라이브러리 없이 직접 구현)
 type DiffLine =
@@ -109,6 +111,9 @@ export default function DiffPage() {
   return (
     <CalcShell path="/calculator/dev/diff" title="텍스트 비교 (Diff)" description="줄 단위 LCS 알고리즘 · 추가(녹색) · 삭제(빨간색) · 동일(회색)" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/diff" available={ALL_LOCALES10} />
+        </div>
         {/* 입력 영역 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card className="p-4">

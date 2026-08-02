@@ -17,6 +17,9 @@ import DevTimestampIntl from '@/components/calc/DevTimestampIntl';
 import DevWordCountIntl from '@/components/calc/DevWordCountIntl';
 import DevJwtIntl from '@/components/calc/DevJwtIntl';
 import DevRegexIntl from '@/components/calc/DevRegexIntl';
+import DevColorIntl from '@/components/calc/DevColorIntl';
+import DevSqlIntl from '@/components/calc/DevSqlIntl';
+import DevDiffIntl from '@/components/calc/DevDiffIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -29,6 +32,9 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'dev/diff': DevDiffIntl,
+  'dev/sql': DevSqlIntl,
+  'dev/color': DevColorIntl,
   'dev/regex': DevRegexIntl,
   'dev/jwt': DevJwtIntl,
   'dev/word-count': DevWordCountIntl,

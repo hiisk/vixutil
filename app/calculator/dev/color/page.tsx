@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function hexToRgb(hex: string): [number, number, number] | null {
   const m = hex.replace('#', '').match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
@@ -100,6 +102,9 @@ export default function ColorPage() {
   return (
     <CalcShell path="/calculator/dev/color" title="Color Converter" description="HEX ↔ RGB ↔ HSL 색상 변환" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/color" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <div className="flex items-center gap-4 mb-4">
             <input type="color" value={pickerColor} onChange={e => fromPicker(e.target.value)}
