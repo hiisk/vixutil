@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-sm rounded-xl p-4 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
@@ -44,6 +46,9 @@ export default function Base64Page() {
   return (
     <CalcShell path="/calculator/dev/base64" title="Base64 변환기" description="Base64 인코딩 · 디코딩" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/base64" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[
             { value: 'encode', label: '인코딩' },

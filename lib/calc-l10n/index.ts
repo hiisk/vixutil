@@ -10,6 +10,8 @@ import { BMI } from './bmi.ts';
 import { PERCENT } from './percent.ts';
 import { TIP } from './tip.ts';
 import { DUTCH_PAY } from './dutch-pay.ts';
+import { DEV_JSON } from './dev-tools.ts';
+import { DEV_BASE64 } from './dev-tools.ts';
 
 /**
  * 다국어로 낸 계산기 목록.
@@ -21,6 +23,8 @@ import { DUTCH_PAY } from './dutch-pay.ts';
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
 const TABLES: Record<string, CalcTable> = {
+  'dev/base64': DEV_BASE64,
+  'dev/json': DEV_JSON,
   'dutch-pay': DUTCH_PAY,
   'tip': TIP,
   'percent': PERCENT,

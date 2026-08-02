@@ -1,6 +1,8 @@
 'use client';
 import { useState, useCallback } from 'react';
 import CalcShell, { Card } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-sm rounded-xl p-4 resize-y min-h-[180px] focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
@@ -44,6 +46,9 @@ export default function JsonPage() {
   return (
     <CalcShell path="/calculator/dev/json" title="JSON Formatter" description="JSON 정렬·압축·유효성 검사" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/json" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">입력</span>
