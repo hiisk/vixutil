@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type TempUnit = 'C' | 'F' | 'K' | 'R';
 
@@ -78,6 +80,9 @@ export default function UnitTempPage() {
   return (
     <CalcShell path="/calculator/unit-temp" title="온도 변환기" description="섭씨(°C) · 화씨(°F) · 켈빈(K) · 랭킨(°R) 즉시 변환">
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/unit-temp" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">온도 입력</p>
           <div className="flex flex-col gap-3">

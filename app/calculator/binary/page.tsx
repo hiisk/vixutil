@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type Base = 2 | 8 | 10 | 16;
 
@@ -77,6 +79,9 @@ export default function BinaryPage() {
   return (
     <CalcShell path="/calculator/binary" title="진수 변환기" description="2진수 · 8진수 · 10진수 · 16진수 상호 변환">
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/binary" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력</p>
           <div className="flex flex-col gap-3">
