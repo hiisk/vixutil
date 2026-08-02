@@ -14,6 +14,7 @@ import { QUIZZES_INTL } from "@/lib/quiz-l10n/index";
 import { timeToolsIntl } from "@/lib/time-tools-intl";
 import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { INTL_LOCALES10 } from "@/lib/locales";
+import { CALC_INTL_SLUGS } from "@/lib/calc-l10n";
 import { SNAP_TOOLS } from "@/lib/snap-tools-intl";
 import { FORTUNE_TOOLS } from "@/lib/fortune-tools-intl";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
@@ -568,6 +569,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/calculator/en`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/calculator/ja`, changeFrequency: weekly, priority: 0.9 },
     ...calculatorRoutes.map(r => ({ url: `${BASE}${r}`, changeFrequency: monthly, priority: 0.8 })),
+    /*
+     * 계산기 다국어판 — 백일곱 개 중 나라를 타지 않는 것만 온다. 목록을 여기
+     * 다시 적지 않고 CALC_INTL_SLUGS를 돌린다. 적어 두면 번역을 더했을 때
+     * 사이트맵만 옛날 것으로 남고, 그 페이지는 아무도 못 찾는다.
+     */
+    ...INTL_LOCALES10.flatMap((lang) => [
+      { url: `${BASE}/${lang}/calculator`, changeFrequency: weekly, priority: 0.9 },
+      ...CALC_INTL_SLUGS.map((slug) => ({
+        url: `${BASE}/${lang}/calculator/${slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     ...devRoutes.map(r => ({ url: `${BASE}${r}`, changeFrequency: monthly, priority: 0.7 })),
     ...TESTS.map((t: { slug: string }) => ({ url: `${BASE}/test/${t.slug}`, changeFrequency: monthly, priority: 0.8 })),
     ...QUIZZES.map((q: { slug: string }) => ({ url: `${BASE}/quiz/${q.slug}`, changeFrequency: monthly, priority: 0.8 })),

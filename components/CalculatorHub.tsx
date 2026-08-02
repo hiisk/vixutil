@@ -1,6 +1,8 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useMemo } from 'react';
 import SiteFooter from '@/components/SiteFooter';
 import { CATS } from '@/lib/calculator-catalog';
@@ -50,11 +52,9 @@ export default function CalculatorHub() {
                 </a>
               ))}
             </nav>
-            {/* 언어 전환 */}
-            <div className="flex items-center gap-1 shrink-0">
-              <span className="text-xs font-bold text-blue-600 px-2 py-1 rounded-full bg-blue-50 dark:bg-blue-950/30">KO</span>
-              <Link href="/calculator/en" className="text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-slate-700 px-2 py-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">EN</Link>
-              <Link href="/calculator/ja" className="text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-slate-700 px-2 py-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">JA</Link>
+            {/* 언어 전환 — 여기 백일곱 개 중 나라를 안 타는 것만 번역돼 있다 */}
+            <div className="shrink-0">
+              <LangPicker current="ko" route="/calculator" available={ALL_LOCALES10} />
             </div>
           </div>
         </div>
