@@ -1,6 +1,8 @@
 'use client';
 import { useMemo, useState } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-sm rounded-xl p-4 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
@@ -37,6 +39,9 @@ export default function UrlEncodePage() {
   return (
     <CalcShell path="/calculator/dev/url-encode" title="URL 인코딩 변환기" description="URL 인코딩 · 디코딩" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/url-encode" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[{ value: 'encode', label: '인코딩' }, { value: 'decode', label: '디코딩' }]}
           value={mode}

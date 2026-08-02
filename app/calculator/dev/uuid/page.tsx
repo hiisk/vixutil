@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function uuidv4(): string {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -41,6 +43,9 @@ export default function UuidPage() {
   return (
     <CalcShell path="/calculator/dev/uuid" title="UUID Generator" description="v4 UUID 랜덤 생성" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/uuid" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <div className="flex gap-3 mb-3">
             <div className="flex-1">

@@ -12,6 +12,9 @@ import { TIP } from './tip.ts';
 import { DUTCH_PAY } from './dutch-pay.ts';
 import { DEV_JSON } from './dev-tools.ts';
 import { DEV_BASE64 } from './dev-tools.ts';
+import { DEV_URL_ENCODE } from './dev-tools2.ts';
+import { DEV_HASH } from './dev-tools2.ts';
+import { DEV_UUID } from './dev-tools2.ts';
 
 /**
  * 다국어로 낸 계산기 목록.
@@ -23,6 +26,9 @@ import { DEV_BASE64 } from './dev-tools.ts';
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
 const TABLES: Record<string, CalcTable> = {
+  'dev/uuid': DEV_UUID,
+  'dev/hash': DEV_HASH,
+  'dev/url-encode': DEV_URL_ENCODE,
   'dev/base64': DEV_BASE64,
   'dev/json': DEV_JSON,
   'dutch-pay': DUTCH_PAY,

@@ -10,6 +10,9 @@ import TipIntl from '@/components/calc/TipIntl';
 import DutchPayIntl from '@/components/calc/DutchPayIntl';
 import DevJsonIntl from '@/components/calc/DevJsonIntl';
 import DevBase64Intl from '@/components/calc/DevBase64Intl';
+import DevUrlEncodeIntl from '@/components/calc/DevUrlEncodeIntl';
+import DevHashIntl from '@/components/calc/DevHashIntl';
+import DevUuidIntl from '@/components/calc/DevUuidIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -22,6 +25,9 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'dev/uuid': DevUuidIntl,
+  'dev/hash': DevHashIntl,
+  'dev/url-encode': DevUrlEncodeIntl,
   'dev/base64': DevBase64Intl,
   'dev/json': DevJsonIntl,
   'dutch-pay': DutchPayIntl,

@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-sm rounded-xl p-4 resize-y min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
@@ -34,6 +36,9 @@ export default function HashPage() {
   return (
     <CalcShell path="/calculator/dev/hash" title="SHA256 / SHA512 해시 생성기" description="Web Crypto API 기반 해시 생성" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/hash" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[
             { value: 'SHA-256', label: 'SHA-256' },
