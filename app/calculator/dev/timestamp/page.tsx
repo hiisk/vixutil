@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import CalcShell, { Card, Label, inputCls, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -54,6 +56,9 @@ export default function TimestampPage() {
   return (
     <CalcShell path="/calculator/dev/timestamp" title="Unix Timestamp 변환기" description="Unix Timestamp ↔ 날짜·시간 변환" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/timestamp" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">현재 시각</p>
           <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{Math.floor(now / 1000)}</p>

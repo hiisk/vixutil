@@ -1,6 +1,8 @@
 'use client';
 import { useState, useMemo } from 'react';
 import CalcShell, { Card } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function getByteLength(str: string): number {
   return new TextEncoder().encode(str).length;
@@ -37,6 +39,9 @@ export default function WordCountPage() {
   return (
     <CalcShell path="/calculator/dev/word-count" title="글자수·단어수 카운터" description="전체 글자수 · 공백 제외 · 단어수 · 문장수 · 바이트 수 실시간 카운트" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/word-count" available={ALL_LOCALES10} />
+        </div>
         {/* 통계 그리드 */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {STAT_ITEMS.slice(0, 4).map(item => (
