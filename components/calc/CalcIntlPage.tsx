@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import CalcShellIntl from '@/components/CalcShellIntl';
 import UnitWeightIntl from '@/components/calc/UnitWeightIntl';
+import UnitLengthIntl from '@/components/calc/UnitLengthIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -14,6 +15,7 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'unit-weight': UnitWeightIntl,
+  'unit-length': UnitLengthIntl,
 };
 
 export function calcIntlMeta(lang: CalcLang, slug: string) {

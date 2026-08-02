@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // 기준: 1 미터 = ? 각 단위
 const UNITS: { key: string; label: string; toMeter: number }[] = [
@@ -41,6 +43,9 @@ export default function UnitLengthPage() {
   return (
     <CalcShell path="/calculator/unit-length" title="길이 단위 변환기" description="mm · cm · m · km · 인치 · 피트 · 야드 · 마일 · 해리 동시 변환">
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/unit-length" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환할 값 입력</p>
           <div className="flex flex-col gap-3">

@@ -1,5 +1,6 @@
 import type { CalcLang, CalcCopy, CalcTable } from './types.ts';
 import { UNIT_WEIGHT } from './unit-weight.ts';
+import { UNIT_LENGTH } from './unit-length.ts';
 
 export type { CalcLang, CalcCopy } from './types.ts';
 export { CALC_SHELL } from './shell.ts';
@@ -15,6 +16,7 @@ export { CALC_SHELL } from './shell.ts';
  */
 const TABLES: Record<string, CalcTable> = {
   'unit-weight': UNIT_WEIGHT,
+  'unit-length': UNIT_LENGTH,
 };
 
 export const CALC_INTL_SLUGS = Object.keys(TABLES);
