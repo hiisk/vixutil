@@ -4,6 +4,8 @@ import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
   SummaryCard, SummaryGrid, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
@@ -94,6 +96,9 @@ export default function CompoundPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/compound" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[
             { value: 12, label: '월복리', sub: '매월 이자' },
