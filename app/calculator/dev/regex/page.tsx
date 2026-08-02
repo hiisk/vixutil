@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-sm rounded-xl p-4 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
@@ -34,6 +36,9 @@ export default function RegexPage() {
   return (
     <CalcShell path="/calculator/dev/regex" title="Regex Tester" description="정규식 실시간 테스트 및 매치 확인" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/regex" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <Label>정규식 패턴 (/ 없이 입력)</Label>
           <div className="flex items-center gap-2 mb-3">

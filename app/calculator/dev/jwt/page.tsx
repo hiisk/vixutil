@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const areaCls = 'w-full bg-slate-900 text-green-400 font-mono text-xs rounded-xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700';
 
@@ -58,6 +60,9 @@ export default function JwtPage() {
   return (
     <CalcShell path="/calculator/dev/jwt" title="JWT Decoder" description="JWT 토큰 파싱 및 Payload 확인" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/jwt" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">JWT 토큰</p>
           <textarea value={input} onChange={e => handleChange(e.target.value)}

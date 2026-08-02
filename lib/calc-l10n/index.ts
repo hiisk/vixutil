@@ -17,6 +17,8 @@ import { DEV_HASH } from './dev-tools2.ts';
 import { DEV_UUID } from './dev-tools2.ts';
 import { DEV_TIMESTAMP } from './dev-tools3.ts';
 import { DEV_WORD_COUNT } from './dev-tools3.ts';
+import { DEV_JWT } from './dev-tools4.ts';
+import { DEV_REGEX } from './dev-tools4.ts';
 
 /**
  * 다국어로 낸 계산기 목록.
@@ -28,6 +30,8 @@ import { DEV_WORD_COUNT } from './dev-tools3.ts';
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
 const TABLES: Record<string, CalcTable> = {
+  'dev/regex': DEV_REGEX,
+  'dev/jwt': DEV_JWT,
   'dev/word-count': DEV_WORD_COUNT,
   'dev/timestamp': DEV_TIMESTAMP,
   'dev/uuid': DEV_UUID,
