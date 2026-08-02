@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -53,6 +55,9 @@ export default function CronPage() {
   return (
     <CalcShell path="/calculator/dev/cron" title="Cron 표현식 생성기" description="Cron Expression 작성 · 미리 정의된 템플릿 제공" wide>
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/dev/cron" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-4">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">미리 정의된 템플릿</p>
           <div className="grid grid-cols-2 gap-2">
