@@ -12,6 +12,8 @@ import { GLYPH_UI } from '@/lib/glyph/ui';
 import { GLYPH_ICON } from '@/lib/glyph/list';
 import { REGEX_ICON } from '@/lib/regex/list';
 import { REGEX_UI } from '@/lib/regex/ui';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '텍스트 도구 — 한영타 변환·영문 이름·특수문자',
@@ -60,6 +62,9 @@ export default function TextHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">텍스트 도구</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/text" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

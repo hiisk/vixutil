@@ -7,6 +7,7 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { findDeviceTool, relatedDeviceTools } from '@/lib/device-tools';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 기기 점검 상세 페이지의 공통 셸.
@@ -58,6 +59,9 @@ export default function DeviceShell({
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{tool.title}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route={`/device/${slug}`} />
+          </span>
         </div>
       </header>
 

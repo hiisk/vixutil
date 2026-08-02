@@ -7,6 +7,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { findTextTool, relatedTextTools } from '@/lib/text-tools';
+import LangPicker from '@/components/LangPicker';
+import { TEXT_INTL_SLUGS } from '@/lib/text-tools-intl';
 
 /**
  * 텍스트 도구 상세 페이지의 공통 셸. 계산기(CalcShell)·기기 점검(DeviceShell)·
@@ -24,6 +26,16 @@ export default function TextShell({
 }) {
   const tool = findTextTool(slug);
   if (!tool) throw new Error(`알 수 없는 텍스트 도구: ${slug}`);
+
+  /*
+   * 넷은 한국어에만 있다 — 금액 한글, 한/영 자판, 초성, 로마자 표기. 전부 한글을
+   * 다루는 도구라 번역판이 없고, 버튼에 아홉 개를 띄우면 전부 404다.
+   *
+   * 목록을 여기 적지 않고 다국어 슬러그에서 계산한다. 나중에 번역판이 늘면
+   * TEXT_INTL_SLUGS만 고쳐도 버튼이 따라오고, 반대로 여기 손으로 적어 두면
+   * 늘어난 걸 모른 채 한국어에만 남는다.
+   */
+  const translated = (TEXT_INTL_SLUGS as readonly string[]).includes(slug);
 
   const path = `/text/${tool.slug}`;
   const related = relatedTextTools(tool.slug);
@@ -56,6 +68,9 @@ export default function TextShell({
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{tool.title}</span>
+          <span className="ml-auto shrink-0">
+            {translated && <LangPicker current="ko" route={`/text/${slug}`} />}
+          </span>
         </div>
       </header>
 

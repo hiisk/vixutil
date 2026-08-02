@@ -14,6 +14,8 @@ import { HANDS, POKER_ICON } from '@/lib/poker/list';
 import { pokerUi, fill as pokerFill } from '@/lib/poker/ui';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { GAME_TOOLS } from '@/lib/game-tools';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '두뇌 게임 — 반응속도·클릭속도·기억력 테스트',
@@ -62,6 +64,9 @@ export default function GameHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">두뇌 게임</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/game" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

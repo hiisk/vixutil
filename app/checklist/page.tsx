@@ -9,6 +9,7 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import LangPicker from '@/components/LangPicker';
 
 export const metadata: Metadata = {
   title: '체크리스트',
@@ -47,7 +48,10 @@ export default function ChecklistIndexPage() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-sky-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">체크리스트</span>
-          <span className="ml-auto text-xs text-slate-400 dark:text-slate-500">{CHECKLISTS.length}개 · {totalItems}항목</span>
+          <span className="ml-auto flex items-center gap-3 shrink-0">
+            <span className="text-xs text-slate-400 dark:text-slate-500">{CHECKLISTS.length}개 · {totalItems}항목</span>
+            <LangPicker current="ko" route="/checklist" />
+          </span>
         </div>
       </header>
 

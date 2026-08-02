@@ -11,6 +11,8 @@ import { FOOD_TOOLS } from '@/lib/food-tools';
 import { FOOD_CATEGORIES, ingredientsOfCategory } from '@/lib/food/ingredients8';
 import { foodFacts } from '@/lib/food/facts';
 import { FOOD_UI, foodAlternates } from '@/lib/food/ui';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '계량·요리 — 컵을 그램으로, 레시피 배율, 오븐 온도',
@@ -59,6 +61,9 @@ export default function FoodHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">계량·요리</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/food" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

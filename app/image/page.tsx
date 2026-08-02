@@ -10,6 +10,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { IMAGE_TOOLS } from '@/lib/image-tools';
 import { IMG_SIZE_UI } from '@/lib/imgsize/ui';
 import { IMG_SIZE_ICON } from '@/lib/imgsize/list';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '이미지 도구 — 사진 용량 줄이기·크기 조절·자르기 온라인',
@@ -58,6 +60,9 @@ export default function ImageHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">이미지 도구</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/image" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

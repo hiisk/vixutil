@@ -9,6 +9,7 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import LangPicker from '@/components/LangPicker';
 
 export const metadata: Metadata = {
   title: '생성기',
@@ -41,7 +42,10 @@ export default function GeneratorIndexPage() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-emerald-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">생성기</span>
-          <span className="ml-auto text-xs text-slate-400 dark:text-slate-500">{GENERATORS.length}개</span>
+          <span className="ml-auto flex items-center gap-3 shrink-0">
+            <span className="text-xs text-slate-400 dark:text-slate-500">{GENERATORS.length}개</span>
+            <LangPicker current="ko" route="/generator" />
+          </span>
         </div>
       </header>
 

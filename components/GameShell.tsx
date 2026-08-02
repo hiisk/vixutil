@@ -7,6 +7,7 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { findGameTool, relatedGameTools } from '@/lib/game-tools';
+import LangPicker from '@/components/LangPicker';
 
 /**
  * 두뇌 게임 상세 페이지의 공통 셸. 계산기(CalcShell)와 같은 역할이다 —
@@ -56,6 +57,9 @@ export default function GameShell({
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{tool.title}</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route={`/game/${slug}`} />
+          </span>
         </div>
       </header>
 

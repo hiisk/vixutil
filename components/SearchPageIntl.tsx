@@ -2,7 +2,7 @@ import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import GlobalSearchIntl from '@/components/GlobalSearchIntl';
 import { searchIndexIntl, searchAlternates, SEARCH_INTL_UI, type SearchIntlLang } from '@/lib/search-index-intl';
-import { INTL_LOCALES10, localeHref, openGraphFor } from '@/lib/locales';
+import { localeHref, openGraphFor } from '@/lib/locales';
 import LangPicker from '@/components/LangPicker';
 
 /**
@@ -38,8 +38,12 @@ export default function SearchPageIntl({ lang }: { lang: SearchIntlLang }) {
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.heading}</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
             <span className="text-xs text-slate-400 dark:text-slate-500">{ui.countSuffix(items.length)}</span>
-            {/* 한국어 /search는 색인이 따로라 alternates에도 안 들어간다 — 아홉 언어만 건넨다 */}
-            <LangPicker current={lang} route="/search" available={INTL_LOCALES10} />
+            {/*
+              한국어 /search는 계산기·크립토까지 담은 다른 목록이라 hreflang에서는
+              뺀다(searchAlternates). 버튼은 별개다 — 사람이 한국어 검색으로
+              건너가는 건 막을 이유가 없고, 페이지도 실제로 있다.
+            */}
+            <LangPicker current={lang} route="/search" />
           </span>
         </div>
       </header>

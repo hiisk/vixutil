@@ -9,6 +9,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
@@ -42,9 +43,9 @@ export default function RandomIndexPage() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-rose-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">랜덤 뽑기</span>
-          <span className="ml-auto flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+          <span className="ml-auto flex items-center gap-3 shrink-0 text-xs text-slate-400 dark:text-slate-500">
             {RANDOM_TOOLS.length}개
-            <Link href="/en/random" className="font-bold hover:text-rose-600" hrefLang="en">EN</Link>
+            <LangPicker current="ko" route="/random" />
           </span>
         </div>
       </header>

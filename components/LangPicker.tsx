@@ -1,12 +1,12 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ALL_LOCALES, ALL_LOCALES10, localeFlag, localeHref, localeLabel, localeTag, type AnyLocale10 } from '@/lib/locales';
+import { ALL_LOCALES10, localeFlag, localeHref, localeLabel, localeTag, type AnyLocale10 } from '@/lib/locales';
 
 /**
  * 언어 선택 버튼.
  *
- * 언어가 둘일 때는 `한국어 · EN`처럼 링크를 나란히 두면 됐지만, 여덟 개가 되면
+ * 언어가 둘일 때는 `한국어 · EN`처럼 링크를 나란히 두면 됐지만, 열 개가 되면
  * 그 줄이 화면 폭을 넘긴다. 그래서 지금 언어만 보여주고 나머지는 눌러서 펼친다.
  *
  * 각 항목은 그 언어의 이름을 그 언어로 적는다 — Español, 日本語, हिन्दी. 영어로
@@ -32,7 +32,7 @@ export default function LangPicker({
   current: AnyLocale10;
   /** 언어 접두어를 뺀 경로. 예: '/color/palette' */
   route: string;
-  /** 이 페이지가 실제로 있는 언어. 생략하면 여덟 개 전부 */
+  /** 이 페이지가 실제로 있는 언어. 생략하면 열 개 전부 */
   available?: readonly AnyLocale10[];
   /**
    * 그 언어만 주소가 다를 때 쓴다.
@@ -48,9 +48,18 @@ export default function LangPicker({
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
 
-  // 거르는 기준은 열 언어다 — 중국어까지 갖춘 섹션이 available로 넘겨 준다.
-  // 여덟 언어만 있는 페이지는 available을 넘기지 않으므로 예전과 같이 여덟 개가 뜬다.
-  const locales = (available ?? ALL_LOCALES).filter(l => ALL_LOCALES10.includes(l));
+  /*
+   * 기본값이 열 언어다.
+   *
+   * 한때는 여덟 개짜리 ALL_LOCALES가 기본이었다. 중국어를 더할 때 "새로 갖춘
+   * 섹션만 available로 넘기면 나머지는 예전대로"라고 두었는데, 그 뒤 모든
+   * 섹션이 열 언어가 되고 나서도 available을 안 넘긴 열여덟 군데는 계속 여덟
+   * 개만 보여줬다 — 이미지·변환·색·게임·시간·소리·음식·기기·텍스트가 그랬다.
+   * 페이지는 열 언어가 다 있는데 버튼에서만 중국어 둘이 빠져 있었다.
+   *
+   * 이제 반대로 뒤집는다. 일부 언어에만 있는 페이지가 available로 좁힌다.
+   */
+  const locales = (available ?? ALL_LOCALES10).filter(l => ALL_LOCALES10.includes(l));
 
   // 바깥을 누르면 닫는다. 열린 목록이 화면에 남아 있으면 다음 조작을 가린다.
   useEffect(() => {

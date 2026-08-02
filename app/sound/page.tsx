@@ -10,6 +10,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { SOUND_TOOLS } from '@/lib/sound-tools';
 import { SOUND_UI } from '@/lib/sound/ui';
 import { FREQ_ICON } from '@/lib/sound/freqs';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '소리 도구 — 메트로놈·튜너·백색소음',
@@ -58,6 +60,9 @@ export default function SoundHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">소리 도구</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/sound" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

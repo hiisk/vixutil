@@ -4,6 +4,7 @@ import GlobalSearch from '@/components/GlobalSearch';
 import SiteFooter from '@/components/SiteFooter';
 import { SEARCH_INDEX } from '@/lib/search-index';
 import PageGlow from '@/components/PageGlow';
+import LangPicker from '@/components/LangPicker';
 
 export const metadata: Metadata = {
   title: '통합 검색',
@@ -21,7 +22,10 @@ export default function SearchPage() {
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/" className="font-black text-indigo-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">통합 검색</span>
-          <span className="ml-auto text-xs text-slate-400 dark:text-slate-500">{SEARCH_INDEX.length}개</span>
+          <span className="ml-auto flex items-center gap-3 shrink-0">
+            <span className="text-xs text-slate-400 dark:text-slate-500">{SEARCH_INDEX.length}개</span>
+            <LangPicker current="ko" route="/search" />
+          </span>
         </div>
       </header>
 

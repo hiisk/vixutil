@@ -9,6 +9,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { COLOR_TOOLS } from '@/lib/color-tools';
 import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
 import { COLOR_UI, colorAlternates } from '@/lib/color/ui';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '색상 도구 — 팔레트·대비 검사·그라디언트',
@@ -57,6 +59,9 @@ export default function ColorHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">색상 도구</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/color" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

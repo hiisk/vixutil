@@ -10,6 +10,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { DEVICE_TOOLS } from '@/lib/device-tools';
 import { DEVICE_UI } from '@/lib/device/ui';
 import { SCREEN_ICON } from '@/lib/device/route';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '기기 점검 — 키보드·마우스·마이크·웹캠 온라인 테스트',
@@ -58,6 +60,9 @@ export default function DeviceHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">기기 점검</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/device" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

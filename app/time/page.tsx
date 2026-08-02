@@ -10,6 +10,8 @@ import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { TIME_TOOLS } from '@/lib/time-tools';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: '시간 도구 — 타이머·스톱워치·세계시계',
@@ -58,6 +60,9 @@ export default function TimeHubPage() {
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">시간 도구</span>
+          <span className="ml-auto shrink-0">
+            <LangPicker current="ko" route="/time" available={ALL_LOCALES10} />
+          </span>
         </div>
       </header>
 

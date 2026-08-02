@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { GENERATORS, GENERATOR_MAP } from '@/lib/generator-data';
 import { EN_GENERATOR_SLUGS } from '@/lib/generator-en';
 import { alternateLanguages10 } from '@/lib/locales';
+import LangPicker from '@/components/LangPicker';
+import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
 import GeneratorEngine from '@/components/GeneratorEngine';
 import GeneratorContent from '@/components/GeneratorContent';
 import RelatedContent from '@/components/RelatedContent';
@@ -52,6 +54,12 @@ export default async function GeneratorPage({ params }: { params: Promise<{ slug
           { name: gen.title, path: `/generator/${slug}` },
         ])}
       />
+      {/* 스무 개만 번역판이 있다 — 나머지 백여든넷은 한국어뿐이라 버튼을 그리지 않는다 */}
+      {EN_GENERATOR_SLUGS.has(slug) && (
+        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
+          <LangPicker current="ko" route={`/generator/${slug}`} available={GENERATOR_LANGS} />
+        </div>
+      )}
       <GeneratorEngine gen={gen} />
       <GeneratorContent gen={gen} />
       <div className="bg-white dark:bg-slate-900">
