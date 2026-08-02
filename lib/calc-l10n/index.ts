@@ -24,6 +24,7 @@ import { DEV_SQL } from './dev-tools5.ts';
 import { DEV_DIFF } from './dev-tools5.ts';
 import { DEV_CRON } from './dev-cron.ts';
 import { COMPOUND } from './compound.ts';
+import { LOAN } from './loan.ts';
 
 /**
  * 다국어로 낸 계산기 목록.
@@ -35,6 +36,7 @@ import { COMPOUND } from './compound.ts';
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
 const TABLES: Record<string, CalcTable> = {
+  'loan': LOAN,
   'compound': COMPOUND,
   'dev/cron': DEV_CRON,
   'dev/diff': DEV_DIFF,

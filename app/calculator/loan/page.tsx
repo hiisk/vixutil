@@ -4,6 +4,8 @@ import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
   SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
@@ -87,6 +89,9 @@ export default function LoanPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/loan" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[
             {value:'ep', label:'원리금균등', sub:'매월 동일 금액'},
