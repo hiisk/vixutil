@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // 대한비만학회 2022 진료지침 기준
 const LEVELS = [
@@ -70,6 +72,9 @@ export default function BmiPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/bmi" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">신체 정보</p>
           <div className="flex flex-col gap-3">

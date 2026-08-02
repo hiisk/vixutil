@@ -6,6 +6,7 @@ export type { CalcLang, CalcCopy } from './types.ts';
 export { CALC_SHELL } from './shell.ts';
 import { UNIT_TEMP } from './unit-temp.ts';
 import { BINARY } from './binary.ts';
+import { BMI } from './bmi.ts';
 
 /**
  * 다국어로 낸 계산기 목록.
@@ -17,6 +18,7 @@ import { BINARY } from './binary.ts';
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
 const TABLES: Record<string, CalcTable> = {
+  'bmi': BMI,
   'binary': BINARY,
   'unit-temp': UNIT_TEMP,
   'unit-weight': UNIT_WEIGHT,
