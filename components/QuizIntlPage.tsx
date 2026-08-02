@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
 import PageGlow from '@/components/PageGlow';
@@ -109,6 +110,15 @@ const UI: Record<QuizIntlLang, {
 };
 
 /** 아홉 언어가 같은 여섯 종을 가지므로 전환 목록은 언제나 아홉 개다. */
+/*
+ * 허브는 열 언어, 상세는 아홉 언어다.
+ *
+ * 항목 목록을 언어마다 따로 썼기 때문에 한국어와 번역판은 겹치는 슬러그가
+ * 하나도 없다 — 상세에서 한국어를 띄우면 전부 404다. 하지만 허브 자체는
+ * 열 언어에 다 있으므로, 여기까지 아홉 개로 두면 한국어에서 건너간 사람이
+ * 돌아올 길이 없어진다. 실제로 그 상태였다.
+ */
+const HUB_LANGS = ALL_LOCALES10;
 const INTL_LANGS = Object.keys(QUIZZES_INTL) as QuizIntlLang[];
 
 export function quizIntlMeta(lang: QuizIntlLang) {
@@ -151,7 +161,7 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
           <Link href={`/${lang}/quiz`} className="font-black text-amber-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
-            <LangPicker current={lang} route="/quiz" available={INTL_LANGS} />
+            <LangPicker current={lang} route="/quiz" available={HUB_LANGS} />
           </span>
         </div>
       </header>
