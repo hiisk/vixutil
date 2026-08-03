@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/port', icon: '🔌', color: 'from-fuchsia-600 to-purple-500',
+    accent: 'text-fuchsia-700 dark:text-fuchsia-300', border: 'border-fuchsia-200 dark:border-fuchsia-900/50', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30',
+    copy: {
+      en: { title: 'Port Numbers', desc: '127 ports with service, protocol, range and encrypted twin' },
+      es: { title: 'Números de puerto', desc: '127 puertos con servicio, protocolo, rango y puerto cifrado' },
+      'pt-br': { title: 'Números de porta', desc: '127 portas com serviço, protocolo, faixa e porta cifrada' },
+      ja: { title: 'ポート番号', desc: 'ポート127個のサービス・プロトコル・区分・暗号化の相方' },
+      de: { title: 'Portnummern', desc: '127 Ports mit Dienst, Protokoll, Bereich und verschlüsseltem Zwilling' },
+      fr: { title: 'Numéros de port', desc: '127 ports avec service, protocole, plage et jumeau chiffré' },
+      hi: { title: 'पोर्ट नंबर', desc: '127 पोर्ट — सेवा, प्रोटोकॉल, रेंज और एन्क्रिप्टेड जोड़ा' },
+      'zh-hans': { title: '端口号', desc: '127 个端口的服务、协议、区间与加密对应端口' },
+      'zh-hant': { title: '連接埠號', desc: '127 個連接埠的服務、協定、區間與加密對應連接埠' },
+    },
+  },
+  {
     route: '/ascii', icon: '⌨️', color: 'from-teal-600 to-emerald-500',
     accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
     copy: {

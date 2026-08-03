@@ -49,6 +49,7 @@ import { PATTERNS } from "@/lib/regex/list";
 import { ELEMENTS } from "@/lib/element/list";
 import { NUMBERS } from "@/lib/number/list";
 import { CODES } from "@/lib/ascii/list";
+import { PORTS } from "@/lib/port/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -359,6 +360,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/ascii`, changeFrequency: weekly, priority: 0.85 },
       ...CODES.map((code: number) => ({
         url: `${BASE}${prefix}/ascii/${code}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 포트 127장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/port`, changeFrequency: weekly, priority: 0.85 },
+      ...PORTS.map((x: { port: number }) => ({
+        url: `${BASE}${prefix}/port/${x.port}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

@@ -9,6 +9,7 @@ import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
 import { NUMBERS } from '@/lib/number/list';
 import { CODES } from '@/lib/ascii/list';
+import { PORTS } from '@/lib/port/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -371,6 +372,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/port',
+    icon: '🔌',
+    title: '포트 번호 사전',
+    desc: '22·80·443·3306 — 어느 서비스가 몇 번을 쓰고 권한이 필요한지까지',
+    badge: `${PORTS.length}개`,
+    color: 'from-fuchsia-600 to-purple-500',
+    bgLight: 'bg-fuchsia-50 dark:bg-fuchsia-950/30',
+    textAccent: 'text-fuchsia-700 dark:text-fuchsia-300',
+    borderAccent: 'border-fuchsia-200 dark:border-fuchsia-900/50',
+    shadow: 'shadow-fuchsia-100',
   },
   {
     href: '/ascii',
