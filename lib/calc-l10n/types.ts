@@ -31,6 +31,8 @@ export interface CalcShellCopy {
   hubMetaDesc: string;
   /** "다른 계산기" 소제목 */
   related: string;
+  /** 다른 섹션에 사는 계산기로 넘겨주는 줄의 소제목 */
+  crossTitle: string;
 }
 
 /** 계산기 한 개의 문구. */

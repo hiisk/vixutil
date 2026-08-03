@@ -4,6 +4,7 @@ import SiteFooter from '@/components/SiteFooter';
 import LangPicker from '@/components/LangPicker';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { CALC_SHELL, CALC_INTL_SLUGS, calcCopy } from '@/lib/calc-l10n';
+import { crossCalcs } from '@/lib/calc-l10n/cross';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor, ALL_LOCALES10 } from '@/lib/locales';
 
@@ -30,6 +31,7 @@ export function calcIntlHubMeta(lang: CalcLang) {
 export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
   const ui = CALC_SHELL[lang];
   const items = CALC_INTL_SLUGS.map(slug => ({ slug, copy: calcCopy(lang, slug)! }));
+  const cross = crossCalcs(lang);
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -71,6 +73,26 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
                   {i.copy.title}
                 </span>
                 <span className="block text-xs text-slate-500 dark:text-slate-400">{i.copy.short}</span>
+              </Link>
+            ))}
+          </div>
+
+          {/* /rate·/body에 이미 열 언어로 있는 것들. 여기서 다시 내면 같은 도구가
+              주소 둘을 갖게 되므로, 목록에서 빼는 대신 그쪽으로 넘겨준다. */}
+          <h2 className="mt-10 mb-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+            {ui.crossTitle}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {cross.map(x => (
+              <Link
+                key={x.slug}
+                href={localeHref(lang, `/${x.section}/${x.slug}`)}
+                className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+              >
+                <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-700 transition-colors">
+                  {x.title}
+                </span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{x.desc}</span>
               </Link>
             ))}
           </div>

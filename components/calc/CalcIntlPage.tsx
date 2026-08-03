@@ -4,10 +4,7 @@ import UnitWeightIntl from '@/components/calc/UnitWeightIntl';
 import UnitLengthIntl from '@/components/calc/UnitLengthIntl';
 import UnitTempIntl from '@/components/calc/UnitTempIntl';
 import BinaryIntl from '@/components/calc/BinaryIntl';
-import BmiIntl from '@/components/calc/BmiIntl';
 import PercentIntl from '@/components/calc/PercentIntl';
-import TipIntl from '@/components/calc/TipIntl';
-import DutchPayIntl from '@/components/calc/DutchPayIntl';
 import DevJsonIntl from '@/components/calc/DevJsonIntl';
 import DevBase64Intl from '@/components/calc/DevBase64Intl';
 import DevUrlEncodeIntl from '@/components/calc/DevUrlEncodeIntl';
@@ -21,10 +18,7 @@ import DevColorIntl from '@/components/calc/DevColorIntl';
 import DevSqlIntl from '@/components/calc/DevSqlIntl';
 import DevDiffIntl from '@/components/calc/DevDiffIntl';
 import DevCronIntl from '@/components/calc/DevCronIntl';
-import CompoundIntl from '@/components/calc/CompoundIntl';
 import LoanIntl from '@/components/calc/LoanIntl';
-import SimpleInterestIntl from '@/components/calc/SimpleInterestIntl';
-import RoiIntl from '@/components/calc/RoiIntl';
 import AvgPriceIntl from '@/components/calc/AvgPriceIntl';
 import BreakevenIntl from '@/components/calc/BreakevenIntl';
 import DepositIntl from '@/components/calc/DepositIntl';
@@ -34,16 +28,12 @@ import DividendIntl from '@/components/calc/DividendIntl';
 import InflationIntl from '@/components/calc/InflationIntl';
 import RetirementIntl from '@/components/calc/RetirementIntl';
 import ExchangeIntl from '@/components/calc/ExchangeIntl';
-import BmrIntl from '@/components/calc/BmrIntl';
-import WaterIntl from '@/components/calc/WaterIntl';
 import CalorieIntl from '@/components/calc/CalorieIntl';
 import ProteinIntl from '@/components/calc/ProteinIntl';
 import BodyFatIntl from '@/components/calc/BodyFatIntl';
 import CaloriesBurnIntl from '@/components/calc/CaloriesBurnIntl';
 import CaffeineIntl from '@/components/calc/CaffeineIntl';
-import SleepIntl from '@/components/calc/SleepIntl';
 import BloodPressureIntl from '@/components/calc/BloodPressureIntl';
-import DiscountIntl from '@/components/calc/DiscountIntl';
 import DdayIntl from '@/components/calc/DdayIntl';
 import TimeDiffIntl from '@/components/calc/TimeDiffIntl';
 import BirthdayIntl from '@/components/calc/BirthdayIntl';
@@ -76,16 +66,12 @@ const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'birthday': BirthdayIntl,
   'time-diff': TimeDiffIntl,
   'dday': DdayIntl,
-  'discount': DiscountIntl,
   'blood-pressure': BloodPressureIntl,
-  'sleep': SleepIntl,
   'caffeine': CaffeineIntl,
   'calories-burn': CaloriesBurnIntl,
   'body-fat': BodyFatIntl,
   'protein': ProteinIntl,
   'calorie': CalorieIntl,
-  'water': WaterIntl,
-  'bmr': BmrIntl,
   'exchange': ExchangeIntl,
   'retirement': RetirementIntl,
   'inflation': InflationIntl,
@@ -95,10 +81,7 @@ const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'deposit': DepositIntl,
   'breakeven': BreakevenIntl,
   'avg-price': AvgPriceIntl,
-  'roi': RoiIntl,
-  'simple-interest': SimpleInterestIntl,
   'loan': LoanIntl,
-  'compound': CompoundIntl,
   'dev/cron': DevCronIntl,
   'dev/diff': DevDiffIntl,
   'dev/sql': DevSqlIntl,
@@ -112,10 +95,7 @@ const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'dev/url-encode': DevUrlEncodeIntl,
   'dev/base64': DevBase64Intl,
   'dev/json': DevJsonIntl,
-  'dutch-pay': DutchPayIntl,
-  'tip': TipIntl,
   'percent': PercentIntl,
-  'bmi': BmiIntl,
   'binary': BinaryIntl,
   'unit-temp': UnitTempIntl,
   'unit-weight': UnitWeightIntl,

@@ -11,6 +11,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: 'Free Online Calculators — Health, Finance, Units & Dev Tools',
     hubMetaDesc: 'Free online calculators: BMI, calories, compound interest, loan payments, unit conversion, JSON formatting and more. Instant, unlimited, no sign-up.',
     related: 'More calculators',
+    crossTitle: 'Also in other sections',
   },
   es: {
     allCalcs: 'Todas las calculadoras',
@@ -21,6 +22,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: 'Calculadoras en línea gratis — salud, finanzas, unidades y desarrollo',
     hubMetaDesc: 'Calculadoras en línea y gratis: IMC, calorías, interés compuesto, cuotas de préstamo, conversión de unidades, formato JSON y más. Al instante, sin límite y sin registro.',
     related: 'Más calculadoras',
+    crossTitle: 'También en otras secciones',
   },
   'pt-br': {
     allCalcs: 'Todas as calculadoras',
@@ -31,6 +33,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: 'Calculadoras online grátis — saúde, finanças, unidades e dev',
     hubMetaDesc: 'Calculadoras online e grátis: IMC, calorias, juros compostos, parcelas de empréstimo, conversão de unidades, formatação de JSON e mais. Na hora, sem limite e sem cadastro.',
     related: 'Mais calculadoras',
+    crossTitle: 'Também em outras seções',
   },
   ja: {
     allCalcs: 'すべての計算機',
@@ -41,6 +44,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: '無料のオンライン計算機 — 健康・お金・単位・開発ツール',
     hubMetaDesc: '無料のオンライン計算機。BMI、カロリー、複利、ローン返済、単位変換、JSON整形など。その場で、回数制限なく、登録不要で使えます。',
     related: 'ほかの計算機',
+    crossTitle: 'ほかの区画にあるもの',
   },
   de: {
     allCalcs: 'Alle Rechner',
@@ -51,6 +55,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: 'Kostenlose Online-Rechner — Gesundheit, Finanzen, Einheiten & Dev-Tools',
     hubMetaDesc: 'Kostenlose Online-Rechner: BMI, Kalorien, Zinseszins, Kreditraten, Einheitenumrechnung, JSON-Formatierung und mehr. Sofort, unbegrenzt und ohne Anmeldung.',
     related: 'Weitere Rechner',
+    crossTitle: 'Auch in anderen Bereichen',
   },
   fr: {
     allCalcs: 'Toutes les calculatrices',
@@ -61,6 +66,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: 'Calculatrices en ligne gratuites — santé, finances, unités et dev',
     hubMetaDesc: 'Calculatrices en ligne et gratuites : IMC, calories, intérêts composés, mensualités de prêt, conversion d’unités, formatage JSON et plus. Instantané, illimité, sans inscription.',
     related: 'Autres calculatrices',
+    crossTitle: 'Également dans d’autres sections',
   },
   hi: {
     allCalcs: 'सभी कैलकुलेटर',
@@ -71,6 +77,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: 'मुफ़्त ऑनलाइन कैलकुलेटर — सेहत, पैसा, इकाइयाँ और डेव टूल',
     hubMetaDesc: 'मुफ़्त ऑनलाइन कैलकुलेटर: BMI, कैलोरी, चक्रवृद्धि ब्याज, लोन की किश्त, इकाई रूपांतरण, JSON फ़ॉर्मैटिंग और बहुत कुछ। तुरंत, बिना सीमा, बिना रजिस्ट्रेशन।',
     related: 'और कैलकुलेटर',
+    crossTitle: 'दूसरे हिस्सों में भी',
   },
   'zh-hans': {
     allCalcs: '全部计算器',
@@ -81,6 +88,7 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: '免费在线计算器 — 健康、理财、单位与开发工具',
     hubMetaDesc: '免费的在线计算器：BMI、卡路里、复利、贷款月供、单位换算、JSON 格式化等等。即时可用，不限次数，无需注册。',
     related: '其他计算器',
+    crossTitle: '也在其他板块',
   },
   'zh-hant': {
     allCalcs: '全部計算機',
@@ -91,5 +99,6 @@ export const CALC_SHELL: Record<CalcLang, CalcShellCopy> = {
     hubMetaTitle: '免費線上計算機 — 健康、理財、單位與開發工具',
     hubMetaDesc: '免費的線上計算機：BMI、熱量、複利、貸款月付金、單位換算、JSON 格式化等等。即時可用，不限次數，無需註冊。',
     related: '其他計算機',
+    crossTitle: '也在其他版塊',
   },
 };

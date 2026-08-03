@@ -2,8 +2,6 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
-import LangPicker from '@/components/LangPicker';
-import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 const pct = (n: number) => n.toFixed(2) + '%';
@@ -74,9 +72,6 @@ export default function RoiPage() {
         </>
       }
     >
-      <div className="flex justify-end mb-4">
-        <LangPicker current="ko" route="/calculator/roi" available={ALL_LOCALES10} />
-      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap } from '@/components/CalcShell';
-import LangPicker from '@/components/LangPicker';
-import { ALL_LOCALES10 } from '@/lib/locales';
 import CommaInput from '@/components/CommaInput';
 
 interface ExtraItem {
@@ -102,9 +100,6 @@ export default function DutchPayPage() {
       }
     >
       <div className="flex flex-col gap-4">
-        <div className="flex justify-end">
-          <LangPicker current="ko" route="/calculator/dutch-pay" available={ALL_LOCALES10} />
-        </div>
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
           <div className="grid grid-cols-2 gap-3">

@@ -6,10 +6,7 @@ export type { CalcLang, CalcCopy } from './types.ts';
 export { CALC_SHELL } from './shell.ts';
 import { UNIT_TEMP } from './unit-temp.ts';
 import { BINARY } from './binary.ts';
-import { BMI } from './bmi.ts';
 import { PERCENT } from './percent.ts';
-import { TIP } from './tip.ts';
-import { DUTCH_PAY } from './dutch-pay.ts';
 import { DEV_JSON } from './dev-tools.ts';
 import { DEV_BASE64 } from './dev-tools.ts';
 import { DEV_URL_ENCODE } from './dev-tools2.ts';
@@ -23,7 +20,6 @@ import { DEV_COLOR } from './dev-tools5.ts';
 import { DEV_SQL } from './dev-tools5.ts';
 import { DEV_DIFF } from './dev-tools5.ts';
 import { DEV_CRON } from './dev-cron.ts';
-import { COMPOUND } from './compound.ts';
 import { LOAN } from './loan.ts';
 
 /**
@@ -35,9 +31,7 @@ import { LOAN } from './loan.ts';
  *
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
-import { SIMPLE_INTEREST } from './simple-interest.ts';
 
-import { ROI } from './roi.ts';
 
 import { AVG_PRICE } from './avg-price.ts';
 
@@ -57,9 +51,7 @@ import { RETIREMENT } from './retirement.ts';
 
 import { EXCHANGE } from './exchange.ts';
 
-import { BMR } from './health.ts';
 
-import { WATER } from './health.ts';
 
 import { CALORIE } from './health2.ts';
 
@@ -71,11 +63,9 @@ import { CALORIES_BURN } from './calories-burn.ts';
 
 import { CAFFEINE } from './life.ts';
 
-import { SLEEP } from './life.ts';
 
 import { BLOOD_PRESSURE } from './life2.ts';
 
-import { DISCOUNT } from './life2.ts';
 
 import { DDAY } from './dates.ts';
 
@@ -108,16 +98,12 @@ const TABLES: Record<string, CalcTable> = {
   'birthday': BIRTHDAY,
   'time-diff': TIME_DIFF,
   'dday': DDAY,
-  'discount': DISCOUNT,
   'blood-pressure': BLOOD_PRESSURE,
-  'sleep': SLEEP,
   'caffeine': CAFFEINE,
   'calories-burn': CALORIES_BURN,
   'body-fat': BODY_FAT,
   'protein': PROTEIN,
   'calorie': CALORIE,
-  'water': WATER,
-  'bmr': BMR,
   'exchange': EXCHANGE,
   'retirement': RETIREMENT,
   'inflation': INFLATION,
@@ -127,10 +113,7 @@ const TABLES: Record<string, CalcTable> = {
   'deposit': DEPOSIT,
   'breakeven': BREAKEVEN,
   'avg-price': AVG_PRICE,
-  'roi': ROI,
-  'simple-interest': SIMPLE_INTEREST,
   'loan': LOAN,
-  'compound': COMPOUND,
   'dev/cron': DEV_CRON,
   'dev/diff': DEV_DIFF,
   'dev/sql': DEV_SQL,
@@ -144,10 +127,7 @@ const TABLES: Record<string, CalcTable> = {
   'dev/url-encode': DEV_URL_ENCODE,
   'dev/base64': DEV_BASE64,
   'dev/json': DEV_JSON,
-  'dutch-pay': DUTCH_PAY,
-  'tip': TIP,
   'percent': PERCENT,
-  'bmi': BMI,
   'binary': BINARY,
   'unit-temp': UNIT_TEMP,
   'unit-weight': UNIT_WEIGHT,

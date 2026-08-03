@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, TabBar } from '@/components/CalcShell';
-import LangPicker from '@/components/LangPicker';
-import { ALL_LOCALES10 } from '@/lib/locales';
 
 const CYCLE_MIN = 90;
 
@@ -80,9 +78,6 @@ export default function SleepPage() {
         </>
       }
     >
-      <div className="flex justify-end mb-4">
-        <LangPicker current="ko" route="/calculator/sleep" available={ALL_LOCALES10} />
-      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

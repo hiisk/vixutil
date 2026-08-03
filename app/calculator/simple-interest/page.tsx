@@ -5,8 +5,6 @@ import CalcShell, {
   SummaryGrid, SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
-import LangPicker from '@/components/LangPicker';
-import { ALL_LOCALES10 } from '@/lib/locales';
 
 const TAX_RATE = 0.154; // 이자소득세 15.4% (이자세 14% + 지방소득세 1.4%)
 const w = (n: number) => Math.round(n).toLocaleString();
@@ -114,9 +112,6 @@ export default function SimpleInterestPage() {
         </>
       }
     >
-      <div className="flex justify-end mb-4">
-        <LangPicker current="ko" route="/calculator/simple-interest" available={ALL_LOCALES10} />
-      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">예금 조건</p>

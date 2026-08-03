@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
-import LangPicker from '@/components/LangPicker';
-import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -60,9 +58,6 @@ export default function BmrPage() {
         </>
       }
     >
-      <div className="flex justify-end mb-4">
-        <LangPicker current="ko" route="/calculator/bmr" available={ALL_LOCALES10} />
-      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
