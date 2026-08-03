@@ -191,4 +191,50 @@ export const LIFE2_TOOLS: FormulaTool[] = [
       long: 'Alcohol carries 7 kcal a gram — above carbohydrate and protein at 4, below fat at 9. A 350 mL bottle of 17% spirit holds about 47 g of alcohol and 330 kcal. Food alongside it is not included.',
       note: 'Alcohol calories are not stored; they get burned first, which pushes fat oxidation to the back of the queue. That is why the effect on weight is often worse than the calorie count suggests.' },
   },
+  {
+    slug: 'caffeine-cutoff',
+    icon: '☕',
+    category: '생활 대사',
+    fields: [
+      { key: 'caf', term: 'caffeineMg', unit: 'mg', def: 150, min: 0 },
+      { key: 'left', term: 'remainMg', unit: 'mg', def: 50, min: 0 },
+    ],
+    formula: '{hoursLater} = log₂({caffeineMg} ÷ {remainMg}) × 5.7',
+    compute: v => {
+      // 이미 목표보다 적게 마셨으면 기다릴 시간이 없다 — 로그가 음수로 가기 전에 멈춘다
+      const r = ratio(v.caf, v.left);
+      const hours = r > 1 ? Math.log2(r) * 5.7 : 0;
+      return [
+        // 결과는 이 한 줄이다. "다 빠지는 시각"을 함께 내지 않는다 —
+        // 1mg까지 세면 마흔 시간이 넘게 나오는데, 그 숫자는 아무 뜻이 없다.
+        { term: 'hoursLater', unit: 'hour', value: round(hours, 1), digits: 1, primary: true },
+      ];
+    },
+    ko: { title: '커피 마지막 시각 정하기', desc: '잘 때 몸에 얼마나 남기고 싶은지로 마지막 한 잔의 시각을 되짚습니다.',
+      long: '카페인은 반감기가 대략 5.7시간입니다. 마신 양을 남기고 싶은 양으로 나눠 밑이 2인 로그를 씌우면 반감기가 몇 번 지나야 하는지 나오고, 거기에 5.7을 곱하면 시간이 됩니다.',
+      note: '반감기는 사람마다 4시간에서 9시간까지 벌어집니다. 임신 중이거나 특정 약을 먹고 있으면 훨씬 길어집니다.' },
+    en: { title: 'Last Coffee of the Day', desc: 'Work backwards from how little caffeine you want left at bedtime to when the last cup should be.',
+      long: 'Caffeine has a half-life of roughly 5.7 hours. Divide what you drank by what you want left, take the base-2 logarithm to get the number of half-lives, and multiply by 5.7 for the hours.',
+      note: 'That half-life ranges from about four to nine hours between people, and stretches much longer during pregnancy or on certain medicines.' },
+  },
+  {
+    slug: 'sleep-efficiency',
+    icon: '🛏️',
+    category: '생활 대사',
+    fields: [
+      { key: 'bed', term: 'hours', unit: 'hour', def: 8, min: 0 },
+      { key: 'slept', term: 'sleepActual', unit: 'hour', def: 6.5, min: 0 },
+    ],
+    formula: '{percent} = {sleepActual} ÷ {hours} × 100',
+    compute: v => [
+      { term: 'percent', unit: 'percent', value: round(ratio(v.slept, v.bed) * 100, 1), digits: 1, primary: true },
+      { term: 'diff', unit: 'hour', value: round(v.bed - v.slept, 2), digits: 2 },
+    ],
+    ko: { title: '수면 효율', desc: '침대에 있던 시간 가운데 실제로 잔 시간이 얼마나 되는지 봅니다.',
+      long: '실제로 잔 시간을 누워 있던 시간으로 나눈 값입니다. 수면 클리닉에서 쓰는 지표이고, 85%를 넘으면 대체로 괜찮다고 봅니다. 낮으면 누워 있는 시간을 줄이는 쪽을 권합니다.',
+      note: '오래 눕는다고 값이 좋아지지 않습니다. 오히려 깨어 있는 시간이 늘어 값이 떨어집니다.' },
+    en: { title: 'Sleep Efficiency', desc: 'See how much of the time you spent in bed you were actually asleep.',
+      long: 'Divide time asleep by time in bed. Sleep clinics use this figure and generally treat anything above 85% as fine. When it runs low, the usual advice is to spend less time in bed, not more.',
+      note: 'Lying down longer does not improve the number — it usually lowers it, because the extra time is spent awake.' },
+  },
 ];

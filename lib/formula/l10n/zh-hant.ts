@@ -235,6 +235,7 @@ export const ZH_HANT: FormulaL10n = {
     sets: '組數',
     sexFactor: '性別（男1 / 女0）',
     shapeRatio: '腰胸比',
+    bri: '身體圓度指數',
     sleepActual: '實際睡眠（h）',
     sleepDebt: '每週睡眠負債',
     sleepHours: '睡眠時間',

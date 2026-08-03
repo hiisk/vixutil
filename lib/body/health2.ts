@@ -257,4 +257,24 @@ export const HEALTH2_TOOLS: FormulaTool[] = [
       long: 'It is the same test reported in different units: the US, Korea and Japan use percent (NGSP) while much of Europe uses mmol/mol (IFCC). 6.5% is 48 mmol/mol. The estimated average glucose is shown too.',
       note: 'The two units are linearly related, so the conversion is exact. The average-glucose estimate, however, is statistical and varies between people.' },
   },
+  {
+    slug: 'ldl-hdl-ratio',
+    icon: '🩸',
+    category: '건강 지표',
+    fields: [
+      { key: 'ldl', term: 'ldl', unit: 'mgdlU', def: 130, min: 0 },
+      { key: 'hdl', term: 'hdl', unit: 'mgdlU', def: 50, min: 0 },
+    ],
+    formula: '{cholRatio} = {ldl} ÷ {hdl}',
+    compute: v => [
+      { term: 'cholRatio', unit: 'none', value: round(ratio(v.ldl, v.hdl), 2), digits: 2, primary: true },
+      { term: 'nonHdl', unit: 'mgdlU', value: Math.round(v.ldl), digits: 0 },
+    ],
+    ko: { title: 'LDL·HDL 비율', desc: '나쁜 콜레스테롤을 좋은 콜레스테롤로 나눈 비율을 봅니다.',
+      long: '총콜레스테롤 대신 LDL만 놓고 HDL과 견주는 방식입니다. 총콜레스테롤에는 HDL이 이미 섞여 있어서, LDL만 떼어 보면 방향이 더 또렷해집니다.',
+      note: '나라와 학회마다 권하는 기준이 다릅니다. 어느 수치 하나로 판단하지 말고 검사지 전체와 함께 보세요.' },
+    en: { title: 'LDL to HDL Ratio', desc: 'Divide the harmful cholesterol by the protective kind.',
+      long: 'This puts LDL alone against HDL instead of using total cholesterol, which already has HDL folded into it. Separating them makes the direction of travel clearer.',
+      note: 'Recommended thresholds differ between countries and guidelines. Read it alongside the whole panel, never on its own.' },
+  },
 ];

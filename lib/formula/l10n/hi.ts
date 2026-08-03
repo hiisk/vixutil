@@ -235,6 +235,7 @@ export const HI: FormulaL10n = {
     sets: 'सेट',
     sexFactor: 'लिंग (पु1 / स्त्री0)',
     shapeRatio: 'कमर-छाती',
+    bri: 'शरीर गोलाई सूचकांक',
     sleepActual: 'असल नींद (घंटे)',
     sleepDebt: 'साप्ताहिक नींद का घाटा',
     sleepHours: 'नींद',

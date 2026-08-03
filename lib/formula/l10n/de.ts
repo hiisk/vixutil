@@ -234,6 +234,7 @@ export const DE: FormulaL10n = {
     sets: 'Sätze',
     sexFactor: 'Geschlecht (m1 / w0)',
     shapeRatio: 'Taille zu Brust',
+    bri: 'Körperrundungsindex',
     sleepActual: 'Tatsächlicher Schlaf (h)',
     sleepDebt: 'Schlafschuld der Woche',
     sleepHours: 'Schlaf',

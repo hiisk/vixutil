@@ -21,6 +21,7 @@ export const BODY2_TERMS: Record<string, Term> = {
   weightBefore: { ko: '이전 체중(kg)', en: 'Weight before (kg)' },
   weightNow: { ko: '현재 체중(kg)', en: 'Weight now (kg)' },
   shapeRatio: { ko: '허리·가슴 비율', en: 'Waist-to-chest' },
+  bri: { ko: '신체 원형 지수', en: 'Body roundness index' },
 
   /* 대사·칼로리 */
   bmrMifflin: { ko: '기초대사량', en: 'BMR' },

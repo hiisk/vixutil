@@ -234,6 +234,7 @@ export const FR: FormulaL10n = {
     sets: 'Séries',
     sexFactor: 'Sexe (H1 / F0)',
     shapeRatio: 'Taille-poitrine',
+    bri: 'Indice de rondeur corporelle',
     sleepActual: 'Sommeil réel (h)',
     sleepDebt: 'Dette de sommeil hebdomadaire',
     sleepHours: 'Sommeil',

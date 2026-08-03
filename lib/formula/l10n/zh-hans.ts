@@ -236,6 +236,7 @@ export const ZH_HANS: FormulaL10n = {
     sets: '组数',
     sexFactor: '性别（男1 / 女0）',
     shapeRatio: '腰胸比',
+    bri: '身体圆度指数',
     sleepActual: '实际睡眠（h）',
     sleepDebt: '每周睡眠负债',
     sleepHours: '睡眠时间',

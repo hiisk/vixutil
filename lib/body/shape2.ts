@@ -322,4 +322,55 @@ export const SHAPE2_TOOLS: FormulaTool[] = [
       long: 'Look at waist over chest alongside waist over hip. Both small means a defined waist; a waist wider than the chest means fat has gathered around the middle.',
       note: 'Shape is not good or bad — it helps with clothes and shows fat distribution. For health, use waist-to-height.' },
   },
+  {
+    slug: 'body-roundness-index',
+    icon: '⭕',
+    category: '체중·체형',
+    fields: [
+      { key: 'height', term: 'heightCm', unit: 'cm', def: 170, min: 0 },
+      { key: 'waist', term: 'waistCm', unit: 'cm', def: 85, min: 0 },
+    ],
+    formula: '{bri} = 364.2 − 365.5 × √(1 − (({waistCm} ÷ 2π) ÷ (0.5 × {heightCm}))²)',
+    compute: v => {
+      // 허리가 키에 견줘 지나치게 크면 뿌리 안이 음수가 된다 — 그 자리는 0으로 눌러 둔다
+      const e = ratio(v.waist / (2 * Math.PI), 0.5 * v.height);
+      const inner = 1 - e ** 2;
+      const bri = inner > 0 ? 364.2 - 365.5 * Math.sqrt(inner) : 364.2;
+      return [
+        { term: 'bri', unit: 'none', value: round(Math.max(bri, 0), 2), digits: 2, primary: true },
+        { term: 'whtr', unit: 'none', value: round(ratio(v.waist, v.height), 3), digits: 3 },
+      ];
+    },
+    ko: { title: '신체 원형 지수(BRI)', desc: '키와 허리둘레만으로 몸통이 얼마나 둥근지를 하나의 수로 냅니다.',
+      long: '몸을 타원으로 보고 그 납작한 정도를 재는 지수입니다. BMI가 못 보는 배 둘레를 반영하므로, 같은 BMI라도 허리가 굵으면 값이 커집니다. 보통 1에서 16 사이로 나옵니다.',
+      note: '몸무게를 넣지 않으므로 근육과 지방을 가리지 못합니다. BMI·허리둘레와 함께 보세요.' },
+    en: { title: 'Body Roundness Index', desc: 'Turn height and waist alone into a single number for how round the torso is.',
+      long: 'The index treats the body as an ellipse and measures how flattened it is. It captures the belly that BMI misses, so two people with the same BMI differ once their waists do. Values usually land between 1 and 16.',
+      note: 'It ignores weight, so it cannot tell muscle from fat. Read it next to BMI and the waist measurement itself.' },
+  },
+  {
+    slug: 'relative-fat-mass',
+    icon: '📉',
+    category: '체중·체형',
+    fields: [
+      { key: 'sex', term: 'sexFactor', def: 1, min: 0, max: 1, step: 1 },
+      { key: 'height', term: 'heightCm', unit: 'cm', def: 170, min: 0 },
+      { key: 'waist', term: 'waistCm', unit: 'cm', def: 85, min: 0 },
+    ],
+    formula: '{bodyFat} = 64 (\u2642) / 76 (\u2640) − 20 × ({heightCm} ÷ {waistCm})',
+    compute: v => {
+      const base = v.sex >= 0.5 ? 64 : 76;
+      const fat = base - 20 * ratio(v.height, v.waist);
+      return [
+        { term: 'bodyFat', unit: 'percent', value: round(Math.max(fat, 0), 1), digits: 1, primary: true },
+        { term: 'whtr', unit: 'none', value: round(ratio(v.waist, v.height), 3), digits: 3 },
+      ];
+    },
+    ko: { title: '상대 지방량(RFM)', desc: '줄자 하나로 체지방률을 어림합니다. 키와 허리둘레만 있으면 됩니다.',
+      long: '키를 허리둘레로 나눈 값에 20을 곱해 상수에서 빼는 식입니다. 남자는 64, 여자는 76에서 시작합니다. 목둘레까지 재는 해군식보다 재는 곳이 하나 적습니다.',
+      note: '어디까지나 어림값입니다. 허리는 숨을 내쉰 상태에서 배꼽 높이를 재세요 — 재는 자리가 달라지면 값이 크게 흔들립니다.' },
+    en: { title: 'Relative Fat Mass', desc: 'Estimate body fat with a tape measure alone — height and waist are all it needs.',
+      long: 'Divide height by waist, multiply by 20 and subtract from a constant: 64 for men, 76 for women. It needs one measurement fewer than the navy method, which also asks for the neck.',
+      note: 'It is an estimate, not a measurement. Take the waist at navel height after breathing out — moving the tape moves the answer a long way.' },
+  },
 ];

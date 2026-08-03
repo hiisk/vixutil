@@ -169,4 +169,27 @@ export const CHILD2_TOOLS: FormulaTool[] = [
       long: 'Treat 40 weeks as full term and subtract the weeks missed from the current age. Born at 32 weeks and now 20 weeks old means subtracting eight, for a corrected age of 12 weeks. Developmental milestones should be read against this figure.',
       note: 'Corrected age is generally used until about two years, after which the gap closes and actual age applies.' },
   },
+  {
+    slug: 'child-weight-estimate',
+    icon: '🧒',
+    category: '아이·성장',
+    fields: [{ key: 'age', term: 'ageYears', unit: 'year', def: 4, min: 0, max: 12 }],
+    formula: '{weightKgB} = ({ageYears} + 4) × 2  [1–5]',
+    compute: v => {
+      // 나이대마다 식이 다르다 — 응급 지침이 쓰는 세 구간을 그대로 따른다
+      const w = v.age < 1 ? (v.age * 12 + 9) / 2
+        : v.age <= 5 ? (v.age + 4) * 2
+        : v.age * 3 + 7;
+      return [
+        { term: 'weightKgB', unit: 'kg', value: round(w, 1), digits: 1, primary: true },
+        { term: 'bloodMl', unit: 'ml', value: Math.round(w * 75), digits: 0 },
+      ];
+    },
+    ko: { title: '나이로 아이 몸무게 어림', desc: '저울이 없을 때 나이만으로 아이의 몸무게를 어림합니다.',
+      long: '응급 상황에서 약 용량을 정할 때 쓰는 어림식입니다. 1세 미만, 1~5세, 6세 이상이 각각 다른 식을 씁니다. 순환 혈액량은 몸무게 1kg당 75mL로 잡았습니다.',
+      note: '어디까지나 잴 수 없을 때의 대용입니다. 저울이 있으면 반드시 재세요 — 약 용량은 몸무게에 그대로 비례합니다.' },
+    en: { title: 'Child Weight from Age', desc: 'Estimate a child\'s weight from age alone when there is no scale to hand.',
+      long: 'This is the rule of thumb used in emergencies to set drug doses. Under one, one to five, and six and over each use a different line. Blood volume assumes 75 mL per kilogram.',
+      note: 'It stands in only when weighing is impossible. If a scale is available, use it — dose scales directly with weight.' },
+  },
 ];

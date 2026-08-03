@@ -235,6 +235,7 @@ export const ES: FormulaL10n = {
     sets: 'Series',
     sexFactor: 'Sexo (H1 / M0)',
     shapeRatio: 'Cintura-pecho',
+    bri: 'Índice de redondez corporal',
     sleepActual: 'Sueño real (h)',
     sleepDebt: 'Deuda de sueño semanal',
     sleepHours: 'Sueño',

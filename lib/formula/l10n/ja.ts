@@ -235,6 +235,7 @@ export const JA: FormulaL10n = {
     sets: 'セット数',
     sexFactor: '性別（男1 / 女0）',
     shapeRatio: 'ウエスト対胸囲',
+    bri: '身体円形指数',
     sleepActual: '実際の睡眠（時間）',
     sleepDebt: '週の睡眠負債',
     sleepHours: '睡眠時間',

@@ -277,4 +277,47 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
       long: 'Doubling the distance takes a little more than double the time. Riegel’s formula puts that “little more” at two to the power 1.06, so a 1:45 half predicts about 3:39 for the full.',
       note: 'It cannot see the wall past 30 km, so undertrained runners finish far later than predicted. Trust it only with solid long-run mileage behind you.' },
   },
+  {
+    slug: 'stride-from-height',
+    icon: '👣',
+    category: '심장·운동',
+    fields: [{ key: 'height', term: 'heightCm', unit: 'cm', def: 170, min: 0 }],
+    formula: '{strideCm} = {heightCm} × 0.415',
+    compute: v => {
+      const stride = v.height * 0.415;
+      return [
+        { term: 'strideCm', unit: 'cm', value: round(stride, 1), digits: 1, primary: true },
+        { term: 'steps', unit: 'step', value: Math.round(ratio(100000, stride)), digits: 0 },
+        { term: 'distanceKm', unit: 'km', value: round((stride * 10000) / 100000, 2), digits: 2 },
+      ];
+    },
+    ko: { title: '키로 보폭 어림하기', desc: '걸음 수를 거리로 바꾸려면 보폭이 필요합니다. 키에서 어림합니다.',
+      long: '걷는 보폭은 대개 키의 0.4배 남짓입니다. 여기서는 0.415를 씁니다. 1km를 걷는 데 몇 걸음이 드는지, 만 보가 몇 km인지도 같이 나옵니다.',
+      note: '뛰면 보폭이 훨씬 길어집니다. 정확히 알려면 열 걸음을 걷고 그 거리를 열로 나눠 보세요.' },
+    en: { title: 'Stride Length from Height', desc: 'Turning steps into distance needs a stride length; estimate one from height.',
+      long: 'A walking stride is usually a little over four tenths of your height — this uses 0.415. It also shows how many steps make a kilometre and how far ten thousand steps go.',
+      note: 'Running stretches the stride considerably. To measure it properly, walk ten paces and divide the distance by ten.' },
+  },
+  {
+    slug: 'vo2max-from-speed',
+    icon: '🫁',
+    category: '심장·운동',
+    fields: [{ key: 'speed', term: 'speedKmh', unit: 'km', def: 12, min: 0 }],
+    formula: '{vo2max} = 0.2 × ({speedKmh} × 1000 ÷ 60) + 3.5',
+    compute: v => {
+      const mPerMin = (v.speed * 1000) / 60;
+      const vo2 = 0.2 * mPerMin + 3.5;
+      return [
+        { term: 'vo2max', unit: 'none', value: round(vo2, 1), digits: 1, primary: true },
+        { term: 'metFromVo2', unit: 'none', value: round(vo2 / 3.5, 1), digits: 1 },
+        { term: 'paceMin', unit: 'minPerKm', value: round(ratio(60, v.speed), 2), digits: 2 },
+      ];
+    },
+    ko: { title: '달리기 속도로 VO2max 어림', desc: '평지에서 유지할 수 있는 속도로 최대산소섭취량을 어림합니다.',
+      long: '미국스포츠의학회의 달리기 식입니다. 분당 미터로 바꾼 속도에 0.2를 곱하고 안정 시 소비량 3.5를 더합니다. 3.5로 나누면 MET가 됩니다.',
+      note: '오르막은 포함하지 않은 식입니다. 트레드밀 경사를 올렸다면 실제 값은 이보다 높습니다.' },
+    en: { title: 'VO2max from Running Speed', desc: 'Estimate maximal oxygen uptake from the pace you can hold on the flat.',
+      long: 'This is the American College of Sports Medicine running equation: convert speed to metres per minute, multiply by 0.2 and add the 3.5 you burn at rest. Divide by 3.5 for METs.',
+      note: 'The equation assumes level ground. If you raised the treadmill incline, your real figure sits above this one.' },
+  },
 ];
