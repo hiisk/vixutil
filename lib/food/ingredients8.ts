@@ -1,5 +1,5 @@
 /**
- * 재료 110가지의 밀도 — 열 언어.
+ * 재료 147가지의 밀도 — 열 언어.
  *
  * "밀가루 1컵은 몇 g인가"는 재료마다 답이 다르다. 같은 1컵에 밀가루는 120g,
  * 설탕은 200g, 꿀은 340g이 들어간다. 부피가 아니라 무게로 재야 과자가 실패하지
@@ -7,7 +7,7 @@
  *
  * 그래서 적는 것은 밀도 하나(1L에 몇 g)뿐이다. 미국 컵(240ml)·한국 컵(200ml)·
  * 큰술(15ml)·작은술(5ml)·1g당 부피가 전부 이 하나에서 계산된다 — 재료마다 표를
- * 손으로 적으면 110 × 다섯 칸을 적어야 하고, 하나가 틀려도 반죽을 망쳐 본 사람만
+ * 손으로 적으면 147 × 다섯 칸을 적어야 하고, 하나가 틀려도 반죽을 망쳐 본 사람만
  * 알아챈다.
  *
  * 밀도는 "퍼서 담고 위를 깎은" 상태(spoon and level) 기준이다. 밀가루를 컵으로
@@ -180,6 +180,30 @@ export const INGREDIENTS: Ingredient[] = [
   g('instant-coffee', 250, 'other', '인스턴트 커피', 'Instant coffee', 'Café instantáneo', 'Café instantâneo', 'インスタントコーヒー', 'Instantkaffee', 'Café instantané', 'इंस्टेंट कॉफ़ी', '速溶咖啡粉', '即溶咖啡粉'),
   g('matcha-powder', 417, 'other', '말차 가루', 'Matcha powder', 'Matcha en polvo', 'Matchá em pó', '抹茶', 'Matcha-Pulver', 'Thé matcha en poudre', 'माचा पाउडर', '抹茶粉', '抹茶粉'),
   g('protein-powder', 458, 'other', '단백질 파우더', 'Protein powder', 'Proteína en polvo', 'Proteína em pó', 'プロテインパウダー', 'Proteinpulver', 'Protéine en poudre', 'प्रोटीन पाउडर', '蛋白粉', '蛋白粉'),
+
+  /* ───────── 뒤에 더한 것들 ───────── */
+  g('semolina', 705, 'flour', '세몰리나', 'Semolina', 'Sémola', 'Semolina', 'セモリナ粉', 'Hartweizengrieß', 'Semoule', 'सूजी', '粗粒小麦粉', '粗粒小麥粉'),
+  g('oat-flour', 480, 'flour', '귀리가루', 'Oat flour', 'Harina de avena', 'Farinha de aveia', 'オート麦粉', 'Hafermehl', 'Farine d\'avoine', 'जई का आटा', '燕麦粉', '燕麥粉'),
+  g('demerara-sugar', 850, 'sugar', '데메라라 설탕', 'Demerara sugar', 'Azúcar demerara', 'Açúcar demerara', 'デメララシュガー', 'Demerara-Zucker', 'Sucre demerara', 'डेमेरारा चीनी', '德梅拉拉糖', '德梅拉拉糖'),
+  g('date-syrup', 1330, 'sugar', '대추야자 시럽', 'Date syrup', 'Sirope de dátil', 'Xarope de tâmara', 'デーツシロップ', 'Dattelsirup', 'Sirop de datte', 'खजूर सिरप', '椰枣糖浆', '椰棗糖漿'),
+  g('farro', 800, 'grain', '파로', 'Farro', 'Farro', 'Farro', 'ファッロ', 'Emmer', 'Épeautre farro', 'फ़ारो', '法罗麦', '法羅麥'),
+  g('wild-rice', 720, 'grain', '야생쌀', 'Wild rice', 'Arroz salvaje', 'Arroz selvagem', 'ワイルドライス', 'Wildreis', 'Riz sauvage', 'जंगली चावल', '菰米', '菰米'),
+  g('evaporated-milk', 1060, 'dairy', '무당연유', 'Evaporated milk', 'Leche evaporada', 'Leite evaporado', '無糖練乳', 'Ungezuckerte Kondensmilch', 'Lait évaporé', 'वाष्पित दूध', '淡奶', '淡奶'),
+  g('cottage-cheese', 960, 'dairy', '코티지치즈', 'Cottage cheese', 'Requesón', 'Queijo cottage', 'カッテージチーズ', 'Hüttenkäse', 'Cottage cheese', 'पनीर दही', '农家干酪', '農家乾酪'),
+  g('duck-fat', 900, 'fat', '오리기름', 'Duck fat', 'Grasa de pato', 'Gordura de pato', '鴨脂', 'Entenfett', 'Graisse de canard', 'बतख की चर्बी', '鸭油', '鴨油'),
+  g('tahini', 1050, 'fat', '타히니', 'Tahini', 'Tahini', 'Tahine', 'タヒニ', 'Tahini', 'Tahini', 'ताहिनी', '芝麻酱', '芝麻醬'),
+  g('hazelnuts', 590, 'nut', '헤이즐넛', 'Hazelnuts', 'Avellanas', 'Avelãs', 'ヘーゼルナッツ', 'Haselnüsse', 'Noisettes', 'हेज़लनट', '榛子', '榛子'),
+  g('macadamia-nuts', 570, 'nut', '마카다미아', 'Macadamia nuts', 'Nueces de macadamia', 'Nozes-macadâmia', 'マカダミアナッツ', 'Macadamianüsse', 'Noix de macadamia', 'मैकाडेमिया', '夏威夷果', '夏威夷果'),
+  g('pinto-beans', 800, 'legume', '핀토빈', 'Pinto beans', 'Frijoles pintos', 'Feijão carioca', 'ピントビーンズ', 'Pintobohnen', 'Haricots pinto', 'पिंटो बीन्स', '斑豆', '斑豆'),
+  g('black-eyed-peas', 780, 'legume', '동부콩', 'Black-eyed peas', 'Frijoles carita', 'Feijão-fradinho', 'ブラックアイピー', 'Augenbohnen', 'Doliques à œil noir', 'लोबिया', '豇豆', '豇豆'),
+  g('ground-ginger', 460, 'spice', '생강가루', 'Ground ginger', 'Jengibre molido', 'Gengibre em pó', 'ジンジャーパウダー', 'Ingwerpulver', 'Gingembre moulu', 'सोंठ', '姜粉', '薑粉'),
+  g('nutmeg-ground', 470, 'spice', '육두구가루', 'Ground nutmeg', 'Nuez moscada molida', 'Noz-moscada moída', 'ナツメグパウダー', 'Muskatnusspulver', 'Noix de muscade moulue', 'जायफल चूर्ण', '肉豆蔻粉', '肉豆蔻粉'),
+  g('orange-juice', 1045, 'liquid', '오렌지주스', 'Orange juice', 'Zumo de naranja', 'Suco de laranja', 'オレンジジュース', 'Orangensaft', 'Jus d\'orange', 'संतरे का रस', '橙汁', '橙汁'),
+  g('fish-sauce', 1200, 'liquid', '액젓', 'Fish sauce', 'Salsa de pescado', 'Molho de peixe', 'ナンプラー', 'Fischsauce', 'Sauce de poisson', 'मछली सॉस', '鱼露', '魚露'),
+  g('chopped-celery', 400, 'vegetable', '다진 셀러리', 'Chopped celery', 'Apio picado', 'Aipo picado', '刻んだセロリ', 'Gehackter Sellerie', 'Céleri haché', 'कटी हुई अजवाइन', '芹菜丁', '芹菜丁'),
+  g('sliced-mushrooms', 290, 'vegetable', '저민 버섯', 'Sliced mushrooms', 'Champiñones en láminas', 'Cogumelos fatiados', 'スライスマッシュルーム', 'Geschnittene Champignons', 'Champignons émincés', 'कटे मशरूम', '蘑菇片', '蘑菇片'),
+  g('rolled-cornflakes', 160, 'other', '콘플레이크', 'Cornflakes', 'Copos de maíz', 'Flocos de milho', 'コーンフレーク', 'Cornflakes', 'Pétales de maïs', 'कॉर्नफ्लेक्स', '玉米片', '玉米片'),
+  g('dried-apricots', 640, 'other', '말린 살구', 'Dried apricots', 'Orejones', 'Damascos secos', 'ドライアプリコット', 'Getrocknete Aprikosen', 'Abricots secs', 'सूखी खुबानी', '杏干', '杏乾'),
 ];
 
 export const INGREDIENT_SLUGS = INGREDIENTS.map(i => i.slug);
