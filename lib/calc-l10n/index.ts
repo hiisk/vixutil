@@ -65,7 +65,13 @@ import { CALORIE } from './health2.ts';
 
 import { PROTEIN } from './health2.ts';
 
+import { BODY_FAT } from './body-fat.ts';
+
+import { CALORIES_BURN } from './calories-burn.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'calories-burn': CALORIES_BURN,
+  'body-fat': BODY_FAT,
   'protein': PROTEIN,
   'calorie': CALORIE,
   'water': WATER,

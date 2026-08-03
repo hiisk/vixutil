@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // MET 값 (Compendium of Physical Activities, Ainsworth et al. 2011)
 const EXERCISES: { key: string; label: string; met: number; emoji: string }[] = [
@@ -96,6 +98,9 @@ export default function CaloriesBurnPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/calories-burn" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">운동 정보 입력</p>
