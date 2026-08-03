@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/resistor', icon: '⚡', color: 'from-amber-500 to-yellow-400',
+    accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
+    copy: {
+      en: { title: 'Resistor Colour Code', desc: '144 E24 values with four- and five-band codes and tolerance' },
+      es: { title: 'Código de colores', desc: '144 valores E24 con bandas de cuatro y cinco anillos y tolerancia' },
+      'pt-br': { title: 'Código de cores', desc: '144 valores E24 com faixas de quatro e cinco anéis e tolerância' },
+      ja: { title: '抵抗カラーコード', desc: 'E24系列144種の4本・5本カラーコードと誤差' },
+      de: { title: 'Widerstands-Farbcode', desc: '144 E24-Werte mit Vier- und Fünf-Ring-Code und Toleranz' },
+      fr: { title: 'Code couleur des résistances', desc: '144 valeurs E24 avec codes à quatre et cinq anneaux et tolérance' },
+      hi: { title: 'रेज़िस्टर रंग कोड', desc: '144 E24 मान — चार और पाँच बैंड कोड तथा सहनशीलता' },
+      'zh-hans': { title: '电阻色环表', desc: 'E24 系列 144 个值的四环、五环写法与误差' },
+      'zh-hant': { title: '電阻色環表', desc: 'E24 系列 144 個值的四環、五環寫法與誤差' },
+    },
+  },
+  {
     route: '/chmod', icon: '🔒', color: 'from-orange-600 to-amber-500',
     accent: 'text-orange-700 dark:text-orange-300', border: 'border-orange-200 dark:border-orange-900/50', bg: 'bg-orange-50 dark:bg-orange-950/30',
     copy: {

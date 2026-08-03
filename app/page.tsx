@@ -11,6 +11,7 @@ import { NUMBERS } from '@/lib/number/list';
 import { CODES } from '@/lib/ascii/list';
 import { PORTS } from '@/lib/port/list';
 import { MODES as CHMOD_MODES } from '@/lib/chmod/list';
+import { VALUES as RESISTOR_VALUES } from '@/lib/resistor/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -373,6 +374,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/resistor',
+    icon: '⚡',
+    title: '저항 색띠표',
+    desc: '10Ω부터 9.1MΩ까지 — 네 띠·다섯 띠와 오차, 4k7 표기까지',
+    badge: `${RESISTOR_VALUES.length}가지`,
+    color: 'from-amber-500 to-yellow-400',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/chmod',

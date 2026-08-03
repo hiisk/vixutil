@@ -34,6 +34,7 @@ import { NUMBERS, NUMBER_ICON } from './number/list';
 import { CODES, ASCII_ICON } from './ascii/list';
 import { PORTS, PORT_ICON } from './port/list';
 import { MODES, CHMOD_ICON } from './chmod/list';
+import { VALUES as RESISTOR_VALUES, RESISTOR_ICON } from './resistor/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -43,6 +44,7 @@ import { factorText, numberFacts } from './number/facts';
 import { asciiFacts } from './ascii/facts';
 import { portFacts } from './port/facts';
 import { chmodFacts } from './chmod/facts';
+import { resistorFacts } from './resistor/facts';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
 import { rollFacts } from './dice/facts';
@@ -76,7 +78,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor';
 
 export interface SearchItem {
   href: string;
@@ -122,6 +124,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   ascii:      { label: '아스키',    icon: '⌨️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   port:       { label: '포트',      icon: '🔌', accent: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
   chmod:      { label: '파일 권한',  icon: '🔒', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
+  resistor:   { label: '저항',      icon: '⚡', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
 };
 
 /**
@@ -273,6 +276,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: CHMOD_ICON,
     };
   }),
+  ...RESISTOR_VALUES.map(ohms => {
+    const f = resistorFacts(ohms);
+    return {
+      href: `/resistor/${ohms}`,
+      title: `${f.display} 저항 색띠`,
+      desc: `${f.code} · ${f.bands4.slice(0, 3).join(' · ')}`,
+      section: 'resistor' as const,
+      icon: RESISTOR_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -347,6 +360,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/ascii', title: 'ASCII 코드표', desc: '128자의 진법·HTML 엔티티·Ctrl 조합', section: 'ascii' as const, icon: ASCII_ICON },
   { href: '/port', title: '포트 번호 사전', desc: '22·80·443·3306 등 포트 127개의 서비스와 구간', section: 'port' as const, icon: PORT_ICON },
   { href: '/chmod', title: 'chmod 권한표', desc: '755·644가 여는 것과 umask까지 125가지', section: 'chmod' as const, icon: CHMOD_ICON },
+  { href: '/resistor', title: '저항 색띠표', desc: 'E24 계열 144가지의 색띠와 오차', section: 'resistor' as const, icon: RESISTOR_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },

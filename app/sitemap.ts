@@ -51,6 +51,7 @@ import { NUMBERS } from "@/lib/number/list";
 import { CODES } from "@/lib/ascii/list";
 import { PORTS } from "@/lib/port/list";
 import { MODES as CHMOD_MODES } from "@/lib/chmod/list";
+import { VALUES as RESISTOR_VALUES } from "@/lib/resistor/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -379,6 +380,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/chmod`, changeFrequency: weekly, priority: 0.85 },
       ...CHMOD_MODES.map((mode: string) => ({
         url: `${BASE}${prefix}/chmod/${mode}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 저항 144장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/resistor`, changeFrequency: weekly, priority: 0.85 },
+      ...RESISTOR_VALUES.map((ohms: number) => ({
+        url: `${BASE}${prefix}/resistor/${ohms}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
