@@ -251,4 +251,49 @@ export const SOLID2_TOOLS: FormulaTool[] = [
       long: 'The sides are four triangles with the base edge as their base and the slant height as their height. That slant is the hypotenuse of the height and half the base edge. Four faces plus the base gives the total.',
       note: 'Slant height is not the same as edge length. The edge runs to a base corner; the slant runs to the midpoint of a base edge.' },
   },
+  {
+    slug: 'cylinder-from-volume',
+    icon: '🥫',
+    category: '입체 부피',
+    fields: [
+      { key: 'vol', term: 'volume', unit: 'cm3', def: 1000, min: 0 },
+      { key: 'r', term: 'radius', unit: 'cm', def: 5, min: 0 },
+    ],
+    formula: '{heightGeo} = {volume} ÷ (π × {radius}²)',
+    compute: v => {
+      const h = ratio(v.vol, Math.PI * v.r ** 2);
+      return [
+        { term: 'heightGeo', unit: 'cm', value: round(h, 2), digits: 2, primary: true },
+        { term: 'surface', unit: 'cm2', value: round(2 * Math.PI * v.r * (v.r + h), 2), digits: 2 },
+        { term: 'baseArea', unit: 'cm2', value: round(Math.PI * v.r ** 2, 2), digits: 2 },
+      ];
+    },
+    ko: { title: '부피로 원기둥 높이 구하기', desc: '담을 부피와 바닥 반지름이 정해졌을 때 필요한 높이를 구합니다.',
+      long: '원기둥 부피는 밑면적에 높이를 곱한 값이므로, 부피를 밑면적으로 나누면 높이가 나옵니다. 밑면적은 반지름의 제곱에 π를 곱한 것입니다.',
+      note: '반지름을 두 배로 키우면 같은 부피를 담는 데 필요한 높이는 네 분의 일로 줄어듭니다.' },
+    en: { title: 'Cylinder Height from Volume', desc: 'Find the height a cylinder needs when the volume and base radius are fixed.',
+      long: 'A cylinder\'s volume is its base area times its height, so dividing the volume by the base area gives the height. The base area is π times the radius squared.',
+      note: 'Double the radius and the height needed for the same volume drops to a quarter.' },
+  },
+  {
+    slug: 'sphere-from-volume',
+    icon: '🔮',
+    category: '입체 부피',
+    fields: [{ key: 'vol', term: 'volume', unit: 'cm3', def: 4189, min: 0 }],
+    formula: '{radius} = ∛(3 × {volume} ÷ (4π))',
+    compute: v => {
+      const r = Math.cbrt(ratio(3 * v.vol, 4 * Math.PI));
+      return [
+        { term: 'radius', unit: 'cm', value: round(r, 3), digits: 3, primary: true },
+        { term: 'diameter', unit: 'cm', value: round(2 * r, 3), digits: 3 },
+        { term: 'surface', unit: 'cm2', value: round(4 * Math.PI * r ** 2, 2), digits: 2 },
+      ];
+    },
+    ko: { title: '부피로 구의 반지름 구하기', desc: '구의 부피만 알 때 반지름과 겉넓이를 거꾸로 구합니다.',
+      long: '구의 부피는 반지름의 세제곱에 4π를 곱하고 3으로 나눈 값입니다. 그래서 거꾸로 갈 때는 세제곱근을 씌웁니다.',
+      note: '부피가 여덟 배가 되어야 반지름이 두 배가 됩니다. 부피를 두 배로 늘려도 반지름은 1.26배만 커집니다.' },
+    en: { title: 'Sphere Radius from Volume', desc: 'Work back to the radius and surface area of a sphere from its volume alone.',
+      long: 'A sphere\'s volume is 4π times the radius cubed, divided by three. Going the other way therefore takes a cube root.',
+      note: 'The volume has to grow eightfold for the radius to double. Doubling the volume widens the radius by only 1.26 times.' },
+  },
 ];

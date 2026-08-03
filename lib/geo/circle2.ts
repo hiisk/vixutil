@@ -176,4 +176,25 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
       long: 'Dividing areas straight across overcounts. However neatly you arrange circles, gaps remain: even on an infinite plane the best hexagonal packing reaches only 90.69%. This multiplies by that limit.',
       note: 'For small counts — under ten or so — the error is large. Edge effects usually mean fewer fit than this suggests.' },
   },
+  {
+    slug: 'circle-from-diameter',
+    icon: '⚪',
+    category: '원·호',
+    fields: [{ key: 'd', term: 'diameter', unit: 'cm', def: 20, min: 0 }],
+    formula: '{area} = π × ({diameter} ÷ 2)²,  {circumference} = π × {diameter}',
+    compute: v => {
+      const r = v.d / 2;
+      return [
+        { term: 'area', unit: 'cm2', value: round(Math.PI * r ** 2, 2), digits: 2, primary: true },
+        { term: 'circumference', unit: 'cm', value: round(Math.PI * v.d, 2), digits: 2 },
+        { term: 'radius', unit: 'cm', value: round(r, 3), digits: 3 },
+      ];
+    },
+    ko: { title: '지름으로 원의 넓이 구하기', desc: '자로 잰 지름에서 넓이와 둘레를 바로 구합니다.',
+      long: '둘레는 지름에 π를 곱한 값이라 지름에서 바로 나옵니다. 넓이는 지름을 반으로 나눠 반지름을 만든 뒤 제곱해야 합니다.',
+      note: '지름을 반지름 자리에 그대로 넣으면 넓이가 네 배로 나옵니다. 파이프와 원판은 대개 지름으로 표시됩니다.' },
+    en: { title: 'Circle Area from Diameter', desc: 'Go straight from a measured diameter to the area and circumference.',
+      long: 'The circumference is simply π times the diameter. The area needs one extra step: halve the diameter into a radius first, then square it.',
+      note: 'Putting the diameter where the radius belongs gives four times the real area. Pipes and discs are almost always labelled by diameter.' },
+  },
 ];

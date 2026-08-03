@@ -385,4 +385,28 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
       long: 'Round down along each axis and multiply. It always comes out below volume-over-volume, because leftover space cannot be subdivided — and that gap is the fill efficiency shown.',
       note: 'Turning items on their side changes the answer. Swap the three item dimensions around to find the best orientation.' },
   },
+  {
+    slug: 'roof-pitch',
+    icon: '🏠',
+    category: '생활 계산',
+    fields: [
+      { key: 'rise', term: 'riseLen', unit: 'cm', def: 300, min: 0 },
+      { key: 'run', term: 'runLen', unit: 'cm', def: 600, min: 0 },
+    ],
+    formula: '{angleDeg} = arctan({riseLen} ÷ {runLen}),  {slopePct} = {riseLen} ÷ {runLen} × 100',
+    compute: v => {
+      const r = ratio(v.rise, v.run);
+      return [
+        { term: 'angleDeg', unit: 'deg', value: round((Math.atan(r) * 180) / Math.PI, 2), digits: 2, primary: true },
+        { term: 'slopePct', unit: 'percent', value: round(r * 100, 2), digits: 2 },
+        { term: 'slant', unit: 'cm', value: round(Math.hypot(v.rise, v.run), 2), digits: 2 },
+      ];
+    },
+    ko: { title: '지붕 물매 각도', desc: '올라간 높이와 뻗은 거리로 지붕의 기울기와 서까래 길이를 구합니다.',
+      long: '높이를 거리로 나눈 값의 아크탄젠트가 각도입니다. 같은 값에 100을 곱하면 퍼센트가 되고, 두 변의 빗변이 서까래 길이입니다.',
+      note: '서까래 길이는 처마로 내미는 길이를 뺀 값입니다. 실제로 자를 때는 내밀 길이를 따로 더하세요.' },
+    en: { title: 'Roof Pitch Angle', desc: 'Turn rise and run into a roof angle, a percent grade and a rafter length.',
+      long: 'The arctangent of rise divided by run gives the angle. The same ratio times 100 is the percent grade, and the hypotenuse of the two is the rafter length.',
+      note: 'That rafter length stops at the wall — add whatever overhang you want at the eaves before cutting.' },
+  },
 ];

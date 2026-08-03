@@ -304,4 +304,79 @@ export const TRIG2_TOOLS: FormulaTool[] = [
       long: 'Instead of finding side lengths you cross-multiply the coordinates and add — hence “shoelace”. The absolute value means the order of the points does not matter.',
       note: 'Collinear points give an area of zero, which makes this a quick test of whether three points really form a triangle.' },
   },
+  {
+    slug: 'slope-from-angle',
+    icon: '📐',
+    category: '삼각비·각',
+    fields: [{ key: 'deg', term: 'angleDeg', unit: 'deg', def: 30, min: 0, max: 89 }],
+    formula: '{slopePct} = tan({angleDeg}) × 100',
+    compute: v => {
+      const rad = (v.deg * Math.PI) / 180;
+      const t = Math.tan(rad);
+      return [
+        { term: 'slopePct', unit: 'percent', value: round(t * 100, 2), digits: 2, primary: true },
+        { term: 'ratioVal', unit: 'none', value: round(t, 4), digits: 4 },
+        { term: 'angleRad', unit: 'rad', value: round(rad, 4), digits: 4 },
+      ];
+    },
+    ko: { title: '각도를 기울기 퍼센트로', desc: '경사각을 도로 표지판에 쓰는 기울기 퍼센트로 바꿉니다.',
+      long: '기울기 퍼센트는 수평으로 100 갔을 때 수직으로 몇을 오르는지입니다. 각도의 탄젠트에 100을 곱하면 됩니다 — 각도와 퍼센트는 비례하지 않습니다.',
+      note: '45도가 100%입니다. 도로에서 보는 10%는 5.7도이고, 100%를 넘는 기울기도 각도로는 45도를 조금 넘을 뿐입니다.' },
+    en: { title: 'Angle to Slope Percent', desc: 'Convert an angle of incline into the percent grade used on road signs.',
+      long: 'Percent grade is how much you rise for every 100 you travel horizontally: the tangent of the angle times 100. Angle and percent are not proportional.',
+      note: '45 degrees is 100%. The 10% you see on a road sign is only 5.7 degrees, and grades above 100% are still just over 45 degrees.' },
+  },
+  {
+    slug: 'right-triangle-from-hypotenuse',
+    icon: '📏',
+    category: '삼각비·각',
+    fields: [
+      { key: 'h', term: 'hypotenuse', unit: 'cm', def: 100, min: 0 },
+      { key: 'deg', term: 'angleDeg', unit: 'deg', def: 30, min: 0, max: 90 },
+    ],
+    formula: '{sideA} = {hypotenuse} × sin({angleDeg}),  {sideB} = {hypotenuse} × cos({angleDeg})',
+    compute: v => {
+      const rad = (v.deg * Math.PI) / 180;
+      const a = v.h * Math.sin(rad);
+      const b = v.h * Math.cos(rad);
+      return [
+        { term: 'sideA', unit: 'cm', value: round(a, 2), digits: 2, primary: true },
+        { term: 'sideB', unit: 'cm', value: round(b, 2), digits: 2 },
+        { term: 'area', unit: 'cm2', value: round((a * b) / 2, 2), digits: 2 },
+      ];
+    },
+    ko: { title: '빗변과 각으로 두 변 구하기', desc: '직각삼각형의 빗변 길이와 한 예각으로 나머지 두 변을 구합니다.',
+      long: '마주 보는 변은 빗변에 사인을, 붙어 있는 변은 코사인을 곱한 값입니다. 두 변을 곱해 반으로 나누면 넓이가 나옵니다.',
+      note: '각이 45도일 때 두 변이 같아지고, 그때 넓이가 가장 큽니다. 각을 0이나 90도로 두면 삼각형이 납작해집니다.' },
+    en: { title: 'Two Sides from Hypotenuse and Angle', desc: 'Get both legs of a right triangle from the hypotenuse and one acute angle.',
+      long: 'The side opposite the angle is the hypotenuse times the sine; the adjacent side is the hypotenuse times the cosine. Half their product is the area.',
+      note: 'At 45 degrees the two legs are equal and the area is at its largest. Push the angle to 0 or 90 and the triangle flattens away.' },
+  },
+  {
+    slug: 'clock-hands-angle',
+    icon: '🕰️',
+    category: '삼각비·각',
+    fields: [
+      { key: 'h', term: 'hours', unit: 'hour', def: 3, min: 0, max: 23 },
+      { key: 'm', term: 'minutes', unit: 'minute', def: 15, min: 0, max: 59 },
+    ],
+    formula: '{angleDeg} = |30 × {hours} − 5.5 × {minutes}|',
+    compute: v => {
+      // 시침도 분에 따라 움직인다 — 한 시간에 30도이므로 1분에 0.5도씩 간다
+      const hourAngle = (v.h % 12) * 30 + v.m * 0.5;
+      const minuteAngle = v.m * 6;
+      const gap = Math.abs(hourAngle - minuteAngle);
+      const deg = gap > 180 ? 360 - gap : gap;
+      return [
+        { term: 'angleDeg', unit: 'deg', value: round(deg, 2), digits: 2, primary: true },
+        { term: 'angleRad', unit: 'rad', value: round((deg * Math.PI) / 180, 4), digits: 4 },
+      ];
+    },
+    ko: { title: '시곗바늘 사이 각도', desc: '시침과 분침이 이루는 각을 구합니다.',
+      long: '분침은 1분에 6도, 시침은 1분에 0.5도씩 움직입니다. 두 각의 차를 구하고 180도를 넘으면 360에서 빼 작은 쪽을 씁니다.',
+      note: '3시 15분은 90도가 아니라 7.5도입니다. 그 15분 동안 시침도 7.5도를 이미 지나갔기 때문입니다.' },
+    en: { title: 'Angle Between Clock Hands', desc: 'Find the angle the hour and minute hands make at a given time.',
+      long: 'The minute hand moves 6 degrees a minute, the hour hand 0.5. Take the difference, and if it passes 180 subtract from 360 to keep the smaller angle.',
+      note: 'Quarter past three is 7.5 degrees, not 90 — over those fifteen minutes the hour hand has already crept 7.5 degrees along.' },
+  },
 ];

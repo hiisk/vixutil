@@ -247,4 +247,72 @@ export const PLANE2_TOOLS: FormulaTool[] = [
       long: 'The centroid is simply the average of the three coordinates. It is where the medians meet, and a paper triangle balances on it. The area comes from the shoelace formula.',
       note: 'The centroid cuts each median in a 2:1 ratio — two parts towards the vertex, one towards the opposite side.' },
   },
+  {
+    slug: 'rect-from-diagonal',
+    icon: '📐',
+    category: '평면 도형',
+    fields: [
+      { key: 'd', term: 'diagonal', unit: 'cm', def: 130, min: 0 },
+      { key: 'a', term: 'sideA', unit: 'cm', def: 50, min: 0 },
+    ],
+    formula: '{sideB} = √({diagonal}² − {sideA}²)',
+    compute: v => {
+      // 대각선이 한 변보다 짧으면 그런 직사각형은 없다 — 음수 제곱근 대신 0으로 둔다
+      const rest = v.d ** 2 - v.a ** 2;
+      const b = rest > 0 ? Math.sqrt(rest) : 0;
+      return [
+        { term: 'sideB', unit: 'cm', value: round(b, 2), digits: 2, primary: true },
+        { term: 'area', unit: 'cm2', value: round(v.a * b, 2), digits: 2 },
+        { term: 'perimeter', unit: 'cm', value: round(2 * (v.a + b), 2), digits: 2 },
+      ];
+    },
+    ko: { title: '대각선으로 나머지 변 구하기', desc: '직사각형의 대각선과 한 변을 알 때 다른 변과 면적을 구합니다.',
+      long: '대각선은 직각삼각형의 빗변이므로 피타고라스로 풉니다. 대각선 제곱에서 아는 변의 제곱을 빼고 제곱근을 씌우면 나머지 변이 나옵니다.',
+      note: '대각선이 아는 변보다 짧으면 그런 직사각형은 없습니다. 재는 자리를 잘못 잡았는지 먼저 보세요.' },
+    en: { title: 'Missing Side from Diagonal', desc: 'Find the other side and the area of a rectangle from its diagonal and one side.',
+      long: 'The diagonal is the hypotenuse of a right triangle, so Pythagoras solves it. Subtract the known side squared from the diagonal squared and take the square root.',
+      note: 'If the diagonal is shorter than the known side, no such rectangle exists — check which length you actually measured.' },
+  },
+  {
+    slug: 'square-from-area',
+    icon: '⬜',
+    category: '평면 도형',
+    fields: [{ key: 'area', term: 'area', unit: 'cm2', def: 400, min: 0 }],
+    formula: '{sideLen} = √{area}',
+    compute: v => {
+      const s = Math.sqrt(Math.max(v.area, 0));
+      return [
+        { term: 'sideLen', unit: 'cm', value: round(s, 3), digits: 3, primary: true },
+        { term: 'perimeter', unit: 'cm', value: round(4 * s, 3), digits: 3 },
+        { term: 'diagonal', unit: 'cm', value: round(s * Math.SQRT2, 3), digits: 3 },
+      ];
+    },
+    ko: { title: '면적으로 정사각형 한 변 구하기', desc: '넓이만 알 때 한 변의 길이와 둘레, 대각선을 구합니다.',
+      long: '정사각형은 한 변을 제곱한 것이 면적이므로, 면적에 제곱근을 씌우면 한 변이 됩니다. 대각선은 한 변의 √2배, 약 1.414배입니다.',
+      note: '면적이 네 배가 되어야 한 변이 두 배가 됩니다. 면적을 두 배로 늘리면 한 변은 1.414배만 길어집니다.' },
+    en: { title: 'Square Side from Area', desc: 'Get the side, perimeter and diagonal of a square when you only know its area.',
+      long: 'A square\'s area is its side squared, so the square root of the area gives the side. The diagonal is √2 — about 1.414 — times the side.',
+      note: 'The area has to quadruple for the side to double. Doubling the area lengthens the side by only 1.414 times.' },
+  },
+  {
+    slug: 'trapezoid-height',
+    icon: '📏',
+    category: '평면 도형',
+    fields: [
+      { key: 'area', term: 'area', unit: 'cm2', def: 300, min: 0 },
+      { key: 'b1', term: 'baseLen', unit: 'cm', def: 20, min: 0 },
+      { key: 'b2', term: 'baseTop', unit: 'cm', def: 10, min: 0 },
+    ],
+    formula: '{heightGeo} = 2 × {area} ÷ ({baseLen} + {baseTop})',
+    compute: v => [
+      { term: 'heightGeo', unit: 'cm', value: round(ratio(2 * v.area, v.b1 + v.b2), 3), digits: 3, primary: true },
+      { term: 'sideLen', unit: 'cm', value: round((v.b1 + v.b2) / 2, 3), digits: 3 },
+    ],
+    ko: { title: '사다리꼴 높이 역산', desc: '넓이와 두 밑변을 알 때 높이를 거꾸로 구합니다.',
+      long: '사다리꼴 넓이는 두 밑변의 평균에 높이를 곱한 값입니다. 그래서 넓이를 두 밑변의 평균으로 나누면 높이가 나옵니다.',
+      note: '두 밑변의 평균은 중점을 이은 선의 길이와 같습니다. 두 밑변이 같으면 사다리꼴이 아니라 평행사변형입니다.' },
+    en: { title: 'Trapezoid Height from Area', desc: 'Work back to the height when you know the area and both parallel sides.',
+      long: 'The area of a trapezoid is the average of the two parallel sides times the height, so dividing the area by that average returns the height.',
+      note: 'That average equals the length of the midline. If both parallel sides are the same, the shape is a parallelogram, not a trapezoid.' },
+  },
 ];
