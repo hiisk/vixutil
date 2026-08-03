@@ -5,6 +5,8 @@ import CalcShell, {
   SummaryGrid, SummaryCard, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type Tab = 'future' | 'present';
 
@@ -112,6 +114,9 @@ export default function InflationPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/inflation" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

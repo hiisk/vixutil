@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -76,6 +78,9 @@ export default function CompoundGoalPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/compound-goal" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

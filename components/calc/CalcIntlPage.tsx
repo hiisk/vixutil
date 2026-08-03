@@ -27,6 +27,11 @@ import SimpleInterestIntl from '@/components/calc/SimpleInterestIntl';
 import RoiIntl from '@/components/calc/RoiIntl';
 import AvgPriceIntl from '@/components/calc/AvgPriceIntl';
 import BreakevenIntl from '@/components/calc/BreakevenIntl';
+import DepositIntl from '@/components/calc/DepositIntl';
+import SavingsIntl from '@/components/calc/SavingsIntl';
+import CompoundGoalIntl from '@/components/calc/CompoundGoalIntl';
+import DividendIntl from '@/components/calc/DividendIntl';
+import InflationIntl from '@/components/calc/InflationIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -39,6 +44,11 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'inflation': InflationIntl,
+  'dividend': DividendIntl,
+  'compound-goal': CompoundGoalIntl,
+  'savings': SavingsIntl,
+  'deposit': DepositIntl,
   'breakeven': BreakevenIntl,
   'avg-price': AvgPriceIntl,
   'roi': RoiIntl,

@@ -43,7 +43,22 @@ import { AVG_PRICE } from './avg-price.ts';
 
 import { BREAKEVEN } from './breakeven.ts';
 
+import { DEPOSIT } from './deposit.ts';
+
+import { SAVINGS } from './savings.ts';
+
+import { COMPOUND_GOAL } from './compound-goal.ts';
+
+import { DIVIDEND } from './dividend.ts';
+
+import { INFLATION } from './inflation.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'inflation': INFLATION,
+  'dividend': DIVIDEND,
+  'compound-goal': COMPOUND_GOAL,
+  'savings': SAVINGS,
+  'deposit': DEPOSIT,
   'breakeven': BREAKEVEN,
   'avg-price': AVG_PRICE,
   'roi': ROI,
