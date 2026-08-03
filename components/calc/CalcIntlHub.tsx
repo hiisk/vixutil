@@ -76,7 +76,9 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
           </div>
         </main>
 
-        <SiteFooter lang={lang} referral={false} />
+        {/* 허브는 본문에 자기 카드를 세우지 않으므로 푸터 자리를 끄지 않는다.
+            끄면 이 화면에는 제휴 카드가 한 장도 남지 않는다. */}
+        <SiteFooter lang={lang} />
       </div>
     </div>
   );

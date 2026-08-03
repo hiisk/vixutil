@@ -33,6 +33,21 @@ export type HomeSection = {
 
 const SECTIONS: HomeSection[] = [
   {
+    route: '/calculator', icon: '🧮', color: 'from-blue-500 to-indigo-600',
+    accent: 'text-blue-700 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900/50', bg: 'bg-blue-50 dark:bg-blue-950/30',
+    copy: {
+      en: { title: 'Calculators', desc: 'Health, money, dates and developer tools' },
+      es: { title: 'Calculadoras', desc: 'Salud, dinero, fechas y herramientas de programación' },
+      'pt-br': { title: 'Calculadoras', desc: 'Saúde, dinheiro, datas e ferramentas de desenvolvimento' },
+      ja: { title: '計算機', desc: '健康・お金・日付・開発者向けツール' },
+      de: { title: 'Rechner', desc: 'Gesundheit, Geld, Datum und Entwickler-Werkzeuge' },
+      fr: { title: 'Calculatrices', desc: 'Santé, argent, dates et outils pour développeurs' },
+      hi: { title: 'कैलकुलेटर', desc: 'सेहत, पैसा, तारीख़ें और डेवलपर टूल' },
+      'zh-hans': { title: '计算器', desc: '健康、理财、日期和开发者工具' },
+      'zh-hant': { title: '計算機', desc: '健康、理財、日期和開發者工具' },
+    },
+  },
+  {
     route: '/convert', icon: '📐', color: 'from-slate-500 to-slate-700',
     accent: 'text-slate-700 dark:text-slate-300', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/40',
     copy: {
