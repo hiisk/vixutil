@@ -1,8 +1,8 @@
 /**
- * 이미지 크기 116가지 — 가로세로 픽셀만 적는다.
+ * 이미지 크기 134가지 — 가로세로 픽셀만 적는다.
  *
  * 화면비·메가픽셀·인쇄 크기·용량 어림은 전부 두 숫자에서 계산된다. 표를 손으로
- * 적으면 116 × 다섯 칸이고, 한 칸이 틀려도 그럴듯한 숫자라 아무도 못 잡는다.
+ * 적으면 134 × 다섯 칸이고, 한 칸이 틀려도 그럴듯한 숫자라 아무도 못 잡는다.
  *
  * 이름은 플랫폼과 규격 이름이라 언어를 가리지 않는다. 어느 나라에서든
  * "YouTube thumbnail"은 1280×720이고 A4는 A4다.
@@ -83,6 +83,11 @@ export const IMG_SIZES: ImgSize[] = [
   s('video-cinemascope', 'CinemaScope 2.39:1', 1920, 803, 'video'),
   s('video-ultrawide', 'Ultrawide 21:9', 2560, 1080, 'video'),
 
+  s('video-360p', '360p video', 640, 360, 'video'),
+  s('video-480p', '480p video', 854, 480, 'video'),
+  s('video-720p-vertical', '720p vertical video', 720, 1280, 'video'),
+  s('video-1440p-vertical', '1440p vertical video', 1440, 2560, 'video'),
+
   /* ───────── 인쇄물 (300dpi) ───────── */
   s('a0-300dpi', 'A0 at 300 dpi', 9933, 14043, 'print', [841, 1189]),
   s('a1-300dpi', 'A1 at 300 dpi', 7016, 9933, 'print', [594, 841]),
@@ -101,6 +106,11 @@ export const IMG_SIZES: ImgSize[] = [
   s('a4-150dpi', 'A4 at 150 dpi', 1240, 1754, 'print', [210, 297]),
   s('a4-72dpi', 'A4 at 72 dpi', 595, 842, 'print', [210, 297]),
 
+  s('a7-300dpi', 'A7 at 300 dpi', 874, 1240, 'print', [74, 105]),
+  s('a8-300dpi', 'A8 at 300 dpi', 614, 874, 'print', [52, 74]),
+  s('b3-300dpi', 'B3 at 300 dpi', 4169, 5906, 'print', [353, 500]),
+  s('ansi-c-300dpi', 'ANSI C at 300 dpi', 5100, 6600, 'print', [431.8, 558.8]),
+
   /* ───────── 사진 인화 ───────── */
   s('photo-3x5', '3×5 in print', 900, 1500, 'photo', [76, 127]),
   s('photo-4x6', '4×6 in print', 1200, 1800, 'photo', [102, 152]),
@@ -110,6 +120,9 @@ export const IMG_SIZES: ImgSize[] = [
   s('photo-16x20', '16×20 in print', 4800, 6000, 'photo', [406, 508]),
   s('photo-20x30', '20×30 in print', 6000, 9000, 'photo', [508, 762]),
   s('photo-wallet', 'Wallet print', 750, 1050, 'photo', [64, 89]),
+
+  s('photo-2x3', '2×3 in print', 600, 900, 'photo', [51, 76]),
+  s('photo-12x18', '12×18 in print', 3600, 5400, 'photo', [305, 457]),
 
   /* ───────── 웹 화면 ───────── */
   s('web-hero', 'Website hero image', 1920, 1080, 'web'),
@@ -124,6 +137,10 @@ export const IMG_SIZES: ImgSize[] = [
   s('wallpaper-tablet', 'Tablet wallpaper', 2048, 2732, 'web'),
   s('email-header', 'Email header', 600, 200, 'web'),
   s('email-body-width', 'Email body image', 600, 400, 'web'),
+
+  s('web-1366', '1366×768 laptop viewport', 1366, 768, 'web'),
+  s('web-1440', '1440×900 laptop viewport', 1440, 900, 'web'),
+  s('web-tablet-portrait', 'Tablet portrait viewport', 768, 1024, 'web'),
 
   /* ───────── 아이콘과 파비콘 ───────── */
   s('favicon-16', 'Favicon 16', 16, 16, 'icon'),
@@ -141,6 +158,10 @@ export const IMG_SIZES: ImgSize[] = [
   s('ui-icon-24', 'UI icon 24', 24, 24, 'icon'),
   s('ui-icon-48', 'UI icon 48', 48, 48, 'icon'),
 
+  s('favicon-64', 'Favicon 64', 64, 64, 'icon'),
+  s('pwa-icon-384', 'PWA icon 384', 384, 384, 'icon'),
+  s('mac-app-icon', 'macOS app icon', 1024, 1024, 'icon'),
+
   /* ───────── 광고 배너 ───────── */
   s('ad-leaderboard', 'Leaderboard banner', 728, 90, 'ad'),
   s('ad-large-leaderboard', 'Large leaderboard', 970, 90, 'ad'),
@@ -156,6 +177,9 @@ export const IMG_SIZES: ImgSize[] = [
   s('ad-small-square', 'Small square ad', 200, 200, 'ad'),
   s('ad-portrait', 'Portrait ad', 300, 1050, 'ad'),
   s('ad-interstitial', 'Mobile interstitial', 320, 480, 'ad'),
+
+  s('ad-full-banner', 'Full banner', 468, 60, 'ad'),
+  s('ad-vertical-rectangle', 'Vertical rectangle', 240, 400, 'ad'),
 
   /* ───────── 서류용 사진 ───────── */
   s('id-photo-passport-kr', 'Passport photo 35×45 mm', 413, 531, 'doc', [35, 45]),
