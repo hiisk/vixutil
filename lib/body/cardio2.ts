@@ -279,7 +279,7 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
   },
   {
     slug: 'stride-from-height',
-    icon: '👣',
+    icon: '🧍',
     category: '심장·운동',
     fields: [{ key: 'height', term: 'heightCm', unit: 'cm', def: 170, min: 0 }],
     formula: '{strideCm} = {heightCm} × 0.415',

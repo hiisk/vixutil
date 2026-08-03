@@ -178,7 +178,7 @@ export const CIRCLE2_TOOLS: FormulaTool[] = [
   },
   {
     slug: 'circle-from-diameter',
-    icon: '⚪',
+    icon: '💿',
     category: '원·호',
     fields: [{ key: 'd', term: 'diameter', unit: 'cm', def: 20, min: 0 }],
     formula: '{area} = π × ({diameter} ÷ 2)²,  {circumference} = π × {diameter}',

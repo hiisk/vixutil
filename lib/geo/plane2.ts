@@ -275,7 +275,7 @@ export const PLANE2_TOOLS: FormulaTool[] = [
   },
   {
     slug: 'square-from-area',
-    icon: '⬜',
+    icon: '🔲',
     category: '평면 도형',
     fields: [{ key: 'area', term: 'area', unit: 'cm2', def: 400, min: 0 }],
     formula: '{sideLen} = √{area}',
