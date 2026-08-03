@@ -3,7 +3,7 @@
  *
  * 가장 잘 나는 실수는 닫는 태그다. <br></br>처럼 존재하지 않는 꼴을 적어도
  * 화면에서는 그럴듯해 보이고, 그대로 따라 쓴 사람만 빈 줄이 하나 더 생긴다.
- * 그래서 여는 꼴과 닫는 꼴이 데이터와 어긋나지 않는지 126개 전부 확인한다.
+ * 그래서 여는 꼴과 닫는 꼴이 데이터와 어긋나지 않는지 140개 전부 확인한다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -73,7 +73,7 @@ test('폐기 표시가 갈래와 맞는다', () => {
   assert.ok(!tagFacts(tagOf('div')!).deprecated);
 });
 
-test('126개 모두 열 언어 설명이 있다', () => {
+test('140개 모두 열 언어 설명이 있다', () => {
   // 마이너 아르카나처럼 조합할 수 없는 자료라, 한 칸이 비면 그 태그만 조용히 빈 페이지가 된다
   for (const t of TAGS) {
     const row = TAG_DESC[t.name];

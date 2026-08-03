@@ -157,6 +157,8 @@ export const TAGS: Tag[] = [
   t('object', 'embed', ['data', 'type']),
   t('portal', 'embed', ['src']),
 
+  t('math', 'embed', ['display']),
+
   /* ───────── 스크립트·스타일 ───────── */
   t('script', 'script', ['src', 'type', 'async', 'defer']),
   t('noscript', 'script'),
@@ -186,6 +188,19 @@ export const TAGS: Tag[] = [
   t('acronym', 'deprecated'),
   t('applet', 'deprecated', ['code']),
   t('dir', 'deprecated'),
+  t('nobr', 'deprecated'),
+  t('noframes', 'deprecated'),
+  t('noembed', 'deprecated'),
+  t('plaintext', 'deprecated'),
+  t('xmp', 'deprecated'),
+  t('listing', 'deprecated'),
+  t('basefont', 'deprecated', ['size', 'color'], true),
+  t('keygen', 'deprecated', ['name', 'challenge'], true),
+  t('spacer', 'deprecated', ['type', 'size'], true),
+  t('isindex', 'deprecated', ['prompt'], true),
+  t('param', 'deprecated', ['name', 'value'], true),
+  t('rb', 'deprecated'),
+  t('rtc', 'deprecated'),
 ];
 
 export const TAG_KINDS: TagKind[] = [
