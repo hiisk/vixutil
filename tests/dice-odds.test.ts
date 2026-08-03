@@ -24,7 +24,7 @@ test('100가지가 넘는다', () => {
 test('열쇠가 겹치지 않고 주소로 쓸 수 있다', () => {
   assert.equal(new Set(ROLL_SLUGS).size, ROLLS.length, 'slug 중복');
   for (const r of ROLLS) {
-    assert.match(r.slug, /^[1-6]d6-\d+$/, `주소에 못 쓰는 slug: ${r.slug}`);
+    assert.match(r.slug, /^[1-8]d6-\d+$/, `주소에 못 쓰는 slug: ${r.slug}`);
     assert.equal(r.slug, `${r.dice}d6-${r.sum}`, `${r.slug}: 열쇠가 값과 다르다`);
   }
 });
