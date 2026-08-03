@@ -1,12 +1,12 @@
 /**
- * 세계 도시 116곳의 시간대 — 열 언어.
+ * 세계 도시 136곳의 시간대 — 열 언어.
  *
  * 적는 것은 IANA 시간대 이름 하나뿐이다. UTC 오프셋·서머타임 여부·지금 시각·
  * 다른 도시와의 시차가 전부 그 이름에서 계산된다 — 오프셋을 손으로 적으면
- * 서머타임이 바뀔 때마다 116곳을 고쳐야 하고, 나라가 시간대 정책을 바꾸면(터키가
+ * 서머타임이 바뀔 때마다 136곳을 고쳐야 하고, 나라가 시간대 정책을 바꾸면(터키가
  * 2016년에, 브라질이 2019년에 그랬다) 조용히 틀린 값이 남는다.
  *
- * 시간대 이름은 Intl API가 아는 것만 쓴다. 검사에서 116곳을 모두 실제로 계산해
+ * 시간대 이름은 Intl API가 아는 것만 쓴다. 검사에서 136곳을 모두 실제로 계산해
  * 보므로, 오타나 없어진 시간대는 바로 드러난다.
  *
  * 나라 이름은 도시마다 적지 않는다. 한 나라에 도시가 여럿이라 같은 말을 여덟 벌씩
@@ -240,6 +240,28 @@ export const TIME_CITIES: TimeCity[] = [
   t('perth', 'Australia/Perth', 'au', '퍼스', 'Perth', 'Perth', 'Perth', 'パース', 'Perth', 'Perth', 'पर्थ', '珀斯', '伯斯'),
   t('adelaide', 'Australia/Adelaide', 'au', '애들레이드', 'Adelaide', 'Adelaida', 'Adelaide', 'アデレード', 'Adelaide', 'Adélaïde', 'एडिलेड', '阿德莱德', '阿得雷德'),
   t('auckland', 'Pacific/Auckland', 'nz', '오클랜드', 'Auckland', 'Auckland', 'Auckland', 'オークランド', 'Auckland', 'Auckland', 'ऑकलैंड', '奥克兰', '奧克蘭'),
+
+  /* ───────── 뒤에 더한 도시들 ───────── */
+  t('incheon', 'Asia/Seoul', 'kr', '인천', 'Incheon', 'Incheon', 'Incheon', '仁川', 'Incheon', 'Incheon', 'इंचियोन', '仁川', '仁川'),
+  t('daegu', 'Asia/Seoul', 'kr', '대구', 'Daegu', 'Daegu', 'Daegu', '大邱', 'Daegu', 'Daegu', 'डेगू', '大邱', '大邱'),
+  t('kyoto', 'Asia/Tokyo', 'jp', '교토', 'Kyoto', 'Kioto', 'Quioto', '京都', 'Kyoto', 'Kyoto', 'क्योटो', '京都', '京都'),
+  t('nagoya', 'Asia/Tokyo', 'jp', '나고야', 'Nagoya', 'Nagoya', 'Nagoia', '名古屋', 'Nagoya', 'Nagoya', 'नागोया', '名古屋', '名古屋'),
+  t('yokohama', 'Asia/Tokyo', 'jp', '요코하마', 'Yokohama', 'Yokohama', 'Yokohama', '横浜', 'Yokohama', 'Yokohama', 'योकोहामा', '横滨', '橫濱'),
+  t('guangzhou', 'Asia/Shanghai', 'cn', '광저우', 'Guangzhou', 'Cantón', 'Cantão', '広州', 'Guangzhou', 'Canton', 'ग्वांगझोउ', '广州', '廣州'),
+  t('chengdu', 'Asia/Shanghai', 'cn', '청두', 'Chengdu', 'Chengdú', 'Chengdu', '成都', 'Chengdu', 'Chengdu', 'चेंगदू', '成都', '成都'),
+  t('pune', 'Asia/Kolkata', 'in', '푸네', 'Pune', 'Pune', 'Pune', 'プネー', 'Pune', 'Pune', 'पुणे', '浦那', '浦那'),
+  t('ahmedabad', 'Asia/Kolkata', 'in', '아마다바드', 'Ahmedabad', 'Ahmedabad', 'Ahmedabad', 'アーメダバード', 'Ahmedabad', 'Ahmedabad', 'अहमदाबाद', '艾哈迈达巴德', '艾哈邁達巴德'),
+  t('philadelphia', 'America/New_York', 'us', '필라델피아', 'Philadelphia', 'Filadelfia', 'Filadélfia', 'フィラデルフィア', 'Philadelphia', 'Philadelphie', 'फ़िलाडेल्फ़िया', '费城', '費城'),
+  t('san-diego', 'America/Los_Angeles', 'us', '샌디에이고', 'San Diego', 'San Diego', 'San Diego', 'サンディエゴ', 'San Diego', 'San Diego', 'सैन डिएगो', '圣迭戈', '聖地亞哥'),
+  t('detroit', 'America/Detroit', 'us', '디트로이트', 'Detroit', 'Detroit', 'Detroit', 'デトロイト', 'Detroit', 'Détroit', 'डेट्रॉयट', '底特律', '底特律'),
+  t('cologne', 'Europe/Berlin', 'de', '쾰른', 'Cologne', 'Colonia', 'Colônia', 'ケルン', 'Köln', 'Cologne', 'कोलोन', '科隆', '科隆'),
+  t('valencia', 'Europe/Madrid', 'es', '발렌시아', 'Valencia', 'Valencia', 'Valência', 'バレンシア', 'Valencia', 'Valence', 'वालेंसिया', '巴伦西亚', '瓦倫西亞'),
+  t('naples', 'Europe/Rome', 'it', '나폴리', 'Naples', 'Nápoles', 'Nápoles', 'ナポリ', 'Neapel', 'Naples', 'नेपल्स', '那不勒斯', '拿坡里'),
+  t('marseille', 'Europe/Paris', 'fr', '마르세유', 'Marseille', 'Marsella', 'Marselha', 'マルセイユ', 'Marseille', 'Marseille', 'मार्सेई', '马赛', '馬賽'),
+  t('birmingham', 'Europe/London', 'gb', '버밍엄', 'Birmingham', 'Birmingham', 'Birmingham', 'バーミンガム', 'Birmingham', 'Birmingham', 'बर्मिंघम', '伯明翰', '伯明罕'),
+  t('saint-petersburg', 'Europe/Moscow', 'ru', '상트페테르부르크', 'Saint Petersburg', 'San Petersburgo', 'São Petersburgo', 'サンクトペテルブルク', 'Sankt Petersburg', 'Saint-Pétersbourg', 'सेंट पीटर्सबर्ग', '圣彼得堡', '聖彼得堡'),
+  t('ankara', 'Europe/Istanbul', 'tr', '앙카라', 'Ankara', 'Ankara', 'Ancara', 'アンカラ', 'Ankara', 'Ankara', 'अंकारा', '安卡拉', '安卡拉'),
+  t('wellington', 'Pacific/Auckland', 'nz', '웰링턴', 'Wellington', 'Wellington', 'Wellington', 'ウェリントン', 'Wellington', 'Wellington', 'वेलिंगटन', '惠灵顿', '威靈頓'),
 ];
 
 export const TIME_CITY_SLUGS = TIME_CITIES.map(c => c.slug);
