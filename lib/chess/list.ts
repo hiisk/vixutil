@@ -217,6 +217,20 @@ export const OPENINGS: Opening[] = [
   o('benko-opening', 'benko-op', null, 'g3'),
   o('saragossa-opening', 'saragossa', null, 'c3'),
   o('fools-mate', 'fools-mate', null, 'f3 e5 g4 Qh4'),
+  /* ── 뒤에 더한 갈래들 — 계열과 갈래 낱말은 이미 names.ts에 있는 것만 쓴다 ── */
+  o('french-steinitz', 'french', 'steinitz', 'e4 e6 d4 d5 Nc3 Nf6 e5 Nfd7'),
+  o('scotch-steinitz', 'scotch', 'steinitz', 'e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Qh4'),
+  o('vienna-gambit-accepted', 'vienna-gambit', 'accepted', 'e4 e5 Nc3 Nf6 f4 exf4'),
+  o('nimzo-indian-classical', 'nimzo-indian', 'classical', 'd4 Nf6 c4 e6 Nc3 Bb4 Qc2'),
+  o('nimzo-indian-samisch', 'nimzo-indian', 'samisch', 'd4 Nf6 c4 e6 Nc3 Bb4 a3'),
+  o('queens-indian-classical', 'queens-indian', 'classical', 'd4 Nf6 c4 e6 Nf3 b6 g3 Bb7 Bg2 Be7'),
+  o('benoni-four-pawns', 'benoni', 'four-pawns', 'd4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 e4 g6 f4'),
+  o('benoni-fianchetto', 'benoni', 'fianchetto', 'd4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 Nf3 g6 g3 Bg7 Bg2'),
+  o('catalan-closed', 'catalan', 'closed', 'd4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O'),
+  o('catalan-open', 'catalan', 'open', 'd4 Nf6 c4 e6 g3 d5 Bg2 dxc4'),
+  o('slav-main-line', 'slav', 'main', 'd4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4'),
+  o('grunfeld-fianchetto', 'grunfeld', 'fianchetto', 'd4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 g3 O-O Bg2'),
+  o('english-closed', 'english', 'closed', 'c4 e5 Nc3 Nc6 g3 g6 Bg2 Bg7'),
 ];
 
 export const openingOf = (slug: string): Opening | undefined =>
