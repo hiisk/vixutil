@@ -1,5 +1,5 @@
 /**
- * 정규식 133가지를 실제로 돌려 본다.
+ * 정규식 155가지를 실제로 돌려 본다.
  *
  * 이 자료는 눈으로 검사할 수 없다. 이메일 식이라며 올라온 것이 점 두 개짜리
  * 주소를 통과시키는지는 넣어 봐야 안다. 그래서 식마다 "맞아야 하는 보기"와
@@ -143,7 +143,7 @@ test('갈래가 빈 곳 없이 덮는다', () => {
   for (const k of KINDS) assert.ok(patternsOfKind(k).length >= 5, `${k}가 너무 적다`);
 });
 
-test('133개 모두 열 언어 설명이 있다', () => {
+test('155개 모두 열 언어 설명이 있다', () => {
   for (const x of PATTERNS) {
     const row = WHAT[x.slug];
     assert.ok(row, `${x.slug}: 설명이 없다`);

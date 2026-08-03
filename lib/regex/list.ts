@@ -1,11 +1,11 @@
 /**
- * 정규식 133가지 — 식과 함께 "맞아야 하는 보기"와 "맞으면 안 되는 보기"를 적는다.
+ * 정규식 155가지 — 식과 함께 "맞아야 하는 보기"와 "맞으면 안 되는 보기"를 적는다.
  *
  * 인터넷에 도는 정규식의 절반은 틀렸다. 이메일 식이라며 올라온 것에 점 두 개짜리
  * 주소를 넣으면 통과하고, 날짜 식이라며 올라온 것에 13월을 넣어도 통과한다.
  * 눈으로 봐서는 알 수 없다 — 돌려 봐야 안다.
  *
- * 그래서 이 표는 식만 적지 않는다. 보기를 함께 적어 두고, 검사가 133개를 모두
+ * 그래서 이 표는 식만 적지 않는다. 보기를 함께 적어 두고, 검사가 155개를 모두
  * 실제로 돌려 본다. 맞아야 할 것이 안 맞거나 안 맞아야 할 것이 맞으면 그 자리에서
  * 걸린다. 화면에 보이는 보기도 같은 자료에서 나오므로 설명과 식이 어긋날 수 없다.
  *
@@ -58,6 +58,10 @@ const SYNTAX: Pattern[] = [
   p('case-insensitive', 'syntax', '^cat$', ['cat', 'CAT', 'Cat'], ['cats', 'dog'], 'i'),
   p('multiline-anchor', 'syntax', '^b', ['a\nb'], ['a b'], 'm'),
   p('dotall', 'syntax', '^a.b$', ['a\nb', 'axb'], ['ab'], 's'),
+  p('unicode-letter', 'syntax', '^\\p{L}+$', ['abc', '한글', 'café'], ['a1', '!'], 'u'),
+  p('emoji-property', 'syntax', '^\\p{Extended_Pictographic}+$', ['🎲', '🧩🎯'], ['abc', '한글'], 'u'),
+  p('cyrillic-range', 'syntax', '^[\\u0400-\\u04FF]+$', ['Привет', 'Мир'], ['abc', '한글']),
+  p('hex-escape', 'syntax', '^\\x41$', ['A'], ['a', 'x41']),
 ];
 
 /** 몇 번 되풀이되는지를 정하는 표기들 */
@@ -79,6 +83,10 @@ const QUANTIFIER: Pattern[] = [
   p('repeated-word', 'quantifier', '\\b(\\w+)\\s+\\1\\b', ['the the cat', 'is is'], ['the cat', 'this is']),
   p('optional-group', 'quantifier', '^(?:https?://)?example\\.com$', ['example.com', 'https://example.com'], ['ftp://example.com', 'example.org']),
   p('nested-quantifier', 'quantifier', '^(?:\\d{1,3}\\.){3}\\d{1,3}$', ['192.168.0.1', '8.8.8.8'], ['192.168.0', '1.2.3.4.5']),
+  p('at-most', 'quantifier', '^\\d{0,3}$', ['12', '123'], ['1234', '12a']),
+  p('min-max-word', 'quantifier', '^\\w{3,8}$', ['abc', 'abcdefgh'], ['ab', 'abcdefghi']),
+  p('exact-repeat-group', 'quantifier', '^(?:\\w+\\.){2}\\w+$', ['a.b.c', 'x1.y2.z3'], ['a.b', 'a.b.c.d']),
+  p('optional-trailing-slash', 'quantifier', '^/[a-z]+/?$', ['/docs', '/docs/'], ['docs', '/docs//']),
 ];
 
 /** 앞뒤를 살펴보되 잡아먹지 않는 표기들 */
@@ -91,6 +99,9 @@ const LOOKAROUND: Pattern[] = [
   p('no-double-space', 'lookaround', '^(?!.*  ).+$', ['one two', 'a'], ['one  two', 'a  b']),
   p('must-contain', 'lookaround', '^(?=.*@).+$', ['a@b', 'x@y.com'], ['ab', 'plain']),
   p('thousand-separator', 'lookaround', '\\B(?=(\\d{3})+(?!\\d))', ['1234567', '1000'], ['100', '12']),
+  p('no-repeated-char', 'lookaround', '^(?!.*(.)\\1).+$', ['abc', 'xyz'], ['aab', 'hello']),
+  p('lookbehind-won', 'lookaround', '(?<=₩)\\d+', ['₩5000'], ['5000', '$5000']),
+  p('no-word-present', 'lookaround', '^(?!.*\\btest\\b).*$', ['production code', 'testing'], ['this is a test', 'test']),
 ];
 
 /** 통째로 맞는지 보는 식들 — 앞뒤를 묶어 두었다 */
@@ -139,6 +150,13 @@ const VALIDATE: Pattern[] = [
   p('no-leading-zero', 'validate', '^(?:0|[1-9]\\d*)$', ['0', '2024'], ['007', '01']),
   p('even-number', 'validate', '^\\d*[02468]$', ['4', '128'], ['3', '127']),
   p('blank-line', 'validate', '^\\s*$', ['', '   ', '\t'], ['a', ' a ']),
+  p('iso-week', 'validate', '^\\d{4}-W(?:0[1-9]|[1-4]\\d|5[0-3])$', ['2024-W01', '2024-W53'], ['2024-W00', '2024-W54', '2024-01']),
+  p('hex-colour-alpha', 'validate', '^#(?:[0-9a-f]{4}|[0-9a-f]{8})$', ['#ffff', '#A1B2C3D4'], ['#fff', '#ffffff'], 'i'),
+  p('card-number-format', 'validate', '^\\d{4}(?:[ -]?\\d{4}){3}$', ['4111111111111111', '4111 1111 1111 1111', '4111-1111-1111-1111'], ['4111 1111 1111', '41111111111111111']),
+  p('currency-code', 'validate', '^[A-Z]{3}$', ['USD', 'KRW'], ['usd', 'US']),
+  p('hex-with-prefix', 'validate', '^0x[0-9a-f]+$', ['0x1F', '0xdeadbeef'], ['1F', '0x'], 'i'),
+  p('sha256-hex', 'validate', '^[0-9a-f]{64}$', ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'], ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b85', 'abc'], 'i'),
+  p('object-id', 'validate', '^[0-9a-f]{24}$', ['507f1f77bcf86cd799439011'], ['507f1f77bcf86cd79943901', 'zzzf1f77bcf86cd799439011'], 'i'),
 ];
 
 /** 골라내거나 다듬을 때 쓰는 식들 */
@@ -179,6 +197,10 @@ const EXTRACT: Pattern[] = [
   p('emoji-surrogate', 'extract', '[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]', ['🎲', 'a🧩b'], ['abc', '★']),
   p('repeated-char', 'extract', '(.)\\1{2,}', ['aaa', 'wooow'], ['aa', 'abc']),
   p('trailing-comma', 'extract', ',\\s*([}\\]])', ['[1,2,]', '{"a":1, }'], ['[1,2]', '{"a":1}']),
+  p('markdown-bold', 'extract', '\\*\\*([^*]+)\\*\\*', ['**bold**', 'a **b** c'], ['*italic*', '**unclosed']),
+  p('markdown-code', 'extract', '`([^`]+)`', ['`code`', 'use `x` here'], ['plain', '`unclosed']),
+  p('quoted-attribute', 'extract', '(\\w+)="([^"]*)"', ['src="a.png"', 'a b="c"'], ['src=a.png', 'plain']),
+  p('ansi-escape', 'extract', '\\x1b\\[[0-9;]*m', ['\u001b[31mred\u001b[0m'], ['plain', '[31m']),
 ];
 
 export const PATTERNS: Pattern[] = [...SYNTAX, ...QUANTIFIER, ...LOOKAROUND, ...VALIDATE, ...EXTRACT];
