@@ -53,7 +53,13 @@ import { DIVIDEND } from './dividend.ts';
 
 import { INFLATION } from './inflation.ts';
 
+import { RETIREMENT } from './retirement.ts';
+
+import { EXCHANGE } from './exchange.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'exchange': EXCHANGE,
+  'retirement': RETIREMENT,
   'inflation': INFLATION,
   'dividend': DIVIDEND,
   'compound-goal': COMPOUND_GOAL,

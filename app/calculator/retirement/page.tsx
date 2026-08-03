@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function fmtKRW(n: number): string {
   if (n >= 1e8) return `${(n / 1e8).toFixed(2)}억원`;
@@ -132,6 +134,9 @@ export default function RetirementPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/retirement" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력 정보</p>

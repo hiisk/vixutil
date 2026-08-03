@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, TableWrap } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const TARGETS = [
   { code:'USD', name:'미국 달러',  flag:'🇺🇸' },
@@ -46,6 +48,9 @@ export default function ExchangePage() {
 
   return (
     <CalcShell path="/calculator/exchange" title="환율 계산기" description="실시간 환율 API 연동 (ExchangeRate-API)">
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/exchange" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         {loading && (
           <Card className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
