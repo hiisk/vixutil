@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // WHO/대한고혈압학회 2023 기준
 interface BpLevel {
@@ -157,6 +159,9 @@ export default function BloodPressurePage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/blood-pressure" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 입력</p>

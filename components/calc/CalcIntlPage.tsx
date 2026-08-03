@@ -40,6 +40,10 @@ import CalorieIntl from '@/components/calc/CalorieIntl';
 import ProteinIntl from '@/components/calc/ProteinIntl';
 import BodyFatIntl from '@/components/calc/BodyFatIntl';
 import CaloriesBurnIntl from '@/components/calc/CaloriesBurnIntl';
+import CaffeineIntl from '@/components/calc/CaffeineIntl';
+import SleepIntl from '@/components/calc/SleepIntl';
+import BloodPressureIntl from '@/components/calc/BloodPressureIntl';
+import DiscountIntl from '@/components/calc/DiscountIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -52,6 +56,10 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'discount': DiscountIntl,
+  'blood-pressure': BloodPressureIntl,
+  'sleep': SleepIntl,
+  'caffeine': CaffeineIntl,
   'calories-burn': CaloriesBurnIntl,
   'body-fat': BodyFatIntl,
   'protein': ProteinIntl,

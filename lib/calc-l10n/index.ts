@@ -69,7 +69,19 @@ import { BODY_FAT } from './body-fat.ts';
 
 import { CALORIES_BURN } from './calories-burn.ts';
 
+import { CAFFEINE } from './life.ts';
+
+import { SLEEP } from './life.ts';
+
+import { BLOOD_PRESSURE } from './life2.ts';
+
+import { DISCOUNT } from './life2.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'discount': DISCOUNT,
+  'blood-pressure': BLOOD_PRESSURE,
+  'sleep': SLEEP,
+  'caffeine': CAFFEINE,
   'calories-burn': CALORIES_BURN,
   'body-fat': BODY_FAT,
   'protein': PROTEIN,

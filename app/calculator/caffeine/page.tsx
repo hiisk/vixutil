@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const SOURCE_PRESETS = [
   { label: '아메리카노', mg: 150 },
@@ -102,6 +104,9 @@ export default function CaffeinePage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/caffeine" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">섭취 정보</p>

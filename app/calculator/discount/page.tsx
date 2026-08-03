@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type Tab = 'calc' | 'rate' | 'reverse';
 
@@ -76,6 +78,9 @@ export default function DiscountPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/discount" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[
