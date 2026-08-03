@@ -57,7 +57,19 @@ import { RETIREMENT } from './retirement.ts';
 
 import { EXCHANGE } from './exchange.ts';
 
+import { BMR } from './health.ts';
+
+import { WATER } from './health.ts';
+
+import { CALORIE } from './health2.ts';
+
+import { PROTEIN } from './health2.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'protein': PROTEIN,
+  'calorie': CALORIE,
+  'water': WATER,
+  'bmr': BMR,
   'exchange': EXCHANGE,
   'retirement': RETIREMENT,
   'inflation': INFLATION,

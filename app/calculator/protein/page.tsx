@@ -7,6 +7,8 @@ import CalcShell, {
 import {
   calcProtein, PROTEIN_LEVELS, PROTEIN_FOODS, type ProteinResult,
 } from '@/lib/protein-intake';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export default function ProteinPage() {
   const [weight, setWeight] = useState('70');
@@ -47,6 +49,9 @@ export default function ProteinPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/protein" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <CardHeader title="내 정보" />
