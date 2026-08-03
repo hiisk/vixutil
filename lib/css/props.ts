@@ -1,5 +1,5 @@
 /**
- * CSS 속성 120가지 — 이름과 갈래, 상속 여부, 자주 쓰는 값만 적는다.
+ * CSS 속성 194가지 — 이름과 갈래, 상속 여부, 자주 쓰는 값만 적는다.
  *
  * 속성 이름과 값은 표준이 정한 영어라 옮기지 않는다. 어느 나라에서든
  * display: flex는 display: flex다. 여덟 언어로 쓸 것은 설명 한 줄뿐이다.
@@ -48,6 +48,12 @@ export const CSS_PROPS: CssProp[] = [
   p('container-type', 'layout', ['normal', 'inline-size', 'size']),
   p('isolation', 'layout', ['auto', 'isolate']),
 
+  p('column-count', 'layout', ['auto', '2', '3']),
+  p('column-width', 'layout', ['auto', '200px', '20em']),
+  p('columns', 'layout', ['auto', '200px 3'], false, ['column-width', 'column-count']),
+  p('content-visibility', 'layout', ['visible', 'auto', 'hidden']),
+  p('contain', 'layout', ['none', 'strict', 'content', 'layout', 'paint', 'size']),
+
   /* ───────── 플렉스와 그리드 ───────── */
   p('flex-direction', 'flexgrid', ['row', 'column', 'row-reverse', 'column-reverse']),
   p('flex-wrap', 'flexgrid', ['nowrap', 'wrap', 'wrap-reverse']),
@@ -74,6 +80,11 @@ export const CSS_PROPS: CssProp[] = [
   p('place-content', 'flexgrid', ['center', 'space-between'], false, ['align-content', 'justify-content']),
   p('justify-items', 'flexgrid', ['stretch', 'center', 'start']),
 
+  p('grid-area', 'flexgrid', ['auto', 'header', '1 / 1 / 2 / 2']),
+  p('justify-self', 'flexgrid', ['auto', 'start', 'center', 'end', 'stretch']),
+  p('place-self', 'flexgrid', ['auto', 'center', 'start end'], false, ['align-self', 'justify-self']),
+  p('grid-auto-columns', 'flexgrid', ['auto', 'min-content', 'max-content', '1fr']),
+
   /* ───────── 상자 ───────── */
   p('width', 'box', ['auto', '100%', '320px', 'fit-content']),
   p('height', 'box', ['auto', '100%', '100vh']),
@@ -91,6 +102,11 @@ export const CSS_PROPS: CssProp[] = [
   p('padding-right', 'box', ['0', '1rem']),
   p('padding-bottom', 'box', ['0', '1rem']),
   p('padding-left', 'box', ['0', '1rem']),
+
+  p('inline-size', 'box', ['auto', '100%', '300px']),
+  p('block-size', 'box', ['auto', '100%', '200px']),
+  p('margin-inline', 'box', ['auto', '0', '1rem']),
+  p('padding-block', 'box', ['0', '1rem', '8px 16px']),
 
   /* ───────── 글자 ───────── */
   p('font-size', 'text', ['16px', '1rem', 'clamp(1rem, 2vw, 1.5rem)'], true),
@@ -119,6 +135,12 @@ export const CSS_PROPS: CssProp[] = [
   p('hyphens', 'text', ['none', 'auto', 'manual'], true),
   p('text-wrap', 'text', ['wrap', 'balance', 'pretty'], true),
 
+  p('direction', 'text', ['ltr', 'rtl'], true),
+  p('tab-size', 'text', ['8', '4', '2'], true),
+  p('text-align-last', 'text', ['auto', 'left', 'center', 'right', 'justify'], true),
+  p('text-underline-offset', 'text', ['auto', '2px', '0.1em'], true),
+  p('font-stretch', 'text', ['normal', 'condensed', 'expanded', '75%'], true),
+
   /* ───────── 색과 배경 ───────── */
   p('color', 'color', ['#111', 'currentColor', 'rgb(0 0 0 / 50%)'], true),
   p('background-color', 'color', ['transparent', '#fff', 'rgb(0 0 0 / 10%)']),
@@ -133,6 +155,9 @@ export const CSS_PROPS: CssProp[] = [
   p('mix-blend-mode', 'color', ['normal', 'multiply', 'screen', 'overlay']),
   p('accent-color', 'color', ['auto', '#0ea5e9'], true),
   p('color-scheme', 'color', ['normal', 'light', 'dark', 'light dark'], true),
+
+  p('background-origin', 'color', ['padding-box', 'border-box', 'content-box']),
+  p('background-blend-mode', 'color', ['normal', 'multiply', 'screen', 'overlay']),
 
   /* ───────── 테두리 ───────── */
   p('border', 'border', ['none', '1px solid #ddd'], false, ['border-width', 'border-style', 'border-color']),
@@ -149,6 +174,10 @@ export const CSS_PROPS: CssProp[] = [
   p('outline-offset', 'border', ['0', '2px']),
   p('box-shadow', 'border', ['none', '0 1px 3px rgba(0,0,0,.2)', 'inset 0 0 0 1px #ddd']),
 
+  p('border-left', 'border', ['1px solid #000', 'none']),
+  p('border-right', 'border', ['1px solid #000', 'none']),
+  p('border-image', 'border', ['none', 'url(frame.png) 30 round']),
+
   /* ───────── 효과 ───────── */
   p('filter', 'effect', ['none', 'blur(4px)', 'grayscale(1)', 'brightness(1.2)']),
   p('backdrop-filter', 'effect', ['none', 'blur(8px)', 'saturate(1.5)']),
@@ -157,6 +186,9 @@ export const CSS_PROPS: CssProp[] = [
   p('object-fit', 'effect', ['fill', 'cover', 'contain', 'none', 'scale-down']),
   p('object-position', 'effect', ['center', 'top', '50% 50%']),
   p('image-rendering', 'effect', ['auto', 'pixelated', 'crisp-edges']),
+
+  p('backface-visibility', 'effect', ['visible', 'hidden']),
+  p('mask', 'effect', ['none', 'url(shape.svg)']),
 
   /* ───────── 변형과 움직임 ───────── */
   p('transform', 'transform', ['none', 'translateX(10px)', 'rotate(45deg)', 'scale(1.05)']),
@@ -174,6 +206,13 @@ export const CSS_PROPS: CssProp[] = [
   p('will-change', 'transform', ['auto', 'transform', 'opacity']),
   p('perspective', 'transform', ['none', '800px']),
 
+  p('rotate', 'transform', ['none', '45deg', 'x 30deg']),
+  p('scale', 'transform', ['none', '1.5', '2 0.5']),
+  p('translate', 'transform', ['none', '10px', '50% 20px']),
+  p('animation-delay', 'transform', ['0s', '1s', '-500ms']),
+  p('animation-direction', 'transform', ['normal', 'reverse', 'alternate']),
+  p('animation-fill-mode', 'transform', ['none', 'forwards', 'backwards', 'both']),
+
   /* ───────── 위치 ───────── */
   p('position', 'position', ['static', 'relative', 'absolute', 'fixed', 'sticky']),
   p('top', 'position', ['auto', '0', '50%']),
@@ -182,6 +221,9 @@ export const CSS_PROPS: CssProp[] = [
   p('left', 'position', ['auto', '0', '50%']),
   p('inset', 'position', ['auto', '0'], false, ['top', 'right', 'bottom', 'left']),
   p('z-index', 'position', ['auto', '0', '10', '-1']),
+
+  p('inset-inline', 'position', ['auto', '0', '10px 20px']),
+  p('inset-block', 'position', ['auto', '0', '10px 20px']),
 
   /* ───────── 표·목록 ───────── */
   p('border-collapse', 'table', ['separate', 'collapse'], true),
@@ -192,6 +234,9 @@ export const CSS_PROPS: CssProp[] = [
   p('list-style-type', 'list', ['disc', 'decimal', 'none', 'circle'], true),
   p('list-style-image', 'list', ['none', 'url(dot.svg)'], true),
   p('list-style-position', 'list', ['outside', 'inside'], true),
+
+  p('empty-cells', 'table', ['show', 'hide'], true),
+  p('counter-set', 'list', ['none', 'section 0']),
 
   /* ───────── 조작 ───────── */
   p('cursor', 'interaction', ['auto', 'pointer', 'not-allowed', 'grab'], true),
@@ -204,6 +249,9 @@ export const CSS_PROPS: CssProp[] = [
   p('resize', 'interaction', ['none', 'both', 'vertical']),
   p('caret-color', 'interaction', ['auto', 'transparent', '#0ea5e9'], true),
 
+  p('appearance', 'interaction', ['none', 'auto']),
+  p('scroll-snap-align', 'interaction', ['none', 'start', 'center', 'end']),
+
   /* ───────── 인쇄와 기타 ───────── */
   p('page-break-after', 'print', ['auto', 'always', 'avoid']),
   p('break-inside', 'print', ['auto', 'avoid']),
@@ -212,6 +260,9 @@ export const CSS_PROPS: CssProp[] = [
   p('counter-increment', 'print', ['none', 'section']),
   p('quotes', 'print', ['auto', 'none'], true),
   p('all', 'print', ['initial', 'unset', 'revert']),
+  p('break-after', 'print', ['auto', 'avoid', 'page', 'column']),
+  p('orphans', 'print', ['2', '3'], true),
+  p('widows', 'print', ['2', '3'], true),
 ];
 
 export const PROP_KINDS: PropKind[] = [

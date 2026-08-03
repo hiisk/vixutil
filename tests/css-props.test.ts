@@ -50,10 +50,18 @@ test('단축 관계가 양방향으로 맞는다', () => {
 
 test('상속 표시가 알려진 사실과 맞는다', () => {
   // 상속되는 것과 안 되는 것을 섞으면 페이지가 정반대를 말하게 된다
-  for (const n of ['color', 'font-size', 'font-family', 'line-height', 'text-align', 'visibility', 'cursor']) {
+  for (const n of [
+    'color', 'font-size', 'font-family', 'line-height', 'text-align', 'visibility', 'cursor',
+    'direction', 'tab-size', 'text-align-last', 'text-underline-offset', 'font-stretch',
+    'empty-cells', 'orphans', 'widows',
+  ]) {
     assert.ok(propFacts(cssPropOf(n)!).inherited, `${n}은 상속되는 속성이다`);
   }
-  for (const n of ['margin', 'padding', 'display', 'position', 'width', 'background-color', 'border', 'opacity']) {
+  for (const n of [
+    'margin', 'padding', 'display', 'position', 'width', 'background-color', 'border', 'opacity',
+    'contain', 'content-visibility', 'inline-size', 'block-size', 'appearance',
+    'rotate', 'scale', 'translate', 'columns', 'mask', 'break-after',
+  ]) {
     assert.ok(!propFacts(cssPropOf(n)!).inherited, `${n}은 상속되지 않는 속성이다`);
   }
 });
@@ -77,7 +85,7 @@ test('갈래가 빈 곳 없이 덮는다', () => {
   );
 });
 
-test('154개 모두 열 언어 설명이 있다', () => {
+test('194개 모두 열 언어 설명이 있다', () => {
   for (const p of CSS_PROPS) {
     const row = CSS_DESC[p.name];
     assert.ok(row, `${p.name}: 설명이 없다`);
