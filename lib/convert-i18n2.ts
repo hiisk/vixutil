@@ -286,5 +286,65 @@ export const CONVERT_EN2: Record<string, ConvertL10n> = {
     long: 'A degree holds 60 arcminutes and each minute holds 60 seconds. Latitude, longitude and celestial positions are written this way; the full moon spans about 31 arcminutes.',
     note: 'Arcminutes share their symbols with time but mean something else. One minute of latitude is about 1.852 km — one nautical mile.',
   },
+  'mil-mm': {
+    title: 'Mils to mm', desc: 'Convert mils (thou) and millimetres both ways',
+    long: 'One mil is a thousandth of an inch, or 0.0254 mm. US drawings use it for circuit trace widths, film and sheet thickness, and coating depth.',
+    note: 'It is also called a thou — the same unit. The name resembles millimetre, but a mil is under a fortieth of one.',
+    from: 'mils', to: 'mm',
+  },
+  'angstrom-nm': {
+    title: 'Angstroms to nanometres', desc: 'Convert angstroms and nanometres both ways',
+    long: 'One angstrom is 0.1 nanometres. Atomic diameters and chemical bond lengths mostly fall between one and three angstroms, which is why crystallography and spectroscopy leaned on it.',
+    note: 'It is not an SI unit, so journals prefer nanometres or picometres. Check which one a figure is quoting.',
+    from: 'Å', to: 'nm',
+  },
+  'pennyweight-g': {
+    title: 'Pennyweights to grams', desc: 'Convert the precious-metal pennyweight to grams',
+    long: 'One pennyweight (dwt) is 1.55517384 g, and twenty of them make a troy ounce. North American jewellers and dental alloy suppliers still quote it.',
+    note: 'It rests on the troy ounce (31.1035 g), not the ordinary ounce (28.35 g). Mixing the two throws the weight off by nearly ten percent.',
+    from: 'dwt', to: 'g',
+  },
+  'tola-g': {
+    title: 'Tolas to grams', desc: 'Convert the South Asian gold tola to grams',
+    long: 'One tola is 11.6638038 g, taken from the weight of an old Indian silver rupee. Jewellers in India, Pakistan and Bangladesh still price gold by it.',
+    note: 'Some places reckon it as 11.34 g instead, depending on country and era. Confirm the local figure before trading.',
+    from: 'tola', to: 'g',
+  },
+  'gill-ml': {
+    title: 'Gills to millilitres', desc: 'Convert the imperial gill to millilitres',
+    long: 'An imperial gill is 142.0653125 mL, or five fluid ounces. It turns up in old cookbooks and in spirit measures, and British pubs still pour by it.',
+    note: 'The US gill is 118.29 mL — a different quantity. With an old recipe, check which side of the Atlantic it came from.',
+    from: 'gills', to: 'mL',
+  },
+  'impgallon-l': {
+    title: 'Imperial gallons to litres', desc: 'Convert the imperial gallon to litres',
+    long: 'An imperial gallon is exactly 4.54609 L. Used in the UK, Ireland and parts of the Caribbean, it runs twenty percent larger than the US gallon of 3.785 L.',
+    note: 'This is where fuel economy comparisons go wrong most often. Imperial mpg always looks higher than US mpg without the car being any more efficient.',
+    from: 'gal', to: 'L',
+  },
+  'rood-m2': {
+    title: 'Roods to square metres', desc: 'Convert the imperial rood to square metres',
+    long: 'One rood is 1011.7141056 m², exactly a quarter of an acre. Old British land deeds and farm records list acres, roods and perches side by side.',
+    note: 'The same word means a crucifix, which confuses old documents. Only in an area context does it carry this value.',
+    from: 'roods', to: 'm²',
+  },
+  'pace-mile-kmh': {
+    title: 'Pace per mile to km/h', desc: 'Convert running pace per mile into speed',
+    long: 'Turns minutes per mile into kilometres per hour. Since a mile is 1.609344 km, dividing 96.56 by the pace gives the speed: an eight-minute mile is 12.07 km/h.',
+    note: 'This one divides, so the direction flips. A smaller pace number is faster; a larger speed number is faster.',
+    from: 'min/mile', to: 'km/h',
+  },
+  'tib-tb': {
+    title: 'TiB to TB', desc: 'Convert binary tebibytes and decimal terabytes',
+    long: 'A TiB is two to the fortieth power of bytes while a TB is ten to the twelfth, so one TiB is about 1.0995 TB. That gap is why a 4 TB drive shows up as 3.64 TiB.',
+    note: 'No capacity went missing; the two sides simply count differently. Windows labels TiB as TB, while macOS and drive makers use TB.',
+    from: 'TiB', to: 'TB',
+  },
+  'btu-wh': {
+    title: 'BTU to watt-hours', desc: 'Convert the heat unit BTU into watt-hours',
+    long: 'One BTU is about 0.293071 Wh. North America rates air conditioners and boilers in BTU, so converting to electrical units lets you compare against power draw.',
+    note: 'An air conditioner’s "BTU" is nearly always shorthand for BTU per hour. Twelve thousand BTU/h makes one ton of refrigeration.',
+    from: 'BTU', to: 'Wh',
+  },
 };
 
