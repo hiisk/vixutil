@@ -95,7 +95,10 @@ import { GAS_COST } from './car2.ts';
 
 import { EV_CHARGE } from './car2.ts';
 
+import { GPA } from './gpa.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'gpa': GPA,
   'ev-charge': EV_CHARGE,
   'gas-cost': GAS_COST,
   'fuel-efficiency': FUEL_EFFICIENCY,
