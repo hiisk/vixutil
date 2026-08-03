@@ -1,4 +1,5 @@
 import type { Checklist } from './types';
+import { CHECKLISTS_B } from './checklist-data-b.ts';
 
 const CHECKLISTS: Checklist[] = [
   /* ───── 이사·생활 ───── */
@@ -5678,8 +5679,10 @@ const CHECKLISTS: Checklist[] = [
   },
 ];
 
+const ALL: Checklist[] = [...CHECKLISTS, ...CHECKLISTS_B];
+
 export const CHECKLISTS_MAP: Record<string, Checklist> = Object.fromEntries(
-  CHECKLISTS.map(c => [c.slug, c])
+  ALL.map(c => [c.slug, c])
 );
 
-export { CHECKLISTS };
+export { ALL as CHECKLISTS };
