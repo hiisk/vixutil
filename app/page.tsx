@@ -10,6 +10,7 @@ import { ELEMENTS } from '@/lib/element/list';
 import { NUMBERS } from '@/lib/number/list';
 import { CODES } from '@/lib/ascii/list';
 import { PORTS } from '@/lib/port/list';
+import { MODES as CHMOD_MODES } from '@/lib/chmod/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -372,6 +373,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/chmod',
+    icon: '🔒',
+    title: 'chmod 권한표',
+    desc: '755·644가 정확히 무엇을 여는지 — rwx와 ls -l, umask까지',
+    badge: `${CHMOD_MODES.length}가지`,
+    color: 'from-orange-600 to-amber-500',
+    bgLight: 'bg-orange-50 dark:bg-orange-950/30',
+    textAccent: 'text-orange-700 dark:text-orange-300',
+    borderAccent: 'border-orange-200 dark:border-orange-900/50',
+    shadow: 'shadow-orange-100',
   },
   {
     href: '/port',

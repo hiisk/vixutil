@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/chmod', icon: '🔒', color: 'from-orange-600 to-amber-500',
+    accent: 'text-orange-700 dark:text-orange-300', border: 'border-orange-200 dark:border-orange-900/50', bg: 'bg-orange-50 dark:bg-orange-950/30',
+    copy: {
+      en: { title: 'chmod Permissions', desc: '125 modes with rwx, ls -l, umask and who can do what' },
+      es: { title: 'Permisos chmod', desc: '125 modos con rwx, ls -l, umask y quién puede qué' },
+      'pt-br': { title: 'Permissões chmod', desc: '125 modos com rwx, ls -l, umask e quem pode o quê' },
+      ja: { title: 'chmod 権限', desc: '125種のrwx・ls -l・umask・誰が何をできるか' },
+      de: { title: 'chmod-Rechte', desc: '125 Modi mit rwx, ls -l, umask und wer was darf' },
+      fr: { title: 'Permissions chmod', desc: '125 modes avec rwx, ls -l, umask et qui peut quoi' },
+      hi: { title: 'chmod अनुमतियाँ', desc: '125 मोड — rwx, ls -l, umask और कौन क्या कर सकता है' },
+      'zh-hans': { title: 'chmod 权限', desc: '125 种模式的 rwx、ls -l、umask 与谁能做什么' },
+      'zh-hant': { title: 'chmod 權限', desc: '125 種模式的 rwx、ls -l、umask 與誰能做什麼' },
+    },
+  },
+  {
     route: '/port', icon: '🔌', color: 'from-fuchsia-600 to-purple-500',
     accent: 'text-fuchsia-700 dark:text-fuchsia-300', border: 'border-fuchsia-200 dark:border-fuchsia-900/50', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30',
     copy: {
