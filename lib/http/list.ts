@@ -1,5 +1,5 @@
 /**
- * HTTP 상태 코드와 헤더 132가지 — 번호와 이름, 갈래만 적는다.
+ * HTTP 상태 코드와 헤더 163가지 — 번호와 이름, 갈래만 적는다.
  *
  * 코드 번호와 헤더 이름은 표준이 정한 것이라 언어를 가리지 않는다. 404는
  * 어느 나라에서든 404이고 Content-Type은 Content-Type이다. 열 언어로 쓸
@@ -54,6 +54,8 @@ export const HTTP_ITEMS: HttpItem[] = [
   st(304, 'Not Modified'),
   st(307, 'Temporary Redirect'),
   st(308, 'Permanent Redirect'),
+
+  st(305, 'Use Proxy'),
 
   /* ───────── 4xx 요청 잘못 ───────── */
   st(400, 'Bad Request'),
@@ -129,6 +131,17 @@ export const HTTP_ITEMS: HttpItem[] = [
   hd('X-Forwarded-Proto', 'request'),
   hd('X-Requested-With', 'request'),
 
+  hd('Accept-Charset', 'request'),
+  hd('If-Unmodified-Since', 'request'),
+  hd('Sec-CH-UA', 'request'),
+  hd('Sec-CH-UA-Mobile', 'request'),
+  hd('Sec-CH-UA-Platform', 'request'),
+  hd('Save-Data', 'request'),
+  hd('Device-Memory', 'request'),
+  hd('Early-Data', 'request'),
+  hd('Access-Control-Request-Method', 'request'),
+  hd('Access-Control-Request-Headers', 'request'),
+
   /* ───────── 응답 헤더 ───────── */
   hd('Access-Control-Allow-Origin', 'response'),
   hd('Access-Control-Allow-Methods', 'response'),
@@ -161,6 +174,23 @@ export const HTTP_ITEMS: HttpItem[] = [
   hd('Content-Range', 'response'),
   hd('Accept-Ranges', 'response'),
 
+  hd('Accept-Patch', 'response'),
+  hd('Accept-Post', 'response'),
+  hd('Alt-Svc', 'response'),
+  hd('Clear-Site-Data', 'response'),
+  hd('Link', 'response'),
+  hd('NEL', 'response'),
+  hd('Report-To', 'response'),
+  hd('Server-Timing', 'response'),
+  hd('SourceMap', 'response'),
+  hd('X-DNS-Prefetch-Control', 'response'),
+  hd('X-Permitted-Cross-Domain-Policies', 'response'),
+  hd('X-Robots-Tag', 'response'),
+  hd('Origin-Agent-Cluster', 'response'),
+  hd('Proxy-Authenticate', 'response'),
+  hd('Access-Control-Expose-Headers', 'response'),
+  hd('CDN-Cache-Control', 'response'),
+
   /* ───────── 양쪽에 쓰이는 헤더 ───────── */
   hd('Cache-Control', 'both'),
   hd('Connection', 'both'),
@@ -175,6 +205,10 @@ export const HTTP_ITEMS: HttpItem[] = [
   hd('Upgrade', 'both'),
   hd('Via', 'both'),
   hd('Warning', 'both'),
+  hd('Priority', 'both'),
+  hd('Content-Location', 'both'),
+  hd('Keep-Alive', 'both'),
+  hd('Content-Digest', 'both'),
 ];
 
 /** 상태 코드의 갈래 — 번호 첫 자리가 곧 뜻이다 */

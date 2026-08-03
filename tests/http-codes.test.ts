@@ -78,7 +78,7 @@ test('실제 줄 꼴이 갈래에 맞는다', () => {
   }
 });
 
-test('132개 모두 열 언어 설명이 있다', () => {
+test('163개 모두 열 언어 설명이 있다', () => {
   for (const x of HTTP_ITEMS) {
     const row = HTTP_DESC[x.slug];
     assert.ok(row, `${x.slug}: 설명이 없다`);
