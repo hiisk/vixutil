@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const DAYS_OF_WEEK = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 const ZODIAC = ['쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양', '원숭이', '닭', '개', '돼지'];
@@ -53,6 +55,9 @@ export default function BirthdayPage() {
 
   return (
     <CalcShell path="/calculator/birthday" title="생년월일 계산기" description="띠·별자리·요일·나이 정보 계산">
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/birthday" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <Label>생년월일</Label>

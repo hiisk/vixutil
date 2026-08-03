@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 function diffDays(a: Date, b: Date) {
   return Math.round((b.getTime() - a.getTime()) / 86400000);
@@ -35,6 +37,9 @@ export default function DdayPage() {
 
   return (
     <CalcShell path="/calculator/dday" title="D-day 계산기" description="목표일까지 D-day · 평일 수 · 두 날짜 간격">
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/dday" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

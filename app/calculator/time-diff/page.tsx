@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, SummaryGrid, SummaryCard } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 type Tab = 'diff' | 'add';
 
@@ -67,6 +69,9 @@ export default function TimeDiffPage() {
 
   return (
     <CalcShell path="/calculator/time-diff" title="시간 계산기" description="두 시각의 차이를 계산하거나 특정 시각에서 시간을 더하고 뺍니다">
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/time-diff" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

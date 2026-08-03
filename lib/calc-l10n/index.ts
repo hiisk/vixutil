@@ -77,7 +77,22 @@ import { BLOOD_PRESSURE } from './life2.ts';
 
 import { DISCOUNT } from './life2.ts';
 
+import { DDAY } from './dates.ts';
+
+import { TIME_DIFF } from './dates.ts';
+
+import { BIRTHDAY } from './dates2.ts';
+
+import { OVULATION } from './dates2.ts';
+
+import { PREGNANCY } from './dates2.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'pregnancy': PREGNANCY,
+  'ovulation': OVULATION,
+  'birthday': BIRTHDAY,
+  'time-diff': TIME_DIFF,
+  'dday': DDAY,
   'discount': DISCOUNT,
   'blood-pressure': BLOOD_PRESSURE,
   'sleep': SLEEP,
