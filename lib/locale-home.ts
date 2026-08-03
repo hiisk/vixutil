@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/ascii', icon: '⌨️', color: 'from-teal-600 to-emerald-500',
+    accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
+    copy: {
+      en: { title: 'ASCII Table', desc: 'All 128 codes with hex, binary, HTML entities and Ctrl keys' },
+      es: { title: 'Tabla ASCII', desc: 'Los 128 códigos con hex, binario, entidades HTML y teclas Ctrl' },
+      'pt-br': { title: 'Tabela ASCII', desc: 'Os 128 códigos com hex, binário, entidades HTML e teclas Ctrl' },
+      ja: { title: 'ASCIIコード表', desc: '128字の16進数・2進数・HTMLエンティティ・Ctrl組み合わせ' },
+      de: { title: 'ASCII-Tabelle', desc: 'Alle 128 Codes mit Hex, Binär, HTML-Entities und Ctrl-Tasten' },
+      fr: { title: 'Table ASCII', desc: 'Les 128 codes avec hex, binaire, entités HTML et touches Ctrl' },
+      hi: { title: 'ASCII तालिका', desc: 'सभी 128 कोड — हेक्स, द्विआधारी, HTML एंटिटी और Ctrl संयोजन' },
+      'zh-hans': { title: 'ASCII 码表', desc: '128 个字符的十六进制、二进制、HTML 实体与 Ctrl 组合' },
+      'zh-hant': { title: 'ASCII 碼表', desc: '128 個字元的十六進位、二進位、HTML 實體與 Ctrl 組合' },
+    },
+  },
+  {
     route: '/number', icon: '🔢', color: 'from-indigo-600 to-violet-500',
     accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
     copy: {

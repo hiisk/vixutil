@@ -34,6 +34,7 @@ import { CUBE_UI } from '../lib/cube/ui.ts';
 import { MUSIC_UI } from '../lib/music/ui.ts';
 import { METRO_UI } from '../lib/metro/ui.ts';
 import { NUMBER_UI } from '../lib/number/ui.ts';
+import { ASCII_UI } from '../lib/ascii/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -46,7 +47,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI),
 };
 
 /**

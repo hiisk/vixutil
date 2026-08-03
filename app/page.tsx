@@ -8,6 +8,7 @@ import { ROLLS } from '@/lib/dice/list';
 import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
 import { NUMBERS } from '@/lib/number/list';
+import { CODES } from '@/lib/ascii/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -370,6 +371,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/ascii',
+    icon: '⌨️',
+    title: 'ASCII 코드표',
+    desc: '128자 — 십진수·16진수·2진수부터 HTML 엔티티와 Ctrl 조합까지',
+    badge: `${CODES.length}자`,
+    color: 'from-teal-600 to-emerald-500',
+    bgLight: 'bg-teal-50 dark:bg-teal-950/30',
+    textAccent: 'text-teal-700 dark:text-teal-300',
+    borderAccent: 'border-teal-200 dark:border-teal-900/50',
+    shadow: 'shadow-teal-100',
   },
   {
     href: '/number',

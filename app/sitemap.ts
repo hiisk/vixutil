@@ -48,6 +48,7 @@ import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { ELEMENTS } from "@/lib/element/list";
 import { NUMBERS } from "@/lib/number/list";
+import { CODES } from "@/lib/ascii/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -349,6 +350,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/number`, changeFrequency: weekly, priority: 0.85 },
       ...NUMBERS.map((n: number) => ({
         url: `${BASE}${prefix}/number/${n}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // ASCII 128장도 열 언어다 — 코드표가 곧 목록이다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/ascii`, changeFrequency: weekly, priority: 0.85 },
+      ...CODES.map((code: number) => ({
+        url: `${BASE}${prefix}/ascii/${code}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
