@@ -1,8 +1,8 @@
 /**
- * 이름이 있는 색 110가지 — 열 언어.
+ * 이름이 있는 색 130가지 — 열 언어.
  *
  * 색 한 장에 들어가는 것(RGB·HSL·CMYK·밝기·대비·보색·명도 단계·색약 시뮬레이션)은
- * 전부 hex 하나에서 계산된다. 그래서 여기 적을 것은 hex와 이름뿐이고, 백열 장이
+ * 전부 hex 하나에서 계산된다. 그래서 여기 적을 것은 hex와 이름뿐이고, 백서른 장이
  * lib/color.ts의 함수로 채워진다.
  *
  * 이름은 언어마다 다르다. 색 이름은 그 나라 사람이 실제로 검색하는 단어라
@@ -159,6 +159,28 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('platinum', '#e5e4e2', 'metal', '백금색', 'Platinum', 'Platino', 'Platina', 'プラチナ', 'Platin', 'Platine', 'प्लैटिनम', '铂金色', '鉑金色'),
   c('rose-gold', '#b76e79', 'metal', '로즈골드', 'Rose gold', 'Oro rosa', 'Ouro rosa', 'ローズゴールド', 'Roségold', 'Or rose', 'रोज़ गोल्ड', '玫瑰金', '玫瑰金'),
   c('gunmetal', '#2a3439', 'metal', '건메탈', 'Gunmetal', 'Gris metálico', 'Cinza-metálico', 'ガンメタル', 'Kanonenmetall', 'Gris canon', 'गनमेटल', '枪灰色', '槍灰色'),
+
+  /* ───────── 뒤에 더한 것들 ───────── */
+  c('wine', '#722f37', 'red', '와인색', 'Wine', 'Vino', 'Vinho', 'ワインレッド', 'Weinrot', 'Lie-de-vin', 'वाइन', '酒红', '酒紅'),
+  c('blood-red', '#660000', 'red', '핏빛', 'Blood red', 'Rojo sangre', 'Vermelho-sangue', '血の色', 'Blutrot', 'Rouge sang', 'रक्त लाल', '血红', '血紅'),
+  c('saffron', '#f4c430', 'orange', '사프란색', 'Saffron', 'Azafrán', 'Açafrão', 'サフラン', 'Safrangelb', 'Safran', 'केसरिया', '藏红花色', '藏紅花色'),
+  c('papaya', '#ffefd5', 'orange', '파파야색', 'Papaya whip', 'Papaya', 'Papaia', 'パパイヤ', 'Papaya', 'Papaye', 'पपीता', '番木瓜色', '番木瓜色'),
+  c('flax', '#eedc82', 'yellow', '아마빛', 'Flax', 'Lino', 'Linho', '亜麻色', 'Flachsgelb', 'Lin', 'अलसी', '亚麻色', '亞麻色'),
+  c('wheat', '#f5deb3', 'yellow', '밀빛', 'Wheat', 'Trigo', 'Trigo', '小麦色', 'Weizen', 'Blé', 'गेहुँआ', '小麦色', '小麥色'),
+  c('olive-drab', '#6b8e23', 'green', '국방색', 'Olive drab', 'Verde oliva apagado', 'Verde-oliva fosco', 'オリーブドラブ', 'Mattes Olivgrün', 'Vert olive terne', 'जैतूनी हरा', '暗橄榄绿', '暗橄欖綠'),
+  c('seafoam', '#93e9be', 'green', '바다거품색', 'Seafoam', 'Espuma de mar', 'Espuma do mar', 'シーフォーム', 'Meerschaum', 'Écume de mer', 'समुद्री झाग', '海沫绿', '海沫綠'),
+  c('hunter-green', '#355e3b', 'green', '헌터그린', 'Hunter green', 'Verde cazador', 'Verde-caçador', 'ハンターグリーン', 'Jägergrün', 'Vert chasseur', 'गहरा वन हरा', '猎人绿', '獵人綠'),
+  c('prussian-blue', '#003153', 'blue', '프러시안블루', 'Prussian blue', 'Azul de Prusia', 'Azul da Prússia', 'プルシアンブルー', 'Preußischblau', 'Bleu de Prusse', 'प्रशियाई नीला', '普鲁士蓝', '普魯士藍'),
+  c('ultramarine', '#3f00ff', 'blue', '울트라마린', 'Ultramarine', 'Azul ultramar', 'Azul ultramarino', 'ウルトラマリン', 'Ultramarin', 'Outremer', 'अल्ट्रामरीन', '群青', '群青'),
+  c('baby-blue', '#89cff0', 'blue', '베이비블루', 'Baby blue', 'Azul bebé', 'Azul-bebê', 'ベビーブルー', 'Babyblau', 'Bleu layette', 'शिशु नीला', '婴儿蓝', '嬰兒藍'),
+  c('iris', '#5a4fcf', 'purple', '붓꽃색', 'Iris', 'Iris', 'Íris', 'アイリス', 'Schwertlilie', 'Iris', 'आइरिस', '鸢尾紫', '鳶尾紫'),
+  c('heliotrope', '#df73ff', 'purple', '헬리오트로프', 'Heliotrope', 'Heliotropo', 'Heliotrópio', 'ヘリオトロープ', 'Heliotrop', 'Héliotrope', 'हेलियोट्रोप', '天芥菜紫', '天芥菜紫'),
+  c('fuchsia-pink', '#ff77ff', 'pink', '푸크시아핑크', 'Fuchsia pink', 'Rosa fucsia', 'Rosa-fúcsia', 'フクシアピンク', 'Fuchsienrosa', 'Rose fuchsia', 'फ़्यूशिया गुलाबी', '紫红粉', '紫紅粉'),
+  c('carnation', '#ffa6c9', 'pink', '카네이션색', 'Carnation', 'Clavel', 'Cravo', 'カーネーション', 'Nelkenrosa', 'Œillet', 'कार्नेशन', '康乃馨粉', '康乃馨粉'),
+  c('mahogany', '#c04000', 'brown', '마호가니', 'Mahogany', 'Caoba', 'Mogno', 'マホガニー', 'Mahagoni', 'Acajou', 'महोगनी', '桃花心木色', '桃花心木色'),
+  c('burnt-umber', '#8a3324', 'brown', '번트엄버', 'Burnt umber', 'Sombra tostada', 'Terra de sombra queimada', 'バーントアンバー', 'Gebrannte Umbra', 'Terre d\'ombre brûlée', 'जली हुई अंबर', '熟褐', '熟褐'),
+  c('bone', '#e3dac9', 'neutral', '본색', 'Bone', 'Hueso', 'Osso', 'ボーン', 'Knochenweiß', 'Os', 'हड्डी', '骨白', '骨白'),
+  c('onyx', '#353839', 'neutral', '오닉스', 'Onyx', 'Ónix', 'Ônix', 'オニキス', 'Onyx', 'Onyx', 'गोमेद', '缟玛瑙黑', '縞瑪瑙黑'),
 ];
 
 export const COLOR_SLUGS = NAMED_COLORS_8.map(c => c.slug);
