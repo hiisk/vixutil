@@ -29,7 +29,8 @@ const dense = (lang: Lang) => lang === 'ja';
 test('항목이 100개를 넘고 slug가 겹치지 않는다', () => {
   assert.ok(MUSIC_ITEMS.length >= 100, `${MUSIC_ITEMS.length}개뿐`);
   assert.equal(new Set(MUSIC_ITEMS.map(i => i.slug)).size, MUSIC_ITEMS.length, 'slug 중복');
-  assert.equal(itemsOfKind('chord').length, 96, '코드가 12 × 8이 아니다');
+  // 성질을 더하면 12장이 함께 생긴다 — 수를 박아 두면 늘릴 때마다 여기부터 고쳐야 한다
+  assert.equal(itemsOfKind('chord').length, 12 * CHORD_QUALITIES.length, '코드가 12 × 성질 수가 아니다');
   assert.ok(itemsOfKind('scale').length >= 24, '음계가 모자라다');
   assert.equal(itemsOfKind('interval').length, 12);
 });
