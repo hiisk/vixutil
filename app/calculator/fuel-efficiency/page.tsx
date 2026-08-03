@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 export default function FuelEfficiencyPage() {
   const [mode, setMode] = useState<'calc' | 'range'>('calc');
@@ -51,6 +53,9 @@ export default function FuelEfficiencyPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/fuel-efficiency" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

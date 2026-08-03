@@ -49,6 +49,10 @@ import TimeDiffIntl from '@/components/calc/TimeDiffIntl';
 import BirthdayIntl from '@/components/calc/BirthdayIntl';
 import OvulationIntl from '@/components/calc/OvulationIntl';
 import PregnancyIntl from '@/components/calc/PregnancyIntl';
+import CarInstallmentIntl from '@/components/calc/CarInstallmentIntl';
+import FuelEfficiencyIntl from '@/components/calc/FuelEfficiencyIntl';
+import GasCostIntl from '@/components/calc/GasCostIntl';
+import EvChargeIntl from '@/components/calc/EvChargeIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -61,6 +65,10 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'ev-charge': EvChargeIntl,
+  'gas-cost': GasCostIntl,
+  'fuel-efficiency': FuelEfficiencyIntl,
+  'car-installment': CarInstallmentIntl,
   'pregnancy': PregnancyIntl,
   'ovulation': OvulationIntl,
   'birthday': BirthdayIntl,

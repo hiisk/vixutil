@@ -87,7 +87,19 @@ import { OVULATION } from './dates2.ts';
 
 import { PREGNANCY } from './dates2.ts';
 
+import { CAR_INSTALLMENT } from './car.ts';
+
+import { FUEL_EFFICIENCY } from './car.ts';
+
+import { GAS_COST } from './car2.ts';
+
+import { EV_CHARGE } from './car2.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'ev-charge': EV_CHARGE,
+  'gas-cost': GAS_COST,
+  'fuel-efficiency': FUEL_EFFICIENCY,
+  'car-installment': CAR_INSTALLMENT,
   'pregnancy': PREGNANCY,
   'ovulation': OVULATION,
   'birthday': BIRTHDAY,
