@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => n.toLocaleString(undefined, { maximumFractionDigits: 0 });
 
@@ -80,6 +82,9 @@ export default function AvgPricePage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/avg-price" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader title="매수 내역" />

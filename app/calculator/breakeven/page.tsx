@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => n.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
@@ -72,6 +74,9 @@ export default function BreakevenPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/breakeven" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <TabBar
           options={[

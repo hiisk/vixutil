@@ -35,7 +35,19 @@ import { LOAN } from './loan.ts';
  *
  * 한국 법·제도에 묶인 쉰셋은 여기 오지 않는다. 자세한 이유는 types.ts에 적었다.
  */
+import { SIMPLE_INTEREST } from './simple-interest.ts';
+
+import { ROI } from './roi.ts';
+
+import { AVG_PRICE } from './avg-price.ts';
+
+import { BREAKEVEN } from './breakeven.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'breakeven': BREAKEVEN,
+  'avg-price': AVG_PRICE,
+  'roi': ROI,
+  'simple-interest': SIMPLE_INTEREST,
   'loan': LOAN,
   'compound': COMPOUND,
   'dev/cron': DEV_CRON,
