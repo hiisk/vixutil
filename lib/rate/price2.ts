@@ -337,4 +337,48 @@ export const PRICE2_TOOLS: FormulaTool[] = [
       long: 'Paying in full saves price × discount. Deferring lets the money sit in savings, but the balance falls each month so the average is half the principal and the interest is halved too. Compare the two figures.',
       note: 'If interest-free instalments forfeit cashback or points, subtract that from the interest side. Also check whether the instalments crowd out next month’s spending.' },
   },
+  {
+    slug: 'price-per-weight',
+    icon: '⚖️',
+    category: '할인·가격',
+    fields: [
+      { key: 'price', term: 'price', unit: 'money', def: 12, min: 0 },
+      { key: 'kg', term: 'weightKg', unit: 'kg', def: 1.5, min: 0 },
+    ],
+    formula: '{unitPrice} = {price} ÷ {weightKg}',
+    compute: v => [
+      { term: 'unitPrice', unit: 'money', value: round(ratio(v.price, v.kg), 2), digits: 2, primary: true },
+    ],
+    ko: { title: '무게당 가격 비교', desc: '값과 무게로 1kg당 얼마인지 내어 크기가 다른 상품을 견줍니다.',
+      long: '봉지 크기가 제각각이면 붙은 값만으로는 어느 쪽이 싼지 알 수 없습니다. 값을 무게로 나눠 같은 자로 재야 비교가 됩니다.',
+      note: '큰 봉지가 늘 싸지는 않습니다. 다 먹지 못하고 버리면 실제로 낸 값은 계산보다 비쌉니다.' },
+    en: { title: 'Price per Kilogram', desc: 'Divide price by weight to compare packs of different sizes on the same footing.',
+      long: 'When pack sizes differ, the price on the label tells you nothing about which is cheaper. Dividing by weight puts them on one ruler.',
+      note: 'The big pack is not always the better deal — anything you throw away raises what you actually paid per kilogram.' },
+  },
+  {
+    slug: 'shipping-per-item',
+    icon: '📦',
+    category: '할인·가격',
+    fields: [
+      { key: 'price', term: 'price', unit: 'money', def: 30, min: 0 },
+      { key: 'count', term: 'count', unit: 'piece', def: 3, min: 0 },
+      { key: 'ship', term: 'shipFee', unit: 'money', def: 3, min: 0 },
+    ],
+    formula: '{unitPrice} = ({price} + {shipFee}) ÷ {count}',
+    compute: v => {
+      const total = v.price + v.ship;
+      return [
+        { term: 'unitPrice', unit: 'money', value: round(ratio(total, v.count), 2), digits: 2, primary: true },
+        { term: 'total', unit: 'money', value: round(total, 2), digits: 2 },
+        { term: 'percent', unit: 'percent', value: round(ratio(v.ship, total) * 100, 1), digits: 1 },
+      ];
+    },
+    ko: { title: '배송비까지 넣은 개당 값', desc: '배송비를 개수로 나눠 실제로 개당 얼마를 내는지 봅니다.',
+      long: '배송비는 개수와 상관없이 한 번 붙으므로, 적게 살수록 개당 부담이 커집니다. 값에 배송비를 더하고 개수로 나눠야 진짜 개당 값입니다.',
+      note: '배송비가 차지하는 비율이 크면 조금 더 사서 나누는 편이 쌉니다 — 다 쓸 물건일 때만 그렇습니다.' },
+    en: { title: 'Real Price per Item with Shipping', desc: 'Spread the delivery fee across the items to see what each one really costs.',
+      long: 'Shipping is charged once no matter how many you buy, so the fewer you order the heavier it weighs on each item. Add the fee to the price and divide by the count for the true unit cost.',
+      note: 'When shipping is a large share, buying a few more and spreading it is cheaper — but only for things you will actually use.' },
+  },
 ];

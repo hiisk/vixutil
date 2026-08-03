@@ -412,4 +412,49 @@ export const FINANCE2_TOOLS: FormulaTool[] = [
       long: 'The annual coupon is fixed at face value times the coupon rate. Divide it by what you paid to get the current yield — the cheaper you buy, the higher it goes.',
       note: 'Current yield ignores the price pulling back to par by maturity. If you plan to hold to the end, look at yield to maturity too.' },
   },
+  {
+    slug: 'effective-annual-rate',
+    icon: '📈',
+    category: '금융·이자',
+    fields: [
+      { key: 'rate', term: 'annualRate', unit: 'percent', def: 6, min: 0 },
+      { key: 'months', term: 'months', unit: 'month', def: 1, min: 0, max: 12 },
+    ],
+    formula: '{equivYield} = ((1 + {annualRate} ÷ 100 ÷ n) ^ n − 1) × 100,  n = 12 ÷ {months}',
+    compute: v => {
+      // 복리 주기가 0개월이면 횟수를 셀 수 없다 — 연 1회로 두어 0으로 나누지 않는다
+      const n = v.months > 0 ? 12 / v.months : 1;
+      const eff = (Math.pow(1 + v.rate / 100 / n, n) - 1) * 100;
+      return [
+        { term: 'equivYield', unit: 'percent', value: round(eff, 3), digits: 3, primary: true },
+        { term: 'pointDiff', unit: 'percent', value: round(eff - v.rate, 3), digits: 3 },
+      ];
+    },
+    ko: { title: '복리 주기를 넣은 실효 연이율', desc: '같은 표시 금리라도 이자를 몇 번 붙이느냐에 따라 실제 수익이 달라집니다.',
+      long: '표시 금리를 연 복리 횟수로 나눠 한 회분 이자를 구하고, 그것을 횟수만큼 거듭 곱합니다. 이자에 다시 이자가 붙으므로 실효 금리는 표시 금리보다 늘 큽니다.',
+      note: '연 6%를 달마다 붙이면 6.168%가 됩니다. 차이는 작아 보여도 금리가 높을수록 벌어집니다.' },
+    en: { title: 'Effective Annual Rate', desc: 'The same headline rate pays differently depending on how often interest is added.',
+      long: 'Divide the headline rate by the number of compounding periods in a year to get one period\'s interest, then compound it that many times. Because interest earns interest, the effective rate always sits above the headline one.',
+      note: '6% compounded monthly comes to 6.168%. The gap looks small but widens as the rate climbs.' },
+  },
+  {
+    slug: 'debt-to-income',
+    icon: '🏦',
+    category: '금융·이자',
+    fields: [
+      { key: 'income', term: 'netPay', unit: 'money', def: 300, min: 0 },
+      { key: 'pay', term: 'monthlyPay', unit: 'money', def: 90, min: 0 },
+    ],
+    formula: '{percent} = {monthlyPay} ÷ {netPay} × 100',
+    compute: v => [
+      { term: 'percent', unit: 'percent', value: round(ratio(v.pay, v.income) * 100, 1), digits: 1, primary: true },
+      { term: 'remaining', unit: 'money', value: Math.round(v.income - v.pay), digits: 0 },
+    ],
+    ko: { title: '소득 대비 상환 부담', desc: '월 상환액이 실수령액에서 차지하는 몫을 봅니다.',
+      long: '월 상환액을 월 실수령액으로 나눕니다. 세전 소득으로 나누면 실제보다 여유 있어 보이므로, 손에 들어오는 돈으로 나누는 편이 맞습니다.',
+      note: '기준선은 나라와 금융기관마다 다릅니다. 여기서 나오는 것은 비율일 뿐이고, 빌릴 수 있는지는 그쪽 규정이 정합니다.' },
+    en: { title: 'Debt Payments Against Income', desc: 'See what share of your take-home pay the monthly repayment eats.',
+      long: 'Divide the monthly repayment by monthly take-home pay. Dividing by gross income makes the picture look roomier than it is, so use the money that actually arrives.',
+      note: 'The line lenders draw differs by country and by institution. This gives you the ratio; whether you can borrow is their rule, not this number.' },
+  },
 ];

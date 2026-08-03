@@ -198,4 +198,44 @@ export const MIX2_TOOLS: FormulaTool[] = [
       long: 'Add the ratio numbers to count the parts and divide the batch. A 4:1 litre is five parts — 800 mL resin and 200 mL hardener.',
       note: 'Get the ratio wrong and two-part systems either stay tacky or cure weak. Some products state the ratio by weight rather than volume, so check the datasheet.' },
   },
+  {
+    slug: 'ppm-to-percent',
+    icon: '🧪',
+    category: '농도·배합',
+    fields: [{ key: 'ppm', term: 'ppmValue', unit: 'none', def: 500, min: 0 }],
+    formula: '{concentration} = {ppmValue} ÷ 10000',
+    compute: v => [
+      { term: 'concentration', unit: 'percent', value: round(v.ppm / 10000, 4), digits: 4, primary: true },
+      { term: 'mgPerL', unit: 'none', value: round(v.ppm, 2), digits: 2 },
+    ],
+    ko: { title: 'ppm을 퍼센트로', desc: '백만분율로 적힌 값을 퍼센트와 mg/L로 바꿉니다.',
+      long: 'ppm은 백만분의 몇이고 퍼센트는 백분의 몇이므로, 1퍼센트가 10,000ppm입니다. 물처럼 밀도가 1에 가까운 액체에서는 1ppm이 곧 1mg/L입니다.',
+      note: 'mg/L 환산은 물에서만 그대로 통합니다. 밀도가 다른 액체나 기체에서는 값이 달라집니다.' },
+    en: { title: 'ppm to Percent', desc: 'Convert a parts-per-million figure into a percentage and into mg/L.',
+      long: 'ppm counts parts per million and percent counts parts per hundred, so one percent is 10,000 ppm. In liquids close to the density of water, 1 ppm is also 1 mg/L.',
+      note: 'The mg/L conversion holds only for water. In liquids of another density, or in gases, the figure shifts.' },
+  },
+  {
+    slug: 'solution-needed',
+    icon: '⚗️',
+    category: '농도·배합',
+    fields: [
+      { key: 'solute', term: 'solute', unit: 'gram', def: 20, min: 0 },
+      { key: 'conc', term: 'targetConc', unit: 'percent', def: 5, min: 0, max: 100 },
+    ],
+    formula: '{solution} = {solute} ÷ ({targetConc} ÷ 100)',
+    compute: v => {
+      const sol = ratio(v.solute, v.conc / 100);
+      return [
+        { term: 'solution', unit: 'gram', value: round(sol, 1), digits: 1, primary: true },
+        { term: 'solvent', unit: 'gram', value: round(Math.max(sol - v.solute, 0), 1), digits: 1 },
+      ];
+    },
+    ko: { title: '목표 농도를 맞출 용액 양', desc: '가진 용질로 정해진 농도를 만들려면 용액이 얼마나 되어야 하는지 구합니다.',
+      long: '농도는 용질을 용액 전체로 나눈 값이므로, 용질을 목표 농도로 나누면 필요한 용액 양이 나옵니다. 용매는 거기서 용질을 뺀 값입니다.',
+      note: '용액은 용질과 용매를 더한 것입니다. 용매만 그만큼 넣으면 농도가 목표보다 묽어집니다.' },
+    en: { title: 'Solution Volume for a Target Strength', desc: 'Find how much solution the solute you have must end up in to reach a given strength.',
+      long: 'Strength is solute divided by the whole solution, so dividing the solute by the target strength gives the solution needed. The solvent is whatever is left after removing the solute.',
+      note: 'Solution means solute plus solvent. Adding that amount of solvent on top instead leaves the mixture weaker than the target.' },
+  },
 ];

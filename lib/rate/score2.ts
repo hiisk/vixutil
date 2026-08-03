@@ -186,4 +186,52 @@ export const SCORE2_TOOLS: FormulaTool[] = [
       long: 'Take what you have done off the goal and divide by the days left. Pages, practice questions, savings — anything cumulative works the same way.',
       note: 'This assumes no days off. If you want one rest day a week, subtract those days before entering the number.' },
   },
+  {
+    slug: 'score-from-percent',
+    icon: '🎯',
+    category: '점수·달성',
+    fields: [
+      { key: 'pct', term: 'percent', unit: 'percent', def: 85, min: 0, max: 100 },
+      { key: 'max', term: 'maxScore', unit: 'point', def: 100, min: 0 },
+    ],
+    formula: '{score} = {maxScore} × {percent} ÷ 100',
+    compute: v => {
+      const s = (v.max * v.pct) / 100;
+      return [
+        { term: 'score', unit: 'point', value: round(s, 1), digits: 1, primary: true },
+        { term: 'diff', unit: 'point', value: round(v.max - s, 1), digits: 1 },
+      ];
+    },
+    ko: { title: '백분율로 원점수 구하기', desc: '만점과 백분율을 알 때 실제로 몇 점인지 되돌립니다.',
+      long: '만점에 백분율을 곱하고 100으로 나눕니다. 만점이 100이 아닌 시험에서는 백분율과 점수가 다른 수가 되므로 헷갈리기 쉽습니다.',
+      note: '만점이 40점인 시험의 85%는 34점입니다. 85점이 아닙니다.' },
+    en: { title: 'Raw Score from Percentage', desc: 'Turn a percentage back into the actual mark when you know the maximum.',
+      long: 'Multiply the maximum by the percentage and divide by 100. Whenever a test is not out of 100, the percentage and the score are different numbers — an easy place to slip.',
+      note: '85% of a test marked out of 40 is 34 points, not 85.' },
+  },
+  {
+    slug: 'attendance-needed',
+    icon: '📋',
+    category: '점수·달성',
+    fields: [
+      { key: 'total', term: 'sessions', unit: 'times', def: 30, min: 0 },
+      { key: 'done', term: 'attended', unit: 'times', def: 18, min: 0 },
+      { key: 'goal', term: 'attendRate', unit: 'percent', def: 80, min: 0, max: 100 },
+    ],
+    formula: '{remaining} = {sessions} × {attendRate} ÷ 100 − {attended}',
+    compute: v => {
+      // 반 번 나갈 수는 없으니 올림한다. 이미 채웠으면 음수 대신 0이다
+      const need = Math.ceil((v.total * v.goal) / 100 - v.done);
+      return [
+        { term: 'remaining', unit: 'times', value: Math.max(need, 0), digits: 0, primary: true },
+        { term: 'percent', unit: 'percent', value: round(ratio(v.done, v.total) * 100, 1), digits: 1 },
+      ];
+    },
+    ko: { title: '목표 출석률까지 몇 번 더', desc: '지금까지의 출석으로 목표에 닿으려면 앞으로 몇 번 더 나가야 하는지 셉니다.',
+      long: '전체 횟수에 목표 출석률을 곱해 필요한 출석 수를 구하고, 이미 나간 횟수를 뺍니다. 반 번은 없으므로 올림합니다.',
+      note: '0이 나오면 이미 목표를 채운 것입니다. 남은 횟수보다 더 나가야 한다고 나오면 이번 학기에는 닿을 수 없습니다.' },
+    en: { title: 'Sessions Still Needed', desc: 'Count how many more times you must show up to hit an attendance target.',
+      long: 'Multiply the total number of sessions by the target rate to get the attendances required, then subtract the ones already banked. Half a session does not exist, so the figure rounds up.',
+      note: 'A zero means the target is already met. If the answer exceeds the sessions left, the target is out of reach this term.' },
+  },
 ];

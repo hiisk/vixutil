@@ -244,4 +244,50 @@ export const TAX2_TOOLS: FormulaTool[] = [
       long: 'Strip the deductions off gross pay, then divide by hours worked in the month. Long overtime raises the hours and lowers the rate, which is why this beats salary for comparing two jobs.',
       note: 'Fold in the commute for a truer number — a two-hour round trip means adding two hours to every working day.' },
   },
+  {
+    slug: 'hourly-to-monthly',
+    icon: '⏱️',
+    category: '세금·정산',
+    fields: [
+      { key: 'hourly', term: 'hourlyNet', unit: 'money', def: 20, min: 0 },
+      { key: 'hours', term: 'workHours', unit: 'hour', def: 160, min: 0 },
+    ],
+    formula: '{netPay} = {hourlyNet} × {workHours}',
+    compute: v => {
+      const monthly = v.hourly * v.hours;
+      return [
+        { term: 'netPay', unit: 'money', value: Math.round(monthly), digits: 0, primary: true },
+        { term: 'total', unit: 'money', value: Math.round(monthly * 12), digits: 0 },
+      ];
+    },
+    ko: { title: '시급을 월급으로', desc: '시급과 한 달 근무시간으로 월 수입과 연 수입을 봅니다.',
+      long: '시급에 월 근무시간을 곱하면 월 수입입니다. 주 40시간이면 한 달은 대략 173시간이지만, 달마다 주 수가 달라 160에서 184 사이를 오갑니다.',
+      note: '수당과 세금은 넣지 않았습니다. 시급 자리에 세전을 넣었으면 결과도 세전입니다.' },
+    en: { title: 'Hourly Pay to Monthly', desc: 'See monthly and yearly income from an hourly rate and the hours you work in a month.',
+      long: 'Multiply the hourly rate by the hours worked in a month. A 40-hour week averages about 173 hours a month, though the real figure swings between 160 and 184 depending on how the weeks fall.',
+      note: 'Overtime and tax are not included. Put a gross rate in and you get a gross result out.' },
+  },
+  {
+    slug: 'commission-gross-up',
+    icon: '🧾',
+    category: '세금·정산',
+    fields: [
+      { key: 'want', term: 'settle', unit: 'money', def: 900, min: 0 },
+      { key: 'rate', term: 'rate', unit: 'percent', def: 10, min: 0, max: 99 },
+    ],
+    formula: '{amount} = {settle} ÷ (1 − {rate} ÷ 100)',
+    compute: v => {
+      const gross = ratio(v.want, 1 - v.rate / 100);
+      return [
+        { term: 'amount', unit: 'money', value: Math.round(gross), digits: 0, primary: true },
+        { term: 'feeAmt', unit: 'money', value: Math.round(gross - v.want), digits: 0 },
+      ];
+    },
+    ko: { title: '수수료를 떼고 받을 금액 맞추기', desc: '손에 쥐고 싶은 금액이 정해졌을 때 얼마에 팔아야 하는지 역산합니다.',
+      long: '수수료는 판매가에 붙으므로 받고 싶은 금액에 수수료율을 더하면 모자랍니다. 1에서 수수료율을 뺀 값으로 나눠야 맞습니다.',
+      note: '10% 수수료에서 900을 받으려면 990이 아니라 1,000에 팔아야 합니다. 990의 10%는 99라서 891만 남습니다.' },
+    en: { title: 'Price to Net a Target Amount', desc: 'Work back to the asking price when you know what you want left after commission.',
+      long: 'Commission is taken from the sale price, so adding the rate to what you want falls short. You have to divide by one minus the rate instead.',
+      note: 'To keep 900 at 10% commission you must sell at 1,000, not 990 — ten percent of 990 is 99, leaving only 891.' },
+  },
 ];
