@@ -47,6 +47,7 @@ import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { ELEMENTS } from "@/lib/element/list";
+import { NUMBERS } from "@/lib/number/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -339,6 +340,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/element`, changeFrequency: weekly, priority: 0.85 },
       ...ELEMENTS.map((x: { z: number }) => ({
         url: `${BASE}${prefix}/element/${x.z}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 수 209장도 열 언어다 — 격자가 곧 목록이다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/number`, changeFrequency: weekly, priority: 0.85 },
+      ...NUMBERS.map((n: number) => ({
+        url: `${BASE}${prefix}/number/${n}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

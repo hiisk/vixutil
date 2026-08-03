@@ -7,6 +7,7 @@ import { ALGS } from '@/lib/cube/list';
 import { ROLLS } from '@/lib/dice/list';
 import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
+import { NUMBERS } from '@/lib/number/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -369,6 +370,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/number',
+    icon: '🔢',
+    title: '수 사전',
+    desc: '1부터 200까지 — 소인수분해와 약수, 진법과 로마 숫자, 콜라츠까지',
+    badge: `${NUMBERS.length}개`,
+    color: 'from-indigo-600 to-violet-500',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
   },
   {
     href: '/text/regex',

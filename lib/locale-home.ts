@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/number', icon: '🔢', color: 'from-indigo-600 to-violet-500',
+    accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
+    copy: {
+      en: { title: 'Number Reference', desc: 'Factors, divisors, bases and Roman numerals for every number to 200' },
+      es: { title: 'Diccionario de números', desc: 'Factores, divisores, bases y números romanos de cada número hasta 200' },
+      'pt-br': { title: 'Dicionário de números', desc: 'Fatores, divisores, bases e algarismos romanos de cada número até 200' },
+      ja: { title: '数の事典', desc: '200までの数ごとの素因数分解・約数・進法・ローマ数字' },
+      de: { title: 'Zahlenlexikon', desc: 'Primfaktoren, Teiler, Zahlensysteme und römische Zahlen bis 200' },
+      fr: { title: 'Dictionnaire des nombres', desc: 'Facteurs, diviseurs, bases et chiffres romains pour chaque nombre jusqu’à 200' },
+      hi: { title: 'संख्या कोश', desc: '200 तक हर संख्या के गुणनखंड, भाजक, आधार और रोमन अंक' },
+      'zh-hans': { title: '数字词典', desc: '200 以内每个数的质因数、因数、进制与罗马数字' },
+      'zh-hant': { title: '數字詞典', desc: '200 以內每個數的質因數、因數、進位與羅馬數字' },
+    },
+  },
+  {
     route: '/text/regex', icon: '🔤', color: 'from-sky-500 to-indigo-500',
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {

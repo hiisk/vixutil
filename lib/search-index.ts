@@ -30,11 +30,13 @@ import { ALGS, CUBE_ICON } from './cube/list';
 import { ROLLS, DICE_ICON } from './dice/list';
 import { PATTERNS, REGEX_ICON } from './regex/list';
 import { ELEMENTS, ELEMENT_ICON } from './element/list';
+import { NUMBERS, NUMBER_ICON } from './number/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
 import { fullName } from './chess/names';
 import { elementFacts } from './element/facts';
+import { factorText, numberFacts } from './number/facts';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
 import { rollFacts } from './dice/facts';
@@ -68,7 +70,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number';
 
 export interface SearchItem {
   href: string;
@@ -110,6 +112,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   element:    { label: '원소',      icon: '⚛️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   chess:      { label: '체스',      icon: '♟️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   poker:      { label: '포커',      icon: '🃏', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  number:     { label: '수',        icon: '🔢', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
 };
 
 /**
@@ -221,6 +224,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: ELEMENT_ICON,
     };
   }),
+  ...NUMBERS.map(n => {
+    const f = numberFacts(n);
+    return {
+      href: `/number/${n}`,
+      title: `숫자 ${n}`,
+      desc: f.prime ? `소수 · 약수 2개 · 2진수 ${f.bin}` : `${factorText(f.factors)} · 약수 ${f.divisors.length}개 · 2진수 ${f.bin}`,
+      section: 'number' as const,
+      icon: NUMBER_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -291,6 +304,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/game/poker', title: '홀덤 시작 핸드', desc: '시작 핸드 169가지의 확률과 첸 점수', section: 'poker' as const, icon: POKER_ICON },
   { href: '/game/chess', title: '체스 오프닝', desc: '오프닝 174가지의 수순과 판 그림', section: 'chess' as const, icon: CHESS_ICON },
   { href: '/element', title: '주기율표', desc: '원소 118가지의 기호·원자량·전자 배치', section: 'element' as const, icon: ELEMENT_ICON },
+  { href: '/number', title: '수 사전', desc: '1부터 200까지의 소인수분해·약수·진법·로마 숫자', section: 'number' as const, icon: NUMBER_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
