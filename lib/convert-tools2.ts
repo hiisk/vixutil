@@ -427,7 +427,7 @@ export const CONVERT_TOOLS2: ConvertTool[] = [
     note: '나라와 시대에 따라 11.34g으로 잡는 곳도 있습니다. 거래 전에 그 지역이 쓰는 값을 확인하세요.',
   },
   {
-    slug: 'gill-ml', title: '질 ↔ mL', desc: '영국식 부피 단위 질을 밀리리터로 바꿉니다', icon: '🥃',
+    slug: 'gill-ml', title: '질 ↔ mL', desc: '영국식 부피 단위 질을 밀리리터로 바꿉니다', icon: '💧',
     category: '부피', from: 'gill', to: 'ml', factor: 142.0653125, digits: 3, quick: [1, 2, 4, 8, 10, 20],
     metaTitle: '질 ↔ 밀리리터 변환 - 영국식 부피 단위',
     long: '영국식 1질은 142.0653125mL로 5액량온스에 해당합니다. 옛 요리책과 술 계량에 나오고, 영국에서는 아직 술집의 규정 잔으로 쓰입니다.',
