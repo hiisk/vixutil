@@ -22,6 +22,7 @@ import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
 import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { TIRES } from '@/lib/tire/list';
 import { SCREWS } from '@/lib/screw/list';
+import { YEARS as CAL_YEARS } from '@/lib/year/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -97,6 +98,18 @@ const SECTIONS = [
     textAccent: 'text-zinc-700 dark:text-zinc-200',
     borderAccent: 'border-zinc-200 dark:border-zinc-800',
     shadow: 'shadow-zinc-100',
+  },
+  {
+    href: '/year',
+    icon: '📅',
+    title: '연도 사전',
+    desc: '2100년은 윤년이 아닙니다 — 요일·주 수·간지까지 한 해씩',
+    badge: `${CAL_YEARS.length}해`,
+    color: 'from-rose-700 to-orange-500',
+    bgLight: 'bg-rose-50 dark:bg-rose-950/30',
+    textAccent: 'text-rose-700 dark:text-rose-300',
+    borderAccent: 'border-rose-200 dark:border-rose-900/50',
+    shadow: 'shadow-rose-100',
   },
   {
     href: '/generator',

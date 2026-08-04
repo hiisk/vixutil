@@ -477,6 +477,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/year', icon: '📅', color: 'from-rose-700 to-orange-500',
+    accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
+    copy: {
+      en: { title: 'Year Reference', desc: 'Leap years, weekdays, week counts and zodiac signs, 1900–2100' },
+      es: { title: 'Diccionario de años', desc: 'Bisiestos, días, semanas y zodiaco, de 1900 a 2100' },
+      'pt-br': { title: 'Dicionário de anos', desc: 'Bissextos, dias, semanas e zodíaco, de 1900 a 2100' },
+      ja: { title: '年の事典', desc: '1900〜2100年のうるう年・曜日・週数・干支' },
+      de: { title: 'Jahres-Nachschlagewerk', desc: 'Schaltjahre, Wochentage, Wochenzahl und Tierkreis, 1900–2100' },
+      fr: { title: 'Dictionnaire des années', desc: 'Bissextiles, jours, semaines et zodiaque, de 1900 à 2100' },
+      hi: { title: 'वर्ष कोश', desc: '1900–2100 के लीप वर्ष, वार, सप्ताह और राशिचक्र' },
+      'zh-hans': { title: '年份词典', desc: '1900–2100 的闰年、星期、周数与生肖' },
+      'zh-hant': { title: '年份詞典', desc: '1900–2100 的閏年、星期、週數與生肖' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {
