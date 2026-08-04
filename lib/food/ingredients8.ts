@@ -1,5 +1,5 @@
 /**
- * 재료 147가지의 밀도 — 열 언어.
+ * 재료 173가지의 밀도 — 열 언어.
  *
  * "밀가루 1컵은 몇 g인가"는 재료마다 답이 다르다. 같은 1컵에 밀가루는 120g,
  * 설탕은 200g, 꿀은 340g이 들어간다. 부피가 아니라 무게로 재야 과자가 실패하지
@@ -7,7 +7,7 @@
  *
  * 그래서 적는 것은 밀도 하나(1L에 몇 g)뿐이다. 미국 컵(240ml)·한국 컵(200ml)·
  * 큰술(15ml)·작은술(5ml)·1g당 부피가 전부 이 하나에서 계산된다 — 재료마다 표를
- * 손으로 적으면 147 × 다섯 칸을 적어야 하고, 하나가 틀려도 반죽을 망쳐 본 사람만
+ * 손으로 적으면 173 × 다섯 칸을 적어야 하고, 하나가 틀려도 반죽을 망쳐 본 사람만
  * 알아챈다.
  *
  * 밀도는 "퍼서 담고 위를 깎은" 상태(spoon and level) 기준이다. 밀가루를 컵으로
@@ -52,6 +52,9 @@ export const INGREDIENTS: Ingredient[] = [
   g('buckwheat-flour', 500, 'flour', '메밀가루', 'Buckwheat flour', 'Harina de alforfón', 'Farinha de trigo-sarraceno', 'そば粉', 'Buchweizenmehl', 'Farine de sarrasin', 'कुट्टू का आटा', '荞麦粉', '蕎麥粉'),
   g('tapioca-starch', 500, 'flour', '타피오카 전분', 'Tapioca starch', 'Almidón de tapioca', 'Polvilho de tapioca', 'タピオカ粉', 'Tapiokastärke', 'Fécule de tapioca', 'टैपिओका स्टार्च', '木薯淀粉', '樹薯澱粉'),
   g('potato-starch', 667, 'flour', '감자 전분', 'Potato starch', 'Almidón de patata', 'Amido de batata', '片栗粉', 'Kartoffelstärke', 'Fécule de pomme de terre', 'आलू स्टार्च', '马铃薯淀粉', '太白粉'),
+  g('rye-flour', 442, 'flour', '호밀가루', 'Rye flour', 'Harina de centeno', 'Farinha de centeio', 'ライ麦粉', 'Roggenmehl', 'Farine de seigle', 'राई का आटा', '黑麦面粉', '黑麥麵粉'),
+  g('spelt-flour', 417, 'flour', '스펠트가루', 'Spelt flour', 'Harina de espelta', 'Farinha de espelta', 'スペルト小麦粉', 'Dinkelmehl', 'Farine d\'épeautre', 'स्पेल्ट आटा', '斯佩尔特面粉', '斯佩爾特麵粉'),
+  g('masa-harina', 475, 'flour', '마사 하리나', 'Masa harina', 'Masa harina', 'Masa harina', 'マサ・ハリナ', 'Masa Harina', 'Masa harina', 'मासा हरीना', '玉米马萨粉', '玉米馬薩粉'),
 
   /* ───────── 당류 ───────── */
   g('granulated-sugar', 833, 'sugar', '설탕', 'Granulated sugar', 'Azúcar blanca', 'Açúcar refinado', '上白糖', 'Kristallzucker', 'Sucre blanc', 'चीनी', '白砂糖', '白砂糖'),
@@ -64,6 +67,8 @@ export const INGREDIENTS: Ingredient[] = [
   g('agave-syrup', 1333, 'sugar', '아가베 시럽', 'Agave syrup', 'Sirope de agave', 'Xarope de agave', 'アガベシロップ', 'Agavensirup', 'Sirop d’agave', 'एगेव सिरप', '龙舌兰糖浆', '龍舌蘭糖漿'),
   g('coconut-sugar', 833, 'sugar', '코코넛 설탕', 'Coconut sugar', 'Azúcar de coco', 'Açúcar de coco', 'ココナッツシュガー', 'Kokosblütenzucker', 'Sucre de coco', 'नारियल चीनी', '椰子糖', '椰糖'),
   g('rice-syrup', 1333, 'sugar', '조청', 'Rice syrup', 'Sirope de arroz', 'Xarope de arroz', '米飴', 'Reissirup', 'Sirop de riz', 'चावल सिरप', '米糖浆', '米糖漿'),
+  g('jaggery', 833, 'sugar', '재거리(비정제 흑당)', 'Jaggery', 'Panela', 'Rapadura', 'ジャガリー', 'Jaggery', 'Jaggery', 'गुड़', '黄糖块', '黃糖塊'),
+  g('muscovado-sugar', 917, 'sugar', '머스코바도 설탕', 'Muscovado sugar', 'Azúcar mascabado', 'Açúcar muscovado', 'マスコバド糖', 'Muscovadozucker', 'Sucre muscovado', 'मस्कोवाडो चीनी', '黑糖（马斯科瓦多）', '黑糖（馬斯科瓦多）'),
 
   /* ───────── 곡물 ───────── */
   g('white-rice', 771, 'grain', '백미(생쌀)', 'White rice', 'Arroz blanco', 'Arroz branco', '白米', 'Weißer Reis', 'Riz blanc', 'सफ़ेद चावल', '白米', '白米'),
@@ -80,6 +85,9 @@ export const INGREDIENTS: Ingredient[] = [
   g('pasta-macaroni', 458, 'grain', '마카로니', 'Elbow macaroni', 'Macarrones', 'Macarrão', 'マカロニ', 'Makkaroni', 'Macaronis', 'मैकरोनी', '通心粉', '通心麵'),
   g('rolled-barley', 417, 'grain', '납작보리', 'Rolled barley', 'Cebada en copos', 'Cevada em flocos', '押し麦フレーク', 'Gerstenflocken', 'Flocons d’orge', 'जौ फ्लेक्स', '压片大麦', '壓片大麥'),
   g('cooked-rice', 800, 'grain', '밥(지은 쌀)', 'Cooked rice', 'Arroz cocido', 'Arroz cozido', 'ご飯', 'Gekochter Reis', 'Riz cuit', 'पका चावल', '米饭', '白飯'),
+  g('basmati-rice', 771, 'grain', '바스마티 쌀', 'Basmati rice', 'Arroz basmati', 'Arroz basmati', 'バスマティライス', 'Basmatireis', 'Riz basmati', 'बासमती चावल', '巴斯马蒂米', '巴斯馬蒂米'),
+  g('steel-cut-oats', 750, 'grain', '스틸컷 오트', 'Steel-cut oats', 'Avena cortada', 'Aveia em grãos cortados', 'スティールカットオーツ', 'Hafergrütze', 'Flocons d\'avoine coupés', 'स्टील-कट जई', '钢切燕麦', '鋼切燕麥'),
+  g('black-rice', 792, 'grain', '흑미', 'Black rice', 'Arroz negro', 'Arroz preto', '黒米', 'Schwarzer Reis', 'Riz noir', 'काला चावल', '黑米', '黑米'),
 
   /* ───────── 유제품 ───────── */
   g('milk', 1033, 'dairy', '우유', 'Milk', 'Leche', 'Leite', '牛乳', 'Milch', 'Lait', 'दूध', '牛奶', '牛奶'),
@@ -94,6 +102,8 @@ export const INGREDIENTS: Ingredient[] = [
   g('ricotta', 1033, 'dairy', '리코타', 'Ricotta', 'Ricotta', 'Ricota', 'リコッタ', 'Ricotta', 'Ricotta', 'रिकोटा', '里科塔芝士', '瑞可達起司'),
   g('mascarpone', 1000, 'dairy', '마스카르포네', 'Mascarpone', 'Mascarpone', 'Mascarpone', 'マスカルポーネ', 'Mascarpone', 'Mascarpone', 'मस्कारपोने', '马斯卡彭', '馬斯卡彭'),
   g('buttermilk', 1033, 'dairy', '버터밀크', 'Buttermilk', 'Suero de leche', 'Leitelho', 'バターミルク', 'Buttermilch', 'Babeurre', 'छाछ', '白脱牛奶', '白脫牛奶'),
+  g('greek-yogurt', 1021, 'dairy', '그릭요거트', 'Greek yogurt', 'Yogur griego', 'Iogurte grego', 'ギリシャヨーグルト', 'Griechischer Joghurt', 'Yaourt grec', 'ग्रीक दही', '希腊酸奶', '希臘優格'),
+  g('crumbled-feta', 625, 'dairy', '페타 치즈(부순 것)', 'Crumbled feta', 'Feta desmenuzado', 'Feta esfarelado', 'フェタチーズ（崩し）', 'Zerbröselter Feta', 'Feta émietté', 'टुकड़े किया फ़ेटा', '碎菲达奶酪', '碎菲達乳酪'),
 
   /* ───────── 지방 ───────── */
   g('butter', 958, 'fat', '버터', 'Butter', 'Mantequilla', 'Manteiga', 'バター', 'Butter', 'Beurre', 'मक्खन', '黄油', '奶油'),
@@ -106,6 +116,8 @@ export const INGREDIENTS: Ingredient[] = [
   g('ghee', 912, 'fat', '기(정제 버터)', 'Ghee', 'Ghee', 'Ghee', 'ギー', 'Ghee', 'Ghee', 'घी', '酥油（印度）', '印度酥油'),
   g('mayonnaise', 940, 'fat', '마요네즈', 'Mayonnaise', 'Mayonesa', 'Maionese', 'マヨネーズ', 'Mayonnaise', 'Mayonnaise', 'मेयोनेज़', '蛋黄酱', '美乃滋'),
   g('peanut-butter', 1083, 'fat', '땅콩버터', 'Peanut butter', 'Mantequilla de cacahuete', 'Pasta de amendoim', 'ピーナッツバター', 'Erdnussbutter', 'Beurre de cacahuète', 'पीनट बटर', '花生酱', '花生醬'),
+  g('avocado-oil', 900, 'fat', '아보카도 오일', 'Avocado oil', 'Aceite de aguacate', 'Óleo de abacate', 'アボカドオイル', 'Avocadoöl', 'Huile d\'avocat', 'एवोकाडो तेल', '牛油果油', '酪梨油'),
+  g('almond-butter', 1067, 'fat', '아몬드 버터', 'Almond butter', 'Mantequilla de almendra', 'Manteiga de amêndoa', 'アーモンドバター', 'Mandelmus', 'Purée d\'amande', 'बादाम मक्खन', '杏仁酱', '杏仁醬'),
 
   /* ───────── 견과·씨앗 ───────── */
   g('almonds', 583, 'nut', '아몬드', 'Almonds', 'Almendras', 'Amêndoas', 'アーモンド', 'Mandeln', 'Amandes', 'बादाम', '杏仁', '杏仁'),
@@ -120,6 +132,8 @@ export const INGREDIENTS: Ingredient[] = [
   g('chia-seeds', 708, 'nut', '치아씨드', 'Chia seeds', 'Semillas de chía', 'Sementes de chia', 'チアシード', 'Chiasamen', 'Graines de chia', 'चिया बीज', '奇亚籽', '奇亞籽'),
   g('flaxseed', 604, 'nut', '아마씨', 'Flaxseed', 'Semillas de lino', 'Sementes de linhaça', '亜麻仁', 'Leinsamen', 'Graines de lin', 'अलसी', '亚麻籽', '亞麻籽'),
   g('shredded-coconut', 333, 'nut', '코코넛 슬라이스', 'Shredded coconut', 'Coco rallado', 'Coco ralado', 'ココナッツファイン', 'Kokosraspeln', 'Noix de coco râpée', 'कसा नारियल', '椰蓉', '椰子絲'),
+  g('pine-nuts', 562, 'nut', '잣', 'Pine nuts', 'Piñones', 'Pinhões', '松の実', 'Pinienkerne', 'Pignons de pin', 'चिलगोज़ा', '松子', '松子'),
+  g('hemp-seeds', 667, 'nut', '햄프씨드', 'Hemp seeds', 'Semillas de cáñamo', 'Sementes de cânhamo', 'ヘンプシード', 'Hanfsamen', 'Graines de chanvre', 'भांग के बीज', '火麻仁', '火麻仁'),
 
   /* ───────── 콩류 ───────── */
   g('dried-soybeans', 800, 'legume', '메주콩(대두)', 'Dried soybeans', 'Soja seca', 'Soja em grão', '大豆', 'Trockene Sojabohnen', 'Soja sec', 'सोयाबीन', '黄豆（干）', '黃豆（乾）'),
@@ -130,6 +144,8 @@ export const INGREDIENTS: Ingredient[] = [
   g('split-peas', 833, 'legume', '완두콩(마른)', 'Split peas', 'Guisantes partidos', 'Ervilha partida', '割りエンドウ', 'Schälerbsen', 'Pois cassés', 'मटर दाल', '去皮豌豆瓣', '去皮豌豆瓣'),
   g('kidney-beans', 771, 'legume', '강낭콩', 'Kidney beans', 'Frijol rojo', 'Feijão vermelho', '金時豆', 'Kidneybohnen', 'Haricots rouges', 'राजमा', '芸豆', '腰豆'),
   g('mung-beans', 833, 'legume', '녹두', 'Mung beans', 'Frijol mungo', 'Feijão-mungo', '緑豆', 'Mungbohnen', 'Haricots mungo', 'मूंग दाल', '绿豆', '綠豆'),
+  g('cannellini-beans', 750, 'legume', '카넬리니 콩', 'Cannellini beans', 'Alubias cannellini', 'Feijão cannellini', 'カンネッリーニ豆', 'Cannellini-Bohnen', 'Haricots cannellini', 'कैनेलिनी बीन्स', '白腰豆', '白腰豆'),
+  g('fava-beans', 625, 'legume', '잠두콩', 'Fava beans', 'Habas', 'Favas', 'そら豆', 'Dicke Bohnen', 'Fèves', 'बाकला', '蚕豆', '蠶豆'),
 
   /* ───────── 양념·향신료 ───────── */
   g('table-salt', 1217, 'spice', '고운 소금', 'Table salt', 'Sal fina', 'Sal refinado', '食塩', 'Speisesalz', 'Sel fin', 'नमक', '精盐', '精鹽'),
@@ -150,6 +166,9 @@ export const INGREDIENTS: Ingredient[] = [
   g('doenjang', 1250, 'spice', '된장', 'Doenjang', 'Doenjang', 'Doenjang', 'テンジャン', 'Doenjang', 'Doenjang', 'देनजांग', '韩式大酱', '韓式大醬'),
   g('miso', 1208, 'spice', '미소', 'Miso', 'Miso', 'Missô', '味噌', 'Miso', 'Miso', 'मिसो', '味噌', '味噌'),
   g('ketchup', 1104, 'spice', '케첩', 'Ketchup', 'Kétchup', 'Ketchup', 'ケチャップ', 'Ketchup', 'Ketchup', 'केचप', '番茄酱', '番茄醬'),
+  g('chili-flakes', 375, 'spice', '고추 플레이크', 'Chili flakes', 'Copos de chile', 'Flocos de pimenta', 'チリフレーク', 'Chiliflocken', 'Flocons de piment', 'मिर्च के फ्लेक्स', '辣椒碎', '辣椒碎'),
+  g('mustard-powder', 417, 'spice', '겨자 가루', 'Mustard powder', 'Mostaza en polvo', 'Mostarda em pó', 'マスタードパウダー', 'Senfpulver', 'Moutarde en poudre', 'सरसों पाउडर', '芥末粉', '芥末粉'),
+  g('ground-coriander', 375, 'spice', '고수씨 가루', 'Ground coriander', 'Cilantro molido', 'Coentro moído', 'コリアンダーパウダー', 'Korianderpulver', 'Coriandre moulue', 'धनिया पाउडर', '芫荽粉', '芫荽粉'),
 
   /* ───────── 액체 ───────── */
   g('water', 1000, 'liquid', '물', 'Water', 'Agua', 'Água', '水', 'Wasser', 'Eau', 'पानी', '水', '水'),
@@ -162,6 +181,9 @@ export const INGREDIENTS: Ingredient[] = [
   g('beer', 1008, 'liquid', '맥주', 'Beer', 'Cerveza', 'Cerveja', 'ビール', 'Bier', 'Bière', 'बीयर', '啤酒', '啤酒'),
   g('red-wine', 988, 'liquid', '레드와인', 'Red wine', 'Vino tinto', 'Vinho tinto', '赤ワイン', 'Rotwein', 'Vin rouge', 'रेड वाइन', '红葡萄酒', '紅酒'),
   g('tomato-sauce', 1063, 'liquid', '토마토 소스', 'Tomato sauce', 'Salsa de tomate', 'Molho de tomate', 'トマトソース', 'Tomatensauce', 'Sauce tomate', 'टमाटर सॉस', '番茄沙司', '番茄糊醬'),
+  g('apple-juice', 1033, 'liquid', '사과주스', 'Apple juice', 'Zumo de manzana', 'Suco de maçã', 'リンゴジュース', 'Apfelsaft', 'Jus de pomme', 'सेब का रस', '苹果汁', '蘋果汁'),
+  g('apple-cider-vinegar', 996, 'liquid', '사과 식초', 'Apple cider vinegar', 'Vinagre de sidra', 'Vinagre de maçã', 'リンゴ酢', 'Apfelessig', 'Vinaigre de cidre', 'सेब का सिरका', '苹果醋', '蘋果醋'),
+  g('white-wine', 979, 'liquid', '화이트 와인', 'White wine', 'Vino blanco', 'Vinho branco', '白ワイン', 'Weißwein', 'Vin blanc', 'सफ़ेद वाइन', '白葡萄酒', '白葡萄酒'),
 
   /* ───────── 채소·기타 ───────── */
   g('chopped-onion', 667, 'vegetable', '양파(다진 것)', 'Chopped onion', 'Cebolla picada', 'Cebola picada', '玉ねぎ（みじん切り）', 'Gehackte Zwiebel', 'Oignon haché', 'कटा प्याज़', '洋葱碎', '洋蔥丁'),
@@ -180,6 +202,10 @@ export const INGREDIENTS: Ingredient[] = [
   g('instant-coffee', 250, 'other', '인스턴트 커피', 'Instant coffee', 'Café instantáneo', 'Café instantâneo', 'インスタントコーヒー', 'Instantkaffee', 'Café instantané', 'इंस्टेंट कॉफ़ी', '速溶咖啡粉', '即溶咖啡粉'),
   g('matcha-powder', 417, 'other', '말차 가루', 'Matcha powder', 'Matcha en polvo', 'Matchá em pó', '抹茶', 'Matcha-Pulver', 'Thé matcha en poudre', 'माचा पाउडर', '抹茶粉', '抹茶粉'),
   g('protein-powder', 458, 'other', '단백질 파우더', 'Protein powder', 'Proteína en polvo', 'Proteína em pó', 'プロテインパウダー', 'Proteinpulver', 'Protéine en poudre', 'प्रोटीन पाउडर', '蛋白粉', '蛋白粉'),
+  g('diced-tomato', 750, 'vegetable', '토마토(깍둑썰기)', 'Diced tomato', 'Tomate en dados', 'Tomate em cubos', 'トマト（角切り）', 'Gewürfelte Tomate', 'Tomate en dés', 'कटा टमाटर', '番茄丁', '番茄丁'),
+  g('chopped-bell-pepper', 625, 'vegetable', '파프리카(다진 것)', 'Chopped bell pepper', 'Pimiento picado', 'Pimentão picado', 'パプリカ（みじん切り）', 'Gehackte Paprika', 'Poivron haché', 'कटी शिमला मिर्च', '彩椒丁', '彩椒丁'),
+  g('chopped-dates', 625, 'other', '대추야자(다진 것)', 'Chopped dates', 'Dátiles picados', 'Tâmaras picadas', 'デーツ（刻み）', 'Gehackte Datteln', 'Dattes hachées', 'कटा खजूर', '切碎椰枣', '切碎椰棗'),
+  g('cocoa-nibs', 500, 'other', '카카오닙스', 'Cocoa nibs', 'Nibs de cacao', 'Nibs de cacau', 'カカオニブ', 'Kakaonibs', 'Éclats de cacao', 'कोको निब्स', '可可碎粒', '可可碎粒'),
 
   /* ───────── 뒤에 더한 것들 ───────── */
   g('semolina', 705, 'flour', '세몰리나', 'Semolina', 'Sémola', 'Semolina', 'セモリナ粉', 'Hartweizengrieß', 'Semoule', 'सूजी', '粗粒小麦粉', '粗粒小麥粉'),
