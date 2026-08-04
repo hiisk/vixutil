@@ -537,6 +537,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/altitude', icon: '⛰️', color: 'from-cyan-700 to-sky-500',
+    accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
+    copy: {
+      en: { title: 'Altitude & Air Pressure', desc: 'Pressure, boiling point and oxygen from sea level to 5000 m' },
+      es: { title: 'Altitud y presión', desc: 'Presión, ebullición y oxígeno del nivel del mar a 5000 m' },
+      'pt-br': { title: 'Altitude e pressão', desc: 'Pressão, ebulição e oxigênio do nível do mar a 5000 m' },
+      ja: { title: '標高と気圧', desc: '海抜0〜5000mの気圧・沸点・酸素' },
+      de: { title: 'Höhe und Luftdruck', desc: 'Druck, Siedepunkt und Sauerstoff von 0 bis 5000 m' },
+      fr: { title: 'Altitude et pression', desc: 'Pression, ébullition et oxygène du niveau de la mer à 5000 m' },
+      hi: { title: 'ऊँचाई और वायुदाब', desc: 'समुद्र तल से 5000 मीटर तक दाब, क्वथनांक और ऑक्सीजन' },
+      'zh-hans': { title: '海拔与气压', desc: '海平面到 5000 米的气压、沸点与氧气' },
+      'zh-hant': { title: '海拔與氣壓', desc: '海平面到 5000 公尺的氣壓、沸點與氧氣' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

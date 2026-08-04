@@ -26,6 +26,7 @@ import { YEARS as CAL_YEARS } from '@/lib/year/list';
 import { PACES } from '@/lib/pace/list';
 import { PIXELS } from '@/lib/rem/list';
 import { SPEEDS } from '@/lib/stop/list';
+import { ALTITUDES } from '@/lib/altitude/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -77,6 +78,18 @@ const SECTIONS = [
     textAccent: 'text-red-700 dark:text-red-300',
     borderAccent: 'border-red-200 dark:border-red-900/50',
     shadow: 'shadow-red-100',
+  },
+  {
+    href: '/altitude',
+    icon: '⛰️',
+    title: '고도별 기압표',
+    desc: '2250m에서는 물이 92도에 끓습니다 — 기압·끓는점·산소를 높이별로',
+    badge: `${ALTITUDES.length}가지`,
+    color: 'from-cyan-700 to-sky-500',
+    bgLight: 'bg-cyan-50 dark:bg-cyan-950/30',
+    textAccent: 'text-cyan-700 dark:text-cyan-300',
+    borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
+    shadow: 'shadow-cyan-100',
   },
   {
     href: '/quiz',

@@ -66,6 +66,7 @@ import { YEARS as CAL_YEARS } from "@/lib/year/list";
 import { PACES, slugOf as paceSlug } from "@/lib/pace/list";
 import { PIXELS } from "@/lib/rem/list";
 import { SPEEDS } from "@/lib/stop/list";
+import { ALTITUDES } from "@/lib/altitude/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -534,6 +535,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/stop`, changeFrequency: weekly, priority: 0.85 },
       ...SPEEDS.map((v: number) => ({
         url: `${BASE}${prefix}/stop/${v}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 고도 101장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/altitude`, changeFrequency: weekly, priority: 0.85 },
+      ...ALTITUDES.map((m: number) => ({
+        url: `${BASE}${prefix}/altitude/${m}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
