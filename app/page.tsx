@@ -20,6 +20,7 @@ import { SCORES as DARTS_SCORES } from '@/lib/darts/list';
 import { PRODUCTS as TIMES_PRODUCTS } from '@/lib/times/list';
 import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
 import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
+import { TIRES } from '@/lib/tire/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -71,6 +72,18 @@ const SECTIONS = [
     textAccent: 'text-amber-700 dark:text-amber-300',
     borderAccent: 'border-amber-200 dark:border-amber-900/50',
     shadow: 'shadow-amber-100',
+  },
+  {
+    href: '/tire',
+    icon: '🛞',
+    title: '타이어 규격표',
+    desc: '205/55R16의 외경은 632mm — 바꿔 낄 수 있는 치수와 속도계 차이까지',
+    badge: `${TIRES.length}가지`,
+    color: 'from-slate-700 to-slate-500',
+    bgLight: 'bg-slate-50 dark:bg-slate-800/50',
+    textAccent: 'text-slate-700 dark:text-slate-200',
+    borderAccent: 'border-slate-200 dark:border-slate-700',
+    shadow: 'shadow-slate-100',
   },
   {
     href: '/generator',

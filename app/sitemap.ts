@@ -60,6 +60,7 @@ import { SCORES as DARTS_SCORES } from "@/lib/darts/list";
 import { PRODUCTS as TIMES_PRODUCTS, slugOf as timesSlug } from "@/lib/times/list";
 import { NUMBERS as SQRT_NUMBERS } from "@/lib/sqrt/list";
 import { YEARS as ROMAN_YEARS } from "@/lib/roman/list";
+import { TIRES, slugOf as tireSlug } from "@/lib/tire/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -474,6 +475,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/roman`, changeFrequency: weekly, priority: 0.85 },
       ...ROMAN_YEARS.map((y: number) => ({
         url: `${BASE}${prefix}/roman/${y}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 타이어 규격 204장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/tire`, changeFrequency: weekly, priority: 0.85 },
+      ...TIRES.map((t: { width: number; aspect: number; rim: number }) => ({
+        url: `${BASE}${prefix}/tire/${tireSlug(t)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

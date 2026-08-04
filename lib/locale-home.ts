@@ -447,6 +447,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/tire', icon: '🛞', color: 'from-slate-700 to-slate-500',
+    accent: 'text-slate-700 dark:text-slate-200', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/50',
+    copy: {
+      en: { title: 'Tyre Size Chart', desc: '204 sizes with diameters, turns per km and equivalents' },
+      es: { title: 'Medidas de neumáticos', desc: '204 medidas con diámetros, vueltas por km y equivalencias' },
+      'pt-br': { title: 'Medidas de pneus', desc: '204 medidas com diâmetros, voltas por km e equivalências' },
+      ja: { title: 'タイヤサイズ表', desc: '204種の外径・1km回転数・互換サイズ' },
+      de: { title: 'Reifengrößen', desc: '204 Größen mit Durchmesser, Umdrehungen pro km und Alternativen' },
+      fr: { title: 'Dimensions de pneus', desc: '204 tailles avec diamètres, tours par km et équivalences' },
+      hi: { title: 'टायर साइज़ चार्ट', desc: '204 नाप — व्यास, प्रति किमी चक्कर और समतुल्य' },
+      'zh-hans': { title: '轮胎规格表', desc: '204 种规格的外径、每公里转数与可替换尺寸' },
+      'zh-hant': { title: '輪胎規格表', desc: '204 種規格的外徑、每公里轉數與可替換尺寸' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

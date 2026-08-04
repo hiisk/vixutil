@@ -43,6 +43,7 @@ import { SCORES as DARTS_SCORES, DARTS_ICON } from './darts/list';
 import { PRODUCTS, TIMES_ICON, slugOf as timesSlug } from './times/list';
 import { NUMBERS as SQRT_NUMBERS, SQRT_ICON } from './sqrt/list';
 import { ROMAN_ICON, YEARS as ROMAN_YEARS } from './roman/list';
+import { TIRES, TIRE_ICON, labelOf as tireLabel, slugOf as tireSlug } from './tire/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -61,6 +62,7 @@ import { dartsFacts } from './darts/facts';
 import { timesFacts } from './times/facts';
 import { sqrtFacts } from './sqrt/facts';
 import { romanFacts } from './roman/facts';
+import { tireFacts } from './tire/facts';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
 import { rollFacts } from './dice/facts';
@@ -94,7 +96,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire';
 
 export interface SearchItem {
   href: string;
@@ -149,6 +151,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   times:      { label: '곱셈표',    icon: '🔢', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   sqrt:       { label: '제곱근',    icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   roman:      { label: '로마 숫자',  icon: '🏛️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
+  tire:       { label: '타이어',    icon: '🛞', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
 };
 
 /**
@@ -390,6 +393,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: ROMAN_ICON,
     };
   }),
+  ...TIRES.map(t => {
+    const f = tireFacts(t);
+    return {
+      href: `/tire/${tireSlug(t)}`,
+      title: `${tireLabel(t)} 타이어 규격`,
+      desc: `외경 ${f.diameter}mm · 사이드월 ${f.sidewall}mm · 1km ${f.revsPerKm}바퀴`,
+      section: 'tire' as const,
+      icon: TIRE_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -473,6 +486,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/times', title: '곱셈표', desc: '1단부터 20단까지 210칸의 곱과 나누기', section: 'times' as const, icon: TIMES_ICON },
   { href: '/sqrt', title: '제곱근표', desc: '1부터 200까지 소수와 근호를 간단히 한 꼴', section: 'sqrt' as const, icon: SQRT_ICON },
   { href: '/roman', title: '로마 숫자 연도표', desc: '1900년부터 2100년까지 한 해씩, 글자를 조각내어', section: 'roman' as const, icon: ROMAN_ICON },
+  { href: '/tire', title: '타이어 규격표', desc: '외경·둘레·1km 회전수와 바꿔 낄 수 있는 치수', section: 'tire' as const, icon: TIRE_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
