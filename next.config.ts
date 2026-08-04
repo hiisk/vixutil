@@ -64,8 +64,25 @@ const nextConfig: NextConfig = {
     staticGenerationMaxConcurrency: 4,
 
     /*
-     * 웹팩 컴파일 단계의 최대 사용량을 낮춘다. 컴파일 자체는 통과하고 있지만
-     * 뒤 단계에 남겨 줄 여유를 벌려고 켠다. 문서가 저위험으로 분류한다.
+     * ── 컴파일 단계(Turbopack)의 메모리 상한 ───────────────────────
+     * 2026-08-05, 새 섹션 서른둘을 합쳐 page.tsx가 1,954 → 2,594가 되자
+     * "Creating an optimized production build"에서 6분 반 만에 exit 137이 났다.
+     * 컴파일이 끝나기도 전이라, 워커 수나 렌더 동시성으로는 손댈 수 없는 자리다.
+     *
+     * turbopackMemoryLimit은 **바이트** 단위이고 기본값이 없다 — 즉 그냥 두면
+     * Turbopack이 제한 없이 쓴다. 빌드 컨테이너가 8GB이고 주 프로세스가
+     * 1.5GB(NODE_OPTIONS)를 잡으므로, Turbopack에 4GB를 목표로 준다.
+     * 남는 2.5GB가 OS와 페이지 캐시 몫이다.
+     *
+     * 목표치라서 딱 잘리는 상한은 아니다 — 그 언저리에서 캐시를 비우기
+     * 시작한다. 이걸로도 모자라면 다음 손은 빌드 머신을 키우는 쪽이다.
+     */
+    turbopackMemoryLimit: 4 * 1024 ** 3,
+
+    /*
+     * 이 줄은 지금 아무 일도 하지 않는다 — Next 16의 next build는 Turbopack만
+     * 쓰고(webpack 플래그가 없어졌다) 이 설정은 웹팩 전용이다. 지우지 않고 두는
+     * 것은, 나중에 웹팩으로 되돌아갈 길이 생기면 그때 다시 필요하기 때문이다.
      */
     webpackMemoryOptimizations: true,
 
