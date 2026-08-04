@@ -47,6 +47,7 @@ import { TIRES, TIRE_ICON, labelOf as tireLabel, slugOf as tireSlug } from './ti
 import { SCREWS, SCREW_ICON, labelOf as screwLabel, slugOf as screwSlug } from './screw/list';
 import { YEARS as CAL_YEARS, YEAR_ICON } from './year/list';
 import { PACES, PACE_ICON, labelOf as paceLabel, slugOf as paceSlug } from './pace/list';
+import { PIXELS, PX_ICON } from './rem/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -69,6 +70,7 @@ import { tireFacts } from './tire/facts';
 import { screwFacts } from './screw/facts';
 import { yearFacts } from './year/facts';
 import { paceFacts } from './pace/facts';
+import { pxFacts } from './rem/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -103,7 +105,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem';
 
 export interface SearchItem {
   href: string;
@@ -162,6 +164,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   screw:      { label: '나사',      icon: '🔩', accent: 'bg-zinc-50 text-zinc-700 border-zinc-200' },
   year:       { label: '연도',      icon: '📅', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   pace:       { label: '러닝 페이스', icon: '🏃', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
+  rem:        { label: 'CSS 단위',  icon: '📏', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
 };
 
 /**
@@ -444,6 +447,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: PACE_ICON,
     };
   }),
+  ...PIXELS.map(px => {
+    const f = pxFacts(px);
+    return {
+      href: `/rem/${px}`,
+      title: `${px}px는 몇 rem`,
+      desc: `${f.rem}rem · ${f.pt}pt · ${f.mm}mm`,
+      section: 'rem' as const,
+      icon: PX_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -531,6 +544,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/screw', title: '미터 나사 규격표', desc: 'M1부터 M64까지 탭 드릴·골지름·응력단면적', section: 'screw' as const, icon: SCREW_ICON },
   { href: '/year', title: '연도 사전', desc: '1900년부터 2100년까지 윤년·요일·주 수·띠', section: 'year' as const, icon: YEAR_ICON },
   { href: '/pace', title: '러닝 페이스표', desc: '5K·10K·하프·풀코스 완주 시간과 목표별 페이스', section: 'pace' as const, icon: PACE_ICON },
+  { href: '/rem', title: 'CSS 단위표', desc: 'px를 rem·pt·pc·인치로, 1px부터 120px까지', section: 'rem' as const, icon: PX_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },

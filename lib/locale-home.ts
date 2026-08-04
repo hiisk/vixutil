@@ -507,6 +507,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/rem', icon: '📏', color: 'from-violet-700 to-fuchsia-500',
+    accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
+    copy: {
+      en: { title: 'px to rem Chart', desc: 'CSS units for 1–120 px: rem, pt, pc, inches and millimetres' },
+      es: { title: 'Tabla px a rem', desc: 'Unidades CSS de 1 a 120 px: rem, pt, pc, pulgadas y milímetros' },
+      'pt-br': { title: 'Tabela px para rem', desc: 'Unidades CSS de 1 a 120 px: rem, pt, pc, polegadas e milímetros' },
+      ja: { title: 'px→rem 変換表', desc: '1〜120pxのCSS単位：rem・pt・pc・インチ・ミリ' },
+      de: { title: 'px-zu-rem-Tabelle', desc: 'CSS-Einheiten für 1–120 px: rem, pt, pc, Zoll und Millimeter' },
+      fr: { title: 'Table px vers rem', desc: 'Unités CSS de 1 à 120 px : rem, pt, pc, pouces et millimètres' },
+      hi: { title: 'px से rem तालिका', desc: '1–120 px की CSS इकाइयाँ: rem, pt, pc, इंच और मिलीमीटर' },
+      'zh-hans': { title: 'px 转 rem 换算表', desc: '1–120px 的 CSS 单位：rem、pt、pc、英寸与毫米' },
+      'zh-hant': { title: 'px 轉 rem 換算表', desc: '1–120px 的 CSS 單位：rem、pt、pc、英寸與毫米' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

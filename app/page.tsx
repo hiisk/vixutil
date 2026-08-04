@@ -24,6 +24,7 @@ import { TIRES } from '@/lib/tire/list';
 import { SCREWS } from '@/lib/screw/list';
 import { YEARS as CAL_YEARS } from '@/lib/year/list';
 import { PACES } from '@/lib/pace/list';
+import { PIXELS } from '@/lib/rem/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -194,6 +195,18 @@ const SECTIONS = [
     textAccent: 'text-teal-700 dark:text-teal-300',
     borderAccent: 'border-teal-200 dark:border-teal-900/50',
     shadow: 'shadow-teal-100',
+  },
+  {
+    href: '/rem',
+    icon: '📏',
+    title: 'CSS 단위표',
+    desc: '16px은 1rem이자 12pt — px를 rem·pt·인치로 한 줄에',
+    badge: `${PIXELS.length}가지`,
+    color: 'from-violet-700 to-fuchsia-500',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/sqrt',
