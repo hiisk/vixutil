@@ -1,8 +1,8 @@
 /**
- * 이름이 있는 색 130가지 — 열 언어.
+ * 이름이 있는 색 152가지 — 열 언어.
  *
  * 색 한 장에 들어가는 것(RGB·HSL·CMYK·밝기·대비·보색·명도 단계·색약 시뮬레이션)은
- * 전부 hex 하나에서 계산된다. 그래서 여기 적을 것은 hex와 이름뿐이고, 백서른 장이
+ * 전부 hex 하나에서 계산된다. 그래서 여기 적을 것은 hex와 이름뿐이고, 백쉰두 장이
  * lib/color.ts의 함수로 채워진다.
  *
  * 이름은 언어마다 다르다. 색 이름은 그 나라 사람이 실제로 검색하는 단어라
@@ -43,6 +43,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('vermilion', '#e34234', 'red', '주홍', 'Vermilion', 'Bermellón', 'Vermelhão', '朱色', 'Zinnoberrot', 'Vermillon', 'सिंदूर', '朱红', '朱紅'),
   c('coral', '#ff7f50', 'red', '산호색', 'Coral', 'Coral', 'Coral', 'コーラル', 'Korallenrot', 'Corail', 'मूंगा', '珊瑚色', '珊瑚色'),
   c('salmon', '#fa8072', 'red', '연어색', 'Salmon', 'Salmón', 'Salmão', 'サーモン', 'Lachsrosa', 'Saumon', 'सामन', '鲑鱼色', '鮭魚色'),
+  c('carmine', '#960018', 'red', '카민', 'Carmine', 'Carmín', 'Carmim', 'カーマイン', 'Karminrot', 'Carmin', 'कार्माइन', '胭脂红', '胭脂紅'),
+  c('cardinal', '#c41e3a', 'red', '카디널 레드', 'Cardinal', 'Rojo cardenal', 'Vermelho cardeal', 'カーディナルレッド', 'Kardinalrot', 'Rouge cardinal', 'कार्डिनल लाल', '枢机红', '樞機紅'),
 
   /* ───────── 주황 계열 ───────── */
   c('orange', '#ffa500', 'orange', '주황', 'Orange', 'Naranja', 'Laranja', 'オレンジ', 'Orange', 'Orange', 'नारंगी', '橙色', '橙色'),
@@ -54,6 +56,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('pumpkin', '#ff7518', 'orange', '호박주황', 'Pumpkin', 'Calabaza', 'Abóbora', 'パンプキン', 'Kürbisorange', 'Citrouille', 'कद्दू', '南瓜色', '南瓜色'),
   c('rust', '#b7410e', 'orange', '녹슨색', 'Rust', 'Óxido', 'Ferrugem', 'ラスト', 'Rostbraun', 'Rouille', 'जंग', '铁锈色', '鐵鏽色'),
   c('terracotta', '#e2725b', 'orange', '테라코타', 'Terracotta', 'Terracota', 'Terracota', 'テラコッタ', 'Terrakotta', 'Terre cuite', 'टेराकोटा', '陶土色', '陶土色'),
+  c('marigold', '#eaa221', 'orange', '메리골드', 'Marigold', 'Caléndula', 'Calêndula', 'マリーゴールド', 'Ringelblumengelb', 'Souci', 'गेंदा', '万寿菊橙', '萬壽菊橙'),
+  c('sunset-orange', '#fd5e53', 'orange', '선셋 오렌지', 'Sunset orange', 'Naranja atardecer', 'Laranja pôr do sol', 'サンセットオレンジ', 'Sonnenuntergangsorange', 'Orange coucher de soleil', 'सूर्यास्त नारंगी', '夕阳橙', '夕陽橙'),
 
   /* ───────── 노랑 계열 ───────── */
   c('yellow', '#ffff00', 'yellow', '노랑', 'Yellow', 'Amarillo', 'Amarelo', '黄', 'Gelb', 'Jaune', 'पीला', '黄', '黃'),
@@ -66,6 +70,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('honey', '#eb9605', 'yellow', '벌꿀색', 'Honey', 'Miel', 'Mel', 'ハニー', 'Honiggelb', 'Miel', 'शहदी', '蜂蜜色', '蜂蜜色'),
   c('corn', '#fbec5d', 'yellow', '옥수수색', 'Corn yellow', 'Maíz', 'Milho', 'コーン', 'Maisgelb', 'Maïs', 'मक्का', '玉米黄', '玉米黃'),
   c('canary', '#ffff99', 'yellow', '카나리아색', 'Canary', 'Canario', 'Canário', 'カナリア', 'Kanariengelb', 'Canari', 'कैनरी', '鹅黄', '鵝黃'),
+  c('citron', '#e4d00a', 'yellow', '시트론', 'Citron', 'Cidro', 'Citrino', 'シトロン', 'Zitron', 'Cédrat', 'सिट्रॉन', '香橼黄', '香櫞黃'),
+  c('daffodil', '#ffff31', 'yellow', '수선화색', 'Daffodil', 'Narciso', 'Narciso', 'ダッフォディル', 'Narzissengelb', 'Jonquille', 'डैफ़ोडिल', '水仙黄', '水仙黃'),
 
   /* ───────── 초록 계열 ───────── */
   c('green', '#008000', 'green', '초록', 'Green', 'Verde', 'Verde', '緑', 'Grün', 'Vert', 'हरा', '绿', '綠'),
@@ -82,6 +88,9 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('pistachio', '#93c572', 'green', '피스타치오', 'Pistachio', 'Pistacho', 'Pistache', 'ピスタチオ', 'Pistaziengrün', 'Pistache', 'पिस्ता', '开心果绿', '開心果綠'),
   c('avocado', '#568203', 'green', '아보카도', 'Avocado', 'Aguacate', 'Abacate', 'アボカド', 'Avocadogrün', 'Avocat', 'एवोकाडो', '牛油果绿', '酪梨綠'),
   c('spring-green', '#00ff7f', 'green', '봄녹색', 'Spring green', 'Verde primavera', 'Verde primavera', 'スプリンググリーン', 'Frühlingsgrün', 'Vert printemps', 'वसंत हरा', '春绿', '春綠'),
+  c('fern-green', '#4f7942', 'green', '펀 그린', 'Fern green', 'Verde helecho', 'Verde samambaia', 'ファーングリーン', 'Farngrün', 'Vert fougère', 'फ़र्न हरा', '蕨绿', '蕨綠'),
+  c('celadon', '#ace1af', 'green', '셀라돈', 'Celadon', 'Celadón', 'Celadon', 'セラドン', 'Seladongrün', 'Céladon', 'सेलाडॉन', '青瓷绿', '青瓷綠'),
+  c('malachite', '#0bda51', 'green', '말라카이트', 'Malachite', 'Malaquita', 'Malaquita', 'マラカイト', 'Malachitgrün', 'Malachite', 'मैलाकाइट', '孔雀石绿', '孔雀石綠'),
 
   /* ───────── 파랑 계열 ───────── */
   c('blue', '#0000ff', 'blue', '파랑', 'Blue', 'Azul', 'Azul', '青', 'Blau', 'Bleu', 'नीला', '蓝', '藍'),
@@ -100,6 +109,9 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('aquamarine', '#7fffd4', 'blue', '아쿠아마린', 'Aquamarine', 'Aguamarina', 'Água-marinha', 'アクアマリン', 'Aquamarin', 'Aigue-marine', 'एक्वामरीन', '海蓝宝色', '海藍寶色'),
   c('cyan', '#00ffff', 'blue', '시안', 'Cyan', 'Cian', 'Ciano', 'シアン', 'Cyan', 'Cyan', 'सियान', '青色', '青色'),
   c('periwinkle', '#ccccff', 'blue', '페리윙클', 'Periwinkle', 'Vincapervinca', 'Pervinca', 'ペリウィンクル', 'Immergrünblau', 'Pervenche', 'पेरिविंकल', '长春花蓝', '長春花藍'),
+  c('cornflower-blue', '#6495ed', 'blue', '콘플라워 블루', 'Cornflower blue', 'Azul aciano', 'Azul centáurea', 'コーンフラワーブルー', 'Kornblumenblau', 'Bleuet', 'कॉर्नफ्लावर नीला', '矢车菊蓝', '矢車菊藍'),
+  c('cadet-blue', '#5f9ea0', 'blue', '카뎃 블루', 'Cadet blue', 'Azul cadete', 'Azul cadete', 'カデットブルー', 'Kadettenblau', 'Bleu cadet', 'कैडेट नीला', '军服蓝', '軍服藍'),
+  c('air-force-blue', '#5d8aa8', 'blue', '에어포스 블루', 'Air force blue', 'Azul fuerza aérea', 'Azul força aérea', 'エアフォースブルー', 'Luftwaffenblau', 'Bleu aviation', 'एयर फ़ोर्स नीला', '空军蓝', '空軍藍'),
 
   /* ───────── 보라 계열 ───────── */
   c('purple', '#800080', 'purple', '보라', 'Purple', 'Púrpura', 'Púrpura', '紫', 'Violett', 'Pourpre', 'बैंगनी', '紫', '紫'),
@@ -114,6 +126,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('grape', '#6f2da8', 'purple', '포도색', 'Grape', 'Uva', 'Uva', 'グレープ', 'Traubenviolett', 'Raisin', 'अंगूरी', '葡萄紫', '葡萄紫'),
   c('wisteria', '#c9a0dc', 'purple', '등나무색', 'Wisteria', 'Glicina', 'Glicínia', '藤色', 'Glyzinienviolett', 'Glycine', 'विस्टेरिया', '紫藤色', '紫藤色'),
   c('byzantium', '#702963', 'purple', '비잔티움', 'Byzantium', 'Bizancio', 'Bizâncio', 'ビザンチウム', 'Byzanz', 'Byzantin', 'बीज़ैन्टियम', '拜占庭紫', '拜占庭紫'),
+  c('royal-purple', '#7851a9', 'purple', '로열 퍼플', 'Royal purple', 'Púrpura real', 'Púrpura real', 'ロイヤルパープル', 'Königspurpur', 'Pourpre royal', 'शाही बैंगनी', '皇家紫', '皇家紫'),
+  c('thistle', '#d8bfd8', 'purple', '시슬', 'Thistle', 'Cardo', 'Cardo', 'シスル', 'Distelviolett', 'Chardon', 'थिसल', '蓟紫', '薊紫'),
 
   /* ───────── 분홍 계열 ───────── */
   c('pink', '#ffc0cb', 'pink', '분홍', 'Pink', 'Rosa', 'Rosa', 'ピンク', 'Rosa', 'Rose', 'गुलाबी', '粉红', '粉紅'),
@@ -125,6 +139,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('cherry-blossom', '#ffb7c5', 'pink', '연분홍', 'Cherry blossom', 'Flor de cerezo', 'Flor de cerejeira', '桜色', 'Kirschblütenrosa', 'Fleur de cerisier', 'चेरी ब्लॉसम', '樱花粉', '櫻花粉'),
   c('watermelon', '#fc6c85', 'pink', '수박색', 'Watermelon', 'Sandía', 'Melancia', 'ウォーターメロン', 'Wassermelonenrosa', 'Pastèque', 'तरबूज़ी', '西瓜红', '西瓜紅'),
   c('raspberry', '#e30b5c', 'pink', '라즈베리', 'Raspberry', 'Frambuesa', 'Framboesa', 'ラズベリー', 'Himbeerrot', 'Framboise', 'रसभरी', '覆盆子红', '覆盆子紅'),
+  c('rose-quartz', '#f7cac9', 'pink', '로즈 쿼츠', 'Rose quartz', 'Cuarzo rosa', 'Quartzo rosa', 'ローズクォーツ', 'Rosenquarz', 'Quartz rose', 'रोज़ क्वार्ट्ज़', '粉晶色', '粉晶色'),
+  c('flamingo', '#fc8eac', 'pink', '플라밍고', 'Flamingo', 'Flamenco', 'Flamingo', 'フラミンゴ', 'Flamingorosa', 'Flamant', 'फ्लेमिंगो', '火烈鸟粉', '紅鶴粉'),
 
   /* ───────── 갈색 계열 ───────── */
   c('brown', '#a52a2a', 'brown', '갈색', 'Brown', 'Marrón', 'Marrom', '茶色', 'Braun', 'Brun', 'भूरा', '棕色', '棕色'),
@@ -137,6 +153,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('walnut', '#773f1a', 'brown', '호두색', 'Walnut', 'Nogal', 'Nogueira', 'ウォルナット', 'Walnussbraun', 'Noyer', 'अखरोटी', '胡桃木色', '胡桃木色'),
   c('sepia', '#704214', 'brown', '세피아', 'Sepia', 'Sepia', 'Sépia', 'セピア', 'Sepiabraun', 'Sépia', 'सीपिया', '乌贼墨色', '烏賊墨色'),
   c('sand', '#c2b280', 'brown', '모래색', 'Sand', 'Arena', 'Areia', 'サンド', 'Sandbraun', 'Sable', 'रेतीला', '沙色', '沙色'),
+  c('chestnut', '#954535', 'brown', '밤색', 'Chestnut', 'Castaño', 'Castanha', 'チェスナット', 'Kastanienrot', 'Châtaigne', 'चेस्टनट', '栗棕', '栗棕'),
+  c('russet', '#80461b', 'brown', '러셋', 'Russet', 'Rojizo', 'Russet', 'ラセット', 'Rotbraun', 'Roux', 'रसेट', '赤褐', '赤褐'),
 
   /* ───────── 무채색 ───────── */
   c('black', '#000000', 'neutral', '검정', 'Black', 'Negro', 'Preto', '黒', 'Schwarz', 'Noir', 'काला', '黑', '黑'),
@@ -151,6 +169,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('snow', '#fffafa', 'neutral', '눈색', 'Snow', 'Nieve', 'Neve', 'スノーホワイト', 'Schneeweiß', 'Neige', 'बर्फ़', '雪白', '雪白'),
   c('graphite', '#41424c', 'neutral', '흑연색', 'Graphite', 'Grafito', 'Grafite', 'グラファイト', 'Graphitgrau', 'Graphite', 'ग्रेफ़ाइट', '石墨灰', '石墨灰'),
   c('taupe', '#483c32', 'neutral', '토프', 'Taupe', 'Topo', 'Toupeira', 'トープ', 'Taupe', 'Taupe', 'टॉप', '灰褐色', '灰褐色'),
+  c('gainsboro', '#dcdcdc', 'neutral', '게인즈버러', 'Gainsboro', 'Gainsboro', 'Gainsboro', 'ゲインズボロ', 'Gainsboro', 'Gainsboro', 'गेन्सबोरो', '庚斯博罗灰', '庚斯博羅灰'),
+  c('jet', '#343434', 'neutral', '제트 블랙', 'Jet', 'Azabache', 'Azeviche', 'ジェットブラック', 'Jettschwarz', 'Jais', 'जेट', '煤玉黑', '煤玉黑'),
 
   /* ───────── 금속색 ───────── */
   c('bronze', '#cd7f32', 'metal', '청동색', 'Bronze', 'Bronce', 'Bronze', 'ブロンズ', 'Bronze', 'Bronze', 'कांस्य', '青铜色', '青銅色'),
@@ -159,6 +179,8 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('platinum', '#e5e4e2', 'metal', '백금색', 'Platinum', 'Platino', 'Platina', 'プラチナ', 'Platin', 'Platine', 'प्लैटिनम', '铂金色', '鉑金色'),
   c('rose-gold', '#b76e79', 'metal', '로즈골드', 'Rose gold', 'Oro rosa', 'Ouro rosa', 'ローズゴールド', 'Roségold', 'Or rose', 'रोज़ गोल्ड', '玫瑰金', '玫瑰金'),
   c('gunmetal', '#2a3439', 'metal', '건메탈', 'Gunmetal', 'Gris metálico', 'Cinza-metálico', 'ガンメタル', 'Kanonenmetall', 'Gris canon', 'गनमेटल', '枪灰色', '槍灰色'),
+  c('steel', '#71797e', 'metal', '스틸', 'Steel', 'Acero', 'Aço', 'スチール', 'Stahlgrau', 'Acier', 'स्टील', '钢灰', '鋼灰'),
+  c('titanium', '#878681', 'metal', '티타늄', 'Titanium', 'Titanio', 'Titânio', 'チタニウム', 'Titan', 'Titane', 'टाइटेनियम', '钛色', '鈦色'),
 
   /* ───────── 뒤에 더한 것들 ───────── */
   c('wine', '#722f37', 'red', '와인색', 'Wine', 'Vino', 'Vinho', 'ワインレッド', 'Weinrot', 'Lie-de-vin', 'वाइन', '酒红', '酒紅'),
