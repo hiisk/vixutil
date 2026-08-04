@@ -13,6 +13,7 @@ import { PORTS } from '@/lib/port/list';
 import { MODES as CHMOD_MODES } from '@/lib/chmod/list';
 import { VALUES as RESISTOR_VALUES } from '@/lib/resistor/list';
 import { FRACTIONS } from '@/lib/fraction/list';
+import { KEYS } from '@/lib/keycode/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -375,6 +376,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/keycode',
+    icon: '🔑',
+    title: '키 코드 사전',
+    desc: 'code·key·keyCode — 자판이 바뀌어도 같은 자리를 잡는 값은 무엇인지',
+    badge: `${KEYS.length}개`,
+    color: 'from-slate-600 to-zinc-500',
+    bgLight: 'bg-slate-50 dark:bg-slate-800/40',
+    textAccent: 'text-slate-700 dark:text-slate-300',
+    borderAccent: 'border-slate-200 dark:border-slate-700',
+    shadow: 'shadow-slate-100',
   },
   {
     href: '/fraction',

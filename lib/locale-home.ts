@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/keycode', icon: '🔑', color: 'from-slate-600 to-zinc-500',
+    accent: 'text-slate-700 dark:text-slate-300', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/40',
+    copy: {
+      en: { title: 'JavaScript Key Codes', desc: 'code, key, keyCode and location for 120 keyboard keys' },
+      es: { title: 'Códigos de tecla', desc: 'code, key, keyCode y location de 120 teclas' },
+      'pt-br': { title: 'Códigos de tecla', desc: 'code, key, keyCode e location de 120 teclas' },
+      ja: { title: 'キーコード一覧', desc: 'キー120個のcode・key・keyCode・location' },
+      de: { title: 'Tastencodes', desc: 'code, key, keyCode und location für 120 Tasten' },
+      fr: { title: 'Codes de touche', desc: 'code, key, keyCode et location pour 120 touches' },
+      hi: { title: 'की कोड', desc: '120 कुंजियों के code, key, keyCode और location' },
+      'zh-hans': { title: '键码对照表', desc: '120 个按键的 code、key、keyCode 与 location' },
+      'zh-hant': { title: '鍵碼對照表', desc: '120 個按鍵的 code、key、keyCode 與 location' },
+    },
+  },
+  {
     route: '/fraction', icon: '➗', color: 'from-lime-600 to-emerald-500',
     accent: 'text-lime-700 dark:text-lime-300', border: 'border-lime-200 dark:border-lime-900/50', bg: 'bg-lime-50 dark:bg-lime-950/30',
     copy: {
