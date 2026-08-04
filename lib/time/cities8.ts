@@ -1,12 +1,12 @@
 /**
- * 세계 도시 136곳의 시간대 — 열 언어.
+ * 세계 도시 159곳의 시간대 — 열 언어.
  *
  * 적는 것은 IANA 시간대 이름 하나뿐이다. UTC 오프셋·서머타임 여부·지금 시각·
  * 다른 도시와의 시차가 전부 그 이름에서 계산된다 — 오프셋을 손으로 적으면
- * 서머타임이 바뀔 때마다 136곳을 고쳐야 하고, 나라가 시간대 정책을 바꾸면(터키가
+ * 서머타임이 바뀔 때마다 159곳을 고쳐야 하고, 나라가 시간대 정책을 바꾸면(터키가
  * 2016년에, 브라질이 2019년에 그랬다) 조용히 틀린 값이 남는다.
  *
- * 시간대 이름은 Intl API가 아는 것만 쓴다. 검사에서 136곳을 모두 실제로 계산해
+ * 시간대 이름은 Intl API가 아는 것만 쓴다. 검사에서 159곳을 모두 실제로 계산해
  * 보므로, 오타나 없어진 시간대는 바로 드러난다.
  *
  * 나라 이름은 도시마다 적지 않는다. 한 나라에 도시가 여럿이라 같은 말을 여덟 벌씩
@@ -262,6 +262,29 @@ export const TIME_CITIES: TimeCity[] = [
   t('saint-petersburg', 'Europe/Moscow', 'ru', '상트페테르부르크', 'Saint Petersburg', 'San Petersburgo', 'São Petersburgo', 'サンクトペテルブルク', 'Sankt Petersburg', 'Saint-Pétersbourg', 'सेंट पीटर्सबर्ग', '圣彼得堡', '聖彼得堡'),
   t('ankara', 'Europe/Istanbul', 'tr', '앙카라', 'Ankara', 'Ankara', 'Ancara', 'アンカラ', 'Ankara', 'Ankara', 'अंकारा', '安卡拉', '安卡拉'),
   t('wellington', 'Pacific/Auckland', 'nz', '웰링턴', 'Wellington', 'Wellington', 'Wellington', 'ウェリントン', 'Wellington', 'Wellington', 'वेलिंगटन', '惠灵顿', '威靈頓'),
+  t('yekaterinburg', 'Asia/Yekaterinburg', 'ru', '예카테린부르크', 'Yekaterinburg', 'Ekaterimburgo', 'Ecaterimburgo', 'エカテリンブルク', 'Jekaterinburg', 'Iekaterinbourg', 'येकातेरिनबुर्ग', '叶卡捷琳堡', '葉卡捷琳堡'),
+  t('novosibirsk', 'Asia/Novosibirsk', 'ru', '노보시비르스크', 'Novosibirsk', 'Novosibirsk', 'Novosibirsk', 'ノヴォシビルスク', 'Nowosibirsk', 'Novossibirsk', 'नोवोसिबिर्स्क', '新西伯利亚', '新西伯利亞'),
+  t('vladivostok', 'Asia/Vladivostok', 'ru', '블라디보스토크', 'Vladivostok', 'Vladivostok', 'Vladivostok', 'ウラジオストク', 'Wladiwostok', 'Vladivostok', 'व्लादिवोस्तोक', '符拉迪沃斯托克', '海參崴'),
+  t('darwin', 'Australia/Darwin', 'au', '다윈', 'Darwin', 'Darwin', 'Darwin', 'ダーウィン', 'Darwin', 'Darwin', 'डार्विन', '达尔文', '達爾文'),
+  t('hobart', 'Australia/Hobart', 'au', '호바트', 'Hobart', 'Hobart', 'Hobart', 'ホバート', 'Hobart', 'Hobart', 'होबार्ट', '霍巴特', '荷伯特'),
+  t('calgary', 'America/Edmonton', 'ca', '캘거리', 'Calgary', 'Calgary', 'Calgary', 'カルガリー', 'Calgary', 'Calgary', 'कैलगरी', '卡尔加里', '卡加利'),
+  t('salvador', 'America/Bahia', 'br', '사우바도르', 'Salvador', 'Salvador', 'Salvador', 'サルバドール', 'Salvador', 'Salvador', 'साल्वाडोर', '萨尔瓦多', '薩爾瓦多'),
+  t('cordoba', 'America/Argentina/Cordoba', 'ar', '코르도바', 'Córdoba', 'Córdoba', 'Córdoba', 'コルドバ', 'Córdoba', 'Córdoba', 'कोर्दोबा', '科尔多瓦', '科爾多瓦'),
+  t('sendai', 'Asia/Tokyo', 'jp', '센다이', 'Sendai', 'Sendai', 'Sendai', '仙台', 'Sendai', 'Sendai', 'सेंदाई', '仙台', '仙台'),
+  t('hangzhou', 'Asia/Shanghai', 'cn', '항저우', 'Hangzhou', 'Hangzhou', 'Hangzhou', '杭州', 'Hangzhou', 'Hangzhou', 'हांगझोऊ', '杭州', '杭州'),
+  t('chiang-mai', 'Asia/Bangkok', 'th', '치앙마이', 'Chiang Mai', 'Chiang Mai', 'Chiang Mai', 'チェンマイ', 'Chiang Mai', 'Chiang Mai', 'चियांग माई', '清迈', '清邁'),
+  t('cebu', 'Asia/Manila', 'ph', '세부', 'Cebu', 'Cebú', 'Cebu', 'セブ', 'Cebu', 'Cebu', 'सेबू', '宿务', '宿霧'),
+  t('jaipur', 'Asia/Kolkata', 'in', '자이푸르', 'Jaipur', 'Jaipur', 'Jaipur', 'ジャイプル', 'Jaipur', 'Jaipur', 'जयपुर', '斋浦尔', '齋浦爾'),
+  t('glasgow', 'Europe/London', 'gb', '글래스고', 'Glasgow', 'Glasgow', 'Glasgow', 'グラスゴー', 'Glasgow', 'Glasgow', 'ग्लासगो', '格拉斯哥', '格拉斯哥'),
+  t('seville', 'Europe/Madrid', 'es', '세비야', 'Seville', 'Sevilla', 'Sevilha', 'セビリア', 'Sevilla', 'Séville', 'सेविया', '塞维利亚', '塞維亞'),
+  t('florence', 'Europe/Rome', 'it', '피렌체', 'Florence', 'Florencia', 'Florença', 'フィレンツェ', 'Florenz', 'Florence', 'फ़्लोरेंस', '佛罗伦萨', '佛羅倫斯'),
+  t('stuttgart', 'Europe/Berlin', 'de', '슈투트가르트', 'Stuttgart', 'Stuttgart', 'Estugarda', 'シュトゥットガルト', 'Stuttgart', 'Stuttgart', 'श्टुटगार्ट', '斯图加特', '斯圖加特'),
+  t('toulouse', 'Europe/Paris', 'fr', '툴루즈', 'Toulouse', 'Toulouse', 'Toulouse', 'トゥールーズ', 'Toulouse', 'Toulouse', 'तुलूज़', '图卢兹', '土魯斯'),
+  t('krakow', 'Europe/Warsaw', 'pl', '크라쿠프', 'Kraków', 'Cracovia', 'Cracóvia', 'クラクフ', 'Krakau', 'Cracovie', 'क्राकोव', '克拉科夫', '克拉科夫'),
+  t('austin', 'America/Chicago', 'us', '오스틴', 'Austin', 'Austin', 'Austin', 'オースティン', 'Austin', 'Austin', 'ऑस्टिन', '奥斯汀', '奧斯汀'),
+  t('portland', 'America/Los_Angeles', 'us', '포틀랜드', 'Portland', 'Portland', 'Portland', 'ポートランド', 'Portland', 'Portland', 'पोर्टलैंड', '波特兰', '波特蘭'),
+  t('alexandria', 'Africa/Cairo', 'eg', '알렉산드리아', 'Alexandria', 'Alejandría', 'Alexandria', 'アレクサンドリア', 'Alexandria', 'Alexandrie', 'अलेक्ज़ेंड्रिया', '亚历山大', '亞歷山卓'),
+  t('christchurch', 'Pacific/Auckland', 'nz', '크라이스트처치', 'Christchurch', 'Christchurch', 'Christchurch', 'クライストチャーチ', 'Christchurch', 'Christchurch', 'क्राइस्टचर्च', '基督城', '基督城'),
 ];
 
 export const TIME_CITY_SLUGS = TIME_CITIES.map(c => c.slug);
