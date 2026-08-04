@@ -30,6 +30,7 @@ import { ALTITUDES } from '@/lib/altitude/list';
 import { CHANNELS } from '@/lib/wifi/list';
 import { SPOTS } from '@/lib/fret/list';
 import { WEIGHTS } from '@/lib/gravity/list';
+import { CELLS as WC_CELLS } from '@/lib/windchill/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -272,6 +273,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/windchill',
+    icon: '❄️',
+    title: '체감온도표',
+    desc: '영하 10도에 바람 30km면 체감 영하 20도 — 기온×풍속 210칸',
+    badge: `${WC_CELLS.length}칸`,
+    color: 'from-sky-700 to-cyan-500',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/roman',

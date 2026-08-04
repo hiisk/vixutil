@@ -70,6 +70,7 @@ import { ALTITUDES } from "@/lib/altitude/list";
 import { CHANNELS, slugOf as wifiSlug } from "@/lib/wifi/list";
 import { SPOTS, slugOf as fretSlug } from "@/lib/fret/list";
 import { WEIGHTS } from "@/lib/gravity/list";
+import { CELLS as WC_CELLS, slugOf as wcSlug } from "@/lib/windchill/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -574,6 +575,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/gravity`, changeFrequency: weekly, priority: 0.85 },
       ...WEIGHTS.map((w: number) => ({
         url: `${BASE}${prefix}/gravity/${w}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 체감온도 210장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/windchill`, changeFrequency: weekly, priority: 0.85 },
+      ...WC_CELLS.map(c => ({
+        url: `${BASE}${prefix}/windchill/${wcSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

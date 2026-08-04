@@ -597,6 +597,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/windchill', icon: '❄️', color: 'from-sky-700 to-cyan-500',
+    accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
+    copy: {
+      en: { title: 'Wind Chill Chart', desc: 'How cold it feels across 210 pairs of temperature and wind' },
+      es: { title: 'Sensación térmica', desc: 'El frío que se siente en 210 pares de temperatura y viento' },
+      'pt-br': { title: 'Sensação térmica', desc: 'O frio que se sente em 210 pares de temperatura e vento' },
+      ja: { title: '体感温度表', desc: '気温と風速210通りでどれだけ寒く感じるか' },
+      de: { title: 'Windchill-Tabelle', desc: 'Wie kalt es sich bei 210 Paaren aus Temperatur und Wind anfühlt' },
+      fr: { title: 'Refroidissement éolien', desc: 'Le froid ressenti pour 210 couples température-vent' },
+      hi: { title: 'विंड चिल चार्ट', desc: 'तापमान और हवा के 210 मेलों में कितनी ठंड लगती है' },
+      'zh-hans': { title: '体感温度表', desc: '210 组气温与风速下的体感有多冷' },
+      'zh-hant': { title: '體感溫度表', desc: '210 組氣溫與風速下的體感有多冷' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {
