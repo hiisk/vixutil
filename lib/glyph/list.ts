@@ -1,8 +1,8 @@
 /**
- * 특수문자 260가지 — 글자 하나와 갈래만 적는다.
+ * 특수문자 324가지 — 글자 하나와 갈래만 적는다.
  *
  * 코드 포인트, HTML 엔티티, UTF-8 바이트, CSS 이스케이프는 전부 글자에서 계산된다.
- * 표를 손으로 적으면 260 × 다섯 칸이고, 한 칸이 틀려도 복사해 붙일 때까지 모른다.
+ * 표를 손으로 적으면 324 × 다섯 칸이고, 한 칸이 틀려도 복사해 붙일 때까지 모른다.
  *
  * 글자 자체는 만국 공통이라 옮길 것이 없다. 어느 나라에서든 ♥는 ♥다.
  */
@@ -32,6 +32,8 @@ export const GLYPHS: Glyph[] = [
   g('↙', 'arrow-south-west', 'arrow'), g('⇑', 'double-arrow-up', 'arrow'), g('⇓', 'double-arrow-down', 'arrow'),
   g('⟵', 'long-arrow-left', 'arrow'), g('⤵', 'arrow-curve-down', 'arrow'), g('⇄', 'arrow-right-over-left', 'arrow'),
   g('↻', 'clockwise-arrow', 'arrow'), g('↺', 'anticlockwise-arrow', 'arrow'),
+  g('⇢', 'dashed-arrow-right', 'arrow'), g('⇠', 'dashed-arrow-left', 'arrow'), g('⟹', 'long-double-arrow-right', 'arrow'),
+  g('↯', 'zigzag-arrow-down', 'arrow'),
 
   /* ───────── 수학 ───────── */
   g('±', 'plus-minus', 'math'), g('×', 'multiply', 'math'), g('÷', 'divide', 'math'),
@@ -47,6 +49,8 @@ export const GLYPHS: Glyph[] = [
   g('⊃', 'superset', 'math'), g('∀', 'for-all', 'math'), g('∃', 'there-exists', 'math'),
   g('∝', 'proportional-to', 'math'), g('≡', 'identical-to', 'math'), g('∇', 'nabla', 'math'),
   g('∮', 'contour-integral', 'math'),
+  g('⊕', 'circled-plus', 'math'), g('⊗', 'circled-times', 'math'), g('≅', 'congruent', 'math'),
+  g('∧', 'logical-and', 'math'), g('∨', 'logical-or', 'math'), g('¬', 'logical-not', 'math'),
 
   /* ───────── 화폐 ───────── */
   g('₩', 'won', 'currency'), g('$', 'dollar', 'currency'), g('€', 'euro', 'currency'),
@@ -55,6 +59,8 @@ export const GLYPHS: Glyph[] = [
   g('¢', 'cent', 'currency'), g('₫', 'dong', 'currency'), g('₱', 'peso', 'currency'),
   g('₴', 'hryvnia', 'currency'), g('₦', 'naira', 'currency'), g('฿', 'baht', 'currency'),
   g('₪', 'shekel', 'currency'), g('₮', 'tugrik', 'currency'), g('₡', 'colon-currency', 'currency'),
+  g('₸', 'tenge', 'currency'), g('₾', 'lari', 'currency'), g('₭', 'kip', 'currency'),
+  g('₲', 'guarani', 'currency'),
 
   /* ───────── 문장부호 ───────── */
   g('…', 'ellipsis', 'punct'), g('·', 'middle-dot', 'punct'), g('•', 'bullet', 'punct'),
@@ -65,6 +71,8 @@ export const GLYPHS: Glyph[] = [
   g('»', 'right-guillemet', 'punct'), g('¿', 'inverted-question', 'punct'), g('¡', 'inverted-exclamation', 'punct'),
   g('‹', 'left-single-guillemet', 'punct'), g('›', 'right-single-guillemet', 'punct'), g('‾', 'overline', 'punct'),
   g('⁂', 'asterism', 'punct'), g('‖', 'double-vertical-line', 'punct'), g('¦', 'broken-bar', 'punct'),
+  g('‽', 'interrobang', 'punct'), g('⁉', 'exclamation-question', 'punct'), g('⁇', 'double-question', 'punct'),
+  g('⁃', 'hyphen-bullet', 'punct'),
 
   /* ───────── 도형 ───────── */
   g('■', 'black-square', 'shape'), g('□', 'white-square', 'shape'), g('▲', 'black-triangle-up', 'shape'),
@@ -73,6 +81,8 @@ export const GLYPHS: Glyph[] = [
   g('▶', 'play-triangle', 'shape'), g('◀', 'reverse-triangle', 'shape'), g('▪', 'small-black-square', 'shape'),
   g('▣', 'square-in-square', 'shape'), g('◎', 'bullseye', 'shape'), g('◐', 'half-circle-left', 'shape'),
   g('▩', 'shaded-square', 'shape'), g('⬟', 'black-pentagon', 'shape'), g('⬢', 'black-hexagon', 'shape'),
+  g('⬛', 'black-large-square', 'shape'), g('⬜', 'white-large-square', 'shape'), g('⬡', 'white-hexagon', 'shape'),
+  g('▬', 'black-rectangle', 'shape'),
 
   /* ───────── 별·하트 ───────── */
   g('★', 'black-star', 'star'), g('☆', 'white-star', 'star'), g('✦', 'four-point-star', 'star'),
@@ -81,12 +91,14 @@ export const GLYPHS: Glyph[] = [
   g('✿', 'flower', 'star'), g('❀', 'white-flower', 'star'), g('✮', 'star-outline', 'star'),
   g('✪', 'circled-star', 'star'), g('✵', 'eight-point-star', 'star'), g('❣', 'heart-exclamation', 'star'),
   g('✤', 'four-balloon-petal', 'star'),
+  g('✰', 'shadowed-star', 'star'), g('✴', 'eight-pointed-star', 'star'), g('✶', 'six-pointed-star', 'star'),
 
   /* ───────── 체크·기호 ───────── */
   g('✓', 'check', 'check'), g('✔', 'heavy-check', 'check'), g('✗', 'ballot-x', 'check'),
   g('✘', 'heavy-ballot-x', 'check'), g('☑', 'ballot-box-check', 'check'), g('☒', 'ballot-box-x', 'check'),
   g('⭕', 'heavy-circle', 'check'), g('❌', 'cross-mark', 'check'), g('⚠', 'warning-sign', 'check'),
   g('☓', 'saltire', 'check'), g('✅', 'check-mark-button', 'check'), g('❎', 'cross-mark-button', 'check'),
+  g('✕', 'multiplication-x', 'check'), g('✖', 'heavy-multiplication-x', 'check'), g('⊘', 'circled-division-slash', 'check'),
 
   /* ───────── 괄호 ───────── */
   g('「', 'corner-bracket-left', 'bracket'), g('」', 'corner-bracket-right', 'bracket'),
@@ -96,6 +108,8 @@ export const GLYPHS: Glyph[] = [
   g('《', 'double-angle-bracket-left', 'bracket'), g('》', 'double-angle-bracket-right', 'bracket'),
   g('〔', 'tortoise-bracket-left', 'bracket'), g('〕', 'tortoise-bracket-right', 'bracket'),
   g('〖', 'white-lenticular-bracket-left', 'bracket'), g('〗', 'white-lenticular-bracket-right', 'bracket'),
+  g('〘', 'left-white-tortoise-bracket', 'bracket'), g('〙', 'right-white-tortoise-bracket', 'bracket'), g('⦅', 'left-white-paren', 'bracket'),
+  g('⦆', 'right-white-paren', 'bracket'),
 
   /* ───────── 그리스 문자 ───────── */
   g('α', 'alpha', 'greek'), g('β', 'beta', 'greek'), g('γ', 'gamma', 'greek'),
@@ -104,6 +118,8 @@ export const GLYPHS: Glyph[] = [
   g('δ', 'delta-small', 'greek'), g('ε', 'epsilon', 'greek'), g('ρ', 'rho', 'greek'),
   g('τ', 'tau', 'greek'), g('ψ', 'psi', 'greek'), g('Σ', 'sigma-capital', 'greek'),
   g('Δ', 'delta-capital', 'greek'),
+  g('ω', 'omega-small', 'greek'), g('χ', 'chi', 'greek'), g('ξ', 'xi', 'greek'),
+  g('Γ', 'gamma-capital', 'greek'), g('Λ', 'lambda-capital', 'greek'), g('Π', 'pi-capital', 'greek'),
 
   /* ───────── 숫자·분수 ───────── */
   g('①', 'circled-one', 'number'), g('②', 'circled-two', 'number'), g('③', 'circled-three', 'number'),
@@ -112,6 +128,8 @@ export const GLYPHS: Glyph[] = [
   g('④', 'circled-four', 'number'), g('⑤', 'circled-five', 'number'), g('⑥', 'circled-six', 'number'),
   g('⅓', 'one-third', 'number'), g('⅔', 'two-thirds', 'number'), g('⅛', 'one-eighth', 'number'),
   g('Ⅰ', 'roman-one', 'number'), g('Ⅹ', 'roman-ten', 'number'),
+  g('⑦', 'circled-seven', 'number'), g('⑧', 'circled-eight', 'number'), g('⑨', 'circled-nine', 'number'),
+  g('⑩', 'circled-ten', 'number'), g('⅜', 'three-eighths', 'number'), g('Ⅴ', 'roman-five', 'number'),
 
   /* ───────── 음악·날씨 ───────── */
   g('♪', 'eighth-note', 'music'), g('♫', 'beamed-notes', 'music'), g('♭', 'flat-sign', 'music'),
@@ -120,6 +138,8 @@ export const GLYPHS: Glyph[] = [
   g('♩', 'quarter-note', 'music'), g('♬', 'beamed-sixteenth-notes', 'music'), g('♮', 'natural-sign', 'music'),
   g('☄', 'comet-symbol', 'weather'), g('☾', 'last-quarter-moon', 'weather'), g('☼', 'sun-with-rays', 'weather'),
   g('⚡', 'high-voltage', 'weather'),
+  g('𝄞', 'treble-clef', 'music'), g('𝄢', 'bass-clef', 'music'), g('☔', 'umbrella-rain', 'weather'),
+  g('⛅', 'sun-behind-cloud', 'weather'), g('❅', 'snowflake-outline', 'weather'), g('☇', 'lightning', 'weather'),
 
   /* ───────── 별자리·놀이 ───────── */
   g('♈', 'aries-sign', 'zodiac'), g('♌', 'leo-sign', 'zodiac'), g('♓', 'pisces-sign', 'zodiac'),
@@ -130,6 +150,8 @@ export const GLYPHS: Glyph[] = [
   g('♐', 'sagittarius-sign', 'zodiac'), g('♑', 'capricorn-sign', 'zodiac'), g('♒', 'aquarius-sign', 'zodiac'),
   g('♟', 'chess-pawn', 'game'), g('♜', 'chess-rook', 'game'), g('♛', 'chess-queen', 'game'),
   g('⚁', 'die-two', 'game'), g('⚂', 'die-three', 'game'),
+  g('⚃', 'die-four', 'game'), g('⚄', 'die-five', 'game'), g('♝', 'black-bishop', 'game'),
+  g('♚', 'black-king', 'game'), g('♔', 'white-king', 'game'),
 
   /* ───────── 자판·기타 ───────── */
   g('⌘', 'command-key', 'key'), g('⌥', 'option-key', 'key'), g('⇧', 'shift-key', 'key'),
@@ -141,6 +163,9 @@ export const GLYPHS: Glyph[] = [
   g('✉', 'envelope-symbol', 'misc'), g('☯', 'yin-yang', 'misc'), g('☮', 'peace-symbol', 'misc'),
   g('№', 'numero-sign', 'misc'), g('℠', 'service-mark', 'misc'), g('♻', 'recycling-symbol', 'misc'),
   g('⚖', 'balance-scale', 'misc'), g('☘', 'shamrock', 'misc'),
+  g('⌦', 'delete-forward', 'key'), g('⏏', 'eject', 'key'), g('⇞', 'page-up', 'key'),
+  g('⇟', 'page-down', 'key'), g('⚙', 'gear', 'misc'), g('✂', 'scissors', 'misc'),
+  g('✈', 'airplane', 'misc'), g('☕', 'hot-beverage', 'misc'), g('⚓', 'anchor', 'misc'),
 ];
 
 export const GLYPH_KINDS: GlyphKind[] = [
