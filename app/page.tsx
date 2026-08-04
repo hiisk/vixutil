@@ -36,6 +36,7 @@ import { BITS } from '@/lib/drill/list';
 import { CELLS as BW_CELLS } from '@/lib/bandwidth/list';
 import { CELLS as BATT_CELLS } from '@/lib/battery/list';
 import { CELLS as WIRE_CELLS } from '@/lib/wire/list';
+import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -75,6 +76,18 @@ const SECTIONS = [
     textAccent: 'text-amber-800 dark:text-amber-300',
     borderAccent: 'border-amber-200 dark:border-amber-900/50',
     shadow: 'shadow-amber-100',
+  },
+  {
+    href: '/paper',
+    icon: '📄',
+    title: '종이 규격표',
+    desc: 'A4 300dpi는 2480×3508 — 접어서 나오는 규격과 장당 무게',
+    badge: `${PAPER_CELLS.length}칸`,
+    color: 'from-slate-600 to-slate-400',
+    bgLight: 'bg-slate-50 dark:bg-slate-800/60',
+    textAccent: 'text-slate-700 dark:text-slate-200',
+    borderAccent: 'border-slate-200 dark:border-slate-700',
+    shadow: 'shadow-slate-100',
   },
   {
     href: '/test',

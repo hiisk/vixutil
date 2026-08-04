@@ -123,7 +123,7 @@ const SPEC: Spec = {
   gaugeLabel: T('굵기', 'Gauge', 'Calibre', 'Bitola', '太さ', 'Querschnitt', 'Section', 'मोटाई', '线径', '線徑'),
   ampLabel: T('흘리는 전류', 'Current carried', 'Corriente que circula', 'Corrente que passa', '流す電流', 'Fließender Strom', 'Courant transporté', 'बहने वाली धारा', '通过的电流', '通過的電流'),
   diaLabel: T('지름', 'Diameter', 'Diámetro', 'Diâmetro', '直径', 'Durchmesser', 'Diamètre', 'व्यास', '直径', '直徑'),
-  areaLabel: T('단면적', 'Cross-section', 'Sección', 'Seção', '断面積', 'Querschnittsfläche', 'Section transversale', 'अनुप्रस्थ काट', '截面积', '截面積'),
+  areaLabel: T('단면적', 'Cross-section', 'Sección', 'Seção', '断面積', 'Querschnitt', 'Section', 'अनुप्रस्थ काट', '截面积', '截面積'),
   ohmLabel: T('1미터 저항', 'Resistance per metre', 'Resistencia por metro', 'Resistência por metro', '1メートルの抵抗', 'Widerstand je Meter', 'Résistance par mètre', 'प्रति मीटर प्रतिरोध', '每米电阻', '每米電阻'),
   safeLabel: T('무리 없는 전류', 'Current it handles', 'Corriente que aguanta', 'Corrente que suporta', '無理のない電流', 'Belastbarer Strom', 'Courant admissible', 'सुरक्षित धारा', '可承受电流', '可承受電流'),
   dropLabel: T('10미터 강하', 'Drop over 10 m', 'Caída en 10 m', 'Queda em 10 m', '10メートルの降下', 'Abfall auf 10 m', 'Chute sur 10 m', '10 मीटर पर ड्रॉप', '10 米压降', '10 公尺壓降'),

@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/paper', icon: '📄', color: 'from-slate-600 to-slate-400',
+    accent: 'text-slate-700 dark:text-slate-200', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/60',
+    copy: {
+      en: { title: 'Paper Sizes', desc: 'A4 in millimetres, inches and pixels, plus what one sheet weighs' },
+      es: { title: 'Tamaños de papel', desc: 'El A4 en milímetros, pulgadas y píxeles, y lo que pesa una hoja' },
+      'pt-br': { title: 'Tamanhos de papel', desc: 'O A4 em milímetros, polegadas e pixels, e quanto pesa uma folha' },
+      ja: { title: '紙のサイズ', desc: 'A4のミリ・インチ・ピクセルと、1枚の重さ' },
+      de: { title: 'Papierformate', desc: 'A4 in Millimeter, Zoll und Pixel — und was ein Blatt wiegt' },
+      fr: { title: 'Formats de papier', desc: 'L’A4 en millimètres, pouces et pixels, et le poids d’une feuille' },
+      hi: { title: 'कागज़ के आकार', desc: 'A4 मिलीमीटर, इंच और पिक्सेल में, और एक शीट का वज़न' },
+      'zh-hans': { title: '纸张规格', desc: 'A4 的毫米、英寸与像素，以及一张纸的重量' },
+      'zh-hant': { title: '紙張規格', desc: 'A4 的公釐、英寸與像素，以及一張紙的重量' },
+    },
+  },
+  {
     route: '/wire', icon: '🔌', color: 'from-amber-500 to-orange-600',
     accent: 'text-amber-700 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
     copy: {
