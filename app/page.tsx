@@ -37,6 +37,7 @@ import { CELLS as BW_CELLS } from '@/lib/bandwidth/list';
 import { CELLS as BATT_CELLS } from '@/lib/battery/list';
 import { CELLS as WIRE_CELLS } from '@/lib/wire/list';
 import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
+import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -88,6 +89,18 @@ const SECTIONS = [
     textAccent: 'text-slate-700 dark:text-slate-200',
     borderAccent: 'border-slate-200 dark:border-slate-700',
     shadow: 'shadow-slate-100',
+  },
+  {
+    href: '/torque',
+    icon: '🔧',
+    title: '볼트 조임 토크표',
+    desc: 'M8 8.8은 26N·m — 기름 한 방울에 25% 달라집니다',
+    badge: `${TORQUE_CELLS.length}칸`,
+    color: 'from-orange-700 to-amber-500',
+    bgLight: 'bg-orange-50 dark:bg-orange-900/40',
+    textAccent: 'text-orange-700 dark:text-orange-200',
+    borderAccent: 'border-orange-200 dark:border-orange-800',
+    shadow: 'shadow-orange-100',
   },
   {
     href: '/test',

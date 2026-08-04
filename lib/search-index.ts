@@ -60,6 +60,7 @@ import { BANDWIDTH_ICON, CELLS as BW_CELLS, sizeLabel as bwSize, slugOf as bwSlu
 import { BATTERY_ICON, CELLS as BATT_CELLS, slugOf as battSlug } from './battery/list';
 import { CELLS as WIRE_CELLS, WIRE_ICON, sizeLabel as wireLabel, slugOf as wireSlug } from './wire/list';
 import { CELLS as PAPER_CELLS, PAPER_ICON, slugOf as paperSlug } from './paper/list';
+import { CELLS as TORQUE_CELLS, TORQUE_ICON, gradeOf as torqueGrade, sizeLabel as torqueSize, slugOf as torqueSlug } from './torque/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -95,6 +96,7 @@ import { bandwidthFacts } from './bandwidth/facts';
 import { batteryFacts } from './battery/facts';
 import { wireFacts } from './wire/facts';
 import { paperFacts } from './paper/facts';
+import { torqueFacts } from './torque/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -129,7 +131,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque';
 
 export interface SearchItem {
   href: string;
@@ -201,6 +203,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   battery:    { label: '배터리 충전', icon: '🔋', accent: 'bg-green-50 text-green-700 border-green-200' },
   wire:       { label: '전선 굵기',  icon: '🔌', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   paper:      { label: '종이 규격',  icon: '📄', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
+  torque:     { label: '조임 토크',  icon: '🔧', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
 };
 
 /**
@@ -614,6 +617,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: PAPER_ICON,
     };
   }),
+  ...TORQUE_CELLS.map(c => {
+    const f = torqueFacts(c);
+    return {
+      href: `/torque/${torqueSlug(c)}`,
+      title: `${torqueSize(c.d)} ${torqueGrade(c.grade)?.label} 조임 토크 — ${f.turns[1].nm}N·m`,
+      desc: `기름을 바르면 ${f.turns[2].nm}N·m · 목표 축력 ${f.preload}N · ${f.kgfm}kgf·m`,
+      section: 'torque' as const,
+      icon: TORQUE_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -709,6 +722,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/torque', title: '볼트 조임 토크표', desc: 'M3부터 M36까지 등급 8가지, 마찰 상태별 토크', section: 'torque' as const, icon: TORQUE_ICON },
   { href: '/paper', title: '종이 규격표', desc: 'A·B·C 계열과 레터, 해상도별 픽셀과 장당 무게', section: 'paper' as const, icon: PAPER_ICON },
   { href: '/wire', title: '전선 굵기 계산', desc: 'AWG·mm² 20가지와 전류 10가지, 3% 안에 드는 길이', section: 'wire' as const, icon: WIRE_ICON },
   { href: '/battery', title: '배터리 충전 시간', desc: '용량과 충전기가 만나는 200칸, 전압·케이블·기내 반입까지', section: 'battery' as const, icon: BATTERY_ICON },

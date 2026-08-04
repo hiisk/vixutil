@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/torque', icon: '🔧', color: 'from-orange-700 to-amber-500',
+    accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
+    copy: {
+      en: { title: 'Bolt Torque', desc: 'What each bolt and grade takes, and why oil changes it by a quarter' },
+      es: { title: 'Par de apriete', desc: 'Lo que pide cada perno y grado, y por qué el aceite lo cambia un cuarto' },
+      'pt-br': { title: 'Torque de aperto', desc: 'O que cada parafuso e classe pede, e por que o óleo muda um quarto' },
+      ja: { title: '締め付けトルク', desc: 'ボルトと等級ごとの値と、油で25%変わる理由' },
+      de: { title: 'Anzugsmoment', desc: 'Was jede Schraube und Klasse braucht — und warum Öl ein Viertel ausmacht' },
+      fr: { title: 'Couple de serrage', desc: 'Ce que demande chaque boulon et classe, et pourquoi l’huile change tout d’un quart' },
+      hi: { title: 'बोल्ट टॉर्क', desc: 'हर बोल्ट और ग्रेड का मान, और तेल से एक चौथाई क्यों बदलता है' },
+      'zh-hans': { title: '拧紧扭矩', desc: '每种螺栓和等级该拧多少，以及上油为何差四分之一' },
+      'zh-hant': { title: '鎖緊扭矩', desc: '每種螺栓和等級該鎖多少，以及上油為何差四分之一' },
+    },
+  },
+  {
     route: '/paper', icon: '📄', color: 'from-slate-600 to-slate-400',
     accent: 'text-slate-700 dark:text-slate-200', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/60',
     copy: {
