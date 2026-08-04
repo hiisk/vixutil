@@ -87,7 +87,17 @@ test('LangPicker의 route는 섹션 이름으로 시작한다', () => {
         continue;
       }
       // 치환식이 섞이지 않은 첫 칸은 실제 섹션이어야 한다
-      if (!first.includes('${') && !SECTIONS.has(first)) bad.push(`${rel(f)}: ${route} (섹션 ${first} 없음)`);
+      if (!first.includes('${') && !SECTIONS.has(first)) {
+        bad.push(`${rel(f)}: ${route} (섹션 ${first} 없음)`);
+        continue;
+      }
+      // components/<섹션>/ 아래라면 그 폴더의 섹션을 가리켜야 한다.
+      // 다른 섹션의 화면을 베껴 오면 이름만 그대로 남아 언어 메뉴가 남의 집을
+      // 가리킨다 — 실제로 /dew를 만들 때 /windchill이 그대로 남았다.
+      const owner = /components\/([a-z0-9-]+)\//.exec(rel(f))?.[1];
+      if (owner && SECTIONS.has(owner) && !first.includes('${') && first !== owner) {
+        bad.push(`${rel(f)}: ${route} (이 폴더는 ${owner} 섹션이다)`);
+      }
     }
   }
   assert.deepStrictEqual(bad, []);

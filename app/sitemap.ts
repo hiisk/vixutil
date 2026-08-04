@@ -47,6 +47,38 @@ import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { ELEMENTS } from "@/lib/element/list";
+import { NUMBERS } from "@/lib/number/list";
+import { CODES } from "@/lib/ascii/list";
+import { PORTS } from "@/lib/port/list";
+import { MODES as CHMOD_MODES } from "@/lib/chmod/list";
+import { VALUES as RESISTOR_VALUES } from "@/lib/resistor/list";
+import { FRACTIONS, slugOf as fractionSlug } from "@/lib/fraction/list";
+import { KEYS, slugOf as keySlug } from "@/lib/keycode/list";
+import { PREFIXES, slugOf as cidrSlug } from "@/lib/cidr/list";
+import { CHARS as CODE_CHARS, CELLS as CODE_CELLS, charSlug, cellSlug } from "@/lib/code/list";
+import { SCORES as DARTS_SCORES } from "@/lib/darts/list";
+import { PRODUCTS as TIMES_PRODUCTS, slugOf as timesSlug } from "@/lib/times/list";
+import { NUMBERS as SQRT_NUMBERS } from "@/lib/sqrt/list";
+import { YEARS as ROMAN_YEARS } from "@/lib/roman/list";
+import { TIRES, slugOf as tireSlug } from "@/lib/tire/list";
+import { SCREWS, slugOf as screwSlug } from "@/lib/screw/list";
+import { YEARS as CAL_YEARS } from "@/lib/year/list";
+import { PACES, slugOf as paceSlug } from "@/lib/pace/list";
+import { PIXELS } from "@/lib/rem/list";
+import { SPEEDS } from "@/lib/stop/list";
+import { ALTITUDES } from "@/lib/altitude/list";
+import { CHANNELS, slugOf as wifiSlug } from "@/lib/wifi/list";
+import { SPOTS, slugOf as fretSlug } from "@/lib/fret/list";
+import { WEIGHTS } from "@/lib/gravity/list";
+import { CELLS as WC_CELLS, slugOf as wcSlug } from "@/lib/windchill/list";
+import { CELLS as DEW_CELLS, slugOf as dewSlug } from "@/lib/dew/list";
+import { BITS, slugOf as drillSlug } from "@/lib/drill/list";
+import { CELLS as BW_CELLS, slugOf as bwSlug } from "@/lib/bandwidth/list";
+import { CELLS as BATT_CELLS, slugOf as battSlug } from "@/lib/battery/list";
+import { CELLS as WIRE_CELLS, slugOf as wireSlug } from "@/lib/wire/list";
+import { CELLS as PAPER_CELLS, slugOf as paperSlug } from "@/lib/paper/list";
+import { CELLS as TORQUE_CELLS, slugOf as torqueSlug } from "@/lib/torque/list";
+import { CELLS as LUMEN_CELLS, slugOf as lumenSlug } from "@/lib/lumen/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -342,6 +374,299 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/element`, changeFrequency: weekly, priority: 0.85 },
       ...ELEMENTS.map((x: { z: number }) => ({
         url: `${BASE}${prefix}/element/${x.z}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 수 209장도 열 언어다 — 격자가 곧 목록이다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/number`, changeFrequency: weekly, priority: 0.85 },
+      ...NUMBERS.map((n: number) => ({
+        url: `${BASE}${prefix}/number/${n}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // ASCII 128장도 열 언어다 — 코드표가 곧 목록이다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/ascii`, changeFrequency: weekly, priority: 0.85 },
+      ...CODES.map((code: number) => ({
+        url: `${BASE}${prefix}/ascii/${code}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 포트 127장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/port`, changeFrequency: weekly, priority: 0.85 },
+      ...PORTS.map((x: { port: number }) => ({
+        url: `${BASE}${prefix}/port/${x.port}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 권한 모드 125장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/chmod`, changeFrequency: weekly, priority: 0.85 },
+      ...CHMOD_MODES.map((mode: string) => ({
+        url: `${BASE}${prefix}/chmod/${mode}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 저항 144장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/resistor`, changeFrequency: weekly, priority: 0.85 },
+      ...RESISTOR_VALUES.map((ohms: number) => ({
+        url: `${BASE}${prefix}/resistor/${ohms}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 분수 127장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/fraction`, changeFrequency: weekly, priority: 0.85 },
+      ...FRACTIONS.map((f: { n: number; d: number }) => ({
+        url: `${BASE}${prefix}/fraction/${fractionSlug(f)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 키 코드 120장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/keycode`, changeFrequency: weekly, priority: 0.85 },
+      ...KEYS.map((x: { code: string }) => ({
+        url: `${BASE}${prefix}/keycode/${keySlug(x as never)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 프리픽스 162장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/cidr`, changeFrequency: weekly, priority: 0.85 },
+      ...PREFIXES.map((p: { family: 'v4' | 'v6'; bits: number }) => ({
+        url: `${BASE}${prefix}/cidr/${cidrSlug(p)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 부호 116장도 열 언어다 — 글자 쉰둘과 점자 셀 예순넷
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/code`, changeFrequency: weekly, priority: 0.85 },
+      ...CODE_CHARS.map((x: { name: string }) => ({
+        url: `${BASE}${prefix}/code/${charSlug(x as never)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+      ...CODE_CELLS.map((m: number) => ({
+        url: `${BASE}${prefix}/code/${cellSlug(m)}`,
+        changeFrequency: monthly,
+        priority: 0.75,
+      })),
+    ]),
+    // 다트 마무리 169장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/darts`, changeFrequency: weekly, priority: 0.85 },
+      ...DARTS_SCORES.map((score: number) => ({
+        url: `${BASE}${prefix}/darts/${score}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 곱셈 210장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/times`, changeFrequency: weekly, priority: 0.85 },
+      ...TIMES_PRODUCTS.map((p: { a: number; b: number }) => ({
+        url: `${BASE}${prefix}/times/${timesSlug(p)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 제곱근 200장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/sqrt`, changeFrequency: weekly, priority: 0.85 },
+      ...SQRT_NUMBERS.map((n: number) => ({
+        url: `${BASE}${prefix}/sqrt/${n}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 로마 숫자 연도 201장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/roman`, changeFrequency: weekly, priority: 0.85 },
+      ...ROMAN_YEARS.map((y: number) => ({
+        url: `${BASE}${prefix}/roman/${y}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 타이어 규격 204장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/tire`, changeFrequency: weekly, priority: 0.85 },
+      ...TIRES.map((t: { width: number; aspect: number; rim: number }) => ({
+        url: `${BASE}${prefix}/tire/${tireSlug(t)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 나사 규격 114장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/screw`, changeFrequency: weekly, priority: 0.85 },
+      ...SCREWS.map((w: { d: number; p: number; coarse: boolean }) => ({
+        url: `${BASE}${prefix}/screw/${screwSlug(w)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 연도 201장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/year`, changeFrequency: weekly, priority: 0.85 },
+      ...CAL_YEARS.map((y: number) => ({
+        url: `${BASE}${prefix}/year/${y}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 러닝 페이스 241장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/pace`, changeFrequency: weekly, priority: 0.85 },
+      ...PACES.map((p: number) => ({
+        url: `${BASE}${prefix}/pace/${paceSlug(p)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // CSS 단위 120장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/rem`, changeFrequency: weekly, priority: 0.85 },
+      ...PIXELS.map((px: number) => ({
+        url: `${BASE}${prefix}/rem/${px}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 정지거리 141장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/stop`, changeFrequency: weekly, priority: 0.85 },
+      ...SPEEDS.map((v: number) => ({
+        url: `${BASE}${prefix}/stop/${v}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 고도 101장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/altitude`, changeFrequency: weekly, priority: 0.85 },
+      ...ALTITUDES.map((m: number) => ({
+        url: `${BASE}${prefix}/altitude/${m}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 와이파이 채널 101장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/wifi`, changeFrequency: weekly, priority: 0.85 },
+      ...CHANNELS.map(c => ({
+        url: `${BASE}${prefix}/wifi/${wifiSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 기타 지판 144장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/fret`, changeFrequency: weekly, priority: 0.85 },
+      ...SPOTS.map(p => ({
+        url: `${BASE}${prefix}/fret/${fretSlug(p)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 천체별 몸무게 101장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/gravity`, changeFrequency: weekly, priority: 0.85 },
+      ...WEIGHTS.map((w: number) => ({
+        url: `${BASE}${prefix}/gravity/${w}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 체감온도 210장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/windchill`, changeFrequency: weekly, priority: 0.85 },
+      ...WC_CELLS.map(c => ({
+        url: `${BASE}${prefix}/windchill/${wcSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 이슬점 189장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
+      ...DEW_CELLS.map(c => ({
+        url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 방 밝기 160장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/lumen`, changeFrequency: weekly, priority: 0.85 },
+      ...LUMEN_CELLS.map(c => ({
+        url: `${BASE}${prefix}/lumen/${lumenSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 조임 토크 152장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/torque`, changeFrequency: weekly, priority: 0.85 },
+      ...TORQUE_CELLS.map(c => ({
+        url: `${BASE}${prefix}/torque/${torqueSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 종이 280장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/paper`, changeFrequency: weekly, priority: 0.85 },
+      ...PAPER_CELLS.map(c => ({
+        url: `${BASE}${prefix}/paper/${paperSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 전선 200장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/wire`, changeFrequency: weekly, priority: 0.85 },
+      ...WIRE_CELLS.map(c => ({
+        url: `${BASE}${prefix}/wire/${wireSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 배터리 충전 200장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/battery`, changeFrequency: weekly, priority: 0.85 },
+      ...BATT_CELLS.map(c => ({
+        url: `${BASE}${prefix}/battery/${battSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 다운로드 240장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/bandwidth`, changeFrequency: weekly, priority: 0.85 },
+      ...BW_CELLS.map(c => ({
+        url: `${BASE}${prefix}/bandwidth/${bwSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 드릴 비트 187장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/drill`, changeFrequency: weekly, priority: 0.85 },
+      ...BITS.map(b => ({
+        url: `${BASE}${prefix}/drill/${drillSlug(b)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

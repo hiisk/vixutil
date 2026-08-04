@@ -33,6 +33,38 @@ import { TAROT_UI } from '../lib/tarot/ui.ts';
 import { CUBE_UI } from '../lib/cube/ui.ts';
 import { MUSIC_UI } from '../lib/music/ui.ts';
 import { METRO_UI } from '../lib/metro/ui.ts';
+import { NUMBER_UI } from '../lib/number/ui.ts';
+import { ASCII_UI } from '../lib/ascii/ui.ts';
+import { PORT_UI } from '../lib/port/ui.ts';
+import { CHMOD_UI } from '../lib/chmod/ui.ts';
+import { RESISTOR_UI } from '../lib/resistor/ui.ts';
+import { FRACTION_UI } from '../lib/fraction/ui.ts';
+import { KEYCODE_UI } from '../lib/keycode/ui.ts';
+import { CIDR_UI } from '../lib/cidr/ui.ts';
+import { CODE_UI } from '../lib/code/ui.ts';
+import { DARTS_UI } from '../lib/darts/ui.ts';
+import { TIMES_UI } from '../lib/times/ui.ts';
+import { SQRT_UI } from '../lib/sqrt/ui.ts';
+import { ROMAN_UI } from '../lib/roman/ui.ts';
+import { TIRE_UI } from '../lib/tire/ui.ts';
+import { SCREW_UI } from '../lib/screw/ui.ts';
+import { YEAR_UI } from '../lib/year/ui.ts';
+import { PACE_UI } from '../lib/pace/ui.ts';
+import { PX_UI } from '../lib/rem/ui.ts';
+import { STOP_UI } from '../lib/stop/ui.ts';
+import { ALTITUDE_UI } from '../lib/altitude/ui.ts';
+import { WIFI_UI } from '../lib/wifi/ui.ts';
+import { FRET_UI } from '../lib/fret/ui.ts';
+import { GRAVITY_UI } from '../lib/gravity/ui.ts';
+import { WINDCHILL_UI } from '../lib/windchill/ui.ts';
+import { DEW_UI } from '../lib/dew/ui.ts';
+import { DRILL_UI } from '../lib/drill/ui.ts';
+import { BANDWIDTH_UI } from '../lib/bandwidth/ui.ts';
+import { BATTERY_UI } from '../lib/battery/ui.ts';
+import { WIRE_UI } from '../lib/wire/ui.ts';
+import { PAPER_UI } from '../lib/paper/ui.ts';
+import { TORQUE_UI } from '../lib/torque/ui.ts';
+import { LUMEN_UI } from '../lib/lumen/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -45,7 +77,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI), altitude: ui(ALTITUDE_UI), wifi: ui(WIFI_UI), fret: ui(FRET_UI), gravity: ui(GRAVITY_UI), windchill: ui(WINDCHILL_UI), dew: ui(DEW_UI), drill: ui(DRILL_UI), bandwidth: ui(BANDWIDTH_UI), battery: ui(BATTERY_UI), wire: ui(WIRE_UI), paper: ui(PAPER_UI), torque: ui(TORQUE_UI), lumen: ui(LUMEN_UI),
 };
 
 /**
