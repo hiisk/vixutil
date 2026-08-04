@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/drill', icon: '🔩', color: 'from-neutral-600 to-slate-400',
+    accent: 'text-neutral-700 dark:text-neutral-200', border: 'border-neutral-200 dark:border-neutral-800', bg: 'bg-neutral-50 dark:bg-neutral-900/40',
+    copy: {
+      en: { title: 'Drill Bit Chart', desc: 'Metric, inch, number and letter bits with their tap threads' },
+      es: { title: 'Tabla de brocas', desc: 'Brocas métricas, en pulgadas, por número y letra, con sus roscas' },
+      'pt-br': { title: 'Tabela de brocas', desc: 'Brocas métricas, em polegadas, por número e letra, com suas roscas' },
+      ja: { title: 'ドリル径一覧', desc: 'ミリ・インチ・番号・文字と下穴に対応するねじ' },
+      de: { title: 'Bohrer-Tabelle', desc: 'Metrische, zöllige, Nummern- und Buchstabenbohrer samt Gewinden' },
+      fr: { title: 'Tableau des forets', desc: 'Forets métriques, en pouces, à numéro et à lettre, avec leurs filetages' },
+      hi: { title: 'ड्रिल बिट चार्ट', desc: 'मीट्रिक, इंच, नंबर और अक्षर बिट तथा उनके थ्रेड' },
+      'zh-hans': { title: '钻头规格表', desc: '公制、英寸、号码与字母钻头及其对应螺纹' },
+      'zh-hant': { title: '鑽頭規格表', desc: '公制、英寸、號碼與字母鑽頭及其對應螺紋' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

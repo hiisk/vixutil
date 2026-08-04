@@ -99,7 +99,7 @@ const SPEC: Spec = {
   pairLabel: T('40MHz 짝', '40 MHz partner', 'Pareja de 40 MHz', 'Par de 40 MHz', '40MHzの相手', '40-MHz-Partner', 'Partenaire 40 MHz', '40 MHz साथी', '40MHz 搭档', '40MHz 搭檔'),
   dfsLabel: T('레이더 회피(DFS)', 'Radar avoidance (DFS)', 'Evitación de radar (DFS)', 'Prevenção de radar (DFS)', 'レーダー回避(DFS)', 'Radarausweichung (DFS)', 'Évitement radar (DFS)', 'रडार बचाव (DFS)', '雷达避让（DFS）', '雷達避讓（DFS）'),
   restrictedLabel: T('나라 제한', 'Country limits', 'Límites por país', 'Limites por país', '国による制限', 'Länderbeschränkung', 'Restrictions par pays', 'देश की सीमाएँ', '国家限制', '國家限制'),
-  noneTag: T('없습니다', 'none', 'ninguno', 'nenhum', 'ありません', 'keine', 'aucun', 'कोई नहीं', '无', '無'),
+  noneTag: T('없습니다', 'None', 'Ninguno', 'Nenhum', 'ありません', 'Keine', 'Aucun', 'कोई नहीं', '无', '無'),
   yesTag: T('있습니다', 'yes', 'sí', 'sim', 'あります', 'ja', 'oui', 'हाँ', '有', '有'),
 
   overlapTitle: T('채널은 점이 아니라 구간입니다', 'A channel is a range, not a point', 'Un canal es un rango, no un punto', 'Um canal é uma faixa, não um ponto', 'チャンネルは点ではなく帯です', 'Ein Kanal ist ein Bereich, kein Punkt', 'Un canal est une plage, pas un point', 'चैनल बिंदु नहीं, परास है', '信道是一段范围，不是一个点', '頻道是一段範圍，不是一個點'),

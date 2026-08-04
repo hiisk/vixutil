@@ -88,7 +88,7 @@ const SPEC: Spec = {
   lengthLabel: T('글자 수', 'Letters', 'Letras', 'Letras', '文字数', 'Buchstaben', 'Lettres', 'अक्षर', '字母数', '字母數'),
   subtractiveLabel: T('뺄셈 꼴', 'Subtractive pairs', 'Pares sustractivos', 'Pares subtrativos', '引き算の形', 'Subtraktive Paare', 'Paires soustractives', 'घटाव के जोड़े', '减法组合', '減法組合'),
   usedTag: T('썼습니다', 'Used', 'Se usan', 'Usados', '使っています', 'Verwendet', 'Utilisées', 'प्रयुक्त', '有', '有'),
-  noneTag: T('없습니다', 'None', 'Ninguno', 'Nenhum', 'ありません', 'Keine', 'Aucune', 'कोई नहीं', '无', '無'),
+  noneTag: T('없습니다', 'None', 'Ninguno', 'Nenhum', 'ありません', 'Keine', 'Aucun', 'कोई नहीं', '无', '無'),
 
   letterUnit: T<(n: number) => string>(
     n => `${n}자`,

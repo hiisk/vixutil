@@ -32,6 +32,7 @@ import { SPOTS } from '@/lib/fret/list';
 import { WEIGHTS } from '@/lib/gravity/list';
 import { CELLS as WC_CELLS } from '@/lib/windchill/list';
 import { CELLS as DEW_CELLS } from '@/lib/dew/list';
+import { BITS } from '@/lib/drill/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -155,6 +156,18 @@ const SECTIONS = [
     textAccent: 'text-zinc-700 dark:text-zinc-200',
     borderAccent: 'border-zinc-200 dark:border-zinc-800',
     shadow: 'shadow-zinc-100',
+  },
+  {
+    href: '/drill',
+    icon: '🔩',
+    title: '드릴 비트 규격표',
+    desc: '#7이 5.1mm — 미터·인치·번호·문자 네 계열을 한 표에',
+    badge: `${BITS.length}가지`,
+    color: 'from-neutral-600 to-slate-400',
+    bgLight: 'bg-neutral-50 dark:bg-neutral-900/40',
+    textAccent: 'text-neutral-700 dark:text-neutral-200',
+    borderAccent: 'border-neutral-200 dark:border-neutral-800',
+    shadow: 'shadow-neutral-100',
   },
   {
     href: '/year',
