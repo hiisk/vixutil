@@ -1,13 +1,13 @@
 /**
- * 렌즈 화각 144가지 — 초점거리와 센서 규격만 적는다.
+ * 렌즈 화각 180가지 — 초점거리와 센서 규격만 적는다.
  *
  * 화각도, 35mm 환산 초점거리도, 두 발짝 앞에서 담기는 폭도 전부 두 숫자에서
- * 나온다. 표를 손으로 적으면 144 × 다섯 칸이고, 한 칸이 틀려도 그럴듯한
+ * 나온다. 표를 손으로 적으면 180 × 다섯 칸이고, 한 칸이 틀려도 그럴듯한
  * 숫자라 아무도 못 잡는다.
  *
  * 초점거리(50mm)와 센서 이름(APS-C)은 만국 공통이라 옮길 것이 없다.
  */
-export type SensorKey = 'ff' | 'apsc' | 'mft' | 'one-inch';
+export type SensorKey = 'ff' | 'apsc' | 'super35' | 'mft' | 'one-inch';
 
 export interface Sensor {
   key: SensorKey;
@@ -19,7 +19,7 @@ export interface Sensor {
 }
 
 /**
- * 센서 네 가지.
+ * 센서 다섯 가지.
  *
  * 크롭 배수는 적지 않는다 — 대각선을 재면 나오는 값이라, 적어 두면 두 값이
  * 어긋날 자리만 생긴다.
@@ -27,6 +27,7 @@ export interface Sensor {
 export const SENSORS: Sensor[] = [
   { key: 'ff', name: 'Full frame', w: 36, h: 24 },
   { key: 'apsc', name: 'APS-C', w: 23.5, h: 15.6 },
+  { key: 'super35', name: 'Super 35', w: 24.89, h: 18.66 },
   { key: 'mft', name: 'Micro Four Thirds', w: 17.3, h: 13 },
   { key: 'one-inch', name: '1-inch', w: 13.2, h: 8.8 },
 ];

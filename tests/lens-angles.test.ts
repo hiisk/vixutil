@@ -22,7 +22,7 @@ test('100가지가 넘는다', () => {
 test('열쇠가 겹치지 않고 주소로 쓸 수 있다', () => {
   assert.equal(new Set(LENS_SLUGS).size, LENSES.length, 'slug 중복');
   for (const l of LENSES) {
-    assert.match(l.slug, /^[0-9]+mm-[a-z-]+$/, `주소에 못 쓰는 slug: ${l.slug}`);
+    assert.match(l.slug, /^[0-9]+mm-[a-z0-9-]+$/, `주소에 못 쓰는 slug: ${l.slug}`);
     assert.equal(l.slug, `${l.focal}mm-${l.sensor}`, `${l.slug}: 열쇠가 값과 다르다`);
     assert.ok(sensorOf(l.sensor), `${l.slug}: 없는 센서를 가리킨다`);
   }

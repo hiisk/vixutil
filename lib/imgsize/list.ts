@@ -1,8 +1,8 @@
 /**
- * 이미지 크기 134가지 — 가로세로 픽셀만 적는다.
+ * 이미지 크기 156가지 — 가로세로 픽셀만 적는다.
  *
  * 화면비·메가픽셀·인쇄 크기·용량 어림은 전부 두 숫자에서 계산된다. 표를 손으로
- * 적으면 134 × 다섯 칸이고, 한 칸이 틀려도 그럴듯한 숫자라 아무도 못 잡는다.
+ * 적으면 156 × 다섯 칸이고, 한 칸이 틀려도 그럴듯한 숫자라 아무도 못 잡는다.
  *
  * 이름은 플랫폼과 규격 이름이라 언어를 가리지 않는다. 어느 나라에서든
  * "YouTube thumbnail"은 1280×720이고 A4는 A4다.
@@ -52,6 +52,10 @@ export const IMG_SIZES: ImgSize[] = [
   s('twitter-card-summary', 'Summary card image', 1200, 600, 'social'),
   s('kakao-share', 'Messenger share card', 800, 400, 'social'),
   s('blog-thumbnail', 'Blog thumbnail', 1200, 800, 'social'),
+  s('youtube-community-post', 'YouTube community post', 1200, 1200, 'social'),
+  s('linkedin-article-cover', 'LinkedIn article cover', 1920, 1080, 'social'),
+  s('naver-blog-thumbnail', 'Naver blog thumbnail', 800, 600, 'social'),
+  s('whatsapp-status', 'WhatsApp status', 1080, 1920, 'social'),
 
   /* ───────── 프로필과 배너 ───────── */
   s('instagram-profile', 'Instagram profile photo', 320, 320, 'profile'),
@@ -68,6 +72,9 @@ export const IMG_SIZES: ImgSize[] = [
   s('github-avatar', 'GitHub avatar', 500, 500, 'profile'),
   s('zoom-background', 'Video call background', 1920, 1080, 'profile'),
   s('email-signature', 'Email signature image', 600, 200, 'profile'),
+  s('spotify-playlist-cover', 'Spotify playlist cover', 640, 640, 'profile'),
+  s('slack-avatar', 'Slack avatar', 512, 512, 'profile'),
+  s('notion-cover', 'Notion page cover', 1500, 600, 'profile'),
 
   /* ───────── 영상 규격 ───────── */
   s('video-sd', 'SD video (480p)', 854, 480, 'video'),
@@ -87,6 +94,9 @@ export const IMG_SIZES: ImgSize[] = [
   s('video-480p', '480p video', 854, 480, 'video'),
   s('video-720p-vertical', '720p vertical video', 720, 1280, 'video'),
   s('video-1440p-vertical', '1440p vertical video', 1440, 2560, 'video'),
+  s('video-anamorphic-4k', '4K anamorphic 2.39:1', 3840, 1608, 'video'),
+  s('video-vertical-4k', '4K vertical', 2160, 3840, 'video'),
+  s('video-240p', '240p', 426, 240, 'video'),
 
   /* ───────── 인쇄물 (300dpi) ───────── */
   s('a0-300dpi', 'A0 at 300 dpi', 9933, 14043, 'print', [841, 1189]),
@@ -110,6 +120,10 @@ export const IMG_SIZES: ImgSize[] = [
   s('a8-300dpi', 'A8 at 300 dpi', 614, 874, 'print', [52, 74]),
   s('b3-300dpi', 'B3 at 300 dpi', 4169, 5906, 'print', [353, 500]),
   s('ansi-c-300dpi', 'ANSI C at 300 dpi', 5100, 6600, 'print', [431.8, 558.8]),
+  s('b2-300dpi', 'B2 at 300 dpi', 5906, 8350, 'print', [500, 707]),
+  s('a3-150dpi', 'A3 at 150 dpi', 1754, 2480, 'print', [297, 420]),
+  s('a5-150dpi', 'A5 at 150 dpi', 874, 1240, 'print', [148, 210]),
+  s('letter-150dpi', 'US Letter at 150 dpi', 1275, 1650, 'print', [216, 279]),
 
   /* ───────── 사진 인화 ───────── */
   s('photo-3x5', '3×5 in print', 900, 1500, 'photo', [76, 127]),
@@ -123,6 +137,9 @@ export const IMG_SIZES: ImgSize[] = [
 
   s('photo-2x3', '2×3 in print', 600, 900, 'photo', [51, 76]),
   s('photo-12x18', '12×18 in print', 3600, 5400, 'photo', [305, 457]),
+  s('photo-6x8', '6×8 in print', 1800, 2400, 'photo', [152, 203]),
+  s('photo-8x12', '8×12 in print', 2400, 3600, 'photo', [203, 305]),
+  s('photo-24x36', '24×36 in print', 7200, 10800, 'photo', [610, 914]),
 
   /* ───────── 웹 화면 ───────── */
   s('web-hero', 'Website hero image', 1920, 1080, 'web'),
@@ -141,6 +158,9 @@ export const IMG_SIZES: ImgSize[] = [
   s('web-1366', '1366×768 laptop viewport', 1366, 768, 'web'),
   s('web-1440', '1440×900 laptop viewport', 1440, 900, 'web'),
   s('web-tablet-portrait', 'Tablet portrait viewport', 768, 1024, 'web'),
+  s('web-1280', '1280×800 laptop', 1280, 800, 'web'),
+  s('web-mobile-390', '390×844 phone', 390, 844, 'web'),
+  s('web-mobile-430', '430×932 phone', 430, 932, 'web'),
 
   /* ───────── 아이콘과 파비콘 ───────── */
   s('favicon-16', 'Favicon 16', 16, 16, 'icon'),
@@ -161,6 +181,8 @@ export const IMG_SIZES: ImgSize[] = [
   s('favicon-64', 'Favicon 64', 64, 64, 'icon'),
   s('pwa-icon-384', 'PWA icon 384', 384, 384, 'icon'),
   s('mac-app-icon', 'macOS app icon', 1024, 1024, 'icon'),
+  s('favicon-128', 'Favicon 128', 128, 128, 'icon'),
+  s('android-icon-144', 'Android icon 144', 144, 144, 'icon'),
 
   /* ───────── 광고 배너 ───────── */
   s('ad-leaderboard', 'Leaderboard banner', 728, 90, 'ad'),
