@@ -56,6 +56,7 @@ import { FRACTIONS, slugOf as fractionSlug } from "@/lib/fraction/list";
 import { KEYS, slugOf as keySlug } from "@/lib/keycode/list";
 import { PREFIXES, slugOf as cidrSlug } from "@/lib/cidr/list";
 import { CHARS as CODE_CHARS, CELLS as CODE_CELLS, charSlug, cellSlug } from "@/lib/code/list";
+import { SCORES as DARTS_SCORES } from "@/lib/darts/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -436,6 +437,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE}${prefix}/code/${cellSlug(m)}`,
         changeFrequency: monthly,
         priority: 0.75,
+      })),
+    ]),
+    // 다트 마무리 169장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/darts`, changeFrequency: weekly, priority: 0.85 },
+      ...DARTS_SCORES.map((score: number) => ({
+        url: `${BASE}${prefix}/darts/${score}`,
+        changeFrequency: monthly,
+        priority: 0.8,
       })),
     ]),
     // 정규식 133장도 여덟 언어다 — 표기법과 검사식을 함께 싣는다

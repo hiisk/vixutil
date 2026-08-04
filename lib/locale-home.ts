@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
+    accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
+    copy: {
+      en: { title: 'Darts Checkouts', desc: 'Every score from 2 to 170 with the route and dart count' },
+      es: { title: 'Cierres de dardos', desc: 'Cada puntaje de 2 a 170 con su recorrido y número de dardos' },
+      'pt-br': { title: 'Fechamentos de dardos', desc: 'Cada pontuação de 2 a 170 com a sequência e o número de dardos' },
+      ja: { title: 'ダーツのフィニッシュ', desc: '2点から170点までの投げ順と本数' },
+      de: { title: 'Darts-Finishes', desc: 'Jeder Rest von 2 bis 170 mit Wurffolge und Dartzahl' },
+      fr: { title: 'Finitions aux fléchettes', desc: 'Chaque score de 2 à 170 avec l’enchaînement et le nombre de fléchettes' },
+      hi: { title: 'डार्ट्स चेकआउट', desc: '2 से 170 तक हर स्कोर का क्रम और डार्ट संख्या' },
+      'zh-hans': { title: '飞镖收尾表', desc: '2 到 170 分每个余分的打法与镖数' },
+      'zh-hant': { title: '飛鏢收尾表', desc: '2 到 170 分每個餘分的打法與鏢數' },
+    },
+  },
+  {
     route: '/code', icon: '📶', color: 'from-violet-600 to-purple-500',
     accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
     copy: {

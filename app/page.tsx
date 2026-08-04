@@ -16,6 +16,7 @@ import { FRACTIONS } from '@/lib/fraction/list';
 import { KEYS } from '@/lib/keycode/list';
 import { PREFIXES } from '@/lib/cidr/list';
 import { CHARS as CODE_CHARS, CELLS as CODE_CELLS } from '@/lib/code/list';
+import { SCORES as DARTS_SCORES } from '@/lib/darts/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -378,6 +379,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/darts',
+    icon: '🎯',
+    title: '다트 마무리표',
+    desc: '2점부터 170점까지 — 몇 다트에 끝나는지와 던질 순서',
+    badge: `${DARTS_SCORES.length}가지`,
+    color: 'from-red-600 to-rose-500',
+    bgLight: 'bg-red-50 dark:bg-red-950/30',
+    textAccent: 'text-red-700 dark:text-red-300',
+    borderAccent: 'border-red-200 dark:border-red-900/50',
+    shadow: 'shadow-red-100',
   },
   {
     href: '/code',

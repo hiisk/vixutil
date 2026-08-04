@@ -39,6 +39,7 @@ import { FRACTIONS, FRACTION_ICON, slugOf as fractionSlug } from './fraction/lis
 import { KEYS, KEYCODE_ICON, slugOf as keySlug } from './keycode/list';
 import { PREFIXES, CIDR_ICON, slugOf as cidrSlug } from './cidr/list';
 import { CHARS as CODE_CHARS, CODE_ICON, charSlug } from './code/list';
+import { SCORES as DARTS_SCORES, DARTS_ICON } from './darts/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -53,6 +54,7 @@ import { fractionFacts } from './fraction/facts';
 import { keyFacts } from './keycode/facts';
 import { cidrFacts } from './cidr/facts';
 import { charFacts } from './code/facts';
+import { dartsFacts } from './darts/facts';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
 import { rollFacts } from './dice/facts';
@@ -86,7 +88,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts';
 
 export interface SearchItem {
   href: string;
@@ -137,6 +139,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   keycode:    { label: '키 코드',    icon: '🔑', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   cidr:       { label: '서브넷',    icon: '🌐', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   code:       { label: '부호',      icon: '📶', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
+  darts:      { label: '다트',      icon: '🎯', accent: 'bg-red-50 text-red-700 border-red-200' },
 };
 
 /**
@@ -338,6 +341,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: CODE_ICON,
     };
   }),
+  ...DARTS_SCORES.map(score => {
+    const f = dartsFacts(score);
+    return {
+      href: `/darts/${score}`,
+      title: `${score}점 다트 마무리`,
+      desc: f.bogey ? '세 다트로는 끝낼 수 없는 보기 수' : `${f.darts}다트 · ${f.route.map(t => t.label).join(' ')}`,
+      section: 'darts' as const,
+      icon: DARTS_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -417,6 +430,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/keycode', title: '키 코드 사전', desc: 'code·key·keyCode를 자판 키 120개에서', section: 'keycode' as const, icon: KEYCODE_ICON },
   { href: '/cidr', title: 'CIDR 서브넷 표', desc: '/0부터 /32까지 마스크·주소 수·호스트 수', section: 'cidr' as const, icon: CIDR_ICON },
   { href: '/code', title: '모스 부호표', desc: '모스·NATO 음성 문자·점자 116가지', section: 'code' as const, icon: CODE_ICON },
+  { href: '/darts', title: '다트 마무리표', desc: '2점부터 170점까지 몇 다트에 끝나는지와 수순', section: 'darts' as const, icon: DARTS_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
