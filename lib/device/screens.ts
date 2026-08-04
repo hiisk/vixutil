@@ -1,8 +1,8 @@
 /**
- * 화면 규격 126가지 — 해상도와 대각선 길이만 적는다.
+ * 화면 규격 124가지 — 해상도와 대각선 길이만 적는다.
  *
  * PPI·화면비·픽셀 수·CSS 해상도는 전부 세 숫자에서 계산된다. 표를 손으로 적으면
- * 126 × 다섯 칸이고, 하나가 틀려도 "그럴듯한 숫자"라 아무도 못 잡는다.
+ * 124 × 다섯 칸이고, 하나가 틀려도 "그럴듯한 숫자"라 아무도 못 잡는다.
  *
  * 대신 제조사가 공표한 PPI를 함께 적어 둔다. 검사에서 계산값과 대조하므로,
  * 해상도나 대각선을 잘못 적으면 그 자리에서 드러난다 — 데이터 입력 실수를 잡는
@@ -132,7 +132,6 @@ export const SCREENS: Screen[] = [
 
   s('monitor-24-1200p', '24-inch WUXGA monitor', 'monitor', 1920, 1200, 24, 94),
 
-  s('monitor-27-1440p', '27-inch QHD monitor', 'monitor', 2560, 1440, 27, 109),
 
   s('monitor-42-4k-oled', '42-inch 4K OLED monitor', 'monitor', 3840, 2160, 41.5, 106),
 
@@ -165,7 +164,6 @@ export const SCREENS: Screen[] = [
   // 대각선 기준을 쓴다. 같은 화면을 두 방식으로 재면 값이 달라진다
   s('pixel-watch-2', 'Pixel Watch 2', 'watch', 384, 384, 1.2, 452, 2023),
 
-  s('watch-ultra-2', 'Apple Watch Ultra 2', 'watch', 410, 502, 1.92, 338, 2023),
   s('galaxy-watch7-44', 'Galaxy Watch7 44mm', 'watch', 480, 480, 1.47, 462, 2024),
 
   s('rog-ally-x', 'ROG Ally X', 'console', 1920, 1080, 7, 315, 2024),
