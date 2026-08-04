@@ -15,6 +15,7 @@ import { VALUES as RESISTOR_VALUES } from '@/lib/resistor/list';
 import { FRACTIONS } from '@/lib/fraction/list';
 import { KEYS } from '@/lib/keycode/list';
 import { PREFIXES } from '@/lib/cidr/list';
+import { CHARS as CODE_CHARS, CELLS as CODE_CELLS } from '@/lib/code/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -377,6 +378,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/code',
+    icon: '📶',
+    title: '모스 부호표',
+    desc: '모스·NATO 음성 문자·점자 — 글자 쉰둘과 점자 셀 예순넷',
+    badge: `${CODE_CHARS.length + CODE_CELLS.length}가지`,
+    color: 'from-violet-600 to-purple-500',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/cidr',

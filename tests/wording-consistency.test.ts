@@ -41,6 +41,7 @@ import { RESISTOR_UI } from '../lib/resistor/ui.ts';
 import { FRACTION_UI } from '../lib/fraction/ui.ts';
 import { KEYCODE_UI } from '../lib/keycode/ui.ts';
 import { CIDR_UI } from '../lib/cidr/ui.ts';
+import { CODE_UI } from '../lib/code/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -53,7 +54,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI),
 };
 
 /**

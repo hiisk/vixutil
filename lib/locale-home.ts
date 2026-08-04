@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/code', icon: '📶', color: 'from-violet-600 to-purple-500',
+    accent: 'text-violet-700 dark:text-violet-300', border: 'border-violet-200 dark:border-violet-900/50', bg: 'bg-violet-50 dark:bg-violet-950/30',
+    copy: {
+      en: { title: 'Morse, NATO, Braille', desc: '52 characters in three codes, plus all 64 braille cells' },
+      es: { title: 'Morse, NATO, braille', desc: '52 caracteres en tres códigos y las 64 celdas braille' },
+      'pt-br': { title: 'Morse, NATO, braille', desc: '52 caracteres em três códigos e as 64 celas braille' },
+      ja: { title: 'モールス・NATO・点字', desc: '文字52種を三つの符号で、点字のセル64種も' },
+      de: { title: 'Morse, NATO, Braille', desc: '52 Zeichen in drei Codes und alle 64 Braille-Zellen' },
+      fr: { title: 'Morse, NATO, braille', desc: '52 caractères en trois codes et les 64 cellules braille' },
+      hi: { title: 'मोर्स, NATO, ब्रेल', desc: '52 वर्ण तीन संकेतों में, और सभी 64 ब्रेल कोशिकाएँ' },
+      'zh-hans': { title: '摩尔斯·NATO·盲文', desc: '52 个字符的三种编码，另有 64 个盲文方' },
+      'zh-hant': { title: '摩斯·NATO·點字', desc: '52 個字元的三種編碼，另有 64 個點字方' },
+    },
+  },
+  {
     route: '/cidr', icon: '🌐', color: 'from-cyan-600 to-blue-500',
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {
