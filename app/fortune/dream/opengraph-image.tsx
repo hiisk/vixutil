@@ -11,7 +11,7 @@ export default function Image() {
       icon: '🌙',
       eyebrow: 'Dream',
       title: '꿈 해몽',
-      desc: '돼지·뱀·불 등 50가지 꿈의 의미 분석',
+      desc: '돼지·뱀·불 등 78가지 꿈의 의미 분석',
       from: '#334155',
       to: '#3730a3',
     }),

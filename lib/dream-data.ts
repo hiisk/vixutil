@@ -1,3 +1,5 @@
+import { DREAM_DATA_B } from './dream-data-b.ts';
+
 export type DreamCategory = '동물' | '자연' | '사람·관계' | '물건' | '음식' | '장소' | '행동';
 export type LuckLevel = 2 | 1 | 0 | -1 | -2;
 
@@ -20,7 +22,9 @@ export const LUCK_INFO: Record<string, { label: string; color: string; bg: strin
   '-2': { label: '대흉', color: 'text-red-700',     bg: 'bg-red-50',      border: 'border-red-200',     bar: 'bg-red-500'    },
 };
 
-export const DREAM_DATA: DreamEntry[] = [
+export const CATEGORIES: DreamCategory[] = ['동물', '자연', '사람·관계', '물건', '음식', '장소', '행동'];
+
+const BASE: DreamEntry[] = [
   // ── 동물 ──────────────────────────────────────────────────────
   {
     id: 'pig',
@@ -244,7 +248,7 @@ export const DREAM_DATA: DreamEntry[] = [
       '거미를 잡는 꿈은 문제를 해결하거나 음모를 발각하게 됨을 뜻합니다. 화려한 무늬의 큰 거미는 때로 재물운을 의미하기도 합니다.',
       '거미가 집을 짓는 꿈은 성실하게 쌓아가는 노력이 결실을 맺을 것을, 거미에 물리는 꿈은 예상치 못한 문제가 발생할 수 있음을 암시합니다.',
     ],
-    related: ['뱀', '쫓기기', '함정'],
+    related: ['뱀', '쫓기기', '나비'],
   },
 
   // ── 자연 ──────────────────────────────────────────────────────
@@ -372,7 +376,7 @@ export const DREAM_DATA: DreamEntry[] = [
       '번개에 맞는 꿈은 충격적인 일이나 갑작스러운 깨달음을 의미하며, 경우에 따라 큰 명예나 성공을 가져오기도 합니다.',
       '번개와 천둥이 함께 치는 꿈은 큰 위기나 갈등이 예상되므로 중요한 결정은 신중하게 해야 합니다.',
     ],
-    related: ['천둥', '비', '불'],
+    related: ['하늘', '비', '불'],
   },
   {
     id: 'snow',
@@ -486,7 +490,7 @@ export const DREAM_DATA: DreamEntry[] = [
       '남이 죽는 꿈은 그 사람과의 관계가 변화하거나, 그 사람이 상징하는 무언가가 삶에서 끝날 것을 의미합니다. 죽어서 부활하는 꿈은 큰 변화 후 더 강해지는 재탄생을 뜻합니다.',
       '전통 해몽에서는 가족이 죽는 꿈이 오히려 그 가족에게 좋은 일이 생길 길몽이 되기도 합니다. 역몽으로 해석되어 장수나 건강을 의미하는 경우도 있습니다.',
     ],
-    related: ['돌아가신분', '부활', '무덤'],
+    related: ['돌아가신분', '아기', '무덤'],
   },
   {
     id: 'teeth-falling',
@@ -586,7 +590,7 @@ export const DREAM_DATA: DreamEntry[] = [
       '차 사고가 나거나 고장나는 꿈은 계획이나 진행 중인 일에 차질이 생길 수 있음을 경고합니다. 브레이크가 고장난 꿈은 통제력을 잃을 것 같은 불안감을 반영합니다.',
       '좋은 차를 타고 달리는 꿈은 사회적 지위와 성공을 의미합니다. 운전을 잘 못하거나 길을 잃는 꿈은 현재 방향성에 대한 고민이 있음을 나타냅니다.',
     ],
-    related: ['교통사고', '달리기', '길'],
+    related: ['다리', '달리기', '길'],
   },
   {
     id: 'gem',
@@ -820,8 +824,15 @@ export const DREAM_DATA: DreamEntry[] = [
   },
 ];
 
+/**
+ * 나중에 더한 것을 뒤에 그냥 이어 붙이면 '전체' 화면에서 분류가 두 덩이로 갈라진다.
+ * 분류 차례로 다시 세우되, Array.prototype.sort는 안정 정렬이라 같은 분류 안에서는
+ * 원래 차례가 그대로 남는다 — 오래된 항목이 갑자기 뒤로 밀리지 않는다.
+ */
+export const DREAM_DATA: DreamEntry[] = [...BASE, ...DREAM_DATA_B].sort(
+  (a, b) => CATEGORIES.indexOf(a.category) - CATEGORIES.indexOf(b.category),
+);
+
 export const POPULAR_KEYWORDS = [
   '돼지', '뱀', '대변', '임신', '불', '날기', '죽음', '이빨빠짐', '호랑이', '물고기', '용', '코끼리',
 ];
-
-export const CATEGORIES: DreamCategory[] = ['동물', '자연', '사람·관계', '물건', '음식', '장소', '행동'];
