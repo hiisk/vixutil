@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { ogImage } from '@/lib/og-image';
 import { OG_SIZE, OG_CONTENT_TYPE, ogCard } from '@/lib/og-template';
 
 export const size = OG_SIZE;
@@ -6,7 +6,7 @@ export const contentType = OG_CONTENT_TYPE;
 export const dynamic = 'force-static';
 
 export default function Image() {
-  return new ImageResponse(
+  return ogImage(
     ogCard({
       icon: '🖼️',
       eyebrow: 'Image Tools',
@@ -15,6 +15,5 @@ export default function Image() {
       from: '#8b5cf6',
       to: '#0ea5e9',
     }),
-    { ...size }
   );
 }

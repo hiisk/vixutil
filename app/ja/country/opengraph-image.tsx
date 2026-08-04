@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { ogImage } from '@/lib/og-image';
 import { OG_SIZE, OG_CONTENT_TYPE, ogCard } from '@/lib/og-template';
 import { COUNTRY_UI, COUNTRY_SECTION } from '@/lib/country-ui';
 
@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
 const ui = COUNTRY_UI['ja'];
 
 export default function Image() {
-  return new ImageResponse(
+  return ogImage(
     ogCard({
       icon: '🧭',
       eyebrow: ui.section,
@@ -18,6 +18,5 @@ export default function Image() {
       from: COUNTRY_SECTION.ogFrom,
       to: COUNTRY_SECTION.ogTo,
     }),
-    { ...size }
   );
 }

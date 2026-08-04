@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { ogImage } from '@/lib/og-image';
 import { OG_SIZE, OG_CONTENT_TYPE, ogCard } from '@/lib/og-template';
 import { HANJA_UI, HANJA_SECTION } from '@/lib/hanja-ui';
 
@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
 const ui = HANJA_UI['ko'];
 
 export default function Image() {
-  return new ImageResponse(
+  return ogImage(
     ogCard({
       icon: '📖',
       eyebrow: ui.section,
@@ -18,6 +18,5 @@ export default function Image() {
       from: HANJA_SECTION.ogFrom,
       to: HANJA_SECTION.ogTo,
     }),
-    { ...size }
   );
 }

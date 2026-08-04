@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { ogImage } from '@/lib/og-image';
 import { OG_SIZE, OG_CONTENT_TYPE, ogCard } from '@/lib/og-template';
 import { GEO_SECTION } from '@/lib/geo-section';
 import { sectionMeta } from '@/lib/formula/section';
@@ -10,7 +10,7 @@ export const dynamic = 'force-static';
 const meta = sectionMeta(GEO_SECTION, 'de');
 
 export default function Image() {
-  return new ImageResponse(
+  return ogImage(
     ogCard({
       icon: '📐',
       eyebrow: meta.section,
@@ -19,6 +19,5 @@ export default function Image() {
       from: GEO_SECTION.ogFrom,
       to: GEO_SECTION.ogTo,
     }),
-    { ...size }
   );
 }

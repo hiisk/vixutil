@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { ogImage } from '@/lib/og-image';
 import { OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og-template';
 import { intlOg } from '@/lib/og-intl';
 
@@ -7,5 +7,5 @@ export const contentType = OG_CONTENT_TYPE;
 export const dynamic = 'force-static';
 
 export default function Image() {
-  return new ImageResponse(intlOg('snap/animal-face/es'), { ...size });
+  return ogImage(intlOg('snap/animal-face/es'));
 }
