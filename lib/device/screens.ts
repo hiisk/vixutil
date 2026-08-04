@@ -1,8 +1,8 @@
 /**
- * 화면 규격 124가지 — 해상도와 대각선 길이만 적는다.
+ * 화면 규격 143가지 — 해상도와 대각선 길이만 적는다.
  *
  * PPI·화면비·픽셀 수·CSS 해상도는 전부 세 숫자에서 계산된다. 표를 손으로 적으면
- * 124 × 다섯 칸이고, 하나가 틀려도 "그럴듯한 숫자"라 아무도 못 잡는다.
+ * 143 × 다섯 칸이고, 하나가 틀려도 "그럴듯한 숫자"라 아무도 못 잡는다.
  *
  * 대신 제조사가 공표한 PPI를 함께 적어 둔다. 검사에서 계산값과 대조하므로,
  * 해상도나 대각선을 잘못 적으면 그 자리에서 드러난다 — 데이터 입력 실수를 잡는
@@ -79,6 +79,11 @@ export const SCREENS: Screen[] = [
   s('xiaomi-14', 'Xiaomi 14', 'phone', 1200, 2670, 6.36, 460, 2024),
 
   s('pixel-9-pro-fold', 'Pixel 9 Pro Fold', 'phone', 2076, 2152, 8, 373, 2024),
+  s('iphone-16e', 'iPhone 16e', 'phone', 1170, 2532, 6.1, 460, 2025),
+  s('galaxy-s25-ultra', 'Galaxy S25 Ultra', 'phone', 1440, 3120, 6.9, 498, 2025),
+  s('galaxy-s25-plus', 'Galaxy S25+', 'phone', 1440, 3120, 6.7, 513, 2025),
+  s('galaxy-s25', 'Galaxy S25', 'phone', 1080, 2340, 6.2, 416, 2025),
+  s('pixel-9a', 'Pixel 9a', 'phone', 1080, 2424, 6.3, 422, 2025),
 
   /* ───────── 태블릿 ───────── */
   s('ipad-pro-13-m4', 'iPad Pro 13" (M4)', 'tablet', 2064, 2752, 13.0, 264, 2024),
@@ -95,6 +100,8 @@ export const SCREENS: Screen[] = [
   s('ipad-mini-7', 'iPad mini (A17 Pro)', 'tablet', 1488, 2266, 8.3, 326, 2024),
   s('galaxy-tab-s10-ultra', 'Galaxy Tab S10 Ultra', 'tablet', 1848, 2960, 14.6, 239, 2024),
   s('surface-pro-11', 'Surface Pro 11', 'tablet', 1440, 2160, 13, 201, 2024),
+  s('ipad-air-13-m3', 'iPad Air 13 (M3)', 'tablet', 2732, 2048, 13, 264, 2025),
+  s('galaxy-tab-s10-plus', 'Galaxy Tab S10+', 'tablet', 2800, 1752, 12.4, 266, 2024),
 
   /* ───────── 노트북 ───────── */
   s('macbook-air-13-m3', 'MacBook Air 13" (M3)', 'laptop', 2560, 1664, 13.6, 224, 2024),
@@ -113,6 +120,8 @@ export const SCREENS: Screen[] = [
   s('thinkpad-x1-carbon-g12', 'ThinkPad X1 Carbon Gen 12', 'laptop', 1920, 1200, 14, 162, 2024),
 
   s('macbook-pro-16-m4', 'MacBook Pro 16 (M4)', 'laptop', 3456, 2234, 16.2, 254, 2024),
+  s('macbook-air-13-m4', 'MacBook Air 13 (M4)', 'laptop', 2560, 1664, 13.6, 224, 2025),
+  s('macbook-pro-14-m4', 'MacBook Pro 14 (M4)', 'laptop', 3024, 1964, 14.2, 254, 2024),
 
   /* ───────── 모니터 ───────── */
   s('monitor-24-fhd', '24" Full HD monitor', 'monitor', 1920, 1080, 24.0, 92),
@@ -134,6 +143,12 @@ export const SCREENS: Screen[] = [
 
 
   s('monitor-42-4k-oled', '42-inch 4K OLED monitor', 'monitor', 3840, 2160, 41.5, 106),
+  s('monitor-23-8-fhd', '23.8" FHD Monitor', 'monitor', 1920, 1080, 23.8, 93),
+  s('monitor-16-portable-2k', '16" Portable 2K', 'monitor', 2560, 1600, 16, 189),
+  s('monitor-38-uwqhd-plus', '37.5" UWQHD+ Ultrawide', 'monitor', 3840, 1600, 37.5, 111),
+  s('monitor-40-5k2k', '40" 5K2K Ultrawide', 'monitor', 5120, 2160, 40, 139),
+  s('monitor-45-uwqhd-oled', '45" UWQHD OLED', 'monitor', 3440, 1440, 45, 83),
+  s('monitor-57-dual-4k', '57" Dual 4K Superultrawide', 'monitor', 7680, 2160, 57, 140),
 
   /* ───────── TV ───────── */
   s('tv-32-hd', '32" HD TV', 'tv', 1366, 768, 32.0, 49),
@@ -153,6 +168,10 @@ export const SCREENS: Screen[] = [
 
 
   s('tv-32-1080p', '32-inch Full HD TV', 'tv', 1920, 1080, 32, 69),
+  s('tv-48-4k-oled', '48" 4K OLED TV', 'tv', 3840, 2160, 48, 92),
+  s('tv-70-4k', '70" 4K TV', 'tv', 3840, 2160, 70, 63),
+  s('tv-85-8k', '85" 8K TV', 'tv', 7680, 4320, 85, 104),
+  s('tv-100-4k', '100" 4K TV', 'tv', 3840, 2160, 100, 44),
 
   /* ───────── 스마트워치 ───────── */
   s('apple-watch-ultra-2', 'Apple Watch Ultra 2', 'watch', 410, 502, 1.92, 338, 2023),
