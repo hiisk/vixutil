@@ -612,6 +612,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/dew', icon: '💧', color: 'from-cyan-700 to-sky-500',
+    accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
+    copy: {
+      en: { title: 'Dew Point Chart', desc: 'Why 60% humidity never means the same thing twice' },
+      es: { title: 'Punto de rocío', desc: 'Por qué el 60% de humedad nunca significa lo mismo' },
+      'pt-br': { title: 'Ponto de orvalho', desc: 'Por que 60% de umidade nunca significa a mesma coisa' },
+      ja: { title: '露点表', desc: '湿度60%が同じ意味にならない理由' },
+      de: { title: 'Taupunkt-Tabelle', desc: 'Warum 60 % Luftfeuchte nie dasselbe bedeuten' },
+      fr: { title: 'Point de rosée', desc: 'Pourquoi 60 % d’humidité ne veut jamais dire la même chose' },
+      hi: { title: 'ओसांक चार्ट', desc: '60% आर्द्रता का मतलब हर बार अलग क्यों होता है' },
+      'zh-hans': { title: '露点表', desc: '为什么同样 60% 的湿度含义并不相同' },
+      'zh-hant': { title: '露點表', desc: '為什麼同樣 60% 的濕度含義並不相同' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

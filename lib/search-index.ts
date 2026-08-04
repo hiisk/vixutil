@@ -54,6 +54,7 @@ import { CHANNELS, WIFI_ICON, labelOf as wifiLabel, slugOf as wifiSlug } from '.
 import { FRET_ICON, SPOTS, slugOf as fretSlug } from './fret/list';
 import { GRAVITY_ICON, WEIGHTS } from './gravity/list';
 import { CELLS as WC_CELLS, WINDCHILL_ICON, slugOf as wcSlug } from './windchill/list';
+import { CELLS as DEW_CELLS, DEW_ICON, slugOf as dewSlug } from './dew/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -83,6 +84,7 @@ import { wifiFacts } from './wifi/facts';
 import { fretFacts, nameOf as fretNote } from './fret/facts';
 import { gravityFacts } from './gravity/facts';
 import { windchillFacts } from './windchill/facts';
+import { dewFacts } from './dew/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -117,7 +119,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew';
 
 export interface SearchItem {
   href: string;
@@ -183,6 +185,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   fret:       { label: '기타 지판',  icon: '🎸', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   gravity:    { label: '천체 몸무게', icon: '🌍', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   windchill:  { label: '체감온도',  icon: '❄️', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  dew:        { label: '이슬점',    icon: '💧', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
 };
 
 /**
@@ -536,6 +539,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: WINDCHILL_ICON,
     };
   }),
+  ...DEW_CELLS.map(c => {
+    const f = dewFacts(c);
+    return {
+      href: `/dew/${dewSlug(c)}`,
+      title: `${c.t}도 습도 ${c.rh}% — 이슬점 ${f.dew}도`,
+      desc: `공기 1m³에 물 ${f.absolute}g · 기온과 ${f.spread}도 차이`,
+      section: 'dew' as const,
+      icon: DEW_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -630,6 +643,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/fret', title: '기타 지판표', desc: '여섯 줄 0~23프렛의 음과 주파수, 프렛 거리', section: 'fret' as const, icon: FRET_ICON },
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
+  { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },

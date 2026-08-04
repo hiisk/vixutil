@@ -31,6 +31,7 @@ import { CHANNELS } from '@/lib/wifi/list';
 import { SPOTS } from '@/lib/fret/list';
 import { WEIGHTS } from '@/lib/gravity/list';
 import { CELLS as WC_CELLS } from '@/lib/windchill/list';
+import { CELLS as DEW_CELLS } from '@/lib/dew/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -285,6 +286,18 @@ const SECTIONS = [
     textAccent: 'text-sky-700 dark:text-sky-300',
     borderAccent: 'border-sky-200 dark:border-sky-900/50',
     shadow: 'shadow-sky-100',
+  },
+  {
+    href: '/dew',
+    icon: '💧',
+    title: '이슬점표',
+    desc: '30도의 60%는 10도의 60%보다 물을 세 배 품습니다 — 기온×습도 189칸',
+    badge: `${DEW_CELLS.length}칸`,
+    color: 'from-cyan-700 to-sky-500',
+    bgLight: 'bg-cyan-50 dark:bg-cyan-950/30',
+    textAccent: 'text-cyan-700 dark:text-cyan-300',
+    borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
+    shadow: 'shadow-cyan-100',
   },
   {
     href: '/roman',
