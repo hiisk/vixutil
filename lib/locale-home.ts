@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/fraction', icon: '➗', color: 'from-lime-600 to-emerald-500',
+    accent: 'text-lime-700 dark:text-lime-300', border: 'border-lime-200 dark:border-lime-900/50', bg: 'bg-lime-50 dark:bg-lime-950/30',
+    copy: {
+      en: { title: 'Fraction to Decimal', desc: '127 fractions with exact decimals, percentages and equivalents' },
+      es: { title: 'De fracción a decimal', desc: '127 fracciones con decimales exactos, porcentajes y equivalentes' },
+      'pt-br': { title: 'De fração a decimal', desc: '127 frações com decimais exatos, porcentagens e equivalentes' },
+      ja: { title: '分数を小数に', desc: '分数127種の正確な小数・パーセント・同値分数' },
+      de: { title: 'Bruch in Dezimalzahl', desc: '127 Brüche mit exakten Dezimalzahlen, Prozent und gleichwertigen Brüchen' },
+      fr: { title: 'Fraction en décimal', desc: '127 fractions avec décimales exactes, pourcentages et équivalents' },
+      hi: { title: 'भिन्न से दशमलव', desc: '127 भिन्न — सटीक दशमलव, प्रतिशत और तुल्य भिन्न' },
+      'zh-hans': { title: '分数化小数', desc: '127 个分数的精确小数、百分比与等值分数' },
+      'zh-hant': { title: '分數化小數', desc: '127 個分數的精確小數、百分比與等值分數' },
+    },
+  },
+  {
     route: '/resistor', icon: '⚡', color: 'from-amber-500 to-yellow-400',
     accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
     copy: {

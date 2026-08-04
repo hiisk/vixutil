@@ -12,6 +12,7 @@ import { CODES } from '@/lib/ascii/list';
 import { PORTS } from '@/lib/port/list';
 import { MODES as CHMOD_MODES } from '@/lib/chmod/list';
 import { VALUES as RESISTOR_VALUES } from '@/lib/resistor/list';
+import { FRACTIONS } from '@/lib/fraction/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -374,6 +375,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/fraction',
+    icon: '➗',
+    title: '분수를 소수로',
+    desc: '0.375는 8분의 3 — 순환마디까지 정확한 소수와 퍼센트',
+    badge: `${FRACTIONS.length}가지`,
+    color: 'from-lime-600 to-emerald-500',
+    bgLight: 'bg-lime-50 dark:bg-lime-950/30',
+    textAccent: 'text-lime-700 dark:text-lime-300',
+    borderAccent: 'border-lime-200 dark:border-lime-900/50',
+    shadow: 'shadow-lime-100',
   },
   {
     href: '/resistor',

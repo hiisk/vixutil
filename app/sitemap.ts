@@ -52,6 +52,7 @@ import { CODES } from "@/lib/ascii/list";
 import { PORTS } from "@/lib/port/list";
 import { MODES as CHMOD_MODES } from "@/lib/chmod/list";
 import { VALUES as RESISTOR_VALUES } from "@/lib/resistor/list";
+import { FRACTIONS, slugOf as fractionSlug } from "@/lib/fraction/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -389,6 +390,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/resistor`, changeFrequency: weekly, priority: 0.85 },
       ...RESISTOR_VALUES.map((ohms: number) => ({
         url: `${BASE}${prefix}/resistor/${ohms}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 분수 127장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/fraction`, changeFrequency: weekly, priority: 0.85 },
+      ...FRACTIONS.map((f: { n: number; d: number }) => ({
+        url: `${BASE}${prefix}/fraction/${fractionSlug(f)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
