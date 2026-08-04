@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/cidr', icon: '🌐', color: 'from-cyan-600 to-blue-500',
+    accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
+    copy: {
+      en: { title: 'CIDR Subnet Table', desc: 'Mask, address count and usable hosts for every prefix' },
+      es: { title: 'Tabla de subredes CIDR', desc: 'Máscara, direcciones y hosts utilizables de cada prefijo' },
+      'pt-br': { title: 'Tabela de sub-redes CIDR', desc: 'Máscara, endereços e hosts utilizáveis de cada prefixo' },
+      ja: { title: 'CIDRサブネット表', desc: 'プレフィックスごとのマスク・アドレス数・使えるホスト数' },
+      de: { title: 'CIDR-Subnetztabelle', desc: 'Maske, Adressanzahl und nutzbare Hosts je Präfix' },
+      fr: { title: 'Table de sous-réseaux CIDR', desc: 'Masque, nombre d’adresses et hôtes utilisables par préfixe' },
+      hi: { title: 'CIDR सबनेट तालिका', desc: 'हर प्रीफ़िक्स का मास्क, पते और उपयोग योग्य होस्ट' },
+      'zh-hans': { title: 'CIDR 子网表', desc: '每个前缀的掩码、地址数与可用主机数' },
+      'zh-hant': { title: 'CIDR 子網路表', desc: '每個前綴的遮罩、位址數與可用主機數' },
+    },
+  },
+  {
     route: '/keycode', icon: '🔑', color: 'from-slate-600 to-zinc-500',
     accent: 'text-slate-700 dark:text-slate-300', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/40',
     copy: {

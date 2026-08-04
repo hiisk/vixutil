@@ -14,6 +14,7 @@ import { MODES as CHMOD_MODES } from '@/lib/chmod/list';
 import { VALUES as RESISTOR_VALUES } from '@/lib/resistor/list';
 import { FRACTIONS } from '@/lib/fraction/list';
 import { KEYS } from '@/lib/keycode/list';
+import { PREFIXES } from '@/lib/cidr/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -372,6 +373,18 @@ const SECTIONS = [
     desc: '원소 118가지 — 기호와 원자량, 주기와 족, 전자 배치까지',
     badge: `${ELEMENTS.length}종`,
     color: 'from-cyan-600 to-sky-500',
+    bgLight: 'bg-cyan-50 dark:bg-cyan-950/30',
+    textAccent: 'text-cyan-700 dark:text-cyan-300',
+    borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
+    shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/cidr',
+    icon: '🌐',
+    title: 'CIDR 서브넷 표',
+    desc: '/24는 몇 개인가 — 마스크·와일드카드·쓸 수 있는 호스트 수까지',
+    badge: `${PREFIXES.length}개`,
+    color: 'from-cyan-600 to-blue-500',
     bgLight: 'bg-cyan-50 dark:bg-cyan-950/30',
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',

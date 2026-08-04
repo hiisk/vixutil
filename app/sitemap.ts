@@ -54,6 +54,7 @@ import { MODES as CHMOD_MODES } from "@/lib/chmod/list";
 import { VALUES as RESISTOR_VALUES } from "@/lib/resistor/list";
 import { FRACTIONS, slugOf as fractionSlug } from "@/lib/fraction/list";
 import { KEYS, slugOf as keySlug } from "@/lib/keycode/list";
+import { PREFIXES, slugOf as cidrSlug } from "@/lib/cidr/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -409,6 +410,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/keycode`, changeFrequency: weekly, priority: 0.85 },
       ...KEYS.map((x: { code: string }) => ({
         url: `${BASE}${prefix}/keycode/${keySlug(x as never)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 프리픽스 162장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/cidr`, changeFrequency: weekly, priority: 0.85 },
+      ...PREFIXES.map((p: { family: 'v4' | 'v6'; bits: number }) => ({
+        url: `${BASE}${prefix}/cidr/${cidrSlug(p)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
