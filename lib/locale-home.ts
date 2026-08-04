@@ -492,6 +492,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/pace', icon: '🏃', color: 'from-teal-700 to-emerald-500',
+    accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
+    copy: {
+      en: { title: 'Running Pace Chart', desc: '5K, 10K, half and marathon times for 241 paces' },
+      es: { title: 'Tabla de ritmos', desc: 'Tiempos de 5K, 10K, medio y maratón para 241 ritmos' },
+      'pt-br': { title: 'Tabela de ritmos', desc: 'Tempos de 5K, 10K, meia e maratona para 241 ritmos' },
+      ja: { title: 'ランニングペース表', desc: '241種のペースごとに5K・10K・ハーフ・フルの完走時間' },
+      de: { title: 'Lauftempo-Tabelle', desc: '5K-, 10K-, Halb- und Marathonzeiten für 241 Tempi' },
+      fr: { title: 'Tableau des allures', desc: 'Temps sur 5 km, 10 km, semi et marathon pour 241 allures' },
+      hi: { title: 'रनिंग पेस चार्ट', desc: '241 पेस के 5K, 10K, हाफ़ और फ़ुल मैराथन समय' },
+      'zh-hans': { title: '跑步配速表', desc: '241 种配速的 5K、10K、半马、全马完赛时间' },
+      'zh-hant': { title: '跑步配速表', desc: '241 種配速的 5K、10K、半馬、全馬完賽時間' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

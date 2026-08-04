@@ -63,6 +63,7 @@ import { YEARS as ROMAN_YEARS } from "@/lib/roman/list";
 import { TIRES, slugOf as tireSlug } from "@/lib/tire/list";
 import { SCREWS, slugOf as screwSlug } from "@/lib/screw/list";
 import { YEARS as CAL_YEARS } from "@/lib/year/list";
+import { PACES, slugOf as paceSlug } from "@/lib/pace/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -504,6 +505,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/year`, changeFrequency: weekly, priority: 0.85 },
       ...CAL_YEARS.map((y: number) => ({
         url: `${BASE}${prefix}/year/${y}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 러닝 페이스 241장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/pace`, changeFrequency: weekly, priority: 0.85 },
+      ...PACES.map((p: number) => ({
+        url: `${BASE}${prefix}/pace/${paceSlug(p)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

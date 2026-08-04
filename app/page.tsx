@@ -23,6 +23,7 @@ import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { TIRES } from '@/lib/tire/list';
 import { SCREWS } from '@/lib/screw/list';
 import { YEARS as CAL_YEARS } from '@/lib/year/list';
+import { PACES } from '@/lib/pace/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -110,6 +111,18 @@ const SECTIONS = [
     textAccent: 'text-rose-700 dark:text-rose-300',
     borderAccent: 'border-rose-200 dark:border-rose-900/50',
     shadow: 'shadow-rose-100',
+  },
+  {
+    href: '/pace',
+    icon: '🏃',
+    title: '러닝 페이스표',
+    desc: '서브4는 5분 41초 — 페이스마다 5K·10K·하프·풀코스 완주 시간',
+    badge: `${PACES.length}가지`,
+    color: 'from-teal-700 to-emerald-500',
+    bgLight: 'bg-teal-50 dark:bg-teal-950/30',
+    textAccent: 'text-teal-700 dark:text-teal-300',
+    borderAccent: 'border-teal-200 dark:border-teal-900/50',
+    shadow: 'shadow-teal-100',
   },
   {
     href: '/generator',
