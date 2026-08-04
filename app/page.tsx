@@ -29,6 +29,7 @@ import { SPEEDS } from '@/lib/stop/list';
 import { ALTITUDES } from '@/lib/altitude/list';
 import { CHANNELS } from '@/lib/wifi/list';
 import { SPOTS } from '@/lib/fret/list';
+import { WEIGHTS } from '@/lib/gravity/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';

@@ -582,6 +582,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/gravity', icon: '🌍', color: 'from-indigo-700 to-violet-500',
+    accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
+    copy: {
+      en: { title: 'Weight on Other Worlds', desc: 'What the scale reads on the Moon, Mars and Jupiter' },
+      es: { title: 'Peso en otros mundos', desc: 'Lo que marca la balanza en la Luna, Marte y Júpiter' },
+      'pt-br': { title: 'Peso em outros mundos', desc: 'O que a balança marca na Lua, Marte e Júpiter' },
+      ja: { title: '天体別の体重', desc: '月・火星・木星ではかりに何と出るか' },
+      de: { title: 'Gewicht auf anderen Welten', desc: 'Was die Waage auf Mond, Mars und Jupiter zeigt' },
+      fr: { title: 'Poids sur d’autres mondes', desc: 'Ce qu’affiche la balance sur la Lune, Mars et Jupiter' },
+      hi: { title: 'अन्य लोकों पर वज़न', desc: 'चंद्रमा, मंगल और बृहस्पति पर तराज़ू क्या दिखाएगा' },
+      'zh-hans': { title: '各天体上的体重', desc: '在月球、火星、木星上秤是多少' },
+      'zh-hant': { title: '各天體上的體重', desc: '在月球、火星、木星上秤是多少' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

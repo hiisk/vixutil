@@ -69,6 +69,7 @@ import { SPEEDS } from "@/lib/stop/list";
 import { ALTITUDES } from "@/lib/altitude/list";
 import { CHANNELS, slugOf as wifiSlug } from "@/lib/wifi/list";
 import { SPOTS, slugOf as fretSlug } from "@/lib/fret/list";
+import { WEIGHTS } from "@/lib/gravity/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -564,6 +565,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/fret`, changeFrequency: weekly, priority: 0.85 },
       ...SPOTS.map(p => ({
         url: `${BASE}${prefix}/fret/${fretSlug(p)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 천체별 몸무게 101장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/gravity`, changeFrequency: weekly, priority: 0.85 },
+      ...WEIGHTS.map((w: number) => ({
+        url: `${BASE}${prefix}/gravity/${w}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
