@@ -57,6 +57,7 @@ import { KEYS, slugOf as keySlug } from "@/lib/keycode/list";
 import { PREFIXES, slugOf as cidrSlug } from "@/lib/cidr/list";
 import { CHARS as CODE_CHARS, CELLS as CODE_CELLS, charSlug, cellSlug } from "@/lib/code/list";
 import { SCORES as DARTS_SCORES } from "@/lib/darts/list";
+import { PRODUCTS as TIMES_PRODUCTS, slugOf as timesSlug } from "@/lib/times/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -444,6 +445,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/darts`, changeFrequency: weekly, priority: 0.85 },
       ...DARTS_SCORES.map((score: number) => ({
         url: `${BASE}${prefix}/darts/${score}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 곱셈 210장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/times`, changeFrequency: weekly, priority: 0.85 },
+      ...TIMES_PRODUCTS.map((p: { a: number; b: number }) => ({
+        url: `${BASE}${prefix}/times/${timesSlug(p)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

@@ -17,6 +17,7 @@ import { KEYS } from '@/lib/keycode/list';
 import { PREFIXES } from '@/lib/cidr/list';
 import { CHARS as CODE_CHARS, CELLS as CODE_CELLS } from '@/lib/code/list';
 import { SCORES as DARTS_SCORES } from '@/lib/darts/list';
+import { PRODUCTS as TIMES_PRODUCTS } from '@/lib/times/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -379,6 +380,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/times',
+    icon: '🔢',
+    title: '곱셈표',
+    desc: '구구단부터 20단까지 — 7×8과 8×7이 한 자리에, 나누기까지',
+    badge: `${TIMES_PRODUCTS.length}칸`,
+    color: 'from-teal-600 to-emerald-500',
+    bgLight: 'bg-teal-50 dark:bg-teal-950/30',
+    textAccent: 'text-teal-700 dark:text-teal-300',
+    borderAccent: 'border-teal-200 dark:border-teal-900/50',
+    shadow: 'shadow-teal-100',
   },
   {
     href: '/darts',

@@ -402,6 +402,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/times', icon: '🔢', color: 'from-teal-600 to-emerald-500',
+    accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
+    copy: {
+      en: { title: 'Times Tables', desc: 'Every multiplication fact to 20×20, with divisions and neighbours' },
+      es: { title: 'Tablas de multiplicar', desc: 'Todos los productos hasta 20×20, con divisiones y vecinos' },
+      'pt-br': { title: 'Tabuada', desc: 'Todos os produtos até 20×20, com divisões e vizinhos' },
+      ja: { title: 'かけ算表', desc: '20×20までの全マスと、割り算・前後のマス' },
+      de: { title: 'Einmaleins', desc: 'Alle Aufgaben bis 20×20, mit Divisionen und Nachbarn' },
+      fr: { title: 'Tables de multiplication', desc: 'Tous les produits jusqu’à 20×20, avec divisions et voisins' },
+      hi: { title: 'पहाड़े', desc: '20×20 तक हर गुणा, भाग और पास वाले खानों के साथ' },
+      'zh-hans': { title: '乘法表', desc: '20×20 以内的每一格，附除法与相邻格' },
+      'zh-hant': { title: '乘法表', desc: '20×20 以內的每一格，附除法與相鄰格' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {
