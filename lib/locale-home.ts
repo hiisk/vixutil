@@ -552,6 +552,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/wifi', icon: '📶', color: 'from-blue-700 to-sky-500',
+    accent: 'text-blue-700 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900/50', bg: 'bg-blue-50 dark:bg-blue-950/30',
+    copy: {
+      en: { title: 'Wi-Fi Channel Chart', desc: 'Frequencies and overlap on 2.4, 5 and 6 GHz — and why 1, 6, 11' },
+      es: { title: 'Canales Wi-Fi', desc: 'Frecuencias y solape en 2,4, 5 y 6 GHz, y por qué 1, 6 y 11' },
+      'pt-br': { title: 'Canais Wi-Fi', desc: 'Frequências e sobreposição em 2,4, 5 e 6 GHz, e por que 1, 6 e 11' },
+      ja: { title: 'Wi-Fiチャンネル表', desc: '2.4・5・6GHzの周波数と重なり、なぜ1・6・11か' },
+      de: { title: 'WLAN-Kanäle', desc: 'Frequenzen und Überlappung auf 2,4, 5 und 6 GHz — und warum 1, 6, 11' },
+      fr: { title: 'Canaux Wi-Fi', desc: 'Fréquences et chevauchement en 2,4, 5 et 6 GHz, et pourquoi 1, 6, 11' },
+      hi: { title: 'वाई-फ़ाई चैनल चार्ट', desc: '2.4, 5 और 6 GHz की आवृत्तियाँ, ओवरलैप और 1, 6, 11 का कारण' },
+      'zh-hans': { title: 'Wi-Fi 信道表', desc: '2.4/5/6 GHz 的频率与重叠，以及为什么是 1、6、11' },
+      'zh-hant': { title: 'Wi-Fi 頻道表', desc: '2.4/5/6 GHz 的頻率與重疊，以及為什麼是 1、6、11' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

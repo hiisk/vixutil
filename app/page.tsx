@@ -27,6 +27,7 @@ import { PACES } from '@/lib/pace/list';
 import { PIXELS } from '@/lib/rem/list';
 import { SPEEDS } from '@/lib/stop/list';
 import { ALTITUDES } from '@/lib/altitude/list';
+import { CHANNELS } from '@/lib/wifi/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -90,6 +91,18 @@ const SECTIONS = [
     textAccent: 'text-cyan-700 dark:text-cyan-300',
     borderAccent: 'border-cyan-200 dark:border-cyan-900/50',
     shadow: 'shadow-cyan-100',
+  },
+  {
+    href: '/wifi',
+    icon: '📶',
+    title: '와이파이 채널표',
+    desc: '왜 1·6·11인가 — 채널마다 주파수와 겹치는 채널을 계산해서',
+    badge: `${CHANNELS.length}가지`,
+    color: 'from-blue-700 to-sky-500',
+    bgLight: 'bg-blue-50 dark:bg-blue-950/30',
+    textAccent: 'text-blue-700 dark:text-blue-300',
+    borderAccent: 'border-blue-200 dark:border-blue-900/50',
+    shadow: 'shadow-blue-100',
   },
   {
     href: '/quiz',

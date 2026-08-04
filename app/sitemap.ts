@@ -67,6 +67,7 @@ import { PACES, slugOf as paceSlug } from "@/lib/pace/list";
 import { PIXELS } from "@/lib/rem/list";
 import { SPEEDS } from "@/lib/stop/list";
 import { ALTITUDES } from "@/lib/altitude/list";
+import { CHANNELS, slugOf as wifiSlug } from "@/lib/wifi/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -544,6 +545,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/altitude`, changeFrequency: weekly, priority: 0.85 },
       ...ALTITUDES.map((m: number) => ({
         url: `${BASE}${prefix}/altitude/${m}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 와이파이 채널 101장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/wifi`, changeFrequency: weekly, priority: 0.85 },
+      ...CHANNELS.map(c => ({
+        url: `${BASE}${prefix}/wifi/${wifiSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

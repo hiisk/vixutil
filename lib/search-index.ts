@@ -50,6 +50,7 @@ import { PACES, PACE_ICON, labelOf as paceLabel, slugOf as paceSlug } from './pa
 import { PIXELS, PX_ICON } from './rem/list';
 import { SPEEDS, STOP_ICON } from './stop/list';
 import { ALTITUDES, ALTITUDE_ICON } from './altitude/list';
+import { CHANNELS, WIFI_ICON, labelOf as wifiLabel, slugOf as wifiSlug } from './wifi/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -75,6 +76,7 @@ import { paceFacts } from './pace/facts';
 import { pxFacts } from './rem/facts';
 import { stopFacts } from './stop/facts';
 import { altitudeFacts } from './altitude/facts';
+import { wifiFacts } from './wifi/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -109,7 +111,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi';
 
 export interface SearchItem {
   href: string;
@@ -171,6 +173,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   rem:        { label: 'CSS 단위',  icon: '📏', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   stop:       { label: '정지거리',  icon: '🚗', accent: 'bg-red-50 text-red-700 border-red-200' },
   altitude:   { label: '고도',      icon: '⛰️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  wifi:       { label: '와이파이',  icon: '📶', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
 };
 
 /**
@@ -483,6 +486,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: ALTITUDE_ICON,
     };
   }),
+  ...CHANNELS.map(c => {
+    const f = wifiFacts(c);
+    return {
+      href: `/wifi/${wifiSlug(c)}`,
+      title: `${wifiLabel(c)}번 채널`,
+      desc: `${f.center}MHz · ${f.span.from}~${f.span.to}MHz · 겹침 ${f.overlaps.length}개`,
+      section: 'wifi' as const,
+      icon: WIFI_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -573,6 +586,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/rem', title: 'CSS 단위표', desc: 'px를 rem·pt·pc·인치로, 1px부터 120px까지', section: 'rem' as const, icon: PX_ICON },
   { href: '/stop', title: '정지거리표', desc: '시속별 공주거리·제동거리, 노면 네 가지로', section: 'stop' as const, icon: STOP_ICON },
   { href: '/altitude', title: '고도별 기압표', desc: '해발 0m부터 5000m까지 기압·끓는점·산소', section: 'altitude' as const, icon: ALTITUDE_ICON },
+  { href: '/wifi', title: '와이파이 채널표', desc: '2.4·5·6GHz 채널의 주파수와 겹침, 왜 1·6·11인가', section: 'wifi' as const, icon: WIFI_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },
