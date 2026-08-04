@@ -462,6 +462,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/screw', icon: '🔩', color: 'from-slate-600 to-slate-400',
+    accent: 'text-zinc-700 dark:text-zinc-200', border: 'border-zinc-200 dark:border-zinc-800', bg: 'bg-zinc-50 dark:bg-zinc-900/40',
+    copy: {
+      en: { title: 'Metric Thread Chart', desc: 'Tap drills, minor diameters and stress areas, M1 to M64' },
+      es: { title: 'Roscas métricas', desc: 'Brocas, diámetros de fondo y áreas resistentes, de M1 a M64' },
+      'pt-br': { title: 'Roscas métricas', desc: 'Brocas, diâmetros de fundo e áreas resistentes, de M1 a M64' },
+      ja: { title: 'メートルねじ規格表', desc: 'M1〜M64の下穴径・谷径・有効断面積' },
+      de: { title: 'Metrische Gewinde', desc: 'Kernlöcher, Kerndurchmesser und Spannungsquerschnitte, M1 bis M64' },
+      fr: { title: 'Filetages métriques', desc: 'Forets, diamètres de fond et sections résistantes, de M1 à M64' },
+      hi: { title: 'मीट्रिक थ्रेड चार्ट', desc: 'M1 से M64 तक टैप ड्रिल, माइनर व्यास और स्ट्रेस एरिया' },
+      'zh-hans': { title: '公制螺纹规格表', desc: 'M1 到 M64 的底孔、小径与应力截面积' },
+      'zh-hant': { title: '公制螺紋規格表', desc: 'M1 到 M64 的底孔、小徑與應力截面積' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

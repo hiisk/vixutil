@@ -21,6 +21,7 @@ import { PRODUCTS as TIMES_PRODUCTS } from '@/lib/times/list';
 import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
 import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { TIRES } from '@/lib/tire/list';
+import { SCREWS } from '@/lib/screw/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -84,6 +85,18 @@ const SECTIONS = [
     textAccent: 'text-slate-700 dark:text-slate-200',
     borderAccent: 'border-slate-200 dark:border-slate-700',
     shadow: 'shadow-slate-100',
+  },
+  {
+    href: '/screw',
+    icon: '🔩',
+    title: '미터 나사 규격표',
+    desc: 'M8×1.25 탭은 6.8mm 드릴 — 골지름과 응력단면적까지 계산해서',
+    badge: `${SCREWS.length}가지`,
+    color: 'from-slate-600 to-slate-400',
+    bgLight: 'bg-zinc-50 dark:bg-zinc-900/40',
+    textAccent: 'text-zinc-700 dark:text-zinc-200',
+    borderAccent: 'border-zinc-200 dark:border-zinc-800',
+    shadow: 'shadow-zinc-100',
   },
   {
     href: '/generator',
