@@ -1,5 +1,5 @@
 /**
- * 나라 정보 100개국 — 지역별 파일을 모아 하나의 카탈로그로 낸다.
+ * 나라 정보 112개국 — 지역별 파일을 모아 하나의 카탈로그로 낸다.
  *
  * 공식 섹션들과 달리 계산이 아니라 사실을 보여주는 페이지다. 그래서 엔진 대신
  * 표 하나와 지역별 허브를 쓴다. 현재 시각만 클라이언트에서 계산한다.
@@ -17,6 +17,7 @@ import { AMERICAS2 } from './country/americas2.ts';
 import { CENTRAL_EUROPE } from './country/europe-central.ts';
 import { EAST_EUROPE } from './country/europe-east.ts';
 import { AFRICA2 } from './country/africa2.ts';
+import { EXTRA_COUNTRIES } from './country/extra.ts';
 
 export const COUNTRIES: Country[] = [
   ...EAST_ASIA, ...SOUTHEAST_ASIA,
@@ -24,6 +25,7 @@ export const COUNTRIES: Country[] = [
   ...WEST_EUROPE, ...NORTH_EUROPE, ...CENTRAL_EUROPE, ...EAST_EUROPE,
   ...AMERICAS, ...AMERICAS2,
   ...OCEANIA_AFRICA, ...AFRICA2,
+  ...EXTRA_COUNTRIES,
 ];
 
 export const COUNTRY_REGIONS = ['동아시아', '동남아시아', '서·남아시아', '유럽', '미주', '오세아니아·아프리카'] as const;
