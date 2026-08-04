@@ -58,6 +58,7 @@ import { CELLS as DEW_CELLS, DEW_ICON, slugOf as dewSlug } from './dew/list';
 import { BITS, DRILL_ICON, slugOf as drillSlug } from './drill/list';
 import { BANDWIDTH_ICON, CELLS as BW_CELLS, sizeLabel as bwSize, slugOf as bwSlug } from './bandwidth/list';
 import { BATTERY_ICON, CELLS as BATT_CELLS, slugOf as battSlug } from './battery/list';
+import { CELLS as WIRE_CELLS, WIRE_ICON, sizeLabel as wireLabel, slugOf as wireSlug } from './wire/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -91,6 +92,7 @@ import { dewFacts } from './dew/facts';
 import { drillFacts } from './drill/facts';
 import { bandwidthFacts } from './bandwidth/facts';
 import { batteryFacts } from './battery/facts';
+import { wireFacts } from './wire/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -125,7 +127,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire';
 
 export interface SearchItem {
   href: string;
@@ -195,6 +197,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   drill:      { label: '드릴 비트',  icon: '🔩', accent: 'bg-neutral-50 text-neutral-700 border-neutral-200' },
   bandwidth:  { label: '다운로드',   icon: '🔽', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   battery:    { label: '배터리 충전', icon: '🔋', accent: 'bg-green-50 text-green-700 border-green-200' },
+  wire:       { label: '전선 굵기',  icon: '🔌', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
 };
 
 /**
@@ -588,6 +591,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: BATTERY_ICON,
     };
   }),
+  ...WIRE_CELLS.map(c => {
+    const f = wireFacts(c);
+    return {
+      href: `/wire/${wireSlug(c)}`,
+      title: `${wireLabel(c.size)}로 ${c.amp}A — 230V에서 ${f.reach[3].metres}m`,
+      desc: `${f.area}mm² · 1m에 ${f.ohmPerM}Ω · 10m 왕복 ${f.dropPer10m}V`,
+      section: 'wire' as const,
+      icon: WIRE_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -683,6 +696,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/wire', title: '전선 굵기 계산', desc: 'AWG·mm² 20가지와 전류 10가지, 3% 안에 드는 길이', section: 'wire' as const, icon: WIRE_ICON },
   { href: '/battery', title: '배터리 충전 시간', desc: '용량과 충전기가 만나는 200칸, 전압·케이블·기내 반입까지', section: 'battery' as const, icon: BATTERY_ICON },
   { href: '/bandwidth', title: '다운로드 시간 계산', desc: '파일 크기와 회선 속도가 만나는 240칸', section: 'bandwidth' as const, icon: BANDWIDTH_ICON },
   { href: '/drill', title: '드릴 비트 규격표', desc: '미터·인치·번호·문자 네 계열과 나사 탭 드릴', section: 'drill' as const, icon: DRILL_ICON },

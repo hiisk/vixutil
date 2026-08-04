@@ -35,6 +35,7 @@ import { CELLS as DEW_CELLS } from '@/lib/dew/list';
 import { BITS } from '@/lib/drill/list';
 import { CELLS as BW_CELLS } from '@/lib/bandwidth/list';
 import { CELLS as BATT_CELLS } from '@/lib/battery/list';
+import { CELLS as WIRE_CELLS } from '@/lib/wire/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -194,6 +195,18 @@ const SECTIONS = [
     textAccent: 'text-green-700 dark:text-green-200',
     borderAccent: 'border-green-200 dark:border-green-800',
     shadow: 'shadow-green-100',
+  },
+  {
+    href: '/wire',
+    icon: '🔌',
+    title: '전선 굵기 계산',
+    desc: 'AWG 12로 15A를 몇 미터까지 — 전압 강하는 왕복으로 셉니다',
+    badge: `${WIRE_CELLS.length}칸`,
+    color: 'from-amber-500 to-orange-600',
+    bgLight: 'bg-amber-50 dark:bg-amber-900/40',
+    textAccent: 'text-amber-700 dark:text-amber-200',
+    borderAccent: 'border-amber-200 dark:border-amber-800',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/year',

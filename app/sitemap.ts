@@ -75,6 +75,7 @@ import { CELLS as DEW_CELLS, slugOf as dewSlug } from "@/lib/dew/list";
 import { BITS, slugOf as drillSlug } from "@/lib/drill/list";
 import { CELLS as BW_CELLS, slugOf as bwSlug } from "@/lib/bandwidth/list";
 import { CELLS as BATT_CELLS, slugOf as battSlug } from "@/lib/battery/list";
+import { CELLS as WIRE_CELLS, slugOf as wireSlug } from "@/lib/wire/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -597,6 +598,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 전선 200장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/wire`, changeFrequency: weekly, priority: 0.85 },
+      ...WIRE_CELLS.map(c => ({
+        url: `${BASE}${prefix}/wire/${wireSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

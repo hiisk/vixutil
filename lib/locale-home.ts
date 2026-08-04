@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/wire', icon: '🔌', color: 'from-amber-500 to-orange-600',
+    accent: 'text-amber-700 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
+    copy: {
+      en: { title: 'Wire Gauge', desc: 'How far a gauge carries a current before losing 3% of the voltage' },
+      es: { title: 'Calibre de cable', desc: 'Hasta dónde lleva un calibre una corriente antes de perder el 3% de la tensión' },
+      'pt-br': { title: 'Bitola de fio', desc: 'Até onde uma bitola leva a corrente antes de perder 3% da tensão' },
+      ja: { title: '電線の太さ', desc: '電圧を3%失う前に、その太さで電流を何メートル運べるか' },
+      de: { title: 'Leitungsquerschnitt', desc: 'Wie weit ein Querschnitt Strom trägt, bevor 3 % Spannung verloren gehen' },
+      fr: { title: 'Section de câble', desc: 'Jusqu’où une section porte un courant avant de perdre 3 % de la tension' },
+      hi: { title: 'तार की मोटाई', desc: '3% वोल्टेज खोने से पहले कोई मोटाई धारा को कितनी दूर ले जाती है' },
+      'zh-hans': { title: '导线线径', desc: '在丢掉 3% 电压之前，这个线径能把电流送多远' },
+      'zh-hant': { title: '導線線徑', desc: '在丟掉 3% 電壓之前，這個線徑能把電流送多遠' },
+    },
+  },
+  {
     route: '/battery', icon: '🔋', color: 'from-green-600 to-lime-400',
     accent: 'text-green-700 dark:text-green-200', border: 'border-green-200 dark:border-green-800', bg: 'bg-green-50 dark:bg-green-900/40',
     copy: {
