@@ -38,6 +38,7 @@ import { CELLS as BATT_CELLS } from '@/lib/battery/list';
 import { CELLS as WIRE_CELLS } from '@/lib/wire/list';
 import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
+import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -101,6 +102,18 @@ const SECTIONS = [
     textAccent: 'text-orange-700 dark:text-orange-200',
     borderAccent: 'border-orange-200 dark:border-orange-800',
     shadow: 'shadow-orange-100',
+  },
+  {
+    href: '/lumen',
+    icon: '💡',
+    title: '방 밝기 계산',
+    desc: '20㎡ 거실은 3000루멘 — 와트가 아니라 루멘으로 고릅니다',
+    badge: `${LUMEN_CELLS.length}칸`,
+    color: 'from-yellow-500 to-amber-400',
+    bgLight: 'bg-yellow-50 dark:bg-yellow-900/40',
+    textAccent: 'text-yellow-700 dark:text-yellow-200',
+    borderAccent: 'border-yellow-200 dark:border-yellow-800',
+    shadow: 'shadow-yellow-100',
   },
   {
     href: '/test',

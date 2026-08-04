@@ -78,6 +78,7 @@ import { CELLS as BATT_CELLS, slugOf as battSlug } from "@/lib/battery/list";
 import { CELLS as WIRE_CELLS, slugOf as wireSlug } from "@/lib/wire/list";
 import { CELLS as PAPER_CELLS, slugOf as paperSlug } from "@/lib/paper/list";
 import { CELLS as TORQUE_CELLS, slugOf as torqueSlug } from "@/lib/torque/list";
+import { CELLS as LUMEN_CELLS, slugOf as lumenSlug } from "@/lib/lumen/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -600,6 +601,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 방 밝기 160장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/lumen`, changeFrequency: weekly, priority: 0.85 },
+      ...LUMEN_CELLS.map(c => ({
+        url: `${BASE}${prefix}/lumen/${lumenSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

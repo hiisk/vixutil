@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/lumen', icon: '💡', color: 'from-yellow-500 to-amber-400',
+    accent: 'text-yellow-700 dark:text-yellow-200', border: 'border-yellow-200 dark:border-yellow-800', bg: 'bg-yellow-50 dark:bg-yellow-900/40',
+    copy: {
+      en: { title: 'Room Lighting', desc: 'How many lumens a room needs, and why watts stopped meaning brightness' },
+      es: { title: 'Iluminación', desc: 'Cuántos lúmenes pide una habitación y por qué los vatios ya no miden brillo' },
+      'pt-br': { title: 'Iluminação', desc: 'Quantos lúmens um cômodo pede e por que watts já não medem brilho' },
+      ja: { title: '部屋の明るさ', desc: '部屋に必要なルーメンと、ワットが明るさでなくなった理由' },
+      de: { title: 'Raumbeleuchtung', desc: 'Wie viele Lumen ein Raum braucht — und warum Watt keine Helligkeit mehr ist' },
+      fr: { title: 'Éclairage', desc: 'Combien de lumens pour une pièce, et pourquoi le watt ne dit plus la lumière' },
+      hi: { title: 'कमरे की रोशनी', desc: 'कमरे को कितने लुमेन चाहिए, और वाट अब चमक क्यों नहीं बताता' },
+      'zh-hans': { title: '房间照明', desc: '一个房间需要多少流明，以及瓦数为何不再代表亮度' },
+      'zh-hant': { title: '房間照明', desc: '一個房間需要多少流明，以及瓦數為何不再代表亮度' },
+    },
+  },
+  {
     route: '/torque', icon: '🔧', color: 'from-orange-700 to-amber-500',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {
