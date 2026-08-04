@@ -567,6 +567,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/fret', icon: '🎸', color: 'from-yellow-700 to-amber-500',
+    accent: 'text-amber-800 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
+    copy: {
+      en: { title: 'Guitar Fretboard', desc: 'Notes, frequencies and fret distances for 144 positions' },
+      es: { title: 'Diapasón de guitarra', desc: 'Notas, frecuencias y distancias de trastes en 144 posiciones' },
+      'pt-br': { title: 'Braço da guitarra', desc: 'Notas, frequências e distâncias de trastes em 144 posições' },
+      ja: { title: 'ギター指板表', desc: '144か所の音・周波数・フレット位置' },
+      de: { title: 'Gitarrengriffbrett', desc: 'Töne, Frequenzen und Bundabstände für 144 Positionen' },
+      fr: { title: 'Manche de guitare', desc: 'Notes, fréquences et distances de frettes pour 144 positions' },
+      hi: { title: 'गिटार फ़्रेटबोर्ड', desc: '144 स्थानों के स्वर, आवृत्ति और फ़्रेट दूरी' },
+      'zh-hans': { title: '吉他指板表', desc: '144 个位置的音名、频率与品位距离' },
+      'zh-hant': { title: '吉他指板表', desc: '144 個位置的音名、頻率與品位距離' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

@@ -28,6 +28,7 @@ import { PIXELS } from '@/lib/rem/list';
 import { SPEEDS } from '@/lib/stop/list';
 import { ALTITUDES } from '@/lib/altitude/list';
 import { CHANNELS } from '@/lib/wifi/list';
+import { SPOTS } from '@/lib/fret/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -55,6 +56,18 @@ const SECTIONS = [
     textAccent: 'text-blue-700 dark:text-blue-300',
     borderAccent: 'border-blue-200 dark:border-blue-900/50',
     shadow: 'shadow-blue-100',
+  },
+  {
+    href: '/fret',
+    icon: '🎸',
+    title: '기타 지판표',
+    desc: '12프렛이 줄의 한가운데인 이유 — 자리마다 음·주파수·프렛 거리',
+    badge: `${SPOTS.length}자리`,
+    color: 'from-yellow-700 to-amber-500',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-800 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/test',

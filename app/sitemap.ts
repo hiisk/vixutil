@@ -68,6 +68,7 @@ import { PIXELS } from "@/lib/rem/list";
 import { SPEEDS } from "@/lib/stop/list";
 import { ALTITUDES } from "@/lib/altitude/list";
 import { CHANNELS, slugOf as wifiSlug } from "@/lib/wifi/list";
+import { SPOTS, slugOf as fretSlug } from "@/lib/fret/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -554,6 +555,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/wifi`, changeFrequency: weekly, priority: 0.85 },
       ...CHANNELS.map(c => ({
         url: `${BASE}${prefix}/wifi/${wifiSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 기타 지판 144장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/fret`, changeFrequency: weekly, priority: 0.85 },
+      ...SPOTS.map(p => ({
+        url: `${BASE}${prefix}/fret/${fretSlug(p)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
