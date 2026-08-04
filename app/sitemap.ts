@@ -73,6 +73,7 @@ import { WEIGHTS } from "@/lib/gravity/list";
 import { CELLS as WC_CELLS, slugOf as wcSlug } from "@/lib/windchill/list";
 import { CELLS as DEW_CELLS, slugOf as dewSlug } from "@/lib/dew/list";
 import { BITS, slugOf as drillSlug } from "@/lib/drill/list";
+import { CELLS as BW_CELLS, slugOf as bwSlug } from "@/lib/bandwidth/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -595,6 +596,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 다운로드 240장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/bandwidth`, changeFrequency: weekly, priority: 0.85 },
+      ...BW_CELLS.map(c => ({
+        url: `${BASE}${prefix}/bandwidth/${bwSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

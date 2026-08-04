@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/bandwidth', icon: '🔽', color: 'from-sky-600 to-indigo-500',
+    accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
+    copy: {
+      en: { title: 'Download Time', desc: 'How long a file takes on your line, and why it is not the advertised speed' },
+      es: { title: 'Tiempo de descarga', desc: 'Cuánto tarda un archivo en tu línea y por qué no es la velocidad anunciada' },
+      'pt-br': { title: 'Tempo de download', desc: 'Quanto um arquivo leva na sua linha e por que não é a velocidade anunciada' },
+      ja: { title: 'ダウンロード時間', desc: 'ファイルにかかる時間と、広告の速度が出ない理由' },
+      de: { title: 'Downloadzeit', desc: 'Wie lange eine Datei über Ihre Leitung braucht — und warum nicht wie beworben' },
+      fr: { title: 'Temps de téléchargement', desc: 'Le temps réel d’un fichier sur votre ligne et pourquoi ce n’est pas le débit annoncé' },
+      hi: { title: 'डाउनलोड समय', desc: 'आपकी लाइन पर फ़ाइल में कितना समय लगेगा और विज्ञापित गति क्यों नहीं मिलती' },
+      'zh-hans': { title: '下载时间', desc: '文件在你的线路上要多久，以及为什么跑不到广告速度' },
+      'zh-hant': { title: '下載時間', desc: '檔案在你的線路上要多久，以及為什麼跑不到廣告速度' },
+    },
+  },
+  {
     route: '/drill', icon: '🔩', color: 'from-neutral-600 to-slate-400',
     accent: 'text-neutral-700 dark:text-neutral-200', border: 'border-neutral-200 dark:border-neutral-800', bg: 'bg-neutral-50 dark:bg-neutral-900/40',
     copy: {

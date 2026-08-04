@@ -33,6 +33,7 @@ import { WEIGHTS } from '@/lib/gravity/list';
 import { CELLS as WC_CELLS } from '@/lib/windchill/list';
 import { CELLS as DEW_CELLS } from '@/lib/dew/list';
 import { BITS } from '@/lib/drill/list';
+import { CELLS as BW_CELLS } from '@/lib/bandwidth/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -168,6 +169,18 @@ const SECTIONS = [
     textAccent: 'text-neutral-700 dark:text-neutral-200',
     borderAccent: 'border-neutral-200 dark:border-neutral-800',
     shadow: 'shadow-neutral-100',
+  },
+  {
+    href: '/bandwidth',
+    icon: '🔽',
+    title: '다운로드 시간 계산',
+    desc: '100Mbps로 1GB는 85초 — 광고 속도와 실제 속도가 다른 이유',
+    badge: `${BW_CELLS.length}칸`,
+    color: 'from-sky-600 to-indigo-500',
+    bgLight: 'bg-sky-50 dark:bg-sky-900/40',
+    textAccent: 'text-sky-700 dark:text-sky-200',
+    borderAccent: 'border-sky-200 dark:border-sky-800',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/year',
