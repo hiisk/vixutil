@@ -1,5 +1,5 @@
 /**
- * HTTP 상태 코드와 헤더 163가지 — 번호와 이름, 갈래만 적는다.
+ * HTTP 상태 코드와 헤더 181가지 — 번호와 이름, 갈래만 적는다.
  *
  * 코드 번호와 헤더 이름은 표준이 정한 것이라 언어를 가리지 않는다. 404는
  * 어느 나라에서든 404이고 Content-Type은 Content-Type이다. 열 언어로 쓸
@@ -141,6 +141,16 @@ export const HTTP_ITEMS: HttpItem[] = [
   hd('Early-Data', 'request'),
   hd('Access-Control-Request-Method', 'request'),
   hd('Access-Control-Request-Headers', 'request'),
+  hd('Sec-Purpose', 'request'),
+  hd('Sec-CH-UA-Arch', 'request'),
+  hd('Sec-CH-UA-Model', 'request'),
+  hd('Sec-CH-UA-Platform-Version', 'request'),
+  hd('X-Forwarded-Host', 'request'),
+  hd('X-Real-IP', 'request'),
+  hd('Alt-Used', 'request'),
+  hd('Sec-WebSocket-Key', 'request'),
+  hd('Sec-WebSocket-Version', 'request'),
+  hd('Last-Event-ID', 'request'),
 
   /* ───────── 응답 헤더 ───────── */
   hd('Access-Control-Allow-Origin', 'response'),
@@ -190,6 +200,14 @@ export const HTTP_ITEMS: HttpItem[] = [
   hd('Proxy-Authenticate', 'response'),
   hd('Access-Control-Expose-Headers', 'response'),
   hd('CDN-Cache-Control', 'response'),
+  hd('Accept-CH', 'response'),
+  hd('Critical-CH', 'response'),
+  hd('Reporting-Endpoints', 'response'),
+  hd('X-Powered-By', 'response'),
+  hd('X-Cache', 'response'),
+  hd('Refresh', 'response'),
+  hd('Sec-WebSocket-Accept', 'response'),
+  hd('Speculation-Rules', 'response'),
 
   /* ───────── 양쪽에 쓰이는 헤더 ───────── */
   hd('Cache-Control', 'both'),
