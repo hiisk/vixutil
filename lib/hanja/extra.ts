@@ -13,7 +13,7 @@ export const EXTRA_IDIOMS: Idiom[] = [
   {
     slug: 'dangnanggeocheol', hanja: '螳螂拒轍', simplified: '螳螂拒辙', reading: '당랑거철',
     pinyin: 'táng láng jù zhé', chars: ['사마귀 당', '사마귀 랑', '막을 거', '바퀴자국 철'],
-    category: '처세·태도', icon: '🦗',
+    category: '처세·태도', icon: '🍃',
     ko: { title: '당랑거철', meaning: '사마귀가 수레바퀴를 막아선다는 뜻으로, 제 힘을 모르고 덤빈다는 말입니다.',
       origin: '《장자》 인간세와 《한시외전》에 사마귀가 앞발을 들어 수레를 막으려 했다는 이야기가 나옵니다.',
       usage: '이길 수 없는 상대에게 무모하게 맞설 때 씁니다.' },
@@ -35,7 +35,7 @@ export const EXTRA_IDIOMS: Idiom[] = [
   {
     slug: 'samgochoryeo', hanja: '三顧草廬', simplified: '三顾草庐', reading: '삼고초려',
     pinyin: 'sān gù cǎo lú', chars: ['석 삼', '돌아볼 고', '풀 초', '오두막 려'],
-    category: '관계·사람', icon: '🛖',
+    category: '관계·사람', icon: '🏚️',
     ko: { title: '삼고초려', meaning: '초가집을 세 번 찾아간다는 뜻으로, 인재를 얻으려 정성을 다한다는 말입니다.',
       origin: '제갈량이 《출사표》에서 유비가 자신을 세 번 찾아왔다고 적은 데서 나왔습니다.',
       usage: '사람을 모실 때 공을 들이는 태도를 가리킬 때 씁니다.' },
@@ -90,7 +90,7 @@ export const EXTRA_IDIOMS: Idiom[] = [
   {
     slug: 'pajukjise', hanja: '破竹之勢', simplified: '破竹之势', reading: '파죽지세',
     pinyin: 'pò zhú zhī shì', chars: ['깨뜨릴 파', '대 죽', '갈 지', '형세 세'],
-    category: '상황·형세', icon: '🎋',
+    category: '상황·형세', icon: '🪵',
     ko: { title: '파죽지세', meaning: '대나무를 쪼개는 기세라는 뜻으로, 거침없이 밀고 나가는 형세를 이르는 말입니다.',
       origin: '《진서》 두예전에서 두예가 오나라를 칠 때 첫 마디만 쪼개면 나머지는 저절로 갈라진다고 한 데서 나왔습니다.',
       usage: '연승이나 거침없는 진행을 말할 때 씁니다.' },
@@ -101,7 +101,7 @@ export const EXTRA_IDIOMS: Idiom[] = [
   {
     slug: 'hwangoltaltae', hanja: '換骨奪胎', simplified: '换骨夺胎', reading: '환골탈태',
     pinyin: 'huàn gǔ duó tāi', chars: ['바꿀 환', '뼈 골', '빼앗을 탈', '아이 밸 태'],
-    category: '배움·지혜', icon: '🦋',
+    category: '배움·지혜', icon: '🌸',
     ko: { title: '환골탈태', meaning: '뼈를 바꾸고 태를 벗는다는 뜻으로, 사람이나 글이 몰라보게 좋아진다는 말입니다.',
       origin: '본디 도교에서 신선이 되는 과정을 이르던 말인데, 송나라 황정견이 옛 시를 새롭게 고쳐 쓰는 방법을 가리키며 널리 퍼졌습니다.',
       usage: '사람이 달라졌거나 글을 크게 손봤을 때 씁니다.' },
@@ -123,7 +123,7 @@ export const EXTRA_IDIOMS: Idiom[] = [
   {
     slug: 'suseoyangdan', hanja: '首鼠兩端', simplified: '首鼠两端', reading: '수서양단',
     pinyin: 'shǒu shǔ liǎng duān', chars: ['머리 수', '쥐 서', '두 량', '끝 단'],
-    category: '처세·태도', icon: '🐀',
+    category: '처세·태도', icon: '👀',
     ko: { title: '수서양단', meaning: '쥐가 구멍에서 머리만 내밀고 양쪽을 살핀다는 뜻으로, 결정을 못 내리고 눈치만 본다는 말입니다.',
       origin: '《사기》 위기무안후열전에서 한무제 앞에서 어느 편도 들지 못하고 망설이던 신하를 두고 한 말입니다.',
       usage: '어느 쪽으로도 정하지 못하고 미루는 태도를 꼬집을 때 씁니다.' },
@@ -134,7 +134,7 @@ export const EXTRA_IDIOMS: Idiom[] = [
   {
     slug: 'balbonsaegwon', hanja: '拔本塞源', simplified: '拔本塞源', reading: '발본색원',
     pinyin: 'bá běn sè yuán', chars: ['뺄 발', '근본 본', '막을 색', '근원 원'],
-    category: '상황·형세', icon: '🌳',
+    category: '상황·형세', icon: '🌿',
     ko: { title: '발본색원', meaning: '뿌리를 뽑고 근원을 막는다는 뜻으로, 문제의 바탕까지 없앤다는 말입니다.',
       origin: '《춘추좌씨전》 소공 9년의 구절에서 나왔습니다. 본디 뿌리를 뽑으면 나무가 죽는다는 경고에 가까웠습니다.',
       usage: '겉만 손보지 않고 원인을 끝까지 없앨 때 씁니다.' },
