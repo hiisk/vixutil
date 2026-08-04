@@ -25,6 +25,7 @@ import { SCREWS } from '@/lib/screw/list';
 import { YEARS as CAL_YEARS } from '@/lib/year/list';
 import { PACES } from '@/lib/pace/list';
 import { PIXELS } from '@/lib/rem/list';
+import { SPEEDS } from '@/lib/stop/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -64,6 +65,18 @@ const SECTIONS = [
     textAccent: 'text-violet-700 dark:text-violet-300',
     borderAccent: 'border-violet-200 dark:border-violet-900/50',
     shadow: 'shadow-violet-100',
+  },
+  {
+    href: '/stop',
+    icon: '🚗',
+    title: '정지거리표',
+    desc: '속도가 두 배면 제동거리는 네 배 — 노면 네 가지로 시속별 계산',
+    badge: `${SPEEDS.length}가지`,
+    color: 'from-red-700 to-orange-500',
+    bgLight: 'bg-red-50 dark:bg-red-950/30',
+    textAccent: 'text-red-700 dark:text-red-300',
+    borderAccent: 'border-red-200 dark:border-red-900/50',
+    shadow: 'shadow-red-100',
   },
   {
     href: '/quiz',

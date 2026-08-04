@@ -51,6 +51,7 @@ import { SCREW_UI } from '../lib/screw/ui.ts';
 import { YEAR_UI } from '../lib/year/ui.ts';
 import { PACE_UI } from '../lib/pace/ui.ts';
 import { PX_UI } from '../lib/rem/ui.ts';
+import { STOP_UI } from '../lib/stop/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -63,7 +64,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI),
 };
 
 /**

@@ -522,6 +522,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/stop', icon: '🚗', color: 'from-red-700 to-orange-500',
+    accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
+    copy: {
+      en: { title: 'Stopping Distance Chart', desc: 'Reaction and braking distance from 10 to 150 km/h, on four surfaces' },
+      es: { title: 'Distancias de frenado', desc: 'Reacción y frenado de 10 a 150 km/h en cuatro firmes' },
+      'pt-br': { title: 'Distâncias de frenagem', desc: 'Reação e frenagem de 10 a 150 km/h em quatro pisos' },
+      ja: { title: '停止距離表', desc: '時速10〜150kmの空走距離と制動距離、路面4種' },
+      de: { title: 'Anhalteweg-Tabelle', desc: 'Reaktions- und Bremsweg von 10 bis 150 km/h auf vier Fahrbahnen' },
+      fr: { title: 'Distances d’arrêt', desc: 'Réaction et freinage de 10 à 150 km/h sur quatre chaussées' },
+      hi: { title: 'रुकने की दूरी चार्ट', desc: '10–150 किमी/घंटा पर चार सतहों की प्रतिक्रिया और ब्रेकिंग दूरी' },
+      'zh-hans': { title: '刹车距离表', desc: '时速 10–150 公里、四种路面的反应与制动距离' },
+      'zh-hant': { title: '煞車距離表', desc: '時速 10–150 公里、四種路面的反應與制動距離' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {
