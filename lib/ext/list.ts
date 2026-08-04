@@ -1,5 +1,5 @@
 /**
- * 파일 확장자 173가지 — 확장자와 MIME 타입, 어떤 프로그램이 여는지만 적는다.
+ * 파일 확장자 200가지 — 확장자와 MIME 타입, 어떤 프로그램이 여는지만 적는다.
  *
  * 확장자 이름은 만국 공통이다. 어느 나라에서든 .webp는 .webp이고 여는 프로그램도
  * Photoshop·VLC 같은 고유명사라, 여덟 언어로 옮길 것은 설명 문장뿐이다.
@@ -52,6 +52,10 @@ export const EXTS: Ext[] = [
   e('rw2', 'image/x-panasonic-rw2', 'image', ['Lightroom', 'Capture One', 'darktable']),
   e('jxl', 'image/jxl', 'image', ['GIMP', 'darktable', 'XnView']),
   e('tga', 'image/x-tga', 'image', ['Photoshop', 'GIMP', 'XnView']),
+  e('ppm', 'image/x-portable-pixmap', 'image', ['GIMP', 'IrfanView', 'ImageMagick']),
+  e('exr', 'image/x-exr', 'image', ['Nuke', 'After Effects', 'Blender', 'Photoshop']),
+  e('pcx', 'image/x-pcx', 'image', ['IrfanView', 'GIMP', 'XnView']),
+  e('emf', 'image/emf', 'image', ['Windows Photo Viewer', 'Inkscape', 'LibreOffice Draw']),
 
   /* ───────── 영상 ───────── */
   e('mp4', 'video/mp4', 'video', ['Chrome', 'VLC', 'QuickTime', 'Premiere Pro']),
@@ -71,6 +75,9 @@ export const EXTS: Ext[] = [
   e('m2ts', 'video/mp2t', 'video', ['VLC', 'PotPlayer', 'Premiere Pro']),
   e('asf', 'video/x-ms-asf', 'video', ['Windows Media Player', 'VLC']),
   e('f4v', 'video/x-f4v', 'video', ['VLC', 'PotPlayer']),
+  e('m2v', 'video/mpeg', 'video', ['VLC', 'MPC-HC', 'DaVinci Resolve']),
+  e('rmvb', 'application/vnd.rn-realmedia-vbr', 'video', ['VLC', 'RealPlayer', 'PotPlayer']),
+  e('divx', 'video/divx', 'video', ['VLC', 'DivX Player', 'PotPlayer']),
 
   /* ───────── 소리 ───────── */
   e('mp3', 'audio/mpeg', 'audio', ['Chrome', 'VLC', 'iTunes', 'Windows Media Player']),
@@ -88,6 +95,9 @@ export const EXTS: Ext[] = [
   e('mp2', 'audio/mpeg', 'audio', ['VLC', 'Audacity', 'foobar2000']),
   e('mka', 'audio/x-matroska', 'audio', ['VLC', 'foobar2000', 'PotPlayer']),
   e('ape', 'audio/x-ape', 'audio', ['foobar2000', 'VLC']),
+  e('au', 'audio/basic', 'audio', ['VLC', 'Audacity', 'QuickTime Player']),
+  e('dsf', 'audio/x-dsf', 'audio', ['foobar2000', 'Audirvana', 'JRiver']),
+  e('ra', 'audio/vnd.rn-realaudio', 'audio', ['VLC', 'RealPlayer']),
 
   /* ───────── 문서 ───────── */
   e('pdf', 'application/pdf', 'doc', ['Chrome', 'Acrobat Reader', 'Preview']),
@@ -111,6 +121,9 @@ export const EXTS: Ext[] = [
   e('djvu', 'image/vnd.djvu', 'doc', ['DjVuLibre', 'Calibre', 'Okular']),
   e('chm', 'application/vnd.ms-htmlhelp', 'doc', ['HTML Help', 'Calibre', 'xCHM']),
   e('xps', 'application/vnd.ms-xpsdocument', 'doc', ['XPS Viewer', 'Okular']),
+  e('dotx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.template', 'doc', ['Word', 'LibreOffice Writer']),
+  e('odg', 'application/vnd.oasis.opendocument.graphics', 'doc', ['LibreOffice Draw', 'OpenOffice Draw', 'Inkscape']),
+  e('wpd', 'application/vnd.wordperfect', 'doc', ['WordPerfect', 'LibreOffice Writer']),
 
   /* ───────── 압축 ───────── */
   e('zip', 'application/zip', 'archive', ['Explorer', 'Finder', '7-Zip', 'WinRAR']),
@@ -128,6 +141,8 @@ export const EXTS: Ext[] = [
   e('tgz', 'application/gzip', 'archive', ['Terminal', '7-Zip', 'The Unarchiver']),
   e('lz4', 'application/x-lz4', 'archive', ['Terminal', '7-Zip']),
   e('arj', 'application/x-arj', 'archive', ['7-Zip', 'The Unarchiver']),
+  e('sit', 'application/x-stuffit', 'archive', ['StuffIt Expander', 'The Unarchiver']),
+  e('lzma', 'application/x-lzma', 'archive', ['7-Zip', 'p7zip', 'The Unarchiver']),
 
   /* ───────── 코드·마크업 ───────── */
   e('html', 'text/html', 'code', ['Chrome', 'VS Code', 'Safari'], true),
@@ -157,6 +172,10 @@ export const EXTS: Ext[] = [
   e('lua', 'text/x-lua', 'code', ['VS Code', 'ZeroBrane Studio'], true),
   e('pl', 'text/x-perl', 'code', ['VS Code', 'Vim', 'Padre'], true),
   e('ipynb', 'application/x-ipynb+json', 'code', ['Jupyter', 'VS Code', 'Colab'], true),
+  e('dart', 'text/x-dart', 'code', ['VS Code', 'Android Studio', 'IntelliJ IDEA'], true),
+  e('hs', 'text/x-haskell', 'code', ['VS Code', 'Vim'], true),
+  e('r', 'text/x-r', 'code', ['RStudio', 'VS Code'], true),
+  e('vue', 'text/x-vue', 'code', ['VS Code', 'WebStorm'], true),
 
   /* ───────── 글꼴 ───────── */
   e('ttf', 'font/ttf', 'font', ['Font Book', 'Windows Font Viewer', 'FontForge']),
@@ -165,6 +184,7 @@ export const EXTS: Ext[] = [
   e('woff2', 'font/woff2', 'font', ['Chrome', 'FontForge']),
   e('eot', 'application/vnd.ms-fontobject', 'font', ['Internet Explorer', 'FontForge']),
   e('ttc', 'font/collection', 'font', ['Font Book', 'FontForge']),
+  e('pfb', 'application/x-font-type1', 'font', ['FontForge', 'Font Book']),
 
   /* ───────── 데이터 ───────── */
   e('csv', 'text/csv', 'data', ['Excel', 'Google Sheets', 'Numbers', 'VS Code'], true),
@@ -179,6 +199,8 @@ export const EXTS: Ext[] = [
   e('tmp', 'application/octet-stream', 'data', ['Explorer', 'Finder']),
   e('avro', 'application/vnd.apache.avro', 'data', ['DuckDB', 'Spark', 'Hadoop']),
   e('ndjson', 'application/x-ndjson', 'data', ['VS Code', 'DuckDB', 'jq'], true),
+  e('hdf5', 'application/x-hdf5', 'data', ['HDFView', 'MATLAB', 'Python']),
+  e('dbf', 'application/x-dbf', 'data', ['Excel', 'LibreOffice Calc', 'QGIS']),
 
   /* ───────── 디스크 이미지 ───────── */
   e('iso', 'application/x-iso9660-image', 'disk', ['Explorer', 'Finder', 'Rufus', '7-Zip']),
@@ -187,6 +209,7 @@ export const EXTS: Ext[] = [
   e('vhd', 'application/octet-stream', 'disk', ['Hyper-V', 'VirtualBox', 'Disk Management']),
   e('vmdk', 'application/x-vmdk', 'disk', ['VMware', 'VirtualBox']),
   e('vdi', 'application/x-virtualbox-vdi', 'disk', ['VirtualBox']),
+  e('qcow2', 'application/x-qemu-disk', 'disk', ['QEMU', 'virt-manager']),
 
   /* ───────── 전자책 ───────── */
   e('epub', 'application/epub+zip', 'ebook', ['Apple Books', 'Calibre', 'Google Play Books']),
@@ -195,6 +218,7 @@ export const EXTS: Ext[] = [
   e('cbz', 'application/vnd.comicbook+zip', 'ebook', ['CDisplayEx', 'Calibre', 'YACReader']),
   e('cbr', 'application/vnd.comicbook-rar', 'ebook', ['CDisplayEx', 'Calibre', 'YACReader']),
   e('fb2', 'application/x-fictionbook+xml', 'ebook', ['Calibre', 'FBReader'], true),
+  e('azw', 'application/vnd.amazon.ebook', 'ebook', ['Kindle', 'Calibre']),
 
   /* ───────── 3D ───────── */
   e('obj', 'model/obj', 'model', ['Blender', 'MeshLab', '3D Viewer'], true),
@@ -205,6 +229,7 @@ export const EXTS: Ext[] = [
   e('blend', 'application/x-blender', 'model', ['Blender']),
   e('dae', 'model/vnd.collada+xml', 'model', ['Blender', 'MeshLab', 'SketchUp'], true),
   e('usdz', 'model/vnd.usdz+zip', 'model', ['Quick Look', 'Blender', 'Reality Composer']),
+  e('3mf', 'model/3mf', 'model', ['Cura', 'PrusaSlicer', '3D Builder']),
 
   /* ───────── 자막 ───────── */
   e('srt', 'application/x-subrip', 'subtitle', ['VLC', 'PotPlayer', 'Notepad'], true),
@@ -212,6 +237,7 @@ export const EXTS: Ext[] = [
   e('smi', 'application/smil+xml', 'subtitle', ['PotPlayer', 'VLC', 'Notepad'], true),
   e('ass', 'text/x-ssa', 'subtitle', ['VLC', 'Aegisub', 'PotPlayer'], true),
   e('ttml', 'application/ttml+xml', 'subtitle', ['VLC', 'VS Code'], true),
+  e('sbv', 'text/x-sbv', 'subtitle', ['YouTube Studio', 'Subtitle Edit'], true),
 
   /* ───────── 실행·설치 ───────── */
   e('exe', 'application/vnd.microsoft.portable-executable', 'exec', ['Windows']),
@@ -224,6 +250,7 @@ export const EXTS: Ext[] = [
   e('jar', 'application/java-archive', 'exec', ['Java', 'IntelliJ IDEA']),
   e('ps1', 'application/x-powershell', 'exec', ['PowerShell', 'VS Code'], true),
   e('flatpak', 'application/vnd.flatpak', 'exec', ['Flatpak', 'GNOME Software']),
+  e('bat', 'application/x-bat', 'exec', ['Command Prompt', 'Notepad', 'VS Code'], true),
 ];
 
 export const EXT_KINDS: ExtKind[] = [

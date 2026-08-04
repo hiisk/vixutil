@@ -54,6 +54,8 @@ test('상속 표시가 알려진 사실과 맞는다', () => {
     'color', 'font-size', 'font-family', 'line-height', 'text-align', 'visibility', 'cursor',
     'direction', 'tab-size', 'text-align-last', 'text-underline-offset', 'font-stretch',
     'empty-cells', 'orphans', 'widows',
+    'line-break', 'font-feature-settings', 'text-orientation', 'font-variant',
+    'forced-color-adjust', 'print-color-adjust',
   ]) {
     assert.ok(propFacts(cssPropOf(n)!).inherited, `${n}은 상속되는 속성이다`);
   }
@@ -61,6 +63,8 @@ test('상속 표시가 알려진 사실과 맞는다', () => {
     'margin', 'padding', 'display', 'position', 'width', 'background-color', 'border', 'opacity',
     'contain', 'content-visibility', 'inline-size', 'block-size', 'appearance',
     'rotate', 'scale', 'translate', 'columns', 'mask', 'break-after',
+    'zoom', 'grid-template', 'max-inline-size', 'transform-style', 'scroll-margin',
+    'mask-size', 'column-span', 'border-inline',
   ]) {
     assert.ok(!propFacts(cssPropOf(n)!).inherited, `${n}은 상속되지 않는 속성이다`);
   }
@@ -85,7 +89,7 @@ test('갈래가 빈 곳 없이 덮는다', () => {
   );
 });
 
-test('194개 모두 열 언어 설명이 있다', () => {
+test('모든 속성에 열 언어 설명이 있다', () => {
   for (const p of CSS_PROPS) {
     const row = CSS_DESC[p.name];
     assert.ok(row, `${p.name}: 설명이 없다`);

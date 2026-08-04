@@ -1,5 +1,5 @@
 /**
- * CSS 속성 194가지 — 이름과 갈래, 상속 여부, 자주 쓰는 값만 적는다.
+ * CSS 속성 225가지 — 이름과 갈래, 상속 여부, 자주 쓰는 값만 적는다.
  *
  * 속성 이름과 값은 표준이 정한 영어라 옮기지 않는다. 어느 나라에서든
  * display: flex는 display: flex다. 여덟 언어로 쓸 것은 설명 한 줄뿐이다.
@@ -53,6 +53,9 @@ export const CSS_PROPS: CssProp[] = [
   p('columns', 'layout', ['auto', '200px 3'], false, ['column-width', 'column-count']),
   p('content-visibility', 'layout', ['visible', 'auto', 'hidden']),
   p('contain', 'layout', ['none', 'strict', 'content', 'layout', 'paint', 'size']),
+  p('zoom', 'layout', ['1', '1.5', '150%', 'normal']),
+  p('column-rule', 'layout', ['1px solid #ccc', 'none']),
+  p('column-span', 'layout', ['none', 'all']),
 
   /* ───────── 플렉스와 그리드 ───────── */
   p('flex-direction', 'flexgrid', ['row', 'column', 'row-reverse', 'column-reverse']),
@@ -72,8 +75,8 @@ export const CSS_PROPS: CssProp[] = [
   p('grid-template-columns', 'flexgrid', ['1fr 1fr', 'repeat(3, 1fr)', 'auto', 'minmax(0, 1fr)']),
   p('grid-template-rows', 'flexgrid', ['auto', '1fr', 'repeat(2, 100px)']),
   p('grid-template-areas', 'flexgrid', ['"header header" "side main"']),
-  p('grid-column', 'flexgrid', ['auto', 'span 2', '1 / 3']),
-  p('grid-row', 'flexgrid', ['auto', 'span 2', '1 / 3']),
+  p('grid-column', 'flexgrid', ['auto', 'span 2', '1 / 3'], false, ['grid-column-start', 'grid-column-end']),
+  p('grid-row', 'flexgrid', ['auto', 'span 2', '1 / 3'], false, ['grid-row-start', 'grid-row-end']),
   p('grid-auto-flow', 'flexgrid', ['row', 'column', 'dense']),
   p('grid-auto-rows', 'flexgrid', ['auto', 'minmax(100px, auto)']),
   p('place-items', 'flexgrid', ['center', 'start', 'stretch'], false, ['align-items', 'justify-items']),
@@ -84,6 +87,11 @@ export const CSS_PROPS: CssProp[] = [
   p('justify-self', 'flexgrid', ['auto', 'start', 'center', 'end', 'stretch']),
   p('place-self', 'flexgrid', ['auto', 'center', 'start end'], false, ['align-self', 'justify-self']),
   p('grid-auto-columns', 'flexgrid', ['auto', 'min-content', 'max-content', '1fr']),
+  p('grid-template', 'flexgrid', ['none', 'auto 1fr / auto 1fr'], false, ['grid-template-rows', 'grid-template-columns', 'grid-template-areas']),
+  p('grid-column-start', 'flexgrid', ['auto', '1', 'span 2']),
+  p('grid-column-end', 'flexgrid', ['auto', '3', 'span 2']),
+  p('grid-row-start', 'flexgrid', ['auto', '1', 'span 2']),
+  p('grid-row-end', 'flexgrid', ['auto', '3', 'span 2']),
 
   /* ───────── 상자 ───────── */
   p('width', 'box', ['auto', '100%', '320px', 'fit-content']),
@@ -107,6 +115,9 @@ export const CSS_PROPS: CssProp[] = [
   p('block-size', 'box', ['auto', '100%', '200px']),
   p('margin-inline', 'box', ['auto', '0', '1rem']),
   p('padding-block', 'box', ['0', '1rem', '8px 16px']),
+  p('max-inline-size', 'box', ['none', '60ch', '100%']),
+  p('min-block-size', 'box', ['0', '100svh', 'auto']),
+  p('margin-block', 'box', ['0', '1rem', 'auto']),
 
   /* ───────── 글자 ───────── */
   p('font-size', 'text', ['16px', '1rem', 'clamp(1rem, 2vw, 1.5rem)'], true),
@@ -140,6 +151,11 @@ export const CSS_PROPS: CssProp[] = [
   p('text-align-last', 'text', ['auto', 'left', 'center', 'right', 'justify'], true),
   p('text-underline-offset', 'text', ['auto', '2px', '0.1em'], true),
   p('font-stretch', 'text', ['normal', 'condensed', 'expanded', '75%'], true),
+  p('text-decoration-thickness', 'text', ['auto', 'from-font', '2px']),
+  p('line-break', 'text', ['auto', 'loose', 'normal', 'strict', 'anywhere'], true),
+  p('font-feature-settings', 'text', ['normal', '"tnum" 1', '"liga" 0'], true),
+  p('text-orientation', 'text', ['mixed', 'upright', 'sideways'], true),
+  p('font-variant', 'text', ['normal', 'small-caps', 'tabular-nums'], true),
 
   /* ───────── 색과 배경 ───────── */
   p('color', 'color', ['#111', 'currentColor', 'rgb(0 0 0 / 50%)'], true),
@@ -158,6 +174,8 @@ export const CSS_PROPS: CssProp[] = [
 
   p('background-origin', 'color', ['padding-box', 'border-box', 'content-box']),
   p('background-blend-mode', 'color', ['normal', 'multiply', 'screen', 'overlay']),
+  p('background-position-x', 'color', ['left', 'center', 'right', '20px']),
+  p('forced-color-adjust', 'color', ['auto', 'none', 'preserve-parent-color'], true),
 
   /* ───────── 테두리 ───────── */
   p('border', 'border', ['none', '1px solid #ddd'], false, ['border-width', 'border-style', 'border-color']),
@@ -177,6 +195,9 @@ export const CSS_PROPS: CssProp[] = [
   p('border-left', 'border', ['1px solid #000', 'none']),
   p('border-right', 'border', ['1px solid #000', 'none']),
   p('border-image', 'border', ['none', 'url(frame.png) 30 round']),
+  p('border-top-left-radius', 'border', ['0', '8px', '50%']),
+  p('border-inline', 'border', ['1px solid', 'none']),
+  p('border-block', 'border', ['1px solid', 'none']),
 
   /* ───────── 효과 ───────── */
   p('filter', 'effect', ['none', 'blur(4px)', 'grayscale(1)', 'brightness(1.2)']),
@@ -189,6 +210,8 @@ export const CSS_PROPS: CssProp[] = [
 
   p('backface-visibility', 'effect', ['visible', 'hidden']),
   p('mask', 'effect', ['none', 'url(shape.svg)']),
+  p('mask-size', 'effect', ['auto', 'cover', 'contain', '100% 100%']),
+  p('mask-repeat', 'effect', ['repeat', 'no-repeat', 'round', 'space']),
 
   /* ───────── 변형과 움직임 ───────── */
   p('transform', 'transform', ['none', 'translateX(10px)', 'rotate(45deg)', 'scale(1.05)']),
@@ -212,6 +235,9 @@ export const CSS_PROPS: CssProp[] = [
   p('animation-delay', 'transform', ['0s', '1s', '-500ms']),
   p('animation-direction', 'transform', ['normal', 'reverse', 'alternate']),
   p('animation-fill-mode', 'transform', ['none', 'forwards', 'backwards', 'both']),
+  p('transform-style', 'transform', ['flat', 'preserve-3d']),
+  p('animation-play-state', 'transform', ['running', 'paused']),
+  p('offset-path', 'transform', ['none', 'path("M0,0 L100,0")', 'ray(45deg)']),
 
   /* ───────── 위치 ───────── */
   p('position', 'position', ['static', 'relative', 'absolute', 'fixed', 'sticky']),
@@ -251,6 +277,9 @@ export const CSS_PROPS: CssProp[] = [
 
   p('appearance', 'interaction', ['none', 'auto']),
   p('scroll-snap-align', 'interaction', ['none', 'start', 'center', 'end']),
+  p('scroll-margin', 'interaction', ['0', '80px', '4rem']),
+  p('scroll-padding', 'interaction', ['auto', '80px', '4rem']),
+  p('scroll-snap-stop', 'interaction', ['normal', 'always']),
 
   /* ───────── 인쇄와 기타 ───────── */
   p('page-break-after', 'print', ['auto', 'always', 'avoid']),
@@ -263,6 +292,8 @@ export const CSS_PROPS: CssProp[] = [
   p('break-after', 'print', ['auto', 'avoid', 'page', 'column']),
   p('orphans', 'print', ['2', '3'], true),
   p('widows', 'print', ['2', '3'], true),
+  p('page-break-before', 'print', ['auto', 'always', 'avoid']),
+  p('print-color-adjust', 'print', ['economy', 'exact'], true),
 ];
 
 export const PROP_KINDS: PropKind[] = [
