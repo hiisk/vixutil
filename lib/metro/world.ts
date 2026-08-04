@@ -13,7 +13,7 @@ import type { MetroLine } from './types.ts';
 export const WORLD_LINES: MetroLine[] = [
   {
     slug: 'tokyo-yamanote', city: 'tokyo', color: '#9acd32', loop: true,
-    label: { ko: '야마노테선', en: 'Yamanote Line', es: 'Línea Yamanote', pt: 'Linha Yamanote', ja: '山手線', de: 'Yamanote-Linie', fr: 'Ligne Yamanote', hi: 'यामानोते लाइन' },
+    label: { ko: '야마노테선', en: 'Yamanote Line', es: 'Línea Yamanote', pt: 'Linha Yamanote', ja: '山手線', de: 'Yamanote-Linie', fr: 'Ligne Yamanote', hi: 'यामानोते लाइन', zh: '山手线', tw: '山手線' },
     shape: ['S', 'S', 'SW', 'SW', 'SW', 'W', 'W', 'NW', 'NW', 'NW', 'N', 'N', 'N', 'NE', 'NE', 'NE', 'E', 'E', 'E', 'SE', 'SE', 'SE', 'S', 'S', 'S', 'SW', 'SW', 'SW'],
     stations: [
       s('東京', 'Tokyo', 'transfer'), s('有楽町', 'Yurakucho'), s('新橋', 'Shimbashi', 'transfer'),
@@ -52,7 +52,7 @@ export const WORLD_LINES: MetroLine[] = [
   },
   {
     slug: 'tokyo-ginza', city: 'tokyo', color: '#f39700',
-    label: { ko: '긴자선', en: 'Ginza Line', es: 'Línea Ginza', pt: 'Linha Ginza', ja: '銀座線', de: 'Ginza-Linie', fr: 'Ligne Ginza', hi: 'गिन्ज़ा लाइन' },
+    label: { ko: '긴자선', en: 'Ginza Line', es: 'Línea Ginza', pt: 'Linha Ginza', ja: '銀座線', de: 'Ginza-Linie', fr: 'Ligne Ginza', hi: 'गिन्ज़ा लाइन', zh: '银座线', tw: '銀座線' },
     shape: ['E', 'E', 'NE', 'NE', 'E', 'E', 'SE', 'SE', 'SE', 'SE', 'SE', 'S', 'S', 'SW', 'SW', 'SW', 'W', 'W'],
     stations: [
       s('渋谷', 'Shibuya', 'terminus'), s('表参道', 'Omotesando', 'transfer'), s('外苑前', 'Gaiemmae'),
@@ -87,7 +87,7 @@ export const WORLD_LINES: MetroLine[] = [
   },
   {
     slug: 'london-victoria', city: 'london', color: '#0098d4',
-    label: { ko: '빅토리아선', en: 'Victoria line', es: 'Línea Victoria', pt: 'Linha Victoria', ja: 'ヴィクトリア線', de: 'Victoria Line', fr: 'Victoria line', hi: 'विक्टोरिया लाइन' },
+    label: { ko: '빅토리아선', en: 'Victoria line', es: 'Línea Victoria', pt: 'Linha Victoria', ja: 'ヴィクトリア線', de: 'Victoria Line', fr: 'Victoria line', hi: 'विक्टोरिया लाइन', zh: '维多利亚线', tw: '維多利亞線' },
     shape: ['N', 'N', 'NE', 'NE', 'N', 'N', 'NE', 'NE', 'N', 'N', 'NE', 'NE', 'N', 'N', 'NE'],
     stations: [
       s('Brixton', undefined, 'terminus'), s('Stockwell'), s('Vauxhall'), s('Pimlico'),
@@ -123,7 +123,7 @@ export const WORLD_LINES: MetroLine[] = [
   },
   {
     slug: 'london-jubilee', city: 'london', color: '#a0a5a9',
-    label: { ko: '주빌리선', en: 'Jubilee line', es: 'Línea Jubilee', pt: 'Linha Jubilee', ja: 'ジュビリー線', de: 'Jubilee Line', fr: 'Jubilee line', hi: 'जुबली लाइन' },
+    label: { ko: '주빌리선', en: 'Jubilee line', es: 'Línea Jubilee', pt: 'Linha Jubilee', ja: 'ジュビリー線', de: 'Jubilee Line', fr: 'Jubilee line', hi: 'जुबली लाइन', zh: '银禧线', tw: '銀禧線' },
     shape: ['SE', 'SE', 'SE', 'SE', 'SE', 'E', 'E', 'E', 'SE', 'SE', 'E', 'E', 'E', 'E', 'E', 'NE', 'NE', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
     stations: [
       s('Stanmore', undefined, 'terminus'), s('Canons Park'), s('Queensbury'), s('Kingsbury'),
@@ -161,7 +161,7 @@ export const WORLD_LINES: MetroLine[] = [
   },
   {
     slug: 'nyc-7', city: 'newyork', color: '#b933ad',
-    label: { ko: '7호선', en: '7 train', es: 'Línea 7', pt: 'Linha 7', ja: '7系統', de: 'Linie 7', fr: 'Ligne 7', hi: 'लाइन 7' },
+    label: { ko: '7호선', en: '7 train', es: 'Línea 7', pt: 'Linha 7', ja: '7系統', de: 'Linie 7', fr: 'Ligne 7', hi: 'लाइन 7', zh: '7号线', tw: '7號線' },
     shape: ['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'SW', 'SW', 'W', 'W', 'W', 'W', 'SW', 'SW', 'SW', 'W', 'W', 'W', 'W'],
     stations: [
       s('Flushing–Main St', 'Flushing Main St', 'terminus'), s('Mets–Willets Point', 'Mets Willets Point'),
@@ -273,7 +273,7 @@ export const WORLD_LINES: MetroLine[] = [
   },
   {
     slug: 'hongkong-island', city: 'hongkong', color: '#0075c2',
-    label: { ko: '아일랜드선', en: 'Island line', es: 'Línea Island', pt: 'Linha Island', ja: '港島線', de: 'Island Line', fr: 'Island line', hi: 'आइलैंड लाइन' },
+    label: { ko: '아일랜드선', en: 'Island line', es: 'Línea Island', pt: 'Linha Island', ja: '港島線', de: 'Island Line', fr: 'Island line', hi: 'आइलैंड लाइन', zh: '港岛线', tw: '港島綫' },
     shape: ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'NE', 'NE', 'E', 'E', 'E', 'E', 'SE', 'SE', 'E'],
     stations: [
       sa('Kennedy Town', '堅尼地城', 'terminus'), sa('HKU', '香港大學'), sa('Sai Ying Pun', '西營盤'),
@@ -308,7 +308,7 @@ export const WORLD_LINES: MetroLine[] = [
   },
   {
     slug: 'singapore-ne', city: 'singapore', color: '#9e28b5',
-    label: { ko: '노스이스트선', en: 'North East line', es: 'Línea North East', pt: 'Linha North East', ja: 'ノースイースト線', de: 'North East Line', fr: 'North East line', hi: 'नॉर्थ ईस्ट लाइन' },
+    label: { ko: '노스이스트선', en: 'North East line', es: 'Línea North East', pt: 'Linha North East', ja: 'ノースイースト線', de: 'North East Line', fr: 'North East line', hi: 'नॉर्थ ईस्ट लाइन', zh: '东北线', tw: '東北線' },
     shape: ['NE', 'NE', 'NE', 'NE', 'N', 'N', 'NE', 'NE', 'NE', 'NE', 'NE', 'NE', 'N', 'N', 'NE'],
     stations: [
       s('HarbourFront', undefined, 'terminus'), s('Outram Park', undefined, 'transfer'), s('Chinatown', undefined, 'transfer'),

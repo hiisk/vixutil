@@ -123,6 +123,23 @@ test('언어별 노선 이름이 도시 안에서 겹치지 않는다', () => {
   }
 });
 
+test('이름이 붙은 노선은 열 언어를 다 갖는다', () => {
+  /*
+   * lineName은 그 언어가 없으면 영어로 떨어진다. 덕분에 화면이 깨지지는 않지만,
+   * 중국어 화면에 "Brown Line"이 그대로 나오고도 위의 어떤 검사도 걸리지 않는다 —
+   * 영어 이름은 도시 안에서 겹치지 않으니 중복 검사도 통과한다.
+   *
+   * 그래서 lineName의 결과가 아니라 label에 그 언어 열쇠가 있는지를 본다.
+   * 번호 노선(num)은 lang.ts의 규칙이 만들어 내므로 여기서 보지 않는다.
+   */
+  const bad: string[] = [];
+  for (const l of METRO_LINES) {
+    if (!l.label || typeof l.label === 'string') continue;
+    for (const lang of LANGS) if (!l.label[lang]?.trim()) bad.push(`${l.slug}/${lang}`);
+  }
+  assert.deepStrictEqual(bad, []);
+});
+
 test('노선도 좌표가 역마다 하나씩 나오고 겹치지 않는다', () => {
   for (const l of METRO_LINES) {
     const pts = layout(l);

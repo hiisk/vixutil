@@ -10,9 +10,10 @@ import { SEOUL_LINES } from './metro/seoul.ts';
 import { WORLD_LINES } from './metro/world.ts';
 import { CAPITAL2_LINES } from './metro/capitals2.ts';
 import { SECOND_CITY_LINES } from './metro/second-city.ts';
+import { WORLD2_LINES } from './metro/world2.ts';
 
 export const METRO_LINES: MetroLine[] = [
-  ...SEOUL_LINES, ...WORLD_LINES, ...CAPITAL2_LINES, ...SECOND_CITY_LINES,
+  ...SEOUL_LINES, ...WORLD_LINES, ...CAPITAL2_LINES, ...SECOND_CITY_LINES, ...WORLD2_LINES,
 ];
 
 export const metroLine = (slug: string): MetroLine | undefined =>

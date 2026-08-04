@@ -54,7 +54,7 @@ export const SECOND_CITY_LINES: MetroLine[] = [
   },
   {
     slug: 'osaka-midosuji', city: 'osaka', color: '#e5171f',
-    label: { ko: '미도스지선', en: 'Midosuji Line', es: 'Línea Midosuji', pt: 'Linha Midosuji', ja: '御堂筋線', de: 'Midosuji-Linie', fr: 'Ligne Midosuji', hi: 'मिदोसुजी लाइन' },
+    label: { ko: '미도스지선', en: 'Midosuji Line', es: 'Línea Midosuji', pt: 'Linha Midosuji', ja: '御堂筋線', de: 'Midosuji-Linie', fr: 'Ligne Midosuji', hi: 'मिदोसुजी लाइन', zh: '御堂筋线', tw: '御堂筋線' },
     shape: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'SE', 'SE', 'S', 'S', 'S', 'S'],
     stations: [
       s('江坂', 'Esaka', 'terminus'), s('東三国', 'Higashi-Mikuni'), s('新大阪', 'Shin-Osaka', 'transfer'),
@@ -90,7 +90,7 @@ export const SECOND_CITY_LINES: MetroLine[] = [
   },
   {
     slug: 'chicago-brown', city: 'chicago', color: '#62361b',
-    label: { ko: '브라운 라인', en: 'Brown Line', es: 'Línea Marrón', pt: 'Linha Marrom', ja: 'ブラウンライン', de: 'Brown Line', fr: 'Ligne brune', hi: 'ब्राउन लाइन' },
+    label: { ko: '브라운 라인', en: 'Brown Line', es: 'Línea Marrón', pt: 'Linha Marrom', ja: 'ブラウンライン', de: 'Brown Line', fr: 'Ligne brune', hi: 'ब्राउन लाइन', zh: '棕线', tw: '棕線' },
     shape: ['E', 'E', 'E', 'E', 'SE', 'SE', 'E', 'E', 'SE', 'SE', 'SE', 'S', 'S', 'S', 'SE', 'SE', 'SE', 'S', 'S', 'S', 'SW', 'SW', 'SW', 'W', 'W'],
     stations: [
       s('Kimball', undefined, 'terminus'), s('Kedzie'), s('Francisco'), s('Rockwell'),
@@ -127,7 +127,7 @@ export const SECOND_CITY_LINES: MetroLine[] = [
   },
   {
     slug: 'lyon-a', city: 'lyon', color: '#e2231a',
-    label: { ko: 'A선', en: 'Line A', es: 'Línea A', pt: 'Linha A', ja: 'A線', de: 'Linie A', fr: 'Ligne A', hi: 'लाइन A' },
+    label: { ko: 'A선', en: 'Line A', es: 'Línea A', pt: 'Linha A', ja: 'A線', de: 'Linie A', fr: 'Ligne A', hi: 'लाइन A', zh: 'A线', tw: 'A線' },
     shape: ['NE', 'NE', 'NE', 'N', 'N', 'NE', 'NE', 'E', 'E', 'E', 'E', 'E', 'E'],
     stations: [
       s('Perrache', undefined, 'terminus'), s('Ampère – Victor Hugo', 'Ampere Victor Hugo'),

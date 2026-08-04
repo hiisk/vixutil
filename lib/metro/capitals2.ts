@@ -89,7 +89,7 @@ export const CAPITAL2_LINES: MetroLine[] = [
   },
   {
     slug: 'delhi-yellow', city: 'delhi', color: '#ffdf00',
-    label: { ko: '옐로 라인', en: 'Yellow Line', es: 'Línea Amarilla', pt: 'Linha Amarela', ja: 'イエローライン', de: 'Gelbe Linie', fr: 'Ligne jaune', hi: 'येलो लाइन' },
+    label: { ko: '옐로 라인', en: 'Yellow Line', es: 'Línea Amarilla', pt: 'Linha Amarela', ja: 'イエローライン', de: 'Gelbe Linie', fr: 'Ligne jaune', hi: 'येलो लाइन', zh: '黄线', tw: '黃線' },
     shape: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'SW', 'SW', 'SW', 'S', 'S', 'S', 'SW', 'SW', 'SW', 'SW', 'SW', 'SW', 'S', 'S', 'SE', 'SE', 'SE'],
     stations: [
       sa('Samaypur Badli', 'समयपुर बादली', 'terminus'), sa('Rohini Sector 18-19', 'रोहिणी सेक्टर 18-19'),
