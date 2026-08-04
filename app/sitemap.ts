@@ -74,6 +74,7 @@ import { CELLS as WC_CELLS, slugOf as wcSlug } from "@/lib/windchill/list";
 import { CELLS as DEW_CELLS, slugOf as dewSlug } from "@/lib/dew/list";
 import { BITS, slugOf as drillSlug } from "@/lib/drill/list";
 import { CELLS as BW_CELLS, slugOf as bwSlug } from "@/lib/bandwidth/list";
+import { CELLS as BATT_CELLS, slugOf as battSlug } from "@/lib/battery/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -596,6 +597,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 배터리 충전 200장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/battery`, changeFrequency: weekly, priority: 0.85 },
+      ...BATT_CELLS.map(c => ({
+        url: `${BASE}${prefix}/battery/${battSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

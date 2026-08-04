@@ -34,6 +34,7 @@ import { CELLS as WC_CELLS } from '@/lib/windchill/list';
 import { CELLS as DEW_CELLS } from '@/lib/dew/list';
 import { BITS } from '@/lib/drill/list';
 import { CELLS as BW_CELLS } from '@/lib/bandwidth/list';
+import { CELLS as BATT_CELLS } from '@/lib/battery/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -181,6 +182,18 @@ const SECTIONS = [
     textAccent: 'text-sky-700 dark:text-sky-200',
     borderAccent: 'border-sky-200 dark:border-sky-800',
     shadow: 'shadow-sky-100',
+  },
+  {
+    href: '/battery',
+    icon: '🔋',
+    title: '배터리 충전 시간',
+    desc: '65W를 꽂아도 안 빨라지는 이유 — 전압·케이블·기내 반입까지',
+    badge: `${BATT_CELLS.length}칸`,
+    color: 'from-green-600 to-lime-400',
+    bgLight: 'bg-green-50 dark:bg-green-900/40',
+    textAccent: 'text-green-700 dark:text-green-200',
+    borderAccent: 'border-green-200 dark:border-green-800',
+    shadow: 'shadow-green-100',
   },
   {
     href: '/year',

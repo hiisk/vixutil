@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/battery', icon: '🔋', color: 'from-green-600 to-lime-400',
+    accent: 'text-green-700 dark:text-green-200', border: 'border-green-200 dark:border-green-800', bg: 'bg-green-50 dark:bg-green-900/40',
+    copy: {
+      en: { title: 'Battery Charging Time', desc: 'How long a battery takes, what voltage it draws, and what flies' },
+      es: { title: 'Tiempo de carga', desc: 'Cuánto tarda una batería, a qué voltaje carga y qué puede volar' },
+      'pt-br': { title: 'Tempo de carga', desc: 'Quanto uma bateria demora, em que tensão carrega e o que pode voar' },
+      ja: { title: 'バッテリー充電時間', desc: '充電にかかる時間、流れる電圧、機内に持ち込める容量' },
+      de: { title: 'Akku-Ladezeit', desc: 'Wie lange ein Akku braucht, mit welcher Spannung er lädt und was ins Flugzeug darf' },
+      fr: { title: 'Temps de charge', desc: 'La durée de charge, la tension utilisée et ce qui passe en cabine' },
+      hi: { title: 'बैटरी चार्ज समय', desc: 'बैटरी में कितना समय लगेगा, कितने वोल्ट पर चार्ज होगी और विमान में क्या ले जा सकते हैं' },
+      'zh-hans': { title: '电池充电时间', desc: '充满要多久、走多少伏，以及能否带上飞机' },
+      'zh-hant': { title: '電池充電時間', desc: '充滿要多久、走多少伏特，以及能否帶上飛機' },
+    },
+  },
+  {
     route: '/bandwidth', icon: '🔽', color: 'from-sky-600 to-indigo-500',
     accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
     copy: {
