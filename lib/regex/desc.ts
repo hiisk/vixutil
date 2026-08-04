@@ -1,7 +1,7 @@
 /**
  * 식마다 "무엇에 맞는가"를 한 마디로 — 열 언어.
  *
- * 문장 전체를 133개 × 열 언어로 적으면 천 줄이 넘고, 그중 한 줄이 식과
+ * 문장 전체를 175개 × 열 언어로 적으면 천 줄이 넘고, 그중 한 줄이 식과
  * 어긋나도 아무도 못 잡는다. 그래서 여기에는 대상만 적는다. "앞뒤가 묶여
  * 통째로 맞아야 한다", "잡는 묶음이 둘이다" 같은 말은 식에서 계산해 붙인다
  * (ui.ts). 계산으로 나오는 말은 틀릴 수가 없다.
@@ -180,6 +180,26 @@ const EXTRACT_WHAT: Record<string, Ten> = {
   'quoted-attribute': ['따옴표로 값을 적은 속성', 'an attribute whose value is in double quotes', 'un atributo cuyo valor va entre comillas', 'um atributo cujo valor vai entre aspas', '値を引用符で囲んだ属性', 'ein Attribut, dessen Wert in Anführungszeichen steht', "un attribut dont la valeur est entre guillemets", 'ऐसा गुण जिसका मान उद्धरण में हो', '值放在双引号里的属性', '值放在雙引號裡的屬性'],
   'ansi-escape': ['터미널 빛깔을 바꾸는 제어 문자', 'a terminal colour escape code', 'un código de escape de color de terminal', 'um código de escape de cor do terminal', '端末の色を変える制御コード', 'ein Escape-Code für Terminalfarben', "un code d'échappement de couleur du terminal", 'टर्मिनल का रंग बदलने वाला कोड', '改变终端颜色的转义码', '改變終端機顏色的跳脫碼'],
   'trailing-comma': ['닫기 전에 남은 쉼표', 'a comma left before a closing bracket', 'una coma antes de cerrar', 'uma vírgula antes de fechar', '閉じかっこ前に残ったカンマ', 'ein Komma vor der schließenden Klammer', 'une virgule avant la fermeture', 'बंद करने से पहले बची अल्पविराम', '闭合括号前多出来的逗号', '閉合括號前多出來的逗號'],
+  'hangul-jamo-range': ["한글 자모만", "Hangul jamo only", "solo jamo del hangul", "apenas jamo do hangul", "ハングルの字母だけ", "nur Hangul-Jamo", "uniquement des jamo hangeul", "केवल हंगुल जामो", "只有谚文字母", "只有諺文字母"],
+  'thai-range': ["타이 문자만", "Thai script only", "solo escritura tailandesa", "apenas escrita tailandesa", "タイ文字だけ", "nur thailändische Schrift", "uniquement l'écriture thaïe", "केवल थाई लिपि", "只有泰文", "只有泰文"],
+  'arabic-range': ["아랍 문자만", "Arabic script only", "solo escritura árabe", "apenas escrita árabe", "アラビア文字だけ", "nur arabische Schrift", "uniquement l'écriture arabe", "केवल अरबी लिपि", "只有阿拉伯文", "只有阿拉伯文"],
+  'digit-fullwidth': ["전각 숫자만", "full-width digits only", "solo dígitos de ancho completo", "apenas dígitos de largura total", "全角数字だけ", "nur Vollbreiten-Ziffern", "uniquement des chiffres pleine chasse", "केवल पूर्ण-चौड़ाई अंक", "只有全角数字", "只有全形數字"],
+  'alternation-anchored': ["둘 중 하나로 딱 떨어지는 낱말", "exactly one of two words", "exactamente una de dos palabras", "exatamente uma de duas palavras", "二つのどちらか一方だけ", "genau eines von zwei Wörtern", "exactement un des deux mots", "दो में से ठीक एक शब्द", "只能是两个词中的一个", "只能是兩個詞中的一個"],
+  'repeat-exact-group': ["묶음이 정확히 세 번 되풀이", "a group repeated exactly three times", "un grupo repetido exactamente tres veces", "um grupo repetido exatamente três vezes", "グループがちょうど3回", "eine Gruppe genau dreimal", "un groupe répété exactement trois fois", "समूह ठीक तीन बार", "分组正好重复三次", "分組正好重複三次"],
+  'class-count-range': ["정해진 글자로 두 자에서 네 자", "two to four characters from a set", "de dos a cuatro caracteres de un conjunto", "de dois a quatro caracteres de um conjunto", "決められた文字で2〜4文字", "zwei bis vier Zeichen aus einer Menge", "de deux à quatre caractères d'un ensemble", "एक समुच्चय से दो से चार वर्ण", "指定字符集里的二到四个字符", "指定字元集裡的二到四個字元"],
+  'not-starting-with': ["그 낱말로 시작하지 않는 것", "anything not starting with a given word", "lo que no empieza por una palabra dada", "o que não começa por uma palavra dada", "その語で始まらないもの", "was nicht mit einem Wort beginnt", "ce qui ne commence pas par un mot donné", "जो किसी शब्द से शुरू न हो", "不以指定词开头的内容", "不以指定詞開頭的內容"],
+  'must-end-with': ["그 꼬리로 끝나는 것", "anything ending with a given suffix", "lo que termina con un sufijo dado", "o que termina com um sufixo dado", "その末尾で終わるもの", "was auf eine Endung ausgeht", "ce qui se termine par un suffixe donné", "जो किसी अंत से समाप्त हो", "以指定结尾收束的内容", "以指定結尾收束的內容"],
+  'no-consecutive-digits': ["숫자가 연달아 나오지 않는 것", "text with no two digits in a row", "texto sin dos dígitos seguidos", "texto sem dois dígitos seguidos", "数字が連続しないもの", "Text ohne zwei Ziffern hintereinander", "un texte sans deux chiffres de suite", "जिसमें दो अंक लगातार न हों", "没有两位数字连着出现", "沒有兩位數字連著出現"],
+  'korean-postcode': ["다섯 자리 우편번호", "a five-digit postal code", "un código postal de cinco cifras", "um código postal de cinco dígitos", "5桁の郵便番号", "eine fünfstellige Postleitzahl", "un code postal à cinq chiffres", "पाँच अंकों का पिन कोड", "五位邮政编码", "五位郵遞區號"],
+  'iso-country-code': ["두 글자 국가 코드", "a two-letter country code", "un código de país de dos letras", "um código de país de duas letras", "2文字の国コード", "ein zweibuchstabiger Ländercode", "un code pays à deux lettres", "दो अक्षरों का देश कोड", "两位字母国家代码", "兩位字母國家代碼"],
+  'ipv4-cidr': ["대역 표기가 붙은 IPv4", "an IPv4 address with a CIDR prefix", "una dirección IPv4 con prefijo CIDR", "um endereço IPv4 com prefixo CIDR", "CIDR表記付きのIPv4", "eine IPv4-Adresse mit CIDR-Präfix", "une adresse IPv4 avec préfixe CIDR", "CIDR उपसर्ग वाला IPv4 पता", "带网段前缀的 IPv4 地址", "帶網段前綴的 IPv4 位址"],
+  'korean-mobile': ["휴대전화 번호", "a Korean mobile number", "un número de móvil coreano", "um número de telemóvel coreano", "韓国の携帯番号", "eine koreanische Mobilnummer", "un numéro de mobile coréen", "कोरियाई मोबाइल नंबर", "韩国手机号码", "韓國手機號碼"],
+  'hangul-name': ["두 자에서 다섯 자 한글 이름", "a Hangul name of two to five syllables", "un nombre en hangul de dos a cinco sílabas", "um nome em hangul de duas a cinco sílabas", "2〜5文字のハングル氏名", "ein Hangul-Name aus zwei bis fünf Silben", "un nom en hangeul de deux à cinq syllabes", "दो से पाँच अक्षरों का हंगुल नाम", "两到五个字的谚文姓名", "兩到五個字的諺文姓名"],
+  'us-zip': ["미국 우편번호", "a US ZIP code", "un código postal de EE. UU.", "um código postal dos EUA", "アメリカの郵便番号", "eine US-Postleitzahl", "un code postal américain", "अमेरिकी ज़िप कोड", "美国邮政编码", "美國郵遞區號"],
+  'import-path': ["가져오는 파일 경로", "the path in an import statement", "la ruta de un import", "o caminho de um import", "import 文のパス", "der Pfad in einer Import-Anweisung", "le chemin d'un import", "import कथन का पथ", "import 语句里的路径", "import 陳述式裡的路徑"],
+  'hex-in-text': ["글 속의 색 코드", "a hex colour inside running text", "un color hexadecimal dentro del texto", "uma cor hexadecimal dentro do texto", "文中の16進カラーコード", "ein Hex-Farbwert im Fließtext", "une couleur hexadécimale dans le texte", "पाठ के भीतर हेक्स रंग", "正文里的十六进制颜色", "正文裡的十六進位色碼"],
+  'todo-comment': ["주석에 남긴 할 일", "a TODO note left in a comment", "una nota TODO en un comentario", "uma nota TODO num comentário", "コメントに残したTODO", "eine TODO-Notiz im Kommentar", "une note TODO dans un commentaire", "टिप्पणी में छोड़ा गया TODO", "注释里留下的待办", "註解裡留下的待辦"],
+  'number-with-unit': ["단위가 붙은 숫자", "a number with a CSS unit", "un número con unidad CSS", "um número com unidade CSS", "単位付きの数値", "eine Zahl mit CSS-Einheit", "un nombre avec une unité CSS", "CSS इकाई वाला अंक", "带 CSS 单位的数字", "帶 CSS 單位的數字"],
 };
 
 Object.assign(WHAT, VALIDATE_WHAT, EXTRACT_WHAT);

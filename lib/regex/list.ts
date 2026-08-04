@@ -1,11 +1,11 @@
 /**
- * 정규식 155가지 — 식과 함께 "맞아야 하는 보기"와 "맞으면 안 되는 보기"를 적는다.
+ * 정규식 175가지 — 식과 함께 "맞아야 하는 보기"와 "맞으면 안 되는 보기"를 적는다.
  *
  * 인터넷에 도는 정규식의 절반은 틀렸다. 이메일 식이라며 올라온 것에 점 두 개짜리
  * 주소를 넣으면 통과하고, 날짜 식이라며 올라온 것에 13월을 넣어도 통과한다.
  * 눈으로 봐서는 알 수 없다 — 돌려 봐야 안다.
  *
- * 그래서 이 표는 식만 적지 않는다. 보기를 함께 적어 두고, 검사가 155개를 모두
+ * 그래서 이 표는 식만 적지 않는다. 보기를 함께 적어 두고, 검사가 175개를 모두
  * 실제로 돌려 본다. 맞아야 할 것이 안 맞거나 안 맞아야 할 것이 맞으면 그 자리에서
  * 걸린다. 화면에 보이는 보기도 같은 자료에서 나오므로 설명과 식이 어긋날 수 없다.
  *
@@ -62,6 +62,10 @@ const SYNTAX: Pattern[] = [
   p('emoji-property', 'syntax', '^\\p{Extended_Pictographic}+$', ['🎲', '🧩🎯'], ['abc', '한글'], 'u'),
   p('cyrillic-range', 'syntax', '^[\\u0400-\\u04FF]+$', ['Привет', 'Мир'], ['abc', '한글']),
   p('hex-escape', 'syntax', '^\\x41$', ['A'], ['a', 'x41']),
+  p('hangul-jamo-range', 'syntax', '^[ㄱ-ㅎㅏ-ㅣ]+$', ['ㄱㄴ', 'ㅏ'], ['가', 'abc']),
+  p('thai-range', 'syntax', '^[฀-๿]+$', ['ไทย', 'กข'], ['abc', '123']),
+  p('arabic-range', 'syntax', '^[؀-ۿ]+$', ['عربي', 'سلام'], ['abc', '123']),
+  p('digit-fullwidth', 'syntax', '^[０-９]+$', ['１２３', '０'], ['123', 'abc']),
 ];
 
 /** 몇 번 되풀이되는지를 정하는 표기들 */
@@ -87,6 +91,9 @@ const QUANTIFIER: Pattern[] = [
   p('min-max-word', 'quantifier', '^\\w{3,8}$', ['abc', 'abcdefgh'], ['ab', 'abcdefghi']),
   p('exact-repeat-group', 'quantifier', '^(?:\\w+\\.){2}\\w+$', ['a.b.c', 'x1.y2.z3'], ['a.b', 'a.b.c.d']),
   p('optional-trailing-slash', 'quantifier', '^/[a-z]+/?$', ['/docs', '/docs/'], ['docs', '/docs//']),
+  p('alternation-anchored', 'quantifier', '^(cat|dog)$', ['cat', 'dog'], ['cats', 'hotdog']),
+  p('repeat-exact-group', 'quantifier', '^(ab){3}$', ['ababab'], ['abab', 'ab']),
+  p('class-count-range', 'quantifier', '^[a-c]{2,4}$', ['ab', 'abcc'], ['a', 'abcde']),
 ];
 
 /** 앞뒤를 살펴보되 잡아먹지 않는 표기들 */
@@ -102,6 +109,9 @@ const LOOKAROUND: Pattern[] = [
   p('no-repeated-char', 'lookaround', '^(?!.*(.)\\1).+$', ['abc', 'xyz'], ['aab', 'hello']),
   p('lookbehind-won', 'lookaround', '(?<=₩)\\d+', ['₩5000'], ['5000', '$5000']),
   p('no-word-present', 'lookaround', '^(?!.*\\btest\\b).*$', ['production code', 'testing'], ['this is a test', 'test']),
+  p('not-starting-with', 'lookaround', '^(?!test)\\w+$', ['prod', 'abc'], ['test', 'testing']),
+  p('must-end-with', 'lookaround', '^.*(?<=\\.png)$', ['a.png', 'photo.png'], ['a.jpg', 'png']),
+  p('no-consecutive-digits', 'lookaround', '^(?!.*\\d\\d).*$', ['a1b2', 'abc'], ['a12', '007']),
 ];
 
 /** 통째로 맞는지 보는 식들 — 앞뒤를 묶어 두었다 */
@@ -157,6 +167,12 @@ const VALIDATE: Pattern[] = [
   p('hex-with-prefix', 'validate', '^0x[0-9a-f]+$', ['0x1F', '0xdeadbeef'], ['1F', '0x'], 'i'),
   p('sha256-hex', 'validate', '^[0-9a-f]{64}$', ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'], ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b85', 'abc'], 'i'),
   p('object-id', 'validate', '^[0-9a-f]{24}$', ['507f1f77bcf86cd799439011'], ['507f1f77bcf86cd79943901', 'zzzf1f77bcf86cd799439011'], 'i'),
+  p('korean-postcode', 'validate', '^\\d{5}$', ['06236', '12345'], ['1234', '123456']),
+  p('iso-country-code', 'validate', '^[A-Z]{2}$', ['KR', 'US'], ['kr', 'KOR']),
+  p('ipv4-cidr', 'validate', '^(\\d{1,3}\\.){3}\\d{1,3}/\\d{1,2}$', ['10.0.0.0/8', '192.168.0.0/24'], ['10.0.0.0', '10.0.0.0/']),
+  p('korean-mobile', 'validate', '^01[016789]-?\\d{3,4}-?\\d{4}$', ['010-1234-5678', '01012345678'], ['02-123-4567', '010-12-5678']),
+  p('hangul-name', 'validate', '^[가-힣]{2,5}$', ['홍길동', '김철수'], ['a홍', '홍']),
+  p('us-zip', 'validate', '^\\d{5}(-\\d{4})?$', ['12345', '12345-6789'], ['1234', '12345-67']),
 ];
 
 /** 골라내거나 다듬을 때 쓰는 식들 */
@@ -201,6 +217,10 @@ const EXTRACT: Pattern[] = [
   p('markdown-code', 'extract', '`([^`]+)`', ['`code`', 'use `x` here'], ['plain', '`unclosed']),
   p('quoted-attribute', 'extract', '(\\w+)="([^"]*)"', ['src="a.png"', 'a b="c"'], ['src=a.png', 'plain']),
   p('ansi-escape', 'extract', '\\x1b\\[[0-9;]*m', ['\u001b[31mred\u001b[0m'], ['plain', '[31m']),
+  p('import-path', 'extract', 'from [\'\\"]([^\'\\"]+)[\'\\"]', ['from \'react\'', 'from "./a"'], ['import x', 'from react']),
+  p('hex-in-text', 'extract', '#[0-9a-fA-F]{6}\\b', ['color: #ff0000;', '#00FF00 background'], ['#ff00', 'no colour']),
+  p('todo-comment', 'extract', 'TODO:?\\s*(.*)', ['// TODO: fix later', 'TODO check'], ['done', '// note']),
+  p('number-with-unit', 'extract', '\\d+(px|em|rem|%)', ['12px', 'width: 3rem'], ['12', 'abc']),
 ];
 
 export const PATTERNS: Pattern[] = [...SYNTAX, ...QUANTIFIER, ...LOOKAROUND, ...VALIDATE, ...EXTRACT];
