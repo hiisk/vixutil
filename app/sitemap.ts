@@ -90,6 +90,9 @@ const calculatorRoutes = [
   "/calculator/age", "/calculator/birthday", "/calculator/dday", "/calculator/time-diff",
   "/calculator/unit-length", "/calculator/unit-weight", "/calculator/unit-temp", "/calculator/binary",
   "/calculator/loan-prepayment-fee", "/calculator/caffeine", "/calculator/wedding-gift",
+  "/calculator/work-hours", "/calculator/average", "/calculator/pet-age", "/calculator/shoe-size",
+  "/calculator/rice-water", "/calculator/coffee-ratio", "/calculator/data-usage", "/calculator/charge-time",
+  "/calculator/unit-volume", "/calculator/speed-time",
 ];
 
 const devRoutes = [

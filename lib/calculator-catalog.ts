@@ -32,6 +32,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/severance',        title:'퇴직금 계산기',        desc:'평균임금+상여+연차 → 법령기준 퇴직금' },
       { href:'/calculator/unemployment',     title:'실업급여 계산기',      desc:'평균임금·가입기간 → 구직급여 예상액', hot:true },
       { href:'/calculator/parental-leave',   title:'육아휴직 급여 계산기', desc:'통상임금 → 육아휴직 급여 예상액', hot:true },
+      { href:'/calculator/work-hours',       title:'근무시간 계산기',      desc:'출퇴근 시각 → 실근무시간·휴게시간' },
     ],
   },
   {
@@ -124,6 +125,13 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/tip',            title:'팁 계산기',          desc:'금액·팁율·인원수 → 1인당 팁' },
       { href:'/calculator/dutch-pay',      title:'더치페이 계산기',    desc:'총액·인원수 → 각자 부담액' },
       { href:'/calculator/gpa',            title:'학점/GPA 계산기',    desc:'과목별 성적 → 평균 학점' },
+      { href:'/calculator/average',        title:'평균 계산기',        desc:'평균·중앙값·최빈값·표준편차 한 번에' },
+      { href:'/calculator/pet-age',        title:'반려동물 나이 계산기', desc:'강아지·고양이 나이 → 사람 나이' },
+      { href:'/calculator/shoe-size',      title:'신발 사이즈 변환기', desc:'발 길이 mm → EU·UK·US 치수' },
+      { href:'/calculator/rice-water',     title:'밥물 계산기',        desc:'쌀 양 → 백미·현미·잡곡·죽 물 양' },
+      { href:'/calculator/coffee-ratio',   title:'커피 비율 계산기',   desc:'추출 방식별 원두·물 비율' },
+      { href:'/calculator/data-usage',     title:'데이터 사용량 계산기', desc:'화질별 소모량 → 남은 데이터 가능 시간' },
+      { href:'/calculator/charge-time',    title:'충전 시간 계산기',   desc:'mAh·충전기 W → 완충 시간' },
     ],
   },
   {
@@ -159,6 +167,8 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/unit-weight', title:'무게 단위 변환기', desc:'mg·g·kg·t·lb·oz·근 변환' },
       { href:'/calculator/unit-temp',   title:'온도 변환기',      desc:'°C·°F·K·°R 상호 변환' },
       { href:'/calculator/binary',      title:'진수 변환기',      desc:'2·8·10·16진수 상호 변환' },
+      { href:'/calculator/unit-volume', title:'부피 단위 변환기', desc:'mL·L·컵·홉·되·말·갤런 변환' },
+      { href:'/calculator/speed-time',  title:'속도 거리 시간 계산기', desc:'셋 중 둘 → 나머지 · km/h·m/s·페이스' },
     ],
   },
   {
