@@ -417,6 +417,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/sqrt', icon: '📐', color: 'from-indigo-600 to-violet-500',
+    accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
+    copy: {
+      en: { title: 'Square Roots', desc: 'Roots of 1–200 as rounded decimals and exact surds' },
+      es: { title: 'Raíces cuadradas', desc: 'Raíces del 1 al 200 en decimal y en radical exacto' },
+      'pt-br': { title: 'Raízes quadradas', desc: 'Raízes de 1 a 200 em decimal e em radical exato' },
+      ja: { title: '平方根表', desc: '1〜200の平方根を小数と正確な根号の形で' },
+      de: { title: 'Quadratwurzeln', desc: 'Wurzeln von 1 bis 200 als Dezimalzahl und exakte Wurzel' },
+      fr: { title: 'Racines carrées', desc: 'Racines de 1 à 200 en décimal et en radical exact' },
+      hi: { title: 'वर्गमूल', desc: '1–200 के वर्गमूल दशमलव और सटीक मूल-रूप में' },
+      'zh-hans': { title: '平方根表', desc: '1–200 的平方根，小数与精确根式并列' },
+      'zh-hant': { title: '平方根表', desc: '1–200 的平方根，小數與精確根式並列' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

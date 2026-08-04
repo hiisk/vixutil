@@ -18,6 +18,7 @@ import { PREFIXES } from '@/lib/cidr/list';
 import { CHARS as CODE_CHARS, CELLS as CODE_CELLS } from '@/lib/code/list';
 import { SCORES as DARTS_SCORES } from '@/lib/darts/list';
 import { PRODUCTS as TIMES_PRODUCTS } from '@/lib/times/list';
+import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -140,6 +141,18 @@ const SECTIONS = [
     textAccent: 'text-teal-700 dark:text-teal-300',
     borderAccent: 'border-teal-200 dark:border-teal-900/50',
     shadow: 'shadow-teal-100',
+  },
+  {
+    href: '/sqrt',
+    icon: '📐',
+    title: '제곱근표',
+    desc: '√50은 7.07이면서 5√2 — 반올림한 소수와 정확한 근호 꼴을 함께',
+    badge: `${SQRT_NUMBERS.length}개`,
+    color: 'from-indigo-600 to-violet-500',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
   },
   {
     href: '/image',
