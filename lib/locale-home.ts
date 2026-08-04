@@ -432,6 +432,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/roman', icon: '🏛️', color: 'from-amber-700 to-yellow-500',
+    accent: 'text-amber-800 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
+    copy: {
+      en: { title: 'Roman Numeral Years', desc: 'Every year from 1900 to 2100, broken into its letters' },
+      es: { title: 'Años en números romanos', desc: 'Cada año de 1900 a 2100, descompuesto en sus letras' },
+      'pt-br': { title: 'Anos em algarismos romanos', desc: 'Cada ano de 1900 a 2100, dividido em suas letras' },
+      ja: { title: 'ローマ数字の年', desc: '1900年から2100年まで、文字を分解して' },
+      de: { title: 'Römische Jahreszahlen', desc: 'Jedes Jahr von 1900 bis 2100, in seine Buchstaben zerlegt' },
+      fr: { title: 'Années en chiffres romains', desc: 'Chaque année de 1900 à 2100, décomposée en lettres' },
+      hi: { title: 'रोमन अंकों में वर्ष', desc: '1900 से 2100 तक हर वर्ष, अक्षरों में बँटा हुआ' },
+      'zh-hans': { title: '罗马数字年份', desc: '1900 到 2100 每一年，拆成字母来看' },
+      'zh-hant': { title: '羅馬數字年份', desc: '1900 到 2100 每一年，拆成字母來看' },
+    },
+  },
+  {
     route: '/darts', icon: '🎯', color: 'from-red-600 to-rose-500',
     accent: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-900/50', bg: 'bg-red-50 dark:bg-red-950/30',
     copy: {

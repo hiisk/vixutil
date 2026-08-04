@@ -19,6 +19,7 @@ import { CHARS as CODE_CHARS, CELLS as CODE_CELLS } from '@/lib/code/list';
 import { SCORES as DARTS_SCORES } from '@/lib/darts/list';
 import { PRODUCTS as TIMES_PRODUCTS } from '@/lib/times/list';
 import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
+import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -153,6 +154,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/roman',
+    icon: '🏛️',
+    title: '로마 숫자 연도표',
+    desc: '1994년은 MCMXCIV — 글자를 조각내어 왜 그렇게 적히는지까지',
+    badge: `${ROMAN_YEARS.length}해`,
+    color: 'from-amber-700 to-yellow-500',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-800 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/image',
