@@ -55,7 +55,18 @@ export default function ShareButton({ title, description, type = 'test' }: Props
     const text = description ? `${description}\n\n${url}` : url;
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
       try {
-        await navigator.share({ text: `${title}\n\n${description}\n\n${url}` });
+        /*
+         * 주소는 url 칸으로 넘긴다 — 글 안에 박아 넣지 않는다.
+         *
+         * 전에는 제목·설명·주소를 줄바꿈으로 이어 붙여 text 하나로 보냈다.
+         * 받는 앱은 그것을 그냥 글로 보고, 그 안의 주소를 따로 알아채서 미리보기를
+         * 하나 더 만든다 — 글 한 덩이와 카드 한 장이 따로 온다.
+         *
+         * url 칸에 넣으면 앱이 그 주소의 og 태그로 카드 하나를 만든다. 그림과
+         * 제목·설명이 그 한 장 안에 들어간다. 이 저장소의 다른 공유 열다섯 곳은
+         * 원래 이렇게 하고 있었고, 여기만 빠져 있었다.
+         */
+        await navigator.share({ title, text: description, url });
         return;
       } catch (e) {
         if ((e as Error).name === 'AbortError') return;

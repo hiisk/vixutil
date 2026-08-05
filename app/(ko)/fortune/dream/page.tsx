@@ -254,11 +254,13 @@ export default function DreamPage() {
               <div className="flex gap-2 mt-6">
                 <button
                   onClick={() => {
-                    const text = `[꿈해몽] ${selected.emoji} ${selected.keyword} 꿈\n${info.label} — ${selected.summary}\n\nvixutil.com/fortune/dream`;
+                    // 주소는 url 칸으로 넘긴다 — 글 안에 박으면 글과 미리보기가 따로 간다
+                    const url = 'https://vixutil.com/fortune/dream';
+                    const text = `[꿈해몽] ${selected.emoji} ${selected.keyword} 꿈\n${info.label} — ${selected.summary}`;
                     if (navigator.share) {
-                      navigator.share({ title: `${selected.keyword} 꿈 해몽`, text }).catch(() => {});
+                      navigator.share({ title: `${selected.keyword} 꿈 해몽`, text, url }).catch(() => {});
                     } else {
-                      navigator.clipboard?.writeText(text);
+                      navigator.clipboard?.writeText(`${text}\n\n${url}`);
                     }
                   }}
                   className="flex-1 py-3.5 rounded-2xl bg-violet-600 font-bold text-white hover:bg-violet-700 transition-colors text-sm"

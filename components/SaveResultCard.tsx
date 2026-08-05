@@ -33,7 +33,21 @@ export default function SaveResultCard({ emoji, title, subtitle, body, from, to,
     const nav = navigator as Navigator & { canShare?: (data: { files: File[] }) => boolean };
     if (nav.canShare && nav.canShare({ files: [file] })) {
       try {
-        await navigator.share({ files: [file], title, text: `${title} — vixutil.com/snap` });
+        /*
+         * 그림만 보낸다 — 글을 같이 넘기면 갈라진다.
+         *
+         * 카카오톡을 비롯한 메신저는 files와 text를 같이 받으면 하나로 못 묶고
+         * 사진 한 통, 글 한 통으로 따로 보낸다. 받는 쪽에는 관계없는 두 개가
+         * 나란히 오는 것처럼 보인다.
+         *
+         * 잃는 것은 없다. 출처는 이미 그림 안에 있다 — canvas-result-card가
+         * 'SNAP TEST · vixutil.com'과 'vixutil.com/snap 에서 나도 해보기'를
+         * 카드에 그려 넣는다. text는 그것을 한 번 더 적은 것이었다.
+         *
+         * title도 뺀다. 안드로이드 쪽 앱 중에 title을 글로 붙여 보내는 것이 있어서,
+         * 남겨 두면 같은 일이 다시 일어난다.
+         */
+        await navigator.share({ files: [file] });
         setState('done');
         setTimeout(() => setState('idle'), 1500);
         return;
