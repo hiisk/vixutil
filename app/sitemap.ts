@@ -16,6 +16,7 @@ import { colorToolsIntl } from "@/lib/color-tools-intl";
 import { INTL_LOCALES10 } from "@/lib/locales";
 import { CALC_INTL_SLUGS } from "@/lib/calc-l10n";
 import { SNAP_TOOLS } from "@/lib/snap-tools-intl";
+import { NEW_SNAP_SLUGS } from "@/lib/snap/tool-text";
 import { FORTUNE_TOOLS } from "@/lib/fortune-tools-intl";
 import { imageToolsIntl } from "@/lib/image-tools-intl";
 import { soundToolsIntl } from "@/lib/sound-tools-intl";
@@ -186,6 +187,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/snap/photo-mood`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/face-symmetry`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/smile-score`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/snap/id-photo`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/snap/head-pose`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/snap/real-smile`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/snap/eye-open`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/snap/framing`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/animal-face`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/handwriting`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/snap/expression`, changeFrequency: weekly, priority: 0.9 },
@@ -810,6 +816,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}/${lang}/snap`, changeFrequency: weekly, priority: 0.9 },
       ...SNAP_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/snap/${t.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+      // 새 스냅테스트는 SNAP_TOOLS(아홉 언어 표)가 아니라 열 언어짜리 표에 있다
+      ...NEW_SNAP_SLUGS.map(slug => ({
+        url: `${BASE}/${lang}/snap/${slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

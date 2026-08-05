@@ -34,15 +34,19 @@ import { APP_DIR, stripGroups } from './app-path.ts';
 const ROOT = join(import.meta.dirname, '..');
 const CARDS_DIR = join(ROOT, 'lib', 'og-cards');
 
-test('카드가 1,799장 그대로다', () => {
+test('카드 장수가 아는 수와 같다', () => {
   /*
-   * 접기 전 opengraph-image.tsx의 장수다. 줄었다면 어떤 언어의 어떤 섹션이
-   * 카드를 잃은 것이고, 늘었다면 새 섹션이 들어온 것이다 — 둘 다 사람이
-   * 알고 넘어가야 하는 변화다.
+   * 줄었다면 어떤 언어의 어떤 섹션이 카드를 잃은 것이고, 늘었다면 새 섹션이
+   * 들어온 것이다 — 둘 다 사람이 알고 넘어가야 하는 변화다. 그래서 숫자를
+   * 박아 두고, 바뀔 때마다 왜 바뀌었는지 여기 적는다.
+   *
+   *   1,799  파일 규약을 접었을 때의 장수(app 곳곳의 opengraph-image.tsx)
+   *   1,849  새 스냅테스트 다섯을 열 언어로 더함(+50)
    */
+  const WANT = 1849;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
-  assert.equal(total, 1799);
-  assert.equal(allCardParams().length, 1799);
+  assert.equal(total, WANT);
+  assert.equal(allCardParams().length, WANT);
 });
 
 test('keys.ts가 언어별 대응표와 어긋나지 않는다', () => {

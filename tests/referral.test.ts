@@ -245,9 +245,13 @@ test('운세 페이지가 모두 결과 지점 노출을 갖는다', () => {
   assert.match(mrc, /<ReferralCards placement="result" \/>/, 'MatchResultCard에 제휴 카드가 없다');
 });
 
-test('스냅 11개 페이지가 모두 결과 지점 노출을 갖는다', () => {
-  // 10개는 SaveResultCard(스냅 전용)가 대신 들고, first-impression만 직접 붙인다.
+test('스냅 페이지가 모두 결과 지점 노출을 갖는다', () => {
+  // 대부분은 SaveResultCard(스냅 전용)가 대신 들고, first-impression만 직접 붙인다.
   // 새 스냅 페이지를 만들 때 둘 중 하나도 안 쓰면 여기서 걸린다.
+  //
+  // 페이지가 화면을 components/snap의 컴포넌트에 넘기는 것도 있다(새 다섯이
+  // MeasuredTest 하나를 함께 쓴다). 그때는 그 컴포넌트까지 따라가서 본다 —
+  // 안 따라가면 멀쩡한 위임을 "빠졌다"고 한다.
   const snapDir = appJoin('snap');
   const pages = readdirSync(snapDir, { withFileTypes: true })
     .filter(e => e.isDirectory())
@@ -257,9 +261,15 @@ test('스냅 11개 페이지가 모두 결과 지점 노출을 갖는다', () =>
 
   // lens는 렌즈 화각 104가지를 찾아보는 자료 목록이라 "내 결과"가 없다 — 공유할 결과 지점도 없다
   const REFERENCE_ONLY = ['lens'];
+  const shows = (src: string) => src.includes('SaveResultCard') || src.includes('ReferralCards');
   const missing = pages.filter(slug => !REFERENCE_ONLY.includes(slug)).filter(slug => {
     const src = readFileSync(join(snapDir, slug, 'page.tsx'), 'utf8');
-    return !src.includes('SaveResultCard') && !src.includes('ReferralCards');
+    if (shows(src)) return false;
+    // 화면을 넘긴 곳까지 한 겹 따라간다
+    return ![...src.matchAll(/from '@\/components\/snap\/(\w+)'/g)]
+      .map(m => join(ROOT, 'components', 'snap', `${m[1]}.tsx`))
+      .filter(existsSync)
+      .some(f => shows(readFileSync(f, 'utf8')));
   });
   assert.deepEqual(missing, [], `결과 지점 노출이 없는 스냅 페이지: ${missing.join(', ')}`);
 });
