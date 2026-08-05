@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 /**
@@ -91,3 +91,55 @@ export function stripGroups(rel: string): string {
 }
 
 export { APP as APP_DIR };
+
+/*
+ * ── 빌드 산출물 쪽 ───────────────────────────────────────────────
+ * ISR로 바꾸면서 out/이 없어졌다. 미리 구운 HTML은 .next/server/app에 남는데,
+ * 그 아래에도 route group 폴더가 그대로 있다((ko)/color.html 꼴).
+ *
+ * 이 헬퍼가 없어서 SEO·i18n 검사 여덟 개가 out/을 못 찾아 **말없이 건너뛰고
+ * 있었다.** 초록이라 아무도 안 봤다 — hreflang 짝, canonical, og:locale,
+ * 구조화 데이터가 그동안 한 번도 안 확인됐다.
+ */
+const BUILT_DIR = join(ROOT, '.next', 'server', 'app');
+
+/** 빌드 산출물이 있는가 — 없으면 그쪽 검사는 건너뛴다 */
+export const isBuilt = (): boolean => existsSync(BUILT_DIR);
+
+/**
+ * 라우트 → 미리 구운 HTML 경로. 안 구웠으면 null.
+ *
+ * 낱장은 대개 null이다. PRERENDER_PER_ROUTE가 0이라 빌드가 허브만 굽는다 —
+ * "없다"와 "틀렸다"를 가려야 한다.
+ */
+export function builtHtml(route: string): string | null {
+  const rel = route === '/' ? 'index' : route.replace(/^\//, '');
+  const direct = join(BUILT_DIR, `${rel}.html`);
+  if (existsSync(direct)) return direct;
+  for (const g of readdirSync(BUILT_DIR, { withFileTypes: true })) {
+    if (!g.isDirectory() || !g.name.startsWith('(')) continue;
+    const p = join(BUILT_DIR, g.name, `${rel}.html`);
+    if (existsSync(p)) return p;
+  }
+  return null;
+}
+
+export { BUILT_DIR };
+
+/**
+ * 빌드된 사이트맵의 주소 전부 (99,000개쯤). 빌드 전이면 null.
+ *
+ * ISR로 바꾼 뒤 "구운 파일 목록"은 더는 주소 목록이 아니다 — 한국어 낱장은
+ * 안 굽고 번역 낱장은 굽는 식이라, 구운 것만 세면 실제와 다른 그림이 나온다.
+ * 사이트맵은 굽는 것과 무관하게 전부를 담으므로 이쪽이 맞다.
+ */
+export function sitemapRoutes(): string[] | null {
+  for (const name of ['sitemap.xml.body', 'sitemap.xml']) {
+    const p = join(BUILT_DIR, name);
+    if (!existsSync(p) || statSync(p).isDirectory()) continue;
+    const xml = readFileSync(p, 'utf8');
+    if (!xml.includes('<loc>')) continue;
+    return [...xml.matchAll(/<loc>https:\/\/vixutil\.com([^<]*)<\/loc>/g)].map(m => m[1] || '/');
+  }
+  return null;
+}

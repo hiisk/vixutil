@@ -31,9 +31,19 @@ export const siteMetadata: Metadata = {
       { url: '/icon.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico', sizes: '48x48' },
     ],
-    // apple-icon 규약은 svg를 지원하지 않는다. app/apple-icon.tsx가 PNG를 생성한다.
+    /*
+     * apple-icon 규약은 svg를 지원하지 않아 PNG여야 한다.
+     *
+     * 전에는 app/apple-icon.tsx가 next/og로 그려 냈다. 그런데 route group으로
+     * 가르면서 그 파일이 app/(ko)/ 안으로 들어갔고, 주소가 404가 됐다 —
+     * 모든 페이지가 없는 아이콘을 가리킨 채 빌드는 통과했다. 열어 보기 전에는
+     * 모르는 종류의 고장이고, 실제로 두 번째다.
+     *
+     * 그래서 그려 내지 않고 **파일로 둔다**(app/apple-icon.png). 그림은 icon.svg와
+     * 같다. 라우트가 아니므로 그룹에 휩쓸릴 일이 없고 빌드도 아무것도 안 한다.
+     */
     apple: [
-      { url: '/apple-icon', type: 'image/png', sizes: '180x180' },
+      { url: '/apple-icon.png', type: 'image/png', sizes: '180x180' },
     ],
   },
 };

@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 import { appJoin } from './app-path.ts';
+import { builtHtml, isBuilt } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const APP = join(ROOT, 'app');
@@ -50,16 +51,22 @@ test('FAQ가 정의된 페이지는 실제로 FAQPage를 내보낸다', () => {
   // 소스에서 <Faq>를 찾는 대신 빌드 출력을 본다. 페이지가 클라이언트 컴포넌트에
   // 화면을 위임하면(계산기 허브가 그렇다) 소스만 봐서는 놓친다 — 정작 중요한 건
   // "실제로 나가는가"이므로 결과물을 확인하는 편이 정확하다.
-  const OUT = join(ROOT, 'out');
-  if (!existsSync(OUT)) return; // 빌드 전이면 건너뛴다
+  /*
+   * 전에는 out/을 보고, 없으면 그냥 return했다. ISR로 바꾸면서 out/이
+   * 사라졌는데 그 return이 남아 **건너뛴 표시조차 없이 초록**이었다.
+   * 지금은 .next/server/app을 보고, 볼 것이 없으면 그렇다고 말한다.
+   */
+  if (!isBuilt()) return; // 빌드 전이면 건너뛴다
 
+  let seen = 0;
   const missing = routes.filter(r => {
-    // 동적 라우트도 정적 출력에서는 <route>.html로 떨어진다
-    const html = join(OUT, `${r}.html`);
-    if (!existsSync(html)) return true;
+    const html = builtHtml(`/${r}`);
+    if (!html) return false; // ISR이라 안 구운 것은 여기서 못 본다
+    seen++;
     return !readFileSync(html, 'utf8').includes('FAQPage');
   });
   assert.deepEqual(missing, [], `FAQPage가 안 나가는 페이지: ${missing.join(', ')}`);
+  assert.ok(seen > routes.length / 2, `${routes.length}개 중 ${seen}개만 구워져 있다 — 볼 것이 너무 적다`);
 });
 
 test('FAQ 항목에 빈 질문·짧은 답변이 없다', () => {

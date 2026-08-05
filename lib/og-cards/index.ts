@@ -27,6 +27,7 @@
 import type { Metadata } from 'next';
 
 import { LANGS, type Lang } from '../i18n/lang.ts';
+import { openGraphFor, type AnyLocale10 } from '../locales.ts';
 import { OG_SIZE } from '../og-size.ts';
 import { CARD_KEYS } from './keys.ts';
 
@@ -39,6 +40,8 @@ import { CARD_KEYS } from './keys.ts';
  */
 const SEG_OF_LANG = new Map<Lang, string>(LANGS.map(l => [l.lang, l.prefix.slice(1) || 'ko']));
 const LANG_OF_SEG = new Map<string, Lang>([...SEG_OF_LANG].map(([l, s]) => [s, l]));
+/** og:locale을 고르는 데 쓴다 — locales.ts의 경로형 로케일 */
+const LOCALE_OF_LANG = new Map<Lang, AnyLocale10>(LANGS.map(l => [l.lang, l.locale]));
 
 const HAS = new Map<Lang, Set<string>>(
   (Object.entries(CARD_KEYS) as [Lang, string[]][]).map(([l, ks]) => [l, new Set(ks)]),
@@ -112,5 +115,22 @@ export function withCard(m: Metadata): Metadata {
   const url = cardUrl(canonical);
   if (!url) return m;
   const images = [{ url, ...OG_SIZE }];
-  return { ...m, openGraph: { ...m.openGraph, images }, twitter: { ...m.twitter, images } };
+  /*
+   * type·siteName·locale을 함께 넣어야 한다.
+   *
+   * Next는 openGraph를 **통째로** 갈아 끼운다 — 페이지가 선언하면 루트
+   * 레이아웃의 것이 남김없이 사라진다. 그래서 여기서 images만 얹었더니
+   * 한국어 허브 열두 장에서 og:locale이 통째로 없어졌다. 번역 페이지는
+   * 원래 openGraphFor를 직접 적고 있어서 멀쩡했고, 한국어만 조용히 빠졌다.
+   * tests/hreflang-pairs.test.ts가 잡는다.
+   *
+   * m.openGraph를 기본값 뒤에 두어, 페이지가 적은 것은 그대로 이긴다.
+   */
+  const lang = split(canonical).lang;
+  const base = openGraphFor(LOCALE_OF_LANG.get(lang) ?? 'ko');
+  return {
+    ...m,
+    openGraph: { ...base, ...m.openGraph, images },
+    twitter: { ...m.twitter, images },
+  };
 }

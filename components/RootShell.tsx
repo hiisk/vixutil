@@ -9,8 +9,12 @@
  * 전에는 빌드가 끝난 뒤 out/의 HTML을 문자열 치환해서 lang을 고쳤다
  * (scripts/fix-html-lang.mjs). ISR로 바꾸면서 낱장이 요청 때 만들어지므로
  * 그 방법이 더는 통하지 않는다 — 고칠 파일이 빌드 시점에 없다.
+ *
+ * **메타데이터는 여기 두지 않는다.** Next는 metadata를 layout.tsx·page.tsx에서만
+ * 읽는다 — 이 파일은 그냥 컴포넌트라 여기 적으면 아무 일도 안 일어난다.
+ * 실제로 app/layout.tsx에서 옮겨 올 때 딸려 와서, lib/site-metadata.ts와 같은
+ * 내용이 두 벌로 한동안 있었다. 고치는 사람은 둘 중 아무거나 고치게 된다.
  */
-import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import JsonLd, { websiteJsonLd } from "@/components/JsonLd";
@@ -20,39 +24,6 @@ import '@/app/globals.css';
 // TODO: GA4 측정 ID를 입력하세요 (예: "G-XXXXXXXXXX"). 비워두면 GA 스크립트는 로드되지 않습니다.
 const GA_MEASUREMENT_ID = "";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://vixutil.com"),
-  title: { default: "vixutil", template: "%s | vixutil" },
-  description: "계산기·운세·생성기·심리테스트·퀴즈 등 일상 유틸 모음 — vixutil.com",
-  /*
-    og:title·og:description·og:image는 Next가 각 페이지의 title/description과
-    opengraph-image 규약에서 자동으로 채운다. 여기서는 자동으로 안 채워지는
-    것들 — 사이트명, 타입, 로케일 — 만 전역 기본값으로 둔다.
-    하위 페이지가 openGraph를 따로 선언하면 이 값이 통째로 대체되므로,
-    선언할 일이 생기면 siteName·locale을 같이 적어야 한다.
-  */
-  openGraph: {
-    type: "website",
-    siteName: "vixutil",
-    locale: "ko_KR",
-  },
-  icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: '48x48' },
-    ],
-    // apple-icon 규약은 svg를 지원하지 않는다. app/apple-icon.tsx가 PNG를 생성한다.
-    apple: [
-      { url: '/apple-icon', type: 'image/png', sizes: '180x180' },
-    ],
-  },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-};
 
 /**
  * 첫 페인트 전에 테마 클래스를 붙인다. React가 렌더한 뒤에 붙이면 화면이 한 번

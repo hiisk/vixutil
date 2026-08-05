@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { appFile } from './app-path.ts';
+import { sitemapRoutes } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const OUT = join(ROOT, 'out');
 
 /**
  * 체크리스트·퀴즈·테스트는 항목을 언어별로 따로 썼다. 한국어 목록과 번역 목록이
@@ -59,17 +59,25 @@ test('localesWithItem이 hreflang과 같은 표를 쓴다', () => {
  * 빌드했을 때만 도는 부분. 겹치는 항목이 실제로 있는지 본다 — 0이면 위 검사들이
  * 통과해도 "한국어를 목록에 넣는 길"은 한 번도 돌지 않은 셈이다.
  */
-const built = existsSync(OUT);
+const built = sitemapRoutes() !== null;
 
-test('한국어와 번역판이 겹치는 항목이 실제로 있다', { skip: !built && '빌드 안 됨' }, () => {
+test('한국어와 번역판이 겹치는 항목이 실제로 있다', { skip: !built && '빌드 산출물 없음 — npm run build 필요' }, () => {
+  /*
+   * 전에는 구운 HTML 파일 이름을 견줬다. ISR로 바꾼 뒤로는 그게 성립하지 않는다 —
+   * 한국어 낱장은 안 굽고 번역 낱장은 굽는 식이라, 구운 것만 세면 겹침이 0으로
+   * 나온다(실제로 그렇게 나왔다). 사이트맵은 굽는 것과 무관하게 전부를 담는다.
+   */
+  const routes = sitemapRoutes()!;
   let overlap = 0;
   const detail: string[] = [];
   for (const sec of SECTIONS) {
-    const koDir = join(OUT, sec);
-    const enDir = join(OUT, 'en', sec);
-    if (!existsSync(koDir) || !existsSync(enDir)) continue;
-    const ko = new Set(readdirSync(koDir).filter(f => f.endsWith('.html')));
-    const both = readdirSync(enDir).filter(f => f.endsWith('.html') && ko.has(f));
+    const slugs = (prefix: string) =>
+      new Set(routes
+        .filter(r => r.startsWith(`${prefix}/${sec}/`))
+        .map(r => r.slice(`${prefix}/${sec}/`.length))
+        .filter(x => x && !x.includes('/')));
+    const ko = slugs('');
+    const both = [...slugs('/en')].filter(x => ko.has(x));
     overlap += both.length;
     detail.push(`${sec} ${both.length}개`);
   }

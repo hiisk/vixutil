@@ -9,8 +9,14 @@ import { ALL_LOCALES10 } from '../lib/locales.ts';
 import { appEntries, appFile, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const OUT = join(ROOT, 'out');
-const built = existsSync(OUT);
+/*
+ * 전에는 out/을 봤다. ISR로 바꾸면서 out/이 없어졌는데 조건을 안 고쳐서
+ * 아래 검사가 말없이 건너뛰고 있었다. HTML은 .next/server/app, 번들은
+ * .next/static에 있다 — out/일 때 한 그릇이던 것이 둘로 갈렸다.
+ */
+const OUT = join(ROOT, '.next', 'server', 'app');
+const STATIC = join(ROOT, '.next', 'static');
+const built = existsSync(OUT) && existsSync(STATIC);
 
 test('제휴 링크가 lib/referral.ts 한 곳에서만 관리된다', () => {
   // 링크가 두 벌로 갈라지면 한쪽만 바뀌는 사고가 난다.
@@ -136,7 +142,7 @@ test('혜택 금액이 화면 쪽에 하드코딩돼 있지 않다', () => {
   }
 });
 
-test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false : '빌드 산출물 없음 — npm run build 필요' }, () => {
   const walk = (dir: string, out: string[] = []): string[] => {
     for (const e of readdirSync(dir, { withFileTypes: true })) {
       const p = join(dir, e.name);
@@ -162,7 +168,13 @@ test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false 
   // en/ja는 제외한다. 로컬라이즈된 계산기 허브라 CalcShell을 쓰지 않고, 제휴 문구도
   // 한국어·영어만 있어서 일본어 페이지에 넣을 것이 없다.
   const LOCALIZED_HUBS = ['en.html', 'ja.html'];
-  const calcPages = walk(join(OUT, 'calculator'))
+  // route group 때문에 계산기가 app 바로 밑이 아닐 수 있다 — 이름으로 찾는다
+  const calcRoot = ['calculator', ...readdirSync(OUT, { withFileTypes: true })
+    .filter(e => e.isDirectory() && e.name.startsWith('('))
+    .map(e => join(e.name, 'calculator'))]
+    .map(r => join(OUT, r)).find(existsSync);
+  assert.ok(calcRoot, '빌드 산출물에서 계산기 폴더를 못 찾았다');
+  const calcPages = walk(calcRoot)
     .filter(p => p.endsWith('.html'))
     .filter(p => !LOCALIZED_HUBS.includes(p.split('/').pop()!));
 
@@ -171,7 +183,7 @@ test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false 
   assert.equal(withRef.length, calcPages.length,
     `계산기 ${calcPages.length}개 중 ${withRef.length}개에만 제휴 링크가 있다`);
 
-  const chunks = walk(join(OUT, '_next', 'static')).filter(p => p.endsWith('.js'));
+  const chunks = walk(STATIC).filter(p => p.endsWith('.js'));
   const inBundle = chunks.some(p => readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes(host));
   assert.ok(inBundle, '결과 화면용 번들에 제휴 링크가 없다 — 결과 지점 노출이 통째로 빠졌다');
 });
