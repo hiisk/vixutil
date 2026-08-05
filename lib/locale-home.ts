@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/hike', icon: '⛰️', color: 'from-green-700 to-lime-500',
+    accent: 'text-green-700 dark:text-green-200', border: 'border-green-200 dark:border-green-800', bg: 'bg-green-50 dark:bg-green-900/40',
+    copy: {
+      en: { title: 'Hiking Time', desc: 'How long a route takes — distance plus climb, by Naismith’s rule' },
+      es: { title: 'Tiempo de senderismo', desc: 'Cuánto dura una ruta: distancia más desnivel, por la regla de Naismith' },
+      'pt-br': { title: 'Tempo de trilha', desc: 'Quanto dura uma trilha: distância mais subida, pela regra de Naismith' },
+      ja: { title: '登山の所要時間', desc: '距離と登りから、ネイスミスの法則で' },
+      de: { title: 'Wanderzeit', desc: 'Wie lange eine Tour dauert — Strecke plus Anstieg, nach Naismith' },
+      fr: { title: 'Temps de randonnée', desc: 'La durée d’un parcours : distance plus dénivelé, règle de Naismith' },
+      hi: { title: 'ट्रेकिंग समय', desc: 'दूरी और चढ़ाई से, नेस्मिथ के नियम के अनुसार' },
+      'zh-hans': { title: '登山时间', desc: '按内史密斯法则，从距离和爬升算出用时' },
+      'zh-hant': { title: '登山時間', desc: '按內史密斯法則，從距離和爬升算出用時' },
+    },
+  },
+  {
     route: '/uv', icon: '☀️', color: 'from-orange-500 to-yellow-400',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {

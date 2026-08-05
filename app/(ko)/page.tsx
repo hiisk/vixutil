@@ -41,6 +41,7 @@ import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
+import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -93,6 +94,18 @@ const SECTIONS = [
     textAccent: 'text-orange-700 dark:text-orange-200',
     borderAccent: 'border-orange-200 dark:border-orange-800',
     shadow: 'shadow-orange-100',
+  },
+  {
+    href: '/hike',
+    icon: '⛰️',
+    title: '등산 시간 계산',
+    desc: '10km에 500m를 올리면 2시간 50분 — 시간을 가르는 건 오름입니다',
+    badge: `${HIKE_CELLS.length}칸`,
+    color: 'from-green-700 to-lime-500',
+    bgLight: 'bg-green-50 dark:bg-green-900/40',
+    textAccent: 'text-green-700 dark:text-green-200',
+    borderAccent: 'border-green-200 dark:border-green-800',
+    shadow: 'shadow-green-100',
   },
   {
     href: '/paper',
