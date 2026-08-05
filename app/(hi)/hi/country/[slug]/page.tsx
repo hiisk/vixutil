@@ -6,6 +6,7 @@ import { COUNTRY_UI, countryAlternates, gapText } from '@/lib/country-ui';
 import { countryText } from '@/lib/country/types';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(COUNTRIES.map(c => ({ slug: c.slug })));
@@ -17,12 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!c) return {};
   const t = countryText(c, 'hi');
   const ui = COUNTRY_UI['hi'];
-  return {
+  return withCard({
     title: `${t.name} — ${ui.section}`,
     description: `${t.name}: ${gapText(c, 'hi')}, ${ui.volt} ${c.volt}, ${ui.plug} ${c.plug}, ${ui.dial} ${c.dial}. ${t.intro}`,
     openGraph: openGraphFor('hi'),
     alternates: { canonical: localeHref('hi', `/country/${slug}`), languages: countryAlternates(slug) },
-  };
+  });
 }
 
 export default async function CountryDetailHi({ params }: { params: Promise<{ slug: string }> }) {

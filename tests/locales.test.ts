@@ -83,9 +83,15 @@ test('app 아래 언어 폴더가 레지스트리에 등록된 것뿐이다', ()
   const known = new Set<string>(ALL_LOCALES.filter(l => l !== 'ko'));
   // 언어 폴더는 두 글자 또는 두 글자-두 글자 형태다. 섹션 폴더(color, fortune 등)와 구분한다
   const localeLike = /^[a-z]{2}(-[a-z]{2})?$/;
+  /*
+   * app/og는 언어가 아니라 공유 카드를 그리는 라우트다(app/og/[...slug]/route.tsx).
+   * 하필 두 글자라 위 규칙에 걸린다 — 이 검사가 쓰이던 때에는 "섹션 이름이
+   * 우연히 두 글자인 경우는 없다"고 적혀 있었는데, 생겼다.
+   */
+  const NOT_A_LOCALE = new Set(['og']);
   const stray = readdirSync(APP, { withFileTypes: true })
     .filter(d => d.isDirectory() && localeLike.test(d.name) && !known.has(d.name))
-    // 섹션 이름이 우연히 두 글자인 경우는 없지만, 있어도 걸러지도록 언어 폴더만 본다
+    .filter(d => !NOT_A_LOCALE.has(d.name))
     .map(d => d.name);
   assert.deepEqual(
     stray, [],

@@ -13,8 +13,9 @@ import { foodFacts } from '@/lib/food/facts';
 import { FOOD_UI, foodAlternates } from '@/lib/food/ui';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '계량·요리 — 컵을 그램으로, 레시피 배율, 오븐 온도',
   description:
     '밀가루 1컵이 몇 그램인지, 2인분을 4인분으로 어떻게 늘리는지, 350°F가 몇 도인지. 밥물·파스타·커피 비율과 식품 보관 기간까지 요리하며 검색하게 되는 것들.',
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     canonical: '/food',
     languages: alternateLanguages10('/food'),
   },
-};
+});
 
 const CATEGORY_ORDER = ['계량', '가열', '음료', '베이킹', '보관'];
 

@@ -2,6 +2,7 @@
 import type { TextTool } from './text-tools.ts';
 import { TEXT_TOOLS } from './text-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 텍스트 도구(/text) 섹션의 번역 메타데이터.
@@ -521,7 +522,7 @@ export function relatedTextToolsIntl(lang: TextIntlLang, slug: string, count = 4
 export function textMetaIntl(lang: TextIntlLang, slug: string) {
   const t = findTextToolIntl(lang, slug);
   if (!t) throw new Error(`text-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -529,12 +530,12 @@ export function textMetaIntl(lang: TextIntlLang, slug: string) {
       canonical: localeHref(lang, `/text/${slug}`),
       languages: alternateLanguages10(`/text/${slug}`),
     },
-  };
+  });
 }
 
 export function textHubMetaIntl(lang: TextIntlLang) {
   const ui = TEXT_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -542,7 +543,7 @@ export function textHubMetaIntl(lang: TextIntlLang) {
       canonical: localeHref(lang, '/text'),
       languages: alternateLanguages10('/text'),
     },
-  };
+  });
 }
 
 /** 셸·허브 UI 문구 */

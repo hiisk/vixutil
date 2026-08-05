@@ -12,8 +12,9 @@ import { DEVICE_UI } from '@/lib/device/ui';
 import { SCREEN_ICON } from '@/lib/device/route';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '기기 점검 — 키보드·마우스·마이크·웹캠 온라인 테스트',
   description:
     '키보드 입력, 마우스 채터링, 마이크 볼륨, 웹캠 화면, 스피커 좌우, 모니터 불량화소, 주사율까지 설치 없이 브라우저에서 바로 점검하세요. 무료·회원가입 없음.',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     canonical: '/device',
     languages: alternateLanguages10('/device'),
   },
-};
+});
 
 const CATEGORY_ORDER = ['입력장치', '오디오', '영상', '화면', '정보'];
 

@@ -9,6 +9,7 @@ import { PORTS, PORT_ICON, portOf } from './list.ts';
 import { portFacts } from './facts.ts';
 import { PORT_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#c026d3';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = PORT_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/port`, languages: alternates('/port') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!x) return {};
   const ui = PORT_UI[lang];
   const f = portFacts(x);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/port/${x.port}`,
       languages: alternates(`/port/${x.port}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

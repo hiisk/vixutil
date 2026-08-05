@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import WeekdayBoard from './WeekdayBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Best Day of the Week to Buy Crypto — tested, not asserted',
   description:
     'Average and median returns by weekday for Bitcoin and any Binance coin, with a t-statistic, the multiple-comparison baseline, and a check on whether outliers are driving the average.',
   alternates: { canonical: '/crypto/day-of-week' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

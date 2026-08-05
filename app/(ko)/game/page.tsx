@@ -16,8 +16,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { GAME_TOOLS } from '@/lib/game-tools';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '두뇌 게임 — 반응속도·클릭속도·기억력 테스트',
   description:
     '반응속도, 초당 클릭 수(CPS), 순서·숫자·패턴 기억력, 타자 연습, 색 구분, 가청 주파수, 암산까지 1분이면 끝나는 측정 게임 10종. 설치 없이 브라우저에서 바로.',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     canonical: '/game',
     languages: alternateLanguages10('/game'),
   },
-};
+});
 
 const CATEGORY_ORDER = ['반응·속도', '기억력', '감각', '두뇌'];
 

@@ -9,6 +9,7 @@ import { ALTITUDE_ICON, ALTITUDE_SLUGS, altitudeOf } from './list.ts';
 import { altitudeFacts } from './facts.ts';
 import { ALTITUDE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0e7490';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = ALTITUDE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/altitude`, languages: alternates('/altitude') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (m === undefined) return {};
   const ui = ALTITUDE_UI[lang];
   const f = altitudeFacts(m);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/altitude/${slug}`, languages: alternates(`/altitude/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

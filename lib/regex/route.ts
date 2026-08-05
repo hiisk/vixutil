@@ -10,6 +10,7 @@ import { regexFacts } from './facts.ts';
 import { whatOf } from './desc.ts';
 import { REGEX_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0ea5e9';
 const TO = '#0f172a';
@@ -19,11 +20,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = REGEX_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/text/regex`, languages: alternates('/text/regex') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -31,14 +32,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!x) return {};
   const ui = REGEX_UI[lang];
   const f = regexFacts(x);
-  return {
+  return withCard({
     title: `${ui.metaTitle(whatOf(slug, lang))} — ${ui.section}`,
     description: ui.metaDesc(f, whatOf(slug, lang)),
     alternates: {
       canonical: `${langPrefix(lang)}/text/regex/${slug}`,
       languages: alternates(`/text/regex/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

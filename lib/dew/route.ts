@@ -9,6 +9,7 @@ import { DEW_ICON, DEW_SLUGS, cellOf } from './list.ts';
 import { dewFacts } from './facts.ts';
 import { DEW_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0e7490';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = DEW_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/dew`, languages: alternates('/dew') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!c) return {};
   const ui = DEW_UI[lang];
   const f = dewFacts(c);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/dew/${slug}`, languages: alternates(`/dew/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

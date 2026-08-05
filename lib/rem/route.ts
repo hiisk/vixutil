@@ -9,6 +9,7 @@ import { PX_ICON, PX_SLUGS, pxOf } from './list.ts';
 import { pxFacts } from './facts.ts';
 import { PX_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#7c3aed';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = PX_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/rem`, languages: alternates('/rem') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (px === undefined) return {};
   const ui = PX_UI[lang];
   const f = pxFacts(px);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/rem/${slug}`, languages: alternates(`/rem/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

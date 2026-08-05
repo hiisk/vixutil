@@ -1,14 +1,15 @@
 import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
-export const metadata: Metadata = {
+import { withCard } from '@/lib/og-cards';
+export const metadata: Metadata = withCard({
   title: 'MBTI 궁합 - 16유형으로 보는 두 사람 궁합 점수',
   description: '두 사람의 MBTI 16유형으로 보는 궁합 점수와 연애·관계 조언. E/I·N/S·T/F·J/P 상성을 재미로 확인하세요.',
   alternates: {
     canonical: '/fortune/mbti-match',
     languages: alternateLanguages10('/fortune/mbti-match'),
   },
-};
+});
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import RebalanceBoard from './RebalanceBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Rebalancing Simulator — did it actually help?',
   description:
     'Backtest weekly, monthly and quarterly rebalancing of an equal-weight crypto portfolio against simply leaving it alone, with trading fees deducted and both drawdowns shown.',
   alternates: { canonical: '/crypto/rebalancing' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

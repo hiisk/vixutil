@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import SeasonalityBoard from './SeasonalityBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Monthly Seasonality — with the sample size that kills it',
   description:
     'Median return by calendar month for Bitcoin and any Binance coin, shown next to the number of years behind each figure and the probability of seeing that split from a fair coin. "Uptober" and "September is weak", measured properly.',
   alternates: { canonical: '/crypto/seasonality' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

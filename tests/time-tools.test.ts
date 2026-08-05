@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { TIME_TOOLS, findTimeTool, relatedTimeTools } from '../lib/time-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
 import { appEntries, appJoin } from './app-path.ts';
+import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const APP = appJoin('time');
@@ -24,7 +25,8 @@ test('도구마다 페이지와 OG 이미지가 있다', () => {
   const missing: string[] = [];
   for (const t of TIME_TOOLS) {
     if (!existsSync(join(APP, t.slug, 'page.tsx'))) missing.push(`${t.slug}/page.tsx`);
-    if (!existsSync(join(APP, t.slug, 'opengraph-image.tsx'))) missing.push(`${t.slug}/opengraph-image.tsx`);
+    // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다
+    if (!hasOwnCard(`/time/${t.slug}`)) missing.push(`/time/${t.slug} 공유 카드`);
   }
   assert.deepEqual(missing, [], `없는 파일: ${missing.join(', ')}`);
 });

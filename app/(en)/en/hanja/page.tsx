@@ -2,15 +2,16 @@ import type { Metadata } from 'next';
 import HanjaHub from '@/components/HanjaHub';
 import { HANJA_UI, hanjaAlternates } from '@/lib/hanja-ui';
 import { openGraphFor } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
 const ui = HANJA_UI['en'];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: ui.metaTitle,
   description: ui.metaDesc,
   openGraph: openGraphFor('en'),
   alternates: { canonical: '/en/hanja', languages: hanjaAlternates() },
-};
+});
 
 export default function HanjaHubPageEN() {
   return <HanjaHub lang="en" />;

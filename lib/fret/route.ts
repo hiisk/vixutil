@@ -9,6 +9,7 @@ import { FRET_ICON, FRET_SLUGS, spotOf } from './list.ts';
 import { fretFacts, nameOf } from './facts.ts';
 import { FRET_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#a16207';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = FRET_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/fret`, languages: alternates('/fret') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -31,11 +32,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   const ui = FRET_UI[lang];
   const f = fretFacts(p);
   const note = nameOf(p, lang);
-  return {
+  return withCard({
     title: ui.metaTitle(f, note),
     description: ui.metaDesc(f, note),
     alternates: { canonical: `${langPrefix(lang)}/fret/${slug}`, languages: alternates(`/fret/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

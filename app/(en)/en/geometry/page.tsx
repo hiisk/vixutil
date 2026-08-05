@@ -4,15 +4,16 @@ import FormulaHub from '@/components/FormulaHub';
 import { GEO_SECTION } from '@/lib/geo-section';
 import { sectionAlternates } from '@/lib/formula/ui';
 import { openGraphFor } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
 const meta = GEO_SECTION.meta['en'];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: meta.metaTitle,
   description: meta.metaDesc,
   openGraph: openGraphFor('en'),
   alternates: { canonical: '/en/geometry', languages: sectionAlternates('geometry', undefined, GEO_LANGS) },
-};
+});
 
 export default function GeoHubEN() {
   return <FormulaHub lang="en" section={GEO_SECTION} />;

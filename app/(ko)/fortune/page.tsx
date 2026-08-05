@@ -11,15 +11,16 @@ import { TAROT_UI } from '@/lib/tarot/ui';
 import { TAROT_ICON } from '@/lib/tarot/deck';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '오늘의 운세',
   description: '꿈해몽·사주·별자리·타로·MBTI 운세를 무료로 확인하세요. 매일 새롭게 업데이트되는 오늘의 운세',
   alternates: {
     canonical: '/fortune',
     languages: alternateLanguages10('/fortune'),
   },
-};
+});
 
 const TYPES = [
   { href: '/fortune/dream',  icon: '🌙', title: '꿈 해몽',     desc: '돼지·뱀·불 등 78가지 꿈의 의미 분석', badge: '꿈해몽',   color: 'from-slate-700 to-indigo-800' },

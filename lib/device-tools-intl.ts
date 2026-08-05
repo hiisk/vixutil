@@ -2,6 +2,7 @@
 import type { DeviceTool } from './device-tools.ts';
 import { DEVICE_TOOLS } from './device-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 기기 점검(/device) 섹션의 번역 메타데이터.
@@ -625,7 +626,7 @@ export function relatedDeviceToolsIntl(lang: DeviceIntlLang, slug: string, count
 export function deviceMetaIntl(lang: DeviceIntlLang, slug: string) {
   const t = findDeviceToolIntl(lang, slug);
   if (!t) throw new Error(`device-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -633,12 +634,12 @@ export function deviceMetaIntl(lang: DeviceIntlLang, slug: string) {
       canonical: localeHref(lang, `/device/${slug}`),
       languages: alternateLanguages10(`/device/${slug}`),
     },
-  };
+  });
 }
 
 export function deviceHubMetaIntl(lang: DeviceIntlLang) {
   const ui = DEVICE_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -646,7 +647,7 @@ export function deviceHubMetaIntl(lang: DeviceIntlLang) {
       canonical: localeHref(lang, '/device'),
       languages: alternateLanguages10('/device'),
     },
-  };
+  });
 }
 
 /** 셸·허브 UI 문구 */

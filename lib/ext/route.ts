@@ -9,6 +9,7 @@ import { EXTS, EXT_ICON, extOf } from './list.ts';
 import { extFacts } from './facts.ts';
 import { EXT_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#6366f1';
 const TO = '#0f172a';
@@ -18,25 +19,25 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = EXT_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/ext`, languages: alternates('/ext') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
   const x = extOf(slug);
   if (!x) return {};
   const ui = EXT_UI[lang];
-  return {
+  return withCard({
     title: `${ui.metaTitle(x.ext)} — ${ui.section}`,
     description: ui.metaDesc(extFacts(x), ui.kindLabel[x.kind]),
     alternates: {
       canonical: `${langPrefix(lang)}/ext/${slug}`,
       languages: alternates(`/ext/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

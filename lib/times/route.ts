@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { TIMES_ICON, productOf, slugOf } from './list.ts';
 import { timesFacts } from './facts.ts';
 import { TIMES_UI } from './ui.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0d9488';
 const TO = '#0f172a';
@@ -17,11 +18,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = TIMES_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/times`, languages: alternates('/times') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {

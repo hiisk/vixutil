@@ -9,6 +9,7 @@ import { YEAR_ICON, YEAR_SLUGS, yearOf } from './list.ts';
 import { yearFacts } from './facts.ts';
 import { YEAR_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#be123c';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = YEAR_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/year`, languages: alternates('/year') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (y === undefined) return {};
   const ui = YEAR_UI[lang];
   const f = yearFacts(y);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/year/${slug}`, languages: alternates(`/year/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

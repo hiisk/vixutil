@@ -89,7 +89,9 @@ test('여덟 언어 라우트가 다 있고 hreflang이 서로를 가리킨다',
     assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
   }
-  const alt = randomMetaIntl('es', 'roulette').alternates.languages;
+  // 메타데이터 함수가 withCard를 거치면서 반환형이 Metadata로 넓어졌다 —
+  // 리터럴 추론이 없어져서 언어 열쇠로 바로 못 찾는다
+  const alt = (randomMetaIntl('es', 'roulette').alternates?.languages ?? {}) as Record<string, unknown>;
   for (const lang of ALL_LOCALES) {
     assert.equal(alt[localeTag(lang)], localeHref(lang, '/random/roulette'), `${lang} 대안 주소가 틀렸다`);
   }

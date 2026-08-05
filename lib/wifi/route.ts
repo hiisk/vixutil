@@ -9,6 +9,7 @@ import { WIFI_ICON, WIFI_SLUGS, channelOf } from './list.ts';
 import { wifiFacts } from './facts.ts';
 import { WIFI_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#1d4ed8';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = WIFI_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/wifi`, languages: alternates('/wifi') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!c) return {};
   const ui = WIFI_UI[lang];
   const f = wifiFacts(c);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/wifi/${slug}`, languages: alternates(`/wifi/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

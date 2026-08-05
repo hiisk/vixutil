@@ -12,8 +12,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { TIME_TOOLS } from '@/lib/time-tools';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '시간 도구 — 타이머·스톱워치·세계시계',
   description:
     '타이머, 스톱워치, 뽀모도로, 알람, 세계 시계, 시차 계산, 근무일 계산, 날짜 더하기, 주차 확인까지 한 곳에서. 설치 없이 브라우저에서 바로.',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     canonical: '/time',
     languages: alternateLanguages10('/time'),
   },
-};
+});
 
 const CATEGORY_ORDER = ['재기', '세계 시간', '날짜 세기'];
 

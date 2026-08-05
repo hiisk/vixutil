@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import PositionSizer from './PositionSizer';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Position Size Calculator — and the odds your stop gets hit',
   description:
     'Size a crypto trade from your account, risk per trade and stop distance, with the margin needed at any leverage. Also shows how likely that stop is to be hit by ordinary volatility, and the win rate your reward ratio demands.',
   alternates: { canonical: '/crypto/position-size-calculator' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

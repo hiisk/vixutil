@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import FearGreedBoard from './FearGreedBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Fear & Greed Index — and whether it actually works',
   description:
     'The live crypto Fear & Greed Index with its percentile against every reading since 2018 — plus a direct backtest of the "buy when there is fear" rule against Bitcoin returns, with the real sample size shown.',
   alternates: { canonical: '/crypto/fear-greed-index' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

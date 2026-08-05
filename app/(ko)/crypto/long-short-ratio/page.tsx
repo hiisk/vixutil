@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import LongShortBoard from './LongShortBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Long/Short Ratio — accounts, money, and open interest side by side',
   description:
     'Live Binance futures long/short ratios for the biggest markets, showing the account ratio and the position-weighted ratio together — because counting traders is not the same as counting money — alongside open interest.',
   alternates: { canonical: '/crypto/long-short-ratio' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

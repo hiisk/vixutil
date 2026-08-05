@@ -1,14 +1,15 @@
 import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
-export const metadata: Metadata = {
+import { withCard } from '@/lib/og-cards';
+export const metadata: Metadata = withCard({
   title: 'MBTI 운세 - 16가지 성격 유형별 오늘의 운세',
   description: '내 MBTI 유형에 맞는 오늘의 운세를 무료로 확인해보세요.',
   alternates: {
     canonical: '/fortune/mbti',
     languages: alternateLanguages10('/fortune/mbti'),
   },
-};
+});
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

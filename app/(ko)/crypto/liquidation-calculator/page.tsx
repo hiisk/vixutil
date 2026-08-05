@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import LiquidationCalculator from './LiquidationCalculator';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Liquidation Calculator — price, and the odds of getting there',
   description:
     'Calculate the liquidation price of a leveraged crypto position from entry, leverage and margin — then see the probability of actually hitting it within 7, 30 and 90 days, from each coin’s measured volatility. Long and short, isolated margin, added margin.',
   alternates: { canonical: '/crypto/liquidation-calculator' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

@@ -2,6 +2,7 @@
 import type { SoundTool } from './sound-tools.ts';
 import { SOUND_TOOLS } from './sound-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 소리 도구(/sound) 섹션의 번역 메타데이터.
@@ -631,7 +632,7 @@ export function relatedSoundToolsIntl(lang: SoundIntlLang, slug: string, count =
 export function soundMetaIntl(lang: SoundIntlLang, slug: string) {
   const t = findSoundToolIntl(lang, slug);
   if (!t) throw new Error(`sound-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -639,12 +640,12 @@ export function soundMetaIntl(lang: SoundIntlLang, slug: string) {
       canonical: localeHref(lang, `/sound/${slug}`),
       languages: alternateLanguages10(`/sound/${slug}`),
     },
-  };
+  });
 }
 
 export function soundHubMetaIntl(lang: SoundIntlLang) {
   const ui = SOUND_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -652,7 +653,7 @@ export function soundHubMetaIntl(lang: SoundIntlLang) {
       canonical: localeHref(lang, '/sound'),
       languages: alternateLanguages10('/sound'),
     },
-  };
+  });
 }
 
 /** 셸·허브 UI 문구 */

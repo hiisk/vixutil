@@ -2,6 +2,7 @@
 import type { ImageTool } from './image-tools.ts';
 import { IMAGE_TOOLS } from './image-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 이미지 도구(/image) 섹션의 번역 메타데이터.
@@ -528,7 +529,7 @@ export function relatedImageToolsIntl(lang: ImageIntlLang, slug: string, count =
 export function imageMetaIntl(lang: ImageIntlLang, slug: string) {
   const t = findImageToolIntl(lang, slug);
   if (!t) throw new Error(`image-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -536,12 +537,12 @@ export function imageMetaIntl(lang: ImageIntlLang, slug: string) {
       canonical: localeHref(lang, `/image/${slug}`),
       languages: alternateLanguages10(`/image/${slug}`),
     },
-  };
+  });
 }
 
 export function imageHubMetaIntl(lang: ImageIntlLang) {
   const ui = IMAGE_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -549,7 +550,7 @@ export function imageHubMetaIntl(lang: ImageIntlLang) {
       canonical: localeHref(lang, '/image'),
       languages: alternateLanguages10('/image'),
     },
-  };
+  });
 }
 
 /** 셸·허브 UI 문구 */

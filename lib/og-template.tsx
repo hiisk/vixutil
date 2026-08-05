@@ -2,8 +2,8 @@ import type { ReactElement } from 'react';
 import { ogGlyph } from './og-icons';
 
 /** 공유(OG) 이미지 공통 규격·템플릿 — next/og(Satori)로 렌더 */
-export const OG_SIZE = { width: 1200, height: 630 };
-export const OG_CONTENT_TYPE = 'image/png';
+import { OG_SIZE } from './og-size.ts';
+export { OG_SIZE, OG_CONTENT_TYPE } from './og-size.ts';
 
 /** #rrggbb → rgba(r,g,b,a) */
 export function alpha(hex: string, a: number): string {

@@ -10,6 +10,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { ingredient } from './ingredients8.ts';
 import { foodFacts } from './facts.ts';
 import { FOOD_UI } from './ui.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const TO = '#0f172a';
 
@@ -21,14 +22,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!ing) return {};
   const ui = FOOD_UI[lang];
   const f = foodFacts(ing);
-  return {
+  return withCard({
     title: `${ui.metaTitle(ing.name[lang], f.grams.cupUs)} — ${ui.section}`,
     description: ui.metaDesc(ing.name[lang], f),
     alternates: {
       canonical: `${langPrefix(lang)}/food/${slug}`,
       languages: alternates(`/food/${slug}`),
     },
-  };
+  });
 }
 
 export function ingredientCard(lang: Lang, slug: string): ReactElement {

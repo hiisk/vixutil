@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import GoldBoard from './GoldBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Bitcoin vs Gold — is it really digital gold?',
   description:
     'Volatility, drawdown and correlation for Bitcoin against gold on matched daily data, plus what Bitcoin actually did on gold’s worst days.',
   alternates: { canonical: '/crypto/bitcoin-vs-gold' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

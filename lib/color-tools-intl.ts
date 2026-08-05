@@ -2,6 +2,7 @@
 import type { ColorTool } from './color-tools.ts';
 import { COLOR_TOOLS } from './color-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 색상 도구(/color) 섹션의 번역 메타데이터.
@@ -731,7 +732,7 @@ export const COLOR_SHELL_UI: Record<ColorIntlLang, {
 export function colorMetaIntl(lang: ColorIntlLang, slug: string) {
   const t = findColorToolIntl(lang, slug);
   if (!t) throw new Error(`color-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -739,12 +740,12 @@ export function colorMetaIntl(lang: ColorIntlLang, slug: string) {
       canonical: localeHref(lang, `/color/${slug}`),
       languages: alternateLanguages10(`/color/${slug}`),
     },
-  };
+  });
 }
 
 export function colorHubMetaIntl(lang: ColorIntlLang) {
   const ui = COLOR_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -752,5 +753,5 @@ export function colorHubMetaIntl(lang: ColorIntlLang) {
       canonical: localeHref(lang, '/color'),
       languages: alternateLanguages10('/color'),
     },
-  };
+  });
 }

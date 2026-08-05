@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import DepegBoard from './DepegBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Stablecoin Depeg Monitor — in basis points, against the right yardstick',
   description:
     'Live deviation from parity for USDC, FDUSD, TUSD and other stablecoins, reported in basis points and measured against USDT — with USDT’s own drift backed out of the median so you can tell which side is moving.',
   alternates: { canonical: '/crypto/stablecoin-depeg' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

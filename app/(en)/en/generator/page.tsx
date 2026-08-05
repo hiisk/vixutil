@@ -6,8 +6,9 @@ import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
 import { alternateLanguages10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Free Name Generators — Fantasy, Sci-Fi & More',
   description: 'Free online name generators: fantasy, sci-fi, dragon, superhero, villain, guild, pirate names and more. Instant, unlimited, no sign-up.',
   alternates: {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     // 끊겨 구글이 이 hreflang 묶음을 무시한다 — 열 언어를 모두 선언한다.
     languages: alternateLanguages10('/generator'),
   },
-};
+});
 
 const CARD_GRADIENTS = [
   'from-emerald-500 to-teal-600', 'from-violet-500 to-purple-600', 'from-rose-500 to-pink-600',

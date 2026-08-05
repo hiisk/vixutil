@@ -9,6 +9,7 @@ import { WIRE_ICON, WIRE_SLUGS, cellOf } from './list.ts';
 import { wireFacts } from './facts.ts';
 import { WIRE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#b45309';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = WIRE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/wire`, languages: alternates('/wire') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!c) return {};
   const ui = WIRE_UI[lang];
   const f = wireFacts(c);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/wire/${slug}`, languages: alternates(`/wire/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

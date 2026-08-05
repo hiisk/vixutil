@@ -9,6 +9,7 @@ import { CHMOD_ICON, MODES, modeOf } from './list.ts';
 import { chmodFacts } from './facts.ts';
 import { CHMOD_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#ea580c';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = CHMOD_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/chmod`, languages: alternates('/chmod') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!mode) return {};
   const ui = CHMOD_UI[lang];
   const f = chmodFacts(mode);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/chmod/${mode}`,
       languages: alternates(`/chmod/${mode}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

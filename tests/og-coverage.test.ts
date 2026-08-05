@@ -4,7 +4,8 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 import { ICON_FOR, GROUPS } from '../lib/og-icon-map.ts';
-import { appEntries, appJoin, stripGroups } from './app-path.ts';
+import { appEntries, stripGroups } from './app-path.ts';
+import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 /**
  * 공유(OG) 카드가 빠짐없이 붙는지 본다.
@@ -33,14 +34,16 @@ function pageDirs(dir: string): string[] {
   return out;
 }
 
-function ogRoutes(dir: string): string[] {
-  const out: string[] = [];
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const p = join(dir, e.name);
-    if (e.isDirectory()) out.push(...ogRoutes(p));
-    else if (e.name === 'opengraph-image.tsx') out.push(p);
-  }
-  return out;
+/**
+ * 카드를 그리는 자리.
+ *
+ * 전에는 app 곳곳의 opengraph-image.tsx 1,799장이었다. 그 1,799개 라우트
+ * 엔트리가 빌드를 죽여서 lib/og-cards의 대응표 열 개로 접었다 — 카드 내용은
+ * 그대로고 어디에 적혀 있는지만 바뀌었다.
+ */
+function ogRoutes(): string[] {
+  const dir = join(LIB, 'og-cards');
+  return readdirSync(dir).filter(f => /^[a-z]{2}\.tsx$/.test(f)).map(f => join(dir, f));
 }
 
 /**
@@ -70,10 +73,11 @@ test('모든 페이지가 자기 공유 카드를 갖는다', () => {
     // 그룹을 먼저 걷어내야 아래 규칙들이 주소 기준으로 걸린다
     .map(d => stripGroups(relative(APP, d)))
     .filter(rel => !SHARED_CARD.some(re => re.test(rel)))
-    .filter(rel => !existsSync(appJoin(rel, 'opengraph-image.tsx')));
+    // 물려받은 것은 안 친다 — 제 카드가 대응표에 있어야 한다
+    .filter(rel => !hasOwnCard(`/${rel}`));
   assert.deepEqual(
     orphans, [],
-    `상위 섹션 카드를 물려받는 라우트다. 폴더에 opengraph-image.tsx를 넣어라:\n  ${orphans.join('\n  ')}`,
+    `상위 섹션 카드를 물려받는 라우트다. lib/og-cards의 그 언어 대응표에 넣어라:\n  ${orphans.join('\n  ')}`,
   );
 });
 
@@ -128,7 +132,7 @@ function cardEmojis(): Map<string, string> {
     }
   };
 
-  for (const route of ogRoutes(APP)) follow(route, 0);
+  for (const route of ogRoutes()) follow(route, 0);
   return found;
 }
 

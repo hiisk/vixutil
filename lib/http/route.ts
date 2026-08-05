@@ -10,6 +10,7 @@ import { httpFacts } from './facts.ts';
 import { httpDesc } from './desc.ts';
 import { HTTP_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0d9488';
 const TO = '#0f172a';
@@ -19,25 +20,25 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = HTTP_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/http`, languages: alternates('/http') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
   const x = httpItemOf(slug);
   if (!x) return {};
   const ui = HTTP_UI[lang];
-  return {
+  return withCard({
     title: `${ui.metaTitle(x.name)} — ${ui.section}`,
     description: ui.metaDesc(x.name, httpDesc(slug, lang)),
     alternates: {
       canonical: `${langPrefix(lang)}/http/${slug}`,
       languages: alternates(`/http/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

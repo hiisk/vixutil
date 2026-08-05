@@ -10,8 +10,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '체크리스트',
   description: '이사·취업·여행·건강 등 상황별 체크리스트 모음 — 진행 상황을 저장하며 빠짐없이 준비하세요',
   alternates: {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     // 한쪽만 걸린 hreflang은 구글이 짝으로 인정하지 않는다.
     languages: hubAlternates('checklist'),
   },
-};
+});
 
 export default function ChecklistIndexPage() {
   const totalItems = CHECKLISTS.reduce(

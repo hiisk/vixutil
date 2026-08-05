@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import ProfitCalculator from './ProfitCalculator';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Profit Calculator — with fees, and your real break-even',
   description:
     'Work out the profit or loss on a crypto trade including the fee charged on both entry and exit, plus the break-even price those fees actually create. Long and short, any leverage, computed in your browser.',
   alternates: { canonical: '/crypto/profit-calculator' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

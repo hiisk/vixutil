@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import RuinCalculator from './RuinCalculator';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Risk of Ruin Calculator — the same edge at different bet sizes',
   description:
     'Work out the probability of losing a given share of your account from a win rate, a reward ratio and a risk per trade — and see how far the answer moves when only the bet size changes.',
   alternates: { canonical: '/crypto/risk-of-ruin' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

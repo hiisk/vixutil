@@ -9,6 +9,7 @@ import { DICE_ICON, ROLLS, rollOf } from './list.ts';
 import { rollFacts } from './facts.ts';
 import { DICE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#e11d48';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = DICE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/random/dice`, languages: alternates('/random/dice') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!r) return {};
   const ui = DICE_UI[lang];
   const f = rollFacts(r);
-  return {
+  return withCard({
     title: `${ui.metaTitle(f)} — ${ui.section}`,
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/random/dice/${slug}`,
       languages: alternates(`/random/dice/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

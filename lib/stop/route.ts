@@ -9,6 +9,7 @@ import { STOP_ICON, STOP_SLUGS, speedOf } from './list.ts';
 import { stopFacts } from './facts.ts';
 import { STOP_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#b91c1c';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = STOP_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/stop`, languages: alternates('/stop') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (kmh === undefined) return {};
   const ui = STOP_UI[lang];
   const f = stopFacts(kmh);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/stop/${slug}`, languages: alternates(`/stop/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

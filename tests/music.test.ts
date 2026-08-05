@@ -22,6 +22,7 @@ import { SOLFEGE, freq, isBlack, keySignature, noteName, noteSymbol, slugOf } fr
 import { frequencies, itemFacts } from '../lib/music/facts.ts';
 import { MUSIC_UI, musicAlternates } from '../lib/music/ui.ts';
 import { appFile } from './app-path.ts';
+import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -214,7 +215,8 @@ test('열 언어 라우트와 공유 카드가 다 있다', () => {
     const p = `app${prefix}/music`;
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
     assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
+    // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다 — 물려받은 것은 안 친다
+    assert.ok(hasOwnCard(p.replace(/^app/, '') || '/'), `${p}에 제 공유 카드가 없다`);
   }
 });
 

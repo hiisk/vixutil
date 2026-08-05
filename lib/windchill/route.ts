@@ -9,6 +9,7 @@ import { WINDCHILL_ICON, WINDCHILL_SLUGS, cellOf } from './list.ts';
 import { windchillFacts } from './facts.ts';
 import { WINDCHILL_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0369a1';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = WINDCHILL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/windchill`, languages: alternates('/windchill') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!c) return {};
   const ui = WINDCHILL_UI[lang];
   const f = windchillFacts(c);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/windchill/${slug}`, languages: alternates(`/windchill/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

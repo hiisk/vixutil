@@ -9,6 +9,7 @@ import { HANDS, POKER_ICON, handOf } from './list.ts';
 import { handFacts } from './facts.ts';
 import { fill, numFmt, pokerUi } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#059669';
 const TO = '#064e3b';
@@ -20,11 +21,11 @@ const N = HANDS.length;
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = pokerUi(lang);
-  return {
+  return withCard({
     title: fill(ui.hubMetaTitle, { n: N }),
     description: fill(ui.hubMetaDesc, { n: N }),
     alternates: { canonical: `${langPrefix(lang)}/game/poker`, languages: alternates('/game/poker') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -32,7 +33,7 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!h) return {};
   const ui = pokerUi(lang);
   const f = handFacts(h);
-  return {
+  return withCard({
     title: `${fill(ui.metaTitle, { name: f.label })} — ${ui.section}`,
     description: fill(ui.metaDesc, {
       name: f.label,
@@ -44,7 +45,7 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
       canonical: `${langPrefix(lang)}/game/poker/${slug}`,
       languages: alternates(`/game/poker/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

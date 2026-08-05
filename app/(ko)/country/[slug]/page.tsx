@@ -4,6 +4,7 @@ import CountryPage from '@/components/CountryPage';
 import { COUNTRIES, countryBySlug } from '@/lib/country-tools';
 import { COUNTRY_UI, countryAlternates, gapText } from '@/lib/country-ui';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(COUNTRIES.map(c => ({ slug: c.slug })));
@@ -15,11 +16,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!c) return {};
   const t = c['ko'];
   const ui = COUNTRY_UI['ko'];
-  return {
+  return withCard({
     title: `${t.name} — ${ui.section}`,
     description: `${t.name}: ${gapText(c, 'ko')}, ${ui.volt} ${c.volt}, ${ui.plug} ${c.plug}, ${ui.dial} ${c.dial}. ${t.intro}`,
     alternates: { canonical: '/country/' + slug, languages: countryAlternates(slug) },
-  };
+  });
 }
 
 export default async function CountryDetailKO({ params }: { params: Promise<{ slug: string }> }) {

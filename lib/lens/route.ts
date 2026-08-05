@@ -9,6 +9,7 @@ import { LENSES, LENS_ICON, lensOf } from './list.ts';
 import { lensFacts } from './facts.ts';
 import { LENS_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#4f46e5';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = LENS_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/snap/lens`, languages: alternates('/snap/lens') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!l) return {};
   const ui = LENS_UI[lang];
   const f = lensFacts(l);
-  return {
+  return withCard({
     title: `${ui.metaTitle(f.focal, f.sensorName)} — ${ui.section}`,
     description: ui.metaDesc(f, ui.kindLabel[f.kind]),
     alternates: {
       canonical: `${langPrefix(lang)}/snap/lens/${slug}`,
       languages: alternates(`/snap/lens/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import CorrelationBoard from './CorrelationBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Correlation Matrix — and how much it moves',
   description:
     'Daily return correlation between the major cryptocurrencies over 90 days to 2 years, shown with how far the same pair drifts across sub-periods and what each coin actually did on days Bitcoin fell hard.',
   alternates: { canonical: '/crypto/correlation' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

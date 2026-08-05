@@ -11,15 +11,16 @@ import { LENSES, LENS_ICON } from '@/lib/lens/list';
 import { LENS_UI } from '@/lib/lens/ui';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '스냅테스트 — 사진으로 하는 참여형 테스트',
   description: '관상·퍼스널컬러·동물상·사진 감성·얼굴 대칭·미소 지수까지, 사진 한 장으로 즐기는 참여형 테스트 모음. 실제 얼굴 인식·픽셀 분석 기반, 사진은 서버에 저장되지 않아요.',
   alternates: {
     canonical: '/snap',
     languages: alternateLanguages10('/snap'),
   },
-};
+});
 
 const TYPES = [
   { href: '/snap/first-impression', icon: '✨', title: '첫인상 분석',   desc: '눈·얼굴선·입꼬리를 실측해 보는 내 인상 유형', color: 'from-sky-400 to-indigo-600' },

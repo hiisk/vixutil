@@ -9,6 +9,7 @@ import { NUMBERS, NUMBER_ICON, numberOf } from './list.ts';
 import { numberFacts } from './facts.ts';
 import { NUMBER_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#4f46e5';
 const TO = '#0f172a';
@@ -18,25 +19,25 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = NUMBER_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/number`, languages: alternates('/number') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
   const n = numberOf(slug);
   if (!n) return {};
   const ui = NUMBER_UI[lang];
-  return {
+  return withCard({
     title: ui.metaTitle(n),
     description: ui.metaDesc(numberFacts(n)),
     alternates: {
       canonical: `${langPrefix(lang)}/number/${n}`,
       languages: alternates(`/number/${n}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

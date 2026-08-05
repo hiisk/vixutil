@@ -5,6 +5,8 @@ import { join, relative } from 'node:path';
 
 import { ALL_LOCALES10, localeTag } from '../lib/locales.ts';
 import { appEntries, appFile } from './app-path.ts';
+import { CARD_KEYS } from '../lib/og-cards/keys.ts';
+import { parseCardSlug } from '../lib/og-cards/index.ts';
 
 /*
  * ISR로 바꾸면서 out/이 없어졌다. 미리 구운 페이지는 .next/server/app에
@@ -221,16 +223,30 @@ test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? fals
   // 것은 "상세 페이지에 파일이 있느냐"가 아니라 "상세 페이지가 가리키는 주소에
   // 파일이 있느냐"다. 앞의 것을 보면 멀쩡한 공유를 깨졌다고 한다.
   /*
-   * ISR로 바꾼 뒤 낱장은 미리 굽지 않는다. 보기로 든 페이지가 산출물에 없을 수
-   * 있으므로, 있는 것만 본다 — 없다고 실패시키면 "안 구웠다"를 "깨졌다"로 읽는다.
+   * ── 한동안 이 검사는 아무것도 안 보고 초록이었다 ──────────────
+   * ISR로 바꾼 뒤 낱장을 안 굽게 되면서 보기로 들었던 test/mbti.html이 산출물에서
+   * 사라졌다. "있는 것만 본다"고 걸러 두었더니 걸러진 뒤에 남는 것이 없어서,
+   * 반복문이 한 번도 안 돌고 통과했다.
+   *
+   * 그래서 두 가지를 바꿨다. 첫째, 반드시 구워지는 허브를 본다. 둘째, "가리키는
+   * 파일이 있는가"가 아니라 "가리키는 주소를 카드 대응표가 아는가"를 본다 —
+   * 카드는 이제 빌드가 아니라 첫 요청 때 만들어지므로 파일은 있을 수가 없다.
    */
-  for (const page of ['test/mbti.html', 'quiz/wine.html'].filter(f => existsSync(join(OUT, f)))) {
+  const hubs = ['test.html', 'quiz.html', 'paper.html', 'color.html'].filter(f =>
+    existsSync(join(OUT, f)),
+  );
+  assert.ok(hubs.length >= 3, `허브가 ${hubs.length}장뿐 — 볼 것이 없으면 이 검사는 무의미하다`);
+  for (const page of hubs) {
     const html = readFileSync(join(OUT, page), 'utf8');
     const m = html.match(/property="og:image" content="https:\/\/vixutil\.com([^"?]+)/);
     assert.ok(m, `${page}에 og:image가 없다 — 공유 미리보기가 깨진다`);
-    const f = join(OUT, m[1]);
-    assert.ok(existsSync(f), `${page}가 가리키는 ${m[1]}가 없다 — 공유 미리보기가 깨진다`);
-    assert.ok(statSync(f).size > 1000, `${m[1]}가 비어 있다`);
+    const slug = m[1].replace(/^\/og\//, '').split('/');
+    const at = parseCardSlug(slug);
+    assert.ok(at, `${page}가 가리키는 ${m[1]}가 카드 주소 꼴이 아니다`);
+    assert.ok(
+      CARD_KEYS[at.lang].includes(at.key),
+      `${page}가 가리키는 ${m[1]}를 카드 대응표가 모른다 — 열면 404다`,
+    );
   }
 });
 

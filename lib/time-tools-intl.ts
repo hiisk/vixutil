@@ -2,6 +2,7 @@
 import type { TimeTool } from './time-tools.ts';
 import { TIME_TOOLS } from './time-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 시간 도구(/time) 섹션의 번역 메타데이터.
@@ -632,7 +633,7 @@ export function relatedTimeToolsIntl(lang: ToolIntlLang, slug: string, count = 4
 export function timeMetaIntl(lang: ToolIntlLang, slug: string) {
   const t = findTimeToolIntl(lang, slug);
   if (!t) throw new Error(`time-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -640,12 +641,12 @@ export function timeMetaIntl(lang: ToolIntlLang, slug: string) {
       canonical: localeHref(lang, `/time/${slug}`),
       languages: alternateLanguages10(`/time/${slug}`),
     },
-  };
+  });
 }
 
 export function timeHubMetaIntl(lang: ToolIntlLang) {
   const ui = TIME_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -653,7 +654,7 @@ export function timeHubMetaIntl(lang: ToolIntlLang) {
       canonical: localeHref(lang, '/time'),
       languages: alternateLanguages10('/time'),
     },
-  };
+  });
 }
 
 /** 셸·허브 UI 문구 */

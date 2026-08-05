@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { alternateLanguages10 } from '@/lib/locales';
-export const metadata: Metadata = {
+import { withCard } from '@/lib/og-cards';
+export const metadata: Metadata = withCard({
   title: '학점 GPA 계산기 - 4.5제·4.3제 평점 계산',
   description: '과목별 학점과 성적을 입력하면 4.5제, 4.3제, Pass/Fail 기준으로 GPA와 총 취득학점을 계산합니다.',
   alternates: {
     canonical: '/calculator/gpa',
     languages: alternateLanguages10('/calculator/gpa'),
   },
-};
+});
 export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

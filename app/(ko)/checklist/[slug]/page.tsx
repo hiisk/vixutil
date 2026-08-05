@@ -11,6 +11,7 @@ import Faq from '@/components/Faq';
 import { contentFaq } from '@/lib/content-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(CHECKLISTS.map(c => ({ slug: c.slug })));
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const checklist = CHECKLISTS_MAP[slug];
   if (!checklist) return {};
   const total = checklist.sections.reduce((s, sec) => s + sec.items.length, 0);
-  return {
+  return withCard({
     title: checklist.title,
     description: `${checklist.desc} — ${total}개 항목, 진행 상황 자동 저장`,
     alternates: {
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       // 언어별로 내용을 따로 쓴 섹션이라 슬러그가 겹치는 것만 짝으로 맺는다
       ...(hasAlternates('checklist', slug) ? { languages: localeAlternates('checklist', slug) } : {}),
     },
-  };
+  });
 }
 
 export default async function ChecklistPage({ params }: { params: Promise<{ slug: string }> }) {

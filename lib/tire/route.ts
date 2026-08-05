@@ -9,6 +9,7 @@ import { TIRE_ICON, TIRE_SLUGS, tireOf } from './list.ts';
 import { tireFacts } from './facts.ts';
 import { TIRE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#334155';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = TIRE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/tire`, languages: alternates('/tire') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!t) return {};
   const ui = TIRE_UI[lang];
   const f = tireFacts(t);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/tire/${slug}`, languages: alternates(`/tire/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

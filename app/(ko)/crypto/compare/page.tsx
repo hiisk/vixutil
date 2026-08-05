@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import CompareBoard from './CompareBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Compare Two Cryptocurrencies — returns, risk and whether they differ at all',
   description:
     'Compare any two Binance coins side by side: returns across several windows, volatility, beta to Bitcoin, distance from all-time high, worst drawdown, and the correlation that decides whether holding both is really one position.',
   alternates: { canonical: '/crypto/compare' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

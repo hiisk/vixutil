@@ -3,6 +3,7 @@ import { alternateLanguages10 } from '@/lib/locales';
 import CalculatorHub from '@/components/CalculatorHub';
 import { CATS } from '@/lib/calculator-catalog';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 화면은 CalculatorHub(클라이언트)가 그린다. 이 파일이 서버 컴포넌트인 이유는
@@ -16,12 +17,12 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
  * 그 둘은 한국 계산기를 영어·일본어로 안내하는 별도 페이지지 이 허브의 번역판이
  * 아니다. 한쪽만 가리키면 구글은 그 hreflang 묶음을 통째로 무시한다.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   alternates: {
     canonical: '/calculator',
     languages: alternateLanguages10('/calculator'),
   },
-};
+});
 
 export default function Page() {
   const calcs = CATS.flatMap(c => c.calcs).map(c => ({ name: c.title, path: c.href }));

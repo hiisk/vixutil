@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { timeCity, timeCountry } from './cities8.ts';
 import { cityFacts } from './facts.ts';
 import { TIME_UI } from './ui.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const TO = '#0f172a';
 
@@ -19,14 +20,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!city) return {};
   const ui = TIME_UI[lang];
   const f = cityFacts(city, lang);
-  return {
+  return withCard({
     title: `${ui.metaTitle(f.city)} — ${ui.section}`,
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/time/${slug}`,
       languages: alternates(`/time/${slug}`),
     },
-  };
+  });
 }
 
 export function cityCard(lang: Lang, slug: string): ReactElement {

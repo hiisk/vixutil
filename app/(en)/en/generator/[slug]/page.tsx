@@ -10,6 +10,7 @@ import LangPicker from '@/components/LangPicker';
 import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
 import { alternateLanguages10 } from '@/lib/locales';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(GENERATORS_EN.map(g => ({ slug: g.slug })));
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const gen = GENERATORS_EN_MAP[slug];
   if (!gen) return {};
-  return {
+  return withCard({
     title: `${gen.title} — free & instant`,
     description: `${gen.desc} Generate unique ideas in one click — free, no sign-up.`,
     // 스무 개는 열 언어가 모두 같은 슬러그를 쓴다 — 여기서 영어·한국어만
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: `/en/generator/${slug}`,
       languages: alternateLanguages10(`/generator/${slug}`),
     },
-  };
+  });
 }
 
 export default async function EnGeneratorPage({ params }: { params: Promise<{ slug: string }> }) {

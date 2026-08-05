@@ -4,11 +4,12 @@ import { GEO_SECTION, GEO_LANGS } from '@/lib/geo-section';
 import { sectionAlternates } from '@/lib/formula/ui';
 import { sectionMeta } from '@/lib/formula/section';
 import { localeHref, openGraphFor } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
 /* 화면은 components/FormulaHub.tsx 하나를 열 언어가 같이 쓴다 */
 const meta = sectionMeta(GEO_SECTION, 'zh-hans');
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: meta.metaTitle,
   description: meta.metaDesc,
   openGraph: openGraphFor('zh-hans'),
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     canonical: localeHref('zh-hans', '/geometry'),
     languages: sectionAlternates('geometry', undefined, GEO_LANGS),
   },
-};
+});
 
 export default function GeoHubZhHans() {
   return <FormulaHub lang="zh-hans" section={GEO_SECTION} />;

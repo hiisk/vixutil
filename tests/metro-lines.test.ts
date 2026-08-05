@@ -20,6 +20,7 @@ import { METRO_LANGS, METRO_LANG_CODES, metroAlternates, numberedLine, type Metr
 import { METRO_UI, clock } from '../lib/metro/ui.ts';
 import { lineFacts } from '../lib/metro/facts.ts';
 import { appFile } from './app-path.ts';
+import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const LANGS = METRO_LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -218,7 +219,8 @@ test('열 언어 라우트와 공유 카드가 다 있다', () => {
     const p = `app${prefix}/metro`;
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
     assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
+    // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다 — 물려받은 것은 안 친다
+    assert.ok(hasOwnCard(p.replace(/^app/, '') || '/'), `${p}에 제 공유 카드가 없다`);
   }
   // 중국어는 이 섹션에서 빼기로 했다 — 라우트가 되살아나면 여기서 잡힌다
   assert.ok(!existsSync(appFile('app/zh/metro')), 'app/zh/metro가 남아 있다');

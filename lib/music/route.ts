@@ -11,6 +11,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { KIND_WORD, colorOf, iconOf, musicItem } from './catalog.ts';
 import { itemFacts } from './facts.ts';
 import { MUSIC_UI } from './ui.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const HUB_FROM = '#0ea5e9';
 const HUB_TO = '#0f172a';
@@ -25,11 +26,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = MUSIC_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/music`, languages: alternates('/music') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -37,14 +38,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!item) return {};
   const ui = MUSIC_UI[lang];
   const f = itemFacts(item, lang);
-  return {
+  return withCard({
     title: `${ui.metaTitle(f)} — ${ui.section}`,
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/music/${slug}`,
       languages: alternates(`/music/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

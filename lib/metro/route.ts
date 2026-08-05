@@ -13,6 +13,7 @@ import { METRO_UI } from './ui.ts';
 import { metroLine } from '../metro-lines.ts';
 import { countryName, lineIcon, lineTitle } from './types.ts';
 import { lineFacts } from './facts.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const HUB_FROM = '#475569';
 const HUB_TO = '#0f172a';
@@ -30,25 +31,25 @@ const cardLang = (lang: MetroLang): MetroLang => (lang === 'hi' ? 'en' : lang);
 export function hubMetadata(lang: MetroLang): Metadata {
   const ui = METRO_UI[lang];
   const path = `${metroPrefix(lang)}/metro`;
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: path, languages: metroAlternates() },
-  };
+  });
 }
 
 export function detailMetadata(lang: MetroLang, slug: string): Metadata {
   const line = metroLine(slug);
   if (!line) return {};
   const ui = METRO_UI[lang];
-  return {
+  return withCard({
     title: `${ui.metaTitle(lineTitle(line, lang))} — ${ui.section}`,
     description: ui.metaDesc(lineFacts(line, lang)),
     alternates: {
       canonical: `${metroPrefix(lang)}/metro/${slug}`,
       languages: metroAlternates(slug),
     },
-  };
+  });
 }
 
 export function hubCard(lang: MetroLang): ReactElement {

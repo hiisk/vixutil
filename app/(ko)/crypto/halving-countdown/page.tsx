@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import HalvingCountdown from './HalvingCountdown';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Bitcoin Halving Countdown — from the live block height',
   description:
     'Live countdown to the next Bitcoin halving, counted in blocks from the current chain height rather than a fixed date — and shown under three different block-time assumptions, because that choice moves the date by weeks.',
   alternates: { canonical: '/crypto/halving-countdown' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

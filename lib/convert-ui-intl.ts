@@ -5,6 +5,7 @@ import {
 } from './locales.ts';
 import { CONVERT_MAP } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 단위 변환 화면의 여덟 언어 문구.
@@ -375,12 +376,12 @@ const HUB_META: Record<AnyLocale10, { title: string; desc: string }> = {
 /** 허브 라우트의 metadata */
 export function convertHubMetaIntl(lang: ConvertLang) {
   const m = HUB_META[lang];
-  return {
+  return withCard({
     title: m.title,
     description: m.desc,
     openGraph: openGraphFor(lang),
     alternates: { canonical: localeHref(lang, '/convert'), languages: convertAlternates() },
-  };
+  });
 }
 
 /**
@@ -393,10 +394,10 @@ export function convertMetaIntl(lang: ConvertLang, slug: string) {
   const tool = CONVERT_MAP[slug];
   if (!tool) throw new Error(`convert-ui-intl: 도구가 없다 — ${slug}`);
   const l = convertL10n(slug, lang);
-  return {
+  return withCard({
     title: lang === 'ko' ? tool.metaTitle : `${l?.title ?? tool.title} — ${CONVERT_UI[lang].suffix}`,
     description: l?.long ?? tool.long,
     openGraph: openGraphFor(lang),
     alternates: { canonical: localeHref(lang, `/convert/${slug}`), languages: convertAlternates(slug) },
-  };
+  });
 }

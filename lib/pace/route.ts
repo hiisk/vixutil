@@ -9,6 +9,7 @@ import { PACE_ICON, PACE_SLUGS, paceOf } from './list.ts';
 import { paceFacts } from './facts.ts';
 import { PACE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0f766e';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = PACE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/pace`, languages: alternates('/pace') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (sec === undefined) return {};
   const ui = PACE_UI[lang];
   const f = paceFacts(sec);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/pace/${slug}`, languages: alternates(`/pace/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

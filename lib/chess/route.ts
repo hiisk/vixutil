@@ -10,6 +10,7 @@ import { openingFacts } from './facts.ts';
 import { fullName } from './names.ts';
 import { chessUi, fill } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#7c3aed';
 const TO = '#1e1b4b';
@@ -21,11 +22,11 @@ const N = OPENINGS.length;
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = chessUi(lang);
-  return {
+  return withCard({
     title: fill(ui.hubMetaTitle, { n: N }),
     description: fill(ui.hubMetaDesc, { n: N }),
     alternates: { canonical: `${langPrefix(lang)}/game/chess`, languages: alternates('/game/chess') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -34,14 +35,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   const ui = chessUi(lang);
   const f = openingFacts(x);
   const name = fullName(x.family, x.line, lang);
-  return {
+  return withCard({
     title: `${fill(ui.metaTitle, { name })} — ${ui.section}`,
     description: fill(ui.metaDesc, { name, line: f.line }),
     alternates: {
       canonical: `${langPrefix(lang)}/game/chess/${slug}`,
       languages: alternates(`/game/chess/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import AltseasonBoard from './AltseasonBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Altcoin Season Index — with the coin list it is built from',
   description:
     'Live altcoin season index: the share of the top 50 coins outperforming Bitcoin over 30, 90, 180 or 365 days, computed in your browser from Binance data — with every constituent coin and its return shown, not just the headline number.',
   alternates: { canonical: '/crypto/altseason-index' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

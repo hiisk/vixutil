@@ -9,6 +9,7 @@ import { DRILL_ICON, DRILL_SLUGS, bitOf } from './list.ts';
 import { drillFacts } from './facts.ts';
 import { DRILL_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#525252';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = DRILL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/drill`, languages: alternates('/drill') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!b) return {};
   const ui = DRILL_UI[lang];
   const f = drillFacts(b);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/drill/${slug}`, languages: alternates(`/drill/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import CompoundCalculator from './CompoundCalculator';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Compound & Staking Calculator — APR vs APY, and the price risk',
   description:
     'Compound a crypto yield properly, convert between APR and APY, and see the price fall that would erase the whole return — with how likely that fall is for the coin you are earning it in.',
   alternates: { canonical: '/crypto/compound-calculator' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

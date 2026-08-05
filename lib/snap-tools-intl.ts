@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 import type { SnapIntlLang } from './snap-intl.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 스냅테스트(/snap) 섹션의 라우트 메타데이터·허브 카드·공유 카드 문구.
@@ -653,23 +654,23 @@ export function snapHubCards(lang: SnapIntlLang) {
 export function snapHubMetadata(lang: SnapIntlLang): Metadata {
   const c = HUB[lang];
   const route = '/snap';
-  return {
+  return withCard({
     title: c.metaTitle,
     description: c.metaDesc,
     alternates: { canonical: localeHref(lang, route), languages: alternateLanguages10(route) },
     openGraph: { ...openGraphFor(lang as AnyLocale10), title: c.metaTitle, description: c.metaDesc, url: localeHref(lang, route) },
-  };
+  });
 }
 
 export function snapToolMetadata(lang: SnapIntlLang, slug: SnapToolSlug): Metadata {
   const c = TOOLS[lang][slug];
   const route = `/snap/${slug}`;
-  return {
+  return withCard({
     title: c.metaTitle,
     description: c.metaDesc,
     alternates: { canonical: localeHref(lang, route), languages: alternateLanguages10(route) },
     openGraph: { ...openGraphFor(lang as AnyLocale10), title: c.metaTitle, description: c.metaDesc, url: localeHref(lang, route) },
-  };
+  });
 }
 
 /**

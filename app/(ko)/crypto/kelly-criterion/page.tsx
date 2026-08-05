@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import KellyCalculator from './KellyCalculator';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Kelly Criterion Calculator — and why to bet less than it says',
   description:
     'Compute the Kelly bet size from your win rate and reward ratio, then compare quarter, half and full Kelly on growth kept versus the chance of ever halving the account.',
   alternates: { canonical: '/crypto/kelly-criterion' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

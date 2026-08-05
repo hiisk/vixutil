@@ -14,8 +14,9 @@ import { REGEX_ICON } from '@/lib/regex/list';
 import { REGEX_UI } from '@/lib/regex/ui';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '텍스트 도구 — 한영타 변환·영문 이름·특수문자',
   description:
     '한/영 잘못 친 글자 되돌리기, 여권 영문 이름, 한글 금액, 초성 변환, 특수문자·이모티콘, 중복 줄 제거, 원고지 매수까지 한 곳에서. 설치 없이 브라우저에서 바로.',
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     canonical: '/text',
     languages: alternateLanguages10('/text'),
   },
-};
+});
 
 const CATEGORY_ORDER = ['한글 변환', '정리·편집', '기호·입력', '세기·쓰기'];
 

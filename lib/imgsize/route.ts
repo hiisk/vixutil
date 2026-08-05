@@ -9,6 +9,7 @@ import { IMG_SIZES, IMG_SIZE_ICON, imgSizeOf } from './list.ts';
 import { sizeFacts } from './facts.ts';
 import { IMG_SIZE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#db2777';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = IMG_SIZE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/image/size`, languages: alternates('/image/size') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!x) return {};
   const ui = IMG_SIZE_UI[lang];
   const f = sizeFacts(x);
-  return {
+  return withCard({
     title: `${ui.metaTitle(x.name, x.w, x.h)} — ${ui.section}`,
     description: ui.metaDesc(f, ui.kindLabel[x.kind]),
     alternates: {
       canonical: `${langPrefix(lang)}/image/size/${slug}`,
       languages: alternates(`/image/size/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

@@ -9,6 +9,7 @@ import { FRACTIONS, FRACTION_ICON, fractionOf, slugOf } from './list.ts';
 import { fractionFacts } from './facts.ts';
 import { FRACTION_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#65a30d';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = FRACTION_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/fraction`, languages: alternates('/fraction') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!f) return {};
   const ui = FRACTION_UI[lang];
   const facts = fractionFacts(f);
-  return {
+  return withCard({
     title: ui.metaTitle(facts),
     description: ui.metaDesc(facts),
     alternates: {
       canonical: `${langPrefix(lang)}/fraction/${slug}`,
       languages: alternates(`/fraction/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

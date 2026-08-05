@@ -4,7 +4,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { LANG_CODES } from '../lib/i18n/lang.ts';
-import { appEntries, appFile } from './app-path.ts';
+import { appEntries } from './app-path.ts';
 
 /**
  * 공유 카드가 빌드 중에 바깥으로 나가지 않는지 본다.
@@ -128,17 +128,17 @@ test('공유 카드가 ImageResponse를 직접 부르지 않는다', () => {
   /*
    * 직접 부르면 폰트가 안 실린다. 그 실수는 빌드를 깨지 않고 카드만 조용히
    * 망가뜨리므로, 호출 자리를 하나로 묶어 두고 여기서 지킨다.
+   *
+   * 전에는 app 곳곳의 opengraph-image.tsx 1,799장을 훑었다. 그 1,799개
+   * 라우트 엔트리가 빌드를 죽여서 lib/og-cards의 대응표 열 개로 접었다 —
+   * 카드는 그대로고 훑을 자리만 바뀌었다(tests/og-cards.test.ts 참고).
    */
-  const walk = (dir: string, out: string[] = []): string[] => {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const p = join(dir, e.name);
-      if (e.isDirectory()) walk(p, out);
-      else if (e.name === 'opengraph-image.tsx') out.push(p);
-    }
-    return out;
-  };
-  const files = walk(join(ROOT, 'app'));
-  assert.ok(files.length > 1000, `공유 카드가 ${files.length}장뿐`);
-  const bad = files.filter(f => readFileSync(f.startsWith('app/') ? appFile(f) : f, 'utf8').includes('new ImageResponse'));
-  assert.deepStrictEqual(bad.map(f => f.slice(ROOT.length + 1)), []);
+  const dir = join(ROOT, 'lib', 'og-cards');
+  const files = readdirSync(dir).filter(f => f.endsWith('.ts') || f.endsWith('.tsx'));
+  const cards = files
+    .filter(f => /^[a-z]{2}\.tsx$/.test(f))
+    .flatMap(f => [...readFileSync(join(dir, f), 'utf8').matchAll(/^ {2}'[^']*': \(\) =>/gm)]);
+  assert.equal(cards.length, 1799, `공유 카드가 ${cards.length}장`);
+  const bad = files.filter(f => readFileSync(join(dir, f), 'utf8').includes('new ImageResponse'));
+  assert.deepStrictEqual(bad, []);
 });

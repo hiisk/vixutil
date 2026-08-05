@@ -8,19 +8,20 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import KimchiBoard from './KimchiBoard';
 import ReferralCards from '@/components/ReferralCards';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 이 페이지만 한국어로 쓴다. /crypto의 다른 페이지는 영어지만, 김치 프리미엄은
  * 국내 거래소 전용 개념이고 사용자는 "김치프리미엄"·"김프"로 검색한다.
  * 영어로 쓰면 그 검색어를 통째로 버리게 된다.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '김치 프리미엄 실시간 — 업비트·빗썸 vs 바이낸스',
   description:
     '업비트·빗썸 원화 시세와 바이낸스 달러 시세를 비교한 실시간 김치 프리미엄. 공식 환율 기준과 USDT 기준을 모두 보여주고, 국내 두 거래소 간 가격차와 거래대금까지 한 번에 확인하세요.',
   keywords: ['김치프리미엄', '김프', '업비트 빗썸 비교', '바이낸스 김프', '코인 시세 비교', 'USDT 프리미엄'],
   alternates: { canonical: '/crypto/kimchi-premium' },
-};
+});
 
 const PATH = '/crypto/kimchi-premium';
 

@@ -7,6 +7,7 @@ import { GEO_SECTION } from '@/lib/geo-section';
 import { geoTool, GEO_TOOLS } from '@/lib/geo-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(GEO_TOOLS.map(t => ({ slug: t.slug })));
@@ -17,11 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const tool = geoTool(slug);
   if (!tool) return {};
   const text = tool['ko'];
-  return {
+  return withCard({
     title: text.title,
     description: text.long,
     alternates: { canonical: '/geometry/' + slug, languages: sectionAlternates('geometry', slug, GEO_LANGS) },
-  };
+  });
 }
 
 export default async function GeoDetailKO({ params }: { params: Promise<{ slug: string }> }) {

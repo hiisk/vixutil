@@ -43,8 +43,9 @@ import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'vixutil — 실용 도구 모음',
   description: '계산기·운세·생성기·심리테스트·퀴즈 등 일상에 필요한 실용 유틸 모음 — vixutil.com',
   alternates: {
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     // 여덟 언어 전부를 적는다. 한쪽만 가리키는 짝은 구글이 무시한다
     languages: alternateLanguages10('/'),
   },
-};
+});
 
 const SECTIONS = [
   {

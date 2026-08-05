@@ -9,6 +9,7 @@ import { FREQS, FREQ_ICON, freqOf, freqSlug } from './freqs.ts';
 import { freqFacts } from './facts.ts';
 import { SOUND_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#10b981';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = SOUND_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/sound/hz`, languages: alternates('/sound/hz') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!f) return {};
   const ui = SOUND_UI[lang];
   const facts = freqFacts(f);
-  return {
+  return withCard({
     title: `${ui.metaTitle(f.hz)} — ${ui.section}`,
     description: ui.metaDesc(facts),
     alternates: {
       canonical: `${langPrefix(lang)}/sound/hz/${slug}`,
       languages: alternates(`/sound/hz/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

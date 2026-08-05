@@ -8,6 +8,7 @@ import { sectionAlternates } from '@/lib/formula/ui';
 import { textOf } from '@/lib/formula/types';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(GEO_TOOLS.map(t => ({ slug: t.slug })));
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const tool = geoTool(slug);
   if (!tool) return {};
   const text = textOf(tool, 'pt-br');
-  return {
+  return withCard({
     title: text.title,
     description: text.long,
     openGraph: openGraphFor('pt-br'),
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: localeHref('pt-br', `/geometry/${slug}`),
       languages: sectionAlternates('geometry', slug, GEO_LANGS),
     },
-  };
+  });
 }
 
 export default async function GeoDetailPtBr({ params }: { params: Promise<{ slug: string }> }) {

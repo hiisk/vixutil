@@ -13,6 +13,7 @@ import Faq from '@/components/Faq';
 import { contentFaq } from '@/lib/content-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(GENERATORS.map(g => ({ slug: g.slug })));
@@ -32,14 +33,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
    * 짝으로 인정하지 않는다 — 페이지는 멀쩡한데 연결만 끊겨 있었다.
    */
   const translated = EN_GENERATOR_SLUGS.has(slug);
-  return {
+  return withCard({
     title: gen.title,
     description: gen.desc,
     alternates: {
       canonical: `/generator/${slug}`,
       ...(translated ? { languages: alternateLanguages10(`/generator/${slug}`) } : {}),
     },
-  };
+  });
 }
 
 export default async function GeneratorPage({ params }: { params: Promise<{ slug: string }> }) {

@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import RiskAdjustedBoard from './RiskAdjustedBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Risk-Adjusted Crypto Returns — Sharpe, Sortino and Calmar side by side',
   description:
     'Sharpe, Sortino and Calmar ratios for the largest crypto assets over 180 days to 2 years, shown together with how many places each coin moves between them — because the three ratios frequently disagree.',
   alternates: { canonical: '/crypto/risk-adjusted' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

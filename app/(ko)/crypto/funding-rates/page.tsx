@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import FundingBoard from './FundingBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Funding Rates — annualised with each coin’s real settlement interval',
   description:
     'Live Binance perpetual funding rates for every USDT pair, annualised using each symbol’s actual settlement interval rather than assuming 8 hours. See what funding costs on a position you size, and where the current rate sits against that coin’s own history.',
   alternates: { canonical: '/crypto/funding-rates' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

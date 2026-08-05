@@ -9,6 +9,7 @@ import { SCREW_ICON, SCREW_SLUGS, screwOf } from './list.ts';
 import { screwFacts } from './facts.ts';
 import { SCREW_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#475569';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = SCREW_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/screw`, languages: alternates('/screw') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!s) return {};
   const ui = SCREW_UI[lang];
   const f = screwFacts(s);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/screw/${slug}`, languages: alternates(`/screw/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

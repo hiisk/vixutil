@@ -10,8 +10,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '지식 퀴즈',
   description: '한국사, IT, K-POP, 건강 상식 등 100가지 퀴즈 모음',
   alternates: {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     // 한쪽만 걸린 hreflang은 구글이 짝으로 인정하지 않는다.
     languages: hubAlternates('quiz'),
   },
-};
+});
 
 export default function QuizIndexPage() {
   return (

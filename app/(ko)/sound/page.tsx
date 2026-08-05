@@ -12,8 +12,9 @@ import { SOUND_UI } from '@/lib/sound/ui';
 import { FREQ_ICON } from '@/lib/sound/freqs';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '소리 도구 — 메트로놈·튜너·백색소음',
   description:
     '메트로놈, 악기 튜너, BPM 측정, 백색소음, 바이노럴 비트, 소음 측정, 음성 녹음, 주파수 생성까지. 음원 파일 없이 브라우저가 직접 소리를 만듭니다.',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     canonical: '/sound',
     languages: alternateLanguages10('/sound'),
   },
-};
+});
 
 const CATEGORY_ORDER = ['연주·연습', '집중·수면', '측정', '신호음'];
 

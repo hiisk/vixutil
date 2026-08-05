@@ -9,6 +9,7 @@ import { RESISTOR_ICON, VALUES, valueOf } from './list.ts';
 import { resistorFacts } from './facts.ts';
 import { RESISTOR_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#f59e0b';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = RESISTOR_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/resistor`, languages: alternates('/resistor') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!ohms) return {};
   const ui = RESISTOR_UI[lang];
   const f = resistorFacts(ohms);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: {
       canonical: `${langPrefix(lang)}/resistor/${ohms}`,
       languages: alternates(`/resistor/${ohms}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

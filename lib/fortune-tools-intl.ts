@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10 } from './locales.ts';
 import type { Lang } from './fortune-intl.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 운세(/fortune) 섹션의 라우트 메타데이터·허브 카드·공유 카드 문구.
@@ -645,12 +646,12 @@ export function fortuneHubCards(lang: FortuneIntlLang) {
 export function fortuneHubMetadata(lang: FortuneIntlLang): Metadata {
   const c = HUB[lang];
   const route = '/fortune';
-  return {
+  return withCard({
     title: c.metaTitle,
     description: c.metaDesc,
     alternates: { canonical: localeHref(lang, route), languages: alternateLanguages10(route) },
     openGraph: { ...openGraphFor(lang as AnyLocale10), title: c.metaTitle, description: c.metaDesc, url: localeHref(lang, route) },
-  };
+  });
 }
 
 /**
@@ -670,12 +671,12 @@ export function fortuneToolMetadata(lang: FortuneIntlLang, slug: FortuneToolSlug
   const languages = koSlug
     ? { ...alternateLanguages10(route), ko: `/fortune/${koSlug}` }
     : alternateLanguages10(route);
-  return {
+  return withCard({
     title: c.metaTitle,
     description: c.metaDesc,
     alternates: { canonical: localeHref(lang, route), languages },
     openGraph: { ...openGraphFor(lang as AnyLocale10), title: c.metaTitle, description: c.metaDesc, url: localeHref(lang, route) },
-  };
+  });
 }
 
 /** 공유 카드 조각 — 열쇠는 og-intl과 같은 "fortune[/도구]/언어" 꼴 */

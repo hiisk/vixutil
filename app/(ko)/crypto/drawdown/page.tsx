@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import DrawdownBoard from './DrawdownBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto Drawdown & Time Underwater — depth is only half the story',
   description:
     'Every drawdown of 10% or more for any Binance coin, with how long each took to fall and to recover, plus the share of days the asset has spent below a previous high.',
   alternates: { canonical: '/crypto/drawdown' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

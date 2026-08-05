@@ -9,6 +9,7 @@ import { ROMAN_ICON, ROMAN_SLUGS, yearOf } from './list.ts';
 import { romanFacts } from './facts.ts';
 import { ROMAN_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#b45309';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = ROMAN_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/roman`, languages: alternates('/roman') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (year === undefined) return {};
   const ui = ROMAN_UI[lang];
   const f = romanFacts(year);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/roman/${slug}`, languages: alternates(`/roman/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

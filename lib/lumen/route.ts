@@ -9,6 +9,7 @@ import { LUMEN_ICON, LUMEN_SLUGS, cellOf } from './list.ts';
 import { lumenFacts } from './facts.ts';
 import { LUMEN_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#ca8a04';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = LUMEN_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/lumen`, languages: alternates('/lumen') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!c) return {};
   const ui = LUMEN_UI[lang];
   const f = lumenFacts(c);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/lumen/${slug}`, languages: alternates(`/lumen/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

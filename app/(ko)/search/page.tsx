@@ -5,12 +5,13 @@ import SiteFooter from '@/components/SiteFooter';
 import { SEARCH_INDEX } from '@/lib/search-index';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '통합 검색',
   description: '계산기·심리테스트·퀴즈·생성기·체크리스트를 한 번에 검색합니다. 어느 섹션에 있는지 몰라도 찾을 수 있습니다.',
   alternates: { canonical: '/search' },
-};
+});
 
 export default function SearchPage() {
   return (

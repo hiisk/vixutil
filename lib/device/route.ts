@@ -9,6 +9,7 @@ import { SCREENS, SCREEN_ICON } from './screens.ts';
 import { screenView } from './facts.ts';
 import { DEVICE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0ea5e9';
 const TO = '#0f172a';
@@ -19,28 +20,28 @@ export { SCREEN_ICON, screenView };
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = DEVICE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: {
       canonical: `${langPrefix(lang)}/device/screen`,
       languages: alternates('/device/screen'),
     },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
   const v = screenView(slug);
   if (!v) return {};
   const ui = DEVICE_UI[lang];
-  return {
+  return withCard({
     title: `${ui.metaTitle(v.name)} — ${ui.section}`,
     description: ui.metaDesc(v),
     alternates: {
       canonical: `${langPrefix(lang)}/device/screen/${slug}`,
       languages: alternates(`/device/screen/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

@@ -3,14 +3,15 @@ import { BODY_LANGS } from '@/lib/body-section';
 import FormulaHub from '@/components/FormulaHub';
 import { BODY_SECTION } from '@/lib/body-section';
 import { sectionAlternates } from '@/lib/formula/ui';
+import { withCard } from '@/lib/og-cards';
 
 const meta = BODY_SECTION.meta['ko'];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: meta.metaTitle,
   description: meta.metaDesc,
   alternates: { canonical: '/body', languages: sectionAlternates('body', undefined, BODY_LANGS) },
-};
+});
 
 export default function BodyHubKO() {
   return <FormulaHub lang="ko" section={BODY_SECTION} />;

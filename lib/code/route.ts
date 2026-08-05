@@ -12,6 +12,7 @@ import { CELLS, CHARS, CODE_ICON, cellOf, cellSlug, charOf, charSlug } from './l
 import { cellFacts, charFacts } from './facts.ts';
 import { CODE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#7c3aed';
 const TO = '#0f172a';
@@ -21,11 +22,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = CODE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/code`, languages: alternates('/code') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -33,20 +34,20 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   const char = charOf(slug);
   if (char) {
     const f = charFacts(char);
-    return {
+    return withCard({
       title: ui.charMetaTitle(f),
       description: ui.charMetaDesc(f),
       alternates: { canonical: `${langPrefix(lang)}/code/${slug}`, languages: alternates(`/code/${slug}`) },
-    };
+    });
   }
   const mask = cellOf(slug);
   if (mask === undefined) return {};
   const f = cellFacts(mask);
-  return {
+  return withCard({
     title: ui.cellMetaTitle(f),
     description: ui.cellMetaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/code/${slug}`, languages: alternates(`/code/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

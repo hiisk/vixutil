@@ -11,8 +11,9 @@ import { COLOR_FAMILIES, colorsOfFamily } from '@/lib/color/named8';
 import { COLOR_UI, colorAlternates } from '@/lib/color/ui';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '색상 도구 — 팔레트·대비 검사·그라디언트',
   description:
     '어울리는 색 조합 만들기, 글자가 읽히는지 WCAG 대비 검사, 색맹 시뮬레이션, CSS 그라디언트·그림자 코드 생성, 색온도 변환까지 한 곳에서. 무료·설치 없음.',
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     canonical: '/color',
     languages: colorAlternates(),
   },
-};
+});
 
 const CATEGORY_ORDER = ['팔레트', '접근성', 'CSS', '변환'];
 

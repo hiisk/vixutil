@@ -2,6 +2,7 @@
 import type { FoodTool } from './food-tools.ts';
 import { FOOD_TOOLS } from './food-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 요리 도구(/food) 섹션의 번역 메타데이터.
@@ -635,7 +636,7 @@ export function relatedFoodToolsIntl(lang: FoodIntlLang, slug: string, count = 4
 export function foodMetaIntl(lang: FoodIntlLang, slug: string) {
   const t = findFoodToolIntl(lang, slug);
   if (!t) throw new Error(`food-tools-intl: 도구가 없다 — ${slug}`);
-  return {
+  return withCard({
     title: t.metaTitle,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -643,12 +644,12 @@ export function foodMetaIntl(lang: FoodIntlLang, slug: string) {
       canonical: localeHref(lang, `/food/${slug}`),
       languages: alternateLanguages10(`/food/${slug}`),
     },
-  };
+  });
 }
 
 export function foodHubMetaIntl(lang: FoodIntlLang) {
   const ui = FOOD_SHELL_UI[lang];
-  return {
+  return withCard({
     title: ui.hubTitle,
     description: ui.hubDesc,
     openGraph: openGraphFor(lang),
@@ -656,7 +657,7 @@ export function foodHubMetaIntl(lang: FoodIntlLang) {
       canonical: localeHref(lang, '/food'),
       languages: alternateLanguages10('/food'),
     },
-  };
+  });
 }
 
 /** 셸·허브 UI 문구 */

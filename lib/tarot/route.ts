@@ -9,6 +9,7 @@ import { CARDS, TAROT_ICON } from './deck.ts';
 import { cardView } from './facts.ts';
 import { TAROT_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#7c3aed';
 const TO = '#0f172a';
@@ -18,25 +19,25 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = TAROT_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/fortune/card`, languages: alternates('/fortune/card') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
   const v = cardView(slug, lang);
   if (!v) return {};
   const ui = TAROT_UI[lang];
-  return {
+  return withCard({
     title: `${ui.metaTitle(v.name)} — ${ui.section}`,
     description: ui.metaDesc(v.name, v.upright),
     alternates: {
       canonical: `${langPrefix(lang)}/fortune/card/${slug}`,
       languages: alternates(`/fortune/card/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

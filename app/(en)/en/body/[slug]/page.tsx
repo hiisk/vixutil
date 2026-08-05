@@ -8,6 +8,7 @@ import { bodyTool, BODY_TOOLS } from '@/lib/body-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
 import { openGraphFor } from '@/lib/locales';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(BODY_TOOLS.map(t => ({ slug: t.slug })));
@@ -18,12 +19,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const tool = bodyTool(slug);
   if (!tool) return {};
   const text = tool['en'];
-  return {
+  return withCard({
     title: text.title,
     description: text.long,
     openGraph: openGraphFor('en'),
     alternates: { canonical: '/en/body/' + slug, languages: sectionAlternates('body', slug, BODY_LANGS) },
-  };
+  });
 }
 
 export default async function BodyDetailEN({ params }: { params: Promise<{ slug: string }> }) {

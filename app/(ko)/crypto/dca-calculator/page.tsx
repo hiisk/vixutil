@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import DcaCalculator from './DcaCalculator';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Crypto DCA Calculator — what if I had invested?',
   description:
     'Backtest dollar-cost averaging into Bitcoin, Ethereum or any Binance coin: what a recurring buy would be worth today, compared against every other possible start date and against a lump sum. Real daily closes, computed in your browser.',
   alternates: { canonical: '/crypto/dca-calculator' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

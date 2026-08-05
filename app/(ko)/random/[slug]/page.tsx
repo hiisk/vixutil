@@ -20,6 +20,7 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(RANDOM_TOOLS.map(t => ({ slug: t.slug })));
@@ -29,14 +30,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const t = RANDOM_TOOLS_MAP[slug];
   if (!t) return {};
-  return {
+  return withCard({
     title: t.title,
     description: t.long,
     alternates: {
       canonical: `/random/${slug}`,
       languages: alternateLanguages10(`/random/${slug}`),
     },
-  };
+  });
 }
 
 function Tool({ slug }: { slug: string }) {

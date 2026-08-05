@@ -1,14 +1,15 @@
 import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { Metadata } from 'next';
-export const metadata: Metadata = {
+import { withCard } from '@/lib/og-cards';
+export const metadata: Metadata = withCard({
   title: '타로 예스/노 - 질문에 예·아니오로 답하는 타로',
   description: '마음속 질문을 떠올리고 타로 카드 한 장을 뽑아 예·아니오·글쎄로 답을 받아보세요. 뽑힌 카드의 의미와 함께 그 답의 이유도 알려드립니다.',
   alternates: {
     canonical: '/fortune/tarot-yesno',
     languages: alternateLanguages10('/fortune/tarot-yesno'),
   },
-};
+});
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

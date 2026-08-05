@@ -10,6 +10,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { namedColor } from './named8.ts';
 import { colorFacts } from './facts.ts';
 import { COLOR_UI } from './ui.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const HUB_TO = '#0f172a';
 
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = COLOR_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/color`, languages: alternates('/color') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,14 +31,14 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!color) return {};
   const ui = COLOR_UI[lang];
   const f = colorFacts(color.hex);
-  return {
+  return withCard({
     title: `${ui.metaTitle(color.name[lang], f.hex)} — ${ui.section}`,
     description: ui.metaDesc(color.name[lang], f),
     alternates: {
       canonical: `${langPrefix(lang)}/color/${slug}`,
       languages: alternates(`/color/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

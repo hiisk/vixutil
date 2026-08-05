@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import AthBoard from './AthBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'How far is each coin from its all-time high?',
   description:
     'Live board of how far every major crypto sits below its all-time high, and the gain required to get back — because a 50% drop needs a 100% gain, not a 50% one. Computed in your browser from Binance daily closes.',
   alternates: { canonical: '/crypto/all-time-high' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

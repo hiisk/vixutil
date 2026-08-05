@@ -1,6 +1,7 @@
 // node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
 import { alternateLanguages10, localeHref, openGraphFor, type AnyLocale10, type IntlLocale } from './locales.ts';
 import { RANDOM_TOOLS_MAP } from './random-tools.ts';
+import { withCard } from './og-cards/index.ts';
 
 /**
  * 랜덤 뽑기 화면의 여덟 언어 문구.
@@ -754,18 +755,18 @@ export function randomL10n(slug: string, lang: RandomLang): RandomL10n {
 /** 허브 라우트의 metadata */
 export function randomHubMetaIntl(lang: RandomLang) {
   const ui = RANDOM_UI[lang];
-  return {
+  return withCard({
     title: ui.metaTitle,
     description: ui.metaDesc,
     openGraph: openGraphFor(lang),
     alternates: { canonical: localeHref(lang, '/random'), languages: alternateLanguages10('/random') },
-  };
+  });
 }
 
 /** 도구 라우트의 metadata */
 export function randomMetaIntl(lang: RandomLang, slug: string) {
   const t = randomL10n(slug, lang);
-  return {
+  return withCard({
     title: `${t.title} — vixutil`,
     description: t.long,
     openGraph: openGraphFor(lang),
@@ -773,5 +774,5 @@ export function randomMetaIntl(lang: RandomLang, slug: string) {
       canonical: localeHref(lang, `/random/${slug}`),
       languages: alternateLanguages10(`/random/${slug}`),
     },
-  };
+  });
 }

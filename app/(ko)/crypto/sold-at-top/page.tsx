@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import TimingBoard from './TimingBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'What If You Had Sold at the Top? — the cost of missing the best days',
   description:
     'Compare perfect timing, buy and hold, and missing the best days for Bitcoin and any Binance coin — and see how close the best days sit to the worst.',
   alternates: { canonical: '/crypto/sold-at-top' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

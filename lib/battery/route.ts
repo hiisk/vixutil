@@ -9,6 +9,7 @@ import { BATTERY_ICON, BATTERY_SLUGS, cellOf } from './list.ts';
 import { batteryFacts } from './facts.ts';
 import { BATTERY_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#15803d';
 const TO = '#0f172a';
@@ -18,11 +19,11 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = BATTERY_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/battery`, languages: alternates('/battery') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
@@ -30,11 +31,11 @@ export function detailMetadata(lang: Lang, slug: string): Metadata {
   if (!c) return {};
   const ui = BATTERY_UI[lang];
   const f = batteryFacts(c);
-  return {
+  return withCard({
     title: ui.metaTitle(f),
     description: ui.metaDesc(f),
     alternates: { canonical: `${langPrefix(lang)}/battery/${slug}`, languages: alternates(`/battery/${slug}`) },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

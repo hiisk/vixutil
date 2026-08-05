@@ -1,71 +1,179 @@
-/**
- * 공유 카드는 섹션마다 한 장이고, 상세 페이지는 그것을 물려받는다.
- *
- * 예전에는 상세 라우트마다 opengraph-image.tsx를 두어 페이지 하나에 카드 하나를
- * 만들었다. 카드가 정확해지는 대신 값이 컸다 — [slug] 라우트 274개가 언어를
- * 곱해 31,440장을 찍었고, 그것만으로 산출물이 6GB에 빌드가 이십 분을 넘겼다.
- * 배포가 아예 안 되는 지점까지 갔다.
- *
- * 그래서 상세 카드를 걷어냈다. Next는 그 자리에 카드가 없으면 위 구획의 카드를
- * 물려주므로, 주사위 상세 페이지는 주사위 섹션 카드를 그대로 쓴다 — 실제로
- * og:image와 twitter:image가 /random/dice/opengraph-image를 가리키는 것을
- * 확인하고 지웠다.
- *
- * 이 검사는 그 결정이 조용히 뒤집히는 것을 막는다. [slug] 아래에 카드를 하나
- * 되살리면 그 섹션 하나로 이미지가 천 장 넘게 늘어나는데, 그 사실은 빌드가
- * 느려지고 배포가 실패할 때에야 드러난다.
- */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 
-const APP = join(import.meta.dirname, '..', 'app');
+import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
+import { CARD_KEYS } from '../lib/og-cards/keys.ts';
+import { allCardParams, cardUrl, parseCardSlug } from '../lib/og-cards/index.ts';
+import { APP_DIR, stripGroups } from './app-path.ts';
 
-/** app 아래의 모든 opengraph-image.tsx */
-function ogRoutes(dir: string, out: string[] = []): string[] {
-  for (const name of readdirSync(dir)) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) ogRoutes(p, out);
-    else if (name === 'opengraph-image.tsx') out.push(relative(APP, p));
+/**
+ * 공유 카드가 한 장도 안 빠졌는지 본다.
+ *
+ * ── 어떻게 여기까지 왔나 ────────────────────────────────────────
+ * 처음에는 상세 라우트마다 opengraph-image.tsx를 두어 페이지 하나에 카드
+ * 하나를 만들었다. [slug] 라우트 274개에 언어를 곱해 31,440장이 찍히면서
+ * 산출물이 6GB, 빌드가 이십 분을 넘겼다. 그래서 상세 카드를 걷어내고 섹션
+ * 카드를 물려받게 했다 — 1,799장으로 줄었다.
+ *
+ * 그래도 모자랐다. 카드 한 장이 라우트 엔트리 하나라, 1,799개 엔트리가
+ * 컴파일에서 204초를 먹었고 2코어 8GB 빌드 컨테이너가 SIGKILL로 죽었다.
+ * 그래서 카드는 그대로 두고 **엔트리만** 하나로 접었다(컴파일 86초).
+ * 자세한 것은 lib/og-cards/index.ts 머리말에 있다.
+ *
+ * ── 그래서 무엇이 위험해졌나 ────────────────────────────────────
+ * 파일 규약은 "그 자리에 파일이 있으면 그 카드, 없으면 조상 것"을 알아서
+ * 해 줬으므로 빠뜨릴 수가 없었다. 이제 카드를 붙이는 것은 lib/og-cards의
+ * withCard이고, 그건 사람이 부르는 것이다 — **부르는 것을 잊으면 그 페이지만
+ * 조용히 카드를 잃는다.** 빌드도 타입도 통과하고, 링크를 어딘가에 붙여
+ * 보기 전에는 아무도 모른다.
+ *
+ * 그래서 여기서는 "카드가 예쁜가"가 아니라 **"모든 페이지가 카드를 받는가"**를 본다.
+ */
+const ROOT = join(import.meta.dirname, '..');
+const CARDS_DIR = join(ROOT, 'lib', 'og-cards');
+
+test('카드가 1,799장 그대로다', () => {
+  /*
+   * 접기 전 opengraph-image.tsx의 장수다. 줄었다면 어떤 언어의 어떤 섹션이
+   * 카드를 잃은 것이고, 늘었다면 새 섹션이 들어온 것이다 — 둘 다 사람이
+   * 알고 넘어가야 하는 변화다.
+   */
+  const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
+  assert.equal(total, 1799);
+  assert.equal(allCardParams().length, 1799);
+});
+
+test('keys.ts가 언어별 대응표와 어긋나지 않는다', () => {
+  /*
+   * 주소를 푸는 쪽(keys.ts)과 그리는 쪽(<언어>.tsx)이 갈라져 있다 — 후자는
+   * JSX를 끌고 와서 node --test가 못 읽기 때문이다. 갈라 놓은 값은 어긋난다.
+   * 어긋나면 keys.ts에만 있는 경로는 404를 내고, .tsx에만 있는 카드는
+   * 아무도 안 부르는 그림이 된다. 그래서 .tsx를 글자로 읽어 맞춰 본다.
+   */
+  const bad: string[] = [];
+  for (const lang of LANG_CODES) {
+    const src = readFileSync(join(CARDS_DIR, `${lang}.tsx`), 'utf8');
+    const inFile = [...src.matchAll(/^ {2}'([^']*)': \(\) =>/gm)].map(m => m[1]);
+    assert.ok(inFile.length > 0, `${lang}.tsx에서 카드를 하나도 못 읽었다`);
+    const a = [...inFile].sort();
+    const b = [...CARD_KEYS[lang]].sort();
+    if (a.join('\n') !== b.join('\n')) {
+      const only = (x: string[], y: string[]) => x.filter(k => !y.includes(k));
+      bad.push(`${lang}: .tsx에만 ${JSON.stringify(only(a, b))} · keys.ts에만 ${JSON.stringify(only(b, a))}`);
+    }
   }
+  assert.deepStrictEqual(bad, []);
+});
+
+test('카드 주소는 언어 칸으로 시작한다', () => {
+  // /og/paper가 "한국어 paper"인지 "paper라는 언어"인지 가릴 수 있어야 한다
+  const segs = new Set(LANGS.map(l => l.prefix.slice(1) || 'ko'));
+  assert.deepStrictEqual(allCardParams().filter(p => !segs.has(p.slug[0])).slice(0, 5), []);
+  for (const p of allCardParams()) assert.ok(parseCardSlug(p.slug), p.slug.join('/'));
+});
+
+/** app을 훑어 페이지 라우트를 모은다 — 그룹 폴더는 주소에 안 들어간다 */
+function pageRoutes(): string[] {
+  const out: string[] = [];
+  const walk = (dir: string, rel: string) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (e.isDirectory()) walk(join(dir, e.name), `${rel}/${e.name}`);
+      else if (e.name === 'page.tsx') out.push(stripGroups(rel) || '/');
+    }
+  };
+  walk(APP_DIR, '');
   return out;
 }
 
-test('상세 라우트에는 공유 카드를 두지 않는다', () => {
-  const inSlug = ogRoutes(APP).filter(p => p.includes('['));
-  assert.deepEqual(
-    inSlug,
-    [],
-    `동적 라우트 아래의 카드는 페이지 수만큼 이미지를 찍는다. 섹션 카드를 물려받게 두라:\n${inSlug.join('\n')}`,
-  );
+test('모든 페이지가 카드를 받는다', () => {
+  /*
+   * 파일 규약이 하던 보증을 여기서 되찾는다. 낱장은 자기 섹션 카드를
+   * 물려받으므로 [slug] 같은 칸이 있어도 상관없다 — cardUrl이 조상으로 올라간다.
+   */
+  const routes = pageRoutes();
+  assert.ok(routes.length > 2000, `페이지를 ${routes.length}개밖에 못 찾았다`);
+  assert.deepStrictEqual(routes.filter(r => !cardUrl(r)).slice(0, 10), []);
 });
 
-test('카드를 만드는 섹션에는 그 자리에 카드가 있다', () => {
-  // 상세가 물려받을 카드가 정작 없으면 미리보기가 통째로 빈다.
-  // 동적 라우트를 가진 구획은 그 위에 카드가 있어야 한다.
-  const missing: string[] = [];
+test('낱장은 자기 섹션 카드를 물려받는다', () => {
+  const cases: [string, string][] = [
+    ['/paper', '/og/ko/paper'],
+    ['/paper/a4-72', '/og/ko/paper'], // 낱장 → 섹션
+    ['/en/paper/a0-72', '/og/en/paper'],
+    ['/en/color/name', '/og/en/color/name'], // 도구마다 제 카드가 있다
+    ['/zh-hans/time/alarm', '/og/zh-hans/time/alarm'],
+    ['/', '/og/ko'],
+    ['/en', '/og/en'],
+    ['/en/crypto', '/og/en'], // 한국어에만 있는 섹션 → 그 언어 첫 화면 카드
+  ];
+  for (const [route, want] of cases) assert.equal(cardUrl(route), want, route);
+});
+
+test('canonical을 든 메타데이터는 모두 withCard를 거친다', () => {
+  /*
+   * withCard를 안 부르면 그 페이지만 카드를 잃는다 — 빌드도 타입도 통과한다.
+   * 그래서 "canonical을 든 객체 리터럴"을 전부 찾아 감싸였는지 본다.
+   * 새 섹션을 손으로 적을 때 빠뜨리는 것을 여기서 잡는다.
+   */
+  const bad: string[] = [];
   const walk = (dir: string) => {
-    const names = readdirSync(dir);
-    const hasDynamic = names.some(n => n.startsWith('[') && statSync(join(dir, n)).isDirectory());
-    if (hasDynamic && names.includes('page.tsx') && !existsSync(join(dir, 'opengraph-image.tsx'))) {
-      missing.push(relative(APP, dir));
-    }
-    for (const n of names) {
-      const p = join(dir, n);
-      if (statSync(p).isDirectory()) walk(p);
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) { walk(p); continue; }
+      if (!e.name.endsWith('.ts') && !e.name.endsWith('.tsx')) continue;
+      const src = readFileSync(p, 'utf8');
+      if (!src.includes('canonical:')) continue;
+      const lines = src.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const m = /^(\s*)(?:return|export const metadata[^=]*=) \{$/.exec(lines[i]);
+        if (!m) continue;
+        let j = i + 1;
+        while (j < lines.length && lines[j] !== `${m[1]}};`) j++;
+        if (lines.slice(i, j).some(l => l.includes('canonical:')))
+          bad.push(`${p.slice(ROOT.length + 1)}:${i + 1}`);
+      }
     }
   };
-  walk(APP);
-  assert.deepEqual(missing, [], `상세를 가진 이 구획에 물려줄 카드가 없다:\n${missing.join('\n')}`);
+  for (const d of ['lib', 'app']) walk(join(ROOT, d));
+  assert.deepStrictEqual(bad.slice(0, 10), []);
 });
 
-test('카드 라우트 수가 갑자기 불어나지 않는다', () => {
-  // 언어 열 개 × 구획이라 자연히 백 단위다. 섹션이 하나 늘 때 여기는 열 장씩
-  // 는다 — 이 천장은 그 정도의 증가를 막자는 것이 아니라, 상세 라우트에 카드가
-  // 되살아나는 것을 잡자는 것이다. 그때는 섹션 하나로 수백~수천 장이 한꺼번에
-  // 늘어 이 선을 훌쩍 넘는다. (막는 자리 자체는 위의 '[' 검사다.)
-  const all = ogRoutes(APP);
-  assert.ok(all.length > 0, '카드가 하나도 없다');
-  assert.ok(all.length < 2000, `카드 라우트가 ${all.length}개다 — 동적 라우트에 생기지 않았는지 보라`);
+test('카드를 그리는 라우트는 하나뿐이다', () => {
+  /*
+   * opengraph-image.tsx가 되살아나면 그 장마다 라우트 엔트리가 하나씩 생긴다.
+   * 1,799장이었을 때 컴파일이 204초였고 2코어 8GB 빌드가 SIGKILL로 죽었다.
+   * 접은 뒤 86초다. 파일 규약이 편해 보인다고 다시 늘리면 같은 자리로 돌아간다.
+   */
+  const found: string[] = [];
+  const walk = (dir: string) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name.startsWith('opengraph-image') || e.name.startsWith('twitter-image')) found.push(p);
+    }
+  };
+  walk(APP_DIR);
+  assert.deepStrictEqual(found, [], '카드는 app/og/[...slug]/route.tsx 하나가 그린다');
+});
+
+test('카드 대응표가 ImageResponse를 직접 부르지 않는다', () => {
+  // 직접 부르면 폰트가 안 실린다 — 부르는 자리는 lib/og-image.ts 하나여야 한다
+  const bad = readdirSync(CARDS_DIR)
+    .filter(f => f.endsWith('.tsx') || f.endsWith('.ts'))
+    .filter(f => readFileSync(join(CARDS_DIR, f), 'utf8').includes('new ImageResponse'));
+  assert.deepStrictEqual(bad, []);
+});
+
+test('언어마다 카드 수가 엇비슷하다', () => {
+  /*
+   * 한 언어만 뭉텅 빠지면 그 언어 카드가 전부 첫 화면 카드로 떨어진다.
+   * 조상으로 올라가는 규칙 때문에 404가 아니라 "엉뚱한 그림"으로 나타나서
+   * 눈에 안 띈다. 한국어만 전용 섹션이 있어 조금 많다.
+   */
+  const counts = LANG_CODES.map(l => [l, CARD_KEYS[l].length] as [Lang, number]);
+  const min = Math.min(...counts.map(c => c[1]));
+  assert.deepStrictEqual(counts.filter(([, n]) => n < min * 0.9), []);
+  assert.ok(min >= 170, `가장 적은 언어가 ${min}장뿐: ${JSON.stringify(counts)}`);
 });

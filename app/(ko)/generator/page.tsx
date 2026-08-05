@@ -10,15 +10,16 @@ import PageGlow from '@/components/PageGlow';
 import { alternateLanguages10 } from '@/lib/locales';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: '생성기',
   description: '닉네임, 비밀번호, 명언, 메뉴 등 100가지 랜덤 생성기 모음',
   alternates: {
     canonical: '/generator',
     languages: alternateLanguages10('/generator'),
   },
-};
+});
 
 export default function GeneratorIndexPage() {
   return (

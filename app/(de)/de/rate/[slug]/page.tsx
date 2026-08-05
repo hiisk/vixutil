@@ -9,6 +9,7 @@ import { textOf } from '@/lib/formula/types';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { RATE_LANGS } from '@/lib/rate-section';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 export function generateStaticParams() {
   return prerender(RATE_TOOLS.map(t => ({ slug: t.slug })));
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const tool = rateTool(slug);
   if (!tool) return {};
   const text = textOf(tool, 'de');
-  return {
+  return withCard({
     title: text.title,
     description: text.long,
     openGraph: openGraphFor('de'),
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: localeHref('de', `/rate/${slug}`),
       languages: sectionAlternates('rate', slug, RATE_LANGS),
     },
-  };
+  });
 }
 
 export default async function RateDetailDe({ params }: { params: Promise<{ slug: string }> }) {

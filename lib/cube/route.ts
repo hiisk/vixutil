@@ -9,6 +9,7 @@ import { ALGS, CUBE_ICON, algOf } from './list.ts';
 import { caseFacts } from './facts.ts';
 import { CUBE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
+import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#f59e0b';
 const TO = '#0f172a';
@@ -18,25 +19,25 @@ const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
 export function hubMetadata(lang: Lang): Metadata {
   const ui = CUBE_UI[lang];
-  return {
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/game/cube`, languages: alternates('/game/cube') },
-  };
+  });
 }
 
 export function detailMetadata(lang: Lang, slug: string): Metadata {
   const item = algOf(slug);
   if (!item) return {};
   const ui = CUBE_UI[lang];
-  return {
+  return withCard({
     title: `${ui.metaTitle(item.label)} — ${ui.section}`,
     description: ui.metaDesc(caseFacts(item)),
     alternates: {
       canonical: `${langPrefix(lang)}/game/cube/${slug}`,
       languages: alternates(`/game/cube/${slug}`),
     },
-  };
+  });
 }
 
 export function hubCard(lang: Lang): ReactElement {

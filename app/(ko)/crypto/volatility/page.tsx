@@ -8,13 +8,14 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import VolatilityBoard from './VolatilityBoard';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'Most Volatile Crypto — right now versus normally',
   description:
     'Realised volatility for the largest crypto assets over 7, 30, 90 and 365 days, with the ratio between the short and long window so you can tell a coin that is always wild from one that is wild this week.',
   alternates: { canonical: '/crypto/volatility' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(

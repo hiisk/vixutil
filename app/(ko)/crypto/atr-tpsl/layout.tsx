@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
+import { withCard } from '@/lib/og-cards';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCard({
   title: 'ATR TP/SL Calculator - Crypto volatility-based take-profit & stop-loss',
   description: 'Compute the daily ATR(14) of top-volume Binance coins in real time and get take-profit (TP), stop-loss (SL) levels and risk:reward from your entry, direction and multipliers. Reference tool, not investment advice.',
   alternates: { canonical: '/crypto/atr-tpsl' },
-};
+});
 
 const structuredData = [
   webAppJsonLd(
