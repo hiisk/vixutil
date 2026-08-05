@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/uv', icon: '☀️', color: 'from-orange-500 to-yellow-400',
+    accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
+    copy: {
+      en: { title: 'UV Burn Time', desc: 'How long before skin reddens, by UV index and skin type' },
+      es: { title: 'Tiempo de quemadura UV', desc: 'Cuánto tarda la piel en enrojecer según el índice UV y el tipo de piel' },
+      'pt-br': { title: 'Tempo de queimadura UV', desc: 'Quanto tempo até a pele avermelhar, por índice UV e tipo de pele' },
+      ja: { title: '紫外線と日焼け時間', desc: '紫外線指数と肌タイプで、赤くなるまで何分か' },
+      de: { title: 'UV und Sonnenbrandzeit', desc: 'Wie lange bis zur Rötung — nach UV-Index und Hauttyp' },
+      fr: { title: 'UV et temps avant brûlure', desc: 'Le temps avant que la peau rougisse, selon l’indice UV et le phototype' },
+      hi: { title: 'यूवी और जलने का समय', desc: 'यूवी सूचकांक और त्वचा प्रकार से, त्वचा कब लाल होगी' },
+      'zh-hans': { title: '紫外线晒伤时间', desc: '按紫外线指数和肤质，多久皮肤开始发红' },
+      'zh-hant': { title: '紫外線曬傷時間', desc: '按紫外線指數和膚質，多久皮膚開始發紅' },
+    },
+  },
+  {
     route: '/ampere', icon: '⚡', color: 'from-yellow-600 to-amber-400',
     accent: 'text-amber-700 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
     copy: {

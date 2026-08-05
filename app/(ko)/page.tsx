@@ -40,6 +40,7 @@ import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
+import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -80,6 +81,18 @@ const SECTIONS = [
     textAccent: 'text-amber-800 dark:text-amber-300',
     borderAccent: 'border-amber-200 dark:border-amber-900/50',
     shadow: 'shadow-amber-100',
+  },
+  {
+    href: '/uv',
+    icon: '☀️',
+    title: '자외선 화상 시간',
+    desc: '지수 8이면 스무 분 — 같은 햇빛도 피부 타입에 따라 다섯 배',
+    badge: `${UV_CELLS.length}칸`,
+    color: 'from-orange-500 to-yellow-400',
+    bgLight: 'bg-orange-50 dark:bg-orange-900/40',
+    textAccent: 'text-orange-700 dark:text-orange-200',
+    borderAccent: 'border-orange-200 dark:border-orange-800',
+    shadow: 'shadow-orange-100',
   },
   {
     href: '/paper',

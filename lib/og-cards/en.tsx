@@ -17,6 +17,7 @@ import type { ReactElement } from 'react';
 
 import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
+import { hubCard as uvHub } from '@/lib/uv/route';
 import { hubCard as asciiHub } from '@/lib/ascii/route';
 import { hubCard as bandwidthHub } from '@/lib/bandwidth/route';
 import { hubCard as batteryHub } from '@/lib/battery/route';
@@ -78,6 +79,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   '': () => intlOg('home/en'),
   'altitude': () => altitudeHub('en'),
   'ampere': () => ampereHub('en'),
+  'uv': () => uvHub('en'),
   'ascii': () => asciiHub('en'),
   'bandwidth': () => bandwidthHub('en'),
   'battery': () => batteryHub('en'),
