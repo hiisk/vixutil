@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/ampere', icon: '⚡', color: 'from-yellow-600 to-amber-400',
+    accent: 'text-amber-700 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
+    copy: {
+      en: { title: 'Appliance Current', desc: 'Amps from watts and volts, and how many fit on one circuit' },
+      es: { title: 'Corriente de aparatos', desc: 'Amperios a partir de vatios y tensión, y cuántos caben en un circuito' },
+      'pt-br': { title: 'Corrente de aparelhos', desc: 'Ampères a partir de watts e tensão, e quantos cabem num circuito' },
+      ja: { title: '家電の電流', desc: '消費電力と電圧から何アンペアか、1回路に何台まで' },
+      de: { title: 'Gerätestrom', desc: 'Ampere aus Watt und Spannung — und wie viele an einen Stromkreis passen' },
+      fr: { title: 'Courant des appareils', desc: 'Des ampères à partir des watts et de la tension, et combien par circuit' },
+      hi: { title: 'उपकरण करंट', desc: 'वाट और वोल्टेज से एम्पियर, और एक सर्किट पर कितने' },
+      'zh-hans': { title: '家电电流', desc: '由功率和电压算安培，一路电路能插几台' },
+      'zh-hant': { title: '家電電流', desc: '由功率和電壓算安培，一路電路能插幾台' },
+    },
+  },
+  {
     route: '/lumen', icon: '💡', color: 'from-yellow-500 to-amber-400',
     accent: 'text-yellow-700 dark:text-yellow-200', border: 'border-yellow-200 dark:border-yellow-800', bg: 'bg-yellow-50 dark:bg-yellow-900/40',
     copy: {

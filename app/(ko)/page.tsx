@@ -39,6 +39,7 @@ import { CELLS as WIRE_CELLS } from '@/lib/wire/list';
 import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
+import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -115,6 +116,18 @@ const SECTIONS = [
     textAccent: 'text-yellow-700 dark:text-yellow-200',
     borderAccent: 'border-yellow-200 dark:border-yellow-800',
     shadow: 'shadow-yellow-100',
+  },
+  {
+    href: '/ampere',
+    icon: '⚡',
+    title: '가전 전류 계산',
+    desc: '전기포트는 220V에서 9.1A — 한 회로에 몇 대까지 꽂아도 되는지',
+    badge: `${AMP_CELLS.length}칸`,
+    color: 'from-yellow-600 to-amber-400',
+    bgLight: 'bg-amber-50 dark:bg-amber-900/40',
+    textAccent: 'text-amber-700 dark:text-amber-200',
+    borderAccent: 'border-amber-200 dark:border-amber-800',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/test',

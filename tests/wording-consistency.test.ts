@@ -65,6 +65,7 @@ import { WIRE_UI } from '../lib/wire/ui.ts';
 import { PAPER_UI } from '../lib/paper/ui.ts';
 import { TORQUE_UI } from '../lib/torque/ui.ts';
 import { LUMEN_UI } from '../lib/lumen/ui.ts';
+import { AMPERE_UI } from '../lib/ampere/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -77,7 +78,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI), altitude: ui(ALTITUDE_UI), wifi: ui(WIFI_UI), fret: ui(FRET_UI), gravity: ui(GRAVITY_UI), windchill: ui(WINDCHILL_UI), dew: ui(DEW_UI), drill: ui(DRILL_UI), bandwidth: ui(BANDWIDTH_UI), battery: ui(BATTERY_UI), wire: ui(WIRE_UI), paper: ui(PAPER_UI), torque: ui(TORQUE_UI), lumen: ui(LUMEN_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI), altitude: ui(ALTITUDE_UI), wifi: ui(WIFI_UI), fret: ui(FRET_UI), gravity: ui(GRAVITY_UI), windchill: ui(WINDCHILL_UI), dew: ui(DEW_UI), drill: ui(DRILL_UI), bandwidth: ui(BANDWIDTH_UI), battery: ui(BATTERY_UI), wire: ui(WIRE_UI), paper: ui(PAPER_UI), torque: ui(TORQUE_UI), lumen: ui(LUMEN_UI), ampere: ui(AMPERE_UI),
 };
 
 /**

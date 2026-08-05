@@ -79,6 +79,7 @@ import { CELLS as WIRE_CELLS, slugOf as wireSlug } from "@/lib/wire/list";
 import { CELLS as PAPER_CELLS, slugOf as paperSlug } from "@/lib/paper/list";
 import { CELLS as TORQUE_CELLS, slugOf as torqueSlug } from "@/lib/torque/list";
 import { CELLS as LUMEN_CELLS, slugOf as lumenSlug } from "@/lib/lumen/list";
+import { CELLS as AMP_CELLS, slugOf as ampSlug } from "@/lib/ampere/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -604,6 +605,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 가전 전류 160장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/ampere`, changeFrequency: weekly, priority: 0.85 },
+      ...AMP_CELLS.map(c => ({
+        url: `${BASE}${prefix}/ampere/${ampSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
