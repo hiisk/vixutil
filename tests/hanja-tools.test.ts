@@ -5,6 +5,7 @@ import { IDIOMS, HANJA_CATEGORIES, idiomBySlug, relatedIdioms } from '../lib/han
 import { idiomText } from '../lib/hanja/types.ts';
 import { HANJA_UI, hanjaCategories, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
 import { GLOSS_EN } from '../lib/hanja/gloss-en.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'] as const;
 const HANGUL = /[가-힣]/;
@@ -147,9 +148,9 @@ test('같은 갈래 링크가 자기 자신을 가리키지 않는다', () => {
 
 test('세 언어 라우트가 모두 있다', () => {
   for (const p of ['app/hanja', 'app/en/hanja', ]) {
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
   }
 });
 
@@ -162,7 +163,7 @@ test('hreflang이 열 언어와 x-default를 낸다', () => {
 });
 
 test('사이트맵이 열 언어의 /hanja를 낸다', () => {
-  const src = readFileSync('app/sitemap.ts', 'utf8');
+  const src = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(src.includes('/hanja`'), '사이트맵에 /hanja 없음');
   assert.match(src, /INTL_LOCALES10\.flatMap[\s\S]{0,400}\/hanja/, '사이트맵이 /hanja를 언어별로 돌리지 않는다');
 });

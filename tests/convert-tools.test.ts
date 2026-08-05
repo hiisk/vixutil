@@ -11,6 +11,7 @@ import { CONVERT_EN, CONVERT_CATEGORY, CONVERT_L10N } from '../lib/convert-i18n.
 import { convertAlternates, CONVERT_HUB_FAQ } from '../lib/convert-ui-intl.ts';
 import { ALL_LOCALES10, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
+import { appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -93,8 +94,8 @@ test('FAQ가 실제 계산값을 담는다', () => {
 });
 
 test('허브와 상세 라우트가 있다', () => {
-  assert.ok(existsSync(join(ROOT, 'app', 'convert', 'page.tsx')));
-  assert.ok(existsSync(join(ROOT, 'app', 'convert', '[slug]', 'page.tsx')));
+  assert.ok(existsSync(appJoin('convert', 'page.tsx')));
+  assert.ok(existsSync(appJoin('convert', '[slug]', 'page.tsx')));
   assert.ok((SECTION_FAQ.convert ?? []).length >= 3, '허브 FAQ가 부족하다');
 });
 
@@ -111,7 +112,7 @@ test('검색 인덱스·사이트맵·푸터가 이 섹션을 싣는다', () => 
   assert.ok(index.includes('CONVERT_TOOLS'), '검색 인덱스 누락');
   assert.ok(index.includes('convert:'), 'SECTION_META 누락');
 
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('CONVERT_TOOLS'), '사이트맵 누락');
 
   const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
@@ -186,7 +187,7 @@ test('허브 FAQ가 일곱 언어에 다 있다', () => {
 
 test('열 언어 라우트가 다 있다', () => {
   for (const lang of ALL_LOCALES10) {
-    const base = join(ROOT, 'app', ...localeHref(lang, '/convert').split('/').filter(Boolean));
+    const base = appJoin(...localeHref(lang, '/convert').split('/').filter(Boolean));
     assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
     assert.ok(existsSync(join(base, 'opengraph-image.tsx')), `${lang} 허브 OG 없음`);
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
@@ -233,7 +234,7 @@ test('사이트맵에 열 언어가 다 실린다', () => {
     늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다 —
     실제로 중국어가 그렇게 빠져 convert 100쪽이 사이트맵에 0건이었다.
   */
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/convert`') || sitemap.includes('/convert/'), '사이트맵에 한국어 /convert 없음');
   assert.match(sitemap, /INTL_LOCALES10\.flatMap[\s\S]{0,200}\/convert/, '번역 언어를 목록에서 만들지 않는다');
 });

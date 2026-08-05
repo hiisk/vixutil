@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { appEntries, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -36,13 +37,13 @@ function walk(dir: string): string[] {
 function sections(): Set<string> {
   const LOCALE_DIR = /^(en|es|pt-br|ja|de|fr|hi|zh-hans|zh-hant)$/;
   const out = new Set<string>();
-  for (const e of readdirSync(join(ROOT, 'app'), { withFileTypes: true })) {
+  for (const e of appEntries()) {
     if (!e.isDirectory() || LOCALE_DIR.test(e.name)) continue;
     if (e.name.startsWith('[') || e.name.startsWith('(')) continue;
     out.add(e.name);
   }
   // 언어 디렉터리 안쪽도 섹션이다 — 한국어에만 없는 섹션이 있을 수 있다
-  for (const e of readdirSync(join(ROOT, 'app', 'en'), { withFileTypes: true })) {
+  for (const e of readdirSync(appJoin('en'), { withFileTypes: true })) {
     if (e.isDirectory() && !e.name.startsWith('[')) out.add(e.name);
   }
   return out;

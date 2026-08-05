@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
+import { appJoin } from './app-path.ts';
 
 /**
  * 푸터는 모든 페이지에 붙으므로 여기 링크가 하나 깨지면 사이트 전체가 깨진 링크를
@@ -19,7 +20,7 @@ function hrefsIn(arrayName: string): string[] {
 /** 그 경로에 실제로 페이지가 있는가 */
 const routeExists = (href: string): boolean => {
   const clean = href.replace(/^\//, '');
-  return existsSync(`app/${clean}/page.tsx`);
+  return existsSync(appJoin(...clean.split('/'), 'page.tsx'));
 };
 
 test('푸터가 두 언어의 섹션 목록을 모두 갖는다', () => {

@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { ALTITUDE_ICON, ALTITUDE_SLUGS, altitudeOf } from './list.ts';
 import { altitudeFacts } from './facts.ts';
 import { ALTITUDE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0e7490';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: ALTITUDE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const altitudeParams = () => ALTITUDE_SLUGS.map(slug => ({ slug }));
+export const altitudeParams = () => prerender(ALTITUDE_SLUGS.map(slug => ({ slug })));

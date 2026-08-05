@@ -4,9 +4,10 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { FOOD_TOOLS, findFoodTool, relatedFoodTools } from '../lib/food-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
+import { appEntries, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const APP = join(ROOT, 'app', 'food');
+const APP = appJoin('food');
 
 /**
  * 카탈로그(lib/food-tools.ts) 하나를 허브·상세 셸·검색 인덱스·사이트맵·FAQ가
@@ -104,7 +105,7 @@ test('검색 인덱스·사이트맵·푸터가 이 섹션을 싣는다', () => 
   assert.ok(index.includes('FOOD_TOOLS'), '검색 인덱스가 이 섹션을 싣지 않는다');
   assert.ok(index.includes('food:'), 'SECTION_META에 food가 없다');
 
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/food'), '사이트맵에 허브가 없다');
   assert.ok(sitemap.includes('FOOD_TOOLS'), '사이트맵에 상세 페이지가 없다');
 

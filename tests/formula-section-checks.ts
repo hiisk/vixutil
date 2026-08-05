@@ -18,6 +18,7 @@ import { termDesc } from '../lib/formula/glossary.ts';
 import type { SectionConfig } from '../lib/formula/section.ts';
 import { sectionMeta, sectionCategories } from '../lib/formula/section.ts';
 import { verdictText } from '../lib/formula/types.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 const HANGUL = /[가-힣]/;
@@ -246,9 +247,9 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
 
   test(`${name} 두 언어 라우트가 모두 있다`, () => {
     for (const p of [`app/${key}`, `app/en/${key}`]) {
-      assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-      assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
-      assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
+      assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+      assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+      assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
     }
   });
 
@@ -267,7 +268,7 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
       늘릴 때 사이트맵만 조용히 빠지고, 색인에서 그 언어가 통째로 사라진다 —
       실제로 중국어가 그렇게 빠져 섹션마다 100장이 사이트맵에 0건이었다.
     */
-    const src = readFileSync('app/sitemap.ts', 'utf8');
+    const src = readFileSync(appFile('app/sitemap.ts'), 'utf8');
     assert.ok(src.includes(`/${key}\``) || src.includes(`/${key}/`), `사이트맵에 /${key} 없음`);
     const intl = new RegExp(`INTL_LOCALES10\\.flatMap[\\s\\S]{0,240}/${key}`);
     const hasIntl = intl.test(src);

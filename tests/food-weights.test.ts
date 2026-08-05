@@ -16,6 +16,7 @@ import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { FOOD_CATEGORIES, INGREDIENTS, ingredient, ingredientsOfCategory } from '../lib/food/ingredients8.ts';
 import { VOLUMES, foodFacts, mlOfGrams, similarIngredients } from '../lib/food/facts.ts';
 import { FOOD_UI, foodAlternates } from '../lib/food/ui.ts';
+import { appFile } from './app-path.ts';
 
 const LANG_KEYS = LANG_CODES;
 const ROUTE_LANGS = LANGS;
@@ -154,8 +155,8 @@ test('비슷한 재료는 자기를 넣지 않고 같은 갈래를 먼저 준다
 test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of ROUTE_LANGS) {
     const p = `app${prefix}/food`;
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
   }
 });
 
@@ -169,13 +170,13 @@ test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
 });
 
 test('사이트맵·검색·허브에 재료가 걸려 있다', () => {
-  const map = readFileSync('app/sitemap.ts', 'utf8');
+  const map = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(map.includes('INGREDIENTS'), '사이트맵이 재료 목록을 돌지 않는다');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
   assert.ok(idx.includes('INGREDIENTS'), '검색 인덱스에 재료 없음');
   // 허브에서 걸어 주지 않으면 125장이 고아가 된다
   for (const hub of ['app/food/page.tsx', 'components/FoodHubIntl.tsx']) {
-    assert.ok(readFileSync(hub, 'utf8').includes('ingredientsOfCategory'), `${hub}에 재료 목록이 없다`);
+    assert.ok(readFileSync(hub.startsWith('app/') ? appFile(hub) : hub, 'utf8').includes('ingredientsOfCategory'), `${hub}에 재료 목록이 없다`);
   }
 });
 

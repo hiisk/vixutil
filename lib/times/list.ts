@@ -9,6 +9,8 @@
  * 9단까지, 영어권의 times table은 12단까지, 인도에서는 20단까지 외운다.
  * 스물까지 두면 어느 쪽에서 와도 찾는 칸이 있다.
  */
+import { prerender } from '../prerender.ts';
+
 export const MAX_FACTOR = 20;
 
 export interface Product {
@@ -49,10 +51,10 @@ export const productOf = (slug: string): Product | undefined => {
  * (JSX가 없는 이 파일에 두는 이유는 검사가 부를 수 있어야 하기 때문이다 —
  *  route.ts는 공유 카드 때문에 JSX를 물고 있어 node --test가 파싱하지 못한다.)
  */
-export const timesParams = () => [
+export const timesParams = () => prerender([
   ...PRODUCTS.map(p => ({ slug: slugOf(p) })),
   ...PRODUCTS.filter(p => p.a !== p.b).map(p => ({ slug: `${p.b}x${p.a}` })),
-];
+]);
 
 /** 목록과 공유 카드가 같은 그림을 쓴다 */
 export const TIMES_ICON = '🔢';

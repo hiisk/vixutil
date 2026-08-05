@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { FREQS, FREQ_ICON, freqOf, freqSlug } from './freqs.ts';
 import { freqFacts } from './facts.ts';
 import { SOUND_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#10b981';
 const TO = '#0f172a';
@@ -61,4 +62,4 @@ export function freqCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const freqParams = () => FREQS.map(f => ({ slug: freqSlug(f.hz) }));
+export const freqParams = () => prerender(FREQS.map(f => ({ slug: freqSlug(f.hz) })));

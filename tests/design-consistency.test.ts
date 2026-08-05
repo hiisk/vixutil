@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { appEntries, appFile, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const APP = join(ROOT, 'app');
@@ -48,7 +49,7 @@ test('공용 셸과 엔진이 배경 글로우를 쓴다', () => {
   const missing = shells.filter(s => {
     const p = join(ROOT, 'components', s);
     assert.ok(existsSync(p), `${s}가 없다`);
-    return !readFileSync(p, 'utf8').includes('PageGlow');
+    return !readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes('PageGlow');
   });
   assert.deepEqual(missing, [], `글로우가 없는 셸: ${missing.join(', ')}`);
 });
@@ -57,7 +58,9 @@ test('기본 테마는 라이트다 — 시스템 설정을 따르지 않는다'
   // 구글 자동 광고는 흰 배경으로 렌더된다. 시스템이 다크인 사용자에게 자동으로
   // 검은 페이지를 주면 그 위에 흰 광고 블록이 박혀 어색해진다. 광고 색은 우리가
   // 못 바꾸므로 페이지를 밝게 두고, 다크는 사용자가 직접 켤 때만 적용한다.
-  const layout = readFileSync(join(APP, 'layout.tsx'), 'utf8');
+  // <html>과 테마 스크립트는 components/RootShell.tsx로 옮겼다 —
+  // 루트 레이아웃이 언어별 route group으로 갈리면서 공용 껍데기가 생겼다
+  const layout = readFileSync(join(ROOT, 'components/RootShell.tsx'), 'utf8');
   const init = layout.match(/const THEME_INIT = `([\s\S]*?)`;/)?.[1];
   assert.ok(init, 'THEME_INIT을 찾지 못함');
 
@@ -85,7 +88,7 @@ test('PageGlow가 지원하는 accent만 쓴다', () => {
   assert.ok(supported.size >= 4, `accent를 ${supported.size}개만 찾음 — 파싱 실패`);
 
   const bad: string[] = [];
-  for (const dir of ['app', 'components']) {
+  for (const dir of ['app', 'components']) {  // app은 그룹까지 재귀로 훑는다
     const scan = (d: string) => {
       for (const e of readdirSync(d, { withFileTypes: true })) {
         const p = join(d, e.name);

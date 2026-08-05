@@ -21,6 +21,7 @@ import { CHORD_QUALITIES, INTERVALS, SCALE_MODES } from '../lib/music/theory.ts'
 import { SOLFEGE, freq, isBlack, keySignature, noteName, noteSymbol, slugOf } from '../lib/music/notes.ts';
 import { frequencies, itemFacts } from '../lib/music/facts.ts';
 import { MUSIC_UI, musicAlternates } from '../lib/music/ui.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -211,9 +212,9 @@ test('추천 항목은 자기를 넣지 않고 비지 않는다', () => {
 test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/music`;
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
   }
 });
 
@@ -229,7 +230,7 @@ test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
 });
 
 test('사이트맵과 검색 인덱스에 음악 이론이 들어 있다', () => {
-  const map = readFileSync('app/sitemap.ts', 'utf8');
+  const map = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(map.includes('/music'), '사이트맵에 /music 없음');
   assert.ok(map.includes('MUSIC_ITEMS'), '사이트맵이 항목 목록을 돌지 않는다');
   const idx = readFileSync('lib/search-index.ts', 'utf8');

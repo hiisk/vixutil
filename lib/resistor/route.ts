@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { RESISTOR_ICON, VALUES, valueOf } from './list.ts';
 import { resistorFacts } from './facts.ts';
 import { RESISTOR_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#f59e0b';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: RESISTOR_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const resistorParams = () => VALUES.map(v => ({ slug: String(v) }));
+export const resistorParams = () => prerender(VALUES.map(v => ({ slug: String(v) })));

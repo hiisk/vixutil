@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
+import { appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const APP = join(ROOT, 'app');
@@ -14,10 +15,10 @@ const APP = join(ROOT, 'app');
  * [slug]/page.tsx가 그 키를 실제로 그리므로 그쪽도 인정한다.
  */
 function pagePath(route: string): string {
-  const direct = join(APP, route, 'page.tsx');
+  const direct = appJoin(route, 'page.tsx');
   if (existsSync(direct)) return direct;
   const parent = route.split('/').slice(0, -1).join('/');
-  return join(APP, parent, '[slug]', 'page.tsx');
+  return appJoin(parent, '[slug]', 'page.tsx');
 }
 
 const routes = Object.keys(SECTION_FAQ);

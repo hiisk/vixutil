@@ -4,9 +4,10 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { TEXT_TOOLS, findTextTool, relatedTextTools } from '../lib/text-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
+import { appEntries, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const APP = join(ROOT, 'app', 'text');
+const APP = appJoin('text');
 
 /**
  * 기기 점검·이미지 도구와 같은 구조다 — 카탈로그(lib/text-tools.ts) 하나를
@@ -115,7 +116,7 @@ test('검색 인덱스·사이트맵·푸터가 이 섹션을 싣는다', () => 
   assert.ok(index.includes('TEXT_TOOLS'), '검색 인덱스가 텍스트 도구를 싣지 않는다');
   assert.ok(index.includes('text:'), 'SECTION_META에 text가 없다');
 
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/text'), '사이트맵에 허브가 없다');
   assert.ok(sitemap.includes('TEXT_TOOLS'), '사이트맵에 상세 페이지가 없다');
 

@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { SCREENS, SCREEN_ICON } from './screens.ts';
 import { screenView } from './facts.ts';
 import { DEVICE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0ea5e9';
 const TO = '#0f172a';
@@ -63,4 +64,4 @@ export function screenCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const screenParams = () => SCREENS.map(s => ({ slug: s.slug }));
+export const screenParams = () => prerender(SCREENS.map(s => ({ slug: s.slug })));

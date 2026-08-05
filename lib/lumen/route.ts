@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { LUMEN_ICON, LUMEN_SLUGS, cellOf } from './list.ts';
 import { lumenFacts } from './facts.ts';
 import { LUMEN_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#ca8a04';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: LUMEN_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const lumenParams = () => LUMEN_SLUGS.map(slug => ({ slug }));
+export const lumenParams = () => prerender(LUMEN_SLUGS.map(slug => ({ slug })));

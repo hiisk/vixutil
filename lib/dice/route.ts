@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { DICE_ICON, ROLLS, rollOf } from './list.ts';
 import { rollFacts } from './facts.ts';
 import { DICE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#e11d48';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function rollCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const rollParams = () => ROLLS.map(r => ({ slug: r.slug }));
+export const rollParams = () => prerender(ROLLS.map(r => ({ slug: r.slug })));

@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { CHMOD_ICON, MODES, modeOf } from './list.ts';
 import { chmodFacts } from './facts.ts';
 import { CHMOD_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#ea580c';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: CHMOD_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const chmodParams = () => MODES.map(mode => ({ slug: mode }));
+export const chmodParams = () => prerender(MODES.map(mode => ({ slug: mode })));

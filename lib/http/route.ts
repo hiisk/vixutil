@@ -9,6 +9,7 @@ import { HTTP_ITEMS, HTTP_ICON, httpItemOf } from './list.ts';
 import { httpFacts } from './facts.ts';
 import { httpDesc } from './desc.ts';
 import { HTTP_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0d9488';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function itemCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const httpParams = () => HTTP_ITEMS.map(x => ({ slug: x.slug }));
+export const httpParams = () => prerender(HTTP_ITEMS.map(x => ({ slug: x.slug })));

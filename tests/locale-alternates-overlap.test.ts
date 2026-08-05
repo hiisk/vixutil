@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { appFile } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const OUT = join(ROOT, 'out');
@@ -33,7 +34,7 @@ const PICKERS = [
 test('상세 페이지의 언어 목록은 hreflang과 같은 함수에서 나온다', () => {
   const bad: string[] = [];
   for (const f of PICKERS) {
-    const src = readFileSync(join(ROOT, f), 'utf8');
+    const src = readFileSync(f.startsWith('app/') ? appFile(f) : join(ROOT, f), 'utf8');
     // 상세 picker — route에 슬러그가 들어가는 쪽
     for (const m of src.matchAll(/<LangPicker[\s\S]{0,300}?\/>/g)) {
       const tag = m[0];

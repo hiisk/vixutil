@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { LENSES, LENS_ICON, lensOf } from './list.ts';
 import { lensFacts } from './facts.ts';
 import { LENS_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#4f46e5';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function lensCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const lensParams = () => LENSES.map(l => ({ slug: l.slug }));
+export const lensParams = () => prerender(LENSES.map(l => ({ slug: l.slug })));

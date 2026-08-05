@@ -9,6 +9,7 @@ import { CHESS_ICON, OPENINGS, openingOf } from './list.ts';
 import { openingFacts } from './facts.ts';
 import { fullName } from './names.ts';
 import { chessUi, fill } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#7c3aed';
 const TO = '#1e1b4b';
@@ -74,4 +75,4 @@ export function openingCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const openingParams = () => OPENINGS.map(x => ({ slug: x.slug }));
+export const openingParams = () => prerender(OPENINGS.map(x => ({ slug: x.slug })));

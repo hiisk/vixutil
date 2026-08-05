@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { CALC_FAQ } from '../lib/calc-faq.ts';
+import { appJoin } from './app-path.ts';
 
-const CALC_DIR = join(import.meta.dirname, '..', 'app', 'calculator');
+const CALC_DIR = appJoin('calculator');
 
 /** FAQ 대상이 아닌 경로 — 계산기가 아니라 색인·로컬라이즈 랜딩 페이지다. */
 const NOT_A_CALCULATOR = new Set(['en', 'ja']);
@@ -60,7 +61,7 @@ test('모든 계산기가 카탈로그와 사이트맵에 등록돼 있다', asy
   // 사이트맵에 없으면 검색엔진이 찾아오지 못한다. 새 계산기를 만들고
   // 등록을 빠뜨리면 아무도 그 페이지에 닿지 못한다.
   const catalog = readFileSync(join(import.meta.dirname, '..', 'lib', 'calculator-catalog.ts'), 'utf8');
-  const sitemap = readFileSync(join(import.meta.dirname, '..', 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
 
   // 개발자 도구는 별도 목록(devRoutes)으로 관리되고 카탈로그에도 들어 있다.
   const missingFromCatalog = slugs.filter(s => !catalog.includes(`/calculator/${s}'`));

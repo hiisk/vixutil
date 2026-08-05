@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { DRILL_ICON, DRILL_SLUGS, bitOf } from './list.ts';
 import { drillFacts } from './facts.ts';
 import { DRILL_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#525252';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: DRILL_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const drillParams = () => DRILL_SLUGS.map(slug => ({ slug }));
+export const drillParams = () => prerender(DRILL_SLUGS.map(slug => ({ slug })));

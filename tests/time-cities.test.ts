@@ -19,6 +19,7 @@ import {
 } from '../lib/time/cities8.ts';
 import { cityFacts, gapLabel, gapMinutes, offsetLabel, sameZoneCities, timeFacts, usesDst } from '../lib/time/facts.ts';
 import { TIME_UI, timeAlternates } from '../lib/time/ui.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -164,8 +165,8 @@ test('한 언어 안에서 도시 이름이 겹치지 않는다', () => {
 test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/time`;
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
   }
 });
 
@@ -179,12 +180,12 @@ test('hreflang은 열한 줄이고 포르투갈어는 /pt-br이다', () => {
 });
 
 test('사이트맵·검색·허브에 도시가 걸려 있다', () => {
-  const map = readFileSync('app/sitemap.ts', 'utf8');
+  const map = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(map.includes('TIME_CITIES'), '사이트맵이 도시 목록을 돌지 않는다');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
   assert.ok(idx.includes('TIME_CITIES'), '검색 인덱스에 도시 없음');
   for (const hub of ['app/time/page.tsx', 'components/TimeHubIntl.tsx']) {
-    assert.ok(readFileSync(hub, 'utf8').includes('citiesOfRegion'), `${hub}에 도시 목록이 없다`);
+    assert.ok(readFileSync(hub.startsWith('app/') ? appFile(hub) : hub, 'utf8').includes('citiesOfRegion'), `${hub}에 도시 목록이 없다`);
   }
 });
 

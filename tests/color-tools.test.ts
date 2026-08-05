@@ -4,9 +4,10 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { COLOR_TOOLS, findColorTool, relatedColorTools } from '../lib/color-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
+import { appEntries, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const APP = join(ROOT, 'app', 'color');
+const APP = appJoin('color');
 
 /**
  * 카탈로그(lib/color-tools.ts) 하나를 허브·상세 셸·검색 인덱스·사이트맵·FAQ가
@@ -104,7 +105,7 @@ test('검색 인덱스·사이트맵·푸터가 이 섹션을 싣는다', () => 
   assert.ok(index.includes('COLOR_TOOLS'), '검색 인덱스가 이 섹션을 싣지 않는다');
   assert.ok(index.includes('color:'), 'SECTION_META에 color가 없다');
 
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/color'), '사이트맵에 허브가 없다');
   assert.ok(sitemap.includes('COLOR_TOOLS'), '사이트맵에 상세 페이지가 없다');
 

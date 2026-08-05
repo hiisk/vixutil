@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { KEYS, KEYCODE_ICON, keyOf, slugOf } from './list.ts';
 import { keyFacts } from './facts.ts';
 import { KEYCODE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#475569';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: KEYCODE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const keycodeParams = () => KEYS.map(x => ({ slug: slugOf(x) }));
+export const keycodeParams = () => prerender(KEYS.map(x => ({ slug: slugOf(x) })));

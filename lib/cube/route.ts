@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { ALGS, CUBE_ICON, algOf } from './list.ts';
 import { caseFacts } from './facts.ts';
 import { CUBE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#f59e0b';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function algCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const algParams = () => ALGS.map(a => ({ slug: a.slug }));
+export const algParams = () => prerender(ALGS.map(a => ({ slug: a.slug })));

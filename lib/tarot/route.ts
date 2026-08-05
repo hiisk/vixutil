@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { CARDS, TAROT_ICON } from './deck.ts';
 import { cardView } from './facts.ts';
 import { TAROT_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#7c3aed';
 const TO = '#0f172a';
@@ -59,4 +60,4 @@ export function tarotCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const cardParams = () => CARDS.map(c => ({ slug: c.slug }));
+export const cardParams = () => prerender(CARDS.map(c => ({ slug: c.slug })));

@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { YEAR_ICON, YEAR_SLUGS, yearOf } from './list.ts';
 import { yearFacts } from './facts.ts';
 import { YEAR_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#be123c';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: YEAR_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const yearParams = () => YEAR_SLUGS.map(slug => ({ slug }));
+export const yearParams = () => prerender(YEAR_SLUGS.map(slug => ({ slug })));

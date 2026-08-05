@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 import { ICON_FOR, GROUPS } from '../lib/og-icon-map.ts';
+import { appEntries, appJoin, stripGroups } from './app-path.ts';
 
 /**
  * 공유(OG) 카드가 빠짐없이 붙는지 본다.
@@ -66,9 +67,10 @@ const SHARED_CARD = [
 
 test('모든 페이지가 자기 공유 카드를 갖는다', () => {
   const orphans = pageDirs(APP)
-    .map(d => relative(APP, d))
+    // 그룹을 먼저 걷어내야 아래 규칙들이 주소 기준으로 걸린다
+    .map(d => stripGroups(relative(APP, d)))
     .filter(rel => !SHARED_CARD.some(re => re.test(rel)))
-    .filter(rel => !existsSync(join(APP, rel, 'opengraph-image.tsx')));
+    .filter(rel => !existsSync(appJoin(rel, 'opengraph-image.tsx')));
   assert.deepEqual(
     orphans, [],
     `상위 섹션 카드를 물려받는 라우트다. 폴더에 opengraph-image.tsx를 넣어라:\n  ${orphans.join('\n  ')}`,

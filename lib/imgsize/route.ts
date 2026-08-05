@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { IMG_SIZES, IMG_SIZE_ICON, imgSizeOf } from './list.ts';
 import { sizeFacts } from './facts.ts';
 import { IMG_SIZE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#db2777';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function sizeCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const sizeParams = () => IMG_SIZES.map(x => ({ slug: x.slug }));
+export const sizeParams = () => prerender(IMG_SIZES.map(x => ({ slug: x.slug })));

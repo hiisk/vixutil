@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { DARTS_ICON, SCORES, scoreOf } from './list.ts';
 import { dartsFacts } from './facts.ts';
 import { DARTS_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#dc2626';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: DARTS_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const dartsParams = () => SCORES.map(score => ({ slug: String(score) }));
+export const dartsParams = () => prerender(SCORES.map(score => ({ slug: String(score) })));

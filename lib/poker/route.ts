@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { HANDS, POKER_ICON, handOf } from './list.ts';
 import { handFacts } from './facts.ts';
 import { fill, numFmt, pokerUi } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#059669';
 const TO = '#064e3b';
@@ -76,4 +77,4 @@ export function handCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const handParams = () => HANDS.map(h => ({ slug: h.slug }));
+export const handParams = () => prerender(HANDS.map(h => ({ slug: h.slug })));

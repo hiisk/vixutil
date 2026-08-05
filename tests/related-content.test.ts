@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pickRelated, type RelatedItem } from '../lib/related.ts';
+import { appJoin } from './app-path.ts';
 
 const APP = join(import.meta.dirname, '..', 'app');
 const SECTIONS = ['test', 'quiz', 'checklist', 'generator'] as const;
@@ -10,7 +11,7 @@ const SECTIONS = ['test', 'quiz', 'checklist', 'generator'] as const;
 test('상세 페이지는 모두 RelatedContent를 렌더링한다', () => {
   // 추천이 빠지면 상세 페이지가 허브로만 이어지는 막다른 길이 된다.
   const unwired = SECTIONS.filter(s => {
-    const src = readFileSync(join(APP, s, '[slug]', 'page.tsx'), 'utf8');
+    const src = readFileSync(appJoin(s, '[slug]', 'page.tsx'), 'utf8');
     return !src.includes('<RelatedContent');
   });
   assert.deepEqual(unwired, [], `추천이 없는 섹션: ${unwired.join(', ')}`);

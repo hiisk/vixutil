@@ -11,6 +11,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { CELLS, CHARS, CODE_ICON, cellOf, cellSlug, charOf, charSlug } from './list.ts';
 import { cellFacts, charFacts } from './facts.ts';
 import { CODE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#7c3aed';
 const TO = '#0f172a';
@@ -53,7 +54,7 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: CODE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const codeParams = () => [
+export const codeParams = () => prerender([
   ...CHARS.map(x => ({ slug: charSlug(x) })),
   ...CELLS.map(m => ({ slug: cellSlug(m) })),
-];
+]);

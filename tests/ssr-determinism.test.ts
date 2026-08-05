@@ -21,6 +21,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { appEntries } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 

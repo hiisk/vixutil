@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { TIRE_ICON, TIRE_SLUGS, tireOf } from './list.ts';
 import { tireFacts } from './facts.ts';
 import { TIRE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#334155';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: TIRE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const tireParams = () => TIRE_SLUGS.map(slug => ({ slug }));
+export const tireParams = () => prerender(TIRE_SLUGS.map(slug => ({ slug })));

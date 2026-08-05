@@ -4,9 +4,10 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { DEVICE_TOOLS, findDeviceTool, relatedDeviceTools } from '../lib/device-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
+import { appEntries, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const APP = join(ROOT, 'app', 'device');
+const APP = appJoin('device');
 
 /**
  * 기기 점검 섹션은 카탈로그(lib/device-tools.ts) 하나를 여러 곳이 나눠 읽는다 —
@@ -109,7 +110,7 @@ test('검색 인덱스와 사이트맵이 이 섹션을 싣는다', () => {
   assert.ok(index.includes('DEVICE_TOOLS'), '검색 인덱스가 기기 점검을 싣지 않는다');
   assert.ok(index.includes("device:"), 'SECTION_META에 device가 없다');
 
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/device'), '사이트맵에 허브가 없다');
   assert.ok(sitemap.includes('DEVICE_TOOLS'), '사이트맵에 상세 페이지가 없다');
 

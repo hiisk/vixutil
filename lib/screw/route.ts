@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { SCREW_ICON, SCREW_SLUGS, screwOf } from './list.ts';
 import { screwFacts } from './facts.ts';
 import { SCREW_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#475569';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: SCREW_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const screwParams = () => SCREW_SLUGS.map(slug => ({ slug }));
+export const screwParams = () => prerender(SCREW_SLUGS.map(slug => ({ slug })));

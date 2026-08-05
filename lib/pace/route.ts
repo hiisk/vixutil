@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { PACE_ICON, PACE_SLUGS, paceOf } from './list.ts';
 import { paceFacts } from './facts.ts';
 import { PACE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0f766e';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: PACE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const paceParams = () => PACE_SLUGS.map(slug => ({ slug }));
+export const paceParams = () => prerender(PACE_SLUGS.map(slug => ({ slug })));

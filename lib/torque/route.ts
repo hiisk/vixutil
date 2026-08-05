@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { TORQUE_ICON, TORQUE_SLUGS, cellOf } from './list.ts';
 import { torqueFacts } from './facts.ts';
 import { TORQUE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#7c2d12';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: TORQUE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const torqueParams = () => TORQUE_SLUGS.map(slug => ({ slug }));
+export const torqueParams = () => prerender(TORQUE_SLUGS.map(slug => ({ slug })));

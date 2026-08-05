@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { FRET_ICON, FRET_SLUGS, spotOf } from './list.ts';
 import { fretFacts, nameOf } from './facts.ts';
 import { FRET_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#a16207';
 const TO = '#0f172a';
@@ -42,4 +43,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: FRET_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const fretParams = () => FRET_SLUGS.map(slug => ({ slug }));
+export const fretParams = () => prerender(FRET_SLUGS.map(slug => ({ slug })));

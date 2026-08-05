@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { GRAVITY_ICON, GRAVITY_SLUGS, weightOf } from './list.ts';
 import { gravityFacts } from './facts.ts';
 import { GRAVITY_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#4338ca';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: GRAVITY_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const gravityParams = () => GRAVITY_SLUGS.map(slug => ({ slug }));
+export const gravityParams = () => prerender(GRAVITY_SLUGS.map(slug => ({ slug })));

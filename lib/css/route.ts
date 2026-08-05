@@ -9,6 +9,7 @@ import { CSS_PROPS, CSS_ICON, cssPropOf } from './props.ts';
 import { propFacts } from './facts.ts';
 import { propDesc } from './desc.ts';
 import { CSS_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#2563eb';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function propCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const propParams = () => CSS_PROPS.map(p => ({ slug: p.name }));
+export const propParams = () => prerender(CSS_PROPS.map(p => ({ slug: p.name })));

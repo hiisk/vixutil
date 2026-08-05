@@ -9,6 +9,7 @@ import { TAGS, TAG_ICON, tagOf } from './tags.ts';
 import { tagFacts } from './facts.ts';
 import { tagDesc } from './desc.ts';
 import { HTML_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#f97316';
 const TO = '#0f172a';
@@ -62,4 +63,4 @@ export function tagCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const tagParams = () => TAGS.map(t => ({ slug: t.name }));
+export const tagParams = () => prerender(TAGS.map(t => ({ slug: t.name })));

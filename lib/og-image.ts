@@ -45,6 +45,9 @@ const SCRIPTS = [
   { file: 'noto-deva', family: 'Noto Sans Devanagari', re: /[ऀ-ॿ]/ },
 ] as const;
 
+/** 수학 기호 — Noto Sans가 못 그리는 자리 */
+const MATH = /[\u2200-\u22FF\u27C0-\u27EF\u2A00-\u2AFF]/;
+
 /** 한자는 세 벌이 겹친다 — 가나가 함께 있으면 일본어 자형을 쓴다 */
 const HAN = /[一-鿿㐀-䶿豈-﫿]/;
 
@@ -96,6 +99,12 @@ export function ogFonts(el: ReactElement): Font[] {
    * 38KB짜리라 얹는 값이 싸다.
    */
   const fonts: Font[] = pair('noto-base', 'Noto Sans');
+  /*
+   * 수학 기호(√ ∑ ∫ …)는 Noto Sans에 없다. 구글 폰트 API도 그 글자를 400으로
+   * 거부해서, 카드에 두부가 찍히고 요청만 매번 나갔다 — 빌드 로그의
+   * "Failed to load dynamic font for √"가 그것이다. 30KB짜리라 필요할 때만 얹는다.
+   */
+  if (MATH.test(text)) fonts.push(...pair('noto-math', 'Noto Sans Math'));
   for (const s of SCRIPTS) if (s.re.test(text)) fonts.push(...pair(s.file, s.family));
   if (HAN.test(text) && !SCRIPTS[1].re.test(text)) {
     // 가나가 함께 있으면 일본어 폰트가 이미 한자를 덮는다

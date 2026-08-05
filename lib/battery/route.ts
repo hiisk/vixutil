@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { BATTERY_ICON, BATTERY_SLUGS, cellOf } from './list.ts';
 import { batteryFacts } from './facts.ts';
 import { BATTERY_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#15803d';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: BATTERY_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const batteryParams = () => BATTERY_SLUGS.map(slug => ({ slug }));
+export const batteryParams = () => prerender(BATTERY_SLUGS.map(slug => ({ slug })));

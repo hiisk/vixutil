@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { appEntries, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -15,7 +16,7 @@ function cryptoFiles(): string[] {
       else if (e.name.endsWith('.tsx') && !e.name.includes('opengraph')) out.push(p);
     }
   };
-  walk(join(ROOT, 'app', 'crypto'));
+  walk(appJoin('crypto'));
   walk(join(ROOT, 'components', 'crypto'));
   return out;
 }

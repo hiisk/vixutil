@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { STOP_ICON, STOP_SLUGS, speedOf } from './list.ts';
 import { stopFacts } from './facts.ts';
 import { STOP_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#b91c1c';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: STOP_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const stopParams = () => STOP_SLUGS.map(slug => ({ slug }));
+export const stopParams = () => prerender(STOP_SLUGS.map(slug => ({ slug })));

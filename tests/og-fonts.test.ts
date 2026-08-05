@@ -4,6 +4,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { appEntries, appFile } from './app-path.ts';
 
 /**
  * 공유 카드가 빌드 중에 바깥으로 나가지 않는지 본다.
@@ -138,6 +139,6 @@ test('공유 카드가 ImageResponse를 직접 부르지 않는다', () => {
   };
   const files = walk(join(ROOT, 'app'));
   assert.ok(files.length > 1000, `공유 카드가 ${files.length}장뿐`);
-  const bad = files.filter(f => readFileSync(f, 'utf8').includes('new ImageResponse'));
+  const bad = files.filter(f => readFileSync(f.startsWith('app/') ? appFile(f) : f, 'utf8').includes('new ImageResponse'));
   assert.deepStrictEqual(bad.map(f => f.slice(ROOT.length + 1)), []);
 });

@@ -23,8 +23,10 @@ def chars_in_repo():
         # Geist(next/og 기본)는 기본 라틴만 덮어서, em 대시 하나에도 밖으로 나간다.
         # 이모지(U+1F300~)는 뺀다 — stripForCard가 카드에서 지우고, 본문 폰트가
         # 그릴 수 있는 글자도 아니다.
+        # 수학 기호는 Noto Sans에 없다 — Noto Sans Math로 따로 받는다
+        'math':   [(0x2200, 0x22FF), (0x27C0, 0x27EF), (0x2A00, 0x2AFF)],
         'base':   [(0x00A0, 0x024F), (0x0370, 0x04FF), (0x2000, 0x206F),
-                   (0x20A0, 0x20BF), (0x2100, 0x214F), (0x2190, 0x22FF),
+                   (0x20A0, 0x20BF), (0x2100, 0x214F), (0x2190, 0x21FF),
                    (0x2460, 0x24FF), (0x2500, 0x27BF), (0x3000, 0x303F)],
     }
     found = {k: set() for k in ranges}
@@ -92,6 +94,10 @@ found = chars_in_repo()
 LATIN = ''.join(chr(c) for c in range(0x20, 0x7F))
 JOBS = [
     ('Noto Sans',            ''.join(sorted(found['base'])) + LATIN, 'noto-base'),
+    # Noto Sans가 400으로 거부하는 수학·기호 글자들(√ ∑ ∫ …)을 따로 받는다.
+    # 빌드 로그에 "Failed to load dynamic font for √"가 계속 찍혔다 — 카드에
+    # 그 글자가 두부로 나가고, 매번 바깥으로 요청이 나간다.
+    ('Noto Sans Math',       ''.join(sorted(found['math'])) + LATIN, 'noto-math'),
     ('Noto Sans KR',         ''.join(sorted(found['hangul'] | found['cjkpunct'])) + LATIN, 'noto-kr'),
     ('Noto Sans JP',         ''.join(sorted(found['kana'] | found['han'] | found['cjkpunct'])) + LATIN, 'noto-jp'),
     ('Noto Sans SC',         ''.join(sorted(found['han'] | found['cjkpunct'])) + LATIN, 'noto-sc'),

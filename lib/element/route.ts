@@ -9,6 +9,7 @@ import { ELEMENTS, ELEMENT_ICON, elementOf } from './list.ts';
 import { elementFacts } from './facts.ts';
 import { nameOf } from './names.ts';
 import { ELEMENT_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0891b2';
 const TO = '#0f172a';
@@ -63,4 +64,4 @@ export function elementCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const elementParams = () => ELEMENTS.map(x => ({ slug: String(x.z) }));
+export const elementParams = () => prerender(ELEMENTS.map(x => ({ slug: String(x.z) })));

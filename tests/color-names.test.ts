@@ -17,6 +17,7 @@ import { LANGS as LANG_INFO, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { COLOR_FAMILIES, NAMED_COLORS_8, colorsOfFamily, namedColor } from '../lib/color/named8.ts';
 import { colorFacts, nearbyColors } from '../lib/color/facts.ts';
 import { COLOR_UI, colorAlternates, colorFaq } from '../lib/color/ui.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -147,8 +148,8 @@ test('가까운 색은 자기를 넣지 않고 실제로 가깝다', () => {
 test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/color`;
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
   }
 });
 
@@ -163,14 +164,14 @@ test('hreflang은 아홉 줄이고 포르투갈어는 /pt-br이다', () => {
 });
 
 test('사이트맵과 검색 인덱스에 색 이름이 들어 있다', () => {
-  const map = readFileSync('app/sitemap.ts', 'utf8');
+  const map = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(map.includes('NAMED_COLORS_8'), '사이트맵이 색 목록을 돌지 않는다');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
   assert.ok(idx.includes('NAMED_COLORS_8'), '검색 인덱스에 색 이름 없음');
   // 허브에서 걸어 주지 않으면 110장이 고아가 된다.
   // 한국어는 자기 허브가 있고, 나머지 일곱 언어는 ColorHubIntl 하나를 함께 쓴다.
   for (const hub of ['app/color/page.tsx', 'components/ColorHubIntl.tsx']) {
-    assert.ok(readFileSync(hub, 'utf8').includes('colorsOfFamily'), `${hub}에 색 목록이 없다`);
+    assert.ok(readFileSync(hub.startsWith('app/') ? appFile(hub) : hub, 'utf8').includes('colorsOfFamily'), `${hub}에 색 목록이 없다`);
   }
 });
 

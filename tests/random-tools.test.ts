@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '../lib/random-tools.ts';
 import { RANDOM_L10N, randomMetaIntl } from '../lib/random-ui-intl.ts';
 import { ALL_LOCALES, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
+import { appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -39,7 +40,7 @@ test('RANDOM_TOOLS_MAP이 모든 도구를 포함한다', () => {
 
 test('모든 slug가 상세 페이지 컴포넌트 매핑에 존재한다', () => {
   // app/random/[slug]/page.tsx의 switch가 모든 slug를 처리해야 한다
-  const src = readFileSync(join(ROOT, 'app', 'random', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(appJoin('random', '[slug]', 'page.tsx'), 'utf8');
   for (const t of RANDOM_TOOLS) {
     assert.ok(src.includes(`case '${t.slug}':`), `상세 페이지에 case 없음: ${t.slug}`);
   }
@@ -84,7 +85,7 @@ test('번역 라우트가 모든 slug를 처리한다', () => {
 test('여덟 언어 라우트가 다 있고 hreflang이 서로를 가리킨다', () => {
   // 한쪽만 가리키는 hreflang은 구글이 대체 언어 관계로 인정하지 않는다
   for (const lang of ALL_LOCALES) {
-    const base = join(ROOT, 'app', ...localeHref(lang, '/random').split('/').filter(Boolean));
+    const base = appJoin(...localeHref(lang, '/random').split('/').filter(Boolean));
     assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
   }

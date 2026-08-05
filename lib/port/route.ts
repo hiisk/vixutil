@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { PORTS, PORT_ICON, portOf } from './list.ts';
 import { portFacts } from './facts.ts';
 import { PORT_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#c026d3';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: PORT_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const portParams = () => PORTS.map(x => ({ slug: String(x.port) }));
+export const portParams = () => prerender(PORTS.map(x => ({ slug: String(x.port) })));

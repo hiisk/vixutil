@@ -19,6 +19,7 @@ import { CITIES } from '../lib/metro/cities.ts';
 import { METRO_LANGS, METRO_LANG_CODES, metroAlternates, numberedLine, type MetroLang } from '../lib/metro/lang.ts';
 import { METRO_UI, clock } from '../lib/metro/ui.ts';
 import { lineFacts } from '../lib/metro/facts.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS = METRO_LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -215,12 +216,12 @@ test('역 수 합계가 실제와 맞는다', () => {
 test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of METRO_LANGS) {
     const p = `app${prefix}/metro`;
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
   }
   // 중국어는 이 섹션에서 빼기로 했다 — 라우트가 되살아나면 여기서 잡힌다
-  assert.ok(!existsSync('app/zh/metro'), 'app/zh/metro가 남아 있다');
+  assert.ok(!existsSync(appFile('app/zh/metro')), 'app/zh/metro가 남아 있다');
 });
 
 test('hreflang은 아홉 줄이고 x-default는 영어를 가리킨다', () => {
@@ -238,7 +239,7 @@ test('hreflang은 아홉 줄이고 x-default는 영어를 가리킨다', () => {
 });
 
 test('사이트맵과 검색 인덱스, lang 교정에 열 언어가 들어 있다', () => {
-  const map = readFileSync('app/sitemap.ts', 'utf8');
+  const map = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(map.includes('METRO_LANGS'), '사이트맵이 언어 목록을 돌지 않는다');
   assert.ok(map.includes('/metro'), '사이트맵에 /metro 없음');
   const idx = readFileSync('lib/search-index.ts', 'utf8');
@@ -247,11 +248,11 @@ test('사이트맵과 검색 인덱스, lang 교정에 열 언어가 들어 있�
   // 넣을 때 그것만 빠뜨린다. 실제로 중국어를 걷어낸 뒤에도 zh 규칙이 남아 있었다.
   // 그래서 목록을 적었는지 보지 않고 lib/locales.ts에서 파생하는지를 본다 —
   // 파생하면 언어를 늘리는 순간 자동으로 따라온다.
-  const fixer = readFileSync('scripts/fix-html-lang.mjs', 'utf8');
-  assert.ok(
-    /from '\.\.\/lib\/locales\.ts'/.test(fixer) && fixer.includes('LOCALES'),
-    'fix-html-lang.mjs가 lib/locales.ts의 목록을 쓰지 않는다',
-  );
+  /*
+   * 전에는 빌드 뒤 out/의 HTML을 고치는 스크립트가 언어 목록을 쓰는지 봤다.
+   * ISR로 바꾸면서 그 스크립트가 없어졌다 — 이제 route group의 루트
+   * 레이아웃이 그 일을 하고, tests/html-lang.test.ts가 지킨다.
+   */
   // 지하철이 쓰는 언어가 그 레지스트리에 다 있는지도 본다
   // 중국어 둘은 아직 NEXT_LOCALES에 있다 — 모든 섹션이 넘어오면 위로 합쳐진다
   const tags = new Set<string>([...LOCALES, ...NEXT_LOCALES].map(l => l.tag));

@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { CALC_INTL_SLUGS, calcCopy } from '../lib/calc-l10n/index.ts';
 import { CALC_SHELL } from '../lib/calc-l10n/shell.ts';
 import { ALL_LOCALES10 } from '../lib/locales.ts';
+import { appFile, appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 const LANGS = ALL_LOCALES10.filter(l => l !== 'ko');
@@ -81,7 +82,7 @@ test('계산 컴포넌트가 등록돼 있다', () => {
 test('한국어에 같은 슬러그가 있고 hreflang을 되받는다', () => {
   const bad: string[] = [];
   for (const slug of CALC_INTL_SLUGS) {
-    const dir = join(ROOT, 'app/calculator', slug);
+    const dir = appJoin('calculator', slug);
     if (!existsSync(join(dir, 'page.tsx'))) { bad.push(`${slug}: 한국어 페이지 없음`); continue; }
     const layout = join(dir, 'layout.tsx');
     if (!existsSync(layout)) { bad.push(`${slug}: layout.tsx 없음 — hreflang을 낼 곳이 없다`); continue; }
@@ -95,8 +96,8 @@ test('한국어에 같은 슬러그가 있고 hreflang을 되받는다', () => {
 
 test('한국어 페이지에 언어 버튼이 있다', () => {
   const bad = CALC_INTL_SLUGS.filter(slug => {
-    const f = join(ROOT, 'app/calculator', slug, 'page.tsx');
-    return existsSync(f) && !readFileSync(f, 'utf8').includes('<LangPicker');
+    const f = appJoin('calculator', slug, 'page.tsx');
+    return existsSync(f) && !readFileSync(f.startsWith('app/') ? appFile(f) : f, 'utf8').includes('<LangPicker');
   });
   assert.deepStrictEqual(bad, [], '번역판이 있는데 한국어에서 건너갈 길이 없다');
 });

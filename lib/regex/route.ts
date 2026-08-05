@@ -9,6 +9,7 @@ import { PATTERNS, REGEX_ICON, patternOf } from './list.ts';
 import { regexFacts } from './facts.ts';
 import { whatOf } from './desc.ts';
 import { REGEX_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0ea5e9';
 const TO = '#0f172a';
@@ -64,4 +65,4 @@ export function patternCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const patternParams = () => PATTERNS.map(x => ({ slug: x.slug }));
+export const patternParams = () => prerender(PATTERNS.map(x => ({ slug: x.slug })));

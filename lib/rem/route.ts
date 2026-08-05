@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { PX_ICON, PX_SLUGS, pxOf } from './list.ts';
 import { pxFacts } from './facts.ts';
 import { PX_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#7c3aed';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: PX_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const pxParams = () => PX_SLUGS.map(slug => ({ slug }));
+export const pxParams = () => prerender(PX_SLUGS.map(slug => ({ slug })));

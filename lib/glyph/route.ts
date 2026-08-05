@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { GLYPHS, GLYPH_ICON, glyphOf } from './list.ts';
 import { glyphFacts } from './facts.ts';
 import { GLYPH_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0891b2';
 const TO = '#0f172a';
@@ -60,4 +61,4 @@ export function glyphCard(lang: Lang, slug: string): ReactElement {
   });
 }
 
-export const glyphParams = () => GLYPHS.map(g => ({ slug: g.slug }));
+export const glyphParams = () => prerender(GLYPHS.map(g => ({ slug: g.slug })));

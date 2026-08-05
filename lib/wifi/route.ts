@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { WIFI_ICON, WIFI_SLUGS, channelOf } from './list.ts';
 import { wifiFacts } from './facts.ts';
 import { WIFI_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#1d4ed8';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: WIFI_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const wifiParams = () => WIFI_SLUGS.map(slug => ({ slug }));
+export const wifiParams = () => prerender(WIFI_SLUGS.map(slug => ({ slug })));

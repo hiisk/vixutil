@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { COUNTRIES, COUNTRY_REGIONS, countryBySlug, relatedCountries } from '../lib/country-tools.ts';
 import { countryText } from '../lib/country/types.ts';
 import { COUNTRY_UI, countryRegions, countryFaq, countryAlternates, gapText, utcLabel } from '../lib/country-ui.ts';
+import { appFile } from './app-path.ts';
 
 const LANGS = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'] as const;
 const HANGUL = /[가-힣]/;
@@ -182,9 +183,9 @@ test('같은 지역 나라 링크가 자기 자신을 가리키지 않는다', (
 
 test('세 언어 라우트가 모두 있다', () => {
   for (const p of ['app/country', 'app/en/country', ]) {
-    assert.ok(existsSync(`${p}/page.tsx`), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/[slug]/page.tsx`), `${p}/[slug]/page.tsx 없음`);
-    assert.ok(existsSync(`${p}/opengraph-image.tsx`), `${p}/opengraph-image.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(existsSync(appFile(`${p}/opengraph-image.tsx`)), `${p}/opengraph-image.tsx 없음`);
   }
 });
 
@@ -200,7 +201,7 @@ test('hreflang이 열 언어와 x-default를 낸다', () => {
 });
 
 test('사이트맵이 열 언어의 /country를 낸다', () => {
-  const src = readFileSync('app/sitemap.ts', 'utf8');
+  const src = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   // ko는 그대로 적히고, 나머지 아홉은 INTL_LOCALES10을 돌려 만든다
   assert.ok(src.includes('/country`'), '사이트맵에 /country 없음');
   assert.match(src, /INTL_LOCALES10\.flatMap[\s\S]{0,400}\/country/, '사이트맵이 /country를 언어별로 돌리지 않는다');

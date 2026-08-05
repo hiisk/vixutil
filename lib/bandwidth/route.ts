@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { BANDWIDTH_ICON, BANDWIDTH_SLUGS, cellOf } from './list.ts';
 import { bandwidthFacts } from './facts.ts';
 import { BANDWIDTH_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0284c7';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: BANDWIDTH_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const bandwidthParams = () => BANDWIDTH_SLUGS.map(slug => ({ slug }));
+export const bandwidthParams = () => prerender(BANDWIDTH_SLUGS.map(slug => ({ slug })));

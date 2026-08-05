@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { WINDCHILL_ICON, WINDCHILL_SLUGS, cellOf } from './list.ts';
 import { windchillFacts } from './facts.ts';
 import { WINDCHILL_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0369a1';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: WINDCHILL_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const windchillParams = () => WINDCHILL_SLUGS.map(slug => ({ slug }));
+export const windchillParams = () => prerender(WINDCHILL_SLUGS.map(slug => ({ slug })));

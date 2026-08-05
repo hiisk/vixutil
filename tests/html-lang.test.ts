@@ -1,8 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { join } from 'node:path';
+
 import { LOCALES, NEXT_LOCALES } from '../lib/locales.ts';
+import { appFile } from './app-path.ts';
 
 /**
  * <html lang>이 경로의 언어와 맞는지 본다.
@@ -12,54 +14,87 @@ import { LOCALES, NEXT_LOCALES } from '../lib/locales.ts';
  * 보지 않으면 드러나지 않는다 — 스크린리더가 영어를 한국어 음운으로 읽고
  * 크롬이 엉뚱한 번역을 권하는 것으로만 나타난다.
  *
- * 지금은 scripts/fix-html-lang.mjs가 빌드 뒤에 고친다. 나중에 route group으로
- * root layout을 언어별로 나누면 그 스크립트는 지워도 되지만, 이 검사는 남는다.
- */
-const OUT = join(import.meta.dirname, '..', 'out');
-const built = existsSync(OUT);
-
-function walk(dir: string): string[] {
-  const out: string[] = [];
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const p = join(dir, e.name);
-    if (e.isDirectory()) out.push(...walk(p));
-    else if (e.name.endsWith('.html')) out.push(p);
-  }
-  return out;
-}
-
-/**
- * 경로에서 기대되는 lang.
+ * 전에는 빌드된 out/의 HTML을 훑어 확인했다. ISR로 바꾸면서 낱장이 요청 때
+ * 만들어지므로 그 방법이 통하지 않는다 — 빌드가 끝나도 훑을 파일이 없다.
  *
- * 언어 목록은 레지스트리에서 가져오되 판정은 여기서 따로 쓴다 —
- * scripts/fix-html-lang.mjs의 RULES를 그대로 불러오면 그 파일이 틀렸을 때
- * 검사도 같이 틀려서 아무것도 못 잡는다. 목록은 공유하고 논리는 나눈다.
+ * 대신 **구조**를 본다. <html>은 루트 레이아웃만 그리고, 루트 레이아웃은 route
+ * group마다 하나씩 있다(app/(ko)/layout.tsx …). 그 짝이 맞으면 어느 페이지가
+ * 언제 만들어지든 lang이 맞는다. 산출물을 훑는 것보다 오히려 촘촘하다 —
+ * 미리 굽지 않는 아홉만 장까지 함께 지켜지기 때문이다.
  */
-function expected(path: string): string {
-  // 계산기 카탈로그는 /calculator/en처럼 섹션 안에 언어가 있다 — 접두어보다 먼저 본다
-  const inSection = LOCALES.find(l => l.path !== '' && path === `calculator/${l.path}`);
-  if (inSection) return inSection.tag;
-  // 긴 접두어부터: pt-br이 pt보다, zh-hant가 zh보다 먼저 걸려야 한다
-  const prefixed = [...LOCALES, ...NEXT_LOCALES]
-    .filter(l => l.path !== '')
-    .sort((a, b) => b.path.length - a.path.length)
-    .find(l => path === l.path || path.startsWith(`${l.path}/`));
-  return prefixed ? prefixed.tag : 'ko';
-}
+const ROOT = join(import.meta.dirname, '..');
+const APP = join(ROOT, 'app');
 
-test('모든 페이지의 html lang이 경로의 언어와 맞는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
-  const wrong: string[] = [];
-  for (const f of walk(OUT)) {
-    const rel = relative(OUT, f);
-    if (rel === '404.html') continue;
-    const path = rel.replace(/\.html$/, '').replace(/\/index$/, '');
-    const m = readFileSync(f, 'utf8').match(/<html lang="([^"]+)"/);
-    const want = expected(path);
-    if (!m) wrong.push(`${rel}: lang 없음`);
-    else if (m[1] !== want) wrong.push(`${rel}: "${m[1]}" (기대 "${want}")`);
+/** 그룹 폴더 이름 → 그 그룹이 선언해야 하는 lang */
+const WANT = new Map<string, string>(
+  [...LOCALES, ...NEXT_LOCALES].map(l => [`(${l.path || 'ko'})`, l.tag]),
+);
+
+test('언어마다 route group이 하나씩 있다', () => {
+  const groups = readdirSync(APP, { withFileTypes: true })
+    .filter(e => e.isDirectory() && e.name.startsWith('('))
+    .map(e => e.name);
+  assert.deepStrictEqual([...groups].sort(), [...WANT.keys()].sort());
+});
+
+test('그룹마다 루트 레이아웃이 그 언어의 lang을 준다', () => {
+  const bad: string[] = [];
+  for (const [group, tag] of WANT) {
+    const p = join(APP, group, 'layout.tsx');
+    if (!existsSync(p)) { bad.push(`${group}: layout.tsx 없음`); continue; }
+    if (!readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes(`lang="${tag}"`)) bad.push(`${group}: lang="${tag}"가 없다`);
   }
-  assert.deepEqual(
-    wrong.slice(0, 20), [],
-    `lang이 틀린 페이지 ${wrong.length}장. scripts/fix-html-lang.mjs가 빌드 뒤에 도는지 확인하라`,
-  );
+  assert.deepStrictEqual(bad, []);
+});
+
+test('루트 레이아웃이 app/layout.tsx에 남아 있지 않다', () => {
+  /*
+   * app/layout.tsx가 있으면 그것이 유일한 루트 레이아웃이 되고, 그룹별
+   * layout.tsx는 <html>을 못 그린 채 그냥 감싸는 레이아웃이 된다. 그러면 모든
+   * 언어가 다시 lang="ko"로 나간다 — 빌드는 통과하므로 열어 보기 전엔 모른다.
+   */
+  assert.ok(!existsSync(join(APP, 'layout.tsx')), 'app/layout.tsx를 지워야 그룹별 루트가 산다');
+});
+
+test('언어 폴더가 자기 그룹 안에 있다', () => {
+  // app/(en)/en/… 꼴이어야 /en/… 주소가 (en) 그룹의 lang을 받는다
+  const bad: string[] = [];
+  for (const l of [...LOCALES, ...NEXT_LOCALES]) {
+    if (!l.path) continue;
+    if (!existsSync(join(APP, `(${l.path})`, l.path))) bad.push(`app/(${l.path})/${l.path} 없음`);
+    if (existsSync(join(APP, l.path))) bad.push(`app/${l.path}가 그룹 밖에 남아 있다`);
+  }
+  assert.deepStrictEqual(bad, []);
+});
+
+const NEXT_APP = join(ROOT, '.next', 'server', 'app');
+
+test('빌드된 HTML의 lang이 실제로 갈린다', { skip: existsSync(NEXT_APP) ? false : '.next 없음 — 빌드 필요' }, () => {
+  /*
+   * 구조만 봐서는 Next가 정말 그룹별 루트를 썼는지 알 수 없다. 빌드가 있으면
+   * 실제 HTML로 한 번 더 확인한다. 미리 구운 것만 보지만, 갈리는지 아닌지는
+   * 그것으로 드러난다.
+   */
+  const found = new Map<string, string>();
+  const walk = (d: string) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      const p = join(d, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name.endsWith('.html')) {
+        const seg = p.slice(NEXT_APP.length + 1).split('/')[0].replace(/\.html$/, '');
+        const lang = readFileSync(p, 'utf8').match(/<html lang="([^"]+)"/)?.[1];
+        if (lang && !found.has(seg)) found.set(seg, lang);
+      }
+    }
+  };
+  walk(NEXT_APP);
+
+  const bad: string[] = [];
+  for (const l of [...LOCALES, ...NEXT_LOCALES]) {
+    if (!l.path) continue;
+    const got = found.get(l.path);
+    if (got && got !== l.tag) bad.push(`/${l.path} → lang="${got}" (${l.tag}이어야 한다)`);
+  }
+  assert.deepStrictEqual(bad, []);
+  assert.ok(found.size > 5, `빌드된 HTML을 ${found.size}개밖에 못 찾았다`);
 });

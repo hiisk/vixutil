@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { ROMAN_ICON, ROMAN_SLUGS, yearOf } from './list.ts';
 import { romanFacts } from './facts.ts';
 import { ROMAN_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#b45309';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: ROMAN_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const romanParams = () => ROMAN_SLUGS.map(slug => ({ slug }));
+export const romanParams = () => prerender(ROMAN_SLUGS.map(slug => ({ slug })));

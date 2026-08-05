@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { CIDR_ICON, PREFIXES, prefixOf, slugOf } from './list.ts';
 import { cidrFacts } from './facts.ts';
 import { CIDR_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#0891b2';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: CIDR_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const cidrParams = () => PREFIXES.map(p => ({ slug: slugOf(p) }));
+export const cidrParams = () => prerender(PREFIXES.map(p => ({ slug: slugOf(p) })));

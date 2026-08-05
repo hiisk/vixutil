@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { ASCII_ICON, CODES, codeOf } from './list.ts';
 import { asciiFacts } from './facts.ts';
 import { ASCII_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#14b8a6';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: ASCII_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const asciiParams = () => CODES.map(code => ({ slug: String(code) }));
+export const asciiParams = () => prerender(CODES.map(code => ({ slug: String(code) })));

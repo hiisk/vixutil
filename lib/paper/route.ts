@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { PAPER_ICON, PAPER_SLUGS, cellOf } from './list.ts';
 import { paperFacts } from './facts.ts';
 import { PAPER_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#475569';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: PAPER_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const paperParams = () => PAPER_SLUGS.map(slug => ({ slug }));
+export const paperParams = () => prerender(PAPER_SLUGS.map(slug => ({ slug })));

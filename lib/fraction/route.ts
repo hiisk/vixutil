@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { FRACTIONS, FRACTION_ICON, fractionOf, slugOf } from './list.ts';
 import { fractionFacts } from './facts.ts';
 import { FRACTION_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#65a30d';
 const TO = '#0f172a';
@@ -44,4 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: FRACTION_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const fractionParams = () => FRACTIONS.map(f => ({ slug: slugOf(f) }));
+export const fractionParams = () => prerender(FRACTIONS.map(f => ({ slug: slugOf(f) })));

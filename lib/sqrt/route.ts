@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { SQRT_ICON, SQRT_SLUGS, numberOf } from './list.ts';
 import { sqrtFacts } from './facts.ts';
 import { SQRT_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#4f46e5';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: SQRT_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const sqrtParams = () => SQRT_SLUGS.map(slug => ({ slug }));
+export const sqrtParams = () => prerender(SQRT_SLUGS.map(slug => ({ slug })));

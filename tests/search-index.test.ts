@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { CATS } from '../lib/calculator-catalog.ts';
 import { CHECKLISTS } from '../lib/checklist-data.ts';
+import { appJoin } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -29,7 +30,7 @@ test('운세·스냅의 모든 페이지가 인덱스에 있다', () => {
   const missing: string[] = [];
 
   for (const section of ['fortune', 'snap']) {
-    const dir = join(ROOT, 'app', section);
+    const dir = appJoin(section);
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
       if (!existsSync(join(dir, entry.name, 'page.tsx'))) continue;
@@ -46,7 +47,7 @@ test('인덱스의 운세·스냅 href가 실재한다', () => {
   assert.ok(hrefs.length >= 16, `운세·스냅 항목이 ${hrefs.length}개뿐`);
 
   const broken = hrefs
-    .filter(m => !existsSync(join(ROOT, 'app', m[1], m[2], 'page.tsx')))
+    .filter(m => !existsSync(appJoin(m[1], m[2], 'page.tsx')))
     .map(m => `/${m[1]}/${m[2]}`);
   assert.deepEqual(broken, [], `페이지가 없는 검색 항목: ${broken.join(', ')}`);
 });
@@ -57,7 +58,7 @@ test('계산기 카탈로그의 href가 모두 실재한다', () => {
   for (const cat of CATS) {
     for (const c of cat.calcs) {
       const slug = c.href.replace('/calculator/', '');
-      if (!existsSync(join(ROOT, 'app', 'calculator', slug, 'page.tsx'))) missing.push(c.href);
+      if (!existsSync(appJoin('calculator', slug, 'page.tsx'))) missing.push(c.href);
     }
   }
   assert.deepEqual(missing, [], `페이지가 없는 계산기: ${missing.join(', ')}`);
@@ -89,14 +90,14 @@ test('검색으로 같은 주제의 다른 섹션 콘텐츠를 찾을 수 있다
 
 test('홈 화면 개수 배지가 데이터에서 나온다', () => {
   // 손으로 적으면 콘텐츠가 늘 때마다 낡는다. 실제로 "85+", "100+"로 굳어 있었다.
-  const home = readFileSync(join(ROOT, 'app', 'page.tsx'), 'utf8');
+  const home = readFileSync(appJoin('page.tsx'), 'utf8');
   assert.ok(home.includes('SECTION_COUNTS'), '홈이 실제 개수를 쓰지 않는다');
   assert.doesNotMatch(home, /badge: '\d+\+'/, "배지에 '85+' 같은 하드코딩이 남아 있다");
   assert.doesNotMatch(home, /val: '\d+\+'/, "통계 바에 하드코딩된 숫자가 남아 있다");
 });
 
 test('검색 페이지가 사이트맵에 등록돼 있다', () => {
-  const sitemap = readFileSync(join(ROOT, 'app', 'sitemap.ts'), 'utf8');
+  const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('/search'), '검색 페이지가 사이트맵에 없다');
 });
 
@@ -120,7 +121,7 @@ test('푸터의 인기 도구 링크가 실재한다', () => {
   assert.ok(popular.length >= 5, `인기 도구가 ${popular.length}개뿐 — 파싱 실패`);
 
   const broken = popular
-    .filter(m => !existsSync(join(ROOT, 'app', m[1], m[2], 'page.tsx')))
+    .filter(m => !existsSync(appJoin(m[1], m[2], 'page.tsx')))
     .map(m => `/${m[1]}/${m[2]}`);
   assert.deepEqual(broken, [], `푸터가 없는 페이지를 가리킨다: ${broken.join(', ')}`);
 });

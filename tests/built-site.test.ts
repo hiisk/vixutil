@@ -4,38 +4,103 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 import { ALL_LOCALES10, localeTag } from '../lib/locales.ts';
+import { appEntries, appFile } from './app-path.ts';
 
-const OUT = join(import.meta.dirname, '..', 'out');
+/*
+ * ISR로 바꾸면서 out/이 없어졌다. 미리 구운 페이지는 .next/server/app에
+ * 남으므로 그쪽을 본다 — 전부가 아니라 빌드에서 구운 것만이다. 나머지
+ * 아홉만 장은 요청 때 만들어지므로 여기서 볼 수 없다. 링크·메타 규칙은
+ * 자료 쪽 검사가 이미 지키고 있고, 이 파일은 '실제로 그려진 HTML'을 보는
+ * 마지막 그물로 남는다.
+ */
+const OUT = join(import.meta.dirname, '..', '.next', 'server', 'app');
 
 /**
- * 빌드 산출물(out/)을 검사한다. `npm run build`를 돌린 적이 없으면 건너뛴다 —
+ * 빌드 산출물(.next/server/app)을 검사한다. `npm run build`를 돌린 적이 없으면 건너뛴다 —
  * 테스트만 돌리는 사람을 막지 않기 위해서다.
  */
 const built = existsSync(OUT);
 
-function walk(dir: string): string[] {
-  const out: string[] = [];
+/*
+ * HTML만 모은다. .next/server/app에는 청크·rsc·meta까지 6만 개가 들어 있어서
+ * 전부 모으면 배열을 만들다 죽는다(out/일 때는 HTML과 정적 파일뿐이었다).
+ */
+function walk(dir: string, out: string[] = []): string[] {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     const p = join(dir, e.name);
-    if (e.isDirectory()) out.push(...walk(p));
-    else out.push(p);
+    if (e.isDirectory()) walk(p, out);
+    else if (e.name.endsWith('.html')) out.push(p);
   }
   return out;
 }
 
-test('빌드된 페이지에 끊어진 내부 링크가 없다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
-  const files = walk(OUT);
-  const htmls = files.filter(f => f.endsWith('.html'));
-  assert.ok(htmls.length > 100, `HTML이 ${htmls.length}개뿐 — 빌드가 불완전하다`);
+/**
+ * 산출물 경로 → 실제 주소.
+ *
+ * .next/server/app 아래에는 route group 폴더가 그대로 남는다 —
+ * (ko)/paper.html, (en)/en/paper.html 꼴이다. 주소에는 안 나타나므로 걷어낸다.
+ * out/일 때는 없던 단계라, 여기를 안 거치면 모든 주소가 /(ko)/…로 어긋난다.
+ */
+/** Next가 만드는 내부 페이지 — 주소로 노출되지 않으므로 검사에서 뺀다 */
+const INTERNAL = /^\/(_global-error|_not-found|404|500)$/;
 
-  // 존재하는 라우트 = html 파일 경로 + 실제 정적 파일
-  const routes = new Set<string>(['/']);
-  for (const f of htmls) {
-    const r = '/' + relative(OUT, f).replace(/\.html$/, '');
-    routes.add(r);
-    if (r.endsWith('/index')) routes.add(r.slice(0, -'/index'.length));
-  }
-  const assets = new Set(files.map(f => '/' + relative(OUT, f)));
+function routeOf(file: string): string {
+  const rel = relative(OUT, file).replace(/\.html$/, '');
+  const segs = rel.split('/').filter(s => !(s.startsWith('(') && s.endsWith(')')));
+  const r = '/' + segs.join('/');
+  return r === '/index' ? '/' : r.replace(/\/index$/, '');
+}
+
+test('내부 링크가 실제 라우트 모양과 맞는다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
+  /*
+   * 전에는 "빌드된 HTML 목록"을 유효한 주소로 삼았다. ISR로 바꾸면서 낱장을
+   * 미리 굽지 않으므로 그 방법이 통하지 않는다 — /paper/a4-300dpi는 멀쩡한
+   * 주소인데 빌드 산출물에는 없다.
+   *
+   * 대신 app/의 **라우트 모양**과 맞춰 본다. app/(ko)/paper/[slug]/page.tsx가
+   * 있으면 /paper/무엇이든은 성립한다. 낱장 이름이 실제로 있는지는 자료 쪽
+   * 검사가 이미 본다(각 섹션의 slug 중복·형식 검사). 여기서 잡는 것은 섹션
+   * 이름을 잘못 적거나 없어진 곳을 가리키는 링크다.
+   */
+  const APP = join(import.meta.dirname, '..', 'app');
+
+  /** app/ 를 훑어 라우트 모양을 모은다 — route group "(xx)"는 주소에 안 나온다 */
+  const patterns: string[][] = [];
+  const collect = (dir: string, segs: string[]) => {
+    let hasPage = false;
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (e.isFile() && e.name === 'page.tsx') hasPage = true;
+      else if (e.isDirectory()) {
+        const name = e.name;
+        const next = name.startsWith('(') && name.endsWith(')') ? segs : [...segs, name];
+        collect(join(dir, name), next);
+      }
+    }
+    if (hasPage) patterns.push(segs);
+  };
+  collect(APP, []);
+  assert.ok(patterns.length > 100, `라우트를 ${patterns.length}개밖에 못 찾았다`);
+
+  /*
+   * [slug]은 한 칸, [...slug]는 남은 칸 전부를 받는다(catch-all).
+   * 그 차이를 안 보면 /en/calculator/dev/base64 같은 주소를 놓친다 —
+   * app/(en)/en/calculator/[...slug]가 받는 자리다.
+   */
+  const matches = (href: string) => {
+    const segs = href.split('/').filter(Boolean);
+    return patterns.some(pat => {
+      const catchAll = pat.findIndex(p => p.startsWith('[...') || p.startsWith('[[...'));
+      if (catchAll >= 0) {
+        if (segs.length < catchAll) return false;
+        return pat.slice(0, catchAll).every((p, i) => p.startsWith('[') || p === segs[i]);
+      }
+      if (pat.length !== segs.length) return false;
+      return pat.every((p, i) => p.startsWith('[') || p === segs[i]);
+    });
+  };
+
+  const htmls = walk(OUT);
+  assert.ok(htmls.length > 100, `HTML이 ${htmls.length}개뿐 — 빌드가 불완전하다`);
 
   const broken = new Map<string, string>();
   for (const f of htmls) {
@@ -43,16 +108,19 @@ test('빌드된 페이지에 끊어진 내부 링크가 없다', { skip: built ?
     for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) {
       const href = m[1];
       const norm = href.replace(/\/$/, '') || '/';
-      if (routes.has(norm) || assets.has(href) || href.startsWith('/_next')) continue;
+      // 아이콘·공유카드는 page.tsx가 아니라 파일 규약으로 생기는 라우트다
+      const META_ROUTE = /^\/(apple-icon|icon|favicon|opengraph-image|robots|sitemap)(\.[a-z0-9]+)?$/;
+      if (norm === '/' || href.startsWith('/_next') || /\.[a-z0-9]+$/i.test(href)) continue;
+      if (META_ROUTE.test(norm)) continue;
+      if (matches(norm)) continue;
       if (!broken.has(href)) broken.set(href, '/' + relative(OUT, f));
     }
   }
-
   const list = [...broken].map(([h, src]) => `${h} (예: ${src})`);
-  assert.deepEqual(list, [], `존재하지 않는 곳을 가리키는 링크:\n  ${list.join('\n  ')}`);
+  assert.deepEqual(list, [], `어떤 라우트에도 안 맞는 링크:\n  ${list.join('\n  ')}`);
 });
 
-test('한 언어 안에서 title과 description이 겹치지 않는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('한 언어 안에서 title과 description이 겹치지 않는다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
   // 같은 언어의 두 페이지가 같은 title/description을 쓰면 검색엔진이 중복으로
   // 보고 하나만 색인하거나 순위를 깎는다.
   //
@@ -65,9 +133,9 @@ test('한 언어 안에서 title과 description이 겹치지 않는다', { skip:
   const titles = new Map<string, string[]>();
   const descs = new Map<string, string[]>();
 
-  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
-    const rel = relative(OUT, f).replace(/\.html$/, '');
-    const route = '/' + rel;
+  for (const f of walk(OUT)) {
+    if (INTERNAL.test(routeOf(f))) continue;
+    const route = routeOf(f);
     if (route === '/404' || route === '/_not-found') continue;
 
     const html = readFileSync(f, 'utf8');
@@ -78,7 +146,7 @@ test('한 언어 안에서 title과 description이 겹치지 않는다', { skip:
     assert.ok(d, `${route}: description이 없다`);
 
     // 첫 칸이 언어 폴더면 그 언어, 아니면 한국어(루트)
-    const head = rel.split('/')[0];
+    const head = route.split('/')[1] ?? '';
     const lang = LOCALE_DIRS.has(head) ? head : 'ko';
     const tk = `${lang}\u0000${t}`;
     const dk = `${lang}\u0000${d}`;
@@ -93,7 +161,7 @@ test('한 언어 안에서 title과 description이 겹치지 않는다', { skip:
   assert.deepEqual([...dupT, ...dupD], [], `한 언어 안에서 메타데이터가 겹친다:\n  ${[...dupT, ...dupD].join('\n  ')}`);
 });
 
-test('허브 페이지가 상세 콘텐츠를 통째로 싣지 않는다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('허브 페이지가 상세 콘텐츠를 통째로 싣지 않는다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
   // 허브는 카드 그리드만 그린다. 클라이언트 컴포넌트에 전체 객체를 넘기면
   // 모든 문항·결과·섹션이 HTML에 직렬화된다. 실제로 /test가 1.2MB였다.
   // 카드에 필요한 건 slug·title·desc·category(+icon)뿐이다.
@@ -152,7 +220,11 @@ test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? fals
   // 빌드가 디스크를 넘겼다. 지금은 섹션 카드 하나를 물려받는다 — 그래서 검사할
   // 것은 "상세 페이지에 파일이 있느냐"가 아니라 "상세 페이지가 가리키는 주소에
   // 파일이 있느냐"다. 앞의 것을 보면 멀쩡한 공유를 깨졌다고 한다.
-  for (const page of ['test/mbti.html', 'quiz/wine.html']) {
+  /*
+   * ISR로 바꾼 뒤 낱장은 미리 굽지 않는다. 보기로 든 페이지가 산출물에 없을 수
+   * 있으므로, 있는 것만 본다 — 없다고 실패시키면 "안 구웠다"를 "깨졌다"로 읽는다.
+   */
+  for (const page of ['test/mbti.html', 'quiz/wine.html'].filter(f => existsSync(join(OUT, f)))) {
     const html = readFileSync(join(OUT, page), 'utf8');
     const m = html.match(/property="og:image" content="https:\/\/vixutil\.com([^"?]+)/);
     assert.ok(m, `${page}에 og:image가 없다 — 공유 미리보기가 깨진다`);
@@ -162,7 +234,7 @@ test('OG 이미지는 공유용으로 계속 생성된다', { skip: built ? fals
   }
 });
 
-test('색인되는 페이지에는 h1이 정확히 하나 있다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('색인되는 페이지에는 h1이 정확히 하나 있다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
   // h1이 없으면 크롤러가 페이지 주제를 잡을 근거가 약해진다. 실제로 홈·검색·타로
   // 세 곳이 h1 없이 색인되고 있었다 — 그중 홈은 사이트에서 권위가 가장 높은 페이지다.
   //
@@ -170,8 +242,9 @@ test('색인되는 페이지에는 h1이 정확히 하나 있다', { skip: built
   // 코인별 price-prediction 731개가 여기 해당한다.
   const problems: string[] = [];
 
-  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
-    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+  for (const f of walk(OUT)) {
+    if (INTERNAL.test(routeOf(f))) continue;
+    const route = routeOf(f);
     if (route === '/404' || route === '/_not-found') continue;
 
     const html = readFileSync(f, 'utf8');
@@ -184,7 +257,7 @@ test('색인되는 페이지에는 h1이 정확히 하나 있다', { skip: built
   assert.deepEqual(problems, [], `h1 문제:\n  ${problems.slice(0, 10).join('\n  ')}`);
 });
 
-test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
   // canonical이 없으면 ?utm=, 슬래시 유무, 파라미터 조합으로 같은 페이지가
   // 여러 URL로 색인돼 순위가 나뉜다. 실제로 1413개 페이지 전부 없었다.
   //
@@ -193,8 +266,9 @@ test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { ski
   const BASE = 'https://vixutil.com';
   const problems: string[] = [];
 
-  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
-    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+  for (const f of walk(OUT)) {
+    if (INTERNAL.test(routeOf(f))) continue;
+    const route = routeOf(f);
     if (route === '/404' || route === '/_not-found') continue; // 오류 페이지는 canonical이 없는 게 맞다
 
     const html = readFileSync(f, 'utf8');
@@ -204,7 +278,8 @@ test('모든 페이지에 canonical이 있고 자기 URL을 가리킨다', { ski
 
     // 홈은 Next가 metadataBase와 '/'를 합치며 트레일링 슬래시를 뺀다.
     // https://vixutil.com 과 https://vixutil.com/ 은 같은 URL이라 문제가 아니다.
-    const expected = route === '/index' ? BASE : `${BASE}${route}`;
+    // routeOf가 /index를 /로 정규화한다. 홈의 canonical은 트레일링 슬래시가 없다
+    const expected = route === '/' ? BASE : `${BASE}${route}`;
     if (found.replace(/\/$/, '') !== expected) {
       problems.push(`${route}: "${found}" (기대: "${expected}")`);
     }
@@ -219,12 +294,13 @@ test('breadcrumb의 마지막 항목이 자기 URL을 가리킨다', { skip: bui
   const BASE = 'https://vixutil.com';
   const bad: string[] = [];
 
-  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+  for (const f of walk(OUT)) {
+    if (INTERNAL.test(routeOf(f))) continue;
     const html = readFileSync(f, 'utf8');
     const m = html.match(/\{"@context":"https:\/\/schema\.org","@type":"BreadcrumbList".*?\]\}/);
     if (!m) continue;
 
-    const route = '/' + relative(OUT, f).replace(/\.html$/, '');
+    const route = routeOf(f);
     const crumbs = JSON.parse(m[0]) as { itemListElement: { item: string }[] };
     const last = crumbs.itemListElement.at(-1)?.item;
 
@@ -239,32 +315,44 @@ test('계산기는 WebApplication 구조화 데이터를 낸다', { skip: built 
   const samples = ['salary', 'loan', 'bmi', 'refinance', 'annual-leave'];
   const missing = samples.filter(s => {
     const f = join(OUT, 'calculator', `${s}.html`);
-    return !existsSync(f) || !readFileSync(f, 'utf8').includes('"WebApplication"');
+    return !existsSync(f) || !readFileSync(f.startsWith('app/') ? appFile(f) : f, 'utf8').includes('"WebApplication"');
   });
   assert.deepEqual(missing, [], `WebApplication이 없는 계산기: ${missing.join(', ')}`);
 });
 
 test('상세 페이지에 BreadcrumbList가 있다', { skip: built ? false : 'out/ 없음' }, () => {
   // 검색 결과에 "홈 > 심리테스트 > MBTI" 경로가 표시된다. 클릭률에 직접 영향을 준다.
+  /*
+   * ISR로 바꾼 뒤 낱장은 미리 굽지 않으므로 산출물에 없을 수 있다. 없는 것을
+   * "빵꾸"로 세면 안 구운 것을 깨진 것으로 읽는다 — 있는 것만 본다.
+   */
   const samples = ['test/mbti', 'quiz/joseon', 'generator/lotto', 'checklist/moving', 'calculator/salary'];
-  const missing = samples.filter(s => {
-    const f = join(OUT, `${s}.html`);
-    return !existsSync(f) || !readFileSync(f, 'utf8').includes('BreadcrumbList');
-  });
+  const present = samples.filter(s => existsSync(join(OUT, `${s}.html`)));
+  assert.ok(present.length > 0, '미리 구운 상세 페이지가 하나도 없다 — 표본을 다시 골라야 한다');
+  const missing = present.filter(s =>
+    !readFileSync(join(OUT, `${s}.html`), 'utf8').includes('BreadcrumbList'));
   assert.deepEqual(missing, [], `BreadcrumbList가 없는 페이지: ${missing.join(', ')}`);
 });
 
-test('아이콘 파일이 실제로 출력된다', { skip: built ? false : 'out/ 없음' }, () => {
-  // apple-icon 규약은 .svg를 지원하지 않는다. 예전에 app/apple-icon.svg를 두는 바람에
-  // 모든 페이지가 존재하지 않는 아이콘을 가리키고 있었다.
-  for (const icon of ['apple-icon', 'icon.svg', 'favicon.ico']) {
-    const p = join(OUT, icon);
-    assert.ok(existsSync(p), `${icon}이 빌드 출력에 없다`);
-    assert.ok(statSync(p).size > 0, `${icon}이 비어 있다`);
-  }
+test('아이콘 파일 규약이 맞다', () => {
+  /*
+   * apple-icon 규약은 .svg를 지원하지 않는다. 예전에 app/apple-icon.svg를 두는
+   * 바람에 모든 페이지가 존재하지 않는 아이콘을 가리켰다.
+   *
+   * 전에는 out/에 파일이 떨어졌는지로 봤다. 지금은 아이콘도 라우트로 제공되어
+   * 산출물에 파일이 없으므로, app/의 파일 이름 규약을 직접 본다 — 잘못된 확장자를
+   * 잡아내는 데는 이쪽이 더 곧다.
+   */
+  const APP = join(import.meta.dirname, '..', 'app');
+  assert.ok(existsSync(join(APP, 'favicon.ico')), 'app/favicon.ico가 없다');
+  assert.ok(existsSync(join(APP, 'icon.svg')), 'app/icon.svg가 없다');
+  assert.ok(!existsSync(join(APP, 'apple-icon.svg')), 'apple-icon은 .svg를 지원하지 않는다');
+  const appleIcon = ['(ko)/apple-icon.tsx', 'apple-icon.tsx', 'apple-icon.png']
+    .find(f => existsSync(join(APP, f)));
+  assert.ok(appleIcon, 'apple-icon이 없다 (.tsx 또는 .png)');
 });
 
-test('hreflang 표기가 BCP 47이다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('hreflang 표기가 BCP 47이다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
   /*
    * 경로는 소문자(`/pt-br/…`)지만 hreflang은 BCP 47이라 지역 부분이 대문자다
    * (`pt-BR`, `zh-Hans`). 심리테스트를 아홉 언어로 넓힐 때 languages 열쇠에
@@ -276,7 +364,8 @@ test('hreflang 표기가 BCP 47이다', { skip: built ? false : 'out/ 없음 —
    */
   const known = new Set([...ALL_LOCALES10.map(localeTag), 'x-default']);
   const bad = new Map<string, string>();
-  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+  for (const f of walk(OUT)) {
+    if (INTERNAL.test(routeOf(f))) continue;
     for (const m of readFileSync(f, 'utf8').matchAll(/hrefLang="([^"]+)"/g)) {
       if (!known.has(m[1])) bad.set(m[1], relative(OUT, f));
     }
@@ -288,7 +377,7 @@ test('hreflang 표기가 BCP 47이다', { skip: built ? false : 'out/ 없음 —
   );
 });
 
-test('hreflang이 서로를 가리킨다', { skip: built ? false : 'out/ 없음 — npm run build 필요' }, () => {
+test('hreflang이 서로를 가리킨다', { skip: built ? false : '.next 없음 — npm run build 필요' }, () => {
   /*
    * A가 B를 대안으로 선언하면 B도 A를 선언해야 한다. 한쪽만 걸린 hreflang은
    * 구글이 통째로 무시하므로, 있으나 마나가 아니라 **없느니만 못하다**.
@@ -299,11 +388,11 @@ test('hreflang이 서로를 가리킨다', { skip: built ? false : 'out/ 없음 
    * 멀쩡히 뜨고 링크도 살아 있어서 눈으로는 알 수 없다.
    */
   const declared = new Map<string, Set<string>>();
-  for (const f of walk(OUT).filter(f => f.endsWith('.html'))) {
+  for (const f of walk(OUT)) {
+    if (INTERNAL.test(routeOf(f))) continue;
     // out/index.html의 주소는 '/index'가 아니라 '/'다. 이걸 안 맞추면
     // 모든 언어 첫 화면이 서로를 못 가리키는 것으로 잘못 세어진다.
-    const rel = relative(OUT, f).replace(/\.html$/, '');
-    const self = rel === 'index' ? '/' : '/' + rel.replace(/\/index$/, '');
+    const self = routeOf(f);
     const set = new Set<string>();
     for (const m of readFileSync(f, 'utf8').matchAll(/hrefLang="([^"]+)" href="https:\/\/vixutil\.com([^"]*)"/g)) {
       if (m[1] !== 'x-default') set.add(m[2] === '' ? '/' : m[2].replace(/\/$/, '') || '/');

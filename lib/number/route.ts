@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { NUMBERS, NUMBER_ICON, numberOf } from './list.ts';
 import { numberFacts } from './facts.ts';
 import { NUMBER_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#4f46e5';
 const TO = '#0f172a';
@@ -43,4 +44,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: NUMBER_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const numberParams = () => NUMBERS.map(n => ({ slug: String(n) }));
+export const numberParams = () => prerender(NUMBERS.map(n => ({ slug: String(n) })));

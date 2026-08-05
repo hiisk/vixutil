@@ -8,6 +8,7 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { WIRE_ICON, WIRE_SLUGS, cellOf } from './list.ts';
 import { wireFacts } from './facts.ts';
 import { WIRE_UI } from './ui.ts';
+import { prerender } from '../prerender.ts';
 
 const FROM = '#b45309';
 const TO = '#0f172a';
@@ -41,4 +42,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: WIRE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export const wireParams = () => WIRE_SLUGS.map(slug => ({ slug }));
+export const wireParams = () => prerender(WIRE_SLUGS.map(slug => ({ slug })));
