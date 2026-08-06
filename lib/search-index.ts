@@ -73,6 +73,7 @@ import { CELLS as PET_CELLS, PETFOOD_ICON, slugOf as petSlug } from './petfood/l
 import { CELLS as PW_CELLS, PASSWORD_ICON, slugOf as pwSlug } from './password/list';
 import { CELLS as VIEW_CELLS, VIEWING_ICON, slugOf as viewSlug } from './viewing/list';
 import { BIGNUM_ICON, CELLS as BIG_CELLS, slugOf as bigSlug } from './bignum/list';
+import { CELLS as GENGO_CELLS, GENGO_ICON, slugOf as gengoSlug } from './gengo/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -121,6 +122,7 @@ import { petFacts } from './petfood/facts';
 import { passwordFacts } from './password/facts';
 import { viewingFacts } from './viewing/facts';
 import { bigNumFacts } from './bignum/facts';
+import { gengoFacts } from './gengo/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -155,7 +157,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo';
 
 export interface SearchItem {
   href: string;
@@ -240,6 +242,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   password:   { label: '비밀번호',   icon: '🔑', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   viewing:    { label: '시청거리',   icon: '📺', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
   bignum:     { label: '큰 수',      icon: '🔢', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  gengo:      { label: '일본 연호',  icon: '🎌', accent: 'bg-red-50 text-red-700 border-red-200' },
 };
 
 /**
@@ -818,6 +821,20 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: BIGNUM_ICON,
     };
   }),
+  ...GENGO_CELLS.map(c => {
+    const f = gengoFacts(c);
+    const NAME: Record<string, string> = {
+      meiji: '메이지(明治)', taisho: '다이쇼(大正)', showa: '쇼와(昭和)',
+      heisei: '헤이세이(平成)', reiwa: '레이와(令和)',
+    };
+    return {
+      href: `/gengo/${gengoSlug(c)}`,
+      title: `${NAME[c.era]} ${f.first ? '원년' : `${c.year}년`} — 서기 ${f.gregorian}년`,
+      desc: `${c.year} + ${f.era.base}${f.overlap ? ` · 이 해에는 ${NAME[f.overlap.era]}도 함께 앉습니다` : ''}`,
+      section: 'gengo' as const,
+      icon: GENGO_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -913,6 +930,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/gengo', title: '일본 연호 ↔ 서기 환산', desc: '레이와 6년은 2024년 — 개원한 해는 연호가 둘입니다', section: 'gengo' as const, icon: GENGO_ICON },
   { href: '/bignum', title: 'lakh·crore·억·조 환산', desc: '세 자릿수 체계가 자리를 다르게 끊습니다', section: 'bignum' as const, icon: BIGNUM_ICON },
   { href: '/viewing', title: 'TV 시청거리 계산', desc: '인치별 권장 거리와 4K가 값을 하는 거리', section: 'viewing' as const, icon: VIEWING_ICON },
   { href: '/password', title: '비밀번호 세기 계산', desc: '몇 비트인지, 저장 방식에 따라 얼마나 버티는지', section: 'password' as const, icon: PASSWORD_ICON },

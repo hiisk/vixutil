@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/gengo', icon: '🎌', color: 'from-red-700 to-rose-400',
+    accent: 'text-red-700 dark:text-red-200', border: 'border-red-200 dark:border-red-800', bg: 'bg-red-50 dark:bg-red-900/40',
+    copy: {
+      en: { title: 'Japanese Era Years', desc: '1989 is both Shōwa 64 and Heisei 1' },
+      es: { title: 'Eras japonesas', desc: '1989 es Shōwa 64 y a la vez Heisei 1' },
+      'pt-br': { title: 'Eras japonesas', desc: '1989 é Shōwa 64 e também Heisei 1' },
+      ja: { title: '和暦と西暦', desc: '1989年は昭和64年であり平成元年です' },
+      de: { title: 'Japanische Ären', desc: '1989 ist Shōwa 64 und zugleich Heisei 1' },
+      fr: { title: 'Ères japonaises', desc: '1989 est à la fois Shōwa 64 et Heisei 1' },
+      hi: { title: 'जापानी युग वर्ष', desc: '1989 शोवा 64 भी है और हेइसेइ 1 भी' },
+      'zh-hans': { title: '日本年号', desc: '1989 年既是昭和 64 年，也是平成元年' },
+      'zh-hant': { title: '日本年號', desc: '1989 年既是昭和 64 年，也是平成元年' },
+    },
+  },
+  {
     route: '/bignum', icon: '🔢', color: 'from-cyan-600 to-sky-400',
     accent: 'text-cyan-700 dark:text-cyan-200', border: 'border-cyan-200 dark:border-cyan-800', bg: 'bg-cyan-50 dark:bg-cyan-900/40',
     copy: {

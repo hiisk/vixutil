@@ -50,6 +50,7 @@ import { CELLS as PET_CELLS } from '@/lib/petfood/list';
 import { CELLS as PW_CELLS } from '@/lib/password/list';
 import { CELLS as VIEW_CELLS } from '@/lib/viewing/list';
 import { CELLS as BIG_CELLS } from '@/lib/bignum/list';
+import { CELLS as GENGO_CELLS } from '@/lib/gengo/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
