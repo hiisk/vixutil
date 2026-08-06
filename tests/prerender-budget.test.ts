@@ -27,13 +27,21 @@ test('미리 굽는 장수가 0이 아니다', () => {
   assert.ok(prerenderLimit() > 0, 'PRERENDER_PER_ROUTE 기본값이 0이다 — ISR 쓰기가 한도를 넘는다');
 });
 
-test('빌드 한도 안에 드는 값이다', () => {
+test('디스크 안에 드는 값이다', () => {
   /*
-   * 실측(로컬, 2코어 흉내)에서 200이면 22.6분이고 Vercel은 그 두 배라 45분
-   * 한도에 정확히 닿는다. 100이 14분(Vercel 28분)으로 여유가 있다.
-   * 올리려면 먼저 재 보고 이 숫자와 주석을 함께 고친다.
+   * 시간보다 **디스크**가 먼저 찬다. 100으로 배포했다가 Vercel이
+   * 48,769/61,694장에서 ENOSPC로 죽었다 — 컨테이너 여유가 24GB쯤이다.
+   *
+   * 페이지 한 장이 501KB를 남긴다(.html 191 + .rsc 100 + .segments 210).
+   * 20이면 14,618장 × 501KB = 7.3GB로 죽은 자리의 30%다.
+   *
+   * 올리려면 먼저 페이지 크기를 줄이고, 로컬에서 .next 크기를 재 보고,
+   * 이 숫자와 lib/prerender.ts 주석을 함께 고친다.
    */
-  assert.ok(prerenderLimit() <= 150, `${prerenderLimit()}장은 45분 빌드 한도에 너무 가깝다 — 재 보고 올려라`);
+  const KB_PER_PAGE = 501;
+  const pages = 2418 + 731 * prerenderLimit();
+  const gb = (pages * KB_PER_PAGE) / 1048576;
+  assert.ok(gb < 10, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);
 });
 
 test('사이트맵이 내거는 양을 알고 있다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
