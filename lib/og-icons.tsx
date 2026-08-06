@@ -341,6 +341,7 @@ const ICONS: Record<string, (a: string) => ReactElement[]> = {
   stadium: a => [P('M50 22 A44 28 0 0 1 50 78 A44 28 0 0 1 50 22 Z'), P('M50 38 A26 12 0 0 1 50 62 A26 12 0 0 1 50 38 Z', st(a)), P('M6 50 H94', st(a))],
   paperRoll: a => [C(44, 52, 34), C(44, 52, 12, st(a)), P('M78 52 H92 V88')],
   bread: a => [P('M18 46 A16 16 0 0 1 34 30 H70 A16 16 0 0 1 86 46 V80 H18 Z'), P('M18 58 H86', st(a))],
+  basket: a => [P('M12 40 H88 L78 84 H22 Z'), P('M30 40 A20 20 0 0 1 70 40', st(a)), P('M38 50 L34 74'), P('M62 50 L66 74')],
   ramp: a => [P('M10 80 H90 V30 Z'), P('M10 80 L90 30', st(a)), C(65, 41, 9)],
 };
 

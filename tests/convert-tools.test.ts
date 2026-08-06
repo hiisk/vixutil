@@ -258,3 +258,105 @@ test('한글 단위 기호는 번역 일곱 언어에서 바뀐다', () => {
   }
   assert.deepEqual(bad, [], `기호를 안 바꾼 곳: ${bad.join(', ')}`);
 });
+
+/*
+ * ───────── 셋째 묶음 16종 ─────────
+ *
+ * 계수는 정의를 되짚어 확인한다. 체인·로드·발리콘은 인치 정의(1인치 = 2.54cm)에서
+ * 곧바로 나오고, 퀸틀·두남·PiB는 정의값 그대로이며, ksi와 풋캔들은 이미 이 파일에
+ * 있는 psi·제곱피트 변환과 맞아떨어져야 한다 — 새 계수를 옛 계수로 검산하는 셈이다.
+ */
+const factorOf = (slug: string) => {
+  const t = CONVERT_MAP[slug];
+  assert.ok(t, `${slug} 없음`);
+  return t.factor;
+};
+const near = (a: number, b: number, tol: number, why: string) =>
+  assert.ok(Math.abs(a - b) <= tol, `${why}: ${a} vs ${b}`);
+
+test('체인·로드·발리콘은 인치 정의에서 그대로 나온다', () => {
+  const inchCm = 2.54;
+  assert.equal(factorOf('chain-m'), (66 * 12 * inchCm) / 100);
+  assert.equal(factorOf('rod-m'), (16.5 * 12 * inchCm) / 100);
+  near(factorOf('barleycorn-mm'), (inchCm * 10) / 3, 1e-9, '발리콘은 1인치의 3분의 1');
+});
+
+test('체인 계열이 서로 맞물린다 — 4로드 = 1체인, 80체인 = 1마일', () => {
+  near(factorOf('chain-m'), factorOf('rod-m') * 4, 1e-9, '4로드가 1체인');
+  // km-mile은 1km가 몇 마일인지(0.6214)라서, 1마일의 미터는 1000을 그 값으로 나눈 것이다
+  const mileM = 1000 / factorOf('km-mile');
+  near(factorOf('chain-m') * 80, mileM, 0.01, '80체인이 1마일');
+});
+
+test('로드 40개 × 4개가 1에이커다', () => {
+  const rodM = factorOf('rod-m');
+  const acreM2 = factorOf('acre-m2');
+  near(rodM * 40 * (rodM * 4), acreM2, 0.01, '4×40로드가 1에이커');
+});
+
+test('파섹은 3.26광년 언저리이고, 프록시마가 4.24광년이다', () => {
+  near(factorOf('parsec-lightyear'), 3.2616, 0.001, '1파섹');
+  near(1.301 * factorOf('parsec-lightyear'), 4.244, 0.01, '프록시마 1.301pc');
+});
+
+test('슬러그는 32.174파운드다 — 중력가속도의 피트 표시와 같은 숫자', () => {
+  const kgLb = factorOf('kg-lb'); // 1kg = 2.2046 lb
+  near(factorOf('slug-kg') * kgLb, 32.174, 0.001, '1슬러그의 파운드');
+});
+
+test('퀸틀 100kg, 두남 1000㎡, PiB 1024TiB는 정의값 그대로다', () => {
+  assert.equal(factorOf('quintal-kg'), 100);
+  assert.equal(factorOf('dunam-m2'), 1000);
+  assert.equal(factorOf('pib-tib'), 1024);
+});
+
+test('펙 4개가 1부셸이다', () => {
+  near(factorOf('peck-l') * 4, factorOf('bushel-l'), 0.01, '4펙이 1부셸');
+});
+
+test('레오뮈르: 물의 끓는점 100℃가 80°Ré다', () => {
+  const t = CONVERT_MAP['celsius-reaumur'];
+  assert.equal(convert(100, t), 80);
+  assert.equal(convert(0, t), 0);
+  assert.equal(convertBack(80, t), 100);
+});
+
+test('toe와 TNT톤은 정의된 줄 값과 맞는다', () => {
+  // 1toe = 41.868GJ → 41.868e9 J ÷ 3.6e9 J/MWh
+  near(factorOf('toe-mwh'), 41.868 / 3.6, 1e-9, '1toe의 MWh');
+  assert.equal(factorOf('tnt-gj'), 4.184);
+});
+
+test('ksi는 이미 있는 psi 변환과 맞아떨어진다', () => {
+  // 1ksi = 1000psi이고 psi-kpa가 kPa를 주므로, 1000배 뒤 1000으로 나누면 MPa다
+  near(factorOf('ksi-mpa'), factorOf('psi-kpa'), 1e-6, '1ksi(MPa)와 1psi(kPa)는 같은 숫자');
+});
+
+test('풋캔들 비율은 제곱피트 변환의 역수다', () => {
+  // 1fc = 1lm/ft²이고 1lx = 1lm/m²이므로, 비율은 1㎡가 몇 ft²인지와 같다
+  near(factorOf('footcandle-lux'), factorOf('m2-sqft'), 1e-4, '1㎡의 제곱피트 수');
+});
+
+test('밀: 1600밀이 직각이고 6400밀이 한 바퀴다', () => {
+  const t = CONVERT_MAP['mil-degree'];
+  assert.equal(convert(1600, t), 90);
+  assert.equal(convert(6400, t), 360);
+});
+
+test('항성일은 24시간보다 3분 56초 짧고, 1년 모으면 하루가 된다', () => {
+  const hours = factorOf('sidereal-day-hour');
+  near((24 - hours) * 3600, 236, 1, '하루에 모자라는 초');
+  // 항성일로 366번 돌면 태양일 365일이 된다
+  near(hours * 366, 24 * 365, 1, '항성일 366 = 태양일 365');
+});
+
+test('셋째 묶음도 왕복이 맞는다', () => {
+  for (const slug of ['chain-m', 'rod-m', 'barleycorn-mm', 'parsec-lightyear', 'slug-kg',
+    'quintal-kg', 'peck-l', 'dunam-m2', 'celsius-reaumur', 'pib-tib', 'toe-mwh', 'tnt-gj',
+    'ksi-mpa', 'footcandle-lux', 'mil-degree', 'sidereal-day-hour']) {
+    const t = CONVERT_MAP[slug];
+    for (const v of [1, 7, 42.5]) {
+      near(convertBack(convert(v, t), t), v, 1e-6, `${slug} 왕복`);
+    }
+  }
+});

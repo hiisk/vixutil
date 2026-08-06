@@ -653,4 +653,103 @@ export const CONVERT_FR: Record<string, ConvertL10n> = {
     note: 'Le « BTU » d’un climatiseur abrège presque toujours des BTU par heure. Douze mille BTU/h font une tonne de froid.',
     from: 'BTU', to: 'Wh',
   },
+
+  /* ───────── 셋째 묶음 16종 ───────── */
+  'chain-m': {
+    title: 'Chaînes en mètres',
+    desc: 'Convertir la chaîne d’arpenteur en mètres',
+    long: 'Convertit des chaînes en mètres et inversement. L’unité subsiste dans les vieux registres fonciers britanniques et américains, sur les bornes ferroviaires et dans la longueur d’un terrain de cricket.',
+    note: 'Une chaîne vaut 66 pieds, exactement 20,1168 m. Dix chaînes font un furlong et quatre-vingts une mile : c’est la règle derrière la mile.',
+  },
+  'rod-m': {
+    title: 'Rods en mètres',
+    desc: 'Convertir l’ancienne perche d’arpentage en mètres',
+    long: 'Convertit des rods en mètres et inversement. Aussi appelé pole ou perch, il apparaît dans les vieux actes anglais et américains ainsi que dans les longueurs de clôtures et de fossés.',
+    note: 'Un rod vaut 16,5 pieds, exactement 5,0292 m. Quatre rods font une chaîne, et une bande de quatre par quarante rods fait exactement un acre.',
+  },
+  'barleycorn-mm': {
+    title: 'Grains d’orge en millimètres',
+    desc: 'Le pas qui régit les pointures britanniques',
+    long: 'Nommée d’après un grain d’orge, cette unité vaut un tiers de pouce. C’est pourquoi les pointures britanniques et américaines montent d’environ 8,47 mm à chaque taille.',
+    note: 'Les pointures adultes partent de douze grains (quatre pouces) et gagnent un grain par taille. Le 8 désigne la forme, pas la longueur de votre pied.',
+  },
+  'parsec-lightyear': {
+    title: 'Parsecs en années-lumière',
+    desc: 'Convertir entre unités de distance astronomique',
+    long: 'Convertit le parsec des articles d’astronomie en année-lumière de la vulgarisation. Un parsec est la distance à laquelle le rayon de l’orbite terrestre couvre une seconde d’arc.',
+    note: 'Un parsec vaut environ 3,26 années-lumière. Proxima du Centaure, l’étoile la plus proche, se situe à 1,30 parsec, soit 4,24 années-lumière.',
+  },
+  'slug-kg': {
+    title: 'Slugs en kilogrammes',
+    desc: 'L’unité de masse de l’ingénierie anglo-saxonne',
+    long: 'Convertit des slugs en kilogrammes et inversement. Un slug est la masse qu’une livre-force accélère d’un pied par seconde carrée ; l’ingénierie américaine s’en sert pour distinguer masse et poids.',
+    note: 'La livre est un poids, le slug une masse. Un slug vaut environ 32,174 livres — le même nombre que la pesanteur en pieds par seconde carrée.',
+  },
+  'quintal-kg': {
+    title: 'Quintaux en kilogrammes',
+    desc: 'L’unité de 100 kg du négoce céréalier',
+    long: 'Convertit des quintaux en kilogrammes et inversement. Céréales et engrais se négocient au quintal en Europe, en Inde et en Amérique latine, en comptant cent kilos par lot.',
+    note: 'Le quintal métrique vaut exactement 100 kg. Le hundredweight, au nom voisin, diffère : 45,36 kg aux États-Unis et 50,80 kg au Royaume-Uni.',
+  },
+  'peck-l': {
+    title: 'Pecks en litres',
+    desc: 'Une mesure de matières sèches valant un quart de boisseau',
+    long: 'Convertit des pecks en litres et inversement. C’est la taille du panier dans lequel se vendent pommes et pommes de terre, encore en usage sur les marchés de producteurs américains.',
+    note: 'Un peck sec américain vaut 8,81 L et quatre pecks font un boisseau. Le peck impérial vaut 9,09 L, le chiffre change donc.',
+  },
+  'dunam-m2': {
+    title: 'Dunams en mètres carrés',
+    desc: 'L’unité de surface du Proche-Orient et des Balkans',
+    long: 'Convertit des dunams en mètres carrés et inversement. Héritée de l’Empire ottoman, elle reste l’unité de travail des transactions foncières en Israël, en Turquie et dans les Balkans.',
+    note: 'Le dunam métrique vaut 1 000 m², soit un dixième d’hectare. L’ancien dunam ottoman avoisinait 919 m² : les documents anciens diffèrent.',
+  },
+  'celsius-reaumur': {
+    title: 'Celsius en Réaumur',
+    desc: 'Convertir les degrés Celsius en échelle Réaumur',
+    long: 'Convertit des Celsius en Réaumur et inversement. L’échelle place la congélation de l’eau à 0 et son ébullition à 80, et elle persiste dans les recettes européennes de fromage et de sirop.',
+    note: 'Multipliez les Celsius par 0,8 pour obtenir des Réaumur. Les deux échelles partagent le même zéro : pas d’addition, seulement une multiplication.',
+  },
+  'pib-tib': {
+    title: 'PiB en TiB',
+    desc: 'Convertir des pébioctets en tébioctets',
+    long: 'Convertit des pébioctets en tébioctets et inversement. Ces unités en puissances de deux sont celles dans lesquelles s’écrivent réellement la capacité des centres de données et les plans de sauvegarde.',
+    note: 'Un Pio vaut 1 024 Tio. Les fabricants annoncent des Po en puissances de dix : 1 Po ne fait que 0,888 Pio, soit plus de dix pour cent d’écart.',
+  },
+  'toe-mwh': {
+    title: 'Tonnes équivalent pétrole en MWh',
+    desc: 'Convertir l’unité des statistiques énergétiques en électricité',
+    long: 'Convertit des tonnes équivalent pétrole en mégawattheures et inversement. Les statistiques énergétiques nationales s’en servent pour ramener charbon, gaz et électricité à une même échelle.',
+    note: 'Une tep est définie à 41,868 GJ, soit 11,63 MWh. C’est une valeur comptable fixée, pas le pouvoir calorifique réel d’un pétrole donné.',
+  },
+  'tnt-gj': {
+    title: 'Tonnes de TNT en gigajoules',
+    desc: 'Convertir une puissance explosive en énergie',
+    long: 'Convertit des tonnes équivalent TNT en gigajoules et inversement. C’est ainsi que l’on compare l’énergie des séismes et la taille des explosions, et c’est le chiffre derrière les titres évoquant « tant de tonnes de TNT ».',
+    note: 'Une tonne de TNT vaut par définition exactement 4,184 GJ. C’est une convention fixée, pas une chaleur de détonation mesurée.',
+  },
+  'ksi-mpa': {
+    title: 'ksi en MPa',
+    desc: 'Convertir les unités de résistance des matériaux',
+    long: 'Convertit des ksi en mégapascals et inversement. Les normes américaines donnent la résistance à la traction et la limite d’élasticité en ksi ; les comparer aux spécifications internationales passe par cette conversion.',
+    note: 'Un ksi vaut 1 000 psi, environ 6,895 MPa. Les 800 MPa de résistance d’une vis de classe 8.8 font à peu près 116 ksi.',
+  },
+  'footcandle-lux': {
+    title: 'Foot-candles en lux',
+    desc: 'Convertir entre unités d’éclairement',
+    long: 'Convertit des foot-candles en lux et inversement. Les recommandations d’éclairage américaines sont écrites en foot-candles ; les rapprocher des normes internationales demande cette étape.',
+    note: 'Un foot-candle vaut environ 10,76 lux. Le rapport n’est rien d’autre que celui du pied carré au mètre carré.',
+  },
+  'mil-degree': {
+    title: 'Millièmes en degrés',
+    desc: 'Convertir l’unité angulaire militaire en degrés',
+    long: 'Convertit des millièmes en degrés et inversement. L’artillerie et le tir utilisent cette unité, qui divise le tour complet en 6 400 parts selon la convention OTAN.',
+    note: 'Un angle droit vaut 1 600 millièmes. Un millième couvre environ un mètre à mille mètres, ce qui relie distance et largeur de tête.',
+  },
+  'sidereal-day-hour': {
+    title: 'Jour sidéral en heures',
+    desc: 'La durée d’un jour mesuré par rapport aux étoiles',
+    long: 'Convertit le jour sidéral en heures. C’est le temps que met la Terre à tourner une fois par rapport aux étoiles, environ quatre minutes de moins que les 24 heures réglées sur le Soleil.',
+    note: 'La Terre avance sur son orbite en tournant : elle doit donc tourner un peu plus pour ramener le Soleil au même point. Ces 3 minutes 56 secondes par jour font exactement un jour par an.',
+    from: 'jour sidéral', to: 'heures',
+  },
 };
