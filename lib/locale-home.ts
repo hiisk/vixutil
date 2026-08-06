@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/quake', icon: '🌋', color: 'from-rose-800 to-orange-400',
+    accent: 'text-rose-700 dark:text-rose-200', border: 'border-rose-200 dark:border-rose-800', bg: 'bg-rose-50 dark:bg-rose-900/40',
+    copy: {
+      en: { title: 'Earthquake Magnitude', desc: 'A 7 is not twice a 6 but thirty-two times' },
+      es: { title: 'Magnitud de terremotos', desc: 'Un 7 no es el doble de un 6, sino treinta y dos veces' },
+      'pt-br': { title: 'Magnitude de terremotos', desc: 'Um 7 não é o dobro de um 6, mas trinta e duas vezes' },
+      ja: { title: '地震の規模とエネルギー', desc: '規模7は6の2倍ではなく32倍です' },
+      de: { title: 'Erdbebenstärke', desc: 'Eine 7 ist nicht doppelt so stark wie eine 6, sondern 32-mal' },
+      fr: { title: 'Magnitude des séismes', desc: 'Un 7 ne vaut pas deux fois un 6 mais trente-deux fois' },
+      hi: { title: 'भूकंप परिमाण', desc: '7 का भूकंप 6 से दोगुना नहीं, बत्तीस गुना है' },
+      'zh-hans': { title: '地震震级与能量', desc: '7 级不是 6 级的两倍，而是三十二倍' },
+      'zh-hant': { title: '地震規模與能量', desc: '7 級不是 6 級的兩倍，而是三十二倍' },
+    },
+  },
+  {
     route: '/microwave', icon: '🍽️', color: 'from-orange-700 to-amber-400',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {

@@ -57,6 +57,7 @@ import { CELLS as LUMBER_CELLS } from '@/lib/lumber/list';
 import { CELLS as PB_CELLS } from '@/lib/powerbank/list';
 import { CELLS as GOLF_CELLS } from '@/lib/golf/list';
 import { CELLS as MW_CELLS } from '@/lib/microwave/list';
+import { MAGNITUDES as QUAKE_MAGS } from '@/lib/quake/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
