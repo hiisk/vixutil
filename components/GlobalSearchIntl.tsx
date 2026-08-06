@@ -124,7 +124,7 @@ export default function GlobalSearchIntl({ items, lang }: { items: SearchIntlIte
                 <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                   <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
                 </span>
-                <span className="min-w-0 flex-1">
+                <span className="hub-card-body">
                   <span className="flex items-center gap-1.5 flex-wrap">
                     <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-700 transition-colors">
                       {item.title}

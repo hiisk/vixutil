@@ -113,8 +113,8 @@ export default function CalcShellIntl({
                     href={localeHref(lang, `/calculator/${r.slug}`)}
                     className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
                   >
-                    <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-700 transition-colors">{r.title}</span>
-                    <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{r.short}</span>
+                    <span className="hub-card-title group-hover:text-blue-700 transition-colors">{r.title}</span>
+                    <span className="hub-card-desc">{r.short}</span>
                   </Link>
                 ))}
               </div>

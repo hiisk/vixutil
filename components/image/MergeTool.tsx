@@ -119,7 +119,7 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               <span className="w-6 h-6 shrink-0 rounded-md bg-violet-100 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 text-[11px] font-black flex items-center justify-center">
                 {idx + 1}
               </span>
-              <span className="min-w-0 flex-1">
+              <span className="hub-card-body">
                 <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{i.name}</span>
                 <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
                   {i.width} × {i.height} · {formatBytes(i.size)}

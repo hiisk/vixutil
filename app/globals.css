@@ -271,3 +271,34 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .foot-nav {
   @apply mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500;
 }
+
+/* ── 허브 카드 (2026-08-07) ──
+   허브는 낱장에 비해 장수가 적어(≈610장) 디스크에는 거의 영향이 없다. 대신
+   **사람이 처음 닿는 장**이라 전송량과 첫 로딩에 그대로 걸린다.
+
+   재 보니 카드 하나에 class만 530자였고, 카드가 124개인 허브는 그것만 65KB다.
+   geometry·rate·body·country·hanja·convert가 모두 같은 카드를 쓴다.
+   색만 섹션마다 갈리므로(hoverBorder·hoverText) 그 부분은 마크업에 남긴다. */
+.hub-card {
+  @apply flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700
+         bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm transition-all;
+}
+.hub-card-icon {
+  @apply text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0;
+}
+.hub-card-body {
+  @apply min-w-0 flex-1;
+}
+.hub-card-title {
+  @apply block text-sm font-bold text-slate-800 dark:text-slate-100 transition-colors;
+}
+.hub-card-desc {
+  @apply block text-xs text-slate-500 dark:text-slate-400 truncate;
+}
+/* 갈래 머리 — 허브마다 대여섯 번 나온다 */
+.hub-cat-h2 {
+  @apply text-sm font-black text-slate-400 dark:text-slate-500 mb-3 pl-1;
+}
+.hub-cat-count {
+  @apply ml-2 font-bold text-slate-300 dark:text-slate-600;
+}

@@ -50,11 +50,11 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
             <Link
               key={l.slug}
               href={`${prefix}/metro/${l.slug}`}
-              className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm hover:border-slate-400 transition-all"
+              className="group hub-card hover:shadow-sm hover:border-slate-400 transition-all"
             >
               <span className="w-2.5 h-9 rounded-full shrink-0" style={{ background: l.color }} />
-              <span className="min-w-0 flex-1">
-                <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
+              <span className="hub-card-body">
+                <span className="hub-card-title truncate">
                   {lineName(l, lang)}
                 </span>
                 <span className="block text-xs text-slate-500 dark:text-slate-400">

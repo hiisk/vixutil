@@ -112,10 +112,10 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Metro
               <Link
                 key={r.slug}
                 href={`${prefix}/metro/${r.slug}`}
-                className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm transition-all"
+                className="group hub-card hover:shadow-sm transition-all"
               >
                 <span className="w-2.5 h-8 rounded-full shrink-0" style={{ background: r.color }} />
-                <span className="min-w-0 flex-1">
+                <span className="hub-card-body">
                   <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">
                     {lineTitle(r, lang)}
                   </span>

@@ -190,7 +190,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
               className="w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 shrink-0"
               style={{ background: s.hex }}
             />
-            <span className="min-w-0 flex-1">
+            <span className="hub-card-body">
               <span className="block text-sm font-black text-slate-800 dark:text-slate-100 font-mono uppercase">{s.hex}</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500 font-mono">
                 rgb({s.rgb.join(', ')})

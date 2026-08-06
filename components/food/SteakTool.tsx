@@ -28,7 +28,7 @@ export default function SteakTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-red-200'
             }`}
           >
-            <span className="min-w-0 flex-1">
+            <span className="hub-card-body">
               <span className={`block text-sm font-black ${pick === d.id ? 'text-red-700 dark:text-red-300' : 'text-slate-800 dark:text-slate-100'}`}>
                 {names[d.id].name}
               </span>

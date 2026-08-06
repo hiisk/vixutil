@@ -112,14 +112,14 @@ export default function FormulaPage({
               <Link
                 key={r.slug}
                 href={`${prefix}/${section.key}/${r.slug}`}
-                className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${section.hoverBorder} hover:shadow-sm transition-all`}
+                className={`group hub-card ${section.hoverBorder}`}
               >
-                <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
-                <span className="min-w-0 flex-1">
-                  <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${section.hoverText} transition-colors`}>
+                <ToolIcon emoji={r.icon} className="hub-card-icon" />
+                <span className="hub-card-body">
+                  <span className={`hub-card-title ${section.hoverText}`}>
                     {textOf(r, lang).title}
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{textOf(r, lang).desc}</span>
+                  <span className="hub-card-desc">{textOf(r, lang).desc}</span>
                 </span>
               </Link>
             ))}

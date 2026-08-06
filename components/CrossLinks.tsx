@@ -31,8 +31,8 @@ export default function CrossLinks({ className = 'mt-8' }: { className?: string 
             <span className="shrink-0 w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center text-lg">
               {l.icon}
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-700 transition-colors">
+            <span className="hub-card-body">
+              <span className="hub-card-title group-hover:text-indigo-700 transition-colors">
                 {l.title}
               </span>
               <span className="block text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">{l.why}</span>

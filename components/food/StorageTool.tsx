@@ -52,7 +52,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         {items.map(s => (
           <div key={s.name} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
             <div className="flex items-center gap-3">
-              <span className="min-w-0 flex-1">
+              <span className="hub-card-body">
                 <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{s.name}</span>
                 <span className="block text-[11px] text-slate-400 dark:text-slate-500">{s.category}</span>
               </span>

@@ -26,9 +26,9 @@ export default function RelatedCalcs() {
           <Link
             key={c.href}
             href={c.href}
-            className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
+            className="group hub-card hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
           >
-            <div className="min-w-0 flex-1">
+            <div className="hub-card-body">
               <p className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-blue-600 truncate">
                 {c.title}
               </p>

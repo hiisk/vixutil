@@ -57,7 +57,7 @@ export default function RelatedContent({
                 <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
               </span>
               <span className="min-w-0">
-                <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 truncate transition-colors ${c.hoverText}`}>
+                <span className={`hub-card-title truncate transition-colors ${c.hoverText}`}>
                   {item.title}
                 </span>
                 <span className="block text-xs text-slate-400 dark:text-slate-500 truncate">{item.desc}</span>

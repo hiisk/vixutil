@@ -121,18 +121,18 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
               <Link
                 key={r.slug}
                 href={localeHref(lang, `/hanja/${r.slug}`)}
-                className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
+                className={`group hub-card ${s.hoverBorder}`}
               >
-                <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
-                <span className="min-w-0 flex-1">
-                  <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
+                <ToolIcon emoji={r.icon} className="hub-card-icon" />
+                <span className="hub-card-body">
+                  <span className={`hub-card-title ${s.hoverText}`}>
                     {r.hanja}
                     {/* 중국어 표제는 한자(또는 간체)와 글자가 같다 — 그대로 두면 "四面楚歌 四面楚歌"가 된다 */}
                     {idiomHeading(r, lang) !== r.hanja && idiomHeading(r, lang) !== r.simplified && (
                       <span className="font-medium text-slate-500 dark:text-slate-400"> {idiomHeading(r, lang)}</span>
                     )}
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{idiomText(r, lang).meaning}</span>
+                  <span className="hub-card-desc">{idiomText(r, lang).meaning}</span>
                 </span>
               </Link>
             ))}

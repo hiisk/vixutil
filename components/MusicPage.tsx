@@ -148,11 +148,11 @@ export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang 
               <Link
                 key={r.slug}
                 href={`${prefix}/music/${r.slug}`}
-                className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm transition-all"
+                className="group hub-card hover:shadow-sm transition-all"
               >
                 <span className="w-2.5 h-8 rounded-full shrink-0" style={{ background: colorOf(r) }} />
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
+                <span className="hub-card-body">
+                  <span className="hub-card-title truncate">
                     {titleOf(r, lang)}
                   </span>
                   <span className="block text-xs text-slate-500 dark:text-slate-400 tabular-nums">{symbolOf(r)}</span>

@@ -45,7 +45,7 @@ export default function WorldClockTool({ lang = 'ko' }: { lang?: TimeLang } = {}
           return (
             <div key={id} className={`rounded-2xl px-4 py-3.5 flex items-center gap-3 ${TONE[part]}`}>
               <span className="text-2xl shrink-0">{c.flag}</span>
-              <span className="min-w-0 flex-1">
+              <span className="hub-card-body">
                 <span className="block text-sm font-black">{c.city}</span>
                 <span className="block text-[11px] opacity-70">
                   {mounted && now ? dateIn(c.zone, now, lang) : '—'} · {partLabel[part]}

@@ -63,23 +63,23 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
           if (tools.length === 0) return null;
           return (
             <section key={cat} className="mb-8">
-              <h2 className="text-sm font-black text-slate-400 dark:text-slate-500 mb-3 pl-1">
+              <h2 className="hub-cat-h2">
                 {label[cat] ?? cat}
-                <span className="ml-2 font-bold text-slate-300 dark:text-slate-600">{tools.length}</span>
+                <span className="hub-cat-count">{tools.length}</span>
               </h2>
               <div className="grid sm:grid-cols-2 gap-2">
                 {tools.map(t => (
                   <Link
                     key={t.slug}
                     href={`${prefix}/${section.key}/${t.slug}`}
-                    className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${section.hoverBorder} hover:shadow-sm transition-all`}
+                    className={`group hub-card ${section.hoverBorder}`}
                   >
-                    <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
-                    <span className="min-w-0 flex-1">
-                      <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${section.hoverText} transition-colors`}>
+                    <ToolIcon emoji={t.icon} className="hub-card-icon" />
+                    <span className="hub-card-body">
+                      <span className={`hub-card-title ${section.hoverText}`}>
                         {textOf(t, lang).title}
                       </span>
-                      <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{textOf(t, lang).desc}</span>
+                      <span className="hub-card-desc">{textOf(t, lang).desc}</span>
                     </span>
                   </Link>
                 ))}

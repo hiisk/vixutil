@@ -90,7 +90,7 @@ export default function ScreenHubPage({ lang }: { lang: Lang }) {
                     className="flex items-center justify-between gap-3 px-4 py-3 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                   >
                     <span className="min-w-0">
-                      <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{s.name}</span>
+                      <span className="hub-card-title truncate">{s.name}</span>
                       <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
                         {s.w}×{s.h} · {f.ratioLabel} · {f.className}
                       </span>

@@ -56,23 +56,23 @@ export default function CountryHub({ lang }: { lang: FormulaLang }) {
           if (list.length === 0) return null;
           return (
             <section key={region} className="mb-8">
-              <h2 className="text-sm font-black text-slate-400 dark:text-slate-500 mb-3 pl-1">
+              <h2 className="hub-cat-h2">
                 {label[region] ?? region}
-                <span className="ml-2 font-bold text-slate-300 dark:text-slate-600">{list.length}</span>
+                <span className="hub-cat-count">{list.length}</span>
               </h2>
               <div className="grid sm:grid-cols-2 gap-2">
                 {list.map(c => (
                   <Link
                     key={c.slug}
                     href={localeHref(lang, `/country/${c.slug}`)}
-                    className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
+                    className={`group hub-card ${s.hoverBorder}`}
                   >
-                    <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
-                    <span className="min-w-0 flex-1">
-                      <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
+                    <ToolIcon emoji={c.icon} className="hub-card-icon" />
+                    <span className="hub-card-body">
+                      <span className={`hub-card-title ${s.hoverText}`}>
                         {countryText(c, lang).name}
                       </span>
-                      <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">
+                      <span className="hub-card-desc">
                         {utcLabel(c.utc)} · {c.volt} · {c.dial}
                       </span>
                     </span>

@@ -36,8 +36,8 @@ export default function MusicHub({ lang }: { lang: Lang }) {
       className="group flex items-center gap-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 hover:shadow-sm hover:border-slate-400 transition-all"
     >
       <span className="w-2 h-7 rounded-full shrink-0" style={{ background: colorOf(item) }} />
-      <span className="min-w-0 flex-1">
-        <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
+      <span className="hub-card-body">
+        <span className="hub-card-title truncate">
           {titleOf(item, lang)}
         </span>
         <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{symbolOf(item)}</span>

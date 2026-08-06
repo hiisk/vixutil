@@ -102,14 +102,14 @@ export default function TextShellIntl({
               <Link
                 key={r.slug}
                 href={`/${lang}/text/${r.slug}`}
-                className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-indigo-300 hover:shadow-sm transition-all"
+                className="group hub-card hover:border-indigo-300 hover:shadow-sm transition-all"
               >
                 <ToolIcon emoji={r.icon} color={r.og[0]} accent={r.og[1]} className="w-5 h-5 shrink-0" />
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-700 transition-colors">
+                <span className="hub-card-body">
+                  <span className="hub-card-title group-hover:text-indigo-700 transition-colors">
                     {r.title}
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{r.desc}</span>
+                  <span className="hub-card-desc">{r.desc}</span>
                 </span>
               </Link>
             ))}

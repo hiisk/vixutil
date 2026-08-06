@@ -45,7 +45,7 @@ export default function ColorblindTool({ lang = 'ko' }: { lang?: ColorLang } = {
               <div className="flex-1" style={{ background: r.b }} />
             </div>
             <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900">
-              <span className="min-w-0 flex-1">
+              <span className="hub-card-body">
                 <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{ui.types[r.type]}</span>
                 <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.descs[r.type]}</span>
               </span>

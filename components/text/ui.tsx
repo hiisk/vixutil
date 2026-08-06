@@ -138,7 +138,7 @@ export function CopyRow({
           : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-indigo-300'
       }`}
     >
-      <span className="min-w-0 flex-1">
+      <span className="hub-card-body">
         <span className="block text-[11px] font-bold text-slate-400 dark:text-slate-500">{label}</span>
         <span className={`block text-sm break-all ${value ? 'font-bold text-slate-800 dark:text-slate-100' : 'text-slate-300 dark:text-slate-600'}`}>
           {value || '—'}

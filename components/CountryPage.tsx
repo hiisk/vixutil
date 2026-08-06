@@ -119,14 +119,14 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
               <Link
                 key={r.slug}
                 href={localeHref(lang, `/country/${r.slug}`)}
-                className={`group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 ${s.hoverBorder} hover:shadow-sm transition-all`}
+                className={`group hub-card ${s.hoverBorder}`}
               >
-                <ToolIcon emoji={r.icon} className="text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0" />
-                <span className="min-w-0 flex-1">
-                  <span className={`block text-sm font-bold text-slate-800 dark:text-slate-100 ${s.hoverText} transition-colors`}>
+                <ToolIcon emoji={r.icon} className="hub-card-icon" />
+                <span className="hub-card-body">
+                  <span className={`hub-card-title ${s.hoverText}`}>
                     {countryText(r, lang).name}
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">
+                  <span className="hub-card-desc">
                     {utcLabel(r.utc)} · {r.volt} · {r.dial}
                   </span>
                 </span>

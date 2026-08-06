@@ -62,7 +62,7 @@ export default function MosquitoTool({ lang = 'ko' }: { lang?: SoundLang } = {})
             >
               {playing === s.hz ? '■' : '▶'}
             </button>
-            <span className="min-w-0 flex-1">
+            <span className="hub-card-body">
               <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{(s.hz / 1000).toFixed(0)}kHz</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.ages[i]}</span>
             </span>
