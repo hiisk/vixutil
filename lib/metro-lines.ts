@@ -11,9 +11,11 @@ import { WORLD_LINES } from './metro/world.ts';
 import { CAPITAL2_LINES } from './metro/capitals2.ts';
 import { SECOND_CITY_LINES } from './metro/second-city.ts';
 import { WORLD2_LINES } from './metro/world2.ts';
+import { WORLD3_LINES } from './metro/world3.ts';
 
 export const METRO_LINES: MetroLine[] = [
   ...SEOUL_LINES, ...WORLD_LINES, ...CAPITAL2_LINES, ...SECOND_CITY_LINES, ...WORLD2_LINES,
+  ...WORLD3_LINES,
 ];
 
 export const metroLine = (slug: string): MetroLine | undefined =>
