@@ -8,7 +8,7 @@ import GengoList from '@/components/gengo/GengoList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { CELLS, ERAS, GENGO_ICON, slugOf } from '@/lib/gengo/list';
-import { atEra, gengoFacts } from '@/lib/gengo/facts';
+import { atEra } from '@/lib/gengo/facts';
 import { GENGO_UI } from '@/lib/gengo/ui';
 
 export default function GengoHubPage({ lang }: { lang: Lang }) {

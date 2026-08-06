@@ -1,6 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { addDays, formatKo, span } from '@/lib/date-calc';
+import { addDays, span } from '@/lib/date-calc';
 import { CARD, Stat, useMounted, useNow } from './ui';
 import { LIVED_UI, type TimeLang } from '@/lib/time-ui-intl';
 

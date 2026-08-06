@@ -6,7 +6,7 @@ import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import DrillList from '@/components/drill/DrillList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { bitOf, slugOf } from '@/lib/drill/list';
+import { bitOf } from '@/lib/drill/list';
 import { drillFacts, ofKind } from '@/lib/drill/facts';
 import { DRILL_UI } from '@/lib/drill/ui';
 

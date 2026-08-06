@@ -11,7 +11,6 @@ import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
 import { testFaqIntl } from '@/lib/content-faq-intl';
 import { thumbGradient } from '@/lib/thumbnail';
 import { TESTS_INTL, TESTS_INTL_MAP, type TestIntlLang } from '@/lib/test-l10n/index';
-import { localeTag } from '@/lib/locales';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Test } from '@/lib/types';
 

@@ -8,7 +8,7 @@ import PaperList from '@/components/paper/PaperList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { CELLS, KNOWN, PAPER_ICON, SIZES, slugOf } from '@/lib/paper/list';
-import { atSize, paperFacts, sheetOf } from '@/lib/paper/facts';
+import { atSize, sheetOf } from '@/lib/paper/facts';
 import { PAPER_UI } from '@/lib/paper/ui';
 
 /** 계열 넷으로 나눠 보인다 — A·B·C, 그리고 인치로 정해진 것들 */

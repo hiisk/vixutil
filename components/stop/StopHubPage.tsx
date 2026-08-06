@@ -8,7 +8,7 @@ import StopTable from '@/components/stop/StopTable';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
 import { LIMITS, SPEEDS, STOP_ICON } from '@/lib/stop/list';
-import { ROUND_SPEEDS, stopFacts } from '@/lib/stop/facts';
+import { ROUND_SPEEDS } from '@/lib/stop/facts';
 import { STOP_UI } from '@/lib/stop/ui';
 
 /**

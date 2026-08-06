@@ -10,7 +10,7 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { FOOD_TOOLS } from '@/lib/food-tools';
 import { FOOD_CATEGORIES, ingredientsOfCategory } from '@/lib/food/ingredients8';
 import { foodFacts } from '@/lib/food/facts';
-import { FOOD_UI, foodAlternates } from '@/lib/food/ui';
+import { FOOD_UI } from '@/lib/food/ui';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { withCard } from '@/lib/og-cards';

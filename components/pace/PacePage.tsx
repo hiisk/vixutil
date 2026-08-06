@@ -6,7 +6,7 @@ import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import PaceTable from '@/components/pace/PaceTable';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { labelOf, paceOf, slugOf } from '@/lib/pace/list';
+import { paceOf } from '@/lib/pace/list';
 import { GOALS, goalsMet, neighbours, paceFacts } from '@/lib/pace/facts';
 import { PACE_UI } from '@/lib/pace/ui';
 

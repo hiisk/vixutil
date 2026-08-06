@@ -1,6 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { hexToRgb, rgbToHex, simulateCvd, CVD_LABEL, judgeContrast, type CvdType } from '@/lib/color';
+import { hexToRgb, rgbToHex, simulateCvd, judgeContrast, type CvdType } from '@/lib/color';
 import { CARD, ColorInput } from './ui';
 import { COLORBLIND_UI, type ColorLang } from '@/lib/color-ui-intl';
 

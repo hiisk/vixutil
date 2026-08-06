@@ -19,7 +19,7 @@ import { CONVERT_ZH_HANT } from './convert-l10n/zh-hant.ts';
 import { CONVERT_DE } from './convert-l10n/de.ts';
 import { CONVERT_FR } from './convert-l10n/fr.ts';
 import { CONVERT_HI } from './convert-l10n/hi.ts';
-import type { AnyLocale, AnyLocale10 } from './locales.ts';
+import type { AnyLocale10 } from './locales.ts';
 
 export interface ConvertL10n {
   title: string;

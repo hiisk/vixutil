@@ -11,7 +11,6 @@ import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
 import { quizFaqIntl } from '@/lib/content-faq-intl';
 import { thumbGradient } from '@/lib/thumbnail';
 import { QUIZZES_INTL, QUIZZES_INTL_MAP, type QuizIntlLang } from '@/lib/quiz-l10n/index';
-import { localeTag } from '@/lib/locales';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Quiz } from '@/lib/types';
 

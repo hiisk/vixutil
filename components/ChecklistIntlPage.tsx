@@ -10,7 +10,6 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
 import { checklistFaqIntl } from '@/lib/content-faq-intl';
 import { CHECKLISTS_INTL, CHECKLISTS_INTL_MAP, type ChecklistIntlLang } from '@/lib/checklist-l10n/index';
-import { localeTag } from '@/lib/locales';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Checklist } from '@/lib/types';
 

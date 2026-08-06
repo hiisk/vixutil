@@ -6,7 +6,7 @@
  * 국가번호, 시차, 운전 방향, 통화 — 을 중심에 두고, 변동이 잦은 비자는
  * 값 대신 "확인하라"는 문구를 항상 함께 낸다.
  */
-import type { Lang, FormulaLang } from '../formula/terms.ts';
+import type { FormulaLang } from '../formula/terms.ts';
 import { COUNTRY_L10N } from '../country-l10n/index.ts';
 
 export interface CountryText {
