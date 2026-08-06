@@ -34,15 +34,15 @@ import { APP_DIR, stripGroups } from './app-path.ts';
 const ROOT = join(import.meta.dirname, '..');
 const CARDS_DIR = join(ROOT, 'lib', 'og-cards');
 
-test('카드가 1,869장 그대로다', () => {
+test('카드가 1,879장 그대로다', () => {
   /*
-   * 접을 때가 1,799장이었고, 그 뒤 새 섹션 일곱(ampere·uv·hike·insul·air·size·bra)이 열 언어씩 더해
-   * 1,869장이 됐다. 줄었다면 어떤 언어의 어떤 섹션이 카드를 잃은 것이고,
+   * 접을 때가 1,799장이었고, 그 뒤 새 섹션 여덟(ampere·uv·hike·insul·air·size·bra·petfood)이 열 언어씩
+   * 더해 1,879장이 됐다. 줄었다면 어떤 언어의 어떤 섹션이 카드를 잃은 것이고,
    * 늘었다면 새 섹션이 들어온 것이다 — 둘 다 사람이 알고 넘어가야 하는 변화다.
    */
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
-  assert.equal(total, 1869);
-  assert.equal(allCardParams().length, 1869);
+  assert.equal(total, 1879);
+  assert.equal(allCardParams().length, 1879);
 });
 
 test('keys.ts가 언어별 대응표와 어긋나지 않는다', () => {

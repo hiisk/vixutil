@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/petfood', icon: '🐕', color: 'from-orange-600 to-amber-400',
+    accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
+    copy: {
+      en: { title: 'Pet Food Amounts', desc: 'Calories do not scale with weight — sixteen times heavier eats eight times as much' },
+      es: { title: 'Ración para mascotas', desc: 'Las calorías no escalan con el peso: dieciséis veces más pesado come ocho veces más' },
+      'pt-br': { title: 'Ração para pets', desc: 'As calorias não escalam com o peso: dezesseis vezes mais pesado come oito vezes mais' },
+      ja: { title: 'ペットの食事量', desc: 'カロリーは体重に比例しません — 16倍重ければ8倍食べます' },
+      de: { title: 'Futtermenge', desc: 'Kalorien wachsen nicht proportional — sechzehnmal schwerer frisst achtmal so viel' },
+      fr: { title: 'Ration pour animaux', desc: 'Les calories ne suivent pas le poids — seize fois plus lourd mange huit fois plus' },
+      hi: { title: 'पालतू आहार मात्रा', desc: 'कैलोरी वज़न के अनुपात में नहीं — सोलह गुना भारी आठ गुना खाता है' },
+      'zh-hans': { title: '宠物喂食量', desc: '热量不与体重成正比——重十六倍只吃八倍' },
+      'zh-hant': { title: '寵物餵食量', desc: '熱量不與體重成正比——重十六倍只吃八倍' },
+    },
+  },
+  {
     route: '/bra', icon: '👙', color: 'from-pink-600 to-rose-400',
     accent: 'text-pink-700 dark:text-pink-200', border: 'border-pink-200 dark:border-pink-800', bg: 'bg-pink-50 dark:bg-pink-900/40',
     copy: {
