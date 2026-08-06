@@ -126,7 +126,7 @@ export default function ResistorPage({ slug, lang }: { slug: string; lang: Lang 
                 >
                   <span className="text-sm font-black text-amber-700 dark:text-amber-400 shrink-0 w-[70px] text-right">{g.display}</span>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">{g.code}</span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{g.bands4.slice(0, 3).map(c => ui.colorLabel[c]).join(' · ')}</span>
+                  <span className="cell-cut">{g.bands4.slice(0, 3).map(c => ui.colorLabel[c]).join(' · ')}</span>
                 </Link>
               );
             })}

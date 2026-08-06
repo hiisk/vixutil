@@ -81,7 +81,7 @@ export default function DrillPage({ slug, lang }: { slug: string; lang: Lang }) 
           {rows.map(([k, v]) => (
             <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
               <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
-              <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right break-all">{v}</dd>
+              <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
         </dl>
@@ -97,7 +97,7 @@ export default function DrillPage({ slug, lang }: { slug: string; lang: Lang }) 
                 className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
               >
                 <span className="text-xs text-slate-500 dark:text-slate-400">{ui.kindName(n.kind)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right">
+                <span className="cell-num text-right">
                   {n.name} · {n.mm} mm
                   <span className="ml-2 text-[11px] font-normal text-slate-400 dark:text-slate-500">
                     {n.diff > 0 ? '+' : ''}{n.diff}

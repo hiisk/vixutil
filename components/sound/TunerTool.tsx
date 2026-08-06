@@ -136,7 +136,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
           <input
             type="number" min={430} max={450} value={a4}
             onChange={e => setA4(Math.min(450, Math.max(430, Number(e.target.value) || 440)))}
-            className="w-20 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums"
+            className="w-20 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1.5 cell-num"
           />
           <span className="text-xs text-slate-400 dark:text-slate-500">{ui.refA4Note}</span>
         </div>

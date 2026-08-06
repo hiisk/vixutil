@@ -536,7 +536,7 @@ export default function SignalsPage() {
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-16 flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
             <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Calculating signals for all coins…</span>
-            <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{fullCompute.done} / {fullCompute.total}</span>
+            <span className="cell-sub">{fullCompute.done} / {fullCompute.total}</span>
             <div className="w-48 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full bg-amber-500 rounded-full transition-all" style={{ width: `${fullCompute.total ? (fullCompute.done / fullCompute.total) * 100 : 0}%` }} />
             </div>

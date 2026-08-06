@@ -89,7 +89,7 @@ export default function BatteryHubPage({ lang }: { lang: Lang }) {
                     <span className="font-bold text-slate-800 dark:text-slate-100 tabular-nums">{watt}W</span>
                     {KNOWN_CHARGER[watt] && <span className="ml-2 text-xs text-slate-400 dark:text-slate-500">{ui.chargerName(KNOWN_CHARGER[watt])}</span>}
                   </span>
-                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right">
+                  <span className="cell-num text-right">
                     {s.volt}V · {s.amp}A
                     <span className="ml-2 text-[11px] font-normal text-slate-400 dark:text-slate-500">
                       {s.amp > 3 ? ui.cableChip : ui.cablePlain}

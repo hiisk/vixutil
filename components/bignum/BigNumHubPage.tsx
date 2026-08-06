@@ -72,7 +72,7 @@ export default function BigNumHubPage({ lang }: { lang: Lang }) {
             {([[ui.westernLabel, sample.western], [ui.indianLabel, sample.indian], [ui.eastLabel, sample.east]] as [string, string][]).map(([k, v]) => (
               <li key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{k}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{v}</span>
+                <span className="cell-num shrink-0">{v}</span>
               </li>
             ))}
           </ul>

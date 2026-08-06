@@ -31,8 +31,8 @@ export default function MicrowaveList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-orange-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{c.from}W → {c.to}W</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">×{f.ratio}</div>
+            <div className="cell-sub-cut">{c.from}W → {c.to}W</div>
+            <div className="cell-num">×{f.ratio}</div>
           </Link>
         );
       })}

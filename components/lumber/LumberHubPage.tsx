@@ -72,7 +72,7 @@ export default function LumberHubPage({ lang }: { lang: Lang }) {
             {eight.map(f => (
               <li key={f.slug} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300 tabular-nums">{f.cell.size}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">
+                <span className="cell-num shrink-0">
                   {f.actT} × {f.actW} in · {f.mmT} × {f.mmW} mm · {f.share}%
                 </span>
               </li>

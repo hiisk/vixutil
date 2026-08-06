@@ -33,8 +33,8 @@ export default function TorqueList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-orange-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{sizeLabel(c.d)} · {gradeOf(c.grade)?.label}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.turns[1].nm} N·m</div>
+            <div className="cell-sub">{sizeLabel(c.d)} · {gradeOf(c.grade)?.label}</div>
+            <div className="cell-num">{f.turns[1].nm} N·m</div>
           </Link>
         );
       })}

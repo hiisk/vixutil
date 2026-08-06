@@ -33,8 +33,8 @@ export default function BedList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-violet-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{name(c.bed)} · {c.room}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.gap} mm</div>
+            <div className="cell-sub-cut">{name(c.bed)} · {c.room}</div>
+            <div className="cell-num">{f.gap} mm</div>
           </Link>
         );
       })}

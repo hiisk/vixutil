@@ -82,7 +82,7 @@ export default function CidrHubPage({ lang }: { lang: Lang }) {
                   >
                     <span className="text-sm font-black text-cyan-700 dark:text-cyan-400 tabular-nums shrink-0 w-[44px] text-right">/{p.bits}</span>
                     <span className="text-xs font-mono text-slate-600 dark:text-slate-300 shrink-0 w-[124px] truncate">{f.mask ?? ''}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{blocks.join(' · ')}</span>
+                    <span className="cell-cut">{blocks.join(' · ')}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.count(f.usable, f.hostBits)}</span>
                   </Link>
                 );

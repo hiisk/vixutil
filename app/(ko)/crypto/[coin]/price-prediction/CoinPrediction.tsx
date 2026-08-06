@@ -520,7 +520,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Trend significance</p>
-            <p className="text-lg font-black text-slate-900 dark:text-white">{trendLabel} <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">t={m.tStat.toFixed(2)}</span></p>
+            <p className="text-lg font-black text-slate-900 dark:text-white">{trendLabel} <span className="cell-sub">t={m.tStat.toFixed(2)}</span></p>
           </div>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">History used</p>

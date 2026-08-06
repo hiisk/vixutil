@@ -31,8 +31,8 @@ export default function LumberList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{c.size} · {c.feet}ft</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.mmT}×{f.mmW}</div>
+            <div className="cell-sub-cut">{c.size} · {c.feet}ft</div>
+            <div className="cell-num">{f.mmT}×{f.mmW}</div>
           </Link>
         );
       })}

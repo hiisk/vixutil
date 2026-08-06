@@ -72,7 +72,7 @@ export default function BedHubPage({ lang }: { lang: Lang }) {
             {inRoom.map(f => (
               <li key={f.slug} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300 truncate">{ui.bedName(f.cell.bed)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">
+                <span className="cell-num shrink-0">
                   {f.width} mm · {f.gap} mm
                 </span>
               </li>

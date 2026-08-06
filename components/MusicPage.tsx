@@ -155,7 +155,7 @@ export default function MusicPage({ item, lang }: { item: MusicItem; lang: Lang 
                   <span className="hub-card-title truncate">
                     {titleOf(r, lang)}
                   </span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400 tabular-nums">{symbolOf(r)}</span>
+                  <span className="block cell-sub">{symbolOf(r)}</span>
                 </span>
               </Link>
             ))}

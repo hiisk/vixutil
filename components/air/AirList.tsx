@@ -36,7 +36,7 @@ export default function AirList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{c.value} {unit(c.key)}</div>
+            <div className="cell-sub">{c.value} {unit(c.key)}</div>
             <div className={`text-sm font-bold tabular-nums ${f.split ? 'text-amber-600 dark:text-amber-400' : 'text-slate-800 dark:text-slate-100'}`}>
               AQI {f.epa}
             </div>

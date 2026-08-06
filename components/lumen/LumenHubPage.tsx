@@ -78,7 +78,7 @@ export default function LumenHubPage({ lang }: { lang: Lang }) {
             {USES.map(u => (
               <li key={u.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.useName(u.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{u.lux} lux</span>
+                <span className="cell-num">{u.lux} lux</span>
               </li>
             ))}
           </ul>

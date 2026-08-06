@@ -93,7 +93,7 @@ export default function InsulPage({ slug, lang }: { slug: string; lang: Lang }) 
           {rows.map(([k, v]) => (
             <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
               <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
-              <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right break-all">{v}</dd>
+              <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
         </dl>
@@ -105,7 +105,7 @@ export default function InsulPage({ slug, lang }: { slug: string; lang: Lang }) 
             {f.same.map(s => (
               <li key={s.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.materialName(s.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{s.mm} mm</span>
+                <span className="cell-num shrink-0">{s.mm} mm</span>
               </li>
             ))}
           </ul>

@@ -33,7 +33,7 @@ export default function UvList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-orange-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{name(c.skin).split(' —')[0]} · UV {c.uv}</div>
+            <div className="cell-cut">{name(c.skin).split(' —')[0]} · UV {c.uv}</div>
             <div className={`text-sm font-bold tabular-nums ${f.minutes < 20 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-100'}`}>
               {f.minutes}분
             </div>

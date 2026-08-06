@@ -96,7 +96,7 @@ export default function PortHubPage({ lang }: { lang: Lang }) {
                   >
                     <span className="text-sm font-black text-fuchsia-700 dark:text-fuchsia-400 tabular-nums shrink-0 w-[46px] text-right">{x.port}</span>
                     <span className="text-sm font-mono text-slate-700 dark:text-slate-200 shrink-0">{x.name}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{x.service}</span>
+                    <span className="cell-cut">{x.service}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0">{ui.protoLabel[f.proto]}</span>
                   </Link>
                 );

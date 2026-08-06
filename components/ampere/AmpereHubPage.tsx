@@ -78,7 +78,7 @@ export default function AmpereHubPage({ lang }: { lang: Lang }) {
             {APPLIANCES.map(a => (
               <li key={a.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.applianceName(a.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{a.watt} W</span>
+                <span className="cell-num">{a.watt} W</span>
               </li>
             ))}
           </ul>

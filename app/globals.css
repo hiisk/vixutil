@@ -302,3 +302,22 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .hub-cat-count {
   @apply ml-2 font-bold text-slate-300 dark:text-slate-600;
 }
+
+/* ── 격자 셀 (2026-08-07) ──
+   두 축을 곱하는 섹션은 허브가 격자 하나를 통째로 그린다. paper는 420칸이고
+   그 허브가 575KB인데 그 가운데 132KB(22%)가 class 문자열이다 — 사이트에서
+   가장 무거운 장이다.
+
+   components/*/XxxList.tsx 스물아홉 개가 같은 셀 묶음을 되풀이한다. */
+.cell-num {
+  @apply text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums;
+}
+.cell-sub {
+  @apply text-xs text-slate-500 dark:text-slate-400 tabular-nums;
+}
+.cell-sub-cut {
+  @apply text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums;
+}
+.cell-cut {
+  @apply text-xs text-slate-500 dark:text-slate-400 truncate;
+}

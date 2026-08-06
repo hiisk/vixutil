@@ -31,8 +31,8 @@ export default function BraList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-pink-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{c.under}cm · +{c.diff}cm</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.label}</div>
+            <div className="cell-sub">{c.under}cm · +{c.diff}cm</div>
+            <div className="cell-num">{f.label}</div>
           </Link>
         );
       })}

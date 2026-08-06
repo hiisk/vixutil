@@ -36,8 +36,8 @@ export default function BatteryList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-green-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{c.mah}mAh · {c.watt}W</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{clock(f.minutes)}</div>
+            <div className="cell-sub">{c.mah}mAh · {c.watt}W</div>
+            <div className="cell-num">{clock(f.minutes)}</div>
           </Link>
         );
       })}

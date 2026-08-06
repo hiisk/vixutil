@@ -72,7 +72,7 @@ export default function GolfHubPage({ lang }: { lang: Lang }) {
             {ninety.map(f => (
               <li key={f.slug} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300 tabular-nums">{ui.slopeLabel} {f.cell.slope}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">
+                <span className="cell-num shrink-0">
                   {f.differential} · ×{f.factor}
                 </span>
               </li>

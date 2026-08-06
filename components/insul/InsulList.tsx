@@ -33,7 +33,7 @@ export default function InsulList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-stone-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{name(c.key)} {c.mm}mm</div>
+            <div className="cell-cut">{name(c.key)} {c.mm}mm</div>
             <div className={`text-sm font-bold tabular-nums ${f.meets.length ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-800 dark:text-slate-100'}`}>
               R {f.r}
             </div>

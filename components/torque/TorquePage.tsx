@@ -89,7 +89,7 @@ export default function TorquePage({ slug, lang }: { slug: string; lang: Lang })
                   {ui.frictionName(t.key)}
                   <span className="ml-2 text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">K={t.k}</span>
                 </span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{t.nm} N·m</span>
+                <span className="cell-num">{t.nm} N·m</span>
               </li>
             ))}
           </ul>
@@ -99,7 +99,7 @@ export default function TorquePage({ slug, lang }: { slug: string; lang: Lang })
           {rows.map(([k, v]) => (
             <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
               <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
-              <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right break-all">{v}</dd>
+              <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
         </dl>

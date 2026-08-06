@@ -77,8 +77,8 @@ export default function DrillHubPage({ lang }: { lang: Lang }) {
                   href={`${path}/${slugOf(b)}`}
                   className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{b.name} mm</span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums text-right">
+                  <span className="cell-num">{b.name} mm</span>
+                  <span className="cell-sub text-right">
                     {f.taps.length ? f.taps.map(t => t.label).join(', ') : ui.noneTag}
                   </span>
                 </Link>

@@ -78,7 +78,7 @@ export default function AltitudeHubPage({ lang }: { lang: Lang }) {
                   className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 >
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{ui.placeName(p.key)}</span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums text-right">
+                  <span className="cell-sub text-right">
                     {p.m} m · {f.hpa} hPa · {f.boilC} °C
                   </span>
                 </Link>

@@ -33,8 +33,8 @@ export default function GengoList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-red-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{name(c.era)} {c.year}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">
+            <div className="cell-cut">{name(c.era)} {c.year}</div>
+            <div className="cell-num">
               {f.gregorian}
               {f.overlap ? <span className="ml-1 text-xs font-normal text-red-600 dark:text-red-400">·2</span> : null}
             </div>

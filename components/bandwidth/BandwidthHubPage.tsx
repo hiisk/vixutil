@@ -101,7 +101,7 @@ export default function BandwidthHubPage({ lang }: { lang: Lang }) {
               return (
                 <li key={mbps} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                   <span className="text-sm text-slate-600 dark:text-slate-300">{ui.planName(key)}</span>
-                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right">
+                  <span className="cell-num text-right">
                     {mbps}Mbps · {f.perSecond}MB/s
                   </span>
                 </li>

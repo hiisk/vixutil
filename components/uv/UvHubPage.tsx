@@ -78,7 +78,7 @@ export default function UvHubPage({ lang }: { lang: Lang }) {
             {SKINS.map(s => (
               <li key={s.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.skinName(s.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{s.med} J/m²</span>
+                <span className="cell-num shrink-0">{s.med} J/m²</span>
               </li>
             ))}
           </ul>

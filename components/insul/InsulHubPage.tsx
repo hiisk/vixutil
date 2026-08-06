@@ -78,7 +78,7 @@ export default function InsulHubPage({ lang }: { lang: Lang }) {
             {MATERIALS.map(m => (
               <li key={m.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.materialName(m.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{m.lambda} W/m·K</span>
+                <span className="cell-num shrink-0">{m.lambda} W/m·K</span>
               </li>
             ))}
           </ul>
@@ -90,7 +90,7 @@ export default function InsulHubPage({ lang }: { lang: Lang }) {
             {TARGETS.map(t => (
               <li key={t.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.targetName(t.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{t.u} W/m²·K</span>
+                <span className="cell-num shrink-0">{t.u} W/m²·K</span>
               </li>
             ))}
           </ul>

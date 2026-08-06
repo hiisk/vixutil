@@ -33,8 +33,8 @@ export default function TatamiList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-green-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{name(c.kind).split('(')[0].trim()} · {c.mats}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.sqm} m²</div>
+            <div className="cell-sub-cut">{name(c.kind).split('(')[0].trim()} · {c.mats}</div>
+            <div className="cell-num">{f.sqm} m²</div>
           </Link>
         );
       })}

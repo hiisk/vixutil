@@ -33,8 +33,8 @@ export default function QuakeList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-rose-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">M {m.toFixed(2)}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">10^{f.logTnt} t</div>
+            <div className="cell-sub">M {m.toFixed(2)}</div>
+            <div className="cell-num">10^{f.logTnt} t</div>
           </Link>
         );
       })}

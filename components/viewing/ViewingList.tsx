@@ -33,8 +33,8 @@ export default function ViewingList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-blue-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{c.inch}&quot; · {name(c.res).split(' ')[0]}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.smpte} cm</div>
+            <div className="cell-sub-cut">{c.inch}&quot; · {name(c.res).split(' ')[0]}</div>
+            <div className="cell-num">{f.smpte} cm</div>
           </Link>
         );
       })}

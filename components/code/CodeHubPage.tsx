@@ -89,7 +89,7 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
                   >
                     <span className="text-sm font-black text-slate-900 dark:text-slate-100 shrink-0 w-[20px]">{x.char}</span>
                     <span className="text-sm font-bold tracking-[0.2em] text-violet-700 dark:text-violet-400 shrink-0 w-[84px]">{x.morse}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{x.nato ?? ''}</span>
+                    <span className="cell-cut">{x.nato ?? ''}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0">{f.braille ?? ''}</span>
                   </Link>
                 );

@@ -31,8 +31,8 @@ export default function PowerBankList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-teal-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{c.mah.toLocaleString()} mAh</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.wh} Wh</div>
+            <div className="cell-sub-cut">{c.mah.toLocaleString()} mAh</div>
+            <div className="cell-num">{f.wh} Wh</div>
           </Link>
         );
       })}

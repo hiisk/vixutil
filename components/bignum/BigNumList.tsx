@@ -33,8 +33,8 @@ export default function BigNumList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-cyan-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{c.factor} {name(c.unit)}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums truncate">{f.western}</div>
+            <div className="cell-sub-cut">{c.factor} {name(c.unit)}</div>
+            <div className="cell-num truncate">{f.western}</div>
           </Link>
         );
       })}

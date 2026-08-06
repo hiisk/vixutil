@@ -36,8 +36,8 @@ export default function BandwidthList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-sky-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{f.size} · {c.mbps}Mbps</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{time(f)}</div>
+            <div className="cell-sub">{f.size} · {c.mbps}Mbps</div>
+            <div className="cell-num">{time(f)}</div>
           </Link>
         );
       })}

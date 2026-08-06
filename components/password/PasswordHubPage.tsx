@@ -74,7 +74,7 @@ export default function PasswordHubPage({ lang }: { lang: Lang }) {
             {sample.cracks.map(k => (
               <li key={k.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.rateName(k.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{ui.timeLabel(timeParts(k.seconds))}</span>
+                <span className="cell-num shrink-0">{ui.timeLabel(timeParts(k.seconds))}</span>
               </li>
             ))}
           </ul>
@@ -118,7 +118,7 @@ export default function PasswordHubPage({ lang }: { lang: Lang }) {
             {RATES.map(r => (
               <li key={r.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.rateName(r.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">{r.perSecond.toExponential(2)} /s</span>
+                <span className="cell-num shrink-0">{r.perSecond.toExponential(2)} /s</span>
               </li>
             ))}
           </ul>

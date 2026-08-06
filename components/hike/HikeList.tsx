@@ -33,8 +33,8 @@ export default function HikeList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-green-500'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{c.km}km · ↑{c.up}m</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{clock(f.upMinutes)}</div>
+            <div className="cell-sub">{c.km}km · ↑{c.up}m</div>
+            <div className="cell-num">{clock(f.upMinutes)}</div>
           </Link>
         );
       })}

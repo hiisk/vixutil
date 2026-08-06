@@ -98,7 +98,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
           </div>
           <div className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
             <dt className="text-xs text-slate-500 dark:text-slate-400">{ui.groupsLabel}</dt>
-            <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right">
+            <dd className="cell-num text-right">
               {f.groups}
               {f.names.length ? ` · ${f.names.join(', ')}` : ''}
             </dd>

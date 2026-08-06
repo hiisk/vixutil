@@ -87,7 +87,7 @@ export default function BandwidthPage({ slug, lang }: { slug: string; lang: Lang
           {rows.map(([k, v]) => (
             <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
               <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
-              <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-right break-all">{v}</dd>
+              <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
         </dl>
@@ -102,7 +102,7 @@ export default function BandwidthPage({ slug, lang }: { slug: string; lang: Lang
               {f.bottlenecks.map(b => (
                 <li key={b.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                   <span className="text-sm text-slate-600 dark:text-slate-300">{ui.linkName(b.key)}</span>
-                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{b.mbps}Mbps</span>
+                  <span className="cell-num">{b.mbps}Mbps</span>
                 </li>
               ))}
             </ul>
@@ -116,7 +116,7 @@ export default function BandwidthPage({ slug, lang }: { slug: string; lang: Lang
             {f.streams.map(s => (
               <li key={s.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.streamName(s.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{s.count}</span>
+                <span className="cell-num">{s.count}</span>
               </li>
             ))}
           </ul>

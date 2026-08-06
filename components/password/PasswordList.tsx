@@ -33,8 +33,8 @@ export default function PasswordList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-teal-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{name(c.charset)} · {c.length}</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.bits} bit</div>
+            <div className="cell-cut">{name(c.charset)} · {c.length}</div>
+            <div className="cell-num">{f.bits} bit</div>
           </Link>
         );
       })}

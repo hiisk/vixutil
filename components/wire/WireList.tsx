@@ -34,7 +34,7 @@ export default function WireList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{sizeLabel(c.size)} · {c.amp}A</div>
+            <div className="cell-sub">{sizeLabel(c.size)} · {c.amp}A</div>
             <div className={`text-sm font-bold tabular-nums ${f.fits ? 'text-slate-800 dark:text-slate-100' : 'text-rose-600 dark:text-rose-400'}`}>
               {f.reach[3].metres}m
             </div>

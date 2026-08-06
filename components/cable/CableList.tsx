@@ -33,8 +33,8 @@ export default function CableList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-indigo-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate tabular-nums">{name(c.res).split(' ')[0]} · {c.hz}Hz</div>
-            <div className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{f.raw8} Gbps</div>
+            <div className="cell-sub-cut">{name(c.res).split(' ')[0]} · {c.hz}Hz</div>
+            <div className="cell-num">{f.raw8} Gbps</div>
           </Link>
         );
       })}

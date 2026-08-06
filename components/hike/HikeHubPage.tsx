@@ -78,7 +78,7 @@ export default function HikeHubPage({ lang }: { lang: Lang }) {
             {ASCENTS.map(up => (
               <li key={up} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300 tabular-nums">↑ {up} m</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">
+                <span className="cell-num shrink-0">
                   {ui.equivalentLabel} {((up * flatPerMetre()) / 1000).toFixed(2)} km
                 </span>
               </li>

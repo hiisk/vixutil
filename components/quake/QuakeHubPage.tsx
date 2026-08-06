@@ -76,7 +76,7 @@ export default function QuakeHubPage({ lang }: { lang: Lang }) {
               return (
                 <li key={m} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                   <span className="text-sm text-slate-600 dark:text-slate-300 tabular-nums">M {m.toFixed(1)}</span>
-                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">
+                  <span className="cell-num shrink-0">
                     {f.hiroshima >= 1 ? Math.round(f.hiroshima).toLocaleString() : f.hiroshima.toFixed(3)}
                   </span>
                 </li>

@@ -36,7 +36,7 @@ export default function AmpereList({
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-yellow-400'
             }`}
           >
-            <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{name(c.key)}</div>
+            <div className="cell-cut">{name(c.key)}</div>
             <div className={`text-sm font-bold tabular-nums ${f.overload ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-100'}`}>
               {f.amp}A · {f.together}
             </div>

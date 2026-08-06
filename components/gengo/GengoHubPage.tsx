@@ -70,7 +70,7 @@ export default function GengoHubPage({ lang }: { lang: Lang }) {
             {ERAS.map(e => (
               <li key={e.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
                 <span className="text-sm text-slate-600 dark:text-slate-300">{ui.eraName(e.key)}</span>
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums shrink-0">
+                <span className="cell-num shrink-0">
                   +{e.base} · {e.from.slice(0, 4)}–{e.until ? e.until.slice(0, 4) : ''}
                 </span>
               </li>
