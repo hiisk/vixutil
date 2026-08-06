@@ -91,6 +91,21 @@ export const TIME_COUNTRIES: Record<string, TimeCountry> = {
   lk: c('🇱🇰', '스리랑카', 'Sri Lanka', 'Sri Lanka', 'Sri Lanka', 'スリランカ', 'Sri Lanka', 'Sri Lanka', 'श्रीलंका', '斯里兰卡', '斯里蘭卡'),
   ir: c('🇮🇷', '이란', 'Iran', 'Irán', 'Irã', 'イラン', 'Iran', 'Iran', 'ईरान', '伊朗', '伊朗'),
   is: c('🇮🇸', '아이슬란드', 'Iceland', 'Islandia', 'Islândia', 'アイスランド', 'Island', 'Islande', 'आइसलैंड', '冰岛', '冰島'),
+  /* ───────── 늘린 것 ───────── */
+  mn: c('🇲🇳', '몽골', 'Mongolia', 'Mongolia', 'Mongólia', 'モンゴル', 'Mongolei', 'Mongolie', 'मंगोलिया', '蒙古', '蒙古'),
+  mm: c('🇲🇲', '미얀마', 'Myanmar', 'Birmania', 'Mianmar', 'ミャンマー', 'Myanmar', 'Birmanie', 'म्यांमार', '缅甸', '緬甸'),
+  kh: c('🇰🇭', '캄보디아', 'Cambodia', 'Camboya', 'Camboja', 'カンボジア', 'Kambodscha', 'Cambodge', 'कंबोडिया', '柬埔寨', '柬埔寨'),
+  az: c('🇦🇿', '아제르바이잔', 'Azerbaijan', 'Azerbaiyán', 'Azerbaijão', 'アゼルバイジャン', 'Aserbaidschan', 'Azerbaïdjan', 'अज़रबैजान', '阿塞拜疆', '亞塞拜然'),
+  ge: c('🇬🇪', '조지아', 'Georgia', 'Georgia', 'Geórgia', 'ジョージア', 'Georgien', 'Géorgie', 'जॉर्जिया', '格鲁吉亚', '喬治亞'),
+  lb: c('🇱🇧', '레바논', 'Lebanon', 'Líbano', 'Líbano', 'レバノン', 'Libanon', 'Liban', 'लेबनान', '黎巴嫩', '黎巴嫩'),
+  rs: c('🇷🇸', '세르비아', 'Serbia', 'Serbia', 'Sérvia', 'セルビア', 'Serbien', 'Serbie', 'सर्बिया', '塞尔维亚', '塞爾維亞'),
+  bg: c('🇧🇬', '불가리아', 'Bulgaria', 'Bulgaria', 'Bulgária', 'ブルガリア', 'Bulgarien', 'Bulgarie', 'बुल्गारिया', '保加利亚', '保加利亞'),
+  ee: c('🇪🇪', '에스토니아', 'Estonia', 'Estonia', 'Estónia', 'エストニア', 'Estland', 'Estonie', 'एस्टोनिया', '爱沙尼亚', '愛沙尼亞'),
+  hr: c('🇭🇷', '크로아티아', 'Croatia', 'Croacia', 'Croácia', 'クロアチア', 'Kroatien', 'Croatie', 'क्रोएशिया', '克罗地亚', '克羅埃西亞'),
+  ve: c('🇻🇪', '베네수엘라', 'Venezuela', 'Venezuela', 'Venezuela', 'ベネズエラ', 'Venezuela', 'Venezuela', 'वेनेज़ुएला', '委内瑞拉', '委內瑞拉'),
+  uy: c('🇺🇾', '우루과이', 'Uruguay', 'Uruguay', 'Uruguai', 'ウルグアイ', 'Uruguay', 'Uruguay', 'उरुग्वे', '乌拉圭', '烏拉圭'),
+  gh: c('🇬🇭', '가나', 'Ghana', 'Ghana', 'Gana', 'ガーナ', 'Ghana', 'Ghana', 'घाना', '加纳', '迦納'),
+  fj: c('🇫🇯', '피지', 'Fiji', 'Fiyi', 'Fiji', 'フィジー', 'Fidschi', 'Fidji', 'फ़िजी', '斐济', '斐濟'),
 };
 
 export interface TimeCity {
@@ -285,6 +300,22 @@ export const TIME_CITIES: TimeCity[] = [
   t('portland', 'America/Los_Angeles', 'us', '포틀랜드', 'Portland', 'Portland', 'Portland', 'ポートランド', 'Portland', 'Portland', 'पोर्टलैंड', '波特兰', '波特蘭'),
   t('alexandria', 'Africa/Cairo', 'eg', '알렉산드리아', 'Alexandria', 'Alejandría', 'Alexandria', 'アレクサンドリア', 'Alexandria', 'Alexandrie', 'अलेक्ज़ेंड्रिया', '亚历山大', '亞歷山卓'),
   t('christchurch', 'Pacific/Auckland', 'nz', '크라이스트처치', 'Christchurch', 'Christchurch', 'Christchurch', 'クライストチャーチ', 'Christchurch', 'Christchurch', 'क्राइस्टचर्च', '基督城', '基督城'),
+
+  /* ───────── 늘린 것 — 지역을 고루 나눠 더했다 ───────── */
+  t('ulaanbaatar', 'Asia/Ulaanbaatar', 'mn', '울란바토르', 'Ulaanbaatar', 'Ulán Bator', 'Ulan Bator', 'ウランバートル', 'Ulaanbaatar', 'Oulan-Bator', 'उलानबातर', '乌兰巴托', '烏蘭巴托'),
+  t('yangon', 'Asia/Yangon', 'mm', '양곤', 'Yangon', 'Rangún', 'Yangon', 'ヤンゴン', 'Rangun', 'Rangoun', 'यांगून', '仰光', '仰光'),
+  t('phnom-penh', 'Asia/Phnom_Penh', 'kh', '프놈펜', 'Phnom Penh', 'Nom Pen', 'Phnom Penh', 'プノンペン', 'Phnom Penh', 'Phnom Penh', 'नॉम पेन्ह', '金边', '金邊'),
+  t('baku', 'Asia/Baku', 'az', '바쿠', 'Baku', 'Bakú', 'Baku', 'バクー', 'Baku', 'Bakou', 'बाकू', '巴库', '巴庫'),
+  t('tbilisi', 'Asia/Tbilisi', 'ge', '트빌리시', 'Tbilisi', 'Tiflis', 'Tbilisi', 'トビリシ', 'Tiflis', 'Tbilissi', 'त्बिलिसी', '第比利斯', '第比利斯'),
+  t('beirut', 'Asia/Beirut', 'lb', '베이루트', 'Beirut', 'Beirut', 'Beirute', 'ベイルート', 'Beirut', 'Beyrouth', 'बेरूत', '贝鲁特', '貝魯特'),
+  t('belgrade', 'Europe/Belgrade', 'rs', '베오그라드', 'Belgrade', 'Belgrado', 'Belgrado', 'ベオグラード', 'Belgrad', 'Belgrade', 'बेलग्रेड', '贝尔格莱德', '貝爾格勒'),
+  t('sofia', 'Europe/Sofia', 'bg', '소피아', 'Sofia', 'Sofía', 'Sófia', 'ソフィア', 'Sofia', 'Sofia', 'सोफ़िया', '索非亚', '索菲亞'),
+  t('tallinn', 'Europe/Tallinn', 'ee', '탈린', 'Tallinn', 'Tallin', 'Tallinn', 'タリン', 'Tallinn', 'Tallinn', 'तालिन', '塔林', '塔林'),
+  t('zagreb', 'Europe/Zagreb', 'hr', '자그레브', 'Zagreb', 'Zagreb', 'Zagrebe', 'ザグレブ', 'Zagreb', 'Zagreb', 'ज़ाग्रेब', '萨格勒布', '薩格勒布'),
+  t('caracas', 'America/Caracas', 've', '카라카스', 'Caracas', 'Caracas', 'Caracas', 'カラカス', 'Caracas', 'Caracas', 'कराकास', '加拉加斯', '加拉加斯'),
+  t('montevideo', 'America/Montevideo', 'uy', '몬테비데오', 'Montevideo', 'Montevideo', 'Montevidéu', 'モンテビデオ', 'Montevideo', 'Montevideo', 'मोंतेविदेओ', '蒙得维的亚', '蒙得維的亞'),
+  t('accra', 'Africa/Accra', 'gh', '아크라', 'Accra', 'Acra', 'Acra', 'アクラ', 'Accra', 'Accra', 'अक्रा', '阿克拉', '阿克拉'),
+  t('suva', 'Pacific/Fiji', 'fj', '수바', 'Suva', 'Suva', 'Suva', 'スバ', 'Suva', 'Suva', 'सुवा', '苏瓦', '蘇瓦'),
 ];
 
 export const TIME_CITY_SLUGS = TIME_CITIES.map(c => c.slug);
