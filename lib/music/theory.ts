@@ -212,6 +212,17 @@ export const CHORD_QUALITIES: ChordQuality[] = [
       tw: '四個小三度疊起來，音與音的間距完全相同。任何一個音都能當根音，所以這種和弦總共只有三個。',
     },
   },
+  /* ───────── 늘린 것 ───────── */
+  {
+    id: 'min6', suffix: 'm6', steps: [0, 3, 7, 9],
+    name: { ko: '마이너 식스', en: 'minor 6th', es: 'sexta menor', pt: 'sexta menor', ja: 'マイナー6th', de: 'Moll-Sext', fr: 'mineur sixte', hi: 'माइनर सिक्स्थ', zh: '小六和弦', tw: '小六和弦' },
+    feel: { ko: '단3화음에 6도를 더해 어둡지만 답답하지 않은 소리를 냅니다. 재즈와 보사노바에서 마침 자리에 자주 옵니다.', en: 'A minor triad with a 6th on top — dark but not heavy. Common at cadences in jazz and bossa nova.', es: 'Una tríada menor con una sexta encima: oscura pero no pesada. Habitual en cadencias de jazz y bossa nova.', pt: 'Uma tríade menor com uma sexta por cima: escura mas leve. Comum em cadências de jazz e bossa nova.', ja: '短三和音に6度を足した、暗くても重くならない響きです。ジャズやボサノヴァの終止でよく使われます。', de: 'Ein Moll-Dreiklang mit Sexte — dunkel, aber nicht schwer. Häufig in Jazz- und Bossa-Nova-Kadenzen.', fr: 'Un accord mineur avec une sixte : sombre sans être lourd. Fréquent dans les cadences de jazz et de bossa-nova.', hi: 'माइनर ट्रायड पर छठा स्वर — गहरा पर भारी नहीं। जैज़ और बोसा नोवा के समापन में आम।', zh: '小三和弦加上六度，暗而不沉，常出现在爵士与巴萨诺瓦的终止式。', tw: '小三和弦加上六度，暗而不沉，常出現在爵士與巴薩諾瓦的終止式。' },
+  },
+  {
+    id: 'add9', suffix: 'add9', steps: [0, 4, 7, 14],
+    name: { ko: '애드나인', en: 'add9', es: 'add9', pt: 'add9', ja: 'アドナインス', de: 'add9', fr: 'add9', hi: 'ऐड9', zh: '加九和弦', tw: '加九和弦' },
+    feel: { ko: '메이저 코드 위에 9도를 얹어 7도 없이 넓게 울립니다. 발라드와 어쿠스틱 기타에서 흔합니다.', en: 'A major chord with a 9th added and no 7th, so it rings wide and open. Common in ballads and acoustic guitar.', es: 'Un acorde mayor con novena y sin séptima: suena amplio y abierto. Habitual en baladas y guitarra acústica.', pt: 'Um acorde maior com nona e sem sétima: soa amplo e aberto. Comum em baladas e violão.', ja: 'メジャーコードに9度を足し、7度を置かないので広く開いた響きになります。バラードやアコースティックギターでよく使われます。', de: 'Ein Dur-Akkord mit None ohne Septime — klingt weit und offen. Häufig in Balladen und auf der Akustikgitarre.', fr: 'Un accord majeur avec une neuvième et sans septième : sonorité large et ouverte. Fréquent dans les ballades et à la guitare acoustique.', hi: 'मेजर कॉर्ड पर नौवाँ स्वर, सातवाँ नहीं — इसलिए खुला और चौड़ा बजता है। बैलेड और अकूस्टिक गिटार में आम।', zh: '大三和弦加九度、不加七度，听起来开阔通透，常见于抒情歌与木吉他。', tw: '大三和弦加九度、不加七度，聽起來開闊通透，常見於抒情歌與木吉他。' },
+  },
 ];
 
 export interface ScaleMode {
@@ -303,6 +314,27 @@ export const SCALE_MODES: ScaleMode[] = [
       zh: '五个音里没有半音，所以随便按哪个顺序都不会撞。民谣和吉他独奏的底子。',
       tw: '五個音裡沒有半音，所以隨便按哪個順序都不會撞。民謠和吉他獨奏的底子。',
     },
+  },
+  /* ───────── 늘린 것 ───────── */
+  {
+    id: 'lydian', everyRoot: false, steps: [0, 2, 4, 6, 7, 9, 11],
+    name: { ko: '리디안', en: 'Lydian', es: 'lidio', pt: 'lídio', ja: 'リディアン', de: 'Lydisch', fr: 'lydien', hi: 'लिडियन', zh: '利底亚调式', tw: '利底亞調式' },
+    feel: { ko: '4도가 반음 올라가 장음계보다 더 붕 뜬 느낌을 줍니다. 영화 음악에서 신비로운 장면에 자주 씁니다.', en: 'The raised 4th makes it float even more than the major scale. Film scores reach for it in wondrous scenes.', es: 'La cuarta aumentada la hace flotar aún más que la escala mayor. El cine la usa en escenas de asombro.', pt: 'A quarta aumentada faz flutuar ainda mais que a escala maior. O cinema usa em cenas de encanto.', ja: '4度が半音上がることで長音階よりさらに浮遊した感じになります。映画音楽の不思議な場面でよく使われます。', de: 'Die erhöhte Quarte lässt sie noch mehr schweben als die Dur-Tonleiter. Filmmusik nutzt sie für staunende Szenen.', fr: 'La quarte augmentée la fait flotter plus encore que la gamme majeure. Le cinéma l’emploie dans les scènes émerveillées.', hi: 'बढ़ा हुआ चौथा स्वर इसे मेजर स्केल से भी अधिक तैरता हुआ बनाता है। फ़िल्म संगीत में विस्मय के दृश्यों में आम।', zh: '第四音升高半音，比大调音阶更飘。电影配乐常用在惊奇的场面。', tw: '第四音升高半音，比大調音階更飄。電影配樂常用在驚奇的場面。' },
+  },
+  {
+    id: 'phrygian', everyRoot: false, steps: [0, 1, 3, 5, 7, 8, 10],
+    name: { ko: '프리지안', en: 'Phrygian', es: 'frigio', pt: 'frígio', ja: 'フリジアン', de: 'Phrygisch', fr: 'phrygien', hi: 'फ़्रिजियन', zh: '弗里几亚调式', tw: '弗里幾亞調式' },
+    feel: { ko: '2도가 반음 내려가 스페인 기타 같은 색을 냅니다. 메탈에서도 즐겨 씁니다.', en: 'The flattened 2nd gives it a Spanish-guitar colour. Metal borrows it often too.', es: 'La segunda bemol le da color de guitarra española. El metal también la usa mucho.', pt: 'A segunda bemol dá cor de guitarra espanhola. O metal também a usa bastante.', ja: '2度が半音下がることでスペインのギターのような色になります。メタルでもよく使われます。', de: 'Die erniedrigte Sekunde gibt ihr spanische Gitarrenfarbe. Auch Metal greift oft danach.', fr: 'La seconde bémol lui donne une couleur de guitare espagnole. Le métal l’emprunte souvent.', hi: 'घटा हुआ दूसरा स्वर इसे स्पेनिश गिटार का रंग देता है। मेटल में भी ख़ूब बजता है।', zh: '第二音降半音，带出西班牙吉他的味道，金属乐也常借用。', tw: '第二音降半音，帶出西班牙吉他的味道，金屬樂也常借用。' },
+  },
+  {
+    id: 'locrian', everyRoot: false, steps: [0, 1, 3, 5, 6, 8, 10],
+    name: { ko: '로크리안', en: 'Locrian', es: 'locrio', pt: 'lócrio', ja: 'ロクリアン', de: 'Lokrisch', fr: 'locrien', hi: 'लोक्रियन', zh: '洛克里亚调式', tw: '洛克里亞調式' },
+    feel: { ko: '5도까지 내려가 뿌리가 흔들립니다. 곡 전체를 여기에 두는 일은 드물고 지나가는 자리로 씁니다.', en: 'Even the 5th is flattened, so the root never settles. Rarely a whole piece — more a passing colour.', es: 'Hasta la quinta es bemol, así que la tónica nunca asienta. Rara vez toda una pieza: más bien un color de paso.', pt: 'Até a quinta é bemol, então a tônica nunca assenta. Raramente uma peça inteira: mais uma cor de passagem.', ja: '5度まで下がるので主音が落ち着きません。曲全体をこれで書くことはまれで、通り過ぎる色として使います。', de: 'Sogar die Quinte ist erniedrigt, der Grundton kommt nie zur Ruhe. Selten ein ganzes Stück, eher Durchgangsfarbe.', fr: 'Même la quinte est bémol : la tonique ne se pose jamais. Rarement toute une pièce, plutôt une couleur de passage.', hi: 'पाँचवाँ स्वर भी घटा है, इसलिए मूल स्वर कभी टिकता नहीं। पूरा टुकड़ा नहीं, गुज़रता हुआ रंग।', zh: '连第五音都降半音，主音始终立不住。很少整首使用，多作经过色彩。', tw: '連第五音都降半音，主音始終立不住。很少整首使用，多作經過色彩。' },
+  },
+  {
+    id: 'blues', everyRoot: false, steps: [0, 3, 5, 6, 7, 10],
+    name: { ko: '블루스 음계', en: 'blues scale', es: 'escala de blues', pt: 'escala de blues', ja: 'ブルース・スケール', de: 'Blues-Tonleiter', fr: 'gamme blues', hi: 'ब्लूज़ स्केल', zh: '布鲁斯音阶', tw: '布魯斯音階' },
+    feel: { ko: '5음 음계에 반음 하나(블루노트)를 끼운 여섯 음입니다. 그 한 음이 블루스 특유의 미끄러짐을 만듭니다.', en: 'Six notes: the pentatonic plus one半semitone — the blue note. That single note makes the slide.', es: 'Seis notas: la pentatónica más una nota de paso, la blue note. Esa sola nota crea el deslizamiento.', pt: 'Seis notas: a pentatônica mais uma nota de passagem, a blue note. Essa nota sozinha cria o deslize.', ja: '5音音階に半音をひとつ（ブルーノート）足した六音です。その一音がブルース特有の滑りを生みます。', de: 'Sechs Töne: Pentatonik plus die Blue Note. Dieser eine Ton erzeugt das typische Gleiten.', fr: 'Six notes : la pentatonique plus la blue note. Cette seule note crée le glissé caractéristique.', hi: 'छह स्वर: पेंटाटॉनिक और एक ब्लू नोट। वही एक स्वर ब्लूज़ की फिसलन बनाता है।', zh: '六个音：五声音阶再加一个蓝调音。就是那一个音造出布鲁斯特有的滑感。', tw: '六個音：五聲音階再加一個藍調音。就是那一個音造出布魯斯特有的滑感。' },
   },
 ];
 
