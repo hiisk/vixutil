@@ -683,6 +683,80 @@ export const HANJA_DE: Record<string, IdiomText> = {
     origin: 'Aus dem Zuo-Kommentar, neuntes Jahr des Herzogs Zhao, wo es eher als Warnung klang: mit gezogener Wurzel stirbt der Baum.',
     usage: 'Gesagt vom Angehen der Ursache statt vom Aufhübschen der Oberfläche.',
   },
+
+  /* ───────── 셋째 묶음 12개 ───────── */
+  'gyeonggeomangdong': {
+    title: 'Gyeong-geo-mang-dong',
+    meaning: 'Leichtfertig aufstehen und unbedacht handeln, ohne die Folgen zu wägen.',
+    origin: 'Zurückgeführt auf das Han Feizi, das vor jenen warnt, die den Grundsatz leichthin fallen lassen und aus dem Impuls handeln.',
+    usage: 'Wird gesagt, um jemanden zurückzuhalten, solange die Lage noch unklar ist.',
+  },
+  'heosimtanhoe': {
+    title: 'Heo-sim-tan-hoe',
+    meaning: 'Geleerter Sinn und offene Brust — reden, ohne etwas zurückzuhalten.',
+    origin: 'Die vier Zeichen zusammen stehen nicht in den chinesischen Klassikern; die ersten beiden sind alt, die feste Wendung entstand in Korea und Japan.',
+    usage: 'Dient dem Vorschlag, dass beide Seiten die Deckung senken und offen sprechen.',
+  },
+  'bulcheoljuya': {
+    title: 'Bul-cheol-ju-ya',
+    meaning: 'Weder Tag noch Nacht beiseitegelegt — ohne Unterbrechung durcharbeiten.',
+    origin: 'Aus den Gesprächen des Konfuzius, der am Fluss steht und feststellt, dass die Strömung Tag und Nacht nicht innehält. Im Koreanischen wurde ein Zeichen getauscht.',
+    usage: 'Wird von jemandem gesagt, der gegen eine Frist rund um die Uhr gearbeitet hat.',
+  },
+  'bulmyeonbulhyu': {
+    title: 'Bul-myeon-bul-hyu',
+    meaning: 'Weder schlafen noch rasten — alles in eine einzige Aufgabe legen.',
+    origin: 'Keine feste klassische Quelle; die Wendung wird in Korea, China und Japan gebraucht und bedeutet genau das, was ihre vier Zeichen sagen.',
+    usage: 'Gilt für einen Rettungseinsatz oder die letzten Tage vor einer Abgabe.',
+  },
+  'baegajeolhyeon': {
+    title: 'Baek-a-jeol-hyeon',
+    meaning: 'Bo Ya zerschnitt die Saiten — den einen Menschen verlieren, der einen wirklich verstand.',
+    origin: 'Aus dem Liezi. Nur Zhong Ziqi hörte, was Bo Ya beim Spielen meinte; als Ziqi starb, zerschnitt Bo Ya die Saiten und spielte nie wieder.',
+    usage: 'Wird gesagt, wenn man den Menschen verliert, der einen am besten verstand.',
+  },
+  'tasanjiseok': {
+    title: 'Ta-san-ji-seok',
+    meaning: 'Ein Stein von einem anderen Berg — selbst ein rauer taugt, die eigene Jade zu schleifen.',
+    origin: 'Aus dem Buch der Lieder: „Steine anderer Berge können Jade bearbeiten.“',
+    usage: 'Dient dazu, fremdes Scheitern zur eigenen Lehre zu machen statt zum Spott.',
+  },
+  'gorimuwon': {
+    title: 'Go-rip-mu-won',
+    meaning: 'Allein stehen ohne jede Hilfe — nach allen Seiten abgeschnitten.',
+    origin: 'An keinen einzelnen Klassiker gebunden; die Wendung taucht in Militärschriften wie in Geschichtswerken auf. Der nahe Verwandte, „Chu-Lieder von allen vier Seiten“, stammt dagegen aus einer Szene des Shiji.',
+    usage: 'Wird von jemandem gesagt, dem in einer Organisation kein einziger Verbündeter blieb.',
+  },
+  'yeonmokguueo': {
+    title: 'Yeon-mok-gu-eo',
+    meaning: 'Auf einen Baum steigen, um Fische zu suchen — die Methode selbst ist falsch.',
+    origin: 'Aus dem Menzius, der König Xuan sagt, das Reich mit Gewalt gewinnen zu wollen sei, wie auf einen Baum nach Fischen zu klettern.',
+    usage: 'Dient der Aussage, dass nicht mehr Anstrengung hilft, sondern ein anderer Weg.',
+  },
+  'nangjungjichu': {
+    title: 'Nang-jung-ji-chu',
+    meaning: 'Eine Ahle im Sack — echtes Können bricht durch, wie sehr es auch verborgen ist.',
+    origin: 'Aus dem Shiji. Auf den Satz, eine Ahle durchsteche stets den Beutel, entgegnete Mao Sui, man habe ihn nie in den Beutel gelegt.',
+    usage: 'Wird von jemandem gesagt, der noch unbekannt ist und dessen Können gleich sichtbar wird.',
+  },
+  'husaenggaoe': {
+    title: 'Hu-saeng-ga-oe',
+    meaning: 'Die später Geborenen sind zu fürchten — schreibe nie ab, was junge Menschen werden können.',
+    origin: 'Aus den Gesprächen: „Die Jungen sind zu achten. Woher wissen wir, dass sie nicht erreichen, was wir heute sind?“',
+    usage: 'Dient dem Eingeständnis, dass jemand viel Jüngeres bereits gut ist.',
+  },
+  'yumyeongmusil': {
+    title: 'Yu-myeong-mu-sil',
+    meaning: 'Ein Name ohne Substanz — das Schild hängt, dahinter ist nichts.',
+    origin: 'Zu finden im Guoyu und im Buch der Späteren Han, beide über einen Namen, der zur Sache nicht mehr passt.',
+    usage: 'Wird von einer Regel oder Stelle gesagt, die auf dem Papier besteht und nichts tut.',
+  },
+  'geumgwaokjo': {
+    title: 'Geum-gwa-ok-jo',
+    meaning: 'Paragraphen aus Gold und Jade — eine Regel, die ohne Ausnahme gilt.',
+    origin: 'Von Yang Xiong aus der Han-Zeit, der von Satzungen spricht, die es wert seien, in Gold und Jade geschnitten zu werden.',
+    usage: 'Gilt für einen fest gehaltenen Grundsatz ebenso wie für einen viel zu ehrfürchtig gehaltenen.',
+  },
 };
 
 /** 네 글자를 하나씩 쪼갠 뜻 — 붙여 읽으면 성어의 뜻이 된다 */
@@ -799,4 +873,18 @@ export const GLOSS_DE: Record<string, [string, string, string, string]> = {
   gyeonmunbalgeom: ['sehen', 'Mücke', 'ziehen', 'Schwert'],
   suseoyangdan: ['Kopf', 'Ratte', 'zwei', 'Enden'],
   balbonsaegwon: ['ziehen', 'Wurzel', 'stopfen', 'Quelle'],
+
+  /* ───────── 셋째 묶음 12개 ───────── */
+  gyeonggeomangdong: ['leicht', 'heben', 'unbedacht', 'bewegen'],
+  heosimtanhoe: ['leer', 'Sinn', 'offen', 'Brust'],
+  bulcheoljuya: ['nicht', 'beiseitelegen', 'Tag', 'Nacht'],
+  bulmyeonbulhyu: ['nicht', 'schlafen', 'nicht', 'rasten'],
+  baegajeolhyeon: ['Bo', 'Ya', 'zerschneiden', 'Saiten'],
+  tasanjiseok: ['anderer', 'Berg', 'von', 'Stein'],
+  gorimuwon: ['allein', 'stehen', 'ohne', 'Hilfe'],
+  yeonmokguueo: ['klettern', 'Baum', 'suchen', 'Fisch'],
+  nangjungjichu: ['Sack', 'innen', 'von', 'Ahle'],
+  husaenggaoe: ['später', 'geboren', 'wert', 'zu fürchten'],
+  yumyeongmusil: ['haben', 'Name', 'ohne', 'Substanz'],
+  geumgwaokjo: ['Gold', 'Artikel', 'Jade', 'Paragraph'],
 };

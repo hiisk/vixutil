@@ -683,6 +683,80 @@ export const HANJA_PT_BR: Record<string, IdiomText> = {
     origin: 'Do Comentário de Zuo, nono ano do duque Zhao, onde soava mais a advertência: arrancada a raiz, a árvore morre.',
     usage: 'Diz-se de atacar a causa em vez de arrumar a superfície.',
   },
+
+  /* ───────── 셋째 묶음 12개 ───────── */
+  'gyeonggeomangdong': {
+    title: 'Gyeong-geo-mang-dong',
+    meaning: 'Levantar-se de leve e agir sem pensar no que vem depois.',
+    origin: 'Remonta ao Han Feizi, que adverte contra os que descartam o princípio com leveza e agem por impulso.',
+    usage: 'Dito para segurar alguém enquanto a situação ainda não se definiu.',
+  },
+  'heosimtanhoe': {
+    title: 'Heo-sim-tan-hoe',
+    meaning: 'Esvaziar a mente e abrir o peito: falar sem guardar nada.',
+    origin: 'Os quatro caracteres juntos não constam dos clássicos chineses; os dois primeiros são antigos e a fórmula firmou-se na Coreia e no Japão.',
+    usage: 'Usado ao propor que os dois lados baixem a guarda e conversem abertamente.',
+  },
+  'bulcheoljuya': {
+    title: 'Bul-cheol-ju-ya',
+    meaning: 'Sem pôr de lado o dia nem a noite: seguir sem qualquer pausa.',
+    origin: 'Dos Analectos, em que Confúcio olha um rio e nota que a corrente não para, de dia nem de noite. O coreano trocou um caractere.',
+    usage: 'Dito de quem trabalhou sem parar contra um prazo.',
+  },
+  'bulmyeonbulhyu': {
+    title: 'Bul-myeon-bul-hyu',
+    meaning: 'Nem dormir nem descansar: colocar tudo numa única tarefa.',
+    origin: 'Sem fonte clássica fixa; é usado na Coreia, na China e no Japão e significa exatamente o que dizem seus quatro caracteres.',
+    usage: 'Empregado para uma operação de resgate ou os últimos dias antes de uma entrega.',
+  },
+  'baegajeolhyeon': {
+    title: 'Baek-a-jeol-hyeon',
+    meaning: 'Bo Ya cortou as cordas: perder a única pessoa que de fato entendia você.',
+    origin: 'Do Liezi. Só Zhong Ziqi ouvia o que Bo Ya queria dizer ao tocar; quando Ziqi morreu, Bo Ya cortou as cordas e nunca mais tocou.',
+    usage: 'Dito ao perder quem melhor compreendia você.',
+  },
+  'tasanjiseok': {
+    title: 'Ta-san-ji-seok',
+    meaning: 'Uma pedra de outro morro: mesmo a mais bruta serve para polir o próprio jade.',
+    origin: 'Do Livro das Odes: «pedras de outros montes servem para trabalhar o jade».',
+    usage: 'Usado para transformar o fracasso alheio em lição própria em vez de piada.',
+  },
+  'gorimuwon': {
+    title: 'Go-rip-mu-won',
+    meaning: 'De pé sozinho e sem ninguém para ajudar: cercado por todos os lados.',
+    origin: 'Não está preso a um único clássico; aparece em tratados militares e em histórias. Seu primo próximo, «cantos de Chu dos quatro lados», vem de uma cena do Shiji.',
+    usage: 'Dito de quem ficou sem um único aliado dentro de uma organização.',
+  },
+  'yeonmokguueo': {
+    title: 'Yeon-mok-gu-eo',
+    meaning: 'Subir numa árvore para procurar peixe: o método em si está errado.',
+    origin: 'Do Mêncio, que diz ao rei Xuan que conquistar o reino pela força é como subir numa árvore atrás de peixe.',
+    usage: 'Usado para dizer que a saída não é mais esforço, e sim outro caminho.',
+  },
+  'nangjungjichu': {
+    title: 'Nang-jung-ji-chu',
+    meaning: 'Uma sovela dentro do saco: o talento de verdade acaba furando por mais escondido que esteja.',
+    origin: 'Do Shiji. Ao ouvir que a sovela sempre atravessa o saco, Mao Sui respondeu que nunca o haviam colocado no saco.',
+    usage: 'Dito de alguém ainda desconhecido cuja capacidade está prestes a aparecer.',
+  },
+  'husaenggaoe': {
+    title: 'Hu-saeng-ga-oe',
+    meaning: 'Os nascidos depois merecem temor: nunca descarte o que os jovens virão a ser.',
+    origin: 'Dos Analectos: «Os jovens merecem respeito. Como saber que não igualarão o que somos hoje?».',
+    usage: 'Usado ao reconhecer que alguém bem mais novo já é muito bom.',
+  },
+  'yumyeongmusil': {
+    title: 'Yu-myeong-mu-sil',
+    meaning: 'Nome sem substância: a placa está lá e por trás não há nada.',
+    origin: 'Aparece no Guoyu e no Livro dos Han Posteriores, sempre sobre um nome que já não corresponde à coisa.',
+    usage: 'Dito de uma regra ou de um órgão que existe no papel e nada faz.',
+  },
+  'geumgwaokjo': {
+    title: 'Geum-gwa-ok-jo',
+    meaning: 'Artigos de ouro e jade: uma regra a cumprir sem exceção.',
+    origin: 'De Yang Xiong, da dinastia Han, que fala de estatutos dignos de serem gravados em ouro e jade.',
+    usage: 'Serve tanto para um princípio mantido com firmeza quanto para um venerado demais.',
+  },
 };
 
 /** 네 글자를 하나씩 쪼갠 뜻 — 붙여 읽으면 성어의 뜻이 된다 */
@@ -799,4 +873,18 @@ export const GLOSS_PT_BR: Record<string, [string, string, string, string]> = {
   gyeonmunbalgeom: ['ver', 'mosquito', 'sacar', 'espada'],
   suseoyangdan: ['cabeça', 'rato', 'dois', 'extremos'],
   balbonsaegwon: ['arrancar', 'raiz', 'tapar', 'nascente'],
+
+  /* ───────── 셋째 묶음 12개 ───────── */
+  gyeonggeomangdong: ['leve', 'erguer', 'temerário', 'mover'],
+  heosimtanhoe: ['vazio', 'mente', 'aberto', 'peito'],
+  bulcheoljuya: ['não', 'pôr de lado', 'dia', 'noite'],
+  bulmyeonbulhyu: ['não', 'dormir', 'não', 'descansar'],
+  baegajeolhyeon: ['Bo', 'Ya', 'cortar', 'cordas'],
+  tasanjiseok: ['outro', 'monte', 'de', 'pedra'],
+  gorimuwon: ['sozinho', 'estar', 'sem', 'ajuda'],
+  yeonmokguueo: ['subir', 'árvore', 'buscar', 'peixe'],
+  nangjungjichu: ['saco', 'dentro', 'de', 'sovela'],
+  husaenggaoe: ['depois', 'nascido', 'digno', 'de temor'],
+  yumyeongmusil: ['ter', 'nome', 'sem', 'substância'],
+  geumgwaokjo: ['ouro', 'artigo', 'jade', 'cláusula'],
 };

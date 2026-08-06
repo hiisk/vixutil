@@ -683,6 +683,80 @@ export const HANJA_ES: Record<string, IdiomText> = {
     origin: 'Del Comentario de Zuo, año noveno del duque Zhao, donde sonaba más a advertencia: arrancada la raíz, el árbol muere.',
     usage: 'Se dice de atacar la causa en vez de arreglar la superficie.',
   },
+
+  /* ───────── 셋째 묶음 12개 ───────── */
+  'gyeonggeomangdong': {
+    title: 'Gyeong-geo-mang-dong',
+    meaning: 'Levantarse a la ligera y moverse sin pensar en lo que viene después.',
+    origin: 'Se remonta al Han Feizi, que advierte contra quienes desechan el principio a la ligera y actúan por impulso.',
+    usage: 'Se dice para frenar a alguien mientras la situación aún no está clara.',
+  },
+  'heosimtanhoe': {
+    title: 'Heo-sim-tan-hoe',
+    meaning: 'Vaciar la mente y abrir el pecho: hablar sin guardarse nada.',
+    origin: 'Los cuatro caracteres juntos no aparecen en los clásicos chinos; los dos primeros son antiguos y la fórmula cuajó en Corea y Japón.',
+    usage: 'Se usa al proponer que ambas partes bajen la guardia y hablen con franqueza.',
+  },
+  'bulcheoljuya': {
+    title: 'Bul-cheol-ju-ya',
+    meaning: 'Sin apartar ni el día ni la noche: seguir sin pausa alguna.',
+    origin: 'De las Analectas, donde Confucio mira un río y observa que la corriente no se detiene ni de día ni de noche. El coreano cambió un carácter.',
+    usage: 'Se dice de quien trabajó sin descanso contra una fecha límite.',
+  },
+  'bulmyeonbulhyu': {
+    title: 'Bul-myeon-bul-hyu',
+    meaning: 'Ni dormir ni descansar: volcarlo todo en una sola tarea.',
+    origin: 'No tiene fuente clásica fija; se usa en Corea, China y Japón y significa exactamente lo que dicen sus cuatro caracteres.',
+    usage: 'Se emplea para un operativo de rescate o los últimos días antes de una entrega.',
+  },
+  'baegajeolhyeon': {
+    title: 'Baek-a-jeol-hyeon',
+    meaning: 'Bo Ya cortó las cuerdas: perder a la única persona que de verdad te entendía.',
+    origin: 'Del Liezi. Solo Zhong Ziqi oía lo que Bo Ya quería decir al tocar; cuando Ziqi murió, Bo Ya cortó las cuerdas y no volvió a tocar.',
+    usage: 'Se dice al perder a quien mejor te comprendía.',
+  },
+  'tasanjiseok': {
+    title: 'Ta-san-ji-seok',
+    meaning: 'Una piedra de otro monte: hasta la más tosca sirve para pulir tu propio jade.',
+    origin: 'Del Libro de las Odas: «con piedras de otros montes se puede labrar el jade».',
+    usage: 'Se usa para convertir el fracaso ajeno en lección propia en vez de en burla.',
+  },
+  'gorimuwon': {
+    title: 'Go-rip-mu-won',
+    meaning: 'En pie a solas y sin nadie que ayude: cortado por todos los lados.',
+    origin: 'No está ligado a un solo clásico; aparece en tratados militares e historias. Su pariente cercano, «canciones de Chu por los cuatro costados», sí viene de una escena del Shiji.',
+    usage: 'Se dice de quien se queda sin un solo aliado dentro de una organización.',
+  },
+  'yeonmokguueo': {
+    title: 'Yeon-mok-gu-eo',
+    meaning: 'Subir a un árbol a buscar peces: el método mismo está equivocado.',
+    origin: 'Del Mencio, donde el filósofo dice al rey Xuan que conquistar el reino por la fuerza es como trepar a un árbol en busca de peces.',
+    usage: 'Se usa para decir que la solución no es más esfuerzo, sino otro camino.',
+  },
+  'nangjungjichu': {
+    title: 'Nang-jung-ji-chu',
+    meaning: 'Un punzón dentro del saco: el talento verdadero acaba asomando por bien escondido que esté.',
+    origin: 'Del Shiji. Cuando le dijeron que el punzón siempre atraviesa la bolsa, Mao Sui respondió que a él nadie lo había metido nunca en la bolsa.',
+    usage: 'Se dice de alguien aún desconocido cuya capacidad está a punto de verse.',
+  },
+  'husaenggaoe': {
+    title: 'Hu-saeng-ga-oe',
+    meaning: 'A los nacidos después hay que temerlos: nunca descartes lo que llegarán a ser los jóvenes.',
+    origin: 'De las Analectas: «Hay que respetar a los jóvenes. ¿Cómo saber que no igualarán lo que somos hoy?».',
+    usage: 'Se usa al reconocer que alguien mucho más joven ya es bueno.',
+  },
+  'yumyeongmusil': {
+    title: 'Yu-myeong-mu-sil',
+    meaning: 'Nombre sin sustancia: el letrero está puesto y detrás no hay nada.',
+    origin: 'Aparece en el Guoyu y en el Libro de los Han Posteriores, siempre sobre un nombre que ya no corresponde a la cosa.',
+    usage: 'Se dice de una norma o un organismo que existe en el papel y no hace nada.',
+  },
+  'geumgwaokjo': {
+    title: 'Geum-gwa-ok-jo',
+    meaning: 'Artículos de oro y jade: una regla que se cumple sin excepción.',
+    origin: 'De Yang Xiong, de la dinastía Han, que habla de estatutos dignos de grabarse en oro y jade.',
+    usage: 'Vale tanto para un principio sostenido con firmeza como para uno venerado en exceso.',
+  },
 };
 
 /** 네 글자를 하나씩 쪼갠 뜻 — 붙여 읽으면 성어의 뜻이 된다 */
@@ -799,4 +873,18 @@ export const GLOSS_ES: Record<string, [string, string, string, string]> = {
   gyeonmunbalgeom: ['ver', 'mosquito', 'desenvainar', 'espada'],
   suseoyangdan: ['cabeza', 'rata', 'dos', 'extremos'],
   balbonsaegwon: ['arrancar', 'raíz', 'cegar', 'manantial'],
+
+  /* ───────── 셋째 묶음 12개 ───────── */
+  gyeonggeomangdong: ['ligero', 'alzar', 'temerario', 'moverse'],
+  heosimtanhoe: ['vacío', 'mente', 'abierto', 'pecho'],
+  bulcheoljuya: ['no', 'apartar', 'día', 'noche'],
+  bulmyeonbulhyu: ['no', 'dormir', 'no', 'descansar'],
+  baegajeolhyeon: ['Bo', 'Ya', 'cortar', 'cuerdas'],
+  tasanjiseok: ['otro', 'monte', 'de', 'piedra'],
+  gorimuwon: ['solo', 'estar', 'sin', 'ayuda'],
+  yeonmokguueo: ['trepar', 'árbol', 'buscar', 'pez'],
+  nangjungjichu: ['saco', 'dentro', 'de', 'punzón'],
+  husaenggaoe: ['después', 'nacido', 'digno', 'de temer'],
+  yumyeongmusil: ['tener', 'nombre', 'sin', 'sustancia'],
+  geumgwaokjo: ['oro', 'artículo', 'jade', 'cláusula'],
 };

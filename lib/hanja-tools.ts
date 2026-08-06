@@ -15,6 +15,7 @@ import { LEARNING2_IDIOMS } from './hanja/learning2.ts';
 import { WORDS_IDIOMS } from './hanja/words.ts';
 import { WORDS2_IDIOMS } from './hanja/words2.ts';
 import { EXTRA_IDIOMS } from './hanja/extra.ts';
+import { EXTRA2_IDIOMS } from './hanja/extra2.ts';
 
 export const IDIOMS: Idiom[] = [
   ...ATTITUDE_IDIOMS, ...ATTITUDE2_IDIOMS,
@@ -24,6 +25,7 @@ export const IDIOMS: Idiom[] = [
   ...LEARNING_IDIOMS, ...LEARNING2_IDIOMS,
   ...WORDS_IDIOMS, ...WORDS2_IDIOMS,
   ...EXTRA_IDIOMS,
+  ...EXTRA2_IDIOMS,
 ];
 
 export const HANJA_CATEGORIES = ['처세·태도', '노력·인내', '관계·사람', '상황·형세', '배움·지혜', '말·글'] as const;
