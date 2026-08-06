@@ -17,6 +17,7 @@ import { HEALTH_TOOLS } from './body/health.ts';
 import { HEALTH2_TOOLS } from './body/health2.ts';
 import { LIFE_TOOLS } from './body/life.ts';
 import { LIFE2_TOOLS } from './body/life2.ts';
+import { BODY_EXTRA_TOOLS } from './body/extra.ts';
 
 export const BODY_TOOLS: FormulaTool[] = [
   ...SHAPE_TOOLS, ...SHAPE2_TOOLS,
@@ -25,6 +26,7 @@ export const BODY_TOOLS: FormulaTool[] = [
   ...CHILD_TOOLS, ...CHILD2_TOOLS,
   ...HEALTH_TOOLS, ...HEALTH2_TOOLS,
   ...LIFE_TOOLS, ...LIFE2_TOOLS,
+  ...BODY_EXTRA_TOOLS,
 ];
 
 export const BODY_CATEGORIES = ['체중·체형', '대사·칼로리', '심장·운동', '아이·성장', '건강 지표', '생활 대사'] as const;

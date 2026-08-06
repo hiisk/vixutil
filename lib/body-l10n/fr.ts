@@ -670,4 +670,78 @@ export const BODY_FR: Record<string, FormulaText> = {
     long: 'Divisez le temps de sommeil par le temps au lit. Les centres du sommeil utilisent ce chiffre et considèrent en général comme correct tout ce qui dépasse 85%. S\'il est bas, le conseil habituel est de rester moins longtemps au lit, pas plus.',
     note: 'Rester couché plus longtemps n\'améliore pas le chiffre : cela le baisse le plus souvent, car ce temps en plus se passe éveillé.',
   },
+
+  /* ───────── 셋째 묶음 12종 ───────── */
+  'skinfold-body-fat': {
+    title: 'Masse grasse par plis cutanés',
+    desc: 'Taux de masse grasse à partir de la somme de trois mesures à la pince.',
+    long: 'La pince pince la peau pour mesurer la couche de graisse en dessous. La somme de trois sites estime la densité du corps entier, et la densité se convertit en pourcentage de masse grasse. Hommes et femmes stockent différemment, d’où des coefficients propres à chacun.',
+    note: 'Les hommes mesurent poitrine, abdomen et cuisse ; les femmes triceps, supra-iliaque et cuisse. La constance du site et de la pression compte plus que la valeur absolue : suivez l’évolution, pas le chiffre.',
+  },
+  'fat-loss-target': {
+    title: 'Poids au taux de masse grasse visé',
+    desc: 'Le poids atteint au taux de masse grasse visé, à masse maigre constante.',
+    long: 'Le calcul suppose que vous perdez de la graisse en conservant tout le reste : muscle, os, eau. La masse maigre ne bougeant pas, le poids cible est simplement la masse maigre divisée par un moins le taux visé.',
+    note: 'En pratique, maigrir vite emporte du muscle, si bien que le taux de graisse reste au-dessus de la cible même au poids prévu. Rester sous 1% du poids par semaine limite cette perte.',
+  },
+  'net-carbs': {
+    title: 'Calculateur de glucides nets',
+    desc: 'Glucides totaux moins fibres et polyols : ce que le corps absorbe réellement.',
+    long: 'Les fibres traversent sans être digérées et ne font pas monter la glycémie. Les polyols varient, mais la moitié environ est absorbée. Ce qui reste après avoir retranché les deux est le glucide qui vous parvient vraiment.',
+    note: 'L’érythritol n’est presque pas absorbé alors que le maltitol l’est largement. Si l’étiquette précise le type, ajustez le chiffre en conséquence.',
+  },
+  'glycemic-load': {
+    title: 'Calculateur de charge glycémique',
+    desc: 'L’index glycémique multiplié par les glucides que vous mangez réellement.',
+    long: 'L’index glycémique dit seulement à quelle vitesse un aliment élève la glycémie. La pastèque a un index élevé, mais une tranche apporte peu de glucides : son effet réel reste faible. Index multiplié par la portion — la charge glycémique — c’est ce que le corps rencontre.',
+    note: 'Sous 10 c’est faible, de 10 à 19 modéré, à partir de 20 élevé. Sur une journée entière, autour de 100 sert de repère usuel.',
+  },
+  'calorie-density': {
+    title: 'Calculateur de densité calorique',
+    desc: 'Calories pour 100 g et combien de grammes font 200 kcal.',
+    long: 'Les mêmes 200 kcal font une assiette pleine d’un aliment et une petite poignée d’un autre. La satiété suit le volume et le poids plus que les calories, donc commencer par le moins dense fait durer la même énergie bien plus longtemps.',
+    note: 'Les légumes et les bouillons restent sous 50 kcal aux 100 g, le riz et le pain vont de 130 à 270, les noix et les huiles dépassent 600.',
+  },
+  'power-to-weight': {
+    title: 'Calculateur de watts par kilo',
+    desc: 'La puissance à vélo divisée par le poids : le chiffre qui décide en montée.',
+    long: 'Sur le plat, ce sont les watts bruts qui font la vitesse ; en montée on se bat contre la gravité, et ce sont les watts par kilo qui tranchent. C’est pourquoi les mêmes 250 W font monter bien plus vite un coureur de 60 kg qu’un de 85.',
+    note: 'Le second chiffre montre l’effet d’un kilo en moins sur le rapport. C’est souvent plus facile que d’ajouter les watts équivalents — mais si du muscle part aussi, la puissance baisse avec.',
+  },
+  'swim-css': {
+    title: 'Vitesse critique de nage',
+    desc: 'Votre allure tenable au 100 m à partir d’un 400 m et d’un 200 m.',
+    long: 'Divisez l’écart entre deux temps par l’écart de distance et vous obtenez la vitesse au seuil où le lactate commence à s’accumuler. L’écart entre 400 m et 200 m correspond au temps des 200 m supplémentaires : sa moitié est donc l’allure au 100 m.',
+    note: 'Nagez les deux tests à fond le même jour, avec une récupération complète entre les deux. Un 200 m nagé en souplesse donne un résultat plus lent que votre seuil réel.',
+  },
+  'negative-split': {
+    title: 'Calculateur de negative split',
+    desc: 'Répartit un temps cible pour que la seconde moitié soit un peu plus rapide.',
+    long: 'L’énergie économisée au départ devient de la vitesse à l’arrivée. La plupart des bons chronos de marathon se courent avec une seconde moitié plus rapide, tandis que celui qui part trop fort perd sur la fin bien plus qu’il n’a gagné au début.',
+    note: 'À 2%, un objectif de quatre heures donne 121 minutes à l’aller et 119 au retour. Si les côtes sont regroupées, prévoyez d’y perdre du temps et de le reprendre sur le reste.',
+  },
+  'blood-pressure-category': {
+    title: 'Classification de la tension artérielle',
+    desc: 'Dans quel stade se situe un couple systolique-diastolique.',
+    long: 'Le pire des deux chiffres fixe le stade. Une systolique parfaitement normale tombe quand même au stade 2 si la diastolique dépasse 90 : voilà pourquoi ne regarder qu’un seul des deux induit en erreur.',
+    note: 'Une mesure isolée ne décide de rien. Prenez deux mesures après cinq minutes assis au calme, sur plusieurs jours, et faites la moyenne.',
+  },
+  'kidney-stage': {
+    title: 'Stade de la maladie rénale chronique',
+    desc: 'Dans quel stade de G1 à G5 se situe un DFG estimé.',
+    long: 'Le DFGe estime la quantité de sang filtrée par les reins chaque minute, rapportée à la taille du corps. Au-dessus de 90 c’est G1, de 60 à 89 c’est G2 ; une valeur sous 60 maintenue plus de trois mois définit la maladie rénale chronique.',
+    note: 'G1 et G2 ne comptent comme maladie qu’avec d’autres signes d’atteinte rénale, comme des protéines dans les urines. Le chiffre seul ne tranche pas.',
+  },
+  'child-sleep-need': {
+    title: 'Sommeil nécessaire selon l’âge',
+    desc: 'Combien de sommeil il faut chaque jour à un enfant d’un âge donné.',
+    long: 'Plus l’enfant est jeune, plus il a besoin de sommeil, et la quantité descend par paliers avec l’âge. Avant un an, 12 à 16 heures siestes comprises ; en primaire, 9 à 12 ; à l’adolescence, 8 à 10.',
+    note: 'Chez les tout-petits, les siestes comptent dans le total. Si l’enfant se réveille seul et n’est pas somnolent dans la journée, il dort assez.',
+  },
+  'nap-timing': {
+    title: 'Calculateur de durée de sieste',
+    desc: 'Si la sieste prévue se termine à un moment où l’on se réveille clair.',
+    long: 'Le sommeil descend vers le sommeil profond puis remonte, environ toutes les 90 minutes. Se réveiller dans les 20 minutes vous prend avant l’entrée en sommeil profond, et se réveiller après un cycle complet vous prend déjà sur la remontée.',
+    note: 'Trente à soixante minutes est la pire fenêtre. Sortir du sommeil profond laisse embrumé une demi-heure ou plus — parfois pire que de ne pas avoir dormi.',
+  },
 };

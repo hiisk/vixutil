@@ -670,4 +670,78 @@ export const BODY_DE: Record<string, FormulaText> = {
     long: 'Schlafzeit geteilt durch Bettzeit. Schlaflabore nutzen diese Zahl und werten alles über 85% in der Regel als gut. Fällt sie niedrig aus, lautet der übliche Rat, weniger Zeit im Bett zu verbringen, nicht mehr.',
     note: 'Längeres Liegen verbessert den Wert nicht — es senkt ihn meist, weil die zusätzliche Zeit wach verbracht wird.',
   },
+
+  /* ───────── 셋째 묶음 12종 ───────── */
+  'skinfold-body-fat': {
+    title: 'Körperfett per Hautfaltenmessung',
+    desc: 'Körperfettanteil aus der Summe dreier Caliper-Messungen.',
+    long: 'Der Caliper hebt eine Hautfalte an, um die darunterliegende Fettschicht zu messen. Die Summe von drei Stellen schätzt die Dichte des ganzen Körpers, und aus der Dichte folgt der Fettanteil. Männer und Frauen lagern Fett unterschiedlich ein, deshalb hat jedes Geschlecht eigene Koeffizienten.',
+    note: 'Männer messen Brust, Bauch und Oberschenkel, Frauen Trizeps, Hüftkamm und Oberschenkel. Gleiche Stelle und gleicher Druck zählen mehr als der absolute Wert — verfolge also die Veränderung.',
+  },
+  'fat-loss-target': {
+    title: 'Gewicht beim Ziel-Körperfett',
+    desc: 'Das Gewicht beim angestrebten Körperfettanteil, wenn die Magermasse erhalten bleibt.',
+    long: 'Die Rechnung nimmt an, dass nur Fett schwindet und alles andere — Muskeln, Knochen, Wasser — bleibt. Da die Magermasse unverändert ist, ergibt sich das Zielgewicht als Magermasse geteilt durch eins minus dem Zielfettanteil.',
+    note: 'In der Praxis geht bei schnellem Abnehmen Muskulatur mit, sodass der Fettanteil selbst am Zielgewicht höher bleibt. Unter etwa 1% Körpergewicht pro Woche hält den Verlust an Magermasse klein.',
+  },
+  'net-carbs': {
+    title: 'Netto-Kohlenhydrate berechnen',
+    desc: 'Gesamtkohlenhydrate abzüglich Ballaststoffe und Zuckeralkohole — was wirklich aufgenommen wird.',
+    long: 'Ballaststoffe passieren unverdaut und heben den Blutzucker nicht. Zuckeralkohole schwanken, doch grob die Hälfte wird aufgenommen. Was nach Abzug beider bleibt, ist das Kohlenhydrat, das tatsächlich bei dir ankommt.',
+    note: 'Erythrit wird kaum aufgenommen, Maltit dagegen zu großen Teilen. Steht die Sorte auf dem Etikett, passe den Wert entsprechend an.',
+  },
+  'glycemic-load': {
+    title: 'Glykämische Last berechnen',
+    desc: 'Glykämischer Index mal der Kohlenhydratmenge, die du wirklich isst.',
+    long: 'Der glykämische Index sagt nur, wie schnell ein Lebensmittel den Blutzucker hebt. Wassermelone liegt hoch, doch eine Scheibe enthält wenig Kohlenhydrate, sodass die Wirkung klein bleibt. Index mal Portion — die glykämische Last — ist das, was der Körper wirklich trifft.',
+    note: 'Unter 10 ist niedrig, 10–19 mittel, ab 20 hoch. Über den ganzen Tag gilt rund 100 als üblicher Bezugspunkt.',
+  },
+  'calorie-density': {
+    title: 'Kaloriendichte berechnen',
+    desc: 'Kalorien je 100 g und wie viele Gramm 200 kcal ergeben.',
+    long: 'Dieselben 200 kcal sind bei dem einen Lebensmittel ein voller Teller und beim anderen eine kleine Handvoll. Sättigung folgt eher Volumen und Gewicht als Kalorien, deshalb reicht dieselbe Energie weiter, wenn man erst das Wenigdichte isst.',
+    note: 'Gemüse und Brühen bleiben unter 50 kcal je 100 g, Reis und Brot liegen bei 130–270, Nüsse und Öle über 600.',
+  },
+  'power-to-weight': {
+    title: 'Watt-pro-Kilo-Rechner',
+    desc: 'Radleistung geteilt durch Körpergewicht — die Zahl, die am Berg entscheidet.',
+    long: 'In der Ebene bestimmen die reinen Watt die Geschwindigkeit; am Anstieg kämpfst du gegen die Schwerkraft, und dann entscheidet Watt pro Kilogramm. Deshalb bringen dieselben 250 W einen 60-kg-Fahrer viel schneller hoch als einen mit 85 kg.',
+    note: 'Die zweite Zahl zeigt, was ein Kilo weniger mit dem Verhältnis macht. Das ist meist leichter als die entsprechenden Watt draufzulegen — geht aber Muskulatur mit, sinkt die Leistung ebenfalls.',
+  },
+  'swim-css': {
+    title: 'Kritische Schwimmgeschwindigkeit',
+    desc: 'Dein haltbares 100-m-Tempo aus einem 400-m- und einem 200-m-Test.',
+    long: 'Teile die Zeitdifferenz zweier Strecken durch die Streckendifferenz und du erhältst die Geschwindigkeit an der Schwelle, an der Laktat sich zu sammeln beginnt. Der Abstand zwischen 400 m und 200 m ist die Zeit für die zusätzlichen 200 m, die Hälfte davon also das Tempo je 100 m.',
+    note: 'Schwimme beide Tests am selben Tag voll aus, mit vollständiger Erholung dazwischen. Lockeres Schwimmen über 200 m lässt das Ergebnis langsamer aussehen als deine echte Schwelle.',
+  },
+  'negative-split': {
+    title: 'Negative-Split-Rechner',
+    desc: 'Teilt eine Zielzeit so auf, dass die zweite Hälfte etwas schneller ausfällt.',
+    long: 'Früh gesparte Kraft wird später zu Tempo. Die meisten schnellen Marathonzeiten entstehen mit einer schnelleren zweiten Hälfte, während wer zu forsch startet auf den letzten Kilometern weit mehr verliert, als er anfangs gewonnen hat.',
+    note: 'Bei 2% bedeutet ein Vier-Stunden-Ziel 121 Minuten hin und 119 zurück. Liegen die Anstiege gebündelt, plane dort Zeitverlust ein und hole ihn auf dem Rest wieder.',
+  },
+  'blood-pressure-category': {
+    title: 'Blutdruck einordnen',
+    desc: 'In welche Stufe ein systolischer und diastolischer Wert fällt.',
+    long: 'Der schlechtere der beiden Werte bestimmt die Stufe. Ein völlig normaler systolischer Wert landet trotzdem in Stufe 2, wenn der diastolische über 90 liegt — deshalb führt es in die Irre, nur einen davon anzuschauen.',
+    note: 'Eine einzelne Messung entscheidet nichts. Miss nach fünf Minuten ruhigem Sitzen zweimal, an mehreren Tagen, und nimm den Mittelwert.',
+  },
+  'kidney-stage': {
+    title: 'Stadium der chronischen Nierenkrankheit',
+    desc: 'In welches Stadium von G1 bis G5 ein eGFR-Wert fällt.',
+    long: 'Die eGFR schätzt, wie viel Blut die Nieren je Minute filtern, bezogen auf die Körpergröße. Über 90 ist G1, 60–89 ist G2; ein Wert unter 60, der länger als drei Monate besteht, definiert die chronische Nierenkrankheit.',
+    note: 'G1 und G2 gelten nur zusammen mit weiteren Zeichen einer Nierenschädigung als Krankheit, etwa Eiweiß im Urin. Die Zahl allein entscheidet nicht.',
+  },
+  'child-sleep-need': {
+    title: 'Schlafbedarf nach Alter',
+    desc: 'Wie viel Schlaf ein Kind in einem bestimmten Alter täglich braucht.',
+    long: 'Je jünger das Kind, desto mehr Schlaf braucht es, und die Menge sinkt mit dem Alter in Stufen. Unter einem Jahr sind es 12–16 Stunden einschließlich Nickerchen, im Grundschulalter 9–12 und bei Jugendlichen 8–10.',
+    note: 'Bei Säuglingen und Kleinkindern zählen die Nickerchen mit. Wacht ein Kind von selbst auf und ist tagsüber nicht schläfrig, bekommt es genug.',
+  },
+  'nap-timing': {
+    title: 'Rechner für die Länge des Mittagsschlafs',
+    desc: 'Ob dein geplantes Nickerchen an einem Punkt endet, an dem du klar aufwachst.',
+    long: 'Der Schlaf sinkt in den Tiefschlaf und steigt wieder auf, ungefähr alle 90 Minuten. Wer binnen etwa 20 Minuten aufwacht, erwischt sich vor dem Tiefschlaf; wer nach einem vollen Zyklus aufwacht, erwischt sich auf dem Weg zurück nach oben.',
+    note: 'Dreißig bis sechzig Minuten ist das schlechteste Fenster. Aus dem Tiefschlaf gerissen bleibt man eine halbe Stunde oder länger benommen — manchmal schlimmer, als gar nicht geschlafen zu haben.',
+  },
 };

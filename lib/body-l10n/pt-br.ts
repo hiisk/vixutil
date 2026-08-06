@@ -670,4 +670,78 @@ export const BODY_PT_BR: Record<string, FormulaText> = {
     long: 'Divida o tempo dormido pelo tempo na cama. As clínicas do sono usam esse número e em geral consideram bom qualquer valor acima de 85%. Quando fica baixo, o conselho costuma ser passar menos tempo na cama, não mais.',
     note: 'Ficar deitado por mais tempo não melhora o número: costuma piorá-lo, porque esse tempo extra é passado acordado.',
   },
+
+  /* ───────── 셋째 묶음 12종 ───────── */
+  'skinfold-body-fat': {
+    title: 'Gordura corporal por dobras',
+    desc: 'Percentual de gordura a partir da soma de três medidas com adipômetro.',
+    long: 'O adipômetro pinça a pele para medir a camada de gordura logo abaixo. A soma de três pontos estima a densidade do corpo inteiro, e a densidade vira percentual de gordura. Homens e mulheres acumulam gordura de forma diferente, então cada um tem seus coeficientes.',
+    note: 'Homens medem peito, abdômen e coxa; mulheres tríceps, supra-ilíaca e coxa. A constância do ponto e da pressão importa mais que o valor absoluto, então acompanhe a variação, não o número.',
+  },
+  'fat-loss-target': {
+    title: 'Peso ao atingir a gordura alvo',
+    desc: 'O peso que você alcançaria no percentual de gordura alvo, mantendo a massa magra.',
+    long: 'O cálculo pressupõe que você perde gordura preservando o resto: músculo, osso, água. Como a massa magra não muda, o peso alvo é simplesmente a massa magra dividida por um menos a gordura desejada.',
+    note: 'Na prática, emagrecer rápido leva músculo junto, então o percentual de gordura fica aquém mesmo no peso previsto. Perder menos de 1% do peso por semana limita essa perda.',
+  },
+  'net-carbs': {
+    title: 'Calculadora de carboidratos líquidos',
+    desc: 'Carboidratos totais menos fibra e polióis: o que o corpo de fato absorve.',
+    long: 'A fibra atravessa o intestino sem ser digerida e não eleva a glicose. Os polióis variam, mas cerca de metade é absorvida. O que resta depois de descontar os dois é o carboidrato que realmente chega a você.',
+    note: 'O eritritol quase não é absorvido e o maltitol é absorvido em boa parte. Se o rótulo indicar o tipo, ajuste o número conforme.',
+  },
+  'glycemic-load': {
+    title: 'Calculadora de carga glicêmica',
+    desc: 'O índice glicêmico multiplicado pelos carboidratos que você realmente come.',
+    long: 'O índice glicêmico só diz com que rapidez um alimento eleva a glicose. A melancia pontua alto, mas uma fatia tem pouco carboidrato, então o efeito real é pequeno. Índice vezes porção — a carga glicêmica — é o que o corpo encontra.',
+    note: 'Abaixo de 10 é baixa, de 10 a 19 é moderada e de 20 para cima é alta. Para o dia inteiro, cerca de 100 é a referência usual.',
+  },
+  'calorie-density': {
+    title: 'Calculadora de densidade calórica',
+    desc: 'Calorias por 100 g e quantos gramas somam 200 kcal.',
+    long: 'As mesmas 200 kcal são um prato cheio de um alimento e um punhado pequeno de outro. A saciedade depende mais de volume e peso do que de calorias, então começar pelo menos denso estica bastante a mesma energia.',
+    note: 'Verduras e caldos ficam abaixo de 50 kcal por 100 g, arroz e pão vão de 130 a 270, e castanhas e óleos passam de 600.',
+  },
+  'power-to-weight': {
+    title: 'Calculadora de watts por quilo',
+    desc: 'A potência na bike dividida pelo peso — o número que decide as subidas.',
+    long: 'No plano são os watts brutos que definem a velocidade; na subida você luta contra a gravidade, então quem manda é o watt por quilo. Por isso os mesmos 250 W sobem bem mais rápido com um ciclista de 60 kg do que com um de 85.',
+    note: 'O segundo número mostra o que perder um quilo faz com a razão. Costuma ser mais fácil do que somar os watts equivalentes, mas se músculo for junto, a potência cai com ele.',
+  },
+  'swim-css': {
+    title: 'Velocidade crítica de nado',
+    desc: 'Seu ritmo sustentável por 100 m a partir de um 400 m e um 200 m.',
+    long: 'Divida a diferença entre dois tempos pela diferença de distância e você obtém a velocidade do limiar em que o lactato começa a se acumular. A diferença entre 400 m e 200 m é o tempo dos 200 m extras, então metade dela é o ritmo por 100 m.',
+    note: 'Nade as duas provas no limite, no mesmo dia, com recuperação completa entre elas. Ir leve nos 200 m faz o resultado sair mais lento que o limiar real.',
+  },
+  'negative-split': {
+    title: 'Calculadora de negative split',
+    desc: 'Divide um tempo alvo para que a segunda metade saia um pouco mais rápida.',
+    long: 'A energia poupada no início vira velocidade no fim. Quase todos os bons tempos de maratona são corridos com a segunda metade mais rápida, enquanto quem sai forte demais perde nos quilômetros finais muito mais do que ganhou na largada.',
+    note: 'Com 2%, um alvo de quatro horas dá 121 minutos na ida e 119 na volta. Se as subidas se concentram em um trecho, planeje perder tempo ali e recuperar no restante.',
+  },
+  'blood-pressure-category': {
+    title: 'Classificação da pressão arterial',
+    desc: 'Em que estágio cai uma leitura de sistólica e diastólica.',
+    long: 'O pior dos dois números define o estágio. Uma sistólica perfeitamente normal ainda cai no estágio 2 se a diastólica passar de 90, e é por isso que olhar só uma delas engana.',
+    note: 'Uma única leitura não decide nada. Faça duas medidas depois de cinco minutos sentado em silêncio, em dias diferentes, e use a média.',
+  },
+  'kidney-stage': {
+    title: 'Estágio da doença renal crônica',
+    desc: 'Em que estágio de G1 a G5 cai um valor de TFGe.',
+    long: 'A TFGe estima quanto sangue os rins filtram por minuto, ajustado ao tamanho do corpo. Acima de 90 é G1 e de 60 a 89 é G2; um valor abaixo de 60 mantido por mais de três meses é o que define a doença renal crônica.',
+    note: 'G1 e G2 só contam como doença se houver outra evidência de lesão renal, como proteína na urina. O número sozinho não resolve.',
+  },
+  'child-sleep-need': {
+    title: 'Sono necessário por idade',
+    desc: 'Quanto sono uma criança precisa por dia em determinada idade.',
+    long: 'Quanto menor a criança, mais sono precisa, e a quantidade cai em degraus conforme ela cresce. Antes de um ano são 12 a 16 horas incluindo cochilos, no fundamental 9 a 12 e na adolescência 8 a 10.',
+    note: 'Em bebês e crianças pequenas os cochilos entram no total. Se a criança acorda sozinha e não fica sonolenta durante o dia, está dormindo o suficiente.',
+  },
+  'nap-timing': {
+    title: 'Calculadora de duração da soneca',
+    desc: 'Se a soneca que você planeja termina num ponto em que dá para acordar lúcido.',
+    long: 'O sono desce até o sono profundo e volta a subir a cada 90 minutos, mais ou menos. Acordar dentro de uns 20 minutos pega você antes do sono profundo começar, e acordar depois de um ciclo completo pega você já na subida.',
+    note: 'De trinta a sessenta minutos é a pior janela. Acordar no meio do sono profundo deixa a cabeça pesada por meia hora ou mais — às vezes pior do que não ter cochilado.',
+  },
 };
