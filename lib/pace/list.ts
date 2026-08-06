@@ -8,8 +8,8 @@
  * 끊은 것은 그보다 느리면 걷기와 섞이기 때문이다. 1초 간격인 이유는 사람들이
  * 목표를 초 단위로 세우기 때문이다 — "5분 30초 페이스로 가면 서브4가 되나".
  */
-export const FASTEST = 180;
-export const SLOWEST = 420;
+export const FASTEST = 150;
+export const SLOWEST = 480;
 
 /** 1km를 가는 데 걸리는 초 */
 export const PACES: number[] = Array.from({ length: SLOWEST - FASTEST + 1 }, (_, i) => FASTEST + i);

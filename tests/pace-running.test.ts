@@ -20,20 +20,20 @@ import { DENSE } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(PACES.length >= 100, `${PACES.length}가지뿐이다`);
   assert.equal(PACES.length, SLOWEST - FASTEST + 1);
-  assert.equal(PACES.length, 241);
+  assert.equal(PACES.length, 331);
   assert.equal(new Set(PACE_SLUGS).size, PACES.length, 'slug 중복');
 });
 
 test('주소와 페이스가 서로를 되돌린다', () => {
   for (const p of PACES) {
     assert.equal(paceOf(slugOf(p)), p, `${slugOf(p)}: 되읽으면 다른 페이스가 나온다`);
-    assert.match(labelOf(p), /^[3-7]:[0-5][0-9]$/, `${labelOf(p)}: 적는 꼴이 다르다`);
+    assert.match(labelOf(p), /^[2-8]:[0-5][0-9]$/, `${labelOf(p)}: 적는 꼴이 다르다`);
   }
   assert.equal(slugOf(270), '4-30');
   assert.equal(labelOf(270), '4:30');
   assert.equal(labelOf(180), '3:00', '초가 한 자리면 0을 채운다');
   assert.equal(paceOf('4:30'), undefined, '사람이 적는 꼴은 주소가 아니다');
-  assert.equal(paceOf('2-59'), undefined, '구간 밖은 받지 않는다');
+  assert.equal(paceOf('2-29'), undefined, '구간 밖은 받지 않는다');
   assert.equal(paceOf('4-60'), undefined, '60초는 없다');
 });
 
@@ -135,7 +135,7 @@ test('빠른 페이스가 느린 페이스의 목표를 다 끊는다', () => {
 });
 
 test('눈금과 이웃이 제자리에 있다', () => {
-  assert.equal(ROUND_PACES.length, 9, '3:00부터 7:00까지 30초 간격');
+  assert.equal(ROUND_PACES.length, 12, '2:30부터 8:00까지 30초 간격');
   for (const p of ROUND_PACES) assert.equal(p % 30, 0);
   for (const p of PACES) {
     const list = neighbours(p);

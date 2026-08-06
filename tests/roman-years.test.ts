@@ -20,11 +20,11 @@ import { DENSE } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(YEARS.length >= 100, `${YEARS.length}가지뿐이다`);
   assert.equal(YEARS.length, LAST_YEAR - FIRST_YEAR + 1);
-  assert.equal(YEARS.length, 201);
+  assert.equal(YEARS.length, 241);
   assert.equal(new Set(ROMAN_SLUGS).size, YEARS.length, 'slug 중복');
   assert.equal(yearOf('1994'), 1994);
-  assert.equal(yearOf('1899'), undefined, '구간 밖은 받지 않는다');
-  assert.equal(yearOf('2101'), undefined);
+  assert.equal(yearOf('1879'), undefined, '구간 밖은 받지 않는다');
+  assert.equal(yearOf('2121'), undefined);
 });
 
 test('만든 것을 되읽으면 그 해로 돌아온다', () => {
@@ -94,27 +94,28 @@ test('표의 값과 글자가 서로 맞는다', () => {
 });
 
 test('가장 길고 짧은 해를 짚는다', () => {
-  assert.deepEqual(longest(), [1988], 'MCMLXXXVIII');
-  assert.equal(toRoman(1988).length, 11);
+  // 1880까지 내려가면서 1888(MDCCCLXXXVIII, 13자)이 1988(11자)을 넘어섰다
+  assert.deepEqual(longest(), [1888], 'MDCCCLXXXVIII');
+  assert.equal(toRoman(1888).length, 13);
   assert.deepEqual(shortest(), [2000], 'MM');
   assert.equal(toRoman(2000).length, 2);
   for (const y of YEARS) {
-    assert.ok(toRoman(y).length <= 11 && toRoman(y).length >= 2, `${y}: 길이가 구간을 벗어났다`);
+    assert.ok(toRoman(y).length <= 13 && toRoman(y).length >= 2, `${y}: 길이가 구간을 벗어났다`);
   }
 });
 
-test('십 년 묶음이 201해를 빠짐없이 담는다', () => {
+test('십 년 묶음이 241해를 빠짐없이 담는다', () => {
   const d = decades();
   assert.equal(d.flatMap(x => x.years).length, YEARS.length, '빠지거나 겹친 해가 있다');
   assert.deepEqual(d.flatMap(x => x.years), YEARS, '순서가 다르다');
-  assert.equal(d[0].from, 1900);
+  assert.equal(d[0].from, 1880);
   assert.equal(d[0].years.length, 10);
-  assert.equal(d[d.length - 1].years.length, 1, '2100년만 남는 마지막 묶음');
+  assert.equal(d[d.length - 1].years.length, 1, '2120년만 남는 마지막 묶음');
 });
 
 test('앞뒤 해가 구간 끝에서 끊긴다', () => {
   assert.equal(romanFacts(FIRST_YEAR).prev, null);
-  assert.equal(romanFacts(FIRST_YEAR).next, 1901);
+  assert.equal(romanFacts(FIRST_YEAR).next, 1881);
   assert.equal(romanFacts(LAST_YEAR).next, null);
   for (const y of YEARS) {
     const list = neighbours(y);

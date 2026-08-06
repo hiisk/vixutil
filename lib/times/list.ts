@@ -11,7 +11,7 @@
  */
 import { prerender } from '../prerender.ts';
 
-export const MAX_FACTOR = 20;
+export const MAX_FACTOR = 22;
 
 export interface Product {
   a: number;

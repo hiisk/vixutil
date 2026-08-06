@@ -13,7 +13,7 @@
  * 두 주소가 나눠 갖는다. 약분되지 않는 것만 남기는 규칙 하나로 127가지가
  * 정해지므로 "왜 이건 있고 저건 없나"에 답할 수 있다.
  */
-export const MAX_DENOMINATOR = 20;
+export const MAX_DENOMINATOR = 24;
 
 const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
 

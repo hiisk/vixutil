@@ -20,7 +20,7 @@ export const CAPACITIES: number[] = [
 ];
 
 /** 충전기 출력(W) */
-export const CHARGERS: number[] = [5, 10, 15, 18, 20, 30, 45, 65, 100, 140];
+export const CHARGERS: number[] = [5, 10, 12, 15, 18, 20, 25, 30, 45, 60, 65, 80, 100, 120, 140];
 
 /** 이름이 붙은 용량 */
 export const KNOWN_CAPACITY: Record<number, string> = {
@@ -43,6 +43,12 @@ export const KNOWN_CHARGER: Record<number, string> = {
  *
  * 20V까지가 오래된 PD이고, 28V부터는 확장 규격(EPR)이다. 140W 충전기가
  * 28V를 쓰는 것도 20V로는 5A를 다 써도 100W에서 끝나기 때문이다.
+ */
+/*
+ * PD 3.1의 EPR(36·48V)은 여기 없다. 240W를 넣으려면 그 전압이 필요한데,
+ * EPR은 "100W를 넘는 충전기만 그 전압을 광고한다"는 규칙이 따로 있어서
+ * 전압만 더하면 18W 충전기가 48V를 낼 수 있다고 말하게 된다.
+ * 그 규칙까지 넣기 전에는 SPR(28V까지)만 다룬다.
  */
 export const PD_VOLTS: number[] = [5, 9, 12, 15, 20, 28];
 

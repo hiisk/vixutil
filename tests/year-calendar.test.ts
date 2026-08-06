@@ -25,7 +25,7 @@ test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.equal(YEARS.length, LAST_YEAR - FIRST_YEAR + 1);
   assert.equal(new Set(YEAR_SLUGS).size, YEARS.length, 'slug 중복');
   assert.equal(yearOf('2026'), 2026);
-  assert.equal(yearOf('1899'), undefined);
+  assert.equal(yearOf('1879'), undefined);
 });
 
 test('요일을 달력으로 되짚어도 같다', () => {
@@ -57,7 +57,7 @@ test('윤년 규칙이 세 갈래로 갈린다', () => {
   assert.equal(isLeap(2024), true);
   assert.equal(isLeap(2026), false);
   assert.deepEqual(skipped(), [1900, 2100], '4로 나뉘는데 윤년이 아닌 해');
-  assert.equal(leapYears().length, 49, '201해 가운데 윤년');
+  assert.equal(leapYears().length, 59, '241해 가운데 윤년');
 });
 
 test('달의 날 수를 더하면 그 해 날 수가 된다', () => {
@@ -130,17 +130,17 @@ test('앞뒤 윤년을 짚는다', () => {
       for (let x = y + 1; x < f.nextLeap; x++) assert.ok(!isLeap(x), `${y}: ${x}를 건너뛰었다`);
     }
   }
-  assert.equal(yearFacts(2096).nextLeap, null, '2100은 윤년이 아니라 다음이 없다');
+  assert.equal(yearFacts(2120).nextLeap, null, '2120이 구간의 마지막 윤년이다');
   assert.equal(yearFacts(2026).nextLeap, 2028);
   assert.equal(yearFacts(2026).prevLeap, 2024);
-  assert.equal(yearFacts(1901).prevLeap, null, '1900은 윤년이 아니다');
+  assert.equal(yearFacts(1880).prevLeap, null, '1880이 구간의 첫 윤년이다');
 });
 
-test('십 년 묶음이 201해를 빠짐없이 담는다', () => {
+test('십 년 묶음이 241해를 빠짐없이 담는다', () => {
   const d = decades();
   assert.deepEqual(d.flatMap(x => x.years), YEARS, '빠지거나 순서가 다르다');
-  assert.equal(d[0].from, 1900);
-  assert.equal(d[d.length - 1].years.length, 1, '2100년만 남는 마지막 묶음');
+  assert.equal(d[0].from, 1880);
+  assert.equal(d[d.length - 1].years.length, 1, '2120년만 남는 마지막 묶음');
   for (const y of YEARS) {
     const list = neighbours(y);
     assert.ok(!list.includes(y), `${y}: 이웃에 자기 자신이 있다`);
