@@ -944,11 +944,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
-    // 새로 쓰는 여섯 언어에는 색 이름 허브가 있다
-    ...METRO_LANGS.filter(({ prefix }: { prefix: string }) => prefix !== '' && prefix !== '/en')
-      .map(({ prefix }: { prefix: string }) => ({
-        url: `${BASE}${prefix}/color`, changeFrequency: weekly, priority: 0.85,
-      })),
+    // 색 허브는 아래 INTL_LOCALES10 묶음이 열 언어를 모두 낸다 — 여기서 또 내면 여덟 개가 두 번 실린다
     // 음악 이론도 여덟 언어다 — 지하철과 같은 목록을 돈다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/music`, changeFrequency: weekly, priority: prefix === '' ? 0.9 : 0.85 },
@@ -1000,9 +996,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // (noindex인 URL을 사이트맵에 남겨두면 색인 요청과 모순되는 신호가 된다.)
     // 언어별 첫 화면. 레지스트리에서 만들어야 언어를 늘렸을 때 여기가 안 빠진다
     ...INTL_LOCALES10.map((lang) => ({ url: `${BASE}/${lang}`, changeFrequency: weekly, priority: 0.95 })),
-    // 중국어 첫 화면 — 아직 체스·포커만 실리지만 주소는 있어야 색인된다
-    { url: `${BASE}/zh-hans`, changeFrequency: weekly, priority: 0.95 },
-    { url: `${BASE}/zh-hant`, changeFrequency: weekly, priority: 0.95 },
+    // 중국어 첫 화면은 위의 INTL_LOCALES10이 이미 낸다 — 따로 적으면 사이트맵에 두 번 실린다
     // 생성기는 영어 + 여덟 언어가 같은 스무 종을 가진다
     { url: `${BASE}/en/generator`, changeFrequency: weekly, priority: 0.9 },
     ...GENERATORS_EN.map((g: { slug: string }) => ({ url: `${BASE}/en/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
