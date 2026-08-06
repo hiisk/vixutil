@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/powerbank', icon: '🔋', color: 'from-teal-700 to-emerald-400',
+    accent: 'text-teal-700 dark:text-teal-200', border: 'border-teal-200 dark:border-teal-800', bg: 'bg-teal-50 dark:bg-teal-900/40',
+    copy: {
+      en: { title: 'Power Banks on Planes', desc: '20,000 mAh at 3.7 V is 74 Wh — free to carry up to 100 Wh' },
+      es: { title: 'Baterías externas en avión', desc: '20.000 mAh a 3,7 V son 74 Wh — libre hasta 100 Wh' },
+      'pt-br': { title: 'Baterias externas em voo', desc: '20.000 mAh a 3,7 V são 74 Wh — livre até 100 Wh' },
+      ja: { title: 'モバイルバッテリーの持ち込み', desc: '20,000mAhは3.7Vで74Wh — 100Whまで自由です' },
+      de: { title: 'Powerbanks im Flugzeug', desc: '20.000 mAh bei 3,7 V sind 74 Wh — bis 100 Wh frei' },
+      fr: { title: 'Batteries externes en avion', desc: '20 000 mAh à 3,7 V font 74 Wh — libre jusqu’à 100 Wh' },
+      hi: { title: 'विमान में पावर बैंक', desc: '3.7 V पर 20,000 mAh = 74 Wh — 100 Wh तक मुक्त' },
+      'zh-hans': { title: '登机充电宝', desc: '20,000mAh 在 3.7V 下是 74Wh——100Wh 以内自由携带' },
+      'zh-hant': { title: '登機行動電源', desc: '20,000mAh 在 3.7V 下是 74Wh——100Wh 以內自由攜帶' },
+    },
+  },
+  {
     route: '/lumber', icon: '🪵', color: 'from-amber-700 to-yellow-400',
     accent: 'text-amber-700 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
     copy: {

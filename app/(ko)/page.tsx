@@ -54,6 +54,7 @@ import { CELLS as GENGO_CELLS } from '@/lib/gengo/list';
 import { CELLS as CABLE_CELLS } from '@/lib/cable/list';
 import { CELLS as TATAMI_CELLS } from '@/lib/tatami/list';
 import { CELLS as LUMBER_CELLS } from '@/lib/lumber/list';
+import { CELLS as PB_CELLS } from '@/lib/powerbank/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';

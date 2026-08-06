@@ -52,8 +52,9 @@ test('카드 장수가 아는 수와 같다', () => {
    *   2,029  케이블 대역폭을 열 언어씩 더함(+10)
    *   2,039  다다미 방 넓이를 열 언어씩 더함(+10)
    *   2,049  목재 실측 치수를 열 언어씩 더함(+10)
+   *   2,059  보조배터리 반입을 열 언어씩 더함(+10)
    */
-  const WANT = 2049;
+  const WANT = 2059;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);
