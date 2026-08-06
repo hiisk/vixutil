@@ -87,6 +87,21 @@ export const CHARS: Char[] = [
   c('-', 'hyphen', 'punct', '−····−', { dots: '36' }),
   c('"', 'quote', 'punct', '·−··−·', { dots: '2356' }),
   c('@', 'at', 'punct', '·−−·−·'),
+
+  /* ── 악센트 글자 ──
+     ITU-R M.1677-1이 정한 부호다. 영어에만 쓰는 것이 아니라 유럽 각국 통신에서
+     실제로 오가는 자리라, A~Z만 두면 그 나라 사람이 찾는 것이 없다.
+     점자(dots)는 언어마다 배정이 달라 적지 않는다 — 지어내면 틀린 것이 된다. */
+  c('À', 'a-grave', 'letter', '·−−·−'),
+  c('Ä', 'a-umlaut', 'letter', '·−·−'),
+  c('É', 'e-acute', 'letter', '··−··'),
+  c('È', 'e-grave', 'letter', '·−··−'),
+  c('Ö', 'o-umlaut', 'letter', '−−−·'),
+  c('Ü', 'u-umlaut', 'letter', '··−−'),
+  c('Ñ', 'n-tilde', 'letter', '−−·−−'),
+  c('Ç', 'c-cedilla', 'letter', '−·−··'),
+  c('Š', 's-caron', 'letter', '−−−−'),
+  c('_', 'underscore', 'punct', '··−−·−'),
 ];
 
 /** 점자 셀은 여섯 점의 켜짐/꺼짐이라 예순네 가지다 */

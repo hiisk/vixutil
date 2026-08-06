@@ -294,6 +294,20 @@ export const CSS_PROPS: CssProp[] = [
   p('widows', 'print', ['2', '3'], true),
   p('page-break-before', 'print', ['auto', 'always', 'avoid']),
   p('print-color-adjust', 'print', ['economy', 'exact'], true),
+
+  /* ───────── 늘린 것 — 위에 없는 실제 속성 ───────── */
+  p('field-sizing', 'layout', ['content', 'fixed']),
+  p('text-box-trim', 'text', ['none', 'trim-start', 'trim-end', 'trim-both']),
+  p('anchor-name', 'position'),
+  p('position-anchor', 'position'),
+  p('view-transition-name', 'effect'),
+  p('scrollbar-gutter', 'interaction', ['auto', 'stable', 'stable both-edges']),
+  p('scrollbar-width', 'interaction', ['auto', 'thin', 'none']),
+  p('overflow-anchor', 'interaction', ['auto', 'none']),
+  p('font-optical-sizing', 'text', ['auto', 'none']),
+  p('font-variation-settings', 'text'),
+  p('text-emphasis', 'text'),
+  p('ruby-position', 'text', ['over', 'under', 'alternate']),
 ];
 
 export const PROP_KINDS: PropKind[] = [
