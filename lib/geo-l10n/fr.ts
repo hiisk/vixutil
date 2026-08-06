@@ -670,4 +670,90 @@ export const GEO_FR: Record<string, FormulaText> = {
     long: 'L\'arc tangente de la montée divisée par l\'avancée donne l\'angle. Ce même rapport multiplié par 100 est le pourcentage, et l\'hypoténuse des deux la longueur du chevron.',
     note: 'Cette longueur s\'arrête au mur : ajoutez le débord de toiture souhaité avant de couper.',
   },
+
+  /* ───────── 셋째 묶음 14종 — 좌표기하와 현장 계산 ───────── */
+  'line-point-distance': {
+    title: 'Distance d’un point à une droite',
+    desc: 'Plus courte distance entre un point et la droite y = mx + b.',
+    long: 'Le plus court chemin rejoint la droite à angle droit. Reportez le point dans la forme réduite et divisez par √(m²+1), ce qui corrige l’inclinaison de la droite.',
+    note: 'Les coordonnées supplémentaires sont le pied de la perpendiculaire : le point de la droite le plus proche du vôtre.',
+  },
+  'line-intersection': {
+    title: 'Point d’intersection de deux droites',
+    desc: 'Où se croisent deux droites écrites sous la forme y = mx + b.',
+    long: 'Égalez les deux équations et résolvez. La différence des ordonnées à l’origine divisée par la différence des pentes donne le x du croisement ; en reportant ce x dans l’une des droites on obtient y.',
+    note: 'Des pentes égales donnent des droites parallèles qui ne se croisent jamais, et le résultat s’affiche alors à zéro.',
+  },
+  'quad-area-coords': {
+    title: 'Aire d’un quadrilatère par coordonnées',
+    desc: 'Aire et périmètre d’une figure à quatre côtés à partir de ses sommets.',
+    long: 'C’est la formule du lacet. Énumérez les sommets dans l’ordre où vous faites le tour de la figure, multipliez en croix les x et les y, puis prenez la moitié de la différence. Elle vaut même si ce n’est pas un rectangle et même en présence d’un renfoncement.',
+    note: 'Les sommets doivent faire le tour de la figure, dans un sens ou dans l’autre. Les énumérer en traversant une diagonale donne une aire trop faible.',
+  },
+  'golden-ratio': {
+    title: 'Calculateur du nombre d’or',
+    desc: 'Partage une longueur selon le nombre d’or, 1 pour 1,618.',
+    long: 'Divisez le tout par 1,618034 pour obtenir la partie longue ; ce qui reste est la partie courte. Coupé ainsi, le tout est à la partie longue ce que la longue est à la courte : le même rapport se répète à chaque nouvelle coupe.',
+    note: 'Utile pour des marges, la hauteur d’une étagère ou le partage d’une mise en page quand il faut un point de coupe justifiable.',
+  },
+  'ring-sector-area': {
+    title: 'Aire d’un secteur de couronne',
+    desc: 'Aire et périmètre d’une part découpée dans un anneau.',
+    long: 'Prenez le secteur extérieur et retirez le secteur intérieur. La différence des carrés des rayons multipliée par la part du cercle que couvre l’angle donne l’aire ; le périmètre ajoute les deux arcs et les deux bords droits.',
+    note: 'C’est la forme d’une allée circulaire, de la marche d’un escalier en colimaçon ou d’un calorifuge de tuyau coupé en coin.',
+  },
+  'two-circles-overlap': {
+    title: 'Aire de recouvrement de deux cercles',
+    desc: 'Recouvrement de deux cercles d’après leurs rayons et la distance entre centres.',
+    long: 'Le recouvrement est une lentille faite de deux segments circulaires. La loi des cosinus fournit un demi-angle dans chaque cercle et les deux aires de segment s’additionnent. Au-delà de la somme des rayons les cercles ne se touchent pas ; en dessous de leur différence, le petit est entièrement contenu.',
+    note: 'La part est rapportée au plus petit cercle : 100 % signifie qu’il est totalement couvert.',
+  },
+  'spiral-roll-length': {
+    title: 'Longueur d’un rouleau',
+    desc: 'Longueur d’un rouleau déroulé, d’après les diamètres et l’épaisseur.',
+    long: 'Divisez l’aire de la section enroulée par l’épaisseur du matériau. Compter par l’aire plutôt que tour par tour garde l’erreur sous un pour cent tant que l’enroulement est serré.',
+    note: 'La justesse tient à l’épaisseur. Le ruban de masquage fait environ 0,13 mm et le papier à étiquettes environ 0,1 mm.',
+  },
+  'cone-unroll-angle': {
+    title: 'Angle du développé d’un cône',
+    desc: 'L’angle du secteur à découper pour mettre un cône à plat.',
+    long: 'Déroulé, le cône devient un secteur dont le rayon est l’apothème et dont l’arc doit égaler la circonférence de la base. Ce rapport multiplié par 360° donne l’angle à découper.',
+    note: 'Valable pour les chapeaux pointus, les entonnoirs et les toits coniques en papier ou en tôle. Ajoutez à part votre marge de recouvrement.',
+  },
+  'frustum-surface': {
+    title: 'Aire d’un tronc de cône',
+    desc: 'Surface d’un cône dont la pointe a été coupée.',
+    long: 'La face latérale vaut π fois la somme des deux rayons fois l’apothème. Le piège est l’apothème : ce n’est pas la hauteur verticale mais l’hypoténuse formée par la hauteur et la différence des rayons.',
+    note: 'Utile pour les pots, seaux et gobelets quand on calcule peinture, film ou adhésif.',
+  },
+  'barrel-volume': {
+    title: 'Volume d’un tonneau',
+    desc: 'Contenance d’un fût renflé d’après ses deux diamètres et sa hauteur.',
+    long: 'Kepler a imaginé cette approximation pour jauger les fûts de vin. Comme le milieu se renfle, le tonneau contient plus qu’un cylindre : le diamètre du bouge compte deux fois, celui des fonds une fois.',
+    note: 'Convient aux fûts, aux récupérateurs d’eau et aux bacs ventrus. Pour un fût à paroi droite, le calculateur de cuve cylindrique est plus exact.',
+  },
+  'horizontal-tank-volume': {
+    title: 'Volume d’une cuve couchée',
+    desc: 'Liquide restant dans une cuve couchée, d’après la hauteur mesurée.',
+    long: 'Dans une cuve couchée, hauteur et volume ne sont pas proportionnels. La section est un segment circulaire — large au milieu, étroit en haut et en bas — si bien qu’à mi-hauteur seulement il reste exactement la moitié. Calculez l’aire du segment et multipliez par la longueur du corps.',
+    note: 'Saisissez la hauteur lue à la jauge. Sous la mi-hauteur, il reste bien moins que le niveau ne le laisse croire.',
+  },
+  'miter-angle': {
+    title: 'Angle de coupe d’onglet',
+    desc: 'L’angle de sciage pour assembler un cadre à autant de côtés qu’on veut.',
+    long: 'Le virage extérieur à la jonction de deux pièces, l’angle extérieur, vaut 360÷n. Chaque pièce en prend la moitié : l’onglet est donc 180÷n, tandis que l’angle intérieur qui subsiste vaut 180×(n−2)÷n. Un cadre carré se coupe à 45° parce que c’est la moitié d’un virage de 90°.',
+    note: 'Beaucoup de scies à onglet affichent l’écart par rapport à 90°. Un hexagone demande 30°, qui peut se lire 60° sur la graduation : faites d’abord une coupe d’essai.',
+  },
+  'ramp-length': {
+    title: 'Longueur d’une rampe',
+    desc: 'Longueur de la rampe d’après la hauteur à franchir et la pente.',
+    long: 'Une pente de 1:12 avance de 12 cm à l’horizontale pour chaque centimètre de montée. Le déport est la hauteur multipliée par ce nombre, et la planche elle-même est l’hypoténuse du triangle formé par la montée et le déport.',
+    note: 'La norme courante pour un fauteuil roulant est 1:12. Une marche de 15 cm exige 180 cm de déport : mesurez la place avant d’acheter.',
+  },
+  'earth-distance': {
+    title: 'Distance entre deux coordonnées',
+    desc: 'Distance à vol d’oiseau sur Terre entre deux couples latitude-longitude.',
+    long: 'La Terre est ronde : on ne peut pas simplement soustraire les coordonnées. La formule de haversine mesure l’arc de grand cercle qui joint les deux points, en repliant les écarts de latitude et de longitude dans des sinus de demi-angle pour que le résultat tienne près des pôles.',
+    note: 'C’est la distance directe, pas le trajet routier d’une application de cartes. Le cap indiqué est la direction à prendre au départ.',
+  },
 };

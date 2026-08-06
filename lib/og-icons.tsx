@@ -339,6 +339,8 @@ const ICONS: Record<string, (a: string) => ReactElement[]> = {
   forbidden: a => [C(50, 50, 36), P('M26 26 L74 74', st(a))],
   subway: a => [R(22, 10, 56, 66, 12), R(32, 22, 36, 22, 4, st(a)), C(36, 58, 5, af(a)), C(64, 58, 5, af(a)), P('M30 76 L20 90'), P('M70 76 L80 90')],
   stadium: a => [P('M50 22 A44 28 0 0 1 50 78 A44 28 0 0 1 50 22 Z'), P('M50 38 A26 12 0 0 1 50 62 A26 12 0 0 1 50 38 Z', st(a)), P('M6 50 H94', st(a))],
+  paperRoll: a => [C(44, 52, 34), C(44, 52, 12, st(a)), P('M78 52 H92 V88')],
+  ramp: a => [P('M10 80 H90 V30 Z'), P('M10 80 L90 30', st(a)), C(65, 41, 9)],
 };
 
 /**

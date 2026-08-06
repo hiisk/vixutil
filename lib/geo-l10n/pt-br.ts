@@ -670,4 +670,90 @@ export const GEO_PT_BR: Record<string, FormulaText> = {
     long: 'O arco-tangente da altura dividida pelo avanço dá o ângulo. A mesma razão vezes 100 é a porcentagem, e a hipotenusa das duas é o comprimento do caibro.',
     note: 'Esse comprimento para na parede — some o beiral que você quiser antes de cortar.',
   },
+
+  /* ───────── 셋째 묶음 14종 — 좌표기하와 현장 계산 ───────── */
+  'line-point-distance': {
+    title: 'Distância de um ponto a uma reta',
+    desc: 'Menor distância entre um ponto e a reta y = mx + b.',
+    long: 'O caminho mais curto encontra a reta em ângulo reto. Substitua o ponto na forma reduzida e divida por √(m²+1), que corrige a inclinação da reta.',
+    note: 'As coordenadas extras são o pé da perpendicular: o ponto da reta mais próximo do seu.',
+  },
+  'line-intersection': {
+    title: 'Ponto de encontro de duas retas',
+    desc: 'Onde se cruzam duas retas escritas como y = mx + b.',
+    long: 'Iguale as duas equações e resolva. A diferença dos interceptos dividida pela diferença das inclinações dá o x do cruzamento; levando esse x a qualquer uma das retas sai o y.',
+    note: 'Inclinações iguais são retas paralelas que nunca se cruzam, e aí o resultado aparece como zero.',
+  },
+  'quad-area-coords': {
+    title: 'Área de um quadrilátero por coordenadas',
+    desc: 'Área e perímetro de uma figura de quatro lados a partir dos vértices.',
+    long: 'É a fórmula do cadarço. Liste os vértices na ordem em que você contorna a figura, multiplique em cruz os x e os y e tome metade da diferença. Vale mesmo que não seja um retângulo e até se houver uma reentrância.',
+    note: 'Os vértices precisam contornar a figura, no sentido horário ou anti-horário. Listá-los atravessando uma diagonal dá uma área pequena demais.',
+  },
+  'golden-ratio': {
+    title: 'Calculadora da proporção áurea',
+    desc: 'Divide um comprimento na proporção áurea de 1 para 1,618.',
+    long: 'Divida o total por 1,618034 para obter a parte maior; o que sobra é a menor. Cortando assim, o todo está para a parte maior como a maior está para a menor, então a mesma proporção se repete a cada novo corte.',
+    note: 'Serve para margens, altura de prateleiras ou dividir um layout quando você precisa de um critério defensável para o corte.',
+  },
+  'ring-sector-area': {
+    title: 'Área do setor de uma coroa circular',
+    desc: 'Área e perímetro de uma fatia cortada de um anel.',
+    long: 'Pegue o setor externo e subtraia o interno. Multiplique a diferença dos raios ao quadrado pela fração do círculo que o ângulo ocupa para achar a área; o perímetro soma os dois arcos mais as duas bordas retas.',
+    note: 'É o formato de um caminho circular, do degrau de uma escada em caracol ou do isolamento de tubo cortado em cunha.',
+  },
+  'two-circles-overlap': {
+    title: 'Área de sobreposição de dois círculos',
+    desc: 'Sobreposição de dois círculos a partir dos raios e da distância entre centros.',
+    long: 'A sobreposição é uma lente formada por dois segmentos circulares. A lei dos cossenos dá um semiângulo em cada círculo e as duas áreas de segmento se somam. Além da soma dos raios os círculos não se tocam; abaixo da diferença, o menor fica inteiro dentro do maior.',
+    note: 'A proporção é medida contra o círculo menor: 100% significa que ele está totalmente coberto.',
+  },
+  'spiral-roll-length': {
+    title: 'Comprimento de um rolo',
+    desc: 'Quanto mede um rolo desenrolado, a partir dos diâmetros e da espessura.',
+    long: 'Divida a área da seção enrolada pela espessura do material. Contar por área em vez de volta a volta mantém o erro abaixo de um por cento desde que o rolo esteja bem apertado.',
+    note: 'A precisão depende da espessura. Fita crepe fica em torno de 0,13 mm e papel de etiqueta perto de 0,1 mm.',
+  },
+  'cone-unroll-angle': {
+    title: 'Ângulo da planificação de um cone',
+    desc: 'O ângulo do setor a recortar ao planificar um cone.',
+    long: 'Planificado, o cone vira um setor cujo raio é a geratriz e cujo arco precisa igualar a circunferência da base. Multiplicando essa razão por 360° sai o ângulo a recortar.',
+    note: 'Serve para chapéus, funis e telhados cônicos em papel ou chapa. Acrescente à parte a sua folga para a emenda colada ou rebitada.',
+  },
+  'frustum-surface': {
+    title: 'Área do tronco de cone',
+    desc: 'Superfície de um cone com a ponta cortada.',
+    long: 'A lateral é π vezes a soma dos dois raios vezes a geratriz. A pegadinha é a geratriz: não é a altura vertical, e sim a hipotenusa formada pela altura e pela diferença dos raios.',
+    note: 'Use em vasos, baldes e copos ao calcular tinta, película ou adesivo.',
+  },
+  'barrel-volume': {
+    title: 'Volume de um barril',
+    desc: 'Capacidade de um barril bojudo a partir dos dois diâmetros e da altura.',
+    long: 'Kepler criou essa aproximação para medir pipas de vinho. Como o meio é bojudo, o barril leva mais que um cilindro: o diâmetro do bojo conta duas vezes e o das tampas uma.',
+    note: 'Vale para pipas, caixas d’água e vasos barrigudos. Para um tambor de parede reta, a calculadora de cilindro é mais exata.',
+  },
+  'horizontal-tank-volume': {
+    title: 'Volume de tanque deitado',
+    desc: 'Líquido que resta num tanque deitado, a partir da altura medida.',
+    long: 'Num tanque deitado, altura e volume não são proporcionais. A seção é um segmento circular — largo no meio, estreito em cima e embaixo — de modo que só na metade da altura resta exatamente metade. Calcule a área do segmento e multiplique pelo comprimento do corpo.',
+    note: 'Informe a altura lida na régua. Abaixo da metade, sobra bem menos do que o nível sugere.',
+  },
+  'miter-angle': {
+    title: 'Ângulo de meia-esquadria',
+    desc: 'O ângulo de corte para montar uma moldura com qualquer número de lados.',
+    long: 'A virada externa onde duas peças se encontram, o ângulo externo, vale 360÷n. Cada peça leva metade dela, então a meia-esquadria é 180÷n, enquanto o ângulo interno que sobra por dentro é 180×(n−2)÷n. Uma moldura quadrada é cortada a 45° porque essa é a metade de uma virada de 90°.',
+    note: 'Muitas serras marcam o giro a partir de 90°. Um hexágono pede 30°, que na escala pode aparecer como 60°, então corte antes uma peça de teste.',
+  },
+  'ramp-length': {
+    title: 'Comprimento de rampa',
+    desc: 'Comprimento da rampa a partir da altura a vencer e da inclinação.',
+    long: 'Uma rampa 1:12 avança 12 cm na horizontal a cada centímetro de subida. O avanço é a altura vezes esse número, e a prancha em si é a hipotenusa do triângulo formado por subida e avanço.',
+    note: 'O padrão usual para cadeira de rodas é 1:12. Um degrau de 15 cm exige 180 cm de avanço, então meça o espaço antes de comprar.',
+  },
+  'earth-distance': {
+    title: 'Distância entre coordenadas',
+    desc: 'Distância em linha reta na Terra entre dois pares de latitude e longitude.',
+    long: 'A Terra é redonda, então não dá para simplesmente subtrair as coordenadas. A fórmula de haversine mede o arco de círculo máximo que liga os dois pontos, dobrando as diferenças de latitude e longitude em senos de meio ângulo para o resultado não desandar perto dos polos.',
+    note: 'É a distância direta, não a rodoviária que um aplicativo de mapas informa. O azimute mostrado é a direção para onde olhar na partida.',
+  },
 };
