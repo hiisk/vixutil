@@ -20,7 +20,7 @@ import { DENSE, hanProblem } from './han.ts';
 test('100개가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(KEYS.length >= 100, `${KEYS.length}개뿐이다`);
   // 글자 26 · 숫자 10 · 숫자판 16 · F키 20 · 나머지 48
-  assert.equal(KEYS.length, 120);
+  assert.equal(KEYS.length, 159);
   assert.equal(new Set(KEY_SLUGS).size, KEYS.length, 'slug 중복');
   assert.equal(new Set(KEYS.map(x => x.code)).size, KEYS.length, 'code 중복');
   assert.equal(keyOf('key-a')!.keyCode, 65);
@@ -53,7 +53,7 @@ test('숫자와 숫자판과 F키가 규칙대로다', () => {
     assert.equal(x.keyCode, 96 + i, `${x.code}: 숫자판은 96부터다`);
   });
   const fn = keysOfGroup('function');
-  assert.equal(fn.length, 20);
+  assert.equal(fn.length, 24, 'F1~F24');
   fn.forEach((x, i) => {
     assert.equal(x.code, `F${i + 1}`);
     assert.equal(x.keyCode, 112 + i, `${x.code}: F키는 112부터다`);
@@ -104,7 +104,8 @@ test('16진수가 keyCode와 같은 수다', () => {
 test('갈래가 빈 곳 없이 덮는다', () => {
   assert.equal(GROUPS.reduce((n, g) => n + keysOfGroup(g).length, 0), KEYS.length, '갈래 밖 키가 있다');
   for (const g of GROUPS) assert.ok(keysOfGroup(g).length > 0, `${g}: 아무도 들지 않았다`);
-  assert.equal(keysOfGroup('modifier').length, 8, '수정 키는 좌우 넷씩이다');
+  // 좌우 넷씩에 Fn이 더해져 아홉이다 — Fn은 짝이 없는 유일한 수정 키다
+  assert.equal(keysOfGroup('modifier').length, 9, '수정 키는 좌우 넷 + Fn');
   assert.equal(keysOfGroup('lock').length, 3);
 });
 
@@ -164,7 +165,7 @@ test('열 언어 문구가 모두 채워져 있다', () => {
   }
 });
 
-test('설명이 120개 모두에서 만들어진다', () => {
+test('설명이 159개 모두에서 만들어진다', () => {
   for (const x of KEYS) {
     const f = keyFacts(x);
     for (const lang of LANG_CODES) {
@@ -194,7 +195,7 @@ test('열 언어를 통틀어 제목이 겹치지 않는다', () => {
   }
 });
 
-test('허브가 120개를 모두 건다', () => {
+test('허브가 159개를 모두 건다', () => {
   const linked = new Set(GROUPS.flatMap(g => keysOfGroup(g).map(x => x.code)));
   for (const x of KEYS) assert.ok(linked.has(x.code), `${x.code}: 허브에서 걸리지 않는다`);
 });
