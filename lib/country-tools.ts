@@ -18,6 +18,7 @@ import { CENTRAL_EUROPE } from './country/europe-central.ts';
 import { EAST_EUROPE } from './country/europe-east.ts';
 import { AFRICA2 } from './country/africa2.ts';
 import { EXTRA_COUNTRIES } from './country/extra.ts';
+import { EXTRA2_COUNTRIES } from './country/extra2.ts';
 
 export const COUNTRIES: Country[] = [
   ...EAST_ASIA, ...SOUTHEAST_ASIA,
@@ -26,6 +27,7 @@ export const COUNTRIES: Country[] = [
   ...AMERICAS, ...AMERICAS2,
   ...OCEANIA_AFRICA, ...AFRICA2,
   ...EXTRA_COUNTRIES,
+  ...EXTRA2_COUNTRIES,
 ];
 
 export const COUNTRY_REGIONS = ['동아시아', '동남아시아', '서·남아시아', '유럽', '미주', '오세아니아·아프리카'] as const;
