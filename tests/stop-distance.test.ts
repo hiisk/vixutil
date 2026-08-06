@@ -19,11 +19,11 @@ import { DENSE } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(SPEEDS.length >= 100, `${SPEEDS.length}가지뿐이다`);
   assert.equal(SPEEDS.length, FASTEST - SLOWEST + 1);
-  assert.equal(SPEEDS.length, 141);
+  assert.equal(SPEEDS.length, 171);
   assert.equal(new Set(STOP_SLUGS).size, SPEEDS.length, 'slug 중복');
   assert.equal(speedOf('60'), 60);
   assert.equal(speedOf('9'), undefined);
-  assert.equal(speedOf('151'), undefined);
+  assert.equal(speedOf('181'), undefined);
   // 제한속도로 흔한 값이 모두 표 안에 있다
   for (const v of LIMITS) assert.ok(SPEEDS.includes(v), `${v}km/h가 표에 없다`);
 });
@@ -102,7 +102,7 @@ test('빠를수록 모든 거리가 길어진다', () => {
 });
 
 test('눈금과 이웃이 제자리에 있다', () => {
-  assert.deepEqual(ROUND_SPEEDS, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]);
+  assert.deepEqual(ROUND_SPEEDS, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180]);
   for (const v of SPEEDS) {
     const list = neighbours(v);
     assert.ok(!list.includes(v), `${v}km/h: 이웃에 자기 자신이 있다`);

@@ -19,11 +19,11 @@ import { DENSE } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(ALTITUDES.length >= 100, `${ALTITUDES.length}가지뿐이다`);
   assert.equal(ALTITUDES.length, (HIGHEST - LOWEST) / STEP + 1);
-  assert.equal(ALTITUDES.length, 101);
+  assert.equal(ALTITUDES.length, 121);
   assert.equal(new Set(ALTITUDE_SLUGS).size, ALTITUDES.length, 'slug 중복');
   assert.equal(altitudeOf('2250'), 2250);
   assert.equal(altitudeOf('2225'), undefined, '눈금에 없는 고도는 받지 않는다');
-  assert.equal(altitudeOf('5050'), undefined);
+  assert.equal(altitudeOf('6050'), undefined);
   // 사람이 아는 자리는 모두 눈금 위에 있다
   for (const p of PLACES) assert.ok(ALTITUDES.includes(p.m), `${p.key} ${p.m}m가 눈금에 없다`);
 });
@@ -95,7 +95,7 @@ test('피트와 눈금이 제자리에 있다', () => {
     const list = neighbours(m);
     assert.ok(!list.includes(m), `${m}m: 이웃에 자기 자신이 있다`);
   }
-  assert.equal(ROUND_ALTITUDES.length, 11, '500m 간격 눈금');
+  assert.equal(ROUND_ALTITUDES.length, 13, '500m 간격 눈금');
   assert.equal(altitudeFacts(0).lower, null);
   assert.equal(altitudeFacts(HIGHEST).higher, null);
   assert.equal(altitudeFacts(1000).ft, 3281);

@@ -22,7 +22,7 @@ test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.equal(new Set(PX_SLUGS).size, PIXELS.length, 'slug 중복');
   assert.equal(pxOf('16'), 16);
   assert.equal(pxOf('016'), undefined, '앞에 0이 붙은 주소는 받지 않는다');
-  assert.equal(pxOf('121'), undefined);
+  assert.equal(pxOf('145'), undefined);
 });
 
 test('rem을 되돌리면 그 픽셀이 나온다', () => {
@@ -73,7 +73,7 @@ test('값이 픽셀과 함께 커진다', () => {
 });
 
 test('딱 떨어지는 값을 가른다', () => {
-  assert.deepEqual(wholeRems(), [16, 32, 48, 64, 80, 96, 112]);
+  assert.deepEqual(wholeRems(), [16, 32, 48, 64, 80, 96, 112, 128, 144]);
   for (const px of wholeRems()) {
     assert.ok(Number.isInteger(pxFacts(px).rem), `${px}px: rem이 정수가 아니다`);
     assert.equal(px % ROOT_PX, 0);

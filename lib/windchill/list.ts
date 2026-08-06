@@ -13,7 +13,7 @@ export const WARMEST = 10;
 export const TEMP_STEP = 2;
 
 export const SLOWEST_WIND = 5;
-export const FASTEST_WIND = 50;
+export const FASTEST_WIND = 80;
 export const WIND_STEP = 5;
 
 export const TEMPS: number[] = Array.from(

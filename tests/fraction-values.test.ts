@@ -26,11 +26,11 @@ const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
 
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(FRACTIONS.length >= 100, `${FRACTIONS.length}가지뿐이다`);
-  assert.equal(FRACTIONS.length, 127);
+  assert.equal(FRACTIONS.length, 179);
   assert.equal(new Set(FRACTION_SLUGS).size, FRACTIONS.length, 'slug 중복');
   assert.deepEqual(fractionOf('3-8'), { n: 3, d: 8 });
   assert.equal(fractionOf('2-4'), undefined, '약분되는 분수는 내지 않는다');
-  assert.equal(fractionOf('1-21'), undefined, '분모 20까지다');
+  assert.equal(fractionOf('1-25'), undefined, '분모 24까지다');
   assert.equal(fractionOf('3/8'), undefined, '슬래시는 주소를 가른다');
 });
 

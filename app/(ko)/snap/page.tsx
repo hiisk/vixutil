@@ -33,6 +33,16 @@ const TYPES = [
   { href: '/snap/photo-mood',     icon: '🎞️', title: '사진 감성 분석',  desc: '아무 사진이나 올려서 보는 내 감성 타입',   badge: '실제 픽셀분석', color: 'from-fuchsia-500 to-sky-500' },
   { href: '/snap/face-symmetry',  icon: '⚖️', title: '얼굴 대칭 분석',  desc: '사진 한 장으로 보는 좌우 밸런스 지수',     badge: '실제 랜드마크', color: 'from-indigo-500 to-cyan-500' },
   { href: '/snap/smile-score',    icon: '😊', title: '미소 지수 측정',  desc: '사진 한 장으로 보는 내 미소 지수',         badge: '실제 표정분석', color: 'from-amber-400 to-rose-500' },
+  { href: '/snap/id-photo', icon: '🪪', title: '증명사진 규격 검사', desc: '여권·증명사진 규격에 맞는지 다섯 가지로 확인', badge: '실제 랜드마크', color: 'from-sky-500 to-indigo-600' },
+  { href: '/snap/head-pose', icon: '🧭', title: '고개 각도 측정', desc: '사진 속 고개가 얼마나 기울고 돌아갔는지', badge: '실제 랜드마크', color: 'from-emerald-500 to-teal-600' },
+  { href: '/snap/real-smile', icon: '😄', title: '진짜 웃음 지수', desc: '입만 웃는지, 눈까지 웃는지', badge: '실제 랜드마크', color: 'from-amber-400 to-rose-500' },
+  { href: '/snap/eye-open', icon: '👁️', title: '눈 뜬 정도 측정', desc: '눈 감긴 사진인지, 좌우가 고른지', badge: '실제 랜드마크', color: 'from-violet-500 to-fuchsia-600' },
+  { href: '/snap/framing', icon: '🖼️', title: '인물 구도 분석', desc: '삼분할·머리 위 여백으로 보는 구도', badge: '실제 랜드마크', color: 'from-indigo-500 to-sky-500' },
+  { href: '/snap/lighting', icon: '💡', title: '조명 방향 분석', desc: '빛이 어디서 오는지, 역광인지', badge: '실제 측정', color: 'from-amber-400 to-amber-700' },
+  { href: '/snap/sharpness', icon: '🔍', title: '사진 선명도 검사', desc: '흔들렸는지, 초점이 맞았는지', badge: '실제 측정', color: 'from-cyan-500 to-blue-700' },
+  { href: '/snap/white-balance', icon: '🎚️', title: '화이트밸런스 검사', desc: '사진 색이 어느 쪽으로 치우쳤는지', badge: '실제 측정', color: 'from-teal-400 to-violet-600' },
+  { href: '/snap/distance', icon: '📏', title: '촬영 거리 어림', desc: '얼마나 가까이서 찍었고 얼굴이 얼마나 왜곡됐는지', badge: '실제 측정', color: 'from-lime-500 to-green-700' },
+  { href: '/snap/mirror', icon: '🪞', title: '좌우 합성 얼굴', desc: '왼쪽만·오른쪽만으로 만든 두 얼굴', badge: '실제 측정', color: 'from-purple-500 to-indigo-800' },
   { href: '/snap/handwriting',    icon: '✍️', title: '손글씨 심리 테스트', desc: '손글씨 사진으로 보는 기울기·필압 분석', badge: '실제 획분석', color: 'from-slate-600 to-indigo-700' },
 ];
 

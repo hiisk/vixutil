@@ -14,6 +14,7 @@
  * 그 물려주기는 lib/og-cards/index.ts의 cardFor가 한다.
  */
 import type { ReactElement } from 'react';
+import { newSnapCard } from '@/lib/snap/card';
 
 import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
@@ -83,6 +84,16 @@ import { hubCard as wireHub } from '@/lib/wire/route';
 import { hubCard as yearHub } from '@/lib/year/route';
 
 export const CARDS: Record<string, () => ReactElement> = {
+  'snap/lighting': () => newSnapCard('hi', 'lighting'),
+  'snap/sharpness': () => newSnapCard('hi', 'sharpness'),
+  'snap/white-balance': () => newSnapCard('hi', 'white-balance'),
+  'snap/distance': () => newSnapCard('hi', 'distance'),
+  'snap/mirror': () => newSnapCard('hi', 'mirror'),
+  'snap/id-photo': () => newSnapCard('hi', 'id-photo'),
+  'snap/head-pose': () => newSnapCard('hi', 'head-pose'),
+  'snap/real-smile': () => newSnapCard('hi', 'real-smile'),
+  'snap/eye-open': () => newSnapCard('hi', 'eye-open'),
+  'snap/framing': () => newSnapCard('hi', 'framing'),
   '': () => intlOg('home/hi'),
   'air': () => airHub('hi'),
   'altitude': () => altitudeHub('hi'),

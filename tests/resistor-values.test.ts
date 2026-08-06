@@ -1,7 +1,7 @@
 /**
  * 저항값과 색띠가 스스로 어긋나지 않는지 본다.
  *
- * 적어 둔 자료는 E24 스물넷뿐이다. 그 스물넷이 틀리면 144장이 전부 틀리므로,
+ * 적어 둔 자료는 E24 스물넷뿐이다. 그 스물넷이 틀리면 168장이 전부 틀리므로,
  * 검사가 표를 **공식과 견준다** — E계열은 한 자릿수를 로그로 나눈 값이라
  * 10 × 10^(k/24)에 가깝고, 실제로 어긋나는 자리는 손질된 여덟 곳뿐이다.
  *
@@ -23,7 +23,7 @@ import { DENSE, hanProblem } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(VALUES.length >= 100, `${VALUES.length}가지뿐이다`);
   assert.equal(VALUES.length, E24.length * DECADES.length);
-  assert.equal(VALUES.length, 144);
+  assert.equal(VALUES.length, 168);
   assert.equal(new Set(RESISTOR_SLUGS).size, VALUES.length, 'slug 중복');
   assert.equal(valueOf('4700'), 4700);
   assert.equal(valueOf('04700'), undefined, '앞에 0이 붙은 주소는 받지 않는다');
@@ -75,10 +75,14 @@ test('곱하는 수 띠가 색과 맞는다', () => {
   DIGIT_COLORS.forEach((c, i) => assert.equal(multiplierOf(c), 10 ** i, `${c}: 곱하는 수가 다르다`));
   assert.equal(multiplierOf('gold'), 0.1);
   assert.equal(multiplierOf('silver'), 0.01);
-  // 10~91Ω은 다섯 띠에서 금색이 곱하는 자리에 온다 — 자리를 하나 더 읽기 때문이다
+  /*
+   * 다섯 띠는 자리를 하나 더 읽으므로 곱하는 수가 한 자리 작아진다.
+   * 10~91Ω에서는 그것이 10^-1이라 금색, 1~9.1Ω에서는 10^-2라 은색이 온다.
+   */
+  const multBand = (e: number) => (e === -1 ? 'gold' : e === -2 ? 'silver' : DIGIT_COLORS[e]);
   for (const ohms of VALUES) {
     const f = resistorFacts(ohms);
-    assert.equal(f.bands5[3], f.exp === 0 ? 'gold' : DIGIT_COLORS[f.exp - 1], `${ohms}Ω: 다섯 띠의 곱하는 수가 다르다`);
+    assert.equal(f.bands5[3], multBand(f.exp - 1), `${ohms}Ω: 다섯 띠의 곱하는 수가 다르다`);
   }
 });
 
@@ -88,8 +92,9 @@ test('읽는 값과 4k7 표기가 옴 값과 같은 수다', () => {
     // "4.7 kΩ" 를 다시 숫자로 되돌린다
     const [text, unit] = f.display.split(' ');
     const factor = unit.startsWith('M') ? 1_000_000 : unit.startsWith('k') ? 1_000 : 1;
-    // 8.2 × 1_000_000은 부동소수점에서 8200000.000000001이 된다 — 반올림해 견준다
-    assert.equal(Math.round(Number(text) * factor), ohms, `${ohms}Ω: 읽는 값이 다르다 — ${f.display}`);
+    // 8.2 × 1_000_000은 부동소수점에서 8200000.000000001이 된다 — 어긋남으로 견준다.
+    // 1Ω 미만대가 들어오면서 반올림으로는 못 본다(1.1을 반올림하면 1이다).
+    assert.ok(Math.abs(Number(text) * factor - ohms) < 1e-6, `${ohms}Ω: 읽는 값이 다르다 — ${f.display}`);
     assert.ok(!f.code.includes('.'), `${ohms}Ω: 4k7 표기에 소수점이 남았다 — ${f.code}`);
     assert.match(f.code, /^[0-9]+[RkM][0-9]*$/, `${ohms}Ω: 표기 꼴이 아니다 — ${f.code}`);
   }

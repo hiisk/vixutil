@@ -20,11 +20,11 @@ const facts = (slug: string) => {
   return batteryFacts(c);
 };
 
-test('칸은 용량 20가지 × 충전기 10가지', () => {
+test('칸은 용량 20가지 × 충전기 15가지', () => {
   assert.equal(CAPACITIES.length, 20);
-  assert.equal(CHARGERS.length, 10);
-  assert.equal(CELLS.length, 200);
-  assert.equal(new Set(CELLS.map(slugOf)).size, 200);
+  assert.equal(CHARGERS.length, 15);
+  assert.equal(CELLS.length, 300);
+  assert.equal(new Set(CELLS.map(slugOf)).size, 300);
   assert.deepEqual([...CAPACITIES].sort((a, b) => a - b), CAPACITIES);
   assert.deepEqual([...CHARGERS].sort((a, b) => a - b), CHARGERS);
 });
@@ -158,7 +158,7 @@ test('한 시간 안에 채우려면 필요한 출력', () => {
 
 test('앞뒤 칸은 한 단계씩만 움직인다', () => {
   const f = facts('5000-20');
-  assert.equal(f.faster?.slug, '5000-30');
+  assert.equal(f.faster?.slug, '5000-25');
   assert.equal(f.slower?.slug, '5000-18');
   assert.equal(f.bigger?.slug, '5500-20');
   assert.equal(f.smaller?.slug, '4500-20');

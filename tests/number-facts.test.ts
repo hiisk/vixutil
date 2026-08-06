@@ -26,7 +26,7 @@ test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.equal(new Set(NUMBER_SLUGS).size, NUMBERS.length, 'slug 중복');
   assert.equal(numberOf('42'), 42);
   assert.equal(numberOf('042'), undefined, '앞에 0이 붙은 주소는 받지 않는다');
-  assert.equal(numberOf('201'), undefined);
+  assert.equal(numberOf('241'), undefined);
   assert.equal(numberOf('65536'), 65536);
 });
 
@@ -46,7 +46,8 @@ test('소수 판정이 체와 같다', () => {
     for (let m = p * p; m <= max; m += p) sieve[m] = 0;
   }
   for (const n of NUMBERS) assert.equal(isPrime(n), sieve[n] === 1, `${n}: 소수 판정이 체와 다르다`);
-  assert.equal(NUMBERS.filter(n => n <= GRID_MAX && isPrime(n)).length, 46, '200 이하의 소수는 46개다');
+  // π(240) = 52 — 200까지 46개에 211·223·227·229·233·239 여섯이 더 있다
+  assert.equal(NUMBERS.filter(n => n <= GRID_MAX && isPrime(n)).length, 52, '240 이하의 소수는 52개다');
 });
 
 test('소인수를 곱하면 자기 자신이 된다', () => {
@@ -196,9 +197,9 @@ test('갈래가 알려진 목록과 맞는다', () => {
   const members = (f: (typeof FAMILIES)[number]) => NUMBERS.filter(n => familiesOf(n).includes(f));
   assert.deepEqual(members('perfect'), [6, 28]);
   assert.deepEqual(members('triangular').filter(n => n <= 60), [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]);
-  assert.deepEqual(members('fibonacci'), [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]);
+  assert.deepEqual(members('fibonacci'), [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
   // 512는 8의 세제곱이다 — 2의 거듭제곱 중에 지수가 3의 배수면 세제곱수이기도 하다
-  assert.deepEqual(members('cube'), [1, 8, 27, 64, 125, 512, 4096, 32768]);
+  assert.deepEqual(members('cube'), [1, 8, 27, 64, 125, 216, 512, 4096, 32768]);
   assert.deepEqual(members('power2').filter(n => n <= GRID_MAX), [1, 2, 4, 8, 16, 32, 64, 128]);
   // 64는 제곱수이면서 세제곱수이면서 2의 거듭제곱이다 — 갈래는 겹칠 수 있다
   assert.deepEqual(familiesOf(64), ['square', 'cube', 'power2']);

@@ -20,7 +20,7 @@ test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(TIRES.length >= 100, `${TIRES.length}가지뿐이다`);
   assert.equal(new Set(TIRE_SLUGS).size, TIRES.length, 'slug 중복');
   assert.equal(new Set(TIRES.map(labelOf)).size, TIRES.length, '규격 중복');
-  assert.deepEqual(RIMS, [13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
+  assert.deepEqual(RIMS, [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
 });
 
 test('주소와 규격이 서로를 되돌린다', () => {
@@ -71,7 +71,8 @@ test('외경이 있을 법한 범위에 든다', () => {
     assert.ok(t.aspect >= 25 && t.aspect <= 80, `${labelOf(t)}: 편평비가 이상하다`);
   }
   const { biggest, smallest } = extremes();
-  assert.equal(labelOf(smallest), '165/65R13');
+  // 12인치가 들어오면서 가장 작은 규격이 바뀌었다
+  assert.equal(labelOf(smallest), '165/60R12');
   assert.equal(labelOf(biggest), '285/45R22');
   assert.ok(diameterOf(biggest) > diameterOf(smallest));
 });

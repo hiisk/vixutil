@@ -34,9 +34,13 @@ export const GRADES: Grade[] = [
   { key: '46', label: '4.6', stainless: false },
   { key: '48', label: '4.8', stainless: false },
   { key: '58', label: '5.8', stainless: false },
+  { key: '68', label: '6.8', stainless: false },
   { key: '88', label: '8.8', stainless: false },
+  { key: '98', label: '9.8', stainless: false },
   { key: '109', label: '10.9', stainless: false },
   { key: '129', label: '12.9', stainless: false },
+  { key: 'a250', label: 'A2-50', rm: 500, re: 210, stainless: true },
+  { key: 'a450', label: 'A4-50', rm: 500, re: 210, stainless: true },
   { key: 'a270', label: 'A2-70', rm: 700, re: 450, stainless: true },
   { key: 'a480', label: 'A4-80', rm: 800, re: 600, stainless: true },
 ];

@@ -8,8 +8,8 @@
  * 1900년 아래로 내려가지 않는 이유는 그 위가 검색되지 않아서가 아니라,
  * 살아 있는 사람의 생년과 앞으로 쓸 연도가 이 구간에 몰려 있기 때문이다.
  */
-export const FIRST_YEAR = 1900;
-export const LAST_YEAR = 2100;
+export const FIRST_YEAR = 1880;
+export const LAST_YEAR = 2120;
 
 export const YEARS: number[] = Array.from({ length: LAST_YEAR - FIRST_YEAR + 1 }, (_, i) => FIRST_YEAR + i);
 

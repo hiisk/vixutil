@@ -7,6 +7,7 @@ import { LENS_UI } from '@/lib/lens/ui';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { langOfLocale } from '@/lib/i18n/lang';
 import { snapHubCards, snapHubCopy } from '@/lib/snap-tools-intl';
+import { newSnapHubCards } from '@/lib/snap/route';
 import type { SnapIntlLang } from '@/lib/snap-intl';
 
 /**
@@ -20,7 +21,8 @@ import type { SnapIntlLang } from '@/lib/snap-intl';
  */
 export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
   const c = snapHubCopy(lang);
-  const cards = snapHubCards(lang);
+  // 새 스냅테스트는 열 언어짜리 표에 따로 있다 — 목록에서는 함께 보여야 한다
+  const cards = [...snapHubCards(lang), ...newSnapHubCards(lang)];
   // 렌즈 사전은 자료 열쇠(pt·zh·tw)를 쓴다 — 경로형 로케일과 다르므로 옮겨서 읽는다
   const lensUi = LENS_UI[langOfLocale(lang)];
 

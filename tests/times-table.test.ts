@@ -18,7 +18,7 @@ test('100칸이 넘고 주소가 겹치지 않는다', () => {
   assert.ok(PRODUCTS.length >= 100, `${PRODUCTS.length}칸뿐이다`);
   // 20 × 21 ÷ 2 — 순서를 뒤집은 짝을 한 번만 세면 이 값이다
   assert.equal(PRODUCTS.length, (MAX_FACTOR * (MAX_FACTOR + 1)) / 2);
-  assert.equal(PRODUCTS.length, 210);
+  assert.equal(PRODUCTS.length, 253);
   assert.equal(new Set(TIMES_SLUGS).size, PRODUCTS.length, 'slug 중복');
 });
 
@@ -40,7 +40,7 @@ test('뒤집힌 주소도 같은 칸으로 온다', () => {
     assert.deepEqual(productOf(slugOf(p)), p);
   }
   assert.deepEqual(productOf('8x7'), { a: 7, b: 8 });
-  assert.equal(productOf('21x2'), undefined, '20단까지다');
+  assert.equal(productOf('23x2'), undefined, '22단까지다');
   assert.equal(productOf('0x5'), undefined, '0단은 없다');
   assert.equal(productOf('7-8'), undefined, '주소 꼴이 아니다');
 });
@@ -99,13 +99,13 @@ test('짝수 여부와 제곱 여부가 맞는다', () => {
     // 둘 중 하나만 짝수여도 곱은 짝수다
     if (p.a % 2 === 0 || p.b % 2 === 0) assert.ok(f.even, `${slugOf(p)}: 짝수가 들었는데 홀수라 한다`);
   }
-  assert.equal(PRODUCTS.filter(p => timesFacts(p).square).length, MAX_FACTOR, '제곱은 스무 칸이다');
+  assert.equal(PRODUCTS.filter(p => timesFacts(p).square).length, MAX_FACTOR, '제곱은 MAX_FACTOR 칸이다');
 });
 
 test('단으로 묶으면 스무 칸씩이다', () => {
   for (const n of TABLES) {
     const table = tableOf(n);
-    assert.equal(table.length, MAX_FACTOR, `${n}단이 스무 칸이 아니다`);
+    assert.equal(table.length, MAX_FACTOR, `${n}단이 ${MAX_FACTOR}칸이 아니다`);
     for (const p of table) assert.ok(p.a === n || p.b === n, `${n}단에 다른 칸이 섞였다`);
   }
   // 모든 칸은 두 단에 든다(제곱은 한 단에 한 번)

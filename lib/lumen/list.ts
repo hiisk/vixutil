@@ -22,14 +22,18 @@ export const AREAS: number[] = [
  * 열 배까지 달라진다 — 복도 75, 정밀 작업 1000.
  */
 export const USES: { key: string; lux: number }[] = [
+  { key: 'storage', lux: 50 },
   { key: 'hall', lux: 75 },
   { key: 'bedroom', lux: 100 },
+  { key: 'stairs', lux: 120 },
   { key: 'living', lux: 150 },
   { key: 'bath', lux: 200 },
   { key: 'kitchen', lux: 300 },
+  { key: 'office', lux: 400 },
   { key: 'study', lux: 500 },
   { key: 'workshop', lux: 750 },
   { key: 'detail', lux: 1000 },
+  { key: 'surgery', lux: 1500 },
 ];
 
 /**

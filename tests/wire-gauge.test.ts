@@ -26,11 +26,11 @@ const facts = (slug: string) => {
 
 test('칸은 굵기 20가지 × 전류 10가지', () => {
   assert.equal(AWGS.length, 15);
-  assert.equal(SQS.length, 5);
-  assert.equal(SIZES.length, 20);
-  assert.equal(AMPS.length, 10);
-  assert.equal(CELLS.length, 200);
-  assert.equal(new Set(CELLS.map(slugOf)).size, 200);
+  assert.equal(SQS.length, 8);
+  assert.equal(SIZES.length, 23);
+  assert.equal(AMPS.length, 15);
+  assert.equal(CELLS.length, 345);
+  assert.equal(new Set(CELLS.map(slugOf)).size, 345);
 });
 
 test('주소는 되돌아온다', () => {
@@ -103,7 +103,13 @@ test('강하는 왕복이라 길이를 두 번 센다', () => {
     // 강하는 왕복이므로 저항에 길이를 두 번 곱한다 — 한 번만 곱하면 절반이 된다
     const ohm = ohmPerMetreOf(areaOf(c.size));
     const exact = 2 * c.amp * ohm * 10;
-    assert.ok(Math.abs(f.dropPer10m - exact) <= 0.005, `${f.slug}: ${f.dropPer10m} vs ${exact}`);
+    /*
+     * 화면 값은 소수 둘째 자리로 반올림한 것이므로 반올림해서 견준다.
+     * 전에는 "차이가 0.005 이하"로 봤는데, 정확값이 자릿수 경계에 딱 떨어지면
+     * (16mm² 30A에서 0.645) 부동소수 오차 때문에 0.005를 아주 조금 넘어
+     * 멀쩡한 값이 틀렸다고 나왔다. 자리를 맞춰 견주면 그 경계가 사라진다.
+     */
+    assert.equal(f.dropPer10m, Math.round(exact * 100) / 100, `${f.slug}: ${f.dropPer10m} vs ${exact}`);
     // 아주 굵은 선에 1A를 흘리면 둘 다 0으로 끊겨 견줄 것이 없다
     if (f.dropPer10m >= 0.02) assert.notEqual(f.dropPer10m, Math.round(c.amp * ohm * 10 * 100) / 100, `${f.slug}: 편도로 셌다`);
     // 열이 되는 몫은 전류의 제곱에 비례한다

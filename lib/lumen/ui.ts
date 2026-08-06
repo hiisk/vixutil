@@ -59,16 +59,16 @@ const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw
 const pick = (table: Record<string, string>) => (key: string): string => table[key] ?? key;
 
 /** 쓰임 이름은 제목과 질문에서도 같은 것을 써야 한다 — SPEC 밖으로 꺼낸다 */
-const useKo = pick({ hall: '복도·현관', bedroom: '침실', living: '거실', bath: '욕실', kitchen: '주방', study: '서재·공부방', workshop: '작업실', detail: '정밀 작업' });
-const useEn = pick({ hall: 'hallway', bedroom: 'bedroom', living: 'living room', bath: 'bathroom', kitchen: 'kitchen', study: 'study or desk', workshop: 'workshop', detail: 'fine detail work' });
-const useEs = pick({ hall: 'pasillo', bedroom: 'dormitorio', living: 'salón', bath: 'baño', kitchen: 'cocina', study: 'estudio o escritorio', workshop: 'taller', detail: 'trabajo de precisión' });
-const usePt = pick({ hall: 'corredor', bedroom: 'quarto', living: 'sala', bath: 'banheiro', kitchen: 'cozinha', study: 'escritório ou mesa', workshop: 'oficina', detail: 'trabalho de precisão' });
-const useJa = pick({ hall: '廊下・玄関', bedroom: '寝室', living: 'リビング', bath: '浴室', kitchen: '台所', study: '書斎・勉強机', workshop: '作業室', detail: '精密作業' });
-const useDe = pick({ hall: 'Flur', bedroom: 'Schlafzimmer', living: 'Wohnzimmer', bath: 'Bad', kitchen: 'Küche', study: 'Arbeitszimmer', workshop: 'Werkstatt', detail: 'Feinarbeit' });
-const useFr = pick({ hall: 'couloir', bedroom: 'chambre', living: 'salon', bath: 'salle de bain', kitchen: 'cuisine', study: 'bureau', workshop: 'atelier', detail: 'travail de précision' });
-const useHi = pick({ hall: 'गलियारा', bedroom: 'शयनकक्ष', living: 'बैठक', bath: 'स्नानघर', kitchen: 'रसोई', study: 'अध्ययन कक्ष', workshop: 'कार्यशाला', detail: 'बारीक काम' });
-const useZh = pick({ hall: '走廊玄关', bedroom: '卧室', living: '客厅', bath: '卫生间', kitchen: '厨房', study: '书房书桌', workshop: '工作间', detail: '精细作业' });
-const useTw = pick({ hall: '走廊玄關', bedroom: '臥室', living: '客廳', bath: '衛浴', kitchen: '廚房', study: '書房書桌', workshop: '工作間', detail: '精細作業' });
+const useKo = pick({ storage: '창고·다용도실', stairs: '계단', hall: '복도·현관', bedroom: '침실', living: '거실', bath: '욕실', kitchen: '주방', study: '서재·공부방', workshop: '작업실', detail: '정밀 작업' , office: '사무 공간', surgery: '수술·검사대' });
+const useEn = pick({ storage: 'storage room', stairs: 'stairs', hall: 'hallway', bedroom: 'bedroom', living: 'living room', bath: 'bathroom', kitchen: 'kitchen', study: 'study or desk', workshop: 'workshop', detail: 'fine detail work' , office: 'office desk', surgery: 'operating table' });
+const useEs = pick({ storage: 'trastero', stairs: 'escaleras', hall: 'pasillo', bedroom: 'dormitorio', living: 'salón', bath: 'baño', kitchen: 'cocina', study: 'estudio o escritorio', workshop: 'taller', detail: 'trabajo de precisión' , office: 'mesa de oficina', surgery: 'mesa de operaciones' });
+const usePt = pick({ storage: 'depósito', stairs: 'escada', hall: 'corredor', bedroom: 'quarto', living: 'sala', bath: 'banheiro', kitchen: 'cozinha', study: 'escritório ou mesa', workshop: 'oficina', detail: 'trabalho de precisão' , office: 'mesa de escritório', surgery: 'mesa cirúrgica' });
+const useJa = pick({ storage: '物置・納戸', stairs: '階段', hall: '廊下・玄関', bedroom: '寝室', living: 'リビング', bath: '浴室', kitchen: '台所', study: '書斎・勉強机', workshop: '作業室', detail: '精密作業' , office: 'オフィスの机', surgery: '手術台' });
+const useDe = pick({ storage: 'Abstellraum', stairs: 'Treppe', hall: 'Flur', bedroom: 'Schlafzimmer', living: 'Wohnzimmer', bath: 'Bad', kitchen: 'Küche', study: 'Arbeitszimmer', workshop: 'Werkstatt', detail: 'Feinarbeit' , office: 'Büroarbeitsplatz', surgery: 'Operationstisch' });
+const useFr = pick({ storage: 'débarras', stairs: 'escalier', hall: 'couloir', bedroom: 'chambre', living: 'salon', bath: 'salle de bain', kitchen: 'cuisine', study: 'bureau', workshop: 'atelier', detail: 'travail de précision' , office: 'bureau de travail', surgery: 'table d’opération' });
+const useHi = pick({ storage: 'भंडार कक्ष', stairs: 'सीढ़ियाँ', hall: 'गलियारा', bedroom: 'शयनकक्ष', living: 'बैठक', bath: 'स्नानघर', kitchen: 'रसोई', study: 'अध्ययन कक्ष', workshop: 'कार्यशाला', detail: 'बारीक काम' , office: 'दफ़्तर की मेज़', surgery: 'ऑपरेशन टेबल' });
+const useZh = pick({ storage: '储藏室', stairs: '楼梯', hall: '走廊玄关', bedroom: '卧室', living: '客厅', bath: '卫生间', kitchen: '厨房', study: '书房书桌', workshop: '工作间', detail: '精细作业' , office: '办公桌', surgery: '手术台' });
+const useTw = pick({ storage: '儲藏室', stairs: '樓梯', hall: '走廊玄關', bedroom: '臥室', living: '客廳', bath: '衛浴', kitchen: '廚房', study: '書房書桌', workshop: '工作間', detail: '精細作業' , office: '辦公桌', surgery: '手術台' });
 
 type Spec = { [K in keyof LumenUI]: L<LumenUI[K]> };
 

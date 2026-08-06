@@ -7,7 +7,7 @@
  * 200에서 끊은 이유는 그 위가 잘 검색되지 않기 때문이다. 사람들이 손에 들고
  * 오는 수는 대개 두 자리이거나 100·144·169처럼 표에서 본 수다.
  */
-export const MAX_N = 200;
+export const MAX_N = 230;
 
 export const NUMBERS: number[] = Array.from({ length: MAX_N }, (_, i) => i + 1);
 

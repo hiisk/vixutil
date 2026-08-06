@@ -29,6 +29,15 @@ const MULTIPLIER: Partial<Record<BandColor, number>> = { gold: 0.1, silver: 0.01
 export const multiplierOf = (c: BandColor): number =>
   MULTIPLIER[c] ?? 10 ** DIGIT_COLORS.indexOf(c);
 
+/**
+ * 곱하는 자리에 올 띠 색. 지수가 음수면 색이 따로 있다 — 금이 ×0.1, 은이 ×0.01.
+ *
+ * 전에는 DIGIT_COLORS[exp]를 그대로 썼다. 값이 10Ω부터였을 때는 exp가 0 이상이라
+ * 맞았는데, 1Ω대(0.1 자릿수)를 넣으니 DIGIT_COLORS[-1]이 되어 띠가 비었다.
+ */
+const multBand = (e: number): BandColor =>
+  e === -1 ? 'gold' : e === -2 ? 'silver' : DIGIT_COLORS[e];
+
 /** 오차 띠 — 금 ±5%가 E24의 표준이다 */
 export const TOLERANCE_BAND: BandColor = 'gold';
 export const TOLERANCE_PERCENT = 5;
@@ -80,8 +89,15 @@ function readable(ohms: number): { display: string; code: string } {
 }
 
 export function resistorFacts(ohms: number): ResistorFacts {
-  const base = Number(String(ohms).slice(0, 2));
-  const exp = String(ohms).length - 2;
+  /*
+   * 앞 두 자리와 자릿수를 **계산으로** 구한다.
+   *
+   * 전에는 숫자를 글자로 바꿔 잘랐다(String(4700).slice(0,2)). 값이 전부
+   * 정수일 때는 맞았는데, 1Ω 미만대를 넣으니 "1.1"의 앞 두 글자가 "1."이 되어
+   * base가 1, exp가 1로 나왔다 — 띠가 통째로 뒤집힌다.
+   */
+  const exp = Math.floor(Math.log10(ohms)) - 1;
+  const base = Math.round(ohms / 10 ** exp);
 
   const inSeries: Series[] = [
     ...(E6.includes(base) ? (['E6'] as const) : []),
@@ -96,7 +112,7 @@ export function resistorFacts(ohms: number): ResistorFacts {
     bands4: [
       DIGIT_COLORS[Math.floor(base / 10)],
       DIGIT_COLORS[base % 10],
-      DIGIT_COLORS[exp],
+      multBand(exp),
       TOLERANCE_BAND,
     ],
     // 다섯 띠는 자리를 하나 더 읽으므로 곱하는 수가 한 자리 작아진다.
@@ -105,7 +121,7 @@ export function resistorFacts(ohms: number): ResistorFacts {
       DIGIT_COLORS[Math.floor(base / 10)],
       DIGIT_COLORS[base % 10],
       DIGIT_COLORS[0],
-      exp === 0 ? 'gold' : DIGIT_COLORS[exp - 1],
+      multBand(exp - 1),
       TOLERANCE_BAND,
     ],
     series: inSeries[0],
@@ -127,12 +143,14 @@ export function resistorFacts(ohms: number): ResistorFacts {
  */
 export function decodeBands(bands: BandColor[]): number {
   const digit = (c: BandColor) => DIGIT_COLORS.indexOf(c);
+  /* 금·은 띠는 0.1·0.01을 곱하므로 12 × 0.1이 1.2000000000000002가 된다 */
+  const tidy = (x: number) => Number(x.toPrecision(12));
   if (bands.length === 5) {
     const [a, b, c, mult] = bands;
-    return (digit(a) * 100 + digit(b) * 10 + digit(c)) * multiplierOf(mult);
+    return tidy((digit(a) * 100 + digit(b) * 10 + digit(c)) * multiplierOf(mult));
   }
   const [a, b, mult] = bands;
-  return (digit(a) * 10 + digit(b)) * multiplierOf(mult);
+  return tidy((digit(a) * 10 + digit(b)) * multiplierOf(mult));
 }
 
 export const valuesOfSeries = (s: Series): number[] =>

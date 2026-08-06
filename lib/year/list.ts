@@ -8,8 +8,8 @@
  * 아니어서, "4년마다 윤년"이라는 어림이 깨지는 자리다. 구간 안에 그 두 해가
  * 다 들어와야 규칙을 제대로 보일 수 있다.
  */
-export const FIRST_YEAR = 1900;
-export const LAST_YEAR = 2100;
+export const FIRST_YEAR = 1880;
+export const LAST_YEAR = 2120;
 
 export const YEARS: number[] = Array.from({ length: LAST_YEAR - FIRST_YEAR + 1 }, (_, i) => FIRST_YEAR + i);
 

@@ -11,7 +11,7 @@ export const COLDEST = 0;
 export const WARMEST = 40;
 export const TEMP_STEP = 2;
 
-export const DRIEST = 20;
+export const DRIEST = 10;
 export const WETTEST = 100;
 export const RH_STEP = 10;
 

@@ -62,7 +62,7 @@ export const SIZES: Size[] = [
 ];
 
 /** 찍거나 그릴 때의 해상도(DPI) */
-export const DPIS: number[] = [72, 96, 150, 200, 300, 400, 600, 1200];
+export const DPIS: number[] = [72, 96, 150, 200, 240, 300, 360, 400, 600, 720, 1200, 2400];
 
 export interface Cell {
   size: Size;

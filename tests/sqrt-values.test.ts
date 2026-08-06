@@ -22,7 +22,7 @@ test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.equal(new Set(SQRT_SLUGS).size, NUMBERS.length, 'slug 중복');
   assert.equal(numberOf('50'), 50);
   assert.equal(numberOf('050'), undefined, '앞에 0이 붙은 주소는 받지 않는다');
-  assert.equal(numberOf('201'), undefined);
+  assert.equal(numberOf('231'), undefined);
 });
 
 test('간단히 한 근호를 곱해 되돌리면 그 수다', () => {
@@ -53,9 +53,9 @@ test('근호 표기가 세 갈래로 갈린다', () => {
   assert.equal(sqrtFacts(169).radical, '13');
 });
 
-test('완전제곱수가 열넷이고 뿌리가 맞는다', () => {
+test('완전제곱수가 열다섯이고 뿌리가 맞는다', () => {
   const squares = perfectSquares();
-  assert.deepEqual(squares, [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196]);
+  assert.deepEqual(squares, [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]);
   assert.equal(squares.length, Math.floor(Math.sqrt(MAX_N)));
   for (const n of squares) {
     const f = sqrtFacts(n);
@@ -99,7 +99,7 @@ test('어느 두 정수 사이인지 맞는다', () => {
 
 test('세제곱근이 딱 떨어지는 수를 가른다', () => {
   const cubes = NUMBERS.filter(n => sqrtFacts(n).cbrtExact !== null);
-  assert.deepEqual(cubes, [1, 8, 27, 64, 125]);
+  assert.deepEqual(cubes, [1, 8, 27, 64, 125, 216]);
   for (const n of cubes) {
     const f = sqrtFacts(n);
     assert.equal(f.cbrtExact! ** 3, n, `${n}: 세제곱하면 다르다`);

@@ -227,6 +227,22 @@ export const HTTP_ITEMS: HttpItem[] = [
   hd('Content-Location', 'both'),
   hd('Keep-Alive', 'both'),
   hd('Content-Digest', 'both'),
+
+  /* ───────── 늘린 것 — 위에 없는 실제 헤더 ───────── */
+  hd('Traceparent', 'request'),
+  hd('Tracestate', 'both'),
+  hd('Baggage', 'request'),
+  hd('Idempotency-Key', 'request'),
+  hd('Prefer', 'request'),
+  hd('Sec-GPC', 'request'),
+  hd('Sec-CH-Prefers-Color-Scheme', 'request'),
+  hd('Sec-CH-UA-Full-Version-List', 'request'),
+  hd('No-Vary-Search', 'response'),
+  hd('Repr-Digest', 'both'),
+  hd('Signature', 'both'),
+  hd('Signature-Input', 'both'),
+  hd('X-Request-ID', 'both'),
+  hd('X-UA-Compatible', 'response'),
 ];
 
 /** 상태 코드의 갈래 — 번호 첫 자리가 곧 뜻이다 */
