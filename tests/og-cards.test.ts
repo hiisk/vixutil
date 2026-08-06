@@ -45,8 +45,9 @@ test('카드 장수가 아는 수와 같다', () => {
    *   1,899  픽셀을 보는 스냅테스트 다섯을 더함(+50)
    *   1,979  새 섹션 여덟(ampere·uv·hike·insul·air·size·bra·petfood)을 열
    *          언어씩 더함(+80)
+   *   1,989  비밀번호 세기를 열 언어씩 더함(+10)
    */
-  const WANT = 1979;
+  const WANT = 1989;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

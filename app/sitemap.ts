@@ -88,6 +88,7 @@ import { CELLS as AIR_CELLS, slugOf as airSlug } from "@/lib/air/list";
 import { CELLS as SIZE_CELLS, slugOf as sizeSlug } from "@/lib/size/list";
 import { CELLS as BRA_CELLS, slugOf as braSlug } from "@/lib/bra/list";
 import { CELLS as PET_CELLS, slugOf as petSlug } from "@/lib/petfood/list";
+import { CELLS as PW_CELLS, slugOf as pwSlug } from "@/lib/password/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -623,6 +624,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 비밀번호 세기 100장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/password`, changeFrequency: weekly, priority: 0.85 },
+      ...PW_CELLS.map(c => ({
+        url: `${BASE}${prefix}/password/${pwSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/password', icon: '🔑', color: 'from-teal-600 to-emerald-400',
+    accent: 'text-teal-700 dark:text-teal-200', border: 'border-teal-200 dark:border-teal-800', bg: 'bg-teal-50 dark:bg-teal-900/40',
+    copy: {
+      en: { title: 'Password Strength', desc: 'How it is stored changes the answer more than length does' },
+      es: { title: 'Fuerza de contraseñas', desc: 'Cómo se guarda cambia la respuesta más que la longitud' },
+      'pt-br': { title: 'Força de senhas', desc: 'Como é guardada muda a resposta mais que o comprimento' },
+      ja: { title: 'パスワードの強さ', desc: '長さより保存方式が答えを変えます' },
+      de: { title: 'Passwortstärke', desc: 'Die Speicherung ändert mehr als die Länge' },
+      fr: { title: 'Force des mots de passe', desc: 'Le stockage change plus la réponse que la longueur' },
+      hi: { title: 'पासवर्ड की मज़बूती', desc: 'लंबाई से ज़्यादा भंडारण तरीका उत्तर बदलता है' },
+      'zh-hans': { title: '密码强度', desc: '存储方式比长度更能改变答案' },
+      'zh-hant': { title: '密碼強度', desc: '儲存方式比長度更能改變答案' },
+    },
+  },
+  {
     route: '/petfood', icon: '🐕', color: 'from-orange-600 to-amber-400',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {
