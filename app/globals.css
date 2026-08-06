@@ -214,3 +214,31 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .faq-chevron {
   @apply w-4 h-4 shrink-0 transition-transform group-open:rotate-180;
 }
+
+/* ── 2차 수확 (2026-08-06) ──
+   낱장 마흔 장을 재 보니 class 속성만 한 장에 18.8KB, 전체의 26%였다.
+   아래 넷이 그 가운데 가장 자주 나오는 것들이다(표본 40장 기준 쓰인 수):
+
+     h2 제목 묶음            196번   — 소스에서만 310곳
+     표 머리 · 표 셀         243번   — 공식 세 섹션의 본문 표
+     본문 문단               195번   — FAQ 답과 설명 문단
+     목록 구분선             184번
+
+   HTML에서 아낀 바이트는 .rsc와 .segments에서도 같이 아껴진다(한 장이 세 곳에
+   저장된다). 그래서 여기서 1KB를 줄이면 디스크에서는 3KB 가까이 줄어든다. */
+.sec-h2 {
+  @apply text-base font-black text-slate-800 dark:text-slate-100 mb-3;
+}
+.tbl-th {
+  @apply text-left text-[11px] font-bold text-slate-400 dark:text-slate-500 px-3 py-2 whitespace-nowrap;
+}
+.tbl-td {
+  @apply px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 align-top;
+}
+/* FAQ 답 문단 — 색은 tone마다 갈리므로 뼈대만 뺀다 */
+.body-p {
+  @apply mt-2.5 text-sm leading-relaxed;
+}
+.row-line {
+  @apply border-b border-slate-100 dark:border-slate-800 last:border-0;
+}

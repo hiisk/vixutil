@@ -119,7 +119,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
         </section>
 
         <section className="mt-6">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.contrastLabel}</h2>
+          <h2 className="sec-h2">{ui.contrastLabel}</h2>
           <div className="grid grid-cols-2 gap-2">
             {[
               { bg: '#ffffff', fg: color.hex, label: ui.onWhite, ratio: f.onWhite, pass: f.aaWhite },
@@ -146,7 +146,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
         {/* 무채색은 색상환에서 돌릴 각이 없어 보색·유사색이 모두 자기 색이 된다 */}
         {f.chromatic && (
         <section className="mt-6">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.harmonyTitle}</h2>
+          <h2 className="sec-h2">{ui.harmonyTitle}</h2>
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.complementLabel}</p>
           <div className="grid grid-cols-4 gap-2 mb-3">{swatch(f.complement, f.complement.toUpperCase())}</div>
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.analogousLabel}</p>
@@ -159,14 +159,14 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
         )}
 
         <section className="mt-6">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.shadesTitle}</h2>
+          <h2 className="sec-h2">{ui.shadesTitle}</h2>
           <div className="grid grid-cols-3 sm:grid-cols-9 gap-1.5">
             {f.shades.map(s => swatch(s.hex, `${s.step}`))}
           </div>
         </section>
 
         <section className="mt-6">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.cvdTitle}</h2>
+          <h2 className="sec-h2">{ui.cvdTitle}</h2>
           <div className="grid grid-cols-3 gap-2">
             {swatch(f.cvd.protan, ui.protan)}
             {swatch(f.cvd.deutan, ui.deutan)}
@@ -175,7 +175,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
         </section>
 
         <section className="mt-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <h2 className="sec-h2">{ui.howTitle}</h2>
           <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
             {ui.how.map(h => (
               <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>
@@ -186,7 +186,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
         <Faq items={colorFaq(lang, name, f)} lang={base} title={ui.faqTitle} />
 
         <section className="mt-8" aria-label={ui.nearbyTitle}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.nearbyTitle}</h2>
+          <h2 className="sec-h2">{ui.nearbyTitle}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {nearby.map(n => (
               <Link

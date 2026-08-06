@@ -79,7 +79,7 @@ export default function ColorShell({
         {children}
 
         <section className="mt-8" aria-label="기능">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이 도구로 할 수 있는 것</h2>
+          <h2 className="sec-h2">이 도구로 할 수 있는 것</h2>
           <ul className="grid sm:grid-cols-2 gap-2">
             {tool.features.map(f => (
               <li
@@ -100,7 +100,7 @@ export default function ColorShell({
         <CrossLinks />
 
         <section className="mt-8" aria-label="다른 색상 도구">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">다른 색상 도구</h2>
+          <h2 className="sec-h2">다른 색상 도구</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
               <Link

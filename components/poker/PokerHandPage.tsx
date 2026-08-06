@@ -128,7 +128,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
 
         {f.siblings.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.related}</h2>
+            <h2 className="sec-h2">{ui.related}</h2>
             <div className="flex flex-wrap gap-2">
               {f.siblings.map(kin => {
                 const other = handOf(kin);

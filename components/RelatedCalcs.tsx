@@ -18,7 +18,7 @@ export default function RelatedCalcs() {
 
   return (
     <section className="mt-8" aria-label="관련 계산기">
-      <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">
+      <h2 className="sec-h2">
         {cat ? `${cat.icon} ${cat.label} 계산기 더보기` : '함께 쓰면 좋은 계산기'}
       </h2>
       <div className="grid sm:grid-cols-2 gap-2">

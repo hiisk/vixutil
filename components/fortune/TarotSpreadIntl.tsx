@@ -212,7 +212,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           </>
         ) : (
           <>
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.majorHeading}</h2>
+            <h2 className="sec-h2">{ui.majorHeading}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-7">
               {TAROT_CARDS.map(c => (
                 <div key={c.id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
@@ -224,7 +224,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
               ))}
             </div>
 
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.minorHeading}</h2>
+            <h2 className="sec-h2">{ui.minorHeading}</h2>
             {(Object.keys(SUIT_INFO) as (keyof typeof SUIT_INFO)[]).map(suit => (
               <section key={suit} className="mb-6">
                 <p className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: SUIT_INFO[suit].color }}>

@@ -76,7 +76,7 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
               return (
                 <div
                   key={i}
-                  className="flex items-center gap-3 px-4 py-2.5 border-b border-slate-100 dark:border-slate-800 last:border-0 bg-white dark:bg-slate-900"
+                  className="flex items-center gap-3 px-4 py-2.5 row-line bg-white dark:bg-slate-900"
                 >
                   <span className="w-10 text-xs font-black text-slate-400 dark:text-slate-500">#{i + 1}</span>
                   <span className={`flex-1 text-sm font-mono font-bold tabular-nums ${tone}`}>

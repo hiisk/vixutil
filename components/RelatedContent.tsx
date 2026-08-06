@@ -43,7 +43,7 @@ export default function RelatedContent({
   return (
     <div className={bg}>
       <section className="max-w-lg mx-auto px-4 pb-12 w-full" aria-label="관련 콘텐츠">
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">
+        <h2 className="sec-h2">
           {current.category} 더 보기
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">

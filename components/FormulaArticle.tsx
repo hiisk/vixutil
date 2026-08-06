@@ -17,11 +17,11 @@ import type { SectionConfig } from '@/lib/formula/section';
  * 내용은 전부 lib/formula/article.ts가 스펙에서 뽑는다 — 이 파일은 그리기만 한다.
  */
 
-const TH = 'text-left text-[11px] font-bold text-slate-400 dark:text-slate-500 px-3 py-2 whitespace-nowrap';
-const TD = 'px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 align-top';
+const TH = 'tbl-th';
+const TD = 'tbl-td';
 
 function H({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{children}</h2>;
+  return <h2 className="sec-h2">{children}</h2>;
 }
 
 function Frame({ children }: { children: React.ReactNode }) {
@@ -77,7 +77,7 @@ export default function FormulaArticle({
           </thead>
           <tbody>
             {inputs.map(r => (
-              <tr key={r.label} className="border-b border-slate-100 dark:border-slate-800 last:border-0">
+              <tr key={r.label} className="row-line">
                 <td className={TD}>
                   <span className="font-bold">{r.label}</span>
                   {r.desc && <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{r.desc}</span>}
@@ -122,7 +122,7 @@ export default function FormulaArticle({
             </thead>
             <tbody>
               {table.rows.map(row => (
-                <tr key={row[0]} className="border-b border-slate-100 dark:border-slate-800 last:border-0">
+                <tr key={row[0]} className="row-line">
                   {row.map((cell, i) => (
                     <td key={i} className={`${TD} tabular-nums whitespace-nowrap ${i === 0 ? 'font-bold' : i === 1 ? `font-black ${section.textAccent}` : ''}`}>
                       {cell}
@@ -146,7 +146,7 @@ export default function FormulaArticle({
           </thead>
           <tbody>
             {outputs.map(r => (
-              <tr key={r.label} className="border-b border-slate-100 dark:border-slate-800 last:border-0">
+              <tr key={r.label} className="row-line">
                 <td className={TD}>
                   <span className={`font-bold ${r.primary ? section.textAccent : ''}`}>{r.label}</span>
                   {r.desc && <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{r.desc}</span>}

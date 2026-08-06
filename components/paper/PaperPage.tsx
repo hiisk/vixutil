@@ -105,7 +105,7 @@ export default function PaperPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         {f.envelope && (
           <section className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.envelopeLabel}</h2>
+            <h2 className="sec-h2">{ui.envelopeLabel}</h2>
             <Link
               href={`${hub}/${f.envelope.key}-${c.dpi}`}
               className="inline-flex items-baseline gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 text-sm font-bold text-slate-800 dark:text-slate-200 tabular-nums hover:border-slate-500 transition-colors"
@@ -118,23 +118,23 @@ export default function PaperPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         {near.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.neighbourTitle}</h2>
+            <h2 className="sec-h2">{ui.neighbourTitle}</h2>
             <PaperList cells={near.map(n => ({ size: sizeOf(n.key)!, dpi: c.dpi }))} path={hub} name={ui.sizeName} />
           </section>
         )}
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.dpiRowTitle}</h2>
+          <h2 className="sec-h2">{ui.dpiRowTitle}</h2>
           <PaperList cells={atSize(c.size)} path={hub} name={ui.sizeName} current={slug} />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.sizeRowTitle}</h2>
+          <h2 className="sec-h2">{ui.sizeRowTitle}</h2>
           <PaperList cells={atDpi(c.dpi)} path={hub} name={ui.sizeName} current={slug} />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <h2 className="sec-h2">{ui.howTitle}</h2>
           <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
             {ui.how.map(h => (
               <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>

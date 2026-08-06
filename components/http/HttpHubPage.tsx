@@ -70,7 +70,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.hubLead}</p>
         </div>
 
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.statusTitle}</h2>
+        <h2 className="sec-h2">{ui.statusTitle}</h2>
         {CLASSES.map(c => (
           <section key={c} className="mb-8">
             <h3 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">
@@ -93,7 +93,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
           </section>
         ))}
 
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.headerTitle}</h2>
+        <h2 className="sec-h2">{ui.headerTitle}</h2>
         {SIDES.map(s => (
           <section key={s} className="mb-8">
             <h3 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">
@@ -117,7 +117,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
         ))}
 
         <section className="mt-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <h2 className="sec-h2">{ui.howTitle}</h2>
           <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
             {ui.how.map(h => (
               <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>

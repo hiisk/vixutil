@@ -117,7 +117,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
         </p>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.position}</h2>
+          <h2 className="sec-h2">{ui.position}</h2>
           <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {rows.map(([k, v]) => (
               <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">

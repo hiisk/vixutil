@@ -137,7 +137,7 @@ export default function DeviceHubPage() {
         </Link>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>
+          <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>🛒 <b className="text-slate-800 dark:text-slate-100">중고 거래 전후</b> — 키보드·모니터·패드를 그 자리에서 확인</li>
             <li>📦 <b className="text-slate-800 dark:text-slate-100">새 기기 개봉 직후</b> — 불량화소와 안 눌리는 키는 초기에 잡아야 교환됩니다</li>

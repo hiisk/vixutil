@@ -88,7 +88,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
 
         {/* 첫 수 네 개 — 판이 어떻게 시작하는지만 보여 준다 */}
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.byFirstMove}</h2>
+          <h2 className="sec-h2">{ui.byFirstMove}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {openers.map(o => (
               <Link key={o.move} href={`${path}/${o.slug}`} className="group flex flex-col items-center gap-1.5">
@@ -103,7 +103,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
         </section>
 
         <section>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.byGroup}</h2>
+          <h2 className="sec-h2">{ui.byGroup}</h2>
           {GROUP_ORDER.map(group => {
             const rows = OPENINGS.filter(x => groupOf(x.moves) === group)
               .sort((a, b) => a.moves.length - b.moves.length || a.slug.localeCompare(b.slug));

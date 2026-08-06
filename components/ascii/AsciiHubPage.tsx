@@ -95,7 +95,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
         ))}
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">
+          <h2 className="sec-h2">
             {ui.groupTitle}
             <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{CONTROLS.length}</span>
           </h2>
@@ -122,7 +122,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
         </section>
 
         <section className="mt-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <h2 className="sec-h2">{ui.howTitle}</h2>
           <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
             {ui.how.map(h => (
               <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>

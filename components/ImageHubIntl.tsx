@@ -45,7 +45,7 @@ export default function ImageHubIntl({ lang }: { lang: ImageIntlLang }) {
 
         {grouped.map(g => (
           <section key={g.category} className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{g.category}</h2>
+            <h2 className="sec-h2">{g.category}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {g.tools.map(t => (
                 <Link

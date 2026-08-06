@@ -123,7 +123,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         </section>
 
         <section className="mt-6">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.cupTableTitle}</h2>
+          <h2 className="sec-h2">{ui.cupTableTitle}</h2>
           <div className="grid grid-cols-5 gap-2">
             {f.cupTable.map(r => (
               <div key={r.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-2.5 text-center">
@@ -144,7 +144,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         </section>
 
         <section className="mt-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <h2 className="sec-h2">{ui.howTitle}</h2>
           <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
             {ui.how.map(h => (
               <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>
@@ -155,7 +155,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         <Faq items={ui.itemFaq(name, f)} lang={base} title={ui.faqTitle} />
 
         <section className="mt-8" aria-label={ui.similarTitle}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.similarTitle}</h2>
+          <h2 className="sec-h2">{ui.similarTitle}</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {similar.map(s => {
               const sf = foodFacts(s);

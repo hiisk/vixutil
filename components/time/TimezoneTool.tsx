@@ -94,7 +94,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
           <button
             key={r.here}
             onClick={() => setHour(r.here)}
-            className={`w-full flex items-center gap-3 px-4 py-1.5 text-left border-b border-slate-100 dark:border-slate-800 last:border-0 transition-colors ${
+            className={`w-full flex items-center gap-3 px-4 py-1.5 text-left row-line transition-colors ${
               r.here === hour
                 ? 'bg-indigo-100 dark:bg-indigo-950/60'
                 : r.both
