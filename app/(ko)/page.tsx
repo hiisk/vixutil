@@ -52,6 +52,7 @@ import { CELLS as VIEW_CELLS } from '@/lib/viewing/list';
 import { CELLS as BIG_CELLS } from '@/lib/bignum/list';
 import { CELLS as GENGO_CELLS } from '@/lib/gengo/list';
 import { CELLS as CABLE_CELLS } from '@/lib/cable/list';
+import { CELLS as TATAMI_CELLS } from '@/lib/tatami/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';

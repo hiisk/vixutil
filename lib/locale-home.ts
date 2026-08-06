@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/tatami', icon: '🏯', color: 'from-green-700 to-emerald-400',
+    accent: 'text-green-700 dark:text-green-200', border: 'border-green-200 dark:border-green-800', bg: 'bg-green-50 dark:bg-green-900/40',
+    copy: {
+      en: { title: 'Tatami Room Size', desc: 'The same six mats can be 10.94 m² or 8.67 m²' },
+      es: { title: 'Tamaño en tatami', desc: 'Los mismos seis tatamis pueden ser 10,94 m² u 8,67 m²' },
+      'pt-br': { title: 'Tamanho em tatami', desc: 'Os mesmos seis tatamis podem ser 10,94 m² ou 8,67 m²' },
+      ja: { title: '畳の広さ', desc: '同じ6畳が10.94㎡にも8.67㎡にもなります' },
+      de: { title: 'Tatami-Zimmergröße', desc: 'Dieselben sechs Matten sind 10,94 m² oder 8,67 m²' },
+      fr: { title: 'Surface en tatamis', desc: 'Les mêmes six tatamis font 10,94 m² ou 8,67 m²' },
+      hi: { title: 'तातामी कमरे का आकार', desc: 'वही छह चटाइयाँ 10.94 m² भी और 8.67 m² भी' },
+      'zh-hans': { title: '榻榻米房间面积', desc: '同样的六叠，可能是 10.94㎡，也可能是 8.67㎡' },
+      'zh-hant': { title: '榻榻米房間面積', desc: '同樣的六疊，可能是 10.94㎡，也可能是 8.67㎡' },
+    },
+  },
+  {
     route: '/cable', icon: '🔌', color: 'from-indigo-700 to-violet-400',
     accent: 'text-indigo-700 dark:text-indigo-200', border: 'border-indigo-200 dark:border-indigo-800', bg: 'bg-indigo-50 dark:bg-indigo-900/40',
     copy: {
