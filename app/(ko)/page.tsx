@@ -48,6 +48,7 @@ import { CELLS as SIZE_CELLS } from '@/lib/size/list';
 import { CELLS as BRA_CELLS } from '@/lib/bra/list';
 import { CELLS as PET_CELLS } from '@/lib/petfood/list';
 import { CELLS as PW_CELLS } from '@/lib/password/list';
+import { CELLS as VIEW_CELLS } from '@/lib/viewing/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';

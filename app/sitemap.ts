@@ -89,6 +89,7 @@ import { CELLS as SIZE_CELLS, slugOf as sizeSlug } from "@/lib/size/list";
 import { CELLS as BRA_CELLS, slugOf as braSlug } from "@/lib/bra/list";
 import { CELLS as PET_CELLS, slugOf as petSlug } from "@/lib/petfood/list";
 import { CELLS as PW_CELLS, slugOf as pwSlug } from "@/lib/password/list";
+import { CELLS as VIEW_CELLS, slugOf as viewSlug } from "@/lib/viewing/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -624,6 +625,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // TV 시청거리 100장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/viewing`, changeFrequency: weekly, priority: 0.85 },
+      ...VIEW_CELLS.map(c => ({
+        url: `${BASE}${prefix}/viewing/${viewSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

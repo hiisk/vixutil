@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/viewing', icon: '📺', color: 'from-blue-700 to-sky-400',
+    accent: 'text-blue-700 dark:text-blue-200', border: 'border-blue-200 dark:border-blue-800', bg: 'bg-blue-50 dark:bg-blue-900/40',
+    copy: {
+      en: { title: 'TV Viewing Distance', desc: 'On a 55-inch 4K set, pixels only separate closer than 109 cm' },
+      es: { title: 'Distancia de visión', desc: 'En un 4K de 55 pulgadas, los píxeles solo se separan a menos de 109 cm' },
+      'pt-br': { title: 'Distância de visão', desc: 'Num 4K de 55 polegadas, os pixels só se separam a menos de 109 cm' },
+      ja: { title: 'テレビの視聴距離', desc: '55インチ4Kの画素は109cmより近くないと分かれません' },
+      de: { title: 'TV-Sitzabstand', desc: 'Bei 55 Zoll 4K trennen sich Pixel erst näher als 109 cm' },
+      fr: { title: 'Distance de visionnage', desc: 'Sur un 55 pouces 4K, les pixels ne se séparent qu’en deçà de 109 cm' },
+      hi: { title: 'टीवी देखने की दूरी', desc: '55 इंच 4K पर पिक्सेल 109 सेमी से पास ही अलग दिखते हैं' },
+      'zh-hans': { title: '电视观看距离', desc: '55 英寸 4K 上，坐到 109cm 以内像素才分得开' },
+      'zh-hant': { title: '電視觀看距離', desc: '55 英寸 4K 上，坐到 109cm 以內像素才分得開' },
+    },
+  },
+  {
     route: '/password', icon: '🔑', color: 'from-teal-600 to-emerald-400',
     accent: 'text-teal-700 dark:text-teal-200', border: 'border-teal-200 dark:border-teal-800', bg: 'bg-teal-50 dark:bg-teal-900/40',
     copy: {
