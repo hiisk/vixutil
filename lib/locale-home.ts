@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/golf', icon: '⛳', color: 'from-green-800 to-lime-400',
+    accent: 'text-lime-700 dark:text-lime-200', border: 'border-lime-200 dark:border-lime-800', bg: 'bg-lime-50 dark:bg-lime-900/40',
+    copy: {
+      en: { title: 'Golf Handicap', desc: 'Ninety on a slope-155 course beats ninety on a slope-95 one' },
+      es: { title: 'Hándicap de golf', desc: 'Noventa en slope 155 vale más que noventa en slope 95' },
+      'pt-br': { title: 'Handicap de golfe', desc: 'Noventa em slope 155 vale mais que noventa em slope 95' },
+      ja: { title: 'ゴルフのハンディキャップ', desc: 'スロープ155の90打はスロープ95の90打よりずっと良いです' },
+      de: { title: 'Golf-Handicap', desc: 'Neunzig bei Slope 155 schlägt neunzig bei Slope 95' },
+      fr: { title: 'Handicap de golf', desc: 'Quatre-vingt-dix sur slope 155 vaut mieux que sur slope 95' },
+      hi: { title: 'गोल्फ हैंडीकैप', desc: 'स्लोप 155 पर 90, स्लोप 95 के 90 से बेहतर है' },
+      'zh-hans': { title: '高尔夫差点', desc: '坡度 155 上的 90 杆，胜过坡度 95 上的 90 杆' },
+      'zh-hant': { title: '高爾夫差點', desc: '坡度 155 上的 90 桿，勝過坡度 95 上的 90 桿' },
+    },
+  },
+  {
     route: '/powerbank', icon: '🔋', color: 'from-teal-700 to-emerald-400',
     accent: 'text-teal-700 dark:text-teal-200', border: 'border-teal-200 dark:border-teal-800', bg: 'bg-teal-50 dark:bg-teal-900/40',
     copy: {

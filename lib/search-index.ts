@@ -78,6 +78,7 @@ import { CABLE_ICON, CELLS as CABLE_CELLS, slugOf as cableSlug } from './cable/l
 import { CELLS as TATAMI_CELLS, TATAMI_ICON, slugOf as tatamiSlug } from './tatami/list';
 import { CELLS as LUMBER_CELLS, LUMBER_ICON, slugOf as lumberSlug } from './lumber/list';
 import { CELLS as PB_CELLS, POWERBANK_ICON, slugOf as pbSlug } from './powerbank/list';
+import { CELLS as GOLF_CELLS, GOLF_ICON, slugOf as golfSlug } from './golf/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -131,6 +132,7 @@ import { cableFacts } from './cable/facts';
 import { tatamiFacts } from './tatami/facts';
 import { lumberFacts } from './lumber/facts';
 import { powerFacts } from './powerbank/facts';
+import { golfFacts } from './golf/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -165,7 +167,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf';
 
 export interface SearchItem {
   href: string;
@@ -255,6 +257,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   tatami:     { label: '다다미',     icon: '🏯', accent: 'bg-green-50 text-green-700 border-green-200' },
   lumber:     { label: '목재',       icon: '🪵', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   powerbank:  { label: '보조배터리', icon: '🔋', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
+  golf:       { label: '골프 핸디캡', icon: '⛳', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
 };
 
 /**
@@ -896,6 +899,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: POWERBANK_ICON,
     };
   }),
+  ...GOLF_CELLS.map(c => {
+    const f = golfFacts(c);
+    return {
+      href: `/golf/${golfSlug(c)}`,
+      title: `${c.score}타 · 슬로프 ${c.slope} — 디퍼렌셜 ${f.differential}`,
+      desc: `파보다 ${f.overPar}타 · 보정 ×${f.factor} · 표준 코스였다면 ${f.atStandard}`,
+      section: 'golf' as const,
+      icon: GOLF_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -991,6 +1004,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/golf', title: '골프 핸디캡 계산', desc: '같은 90타가 코스마다 다른 실력입니다', section: 'golf' as const, icon: GOLF_ICON },
   { href: '/powerbank', title: '보조배터리 기내 반입', desc: '기내 반입은 mAh가 아니라 Wh로 정해집니다', section: 'powerbank' as const, icon: POWERBANK_ICON },
   { href: '/lumber', title: '목재 실측 치수', desc: '투바이포는 2인치도 4인치도 아닙니다 — 38 × 89mm', section: 'lumber' as const, icon: LUMBER_ICON },
   { href: '/tatami', title: '다다미 방 넓이', desc: '같은 6첩이 10.94㎡이기도 하고 8.67㎡이기도 합니다', section: 'tatami' as const, icon: TATAMI_ICON },
