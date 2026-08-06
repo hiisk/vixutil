@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { prerenderLimit } from '../lib/prerender.ts';
@@ -18,6 +18,19 @@ import { sitemapRoutes } from './app-path.ts';
  * 같은 일이 난다 — 빌드는 오히려 빨라지므로 아무도 눈치채지 못한다.
  */
 const ROOT = join(import.meta.dirname, '..');
+
+/** app 아래 [slug] 꼴 페이지 수 — 굽는 장수는 이것에 굽는 수를 곱한 값이다 */
+function countDynamicRoutes(): number {
+  let n = 0;
+  const walk = (dir: string) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (e.isDirectory()) walk(join(dir, e.name));
+      else if (e.name === 'page.tsx' && dir.includes('[')) n++;
+    }
+  };
+  walk(join(ROOT, 'app'));
+  return n;
+}
 
 test('미리 굽는 장수가 0이 아니다', () => {
   /*
@@ -40,10 +53,17 @@ test('디스크 안에 드는 값이다', () => {
    * 올리려면 먼저 페이지 크기를 줄이고, 로컬에서 .next 크기를 재 보고,
    * 이 숫자와 lib/prerender.ts 주석을 함께 고친다.
    */
+  /*
+   * 라우트 수를 손으로 적으면 섹션이 늘 때마다 어긋난다 — 실제로 세어 쓴다.
+   * 새 섹션 여덟을 머지했더니 동적 라우트가 731에서 늘었고, 그만큼 굽는
+   * 장수도 늘어 .next가 7.3GB에서 8.3GB가 됐다.
+   */
   const KB_PER_PAGE = 441;
-  const pages = 2418 + 731 * prerenderLimit();
+  const dynamicRoutes = countDynamicRoutes();
+  assert.ok(dynamicRoutes > 500, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
+  const pages = 2500 + dynamicRoutes * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
-  assert.ok(gb < 10, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);
+  assert.ok(gb < 12, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);
 });
 
 test('사이트맵이 내거는 양을 알고 있다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
