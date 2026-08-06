@@ -15,9 +15,9 @@ export const COUNTRY_UI = {
     hubLead: '시차·전압·플러그·국가번호·입국 조건을 나라별로 한 장에',
     hubNotice: '🧭 비자와 입국 조건은 자주 바뀝니다. 출발 전 공관 공지를 확인하세요.',
     footNote: '비자·입국 조건은 정책에 따라 수시로 바뀌므로 반드시 해당 국가 공관의 최신 공지를 확인하세요. 전압과 플러그는 숙소에 따라 다를 수 있습니다.',
-    metaTitle: '나라별 여행 정보 — 시차·전압·플러그·국가번호 100개국',
+    metaTitle: '나라별 여행 정보 — 시차·전압·플러그·국가번호 {n}개국',
     metaDesc:
-      '일본·베트남·프랑스·미국·아이슬란드·케냐 등 100개국의 시차와 현재 시각, 전압과 플러그 타입, 국제전화 국가번호, 통행 방향, 긴급 전화, 입국 조건을 한 장에 모았습니다.',
+      '일본·베트남·프랑스·미국·아이슬란드·케냐 등 {n}개국의 시차와 현재 시각, 전압과 플러그 타입, 국제전화 국가번호, 통행 방향, 긴급 전화, 입국 조건을 한 장에 모았습니다.',
     capital: '수도',
     languages: '공용어',
     currency: '통화',
@@ -51,9 +51,9 @@ export const COUNTRY_UI = {
     hubLead: 'Time difference, voltage, plugs, dialling codes and entry rules, one page per country',
     hubNotice: '🧭 Visa and entry rules change often — check the official notice before you fly.',
     footNote: 'Visa and entry requirements change with policy, so always confirm the latest official notice for your destination. Voltage and plug types can vary by building.',
-    metaTitle: 'Country Travel Facts — Time Zones, Voltage & Plugs for 100 Countries',
+    metaTitle: 'Country Travel Facts — Time Zones, Voltage & Plugs for {n} Countries',
     metaDesc:
-      'Time difference and current local time, voltage and plug types, international dialling codes, which side they drive on, emergency numbers and entry rules for 100 countries including Japan, Vietnam, France, Iceland and Kenya.',
+      'Time difference and current local time, voltage and plug types, international dialling codes, which side they drive on, emergency numbers and entry rules for {n} countries including Japan, Vietnam, France, Iceland and Kenya.',
     capital: 'Capital',
     languages: 'Languages',
     currency: 'Currency',
@@ -87,8 +87,8 @@ export const COUNTRY_UI = {
     hubLead: 'Diferencia horaria, voltaje, enchufes, prefijos y normas de entrada, una página por país',
     hubNotice: '🧭 Las normas de visado y entrada cambian a menudo: consulta el aviso oficial antes de volar.',
     footNote: 'Los requisitos de entrada dependen de tu pasaporte y cambian con la política, así que confirma siempre el aviso oficial del país de destino. El voltaje y el tipo de enchufe pueden variar según el edificio. La diferencia horaria se da en hora estándar; el horario de verano la mueve en cualquiera de los dos extremos.',
-    metaTitle: 'Datos de viaje por país — husos, voltaje y enchufes de 100 países',
-    metaDesc: 'Diferencia horaria y hora local actual, voltaje y tipo de enchufe, prefijo telefónico, por qué lado se conduce, teléfonos de emergencia y normas de entrada de 100 países, entre ellos Japón, Vietnam, Francia, Islandia y Kenia.',
+    metaTitle: 'Datos de viaje por país — husos, voltaje y enchufes de {n} países',
+    metaDesc: 'Diferencia horaria y hora local actual, voltaje y tipo de enchufe, prefijo telefónico, por qué lado se conduce, teléfonos de emergencia y normas de entrada de {n} países, entre ellos Japón, Vietnam, Francia, Islandia y Kenia.',
     capital: 'Capital',
     languages: 'Idiomas',
     currency: 'Moneda',
@@ -122,8 +122,8 @@ export const COUNTRY_UI = {
     hubLead: 'Fuso, voltagem, tomadas, código telefônico e regras de entrada, uma página por país',
     hubNotice: '🧭 Regras de visto e entrada mudam com frequência — confira o aviso oficial antes de viajar.',
     footNote: 'As exigências de entrada dependem do seu passaporte e mudam conforme a política, então confirme sempre o aviso oficial do país de destino. Voltagem e tipo de tomada podem variar de prédio para prédio. A diferença de fuso é dada em hora padrão; o horário de verão desloca qualquer uma das duas pontas.',
-    metaTitle: 'Informações de viagem por país — fuso, voltagem e tomadas de 100 países',
-    metaDesc: 'Diferença de fuso e hora local atual, voltagem e tipo de tomada, código telefônico internacional, de que lado se dirige, telefones de emergência e regras de entrada de 100 países, entre eles Japão, Vietnã, França, Islândia e Quênia.',
+    metaTitle: 'Informações de viagem por país — fuso, voltagem e tomadas de {n} países',
+    metaDesc: 'Diferença de fuso e hora local atual, voltagem e tipo de tomada, código telefônico internacional, de que lado se dirige, telefones de emergência e regras de entrada de {n} países, entre eles Japão, Vietnã, França, Islândia e Quênia.',
     capital: 'Capital',
     languages: 'Idiomas',
     currency: 'Moeda',
@@ -157,8 +157,8 @@ export const COUNTRY_UI = {
     hubLead: '時差・電圧・プラグ・国番号・入国条件を国ごとに一枚で',
     hubNotice: '🧭 ビザと入国条件はよく変わります。出発前に公式の案内を確認してください。',
     footNote: '入国の条件は持っている旅券によって違い、方針しだいで変わります。渡航先の公式案内を必ず確認してください。電圧とプラグは建物によって違うことがあります。時差は標準時での値で、サマータイムがあるとどちらの側でも一時間ずれます。',
-    metaTitle: '国別の旅行情報 — 時差・電圧・プラグ・国番号100か国',
-    metaDesc: '日本・ベトナム・フランス・アイスランド・ケニアなど100か国の時差と現地時刻、電圧とプラグの形、国際電話の国番号、通行の左右、緊急電話、入国条件を一枚にまとめました。',
+    metaTitle: '国別の旅行情報 — 時差・電圧・プラグ・国番号{n}か国',
+    metaDesc: '日本・ベトナム・フランス・アイスランド・ケニアなど{n}か国の時差と現地時刻、電圧とプラグの形、国際電話の国番号、通行の左右、緊急電話、入国条件を一枚にまとめました。',
     capital: '首都',
     languages: '公用語',
     currency: '通貨',
@@ -192,8 +192,8 @@ export const COUNTRY_UI = {
     hubLead: 'Zeitverschiebung, Spannung, Stecker, Vorwahl und Einreiseregeln — eine Seite je Land',
     hubNotice: '🧭 Visa- und Einreiseregeln ändern sich oft — prüf vor dem Abflug die amtliche Auskunft.',
     footNote: 'Die Einreisebedingungen hängen von deinem Pass ab und ändern sich mit der Politik, prüf also immer die amtliche Auskunft des Ziellandes. Spannung und Steckertyp können je nach Gebäude abweichen. Die Zeitverschiebung gilt für Normalzeit; die Sommerzeit verschiebt sie auf jeder der beiden Seiten.',
-    metaTitle: 'Reisefakten nach Land — Zeitzonen, Spannung und Stecker für 100 Länder',
-    metaDesc: 'Zeitverschiebung und aktuelle Ortszeit, Spannung und Steckertyp, Ländervorwahl, Verkehrsseite, Notrufnummern und Einreiseregeln für 100 Länder, darunter Japan, Vietnam, Frankreich, Island und Kenia.',
+    metaTitle: 'Reisefakten nach Land — Zeitzonen, Spannung und Stecker für {n} Länder',
+    metaDesc: 'Zeitverschiebung und aktuelle Ortszeit, Spannung und Steckertyp, Ländervorwahl, Verkehrsseite, Notrufnummern und Einreiseregeln für {n} Länder, darunter Japan, Vietnam, Frankreich, Island und Kenia.',
     capital: 'Hauptstadt',
     languages: 'Sprachen',
     currency: 'Währung',
@@ -227,8 +227,8 @@ export const COUNTRY_UI = {
     hubLead: 'Décalage horaire, tension, prises, indicatif et conditions d’entrée — une page par pays',
     hubNotice: '🧭 Les règles de visa et d’entrée changent souvent — vérifie l’avis officiel avant de partir.',
     footNote: 'Les conditions d’entrée dépendent de ton passeport et changent selon la politique du pays : vérifie toujours l’avis officiel de la destination. La tension et le type de prise peuvent varier d’un bâtiment à l’autre. Le décalage est donné en heure standard ; l’heure d’été le déplace d’un côté comme de l’autre.',
-    metaTitle: 'Infos voyage par pays — fuseaux, tension et prises de 100 pays',
-    metaDesc: 'Décalage horaire et heure locale, tension et type de prise, indicatif téléphonique, côté de circulation, numéros d’urgence et conditions d’entrée pour 100 pays, dont le Japon, le Vietnam, la France, l’Islande et le Kenya.',
+    metaTitle: 'Infos voyage par pays — fuseaux, tension et prises de {n} pays',
+    metaDesc: 'Décalage horaire et heure locale, tension et type de prise, indicatif téléphonique, côté de circulation, numéros d’urgence et conditions d’entrée pour {n} pays, dont le Japon, le Vietnam, la France, l’Islande et le Kenya.',
     capital: 'Capitale',
     languages: 'Langues',
     currency: 'Monnaie',
@@ -262,8 +262,8 @@ export const COUNTRY_UI = {
     hubLead: 'समय का फ़र्क़, वोल्टेज, प्लग, देश कोड और प्रवेश के नियम — हर देश का एक पन्ना',
     hubNotice: '🧭 वीज़ा और प्रवेश के नियम अक्सर बदलते हैं — उड़ान से पहले आधिकारिक सूचना देख लें।',
     footNote: 'प्रवेश की शर्तें आपके पासपोर्ट पर निर्भर करती हैं और नीति के साथ बदलती रहती हैं, इसलिए गंतव्य देश की आधिकारिक सूचना हमेशा जाँच लें। वोल्टेज और प्लग इमारत दर इमारत बदल सकते हैं। समय का फ़र्क़ मानक समय के हिसाब से है; डेलाइट सेविंग होने पर यह किसी भी छोर पर खिसक जाता है।',
-    metaTitle: 'देशों की यात्रा जानकारी — 100 देशों के समय क्षेत्र, वोल्टेज और प्लग',
-    metaDesc: 'जापान, वियतनाम, फ़्रांस, आइसलैंड और केन्या समेत 100 देशों का समय का फ़र्क़ और वहाँ का मौजूदा समय, वोल्टेज और प्लग का प्रकार, अंतरराष्ट्रीय देश कोड, गाड़ी किस ओर चलती है, आपात नंबर और प्रवेश के नियम — सब एक जगह।',
+    metaTitle: 'देशों की यात्रा जानकारी — {n} देशों के समय क्षेत्र, वोल्टेज और प्लग',
+    metaDesc: 'जापान, वियतनाम, फ़्रांस, आइसलैंड और केन्या समेत {n} देशों का समय का फ़र्क़ और वहाँ का मौजूदा समय, वोल्टेज और प्लग का प्रकार, अंतरराष्ट्रीय देश कोड, गाड़ी किस ओर चलती है, आपात नंबर और प्रवेश के नियम — सब एक जगह।',
     capital: 'राजधानी',
     languages: 'भाषाएँ',
     currency: 'मुद्रा',
@@ -297,8 +297,8 @@ export const COUNTRY_UI = {
     hubLead: '时差、电压、插头、国际区号、入境条件，一国一页',
     hubNotice: '🧭 签证和入境条件常改。出发前请再看一次官方通告。',
     footNote: '入境条件因所持护照而异，也会随政策改动，出发前请务必查看目的地的官方通告。电压和插头可能因住处而不同。时差按标准时算，任何一边实行夏令时都会差一小时。',
-    metaTitle: '各国旅行资料 — 时差·电压·插头·国际区号 100国',
-    metaDesc: '日本、越南、法国、美国、冰岛、肯尼亚等100个国家的时差与当地时间、电压与插头形状、国际电话区号、靠哪边行车、紧急电话、入境条件，全在一页里。',
+    metaTitle: '各国旅行资料 — 时差·电压·插头·国际区号 {n}国',
+    metaDesc: '日本、越南、法国、美国、冰岛、肯尼亚等{n}个国家的时差与当地时间、电压与插头形状、国际电话区号、靠哪边行车、紧急电话、入境条件，全在一页里。',
     capital: '首都',
     languages: '官方语言',
     currency: '货币',
@@ -332,8 +332,8 @@ export const COUNTRY_UI = {
     hubLead: '時差、電壓、插頭、國際區號、入境條件，一國一頁',
     hubNotice: '🧭 簽證和入境條件常改。出發前請再看一次官方公告。',
     footNote: '入境條件因所持護照而異，也會隨政策改動，出發前請務必查看目的地的官方公告。電壓和插頭可能因住處而不同。時差按標準時算，任何一邊實施日光節約時間都會差一小時。',
-    metaTitle: '各國旅行資料 — 時差·電壓·插頭·國際區號 100國',
-    metaDesc: '日本、越南、法國、美國、冰島、肯亞等100個國家的時差與當地時間、電壓與插頭形狀、國際電話區號、靠哪邊行車、緊急電話、入境條件，全在一頁裡。',
+    metaTitle: '各國旅行資料 — 時差·電壓·插頭·國際區號 {n}國',
+    metaDesc: '日本、越南、法國、美國、冰島、肯亞等{n}個國家的時差與當地時間、電壓與插頭形狀、國際電話區號、靠哪邊行車、緊急電話、入境條件，全在一頁裡。',
     capital: '首都',
     languages: '官方語言',
     currency: '貨幣',
@@ -464,6 +464,18 @@ export function utcLabel(utc: number): string {
   const h = Math.floor(abs);
   const m = Math.round((abs - h) * 60);
   return `UTC${sign}${h}${m ? `:${String(m).padStart(2, '0')}` : ''}`;
+}
+
+/**
+ * 허브 메타 — 문구의 {n}을 실제 나라 수로 채운다.
+ *
+ * 전에는 "100개국"이라고 박아 뒀는데 124개국이 되도록 아무도 못 고쳤다.
+ * 열 언어 × 두 칸이라 고칠 자리가 스무 곳이고, 검색결과 제목에 그대로 나간다.
+ */
+export function countryHubMeta(lang: FormulaLang): { metaTitle: string; metaDesc: string } {
+  const ui = COUNTRY_UI[lang];
+  const put = (t: string) => t.replaceAll('{n}', String(COUNTRIES.length));
+  return { metaTitle: put(ui.metaTitle), metaDesc: put(ui.metaDesc) };
 }
 
 export function countryFaq(c: Country, lang: FormulaLang) {
