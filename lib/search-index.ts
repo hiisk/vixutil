@@ -65,6 +65,7 @@ import { CELLS as LUMEN_CELLS, LUMEN_ICON, slugOf as lumenSlug } from './lumen/l
 import { AMPERE_ICON, CELLS as AMP_CELLS, applianceOf, circuitOf, slugOf as ampSlug } from './ampere/list';
 import { CELLS as UV_CELLS, UV_ICON, skinOf, slugOf as uvSlug } from './uv/list';
 import { CELLS as HIKE_CELLS, HIKE_ICON, slugOf as hikeSlug } from './hike/list';
+import { CELLS as INSUL_CELLS, INSUL_ICON, slugOf as insulSlug } from './insul/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -105,6 +106,7 @@ import { lumenFacts } from './lumen/facts';
 import { ampereFacts } from './ampere/facts';
 import { uvFacts } from './uv/facts';
 import { hikeFacts } from './hike/facts';
+import { insulFacts } from './insul/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -139,7 +141,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul';
 
 export interface SearchItem {
   href: string;
@@ -216,6 +218,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   ampere:     { label: '가전 전류',  icon: '⚡', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   uv:         { label: '자외선',     icon: '☀️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   hike:       { label: '등산 시간',  icon: '⛰️', accent: 'bg-green-50 text-green-700 border-green-200' },
+  insul:      { label: '단열재',     icon: '🧱', accent: 'bg-stone-50 text-stone-700 border-stone-200' },
 };
 
 /**
@@ -683,6 +686,17 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: HIKE_ICON,
     };
   }),
+  ...INSUL_CELLS.map(c => {
+    const f = insulFacts(c);
+    const NAME: Record<string, string> = { vacuum: '진공단열재', phenolic: '페놀폼', pur: '경질우레탄', xps: '압출법 스티로폼', eps2: '비드법 2종', eps1: '비드법 1종', glasswool: '글라스울', mineralwool: '미네랄울', cellulose: '셀룰로스', wood: '목재', plaster: '석고보드', concrete: '콘크리트' };
+    return {
+      href: `/insul/${insulSlug(c)}`,
+      title: `${NAME[c.key]} ${c.mm}mm — 열저항 ${f.r}`,
+      desc: `열관류율 ${f.u} · 콘크리트로 치면 ${f.concrete}m`,
+      section: 'insul' as const,
+      icon: INSUL_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -778,6 +792,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/insul', title: '단열재 열저항 계산', desc: '재료와 두께로 열저항·열관류율, 콘크리트 환산까지', section: 'insul' as const, icon: INSUL_ICON },
   { href: '/hike', title: '등산 시간 계산', desc: '거리와 누적 오름으로, 네이스미스의 규칙', section: 'hike' as const, icon: HIKE_ICON },
   { href: '/uv', title: '자외선 화상 시간', desc: '지수와 피부 타입으로 몇 분에 붉어지는지', section: 'uv' as const, icon: UV_ICON },
   { href: '/ampere', title: '가전 전류 계산', desc: '소비전력과 전압으로 몇 암페어, 한 회로에 몇 대', section: 'ampere' as const, icon: AMPERE_ICON },

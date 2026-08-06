@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/insul', icon: '🧱', color: 'from-stone-600 to-stone-400',
+    accent: 'text-stone-700 dark:text-stone-200', border: 'border-stone-200 dark:border-stone-700', bg: 'bg-stone-50 dark:bg-stone-800/60',
+    copy: {
+      en: { title: 'Insulation R-value', desc: 'Resistance and U-value from material and thickness — and the same in concrete' },
+      es: { title: 'Resistencia térmica', desc: 'Resistencia y transmitancia por material y espesor, y su equivalente en hormigón' },
+      'pt-br': { title: 'Resistência térmica', desc: 'Resistência e transmitância por material e espessura, e o equivalente em concreto' },
+      ja: { title: '断熱材の熱抵抗', desc: '材料と厚さから熱抵抗と熱貫流率、コンクリート換算まで' },
+      de: { title: 'Dämmwert', desc: 'Widerstand und U-Wert aus Material und Dicke — und dasselbe in Beton' },
+      fr: { title: 'Résistance thermique', desc: 'Résistance et coefficient U selon le matériau et l’épaisseur, et l’équivalent en béton' },
+      hi: { title: 'इन्सुलेशन R-मान', desc: 'सामग्री और मोटाई से प्रतिरोध और U-मान, और कंक्रीट में उतना ही' },
+      'zh-hans': { title: '保温热阻', desc: '按材料和厚度算热阻与传热系数，并折合成混凝土' },
+      'zh-hant': { title: '保溫熱阻', desc: '按材料和厚度算熱阻與傳熱係數，並折合成混凝土' },
+    },
+  },
+  {
     route: '/hike', icon: '⛰️', color: 'from-green-700 to-lime-500',
     accent: 'text-green-700 dark:text-green-200', border: 'border-green-200 dark:border-green-800', bg: 'bg-green-50 dark:bg-green-900/40',
     copy: {

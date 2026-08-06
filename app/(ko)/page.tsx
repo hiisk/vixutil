@@ -42,6 +42,7 @@ import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
+import { CELLS as INSUL_CELLS } from '@/lib/insul/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -106,6 +107,18 @@ const SECTIONS = [
     textAccent: 'text-green-700 dark:text-green-200',
     borderAccent: 'border-green-200 dark:border-green-800',
     shadow: 'shadow-green-100',
+  },
+  {
+    href: '/insul',
+    icon: '🧱',
+    title: '단열재 열저항 계산',
+    desc: '압출법 100mm는 콘크리트 5.7미터 — 재료와 두께로 R값·U값',
+    badge: `${INSUL_CELLS.length}칸`,
+    color: 'from-stone-600 to-stone-400',
+    bgLight: 'bg-stone-50 dark:bg-stone-800/60',
+    textAccent: 'text-stone-700 dark:text-stone-200',
+    borderAccent: 'border-stone-200 dark:border-stone-700',
+    shadow: 'shadow-stone-100',
   },
   {
     href: '/paper',
