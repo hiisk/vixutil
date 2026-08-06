@@ -84,6 +84,7 @@ import { CELLS as UV_CELLS, slugOf as uvSlug } from "@/lib/uv/list";
 import { CELLS as HIKE_CELLS, slugOf as hikeSlug } from "@/lib/hike/list";
 import { CELLS as INSUL_CELLS, slugOf as insulSlug } from "@/lib/insul/list";
 import { CELLS as AIR_CELLS, slugOf as airSlug } from "@/lib/air/list";
+import { CELLS as SIZE_CELLS, slugOf as sizeSlug } from "@/lib/size/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -609,6 +610,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 옷 사이즈 100장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/size`, changeFrequency: weekly, priority: 0.85 },
+      ...SIZE_CELLS.map(c => ({
+        url: `${BASE}${prefix}/size/${sizeSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

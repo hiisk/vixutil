@@ -18,6 +18,7 @@ import type { ReactElement } from 'react';
 import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
+import { hubCard as sizeHub } from '@/lib/size/route';
 import { hubCard as uvHub } from '@/lib/uv/route';
 import { hubCard as hikeHub } from '@/lib/hike/route';
 import { hubCard as insulHub } from '@/lib/insul/route';
@@ -84,6 +85,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'air': () => airHub('tw'),
   'altitude': () => altitudeHub('tw'),
   'ampere': () => ampereHub('tw'),
+  'size': () => sizeHub('tw'),
   'uv': () => uvHub('tw'),
   'hike': () => hikeHub('tw'),
   'insul': () => insulHub('tw'),

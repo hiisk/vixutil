@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/size', icon: '👕', color: 'from-purple-600 to-fuchsia-400',
+    accent: 'text-purple-700 dark:text-purple-200', border: 'border-purple-200 dark:border-purple-800', bg: 'bg-purple-50 dark:bg-purple-900/40',
+    copy: {
+      en: { title: 'Clothing Sizes', desc: 'Korean 44/55/66 against S/M/L, and the body each number assumes' },
+      es: { title: 'Tallas de ropa', desc: 'Las 44/55/66 coreanas frente a S/M/L, y el cuerpo que supone cada número' },
+      'pt-br': { title: 'Tamanhos de roupa', desc: 'Os 44/55/66 coreanos e S/M/L, e o corpo que cada número supõe' },
+      ja: { title: '服のサイズ', desc: '韓国の44・55・66とS・M・L、その号数が想定する体' },
+      de: { title: 'Kleidergrößen', desc: 'Koreanisch 44/55/66 gegen S/M/L — und der Körper hinter jeder Zahl' },
+      fr: { title: 'Tailles de vêtements', desc: 'Les 44/55/66 coréennes face au S/M/L, et le corps supposé par chaque nombre' },
+      hi: { title: 'कपड़ों के आकार', desc: 'कोरियाई 44/55/66 बनाम S/M/L, और हर संख्या जो शरीर मानती है' },
+      'zh-hans': { title: '服装尺码', desc: '韩国 44/55/66 对照 S/M/L，以及每个号数设定的身材' },
+      'zh-hant': { title: '服裝尺碼', desc: '韓國 44/55/66 對照 S/M/L，以及每個號數設定的身材' },
+    },
+  },
+  {
     route: '/air', icon: '🌫️', color: 'from-slate-600 to-slate-400',
     accent: 'text-slate-700 dark:text-slate-200', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/60',
     copy: {
