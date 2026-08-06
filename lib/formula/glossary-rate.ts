@@ -140,6 +140,20 @@ export const RATE_DESC: Record<string, Term> = {
   passScore: { ko: '이 점수를 넘겨야 합격입니다.', en: 'Clear this and you pass.' },
   daysLeft: { ko: '기한까지 남은 날 수.', en: 'How many days remain until the deadline.' },
   perDay: { ko: '기한을 지키려면 하루에 해야 하는 양.', en: 'What you have to get through each day to make the deadline.' },
+  /* ───────── 셋째 묶음 ───────── */
+  tierQty: { ko: '이 수량부터 싼 단가가 붙습니다. 한 개만 모자라도 안 붙습니다.', en: 'The quantity at which the cheaper rate kicks in; one short and it does not.' },
+  tierPrice: { ko: '기준 수량을 넘겼을 때 전부에 적용되는 단가.', en: 'The unit price applied to every item once the threshold is met.' },
+  avgUnit: { ko: '총액을 개수로 나눈 값. 실제로 1개에 치른 돈입니다.', en: 'Total over quantity — what one unit really cost you.' },
+  otherShare: { ko: '내 몫을 뺀 나머지, 곧 상대가 낼 금액.', en: 'What is left after your share — the other side’s part.' },
+  multiple: { ko: '몇 배가 되는지. 2배는 100% 증가입니다.', en: 'How many times over; doubling is a 100% increase.' },
+  halfLife: { ko: '지금 값이 절반으로 줄기까지 걸리는 시간.', en: 'How long it takes to fall to half of today’s value.' },
+  balanceLeft: { ko: '아직 갚지 않고 남아 있는 원금. 이자는 빠져 있습니다.', en: 'Principal still owed, with interest excluded.' },
+  bracketLine: { ko: '세율이 바뀌는 금액. 이 위로만 높은 세율이 붙습니다.', en: 'The amount where the rate changes; only income above it pays more.' },
+  beanG: { ko: '갈기 전에 잰 원두 무게.', en: 'The weight of coffee, measured before grinding.' },
+  brewRatio: { ko: '원두 1g에 붓는 물의 ml. 작을수록 진합니다.', en: 'Millilitres of water per gram of coffee; smaller means stronger.' },
+  brewWater: { ko: '실제로 부을 물의 양. 잔에 남는 양보다 많습니다.', en: 'The water you pour in — more than what ends up in the cup.' },
+  totalFold: { ko: '단계마다의 배수를 모두 곱한 값.', en: 'Every step’s factor multiplied together.' },
+  curveShift: { ko: '모두에게 똑같이 더하거나 빼는 점수.', en: 'The points added to or taken from everyone alike.' },
 };
 
 export const rateDesc = (key: string, lang: Lang): string | null => RATE_DESC[key]?.[lang] ?? null;

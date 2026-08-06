@@ -208,6 +208,27 @@ export const SCREENS: Screen[] = [
   s('uhd-15', '4K on a 15.6" screen', 'monitor', 3840, 2160, 15.6, 282),
   s('dci-4k-27', 'DCI 4K on a 27" screen', 'monitor', 4096, 2160, 27.0, 172),
   s('wqhd-plus-14', '2.8K on a 14" screen', 'monitor', 2880, 1800, 14.0, 243),
+
+  /* ───────── 늘린 것 — 공표 PPI와 계산값이 맞는 것만 ───────── */
+  s('iphone-7', 'iPhone 7', 'phone', 750, 1334, 4.7, 326, 2016),
+  s('iphone-5s', 'iPhone 5s', 'phone', 640, 1136, 4.0, 326, 2013),
+  s('galaxy-s10', 'Galaxy S10', 'phone', 1440, 3040, 6.1, 550, 2019),
+  s('galaxy-s20', 'Galaxy S20', 'phone', 1440, 3200, 6.2, 563, 2020),
+  s('galaxy-note20-ultra', 'Galaxy Note20 Ultra', 'phone', 1440, 3088, 6.9, 496, 2020),
+  s('galaxy-s9', 'Galaxy S9', 'phone', 1440, 2960, 5.8, 570, 2018),
+  s('pixel-5', 'Pixel 5', 'phone', 1080, 2340, 6.0, 432, 2020),
+  s('pixel-4a', 'Pixel 4a', 'phone', 1080, 2340, 5.81, 443, 2020),
+  s('xperia-1-v', 'Xperia 1 V', 'phone', 1644, 3840, 6.5, 643, 2023),
+  s('ipad-pro-12-9-m2', 'iPad Pro 12.9 (M2)', 'tablet', 2048, 2732, 12.9, 264, 2022),
+  s('ipad-9', 'iPad (9th gen)', 'tablet', 1620, 2160, 10.2, 264, 2021),
+  s('galaxy-tab-s8', 'Galaxy Tab S8', 'tablet', 1600, 2560, 11, 274, 2022),
+  s('macbook-pro-13-m2', 'MacBook Pro 13 (M2)', 'laptop', 2560, 1600, 13.3, 227, 2022),
+  s('dell-xps-15-oled', 'Dell XPS 15 OLED', 'laptop', 3456, 2160, 15.6, 261, 2022),
+  s('monitor-28-4k', '28형 4K 모니터', 'monitor', 3840, 2160, 28, 157),
+  s('monitor-31-5-4k', '31.5형 4K 모니터', 'monitor', 3840, 2160, 31.5, 140),
+  s('monitor-22-fhd', '21.5형 FHD 모니터', 'monitor', 1920, 1080, 21.5, 102),
+  s('tv-58-4k', '58형 4K TV', 'tv', 3840, 2160, 58, 76),
+  s('tv-83-4k-oled', '83형 4K OLED TV', 'tv', 3840, 2160, 83, 53),
 ];
 
 /** 목록과 공유 카드가 같은 그림을 쓴다 — 이 이모지가 화면 아이콘으로 그려진다 */

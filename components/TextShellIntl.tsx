@@ -79,7 +79,7 @@ export default function TextShellIntl({
         {children}
 
         <section className="mt-8" aria-label={ui.canDo}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.canDo}</h2>
+          <h2 className="sec-h2">{ui.canDo}</h2>
           <ul className="grid sm:grid-cols-2 gap-2">
             {tool.features.map(f => (
               <li
@@ -96,7 +96,7 @@ export default function TextShellIntl({
         </section>
 
         <section className="mt-8" aria-label={ui.others}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.others}</h2>
+          <h2 className="sec-h2">{ui.others}</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
               <Link

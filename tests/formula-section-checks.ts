@@ -342,6 +342,29 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
+  /*
+   * 문구에 적은 개수가 실제 도구 수와 맞는가.
+   *
+   * "100종"이라고 박아 둔 채 122~126종이 되도록 아무도 못 고쳤다. 열 언어 ×
+   * 세 섹션이라 고칠 자리가 서른 곳이고, 화면과 검색결과 제목에 그대로 나가는
+   * 문구다. 지금은 {n}을 sectionMeta가 채우므로, 누가 다시 숫자를 박아 넣으면
+   * 여기서 걸린다.
+   */
+  test(`${name} 문구에 적은 개수가 실제 도구 수와 맞는다`, () => {
+    const NUM = /(\d{2,3})\s*(종|가지|種|種類|个|种|tools|Tools|calculators|calculadoras|herramientas|ferramentas|Rechner|Werkzeuge|calculateurs|calculatrices|outils|टूल|कैलकुलेटर|औज़ार|आँकड़े|medidas|mesures|Körperwerte)/g;
+    for (const lang of LANGS) {
+      const m = sectionMeta(section, lang);
+      const joined = [m.hubLead, m.metaTitle, m.metaDesc].join(' ');
+      assert.ok(!joined.includes('{n}'), `${lang}: {n}이 안 채워졌다`);
+      for (const hit of joined.matchAll(NUM)) {
+        assert.equal(
+          Number(hit[1]), tools.length,
+          `${lang} 문구에 "${hit[0]}"이라 적혀 있는데 실제는 ${tools.length}종이다 — 숫자 대신 {n}을 쓰라`,
+        );
+      }
+    }
+  });
+
   test(`${name} 섹션 메타가 열 언어로 다 있고 서로 다르다`, () => {
     const titles = LANGS.map(l => sectionMeta(section, l).metaTitle);
     // 열 개가 모두 달라야 한다 — 같은 게 있으면 한 언어가 다른 언어 문구를 물려받은 것이다

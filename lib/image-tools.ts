@@ -8,6 +8,9 @@
  * 목록·검색·사이트맵·상세 셸에 필요한 메타만 둔다.
  * 실제 편집 UI는 components/image/*.tsx가 슬러그별로 담당한다.
  */
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import { relatedFor } from './related-rotate.ts';
+
 export interface ImageTool {
   slug: string;
   title: string;
@@ -129,10 +132,8 @@ export const IMAGE_TOOLS: ImageTool[] = [
 export function relatedImageTools(slug: string, limit = 4): ImageTool[] {
   const current = IMAGE_TOOLS.find(t => t.slug === slug);
   if (!current) return [];
-  const others = IMAGE_TOOLS.filter(t => t.slug !== slug);
-  const same = others.filter(t => t.category === current.category);
-  const rest = others.filter(t => t.category !== current.category);
-  return [...same, ...rest].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(IMAGE_TOOLS, current, t => t.category === current.category, limit);
 }
 
 export function findImageTool(slug: string): ImageTool | undefined {

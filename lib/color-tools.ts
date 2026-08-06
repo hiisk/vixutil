@@ -5,6 +5,9 @@
  * 글씨가 읽히는가" 두 가지다. 앞은 색상환 규칙, 뒤는 대비 계산으로 답이 나온다.
  * 둘 다 순수 계산이라 브라우저에서 끝난다.
  */
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import { relatedFor } from './related-rotate.ts';
+
 export interface ColorTool {
   slug: string;
   title: string;
@@ -145,10 +148,8 @@ export const COLOR_TOOLS: ColorTool[] = [
 export function relatedColorTools(slug: string, limit = 4): ColorTool[] {
   const current = COLOR_TOOLS.find(t => t.slug === slug);
   if (!current) return [];
-  const others = COLOR_TOOLS.filter(t => t.slug !== slug);
-  const same = others.filter(t => t.category === current.category);
-  const rest = others.filter(t => t.category !== current.category);
-  return [...same, ...rest].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(COLOR_TOOLS, current, t => t.category === current.category, limit);
 }
 
 export function findColorTool(slug: string): ColorTool | undefined {

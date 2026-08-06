@@ -670,4 +670,90 @@ export const GEO_DE: Record<string, FormulaText> = {
     long: 'Der Arkustangens aus Steigung geteilt durch Auflage ergibt den Winkel. Dasselbe Verhältnis mal 100 ist das Gefälle, die Hypotenuse beider die Sparrenlänge.',
     note: 'Diese Sparrenlänge endet an der Wand — den gewünschten Dachüberstand vor dem Zuschnitt hinzurechnen.',
   },
+
+  /* ───────── 셋째 묶음 14종 — 좌표기하와 현장 계산 ───────── */
+  'line-point-distance': {
+    title: 'Abstand Punkt zu Gerade',
+    desc: 'Kürzester Abstand zwischen einem Punkt und der Geraden y = mx + b.',
+    long: 'Der kürzeste Weg trifft die Gerade im rechten Winkel. Setze den Punkt in die Steigungsform ein und teile durch √(m²+1) — das gleicht aus, wie stark die Gerade geneigt ist.',
+    note: 'Die zusätzlichen Koordinaten sind der Lotfußpunkt, also die Stelle auf der Geraden, die dem Punkt am nächsten liegt.',
+  },
+  'line-intersection': {
+    title: 'Schnittpunkt zweier Geraden',
+    desc: 'Wo sich zwei als y = mx + b geschriebene Geraden kreuzen.',
+    long: 'Setze beide Gleichungen gleich und löse auf. Die Differenz der Achsenabschnitte geteilt durch die Differenz der Steigungen ergibt das x des Schnittpunkts; dieses x in eine der beiden Geraden eingesetzt liefert y.',
+    note: 'Gleiche Steigungen bedeuten parallele Geraden, die sich nie treffen — dann steht das Ergebnis auf null.',
+  },
+  'quad-area-coords': {
+    title: 'Viereckfläche aus Koordinaten',
+    desc: 'Fläche und Umfang eines Vierecks aus seinen Eckpunkten.',
+    long: 'Das ist die Schnürsenkelformel. Zähle die Ecken in der Reihenfolge auf, in der du die Figur umrundest, multipliziere x und y über Kreuz und nimm die Hälfte der Differenz. Sie gilt auch für Formen, die kein Rechteck sind, und sogar für solche mit einer Einbuchtung.',
+    note: 'Die Ecken müssen die Figur umrunden, im oder gegen den Uhrzeigersinn. Über eine Diagonale hinweg aufgezählt kommt eine zu kleine Fläche heraus.',
+  },
+  'golden-ratio': {
+    title: 'Rechner für den Goldenen Schnitt',
+    desc: 'Teilt eine Länge im Goldenen Schnitt von 1 zu 1,618.',
+    long: 'Teile das Ganze durch 1,618034, das ergibt den längeren Teil; was bleibt, ist der kürzere. So geschnitten verhält sich das Ganze zum langen Teil wie der lange zum kurzen — dasselbe Verhältnis wiederholt sich bei jedem weiteren Schnitt.',
+    note: 'Praktisch für Ränder, Regalhöhen oder das Aufteilen eines Layouts, wenn man einen begründbaren Schnittpunkt braucht.',
+  },
+  'ring-sector-area': {
+    title: 'Fläche eines Kreisringsektors',
+    desc: 'Fläche und Umfang eines aus einem Ring geschnittenen Stücks.',
+    long: 'Nimm den äußeren Sektor und ziehe den inneren ab. Die Differenz der quadrierten Radien mal dem Anteil, den der Winkel am Kreis hat, ergibt die Fläche; der Umfang addiert beide Bögen und die zwei geraden Kanten.',
+    note: 'So sieht ein runder Wegrand aus, die Stufe einer Wendeltreppe oder keilförmig geschnittene Rohrdämmung.',
+  },
+  'two-circles-overlap': {
+    title: 'Überlappungsfläche zweier Kreise',
+    desc: 'Überlappung zweier Kreise aus ihren Radien und dem Mittelpunktabstand.',
+    long: 'Die Überlappung ist eine Linse aus zwei Kreissegmenten. Der Kosinussatz liefert in jedem Kreis einen halben Winkel, und die beiden Segmentflächen addieren sich. Über der Summe der Radien berühren sich die Kreise nicht; unter der Differenz liegt der kleinere ganz im größeren.',
+    note: 'Der Anteil bezieht sich auf den kleineren Kreis — 100% heißt, er ist vollständig überdeckt.',
+  },
+  'spiral-roll-length': {
+    title: 'Länge einer Rolle',
+    desc: 'Wie lang eine Rolle abgewickelt ist, aus Außen- und Kerndurchmesser samt Dicke.',
+    long: 'Teile die Fläche des aufgewickelten Querschnitts durch die Materialdicke. Über die Fläche statt Windung für Windung zu rechnen hält den Fehler unter einem Prozent, solange stramm gewickelt ist.',
+    note: 'Die Genauigkeit hängt an der Dicke. Malerkrepp liegt bei etwa 0,13 mm, Etikettenpapier bei rund 0,1 mm.',
+  },
+  'cone-unroll-angle': {
+    title: 'Abwicklungswinkel eines Kegels',
+    desc: 'Der Sektorwinkel, den man beim Abwickeln eines Kegels ausschneidet.',
+    long: 'Abgewickelt wird der Kegel zu einem Sektor, dessen Radius die Mantellinie ist und dessen Bogen dem Grundkreisumfang entsprechen muss. Dieses Verhältnis mal 360° ergibt den auszuschneidenden Winkel.',
+    note: 'Gilt für Spitzhüte, Trichter und Kegeldächer aus Papier oder Blech. Die Zugabe für Klebe- oder Falznaht kommt extra dazu.',
+  },
+  'frustum-surface': {
+    title: 'Oberfläche eines Kegelstumpfs',
+    desc: 'Oberfläche eines Kegels, dem die Spitze fehlt.',
+    long: 'Die Mantelfläche ist π mal der Summe der beiden Radien mal der Mantellinie. Die Falle ist die Mantellinie: nicht die senkrechte Höhe, sondern die Hypotenuse aus Höhe und Radiendifferenz.',
+    note: 'Nützlich bei Blumentöpfen, Eimern und Bechern, wenn Farbe, Folie oder Beschriftung berechnet wird.',
+  },
+  'barrel-volume': {
+    title: 'Fassvolumen berechnen',
+    desc: 'Inhalt eines bauchigen Fasses aus seinen zwei Durchmessern und der Höhe.',
+    long: 'Kepler ersann diese Näherung, um Weinfässer zu vermessen. Weil sich die Mitte wölbt, fasst das Fass mehr als ein Zylinder: der Bauchdurchmesser zählt doppelt, der Bodendurchmesser einfach.',
+    note: 'Passt für Fässer, Regentonnen und bauchige Pflanzkübel. Bei geradem Zylinder ist der Wassertank-Rechner genauer.',
+  },
+  'horizontal-tank-volume': {
+    title: 'Füllmenge eines liegenden Tanks',
+    desc: 'Restmenge in einem liegenden Tank anhand der gemessenen Höhe.',
+    long: 'Im liegenden Tank sind Füllhöhe und Volumen nicht proportional. Der Querschnitt ist ein Kreissegment — in der Mitte breit, oben und unten schmal — nur auf halber Höhe ist er wirklich halb voll. Berechne die Segmentfläche und multipliziere mit der Mantellänge.',
+    note: 'Trage die am Peilstab abgelesene Höhe ein. Unter der Hälfte ist deutlich weniger drin, als der Pegel vermuten lässt.',
+  },
+  'miter-angle': {
+    title: 'Gehrungswinkel für Rahmen',
+    desc: 'Der Sägewinkel für einen Rahmen mit beliebig vielen Seiten.',
+    long: 'Die äußere Richtungsänderung an der Stoßstelle, also der Außenwinkel, beträgt 360÷n. Jedes Teil übernimmt die Hälfte davon, die Gehrung ist somit 180÷n, während innen der Innenwinkel 180×(n−2)÷n stehen bleibt. Ein quadratischer Rahmen wird auf 45° geschnitten, weil das die Hälfte einer 90°-Wendung ist.',
+    note: 'Viele Kappsägen zeigen den Winkel ab 90° an. Ein Sechseck braucht 30°, was auf der Skala als 60° erscheinen kann — schneide erst ein Probestück.',
+  },
+  'ramp-length': {
+    title: 'Rampenlänge berechnen',
+    desc: 'Rampenlänge aus der zu überwindenden Höhe und dem Steigungsverhältnis.',
+    long: '1:12 heißt: pro Zentimeter Steigung geht es 12 cm nach vorn. Die waagerechte Strecke ist die Höhe mal diesem Wert, und die Rampe selbst ist die Hypotenuse aus Höhe und Strecke.',
+    note: 'Für Rollstühle gilt üblicherweise 1:12. Eine Stufe von 15 cm braucht 180 cm Anlauf — miss den Platz, bevor du kaufst.',
+  },
+  'earth-distance': {
+    title: 'Entfernung zwischen Koordinaten',
+    desc: 'Luftlinie auf der Erde zwischen zwei Paaren aus Breite und Länge.',
+    long: 'Die Erde ist rund, man darf die Koordinaten also nicht einfach abziehen. Die Haversine-Formel misst den Großkreisbogen zwischen beiden Punkten und faltet die Breiten- und Längendifferenz in Halbwinkelsinusse, damit das Ergebnis auch nahe den Polen trägt.',
+    note: 'Das ist die Luftlinie, nicht die Straßenentfernung einer Karten-App. Der angezeigte Kurs ist die Richtung, in die man beim Start blickt.',
+  },
 };

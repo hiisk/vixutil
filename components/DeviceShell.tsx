@@ -85,7 +85,7 @@ export default function DeviceShell({
 
         {/* 무엇을 재는 도구인지 — 검색으로 들어온 사람이 3초 안에 판단할 근거 */}
         <section className="mt-8" aria-label="점검 항목">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이 테스트로 확인하는 것</h2>
+          <h2 className="sec-h2">이 테스트로 확인하는 것</h2>
           <ul className="grid sm:grid-cols-2 gap-2">
             {tool.checks.map(c => (
               <li
@@ -107,7 +107,7 @@ export default function DeviceShell({
 
         {/* 상세에서 상세로 바로 넘어갈 수 있게 — 허브를 거치지 않는 동선 */}
         <section className="mt-8" aria-label="다른 기기 점검">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">다른 점검도 해보기</h2>
+          <h2 className="sec-h2">다른 점검도 해보기</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
               <Link

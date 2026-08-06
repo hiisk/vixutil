@@ -110,6 +110,26 @@ export const BODY2_DESC: Record<string, Term> = {
   drankMl: { ko: '운동 중에 마신 물의 양.', en: 'Fluid you drank during the session.' },
   sweatRate: { ko: '시간당 빠져나간 수분. 이 속도에 맞춰 마셔야 합니다.', en: 'Fluid lost per hour; drink to match this rate.' },
   alcoholKcal: { ko: '알코올에서 나오는 열량. 1g에 7kcal입니다.', en: 'Energy from the alcohol itself, at 7 kcal a gram.' },
+  /* ───────── 셋째 묶음 ───────── */
+  skinSum: { ko: '캘리퍼로 잰 세 곳의 피부두께를 더한 값.', en: 'The three caliper readings added together.' },
+  targetFat: { ko: '앞으로 닿고자 하는 체지방률.', en: 'The body fat percentage you are aiming for.' },
+  lossKg: { ko: '목표까지 줄여야 하는 무게.', en: 'The weight to lose to reach the target.' },
+  sugarAlc: { ko: '에리스리톨·말티톨 같은 감미료. 대체로 절반쯤 흡수됩니다.', en: 'Sweeteners like erythritol or maltitol; roughly half is absorbed.' },
+  netCarb: { ko: '식이섬유와 당알코올을 뺀, 실제로 흡수되는 탄수화물.', en: 'The carbohydrate actually absorbed, after fibre and sugar alcohols.' },
+  giValue: { ko: '그 음식이 혈당을 얼마나 빨리 올리는지. 양과는 무관합니다.', en: 'How fast a food raises blood sugar, regardless of portion.' },
+  glValue: { ko: '혈당지수에 실제 먹는 양을 곱한 값. 10 미만이 낮고 20 이상이 높습니다.', en: 'Index times portion — under 10 is low, 20 and up is high.' },
+  foodG: { ko: '지금 재고 있는 음식의 무게.', en: 'The weight of the portion you are measuring.' },
+  kcalPer100: { ko: '100g에 든 열량. 낮을수록 같은 열량으로 더 많이 먹습니다.', en: 'Calories in 100 g; lower means more food for the same energy.' },
+  gramPer200: { ko: '200kcal에 해당하는 무게. 배부름을 견주는 데 씁니다.', en: 'The grams that make 200 kcal — handy for comparing fullness.' },
+  powerW: { ko: '자전거에서 내는 출력. FTP처럼 일정 시간 유지한 값을 넣습니다.', en: 'Cycling power; use a sustained figure such as FTP.' },
+  wattPerKg: { ko: '출력을 체중으로 나눈 값. 오르막 속도를 정합니다.', en: 'Power over body weight — what decides climbing speed.' },
+  swim400: { ko: '전력으로 헤엄친 400m 기록.', en: 'An all-out 400 m time.' },
+  swim200: { ko: '같은 날 전력으로 헤엄친 200m 기록.', en: 'An all-out 200 m time from the same day.' },
+  splitPct: { ko: '후반을 전반보다 몇 % 빠르게 갈지. 2% 안팎이 현실적입니다.', en: 'How much faster the second half runs; around 2% is realistic.' },
+  firstHalf: { ko: '전반에 쓸 시간. 후반보다 길게 잡습니다.', en: 'The time spent on the first half, longer than the second.' },
+  secondHalf: { ko: '후반에 남기는 시간. 전반보다 짧습니다.', en: 'The time left for the second half, shorter than the first.' },
+  sleepMin: { ko: '그 나이에 필요한 수면의 아래쪽 값.', en: 'The lower end of the sleep needed at that age.' },
+  sleepMax: { ko: '그 나이에 필요한 수면의 위쪽 값.', en: 'The upper end of the sleep needed at that age.' },
 };
 
 export const body2Desc = (key: string, lang: Lang): string | null => BODY2_DESC[key]?.[lang] ?? null;

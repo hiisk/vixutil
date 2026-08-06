@@ -653,4 +653,103 @@ export const CONVERT_DE: Record<string, ConvertL10n> = {
     note: 'Das "BTU" einer Klimaanlage steht fast immer für BTU pro Stunde. Zwölftausend BTU/h ergeben eine Tonne Kälteleistung.',
     from: 'BTU', to: 'Wh',
   },
+
+  /* ───────── 셋째 묶음 16종 ───────── */
+  'chain-m': {
+    title: 'Chain in Meter',
+    desc: 'Die Vermesserkette in Meter umrechnen',
+    long: 'Rechnet Chains in Meter und zurück. Die Einheit lebt in alten britischen und amerikanischen Grundbüchern weiter, in Eisenbahn-Meilensteinen und in der Länge eines Cricketfelds.',
+    note: 'Ein Chain sind 66 Fuß, genau 20,1168 m. Zehn Chains ergeben ein Furlong und achtzig eine Meile — es ist das Lineal hinter der Meile.',
+  },
+  'rod-m': {
+    title: 'Rod in Meter',
+    desc: 'Die alte Vermessungsrute in Meter umrechnen',
+    long: 'Rechnet Rods in Meter und zurück. Auch Pole oder Perch genannt, taucht die Einheit in alten englischen und amerikanischen Urkunden sowie bei Zaun- und Grabenlängen auf.',
+    note: 'Ein Rod sind 16,5 Fuß, genau 5,0292 m. Vier Rods ergeben einen Chain, und ein Streifen von vier mal vierzig Rods ist genau ein Acre.',
+  },
+  'barleycorn-mm': {
+    title: 'Barleycorn in Millimeter',
+    desc: 'Die Schrittweite hinter britischen Schuhgrößen',
+    long: 'Nach einem Gerstenkorn benannt, ist diese Einheit ein Drittel Zoll. Deshalb wachsen britische und amerikanische Schuhgrößen je Nummer um rund 8,47 mm.',
+    note: 'Erwachsenengrößen beginnen bei zwölf Barleycorn (vier Zoll) und legen je Nummer eines zu. Größe 8 meint den Leisten, nicht die Länge deines Fußes.',
+  },
+  'parsec-lightyear': {
+    title: 'Parsec in Lichtjahre',
+    desc: 'Zwischen astronomischen Entfernungseinheiten umrechnen',
+    long: 'Rechnet das Parsec der Fachliteratur in das Lichtjahr populärer Texte um. Ein Parsec ist die Entfernung, in der der Bahnradius der Erde eine Bogensekunde einnimmt.',
+    note: 'Ein Parsec sind etwa 3,26 Lichtjahre. Proxima Centauri, der nächste Stern, steht bei 1,30 Parsec — 4,24 Lichtjahre entfernt.',
+  },
+  'slug-kg': {
+    title: 'Slug in Kilogramm',
+    desc: 'Die Masseneinheit der angelsächsischen Technik',
+    long: 'Rechnet Slug in Kilogramm und zurück. Ein Slug ist die Masse, die ein Pfund-Kraft mit einem Fuß pro Sekundenquadrat beschleunigt; die US-Technik trennt damit Masse von Gewicht.',
+    note: 'Ein Pfund ist ein Gewicht, ein Slug eine Masse. Ein Slug entspricht etwa 32,174 Pfund — dieselbe Zahl wie die Schwerkraft in Fuß je Sekundenquadrat.',
+  },
+  'quintal-kg': {
+    title: 'Doppelzentner in Kilogramm',
+    desc: 'Die 100-kg-Einheit des Getreidehandels',
+    long: 'Rechnet Quintal in Kilogramm und zurück. Getreide und Dünger werden in Europa, Indien und Lateinamerika je Quintal gehandelt, wobei hundert Kilogramm eine Partie bilden.',
+    note: 'Das metrische Quintal sind genau 100 kg. Der ähnlich klingende Hundredweight ist anders: 45,36 kg in den USA und 50,80 kg im Vereinigten Königreich.',
+  },
+  'peck-l': {
+    title: 'Peck in Liter',
+    desc: 'Ein Trockenmaß von einem Viertel Bushel',
+    long: 'Rechnet Peck in Liter und zurück. Es ist die Korbgröße, in der Äpfel und Kartoffeln verkauft werden, und auf amerikanischen Bauernmärkten noch in Gebrauch.',
+    note: 'Ein US-Trocken-Peck sind 8,81 L, vier Pecks ein Bushel. Der imperiale Peck misst 9,09 L, die Zahl weicht also ab.',
+  },
+  'dunam-m2': {
+    title: 'Dunam in Quadratmeter',
+    desc: 'Die Flächeneinheit des Nahen Ostens und des Balkans',
+    long: 'Rechnet Dunam in Quadratmeter und zurück. Aus dem Osmanischen Reich übernommen, ist es bei Grundstücksgeschäften in Israel, der Türkei und auf dem Balkan bis heute die Arbeitseinheit.',
+    note: 'Das metrische Dunam sind 1.000 m², ein Zehntel Hektar. Das ältere osmanische Dunam maß rund 919 m², alte Dokumente weichen also ab.',
+  },
+  'celsius-reaumur': {
+    title: 'Celsius in Réaumur',
+    desc: 'Grad Celsius in die Réaumur-Skala umrechnen',
+    long: 'Rechnet Celsius in Réaumur und zurück. Die Skala setzt den Gefrierpunkt des Wassers auf 0 und den Siedepunkt auf 80 und hält sich in europäischen Käse- und Sirupvorschriften.',
+    note: 'Celsius mal 0,8 ergibt Réaumur. Beide Skalen teilen den Nullpunkt, es braucht also keinen Summanden, nur die Multiplikation.',
+  },
+  'pib-tib': {
+    title: 'PiB in TiB',
+    desc: 'Pebibyte in Tebibyte umrechnen',
+    long: 'Rechnet Pebibyte in Tebibyte und zurück. In diesen Zweierpotenz-Einheiten wird Rechenzentrumskapazität und Backup-Planung tatsächlich geschrieben.',
+    note: 'Ein PiB sind 1.024 TiB. Hersteller nennen PB in Zehnerpotenzen, 1 PB ist also nur 0,888 PiB — mehr als zehn Prozent Unterschied.',
+  },
+  'toe-mwh': {
+    title: 'Tonnen Öleinheiten in MWh',
+    desc: 'Die Einheit der Energiestatistik in Strom umrechnen',
+    long: 'Rechnet Tonnen Öleinheiten in Megawattstunden und zurück. Nationale Energiestatistiken bringen damit Kohle, Gas und Strom auf einen Maßstab.',
+    note: 'Eine toe ist als 41,868 GJ definiert, also 11,63 MWh. Es ist eine festgelegte Rechengröße, nicht der Heizwert eines bestimmten Rohöls.',
+  },
+  'tnt-gj': {
+    title: 'Tonnen TNT in Gigajoule',
+    desc: 'Sprengkraft in Energie umrechnen',
+    long: 'Rechnet Tonnen TNT-Äquivalent in Gigajoule und zurück. So werden Erdbebenenergie und Explosionsgröße verglichen, und das steht hinter Schlagzeilen wie „entspricht so vielen Tonnen TNT“.',
+    note: 'Eine Tonne TNT ist als genau 4,184 GJ definiert. Das ist eine festgelegte Konvention, keine gemessene Detonationswärme.',
+  },
+  'ksi-mpa': {
+    title: 'ksi in MPa',
+    desc: 'Einheiten der Werkstofffestigkeit umrechnen',
+    long: 'Rechnet ksi in Megapascal und zurück. US-Werkstoffnormen geben Zug- und Streckgrenze in ksi an, für den Vergleich mit internationalen Spezifikationen braucht es diese Umrechnung.',
+    note: 'Ein ksi sind 1.000 psi, etwa 6,895 MPa. Die 800 MPa Zugfestigkeit einer Schraube der Güte 8.8 entsprechen rund 116 ksi.',
+  },
+  'footcandle-lux': {
+    title: 'Footcandle in Lux',
+    desc: 'Zwischen Beleuchtungsstärke-Einheiten umrechnen',
+    long: 'Rechnet Footcandle in Lux und zurück. Amerikanische Beleuchtungsempfehlungen sind in Footcandle geschrieben, für den Abgleich mit internationalen Normen braucht es diesen Schritt.',
+    note: 'Ein Footcandle sind etwa 10,76 Lux. Der Faktor ist schlicht das Verhältnis von Quadratfuß zu Quadratmeter.',
+  },
+  'mil-degree': {
+    title: 'Strich in Grad',
+    desc: 'Die militärische Winkeleinheit in Grad umrechnen',
+    long: 'Rechnet Strich in Grad und zurück. Artillerie und Schießsport nutzen diese Einheit, die den Vollkreis nach NATO-Konvention in 6.400 Teile teilt.',
+    note: 'Ein rechter Winkel sind 1.600 Strich. Ein Strich deckt auf tausend Meter etwa einen Meter ab, was Entfernung und Breite im Kopf verbindet.',
+  },
+  'sidereal-day-hour': {
+    title: 'Sterntag in Stunden',
+    desc: 'Wie lang ein an den Sternen gemessener Tag ist',
+    long: 'Rechnet den Sterntag in Stunden um. So lange braucht die Erde für eine Umdrehung relativ zu den Sternen — etwa vier Minuten weniger als die 24 Stunden, die wir nach der Sonne führen.',
+    note: 'Die Erde bewegt sich beim Drehen auch auf ihrer Bahn, muss sich also etwas weiterdrehen, bis die Sonne wieder gleich steht. Diese 3 Minuten 56 Sekunden täglich ergeben im Jahr genau einen Tag.',
+    from: 'Sterntag', to: 'Stunden',
+  },
 };

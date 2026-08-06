@@ -670,4 +670,84 @@ export const RATE_ES: Record<string, FormulaText> = {
     long: 'Divide la cuota mensual entre el ingreso neto del mes. Dividir entre el bruto hace que parezca más holgado de lo que es, así que conviene usar el dinero que realmente llega.',
     note: 'El límite que aplican los prestamistas cambia según el país y la entidad. Esto da la proporción; si te prestan o no lo deciden sus normas, no este número.',
   },
+
+  /* ───────── 셋째 묶음 13종 ───────── */
+  'bulk-tier-price': {
+    title: 'Calculadora de precio por volumen',
+    desc: 'Total y coste real por unidad cuando el precio baja a partir de cierta cantidad.',
+    long: 'El precio escalonado cambia todas las unidades a la tarifa barata en cuanto alcanzas el mínimo. Eso crea un tramo justo por debajo en el que comprar más sale más barato: el punto donde 99 cuesta más que 100.',
+    note: 'Si superar el mínimo no reduce tu total, el vendedor solo descuenta las unidades por encima y este cálculo no sirve.',
+  },
+  'usage-split': {
+    title: 'Repartir una factura por consumo',
+    desc: 'Divide una factura compartida según lo que cada parte usó de verdad.',
+    long: 'Repartir por cabezas castiga a quien menos gastó. Cuando hay algo medible —una lectura del contador, datos consumidos, horas reservadas— dividir en esa proporción se ajusta a lo que cada parte provocó.',
+    note: 'Si parte de la factura es una cuota fija, repártela a partes iguales primero y aplica este cálculo al resto.',
+  },
+  'trade-in-discount': {
+    title: 'Descuento real de un plan renove',
+    desc: 'Cuánto vale realmente, en porcentaje, lo que te dan por entregar tu equipo.',
+    long: 'El plan renove parece un descuento, pero quien lo paga es el aparato que entregas. El precio de lista menos la tasación es lo que pagas de verdad, y la tasación dividida entre el precio de lista es el descuento real.',
+    note: 'Si la tasación queda por debajo del precio de reventa, esa diferencia es tu coste, aunque el tiempo y el riesgo de vender por tu cuenta también entran en la comparación.',
+  },
+  'multiple-to-percent': {
+    title: 'De múltiplo a porcentaje de aumento',
+    desc: 'Convierte un múltiplo en porcentaje de aumento y al revés.',
+    long: 'El doble es un aumento del 100%, no del 200%: hay que restar uno al múltiplo para quedarse con la parte que creció. Ese único paso explica que en los titulares se mezclen «se triplicó» y «creció un 300%».',
+    note: 'Un múltiplo de 1 es un aumento del 0%, es decir, ningún cambio. La mitad es una caída del 50%, y cualquier múltiplo menor que 1 sale como crecimiento negativo.',
+  },
+  'halving-rate': {
+    title: 'Cuánto tarda en reducirse a la mitad',
+    desc: 'Los años que tarda algo en caer a la mitad con una tasa constante de descenso.',
+    long: 'Perder un 15% al año no lo reduce a la mitad en siete años, sino en 4,27. Cada año se lleva el 15% de lo que queda, así que la cantidad perdida se encoge año tras año. Es la regla del 72 dada la vuelta.',
+    note: 'Sirve para lo que mengua en proporción a lo que queda: depreciación, bajas de suscriptores, desintegración radiactiva. Si cada año se va la misma cantidad fija, basta con una división.',
+  },
+  'loan-balance': {
+    title: 'Capital pendiente de un préstamo',
+    desc: 'Cuánto capital queda por pagar después de un número de cuotas.',
+    long: 'Un préstamo francés cobra la misma cuota todos los meses, pero el reparto interno cambia sin parar. Al principio casi todo es interés y el capital apenas se mueve; más adelante cae deprisa.',
+    note: 'A los cinco años de una hipoteca a treinta, lo normal es haber amortizado menos de una décima parte. Esa cifra es el punto de partida para amortizar antes o cambiar de banco.',
+  },
+  'interest-only-period': {
+    title: 'Lo que cuesta un periodo de carencia',
+    desc: 'Cuántos intereses de más añade un periodo en el que solo se pagan intereses.',
+    long: 'Durante la carencia el capital no baja nada. Pagas intereses sobre el saldo original completo, y luego ese capital debe amortizarse en un plazo más corto, lo que sube la cuota posterior. Los dos efectos van juntos.',
+    note: 'La carencia aplaza la carga, no la elimina. Solo compensa si los ingresos van a subir o si la venta ya está decidida.',
+  },
+  'payoff-months': {
+    title: 'Meses hasta liquidar la deuda',
+    desc: 'Plazo y intereses totales a partir del saldo, el tipo y una cuota mensual fija.',
+    long: 'Aquí la pregunta va al revés: con la cuota fijada, ¿cuánto se tarda? Cuando la cuota apenas supera los intereses de un mes, el plazo se dispara, porque el saldo casi no se mueve.',
+    note: 'El crédito revolving cobra un porcentaje del saldo, así que la cuota también encoge y tarda mucho más. Estas cifras suponen una cantidad fija cada mes.',
+  },
+  'withdrawal-years': {
+    title: 'Cuánto duran unos ahorros',
+    desc: 'Los años que aguanta un capital si retiras una cantidad fija cada mes.',
+    long: 'Lo que queda sigue generando intereses, así que el dinero dura más que el capital dividido entre la retirada. Pero en cuanto la retirada supera a los intereses, el capital empieza a caer y los intereses caen con él, de modo que el descenso se acelera.',
+    note: 'La subida de precios reduce lo que compra la misma cantidad. Para leer la respuesta en dinero de hoy, introduce la rentabilidad menos la inflación.',
+  },
+  'marginal-tax-step': {
+    title: 'Qué pasa al cruzar un tramo del IRPF',
+    desc: 'Lo que cambia de verdad cuando la base imponible supera el umbral de un tramo.',
+    long: 'Cruzar un umbral no aplica el tipo alto a todo. Hasta la línea se tributa al tipo bajo y solo la parte de encima al alto, por lo que ganar un poco más nunca deja menos en el bolsillo.',
+    note: 'El tipo efectivo siempre queda por debajo del tipo máximo. Cuando alguien dice que está «en el tramo del 24%», esa cifra es el tipo marginal sobre la porción por encima de la línea.',
+  },
+  'coffee-ratio': {
+    title: 'Calculadora de ratio café-agua',
+    desc: 'Cuánta agua verter para una dosis de café y una proporción dadas.',
+    long: 'La proporción de extracción son mililitros de agua por gramo de café. En torno a 1:15 es el punto de partida habitual, y un segundo número más bajo da una taza más fuerte. El agua pesa casi exactamente lo que mide, así que una báscula basta.',
+    note: 'No toda el agua llega a la taza. El poso retiene unos 2 mL por gramo, así que 20 g con 300 mL dan unos 260 mL.',
+  },
+  'serial-dilution': {
+    title: 'Calculadora de dilución seriada',
+    desc: 'La concentración que queda tras diluir varias veces por el mismo factor.',
+    long: 'Varias diluciones pequeñas son más exactas que una grande. Diez veces tres veces da mil veces y, como los factores se multiplican, un paso más mueve la concentración un orden de magnitud entero.',
+    note: 'Cada trasvase debe medirse con cuidado: los errores se multiplican junto con los factores, así que un pequeño desliz se agrava a lo largo de tres pasos.',
+  },
+  'curve-grade': {
+    title: 'Calculadora de nota con campana',
+    desc: 'Tu nota ajustada cuando la media de la clase se desplaza a un objetivo.',
+    long: 'La curva más simple suma a todos los mismos puntos para que la media caiga donde debe. Mueve la escala sin tocar el orden, y por eso el puesto de nadie cambia.',
+    note: 'El techo de 100 comprime la parte alta. Los alumnos cerca del sobresaliente acaban empatados, así que esta curva encaja mal cuando el examen debe separar a los mejores.',
+  },
 };

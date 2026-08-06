@@ -11,6 +11,8 @@
  * 숫자만 보여주고 넘어가면 잘못 쓰는 사람이 생긴다.
  */
 import { CONVERT_TOOLS2, CONVERT_CATEGORIES2 } from './convert-tools2.ts';
+import { CONVERT_TOOLS3 } from './convert-tools3.ts';
+import { relatedFor } from './related-rotate.ts';
 
 export interface ConvertTool {
   slug: string;
@@ -423,6 +425,7 @@ const PRESSURE: ConvertTool[] = [
 export const CONVERT_TOOLS: ConvertTool[] = [
   ...LENGTH, ...WEIGHT, ...VOLUME, ...AREA, ...TEMPERATURE, ...SPEED, ...DATA, ...ENERGY, ...PRESSURE,
   ...CONVERT_TOOLS2,
+  ...CONVERT_TOOLS3,
 ];
 
 export const CONVERT_MAP: Record<string, ConvertTool> = Object.fromEntries(
@@ -463,8 +466,6 @@ export function findConvertTool(slug: string): ConvertTool | undefined {
 export function relatedConvertTools(slug: string, limit = 6): ConvertTool[] {
   const current = CONVERT_MAP[slug];
   if (!current) return [];
-  const others = CONVERT_TOOLS.filter(t => t.slug !== slug);
-  const same = others.filter(t => t.category === current.category);
-  const rest = others.filter(t => t.category !== current.category);
-  return [...same, ...rest].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(CONVERT_TOOLS, current, t => t.category === current.category, limit);
 }

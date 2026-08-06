@@ -230,6 +230,22 @@ export const INGREDIENTS: Ingredient[] = [
   g('sliced-mushrooms', 290, 'vegetable', '저민 버섯', 'Sliced mushrooms', 'Champiñones en láminas', 'Cogumelos fatiados', 'スライスマッシュルーム', 'Geschnittene Champignons', 'Champignons émincés', 'कटे मशरूम', '蘑菇片', '蘑菇片'),
   g('rolled-cornflakes', 160, 'other', '콘플레이크', 'Cornflakes', 'Copos de maíz', 'Flocos de milho', 'コーンフレーク', 'Cornflakes', 'Pétales de maïs', 'कॉर्नफ्लेक्स', '玉米片', '玉米片'),
   g('dried-apricots', 640, 'other', '말린 살구', 'Dried apricots', 'Orejones', 'Damascos secos', 'ドライアプリコット', 'Getrocknete Aprikosen', 'Abricots secs', 'सूखी खुबानी', '杏干', '杏乾'),
+
+  /* ───────── 늘린 것 — 열 언어 이름을 모두 대조해 겹치지 않는 것만 ───────── */
+  g('arrowroot-starch', 540, 'flour', '애로루트 전분', 'Arrowroot starch', 'Almidón de arrurruz', 'Amido de araruta', 'くず粉（アロールート）', 'Pfeilwurzstärke', 'Fécule d’arrow-root', 'अरारोट स्टार्च', '葛根淀粉', '葛根澱粉'),
+  g('chestnut-flour', 480, 'flour', '밤가루', 'Chestnut flour', 'Harina de castaña', 'Farinha de castanha', '栗粉', 'Kastanienmehl', 'Farine de châtaigne', 'शाहबलूत आटा', '栗子粉', '栗子粉'),
+  g('sorghum-grain', 720, 'grain', '수수', 'Sorghum', 'Sorgo', 'Sorgo', 'ソルガム', 'Sorghum', 'Sorgho', 'ज्वार', '高粱', '高粱'),
+  g('teff-grain', 800, 'grain', '테프', 'Teff', 'Teff', 'Teff', 'テフ', 'Teff', 'Teff', 'टेफ़', '苔麸', '苔麩'),
+  g('freekeh', 700, 'grain', '프리케', 'Freekeh', 'Freekeh', 'Freekeh', 'フリーカ', 'Freekeh', 'Freekeh', 'फ़्रीका', '青麦仁', '青麥仁'),
+  g('kefir', 1030, 'dairy', '케피어', 'Kefir', 'Kéfir', 'Kefir', 'ケフィア', 'Kefir', 'Kéfir', 'केफ़िर', '开菲尔', '克菲爾'),
+  g('clotted-cream', 950, 'dairy', '클로티드 크림', 'Clotted cream', 'Nata cuajada', 'Nata coalhada', 'クロテッドクリーム', 'Clotted Cream', 'Crème caillée', 'क्लॉटेड क्रीम', '凝脂奶油', '凝脂奶油'),
+  g('sunflower-oil', 920, 'fat', '해바라기유', 'Sunflower oil', 'Aceite de girasol', 'Óleo de girassol', 'ひまわり油', 'Sonnenblumenöl', 'Huile de tournesol', 'सूरजमुखी तेल', '葵花籽油', '葵花籽油'),
+  g('canola-oil', 915, 'fat', '카놀라유', 'Canola oil', 'Aceite de canola', 'Óleo de canola', 'キャノーラ油', 'Rapsöl', 'Huile de colza', 'कैनोला तेल', '菜籽油', '菜籽油'),
+  g('brazil-nuts', 640, 'nut', '브라질너트', 'Brazil nuts', 'Nueces de Brasil', 'Castanha-do-pará', 'ブラジルナッツ', 'Paranüsse', 'Noix du Brésil', 'ब्राज़ील नट', '巴西坚果', '巴西堅果'),
+  g('poppy-seeds', 600, 'nut', '양귀비씨', 'Poppy seeds', 'Semillas de amapola', 'Sementes de papoula', 'ケシの実', 'Mohnsamen', 'Graines de pavot', 'ख़सख़स', '罂粟籽', '罌粟籽'),
+  g('fenugreek-seeds', 700, 'spice', '호로파씨', 'Fenugreek seeds', 'Semillas de fenogreco', 'Sementes de feno-grego', 'フェヌグリーク', 'Bockshornkleesamen', 'Graines de fenugrec', 'मेथी दाना', '葫芦巴籽', '葫蘆巴籽'),
+  g('oyster-sauce', 1200, 'liquid', '굴소스', 'Oyster sauce', 'Salsa de ostras', 'Molho de ostra', 'オイスターソース', 'Austernsauce', 'Sauce aux huîtres', 'ऑयस्टर सॉस', '蚝油', '蠔油'),
+  g('chopped-zucchini', 600, 'vegetable', '다진 애호박', 'Chopped zucchini', 'Calabacín picado', 'Abobrinha picada', '刻んだズッキーニ', 'Gehackte Zucchini', 'Courgette hachée', 'कटी तोरी', '切碎西葫芦', '切碎櫛瓜'),
 ];
 
 export const INGREDIENT_SLUGS = INGREDIENTS.map(i => i.slug);

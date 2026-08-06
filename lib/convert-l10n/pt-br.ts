@@ -653,4 +653,103 @@ export const CONVERT_PT_BR: Record<string, ConvertL10n> = {
     note: 'O "BTU" de um ar-condicionado quase sempre abrevia BTU por hora. Doze mil BTU/h fazem uma tonelada de refrigeração.',
     from: 'BTU', to: 'Wh',
   },
+
+  /* ───────── 셋째 묶음 16종 ───────── */
+  'chain-m': {
+    title: 'Chains para metros',
+    desc: 'Converte a corrente de agrimensor para metros',
+    long: 'Converte chains para metros e vice-versa. A unidade sobrevive em registros de terra britânicos e americanos antigos, nos marcos ferroviários e no comprimento de um campo de críquete.',
+    note: 'Um chain são 66 pés, exatamente 20,1168 m. Dez chains fazem um furlong e oitenta fazem uma milha, então ele é a régua por trás da milha.',
+  },
+  'rod-m': {
+    title: 'Rods para metros',
+    desc: 'Converte a antiga vara de medição para metros',
+    long: 'Converte rods para metros e vice-versa. Também chamado de pole ou perch, aparece em escrituras inglesas e americanas antigas e em comprimentos de cercas e valas.',
+    note: 'Um rod são 16,5 pés, exatamente 5,0292 m. Quatro rods fazem um chain, e uma faixa de quatro por quarenta rods dá exatamente um acre.',
+  },
+  'barleycorn-mm': {
+    title: 'Grãos de cevada para milímetros',
+    desc: 'O degrau por trás dos números de calçado britânicos',
+    long: 'Batizada por um grão de cevada, esta unidade é um terço de polegada. É por isso que os números de calçado britânicos e americanos sobem cerca de 8,47 mm por vez.',
+    note: 'A numeração adulta começa em doze grãos (quatro polegadas) e soma um por número. O 8 se refere à fôrma, não ao comprimento do seu pé.',
+  },
+  'parsec-lightyear': {
+    title: 'Parsecs para anos-luz',
+    desc: 'Converte entre unidades de distância astronômica',
+    long: 'Converte o parsec dos artigos astronômicos para o ano-luz da divulgação. Um parsec é a distância em que o raio da órbita da Terra ocupa um segundo de arco.',
+    note: 'Um parsec equivale a cerca de 3,26 anos-luz. Proxima Centauri, a estrela mais próxima, fica a 1,30 parsec — 4,24 anos-luz.',
+  },
+  'slug-kg': {
+    title: 'Slugs para quilogramas',
+    desc: 'A unidade de massa da engenharia imperial',
+    long: 'Converte slugs para quilogramas e vice-versa. Um slug é a massa que uma libra-força acelera a um pé por segundo ao quadrado, usada na engenharia americana para separar massa de peso.',
+    note: 'Libra é peso e slug é massa. Um slug equivale a cerca de 32,174 libras — o mesmo número da gravidade em pés por segundo ao quadrado.',
+  },
+  'quintal-kg': {
+    title: 'Quintais para quilogramas',
+    desc: 'A unidade de 100 kg do comércio de grãos',
+    long: 'Converte quintais para quilogramas e vice-versa. Grãos e fertilizantes são negociados por quintal na Europa, na Índia e na América Latina, contando cem quilos como um lote.',
+    note: 'O quintal métrico é exatamente 100 kg. O hundredweight, de nome parecido, é diferente: 45,36 kg nos EUA e 50,80 kg no Reino Unido.',
+  },
+  'peck-l': {
+    title: 'Pecks para litros',
+    desc: 'Uma medida de secos igual a um quarto de bushel',
+    long: 'Converte pecks para litros e vice-versa. É o tamanho do cesto em que maçãs e batatas são vendidas, ainda em uso nas feiras de produtores americanas.',
+    note: 'Um peck seco americano tem 8,81 L e quatro pecks fazem um bushel. O peck imperial tem 9,09 L, então o número muda.',
+  },
+  'dunam-m2': {
+    title: 'Dunams para metros quadrados',
+    desc: 'A unidade de área do Oriente Médio e dos Bálcãs',
+    long: 'Converte dunams para metros quadrados e vice-versa. Herdada do Império Otomano, continua sendo a unidade de trabalho nas negociações de terra em Israel, na Turquia e nos Bálcãs.',
+    note: 'O dunam métrico é 1.000 m², um décimo de hectare. O antigo dunam otomano tinha cerca de 919 m², então documentos velhos diferem.',
+  },
+  'celsius-reaumur': {
+    title: 'Celsius para Réaumur',
+    desc: 'Converte graus Celsius para a escala Réaumur',
+    long: 'Converte Celsius para Réaumur e vice-versa. A escala coloca o congelamento da água em 0 e a fervura em 80, e persiste em receitas europeias de queijo e calda.',
+    note: 'Multiplique os Celsius por 0,8 para obter Réaumur. As duas escalas partem do mesmo zero, então basta a multiplicação.',
+  },
+  'pib-tib': {
+    title: 'PiB para TiB',
+    desc: 'Converte pebibytes para tebibytes',
+    long: 'Converte pebibytes para tebibytes e vice-versa. Essas unidades em potências de dois são as que realmente aparecem no planejamento de capacidade de data center e de backup.',
+    note: 'Um PiB são 1.024 TiB. Os fabricantes anunciam PB em potências de dez, então 1 PB é só 0,888 PiB — mais de dez por cento de diferença.',
+  },
+  'toe-mwh': {
+    title: 'Toneladas equivalentes de petróleo para MWh',
+    desc: 'Converte a unidade estatística de energia para eletricidade',
+    long: 'Converte toneladas equivalentes de petróleo para megawatt-hora e vice-versa. As estatísticas energéticas nacionais a usam para colocar carvão, gás e eletricidade na mesma escala.',
+    note: 'Uma tep é definida como 41,868 GJ, ou 11,63 MWh. É um número contábil fixado, não o poder calorífico real de um petróleo específico.',
+  },
+  'tnt-gj': {
+    title: 'Toneladas de TNT para gigajoules',
+    desc: 'Converte poder explosivo em energia',
+    long: 'Converte toneladas equivalentes de TNT para gigajoules e vice-versa. É assim que se comparam a energia de terremotos e o tamanho de explosões, e é o número por trás das manchetes que citam “tantas toneladas de TNT”.',
+    note: 'Uma tonelada de TNT é definida como exatamente 4,184 GJ. É uma convenção fixa, não um calor de detonação medido.',
+  },
+  'ksi-mpa': {
+    title: 'ksi para MPa',
+    desc: 'Converte unidades de resistência de materiais',
+    long: 'Converte ksi para megapascais e vice-versa. As normas americanas de materiais informam resistência à tração e limite de escoamento em ksi, então compará-las com especificações internacionais passa por esta conversão.',
+    note: 'Um ksi são 1.000 psi, cerca de 6,895 MPa. Os 800 MPa de tração de um parafuso classe 8.8 dão aproximadamente 116 ksi.',
+  },
+  'footcandle-lux': {
+    title: 'Foot-candles para lux',
+    desc: 'Converte entre unidades de iluminância',
+    long: 'Converte foot-candles para lux e vice-versa. As orientações americanas de iluminação são escritas em foot-candles, então compará-las com normas internacionais exige este passo.',
+    note: 'Um foot-candle equivale a cerca de 10,76 lux. A razão é simplesmente a que existe entre um pé quadrado e um metro quadrado.',
+  },
+  'mil-degree': {
+    title: 'Milésimos para graus',
+    desc: 'Converte a unidade angular militar para graus',
+    long: 'Converte milésimos para graus e vice-versa. Artilharia e tiro usam esta unidade, que divide a volta completa em 6.400 partes segundo a convenção da OTAN.',
+    note: 'Um ângulo reto tem 1.600 milésimos. Um milésimo cobre cerca de um metro a mil metros, o que liga distância e largura de cabeça.',
+  },
+  'sidereal-day-hour': {
+    title: 'Dia sideral para horas',
+    desc: 'Quanto dura um dia medido pelas estrelas',
+    long: 'Converte o dia sideral para horas. É o tempo que a Terra leva para girar uma vez em relação às estrelas, cerca de quatro minutos a menos que as 24 horas marcadas pelo Sol.',
+    note: 'A Terra orbita enquanto gira, então precisa girar um pouco mais para trazer o Sol de volta. Esses 3 minutos e 56 segundos por dia somam exatamente um dia por ano.',
+    from: 'dia sideral', to: 'horas',
+  },
 };

@@ -5,6 +5,7 @@ import { IDIOMS, HANJA_CATEGORIES, idiomBySlug, relatedIdioms } from '../lib/han
 import { idiomText } from '../lib/hanja/types.ts';
 import { HANJA_UI, hanjaCategories, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
 import { GLOSS_EN } from '../lib/hanja/gloss-en.ts';
+import { HANJA_L10N, GLOSS_L10N } from '../lib/hanja-l10n/index.ts';
 import { appFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
@@ -185,4 +186,44 @@ test('잘 알려진 성어의 뜻이 맞는다', () => {
   assert.equal(idiomBySlug('cheongchuleoram')!.simplified, '青出于蓝');
   assert.ok(idiomBySlug('ugongisan')!.ko.origin.includes('열자'));
   assert.ok(idiomBySlug('ongojisin')!.ko.origin.includes('논어'));
+});
+
+/*
+ * 위의 "여덟 언어가 채워져 있다"는 검사는 idiomText를 부른다. 그런데 idiomText는
+ * 사전에 그 성어가 없으면 영어를 대신 돌려주므로, 여덟 언어가 통째로 비어 있어도
+ * 길이 검사가 다 통과한다 — 실제로 열두 개를 새로 넣었을 때 여덟 언어가 하나도
+ * 없는 채로 스물두 검사가 전부 초록이었다.
+ *
+ * 그래서 화면에 나오는 값이 아니라 **사전에 그 열쇠가 있는지**를 본다.
+ */
+test('여덟 언어 사전에 성어가 하나도 빠지지 않는다', () => {
+  const bad: string[] = [];
+  for (const [lang, table] of Object.entries(HANJA_L10N)) {
+    const missing = IDIOMS.filter(i => !table[i.slug]);
+    if (missing.length) bad.push(`${lang}: ${missing.length}개 (${missing.slice(0, 3).map(i => i.slug).join(', ')}…)`);
+  }
+  assert.deepEqual(bad, [], `사전에 없어 영어로 떨어진다:\n  ${bad.join('\n  ')}`);
+});
+
+test('글자별 새김도 여덟 언어에 성어마다 있다', () => {
+  const bad: string[] = [];
+  for (const [lang, table] of Object.entries(GLOSS_L10N)) {
+    const missing = IDIOMS.filter(i => !table?.[i.slug]);
+    if (missing.length) bad.push(`${lang}: ${missing.length}개 (${missing.slice(0, 3).map(i => i.slug).join(', ')}…)`);
+  }
+  assert.deepEqual(bad, [], `새김이 없어 한국어 훈음이 그대로 나간다:\n  ${bad.join('\n  ')}`);
+});
+
+test('번역이 영어를 그대로 물려받지 않는다', () => {
+  // 사전에 열쇠는 있는데 값이 영어 그대로인 경우 — 옮긴 척만 한 자리를 잡는다
+  const bad: string[] = [];
+  for (const lang of LANGS) {
+    if (lang === 'ko' || lang === 'en') continue;
+    const same = IDIOMS.filter(i => {
+      const t = idiomText(i, lang);
+      return t.meaning === i.en.meaning && t.origin === i.en.origin;
+    });
+    if (same.length) bad.push(`${lang}: ${same.length}개`);
+  }
+  assert.deepEqual(bad, [], `영어를 그대로 쓰고 있다: ${bad.join(', ')}`);
 });

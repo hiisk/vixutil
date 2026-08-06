@@ -110,3 +110,31 @@ export const GEO2_DESC: Record<string, Term> = {
 };
 
 export const geo2Desc = (key: string, lang: Lang): string | null => GEO2_DESC[key]?.[lang] ?? null;
+
+/**
+ * 124종으로 늘리며 생긴 용어의 뜻풀이(3언어).
+ *
+ * 좌표기하는 이름이 짧아서 무엇을 넣는 칸인지가 특히 안 보인다 — 기울기와 절편,
+ * 위도와 경도는 순서를 바꿔 넣어도 숫자가 나오기 때문에 틀린 줄을 모른다.
+ */
+export const GEO3_DESC: Record<string, Term> = {
+  lineSlope: { ko: 'x가 1 늘 때 y가 얼마나 오르는지. y = mx + b의 m입니다.', en: 'How much y rises per 1 of x — the m in y = mx + b.' },
+  lineIntercept: { ko: '직선이 y축과 만나는 높이. y = mx + b의 b입니다.', en: 'Where the line crosses the y axis — the b in y = mx + b.' },
+  slopeB: { ko: '두 번째 직선의 기울기. 첫 직선과 같으면 평행이라 만나지 않습니다.', en: 'The second line’s slope; equal slopes are parallel and never meet.' },
+  interceptB: { ko: '두 번째 직선이 y축과 만나는 높이.', en: 'Where the second line crosses the y axis.' },
+  x4: { ko: '네 번째 점의 가로 좌표.', en: 'The horizontal coordinate of the fourth point.' },
+  y4: { ko: '네 번째 점의 세로 좌표.', en: 'The vertical coordinate of the fourth point.' },
+
+  lat1: { ko: '출발점의 위도. 북위가 양수, 남위가 음수입니다.', en: 'The starting latitude — positive north, negative south.' },
+  lon1: { ko: '출발점의 경도. 동경이 양수, 서경이 음수입니다.', en: 'The starting longitude — positive east, negative west.' },
+  lat2: { ko: '도착점의 위도. 위도 1도는 어디서나 약 111km입니다.', en: 'The end latitude; one degree of latitude is about 111 km anywhere.' },
+  lon2: { ko: '도착점의 경도. 경도 1도의 거리는 극에 가까울수록 짧아집니다.', en: 'The end longitude; a degree of longitude shrinks towards the poles.' },
+
+  totalLen: { ko: '나누기 전 전체 길이.', en: 'The whole length before it is divided.' },
+  longPart: { ko: '황금비로 잘랐을 때 긴 쪽 길이.', en: 'The longer piece when cut at the golden ratio.' },
+  shortPart: { ko: '남은 짧은 쪽 길이. 긴 쪽과의 비도 다시 황금비입니다.', en: 'The shorter piece; it sits in the same ratio to the longer one.' },
+  overlapPct: { ko: '겹친 넓이가 작은 원 넓이의 몇 퍼센트인지.', en: 'The overlap as a share of the smaller circle’s area.' },
+  wound: { ko: '다 풀었을 때 나오는 길이. 두께가 얇을수록 길어집니다.', en: 'The length you get when it is fully unrolled; thinner means longer.' },
+  slopeRatio: { ko: '1만큼 올라갈 때 필요한 수평 거리. 1:12면 12입니다.', en: 'How far you travel level per 1 of rise — 12 for a 1:12 ramp.' },
+};
+export const geo3Desc = (key: string, lang: Lang): string | null => GEO3_DESC[key]?.[lang] ?? null;

@@ -670,4 +670,84 @@ export const RATE_PT_BR: Record<string, FormulaText> = {
     long: 'Divida a parcela mensal pela renda líquida do mês. Dividir pelo bruto faz parecer mais folgado do que é, então use o dinheiro que realmente entra.',
     note: 'O limite que os credores aplicam muda conforme o país e a instituição. Isto dá a proporção; se emprestam ou não é regra deles, não deste número.',
   },
+
+  /* ───────── 셋째 묶음 13종 ───────── */
+  'bulk-tier-price': {
+    title: 'Calculadora de preço por volume',
+    desc: 'Total e custo real por unidade quando o preço cai a partir de certa quantidade.',
+    long: 'O preço em faixas troca todas as unidades pela tarifa mais barata assim que o mínimo é atingido. Isso cria um trecho logo abaixo dele em que comprar mais sai por menos — o ponto em que 99 custa mais que 100.',
+    note: 'Se ultrapassar o mínimo não reduz o total, o vendedor desconta apenas as unidades acima dele e este cálculo não se aplica.',
+  },
+  'usage-split': {
+    title: 'Dividir uma conta pelo consumo',
+    desc: 'Divide uma conta compartilhada conforme o quanto cada lado realmente usou.',
+    long: 'Dividir por cabeça penaliza quem usou menos. Havendo algo mensurável — leitura do medidor, dados consumidos, horas reservadas — repartir nessa proporção corresponde ao que cada lado de fato gerou.',
+    note: 'Se parte da conta é uma taxa fixa, divida essa parte igualmente primeiro e aplique este cálculo ao restante.',
+  },
+  'trade-in-discount': {
+    title: 'Desconto real da troca de aparelho',
+    desc: 'Quanto vale de verdade, em porcentagem, o abatimento que dão pelo aparelho usado.',
+    long: 'A troca parece desconto, mas quem paga por ela é o aparelho que você entrega. O preço de tabela menos o abatimento é o que você realmente paga, e o abatimento dividido pelo preço de tabela é o desconto real.',
+    note: 'Se o abatimento fica abaixo do preço de revenda, essa diferença é seu custo — embora o tempo e o risco de vender por conta própria também entrem na conta.',
+  },
+  'multiple-to-percent': {
+    title: 'Quantas vezes é quantos por cento',
+    desc: 'Converte um múltiplo em aumento percentual e vice-versa.',
+    long: 'O dobro é um aumento de 100%, não de 200%: subtrai-se um do múltiplo para ficar só com o que cresceu. Esse único passo explica a confusão entre “triplicou” e “cresceu 300%” nas manchetes.',
+    note: 'Múltiplo 1 é aumento de 0%, ou seja, nada mudou. Metade é queda de 50%, e qualquer múltiplo abaixo de 1 aparece como crescimento negativo.',
+  },
+  'halving-rate': {
+    title: 'Quanto tempo para cair pela metade',
+    desc: 'Os anos até cair à metade com uma taxa constante de queda.',
+    long: 'Perder 15% ao ano não leva sete anos para cair pela metade, mas 4,27. Cada ano leva 15% do que restou, então a quantidade perdida encolhe ano após ano. É a regra dos 72 invertida.',
+    note: 'Vale para o que diminui em proporção ao que resta: depreciação, cancelamento de assinantes, decaimento radioativo. Se sai a mesma quantia fixa todo ano, uma divisão simples basta.',
+  },
+  'loan-balance': {
+    title: 'Saldo devedor de um financiamento',
+    desc: 'Quanto ainda se deve de principal depois de certo número de parcelas.',
+    long: 'Na Tabela Price a parcela é sempre a mesma, mas a divisão interna muda o tempo todo. No começo quase tudo é juros e o saldo mal se move; depois o principal cai rapidamente.',
+    note: 'Cinco anos dentro de um financiamento de trinta, o saldo costuma ter caído menos de um décimo. Esse número é o ponto de partida para amortizar ou portar a dívida.',
+  },
+  'interest-only-period': {
+    title: 'O custo de um período de carência',
+    desc: 'Quanto juro a mais uma carência acrescenta ao longo do financiamento.',
+    long: 'Durante a carência o principal não cai nada. Você paga juros sobre o saldo original inteiro, e depois esse principal precisa ser quitado em um prazo mais curto, o que eleva a parcela seguinte. Os dois efeitos andam juntos.',
+    note: 'A carência adia a carga em vez de removê-la. Só compensa quando a renda vai crescer ou a venda já está definida.',
+  },
+  'payoff-months': {
+    title: 'Meses para quitar a dívida',
+    desc: 'Prazo e juros totais a partir do saldo, da taxa e de uma parcela mensal fixa.',
+    long: 'Aqui a pergunta é invertida: com a parcela fixa, quanto tempo leva? Quando a parcela mal supera os juros de um mês, o prazo se estica muito, porque o saldo quase não anda.',
+    note: 'O rotativo cobra uma porcentagem do saldo, então a parcela também encolhe e demora bem mais. Estes números pressupõem um valor fixo todo mês.',
+  },
+  'withdrawal-years': {
+    title: 'Quanto tempo a reserva dura',
+    desc: 'Os anos que um montante dura quando se retira um valor fixo por mês.',
+    long: 'O que sobra continua rendendo, então o dinheiro dura mais do que o montante dividido pela retirada. Assim que a retirada passa dos juros, porém, o principal começa a cair e os juros caem junto, acelerando o esgotamento.',
+    note: 'A alta de preços reduz o que o mesmo valor compra. Para ler a resposta em dinheiro de hoje, informe o rendimento menos a inflação.',
+  },
+  'marginal-tax-step': {
+    title: 'O que muda ao passar de faixa',
+    desc: 'O que realmente acontece quando a base de cálculo ultrapassa o limite de uma faixa.',
+    long: 'Passar do limite não aplica a alíquota maior a tudo. Até a linha vale a alíquota menor e só a parte acima paga a maior, e é por isso que ganhar um pouco mais nunca deixa você com menos.',
+    note: 'A alíquota efetiva fica sempre abaixo da maior. Quando alguém diz estar “na faixa dos 24%”, esse número é a alíquota marginal sobre a fatia acima da linha.',
+  },
+  'coffee-ratio': {
+    title: 'Calculadora de proporção café-água',
+    desc: 'Quanta água despejar para uma dose de café e uma proporção escolhida.',
+    long: 'A proporção de extração é mililitros de água por grama de café. Perto de 1:15 é o ponto de partida usual, e um segundo número menor deixa a bebida mais forte. A água pesa quase exatamente o que mede, então uma balança resolve.',
+    note: 'Nem toda a água chega à xícara. O pó retém cerca de 2 mL por grama, então 20 g com 300 mL rendem uns 260 mL.',
+  },
+  'serial-dilution': {
+    title: 'Calculadora de diluição seriada',
+    desc: 'A concentração restante depois de diluir várias vezes pelo mesmo fator.',
+    long: 'Várias diluições pequenas são mais exatas que uma grande. Dez vezes, três vezes, dá mil vezes e, como os fatores se multiplicam, um passo a mais desloca a concentração uma ordem de grandeza inteira.',
+    note: 'Cada transferência precisa ser medida com cuidado: os erros se multiplicam junto com os fatores, então um pequeno deslize se agrava ao longo de três etapas.',
+  },
+  'curve-grade': {
+    title: 'Calculadora de curva de notas',
+    desc: 'Sua nota ajustada quando a média da turma é deslocada para um alvo.',
+    long: 'A curva mais simples soma os mesmos pontos a todo mundo para a média cair onde deve. Ela move a escala sem mexer na ordem, e é justamente por isso que ninguém muda de posição.',
+    note: 'O teto de 100 comprime o topo. Alunos perto da nota máxima acabam empatados, então essa curva serve mal quando a prova precisa separar os melhores.',
+  },
 };

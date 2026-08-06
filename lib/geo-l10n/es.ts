@@ -670,4 +670,90 @@ export const GEO_ES: Record<string, FormulaText> = {
     long: 'La arcotangente de la subida entre el avance da el ángulo. Esa misma razón por 100 es el porcentaje, y la hipotenusa de ambas es la longitud del par.',
     note: 'Esa longitud llega hasta el muro: añade después el vuelo del alero que quieras antes de cortar.',
   },
+
+  /* ───────── 셋째 묶음 14종 — 좌표기하와 현장 계산 ───────── */
+  'line-point-distance': {
+    title: 'Distancia de un punto a una recta',
+    desc: 'Distancia más corta entre un punto y la recta y = mx + b.',
+    long: 'El camino más corto llega a la recta en ángulo recto. Sustituye el punto en la forma pendiente-ordenada y divide entre √(m²+1), que corrige lo inclinada que está la recta.',
+    note: 'Las coordenadas adicionales son el pie de la perpendicular: el punto de la recta más cercano al tuyo.',
+  },
+  'line-intersection': {
+    title: 'Punto de corte de dos rectas',
+    desc: 'Dónde se cruzan dos rectas escritas como y = mx + b.',
+    long: 'Iguala las dos ecuaciones y despeja. La diferencia de ordenadas dividida entre la diferencia de pendientes da la x del corte; llevando esa x a cualquiera de las rectas se obtiene la y.',
+    note: 'Pendientes iguales significan rectas paralelas que nunca se cruzan, y entonces el resultado sale como cero.',
+  },
+  'quad-area-coords': {
+    title: 'Área de un cuadrilátero por coordenadas',
+    desc: 'Área y perímetro de una figura de cuatro lados a partir de sus vértices.',
+    long: 'Es la fórmula del cordón de zapato. Enumera los vértices en el orden en que recorres la figura, multiplica en cruz las x y las y, y toma la mitad de la diferencia. Vale también si no es un rectángulo e incluso si tiene una entrante.',
+    note: 'Los vértices deben recorrer la figura, en sentido horario o antihorario. Ordenarlos cruzando una diagonal da un área demasiado pequeña.',
+  },
+  'golden-ratio': {
+    title: 'Calculadora de la proporción áurea',
+    desc: 'Divide una longitud en la proporción áurea de 1 a 1,618.',
+    long: 'Divide el total entre 1,618034 para obtener el trozo largo; lo que queda es el corto. Cortando así, el total es al trozo largo lo que el largo es al corto, de modo que la misma proporción se repite cuantas veces vuelvas a cortar.',
+    note: 'Útil para márgenes, alturas de estantes o repartir una maqueta cuando necesitas un criterio defendible para cortar.',
+  },
+  'ring-sector-area': {
+    title: 'Área de un sector de corona circular',
+    desc: 'Área y perímetro de una porción cortada de un anillo.',
+    long: 'Toma el sector exterior y réstale el interior. Multiplica la diferencia de los radios al cuadrado por la parte del círculo que abarca el ángulo para el área; el perímetro suma ambos arcos más los dos bordes rectos.',
+    note: 'Es la forma de un paseo circular, del peldaño de una escalera de caracol o del aislante de tubería cortado en cuña.',
+  },
+  'two-circles-overlap': {
+    title: 'Área de solape de dos círculos',
+    desc: 'Solape de dos círculos a partir de sus radios y la distancia entre centros.',
+    long: 'El solape es una lente formada por dos segmentos circulares. El teorema del coseno da un semiángulo en cada círculo y las dos áreas de segmento se suman. Más allá de la suma de los radios los círculos no se tocan; por debajo de la diferencia, el pequeño queda dentro por completo.',
+    note: 'La proporción se mide contra el círculo menor: 100% significa que queda totalmente cubierto.',
+  },
+  'spiral-roll-length': {
+    title: 'Longitud de un rollo',
+    desc: 'Cuánto mide un rollo desenrollado, según diámetros y espesor.',
+    long: 'Divide el área de la sección enrollada entre el espesor del material. Contar por área en vez de vuelta a vuelta mantiene el error por debajo del uno por ciento mientras el bobinado sea apretado.',
+    note: 'La exactitud depende del espesor. La cinta de carrocero ronda los 0,13 mm y el papel de etiquetas los 0,1 mm.',
+  },
+  'cone-unroll-angle': {
+    title: 'Ángulo del desarrollo de un cono',
+    desc: 'El ángulo de sector que hay que cortar al desplegar un cono.',
+    long: 'Desenrollado, el cono se convierte en un sector cuyo radio es la generatriz y cuyo arco debe igualar la circunferencia de la base. Multiplicando esa razón por 360° sale el ángulo a recortar.',
+    note: 'Sirve para gorros, embudos y cubiertas cónicas en papel o chapa. Añade aparte tu propio margen para el solape pegado o engatillado.',
+  },
+  'frustum-surface': {
+    title: 'Área de un tronco de cono',
+    desc: 'Superficie de un cono al que se le ha cortado la punta.',
+    long: 'El lateral es π por la suma de los dos radios por la generatriz. La trampa está en la generatriz: no es la altura vertical, sino la hipotenusa que forman la altura y la diferencia de radios.',
+    note: 'Úsala con macetas, cubos y vasos cuando calcules pintura, film o vinilo.',
+  },
+  'barrel-volume': {
+    title: 'Volumen de un barril',
+    desc: 'Capacidad de un tonel abombado a partir de sus dos diámetros y su altura.',
+    long: 'Kepler ideó esta aproximación para medir toneles de vino. Como el centro se abomba, el barril cabe más que un cilindro: el diámetro central cuenta dos veces y el de las tapas una.',
+    note: 'Vale para toneles, depósitos de agua y maceteros panzudos. Para un bidón de pared recta la calculadora de cilindro es más exacta.',
+  },
+  'horizontal-tank-volume': {
+    title: 'Volumen de un depósito horizontal',
+    desc: 'Líquido que queda en un depósito tumbado, según la altura medida.',
+    long: 'En un depósito tumbado la altura y el volumen no son proporcionales. La sección es un segmento circular, ancho en el centro y estrecho arriba y abajo, así que solo a media altura queda exactamente la mitad. Calcula el área del segmento y multiplícala por la longitud del cuerpo.',
+    note: 'Introduce la altura leída con la varilla. Por debajo de la mitad queda mucho menos de lo que sugiere el nivel.',
+  },
+  'miter-angle': {
+    title: 'Ángulo de inglete para marcos',
+    desc: 'El ángulo de corte para montar un marco con los lados que quieras.',
+    long: 'El giro exterior donde se encuentran dos piezas, el ángulo exterior, vale 360÷n. Cada pieza se lleva la mitad, así que el inglete es 180÷n, mientras que el ángulo interior que queda dentro es 180×(n−2)÷n. Un marco cuadrado se corta a 45° porque es la mitad de un giro de 90°.',
+    note: 'Muchas ingletadoras miden el giro respecto a 90°. Un hexágono necesita 30°, que en la escala puede aparecer como 60°, así que corta antes una pieza de prueba.',
+  },
+  'ramp-length': {
+    title: 'Longitud de una rampa',
+    desc: 'Longitud de la rampa según la altura a salvar y la pendiente.',
+    long: 'Una pendiente 1:12 avanza 12 cm en horizontal por cada centímetro de subida. El desarrollo horizontal es la altura por ese número, y la tabla en sí es la hipotenusa del triángulo que forman subida y avance.',
+    note: 'La norma habitual para sillas de ruedas es 1:12. Un escalón de 15 cm pide 180 cm de avance, así que mide el espacio antes de comprar.',
+  },
+  'earth-distance': {
+    title: 'Distancia entre coordenadas',
+    desc: 'Distancia en línea recta sobre la Tierra entre dos pares de latitud y longitud.',
+    long: 'La Tierra es redonda, así que no basta con restar coordenadas. La fórmula del haversine mide el arco de círculo máximo que une los dos puntos, plegando las diferencias de latitud y longitud en senos de medio ángulo para que el resultado aguante cerca de los polos.',
+    note: 'Es la distancia directa, no la de carretera que da una aplicación de mapas. El rumbo indicado es la dirección a la que mirar al salir.',
+  },
 };

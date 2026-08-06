@@ -114,7 +114,7 @@ export default function SoundHubPage() {
         </div>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>
+          <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>🎸 <b className="text-slate-800 dark:text-slate-100">악기를 잡았을 때</b> — 튜너로 조율하고 메트로놈으로 박자를 잡습니다</li>
             <li>🌙 <b className="text-slate-800 dark:text-slate-100">잠이 안 올 때</b> — 백색소음으로 주변 소리를 덮습니다</li>

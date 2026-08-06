@@ -20,7 +20,7 @@ export default function CrossLinks({ className = 'mt-8' }: { className?: string 
 
   return (
     <section className={className} aria-label="함께 보면 좋은 콘텐츠">
-      <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">함께 보면 좋아요</h2>
+      <h2 className="sec-h2">함께 보면 좋아요</h2>
       <div className="flex flex-col gap-2">
         {links.map(l => (
           <Link

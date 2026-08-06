@@ -10,9 +10,12 @@
  */
 import { BODY_TERMS, BODY_UNITS } from './terms-body.ts';
 import { BODY2_TERMS, BODY2_UNITS } from './terms-body2.ts';
+import { BODY3_TERMS } from './terms-body3.ts';
 import { GEO_TERMS, GEO_UNITS } from './terms-geo.ts';
 import { GEO2_TERMS, GEO2_UNITS } from './terms-geo2.ts';
+import { GEO3_TERMS } from './terms-geo3.ts';
 import { RATE_TERMS, RATE_UNITS } from './terms-rate.ts';
+import { RATE2_TERMS } from './terms-rate2.ts';
 import { FORMULA_L10N } from './l10n/index.ts';
 import type { AnyLocale10 } from '../locales.ts';
 
@@ -149,7 +152,7 @@ const CORE_UNITS: Record<string, Term> = {
 };
 
 /* 섹션별 용어는 파일을 나눠 둔다 — 한 파일에 수백 줄이면 무엇이 어디 쓰이는지 보이지 않는다 */
-export const TERMS: Record<string, Term> = { ...CORE_TERMS, ...RATE_TERMS, ...BODY_TERMS, ...BODY2_TERMS, ...GEO_TERMS, ...GEO2_TERMS };
+export const TERMS: Record<string, Term> = { ...CORE_TERMS, ...RATE_TERMS, ...BODY_TERMS, ...BODY2_TERMS, ...GEO_TERMS, ...GEO2_TERMS, ...GEO3_TERMS, ...RATE2_TERMS, ...BODY3_TERMS };
 export const UNITS: Record<string, Term> = { ...CORE_UNITS, ...RATE_UNITS, ...BODY_UNITS, ...BODY2_UNITS, ...GEO_UNITS, ...GEO2_UNITS };
 
 /**

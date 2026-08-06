@@ -22,7 +22,7 @@ import { DENSE, hanProblem } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   const total = CHARS.length + CELLS.length;
   assert.ok(total >= 100, `${total}가지뿐이다`);
-  assert.equal(CHARS.length, 52, '글자 26 · 숫자 10 · 기호 16');
+  assert.equal(CHARS.length, 62, '글자 26 + 악센트 9 · 숫자 10 · 기호 17');
   assert.equal(CELLS.length, CELL_COUNT);
   assert.equal(new Set(CODE_SLUGS).size, total, 'slug 중복');
   assert.equal(charOf('char-a')!.morse, '·−');
@@ -76,11 +76,20 @@ test('부호의 길이가 점과 선을 센 값과 같다', () => {
 });
 
 test('NATO 낱말이 제 글자로 시작한다', () => {
-  for (const x of charsOfKind('letter')) {
+  /*
+   * NATO 음성문자는 A~Z 스물여섯뿐이다. 악센트 글자(À·Ä·É…)는 모스 부호는
+   * 있어도 NATO 낱말이 없다 — 없는 것을 지어내면 그것이 틀린 값이 된다.
+   * 그래서 여기서는 기본 스물여섯만 본다.
+   */
+  const basic = charsOfKind('letter').filter(x => /^[A-Z]$/.test(x.char));
+  assert.equal(basic.length, 26, '기본 글자가 스물여섯이 아니다');
+  for (const x of basic) {
     assert.ok(x.nato, `${x.char}: NATO 낱말이 없다`);
     assert.equal(x.nato![0].toUpperCase(), x.char, `${x.char}: 낱말이 그 글자로 시작하지 않는다 — ${x.nato}`);
   }
-  const words = charsOfKind('letter').map(x => x.nato);
+  const accented = charsOfKind('letter').filter(x => !/^[A-Z]$/.test(x.char));
+  assert.deepStrictEqual(accented.filter(x => x.nato).map(x => x.char), [], '악센트 글자에 NATO 낱말을 지어냈다');
+  const words = basic.map(x => x.nato);
   assert.equal(new Set(words).size, 26, 'NATO 낱말이 겹친다');
   assert.equal(charOf('char-j')!.nato, 'Juliett', '두 t로 적는다 — 프랑스어에서 묵음이 되지 않게');
   assert.equal(charOf('char-a')!.nato, 'Alfa', 'ph가 아니라 f로 적는다');
@@ -132,11 +141,12 @@ test('글자의 점자가 그 셀을 가리킨다', () => {
   assert.equal(charFacts(charOf('char-1')!).mask, charFacts(charOf('char-a')!).mask);
 });
 
-test('갈래가 쉰둘을 빈 곳 없이 덮는다', () => {
+test('갈래가 예순둘을 빈 곳 없이 덮는다', () => {
   assert.equal(KINDS.reduce((n, k) => n + charsOfKind(k).length, 0), CHARS.length, '갈래 밖 글자가 있다');
-  assert.equal(charsOfKind('letter').length, 26);
+  // 글자 스물여섯에 ITU가 정한 악센트 아홉이 더 있다
+  assert.equal(charsOfKind('letter').length, 35);
   assert.equal(charsOfKind('digit').length, 10);
-  assert.equal(charsOfKind('punct').length, 16);
+  assert.equal(charsOfKind('punct').length, 17);
   // 주소 이름이 겹치지 않는다
   assert.equal(new Set(CHARS.map(x => x.name)).size, CHARS.length, '이름 중복');
   for (const x of CHARS) assert.match(charSlug(x), /^char-[a-z0-9-]+$/, `${x.char}: 주소 꼴이 아니다`);

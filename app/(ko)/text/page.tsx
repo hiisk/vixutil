@@ -116,7 +116,7 @@ export default function TextHubPage() {
         </div>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>
+          <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>⌨️ <b className="text-slate-800 dark:text-slate-100">한/영을 안 바꾸고 다 쳤을 때</b> — 지우고 다시 치지 말고 그대로 붙여 넣으세요</li>
             <li>🛂 <b className="text-slate-800 dark:text-slate-100">여권을 처음 만들 때</b> — 영문 이름은 한 번 정하면 바꾸기 어렵습니다</li>

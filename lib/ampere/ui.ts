@@ -321,17 +321,25 @@ const SPEC: Spec = {
     f => `${f.watt}W 除以 ${f.volt}V 得 ${f.amp}A。這一路的連續上限是 ${f.budget}A，可以同時用 ${f.together} 台。`,
   ),
 
+  /*
+   * 제목에 **차단기 용량까지** 넣는다.
+   *
+   * 전류는 전압과 소비전력만으로 정해지므로 16·20·32A 회로에서 값이 같다.
+   * 그래서 처음에는 제목이 세 페이지에 똑같이 붙었고, 한 언어 안에서 제목이
+   * 겹치면 검색엔진이 중복으로 보고 하나만 색인한다. 정작 페이지가 답하는
+   * 것은 "몇 대를 함께 쓸 수 있나"라 회로마다 다르다 — 그 값을 제목이 들고 있어야 한다.
+   */
   metaTitle: T<(f: AmpereFacts) => string>(
-    f => `${nameKo(f.cell.key)} ${f.watt}W — ${f.volt}V에서 ${f.amp}A`,
-    f => `${nameEn(f.cell.key)}, ${f.watt} W — ${f.amp} A at ${f.volt} V`,
-    f => `${nameEs(f.cell.key)}, ${f.watt} W — ${f.amp} A a ${f.volt} V`,
-    f => `${namePt(f.cell.key)}, ${f.watt} W — ${f.amp} A a ${f.volt} V`,
-    f => `${nameJa(f.cell.key)} ${f.watt}W — ${f.volt}Vで${f.amp}A`,
-    f => `${nameDe(f.cell.key)}, ${f.watt} W — ${f.amp} A bei ${f.volt} V`,
-    f => `${nameFr(f.cell.key)}, ${f.watt} W — ${f.amp} A en ${f.volt} V`,
-    f => `${nameHi(f.cell.key)}, ${f.watt} W — ${f.volt} V पर ${f.amp} A`,
-    f => `${nameZh(f.cell.key)} ${f.watt}W — ${f.volt}V 下 ${f.amp}A`,
-    f => `${nameTw(f.cell.key)} ${f.watt}W — ${f.volt}V 下 ${f.amp}A`,
+    f => `${nameKo(f.cell.key)} ${f.watt}W — ${f.volt}V·${f.breaker}A 회로에서 ${f.amp}A`,
+    f => `${nameEn(f.cell.key)}, ${f.watt} W — ${f.amp} A on a ${f.volt} V / ${f.breaker} A circuit`,
+    f => `${nameEs(f.cell.key)}, ${f.watt} W — ${f.amp} A en circuito de ${f.volt} V y ${f.breaker} A`,
+    f => `${namePt(f.cell.key)}, ${f.watt} W — ${f.amp} A em circuito de ${f.volt} V e ${f.breaker} A`,
+    f => `${nameJa(f.cell.key)} ${f.watt}W — ${f.volt}V・${f.breaker}A回路で${f.amp}A`,
+    f => `${nameDe(f.cell.key)}, ${f.watt} W — ${f.amp} A im ${f.volt}-V-/${f.breaker}-A-Stromkreis`,
+    f => `${nameFr(f.cell.key)}, ${f.watt} W — ${f.amp} A sur circuit ${f.volt} V / ${f.breaker} A`,
+    f => `${nameHi(f.cell.key)}, ${f.watt} W — ${f.volt} V/${f.breaker} A सर्किट पर ${f.amp} A`,
+    f => `${nameZh(f.cell.key)} ${f.watt}W — ${f.volt}V·${f.breaker}A 电路下 ${f.amp}A`,
+    f => `${nameTw(f.cell.key)} ${f.watt}W — ${f.volt}V·${f.breaker}A 電路下 ${f.amp}A`,
   ),
 
   metaDesc: T<(f: AmpereFacts) => string>(

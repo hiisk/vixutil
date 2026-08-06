@@ -109,7 +109,7 @@ export default function TirePage({ slug, lang }: { slug: string; lang: Lang }) {
 
         {sameShape(t).length > 0 && (
           <section className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.sameShapeTitle}</h2>
+            <h2 className="sec-h2">{ui.sameShapeTitle}</h2>
             <div className="flex flex-wrap gap-2">
               {sameShape(t).map(o => (
                 <Link
@@ -125,7 +125,7 @@ export default function TirePage({ slug, lang }: { slug: string; lang: Lang }) {
         )}
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.sameRimTitle}</h2>
+          <h2 className="sec-h2">{ui.sameRimTitle}</h2>
           <TireRims path={hub} current={slug} name={ui.rimName} only={t.rim} />
         </section>
 
@@ -135,7 +135,7 @@ export default function TirePage({ slug, lang }: { slug: string; lang: Lang }) {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.howTitle}</h2>
+          <h2 className="sec-h2">{ui.howTitle}</h2>
           <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
             {ui.how.map(h => (
               <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>

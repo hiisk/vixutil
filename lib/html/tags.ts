@@ -201,6 +201,21 @@ export const TAGS: Tag[] = [
   t('param', 'deprecated', ['name', 'value'], true),
   t('rb', 'deprecated'),
   t('rtc', 'deprecated'),
+
+  /* ───────── 늘린 것 ───────── */
+  /* 표준에 있었다가 빠진 것들 — 옛 문서를 열면 실제로 나온다 */
+  t('menuitem', 'deprecated'),
+  t('bgsound', 'deprecated'),
+  t('command', 'deprecated'),
+  t('content', 'deprecated'),
+  t('shadow', 'deprecated'),
+  t('element', 'deprecated'),
+  t('image', 'deprecated'),
+  t('multicol', 'deprecated'),
+  t('nextid', 'deprecated'),
+  /* 새로 들어온 것들 */
+  t('fencedframe', 'embed', ['width', 'height']),
+  t('selectedcontent', 'form'),
 ];
 
 export const TAG_KINDS: TagKind[] = [

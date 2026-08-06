@@ -670,4 +670,78 @@ export const BODY_ES: Record<string, FormulaText> = {
     long: 'Divide el tiempo dormido entre el tiempo en cama. Las unidades del sueño usan esta cifra y suelen dar por buena cualquier valor por encima del 85%. Cuando queda baja, el consejo habitual es pasar menos tiempo en la cama, no más.',
     note: 'Quedarse tumbado más rato no mejora el número: suele bajarlo, porque ese rato extra se pasa despierto.',
   },
+
+  /* ───────── 셋째 묶음 12종 ───────── */
+  'skinfold-body-fat': {
+    title: 'Grasa corporal por pliegues',
+    desc: 'Porcentaje de grasa a partir de la suma de tres medidas con plicómetro.',
+    long: 'El plicómetro pinza la piel para medir la capa de grasa que hay debajo. La suma de tres puntos estima la densidad de todo el cuerpo, y la densidad se convierte en porcentaje de grasa. Hombres y mujeres acumulan grasa de forma distinta, así que cada uno tiene sus coeficientes.',
+    note: 'Los hombres miden pecho, abdomen y muslo; las mujeres tríceps, suprailíaco y muslo. Importa más la constancia del punto y la presión que el valor absoluto, así que sigue el cambio, no la cifra.',
+  },
+  'fat-loss-target': {
+    title: 'Peso al llegar a la grasa objetivo',
+    desc: 'El peso que alcanzarías con la grasa corporal objetivo, manteniendo la masa magra.',
+    long: 'El cálculo supone que pierdes grasa conservando todo lo demás: músculo, hueso, agua. Como la masa magra no cambia, el peso objetivo es simplemente la masa magra dividida entre uno menos la grasa deseada.',
+    note: 'En la práctica, adelgazar deprisa se lleva músculo, así que el porcentaje de grasa se queda corto incluso al llegar al peso previsto. Bajar menos del 1% del peso por semana limita esa pérdida.',
+  },
+  'net-carbs': {
+    title: 'Calculadora de carbohidratos netos',
+    desc: 'Carbohidratos totales menos fibra y polialcoholes: lo que el cuerpo absorbe de verdad.',
+    long: 'La fibra atraviesa el intestino sin digerirse y no sube la glucosa. Los polialcoholes varían, pero se absorbe aproximadamente la mitad. Lo que queda tras restar ambos es el carbohidrato que realmente llega a ti.',
+    note: 'El eritritol apenas se absorbe y el maltitol se absorbe en buena medida. Si la etiqueta indica el tipo, ajusta la cifra según corresponda.',
+  },
+  'glycemic-load': {
+    title: 'Calculadora de carga glucémica',
+    desc: 'El índice glucémico multiplicado por los carbohidratos que realmente comes.',
+    long: 'El índice glucémico solo dice con qué rapidez un alimento sube la glucosa. La sandía puntúa alto, pero una tajada aporta pocos carbohidratos, así que su efecto real es pequeño. Índice por ración —la carga glucémica— es lo que el cuerpo encuentra.',
+    note: 'Por debajo de 10 es baja, de 10 a 19 moderada y a partir de 20 alta. Para un día entero, unos 100 es la referencia habitual.',
+  },
+  'calorie-density': {
+    title: 'Calculadora de densidad calórica',
+    desc: 'Calorías por 100 g y cuántos gramos suman 200 kcal.',
+    long: 'Las mismas 200 kcal son un plato lleno de un alimento y un puñado pequeño de otro. La saciedad depende más del volumen y del peso que de las calorías, así que empezar por lo menos denso estira mucho la misma energía.',
+    note: 'Las verduras y los caldos no llegan a 50 kcal por 100 g, el arroz y el pan van de 130 a 270, y los frutos secos y aceites superan las 600.',
+  },
+  'power-to-weight': {
+    title: 'Calculadora de vatios por kilo',
+    desc: 'La potencia en bici dividida entre el peso: el número que decide las subidas.',
+    long: 'En llano son los vatios brutos los que marcan la velocidad; en una subida luchas contra la gravedad, así que mandan los vatios por kilo. Por eso los mismos 250 W suben mucho más rápido a un ciclista de 60 kg que a uno de 85.',
+    note: 'La segunda cifra muestra qué le hace al ratio perder un kilo. Suele ser más fácil que sumar los vatios equivalentes, pero si también se va músculo, la potencia baja con él.',
+  },
+  'swim-css': {
+    title: 'Velocidad crítica de nado',
+    desc: 'Tu ritmo sostenible por 100 m a partir de un 400 m y un 200 m.',
+    long: 'Divide la diferencia entre dos tiempos por la diferencia de distancia y obtienes la velocidad del umbral donde empieza a acumularse lactato. La brecha entre 400 m y 200 m es el tiempo de esos 200 m extra, así que su mitad es el ritmo por 100 m.',
+    note: 'Nada ambas pruebas a tope el mismo día, con recuperación completa entre ellas. Ir suave en el 200 m hace que el resultado salga más lento que tu umbral real.',
+  },
+  'negative-split': {
+    title: 'Calculadora de negative split',
+    desc: 'Reparte un tiempo objetivo para que la segunda mitad sea algo más rápida.',
+    long: 'La energía que ahorras al principio se convierte en velocidad al final. Casi todos los buenos tiempos de maratón se corren con la segunda mitad más rápida, mientras que quien sale demasiado fuerte pierde en los últimos kilómetros mucho más de lo que ganó al inicio.',
+    note: 'Con un 2%, un objetivo de cuatro horas son 121 minutos de ida y 119 de vuelta. Si las cuestas se concentran en un tramo, planea perder tiempo ahí y recuperarlo en el resto.',
+  },
+  'blood-pressure-category': {
+    title: 'Categoría de la tensión arterial',
+    desc: 'En qué grado cae una lectura de sistólica y diastólica.',
+    long: 'El peor de los dos números fija el grado. Una sistólica perfectamente normal cae igualmente en grado 2 si la diastólica pasa de 90, y por eso mirar solo una de las dos induce a error.',
+    note: 'Una sola lectura no decide nada. Toma dos medidas tras cinco minutos sentado en calma, en varios días distintos, y usa el promedio.',
+  },
+  'kidney-stage': {
+    title: 'Estadio de enfermedad renal crónica',
+    desc: 'En qué estadio de G1 a G5 cae un valor de filtrado glomerular.',
+    long: 'El FGe estima cuánta sangre filtran los riñones cada minuto, ajustado al tamaño corporal. Por encima de 90 es G1 y de 60 a 89 es G2; un valor bajo 60 mantenido más de tres meses es lo que define la enfermedad renal crónica.',
+    note: 'G1 y G2 cuentan como enfermedad solo si hay otra evidencia de daño renal, como proteínas en la orina. El número por sí solo no lo resuelve.',
+  },
+  'child-sleep-need': {
+    title: 'Sueño necesario por edad',
+    desc: 'Cuánto sueño necesita al día un niño de una edad dada.',
+    long: 'Cuanto más pequeño, más sueño necesita, y la cantidad baja a saltos conforme crece. Antes del año son 12 a 16 horas contando siestas, en primaria 9 a 12 y en la adolescencia 8 a 10.',
+    note: 'En bebés y niños pequeños las siestas cuentan dentro del total. Si el niño se despierta solo y no está somnoliento durante el día, está durmiendo lo suficiente.',
+  },
+  'nap-timing': {
+    title: 'Calculadora de duración de la siesta',
+    desc: 'Si la siesta que planeas termina en un punto del que puedas despertar despejado.',
+    long: 'El sueño baja hacia el sueño profundo y vuelve a subir cada 90 minutos aproximadamente. Despertar antes de los 20 minutos te pilla antes de entrar en sueño profundo, y despertar tras un ciclo completo te pilla ya de subida.',
+    note: 'De treinta a sesenta minutos es la peor franja. Despertar en pleno sueño profundo deja atontado media hora o más, a veces peor que no haber dormido.',
+  },
 };

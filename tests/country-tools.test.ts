@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { COUNTRIES, COUNTRY_REGIONS, countryBySlug, relatedCountries } from '../lib/country-tools.ts';
 import { countryText } from '../lib/country/types.ts';
+import { COUNTRY_L10N } from '../lib/country-l10n/index.ts';
 import { COUNTRY_UI, countryRegions, countryFaq, countryAlternates, gapText, utcLabel } from '../lib/country-ui.ts';
 import { appFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
@@ -214,4 +215,34 @@ test('비자 정책이 바뀔 수 있다는 안내가 여덟 언어에 모두 �
     assert.ok(COUNTRY_UI[lang].footNote.length > 40, `${lang} 안내문이 짧다`);
     assert.ok(COUNTRY_UI[lang].hubNotice.length > 10, `${lang} 허브 안내문이 없다`);
   }
+});
+
+/*
+ * 위의 "여덟 언어가 채워져 있다"는 검사는 countryText를 부른다. countryText는
+ * 사전에 그 나라가 없으면 영어를 대신 돌려주므로, 여덟 언어가 통째로 비어도
+ * 길이 검사가 다 통과한다. 그러면 중국어 화면 백 장이 영어인 채로 초록이 뜬다.
+ *
+ * 그래서 화면에 나오는 값이 아니라 사전에 그 열쇠가 있는지를 본다.
+ * (사자성어 쪽에도 같은 검사를 세워 뒀다 — tests/hanja-tools.test.ts)
+ */
+test('여덟 언어 사전에 나라가 하나도 빠지지 않는다', () => {
+  const bad: string[] = [];
+  for (const [lang, table] of Object.entries(COUNTRY_L10N)) {
+    const missing = COUNTRIES.filter(c => !table[c.slug]);
+    if (missing.length) bad.push(`${lang}: ${missing.length}개 (${missing.slice(0, 3).map(c => c.slug).join(', ')}…)`);
+  }
+  assert.deepEqual(bad, [], `사전에 없어 영어로 떨어진다:\n  ${bad.join('\n  ')}`);
+});
+
+test('번역이 영어를 그대로 물려받지 않는다', () => {
+  const bad: string[] = [];
+  for (const lang of LANGS) {
+    if (lang === 'ko' || lang === 'en') continue;
+    const same = COUNTRIES.filter(c => {
+      const t = countryText(c, lang);
+      return t.intro === c.en.intro && t.tip === c.en.tip;
+    });
+    if (same.length) bad.push(`${lang}: ${same.length}개 (${same.slice(0, 3).map(c => c.slug).join(', ')}…)`);
+  }
+  assert.deepEqual(bad, [], `영어를 그대로 쓰고 있다:\n  ${bad.join('\n  ')}`);
 });

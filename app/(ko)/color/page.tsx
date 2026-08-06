@@ -144,7 +144,7 @@ export default function ColorHubPage() {
         </section>
 
         <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">이럴 때 쓰세요</h2>
+          <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>🎨 <b className="text-slate-800 dark:text-slate-100">브랜드 색을 정했을 때</b> — 명도 단계와 어울리는 보조색을 한 번에 만듭니다</li>
             <li>👁️ <b className="text-slate-800 dark:text-slate-100">글씨가 안 읽힐 때</b> — 대비를 재고 색상은 그대로 둔 채 밝기만 맞춥니다</li>

@@ -51,9 +51,21 @@ export interface SectionConfig {
 }
 
 /** 그 언어의 섹션 문구. 없으면 영어로 되돌린다 — 그 자리만 영어가 된다. */
+/**
+ * 문구에 적은 {n}을 실제 도구 수로 바꾼다.
+ *
+ * 전에는 "100종"이라고 박아 뒀는데 도구가 122~126종이 되도록 아무도 못 고쳤다.
+ * 열 언어 × 세 섹션이라 고칠 자리가 서른 곳이고, 화면과 검색결과에 그대로
+ * 나가는 문구다. 숫자를 문구에서 빼고 여기서 채우면 다시 낡지 않는다.
+ */
+const fillCount = (m: SectionMeta, n: number): SectionMeta => {
+  const put = (s: string) => s.replaceAll('{n}', String(n));
+  return { ...m, hubLead: put(m.hubLead), metaTitle: put(m.metaTitle), metaDesc: put(m.metaDesc) };
+};
+
 export function sectionMeta(section: SectionConfig, lang: FormulaLang): SectionMeta {
-  if (lang === 'ko' || lang === 'en') return section.meta[lang];
-  return section.metaIntl?.[lang] ?? section.meta.en;
+  const raw = lang === 'ko' || lang === 'en' ? section.meta[lang] : section.metaIntl?.[lang] ?? section.meta.en;
+  return fillCount(raw, section.tools.length);
 }
 
 /** 그 언어의 분류 이름표. 열쇠는 카탈로그의 한국어 문자열 그대로다. */

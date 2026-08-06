@@ -30,7 +30,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
   const related = relatedCountries(c.slug);
 
   const row = (label: string, value: React.ReactNode) => (
-    <div className="flex items-baseline gap-3 px-4 py-3 border-b border-slate-100 dark:border-slate-800 last:border-0">
+    <div className="flex items-baseline gap-3 px-4 py-3 row-line">
       <span className="w-24 shrink-0 text-xs font-bold text-slate-400 dark:text-slate-500">{label}</span>
       <span className="flex-1 text-sm font-bold text-slate-800 dark:text-slate-100">{value}</span>
     </div>
@@ -113,7 +113,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
         <Faq items={countryFaq(c, lang)} lang={lang} />
 
         <section className="mt-8" aria-label={ui.related}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.related}</h2>
+          <h2 className="sec-h2">{ui.related}</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
               <Link

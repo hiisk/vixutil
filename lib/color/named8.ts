@@ -203,6 +203,22 @@ export const NAMED_COLORS_8: NamedColor[] = [
   c('burnt-umber', '#8a3324', 'brown', '번트엄버', 'Burnt umber', 'Sombra tostada', 'Terra de sombra queimada', 'バーントアンバー', 'Gebrannte Umbra', 'Terre d\'ombre brûlée', 'जली हुई अंबर', '熟褐', '熟褐'),
   c('bone', '#e3dac9', 'neutral', '본색', 'Bone', 'Hueso', 'Osso', 'ボーン', 'Knochenweiß', 'Os', 'हड्डी', '骨白', '骨白'),
   c('onyx', '#353839', 'neutral', '오닉스', 'Onyx', 'Ónix', 'Ônix', 'オニキス', 'Onyx', 'Onyx', 'गोमेद', '缟玛瑙黑', '縞瑪瑙黑'),
+
+  /* ───────── 늘린 것 — 열 언어 이름·색값이 기존과 안 겹치는 것만 ───────── */
+  c('ochre', '#cc7722', 'orange', '황토색', 'Ochre', 'Ocre', 'Ocre', '黄土色', 'Ocker', 'Ocre', 'गेरुआ', '赭黄', '赭黃'),
+  c('sienna', '#a0522d', 'brown', '시에나', 'Sienna', 'Siena', 'Siena', 'シエナ', 'Siena', 'Sienne', 'सिएना', '赭石棕', '赭石棕'),
+  c('chartreuse', '#7fff00', 'green', '샤르트뢰즈', 'Chartreuse', 'Chartreuse', 'Chartreuse', 'シャルトリューズ', 'Chartreuse', 'Chartreuse', 'शार्त्रूज़', '查特酒绿', '查特酒綠'),
+  c('viridian', '#40826d', 'green', '비리디언', 'Viridian', 'Viridián', 'Viridiano', 'ビリジアン', 'Viridian', 'Viridian', 'विरिडियन', '铬绿', '鉻綠'),
+  c('verdigris', '#43b3ae', 'green', '녹청', 'Verdigris', 'Cardenillo', 'Verdete', '緑青', 'Grünspan', 'Vert-de-gris', 'ज़ंगार हरा', '铜绿', '銅綠'),
+  c('fandango', '#b53389', 'pink', '판당고', 'Fandango', 'Fandango', 'Fandango', 'ファンダンゴ', 'Fandango', 'Fandango', 'फ़ैंडैंगो', '范丹戈紫红', '范丹戈紫紅'),
+  c('amaranth', '#e52b50', 'red', '아마란스', 'Amaranth', 'Amaranto', 'Amaranto', 'アマランス', 'Amarant', 'Amarante', 'अमरंथ', '苋菜红', '莧菜紅'),
+  c('oxblood', '#4a0000', 'red', '옥스블러드', 'Oxblood', 'Sangre de buey', 'Sangue de boi', 'オックスブラッド', 'Ochsenblut', 'Sang-de-bœuf', 'गहरा रक्तिम', '牛血红', '牛血紅'),
+  c('puce', '#a95c68', 'purple', '퓨스', 'Puce', 'Puce', 'Puce', 'ピュース', 'Puce', 'Puce', 'प्यूस', '蚤紫', '蚤紫'),
+  c('ecru', '#cdb891', 'neutral', '에크뤼', 'Ecru', 'Crudo', 'Cru', 'エクリュ', 'Ecru', 'Écru', 'एक्रू', '本白', '本白'),
+  c('greige', '#bebdb8', 'neutral', '그레이지', 'Greige', 'Greige', 'Greige', 'グレージュ', 'Greige', 'Greige', 'ग्रेज', '灰米色', '灰米色'),
+  c('mulberry', '#70193d', 'purple', '오디색', 'Mulberry', 'Morera', 'Amora', 'マルベリー', 'Maulbeere', 'Mûre', 'शहतूती', '桑葚紫', '桑葚紫'),
+  c('peridot', '#b0bf1a', 'green', '페리도트', 'Peridot', 'Peridoto', 'Peridoto', 'ペリドット', 'Peridot', 'Péridot', 'पेरिडॉट', '橄榄石绿', '橄欖石綠'),
+  c('topaz', '#ffc87c', 'yellow', '토파즈', 'Topaz', 'Topacio', 'Topázio', 'トパーズ', 'Topas', 'Topaze', 'पुखराज', '托帕黄', '托帕黃'),
 ];
 
 export const COLOR_SLUGS = NAMED_COLORS_8.map(c => c.slug);

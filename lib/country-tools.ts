@@ -18,6 +18,8 @@ import { CENTRAL_EUROPE } from './country/europe-central.ts';
 import { EAST_EUROPE } from './country/europe-east.ts';
 import { AFRICA2 } from './country/africa2.ts';
 import { EXTRA_COUNTRIES } from './country/extra.ts';
+import { EXTRA2_COUNTRIES } from './country/extra2.ts';
+import { relatedFor } from './related-rotate.ts';
 
 export const COUNTRIES: Country[] = [
   ...EAST_ASIA, ...SOUTHEAST_ASIA,
@@ -26,6 +28,7 @@ export const COUNTRIES: Country[] = [
   ...AMERICAS, ...AMERICAS2,
   ...OCEANIA_AFRICA, ...AFRICA2,
   ...EXTRA_COUNTRIES,
+  ...EXTRA2_COUNTRIES,
 ];
 
 export const COUNTRY_REGIONS = ['동아시아', '동남아시아', '서·남아시아', '유럽', '미주', '오세아니아·아프리카'] as const;
@@ -36,7 +39,6 @@ export const countryBySlug = (slug: string): Country | undefined => COUNTRIES.fi
 export function relatedCountries(slug: string, limit = 6): Country[] {
   const me = countryBySlug(slug);
   if (!me) return [];
-  const same = COUNTRIES.filter(c => c.region === me.region && c.slug !== slug);
-  const others = COUNTRIES.filter(c => c.region !== me.region && c.slug !== slug);
-  return [...same, ...others].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(COUNTRIES, me, c => c.region === me.region, limit);
 }

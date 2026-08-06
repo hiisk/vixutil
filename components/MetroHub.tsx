@@ -40,7 +40,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
           도형으로 그려지므로 스무 줄이 똑같은 그림이 되어 알려 주는 것이 없다.
           국기는 공유 카드에서만 쓴다.
         */}
-        <h2 className="flex items-baseline gap-2 text-base font-black text-slate-800 dark:text-slate-100 mb-3">
+        <h2 className="flex items-baseline gap-2 sec-h2">
           {cityName(city, lang)}
           <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{lines.length}</span>
           <span className="text-xs font-normal text-slate-400 dark:text-slate-500">{countryName(city, lang)}</span>

@@ -3,7 +3,7 @@ import {
   ALL_LOCALES10, alternateLanguages10, localeHref, localeTag, openGraphFor,
   type AnyLocale10,
 } from './locales.ts';
-import { CONVERT_MAP } from './convert-tools.ts';
+import { CONVERT_MAP, CONVERT_TOOLS } from './convert-tools.ts';
 import { convertL10n } from './convert-i18n.ts';
 import { withCard } from './og-cards/index.ts';
 
@@ -332,53 +332,55 @@ export function convertAlternates(slug?: string) {
  */
 const HUB_META: Record<AnyLocale10, { title: string; desc: string }> = {
   ko: {
-    title: '단위 변환 — 평·근·돈부터 인치·파운드까지 100종',
+    title: '단위 변환 — 평·근·돈부터 인치·파운드까지 {n}종',
     desc: '평↔㎡, 근↔g, 돈↔g, cm↔인치, kg↔파운드, 섭씨↔화씨, Mbps↔MB/s에 트로이온스·중국 근·KiB↔KB·달리기 페이스까지 100가지 단위 변환을 한 곳에서. 자주 찾는 값 표와 계산식까지 함께 봅니다.',
   },
   en: {
-    title: 'Unit Converter — 100 conversions incl. Korean units',
+    title: 'Unit Converter — {n} conversions incl. Korean units',
     desc: 'cm to inches, kg to pounds, Celsius to Fahrenheit, troy ounces, KiB versus KB, running pace and Korean units like pyeong, geun and don — 100 converters with common-value tables. Free, no sign-up.',
   },
   es: {
-    title: 'Conversor de unidades — 100 conversiones',
+    title: 'Conversor de unidades — {n} conversiones',
     desc: 'cm a pulgadas, kg a libras, Celsius a Fahrenheit, onzas troy, KiB frente a KB, ritmo de carrera y unidades coreanas como pyeong, geun y don: 100 conversores con tablas de valores habituales. Gratis y sin registro.',
   },
   'pt-br': {
-    title: 'Conversor de unidades — 100 conversões',
+    title: 'Conversor de unidades — {n} conversões',
     desc: 'cm para polegadas, kg para libras, Celsius para Fahrenheit, onças troy, KiB versus KB, ritmo de corrida e unidades coreanas como pyeong, geun e don: 100 conversores com tabelas de valores comuns. Grátis, sem cadastro.',
   },
   ja: {
-    title: '単位変換 — 尺・寸・匁からインチ・ポンドまで100種',
-    desc: 'cm↔インチ、kg↔ポンド、摂氏↔華氏、トロイオンス、KiB↔KB、ランニングのペースに、尺・寸・匁・升・坪や韓国のドン・クンまで100種類の単位変換。よく調べる値の表と計算式も一緒に見られます。無料・登録不要。',
+    title: '単位変換 — 尺・寸・匁からインチ・ポンドまで{n}種',
+    desc: 'cm↔インチ、kg↔ポンド、摂氏↔華氏、トロイオンス、KiB↔KB、ランニングのペースに、尺・寸・匁・升・坪や韓国のドン・クンまで{n}種類の単位変換。よく調べる値の表と計算式も一緒に見られます。無料・登録不要。',
   },
   de: {
-    title: 'Einheitenrechner — 100 Umrechnungen',
+    title: 'Einheitenrechner — {n} Umrechnungen',
     desc: 'cm in Zoll, kg in Pfund, Celsius in Fahrenheit, Feinunzen, KiB gegen KB, Laufpace und koreanische Einheiten wie Pyeong, Geun und Don — 100 Umrechner mit Tabellen häufiger Werte. Kostenlos, ohne Anmeldung.',
   },
   fr: {
-    title: 'Convertisseur d’unités — 100 conversions',
+    title: 'Convertisseur d’unités — {n} conversions',
     desc: 'cm en pouces, kg en livres, Celsius en Fahrenheit, onces troy, Kio contre Ko, allure de course et unités coréennes comme le pyeong, le geun et le don : 100 convertisseurs avec des tableaux de valeurs courantes. Gratuit, sans inscription.',
   },
   hi: {
-    title: 'इकाई कनवर्टर — 100 रूपांतरण',
+    title: 'इकाई कनवर्टर — {n} रूपांतरण',
     desc: 'सेमी से इंच, किग्रा से पाउंड, सेल्सियस से फ़ारेनहाइट, ट्रॉय औंस, KiB और KB, दौड़ का पेस और प्योंग, गुन, दोन जैसी कोरियाई इकाइयाँ — आम मानों की सारणी के साथ 100 कनवर्टर। मुफ़्त, बिना खाता।',
   },
   'zh-hans': {
-    title: '单位换算 — 从市斤·市尺到英寸·磅共100种',
-    desc: '厘米到英寸、千克到磅、摄氏到华氏、金衡盎司、KiB和KB、跑步配速，还有市斤·市尺·亩和韩国的坪·돈这些传统单位 — 100种换算，都带常用数值表。免费，不用注册。',
+    title: '单位换算 — 从市斤·市尺到英寸·磅共{n}种',
+    desc: '厘米到英寸、千克到磅、摄氏到华氏、金衡盎司、KiB和KB、跑步配速，还有市斤·市尺·亩和韩国的坪·돈这些传统单位 — {n}种换算，都带常用数值表。免费，不用注册。',
   },
   'zh-hant': {
-    title: '單位換算 — 從坪·台斤到英吋·磅共100種',
-    desc: '公分到英吋、公斤到磅、攝氏到華氏、金衡盎司、KiB和KB、跑步配速，還有坪·台斤·市尺和韓國的돈·되這些傳統單位 — 100種換算，都帶常用數值表。免費，不用註冊。',
+    title: '單位換算 — 從坪·台斤到英吋·磅共{n}種',
+    desc: '公分到英吋、公斤到磅、攝氏到華氏、金衡盎司、KiB和KB、跑步配速，還有坪·台斤·市尺和韓國的돈·되這些傳統單位 — {n}種換算，都帶常用數值表。免費，不用註冊。',
   },
 };
 
 /** 허브 라우트의 metadata */
 export function convertHubMetaIntl(lang: ConvertLang) {
   const m = HUB_META[lang];
+  // 문구의 {n}은 실제 도구 수로 채운다 — 숫자를 박아 두면 늘릴 때마다 낡는다
+  const put = (t: string) => t.replaceAll('{n}', String(CONVERT_TOOLS.length));
   return withCard({
-    title: m.title,
-    description: m.desc,
+    title: put(m.title),
+    description: put(m.desc),
     openGraph: openGraphFor(lang),
     alternates: { canonical: localeHref(lang, '/convert'), languages: convertAlternates() },
   });

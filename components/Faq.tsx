@@ -78,7 +78,7 @@ export default function Faq({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </summary>
-            <p className={`mt-2.5 text-sm leading-relaxed ${c.answer}`}>{item.a}</p>
+            <p className={`body-p ${c.answer}`}>{item.a}</p>
           </details>
         ))}
       </div>

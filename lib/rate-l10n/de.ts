@@ -670,4 +670,84 @@ export const RATE_DE: Record<string, FormulaText> = {
     long: 'Die Monatsrate durch das monatliche Nettoeinkommen teilen. Durch das Brutto geteilt sieht es luftiger aus, als es ist — nehmen Sie das Geld, das wirklich ankommt.',
     note: 'Wo Kreditgeber die Grenze ziehen, unterscheidet sich nach Land und Institut. Hier steht das Verhältnis; ob geliehen wird, entscheidet deren Regelwerk.',
   },
+
+  /* ───────── 셋째 묶음 13종 ───────── */
+  'bulk-tier-price': {
+    title: 'Staffelpreis-Rechner',
+    desc: 'Gesamtpreis und echter Stückpreis, wenn der Preis ab einer Menge fällt.',
+    long: 'Beim Staffelpreis wechselt jede Einheit auf den günstigeren Satz, sobald die Schwelle erreicht ist. Dadurch entsteht knapp darunter ein Bereich, in dem mehr zu kaufen weniger kostet — die Stelle, an der 99 teurer ist als 100.',
+    note: 'Sinkt die Summe beim Überschreiten nicht, rabattiert der Verkäufer nur die Stücke oberhalb der Schwelle, und diese Rechnung passt nicht.',
+  },
+  'usage-split': {
+    title: 'Rechnung nach Verbrauch teilen',
+    desc: 'Eine gemeinsame Rechnung nach dem tatsächlichen Verbrauch aufteilen.',
+    long: 'Pro Kopf zu teilen bestraft denjenigen, der weniger verbraucht hat. Wo es etwas Messbares gibt — Zählerstand, Datenvolumen, gebuchte Stunden —, entspricht die Aufteilung nach diesem Verhältnis dem, was jede Seite verursacht hat.',
+    note: 'Enthält die Rechnung eine feste Grundgebühr, teile diese zuerst gleichmäßig auf und wende die Rechnung auf den Rest an.',
+  },
+  'trade-in-discount': {
+    title: 'Echter Rabatt bei Inzahlungnahme',
+    desc: 'Was die Anrechnung für dein Altgerät wirklich als Prozentsatz wert ist.',
+    long: 'Eine Inzahlungnahme sieht aus wie ein Rabatt, doch bezahlt wird sie vom Gerät, das du abgibst. Listenpreis minus Anrechnung ist, was du tatsächlich zahlst, und Anrechnung geteilt durch Listenpreis ist der echte Rabatt.',
+    note: 'Liegt die Anrechnung unter dem Wiederverkaufspreis, ist die Lücke dein Verlust — wobei Zeit und Risiko des Privatverkaufs mit in den Vergleich gehören.',
+  },
+  'multiple-to-percent': {
+    title: 'Vielfaches in Prozent umrechnen',
+    desc: 'Rechnet ein Vielfaches in eine prozentuale Zunahme um und zurück.',
+    long: 'Verdoppeln ist eine Zunahme um 100%, nicht um 200% — vom Vielfachen muss eins abgezogen werden, um den Zuwachs zu erhalten. Genau dieser eine Schritt bringt „verdreifacht“ und „um 300% gewachsen“ in Schlagzeilen durcheinander.',
+    note: 'Das Vielfache 1 bedeutet 0% Zunahme, also keine Änderung. Die Hälfte ist ein Rückgang um 50%, und jedes Vielfache unter 1 erscheint als negatives Wachstum.',
+  },
+  'halving-rate': {
+    title: 'Zeit bis zur Halbierung',
+    desc: 'Wie viele Jahre es dauert, bis ein Wert bei gleichbleibender Abnahme halbiert ist.',
+    long: '15% Verlust pro Jahr halbieren den Wert nicht in sieben Jahren, sondern in 4,27. Jedes Jahr nimmt 15% vom Rest, sodass der verlorene Betrag Jahr für Jahr kleiner wird. Das ist die 72er-Regel andersherum.',
+    note: 'Es passt zu allem, was proportional zum Rest schrumpft: Wertverlust, Kündigerquote, radioaktiver Zerfall. Geht jedes Jahr derselbe feste Betrag weg, genügt eine einfache Division.',
+  },
+  'loan-balance': {
+    title: 'Restschuld eines Darlehens',
+    desc: 'Wie viel Kapital nach einer Anzahl von Raten noch offen ist.',
+    long: 'Ein Annuitätendarlehen kostet jeden Monat dasselbe, doch die Aufteilung darin verschiebt sich ständig. Anfangs ist fast alles Zins, die Restschuld bewegt sich kaum; später sinkt das Kapital rasch.',
+    note: 'Fünf Jahre nach Beginn eines dreißigjährigen Darlehens ist die Restschuld meist um weniger als ein Zehntel gefallen. Diese Zahl ist der Ausgangspunkt für Sondertilgung oder Umschuldung.',
+  },
+  'interest-only-period': {
+    title: 'Was tilgungsfreie Jahre kosten',
+    desc: 'Wie viel Zins eine tilgungsfreie Anlaufzeit über die Laufzeit hinzufügt.',
+    long: 'In der tilgungsfreien Zeit sinkt das Kapital überhaupt nicht. Du zahlst Zinsen auf den vollen ursprünglichen Betrag, und das Kapital muss danach in kürzerer Restlaufzeit getilgt werden, was die spätere Rate anhebt. Beide Effekte wirken zusammen.',
+    note: 'Die Anlaufzeit verschiebt die Last, sie beseitigt sie nicht. Sie lohnt nur, wenn das Einkommen steigen wird oder der Verkauf schon feststeht.',
+  },
+  'payoff-months': {
+    title: 'Monate bis zur Tilgung',
+    desc: 'Laufzeit und Gesamtzins aus Saldo, Zinssatz und einer festen Monatsrate.',
+    long: 'Hier wird umgekehrt gefragt: Bei fester Rate, wie lange? Liegt die Rate nur knapp über einem Monatszins, dehnt sich die Laufzeit dramatisch, weil sich der Saldo kaum bewegt.',
+    note: 'Revolvierende Kredite berechnen einen Prozentsatz des Saldos, wodurch auch die Rate schrumpft und es weit länger dauert. Diese Zahlen setzen jeden Monat denselben Betrag voraus.',
+  },
+  'withdrawal-years': {
+    title: 'Wie lange das Ersparte reicht',
+    desc: 'Wie viele Jahre ein Kapital trägt, wenn du monatlich einen festen Betrag entnimmst.',
+    long: 'Was übrig bleibt, wirft weiter Zinsen ab, deshalb reicht das Geld länger als Kapital geteilt durch Entnahme. Sobald die Entnahme die Zinsen übersteigt, sinkt das Kapital jedoch, die Zinsen sinken mit, und der Abbau beschleunigt sich.',
+    note: 'Steigende Preise verringern, was derselbe Betrag kauft. Für eine Antwort in heutigem Geld gib die Rendite abzüglich Inflation ein.',
+  },
+  'marginal-tax-step': {
+    title: 'Was der Sprung in die nächste Stufe kostet',
+    desc: 'Was sich wirklich ändert, wenn das Einkommen eine Tarifgrenze überschreitet.',
+    long: 'Das Überschreiten einer Grenze belegt nicht das gesamte Einkommen mit dem höheren Satz. Bis zur Grenze gilt der niedrigere, nur der Teil darüber wird höher besteuert — deshalb bleibt bei etwas mehr Einkommen nie weniger übrig.',
+    note: 'Der effektive Satz liegt immer unter dem Spitzensatz. Wer sagt, er sei „in der 24er-Stufe“, meint den Grenzsteuersatz auf den Teil oberhalb der Linie.',
+  },
+  'coffee-ratio': {
+    title: 'Kaffee-Wasser-Verhältnis berechnen',
+    desc: 'Wie viel Wasser du für eine bestimmte Menge Kaffee und ein Brühverhältnis brauchst.',
+    long: 'Das Brühverhältnis sind Milliliter Wasser je Gramm Kaffee. Etwa 1:15 ist der übliche Ausgangspunkt, und eine kleinere zweite Zahl ergibt eine kräftigere Tasse. Wasser wiegt fast genau so viel, wie es misst, eine Waage reicht also für beides.',
+    note: 'Nicht alles Wasser landet in der Tasse. Das Kaffeemehl hält rund 2 mL je Gramm zurück, 20 g mit 300 mL ergeben also etwa 260 mL.',
+  },
+  'serial-dilution': {
+    title: 'Rechner für serielle Verdünnung',
+    desc: 'Die verbleibende Konzentration nach mehrfacher Verdünnung mit demselben Faktor.',
+    long: 'Mehrere kleine Verdünnungen sind genauer als eine große. Zehnfach dreimal ergibt tausendfach, und weil sich die Faktoren multiplizieren, verschiebt ein zusätzlicher Schritt die Konzentration um eine ganze Größenordnung.',
+    note: 'Jeder Übertrag muss sorgfältig abgemessen werden. Fehler multiplizieren sich mit den Faktoren, ein kleiner Ausrutscher wächst über drei Schritte deutlich an.',
+  },
+  'curve-grade': {
+    title: 'Notenkurve berechnen',
+    desc: 'Deine angepasste Note, wenn der Klassendurchschnitt auf einen Zielwert verschoben wird.',
+    long: 'Die einfachste Kurve addiert allen dieselbe Punktzahl, damit der Durchschnitt dort landet, wo er soll. Sie verschiebt die Skala, ohne die Reihenfolge anzutasten — genau deshalb ändert sich niemandes Rang.',
+    note: 'Die Grenze bei 100 staucht das obere Ende. Schüler nahe der Bestnote landen gleichauf, weshalb diese Kurve schlecht passt, wenn die Prüfung die Besten trennen soll.',
+  },
 };

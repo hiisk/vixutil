@@ -84,7 +84,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.byKind}</h2>
+          <h2 className="sec-h2">{ui.byKind}</h2>
           <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {(['pair', 'suited', 'offsuit'] as const).map(k => (
               <div key={k} className="px-4 py-3 bg-white dark:bg-slate-900">
@@ -99,7 +99,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
         </section>
 
         <section>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-3">{ui.byTier}</h2>
+          <h2 className="sec-h2">{ui.byTier}</h2>
           {TIER_ORDER.map(tier => {
             const rows = HANDS.filter(h => tierOf(chenScore(h)) === tier)
               .map(handFacts)

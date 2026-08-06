@@ -164,7 +164,7 @@ export default function AnnualLeavePage() {
                       return (
                         <tr
                           key={row.year}
-                          className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${isMine ? 'bg-blue-50 dark:bg-blue-950/30 dark:bg-blue-950/50 font-bold text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}
+                          className={`row-line ${isMine ? 'bg-blue-50 dark:bg-blue-950/30 dark:bg-blue-950/50 font-bold text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}`}
                         >
                           <td className="py-2 px-3">
                             {row.year}년차{isMine && ' ← 내 위치'}
