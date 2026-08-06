@@ -670,4 +670,84 @@ export const RATE_FR: Record<string, FormulaText> = {
     long: 'Divisez la mensualité par le revenu net du mois. Diviser par le brut donne une impression de marge plus large qu\'elle ne l\'est : prenez l\'argent qui arrive réellement.',
     note: 'Le seuil retenu par les prêteurs varie selon les pays et les établissements. Ceci donne le rapport ; l\'octroi du prêt relève de leurs règles.',
   },
+
+  /* ───────── 셋째 묶음 13종 ───────── */
+  'bulk-tier-price': {
+    title: 'Calculateur de prix par palier',
+    desc: 'Total et coût réel à l’unité quand le prix baisse à partir d’une quantité.',
+    long: 'Le prix par palier bascule toutes les unités sur le tarif réduit dès que le seuil est atteint. Cela crée juste en dessous une zone où acheter plus coûte moins cher — l’endroit où 99 revient plus cher que 100.',
+    note: 'Si franchir le seuil ne baisse pas votre total, le vendeur ne remise que les unités au-dessus et ce calcul ne s’applique pas.',
+  },
+  'usage-split': {
+    title: 'Partager une facture selon la consommation',
+    desc: 'Répartit une facture commune selon ce que chacun a réellement consommé.',
+    long: 'Partager par tête pénalise celui qui a le moins consommé. Dès qu’il existe une mesure — relevé de compteur, données consommées, heures réservées — répartir dans cette proportion colle à ce que chacun a réellement engendré.',
+    note: 'Si une part de la facture est un abonnement fixe, partagez-la à parts égales d’abord, puis appliquez ce calcul au reste.',
+  },
+  'trade-in-discount': {
+    title: 'Remise réelle d’une reprise',
+    desc: 'Ce que vaut vraiment, en pourcentage, la reprise de votre ancien appareil.',
+    long: 'Une reprise ressemble à une remise, mais ce qui la paie, c’est l’appareil que vous rendez. Le prix catalogue moins la reprise est ce que vous payez réellement, et la reprise divisée par le prix catalogue est la remise véritable.',
+    note: 'Si la reprise est inférieure au prix de revente, cet écart est votre coût — le temps et le risque d’une vente en direct entrent aussi dans la comparaison.',
+  },
+  'multiple-to-percent': {
+    title: 'Convertir un multiple en pourcentage',
+    desc: 'Transforme un multiple en hausse en pourcentage, et inversement.',
+    long: 'Doubler, c’est une hausse de 100%, pas de 200% : il faut retrancher un au multiple pour obtenir la part de croissance. Cette seule étape explique la confusion entre « a triplé » et « a augmenté de 300% » dans les titres.',
+    note: 'Un multiple de 1 correspond à 0% de hausse, donc à aucun changement. La moitié est une baisse de 50%, et tout multiple inférieur à 1 apparaît en croissance négative.',
+  },
+  'halving-rate': {
+    title: 'Temps pour tomber de moitié',
+    desc: 'Le nombre d’années pour tomber à la moitié à un taux de baisse constant.',
+    long: 'Perdre 15% par an ne réduit pas de moitié en sept ans mais en 4,27. Chaque année prélève 15% de ce qui reste, si bien que la quantité perdue diminue d’année en année. C’est la règle de 72 retournée.',
+    note: 'Cela vaut pour ce qui décroît proportionnellement au reste : dépréciation, attrition des abonnés, décroissance radioactive. Si le même montant fixe part chaque année, une simple division suffit.',
+  },
+  'loan-balance': {
+    title: 'Capital restant dû d’un prêt',
+    desc: 'Combien de capital reste à rembourser après un certain nombre d’échéances.',
+    long: 'Un prêt amortissable prélève la même mensualité chaque mois, mais la répartition interne bouge en permanence. Au début presque tout est intérêt et le capital bouge à peine ; ensuite il chute vite.',
+    note: 'Cinq ans après le début d’un prêt sur trente ans, le capital a d’ordinaire baissé de moins d’un dixième. Ce chiffre est le point de départ de tout remboursement anticipé ou rachat.',
+  },
+  'interest-only-period': {
+    title: 'Ce que coûte un différé',
+    desc: 'Combien d’intérêts supplémentaires un différé ajoute sur la durée du prêt.',
+    long: 'Pendant le différé, le capital ne baisse pas du tout. Vous payez des intérêts sur la totalité du capital initial, puis ce capital doit être remboursé sur une durée plus courte, ce qui relève la mensualité ensuite. Les deux effets se cumulent.',
+    note: 'Le différé repousse la charge, il ne la supprime pas. Il n’a d’intérêt que si les revenus vont augmenter ou si la vente est déjà décidée.',
+  },
+  'payoff-months': {
+    title: 'Mois nécessaires pour solder',
+    desc: 'Durée et intérêts totaux à partir du solde, du taux et d’une mensualité fixe.',
+    long: 'La question est prise à l’envers : à mensualité fixée, combien de temps ? Quand la mensualité dépasse à peine un mois d’intérêts, la durée s’allonge de façon spectaculaire, car le solde ne bouge presque pas.',
+    note: 'Le crédit renouvelable prélève un pourcentage du solde, donc la mensualité rétrécit aussi et cela dure bien plus longtemps. Ces chiffres supposent un montant fixe chaque mois.',
+  },
+  'withdrawal-years': {
+    title: 'Combien de temps dure une épargne',
+    desc: 'Le nombre d’années qu’un capital tient si vous retirez un montant fixe chaque mois.',
+    long: 'Ce qui reste continue de produire des intérêts, l’argent tient donc plus longtemps que le capital divisé par le retrait. Dès que le retrait dépasse les intérêts, en revanche, le capital commence à baisser et les intérêts baissent avec lui : la chute s’accélère.',
+    note: 'La hausse des prix réduit ce que le même montant permet d’acheter. Pour lire la réponse en euros d’aujourd’hui, saisissez le rendement moins l’inflation.',
+  },
+  'marginal-tax-step': {
+    title: 'Ce que change le passage de tranche',
+    desc: 'Ce qui se produit réellement quand le revenu franchit le seuil d’une tranche.',
+    long: 'Franchir un seuil n’applique pas le taux supérieur à tout. Jusqu’à la limite le taux inférieur s’applique, et seule la part au-dessus est taxée davantage : gagner un peu plus ne laisse donc jamais moins.',
+    note: 'Le taux effectif reste toujours sous le taux le plus élevé. Quand on dit être « dans la tranche à 24% », ce chiffre est le taux marginal sur la part au-dessus de la limite.',
+  },
+  'coffee-ratio': {
+    title: 'Calculateur du ratio café-eau',
+    desc: 'La quantité d’eau à verser pour une dose de café et un ratio donnés.',
+    long: 'Le ratio d’extraction, ce sont des millilitres d’eau par gramme de café. Environ 1:15 est le point de départ courant, et un second chiffre plus petit donne une tasse plus corsée. L’eau pèse presque exactement ce qu’elle mesure : une balance suffit.',
+    note: 'Toute l’eau n’arrive pas dans la tasse. Le marc en retient environ 2 mL par gramme, donc 20 g avec 300 mL donnent environ 260 mL.',
+  },
+  'serial-dilution': {
+    title: 'Calculateur de dilution en série',
+    desc: 'La concentration restante après plusieurs dilutions du même facteur.',
+    long: 'Plusieurs petites dilutions sont plus précises qu’une grande. Dix fois répété trois fois donne mille fois et, comme les facteurs se multiplient, une étape de plus déplace la concentration d’un ordre de grandeur entier.',
+    note: 'Chaque transfert doit être mesuré soigneusement : les erreurs se multiplient avec les facteurs, et un petit écart s’aggrave sur trois étapes.',
+  },
+  'curve-grade': {
+    title: 'Calculateur de notation ajustée',
+    desc: 'Votre note ajustée quand la moyenne de la classe est déplacée vers une cible.',
+    long: 'La courbe la plus simple ajoute les mêmes points à tout le monde pour que la moyenne tombe où il faut. Elle déplace l’échelle sans toucher à l’ordre, et c’est exactement pour cela que le classement ne bouge pas.',
+    note: 'Le plafond de 100 comprime le haut. Les élèves proches du maximum se retrouvent à égalité, si bien que cette courbe convient mal quand l’examen doit départager les meilleurs.',
+  },
 };

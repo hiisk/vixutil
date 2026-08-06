@@ -162,3 +162,201 @@ test('groupNum은 세 자리마다 끊고 정수의 0을 지우지 않는다', (
   assert.equal(groupNum(600, 0), '600');
   assert.equal(groupNum(0.05, 2), '0.05');
 });
+
+/*
+ * ───────── 셋째 묶음 13종 ─────────
+ *
+ * 기대값은 계산기를 돌려 얻은 것이 아니라 손으로 세운 것이다. 대출은 이자 0%로
+ * 두면 나눗셈이 되고, 연속 희석은 한 번만 하면 그냥 나누기이고, 상대평가는
+ * 평균이 이미 목표면 아무것도 안 바뀐다 — 새 식이 옛 식과 만나는 자리를 골랐다.
+ */
+const outsOf = (slug: string, v: Record<string, number>) => {
+  const t = rateTool(slug)!;
+  assert.ok(t, `${slug} 없음`);
+  return t.compute(v);
+};
+
+test('구간 단가: 기준을 넘으면 전부 싼 단가, 못 넘으면 전부 제값', () => {
+  assert.equal(primaryOf('bulk-tier-price', { qty: 250, unit: 1200, tierQty: 100, tierPrice: 950 }), 237500);
+  assert.equal(primaryOf('bulk-tier-price', { qty: 99, unit: 1200, tierQty: 100, tierPrice: 950 }), 118800);
+});
+
+test('구간 단가: 99개가 100개보다 비싸질 수 있다', () => {
+  const at99 = primaryOf('bulk-tier-price', { qty: 99, unit: 1200, tierQty: 100, tierPrice: 950 });
+  const at100 = primaryOf('bulk-tier-price', { qty: 100, unit: 1200, tierQty: 100, tierPrice: 950 });
+  assert.ok(at99 > at100, `${at99} vs ${at100}`);
+  const t = rateTool('bulk-tier-price')!;
+  const v = { qty: 99, unit: 1200, tierQty: 100, tierPrice: 950 };
+  assert.equal(t.verdict!(v, t.compute(v))!.tone, 'warn');
+});
+
+test('구간 단가: 실제 1개당은 총액을 개수로 나눈 값이다', () => {
+  const out = outsOf('bulk-tier-price', { qty: 250, unit: 1200, tierQty: 100, tierPrice: 950 });
+  assert.equal(out[1].value, 950);
+  assert.equal(out[2].value, 62500);
+});
+
+test('사용량 분담: 1250 중 320을 썼으면 25.6%, 18만 원 중 46,080원', () => {
+  const out = outsOf('usage-split', { amount: 180000, used: 320, total: 1250 });
+  assert.equal(out[0].value, 46080);
+  assert.equal(out[1].value, 25.6);
+  assert.equal(out[0].value + out[2].value, 180000);
+});
+
+test('보상판매: 150만 원에 30만 원을 받으면 20% 할인이고 지불액은 120만 원', () => {
+  const out = outsOf('trade-in-discount', { list: 1500000, credit: 300000, resale: 380000 });
+  assert.equal(out[0].value, 1200000);
+  assert.equal(out[1].value, 20);
+  assert.equal(out[2].value, 80000);
+});
+
+test('보상판매: 보상액이 시세보다 높으면 좋다고, 낮으면 주의라고 알린다', () => {
+  const t = rateTool('trade-in-discount')!;
+  const better = { list: 1500000, credit: 400000, resale: 380000 };
+  const worse = { list: 1500000, credit: 300000, resale: 380000 };
+  assert.equal(t.verdict!(better, t.compute(better))!.tone, 'good');
+  assert.equal(t.verdict!(worse, t.compute(worse))!.tone, 'warn');
+});
+
+test('배수: 2배는 100% 증가지 200%가 아니다', () => {
+  assert.equal(primaryOf('multiple-to-percent', { multiple: 2, before: 100 }), 100);
+  assert.equal(primaryOf('multiple-to-percent', { multiple: 3, before: 100 }), 200);
+  assert.equal(primaryOf('multiple-to-percent', { multiple: 1, before: 100 }), 0);
+  assert.equal(primaryOf('multiple-to-percent', { multiple: 0.5, before: 100 }), -50);
+});
+
+test('반감: 절반이 되는 기간만큼 지나면 남은 비율이 50%가 된다', () => {
+  // 반감 기간이 소수 둘째 자리에서 잘려 나오므로(4.27년) 되먹이면 49.96%가 된다
+  const half = primaryOf('halving-rate', { rate: 15, years: 10 });
+  const out = outsOf('halving-rate', { rate: 15, years: half });
+  assert.ok(Math.abs(out[1].value - 50) < 0.1, `${out[1].value}%`);
+});
+
+test('반감: 해마다 50%씩 줄면 반감 기간이 1년이다', () => {
+  assert.equal(primaryOf('halving-rate', { rate: 50, years: 3 }), 1);
+  assert.equal(outsOf('halving-rate', { rate: 50, years: 3 })[1].value, 12.5);
+});
+
+test('반감: 안 줄면(0%) 절반이 되는 날이 없어 0으로 표시한다', () => {
+  const out = outsOf('halving-rate', { rate: 0, years: 10 });
+  assert.equal(out[0].value, 0);
+  assert.equal(out[1].value, 100);
+});
+
+test('남은 원금: 이자가 0이면 낸 개월만큼 원금이 곧바로 줄어든다', () => {
+  // 3억을 360개월에 무이자로 나누면 매달 정확히 1/360, 60개월 뒤 5/6이 남는다
+  const out = outsOf('loan-balance', { principal: 360000000, rate: 0, years: 30, paid: 60 });
+  assert.equal(out[0].value, 300000000);
+  assert.equal(out[1].value, 60000000);
+  assert.equal(out[2].value, 0);
+});
+
+test('남은 원금: 이자가 붙으면 5년을 갚아도 10%가 안 줄어든다', () => {
+  const left = primaryOf('loan-balance', { principal: 300000000, rate: 4.2, years: 30, paid: 60 });
+  assert.ok(left > 300000000 * 0.9, `${left}`);
+  assert.ok(left < 300000000, `${left}`);
+});
+
+test('남은 원금: 만기까지 다 갚으면 0이 된다', () => {
+  assert.equal(primaryOf('loan-balance', { principal: 300000000, rate: 4.2, years: 30, paid: 360 }), 0);
+});
+
+test('거치기간: 거치가 없으면 더 내는 이자가 0이다', () => {
+  const out = outsOf('interest-only-period', { principal: 300000000, rate: 4.2, years: 30, grace: 0 });
+  assert.equal(out[2].value, 0);
+});
+
+test('거치기간: 거치가 길수록 총이자도 월 상환액도 함께 커진다', () => {
+  const short = outsOf('interest-only-period', { principal: 300000000, rate: 4.2, years: 30, grace: 12 });
+  const long = outsOf('interest-only-period', { principal: 300000000, rate: 4.2, years: 30, grace: 60 });
+  assert.ok(long[0].value > short[0].value, `이자 ${long[0].value} vs ${short[0].value}`);
+  assert.ok(long[1].value > short[1].value, `월납 ${long[1].value} vs ${short[1].value}`);
+});
+
+test('상환 개월: 이자가 0이면 잔액을 납입액으로 나눈 값이다', () => {
+  assert.equal(primaryOf('payoff-months', { balance: 3000000, rate: 0, pay: 300000 }), 10);
+});
+
+test('상환 개월: 납입액이 한 달 이자보다 작으면 안 끝난다고 알린다', () => {
+  const t = rateTool('payoff-months')!;
+  // 300만 원에 연 19.9%면 한 달 이자가 49,750원이다
+  const v = { balance: 3000000, rate: 19.9, pay: 40000 };
+  assert.equal(t.verdict!(v, t.compute(v))!.tone, 'bad');
+  assert.equal(primaryOf('payoff-months', v), 0);
+});
+
+test('상환 개월: 이자가 붙으면 무이자보다 오래 걸린다', () => {
+  const free = primaryOf('payoff-months', { balance: 3000000, rate: 0, pay: 300000 });
+  const withRate = primaryOf('payoff-months', { balance: 3000000, rate: 19.9, pay: 300000 });
+  assert.ok(withRate > free, `${withRate} vs ${free}`);
+});
+
+test('인출: 이율이 0이면 목돈을 인출액으로 나눈 개월만큼 간다', () => {
+  const out = outsOf('withdrawal-years', { fund: 36000000, rate: 0, draw: 1000000 });
+  assert.equal(out[1].value, 36);
+  assert.equal(out[0].value, 3);
+});
+
+test('인출: 인출액이 이자보다 적으면 원금이 안 줄어 좋다고 알린다', () => {
+  const t = rateTool('withdrawal-years')!;
+  // 3억에 연 3%면 한 달 이자가 75만 원이다
+  const v = { fund: 300000000, rate: 3, draw: 700000 };
+  assert.equal(t.verdict!(v, t.compute(v))!.tone, 'good');
+});
+
+test('세율 구간: 경계 아래면 전부 낮은 세율이고 실효세율이 그 값과 같다', () => {
+  const out = outsOf('marginal-tax-step', { income: 40000000, line: 50000000, low: 15, high: 24 });
+  assert.equal(out[0].value, 6000000);
+  assert.equal(out[1].value, 15);
+  assert.equal(out[2].value, 0);
+});
+
+test('세율 구간: 경계를 넘겨도 넘긴 만큼에만 높은 세율이 붙는다', () => {
+  const out = outsOf('marginal-tax-step', { income: 55000000, line: 50000000, low: 15, high: 24 });
+  assert.equal(out[0].value, 8700000);
+  assert.equal(out[2].value, 1200000);
+});
+
+test('세율 구간: 경계를 조금 넘겼다고 실수령이 줄어들지는 않는다', () => {
+  const just = outsOf('marginal-tax-step', { income: 50000000, line: 50000000, low: 15, high: 24 });
+  const over = outsOf('marginal-tax-step', { income: 50100000, line: 50000000, low: 15, high: 24 });
+  assert.ok(50100000 - over[0].value > 50000000 - just[0].value, '경계를 넘겼는데 실수령이 줄었다');
+  assert.ok(over[1].value < 24, `실효세율 ${over[1].value}가 높은 세율 이상이다`);
+});
+
+test('커피: 20g에 1:15면 물 300ml, 잔에는 260ml', () => {
+  const out = outsOf('coffee-ratio', { bean: 20, ratio: 15 });
+  assert.equal(out[0].value, 300);
+  assert.equal(out[1].value, 260);
+});
+
+test('연속 희석: 10배를 세 번이면 1000배이고 100%가 0.1%가 된다', () => {
+  const out = outsOf('serial-dilution', { fold: 10, steps: 3, start: 100 });
+  assert.equal(out[0].value, 0.1);
+  assert.equal(out[1].value, 1000);
+  assert.equal(out[2].value, 1000);
+});
+
+test('연속 희석: 한 번만 하면 그냥 나누기와 같고, 0번이면 그대로다', () => {
+  assert.equal(primaryOf('serial-dilution', { fold: 4, steps: 1, start: 100 }), 25);
+  assert.equal(primaryOf('serial-dilution', { fold: 10, steps: 0, start: 100 }), 100);
+});
+
+test('상대평가: 평균이 이미 목표면 점수가 그대로다', () => {
+  const out = outsOf('curve-grade', { score: 72, avg: 75, target: 75 });
+  assert.equal(out[0].value, 72);
+  assert.equal(out[1].value, 0);
+  assert.equal(out[2].value, 0);
+});
+
+test('상대평가: 평균을 10점 올리면 모두가 10점씩 오르고 순위는 안 바뀐다', () => {
+  const low = primaryOf('curve-grade', { score: 40, avg: 65, target: 75 });
+  const high = primaryOf('curve-grade', { score: 72, avg: 65, target: 75 });
+  assert.equal(low, 50);
+  assert.equal(high, 82);
+  assert.equal(high - low, 32);
+});
+
+test('상대평가: 100점을 넘겨 올릴 수는 없다', () => {
+  assert.equal(primaryOf('curve-grade', { score: 95, avg: 65, target: 90 }), 100);
+});
