@@ -70,11 +70,11 @@ export default function Faq({
         {items.map((item, i) => (
           <details
             key={i}
-            className={`group border rounded-xl px-4 py-3 [&_summary::-webkit-details-marker]:hidden ${c.card}`}
+            className={`group faq-card ${c.card}`}
           >
-            <summary className={`flex items-center justify-between cursor-pointer text-sm font-bold list-none ${c.question}`}>
+            <summary className={`faq-q ${c.question}`}>
               <span className="flex-1 pr-2">Q. {item.q}</span>
-              <svg className={`w-4 h-4 shrink-0 transition-transform group-open:rotate-180 ${c.chevron}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className={`faq-chevron ${c.chevron}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </summary>

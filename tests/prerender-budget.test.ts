@@ -32,13 +32,15 @@ test('디스크 안에 드는 값이다', () => {
    * 시간보다 **디스크**가 먼저 찬다. 100으로 배포했다가 Vercel이
    * 48,769/61,694장에서 ENOSPC로 죽었다 — 컨테이너 여유가 24GB쯤이다.
    *
-   * 페이지 한 장이 501KB를 남긴다(.html 191 + .rsc 100 + .segments 210).
-   * 20이면 14,618장 × 501KB = 7.3GB로 죽은 자리의 30%다.
+   * 페이지 한 장이 441KB를 남긴다(.html 149 + .rsc + .segments). 되풀이되는
+   * Tailwind 클래스를 CSS로 빼기 전에는 501KB였다.
+   * 24면 19,962장 × 441KB = 8.4GB로 죽은 자리의 35%다. 빌드 뒤 Vercel이
+   * 산출물을 한 벌 더 복사하므로 절반 아래로 둔다.
    *
    * 올리려면 먼저 페이지 크기를 줄이고, 로컬에서 .next 크기를 재 보고,
    * 이 숫자와 lib/prerender.ts 주석을 함께 고친다.
    */
-  const KB_PER_PAGE = 501;
+  const KB_PER_PAGE = 441;
   const pages = 2418 + 731 * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
   assert.ok(gb < 10, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);
