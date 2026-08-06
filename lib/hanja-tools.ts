@@ -16,6 +16,7 @@ import { WORDS_IDIOMS } from './hanja/words.ts';
 import { WORDS2_IDIOMS } from './hanja/words2.ts';
 import { EXTRA_IDIOMS } from './hanja/extra.ts';
 import { EXTRA2_IDIOMS } from './hanja/extra2.ts';
+import { relatedFor } from './related-rotate.ts';
 
 export const IDIOMS: Idiom[] = [
   ...ATTITUDE_IDIOMS, ...ATTITUDE2_IDIOMS,
@@ -36,7 +37,6 @@ export const idiomBySlug = (slug: string): Idiom | undefined => IDIOMS.find(i =>
 export function relatedIdioms(slug: string, limit = 6): Idiom[] {
   const me = idiomBySlug(slug);
   if (!me) return [];
-  const same = IDIOMS.filter(i => i.category === me.category && i.slug !== slug);
-  const others = IDIOMS.filter(i => i.category !== me.category && i.slug !== slug);
-  return [...same, ...others].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(IDIOMS, me, i => i.category === me.category, limit);
 }

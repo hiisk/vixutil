@@ -12,6 +12,7 @@ import { CAPITAL2_LINES } from './metro/capitals2.ts';
 import { SECOND_CITY_LINES } from './metro/second-city.ts';
 import { WORLD2_LINES } from './metro/world2.ts';
 import { WORLD3_LINES } from './metro/world3.ts';
+import { relatedFor } from './related-rotate.ts';
 
 export const METRO_LINES: MetroLine[] = [
   ...SEOUL_LINES, ...WORLD_LINES, ...CAPITAL2_LINES, ...SECOND_CITY_LINES, ...WORLD2_LINES,
@@ -38,9 +39,8 @@ export const linesOfCity = (city: string): MetroLine[] =>
 export function relatedLines(slug: string, limit = 6): MetroLine[] {
   const me = metroLine(slug);
   if (!me) return [];
-  const same = METRO_LINES.filter(l => l.city === me.city && l.slug !== slug);
-  const others = METRO_LINES.filter(l => l.city !== me.city && l.slug !== slug);
-  return [...same, ...others].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(METRO_LINES, me, l => l.city === me.city, limit);
 }
 
 /** 노선의 역 수 합계 — 허브 배지에 쓴다 */

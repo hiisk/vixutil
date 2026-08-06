@@ -8,6 +8,9 @@
  * 마이크를 쓰는 도구(튜너·소음 측정·녹음)는 브라우저 안에서만 처리하며
  * 소리를 서버로 보내지 않는다.
  */
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import { relatedFor } from './related-rotate.ts';
+
 export interface SoundTool {
   slug: string;
   title: string;
@@ -148,10 +151,8 @@ export const SOUND_TOOLS: SoundTool[] = [
 export function relatedSoundTools(slug: string, limit = 4): SoundTool[] {
   const current = SOUND_TOOLS.find(t => t.slug === slug);
   if (!current) return [];
-  const others = SOUND_TOOLS.filter(t => t.slug !== slug);
-  const same = others.filter(t => t.category === current.category);
-  const rest = others.filter(t => t.category !== current.category);
-  return [...same, ...rest].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(SOUND_TOOLS, current, t => t.category === current.category, limit);
 }
 
 export function findSoundTool(slug: string): SoundTool | undefined {

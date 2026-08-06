@@ -5,6 +5,9 @@
  * 재는 쪽은 타이머·스톱워치, 세는 쪽은 며칠·몇 주·근무일이다. 둘 다 브라우저
  * 안에서 끝나고, 재는 도구는 탭을 열어 둔 채로 쓰게 되므로 화면이 단순해야 한다.
  */
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import { relatedFor } from './related-rotate.ts';
+
 export interface TimeTool {
   slug: string;
   title: string;
@@ -145,10 +148,8 @@ export const TIME_TOOLS: TimeTool[] = [
 export function relatedTimeTools(slug: string, limit = 4): TimeTool[] {
   const current = TIME_TOOLS.find(t => t.slug === slug);
   if (!current) return [];
-  const others = TIME_TOOLS.filter(t => t.slug !== slug);
-  const same = others.filter(t => t.category === current.category);
-  const rest = others.filter(t => t.category !== current.category);
-  return [...same, ...rest].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(TIME_TOOLS, current, t => t.category === current.category, limit);
 }
 
 export function findTimeTool(slug: string): TimeTool | undefined {

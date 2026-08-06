@@ -5,6 +5,9 @@
  * 몇 그램인지, 2인분 레시피를 5인분으로 어떻게 늘리는지, 오븐 350°F가 몇 도인지.
  * 전부 표와 산수라 브라우저에서 끝난다.
  */
+// node에서 직접 로드할 수 있게 확장자를 명시한다 (allowImportingTsExtensions)
+import { relatedFor } from './related-rotate.ts';
+
 export interface FoodTool {
   slug: string;
   title: string;
@@ -145,10 +148,8 @@ export const FOOD_TOOLS: FoodTool[] = [
 export function relatedFoodTools(slug: string, limit = 4): FoodTool[] {
   const current = FOOD_TOOLS.find(t => t.slug === slug);
   if (!current) return [];
-  const others = FOOD_TOOLS.filter(t => t.slug !== slug);
-  const same = others.filter(t => t.category === current.category);
-  const rest = others.filter(t => t.category !== current.category);
-  return [...same, ...rest].slice(0, limit);
+  // 갈래 안의 자리부터 돌려 고른다 — 앞 여섯만 뽑으면 목록 뒤쪽은 들어오는 링크가 0이 된다
+  return relatedFor(FOOD_TOOLS, current, t => t.category === current.category, limit);
 }
 
 export function findFoodTool(slug: string): FoodTool | undefined {
