@@ -16,7 +16,7 @@ export default function TestContent({ test }: { test: Test }) {
   return (
     <div className="bg-white dark:bg-slate-900">
       <section className="max-w-lg mx-auto px-4 pb-10 w-full" aria-label="결과 유형 안내">
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">
+        <h2 className="sec-h2-tight">
           {test.title} 결과 유형 {test.results.length}가지
         </h2>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-4">

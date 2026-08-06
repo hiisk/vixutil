@@ -42,7 +42,7 @@ export default function SizeHubPage({ lang }: { lang: Lang }) {
       <PageGlow accent="rose" />
       <div className="h-1 bg-gradient-to-r from-pink-500 to-rose-500" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -63,13 +63,13 @@ export default function SizeHubPage({ lang }: { lang: Lang }) {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-pink-500 to-rose-500">
             <ToolIcon emoji={IMG_SIZE_ICON} accent="rgba(255,255,255,0.55)" className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.hubTitle}</h1>
+          <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.hubLead}</p>
         </div>
 
         {SIZE_KINDS.map(kind => (
           <section key={kind} className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">
+            <h2 className="sec-h2-tight">
               {ui.kindLabel[kind]}
               <span className="ml-1.5 text-xs font-bold text-slate-400 dark:text-slate-500">{sizesOfKind(kind).length}</span>
             </h2>
@@ -97,16 +97,16 @@ export default function SizeHubPage({ lang }: { lang: Lang }) {
 
         <section className="mt-8">
           <h2 className="sec-h2">{ui.howTitle}</h2>
-          <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
+          <ul className="list-card">
             {ui.how.map(h => (
-              <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>
+              <li key={h} className="cell-note">{h}</li>
             ))}
           </ul>
         </section>
 
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/image/size`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}

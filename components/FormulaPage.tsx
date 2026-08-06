@@ -66,7 +66,7 @@ export default function FormulaPage({
       <PageGlow accent={section.accent} />
       <div className={`h-1 bg-gradient-to-r ${section.gradBar}`} />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${section.linkHover} transition-colors font-medium shrink-0`}>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

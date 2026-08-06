@@ -79,7 +79,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-600 to-indigo-500" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={hub} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -98,7 +98,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-5">
           <p className="text-xs font-bold text-violet-700 dark:text-violet-400 mb-1">{ui.group[f.group]}</p>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{name}</h1>
+          <h1 className="page-h1">{name}</h1>
           <p className="font-mono text-sm text-slate-600 dark:text-slate-300 break-words">{f.line}</p>
         </div>
 
@@ -112,7 +112,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
           />
         </section>
 
-        <p className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
+        <p className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cell-note mb-5">
           {story.join(' ')}
         </p>
 
@@ -129,7 +129,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.movesTitle}</h2>
+          <h2 className="sec-h2-tight">{ui.movesTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.movesNote}</p>
           <ol className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.steps.map((step, i) => (
@@ -151,7 +151,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         {f.siblings.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.related}</h2>
+            <h2 className="sec-h2-tight">{ui.related}</h2>
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
               {fill(ui.sharedWith, { n: f.sharedPly })}
             </p>
@@ -187,7 +187,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <Faq items={faq} lang={base} title={ui.faq} />
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/chess/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}

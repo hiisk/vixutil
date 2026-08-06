@@ -66,7 +66,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-400 to-indigo-500" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -140,9 +140,9 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
 
         <section className="mt-8">
           <h2 className="sec-h2">{ui.howTitle}</h2>
-          <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
+          <ul className="list-card">
             {ui.how.map(h => (
-              <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>
+              <li key={h} className="cell-note">{h}</li>
             ))}
           </ul>
         </section>
@@ -150,7 +150,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
         <Faq items={ui.screenFaq(v)} lang={base} title={ui.faqTitle} />
 
         <section className="mt-8" aria-label={ui.compareTitle}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.compareTitle}</h2>
+          <h2 className="sec-h2-tight">{ui.compareTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.compareNote}</p>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden overflow-x-auto">
             <table className="w-full text-sm">
@@ -182,7 +182,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
           </div>
         </section>
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/device/screen/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}

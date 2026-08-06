@@ -62,7 +62,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
       <PageGlow accent="emerald" />
       <div className="h-1 bg-gradient-to-r from-emerald-600 to-teal-500" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={hub} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -99,7 +99,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
         </dl>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.flopTitle}</h2>
+          <h2 className="sec-h2-tight">{ui.flopTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.flopNote}</p>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.flop.filter(x => x.pct > 0).map(x => (
@@ -120,7 +120,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.score}</h2>
+          <h2 className="sec-h2-tight">{ui.score}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 px-4 py-3">
             {ui.scoreNote}
           </p>
@@ -148,14 +148,14 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
         )}
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.chart}</h2>
+          <h2 className="sec-h2-tight">{ui.chart}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.chartNote}</p>
           <HandGrid path={hub} current={slug} />
         </section>
 
         <Faq items={faq} lang={base} title={ui.faq} />
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/poker/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}

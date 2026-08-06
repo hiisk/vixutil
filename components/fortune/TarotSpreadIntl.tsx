@@ -54,7 +54,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-500 to-purple-700" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={`/${lang}`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 font-medium">
             {ui.home}

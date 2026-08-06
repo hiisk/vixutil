@@ -168,7 +168,7 @@ export default function FormulaArticle({
       {glossary.length >= 2 && (
         <section>
           <H>{ui.articleGlossary}</H>
-          <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
+          <dl className="list-card">
             {glossary.map(g => (
               <div key={g.t} className="px-4 py-3">
                 <dt className="text-sm font-bold text-slate-800 dark:text-slate-100">{g.t}</dt>

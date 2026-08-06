@@ -55,7 +55,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
       <PageGlow accent="emerald" />
       <div className="h-1 bg-gradient-to-r from-emerald-600 to-teal-500" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -73,12 +73,12 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{fill(ui.hubTitle, { n })}</h1>
+          <h1 className="page-h1">{fill(ui.hubTitle, { n })}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{fill(ui.hubLead, { n })}</p>
         </div>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.chart}</h2>
+          <h2 className="sec-h2-tight">{ui.chart}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.chartNote}</p>
           <HandGrid path={path} />
         </section>
@@ -129,7 +129,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
 
         <Faq items={faq} lang={base} title={ui.faq} />
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/game/poker`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}

@@ -51,7 +51,7 @@ export default function FretPage({ slug, lang }: { slug: string; lang: Lang }) {
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-yellow-700 to-amber-500" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={hub} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -79,7 +79,7 @@ export default function FretPage({ slug, lang }: { slug: string; lang: Lang }) {
         </div>
 
         <div className="text-center mb-6">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.metaTitle(f, note)}</h1>
+          <h1 className="page-h1">{ui.metaTitle(f, note)}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.desc(f, note)}</p>
         </div>
 
@@ -94,7 +94,7 @@ export default function FretPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         {f.sameNote.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.sameNoteTitle}</h2>
+            <h2 className="sec-h2-tight">{ui.sameNoteTitle}</h2>
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.sameNoteNote}</p>
             <div className="flex flex-wrap gap-2">
               {f.sameNote.map(o => (
@@ -111,7 +111,7 @@ export default function FretPage({ slug, lang }: { slug: string; lang: Lang }) {
         )}
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.distanceTitle}</h2>
+          <h2 className="sec-h2-tight">{ui.distanceTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{ui.distanceNote}</p>
         </section>
 
@@ -131,23 +131,23 @@ export default function FretPage({ slug, lang }: { slug: string; lang: Lang }) {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{ui.stringTitle}</h2>
+          <h2 className="sec-h2-tight">{ui.stringTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.stringNote}</p>
           <FretBoard path={hub} lang={lang} current={slug} />
         </section>
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.howTitle}</h2>
-          <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
+          <ul className="list-card">
             {ui.how.map(h => (
-              <li key={h} className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{h}</li>
+              <li key={h} className="cell-note">{h}</li>
             ))}
           </ul>
         </section>
 
         <Faq items={ui.fretFaq(f, note)} lang={base} title={ui.faqTitle} />
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
             <Link key={l.lang} href={`${l.prefix}/fret/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               {l.label}

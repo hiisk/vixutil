@@ -74,7 +74,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
       <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-slate-500 to-slate-700" />
 
-      <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+      <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={homeHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 font-medium shrink-0">
             {ui.home}
@@ -89,7 +89,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
 
       <main className="relative max-w-3xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.hubTitle}</h1>
+          <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">{ui.hubLead}</p>
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 tabular-nums">
             {ui.linesIn(METRO_LINES.length)} · {ui.stationCount(totalStations())}
@@ -112,7 +112,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
 
         <Faq items={faq} lang={base} title={ui.faqTitle} />
 
-        <nav className="mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500" aria-label="Language">
+        <nav className="foot-nav" aria-label="Language">
           {METRO_LANGS.filter(l => l.lang !== lang).map(l => (
             <Link
               key={l.lang}

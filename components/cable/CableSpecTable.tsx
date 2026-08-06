@@ -20,7 +20,7 @@ export default function CableSpecTable({
   verdictName: (v: Verdict) => string;
 }) {
   return (
-    <ul className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
+    <ul className="list-card">
       {specs.map(s => (
         <li key={s.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
           <span className="text-sm text-slate-600 dark:text-slate-300">{name(s.key)}</span>

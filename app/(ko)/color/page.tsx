@@ -117,7 +117,7 @@ export default function ColorHubPage() {
           hex 코드 하나가 필요해 들어온 사람은 팔레트를 만들 생각이 없다.
         */}
         <section className="mt-10" aria-label={COLOR_UI.ko.section}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{COLOR_UI.ko.hubTitle}</h2>
+          <h2 className="sec-h2-tight">{COLOR_UI.ko.hubTitle}</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{COLOR_UI.ko.hubLead}</p>
           {COLOR_FAMILIES.map(family => (
             <div key={family} className="mb-4">

@@ -70,7 +70,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
         ))}
 
         <section className="mb-8" aria-label={names.section}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{names.hubTitle}</h2>
+          <h2 className="sec-h2-tight">{names.hubTitle}</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{names.hubLead}</p>
           {COLOR_FAMILIES.map(family => (
             <div key={family} className="mb-4">

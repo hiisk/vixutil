@@ -120,7 +120,7 @@ export default function FoodHubPage() {
           변환기를 열 생각이 없다.
         */}
         <section className="mt-10" aria-label={FOOD_UI.ko.section}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{FOOD_UI.ko.hubTitle}</h2>
+          <h2 className="sec-h2-tight">{FOOD_UI.ko.hubTitle}</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{FOOD_UI.ko.hubLead}</p>
           {FOOD_CATEGORIES.map(cat => (
             <div key={cat} className="mb-4">

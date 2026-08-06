@@ -118,7 +118,7 @@ export default function TimeHubPage() {
           뉴욕이 지금 몇 시인지 알고 싶은 사람은 타이머를 열 생각이 없다.
         */}
         <section className="mt-10" aria-label={TIME_UI.ko.section}>
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">{TIME_UI.ko.hubTitle}</h2>
+          <h2 className="sec-h2-tight">{TIME_UI.ko.hubTitle}</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{TIME_UI.ko.hubLead}</p>
           {TIME_REGIONS.map(region => (
             <div key={region} className="mb-4">

@@ -242,3 +242,32 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .row-line {
   @apply border-b border-slate-100 dark:border-slate-800 last:border-0;
 }
+
+/* ── 3차 수확 (2026-08-07, newsection 머지 뒤) ──
+   새 섹션 열셋이 들어오면서 되풀이가 다시 늘었다. 아래는 그 섹션들의
+   컴포넌트에서 센 횟수다. 머리글·바닥글은 한 장에 한 번이지만 길고(120자),
+   목록 카드와 셀은 한 장에 여러 번 나온다.
+
+     .sec-h2-tight  64번   .list-card  42번   .page-h1   26번
+     .cell-note     26번   .page-head  26번   .foot-nav  26번 */
+.sec-h2-tight {
+  @apply text-base font-black text-slate-800 dark:text-slate-100 mb-1;
+}
+.page-h1 {
+  @apply text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2;
+}
+.list-card {
+  @apply rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900
+         divide-y divide-slate-100 dark:divide-slate-800;
+}
+.cell-note {
+  @apply px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed;
+}
+/* 페이지 맨 위 고정 머리글 — 한 장에 한 번이지만 120자다 */
+.page-head {
+  @apply bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20;
+}
+/* 바닥의 섹션 바로가기 줄 */
+.foot-nav {
+  @apply mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500;
+}

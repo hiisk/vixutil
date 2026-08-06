@@ -15,7 +15,7 @@ export default function QuizContent({ quiz }: { quiz: Quiz }) {
   return (
     <div className="bg-white dark:bg-slate-900">
       <section className="max-w-lg mx-auto px-4 pb-10 w-full" aria-label="문항 및 해설">
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1">
+        <h2 className="sec-h2-tight">
           {quiz.title} 문항 · 정답 해설
         </h2>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
