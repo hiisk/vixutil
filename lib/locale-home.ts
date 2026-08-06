@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/bignum', icon: '🔢', color: 'from-cyan-600 to-sky-400',
+    accent: 'text-cyan-700 dark:text-cyan-200', border: 'border-cyan-200 dark:border-cyan-800', bg: 'bg-cyan-50 dark:bg-cyan-900/40',
+    copy: {
+      en: { title: 'Lakh, Crore, 億', desc: 'Three numbering systems cut the digits differently' },
+      es: { title: 'Lakh, crore, 億', desc: 'Tres sistemas cortan las cifras de otro modo' },
+      'pt-br': { title: 'Lakh, crore, 億', desc: 'Três sistemas cortam os dígitos de modos diferentes' },
+      ja: { title: 'lakh・crore・億', desc: '3つの体系は桁の切り方が違います' },
+      de: { title: 'Lakh, Crore, 億', desc: 'Drei Zahlensysteme gruppieren die Ziffern anders' },
+      fr: { title: 'Lakh, crore, 億', desc: 'Trois systèmes découpent les chiffres autrement' },
+      hi: { title: 'लाख, करोड़, 億', desc: 'तीन प्रणालियाँ अंकों को अलग-अलग काटती हैं' },
+      'zh-hans': { title: 'lakh·crore·亿', desc: '三种计数体系的分节位置不同' },
+      'zh-hant': { title: 'lakh·crore·億', desc: '三種計數體系的分節位置不同' },
+    },
+  },
+  {
     route: '/viewing', icon: '📺', color: 'from-blue-700 to-sky-400',
     accent: 'text-blue-700 dark:text-blue-200', border: 'border-blue-200 dark:border-blue-800', bg: 'bg-blue-50 dark:bg-blue-900/40',
     copy: {

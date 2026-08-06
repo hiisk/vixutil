@@ -47,8 +47,9 @@ test('카드 장수가 아는 수와 같다', () => {
    *          언어씩 더함(+80)
    *   1,989  비밀번호 세기를 열 언어씩 더함(+10)
    *   1,999  TV 시청거리를 열 언어씩 더함(+10)
+   *   2,009  큰 수 단위를 열 언어씩 더함(+10)
    */
-  const WANT = 1999;
+  const WANT = 2009;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);
