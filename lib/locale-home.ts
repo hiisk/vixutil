@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/bed', icon: '🛏️', color: 'from-violet-700 to-fuchsia-400',
+    accent: 'text-violet-700 dark:text-violet-200', border: 'border-violet-200 dark:border-violet-800', bg: 'bg-violet-50 dark:bg-violet-900/40',
+    copy: {
+      en: { title: 'Bed Sizes and Rooms', desc: 'A Korean King and an American King differ by 33 cm' },
+      es: { title: 'Camas y habitaciones', desc: 'La King coreana y la estadounidense difieren 33 cm' },
+      'pt-br': { title: 'Camas e quartos', desc: 'A King coreana e a americana diferem 33 cm' },
+      ja: { title: 'ベッドの規格と部屋', desc: '韓国のキングと米国のKingは33cm違います' },
+      de: { title: 'Bettgrößen und Zimmer', desc: 'Koreanisches und amerikanisches King trennen 33 cm' },
+      fr: { title: 'Lits et chambres', desc: 'Le King coréen et le King américain diffèrent de 33 cm' },
+      hi: { title: 'बेड आकार और कमरा', desc: 'कोरियाई King और अमेरिकी King में 33 सेमी का अंतर' },
+      'zh-hans': { title: '床垫规格与房间', desc: '韩国 King 和美国 King 相差 33cm' },
+      'zh-hant': { title: '床墊規格與房間', desc: '韓國 King 和美國 King 相差 33cm' },
+    },
+  },
+  {
     route: '/quake', icon: '🌋', color: 'from-rose-800 to-orange-400',
     accent: 'text-rose-700 dark:text-rose-200', border: 'border-rose-200 dark:border-rose-800', bg: 'bg-rose-50 dark:bg-rose-900/40',
     copy: {

@@ -81,6 +81,7 @@ import { CELLS as PB_CELLS, POWERBANK_ICON, slugOf as pbSlug } from './powerbank
 import { CELLS as GOLF_CELLS, GOLF_ICON, slugOf as golfSlug } from './golf/list';
 import { CELLS as MW_CELLS, MICROWAVE_ICON, slugOf as mwSlug } from './microwave/list';
 import { MAGNITUDES, QUAKE_ICON, slugOf as quakeSlug } from './quake/list';
+import { BED_ICON, CELLS as BED_CELLS, slugOf as bedSlug } from './bed/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -137,6 +138,7 @@ import { powerFacts } from './powerbank/facts';
 import { golfFacts } from './golf/facts';
 import { microwaveFacts } from './microwave/facts';
 import { quakeFacts } from './quake/facts';
+import { bedFacts } from './bed/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -171,7 +173,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed';
 
 export interface SearchItem {
   href: string;
@@ -264,6 +266,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   golf:       { label: '골프 핸디캡', icon: '⛳', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
   microwave:  { label: '전자레인지', icon: '🍽️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   quake:      { label: '지진 규모',  icon: '🌋', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
+  bed:        { label: '침대 규격',  icon: '🛏️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
 };
 
 /**
@@ -936,6 +939,23 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: QUAKE_ICON,
     };
   }),
+  ...BED_CELLS.map(c => {
+    const f = bedFacts(c);
+    const NAME: Record<string, string> = {
+      'kr-single': '싱글(한국)', 'kr-supersingle': '슈퍼싱글(한국)', 'kr-double': '더블(한국)',
+      'kr-queen': '퀸(한국)', 'kr-king': '킹(한국)', 'kr-largeking': '라지킹(한국)', 'kr-superking': '슈퍼킹(한국)',
+      'us-twin': 'Twin(미국)', 'us-twinxl': 'Twin XL(미국)', 'us-full': 'Full(미국)',
+      'us-queen': 'Queen(미국)', 'us-king': 'King(미국)',
+    };
+    const FIT: Record<string, string> = { both: '양쪽 통로', one: '벽에 붙이면', tight: '통로가 모자람', no: '안 들어감' };
+    return {
+      href: `/bed/${bedSlug(c)}`,
+      title: `${NAME[c.bed]} · 방 ${c.room}mm — 통로 ${f.gap}mm`,
+      desc: `침대 ${f.width} × ${f.length}mm · ${FIT[f.fit]} · 둘이 누우면 1인당 ${f.perPerson}mm`,
+      section: 'bed' as const,
+      icon: BED_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -1031,6 +1051,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/bed', title: '침대 규격과 방 크기', desc: '한국 킹과 미국 King은 33cm 다릅니다', section: 'bed' as const, icon: BED_ICON },
   { href: '/quake', title: '지진 규모와 에너지', desc: '규모 7은 6의 두 배가 아니라 32배입니다', section: 'quake' as const, icon: QUAKE_ICON },
   { href: '/microwave', title: '전자레인지 와트 환산', desc: '700W 3분은 1000W에서 2분 6초입니다', section: 'microwave' as const, icon: MICROWAVE_ICON },
   { href: '/golf', title: '골프 핸디캡 계산', desc: '같은 90타가 코스마다 다른 실력입니다', section: 'golf' as const, icon: GOLF_ICON },

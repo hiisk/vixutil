@@ -99,6 +99,7 @@ import { CELLS as PB_CELLS, slugOf as pbSlug } from "@/lib/powerbank/list";
 import { CELLS as GOLF_CELLS, slugOf as golfSlug } from "@/lib/golf/list";
 import { CELLS as MW_CELLS, slugOf as mwSlug } from "@/lib/microwave/list";
 import { MAGNITUDES as QUAKE_MAGS, slugOf as quakeSlug } from "@/lib/quake/list";
+import { CELLS as BED_CELLS, slugOf as bedSlug } from "@/lib/bed/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -634,6 +635,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 침대 144장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/bed`, changeFrequency: weekly, priority: 0.85 },
+      ...BED_CELLS.map(c => ({
+        url: `${BASE}${prefix}/bed/${bedSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
