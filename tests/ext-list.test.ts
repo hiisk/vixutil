@@ -31,7 +31,9 @@ test('MIME 타입이 형식을 지킨다', () => {
   // type/subtype 두 토막이고, 등록된 최상위 타입 여덟 개 중 하나여야 한다
   const TOP = ['application', 'audio', 'font', 'image', 'model', 'text', 'video', 'multipart', 'message'];
   for (const x of EXTS) {
-    assert.match(x.mime, /^[a-z]+\/[a-z0-9][a-z0-9.+-]*$/, `${x.ext}: MIME 형식이 아니다 — ${x.mime}`);
+    // 부속 타입에는 대문자가 실제로 들어간다 — 마이크로소프트가 등록한
+    // application/vnd.ms-excel.sheet.macroEnabled.12 이 그렇다
+    assert.match(x.mime, /^[a-z]+\/[a-zA-Z0-9][a-zA-Z0-9.+-]*$/, `${x.ext}: MIME 형식이 아니다 — ${x.mime}`);
     const [top] = x.mime.split('/');
     assert.ok(TOP.includes(top), `${x.ext}: 없는 최상위 타입 ${top}`);
   }
@@ -59,7 +61,8 @@ test('쌍둥이는 서로를 가리킨다', () => {
       assert.ok(back.includes(x.ext), `${x.ext}는 ${t}를 보는데 ${t}는 ${x.ext}를 안 본다`);
     }
   }
-  assert.deepEqual(extFacts(extOf('jpg')!).twins, ['jpeg']);
+  // jfif도 image/jpeg다 — 같은 형식을 가리키는 이름이 셋이다
+  assert.deepEqual(extFacts(extOf('jpg')!).twins, ['jpeg', 'jfif']);
   assert.deepEqual(extFacts(extOf('sqlite')!).twins, ['db']);
   assert.deepEqual(extFacts(extOf('webp')!).twins, [], '혼자인 형식은 쌍둥이가 없다');
 });
