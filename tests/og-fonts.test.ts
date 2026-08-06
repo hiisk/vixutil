@@ -138,7 +138,7 @@ test('공유 카드가 ImageResponse를 직접 부르지 않는다', () => {
   const cards = files
     .filter(f => /^[a-z]{2}\.tsx$/.test(f))
     .flatMap(f => [...readFileSync(join(dir, f), 'utf8').matchAll(/^ {2}'[^']*': \(\) =>/gm)]);
-  assert.equal(cards.length, 2019, `공유 카드가 ${cards.length}장`);
+  assert.equal(cards.length, 2029, `공유 카드가 ${cards.length}장`);
   const bad = files.filter(f => readFileSync(join(dir, f), 'utf8').includes('new ImageResponse'));
   assert.deepStrictEqual(bad, []);
 });

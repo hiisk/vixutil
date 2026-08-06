@@ -92,6 +92,7 @@ import { CELLS as PW_CELLS, slugOf as pwSlug } from "@/lib/password/list";
 import { CELLS as VIEW_CELLS, slugOf as viewSlug } from "@/lib/viewing/list";
 import { CELLS as BIG_CELLS, slugOf as bigSlug } from "@/lib/bignum/list";
 import { CELLS as GENGO_CELLS, slugOf as gengoSlug } from "@/lib/gengo/list";
+import { CELLS as CABLE_CELLS, slugOf as cableSlug } from "@/lib/cable/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -627,6 +628,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 케이블 대역폭 100장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/cable`, changeFrequency: weekly, priority: 0.85 },
+      ...CABLE_CELLS.map(c => ({
+        url: `${BASE}${prefix}/cable/${cableSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

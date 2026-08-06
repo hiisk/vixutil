@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/cable', icon: '🔌', color: 'from-indigo-700 to-violet-400',
+    accent: 'text-indigo-700 dark:text-indigo-200', border: 'border-indigo-200 dark:border-indigo-800', bg: 'bg-indigo-50 dark:bg-indigo-900/40',
+    copy: {
+      en: { title: 'Cable Bandwidth', desc: '4K at 120 Hz needs 23.9 Gbps — HDMI 2.0 gives video only 14.4' },
+      es: { title: 'Ancho de banda del cable', desc: '4K a 120 Hz pide 23,9 Gbps; HDMI 2.0 solo da 14,4 al vídeo' },
+      'pt-br': { title: 'Largura de banda do cabo', desc: '4K a 120 Hz pede 23,9 Gbps; o HDMI 2.0 dá só 14,4 ao vídeo' },
+      ja: { title: 'ケーブルの帯域', desc: '4K 120Hzは23.9Gbps — HDMI 2.0が画面に出せるのは14.4Gbpsです' },
+      de: { title: 'Kabel-Bandbreite', desc: '4K mit 120 Hz braucht 23,9 Gbit/s — HDMI 2.0 gibt dem Bild nur 14,4' },
+      fr: { title: 'Bande passante du câble', desc: 'La 4K à 120 Hz demande 23,9 Gb/s ; HDMI 2.0 n’en donne que 14,4' },
+      hi: { title: 'केबल बैंडविड्थ', desc: '4K 120Hz को 23.9 Gbps चाहिए — HDMI 2.0 वीडियो को केवल 14.4 देता है' },
+      'zh-hans': { title: '线材带宽', desc: '4K 120Hz 要 23.9Gbps，HDMI 2.0 只给画面 14.4Gbps' },
+      'zh-hant': { title: '線材頻寬', desc: '4K 120Hz 要 23.9Gbps，HDMI 2.0 只給畫面 14.4Gbps' },
+    },
+  },
+  {
     route: '/gengo', icon: '🎌', color: 'from-red-700 to-rose-400',
     accent: 'text-red-700 dark:text-red-200', border: 'border-red-200 dark:border-red-800', bg: 'bg-red-50 dark:bg-red-900/40',
     copy: {
