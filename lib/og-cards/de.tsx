@@ -20,6 +20,7 @@ import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
 import { hubCard as braHub } from '@/lib/bra/route';
+import { hubCard as microwaveHub } from '@/lib/microwave/route';
 import { hubCard as golfHub } from '@/lib/golf/route';
 import { hubCard as powerbankHub } from '@/lib/powerbank/route';
 import { hubCard as lumberHub } from '@/lib/lumber/route';
@@ -266,6 +267,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'image/size': () => imgsizeHub('de'),
   'keycode': () => keycodeHub('de'),
   'lumen': () => lumenHub('de'),
+  'microwave': () => microwaveHub('de'),
   'metro': () => metroHub('de'),
   'music': () => musicHub('de'),
   'number': () => numberHub('de'),

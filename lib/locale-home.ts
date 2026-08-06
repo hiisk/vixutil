@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/microwave', icon: '🍽️', color: 'from-orange-700 to-amber-400',
+    accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
+    copy: {
+      en: { title: 'Microwave Wattage', desc: 'Three minutes at 700 W is 2:06 at 1000 W' },
+      es: { title: 'Vatios del microondas', desc: 'Tres minutos a 700 W son 2:06 a 1000 W' },
+      'pt-br': { title: 'Watts do micro-ondas', desc: 'Três minutos a 700 W são 2:06 a 1000 W' },
+      ja: { title: '電子レンジのワット換算', desc: '700Wで3分は1000Wで2分6秒です' },
+      de: { title: 'Mikrowellen-Wattzahl', desc: 'Drei Minuten bei 700 W sind 2:06 bei 1000 W' },
+      fr: { title: 'Puissance du micro-ondes', desc: 'Trois minutes à 700 W font 2:06 à 1000 W' },
+      hi: { title: 'माइक्रोवेव वॉट', desc: '700 W पर तीन मिनट = 1000 W पर 2:06' },
+      'zh-hans': { title: '微波炉功率换算', desc: '700W 三分钟，在 1000W 是 2 分 6 秒' },
+      'zh-hant': { title: '微波爐功率換算', desc: '700W 三分鐘，在 1000W 是 2 分 6 秒' },
+    },
+  },
+  {
     route: '/golf', icon: '⛳', color: 'from-green-800 to-lime-400',
     accent: 'text-lime-700 dark:text-lime-200', border: 'border-lime-200 dark:border-lime-800', bg: 'bg-lime-50 dark:bg-lime-900/40',
     copy: {
