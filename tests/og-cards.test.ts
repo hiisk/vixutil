@@ -57,8 +57,9 @@ test('카드 장수가 아는 수와 같다', () => {
    *   2,079  전자레인지 와트 환산을 열 언어씩 더함(+10)
    *   2,089  지진 규모와 에너지를 열 언어씩 더함(+10)
    *   2,099  침대 규격과 방을 열 언어씩 더함(+10)
+   *   2,109  와인 병 크기를 열 언어씩 더함(+10)
    */
-  const WANT = 2099;
+  const WANT = 2109;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

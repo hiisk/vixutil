@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/wine', icon: '🍷', color: 'from-pink-900 to-rose-400',
+    accent: 'text-pink-700 dark:text-pink-200', border: 'border-pink-200 dark:border-pink-800', bg: 'bg-pink-50 dark:bg-pink-900/40',
+    copy: {
+      en: { title: 'Wine Bottle Sizes', desc: 'A Jeroboam is five litres in Bordeaux and three in Burgundy' },
+      es: { title: 'Tamaños de botella', desc: 'Un Jeroboam son cinco litros en Burdeos y tres en Borgoña' },
+      'pt-br': { title: 'Tamanhos de garrafa', desc: 'Um Jeroboam são cinco litros em Bordeaux e três na Borgonha' },
+      ja: { title: 'ワインボトルの大きさ', desc: 'ジェロボアムはボルドーで5リットル、ブルゴーニュで3リットルです' },
+      de: { title: 'Weinflaschengrößen', desc: 'Ein Jeroboam fasst in Bordeaux fünf, im Burgund drei Liter' },
+      fr: { title: 'Formats de bouteille', desc: 'Un jéroboam fait cinq litres à Bordeaux et trois en Bourgogne' },
+      hi: { title: 'वाइन बोतल आकार', desc: 'Jeroboam बोर्दो में पाँच लीटर, बरगंडी में तीन' },
+      'zh-hans': { title: '葡萄酒瓶容量', desc: '耶罗波安在波尔多是五升，在勃艮第是三升' },
+      'zh-hant': { title: '葡萄酒瓶容量', desc: '耶羅波安在波爾多是五升，在勃艮第是三升' },
+    },
+  },
+  {
     route: '/bed', icon: '🛏️', color: 'from-violet-700 to-fuchsia-400',
     accent: 'text-violet-700 dark:text-violet-200', border: 'border-violet-200 dark:border-violet-800', bg: 'bg-violet-50 dark:bg-violet-900/40',
     copy: {

@@ -20,6 +20,7 @@ import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
 import { hubCard as braHub } from '@/lib/bra/route';
+import { hubCard as wineHub } from '@/lib/wine/route';
 import { hubCard as bedHub } from '@/lib/bed/route';
 import { hubCard as quakeHub } from '@/lib/quake/route';
 import { hubCard as microwaveHub } from '@/lib/microwave/route';
@@ -120,6 +121,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'gengo': () => gengoHub('de'),
   'golf': () => golfHub('de'),
   'viewing': () => viewingHub('de'),
+  'wine': () => wineHub('de'),
   'petfood': () => petfoodHub('de'),
   'size': () => sizeHub('de'),
   'uv': () => uvHub('de'),
