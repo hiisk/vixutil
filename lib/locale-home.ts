@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/air', icon: '🌫️', color: 'from-slate-600 to-slate-400',
+    accent: 'text-slate-700 dark:text-slate-200', border: 'border-slate-200 dark:border-slate-700', bg: 'bg-slate-50 dark:bg-slate-800/60',
+    copy: {
+      en: { title: 'Fine Dust and AQI', desc: 'What a PM2.5 reading means on the US index and on the Korean scale' },
+      es: { title: 'Partículas y AQI', desc: 'Qué significa un valor de PM2,5 en el índice de EE. UU. y en la escala coreana' },
+      'pt-br': { title: 'Partículas e AQI', desc: 'O que um valor de PM2,5 significa no índice dos EUA e na escala coreana' },
+      ja: { title: 'PM2.5と大気質指数', desc: '同じ濃度が米国の指数と韓国の等級でどう変わるか' },
+      de: { title: 'Feinstaub und AQI', desc: 'Was ein PM2,5-Wert im US-Index und auf der koreanischen Skala bedeutet' },
+      fr: { title: 'Particules et AQI', desc: 'Ce que vaut un PM2,5 sur l’indice américain et sur l’échelle coréenne' },
+      hi: { title: 'सूक्ष्म कण और AQI', desc: 'PM2.5 का मान अमेरिकी सूचकांक और कोरियाई पैमाने पर क्या कहता है' },
+      'zh-hans': { title: 'PM2.5 与空气质量指数', desc: '同一浓度在美国指数和韩国等级下的不同读法' },
+      'zh-hant': { title: 'PM2.5 與空氣品質指數', desc: '同一濃度在美國指數和韓國等級下的不同讀法' },
+    },
+  },
+  {
     route: '/insul', icon: '🧱', color: 'from-stone-600 to-stone-400',
     accent: 'text-stone-700 dark:text-stone-200', border: 'border-stone-200 dark:border-stone-700', bg: 'bg-stone-50 dark:bg-stone-800/60',
     copy: {

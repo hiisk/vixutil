@@ -43,6 +43,7 @@ import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
 import { CELLS as INSUL_CELLS } from '@/lib/insul/list';
+import { CELLS as AIR_CELLS } from '@/lib/air/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -119,6 +120,18 @@ const SECTIONS = [
     textAccent: 'text-stone-700 dark:text-stone-200',
     borderAccent: 'border-stone-200 dark:border-stone-700',
     shadow: 'shadow-stone-100',
+  },
+  {
+    href: '/air',
+    icon: '🌫️',
+    title: '미세먼지와 대기질 지수',
+    desc: '초미세먼지 35는 보통인데 AQI로는 99 — 한국 등급과 미국 지수를 나란히',
+    badge: `${AIR_CELLS.length}칸`,
+    color: 'from-slate-600 to-slate-400',
+    bgLight: 'bg-slate-50 dark:bg-slate-800/60',
+    textAccent: 'text-slate-700 dark:text-slate-200',
+    borderAccent: 'border-slate-200 dark:border-slate-700',
+    shadow: 'shadow-slate-100',
   },
   {
     href: '/paper',

@@ -83,6 +83,7 @@ import { CELLS as AMP_CELLS, slugOf as ampSlug } from "@/lib/ampere/list";
 import { CELLS as UV_CELLS, slugOf as uvSlug } from "@/lib/uv/list";
 import { CELLS as HIKE_CELLS, slugOf as hikeSlug } from "@/lib/hike/list";
 import { CELLS as INSUL_CELLS, slugOf as insulSlug } from "@/lib/insul/list";
+import { CELLS as AIR_CELLS, slugOf as airSlug } from "@/lib/air/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -608,6 +609,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 대기질 108장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/air`, changeFrequency: weekly, priority: 0.85 },
+      ...AIR_CELLS.map(c => ({
+        url: `${BASE}${prefix}/air/${airSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),
