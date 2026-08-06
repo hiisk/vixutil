@@ -85,6 +85,7 @@ import { CELLS as HIKE_CELLS, slugOf as hikeSlug } from "@/lib/hike/list";
 import { CELLS as INSUL_CELLS, slugOf as insulSlug } from "@/lib/insul/list";
 import { CELLS as AIR_CELLS, slugOf as airSlug } from "@/lib/air/list";
 import { CELLS as SIZE_CELLS, slugOf as sizeSlug } from "@/lib/size/list";
+import { CELLS as BRA_CELLS, slugOf as braSlug } from "@/lib/bra/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -610,6 +611,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/dew`, changeFrequency: weekly, priority: 0.85 },
       ...DEW_CELLS.map(c => ({
         url: `${BASE}${prefix}/dew/${dewSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 브래지어 100장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/bra`, changeFrequency: weekly, priority: 0.85 },
+      ...BRA_CELLS.map(c => ({
+        url: `${BASE}${prefix}/bra/${braSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

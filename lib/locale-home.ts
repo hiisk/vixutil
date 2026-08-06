@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/bra', icon: '👙', color: 'from-pink-600 to-rose-400',
+    accent: 'text-pink-700 dark:text-pink-200', border: 'border-pink-200 dark:border-pink-800', bg: 'bg-pink-50 dark:bg-pink-900/40',
+    copy: {
+      en: { title: 'Bra Sizes', desc: 'A 12.5 cm difference is a B cup — the label from two measurements' },
+      es: { title: 'Tallas de sujetador', desc: '12,5 cm de diferencia son una copa B — la talla desde dos medidas' },
+      'pt-br': { title: 'Tamanhos de sutiã', desc: '12,5 cm de diferença são um bojo B — o tamanho a partir de duas medidas' },
+      ja: { title: 'ブラのサイズ', desc: '差12.5cmがBカップ — 2つの寸法から表記が出ます' },
+      de: { title: 'BH-Größen', desc: '12,5 cm Differenz sind Cup B — die Größe aus zwei Maßen' },
+      fr: { title: 'Tailles de soutien-gorge', desc: '12,5 cm d’écart font un bonnet B — la taille à partir de deux mesures' },
+      hi: { title: 'ब्रा साइज़', desc: '12.5 सेमी अंतर यानी B कप — दो मापों से लेबल' },
+      'zh-hans': { title: '文胸尺码', desc: '相差 12.5cm 就是 B 罩杯——两个尺寸算出尺码' },
+      'zh-hant': { title: '內衣尺碼', desc: '相差 12.5cm 就是 B 罩杯——兩個尺寸算出尺碼' },
+    },
+  },
+  {
     route: '/size', icon: '👕', color: 'from-purple-600 to-fuchsia-400',
     accent: 'text-purple-700 dark:text-purple-200', border: 'border-purple-200 dark:border-purple-800', bg: 'bg-purple-50 dark:bg-purple-900/40',
     copy: {

@@ -68,6 +68,7 @@ import { CELLS as HIKE_CELLS, HIKE_ICON, slugOf as hikeSlug } from './hike/list'
 import { CELLS as INSUL_CELLS, INSUL_ICON, slugOf as insulSlug } from './insul/list';
 import { AIR_ICON, CELLS as AIR_CELLS, pollutantOf, slugOf as airSlug } from './air/list';
 import { CELLS as SIZE_CELLS, SIZE_ICON, slugOf as sizeSlug } from './size/list';
+import { BRA_ICON, CELLS as BRA_CELLS, slugOf as braSlug } from './bra/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -111,6 +112,7 @@ import { hikeFacts } from './hike/facts';
 import { insulFacts } from './insul/facts';
 import { airFacts } from './air/facts';
 import { sizeFacts as clothingFacts } from './size/facts';
+import { braFacts } from './bra/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -145,7 +147,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra';
 
 export interface SearchItem {
   href: string;
@@ -225,6 +227,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   insul:      { label: '단열재',     icon: '🧱', accent: 'bg-stone-50 text-stone-700 border-stone-200' },
   air:        { label: '대기질',     icon: '🌫️', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   size:       { label: '옷 사이즈',  icon: '👕', accent: 'bg-purple-50 text-purple-700 border-purple-200' },
+  bra:        { label: '브래지어',   icon: '👙', accent: 'bg-pink-50 text-pink-700 border-pink-200' },
 };
 
 /**
@@ -727,6 +730,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: SIZE_ICON,
     };
   }),
+  ...BRA_CELLS.map(c => {
+    const f = braFacts(c);
+    return {
+      href: `/bra/${braSlug(c)}`,
+      title: `밑가슴 ${c.under}cm · 차이 ${c.diff}cm — ${f.label}`,
+      desc: `윗가슴 ${f.bust}cm · ${f.cup}컵 · 밑가슴 ${f.underInch}인치`,
+      section: 'bra' as const,
+      icon: BRA_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -822,6 +835,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
   { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
   { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
+  { href: '/bra', title: '브래지어 사이즈 계산', desc: '밑가슴둘레와 가슴 차이로 표기를 계산합니다', section: 'bra' as const, icon: BRA_ICON },
   { href: '/size', title: '옷 사이즈 환산', desc: '44·55·66과 S·M·L, 남성 95·100·105를 한 표에', section: 'size' as const, icon: SIZE_ICON },
   { href: '/air', title: '미세먼지 농도와 대기질 지수', desc: '한국 등급과 미국 AQI를 나란히, 담배 개비 환산까지', section: 'air' as const, icon: AIR_ICON },
   { href: '/insul', title: '단열재 열저항 계산', desc: '재료와 두께로 열저항·열관류율, 콘크리트 환산까지', section: 'insul' as const, icon: INSUL_ICON },

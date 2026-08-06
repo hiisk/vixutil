@@ -45,6 +45,7 @@ import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
 import { CELLS as INSUL_CELLS } from '@/lib/insul/list';
 import { CELLS as AIR_CELLS } from '@/lib/air/list';
 import { CELLS as SIZE_CELLS } from '@/lib/size/list';
+import { CELLS as BRA_CELLS } from '@/lib/bra/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';

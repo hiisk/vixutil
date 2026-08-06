@@ -135,7 +135,7 @@ export const GROUPS: Record<string, string[]> = {
   glasses: ['👓'],
 
   tie: ['👔'],
-  shirt: ['👕', '🎽'],
+  shirt: ['👕', '🎽', '👙'],
   briefcase: ['💼', '🧑‍💼', '👷'],
   gradCap: ['🎓'],
   medal: ['🎖️', '🏅', '🥇'],
