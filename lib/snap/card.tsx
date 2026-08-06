@@ -17,6 +17,11 @@ const LOOK: Record<NewSnapSlug, { icon: string; eyebrow: string; from: string; t
   'real-smile': { icon: '😄', eyebrow: 'Real Smile', from: '#fbbf24', to: '#f43f5e' },
   'eye-open': { icon: '👁️', eyebrow: 'Eye Openness', from: '#8b5cf6', to: '#c026d3' },
   framing: { icon: '🖼️', eyebrow: 'Framing', from: '#6366f1', to: '#0ea5e9' },
+  lighting: { icon: '💡', eyebrow: 'Lighting', from: '#f59e0b', to: '#78350f' },
+  sharpness: { icon: '🔍', eyebrow: 'Sharpness', from: '#0891b2', to: '#1e3a8a' },
+  'white-balance': { icon: '🎚️', eyebrow: 'White Balance', from: '#14b8a6', to: '#7c3aed' },
+  distance: { icon: '📏', eyebrow: 'Distance', from: '#65a30d', to: '#166534' },
+  mirror: { icon: '🪞', eyebrow: 'Mirror Faces', from: '#a855f7', to: '#1e1b4b' },
 };
 
 /** 데바나가리는 카드 글꼴에서 정형되지 않는다 — 앞선 섹션들과 같은 처리다 */

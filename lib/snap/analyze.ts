@@ -11,7 +11,11 @@
  */
 import { VOCAB, bandOf, type Vocab } from './copy.ts';
 import { TOOL_TEXT, type MetricKey, type NewSnapSlug } from './tool-text.ts';
-import { headPose, eyeOpenness, realSmile, idPhoto, framing, type Face } from './measures.ts';
+import {
+  headPose, eyeOpenness, realSmile, idPhoto, framing,
+  lighting, sharpness, whiteBalance, shootDistance, mirrorFace,
+  type Face, type PixelStats,
+} from './measures.ts';
 import type { SnapLang } from '@/components/snap/SnapShell';
 
 export interface Metric {
@@ -33,6 +37,11 @@ export interface SnapResult {
   metrics: Metric[];
   /** 가장 낮은 항목의 이름 — "여기를 고치면 된다" */
   weakest: string;
+  /**
+   * 좌우 합성 얼굴에만 있다 — 화면이 이 축으로 사진을 뒤집어 붙인다.
+   * 점수가 아니라 그림이 결과인 유일한 도구다.
+   */
+  mirror?: { axis: number; box: { x: number; y: number; width: number; height: number } };
 }
 
 const pct = (x: number) => Math.round(Math.max(0, Math.min(1, x)) * 100);
@@ -47,7 +56,10 @@ function assemble(lang: SnapLang, score: number, metrics: Metric[], headline: st
 /** 방향 낱말은 도구 셋이 함께 쓴다 */
 const dirWord = (v: Vocab, d: 'left' | 'right' | 'above' | 'below' | 'even') => v.dir[d];
 
-export function analyzeSnap(lang: SnapLang, slug: NewSnapSlug, f: Face): SnapResult {
+/** 픽셀을 봐야 하는 도구 — 화면이 캔버스에서 통계를 뽑아 함께 넘긴다 */
+export const NEEDS_PIXELS: ReadonlySet<string> = new Set(['lighting', 'sharpness', 'white-balance']);
+
+export function analyzeSnap(lang: SnapLang, slug: NewSnapSlug, f: Face, px?: PixelStats): SnapResult {
   const v = VOCAB[lang];
   const M = TOOL_TEXT[lang].metric;
   const m = (key: MetricKey, percent: number, raw?: string): Metric => ({ key, label: M[key], percent, raw });
@@ -92,6 +104,45 @@ export function analyzeSnap(lang: SnapLang, slug: NewSnapSlug, f: Face): SnapRes
         m('evenness', pct(e.evenness)),
       ];
       return assemble(lang, e.score, metrics, `${v.overall} ${pct(e.score)}% · ${v.bands[bandOf(e.score)]}`);
+    }
+    case 'lighting': {
+      const r = lighting(px!);
+      const metrics = [
+        m('sideLight', pct(1 - r.sideDiff)),
+        m('topLight', pct(1 - r.topDiff)),
+        m('backlit', pct(1 - r.backlit)),
+        m('exposure', pct(r.exposure), `${Math.round(px!.faceLuma)}/255`),
+      ];
+      return assemble(lang, r.score, metrics, `${dirWord(v, r.from)}`);
+    }
+    case 'sharpness': {
+      const r = sharpness(px!);
+      const metrics = [m('focus', pct(r.score), r.variance.toFixed(0))];
+      return assemble(lang, r.score, metrics, `${v.overall} ${pct(r.score)}% · ${v.bands[bandOf(r.score)]}`);
+    }
+    case 'white-balance': {
+      const r = whiteBalance(px!);
+      const metrics = [
+        m('temp', pct(1 - Math.abs(r.temp)), r.temp.toFixed(2)),
+        m('tint', pct(1 - Math.abs(r.tint)), r.tint.toFixed(2)),
+      ];
+      return assemble(lang, r.score, metrics, v.cast[r.cast]);
+    }
+    case 'distance': {
+      const r = shootDistance(f);
+      /* 거리 자체는 좋고 나쁨이 없다 — 막대는 "왜곡이 적은 정도"로 그린다 */
+      const metrics = [
+        m('shotDistance', pct(1 - r.distortion), `${Math.round(r.cm)}cm`),
+        m('faceFill', pct(Math.min(1, r.fill * 2)), `${pct(r.fill)}%`),
+        m('perspective', pct(1 - r.distortion)),
+      ];
+      return assemble(lang, 1 - r.distortion, metrics, `${M.shotDistance} ${Math.round(r.cm)}cm`);
+    }
+    case 'mirror': {
+      const r = mirrorFace(f);
+      const metrics = [m('axisBalance', pct(r.balance))];
+      const out = assemble(lang, r.balance, metrics, `${v.overall} ${pct(r.balance)}%`);
+      return { ...out, mirror: { axis: r.axis, box: f.box } };
     }
     case 'framing': {
       const r = framing(f);

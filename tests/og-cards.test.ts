@@ -42,8 +42,9 @@ test('카드 장수가 아는 수와 같다', () => {
    *
    *   1,799  파일 규약을 접었을 때의 장수(app 곳곳의 opengraph-image.tsx)
    *   1,849  새 스냅테스트 다섯을 열 언어로 더함(+50)
+   *   1,899  픽셀을 보는 스냅테스트 다섯을 더함(+50)
    */
-  const WANT = 1849;
+  const WANT = 1899;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

@@ -313,3 +313,83 @@ test('합성 축은 콧대에 서고 좌우 폭을 가른다', () => {
   assert.ok(mirrorFace(skewed).leftWidth > mirrorFace(skewed).rightWidth);
   assert.ok(mirrorFace(skewed).balance < 0.8);
 });
+
+/* ── 결과 조립 ─────────────────────────────────────────────────── */
+
+import { analyzeSnap, NEEDS_PIXELS } from '../lib/snap/analyze.ts';
+import { NEW_SNAP_SLUGS, TOOL_TEXT } from '../lib/snap/tool-text.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { VOCAB } from '../lib/snap/copy.ts';
+
+/** 열 언어 열쇠 — 스냅은 경로형(pt-br·zh-hans)을 쓴다 */
+const SNAP_LANGS = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'] as const;
+
+const PIXELS = {
+  faceLuma: 145, backLuma: 150, leftLuma: 145, rightLuma: 145,
+  topLuma: 145, bottomLuma: 145, laplacianVar: 900, r: 128, g: 128, b: 128, backStd: 10,
+};
+
+test('열 도구가 모두 결과를 낸다', () => {
+  const f = baseFace();
+  for (const slug of NEW_SNAP_SLUGS) {
+    const r = analyzeSnap('ko', slug, f, NEEDS_PIXELS.has(slug) ? PIXELS : undefined);
+    assert.ok(r.metrics.length > 0, `${slug}: 항목이 없다`);
+    assert.ok(r.percent >= 0 && r.percent <= 100, `${slug}: 점수가 ${r.percent}`);
+    assert.ok(r.headline.length > 0, `${slug}: 요약이 비었다`);
+    assert.ok(r.band.length > 0, `${slug}: 단계 낱말이 비었다`);
+    for (const m of r.metrics) {
+      assert.ok(m.label.length > 0, `${slug}/${m.key}: 이름이 비었다`);
+      assert.ok(m.percent >= 0 && m.percent <= 100, `${slug}/${m.key}: ${m.percent}`);
+    }
+  }
+});
+
+test('좌우 합성만 그림 정보를 함께 낸다', () => {
+  /*
+   * mirror는 점수가 아니라 그림이 결과다. 축을 안 넘기면 화면이 캔버스를
+   * 못 그리고, 안내문("이미지를 뒤집어 붙인다")과 화면이 어긋난다.
+   */
+  const f = baseFace();
+  const withMirror = NEW_SNAP_SLUGS.filter(
+    s => analyzeSnap('ko', s, f, NEEDS_PIXELS.has(s) ? PIXELS : undefined).mirror,
+  );
+  assert.deepStrictEqual(withMirror, ['mirror']);
+  const r = analyzeSnap('ko', 'mirror', f);
+  assert.ok(r.mirror && Math.abs(r.mirror.axis - 200) < 1, `축이 ${r.mirror?.axis}`);
+});
+
+test('열 언어에 열 도구 문구가 모두 있다', () => {
+  /*
+   * 한 언어에 한 도구를 빠뜨리면 그 페이지 제목이 undefined가 되는데, 빌드는
+   * 통과하고 그 언어를 읽는 사람만 본다. 타입이 Record라 빠지면 tsc가 잡지만,
+   * 빈 문자열이나 다른 언어 문구를 그대로 복사해 둔 것은 못 잡는다.
+   */
+  const bad: string[] = [];
+  for (const lang of SNAP_LANGS) {
+    const pack = TOOL_TEXT[lang];
+    for (const slug of NEW_SNAP_SLUGS) {
+      const t = pack.tools[slug];
+      for (const [k, v] of Object.entries(t)) {
+        if (!v || v.trim().length < 4) bad.push(`${lang}/${slug}.${k}: 너무 짧다`);
+      }
+      // 한국어 문구가 다른 언어에 그대로 남아 있으면 번역을 안 한 것이다
+      if (lang !== 'ko' && t.title === TOOL_TEXT.ko.tools[slug].title) bad.push(`${lang}/${slug}: 한국어 제목 그대로`);
+    }
+    for (const [k, v] of Object.entries(pack.metric)) {
+      if (!v || !v.trim()) bad.push(`${lang}.metric.${k}: 비었다`);
+    }
+    assert.equal(VOCAB[lang].bands.length, 5, `${lang}: 단계가 다섯이 아니다`);
+  }
+  assert.deepStrictEqual(bad.slice(0, 10), []);
+});
+
+test('한 언어 안에서 도구 제목이 겹치지 않는다', () => {
+  // 겹치면 페이지 두 장이 같은 제목으로 색인된다
+  const bad: string[] = [];
+  for (const lang of SNAP_LANGS) {
+    const titles = NEW_SNAP_SLUGS.map(s => TOOL_TEXT[lang].tools[s].title);
+    if (new Set(titles).size !== titles.length) bad.push(`${lang}: ${titles.join(' / ')}`);
+  }
+  assert.deepStrictEqual(bad, []);
+  assert.equal(LANG_CODES.length, SNAP_LANGS.length, '언어 수가 어긋난다');
+});

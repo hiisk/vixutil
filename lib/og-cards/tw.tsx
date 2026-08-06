@@ -76,6 +76,11 @@ import { hubCard as wireHub } from '@/lib/wire/route';
 import { hubCard as yearHub } from '@/lib/year/route';
 
 export const CARDS: Record<string, () => ReactElement> = {
+  'snap/lighting': () => newSnapCard('zh-hant', 'lighting'),
+  'snap/sharpness': () => newSnapCard('zh-hant', 'sharpness'),
+  'snap/white-balance': () => newSnapCard('zh-hant', 'white-balance'),
+  'snap/distance': () => newSnapCard('zh-hant', 'distance'),
+  'snap/mirror': () => newSnapCard('zh-hant', 'mirror'),
   'snap/id-photo': () => newSnapCard('zh-hant', 'id-photo'),
   'snap/head-pose': () => newSnapCard('zh-hant', 'head-pose'),
   'snap/real-smile': () => newSnapCard('zh-hant', 'real-smile'),

@@ -64,6 +64,8 @@ export function newSnapHubCards(lang: SnapLang) {
 const HUB_ICON: Record<NewSnapSlug, string> = {
   'id-photo': '\u{1FAAA}', 'head-pose': '\u{1F9ED}', 'real-smile': '\u{1F604}',
   'eye-open': '\u{1F441}\u{FE0F}', framing: '\u{1F5BC}\u{FE0F}',
+  lighting: '\u{1F4A1}', sharpness: '\u{1F50D}', 'white-balance': '\u{1F39A}\u{FE0F}',
+  distance: '\u{1F4CF}', mirror: '\u{1FA9E}',
 };
 const HUB_COLOR: Record<NewSnapSlug, string> = {
   'id-photo': 'from-sky-500 to-indigo-600',
@@ -71,4 +73,9 @@ const HUB_COLOR: Record<NewSnapSlug, string> = {
   'real-smile': 'from-amber-400 to-rose-500',
   'eye-open': 'from-violet-500 to-fuchsia-600',
   framing: 'from-indigo-500 to-sky-500',
+  lighting: 'from-amber-400 to-amber-800',
+  sharpness: 'from-cyan-500 to-blue-800',
+  'white-balance': 'from-teal-400 to-violet-600',
+  distance: 'from-lime-500 to-green-800',
+  mirror: 'from-purple-500 to-indigo-900',
 };
