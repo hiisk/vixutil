@@ -27,7 +27,7 @@ export interface Size {
 export const AWGS: number[] = [-3, -1, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
 
 /** 미터 계열 굵기(mm²) — 콘센트 배선에서 흔히 쓰는 것들 */
-export const SQS: number[] = [0.75, 1.5, 2.5, 4, 6];
+export const SQS: number[] = [0.75, 1, 1.5, 2.5, 4, 6, 10, 16];
 
 export const SIZES: Size[] = [
   ...AWGS.map(awg => ({ awg, sq: null })),
@@ -35,7 +35,7 @@ export const SIZES: Size[] = [
 ];
 
 /** 흘리는 전류(A) */
-export const AMPS: number[] = [1, 3, 5, 10, 15, 20, 30, 50, 80, 125];
+export const AMPS: number[] = [1, 3, 5, 7, 10, 15, 20, 25, 30, 40, 50, 63, 80, 100, 125];
 
 export interface Cell {
   size: Size;

@@ -19,11 +19,11 @@ const facts = (slug: string) => {
   return bandwidthFacts(c);
 };
 
-test('칸은 크기 24가지 × 속도 10가지', () => {
+test('칸은 크기 24가지 × 속도 14가지', () => {
   assert.equal(SIZES.length, 24);
-  assert.equal(SPEEDS.length, 10);
-  assert.equal(CELLS.length, 240);
-  assert.equal(new Set(CELLS.map(slugOf)).size, 240);
+  assert.equal(SPEEDS.length, 14);
+  assert.equal(CELLS.length, 336);
+  assert.equal(new Set(CELLS.map(slugOf)).size, 336);
   // 두 목록 다 오름차순이어야 앞뒤 칸이 뜻을 가진다
   assert.deepEqual([...SIZES].sort((a, b) => a - b), SIZES);
   assert.deepEqual([...SPEEDS].sort((a, b) => a - b), SPEEDS);
@@ -122,8 +122,8 @@ test('앞뒤 칸은 한 단계씩만 움직인다', () => {
   // 목록 끝에서는 한쪽이 비어야 한다
   assert.equal(facts('10mb-5').slower, null);
   assert.equal(facts('10mb-5').smaller, null);
-  assert.equal(facts('150gb-2500').faster, null);
-  assert.equal(facts('150gb-2500').bigger, null);
+  assert.equal(facts('150gb-10000').faster, null);
+  assert.equal(facts('150gb-10000').bigger, null);
   // 빠른 회선은 반드시 더 짧게 걸린다
   for (const c of CELLS) {
     const g = bandwidthFacts(c);

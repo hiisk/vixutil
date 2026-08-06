@@ -8,7 +8,7 @@
  * 뛰어오르는 높이는 반대로 간다. 같은 힘으로 굴러 올라가는 높이는 중력에
  * 반비례하므로, 달에서는 여섯 배 높이 뜬다.
  */
-import { BODIES, EARTH_G } from './list.ts';
+import { BODIES, EARTH_G, LIGHTEST, HEAVIEST } from './list.ts';
 
 const round = (x: number, digits = 1) => {
   const k = 10 ** digits;
@@ -71,5 +71,11 @@ export const heavierThanEarth = (): string[] =>
 export const lighterThanEarth = (): string[] =>
   BODIES.filter(b => b.g < EARTH_G).map(b => b.key);
 
+/*
+ * 범위는 list.ts의 상수를 쓴다. 전에는 30~130을 여기 그대로 적어 두었는데,
+ * 목록을 20~150으로 넓히자 20kg 낱장의 이웃이 통째로 비었다 — 범위가 두 벌
+ * 있으면 한쪽만 고치게 된다.
+ */
 export const neighbours = (kg: number, span = 3): number[] =>
-  Array.from({ length: span * 2 + 1 }, (_, i) => kg - span + i).filter(w => w >= 30 && w <= 130 && w !== kg);
+  Array.from({ length: span * 2 + 1 }, (_, i) => kg - span + i)
+    .filter(w => w >= LIGHTEST && w <= HEAVIEST && w !== kg);

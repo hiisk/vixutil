@@ -9,7 +9,7 @@
  * 도시의 고도가 그 정도로 갈리기 때문이다 — 멕시코시티 2240m, 덴버 1609m.
  */
 export const LOWEST = 0;
-export const HIGHEST = 5000;
+export const HIGHEST = 6000;
 export const STEP = 50;
 
 export const ALTITUDES: number[] = Array.from(

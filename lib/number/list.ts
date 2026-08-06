@@ -14,7 +14,7 @@
  */
 
 /** 격자로 그리는 구간 — 열 칸씩 끊어 스무 줄이 된다 */
-export const GRID_MAX = 200;
+export const GRID_MAX = 240;
 export const GRID_COLS = 10;
 
 /**

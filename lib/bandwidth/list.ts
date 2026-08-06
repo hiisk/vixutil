@@ -17,7 +17,7 @@ export const SIZES: number[] = [
 ];
 
 /** 회선 속도(Mbps) — 통신사가 광고하는 숫자 그대로 */
-export const SPEEDS: number[] = [5, 10, 20, 50, 100, 200, 300, 500, 1000, 2500];
+export const SPEEDS: number[] = [5, 10, 20, 25, 50, 100, 200, 300, 400, 500, 1000, 2500, 5000, 10000];
 
 /** 이름이 붙은 크기 — 나머지는 숫자로 충분하다 */
 export const LANDMARK: Record<number, string> = {

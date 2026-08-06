@@ -21,11 +21,11 @@ const facts = (slug: string) => {
   return torqueFacts(c);
 };
 
-test('칸은 볼트 19가지 × 등급 8가지', () => {
+test('칸은 볼트 19가지 × 등급 12가지', () => {
   assert.equal(DIAMETERS.length, 19);
-  assert.equal(GRADES.length, 8);
-  assert.equal(CELLS.length, 152);
-  assert.equal(new Set(CELLS.map(slugOf)).size, 152);
+  assert.equal(GRADES.length, 12);
+  assert.equal(CELLS.length, 228);
+  assert.equal(new Set(CELLS.map(slugOf)).size, 228);
   for (const c of CELLS) assert.deepEqual(cellOf(slugOf(c)), c, slugOf(c));
   assert.equal(slugOf({ d: 3.5, grade: '88' }), 'm3-5-88');
   assert.equal(cellOf('m8'), undefined);
@@ -145,7 +145,8 @@ test('굵을수록, 등급이 높을수록 세게 조인다', () => {
   assert.equal(facts('m3-46').smaller, null);
   assert.equal(facts('m36-a480').stronger, null);
   assert.equal(facts('m36-a480').bigger, null);
-  assert.equal(facts('m8-88').stronger?.label, 'M8 10.9');
+  // 9.8이 8.8과 10.9 사이에 들어오면서 이웃이 바뀌었다
+  assert.equal(facts('m8-88').stronger?.label, 'M8 9.8');
   assert.equal(facts('m8-88').bigger?.label, 'M10 8.8');
 });
 

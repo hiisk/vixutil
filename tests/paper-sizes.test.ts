@@ -19,11 +19,11 @@ const facts = (slug: string) => {
   return paperFacts(c);
 };
 
-test('칸은 규격 35가지 × 해상도 8가지', () => {
+test('칸은 규격 35가지 × 해상도 12가지', () => {
   assert.equal(SIZES.length, 35);
-  assert.equal(DPIS.length, 8);
-  assert.equal(CELLS.length, 280);
-  assert.equal(new Set(CELLS.map(slugOf)).size, 280);
+  assert.equal(DPIS.length, 12);
+  assert.equal(CELLS.length, 420);
+  assert.equal(new Set(CELLS.map(slugOf)).size, 420);
   for (const c of CELLS) assert.deepEqual(cellOf(slugOf(c)), c, slugOf(c));
   assert.equal(cellOf('a4'), undefined);
   assert.equal(cellOf('a11-300'), undefined);

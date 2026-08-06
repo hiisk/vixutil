@@ -20,7 +20,7 @@ import { DENSE } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(CELLS.length >= 100, `${CELLS.length}가지뿐이다`);
   assert.equal(CELLS.length, TEMPS.length * HUMIDS.length);
-  assert.equal(CELLS.length, 189);
+  assert.equal(CELLS.length, 210);
   assert.equal(new Set(DEW_SLUGS).size, CELLS.length, 'slug 중복');
   assert.equal(TEMPS[0], COLDEST);
   assert.equal(TEMPS[TEMPS.length - 1], WARMEST);

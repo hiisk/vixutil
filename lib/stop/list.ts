@@ -8,7 +8,7 @@
  * 그 값들이 표 안에 그대로 있어야 "여기서 얼마"를 바로 볼 수 있다.
  */
 export const SLOWEST = 10;
-export const FASTEST = 150;
+export const FASTEST = 180;
 
 export const SPEEDS: number[] = Array.from({ length: FASTEST - SLOWEST + 1 }, (_, i) => SLOWEST + i);
 
@@ -29,6 +29,8 @@ export const STOP_ICON = '🚗';
 export const SURFACES: { key: string; mu: number }[] = [
   { key: 'dry', mu: 0.8 },
   { key: 'wet', mu: 0.5 },
+  { key: 'gravel', mu: 0.35 },
+  { key: 'leaves', mu: 0.3 },
   { key: 'snow', mu: 0.25 },
   { key: 'ice', mu: 0.12 },
 ];
@@ -37,4 +39,4 @@ export const SURFACES: { key: string; mu: number }[] = [
 export const REACTION_SEC = 1;
 
 /** 제한속도로 흔한 값들 — 목록의 눈금이 된다 */
-export const LIMITS = [30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+export const LIMITS = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130];

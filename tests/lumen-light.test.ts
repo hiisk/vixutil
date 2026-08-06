@@ -18,11 +18,11 @@ const facts = (slug: string) => {
   return lumenFacts(c);
 };
 
-test('칸은 넓이 20가지 × 쓰임 8가지', () => {
+test('칸은 넓이 20가지 × 쓰임 12가지', () => {
   assert.equal(AREAS.length, 20);
-  assert.equal(USES.length, 8);
-  assert.equal(CELLS.length, 160);
-  assert.equal(new Set(CELLS.map(slugOf)).size, 160);
+  assert.equal(USES.length, 12);
+  assert.equal(CELLS.length, 240);
+  assert.equal(new Set(CELLS.map(slugOf)).size, 240);
   for (const c of CELLS) assert.deepEqual(cellOf(slugOf(c)), c, slugOf(c));
   assert.equal(cellOf('20'), undefined);
   assert.equal(cellOf('21-living'), undefined);
@@ -113,15 +113,16 @@ test('한 달 전기 사용량', () => {
 });
 
 test('앞뒤 칸은 한 단계씩만 움직인다', () => {
+  // 계단(120lux)과 사무 공간(400lux)이 사이에 들어오면서 이웃이 바뀌었다
   const f = facts('20-living');
   assert.equal(f.brighter?.use, 'bath');
-  assert.equal(f.dimmer?.use, 'bedroom');
+  assert.equal(f.dimmer?.use, 'stairs');
   assert.equal(f.bigger?.area, 23);
   assert.equal(f.smaller?.area, 17);
-  assert.equal(facts('3-hall').dimmer, null);
-  assert.equal(facts('3-hall').smaller, null);
-  assert.equal(facts('80-detail').brighter, null);
-  assert.equal(facts('80-detail').bigger, null);
+  assert.equal(facts('3-storage').dimmer, null);
+  assert.equal(facts('3-storage').smaller, null);
+  assert.equal(facts('80-surgery').brighter, null);
+  assert.equal(facts('80-surgery').bigger, null);
   for (const c of CELLS) {
     const g = lumenFacts(c);
     if (g.brighter) assert.ok(lumenFacts(cellOf(g.brighter.slug)!).lumen > g.lumen, g.slug);

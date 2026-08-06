@@ -19,11 +19,11 @@ import { DENSE } from './han.ts';
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(WEIGHTS.length >= 100, `${WEIGHTS.length}가지뿐이다`);
   assert.equal(WEIGHTS.length, HEAVIEST - LIGHTEST + 1);
-  assert.equal(WEIGHTS.length, 101);
+  assert.equal(WEIGHTS.length, 131);
   assert.equal(new Set(GRAVITY_SLUGS).size, WEIGHTS.length, 'slug 중복');
   assert.equal(weightOf('70'), 70);
-  assert.equal(weightOf('29'), undefined);
-  assert.equal(weightOf('131'), undefined);
+  assert.equal(weightOf('19'), undefined);
+  assert.equal(weightOf('151'), undefined);
 });
 
 test('천체 목록이 지구를 기준으로 서 있다', () => {

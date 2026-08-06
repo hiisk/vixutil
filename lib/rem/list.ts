@@ -10,7 +10,7 @@
  * 120에서 끊은 것은 그 위가 폰트나 여백으로 잘 쓰이지 않기 때문이다. 사람이
  * 찾는 값은 대개 12·14·16·24처럼 두 자리다.
  */
-export const MAX_PX = 120;
+export const MAX_PX = 144;
 
 export const PIXELS: number[] = Array.from({ length: MAX_PX }, (_, i) => i + 1);
 
