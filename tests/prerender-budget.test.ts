@@ -58,12 +58,34 @@ test('디스크 안에 드는 값이다', () => {
    * 새 섹션 여덟을 머지했더니 동적 라우트가 731에서 늘었고, 그만큼 굽는
    * 장수도 늘어 .next가 7.3GB에서 8.3GB가 됐다.
    */
-  const KB_PER_PAGE = 441;
+  /*
+   * 2026-08-06에 다시 쟀다. 441은 낡은 값이었고 실제는 **325KB**다.
+   *   .html 118 + .rsc 61 + .segments 144
+   * .segments는 RSC 페이로드를 두 벌 더 담는다(_full 56KB + 페이지 45KB).
+   * Next 16.2에는 이걸 끄는 설정이 없다 — config-shared.d.ts에 없고,
+   * cacheComponents: false로도 그대로 나온다.
+   *
+   * 이 숫자로 다시 재면 PR=24에서 낱장 19,009장 · .next 8.3GB다.
+   */
+  const KB_PER_PAGE = 325;
   const dynamicRoutes = countDynamicRoutes();
   assert.ok(dynamicRoutes > 500, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
   const pages = 2500 + dynamicRoutes * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
   assert.ok(gb < 12, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);
+
+  /*
+   * 미리 굽는 것으로는 한도를 못 맞춘다는 사실도 함께 박아 둔다.
+   *
+   * 사이트맵이 129,347장이고 디스크가 12GB로 막히므로 구울 수 있는 것은 많아야
+   * 38,000장(전체의 29%)이다. 나머지는 크롤 한 바퀴마다 ISR 쓰기가 된다.
+   *   PR=24  ISR 110,338 → 월 한도 20만으로 크롤 1.8바퀴
+   *   PR=36  ISR 100,834 → 2.0바퀴   (디스크 11.2GB, 복사본까지 22.4GB로 위험)
+   * 굽는 수를 올려도 1.8이 2.0이 될 뿐이다. **남은 수단은 배포를 모으는 것이다** —
+   * 배포마다 캐시가 차가워져 크롤이 처음부터 다시 쓴다.
+   */
+  const covered = pages / 129_347;
+  assert.ok(covered < 0.5, '사이트맵의 절반을 굽고 있다면 이 계산을 다시 세우라');
 });
 
 test('사이트맵이 내거는 양을 알고 있다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
