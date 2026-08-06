@@ -85,6 +85,105 @@ function titleSize(title: string): number {
 }
 
 /**
+ * 카드에서 읽히는 색으로 끌어올린다.
+ *
+ * eyebrow는 섹션의 to 색을 그대로 썼는데, to가 어두운 섹션이 쉰 곳이다
+ * (paper·wifi·ext… 전부 #0f172a, 밝기 23). 카드 배경도 어두우므로 검은 배경에
+ * 검은 글씨가 되어 아무도 못 읽는다 — 열 언어를 곱하면 500장이 그랬다.
+ * 카드를 열어 보기 전에는 드러나지 않는 종류의 고장이라 오래 남아 있었다.
+ *
+ * 색상(hue)은 그대로 두고 밝기만 올린다. 섹션마다 다른 색이라는 성질이
+ * 카드의 유일한 구분 수단이라 그것을 잃으면 안 된다.
+ */
+/** 둘 중 밝은 쪽 — 섹션 색을 살리려면 어두운 to보다 from이 나을 때가 많다 */
+export function brighter(a: string, b: string): string {
+  const lum = (h: string) => {
+    const n = parseInt(h.slice(1), 16);
+    return 0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255);
+  };
+  return lum(a) >= lum(b) ? a : b;
+}
+
+export function readableOnDark(hex: string, minLum = 140): string {
+  const n = parseInt(hex.slice(1), 16);
+  let [r, g, b] = [n >> 16, (n >> 8) & 255, n & 255];
+  const lum = () => 0.299 * r + 0.587 * g + 0.114 * b;
+  if (lum() >= minLum) return hex;
+  /* 흰색 쪽으로 섞어 올린다 — 색상은 유지되고 밝기만 오른다 */
+  const k = Math.min(1, (minLum - lum()) / (255 - lum()));
+  r = Math.round(r + (255 - r) * k);
+  g = Math.round(g + (255 - g) * k);
+  b = Math.round(b + (255 - b) * k);
+  return `#${[r, g, b].map(v => v.toString(16).padStart(2, '0')).join('')}`;
+}
+
+/**
+ * 그라디언트를 **계단으로** 쪼갠다 — 카드 크기를 아홉 배 줄인다.
+ *
+ * PNG는 무손실이라 매끄러운 그라디언트를 저장할 때 픽셀마다 조금씩 다른 색을
+ * 그대로 적는다. 1200×630 카드 한 장이 226KB가 되고, 이미 압축된 형식이라
+ * 전송할 때 더 줄지도 않는다(gzip 후 221KB). 카드가 1,899장이면 한 번 훑을 때
+ * 420MB다 — Vercel 무료 티어의 전송 한도(10GB)를 갉아먹은 자리가 여기다.
+ *
+ * 계단으로 쪼개면 같은 색이 넓게 이어져 PNG가 그것을 한 줄로 줄인다.
+ * 실측: 매끄러움 281KB · 열다섯 계단 32KB · 단색 22KB.
+ *
+ * 계단 수는 카드에서 눈에 안 띄는 선에서 정했다. 어두운 배경에서 열여섯이면
+ * 사람 눈으로는 매끄러운 것과 구분되지 않는다.
+ */
+const BANDS = 16;
+
+/** [위치, 색] 목록을 계단 stop으로 편다 */
+function banded(stops: [number, string][]): ReactElement[] {
+  const out: ReactElement[] = [];
+  for (let i = 0; i < BANDS; i++) {
+    const t0 = i / BANDS;
+    const t1 = (i + 1) / BANDS;
+    const c = sampleColor(stops, (t0 + t1) / 2);
+    out.push(<stop key={`${i}a`} offset={`${t0 * 100}%`} stopColor={c} />);
+    out.push(<stop key={`${i}b`} offset={`${t1 * 100}%`} stopColor={c} />);
+  }
+  return out;
+}
+
+/** 투명도만 변하는 그라디언트 — 색은 하나다 */
+function bandedAlpha(color: string, stops: [number, number][]): ReactElement[] {
+  const out: ReactElement[] = [];
+  for (let i = 0; i < BANDS; i++) {
+    const t0 = i / BANDS;
+    const t1 = (i + 1) / BANDS;
+    const a = sampleNumber(stops, (t0 + t1) / 2);
+    out.push(<stop key={`${i}a`} offset={`${t0 * 100}%`} stopColor={color} stopOpacity={a} />);
+    out.push(<stop key={`${i}b`} offset={`${t1 * 100}%`} stopColor={color} stopOpacity={a} />);
+  }
+  return out;
+}
+
+/** 위치 t에서의 색 — 앞뒤 stop을 선형으로 섞는다 */
+function sampleColor(stops: [number, string][], t: number): string {
+  const i = Math.max(0, stops.findIndex(s => s[0] >= t));
+  if (i <= 0) return stops[0][1];
+  const [p0, c0] = stops[i - 1];
+  const [p1, c1] = stops[i];
+  const k = p1 === p0 ? 0 : (t - p0) / (p1 - p0);
+  const mix = (a: string, b: string) => {
+    const hex = (h: string, o: number) => parseInt(h.slice(1 + o, 3 + o), 16);
+    const v = (o: number) => Math.round(hex(a, o) + (hex(b, o) - hex(a, o)) * k);
+    return `#${[0, 2, 4].map(o => v(o).toString(16).padStart(2, '0')).join('')}`;
+  };
+  return mix(c0, c1);
+}
+
+function sampleNumber(stops: [number, number][], t: number): number {
+  const i = Math.max(0, stops.findIndex(s => s[0] >= t));
+  if (i <= 0) return stops[0][1];
+  const [p0, a0] = stops[i - 1];
+  const [p1, a1] = stops[i];
+  const k = p1 === p0 ? 0 : (t - p0) / (p1 - p0);
+  return Number((a0 + (a1 - a0) * k).toFixed(3));
+}
+
+/**
  * 카드 그림 — 1200×630 한 장을 통째로 그린 SVG.
  *
  * 배경·빛·궤도·아이콘이 전부 이 안에 있다. CSS로 배경을 깔고 그 위에 작은
@@ -101,18 +200,18 @@ function artwork(glyph: ReactElement[] | null, from: string, to: string): ReactE
     <svg width={OG_SIZE.width} height={OG_SIZE.height} viewBox="0 0 1200 630">
       <defs>
         <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#12142c" />
-          <stop offset="60%" stopColor="#06070f" />
-          <stop offset="100%" stopColor="#0a0b18" />
+          {banded([
+            [0, '#12142c'],
+            [0.6, '#06070f'],
+            [1, '#0a0b18'],
+          ])}
         </linearGradient>
-        {/* 가로로 서서히 밝아지는 판. 왼쪽 끝을 완전 투명으로 둬야 이음선이 안 생긴다 */}
+        {/* 가로로 밝아지는 판. 왼쪽 끝을 완전 투명으로 둬야 이음선이 안 생긴다 */}
         <linearGradient id="sheet" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="30%" stopColor={from} stopOpacity="0" />
-          <stop offset="100%" stopColor={from} stopOpacity="0.3" />
+          {bandedAlpha(from, [[0.3, 0], [1, 0.3]])}
         </linearGradient>
         <radialGradient id="spot" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor={to} stopOpacity="0.5" />
-          <stop offset="100%" stopColor={to} stopOpacity="0" />
+          {bandedAlpha(to, [[0, 0.5], [1, 0]])}
         </radialGradient>
       </defs>
 
@@ -229,7 +328,7 @@ export function ogCard({
             흩뜨린다 — 힌디어 카드에서 "चेकलिस्ट"가 "चे क ल सि् ट"로 깨져 나왔다.
             대문자 변환도 그 문자에는 뜻이 없다. 그래서 글자를 보고 정한다.
           */}
-          <div style={{ display: 'flex', fontSize: 20, fontWeight: 900, letterSpacing: INDIC.test(eyebrow) ? 0 : '0.2em', color: alpha(to, 0.95) }}>
+          <div style={{ display: 'flex', fontSize: 20, fontWeight: 900, letterSpacing: INDIC.test(eyebrow) ? 0 : '0.2em', color: alpha(readableOnDark(brighter(from, to)), 0.95) }}>
             {INDIC.test(eyebrow) ? eyebrow : eyebrow.toUpperCase()}
           </div>
         </div>
