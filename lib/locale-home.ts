@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/lumber', icon: '🪵', color: 'from-amber-700 to-yellow-400',
+    accent: 'text-amber-700 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
+    copy: {
+      en: { title: 'Actual Lumber Sizes', desc: 'A two-by-four is neither two nor four inches — it is 38 × 89 mm' },
+      es: { title: 'Medidas reales de madera', desc: 'Un dos por cuatro no mide ni dos ni cuatro pulgadas: son 38 × 89 mm' },
+      'pt-br': { title: 'Medidas reais da madeira', desc: 'Um dois por quatro não tem dois nem quatro polegadas: são 38 × 89 mm' },
+      ja: { title: '木材の実寸', desc: 'ツーバイフォーは2インチでも4インチでもなく38 × 89mmです' },
+      de: { title: 'Echte Holzmaße', desc: 'Ein Zwei-mal-Vier ist weder zwei noch vier Zoll — es misst 38 × 89 mm' },
+      fr: { title: 'Dimensions réelles du bois', desc: 'Un deux-par-quatre ne fait ni deux ni quatre pouces : 38 × 89 mm' },
+      hi: { title: 'लकड़ी के असली माप', desc: 'टू-बाय-फ़ोर न दो इंच है न चार — वह 38 × 89 मिमी है' },
+      'zh-hans': { title: '木材实际尺寸', desc: '二乘四既不是二英寸也不是四英寸——它是 38 × 89mm' },
+      'zh-hant': { title: '木材實際尺寸', desc: '二乘四既不是二英寸也不是四英寸——它是 38 × 89mm' },
+    },
+  },
+  {
     route: '/tatami', icon: '🏯', color: 'from-green-700 to-emerald-400',
     accent: 'text-green-700 dark:text-green-200', border: 'border-green-200 dark:border-green-800', bg: 'bg-green-50 dark:bg-green-900/40',
     copy: {

@@ -20,6 +20,7 @@ import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
 import { hubCard as braHub } from '@/lib/bra/route';
+import { hubCard as lumberHub } from '@/lib/lumber/route';
 import { hubCard as tatamiHub } from '@/lib/tatami/route';
 import { hubCard as cableHub } from '@/lib/cable/route';
 import { hubCard as gengoHub } from '@/lib/gengo/route';
@@ -107,6 +108,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'bra': () => braHub('tw'),
   'password': () => passwordHub('tw'),
   'cable': () => cableHub('tw'),
+  'lumber': () => lumberHub('tw'),
   'tatami': () => tatamiHub('tw'),
   'bignum': () => bignumHub('tw'),
   'gengo': () => gengoHub('tw'),
