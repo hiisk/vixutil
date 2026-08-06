@@ -17,8 +17,8 @@ import { DENSE, hanProblem } from './han.ts';
 
 test('100가지가 넘고 주소가 겹치지 않는다', () => {
   assert.ok(MODES.length >= 100, `${MODES.length}가지뿐이다`);
-  assert.equal(MODES.length, DIGITS.length ** 3, '다섯 값의 세 자리 조합이다');
-  assert.equal(MODES.length, 125);
+  assert.equal(MODES.length, DIGITS.length ** 3, '여섯 값의 세 자리 조합이다');
+  assert.equal(MODES.length, 216);
   assert.equal(new Set(MODES).size, MODES.length, 'slug 중복');
   assert.equal(modeOf('755'), '755');
   assert.equal(modeOf('777'), '777');
@@ -126,12 +126,12 @@ test('위험 표시가 실제 권한과 맞는다', () => {
   assert.equal(chmodFacts('750').ownerOnly, false);
   // 세상 쓰기가 되는 모드는 기타 자리가 6이나 7인 것뿐이다
   const dangerous = MODES.filter(m => chmodFacts(m).worldWritable);
-  assert.equal(dangerous.length, 25 * 2, '기타 자리가 6·7인 조합 쉰 가지다');
+  assert.equal(dangerous.length, 36 * 2, '기타 자리가 6·7인 조합 일흔두 가지다');
 });
 
 test('소유자 자리로 묶으면 다섯 무리가 스물다섯씩이다', () => {
   for (const d of DIGITS) {
-    assert.equal(modesOfOwner(d).length, 25, `${d}xx가 스물다섯이 아니다`);
+    assert.equal(modesOfOwner(d).length, 36, `${d}xx가 서른여섯이 아니다`);
     for (const m of modesOfOwner(d)) assert.equal(Number(m[0]), d, `${m}: 다른 무리에 섞였다`);
   }
   assert.equal(DIGITS.reduce<number>((n, d) => n + modesOfOwner(d).length, 0), MODES.length, '무리 밖 모드가 있다');
@@ -141,8 +141,9 @@ test('이웃은 한 자리만 다르다', () => {
   for (const m of MODES) {
     const n = neighbours(m);
     assert.ok(!n.includes(m), `${m}: 이웃에 자기 자신이 있다`);
-    // 한 자리에 네 가지 다른 값이 있고 자리는 셋이다
-    assert.equal(n.length, 12, `${m}: 이웃이 열둘이 아니다`);
+    // 한 자리에 (값 수 - 1)가지 다른 값이 있고 자리는 셋이다
+    const want = (DIGITS.length - 1) * 3;
+    assert.equal(n.length, want, `${m}: 이웃이 ${want}이 아니다`);
     for (const o of n) {
       const diff = o.split('').filter((c, i) => c !== m[i]).length;
       assert.equal(diff, 1, `${m}↔${o}: 두 자리 이상 다르다`);
@@ -181,7 +182,7 @@ test('열 언어 문구가 모두 채워져 있다', () => {
   }
 });
 
-test('설명이 125가지 모두에서 만들어진다', () => {
+test('설명이 216가지 모두에서 만들어진다', () => {
   for (const m of MODES) {
     const f = chmodFacts(m);
     for (const lang of LANG_CODES) {

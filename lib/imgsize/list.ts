@@ -34,6 +34,16 @@ const s = (slug: string, name: string, w: number, h: number, kind: SizeKind, mm?
 
 export const IMG_SIZES: ImgSize[] = [
   /* ───────── 소셜 게시물 ───────── */
+  s('bluesky-post', 'Bluesky post image', 1200, 675, 'social'),
+  s('mastodon-post', 'Mastodon post image', 1280, 720, 'social'),
+  s('reddit-post', 'Reddit post image', 1200, 628, 'social'),
+  s('tumblr-post', 'Tumblr post image', 1080, 1350, 'social'),
+  s('line-share', 'LINE share image', 1200, 630, 'social'),
+  s('xiaohongshu-post', 'Xiaohongshu post', 1080, 1440, 'social'),
+  s('weibo-post', 'Weibo post image', 1200, 630, 'social'),
+  s('facebook-event-cover', 'Facebook event cover', 1920, 1005, 'social'),
+  s('youtube-end-screen', 'YouTube end screen', 1280, 720, 'social'),
+  s('twitch-thumbnail', 'Twitch stream thumbnail', 1280, 720, 'social'),
   s('instagram-square', 'Instagram square post', 1080, 1080, 'social'),
   s('instagram-portrait', 'Instagram portrait post', 1080, 1350, 'social'),
   s('instagram-landscape', 'Instagram landscape post', 1080, 566, 'social'),
@@ -58,6 +68,12 @@ export const IMG_SIZES: ImgSize[] = [
   s('whatsapp-status', 'WhatsApp status', 1080, 1920, 'social'),
 
   /* ───────── 프로필과 배너 ───────── */
+  s('bluesky-avatar', 'Bluesky avatar', 1000, 1000, 'profile'),
+  s('bluesky-banner', 'Bluesky banner', 1500, 500, 'profile'),
+  s('mastodon-header', 'Mastodon header', 1500, 500, 'profile'),
+  s('reddit-banner', 'Reddit community banner', 1920, 384, 'profile'),
+  s('tiktok-profile', 'TikTok profile photo', 200, 200, 'profile'),
+  s('telegram-profile', 'Telegram profile photo', 512, 512, 'profile'),
   s('instagram-profile', 'Instagram profile photo', 320, 320, 'profile'),
   s('facebook-profile', 'Facebook profile photo', 400, 400, 'profile'),
   s('facebook-cover', 'Facebook cover', 851, 315, 'profile'),
@@ -185,6 +201,11 @@ export const IMG_SIZES: ImgSize[] = [
   s('android-icon-144', 'Android icon 144', 144, 144, 'icon'),
 
   /* ───────── 광고 배너 ───────── */
+  s('ad-half-banner', 'Half banner', 234, 60, 'ad'),
+  s('ad-narrow-skyscraper', 'Narrow skyscraper', 120, 600, 'ad'),
+  s('ad-rectangle-small', 'Small rectangle', 180, 150, 'ad'),
+  s('ad-mobile-interstitial', 'Mobile interstitial', 320, 480, 'ad'),
+  s('ad-triple-widescreen', 'Triple widescreen', 250, 360, 'ad'),
   s('ad-leaderboard', 'Leaderboard banner', 728, 90, 'ad'),
   s('ad-large-leaderboard', 'Large leaderboard', 970, 90, 'ad'),
   s('ad-billboard', 'Billboard banner', 970, 250, 'ad'),

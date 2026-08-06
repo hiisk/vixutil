@@ -120,7 +120,7 @@ test('이웃과 같은 갈래가 자기 자신을 뺀다', () => {
 test('관습으로 굳은 번호를 따로 표시한다', () => {
   // 3000·8080은 등록된 것이 아니라 관습이다. 뒤섞으면 "IANA에 있다"는 거짓말이 된다
   const custom = PORTS.filter(x => x.custom).map(x => x.port);
-  assert.deepEqual(custom, [3000, 5000, 8000, 8888, 9000, 25565]);
+  assert.deepEqual(custom, [2222, 3000, 4200, 4444, 5000, 5173, 6060, 8000, 8006, 8123, 8888, 9000, 9093, 11434, 19132, 25565, 51820]);
   for (const port of custom) assert.equal(portFacts(portOf(String(port))!).custom, true);
   assert.equal(portFacts(portOf('80')!).custom, false);
 });
