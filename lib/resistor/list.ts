@@ -23,10 +23,15 @@ export const E12: number[] = E24.filter((_, i) => i % 2 === 0);
 export const E6: number[] = E24.filter((_, i) => i % 4 === 0);
 
 /** 10Ω부터 9.1MΩ까지 — 여섯 자릿수 */
-export const DECADES = [1, 10, 100, 1_000, 10_000, 100_000] as const;
+/* 0.1대는 전류 감지에 쓰는 1옴 미만 저항이다 — 실제로 파는 값들이다 */
+export const DECADES = [0.1, 1, 10, 100, 1_000, 10_000, 100_000] as const;
 
 /** 옴 단위의 실제 값. 10, 11 … 9,100,000 */
-export const VALUES: number[] = DECADES.flatMap(d => E24.map(v => v * d));
+/*
+ * 0.1대를 곱하면 12 × 0.1이 1.2000000000000002가 된다 — 그대로 두면 주소와
+ * 화면에 그 꼬리가 그대로 나간다. 유효숫자로 다듬어 곱셈 오차를 지운다.
+ */
+export const VALUES: number[] = DECADES.flatMap(d => E24.map(v => Number((v * d).toPrecision(12))));
 
 export const RESISTOR_SLUGS = VALUES.map(String);
 
