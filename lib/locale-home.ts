@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/flight', icon: '✈️', color: 'from-blue-900 to-sky-400',
+    accent: 'text-blue-700 dark:text-blue-200', border: 'border-blue-200 dark:border-blue-800', bg: 'bg-blue-50 dark:bg-blue-900/40',
+    copy: {
+      en: { title: 'City Distances and Flight Times', desc: 'Leaving Seoul for New York, you head north, not east' },
+      es: { title: 'Distancias y tiempos de vuelo', desc: 'De Seúl a Nueva York se sale hacia el norte, no hacia el este' },
+      'pt-br': { title: 'Distâncias e tempos de voo', desc: 'De Seul para Nova York parte-se para o norte, não para o leste' },
+      ja: { title: '都市間の距離と飛行時間', desc: 'ソウルからニューヨークへは東ではなく北へ飛び立ちます' },
+      de: { title: 'Städtedistanzen und Flugzeiten', desc: 'Von Seoul nach New York startet man nach Norden, nicht nach Osten' },
+      fr: { title: 'Distances et temps de vol', desc: 'De Séoul à New York, on part vers le nord, pas vers l’est' },
+      hi: { title: 'शहरों की दूरी और उड़ान समय', desc: 'सियोल से न्यूयॉर्क के लिए पूर्व नहीं, उत्तर की ओर' },
+      'zh-hans': { title: '城市间距离与飞行时间', desc: '从首尔飞纽约，起飞方向是北，不是东' },
+      'zh-hant': { title: '城市間距離與飛行時間', desc: '從首爾飛紐約，起飛方向是北，不是東' },
+    },
+  },
+  {
     route: '/raid', icon: '💽', color: 'from-teal-800 to-emerald-400',
     accent: 'text-teal-700 dark:text-teal-200', border: 'border-teal-200 dark:border-teal-800', bg: 'bg-teal-50 dark:bg-teal-900/40',
     copy: {

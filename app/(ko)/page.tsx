@@ -65,6 +65,7 @@ import { CELLS as BLOOD_CELLS } from '@/lib/blood/list';
 import { CELLS as EXPOSURE_CELLS } from '@/lib/exposure/list';
 import { CELLS as HEREDITY_CELLS } from '@/lib/heredity/list';
 import { CELLS as RAID_CELLS } from '@/lib/raid/list';
+import { CELLS as FLIGHT_CELLS } from '@/lib/flight/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1042,6 +1043,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/flight',
+    icon: '✈️',
+    title: '도시 사이 거리와 비행시간',
+    desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다 — 거리·방위·시차·도착 시각',
+    badge: `${FLIGHT_CELLS.length}칸`,
+    color: 'from-blue-900 to-sky-400',
+    bgLight: 'bg-blue-50 dark:bg-blue-950/40',
+    textAccent: 'text-blue-700 dark:text-blue-300',
+    borderAccent: 'border-blue-200 dark:border-blue-800',
+    shadow: 'shadow-blue-100',
   },
   {
     href: '/raid',
