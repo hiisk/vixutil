@@ -72,7 +72,7 @@ test('디스크 안에 드는 값이다', () => {
    * 24GB에서 죽은 적이 있고 Vercel이 산출물을 한 벌 더 복사하므로 12GB를 선으로
    * 둔다. 지금 10GB는 그 선의 83%다 — 섹션을 더 늘리면 이 검사가 먼저 걸린다.
    */
-  const KB_PER_PAGE = 471;
+  const KB_PER_PAGE = 469;
   const dynamicRoutes = countDynamicRoutes();
   assert.ok(dynamicRoutes > 500, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
   const pages = 2500 + dynamicRoutes * prerenderLimit();
@@ -98,8 +98,8 @@ test('디스크 안에 드는 값이다', () => {
   /*
    * 미리 굽는 것으로는 한도를 못 맞춘다는 사실도 함께 박아 둔다.
    *
-   * 2026-08-07 실측: 사이트맵 144,357장 · 구운 것 22,259장 · .next 10GB.
-   *   ISR 쓰기 122,098/크롤 → 월 한도 20만으로 **크롤 1.6바퀴**
+   * 2026-08-07 실측: 사이트맵 163,367장 · 구운 것 21,100장(PR=20) · .next 9.4GB.
+   *   ISR 쓰기 142,267/크롤 → 월 한도 20만으로 **크롤 1.4바퀴**
    *
    * 굽는 수를 올려도 나아지지 않는다. 디스크 12GB가 상한이라 26,700장(19%)이
    * 최대이고 그때도 1.7바퀴다. newsection 머지로 라우트가 730 → 860이 되면서
@@ -108,7 +108,7 @@ test('디스크 안에 드는 값이다', () => {
    * **남은 수단은 배포를 모으는 것이다** — 배포마다 캐시가 차가워져 크롤이
    * 처음부터 다시 쓴다. 한 달에 배포 한 번이면 한도 안이다.
    */
-  const covered = pages / 144_357;
+  const covered = pages / 163_367;
   assert.ok(covered < 0.5, '사이트맵의 절반을 굽고 있다면 이 계산을 다시 세우라');
 });
 
@@ -119,7 +119,7 @@ test('사이트맵이 내거는 양을 알고 있다', { skip: sitemapRoutes() ?
    * 일을 막으려고 여기 적어 둔다.
    */
   const urls = sitemapRoutes()!;
-  assert.ok(urls.length > 100_000, `사이트맵이 ${urls.length}개뿐 — 줄었다면 왜인지 확인하라`);
+  assert.ok(urls.length > 120_000, `사이트맵이 ${urls.length}개뿐 — 줄었다면 왜인지 확인하라`);
   assert.ok(
     urls.length < 200_000,
     `사이트맵이 ${urls.length}개다. ISR 쓰기 한도(월 20만)를 배포 한 번으로 넘길 수 있다 — ` +
