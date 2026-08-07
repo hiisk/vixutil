@@ -9,6 +9,7 @@ import { GENERATORS_G } from './generator-data-g';
 import { GENERATORS_H } from './generator-data-h';
 import { GENERATORS_I } from './generator-data-i';
 import { GENERATORS_J } from './generator-data-j';
+import { GENERATORS_K } from './generator-data-k';
 
 export const GENERATORS: Generator[] = [
   ...GENERATORS_A,
@@ -21,6 +22,7 @@ export const GENERATORS: Generator[] = [
   ...GENERATORS_H,
   ...GENERATORS_I,
   ...GENERATORS_J,
+  ...GENERATORS_K,
 ];
 
 export const GENERATOR_MAP: Record<string, Generator> = Object.fromEntries(GENERATORS.map(item => [item.slug, item]));

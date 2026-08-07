@@ -199,3 +199,22 @@ test('체크리스트에 빈 섹션이나 빈 항목이 없다', () => {
     }
   }
 });
+
+test('한국어 체크리스트도 섹션 3개·항목 10개를 채운다', () => {
+  /*
+   * tests/checklist-intl.test.ts가 같은 규칙을 보지만 **아홉 언어 번역본 12종만**
+   * 본다. 한국어 152종은 위의 "비어 있지 않다"만 통과하면 되어서, 섹션 하나에
+   * 항목 하나짜리 체크리스트가 들어와도 아무도 못 잡았다.
+   * 새로 넣는 것은 언제나 한국어 전용이므로 여기가 실제로 걸리는 자리다.
+   */
+  const bad: string[] = [];
+  for (const c of CHECKLISTS) {
+    if (c.sections.length < 3) bad.push(`${c.slug}: 섹션 ${c.sections.length}개`);
+    const total = c.sections.reduce((n, s) => n + s.items.length, 0);
+    if (total < 10) bad.push(`${c.slug}: 항목 ${total}개`);
+    for (const s of c.sections) {
+      if (s.items.length < 3) bad.push(`${c.slug} / ${s.title}: 항목 ${s.items.length}개`);
+    }
+  }
+  assert.deepEqual(bad, [], `체크리스트가 너무 얇다:\n  ${bad.join('\n  ')}`);
+});
