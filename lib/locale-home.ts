@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/purifier', icon: '🌬️', color: 'from-cyan-800 to-sky-400',
+    accent: 'text-cyan-700 dark:text-cyan-200', border: 'border-cyan-200 dark:border-cyan-800', bg: 'bg-cyan-50 dark:bg-cyan-900/40',
+    copy: {
+      en: { title: 'Air Purifier Sizing', desc: 'The advertised coverage area assumes ventilation a closed room does not get' },
+      es: { title: 'Dimensionar el purificador', desc: 'La superficie anunciada supone una ventilación que una sala cerrada no tiene' },
+      'pt-br': { title: 'Dimensionar o purificador', desc: 'A área anunciada supõe uma ventilação que uma sala fechada não tem' },
+      ja: { title: '空気清浄機の適用畳数', desc: '表示の適用面積は、閉じた部屋にはない自然換気を前提にしています' },
+      de: { title: 'Luftreiniger auslegen', desc: 'Die beworbene Fläche setzt eine Lüftung voraus, die ein geschlossener Raum nicht hat' },
+      fr: { title: 'Dimensionner un purificateur', desc: 'La surface annoncée suppose une ventilation qu’une pièce fermée n’a pas' },
+      hi: { title: 'एयर प्यूरिफ़ायर आकार', desc: 'विज्ञापित क्षेत्रफल ऐसी वेंटिलेशन मानता है जो बंद कमरे में नहीं होती' },
+      'zh-hans': { title: '空气净化器适用面积', desc: '标称面积假定有自然通风，而关窗的房间并没有' },
+      'zh-hant': { title: '空氣清淨機適用坪數', desc: '標示坪數假定有自然通風，而關窗的房間並沒有' },
+    },
+  },
+  {
     route: '/flight', icon: '✈️', color: 'from-blue-900 to-sky-400',
     accent: 'text-blue-700 dark:text-blue-200', border: 'border-blue-200 dark:border-blue-800', bg: 'bg-blue-50 dark:bg-blue-900/40',
     copy: {

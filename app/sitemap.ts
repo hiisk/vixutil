@@ -106,6 +106,7 @@ import { CELLS as EXPOSURE_CELLS, slugOf as exposureSlug } from "@/lib/exposure/
 import { CELLS as HEREDITY_CELLS, slugOf as heredSlug } from "@/lib/heredity/list";
 import { CELLS as RAID_CELLS, slugOf as raidSlug } from "@/lib/raid/list";
 import { CELLS as FLIGHT_CELLS, slugOf as flightSlug } from "@/lib/flight/list";
+import { CELLS as PURIFIER_CELLS, slugOf as purifierSlug } from "@/lib/purifier/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
@@ -650,6 +651,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/wine`, changeFrequency: weekly, priority: 0.85 },
       ...WINE_CELLS.map(c => ({
         url: `${BASE}${prefix}/wine/${wineSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 공기청정기 224장도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/purifier`, changeFrequency: weekly, priority: 0.85 },
+      ...PURIFIER_CELLS.map(c => ({
+        url: `${BASE}${prefix}/purifier/${purifierSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

@@ -66,6 +66,7 @@ import { CELLS as EXPOSURE_CELLS } from '@/lib/exposure/list';
 import { CELLS as HEREDITY_CELLS } from '@/lib/heredity/list';
 import { CELLS as RAID_CELLS } from '@/lib/raid/list';
 import { CELLS as FLIGHT_CELLS } from '@/lib/flight/list';
+import { CELLS as PURIFIER_CELLS } from '@/lib/purifier/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1043,6 +1044,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/purifier',
+    icon: '🌬️',
+    title: '공기청정기 평수',
+    desc: '광고의 평형에는 자연 환기가 얹혀 있습니다 — 닫힌 방에는 그만큼 여유가 없습니다',
+    badge: `${PURIFIER_CELLS.length}칸`,
+    color: 'from-cyan-800 to-sky-400',
+    bgLight: 'bg-cyan-50 dark:bg-cyan-950/40',
+    textAccent: 'text-cyan-700 dark:text-cyan-300',
+    borderAccent: 'border-cyan-200 dark:border-cyan-800',
+    shadow: 'shadow-cyan-100',
   },
   {
     href: '/flight',

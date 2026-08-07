@@ -88,6 +88,7 @@ import { CELLS as EXPOSURE_CELLS, EXPOSURE_ICON, SHUTTERS as EXPOSURE_SHUTTERS, 
 import { CELLS as HEREDITY_CELLS, HEREDITY_ICON, slugOf as heredSlug } from './heredity/list';
 import { CELLS as RAID_CELLS, RAID_ICON, levelLabel as raidLabel, levelOf as raidLevel, slugOf as raidSlug } from './raid/list';
 import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list';
+import { CELLS as PURIFIER_CELLS, PURIFIER_ICON, slugOf as purifierSlug } from './purifier/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -151,6 +152,7 @@ import { exposureFacts } from './exposure/facts';
 import { heredityFacts } from './heredity/facts';
 import { raidFacts } from './raid/facts';
 import { flightFacts, hoursOf } from './flight/facts';
+import { purifierFacts } from './purifier/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -185,7 +187,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier';
 
 export interface SearchItem {
   href: string;
@@ -285,6 +287,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   heredity:   { label: '혈액형 유전', icon: '🧬', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   raid:       { label: 'RAID 용량',  icon: '💽', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   flight:     { label: '도시 거리',  icon: '✈️', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
+  purifier:   { label: '공기청정기', icon: '🌬️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
 };
 
 /**
@@ -1058,6 +1061,17 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: FLIGHT_ICON,
     };
   }),
+  ...PURIFIER_CELLS.map(c => {
+    const f = purifierFacts(c);
+    const GRADE: Record<string, string> = { ample: '넉넉함', enough: '권장 충족', tight: '빠듯함', short: '많이 모자람' };
+    return {
+      href: `/purifier/${purifierSlug(c)}`,
+      title: `${f.pyeong}평에 CADR ${f.cadr} — 시간당 ${f.ach}회`,
+      desc: `${GRADE[f.grade]} · 먼지가 절반이 되기까지 ${f.halfMinutes}분 · 권장값에는 ${f.needed}㎥/분이 필요`,
+      section: 'purifier' as const,
+      icon: PURIFIER_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -1159,6 +1173,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/heredity', title: '혈액형 유전표', desc: 'AB형과 O형 사이에서는 AB형도 O형도 나오지 않습니다', section: 'heredity' as const, icon: HEREDITY_ICON },
   { href: '/raid', title: 'RAID 용량표', desc: '4TB 넉 장으로 RAID 5를 만들면 12TB, 화면에는 10.91TiB', section: 'raid' as const, icon: RAID_ICON },
   { href: '/flight', title: '도시 사이 거리와 비행시간', desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다', section: 'flight' as const, icon: FLIGHT_ICON },
+  { href: '/purifier', title: '공기청정기 평수', desc: '광고의 평형에는 자연 환기가 얹혀 있습니다', section: 'purifier' as const, icon: PURIFIER_ICON },
   { href: '/bed', title: '침대 규격과 방 크기', desc: '한국 킹과 미국 King은 33cm 다릅니다', section: 'bed' as const, icon: BED_ICON },
   { href: '/quake', title: '지진 규모와 에너지', desc: '규모 7은 6의 두 배가 아니라 32배입니다', section: 'quake' as const, icon: QUAKE_ICON },
   { href: '/microwave', title: '전자레인지 와트 환산', desc: '700W 3분은 1000W에서 2분 6초입니다', section: 'microwave' as const, icon: MICROWAVE_ICON },
