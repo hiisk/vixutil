@@ -84,6 +84,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: 'Solve as many arithmetic problems as you can before the clock runs out. Pick the operations and difficulty, and it reports how many you got, your accuracy and the average time per problem.',
       features: ['Choose addition, subtraction, multiplication, division', 'Easy, normal and hard', 'Average time per problem', 'Review the ones you skipped'],
     },
+    stroop: {
+      title: "Stroop Test", desc: "Pick the ink colour, not the word", category: "Brain",
+      metaTitle: "Stroop Test — How Fast Are You When Word and Colour Disagree",
+      long: "The word \"red\" is printed in blue ink. You have to pick the colour it is printed in, not what it says — and since reading happens automatically, you have to suppress it. Counts how many you get right in 45 seconds.",
+      features: ["How many you get right in 45 seconds", "Matching word-and-colour trials are mixed in", "The answer is never stuck in one position", "Keeps your best score"],
+    },
+    'dot-count': {
+      title: "Dot Estimation Test", desc: "How many dots did you just see", category: "Senses",
+      metaTitle: "Dot Estimation Test — How Well Can You Judge a Number at a Glance",
+      long: "Dots flash up and vanish. Do not count them — estimate. As the levels rise there are more dots and less time, until counting one by one becomes impossible. The error is measured relative to the true number, so later levels do not become unfairly generous.",
+      features: ["Dot count and display time both tighten", "Error scored relative to the true number", "Points accumulate level by level", "Keeps your best score"],
+    },
+    nback: {
+      title: "N-Back Test", desc: "Remember what was n steps back", category: "Memory",
+      metaTitle: "N-Back Test — The Standard Working Memory Task",
+      long: "Squares light up one at a time. Press when the current one matches the square n steps back. You have to hold the last few in mind while constantly updating them, which is why this task is widely used to measure working memory. False presses are subtracted, so pressing everything gets you nowhere.",
+      features: ["1-back, 2-back and 3-back", "About 30% of trials are matches by design", "False presses are subtracted from the score", "Hits, misses and false presses shown separately"],
+    },
+    rotation: {
+      title: "Mental Rotation Test", desc: "Are these the same shape, just turned", category: "Brain",
+      metaTitle: "Mental Rotation Test — Turning a Shape in Your Head",
+      long: "Two shapes appear. Decide whether one is the other rotated. The \"different\" pairs are built by mirroring, so they have the same number of cells and look alike — you really do have to turn them in your head.",
+      features: ["\"Different\" pairs built by mirroring", "More cells as the levels rise", "Symmetric shapes are filtered out so answers stay correct", "Keeps your best score"],
+    },
+    beat: {
+      title: "Rhythm Test", desc: "Keep the beat after the sound stops", category: "Senses",
+      metaTitle: "Rhythm Test — Can You Hold a Tempo Once the Metronome Stops",
+      long: "Four beats play, then you tap eight more in silence at the same tempo. It scores not just your average error but how even you were — being consistently a little late is better rhythm than swinging early and late.",
+      features: ["80, 100 and 120 BPM", "Scores average error and evenness together", "Nothing is deducted within 25ms", "Keeps your best score"],
+    },
+    peripheral: {
+      title: "Peripheral Vision Test", desc: "Catch the edge while looking at the centre", category: "Speed",
+      metaTitle: "Peripheral Vision Test — How Wide Do You See While Looking Straight Ahead",
+      long: "Keep your eyes on the centre dot and tap the target that appears at the edge. Targets only appear inside a ring with the middle left empty, and the ring moves outward as the levels rise. Miss the time limit and it ends, so there is no chance to look around.",
+      features: ["Targets never appear in the centre", "The ring moves outward as levels rise", "Targets appear evenly in all directions", "Keeps your best score"],
+    },
   },
 
   es: {
@@ -146,6 +182,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Desafío de cálculo mental — 30 segundos de aritmética',
       long: 'Resuelve tantas operaciones como puedas antes de que se agote el reloj. Elige las operaciones y la dificultad, y te dice cuántas acertaste, tu precisión y el tiempo medio por operación.',
       features: ['Elige suma, resta, multiplicación, división', 'Fácil, normal y difícil', 'Tiempo medio por operación', 'Repasa las que te saltaste'],
+    },
+    stroop: {
+      title: "Test de Stroop", desc: "Elige el color de la tinta, no la palabra", category: "Cerebro",
+      metaTitle: "Test de Stroop — Cuánto tardas cuando palabra y color no coinciden",
+      long: "La palabra \"rojo\" está escrita en tinta azul. Tienes que elegir el color en el que está impresa, no lo que dice, y como leer ocurre solo, hay que reprimirlo. Cuenta cuántos aciertas en 45 segundos.",
+      features: ["Cuántos aciertas en 45 segundos", "Se mezclan casos donde palabra y color coinciden", "La respuesta nunca queda fija en una posición", "Guarda tu mejor marca"],
+    },
+    'dot-count': {
+      title: "Test de estimación de puntos", desc: "Cuántos puntos acabas de ver", category: "Sentidos",
+      metaTitle: "Test de estimación de puntos — Qué tal juzgas una cantidad de un vistazo",
+      long: "Los puntos aparecen y desaparecen. No los cuentes: estima. Al subir de nivel hay más puntos y menos tiempo, hasta que contar uno a uno resulta imposible. El error se mide en relación con la cantidad real, así que los niveles altos no se vuelven demasiado generosos.",
+      features: ["El número de puntos y el tiempo se aprietan a la vez", "El error se puntúa en relación con la cantidad real", "Los puntos se acumulan nivel a nivel", "Guarda tu mejor marca"],
+    },
+    nback: {
+      title: "Test N-back", desc: "Recuerda lo que salió n pasos atrás", category: "Memoria",
+      metaTitle: "Test N-back — La tarea estándar de memoria de trabajo",
+      long: "Los cuadros se encienden uno a uno. Pulsa cuando el actual coincida con el de n pasos atrás. Hay que retener los últimos mientras se actualizan sin parar, por eso esta tarea se usa tanto para medir la memoria de trabajo. Los fallos se restan, así que pulsar todo no sirve.",
+      features: ["1-back, 2-back y 3-back", "Cerca del 30% son coincidencias a propósito", "Los falsos pulsados se restan de la puntuación", "Aciertos, perdidos y falsos por separado"],
+    },
+    rotation: {
+      title: "Test de rotación mental", desc: "¿Es la misma figura, solo girada?", category: "Cerebro",
+      metaTitle: "Test de rotación mental — Girar una figura en la cabeza",
+      long: "Aparecen dos figuras. Decide si una es la otra girada. Los pares \"distintos\" se construyen por reflejo, así que tienen el mismo número de casillas y se parecen: hay que girarlos de verdad en la cabeza.",
+      features: ["Pares \"distintos\" construidos por reflejo", "Más casillas al subir de nivel", "Las figuras simétricas se filtran para que la respuesta sea correcta", "Guarda tu mejor marca"],
+    },
+    beat: {
+      title: "Test de ritmo", desc: "Mantén el compás cuando pare el sonido", category: "Sentidos",
+      metaTitle: "Test de ritmo — ¿Aguantas el tempo cuando calla el metrónomo?",
+      long: "Suenan cuatro golpes y luego tienes que dar ocho en silencio al mismo tempo. Puntúa no solo el error medio sino lo regular que fuiste: ir siempre un poco tarde es mejor ritmo que oscilar entre pronto y tarde.",
+      features: ["80, 100 y 120 BPM", "Puntúa error medio y regularidad a la vez", "No se descuenta nada dentro de 25 ms", "Guarda tu mejor marca"],
+    },
+    peripheral: {
+      title: "Test de visión periférica", desc: "Atrapa el borde mirando al centro", category: "Velocidad",
+      metaTitle: "Test de visión periférica — Cuánto abarcas mirando al frente",
+      long: "Mantén la vista en el punto central y toca el objetivo que aparece en el borde. Los objetivos solo salen dentro de un anillo con el centro vacío, y el anillo se aleja al subir de nivel. Si se acaba el tiempo, termina: no hay margen para mirar alrededor.",
+      features: ["Los objetivos nunca salen en el centro", "El anillo se aleja al subir de nivel", "Los objetivos salen por igual en todas las direcciones", "Guarda tu mejor marca"],
     },
   },
 
@@ -210,6 +282,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: 'Resolva quantas contas conseguir antes de o relógio zerar. Escolha as operações e a dificuldade, e ele informa quantas você acertou, sua precisão e o tempo médio por conta.',
       features: ['Escolha soma, subtração, multiplicação, divisão', 'Fácil, normal e difícil', 'Tempo médio por conta', 'Revise as que você pulou'],
     },
+    stroop: {
+      title: "Teste de Stroop", desc: "Escolha a cor da tinta, não a palavra", category: "Cérebro",
+      metaTitle: "Teste de Stroop — Quanto você demora quando palavra e cor discordam",
+      long: "A palavra \"vermelho\" está escrita em tinta azul. Você precisa escolher a cor em que está impressa, não o que ela diz — e como ler acontece sozinho, é preciso reprimir isso. Conta quantos você acerta em 45 segundos.",
+      features: ["Quantos você acerta em 45 segundos", "Casos em que palavra e cor coincidem são misturados", "A resposta nunca fica presa numa posição", "Guarda seu melhor resultado"],
+    },
+    'dot-count': {
+      title: "Teste de estimativa de pontos", desc: "Quantos pontos você acabou de ver", category: "Sentidos",
+      metaTitle: "Teste de estimativa de pontos — Como você julga uma quantidade num relance",
+      long: "Os pontos aparecem e somem. Não conte: estime. Conforme os níveis sobem há mais pontos e menos tempo, até contar um a um ficar impossível. O erro é medido em relação ao número real, então os níveis altos não ficam generosos demais.",
+      features: ["A quantidade de pontos e o tempo apertam juntos", "O erro é pontuado em relação ao número real", "Os pontos se acumulam nível a nível", "Guarda seu melhor resultado"],
+    },
+    nback: {
+      title: "Teste N-back", desc: "Lembre o que apareceu n passos atrás", category: "Memória",
+      metaTitle: "Teste N-back — A tarefa padrão de memória de trabalho",
+      long: "Os quadrados acendem um de cada vez. Toque quando o atual for igual ao de n passos atrás. É preciso segurar os últimos na cabeça enquanto se atualiza sem parar, e por isso essa tarefa é muito usada para medir memória de trabalho. Toques falsos são descontados, então tocar em tudo não adianta.",
+      features: ["1-back, 2-back e 3-back", "Cerca de 30% são coincidências propositais", "Toques falsos são descontados da pontuação", "Acertos, perdidos e falsos mostrados à parte"],
+    },
+    rotation: {
+      title: "Teste de rotação mental", desc: "É a mesma forma, só girada?", category: "Cérebro",
+      metaTitle: "Teste de rotação mental — Girar uma forma na cabeça",
+      long: "Duas formas aparecem. Decida se uma é a outra girada. Os pares \"diferentes\" são feitos por espelhamento, então têm o mesmo número de casas e se parecem — você realmente precisa girá-los na cabeça.",
+      features: ["Pares \"diferentes\" feitos por espelhamento", "Mais casas conforme os níveis sobem", "Formas simétricas são filtradas para a resposta ficar correta", "Guarda seu melhor resultado"],
+    },
+    beat: {
+      title: "Teste de ritmo", desc: "Mantenha o compasso depois que o som parar", category: "Sentidos",
+      metaTitle: "Teste de ritmo — Você segura o andamento quando o metrônomo para?",
+      long: "Tocam quatro batidas e depois você dá mais oito em silêncio no mesmo andamento. Pontua não só o erro médio, mas o quanto você foi regular — atrasar sempre um pouco é melhor ritmo do que oscilar entre adiantado e atrasado.",
+      features: ["80, 100 e 120 BPM", "Pontua erro médio e regularidade juntos", "Nada é descontado dentro de 25 ms", "Guarda seu melhor resultado"],
+    },
+    peripheral: {
+      title: "Teste de visão periférica", desc: "Pegue a borda olhando para o centro", category: "Velocidade",
+      metaTitle: "Teste de visão periférica — Quanto você enxerga olhando para a frente",
+      long: "Mantenha os olhos no ponto central e toque no alvo que aparece na borda. Os alvos só aparecem dentro de um anel com o meio vazio, e o anel se afasta conforme os níveis sobem. Se passar do tempo, acaba — não dá para olhar em volta.",
+      features: ["Os alvos nunca aparecem no centro", "O anel se afasta conforme os níveis sobem", "Os alvos aparecem por igual em todas as direções", "Guarda seu melhor resultado"],
+    },
   },
 
   ja: {
@@ -272,6 +380,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: '暗算チャレンジ — 30秒の計算勝負',
       long: '時間が切れる前に、できるだけ多くの計算問題を解いてください。演算と難易度を選べ、正解数・正答率・1問あたりの平均時間を出します。',
       features: ['たし算・ひき算・かけ算・わり算を選べる', 'やさしい・ふつう・むずかしい', '1問あたりの平均時間', '飛ばした問題を見返せる'],
+    },
+    stroop: {
+      title: "ストループテスト", desc: "言葉ではなく塗られた色を選ぶ", category: "計算",
+      metaTitle: "ストループテスト — 言葉と色が食い違うとき、どれだけ速いか",
+      long: "「あか」という言葉が青で塗られています。言葉の意味ではなく塗られた色を選ばなければならず、読むことは自動的に起きるのでそれを抑える必要があります。45秒で何問正解できるかを測ります。",
+      features: ["45秒で何問正解できるか", "言葉と色が一致する問題も混ざる", "正解が特定の位置に偏らない", "ベスト記録を保存"],
+    },
+    'dot-count': {
+      title: "個数見積もりテスト", desc: "今見えた点は何個だったか", category: "感覚",
+      metaTitle: "個数見積もりテスト — 一瞬で数をつかむ力を測る",
+      long: "点が一瞬だけ現れて消えます。数えずに見積もってください。レベルが上がると点は増え、見える時間は短くなり、やがて一つずつ数えられなくなります。誤差は正解に対する比率で測るので、後半が甘くなりません。",
+      features: ["個数と表示時間が同時に厳しくなる", "誤差を正解に対する比率で採点", "レベルごとに点数が積み上がる", "ベスト記録を保存"],
+    },
+    nback: {
+      title: "Nバックテスト", desc: "n個前と同じ位置を覚えておく", category: "記憶",
+      metaTitle: "Nバックテスト — 作業記憶を測る標準的な課題",
+      long: "マスが一つずつ光ります。今のものがn個前と同じ位置なら押してください。直前のいくつかを覚えながら常に更新し続ける必要があり、だからこそ作業記憶を測るのに広く使われます。空押しは減点されるので、全部押しても点にはなりません。",
+      features: ["1-back・2-back・3-back", "約3割が意図的に一致する", "空押しは点数から引かれる", "ヒット・見逃し・空押しを別々に表示"],
+    },
+    rotation: {
+      title: "心的回転テスト", desc: "回すと同じになる図形か", category: "計算",
+      metaTitle: "心的回転テスト — 頭の中で図形を回してみる",
+      long: "2つの図形が出ます。片方を回すともう片方になるかを答えてください。「違う」問題は左右反転で作るのでマス数も見た目も似ており、本当に頭の中で回してみる必要があります。",
+      features: ["「違う」問題は左右反転で作る", "レベルが上がるとマスが増える", "対称な図形は除外して正解が狂わないようにした", "ベスト記録を保存"],
+    },
+    beat: {
+      title: "リズム感テスト", desc: "音が止まっても拍を保てるか", category: "感覚",
+      metaTitle: "リズム感テスト — メトロノームが止まった後も合わせられるか",
+      long: "4拍だけ音が鳴り、その後は音なしで同じテンポで8回押します。平均のずれだけでなく、どれだけ一定だったかも見ます — いつも少し遅れるより、早くなったり遅くなったりする方がリズム感としては悪いからです。",
+      features: ["80・100・120 BPM", "平均のずれと安定度をあわせて採点", "25msまでは減点しない", "ベスト記録を保存"],
+    },
+    peripheral: {
+      title: "周辺視野テスト", desc: "中央を見たまま端を捉える", category: "スピード",
+      metaTitle: "周辺視野テスト — 正面を見ながらどれだけ広く見えるか",
+      long: "中央の点を見つめたまま、端に現れる的を押してください。的は中央を空けたリングの中にだけ現れ、レベルが上がるほど外側へ移ります。時間内に押せないと終わるので、目を動かして探す余裕はありません。",
+      features: ["的は中央には現れない", "レベルが上がるほど外側へ", "四方に均等に現れる", "ベスト記録を保存"],
     },
   },
 
@@ -336,6 +480,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: 'Löse so viele Rechenaufgaben wie möglich, bevor die Uhr abläuft. Wähle Rechenarten und Schwierigkeit; danach siehst du, wie viele du geschafft hast, deine Trefferquote und die Durchschnittszeit pro Aufgabe.',
       features: ['Addition, Subtraktion, Multiplikation, Division wählbar', 'Leicht, normal und schwer', 'Durchschnittszeit pro Aufgabe', 'Übersprungene Aufgaben nachsehen'],
     },
+    stroop: {
+      title: "Stroop-Test", desc: "Wähle die Druckfarbe, nicht das Wort", category: "Kopf",
+      metaTitle: "Stroop-Test — Wie schnell bist du, wenn Wort und Farbe nicht zusammenpassen",
+      long: "Das Wort „rot\" ist in blauer Tinte gedruckt. Du musst die Farbe wählen, in der es gedruckt ist — nicht, was dasteht. Da Lesen automatisch passiert, musst du es unterdrücken. Gezählt wird, wie viele du in 45 Sekunden richtig hast.",
+      features: ["Wie viele du in 45 Sekunden triffst", "Übereinstimmende Wort-Farbe-Fälle sind eingestreut", "Die Antwort steckt nie an einer Position fest", "Speichert deinen Bestwert"],
+    },
+    'dot-count': {
+      title: "Punkte-Schätztest", desc: "Wie viele Punkte hast du gerade gesehen", category: "Sinne",
+      metaTitle: "Punkte-Schätztest — Wie gut schätzt du eine Menge auf einen Blick",
+      long: "Punkte blitzen auf und verschwinden. Nicht zählen — schätzen. Mit steigender Stufe gibt es mehr Punkte und weniger Zeit, bis Einzelzählen unmöglich wird. Der Fehler wird relativ zur echten Zahl gemessen, damit spätere Stufen nicht unfair großzügig werden.",
+      features: ["Punktzahl und Anzeigedauer ziehen gemeinsam an", "Fehler relativ zur echten Zahl bewertet", "Punkte sammeln sich Stufe für Stufe", "Speichert deinen Bestwert"],
+    },
+    nback: {
+      title: "N-Back-Test", desc: "Merk dir, was n Schritte zurück war", category: "Gedächtnis",
+      metaTitle: "N-Back-Test — Die Standardaufgabe zum Arbeitsgedächtnis",
+      long: "Felder leuchten nacheinander auf. Drück, wenn das aktuelle dem Feld von vor n Schritten entspricht. Man muss die letzten im Kopf behalten und ständig aktualisieren — deshalb wird diese Aufgabe so oft zum Messen des Arbeitsgedächtnisses genutzt. Fehldrücke werden abgezogen, alles zu drücken bringt also nichts.",
+      features: ["1-back, 2-back und 3-back", "Rund 30% sind absichtlich Treffer", "Fehldrücke werden vom Punktestand abgezogen", "Treffer, Verpasste und Fehldrücke getrennt"],
+    },
+    rotation: {
+      title: "Mentale-Rotations-Test", desc: "Sind das die gleichen Formen, nur gedreht", category: "Kopf",
+      metaTitle: "Mentale-Rotations-Test — Eine Form im Kopf drehen",
+      long: "Zwei Formen erscheinen. Entscheide, ob die eine die gedrehte andere ist. Die „unterschiedlichen\" Paare entstehen durch Spiegelung, haben also gleich viele Felder und sehen ähnlich aus — man muss sie wirklich im Kopf drehen.",
+      features: ["„Unterschiedliche\" Paare durch Spiegelung erzeugt", "Mehr Felder mit steigender Stufe", "Symmetrische Formen werden herausgefiltert, damit die Antwort stimmt", "Speichert deinen Bestwert"],
+    },
+    beat: {
+      title: "Rhythmus-Test", desc: "Halte den Takt, wenn der Ton aufhört", category: "Sinne",
+      metaTitle: "Rhythmus-Test — Hältst du das Tempo, wenn das Metronom schweigt",
+      long: "Vier Schläge erklingen, dann tippst du acht weitere in Stille im selben Tempo. Bewertet wird nicht nur die mittlere Abweichung, sondern auch die Gleichmäßigkeit — durchgehend leicht zu spät ist besserer Rhythmus als zwischen zu früh und zu spät zu schwanken.",
+      features: ["80, 100 und 120 BPM", "Bewertet mittlere Abweichung und Gleichmäßigkeit zusammen", "Innerhalb von 25 ms wird nichts abgezogen", "Speichert deinen Bestwert"],
+    },
+    peripheral: {
+      title: "Test des peripheren Sehens", desc: "Fang den Rand, während du in die Mitte schaust", category: "Schnelligkeit",
+      metaTitle: "Test des peripheren Sehens — Wie weit siehst du, während du geradeaus blickst",
+      long: "Halte die Augen auf dem Mittelpunkt und tippe das Ziel an, das am Rand erscheint. Ziele erscheinen nur in einem Ring mit freier Mitte, und der Ring wandert mit steigender Stufe nach außen. Wer die Zeit verpasst, ist raus — zum Umherschauen bleibt keine Gelegenheit.",
+      features: ["Ziele erscheinen nie in der Mitte", "Der Ring wandert mit steigender Stufe nach außen", "Ziele erscheinen gleichmäßig in alle Richtungen", "Speichert deinen Bestwert"],
+    },
   },
 
   fr: {
@@ -398,6 +578,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Défi de calcul mental — 30 secondes de calcul',
       long: 'Résous autant d’opérations que possible avant la fin du chrono. Choisis les opérations et la difficulté, et il te dit combien tu en as réussi, ta précision et le temps moyen par opération.',
       features: ['Choisis addition, soustraction, multiplication, division', 'Facile, normal et difficile', 'Temps moyen par opération', 'Revois celles que tu as passées'],
+    },
+    stroop: {
+      title: "Test de Stroop", desc: "Choisissez la couleur d’encre, pas le mot", category: "Calcul",
+      metaTitle: "Test de Stroop — Quelle vitesse quand le mot et la couleur se contredisent",
+      long: "Le mot « rouge » est imprimé en encre bleue. Vous devez choisir la couleur d’impression, pas ce qui est écrit — et comme la lecture se fait toute seule, il faut la réprimer. On compte combien vous en réussissez en 45 secondes.",
+      features: ["Combien vous en réussissez en 45 secondes", "Des essais où mot et couleur coïncident sont mélangés", "La réponse n’est jamais bloquée à une position", "Garde votre meilleur score"],
+    },
+    'dot-count': {
+      title: "Test d’estimation de points", desc: "Combien de points venez-vous de voir", category: "Sens",
+      metaTitle: "Test d’estimation de points — Jugez-vous bien une quantité d’un coup d’œil",
+      long: "Les points apparaissent puis disparaissent. Ne comptez pas : estimez. À mesure que les niveaux montent, il y a plus de points et moins de temps, jusqu’à ce que compter un par un devienne impossible. L’erreur est mesurée par rapport au nombre réel, pour que les niveaux élevés ne deviennent pas trop généreux.",
+      features: ["Le nombre de points et la durée se resserrent ensemble", "Erreur notée par rapport au nombre réel", "Les points s’accumulent niveau après niveau", "Garde votre meilleur score"],
+    },
+    nback: {
+      title: "Test N-back", desc: "Retenez ce qui est passé n coups plus tôt", category: "Mémoire",
+      metaTitle: "Test N-back — La tâche standard de mémoire de travail",
+      long: "Les cases s’allument une à une. Appuyez quand la case actuelle correspond à celle d’il y a n coups. Il faut garder les dernières en tête tout en les mettant sans cesse à jour, d’où l’usage répandu de cette tâche pour mesurer la mémoire de travail. Les fausses alertes sont retranchées : tout presser ne mène à rien.",
+      features: ["1-back, 2-back et 3-back", "Environ 30 % sont des correspondances voulues", "Les fausses alertes sont retranchées du score", "Trouvés, manqués et fausses alertes séparés"],
+    },
+    rotation: {
+      title: "Test de rotation mentale", desc: "Est-ce la même forme, simplement tournée", category: "Calcul",
+      metaTitle: "Test de rotation mentale — Tourner une forme dans sa tête",
+      long: "Deux formes apparaissent. Décidez si l’une est l’autre tournée. Les paires « différentes » sont construites par symétrie miroir : même nombre de cases, aspect proche — il faut vraiment les tourner dans sa tête.",
+      features: ["Paires « différentes » construites par miroir", "Plus de cases à mesure que les niveaux montent", "Les formes symétriques sont écartées pour que la réponse reste juste", "Garde votre meilleur score"],
+    },
+    beat: {
+      title: "Test de rythme", desc: "Gardez le tempo une fois le son arrêté", category: "Sens",
+      metaTitle: "Test de rythme — Tenez-vous le tempo quand le métronome se tait",
+      long: "Quatre temps sont joués, puis vous en tapez huit en silence au même tempo. On note non seulement l’écart moyen mais aussi la régularité : être toujours un peu en retard vaut mieux, pour le rythme, que d’osciller entre avance et retard.",
+      features: ["80, 100 et 120 BPM", "Note l’écart moyen et la régularité ensemble", "Rien n’est retiré en deçà de 25 ms", "Garde votre meilleur score"],
+    },
+    peripheral: {
+      title: "Test de vision périphérique", desc: "Attrapez le bord en fixant le centre", category: "Vitesse",
+      metaTitle: "Test de vision périphérique — Quelle largeur voyez-vous en regardant droit devant",
+      long: "Gardez les yeux sur le point central et touchez la cible qui apparaît sur le bord. Les cibles n’apparaissent que dans un anneau au centre vide, et l’anneau s’éloigne à mesure que les niveaux montent. Passé le délai, c’est fini : pas moyen de regarder autour.",
+      features: ["Les cibles n’apparaissent jamais au centre", "L’anneau s’éloigne à mesure que les niveaux montent", "Les cibles apparaissent également dans toutes les directions", "Garde votre meilleur score"],
     },
   },
 
@@ -462,6 +678,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: 'घड़ी ख़त्म होने से पहले जितने सवाल हल कर सकें कीजिए। जोड़-घटाव और कठिनाई चुनें, और यह बताएगा कि कितने सही हुए, सटीकता कितनी रही और हर सवाल पर औसतन कितना समय लगा।',
       features: ['जोड़, घटाव, गुणा, भाग चुनें', 'आसान, सामान्य और कठिन', 'हर सवाल पर औसत समय', 'छोड़े गए सवाल फिर देखें'],
     },
+    stroop: {
+      title: "स्ट्रूप परीक्षण", desc: "शब्द नहीं, स्याही का रंग चुनें", category: "गणित",
+      metaTitle: "स्ट्रूप परीक्षण — जब शब्द और रंग अलग हों तो आप कितने तेज़ हैं",
+      long: "\"लाल\" शब्द नीली स्याही में छपा है। आपको वह रंग चुनना है जिसमें यह छपा है, न कि जो लिखा है — और चूँकि पढ़ना अपने आप होता है, उसे दबाना पड़ता है। 45 सेकंड में कितने सही करते हैं, यह गिना जाता है।",
+      features: ["45 सेकंड में कितने सही", "शब्द और रंग मिलने वाले प्रश्न भी मिले होते हैं", "उत्तर कभी एक ही स्थान पर नहीं अटकता", "सर्वोत्तम अंक सहेजता है"],
+    },
+    'dot-count': {
+      title: "बिंदु अनुमान परीक्षण", desc: "अभी कितने बिंदु दिखे थे", category: "इंद्रियाँ",
+      metaTitle: "बिंदु अनुमान परीक्षण — एक नज़र में संख्या आँकने की क्षमता",
+      long: "बिंदु चमककर ग़ायब हो जाते हैं। गिनें नहीं — अनुमान लगाएँ। स्तर बढ़ने पर बिंदु बढ़ते हैं और समय घटता है, जब तक एक-एक गिनना असंभव न हो जाए। त्रुटि असली संख्या के सापेक्ष मापी जाती है, इसलिए ऊँचे स्तर अनुचित रूप से उदार नहीं होते।",
+      features: ["बिंदुओं की संख्या और समय साथ-साथ कसते हैं", "त्रुटि असली संख्या के सापेक्ष आँकी जाती है", "हर स्तर पर अंक जुड़ते हैं", "सर्वोत्तम अंक सहेजता है"],
+    },
+    nback: {
+      title: "एन-बैक परीक्षण", desc: "याद रखें कि n क़दम पीछे क्या था", category: "स्मृति",
+      metaTitle: "एन-बैक परीक्षण — कार्यशील स्मृति का मानक कार्य",
+      long: "ख़ाने एक-एक करके जलते हैं। जब मौजूदा ख़ाना n क़दम पीछे वाले से मेल खाए तो दबाएँ। पिछले कुछ को याद रखते हुए लगातार अद्यतन करना पड़ता है, इसीलिए यह कार्य कार्यशील स्मृति मापने में व्यापक रूप से प्रयोग होता है। ग़लत दबाव घटाए जाते हैं, इसलिए सब दबाने से कुछ नहीं मिलता।",
+      features: ["1-बैक, 2-बैक और 3-बैक", "लगभग 30% जान-बूझकर मेल खाते हैं", "ग़लत दबाव अंकों से घटाए जाते हैं", "हिट, चूक और ग़लत दबाव अलग-अलग"],
+    },
+    rotation: {
+      title: "मानसिक घूर्णन परीक्षण", desc: "क्या ये वही आकृति है, बस घुमाई हुई", category: "गणित",
+      metaTitle: "मानसिक घूर्णन परीक्षण — आकृति को दिमाग़ में घुमाना",
+      long: "दो आकृतियाँ दिखती हैं। तय करें कि एक दूसरी की घुमाई हुई है या नहीं। \"अलग\" जोड़े दर्पण-छवि से बनाए जाते हैं, इसलिए उनमें ख़ानों की संख्या समान होती है और वे मिलती-जुलती दिखती हैं — सचमुच दिमाग़ में घुमाना पड़ता है।",
+      features: ["\"अलग\" जोड़े दर्पण-छवि से बनते हैं", "स्तर बढ़ने पर ख़ाने बढ़ते हैं", "सममित आकृतियाँ छाँट दी जाती हैं ताकि उत्तर सही रहे", "सर्वोत्तम अंक सहेजता है"],
+    },
+    beat: {
+      title: "लय परीक्षण", desc: "आवाज़ रुकने के बाद भी ताल बनाए रखें", category: "इंद्रियाँ",
+      metaTitle: "लय परीक्षण — मेट्रोनोम रुकने पर भी गति संभाल पाते हैं?",
+      long: "चार ताल बजते हैं, फिर आप उसी गति से बिना आवाज़ आठ बार दबाते हैं। यह केवल औसत त्रुटि नहीं, बल्कि आप कितने एकसमान रहे यह भी आँकता है — हमेशा थोड़ा देर से होना, जल्दी-देर में झूलने से बेहतर लय है।",
+      features: ["80, 100 और 120 BPM", "औसत त्रुटि और एकरूपता दोनों आँकता है", "25ms के भीतर कोई कटौती नहीं", "सर्वोत्तम अंक सहेजता है"],
+    },
+    peripheral: {
+      title: "परिधीय दृष्टि परीक्षण", desc: "बीच देखते हुए किनारा पकड़ें", category: "गति",
+      metaTitle: "परिधीय दृष्टि परीक्षण — सामने देखते हुए आप कितना चौड़ा देखते हैं",
+      long: "बीच के बिंदु पर नज़र टिकाए रखें और किनारे पर आने वाले लक्ष्य को दबाएँ। लक्ष्य केवल बीच ख़ाली छोड़े गए वलय के भीतर आते हैं, और स्तर बढ़ने पर वलय बाहर की ओर जाता है। समय चूकने पर खेल ख़त्म — इधर-उधर देखने का मौक़ा नहीं मिलता।",
+      features: ["लक्ष्य कभी बीच में नहीं आते", "स्तर बढ़ने पर वलय बाहर जाता है", "लक्ष्य सभी दिशाओं में समान रूप से आते हैं", "सर्वोत्तम अंक सहेजता है"],
+    },
   },
   'zh-hans': {
     reaction: {
@@ -524,6 +776,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: '时间跑完之前，尽量多做对几道算术题。运算种类和难度可以自己挑，做完会给你做对几道、准确率，以及每道题的平均用时。',
       features: ['可选加、减、乘、除', '简单、普通、困难', '每道题的平均用时', '回顾你跳过的题'],
     },
+    stroop: {
+      title: "斯特鲁普测试", desc: "选出涂的颜色，不是文字", category: "脑力",
+      metaTitle: "斯特鲁普测试 — 当文字与颜色矛盾时你有多快",
+      long: "「红」这个字被涂成了蓝色。你要选它被涂成的颜色，而不是它写的意思——因为阅读是自动发生的，你必须压住它。测量你在 45 秒里答对多少题。",
+      features: ["45 秒内答对的数量", "也混入文字与颜色一致的题", "正确答案不会固定在某个位置", "保存最佳成绩"],
+    },
+    'dot-count': {
+      title: "数量估计测试", desc: "刚才看到几个点", category: "感官",
+      metaTitle: "数量估计测试 — 一眼判断数量的能力",
+      long: "圆点闪现后消失。别数，凭感觉估。关卡越高点越多、时间越短，最后根本来不及一个个数。误差按占正确数的比例计算，所以后面的关卡不会变得过于宽松。",
+      features: ["点数与显示时间同时收紧", "误差按占正确数的比例计分", "每关累计分数", "保存最佳成绩"],
+    },
+    nback: {
+      title: "N-back 测试", desc: "记住 n 步之前是哪一格", category: "记忆",
+      metaTitle: "N-back 测试 — 衡量工作记忆的标准任务",
+      long: "格子一个接一个亮起。当前这个与 n 步之前相同时按下。你要一边记住最近几个，一边不停更新，所以这个任务被广泛用来衡量工作记忆。误按会被扣分，全部都按是拿不到分的。",
+      features: ["1-back、2-back、3-back", "约三成是刻意安排的相同", "误按会从分数中扣除", "命中、漏掉、误按分开显示"],
+    },
+    rotation: {
+      title: "心理旋转测试", desc: "这两个图形转一下会一样吗", category: "脑力",
+      metaTitle: "心理旋转测试 — 在脑中把图形转起来",
+      long: "出现两个图形。判断其中一个转一下会不会变成另一个。「不一样」的题是用镜像做的，格子数相同、样子也接近——你真的得在脑子里把它转过来。",
+      features: ["「不一样」的题用镜像生成", "关卡越高格子越多", "对称图形会被剔除，避免答案出错", "保存最佳成绩"],
+    },
+    beat: {
+      title: "节奏感测试", desc: "声音停了也要保持节拍", category: "感官",
+      metaTitle: "节奏感测试 — 节拍器停下后你还能稳住速度吗",
+      long: "先响四拍，之后你要在无声中用同样的速度点八下。它不只看平均误差，还看你有多稳——总是慢一点点，比忽快忽慢的节奏感更好。",
+      features: ["80、100、120 BPM", "平均误差与稳定度一起计分", "25 毫秒以内不扣分", "保存最佳成绩"],
+    },
+    peripheral: {
+      title: "周边视野测试", desc: "盯着中间，抓住边缘", category: "速度",
+      metaTitle: "周边视野测试 — 直视前方时你能看多宽",
+      long: "眼睛盯住中间的点，点掉边缘出现的目标。目标只出现在中间留空的环形区域内，关卡越高环越往外。超时就结束，没有余地把眼睛移过去找。",
+      features: ["目标绝不出现在中间", "关卡越高环越往外", "目标在各个方向均匀出现", "保存最佳成绩"],
+    },
   },
   'zh-hant': {
     reaction: {
@@ -585,6 +873,42 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: '心算挑戰 — 30秒的四則運算',
       long: '時間跑完之前，盡量多做對幾道算術題。運算種類和難度可以自己挑，做完會給你做對幾道、準確率，以及每道題的平均用時。',
       features: ['可選加、減、乘、除', '簡單、普通、困難', '每道題的平均用時', '回顧你跳過的題'],
+    },
+    stroop: {
+      title: "斯特魯普測試", desc: "選出塗的顏色，不是文字", category: "腦力",
+      metaTitle: "斯特魯普測試 — 當文字與顏色矛盾時你有多快",
+      long: "「紅」這個字被塗成了藍色。你要選它被塗成的顏色，而不是它寫的意思——因為閱讀是自動發生的，你必須壓住它。測量你在 45 秒裡答對多少題。",
+      features: ["45 秒內答對的數量", "也混入文字與顏色一致的題", "正確答案不會固定在某個位置", "儲存最佳成績"],
+    },
+    'dot-count': {
+      title: "數量估計測試", desc: "剛才看到幾個點", category: "感官",
+      metaTitle: "數量估計測試 — 一眼判斷數量的能力",
+      long: "圓點閃現後消失。別數，憑感覺估。關卡越高點越多、時間越短，最後根本來不及一個個數。誤差按占正確數的比例計算，所以後面的關卡不會變得過於寬鬆。",
+      features: ["點數與顯示時間同時收緊", "誤差按占正確數的比例計分", "每關累計分數", "儲存最佳成績"],
+    },
+    nback: {
+      title: "N-back 測試", desc: "記住 n 步之前是哪一格", category: "記憶",
+      metaTitle: "N-back 測試 — 衡量工作記憶的標準任務",
+      long: "格子一個接一個亮起。當前這個與 n 步之前相同時按下。你要一邊記住最近幾個，一邊不停更新，所以這個任務被廣泛用來衡量工作記憶。誤按會被扣分，全部都按是拿不到分的。",
+      features: ["1-back、2-back、3-back", "約三成是刻意安排的相同", "誤按會從分數中扣除", "命中、漏掉、誤按分開顯示"],
+    },
+    rotation: {
+      title: "心理旋轉測試", desc: "這兩個圖形轉一下會一樣嗎", category: "腦力",
+      metaTitle: "心理旋轉測試 — 在腦中把圖形轉起來",
+      long: "出現兩個圖形。判斷其中一個轉一下會不會變成另一個。「不一樣」的題是用鏡像做的，格子數相同、樣子也接近——你真的得在腦子裡把它轉過來。",
+      features: ["「不一樣」的題用鏡像產生", "關卡越高格子越多", "對稱圖形會被剔除，避免答案出錯", "儲存最佳成績"],
+    },
+    beat: {
+      title: "節奏感測試", desc: "聲音停了也要保持節拍", category: "感官",
+      metaTitle: "節奏感測試 — 節拍器停下後你還能穩住速度嗎",
+      long: "先響四拍，之後你要在無聲中用同樣的速度點八下。它不只看平均誤差，還看你有多穩——總是慢一點點，比忽快忽慢的節奏感更好。",
+      features: ["80、100、120 BPM", "平均誤差與穩定度一起計分", "25 毫秒以內不扣分", "儲存最佳成績"],
+    },
+    peripheral: {
+      title: "周邊視野測試", desc: "盯著中間，抓住邊緣", category: "速度",
+      metaTitle: "周邊視野測試 — 直視前方時你能看多寬",
+      long: "眼睛盯住中間的點，點掉邊緣出現的目標。目標只出現在中間留空的環形區域內，關卡越高環越往外。超時就結束，沒有餘地把眼睛移過去找。",
+      features: ["目標絕不出現在中間", "關卡越高環越往外", "目標在各個方向均勻出現", "儲存最佳成績"],
     },
   },
 };

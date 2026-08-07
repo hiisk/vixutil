@@ -248,6 +248,12 @@ export const CARDS: Record<string, () => ReactElement> = {
   'game/reaction': () => gameOg('reaction', 'es'),
   'game/sequence': () => gameOg('sequence', 'es'),
   'game/typing': () => gameOg('typing', 'es'),
+  'game/stroop': () => gameOg('stroop', 'es'),
+  'game/dot-count': () => gameOg('dot-count', 'es'),
+  'game/nback': () => gameOg('nback', 'es'),
+  'game/rotation': () => gameOg('rotation', 'es'),
+  'game/beat': () => gameOg('beat', 'es'),
+  'game/peripheral': () => gameOg('peripheral', 'es'),
   'generator': () => intlOg('generator/es'),
   'geometry': () => {
     const meta = sectionMeta(GEO_SECTION, 'es');

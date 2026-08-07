@@ -66,7 +66,7 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,169  공기청정기 평수를 열 언어씩 더함(+10)
  *   2,179  술 순수 알코올량을 열 언어씩 더함(+10)
    */
-  const WANT = 2299;
+  const WANT = 2359;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

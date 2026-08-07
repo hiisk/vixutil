@@ -90,7 +90,7 @@ export const GROUPS: Record<string, string[]> = {
   film: ['🎞️', '🍿', '📼'],
   play: ['▶️'],
   headphone: ['🎧'],
-  music: ['🎵', '🎻', '🎼'],
+  music: ['🎵', '🎻', '🎼', '🥁'],
   piano: ['🎹'],
   mic: ['🎤', '🎙️'],
   wave: ['〰️', '🎢', '💨', '🌬️'],
