@@ -19,6 +19,7 @@ import { newSnapCard } from '@/lib/snap/card';
 import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
+import { hubCard as drinkHub } from '@/lib/drink/route';
 import { hubCard as purifierHub } from '@/lib/purifier/route';
 import { hubCard as flightHub } from '@/lib/flight/route';
 import { hubCard as raidHub } from '@/lib/raid/route';
@@ -123,6 +124,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'raid': () => raidHub('en'),
   'flight': () => flightHub('en'),
   'purifier': () => purifierHub('en'),
+  'drink': () => drinkHub('en'),
   'bra': () => braHub('en'),
   'password': () => passwordHub('en'),
   'cable': () => cableHub('en'),

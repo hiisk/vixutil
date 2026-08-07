@@ -67,6 +67,7 @@ import { CELLS as HEREDITY_CELLS } from '@/lib/heredity/list';
 import { CELLS as RAID_CELLS } from '@/lib/raid/list';
 import { CELLS as FLIGHT_CELLS } from '@/lib/flight/list';
 import { CELLS as PURIFIER_CELLS } from '@/lib/purifier/list';
+import { CELLS as DRINK_CELLS } from '@/lib/drink/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1044,6 +1045,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/drink',
+    icon: '🍺',
+    title: '술 순수 알코올량',
+    desc: '"한 잔"이 영국 8g, WHO 10g, 미국 14g — 도수와 용량으로 견줍니다',
+    badge: `${DRINK_CELLS.length}칸`,
+    color: 'from-amber-900 to-amber-400',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/40',
+    textAccent: 'text-amber-800 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-800',
+    shadow: 'shadow-amber-100',
   },
   {
     href: '/purifier',

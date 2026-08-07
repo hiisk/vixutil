@@ -89,6 +89,7 @@ import { CELLS as HEREDITY_CELLS, HEREDITY_ICON, slugOf as heredSlug } from './h
 import { CELLS as RAID_CELLS, RAID_ICON, levelLabel as raidLabel, levelOf as raidLevel, slugOf as raidSlug } from './raid/list';
 import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list';
 import { CELLS as PURIFIER_CELLS, PURIFIER_ICON, slugOf as purifierSlug } from './purifier/list';
+import { CELLS as DRINK_CELLS, DRINK_ICON, slugOf as drinkSlug } from './drink/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -153,6 +154,7 @@ import { heredityFacts } from './heredity/facts';
 import { raidFacts } from './raid/facts';
 import { flightFacts, hoursOf } from './flight/facts';
 import { purifierFacts } from './purifier/facts';
+import { drinkFacts } from './drink/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -187,7 +189,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -288,6 +290,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   raid:       { label: 'RAID 용량',  icon: '💽', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   flight:     { label: '도시 거리',  icon: '✈️', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
   purifier:   { label: '공기청정기', icon: '🌬️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  drink:      { label: '순수 알코올', icon: '🍺', accent: 'bg-amber-50 text-amber-800 border-amber-200' },
 };
 
 /**
@@ -1072,6 +1075,16 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: PURIFIER_ICON,
     };
   }),
+  ...DRINK_CELLS.map(c => {
+    const f = drinkFacts(c);
+    return {
+      href: `/drink/${drinkSlug(c)}`,
+      title: `${f.abv}% ${f.ml}ml — 순수 알코올 ${f.grams}g`,
+      desc: `영국 ${f.ukUnits}유닛 · WHO ${f.whoDrinks}잔 · 미국 ${f.usDrinks}잔 · 알코올만의 열량 ${f.kcal}kcal`,
+      section: 'drink' as const,
+      icon: DRINK_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -1174,6 +1187,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/raid', title: 'RAID 용량표', desc: '4TB 넉 장으로 RAID 5를 만들면 12TB, 화면에는 10.91TiB', section: 'raid' as const, icon: RAID_ICON },
   { href: '/flight', title: '도시 사이 거리와 비행시간', desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다', section: 'flight' as const, icon: FLIGHT_ICON },
   { href: '/purifier', title: '공기청정기 평수', desc: '광고의 평형에는 자연 환기가 얹혀 있습니다', section: 'purifier' as const, icon: PURIFIER_ICON },
+  { href: '/drink', title: '술 순수 알코올량', desc: '\'한 잔\'이 영국 8g, WHO 10g, 미국 14g입니다', section: 'drink' as const, icon: DRINK_ICON },
   { href: '/bed', title: '침대 규격과 방 크기', desc: '한국 킹과 미국 King은 33cm 다릅니다', section: 'bed' as const, icon: BED_ICON },
   { href: '/quake', title: '지진 규모와 에너지', desc: '규모 7은 6의 두 배가 아니라 32배입니다', section: 'quake' as const, icon: QUAKE_ICON },
   { href: '/microwave', title: '전자레인지 와트 환산', desc: '700W 3분은 1000W에서 2분 6초입니다', section: 'microwave' as const, icon: MICROWAVE_ICON },

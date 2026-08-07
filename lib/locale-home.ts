@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/drink', icon: '🍺', color: 'from-amber-900 to-amber-400',
+    accent: 'text-amber-800 dark:text-amber-200', border: 'border-amber-200 dark:border-amber-800', bg: 'bg-amber-50 dark:bg-amber-900/40',
+    copy: {
+      en: { title: 'Pure Alcohol in a Drink', desc: '“One drink” is 8 g in the UK, 10 g at the WHO, 14 g in the US' },
+      es: { title: 'Alcohol puro por bebida', desc: '«Una copa» son 8 g en el Reino Unido, 10 g para la OMS, 14 g en EE. UU.' },
+      'pt-br': { title: 'Álcool puro por bebida', desc: '«Uma dose» são 8 g no Reino Unido, 10 g na OMS, 14 g nos EUA' },
+      ja: { title: '酒の純アルコール量', desc: '「一杯」は英国8g、WHO 10g、米国14gです' },
+      de: { title: 'Reiner Alkohol im Getränk', desc: '„Ein Drink“ sind 8 g in Großbritannien, 10 g bei der WHO, 14 g in den USA' },
+      fr: { title: 'Alcool pur par verre', desc: '« Un verre » vaut 8 g au Royaume-Uni, 10 g pour l’OMS, 14 g aux États-Unis' },
+      hi: { title: 'पेय में शुद्ध अल्कोहल', desc: '“एक ड्रिंक” ब्रिटेन में 8 g, WHO में 10 g, अमेरिका में 14 g' },
+      'zh-hans': { title: '酒的纯酒精量', desc: '「一杯」在英国是 8 克，世卫是 10 克，美国是 14 克' },
+      'zh-hant': { title: '酒的純酒精量', desc: '「一杯」在英國是 8 克，世衛是 10 克，美國是 14 克' },
+    },
+  },
+  {
     route: '/purifier', icon: '🌬️', color: 'from-cyan-800 to-sky-400',
     accent: 'text-cyan-700 dark:text-cyan-200', border: 'border-cyan-200 dark:border-cyan-800', bg: 'bg-cyan-50 dark:bg-cyan-900/40',
     copy: {
