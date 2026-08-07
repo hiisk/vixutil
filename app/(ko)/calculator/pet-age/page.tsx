@@ -138,7 +138,7 @@ export default function PetAgePage() {
 
             <Card>
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">나이별 환산표</p>
+                <p className="label-caps">나이별 환산표</p>
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[1, 2, 3, 5, 7, 10, 13, 15].map(y => (

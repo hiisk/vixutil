@@ -46,7 +46,7 @@ export default function UnitWeightPage() {
           <LangPicker current="ko" route="/calculator/unit-weight" available={ALL_LOCALES10} />
         </div>
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환할 값 입력</p>
+          <p className="label-caps mb-3">변환할 값 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>숫자</Label>
@@ -74,7 +74,7 @@ export default function UnitWeightPage() {
 
         {results && (
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환 결과</p>
+            <p className="label-caps mb-3">변환 결과</p>
             <div className="flex flex-col divide-y divide-slate-100">
               {results.map(r => (
                 <div

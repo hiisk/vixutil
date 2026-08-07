@@ -265,7 +265,7 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
           </div>
 
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.metrics}</p>
+            <p className="label-caps mb-3">{c.metrics}</p>
             <div className="flex flex-col gap-3">
               {[
                 { label: c.brightness, percent: result.brightnessPercent },
@@ -288,7 +288,7 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
 
           {result.palette.length > 0 && (
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.palette}</p>
+              <p className="label-caps mb-3">{c.palette}</p>
               <div className="flex gap-2">
                 {result.palette.map(hex => (
                   <div key={hex} className="flex-1 text-center">

@@ -64,7 +64,7 @@ export default function JwtPage() {
           <LangPicker current="ko" route="/calculator/dev/jwt" available={ALL_LOCALES10} />
         </div>
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">JWT 토큰</p>
+          <p className="label-caps mb-2">JWT 토큰</p>
           <textarea value={input} onChange={e => handleChange(e.target.value)}
             placeholder="eyJhbGciOiJ..." rows={4} className={areaCls} />
           {error && <p className="text-red-400 text-xs mt-2">{error}</p>}

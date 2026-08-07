@@ -71,7 +71,7 @@ export default function BmiPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">신체 정보</p>
+          <p className="label-caps mb-3">신체 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>성별</Label>
@@ -161,7 +161,7 @@ export default function BmiPage() {
 
             {/* 기준표 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">BMI 기준표 (대한비만학회 2022)</p>
+              <p className="label-caps mb-3">BMI 기준표 (대한비만학회 2022)</p>
               <div className="flex flex-col gap-1.5">
                 {LEVELS.map((l,i)=>(
                   <div key={i} className={`flex justify-between items-center text-xs px-3.5 py-2.5 rounded-xl border ${

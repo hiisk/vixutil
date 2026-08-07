@@ -133,7 +133,7 @@ export default function PregnancyPage() {
       </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">정보 입력</p>
+          <p className="label-caps mb-3">정보 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>마지막 생리 시작일</Label>
@@ -200,7 +200,7 @@ export default function PregnancyPage() {
 
             {/* 분기 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">분기별 일정</p>
+              <p className="label-caps mb-3">분기별 일정</p>
               {[
                 { n: 1, label: '1분기 (1~12주)', start: result.t1Start, end: result.t1End,
                   desc: '태아 기관 형성기', color: result.trimester === 1 ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50' : 'bg-slate-50 dark:bg-slate-950 border-slate-100 dark:border-slate-800' },
@@ -226,7 +226,7 @@ export default function PregnancyPage() {
 
             {/* 중요 검사 일정 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">중요 검사 및 시기</p>
+              <p className="label-caps mb-3">중요 검사 및 시기</p>
               <div className="flex flex-col divide-y divide-slate-100">
                 {result.milestones.map(m => {
                   const isPast = m.date < new Date();

@@ -68,7 +68,7 @@ export default function CalcShellIntl({
 
         <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-white/60 dark:border-slate-700/60 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-            <Link href={hub} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors font-medium shrink-0">
+            <Link href={hub} className="page-back hover:text-blue-600 shrink-0">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>

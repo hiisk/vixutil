@@ -240,7 +240,7 @@ export default function FaceReadingPage() {
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-teal-600 transition-colors font-medium">
+          <Link href="/snap" className="page-back hover:text-teal-600">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -353,7 +353,7 @@ export default function FaceReadingPage() {
               {result.features.map(f => (
                 <div key={f.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
                   <div className="flex items-center justify-between mb-1.5">
-                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{f.icon} {f.label}</p>
+                    <p className="label-caps">{f.icon} {f.label}</p>
                     <span className="text-[11px] font-bold text-teal-600 bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 rounded-full px-2 py-0.5">
                       측정값 {f.percent}%
                     </span>

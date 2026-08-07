@@ -105,7 +105,7 @@ export default function CompoundPage() {
         />
 
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">투자 조건</p>
+          <p className="label-caps mb-3">투자 조건</p>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2 sm:col-span-1">
               <Label>초기 원금 (원)</Label>
@@ -148,7 +148,7 @@ export default function CompoundPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">원금 vs 수익 비율</p>
+              <p className="label-caps mb-3">원금 vs 수익 비율</p>
               <RatioBar
                 a={last.cumulativePrincipal} b={last.cumulativeInterest}
                 labelA={`납입 원금 ${w(last.cumulativePrincipal)}원`}

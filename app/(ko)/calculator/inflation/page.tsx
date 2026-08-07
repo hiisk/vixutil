@@ -131,7 +131,7 @@ export default function InflationPage() {
         {tab === 'future' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">조건 입력</p>
+              <p className="label-caps mb-3">조건 입력</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>현재 금액 (원)</Label>
@@ -219,7 +219,7 @@ export default function InflationPage() {
         {tab === 'present' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">조건 입력</p>
+              <p className="label-caps mb-3">조건 입력</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <Label>미래 목표 금액 (원)</Label>

@@ -74,7 +74,7 @@ export default function LoanPrepaymentFeePage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">대출 정보</p>
+          <p className="label-caps mb-3">대출 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>중도상환원금 (원)</Label>
@@ -152,7 +152,7 @@ export default function LoanPrepaymentFeePage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">계산 상세</p>
+              <p className="label-caps mb-3">계산 상세</p>
               <div className="flex flex-col gap-2">
                 {[
                   { label: '중도상환원금', value: `${w(principal)}원` },

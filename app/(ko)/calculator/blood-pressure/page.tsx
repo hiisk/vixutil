@@ -164,7 +164,7 @@ export default function BloodPressurePage() {
       </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 입력</p>
+          <p className="label-caps mb-3">혈압 입력</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>수축기 혈압 (최고, mmHg)</Label>
@@ -235,7 +235,7 @@ export default function BloodPressurePage() {
 
             {/* 기준표 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">혈압 기준표 (WHO · 대한고혈압학회 2023)</p>
+              <p className="label-caps mb-3">혈압 기준표 (WHO · 대한고혈압학회 2023)</p>
               <div className="flex flex-col gap-1.5">
                 {TABLE_ROWS.map((row, i) => {
                   const active = result.level.label === row.label;

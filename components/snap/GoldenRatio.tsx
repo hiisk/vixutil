@@ -200,7 +200,7 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
 
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
             <div className="flex items-baseline justify-between mb-3">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{c.breakdown}</p>
+              <p className="label-caps">{c.breakdown}</p>
               <p className="text-[11px] text-slate-400 dark:text-slate-500">{c.phiNote}</p>
             </div>
             <div className="flex flex-col gap-3">

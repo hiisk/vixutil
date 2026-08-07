@@ -117,7 +117,7 @@ export default function RentalYieldPage() {
         {result && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+              <p className="label-caps mb-3">
                 실투자 대비 수익률
               </p>
               {result.investmentNonPositive ? (

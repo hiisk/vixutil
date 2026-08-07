@@ -49,7 +49,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
   ];
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -63,8 +63,8 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
       <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
 
       <header className="page-head">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
+        <div className="page-bar">
+          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>

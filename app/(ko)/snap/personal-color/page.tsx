@@ -290,7 +290,7 @@ export default function PersonalColorPage() {
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-rose-600 transition-colors font-medium">
+          <Link href="/snap" className="page-back hover:text-rose-600">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -401,7 +401,7 @@ export default function PersonalColorPage() {
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">🌡️ 웜/쿨 지수</p>
+                <p className="label-caps">🌡️ 웜/쿨 지수</p>
                 <span className="text-[11px] font-bold text-orange-600 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-full px-2 py-0.5">
                   {result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}
                 </span>
@@ -416,7 +416,7 @@ export default function PersonalColorPage() {
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">✨ 선명도 지수</p>
+                <p className="label-caps">✨ 선명도 지수</p>
                 <span className="text-[11px] font-bold text-rose-600 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-full px-2 py-0.5">
                   {result.clarityPercent}% {result.clarityPercent >= 50 ? '클리어' : '뮤트'}
                 </span>
@@ -428,7 +428,7 @@ export default function PersonalColorPage() {
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">☀️ 명도 지수</p>
+                <p className="label-caps">☀️ 명도 지수</p>
                 <span className="text-[11px] font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-full px-2 py-0.5">
                   {result.valuePercent}% {result.valuePercent >= 50 ? '라이트' : '딥'}
                 </span>
@@ -439,7 +439,7 @@ export default function PersonalColorPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">🎨 추천 컬러 팔레트</p>
+              <p className="label-caps mb-3">🎨 추천 컬러 팔레트</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.palette.map(c => (
                   <div key={c.hex} className="text-center">

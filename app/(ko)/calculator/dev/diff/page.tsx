@@ -118,7 +118,7 @@ export default function DiffPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card className="p-4">
             <div className="flex justify-between items-center mb-2">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">원본 (Original)</p>
+              <p className="label-caps">원본 (Original)</p>
               <span className="text-xs text-slate-400 dark:text-slate-500">{original.split('\n').length}줄</span>
             </div>
             <textarea
@@ -131,7 +131,7 @@ export default function DiffPage() {
           </Card>
           <Card className="p-4">
             <div className="flex justify-between items-center mb-2">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">변경본 (Modified)</p>
+              <p className="label-caps">변경본 (Modified)</p>
               <span className="text-xs text-slate-400 dark:text-slate-500">{modified.split('\n').length}줄</span>
             </div>
             <textarea
@@ -171,7 +171,7 @@ export default function DiffPage() {
               </div>
             ) : (
               <Card className="p-5">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">Diff 결과</p>
+                <p className="label-caps mb-3">Diff 결과</p>
                 <div className="overflow-x-auto rounded-xl border border-slate-100 dark:border-slate-800">
                   <table className="w-full text-xs font-mono">
                     <thead>

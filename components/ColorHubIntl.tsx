@@ -29,7 +29,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
     .filter(g => g.tools.length > 0);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-fuchsia-500 to-rose-500" />
 

@@ -58,7 +58,7 @@ export default function Base64Page() {
           onChange={v => { setMode(v as 'encode' | 'decode'); setInput(''); }}
         />
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
+          <p className="label-caps mb-2">
             {mode === 'encode' ? '원문' : 'Base64'}
           </p>
           <textarea value={input} onChange={e => setInput(e.target.value)}
@@ -74,7 +74,7 @@ export default function Base64Page() {
         {output && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+              <p className="label-caps">
                 {mode === 'encode' ? 'Base64' : '원문'}
               </p>
               <CopyBtn text={output} />

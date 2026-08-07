@@ -24,7 +24,7 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
     .filter(g => g.tools.length > 0);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-500 to-blue-600" />
 

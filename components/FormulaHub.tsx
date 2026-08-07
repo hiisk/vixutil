@@ -24,7 +24,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
   const label = sectionCategories(section, lang);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -52,7 +52,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
       <main className="relative max-w-3xl mx-auto px-4 py-9">
         <div className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{meta.hubTitle}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{meta.hubLead}</p>
+          <p className="note-sm">{meta.hubLead}</p>
           <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400">
             {meta.hubNotice}
           </p>

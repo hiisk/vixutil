@@ -101,7 +101,7 @@ export default function DutchPayPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="label-caps mb-3">기본 정보</p>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
               <Label>총 금액 (원)</Label>
@@ -144,7 +144,7 @@ export default function DutchPayPage() {
         {/* 추가 항목 */}
         <Card className="p-5">
           <div className="flex justify-between items-center mb-3">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">추가 항목</p>
+            <p className="label-caps">추가 항목</p>
             <button
               type="button"
               onClick={addExtra}

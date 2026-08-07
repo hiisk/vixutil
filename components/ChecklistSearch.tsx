@@ -23,7 +23,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sky-700 transition-colors mb-1">
           {c.title}
         </h3>
-        <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed line-clamp-2">{c.desc}</p>
+        <p className="note-xs line-clamp-2">{c.desc}</p>
       </div>
     </Link>
   );

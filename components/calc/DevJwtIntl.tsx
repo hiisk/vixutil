@@ -55,7 +55,7 @@ export default function DevJwtIntl({ lang }: { lang: CalcLang }) {
           className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-xs font-mono break-all focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         {error && <p className="mt-3 text-xs font-semibold text-rose-600">{error}</p>}
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.notice}</p>
+        <p className="mt-3 note-xs">{c.notice}</p>
       </Card>
 
       {parts && (

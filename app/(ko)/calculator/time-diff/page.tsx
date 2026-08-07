@@ -86,7 +86,7 @@ export default function TimeDiffPage() {
         {tab === 'diff' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">두 시각 입력</p>
+              <p className="label-caps mb-3">두 시각 입력</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
@@ -119,7 +119,7 @@ export default function TimeDiffPage() {
                   <SummaryCard label="초" value={`${diffResult.seconds}초`} />
                 </SummaryGrid>
                 <Card className="p-5">
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">환산</p>
+                  <p className="label-caps mb-3">환산</p>
                   <div className="flex flex-col gap-2">
                     {(() => {
                       const abs = diffResult.days * 86400 + diffResult.hours * 3600 + diffResult.minutes * 60 + diffResult.seconds;
@@ -147,7 +147,7 @@ export default function TimeDiffPage() {
         {tab === 'add' && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기준 시각</p>
+              <p className="label-caps mb-3">기준 시각</p>
               <div className="flex flex-col gap-3">
                 <div>
                   <div className="flex justify-between items-center mb-1.5">

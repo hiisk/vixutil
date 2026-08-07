@@ -59,7 +59,7 @@ export default function CronPage() {
           <LangPicker current="ko" route="/calculator/dev/cron" available={ALL_LOCALES10} />
         </div>
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">미리 정의된 템플릿</p>
+          <p className="label-caps mb-3">미리 정의된 템플릿</p>
           <div className="grid grid-cols-2 gap-2">
             {PRESETS.map(p => (
               <button key={p.expr}
@@ -76,7 +76,7 @@ export default function CronPage() {
         </Card>
 
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">직접 편집</p>
+          <p className="label-caps mb-3">직접 편집</p>
           <div className="grid grid-cols-5 gap-2">
             {[
               { key: 'min', label: '분 (0-59)', placeholder: '0, *, */5' },

@@ -121,7 +121,7 @@ export default function AtrTpslPage() {
         {/* Volatility ranking table */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden mb-6">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Top 20 by volume · Daily ATR</p>
+            <p className="label-caps">Top 20 by volume · Daily ATR</p>
             <button
               onClick={load}
               disabled={state === 'loading'}
@@ -190,7 +190,7 @@ export default function AtrTpslPage() {
         {selectedRow && (
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-6">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">TP/SL Calculation</p>
+              <p className="label-caps">TP/SL Calculation</p>
               <span className="text-sm font-black text-slate-800 dark:text-slate-100">{selectedRow.base}/USDT</span>
             </div>
 

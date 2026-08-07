@@ -69,7 +69,7 @@ export default function WordCountPage() {
         {/* 텍스트 입력 */}
         <Card className="p-5">
           <div className="flex justify-between items-center mb-3">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">텍스트 입력</p>
+            <p className="label-caps">텍스트 입력</p>
             {text && (
               <button
                 onClick={() => setText('')}
@@ -95,7 +95,7 @@ export default function WordCountPage() {
         {/* 상세 분석 */}
         {text && (
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">상세 분석</p>
+            <p className="label-caps mb-3">상세 분석</p>
             <div className="flex flex-col divide-y divide-slate-100">
               {STAT_ITEMS.map(item => (
                 <div key={item.key} className="flex justify-between items-center py-2.5">

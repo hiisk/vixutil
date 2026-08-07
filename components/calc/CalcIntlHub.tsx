@@ -79,7 +79,7 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
 
           {/* /rate·/body에 이미 열 언어로 있는 것들. 여기서 다시 내면 같은 도구가
               주소 둘을 갖게 되므로, 목록에서 빼는 대신 그쪽으로 넘겨준다. */}
-          <h2 className="mt-10 mb-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          <h2 className="mt-10 mb-3 label-caps">
             {ui.crossTitle}
           </h2>
           <div className="grid sm:grid-cols-2 gap-2">

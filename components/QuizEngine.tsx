@@ -176,7 +176,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
 
   /* ── START ── */
   if (phase === 'start') return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="page-wrap flex flex-col">
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">

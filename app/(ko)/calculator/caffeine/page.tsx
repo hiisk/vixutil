@@ -109,7 +109,7 @@ export default function CaffeinePage() {
       </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">섭취 정보</p>
+          <p className="label-caps mb-3">섭취 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>섭취한 음료</Label>
@@ -182,7 +182,7 @@ export default function CaffeinePage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">시간대별 잔존량 예상</p>
+              <p className="label-caps mb-3">시간대별 잔존량 예상</p>
               <div className="flex flex-col gap-2">
                 {result.milestones.map((m, i) => (
                   <div key={i} className={`flex justify-between items-center py-2 ${i < result.milestones.length - 1 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}>

@@ -26,7 +26,7 @@ export default function FoodHubIntl({ lang }: { lang: FoodIntlLang }) {
     .filter(g => g.tools.length > 0);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-500 to-orange-600" />
 

@@ -20,7 +20,7 @@ function QuizCard({ q }: { q: CardItem }) {
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
-        <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed line-clamp-2">{q.desc}</p>
+        <p className="note-xs line-clamp-2">{q.desc}</p>
       </div>
     </Link>
   );

@@ -33,7 +33,7 @@ function GenCard({ g }: { g: CardItem }) {
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
-        <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed line-clamp-2">{g.desc}</p>
+        <p className="note-xs line-clamp-2">{g.desc}</p>
       </div>
     </Link>
   );

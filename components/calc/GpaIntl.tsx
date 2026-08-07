@@ -67,7 +67,7 @@ export default function GpaIntl({ lang }: { lang: CalcLang }) {
       />
 
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-2">
           {rows.map((row, i) => (
             <div key={i} className="grid grid-cols-7 gap-2 items-end">

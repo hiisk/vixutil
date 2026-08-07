@@ -109,7 +109,7 @@ export default function JeonseWolsePage() {
         {result && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+              <p className="label-caps mb-3">
                 비교 결과
               </p>
               <p className={`text-3xl font-black ${

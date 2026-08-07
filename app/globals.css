@@ -321,3 +321,33 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .cell-cut {
   @apply text-xs text-slate-500 dark:text-slate-400 truncate;
 }
+
+/* ── 어느 장에나 있는 것 (2026-08-07, 4차) ──
+   저장소 전체에서 세어 100회를 넘는 묶음들이다. 대부분 한 장에 한 번씩이지만
+   낱장이 십사만 장이라 그 한 번이 십사만 번이고, 그 문자열은 .html·.rsc·
+   .segments 세 곳에 저장된다.
+
+     .page-back 224곳(120자) · .page-wrap 223 · .page-bar 177
+     .note-xs 163 · .row-name 145 · .note-sm 144 · .label-caps 138 */
+.page-wrap {
+  @apply relative min-h-screen bg-white dark:bg-slate-900;
+}
+.page-bar {
+  @apply max-w-2xl mx-auto px-4 h-14 flex items-center gap-2;
+}
+/* 머리글의 "뒤로" — 색만 섹션마다 갈리므로(열두 가지) 그 한 칸은 마크업에 남긴다 */
+.page-back {
+  @apply flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 transition-colors font-medium;
+}
+.note-xs {
+  @apply text-xs text-slate-400 dark:text-slate-500 leading-relaxed;
+}
+.note-sm {
+  @apply text-sm text-slate-500 dark:text-slate-400 leading-relaxed;
+}
+.row-name {
+  @apply text-sm font-semibold text-slate-700 dark:text-slate-200 truncate;
+}
+.label-caps {
+  @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide;
+}

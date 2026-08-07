@@ -152,7 +152,7 @@ export default function DataUsagePage() {
 
             <Card>
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                <p className="label-caps">
                   {mode === 'howlong' ? `${gb}GB로 할 수 있는 것` : `${hours}시간 쓰면`}
                 </p>
               </div>

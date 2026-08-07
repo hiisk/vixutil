@@ -51,7 +51,7 @@ export default function JsonPage() {
         </div>
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">입력</span>
+            <span className="label-caps">입력</span>
             {isValid !== null && (
               <span className={`text-xs font-bold px-2 py-1 rounded-full ${isValid ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300' : 'bg-red-100 dark:bg-red-950/40 text-red-600'}`}>
                 {isValid ? '✓ Valid JSON' : '✕ Invalid JSON'}
@@ -80,7 +80,7 @@ export default function JsonPage() {
         {output && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">결과</span>
+              <span className="label-caps">결과</span>
               <div className="flex items-center gap-3">
                 {stats && <span className="text-xs text-slate-400 dark:text-slate-500">{stats.lines}줄 · {stats.bytes}bytes</span>}
                 <CopyBtn text={output} />

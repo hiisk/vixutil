@@ -135,7 +135,7 @@ export default function ExpressionPage() {
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-pink-600 transition-colors font-medium">
+          <Link href="/snap" className="page-back hover:text-pink-600">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -233,7 +233,7 @@ export default function ExpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">😀 감정 분포</p>
+              <p className="label-caps mb-3">😀 감정 분포</p>
               <div className="flex flex-col gap-2.5">
                 {result.scores.map(s => (
                   <div key={s.key}>

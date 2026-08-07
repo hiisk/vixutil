@@ -65,7 +65,7 @@ export default function LoanIntl({ lang }: { lang: CalcLang }) {
       />
 
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
           <div>
             <Label>{c.amount}</Label>
@@ -89,7 +89,7 @@ export default function LoanIntl({ lang }: { lang: CalcLang }) {
       {result && (
         <>
           <Card className="p-5 text-center">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
+            <p className="label-caps mb-2">
               {method === 'level' ? c.monthly : c.firstMonth}
             </p>
             <p className="text-4xl font-black text-blue-600">{fmt(result.rows[0].payment)}</p>
@@ -100,7 +100,7 @@ export default function LoanIntl({ lang }: { lang: CalcLang }) {
           </Card>
 
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.schedule}</p>
+            <p className="label-caps mb-3">{c.schedule}</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>

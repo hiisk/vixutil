@@ -181,7 +181,7 @@ export default function JaHome() {
     : CATS;
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="blue" />
       <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
 
@@ -275,7 +275,7 @@ export default function JaHome() {
                         <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.desc}</p>
+                    <p className="note-xs">{c.desc}</p>
                   </Link>
                 ))}
               </div>

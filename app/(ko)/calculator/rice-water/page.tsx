@@ -112,7 +112,7 @@ export default function RiceWaterPage() {
 
             <Card>
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">컵 수별 물 양</p>
+                <p className="label-caps">컵 수별 물 양</p>
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[1, 2, 3, 4, 5].map(n => (

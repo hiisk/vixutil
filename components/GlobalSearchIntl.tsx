@@ -133,7 +133,7 @@ export default function GlobalSearchIntl({ items, lang }: { items: SearchIntlIte
                       {labels[item.section] ?? item.section}
                     </span>
                   </span>
-                  <span className="block text-xs text-slate-400 dark:text-slate-500 leading-relaxed mt-0.5 line-clamp-1">{item.desc}</span>
+                  <span className="block note-xs mt-0.5 line-clamp-1">{item.desc}</span>
                 </span>
               </Link>
             ))}

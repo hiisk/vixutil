@@ -191,7 +191,7 @@ export default function SmileScore({ lang }: { lang: SnapIntlLang }) {
           </div>
 
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.breakdown}</p>
+            <p className="label-caps mb-3">{c.breakdown}</p>
             <div className="flex flex-col gap-3">
               {result.metrics.map(m => (
                 <div key={m.key}>

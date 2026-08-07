@@ -48,14 +48,14 @@ export default function HashPage() {
           onChange={v => setAlgo(v as 'SHA-256' | 'SHA-512')}
         />
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">입력 텍스트</p>
+          <p className="label-caps mb-2">입력 텍스트</p>
           <textarea value={input} onChange={e => setInput(e.target.value)}
             placeholder="해시를 생성할 텍스트 입력 (실시간 계산)" className={areaCls} />
         </Card>
 
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{algo} 해시</p>
+            <p className="label-caps">{algo} 해시</p>
             <div className="flex items-center gap-3">
               <label className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 cursor-pointer">
                 <input type="checkbox" checked={uppercase} onChange={e => setUppercase(e.target.checked)}

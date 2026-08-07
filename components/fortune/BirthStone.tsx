@@ -135,7 +135,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
       <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-violet-600" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href={hubHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-fuchsia-600 transition-colors font-medium">
+          <Link href={hubHref} className="page-back hover:text-fuchsia-600">
             <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>

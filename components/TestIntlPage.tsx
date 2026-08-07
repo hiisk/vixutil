@@ -146,7 +146,7 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
   const ui = UI[lang];
   const tests = TESTS_INTL[lang];
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       {/* 한국어 허브가 내던 구조화 데이터를 아홉 언어에도 낸다 — 목록 페이지는
           CollectionPage와 ItemList가 있어야 검색 결과에서 목록으로 읽힌다 */}
       <JsonLd

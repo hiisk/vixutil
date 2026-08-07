@@ -67,7 +67,7 @@ export default function RiskOfRuinPage() {
           이 페이지는 순수 계산이라 서버에서 그려도 되지만, 입력 상호작용이 필요해
           클라이언트 컴포넌트로 둔다. 아래 설명은 서버에서 정적으로 렌더된다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Bet size decides more than the edge does</h2>
           <p className="mb-3">
             Risk of ruin is the probability that a run of losses takes an account down to some level you would not continue from. It depends

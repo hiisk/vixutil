@@ -31,7 +31,7 @@ export default function CarInstallmentIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -70,7 +70,7 @@ export default function CarInstallmentIntl({ lang }: { lang: CalcLang }) {
             <SummaryCard label={c.totalInterest} value={fmt(result.interest)} variant="red" />
           </div>
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.split}</p>
+            <p className="label-caps mb-3">{c.split}</p>
             <RatioBar
               a={result.loan} b={result.interest}
               labelA={`${c.principalLabel} ${fmt(result.loan)}`}

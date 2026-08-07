@@ -94,7 +94,7 @@ export default function AnnualLeavePayPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">통상임금 입력 방식</p>
+          <p className="label-caps mb-3">통상임금 입력 방식</p>
           <div className="flex gap-2 mb-4">
             <button
               type="button"
@@ -206,8 +206,8 @@ export default function AnnualLeavePayPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-                  <th className="px-4 py-2.5 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">근속연수</th>
-                  <th className="px-4 py-2.5 text-right text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">연차 발생일수</th>
+                  <th className="px-4 py-2.5 text-left label-caps">근속연수</th>
+                  <th className="px-4 py-2.5 text-right label-caps">연차 발생일수</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">

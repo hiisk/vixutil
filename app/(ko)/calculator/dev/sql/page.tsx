@@ -56,7 +56,7 @@ export default function SqlPage() {
         </div>
         <Card className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">SQL 입력</p>
+            <p className="label-caps">SQL 입력</p>
             <label className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 cursor-pointer">
               <input type="checkbox" checked={upper} onChange={e => setUpper(e.target.checked)}
                 className="accent-blue-600" />
@@ -80,7 +80,7 @@ export default function SqlPage() {
         {output && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">정렬 결과</p>
+              <p className="label-caps">정렬 결과</p>
               <CopyBtn text={output} />
             </div>
             <textarea value={output} readOnly className={areaCls} />

@@ -139,7 +139,7 @@ export default function BodyFatPage() {
         />
 
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="label-caps mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             {/* 성별 */}
             <div>
@@ -249,7 +249,7 @@ export default function BodyFatPage() {
 
             {/* ACSM 기준표 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">ACSM 체지방률 등급 기준 ({sex === 'm' ? '남성' : '여성'})</p>
+              <p className="label-caps mb-3">ACSM 체지방률 등급 기준 ({sex === 'm' ? '남성' : '여성'})</p>
               <div className="flex flex-col gap-1.5">
                 {(sex === 'm' ? ACSM_MALE : ACSM_FEMALE).map((l, i) => {
                   const prev = (sex === 'm' ? ACSM_MALE : ACSM_FEMALE)[i - 1];

@@ -49,7 +49,7 @@ export default function CaffeineIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
           <div>
             <Label>{c.source}</Label>
@@ -93,7 +93,7 @@ export default function CaffeineIntl({ lang }: { lang: CalcLang }) {
           </div>
 
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.timeline}</p>
+            <p className="label-caps mb-3">{c.timeline}</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>

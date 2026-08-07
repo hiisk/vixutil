@@ -63,7 +63,7 @@ export default function OvertimePage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="label-caps mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>월 기본급 (원)</Label>
@@ -80,7 +80,7 @@ export default function OvertimePage() {
             </div>
           </div>
 
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mt-4 mb-3">수당 시간 입력</p>
+          <p className="label-caps mt-4 mb-3">수당 시간 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>연장근로 시간 (×1.5배)</Label>

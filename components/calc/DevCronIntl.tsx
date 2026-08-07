@@ -46,7 +46,7 @@ export default function DevCronIntl({ lang }: { lang: CalcLang }) {
 
       {valid && (
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.fields}</p>
+          <p className="label-caps mb-3">{c.fields}</p>
           <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
             {FIELDS.map((f, i) => (
               <div key={f.key} className="flex justify-between items-center gap-3 py-2.5 text-sm">
@@ -66,7 +66,7 @@ export default function DevCronIntl({ lang }: { lang: CalcLang }) {
       )}
 
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.presets}</p>
+        <p className="label-caps mb-3">{c.presets}</p>
         <div className="flex flex-col gap-1.5">
           {PRESETS.map(p => (
             <button

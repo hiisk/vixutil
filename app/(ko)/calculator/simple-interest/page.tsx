@@ -114,7 +114,7 @@ export default function SimpleInterestPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">예금 조건</p>
+          <p className="label-caps mb-3">예금 조건</p>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
               <Label>원금 (원)</Label>
@@ -162,7 +162,7 @@ export default function SimpleInterestPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">원금 vs 이자 비율</p>
+              <p className="label-caps mb-3">원금 vs 이자 비율</p>
               <RatioBar
                 a={principal} b={totalInterest}
                 labelA={`원금 ${w(principal)}원`}

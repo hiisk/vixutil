@@ -84,7 +84,7 @@ export default function UnitTempPage() {
           <LangPicker current="ko" route="/calculator/unit-temp" available={ALL_LOCALES10} />
         </div>
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">온도 입력</p>
+          <p className="label-caps mb-3">온도 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>온도값</Label>
@@ -123,7 +123,7 @@ export default function UnitTempPage() {
 
             {/* 변환 결과 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환 결과</p>
+              <p className="label-caps mb-3">변환 결과</p>
               <div className="flex flex-col divide-y divide-slate-100">
                 {(Object.keys(UNIT_LABELS) as TempUnit[]).map(k => (
                   <div
@@ -145,7 +145,7 @@ export default function UnitTempPage() {
 
             {/* 주요 기준점 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">주요 기준 온도</p>
+              <p className="label-caps mb-3">주요 기준 온도</p>
               <div className="flex flex-col gap-2">
                 {LANDMARKS.map(lm => (
                   <div key={lm.c} className="flex justify-between items-center text-sm">

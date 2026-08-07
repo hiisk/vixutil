@@ -17,7 +17,7 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
   const label = hanjaCategories(lang);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -45,7 +45,7 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
       <main className="relative max-w-3xl mx-auto px-4 py-9">
         <div className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{ui.hubTitle}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.hubLead}</p>
+          <p className="note-sm">{ui.hubLead}</p>
           <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400">
             {ui.hubNotice}
           </p>

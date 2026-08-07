@@ -98,7 +98,7 @@ export default function PyeongPage() {
             </div>
             <Card>
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">아파트 평형 참고표</p>
+                <p className="label-caps">아파트 평형 참고표</p>
               </div>
               <div className="divide-y divide-slate-100">
                 {REFS.map(r => (

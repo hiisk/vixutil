@@ -189,7 +189,7 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
         </div>
       )}
 
-      <p className="mt-3 text-xs text-slate-400 dark:text-slate-500 leading-relaxed text-center">
+      <p className="mt-3 note-xs text-center">
         {ui.rubNote}
         {supported === 0 && ui.noTouchNote}
       </p>

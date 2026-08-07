@@ -50,7 +50,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
   const allShown = drawn !== null && shown.length === drawn.length;
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-500 to-purple-700" />
 
@@ -78,7 +78,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
             <span>🃏</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{ui.h1}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">{ui.lead}</p>
+          <p className="note-sm max-w-xl mx-auto">{ui.lead}</p>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-6">

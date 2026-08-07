@@ -65,7 +65,7 @@ export default function DevUrlEncodeIntl({ lang }: { lang: CalcLang }) {
       )}
 
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.table}</p>
+        <p className="label-caps mb-3">{c.table}</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 text-xs font-mono">
           {COMMON.map(([ch, code]) => (
             <div key={code} className="flex justify-between">

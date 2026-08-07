@@ -64,7 +64,7 @@ export default function ExchangePage() {
         {rates && (
           <>
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">통화 선택</p>
+              <p className="label-caps mb-3">통화 선택</p>
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <div>
                   <Label>보낼 통화</Label>

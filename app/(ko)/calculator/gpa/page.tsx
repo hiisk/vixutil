@@ -220,7 +220,7 @@ export default function GpaPage() {
         {/* 과목 목록 */}
         <Card className="p-5">
           <div className="flex justify-between items-center mb-3">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">과목 목록</p>
+            <p className="label-caps">과목 목록</p>
             <button type="button" onClick={addCourse}
               className="text-xs font-semibold text-blue-600 border border-blue-200 dark:border-blue-900/50 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">
               + 과목 추가
@@ -359,7 +359,7 @@ export default function GpaPage() {
 
         {/* 성적 기준표 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+          <p className="label-caps mb-3">
             {system}제 성적 기준표
           </p>
           <div className="grid grid-cols-5 gap-2">

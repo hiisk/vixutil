@@ -63,7 +63,7 @@ const TOOLS = [
 
 export default function CryptoPage() {
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="amber" />
       <JsonLd data={structuredData} />
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />

@@ -64,7 +64,7 @@ export default function BirthdayIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div>
           <Label>{c.birthdate}</Label>
           <input type="date" value={birthdate} onChange={e => setBirthdate(e.target.value)} className={inputCls} />

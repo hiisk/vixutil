@@ -73,7 +73,7 @@ export default function FreelancePage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">수입 정보</p>
+          <p className="label-caps mb-3">수입 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>수입 구분</Label>
@@ -152,7 +152,7 @@ export default function FreelancePage() {
                 </div>
               </div>
               <div className="px-5 pb-4">
-                <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                <p className="note-xs">
                   * 연간 수입을 기준으로 추정한 값입니다. 부양가족·의료비 등 공제 미반영.
                   실제 세금은 세무사 상담을 권장합니다.
                 </p>

@@ -77,7 +77,7 @@ export default function TipPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">결제 정보</p>
+          <p className="label-caps mb-3">결제 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>금액 (원)</Label>
@@ -174,7 +174,7 @@ export default function TipPage() {
             </SummaryGrid>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">상세 내역</p>
+              <p className="label-caps mb-3">상세 내역</p>
               <div className="flex flex-col gap-2">
                 {[
                   { label: '원금', value: `${w(amount)}원` },

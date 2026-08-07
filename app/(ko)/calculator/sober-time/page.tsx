@@ -113,7 +113,7 @@ export default function SoberTimePage() {
         {result && (
           <>
             <Card className={`p-5 ${result.overSuspendNow ? 'border-red-300 dark:border-red-800 bg-red-50/60 dark:bg-red-950/20' : 'border-emerald-300 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/20'}`}>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
+              <p className="label-caps mb-2">
                 현재 추정 혈중알코올농도
               </p>
               <p className={`text-3xl font-black ${result.overSuspendNow ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'}`}>

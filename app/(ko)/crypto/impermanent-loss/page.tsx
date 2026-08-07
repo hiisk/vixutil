@@ -67,7 +67,7 @@ export default function ImpermanentLossPage() {
           정적 렌더 영역. 위 계산기는 클라이언트 상태에 의존하므로
           자바스크립트 없는 크롤러에겐 아래 본문이 페이지의 실질 내용이다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Small, symmetric, and always negative</h2>
           <p className="mb-3">
             Providing liquidity to a constant-product pool means agreeing to sell whichever asset is rising and buy whichever is falling,

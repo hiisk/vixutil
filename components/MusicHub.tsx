@@ -56,7 +56,7 @@ export default function MusicHub({ lang }: { lang: Lang }) {
   );
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd data={breadcrumbJsonLd([{ name: ui.home, path: homeHref }, { name: ui.section, path: `${prefix}/music` }])} />
       <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-sky-500 to-indigo-600" />

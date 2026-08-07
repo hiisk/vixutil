@@ -67,7 +67,7 @@ export default function SoldAtTopPage() {
           정적 렌더 영역. 위 보드는 브라우저에서 전체 이력을 받아 계산하므로
           자바스크립트를 실행하지 않는 크롤러에겐 아래 본문이 페이지의 내용이다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">The two scenarios are the same scenario</h2>
           <p className="mb-3">
             Everyone who has held through a crash has run the counterfactual: sell at the top, buy back at the bottom, keep the difference.

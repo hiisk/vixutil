@@ -67,7 +67,7 @@ export default function CompoundCalculatorPage() {
           아래는 서버에서 정적으로 렌더된다. 위 계산기는 브라우저에서 변동성을 받아
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Two things a yield number hides</h2>
           <p className="mb-3">
             The first is the difference between APR and APY. APR is the rate before compounding, APY is what you actually receive once

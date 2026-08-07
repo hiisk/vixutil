@@ -25,7 +25,7 @@ function TestCard({ t }: { t: CardItem }) {
       </div>
       <div className="p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
-        <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed line-clamp-2">{t.desc}</p>
+        <p className="note-xs line-clamp-2">{t.desc}</p>
       </div>
     </Link>
   );

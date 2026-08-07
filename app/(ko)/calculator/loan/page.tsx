@@ -102,7 +102,7 @@ export default function LoanPage() {
         />
 
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">대출 조건</p>
+          <p className="label-caps mb-3">대출 조건</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <Label>대출금액 (원)</Label>
@@ -139,7 +139,7 @@ export default function LoanPage() {
             </div>
 
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">원금 vs 이자 비율</p>
+              <p className="label-caps mb-3">원금 vs 이자 비율</p>
               <RatioBar
                 a={amount} b={totalInterest}
                 labelA={`원금 ${fmt(amount)}원`}

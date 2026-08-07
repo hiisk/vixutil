@@ -47,7 +47,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -90,7 +90,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
           </div>
 
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.payout}</p>
+            <p className="label-caps mb-3">{c.payout}</p>
             <div className="grid grid-cols-3 gap-3">
               {[20, 25, 30].map(y => (
                 <SummaryCard key={y} label={`${y} ${c.years}`} value={fmt(result.total / (y * 12))} />
@@ -99,7 +99,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
           </Card>
 
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.table}</p>
+            <p className="label-caps mb-3">{c.table}</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>

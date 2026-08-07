@@ -178,7 +178,7 @@ export default function SeverancePage() {
 
         {/* 공통: 재직기간 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">재직기간</p>
+          <p className="label-caps mb-3">재직기간</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>입사일</Label>
@@ -193,7 +193,7 @@ export default function SeverancePage() {
 
         {/* 임금 입력 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">임금 정보</p>
+          <p className="label-caps mb-3">임금 정보</p>
           {mode === 'simple' ? (
             <div>
               <Label>월 평균임금 (원)</Label>
@@ -323,7 +323,7 @@ export default function SeverancePage() {
                   <br />
                   = <strong>{fmt(result.severancePay)}원</strong>
                 </p>
-                <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                <p className="note-xs">
                   * 퇴직소득세가 별도 부과됩니다. 근속연수·퇴직소득공제에 따라 실수령액이 달라집니다.
                 </p>
               </div>

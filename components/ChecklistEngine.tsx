@@ -452,7 +452,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
   }
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="page-wrap flex flex-col">
       <PageGlow accent="sky" />
       {/* 상단 진행바 */}
       <div className="h-1.5 bg-sky-100 dark:bg-sky-950/40">

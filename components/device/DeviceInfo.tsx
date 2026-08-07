@@ -176,7 +176,7 @@ export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
         {copied ? ui.copied : ui.copy}
       </button>
 
-      <p className="text-center text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+      <p className="text-center note-xs">
         {ui.privacy1}
         <br />
         {ui.privacy2}

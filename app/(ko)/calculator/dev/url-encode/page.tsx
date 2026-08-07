@@ -48,7 +48,7 @@ export default function UrlEncodePage() {
           onChange={v => { setMode(v as 'encode' | 'decode'); setInput(''); }}
         />
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
+          <p className="label-caps mb-2">
             {mode === 'encode' ? '원문' : 'URL 인코딩'}
           </p>
           <textarea value={input} onChange={e => setInput(e.target.value)}
@@ -59,7 +59,7 @@ export default function UrlEncodePage() {
         {output && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">결과</p>
+              <p className="label-caps">결과</p>
               <CopyBtn text={output} />
             </div>
             <textarea value={output} readOnly className={areaCls} />

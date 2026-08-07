@@ -87,7 +87,7 @@ export default function SimpleVatPage() {
         {result && (
           <>
             <Card className={`p-5 ${result.exempt ? 'border-emerald-300 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/20' : ''}`}>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+              <p className="label-caps mb-3">
                 예상 납부세액
               </p>
               <p className={`text-3xl font-black ${result.exempt ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-slate-100'}`}>

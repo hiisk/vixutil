@@ -69,7 +69,7 @@ export default function UuidPage() {
         {uuids.length > 0 && (
           <Card className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">생성된 UUID</p>
+              <p className="label-caps">생성된 UUID</p>
               <button onClick={copyAll}
                 className="text-xs px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors font-medium">
                 전체 복사

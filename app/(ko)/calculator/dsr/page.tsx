@@ -80,7 +80,7 @@ export default function DsrPage() {
             <input type="number" value={annualIncome} onChange={e => setAnnualIncome(e.target.value)}
               placeholder="예: 60,000,000" className={inputCls} min="0" />
           </div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">대출 목록</p>
+          <p className="label-caps mb-3">대출 목록</p>
           {loans.map((l, i) => (
             <div key={i} className="mb-3 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl">
               <div className="grid grid-cols-2 gap-2 mb-2">

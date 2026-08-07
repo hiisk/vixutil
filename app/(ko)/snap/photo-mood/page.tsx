@@ -181,7 +181,7 @@ export default function PhotoMoodPage() {
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/snap" className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-fuchsia-600 transition-colors font-medium">
+          <Link href="/snap" className="page-back hover:text-fuchsia-600">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -277,7 +277,7 @@ export default function PhotoMoodPage() {
 
             {palette.length > 0 && (
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">🎨 이 사진의 컬러 팔레트</p>
+                <p className="label-caps mb-3">🎨 이 사진의 컬러 팔레트</p>
                 <div className="flex gap-2">
                   {palette.map(hex => (
                     <div key={hex} className="flex-1 text-center">

@@ -147,7 +147,7 @@ export default function SpeedTimePage() {
 
             <Card>
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">다른 단위로</p>
+                <p className="label-caps">다른 단위로</p>
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 <div className="px-5 py-3 flex justify-between text-sm">
@@ -177,7 +177,7 @@ export default function SpeedTimePage() {
 
             <Card>
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                <p className="label-caps">
                   이 속도로 가면 (시속 {answer.v.toFixed(1)}km)
                 </p>
               </div>

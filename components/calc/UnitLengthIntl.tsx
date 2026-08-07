@@ -43,7 +43,7 @@ export default function UnitLengthIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.input}</p>
+        <p className="label-caps mb-3">{c.input}</p>
         <div className="flex flex-col gap-3">
           <div>
             <Label>{c.number}</Label>
@@ -63,7 +63,7 @@ export default function UnitLengthIntl({ lang }: { lang: CalcLang }) {
 
       {results && (
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.result}</p>
+          <p className="label-caps mb-3">{c.result}</p>
           <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
             {results.map(r => (
               <div key={r.key} className={`flex justify-between items-center py-3 ${r.key === fromUnit ? 'font-bold' : ''}`}>

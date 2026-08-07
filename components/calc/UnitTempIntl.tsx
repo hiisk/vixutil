@@ -71,7 +71,7 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.input}</p>
+        <p className="label-caps mb-3">{c.input}</p>
         <div className="flex flex-col gap-3">
           <div>
             <Label>{c.value}</Label>
@@ -100,7 +100,7 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
           )}
 
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.result}</p>
+            <p className="label-caps mb-3">{c.result}</p>
             <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
               {(Object.keys(UNIT_LABELS) as TempUnit[]).map(k => (
                 <div key={k} className={`flex justify-between items-center py-3.5 ${k === unit ? 'font-bold' : ''}`}>
@@ -117,7 +117,7 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
           </Card>
 
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.landmarks}</p>
+            <p className="label-caps mb-3">{c.landmarks}</p>
             <div className="flex flex-col gap-2">
               {LANDMARKS.map(lm => (
                 <div key={lm.key} className="flex justify-between items-center gap-3 text-sm">

@@ -23,7 +23,7 @@ export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
   const hubHref = localeHref(lang, '/random');
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="rose" />
       <div className="h-1 bg-gradient-to-r from-rose-500 to-pink-600" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">

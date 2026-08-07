@@ -67,7 +67,7 @@ export default function HalvingCountdownPage() {
           아래는 서버에서 정적으로 렌더된다. 위 카운트다운은 브라우저에서 체인 높이를
           받아 그리므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">A halving is a block height, not a date</h2>
           <p className="mb-3">
             Every 210,000 blocks the reward paid to miners is cut in half. The rule is fixed in the protocol, so the exact block is known

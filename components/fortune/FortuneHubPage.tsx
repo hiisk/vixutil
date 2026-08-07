@@ -21,7 +21,7 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
   const tarot = TAROT_UI[langOfLocale(lang)];
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500" />
 

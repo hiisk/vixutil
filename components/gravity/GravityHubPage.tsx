@@ -27,7 +27,7 @@ export default function GravityHubPage({ lang }: { lang: Lang }) {
   const head: [string, string, string] = [ui.section, ui.scaleLabel, ui.ratioLabel];
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -42,15 +42,15 @@ export default function GravityHubPage({ lang }: { lang: Lang }) {
       <div className="h-1 bg-gradient-to-r from-indigo-700 to-violet-500" />
 
       <header className="page-head">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
+        <div className="page-bar">
+          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.section}</span>
+          <span className="row-name">{ui.section}</span>
           <div className="ml-auto shrink-0">
             <LangPicker current={localeOfLang(lang)} route="/gravity" available={LOCALE_PATHS} />
           </div>
@@ -63,7 +63,7 @@ export default function GravityHubPage({ lang }: { lang: Lang }) {
             <ToolIcon emoji={GRAVITY_ICON} accent="rgba(255,255,255,0.55)" className="w-7 h-7 text-white" />
           </div>
           <h1 className="page-h1">{ui.hubTitle}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.hubLead}</p>
+          <p className="note-sm">{ui.hubLead}</p>
         </div>
 
         <section className="mb-8">
@@ -74,17 +74,17 @@ export default function GravityHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.heavyTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{ui.heavyNote}</p>
+          <p className="note-xs">{ui.heavyNote}</p>
         </section>
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.jumpTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{ui.jumpNote}</p>
+          <p className="note-xs">{ui.jumpNote}</p>
         </section>
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.gasTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{ui.gasNote}</p>
+          <p className="note-xs">{ui.gasNote}</p>
         </section>
 
         <section className="mb-8">

@@ -67,7 +67,7 @@ export default function BinaryIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.input}</p>
+        <p className="label-caps mb-3">{c.input}</p>
         <div className="flex flex-col gap-3">
           <div>
             <Label>{c.base}</Label>
@@ -90,7 +90,7 @@ export default function BinaryIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.result}</p>
+          <p className="label-caps mb-3">{c.result}</p>
           <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
             {rows.map(r => (
               <div key={r.base} className={`flex justify-between items-center gap-3 py-3 ${r.base === base ? 'font-bold' : ''}`}>
@@ -108,7 +108,7 @@ export default function BinaryIntl({ lang }: { lang: CalcLang }) {
       )}
 
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.table}</p>
+        <p className="label-caps mb-3">{c.table}</p>
         <div className="grid grid-cols-4 gap-x-3 gap-y-1.5 text-xs font-mono">
           {Array.from({ length: 16 }, (_, i) => (
             <div key={i} className="flex justify-between text-slate-600 dark:text-slate-300">

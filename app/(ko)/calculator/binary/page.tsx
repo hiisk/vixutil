@@ -83,7 +83,7 @@ export default function BinaryPage() {
           <LangPicker current="ko" route="/calculator/binary" available={ALL_LOCALES10} />
         </div>
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력</p>
+          <p className="label-caps mb-3">입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>진수 선택</Label>
@@ -119,7 +119,7 @@ export default function BinaryPage() {
 
         {result && (
           <Card className="p-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">변환 결과</p>
+            <p className="label-caps mb-3">변환 결과</p>
             <div className="flex flex-col divide-y divide-slate-100">
               {rows.map(r => (
                 <div
@@ -143,7 +143,7 @@ export default function BinaryPage() {
 
         {/* 진수 빠른 참고표 */}
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">빠른 참고표 (0 – 15)</p>
+          <p className="label-caps mb-3">빠른 참고표 (0 – 15)</p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-center">
               <thead>

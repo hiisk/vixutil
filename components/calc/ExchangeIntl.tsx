@@ -47,7 +47,7 @@ export default function ExchangeIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       {/* 폼은 환율을 기다리지 않고 먼저 그린다 — 통화 목록만으로도 읽을 것이 있다. */}
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.section}</p>
+        <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
           <div>
             <Label>{c.amount}</Label>

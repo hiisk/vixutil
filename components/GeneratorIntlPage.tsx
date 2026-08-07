@@ -176,7 +176,7 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
   const ui = UI[lang];
   const gens = GENERATORS_INTL[lang];
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd data={breadcrumbJsonLd([{ name: ui.home, path: `/${lang}` }, { name: ui.crumb, path: `/${lang}/generator` }])} />
       <JsonLd data={itemListJsonLd(ui.crumb, `/${lang}/generator`, gens.map(g => ({ name: g.title, path: `/${lang}/generator/${g.slug}` })))} />
       <PageGlow accent="emerald" />

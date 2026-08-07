@@ -38,7 +38,7 @@ export default function PaperPage({ slug, lang }: { slug: string; lang: Lang }) 
   const near = [f.bigger, f.smaller].filter((x): x is NonNullable<typeof x> => x !== null);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -51,15 +51,15 @@ export default function PaperPage({ slug, lang }: { slug: string; lang: Lang }) 
       <div className="h-1 bg-gradient-to-r from-slate-600 to-slate-400" />
 
       <header className="page-head">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={hub} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
+        <div className="page-bar">
+          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.section}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{ui.sizeName(c.size.key)} · {c.dpi}dpi</span>
+          <span className="row-name">{ui.sizeName(c.size.key)} · {c.dpi}dpi</span>
           <div className="ml-auto shrink-0">
             <LangPicker current={localeOfLang(lang)} route={`/paper/${slug}`} available={LOCALE_PATHS} />
           </div>
@@ -78,7 +78,7 @@ export default function PaperPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <div className="text-center mb-6">
           <h1 className="page-h1">{ui.metaTitle(f)}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.desc(f)}</p>
+          <p className="note-sm">{ui.desc(f)}</p>
         </div>
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">

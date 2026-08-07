@@ -40,7 +40,7 @@ const structuredData = [
 
 export default function KimchiPremiumPage() {
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd data={structuredData} />
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />

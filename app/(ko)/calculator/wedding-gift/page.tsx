@@ -65,7 +65,7 @@ export default function WeddingGiftPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">관계 및 상황</p>
+          <p className="label-caps mb-3">관계 및 상황</p>
           <div className="flex flex-col gap-4">
             <div>
               <Label>신랑·신부와의 관계</Label>

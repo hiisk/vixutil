@@ -15,7 +15,7 @@ export const metadata: Metadata = withCard({
 
 export default function SearchPage() {
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900 flex flex-col">
+    <div className="page-wrap flex flex-col">
       <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
 

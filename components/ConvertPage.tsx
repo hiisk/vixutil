@@ -45,7 +45,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
   const related = relatedConvertTools(tool.slug);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -59,8 +59,8 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
       <div className="h-1 bg-gradient-to-r from-blue-500 to-indigo-600" />
 
       <header className="page-head">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={homeHref} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors font-medium shrink-0">
+        <div className="page-bar">
+          <Link href={homeHref} className="page-back hover:text-blue-600 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -84,7 +84,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">
             {text.title}
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">{text.long}</p>
+          <p className="note-sm max-w-xl mx-auto">{text.long}</p>
         </div>
 
         <ConvertEngine tool={{ ...tool, note: text.note, from: text.from, to: text.to }} lang={lang} />

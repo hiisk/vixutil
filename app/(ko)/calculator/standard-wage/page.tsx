@@ -65,7 +65,7 @@ export default function StandardWagePage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="label-caps mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>월 기본급 (원)</Label>
@@ -80,7 +80,7 @@ export default function StandardWagePage() {
               </select>
             </div>
           </div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mt-4 mb-3">고정수당 (해당 항목만 입력)</p>
+          <p className="label-caps mt-4 mb-3">고정수당 (해당 항목만 입력)</p>
           <div className="grid grid-cols-2 gap-3">
             {ALLOWANCES.map(name => (
               <div key={name}>

@@ -29,7 +29,7 @@ export default function ChecklistIndexPage() {
   );
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: '홈', path: '/' },

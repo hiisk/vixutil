@@ -103,7 +103,7 @@ export default function CaloriesBurnPage() {
       </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">운동 정보 입력</p>
+          <p className="label-caps mb-3">운동 정보 입력</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>체중 (kg)</Label>
@@ -168,7 +168,7 @@ export default function CaloriesBurnPage() {
 
             {/* 음식 비교 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">음식 칼로리 비교</p>
+              <p className="label-caps mb-3">음식 칼로리 비교</p>
               <div className="flex flex-col gap-2">
                 {FOOD_COMPARISON.map(f => {
                   const ratio = result.kcal / f.kcal;
@@ -196,7 +196,7 @@ export default function CaloriesBurnPage() {
 
             {/* MET 설명 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">MET란?</p>
+              <p className="label-caps mb-3">MET란?</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 MET(Metabolic Equivalent of Task)는 운동 강도를 나타내는 단위입니다.
                 MET 1 = 안정 시 산소 소모량(3.5 mL/kg/min)을 기준으로 하며,

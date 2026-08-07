@@ -45,7 +45,7 @@ export default function DevWordCountIntl({ lang }: { lang: CalcLang }) {
       </Card>
 
       <Card className="p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{c.detail}</p>
+        <p className="label-caps mb-3">{c.detail}</p>
         <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
           {rows.map(([label, value, note]) => (
             <div key={label} className="flex justify-between items-baseline gap-3 py-2.5">

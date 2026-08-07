@@ -67,7 +67,7 @@ export default function DevRegexIntl({ lang }: { lang: CalcLang }) {
 
       {pattern && text && !error && (
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+          <p className="label-caps mb-3">
             {c.matches} {matches.length > 0 && `(${matches.length})`}
           </p>
           {matches.length === 0 ? (

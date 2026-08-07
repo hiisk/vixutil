@@ -80,7 +80,7 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
             생성기 전체
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{gen.title}</span>
+          <span className="row-name">{gen.title}</span>
         </div>
       </header>
 

@@ -125,7 +125,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
       <div className="h-1 bg-gradient-to-r from-indigo-500 to-violet-700" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href={`/${lang}/fortune`} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+          <Link href={`/${lang}/fortune`} className="page-back hover:text-indigo-600">
             <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -218,7 +218,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
               <div className="flex items-baseline justify-between mb-3">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{ui.elements}</p>
+                <p className="label-caps">{ui.elements}</p>
                 <span className="text-[11px] font-bold text-indigo-600">
                   {chart.strong ? ui.strong : ui.weak}
                 </span>
@@ -259,7 +259,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
             )}
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{ui.tenGods}</p>
+              <p className="label-caps mb-3">{ui.tenGods}</p>
               <div className="space-y-3">
                 {([[ui.yearPillar, chart.year], [ui.monthPillar, chart.month], [ui.hourPillar, chart.hour]] as const)
                   .filter((x): x is [string, Pillar] => x[1] !== null)
@@ -284,7 +284,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{ui.luckPillars}</p>
+              <p className="label-caps mb-3">{ui.luckPillars}</p>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                 {chart.daewoons.slice(0, 8).map(w => {
                   const s = STEMS[w.pillar.stemIdx];
@@ -305,8 +305,8 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               같은 값이 나온다. 열 개를 한 번에 펼치면 화면이 너무 길어져 넷만 먼저 보인다.
             */}
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{du.title}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed mb-4">{du.lead}</p>
+              <p className="label-caps mb-1">{du.title}</p>
+              <p className="note-xs mb-4">{du.lead}</p>
               <div className="flex flex-col gap-3">
                 {domains.slice(0, allDomains ? domains.length : 4).map(d => (
                   <div key={d.id} className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3.5">

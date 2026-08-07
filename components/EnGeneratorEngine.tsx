@@ -103,7 +103,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
             {t.back}
           </Link>
           <span className="text-slate-200">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{gen.title}</span>
+          <span className="row-name">{gen.title}</span>
           <Link href={t.otherHref(gen.slug)} className="ml-auto text-xs font-bold text-slate-400 hover:text-emerald-600" hrefLang={t.otherLang}>{t.other}</Link>
         </div>
       </header>

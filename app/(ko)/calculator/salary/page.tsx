@@ -50,7 +50,7 @@ export default function SalaryPage() {
     >
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">기본 정보</p>
+          <p className="label-caps mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">
             <div>
               <Label>연봉 (원)</Label>
@@ -58,7 +58,7 @@ export default function SalaryPage() {
             </div>
           </div>
 
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mt-4 mb-3">공제 옵션</p>
+          <p className="label-caps mt-4 mb-3">공제 옵션</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>부양가족 수 (본인 포함)</Label>
@@ -137,7 +137,7 @@ function Section({ title, total, children }: { title: string; total: number; chi
   return (
     <div className="px-5 py-4">
       <div className="flex justify-between items-center mb-2.5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{title}</p>
+        <p className="label-caps">{title}</p>
         <span className="text-xs font-bold text-red-500">-{Math.round(total).toLocaleString()}원</span>
       </div>
       <div className="flex flex-col gap-2">{children}</div>

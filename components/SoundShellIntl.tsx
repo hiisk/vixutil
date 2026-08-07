@@ -30,7 +30,7 @@ export default function SoundShellIntl({
   const related = relatedSoundToolsIntl(lang, tool.slug);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: `/${lang}` },
@@ -44,8 +44,8 @@ export default function SoundShellIntl({
       <div className={`h-1 bg-gradient-to-r ${tool.gradient}`} />
 
       <header className="page-head">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={`/${lang}`} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+        <div className="page-bar">
+          <Link href={`/${lang}`} className="page-back hover:text-indigo-600">
             <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -56,7 +56,7 @@ export default function SoundShellIntl({
             {ui.section}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{tool.title}</span>
+          <span className="row-name">{tool.title}</span>
           <span className="ml-auto shrink-0">
             <LangPicker current={lang} route={`/sound/${slug}`} />
           </span>
@@ -69,7 +69,7 @@ export default function SoundShellIntl({
             <ToolIcon emoji={tool.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{tool.title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">{tool.long}</p>
+          <p className="note-sm max-w-xl mx-auto">{tool.long}</p>
         </div>
 
         <div className="mb-5 rounded-2xl border border-indigo-100 dark:border-indigo-900/40 bg-indigo-50/70 dark:bg-indigo-950/30 px-4 py-3 text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed text-center">

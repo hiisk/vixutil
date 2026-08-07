@@ -40,7 +40,7 @@ export default function FractionPage({ slug, lang }: { slug: string; lang: Lang 
   ];
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900">
+    <div className="page-wrap">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
@@ -53,15 +53,15 @@ export default function FractionPage({ slug, lang }: { slug: string; lang: Lang 
       <div className="h-1 bg-gradient-to-r from-lime-600 to-emerald-500" />
 
       <header className="page-head">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={hub} className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium shrink-0">
+        <div className="page-bar">
+          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.section}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{f.n}/{f.d}</span>
+          <span className="row-name">{f.n}/{f.d}</span>
           <div className="ml-auto shrink-0">
             <LangPicker current={localeOfLang(lang)} route={`/fraction/${slug}`} available={LOCALE_PATHS} />
           </div>
@@ -84,7 +84,7 @@ export default function FractionPage({ slug, lang }: { slug: string; lang: Lang 
           <p className="text-xs font-bold text-lime-700 dark:text-lime-400 mb-2">
             {f.decimal.terminating ? ui.terminatingLabel : ui.repeatingLabel}
           </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{ui.desc(f)}</p>
+          <p className="note-sm">{ui.desc(f)}</p>
         </div>
 
         {!f.decimal.terminating && (

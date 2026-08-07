@@ -390,7 +390,7 @@ export default function SnapShell<T>({
             {ui.hub}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{title}</span>
+          <span className="row-name">{title}</span>
           <span className="ml-auto shrink-0">
             <LangPicker current={lang} route={`/snap/${slug}`} available={ALL_LOCALES10} />
           </span>

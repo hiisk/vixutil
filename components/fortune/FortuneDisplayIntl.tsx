@@ -130,14 +130,14 @@ export default function FortuneDisplayIntl({ subjectId, subjectName, subjectEmoj
 
       {domains.map(d => (
         <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{d.icon} {d.label}</p>
+          <p className="label-caps mb-1">{d.icon} {d.label}</p>
           <div className="mb-2"><Stars n={f.stars[d.key]} /></div>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f[d.key]}</p>
         </div>
       ))}
 
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{t('luck', lang)}</p>
+        <p className="label-caps mb-3">{t('luck', lang)}</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="text-center">
             <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm" style={{ background: f.luckyColorHex }} />

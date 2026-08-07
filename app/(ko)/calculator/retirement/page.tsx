@@ -139,7 +139,7 @@ export default function RetirementPage() {
       </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">입력 정보</p>
+          <p className="label-caps mb-3">입력 정보</p>
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -181,7 +181,7 @@ export default function RetirementPage() {
 
             {/* 월 인출 가능액 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">은퇴 후 월 인출 가능액 (자산 소진 기준)</p>
+              <p className="label-caps mb-3">은퇴 후 월 인출 가능액 (자산 소진 기준)</p>
               <div className="flex flex-col gap-2">
                 {[
                   { years: 20, monthly: result.monthly20 },
@@ -202,7 +202,7 @@ export default function RetirementPage() {
 
             {/* 연도별 성장 테이블 */}
             <Card className="p-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">연도별 자산 성장</p>
+              <p className="label-caps mb-3">연도별 자산 성장</p>
               <TableWrap>
                 <table className="w-full text-xs text-right">
                   <thead>
