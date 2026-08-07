@@ -63,6 +63,7 @@ import { CELLS as BED_CELLS } from '@/lib/bed/list';
 import { CELLS as WINE_CELLS } from '@/lib/wine/list';
 import { CELLS as BLOOD_CELLS } from '@/lib/blood/list';
 import { CELLS as EXPOSURE_CELLS } from '@/lib/exposure/list';
+import { CELLS as HEREDITY_CELLS } from '@/lib/heredity/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1040,6 +1041,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/heredity',
+    icon: '🧬',
+    title: '혈액형 유전표',
+    desc: 'AB형과 O형 부모에게서는 AB형도 O형도 나오지 않습니다 — 부모 조합 전부',
+    badge: `${HEREDITY_CELLS.length}칸`,
+    color: 'from-violet-900 to-fuchsia-400',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/40',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-800',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/exposure',

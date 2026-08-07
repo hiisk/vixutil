@@ -19,6 +19,7 @@ import { newSnapCard } from '@/lib/snap/card';
 import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as ampereHub } from '@/lib/ampere/route';
+import { hubCard as heredityHub } from '@/lib/heredity/route';
 import { hubCard as exposureHub } from '@/lib/exposure/route';
 import { hubCard as bloodHub } from '@/lib/blood/route';
 import { hubCard as braHub } from '@/lib/bra/route';
@@ -116,6 +117,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'bed': () => bedHub('tw'),
   'blood': () => bloodHub('tw'),
   'exposure': () => exposureHub('tw'),
+  'heredity': () => heredityHub('tw'),
   'bra': () => braHub('tw'),
   'password': () => passwordHub('tw'),
   'cable': () => cableHub('tw'),

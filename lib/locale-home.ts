@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/heredity', icon: '🧬', color: 'from-violet-900 to-fuchsia-400',
+    accent: 'text-violet-700 dark:text-violet-200', border: 'border-violet-200 dark:border-violet-800', bg: 'bg-violet-50 dark:bg-violet-900/40',
+    copy: {
+      en: { title: 'Blood Type Inheritance', desc: 'An AB and an O parent can have neither an AB nor an O child' },
+      es: { title: 'Herencia del grupo sanguíneo', desc: 'De un progenitor AB y otro O no nace ni AB ni O' },
+      'pt-br': { title: 'Herança do tipo sanguíneo', desc: 'De um pai AB e outro O não nasce nem AB nem O' },
+      ja: { title: '血液型の遺伝表', desc: 'AB型とO型の親からはAB型もO型も生まれません' },
+      de: { title: 'Blutgruppenvererbung', desc: 'Aus AB und O entsteht weder AB noch O' },
+      fr: { title: 'Hérédité des groupes sanguins', desc: 'D’un parent AB et d’un parent O ne naît ni AB ni O' },
+      hi: { title: 'रक्त समूह की वंशानुगति', desc: 'AB और O माता-पिता से न AB होता है न O' },
+      'zh-hans': { title: '血型遗传表', desc: 'AB 型和 O 型的父母，生不出 AB 型，也生不出 O 型' },
+      'zh-hant': { title: '血型遺傳表', desc: 'AB 型和 O 型的父母，生不出 AB 型，也生不出 O 型' },
+    },
+  },
+  {
     route: '/exposure', icon: '📷', color: 'from-slate-800 to-sky-400',
     accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
     copy: {

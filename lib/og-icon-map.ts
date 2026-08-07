@@ -26,7 +26,7 @@ export const GROUPS: Record<string, string[]> = {
   hearts: ['💑', '💞'],
   ring: ['💍', '💒', '👰'],
   pulse: ['🫀', '💹', '👏', '💓'],
-  blood: ['🩸'],
+  blood: ['🩸', '🧬'],
 
   coin: ['💰', '💵', '💴', '💸'],
   card: ['💳'],
