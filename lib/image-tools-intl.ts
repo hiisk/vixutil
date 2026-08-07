@@ -70,6 +70,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       long: 'When you want to reuse the mood of a photo you like, this pulls out the colours it uses most and gives you the HEX and RGB codes. Tap anywhere on the photo and you get the colour at that exact point.',
       features: ['Dominant colour palette extracted for you', 'Share of the image per colour', 'Eyedropper for any point you pick', 'One click to copy a HEX code'],
     },
+    watermark: {
+      title: "Add a Watermark", desc: "Lay a text watermark over your photo", category: "Edit",
+      metaTitle: "Add a Watermark — Put Text Over a Photo",
+      long: "Puts a text watermark on your photo. You choose the position, size, opacity and colour, and you can repeat it diagonally across the whole image so it cannot simply be cropped off. The photo is processed inside your browser and never uploaded.",
+      features: ["Nine positions to choose from", "Repeat diagonally across the photo", "Adjust size, opacity and colour", "Text scales with the photo size"],
+    },
+    adjust: {
+      title: "Adjust a Photo", desc: "Tune brightness, contrast, saturation and more", category: "Edit",
+      metaTitle: "Adjust a Photo — Brightness, Contrast, Saturation, Black and White",
+      long: "Tune brightness, contrast and saturation, or turn the photo black and white or sepia. Tap one of six presets to apply it at once, or set each slider yourself. The original is left alone and only the result is saved.",
+      features: ["Brightness, contrast, saturation, mono, sepia, blur", "Six presets to start from", "Set each slider yourself", "Reset everything in one tap"],
+    },
+    frame: {
+      title: "Add a Border", desc: "Pad a photo out to a square or a tall ratio", category: "Edit",
+      metaTitle: "Add a Border — Fit a Photo to a Square or 4:5 Ratio",
+      long: "Adds padding around a photo so it fits a square, 4:5 or another ratio. Use it when a tall photo would otherwise get cropped on Instagram. The photo itself is never enlarged — only padding is added, so nothing is lost to resampling.",
+      features: ["1:1, 4:5, 3:4, 16:9 and 9:16 ratios", "Adjustable border thickness and colour", "The photo is never enlarged", "The photo always sits centred"],
+    },
+    round: {
+      title: "Round the Corners", desc: "Round off a photo for a profile picture", category: "Edit",
+      metaTitle: "Round the Corners — Crop a Photo into a Circle for a Profile",
+      long: "Rounds off the corners of a photo. At 100% it becomes a full circle, ready to use as a profile picture. The area outside the rounding has to be transparent, so the result is always saved as a PNG.",
+      features: ["Roundness from 0 to 100%", "A full circle at 100%", "Crop to a square first", "Saved as a transparent PNG"],
+    },
+    split: {
+      title: "Split a Photo", desc: "Cut a photo into a grid for an Instagram feed", category: "Edit",
+      metaTitle: "Split a Photo — Cut Into a Grid for an Instagram Feed",
+      long: "Cuts a photo into a grid of separate images. Useful for hanging one large picture across an Instagram profile. When the size does not divide evenly the leftover pixels are handed out one per tile, so putting the pieces back together gives you exactly the original size.",
+      features: ["2×1, 3×1, 2×2, 3×3, 1×2 and 1×3 grids", "Numbered left to right, top row first", "Save one piece or all of them", "Reassembles to the exact original size"],
+    },
+    favicon: {
+      title: "Favicon Generator", desc: "One image, every icon size a site needs", category: "Size",
+      metaTitle: "Favicon Generator — Browser Tab, iOS and Android Icons at Once",
+      long: "Upload one image and it produces the browser-tab icons (16, 32, 48), the iOS home screen icon (180) and the Android web app icons (192, 512) in one go. It also gives you the lines to paste into your head tag and the contents of site.webmanifest, and the filenames in those match the files it actually made.",
+      features: ["The six sizes each platform actually looks for", "Head tags and manifest included", "Non-square images are cropped from the centre", "Saved as transparent PNG"],
+    },
   },
 
   es: {
@@ -120,6 +156,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Extraer colores de una imagen — Códigos HEX desde una foto',
       long: 'Cuando quieres reutilizar el ambiente de una foto que te gusta, esto saca los colores que más aparecen y te da los códigos HEX y RGB. Toca cualquier punto de la foto y obtienes el color exacto de ahí.',
       features: ['La paleta dominante extraída por ti', 'Cuánto ocupa cada color en la imagen', 'Cuentagotas para el punto que elijas', 'Copiar un HEX con un clic'],
+    },
+    watermark: {
+      title: "Añadir marca de agua", desc: "Superpón una marca de agua de texto", category: "Editar",
+      metaTitle: "Añadir marca de agua — Poner texto sobre una foto",
+      long: "Pone una marca de agua de texto sobre tu foto. Eliges la posición, el tamaño, la opacidad y el color, y puedes repetirla en diagonal por toda la imagen para que no se pueda recortar sin más. La foto se procesa en tu navegador y nunca se sube.",
+      features: ["Nueve posiciones para elegir", "Repetir en diagonal por toda la foto", "Ajusta tamaño, opacidad y color", "El texto escala con el tamaño de la foto"],
+    },
+    adjust: {
+      title: "Ajustar una foto", desc: "Retoca brillo, contraste, saturación y más", category: "Editar",
+      metaTitle: "Ajustar una foto — Brillo, contraste, saturación, blanco y negro",
+      long: "Retoca el brillo, el contraste y la saturación, o pasa la foto a blanco y negro o sepia. Toca uno de los seis ajustes rápidos para aplicarlo de golpe, o mueve cada control tú mismo. El original queda intacto y solo se guarda el resultado.",
+      features: ["Brillo, contraste, saturación, mono, sepia, desenfoque", "Seis ajustes rápidos de partida", "Mueve cada control tú mismo", "Restablece todo de un toque"],
+    },
+    frame: {
+      title: "Añadir borde", desc: "Rellena una foto hasta un cuadrado o formato vertical", category: "Editar",
+      metaTitle: "Añadir borde — Ajustar una foto a cuadrado o 4:5",
+      long: "Añade relleno alrededor de una foto para que encaje en un cuadrado, 4:5 u otra proporción. Úsalo cuando una foto vertical se recortaría en Instagram. La foto nunca se agranda: solo se añade relleno, así que no se pierde calidad.",
+      features: ["Proporciones 1:1, 4:5, 3:4, 16:9 y 9:16", "Grosor y color del borde ajustables", "La foto nunca se agranda", "La foto siempre queda centrada"],
+    },
+    round: {
+      title: "Redondear esquinas", desc: "Redondea una foto para usarla de perfil", category: "Editar",
+      metaTitle: "Redondear esquinas — Recortar una foto en círculo para el perfil",
+      long: "Redondea las esquinas de una foto. Al 100% se convierte en un círculo completo, listo para usar como foto de perfil. La zona fuera del redondeo tiene que ser transparente, así que el resultado siempre se guarda como PNG.",
+      features: ["Redondez del 0 al 100%", "Círculo completo al 100%", "Recortar a cuadrado primero", "Se guarda como PNG transparente"],
+    },
+    split: {
+      title: "Dividir una foto", desc: "Corta una foto en cuadrícula para el feed", category: "Editar",
+      metaTitle: "Dividir una foto — Cortar en cuadrícula para el feed de Instagram",
+      long: "Corta una foto en una cuadrícula de imágenes separadas. Sirve para colgar una imagen grande a lo largo de un perfil de Instagram. Cuando el tamaño no se divide exacto, los píxeles sobrantes se reparten de uno en uno, así que al volver a juntar las piezas obtienes exactamente el tamaño original.",
+      features: ["Cuadrículas 2×1, 3×1, 2×2, 3×3, 1×2 y 1×3", "Numeradas de izquierda a derecha, fila superior primero", "Guarda una pieza o todas", "Al juntarlas da el tamaño original exacto"],
+    },
+    favicon: {
+      title: "Generador de favicon", desc: "Una imagen, todos los tamaños de icono", category: "Tamaño",
+      metaTitle: "Generador de favicon — Iconos de pestaña, iOS y Android de una vez",
+      long: "Sube una imagen y produce de una vez los iconos de pestaña del navegador (16, 32, 48), el de la pantalla de inicio de iOS (180) y los de aplicación web de Android (192, 512). También te da las líneas para pegar en tu etiqueta head y el contenido de site.webmanifest, y los nombres de archivo coinciden con los que realmente creó.",
+      features: ["Los seis tamaños que cada plataforma busca", "Incluye etiquetas head y manifest", "Las imágenes no cuadradas se recortan desde el centro", "Se guarda como PNG transparente"],
     },
   },
 
@@ -172,6 +244,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       long: 'Quando você quer reaproveitar o clima de uma foto que gostou, isto tira as cores que mais aparecem e entrega os códigos HEX e RGB. Toque em qualquer ponto da foto e você recebe a cor exata dali.',
       features: ['A paleta dominante extraída para você', 'Quanto cada cor ocupa da imagem', 'Conta-gotas para o ponto que você escolher', 'Copiar um HEX com um clique'],
     },
+    watermark: {
+      title: "Adicionar marca d’água", desc: "Coloque uma marca d’água de texto na foto", category: "Editar",
+      metaTitle: "Adicionar marca d’água — Colocar texto sobre uma foto",
+      long: "Coloca uma marca d’água de texto na sua foto. Você escolhe a posição, o tamanho, a opacidade e a cor, e pode repeti-la na diagonal por toda a imagem para que não dê para simplesmente recortar. A foto é processada no seu navegador e nunca é enviada.",
+      features: ["Nove posições para escolher", "Repetir na diagonal por toda a foto", "Ajuste tamanho, opacidade e cor", "O texto acompanha o tamanho da foto"],
+    },
+    adjust: {
+      title: "Ajustar uma foto", desc: "Regule brilho, contraste, saturação e mais", category: "Editar",
+      metaTitle: "Ajustar uma foto — Brilho, contraste, saturação, preto e branco",
+      long: "Regule brilho, contraste e saturação, ou passe a foto para preto e branco ou sépia. Toque em uma das seis predefinições para aplicar de uma vez, ou ajuste cada controle você mesmo. O original fica intacto e só o resultado é salvo.",
+      features: ["Brilho, contraste, saturação, mono, sépia, desfoque", "Seis predefinições para começar", "Ajuste cada controle você mesmo", "Redefina tudo com um toque"],
+    },
+    frame: {
+      title: "Adicionar borda", desc: "Complete a foto até um quadrado ou formato vertical", category: "Editar",
+      metaTitle: "Adicionar borda — Ajustar uma foto a quadrado ou 4:5",
+      long: "Adiciona preenchimento ao redor da foto para que ela caiba num quadrado, 4:5 ou outra proporção. Use quando uma foto vertical seria cortada no Instagram. A foto nunca é ampliada: só se adiciona preenchimento, então nada se perde.",
+      features: ["Proporções 1:1, 4:5, 3:4, 16:9 e 9:16", "Espessura e cor da borda ajustáveis", "A foto nunca é ampliada", "A foto fica sempre centralizada"],
+    },
+    round: {
+      title: "Arredondar cantos", desc: "Arredonde uma foto para usar como perfil", category: "Editar",
+      metaTitle: "Arredondar cantos — Recortar uma foto em círculo para o perfil",
+      long: "Arredonda os cantos de uma foto. A 100% ela vira um círculo completo, pronta para usar como foto de perfil. A área fora do arredondamento precisa ser transparente, então o resultado é sempre salvo como PNG.",
+      features: ["Arredondamento de 0 a 100%", "Círculo completo a 100%", "Recortar em quadrado primeiro", "Salvo como PNG transparente"],
+    },
+    split: {
+      title: "Dividir uma foto", desc: "Corte uma foto em grade para o feed", category: "Editar",
+      metaTitle: "Dividir uma foto — Cortar em grade para o feed do Instagram",
+      long: "Corta uma foto em uma grade de imagens separadas. Serve para pendurar uma imagem grande ao longo de um perfil do Instagram. Quando o tamanho não divide exato, os pixels que sobram são distribuídos um por peça, então juntar tudo devolve exatamente o tamanho original.",
+      features: ["Grades 2×1, 3×1, 2×2, 3×3, 1×2 e 1×3", "Numeradas da esquerda para a direita, primeira linha antes", "Salve uma peça ou todas", "Ao juntar dá exatamente o tamanho original"],
+    },
+    favicon: {
+      title: "Gerador de favicon", desc: "Uma imagem, todos os tamanhos de ícone", category: "Tamanho",
+      metaTitle: "Gerador de favicon — Ícones de aba, iOS e Android de uma vez",
+      long: "Envie uma imagem e ele produz de uma vez os ícones de aba do navegador (16, 32, 48), o da tela inicial do iOS (180) e os de app web do Android (192, 512). Também fornece as linhas para colar na sua tag head e o conteúdo do site.webmanifest, e os nomes de arquivo batem com os que ele realmente criou.",
+      features: ["Os seis tamanhos que cada plataforma procura", "Tags head e manifest incluídos", "Imagens não quadradas são recortadas pelo centro", "Salvo como PNG transparente"],
+    },
   },
 
   ja: {
@@ -222,6 +330,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       metaTitle: '画像から色を抽出 — 写真からHEXコードを取得',
       long: '気に入った写真の雰囲気をそのまま使いたいとき、よく使われている色を取り出してHEXとRGBのコードで渡します。写真のどこかを押せば、その一点の色を正確に拾えます。',
       features: ['主要な配色を自動で抽出', '色ごとの画像内の占有率', '好きな一点を拾えるスポイト', 'HEXコードをワンクリックでコピー'],
+    },
+    watermark: {
+      title: "透かしを入れる", desc: "写真に文字の透かしを重ねます", category: "編集",
+      metaTitle: "透かしを入れる — 写真に文字の透かしを重ねる",
+      long: "写真に文字の透かしを入れます。位置・大きさ・不透明度・色を選べ、写真全体に斜めに繰り返して切り取られにくくすることもできます。写真はブラウザの中だけで処理され、アップロードされません。",
+      features: ["9つの位置から選べます", "写真全体に斜めに繰り返す", "大きさ・不透明度・色を調整", "文字の大きさが写真に合わせて変わる"],
+    },
+    adjust: {
+      title: "写真の補正", desc: "明るさ・コントラスト・彩度などを調整", category: "編集",
+      metaTitle: "写真の補正 — 明るさ・コントラスト・彩度・白黒",
+      long: "明るさ・コントラスト・彩度を調整し、白黒やセピアにもできます。6つのプリセットを押せば一度に適用でき、スライダーで自分で合わせることもできます。元の写真はそのままで、結果だけを保存します。",
+      features: ["明るさ・コントラスト・彩度・白黒・セピア・ぼかし", "6つのプリセット", "スライダーで自分で調整", "ワンタップで全部戻す"],
+    },
+    frame: {
+      title: "枠をつける", desc: "余白を足して正方形や縦長比率に", category: "編集",
+      metaTitle: "枠をつける — 写真を正方形や4:5に合わせる",
+      long: "写真の周りに余白を足して、正方形や4:5などの比率に合わせます。縦長の写真がインスタグラムで切れてしまうときに使います。写真そのものは拡大しないので、画質が落ちることはありません。",
+      features: ["1:1・4:5・3:4・16:9・9:16の比率", "枠の太さと色を調整", "写真は拡大されません", "写真は常に中央に置かれます"],
+    },
+    round: {
+      title: "角を丸くする", desc: "プロフィール写真用に角を丸くします", category: "編集",
+      metaTitle: "角を丸くする — プロフィール用に写真を円形に切る",
+      long: "写真の角を丸くします。100%にすると完全な円になり、そのままプロフィール写真に使えます。丸めた外側は透明でなければならないので、結果は必ずPNGで保存されます。",
+      features: ["0〜100%の丸み", "100%で完全な円", "先に正方形に切る", "透明なPNGで保存"],
+    },
+    split: {
+      title: "写真の分割", desc: "格子に切ってインスタのグリッドに", category: "編集",
+      metaTitle: "写真の分割 — 格子に切ってインスタのグリッドを作る",
+      long: "写真を格子状に切って複数枚に分けます。インスタグラムのプロフィールに大きな絵を並べるときに使います。割り切れないときは余ったピクセルを1枚に1つずつ配るので、つなぎ直すと元の大きさぴったりになります。",
+      features: ["2×1・3×1・2×2・3×3・1×2・1×3", "左上から順に番号がつきます", "1枚ずつでも全部でも保存", "つなぐと元の大きさぴったり"],
+    },
+    favicon: {
+      title: "ファビコン作成", desc: "1枚の画像から必要なアイコンをすべて", category: "サイズ",
+      metaTitle: "ファビコン作成 — ブラウザのタブ・iOS・Androidのアイコンを一度に",
+      long: "画像を1枚アップロードすると、ブラウザのタブ用（16・32・48）、iOSのホーム画面用（180）、Androidウェブアプリ用（192・512）を一度に作ります。headに貼り付ける行とsite.webmanifestの中身も出力し、そこに書かれたファイル名は実際に作るファイルと一致します。",
+      features: ["各プラットフォームが実際に探す6つの大きさ", "headのタグとマニフェストも一緒に", "正方形でない画像は中央を切り取ります", "透明なPNGで保存"],
     },
   },
 
@@ -274,6 +418,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       long: 'Wenn du die Stimmung eines Fotos übernehmen willst, holt das hier die am häufigsten vorkommenden Farben heraus und gibt dir HEX- und RGB-Codes. Tippe irgendwo auf das Foto und du bekommst genau die Farbe an dieser Stelle.',
       features: ['Vorherrschende Palette automatisch ausgelesen', 'Anteil jeder Farbe am Bild', 'Pipette für jeden Punkt, den du wählst', 'HEX-Code mit einem Klick kopieren'],
     },
+    watermark: {
+      title: "Wasserzeichen hinzufügen", desc: "Lege ein Text-Wasserzeichen über dein Foto", category: "Bearbeiten",
+      metaTitle: "Wasserzeichen hinzufügen — Text über ein Foto legen",
+      long: "Legt ein Text-Wasserzeichen über dein Foto. Du wählst Position, Größe, Deckkraft und Farbe, und du kannst es diagonal über das ganze Bild wiederholen, damit es sich nicht einfach wegschneiden lässt. Das Foto wird im Browser verarbeitet und nie hochgeladen.",
+      features: ["Neun Positionen zur Auswahl", "Diagonal über das ganze Foto wiederholen", "Größe, Deckkraft und Farbe einstellen", "Der Text skaliert mit der Fotogröße"],
+    },
+    adjust: {
+      title: "Foto anpassen", desc: "Helligkeit, Kontrast, Sättigung und mehr", category: "Bearbeiten",
+      metaTitle: "Foto anpassen — Helligkeit, Kontrast, Sättigung, Schwarzweiß",
+      long: "Stelle Helligkeit, Kontrast und Sättigung ein oder mache das Foto schwarzweiß oder sepia. Tippe eine der sechs Voreinstellungen an, um sie auf einmal anzuwenden, oder stelle jeden Regler selbst. Das Original bleibt unangetastet, gespeichert wird nur das Ergebnis.",
+      features: ["Helligkeit, Kontrast, Sättigung, Mono, Sepia, Weichzeichnen", "Sechs Voreinstellungen als Ausgangspunkt", "Jeden Regler selbst einstellen", "Alles mit einem Tipp zurücksetzen"],
+    },
+    frame: {
+      title: "Rahmen hinzufügen", desc: "Ein Foto auf ein Quadrat oder Hochformat auffüllen", category: "Bearbeiten",
+      metaTitle: "Rahmen hinzufügen — Ein Foto auf Quadrat oder 4:5 bringen",
+      long: "Fügt Rand um ein Foto hinzu, damit es in ein Quadrat, 4:5 oder ein anderes Verhältnis passt. Nützlich, wenn ein hochformatiges Foto auf Instagram sonst beschnitten würde. Das Foto selbst wird nie vergrößert — es kommt nur Rand hinzu, es geht also keine Qualität verloren.",
+      features: ["Verhältnisse 1:1, 4:5, 3:4, 16:9 und 9:16", "Rahmenstärke und -farbe einstellbar", "Das Foto wird nie vergrößert", "Das Foto sitzt immer mittig"],
+    },
+    round: {
+      title: "Ecken abrunden", desc: "Rundet ein Foto für ein Profilbild ab", category: "Bearbeiten",
+      metaTitle: "Ecken abrunden — Ein Foto für ein Profil kreisrund zuschneiden",
+      long: "Rundet die Ecken eines Fotos ab. Bei 100% wird daraus ein voller Kreis, fertig für ein Profilbild. Der Bereich außerhalb der Rundung muss durchsichtig sein, deshalb wird das Ergebnis immer als PNG gespeichert.",
+      features: ["Rundung von 0 bis 100%", "Bei 100% ein voller Kreis", "Zuerst quadratisch zuschneiden", "Als transparentes PNG gespeichert"],
+    },
+    split: {
+      title: "Foto zerteilen", desc: "Ein Foto in ein Raster für den Instagram-Feed schneiden", category: "Bearbeiten",
+      metaTitle: "Foto zerteilen — In ein Raster für den Instagram-Feed schneiden",
+      long: "Schneidet ein Foto in ein Raster einzelner Bilder. Nützlich, um ein großes Bild über ein Instagram-Profil zu spannen. Geht die Größe nicht glatt auf, werden die übrigen Pixel einzeln auf die Teile verteilt — zusammengesetzt ergibt sich exakt die Originalgröße.",
+      features: ["Raster 2×1, 3×1, 2×2, 3×3, 1×2 und 1×3", "Nummeriert von links nach rechts, oberste Reihe zuerst", "Ein Teil oder alle speichern", "Zusammengesetzt exakt die Originalgröße"],
+    },
+    favicon: {
+      title: "Favicon-Generator", desc: "Ein Bild, alle Icon-Größen einer Website", category: "Größe",
+      metaTitle: "Favicon-Generator — Browser-Tab-, iOS- und Android-Icons auf einmal",
+      long: "Lade ein Bild hoch, und es erzeugt in einem Durchgang die Browser-Tab-Icons (16, 32, 48), das iOS-Startbildschirm-Icon (180) und die Android-Web-App-Icons (192, 512). Es gibt dir auch die Zeilen für dein head-Tag und den Inhalt von site.webmanifest — und die dortigen Dateinamen stimmen mit den erzeugten Dateien überein.",
+      features: ["Die sechs Größen, die jede Plattform wirklich sucht", "Head-Tags und Manifest inklusive", "Nicht quadratische Bilder werden aus der Mitte beschnitten", "Als transparentes PNG gespeichert"],
+    },
   },
 
   fr: {
@@ -324,6 +504,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Extraire les couleurs d’une image — Codes HEX depuis une photo',
       long: 'Quand tu veux réutiliser l’ambiance d’une photo qui te plaît, ceci sort les couleurs qui reviennent le plus et te donne les codes HEX et RGB. Touche n’importe quel point de la photo et tu obtiens la couleur exacte de cet endroit.',
       features: ['La palette dominante extraite pour toi', 'La part de l’image occupée par chaque couleur', 'Pipette pour le point que tu choisis', 'Copier un code HEX en un clic'],
+    },
+    watermark: {
+      title: "Ajouter un filigrane", desc: "Posez un filigrane texte sur votre photo", category: "Retoucher",
+      metaTitle: "Ajouter un filigrane — Poser du texte sur une photo",
+      long: "Pose un filigrane texte sur votre photo. Vous choisissez la position, la taille, l’opacité et la couleur, et vous pouvez le répéter en diagonale sur toute l’image pour qu’on ne puisse pas simplement le rogner. La photo est traitée dans votre navigateur et n’est jamais envoyée.",
+      features: ["Neuf positions au choix", "Répéter en diagonale sur toute la photo", "Réglez taille, opacité et couleur", "Le texte suit la taille de la photo"],
+    },
+    adjust: {
+      title: "Ajuster une photo", desc: "Réglez luminosité, contraste, saturation et plus", category: "Retoucher",
+      metaTitle: "Ajuster une photo — Luminosité, contraste, saturation, noir et blanc",
+      long: "Réglez la luminosité, le contraste et la saturation, ou passez la photo en noir et blanc ou en sépia. Touchez l’un des six préréglages pour l’appliquer d’un coup, ou réglez chaque curseur vous-même. L’original reste intact et seul le résultat est enregistré.",
+      features: ["Luminosité, contraste, saturation, mono, sépia, flou", "Six préréglages pour démarrer", "Réglez chaque curseur vous-même", "Tout réinitialiser d’un geste"],
+    },
+    frame: {
+      title: "Ajouter un cadre", desc: "Complétez une photo en carré ou en format vertical", category: "Retoucher",
+      metaTitle: "Ajouter un cadre — Mettre une photo au carré ou en 4:5",
+      long: "Ajoute une marge autour d’une photo pour qu’elle entre dans un carré, un 4:5 ou un autre format. Utile quand une photo verticale serait rognée sur Instagram. La photo elle-même n’est jamais agrandie : on n’ajoute que de la marge, rien n’est perdu.",
+      features: ["Formats 1:1, 4:5, 3:4, 16:9 et 9:16", "Épaisseur et couleur du cadre réglables", "La photo n’est jamais agrandie", "La photo est toujours centrée"],
+    },
+    round: {
+      title: "Arrondir les coins", desc: "Arrondissez une photo pour un avatar", category: "Retoucher",
+      metaTitle: "Arrondir les coins — Rogner une photo en cercle pour un profil",
+      long: "Arrondit les coins d’une photo. À 100 %, elle devient un cercle complet, prête à servir de photo de profil. La zone hors de l’arrondi doit être transparente, donc le résultat est toujours enregistré en PNG.",
+      features: ["Arrondi de 0 à 100 %", "Cercle complet à 100 %", "Rogner en carré d’abord", "Enregistré en PNG transparent"],
+    },
+    split: {
+      title: "Découper une photo", desc: "Coupez une photo en grille pour un feed", category: "Retoucher",
+      metaTitle: "Découper une photo — Couper en grille pour un feed Instagram",
+      long: "Coupe une photo en une grille d’images séparées. Utile pour étaler une grande image sur un profil Instagram. Quand la taille ne se divise pas exactement, les pixels restants sont distribués un par morceau : en les remettant ensemble, on retrouve exactement la taille d’origine.",
+      features: ["Grilles 2×1, 3×1, 2×2, 3×3, 1×2 et 1×3", "Numérotés de gauche à droite, rangée du haut d’abord", "Enregistrez un morceau ou tous", "Recollés, exactement la taille d’origine"],
+    },
+    favicon: {
+      title: "Générateur de favicon", desc: "Une image, toutes les tailles d’icône d’un site", category: "Taille",
+      metaTitle: "Générateur de favicon — Icônes onglet, iOS et Android d’un coup",
+      long: "Envoyez une image et il produit d’un coup les icônes d’onglet (16, 32, 48), celle de l’écran d’accueil iOS (180) et celles d’application web Android (192, 512). Il vous donne aussi les lignes à coller dans votre balise head et le contenu de site.webmanifest, et les noms de fichiers y correspondent aux fichiers réellement créés.",
+      features: ["Les six tailles que chaque plateforme cherche vraiment", "Balises head et manifest inclus", "Les images non carrées sont rognées au centre", "Enregistré en PNG transparent"],
     },
   },
 
@@ -376,6 +592,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       long: 'पसंद आई फ़ोटो का मिज़ाज दोबारा इस्तेमाल करना हो, तो यह उसमें सबसे ज़्यादा दिखने वाले रंग निकालकर HEX और RGB कोड देता है। फ़ोटो पर कहीं भी दबाइए और उस एक बिंदु का ठीक रंग मिल जाता है।',
       features: ['मुख्य रंगों की पैलेट अपने आप', 'हर रंग तस्वीर का कितना हिस्सा है', 'चुने हुए बिंदु के लिए ड्रॉपर', 'HEX कोड एक क्लिक में कॉपी'],
     },
+    watermark: {
+      title: "वॉटरमार्क जोड़ें", desc: "अपनी फ़ोटो पर पाठ वॉटरमार्क लगाएँ", category: "संपादन",
+      metaTitle: "वॉटरमार्क जोड़ें — फ़ोटो पर पाठ लगाएँ",
+      long: "आपकी फ़ोटो पर पाठ वॉटरमार्क लगाता है। आप स्थान, आकार, अपारदर्शिता और रंग चुनते हैं, और इसे पूरी छवि पर तिरछा दोहरा सकते हैं ताकि इसे यूँ ही काटा न जा सके। फ़ोटो आपके ब्राउज़र में ही संसाधित होती है और कभी अपलोड नहीं होती।",
+      features: ["चुनने के लिए नौ स्थान", "पूरी फ़ोटो पर तिरछा दोहराएँ", "आकार, अपारदर्शिता और रंग समायोजित करें", "पाठ फ़ोटो के आकार के साथ बदलता है"],
+    },
+    adjust: {
+      title: "फ़ोटो समायोजित करें", desc: "चमक, कंट्रास्ट, संतृप्ति और बहुत कुछ", category: "संपादन",
+      metaTitle: "फ़ोटो समायोजित करें — चमक, कंट्रास्ट, संतृप्ति, श्वेत-श्याम",
+      long: "चमक, कंट्रास्ट और संतृप्ति समायोजित करें, या फ़ोटो को श्वेत-श्याम या सेपिया बनाएँ। छह पूर्व-निर्धारित में से एक दबाकर एक साथ लागू करें, या हर स्लाइडर स्वयं सेट करें। मूल फ़ोटो अछूती रहती है और केवल परिणाम सहेजा जाता है।",
+      features: ["चमक, कंट्रास्ट, संतृप्ति, श्वेत-श्याम, सेपिया, धुंधलापन", "शुरू करने के लिए छह पूर्व-निर्धारित", "हर स्लाइडर स्वयं सेट करें", "एक बार में सब रीसेट करें"],
+    },
+    frame: {
+      title: "बॉर्डर जोड़ें", desc: "फ़ोटो को वर्ग या लंबे अनुपात तक भरें", category: "संपादन",
+      metaTitle: "बॉर्डर जोड़ें — फ़ोटो को वर्ग या 4:5 में फ़िट करें",
+      long: "फ़ोटो के चारों ओर जगह जोड़ता है ताकि वह वर्ग, 4:5 या किसी और अनुपात में फ़िट हो जाए। जब लंबी फ़ोटो इंस्टाग्राम पर कट जाती, तब इसका उपयोग करें। फ़ोटो कभी बड़ी नहीं की जाती — केवल जगह जोड़ी जाती है, इसलिए गुणवत्ता नहीं घटती।",
+      features: ["1:1, 4:5, 3:4, 16:9 और 9:16 अनुपात", "बॉर्डर की मोटाई और रंग समायोज्य", "फ़ोटो कभी बड़ी नहीं की जाती", "फ़ोटो हमेशा बीच में रहती है"],
+    },
+    round: {
+      title: "कोने गोल करें", desc: "प्रोफ़ाइल फ़ोटो के लिए कोने गोल करें", category: "संपादन",
+      metaTitle: "कोने गोल करें — प्रोफ़ाइल के लिए फ़ोटो को वृत्त में काटें",
+      long: "फ़ोटो के कोने गोल करता है। 100% पर यह पूरा वृत्त बन जाता है, प्रोफ़ाइल फ़ोटो के लिए तैयार। गोलाई के बाहर का हिस्सा पारदर्शी होना चाहिए, इसलिए परिणाम हमेशा PNG के रूप में सहेजा जाता है।",
+      features: ["0 से 100% तक गोलाई", "100% पर पूरा वृत्त", "पहले वर्ग में काटें", "पारदर्शी PNG के रूप में सहेजा गया"],
+    },
+    split: {
+      title: "फ़ोटो बाँटें", desc: "इंस्टाग्राम फ़ीड के लिए फ़ोटो को ग्रिड में काटें", category: "संपादन",
+      metaTitle: "फ़ोटो बाँटें — इंस्टाग्राम फ़ीड के लिए ग्रिड में काटें",
+      long: "फ़ोटो को अलग-अलग छवियों की ग्रिड में काटता है। इंस्टाग्राम प्रोफ़ाइल पर एक बड़ी तस्वीर फैलाने के काम आता है। जब आकार ठीक-ठीक नहीं बँटता, बचे हुए पिक्सेल एक-एक करके टुकड़ों में बाँटे जाते हैं, इसलिए टुकड़े जोड़ने पर बिलकुल मूल आकार मिलता है।",
+      features: ["2×1, 3×1, 2×2, 3×3, 1×2 और 1×3 ग्रिड", "बाएँ से दाएँ, ऊपरी पंक्ति पहले, क्रमांकित", "एक टुकड़ा या सब सहेजें", "जोड़ने पर बिलकुल मूल आकार"],
+    },
+    favicon: {
+      title: "फ़ेविकॉन जनरेटर", desc: "एक छवि, साइट के लिए ज़रूरी हर आइकॉन आकार", category: "आकार",
+      metaTitle: "फ़ेविकॉन जनरेटर — ब्राउज़र टैब, iOS और एंड्रॉइड आइकॉन एक साथ",
+      long: "एक छवि अपलोड करें और यह एक ही बार में ब्राउज़र टैब के आइकॉन (16, 32, 48), iOS होम स्क्रीन का आइकॉन (180) और एंड्रॉइड वेब ऐप के आइकॉन (192, 512) बना देता है। यह आपकी head टैग में चिपकाने की पंक्तियाँ और site.webmanifest की सामग्री भी देता है, और उनमें लिखे फ़ाइल नाम वास्तव में बनाई गई फ़ाइलों से मेल खाते हैं।",
+      features: ["हर प्लेटफ़ॉर्म जो छह आकार वास्तव में खोजता है", "head टैग और मैनिफ़ेस्ट शामिल", "गैर-वर्ग छवियाँ बीच से काटी जाती हैं", "पारदर्शी PNG के रूप में सहेजा गया"],
+    },
   },
   'zh-hans': {
     compress: {
@@ -426,6 +678,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       long: '想借用一张喜欢的照片的调子时，它会把用得最多的几个颜色抽出来，给你HEX和RGB的码。在照片上点哪儿，就拿到那一点的颜色。',
       features: ['自动抽出主色色板', '每个颜色占画面的比例', '任意点取色的吸管', '一键复制HEX码'],
     },
+    watermark: {
+      title: "添加水印", desc: "在照片上叠加文字水印", category: "编辑",
+      metaTitle: "添加水印 — 在照片上叠加文字",
+      long: "在照片上加文字水印。位置、大小、不透明度和颜色都能选，还可以斜着铺满整张图，让人无法简单裁掉。照片只在浏览器里处理，不会上传。",
+      features: ["九个位置任选", "斜着铺满整张照片", "调整大小、不透明度和颜色", "文字大小随照片尺寸变化"],
+    },
+    adjust: {
+      title: "照片调整", desc: "调节亮度、对比度、饱和度等", category: "编辑",
+      metaTitle: "照片调整 — 亮度、对比度、饱和度、黑白",
+      long: "调节亮度、对比度和饱和度，也可以把照片变成黑白或棕褐色。点一下六个预设就能一次应用，也可以自己拖动每个滑块。原图保持不变，只保存结果。",
+      features: ["亮度、对比度、饱和度、黑白、棕褐、模糊", "六个预设可作起点", "每个滑块都能自己调", "一键全部重置"],
+    },
+    frame: {
+      title: "添加边框", desc: "补白边把照片凑成正方形或竖版比例", category: "编辑",
+      metaTitle: "添加边框 — 把照片凑成正方形或 4:5",
+      long: "在照片四周补上留白，让它符合正方形、4:5 或其他比例。竖版照片在 Instagram 上会被裁掉时就用这个。照片本身不会被放大，只是加了留白，所以画质不会变差。",
+      features: ["1:1、4:5、3:4、16:9、9:16 比例", "边框粗细和颜色可调", "照片不会被放大", "照片始终居中"],
+    },
+    round: {
+      title: "圆角处理", desc: "把照片做成圆角，用作头像", category: "编辑",
+      metaTitle: "圆角处理 — 把照片裁成圆形做头像",
+      long: "把照片的角变圆。设为 100% 就成为完整的圆，可以直接当头像用。圆角之外的部分必须是透明的，所以结果始终保存为 PNG。",
+      features: ["0 到 100% 的圆角程度", "100% 时是完整的圆", "先裁成正方形", "保存为透明 PNG"],
+    },
+    split: {
+      title: "照片分割", desc: "把照片切成格子做 Instagram 拼图", category: "编辑",
+      metaTitle: "照片分割 — 切成格子做 Instagram 九宫格",
+      long: "把照片切成一格一格的独立图片，用来在 Instagram 主页上拼一张大图。尺寸除不尽时，多出来的像素会一格分一个，所以把这些块拼回去正好是原始尺寸。",
+      features: ["2×1、3×1、2×2、3×3、1×2、1×3 格", "从左上角开始依次编号", "可以单独保存或全部保存", "拼回去正好是原始尺寸"],
+    },
+    favicon: {
+      title: "网站图标生成器", desc: "一张图，生成网站需要的全部图标尺寸", category: "大小",
+      metaTitle: "网站图标生成器 — 浏览器标签页、iOS 与安卓图标一次搞定",
+      long: "上传一张图片，一次生成浏览器标签页图标（16、32、48）、iOS 主屏幕图标（180）和安卓网页应用图标（192、512）。同时给出可以粘贴进 head 的代码和 site.webmanifest 的内容，其中的文件名与实际生成的文件一致。",
+      features: ["各平台真正会找的六个尺寸", "附带 head 代码和清单文件", "非正方形图片会从中间裁切", "保存为透明 PNG"],
+    },
   },
   'zh-hant': {
     compress: {
@@ -475,6 +763,42 @@ const COPY: Record<ImageIntlLang, Record<string, ToolCopy>> = {
       metaTitle: '圖片取色 — 從照片拿到HEX色碼',
       long: '想借用一張喜歡的照片的調子時，它會把用得最多的幾個顏色抽出來，給你HEX和RGB的碼。在照片上點哪兒，就拿到那一點的顏色。',
       features: ['自動抽出主色色票', '每個顏色占畫面的比例', '任意點取色的滴管', '一鍵複製HEX碼'],
+    },
+    watermark: {
+      title: "加入浮水印", desc: "在照片上疊加文字浮水印", category: "編輯",
+      metaTitle: "加入浮水印 — 在照片上疊加文字",
+      long: "在照片上加文字浮水印。位置、大小、不透明度與顏色都能選，還可以斜著鋪滿整張圖，讓人無法簡單裁掉。照片只在瀏覽器裡處理，不會上傳。",
+      features: ["九個位置任選", "斜著鋪滿整張照片", "調整大小、不透明度與顏色", "文字大小隨照片尺寸變化"],
+    },
+    adjust: {
+      title: "照片調整", desc: "調節亮度、對比度、飽和度等", category: "編輯",
+      metaTitle: "照片調整 — 亮度、對比度、飽和度、黑白",
+      long: "調節亮度、對比度與飽和度，也可以把照片變成黑白或棕褐色。點一下六個預設就能一次套用，也可以自己拖動每個滑桿。原圖保持不變，只儲存結果。",
+      features: ["亮度、對比度、飽和度、黑白、棕褐、模糊", "六個預設可作起點", "每個滑桿都能自己調", "一鍵全部重設"],
+    },
+    frame: {
+      title: "加入邊框", desc: "補白邊把照片湊成正方形或直式比例", category: "編輯",
+      metaTitle: "加入邊框 — 把照片湊成正方形或 4:5",
+      long: "在照片四周補上留白，讓它符合正方形、4:5 或其他比例。直式照片在 Instagram 上會被裁掉時就用這個。照片本身不會被放大，只是加了留白，所以畫質不會變差。",
+      features: ["1:1、4:5、3:4、16:9、9:16 比例", "邊框粗細與顏色可調", "照片不會被放大", "照片始終置中"],
+    },
+    round: {
+      title: "圓角處理", desc: "把照片做成圓角，用作大頭貼", category: "編輯",
+      metaTitle: "圓角處理 — 把照片裁成圓形做大頭貼",
+      long: "把照片的角變圓。設為 100% 就成為完整的圓，可以直接當大頭貼用。圓角之外的部分必須是透明的，所以結果始終儲存為 PNG。",
+      features: ["0 到 100% 的圓角程度", "100% 時是完整的圓", "先裁成正方形", "儲存為透明 PNG"],
+    },
+    split: {
+      title: "照片分割", desc: "把照片切成格子做 Instagram 拼圖", category: "編輯",
+      metaTitle: "照片分割 — 切成格子做 Instagram 九宮格",
+      long: "把照片切成一格一格的獨立圖片，用來在 Instagram 首頁上拼一張大圖。尺寸除不盡時，多出來的像素會一格分一個，所以把這些塊拼回去正好是原始尺寸。",
+      features: ["2×1、3×1、2×2、3×3、1×2、1×3 格", "從左上角開始依序編號", "可以單獨儲存或全部儲存", "拼回去正好是原始尺寸"],
+    },
+    favicon: {
+      title: "網站圖示產生器", desc: "一張圖，產生網站需要的全部圖示尺寸", category: "大小",
+      metaTitle: "網站圖示產生器 — 瀏覽器分頁、iOS 與安卓圖示一次搞定",
+      long: "上傳一張圖片，一次產生瀏覽器分頁圖示（16、32、48）、iOS 主畫面圖示（180）與安卓網頁應用圖示（192、512）。同時給出可以貼進 head 的程式碼與 site.webmanifest 的內容，其中的檔名與實際產生的檔案一致。",
+      features: ["各平台真正會找的六個尺寸", "附帶 head 程式碼與資訊清單", "非正方形圖片會從中間裁切", "儲存為透明 PNG"],
     },
   },
 };

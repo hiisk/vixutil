@@ -46,12 +46,27 @@ export function rotatePick<T>(pool: T[], from: number, limit: number): T[] {
  * @param sameAs 같은 갈래인지 판단 (카테고리·지역·도시)
  */
 export function relatedFor<T>(all: T[], me: T, sameAs: (x: T) => boolean, limit: number): T[] {
+  const here = all.indexOf(me);
   const cat = all.filter(sameAs);
   const seed = cat.indexOf(me);
-  const same = cat.filter(x => x !== me);
-  const rest = all.filter(x => x !== me && !sameAs(x));
-  const picked = rotatePick(same, seed, limit);
-  if (picked.length >= limit) return picked;
+  /*
+   * 마지막 한 칸은 **목록상 바로 다음 항목**에 고정한다. 그래야 전체가 하나의
+   * 순환 고리로 이어져 어떤 항목도 들어오는 링크가 0이 되지 않는다.
+   *
+   * 이게 없으면 자기 갈래에 혼자뿐인 항목이 고아가 된다 — 2026-08-07에 image에
+   * 도구 여섯을 더하자 '분석' 갈래에 혼자였던 palette가 그렇게 됐다. 갈래가 큰
+   * 도구들은 같은 갈래만으로 자리가 다 차서 나머지까지 내려오지 않고, 나머지로
+   * 채우는 도구들은 저마다 다른 자리에서 시작해 하필 palette를 비껴갔다.
+   * lib/related.ts의 pickRelated는 처음부터 이 고리를 갖고 있었다.
+   */
+  const neighbor = all[(here + 1) % all.length];
+  const room = neighbor === me ? limit : limit - 1;
+
+  const same = cat.filter(x => x !== me && x !== neighbor);
+  const rest = all.filter(x => x !== me && x !== neighbor && !sameAs(x));
+  const picked = rotatePick(same, seed, room);
   // 나머지에서 채울 때도 자리를 흩는다 — 안 그러면 갈래가 작은 항목들이 다 같은 것을 가리킨다
-  return [...picked, ...rotatePick(rest, all.indexOf(me), limit - picked.length)];
+  if (picked.length < room) picked.push(...rotatePick(rest, here, room - picked.length));
+  if (neighbor !== me) picked.push(neighbor);
+  return picked;
 }
