@@ -11,6 +11,12 @@ import RandomPicker from '@/components/random/RandomPicker';
 import TeamMaker from '@/components/random/TeamMaker';
 import NumberPicker from '@/components/random/NumberPicker';
 import CoinDice from '@/components/random/CoinDice';
+import CardDraw from '@/components/random/CardDraw';
+import RockPaperScissors from '@/components/random/RockPaperScissors';
+import BingoBoard from '@/components/random/BingoBoard';
+import WeightedDraw from '@/components/random/WeightedDraw';
+import DutyRoster from '@/components/random/DutyRoster';
+import YesNo from '@/components/random/YesNo';
 import OrderShuffler from '@/components/random/OrderShuffler';
 import SecretSanta from '@/components/random/SecretSanta';
 import ShareButton from '@/components/ShareButton';
@@ -50,6 +56,12 @@ function Tool({ slug }: { slug: string }) {
     case 'team': return <TeamMaker />;
     case 'number': return <NumberPicker />;
     case 'coin-dice': return <CoinDice />;
+    case 'card': return <CardDraw />;
+    case 'rps': return <RockPaperScissors />;
+    case 'bingo': return <BingoBoard />;
+    case 'weighted': return <WeightedDraw />;
+    case 'duty': return <DutyRoster />;
+    case 'yes-no': return <YesNo />;
     default: return null;
   }
 }

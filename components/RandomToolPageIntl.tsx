@@ -8,6 +8,12 @@ import RandomPicker from '@/components/random/RandomPicker';
 import TeamMaker from '@/components/random/TeamMaker';
 import NumberPicker from '@/components/random/NumberPicker';
 import CoinDice from '@/components/random/CoinDice';
+import CardDraw from '@/components/random/CardDraw';
+import RockPaperScissors from '@/components/random/RockPaperScissors';
+import BingoBoard from '@/components/random/BingoBoard';
+import WeightedDraw from '@/components/random/WeightedDraw';
+import DutyRoster from '@/components/random/DutyRoster';
+import YesNo from '@/components/random/YesNo';
 import OrderShuffler from '@/components/random/OrderShuffler';
 import SecretSanta from '@/components/random/SecretSanta';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
@@ -32,6 +38,12 @@ function Tool({ slug, lang }: { slug: string; lang: RandomLang }) {
     case 'team': return <TeamMaker lang={lang} />;
     case 'number': return <NumberPicker lang={lang} />;
     case 'coin-dice': return <CoinDice lang={lang} />;
+    case 'card': return <CardDraw lang={lang} />;
+    case 'rps': return <RockPaperScissors lang={lang} />;
+    case 'bingo': return <BingoBoard lang={lang} />;
+    case 'weighted': return <WeightedDraw lang={lang} />;
+    case 'duty': return <DutyRoster lang={lang} />;
+    case 'yes-no': return <YesNo lang={lang} />;
     default: return null;
   }
 }
