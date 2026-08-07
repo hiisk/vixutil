@@ -391,3 +391,229 @@ export function mirrorFace(f: Face): MirrorFace {
   const wide = Math.max(leftWidth, rightWidth) || 1;
   return { axis, leftWidth, rightWidth, balance: clamp01(Math.min(leftWidth, rightWidth) / wide) };
 }
+
+/* ── 얼굴 삼등분 ─────────────────────────────────────────────── */
+
+export interface FaceThirds {
+  /** 위·가운데·아래 세 칸의 높이 비율 — 셋을 더하면 1이다 */
+  upper: number;
+  middle: number;
+  lower: number;
+  /** 셋이 얼마나 고른가 0~1 */
+  balance: number;
+  score: number;
+}
+
+/**
+ * 얼굴을 세로로 삼등분해 비율을 잰다.
+ *
+ * **위 칸은 이마 전체가 아니다.** face-api의 68점에는 머리카락 경계가 없어서
+ * 이마 높이를 잴 수 없다. 그래서 널리 쓰이는 세 자리를 그대로 쓴다 —
+ * 눈썹 윗선 · 코 밑 · 턱 끝. 눈썹에서 코 밑까지가 가운데, 코 밑에서 턱까지가
+ * 아래이고, 위 칸은 **눈썹에서 위로 가운데 칸만큼**을 이마로 어림한다.
+ * 지어낸 값이 아니라 그렇게 어림했다는 것을 화면에도 적는다.
+ */
+export function faceThirds(f: Face): FaceThirds {
+  const browY = Math.min(...f.leftBrow.map(p => p.y), ...f.rightBrow.map(p => p.y));
+  const noseBase = f.nose[6] ?? f.nose[f.nose.length - 1];
+  const chin = f.jaw[8];
+
+  const middle = Math.abs(noseBase.y - browY);
+  const lower = Math.abs(chin.y - noseBase.y);
+  // 이마는 잴 수 없으므로 가운데 칸과 같다고 두고 시작한다
+  const upper = middle;
+
+  const total = upper + middle + lower || 1;
+  const parts = [upper / total, middle / total, lower / total];
+  // 셋이 고를수록 1 — 가장 큰 칸과 가장 작은 칸의 차이로 잰다
+  const spread = Math.max(...parts) - Math.min(...parts);
+  const balance = clamp01(1 - spread / 0.25);
+  return { upper: parts[0], middle: parts[1], lower: parts[2], balance, score: balance };
+}
+
+/* ── 눈 간격 ─────────────────────────────────────────────────── */
+
+export interface EyeSpacing {
+  /** 두 눈 사이 거리 ÷ 한쪽 눈 너비 — 1에 가까울수록 고전적 기준에 맞는다 */
+  ratio: number;
+  /** 두 눈 너비가 서로 얼마나 같은가 0~1 */
+  evenness: number;
+  /** 얼굴 너비 대비 두 눈 바깥 끝 사이 거리 */
+  span: number;
+  score: number;
+}
+
+/**
+ * 눈 간격을 잰다.
+ *
+ * 얼굴 너비를 다섯 등분했을 때 눈 하나가 한 칸을 차지한다는 기준이 널리
+ * 쓰인다 — 즉 **두 눈 사이가 눈 하나 너비와 같은 것**이 1이다.
+ * 미의 기준이 아니라 널리 쓰이는 어림이라는 것을 화면에 적는다.
+ */
+export function eyeSpacing(f: Face): EyeSpacing {
+  const lw = dist(f.leftEye[0], f.leftEye[3]);
+  const rw = dist(f.rightEye[0], f.rightEye[3]);
+  const inner = dist(f.leftEye[3], f.rightEye[0]);
+  const avg = (lw + rw) / 2 || 1;
+  const ratio = inner / avg;
+  const wide = Math.max(lw, rw) || 1;
+  const evenness = clamp01(Math.min(lw, rw) / wide);
+  const span = clamp01(dist(f.leftEye[0], f.rightEye[3]) / (faceWidth(f) || 1));
+  // 1에서 멀어질수록 감점 — 0.35 벗어나면 0점
+  const near = clamp01(1 - Math.abs(ratio - 1) / 0.35);
+  return { ratio, evenness, span, score: clamp01(near * 0.6 + evenness * 0.4) };
+}
+
+/* ── 얼굴형 ──────────────────────────────────────────────────── */
+
+export type FaceShapeKind = 'oval' | 'round' | 'square' | 'long' | 'heart';
+
+export interface FaceShape {
+  kind: FaceShapeKind;
+  /** 세로 ÷ 가로 */
+  ratio: number;
+  /** 턱 너비 ÷ 광대 너비 — 작을수록 턱이 좁다 */
+  jawRatio: number;
+  /** 이마 너비 ÷ 광대 너비 */
+  browRatio: number;
+  score: number;
+}
+
+/**
+ * 얼굴형을 가른다.
+ *
+ * 세 값으로 정한다 — 세로가로비, 턱 너비, 이마 너비. 사람의 얼굴은 경계에
+ * 걸치는 경우가 많으므로 **가장 가까운 하나**를 고르고, 화면에는 세 값을
+ * 함께 보여 준다(이름만 주면 왜 그런지 알 수 없다).
+ */
+export function faceShape(f: Face): FaceShape {
+  const cheek = faceWidth(f);
+  // 눈썹 점의 개수는 검출기마다 다르다 — 인덱스를 박지 말고 바깥 끝을 쓴다
+  const browOuterL = f.leftBrow[0];
+  const browOuterR = f.rightBrow[f.rightBrow.length - 1];
+  const browTop = Math.min(...f.leftBrow.map(p => p.y), ...f.rightBrow.map(p => p.y));
+  const ratio = cheek === 0 ? 0
+    : dist(f.jaw[8], { x: (browOuterL.x + browOuterR.x) / 2, y: browTop }) / cheek;
+  const jawRatio = cheek === 0 ? 0 : dist(f.jaw[4], f.jaw[12]) / cheek;
+  const browRatio = cheek === 0 ? 0 : dist(browOuterL, browOuterR) / cheek;
+
+  let kind: FaceShapeKind;
+  if (ratio > 1.3) kind = 'long';
+  else if (jawRatio > 0.85) kind = 'square';
+  else if (ratio < 1.05) kind = 'round';
+  else if (browRatio - jawRatio > 0.18) kind = 'heart';
+  else kind = 'oval';
+
+  // 점수는 "얼마나 뚜렷한 형인가" — 경계에 가까울수록 낮다
+  const edge = Math.min(
+    Math.abs(ratio - 1.3), Math.abs(jawRatio - 0.85), Math.abs(ratio - 1.05),
+  );
+  return { kind, ratio, jawRatio, browRatio, score: clamp01(edge / 0.2) };
+}
+
+/* ── 눈썹 ────────────────────────────────────────────────────── */
+
+export interface Brows {
+  /** 좌우 눈썹 높이가 얼마나 같은가 0~1 */
+  levelness: number;
+  /** 두 눈썹 사이 거리 ÷ 한쪽 눈 너비 */
+  gap: number;
+  /** 눈썹에서 눈까지의 거리 ÷ 한쪽 눈 너비 */
+  lift: number;
+  score: number;
+}
+
+/**
+ * 눈썹의 좌우 균형과 자리를 잰다.
+ *
+ * 좌우 높이 차이는 **얼굴 크기로 나눠서** 잰다. 픽셀 그대로 재면 가까이서
+ * 찍은 사진일수록 나쁘게 나온다.
+ */
+export function brows(f: Face): Brows {
+  const w = faceWidth(f) || 1;
+  const lY = Math.min(...f.leftBrow.map(p => p.y));
+  const rY = Math.min(...f.rightBrow.map(p => p.y));
+  const levelness = clamp01(1 - Math.abs(lY - rY) / (w * 0.06));
+
+  const eyeW = (dist(f.leftEye[0], f.leftEye[3]) + dist(f.rightEye[0], f.rightEye[3])) / 2 || 1;
+  // 안쪽 끝 = 왼 눈썹의 마지막 점과 오른 눈썹의 첫 점 (개수와 무관하다)
+  const gap = dist(f.leftBrow[f.leftBrow.length - 1], f.rightBrow[0]) / eyeW;
+
+  const lEyeTop = Math.min(...f.leftEye.map(p => p.y));
+  const rEyeTop = Math.min(...f.rightEye.map(p => p.y));
+  const lift = ((lEyeTop - lY) + (rEyeTop - rY)) / 2 / eyeW;
+
+  // 눈썹 사이는 눈 하나 너비쯤이 널리 쓰이는 기준이다
+  const gapScore = clamp01(1 - Math.abs(gap - 1) / 0.5);
+  return { levelness, gap, lift, score: clamp01(levelness * 0.6 + gapScore * 0.4) };
+}
+
+/* ── 입술 ────────────────────────────────────────────────────── */
+
+export interface Lips {
+  /** 안쪽 점이 없어 두께를 못 잰 경우 — 화면이 비율 대신 너비만 보여 준다 */
+  thicknessKnown: boolean;
+  /** 윗입술 두께 ÷ 아랫입술 두께 */
+  ratio: number;
+  /** 입 너비 ÷ 얼굴 너비 */
+  width: number;
+  /** 좌우 입꼬리 높이가 얼마나 같은가 0~1 */
+  evenness: number;
+  score: number;
+}
+
+/**
+ * 입술 비율을 잰다.
+ *
+ * face-api의 입 스무 점 중 바깥 열둘(0~11)이 입술 바깥선, 안쪽 여덟(12~19)이
+ * 입 벌어진 선이다. 윗입술 두께는 바깥 윗선과 안쪽 윗선 사이, 아랫입술은
+ * 안쪽 아랫선과 바깥 아랫선 사이다.
+ */
+export function lips(f: Face): Lips {
+  const m = f.mouth;
+  const width = clamp01(dist(m[0], m[6]) / (faceWidth(f) || 1));
+  const corner = Math.abs(m[0].y - m[6].y);
+  const evenness = clamp01(1 - corner / (dist(m[0], m[6]) * 0.12 || 1));
+
+  /*
+   * 안쪽 여덟 점이 있어야 입술 두께를 잴 수 있다. 없으면 **잴 수 없다고
+   * 말한다** — 없는 점을 바깥 점으로 대신하면 두께가 늘 0이 되고, 그러면
+   * 화면에 "윗입술이 없다"는 뜻의 숫자가 그럴듯하게 나온다.
+   */
+  if (m.length < 20) {
+    return { thicknessKnown: false, ratio: 0, width, evenness, score: evenness };
+  }
+  const upper = Math.max(0, m[14].y - m[3].y);
+  const lower = Math.max(0, m[9].y - m[18].y);
+  const ratio = lower === 0 ? 0 : upper / lower;
+
+  // 아랫입술이 윗입술보다 조금 두꺼운 1:1.6 언저리가 널리 쓰이는 기준이다
+  const near = clamp01(1 - Math.abs(ratio - 0.625) / 0.45);
+  return { thicknessKnown: true, ratio, width, evenness, score: clamp01(near * 0.5 + evenness * 0.5) };
+}
+
+/* ── 얼굴 대비 ───────────────────────────────────────────────── */
+
+export interface FaceContrast {
+  /** 얼굴 안의 밝기 폭 0~1 — 너무 낮으면 밋밋하고 높으면 탄다 */
+  range: number;
+  /** 얼굴과 배경의 밝기 차 0~1 */
+  pop: number;
+  score: number;
+}
+
+/**
+ * 사진의 대비를 잰다 — 조명(lighting)이 "어느 쪽에서 오는가"라면 이것은
+ * "얼마나 또렷한가"다.
+ *
+ * 얼굴 위아래·좌우 네 값의 폭을 얼굴 안의 밝기 폭으로 쓴다. 폭이 너무 작으면
+ * 밋밋하고, 너무 크면 한쪽이 날아간 것이라 **가운데가 가장 좋다.**
+ */
+export function faceContrast(p: PixelStats): FaceContrast {
+  const parts = [p.leftLuma, p.rightLuma, p.topLuma, p.bottomLuma];
+  const spread = Math.max(...parts) - Math.min(...parts);
+  // 25 언저리가 알맞다 — 0이면 밋밋, 70을 넘으면 한쪽이 탄다
+  const range = clamp01(1 - Math.abs(spread - 25) / 45);
+  const pop = clamp01(Math.abs(p.faceLuma - p.backLuma) / 60);
+  return { range, pop, score: clamp01(range * 0.6 + pop * 0.4) };
+}

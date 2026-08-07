@@ -116,6 +116,76 @@ const THEMES: Record<NewSnapSlug, { icon: string; bar: string; glow: SnapTheme e
       resetHover: 'hover:border-indigo-300 hover:text-indigo-600',
     },
   },
+  'face-thirds': {
+    icon: '📏', bar: 'from-amber-500 to-amber-800', glow: 'sky',
+    theme: {
+      hover: 'hover:text-amber-600',
+      notice: 'bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 text-amber-800 dark:text-amber-300',
+      spinner: 'border-t-amber-500',
+      dropHover: 'hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-amber-950/40',
+      resetHover: 'hover:border-amber-300 hover:text-amber-600',
+    },
+  },
+  'eye-spacing': {
+    icon: '👀', bar: 'from-sky-500 to-blue-700', glow: 'sky',
+    theme: {
+      hover: 'hover:text-sky-600',
+      notice: 'bg-sky-50 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-900/40 text-sky-800 dark:text-sky-300',
+      spinner: 'border-t-sky-500',
+      dropHover: 'hover:border-sky-400 hover:bg-sky-50/50 dark:hover:bg-sky-950/40',
+      resetHover: 'hover:border-sky-300 hover:text-sky-600',
+    },
+  },
+  'face-shape': {
+    icon: '🥚', bar: 'from-rose-500 to-rose-800', glow: 'rose',
+    theme: {
+      hover: 'hover:text-rose-600',
+      notice: 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 text-rose-800 dark:text-rose-300',
+      spinner: 'border-t-rose-500',
+      dropHover: 'hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40',
+      resetHover: 'hover:border-rose-300 hover:text-rose-600',
+    },
+  },
+  'brows': {
+    icon: '🤨', bar: 'from-violet-500 to-violet-800', glow: 'violet',
+    theme: {
+      hover: 'hover:text-violet-600',
+      notice: 'bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 text-violet-800 dark:text-violet-300',
+      spinner: 'border-t-violet-500',
+      dropHover: 'hover:border-violet-400 hover:bg-violet-50/50 dark:hover:bg-violet-950/40',
+      resetHover: 'hover:border-violet-300 hover:text-violet-600',
+    },
+  },
+  'lips': {
+    icon: '👄', bar: 'from-pink-500 to-pink-800', glow: 'rose',
+    theme: {
+      hover: 'hover:text-rose-600',
+      notice: 'bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 text-rose-800 dark:text-rose-300',
+      spinner: 'border-t-rose-500',
+      dropHover: 'hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40',
+      resetHover: 'hover:border-rose-300 hover:text-rose-600',
+    },
+  },
+  'contrast': {
+    icon: '🌗', bar: 'from-indigo-500 to-indigo-900', glow: 'indigo',
+    theme: {
+      hover: 'hover:text-indigo-600',
+      notice: 'bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 text-indigo-800 dark:text-indigo-300',
+      spinner: 'border-t-indigo-500',
+      dropHover: 'hover:border-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40',
+      resetHover: 'hover:border-indigo-300 hover:text-indigo-600',
+    },
+  },
+  'backdrop': {
+    icon: '🖼️', bar: 'from-emerald-500 to-emerald-800', glow: 'emerald',
+    theme: {
+      hover: 'hover:text-emerald-600',
+      notice: 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300',
+      spinner: 'border-t-emerald-500',
+      dropHover: 'hover:border-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/40',
+      resetHover: 'hover:border-emerald-300 hover:text-emerald-600',
+    },
+  },
 };
 
 /** 결과 그림의 바탕색 — Tailwind 클래스가 아니라 실제 색이 필요하다 */
@@ -130,6 +200,13 @@ const CARD_COLOR: Record<NewSnapSlug, { from: string; to: string }> = {
   'white-balance': { from: '#14b8a6', to: '#7c3aed' },
   distance: { from: '#65a30d', to: '#166534' },
   mirror: { from: '#a855f7', to: '#1e1b4b' },
+  'face-thirds': { from: '#f59e0b', to: '#b45309' },
+  'eye-spacing': { from: '#0ea5e9', to: '#1d4ed8' },
+  'face-shape': { from: '#f43f5e', to: '#be123c' },
+  'brows': { from: '#8b5cf6', to: '#6d28d9' },
+  'lips': { from: '#ec4899', to: '#9d174d' },
+  'contrast': { from: '#6366f1', to: '#312e81' },
+  'backdrop': { from: '#10b981', to: '#065f46' },
 };
 
 /**

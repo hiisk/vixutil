@@ -14,6 +14,7 @@ import { TOOL_TEXT, type MetricKey, type NewSnapSlug } from './tool-text.ts';
 import {
   headPose, eyeOpenness, realSmile, idPhoto, framing,
   lighting, sharpness, whiteBalance, shootDistance, mirrorFace,
+  faceThirds, eyeSpacing, faceShape, brows, lips, faceContrast, backdrop,
   type Face, type PixelStats,
 } from './measures.ts';
 import type { SnapLang } from '@/components/snap/SnapShell';
@@ -57,7 +58,7 @@ function assemble(lang: SnapLang, score: number, metrics: Metric[], headline: st
 const dirWord = (v: Vocab, d: 'left' | 'right' | 'above' | 'below' | 'even') => v.dir[d];
 
 /** 픽셀을 봐야 하는 도구 — 화면이 캔버스에서 통계를 뽑아 함께 넘긴다 */
-export const NEEDS_PIXELS: ReadonlySet<string> = new Set(['lighting', 'sharpness', 'white-balance']);
+export const NEEDS_PIXELS: ReadonlySet<string> = new Set(['lighting', 'sharpness', 'white-balance', 'contrast', 'backdrop']);
 
 export function analyzeSnap(lang: SnapLang, slug: NewSnapSlug, f: Face, px?: PixelStats): SnapResult {
   const v = VOCAB[lang];
@@ -150,6 +151,76 @@ export function analyzeSnap(lang: SnapLang, slug: NewSnapSlug, f: Face, px?: Pix
         m('headroom', pct(1 - Math.min(1, Math.abs(r.headroom - 0.12) / 0.14)), `${pct(r.headroom)}%`),
         m('thirds', pct(r.thirds)),
         m('size', pct(Math.min(1, r.size * 3)), `${pct(r.size)}%`),
+      ];
+      return assemble(lang, r.score, metrics, `${v.overall} ${pct(r.score)}% · ${v.bands[bandOf(r.score)]}`);
+    }
+    case 'face-thirds': {
+      const r = faceThirds(f);
+      /* 세 칸은 좋고 나쁨이 아니라 비율이다 — 막대는 비율 그대로 그리고
+         점수는 "셋이 얼마나 고른가"로 따로 낸다 */
+      const metrics = [
+        m('thirdsUpper', pct(r.upper), `${pct(r.upper)}%`),
+        m('thirdsMiddle', pct(r.middle), `${pct(r.middle)}%`),
+        m('thirdsLower', pct(r.lower), `${pct(r.lower)}%`),
+        m('thirdsBalance', pct(r.balance)),
+      ];
+      return assemble(lang, r.score, metrics, `${pct(r.upper)} : ${pct(r.middle)} : ${pct(r.lower)}`);
+    }
+    case 'eye-spacing': {
+      const r = eyeSpacing(f);
+      const metrics = [
+        m('eyeGap', pct(1 - Math.min(1, Math.abs(r.ratio - 1) / 0.35)), r.ratio.toFixed(2)),
+        m('eyeEven', pct(r.evenness)),
+        m('eyeSpan', pct(r.span), `${pct(r.span)}%`),
+      ];
+      return assemble(lang, r.score, metrics, `${M.eyeGap} ${r.ratio.toFixed(2)}`);
+    }
+    case 'face-shape': {
+      const r = faceShape(f);
+      /* 얼굴형은 점수가 아니라 이름이 결과다 — 세 값은 왜 그렇게 갈렸는지를 보여준다 */
+      const metrics = [
+        m('shapeRatio', pct(Math.min(1, r.ratio / 1.6)), r.ratio.toFixed(2)),
+        m('jawWidth', pct(Math.min(1, r.jawRatio)), r.jawRatio.toFixed(2)),
+        m('browWidth', pct(Math.min(1, r.browRatio)), r.browRatio.toFixed(2)),
+      ];
+      return assemble(lang, r.score, metrics, v.faceShape[r.kind]);
+    }
+    case 'brows': {
+      const r = brows(f);
+      const metrics = [
+        m('browLevel', pct(r.levelness)),
+        m('browGap', pct(1 - Math.min(1, Math.abs(r.gap - 1) / 0.5)), r.gap.toFixed(2)),
+        m('browLift', pct(Math.min(1, r.lift / 0.9)), r.lift.toFixed(2)),
+      ];
+      return assemble(lang, r.score, metrics, `${M.browLevel} ${pct(r.levelness)}%`);
+    }
+    case 'lips': {
+      const r = lips(f);
+      /* 안쪽 점이 없으면 두께를 못 잰다 — 그 항목을 빼고 낸다.
+         0으로 채우면 "윗입술이 없다"는 뜻의 숫자가 그럴듯하게 나온다 */
+      const metrics = [
+        ...(r.thicknessKnown
+          ? [m('lipRatio', pct(1 - Math.min(1, Math.abs(r.ratio - 0.625) / 0.45)), r.ratio.toFixed(2))]
+          : []),
+        m('lipWidth', pct(Math.min(1, r.width / 0.6)), `${pct(r.width)}%`),
+        m('lipEven', pct(r.evenness)),
+      ];
+      const head = r.thicknessKnown ? `${M.lipRatio} 1 : ${(1 / (r.ratio || 1)).toFixed(1)}` : `${M.lipWidth} ${pct(r.width)}%`;
+      return assemble(lang, r.score, metrics, head);
+    }
+    case 'contrast': {
+      const r = faceContrast(px!);
+      const metrics = [
+        m('contrastRange', pct(r.range)),
+        m('contrastPop', pct(r.pop)),
+      ];
+      return assemble(lang, r.score, metrics, `${v.overall} ${pct(r.score)}% · ${v.bands[bandOf(r.score)]}`);
+    }
+    case 'backdrop': {
+      const r = backdrop(px!);
+      const metrics = [
+        m('backEven', pct(r.evenness)),
+        m('backSeparation', pct(r.separation)),
       ];
       return assemble(lang, r.score, metrics, `${v.overall} ${pct(r.score)}% · ${v.bands[bandOf(r.score)]}`);
     }

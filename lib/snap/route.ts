@@ -66,6 +66,13 @@ const HUB_ICON: Record<NewSnapSlug, string> = {
   'eye-open': '\u{1F441}\u{FE0F}', framing: '\u{1F5BC}\u{FE0F}',
   lighting: '\u{1F4A1}', sharpness: '\u{1F50D}', 'white-balance': '\u{1F39A}\u{FE0F}',
   distance: '\u{1F4CF}', mirror: '\u{1FA9E}',
+  'face-thirds': '📏',
+  'eye-spacing': '👀',
+  'face-shape': '🥚',
+  'brows': '🤨',
+  'lips': '👄',
+  'contrast': '🌗',
+  'backdrop': '🖼️',
 };
 const HUB_COLOR: Record<NewSnapSlug, string> = {
   'id-photo': 'from-sky-500 to-indigo-600',
@@ -78,4 +85,11 @@ const HUB_COLOR: Record<NewSnapSlug, string> = {
   'white-balance': 'from-teal-400 to-violet-600',
   distance: 'from-lime-500 to-green-800',
   mirror: 'from-purple-500 to-indigo-900',
+  'face-thirds': 'from-amber-500 to-amber-800',
+  'eye-spacing': 'from-sky-500 to-blue-700',
+  'face-shape': 'from-rose-500 to-rose-800',
+  'brows': 'from-violet-500 to-violet-800',
+  'lips': 'from-pink-500 to-pink-800',
+  'contrast': 'from-indigo-500 to-indigo-900',
+  'backdrop': 'from-emerald-500 to-emerald-800',
 };

@@ -43,6 +43,13 @@ const TYPES = [
   { href: '/snap/white-balance', icon: '🎚️', title: '화이트밸런스 검사', desc: '사진 색이 어느 쪽으로 치우쳤는지', badge: '실제 측정', color: 'from-teal-400 to-violet-600' },
   { href: '/snap/distance', icon: '📏', title: '촬영 거리 어림', desc: '얼마나 가까이서 찍었고 얼굴이 얼마나 왜곡됐는지', badge: '실제 측정', color: 'from-lime-500 to-green-700' },
   { href: '/snap/mirror', icon: '🪞', title: '좌우 합성 얼굴', desc: '왼쪽만·오른쪽만으로 만든 두 얼굴', badge: '실제 측정', color: 'from-purple-500 to-indigo-800' },
+  { href: '/snap/face-thirds', icon: '📏', title: '얼굴 삼등분 검사', desc: '이마·코·턱 세 칸의 비율', badge: '실제 랜드마크', color: 'from-amber-500 to-amber-800' },
+  { href: '/snap/eye-spacing', icon: '👀', title: '눈 간격 검사', desc: '두 눈 사이가 눈 하나 너비인지', badge: '실제 랜드마크', color: 'from-sky-500 to-blue-700' },
+  { href: '/snap/face-shape', icon: '🥚', title: '얼굴형 판별', desc: '계란형·둥근형·각진형·긴 얼굴·하트형', badge: '실제 랜드마크', color: 'from-rose-500 to-rose-800' },
+  { href: '/snap/brows', icon: '🤨', title: '눈썹 균형 검사', desc: '좌우 높이와 눈썹 사이 간격', badge: '실제 랜드마크', color: 'from-violet-500 to-violet-800' },
+  { href: '/snap/lips', icon: '👄', title: '입술 비율 검사', desc: '윗입술과 아랫입술의 두께 비', badge: '실제 랜드마크', color: 'from-pink-500 to-pink-800' },
+  { href: '/snap/contrast', icon: '🌗', title: '사진 대비 검사', desc: '밋밋한지, 한쪽이 탔는지', badge: '실제 측정', color: 'from-indigo-500 to-indigo-900' },
+  { href: '/snap/backdrop', icon: '🖼️', title: '배경 정리도 검사', desc: '증명사진에 쓸 만큼 배경이 깔끔한지', badge: '실제 측정', color: 'from-emerald-500 to-emerald-800' },
   { href: '/snap/handwriting',    icon: '✍️', title: '손글씨 심리 테스트', desc: '손글씨 사진으로 보는 기울기·필압 분석', badge: '실제 획분석', color: 'from-slate-600 to-indigo-700' },
 ];
 

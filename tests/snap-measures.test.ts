@@ -393,3 +393,193 @@ test('한 언어 안에서 도구 제목이 겹치지 않는다', () => {
   assert.deepStrictEqual(bad, []);
   assert.equal(LANG_CODES.length, SNAP_LANGS.length, '언어 수가 어긋난다');
 });
+
+/* ══════════════════════════════════════════════════════════════════
+ * 새 측정 여섯 — 삼등분·눈 간격·얼굴형·눈썹·입술·대비
+ *
+ * 이쪽은 "미의 기준"이 아니라 **널리 쓰이는 어림**을 잰다. 그래서 검사도
+ * "이 값이 아름다운가"가 아니라 **"얼굴을 그렇게 바꾸면 값이 그쪽으로
+ * 움직이는가"**로 짠다 — 눈을 벌리면 간격 비율이 올라가는가, 턱을 넓히면
+ * 각진형으로 가는가. 부호가 뒤집혀도 화면에는 그럴듯한 숫자가 나온다.
+ * ══════════════════════════════════════════════════════════════════ */
+
+/** face-api의 스무 점짜리 입 — 바깥 열둘 + 안쪽 여덟 */
+function mouth20(cy: number, upperThick: number, lowerThick: number) {
+  const outer = [
+    { x: 160, y: cy }, { x: 175, y: cy - 12 }, { x: 190, y: cy - 15 },
+    { x: 200, y: cy - 15 }, { x: 210, y: cy - 15 }, { x: 225, y: cy - 12 },
+    { x: 240, y: cy }, { x: 225, y: cy + 12 }, { x: 210, y: cy + 15 },
+    { x: 200, y: cy + 15 }, { x: 190, y: cy + 15 }, { x: 175, y: cy + 12 },
+  ];
+  // 안쪽 여덟: [왼, 위×3, 오른, 아래×3] — 14가 위중앙, 18이 아래중앙이다
+  const inner = [
+    { x: 168, y: cy }, { x: 185, y: cy - 15 + upperThick },
+    { x: 200, y: cy - 15 + upperThick }, { x: 215, y: cy - 15 + upperThick },
+    { x: 232, y: cy }, { x: 215, y: cy + 15 - lowerThick },
+    { x: 200, y: cy + 15 - lowerThick }, { x: 185, y: cy + 15 - lowerThick },
+  ];
+  return [...outer, ...inner];
+}
+
+test('삼등분 비율의 합이 1이다', async () => {
+  const { faceThirds } = await import('../lib/snap/measures.ts');
+  const t = faceThirds(baseFace());
+  assert.ok(Math.abs(t.upper + t.middle + t.lower - 1) < 1e-9, `${t.upper}+${t.middle}+${t.lower}`);
+});
+
+test('세 칸이 고르면 점수가 높고 한 칸이 길면 낮아진다', async () => {
+  const { faceThirds } = await import('../lib/snap/measures.ts');
+  const even = faceThirds(baseFace());
+  // 턱을 아래로 늘려 아래 칸만 길게 만든다
+  const f = baseFace();
+  f.jaw = f.jaw.map((p, i) => (i === 8 ? { ...p, y: p.y + 140 } : p));
+  const uneven = faceThirds(f);
+  assert.ok(uneven.lower > even.lower, `아래 칸 ${even.lower} → ${uneven.lower}`);
+  assert.ok(uneven.score < even.score, `점수 ${even.score} → ${uneven.score}`);
+});
+
+test('눈을 벌리면 간격 비율이 올라간다', async () => {
+  const { eyeSpacing } = await import('../lib/snap/measures.ts');
+  const near = eyeSpacing(baseFace());
+  const f = baseFace();
+  f.leftEye = f.leftEye.map(p => ({ ...p, x: p.x - 20 }));
+  f.rightEye = f.rightEye.map(p => ({ ...p, x: p.x + 20 }));
+  const far = eyeSpacing(f);
+  assert.ok(far.ratio > near.ratio, `${near.ratio.toFixed(2)} → ${far.ratio.toFixed(2)}`);
+});
+
+test('눈 간격 비율이 사진 크기에 안 흔들린다', async () => {
+  /*
+   * 눈 너비로 나누는 까닭이 이것이다. 나누지 않으면 같은 얼굴을 두 배로
+   * 크게 찍었을 때 비율도 두 배가 되어, 가까이서 찍은 사진만 "눈이 멀다"고
+   * 나온다. 크기를 바꿔도 값이 같아야 한다.
+   */
+  const { eyeSpacing } = await import('../lib/snap/measures.ts');
+  const small = baseFace();
+  const big: Face = JSON.parse(JSON.stringify(small));
+  for (const key of ['jaw', 'mouth', 'leftEye', 'rightEye', 'nose', 'leftBrow', 'rightBrow'] as const) {
+    big[key] = big[key].map(p => ({ x: 200 + (p.x - 200) * 2, y: 260 + (p.y - 260) * 2 }));
+  }
+  assert.ok(Math.abs(eyeSpacing(small).ratio - eyeSpacing(big).ratio) < 1e-6,
+    `작은 ${eyeSpacing(small).ratio.toFixed(3)} vs 큰 ${eyeSpacing(big).ratio.toFixed(3)}`);
+});
+
+test('한쪽 눈만 크면 고름이 떨어진다', async () => {
+  const { eyeSpacing } = await import('../lib/snap/measures.ts');
+  const f = baseFace();
+  f.leftEye = f.leftEye.map(p => ({ ...p, x: (p.x - 165) * 1.6 + 165 }));
+  const s = eyeSpacing(f);
+  assert.ok(s.evenness < 0.7, `고름 ${s.evenness.toFixed(2)}`);
+  assert.ok(eyeSpacing(baseFace()).evenness > 0.98, '기준 얼굴은 좌우가 같아야 한다');
+});
+
+test('턱을 넓히면 각진형이 된다', async () => {
+  const { faceShape } = await import('../lib/snap/measures.ts');
+  const f = baseFace();
+  // 턱선 양쪽(4·12)을 바깥으로 밀어 턱을 넓힌다
+  f.jaw = f.jaw.map((p, i) => (i >= 4 && i <= 12 ? { ...p, x: 200 + (p.x - 200) * 1.8 } : p));
+  assert.equal(faceShape(f).kind, 'square', `턱비 ${faceShape(f).jawRatio.toFixed(2)}`);
+});
+
+test('세로로 늘이면 긴 얼굴이 된다', async () => {
+  const { faceShape } = await import('../lib/snap/measures.ts');
+  const f = baseFace();
+  f.jaw = f.jaw.map((p, i) => (i === 8 ? { ...p, y: p.y + 120 } : p));
+  const s = faceShape(f);
+  assert.equal(s.kind, 'long', `세로가로비 ${s.ratio.toFixed(2)}`);
+});
+
+test('얼굴형은 언제나 다섯 중 하나다', async () => {
+  const { faceShape } = await import('../lib/snap/measures.ts');
+  const kinds = new Set(['oval', 'round', 'square', 'long', 'heart']);
+  for (const scale of [0.6, 0.8, 1, 1.3, 1.8]) {
+    const f = baseFace();
+    f.jaw = f.jaw.map(p => ({ ...p, y: 260 + (p.y - 260) * scale }));
+    assert.ok(kinds.has(faceShape(f).kind), `${scale}배에서 ${faceShape(f).kind}`);
+  }
+});
+
+test('눈썹 한쪽을 올리면 고름이 떨어진다', async () => {
+  const { brows } = await import('../lib/snap/measures.ts');
+  assert.ok(brows(baseFace()).levelness > 0.99, '기준 얼굴은 좌우가 같아야 한다');
+  const f = baseFace();
+  f.leftBrow = f.leftBrow.map(p => ({ ...p, y: p.y - 14 }));
+  assert.ok(brows(f).levelness < 0.5, `한쪽을 올렸는데 ${brows(f).levelness.toFixed(2)}`);
+});
+
+test('눈썹 높이 차이를 얼굴 크기로 나눈다', async () => {
+  /*
+   * 픽셀 그대로 재면 가까이서 찍은 사진일수록 나쁘게 나온다. 얼굴을 통째로
+   * 두 배로 키우면 픽셀 차이도 두 배가 되지만 점수는 같아야 한다.
+   */
+  const { brows } = await import('../lib/snap/measures.ts');
+  const small = baseFace();
+  small.leftBrow = small.leftBrow.map(p => ({ ...p, y: p.y - 8 }));
+  const big: Face = JSON.parse(JSON.stringify(small));
+  for (const key of ['jaw', 'mouth', 'leftEye', 'rightEye', 'nose', 'leftBrow', 'rightBrow'] as const) {
+    big[key] = big[key].map(p => ({ x: 200 + (p.x - 200) * 2, y: 260 + (p.y - 260) * 2 }));
+  }
+  assert.ok(Math.abs(brows(small).levelness - brows(big).levelness) < 0.02,
+    `작은 ${brows(small).levelness.toFixed(3)} vs 큰 ${brows(big).levelness.toFixed(3)}`);
+});
+
+test('안쪽 점이 없으면 입술 두께를 잴 수 없다고 말한다', async () => {
+  /*
+   * 없는 점을 바깥 점으로 대신하면 두께가 늘 0이 되고, 화면에는 "윗입술이
+   * 없다"는 뜻의 숫자가 그럴듯하게 나온다. 모른다고 말하는 편이 낫다.
+   */
+  const { lips } = await import('../lib/snap/measures.ts');
+  const r = lips(baseFace()); // 기준 얼굴의 입은 열두 점뿐이다
+  assert.equal(r.thicknessKnown, false);
+  assert.ok(r.width > 0, '너비는 잴 수 있어야 한다');
+});
+
+test('아랫입술을 두껍게 하면 비율이 내려간다', async () => {
+  const { lips } = await import('../lib/snap/measures.ts');
+  const f = baseFace();
+  f.mouth = mouth20(300, 6, 6);
+  const even = lips(f);
+  assert.equal(even.thicknessKnown, true);
+
+  const g = baseFace();
+  g.mouth = mouth20(300, 6, 14);
+  const thickLower = lips(g);
+  assert.ok(thickLower.ratio < even.ratio, `${even.ratio.toFixed(2)} → ${thickLower.ratio.toFixed(2)}`);
+});
+
+test('입꼬리 높이가 다르면 고름이 떨어진다', async () => {
+  const { lips } = await import('../lib/snap/measures.ts');
+  const f = baseFace();
+  f.mouth = mouth20(300, 6, 8);
+  assert.ok(lips(f).evenness > 0.95, '기준은 좌우가 같아야 한다');
+  const g = baseFace();
+  g.mouth = mouth20(300, 6, 8).map((p, i) => (i === 0 ? { ...p, y: p.y - 18 } : p));
+  assert.ok(lips(g).evenness < 0.6, `한쪽을 올렸는데 ${lips(g).evenness.toFixed(2)}`);
+});
+
+test('대비는 너무 낮아도 너무 높아도 점수가 낮다', async () => {
+  /*
+   * 폭이 작으면 밋밋하고 크면 한쪽이 날아간 것이라 **가운데가 가장 좋다.**
+   * "클수록 좋다"로 짜면 탄 사진이 만점을 받는다.
+   */
+  const { faceContrast } = await import('../lib/snap/measures.ts');
+  const px = (l: number, r: number): PixelStats => ({
+    faceLuma: 130, backLuma: 90, leftLuma: l, rightLuma: r, topLuma: (l + r) / 2,
+    bottomLuma: (l + r) / 2, laplacianVar: 200, r: 128, g: 128, b: 128, backStd: 20,
+  });
+  const flat = faceContrast(px(128, 128));       // 폭 0
+  const good = faceContrast(px(115, 140));       // 폭 25
+  const blown = faceContrast(px(40, 230));       // 폭 190
+  assert.ok(good.range > flat.range, `밋밋 ${flat.range.toFixed(2)} vs 알맞음 ${good.range.toFixed(2)}`);
+  assert.ok(good.range > blown.range, `탄 것 ${blown.range.toFixed(2)} vs 알맞음 ${good.range.toFixed(2)}`);
+});
+
+test('얼굴과 배경 밝기가 같으면 인물이 안 떨어져 보인다', async () => {
+  const { faceContrast } = await import('../lib/snap/measures.ts');
+  const px = (face: number, back: number): PixelStats => ({
+    faceLuma: face, backLuma: back, leftLuma: 115, rightLuma: 140, topLuma: 128,
+    bottomLuma: 128, laplacianVar: 200, r: 128, g: 128, b: 128, backStd: 20,
+  });
+  assert.ok(faceContrast(px(130, 128)).pop < 0.2, '같은 밝기인데 떨어져 보인다고 한다');
+  assert.ok(faceContrast(px(150, 90)).pop > 0.8, '차이가 큰데 안 떨어져 보인다고 한다');
+});

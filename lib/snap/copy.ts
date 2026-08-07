@@ -22,6 +22,8 @@ export interface Vocab {
   bands: [string, string, string, string, string];
   dir: { left: string; right: string; above: string; below: string; even: string };
   cast: { warm: string; cool: string; green: string; magenta: string; neutral: string };
+  /** 얼굴형 다섯 — 재는 것이 아니라 가른 결과의 이름이다 */
+  faceShape: { oval: string; round: string; square: string; long: string; heart: string };
   /** 공통 꼬리표 */
   measured: string;   // "재는 것은 진짜입니다"
   overall: string;
@@ -36,6 +38,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['많이 어긋남', '조금 어긋남', '보통', '좋음', '아주 좋음'],
     dir: { left: '왼쪽', right: '오른쪽', above: '위', below: '아래', even: '고르게' },
     cast: { warm: '따뜻한 쪽', cool: '차가운 쪽', green: '초록 쪽', magenta: '자주 쪽', neutral: '중립' },
+    faceShape: { oval: "계란형", round: "둥근형", square: "각진형", long: "긴 얼굴형", heart: "하트형" },
     measured: '숫자는 사진에서 실제로 잰 값입니다.',
     overall: '전체 점수', detail: '항목별', advice: '이렇게 해보세요', yes: '예', no: '아니오',
   },
@@ -43,6 +46,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['Well off', 'A little off', 'Fair', 'Good', 'Very good'],
     dir: { left: 'the left', right: 'the right', above: 'above', below: 'below', even: 'evenly' },
     cast: { warm: 'warm', cool: 'cool', green: 'green', magenta: 'magenta', neutral: 'neutral' },
+    faceShape: { oval: "Oval", round: "Round", square: "Square", long: "Long", heart: "Heart" },
     measured: 'The numbers are measured from your photo.',
     overall: 'Overall', detail: 'By item', advice: 'Try this', yes: 'Yes', no: 'No',
   },
@@ -50,6 +54,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['Muy desviado', 'Algo desviado', 'Aceptable', 'Bien', 'Muy bien'],
     dir: { left: 'la izquierda', right: 'la derecha', above: 'arriba', below: 'abajo', even: 'de forma pareja' },
     cast: { warm: 'cálido', cool: 'frío', green: 'verde', magenta: 'magenta', neutral: 'neutro' },
+    faceShape: { oval: "Ovalado", round: "Redondo", square: "Cuadrado", long: "Alargado", heart: "Corazón" },
     measured: 'Los números se miden en tu foto.',
     overall: 'Total', detail: 'Por apartado', advice: 'Prueba esto', yes: 'Sí', no: 'No',
   },
@@ -57,6 +62,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['Bem fora', 'Um pouco fora', 'Aceitável', 'Bom', 'Muito bom'],
     dir: { left: 'a esquerda', right: 'a direita', above: 'cima', below: 'baixo', even: 'de modo uniforme' },
     cast: { warm: 'quente', cool: 'frio', green: 'verde', magenta: 'magenta', neutral: 'neutro' },
+    faceShape: { oval: "Oval", round: "Redondo", square: "Quadrado", long: "Alongado", heart: "Coração" },
     measured: 'Os números são medidos na sua foto.',
     overall: 'Total', detail: 'Por item', advice: 'Tente assim', yes: 'Sim', no: 'Não',
   },
@@ -64,6 +70,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['大きくずれている', '少しずれている', 'ふつう', '良い', 'とても良い'],
     dir: { left: '左', right: '右', above: '上', below: '下', even: '均等に' },
     cast: { warm: '暖色より', cool: '寒色より', green: '緑より', magenta: 'マゼンタより', neutral: 'ニュートラル' },
+    faceShape: { oval: "卵形", round: "丸顔", square: "エラ張り", long: "面長", heart: "ハート形" },
     measured: '数値は写真から実際に測ったものです。',
     overall: '総合', detail: '項目別', advice: 'こうしてみましょう', yes: 'はい', no: 'いいえ',
   },
@@ -71,6 +78,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['Deutlich daneben', 'Etwas daneben', 'Passabel', 'Gut', 'Sehr gut'],
     dir: { left: 'links', right: 'rechts', above: 'oben', below: 'unten', even: 'gleichmäßig' },
     cast: { warm: 'warm', cool: 'kühl', green: 'grün', magenta: 'magenta', neutral: 'neutral' },
+    faceShape: { oval: "Oval", round: "Rund", square: "Eckig", long: "Lang", heart: "Herzförmig" },
     measured: 'Die Zahlen sind an deinem Foto gemessen.',
     overall: 'Gesamt', detail: 'Nach Punkt', advice: 'Versuch das', yes: 'Ja', no: 'Nein',
   },
@@ -78,6 +86,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['Très décalé', 'Un peu décalé', 'Correct', 'Bien', 'Très bien'],
     dir: { left: 'la gauche', right: 'la droite', above: 'le haut', below: 'le bas', even: 'de façon égale' },
     cast: { warm: 'chaud', cool: 'froid', green: 'vert', magenta: 'magenta', neutral: 'neutre' },
+    faceShape: { oval: "Ovale", round: "Rond", square: "Carré", long: "Allongé", heart: "Cœur" },
     measured: 'Les chiffres sont mesurés sur votre photo.',
     overall: 'Total', detail: 'Par critère', advice: 'Essayez ceci', yes: 'Oui', no: 'Non',
   },
@@ -85,6 +94,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['काफ़ी दूर', 'थोड़ा दूर', 'ठीक-ठाक', 'अच्छा', 'बहुत अच्छा'],
     dir: { left: 'बाएँ', right: 'दाएँ', above: 'ऊपर', below: 'नीचे', even: 'बराबर' },
     cast: { warm: 'गर्म', cool: 'ठंडा', green: 'हरा', magenta: 'मैजेंटा', neutral: 'तटस्थ' },
+    faceShape: { oval: "अंडाकार", round: "गोल", square: "चौकोर", long: "लंबा", heart: "दिल जैसा" },
     measured: 'ये संख्याएँ आपकी तस्वीर से नापी गई हैं।',
     overall: 'कुल', detail: 'मद अनुसार', advice: 'यह आज़माएँ', yes: 'हाँ', no: 'नहीं',
   },
@@ -92,6 +102,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['偏差很大', '略有偏差', '一般', '良好', '非常好'],
     dir: { left: '左侧', right: '右侧', above: '上方', below: '下方', even: '均匀' },
     cast: { warm: '偏暖', cool: '偏冷', green: '偏绿', magenta: '偏品红', neutral: '中性' },
+    faceShape: { oval: "鹅蛋脸", round: "圆脸", square: "方脸", long: "长脸", heart: "心形脸" },
     measured: '这些数值是从你的照片上实际测得的。',
     overall: '总分', detail: '分项', advice: '可以这样试试', yes: '是', no: '否',
   },
@@ -99,6 +110,7 @@ export const VOCAB: L10<Vocab> = {
     bands: ['偏差很大', '略有偏差', '普通', '良好', '非常好'],
     dir: { left: '左側', right: '右側', above: '上方', below: '下方', even: '均勻' },
     cast: { warm: '偏暖', cool: '偏冷', green: '偏綠', magenta: '偏洋紅', neutral: '中性' },
+    faceShape: { oval: "鵝蛋臉", round: "圓臉", square: "方臉", long: "長臉", heart: "心形臉" },
     measured: '這些數值是從你的照片上實際量得的。',
     overall: '總分', detail: '分項', advice: '可以這樣試試', yes: '是', no: '否',
   },

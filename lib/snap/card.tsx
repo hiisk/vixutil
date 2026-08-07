@@ -22,6 +22,13 @@ const LOOK: Record<NewSnapSlug, { icon: string; eyebrow: string; from: string; t
   'white-balance': { icon: '🎚️', eyebrow: 'White Balance', from: '#14b8a6', to: '#7c3aed' },
   distance: { icon: '📏', eyebrow: 'Distance', from: '#65a30d', to: '#166534' },
   mirror: { icon: '🪞', eyebrow: 'Mirror Faces', from: '#a855f7', to: '#1e1b4b' },
+  'face-thirds': { icon: '📏', eyebrow: 'Face Thirds', from: '#f59e0b', to: '#b45309' },
+  'eye-spacing': { icon: '👀', eyebrow: 'Eye Spacing', from: '#0ea5e9', to: '#1d4ed8' },
+  'face-shape': { icon: '🥚', eyebrow: 'Face Shape', from: '#f43f5e', to: '#be123c' },
+  'brows': { icon: '🤨', eyebrow: 'Brow Balance', from: '#8b5cf6', to: '#6d28d9' },
+  'lips': { icon: '👄', eyebrow: 'Lip Ratio', from: '#ec4899', to: '#9d174d' },
+  'contrast': { icon: '🌗', eyebrow: 'Contrast', from: '#6366f1', to: '#312e81' },
+  'backdrop': { icon: '🖼️', eyebrow: 'Backdrop', from: '#10b981', to: '#065f46' },
 };
 
 /** 데바나가리는 카드 글꼴에서 정형되지 않는다 — 앞선 섹션들과 같은 처리다 */

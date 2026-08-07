@@ -105,6 +105,13 @@ import { hubCard as yearHub } from '@/lib/year/route';
 export const CARDS: Record<string, () => ReactElement> = {
   'snap/lighting': () => newSnapCard('en', 'lighting'),
   'snap/sharpness': () => newSnapCard('en', 'sharpness'),
+  'snap/face-thirds': () => newSnapCard('en', 'face-thirds'),
+  'snap/eye-spacing': () => newSnapCard('en', 'eye-spacing'),
+  'snap/face-shape': () => newSnapCard('en', 'face-shape'),
+  'snap/brows': () => newSnapCard('en', 'brows'),
+  'snap/lips': () => newSnapCard('en', 'lips'),
+  'snap/contrast': () => newSnapCard('en', 'contrast'),
+  'snap/backdrop': () => newSnapCard('en', 'backdrop'),
   'snap/white-balance': () => newSnapCard('en', 'white-balance'),
   'snap/distance': () => newSnapCard('en', 'distance'),
   'snap/mirror': () => newSnapCard('en', 'mirror'),
