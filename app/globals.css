@@ -351,3 +351,27 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .label-caps {
   @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide;
 }
+
+/* ── FAQ의 기본 톤과 푸터 칩 (2026-08-07, 5차) ──
+   낱장 한 장을 다시 재 보니 class가 아직 17%다. 남은 되풀이는 둘이다.
+
+   FAQ는 tone이 light·dark 둘인데 낱장은 거의 전부 light다. 그 색만 클래스로
+   빼고 dark는 마크업에 그대로 둔다 — 한 장에 여섯 항목 × 네 자리다.
+
+   푸터의 섹션 칩은 168자짜리가 **모든 장에** 놓인다. */
+.faq-card-light {
+  @apply bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700;
+}
+.faq-q-light {
+  @apply text-slate-700 dark:text-slate-200;
+}
+.faq-chevron-light {
+  @apply text-slate-400 dark:text-slate-500;
+}
+.faq-a-light {
+  @apply text-slate-600 dark:text-slate-300;
+}
+.foot-chip {
+  @apply rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium
+         text-slate-500 dark:text-slate-400 hover:bg-slate-200 transition-colors;
+}

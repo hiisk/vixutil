@@ -230,7 +230,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
             <Link
               key={p.href}
               href={p.href}
-              className="rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-200 hover:text-slate-700 transition-colors"
+              className="foot-chip hover:text-slate-700"
             >
               {p.label}
             </Link>

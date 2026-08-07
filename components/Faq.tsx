@@ -28,10 +28,11 @@ import JsonLd, { faqJsonLd } from './JsonLd';
 const TONE = {
   light: {
     heading: 'text-slate-800 dark:text-slate-100',
-    card: 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700',
-    question: 'text-slate-700 dark:text-slate-200',
-    chevron: 'text-slate-400 dark:text-slate-500',
-    answer: 'text-slate-600 dark:text-slate-300',
+    // 낱장은 거의 전부 이 톤이다 — 한 장에 여섯 항목 × 네 자리라 CSS로 뺐다
+    card: 'faq-card-light',
+    question: 'faq-q-light',
+    chevron: 'faq-chevron-light',
+    answer: 'faq-a-light',
   },
   dark: {
     heading: 'text-slate-100',
