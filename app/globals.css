@@ -308,7 +308,7 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    그 허브가 575KB인데 그 가운데 132KB(22%)가 class 문자열이다 — 사이트에서
    가장 무거운 장이다.
 
-   components/*/XxxList.tsx 스물아홉 개가 같은 셀 묶음을 되풀이한다. */
+   components 아래 XxxList.tsx 스물아홉 개가 같은 셀 묶음을 되풀이한다. */
 .cell-num {
   @apply text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums;
 }
