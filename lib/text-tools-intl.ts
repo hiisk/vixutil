@@ -23,7 +23,7 @@ interface ToolCopy {
 }
 
 /** en/zh에 내보내는 slug — 한글 전용 네 개는 여기 없다 */
-export const TEXT_INTL_SLUGS = ['clean', 'dedupe', 'case', 'special-char', 'emoticon', 'replace', 'manuscript', 'lorem'] as const;
+export const TEXT_INTL_SLUGS = ['clean', 'dedupe', 'case', 'special-char', 'emoticon', 'replace', 'manuscript', 'lorem', 'mask', 'wrap', 'table', 'slug', 'reverse', 'vertical'] as const;
 
 const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
   en: {
@@ -74,6 +74,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Lorem Ipsum Generator — Placeholder Text, Any Length',
       long: 'Generates the filler text you need while building a design or a screen. Set how many paragraphs and how long each one runs, or cut it to an exact character count so it fits the box you are testing.',
       features: ['Classic Latin lorem ipsum', 'Set paragraph count and length', 'Trim to an exact character count', 'Copy the whole result at once'],
+    },
+    mask: {
+      title: "Redact Personal Data", desc: "Hide names, phone numbers and IDs in one pass", category: "Clean up",
+      metaTitle: "Redact Personal Data — Mask Names, Phone Numbers and ID Numbers",
+      long: "Paste text that contains names, phone numbers, national ID numbers, card numbers and email addresses, and it hides all of them at once. The last digits stay visible so you can still tell which record it was, which means the result is safe to screenshot and share. Everything runs in your browser and nothing is sent to a server.",
+      features: ["Names, phones, IDs, cards and emails in one pass", "Keeps the last digits so records stay identifiable", "Turn each kind on or off", "Choose the mask character (* ● ■ X)"],
+    },
+    wrap: {
+      title: "Reflow Line Breaks", desc: "Wrap to a width, or join lines broken mid-paragraph", category: "Clean up",
+      metaTitle: "Reflow Line Breaks — Wrap to a Width or Join Broken Lines",
+      long: "Text copied out of a PDF or an email breaks in the middle of a paragraph. This joins those lines back into paragraphs, or does the opposite and wraps everything to a fixed number of characters. Blank lines between paragraphs stay put, so the paragraph structure survives.",
+      features: ["Join broken lines back into paragraphs", "Wrap to 40, 60, 80 or 100 characters", "Never split a word in half", "Paragraph breaks are preserved"],
+    },
+    table: {
+      title: "Table Builder", desc: "Turn pasted data into a Markdown, CSV or HTML table", category: "Clean up",
+      metaTitle: "Table Builder — Paste Spreadsheet Data as Markdown, CSV or HTML",
+      long: "Paste rows copied out of a spreadsheet and it turns them into a Markdown table, CSV, TSV or an HTML table. It works out what separates the columns on its own, and when rows have different numbers of cells it pads the short ones so the table does not fall apart.",
+      features: ["Markdown, CSV, TSV and HTML output", "Detects the separator (tab, comma, spaces)", "Pads short rows so the table stays square", "Optionally pad columns to equal width"],
+    },
+    slug: {
+      title: "Slug Generator", desc: "Turn a title into something you can put in a URL", category: "Clean up",
+      metaTitle: "Slug Generator — Turn a Post Title into a Clean URL Slug",
+      long: "Turns a post title into a form you can put in a URL. Korean is transliterated to the Latin alphabet, spaces and punctuation become hyphens, and runs of hyphens or hyphens at either end are cleaned up. When you cap the length it cuts at a word boundary rather than mid-word.",
+      features: ["Transliterates Korean into the Latin alphabet", "Hyphen or underscore as the separator", "Strips accents (café → cafe)", "Length cap cuts at word boundaries"],
+    },
+    reverse: {
+      title: "Reverse Text", desc: "Flip text by character, by word or by line", category: "Symbols",
+      metaTitle: "Reverse Text — Flip a String by Character, Word or Line",
+      long: "Reverses text. You can flip it character by character, word by word, or line by line. Characters are handled by code point, so emoji and combining marks do not get split in half — and reversing twice gives you exactly what you started with.",
+      features: ["Three units: characters, words, lines", "Emoji survive intact", "Each line is reversed on its own", "Copy the result in one tap"],
+    },
+    vertical: {
+      title: "Vertical Text", desc: "Stand horizontal text up one character per line", category: "Symbols",
+      metaTitle: "Vertical Text — Turn Horizontal Writing into Vertical Columns",
+      long: "Stands horizontal writing up one character at a time. Give it several lines and each becomes its own vertical column; you can also read them right to left, the traditional order. Columns of different lengths are padded so the rows never drift out of line.",
+      features: ["One character per line, standing up", "Several lines become side-by-side columns", "Right-to-left (traditional) order", "Adjustable gap between columns"],
     },
   },
 
@@ -126,6 +162,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: 'Genera el texto de relleno que necesitas mientras montas un diseño o una pantalla. Indica cuántos párrafos y cuánto ocupa cada uno, o recórtalo a un número exacto de caracteres para que quepa en la caja que estás probando.',
       features: ['Lorem ipsum latino clásico', 'Fijar número y longitud de los párrafos', 'Recortar a un número exacto de caracteres', 'Copiar todo el resultado de golpe'],
     },
+    mask: {
+      title: "Censurar datos personales", desc: "Oculta nombres, teléfonos e identificadores de una vez", category: "Limpiar",
+      metaTitle: "Censurar datos personales — Ocultar nombres, teléfonos y números de identidad",
+      long: "Pega un texto con nombres, teléfonos, números de identidad, tarjetas y correos, y los oculta todos a la vez. Los últimos dígitos quedan a la vista, así que aún puedes reconocer de qué registro se trata y el resultado se puede compartir. Todo ocurre en tu navegador y nada se envía a un servidor.",
+      features: ["Nombres, teléfonos, identidades, tarjetas y correos de una vez", "Conserva los últimos dígitos para poder reconocerlos", "Activa o desactiva cada tipo", "Elige el carácter de máscara (* ● ■ X)"],
+    },
+    wrap: {
+      title: "Reajustar saltos de línea", desc: "Ajusta a un ancho o une líneas cortadas", category: "Limpiar",
+      metaTitle: "Reajustar saltos de línea — Ajustar a un ancho o unir líneas cortadas",
+      long: "El texto copiado de un PDF o de un correo se corta en medio del párrafo. Esto vuelve a unir esas líneas en párrafos, o hace lo contrario y ajusta todo a un número fijo de caracteres. Las líneas en blanco entre párrafos se mantienen, así que la estructura no se pierde.",
+      features: ["Une líneas cortadas en párrafos", "Ajusta a 40, 60, 80 o 100 caracteres", "Nunca parte una palabra por la mitad", "Conserva los saltos de párrafo"],
+    },
+    table: {
+      title: "Generador de tablas", desc: "Convierte datos pegados en una tabla Markdown, CSV o HTML", category: "Limpiar",
+      metaTitle: "Generador de tablas — Pega datos de hoja de cálculo como Markdown, CSV o HTML",
+      long: "Pega filas copiadas de una hoja de cálculo y las convierte en una tabla Markdown, CSV, TSV o HTML. Detecta por sí solo qué separa las columnas, y cuando las filas tienen distinto número de celdas rellena las cortas para que la tabla no se descuadre.",
+      features: ["Salida en Markdown, CSV, TSV y HTML", "Detecta el separador (tabulador, coma, espacios)", "Rellena las filas cortas para cuadrar la tabla", "Opción de igualar el ancho de las columnas"],
+    },
+    slug: {
+      title: "Generador de slugs", desc: "Convierte un título en algo que cabe en una URL", category: "Limpiar",
+      metaTitle: "Generador de slugs — Convierte el título de una entrada en un slug limpio",
+      long: "Convierte el título de una entrada en algo que puedes poner en una URL. El coreano se translitera al alfabeto latino, los espacios y signos pasan a guiones, y se limpian los guiones repetidos o en los extremos. Al limitar la longitud corta en el límite de una palabra, no a mitad.",
+      features: ["Translitera el coreano al alfabeto latino", "Guion o guion bajo como separador", "Quita los acentos (café → cafe)", "El límite de longitud corta entre palabras"],
+    },
+    reverse: {
+      title: "Invertir texto", desc: "Da la vuelta al texto por carácter, palabra o línea", category: "Símbolos",
+      metaTitle: "Invertir texto — Dar la vuelta a una cadena por carácter, palabra o línea",
+      long: "Invierte el texto. Puedes darle la vuelta carácter a carácter, palabra a palabra o línea a línea. Los caracteres se tratan por punto de código, así que los emoji y los signos combinantes no se parten por la mitad, y al invertir dos veces vuelves exactamente a lo que tenías.",
+      features: ["Tres unidades: caracteres, palabras, líneas", "Los emoji quedan intactos", "Cada línea se invierte por separado", "Copia el resultado de un toque"],
+    },
+    vertical: {
+      title: "Texto vertical", desc: "Pone el texto horizontal en pie, un carácter por línea", category: "Símbolos",
+      metaTitle: "Texto vertical — Convertir escritura horizontal en columnas verticales",
+      long: "Pone la escritura horizontal en pie, un carácter cada vez. Si le das varias líneas, cada una se convierte en su propia columna vertical; también puedes leerlas de derecha a izquierda, el orden tradicional. Las columnas de distinta longitud se rellenan para que las filas nunca se desalineen.",
+      features: ["Un carácter por línea, en vertical", "Varias líneas se vuelven columnas contiguas", "Orden de derecha a izquierda (tradicional)", "Espacio ajustable entre columnas"],
+    },
   },
 
   'pt-br': {
@@ -176,6 +248,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Gerador de lorem ipsum — Texto de preenchimento, qualquer tamanho',
       long: 'Gera o texto de preenchimento de que você precisa enquanto monta um design ou uma tela. Defina quantos parágrafos e o tamanho de cada um, ou corte para um número exato de caracteres para caber na caixa que você está testando.',
       features: ['Lorem ipsum latino clássico', 'Definir quantidade e tamanho dos parágrafos', 'Cortar num número exato de caracteres', 'Copiar o resultado inteiro de uma vez'],
+    },
+    mask: {
+      title: "Ocultar dados pessoais", desc: "Esconde nomes, telefones e documentos de uma só vez", category: "Limpar",
+      metaTitle: "Ocultar dados pessoais — Mascarar nomes, telefones e números de documento",
+      long: "Cole um texto com nomes, telefones, números de documento, cartões e e-mails e ele esconde tudo de uma vez. Os últimos dígitos continuam visíveis, então ainda dá para reconhecer o registro e o resultado pode ser compartilhado. Tudo acontece no seu navegador e nada é enviado a um servidor.",
+      features: ["Nomes, telefones, documentos, cartões e e-mails de uma vez", "Mantém os últimos dígitos para reconhecer o registro", "Ligue ou desligue cada tipo", "Escolha o caractere de máscara (* ● ■ X)"],
+    },
+    wrap: {
+      title: "Reorganizar quebras de linha", desc: "Quebre em uma largura ou junte linhas partidas", category: "Limpar",
+      metaTitle: "Reorganizar quebras de linha — Quebrar em uma largura ou juntar linhas partidas",
+      long: "Texto copiado de um PDF ou de um e-mail quebra no meio do parágrafo. Isto junta essas linhas de volta em parágrafos, ou faz o contrário e quebra tudo em um número fixo de caracteres. As linhas em branco entre parágrafos permanecem, então a estrutura sobrevive.",
+      features: ["Junta linhas partidas de volta em parágrafos", "Quebra em 40, 60, 80 ou 100 caracteres", "Nunca divide uma palavra ao meio", "Mantém as quebras de parágrafo"],
+    },
+    table: {
+      title: "Gerador de tabelas", desc: "Transforma dados colados em tabela Markdown, CSV ou HTML", category: "Limpar",
+      metaTitle: "Gerador de tabelas — Cole dados de planilha como Markdown, CSV ou HTML",
+      long: "Cole linhas copiadas de uma planilha e elas viram uma tabela Markdown, CSV, TSV ou HTML. Ele descobre sozinho o que separa as colunas e, quando as linhas têm números diferentes de células, completa as curtas para a tabela não desmontar.",
+      features: ["Saída em Markdown, CSV, TSV e HTML", "Detecta o separador (tabulação, vírgula, espaços)", "Completa linhas curtas para a tabela ficar certa", "Opção de igualar a largura das colunas"],
+    },
+    slug: {
+      title: "Gerador de slug", desc: "Transforma um título em algo que cabe numa URL", category: "Limpar",
+      metaTitle: "Gerador de slug — Transforme o título do post em um slug limpo",
+      long: "Transforma o título de um post em algo que você pode colocar numa URL. O coreano é transliterado para o alfabeto latino, espaços e pontuação viram hífens, e hífens repetidos ou nas pontas são limpos. Ao limitar o comprimento, ele corta no limite de uma palavra, não no meio.",
+      features: ["Translitera o coreano para o alfabeto latino", "Hífen ou sublinhado como separador", "Remove acentos (café → cafe)", "O limite de comprimento corta entre palavras"],
+    },
+    reverse: {
+      title: "Inverter texto", desc: "Vira o texto por caractere, palavra ou linha", category: "Símbolos",
+      metaTitle: "Inverter texto — Virar uma cadeia por caractere, palavra ou linha",
+      long: "Inverte o texto. Você pode virá-lo caractere a caractere, palavra a palavra ou linha a linha. Os caracteres são tratados por ponto de código, então emoji e marcas combinantes não são partidos ao meio — e inverter duas vezes devolve exatamente o que você tinha.",
+      features: ["Três unidades: caracteres, palavras, linhas", "Os emoji permanecem inteiros", "Cada linha é invertida separadamente", "Copie o resultado com um toque"],
+    },
+    vertical: {
+      title: "Texto vertical", desc: "Põe o texto horizontal em pé, um caractere por linha", category: "Símbolos",
+      metaTitle: "Texto vertical — Transformar escrita horizontal em colunas verticais",
+      long: "Põe a escrita horizontal em pé, um caractere de cada vez. Se você der várias linhas, cada uma vira sua própria coluna vertical; também dá para lê-las da direita para a esquerda, a ordem tradicional. Colunas de tamanhos diferentes são completadas para que as fileiras nunca saiam do lugar.",
+      features: ["Um caractere por linha, em pé", "Várias linhas viram colunas lado a lado", "Ordem da direita para a esquerda (tradicional)", "Espaço ajustável entre colunas"],
     },
   },
 
@@ -228,6 +336,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: 'デザインや画面を作っているあいだに必要な埋め草の文章を作ります。段落の数と一段落の長さを決められ、試している枠に収まるよう文字数をぴったりに切ることもできます。',
       features: ['古典的なラテン語のlorem ipsum', '段落の数と長さを指定', '指定した文字数でぴったり切る', '結果をまとめてコピー'],
     },
+    mask: {
+      title: "個人情報の伏せ字", desc: "氏名・電話番号・番号を一度に伏せます", category: "整える",
+      metaTitle: "個人情報の伏せ字 — 氏名・電話番号・身分証番号をまとめてマスク",
+      long: "氏名・電話番号・身分証番号・カード番号・メールアドレスが混じった文章を貼り付けると、まとめて伏せます。末尾は残るのでどの記録かは分かり、そのまま画面を共有できます。処理はブラウザの中だけで行い、サーバーには送りません。",
+      features: ["氏名・電話・番号・カード・メールを一度に", "末尾を残して記録は見分けられるように", "種類ごとにオン・オフ", "伏せ字を選べます（* ● ■ X）"],
+    },
+    wrap: {
+      title: "改行の整え直し", desc: "幅に合わせて折り返す・切れた行をつなぐ", category: "整える",
+      metaTitle: "改行の整え直し — 幅に合わせて折り返す、切れた行をつなぐ",
+      long: "PDFやメールから copy した文章は段落の途中で改行されています。その行をつないで段落に戻したり、逆に決まった文字数で折り返したりします。段落の間の空行はそのまま残るので、段落の区切りは失われません。",
+      features: ["切れた行を段落につなぎ直す", "40・60・80・100文字で折り返す", "単語を途中で切らない", "段落の区切りはそのまま"],
+    },
+    table: {
+      title: "表づくり", desc: "貼り付けたデータをMarkdown・CSV・HTMLの表に", category: "整える",
+      metaTitle: "表づくり — 表計算からの貼り付けをMarkdown・CSV・HTMLに",
+      long: "表計算ソフトから copy した行を貼り付けると、Markdownの表・CSV・TSV・HTMLの表に変えます。列の区切りは自分で判別し、行ごとにセルの数が違う場合は短い行を埋めるので表が崩れません。",
+      features: ["Markdown・CSV・TSV・HTMLで出力", "区切り（タブ・カンマ・空白）を自動判別", "短い行を埋めて表が崩れないように", "桁幅をそろえる指定も可能"],
+    },
+    slug: {
+      title: "スラッグ作成", desc: "記事の題名をURLに使える形に", category: "整える",
+      metaTitle: "スラッグ作成 — 記事の題名をURL用のきれいなスラッグに",
+      long: "記事の題名をURLに使える形に変えます。韓国語はラテン文字に翻字し、空白や記号はハイフンに変え、続いたハイフンや前後のハイフンを整理します。長さを制限するときは単語の途中ではなく区切りで切ります。",
+      features: ["韓国語をラテン文字に翻字", "区切りはハイフンかアンダースコア", "アクセント記号を除去（café → cafe）", "長さ制限は単語の区切りで"],
+    },
+    reverse: {
+      title: "文字の反転", desc: "文字・単語・行の単位で逆さにします", category: "記号",
+      metaTitle: "文字の反転 — 文字・単語・行の単位で逆さにする",
+      long: "文章を逆さにします。文字単位、単語単位、行単位から選べます。文字はコードポイント単位で扱うので絵文字や結合文字が割れることはなく、二度逆さにすると元どおりになります。",
+      features: ["文字・単語・行の3つの単位", "絵文字が壊れません", "複数行は行ごとに反転", "結果をワンタップでコピー"],
+    },
+    vertical: {
+      title: "縦書き変換", desc: "横書きの文章を1文字ずつ縦に立てます", category: "記号",
+      metaTitle: "縦書き変換 — 横書きを縦の列に組み替える",
+      long: "横書きの文章を1文字ずつ縦に立てます。複数行を入れるとそれぞれが1つの縦列になり、右から左へ読む伝統的な順にもできます。長さの違う列は空白で埋めるので、行がずれることはありません。",
+      features: ["1文字ずつ縦に立てる", "複数行を並んだ縦列に", "右から左へ（伝統的な順）", "列の間の空きを調整"],
+    },
   },
 
   de: {
@@ -278,6 +422,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Lorem-Ipsum-Generator — Blindtext in jeder Länge',
       long: 'Erzeugt den Blindtext, den du beim Bauen eines Designs oder eines Screens brauchst. Leg fest, wie viele Absätze und wie lang jeder ist, oder kürze auf eine genaue Zeichenzahl, damit er in das Feld passt, das du testest.',
       features: ['Klassisches lateinisches Lorem ipsum', 'Absatzzahl und -länge festlegen', 'Auf eine genaue Zeichenzahl kürzen', 'Das ganze Ergebnis auf einmal kopieren'],
+    },
+    mask: {
+      title: "Persönliche Daten schwärzen", desc: "Namen, Telefonnummern und Ausweisnummern in einem Durchgang", category: "Aufräumen",
+      metaTitle: "Persönliche Daten schwärzen — Namen, Telefonnummern und Ausweisnummern maskieren",
+      long: "Füge Text mit Namen, Telefonnummern, Ausweisnummern, Kartennummern und E-Mail-Adressen ein — alles wird auf einmal verdeckt. Die letzten Ziffern bleiben sichtbar, sodass sich der Datensatz noch zuordnen lässt und das Ergebnis geteilt werden kann. Alles läuft im Browser, nichts geht an einen Server.",
+      features: ["Namen, Telefon, Ausweis, Karte und E-Mail auf einmal", "Letzte Ziffern bleiben zur Zuordnung stehen", "Jede Art einzeln an- und abschalten", "Platzhalterzeichen wählbar (* ● ■ X)"],
+    },
+    wrap: {
+      title: "Zeilenumbrüche neu setzen", desc: "Auf eine Breite umbrechen oder zerrissene Zeilen zusammenfügen", category: "Aufräumen",
+      metaTitle: "Zeilenumbrüche neu setzen — Auf eine Breite umbrechen oder Zeilen zusammenfügen",
+      long: "Text aus einem PDF oder einer E-Mail bricht mitten im Absatz um. Das fügt diese Zeilen wieder zu Absätzen zusammen — oder macht das Gegenteil und bricht alles auf eine feste Zeichenzahl um. Leerzeilen zwischen Absätzen bleiben stehen, die Absatzstruktur überlebt also.",
+      features: ["Zerrissene Zeilen wieder zu Absätzen fügen", "Auf 40, 60, 80 oder 100 Zeichen umbrechen", "Wörter werden nie getrennt", "Absatzumbrüche bleiben erhalten"],
+    },
+    table: {
+      title: "Tabellen-Baukasten", desc: "Eingefügte Daten als Markdown-, CSV- oder HTML-Tabelle", category: "Aufräumen",
+      metaTitle: "Tabellen-Baukasten — Tabellendaten als Markdown, CSV oder HTML einfügen",
+      long: "Füge Zeilen aus einer Tabellenkalkulation ein, und daraus wird eine Markdown-Tabelle, CSV, TSV oder eine HTML-Tabelle. Es erkennt selbst, was die Spalten trennt, und füllt kurze Zeilen auf, wenn Zeilen unterschiedlich viele Zellen haben — so bricht die Tabelle nicht auseinander.",
+      features: ["Ausgabe als Markdown, CSV, TSV und HTML", "Erkennt das Trennzeichen (Tabulator, Komma, Leerzeichen)", "Füllt kurze Zeilen auf, damit die Tabelle stimmt", "Optional Spalten auf gleiche Breite bringen"],
+    },
+    slug: {
+      title: "Slug-Generator", desc: "Macht aus einem Titel etwas, das in eine URL passt", category: "Aufräumen",
+      metaTitle: "Slug-Generator — Aus einem Beitragstitel einen sauberen URL-Slug machen",
+      long: "Macht aus einem Beitragstitel etwas, das in eine URL passt. Koreanisch wird ins lateinische Alphabet umgeschrieben, Leerzeichen und Satzzeichen werden zu Bindestrichen, und mehrfache oder randständige Bindestriche werden entfernt. Bei einer Längenbegrenzung wird an einer Wortgrenze geschnitten, nicht mitten im Wort.",
+      features: ["Schreibt Koreanisch ins lateinische Alphabet um", "Bindestrich oder Unterstrich als Trenner", "Entfernt Akzente (café → cafe)", "Längenbegrenzung schneidet an Wortgrenzen"],
+    },
+    reverse: {
+      title: "Text umkehren", desc: "Dreht Text zeichen-, wort- oder zeilenweise um", category: "Zeichen",
+      metaTitle: "Text umkehren — Eine Zeichenkette zeichen-, wort- oder zeilenweise umdrehen",
+      long: "Kehrt Text um. Du kannst zeichenweise, wortweise oder zeilenweise umdrehen. Zeichen werden nach Codepoint behandelt, sodass Emoji und kombinierende Zeichen nicht auseinandergerissen werden — und zweimaliges Umkehren ergibt exakt den Ausgangstext.",
+      features: ["Drei Einheiten: Zeichen, Wörter, Zeilen", "Emoji bleiben unversehrt", "Jede Zeile wird für sich umgekehrt", "Ergebnis mit einem Tipp kopieren"],
+    },
+    vertical: {
+      title: "Senkrechter Text", desc: "Stellt waagerechten Text auf — ein Zeichen pro Zeile", category: "Zeichen",
+      metaTitle: "Senkrechter Text — Waagerechte Schrift in senkrechte Spalten verwandeln",
+      long: "Stellt waagerechte Schrift Zeichen für Zeichen auf. Gibst du mehrere Zeilen ein, wird jede zu einer eigenen senkrechten Spalte; du kannst sie auch von rechts nach links lesen, in der überlieferten Reihenfolge. Unterschiedlich lange Spalten werden aufgefüllt, damit die Reihen nie verrutschen.",
+      features: ["Ein Zeichen pro Zeile, aufrecht", "Mehrere Zeilen werden nebeneinanderstehende Spalten", "Von rechts nach links (überliefert)", "Einstellbarer Abstand zwischen Spalten"],
     },
   },
 
@@ -330,6 +510,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: 'Génère le faux texte dont tu as besoin pendant que tu construis une maquette ou un écran. Fixe le nombre de paragraphes et la longueur de chacun, ou coupe à un nombre exact de caractères pour que ça rentre dans la boîte que tu testes.',
       features: ['Lorem ipsum latin classique', 'Fixer le nombre et la longueur des paragraphes', 'Couper à un nombre exact de caractères', 'Copier tout le résultat d’un coup'],
     },
+    mask: {
+      title: "Masquer les données personnelles", desc: "Cache noms, téléphones et numéros d’identité d’un coup", category: "Nettoyer",
+      metaTitle: "Masquer les données personnelles — Noms, téléphones et numéros d’identité",
+      long: "Collez un texte contenant des noms, des téléphones, des numéros d’identité, des cartes et des e-mails : tout est masqué d’un coup. Les derniers chiffres restent visibles, si bien qu’on reconnaît encore l’enregistrement et que le résultat peut être partagé. Tout se passe dans votre navigateur, rien n’est envoyé à un serveur.",
+      features: ["Noms, téléphones, identités, cartes et e-mails d’un coup", "Garde les derniers chiffres pour reconnaître l’enregistrement", "Activez ou désactivez chaque type", "Choisissez le caractère de masque (* ● ■ X)"],
+    },
+    wrap: {
+      title: "Remettre en forme les retours à la ligne", desc: "Couper à une largeur ou rejoindre les lignes coupées", category: "Nettoyer",
+      metaTitle: "Remettre en forme les retours à la ligne — Couper à une largeur ou rejoindre les lignes",
+      long: "Le texte copié d’un PDF ou d’un e-mail se coupe au milieu d’un paragraphe. Ceci rejoint ces lignes en paragraphes, ou fait l’inverse et coupe tout à un nombre fixe de caractères. Les lignes vides entre paragraphes restent, la structure est donc préservée.",
+      features: ["Rejoint les lignes coupées en paragraphes", "Coupe à 40, 60, 80 ou 100 caractères", "Ne coupe jamais un mot en deux", "Les sauts de paragraphe sont conservés"],
+    },
+    table: {
+      title: "Constructeur de tableau", desc: "Transforme les données collées en tableau Markdown, CSV ou HTML", category: "Nettoyer",
+      metaTitle: "Constructeur de tableau — Collez des données de tableur en Markdown, CSV ou HTML",
+      long: "Collez des lignes copiées depuis un tableur et elles deviennent un tableau Markdown, CSV, TSV ou HTML. L’outil devine seul ce qui sépare les colonnes et, quand les lignes n’ont pas le même nombre de cellules, il complète les plus courtes pour que le tableau ne se désaligne pas.",
+      features: ["Sortie Markdown, CSV, TSV et HTML", "Détecte le séparateur (tabulation, virgule, espaces)", "Complète les lignes courtes pour garder l’alignement", "Option pour égaliser la largeur des colonnes"],
+    },
+    slug: {
+      title: "Générateur de slug", desc: "Transforme un titre en quelque chose qui tient dans une URL", category: "Nettoyer",
+      metaTitle: "Générateur de slug — Transformer un titre d’article en slug propre",
+      long: "Transforme un titre d’article en quelque chose que vous pouvez mettre dans une URL. Le coréen est translittéré en alphabet latin, les espaces et la ponctuation deviennent des tirets, et les tirets répétés ou en bout de chaîne sont nettoyés. Quand vous limitez la longueur, la coupe se fait à une frontière de mot.",
+      features: ["Translittère le coréen en alphabet latin", "Tiret ou tiret bas comme séparateur", "Supprime les accents (café → cafe)", "La limite de longueur coupe entre les mots"],
+    },
+    reverse: {
+      title: "Inverser le texte", desc: "Retourne le texte par caractère, par mot ou par ligne", category: "Symboles",
+      metaTitle: "Inverser le texte — Retourner une chaîne par caractère, mot ou ligne",
+      long: "Inverse le texte. Vous pouvez le retourner caractère par caractère, mot par mot ou ligne par ligne. Les caractères sont traités par point de code, donc les emoji et les signes combinants ne sont pas coupés en deux — et inverser deux fois redonne exactement le texte de départ.",
+      features: ["Trois unités : caractères, mots, lignes", "Les emoji restent intacts", "Chaque ligne est inversée séparément", "Copiez le résultat d’un geste"],
+    },
+    vertical: {
+      title: "Texte vertical", desc: "Dresse le texte horizontal, un caractère par ligne", category: "Symboles",
+      metaTitle: "Texte vertical — Transformer l’écriture horizontale en colonnes verticales",
+      long: "Dresse l’écriture horizontale caractère par caractère. Donnez-lui plusieurs lignes et chacune devient sa propre colonne verticale ; vous pouvez aussi les lire de droite à gauche, l’ordre traditionnel. Les colonnes de longueurs différentes sont complétées pour que les rangées ne se décalent jamais.",
+      features: ["Un caractère par ligne, à la verticale", "Plusieurs lignes deviennent des colonnes côte à côte", "Ordre de droite à gauche (traditionnel)", "Espace réglable entre les colonnes"],
+    },
   },
 
   hi: {
@@ -381,6 +597,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: 'डिज़ाइन या स्क्रीन बनाते समय जो भराई का पाठ चाहिए, वह बना देता है। कितने अनुच्छेद और हर एक कितना लंबा हो यह तय करें, या जिस डिब्बे में फ़िट करना है उसके हिसाब से ठीक उतने अक्षरों पर काट दें।',
       features: ['क्लासिक लैटिन लोरेम इप्सम', 'अनुच्छेदों की संख्या और लंबाई तय करें', 'ठीक उतने अक्षरों पर काटें', 'पूरा नतीजा एक बार में कॉपी करें'],
     },
+    mask: {
+      title: "निजी जानकारी छिपाएँ", desc: "नाम, फ़ोन नंबर और पहचान संख्या एक साथ छिपाएँ", category: "सफ़ाई",
+      metaTitle: "निजी जानकारी छिपाएँ — नाम, फ़ोन नंबर और पहचान संख्या मास्क करें",
+      long: "ऐसा पाठ चिपकाएँ जिसमें नाम, फ़ोन नंबर, पहचान संख्या, कार्ड नंबर और ईमेल हों — सब एक साथ छिप जाएँगे। आख़िरी अंक दिखते रहते हैं, इसलिए यह पहचाना जा सकता है कि कौन-सा रिकॉर्ड था और परिणाम साझा किया जा सकता है। सब कुछ आपके ब्राउज़र में होता है, कुछ भी सर्वर पर नहीं जाता।",
+      features: ["नाम, फ़ोन, पहचान, कार्ड और ईमेल एक साथ", "आख़िरी अंक रखे जाते हैं ताकि पहचान बनी रहे", "हर प्रकार को अलग से चालू या बंद करें", "छिपाने का चिह्न चुनें (* ● ■ X)"],
+    },
+    wrap: {
+      title: "पंक्ति-विराम व्यवस्थित करें", desc: "चौड़ाई के अनुसार तोड़ें या टूटी पंक्तियाँ जोड़ें", category: "सफ़ाई",
+      metaTitle: "पंक्ति-विराम व्यवस्थित करें — चौड़ाई से तोड़ें या टूटी पंक्तियाँ जोड़ें",
+      long: "PDF या ईमेल से नक़ल किया पाठ अनुच्छेद के बीच में टूट जाता है। यह उन पंक्तियों को फिर से अनुच्छेदों में जोड़ता है, या इसका उल्टा करके सब कुछ तय अक्षर-संख्या पर तोड़ता है। अनुच्छेदों के बीच की ख़ाली पंक्तियाँ बनी रहती हैं, इसलिए संरचना नहीं बिगड़ती।",
+      features: ["टूटी पंक्तियों को अनुच्छेदों में जोड़ता है", "40, 60, 80 या 100 अक्षरों पर तोड़ता है", "शब्द को बीच से कभी नहीं तोड़ता", "अनुच्छेद-विराम सुरक्षित रहते हैं"],
+    },
+    table: {
+      title: "तालिका निर्माता", desc: "चिपकाए डेटा को Markdown, CSV या HTML तालिका में बदलें", category: "सफ़ाई",
+      metaTitle: "तालिका निर्माता — स्प्रेडशीट डेटा को Markdown, CSV या HTML में",
+      long: "स्प्रेडशीट से नक़ल की पंक्तियाँ चिपकाएँ और वे Markdown तालिका, CSV, TSV या HTML तालिका बन जाएँगी। यह स्वयं पहचान लेता है कि स्तंभ किससे अलग हैं, और जब पंक्तियों में कोशिकाओं की संख्या अलग हो तो छोटी पंक्तियों को भर देता है ताकि तालिका बिगड़े नहीं।",
+      features: ["Markdown, CSV, TSV और HTML में आउटपुट", "विभाजक पहचानता है (टैब, अल्पविराम, रिक्त स्थान)", "छोटी पंक्तियाँ भरकर तालिका सही रखता है", "स्तंभों की चौड़ाई बराबर करने का विकल्प"],
+    },
+    slug: {
+      title: "स्लग जनरेटर", desc: "शीर्षक को URL में डालने लायक बनाएँ", category: "सफ़ाई",
+      metaTitle: "स्लग जनरेटर — पोस्ट के शीर्षक को साफ़ URL स्लग में बदलें",
+      long: "पोस्ट के शीर्षक को ऐसे रूप में बदलता है जिसे URL में डाला जा सके। कोरियाई को रोमन लिपि में लिखा जाता है, रिक्त स्थान और विराम-चिह्न हाइफ़न बन जाते हैं, और लगातार या किनारे के हाइफ़न साफ़ कर दिए जाते हैं। लंबाई सीमित करने पर शब्द के बीच नहीं, सीमा पर काटा जाता है।",
+      features: ["कोरियाई को रोमन लिपि में लिखता है", "हाइफ़न या अंडरस्कोर विभाजक", "उच्चारण-चिह्न हटाता है (café → cafe)", "लंबाई सीमा शब्द-सीमा पर काटती है"],
+    },
+    reverse: {
+      title: "पाठ उलटें", desc: "अक्षर, शब्द या पंक्ति के हिसाब से उलटें", category: "चिह्न",
+      metaTitle: "पाठ उलटें — अक्षर, शब्द या पंक्ति के हिसाब से पलटें",
+      long: "पाठ को उलटता है। आप इसे अक्षर-दर-अक्षर, शब्द-दर-शब्द या पंक्ति-दर-पंक्ति पलट सकते हैं। अक्षरों को कोड-पॉइंट के हिसाब से संभाला जाता है, इसलिए इमोजी और संयोजक चिह्न बीच से नहीं टूटते — और दो बार उलटने पर बिलकुल वही लौट आता है जो शुरू में था।",
+      features: ["तीन इकाइयाँ: अक्षर, शब्द, पंक्तियाँ", "इमोजी सुरक्षित रहते हैं", "हर पंक्ति अलग से उलटती है", "एक बार में परिणाम कॉपी करें"],
+    },
+    vertical: {
+      title: "लंबवत पाठ", desc: "क्षैतिज पाठ को प्रति पंक्ति एक अक्षर करके खड़ा करें", category: "चिह्न",
+      metaTitle: "लंबवत पाठ — क्षैतिज लेखन को लंबवत स्तंभों में बदलें",
+      long: "क्षैतिज लेखन को एक-एक अक्षर करके खड़ा करता है। कई पंक्तियाँ दें तो हर एक अपना लंबवत स्तंभ बन जाती है; आप उन्हें दाएँ से बाएँ, पारंपरिक क्रम में भी पढ़ सकते हैं। अलग-अलग लंबाई के स्तंभ भर दिए जाते हैं ताकि पंक्तियाँ कभी न खिसकें।",
+      features: ["प्रति पंक्ति एक अक्षर, खड़ा", "कई पंक्तियाँ अगल-बगल स्तंभ बनती हैं", "दाएँ से बाएँ (पारंपरिक) क्रम", "स्तंभों के बीच समायोज्य जगह"],
+    },
   },
   'zh-hans': {
     clean: {
@@ -431,6 +683,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: '做设计或做界面时需要的填充文字，这里生成。可以定几段、每段多长，也能裁到刚好的字符数，正好塞进你要试的那个框。',
       features: ['经典的拉丁文lorem ipsum', '设定段数和每段长度', '裁到精确的字符数', '一次复制全部结果'],
     },
+    mask: {
+      title: "个人信息遮蔽", desc: "一次遮住姓名、电话和证件号", category: "整理",
+      metaTitle: "个人信息遮蔽 — 一次遮住姓名、电话与证件号码",
+      long: "把含有姓名、电话、证件号码、卡号和邮箱的文字粘贴进来，一次全部遮住。末尾几位保留，仍能分辨是哪一条记录，结果可以直接截图分享。全部在浏览器里完成，不会发送到服务器。",
+      features: ["姓名、电话、证件、卡号、邮箱一次搞定", "保留末尾几位，记录仍可分辨", "每一类都能单独开关", "可选遮蔽字符（* ● ■ X）"],
+    },
+    wrap: {
+      title: "重排换行", desc: "按宽度换行，或把断开的行接起来", category: "整理",
+      metaTitle: "重排换行 — 按宽度换行或把断开的行接起来",
+      long: "从 PDF 或邮件里复制的文字常在段落中间断行。这里可以把这些行重新接成段落，也可以反过来按固定字数换行。段落之间的空行会保留，所以段落结构不会丢失。",
+      features: ["把断开的行接回段落", "按 40、60、80、100 字换行", "从不把词从中间切开", "保留段落之间的空行"],
+    },
+    table: {
+      title: "表格生成器", desc: "把粘贴的数据变成 Markdown、CSV 或 HTML 表格", category: "整理",
+      metaTitle: "表格生成器 — 把表格软件的数据粘贴成 Markdown、CSV 或 HTML",
+      long: "把从表格软件里复制的行粘贴进来，就会变成 Markdown 表格、CSV、TSV 或 HTML 表格。它会自己判断列是用什么分隔的；当各行单元格数量不同时，会补齐较短的行，表格不会散掉。",
+      features: ["输出 Markdown、CSV、TSV 和 HTML", "自动识别分隔符（制表符、逗号、空格）", "补齐短行，表格不会错位", "可选把各列补到同宽"],
+    },
+    slug: {
+      title: "别名生成器", desc: "把标题变成能放进网址的形式", category: "整理",
+      metaTitle: "别名生成器 — 把文章标题变成干净的网址别名",
+      long: "把文章标题变成能放进网址的形式。韩文转写为拉丁字母，空格和标点变成连字符，连续的以及首尾的连字符都会清理掉。限制长度时会在词的边界处切开，而不是切在词中间。",
+      features: ["把韩文转写成拉丁字母", "连字符或下划线作分隔", "去掉重音符号（café → cafe）", "长度限制在词边界处切开"],
+    },
+    reverse: {
+      title: "文字倒转", desc: "按字符、词或行倒转文字", category: "符号",
+      metaTitle: "文字倒转 — 按字符、词或行把文字反过来",
+      long: "把文字倒过来。可以按字符、按词或按行倒转。字符按码点处理，所以表情符号和组合符号不会被切成两半——倒转两次会精确回到原样。",
+      features: ["三种单位：字符、词、行", "表情符号不会损坏", "多行时每行单独倒转", "一键复制结果"],
+    },
+    vertical: {
+      title: "竖排转换", desc: "把横排文字一个字一行地立起来", category: "符号",
+      metaTitle: "竖排转换 — 把横排文字变成竖排的列",
+      long: "把横排文字一个字一个字地立起来。输入多行时，每一行成为一列竖排；也可以按从右到左的传统顺序排列。长度不同的列会补空格，所以各行绝不会错位。",
+      features: ["一行一个字，竖着立起来", "多行变成并排的竖列", "从右到左（传统顺序）", "列间空格可调"],
+    },
   },
   'zh-hant': {
     clean: {
@@ -480,6 +768,42 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: 'Lorem Ipsum 產生器 — 任意長度的佔位文字',
       long: '做設計或做介面時需要的填充文字，這裡產生。可以定幾段、每段多長，也能裁到剛好的字元數，正好塞進你要試的那個框。',
       features: ['經典的拉丁文lorem ipsum', '設定段數和每段長度', '裁到精確的字元數', '一次複製全部結果'],
+    },
+    mask: {
+      title: "個人資料遮蔽", desc: "一次遮住姓名、電話與證件號", category: "整理",
+      metaTitle: "個人資料遮蔽 — 一次遮住姓名、電話與證件號碼",
+      long: "把含有姓名、電話、證件號碼、卡號與電子郵件的文字貼上，一次全部遮住。末尾幾位保留，仍能分辨是哪一筆紀錄，結果可以直接截圖分享。全部在瀏覽器裡完成，不會送到伺服器。",
+      features: ["姓名、電話、證件、卡號、郵件一次搞定", "保留末尾幾位，紀錄仍可分辨", "每一類都能單獨開關", "可選遮蔽字元（* ● ■ X）"],
+    },
+    wrap: {
+      title: "重排換行", desc: "按寬度換行，或把斷開的行接起來", category: "整理",
+      metaTitle: "重排換行 — 按寬度換行或把斷開的行接起來",
+      long: "從 PDF 或郵件裡複製的文字常在段落中間斷行。這裡可以把這些行重新接成段落，也可以反過來按固定字數換行。段落之間的空行會保留，所以段落結構不會遺失。",
+      features: ["把斷開的行接回段落", "按 40、60、80、100 字換行", "從不把詞從中間切開", "保留段落之間的空行"],
+    },
+    table: {
+      title: "表格產生器", desc: "把貼上的資料變成 Markdown、CSV 或 HTML 表格", category: "整理",
+      metaTitle: "表格產生器 — 把試算表資料貼成 Markdown、CSV 或 HTML",
+      long: "把從試算表裡複製的列貼上，就會變成 Markdown 表格、CSV、TSV 或 HTML 表格。它會自己判斷欄是用什麼分隔的；當各列儲存格數量不同時，會補齊較短的列，表格不會散掉。",
+      features: ["輸出 Markdown、CSV、TSV 與 HTML", "自動辨識分隔符（定位字元、逗號、空格）", "補齊短列，表格不會錯位", "可選把各欄補到同寬"],
+    },
+    slug: {
+      title: "別名產生器", desc: "把標題變成能放進網址的形式", category: "整理",
+      metaTitle: "別名產生器 — 把文章標題變成乾淨的網址別名",
+      long: "把文章標題變成能放進網址的形式。韓文轉寫為拉丁字母，空格和標點變成連字號，連續的以及首尾的連字號都會清理掉。限制長度時會在詞的邊界處切開，而不是切在詞中間。",
+      features: ["把韓文轉寫成拉丁字母", "連字號或底線作分隔", "去掉重音符號（café → cafe）", "長度限制在詞邊界處切開"],
+    },
+    reverse: {
+      title: "文字倒轉", desc: "按字元、詞或行倒轉文字", category: "符號",
+      metaTitle: "文字倒轉 — 按字元、詞或行把文字反過來",
+      long: "把文字倒過來。可以按字元、按詞或按行倒轉。字元按碼位處理，所以表情符號和組合符號不會被切成兩半——倒轉兩次會精確回到原樣。",
+      features: ["三種單位：字元、詞、行", "表情符號不會損壞", "多行時每行單獨倒轉", "一鍵複製結果"],
+    },
+    vertical: {
+      title: "直排轉換", desc: "把橫排文字一個字一行地立起來", category: "符號",
+      metaTitle: "直排轉換 — 把橫排文字變成直排的欄",
+      long: "把橫排文字一個字一個字地立起來。輸入多列時，每一列成為一欄直排；也可以按從右到左的傳統順序排列。長度不同的欄會補空格，所以各列絕不會錯位。",
+      features: ["一列一個字，直著立起來", "多列變成並排的直欄", "從右到左（傳統順序）", "欄間空格可調"],
     },
   },
 };
