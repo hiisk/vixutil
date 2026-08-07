@@ -62,6 +62,7 @@ import { MAGNITUDES as QUAKE_MAGS } from '@/lib/quake/list';
 import { CELLS as BED_CELLS } from '@/lib/bed/list';
 import { CELLS as WINE_CELLS } from '@/lib/wine/list';
 import { CELLS as BLOOD_CELLS } from '@/lib/blood/list';
+import { CELLS as EXPOSURE_CELLS } from '@/lib/exposure/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1039,6 +1040,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/exposure',
+    icon: '📷',
+    title: '노출값(EV) 표',
+    desc: 'f/11은 사실 11.314, 1/60초는 사실 1/64초 — 조리개와 셔터가 만나는 자리',
+    badge: `${EXPOSURE_CELLS.length}칸`,
+    color: 'from-slate-800 to-sky-400',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/40',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-800',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/blood',

@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/exposure', icon: '📷', color: 'from-slate-800 to-sky-400',
+    accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
+    copy: {
+      en: { title: 'Exposure Value Chart', desc: 'f/11 is really 11.314 and 1/60 s is really 1/64 s' },
+      es: { title: 'Tabla de valor de exposición', desc: 'f/11 es en realidad 11,314 y 1/60 s es 1/64 s' },
+      'pt-br': { title: 'Tabela de valor de exposição', desc: 'f/11 é na verdade 11,314 e 1/60 s é 1/64 s' },
+      ja: { title: '露出値(EV)表', desc: 'f/11は実は11.314、1/60秒は実は1/64秒です' },
+      de: { title: 'Lichtwert-Tabelle', desc: 'f/11 ist in Wahrheit 11,314 und 1/60 s ist 1/64 s' },
+      fr: { title: 'Indices de lumination', desc: 'f/11 vaut en réalité 11,314 et 1/60 s vaut 1/64 s' },
+      hi: { title: 'एक्सपोज़र वैल्यू तालिका', desc: 'f/11 असल में 11.314 है और 1/60 s असल में 1/64 s' },
+      'zh-hans': { title: '曝光值(EV)表', desc: 'f/11 其实是 11.314，1/60 秒其实是 1/64 秒' },
+      'zh-hant': { title: '曝光值(EV)表', desc: 'f/11 其實是 11.314，1/60 秒其實是 1/64 秒' },
+    },
+  },
+  {
     route: '/blood', icon: '🩸', color: 'from-red-900 to-rose-400',
     accent: 'text-red-700 dark:text-red-200', border: 'border-red-200 dark:border-red-800', bg: 'bg-red-50 dark:bg-red-900/40',
     copy: {
