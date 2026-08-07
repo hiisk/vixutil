@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/blood', icon: '🩸', color: 'from-red-900 to-rose-400',
+    accent: 'text-red-700 dark:text-red-200', border: 'border-red-200 dark:border-red-800', bg: 'bg-red-50 dark:bg-red-900/40',
+    copy: {
+      en: { title: 'Transfusion Compatibility', desc: 'O is the universal red cell donor, AB the universal plasma donor' },
+      es: { title: 'Compatibilidad transfusional', desc: 'O dona glóbulos a todos; AB, plasma a todos' },
+      'pt-br': { title: 'Compatibilidade transfusional', desc: 'O doa hemácias a todos; AB, plasma a todos' },
+      ja: { title: '輸血適合表', desc: '赤血球の万能供血者はO型、血漿の万能供血者はAB型です' },
+      de: { title: 'Transfusionskompatibilität', desc: 'O ist Universalspender für Erythrozyten, AB für Plasma' },
+      fr: { title: 'Compatibilité transfusionnelle', desc: 'O donne ses globules à tous, AB son plasma à tous' },
+      hi: { title: 'रक्ताधान अनुकूलता', desc: 'लाल कोशिकाओं का सार्वभौमिक दाता O, प्लाज़्मा का AB' },
+      'zh-hans': { title: '输血相容表', desc: '红细胞的万能供血者是 O 型，血浆的是 AB 型' },
+      'zh-hant': { title: '輸血相容表', desc: '紅血球的萬能供血者是 O 型，血漿的是 AB 型' },
+    },
+  },
+  {
     route: '/wine', icon: '🍷', color: 'from-pink-900 to-rose-400',
     accent: 'text-pink-700 dark:text-pink-200', border: 'border-pink-200 dark:border-pink-800', bg: 'bg-pink-50 dark:bg-pink-900/40',
     copy: {

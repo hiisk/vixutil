@@ -61,6 +61,7 @@ import { CELLS as MW_CELLS } from '@/lib/microwave/list';
 import { MAGNITUDES as QUAKE_MAGS } from '@/lib/quake/list';
 import { CELLS as BED_CELLS } from '@/lib/bed/list';
 import { CELLS as WINE_CELLS } from '@/lib/wine/list';
+import { CELLS as BLOOD_CELLS } from '@/lib/blood/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1038,6 +1039,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/blood',
+    icon: '🩸',
+    title: '수혈 적합표',
+    desc: 'O형은 적혈구의 만능 공혈자, AB형은 혈장의 만능 공혈자 — 규칙이 반대입니다',
+    badge: `${BLOOD_CELLS.length}칸`,
+    color: 'from-red-900 to-rose-400',
+    bgLight: 'bg-red-50 dark:bg-red-950/40',
+    textAccent: 'text-red-700 dark:text-red-300',
+    borderAccent: 'border-red-200 dark:border-red-800',
+    shadow: 'shadow-red-100',
   },
   {
     href: '/wine',
