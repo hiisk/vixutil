@@ -64,6 +64,7 @@ import { CELLS as WINE_CELLS } from '@/lib/wine/list';
 import { CELLS as BLOOD_CELLS } from '@/lib/blood/list';
 import { CELLS as EXPOSURE_CELLS } from '@/lib/exposure/list';
 import { CELLS as HEREDITY_CELLS } from '@/lib/heredity/list';
+import { CELLS as RAID_CELLS } from '@/lib/raid/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -1041,6 +1042,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-300',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/raid',
+    icon: '💽',
+    title: 'RAID 용량표',
+    desc: '4TB 넉 장으로 RAID 5를 만들면 12TB인데 화면에는 10.91TiB로 보입니다',
+    badge: `${RAID_CELLS.length}칸`,
+    color: 'from-teal-800 to-emerald-400',
+    bgLight: 'bg-teal-50 dark:bg-teal-950/40',
+    textAccent: 'text-teal-700 dark:text-teal-300',
+    borderAccent: 'border-teal-200 dark:border-teal-800',
+    shadow: 'shadow-teal-100',
   },
   {
     href: '/heredity',

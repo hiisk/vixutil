@@ -86,6 +86,7 @@ import { CELLS as WINE_CELLS, WINE_ICON, slugOf as wineSlug } from './wine/list'
 import { CELLS as BLOOD_CELLS, BLOOD_ICON, labelOf as bloodLabel, slugOf as bloodSlug, typeOf as bloodType } from './blood/list';
 import { CELLS as EXPOSURE_CELLS, EXPOSURE_ICON, SHUTTERS as EXPOSURE_SHUTTERS, apertureLabel, shutterLabel, slugOf as exposureSlug } from './exposure/list';
 import { CELLS as HEREDITY_CELLS, HEREDITY_ICON, slugOf as heredSlug } from './heredity/list';
+import { CELLS as RAID_CELLS, RAID_ICON, levelLabel as raidLabel, levelOf as raidLevel, slugOf as raidSlug } from './raid/list';
 import { OPENINGS, CHESS_ICON } from './chess/list';
 import { HANDS, POKER_ICON, labelOf } from './poker/list';
 import { handFacts } from './poker/facts';
@@ -147,6 +148,7 @@ import { wineFacts } from './wine/facts';
 import { bloodFacts } from './blood/facts';
 import { exposureFacts } from './exposure/facts';
 import { heredityFacts } from './heredity/facts';
+import { raidFacts } from './raid/facts';
 import { YEAR_UI } from './year/ui';
 import { nameOf } from './element/names';
 import { whatOf } from './regex/desc';
@@ -181,7 +183,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid';
 
 export interface SearchItem {
   href: string;
@@ -279,6 +281,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   blood:      { label: '수혈 적합',  icon: '🩸', accent: 'bg-red-50 text-red-700 border-red-200' },
   exposure:   { label: '노출값',    icon: '📷', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   heredity:   { label: '혈액형 유전', icon: '🧬', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
+  raid:       { label: 'RAID 용량',  icon: '💽', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
 };
 
 /**
@@ -1026,6 +1029,19 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: HEREDITY_ICON,
     };
   }),
+  ...RAID_CELLS.map(c => {
+    const f = raidFacts(c);
+    const name = raidLabel(raidLevel(c.level)!);
+    return {
+      href: `/raid/${raidSlug(c)}`,
+      title: `${name} 디스크 ${c.disks}장 — ${f.possible ? `${f.usable}장분` : '만들 수 없음'}`,
+      desc: f.possible
+        ? `용량 효율 ${f.efficiency}% · 고장 ${f.best!.tolerates}장까지 견딤 · 4TB짜리면 ${f.sizes.find(s => s.size === 4)!.tb}TB(${f.sizes.find(s => s.size === 4)!.tib}TiB)`
+        : `이 레벨은 최소 ${f.minDisks}장이 필요합니다`,
+      section: 'raid' as const,
+      icon: RAID_ICON,
+    };
+  }),
   ...PATTERNS.map(x => ({
     href: `/text/regex/${x.slug}`,
     title: `${whatOf(x.slug, 'ko')} 정규식`,
@@ -1125,6 +1141,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/blood', title: '수혈 적합표', desc: '혈장은 규칙이 반대라 AB형이 만능 공혈자입니다', section: 'blood' as const, icon: BLOOD_ICON },
   { href: '/exposure', title: '노출값(EV) 표', desc: 'f/11은 사실 11.314, 1/60초는 사실 1/64초입니다', section: 'exposure' as const, icon: EXPOSURE_ICON },
   { href: '/heredity', title: '혈액형 유전표', desc: 'AB형과 O형 사이에서는 AB형도 O형도 나오지 않습니다', section: 'heredity' as const, icon: HEREDITY_ICON },
+  { href: '/raid', title: 'RAID 용량표', desc: '4TB 넉 장으로 RAID 5를 만들면 12TB, 화면에는 10.91TiB', section: 'raid' as const, icon: RAID_ICON },
   { href: '/bed', title: '침대 규격과 방 크기', desc: '한국 킹과 미국 King은 33cm 다릅니다', section: 'bed' as const, icon: BED_ICON },
   { href: '/quake', title: '지진 규모와 에너지', desc: '규모 7은 6의 두 배가 아니라 32배입니다', section: 'quake' as const, icon: QUAKE_ICON },
   { href: '/microwave', title: '전자레인지 와트 환산', desc: '700W 3분은 1000W에서 2분 6초입니다', section: 'microwave' as const, icon: MICROWAVE_ICON },

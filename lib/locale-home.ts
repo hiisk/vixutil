@@ -627,6 +627,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/raid', icon: '💽', color: 'from-teal-800 to-emerald-400',
+    accent: 'text-teal-700 dark:text-teal-200', border: 'border-teal-200 dark:border-teal-800', bg: 'bg-teal-50 dark:bg-teal-900/40',
+    copy: {
+      en: { title: 'RAID Capacity', desc: 'Four 4 TB disks in RAID 5 make 12 TB and show up as 10.91 TiB' },
+      es: { title: 'Capacidad RAID', desc: 'Cuatro discos de 4 TB en RAID 5 dan 12 TB y se ven como 10,91 TiB' },
+      'pt-br': { title: 'Capacidade RAID', desc: 'Quatro discos de 4 TB em RAID 5 dão 12 TB e aparecem como 10,91 TiB' },
+      ja: { title: 'RAID容量表', desc: '4TBを4台でRAID 5にすると12TB、画面には10.91TiBと出ます' },
+      de: { title: 'RAID-Kapazität', desc: 'Vier 4-TB-Platten im RAID 5 ergeben 12 TB und erscheinen als 10,91 TiB' },
+      fr: { title: 'Capacité RAID', desc: 'Quatre disques de 4 To en RAID 5 font 12 To et s’affichent en 10,91 Tio' },
+      hi: { title: 'RAID क्षमता', desc: 'चार 4 TB डिस्कें RAID 5 में 12 TB बनाती हैं, दिखती हैं 10.91 TiB' },
+      'zh-hans': { title: 'RAID 容量表', desc: '四块 4TB 盘做 RAID 5 是 12TB，屏幕上却是 10.91TiB' },
+      'zh-hant': { title: 'RAID 容量表', desc: '四顆 4TB 硬碟做 RAID 5 是 12TB，螢幕上卻是 10.91TiB' },
+    },
+  },
+  {
     route: '/heredity', icon: '🧬', color: 'from-violet-900 to-fuchsia-400',
     accent: 'text-violet-700 dark:text-violet-200', border: 'border-violet-200 dark:border-violet-800', bg: 'bg-violet-50 dark:bg-violet-900/40',
     copy: {

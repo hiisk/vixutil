@@ -61,8 +61,9 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,119  수혈 적합표를 열 언어씩 더함(+10)
  *   2,129  노출값(EV) 표를 열 언어씩 더함(+10)
  *   2,139  혈액형 유전표를 열 언어씩 더함(+10)
+ *   2,149  RAID 용량표를 열 언어씩 더함(+10)
    */
-  const WANT = 2139;
+  const WANT = 2149;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

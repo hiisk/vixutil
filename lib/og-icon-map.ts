@@ -41,7 +41,7 @@ export const GROUPS: Record<string, string[]> = {
   doc: ['📄', '📜'],
   note: ['📝', '✏️', '🖊️', '✍️'],
   book: ['📚', '📖', '📗', '📔', '📓'],
-  folder: ['📁', '🗂️', '💾'],
+  folder: ['📁', '🗂️', '💾', '💽'],
   receipt: ['🧾'],
   ruler: ['📐', '🪜'],
   letters: ['🔤', '🀄', '🟨', '🔣'],
