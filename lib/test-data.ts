@@ -31,6 +31,8 @@ import { TESTS_AC } from './test-data-ac';
 import { TESTS_AD } from './test-data-ad';
 import { TESTS_AE } from './test-data-ae';
 import { TESTS_AF } from './test-data-af';
+import { TESTS_AG } from './test-data-ag';
+import { TESTS_AH } from './test-data-ah';
 
 export const TESTS: Test[] = [
   ...TESTS_A,
@@ -65,6 +67,8 @@ export const TESTS: Test[] = [
   ...TESTS_AD,
   ...TESTS_AE,
   ...TESTS_AF,
+  ...TESTS_AG,
+  ...TESTS_AH,
 ];
 
 export const TEST_MAP: Record<string, Test> = Object.fromEntries(TESTS.map(item => [item.slug, item]));
