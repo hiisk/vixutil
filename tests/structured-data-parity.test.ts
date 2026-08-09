@@ -67,8 +67,23 @@ test('번역 상세가 한국어와 같은 구조화 데이터를 낸다', { ski
     }
   }
   assert.deepEqual(bad, [], `한국어 상세에는 있는데 번역 상세에 없다:\n  ${bad.join('\n  ')}`);
+  /*
+   * ── 2026-08-10: "한 장도 못 봤으면 실패"를 걷었다 ────────────────
+   * 전에는 하나도 못 봤으면 대놓고 실패시켰다 — 그때는 낱장이 ISR이라
+   * PR을 올리면 구워서 볼 수 있었기 때문이다.
+   *
+   * 지금은 낱장 전부가 force-dynamic이다(ISR 쓰기를 안 태우려고 —
+   * lib/prerender.ts). **일부러 한 장도 안 굽는다.** 그래서 이 검사는
+   * 빌드 산출물로는 낱장을 영영 못 보고, 그걸 실패로 치면 늘 빨갛다.
+   * 낱장을 굳이 확인하려면 한 라우트의 force-dynamic을 잠시 걷고
+   * PRERENDER_PER_ROUTE=5로 구워서 본다.
+   *
+   * 허브 쪽 짝검사(위)는 그대로 돈다 — 허브는 여전히 굽는다.
+   */
   const total = Object.keys(SAMPLE).length * LANGS.length;
-  assert.notEqual(skipped, total, `낱장이 한 장도 안 구워져 아무것도 못 봤다 — PRERENDER_PER_ROUTE=5로 빌드하면 돈다`);
+  if (skipped === total) {
+    console.log('  (낱장은 force-dynamic이라 빌드 산출물에 없다 — 낱장 짝맞춤은 여기서 못 본다)');
+  }
 });
 
 test('FAQ가 그 언어로 적혀 있다', { skip: built ? false : '빌드 산출물 없음' }, () => {

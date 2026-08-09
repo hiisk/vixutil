@@ -32,49 +32,36 @@ function countDynamicRoutes(): number {
   return n;
 }
 
-test('한 번 배포·한 번 크롤이 ISR 한도 안에 든다', () => {
+test('낱장마다 force-dynamic이 있다 — 크롤이 ISR 쓰기를 안 태운다', () => {
   /*
-   * ── 2026-08-07에 이 검사를 바꿨다 ─────────────────────────────
-   * 전에는 `PRERENDER_PER_ROUTE > 0`을 못 박고 있었다. 그건 **수단**이지
-   * 목적이 아니다. 그리고 그 수단이 이제 쓸 수 없게 됐다 — PR을 8까지
-   * 낮춰도 Vercel 빌드가 45분 한도에 걸려 **아무것도 배포되지 않았다.**
+   * ── 2026-08-10에 모델이 바뀌었다 ──────────────────────────────
+   * 전에는 낱장이 ISR이라 "사이트맵 − 미리 구운 것 = 크롤 한 바퀴의 쓰기"를
+   * 세고 있었다. 163,730장이면 월 20만의 80% — 배포를 한 달에 한 번밖에
+   * 못 했다. 사이트맵을 줄이는 안은 노출을 포기하는 것이라 접었다.
    *
-   * 두 한도가 정면으로 부딪힌다.
-   *   빌드 시간 45분 — 넘으면 하드 실패다. 배포 자체가 안 된다.
-   *   ISR 쓰기 20만 — 넘으면 프로젝트가 자동 정지된다.
-   * 앞의 것이 먼저다. 배포가 안 되면 뒤의 것은 생기지도 않는다.
+   * 지금은 모든 [slug] 낱장이 `force-dynamic`이다. 요청 때 그리고 캐시에
+   * 안 쓰므로 **크롤이 ISR 쓰기를 한 번도 안 태운다** — 그 값은 함수
+   * 실행(월 100만, 크롤 한 바퀴 ≈ 16%)에서 나간다. 사이트맵은 열 언어
+   * 전부를 그대로 내건다.
    *
-   * 그래서 굽는 수는 **성공이 검증된 0**으로 두고, 대신 여기서 목적을 잰다:
-   * **한 달에 배포 한 번·크롤 한 바퀴가 20만 안에 드는가.**
-   * (쓰기 = 안 구운 낱장 × 배포 횟수 — 배포마다 캐시가 차가워진다)
-   *
-   * 이 검사가 걸리면 고를 것은 셋이다.
-   *  1. 사이트맵을 줄인다(낱장이나 언어를 줄인다)
-   *  2. 굽는 수를 올린다 — 빌드 시간이 허락할 때만
-   *  3. 배포를 더 모은다 — 이미 한 달 한 번이라 더 줄일 데가 없다
+   * 이 검사가 지키는 것: 새 낱장 라우트를 만들면서 force-dynamic을
+   * 빠뜨리면, 그 라우트만 조용히 ISR로 돌아가 배포마다 쓰기를 태운다.
+   * 빠진 파일이 하나라도 있으면 여기서 걸린다.
    */
-  const routes = sitemapRoutes();
-  if (!routes) return; // 빌드 전이면 사이트맵이 없다
-
-  const dynamicRoutes = countDynamicRoutes();
-  const baked = 2_500 + dynamicRoutes * prerenderLimit(); // 허브 + 미리 구운 낱장
-  const writesPerCrawl = Math.max(0, routes.length - baked);
-
-  assert.ok(
-    writesPerCrawl <= 200_000,
-    `배포 한 번·크롤 한 바퀴에 ISR 쓰기가 ${writesPerCrawl.toLocaleString()}회 ` +
-    `(사이트맵 ${routes.length.toLocaleString()} − 미리 구운 ${baked.toLocaleString()}) — 월 20만을 넘는다`,
-  );
-
-  /*
-   * 넘기 전에 알 수 있도록 8할에서 먼저 말한다. 지금은 굽는 수가 0이라
-   * 사이트맵이 곧 쓰기 수다 — 낱장을 늘리면 이 줄이 먼저 걸린다.
-   */
-  const use = writesPerCrawl / 200_000;
-  assert.ok(
-    use <= 0.9,
-    `ISR 쓰기가 한도의 ${(use * 100).toFixed(0)}%다 (${writesPerCrawl.toLocaleString()}/200,000) — ` +
-    '한 달에 두 번 배포하면 넘고, 낱장을 더 늘려도 넘는다',
+  const walk = (dir: string, out: string[] = []): string[] => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) walk(p, out);
+      else if (e.name === 'page.tsx' && dir.includes('[')) out.push(p);
+    }
+    return out;
+  };
+  const leaves = walk(join(ROOT, 'app'));
+  assert.ok(leaves.length > 500, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
+  const missing = leaves.filter(f => !readFileSync(f, 'utf8').includes("export const dynamic = 'force-dynamic'"));
+  assert.deepEqual(
+    missing.map(f => f.replace(ROOT + '/', '')).slice(0, 5), [],
+    `force-dynamic이 없는 낱장 ${missing.length}개 — 이 라우트들은 ISR로 돌아가 배포마다 쓰기를 태운다`,
   );
 });
 
