@@ -16,6 +16,18 @@ import { join } from 'node:path';
 const ROOT = join(import.meta.dirname, '..');
 const build: string = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).scripts.build;
 
+test('Vercel에서는 복원된 빌드 캐시를 지우고 시작한다', () => {
+  /*
+   * 실패한 빌드는 캐시를 저장하지 않아서, 한 번 실패하기 시작하면 매번
+   * 낡은 캐시(마지막 성공 시점)를 복원해 시작한다. 저장소가 그 시점에서
+   * 멀어질수록 Turbopack이 대조·무효화에 시간을 쏟아 컴파일이 기어간다 —
+   * 실제로 45분을 세 번 태웠다. 근거는 next.config.ts의 해당 문단.
+   * 이 줄이 조용히 지워지면 같은 함정이 소리 없이 돌아온다.
+   */
+  assert.match(build, /rmSync\('\.next'/);
+  assert.match(build, /process\.env\.VERCEL/, 'Vercel에서만 지워야 한다 — 로컬 증분 빌드는 남긴다');
+});
+
 test('rayon 스레드 수를 명시한다', () => {
   /*
    * @next/swc가 쓰는 rayon은 RAYON_NUM_THREADS가 없으면 available_parallelism()으로
