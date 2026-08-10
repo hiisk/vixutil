@@ -1,36 +1,10 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+// 누진표는 lib에 한 벌만 둔다 — 가전별 요금 계산기가 같은 표를 쓴다
+import { calcElectricity } from '@/lib/electricity-tariff';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
-
-const TIERS = [
-  { limit: 200, basic: 910,   rate: 120.0 },
-  { limit: 400, basic: 1600,  rate: 214.6 },
-  { limit: Infinity, basic: 7300, rate: 307.3 },
-];
-
-function calcElectricity(kwh: number) {
-  const tier = TIERS.find(t => kwh <= t.limit) ?? TIERS[2];
-  const basicFee = tier.basic;
-
-  let usageFee = 0;
-  let remaining = kwh;
-  const prevLimits = [0, 200, 400];
-  for (let i = 0; i < TIERS.length; i++) {
-    if (remaining <= 0) break;
-    const prev = prevLimits[i];
-    const curr = TIERS[i].limit === Infinity ? Infinity : TIERS[i].limit;
-    const inTier = Math.min(remaining, curr - prev);
-    usageFee += inTier * TIERS[i].rate;
-    remaining -= inTier;
-  }
-
-  const subtotal = basicFee + usageFee;
-  const vat = subtotal * 0.1;
-  const fund = subtotal * 0.037;
-  return { basicFee, usageFee, subtotal, vat, fund, total: subtotal + vat + fund };
-}
 
 export default function ElectricityPage() {
   const [kwh, setKwh] = useState('');
