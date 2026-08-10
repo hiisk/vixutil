@@ -64,6 +64,7 @@ import { CELLS as TORQUE_CELLS, TORQUE_ICON, gradeOf as torqueGrade, sizeLabel a
 import { CELLS as LUMEN_CELLS, LUMEN_ICON, slugOf as lumenSlug } from './lumen/list';
 import { AMPERE_ICON, CELLS as AMP_CELLS, applianceOf, circuitOf, slugOf as ampSlug } from './ampere/list';
 import { CELLS as DOF_CELLS, DOF_ICON, slugOf as dofSlug } from './dof/list';
+import { CELLS as GEAR_CELLS, GEAR_ICON, slugOf as gearSlug } from './gear/list';
 import { CELLS as UV_CELLS, UV_ICON, skinOf, slugOf as uvSlug } from './uv/list';
 import { CELLS as HIKE_CELLS, HIKE_ICON, slugOf as hikeSlug } from './hike/list';
 import { CELLS as INSUL_CELLS, INSUL_ICON, slugOf as insulSlug } from './insul/list';
@@ -130,6 +131,7 @@ import { torqueFacts } from './torque/facts';
 import { lumenFacts } from './lumen/facts';
 import { ampereFacts } from './ampere/facts';
 import { dofFacts } from './dof/facts';
+import { gearFacts } from './gear/facts';
 import { uvFacts } from './uv/facts';
 import { hikeFacts } from './hike/facts';
 import { insulFacts } from './insul/facts';
@@ -191,7 +193,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -267,6 +269,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   lumen:      { label: '방 밝기',    icon: '💡', accent: 'bg-yellow-50 text-yellow-700 border-yellow-200' },
   ampere:     { label: '가전 전류',  icon: '⚡', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   dof:        { label: '심도',       icon: '📷', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+  gear:       { label: '자전거 기어', icon: '🚲', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   uv:         { label: '자외선',     icon: '☀️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   hike:       { label: '등산 시간',  icon: '⛰️', accent: 'bg-green-50 text-green-700 border-green-200' },
   insul:      { label: '단열재',     icon: '🧱', accent: 'bg-stone-50 text-stone-700 border-stone-200' },
@@ -767,6 +770,17 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: DOF_ICON,
     };
   }),
+  ...GEAR_CELLS.map(c => {
+    const f = gearFacts(c);
+    const at90 = f.speeds.find(s => s.cadence === 90)?.speed ?? 0;
+    return {
+      href: `/gear/${gearSlug(c)}`,
+      title: `${c.front}T × ${c.rear}T 기어비 ${f.ratio} — 한 바퀴 ${f.development}m`,
+      desc: `기어인치 ${f.gearInches} · 90rpm이면 시속 ${at90}km`,
+      section: 'gear' as const,
+      icon: GEAR_ICON,
+    };
+  }),
   ...UV_CELLS.map(c => {
     const f = uvFacts(c);
     return {
@@ -1228,6 +1242,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/insul', title: '단열재 열저항 계산', desc: '재료와 두께로 열저항·열관류율, 콘크리트 환산까지', section: 'insul' as const, icon: INSUL_ICON },
   { href: '/hike', title: '등산 시간 계산', desc: '거리와 누적 오름으로, 네이스미스의 규칙', section: 'hike' as const, icon: HIKE_ICON },
   { href: '/dof', title: '피사계 심도표', desc: '초점거리와 조리개로 과초점거리와 앞뒤 한계', section: 'dof' as const, icon: DOF_ICON },
+  { href: '/gear', title: '자전거 기어비표', desc: '체인링과 스프라켓으로 기어비와 발전거리', section: 'gear' as const, icon: GEAR_ICON },
   { href: '/uv', title: '자외선 화상 시간', desc: '지수와 피부 타입으로 몇 분에 붉어지는지', section: 'uv' as const, icon: UV_ICON },
   { href: '/ampere', title: '가전 전류 계산', desc: '소비전력과 전압으로 몇 암페어, 한 회로에 몇 대', section: 'ampere' as const, icon: AMPERE_ICON },
   { href: '/lumen', title: '방 밝기 계산', desc: '넓이와 쓰임으로 필요한 루멘, 광원별 소비 전력', section: 'lumen' as const, icon: LUMEN_ICON },

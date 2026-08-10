@@ -1032,6 +1032,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/gear', icon: '🚲', color: 'from-emerald-500 to-teal-400',
+    accent: 'text-emerald-700 dark:text-emerald-200', border: 'border-emerald-200 dark:border-emerald-800', bg: 'bg-emerald-50 dark:bg-emerald-900/40',
+    copy: {
+      en: { title: 'Bike Gear Ratios', desc: 'Ratio, metres per pedal stroke and speed, by chainring and sprocket' },
+      es: { title: 'Desarrollos de bicicleta', desc: 'Relación, metros por pedalada y velocidad, por plato y piñón' },
+      'pt-br': { title: 'Relações de marcha', desc: 'Relação, metros por pedalada e velocidade, por coroa e pinhão' },
+      ja: { title: '自転車のギア比', desc: 'フロントとリアで、ギア比と1回転で進む距離' },
+      de: { title: 'Fahrrad-Übersetzungen', desc: 'Übersetzung, Meter je Kurbelumdrehung und Tempo nach Kettenblatt und Ritzel' },
+      fr: { title: 'Braquets de vélo', desc: 'Rapport, mètres par tour de pédale et vitesse, par plateau et pignon' },
+      hi: { title: 'साइकिल गियर अनुपात', desc: 'चेनरिंग और स्प्रॉकेट के अनुसार अनुपात, प्रति चक्र दूरी और गति' },
+      'zh-hans': { title: '自行车齿比', desc: '按牙盘和飞轮，齿比与每圈前进距离和速度' },
+      'zh-hant': { title: '自行車齒比', desc: '按牙盤和飛輪，齒比與每圈前進距離和速度' },
+    },
+  },
+  {
     route: '/uv', icon: '☀️', color: 'from-orange-500 to-yellow-400',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {

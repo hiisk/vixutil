@@ -67,8 +67,9 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,179  술 순수 알코올량을 열 언어씩 더함(+10)
  *   2,429  그 뒤로 새 섹션 스물다섯을 열 언어씩 더함(+250)
  *   2,439  피사계 심도(초점거리 × 조리개)를 열 언어씩 더함(+10)
+ *   2,449  자전거 기어비(체인링 × 스프라켓)를 열 언어씩 더함(+10)
    */
-  const WANT = 2439;
+  const WANT = 2449;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

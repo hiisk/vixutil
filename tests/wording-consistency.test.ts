@@ -67,6 +67,7 @@ import { TORQUE_UI } from '../lib/torque/ui.ts';
 import { LUMEN_UI } from '../lib/lumen/ui.ts';
 import { AMPERE_UI } from '../lib/ampere/ui.ts';
 import { DOF_UI } from '../lib/dof/ui.ts';
+import { GEAR_UI } from '../lib/gear/ui.ts';
 import { UV_UI } from '../lib/uv/ui.ts';
 import { HIKE_UI } from '../lib/hike/ui.ts';
 import { INSUL_UI } from '../lib/insul/ui.ts';
@@ -106,7 +107,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI), altitude: ui(ALTITUDE_UI), wifi: ui(WIFI_UI), fret: ui(FRET_UI), gravity: ui(GRAVITY_UI), windchill: ui(WINDCHILL_UI), dew: ui(DEW_UI), drill: ui(DRILL_UI), bandwidth: ui(BANDWIDTH_UI), battery: ui(BATTERY_UI), wire: ui(WIRE_UI), paper: ui(PAPER_UI), torque: ui(TORQUE_UI), lumen: ui(LUMEN_UI), ampere: ui(AMPERE_UI), dof: ui(DOF_UI), uv: ui(UV_UI), hike: ui(HIKE_UI), insul: ui(INSUL_UI), air: ui(AIR_UI), size: ui(SIZE_UI), bra: ui(BRA_UI), petfood: ui(PETFOOD_UI), password: ui(PASSWORD_UI), viewing: ui(VIEWING_UI), bignum: ui(BIGNUM_UI), gengo: ui(GENGO_UI), cable: ui(CABLE_UI), tatami: ui(TATAMI_UI), lumber: ui(LUMBER_UI), powerbank: ui(POWERBANK_UI), golf: ui(GOLF_UI), microwave: ui(MICROWAVE_UI), quake: ui(QUAKE_UI), bed: ui(BED_UI), wine: ui(WINE_UI), blood: ui(BLOOD_UI), exposure: ui(EXPOSURE_UI), heredity: ui(HEREDITY_UI), raid: ui(RAID_UI), flight: ui(FLIGHT_UI), purifier: ui(PURIFIER_UI), drink: ui(DRINK_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI), altitude: ui(ALTITUDE_UI), wifi: ui(WIFI_UI), fret: ui(FRET_UI), gravity: ui(GRAVITY_UI), windchill: ui(WINDCHILL_UI), dew: ui(DEW_UI), drill: ui(DRILL_UI), bandwidth: ui(BANDWIDTH_UI), battery: ui(BATTERY_UI), wire: ui(WIRE_UI), paper: ui(PAPER_UI), torque: ui(TORQUE_UI), lumen: ui(LUMEN_UI), ampere: ui(AMPERE_UI), dof: ui(DOF_UI), gear: ui(GEAR_UI), uv: ui(UV_UI), hike: ui(HIKE_UI), insul: ui(INSUL_UI), air: ui(AIR_UI), size: ui(SIZE_UI), bra: ui(BRA_UI), petfood: ui(PETFOOD_UI), password: ui(PASSWORD_UI), viewing: ui(VIEWING_UI), bignum: ui(BIGNUM_UI), gengo: ui(GENGO_UI), cable: ui(CABLE_UI), tatami: ui(TATAMI_UI), lumber: ui(LUMBER_UI), powerbank: ui(POWERBANK_UI), golf: ui(GOLF_UI), microwave: ui(MICROWAVE_UI), quake: ui(QUAKE_UI), bed: ui(BED_UI), wine: ui(WINE_UI), blood: ui(BLOOD_UI), exposure: ui(EXPOSURE_UI), heredity: ui(HEREDITY_UI), raid: ui(RAID_UI), flight: ui(FLIGHT_UI), purifier: ui(PURIFIER_UI), drink: ui(DRINK_UI),
 };
 
 /**

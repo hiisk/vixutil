@@ -43,6 +43,7 @@ import { hubCard as passwordHub } from '@/lib/password/route';
 import { hubCard as petfoodHub } from '@/lib/petfood/route';
 import { hubCard as sizeHub } from '@/lib/size/route';
 import { hubCard as dofHub } from '@/lib/dof/route';
+import { hubCard as gearHub } from '@/lib/gear/route';
 import { hubCard as uvHub } from '@/lib/uv/route';
 import { hubCard as hikeHub } from '@/lib/hike/route';
 import { hubCard as insulHub } from '@/lib/insul/route';
@@ -147,6 +148,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'petfood': () => petfoodHub('pt'),
   'size': () => sizeHub('pt'),
   'dof': () => dofHub('pt'),
+  'gear': () => gearHub('pt'),
   'uv': () => uvHub('pt'),
   'hike': () => hikeHub('pt'),
   'insul': () => insulHub('pt'),

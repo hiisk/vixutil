@@ -41,6 +41,7 @@ import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
+import { CELLS as GEAR_CELLS } from '@/lib/gear/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
@@ -121,6 +122,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-200',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/gear',
+    icon: '🚲',
+    title: '자전거 기어비표',
+    desc: '53×19와 39×14는 같은 기어 — 앞뒤 잇수로 읽는 발전거리',
+    badge: `${GEAR_CELLS.length}칸`,
+    color: 'from-emerald-500 to-teal-400',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-900/40',
+    textAccent: 'text-emerald-700 dark:text-emerald-200',
+    borderAccent: 'border-emerald-200 dark:border-emerald-800',
+    shadow: 'shadow-emerald-100',
   },
   {
     href: '/uv',
