@@ -34,6 +34,7 @@ import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
+import { CRAFT_TOOLS } from "@/lib/craft-tools";
 import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
 import { METRO_LINES } from "@/lib/metro-lines";
@@ -275,6 +276,15 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}/${lang}/body`, changeFrequency: weekly, priority: 0.9 },
       ...BODY_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/body/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
+    { url: `${BASE}/craft`, changeFrequency: weekly, priority: 0.95 },
+    ...CRAFT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/craft/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    // 공예 계산도 slug가 아홉 언어에서 같다
+    ...INTL_LOCALES10.flatMap((lang) => [
+      { url: `${BASE}/${lang}/craft`, changeFrequency: weekly, priority: 0.9 },
+      ...CRAFT_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/craft/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
     ]),
     { url: `${BASE}/geometry`, changeFrequency: weekly, priority: 0.95 },

@@ -71,6 +71,7 @@ import { sectionMeta } from '@/lib/formula/section';
 import { hubCard as fractionHub } from '@/lib/fraction/route';
 import { hubCard as fretHub } from '@/lib/fret/route';
 import { GEO_SECTION } from '@/lib/geo-section';
+import { CRAFT_SECTION } from '@/lib/craft-section';
 import { hubCard as glyphHub } from '@/lib/glyph/route';
 import { hubCard as gravityHub } from '@/lib/gravity/route';
 import { HANJA_SECTION, HANJA_UI } from '@/lib/hanja-ui';
@@ -270,6 +271,17 @@ export const CARDS: Record<string, () => ReactElement> = {
   'game/beat': () => gameOg('beat', 'pt-br'),
   'game/peripheral': () => gameOg('peripheral', 'pt-br'),
   'generator': () => intlOg('generator/pt-br'),
+  'craft': () => {
+    const meta = sectionMeta(CRAFT_SECTION, 'pt-br');
+    return ogCard({
+      icon: '🧶',
+      eyebrow: meta.section,
+      title: meta.hubTitle,
+      desc: meta.hubLead,
+      from: CRAFT_SECTION.ogFrom,
+      to: CRAFT_SECTION.ogTo,
+    });
+  },
   'geometry': () => {
     const meta = sectionMeta(GEO_SECTION, 'pt-br');
     return ogCard({

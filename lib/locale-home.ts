@@ -333,6 +333,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/craft', icon: '🧶', color: 'from-amber-500 to-rose-500',
+    accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
+    copy: {
+      en: { title: 'Craft Calculators', desc: 'Yarn, fabric, candle wax, soap lye, resin quantities' },
+      es: { title: 'Manualidades', desc: 'Lana, tela, cera de velas, sosa para jabón, resina' },
+      'pt-br': { title: 'Artesanato', desc: 'Lã, tecido, cera de vela, soda para sabão, resina' },
+      ja: { title: 'ハンドメイド', desc: '毛糸・生地・キャンドルのワックス・苛性ソーダ・レジン' },
+      de: { title: 'Handarbeit', desc: 'Wolle, Stoff, Kerzenwachs, Seifenlauge, Resin' },
+      fr: { title: 'Loisirs créatifs', desc: 'Laine, tissu, cire de bougie, soude, résine' },
+      hi: { title: 'हस्तकला', desc: 'ऊन, कपड़ा, मोमबत्ती का मोम, साबुन का सोडा, रेज़िन' },
+      'zh-hans': { title: '手作计算器', desc: '毛线、布料、蜡、烧碱、树脂用量' },
+      'zh-hant': { title: '手作計算機', desc: '毛線、布料、蠟、鹼、樹脂用量' },
+    },
+  },
+  {
     route: '/geometry', icon: '🔵', color: 'from-cyan-500 to-blue-600',
     accent: 'text-cyan-700 dark:text-cyan-300', border: 'border-cyan-200 dark:border-cyan-900/50', bg: 'bg-cyan-50 dark:bg-cyan-950/30',
     copy: {

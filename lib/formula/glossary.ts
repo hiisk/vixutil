@@ -13,6 +13,7 @@ import { FORMULA_L10N } from './l10n/index.ts';
 import { RATE_DESC } from './glossary-rate.ts';
 import { BODY2_DESC } from './glossary-body.ts';
 import { GEO2_DESC, GEO3_DESC } from './glossary-geo.ts';
+import { CRAFT_DESC } from './glossary-craft.ts';
 
 const CORE_DESC: Record<string, Term> = {
   /* ───────── 가격·거래 ───────── */
@@ -293,7 +294,7 @@ const CORE_DESC: Record<string, Term> = {
 };
 
 /* 섹션별 뜻풀이는 파일을 나눠 둔다 — 한 파일에 삼백 줄이면 무엇이 빠졌는지 안 보인다 */
-export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC, ...BODY2_DESC, ...GEO2_DESC, ...GEO3_DESC };
+export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC, ...BODY2_DESC, ...GEO2_DESC, ...GEO3_DESC, ...CRAFT_DESC };
 
 /**
  * 라벨 옆에 붙는 한 줄 뜻풀이.

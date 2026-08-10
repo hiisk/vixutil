@@ -70,8 +70,9 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,449  자전거 기어비(체인링 × 스프라켓)를 열 언어씩 더함(+10)
  *   2,459  딜레이 타임(템포 × 음표)을 열 언어씩 더함(+10)
  *   2,469  필라멘트 길이(재료 × 스풀 무게)를 열 언어씩 더함(+10)
+ *   2,479  공예 계산기(뜨개·재봉·퀼트·양초·비누·구슬)를 열 언어씩 더함(+10)
    */
-  const WANT = 2469;
+  const WANT = 2479;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

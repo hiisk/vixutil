@@ -70,6 +70,7 @@ import { hubCard as extHub } from '@/lib/ext/route';
 import { hubCard as fractionHub } from '@/lib/fraction/route';
 import { hubCard as fretHub } from '@/lib/fret/route';
 import { GEO_SECTION } from '@/lib/geo-section';
+import { CRAFT_SECTION } from '@/lib/craft-section';
 import { hubCard as glyphHub } from '@/lib/glyph/route';
 import { hubCard as gravityHub } from '@/lib/gravity/route';
 import { HANJA_SECTION, HANJA_UI } from '@/lib/hanja-ui';
@@ -786,6 +787,17 @@ export const CARDS: Record<string, () => ReactElement> = {
     from: '#10b981',
     to: '#0d9488',
   }),
+  'craft': () => {
+    const meta = CRAFT_SECTION.meta['ko'];
+    return ogCard({
+      icon: '🧶',
+      eyebrow: meta.section,
+      title: meta.hubTitle,
+      desc: meta.hubLead,
+      from: CRAFT_SECTION.ogFrom,
+      to: CRAFT_SECTION.ogTo,
+    });
+  },
   'geometry': () => {
     const meta = GEO_SECTION.meta['ko'];
     return ogCard({

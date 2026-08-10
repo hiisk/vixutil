@@ -19,6 +19,7 @@ import { FORTUNE_TOOLS, fortuneToolCopy } from './fortune-tools-intl.ts';
 import { RATE_TOOLS } from './rate-tools.ts';
 import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
+import { CRAFT_TOOLS } from './craft-tools.ts';
 import { TOOL_L10N } from './formula/tool-l10n.ts';
 import type { FormulaTool } from './formula/types.ts';
 import { CALC_INTL_SLUGS, calcCopy } from './calc-l10n/index.ts';
@@ -135,6 +136,7 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('rate', formulaEntries(lang, RATE_TOOLS)),
     ...tools('body', formulaEntries(lang, BODY_TOOLS)),
     ...tools('geometry', formulaEntries(lang, GEO_TOOLS)),
+    ...tools('craft', formulaEntries(lang, CRAFT_TOOLS)),
     ...tools('convert', convertEntries(lang)),
     ...tools('color', colorToolsIntl(lang)),
     ...tools('time', timeToolsIntl(lang)),

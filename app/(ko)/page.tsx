@@ -665,6 +665,18 @@ const SECTIONS = [
     shadow: 'shadow-rose-100',
   },
   {
+    href: '/craft',
+    icon: '🧶',
+    title: '공예',
+    desc: '실 소요량·원단 길이·왁스 무게·가성소다까지',
+    badge: `${SECTION_COUNTS.craft}개`,
+    color: 'from-amber-500 to-rose-500',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
+  },
+  {
     href: '/geometry',
     icon: '📐',
     title: '도형·수학',
