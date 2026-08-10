@@ -93,7 +93,12 @@ import { WORK_HOURS, OVERTIME } from './work.ts';
 
 import { CAR_COST } from './car3.ts';
 
+import { AVERAGE, RENTAL_YIELD, APPLIANCE_POWER } from './daily.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'average': AVERAGE,
+  'rental-yield': RENTAL_YIELD,
+  'appliance-power': APPLIANCE_POWER,
   'ltv': LTV,
   'refinance': REFINANCE,
   'loan-method': LOAN_METHOD,

@@ -5,6 +5,8 @@ import CalcShell, {
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { calcRentalYield, type RentalResult } from '@/lib/rental-yield';
 
 const w = (n: number) => Math.round(n).toLocaleString();
@@ -61,6 +63,9 @@ export default function RentalYieldPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/rental-yield" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <CardHeader title="매물 정보" />
           <div className="flex flex-col gap-3">

@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /**
  * 숫자 목록 하나만 받고 나머지 통계값은 모두 계산한다.
@@ -95,6 +97,9 @@ export default function AveragePage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/average" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">숫자 입력</label>
           <textarea
