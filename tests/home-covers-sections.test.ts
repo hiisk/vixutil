@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { HOME_UI } from '../lib/locale-home.ts';
+import { HOME_UI, homeSections } from '../lib/locale-home.ts';
+import { INTL_LOCALES10 } from '../lib/locales.ts';
 import { appFile } from './app-path.ts';
 
 /**
@@ -75,6 +76,25 @@ test('아홉 언어 홈도 같은 섹션을 건다', () => {
   assert.deepEqual(
     onlyKo, [],
     `한국어 홈에만 있고 아홉 언어 홈에는 없는 섹션: ${onlyKo.join(', ')}`,
+  );
+});
+
+test('섹션 카드가 아홉 언어 홈에 다 있다', () => {
+  /*
+   * 위 검사는 경로 문자열이 파일에 있는지만 본다. copy에서 언어 하나가
+   * 빠지면 — 라우트도 번역도 있는데 카드만 없는 상태 — 거기에 안 걸린다.
+   * 중국어 두 홈이 그렇게 스물일곱 섹션을 안 걸고 있었다(2026-08-10).
+   * 언어를 아직 못 채운 섹션이 생기면 이유와 함께 여기 예외로 적는다.
+   */
+  const partial: string[] = [];
+  const routes = new Set(INTL_LOCALES10.flatMap(l => homeSections(l).map(s => s.route)));
+  for (const route of routes) {
+    const absent = INTL_LOCALES10.filter(l => !homeSections(l).some(s => s.route === route));
+    if (absent.length) partial.push(`${route} ← ${absent.join(', ')} 카드 없음`);
+  }
+  assert.deepEqual(
+    partial, [],
+    `일부 언어 홈에만 걸린 섹션 ${partial.length}개 — 빠진 언어에서는 그 섹션 낱장 전체가 사이트맵에만 있게 된다`,
   );
 });
 

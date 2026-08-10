@@ -58,6 +58,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Einheitenrechner', desc: 'Länge, Gewicht, Temperatur, Fläche und mehr' },
       fr: { title: 'Convertisseur d’unités', desc: 'Longueur, poids, température, surface et plus' },
       hi: { title: 'इकाई कनवर्टर', desc: 'लंबाई, वज़न, तापमान, क्षेत्रफल और बहुत कुछ' },
+      'zh-hans': { title: '单位换算', desc: '长度、重量、温度、面积等' },
+      'zh-hant': { title: '單位換算', desc: '長度、重量、溫度、面積等' },
     },
   },
   {
@@ -131,6 +133,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Zufallswerkzeuge', desc: 'Glücksrad, Namen ziehen, Teams, Würfel, Wichteln' },
       fr: { title: 'Tirage au sort', desc: 'Roue, tirage de noms, équipes, dés, Père Noël secret' },
       hi: { title: 'रैंडम चुनाव', desc: 'चक्का, नाम, टीम, पासा, सीक्रेट सैंटा' },
+      'zh-hans': { title: '随机抽选', desc: '转盘、抽名字、分组、骰子、交换礼物' },
+      'zh-hant': { title: '隨機抽選', desc: '轉盤、抽名字、分組、骰子、交換禮物' },
     },
   },
   {
@@ -174,6 +178,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Tarot-Bedeutungen', desc: 'Alle 78 Karten, aufrecht und umgekehrt, große und kleine Arkana' },
       fr: { title: 'Signification du tarot', desc: "Les 78 cartes à l'endroit et à l'envers, arcanes majeurs et mineurs" },
       hi: { title: 'टैरो कार्ड के अर्थ', desc: 'सभी 78 पत्ते — सीधे और उल्टे, बड़े और छोटे आर्काना' },
+      'zh-hans': { title: '塔罗牌牌义', desc: '78张牌的正位与逆位，大阿卡纳与小阿卡纳' },
+      'zh-hant': { title: '塔羅牌牌義', desc: '78張牌的正位與逆位，大阿爾克那與小阿爾克那' },
     },
   },
   {
@@ -187,6 +193,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Zeitwerkzeuge', desc: 'Timer, Stoppuhr, Weltzeituhr, Datumsrechnen' },
       fr: { title: 'Outils de temps', desc: 'Minuteur, chronomètre, horloge mondiale, dates' },
       hi: { title: 'समय उपकरण', desc: 'टाइमर, स्टॉपवॉच, विश्व घड़ी, तारीख़ गणित' },
+      'zh-hans': { title: '时间工具', desc: '计时器、秒表、世界时钟、日期计算' },
+      'zh-hant': { title: '時間工具', desc: '計時器、碼錶、世界時鐘、日期計算' },
     },
   },
   {
@@ -200,6 +208,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Farbwerkzeuge', desc: 'Paletten, Abstufungen, Kontrast, CSS-Verläufe' },
       fr: { title: 'Outils de couleur', desc: 'Palettes, nuances, contraste, dégradés CSS' },
       hi: { title: 'रंग उपकरण', desc: 'पैलेट, शेड, कंट्रास्ट, CSS ग्रेडिएंट' },
+      'zh-hans': { title: '颜色工具', desc: '调色板、明暗色阶、对比度、CSS渐变' },
+      'zh-hant': { title: '顏色工具', desc: '調色盤、明暗色階、對比度、CSS漸層' },
     },
   },
   {
@@ -213,6 +223,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Bildwerkzeuge', desc: 'Komprimieren, skalieren, zuschneiden, Gesichter verpixeln' },
       fr: { title: 'Outils d’image', desc: 'Compresser, redimensionner, recadrer, pixeliser des visages' },
       hi: { title: 'इमेज उपकरण', desc: 'कंप्रेस, आकार बदलना, क्रॉप, चेहरे पिक्सेल करना' },
+      'zh-hans': { title: '图片工具', desc: '压缩、改尺寸、裁剪、人脸模糊' },
+      'zh-hant': { title: '圖片工具', desc: '壓縮、調整尺寸、裁切、人臉模糊' },
     },
   },
   {
@@ -226,6 +238,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Klangwerkzeuge', desc: 'Metronom, Stimmgerät, Rauschen, Töne' },
       fr: { title: 'Outils de son', desc: 'Métronome, accordeur, bruit blanc, tons' },
       hi: { title: 'ध्वनि उपकरण', desc: 'मेट्रोनोम, ट्यूनर, व्हाइट नॉइज़, टोन' },
+      'zh-hans': { title: '声音工具', desc: '节拍器、调音器、白噪音、纯音' },
+      'zh-hant': { title: '聲音工具', desc: '節拍器、調音器、白噪音、純音' },
     },
   },
   {
@@ -239,6 +253,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Küchenwerkzeuge', desc: 'Cups in Gramm, Ofentemperatur, Reis, Kaffee' },
       fr: { title: 'Outils de cuisine', desc: 'Tasses en grammes, four, riz, café' },
       hi: { title: 'रसोई उपकरण', desc: 'कप से ग्राम, ओवन, चावल, कॉफ़ी' },
+      'zh-hans': { title: '烹饪工具', desc: '量杯换克、烤箱温度、米饭、咖啡' },
+      'zh-hant': { title: '烹飪工具', desc: '量杯換克、烤箱溫度、米飯、咖啡' },
     },
   },
   {
@@ -252,6 +268,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Denkspiele', desc: 'Reaktion, Gedächtnis, Tippen, Zielen, Kopfrechnen' },
       fr: { title: 'Jeux de cerveau', desc: 'Réaction, mémoire, frappe, visée, calcul' },
       hi: { title: 'दिमाग़ी खेल', desc: 'प्रतिक्रिया, स्मृति, टाइपिंग, निशाना, गणित' },
+      'zh-hans': { title: '脑力小游戏', desc: '反应、记忆、打字、瞄准、心算' },
+      'zh-hant': { title: '腦力小遊戲', desc: '反應、記憶、打字、瞄準、心算' },
     },
   },
   {
@@ -265,6 +283,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Gerätetests', desc: 'Tastatur, Maus, Mikrofon, Webcam, Pixelfehler' },
       fr: { title: 'Tests d’appareil', desc: 'Clavier, souris, micro, webcam, pixels morts' },
       hi: { title: 'उपकरण जाँच', desc: 'कीबोर्ड, माउस, माइक, वेबकैम, डेड पिक्सेल' },
+      'zh-hans': { title: '设备检测', desc: '键盘、鼠标、麦克风、摄像头、坏点' },
+      'zh-hant': { title: '裝置檢測', desc: '鍵盤、滑鼠、麥克風、視訊鏡頭、壞點' },
     },
   },
   {
@@ -278,6 +298,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Textwerkzeuge', desc: 'Aufräumen, Entdoppeln, Schreibweise, Zählen' },
       fr: { title: 'Outils de texte', desc: 'Nettoyer, dédoublonner, casse, compter' },
       hi: { title: 'टेक्स्ट उपकरण', desc: 'सफ़ाई, दोहराव हटाना, अक्षर-आकार, गिनती' },
+      'zh-hans': { title: '文本工具', desc: '清理、去重、大小写转换、字数统计' },
+      'zh-hant': { title: '文字工具', desc: '清理、去除重複、大小寫轉換、字數統計' },
     },
   },
   {
@@ -291,6 +313,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Prozent und Verhältnis', desc: 'Rabatte, Mehrwertsteuer, Veränderung, Zinseszins' },
       fr: { title: 'Pourcentages et rapports', desc: 'Remises, TVA, variation, intérêts composés' },
       hi: { title: 'प्रतिशत और अनुपात', desc: 'छूट, GST, प्रतिशत बदलाव, चक्रवृद्धि ब्याज' },
+      'zh-hans': { title: '百分比与比率', desc: '折扣、增值税、增减率、复利' },
+      'zh-hant': { title: '百分比與比率', desc: '折扣、營業稅、增減率、複利' },
     },
   },
   {
@@ -304,6 +328,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Körperwerte', desc: 'BMI, Körperfett, Grundumsatz, Lauftempo, 1RM' },
       fr: { title: 'Mesures du corps', desc: 'IMC, masse grasse, métabolisme de base, allure, 1RM' },
       hi: { title: 'शरीर के आँकड़े', desc: 'BMI, शरीर की वसा, बेसल चयापचय, दौड़ की रफ़्तार, 1RM' },
+      'zh-hans': { title: '身体指标', desc: 'BMI、体脂率、基础代谢、配速、最大力量' },
+      'zh-hant': { title: '身體指標', desc: 'BMI、體脂率、基礎代謝、配速、最大肌力' },
     },
   },
   {
@@ -317,6 +343,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Geometrie', desc: 'Flächen, Volumen, Pythagoras, Winkel' },
       fr: { title: 'Géométrie', desc: 'Aires, volumes, Pythagore, angles' },
       hi: { title: 'ज्यामिति', desc: 'क्षेत्रफल, आयतन, पाइथागोरस, कोण' },
+      'zh-hans': { title: '几何计算', desc: '面积、体积、勾股定理、角度' },
+      'zh-hant': { title: '幾何計算', desc: '面積、體積、畢氏定理、角度' },
     },
   },
   {
@@ -330,6 +358,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Länderinfos', desc: 'Zeitverschiebung, Stecker, Vorwahl, Währung' },
       fr: { title: 'Fiches pays', desc: 'Décalage horaire, prises, indicatif, monnaie' },
       hi: { title: 'देशों की जानकारी', desc: 'समय का फ़र्क़, प्लग, देश कोड, मुद्रा' },
+      'zh-hans': { title: '各国信息', desc: '时差、插座、电话区号、货币' },
+      'zh-hant': { title: '各國資訊', desc: '時差、插座、電話區號、貨幣' },
     },
   },
   {
@@ -343,6 +373,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'U-Bahn-Stationen-Quiz', desc: 'Stationen von 30 Linien tippen — Berlin bis Seoul' },
       fr: { title: 'Quiz des stations de métro', desc: 'Tapez les stations de 30 lignes, de Paris à Séoul' },
       hi: { title: 'मेट्रो स्टेशन क्विज़', desc: 'दिल्ली से सिओल तक 30 लाइनों के स्टेशन टाइप करें' },
+      'zh-hans': { title: '地铁站名挑战', desc: '从首尔到圣保罗，默写30条线路的车站' },
+      'zh-hant': { title: '捷運站名挑戰', desc: '從首爾到聖保羅，默寫30條路線的車站' },
     },
   },
   {
@@ -356,6 +388,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Dateiendungen', desc: 'Womit man .webp, .mkv und 140 weitere Endungen öffnet — samt MIME-Typ' },
       fr: { title: 'Extensions de fichier', desc: 'Avec quoi ouvrir .webp, .mkv et 140 autres extensions, avec leur type MIME' },
       hi: { title: 'फ़ाइल एक्सटेंशन', desc: '.webp, .mkv समेत 140 एक्सटेंशन किससे खुलते हैं और उनका MIME टाइप' },
+      'zh-hans': { title: '文件扩展名', desc: '.hwp、.webp、.mkv用什么打开——140种扩展名与MIME类型' },
+      'zh-hant': { title: '副檔名', desc: '.hwp、.webp、.mkv用什麼開啟——140種副檔名與MIME類型' },
     },
   },
   {
@@ -399,6 +433,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Periodensystem', desc: 'Alle 118 Elemente mit Symbol, Gewicht und Konfiguration' },
       fr: { title: 'Tableau périodique', desc: 'Les 118 éléments avec symboles, masses et configurations' },
       hi: { title: 'आवर्त सारणी', desc: 'सभी 118 तत्व — प्रतीक, द्रव्यमान और इलेक्ट्रॉन विन्यास' },
+      'zh-hans': { title: '元素周期表', desc: '118种元素的符号、原子量与电子排布' },
+      'zh-hant': { title: '元素週期表', desc: '118種元素的符號、原子量與電子組態' },
     },
   },
   {
@@ -1357,6 +1393,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Regex-Muster', desc: '133 geprüfte Ausdrücke mit passenden und unpassenden Beispielen' },
       fr: { title: 'Motifs regex', desc: '133 expressions testées, avec exemples correspondants et non correspondants' },
       hi: { title: 'रेगेक्स पैटर्न', desc: '133 परखे हुए एक्सप्रेशन, मिलने और न मिलने वाले उदाहरणों के साथ' },
+      'zh-hans': { title: '正则表达式大全', desc: '133条经过验证的表达式，均附匹配与不匹配示例' },
+      'zh-hant': { title: '正規表示式大全', desc: '133條經過驗證的表示式，均附符合與不符合範例' },
     },
   },
   {
@@ -1370,6 +1408,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Würfelwahrscheinlichkeit', desc: 'Jede Summe von einem bis sechs Würfeln, mit Wegen und Chance' },
       fr: { title: 'Probabilités aux dés', desc: 'Chaque somme de un à six dés, avec combinaisons et probabilité' },
       hi: { title: 'पासे की संभावना', desc: 'एक से छह पासों के हर जोड़ के तरीक़े और संभावना' },
+      'zh-hans': { title: '骰子概率', desc: '1到6颗骰子的每种点数和、组合数与概率' },
+      'zh-hant': { title: '骰子機率', desc: '1到6顆骰子的每種點數和、組合數與機率' },
     },
   },
   {
@@ -1383,6 +1423,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Zauberwürfel-Algorithmen', desc: 'Alle 119 F2L-, OLL- und PLL-Fälle mit Diagrammen' },
       fr: { title: 'Algorithmes du Rubik’s cube', desc: 'Les 119 cas de F2L, OLL et PLL avec schémas' },
       hi: { title: 'रूबिक क्यूब एल्गोरिद्म', desc: 'F2L, OLL और PLL के सभी 119 मामले चित्रों के साथ' },
+      'zh-hans': { title: '魔方公式', desc: 'F2L、OLL、PLL全部119种情况，附图示' },
+      'zh-hant': { title: '魔術方塊公式', desc: 'F2L、OLL、PLL全部119種情況，附圖示' },
     },
   },
   {
@@ -1396,6 +1438,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Bildwinkel von Objektiven', desc: 'Was 104 Kombinationen aus Brennweite und Sensor erfassen' },
       fr: { title: 'Angle de champ des objectifs', desc: 'Ce que cadrent vraiment 104 couples focale et capteur' },
       hi: { title: 'लेंस का दृश्य कोण', desc: 'फ़ोकल लंबाई और सेंसर के 104 जोड़े क्या समेटते हैं' },
+      'zh-hans': { title: '镜头视角', desc: '104组焦距×画幅组合实际能拍到的范围' },
+      'zh-hant': { title: '鏡頭視角', desc: '104組焦距×片幅組合實際能拍到的範圍' },
     },
   },
   {
@@ -1409,6 +1453,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'HTTP-Codes und -Header', desc: 'Was 404, 500 und 132 weitere bedeuten' },
       fr: { title: 'Codes et en-têtes HTTP', desc: 'Ce que signifient 404, 500 et 132 autres' },
       hi: { title: 'HTTP कोड और हेडर', desc: '404, 500 समेत 132 कोड और हेडर का अर्थ' },
+      'zh-hans': { title: 'HTTP状态码与标头', desc: '404、500等132个状态码与标头的含义' },
+      'zh-hant': { title: 'HTTP狀態碼與標頭', desc: '404、500等132個狀態碼與標頭的意義' },
     },
   },
   {
@@ -1422,6 +1468,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'CSS-Eigenschaften-Referenz', desc: 'Was 154 Eigenschaften tun, ihre Werte und ob sie vererben' },
       fr: { title: 'Référence des propriétés CSS', desc: 'Ce que font 154 propriétés, leurs valeurs et leur héritage' },
       hi: { title: 'CSS प्रॉपर्टी संदर्भ', desc: '154 प्रॉपर्टी क्या करती हैं, उनके मान और विरासत' },
+      'zh-hans': { title: 'CSS属性参考', desc: '154个属性的作用、取值与是否继承' },
+      'zh-hant': { title: 'CSS屬性參考', desc: '154個屬性的作用、值與是否繼承' },
     },
   },
   {
@@ -1435,6 +1483,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'HTML-Tag-Referenz', desc: 'Was 126 Tags tun, ob sie schließen und welche Attribute sie haben' },
       fr: { title: 'Référence des balises HTML', desc: 'Ce que font 126 balises, leur fermeture et leurs attributs' },
       hi: { title: 'HTML टैग संदर्भ', desc: '126 टैग क्या करते हैं, बंद होते हैं या नहीं, और उनके विशेषण' },
+      'zh-hans': { title: 'HTML标签参考', desc: '126个标签的作用、是否闭合与属性' },
+      'zh-hant': { title: 'HTML標籤參考', desc: '126個標籤的作用、是否閉合與屬性' },
     },
   },
   {
@@ -1448,6 +1498,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Akkorde und Tonleitern', desc: 'Töne von 135 Akkorden, Tonleitern und Intervallen, mit Klang' },
       fr: { title: 'Accords et gammes', desc: 'Notes de 135 accords, gammes et intervalles, avec le son' },
       hi: { title: 'कॉर्ड और स्केल', desc: '135 कॉर्ड, स्केल और अंतरालों के स्वर — कीबोर्ड और ध्वनि के साथ' },
+      'zh-hans': { title: '和弦与音阶', desc: '135种和弦、音阶、音程的组成音，可试听' },
+      'zh-hant': { title: '和弦與音階', desc: '135種和弦、音階、音程的組成音，可試聽' },
     },
   },
   {
@@ -1461,6 +1513,8 @@ const SECTIONS: HomeSection[] = [
       de: { title: 'Vier-Zeichen-Redewendungen', desc: 'Hundert koreanische Redewendungen mit Bedeutung und Herkunft' },
       fr: { title: 'Expressions à quatre caractères', desc: 'Cent expressions coréennes avec leur sens et leur origine' },
       hi: { title: 'चार-अक्षरी मुहावरे', desc: 'सौ कोरियाई मुहावरे, अर्थ और उद्गम के साथ' },
+      'zh-hans': { title: '四字成语', desc: '100个韩国常用成语的释义与出处' },
+      'zh-hant': { title: '四字成語', desc: '100個韓國常用成語的釋義與出處' },
     },
   },
 ];
