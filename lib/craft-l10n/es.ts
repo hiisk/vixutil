@@ -313,4 +313,304 @@ export const CRAFT_ES: Record<string, FormulaText> = {
     long: 'La arcilla se modela por volumen y se vende por peso. La polimérica ronda 1,7 g/cm³, así que una pieza de 60 cm³ pide 102 g, dos de los bloques estándar de 57 g. La de secado al aire es más ligera, 1,2–1,5, así que el mismo volumen pesa menos, pero pierde agua al secar y encoge más de un 10 %, y eso hay que preverlo.',
     note: 'Rellenar el interior con papel de aluminio baja el peso de arcilla a menos de la mitad, y la polimérica gruesa no cura igual por dentro, así que se agrieta al enfriar. Las piezas grandes llevan alma para evitar la grieta, no solo para ahorrar arcilla. El peso del bloque cambia según la marca: Fimo 57 g, Fimo Professional 85 g.',
   },
+
+  /* ───────── Punto: largo, talla y color ───────── */
+  'row-gauge-length': {
+    title: 'Calculadora de vueltas a tejer',
+    desc: 'Pasa de tu muestra de vueltas y del largo que quieres a las vueltas que hay que tejer.',
+    long: '28 vueltas en 10 cm son 2,8 por centímetro, así que 60 cm son 168 vueltas — justo 21 repeticiones de un dibujo de 8 vueltas. Pide 63 cm y salen 176,4; las vueltas no se parten, así que quedan 176 y miden 62,9 cm. El milímetro no se ve, pero la repetición rota sí.',
+    note: 'La muestra de vueltas se desvía más que la de puntos. El punto jersey y la alpaca crecen a lo largo con su propio peso, así que cuelga la muestra bloqueada antes de medirla: eso se parece mucho más a lo que hará la prenda.',
+  },
+  'yarn-substitute': {
+    title: 'Calculadora de sustitución de lana',
+    desc: 'Cuántos ovillos de otra lana pide un patrón cuando cambias de hilo.',
+    long: 'Al cambiar de lana lo que se iguala son los metros, no los gramos. Un patrón que pide ocho ovillos de 50 g de una lana de 400 m por 100 g quiere 1.600 m. Una lana sustituta de 320 m por 100 g solo lleva 160 m por ovillo, así que necesitas diez: con los mismos ocho te faltan 320 m.',
+    note: 'Igualar los metros no iguala el grosor. Dos lanas con los mismos metros por 100 g caen y estiran de forma distinta si una es alpaca y la otra algodón, así que teje una muestra con la lana nueva antes de comprometerte. Si el ovillo pesa otra cosa, divide los metros totales de arriba entre lo que diga esa faja.',
+  },
+  'sweater-ease': {
+    title: 'Calculadora de holgura del suéter',
+    desc: 'Perímetro final y puntos a montar a partir del contorno de pecho y la holgura.',
+    long: 'La talla de una prenda es la medida del cuerpo más la holgura, no la medida del cuerpo. Sumar un 8 % a un pecho de 96 cm da un perímetro final de 103,7 cm, que son 228 puntos a 22 puntos por 10 cm. Pon la holgura en −5 % y salen 91,2 cm, muy ajustado: el tejido de punto estira, así que la holgura negativa es una opción real.',
+    note: 'La tabla de tallas de un patrón suele dar el pecho acabado del suéter o jersey, no el cuerpo al que va. Mezclar las dos te deja una talla entera fuera. La holgura tampoco es igual en todas las zonas: una prenda con 8 cm en el pecho rara vez quiere más de 4 cm en el brazo.',
+  },
+  'sock-cast-on': {
+    title: 'Puntos para empezar un calcetín',
+    desc: 'Puntos a montar de un calcetín a partir del perímetro del pie, la muestra y la holgura negativa.',
+    long: 'Quita el 10 % de un perímetro de pie de 22 cm y tejes a 19,8 cm, que son 59,4 puntos a 30 puntos por 10 cm. Redondea a 60, múltiplo de cuatro. El cuatro importa dos veces: un elástico 2×2 se repite cada cuatro puntos, y el empeine y la planta tienen que partirse exactamente por la mitad, 30 y 30, para que el talón y las cuñas salgan simétricos.',
+    note: 'En un calcetín la holgura negativa no es opcional. Tejido al perímetro medido, se afloja al usarlo, hace pliegues bajo el pie y se escurre del talón. Mide también la muestra en redondo: la misma lana y las mismas agujas dan otra cuenta tejidas en plano.',
+  },
+  'stripe-repeat': {
+    title: 'Calculadora de repetición de rayas',
+    desc: 'Cuántas repeticiones completas de raya caben y cuántas vueltas sobran.',
+    long: '160 vueltas con una repetición de 12 dan 13 repeticiones (156 vueltas) y sobran 4. Lo que importa es dónde van esas 4. Repartidas de a poco, una raya acaba visiblemente más gorda que las demás. Puestas todas donde ya hay algo que interrumpe — justo encima del elástico del bajo, o debajo de la manga — nadie las encuentra.',
+    note: 'Un número impar de vueltas por repetición hace que en dos colores la raya empiece cada vez por el extremo contrario, y eso obliga a cortar la lana. Con la repetición par puedes subir el color que descansa por el lateral, y así se reducen a la mitad los cabos que hay que remeter.',
+  },
+  'colorwork-yardage': {
+    title: 'Calculadora de lana por color en jacquard',
+    desc: 'Reparte el total de lana en gramos de cada color.',
+    long: 'Una prenda que se come 400 g con un 70 % de color principal se reparte en 280 g y 120 g. El porcentaje sale del gráfico: cuenta los cuadros de cada color en una repetición y esa es la proporción mientras el dibujo dure. El cuerpo liso y los elásticos van enteros al color principal.',
+    note: 'El color minoritario casi nunca cae en la cifra del gráfico. Las hebras que pasan por el revés gastan más largo que los puntos de la cara, y la lana que llevas como dominante hace puntos algo mayores y rinde menos. Compra un ovillo extra del contraste: igualar un lote de tinte agotado es la falta más difícil de arreglar.',
+  },
+  'yarn-per-row': {
+    title: 'Calculadora de lana por vuelta',
+    desc: 'Metros que se come una vuelta, y cuántas vueltas más aguanta lo que te queda.',
+    long: 'Una faja de 200 m por 50 g son 4 m por gramo. Si una muestra de 12 g te llevó 40 vueltas, entraron 48 m en 40 vueltas, así que una vuelta son 1,2 m. Los 60 g que te quedan son 240 m, que dan para 200 vueltas más. Lo más exacto es pesar la labor, tejer diez vueltas y volver a pesarla: entonces los puntos por vuelta ya son los de verdad.',
+    note: 'Los metros por vuelta crecen con los puntos de esa vuelta. Llevar 1,2 m de una muestra de 40 puntos a un cuerpo de 200 puntos se queda cinco veces corto: multiplica por la razón entre las dos cuentas. El montaje, las costuras y los remates no están en esta cifra.',
+  },
+  'blanket-size': {
+    title: 'Calculadora de tamaño de manta',
+    desc: 'Medidas de la manta y puntos a montar a partir del colchón y la caída.',
+    long: 'Una manta acaba en la medida del colchón más la caída por los lados, no en la del colchón. El ancho lleva la caída dos veces, una por lado; el largo, una sola, a los pies, porque el borde de arriba se queda delante de las almohadas. En una cama de 150 × 200 cm con 25 cm de caída son 200 × 225 cm, y a 16 puntos por 10 cm el montaje es de 320 puntos.',
+    note: 'Sostener 200 cm de puntos pide una aguja circular de 100 cm o más, y en cuanto la pieza pasa del kilo se alarga con su propio peso: mide la muestra pensando en ese peso. Las mantas de bebé salen en cambio de las medidas de la cuna o de la silla del coche, y ahí no debe haber caída que cuelgue de nada.',
+  },
+
+  /* ───────── Costura: dobleces, pliegues y accesorios ───────── */
+  'zipper-length': {
+    title: 'Calculadora de largo de cremallera',
+    desc: 'Qué medida de cremallera comprar para una abertura, redondeada a una que exista.',
+    long: 'Una abertura de 22 cm más 2 cm de margen arriba y abajo pide 24 cm, y nadie vende una cremallera de 24 cm. Las medidas de tienda saltan 10 · 12 · 15 · 18 · 20 · 23 · 25 · 30 · 35 · 40 · 45 · 50 · 55 · 60 · 70 · 80 · 90 cm, así que compras la de 25. Donde se venden en pulgadas, los pasos son 4 · 5 · 7 · 9 · 12 · 14 · 16 · 18 · 20 · 22 · 24 in.',
+    note: 'El largo indicado mide el tramo de dientes que recorre el carro, no la cinta, que sigue más allá por los dos extremos. Comprar larga y acortarla solo funciona en las de espiral: si le cortas los dientes a una de metal o de vislón, el carro se sale, y una separable no se puede tocar por abajo. En buena parte de América esta pieza es el cierre o el zíper.',
+  },
+  'buttonhole-spacing': {
+    title: 'Calculadora de separación de ojales',
+    desc: 'Separación regular entre ojales a lo largo de una tapeta.',
+    long: 'En una tapeta de 60 cm con 2 cm libres en cada extremo, los ojales ocupan 56 cm. Seis botones dividen eso entre cinco, no entre seis: el primero y el último están en los extremos del tramo, así que solo hay cinco huecos entre ellos. Eso da 56 ÷ 5 = 11,2 cm. Divide entre seis y salen 9,3 cm, con el último ojal a medio camino del final.',
+    note: 'En una blusa, coloca primero un ojal a la altura del punto más saliente del pecho y reparte los demás desde ahí: repartir por igual deja ese punto entre dos ojales, que es justo donde el delantero se abre. El ojal en sí sigue midiendo el diámetro del botón más su grosor.',
+  },
+  'pleat-fabric': {
+    title: 'Calculadora de tela para pliegues y tablas',
+    desc: 'Tela necesaria para un panel plisado, a partir del ancho acabado y los pliegues.',
+    long: 'Esta cuenta trabaja con tablas, los pliegues planos que van todos hacia el mismo lado. Una tabla se come tres veces su profundidad, pero una de esas tres es la cara que se ve, que ya está contada en el ancho acabado: lo que hay que añadir son dos veces la profundidad por pliegue. Un panel acabado de 50 cm con diez pliegues de 4 cm se corta a 50 + 10 × 8 = 130 cm. Júntalos hasta que la cara visible mida lo mismo que la profundidad y caben 12,5 pliegues, con la tela justo en el triple, 150 cm: de ahí viene el «las tablas piden tres veces la profundidad». El pliegue caja dobla hacia los dos lados y se come cuatro veces.',
+    note: 'Los pliegues se cosen doblados dentro de la costura de la cintura, así que ahí se apilan tres capas de tela. En denim o en tweed hay que bajar la profundidad o el número antes de que la aguja pase. En una tela estampada, ajusta la profundidad a la repetición del dibujo o los pliegues lo cortarán en pedazos.',
+  },
+  'hem-allowance': {
+    title: 'Calculadora de dobladillo',
+    desc: 'Largo de corte a partir del largo acabado, el ancho del dobladillo y los dobleces.',
+    long: 'El número de dobleces es el número de veces que se gasta la tela. Un doble doblez (2) sube dos veces el mismo ancho para esconder el borde cortado, así que un largo acabado de 70 cm con un dobladillo de 2 cm se corta a 70 + 2 × 2 = 74 cm. Remata el borde con la remalladora y súbelo una sola vez (1) y basta con 72 cm. A diferencia del margen de costura, el dobladillo está solo en un extremo, así que aquí nada se cuenta dos veces por el borde opuesto.',
+    note: 'En un bajo curvo el sobrante no tiene dónde ir cuando el doblez es profundo: el interior frunce y ondula. Deja el bajo de una falda evasé por debajo de 1 cm, o remátalo con tira al bies. Los géneros de punto quieren lo contrario: dobladillo ancho y aguja doble o zigzag, para que la costura estire con la tela.',
+  },
+  'dart-intake': {
+    title: 'Calculadora de pinzas',
+    desc: 'Cuánto recoge cada pinza, a partir de la diferencia entre dos contornos.',
+    long: 'Los 20 cm que hay entre un pecho de 96 cm y una cintura de 76 cm son lo que las pinzas tienen que tragarse. Cuatro pinzas — dos delante y dos detrás — recogen 5 cm cada una, y como la pinza se abre a los dos lados de su eje, cada lado se marca a 2,5 cm. Esos 2,5 cm son la línea que de verdad dibujas en el patrón.',
+    note: 'Repartir 20 cm entre cuatro no significa cuatro pinzas iguales. El lado con más curva recoge más, así que 6 cm delante y 4 cm detrás es el reparto habitual. Pasada más o menos de 4 cm, la punta de una pinza abulta, y la solución son dos pinzas más pequeñas una al lado de la otra.',
+  },
+  'fabric-nap-layout': {
+    title: 'Calculadora de tela con sentido del pelo',
+    desc: 'Tela necesaria cuando todas las piezas tienen que ir en la misma dirección.',
+    long: 'El terciopelo, la pana, los tejidos cepillados y los estampados con dirección piden todas las piezas colocadas hacia el mismo lado, o el color cambia de panel a panel. Seis piezas de 40 × 50 cm de pie sobre una tela de 110 cm caben dos a lo ancho en tres filas: 150 cm. Tumbadas siguen cabiendo dos (110 ÷ 50) en tres filas, pero cada fila mide solo 40 cm, así que bastan 120 cm — y una tela con pelo no puede reclamar esos 30 cm. La calculadora de tela necesaria da por hecho que puedes girar las piezas, y por eso pide menos.',
+    note: 'El terciopelo se ve más oscuro con el pelo hacia arriba y más claro hacia abajo; cualquiera de las dos vale mientras toda la prenda vaya igual. Un estampado grande cuesta todavía más, porque cada pieza necesita hasta una repetición entera de largo extra para casar en las costuras.',
+  },
+  'sewing-thread-length': {
+    title: 'Calculadora de hilo de coser',
+    desc: 'Hilo que consume una costura, y cuántos carretes hacen falta.',
+    long: 'La puntada recta enlaza el hilo de la aguja con el de la canilla dentro de la tela, así que gasta mucho más hilo que el largo de la costura. A 2,5×, una costura de 200 cm se lleva 500 cm, o 5 m. Coser más fino apenas cambia ese total, porque el doble de puntadas gasta la mitad de hilo cada una. Lo que la densidad (200 × 4 = 800 puntadas) fija de verdad es la resistencia de la costura y el número de agujeros que abres en la tela.',
+    note: 'El múltiplo sube con el grosor. La tela fina con puntada recta ronda 2,5, varias capas de denim pasan de 3, y una remalladora de cuatro hilos llega a 12–18 veces el largo de la costura, porque su hilo envuelve la tela por fuera en vez de trabarse dentro. Los metros del carrete también son nominales, y los últimos suelen quedar demasiado flojos para coser.',
+  },
+  'sticker-sheet-yield': {
+    title: 'Calculadora de etiquetas por hoja',
+    desc: 'Cuántas etiquetas caben en una hoja impresa, comparando las dos orientaciones.',
+    long: 'En un A4 (21 × 29,7 cm), un margen de 0,5 cm por los cuatro lados deja 20 × 28,7 cm útiles. Con etiquetas de 5 × 3 cm separadas 0,2 cm, a lo ancho salen (20 + 0,2) ÷ (5 + 0,2) = 3,88 → 3, y a lo alto (28,7 + 0,2) ÷ (3 + 0,2) = 9,03 → 9, o sea 27 etiquetas. Se suma una separación antes de dividir porque entre tres etiquetas solo hay dos huecos. Gíralas 90° y quedan 6 a lo ancho por 5 a lo alto: 30 etiquetas, tres más. Cuenta las dos orientaciones antes de montar la hoja.',
+    note: 'Los márgenes reales de la impresora cambian con el modelo y son más anchos por el borde de arrastre, así que un margen de cero recorta la última fila sin avisar: haz una prueba de impresión. Si el corte lo hace una máquina de corte, deja al menos 0,2 cm de separación para el paso de la cuchilla y suma el sangrado a la medida de la etiqueta, porque la línea de corte cae un poco por fuera.',
+  },
+
+  /* ───────── Patchwork: separaciones, bordes y precortados ───────── */
+  'quilt-sashing': {
+    title: 'Calculadora de tiras de separación para quilt',
+    desc: 'Largo total de separación y tela necesaria, según la retícula de bloques y el ancho de la tira.',
+    long: 'Cuatro bloques a lo ancho por cinco a lo largo, bloques de 25 cm y tiras de 6 cm, dan un ancho acabado de 4 × 25 + 5 × 6 = 130 cm. La separación entra como dos tipos de pieza: las cortas entre bloques suman 5 filas × 5 × 25 cm = 625 cm, y las largas entre filas y arriba y abajo, 6 × 130 cm = 780 cm, o sea 1.405 cm en total. Una tela de 107 cm rinde 105 cm una vez recortado el orillo, así que 14 tiras, y 14 × 6 = 84 cm de tela a comprar.',
+    note: 'El ancho que introduces es el acabado. Para que quede en 6 cm, corta a 7,2 cm: dos márgenes de 1/4 in. Todas las piezas cortas tienen que medir lo mismo, y esa medida es la de corte del bloque y no la acabada, porque el margen de costura del borde del bloque todavía está ahí.',
+  },
+  'quilt-border': {
+    title: 'Calculadora de bordes de quilt',
+    desc: 'Largo de las tiras y tela para uno o dos bordes alrededor de un quilt.',
+    long: 'En un quilt de 150 × 200 cm, un borde de 6 cm pide dos tiras laterales de 200 cm y dos de arriba y abajo de 150 + 12 = 162 cm, porque los lados ya están puestos: 724 cm juntas. Un segundo borde de 10 cm rodea el centro ya crecido de 162 × 212 cm, con lados de 212 y tiras de 182 arriba y abajo, otros 788 cm, para un total de 1.512 cm. El quilt acaba en 182 × 232 cm.',
+    note: 'Si cortas el borde exterior con la medida sin el borde interior, te falta el ancho de ese borde en cada esquina. Aquí se cuenta en el orden lados primero; si pones antes arriba y abajo, intercambia el ancho y el largo. La tela se calcula con el ancho acabado más dos márgenes de 1/4 in (1,2 cm): si los dos bordes son telas distintas, reparte el número de tiras entre ellas.',
+  },
+  'fat-quarter-yield': {
+    title: 'Calculadora de fat quarter',
+    desc: 'Cuántas piezas de una medida dada salen de un fat quarter.',
+    long: 'Un fat quarter es una yarda partida en cuatro: 18 × 22 in, unos 50 × 55 cm. Cortando cuadrados de 4,5 in (11,4 cm) salen cuatro a lo ancho y cuatro a lo largo, o sea 16 cuadrados y 671 cm² de sobra. Cuando la pieza no es cuadrada, girarla puede dar más, así que se cuentan las dos orientaciones y se muestra la mejor.',
+    note: 'Mete la medida de corte, no la acabada; con las acabadas falta el margen de costura y el resultado sale inflado. Los fat quarters se cortan a menudo torcidos en la tienda, así que cuenta con 1 cm de un borde como inservible, y si el trazado entra justo, compra otro.',
+  },
+  'jelly-roll-yield': {
+    title: 'Calculadora de jelly roll',
+    desc: 'Área útil y medida acabada de un rollo de tiras precortadas.',
+    long: 'Un jelly roll son 40 tiras de 2,5 in (6,4 cm) cortadas a lo ancho de una tela de 42 in (107 cm). Al coserlas se pierde 1/4 in por cada borde largo, así que una tira acaba en 5,2 cm de ancho por 105,8 cm de largo. Unidas lado a lado, las 40 dan 208 × 105,8 cm: un área de 2,2 m².',
+    note: 'Cosidas seguidas, las tiras dan un panel corto y ancho de 208 cm. Para una medida de cama, pártelo por la mitad y vuelve a unirlo (104 × 211 cm), o cose un juego de tiras largo y córtalo al través. Cuanto más estrecha la tira, más se lleva la costura: un 19 % a 6,4 cm y un 32 % a 3,8 cm (1,5 in).',
+  },
+  'mitred-corner': {
+    title: 'Calculadora de esquinas en inglete para bordes',
+    desc: 'Largo de corte de cada tira de borde a inglete y dónde cae el corte a 45°.',
+    long: 'Una esquina en inglete es la que forman dos bordes al encontrarse a 45°, como un marco. Para trazar esa diagonal, la tira tiene que pasar del borde del quilt el ancho del borde por cada extremo, más 5 cm de seguridad. En un lado de 150 cm con un borde de 15 cm, corta 150 + 2 × 20 = 190 cm, marca a 20 cm de cada punta y cose solo entre las marcas. La diagonal que hay que cortar mide 15 × √2 = 21,2 cm.',
+    note: 'Coser hasta las puntas de la tira hace imposible doblar la esquina. Cose solo entre las dos marcas y remata en las dos. La diagonal queda al bies y estira con la plancha, así que une primero las dos tiras a 45° y recorta el sobrante después: recortar antes no se puede deshacer.',
+  },
+  'floss-skeins': {
+    title: 'Cuántas madejas de hilo de bordar comprar',
+    desc: 'Madejas a comprar para un largo de hilo dado.',
+    long: 'Una madeja son seis hebras de 8 m, que desenrolladas dan 48 m de hebra suelta. Sesenta metros de necesidad más un 10 % de margen son 66 m; entre 48 sale 1,4, que redondea a dos madejas y deja 30 m para el siguiente gráfico.',
+    note: 'Mete el largo contado en hebra suelta. Bordar con dos hebras gasta el doble del largo que tiras, no ese largo. Si piensas comprar más de un color más adelante, mira el lote de tinte: el mismo número en otro lote cambia un poco, y la unión se ve en una zona rellena grande.',
+  },
+  'hoop-size': {
+    title: 'Calculadora de tamaño del aro de bordado',
+    desc: 'El aro más pequeño en el que cabe un diseño con su margen de trabajo.',
+    long: 'El aro es redondo y el diseño es rectangular, así que lo que tiene que caber no es el ancho ni el alto: es la diagonal. Un diseño de 18 × 25 cm con 2 cm de margen de trabajo pasa a 22 × 29 cm, y la diagonal es √(22² + 29²) = 36,4 cm, o 14,3 in. Elegir un aro de 8 in (20 cm) porque el diseño solo mide 22 cm de ancho deja una parte fuera del anillo.',
+    note: 'La tela tiene que sobrar al menos 8 cm del aro por todos los lados para que haya algo que sujetar en el tornillo. Los diseños grandes se bordan moviendo el aro en vez de comprando uno mayor, pero apretar el anillo sobre puntadas ya hechas las aplasta y deja marca: un bastidor de rodillos o de listones lo evita.',
+  },
+  'thread-count-convert': {
+    title: 'Calculadora de cuenta de tela y tamaño del diseño',
+    desc: 'Puntos por pulgada efectivos y medida final cuando bordas sobre más de un hilo.',
+    long: 'La cuenta son hilos por pulgada. La Aida agrupa sus hilos de cuatro en cuatro, así que un punto cubre un bloque, pero el lino y el evenweave se bordan normalmente sobre dos hilos. Bordar una tela de 28 sobre dos hilos da 14 puntos por pulgada efectivos, así que un gráfico de 100 × 140 acaba en 18,1 × 25,4 cm: lo mismo que una Aida de 14. La escala del 200 % significa que el diseño sale el doble de grande que sobre un solo hilo.',
+    note: 'Que el «28» de un patrón ya signifique 14 efectivos cambia según quien lo diseñe; cuando la medida final sale la mitad o el doble, casi siempre es esto. Bordar sobre un solo hilo, el petit point, hace puntadas diminutas que cansan la vista, y las líneas de pespunte se van torciendo en diagonal según las tira el tejido.',
+  },
+
+  /* ───────── Velas: vertidos, mezclas y precio ───────── */
+  'wax-topup': {
+    title: 'Calculadora del segundo vertido de cera',
+    desc: 'Cera del repaso y cera total a fundir a partir de la contracción.',
+    long: 'La soja se hunde alrededor de la mecha al cuajar y deja un hueco en la superficie. Un primer vertido de 180 g con un 10 % de contracción pide 18 g para rellenarlo, así que funde 198 g desde el principio. La contracción depende de la cera, del recipiente y de lo rápido que enfríe: la misma cera se comporta de otra forma en cristal y en lata.',
+    note: 'Haz el repaso cuando la primera capa haya cuajado, y viértelo 5–10 °C más frío que el primero. La cera caliente vuelve a fundir la capa de abajo y esta se hunde otra vez. Recalentar el resto en el cazo se lleva la fragancia, así que es mejor apartar la parte del repaso desde el principio.',
+  },
+  'candle-dye-load': {
+    title: 'Calculadora de colorante para velas',
+    desc: 'Gramos de colorante a partir del peso de la cera y su porcentaje, con la carga total.',
+    long: 'El colorante ronda el 0,1–1 % del peso de la cera. Medio por ciento de 500 g son 2,5 g: un trozo del tamaño de una uña de una pastilla de color. Añade un 8 % de fragancia y la cera lleva un 8,5 % en total, y es ese total el que hay que comparar con la carga máxima que indica el fabricante.',
+    note: 'El colorante y la fragancia se pelean por la misma capacidad de la cera. Subir el color con la fragancia ya al máximo deja aceite sudando en la superficie o tapa la mecha. No uses lápices de cera ni crayones: el pigmento no se disuelve y ahoga la mecha. La cera con color aclara un tono al cuajar, así que juzga el color en frío y no fundido.',
+  },
+  'wax-blend': {
+    title: 'Calculadora de mezcla de ceras',
+    desc: 'Reparte un peso total de cera entre dos ceras en la proporción que elijas.',
+    long: 'Mezclar una cera dura con una blanda ajusta las propiedades. Un kilo a 7 : 3 son 700 g de A y 300 g de B. Añadir un 10–30 % de parafina o de cera de abeja a una soja de recipiente alisa la superficie y retiene la fragancia más tiempo, pero la cera de abeja sube el punto de fusión, y eso normalmente significa subir una talla de mecha.',
+    note: 'Una mezcla queda entre sus dos ceras, aunque valores como el punto de fusión no escalan en línea recta. Cuando fijes la proporción, cuela una vela, cúrala dos días y quémala: cada cambio de mezcla obliga a repetir la prueba de mecha. La soja y la parafina cuajan a ritmos distintos, así que la frontera puede quedar con escarcha o veteada.',
+  },
+  'layer-pour': {
+    title: 'Calculadora de velas por capas',
+    desc: 'Cera por capa y por vela en un vertido de varias capas.',
+    long: 'Un recipiente de 200 mL lleno al 90 % contiene 180 mL, o 162 g de cera. Repartido en tres capas son 60 mL y 54 g cada una. Para capas desiguales, toma esta cifra y aplica una proporción a cada una: una capa de abajo más gruesa baja el peso visual y se ve más estable.',
+    note: 'Vierte la capa siguiente cuando la de abajo haya cuajado lo justo para que el dedo no deje marca. Sobre una capa blanda los colores se corren; sobre una completamente fría las capas no se pegan y se separan al quemarse. Poner una fragancia distinta en cada capa es mala idea: al arder se calientan también las de abajo y se mezclan igual.',
+  },
+  'container-fill-height': {
+    title: 'Altura de llenado de la cera',
+    desc: 'A qué altura queda un peso de cera en un recipiente de un diámetro interior dado.',
+    long: 'Dividir 180 g entre una densidad de 0,9 da 200 mL, y un diámetro interior de 7 cm tiene 38,5 cm² de base, así que la cera se queda a 5,2 cm de alto. Saber esa altura antes de verter es como compruebas que el pie de la mecha queda cubierto y que el llenado no pasa del borde de la etiqueta.',
+    note: 'Los pies de mecha miden 3–6 mm; con menos cera que eso el pie queda al aire y el último calor se va al fondo de cristal. Un recipiente que se estrecha llena más alto que esto, y meter el lado en vez del diámetro en un recipiente cuadrado da un valor bajo. Pega la etiqueta por debajo de la línea de la cera: una etiqueta por encima de la superficie se despega al calentarse la vela.',
+  },
+  'fragrance-max': {
+    title: 'Carga máxima de fragancia',
+    desc: 'El techo de aceite de una cera y la holgura que deja la carga que planeas.',
+    long: 'Si la cera indica un máximo del 10 %, 500 g pueden llevar 50 g de aceite. Planear un 8 % pone 40 g y deja 10 g de holgura. Esa holgura no está reservada solo para la fragancia: el colorante y cualquier otro aditivo comparten la misma cuota.',
+    note: 'Una holgura negativa significa que el techo ya se ha pasado. El aceite que sobra no se integra: sale sudando de la superficie cuajada o se acumula en el fondo, y sube por la mecha dando una llama enorme. Si a carga máxima la vela sigue oliendo poco, la respuesta está en el aceite, en la temperatura de añadido o en el curado, no en el porcentaje: la soja necesita una o dos semanas para dar aroma.',
+  },
+  'candle-price': {
+    title: 'Calculadora de precio de venta de una vela',
+    desc: 'Precio de venta para el margen que buscas, y el margen real de un precio elegido.',
+    long: 'El margen se mide sobre el precio de venta. Para quedarte con un 60 % sobre un coste de materiales de 4.000, el precio es 4.000 ÷ (1 − 0,6) = 10.000. Sumar un 60 % al coste da 6.400, que es un margen del 37,5 % y no del 60 %. Vender a 9.000 deja 5.000 de beneficio y un margen del 55,6 %.',
+    note: 'En esta cifra solo están los materiales. Las velas fallidas, el embalaje y el relleno, el envío, las comisiones de la plataforma (a menudo un 3–10 % del precio) y las horas de fotos y etiquetas quedan todas fuera. Si además vendes al mayor, el precio mayorista tiene que ser al menos el doble de este coste de materiales para que el precio de tienda sobreviva.',
+  },
+  'candles-from-wax': {
+    title: 'Cuántas velas salen de la cera que tienes',
+    desc: 'Cuántas velas de un tamaño dado da una cantidad de cera.',
+    long: 'Toma una bolsa de 5 kg, pierde un 5 % en el cazo y en la jarra y quedan 4.750 g para verter. A 180 g cada una son 26 velas y sobran 70 g. Junta esos 70 g con la siguiente tanda o viértelos como pastilla aromática: siempre sobra algo que no llega a una vela.',
+    note: 'La fragancia no entra en esta cuenta. El aceite se añade por encima del peso de la cera, así que no reduce el número de velas, pero es un coste aparte. El porcentaje de pérdida depende del tamaño del lote: un 5 % es generoso para fundir 5 kg de una vez, pero fundir 500 g diez veces deja el mismo resto diez veces y pasa del 10 %.',
+  },
+
+  /* ───────── Jabón y resina: mezclas, moldes y curado ───────── */
+  'multi-oil-lye': {
+    title: 'Calculadora de sosa cáustica para varios aceites',
+    desc: 'Suma tres aceites, cada uno con su índice SAP, y obtén la sosa que necesita la mezcla.',
+    long: 'Una receta de varios aceites hay que resolverla aceite por aceite y sumar después, porque el índice SAP pertenece al aceite y no al jabón en general: saca cada valor de los datos de ese aceite, sea la ficha del proveedor o una tabla SAP estándar. Oliva 300 g (SAP 190), coco 150 g (SAP 258) y ricino 50 g (SAP 180) dan 300×190 + 150×258 + 50×180 = 104.700, que entre 1402,5 son 74,7 g de sosa, y quitando un 5 % de sobregrasa quedan 70,9 g. El SAP de la mezcla que aparece al lado, aquí 209,4, es la media ponderada: es el número que usarías si más adelante tratas esta mezcla como un solo aceite. Cambia un aceite y ese SAP se mueve, así que hay que rehacer la sosa.',
+    note: 'La sosa va sobre el agua, nunca el agua sobre la sosa: al revés puede hervir y salpicar en segundos. Ponte gafas de protección y guantes, y mezcla en acero inoxidable o HDPE, nunca en aluminio, que la sosa ataca desprendiendo hidrógeno. La disolución se calienta sola hasta 80–90 °C al contacto, así que nada de cristal ni de plástico fino. Un solo peso de aceite mal escrito descuadra la sosa: poca deja una pastilla blanda que nunca endurece, demasiada deja una pastilla cáustica. Pon a cero el peso de un aceite que no uses; un SAP suelto ahí no cambia nada.',
+  },
+  'water-discount': {
+    title: 'Calculadora de descuento de agua en jabón',
+    desc: 'Recorta un porcentaje del agua completa y mira el agua resultante y la concentración de la sosa.',
+    long: 'El agua no participa en la saponificación: lleva la sosa hasta los aceites y se marcha mientras la pastilla cura. Descontarla no es entonces gastar menos material, sino concentrar más la disolución. Setenta y un gramos de sosa a 2 : 1 son 142 g de agua, una disolución al 33 %. Quítale un 20 % y quedan 113,6 g de agua al 38,5 %. Una disolución más fuerte deja menos agua en la masa, así que la traza llega bastante antes: menos tiempo para dibujar, pero firmeza suficiente para desmoldar en un día, un curado más corto y menos encogimiento. Por eso el descuento encaja con las pastillas de un solo color y con las prisas, mientras que un veteado complicado quiere el descuento a cero, o incluso más agua.',
+    note: 'El 50 % es el techo práctico: por encima la sosa no se disuelve entera y quedan granos que acaban dentro de la pastilla. Cuanto mayor el descuento, más alto el pico de temperatura, así que empieza con agua fría, y mantén el orden, la sosa sobre el agua, o hierve y salpica. Gafas, guantes y acero inoxidable o HDPE, nunca aluminio. Recortar el agua no cambia nunca el peso de la sosa: si la bajas junto con el agua sale una pastilla blanda que no cuaja, y si pesas sosa en el campo del agua sale una pastilla cáustica.',
+  },
+  'soap-mold-fill': {
+    title: 'Calculadora de capacidad del molde de jabón',
+    desc: 'Pasa del volumen del molde y la densidad de la masa al peso del lote, y al aceite que lleva dentro.',
+    long: 'Los moldes se miden en volumen y las recetas en peso, y la densidad de la masa es lo que une las dos cosas: la masa de jabón pesa algo menos que el agua, 0,9–1,0 g/mL, y aquí el valor por defecto es 0,95. Un molde de 1.200 mL sostiene entonces unos 1.140 g de masa. Sacar el aceite de ahí pide un supuesto: que la sosa es una parte fija del peso del aceite (un 13,5 % por defecto, una cifra realista en mezclas corrientes) y que el agua es un múltiplo de la sosa (2× por defecto). La masa es entonces 1 + 0,135 + 0,27 = 1,405 veces el aceite, así que 1.140 ÷ 1,405 = 811 g de aceite, 109,5 g de sosa y 219 g de agua. La proporción real de sosa la fija tu mezcla de aceites, así que cuando la tengas cerrada, mete en ese campo su sosa ÷ aceite de la calculadora de sosa para varios aceites. Mide el molde con agua, y cuenta con que uno de silicona admita un 5 % más que la aritmética, porque las paredes se abomban con la masa.',
+    note: 'No lo llenes hasta el borde. La masa sube al calentarse, y un lote que gelifica por encima cuaja formando un charco alrededor del molde: deja 1–1,5 cm libres. Verter demasiado poco es el otro extremo, y las pastillas salen bajas y se rompen al cortarlas. La densidad se mueve con la receta: los aceites duros como el coco la suben y una masa batida es mucho más ligera. Cuando hayas llenado un molde, anota su peso de masa dividido entre su volumen y usa eso: tu propia cifra gana a cualquier valor por defecto.',
+  },
+  'soap-cure-progress': {
+    title: 'Calculadora de curado del jabón',
+    desc: 'Los días desde que lo hiciste frente al curado objetivo dan el porcentaje curado y los días que faltan.',
+    long: 'El curado es agua que se va, no saponificación. La reacción termina normalmente en 24–48 horas, así que a esas alturas el pan ya es jabón, pero está blando y dura poco porque el agua que mezclaste sigue dentro. En cuatro a seis semanas esa agua se evapora, la pastilla endurece y la espuma se vuelve más fina y duradera. Sobre un objetivo de 42 días, el día 14 es un 33 % con 28 días por delante. El objetivo es una marca, no una fecha límite: las pastillas siguen mejorando pasado el 100 %, y un castilla con mucho oliva se nota mejor a los dos o tres meses, y mejor aún a los seis. Para seguirlo de verdad usa la balanza: pesa una pastilla, apunta el dato y vuelve a pesarla cada pocos días; cuando el peso deje de bajar, el agua se ha ido, normalmente un 5–10 % por debajo del inicio.',
+    note: 'Este porcentaje cuenta días y no sabe nada de tu habitación. En un verano húmedo el peso sigue cayendo mucho después del día 42; con aire seco de invierno termina antes. Pon las pastillas de canto, separadas, en un estante donde corra el aire: apiladas o en una caja pasan los días y el agua se queda. Envolver en film o en plástico va después del curado, no durante. Y una pastilla blanda porque faltó sosa no endurece nunca: el curado arregla la humedad, no una receta mal pesada.',
+  },
+  'resin-coverage': {
+    title: 'Calculadora de resina por superficie',
+    desc: 'Volumen y peso de resina para cubrir una superficie a un espesor dado.',
+    long: 'Una capa es superficie por espesor, y la única trampa son las unidades: los centímetros cuadrados multiplicados por milímetros hay que dividirlos entre 10 para llegar a centímetros cúbicos, que son mililitros. Una bandeja de 60 × 60 cm, 3.600 cm², a 3 mm se lleva 1.080 mL, o 1.188 g a una densidad de 1,1. Las superficies grandes como una mesa casi nunca se vierten con más de unos 3 mm de golpe, así que el espesor se reparte en capas: mete el espesor de una capa y repite el vertido en vez de recalcular cada vez. La resina autonivelante se reparte sola en una superficie a nivel, pero medio grado de inclinación engorda el borde bajo y deja seco el alto, así que el nivel de burbuja importa más que la aritmética.',
+    note: 'Cuenta con lo que se escurre. Una superficie sin canto — una mesa, el exterior de una bandeja — pierde resina por los lados, así que presupuesta un 10–20 % por encima de la cifra y pon cinta como dique o algo debajo para recoger. Mezcla siempre un 5–10 % de más por lo que se queda en el vaso y en la paleta. Verter todo el espesor de una vez concentra el calor y la plancha amarillea o se agrieta, así que respeta la profundidad máxima por capa del bote. Las superficies porosas como la madera desnuda se beben la primera capa: séllalas con una capa fina antes de la definitiva.',
+  },
+  'resin-doming': {
+    title: 'Calculadora de resina para domo',
+    desc: 'La resina de un vertido abombado, a partir del diámetro de la pieza y la altura del domo.',
+    long: 'Un domo es un trozo de esfera y no un cilindro, así que multiplicar diámetro por altura se pasa mucho. La fórmula correcta es πh(3a² + h²)/6, con a como radio. Una base de 25 mm con un domo de 3 mm de alto contiene 750 mm³, que son 0,75 mL; diez de ellas son 7,5 mL, u 8,3 g a 1,1 g/cm³. Un domo natural ronda el 8–12 % del diámetro — 2–3 mm en una pieza de 25 mm — y forzarlo más falla, porque la tensión superficial es el supuesto que hay debajo de este cálculo. La resina forma su propia lente donde la pones, y esa altura la fijan la viscosidad y la tensión superficial, no la aritmética. Toma el resultado como «cuánta resina contiene un domo de esa altura», luego llena hasta el borde y añade gotas a ojo.',
+    note: 'Los domos se escurren. Sin un labio en el borde, la resina se pasa por el canto, cuaja en la parte de atrás, y lijarla luego tarda más que volver a verter: pon cinta por debajo o usa un engaste con reborde. La resina de baja viscosidad, la de capas y no la de domos, se extiende en vez de abombarse por poca que pongas. Deja la mezcla reposar media hora antes de verter y la mayoría de las burbujas sube sola; a las que queden, pásales el soplete rozando, porque mantenerlo quieto hunde la superficie.',
+  },
+  'resin-cups': {
+    title: 'Reparto de resina por colores',
+    desc: 'Reparte el total de resina en vasos, uno por color, a partes iguales o con un color de fondo mayor.',
+    long: 'Trabajar con varios colores significa repartir la resina en vasos, y el orden importa: primero se unen A y B por completo y después se divide. Doscientos veinte gramos entre tres colores son 73,3 g cada uno; dale al color de fondo un 40 % y pasan a ser 88 g más 66 g para cada uno de los otros dos. Dejar la parte del fondo en cero devuelve el reparto a partes iguales. Los repartos iguales son raros en la práctica — el fondo suele llevarse más de la mitad mientras un detalle necesita unos gramos —, así que fijar primero la parte del fondo y dividir el resto se parece más a cómo se vierten las piezas de verdad. Mezcla un vaso más de los que necesitas: cuando un color se ensucia no hay vuelta atrás, y unos gramos de resina transparente guardados son lo que lo salva.',
+    note: 'Une cada vaso por completo antes de meter pigmento. Si tiñes primero no puedes ver si A y B se han casado de verdad, y un vaso mal mezclado se queda pegajoso él solo. El tiempo de repartir también sale del tiempo de trabajo: con seis vasos, el último ya está espesando, así que con muchos colores pesa en dos rondas en vez de una. Cada trasvase deja 1–2 g en la pared del vaso, así que al molde llega algo menos de lo que dicen los números. Los vasos pequeños tienen la base estrecha y bailan en la balanza: apoya el vaso, ponlo a cero y llena de uno en uno.',
+  },
+  'silicone-ratio': {
+    title: 'Calculadora de proporción A : B de silicona',
+    desc: 'Reparte un peso total de silicona entre la parte A y la parte B, en peso.',
+    long: 'La proporción depende de la familia de silicona que tengas. La de curado por adición (platino) suele ser 1 : 1, así que el total se parte por la mitad; la de condensación (estaño) usa una carga pequeña de catalizador, normalmente 10 : 1 o 100 : 5, que es 20 : 1. Quinientos gramos a 10 : 1 son 454,5 g de A y 45,5 g de B, con el catalizador al 9,1 % del lote. Los mismos 500 g a 1 : 1 son 250 g de cada uno y un 50 % de catalizador: un pesado completamente distinto, y por eso partir el total por la mitad sin leer el bote es el error clásico. Estas son proporciones en peso; muchos productos imprimen también la de volumen, así que mira la de peso cuando trabajes con balanza. La cuenta es la misma que en la calculadora de mezcla de resina, pero la silicona perdona mucho menos en lotes pequeños porque el catalizador está cargado a un solo lado.',
+    note: 'Cuando el lado del catalizador son solo 45 g, pasarse 1 g ya es un 2 % de error: usa una balanza que lea 0,1 g y no dosifiques nunca la parte B a ojo. Con poco catalizador el molde se queda pegajoso por dentro y no desmolda; con demasiado cuaja antes de que acabes de verter. El curado por platino es además sensible a la contaminación: la plastilina con azufre, los guantes de látex o un vaso que tuvo silicona de estaño dejan una zona que no cura nunca, así que prueba en un rincón escondido si dudas del modelo. No mezcles nunca las dos familias. Pesa también un 5 % de más: una silicona vertida en dos veces se parte por la junta.',
+  },
+
+  /* ───────── Abalorios y envío: largos, eslabones y embalaje ───────── */
+  'necklace-length': {
+    title: 'Calculadora de largo de collar',
+    desc: 'Abalorios necesarios y hueco del cierre a partir del largo acabado y el diámetro del abalorio.',
+    long: 'Los largos de collar tienen nombre: gargantilla 40 cm, princesa 45 cm, matiné 55 cm, ópera 75 cm y soga 105 cm. Una gargantilla todavía tiene que pasar el cuello, normalmente 33–35 cm, mientras que un princesa cae en la clavícula y un matiné por debajo del pecho. Elegido el objetivo, lo demás es una resta: en un collar de 45 cm el cierre y los terminales se llevan 20 mm, así que quedan 430 mm para abalorios, y con redondos de 8 mm salen 53 abalorios y 44,4 cm acabados. Sáltate la resta, divide 450 entre 8, ensarta 56 y el collar cierra en 46,8 cm, por encima del largo que querías. El alambre que aparece al lado es el objetivo más 10 cm: los cabos que vuelves a pasar por los terminales en cada extremo.',
+    note: 'La cuenta redondea hacia abajo; los milímetros de sobra se juntan junto al cierre y no hay medios abalorios. Los diámetros impresos son nominales y la piedra natural varía medio milímetro por pieza, así que cuenta con uno o dos de diferencia: pon diez abalorios sobre una regla antes de ensartar y ya tienes el diámetro real. El hueco del cierre es lo que más varía: un mosquetón pequeño son 10 mm, y un cierre magnético de bola o uno con cadena de extensión pasa de 40 mm. Los collares también caen hacia delante con su propio peso y parecen algo más largos por el frente, así que en la duda quita un centímetro al objetivo.',
+  },
+  'bracelet-size': {
+    title: 'Calculadora de talla de pulsera',
+    desc: 'Suma la holgura de ajuste a la muñeca para obtener el largo del hilo y los abalorios.',
+    long: 'Una pulsera no se puede hacer a la medida exacta de la muñeca, porque el hilo pasa por fuera de los abalorios y no contra la piel: cuanto más grueso el abalorio, mayor el perímetro efectivo. La holgura estándar es 1–1,5 cm en una pulsera de elástico y 1,5–2 cm en una con cierre, porque el cierre tiene que girar alrededor de la muñeca y sin holgura no se abrocha. Una muñeca de 16 cm más 1,5 cm da un hilo de 17,5 cm, que lleva 21 abalorios de 8 mm. En una pulsera con cierre, quita el largo del cierre — normalmente 10–15 mm — de los abalorios y no del hilo, así que ensartas unos dos menos. El elástico no lleva cierre, así que los abalorios llenan todo el hilo. La cifra del cordón es el hilo más 8 cm: los cabos para hacer el nudo y esconderlo.',
+    note: 'El elástico falla más por rotura que por desatarse. Usa 0,8 mm o más grueso y pre-estíralo tirando de las puntas unas cuantas veces antes de ensartar, o la pulsera se afloja en unos días. Haz un nudo de cirujano dos veces, ponle una gota de pegamento y mete el nudo dentro del agujero de un abalorio. La piedra y el metal con el agujero mal pulido sierran el hilo, así que eso va mejor en una pulsera con cierre. La muñeca también se hincha medio centímetro a lo largo del día, así que para un regalo tira por la holgura generosa.',
+  },
+  'chain-links': {
+    title: 'Calculadora de eslabones de cadena',
+    desc: 'Cuántos eslabones pide un largo acabado, y el largo que dan los eslabones enteros.',
+    long: 'La cadena solo se corta por un eslabón. Para llegar a 45 cm con eslabones de 7 mm, 450 ÷ 7 es 64,3, así que coges 64 eslabones, y 64 eslabones miden 44,8 cm. No hay forma de dar en 45 cm exactos: la elección está entre 44,8 cm y los 45,5 cm de 65 eslabones. Mide el eslabón poniendo la cadena a lo largo de una regla, contando diez y dividiendo entre diez: si mides uno solo, un error de 0,5 mm se multiplica por 64 y se convierte en 3 cm. Los accesorios también comen largo — un cierre más dos anillas son normalmente 15–20 mm —, así que réstalos del largo acabado antes de hacer esta cuenta. Las cadenas regulares, como la forzada o la de cordón, encajan directamente con la aritmética; en un dibujo que se repite, como la fígaro, mete el largo de una repetición completa, por ejemplo un eslabón largo más tres cortos.',
+    note: 'Cuando sepas dónde cortar, importa cómo cortas: unos eslabones se abren y se vuelven a cerrar y otros hay que partirlos. La cadena soldada pide alicates de corte, y el eslabón cortado se tira, así que el largo real sale un eslabón más corto. En una cadena que va a llevar un colgante pesado, el grosor importa más que la cuenta: un eslabón fino se abre con la carga y el colgante se va. Cuando dos cadenas tienen que ser iguales, como en unos pendientes, ponlas una al lado de la otra y cuenta eslabones en vez de medir cada una con la cinta, que estira distinto cada vez.',
+  },
+  'earring-wire': {
+    title: 'Calculadora de alambre para pendientes',
+    desc: 'Alambre por pendiente y por par a partir del diámetro del aro, las vueltas y el margen del bucle.',
+    long: 'Una vuelta de aro es diámetro × π. Un aro de 20 mm son 62,8 mm, así que dos vueltas superpuestas son 125,7 mm, y con 15 mm de margen para el bucle quedan 140,7 mm por pendiente y 281,3 mm el par. El margen del bucle cubre formar la anilla que cuelga del gancho y rematar la punta: un bucle simple con alicates de punta redonda se lleva 8–10 mm y uno envuelto, 20–25 mm. Las vueltas van de media en media: 1,5 vueltas dan un aro con medio solape que de frente se lee como una línea doble. Para una pieza colgante en vez de un aro, pon el ancho del colgante en el diámetro y 1 en las vueltas para una sola circunferencia. Lo importante de esta cuenta es que el par salga igual: si mides y cortas los dos pendientes por separado salen con 1–2 mm de diferencia, y eso se ve de frente. Corta el largo del par, dóblalo por la mitad y corta una sola vez.',
+    note: 'Si escatimas el margen no puedes terminar la pieza. Sin un cabo que agarrar no se aprieta el bucle, y el alambre se estira un poco al tirar, así que el largo real supera la aritmética. El alambre gordo — 0,8 mm / calibre 20 en adelante — no forma un círculo limpio con la mano y hay que enrollarlo en un mandril, y entonces el aro mide mandril más grosor del alambre, más de lo calculado. Lo que pasa por la oreja del pendiente, o arete según el país, debe ser acero quirúrgico, titanio o plata fina; deja el alambre de bisutería con níquel para el cuerpo del aro. Suma un milímetro por corte para limar las puntas.',
+  },
+  'bubble-wrap': {
+    title: 'Calculadora de plástico de burbujas',
+    desc: 'Cuánto plástico de burbujas pide una caja, según sus medidas y las capas.',
+    long: 'El plástico de burbujas se vende en rollo, así que la respuesta tiene que ser un largo, pero lo que fija la cantidad es la superficie exterior de la caja. Una caja de 20 × 15 × 8 cm tiene 2 × (20×15 + 20×8 + 15×8) = 1.160 cm² de superficie. Dale dos vueltas y suma un 15 % por el solape y los dobleces de las esquinas y salen 2.668 cm², que en un rollo de 50 cm son 53 cm: 0,53 m. Ese 15 % es el margen del que depende la cuenta: las puntas tienen que solaparse para que agarre la cinta, y las esquinas consumen más que la superficie plana. El número de capas lo fija el contenido: una para algo que no se rompe, tres o más para cristal, cerámica y electrónica, y una vuelta extra en esquinas y asas. Para una tirada de 100 paquetes, multiplica el largo por 100 y divide entre el largo del rollo: uno de 50 cm de ancho suele traer 50 m.',
+    note: 'Si el rollo es más estrecho que la caja, la aritmética correcta no te ayuda a envolver: el rollo tiene que cubrir la cara más corta — aquí los 15 cm de fondo o los 8 cm de alto —, así que mira el ancho antes de comprar. Envuelve con las burbujas hacia dentro; mirando hacia fuera no se comprimen, se revientan, y el amortiguado desaparece. Recuerda también que el objetivo es que el contenido no se mueva dentro de la caja, así que envolver bien y dejar huecos sirve de poco. Donde el transportista cobra por peso volumétrico, engordar la caja con capas sube la factura, así que si necesitas tres capas, sube una talla de caja.',
+  },
+  'tissue-paper': {
+    title: 'Calculadora de papel de seda',
+    desc: 'Medida de la hoja de papel de seda que pide una caja, y las hojas de una tirada de envíos.',
+    long: 'El papel de seda forra la caja: cubre el fondo, sube por las dos paredes y se dobla sobre el contenido por arriba. Un lado es entonces el ancho de la caja más dos veces el alto, por las dos paredes, más unos 5 cm para solapar arriba — en una caja de 20 × 15 × 8 cm eso es 20 + 16 + 5 = 41 cm, y 15 + 16 + 5 = 36 cm en la otra dirección. La hoja estándar que cubre 41 × 36 cm es la de 50 × 70 cm, la más común; partida por la mitad queda en 35 × 50 cm, que se queda algo corta para esta caja. Eso es en realidad lo que decide esta cuenta: si usar hojas enteras o cortarlas. Dos hojas por paquete es lo normal: una cruzada para envolver el artículo y otra por encima, o arrugada para rellenar huecos. Diez paquetes son 20 hojas, así que un paquete de 100 hojas cubre cinco envíos así.',
+    note: 'El papel de seda de color fuerte destiñe. Con las manos húmedas o en un almacén cargado, el tinte pasa al contenido claro, así que usa papel blanco sin ácido para cualquier cosa absorbente como ropa, jabón o velas. Tampoco es amortiguación: presenta el artículo y evita que las superficies se rocen, pero no absorbe golpes, así que lo frágil lleva primero plástico de burbujas y el papel de seda encima. El papel con fibra se raja al doblarlo contra la fibra, así que dobla una hoja antes de cortar el montón. Y mide la caja por dentro: con las medidas exteriores la hoja se queda corta por el grosor de la pared.',
+  },
+  'ribbon-bow': {
+    title: 'Calculadora de cinta para un lazo',
+    desc: 'La cinta que pide el lazo en sí, según las lazadas, su largo y las colas.',
+    long: 'Cada lazada sale y vuelve, así que se come el doble de su propio largo. Seis lazadas de 6 cm son 72 cm, dos colas de 12 cm suman 24 cm, y 5 cm para atar el centro lo dejan en 101 cm. El lazo acabado mide más o menos el doble del largo de la lazada — 12 cm aquí — y alrededor de un tercio del ancho de la caja queda bien. El número de lazadas fija el carácter: dos son un lazo sencillo atado a mano, seis se levantan en capas, y a partir de diez se lee como una flor pompón. Esta herramienta cubre solo el lazo. La cinta que da la vuelta a la caja es la calculadora de cinta para regalos, 2 × (ancho + alto) + 2 × (fondo + alto) en un envoltorio en cruz: suma las dos cifras si un mismo trozo de cinta envuelve y ata, o usa solo esta si haces el lazo aparte y lo pegas.',
+    note: 'El ancho de la cinta decide cómo se lee el lazo. De 25 mm en adelante las lazadas se sostienen y una de 6 cm parece generosa; a 6 mm la misma lazada se cae, así que la cinta estrecha necesita más lazadas para rellenar. La cinta con alambre en el canto mantiene la forma, mientras que la lisa se aplasta en cuanto aprietas el centro y el lazo parece más pequeño de lo que dicen los números. La cinta tejida, como el satén, se deshilacha por el corte, así que recorta en diagonal o pasa la llama por la punta, y deja un centímetro para eso. Y el primer lazo que sale mal no está en la cuenta: compra un 20–30 % de más la primera vez que pruebes una forma.',
+  },
+  'mailer-size': {
+    title: 'Calculadora de tamaño de sobre de envío',
+    desc: 'Dimensiona un sobre de plástico o acolchado según el ancho, el largo y el grosor del artículo.',
+    long: 'Un sobre de envío es una funda plana, así que el grosor del artículo sale del ancho. El perímetro de la funda es 2 × su ancho y el artículo necesita 2 × (ancho + grosor), lo que obliga a que el sobre mida al menos el ancho del artículo más un grosor. Suma 2 cm para meterlo y sacarlo: un artículo de 25 cm de ancho y 4 cm de grosor quiere un sobre de 31 cm. El largo funciona igual, largo del artículo más grosor más holgura, y después 4 cm para la solapa adhesiva, lo que da 40 cm — la solapa se dobla y ahí no puede quedar contenido. La respuesta es entonces «31 × 40 cm o más», y compras la medida de tienda más cercana por encima, por ejemplo 32 × 45 cm. Mide la ropa y otras cosas comprimibles con el grosor aplastado. Mira también cómo indica las medidas el proveedor: unos dan el interior y otros el exterior con la solapa incluida, y a una medida exterior hay que quitarle la solapa antes de comparar.',
+    note: 'Los sobres no amortiguan. Incluso uno con burbujas solo aguanta el roce y la presión, así que cualquier cosa que se rompa va en caja. Si escatimas la holgura, el contenido sube hasta la solapa adhesiva, el cierre no pega bien y la bolsa se abre en el camino: sube una talla en vez de recortar el margen. Pasarse de grande es su propio problema: el artículo se mueve, las esquinas se golpean y el sobrante se dobla justo encima de la etiqueta, donde el escáner no la lee. Forzar un artículo grueso estira la lámina hasta que se raja por una esquina, así que a partir de unos 5 cm de grosor usa caja. El tamaño del sobre ayuda con el peso volumétrico, pero calcula el porte con las reglas de tu transportista.',
+  },
 };

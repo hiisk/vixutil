@@ -750,4 +750,78 @@ export const RATE_PT_BR: Record<string, FormulaText> = {
     long: 'A curva mais simples soma os mesmos pontos a todo mundo para a média cair onde deve. Ela move a escala sem mexer na ordem, e é justamente por isso que ninguém muda de posição.',
     note: 'O teto de 100 comprime o topo. Alunos perto da nota máxima acabam empatados, então essa curva serve mal quando a prova precisa separar os melhores.',
   },
+
+  /* ───────── Negócio, investimento e marketing ───────── */
+  'margin-vs-markup': {
+    title: 'Conversor de margem e markup',
+    desc: 'Converta markup sobre o custo em margem sobre a venda, nos dois sentidos.',
+    long: 'O markup divide o lucro pelo custo; a margem divide o mesmo lucro pelo preço de venda. Denominadores diferentes, números diferentes. Some 50 % a um custo de 100 e você vende a 150 com 50 de lucro — uma margem de 50÷150, ou 33,33 %. No sentido inverso, uma margem de 40 % quer dizer que o preço é o custo dividido por 0,6, então o markup tem que ser 66,67 %.',
+    note: 'Quando um fornecedor fala em "40 % de margem", descubra qual dos dois ele quer dizer. Entendendo como markup e somando 40 % ao custo, a sua margem cai para 28,6 % — onze pontos abaixo da meta.',
+  },
+  'target-profit-units': {
+    title: 'Quantas unidades vender para o lucro desejado',
+    desc: 'Quantas unidades você precisa vender para chegar ao lucro que quer.',
+    long: 'Trate o valor a cobrir como custos fixos mais o lucro desejado, e a mesma divisão diz o volume. A 15.000 por unidade com 6.000 de custo variável, a contribuição é 9.000; 3.000.000 de custos fixos mais 1.500.000 de lucro são 4.500.000, que sobre 9.000 dão 500 unidades. Deixe o lucro em zero, ou use a página de ponto de equilíbrio em unidades, se você só quer o nível em que para de perder dinheiro.',
+    note: 'Onde você traça a linha entre fixo e variável move a resposta. Aluguel e salários, que correm vendendo ou não, são fixos; material, taxa de pagamento e entrega, que só aparecem numa venda, são variáveis. Lance a taxa do cartão como fixa e as unidades necessárias saem baixas demais.',
+  },
+  'contribution-margin': {
+    title: 'Calculadora de margem de contribuição',
+    desc: 'Contribuição por unidade, razão de contribuição e as unidades para cobrir os custos fixos.',
+    long: 'A margem de contribuição é o que uma venda a mais deixa no negócio. A um preço de 15.000 com 6.000 de custo variável, sobram 9.000, e dividindo pelo preço dá uma razão de contribuição de 60 %. Com a razão você acha o faturamento necessário sem contar unidade nenhuma: 3.000.000 de custos fixos sobre 0,6 são 5.000.000. Para uma loja com dezenas de itens diferentes e nenhuma unidade única a contar, o caminho da razão é o único disponível.',
+    note: 'Margem de contribuição não é lucro. Ela é medida antes de qualquer custo fixo ter sido pago, então pode parecer confortável enquanto o negócio como um todo perde dinheiro.',
+  },
+  'payback-period': {
+    title: 'Calculadora de prazo de retorno (payback)',
+    desc: 'Em quantos meses um investimento inicial volta pelo caixa líquido mensal.',
+    long: 'Divida o investimento pelo caixa líquido que ele traz por mês. Coloque 20.000.000 e sobre 500.000 por mês e você empata em 40 meses — uns três anos e quatro meses. Inverta isso e você tem o retorno anual simples: doze sobre quarenta são 30 %.',
+    note: 'Isto ignora o valor do dinheiro no tempo: 500.000 que chegam em três anos contam igual a 500.000 deste mês, o que favorece paybacks longos. Passando de dois ou três anos, confira de novo na página de valor presente. Também não diz nada sobre quanto o equipamento rende depois de já ter se pagado.',
+  },
+  'straight-line-depreciation': {
+    title: 'Calculadora de depreciação linear',
+    desc: 'Depreciação anual e mensal mais o valor contábil depois de n anos, a partir do custo, do valor residual e da vida útil.',
+    long: 'A depreciação linear pega o custo menos o valor residual e divide por igual pela vida útil. Uma máquina de 12.000.000 com 2.000.000 de residual em cinco anos cai 2.000.000 por ano, cerca de 166.700 por mês. Depois de três anos o valor contábil é 12.000.000 menos 6.000.000, ou seja 6.000.000. Sai o mesmo valor todo ano, e é por isso que a linha é reta.',
+    note: 'A linear é uma convenção contábil; preço de usado se comporta mais como saldo decrescente, perdendo uma fatia fixa do que restou a cada ano. Para o que a coisa realmente valeria à venda, use as páginas de valor de revenda ou de quanto tempo para cair pela metade — a queda real do primeiro ano é bem mais íngreme que esta.',
+  },
+  'savings-rate': {
+    title: 'Calculadora de taxa de poupança',
+    desc: 'A sua taxa de poupança a partir do valor líquido recebido e do quanto você guarda, mais quanto tempo leva um ano de despesas.',
+    long: 'Divida o que você guarda pelo que você recebe líquido. Guarde 1.000.000 de 4.000.000 por mês e a taxa é 25 %, deixando 3.000.000 para viver. O segundo número importa mais: 3.000.000 sobre 1.000.000 são três anos para guardar um ano de despesas. Suba a taxa para 50 % e isso cai para um ano.',
+    note: 'Dividir pelo salário bruto infla a taxa. Decida também se a contribuição do empregador para a previdência conta como poupança — incluir levanta o número, mas esse dinheiro não está disponível para você agora.',
+  },
+  'fire-number': {
+    title: 'Calculadora do número FIRE',
+    desc: 'O patrimônio que sustenta o seu gasto anual a uma taxa de retirada escolhida.',
+    long: 'Se você retira uma fatia fixa da carteira todo ano, o patrimônio necessário é o gasto anual dividido por essa fatia. Gastar 36.000.000 por ano a 4 % exige 900.000.000 — vinte e cinco vezes o gasto. O número de 4 % vem de William Bengen, em 1994, que testou retiradas por trinta anos contra retornos históricos de ações e títulos nos Estados Unidos; o estudo Trinity depois o popularizou. É um estudo, num mercado, sobre um horizonte de trinta anos — não uma lei.',
+    note: 'Uma taxa de retirada menor eleva a meta com força: 4 % são 25×, 3 % são 33,3×, 2 % são 50×. Deixe imposto, plano de saúde e reformas grandes fora do gasto anual e a meta sai pequena demais.',
+  },
+  'rent-to-income': {
+    title: 'Calculadora de comprometimento de renda com aluguel',
+    desc: 'Que fatia da renda bruta mensal a moradia consome, contra uma referência escolhida.',
+    long: 'Divida o custo de moradia pela renda bruta mensal. Com 3.000.000 de renda, 1.000.000 de aluguel são 33,3 %, enquanto a linha de 30 % fica em 900.000 — você está 100.000 acima. O número de 30 % é uma convenção da política habitacional dos Estados Unidos para o que se considera acessível; não é regra, e a realidade muda enormemente de cidade para cidade. Em metrópoles caras, 40 a 50 % é comum.',
+    note: 'Incluir ou não condomínio, luz, água e gás mexe na razão de cinco a dez pontos. A renda bruta dá uma razão menor que a líquida, então compare dois imóveis na mesma base.',
+  },
+  'freelance-hourly-rate': {
+    title: 'Calculadora de valor da hora do freelancer',
+    desc: 'O valor por hora que uma meta de renda anual exige, contando o tempo não faturável.',
+    long: 'Divida a meta anual pelas horas que você realmente consegue faturar. Uma meta de 60.000.000 com 25 horas faturáveis por semana em 46 semanas dá 1.150 horas faturáveis. Some 25 % pelas horas que ninguém paga — orçamento, cobrança, burocracia — mais ferramentas e seguro, e você precisa faturar 75.000.000, ou seja 65.217 por hora.',
+    note: 'De uma semana de 40 horas, tipicamente 20 a 30 são faturáveis. Coloque 40 e o valor da hora sai perto de 60 % do que você de fato precisa. Tire férias e dias de doença também: use 44 a 48 semanas, não 52. Trate o imposto colocando a meta de renda antes dele.',
+  },
+  'cross-rate': {
+    title: 'Calculadora de taxa cruzada',
+    desc: 'Encadeie duas cotações para chegar à taxa de uma terceira moeda que ninguém cota direto.',
+    long: 'Multiplique A/B por B/C e o B se cancela, deixando A/C. Se um B custa 1.380 de A e um C custa 1,08 de B, então A por C são 1.490,4. Uma conversão real percorre essa cadeia duas vezes, então o spread cai duas vezes também: 1 % em cada trecho faz 1,0201×, ou cerca de 1.520,4 como a taxa que você realmente paga.',
+    note: 'Dois trechos de 1 % custam 2,01 %, não 2 %. A diferença é pequena, mas onde o par é cotado direto, não passar por uma terceira moeda sai em geral mais barato. Para ver a taxa escondida em um único trecho, use a página de spread do câmbio.',
+  },
+  'roas': {
+    title: 'Calculadora de ROAS',
+    desc: 'Retorno sobre o investimento em anúncio como múltiplo e porcentagem, contra o ROAS de equilíbrio que a sua margem implica.',
+    long: 'ROAS é a receita atribuída dividida pelo investimento em anúncio. Gaste 2.000.000, receba 8.000.000, e isso é 4× ou 400 %. Sozinho o número não diz se você ganhou dinheiro: com margem bruta de 40 %, a receita tem que chegar ao investimento dividido por 0,4 — 2,5× — só para cobrir os anúncios. Quatro supera 2,5, então esta campanha realmente está à frente.',
+    note: 'É a sua margem que define o equilíbrio. Com margem de 20 % você precisa de 5×; com 10 %, de 10×. Se "ROAS de 300 %" é bom não tem resposta sem a margem. A janela de atribuição também pesa — a mesma campanha pode reportar o dobro do ROAS numa janela de clique mais longa.',
+  },
+  'cpm-cpc': {
+    title: 'Calculadora de CPM, CPC e CTR',
+    desc: 'CPM, CPC e CTR a partir de impressões, cliques e investimento — e como o CTR move o CPC com CPM fixo.',
+    long: 'Os três saem dos mesmos três números. Com 250.000 impressões, 3.000 cliques e 1.500.000 de investimento: o CPC é 1.500.000÷3.000 = 500, o CPM é 1.500.000÷250.000 × 1.000 = 6.000, e o CTR é 3.000÷250.000 = 1,2 %. Eles estão travados como CPC = CPM ÷ 1000 ÷ CTR, então fixar um deixa os outros dois se determinando mutuamente. Segure o CPM em 6.000 e leve o CTR de 1,2 % para 2 % e o CPC cai de 500 para 300.',
+    note: 'A concorrência do leilão define o CPM; o criativo define o CTR. Cortar o lance para baixar o CPC só compra menos impressões, enquanto um criativo melhor baixa o CPC na proporção inversa com o mesmo CPM. Puxar impressões e cliques de períodos diferentes deixa o CTR sem sentido.',
+  },
 };

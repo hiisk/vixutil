@@ -756,4 +756,78 @@ export const GEO_FR: Record<string, FormulaText> = {
     long: 'La Terre est ronde : on ne peut pas simplement soustraire les coordonnées. La formule de haversine mesure l’arc de grand cercle qui joint les deux points, en repliant les écarts de latitude et de longitude dans des sinus de demi-angle pour que le résultat tienne près des pôles.',
     note: 'C’est la distance directe, pas le trajet routier d’une application de cartes. Le cap indiqué est la direction à prendre au départ.',
   },
+
+  /* ───────── Quantités de matériaux — sacs, plaques, paquets ───────── */
+  'concrete-bags': {
+    title: 'Combien de sacs de béton',
+    desc: 'Les sacs de béton prêt à l’emploi d’après la surface, l’épaisseur de la dalle et le rendement d’un sac.',
+    long: 'S’arrêter au volume, c’est là que ces chantiers dérapent. Le rendement par sac dépend du produit : il est saisi ici plutôt que figé dans le calcul — un sac de prémélange de 40 kg donne environ 18 L, un sac de 20 kg environ 9 L. Une dalle de 4 × 3 m coulée sur 10 cm fait 1,2 m³, soit 1 200 L ; ajoutez 10 % de perte pour 1 320 L et divisez par 18 L : cela donne 73,3, donc 74 sacs. Les sacs ne se vendent pas en fractions, le compte arrondit toujours au-dessus.',
+    note: 'Les rendements varient d’une marque à l’autre — recopiez le chiffre imprimé sur le sac. Le béton ne se rattrape pas une fois qu’il commence à prendre : sur une dalle coulée d’un seul tenant, tomber court coûte bien plus cher qu’un sac de trop.',
+  },
+  'mortar-bricks': {
+    title: 'Calcul du mortier pour monter des briques',
+    desc: 'Le volume de mortier et les sacs, d’après un nombre de briques et le mortier que chacune prend.',
+    long: 'Obtenez d’abord le nombre de briques avec le calculateur de briques de cette section, puis servez-vous-en ici pour le mortier qui les hourde. Ce que prend chaque brique dépend de l’épaisseur du mur et de la largeur du joint : c’est donc une donnée à saisir — environ 0,3 L par brique pour une cloison d’une demi-brique à joints de 10 mm, 0,5 à 0,6 L pour un mur plein. 500 briques × 0,3 L font 150 L, et 15 % pour ce qui tombe portent le total à 172,5 L : à 13 L le sac, cela fait 13,3, donc 14 sacs.',
+    note: 'Le mortier tombe de la truelle et durcit sur la planche : une marge de 5 % ne suffit pas, 15 % est plus proche de la réalité du chantier. Un mortier gâché s’emploie en deux heures environ — n’en préparez pas plus que vous ne pouvez poser.',
+  },
+  'tile-grout': {
+    title: 'Calcul du joint de carrelage',
+    desc: 'Le poids de joint d’après la taille des carreaux, la largeur et la profondeur du joint, et sa densité.',
+    long: 'Le joint vit dans des interstices fins, mais la longueur totale de ces interstices grandit à mesure que le carreau rétrécit. Le volume de joint dans un mètre carré vaut (2 ÷ côté du carreau) × largeur de joint × profondeur de joint ; multipliez par la densité, typiquement 1 600 kg/m³, pour obtenir le poids au mètre carré. Un carreau de 30 cm à joints de 3 mm sur 8 mm de profondeur prend 0,26 kg/m² ; une mosaïque de 2,5 cm demande encore 1,02 kg/m² même avec des joints plus fins de 2 mm et seulement 4 mm de profondeur — exactement quatre fois plus. La largeur du joint et la taille du carreau décident ensemble.',
+    note: 'La profondeur du joint est normalement l’épaisseur du carreau. Les tableaux de consommation des fabricants supposent un seul format : les reporter sur de la mosaïque ou du grand format est gravement faux. Un joint gâché se raidit, n’en préparez que ce que vous pouvez appliquer.',
+  },
+  'tile-adhesive': {
+    title: 'Colle à carrelage : quelle quantité',
+    desc: 'Le poids de colle et le nombre de sacs, d’après la surface et le dosage au mètre carré.',
+    long: 'Le dosage est fixé par la denture du peigne, pas par la marque — environ 3 kg/m² avec une denture de 6 mm, 4,5 kg/m² en 10 mm et 5,5 kg/m² en 12 mm, et le double si vous double-encollez de grands carreaux ou travaillez sur un support irrégulier. C’est pourquoi le dosage est une donnée à saisir plutôt qu’un produit choisi d’avance. Dix mètres carrés avec une denture de 10 mm font 45 kg ; ajoutez 10 % de perte pour 49,5 kg, soit deux sacs de 25 kg, puisqu’un sac couvre 5,6 m².',
+    note: 'Étalée trop mince, la colle ne prend le carreau qu’en partie — les fissures arrivent des mois plus tard, ce n’est pas l’endroit où économiser. Une colle cimentaire ouverte durcit avec l’humidité : un sac entamé tient rarement jusqu’au chantier suivant.',
+  },
+  'wallpaper-repeat-waste': {
+    title: 'Papier peint : perte au raccord de motif',
+    desc: 'Les bandes par rouleau une fois le raccord de motif compté, et les rouleaux que cela coûte.',
+    long: 'Le calculateur de rouleaux de cette section ne travaille que sur la surface ; celui-ci ajoute le raccord. Avec un papier à motif, chaque bande doit s’aligner : elle est donc coupée à un nombre entier de raccords, et cet arrondi est précisément la perte. Un plafond de 2,4 m plus 5 % de coupe fait 2,52 m, mais avec un raccord de 53 cm il faut couper cinq raccords, soit 2,65 m. Un rouleau de 15,6 m donne six bandes en uni et seulement cinq à motif. Couvrir un développé de 16 m en 106 cm de large demande 16 bandes : quatre rouleaux au lieu de trois — le raccord coûte un rouleau entier.',
+    note: 'Le raccord est imprimé sur l’étiquette du rouleau, et un motif à raccord sauté en demande le double. Achetez les rouleaux ensemble : un numéro de bain différent décale la couleur juste assez pour qu’un rouleau acheté plus tard se voie comme une bande dépareillée.',
+  },
+  'roof-shingles': {
+    title: 'Bardeaux de toiture : combien de paquets',
+    desc: 'Les paquets et les carrés d’après la surface de toiture et la couverture d’un paquet.',
+    long: 'La couverture se compte en carrés — 100 pieds carrés, soit 9,29 m². Un paquet de bardeaux à trois pattes couvre d’ordinaire un tiers de carré, environ 3,1 m² : trois paquets font un carré, mais cela varie d’un produit à l’autre, et c’est pourquoi la couverture par paquet est une donnée à saisir. Une toiture de 100 m² avec 10 % de perte fait 110 m² ; 12 m de faîtage, capé en double épaisseur, ajoutent environ 0,3 m² par mètre, soit 3,6 m² de plus, ce qui donne 113,6 m². Divisé par 3,1, cela fait 36,6, donc 37 paquets, ou 12,2 carrés.',
+    note: 'Saisissez la vraie surface rampante et non l’emprise au sol — convertissez-la d’abord avec le calculateur de toiture en pente, sinon vous tomberez court. Une toiture à noues nombreuses et à découpes multiples demande plus que 10 % de marge.',
+  },
+  'laminate-packs': {
+    title: 'Stratifié : combien de paquets',
+    desc: 'Les paquets d’après la taille de la pièce et la surface par paquet, avec la chute réutilisable.',
+    long: 'La surface par paquet dépend du format de la lame et du nombre de lames dans le carton : prenez-la sur l’étiquette — d’ordinaire 1,9 à 2,5 m². Une pièce de 5 × 4 m fait 20 m² ; ajoutez 8 % de perte pour 21,6 m², et à 2,2 m² le paquet cela fait 9,8, donc 10 paquets, puisqu’un carton ne se coupe pas. Le morceau coupé en fin de rangée commence la rangée suivante : une rangée de 5 m en lames de 128 cm laisse 116 cm, largement au-dessus du minimum de 30 cm, donc rien n’est jeté.',
+    note: 'Une chute de moins de 30 cm environ rassemble les joints de bout et se soulève sous le pied — commencez plutôt cette rangée par une demi-lame pour les décaler. Achetez les paquets de réserve avec la première commande, car un lot de production ultérieur ne donnera pas la même teinte.',
+  },
+  'drywall-sheets': {
+    title: 'Plaques de plâtre : combien de plaques',
+    desc: 'Les plaques d’après la surface de murs et de plafonds, plus l’enduit et la bande par mètre de joint.',
+    long: 'Les formats changent selon le marché — 1200 × 2500 mm en France, 900 × 1800 et 900 × 2400 mm en Corée, 1220 × 2440 mm en Amérique du Nord — la taille de plaque est donc une donnée à saisir. 60 m² avec 10 % de perte font 66 m², et à 2,16 m² la plaque (900 × 2400) cela donne 30,6, donc 31 plaques. Un joint apparaît par largeur de plaque le long du développé : la surface divisée par la largeur de plaque donne la longueur de joint, 60 ÷ 0,9 = 66,7 m. À 0,35 kg d’enduit par mètre cela fait 23 kg, avec 70 m de bande une fois les recouvrements comptés.',
+    note: 'L’enduit manque avant les plaques — le bandage plus une passe de remplissage et une passe de finition peuvent atteindre 0,5 kg par mètre. Au plafond, prenez de la plaque de 12,5 mm ou plus et achetez large : le travail au-dessus de la tête produit beaucoup plus de chutes.',
+  },
+  'plywood-sheets': {
+    title: 'Contreplaqué : combien de panneaux',
+    desc: 'Les panneaux nécessaires d’après la surface et le format, avec le reste qui vous restera sur les bras.',
+    long: 'Le contreplaqué se vend en panneaux entiers, et une pièce ne tombe jamais sur un multiple d’un panneau. 24 m² avec 10 % de perte font 26,4 m² ; divisé par un panneau de 1220 × 2440 (2,977 m²), cela fait 8,9, donc 9 panneaux. Neuf panneaux valent 26,8 m², il reste donc 2,8 m² — et ce reste est la taille réelle du fait qu’un format fixe pave rarement une pièce aux dimensions bancales. Essayez d’autres formats et vous verrez le reste diminuer.',
+    note: 'Le compte peut être juste alors que les morceaux ne conviennent toujours pas : dessinez d’abord le plan de coupe et décidez dans quel sens court le grand côté. En emploi structurel, les joints doivent tomber sur les solives, ce qui pousse la perte au-delà de 10 %.',
+  },
+  'skirting-length': {
+    title: 'Plinthes : longueur nécessaire',
+    desc: 'Les mètres de plinthe et les barres à acheter, d’après le périmètre moins les ouvertures de porte.',
+    long: 'Le périmètre vaut 2 × (longueur + largeur), moins les ouvertures de porte : une pièce de 4,2 × 3,4 m fait 15,2 m, et une porte de 0,9 m laisse 14,3 m. Ajoutez 10 % pour les jonctions et les coupes d’onglet pour atteindre 15,7 m, puis divisez par une barre de 2,4 m : cela fait 6,55, donc vous achetez 7 barres, arrondies au-dessus parce que les bouts trop courts sont inutilisables.',
+    note: 'Des angles à onglet obligent souvent à une barre entière par mur, ce qui coûte plus que les mètres ne le laissent croire. Là où les murs sont bombés, une seule barre non coupée le long du grand mur masque mieux le défaut que deux morceaux raccordés au milieu.',
+  },
+  'mulch-bags': {
+    title: 'Paillis et écorce : combien de sacs',
+    desc: 'Les sacs de paillis d’après la surface du massif, l’épaisseur à étaler et les litres d’un sac.',
+    long: 'Avec le paillis, c’est l’épaisseur et non la surface qui travaille — environ 7 cm bloquent la lumière et les graines d’adventices ne partent jamais, tandis que 2 à 3 cm ne font que de l’effet. Un massif de 20 m² sur 7 cm fait 1,4 m³, soit 1 400 L ; ajoutez 10 % pour 1 540 L, et à 50 L le sac, environ 2 pieds cubes, cela fait 30,8, donc 31 sacs. Les volumes de sac varient d’un produit à l’autre : prenez les litres sur l’étiquette.',
+    note: 'L’écorce perd environ la moitié de son épaisseur en un an : prévoyez de compléter chaque année. Gardez-la à distance des tiges — entassée contre un tronc, elle retient l’humidité et fait pourrir le collet.',
+  },
+  'paver-sand': {
+    title: 'Sable de pose pour pavés : quelle quantité',
+    desc: 'Le poids de sable de pose et les sacs, d’après la surface pavée, l’épaisseur et la densité du sable.',
+    long: 'Le sable se mesure en volume et se vend au poids, et c’est la densité qui fait le pont : elle est donc une donnée à saisir — environ 1 500 kg/m³ sec et 1 900 kg/m³ humide. Une terrasse de 20 m² sur un lit de 3 cm fait 0,6 m³ ; avec 10 % de perte cela donne 0,66 m³, qui à 1 500 kg/m³ pèse 990 kg — 39,6 sacs de 25 kg, donc 40 sacs. Un big bag d’une tonne en contient à peu près autant, et à cette échelle le vrac revient moins cher.',
+    note: 'Le sable perd 10 à 15 % de son épaisseur une fois compacté : saisissez l’épaisseur finie plutôt que celle mesurée pendant l’étalement. Le sable de jointoiement balayé ensuite est à part et ajoute 1 à 2 kg par mètre carré.',
+  },
 };

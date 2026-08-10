@@ -313,4 +313,304 @@ export const CRAFT_DE: Record<string, FormulaText> = {
     long: 'Modelliert wird nach Volumen, gekauft nach Gewicht. Polymer Clay liegt bei etwa 1,7 g/cm³, ein Stück von 60 cm³ braucht also 102 g — zwei der üblichen 57-g-Blöcke. Lufttrocknende Masse ist leichter, 1,2 bis 1,5, dasselbe Volumen wiegt also weniger, aber sie verliert beim Trocknen Wasser und schwindet um über 10 %, was du von Anfang an einrechnen musst.',
     note: 'Ein Kern aus Alufolie senkt das Gewicht der Masse um mehr als die Hälfte — und dicker Polymer Clay härtet innen nicht gleichmäßig durch, er reißt beim Abkühlen. Große Stücke bekommen einen Kern, damit sie nicht reißen, nicht nur zum Sparen. Blockgewichte unterscheiden sich je Marke: Fimo 57 g, Fimo Professional 85 g.',
   },
+
+  /* ───────── Stricken: Länge, Größe, Garntausch ───────── */
+  'row-gauge-length': {
+    title: 'Reihenprobe: Reihen berechnen',
+    desc: 'Aus der Reihenprobe und der Wunschlänge die Zahl der Reihen.',
+    long: '28 Reihen auf 10 cm sind 2,8 pro Zentimeter, 60 cm sind also 168 Reihen — genau 21 Rapporte eines 8-Reihen-Musters. Verlangst du 63 cm, kommen 176,4 heraus; Reihen lassen sich nicht teilen, also 176, und die messen 62,9 cm. Der Millimeter fällt nicht auf, der zerbrochene Rapport schon.',
+    note: 'Die Reihenprobe weicht stärker ab als die Maschenprobe. Glatt rechts und Alpaka längen sich unter dem eigenen Gewicht, häng die gespannte Maschenprobe also auf, bevor du misst — das kommt dem fertigen Teil näher.',
+  },
+  'yarn-substitute': {
+    title: 'Alternativgarn: Knäuel umrechnen',
+    desc: 'Wie viele Knäuel eines Ersatzgarns eine Anleitung braucht.',
+    long: 'Beim Garntausch stimmst du die Länge ab, nicht das Gewicht. Eine Anleitung mit acht 50-g-Knäueln eines Garns von 400 m je 100 g verlangt 1.600 m. Ein Ersatzgarn mit 320 m je 100 g trägt nur 160 m im Knäuel, du brauchst also zehn — kaufst du dieselben acht, fehlen 320 m.',
+    note: 'Gleiche Länge heißt nicht gleiche Dicke. Zwei Garne mit denselben Metern je 100 g fallen völlig anders, sobald eines Alpaka und das andere Baumwolle ist: stricke mit dem Alternativgarn erst eine Maschenprobe. Hat es eine andere Knäuelgröße, teile die Gesamtmeter von oben direkt durch die Zahl auf seiner Banderole.',
+  },
+  'sweater-ease': {
+    title: 'Mehrweite für Pullover berechnen',
+    desc: 'Fertiger Umfang und Maschenzahl aus Brustumfang und Mehrweite.',
+    long: 'Die Größe eines Kleidungsstücks ist Körpermaß plus Mehrweite, nicht das Körpermaß. Acht Prozent auf 96 cm Brustumfang ergeben einen fertigen Umfang von 103,7 cm, bei 22 Maschen auf 10 cm sind das 228 Maschen. Setz die Mehrweite auf −5 %, und es werden 91,2 cm, also anliegend — Maschenware dehnt sich, negative Mehrweite ist deshalb eine echte Wahl.',
+    note: 'Die Größentabelle einer Anleitung nennt meist den fertigen Umfang, nicht den Körper, für den er gedacht ist. Wer beides vermischt, liegt eine ganze Größe daneben. Mehrweite fällt außerdem je Stelle anders aus: ein Pullover mit 8 cm an der Brust will am Oberarm selten mehr als 4 cm.',
+  },
+  'sock-cast-on': {
+    title: 'Sockenanschlag berechnen',
+    desc: 'Anschlagmaschen für Socken aus Fußumfang, Maschenprobe und negativer Mehrweite.',
+    long: 'Zieh 10 % von 22 cm Fußumfang ab, und du strickst auf 19,8 cm — bei 30 Maschen auf 10 cm sind das 59,4 Maschen. Runde auf 60, ein Vielfaches von vier. Die Vier zählt doppelt: ein 2×2-Rippenmuster wiederholt sich über vier Maschen, und Fußrücken und Sohle müssen sich genau halbieren (30 und 30), damit Fersenwand und Zwickel symmetrisch werden.',
+    note: 'Negative Mehrweite ist bei Socken keine Option. Strickst du auf den gemessenen Umfang, legt sich die Socke unter dem Fuß in Falten und rutscht von der Ferse. Miss die Maschenprobe außerdem in Runden — dasselbe Garn auf denselben Nadeln gibt flach gestrickt eine andere Zahl.',
+  },
+  'stripe-repeat': {
+    title: 'Streifenrapport berechnen',
+    desc: 'Wie viele ganze Streifenrapporte hineingehen und wie viele Reihen übrig bleiben.',
+    long: '160 Reihen mit einem 12-Reihen-Rapport geben 13 Rapporte (156 Reihen) und 4 Restreihen. Entscheidend ist, wohin diese 4 Reihen gehen. Verteilst du sie einzeln, wird ein Streifen sichtbar dicker als die übrigen. Setz sie gesammelt dorthin, wo schon etwas anderes unterbricht — direkt über das Bündchen oder unter die Achsel — und niemand findet sie.',
+    note: 'Eine ungerade Reihenzahl je Rapport lässt einen zweifarbigen Streifen jedes Mal am anderen Ende beginnen und zwingt dich, das Garn abzuschneiden. Bleibt der Rapport gerade, kannst du die ruhende Farbe am Rand mitführen, und die Zahl der zu vernähenden Fäden halbiert sich.',
+  },
+  'colorwork-yardage': {
+    title: 'Garnmenge für Farbmuster aufteilen',
+    desc: 'Eine gesamte Garnmenge in Gramm je Farbe aufteilen.',
+    long: 'Ein Teil, das 400 g frisst, teilt sich bei 70 % Hauptfarbe in 280 g und 120 g. Den Prozentsatz holst du aus der Strickschrift: zähl die Kästchen jeder Farbe in einem Rapport, und das ist das Verhältnis, solange das Muster läuft. Glatte Flächen und Bündchen gehen vollständig auf die Hauptfarbe.',
+    note: 'Die Nebenfarbe landet selten auf dem Wert der Strickschrift. Auf der Rückseite mitgeführte Fäden brauchen mehr Länge als die Maschen auf der Vorderseite, und das Garn, das du als dominante Farbe hältst, macht etwas größere Maschen und reicht weniger weit. Kauf ein Knäuel Kontrastfarbe zusätzlich — eine ausverkaufte Färbepartie nachzukaufen ist der Engpass, der sich am schlechtesten beheben lässt.',
+  },
+  'yarn-per-row': {
+    title: 'Garnverbrauch pro Reihe',
+    desc: 'Meter Garn, die eine Reihe frisst, und wie viele Reihen der Rest noch trägt.',
+    long: 'Eine Banderole mit 200 m je 50 g bedeutet 4 m je Gramm. Hat eine 12-g-Maschenprobe 40 Reihen gebraucht, sind 48 m in 40 Reihen gegangen, eine Reihe ist also 1,2 m. Die 60 g Rest sind 240 m und tragen weitere 200 Reihen. Am genauesten wird es, wenn du das angefangene Teil wiegst, zehn Reihen strickst und noch einmal wiegst — dann stimmt die Maschenzahl je Reihe schon mit der Wirklichkeit.',
+    note: 'Die Meter je Reihe wachsen mit den Maschen dieser Reihe. Überträgst du 1,2 m aus einer 40-Maschen-Probe direkt auf einen Körper mit 200 Maschen, liegst du um das Fünffache darunter — multipliziere mit dem Verhältnis der Maschenzahlen. Anschlag, Nähte und Versäubern stecken nicht in diesem Wert.',
+  },
+  'blanket-size': {
+    title: 'Deckengröße berechnen',
+    desc: 'Deckenmaße und Anschlagmaschen aus Matratzengröße und Überhang.',
+    long: 'Eine Decke wird nicht so groß wie die Matratze, sondern wie die Matratze plus dem Überhang an den Seiten. Die Breite nimmt den Überhang zweimal, an jeder Seite einmal; die Länge nur einmal, am Fußende, weil die Oberkante vor den Kissen endet. Auf einem Bett von 150 × 200 cm mit 25 cm Überhang sind das 200 × 225 cm, und bei 16 Maschen auf 10 cm ein Anschlag von 320 Maschen.',
+    note: '200 cm Maschen zu halten braucht ein Rundnadelseil von 100 cm oder mehr, und sobald das fertige Stück ein Kilo überschreitet, längt es sich unter dem eigenen Gewicht — miss die Maschenprobe mit diesem Gewicht im Kopf. Babydecken kommen stattdessen von den Maßen des Beistellbetts oder der Babyschale: dort darf nichts überhängen.',
+  },
+
+  /* ───────── Nähen: Verschlüsse, Falten, Saum ───────── */
+  'zipper-length': {
+    title: 'Reißverschlusslänge berechnen',
+    desc: 'Welche Reißverschlussgröße eine Öffnung braucht, aufgerundet auf eine erhältliche.',
+    long: 'Eine Öffnung von 22 cm plus 2 cm Zugabe oben und unten braucht 24 cm — und einen Reißverschluss mit 24 cm verkauft niemand. Die metrischen Größen springen in Schritten von 10 · 12 · 15 · 18 · 20 · 23 · 25 · 30 · 35 · 40 · 45 · 50 · 55 · 60 · 70 · 80 · 90 cm, du kaufst also den mit 25. Läden, die in Zoll verkaufen, führen 4 · 5 · 7 · 9 · 12 · 14 · 16 · 18 · 20 · 22 · 24 Zoll.',
+    note: 'Die angegebene Länge misst die Zahnreihe, die der Schieber durchläuft, nicht das Band, das an beiden Enden darüber hinausgeht. Lang kaufen und kürzen geht nur bei Spiralreißverschlüssen: schneide die Zähne eines Metall- oder Vislon-Verschlusses ab, und der Schieber springt heraus — bei einem teilbaren Verschluss lässt sich das untere Ende gar nicht anfassen.',
+  },
+  'buttonhole-spacing': {
+    title: 'Knopflochabstand berechnen',
+    desc: 'Gleichmäßiger Abstand der Knopflöcher auf einer Knopfleiste.',
+    long: 'Auf einer Knopfleiste von 60 cm mit je 2 cm frei an den Enden belegen die Knopflöcher 56 cm. Sechs Knöpfe teilen diese Strecke durch fünf, nicht durch sechs: das erste und das letzte Loch sitzen an den Enden, es gibt also nur fünf Zwischenräume. Das sind 56 ÷ 5 = 11,2 cm. Teilst du stattdessen durch sechs, kommen 9,3 cm heraus, und das letzte Loch bleibt weit vor dem Ende hängen.',
+    note: 'Bei einer Bluse setzt du zuerst ein Knopfloch auf die stärkste Stelle der Brust und verteilst die übrigen von dort — gleichmäßige Teilung allein lässt genau diesen Punkt zwischen zwei Löchern, und dort klafft der Verschluss. Das Loch selbst muss außerdem so lang sein wie Knopfdurchmesser plus Knopfdicke.',
+  },
+  'pleat-fabric': {
+    title: 'Stoff für Falten berechnen',
+    desc: 'Stoffbreite für eine gefaltete Bahn aus Fertigbreite und den Falten.',
+    long: 'Gerechnet wird in Messerfalten. Eine Messerfalte verbraucht das Dreifache ihrer Tiefe, aber eines dieser drei ist die sichtbare Fläche, die in der Fertigbreite schon steckt — zusätzlich musst du also je Falte die doppelte Tiefe zugeben. Eine fertige Bahn von 50 cm mit zehn Falten von 4 cm wird auf 50 + 10 × 8 = 130 cm zugeschnitten. Legst du sie so dicht, dass die sichtbare Fläche der Tiefe entspricht, passen 12,5 Falten hinein und der Stoff ist mit 150 cm genau das Dreifache der Fertigbreite: daher kommt der Satz, Messerfalten bräuchten dreimal die Tiefe. Kellerfalten legen sich nach beiden Seiten und nehmen bei gleicher Tiefe das Vierfache.',
+    note: 'Falten werden gefaltet in die Bundnaht gesteppt, dort stapeln sich also drei Lagen Stoff. In Denim oder Tweed musst du Tiefe oder Anzahl verringern, bevor die Nadel durchgeht. Bei bedrucktem Stoff stimm die Tiefe auf den Musterrapport ab, sonst zerschneiden die Falten das Muster.',
+  },
+  'hem-allowance': {
+    title: 'Saumzugabe berechnen',
+    desc: 'Zuschnittlänge aus Fertiglänge, Saumbreite und der Zahl der Umschläge.',
+    long: 'Die Zahl der Umschläge ist die Zahl der Male, die der Stoff ausgegeben wird. Ein doppelter Umschlag (2) legt dieselbe Breite zweimal nach oben, um die Schnittkante einzuschließen: eine Fertiglänge von 70 cm mit 2 cm Saum wird auf 70 + 2 × 2 = 74 cm zugeschnitten. Versäuberst du die Kante und schlägst nur einmal um (1), genügen 72 cm. Anders als bei der Nahtzugabe sitzt ein Saum nur an einem Ende, hier wird also nichts für die Gegenkante verdoppelt.',
+    note: 'Bei einem gerundeten Saum hat der Überschuss keinen Platz, sobald der Umschlag tief wird: innen legt sich der Stoff in Wellen. Halte den Saum eines A-Linien-Rocks unter 1 cm oder fass ihn mit Schrägband ein. Maschenware will das Gegenteil — einen tiefen Saum und Zwillingsnadel oder Zickzack, damit die Naht mitgeht.',
+  },
+  'dart-intake': {
+    title: 'Abnäher berechnen',
+    desc: 'Wie viel jeder Abnäher aufnimmt — aus der Differenz zweier Umfänge.',
+    long: 'Die 20 cm zwischen 96 cm Brust- und 76 cm Taillenumfang müssen die Abnäher schlucken. Vier davon — zwei vorn, zwei hinten — nehmen je 5 cm, und weil ein Abnäher zu beiden Seiten seiner Mittellinie aufgeht, wird jeder Schenkel 2,5 cm nach außen angezeichnet. Diese 2,5 cm sind die Linie, die du wirklich auf das Schnittteil zeichnest.',
+    note: '20 cm auf vier Abnäher zu teilen heißt nicht vier gleiche Abnäher. Die stärker gewölbte Seite nimmt mehr, 6 cm vorn und 4 cm hinten ist die übliche Aufteilung. Sobald ein einzelner Abnäher etwa 4 cm überschreitet, beult seine Spitze — dann helfen zwei kleinere nebeneinander.',
+  },
+  'fabric-nap-layout': {
+    title: 'Stoff mit Strichrichtung berechnen',
+    desc: 'Stofflänge, wenn alle Teile in dieselbe Richtung liegen müssen.',
+    long: 'Samt, Cord, aufgeraute Stoffe und einseitig gerichtete Drucke brauchen alle Teile gleich ausgerichtet, sonst wechselt die Farbe von Teil zu Teil. Sechs Teile von 40 × 50 cm stehend auf 110 cm Stoff passen zwei nebeneinander in drei Reihen, also 150 cm. Quer gelegt passen ebenfalls zwei nebeneinander (110 ÷ 50) in drei Reihen, aber jede Reihe ist nur 40 cm lang, also genügen 120 cm — und diese 30 cm kann ein Stoff mit Strichrichtung nicht für sich beanspruchen. Der Rechner für den Stoffverbrauch geht davon aus, dass du Teile drehen darfst, und nennt deshalb weniger.',
+    note: 'Samt wirkt dunkler, wenn der Strich nach oben läuft, und heller, wenn er nach unten läuft; beides ist in Ordnung, solange das ganze Teil sich einig ist. Ein großer, sich wiederholender Druck kostet noch mehr, weil jedes Teil bis zu einen ganzen Rapport zusätzliche Länge braucht, damit das Muster in den Nähten trifft.',
+  },
+  'sewing-thread-length': {
+    title: 'Nähgarnlänge berechnen',
+    desc: 'Wie viel Nähgarn eine Naht frisst und wie viele Spulen das sind.',
+    long: 'Beim Geradstich verschlingen sich Ober- und Unterfaden im Stoff, es geht also weit mehr Garn hinein, als die Naht lang ist. Beim Faktor 2,5 nimmt eine Naht von 200 cm 500 cm, also 5 m. Feiner zu nähen ändert diese Summe kaum, denn doppelt so viele Stiche verbrauchen je halb so viel Garn. Was die Stichdichte (200 × 4 = 800 Stiche) wirklich festlegt, ist die Festigkeit der Naht und die Zahl der Löcher im Stoff.',
+    note: 'Der Faktor steigt mit der Dicke. Dünner Stoff im Geradstich liegt bei etwa 2,5, mehrere Lagen Denim über 3, und eine 4-Faden-Overlock läuft mit dem 12- bis 18-Fachen der Nahtlänge, weil ihr Garn den Stoff außen umschlingt statt innen zu verschlingen. Auch die Meterangabe auf der Spule ist ein Nennwert, und die letzten Meter sind oft zu locker gewickelt, um sie zu vernähen.',
+  },
+  'sticker-sheet-yield': {
+    title: 'Etiketten pro Bogen berechnen',
+    desc: 'Wie viele Etiketten auf einen Bogen passen, beide Ausrichtungen verglichen.',
+    long: 'Auf A4 (21 × 29,7 cm) lässt ein Rand von 0,5 cm rundherum 20 × 28,7 cm zum Arbeiten. Setzt du Etiketten von 5 × 3 cm mit 0,2 cm Abstand, ergibt das quer (20 + 0,2) ÷ (5 + 0,2) = 3,88 → 3 und längs (28,7 + 0,2) ÷ (3 + 0,2) = 9,03 → 9, also 27 Etiketten. Ein Abstand wird vor dem Teilen addiert, weil drei Etiketten nur zwei Zwischenräume haben. Dreh die Etiketten um 90°, und es werden 6 quer und 5 längs — 30 Etiketten, drei mehr. Zähl beide Richtungen, bevor du den Bogen anlegst.',
+    note: 'Echte Druckerränder unterscheiden sich je Modell und sind an der Einzugskante breiter, ein Rand von null schneidet also stillschweigend die letzte Reihe ab — druck erst einen Testbogen. Schneidet ein Plotter zu, lass mindestens 0,2 cm Abstand für den Klingenweg und schlag die Beschnittzugabe auf das Etikettenmaß, denn die Schnittlinie liegt etwas außerhalb des Etiketts.',
+  },
+
+  /* ───────── Quilten: Zwischenstreifen, Bordüren, Precuts ───────── */
+  'quilt-sashing': {
+    title: 'Quilt-Zwischenstreifen berechnen',
+    desc: 'Gesamtlänge der Zwischenstreifen und der Stoff aus Blockanordnung und Streifenbreite.',
+    long: 'Vier Blöcke quer, fünf längs, Blöcke von 25 cm mit 6 cm Zwischenstreifen ergeben eine fertige Breite von 4 × 25 + 5 × 6 = 130 cm. Zwischenstreifen (Sashing) gehen als zwei Sorten Teile hinein: die kurzen zwischen den Blöcken kommen auf 5 Reihen × 5 × 25 cm = 625 cm, die langen Bahnen zwischen den Reihen und an Ober- und Unterkante auf 6 × 130 cm = 780 cm, zusammen also 1.405 cm. Ein Stoff von 107 cm gibt nach dem Abschneiden der Webkante 105 cm her, das sind 14 Streifen und 14 × 6 = 84 cm Stoff zu kaufen.',
+    note: 'Die eingegebene Streifenbreite ist die Fertigbreite. Damit 6 cm stehen bleiben, schneide 7,2 cm — zwei Nähte von 1/4 Zoll. Alle kurzen Teile müssen gleich lang sein, und diese Länge ist das Zuschnittmaß des Blocks, nicht sein Fertigmaß, weil die Nahtzugabe an der Blockkante noch da ist.',
+  },
+  'quilt-border': {
+    title: 'Quilt-Bordüre berechnen',
+    desc: 'Streifenlängen und Stoff für eine oder zwei Bordüren um einen Quilt.',
+    long: 'Auf einem Quilt von 150 × 200 cm braucht eine Bordüre von 6 cm zwei Seitenstreifen von 200 cm und zwei Streifen für oben und unten von 150 + 12 = 162 cm, weil die Seiten schon angesetzt sind — zusammen 724 cm. Eine zweite Bordüre von 10 cm läuft um die nun 162 × 212 cm große Fläche: Seiten von 212 und oben und unten je 182, weitere 788 cm, insgesamt 1.512 cm. Der Quilt endet bei 182 × 232 cm.',
+    note: 'Schneidest du die äußere Bordüre auf das Maß ohne die innere, fehlt an jeder Ecke die Breite der inneren Bordüre. Gerechnet wird in der Reihenfolge Seiten zuerst; setzt du oben und unten zuerst an, tausch Breite und Länge. Der Stoff ist mit der Fertigbreite plus zwei Nähten von 1/4 Zoll (1,2 cm) gerechnet — sind die beiden Bordüren aus verschiedenen Stoffen, teile die Streifenzahl auf.',
+  },
+  'fat-quarter-yield': {
+    title: 'Fat Quarter: Zuschnitte berechnen',
+    desc: 'Wie viele Teile einer bestimmten Größe aus einem Fat Quarter kommen.',
+    long: 'Ein Fat Quarter ist ein geviertelter Yard — 18 × 22 Zoll, etwa 50 × 55 cm. Schneidest du Quadrate von 4,5 Zoll (11,4 cm), gehen vier quer und vier längs, also 16 Quadrate, und 671 cm² bleiben übrig. Ist das Teil nicht quadratisch, kann Drehen mehr hergeben, deshalb werden beide Ausrichtungen gezählt und die bessere angezeigt.',
+    note: 'Gib das Zuschnittmaß ein, nicht das Fertigmaß; mit Fertigmaßen fehlt die Nahtzugabe und die Ausbeute fällt zu hoch aus. Fat Quarters werden oft schief geschnitten verkauft, rechne also etwa 1 cm einer Kante als unbrauchbar — passt die Aufteilung nur knapp, kauf ein zweites.',
+  },
+  'jelly-roll-yield': {
+    title: 'Jelly Roll: Quiltgröße berechnen',
+    desc: 'Nutzbare Fläche und Fertigmaß aus einer Rolle vorgeschnittener Streifen.',
+    long: 'Eine Jelly Roll sind 40 Streifen von 2,5 Zoll (6,4 cm), quer über eine Breite von 42 Zoll (107 cm) geschnitten. Beim Zusammennähen geht an jeder langen Kante 1/4 Zoll verloren, ein Streifen bleibt also 5,2 cm breit und 105,8 cm lang. Nebeneinandergesetzt ergeben 40 davon 208 × 105,8 cm — eine Fläche von 2,2 m².',
+    note: 'Einfach aneinandergenäht geben die Streifen eine kurze, breite Bahn von 208 cm. Für ein Bettmaß teilst du sie und setzt sie neu zusammen (104 × 211 cm) oder nähst einen langen Streifensatz und schneidest ihn quer. Je schmaler der Streifen, desto mehr fressen die Nähte: 19 % bei 6,4 cm, 32 % bei 3,8 cm (1,5 Zoll).',
+  },
+  'mitred-corner': {
+    title: 'Gehrungsecke für Bordüren berechnen',
+    desc: 'Zuschnittlänge jedes Bordürenstreifens und wo der 45°-Schnitt liegt.',
+    long: 'Eine Gehrungsecke ist die Stelle, an der zwei Bordüren wie ein Bilderrahmen im 45°-Winkel zusammentreffen. Damit diese Diagonale entsteht, muss der Streifen an jedem Ende um die Bordürenbreite über die Quiltkante hinausreichen, plus 5 cm Sicherheit. An einer Seite von 150 cm mit 15 cm Bordüre schneidest du 150 + 2 × 20 = 190 cm, markierst 20 cm von jedem Ende und nähst nur zwischen den Markierungen. Die zu schneidende Diagonale misst 15 × √2 = 21,2 cm.',
+    note: 'Bis an die Streifenenden durchzunähen macht die Ecke unmöglich zu falten. Näh nur zwischen den beiden Markierungen und verriegle an beiden. Die Diagonale liegt im schrägen Fadenlauf und dehnt sich unter dem Bügeleisen, füg die beiden Streifen also erst im 45°-Winkel zusammen und schneide den Überschuss danach ab — vorher geschnitten lässt sich nicht zurücknehmen.',
+  },
+  'floss-skeins': {
+    title: 'Stickgarn: Stränge berechnen',
+    desc: 'Wie viele Stränge du für eine bestimmte Garnlänge kaufen musst.',
+    long: 'Ein Strang sind sechs Fäden von 8 m, aufgezogen also 48 m Einzelfaden. Sechzig Meter Bedarf plus 10 % Reserve sind 66 m; geteilt durch 48 ergibt das 1,4, aufgerundet zwei Stränge, mit 30 m Rest für die nächste Vorlage.',
+    note: 'Gib die Länge als Einzelfaden ein. Mit zwei Fäden zu sticken verbraucht die doppelte Länge dessen, was du abziehst, nicht die abgezogene Länge. Willst du eine Farbe später nachkaufen, prüf die Färbepartie — dieselbe Nummer aus einer anderen Partie verschiebt sich leicht, und in einer großen ausgefüllten Fläche sieht man den Übergang.',
+  },
+  'hoop-size': {
+    title: 'Stickrahmen: Größe berechnen',
+    desc: 'Der kleinste Rahmendurchmesser, in den Motiv und Arbeitsrand passen.',
+    long: 'Ein Stickrahmen ist rund und ein Motiv rechteckig, hineinpassen muss also weder die Breite noch die Höhe, sondern die Diagonale. Ein Motiv von 18 × 25 cm mit 2 cm Arbeitsrand wird 22 × 29 cm, und die Diagonale ist √(22² + 29²) = 36,4 cm, also 14,3 Zoll. Wer einen Rahmen mit 8 Zoll (20 cm) wählt, weil das Motiv nur 22 cm breit ist, hat einen Teil davon außerhalb des Rings.',
+    note: 'Der Stoff muss den Rahmen an jeder Seite um mindestens 8 cm überragen, damit an der Schraube etwas zu greifen ist. Große Motive arbeitet man meist, indem man den Rahmen umsetzt, statt einen größeren zu kaufen — doch über fertige Stiche geklemmt drückt der Ring sie platt und lässt eine Spur; ein Roll- oder Keilrahmen vermeidet das.',
+  },
+  'thread-count-convert': {
+    title: 'Evenweave: Count umrechnen',
+    desc: 'Tatsächliche Stiche pro Zoll und Fertiggröße, wenn du über mehrere Fäden stickst.',
+    long: 'Der Count sind Fäden pro Zoll. Aida bündelt seine Fäden zu vier, ein Stich deckt dort einen Block, Leinen und Evenweave werden dagegen normalerweise über zwei Fäden gestickt. Über zwei Fäden gearbeitet ergeben 28 Count tatsächlich 14 Stiche pro Zoll, eine Vorlage von 100 × 140 Stichen wird also 18,1 × 25,4 cm groß — genauso groß wie auf 14-Count-Aida. Der Maßstab von 200 % heißt, dass das Motiv doppelt so groß wird wie über einen Faden gestickt.',
+    note: 'Ob die „28 Count“ einer Anleitung schon tatsächliche 14 meinen, unterscheidet sich von Entwerferin zu Entwerferin; eine Fertiggröße, die halb oder doppelt herauskommt, hat fast immer hier ihre Ursache. Über einen Faden zu sticken (Petit Point) macht winzige Stiche, die die Augen ermüden, und Rückstichlinien wandern schräg, weil das Gewebe sie zieht.',
+  },
+
+  /* ───────── Kerzen: Nachguss, Farbe, Mischung, Preis ───────── */
+  'wax-topup': {
+    title: 'Zweiter Guss: Wachs berechnen',
+    desc: 'Menge für den Nachguss und das Wachs, das du insgesamt schmilzt.',
+    long: 'Soja sinkt beim Erstarren rund um den Docht ein und lässt ein Loch in der Oberfläche. Ein erster Guss von 180 g mit 10 % Schwund braucht 18 g zum Auffüllen, schmilz also von Anfang an 198 g. Wie stark es schwindet, hängt vom Wachs, vom Gefäß und davon ab, wie schnell es abkühlt — dasselbe Wachs verhält sich in Glas anders als in einer Dose.',
+    note: 'Gieß nach, wenn die erste Schicht erstarrt ist, und zwar 5 bis 10 °C kühler als beim ersten Mal. Heiß gegossenes Wachs schmilzt die Schicht darunter wieder an und sinkt erneut ein. Den Rest im Topf wieder aufzuheizen treibt den Duft aus, es ist also besser, die Menge für den zweiten Guss getrennt beiseitezustellen.',
+  },
+  'candle-dye-load': {
+    title: 'Kerzenfarbe dosieren',
+    desc: 'Farbmenge aus Wachsgewicht und Farbanteil, mit dem Gesamtanteil der Zusätze.',
+    long: 'Farbe liegt normalerweise bei 0,1 bis 1 % des Wachsgewichts. Ein halbes Prozent von 500 g sind 2,5 g — ein fingernagelgroßes Stück eines Farbblocks. Kommen 8 % Duftöl dazu, trägt das Wachs insgesamt 8,5 %, und mit dieser Summe ist die vom Hersteller angegebene Höchstmenge zu vergleichen.',
+    note: 'Farbe und Duftöl teilen sich denselben Platz im Wachs. Die Farbe zu vertiefen, während das Duftöl schon am Maximum liegt, lässt Öl an der Oberfläche ausschwitzen oder verstopft den Docht. Nimm keine Wachsmalstifte — ihre Pigmentteilchen lösen sich nicht und ersticken den Docht. Gefärbtes Wachs wird beim Erstarren einen Ton heller, beurteile die Farbe also kalt, nicht flüssig.',
+  },
+  'wax-blend': {
+    title: 'Wachse mischen: Verhältnis berechnen',
+    desc: 'Ein Gesamtgewicht Wachs im gewählten Verhältnis auf zwei Wachse aufteilen.',
+    long: 'Ein hartes mit einem weichen Wachs zu mischen stimmt die Eigenschaften ab. Ein Kilo im Verhältnis 7 : 3 sind 700 g A und 300 g B. Gibst du 10 bis 30 % Paraffin oder Bienenwachs in ein Container-Soja, wird die Oberfläche glatter und der Duft hält länger, doch Bienenwachs hebt den Schmelzpunkt, was meist eine Dochtstärke mehr bedeutet.',
+    note: 'Eine Mischung liegt zwischen ihren beiden Wachsen, auch wenn Werte wie der Schmelzpunkt nicht linear mitgehen. Steht das Verhältnis, gieß eine Kerze, lass sie zwei Tage reifen und brenn sie ab — jede Änderung der Mischung braucht einen neuen Dochttest. Soja und Paraffin erstarren unterschiedlich schnell, an der Grenze kann es also fleckig werden.',
+  },
+  'layer-pour': {
+    title: 'Schichtkerze: Wachs je Schicht',
+    desc: 'Wachs je Schicht und je Kerze für einen Guss in mehreren Schichten.',
+    long: 'Ein Gefäß mit 200 mL zu 90 % gefüllt hält 180 mL, also 162 g Wachs. Auf drei Schichten verteilt sind das je 60 mL und 54 g. Für ungleiche Schichten nimm diesen Wert und leg je Schicht ein Verhältnis darauf — eine dickere untere Schicht setzt das optische Gewicht nach unten und wirkt ruhiger.',
+    note: 'Gieß die nächste Schicht, wenn die Oberfläche darunter so weit erstarrt ist, dass ein Finger keine Spur hinterlässt. Auf eine weiche Schicht gegossen verlaufen die Farben; auf eine ganz kalte gegossen verbinden sich die Schichten nicht und spalten beim Brennen. Unterschiedliche Düfte je Schicht sind eine schlechte Idee — der Brand wärmt die Schichten darunter mit und mischt sie ohnehin.',
+  },
+  'container-fill-height': {
+    title: 'Kerze: Füllhöhe berechnen',
+    desc: 'Wie hoch ein Wachsgewicht in einem Gefäß mit bekanntem Innendurchmesser steht.',
+    long: '180 g durch eine Dichte von 0,9 geteilt ergeben 200 mL, und ein Innendurchmesser von 7 cm hat eine Grundfläche von 38,5 cm², das Wachs steht also 5,2 cm hoch. Diese Höhe vor dem Gießen zu kennen ist der Weg, um zu prüfen, ob der Dochtteller bedeckt ist und die Füllung unter der Oberkante des Etiketts bleibt.',
+    note: 'Dochtteller sind 3 bis 6 mm dick; steht das Wachs flacher, liegt der Teller frei und leitet die letzte Hitze in den Glasboden. Ein sich nach unten verjüngendes Gefäß füllt höher als dieser Wert, und wer bei einem eckigen Gefäß eine Kantenlänge statt eines Durchmessers eingibt, liest zu niedrig. Setz das Etikett unter die Wachslinie — ein Etikett oberhalb der Oberfläche löst sich, wenn die Kerze warm wird.',
+  },
+  'fragrance-max': {
+    title: 'Höchsten Duftölanteil berechnen',
+    desc: 'Die Duftölgrenze eines Wachses und der Spielraum, den dein geplanter Anteil lässt.',
+    long: 'Gibt das Wachs 10 % als Höchstmenge an, können 500 g davon 50 g Öl tragen. Mit 8 % geplant kommen 40 g hinein, und 10 g Spielraum bleiben. Dieser Spielraum ist nicht dem Duftöl allein vorbehalten — Farbe und alle weiteren Zusätze teilen sich dieselbe Menge.',
+    note: 'Ein negativer Spielraum heißt, die Grenze ist schon überschritten. Öl darüber bindet nicht: es schwitzt aus der erstarrten Oberfläche oder sammelt sich am Boden, und es zieht in den Docht und gibt eine übergroße Flamme. Riecht die Kerze auch an der Höchstmenge schwach, liegt die Antwort beim Öl, bei der Eingießtemperatur oder bei der Reifezeit statt beim Prozentsatz — Soja braucht ein bis zwei Wochen, bis der Duft trägt.',
+  },
+  'candle-price': {
+    title: 'Kerzenpreis kalkulieren',
+    desc: 'Verkaufspreis aus einer Zielmarge, und die Marge, die ein gewählter Preis wirklich gibt.',
+    long: 'Die Marge wird am Verkaufspreis gemessen. Um auf Materialkosten von 4.000 60 % zu behalten, ist der Preis 4.000 ÷ (1 − 0,6) = 10.000. Stattdessen 60 % auf die Kosten zu legen ergibt 6.400, und das ist eine Marge von 37,5 %, nicht von 60 %. Für 9.000 verkauft bleiben 5.000 Gewinn und eine Marge von 55,6 %.',
+    note: 'In dieser Zahl steckt nur Material. Misslungene Güsse, Verpackung und Füllmaterial, Porto, Plattformgebühren (üblich 3 bis 10 % vom Preis) und die Stunden für Fotos und Etiketten liegen alle außerhalb. Verkaufst du auch im Großhandel, muss der Großhandelspreis mindestens das Doppelte dieser Materialkosten sein, damit der Verkaufspreis im Laden hält.',
+  },
+  'candles-from-wax': {
+    title: 'Wie viele Kerzen aus dem Wachs?',
+    desc: 'Wie viele Kerzen einer bestimmten Größe eine Menge Wachs ergibt.',
+    long: 'Nimm einen Beutel mit 5 kg, verlier 5 % an Topf und Gießkännchen, und 4.750 g werden wirklich gegossen. Bei 180 g je Stück sind das 26 Kerzen mit 70 g Rest. Nimm die 70 g in den nächsten Ansatz oder gieß sie als Wachsmelt — etwas weniger als eine Kerze bleibt jedes Mal übrig.',
+    note: 'Duftöl steckt nicht in dieser Zählung. Es kommt auf das Wachsgewicht obendrauf, verringert die Zahl der Kerzen also nicht, kostet aber getrennt. Der Verlustanteil hängt von der Ansatzgröße ab: 5 % sind großzügig, wenn du 5 kg auf einmal schmilzt, doch zehnmal 500 g lassen denselben Rest zehnmal zurück und drücken über 10 %.',
+  },
+
+  /* ───────── Seife und Harz: Mischungen, Wasser, Reifezeit ───────── */
+  'multi-oil-lye': {
+    title: 'Seifenrechner für mehrere Öle',
+    desc: 'Drei Öle mit eigenem SAP-Wert eingeben und die Laugenmenge der Mischung erhalten.',
+    long: 'Ein gemischtes Rezept muss Öl für Öl gerechnet und dann addiert werden, denn der SAP-Wert gehört zum Öl und nicht zu Seife allgemein — nimm jeden Wert aus den Daten dieses Öls, ob Lieferantenblatt oder Standardtabelle. Olive mit 300 g (SAP 190), Kokos mit 150 g (SAP 258) und Rizinus mit 50 g (SAP 180) ergeben 300 × 190 + 150 × 258 + 50 × 180 = 104.700; geteilt durch 1402,5 sind das 74,7 g NaOH, und 5 % Überfettung abgezogen bleiben 70,9 g. Der daneben angezeigte SAP-Wert der Mischung, hier 209,4, ist das nach Gewicht gewichtete Mittel: mit ihm behandelst du diese Mischung später wie ein einzelnes Öl. Tausch ein Öl, und dieser Wert verschiebt sich, die Laugenmenge ist also neu zu rechnen.',
+    note: 'Die Lauge kommt ins Wasser, nie das Wasser auf die Lauge — in der falschen Reihenfolge kocht es in Sekunden auf und spritzt. Trag Schutzbrille und Handschuhe und rühr in Edelstahl oder HDPE, niemals in Aluminium: das greift die Lauge an, und es entsteht Wasserstoff. Die Lösung heizt sich beim Zusammengeben von selbst auf 80 bis 90 °C, also kein Glas und kein dünnes Plastik. Ein einziges falsch getipptes Ölgewicht verschiebt die Lauge: zu wenig lässt ein weiches Stück zurück, das nie fest wird, zu viel eine ätzende Seife. Setz das Gewicht eines nicht benutzten Öls auf null — ein stehen gebliebener SAP-Wert allein ändert nichts.',
+  },
+  'water-discount': {
+    title: 'Wasserreduktion für Seife berechnen',
+    desc: 'Einen Prozentsatz von der vollen Wassermenge abziehen und Wassergewicht samt Konzentration der Laugenlösung sehen.',
+    long: 'Wasser nimmt an der Verseifung nicht teil: es trägt die Lauge in die Öle und verlässt die Seife wieder, während sie reift. Es zu reduzieren heißt deshalb nicht, Material zu sparen, sondern die Laugenlösung stärker zu machen. 71 g Lauge bei 2 : 1 sind 142 g Wasser, eine Lösung von 33 %. Zieh 20 % ab, und es sind 113,6 g Wasser bei 38,5 %. Eine stärkere Lösung bringt weniger Wasser in den Seifenteig, der Trace kommt also merklich früher — weniger Zeit zum Marmorieren, dafür fest genug, um innerhalb eines Tages aus der Form zu kommen, kürzere Reifezeit und weniger Schwund. Deshalb passt eine Reduktion zu einfarbigen Stücken und eiligen Ansätzen, während ein aufwendiger Swirl die Reduktion bei null oder zusätzliches Wasser will.',
+    note: 'Etwa 50 % sind die praktische Obergrenze: stärker löst sich die Lauge nicht vollständig, und die Körner landen im Stück. Je größer die Reduktion, desto höher heizt die Lösung auf, fang also mit kaltem Wasser an — und halte die Reihenfolge ein, Lauge ins Wasser, sonst kocht es auf und spritzt. Schutzbrille, Handschuhe und ein Gefäß aus Edelstahl oder HDPE, niemals Aluminium. Weniger Wasser ändert die Laugenmenge nie. Kürz die Lauge mit dem Wasser mit, und du bekommst ein weiches Stück, das nicht fest wird; wieg Lauge versehentlich in das Wasserfeld, und du bekommst ein ätzendes.',
+  },
+  'soap-mold-fill': {
+    title: 'Seifenform: Füllmenge berechnen',
+    desc: 'Aus Formvolumen und Dichte des Seifenteigs den Ansatz und das Öl darin.',
+    long: 'Formen werden in Volumen gemessen, Rezepte in Gewicht, und die Dichte des Seifenteigs verbindet beides — Seifenteig läuft etwas leichter als Wasser, 0,9 bis 1,0 g/cm³, hier steht 0,95 als Vorgabe. Eine Form mit 1.200 mL hält also etwa 1.140 g Teig. Daraus das Öl zurückzulesen braucht eine Annahme: die Lauge ist ein fester Anteil des Ölgewichts (voreingestellt 13,5 %, ein realistischer Wert für verbreitete Mischungen) und das Wasser ein Vielfaches der Lauge (voreingestellt 2×). Der Teig ist dann 1 + 0,135 + 0,27 = 1,405-mal das Öl, also 1.140 ÷ 1,405 = 811 g Öl, 109,5 g Lauge und 219 g Wasser. Den echten Laugenanteil legt deine Ölmischung fest, trag also, sobald sie steht, ihren Wert Lauge ÷ Öl aus dem Seifenrechner für mehrere Öle in dieses Feld ein. Miss die Form mit Wasser, und rechne damit, dass eine Silikonform etwa 5 % mehr aufnimmt als die Rechnung sagt, weil sich die Wände unter dem Teig nach außen wölben.',
+    note: 'Füll nicht bis zum Rand. Teig steigt, wenn er sich erhitzt, und ein Ansatz, der über die Kante geliert, erstarrt als Pfütze um die Form — lass 1 bis 1,5 cm Luft. Gießt du zu wenig, werden die Stücke flach und brechen beim Schneiden. Die Dichte bewegt sich mit dem Rezept: harte Öle wie Kokos machen sie schwerer, aufgeschlagener Teig ist deutlich leichter. Sobald du eine Form einmal gegossen hast, notier ihr Teiggewicht geteilt durch ihr Volumen und nimm diesen Wert — dein eigener schlägt jede Vorgabe.',
+  },
+  'soap-cure-progress': {
+    title: 'Seife: Reifezeit berechnen',
+    desc: 'Tage seit der Herstellung gegen eine Ziel-Reifezeit ergeben den Fortschritt und die Resttage.',
+    long: 'Reifen ist Wasserverlust, nicht Verseifung. Die Reaktion selbst ist meist in 24 bis 48 Stunden beendet, der Block ist ab dann also Seife, aber weich und kurzlebig, weil das eingerührte Wasser noch da ist. Über vier bis sechs Wochen verdunstet es, das Stück wird hart und der Schaum feiner und langlebiger. Gegen ein Ziel von 42 Tagen steht Tag 14 bei 33 % mit 28 Tagen Rest. Das Ziel ist eine Marke, keine Frist — Stücke werden über 100 % hinaus besser, und eine olivenlastige Kastilienseife ist nach zwei bis drei Monaten sichtbar besser, nach sechs noch besser. Wer es genau verfolgen will, nimmt die Waage: ein Stück wiegen, notieren und alle paar Tage nachwiegen; sinkt das Gewicht nicht mehr, ist das Wasser draußen, typischerweise 5 bis 10 % unter dem Anfangswert.',
+    note: 'Dieser Prozentsatz zählt Tage und weiß nichts über deinen Raum. In einem feuchten Sommer sinkt das Gewicht weit über Tag 42 hinaus, in trockener Winterluft ist es früher fertig. Stell die Stücke mit Abstand auf die Kante in ein luftiges Regal — gestapelt oder in einer Kiste laufen nur die Tage, das Wasser bleibt. Einwickeln in Folie oder Plastik gehört hinter die Reifezeit, nicht hinein. Und ein Stück, das weich ist, weil die Lauge fehlte, wird nie hart: Reifen behebt Feuchtigkeit, kein falsch gewogenes Rezept.',
+  },
+  'resin-coverage': {
+    title: 'Epoxidharz: Verbrauch je Fläche',
+    desc: 'Harzvolumen und -gewicht, um eine Fläche in einer bestimmten Dicke zu beschichten.',
+    long: 'Beschichten ist Fläche mal Dicke, und die einzige Falle sind die Einheiten: Quadratzentimeter mit Millimetern multipliziert müssen durch 10 geteilt werden, um bei Kubikzentimetern zu landen, und die sind Milliliter. Ein Tablett von 60 × 60 cm, also 3.600 cm², braucht bei 3 mm 1.080 mL, bei einer Dichte von 1,1 also 1.188 g. Breite Flächen wie Tischplatten werden selten tiefer als etwa 3 mm auf einmal gegossen, die Dicke wird also in Lagen geteilt — gib die Dicke einer Lage ein und wiederhol den Guss, statt jedes Mal neu zu rechnen. Selbstverlaufendes Harz gleicht sich auf einer waagerechten Fläche selbst aus, doch ein halbes Grad Neigung macht die tiefe Kante dick und die hohe dünn: eine Wasserwaage zählt hier mehr als die Rechnung.',
+    note: 'Rechne mit dem, was abläuft. Eine Fläche ohne Kante — eine Tischplatte, die Außenseite eines Tabletts — verliert Harz über den Rand, plan also 10 bis 20 % über dem Wert ein und kleb einen Damm oder stell etwas darunter. Misch immer 5 bis 10 % mehr an für das, was am Becher und am Rührstab bleibt. Die ganze Tiefe auf einmal zu gießen bündelt die Wärme, und die Schicht wird gelb oder reißt, halte dich also an die maximale Gießhöhe auf der Flasche. Saugende Oberflächen wie rohes Holz trinken die erste Lage, versiegle sie also mit einer dünnen Schicht vor der eigentlichen.',
+  },
+  'resin-doming': {
+    title: 'Epoxidharz-Kuppel berechnen',
+    desc: 'Das Harz für einen gewölbten Guss aus Durchmesser und Kuppelhöhe.',
+    long: 'Eine Kuppel ist ein Ausschnitt einer Kugel, kein Zylinder, Durchmesser mal Höhe überschätzt sie also deutlich. Die richtige Formel ist πh(3a² + h²)/6, mit a als Radius. Ein Rohling von 25 mm, 3 mm hoch gewölbt, hält 750 mm³, also 0,75 mL; zehn davon sind 7,5 mL oder 8,3 g bei 1,1 g/cm³. Eine natürliche Kuppel liegt bei etwa 8 bis 12 % des Durchmessers — 2 bis 3 mm auf einem Stück von 25 mm — und darüber hinaus scheitert es, denn die Oberflächenspannung ist die Annahme unter dieser Rechnung. Harz baut seine eigene Linse dort, wo du es hinsetzt, und diese Höhe legen Viskosität und Oberflächenspannung fest, nicht die Arithmetik. Nimm das Ergebnis als „wie viel Harz eine Kuppel dieser Höhe enthält“, füll dann bis zum Rand und setz die letzten Tropfen nach Augenmaß.',
+    note: 'Kuppeln laufen. Ohne Kante am Rand kriecht das Harz über die Seite, erstarrt auf der Rückseite, und es abzuschleifen dauert länger als ein neuer Guss — kleb die Unterseite ab oder nimm eine Fassung mit Rand. Niedrigviskoses Harz für Flutschichten verläuft einfach, statt eine Kuppel zu bilden, so wenig du auch nimmst. Lass die Mischung etwa eine halbe Stunde stehen, dann steigen die meisten Bläschen von selbst; über die restlichen fährst du kurz mit dem Brenner, denn ihn stehen zu lassen dellt die Oberfläche.',
+  },
+  'resin-cups': {
+    title: 'Epoxidharz auf Farbbecher aufteilen',
+    desc: 'Ein Gesamtgewicht Harz auf Becher verteilen, je Farbe einen, gleichmäßig oder mit größerer Grundfarbe.',
+    long: 'In mehreren Farben zu arbeiten heißt, das Harz in Becher zu teilen, und die Reihenfolge zählt: erst A und B vollständig verbinden, dann aufteilen. 220 g auf drei Farben sind je 73,3 g; gibst du der Grundfarbe einen Anteil von 40 %, werden es 88 g und je 66 g für die beiden anderen. Bleibt der Hauptanteil bei null, wird gleichmäßig geteilt. Gleichmäßig ist in der Praxis selten — der Hintergrund nimmt meist mehr als die Hälfte, während ein Akzent nur ein paar Gramm braucht —, den Grundanteil zuerst festzulegen und den Rest zu teilen entspricht also dem, wie Stücke wirklich gegossen werden. Misch einen Becher mehr an, als du brauchst: eine trüb gewordene Farbe lässt sich nicht rückgängig machen, und ein paar Gramm klares Harz in Reserve sind das, was sie rettet.',
+    note: 'Verbinde jeden Becher vollständig, bevor Pigment hineinkommt. Färbst du zuerst, siehst du nicht, ob A und B wirklich zusammengekommen sind, und ein untergemischter Becher bleibt für sich klebrig. Die Zeit fürs Umfüllen geht ebenfalls von der Topfzeit ab: bei sechs Bechern wird der letzte schon dicker, misch bei vielen Farben also in zwei Runden statt in einer. Jedes Umfüllen lässt 1 bis 2 g an der Becherwand, es kommt also etwas weniger in die Form, als die Zahlen sagen. Kleine Becher haben schmale Böden und wackeln auf der Waage — stell den Becher ab, tarier und füll einen nach dem anderen.',
+  },
+  'silicone-ratio': {
+    title: 'Silikon A : B berechnen',
+    desc: 'Ein Gesamtgewicht Silikon nach Gewicht in Komponente A und B teilen.',
+    long: 'Das Verhältnis hängt davon ab, welche Silikonfamilie du hast. Platinvernetzendes (additionsvernetzendes) Silikon ist meist 1 : 1, die Gesamtmenge wird also einfach halbiert; zinnvernetzendes (kondensationsvernetzendes) Silikon nimmt eine kleine Katalysatormenge, typisch 10 : 1 oder 100 : 5, was 20 : 1 ist. 500 g bei 10 : 1 sind 454,5 g A und 45,5 g B, der Katalysator liegt bei 9,1 % des Ansatzes. Dieselben 500 g bei 1 : 1 sind je 250 g und ein Katalysatoranteil von 50 % — eine völlig andere Einwaage, weshalb Halbieren ohne Blick auf die Dose der klassische Fehler ist. Das hier sind Gewichtsverhältnisse; viele Produkte drucken auch ein Volumenverhältnis auf, nimm auf der Waage also die Angabe nach Gewicht. Die Rechnung ist dieselbe wie beim Mischverhältnis für Harz, aber Silikon verzeiht kleine Ansätze viel schlechter, weil der Katalysator so stark auf einer Seite liegt.',
+    note: 'Wenn die Katalysatorseite nur 45 g wiegt, ist ein Gramm daneben schon ein Fehler von 2 % — nimm eine Waage, die 0,1 g anzeigt, und dosier Komponente B nie nach Augenmaß. Zu wenig Katalysator, und die Form bleibt innen klebrig und lässt sich nicht entformen; zu viel, und der Ansatz zieht an, bevor du fertig gegossen hast. Platinvernetzendes Silikon ist außerdem empfindlich gegen Verunreinigung: schwefelhaltiger Ton, Latexhandschuhe oder ein Becher, in dem zinnvernetzendes Silikon war, hinterlassen eine dauerhaft unvernetzte Stelle — prüf also eine unauffällige Ecke, wenn du dem Modell nicht traust. Misch die beiden Familien niemals. Wieg auch hier 5 % mehr ab: in zwei Güssen gegossenes Silikon spaltet sich an der Naht.',
+  },
+
+  /* ───────── Schmuck und Versand ───────── */
+  'necklace-length': {
+    title: 'Halskettenlänge berechnen',
+    desc: 'Aus fertiger Kettenlänge und Perlendurchmesser die Perlenzahl und den Anteil des Verschlusses.',
+    long: 'Halsketten haben Namen für ihre Längen: Choker 40 cm, Prinzess 45 cm, Matinee 55 cm, Opera 75 cm, Sautoir 105 cm. Ein Choker muss den Hals trotzdem passieren, meist 33 bis 35 cm, während eine Prinzess auf dem Schlüsselbein liegt und eine Matinee unter der Brust. Steht das Ziel, ist der Rest Subtraktion: bei einer Kette von 45 cm nehmen Verschluss und Klemmperlen 20 mm, es bleiben 430 mm für Perlen, runde Perlen von 8 mm ergeben also 53 Stück und fertige 44,4 cm. Lässt du die Subtraktion weg, teilst 450 durch 8 und ziehst 56 Perlen auf, schließt die Kette bei 46,8 cm — über der gewünschten Länge. Der Wert für den Draht daneben ist das Ziel plus 10 cm, die Enden, die du an beiden Seiten durch die Klemmperlen zurückführst.',
+    note: 'Die Zahl rundet ab; die übrigen Millimeter sammeln sich am Verschluss, und halbe Perlen gibt es nicht. Aufgedruckte Durchmesser sind Nennmaße, und Naturstein schwankt je Perle um einen halben Millimeter, rechne also mit einer oder zwei Perlen Abweichung — leg zehn Perlen an ein Lineal, und du hast den echten Durchmesser. Der Anteil des Verschlusses schwankt mehr als alles andere: ein kleiner Karabiner sind 10 mm, eine Magnet-Kugelschließe oder eine mit Verlängerungskette über 40 mm. Ketten hängen zudem unter dem eigenen Gewicht nach vorn und wirken vorn etwas länger, nimm im Zweifel einen Zentimeter vom Ziel ab.',
+  },
+  'bracelet-size': {
+    title: 'Armbandgröße berechnen',
+    desc: 'Zum Handgelenkumfang die Zugabe rechnen und Fadenlänge samt Perlenzahl erhalten.',
+    long: 'Ein Armband lässt sich nicht auf das nackte Handgelenkmaß bauen, denn der Faden läuft außen um die Perlen und nicht an der Haut — je größer die Perle, desto größer der wirksame Umfang. Übliche Zugabe sind 1 bis 1,5 cm bei einem Armband auf Gummifaden und 1,5 bis 2 cm bei einem mit Verschluss, denn ein Verschluss muss um das Handgelenk schwingen und lässt sich ohne Spiel nicht schließen. Ein Handgelenk von 16 cm plus 1,5 cm ergibt 17,5 cm Länge, die bei 8 mm 21 Perlen hält. Bei einem Armband mit Verschluss nimm die Verschlusslänge — meist 10 bis 15 mm — von den Perlen und nicht von der Länge, du ziehst also etwa zwei weniger auf. Gummifaden hat keinen Verschluss, dort füllen Perlen die ganze Länge. Der Wert für die Schnur ist die Länge plus 8 cm, die Enden für Knoten und Nachziehen.',
+    note: 'Gummifaden reißt häufiger, als sich der Knoten löst. Nimm 0,8 mm oder stärker und dehne ihn vor dem Aufziehen ein paar Mal an den Enden, sonst wird das Armband binnen Tagen locker. Knote zweimal einen Chirurgenknoten, gib einen Tropfen Kleber dazu und zieh den Knoten in ein Perlenloch. Rau gebohrte Steine und Metallperlen sägen den Faden durch, die gehören auf einen Faden mit Verschluss. Handgelenke schwellen im Tagesverlauf um bis zu einen halben Zentimeter, plan für ein Geschenk also großzügig.',
+  },
+  'chain-links': {
+    title: 'Kettenglieder berechnen',
+    desc: 'Wie viele Glieder eine Kettenlänge braucht und welche Länge ganze Glieder wirklich ergeben.',
+    long: 'Eine Kette lässt sich nur an einem Glied trennen. Für 45 cm mit Gliedern von 7 mm sind 450 ÷ 7 = 64,3, du nimmst also 64 Glieder — und 64 Glieder messen 44,8 cm. Genau 45 cm zu treffen ist unmöglich; die Wahl steht zwischen 44,8 cm und 45,5 cm bei 65 Gliedern. Miss die Gliedlänge, indem du die Kette an ein Lineal legst, zehn Glieder zählst und durch zehn teilst: an einem einzelnen Glied gemessen wächst ein Fehler von 0,5 mm mal 64 zu 3 cm. Auch die Kleinteile fressen Länge — ein Verschluss plus zwei Biegeringe sind meist 15 bis 20 mm, zieh das von der Fertiglänge ab, bevor du hier rechnest. Bei gleichmäßigen Ketten wie Anker- und Kordelkette passt die Rechnung direkt; bei einem Wechselmuster wie Figaro trag die Länge eines vollen Rapports ein, etwa ein langes plus drei kurze Glieder.',
+    note: 'Steht die Trennstelle fest, zählt, wie du trennst: manche Glieder öffnen und schließen sich wieder, andere müssen durchgeschnitten werden. Gelötete Ketten brauchen einen Seitenschneider, und das aufgeschnittene Glied ist Abfall, die echte Länge fällt also um ein Glied kürzer aus. Trägt die Kette einen schweren Anhänger, zählt die Drahtstärke mehr als die Zahl der Glieder — ein leichtes Glied biegt sich unter Last auf und der Anhänger ist weg. Müssen zwei Ketten gleich sein, wie bei Ohrringen, leg sie nebeneinander und zähl Glieder, statt jede mit dem Maßband zu messen, das sich jedes Mal anders dehnt.',
+  },
+  'earring-wire': {
+    title: 'Ohrring-Draht berechnen',
+    desc: 'Draht je Ohrring und je Paar aus Creolendurchmesser, Windungen und Zugabe für die Öse.',
+    long: 'Eine Windung um einen Ring ist Durchmesser × π. Eine Creole von 20 mm sind 62,8 mm, zwei überlappende Windungen also 125,7 mm, und mit 15 mm Zugabe für die Öse sind das 140,7 mm je Ohrring und 281,3 mm für das Paar. Die Zugabe deckt das Formen der Öse, an der der Ohrhaken hängt, und das Abschließen des Endes: eine einfache Rundzangenöse braucht 8 bis 10 mm, eine umwickelte 20 bis 25 mm. Windungen gehen in halben Schritten — 1,5 Windungen geben eine Creole mit halber Überlappung, die von vorn als doppelte Linie wirkt. Für einen Anhänger statt einer Creole trag seine Breite als Durchmesser und 1 als Windung ein, dann kommt ein einzelner Umfang heraus. Der eigentliche Zweck dieser Rechnung ist die Gleichheit: getrennt gemessen und geschnitten liegen die beiden Ohrringe 1 bis 2 mm auseinander, und das sieht man von vorn. Schneide die Länge für das Paar, falte sie in der Mitte und schneide einmal.',
+    note: 'Spar an der Zugabe, und du kannst das Stück nicht abschließen. Ohne ein Ende zum Greifen lässt sich die Öse nicht zuziehen, und der Draht längt sich beim Zuziehen leicht, die echte Länge liegt also über der Rechnung. Kräftiger Draht ab 0,8 mm (20 Gauge) lässt sich in der Hand nicht rund biegen und muss über einen Dorn gewickelt werden, wodurch die Creole Dorn plus Drahtstärke misst und größer wird als berechnet. Was durch das Ohr geht, sollte Chirurgenstahl, Titan oder Feinsilber sein; nickelhaltiger Basteldraht bleibt am Ring der Creole. Rechne je Schnitt einen Millimeter für das Verfeilen der Enden dazu.',
+  },
+  'bubble-wrap': {
+    title: 'Luftpolsterfolie berechnen',
+    desc: 'Wie viel Luftpolsterfolie ein Karton braucht — aus seinen Maßen und der Zahl der Lagen.',
+    long: 'Luftpolsterfolie wird nach Rolle verkauft, die Antwort muss also eine Länge sein — was die Menge bestimmt, ist die Oberfläche des Kartons. Ein Karton von 20 × 15 × 8 cm hat 2 × (20×15 + 20×8 + 15×8) = 1.160 cm² Oberfläche. Zweimal gewickelt und 15 % für Überlappung und die Falten an den Ecken dazu ergibt 2.668 cm², von einer Rolle mit 50 cm Breite also 53 cm — 0,53 m. Diese 15 % sind die Zugabe, auf der die Rechnung beruht: die Enden müssen sich überlappen, damit das Klebeband hält, und Ecken verbrauchen mehr als eine flache Fläche. Die Zahl der Lagen bestimmt der Inhalt: eine für Unzerbrechliches, drei oder mehr für Glas, Keramik und Elektronik, plus eine zusätzliche Runde um Ecken und Griffe. Für eine Serie von 100 Paketen multiplizier die Länge mit 100 und teil durch die Rollenlänge — eine Rolle mit 50 cm Breite hat meist 50 m.',
+    note: 'Ist die Rolle schmaler als der Karton, hilft die richtige Rechnung beim Wickeln nicht: die Rolle muss die kürzere Seite überspannen — hier die 15 cm Tiefe oder die 8 cm Höhe —, prüf also die Breite vor dem Kauf. Wickle die Noppen nach innen; nach außen werden sie nie zusammengedrückt und platzen einfach, und die Polsterung ist weg. Denk außerdem daran, dass der Inhalt sich im Karton nicht bewegen soll: gut gewickelt und trotzdem Hohlräume gelassen bringt wenig. Wo nach Volumengewicht abgerechnet wird, treibt jede zusätzliche Lage die Frachtkosten — brauchst du drei Lagen, nimm besser eine Kartongröße mehr.',
+  },
+  'tissue-paper': {
+    title: 'Seidenpapier: Größe berechnen',
+    desc: 'Das Seidenpapier für einen Karton bemessen und die Blätter für eine Serie zählen.',
+    long: 'Seidenpapier legt den Karton aus: es deckt den Boden, steigt beide Wände hoch und schlägt oben über den Inhalt. Eine Seite ist deshalb die Kartonbreite plus zweimal die Höhe, für die beiden Wände, plus etwa 5 cm zum Überlappen — bei einem Karton von 20 × 15 × 8 cm sind das 20 + 16 + 5 = 41 cm und in der anderen Richtung 15 + 16 + 5 = 36 cm. Das Standardblatt, das 41 × 36 cm deckt, ist 50 × 70 cm, die verbreitetste Größe; halbiert wird es 35 × 50 cm und ist für diesen Karton knapp zu kurz. Genau das entscheidet diese Rechnung: ganze Blätter nehmen oder zuschneiden. Zwei Blätter je Paket sind normal — eines quer zum Einwickeln, eines darüber oder zerknüllt als Füllung. Zehn Pakete sind 20 Blätter, eine Packung mit 100 Blättern reicht also für fünf solche Serien.',
+    note: 'Kräftig gefärbtes Seidenpapier blutet aus. Feuchte Hände oder ein feuchtes Lager übertragen den Farbstoff auf hellen Inhalt, nimm für Saugendes wie Kleidung, Seife oder Kerzen also säurefreies Weiß. Seidenpapier ist auch keine Polsterung: es präsentiert das Stück und verhindert Scheuern, nimmt aber keinen Stoß auf, Zerbrechliches bekommt also erst Luftpolsterfolie und darüber Seidenpapier. Papier mit Laufrichtung reißt an der Falz, wenn du quer zur Faser faltest, falte deshalb ein Blatt, bevor du einen Stapel schneidest. Und miss innen — mit Außenmaßen fällt das Blatt um die Wandstärke zu kurz aus.',
+  },
+  'ribbon-bow': {
+    title: 'Schleife: Bandlänge berechnen',
+    desc: 'Das Band, das die Schleife selbst braucht — aus Schlaufen, Schlaufenlänge und Enden.',
+    long: 'Jede Schlaufe geht hinaus und kommt zurück, sie frisst also die doppelte eigene Länge. Sechs Schlaufen von 6 cm sind 72 cm, zwei Bandenden von 12 cm kommen mit 24 cm dazu, und 5 cm zum Abbinden der Mitte bringen es auf 101 cm. Die fertige Schleife ist etwa doppelt so breit wie die Schlaufenlänge — hier 12 cm — und rund ein Drittel der Kartonbreite sieht richtig aus. Die Zahl der Schlaufen bestimmt den Charakter: zwei sind eine einfach gebundene Schleife, sechs schichten sich auf, und über zehn wirkt es als runde Pompon-Blüte. Dieses Werkzeug deckt nur die Schleife. Das Band um den Karton rechnet der Rechner für Geschenkband, 2 × (Breite + Höhe) + 2 × (Tiefe + Höhe) für die Kreuzschleife — addier beide Werte, wenn ein Stück Band umwickelt und bindet, oder nimm nur diesen, wenn du die Schleife getrennt machst und ansetzt.',
+    note: 'Die Bandbreite entscheidet, wie die Schleife wirkt. Ab 25 mm stehen die Schlaufen, und eine Schlaufe von 6 cm sieht großzügig aus; bei 6 mm hängt dieselbe Schlaufe schlaff, dünnes Band braucht also mehr Schlaufen, um zu füllen. Band mit Drahtkante hält seine Form, einfaches sinkt zusammen, sobald du die Mitte zuziehst, und die Schleife wirkt kleiner als die Zahlen. Gewebtes Band wie Satin franst an der Schnittkante, schneide also schräg oder versiegle das Ende kurz mit Feuer und lass einen Zentimeter dafür. Und die eine Schleife, die misslingt, steckt nicht in der Rechnung — kauf 20 bis 30 % mehr, wenn du eine Form zum ersten Mal versuchst.',
+  },
+  'mailer-size': {
+    title: 'Versandtasche: Größe berechnen',
+    desc: 'Eine Folien- oder Polstertasche nach Breite, Länge und Dicke des Inhalts bemessen.',
+    long: 'Eine Versandtasche ist ein flacher Schlauch, die Dicke des Inhalts geht also von der Breite ab. Der Umfang des Schlauchs ist zweimal seine Breite, und der Inhalt braucht 2 × (Breite + Dicke), die Tasche muss also mindestens so breit sein wie die Breite des Inhalts plus einmal seine Dicke. Rechne 2 cm dazu, um das Stück hinein- und herauszubekommen: ein 25 cm breiter und 4 cm dicker Gegenstand will eine Tasche von 31 cm. Die Länge geht genauso, Länge plus Dicke plus Zugabe, und dann 4 cm für die Klebelasche, also 40 cm — die Lasche schlägt um, dort kann kein Inhalt sitzen. Die Antwort lautet also „31 × 40 cm oder größer“, und du kaufst die nächstgrößere Lagergröße, etwa 32 × 45 cm. Miss Zusammendrückbares wie Kleidung in gepresstem Zustand. Achte auch darauf, wie der Lieferant Größen angibt: manche nennen das Innenmaß, andere das Außenmaß samt Lasche, und ein Außenmaß muss vor dem Vergleich um die Lasche gekürzt werden.',
+    note: 'Versandtaschen polstern nicht. Selbst eine mit Luftpolsterfutter hält nur Scheuern und Druck ab, Zerbrechliches gehört in einen Karton. Spar an der Zugabe, und der Inhalt rutscht in die Klebelasche, die Naht bindet nicht richtig und die Tasche geht unterwegs auf — nimm eine Größe mehr, statt die Zugabe zu kürzen. Zu groß ist ein eigenes Problem: das Stück rutscht, Ecken stoßen an, und der Überschuss klappt über das Etikett, wo der Scanner es nicht lesen kann. Ein dickes Stück hineinzuzwingen dehnt die Folie, bis sie an einer Ecke aufreißt, ab etwa 5 cm Dicke nimm also einen Karton. Die Taschengröße hilft beim Volumengewicht, doch rechne die Fracht nach den Regeln deines eigenen Versenders.',
+  },
 };

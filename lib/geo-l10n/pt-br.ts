@@ -756,4 +756,78 @@ export const GEO_PT_BR: Record<string, FormulaText> = {
     long: 'A Terra é redonda, então não dá para simplesmente subtrair as coordenadas. A fórmula de haversine mede o arco de círculo máximo que liga os dois pontos, dobrando as diferenças de latitude e longitude em senos de meio ângulo para o resultado não desandar perto dos polos.',
     note: 'É a distância direta, não a rodoviária que um aplicativo de mapas informa. O azimute mostrado é a direção para onde olhar na partida.',
   },
+
+  /* ───────── Quantidade de material: quantos sacos, quantas peças ───────── */
+  'concrete-bags': {
+    title: 'Quantos sacos de concreto',
+    desc: 'Sacos de concreto pré-misturado a partir da área, da espessura da laje e do rendimento por saco.',
+    long: 'Parar no volume é onde essas obras dão errado. O rendimento por saco muda de produto para produto, então aqui ele é um campo e não uma constante — um saco de 40 kg rende cerca de 18 L, um de 20 kg cerca de 9 L. Um piso de 4 × 3 m com 10 cm são 1,2 m³, ou 1.200 L; some 10 % de perda para 1.320 L e divida por 18 L para chegar a 73,3, então você compra 74 sacos. Saco não se vende em fração, então a conta sempre arredonda para cima.',
+    note: 'O rendimento varia entre marcas — copie o valor impresso no saco. Concreto não volta atrás depois de começar a pegar, então numa laje concretada de uma vez faltar material custa muito mais caro que um saco sobrando.',
+  },
+  'mortar-bricks': {
+    title: 'Calculadora de argamassa para assentar tijolos',
+    desc: 'Volume de argamassa e sacos a partir da quantidade de tijolos e da argamassa que cada tijolo leva.',
+    long: 'Pegue a quantidade de tijolos na calculadora de tijolos desta seção e use aqui para a argamassa que os assenta. Quanto cada tijolo leva depende da espessura da parede e da largura da junta, então é um campo: cerca de 0,3 L por tijolo numa parede de meia vez com juntas de 10 mm, 0,5 a 0,6 L numa parede maciça. 500 tijolos × 0,3 L são 150 L, e 15 % para o que cai levam a 172,5 L — a 13 L por saco isso é 13,3, ou seja 14 sacos.',
+    note: 'A argamassa cai da colher e endurece na masseira, então 5 % de folga não bastam; 15 % está mais perto da realidade da obra. Argamassa amassada tem que ser usada em umas duas horas, então não prepare mais do que você consegue assentar.',
+  },
+  'tile-grout': {
+    title: 'Calculadora de rejunte',
+    desc: 'Peso de rejunte a partir do tamanho da peça, da largura e da profundidade da junta e da densidade.',
+    long: 'O rejunte vive em frestas finas, mas o comprimento total dessas frestas cresce na razão inversa do tamanho da peça. O volume de junta em um metro quadrado é (2 ÷ lado da peça) × largura da junta × profundidade da junta; multiplique pela densidade, tipicamente 1.600 kg/m³, para o peso por metro quadrado. Uma peça de 30 cm com juntas de 3 mm e 8 mm de profundidade leva 0,26 kg/m²; um mosaico de 2,5 cm precisa de 1,02 kg/m² mesmo com juntas mais finas de 2 mm e só 4 mm de profundidade — exatamente quatro vezes mais. Largura da junta e tamanho da peça definem a resposta juntos.',
+    note: 'A profundidade da junta é normalmente a espessura da peça. As tabelas de consumo do fabricante supõem um formato de peça, então levá-las para mosaico ou para formato grande erra feio. Rejunte preparado endurece, então prepare só o que você consegue aplicar.',
+  },
+  'tile-adhesive': {
+    title: 'Calculadora de argamassa colante',
+    desc: 'Peso de argamassa colante e sacos a partir da área e do consumo por m².',
+    long: 'O consumo é definido pelo dente da desempenadeira, não pela marca — cerca de 3 kg/m² com dente de 6 mm, 4,5 kg/m² a 10 mm e 5,5 kg/m² a 12 mm, e o dobro disso se você também espalha no verso de peças grandes ou trabalha sobre um piso desnivelado. É por isso que o consumo é um campo e não um produto embutido. Dez metros quadrados com dente de 10 mm são 45 kg; some 10 % de perda para 49,5 kg, que são dois sacos de 25 kg, já que um saco cobre 5,6 m².',
+    note: 'Espalhada fina, a peça fica só parcialmente assentada — as trincas aparecem meses depois, então aqui não é lugar de economizar. Escolha o tipo pelo serviço: AC-I para parede interna, AC-II para área externa e piso, AC-III para porcelanato e peça grande. Saco aberto endurece com a umidade, então um saco pela metade raramente chega à próxima obra.',
+  },
+  'wallpaper-repeat-waste': {
+    title: 'Calculadora de perda por rapport do papel de parede',
+    desc: 'Panos por rolo já considerando o rapport da estampa, e os rolos que ele custa.',
+    long: 'A calculadora de rolos desta seção trabalha só com área; esta acrescenta o rapport. Com papel estampado cada pano tem que casar, então cada pano é cortado num número inteiro de rapports — e esse arredondamento é a perda. Um teto de 2,4 m mais 5 % de sobra para aparar são 2,52 m, mas com rapport de 53 cm você precisa cortar cinco rapports, ou 2,65 m. Um rolo de 15,6 m rende seis panos lisos e apenas cinco estampados. Cobrir um perímetro de 16 m com 106 cm de largura pede 16 panos, então quatro rolos em vez de três — o rapport custa um rolo inteiro.',
+    note: 'O rapport está impresso na etiqueta do rolo, e estampa com emenda deslocada (meio rapport) pede o dobro desse valor. Compre os rolos juntos: um número de lote diferente desloca a cor o suficiente para o rolo comprado depois aparecer como um pano fora de tom.',
+  },
+  'roof-shingles': {
+    title: 'Quantos pacotes de telha shingle',
+    desc: 'Pacotes e squares a partir da área do telhado e da cobertura de um pacote.',
+    long: 'Cobertura se conta em squares — 100 pés quadrados, ou 9,29 m². Um pacote de telha shingle de três abas cobre em geral um terço de square, cerca de 3,1 m², então três pacotes fazem um square, mas isso varia por produto, e é por isso que a cobertura por pacote é um campo. Um telhado de 100 m² com 10 % de perda são 110 m²; 12 m de cumeeira, capeada em camada dupla, somam cerca de 0,3 m² por metro, outros 3,6 m², dando 113,6 m². Divididos por 3,1 são 36,6, ou seja 37 pacotes, ou 12,2 squares.',
+    note: 'Coloque a área real do telhado inclinado, não a projeção no chão — converta antes na calculadora de área de telhado inclinado ou você vai comprar de menos. Telhados com muitos rincões e bordas recortadas precisam de mais que 10 % de folga.',
+  },
+  'laminate-packs': {
+    title: 'Calculadora de caixas de piso laminado',
+    desc: 'Caixas a partir do tamanho do ambiente e da cobertura por caixa, mais o retalho reaproveitável.',
+    long: 'A cobertura por caixa depende do tamanho da régua e de quantas réguas vêm dentro, então tire o valor da etiqueta — em geral 1,9 a 2,5 m². Um ambiente de 5 × 4 m são 20 m²; some 8 % de perda para 21,6 m², e a 2,2 m² por caixa isso é 9,8, ou seja 10 caixas, porque caixa não se divide. O pedaço cortado no fim de uma fileira começa a fileira seguinte: uma fileira de 5 m com réguas de 128 cm deixa 116 cm, bem acima do mínimo de 30 cm, então nada é jogado fora.',
+    note: 'Retalho abaixo de uns 30 cm junta as emendas de topo umas nas outras e a fileira levanta sob o pé — comece essa fileira com meia régua para desencontrar as emendas. Compre as caixas de reserva no primeiro pedido, porque um lote de produção posterior não vai bater o tom.',
+  },
+  'drywall-sheets': {
+    title: 'Calculadora de placas de drywall',
+    desc: 'Chapas a partir da área de paredes e forros, mais massa e fita por metro de junta.',
+    long: 'As medidas de chapa mudam por mercado — no Brasil a placa de gesso acartonado costuma vir com 1.200 mm de largura por 1.800, 2.400 ou 2.600 mm, e na América do Norte 1.220 × 2.440 mm — então o tamanho da chapa é um campo. Com o padrão de 900 × 2.400 mm (2,16 m²) que a calculadora traz, 60 m² mais 10 % de perda são 66 m², ou 30,6 chapas, então 31. Uma junta aparece a cada largura de chapa ao longo do trecho, então a área dividida pela largura dá o comprimento de juntas: 60 ÷ 0,9 = 66,7 m. A 0,35 kg de massa por metro isso são 23 kg, com 70 m de fita depois de contar as sobreposições.',
+    note: 'A massa acaba antes das chapas — fita mais uma demão de reforço e uma de acabamento chegam a 0,5 kg por metro. No forro use placa de 12,5 mm ou mais grossa e compre chapas com folga, já que trabalho acima da cabeça produz muito mais retalho.',
+  },
+  'plywood-sheets': {
+    title: 'Calculadora de chapas de compensado',
+    desc: 'Chapas necessárias a partir da área e do tamanho da chapa, com a sobra que fica na sua mão.',
+    long: 'Compensado se vende em chapas inteiras, e ambiente nunca sai em múltiplo de uma. 24 m² com 10 % de perda são 26,4 m²; divididos por uma chapa de 1.220 × 2.440 (2,977 m²) dá 8,9, ou seja 9 chapas. Nove chapas são 26,8 m², sobrando 2,8 m² — e essa sobra é o tamanho real do fato de que uma medida fixa de chapa raramente fecha um ambiente irregular. Experimente outras medidas de chapa e você vê a sobra diminuir.',
+    note: 'A contagem pode estar certa e as peças ainda não encaixarem; desenhe o plano de corte e decida antes para que lado corre o lado comprido. Em uso estrutural as emendas têm que cair sobre as vigas, o que empurra a perda acima de 10 %.',
+  },
+  'skirting-length': {
+    title: 'Calculadora de metragem de rodapé',
+    desc: 'Metros de rodapé e barras a comprar a partir do perímetro menos os vãos de porta.',
+    long: 'O perímetro é 2 × (comprimento + largura), menos os vãos de porta: um ambiente de 4,2 × 3,4 m são 15,2 m, e uma porta de 0,9 m deixa 14,3 m. Some 10 % para emendas e cortes em meia-esquadria para chegar a 15,7 m, depois divida por barras de 2,4 m para 6,55 — então você compra 7 barras, arredondando para cima porque toco curto não serve.',
+    note: 'Cantos em meia-esquadria muitas vezes significam uma barra inteira por parede, o que é mais do que a metragem sugere. Onde a parede está barriguda, uma barra única atravessando a parede longa esconde a falha melhor que duas peças emendadas no meio.',
+  },
+  'mulch-bags': {
+    title: 'Quantos sacos de casca para cobertura (mulching)',
+    desc: 'Sacos de cobertura a partir da área do canteiro, da espessura da camada e dos litros de um saco.',
+    long: 'Com mulching é a espessura, não a área, que faz o trabalho — uns 7 cm bloqueiam a luz e a semente de mato não vinga, enquanto 2 a 3 cm só deixam arrumado. Um canteiro de 20 m² a 7 cm são 1,4 m³, ou 1.400 L; some 10 % para 1.540 L, e a 50 L por saco (uns 2 pés cúbicos) isso é 30,8, ou seja 31 sacos. O volume do saco muda por produto, então tire os litros da embalagem.',
+    note: 'Casca de pínus perde cerca de metade da espessura em um ano, então conte com repor todo ano. Mantenha longe do caule: encostada no tronco ela prende umidade e apodrece o colo da planta.',
+  },
+  'paver-sand': {
+    title: 'Calculadora de areia de assentamento',
+    desc: 'Peso e sacos de areia de assentamento a partir da área pavimentada, da espessura e da densidade.',
+    long: 'Areia se mede por volume e se vende por peso, e a densidade é o que liga os dois, então ela é um campo: cerca de 1.500 kg/m³ seca e 1.900 kg/m³ úmida. Um pátio de 20 m² assentado com 3 cm são 0,6 m³; com 10 % de perda isso é 0,66 m³, que a 1.500 kg/m³ pesa 990 kg — 39,6 sacos de 25 kg, ou seja 40 sacos. Um big bag de uma tonelada dá mais ou menos o mesmo, e nesse tamanho o granel sai mais barato.',
+    note: 'A areia perde de 10 a 15 % da espessura depois de compactada, então informe a espessura final e não a que você mede espalhando. A areia varrida nas juntas é separada e acrescenta outros 1 a 2 kg por metro quadrado.',
+  },
 };

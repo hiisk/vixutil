@@ -64,6 +64,55 @@ export const CRAFT_FR: Record<string, FormulaText> = {
     note: 'Quand la division ne tombe pas juste, place les rangs en trop tout en haut, sous l’emmanchure. Un espacement irrégulier se voit surtout près du poignet.',
   },
 
+  'row-gauge-length': {
+    title: 'Échantillon en rangs : combien de rangs',
+    desc: 'Le nombre de rangs à tricoter, d’après ton échantillon en rangs et la longueur voulue.',
+    long: '28 rangs pour 10 cm font 2,8 rangs par centimètre, donc 60 cm demandent 168 rangs — soit exactement 21 répétitions d’un motif de 8 rangs. Demande 63 cm et tu obtiens 176,4 ; un rang ne se coupe pas, ce sera donc 176 rangs, qui mesurent 62,9 cm. Le millimètre ne se voit pas ; la répétition cassée, si.',
+    note: 'L’échantillon en rangs dérive plus que celui en mailles. Le jersey et l’alpaga s’allongent sous leur propre poids : suspends l’échantillon bloqué avant de le mesurer, c’est plus proche de ce que fera le vêtement.',
+  },
+  'yarn-substitute': {
+    title: 'Substitution de laine : combien de pelotes',
+    desc: 'Le nombre de pelotes d’une laine de remplacement qu’un modèle demande.',
+    long: 'Ce qu’on égalise en changeant de laine, c’est la longueur et non le poids. Un modèle qui réclame huit pelotes de 50 g d’une laine à 400 m pour 100 g veut 1 600 m. Une laine de substitution à 320 m pour 100 g ne porte que 160 m par pelote : il en faut dix — achète les mêmes huit et il te manque 320 m.',
+    note: 'Égaliser la longueur n’égalise pas l’épaisseur. Deux laines au même métrage pour 100 g ne tombent ni ne s’étirent pareil dès que l’une est de l’alpaga et l’autre du coton : tricote un échantillon avant de t’engager. Si la pelote de remplacement pèse autrement, divise le total de mètres ci-dessus par ce qu’annonce son étiquette.',
+  },
+  'sweater-ease': {
+    title: 'Aisance d’un pull (ease)',
+    desc: 'La circonférence finie et le nombre de mailles, d’après un tour de poitrine et l’aisance.',
+    long: 'La taille d’un vêtement, c’est la mesure du corps plus l’aisance, pas la mesure du corps. Ajouter 8 % à une poitrine de 96 cm donne une circonférence finie de 103,7 cm, soit 228 mailles à 22 mailles pour 10 cm. Mets l’aisance à −5 % et tu obtiens 91,2 cm, près du corps — le tricot s’étire, l’aisance négative est donc un vrai choix.',
+    note: 'Le tableau des tailles d’un modèle donne d’ordinaire le tour de poitrine fini, pas le corps auquel il est destiné. Mélanger les deux te met une taille entière à côté. L’aisance change aussi d’un endroit à l’autre : un pull avec 8 cm à la poitrine dépasse rarement 4 cm au haut du bras.',
+  },
+  'sock-cast-on': {
+    title: 'Montage de chaussette : mailles à monter',
+    desc: 'Le montage d’une chaussette, d’après le tour de pied, l’échantillon et l’aisance négative.',
+    long: 'Retire 10 % d’un tour de pied de 22 cm et tu tricotes à 19,8 cm, soit 59,4 mailles à 30 mailles pour 10 cm. Arrondis à 60, un multiple de quatre. Quatre compte deux fois : des côtes 2×2 se répètent sur quatre mailles, et le dessus du pied et la semelle doivent se partager exactement en deux (30 chacun) pour que le talon et les goussets sortent symétriques.',
+    note: 'L’aisance négative n’est pas optionnelle sur une chaussette. Tricote au tour mesuré et elle se relâche en plis sous le pied et glisse du talon. Mesure aussi l’échantillon en rond — la même laine et les mêmes aiguilles ne donnent pas le même compte à plat.',
+  },
+  'stripe-repeat': {
+    title: 'Rapport de rayures : répétitions et reste',
+    desc: 'Combien de répétitions entières de rayures tiennent, et combien de rangs restent.',
+    long: '160 rangs avec une répétition de 12 rangs donnent 13 répétitions (156 rangs) et 4 rangs de reste. Ce qui compte, c’est où vont ces 4 rangs. Répartis-les un peu partout et une rayure finit visiblement plus épaisse que les autres. Mets-les toutes là où quelque chose interrompt déjà — juste au-dessus des côtes du bas, ou sous le bras — et personne ne les trouve.',
+    note: 'Un nombre impair de rangs par répétition fait démarrer chaque rayure à l’extrémité opposée sur deux couleurs, ce qui oblige à couper le fil. Garde la répétition paire et la couleur au repos se remonte le long du bord : deux fois moins de fils à rentrer.',
+  },
+  'colorwork-yardage': {
+    title: 'Jacquard : laine par couleur',
+    desc: 'Répartir un besoin total de laine en grammes par couleur.',
+    long: 'Un vêtement qui mange 400 g avec 70 % de couleur principale se partage en 280 g et 120 g. Le pourcentage se lit sur la grille : compte les cases de chaque couleur dans une répétition, c’est le rapport aussi loin que le motif court. Le corps uni et les côtes vont tous sur la couleur principale.',
+    note: 'La couleur minoritaire tombe rarement sur le chiffre de la grille. Les fils portés à l’envers, les flottés, consomment plus que les mailles de l’endroit, et la laine tenue en couleur dominante fait des mailles un peu plus grandes et part plus vite. Achète une pelote de plus de la couleur contrastante — retrouver un bain de teinture épuisé est le manque le plus difficile à réparer.',
+  },
+  'yarn-per-row': {
+    title: 'Laine par rang',
+    desc: 'Les mètres de laine qu’un rang consomme, et les rangs que le reste porte encore.',
+    long: 'Une bande qui annonce 200 m pour 50 g fait 4 m par gramme. Si un échantillon de 12 g a pris 40 rangs, 48 m sont partis dans 40 rangs : un rang fait 1,2 m. Les 60 g qui te restent sont 240 m, de quoi tenir 200 rangs de plus. La version la plus juste consiste à peser l’ouvrage en cours, tricoter dix rangs et le repeser — le nombre de mailles par rang est alors déjà le vrai.',
+    note: 'Les mètres par rang suivent les mailles de ce rang. Reporter 1,2 m d’un échantillon de 40 mailles sur un corps de 200 mailles sous-estime de cinq fois : multiplie par le rapport des deux nombres de mailles. Le montage, les coutures et les finitions ne sont pas dans ce chiffre.',
+  },
+  'blanket-size': {
+    title: 'Taille de couverture au tricot',
+    desc: 'Les dimensions d’une couverture et les mailles à monter, d’après le matelas et la retombée.',
+    long: 'Une couverture finit à la taille du matelas plus la retombée sur les côtés, pas à la taille du matelas. La largeur prend la retombée deux fois, une par côté ; la longueur la prend une fois, au pied, parce que le bord du haut s’arrête devant les oreillers. Sur un lit de 150 × 200 cm avec une retombée de 25 cm, cela fait 200 × 225 cm, et à 16 mailles pour 10 cm le montage est de 320 mailles.',
+    note: 'Tenir 200 cm de mailles demande une aiguille circulaire de 100 cm ou plus, et dès que l’ouvrage fini dépasse le kilo il s’allonge sous son propre poids — mesure ton échantillon en gardant ce poids en tête. Les couvertures de bébé partent des dimensions du lit ou du siège auto : il ne doit rien y avoir qui retombe.',
+  },
+
   /* ───────── Couture et tissu ───────── */
   'fabric-yardage': {
     title: 'Métrage de tissu à acheter',
@@ -112,6 +161,55 @@ export const CRAFT_FR: Record<string, FormulaText> = {
     desc: 'La mesure obtenue quand tu agrandis ou réduis un patron imprimé.',
     long: 'Les longueurs suivent le pourcentage, la consommation de tissu suit son carré. Une ligne de 20 cm passée à 120 % fait 24 cm, mais la surface de la même pièce passe à 144 % — voilà pourquoi un patron à peine agrandi tombe en panne de tissu. Le zoom de l’imprimante, c’est ce même 120 %.',
     note: 'Désactive l’ajustement à la page à l’impression et saisis l’échelle toi-même, puis mesure le carré de contrôle imprimé sur le patron avant de couper quoi que ce soit. Les marges de couture gardent leur largeur d’origine, on ne les met pas à l’échelle.',
+  },
+
+  'zipper-length': {
+    title: 'Longueur de fermeture éclair',
+    desc: 'Quelle taille de fermeture acheter pour une ouverture, arrondie à une taille qui existe.',
+    long: 'Une ouverture de 22 cm plus 2 cm de marge en haut et en bas demande 24 cm — et personne ne vend de fermeture de 24 cm. Les tailles courantes montent par 10 · 12 · 15 · 18 · 20 · 23 · 25 · 30 · 35 · 40 · 45 · 50 · 55 · 60 · 70 · 80 · 90 cm : tu achètes donc la 25. Les boutiques qui vendent en pouces montent par 4 · 5 · 7 · 9 · 12 · 14 · 16 · 18 · 20 · 22 · 24 po.',
+    note: 'La longueur annoncée mesure la partie à dents que parcourt le curseur, pas le ruban, qui continue au-delà des deux côtés. Acheter long et raccourcir ne marche que sur les fermetures à spirale : coupe les dents d’un modèle métal ou Vislon et le curseur sort, et une fermeture séparable ne se touche pas du tout en bas.',
+  },
+  'buttonhole-spacing': {
+    title: 'Espacement des boutonnières',
+    desc: 'L’espacement régulier des boutonnières le long d’une patte de boutonnage.',
+    long: 'Sur une patte de 60 cm avec 2 cm libres à chaque bout, les boutonnières occupent 56 cm. Six boutons divisent cette portée par cinq et non par six : la première et la dernière sont aux extrémités, il n’y a donc que cinq intervalles entre elles. Cela fait 56 ÷ 5 = 11,2 cm. Divise par six à la place et tu obtiens 9,3 cm, la dernière boutonnière restant loin du bord.',
+    note: 'Sur une blouse, place d’abord une boutonnière au point le plus fort de la poitrine et répartis les autres depuis là — une répartition seulement régulière laisse ce point entre deux boutonnières, c’est-à-dire exactement là où le devant bâille. La boutonnière elle-même doit toujours mesurer le diamètre du bouton plus son épaisseur.',
+  },
+  'pleat-fabric': {
+    title: 'Plis : largeur de tissu à couper',
+    desc: 'La largeur de tissu qu’un panneau plissé demande, d’après la largeur finie et les plis.',
+    long: 'Ce calcul travaille en plis couchés. Un pli couché consomme trois fois sa profondeur, mais l’une de ces trois est la face visible, déjà comptée dans la largeur finie — ce qu’il faut ajouter, c’est donc deux fois la profondeur par pli. Un panneau fini de 50 cm avec dix plis de 4 cm se coupe à 50 + 10 × 8 = 130 cm. Serre-les jusqu’à ce que la face visible égale la profondeur et 12,5 plis tiennent : le tissu fait alors exactement 3 fois la largeur finie, 150 cm — c’est de là que vient l’idée que les plis couchés prennent trois fois leur profondeur. Les plis creux se replient des deux côtés et en prennent quatre fois.',
+    note: 'Les plis sont pris pliés dans la couture de taille : trois épaisseurs de tissu s’y empilent. Sur du denim ou du tweed, il faut réduire la profondeur ou le nombre avant que l’aiguille passe. Sur un imprimé, accorde la profondeur au raccord du motif, sinon les plis découpent le dessin.',
+  },
+  'hem-allowance': {
+    title: 'Ourlet : longueur à couper',
+    desc: 'La longueur de coupe d’après la longueur finie, la profondeur d’ourlet et le nombre de replis.',
+    long: 'Le nombre de replis, c’est le nombre de fois où le tissu est dépensé. Un double repli (2) remonte deux fois la même profondeur pour enfermer le bord vif : une longueur finie de 70 cm avec un ourlet de 2 cm se coupe à 70 + 2 × 2 = 74 cm. Surfile le bord et ne replie qu’une fois (1) et 72 cm suffisent. Contrairement à une marge de couture, un ourlet n’est qu’à une extrémité : rien n’est doublé ici pour le bord opposé.',
+    note: 'Sur un ourlet courbe, l’excédent n’a nulle part où aller dès que le repli est profond : l’intérieur fronce et gondole. Garde l’ourlet d’une jupe évasée sous 1 cm, ou finis-le au biais. Les mailles veulent le contraire — un ourlet profond et une aiguille double ou un zigzag, pour que la piqûre s’étire avec le tissu.',
+  },
+  'dart-intake': {
+    title: 'Pinces : valeur à pincer',
+    desc: 'Combien chaque pince supprime, d’après la différence entre deux tours.',
+    long: 'Les 20 cm entre une poitrine de 96 cm et une taille de 76 cm sont ce que les pinces doivent avaler. Quatre pinces — deux devant, deux dos — en prennent 5 cm chacune, et comme une pince s’ouvre de part et d’autre de son axe, chaque branche se trace 2,5 cm en dehors. Ce sont ces 2,5 cm que tu marques vraiment sur le patron.',
+    note: 'Partager 20 cm en quatre ne veut pas dire quatre pinces égales. Le côté le plus galbé en prend davantage : 6 cm devant et 4 cm dos est le genre de répartition habituel. Dès qu’une seule pince dépasse environ 4 cm, sa pointe fait une bosse, et le remède est deux pinces plus petites côte à côte.',
+  },
+  'fabric-nap-layout': {
+    title: 'Sens du poil : métrage de tissu',
+    desc: 'La longueur de tissu quand toutes les pièces doivent être posées dans le même sens.',
+    long: 'Velours, velours côtelé, tissus grattés et imprimés à sens veulent toutes les pièces posées dans le même sens, sinon la couleur change d’un panneau à l’autre. Six pièces de 40 × 50 cm posées debout sur un tissu de 110 cm tiennent deux de front, trois rangées, 150 cm. Tournées sur le côté, elles tiennent toujours deux de front (110 ÷ 50) sur trois rangées, mais chaque rangée ne fait que 40 cm de long, donc 120 cm suffisent — et un tissu à poil ne peut pas réclamer ces 30 cm. Le calculateur de métrage suppose que tu es libre de tourner les pièces, et c’est pourquoi il annonce moins.',
+    note: 'Le velours paraît plus sombre poil vers le haut et plus clair poil vers le bas ; les deux vont, tant que tout le vêtement s’accorde. Un grand imprimé à raccord coûte encore plus : chaque pièce demande jusqu’à une répétition entière de longueur en plus pour se raccorder aux coutures.',
+  },
+  'sewing-thread-length': {
+    title: 'Longueur de fil à coudre',
+    desc: 'Le fil qu’une couture consomme, et le nombre de bobines que cela fait.',
+    long: 'Le point noué droit entrelace le fil d’aiguille et celui de canette à l’intérieur du tissu : il mange donc bien plus de fil que la couture est longue. À 2,5×, une couture de 200 cm prend 500 cm — 5 m. Piquer plus fin ne change presque rien à ce total, parce que deux fois plus de points utilisent chacun deux fois moins de fil. Ce que la densité (200 × 4 = 800 points) fixe vraiment, c’est la solidité de la couture et le nombre de trous percés dans le tissu.',
+    note: 'Le facteur grimpe avec l’épaisseur. Un tissu fin au point noué reste près de 2,5, plusieurs épaisseurs de denim passent 3, et une surjeteuse à quatre fils va de 12 à 18 fois la longueur de couture, parce que son fil enveloppe l’extérieur du tissu au lieu de se nouer dedans. Les longueurs de bobine sont nominales elles aussi, et les derniers mètres sont souvent enroulés trop lâche pour être cousus.',
+  },
+  'sticker-sheet-yield': {
+    title: 'Étiquettes par planche',
+    desc: 'Combien d’étiquettes tiennent sur une feuille imprimée, les deux orientations comparées.',
+    long: 'Sur de l’A4 (21 × 29,7 cm), une marge de 0,5 cm tout autour laisse 20 × 28,7 cm utilisables. Avec des étiquettes de 5 × 3 cm espacées de 0,2 cm, en largeur cela donne (20 + 0,2) ÷ (5 + 0,2) = 3,88 → 3, et en hauteur (28,7 + 0,2) ÷ (3 + 0,2) = 9,03 → 9, soit 27 étiquettes. On ajoute un écart avant de diviser parce que trois étiquettes n’ont que deux écarts entre elles. Tourne-les de 90° et cela devient 6 de large sur 5 de haut — 30 étiquettes, trois de plus. Compte les deux sens avant de monter la planche.',
+    note: 'Les vraies marges d’imprimante varient d’un modèle à l’autre et sont plus larges du côté de l’entraînement : une marge de zéro coupe silencieusement la dernière rangée, fais donc un essai avant de lancer la série. Si une machine de découpe fait la coupe, garde au moins 0,2 cm d’écart pour le passage de la lame et ajoute le fond perdu à la taille de l’étiquette, puisque le trait de coupe tombe légèrement en dehors.',
   },
 
   /* ───────── Quilt et broderie ───────── */
@@ -164,6 +262,55 @@ export const CRAFT_FR: Record<string, FormulaText> = {
     note: 'Un écheveau DMC, c’est six brins de 8 m, soit 48 m en brin simple, de quoi couvrir environ 2 300 points à deux brins. Les grands sauts à l’envers et les changements de couleur fréquents l’épuisent bien plus vite : prévois large pour une couleur dispersée sur toute la grille.',
   },
 
+  'quilt-sashing': {
+    title: 'Sashing de quilt : bandes de séparation',
+    desc: 'La longueur totale de sashing et le tissu, d’après la disposition des blocs et la largeur des bandes.',
+    long: 'Quatre blocs en largeur sur cinq en longueur, des blocs de 25 cm avec un sashing de 6 cm, finissent à 4 × 25 + 5 × 6 = 130 cm de large. Le sashing part en deux sortes de pièces : les courtes, entre les blocs, font 5 rangées × 5 × 25 cm = 625 cm, et les longues bandes entre les rangées et le long du haut et du bas font 6 × 130 cm = 780 cm, soit 1 405 cm en tout. Un tissu de 107 cm donne 105 cm une fois la lisière coupée : cela fait 14 bandes, et 14 × 6 = 84 cm de tissu à acheter.',
+    note: 'La largeur de sashing saisie est la largeur finie. Pour finir à 6 cm, coupe à 7,2 cm — deux marges de 1/4 de pouce. Toutes les pièces courtes doivent avoir la même longueur, et cette longueur est la taille de coupe du bloc et non sa taille finie, parce que la marge de couture du bord du bloc est encore là.',
+  },
+  'quilt-border': {
+    title: 'Bordures de quilt',
+    desc: 'La longueur des bandes et le tissu pour une ou deux bordures autour d’un quilt.',
+    long: 'Sur un quilt de 150 × 200 cm, une bordure de 6 cm demande deux bandes latérales de 200 cm et deux bandes en haut et en bas de 150 + 12 = 162 cm, puisque les côtés sont déjà posés — 724 cm ensemble. Une seconde bordure de 10 cm fait le tour du dessus agrandi à 162 × 212 cm : côtés de 212, haut et bas de 182 chacun, soit 788 cm de plus et 1 512 cm en tout. Le quilt finit à 182 × 232 cm.',
+    note: 'Coupe la bordure extérieure aux dimensions sans bordure et elle manque de la largeur de la bordure intérieure à chaque angle. Ce calcul travaille dans l’ordre côtés d’abord ; si tu poses le haut et le bas en premier, échange la largeur et la longueur. Le tissu est compté à la largeur finie plus deux marges de 1/4 de pouce (1,2 cm) — si les deux bordures sont dans des tissus différents, répartis le nombre de bandes entre elles.',
+  },
+  'fat-quarter-yield': {
+    title: 'Fat quarter : combien de pièces',
+    desc: 'Combien de pièces d’une taille donnée sortent d’un fat quarter.',
+    long: 'Un fat quarter est un yard coupé en quatre — 18 × 22 pouces, environ 50 × 55 cm. Y couper des carrés de 4,5 pouces (11,4 cm) en donne quatre en largeur et quatre en longueur, soit 16 carrés et 671 cm² de reste. Quand la pièce n’est pas carrée, la tourner peut en donner plus : les deux orientations sont comptées et la meilleure est affichée.',
+    note: 'Saisis la taille de coupe, pas la taille finie ; partir des mesures finies laisse de côté la marge de couture et surestime le rendement. Les fat quarters sont souvent coupés de travers en boutique : considère environ 1 cm d’un bord comme inutilisable, et si le plan tombe tout juste, prends-en un second.',
+  },
+  'jelly-roll-yield': {
+    title: 'Jelly roll : taille du quilt obtenu',
+    desc: 'La surface utile et la taille finie d’un rouleau de bandes précoupées.',
+    long: 'Un jelly roll, ce sont 40 bandes de 2,5 pouces (6,4 cm) coupées dans une laize de 42 pouces (107 cm). Les assembler enlève 1/4 de pouce à chaque long bord : une bande finit donc à 5,2 cm de large sur 105,8 cm de long. Cousues côte à côte, 40 d’entre elles font 208 × 105,8 cm — une surface de 2,2 m².',
+    note: 'Cousues telles quelles, les bandes donnent un panneau court et large de 208 cm. Pour une taille de lit, coupe-le en deux et rassemble les moitiés (104 × 211 cm), ou assemble un long jeu de bandes et recoupe-le en travers. Plus la bande est étroite, plus les coutures en mangent : 19 % à 6,4 cm, 32 % à 3,8 cm (1,5 pouce).',
+  },
+  'mitred-corner': {
+    title: 'Angles à onglet d’une bordure',
+    desc: 'La longueur de coupe de chaque bande à onglet et l’endroit où tombe la coupe à 45°.',
+    long: 'Un angle à onglet, c’est là où deux bordures se rejoignent à 45° comme un cadre. Pour faire cette diagonale, la bande doit dépasser le bord du quilt de la largeur de bordure à chaque bout, plus 5 cm de sécurité. Sur un côté de 150 cm avec une bordure de 15 cm, coupe 150 + 2 × 20 = 190 cm, marque 20 cm depuis chaque bout et ne pique qu’entre les repères. La diagonale à couper mesure 15 × √2 = 21,2 cm.',
+    note: 'Piquer jusqu’aux bouts de la bande rend l’angle impossible à replier. Couds seulement entre les deux repères et arrête les deux extrémités. La diagonale est dans le biais et s’allonge sous le fer : assemble d’abord les deux bandes à 45°, puis recoupe l’excédent — recouper d’abord ne se rattrape pas.',
+  },
+  'floss-skeins': {
+    title: 'Fil à broder : écheveaux à acheter',
+    desc: 'Combien d’écheveaux acheter pour une longueur de fil donnée.',
+    long: 'Un écheveau, ce sont six brins de 8 m, qui se déroulent en 48 m de brin simple. Soixante mètres de besoin plus 10 % de marge font 66 m ; divisés par 48, cela fait 1,4, arrondi à deux écheveaux, avec 30 m qui restent pour la grille suivante.',
+    note: 'Saisis la longueur en brin simple. Broder à deux brins consomme deux fois la longueur que tu tires, et non la longueur que tu tires. Si tu comptes racheter une couleur plus tard, vérifie le bain de teinture — le même numéro dans un autre bain se décale légèrement, et la jonction se voit sur une grande surface remplie.',
+  },
+  'hoop-size': {
+    title: 'Tambour à broder : quel diamètre',
+    desc: 'Le plus petit diamètre de tambour qui laisse passer un motif et sa marge.',
+    long: 'Un tambour est rond et un motif rectangulaire : ce qui doit tenir n’est ni la largeur ni la hauteur mais la diagonale. Un motif de 18 × 25 cm avec 2 cm de marge de travail devient 22 × 29 cm, et la diagonale vaut √(22² + 29²) = 36,4 cm, soit 14,3 pouces. Choisir un tambour de 8 pouces (20 cm) parce que le motif ne fait que 22 cm de large en met une partie hors du cercle.',
+    note: 'Il faut au moins 8 cm de toile au-delà du tambour de chaque côté pour avoir de quoi tenir près de la vis. Les grands motifs se brodent en déplaçant le tambour plutôt qu’en en achetant un plus grand, mais serrer le cercle sur des points déjà faits les écrase et laisse une marque — un cadre à rouleaux ou un cadre fixe évite cela.',
+  },
+  'thread-count-convert': {
+    title: 'Even-weave : conversion de compte',
+    desc: 'Les points par pouce effectifs et la taille finie quand un point couvre plusieurs fils.',
+    long: 'Le compte, ce sont les fils par pouce. L’Aida groupe ses fils par quatre, si bien qu’un point couvre un bloc, mais le lin et l’even-weave se brodent normalement sur deux fils. Broder du 28 fils sur deux donne 14 points par pouce effectifs : une grille de 100 × 140 finit à 18,1 × 25,4 cm — la même taille que sur de l’Aida 14. L’échelle de 200 % veut dire que le motif fait le double de ce qu’il ferait sur un seul fil.',
+    note: 'Que le « 28 fils » d’un modèle signifie déjà 14 effectifs ou non dépend de la créatrice ; une taille finie qui sort de moitié ou du double vient presque toujours de là. Broder sur un seul fil, le petit point, fait des points minuscules qui fatiguent l’œil, et les lignes de point arrière louvoient en diagonale à mesure que le tissage les tire.',
+  },
+
   /* ───────── Bougies ───────── */
   'wax-weight': {
     title: 'Calcul de cire pour bougie',
@@ -212,6 +359,55 @@ export const CRAFT_FR: Record<string, FormulaText> = {
     desc: 'Additionner la cire et les fournitures en un coût matière par bougie.',
     long: 'La cire s’achète au kilo et s’emploie au gramme. À 9 000 le kilo, une bougie de 180 g porte 1 620 de cire. Mets le contenant, la mèche, le parfum et l’étiquette dans le champ des fournitures.',
     note: 'Les matières ne sont qu’une part du coût. Si tu vends, souviens-toi que ce chiffre ignore les ratés, l’emballage, l’envoi et les commissions.',
+  },
+
+  'wax-topup': {
+    title: 'Seconde coulée : cire de rattrapage',
+    desc: 'Le poids de la coulée de rattrapage et la cire totale à faire fondre, d’après un taux de retrait.',
+    long: 'Le soja s’affaisse autour de la mèche en figeant et laisse un creux en surface. Une première coulée de 180 g à 10 % de retrait demande 18 g pour combler : fais donc fondre 198 g dès le départ. Le retrait dépend de la cire, du contenant et de la vitesse de refroidissement — la même cire ne se comporte pas pareil dans du verre et dans une boîte en métal.',
+    note: 'Fais le rattrapage quand la première couche a figé, et coule-le 5 à 10 °C plus froid que la première. Une cire versée trop chaude refait fondre la couche du dessous, qui s’affaisse à nouveau. Réchauffer le reste dans la casserole chasse le parfum : mieux vaut mettre la part du rattrapage de côté séparément.',
+  },
+  'candle-dye-load': {
+    title: 'Taux de colorant pour bougie',
+    desc: 'Le poids de colorant d’après la cire et le pourcentage, avec le taux d’additifs total.',
+    long: 'Le colorant tourne normalement entre 0,1 et 1 % du poids de cire. Un demi pour cent de 500 g fait 2,5 g — un morceau de bloc de la taille d’un ongle. Ajoute 8 % de parfum et la cire porte 8,5 % au total, et c’est bien ce total qu’il faut comparer à la charge maximale annoncée par le fabricant.',
+    note: 'Colorant et parfum se disputent la même capacité dans la cire. Foncer la couleur alors que le parfum est déjà au maximum laisse de l’huile suinter en surface ou encrasse la mèche. N’utilise pas de crayons de couleur — les particules de pigment ne se dissolvent pas et étouffent la mèche. Une cire colorée s’éclaircit d’un ton en figeant : juge la couleur froide, pas fondue.',
+  },
+  'wax-blend': {
+    title: 'Mélange de deux cires',
+    desc: 'Répartir un poids total de cire entre deux cires selon un rapport choisi.',
+    long: 'Mélanger une cire dure et une cire molle règle les propriétés. Un kilo en 7 : 3 fait 700 g de A et 300 g de B. Ajouter 10 à 30 % de paraffine ou de cire d’abeille à un soja pour contenant lisse le dessus et retient le parfum plus longtemps, mais la cire d’abeille élève le point de fusion, ce qui veut d’ordinaire dire monter d’une taille de mèche.',
+    note: 'Un mélange se place entre ses deux cires, mais des valeurs comme le point de fusion ne varient pas en ligne droite. Une fois le rapport fixé, coule une bougie, laisse-la mûrir deux jours et brûle-la — chaque changement de mélange demande de retester la mèche. Le soja et la paraffine figent à des vitesses différentes : la limite peut givrer ou marbrer.',
+  },
+  'layer-pour': {
+    title: 'Bougie en couches',
+    desc: 'La cire par couche et par bougie pour une coulée en couches.',
+    long: 'Un contenant de 200 mL rempli à 90 % tient 180 mL, soit 162 g de cire. Réparti en trois couches, cela fait 60 mL et 54 g chacune. Pour des couches inégales, prends ce chiffre et applique un rapport à chacune — une couche du bas plus épaisse pose le poids visuel en bas et paraît plus stable.',
+    note: 'Coule la couche suivante quand celle du dessous a assez figé pour qu’un doigt n’y laisse pas de marque. Versée sur une couche encore molle, les couleurs se mêlent ; versée sur une couche complètement froide, les couches ne se lient pas et se fendent à la combustion. Un parfum différent par couche est une mauvaise idée — la flamme réchauffe les couches du dessous et les mélange de toute façon.',
+  },
+  'container-fill-height': {
+    title: 'Hauteur de cire dans le contenant',
+    desc: 'À quelle hauteur un poids de cire monte dans un contenant d’un diamètre intérieur donné.',
+    long: 'Diviser 180 g par une densité de 0,9 donne 200 mL, et un diamètre intérieur de 7 cm a une surface de base de 38,5 cm² : la cire monte donc à 5,2 cm. Connaître cette hauteur avant de couler, c’est ainsi qu’on vérifie que le socle de la mèche est recouvert et que le remplissage reste sous le haut de l’étiquette.',
+    note: 'Les socles de mèche font 3 à 6 mm d’épaisseur ; une cire moins profonde laisse le socle à nu et envoie la fin de la chaleur dans le fond du verre. Un contenant qui se resserre en bas monte plus haut que cela, et saisir un côté au lieu d’un diamètre pour un pot carré donne un résultat trop bas. Pose l’étiquette sous la ligne de cire — une étiquette au-dessus de la surface se décolle quand la bougie chauffe.',
+  },
+  'fragrance-max': {
+    title: 'Taux de parfum maximal',
+    desc: 'Le plafond d’huile d’une cire et la marge que ton taux prévu laisse encore.',
+    long: 'Si la cire annonce un maximum de 10 %, 500 g peuvent porter 50 g d’huile. Prévoir 8 % en met 40 g et laisse 10 g de marge. Cette marge n’est pas réservée au parfum seul — le colorant et tout autre additif partagent la même allocation.',
+    note: 'Une marge négative veut dire que le plafond est déjà dépassé. L’huile en trop ne se lie pas : elle suinte de la surface figée ou s’accumule au fond, et elle remonte par la mèche pour donner une flamme trop grande. Si la bougie sent encore faible au maximum, la réponse est l’huile, la température d’ajout ou la maturation plutôt que le pourcentage — le soja demande une à deux semaines pour diffuser correctement.',
+  },
+  'candle-price': {
+    title: 'Prix de vente d’une bougie',
+    desc: 'Le prix de vente pour une marge visée, et la marge qu’un prix choisi donne réellement.',
+    long: 'La marge se mesure sur le prix de vente. Pour garder 60 % sur un coût matière de 4 000, le prix est 4 000 ÷ (1 − 0,6) = 10 000. Ajouter 60 % au coût donne au contraire 6 400, ce qui fait une marge de 37,5 % et non de 60 %. Vendre à 9 000 laisse 5 000 de bénéfice et une marge de 55,6 %.',
+    note: 'Seules les matières sont dans ce chiffre. Les coulées ratées, l’emballage et le calage, l’affranchissement, les commissions de plateforme (souvent 3 à 10 % du prix) et les heures passées aux photos et aux étiquettes sont tous en dehors. Si tu vends aussi en gros, le prix de gros doit valoir au moins deux fois ce coût matière pour que le prix de détail survive.',
+  },
+  'candles-from-wax': {
+    title: 'Combien de bougies avec ta cire',
+    desc: 'Combien de bougies d’une taille donnée une quantité de cire permet de faire.',
+    long: 'Prends un sac de 5 kg, perds 5 % dans la casserole et le pichet, et 4 750 g sont ce qui est réellement coulé. À 180 g chacune, cela fait 26 bougies et 70 g de reste. Ajoute ces 70 g au lot suivant ou coule-les en fondant parfumé — il reste chaque fois un peu moins qu’une bougie.',
+    note: 'Le parfum n’est pas dans ce compte. L’huile s’ajoute par-dessus le poids de cire : elle ne réduit pas le nombre de bougies, mais c’est un coût à part. Le taux de perte dépend de la taille du lot : 5 % est généreux pour fondre 5 kg d’un coup, mais fondre 500 g dix fois laisse le même résidu dix fois et dépasse 10 %.',
   },
 
   /* ───────── Savon et résine ───────── */
@@ -264,6 +460,55 @@ export const CRAFT_FR: Record<string, FormulaText> = {
     note: 'Laisse au moins un centimètre de silicone entre le modèle et les parois. Des parois minces laissent le moule s’écarter, la résine fuit, et il se déchire au bout de quelques coulées. Le silicone se mélange aussi en deux composants : passe ce poids par l’outil de dosage A / B, et ajoute 5 % pour ce qui reste dans le gobelet — une coulée de silicone reprise à mi-hauteur se fend à la jonction.',
   },
 
+  'multi-oil-lye': {
+    title: 'Calculateur de soude pour un mélange d’huiles',
+    desc: 'Additionne trois huiles, chacune avec son indice SAP, et donne la soude que le mélange demande.',
+    long: 'Une recette mélangée se calcule huile par huile avant d’additionner, parce que l’indice SAP appartient à l’huile et non au savon en général — prends chaque valeur sur les données de cette huile, fiche du fournisseur ou table SAP standard. L’huile d’olive à 300 g (SAP 190), l’huile de coco à 150 g (SAP 258) et l’huile de ricin à 50 g (SAP 180) donnent 300 × 190 + 150 × 258 + 50 × 180 = 104 700, qui divisé par 1402,5 fait 74,7 g de NaOH ; en retirant 5 % de surgraissage il reste 70,9 g. L’indice SAP du mélange affiché à côté, 209,4 ici, est la moyenne pondérée par les poids : c’est le nombre à reprendre si tu traites plus tard ce mélange comme une huile unique. Change une huile et il bouge, donc la soude doit être refaite.',
+    note: 'La soude va dans l’eau, jamais l’eau sur la soude — dans le mauvais sens, cela peut bouillir et projeter en quelques secondes. Porte des lunettes et des gants, et mélange dans de l’inox ou du HDPE, jamais dans de l’aluminium, que la soude attaque en dégageant de l’hydrogène. La solution monte d’elle-même à 80–90 °C au contact : pas de verre, pas de plastique fin. Un seul poids d’huile mal saisi fait dériver la soude — trop peu laisse un savon mou qui ne durcit jamais, trop laisse un savon caustique. Mets à zéro le poids d’une huile que tu n’utilises pas : un indice SAP resté seul dans sa case ne change rien.',
+  },
+  'water-discount': {
+    title: 'Réduction d’eau du savon (water discount)',
+    desc: 'Retire un pourcentage de l’eau de référence et vois le poids d’eau et la concentration de la solution.',
+    long: 'L’eau ne participe pas à la saponification : elle porte la soude dans les huiles puis repart pendant la cure. La réduire n’est donc pas une économie de matière mais une façon de concentrer la solution. Soixante et onze grammes de soude à 2 : 1 font 142 g d’eau, une solution à 33 %. Retires-en 20 % et il reste 113,6 g d’eau à 38,5 %. Une solution plus concentrée met moins d’eau dans la pâte : la trace arrive nettement plus tôt — moins de temps pour marbrer, mais assez de fermeté pour démouler dans la journée, une cure plus courte et moins de retrait. C’est pourquoi la réduction convient aux savons unis et aux lots pressés, tandis qu’un marbrage compliqué veut une réduction à zéro, ou même de l’eau en plus.',
+    note: 'Environ 50 % est la limite pratique : au-delà, la soude ne se dissout pas entièrement et laisse des grains qui finissent dans le savon. Plus la réduction est forte, plus la solution monte haut en température : part d’eau froide — et garde l’ordre, la soude dans l’eau, sinon cela bout et projette. Lunettes, gants, inox ou HDPE, jamais d’aluminium. Réduire l’eau ne change jamais le poids de soude : réduis la soude en même temps que l’eau et tu obtiens un savon mou qui ne prend pas, pèse par erreur de la soude dans la case de l’eau et tu obtiens un savon caustique.',
+  },
+  'soap-mold-fill': {
+    title: 'Volume de moule à savon',
+    desc: 'Passer du volume d’un moule et d’une densité de pâte au poids du lot, et aux huiles qu’il contient.',
+    long: 'Les moules se mesurent en volume, les recettes en poids, et c’est la densité de la pâte qui les relie — la pâte à savon est un peu plus légère que l’eau, 0,9 à 1,0 g/mL, et 0,95 est la valeur par défaut ici. Un moule de 1 200 mL tient donc environ 1 140 g de pâte. En retirer les huiles demande une hypothèse : la soude est une part fixe du poids d’huiles (13,5 % par défaut, un chiffre réaliste pour les mélanges courants) et l’eau un multiple de la soude (2× par défaut). La pâte vaut alors 1 + 0,135 + 0,27 = 1,405 fois les huiles, donc 1 140 ÷ 1,405 = 811 g d’huiles, 109,5 g de soude et 219 g d’eau. La vraie part de soude est fixée par ton mélange d’huiles : dès qu’il est arrêté, mets dans cette case le rapport soude ÷ huiles donné par le calculateur de soude pour un mélange. Mesure le moule à l’eau, et attends-toi à ce qu’un moule en silicone prenne environ 5 % de plus que l’arithmétique, parce que ses parois s’écartent sous la pâte.',
+    note: 'Ne remplis pas à ras bord. La pâte monte en chauffant, et un lot qui passe en phase de gel par-dessus le bord fige en flaque autour du moule — laisse 1 à 1,5 cm de libre. Verse trop peu et les barres sortent basses et s’effritent à la coupe. La densité bouge avec la recette : les huiles dures comme la coco l’alourdissent, une pâte fouettée est bien plus légère. Une fois un moule coulé, note le poids de pâte divisé par son volume et sers-t’en — ton propre chiffre bat n’importe quelle valeur par défaut.',
+  },
+  'soap-cure-progress': {
+    title: 'Cure du savon : où en est-elle',
+    desc: 'Les jours écoulés face à une cure visée donnent le pourcentage atteint et les jours restants.',
+    long: 'La cure, c’est l’eau qui part, pas la saponification. La réaction elle-même est d’ordinaire finie en 24 à 48 heures, le pain est donc déjà du savon à ce moment-là, mais il est mou et s’use vite parce que l’eau du mélange est encore dedans. En quatre à six semaines cette eau s’évapore, la barre durcit et la mousse devient plus fine et plus tenace. Face à une cure visée de 42 jours, le jour 14 fait 33 % avec 28 jours à courir. L’objectif est un repère, pas une échéance — les savons continuent de s’améliorer au-delà de 100 %, et un savon de Castille riche en huile d’olive est visiblement meilleur à deux ou trois mois, meilleur encore à six. Pour le suivre vraiment, prends une balance : pèse une barre, note son poids, et repèse tous les quelques jours ; quand le poids cesse de baisser, l’eau est partie, en général 5 à 10 % sous le point de départ.',
+    note: 'Ce pourcentage compte des jours et ne sait rien de ta pièce. Dans un été humide, le poids baisse encore bien après le jour 42 ; dans l’air sec de l’hiver, cela finit plus tôt. Pose les barres sur chant, espacées, sur une étagère ventilée — empilées ou en carton, les jours passent et l’eau reste. L’emballage en film ou en plastique vient après la cure, pas pendant. Et une barre molle par manque de soude ne durcit jamais : la cure corrige l’humidité, pas une recette mal pesée.',
+  },
+  'resin-coverage': {
+    title: 'Résine : quantité pour une surface',
+    desc: 'Le volume et le poids de résine pour couvrir une surface à une épaisseur donnée.',
+    long: 'Un revêtement, c’est la surface fois l’épaisseur, et le seul piège est l’unité : des centimètres carrés multipliés par des millimètres doivent être divisés par 10 pour tomber sur des centimètres cubes, qui sont des millilitres. Un plateau de 60 × 60 cm, 3 600 cm², à 3 mm prend 1 080 mL, soit 1 188 g à une densité de 1,1. Les grandes surfaces comme un plateau de table se coulent rarement plus épais qu’environ 3 mm d’un coup : l’épaisseur se découpe donc en couches — saisis l’épaisseur d’une couche et répète la coulée plutôt que de recalculer chaque fois. Une résine autolissante s’égalise seule sur un plan de niveau, mais un demi-degré d’inclinaison épaissit le bord bas et affame le bord haut : un niveau à bulle compte plus que l’arithmétique.',
+    note: 'Prévois ce qui coule à côté. Une surface sans rebord — un plateau de table, l’extérieur d’un plateau — perd de la résine par les bords : compte 10 à 20 % au-dessus du chiffre et pose du ruban en digue ou un bac dessous. Mélange toujours 5 à 10 % de plus pour ce qui reste au gobelet et au bâtonnet. Couler toute l’épaisseur d’un coup concentre l’exothermie et la plaque jaunit ou fissure : respecte l’épaisseur maximale par coulée indiquée sur le flacon. Les surfaces poreuses comme le bois nu boivent la première couche : scelle-les d’une couche fine avant la vraie.',
+  },
+  'resin-doming': {
+    title: 'Résine : dôme (doming)',
+    desc: 'La résine d’une coulée bombée, d’après le diamètre de la pièce et la hauteur du dôme.',
+    long: 'Un dôme est une tranche de sphère et non un cylindre : multiplier le diamètre par la hauteur le surestime largement. La bonne formule est πh(3a² + h²)/6, avec a le rayon. Un support de 25 mm bombé de 3 mm contient 750 mm³, soit 0,75 mL ; dix pièces font 7,5 mL, ou 8,3 g à 1,1 g/cm³. Un dôme naturel vaut à peu près 8 à 12 % du diamètre — 2 à 3 mm sur une pièce de 25 mm — et vouloir aller au-delà échoue, parce que la tension superficielle est l’hypothèse qui porte tout ce calcul. La résine construit sa propre lentille là où tu la poses, et cette hauteur est fixée par la viscosité et la tension superficielle plutôt que par l’arithmétique. Prends le résultat comme « la résine que contient un dôme de cette hauteur », puis remplis jusqu’au bord et ajoute des gouttes à l’œil.',
+    note: 'Les dômes coulent. Sans une arête au bord, la résine passe par-dessus, fige au dos, et la poncer prend plus longtemps que de recouler — mets du ruban sous la pièce ou choisis un support à rebord. Une résine de faible viscosité, vendue pour les coulées de surface, s’étalera au lieu de bomber, aussi peu que tu en mettes. Laisse le mélange reposer une demi-heure avant de couler et la plupart des bulles remontent seules ; passe vite un chalumeau sur celles qui restent, car le tenir en place creuse la surface.',
+  },
+  'resin-cups': {
+    title: 'Résine : répartir les couleurs en gobelets',
+    desc: 'Répartir un poids total de résine en gobelets, un par couleur, à égalité ou avec un fond plus grand.',
+    long: 'Travailler en plusieurs couleurs veut dire diviser la résine en gobelets, et l’ordre compte : réunis d’abord complètement A et B, puis répartis. Deux cent vingt grammes sur trois couleurs font 73,3 g chacune ; donne 40 % à la couleur de fond et cela devient 88 g plus 66 g pour chacune des deux autres. Laisser la part principale à zéro rend une répartition égale. Les répartitions égales sont rares en pratique — le fond prend d’ordinaire plus de la moitié tandis qu’un accent ne demande que quelques grammes — donc fixer la part du fond puis diviser le reste correspond à la façon dont les pièces sont vraiment coulées. Prépare un gobelet de plus que nécessaire : une couleur devenue terne ne se rattrape pas, et quelques grammes de résine transparente gardés de côté sont ce qui la sauve.',
+    note: 'Réunis complètement chaque gobelet avant d’y mettre le moindre pigment. Teinte d’abord et tu ne peux plus voir si A et B se sont vraiment mariés, et un gobelet mal mélangé reste collant tout seul. Le temps passé à transvaser sort aussi du temps de travail : avec six gobelets, le dernier épaissit déjà, donc pour beaucoup de couleurs pèse en deux tournées plutôt qu’une. Chaque transfert laisse 1 à 2 g sur la paroi : un peu moins que les chiffres arrive dans le moule. Les petits gobelets ont une base étroite qui fait vaciller la balance — pose le gobelet, remets à zéro et remplis un gobelet à la fois.',
+  },
+  'silicone-ratio': {
+    title: 'Silicone : dosage A : B',
+    desc: 'Répartir un poids total de silicone entre le composant A et le composant B, en poids.',
+    long: 'Le rapport dépend de la famille de silicone. La réticulation platine, par addition, est d’ordinaire 1 : 1, le total se coupe donc en deux ; la réticulation étain, par condensation, utilise une petite charge de catalyseur, typiquement 10 : 1 ou 100 : 5, c’est-à-dire 20 : 1. Cinq cents grammes en 10 : 1 font 454,5 g de A et 45,5 g de B, le catalyseur pesant 9,1 % du lot. Les mêmes 500 g en 1 : 1 font 250 g chacun et 50 % de catalyseur — une pesée complètement différente, et c’est pourquoi couper le total en deux sans lire le bidon est l’erreur classique. Ce sont des rapports en poids ; beaucoup de produits impriment aussi un rapport en volume, alors lis le chiffre en poids quand tu travailles à la balance. Le calcul est le même que pour le dosage de la résine, mais le silicone pardonne beaucoup moins en petit lot, parce que le catalyseur pèse très lourd d’un seul côté.',
+    note: 'Quand le côté catalyseur ne fait que 45 g, se tromper de 1 g est déjà une erreur de 2 % — prends une balance au 0,1 g et ne dose jamais le composant B à l’œil. Trop peu de catalyseur et le moule reste collant à l’intérieur et ne démoule pas ; trop, et il prend avant que tu aies fini de couler. La réticulation platine est aussi sensible à la contamination : une pâte à modeler soufrée, des gants en latex ou un gobelet qui a contenu de l’étain laissent une zone qui ne durcira jamais, alors teste un coin discret si tu doutes du modèle. Ne mélange jamais les deux familles. Pèse 5 % de plus là aussi — un silicone coulé en deux fois se fend le long de la jonction.',
+  },
+
   /* ───────── Perles et emballage ───────── */
   'bead-count': {
     title: 'Nombre de perles pour un collier',
@@ -312,5 +557,53 @@ export const CRAFT_FR: Record<string, FormulaText> = {
     desc: 'Convertir un volume et une densité en poids de pâte à acheter.',
     long: 'On modèle au volume et on achète au poids. La pâte polymère tourne autour de 1,7 g/cm³ : une pièce de 60 cm³ demande 102 g, soit deux pains standard de 57 g. La pâte autodurcissante est plus légère, 1,2 à 1,5, le même volume pèse donc moins, mais elle perd son eau en séchant et se retire de plus de 10 %, ce qu’il faut prévoir dès le modelage.',
     note: 'Remplir le cœur de papier aluminium réduit le poids de pâte de plus de moitié — et une pâte polymère épaisse ne cuit pas uniformément jusqu’au centre, elle fissure en refroidissant. Les grosses pièces reçoivent une armature pour éviter les fissures, pas seulement pour économiser. Le poids des pains varie selon la marque : Fimo 57 g, Fimo Professional 85 g.',
+  },
+  'necklace-length': {
+    title: 'Longueur de collier : nombre de perles',
+    desc: 'Passer d’une longueur de collier finie et d’un diamètre de perle au nombre de perles et à la part du fermoir.',
+    long: 'Les longueurs de collier ont des noms : ras-de-cou 40 cm, princesse 45 cm, matinée 55 cm, opéra 75 cm, sautoir 105 cm. Un ras-de-cou doit encore passer le tour de cou, d’ordinaire 33 à 35 cm, tandis que la princesse tombe sur la clavicule et la matinée sous la poitrine. L’objectif choisi, le reste est une soustraction : sur un collier de 45 cm, le fermoir et les perles à écraser prennent 20 mm, il reste 430 mm pour les perles, donc des rondes de 8 mm donnent 53 perles et un fini de 44,4 cm. Oublie cette soustraction, divise 450 par 8, enfile 56 perles, et le collier se ferme à 46,8 cm — au-delà de la longueur voulue. La longueur de fil indiquée à côté est l’objectif plus 10 cm, les bouts que tu repasses dans les perles à écraser à chaque extrémité.',
+    note: 'Le compte arrondit vers le bas : les millimètres en trop se rassemblent au fermoir et il n’y a pas de demi-perle. Les diamètres imprimés sont nominaux et la pierre naturelle varie d’un demi-millimètre par perle : compte une ou deux perles d’écart. La part du fermoir varie plus que tout le reste — un petit mousqueton fait 10 mm, un fermoir magnétique à boule ou un modèle à chaînette d’extension dépasse 40 mm. Les colliers pendent aussi vers l’avant sous leur poids et paraissent un peu plus longs devant : dans le doute, retire un centimètre à l’objectif.',
+  },
+  'bracelet-size': {
+    title: 'Taille de bracelet',
+    desc: 'Ajouter l’aisance à un tour de poignet pour obtenir la longueur du fil et le nombre de perles.',
+    long: 'Un bracelet ne se construit pas au tour de poignet nu, parce que le fil passe par l’extérieur des perles et non contre la peau — plus la perle est grosse, plus la circonférence effective augmente. L’aisance courante est de 1 à 1,5 cm pour un bracelet élastique et de 1,5 à 2 cm pour un bracelet à fermoir, puisqu’un fermoir doit tourner autour du poignet et ne se ferme pas sans jeu. Un poignet de 16 cm plus 1,5 cm donne un fil de 17,5 cm, qui porte 21 perles de 8 mm. Pour un bracelet à fermoir, prends la longueur du fermoir — d’ordinaire 10 à 15 mm — sur les perles plutôt que sur le fil : tu en enfiles environ deux de moins. Le fil élastique n’a pas de fermoir, les perles remplissent donc tout le fil. La longueur de corde indiquée est le fil plus 8 cm, les bouts nécessaires pour nouer et rentrer le nœud.',
+    note: 'Le fil élastique casse plus souvent qu’il ne se dénoue. Prends du 0,8 mm ou plus épais et pré-étire-le en tirant les extrémités quelques fois avant d’enfiler, sinon le bracelet se détend en quelques jours. Fais deux fois un nœud de chirurgien, ajoute une goutte de colle et tire le nœud à l’intérieur d’une perle. Les pierres et les perles métalliques à trou rugueux scient le fil : celles-là vont sur un bracelet à fermoir. Le poignet gonfle aussi d’un demi-centimètre au cours de la journée : pour un cadeau, vise l’aisance généreuse.',
+  },
+  'chain-links': {
+    title: 'Chaîne : nombre de maillons',
+    desc: 'Combien de maillons une longueur de chaîne demande, et la longueur que des maillons entiers donnent vraiment.',
+    long: 'Une chaîne ne se coupe qu’à un maillon. Pour atteindre 45 cm avec des maillons de 7 mm, 450 ÷ 7 fait 64,3 : tu prends 64 maillons — et 64 maillons mesurent 44,8 cm. Il n’y a aucun moyen de tomber pile sur 45 cm ; le choix est entre 44,8 cm et 45,5 cm à 65 maillons. Mesure la longueur d’un maillon en posant la chaîne le long d’une règle, en comptant dix maillons et en divisant par dix : mesure un seul maillon et une erreur de 0,5 mm se multiplie par 64 en un écart de 3 cm. Les apprêts mangent aussi de la longueur — un fermoir plus deux anneaux de jonction font d’ordinaire 15 à 20 mm, retire-les de la longueur finie avant ce calcul. Les chaînes régulières comme la forçat ou la corde se prêtent directement au calcul ; sur un motif répété comme la figaro, saisis la longueur d’une répétition entière, par exemple un maillon long plus trois courts.',
+    note: 'Une fois l’endroit de coupe connu, la manière compte : certains maillons s’ouvrent et se referment, d’autres doivent être sectionnés. Une chaîne soudée demande une pince coupante, et le maillon coupé est perdu : la longueur réelle sort un maillon plus court. Pour une chaîne qui porte un pendentif lourd, l’épaisseur compte plus que le nombre — un maillon léger s’ouvre sous la charge et le pendentif s’en va. Quand deux chaînes doivent être identiques, comme sur des boucles d’oreilles, pose-les côte à côte et compte les maillons plutôt que de mesurer chacune au mètre ruban, qui s’étire différemment chaque fois.',
+  },
+  'earring-wire': {
+    title: 'Boucles d’oreilles : longueur de fil',
+    desc: 'Le fil par boucle et par paire, d’après le diamètre de l’anneau, les tours et la marge de boucle.',
+    long: 'Un tour d’anneau vaut diamètre × π. Un anneau de 20 mm fait 62,8 mm, donc deux tours superposés font 125,7 mm, et avec 15 mm de marge de boucle cela donne 140,7 mm par boucle d’oreille, 281,3 mm pour la paire. La marge de boucle couvre la formation de la boucle qui pend du crochet et la finition du bout : une simple boucle à la pince ronde prend 8 à 10 mm, une boucle enroulée 20 à 25 mm. Les tours se saisissent par demi-pas — 1,5 tour donne un anneau à demi-recouvrement, qui se lit comme un double trait de face. Pour une pendeloque plutôt qu’un anneau, mets sa largeur dans la case du diamètre et 1 dans celle des tours pour obtenir une seule circonférence. Faire la paire est le vrai but de ce calcul : mesure et coupe les deux séparément et elles sortent à 1 ou 2 mm l’une de l’autre, ce qui se voit de face. Coupe la longueur de la paire, plie-la en deux, coupe une seule fois.',
+    note: 'Rogne la marge et tu ne peux pas finir la pièce. Sans un bout à saisir, impossible de serrer la boucle, et le fil s’allonge un peu quand tu le tires : la longueur réelle dépasse l’arithmétique. Un fil épais — 0,8 mm, calibre 20 et plus — ne fait pas un cercle propre à la main et doit être enroulé sur un mandrin, ce qui rend l’anneau plus grand que calculé, du diamètre du mandrin plus celui du fil. Tout ce qui traverse l’oreille doit être en acier chirurgical, en titane ou en argent fin ; garde le fil de bijouterie contenant du nickel pour le corps de l’anneau. Ajoute un millimètre par coupe pour limer les bouts.',
+  },
+  'bubble-wrap': {
+    title: 'Papier bulle : quelle longueur',
+    desc: 'Combien de film à bulles une boîte demande, d’après ses dimensions et le nombre de couches.',
+    long: 'Le papier bulle, ou film à bulles, se vend au rouleau, la réponse doit donc être une longueur — mais ce qui fixe la quantité, c’est la surface extérieure de la boîte. Une boîte de 20 × 15 × 8 cm a 2 × (20×15 + 20×8 + 15×8) = 1 160 cm² de surface. Enveloppe-la deux fois et ajoute 15 % pour le recouvrement et les plis dans les angles : cela fait 2 668 cm², soit 53 cm sur un rouleau de 50 cm de large — 0,53 m. Ces 15 % sont la marge dont ce calcul dépend : les bouts doivent se chevaucher pour que le ruban tienne, et les angles consomment plus que la surface à plat. Le nombre de couches est fixé par le contenu : une pour un objet incassable, trois ou plus pour le verre, la céramique et l’électronique, plus un tour de plus autour des angles et des poignées. Pour une série de 100 colis, multiplie la longueur par 100 et divise par la longueur du rouleau — un rouleau de 50 cm en fait d’ordinaire 50 m.',
+    note: 'Si le rouleau est plus étroit que la boîte, un calcul juste ne t’aidera pas à l’envelopper : le rouleau doit couvrir la face la plus courte — ici les 15 cm de profondeur ou les 8 cm de hauteur — vérifie donc la largeur avant d’acheter. Enroule les bulles vers l’intérieur ; tournées vers l’extérieur, elles ne se compriment jamais et éclatent, et l’amorti disparaît. Souviens-toi aussi que le but est d’empêcher le contenu de bouger dans la boîte : bien envelopper en laissant des vides ne sert pas à grand-chose. Là où le transporteur facture au poids volumétrique, gonfler la boîte de couches supplémentaires augmente la facture — s’il faut trois couches, passe plutôt à la taille de boîte au-dessus.',
+  },
+  'tissue-paper': {
+    title: 'Papier de soie : quelle taille de feuille',
+    desc: 'Dimensionner la feuille de papier de soie d’une boîte, et compter les feuilles pour une série de colis.',
+    long: 'Le papier de soie tapisse la boîte : il couvre le fond, remonte les deux parois et se replie sur le contenu par le dessus. Un côté vaut donc la largeur de la boîte plus deux fois la hauteur, pour les deux parois, plus environ 5 cm de recouvrement sur le dessus — pour une boîte de 20 × 15 × 8 cm cela fait 20 + 16 + 5 = 41 cm, et 15 + 16 + 5 = 36 cm dans l’autre sens. La feuille standard qui couvre 41 × 36 cm est du 50 × 70 cm, la taille la plus courante ; coupée en deux, elle devient 35 × 50 cm, un peu court pour cette boîte. C’est vraiment ce que ce calcul décide : feuilles entières ou feuilles recoupées. Deux feuilles par colis est normal — une posée en croix pour envelopper l’objet, une par-dessus ou froissée pour combler les vides. Dix colis font 20 feuilles, un paquet de 100 couvre donc cinq séries comme celle-là.',
+    note: 'Un papier de soie très coloré déteint. Des mains humides ou un local humide transfèrent la teinture sur un contenu clair : prends du blanc sans acide pour tout ce qui absorbe, vêtements, savons ou bougies. Le papier de soie n’est pas un calage : il présente l’objet et évite les frottements, mais il n’absorbe aucun choc, alors un article fragile reçoit d’abord du film à bulles et le papier de soie par-dessus. Un papier qui a un sens de fibre se fend au pli si on plie en travers : plie une feuille avant de couper toute une pile. Et mesure l’intérieur de la boîte — pris à l’extérieur, la feuille sera trop courte de l’épaisseur des parois.',
+  },
+  'ribbon-bow': {
+    title: 'Nœud en ruban : longueur nécessaire',
+    desc: 'Le ruban qu’un nœud demande à lui seul, d’après les boucles, leur longueur et les pans.',
+    long: 'Chaque boucle part et revient : elle mange donc deux fois sa propre longueur. Six boucles de 6 cm font 72 cm, deux pans de 12 cm ajoutent 24 cm, et 5 cm pour serrer le centre portent le total à 101 cm. Le nœud fini mesure à peu près deux fois la longueur de boucle en largeur — 12 cm ici — et environ un tiers de la largeur de la boîte paraît juste. Le nombre de boucles donne le caractère : deux boucles font un nœud simple noué à la main, six se superposent en couches, et au-delà de dix cela se lit comme une fleur en pompon. Cet outil ne traite que le nœud. Le ruban qui fait le tour de la boîte relève du calculateur de longueur de ruban cadeau, 2 × (largeur + hauteur) + 2 × (profondeur + hauteur) pour un croisillon — additionne les deux chiffres si un seul ruban entoure et noue, ou garde celui-ci seul si tu fabriques le nœud à part pour le poser ensuite.',
+    note: 'La largeur du ruban décide de l’allure du nœud. À 25 mm et au-delà, les boucles se tiennent debout et une boucle de 6 cm paraît généreuse ; à 6 mm, la même boucle retombe, il faut donc plus de boucles pour remplir. Un ruban à bord métallique garde sa forme, tandis qu’un ruban ordinaire s’écrase dès qu’on serre le centre, ce qui rend le nœud plus petit que les chiffres ne le suggèrent. Un ruban tissé comme le satin s’effiloche à la coupe : recoupe en biais ou passe la flamme, et garde un centimètre pour cela. Et le nœud que tu rates n’est pas dans l’arithmétique — achète 20 à 30 % de plus la première fois que tu essaies une forme.',
+  },
+  'mailer-size': {
+    title: 'Pochette d’expédition : quelle taille',
+    desc: 'Dimensionner une pochette plastique ou à bulles d’après la largeur, la longueur et l’épaisseur de l’objet.',
+    long: 'Une pochette est un fourreau plat : l’épaisseur de l’objet sort donc de la largeur. La circonférence du fourreau vaut 2 × sa largeur et l’objet demande 2 × (largeur + épaisseur), ce qui veut dire que la pochette doit valoir au moins la largeur de l’objet plus une épaisseur. Ajoute 2 cm pour entrer et sortir l’objet : un article de 25 cm de large et 4 cm d’épais veut une pochette de 31 cm. La longueur marche pareil, longueur de l’objet plus épaisseur plus jeu, puis 4 cm pour le rabat adhésif, ce qui donne 40 cm — le rabat se replie et aucun contenu ne peut s’y trouver. La réponse est donc « 31 × 40 cm ou plus », et tu achètes la taille de stock juste au-dessus, disons 32 × 45 cm. Mesure les articles compressibles comme les vêtements à leur épaisseur écrasée. Regarde aussi comment le fournisseur annonce ses tailles : certains donnent l’intérieur, d’autres l’extérieur rabat compris, et un chiffre extérieur doit perdre le rabat avant toute comparaison.',
+    note: 'Les pochettes n’amortissent pas. Même doublée de bulles, une pochette ne résiste qu’au frottement et à la pression : tout ce qui est cassable va dans une boîte. Rogne le jeu et le contenu remonte dans le rabat adhésif, la fermeture ne colle jamais bien et le sac s’ouvre en transit — passe à la taille au-dessus plutôt que de réduire la marge. Le surdimensionné a ses propres ennuis : l’objet glisse, les angles se cognent, et le mou se replie sur l’étiquette là où le scanner ne peut plus la lire. Forcer un article épais tend le film jusqu’à ce qu’il se déchire dans un angle : au-delà d’environ 5 cm d’épaisseur, prends une boîte. La taille de la pochette aide pour le poids volumétrique, mais calcule le port selon les règles de ton propre transporteur.',
   },
 };

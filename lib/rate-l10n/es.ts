@@ -750,4 +750,78 @@ export const RATE_ES: Record<string, FormulaText> = {
     long: 'La curva más simple suma a todos los mismos puntos para que la media caiga donde debe. Mueve la escala sin tocar el orden, y por eso el puesto de nadie cambia.',
     note: 'El techo de 100 comprime la parte alta. Los alumnos cerca del sobresaliente acaban empatados, así que esta curva encaja mal cuando el examen debe separar a los mejores.',
   },
+
+  /* ───────── Negocio, inversión y publicidad ───────── */
+  'margin-vs-markup': {
+    title: 'Calculadora de margen y markup',
+    desc: 'Convierte el markup sobre el coste en margen sobre la venta, y al revés.',
+    long: 'El markup divide el beneficio entre el coste; el margen divide ese mismo beneficio entre el precio de venta. Denominadores distintos, números distintos. Añade un 50 % a un coste de 100 y vendes a 150 con 50 de beneficio: un margen de 50 ÷ 150, o el 33,33 %. Al revés, un margen del 40 % significa que el precio es el coste dividido entre 0,6, así que el markup tiene que ser del 66,67 %.',
+    note: 'Cuando un proveedor dice «un 40 % de margen», averigua a cuál de los dos se refiere. Si lo entiendes como markup y añades un 40 % al coste, tu margen aterriza en el 28,6 %: once puntos por debajo del objetivo. El markup también se llama recargo o margen sobre coste.',
+  },
+  'target-profit-units': {
+    title: 'Unidades para el beneficio objetivo',
+    desc: 'Cuántas unidades tienes que vender para llegar al beneficio que quieres.',
+    long: 'Trata la cantidad a cubrir como costes fijos más el beneficio que quieres y la misma división te da el volumen. A 15.000 por unidad con 6.000 de coste variable, la aportación es de 9.000; 3.000.000 de costes fijos más 1.500.000 de beneficio son 4.500.000, que entre 9.000 salen 500 unidades. Pon el beneficio a cero, o usa la página de punto de equilibrio, si lo único que quieres es el nivel en el que dejas de perder dinero.',
+    note: 'Dónde trazas la línea entre fijo y variable mueve la respuesta. El alquiler y los sueldos, que corren vendas o no, son fijos; los materiales, las comisiones de cobro y el envío, que solo aparecen con la venta, son variables. Si archivas las comisiones de cobro como fijas, las unidades que necesitas salen demasiado bajas.',
+  },
+  'contribution-margin': {
+    title: 'Calculadora de margen de contribución',
+    desc: 'Aportación por unidad, ratio de contribución y unidades para cubrir los costes fijos.',
+    long: 'El margen de contribución es lo que deja en la empresa una venta más. A un precio de 15.000 con 6.000 de coste variable quedan 9.000, y dividido entre el precio da un ratio de contribución del 60 %. Con el ratio puedes encontrar la facturación que necesitas sin contar unidades: 3.000.000 de costes fijos entre 0,6 son 5.000.000. En una tienda con decenas de artículos distintos y ninguna unidad única que contar, la vía del ratio es la única disponible.',
+    note: 'El margen de contribución no es beneficio. Se mide antes de haber pagado una sola unidad de coste fijo, así que puede parecer cómodo mientras el negocio en conjunto pierde dinero.',
+  },
+  'payback-period': {
+    title: 'Calculadora del periodo de recuperación',
+    desc: 'En cuántos meses vuelve una inversión inicial con el flujo de caja neto mensual.',
+    long: 'Divide la inversión entre el efectivo neto que deja cada mes. Pon 20.000.000 y saca 500.000 al mes y vuelves a estar en tablas en 40 meses: unos tres años y cuatro meses. Invierte esa cuenta y tienes la rentabilidad anual simple: doce entre cuarenta es el 30 %.',
+    note: 'Esto ignora el valor del dinero en el tiempo: 500.000 que llegan dentro de tres años cuentan igual que 500.000 de este mes, y eso favorece a las recuperaciones largas. Pasados dos o tres años, revísalo con la página de valor actual. Tampoco dice nada de lo que el activo gana después de haberse pagado.',
+  },
+  'straight-line-depreciation': {
+    title: 'Calculadora de amortización lineal',
+    desc: 'Amortización anual y mensual y valor contable a los n años, a partir del coste, el residual y la vida útil.',
+    long: 'La amortización lineal toma el coste menos el valor residual y lo reparte a partes iguales entre los años de vida útil. Una máquina de 12.000.000 con 2.000.000 de residual a cinco años baja 2.000.000 al año, unos 166.700 al mes. A los tres años el valor contable es 12.000.000 menos 6.000.000, o sea 6.000.000. Cada año se va la misma cantidad, y por eso la línea es recta.',
+    note: 'La amortización lineal es una convención contable; los precios de segunda mano se comportan más como un método decreciente, que pierde cada año una parte fija de lo que queda. Para saber por cuánto se vendería de verdad, mira las páginas de valor de reventa o de tiempo hasta la mitad: la caída real del primer año es mucho más pronunciada que esta.',
+  },
+  'savings-rate': {
+    title: 'Calculadora de tasa de ahorro',
+    desc: 'Tu tasa de ahorro con el neto que cobras y lo que apartas, y cuánto tarda un año de gastos.',
+    long: 'Divide lo que ahorras entre lo que cobras neto. Aparta 1.000.000 de 4.000.000 al mes y la tasa es del 25 %, dejando 3.000.000 para vivir. La segunda cifra importa más: 3.000.000 entre 1.000.000 son tres años para ahorrar un año de gastos. Sube la tasa al 50 % y eso baja a un año.',
+    note: 'Dividir por el sueldo bruto infla la tasa. Decide también si las aportaciones que hace la empresa al plan de pensiones cuentan como ahorro: incluirlas sube el número, pero ese dinero no está disponible ahora.',
+  },
+  'fire-number': {
+    title: 'Calculadora del número FIRE',
+    desc: 'La cartera que sostiene tu gasto anual a una tasa de retiro dada.',
+    long: 'Si retiras cada año una parte fija de la cartera, la cartera que necesitas es el gasto anual dividido entre esa parte. Gastar 36.000.000 al año al 4 % pide 900.000.000: veinticinco veces el gasto. La cifra del 4 % viene de William Bengen en 1994, que puso a prueba retiradas de treinta años contra la rentabilidad histórica de la bolsa y la renta fija de Estados Unidos; el estudio Trinity la popularizó después. Es un estudio, sobre un mercado, en un horizonte de treinta años: no es una ley.',
+    note: 'Una tasa de retiro más baja sube el objetivo de golpe: el 4 % son 25×, el 3 % son 33,3× y el 2 %, 50×. Si dejas fuera del gasto anual los impuestos, el seguro médico y las reparaciones grandes, el objetivo sale demasiado pequeño.',
+  },
+  'rent-to-income': {
+    title: 'Ratio alquiler/ingresos',
+    desc: 'Qué parte de tus ingresos brutos mensuales se lleva la vivienda, frente a la referencia que elijas.',
+    long: 'Divide el coste de la vivienda entre los ingresos brutos mensuales. Con 3.000.000 de ingresos, 1.000.000 de alquiler es el 33,3 %, mientras que la línea del 30 % está en 900.000: te pasas por 100.000. Ese 30 % es una convención de la política de vivienda de Estados Unidos para lo que se considera asequible; no es una norma, y la realidad cambia enormemente según la ciudad. En las metrópolis caras, el 40–50 % es lo corriente.',
+    note: 'Incluir o no los suministros, la calefacción y los gastos de comunidad mueve el ratio entre cinco y diez puntos. Los ingresos brutos dan un ratio más bajo que el sueldo neto, así que compara dos casas siempre con el mismo criterio.',
+  },
+  'freelance-hourly-rate': {
+    title: 'Calculadora de tarifa por hora para freelance',
+    desc: 'La tarifa por hora que exige un objetivo de ingresos anuales, contado ya el tiempo no facturable.',
+    long: 'Divide el objetivo anual entre las horas que de verdad puedes facturar. Un objetivo de 60.000.000 con 25 horas facturables por semana durante 46 semanas da 1.150 horas facturables. Añade un 25 % por las horas que nadie paga — presupuestar, perseguir facturas, papeleo — más herramientas y seguros, y tienes que facturar 75.000.000, que son 65.217 por hora.',
+    note: 'De una semana de 40 horas, lo normal es facturar entre 20 y 30. Si metes 40, la tarifa aterriza alrededor del 60 % de lo que de verdad necesitas. Quita también vacaciones y días de baja: usa 44 a 48 semanas, no 52. Los impuestos se tienen en cuenta poniendo el objetivo de ingresos antes de impuestos.',
+  },
+  'cross-rate': {
+    title: 'Calculadora de tipo de cambio cruzado',
+    desc: 'Encadena dos tipos cotizados para obtener el de la tercera divisa que nadie cotiza directamente.',
+    long: 'Multiplica A/B por B/C y la B se cancela, dejando A/C. Si una unidad de B cuesta 1.380 de A y una de C cuesta 1,08 de B, entonces A por C es 1.490,4. Un cambio real recorre esa cadena dos veces, así que el diferencial cae dos veces: un 1 % en cada tramo lo deja en 1,0201×, o unos 1.520,4 como tipo que de verdad pagas.',
+    note: 'Dos tramos al 1 % cuestan un 2,01 %, no un 2 %. La diferencia es pequeña, pero cuando el par se cotiza directamente, no pasar por una tercera divisa suele salir más barato. Para ver la comisión escondida en un solo tramo, usa la página de diferencial de cambio.',
+  },
+  'roas': {
+    title: 'Calculadora de ROAS',
+    desc: 'Retorno de la inversión publicitaria en múltiplo y en porcentaje, frente al ROAS de equilibrio que impone tu margen.',
+    long: 'El ROAS son los ingresos atribuidos divididos entre el gasto en publicidad. Gasta 2.000.000, ingresa 8.000.000 y eso es 4× o el 400 %. Por sí sola la cifra no dice si has ganado dinero: con un margen bruto del 40 %, los ingresos tienen que llegar al gasto dividido entre 0,4 — 2,5× — solo para cubrir la publicidad. El 4 supera el 2,5, así que esta campaña sí va por delante.',
+    note: 'Tu margen fija el punto de equilibrio. Con un margen del 20 % necesitas 5×; con el 10 %, 10×. Si un «ROAS del 300 %» es bueno no se puede responder sin el margen. Las ventanas de atribución también importan: la misma campaña puede declarar el doble de ROAS con una ventana de clic más larga.',
+  },
+  'cpm-cpc': {
+    title: 'Calculadora de CPM, CPC y CTR',
+    desc: 'CPM, CPC y CTR a partir de impresiones, clics y gasto, y cómo el CTR mueve el CPC con el CPM fijo.',
+    long: 'Los tres salen de los mismos tres números. Con 250.000 impresiones, 3.000 clics y 1.500.000 de gasto: el CPC es 1.500.000 ÷ 3.000 = 500, el CPM es 1.500.000 ÷ 250.000 × 1.000 = 6.000, y el CTR es 3.000 ÷ 250.000 = 1,2 %. Están atados como CPC = CPM ÷ 1000 ÷ CTR, así que fijar uno deja a los otros dos determinándose entre ellos. Mantén el CPM en 6.000 y sube el CTR del 1,2 % al 2 % y el CPC baja de 500 a 300.',
+    note: 'La competencia de la subasta fija el CPM; el creativo fija el CTR. Recortar la puja para bajar el CPC solo compra menos impresiones, mientras que un creativo mejor baja el CPC de forma inversamente proporcional con el mismo CPM. Sacar las impresiones y los clics de rangos de fechas distintos deja el CTR sin sentido.',
+  },
 };

@@ -750,4 +750,78 @@ export const RATE_DE: Record<string, FormulaText> = {
     long: 'Die einfachste Kurve addiert allen dieselbe Punktzahl, damit der Durchschnitt dort landet, wo er soll. Sie verschiebt die Skala, ohne die Reihenfolge anzutasten — genau deshalb ändert sich niemandes Rang.',
     note: 'Die Grenze bei 100 staucht das obere Ende. Schüler nahe der Bestnote landen gleichauf, weshalb diese Kurve schlecht passt, wenn die Prüfung die Besten trennen soll.',
   },
+
+  /* ───────── Betrieb und Geldanlage: Schwellen statt Aufzeichnungen ───────── */
+  'margin-vs-markup': {
+    title: 'Marge und Aufschlag umrechnen',
+    desc: 'Zwischen Aufschlag auf die Kosten und Marge auf den Umsatz umrechnen, in beide Richtungen.',
+    long: 'Der Aufschlag teilt den Gewinn durch die Kosten; die Marge teilt denselben Gewinn durch den Verkaufspreis. Andere Nenner, andere Zahlen. Leg 50 % auf Kosten von 100, und du verkaufst für 150 mit 50 Gewinn — eine Marge von 50 ÷ 150, also 33,33 %. Umgekehrt heißt eine Marge von 40 %, dass der Preis die Kosten geteilt durch 0,6 ist, der Aufschlag muss also 66,67 % betragen.',
+    note: 'Sagt ein Lieferant „40 % Marge“, klär zuerst, welche der beiden er meint. Verstehst du es als Aufschlag und legst 40 % auf die Kosten, landet deine Marge bei 28,6 % — elf Punkte unter dem Ziel.',
+  },
+  'target-profit-units': {
+    title: 'Zielgewinn: Stückzahl berechnen',
+    desc: 'Wie viele Stück du verkaufen musst, um den gewünschten Gewinn zu erreichen.',
+    long: 'Behandle den zu deckenden Betrag als Fixkosten plus den gewünschten Gewinn, und dieselbe Division nennt die Menge. Bei 15.000 je Stück und 6.000 variablen Kosten ist der Deckungsbeitrag 9.000; 3.000.000 Fixkosten plus 1.500.000 Gewinn sind 4.500.000, geteilt durch 9.000 also 500 Stück. Setz den Gewinn auf null oder nimm die Seite „Break-even in Stück“, wenn du nur die Schwelle suchst, ab der du kein Geld mehr verlierst.',
+    note: 'Wo du die Grenze zwischen fix und variabel ziehst, verschiebt die Antwort. Miete und Gehälter, die laufen, ob du verkaufst oder nicht, sind fix; Material, Zahlungsgebühren und Versand, die nur bei einem Verkauf auftreten, sind variabel. Buch die Zahlungsgebühren als fix, und die nötige Stückzahl fällt zu niedrig aus.',
+  },
+  'contribution-margin': {
+    title: 'Deckungsbeitrag berechnen',
+    desc: 'Deckungsbeitrag je Stück, die Deckungsbeitragsquote und die Stückzahl, die die Fixkosten deckt.',
+    long: 'Der Deckungsbeitrag ist das, was ein zusätzlicher Verkauf im Unternehmen lässt. Bei einem Preis von 15.000 und 6.000 variablen Kosten bleiben 9.000, und geteilt durch den Preis ergibt das eine Deckungsbeitragsquote von 60 %. Mit der Quote findest du den nötigen Umsatz, ohne ein einziges Stück zu zählen: 3.000.000 Fixkosten geteilt durch 0,6 sind 5.000.000. Für einen Laden mit Dutzenden verschiedener Artikel und ohne eine einzige Stückzahl zum Zählen ist der Weg über die Quote der einzige.',
+    note: 'Der Deckungsbeitrag ist kein Gewinn. Er wird gemessen, bevor eine einzige Einheit Fixkosten bezahlt ist, er kann also bequem aussehen, während das Unternehmen als Ganzes Verluste macht.',
+  },
+  'payback-period': {
+    title: 'Amortisationsdauer berechnen',
+    desc: 'Wie viele Monate eine Anfangsinvestition braucht, um über den monatlichen Netto-Cashflow zurückzukommen.',
+    long: 'Teil die Investition durch den Nettobetrag, den sie jeden Monat einbringt. Setz 20.000.000 ein und behalte 500.000 im Monat, und nach 40 Monaten bist du wieder auf null — etwa drei Jahre und vier Monate. Kehr das um, und du hast die einfache Jahresrendite: zwölf durch vierzig sind 30 %.',
+    note: 'Der Zeitwert des Geldes fehlt hier: 500.000 in drei Jahren zählen genauso viel wie 500.000 in diesem Monat, was lange Amortisationen zu gut aussehen lässt. Ab zwei oder drei Jahren prüf es noch einmal mit der Seite zum Barwert. Und wie viel die Anlage verdient, nachdem sie sich bezahlt hat, sagt diese Zahl auch nicht.',
+  },
+  'straight-line-depreciation': {
+    title: 'Lineare Abschreibung berechnen',
+    desc: 'Abschreibung pro Jahr und Monat samt Buchwert nach n Jahren, aus Kaufpreis, Restwert und Nutzungsdauer.',
+    long: 'Die lineare Abschreibung nimmt Kaufpreis minus Restwert und verteilt den Betrag gleichmäßig über die Nutzungsdauer. Eine Maschine für 12.000.000 mit 2.000.000 Restwert über fünf Jahre verliert 2.000.000 im Jahr, etwa 166.700 im Monat. Nach drei Jahren ist der Buchwert 12.000.000 minus 6.000.000, also 6.000.000. Jedes Jahr geht derselbe Betrag ab, deshalb ist die Linie gerade.',
+    note: 'Die lineare Abschreibung ist eine Konvention der Buchhaltung; Gebrauchtpreise verhalten sich mehr wie die degressive Abschreibung und verlieren jedes Jahr einen festen Anteil des Restes. Für den Preis, den du wirklich bekämst, nimm die Seiten zum Wiederverkaufswert oder zur Zeit bis zur Halbierung — der echte Verlust im ersten Jahr ist viel steiler als hier.',
+  },
+  'savings-rate': {
+    title: 'Sparquote berechnen',
+    desc: 'Die Sparquote aus Nettoeinkommen und Sparbetrag, plus die Zeit für ein Jahresbudget.',
+    long: 'Teil das Gesparte durch das, was netto ankommt. Leg 1.000.000 von 4.000.000 im Monat weg, und die Quote ist 25 %, es bleiben 3.000.000 zum Leben. Die zweite Zahl zählt mehr: 3.000.000 geteilt durch 1.000.000 sind drei Jahre, um ein Jahr an Ausgaben zu sparen. Treib die Quote auf 50 %, und daraus wird ein Jahr.',
+    note: 'Durch das Bruttoeinkommen zu teilen bläht die Quote auf. Entscheide außerdem, ob Beiträge des Arbeitgebers zur Altersvorsorge als Sparen zählen — sie heben die Zahl, doch dieses Geld steht dir jetzt nicht zur Verfügung.',
+  },
+  'fire-number': {
+    title: 'FIRE-Zahl berechnen',
+    desc: 'Das Vermögen, das deine Jahresausgaben bei einer bestimmten Entnahmerate trägt.',
+    long: 'Entnimmst du jedes Jahr einen festen Anteil des Vermögens, ist das nötige Vermögen die Jahresausgaben geteilt durch diesen Anteil. 36.000.000 im Jahr bei 4 % brauchen 900.000.000 — das Fünfundzwanzigfache der Ausgaben. Die 4 % stammen von William Bengen, der 1994 Entnahmen über dreißig Jahre gegen historische Renditen von US-Aktien und -Anleihen prüfte; die Trinity-Studie machte sie danach populär. Es ist eine Studie, auf einem Markt, über einen Horizont von dreißig Jahren — kein Gesetz.',
+    note: 'Eine niedrigere Entnahmerate hebt das Ziel steil an: 4 % sind das 25-Fache, 3 % das 33,3-Fache, 2 % das 50-Fache. Lass Steuern, Krankenversicherung und große Reparaturen aus den Jahresausgaben heraus, und das Ziel fällt zu klein aus.',
+  },
+  'rent-to-income': {
+    title: 'Mietbelastungsquote berechnen',
+    desc: 'Welchen Anteil des Bruttoeinkommens die Wohnkosten nehmen, gemessen an einer Richtlinie.',
+    long: 'Teil die Wohnkosten durch das monatliche Bruttoeinkommen. Bei 3.000.000 Einkommen sind 1.000.000 Miete 33,3 %, während die Richtlinie von 30 % bei 900.000 liegt — du bist 100.000 darüber. Die 30 % sind eine Konvention aus der US-Wohnungspolitik für das, was als tragbar gilt; es ist keine Regel, und die Wirklichkeit unterscheidet sich enorm je Stadt. In teuren Metropolen sind 40 bis 50 % normal.',
+    note: 'Ob du Nebenkosten, Heizung und Hausgeld hineinrechnest, verschiebt die Quote um fünf bis zehn Punkte. Das Bruttoeinkommen ergibt eine niedrigere Quote als das Netto, vergleich zwei Wohnungen also auf derselben Grundlage.',
+  },
+  'freelance-hourly-rate': {
+    title: 'Freiberufler: Stundensatz berechnen',
+    desc: 'Der Stundensatz, den ein Ziel-Jahreseinkommen braucht, sobald nicht abrechenbare Zeit mitzählt.',
+    long: 'Teil das Jahresziel durch die Stunden, die du wirklich abrechnen kannst. Ein Ziel von 60.000.000 bei 25 abrechenbaren Stunden je Woche über 46 Wochen ergibt 1.150 abrechenbare Stunden. Rechne 25 % für die Stunden, die niemand bezahlt — Angebote, Rechnungen nachhalten, Verwaltung — plus Werkzeug und Versicherung, und du musst 75.000.000 fakturieren, das sind 65.217 je Stunde.',
+    note: 'Von einer Woche mit 40 Stunden sind typischerweise 20 bis 30 Stunden abrechenbar. Trag 40 ein, und der Satz landet bei etwa 60 % dessen, was du wirklich brauchst. Nimm Urlaub und Krankheitstage ebenfalls heraus: rechne mit 44 bis 48 Wochen, nicht mit 52. Steuern erfasst du, indem du das Zieleinkommen vor Steuern ansetzt.',
+  },
+  'cross-rate': {
+    title: 'Kreuzkurs berechnen',
+    desc: 'Zwei notierte Kurse zum Kurs der dritten Währung verketten, den niemand direkt stellt.',
+    long: 'Multipliziere A/B mit B/C, und das B kürzt sich heraus, es bleibt A/C. Kostet ein B 1.380 in A und ein C 1,08 in B, dann sind es 1.490,4 A je C. Ein echter Umtausch läuft diese Kette zweimal, die Wechselspanne fällt also zweimal an: 1 % je Abschnitt macht 1,0201×, also etwa 1.520,4 als Kurs, den du wirklich zahlst.',
+    note: 'Zwei Abschnitte mit je 1 % kosten 2,01 %, nicht 2 %. Der Unterschied ist klein, doch wo das Währungspaar direkt notiert ist, ist der Weg ohne dritte Währung meist billiger. Für die versteckte Gebühr eines einzelnen Abschnitts nimm die Seite zur Wechselkurs-Spanne.',
+  },
+  'roas': {
+    title: 'ROAS berechnen',
+    desc: 'Return on Ad Spend als Vielfaches und in Prozent, gegen den Break-even-ROAS, den deine Marge vorgibt.',
+    long: 'ROAS ist der zugeordnete Umsatz geteilt durch die Werbeausgaben. Gib 2.000.000 aus, nimm 8.000.000 ein, und das sind 4× oder 400 %. Für sich allein sagt die Zahl nicht, ob du verdient hast: bei einer Bruttomarge von 40 % muss der Umsatz die Ausgaben geteilt durch 0,4 erreichen — 2,5× —, nur um die Werbung zu decken. Vier liegt über 2,5, diese Kampagne ist also wirklich im Plus.',
+    note: 'Deine Marge legt den Break-even fest. Bei 20 % Marge brauchst du 5×, bei 10 % das Zehnfache. Ob „300 % ROAS“ gut ist, lässt sich ohne die Marge nicht beantworten. Auch das Zuordnungsfenster zählt — dieselbe Kampagne meldet bei einem längeren Klickfenster den doppelten ROAS.',
+  },
+  'cpm-cpc': {
+    title: 'CPM, CPC und CTR berechnen',
+    desc: 'CPM, CPC und CTR aus Impressionen, Klicks und Ausgaben — und wie die CTR den CPC bei festem CPM bewegt.',
+    long: 'Alle drei fallen aus denselben drei Zahlen. Mit 250.000 Impressionen, 3.000 Klicks und 1.500.000 Ausgaben: der CPC ist 1.500.000 ÷ 3.000 = 500, der CPM ist 1.500.000 ÷ 250.000 × 1.000 = 6.000, und die CTR ist 3.000 ÷ 250.000 = 1,2 %. Sie sind als CPC = CPM ÷ 1000 ÷ CTR miteinander verhakt, wer eine festhält, lässt die beiden anderen sich gegenseitig bestimmen. Halte den CPM bei 6.000 und heb die CTR von 1,2 % auf 2 %, und der CPC fällt von 500 auf 300.',
+    note: 'Den CPM legt der Wettbewerb in der Auktion fest, die CTR das Motiv. Das Gebot zu senken, um den CPC zu drücken, kauft nur weniger Impressionen, während ein besseres Motiv den CPC bei gleichem CPM umgekehrt proportional senkt. Impressionen und Klicks aus verschiedenen Zeiträumen zu ziehen macht die CTR sinnlos.',
+  },
 };

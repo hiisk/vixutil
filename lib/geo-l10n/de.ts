@@ -756,4 +756,78 @@ export const GEO_DE: Record<string, FormulaText> = {
     long: 'Die Erde ist rund, man darf die Koordinaten also nicht einfach abziehen. Die Haversine-Formel misst den Großkreisbogen zwischen beiden Punkten und faltet die Breiten- und Längendifferenz in Halbwinkelsinusse, damit das Ergebnis auch nahe den Polen trägt.',
     note: 'Das ist die Luftlinie, nicht die Straßenentfernung einer Karten-App. Der angezeigte Kurs ist die Richtung, in die man beim Start blickt.',
   },
+
+  /* ───────── Baustoffe: wie viele Säcke, Platten, Pakete ───────── */
+  'concrete-bags': {
+    title: 'Beton: Säcke berechnen',
+    desc: 'Säcke Fertigbeton aus Fläche, Plattendicke und der Ausbeute je Sack.',
+    long: 'Beim Volumen aufzuhören ist die Falle dieser Arbeiten. Die Ausbeute je Sack unterscheidet sich je Produkt, sie ist hier deshalb eine Eingabe und keine Konstante — ein Sack Fertigbeton mit 40 kg gibt etwa 18 L, einer mit 20 kg etwa 9 L. Eine Fläche von 4 × 3 m mit 10 cm Dicke sind 1,2 m³, also 1.200 L; rechne 10 % Verlust dazu für 1.320 L und teil durch 18 L, dann sind es 73,3 — du kaufst also 74 Säcke. Säcke werden nicht in Teilen verkauft, die Zahl wird deshalb immer aufgerundet.',
+    note: 'Die Ausbeute schwankt zwischen Marken — übernimm den Wert vom Sack. Beton lässt sich nicht wiederbeleben, sobald er anzieht: bei einer in einem Zug gegossenen Platte kostet zu wenig weit mehr als ein Sack zu viel.',
+  },
+  'mortar-bricks': {
+    title: 'Mauermörtel berechnen',
+    desc: 'Mörtelvolumen und Säcke aus der Zahl der Steine und dem Mörtel je Stein.',
+    long: 'Hol die Zahl der Steine zuerst aus dem Rechner für die Anzahl der Ziegel in diesem Bereich und setz sie hier für den Mörtel ein, der sie bettet. Wie viel ein Stein braucht, hängt von Wandstärke und Fugenbreite ab, es ist deshalb eine Eingabe: etwa 0,3 L je Stein für eine halbsteinige Schale mit Fugen von 10 mm, 0,5 bis 0,6 L für eine massive Wand. 500 Steine × 0,3 L sind 150 L, und 15 % für das, was herunterfällt, bringen es auf 172,5 L — bei 13 L je Sack sind das 13,3, also 14 Säcke.',
+    note: 'Mörtel fällt von der Kelle und zieht auf dem Brett an, 5 % Zugabe reichen deshalb nicht; 15 % kommen der Baustelle näher. Angemischter Mörtel muss innerhalb von etwa zwei Stunden verarbeitet sein, misch also nicht mehr an, als du vermauern kannst.',
+  },
+  'tile-grout': {
+    title: 'Fugenmörtel-Rechner',
+    desc: 'Gewicht des Fugenmörtels aus Fliesenformat, Fugenbreite und -tiefe und der Dichte.',
+    long: 'Fugenmörtel sitzt in dünnen Spalten, doch die Gesamtlänge dieser Spalten wächst umgekehrt zum Fliesenformat. Das Fugenvolumen in einem Quadratmeter ist (2 ÷ Fliesenkante) × Fugenbreite × Fugentiefe; multipliziert mit der Dichte, typisch 1.600 kg/m³, ergibt das das Gewicht je Quadratmeter. Eine Fliese von 30 cm mit Fugen von 3 mm Breite und 8 mm Tiefe braucht 0,26 kg/m²; ein Mosaik von 2,5 cm braucht selbst mit dünneren Fugen von nur 2 mm Breite und 4 mm Tiefe noch 1,02 kg/m² — genau das Vierfache. Fugenbreite und Fliesenformat legen das Ergebnis gemeinsam fest.',
+    note: 'Die Fugentiefe ist normalerweise die Fliesendicke. Verbrauchstabellen der Hersteller gehen von einem Format aus, sie auf Mosaik oder Großformat zu übertragen liegt deutlich daneben. Angemischter Fugenmörtel steift an, misch also nur, was du verarbeiten kannst.',
+  },
+  'tile-adhesive': {
+    title: 'Fliesenkleber: Menge berechnen',
+    desc: 'Klebergewicht und Säcke aus der Fläche und dem Verbrauch je m².',
+    long: 'Den Verbrauch legt die Zahnung der Kelle fest, nicht die Marke — etwa 3 kg/m² bei 6 mm Zahnung, 4,5 kg/m² bei 10 mm und 5,5 kg/m² bei 12 mm, und das Doppelte, wenn du große Fliesen zusätzlich hinten einstreichst oder über einen unebenen Boden arbeitest. Deshalb ist der Verbrauch eine Eingabe und kein eingebautes Produkt. Zehn Quadratmeter mit 10 mm Zahnung sind 45 kg; 10 % Verlust dazu ergibt 49,5 kg, also zwei Säcke von 25 kg, denn ein Sack deckt 5,6 m².',
+    note: 'Dünn aufgezogen ist die Fliese nur teilweise gebettet — die Risse zeigen sich Monate später, hier ist also nicht zu sparen. Geöffneter zementärer Kleber zieht Feuchtigkeit und wird hart, ein angebrochener Sack hält deshalb selten bis zur nächsten Baustelle.',
+  },
+  'wallpaper-repeat-waste': {
+    title: 'Tapete: Rapport und Verschnitt',
+    desc: 'Bahnen je Rolle mit eingerechnetem Musterrapport und die Rollen, die er zusätzlich kostet.',
+    long: 'Der Rechner für Tapetenrollen in diesem Bereich arbeitet allein mit der Fläche; dieser rechnet den Rapport dazu. Bei gemusterter Tapete muss jede Bahn treffen, jede Bahn wird also auf eine ganze Zahl von Rapporten geschnitten — und dieses Aufrunden ist der Verschnitt. Eine Wandhöhe von 2,4 m plus 5 % Schnittzugabe sind 2,52 m, doch bei einem Rapport von 53 cm musst du fünf Rapporte schneiden, also 2,65 m. Eine Rolle von 15,6 m gibt sechs glatte Bahnen und nur fünf gemusterte. Für einen Umgang von 16 m bei 106 cm Breite braucht es 16 Bahnen, also vier Rollen statt drei — der Rapport kostet eine ganze Rolle.',
+    note: 'Der Rapport steht auf dem Rollenetikett, und ein versetzter Rapport braucht den doppelten Wert. Kauf die Rollen zusammen: eine andere Chargennummer verschiebt die Farbe gerade so weit, dass eine später gekaufte Rolle als einzelne abweichende Bahn auffällt.',
+  },
+  'roof-shingles': {
+    title: 'Dachschindeln berechnen',
+    desc: 'Bunde und Squares aus der Dachfläche und der Deckfläche eines Bundes.',
+    long: 'Dachdeckung wird in Squares gezählt — 100 Quadratfuß oder 9,29 m². Ein Bund Bitumenschindeln deckt meist ein Drittel Square, etwa 3,1 m², drei Bunde machen also ein Square, doch es schwankt je Produkt, weshalb die Deckfläche je Bund eine Eingabe ist. Ein Dach von 100 m² mit 10 % Verlust sind 110 m²; 12 m First, doppellagig mit Kappen gedeckt, kommen mit etwa 0,3 m² je Meter auf weitere 3,6 m², zusammen 113,6 m². Geteilt durch 3,1 sind das 36,6, also 37 Bunde oder 12,2 Squares.',
+    note: 'Trag die echte Fläche der Dachschräge ein, nicht die Grundfläche — rechne sie zuerst mit dem Rechner für die Fläche eines geneigten Dachs um, sonst kommst du zu kurz. Dächer mit vielen Kehlen und Schnittkanten brauchen mehr als 10 % Zugabe.',
+  },
+  'laminate-packs': {
+    title: 'Laminat: Pakete berechnen',
+    desc: 'Pakete aus Raumgröße und Fläche je Paket, samt dem Reststück, das du weiterverwendest.',
+    long: 'Die Fläche je Paket hängt vom Dielenformat und der Zahl der Dielen im Karton ab, nimm sie also vom Etikett — meist 1,9 bis 2,5 m². Ein Raum von 5 × 4 m sind 20 m²; 8 % Verlust dazu ergibt 21,6 m², und bei 2,2 m² je Paket sind das 9,8, also 10 Pakete, denn Pakete werden nicht geteilt. Das am Reihenende abgeschnittene Stück beginnt die nächste Reihe: eine Reihe von 5 m mit Dielen von 128 cm lässt 116 cm übrig, deutlich über der Grenze von 30 cm, es wird also nichts weggeworfen.',
+    note: 'Reststücke unter etwa 30 cm rücken die Stoßkanten zusammen und heben sich unter dem Fuß — fang diese Reihe stattdessen mit einer halben Diele an, damit die Stöße versetzt liegen. Kauf die Reservepakete mit der ersten Bestellung, denn eine spätere Produktionscharge trifft den Ton nicht.',
+  },
+  'drywall-sheets': {
+    title: 'Trockenbau: Platten berechnen',
+    desc: 'Platten aus Wand- und Deckenfläche, plus Spachtelmasse und Fugenband je Meter.',
+    long: 'Plattenformate unterscheiden sich je Markt — 1250 × 2000 mm in Deutschland, 900 × 1800 und 900 × 2400 mm in Korea, 1220 × 2440 mm in Nordamerika —, das Format ist deshalb eine Eingabe. 60 m² mit 10 % Verlust sind 66 m², und bei 2,16 m² je Platte (900 × 2400) sind das 30,6, also 31 Platten. Über die Fläche entsteht je Plattenbreite eine Fuge, die Fläche geteilt durch die Plattenbreite ergibt also die Fugenlänge: 60 ÷ 0,9 = 66,7 m. Bei 0,35 kg Spachtelmasse je Meter sind das 23 kg, dazu 70 m Fugenband, wenn die Überlappungen mitgezählt sind.',
+    note: 'Die Spachtelmasse geht vor den Platten aus — Einbetten plus Füll- und Finishlage kommen auf bis zu 0,5 kg je Meter. An Decken nimm Platten von 12,5 mm oder dicker und kauf großzügig, denn Arbeit über Kopf erzeugt deutlich mehr Abschnitte.',
+  },
+  'plywood-sheets': {
+    title: 'Sperrholzplatten berechnen',
+    desc: 'Platten aus der Fläche und dem Plattenformat, mit dem Rest, der übrig bleibt.',
+    long: 'Sperrholz wird als ganze Platte verkauft, und Räume kommen nie in Vielfachen einer Platte. 24 m² mit 10 % Verlust sind 26,4 m²; geteilt durch eine Platte von 1220 × 2440 mm (2,977 m²) sind das 8,9, also 9 Platten. Neun Platten sind 26,8 m², es bleiben 2,8 m² übrig — und dieser Rest ist die echte Größe der Tatsache, dass ein festes Plattenformat einen ungeraden Raum selten aufteilt. Probier andere Formate, und du siehst den Rest schrumpfen.',
+    note: 'Die Zahl kann stimmen, während die Teile trotzdem nicht passen; skizzier den Zuschnitt und entscheide zuerst, in welche Richtung die lange Kante läuft. Für tragende Arbeiten müssen die Stöße auf den Balken landen, was den Verschnitt über 10 % treibt.',
+  },
+  'skirting-length': {
+    title: 'Sockelleisten berechnen',
+    desc: 'Meter Sockelleiste und zu kaufende Leisten aus dem Umfang minus den Türöffnungen.',
+    long: 'Der Umfang ist 2 × (Länge + Breite), abzüglich der Türöffnungen: ein Raum von 4,2 × 3,4 m sind 15,2 m, und eine Tür von 0,9 m lässt 14,3 m. Rechne 10 % für Stöße und Gehrungsschnitte dazu, das sind 15,7 m, und teil durch eine Leistenlänge von 2,4 m für 6,55 — du kaufst also 7 Leisten, aufgerundet, weil kurze Reststücke unbrauchbar sind.',
+    note: 'Gehrungsecken bedeuten oft eine ganze Leiste je Wand, also mehr als die Meter vermuten lassen. Wo Wände sich wölben, verdeckt eine einzige ungeteilte Leiste über die lange Wand die Lücke besser als zwei in der Mitte gestoßene.',
+  },
+  'mulch-bags': {
+    title: 'Rindenmulch-Rechner',
+    desc: 'Säcke Mulch aus Beetfläche, Schichtdicke und den Litern in einem Sack.',
+    long: 'Bei Mulch arbeitet die Dicke, nicht die Fläche — etwa 7 cm nehmen das Licht, sodass Unkrautsamen nie hochkommen, während 2 bis 3 cm nur ordentlich aussehen. Ein Beet von 20 m² mit 7 cm sind 1,4 m³, also 1.400 L; 10 % dazu ergeben 1.540 L, und bei 50 L je Sack (etwa 2 Kubikfuß) sind das 30,8, also 31 Säcke. Sackvolumen unterscheiden sich je Produkt, übernimm die Liter vom Etikett.',
+    note: 'Rindenmulch verliert im Jahr etwa die halbe Höhe, plan also mit jährlichem Nachfüllen. Halte ihn von den Stämmen fern: an den Stamm gehäuft hält er Feuchtigkeit und lässt den Wurzelhals faulen.',
+  },
+  'paver-sand': {
+    title: 'Pflastersand berechnen',
+    desc: 'Gewicht und Säcke Bettungssand aus Pflasterfläche, Schichtdicke und Dichte des Sands.',
+    long: 'Sand wird nach Volumen gemessen und nach Gewicht verkauft, und die Dichte verbindet beides, sie ist deshalb eine Eingabe: etwa 1.500 kg/m³ trocken und 1.900 kg/m³ nass. Eine Terrasse von 20 m² mit 3 cm Bettung sind 0,6 m³; mit 10 % Verlust 0,66 m³, was bei 1.500 kg/m³ 990 kg wiegt — 39,6 Säcke von 25 kg, also 40 Säcke. Ein Bigbag mit einer Tonne hält etwa dasselbe, und in dieser Größenordnung wird Schüttware günstiger.',
+    note: 'Sand verliert beim Verdichten 10 bis 15 % seiner Höhe, trag also die fertige Dicke ein und nicht die, die du beim Aufziehen misst. Der später eingekehrte Fugensand ist davon getrennt und kostet weitere 1 bis 2 kg je Quadratmeter.',
+  },
 };

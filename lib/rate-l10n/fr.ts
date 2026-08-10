@@ -38,7 +38,7 @@ export const RATE_FR: Record<string, FormulaText> = {
     title: 'Prix par coefficient sur le coût',
     desc: 'Fixe le prix de vente en ajoutant un pourcentage à ton coût d’achat.',
     long: 'Un coefficient de 40 % porte le prix à 1,4 fois le coût. Attention : la marge sur le chiffre d’affaires n’est alors que de 28,6 %, pas 40 %.',
-    note: 'Le taux de marque sur le coût et la marge sur les ventes sont deux nombres différents. Les confondre fait surestimer ce qui reste réellement.',
+    note: 'Le coefficient sur le coût (taux de marge) et la marge sur les ventes (taux de marque) sont deux nombres différents. Les confondre fait surestimer ce qui reste réellement.',
   },
   'margin': {
     title: 'Calculatrice de marge',
@@ -749,5 +749,79 @@ export const RATE_FR: Record<string, FormulaText> = {
     desc: 'Votre note ajustée quand la moyenne de la classe est déplacée vers une cible.',
     long: 'La courbe la plus simple ajoute les mêmes points à tout le monde pour que la moyenne tombe où il faut. Elle déplace l’échelle sans toucher à l’ordre, et c’est exactement pour cela que le classement ne bouge pas.',
     note: 'Le plafond de 100 comprime le haut. Les élèves proches du maximum se retrouvent à égalité, si bien que cette courbe convient mal quand l’examen doit départager les meilleurs.',
+  },
+
+  /* ───────── Gestion, investissement et publicité ───────── */
+  'margin-vs-markup': {
+    title: 'Taux de marge et taux de marque',
+    desc: 'Convertir dans les deux sens le taux de marge, calculé sur le coût d’achat, et le taux de marque, calculé sur le prix de vente.',
+    long: 'Les deux rapportent la même marge, mais pas au même dénominateur : le taux de marge la divise par le coût d’achat, le taux de marque par le prix de vente. Ajoutez 50 % à un coût de 100 et vous vendez à 150 avec 50 de marge — le taux de marque vaut 50 ÷ 150, soit 33,33 %. À l’inverse, un taux de marque de 40 % veut dire que le prix est le coût divisé par 0,6 : il faut donc un taux de marge de 66,67 %, c’est-à-dire un coefficient multiplicateur de 1,667.',
+    note: 'Quand un fournisseur annonce « 40 % de marge », demandez lequel des deux il vise. Compris comme un taux de marge et appliqué au coût, cela ne laisse qu’un taux de marque de 28,6 % — onze points sous l’objectif. En anglais la confusion est symétrique : markup correspond au taux de marge et margin au taux de marque.',
+  },
+  'target-profit-units': {
+    title: 'Quantité à vendre pour atteindre un bénéfice',
+    desc: 'Combien d’unités il faut vendre pour dégager le bénéfice que vous visez.',
+    long: 'Traitez le montant à couvrir comme les charges fixes plus le bénéfice voulu, et la même division donne le volume. À 15 000 l’unité avec 6 000 de coût variable, la marge sur coût variable est de 9 000 ; 3 000 000 de charges fixes plus 1 500 000 de bénéfice font 4 500 000, qui divisés par 9 000 donnent 500 unités. Mettez le bénéfice à zéro, ou passez par la page du seuil de rentabilité, si vous voulez seulement le niveau où vous cessez de perdre.',
+    note: 'L’endroit où vous tracez la limite entre fixe et variable déplace la réponse. Le loyer et les salaires, qui tombent que vous vendiez ou non, sont fixes ; les matières, les frais de paiement et la livraison, qui n’apparaissent qu’à la vente, sont variables. Classez les frais de paiement en charges fixes et la quantité nécessaire sort trop basse.',
+  },
+  'contribution-margin': {
+    title: 'Marge sur coûts variables',
+    desc: 'La marge sur coût variable par unité, son taux, et les unités qu’il faut pour couvrir les charges fixes.',
+    long: 'La marge sur coût variable, c’est ce qu’une vente de plus laisse dans l’entreprise. À un prix de 15 000 avec 6 000 de coût variable, il reste 9 000, et divisé par le prix cela fait un taux de 60 %. Avec le taux, vous trouvez le chiffre d’affaires nécessaire sans compter une seule unité : 3 000 000 de charges fixes divisés par 0,6 font 5 000 000. Pour une boutique aux dizaines de références, sans unité unique à compter, c’est la seule voie disponible.',
+    note: 'La marge sur coût variable n’est pas un bénéfice. Elle se mesure avant qu’un centime de charges fixes ait été payé : elle peut paraître confortable pendant que l’entreprise entière perd de l’argent.',
+  },
+  'payback-period': {
+    title: 'Délai de récupération d’un investissement',
+    desc: 'En combien de mois un investissement initial revient grâce à la trésorerie nette mensuelle.',
+    long: 'Divisez l’investissement par la trésorerie nette qu’il rapporte chaque mois. Engagez 20 000 000 et dégagez 500 000 par mois : vous revenez à l’équilibre au bout de 40 mois, environ trois ans et quatre mois. Retournez ce chiffre et vous avez le rendement annuel simple — douze sur quarante, soit 30 %.',
+    note: 'Ce calcul ignore la valeur temps de l’argent : 500 000 qui arrivent dans trois ans comptent autant que 500 000 ce mois-ci, ce qui flatte les récupérations longues. Au-delà de deux ou trois ans, vérifiez avec la page de valeur actuelle. Il ne dit rien non plus de ce que l’équipement rapporte après s’être payé.',
+  },
+  'straight-line-depreciation': {
+    title: 'Amortissement linéaire',
+    desc: 'L’amortissement annuel et mensuel puis la valeur nette comptable après n années, d’après le coût, la valeur résiduelle et la durée.',
+    long: 'Le linéaire prend le coût moins la valeur résiduelle et l’étale à parts égales sur la durée d’utilité. Une machine de 12 000 000 avec 2 000 000 de valeur résiduelle sur cinq ans perd 2 000 000 par an, environ 166 700 par mois. Après trois ans, la valeur nette comptable vaut 12 000 000 moins 6 000 000, soit 6 000 000. Le même montant sort chaque année, et c’est pourquoi la courbe est une droite.',
+    note: 'Le linéaire est une convention comptable ; les prix de l’occasion se comportent plutôt comme un amortissement dégressif, qui prélève chaque année une part fixe de ce qui reste. Pour ce que le bien se revendrait vraiment, passez par la décote à la revente ou le temps pour tomber de moitié — la chute réelle de la première année est bien plus raide que celle-ci.',
+  },
+  'savings-rate': {
+    title: 'Taux d’épargne',
+    desc: 'Votre taux d’épargne d’après le revenu net et le montant épargné, plus le temps qu’un an de dépenses demande.',
+    long: 'Divisez ce que vous épargnez par ce que vous touchez. Mettez 1 000 000 de côté sur 4 000 000 par mois et le taux est de 25 %, avec 3 000 000 pour vivre. Le second chiffre compte davantage : 3 000 000 divisés par 1 000 000 font trois ans pour épargner un an de dépenses. Poussez le taux à 50 % et cela tombe à un an.',
+    note: 'Diviser par le revenu brut gonfle le taux. Décidez aussi si les versements de l’employeur sur un plan retraite comptent comme de l’épargne : les inclure fait monter le chiffre, mais cet argent n’est pas disponible aujourd’hui.',
+  },
+  'fire-number': {
+    title: 'Nombre FIRE : le capital à atteindre',
+    desc: 'Le capital qui soutient vos dépenses annuelles à un taux de retrait donné.',
+    long: 'Si vous prélevez chaque année une part fixe du portefeuille, le capital nécessaire est la dépense annuelle divisée par cette part. Dépenser 36 000 000 par an à 4 % demande 900 000 000 — vingt-cinq fois la dépense. Les 4 % viennent de William Bengen, en 1994, qui a testé des retraits sur trente ans contre les rendements historiques des actions et obligations américaines ; l’étude Trinity les a ensuite popularisés. C’est une étude, sur un marché, sur un horizon de trente ans — pas une loi.',
+    note: 'Un taux de retrait plus bas relève brutalement l’objectif : 4 % font 25×, 3 % font 33,3×, 2 % font 50×. Laissez les impôts, la couverture santé et les grosses réparations hors de vos dépenses annuelles et l’objectif sort trop petit.',
+  },
+  'rent-to-income': {
+    title: 'Taux d’effort : loyer sur revenu',
+    desc: 'La part du revenu mensuel brut que prend le logement, comparée au repère que vous choisissez.',
+    long: 'Divisez le coût du logement par le revenu mensuel brut. Sur 3 000 000 de revenu, 1 000 000 de loyer font 33,3 %, tandis que la ligne des 30 % se situe à 900 000 : vous êtes 100 000 au-dessus. Les 30 % viennent d’une convention de la politique du logement américaine sur ce qui est jugé abordable ; ce n’est pas une règle, et la réalité varie énormément d’une ville à l’autre. Dans les métropoles chères, 40 à 50 % est ordinaire.',
+    note: 'Selon que vous y mettez ou non les charges, le chauffage et les frais de copropriété, le taux bouge de cinq à dix points. Le revenu brut donne un taux plus bas que le revenu net : comparez deux logements sur la même base. La règle du loyer inférieur au tiers du revenu que demandent beaucoup de bailleurs est ce même repère vu de l’autre côté.',
+  },
+  'freelance-hourly-rate': {
+    title: 'Taux horaire d’un freelance',
+    desc: 'Le taux horaire qu’un revenu annuel visé exige, une fois le temps non facturable compté.',
+    long: 'Divisez l’objectif annuel par les heures que vous pouvez réellement facturer. Un objectif de 60 000 000 à 25 heures facturables par semaine sur 46 semaines donne 1 150 heures facturables. Ajoutez 25 % pour les heures que personne ne paie — devis, relances, administratif — plus les outils et les assurances, et il faut facturer 75 000 000, soit 65 217 de l’heure.',
+    note: 'Sur une semaine de 40 heures, 20 à 30 sont typiquement facturables. Saisissez 40 et le taux tombe autour de 60 % de ce dont vous avez besoin. Retirez aussi les congés et les jours d’arrêt : comptez 44 à 48 semaines, pas 52. Pour l’impôt et les cotisations, fixez l’objectif de revenu avant prélèvements.',
+  },
+  'cross-rate': {
+    title: 'Cours croisé de deux devises',
+    desc: 'Enchaîner deux cours cotés pour obtenir le cours de la troisième devise que personne ne cote directement.',
+    long: 'Multipliez A/B par B/C et le B s’annule : il reste A/C. Si un B coûte 1 380 de A et un C coûte 1,08 de B, alors A par C vaut 1 490,4. Une conversion réelle parcourt cette chaîne deux fois, la marge tombe donc deux fois aussi — 1 % sur chaque étape fait 1,0201×, soit environ 1 520,4 comme cours réellement payé.',
+    note: 'Deux étapes à 1 % coûtent 2,01 %, pas 2 %. L’écart est petit, mais quand la paire est cotée directement, ne pas passer par une troisième devise revient en général moins cher. Pour voir les frais cachés d’une seule étape, servez-vous de la page sur l’écart de change.',
+  },
+  'roas': {
+    title: 'ROAS : retour sur dépense publicitaire',
+    desc: 'Le ROAS en multiple et en pourcentage, comparé au ROAS d’équilibre que votre marge impose.',
+    long: 'Le ROAS, c’est le chiffre d’affaires attribué divisé par la dépense publicitaire. Dépensez 2 000 000, encaissez 8 000 000, et cela fait 4× ou 400 %. Seul, ce nombre ne dit pas si vous avez gagné de l’argent : à 40 % de marge brute, le chiffre d’affaires doit atteindre la dépense divisée par 0,4 — 2,5× — rien que pour couvrir la publicité. Quatre dépasse 2,5 : cette campagne est réellement bénéficiaire.',
+    note: 'C’est votre marge qui fixe le seuil. À 20 % de marge il faut 5×, à 10 % il faut 10×. Savoir si « 300 % de ROAS » est bon reste impossible sans la marge. Les fenêtres d’attribution comptent aussi — la même campagne peut annoncer le double de ROAS sur une fenêtre de clic plus longue.',
+  },
+  'cpm-cpc': {
+    title: 'CPM, CPC et CTR',
+    desc: 'CPM, CPC et CTR d’après les impressions, les clics et la dépense — et comment le CTR déplace le CPC à CPM constant.',
+    long: 'Les trois sortent des mêmes trois nombres. Avec 250 000 impressions, 3 000 clics et 1 500 000 de dépense : le CPC vaut 1 500 000 ÷ 3 000 = 500, le CPM vaut 1 500 000 ÷ 250 000 × 1 000 = 6 000, et le CTR vaut 3 000 ÷ 250 000 = 1,2 %. Ils sont liés par CPC = CPM ÷ 1000 ÷ CTR : fixez-en un et les deux autres se déterminent l’un l’autre. Maintenez le CPM à 6 000 et faites passer le CTR de 1,2 % à 2 %, et le CPC descend de 500 à 300.',
+    note: 'La concurrence aux enchères fixe le CPM, le visuel fixe le CTR. Baisser votre enchère pour faire baisser le CPC achète simplement moins d’impressions, alors qu’un meilleur visuel fait baisser le CPC en proportion inverse à CPM constant. Prendre les impressions et les clics sur des périodes différentes rend le CTR dénué de sens.',
   },
 };

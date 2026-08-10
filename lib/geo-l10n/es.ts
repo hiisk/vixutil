@@ -756,4 +756,78 @@ export const GEO_ES: Record<string, FormulaText> = {
     long: 'La Tierra es redonda, así que no basta con restar coordenadas. La fórmula del haversine mide el arco de círculo máximo que une los dos puntos, plegando las diferencias de latitud y longitud en senos de medio ángulo para que el resultado aguante cerca de los polos.',
     note: 'Es la distancia directa, no la de carretera que da una aplicación de mapas. El rumbo indicado es la dirección a la que mirar al salir.',
   },
+
+  /* ───────── Materiales: cuántos sacos, cuántas placas ───────── */
+  'concrete-bags': {
+    title: 'Cuántos sacos de hormigón necesito',
+    desc: 'Sacos de hormigón preparado a partir de la superficie, el espesor de la losa y el rendimiento del saco.',
+    long: 'Quedarse en el volumen es donde se torcen estos trabajos. El rendimiento por saco cambia con el producto, así que aquí es un dato que introduces y no una constante: un saco de 40 kg de hormigón preparado da unos 18 L y uno de 20 kg, unos 9 L. Una losa de 4 × 3 m a 10 cm son 1,2 m³, o 1.200 L; suma un 10 % de merma para 1.320 L y divide entre 18 L para obtener 73,3, así que compras 74 sacos. Los sacos no se venden partidos, así que la cuenta siempre redondea hacia arriba.',
+    note: 'Los rendimientos cambian de una marca a otra: copia la cifra impresa en el saco. El hormigón, concreto en gran parte de América, no se recupera una vez empieza a fraguar, así que en una losa que se vierte de una sola vez quedarse corto cuesta mucho más que un saco de sobra.',
+  },
+  'mortar-bricks': {
+    title: 'Calculadora de mortero para ladrillos',
+    desc: 'Volumen de mortero y sacos a partir del número de ladrillos y el mortero que pide cada uno.',
+    long: 'Saca primero el número de ladrillos con la calculadora de ladrillos de esta sección y úsalo aquí para el mortero que los asienta. Cuánto se lleva cada ladrillo depende del grosor del muro y del ancho de la junta, así que es un dato: unos 0,3 L por ladrillo en un muro de media asta con juntas de 10 mm, y 0,5–0,6 L en un muro macizo. 500 ladrillos × 0,3 L son 150 L, y un 15 % por lo que se cae lo sube a 172,5 L; a 13 L por saco eso es 13,3, así que 14 sacos.',
+    note: 'El mortero se cae de la paleta y fragua en la tabla, así que un margen del 5 % no llega: el 15 % se parece más a la obra real. El mortero amasado hay que gastarlo en unas dos horas, así que no prepares más de lo que puedas colocar.',
+  },
+  'tile-grout': {
+    title: 'Calculadora de lechada para azulejos',
+    desc: 'Kilos de lechada según el tamaño de la baldosa, el ancho y la profundidad de la junta y la densidad.',
+    long: 'La lechada vive en huecos finos, pero el largo total de esos huecos crece de forma inversa al tamaño de la baldosa. El volumen de junta de un metro cuadrado es (2 ÷ lado de la baldosa) × ancho de junta × profundidad de junta; multiplica por la densidad, normalmente 1.600 kg/m³, para tener los kilos por metro cuadrado. Una baldosa de 30 cm con juntas de 3 mm y 8 mm de profundidad se lleva 0,26 kg/m²; un mosaico de 2,5 cm necesita 1,02 kg/m² incluso con juntas más finas de 2 mm y solo 4 mm de fondo: exactamente cuatro veces más. El ancho de la junta y el tamaño de la baldosa fijan juntos la respuesta.',
+    note: 'La profundidad de la junta es normalmente el grosor de la baldosa. Las tablas de rendimiento del fabricante suponen un formato concreto, así que llevarlas a un mosaico o a un gran formato falla por mucho. La lechada amasada endurece, así que prepara solo lo que puedas usar. Según el país, a esta pasta se le llama lechada, junta, boquilla o fragua.',
+  },
+  'tile-adhesive': {
+    title: 'Calculadora de adhesivo para azulejos',
+    desc: 'Kilos de adhesivo y sacos a partir de la superficie y el consumo por metro cuadrado.',
+    long: 'El consumo lo fija el peine de la llana, no la marca: unos 3 kg/m² con un peine de 6 mm, 4,5 kg/m² a 10 mm y 5,5 kg/m² a 12 mm, y el doble si haces doble encolado en gran formato o trabajas sobre un suelo desigual. Por eso el consumo es un dato y no un producto metido dentro. Diez metros cuadrados con peine de 10 mm son 45 kg; suma un 10 % de merma para 49,5 kg, que son dos sacos de 25 kg, porque un saco cubre 5,6 m².',
+    note: 'Si lo extiendes fino, la baldosa queda pegada solo en parte, y las grietas aparecen meses después: aquí no se ahorra. El adhesivo cementoso ya abierto se endurece con la humedad, así que un saco empezado rara vez llega al siguiente trabajo.',
+  },
+  'wallpaper-repeat-waste': {
+    title: 'Merma del papel pintado con dibujo',
+    desc: 'Paños que salen de un rollo una vez casado el dibujo, y los rollos que eso cuesta.',
+    long: 'La calculadora de rollos de esta sección trabaja solo con la superficie; esta añade la repetición. Con un papel estampado cada paño tiene que casar, así que se corta a un número entero de repeticiones, y ese redondeo es la merma. Un techo de 2,4 m más un 5 % de recorte son 2,52 m, pero con una repetición de 53 cm hay que cortar cinco repeticiones, o 2,65 m. Un rollo de 15,6 m da seis paños lisos y solo cinco estampados. Cubrir un recorrido de 16 m con un ancho de 106 cm pide 16 paños, así que cuatro rollos en vez de tres: la repetición cuesta un rollo entero.',
+    note: 'La repetición viene impresa en la etiqueta del rollo, y un dibujo a media caída, salteado, pide el doble de esa cifra. Compra los rollos juntos: un número de lote distinto desplaza el color lo justo para que un rollo comprado después se vea como un paño raro.',
+  },
+  'roof-shingles': {
+    title: 'Calculadora de tejas asfálticas',
+    desc: 'Paquetes y squares a partir de la superficie del tejado y la cobertura de un paquete.',
+    long: 'La cubierta se cuenta en squares: 100 pies cuadrados, o 9,29 m². Un paquete de teja asfáltica de tres pestañas cubre normalmente un tercio de square, unos 3,1 m², así que tres paquetes hacen un square, pero cambia con el producto y por eso la cobertura por paquete es un dato. Un tejado de 100 m² con un 10 % de merma son 110 m²; 12 m de cumbrera, cubiertos con caballete a doble capa, añaden unos 0,3 m² por metro, otros 3,6 m², para 113,6 m². Entre 3,1 eso es 36,6, así que 37 paquetes, o 12,2 squares.',
+    note: 'Mete la superficie real inclinada del tejado, no la planta: conviértela antes con la calculadora de tejado a dos aguas o te quedarás corto. Los tejados con muchas limahoyas y muchos cortes necesitan más de un 10 % de margen.',
+  },
+  'laminate-packs': {
+    title: 'Cuántas cajas de suelo laminado necesito',
+    desc: 'Cajas según el tamaño de la habitación y la superficie por caja, más el recorte reutilizable.',
+    long: 'La superficie por caja depende del tamaño de la lama y de cuántas van dentro, así que tómala de la etiqueta: normalmente 1,9–2,5 m². Una habitación de 5 × 4 m son 20 m²; suma un 8 % de merma para 21,6 m², y a 2,2 m² por caja eso es 9,8, así que 10 cajas, porque las cajas no se parten. El trozo que cortas al final de una hilada empieza la siguiente: una hilada de 5 m con lamas de 128 cm deja 116 cm, muy por encima del mínimo de 30 cm, así que no se tira nada.',
+    note: 'Los recortes por debajo de unos 30 cm juntan las juntas de los extremos y se levantan al pisar: empieza esa hilada con media lama para escalonarlas. Compra las cajas de repuesto con el primer pedido, porque un lote de fabricación posterior no dará el mismo tono.',
+  },
+  'drywall-sheets': {
+    title: 'Cuántas placas de yeso (pladur) necesito',
+    desc: 'Placas según la superficie de paredes y techos, más pasta de juntas y cinta por metro.',
+    long: 'Las medidas de placa cambian según el mercado — 900 × 1800 y 900 × 2400 mm en Corea, 1220 × 2440 mm en Norteamérica —, así que la medida de la placa es un dato. 60 m² con un 10 % de merma son 66 m², y a 2,16 m² por placa (900 × 2400) eso es 30,6, así que 31 placas. Aparece una junta por ancho de placa a lo largo del paño, así que la superficie dividida entre el ancho da el largo de junta: 60 ÷ 0,9 = 66,7 m. A 0,35 kg de pasta por metro son 23 kg, con 70 m de cinta una vez contados los solapes.',
+    note: 'Se acaba antes la pasta que las placas: encintar más una mano de relleno y otra de acabado puede llegar a 0,5 kg por metro. En techos usa placa de 12,5 mm o más gruesa y compra placas de sobra, porque el trabajo por encima de la cabeza genera muchos más recortes.',
+  },
+  'plywood-sheets': {
+    title: 'Calculadora de tableros de contrachapado',
+    desc: 'Tableros necesarios según la superficie y la medida del tablero, con el sobrante que te queda.',
+    long: 'El contrachapado se vende por tableros enteros, y las habitaciones nunca salen en múltiplos de uno. 24 m² con un 10 % de merma son 26,4 m²; entre un tablero de 1220 × 2440 (2,977 m²) eso es 8,9, así que 9 tableros. Nueve tableros son 26,8 m², y sobran 2,8 m²: ese sobrante es el tamaño real del hecho de que una medida fija rara vez cuadra con una habitación cualquiera. Prueba otras medidas de tablero y verás cómo el sobrante se encoge.',
+    note: 'La cuenta puede estar bien y las piezas seguir sin encajar: dibuja el despiece y decide primero hacia dónde va el lado largo. En trabajos estructurales las juntas tienen que caer sobre los durmientes, y eso empuja la merma por encima del 10 %.',
+  },
+  'skirting-length': {
+    title: 'Calculadora de rodapié',
+    desc: 'Metros de rodapié y piezas a comprar, partiendo del perímetro menos los huecos de puerta.',
+    long: 'El perímetro es 2 × (largo + ancho), menos los huecos de puerta: una habitación de 4,2 × 3,4 m son 15,2 m, y una puerta de 0,9 m deja 14,3 m. Suma un 10 % por uniones y cortes en inglete para llegar a 15,7 m, y divide entre una pieza de 2,4 m para 6,55, así que compras 7 piezas, redondeando hacia arriba porque los trozos cortos no se usan.',
+    note: 'Las esquinas en inglete suelen obligar a gastar una pieza entera por pared, que es más de lo que dicen los metros. Donde el muro va combado, una sola pieza sin cortar a lo largo de la pared larga disimula mejor el hueco que dos unidas por el medio. En varios países el rodapié es el zócalo o el guardapolvo.',
+  },
+  'mulch-bags': {
+    title: 'Calculadora de sacos de mantillo',
+    desc: 'Sacos de mantillo según la superficie del arriate, el espesor de la capa y los litros del saco.',
+    long: 'Con el mantillo trabaja el espesor y no la superficie: unos 7 cm tapan la luz y las semillas de mala hierba no arrancan, mientras que 2–3 cm solo quedan aparentes. Un arriate de 20 m² a 7 cm son 1,4 m³, o 1.400 L; suma un 10 % para 1.540 L, y a 50 L por saco, unos 2 pies cúbicos, eso es 30,8, así que 31 sacos. Los volúmenes de saco cambian con el producto, así que toma los litros de la etiqueta.',
+    note: 'El mantillo de corteza pierde en un año más o menos la mitad de su espesor, así que cuenta con recargarlo cada temporada. Y mantenlo lejos de los tallos: amontonado contra un tronco atrapa humedad y pudre el cuello de la raíz.',
+  },
+  'paver-sand': {
+    title: 'Calculadora de arena de asiento para adoquines',
+    desc: 'Kilos de arena de asiento y sacos según la superficie, el espesor y la densidad de la arena.',
+    long: 'La arena se mide en volumen y se vende al peso, y la densidad es lo que une las dos cosas, así que es un dato: unos 1.500 kg/m³ en seco y 1.900 kg/m³ mojada. Un patio de 20 m² con 3 cm de cama son 0,6 m³; con un 10 % de merma, 0,66 m³, que a 1.500 kg/m³ pesan 990 kg, o 39,6 sacos de 25 kg, así que 40 sacos. Un saco grande de una tonelada lleva más o menos lo mismo, y a este tamaño el granel sale más barato.',
+    note: 'La arena pierde un 10–15 % de espesor al compactarla, así que mete el espesor acabado y no el que mides mientras la extiendes. La arena de junta que se barre después va aparte y suma otros 1–2 kg por metro cuadrado.',
+  },
 };
