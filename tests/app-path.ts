@@ -189,12 +189,33 @@ export { BUILT_DIR };
  * 사이트맵은 굽는 것과 무관하게 전부를 담으므로 이쪽이 맞다.
  */
 export function sitemapRoutes(): string[] | null {
+  const files = sitemapChunkFiles();
+  if (!files.length) return null;
+  return files.flatMap(p =>
+    [...readFileSync(p, 'utf8').matchAll(/<loc>https:\/\/vixutil\.com([^<]*)<\/loc>/g)].map(m => m[1] || '/'),
+  );
+}
+
+/**
+ * 구운 사이트맵 조각 파일들 — /sitemap/0.xml, /sitemap/1.xml …
+ *
+ * 2026-08-10에 한 파일을 조각으로 나눴다(주소 16만 개는 규약의 5만 제한을
+ * 세 배 넘긴다). 그래서 여기서도 한 파일이 아니라 조각을 모아 읽는다.
+ * 옛 이름도 함께 본다 — 한 파일로 되돌리는 변경이 있어도 검사가 눈멀지 않게.
+ */
+export function sitemapChunkFiles(): string[] {
+  if (!existsSync(BUILT_DIR)) return [];
+  const out: string[] = [];
+  const dir = join(BUILT_DIR, 'sitemap');
+  if (existsSync(dir) && statSync(dir).isDirectory()) {
+    for (const f of readdirSync(dir).sort()) {
+      const p = join(dir, f);
+      if (statSync(p).isFile() && readFileSync(p, 'utf8').includes('<loc>')) out.push(p);
+    }
+  }
   for (const name of ['sitemap.xml.body', 'sitemap.xml']) {
     const p = join(BUILT_DIR, name);
-    if (!existsSync(p) || statSync(p).isDirectory()) continue;
-    const xml = readFileSync(p, 'utf8');
-    if (!xml.includes('<loc>')) continue;
-    return [...xml.matchAll(/<loc>https:\/\/vixutil\.com([^<]*)<\/loc>/g)].map(m => m[1] || '/');
+    if (existsSync(p) && statSync(p).isFile() && readFileSync(p, 'utf8').includes('<loc>')) out.push(p);
   }
-  return null;
+  return out;
 }

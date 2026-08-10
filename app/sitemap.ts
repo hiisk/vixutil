@@ -176,7 +176,7 @@ const devRoutes = [
   콘텐츠별 수정일을 따로 관리하지 않는 이상, 날짜를 빼고 크롤러가 자체
   크롤 이력으로 판단하게 두는 편이 낫다.
 */
-export default function sitemap(): MetadataRoute.Sitemap {
+function allEntries(): MetadataRoute.Sitemap {
   const monthly = "monthly" as const;
   const weekly = "weekly" as const;
 
@@ -1225,4 +1225,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GENERATORS.map((g: { slug: string }) => ({ url: `${BASE}/generator/${g.slug}`, changeFrequency: monthly, priority: 0.8 })),
     ...CHECKLISTS.map((c: { slug: string }) => ({ url: `${BASE}/checklist/${c.slug}`, changeFrequency: monthly, priority: 0.8 })),
   ];
+}
+
+/**
+ * ── 사이트맵을 쪼개는 이유 (2026-08-10) ────────────────────────
+ * 사이트맵 규약은 파일 하나에 **주소 5만 개, 압축 전 50MB**까지만 허용한다.
+ * 그런데 이 사이트는 주소가 16만 개가 넘어 한 파일이 19MB에 164,000줄이었다.
+ * 크기는 안에 들었지만 **개수가 세 배 넘게 넘쳐** 규약을 어긴 파일이었고,
+ * 구글과 빙은 그런 사이트맵을 앞부분만 읽거나 통째로 버린다. 즉 주소의
+ * 3분의 2가 검색엔진에 안 보이고 있었다.
+ *
+ * generateSitemaps로 /sitemap/0.xml … 꼴로 나눈다. 한 조각을 45,000으로
+ * 잡은 것은 5만에 딱 붙이면 섹션 하나만 늘어도 다시 넘치기 때문이다.
+ * 조각을 묶는 목록은 app/sitemap-index.xml/route.ts가 낸다.
+ */
+export const CHUNK_SIZE = 45_000;
+
+export function sitemapChunkCount(): number {
+  return Math.max(1, Math.ceil(allEntries().length / CHUNK_SIZE));
+}
+
+export async function generateSitemaps(): Promise<{ id: number }[]> {
+  return Array.from({ length: sitemapChunkCount() }, (_, id) => ({ id }));
+}
+
+export default async function sitemap({ id }: { id: Promise<string> | string }): Promise<MetadataRoute.Sitemap> {
+  const n = Number(await id) || 0;
+  return allEntries().slice(n * CHUNK_SIZE, (n + 1) * CHUNK_SIZE);
 }
