@@ -1,23 +1,10 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import LumberPage from '@/components/lumber/LumberPage';
-import { cellOf } from '@/lib/lumber/list';
-import { detailMetadata, lumberParams } from '@/lib/lumber/route';
+import { build } from '@/lib/fold/pages/lumber__slug';
 
-// 낱장은 요청 때 그리고 캐시에 쓰지 않는다 — ISR 쓰기(월 20만)를 아끼는 자리다. 근거는 lib/prerender.ts
+/* 아홉 언어가 lib/fold/pages/lumber__slug.tsx 하나를 같이 쓴다 — 접기 이행(2026-08-10).
+   낱장은 십육만 장이라 못 굽는다. 요청 때 그리고 캐시에 안 써 ISR 쓰기를 0으로
+   둔다 — 근거는 lib/prerender.ts. 허브는 app/(pt-br)/pt-br/[[...path]]가 굽는다. */
 export const dynamic = 'force-dynamic';
 
-export function generateStaticParams() {
-  return lumberParams();
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  return detailMetadata('pt', slug);
-}
-
-export default async function LumberDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  if (!cellOf(slug)) notFound();
-  return <LumberPage slug={slug} lang="pt" />;
-}
+const { generateMetadata, Page } = build('pt-br');
+export { generateMetadata };
+export default Page;

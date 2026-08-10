@@ -1,9 +1,0 @@
-import type { Metadata } from 'next';
-import ExtHubPage from '@/components/ext/ExtHubPage';
-import { hubMetadata } from '@/lib/ext/route';
-
-export const metadata: Metadata = hubMetadata('fr');
-
-export default function ExtHub() {
-  return <ExtHubPage lang="fr" />;
-}

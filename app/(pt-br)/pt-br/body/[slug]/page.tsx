@@ -1,41 +1,10 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import FormulaPage from '@/components/FormulaPage';
-import BodyEngine from '@/components/body/BodyEngine';
-import { BODY_SECTION, BODY_LANGS } from '@/lib/body-section';
-import { bodyTool, BODY_TOOLS } from '@/lib/body-tools';
-import { sectionAlternates } from '@/lib/formula/ui';
-import { textOf } from '@/lib/formula/types';
-import { localeHref, openGraphFor } from '@/lib/locales';
-import { prerender } from '@/lib/prerender';
-import { withCard } from '@/lib/og-cards';
+import { build } from '@/lib/fold/pages/body__slug';
 
-// 낱장은 요청 때 그리고 캐시에 쓰지 않는다 — ISR 쓰기(월 20만)를 아끼는 자리다. 근거는 lib/prerender.ts
+/* 아홉 언어가 lib/fold/pages/body__slug.tsx 하나를 같이 쓴다 — 접기 이행(2026-08-10).
+   낱장은 십육만 장이라 못 굽는다. 요청 때 그리고 캐시에 안 써 ISR 쓰기를 0으로
+   둔다 — 근거는 lib/prerender.ts. 허브는 app/(pt-br)/pt-br/[[...path]]가 굽는다. */
 export const dynamic = 'force-dynamic';
 
-export function generateStaticParams() {
-  return prerender(BODY_TOOLS.map(t => ({ slug: t.slug })));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const tool = bodyTool(slug);
-  if (!tool) return {};
-  const text = textOf(tool, 'pt-br');
-  return withCard({
-    title: text.title,
-    description: text.long,
-    openGraph: openGraphFor('pt-br'),
-    alternates: {
-      canonical: localeHref('pt-br', `/body/${slug}`),
-      languages: sectionAlternates('body', slug, BODY_LANGS),
-    },
-  });
-}
-
-export default async function BodyDetailPtBr({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const tool = bodyTool(slug);
-  if (!tool) notFound();
-  return <FormulaPage tool={tool} lang="pt-br" section={BODY_SECTION} Engine={BodyEngine} />;
-}
+const { generateMetadata, Page } = build('pt-br');
+export { generateMetadata };
+export default Page;

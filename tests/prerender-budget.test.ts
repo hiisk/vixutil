@@ -48,6 +48,17 @@ test('낱장마다 force-dynamic이 있다 — 크롤이 ISR 쓰기를 안 태�
    * 빠뜨리면, 그 라우트만 조용히 ISR로 돌아가 배포마다 쓰기를 태운다.
    * 빠진 파일이 하나라도 있으면 여기서 걸린다.
    */
+  /*
+   * ── 2026-08-10 접기 뒤의 모양 ──────────────────────────────
+   * 아홉 언어의 페이지 알맹이는 lib/fold/pages/ 모듈 하나씩으로 접혔지만,
+   * **라우트는 그대로 남았다.** 허브는 언어마다 [[...path]] 캐치올이 굽고,
+   * 낱장은 각자 [slug] 라우트로 남아 요청 때 그린다. 둘을 한 라우트에 못
+   * 두는 까닭은 구운 라우트 안에서 요청 때 그리기로 못 빠져나가기 때문이다
+   * (connection()이 DYNAMIC_SERVER_USAGE로 죽는다).
+   *
+   * 그러므로 force-dynamic이 있어야 할 곳은 낱장 라우트 전부다.
+   * 캐치올은 반대로 **굽는 자리라 force-dynamic이 있으면 안 된다.**
+   */
   const walk = (dir: string, out: string[] = []): string[] => {
     for (const e of readdirSync(dir, { withFileTypes: true })) {
       const p = join(dir, e.name);
@@ -56,12 +67,22 @@ test('낱장마다 force-dynamic이 있다 — 크롤이 ISR 쓰기를 안 태�
     }
     return out;
   };
-  const leaves = walk(join(ROOT, 'app'));
-  assert.ok(leaves.length > 500, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
+  const all = walk(join(ROOT, 'app'));
+  const hubCatchalls = all.filter(f => f.includes('[[...path]]'));
+  const leaves = all.filter(f => !f.includes('[[...path]]'));
+  assert.equal(hubCatchalls.length, 9, `허브 캐치올이 ${hubCatchalls.length}개다 — 아홉 언어와 어긋난다`);
+  assert.ok(leaves.length > 900, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
+
   const missing = leaves.filter(f => !readFileSync(f, 'utf8').includes("export const dynamic = 'force-dynamic'"));
   assert.deepEqual(
     missing.map(f => f.replace(ROOT + '/', '')).slice(0, 5), [],
     `force-dynamic이 없는 낱장 ${missing.length}개 — 이 라우트들은 ISR로 돌아가 배포마다 쓰기를 태운다`,
+  );
+
+  const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
+  assert.deepEqual(
+    bakedButDynamic.map(f => f.replace(ROOT + '/', '')), [],
+    '허브 캐치올에 force-dynamic이 붙었다 — 허브 2,178장이 안 구워지고 매 요청 함수를 탄다',
   );
 });
 
@@ -97,10 +118,16 @@ test('디스크 안에 드는 값이다', () => {
    * 24GB에서 죽은 적이 있고 Vercel이 산출물을 한 벌 더 복사하므로 12GB를 선으로
    * 둔다. 지금 10GB는 그 선의 83%다 — 섹션을 더 늘리면 이 검사가 먼저 걸린다.
    */
+  /*
+   * ── 2026-08-10 접기 뒤 ──
+   * 굽는 것은 한국어 403장 + 국제 허브 2,178장 = 2,581장이다(실측 .next 1.2GB).
+   * 접기 전 2,948장·10GB에서 이렇게 줄어든 까닭은 낱장을 하나도 안 굽기
+   * 때문이 아니라(그건 전에도 같다) 라우트가 3,504 → 1,335로 준 덕이다.
+   */
   const KB_PER_PAGE = 469;
   const dynamicRoutes = countDynamicRoutes();
-  assert.ok(dynamicRoutes > 500, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
-  const pages = 2500 + dynamicRoutes * prerenderLimit();
+  assert.ok(dynamicRoutes > 900, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
+  const pages = 2600 + dynamicRoutes * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
   assert.ok(gb < 12, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);
 

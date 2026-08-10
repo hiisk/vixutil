@@ -1,0 +1,144 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { APP_DIR, builtHtml, foldHubs, sitemapRoutes } from './app-path.ts';
+
+/**
+ * 접힌 국제 라우트가 사이트맵과 어긋나지 않는지 본다.
+ *
+ * ── 왜 이 검사가 생겼나 (2026-08-10) ──────────────────────────
+ * 아홉 언어 × 335개 라우트 파일(3,015개)로는 Vercel 무료 빌드가 컴파일만으로
+ * 45분을 다 먹었다. 다섯 번 잘렸고 `Compiled successfully`가 한 번도 안 찍혔다.
+ * 그래서 이렇게 갈랐다 —
+ *   · 허브 242개 × 9 → 언어마다 [[...path]] 캐치올 하나가 lib/fold/registry.ts를
+ *     보고 굽는다. 라우트 파일은 아홉 개뿐이다.
+ *   · 낱장  93개 × 9 → 라우트 파일은 그대로 두고, 알맹이만 lib/fold/pages/의
+ *     공유 모듈로 접었다(요청 때 그린다 — ISR 쓰기 0).
+ *
+ * **위험은 목록이 코드에서 빠지는 것이다.** 전에는 파일이 없으면 곧 404였고
+ * 빌드가 라우트 목록을 보여 줬다. 지금은 등록부에서 한 줄이 사라져도 빌드는
+ * 멀쩡히 끝나고, 사이트맵은 그 주소를 계속 내걸며, 아홉 언어에서 그 페이지만
+ * 조용히 404가 된다. 그래서 **사이트맵을 기준으로 되짚는다.**
+ */
+const FOLD_LANGS = ['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
+
+/** 낱장 라우트 무늬 — 'body', 'snap/lens' 꼴 (그 아래 [slug]가 받는다) */
+function leafPrefixes(lang: string): { slug: Set<string>; catchAll: Set<string> } {
+  const slug = new Set<string>();
+  const catchAll = new Set<string>();
+  const base = join(APP_DIR, `(${lang})`, lang);
+  const walk = (dir: string, rel: string[]) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (!e.isDirectory()) continue;
+      if (e.name === '[slug]') slug.add(rel.join('/'));
+      else if (e.name === '[...slug]') catchAll.add(rel.join('/'));
+      else if (!e.name.startsWith('[')) walk(join(dir, e.name), [...rel, e.name]);
+    }
+  };
+  walk(base, []);
+  return { slug, catchAll };
+}
+
+test('사이트맵의 국제 주소가 전부 받는 라우트를 가진다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
+  const hubs = new Set(foldHubs());
+  const urls = sitemapRoutes()!;
+
+  const byLang = new Map(FOLD_LANGS.map(l => [l, leafPrefixes(l)]));
+  const orphan = new Map<string, string>();   // 무늬 → 보기 주소
+  let checked = 0;
+
+  for (const u of urls) {
+    const segs = u.split('/').filter(Boolean);
+    const lang = segs[0];
+    if (!byLang.has(lang)) continue;          // 한국어는 라우트 파일이 그대로다
+    checked++;
+    const rest = segs.slice(1);
+    const key = rest.join('/');
+    if (hubs.has(key)) continue;              // 허브 — 캐치올이 굽는다
+
+    const { slug, catchAll } = byLang.get(lang)!;
+    if (rest.length >= 1 && slug.has(rest.slice(0, -1).join('/'))) continue;
+    if ([...catchAll].some(p => key.startsWith(p + '/'))) continue;
+
+    // 무늬로 묶어 보고한다 — 낱장 하나가 빠지면 십만 줄이 쏟아진다
+    const pattern = `${lang}/${rest.slice(0, -1).join('/')}/…`;
+    if (!orphan.has(pattern)) orphan.set(pattern, u);
+  }
+
+  assert.ok(checked > 100_000, `국제 주소를 ${checked}개밖에 못 봤다 — 사이트맵이나 세는 방식이 깨졌다`);
+  assert.deepEqual(
+    [...orphan].map(([p, u]) => `${p} (예: ${u})`), [],
+    '사이트맵에 있는데 받는 라우트가 없다 — 아홉 언어에서 404가 된다.\n' +
+    '  허브라면 lib/fold/registry.ts에, 낱장이라면 app/(xx)/xx/…/[slug]/page.tsx에 넣으라',
+  );
+});
+
+test('접힌 허브가 아홉 언어에서 같은 목록이다', () => {
+  /*
+   * 접기의 값어치가 여기 있다 — 아홉 언어가 등록부 하나를 같이 보므로
+   * "한 언어에만 있는 페이지"가 생길 수 없다. 그 성질이 유지되는지 본다.
+   * (한국어는 손으로 적으므로 여기 대상이 아니다 — 그쪽은 별도 검사가 본다)
+   */
+  for (const lang of FOLD_LANGS) {
+    const p = join(APP_DIR, `(${lang})`, lang, '[[...path]]', 'page.tsx');
+    assert.ok(existsSync(p), `${lang}에 허브 캐치올이 없다`);
+    const src = readFileSync(p, 'utf8');
+    assert.match(src, /STATIC_ROUTE_KEYS\.map/, `${lang} 캐치올이 등록부 목록을 안 굽는다 — 허브가 갈라진다`);
+    assert.match(src, new RegExp(`'${lang}'`), `${lang} 캐치올이 제 언어를 안 넘긴다`);
+  }
+});
+
+test('빌드가 허브를 언어마다 다 구웠다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
+  /*
+   * 위 검사는 소스를 읽을 뿐이다. 굽는 목록이 실제로 산출물이 됐는지는
+   * .next를 세어야 안다 — generateStaticParams가 조용히 빈 배열을 내도
+   * 빌드는 성공으로 끝나고, 그때 허브 2,178장이 매 요청 함수를 탄다.
+   */
+  const hubs = foldHubs();
+  const short: string[] = [];
+  for (const lang of FOLD_LANGS) {
+    const missing = hubs.filter(h => !builtHtml(h ? `/${lang}/${h}` : `/${lang}`));
+    if (missing.length) short.push(`${lang}: ${missing.length}장 안 구움 (예: ${missing[0]})`);
+  }
+  assert.deepEqual(short, [], `구운 허브가 모자란다:\n  ${short.join('\n  ')}`);
+});
+
+test('낱장 라우트가 아홉 언어에 똑같이 있다', () => {
+  /*
+   * 낱장은 라우트 파일이 언어마다 남아 있다(허브와 달리 굽지 않아야 해서
+   * 캐치올에 못 넣는다 — 구운 라우트 안에서는 요청 때 그리기로 못 빠져나간다).
+   * 파일이 아홉 벌이라는 것은 한 언어에서만 빠질 수 있다는 뜻이다.
+   */
+  const ref = leafPrefixes('en');
+  const refKeys = [...ref.slug].sort().join(',');
+  assert.ok(ref.slug.size > 80, `en 낱장 무늬가 ${ref.slug.size}개뿐 — 세는 방식이 깨졌다`);
+  for (const lang of FOLD_LANGS) {
+    const got = leafPrefixes(lang);
+    assert.equal([...got.slug].sort().join(','), refKeys, `${lang}의 낱장 라우트가 en과 다르다`);
+    assert.deepEqual([...got.catchAll].sort(), [...ref.catchAll].sort(), `${lang}의 캐치올 낱장이 en과 다르다`);
+  }
+});
+
+test('낱장 껍데기가 제 언어로 공유 모듈을 부른다', () => {
+  /*
+   * 껍데기는 다섯 줄이고 언어 이름만 다르다. 복사하다 언어를 안 바꾸면
+   * 그 언어 낱장 전체가 다른 언어로 그려진다 — 화면은 멀쩡해서 안 드러난다.
+   */
+  const bad: string[] = [];
+  for (const lang of FOLD_LANGS) {
+    const walk = (dir: string) => {
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const p = join(dir, e.name);
+        if (e.isDirectory()) walk(p);
+        else if (e.name === 'page.tsx' && dir.includes('[') && !dir.includes('[[...path]]')) {
+          const src = readFileSync(p, 'utf8');
+          if (!src.includes(`build('${lang}')`)) bad.push(p.replace(APP_DIR, 'app'));
+        }
+      }
+    };
+    walk(join(APP_DIR, `(${lang})`, lang));
+  }
+  assert.deepEqual(bad.slice(0, 5), [], `제 언어로 안 부르는 낱장 ${bad.length}개`);
+});

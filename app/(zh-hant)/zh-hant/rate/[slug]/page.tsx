@@ -1,42 +1,10 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import FormulaPage from '@/components/FormulaPage';
-import RateEngine from '@/components/rate/RateEngine';
-import { RATE_SECTION } from '@/lib/rate-section';
-import { rateTool, RATE_TOOLS } from '@/lib/rate-tools';
-import { sectionAlternates } from '@/lib/formula/ui';
-import { textOf } from '@/lib/formula/types';
-import { localeHref, openGraphFor } from '@/lib/locales';
-import { RATE_LANGS } from '@/lib/rate-section';
-import { prerender } from '@/lib/prerender';
-import { withCard } from '@/lib/og-cards';
+import { build } from '@/lib/fold/pages/rate__slug';
 
-// 낱장은 요청 때 그리고 캐시에 쓰지 않는다 — ISR 쓰기(월 20만)를 아끼는 자리다. 근거는 lib/prerender.ts
+/* 아홉 언어가 lib/fold/pages/rate__slug.tsx 하나를 같이 쓴다 — 접기 이행(2026-08-10).
+   낱장은 십육만 장이라 못 굽는다. 요청 때 그리고 캐시에 안 써 ISR 쓰기를 0으로
+   둔다 — 근거는 lib/prerender.ts. 허브는 app/(zh-hant)/zh-hant/[[...path]]가 굽는다. */
 export const dynamic = 'force-dynamic';
 
-export function generateStaticParams() {
-  return prerender(RATE_TOOLS.map(t => ({ slug: t.slug })));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const tool = rateTool(slug);
-  if (!tool) return {};
-  const text = textOf(tool, 'zh-hant');
-  return withCard({
-    title: text.title,
-    description: text.long,
-    openGraph: openGraphFor('zh-hant'),
-    alternates: {
-      canonical: localeHref('zh-hant', `/rate/${slug}`),
-      languages: sectionAlternates('rate', slug, RATE_LANGS),
-    },
-  });
-}
-
-export default async function RateDetailZhHant({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const tool = rateTool(slug);
-  if (!tool) notFound();
-  return <FormulaPage tool={tool} lang="zh-hant" section={RATE_SECTION} Engine={RateEngine} />;
-}
+const { generateMetadata, Page } = build('zh-hant');
+export { generateMetadata };
+export default Page;

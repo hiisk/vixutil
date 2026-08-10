@@ -1,23 +1,10 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import { QuizIntlDetail, quizIntlDetailMeta } from '@/components/QuizIntlPage';
-import { QUIZZES_INTL, QUIZZES_INTL_MAP } from '@/lib/quiz-l10n/index';
+import { build } from '@/lib/fold/pages/quiz__slug';
 
-// 낱장은 요청 때 그리고 캐시에 쓰지 않는다 — ISR 쓰기(월 20만)를 아끼는 자리다. 근거는 lib/prerender.ts
+/* 아홉 언어가 lib/fold/pages/quiz__slug.tsx 하나를 같이 쓴다 — 접기 이행(2026-08-10).
+   낱장은 십육만 장이라 못 굽는다. 요청 때 그리고 캐시에 안 써 ISR 쓰기를 0으로
+   둔다 — 근거는 lib/prerender.ts. 허브는 app/(zh-hant)/zh-hant/[[...path]]가 굽는다. */
 export const dynamic = 'force-dynamic';
 
-export function generateStaticParams() {
-  return QUIZZES_INTL['zh-hant'].map(q => ({ slug: q.slug }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  return quizIntlDetailMeta('zh-hant', slug);
-}
-
-export default async function QuizPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const quiz = QUIZZES_INTL_MAP['zh-hant'][slug];
-  if (!quiz) notFound();
-  return <QuizIntlDetail lang="zh-hant" quiz={quiz} />;
-}
+const { generateMetadata, Page } = build('zh-hant');
+export { generateMetadata };
+export default Page;

@@ -84,6 +84,27 @@ test('내부 링크가 실제 라우트 모양과 맞는다', { skip: built ? fa
   assert.ok(patterns.length > 100, `라우트를 ${patterns.length}개밖에 못 찾았다`);
 
   /*
+   * ── 2026-08-10 접기 ──
+   * 국제 허브는 언어마다 [[...path]] 캐치올 하나가 굽는다. 그 무늬를 그대로
+   * 두면 /en/무엇이든이 전부 "맞는 라우트"가 되어, 이 검사가 국제 링크의
+   * 오탈자에 눈을 감는다(낱장 라우트는 그대로 남아 있으니 여기만 갈면 된다).
+   * 캐치올을 빼고 lib/fold/registry.ts가 실제로 굽는 허브 목록을 넣는다.
+   */
+  const FOLD_LANGS = ['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
+  const caught = patterns.filter(p => p.includes('[[...path]]'));
+  assert.equal(caught.length, FOLD_LANGS.length, `언어 캐치올이 ${caught.length}개 — 아홉과 어긋난다`);
+  for (const p of caught) patterns.splice(patterns.indexOf(p), 1);
+
+  const reg = readFileSync(join(import.meta.dirname, '..', 'lib', 'fold', 'registry.ts'), 'utf8');
+  const m = reg.match(/export const STATIC_ROUTES[^{]*\{([\s\S]*?)\n\}/);
+  assert.ok(m, 'registry.ts에서 STATIC_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 검사도 고치라');
+  const hubs = [...m![1].matchAll(/'([^']*)':/g)].map(x => x[1]);
+  assert.ok(hubs.length > 200, `접힌 허브가 ${hubs.length}개뿐 — 접기가 깨졌는지 보라`);
+  for (const lang of FOLD_LANGS) {
+    for (const k of hubs) patterns.push([lang, ...k.split('/').filter(Boolean)]);
+  }
+
+  /*
    * [slug]은 한 칸, [...slug]는 남은 칸 전부를 받는다(catch-all).
    * 그 차이를 안 보면 /en/calculator/dev/base64 같은 주소를 놓친다 —
    * app/(en)/en/calculator/[...slug]가 받는 자리다.

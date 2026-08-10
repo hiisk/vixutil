@@ -63,22 +63,41 @@ function prerenderLimit(): number {
   return Number(m[1]);
 }
 
-/** 성공한 적 있는 유일한 값 */
+/*
+ * ── 2026-08-10 접기 ─────────────────────────────────────────────
+ * 라우트 파일 3,504개로는 컴파일이 Vercel의 45분을 통째로 먹었다 — 다섯 번
+ * 잘렸고 `Compiled successfully`가 한 번도 안 찍혔다. 굽는 수(PR)를 아무리
+ * 낮춰도 안 되는 까닭이 그것이다. **컴파일은 라우트 수를 따라간다.**
+ *
+ * 아홉 언어의 page.tsx 3,015개를 이렇게 갈랐다 —
+ *   · 허브 242개 × 9 → 언어당 캐치올 하나([[...path]])가 굽는다
+ *   · 낱장  93개 × 9 → 라우트는 남기되 알맹이는 lib/fold/pages/ 공유 모듈
+ * 주소·사이트맵·<html lang>·화면은 그대로다(2,988개 표본 바이트 대조).
+ *
+ *   접기 전  라우트 3,504 · 로컬 차가운 빌드 8:57 · .next 10GB
+ *   접은 뒤  라우트 1,335 · 로컬 차가운 빌드 (아래 실측) · .next 1.2GB
+ */
+
+/** 성공한 적 있는 값 (접기 전 마지막 성공 배포 b36bc08b) */
 const PROVEN = { dynamic: 660, static: 1_954, limit: 0 };
 
-/** 지금(정적 2,574)보다 조금 위 — 더 늘면 걸리게 한다 */
-const MAX_PAGES = 3_200;
-/** 컴파일 시간을 좌우한다. 지금 3,504개보다 조금 위 */
-const MAX_ROUTES = 3_800;
+/** 굽는 것은 ko 403 + 국제 허브 2,178 = 2,581장 — 그보다 조금 위 */
+const MAX_PAGES = 2_900;
+/** 컴파일 시간을 좌우한다. 지금 1,335개보다 조금 위 — 성공한 배포(2,614)보다 낮게 */
+const MAX_ROUTES = 1_500;
 
 test('빌드에서 구울 장수가 한도 안에 든다', () => {
   const { dynamic, static: staticN } = countRoutes(APP_DIR);
   const limit = prerenderLimit();
-  const pages = dynamic * limit + staticN;
+  /* 국제 허브는 캐치올 아홉 개가 굽는다 — 라우트 수로는 안 잡히므로 따로 더한다 */
+  const foldHubs = readFileSync(join(import.meta.dirname, '..', 'lib', 'fold', 'registry.ts'), 'utf8')
+    .match(/export const STATIC_ROUTES[^{]*\{([\s\S]*?)\n\}/)![1].match(/'[^']*':/g)!.length * 9;
+  const pages = dynamic * limit + staticN + foldHubs;
 
   // 라우트를 못 세면 검사가 조용히 통과한다 — 그것부터 막는다
-  assert.ok(dynamic > 100, `동적 라우트가 ${dynamic}개뿐 — 세는 방식이 깨졌다`);
-  assert.ok(staticN > 100, `정적 라우트가 ${staticN}개뿐 — 세는 방식이 깨졌다`);
+  assert.ok(dynamic > 900, `동적 라우트가 ${dynamic}개뿐 — 세는 방식이 깨졌다`);
+  assert.ok(staticN > 300, `정적 라우트가 ${staticN}개뿐 — 세는 방식이 깨졌다`);
+  assert.ok(foldHubs > 2_000, `접힌 허브가 ${foldHubs}장뿐 — 등록부를 못 읽었다`);
 
   assert.ok(
     pages <= MAX_PAGES,

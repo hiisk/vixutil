@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { CARD_KEYS } from '../lib/og-cards/keys.ts';
 import { allCardParams, cardUrl, parseCardSlug } from '../lib/og-cards/index.ts';
-import { APP_DIR, stripGroups } from './app-path.ts';
+import { APP_DIR, foldHubs, stripGroups } from './app-path.ts';
 
 /**
  * 공유 카드가 한 장도 안 빠졌는지 본다.
@@ -101,7 +101,15 @@ test('카드 주소는 언어 칸으로 시작한다', () => {
   for (const p of allCardParams()) assert.ok(parseCardSlug(p.slug), p.slug.join('/'));
 });
 
-/** app을 훑어 페이지 라우트를 모은다 — 그룹 폴더는 주소에 안 들어간다 */
+/**
+ * app을 훑어 페이지 라우트를 모은다 — 그룹 폴더는 주소에 안 들어간다.
+ *
+ * 2026-08-10 접기 뒤로 국제 **허브**는 파일이 아니라 언어마다 하나인
+ * [[...path]] 캐치올이 받는다. 그 캐치올을 그대로 세면 주소 하나로 잡혀
+ * 허브 2,178장이 이 검사에서 통째로 빠진다 — 접힌 목록으로 되돌려 놓는다.
+ */
+const FOLD_LANGS = ['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
+
 function pageRoutes(): string[] {
   const out: string[] = [];
   const walk = (dir: string, rel: string) => {
@@ -111,7 +119,10 @@ function pageRoutes(): string[] {
     }
   };
   walk(APP_DIR, '');
-  return out;
+  const hubs = foldHubs();
+  return out
+    .filter(r => !r.includes('[[...path]]'))
+    .concat(FOLD_LANGS.flatMap(l => hubs.map(h => (h ? `/${l}/${h}` : `/${l}`))));
 }
 
 test('모든 페이지가 카드를 받는다', () => {
@@ -120,7 +131,7 @@ test('모든 페이지가 카드를 받는다', () => {
    * 물려받으므로 [slug] 같은 칸이 있어도 상관없다 — cardUrl이 조상으로 올라간다.
    */
   const routes = pageRoutes();
-  assert.ok(routes.length > 2000, `페이지를 ${routes.length}개밖에 못 찾았다`);
+  assert.ok(routes.length > 3000, `페이지를 ${routes.length}개밖에 못 찾았다`);
   assert.deepStrictEqual(routes.filter(r => !cardUrl(r)).slice(0, 10), []);
 });
 

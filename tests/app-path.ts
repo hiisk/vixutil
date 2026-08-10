@@ -18,9 +18,53 @@ const APP = join(ROOT, 'app');
 /** 언어 폴더 이름 → 그 폴더를 감싸는 그룹 */
 const GROUP_OF = (seg: string): string => `(${seg})`;
 
+/** 접힌 아홉 언어 — 이들의 **허브** 라우트는 [[...path]] 캐치올이 받는다 */
+const FOLDED_LANGS = new Set(['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant']);
+
+/**
+ * 접힌 국제 허브 목록 — 'color', 'snap/distance' 꼴. 첫 화면('')도 들어 있다.
+ *
+ * 2026-08-10에 아홉 언어의 허브 page.tsx 2,178개를 언어당 캐치올 하나로 접었다
+ * (컴파일이 Vercel 45분을 다 먹어 다섯 번 잘린 것을 푼 자리). 낱장 라우트는
+ * 그대로 남아 있고 허브만 여기 목록으로 옮겨 왔다 — 파일을 찾던 검사들이
+ * 조용히 "없음"으로 통과하지 않도록, 목록의 출처를 한 곳으로 둔다.
+ */
+export function foldHubs(): string[] {
+  const src = readFileSync(join(ROOT, 'lib', 'fold', 'registry.ts'), 'utf8');
+  const m = src.match(/export const STATIC_ROUTES[^{]*\{([\s\S]*?)\n\}/);
+  if (!m) throw new Error('lib/fold/registry.ts에서 STATIC_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 헬퍼도 고치라');
+  const keys = [...m[1].matchAll(/'([^']*)':/g)].map(x => x[1]);
+  if (keys.length < 200) throw new Error(`접힌 허브가 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
+  return keys;
+}
+
+/**
+ * 그 언어에 이 라우트의 페이지가 있는가 — 파일이든 접힌 허브든.
+ * route는 '/random' 또는 'random' 꼴, lang은 'ko'·'en'·'pt-br' …
+ */
+export function hasPage(lang: string, route: string): boolean {
+  const rel = route.replace(/^\//, '');
+  if (FOLDED_LANGS.has(lang) && foldHubs().includes(rel)) return true;
+  return existsSync(join(appJoin(lang === 'ko' ? rel : `${lang}/${rel}`), 'page.tsx'));
+}
+
+/**
+ * 접힌 라우트('body/[slug]' 꼴) → lib/fold/pages/ 모듈 경로. 없으면 null.
+ * 이름 규칙은 접기 생성기와 같다: '.'→home, '/[...'→'__x', '/['→'__', '/'→'__'
+ */
+export function foldPageFile(rel: string): string | null {
+  const name = rel === '' || rel === '.'
+    ? 'home'
+    : rel.replace('/[...', '__x').replace('/[', '__').replaceAll(']', '').replaceAll('/', '__');
+  const p = join(ROOT, 'lib', 'fold', 'pages', `${name}.tsx`);
+  return existsSync(p) ? p : null;
+}
+
 export function appJoin(...parts: string[]): string {
   // 'de/altitude'처럼 슬래시가 든 조각이 그대로 들어온다 — 먼저 쪼갠다
-  const segs = parts.flatMap(p => p.split('/')).filter(Boolean);
+  const raw = parts.flatMap(p => p.split('/')).filter(Boolean);
+  // 그룹 이름을 앞에 적어 넘기는 검사가 있다 — '(en)/en/…'의 그룹은 주소에 없다
+  const segs = raw[0]?.startsWith('(') && raw[1] === raw[0].slice(1, -1) ? raw.slice(1) : raw;
   // 1) app/ 바로 아래 (sitemap.ts·robots.ts·globals.css 같은 것)
   const plain = join(APP, ...segs);
   if (existsSync(plain)) return plain;
@@ -29,6 +73,17 @@ export function appJoin(...parts: string[]): string {
   if (segs.length > 0) {
     const inLangGroup = join(APP, GROUP_OF(segs[0]), ...segs);
     if (existsSync(inLangGroup)) return inLangGroup;
+
+    /*
+     * 2.5) 접힌 국제 라우트 — 2026-08-10에 아홉 언어의 page.tsx 3,015개를
+     * 언어당 캐치올 하나 + lib/fold/pages/ 모듈 335개로 접었다(빌드가 45분을
+     * 넘던 컴파일 입력을 8할 줄이는 자리). 언어별 파일을 찾는 검사들이 그대로
+     * 살도록, 여기서 그 라우트의 접힌 모듈을 돌려준다.
+     */
+    if (FOLDED_LANGS.has(segs[0]) && segs[segs.length - 1] === 'page.tsx') {
+      const folded = foldPageFile(segs.slice(1, -1).join('/'));
+      if (folded) return folded;
+    }
   }
 
   // 3) 나머지는 한국어 그룹 안 — app/(ko)/color/…

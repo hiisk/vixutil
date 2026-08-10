@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '../lib/random-tools.ts';
 import { RANDOM_L10N, randomMetaIntl } from '../lib/random-ui-intl.ts';
 import { ALL_LOCALES, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
-import { appJoin } from './app-path.ts';
+import { appJoin, hasPage } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -85,8 +85,9 @@ test('번역 라우트가 모든 slug를 처리한다', () => {
 test('여덟 언어 라우트가 다 있고 hreflang이 서로를 가리킨다', () => {
   // 한쪽만 가리키는 hreflang은 구글이 대체 언어 관계로 인정하지 않는다
   for (const lang of ALL_LOCALES) {
+    // 허브는 아홉 언어에서 접혔다 — 파일이 아니라 lib/fold/registry.ts가 쥔다
+    assert.ok(hasPage(lang, '/random'), `${lang} 허브 없음`);
     const base = appJoin(...localeHref(lang, '/random').split('/').filter(Boolean));
-    assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
   }
   // 메타데이터 함수가 withCard를 거치면서 반환형이 Metadata로 넓어졌다 —

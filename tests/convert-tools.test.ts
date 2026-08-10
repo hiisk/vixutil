@@ -11,7 +11,7 @@ import { CONVERT_EN, CONVERT_CATEGORY, CONVERT_L10N } from '../lib/convert-i18n.
 import { convertAlternates, CONVERT_HUB_FAQ } from '../lib/convert-ui-intl.ts';
 import { ALL_LOCALES10, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appJoin } from './app-path.ts';
+import { appJoin, hasPage } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -188,10 +188,11 @@ test('허브 FAQ가 일곱 언어에 다 있다', () => {
 
 test('열 언어 라우트가 다 있다', () => {
   for (const lang of ALL_LOCALES10) {
-    const base = appJoin(...localeHref(lang, '/convert').split('/').filter(Boolean));
-    assert.ok(existsSync(join(base, 'page.tsx')), `${lang} 허브 없음`);
+    // 허브는 아홉 언어에서 접혔다 — 파일이 아니라 lib/fold/registry.ts가 쥔다
+    assert.ok(hasPage(lang, '/convert'), `${lang} 허브 없음`);
     // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다
     assert.ok(hasOwnCard(localeHref(lang, '/convert')), `${lang} 허브 공유 카드 없음`);
+    const base = appJoin(...localeHref(lang, '/convert').split('/').filter(Boolean));
     assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
   }
 });

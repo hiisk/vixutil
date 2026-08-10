@@ -7,7 +7,7 @@ import {
   alternateLanguages, localeHref, localeLabel, localePrefix, localeTag,
 } from '../lib/locales.ts';
 import { HOME_UI, homeSections } from '../lib/locale-home.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, foldHubs } from './app-path.ts';
 
 const APP = 'app';
 
@@ -123,9 +123,9 @@ test('번역한 섹션은 첫 화면에서 빠지지 않는다', () => {
   const orphan: string[] = [];
   for (const l of INTL_LOCALES) {
     const listed = new Set(homeSections(l).map(s => s.route.slice(1)));
-    const routes = readdirSync(appJoin(l), { withFileTypes: true })
-      .filter(d => d.isDirectory() && existsSync(appJoin(l, d.name, 'page.tsx')))
-      .map(d => d.name)
+    // 2026-08-10 접기: 국제 허브는 라우트 파일이 아니라 lib/fold/registry.ts에 있다
+    const routes = foldHubs()
+      .filter(h => h && !h.includes('/'))
       // 통합 검색은 카드가 아니라 위쪽 검색 줄이 링크한다
       .filter(d => d !== 'search');
     for (const r of routes) if (!listed.has(r)) orphan.push(`/${l}/${r}`);
