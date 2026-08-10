@@ -87,7 +87,19 @@ import { EV_CHARGE } from './car2.ts';
 
 import { GPA } from './gpa.ts';
 
+import { LTV, REFINANCE, LOAN_METHOD } from './finance2.ts';
+
+import { WORK_HOURS, OVERTIME } from './work.ts';
+
+import { CAR_COST } from './car3.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'ltv': LTV,
+  'refinance': REFINANCE,
+  'loan-method': LOAN_METHOD,
+  'work-hours': WORK_HOURS,
+  'overtime': OVERTIME,
+  'car-cost': CAR_COST,
   'gpa': GPA,
   'ev-charge': EV_CHARGE,
   'gas-cost': GAS_COST,
@@ -144,9 +156,19 @@ export function hasCalcIntl(slug: string): boolean {
   return slug in TABLES;
 }
 
-/** 같은 언어의 다른 계산기 몇 개 — 상세 아래 "다른 계산기"에 쓴다. */
+/**
+ * 같은 언어의 다른 계산기 몇 개 — 상세 아래 "다른 계산기"에 쓴다.
+ *
+ * 앞에서 여섯을 자르면 모든 낱장이 같은 여섯만 가리키고, 목록 뒤에 더한
+ * 계산기는 들어오는 링크가 0이 된다(관련 항목 174곳이 그랬던 것과 같은 병).
+ * 자기 다음 여섯을 고리로 돌면 어느 계산기든 앞의 여섯 낱장이 가리켜 준다.
+ */
 export function relatedCalcs(lang: CalcLang, slug: string, count = 6) {
-  return CALC_INTL_SLUGS
+  const i = CALC_INTL_SLUGS.indexOf(slug);
+  const ring = i < 0
+    ? CALC_INTL_SLUGS
+    : [...CALC_INTL_SLUGS.slice(i + 1), ...CALC_INTL_SLUGS.slice(0, i)];
+  return ring
     .filter(s => s !== slug)
     .slice(0, count)
     .map(s => ({ slug: s, title: TABLES[s][lang].title, short: TABLES[s][lang].short }));

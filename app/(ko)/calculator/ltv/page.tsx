@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -73,6 +75,9 @@ export default function LtvPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/ltv" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <div>

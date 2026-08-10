@@ -6,6 +6,8 @@ import CalcShell, {
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { compareRefinance, type RefinanceResult } from '@/lib/refinance';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const w = (n: number) => Math.round(n).toLocaleString();
 const signed = (n: number) => (n > 0 ? `+${w(n)}` : w(n));
@@ -66,6 +68,9 @@ export default function RefinancePage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/refinance" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <div>

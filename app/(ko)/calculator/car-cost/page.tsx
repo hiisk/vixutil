@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { carCost, fixedCost, type CarInput } from '@/lib/car-cost';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -66,6 +68,9 @@ export default function CarCostPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/car-cost" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             {fields.map(([k, label, ph]) => (

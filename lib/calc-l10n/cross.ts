@@ -25,6 +25,9 @@ export const CALC_CROSS: { slug: string; section: 'rate' | 'body' }[] = [
   { slug: 'bmr', section: 'body' },
   { slug: 'sleep-cycles', section: 'body' },
   { slug: 'water-need', section: 'body' },
+  // 한국어 계산기의 감가상각·시급환산에 해당하는 것 — rate에 이미 있어 넘겨준다
+  { slug: 'resale-value', section: 'rate' },
+  { slug: 'hourly-to-monthly', section: 'rate' },
 ];
 
 const CATALOG = [...RATE_TOOLS, ...BODY_TOOLS];

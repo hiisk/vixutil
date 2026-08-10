@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -62,6 +64,9 @@ export default function OvertimePage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/overtime" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <p className="label-caps mb-3">기본 정보</p>
           <div className="flex flex-col gap-3">

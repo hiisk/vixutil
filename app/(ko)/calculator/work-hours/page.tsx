@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /**
  * 출퇴근 시각에서 근무시간을 뺀다.
@@ -80,6 +82,9 @@ export default function WorkHoursPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/work-hours" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <div className="grid grid-cols-2 gap-3">
             <div>
