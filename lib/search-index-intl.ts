@@ -16,6 +16,12 @@ import { convertL10n } from './convert-i18n.ts';
 import { alternateLanguagesFor, ALL_LOCALES10, INTL_LOCALES10, localeHref, type AnyLocale10 } from './locales.ts';
 import { SNAP_TOOLS, snapToolCopy } from './snap-tools-intl.ts';
 import { FORTUNE_TOOLS, fortuneToolCopy } from './fortune-tools-intl.ts';
+import { RATE_TOOLS } from './rate-tools.ts';
+import { BODY_TOOLS } from './body-tools.ts';
+import { GEO_TOOLS } from './geo-tools.ts';
+import { TOOL_L10N } from './formula/tool-l10n.ts';
+import type { FormulaTool } from './formula/types.ts';
+import { CALC_INTL_SLUGS, calcCopy } from './calc-l10n/index.ts';
 
 /**
  * 번역 언어 통합 검색의 목록.
@@ -92,6 +98,26 @@ function convertEntries(lang: SearchIntlLang): Entry[] {
   });
 }
 
+/**
+ * 계산기 계열 세 섹션(rate·body·geometry)은 같은 엔진을 쓰고, 번역이
+ * TOOL_L10N 한 표에 모여 있다. 색인도 그 표에서 꺼내 쓴다 — 도구가 늘면
+ * 여기를 고치지 않아도 따라온다.
+ */
+function formulaEntries(lang: SearchIntlLang, list: FormulaTool[]): Entry[] {
+  return list.map(t => {
+    const text = lang === 'en' ? t.en : (TOOL_L10N[lang]?.[t.slug] ?? t.en);
+    return { slug: t.slug, title: text.title, desc: text.desc, icon: t.icon };
+  });
+}
+
+/** 다국어 계산기 — CALC_INTL_SLUGS를 돌므로 계산기를 더하면 검색에 같이 잡힌다 */
+function calcEntries(lang: SearchIntlLang): Entry[] {
+  return CALC_INTL_SLUGS.map(slug => {
+    const c = calcCopy(lang, slug)!;
+    return { slug, title: c.title, desc: c.short, icon: '🧮' };
+  });
+}
+
 /** 언어별 검색 목록 — 실제로 그 언어에 있는 페이지만 담는다 */
 export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
   const tools = (sec: string, list: Entry[] = []) =>
@@ -104,6 +130,11 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
   const enOnly = lang === 'en';
 
   return [
+    // 유입이 계산기에서 온다 — 돈이 되는 네 섹션이 검색에서 빠져 있었다(2026-08-10까지)
+    ...tools('calculator', calcEntries(lang)),
+    ...tools('rate', formulaEntries(lang, RATE_TOOLS)),
+    ...tools('body', formulaEntries(lang, BODY_TOOLS)),
+    ...tools('geometry', formulaEntries(lang, GEO_TOOLS)),
     ...tools('convert', convertEntries(lang)),
     ...tools('color', colorToolsIntl(lang)),
     ...tools('time', timeToolsIntl(lang)),
