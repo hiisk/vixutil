@@ -1726,5 +1726,8 @@ export const ES: FormulaL10n = {
     ctr: 'La parte de las impresiones que se convirtió en clics; lo fija el creativo.',
     ctrTarget: 'La tasa de clics a la que esperas llegar con un creativo mejor.',
     cpcAtTarget: 'El CPC a esa tasa de clics si el CPM se mantiene: se mueven de forma inversa.',
+    /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
+    chestCm: 'El pecho en su punto más ancho, medido justo debajo de las axilas.',
+    wristCm: 'La parte más estrecha de la muñeca; casi no tiene grasa, así que refleja la estructura ósea.',
   },
 };

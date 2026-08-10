@@ -1768,5 +1768,8 @@ export const ZH_HANT: FormulaL10n = {
     ctr: '曝光裡轉成點擊的比例，由素材決定。',
     ctrTarget: '希望改好素材之後能達到的點擊率。',
     cpcAtTarget: 'CPM 不變時那個點擊率下的 CPC，兩者成反比。',
+    /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
+    chestCm: '胸圍最粗的一圈，在腋下正下方量。',
+    wristCm: '手腕最細的一圈。這裡幾乎沒有脂肪，能看出骨架大小。',
   },
 };

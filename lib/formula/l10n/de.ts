@@ -1761,5 +1761,8 @@ export const DE: FormulaL10n = {
     ctr: 'Der Anteil der Impressionen, die zu Klicks wurden; das Motiv legt ihn fest.',
     ctrTarget: 'Die Klickrate, die ein besseres Motiv erreichen soll.',
     cpcAtTarget: 'Der CPC bei dieser Klickrate, wenn der CPM hält — die beiden bewegen sich umgekehrt.',
+    /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
+    chestCm: 'Der Brustumfang an der stärksten Stelle, direkt unter den Achseln gemessen.',
+    wristCm: 'Die schmalste Stelle des Handgelenks; dort sitzt kaum Fett, sie zeigt also den Körperbau.',
   },
 };

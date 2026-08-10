@@ -1747,5 +1747,8 @@ export const FR: FormulaL10n = {
     ctr: 'La part des impressions devenues des clics ; c’est le visuel qui la fixe.',
     ctrTarget: 'Le taux de clic que tu espères atteindre avec un meilleur visuel.',
     cpcAtTarget: 'Le CPC à ce taux de clic si le CPM ne bouge pas — les deux varient à l’inverse.',
+    /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
+    chestCm: 'Le tour de poitrine à l’endroit le plus fort, mesuré juste sous les aisselles.',
+    wristCm: 'L’endroit le plus fin du poignet ; presque sans graisse, il traduit l’ossature.',
   },
 };

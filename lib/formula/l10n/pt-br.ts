@@ -1726,5 +1726,8 @@ export const PT_BR: FormulaL10n = {
     ctr: 'A fração das impressões que virou clique; o criativo define esse valor.',
     ctrTarget: 'A taxa de cliques que você espera alcançar com um criativo melhor.',
     cpcAtTarget: 'O CPC nessa taxa de cliques se o CPM se mantiver — os dois andam em proporção inversa.',
+    /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
+    chestCm: 'O peito na parte mais larga, medido logo abaixo das axilas.',
+    wristCm: 'O ponto mais fino do punho; quase não tem gordura, então mostra a estrutura óssea.',
   },
 };
