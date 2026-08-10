@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, TabBar } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /**
  * 널리 쓰이는 환산 방식 — 첫해에 15살, 둘째 해에 9살을 더하고 그 뒤부터
@@ -64,7 +66,7 @@ export default function PetAgePage() {
           <h2>개는 덩치가 클수록 빨리 늙습니다</h2>
           <p>
             셋째 해부터 더하는 값이 소형견은 4, 중형견은 5, 대형견은 6입니다. 같은 열 살이어도
-            소형견은 사람으로 쉰여섯, 대형견은 예순여덟쯤 됩니다. 고양이는 덩치 차이가 작아 한 가지
+            소형견은 사람으로 쉰여섯, 대형견은 일흔둘쯤 됩니다. 고양이는 덩치 차이가 작아 한 가지
             값(4)만 씁니다.
           </p>
           <h2>어림값입니다</h2>
@@ -76,6 +78,9 @@ export default function PetAgePage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/pet-age" available={ALL_LOCALES10} />
+        </div>
         <TabBar
           options={[
             { value: 'dog', label: '🐕 강아지' },

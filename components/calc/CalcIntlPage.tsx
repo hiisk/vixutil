@@ -53,6 +53,9 @@ import CarCostIntl from '@/components/calc/CarCostIntl';
 import AverageIntl from '@/components/calc/AverageIntl';
 import RentalYieldIntl from '@/components/calc/RentalYieldIntl';
 import AppliancePowerIntl from '@/components/calc/AppliancePowerIntl';
+import ShoeSizeIntl from '@/components/calc/ShoeSizeIntl';
+import PetAgeIntl from '@/components/calc/PetAgeIntl';
+import VolumetricWeightIntl from '@/components/calc/VolumetricWeightIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
@@ -65,6 +68,9 @@ import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'shoe-size': ShoeSizeIntl,
+  'pet-age': PetAgeIntl,
+  'volumetric-weight': VolumetricWeightIntl,
   'average': AverageIntl,
   'rental-yield': RentalYieldIntl,
   'appliance-power': AppliancePowerIntl,

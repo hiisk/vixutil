@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import { DIVISORS, maxVolumeFor, volumetricWeight } from '@/lib/volumetric';
 
 const num = (n: number, d = 2) => Number(n.toFixed(d)).toLocaleString();
@@ -51,6 +53,9 @@ export default function VolumetricWeightPage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/volumetric-weight" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-3 gap-3">

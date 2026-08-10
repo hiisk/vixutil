@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 /**
  * 발 길이(mm)와 EU·US(남성)만 적고 나머지는 관계식으로 뺀다.
@@ -75,6 +77,9 @@ export default function ShoeSizePage() {
       }
     >
       <div className="flex flex-col gap-4">
+        <div className="flex justify-end">
+          <LangPicker current="ko" route="/calculator/shoe-size" available={ALL_LOCALES10} />
+        </div>
         <Card className="p-5">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">발 길이</label>
           <div className="relative">

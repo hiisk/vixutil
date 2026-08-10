@@ -95,7 +95,12 @@ import { CAR_COST } from './car3.ts';
 
 import { AVERAGE, RENTAL_YIELD, APPLIANCE_POWER } from './daily.ts';
 
+import { SHOE_SIZE, PET_AGE, VOLUMETRIC_WEIGHT } from './sizes.ts';
+
 const TABLES: Record<string, CalcTable> = {
+  'shoe-size': SHOE_SIZE,
+  'pet-age': PET_AGE,
+  'volumetric-weight': VOLUMETRIC_WEIGHT,
   'average': AVERAGE,
   'rental-yield': RENTAL_YIELD,
   'appliance-power': APPLIANCE_POWER,

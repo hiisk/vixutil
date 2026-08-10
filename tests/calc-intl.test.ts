@@ -5,6 +5,7 @@ import { join } from 'node:path';
 
 import { CALC_INTL_SLUGS, calcCopy } from '../lib/calc-l10n/index.ts';
 import { CALC_SHELL } from '../lib/calc-l10n/shell.ts';
+import { CALC_GROUPS, CALC_GROUP_LABEL } from '../lib/calc-l10n/groups.ts';
 import { ALL_LOCALES10 } from '../lib/locales.ts';
 import { appFile, appJoin } from './app-path.ts';
 
@@ -107,6 +108,32 @@ test('껍데기 문구가 아홉 언어를 다 갖는다', () => {
     const ui = CALC_SHELL[lang];
     assert.ok(ui, `${lang} 없음`);
     for (const [k, v] of Object.entries(ui)) assert.ok(v.trim(), `${lang}.${k}가 비었다`);
+  }
+});
+
+test('갈래에 빠진 계산기가 없다', () => {
+  /*
+   * 허브가 갈래별로 그리므로, 어디에도 안 적힌 슬러그는 화면에서 사라진다.
+   * 사이트맵과 검색에는 남아 있어서 링크가 깨지는 게 아니라 그냥 안 보인다 —
+   * 홈에서 섹션이 빠졌을 때와 같은 종류다.
+   */
+  const inGroups = CALC_GROUPS.flatMap(g => g.slugs);
+  const missing = CALC_INTL_SLUGS.filter(s => !inGroups.includes(s));
+  assert.deepStrictEqual(missing, [], '갈래에 없어 허브에서 안 보인다');
+
+  const ghosts = inGroups.filter(s => !CALC_INTL_SLUGS.includes(s));
+  assert.deepStrictEqual(ghosts, [], '갈래에는 있는데 계산기가 없다 — 누르면 404다');
+
+  const dup = inGroups.filter((s, i) => inGroups.indexOf(s) !== i);
+  assert.deepStrictEqual(dup, [], '두 갈래에 겹쳐 들어갔다');
+});
+
+test('갈래 이름이 아홉 언어에 다 있다', () => {
+  for (const lang of LANGS) {
+    for (const g of CALC_GROUPS) {
+      const label = CALC_GROUP_LABEL[lang]?.[g.id];
+      assert.ok(label?.trim(), `${lang}.${g.id} 갈래 이름이 없다`);
+    }
   }
 });
 
