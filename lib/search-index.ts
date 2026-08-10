@@ -66,6 +66,7 @@ import { AMPERE_ICON, CELLS as AMP_CELLS, applianceOf, circuitOf, slugOf as ampS
 import { CELLS as DOF_CELLS, DOF_ICON, slugOf as dofSlug } from './dof/list';
 import { CELLS as BPM_CELLS, BPM_ICON, slugOf as bpmSlug } from './bpm/list';
 import { CELLS as GEAR_CELLS, GEAR_ICON, slugOf as gearSlug } from './gear/list';
+import { CELLS as FILAMENT_CELLS, FILAMENT_ICON, slugOf as filamentSlug } from './filament/list';
 import { CELLS as UV_CELLS, UV_ICON, skinOf, slugOf as uvSlug } from './uv/list';
 import { CELLS as HIKE_CELLS, HIKE_ICON, slugOf as hikeSlug } from './hike/list';
 import { CELLS as INSUL_CELLS, INSUL_ICON, slugOf as insulSlug } from './insul/list';
@@ -134,6 +135,8 @@ import { ampereFacts } from './ampere/facts';
 import { dofFacts } from './dof/facts';
 import { bpmFacts } from './bpm/facts';
 import { gearFacts } from './gear/facts';
+import { filamentFacts } from './filament/facts';
+import { kgOf as filamentKg, materialName as filamentName } from './filament/ui';
 import { uvFacts } from './uv/facts';
 import { hikeFacts } from './hike/facts';
 import { insulFacts } from './insul/facts';
@@ -195,7 +198,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -273,6 +276,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   dof:        { label: '심도',       icon: '📷', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   bpm:        { label: '딜레이 타임', icon: '🎚️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   gear:       { label: '자전거 기어', icon: '🚲', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  filament:   { label: '필라멘트 길이', icon: '🧵', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   uv:         { label: '자외선',     icon: '☀️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   hike:       { label: '등산 시간',  icon: '⛰️', accent: 'bg-green-50 text-green-700 border-green-200' },
   insul:      { label: '단열재',     icon: '🧱', accent: 'bg-stone-50 text-stone-700 border-stone-200' },
@@ -795,6 +799,17 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: GEAR_ICON,
     };
   }),
+  ...FILAMENT_CELLS.map(c => {
+    const f = filamentFacts(c);
+    const [d175, d285] = f.diameters;
+    return {
+      href: `/filament/${filamentSlug(c)}`,
+      title: `${filamentName(c.material)} ${filamentKg(c.grams)} 필라멘트 — 1.75mm로 ${d175.metres}m`,
+      desc: `1m가 ${d175.gramsPerMetre}g · 10g에 ${d175.metresPer10g}m · 2.85mm는 ${d285.metres}m`,
+      section: 'filament' as const,
+      icon: FILAMENT_ICON,
+    };
+  }),
   ...UV_CELLS.map(c => {
     const f = uvFacts(c);
     return {
@@ -1258,6 +1273,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/dof', title: '피사계 심도표', desc: '초점거리와 조리개로 과초점거리와 앞뒤 한계', section: 'dof' as const, icon: DOF_ICON },
   { href: '/bpm', title: '딜레이 타임표', desc: 'BPM과 음표 길이로 밀리초와 LFO 진동수', section: 'bpm' as const, icon: BPM_ICON },
   { href: '/gear', title: '자전거 기어비표', desc: '체인링과 스프라켓으로 기어비와 발전거리', section: 'gear' as const, icon: GEAR_ICON },
+  { href: '/filament', title: '필라멘트 길이표', desc: '재료와 스풀 무게로 감긴 길이, 남은 무게로 남은 길이', section: 'filament' as const, icon: FILAMENT_ICON },
   { href: '/uv', title: '자외선 화상 시간', desc: '지수와 피부 타입으로 몇 분에 붉어지는지', section: 'uv' as const, icon: UV_ICON },
   { href: '/ampere', title: '가전 전류 계산', desc: '소비전력과 전압으로 몇 암페어, 한 회로에 몇 대', section: 'ampere' as const, icon: AMPERE_ICON },
   { href: '/lumen', title: '방 밝기 계산', desc: '넓이와 쓰임으로 필요한 루멘, 광원별 소비 전력', section: 'lumen' as const, icon: LUMEN_ICON },

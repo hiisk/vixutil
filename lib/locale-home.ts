@@ -1098,6 +1098,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/filament', icon: '🧵', color: 'from-violet-500 to-fuchsia-400',
+    accent: 'text-violet-700 dark:text-violet-200', border: 'border-violet-200 dark:border-violet-800', bg: 'bg-violet-50 dark:bg-violet-900/40',
+    copy: {
+      en: { title: 'Filament Length', desc: 'Metres per spool by material and net weight, at 1.75 mm and 2.85 mm' },
+      es: { title: 'Longitud de filamento', desc: 'Metros por bobina según material y peso neto, en 1,75 y 2,85 mm' },
+      'pt-br': { title: 'Comprimento de filamento', desc: 'Metros por carretel, por material e peso líquido, em 1,75 e 2,85 mm' },
+      ja: { title: 'フィラメントの長さ', desc: '材料とスプール重量で、巻かれている長さと残量の読み方' },
+      de: { title: 'Filamentlänge', desc: 'Meter je Spule nach Material und Nettogewicht, bei 1,75 und 2,85 mm' },
+      fr: { title: 'Longueur de filament', desc: 'Mètres par bobine selon matériau et poids net, en 1,75 et 2,85 mm' },
+      hi: { title: 'फ़िलामेंट लंबाई', desc: 'सामग्री और शुद्ध वज़न के अनुसार प्रति स्पूल मीटर, 1.75 और 2.85 mm में' },
+      'zh-hans': { title: '线材长度', desc: '按材料和净重，1.75mm 与 2.85mm 各绕多少米' },
+      'zh-hant': { title: '線材長度', desc: '按材料和淨重，1.75mm 與 2.85mm 各繞多少公尺' },
+    },
+  },
+  {
     route: '/uv', icon: '☀️', color: 'from-orange-500 to-yellow-400',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {

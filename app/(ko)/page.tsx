@@ -43,6 +43,7 @@ import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
 import { CELLS as BPM_CELLS } from '@/lib/bpm/list';
 import { CELLS as GEAR_CELLS } from '@/lib/gear/list';
+import { CELLS as FILAMENT_CELLS } from '@/lib/filament/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
@@ -147,6 +148,18 @@ const SECTIONS = [
     textAccent: 'text-emerald-700 dark:text-emerald-200',
     borderAccent: 'border-emerald-200 dark:border-emerald-800',
     shadow: 'shadow-emerald-100',
+  },
+  {
+    href: '/filament',
+    icon: '🧵',
+    title: '필라멘트 길이표',
+    desc: 'PLA 1kg은 1.75mm로 335m — 재료 밀도와 스풀 무게로 읽는 감긴 길이',
+    badge: `${FILAMENT_CELLS.length}칸`,
+    color: 'from-violet-500 to-fuchsia-400',
+    bgLight: 'bg-violet-50 dark:bg-violet-900/40',
+    textAccent: 'text-violet-700 dark:text-violet-200',
+    borderAccent: 'border-violet-200 dark:border-violet-800',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/uv',
