@@ -156,6 +156,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/electricity', title:'전기요금 계산기', desc:'kWh 기준 누진요금 계산' },
       { href:'/calculator/gas-bill',    title:'가스요금 계산기', desc:'사용량 기준 도시가스요금' },
       { href:'/calculator/water-bill',  title:'수도요금 계산기', desc:'사용량 기준 수도요금 계산' },
+      { href:'/calculator/heating-bill', title:'난방비 계산기', desc:'지역난방 열량(Mcal) 기준 난방요금' },
       { href:'/calculator/appliance-power', title:'가전 전기요금 계산기', desc:'에어컨·건조기 켜면 얼마 더 나오나' },
       { href:'/calculator/maintenance-fee', title:'관리비 계산기', desc:'항목별 비중 + ㎡당 단가 분석' },
     ],
