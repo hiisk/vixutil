@@ -65,8 +65,10 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,159  도시 사이 거리를 열 언어씩 더함(+10)
  *   2,169  공기청정기 평수를 열 언어씩 더함(+10)
  *   2,179  술 순수 알코올량을 열 언어씩 더함(+10)
+ *   2,429  그 뒤로 새 섹션 스물다섯을 열 언어씩 더함(+250)
+ *   2,439  피사계 심도(초점거리 × 조리개)를 열 언어씩 더함(+10)
    */
-  const WANT = 2429;
+  const WANT = 2439;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

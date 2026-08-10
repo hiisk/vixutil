@@ -1017,6 +1017,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/dof', icon: '📷', color: 'from-indigo-500 to-violet-400',
+    accent: 'text-indigo-700 dark:text-indigo-200', border: 'border-indigo-200 dark:border-indigo-800', bg: 'bg-indigo-50 dark:bg-indigo-900/40',
+    copy: {
+      en: { title: 'Depth of Field Table', desc: 'Hyperfocal distance and near-to-far limits, by focal length and aperture' },
+      es: { title: 'Tabla de profundidad de campo', desc: 'Distancia hiperfocal y límites cercano y lejano, por focal y diafragma' },
+      'pt-br': { title: 'Tabela de profundidade de campo', desc: 'Distância hiperfocal e limites próximo e distante, por focal e abertura' },
+      ja: { title: '被写界深度表', desc: '焦点距離と絞りで、過焦点距離と前後の限界' },
+      de: { title: 'Schärfentiefe-Tabelle', desc: 'Hyperfokale Distanz und Nah-Fern-Grenzen nach Brennweite und Blende' },
+      fr: { title: 'Table de profondeur de champ', desc: 'Distance hyperfocale et limites proche et lointaine, par focale et ouverture' },
+      hi: { title: 'फ़ील्ड गहराई तालिका', desc: 'फ़ोकल लंबाई और अपर्चर के अनुसार हाइपरफ़ोकल दूरी और पास-दूर सीमा' },
+      'zh-hans': { title: '景深表', desc: '按焦距和光圈，超焦距与前后清晰界限' },
+      'zh-hant': { title: '景深表', desc: '按焦距和光圈，超焦距與前後清晰界限' },
+    },
+  },
+  {
     route: '/uv', icon: '☀️', color: 'from-orange-500 to-yellow-400',
     accent: 'text-orange-700 dark:text-orange-200', border: 'border-orange-200 dark:border-orange-800', bg: 'bg-orange-50 dark:bg-orange-900/40',
     copy: {

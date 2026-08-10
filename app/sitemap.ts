@@ -81,6 +81,7 @@ import { CELLS as PAPER_CELLS, slugOf as paperSlug } from "@/lib/paper/list";
 import { CELLS as TORQUE_CELLS, slugOf as torqueSlug } from "@/lib/torque/list";
 import { CELLS as LUMEN_CELLS, slugOf as lumenSlug } from "@/lib/lumen/list";
 import { CELLS as AMP_CELLS, slugOf as ampSlug } from "@/lib/ampere/list";
+import { CELLS as DOF_CELLS, slugOf as dofSlug } from "@/lib/dof/list";
 import { CELLS as UV_CELLS, slugOf as uvSlug } from "@/lib/uv/list";
 import { CELLS as HIKE_CELLS, slugOf as hikeSlug } from "@/lib/hike/list";
 import { CELLS as INSUL_CELLS, slugOf as insulSlug } from "@/lib/insul/list";
@@ -882,6 +883,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })),
     ]),
     // 자외선 126장도 열 언어다
+    // 피사계 심도 120칸도 열 언어다 — 초점거리 12가지 × 조리개 10가지
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/dof`, changeFrequency: weekly, priority: 0.85 },
+      ...DOF_CELLS.map(c => ({
+        url: `${BASE}${prefix}/dof/${dofSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/uv`, changeFrequency: weekly, priority: 0.85 },
       ...UV_CELLS.map(c => ({

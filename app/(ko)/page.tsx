@@ -41,6 +41,7 @@ import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
+import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
 import { CELLS as INSUL_CELLS } from '@/lib/insul/list';
@@ -108,6 +109,18 @@ const SECTIONS = [
     textAccent: 'text-amber-800 dark:text-amber-300',
     borderAccent: 'border-amber-200 dark:border-amber-900/50',
     shadow: 'shadow-amber-100',
+  },
+  {
+    href: '/dof',
+    icon: '📷',
+    title: '피사계 심도표',
+    desc: '50mm f/8은 5.2m부터 무한대까지 — 초점거리와 조리개로 읽는 과초점거리',
+    badge: `${DOF_CELLS.length}칸`,
+    color: 'from-indigo-500 to-violet-400',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-900/40',
+    textAccent: 'text-indigo-700 dark:text-indigo-200',
+    borderAccent: 'border-indigo-200 dark:border-indigo-800',
+    shadow: 'shadow-indigo-100',
   },
   {
     href: '/uv',
