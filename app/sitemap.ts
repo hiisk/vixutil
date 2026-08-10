@@ -83,6 +83,7 @@ import { CELLS as LUMEN_CELLS, slugOf as lumenSlug } from "@/lib/lumen/list";
 import { CELLS as AMP_CELLS, slugOf as ampSlug } from "@/lib/ampere/list";
 import { CELLS as DOF_CELLS, slugOf as dofSlug } from "@/lib/dof/list";
 import { CELLS as GEAR_CELLS, slugOf as gearSlug } from "@/lib/gear/list";
+import { CELLS as BPM_CELLS, slugOf as bpmSlug } from "@/lib/bpm/list";
 import { CELLS as UV_CELLS, slugOf as uvSlug } from "@/lib/uv/list";
 import { CELLS as HIKE_CELLS, slugOf as hikeSlug } from "@/lib/hike/list";
 import { CELLS as INSUL_CELLS, slugOf as insulSlug } from "@/lib/insul/list";
@@ -898,6 +899,15 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/gear`, changeFrequency: weekly, priority: 0.85 },
       ...GEAR_CELLS.map(c => ({
         url: `${BASE}${prefix}/gear/${gearSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 딜레이 타임 288칸도 열 언어다 — 템포 24가지 × 음표 12가지
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/bpm`, changeFrequency: weekly, priority: 0.85 },
+      ...BPM_CELLS.map(c => ({
+        url: `${BASE}${prefix}/bpm/${bpmSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

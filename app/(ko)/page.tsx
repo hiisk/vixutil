@@ -41,6 +41,7 @@ import { CELLS as PAPER_CELLS } from '@/lib/paper/list';
 import { CELLS as TORQUE_CELLS } from '@/lib/torque/list';
 import { CELLS as LUMEN_CELLS } from '@/lib/lumen/list';
 import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
+import { CELLS as BPM_CELLS } from '@/lib/bpm/list';
 import { CELLS as GEAR_CELLS } from '@/lib/gear/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
@@ -122,6 +123,18 @@ const SECTIONS = [
     textAccent: 'text-indigo-700 dark:text-indigo-200',
     borderAccent: 'border-indigo-200 dark:border-indigo-800',
     shadow: 'shadow-indigo-100',
+  },
+  {
+    href: '/bpm',
+    icon: '🎚️',
+    title: '딜레이 타임표',
+    desc: '120BPM 점8분음표는 375ms — 딜레이·리버브·LFO를 박에 맞추는 표',
+    badge: `${BPM_CELLS.length}칸`,
+    color: 'from-rose-500 to-pink-400',
+    bgLight: 'bg-rose-50 dark:bg-rose-900/40',
+    textAccent: 'text-rose-700 dark:text-rose-200',
+    borderAccent: 'border-rose-200 dark:border-rose-800',
+    shadow: 'shadow-rose-100',
   },
   {
     href: '/gear',

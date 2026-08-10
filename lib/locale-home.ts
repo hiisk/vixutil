@@ -1032,6 +1032,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/bpm', icon: '🎚️', color: 'from-rose-500 to-pink-400',
+    accent: 'text-rose-700 dark:text-rose-200', border: 'border-rose-200 dark:border-rose-800', bg: 'bg-rose-50 dark:bg-rose-900/40',
+    copy: {
+      en: { title: 'Delay Time Chart', desc: 'Note lengths in milliseconds and LFO hertz, by tempo' },
+      es: { title: 'Tabla de tiempos de delay', desc: 'Figuras en milisegundos y hercios de LFO, por tempo' },
+      'pt-br': { title: 'Tabela de tempos de delay', desc: 'Figuras em milissegundos e hertz de LFO, por andamento' },
+      ja: { title: 'ディレイタイム表', desc: 'テンポ別の音符の長さ(ms)とLFO周波数' },
+      de: { title: 'Delay-Zeit-Tabelle', desc: 'Notenwerte in Millisekunden und LFO-Hertz nach Tempo' },
+      fr: { title: 'Table des temps de delay', desc: 'Valeurs en millisecondes et hertz de LFO, par tempo' },
+      hi: { title: 'डिले टाइम तालिका', desc: 'टेम्पो के अनुसार स्वर लंबाई (ms) और LFO हर्ट्ज़' },
+      'zh-hans': { title: '延迟时间表', desc: '按速度的音符时长（毫秒）与 LFO 频率' },
+      'zh-hant': { title: '延遲時間表', desc: '按速度的音符時長（毫秒）與 LFO 頻率' },
+    },
+  },
+  {
     route: '/gear', icon: '🚲', color: 'from-emerald-500 to-teal-400',
     accent: 'text-emerald-700 dark:text-emerald-200', border: 'border-emerald-200 dark:border-emerald-800', bg: 'bg-emerald-50 dark:bg-emerald-900/40',
     copy: {
