@@ -95,6 +95,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/holding-tax',         title:'보유세 계산기',      desc:'종부세 포함 보유세' },
       { href:'/calculator/rental-yield',        title:'임대수익률 계산기',  desc:'매매가·월세 → 표면·실투자 수익률', hot:true },
       { href:'/calculator/subscription-score',  title:'청약 가점 계산기',   desc:'무주택기간·부양가족 → 가점' },
+      { href:'/calculator/lease-renewal',  title:'계약갱신 인상 한도 계산기', desc:'전세·월세 5% 상한과 월 부담' },
     ],
   },
   {
@@ -132,6 +133,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/rice-water',     title:'밥물 계산기',        desc:'쌀 양 → 백미·현미·잡곡·죽 물 양' },
       { href:'/calculator/coffee-ratio',   title:'커피 비율 계산기',   desc:'추출 방식별 원두·물 비율' },
       { href:'/calculator/data-usage',     title:'데이터 사용량 계산기', desc:'화질별 소모량 → 남은 데이터 가능 시간' },
+      { href:'/calculator/volumetric-weight', title:'부피무게 계산기', desc:'택배·항공 운임 무게 계산' },
       { href:'/calculator/charge-time',    title:'충전 시간 계산기',   desc:'mAh·충전기 W → 완충 시간' },
     ],
   },
@@ -141,6 +143,7 @@ export const CATS: CalcCategory[] = [
     accent: 'bg-orange-50 text-orange-700 border-orange-200',
     calcs: [
       { href:'/calculator/car-installment', title:'자동차 할부 계산기',  desc:'차량가·금리·기간 → 월 할부금' },
+      { href:'/calculator/car-cost',        title:'차량 유지비 계산기', desc:'연간 유지비와 1km당 비용' },
       { href:'/calculator/car-registration', title:'자동차 취등록세 계산기', desc:'차값 외 취득세·공채·등록비' },
       { href:'/calculator/car-tax',         title:'자동차세 계산기',     desc:'배기량 기준 자동차세' },
       { href:'/calculator/fuel-efficiency', title:'연비 계산기',          desc:'주행거리·연료량 → 연비' },

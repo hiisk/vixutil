@@ -142,7 +142,7 @@ const calculatorRoutes = [
   "/calculator/jeonwolse", "/calculator/pyeong", "/calculator/deposit-conversion",
   "/calculator/exchange", "/calculator/roi", "/calculator/avg-price", "/calculator/breakeven", "/calculator/percent",
   "/calculator/simple-interest", "/calculator/inflation", "/calculator/retirement",
-  "/calculator/electricity", "/calculator/gas-bill", "/calculator/water-bill", "/calculator/heating-bill", "/calculator/appliance-power", "/calculator/water",
+  "/calculator/electricity", "/calculator/gas-bill", "/calculator/water-bill", "/calculator/car-cost", "/calculator/volumetric-weight", "/calculator/lease-renewal", "/calculator/heating-bill", "/calculator/appliance-power", "/calculator/water",
   "/calculator/maintenance-fee",
   "/calculator/gas-cost", "/calculator/fuel-efficiency", "/calculator/ev-charge", "/calculator/car-tax",
   "/calculator/car-registration",
