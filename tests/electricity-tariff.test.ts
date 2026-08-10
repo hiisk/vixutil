@@ -114,3 +114,18 @@ test('같은 사용량도 이미 쓴 양에 따라 값이 다르다', () => {
   const flat = extraCost(300, 2);
   assert.ok(jump > flat + 5_000, `구간을 넘겼는데 기본요금이 안 뛰었다: ${jump} vs ${flat}`);
 });
+
+test('요금에서 사용량을 되찾는다', async () => {
+  const { kwhForBill } = await import('../lib/electricity-tariff.ts');
+  // 되찾은 사용량으로 다시 요금을 내면 넣은 값이 나온다
+  for (const kwh of [50, 199, 200, 201, 350, 400, 401, 600, 1200]) {
+    const bill = calcElectricity(kwh).total;
+    assert.ok(Math.abs(kwhForBill(bill) - kwh) < 0.01, `${kwh}kWh → ${bill}원 → ${kwhForBill(bill)}`);
+  }
+  // 기본요금보다 적은 금액이면 0이다 — 음수를 내지 않는다
+  assert.equal(kwhForBill(0), 0);
+  assert.equal(kwhForBill(100), 0);
+  // 구간이 뛰는 자리도 건너뛰지 않는다
+  const jump = calcElectricity(400.5).total;
+  assert.ok(Math.abs(kwhForBill(jump) - 400.5) < 0.01);
+});

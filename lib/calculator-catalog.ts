@@ -33,6 +33,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/unemployment',     title:'실업급여 계산기',      desc:'평균임금·가입기간 → 구직급여 예상액', hot:true },
       { href:'/calculator/parental-leave',   title:'육아휴직 급여 계산기', desc:'통상임금 → 육아휴직 급여 예상액', hot:true },
       { href:'/calculator/work-hours',       title:'근무시간 계산기',      desc:'출퇴근 시각 → 실근무시간·휴게시간' },
+      { href:'/calculator/work-hours-209',  title:'소정근로시간 계산기', desc:'209시간과 통상시급·연장수당' },
     ],
   },
   {
@@ -62,6 +63,7 @@ export const CATS: CalcCategory[] = [
     calcs: [
       { href:'/calculator/compound',       title:'복리 계산기',           desc:'월복리·분기·연복리 + 연도별 테이블', hot:true },
       { href:'/calculator/loan',           title:'대출 이자 계산기',       desc:'원리금균등·원금균등 + 상환 스케줄' },
+      { href:'/calculator/loan-method',     title:'대출 상환방식 비교 계산기', desc:'원리금균등·원금균등·만기일시 총이자' },
       { href:'/calculator/deposit',        title:'예금 이자 계산기',       desc:'예치금·금리·기간 → 이자' },
       { href:'/calculator/savings',        title:'적금 계산기',            desc:'월 납입금·금리 → 만기금액' },
       { href:'/calculator/simple-interest',title:'단리 계산기',            desc:'원금·이율·기간 → 단리 이자' },
@@ -144,6 +146,7 @@ export const CATS: CalcCategory[] = [
     calcs: [
       { href:'/calculator/car-installment', title:'자동차 할부 계산기',  desc:'차량가·금리·기간 → 월 할부금' },
       { href:'/calculator/car-cost',        title:'차량 유지비 계산기', desc:'연간 유지비와 1km당 비용' },
+      { href:'/calculator/car-depreciation', title:'자동차 감가상각 계산기', desc:'연식별 잔존가치와 반감기' },
       { href:'/calculator/car-registration', title:'자동차 취등록세 계산기', desc:'차값 외 취득세·공채·등록비' },
       { href:'/calculator/car-tax',         title:'자동차세 계산기',     desc:'배기량 기준 자동차세' },
       { href:'/calculator/fuel-efficiency', title:'연비 계산기',          desc:'주행거리·연료량 → 연비' },
@@ -157,6 +160,7 @@ export const CATS: CalcCategory[] = [
     accent: 'bg-yellow-50 text-yellow-700 border-yellow-200',
     calcs: [
       { href:'/calculator/electricity', title:'전기요금 계산기', desc:'kWh 기준 누진요금 계산' },
+      { href:'/calculator/electricity-reverse', title:'전기요금 역산 계산기', desc:'요금으로 사용량(kWh) 되찾기' },
       { href:'/calculator/gas-bill',    title:'가스요금 계산기', desc:'사용량 기준 도시가스요금' },
       { href:'/calculator/water-bill',  title:'수도요금 계산기', desc:'사용량 기준 수도요금 계산' },
       { href:'/calculator/heating-bill', title:'난방비 계산기', desc:'지역난방 열량(Mcal) 기준 난방요금' },

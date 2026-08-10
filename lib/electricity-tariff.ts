@@ -71,3 +71,26 @@ export function calcElectricity(kwh: number): Bill {
  */
 export const extraCost = (base: number, add: number): number =>
   calcElectricity(base + add).total - calcElectricity(base).total;
+
+/**
+ * 요금에서 사용량을 되찾는다.
+ *
+ * 누진표는 사용량 → 요금 한 방향으로만 풀린다. 반대로 가려면 구간마다
+ * 뒤집어야 하는데, 기본요금이 구간에 따라 뛰어서 식이 이어지지 않는다.
+ * 그래서 이분법으로 좁힌다 — 요금이 사용량을 따라 단조롭게 늘어나므로
+ * 반드시 한 점으로 모인다.
+ *
+ * 부가세와 기금까지 포함한 **최종 청구액**을 넣는다.
+ */
+export function kwhForBill(total: number): number {
+  if (total <= calcElectricity(0).total) return 0;
+  let lo = 0;
+  let hi = 100;
+  while (calcElectricity(hi).total < total) hi *= 2;
+  for (let n = 0; n < 60; n++) {
+    const mid = (lo + hi) / 2;
+    if (calcElectricity(mid).total < total) lo = mid;
+    else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
