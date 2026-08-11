@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { APP_DIR, builtHtml, foldHubs, sitemapRoutes } from './app-path.ts';
+import { APP_DIR, builtHtml, foldHubs, foldSlugs, sitemapRoutes } from './app-path.ts';
 
 /**
  * 접힌 국제 라우트가 사이트맵과 어긋나지 않는지 본다.
@@ -24,8 +24,15 @@ import { APP_DIR, builtHtml, foldHubs, sitemapRoutes } from './app-path.ts';
  */
 const FOLD_LANGS = ['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
-/** 낱장 라우트 무늬 — 'body', 'snap/lens' 꼴 (그 아래 [slug]가 받는다) */
-function leafPrefixes(lang: string): { slug: Set<string>; catchAll: Set<string> } {
+/**
+ * 낱장 라우트 무늬 — 'body', 'snap/lens' 꼴 (그 아래 [slug]가 받는다).
+ *
+ * deep은 세 칸 낱장을 한 라우트로 접은 [a]/[b]/[slug]가 있는지다. 2026-08-12에
+ * Vercel 라우팅 표 2,048개를 넘겨(2,094개) 배포가 죽어서, 언어마다 열한 갈래를
+ * 하나로 접었다. 그 뒤로는 폴더를 훑어서 받는 라우트를 알 수 없다 — 등록부의
+ * SLUG_ROUTES가 근거다.
+ */
+function leafPrefixes(lang: string): { slug: Set<string>; catchAll: Set<string>; deep: boolean } {
   const slug = new Set<string>();
   const catchAll = new Set<string>();
   const base = join(APP_DIR, `(${lang})`, lang);
@@ -38,8 +45,12 @@ function leafPrefixes(lang: string): { slug: Set<string>; catchAll: Set<string> 
     }
   };
   walk(base, []);
-  return { slug, catchAll };
+  const deep = existsSync(join(base, '[a]', '[b]', '[slug]', 'page.tsx'));
+  return { slug, catchAll, deep };
 }
+
+/** 두 칸으로 된 낱장 열쇠 — [a]/[b]/[slug]가 받을 수 있는 것 */
+const DEEP_SLUGS = new Set(foldSlugs().filter(k => k.includes('/')));
 
 test('사이트맵의 국제 주소가 전부 받는 라우트를 가진다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
   const hubs = new Set(foldHubs());
@@ -58,9 +69,11 @@ test('사이트맵의 국제 주소가 전부 받는 라우트를 가진다', { 
     const key = rest.join('/');
     if (hubs.has(key)) continue;              // 허브 — 캐치올이 굽는다
 
-    const { slug, catchAll } = byLang.get(lang)!;
+    const { slug, catchAll, deep } = byLang.get(lang)!;
     if (rest.length >= 1 && slug.has(rest.slice(0, -1).join('/'))) continue;
     if ([...catchAll].some(p => key.startsWith(p + '/'))) continue;
+    // 세 칸 낱장은 [a]/[b]/[slug] 하나가 받는다 — 앞 두 칸이 등록부에 있어야 한다
+    if (deep && rest.length === 3 && DEEP_SLUGS.has(rest.slice(0, 2).join('/'))) continue;
 
     // 무늬로 묶어 보고한다 — 낱장 하나가 빠지면 십만 줄이 쏟아진다
     const pattern = `${lang}/${rest.slice(0, -1).join('/')}/…`;

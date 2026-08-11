@@ -107,11 +107,24 @@ test('번역 언어마다 첫 화면이 있다', () => {
 });
 
 test('첫 화면이 싣는 섹션은 그 언어에 실제로 있다', () => {
-  // copy에 언어를 적어 두고 라우트를 안 만들면 첫 화면이 404를 링크한다
+  /*
+   * copy에 언어를 적어 두고 라우트를 안 만들면 첫 화면이 404를 링크한다.
+   *
+   * 폴더가 있는지로 보면 안 된다. 2026-08-10 접기 이후 국제 허브는 라우트 파일이
+   * 아니라 lib/fold/registry.ts에 있고, 폴더는 그 아래 낱장 라우트가 있을 때만
+   * 곁따라 존재한다. 실제로 그 곁따름에 기대고 있었다 — 2026-08-12에 세 칸 낱장을
+   * 접어 app/(en)/en/snap/lens/[slug]를 없앴더니 빈 snap 폴더가 사라지면서
+   * /en/snap이 "라우트 없음"으로 잡혔다. 그 주소는 캐치올이 그대로 굽고 있었다.
+   *
+   * 그래서 등록부를 먼저 본다 — 링크가 열리는지를 정하는 것이 그쪽이다.
+   * 폴더는 접히지 않은 라우트를 위해 뒤에 남겨 둔다.
+   */
+  const hubs = new Set(foldHubs());
   const dead: string[] = [];
   for (const l of INTL_LOCALES) {
     for (const s of homeSections(l)) {
-      if (!existsSync(appJoin(l, s.route.slice(1)))) dead.push(`/${l}${s.route}`);
+      const route = s.route.slice(1);
+      if (!hubs.has(route) && !existsSync(appJoin(l, route))) dead.push(`/${l}${s.route}`);
     }
   }
   assert.deepEqual(dead, [], `라우트가 없는 섹션을 첫 화면에 실었다:\n  ${dead.join('\n  ')}`);

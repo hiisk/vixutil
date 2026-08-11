@@ -39,6 +39,21 @@ export function foldHubs(): string[] {
 }
 
 /**
+ * 접힌 낱장 열쇠 — 'body', 'game/chess' 꼴. SLUG_ROUTES가 근거다.
+ *
+ * foldHubs와 짝이다. 허브는 캐치올이 등록부를 보고 굽고, 낱장은 라우트가
+ * 등록부를 보고 받는다 — 어느 쪽이든 파일 유무로는 알 수 없다.
+ */
+export function foldSlugs(): string[] {
+  const src = readFileSync(join(ROOT, 'lib', 'fold', 'registry.ts'), 'utf8');
+  const m = src.match(/export const SLUG_ROUTES[^{]*\{([\s\S]*?)\n\}/);
+  if (!m) throw new Error('lib/fold/registry.ts에서 SLUG_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 헬퍼도 고치라');
+  const keys = [...m[1].matchAll(/'([^']*)':/g)].map(x => x[1]);
+  if (keys.length < 80) throw new Error(`접힌 낱장이 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
+  return keys;
+}
+
+/**
  * 그 언어에 이 라우트의 페이지가 있는가 — 파일이든 접힌 허브든.
  * route는 '/random' 또는 'random' 꼴, lang은 'ko'·'en'·'pt-br' …
  */
