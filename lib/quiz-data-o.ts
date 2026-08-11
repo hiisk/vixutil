@@ -1,4 +1,4 @@
-import type { Quiz } from './types';
+import type { Quiz } from './types.ts';
 
 /**
  * 정답 위치와 보기 길이를 의도적으로 섞어 두었다.

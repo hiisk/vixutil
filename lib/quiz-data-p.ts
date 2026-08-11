@@ -1,4 +1,4 @@
-import type { Quiz } from './types';
+import type { Quiz } from './types.ts';
 
 /**
  * 퀴즈 열두 가지 — 열여섯째 묶음.

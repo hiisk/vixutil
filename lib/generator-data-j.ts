@@ -1,4 +1,4 @@
-import type { Generator } from './types';
+import type { Generator } from './types.ts';
 
 /**
  * 생성기 열두 가지 — 열째 묶음.

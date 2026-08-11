@@ -1,4 +1,4 @@
-import type { Checklist } from './types';
+import type { Checklist } from './types.ts';
 import { CHECKLISTS_B } from './checklist-data-b.ts';
 import { CHECKLISTS_C } from './checklist-data-c.ts';
 

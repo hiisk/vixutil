@@ -1,4 +1,4 @@
-import type { Quiz } from './types';
+import type { Quiz } from './types.ts';
 
 export const QUIZZES_C: Quiz[] = [
   {

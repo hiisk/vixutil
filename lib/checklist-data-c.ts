@@ -1,4 +1,4 @@
-import type { Checklist } from './types';
+import type { Checklist } from './types.ts';
 
 /**
  * 체크리스트 열두 가지 — 셋째 묶음.

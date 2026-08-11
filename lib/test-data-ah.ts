@@ -1,4 +1,4 @@
-import type { Test } from './types';
+import type { Test } from './types.ts';
 
 /**
  * 심리테스트 열두 가지 — 서른네째 묶음.

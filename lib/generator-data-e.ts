@@ -1,4 +1,4 @@
-import type { Generator } from './types';
+import type { Generator } from './types.ts';
 
 export const GENERATORS_E: Generator[] = [
   {
