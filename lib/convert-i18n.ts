@@ -11,6 +11,7 @@
  */
 import { CONVERT_EN2 } from './convert-i18n2.ts';
 import { CONVERT_EN3 } from './convert-i18n3.ts';
+import { CONVERT_EN4 } from './convert-tools4.ts';
 import { CONVERT_ES } from './convert-l10n/es.ts';
 import { CONVERT_PT_BR } from './convert-l10n/pt-br.ts';
 import { CONVERT_JA } from './convert-l10n/ja.ts';
@@ -363,7 +364,7 @@ const CONVERT_EN_1: Record<string, ConvertL10n> = {
 
 
 /* 둘째 묶음 50종을 합친다 — 파일을 나눠 두지 않으면 무엇이 빠졌는지 안 보인다 */
-export const CONVERT_EN: Record<string, ConvertL10n> = { ...CONVERT_EN_1, ...CONVERT_EN2, ...CONVERT_EN3 };
+export const CONVERT_EN: Record<string, ConvertL10n> = { ...CONVERT_EN_1, ...CONVERT_EN2, ...CONVERT_EN3, ...CONVERT_EN4 };
 
 /**
  * 언어별 사전을 한 표로 모은다.

@@ -108,8 +108,10 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
       <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.formula}</p>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-200">
-          {tool.to} = {tool.from} × {tool.factor}
-          {tool.offset ? ` + ${tool.offset}` : ''}
+          {/* 역수 변환은 곱셈이 아니라 나눗셈이다 — 페이스·BPM·연비가 그렇다 */}
+          {tool.reciprocal
+            ? `${tool.to} = ${tool.factor} ÷ ${tool.from}`
+            : `${tool.to} = ${tool.from} × ${tool.factor}${tool.offset ? ` + ${tool.offset}` : ''}`}
         </p>
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{tool.note}</p>
       </div>

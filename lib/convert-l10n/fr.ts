@@ -752,4 +752,83 @@ export const CONVERT_FR: Record<string, ConvertL10n> = {
     note: 'La Terre avance sur son orbite en tournant : elle doit donc tourner un peu plus pour ramener le Soleil au même point. Ces 3 minutes 56 secondes par jour font exactement un jour par an.',
     from: 'jour sidéral', to: 'heures',
   },
+
+  /* ───────── 넷째 묶음 12종 ───────── */
+  'radian-degree': {
+    title: 'Radians en degrés',
+    desc: 'Convertit les radians en degrés dans les deux sens',
+    long: 'Convertit les radians en degrés et inversement. Les mathématiques, la physique et tous les langages de programmation font la trigonométrie en radians, alors que l’on décrit les angles en degrés.',
+    note: 'Un radian est une longueur d’arc divisée par un rayon : il ne porte donc aucune unité. C’est pourquoi SIN() dans un tableur et math.sin() en Python lisent 30 comme 30 radians et non 30 degrés — l’erreur la plus fréquente dès qu’une feuille utilise la trigonométrie.',
+  },
+  'minute-hour': {
+    title: 'Minutes en heures',
+    desc: 'Convertit les minutes en heures décimales',
+    long: 'Convertit les minutes en heures et inversement. Indispensable partout où le temps est facturé ou déclaré : feuilles d’heures, salaire horaire, durée de vidéo, stationnement et location.',
+    note: 'Le résultat est une heure décimale. Une heure quarante-cinq fait 1,75 heure et non 1,45 : inscrire 1,45 sur une feuille d’heures efface dix-huit minutes, et c’est l’erreur classique de la paie.',
+    from: 'min', to: 'h',
+  },
+  'day-hour': {
+    title: 'Jours en heures',
+    desc: 'Convertit un nombre de jours en heures',
+    long: 'Convertit les jours en heures et inversement. Utile pour les délais de livraison, les intervalles entre deux prises, la durée de fonctionnement d’un serveur et la location de matériel, où jours et heures se mélangent.',
+    note: 'Un jour ne fait pas toujours 24 heures. Avec le changement d’heure, le jour de passage à l’heure d’été en compte 23 et celui du retour 25 : un vol ou une réunion calculés sur ce week-end tombent une heure à côté.',
+    from: 'jours', to: 'heures',
+  },
+  'week-day': {
+    title: 'Semaines en jours',
+    desc: 'Convertit des semaines en nombre de jours',
+    long: 'Convertit les semaines en jours et inversement. Semaines de grossesse, plannings de projet, délais de préavis et durées d’épargne se comptent en semaines mais doivent se poser sur un calendrier.',
+    note: '« Sous deux semaines » dans un contrat, ce sont 14 jours calendaires mais seulement 10 jours ouvrés. Quand le texte ne précise pas, on retient les jours calendaires, et c’est aussi la lecture la plus prudente.',
+    from: 'semaines', to: 'jours',
+  },
+  'rpm-hz': {
+    title: 'tr/min en hertz',
+    desc: 'Convertit les tours par minute en fréquence',
+    long: 'Convertit les tours par minute en hertz et inversement. Moteurs, ventilateurs et perceuses sont spécifiés en tr/min, alors que l’analyse vibratoire et les variateurs de fréquence se règlent en hertz.',
+    note: 'La fréquence du réseau et la vitesse de l’arbre sont deux choses différentes. Un moteur à quatre pôles sur 50 Hz tourne à 1 500 tr/min de synchronisme : 120 × fréquence ÷ nombre de pôles. Pour la vitesse angulaire en rad/s, multipliez ces hertz par 2π.',
+    from: 'tr/min',
+  },
+  'tsp-tbsp': {
+    title: 'Cuillères à café en cuillères à soupe',
+    desc: 'Les deux mesures de cuillère des recettes',
+    long: 'Convertit les cuillères à café en cuillères à soupe et inversement. Pour quand une seule cuillère doseuse est sous la main, ou quand une recette est divisée par deux ou doublée.',
+    note: 'Aux mesures américaines et coréennes, une cuillère à soupe vaut exactement trois cuillères à café. Seule la cuillère à soupe australienne fait 20 mL, soit quatre cuillères à café : convertir une recette australienne à 3:1 laisse 25 % de moins.',
+    from: 'c. à c.', to: 'c. à s.',
+  },
+  'oz-lb': {
+    title: 'Onces en livres',
+    desc: 'Convertit les onces en livres dans les deux sens',
+    long: 'Convertit les onces en livres et inversement. Les emballages alimentaires américains, les grilles postales et les poids de naissance (« 7 lb 6 oz ») emploient les deux unités côte à côte.',
+    note: 'La livre avoirdupois contient 16 onces. L’once troy, celle de l’or et de l’argent, est plus lourde (31,10 g) et la livre troy n’en contient que 12 : diviser le poids d’un lingot par 16 donne un faux résultat.',
+  },
+  'newton-kgf': {
+    title: 'Newtons en kilogrammes-force',
+    desc: 'Convertit les newtons en kilogrammes-force',
+    long: 'Convertit les newtons en kilogrammes-force et inversement. Les normes donnent les forces en newtons, mais les plaques d’équipements coréens et japonais, les pèse-ressorts et les machines de traction affichent encore des kgf.',
+    note: 'Le kgf est fixé sur la pesanteur normale, 9,80665 m/s², il ne varie donc pas avec le lieu. Mais le kg est une masse et le kgf une force : les mélanger dans un même tableau fausse le calcul de charge sans en avoir l’air.',
+  },
+  'mpg-l100km': {
+    title: 'mpg en L/100 km',
+    desc: 'La consommation américaine à l’européenne',
+    long: 'Convertit les miles par gallon américains en litres aux 100 km. Les deux nombres vont en sens inverse : des écarts égaux en mpg ne sont pas des écarts égaux en carburant — 20 à 25 mpg économise 2,35 L/100 km, 40 à 45 mpg seulement 0,65.',
+    note: 'La constante 235,215 est le gallon américain, 3,785411784 L, multiplié par 100 et divisé par les 1,609344 km d’un mile. Le gallon impérial demande 282,481 : les chiffres de la presse britannique ressortent ici environ 20 % trop bas.',
+  },
+  'l100km-kmpl': {
+    title: 'L/100 km en km/L',
+    desc: 'Convertit la consommation en kilomètres par litre',
+    long: 'Convertit les litres aux 100 km en kilomètres par litre. Les deux sont métriques, mais numérateur et dénominateur sont inversés : un chiffre de catalogue européen doit être retourné avant d’être comparé à un km/L.',
+    note: 'Tout le calcul tient dans 100 divisé par la valeur, et c’est pourquoi la même étape sert dans les deux sens. Un litre pèse bien plus du côté sobre : de 4 à 3 on passe de 25 à 33 km/L, de 9 à 8 seulement de 11 à 12,5.',
+  },
+  'nm-ftlb': {
+    title: 'N·m en ft·lb',
+    desc: 'Convertit entre unités de couple',
+    long: 'Convertit un couple entre newton-mètre et livre-pied. Les clés dynamométriques et les manuels d’atelier achetés aux États-Unis sont gradués en ft·lb, alors que les spécifications internationales et l’outillage métrique sont en N·m.',
+    note: 'ft·lb et lb·ft sont la même unité écrite de deux façons. Les petits couples se donnent en in·lb, un douzième de ft·lb : lire une valeur de vélo ou d’électronique comme des ft·lb serre la vis douze fois trop fort.',
+  },
+  'cfm-m3h': {
+    title: 'CFM en m³/h',
+    desc: 'Convertit les unités de débit d’air',
+    long: 'Convertit les pieds cubes par minute en mètres cubes par heure. Les fabricants américains et taïwanais chiffrent extracteurs, hottes, purificateurs et ventilateurs de PC en CFM, tandis que les plans de ventilation utilisent des m³/h.',
+    note: 'Le CFM est un débit volumique et ne dit rien de la pression. Deux ventilateurs de même CFM se comportent différemment derrière un filtre ou une longue gaine : il faut lire le débit avec la pression statique.',
+  },
 };

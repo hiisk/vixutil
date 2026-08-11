@@ -754,4 +754,82 @@ export const CONVERT_ES: Record<string, ConvertL10n> = {
     note: 'La Tierra orbita mientras gira, así que debe girar un poco más para traer el Sol de vuelta. Esos 3 minutos y 56 segundos diarios suman exactamente un día al año.',
     from: 'día sidéreo', to: 'horas',
   },
+
+  /* ───────── 넷째 묶음 12종 ───────── */
+  'radian-degree': {
+    title: 'Radianes a grados',
+    desc: 'Convierte radianes a grados en los dos sentidos',
+    long: 'Convierte radianes a grados y al revés. Las matemáticas, la física y todos los lenguajes de programación hacen trigonometría en radianes, mientras que las personas describen los ángulos en grados.',
+    note: 'Un radián es una longitud de arco dividida por un radio, así que no lleva unidad. Por eso SIN() en una hoja de cálculo y math.sin() en Python leen 30 como 30 radianes y no como 30 grados: el error más habitual al usar trigonometría.',
+  },
+  'minute-hour': {
+    title: 'Minutos a horas',
+    desc: 'Convierte minutos en horas decimales',
+    long: 'Convierte minutos a horas y al revés. Hace falta donde el tiempo se factura o se registra: partes de horas, sueldo por hora, duración de vídeo, aparcamiento y alquileres.',
+    note: 'El resultado es una hora decimal. Una hora y cuarenta y cinco minutos son 1,75 horas y no 1,45: anotar 1,45 pierde dieciocho minutos, y ese es el error clásico de nómina.',
+    from: 'min', to: 'h',
+  },
+  'day-hour': {
+    title: 'Días a horas',
+    desc: 'Convierte un número de días en horas',
+    long: 'Convierte días a horas y al revés. Sirve para plazos de envío, intervalos entre dosis, tiempo de servicio de un servidor y alquiler de equipos, donde días y horas se mezclan en el mismo cálculo.',
+    note: 'Un día no siempre tiene 24 horas. Donde hay cambio de hora, el día en que empieza tiene 23 y el día en que acaba tiene 25, así que un vuelo o una reunión contados sobre ese fin de semana quedan desplazados una hora.',
+    from: 'días', to: 'horas',
+  },
+  'week-day': {
+    title: 'Semanas a días',
+    desc: 'Convierte semanas en un número de días',
+    long: 'Convierte semanas a días y al revés. Las semanas de embarazo, los plazos de un proyecto, los preavisos y los plazos de ahorro se cuentan en semanas pero hay que situarlos en el calendario.',
+    note: '"En dos semanas" en un contrato son 14 días naturales, pero solo 10 laborables. Cuando el texto no lo aclara se entienden días naturales, y planificar con ese criterio es lo prudente.',
+    from: 'semanas', to: 'días',
+  },
+  'rpm-hz': {
+    title: 'rpm a hercios',
+    desc: 'Convierte revoluciones por minuto en frecuencia',
+    long: 'Convierte revoluciones por minuto a hercios y al revés. Motores, ventiladores y taladros se especifican en rpm, mientras que el análisis de vibraciones y los variadores de frecuencia se ajustan en hercios.',
+    note: 'La frecuencia de la red y la velocidad del eje no son lo mismo. Un motor de cuatro polos a 60 Hz gira a 1.800 rpm sincrónicas: 120 × frecuencia ÷ polos. Para la velocidad angular en rad/s, multiplica estos hercios por 2π.',
+  },
+  'tsp-tbsp': {
+    title: 'Cucharaditas a cucharadas',
+    desc: 'Las dos medidas de cuchara de las recetas',
+    long: 'Convierte cucharaditas a cucharadas y al revés. Para cuando solo hay una cuchara medidora a mano, o cuando una receta se reduce a la mitad o se dobla.',
+    note: 'En las medidas de EE. UU. y de Corea una cucharada son exactamente tres cucharaditas. Solo la cucharada australiana mide 20 mL, es decir cuatro cucharaditas, así que convertir una receta australiana a 3:1 deja un 25% de menos.',
+    from: 'cdta', to: 'cda',
+  },
+  'oz-lb': {
+    title: 'Onzas a libras',
+    desc: 'Convierte onzas a libras en los dos sentidos',
+    long: 'Convierte onzas a libras y al revés. Los envases de alimentación estadounidenses, las tablas de correos y el peso de los recién nacidos ("7 lb 6 oz") usan las dos unidades juntas.',
+    note: 'La libra avoirdupois tiene 16 onzas. La onza troy, la del oro y la plata, pesa más (31,10 g) y la libra troy solo tiene 12, así que dividir el peso de un lingote entre 16 da un resultado falso.',
+  },
+  'newton-kgf': {
+    title: 'Newtons a kilogramos-fuerza',
+    desc: 'Convierte newtons en kilogramos-fuerza',
+    long: 'Convierte newtons a kilogramos-fuerza y al revés. Las normas internacionales dan la fuerza en newtons, pero las placas de equipos coreanos y japoneses, las balanzas de resorte y las máquinas de tracción siguen marcando kgf.',
+    note: 'El kgf está fijado a la gravedad estándar, 9,80665 m/s², así que no cambia con el lugar. Pero el kg es masa y el kgf es fuerza: mezclarlos en una misma tabla estropea el cálculo de cargas sin que se note.',
+  },
+  'mpg-l100km': {
+    title: 'mpg a L/100 km',
+    desc: 'El consumo estadounidense a la manera europea',
+    long: 'Convierte millas por galón estadounidenses en litros por 100 km. Las dos cifras van en sentidos opuestos, así que pasos iguales en mpg no son pasos iguales en combustible: de 20 a 25 mpg se ahorran 2,35 L/100 km y de 40 a 45 solo 0,65.',
+    note: 'La constante 235,215 es el galón estadounidense, 3,785411784 L, por 100 y dividido entre los 1,609344 km de una milla. Con el galón imperial hace falta 282,481, así que las cifras de las revistas británicas salen aquí un 20% más bajas.',
+  },
+  'l100km-kmpl': {
+    title: 'L/100 km a km/L',
+    desc: 'Convierte el consumo en rendimiento',
+    long: 'Convierte litros por 100 km en kilómetros por litro. Las dos son métricas, pero el numerador y el denominador están intercambiados, así que la cifra de un catálogo europeo hay que invertirla antes de compararla con un km/L.',
+    note: 'Todo el cálculo es 100 dividido entre el valor, y por eso el mismo paso sirve en los dos sentidos. Un litro pesa mucho más en la zona eficiente: de 4 a 3 se pasa de 25 a 33 km/L, mientras que de 9 a 8 solo se va de 11 a 12,5.',
+  },
+  'nm-ftlb': {
+    title: 'N·m a ft·lb',
+    desc: 'Convierte entre unidades de par',
+    long: 'Convierte el par entre newton-metro y libra-pie. Las llaves dinamométricas y los manuales de taller comprados en Estados Unidos están graduados en ft·lb, mientras que las especificaciones internacionales se escriben en N·m.',
+    note: 'ft·lb y lb·ft son la misma unidad escrita de dos maneras. Los pares pequeños se dan en in·lb, la doceava parte de un ft·lb: leer una especificación de bicicleta o de electrónica como si fuera ft·lb aprieta el tornillo doce veces más.',
+  },
+  'cfm-m3h': {
+    title: 'CFM a m³/h',
+    desc: 'Convierte unidades de caudal de aire',
+    long: 'Convierte pies cúbicos por minuto en metros cúbicos por hora. Los fabricantes estadounidenses y taiwaneses miden extractores, campanas, purificadores y ventiladores de PC en CFM, mientras que los planos de ventilación usan m³/h.',
+    note: 'El CFM es un caudal de volumen y no dice nada de la presión. Dos ventiladores con el mismo CFM se portan de forma distinta con un filtro o un conducto largo delante, así que hay que leer el caudal junto con la presión estática.',
+  },
 };

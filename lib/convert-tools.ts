@@ -12,6 +12,7 @@
  */
 import { CONVERT_TOOLS2, CONVERT_CATEGORIES2 } from './convert-tools2.ts';
 import { CONVERT_TOOLS3 } from './convert-tools3.ts';
+import { CONVERT_TOOLS4 } from './convert-tools4.ts';
 import { relatedFor } from './related-rotate.ts';
 
 export interface ConvertTool {
@@ -426,6 +427,7 @@ export const CONVERT_TOOLS: ConvertTool[] = [
   ...LENGTH, ...WEIGHT, ...VOLUME, ...AREA, ...TEMPERATURE, ...SPEED, ...DATA, ...ENERGY, ...PRESSURE,
   ...CONVERT_TOOLS2,
   ...CONVERT_TOOLS3,
+  ...CONVERT_TOOLS4,
 ];
 
 export const CONVERT_MAP: Record<string, ConvertTool> = Object.fromEntries(
