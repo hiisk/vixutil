@@ -14,6 +14,8 @@ import type { SearchIntlLang } from './search-index-intl.ts';
 export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   en: {
     cmd: 'Commands',
+    shortcut: 'Shortcuts',
+    emoji: 'Emoji',
     craft: 'Crafts',
     calculator: 'Calculators', rate: 'Percent', body: 'Body', geometry: 'Geometry',
     convert: 'Convert', color: 'Colour', time: 'Time', image: 'Image', sound: 'Sound', food: 'Cooking',
@@ -22,6 +24,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   es: {
     cmd: 'Comandos',
+    shortcut: 'Atajos',
+    emoji: 'Emojis',
     craft: 'Manualidades',
     calculator: 'Calculadoras', rate: 'Porcentajes', body: 'Cuerpo', geometry: 'Geometría',
     convert: 'Unidades', color: 'Color', time: 'Tiempo', image: 'Imagen', sound: 'Sonido', food: 'Cocina',
@@ -30,6 +34,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   'pt-br': {
     cmd: 'Comandos',
+    shortcut: 'Atalhos',
+    emoji: 'Emojis',
     craft: 'Artesanato',
     calculator: 'Calculadoras', rate: 'Porcentagens', body: 'Corpo', geometry: 'Geometria',
     convert: 'Unidades', color: 'Cor', time: 'Tempo', image: 'Imagem', sound: 'Som', food: 'Cozinha',
@@ -38,6 +44,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   ja: {
     cmd: 'コマンド',
+    shortcut: 'ショートカット',
+    emoji: '絵文字',
     craft: 'ハンドメイド',
     calculator: '計算機', rate: '割合', body: '体', geometry: '図形',
     convert: '単位', color: '配色', time: '時間', image: '画像', sound: '音', food: '料理',
@@ -46,6 +54,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   de: {
     cmd: 'Befehle',
+    shortcut: 'Tastenkürzel',
+    emoji: 'Emojis',
     craft: 'Handarbeit',
     calculator: 'Rechner', rate: 'Prozent', body: 'Körper', geometry: 'Geometrie',
     convert: 'Einheiten', color: 'Farbe', time: 'Zeit', image: 'Bild', sound: 'Klang', food: 'Küche',
@@ -54,6 +64,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   fr: {
     cmd: 'Commandes',
+    shortcut: 'Raccourcis',
+    emoji: 'Emojis',
     craft: 'Loisirs créatifs',
     calculator: 'Calculatrices', rate: 'Pourcentages', body: 'Corps', geometry: 'Géométrie',
     convert: 'Unités', color: 'Couleur', time: 'Temps', image: 'Image', sound: 'Son', food: 'Cuisine',
@@ -62,6 +74,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   hi: {
     cmd: 'कमांड',
+    shortcut: 'शॉर्टकट',
+    emoji: 'इमोजी',
     craft: 'हस्तकला',
     calculator: 'कैलकुलेटर', rate: 'प्रतिशत', body: 'शरीर', geometry: 'ज्यामिति',
     convert: 'इकाई', color: 'रंग', time: 'समय', image: 'इमेज', sound: 'ध्वनि', food: 'रसोई',
@@ -70,6 +84,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   'zh-hans': {
     cmd: '命令',
+    shortcut: '快捷键',
+    emoji: '表情',
     craft: '手作',
     calculator: '计算器', rate: '百分比', body: '身体', geometry: '几何',
     convert: '换算', color: '颜色', time: '时间', image: '图片', sound: '声音', food: '烹饪',
@@ -78,6 +94,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
   'zh-hant': {
     cmd: '命令',
+    shortcut: '快速鍵',
+    emoji: '表情',
     craft: '手作',
     calculator: '計算機', rate: '百分比', body: '身體', geometry: '幾何',
     convert: '換算', color: '顏色', time: '時間', image: '圖片', sound: '聲音', food: '烹飪',
@@ -86,4 +104,4 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
   },
 };
 
-export const SECTION_ORDER = ['calculator', 'rate', 'body', 'geometry', 'craft', 'cmd', 'convert', 'color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'generator', 'fortune', 'snap'];
+export const SECTION_ORDER = ['calculator', 'rate', 'body', 'geometry', 'craft', 'cmd', 'shortcut', 'emoji', 'convert', 'color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'generator', 'fortune', 'snap'];

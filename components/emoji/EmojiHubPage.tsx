@@ -1,0 +1,127 @@
+import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
+import PageGlow from '@/components/PageGlow';
+import Faq from '@/components/Faq';
+import ToolIcon from '@/components/ToolIcon';
+import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
+import { EM_ITEMS, EM_ICON, EM_GROUPS, emojisOf } from '@/lib/emoji/list';
+import { emojiDesc } from '@/lib/emoji/desc';
+import { EMOJI_UI } from '@/lib/emoji/ui';
+import LangPicker from '@/components/LangPicker';
+
+/**
+ * 이모지 목록 — 열 언어가 이 컴포넌트 하나를 쓴다.
+ *
+ * 격자에 글자를 크게 두고 그 아래 사람들이 부르는 이름을 둔다. 목록에서
+ * 찾는 방식이 둘이라서다 — 그림을 알고 뜻을 모르는 사람은 글자를 훑고,
+ * 뜻만 아는 사람은 이름을 읽는다.
+ */
+export default function EmojiHubPage({ lang }: { lang: Lang }) {
+  const ui = EMOJI_UI[lang];
+  const prefix = langPrefix(lang);
+  const homeHref = lang === 'ko' ? '/' : prefix || '/';
+  const path = `${prefix}/emoji`;
+  const base = localeOfLang(lang);
+  const n = String(EM_ITEMS.length);
+
+  return (
+    <div className="page-wrap">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: ui.home, path: homeHref },
+          { name: ui.section, path },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(ui.hubTitle, path, EM_ITEMS.map(x => ({
+          name: `${x.char} ${x.common}`,
+          path: `${path}/${x.slug}`,
+        })))}
+      />
+
+      <PageGlow accent="amber" />
+      <div className="h-1 bg-gradient-to-r from-amber-700 to-amber-400" />
+
+      <header className="page-head">
+        <div className="page-bar">
+          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            {ui.home}
+          </Link>
+          <span className="text-slate-200 dark:text-slate-700">·</span>
+          <span className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{ui.section}</span>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route="/emoji" available={LOCALE_PATHS} />
+          </div>
+        </div>
+      </header>
+
+      <main className="relative max-w-2xl mx-auto px-4 py-8">
+        <div className="text-center mb-7">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg bg-gradient-to-br from-amber-700 to-amber-400">
+            <ToolIcon emoji={EM_ICON} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{ui.hubTitle}</h1>
+          <p className="note-sm max-w-xl mx-auto">{ui.hubLead.replace('{n}', n)}</p>
+        </div>
+
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3 mb-8">
+          {ui.hubNotice}
+        </p>
+
+        {EM_GROUPS.map(g => {
+          const list = emojisOf(g);
+          if (!list.length) return null;
+          return (
+            <section key={g} className="mb-9">
+              <h2 className="sec-h2 flex items-baseline gap-2">
+                {ui.groupLabel[g]}
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{list.length}</span>
+              </h2>
+              <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.groupNote[g]}</p>
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                {list.map(x => (
+                  <Link
+                    key={x.slug}
+                    href={`${path}/${x.slug}`}
+                    title={emojiDesc(x.slug, lang)}
+                    className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-3 text-center hover:border-amber-300 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                  >
+                    <span className="block text-3xl leading-none mb-1.5">{x.char}</span>
+                    <span className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 leading-tight group-hover:text-amber-700 transition-colors break-words">
+                      {x.common}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+
+        <section className="mt-8">
+          <h2 className="sec-h2">{ui.howTitle}</h2>
+          <ul className="list-card">
+            {ui.how.map(h => (
+              <li key={h} className="cell-note">{h}</li>
+            ))}
+          </ul>
+        </section>
+
+        <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
+
+        <nav className="foot-nav" aria-label="Language">
+          {LANGS.filter(l => l.lang !== lang).map(l => (
+            <Link key={l.lang} href={`${l.prefix}/emoji`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      </main>
+
+      <SiteFooter lang={base} />
+    </div>
+  );
+}

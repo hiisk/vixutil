@@ -73,7 +73,7 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,479  공예 계산기(뜨개·재봉·퀼트·양초·비누·구슬)를 열 언어씩 더함(+10)
  *   2,489  터미널 명령어 사전을 열 언어씩 더함(+10)
    */
-  const WANT = 2489;
+  const WANT = 2509;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

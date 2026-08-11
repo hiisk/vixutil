@@ -125,6 +125,8 @@ import { IMG_SIZES } from "@/lib/imgsize/list";
 import { CSS_PROPS } from "@/lib/css/props";
 import { HTTP_ITEMS } from "@/lib/http/list";
 import { CMD_ITEMS } from "@/lib/cmd/list";
+import { SC_ITEMS } from "@/lib/shortcut/list";
+import { EM_ITEMS } from "@/lib/emoji/list";
 
 const BASE = "https://vixutil.com";
 
@@ -324,6 +326,24 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // 키보드 단축키도 열 언어다 — 목록과 낱장을 함께 싣는다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/shortcut`, changeFrequency: weekly, priority: 0.9 },
+      ...SC_ITEMS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/shortcut/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 이모지 뜻도 열 언어다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/emoji`, changeFrequency: weekly, priority: 0.9 },
+      ...EM_ITEMS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/emoji/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 터미널 명령어도 열 언어다 — 목록과 낱장을 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/cmd`, changeFrequency: weekly, priority: 0.9 },

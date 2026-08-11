@@ -1473,6 +1473,36 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/shortcut', icon: '⌨️', color: 'from-slate-900 to-sky-500',
+    accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
+    copy: {
+      en: { title: 'Keyboard Shortcuts', desc: 'Excel, VS Code, Chrome, Figma — Windows and Mac side by side' },
+      es: { title: 'Atajos de teclado', desc: 'Excel, VS Code, Chrome, Figma: Windows y Mac juntos' },
+      'pt-br': { title: 'Atalhos de teclado', desc: 'Excel, VS Code, Chrome, Figma — Windows e Mac lado a lado' },
+      ja: { title: 'キーボードショートカット', desc: 'Excel・VS Code・Chrome・Figma を Windows と Mac 並べて' },
+      de: { title: 'Tastenkürzel', desc: 'Excel, VS Code, Chrome, Figma — Windows und Mac nebeneinander' },
+      fr: { title: 'Raccourcis clavier', desc: 'Excel, VS Code, Chrome, Figma : Windows et Mac côte à côte' },
+      hi: { title: 'कीबोर्ड शॉर्टकट', desc: 'Excel, VS Code, Chrome, Figma — Windows और Mac साथ-साथ' },
+      'zh-hans': { title: '键盘快捷键', desc: 'Excel、VS Code、Chrome、Figma 的 Windows 与 Mac 对照' },
+      'zh-hant': { title: '鍵盤快速鍵', desc: 'Excel、VS Code、Chrome、Figma 的 Windows 與 Mac 對照' },
+    },
+  },
+  {
+    route: '/emoji', icon: '😀', color: 'from-amber-700 to-amber-400',
+    accent: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900/50', bg: 'bg-amber-50 dark:bg-amber-950/30',
+    copy: {
+      en: { title: 'Emoji Meanings', desc: 'What 💀 🙏 😤 actually mean when someone sends them' },
+      es: { title: 'Significado de emojis', desc: 'Qué quieren decir de verdad 💀 🙏 😤 cuando te los envían' },
+      'pt-br': { title: 'Significado dos emojis', desc: 'O que 💀 🙏 😤 realmente querem dizer quando chegam' },
+      ja: { title: '絵文字の意味', desc: '💀 🙏 😤 が実際にどんな意味で送られているか' },
+      de: { title: 'Emoji-Bedeutungen', desc: 'Was 💀 🙏 😤 wirklich heißen, wenn sie ankommen' },
+      fr: { title: 'Signification des emojis', desc: 'Ce que veulent vraiment dire 💀 🙏 😤 quand on les reçoit' },
+      hi: { title: 'इमोजी का अर्थ', desc: '💀 🙏 😤 भेजे जाने पर असल में क्या कहते हैं' },
+      'zh-hans': { title: '表情符号含义', desc: '别人发来 💀 🙏 😤 到底是什么意思' },
+      'zh-hant': { title: '表情符號含義', desc: '別人發來 💀 🙏 😤 到底是什麼意思' },
+    },
+  },
+  {
     route: '/cmd', icon: '⌨️', color: 'from-slate-700 to-indigo-500',
     accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
     copy: {

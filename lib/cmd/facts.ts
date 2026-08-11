@@ -17,12 +17,24 @@ export interface CmdFacts {
   flagCount: number;
 }
 
-/** 갈래가 비면 다음 갈래에서 빌려 온다 — 이웃 0인 낱장을 만들지 않는다 */
+/**
+ * 이웃을 갈래 안에서 자기 다음부터 원형으로 고른다.
+ *
+ * 앞에서 여덟 개를 잘라 오면 갈래의 앞쪽만 서로 가리키고, 아홉째부터는 들어오는
+ * 링크가 0이 된다 — 사이트맵에는 있고 아무 페이지도 안 가리키는 낱장이다.
+ * 자기 자리 다음부터 감아 고르면 모든 항목이 정확히 여덟 곳에서 가리켜진다.
+ *
+ * 갈래에 여덟이 안 차면 다른 갈래에서 빌려 오는데, 그때도 자기 자리부터 감는다.
+ */
 function fill(me: CmdItem, limit: number): string[] {
-  const same = CMD_ITEMS.filter(x => x.category === me.category && x.slug !== me.slug).map(x => x.slug);
-  if (same.length >= limit) return same.slice(0, limit);
-  const others = CMD_ITEMS.filter(x => x.category !== me.category).map(x => x.slug);
-  return [...same, ...others].slice(0, limit);
+  const same = CMD_ITEMS.filter(x => x.category === me.category).map(x => x.slug);
+  const at = same.indexOf(me.slug);
+  const ring = same.slice(at + 1).concat(same.slice(0, at));
+  if (ring.length >= limit) return ring.slice(0, limit);
+  const all = CMD_ITEMS.map(x => x.slug);
+  const gAt = all.indexOf(me.slug);
+  const others = all.slice(gAt + 1).concat(all.slice(0, gAt)).filter(s => !ring.includes(s));
+  return [...ring, ...others].slice(0, limit);
 }
 
 export function cmdFacts(x: CmdItem, limit = 8): CmdFacts {

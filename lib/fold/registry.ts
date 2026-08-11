@@ -1,4 +1,4 @@
-/* 생성됨 — 접힌 경로 → 모듈. 정적 243 · 한 칸 동적 93 · 캐치올 1.
+/* 생성됨 — 접힌 경로 → 모듈. 정적 250 · 한 칸 동적 100 · 캐치올 1.
    새 경로는 lib/fold/pages/에 모듈을 만들고 여기 한 줄을 더한다. */
 import type { FoldLang } from './lang';
 
@@ -58,6 +58,7 @@ export const STATIC_ROUTES: Record<string, Loader> = {
   'drill': () => import('./pages/drill'),
   'drink': () => import('./pages/drink'),
   'element': () => import('./pages/element'),
+  'emoji': () => import('./pages/emoji'),
   'exposure': () => import('./pages/exposure'),
   'ext': () => import('./pages/ext'),
   'filament': () => import('./pages/filament'),
@@ -168,6 +169,7 @@ export const STATIC_ROUTES: Record<string, Loader> = {
   'roman': () => import('./pages/roman'),
   'screw': () => import('./pages/screw'),
   'search': () => import('./pages/search'),
+  'shortcut': () => import('./pages/shortcut'),
   'size': () => import('./pages/size'),
   'snap': () => import('./pages/snap'),
   'snap/animal-face': () => import('./pages/snap__animal-face'),
@@ -286,6 +288,7 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'drill': () => import('./pages/drill__slug'),
   'drink': () => import('./pages/drink__slug'),
   'element': () => import('./pages/element__slug'),
+  'emoji': () => import('./pages/emoji__slug'),
   'exposure': () => import('./pages/exposure__slug'),
   'ext': () => import('./pages/ext__slug'),
   'filament': () => import('./pages/filament__slug'),
@@ -334,6 +337,7 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'resistor': () => import('./pages/resistor__slug'),
   'roman': () => import('./pages/roman__slug'),
   'screw': () => import('./pages/screw__slug'),
+  'shortcut': () => import('./pages/shortcut__slug'),
   'size': () => import('./pages/size__slug'),
   'snap/lens': () => import('./pages/snap__lens__slug'),
   'sound/hz': () => import('./pages/sound__hz__slug'),

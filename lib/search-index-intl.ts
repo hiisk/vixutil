@@ -21,6 +21,11 @@ import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
 import { CRAFT_TOOLS } from './craft-tools.ts';
 import { CMD_ITEMS } from './cmd/list.ts';
+import { SC_ITEMS, primaryCombo } from './shortcut/list.ts';
+import { SC_UI } from './shortcut/ui.ts';
+import { scDesc, type ScLangKey } from './shortcut/desc.ts';
+import { EM_ITEMS } from './emoji/list.ts';
+import { emojiDesc, type EmLangKey } from './emoji/desc.ts';
 import { cmdDesc, type CmdLangKey } from './cmd/desc.ts';
 import { TOOL_L10N } from './formula/tool-l10n.ts';
 import type { FormulaTool } from './formula/types.ts';
@@ -129,6 +134,32 @@ const CMD_LANG: Record<string, CmdLangKey> = {
   en: 'en', es: 'es', 'pt-br': 'pt', ja: 'ja', de: 'de', fr: 'fr', hi: 'hi', 'zh-hans': 'zh', 'zh-hant': 'tw',
 };
 
+/**
+ * 단축키 — 제목에 앱 이름과 하는 일을 함께 둔다. "엑셀 절대참조"로 찾는 사람이
+ * 있고 "Excel F4"로 찾는 사람이 있어, 둘 다 걸리게 앱 이름을 앞에 붙인다.
+ */
+function scEntries(lang: SearchIntlLang): Entry[] {
+  const key = (CMD_LANG[lang] ?? 'en') as ScLangKey;
+  const ui = SC_UI[key];
+  return SC_ITEMS.map(x => ({
+    slug: x.slug,
+    title: `${ui.appLabel[x.app]} ${x.action} — ${primaryCombo(x)}`,
+    desc: scDesc(x.slug, key),
+    icon: '⌨️',
+  }));
+}
+
+/** 이모지 — 제목에 글자와 사람들이 부르는 이름을 함께 둔다 */
+function emojiEntries(lang: SearchIntlLang): Entry[] {
+  const key = (CMD_LANG[lang] ?? 'en') as EmLangKey;
+  return EM_ITEMS.map(x => ({
+    slug: x.slug,
+    title: `${x.char} ${x.common}`,
+    desc: emojiDesc(x.slug, key),
+    icon: '😀',
+  }));
+}
+
 function cmdEntries(lang: SearchIntlLang): Entry[] {
   const key = CMD_LANG[lang] ?? 'en';
   return CMD_ITEMS.map(x => ({ slug: x.slug, title: x.name, desc: cmdDesc(x.slug, key), icon: '⌨️' }));
@@ -153,6 +184,8 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('geometry', formulaEntries(lang, GEO_TOOLS)),
     ...tools('craft', formulaEntries(lang, CRAFT_TOOLS)),
     ...tools('cmd', cmdEntries(lang)),
+    ...tools('shortcut', scEntries(lang)),
+    ...tools('emoji', emojiEntries(lang)),
     ...tools('convert', convertEntries(lang)),
     ...tools('color', colorToolsIntl(lang)),
     ...tools('time', timeToolsIntl(lang)),
