@@ -713,6 +713,18 @@ const SECTIONS = [
     shadow: 'shadow-slate-100',
   },
   {
+    href: '/error',
+    icon: '⚠️',
+    title: '오류 문구 사전',
+    desc: 'git·npm·Python·Docker 오류가 무슨 뜻이고 그 명령이 무엇을 버리는지',
+    badge: `${SECTION_COUNTS.error}개`,
+    color: 'from-rose-800 to-rose-400',
+    bgLight: 'bg-rose-50 dark:bg-rose-950/30',
+    textAccent: 'text-rose-700 dark:text-rose-300',
+    borderAccent: 'border-rose-200 dark:border-rose-900/50',
+    shadow: 'shadow-rose-100',
+  },
+  {
     href: '/shortcut',
     icon: '⌨️',
     title: '키보드 단축키',

@@ -8,11 +8,12 @@ import { EM_DESC_SYMBOL } from './desc-symbol.ts';
 import { EM_DESC_HAND } from './desc-hand.ts';
 import { EM_DESC_PEOPLE } from './desc-people.ts';
 import { EM_DESC_MORE } from './desc-more.ts';
+import { EM_DESC_PLACE } from './desc-place.ts';
 
 const LANG_ORDER = ['ko', 'en', 'es', 'pt', 'ja', 'de', 'fr', 'hi', 'zh', 'tw'] as const;
 export type EmLangKey = typeof LANG_ORDER[number];
 
-export const EM_DESC: Record<string, Ten> = { ...EM_DESC_FACE, ...EM_DESC_THING, ...EM_DESC_SYMBOL, ...EM_DESC_HAND, ...EM_DESC_PEOPLE, ...EM_DESC_MORE };
+export const EM_DESC: Record<string, Ten> = { ...EM_DESC_FACE, ...EM_DESC_THING, ...EM_DESC_SYMBOL, ...EM_DESC_HAND, ...EM_DESC_PEOPLE, ...EM_DESC_MORE, ...EM_DESC_PLACE };
 
 /** 그 언어의 설명 — 없으면 영어로 되돌린다 */
 export function emojiDesc(slug: string, lang: EmLangKey): string {

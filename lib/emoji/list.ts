@@ -13,13 +13,14 @@ import type { EmojiItem, EmojiGroup } from './types.ts';
 import { EM_FACE } from './list-face.ts';
 import { EM_THING } from './list-thing.ts';
 import { EM_SYMBOL } from './list-symbol.ts';
+import { EM_PLACE } from './list-place.ts';
 
 export type { EmojiItem, EmojiGroup, Ten } from './types.ts';
 
-export const EM_ITEMS: EmojiItem[] = [...EM_FACE, ...EM_THING, ...EM_SYMBOL];
+export const EM_ITEMS: EmojiItem[] = [...EM_FACE, ...EM_THING, ...EM_SYMBOL, ...EM_PLACE];
 
 /** 허브의 갈래 순서 — 검색이 많은 것을 앞에 둔다 */
-export const EM_GROUPS: EmojiGroup[] = ['face', 'hand', 'symbol', 'people', 'nature', 'food', 'object'];
+export const EM_GROUPS: EmojiGroup[] = ['face', 'hand', 'symbol', 'people', 'activity', 'nature', 'food', 'object', 'place'];
 
 export const EM_SLUGS = EM_ITEMS.map(x => x.slug);
 

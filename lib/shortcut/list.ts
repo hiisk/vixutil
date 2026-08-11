@@ -12,13 +12,24 @@ import { NA, type ScItem, type ScApp } from './types.ts';
 import { SC_EDITOR } from './list-editor.ts';
 import { SC_OFFICE } from './list-office.ts';
 import { SC_DESIGN } from './list-design.ts';
+import { SC_OFFICE2 } from './list-office2.ts';
+import { SC_MAIL } from './list-mail.ts';
+import { SC_ADOBE } from './list-adobe.ts';
+import { SC_DEV2 } from './list-dev2.ts';
+import { SC_CHAT } from './list-chat.ts';
 
 export type { ScItem, ScApp, Ten } from './types.ts';
 
-export const SC_ITEMS: ScItem[] = [...SC_EDITOR, ...SC_OFFICE, ...SC_DESIGN];
+export const SC_ITEMS: ScItem[] = [
+  ...SC_EDITOR, ...SC_OFFICE, ...SC_DESIGN,
+  ...SC_OFFICE2, ...SC_MAIL, ...SC_ADOBE, ...SC_DEV2, ...SC_CHAT,
+];
 
 /** 허브의 앱 순서 — 검색이 많은 것을 앞에 둔다 */
-export const SC_APPS: ScApp[] = ['excel', 'vscode', 'chrome', 'sheets', 'windows', 'macos', 'terminal', 'figma', 'photoshop', 'slack'];
+export const SC_APPS: ScApp[] = [
+  'excel', 'word', 'powerpoint', 'vscode', 'intellij', 'chrome', 'sheets', 'gmail', 'outlook', 'notion',
+  'windows', 'macos', 'terminal', 'figma', 'photoshop', 'illustrator', 'premiere', 'slack', 'discord', 'zoom',
+];
 
 export const SC_SLUGS = SC_ITEMS.map(x => x.slug);
 

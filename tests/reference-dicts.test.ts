@@ -1,5 +1,5 @@
 /**
- * 참고 사전 세 섹션 — /cmd, /shortcut, /emoji.
+ * 참고 사전 네 섹션 — /cmd, /shortcut, /emoji, /error.
  *
  * 세 섹션이 같은 꼴이다. 식별자(명령 이름·키 조합·이모지 글자)는 프로그램과
  * 유니코드가 정한 것이라 옮기지 않고, 열 언어로 쓰는 것은 한 줄 설명뿐이다.
@@ -31,6 +31,9 @@ import { scFacts, keyCount } from '../lib/shortcut/facts.ts';
 import { EM_ITEMS, emojiItem, EM_GROUPS, codePoints } from '../lib/emoji/list.ts';
 import { EM_DESC } from '../lib/emoji/desc.ts';
 import { emojiFacts } from '../lib/emoji/facts.ts';
+import { ERR_ITEMS, errItem, ERR_CATEGORIES } from '../lib/errmsg/list.ts';
+import { ERR_DESC } from '../lib/errmsg/desc.ts';
+import { errFacts } from '../lib/errmsg/facts.ts';
 
 const LANGS = ['ko', 'en', 'es', 'pt', 'ja', 'de', 'fr', 'hi', 'zh', 'tw'] as const;
 
@@ -69,7 +72,41 @@ const SECTIONS: Section[] = [
     related: s => emojiFacts(emojiItem(s)!).related,
     groups: Object.fromEntries(EM_GROUPS.map(g => [g, EM_ITEMS.filter(x => x.group === g).length])),
   },
+  {
+    name: 'error',
+    slugs: ERR_ITEMS.map(x => x.slug),
+    desc: ERR_DESC,
+    related: s => errFacts(errItem(s)!).related,
+    groups: Object.fromEntries(ERR_CATEGORIES.map(c => [c, ERR_ITEMS.filter(x => x.category === c).length])),
+  },
 ];
+
+test('error: 오류 문구가 겹치지 않는다', () => {
+  /* 같은 문구가 둘이면 어느 쪽으로 가야 하는지 알 수 없다 — 슬러그만 다른 중복이다 */
+  const seen = new Map<string, string>();
+  const dup: string[] = [];
+  for (const x of ERR_ITEMS) {
+    const prev = seen.get(x.message);
+    if (prev) dup.push(`${x.message}: ${prev} / ${x.slug}`);
+    else seen.set(x.message, x.slug);
+  }
+  assert.deepEqual(dup, [], '같은 문구를 두 낱장이 쓴다');
+});
+
+test('error: 문구를 번역하거나 다듬지 않았다', () => {
+  /*
+   * 문구는 도구가 출력한 그대로여야 한다. 라틴 글자와 기호만으로 되어 있는지
+   * 보아, 한글·가나·한자가 섞여 들어온 것을 잡는다 — 그런 문구로는 아무것도
+   * 검색할 수 없다.
+   */
+  const bad = ERR_ITEMS.filter(x => /[가-힣ぁ-んァ-ン一-鿿]/.test(x.message));
+  assert.deepEqual(bad.map(x => `${x.slug}: ${x.message}`), []);
+});
+
+test('error: 고치는 명령도 라틴 글자로만 되어 있다', () => {
+  const bad = ERR_ITEMS.filter(x => x.fix && /[가-힣ぁ-んァ-ン一-鿿]/.test(x.fix));
+  assert.deepEqual(bad.map(x => `${x.slug}: ${x.fix}`), [], '번역한 명령은 실행되지 않는다');
+});
 
 for (const sec of SECTIONS) {
   test(`${sec.name}: 슬러그가 유일하고 주소에 쓸 수 있다`, () => {
@@ -177,6 +214,18 @@ test('shortcut: 두 운영체제 조합이 모두 있다', () => {
   assert.deepEqual(holes.map(x => x.slug), [], '한쪽만 있으면 그 자리가 빈 칸으로 나온다');
 });
 
+/**
+ * 수식 키만으로 되어 있는 것이 **맞는** 자리.
+ *
+ * 수식 키 하나는 그 자체로 단축키일 수 있어(Win 키가 시작 메뉴를 연다) 검사에서
+ * 아예 빼지만, 둘 이상 겹친 것은 대개 마지막 키를 적다 끊긴 자리다. 그런데 Zoom은
+ * 수식 키 셋을 함께 누르는 것을 실제로 하나의 단축키로 두고 있다 — 화면 공유로
+ * 조작 줄이 가려졌을 때 거기에 초점을 옮기는 길이다.
+ */
+const MOD_ONLY_OK = new Map<string, string>([
+  ['zoom-focus-meeting-controls', 'Zoom이 수식 키 셋 자체를 조작 줄 초점 이동으로 둔다'],
+]);
+
 test('shortcut: 수식 키를 겹쳐 놓고 끝난 조합이 없다', () => {
   /*
    * 'Ctrl+Shift'는 단축키가 아니다 — 마지막에 눌리는 키가 빠진 것이다. 적다가
@@ -186,7 +235,7 @@ test('shortcut: 수식 키를 겹쳐 놓고 끝난 조합이 없다', () => {
    * 메뉴가 열리는 것이 그렇다.
    */
   const MOD = new Set(['Ctrl', 'Cmd', 'Shift', 'Alt', 'Option', 'Win', 'Fn', 'Meta']);
-  const bad = SC_ITEMS.filter(x => [x.win, x.mac].some(c => {
+  const bad = SC_ITEMS.filter(x => !MOD_ONLY_OK.has(x.slug) && [x.win, x.mac].some(c => {
     const keys = c.split(' ').pop()!.split('+').filter(Boolean);
     return keys.length > 1 && keys.every(k => MOD.has(k));
   }));
@@ -210,6 +259,10 @@ test('shortcut: 키 수 세기가 이어 누르는 조합과 더하기 키를 �
 const SAME_COMBO_OK = new Map<string, string>([
   // 시트에서는 다시 계산, 수식 입력줄에서 일부를 골라 놓고 누르면 그 조각의 값
   ['excel|F9', '초점이 시트냐 수식 입력줄이냐로 갈린다'],
+  // 편집기에서는 줄 복제, 커밋 창에서는 차이 보기 — JetBrains가 창마다 다르게 붙였다
+  ['intellij|Ctrl+D', '초점이 편집기냐 버전 관리 창이냐로 갈린다'],
+  // 전화가 오면 거절, 아니면 이 채널을 읽음으로 표시. 작성 중이면 초안까지 지운다
+  ['discord|Esc', '전화가 오는 중이냐 아니냐로 갈린다 — 한 키가 세 일을 한다'],
 ]);
 
 test('shortcut: 같은 앱에서 같은 조합이 두 일을 하지 않는다', () => {

@@ -9,6 +9,7 @@
 import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
 import type { ScApp } from './types.ts';
 import type { ScFacts } from './facts.ts';
+import { SC_APP_NOTES } from './notes.ts';
 
 export interface FaqItem { q: string; a: string }
 
@@ -47,10 +48,20 @@ const T = <V,>(ko: V, en: V, es: V, pt: V, ja: V, de: V, fr: V, hi: V, zh: V, tw
 
 type Spec = { [K in keyof ScUI]: L<ScUI[K]> };
 
+/** 열 칸의 자리 번호 — ko가 0, tw가 9 */
+const LANG_SLOT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
+
+/** 그 언어 칸의 앱별 안내문을 한 벌로 모은다 */
+const appNotesAt = (i: number): Record<ScApp, string> =>
+  Object.fromEntries(Object.entries(SC_APP_NOTES).map(([app, ten]) => [app, ten[i]])) as Record<ScApp, string>;
+
 /** 앱 이름은 상표라 열 언어가 대체로 같다 — 중국어권만 널리 쓰는 역명이 있다 */
 const APPS = (macos: string, windows: string, terminal: string): Record<ScApp, string> => ({
   vscode: 'VS Code', excel: 'Excel', sheets: 'Google Sheets', chrome: 'Chrome',
   macos, windows, terminal, figma: 'Figma', photoshop: 'Photoshop', slack: 'Slack',
+  word: 'Word', powerpoint: 'PowerPoint', outlook: 'Outlook', notion: 'Notion', gmail: 'Gmail',
+  illustrator: 'Illustrator', premiere: 'Premiere Pro', intellij: 'IntelliJ IDEA',
+  discord: 'Discord', zoom: 'Zoom',
 });
 
 const SPEC: Spec = {
@@ -114,128 +125,12 @@ const SPEC: Spec = {
     APPS('macOS', 'Windows', '終端機'),
   ),
 
-  appNote: T(
-    {
-      vscode: '명령 팔레트(Ctrl/Cmd+Shift+P)를 알면 나머지는 외우지 않아도 됩니다 — 기능 이름을 치면 그 옆에 단축키가 함께 보입니다.',
-      excel: '엑셀은 맥에서 조합이 크게 다릅니다. F4(절대참조)가 맥에서는 Cmd+T이고, Ctrl 조합 일부는 맥에서도 Cmd가 아니라 Ctrl 그대로입니다.',
-      sheets: '브라우저 안에서 돌기 때문에 Ctrl+W처럼 브라우저가 먼저 가져가는 조합은 시트에 닿지 않습니다. 시트 단축키는 Alt/Option 조합이 많은 이유입니다.',
-      chrome: '닫은 탭 되살리기(Ctrl/Cmd+Shift+T)와 주소창 이동(Ctrl/Cmd+L)만 알아도 마우스로 가는 길이 크게 줄어듭니다.',
-      macos: 'Cmd가 윈도우의 Ctrl 자리입니다. 다만 줄 끝으로 가기 같은 텍스트 이동은 Cmd가 아니라 Ctrl+A/E나 Cmd+←/→를 씁니다.',
-      windows: 'Win 키 조합은 어느 프로그램에 있어도 먼저 잡힙니다 — 프로그램 단축키와 겹칠 걱정이 없는 대신, 프로그램 쪽에서 막을 수도 없습니다.',
-      terminal: '터미널에서 Ctrl+C는 복사가 아니라 실행 중인 것을 끊는 신호입니다. 복사는 윈도우 터미널이 Ctrl+Shift+C, 맥이 Cmd+C입니다.',
-      figma: '피그마는 도구 선택이 한 글자입니다(V·F·R·T). 텍스트를 편집하는 중에는 그 글자가 그대로 입력되니 Esc로 먼저 빠져나옵니다.',
-      photoshop: '브러시 크기 조절([, ])처럼 대괄호를 쓰는 조합은 한글 자판에서도 그대로 동작하지만, 한글 입력 상태에서는 다른 단축키가 먹지 않을 때가 있습니다.',
-      slack: '메시지 창에서 Enter가 보내기입니다. 줄바꿈은 Shift+Enter이고, 이 동작은 설정에서 서로 바꿀 수 있습니다.',
-    },
-    {
-      vscode: 'Learn the command palette (Ctrl/Cmd+Shift+P) and you can skip memorising the rest — type a feature name and its shortcut is listed beside it.',
-      excel: 'Excel diverges most on the Mac. F4 for absolute references is Cmd+T there, and a few Ctrl combinations stay Ctrl rather than becoming Cmd.',
-      sheets: 'It runs inside the browser, so combinations the browser claims first — Ctrl+W, for one — never reach the sheet. That is why so many Sheets shortcuts use Alt/Option.',
-      chrome: 'Reopening a closed tab (Ctrl/Cmd+Shift+T) and jumping to the address bar (Ctrl/Cmd+L) alone cut most of your trips to the mouse.',
-      macos: 'Cmd sits where Windows puts Ctrl. Text movement is the exception: end of line is Ctrl+A/E or Cmd+←/→, not a Cmd version of the Windows key.',
-      windows: 'Win-key combinations are captured before any program sees them — nothing can clash with them, and nothing can override them either.',
-      terminal: 'In a terminal Ctrl+C is not copy; it interrupts whatever is running. Copy is Ctrl+Shift+C in Windows Terminal and Cmd+C on a Mac.',
-      figma: 'Figma picks tools with single letters (V, F, R, T). While you are editing text those letters type themselves, so press Esc first.',
-      photoshop: 'Bracket keys resize the brush ([ and ]) on every layout, but with a non-Latin input method active some other shortcuts stop responding.',
-      slack: 'Enter sends the message in the composer. Shift+Enter makes a new line, and the two can be swapped in settings.',
-    },
-    {
-      vscode: 'Aprende la paleta de comandos (Ctrl/Cmd+Shift+P) y no tendrás que memorizar el resto: escribes el nombre de la función y su atajo aparece al lado.',
-      excel: 'Excel es donde más difieren Windows y Mac. F4 para referencias absolutas es Cmd+T en Mac, y algunas combinaciones siguen con Ctrl en lugar de Cmd.',
-      sheets: 'Corre dentro del navegador, así que las combinaciones que el navegador toma primero —Ctrl+W, por ejemplo— nunca llegan a la hoja. Por eso tantos atajos usan Alt/Option.',
-      chrome: 'Solo con reabrir la última pestaña (Ctrl/Cmd+Shift+T) e ir a la barra de direcciones (Ctrl/Cmd+L) te ahorras casi todos los viajes al ratón.',
-      macos: 'Cmd ocupa el lugar del Ctrl de Windows. El movimiento por el texto es la excepción: el final de línea es Ctrl+A/E o Cmd+←/→.',
-      windows: 'Las combinaciones con la tecla Win se capturan antes que cualquier programa: nada choca con ellas, y nada puede anularlas.',
-      terminal: 'En una terminal Ctrl+C no copia: interrumpe lo que se esté ejecutando. Copiar es Ctrl+Shift+C en Windows Terminal y Cmd+C en Mac.',
-      figma: 'Figma elige herramientas con una sola letra (V, F, R, T). Mientras editas texto esas letras se escriben, así que pulsa Esc primero.',
-      photoshop: 'Los corchetes cambian el tamaño del pincel ([ y ]) en cualquier distribución, pero con un método de entrada no latino activo algunos atajos dejan de responder.',
-      slack: 'En el cuadro de mensaje Enter envía. Shift+Enter hace un salto de línea, y ambos se pueden intercambiar en los ajustes.',
-    },
-    {
-      vscode: 'Aprenda a paleta de comandos (Ctrl/Cmd+Shift+P) e não precisa decorar o resto: digite o nome do recurso e o atalho aparece ao lado.',
-      excel: 'O Excel é onde Windows e Mac mais divergem. F4 para referência absoluta é Cmd+T no Mac, e algumas combinações continuam com Ctrl em vez de Cmd.',
-      sheets: 'Roda dentro do navegador, então combinações que o navegador pega primeiro — Ctrl+W, por exemplo — nunca chegam à planilha. É por isso que tantos atalhos usam Alt/Option.',
-      chrome: 'Só reabrir a aba fechada (Ctrl/Cmd+Shift+T) e ir para a barra de endereços (Ctrl/Cmd+L) já elimina quase toda ida ao mouse.',
-      macos: 'Cmd fica onde o Windows põe Ctrl. A exceção é andar pelo texto: fim de linha é Ctrl+A/E ou Cmd+←/→.',
-      windows: 'Combinações com a tecla Win são capturadas antes de qualquer programa — nada conflita com elas, e nada consegue sobrepô-las.',
-      terminal: 'No terminal Ctrl+C não copia: interrompe o que está rodando. Copiar é Ctrl+Shift+C no Windows Terminal e Cmd+C no Mac.',
-      figma: 'O Figma escolhe ferramentas com uma letra (V, F, R, T). Enquanto você edita texto essas letras são digitadas, então aperte Esc primeiro.',
-      photoshop: 'As teclas de colchete mudam o tamanho do pincel ([ e ]) em qualquer layout, mas com um método de entrada não latino ativo alguns atalhos param de responder.',
-      slack: 'No campo de mensagem Enter envia. Shift+Enter quebra a linha, e os dois podem ser trocados nas configurações.',
-    },
-    {
-      vscode: 'コマンドパレット（Ctrl/Cmd+Shift+P）を覚えれば、あとは暗記しなくて済みます — 機能名を打つと、その横にショートカットが並びます。',
-      excel: 'Excel は Mac で最も違います。絶対参照の F4 は Mac では Cmd+T で、一部の Ctrl 組み合わせは Cmd にならずそのまま Ctrl です。',
-      sheets: 'ブラウザの中で動くので、Ctrl+W のようにブラウザが先に取る組み合わせはシートまで届きません。だから Alt/Option の組み合わせが多いのです。',
-      chrome: '閉じたタブを戻す（Ctrl/Cmd+Shift+T）とアドレスバーへ移る（Ctrl/Cmd+L）の二つだけで、マウスに手を伸ばす回数がかなり減ります。',
-      macos: 'Cmd が Windows の Ctrl の位置です。ただし行末へ移るような文字の移動は Cmd 版ではなく Ctrl+A/E か Cmd+←/→ を使います。',
-      windows: 'Win キーの組み合わせはどのプログラムより先に取られます — 衝突の心配がない代わりに、プログラム側から上書きもできません。',
-      terminal: 'ターミナルの Ctrl+C はコピーではなく、動いているものを中断する合図です。コピーは Windows ターミナルが Ctrl+Shift+C、Mac が Cmd+C です。',
-      figma: 'Figma は道具を一文字で選びます（V・F・R・T）。テキスト編集中はその文字がそのまま入るので、まず Esc で抜けます。',
-      photoshop: '角括弧はどの配列でもブラシの大きさを変えます（[ と ]）が、日本語入力が有効なときは効かないショートカットもあります。',
-      slack: 'メッセージ欄では Enter が送信です。改行は Shift+Enter で、この二つは設定で入れ替えられます。',
-    },
-    {
-      vscode: 'Wer die Befehlspalette kennt (Ctrl/Cmd+Shift+P), muss den Rest nicht auswendig lernen — man tippt den Funktionsnamen, das Kürzel steht daneben.',
-      excel: 'Am Mac weicht Excel am stärksten ab. F4 für absolute Bezüge ist dort Cmd+T, und einige Ctrl-Kombinationen bleiben Ctrl statt Cmd zu werden.',
-      sheets: 'Es läuft im Browser, deshalb erreichen Kombinationen, die der Browser zuerst greift — etwa Ctrl+W —, die Tabelle nie. Darum arbeiten so viele Kürzel mit Alt/Option.',
-      chrome: 'Allein den geschlossenen Tab zurückholen (Ctrl/Cmd+Shift+T) und in die Adressleiste springen (Ctrl/Cmd+L) sparen die meisten Griffe zur Maus.',
-      macos: 'Cmd liegt dort, wo Windows Ctrl hat. Ausnahme ist die Bewegung im Text: ans Zeilenende geht es mit Ctrl+A/E oder Cmd+←/→.',
-      windows: 'Kombinationen mit der Win-Taste fängt das System vor jedem Programm ab — nichts kollidiert damit, und nichts kann sie überschreiben.',
-      terminal: 'Im Terminal kopiert Ctrl+C nicht, es bricht das Laufende ab. Kopiert wird mit Ctrl+Shift+C im Windows Terminal und mit Cmd+C am Mac.',
-      figma: 'Figma wählt Werkzeuge mit einzelnen Buchstaben (V, F, R, T). Beim Bearbeiten von Text schreiben sich diese Buchstaben selbst — erst Esc drücken.',
-      photoshop: 'Die Klammertasten ändern auf jedem Layout die Pinselgröße ([ und ]), doch mit aktiver nichtlateinischer Eingabemethode reagieren manche Kürzel nicht.',
-      slack: 'Im Nachrichtenfeld sendet Enter. Shift+Enter macht einen Zeilenumbruch; beides lässt sich in den Einstellungen tauschen.',
-    },
-    {
-      vscode: 'Apprenez la palette de commandes (Ctrl/Cmd+Shift+P) et vous n’aurez pas à retenir le reste : tapez le nom d’une fonction, son raccourci s’affiche à côté.',
-      excel: 'C’est sur Mac qu’Excel s’écarte le plus. F4 pour les références absolues devient Cmd+T, et certaines combinaisons gardent Ctrl au lieu de passer à Cmd.',
-      sheets: 'Il tourne dans le navigateur : les combinaisons que celui-ci capte d’abord — Ctrl+W par exemple — n’atteignent jamais la feuille. D’où le grand nombre de raccourcis avec Alt/Option.',
-      chrome: 'Rien que rouvrir l’onglet fermé (Ctrl/Cmd+Shift+T) et sauter dans la barre d’adresse (Ctrl/Cmd+L) supprime presque tous les allers-retours à la souris.',
-      macos: 'Cmd occupe la place du Ctrl de Windows. Le déplacement dans le texte fait exception : la fin de ligne, c’est Ctrl+A/E ou Cmd+←/→.',
-      windows: 'Les combinaisons avec la touche Win sont captées avant tout programme : rien n’entre en conflit avec elles, rien ne peut les remplacer.',
-      terminal: 'Dans un terminal, Ctrl+C ne copie pas : il interrompt ce qui tourne. Pour copier, c’est Ctrl+Shift+C dans Windows Terminal et Cmd+C sur Mac.',
-      figma: 'Figma choisit les outils avec une seule lettre (V, F, R, T). Pendant l’édition de texte ces lettres s’écrivent : appuyez d’abord sur Échap.',
-      photoshop: 'Les crochets règlent la taille du pinceau ([ et ]) sur toutes les dispositions, mais avec une méthode de saisie non latine active, certains raccourcis ne répondent plus.',
-      slack: 'Dans le champ de message, Entrée envoie. Maj+Entrée passe à la ligne, et les deux s’échangent dans les réglages.',
-    },
-    {
-      vscode: 'कमांड पैलेट (Ctrl/Cmd+Shift+P) आ जाए तो बाक़ी रटने की ज़रूरत नहीं — फ़ीचर का नाम टाइप कीजिए, शॉर्टकट उसके बग़ल में दिख जाता है।',
-      excel: 'Mac पर Excel सबसे ज़्यादा अलग है। absolute reference का F4 वहाँ Cmd+T है, और कुछ संयोजनों में Cmd नहीं, Ctrl ही रहता है।',
-      sheets: 'यह ब्राउज़र के अंदर चलता है, इसलिए जो संयोजन ब्राउज़र पहले ले लेता है — जैसे Ctrl+W — वे शीट तक पहुँचते ही नहीं। इसीलिए इतने शॉर्टकट Alt/Option वाले हैं।',
-      chrome: 'बंद हुआ टैब वापस लाना (Ctrl/Cmd+Shift+T) और पता-पट्टी पर जाना (Ctrl/Cmd+L) — बस ये दो माउस तक जाने के ज़्यादातर चक्कर बचा देते हैं।',
-      macos: 'Windows का Ctrl जहाँ है, वहाँ Cmd है। टेक्स्ट में घूमना अपवाद है: पंक्ति के अंत में Ctrl+A/E या Cmd+←/→ से जाते हैं।',
-      windows: 'Win कुंजी वाले संयोजन किसी भी प्रोग्राम से पहले पकड़ लिए जाते हैं — टकराव का डर नहीं, पर प्रोग्राम उन्हें बदल भी नहीं सकता।',
-      terminal: 'टर्मिनल में Ctrl+C कॉपी नहीं है, वह चल रही चीज़ को रोकने का संकेत है। कॉपी Windows Terminal में Ctrl+Shift+C और Mac पर Cmd+C है।',
-      figma: 'Figma में औज़ार एक अक्षर से चुने जाते हैं (V, F, R, T)। टेक्स्ट लिखते समय वही अक्षर टाइप हो जाते हैं, इसलिए पहले Esc दबाएँ।',
-      photoshop: 'ब्रैकेट कुंजियाँ हर लेआउट पर ब्रश का आकार बदलती हैं ([ और ]), पर देवनागरी इनपुट चालू हो तो कुछ शॉर्टकट काम करना बंद कर देते हैं।',
-      slack: 'संदेश बॉक्स में Enter भेजता है। नई पंक्ति Shift+Enter से बनती है, और सेटिंग्स में दोनों को बदला जा सकता है।',
-    },
-    {
-      vscode: '记住命令面板（Ctrl/Cmd+Shift+P），其余就不用背了——输入功能名，快捷键就列在旁边。',
-      excel: 'Excel 在 Mac 上差别最大。绝对引用的 F4 在 Mac 是 Cmd+T，还有几个组合仍是 Ctrl 而不是 Cmd。',
-      sheets: '它跑在浏览器里，所以浏览器先抢走的组合——比如 Ctrl+W——根本到不了表格。这就是表格快捷键多用 Alt/Option 的原因。',
-      chrome: '只要会恢复关掉的标签页（Ctrl/Cmd+Shift+T）和跳到地址栏（Ctrl/Cmd+L），伸手去摸鼠标的次数就少了一大半。',
-      macos: 'Cmd 在 Windows 的 Ctrl 位置上。文字移动是例外：到行尾用 Ctrl+A/E 或 Cmd+←/→。',
-      windows: 'Win 键组合会在任何程序之前被系统截走——不会跟程序冲突，程序也无法覆盖它。',
-      terminal: '终端里的 Ctrl+C 不是复制，是中断正在运行的东西。复制在 Windows 终端是 Ctrl+Shift+C，Mac 是 Cmd+C。',
-      figma: 'Figma 用单个字母选工具（V、F、R、T）。编辑文字时这些字母会直接打进去，先按 Esc 退出。',
-      photoshop: '方括号在任何键盘布局下都能改笔刷大小（[ 和 ]），但开着中文输入法时，有些快捷键会没反应。',
-      slack: '消息框里 Enter 是发送，换行是 Shift+Enter，这两个可以在设置里互换。',
-    },
-    {
-      vscode: '記住命令選擇區（Ctrl/Cmd+Shift+P），其餘就不用背了——輸入功能名稱，快速鍵就列在旁邊。',
-      excel: 'Excel 在 Mac 上差別最大。絕對參照的 F4 在 Mac 是 Cmd+T，還有幾個組合仍是 Ctrl 而不是 Cmd。',
-      sheets: '它跑在瀏覽器裡，所以瀏覽器先搶走的組合——例如 Ctrl+W——根本到不了試算表。這就是表格快速鍵多用 Alt/Option 的原因。',
-      chrome: '只要會復原關掉的分頁（Ctrl/Cmd+Shift+T）和跳到網址列（Ctrl/Cmd+L），伸手去摸滑鼠的次數就少了一大半。',
-      macos: 'Cmd 在 Windows 的 Ctrl 位置上。文字移動是例外：到行尾用 Ctrl+A/E 或 Cmd+←/→。',
-      windows: 'Win 鍵組合會在任何程式之前被系統攔走——不會跟程式衝突，程式也無法覆蓋它。',
-      terminal: '終端機裡的 Ctrl+C 不是複製，是中斷正在執行的東西。複製在 Windows 終端機是 Ctrl+Shift+C，Mac 是 Cmd+C。',
-      figma: 'Figma 用單個字母選工具（V、F、R、T）。編輯文字時這些字母會直接打進去，先按 Esc 離開。',
-      photoshop: '方括號在任何鍵盤配置下都能改筆刷大小（[ 和 ]），但開著中文輸入法時，有些快速鍵會沒反應。',
-      slack: '訊息框裡 Enter 是送出，換行是 Shift+Enter，這兩個可以在設定裡互換。',
-    },
-  ),
+  /* 앱마다 다른 안내문은 notes.ts에 있다 — 새 앱이 늘 때 이 파일을 안 건드리게 갈랐다 */
+  appNote: T(...(LANG_SLOT.map(i => appNotesAt(i)) as [
+    Record<ScApp, string>, Record<ScApp, string>, Record<ScApp, string>, Record<ScApp, string>,
+    Record<ScApp, string>, Record<ScApp, string>, Record<ScApp, string>, Record<ScApp, string>,
+    Record<ScApp, string>, Record<ScApp, string>,
+  ])),
 
   winTitle: T('Windows · Linux', 'Windows · Linux', 'Windows · Linux', 'Windows · Linux', 'Windows・Linux', 'Windows · Linux', 'Windows · Linux', 'Windows · Linux', 'Windows · Linux', 'Windows · Linux'),
 

@@ -1473,6 +1473,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/error', icon: '⚠️', color: 'from-rose-800 to-rose-400',
+    accent: 'text-rose-700 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900/50', bg: 'bg-rose-50 dark:bg-rose-950/30',
+    copy: {
+      en: { title: 'Error Messages', desc: 'git, npm, Python, Docker — what it means and what the fix costs' },
+      es: { title: 'Mensajes de error', desc: 'git, npm, Python, Docker: qué significa y qué cuesta el arreglo' },
+      'pt-br': { title: 'Mensagens de erro', desc: 'git, npm, Python, Docker — o que significa e o que a correção custa' },
+      ja: { title: 'エラーメッセージ', desc: 'git・npm・Python・Docker の意味と、その対処の代償' },
+      de: { title: 'Fehlermeldungen', desc: 'git, npm, Python, Docker — Bedeutung und was die Lösung kostet' },
+      fr: { title: 'Messages d’erreur', desc: 'git, npm, Python, Docker : le sens et le prix du correctif' },
+      hi: { title: 'एरर संदेश', desc: 'git, npm, Python, Docker — मतलब और सुधार की क़ीमत' },
+      'zh-hans': { title: '报错信息', desc: 'git、npm、Python、Docker：是什么意思，修法要付什么代价' },
+      'zh-hant': { title: '報錯訊息', desc: 'git、npm、Python、Docker：是什麼意思，修法要付什麼代價' },
+    },
+  },
+  {
     route: '/shortcut', icon: '⌨️', color: 'from-slate-900 to-sky-500',
     accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
     copy: {

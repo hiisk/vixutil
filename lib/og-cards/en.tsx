@@ -79,6 +79,7 @@ import { hubCard as httpHub } from '@/lib/http/route';
 import { hubCard as cmdHub } from '@/lib/cmd/route';
 import { hubCard as scHub } from '@/lib/shortcut/route';
 import { hubCard as emojiHub } from '@/lib/emoji/route';
+import { hubCard as errHub } from '@/lib/errmsg/route';
 import { hubCard as imgsizeHub } from '@/lib/imgsize/route';
 import { hubCard as keycodeHub } from '@/lib/keycode/route';
 import { hubCard as lensHub } from '@/lib/lens/route';
@@ -311,6 +312,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'cmd': () => cmdHub('en'),
   'shortcut': () => scHub('en'),
   'emoji': () => emojiHub('en'),
+  'error': () => errHub('en'),
   'http': () => httpHub('en'),
   'image': () => intlOg('image/en'),
   'image/compress': () => imageOg('compress', 'en'),

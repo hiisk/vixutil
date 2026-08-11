@@ -127,6 +127,7 @@ import { HTTP_ITEMS } from "@/lib/http/list";
 import { CMD_ITEMS } from "@/lib/cmd/list";
 import { SC_ITEMS } from "@/lib/shortcut/list";
 import { EM_ITEMS } from "@/lib/emoji/list";
+import { ERR_ITEMS } from "@/lib/errmsg/list";
 
 const BASE = "https://vixutil.com";
 
@@ -326,6 +327,15 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ),
+    // 오류 문구도 열 언어다 — 뜻과 대처만 옮기고 문구는 그대로 둔다
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/error`, changeFrequency: weekly, priority: 0.9 },
+      ...ERR_ITEMS.map((x: { slug: string }) => ({
+        url: `${BASE}${prefix}/error/${x.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
     // 키보드 단축키도 열 언어다 — 목록과 낱장을 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/shortcut`, changeFrequency: weekly, priority: 0.9 },

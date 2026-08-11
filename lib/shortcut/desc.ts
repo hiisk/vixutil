@@ -8,11 +8,17 @@ import { SC_DESC_EDITOR } from './desc-editor.ts';
 import { SC_DESC_OFFICE } from './desc-office.ts';
 import { SC_DESC_DESIGN } from './desc-design.ts';
 import { SC_DESC_PS } from './desc-photoshop.ts';
+import { SC_DESC_OFFICE2 } from './desc-office2.ts';
+import { SC_DESC_MAIL } from './desc-mail.ts';
+import { SC_DESC_ADOBE } from './desc-adobe.ts';
+import { SC_DESC_DEV2 } from './desc-dev2.ts';
+import { SC_DESC_CHAT } from './desc-chat.ts';
 
 const LANG_ORDER = ['ko', 'en', 'es', 'pt', 'ja', 'de', 'fr', 'hi', 'zh', 'tw'] as const;
 export type ScLangKey = typeof LANG_ORDER[number];
 
-export const SC_DESC: Record<string, Ten> = { ...SC_DESC_EDITOR, ...SC_DESC_OFFICE, ...SC_DESC_DESIGN, ...SC_DESC_PS };
+export const SC_DESC: Record<string, Ten> = { ...SC_DESC_EDITOR, ...SC_DESC_OFFICE, ...SC_DESC_DESIGN, ...SC_DESC_PS,
+  ...SC_DESC_OFFICE2, ...SC_DESC_MAIL, ...SC_DESC_ADOBE, ...SC_DESC_DEV2, ...SC_DESC_CHAT };
 
 /** 그 언어의 설명 — 없으면 영어로 되돌린다 */
 export function scDesc(slug: string, lang: ScLangKey): string {

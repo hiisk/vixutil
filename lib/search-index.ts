@@ -185,6 +185,8 @@ import { scDesc } from './shortcut/desc';
 import { SC_UI } from './shortcut/ui';
 import { EM_ITEMS } from './emoji/list';
 import { emojiDesc } from './emoji/desc';
+import { ERR_ITEMS } from './errmsg/list';
+import { errDesc } from './errmsg/desc';
 import { httpDesc } from './http/desc';
 import { propDesc } from './css/desc';
 import { IMG_SIZES, IMG_SIZE_ICON } from './imgsize/list';
@@ -206,7 +208,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -249,6 +251,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   cmd:        { label: '터미널 명령어', icon: '⌨️', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   shortcut:   { label: '키보드 단축키', icon: '⌨️', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   emoji:      { label: '이모지 뜻', icon: '😀', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
+  error:      { label: '오류 문구', icon: '⚠️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   element:    { label: '원소',      icon: '⚛️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   chess:      { label: '체스',      icon: '♟️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   poker:      { label: '포커',      icon: '🃏', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
@@ -1340,6 +1343,8 @@ export const SEARCH_INDEX: SearchItem[] = [
   // 앱 이름을 제목 앞에 붙인다 — "엑셀 절대참조"와 "Excel F4" 둘 다로 찾는다
   ...SC_ITEMS.map(x => ({ href: `/shortcut/${x.slug}`, title: `${SC_UI.ko.appLabel[x.app]} ${x.action} — ${primaryCombo(x)}`, desc: scDesc(x.slug, 'ko'), section: 'shortcut' as const, icon: '⌨️' })),
   ...EM_ITEMS.map(x => ({ href: `/emoji/${x.slug}`, title: `${x.char} ${x.common}`, desc: emojiDesc(x.slug, 'ko'), section: 'emoji' as const, icon: '😀' })),
+  // 제목이 오류 문구 그대로다 — 붙여 넣고 찾는 사람이 눈으로 맞춰 본다
+  ...ERR_ITEMS.map(x => ({ href: `/error/${x.slug}`, title: x.message, desc: errDesc(x.slug, 'ko'), section: 'error' as const, icon: '⚠️' })),
     href: `/http/${x.slug}`,
     title: `HTTP ${x.name}`,
     desc: httpDesc(x.slug, 'ko'),

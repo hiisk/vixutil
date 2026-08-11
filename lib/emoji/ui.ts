@@ -98,16 +98,16 @@ const SPEC: Spec = {
   ),
 
   groupLabel: T(
-    { face: '얼굴', hand: '손·몸짓', symbol: '기호', people: '사람', nature: '자연·동물', food: '음식', object: '물건' },
-    { face: 'Faces', hand: 'Hands and gestures', symbol: 'Symbols', people: 'People', nature: 'Nature and animals', food: 'Food', object: 'Objects' },
-    { face: 'Caras', hand: 'Manos y gestos', symbol: 'Símbolos', people: 'Personas', nature: 'Naturaleza y animales', food: 'Comida', object: 'Objetos' },
-    { face: 'Rostos', hand: 'Mãos e gestos', symbol: 'Símbolos', people: 'Pessoas', nature: 'Natureza e animais', food: 'Comida', object: 'Objetos' },
-    { face: '顔', hand: '手とジェスチャー', symbol: '記号', people: '人', nature: '自然と動物', food: '食べもの', object: 'もの' },
-    { face: 'Gesichter', hand: 'Hände und Gesten', symbol: 'Symbole', people: 'Menschen', nature: 'Natur und Tiere', food: 'Essen', object: 'Gegenstände' },
-    { face: 'Visages', hand: 'Mains et gestes', symbol: 'Symboles', people: 'Personnes', nature: 'Nature et animaux', food: 'Nourriture', object: 'Objets' },
-    { face: 'चेहरे', hand: 'हाथ और इशारे', symbol: 'चिह्न', people: 'लोग', nature: 'प्रकृति और जानवर', food: 'खाना', object: 'चीज़ें' },
-    { face: '表情', hand: '手势', symbol: '符号', people: '人物', nature: '自然与动物', food: '食物', object: '物品' },
-    { face: '表情', hand: '手勢', symbol: '符號', people: '人物', nature: '自然與動物', food: '食物', object: '物品' },
+    { face: '얼굴', hand: '손·몸짓', symbol: '기호', people: '사람', nature: '자연·동물', food: '음식', object: '물건', activity: '활동', place: '장소' },
+    { face: 'Faces', hand: 'Hands and gestures', symbol: 'Symbols', people: 'People', nature: 'Nature and animals', food: 'Food', object: 'Objects', activity: 'Activities', place: 'Places' },
+    { face: 'Caras', hand: 'Manos y gestos', symbol: 'Símbolos', people: 'Personas', nature: 'Naturaleza y animales', food: 'Comida', object: 'Objetos', activity: 'Actividades', place: 'Lugares' },
+    { face: 'Rostos', hand: 'Mãos e gestos', symbol: 'Símbolos', people: 'Pessoas', nature: 'Natureza e animais', food: 'Comida', object: 'Objetos', activity: 'Atividades', place: 'Lugares' },
+    { face: '顔', hand: '手とジェスチャー', symbol: '記号', people: '人', nature: '自然と動物', food: '食べもの', object: 'もの', activity: '活動', place: '場所' },
+    { face: 'Gesichter', hand: 'Hände und Gesten', symbol: 'Symbole', people: 'Menschen', nature: 'Natur und Tiere', food: 'Essen', object: 'Gegenstände', activity: 'Aktivitäten', place: 'Orte' },
+    { face: 'Visages', hand: 'Mains et gestes', symbol: 'Symboles', people: 'Personnes', nature: 'Nature et animaux', food: 'Nourriture', object: 'Objets', activity: 'Activités', place: 'Lieux' },
+    { face: 'चेहरे', hand: 'हाथ और इशारे', symbol: 'चिह्न', people: 'लोग', nature: 'प्रकृति और जानवर', food: 'खाना', object: 'चीज़ें', activity: 'गतिविधियाँ', place: 'जगहें' },
+    { face: '表情', hand: '手势', symbol: '符号', people: '人物', nature: '自然与动物', food: '食物', object: '物品', activity: '活动', place: '地点' },
+    { face: '表情', hand: '手勢', symbol: '符號', people: '人物', nature: '自然與動物', food: '食物', object: '物品', activity: '活動', place: '地點' },
   ),
 
   groupNote: T(
@@ -119,6 +119,8 @@ const SPEC: Spec = {
       nature: '동물은 뜻이 문화마다 다릅니다. 🐷는 어디서는 귀엽고 어디서는 모욕이며, 🦊는 영리함과 능글맞음 사이입니다.',
       food: '음식 이모지는 그 나라 음식이 그림에 담기며 뜻이 좁아집니다. 🍙는 삼각김밥이고 🍘는 전병으로, 밥과 과자만큼 다릅니다.',
       object: '물건은 대개 은유로 쓰입니다. 🚩는 깃발이 아니라 경고 신호이고, 🔒은 자물쇠가 아니라 비공개라는 뜻으로 갑니다.',
+      activity: '운동과 놀이 이모지는 대개 비유로 갑니다. 🎯는 과녁이 아니라 정확히 맞혔다는 뜻이고, 🎲는 운에 맡긴다는 뜻입니다.',
+      place: '장소 이모지는 그린 나라가 드러납니다. ⛩️는 신사 문이라 일본 자체를 가리키고, 🗼는 에펠탑이 아니라 도쿄타워입니다.',
     },
     {
       face: 'The most misread group. 😭 is sent for joy more often than for sorrow, and 💀 for laughter more often than for death.',
@@ -128,6 +130,8 @@ const SPEC: Spec = {
       nature: 'Animals carry different meanings by culture. 🐷 is cute in one place and an insult in another; 🦊 sits between clever and sly.',
       food: 'Food emojis narrow to the cuisine that drew them: 🍙 is a rice ball and 🍘 a rice cracker — as different as a meal and a snack.',
       object: 'Objects are mostly used as metaphors. 🚩 is not a flag but a warning sign, and 🔒 means private rather than a padlock.',
+      activity: 'Sport and game emoji mostly travel as metaphors. 🎯 is not a dartboard but “nailed it”, and 🎲 is leaving it to chance.',
+      place: 'Place emoji show the country that drew them. ⛩️ is a Shinto gate and stands for Japan itself, and 🗼 is Tokyo Tower, not the Eiffel Tower.',
     },
     {
       face: 'El grupo peor leído. 😭 se envía más por alegría que por tristeza, y 💀 más por risa que por muerte.',
@@ -137,6 +141,8 @@ const SPEC: Spec = {
       nature: 'Los animales significan cosas distintas según la cultura. 🐷 es tierno en un sitio e insultante en otro; 🦊 va de listo a astuto.',
       food: 'Los emojis de comida se estrechan a la cocina que los dibujó: 🍙 es una bola de arroz y 🍘 una galleta de arroz, tan distintas como una comida y un aperitivo.',
       object: 'Los objetos se usan casi siempre como metáfora. 🚩 no es una bandera sino una señal de alarma, y 🔒 significa privado más que candado.',
+      activity: 'Los emojis de deporte y juego viajan como metáforas. 🎯 no es una diana sino «lo clavé», y 🎲 es dejarlo al azar.',
+      place: 'Los emojis de lugar delatan el país que los dibujó. ⛩️ es una puerta sintoísta y representa a Japón, y 🗼 es la Torre de Tokio, no la Eiffel.',
     },
     {
       face: 'O grupo mais mal lido. 😭 é enviado mais por alegria que por tristeza, e 💀 mais por riso que por morte.',
@@ -146,6 +152,8 @@ const SPEC: Spec = {
       nature: 'Animais significam coisas diferentes conforme a cultura. 🐷 é fofo em um lugar e ofensivo em outro; 🦊 fica entre esperto e ardiloso.',
       food: 'Emojis de comida se estreitam à cozinha que os desenhou: 🍙 é bolinho de arroz e 🍘 biscoito de arroz — tão diferentes como refeição e petisco.',
       object: 'Objetos são usados quase sempre como metáfora. 🚩 não é uma bandeira, é um sinal de alerta; e 🔒 quer dizer privado, não cadeado.',
+      activity: 'Os emojis de esporte e jogo viajam como metáforas. 🎯 não é um alvo, e sim “acertei”, e 🎲 é deixar ao acaso.',
+      place: 'Os emojis de lugar revelam o país que os desenhou. ⛩️ é um portal xintoísta e representa o próprio Japão, e 🗼 é a Torre de Tóquio, não a Eiffel.',
     },
     {
       face: '最も読み違えられる仲間です。😭 は悲しみより喜びで、💀 は死よりも笑いで送られます。',
@@ -155,6 +163,8 @@ const SPEC: Spec = {
       nature: '動物は文化で意味が変わります。🐷 はある所ではかわいく、別の所では侮辱で、🦊 は賢さとずるさの間にあります。',
       food: '食べものの絵文字は描いた国の料理に寄ります。🍙 はおにぎり、🍘 はせんべいで、食事と菓子ほど違います。',
       object: 'ものはたいてい喩えとして使われます。🚩 は旗ではなく警告の合図で、🔒 は錠ではなく非公開の意味になります。',
+      activity: '運動や遊びの絵文字はたいてい喩えとして使われます。🎯 は的ではなく「ぴったり当てた」で、🎲 は運に任せるという意味です。',
+      place: '場所の絵文字は描いた国が透けます。⛩️ は神社の門で日本そのものを指し、🗼 はエッフェル塔ではなく東京タワーです。',
     },
     {
       face: 'Die am häufigsten falsch gelesene Gruppe. 😭 wird öfter aus Freude als aus Trauer gesendet, 💀 öfter für Lachen als für Tod.',
@@ -164,6 +174,8 @@ const SPEC: Spec = {
       nature: 'Tiere bedeuten je nach Kultur Verschiedenes. 🐷 ist hier süß und dort eine Beleidigung; 🦊 liegt zwischen klug und listig.',
       food: 'Essens-Emojis engen sich auf die Küche ein, die sie gezeichnet hat: 🍙 ist ein Reisball, 🍘 ein Reiscracker — so verschieden wie Mahlzeit und Knabberei.',
       object: 'Gegenstände dienen fast immer als Metapher. 🚩 ist keine Fahne, sondern ein Warnsignal, und 🔒 heißt privat, nicht Vorhängeschloss.',
+      activity: 'Sport- und Spiel-Emojis reisen meist als Metapher. 🎯 ist keine Dartscheibe, sondern „genau getroffen“, und 🎲 heißt es dem Zufall überlassen.',
+      place: 'Orts-Emojis verraten das Land, das sie gezeichnet hat. ⛩️ ist ein Shinto-Tor und steht für Japan selbst, und 🗼 ist der Tokyo Tower, nicht der Eiffelturm.',
     },
     {
       face: 'Le groupe le plus mal lu. 😭 s’envoie plus souvent par joie que par tristesse, et 💀 plus pour le rire que pour la mort.',
@@ -173,6 +185,8 @@ const SPEC: Spec = {
       nature: 'Les animaux ne veulent pas dire la même chose partout. 🐷 est mignon ici et insultant ailleurs ; 🦊 oscille entre malin et rusé.',
       food: 'Les emojis de nourriture se rétrécissent à la cuisine qui les a dessinés : 🍙 est une boulette de riz et 🍘 un cracker de riz — un repas et un en-cas.',
       object: 'Les objets servent presque toujours de métaphore. 🚩 n’est pas un drapeau mais un signal d’alerte, et 🔒 veut dire privé plutôt que cadenas.',
+      activity: 'Les emojis de sport et de jeu voyagent surtout comme métaphores. 🎯 n’est pas une cible mais « en plein dans le mille », et 🎲 c’est s’en remettre au hasard.',
+      place: 'Les emojis de lieu trahissent le pays qui les a dessinés. ⛩️ est un portail shinto et représente le Japon lui-même, et 🗼 est la tour de Tokyo, pas la tour Eiffel.',
     },
     {
       face: 'सबसे ज़्यादा ग़लत पढ़ा जाने वाला समूह। 😭 दुख से ज़्यादा ख़ुशी में भेजा जाता है, और 💀 मौत से ज़्यादा हँसी में।',
@@ -182,6 +196,8 @@ const SPEC: Spec = {
       nature: 'जानवरों का अर्थ संस्कृति से बदलता है। 🐷 कहीं प्यारा है और कहीं अपमान; 🦊 चतुर और चालाक के बीच है।',
       food: 'खाने के इमोजी उस रसोई तक सिमट जाते हैं जिसने उन्हें बनाया: 🍙 चावल का लड्डू है और 🍘 चावल का बिस्कुट — भोजन और नाश्ते जितना फ़र्क़।',
       object: 'चीज़ें लगभग हमेशा रूपक हैं। 🚩 झंडा नहीं, चेतावनी है; और 🔒 ताला नहीं, निजी होने का मतलब देता है।',
+      activity: 'खेल और मनोरंजन के इमोजी अक्सर रूपक बनकर चलते हैं। 🎯 निशाना नहीं, “सही जगह लगा” है, और 🎲 का मतलब है क़िस्मत पर छोड़ देना।',
+      place: 'जगह के इमोजी बता देते हैं कि उन्हें किस देश ने बनाया। ⛩️ शिंतो द्वार है और जापान का ही प्रतीक बन गया है, और 🗼 एफ़िल नहीं, टोक्यो टावर है।',
     },
     {
       face: '最容易被误读的一类。😭 用在高兴时比伤心时多，💀 用在笑到不行时比死亡多。',
@@ -191,6 +207,8 @@ const SPEC: Spec = {
       nature: '动物的含义随文化变化。🐷 在一处可爱，在另一处是骂人；🦊 在聪明与狡猾之间。',
       food: '食物表情会收窄到画它的那国菜：🍙 是饭团，🍘 是米饼——一个是饭，一个是零食。',
       object: '物品几乎都当比喻用。🚩 不是旗子而是警示，🔒 表示不公开而不是一把锁。',
+      activity: '运动和游戏类表情大多当比喻用。🎯 不是靶子，而是「说中了」；🎲 是把事交给运气。',
+      place: '地点类表情会露出画它的国家。⛩️ 是神社的鸟居，代表日本本身；🗼 是东京塔，不是埃菲尔铁塔。',
     },
     {
       face: '最容易被誤讀的一類。😭 用在高興時比傷心時多，💀 用在笑到不行時比死亡多。',
@@ -200,6 +218,8 @@ const SPEC: Spec = {
       nature: '動物的含義隨文化變化。🐷 在一處可愛，在另一處是罵人；🦊 在聰明與狡猾之間。',
       food: '食物表情會收窄到畫它的那國菜：🍙 是飯糰，🍘 是米餅——一個是飯，一個是零食。',
       object: '物品幾乎都當比喻用。🚩 不是旗子而是警示，🔒 表示不公開而不是一把鎖。',
+      activity: '運動和遊戲類表情大多當比喻用。🎯 不是靶子，而是「說中了」；🎲 是把事交給運氣。',
+      place: '地點類表情會露出畫它的國家。⛩️ 是神社的鳥居，代表日本本身；🗼 是東京鐵塔，不是艾菲爾鐵塔。',
     },
   ),
 

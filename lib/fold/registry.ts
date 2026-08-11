@@ -1,4 +1,4 @@
-/* 생성됨 — 접힌 경로 → 모듈. 정적 250 · 한 칸 동적 100 · 캐치올 1.
+/* 생성됨 — 접힌 경로 → 모듈. 정적 251 · 한 칸 동적 101 · 캐치올 1.
    새 경로는 lib/fold/pages/에 모듈을 만들고 여기 한 줄을 더한다. */
 import type { FoldLang } from './lang';
 
@@ -59,6 +59,7 @@ export const STATIC_ROUTES: Record<string, Loader> = {
   'drink': () => import('./pages/drink'),
   'element': () => import('./pages/element'),
   'emoji': () => import('./pages/emoji'),
+  'error': () => import('./pages/error'),
   'exposure': () => import('./pages/exposure'),
   'ext': () => import('./pages/ext'),
   'filament': () => import('./pages/filament'),
@@ -289,6 +290,7 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'drink': () => import('./pages/drink__slug'),
   'element': () => import('./pages/element__slug'),
   'emoji': () => import('./pages/emoji__slug'),
+  'error': () => import('./pages/error__slug'),
   'exposure': () => import('./pages/exposure__slug'),
   'ext': () => import('./pages/ext__slug'),
   'filament': () => import('./pages/filament__slug'),

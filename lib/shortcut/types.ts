@@ -14,7 +14,9 @@ export const NA = '—';
 /** 앱 열쇠 — 주소의 첫 조각이 된다 */
 export type ScApp =
   | 'vscode' | 'excel' | 'sheets' | 'chrome' | 'macos' | 'windows'
-  | 'figma' | 'photoshop' | 'terminal' | 'slack';
+  | 'figma' | 'photoshop' | 'terminal' | 'slack'
+  | 'word' | 'powerpoint' | 'outlook' | 'notion' | 'gmail'
+  | 'illustrator' | 'premiere' | 'intellij' | 'discord' | 'zoom';
 
 export interface ScItem {
   /** 주소에 쓰는 열쇠 — 'chrome-hard-reload' */

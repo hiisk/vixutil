@@ -2,7 +2,9 @@
 /** 열 언어 한 줄 — 순서는 ko·en·es·pt·ja·de·fr·hi·zh·tw */
 export type Ten = [string, string, string, string, string, string, string, string, string, string];
 
-export type EmojiGroup = 'face' | 'people' | 'nature' | 'food' | 'object' | 'symbol' | 'hand';
+export type EmojiGroup =
+  | 'face' | 'people' | 'nature' | 'food' | 'object' | 'symbol' | 'hand'
+  | 'activity' | 'place';
 
 export interface EmojiItem {
   /** 주소에 쓰는 열쇠 — 'folded-hands', 'skull'. 이모지 자체는 주소에 못 쓴다 */
