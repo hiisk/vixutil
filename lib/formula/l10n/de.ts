@@ -845,6 +845,30 @@ export const DE: FormulaL10n = {
     ctr: 'CTR (Klickrate)',
     ctrTarget: 'Ziel-CTR',
     cpcAtTarget: 'CPC bei dieser CTR',
+    /* ───────── body 4: Schwangerschaft, Körperwasser, Taille, Schritte, Griffkraft, Schweiß ───────── */
+    preBmi: 'BMI vor der Schwangerschaft',
+    gestWeek: 'Schwangerschaftswoche',
+    gainNow: 'Empfohlene Zunahme bis jetzt',
+    gainNowLow: 'Untergrenze jetzt',
+    gainNowHigh: 'Obergrenze jetzt',
+    gainTotalLow: 'Untergrenze bis zum Termin',
+    gainTotalHigh: 'Obergrenze bis zum Termin',
+    tbw: 'Gesamtkörperwasser',
+    tbwPct: 'Wasseranteil am Gewicht',
+    metaAge: 'Stoffwechselalter',
+    distanceMi: 'Strecke (Meilen)',
+    strideEst: 'Schrittlänge aus der Größe',
+    stepsPerKm: 'Schritte je km',
+    mileWalkMin: 'Gehzeit über 1 Meile',
+    waistLimit: 'Geltende Grenze',
+    toThreshold: 'Abstand zur Grenze',
+    weightPreEx: 'Gewicht vor dem Training (kg)',
+    weightPostEx: 'Gewicht nach dem Training (kg)',
+    bodyLossPct: 'Verlorenes Körpergewicht',
+    sweatTotalMl: 'Gesamter Schweißverlust',
+    rehydrateMl: 'Zu ersetzende Flüssigkeit',
+    gripKg: 'Griffkraft (kg)',
+    gripRatio: 'Griffkraft je kg',
   },
 
   UNITS: {
@@ -921,6 +945,8 @@ export const DE: FormulaL10n = {
     kgPerM3: 'kg/m³',
     /* ───────── Werbung: Impressionen und Klicks ───────── */
     hit: '',
+    /* ───────── body 4 ───────── */
+    mile: 'Meilen',
   },
 
   DESC: {
@@ -1764,5 +1790,30 @@ export const DE: FormulaL10n = {
     /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
     chestCm: 'Der Brustumfang an der stärksten Stelle, direkt unter den Achseln gemessen.',
     wristCm: 'Die schmalste Stelle des Handgelenks; dort sitzt kaum Fett, sie zeigt also den Körperbau.',
+
+    /* ───────── body 4: Schwangerschaft, Körperwasser, Taille, Schritte, Griffkraft, Schweiß ───────── */
+    preBmi: 'Der BMI aus dem Gewicht vor der Schwangerschaft — er wählt aus, welcher Bereich der Zunahme gilt.',
+    gestWeek: 'Die Wochen ab dem ersten Tag der letzten Regel; der Termin liegt bei 40 Wochen.',
+    gainNow: 'Die Mitte der Zunahme, die bis zu dieser Woche erwartet wird.',
+    gainNowLow: 'Das untere Ende des Bereichs für diese Woche; darunter ist nicht von sich aus ein Problem.',
+    gainNowHigh: 'Das obere Ende des Bereichs für diese Woche.',
+    gainTotalLow: 'Die empfohlene Mindestzunahme bis zum Termin.',
+    gainTotalHigh: 'Die empfohlene Höchstzunahme bis zum Termin.',
+    tbw: 'Alles Wasser im Körper, innerhalb und außerhalb der Zellen zusammengenommen.',
+    tbwPct: 'Dieses Wasser als Anteil am Körpergewicht; mehr Fett drückt ihn nach unten.',
+    metaAge: 'Das Alter, dessen durchschnittlicher Grundumsatz zu deinem passt — eine Idee der Körperwaagen, kein klinisches Maß.',
+    distanceMi: 'Dieselbe Strecke in Meilen; eine Meile sind 1,609 km.',
+    strideEst: 'Ein Ersatzwert für die Schrittlänge, wenn du sie nie gemessen hast: 0,415 mal Körpergröße.',
+    stepsPerKm: 'Wie viele Schritte dieser Länge einen Kilometer ergeben.',
+    mileWalkMin: 'Deine Zeit über eine Meile (1,609 km) so schnell wie möglich — gehend, nicht laufend.',
+    waistLimit: 'Die nächste geschlechtsspezifische Grenze, auf die dein Maß trifft.',
+    toThreshold: 'Wie weit du von dieser Grenze entfernt liegst; auf welcher Seite, sagt die Einordnung.',
+    weightPreEx: 'Das Gewicht direkt vor dem Start, nach der Toilette und in leichter Kleidung.',
+    weightPostEx: 'Das Gewicht direkt danach, abgetrocknet und in derselben Kleidung.',
+    bodyLossPct: 'Das während der Einheit verlorene Gewicht als Anteil am Startgewicht.',
+    sweatTotalMl: 'Verlorenes Gewicht plus Getrunkenes — der Schweiß, der wirklich geflossen ist.',
+    rehydrateMl: 'Was über die nächsten Stunden zu trinken ist, um das verlorene Gewicht zurückzuholen.',
+    gripKg: 'Dein bester Wert am Handdynamometer, mit der stärkeren Hand gemessen.',
+    gripRatio: 'Die Griffkraft geteilt durch das Körpergewicht, was die Körpergröße aus dem Vergleich nimmt.',
   },
 };

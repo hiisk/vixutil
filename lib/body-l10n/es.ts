@@ -744,4 +744,54 @@ export const BODY_ES: Record<string, FormulaText> = {
     long: 'El sueño baja hacia el sueño profundo y vuelve a subir cada 90 minutos aproximadamente. Despertar antes de los 20 minutos te pilla antes de entrar en sueño profundo, y despertar tras un ciclo completo te pilla ya de subida.',
     note: 'De treinta a sesenta minutos es la peor franja. Despertar en pleno sueño profundo deja atontado media hora o más, a veces peor que no haber dormido.',
   },
+
+  /* ───────── body 4 (ocho herramientas) ───────── */
+  'pregnancy-weight-gain': {
+    title: 'Aumento de peso en el embarazo',
+    desc: 'El rango de aumento recomendado para un IMC previo al embarazo en la semana en la que estás.',
+    long: 'El Institute of Medicine (hoy la NAM) reparte el aumento total recomendado según el IMC previo al embarazo en cuatro bandas: por debajo de 18,5 son 12,5–18 kg; entre 18,5 y 24,9, de 11,5 a 16; entre 25 y 29,9, de 7 a 11,5; y a partir de 30, de 5 a 9. El primer trimestre solo aporta 0,5–2 kg y el resto se reparte de forma uniforme desde la semana 13 hasta la 40, así que un IMC de 22 en la semana 24 da una ventana de 4,98–7,70 kg, o 6,3 kg en el punto medio. Es un rango y no una cifra única, y el criterio de la matrona o del médico que ven las ecografías y el resto del cuadro va por delante de la tabla.',
+    note: 'Un solo pesaje no decide nada. La retención de líquidos y las náuseas quedan fuera de aquello sobre lo que se construyó esta tabla, y los embarazos gemelares usan una banda distinta por completo: 16,8–24,5 kg para un IMC de 18,5–24,9.',
+  },
+  'body-water': {
+    title: 'Agua corporal total',
+    desc: 'Los litros de agua que hay en el cuerpo y qué parte del peso suponen.',
+    long: 'Las ecuaciones de Watson salen de unas mil personas a las que se midió el agua corporal de verdad, por dilución con deuterio. Un hombre de 35 años, 175 cm y 70 kg sale en 41,57 L, que son el 59,4 % del peso corporal. El tejido magro es agua en un 73,2 %, así que dividir el agua corporal entre 0,732 estima también la masa magra: aquí 56,8 kg. La ecuación de las mujeres no lleva ningún término de edad, de modo que cambiar la edad no mueve su cifra.',
+    note: 'Una regresión describe la media de una población, así que las personas se reparten por encima y por debajo. El agua corporal además se mueve dentro de un mismo día: una comida salada, una sesión de mucho sudor o una carga de hidratos pueden dejar el valor real a litros de esta estimación.',
+  },
+  'waist-risk': {
+    title: 'Perímetro de cintura y riesgo',
+    desc: 'Tu cintura frente a los límites por sexo: 94 y 102 cm en hombres, 80 y 88 en mujeres.',
+    long: 'La OMS y la IDF trazan dos líneas en el perímetro de cintura para cada sexo: 94 cm y 102 cm en hombres, 80 cm y 88 cm en mujeres. Pasar la primera te coloca en la banda de riesgo aumentado y pasar la segunda en la de riesgo muy aumentado. Un hombre con 92 cm sigue por debajo de la primera línea, con 2 cm de margen. Hay otras dos herramientas que trabajan sobre la misma medida: whtr divide la cintura entre la estatura y vigila la marca de 0,5, y whr compara cintura con cadera para ver dónde se acumula la grasa. Esta es la única que lee los centímetros en bruto sin dividir por nada.',
+    note: 'Estas líneas salen de datos europeos. La IDF fija un valor aparte de 90 cm para hombres de origen surasiático, chino y japonés, así que la línea se mueve 4 cm según la población. Mide a media distancia entre la última costilla y el borde superior del hueso de la cadera, al final de una espiración normal, con la cinta ajustada pero sin hundirla en la piel. Lo que ese número significa para tu cuerpo se resuelve en consulta.',
+  },
+  'metabolic-age': {
+    title: 'Edad metabólica',
+    desc: 'Tu metabolismo basal calculado desde la composición corporal, puesto sobre la curva media por edad.',
+    long: 'Primero sale la masa magra a partir del porcentaje de grasa, y de ahí el metabolismo basal con la ecuación de Katch-McArdle: 370 + 21,6 × masa magra. Después se traza la media de Mifflin-St Jeor a lo largo de las edades con el mismo sexo, estatura y peso, y la edad en la que esa curva se cruza con tu cifra es la respuesta. Mifflin baja 5 kcal por año de edad, así que estar 5 kcal por encima de la media te compra un año. Un hombre de 35 años, 175 cm y 70 kg con un 18 % de grasa lleva 57,4 kg de masa magra y un metabolismo basal de 1.610 kcal, mientras que la media para ese cuerpo a los 35 son 1.624 kcal: una edad metabólica de 37,8.',
+    note: 'La «edad metabólica» es una idea que inventaron las básculas de composición corporal, no una medida clínica. Lo único que lee de verdad es la masa magra: en el ejemplo de arriba, un punto porcentual de grasa mueve la respuesta tres años. Tu cifra sale además de Katch-McArdle mientras que la curva de referencia es Mifflin-St Jeor, y las dos no coinciden exactamente en una composición media, así que lee la dirección y el tamaño de la diferencia antes que el año en sí.',
+  },
+  'steps-distance': {
+    title: 'Pasos a kilómetros',
+    desc: 'Los pasos por la longitud de zancada, en kilómetros y en millas.',
+    long: 'La distancia no es más que los pasos multiplicados por la zancada. Con una zancada de 70 cm, 8.000 pasos son 5,6 km o 3,48 millas, y un kilómetro se lleva 1.429 de ellos. Si nunca has medido tu zancada, 0,415 por la estatura hace de sustituto: con 170 cm sale 70,6 cm, casi exactamente el valor usado arriba. Dos herramientas vecinas usan los mismos ingredientes: stride-from-height devuelve solo la zancada y fija la distancia en diez mil pasos, y steps-calories pasa por la distancia camino de las calorías quemadas. Esta cubre la dirección de pasos a distancia, con los pasos que de verdad has andado.',
+    note: 'La zancada no es una constante. Correr la alarga mucho más allá de la zancada de andar, y las cuestas, la arena y una mochila cargada la acortan. Para fijarla, anda diez pasos normales y divide la distancia entre diez. Los relojes y los móviles añaden su propio error: cuentan pasos cuando solo se mueve el brazo y se pierden los que das empujando un carro.',
+  },
+  'vo2max-rockport': {
+    title: 'Test de Rockport (VO2 máx)',
+    desc: 'La VO2 máx a partir de una milla andada rápido: tu tiempo y tu pulso al terminar.',
+    long: 'Anda una milla (1,609 km) lo más rápido que puedas, apunta el tiempo y tómate el pulso en el momento en que te paras. La regresión que publicó Kline en 1987 toma esos dos datos junto al peso, la edad y el sexo. Un hombre de 30 años y 80 kg que la anda en 12 minutos y termina con 140 ppm obtiene una VO2 máx de 52,9 mL/kg/min, que son 15,1 MET a un ritmo de 7,46 min/km. Lo que la separa de las dos pruebas que ya están aquí importa: vo2max-cooper toma la distancia cubierta en 12 minutos a tope, y vo2max-resting no toma más que el pulso en reposo. Solo esta te hace trabajar a una intensidad submáxima usando a la vez el tiempo y el pulso.',
+    note: 'Tiene que ser andando: un pie se queda siempre en el suelo, y arrancar a correr te saca de aquello sobre lo que se construyó la ecuación. El pulso ha de ser el de los primeros segundos tras parar; meter la media de la vuelta que muestra un reloj lo deja bajo y empuja la VO2 máx hacia arriba. El error estándar ronda los 5 mL/kg/min, así que no sustituye a una medición de laboratorio. Los 12 minutos de los valores por defecto son 8 km/h, cerca del ritmo de marcha atlética, y por eso devuelve una cifra alta: la mayoría tarda de 15 a 18 minutos y el resultado baja en consecuencia. El esfuerzo submáximo la hace una prueba más suave que correr, pero con enfermedad cardíaca o pulmonar es el personal sanitario quien decide si conviene hacerla.',
+  },
+  'grip-strength-norm': {
+    title: 'Fuerza de agarre: valores normales',
+    desc: 'Tu lectura del dinamómetro frente a los puntos de corte de cribado de sarcopenia: 27 kg en hombres, 16 kg en mujeres.',
+    long: 'El consenso europeo revisado sobre sarcopenia (EWGSOP2, 2019) pone la línea de fuerza muscular baja en 27 kg para hombres y 16 kg para mujeres. El grupo de trabajo asiático (AWGS 2019) la fija algo más alta, en 28 kg y 18 kg. Un hombre de 70 kg que aprieta 38 kg queda 11 kg por encima de la línea, o 0,54 por kilogramo de peso corporal. Esto mide algo distinto de las herramientas de músculo que ya hay en la sección: ffmi y muscle-mass-index describen cuánto músculo hay, y one-rep-max describe un peso movido en un levantamiento concreto. El agarre es aquí la única medida de fuerza con puntos de corte publicados, y por eso sus relaciones con la velocidad de la marcha, la recuperación tras una cirugía y la mortalidad aparecen una y otra vez en la literatura.',
+    note: 'El modelo de dinamómetro y tu postura mueven el número varios kilogramos. Siéntate con el codo a noventa grados, aprieta tres veces con la mano más fuerte y quédate con el mejor intento. El dolor o la artrosis en la muñeca o los dedos bajan la lectura al margen del músculo. Esta línea existe para señalar a quién conviene mirar de cerca y no decide nada por sí sola: manda la valoración que además pesa la masa muscular y la función física.',
+  },
+  'sweat-loss-percent': {
+    title: 'Pérdida por sudor en porcentaje',
+    desc: 'Qué parte del peso corporal te ha costado la sesión, medida frente al umbral del 2 %.',
+    long: 'El peso que se pierde durante el ejercicio es casi todo agua, así que dividirlo entre el peso de partida lo convierte en un porcentaje de deshidratación. Empezar con 72 kg, beber 500 mL y terminar con 70,6 kg son 1,4 kg o un 1,94 % menos, mientras que el sudor que de verdad produjiste llega a 1.900 mL una vez sumada la bebida. Reponerlo pide unos 1,5 L por kilogramo perdido: aquí 2.100 mL, repartidos en las horas siguientes. La herramienta vecina sweat-rate divide las mismas medidas entre el tiempo para dar una tasa por hora, que es con la que planificas la sesión siguiente. Esta deja el tiempo fuera y lee el déficit con el que terminaste.',
+    note: 'La línea del 2 % viene de ejercicio prolongado con calor; una sesión corta y fresca se ve mucho menos afectada. En pruebas largas el peso perdido tampoco es solo agua: los hidratos y la grasa quemados, y las pérdidas por la respiración, forman parte de él. Necesitas una báscula que llegue a 0,1 kg, y cero pérdida no es el objetivo: beber lo suficiente para no perder nada trae riesgo de hiponatremia.',
+  },
 };

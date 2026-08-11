@@ -852,6 +852,30 @@ export const FR: FormulaL10n = {
     ctr: 'CTR (taux de clic)',
     ctrTarget: 'CTR visé',
     cpcAtTarget: 'CPC à ce CTR',
+    /* ───────── body 4 : grossesse, eau corporelle, taille, pas, préhension, sueur ───────── */
+    preBmi: 'IMC avant grossesse',
+    gestWeek: 'Semaine de grossesse',
+    gainNow: 'Prise recommandée à ce jour',
+    gainNowLow: 'Borne basse à ce jour',
+    gainNowHigh: 'Borne haute à ce jour',
+    gainTotalLow: 'Minimum jusqu’au terme',
+    gainTotalHigh: 'Maximum jusqu’au terme',
+    tbw: 'Eau corporelle totale',
+    tbwPct: 'Part du poids en eau',
+    metaAge: 'Âge métabolique',
+    distanceMi: 'Distance (miles)',
+    strideEst: 'Foulée estimée d’après la taille',
+    stepsPerKm: 'Pas par km',
+    mileWalkMin: 'Temps de marche sur 1 mile',
+    waistLimit: 'Seuil applicable',
+    toThreshold: 'Écart au seuil',
+    weightPreEx: 'Poids avant la séance (kg)',
+    weightPostEx: 'Poids après la séance (kg)',
+    bodyLossPct: 'Poids du corps perdu',
+    sweatTotalMl: 'Perte totale en sueur',
+    rehydrateMl: 'Liquide à remplacer',
+    gripKg: 'Force de préhension (kg)',
+    gripRatio: 'Préhension par kg de poids',
   },
 
   UNITS: {
@@ -928,6 +952,8 @@ export const FR: FormulaL10n = {
     kgPerM3: 'kg/m³',
     /* ───────── rate 광고 (노출·클릭은 단위 없이 센다) ───────── */
     hit: '',
+    /* ───────── body 4 ───────── */
+    mile: 'mi',
   },
 
   DESC: {
@@ -1750,5 +1776,30 @@ export const FR: FormulaL10n = {
     /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
     chestCm: 'Le tour de poitrine à l’endroit le plus fort, mesuré juste sous les aisselles.',
     wristCm: 'L’endroit le plus fin du poignet ; presque sans graisse, il traduit l’ossature.',
+
+    /* ───────── body 4 : grossesse, eau corporelle, taille, pas, préhension, sueur ───────── */
+    preBmi: 'L’IMC calculé avec le poids d’avant la grossesse : c’est lui qui choisit la plage de prise applicable.',
+    gestWeek: 'Les semaines comptées depuis le premier jour des dernières règles ; le terme est à 40 semaines.',
+    gainNow: 'Le milieu de la prise attendue à ce stade de la grossesse.',
+    gainNowLow: 'La borne basse de la plage pour cette semaine ; en dessous n’est pas en soi un problème.',
+    gainNowHigh: 'La borne haute de la plage pour cette semaine.',
+    gainTotalLow: 'La prise totale minimale recommandée jusqu’au terme.',
+    gainTotalHigh: 'La prise totale maximale recommandée jusqu’au terme.',
+    tbw: 'Toute l’eau du corps, à l’intérieur comme à l’extérieur des cellules, additionnée.',
+    tbwPct: 'Cette eau en part du poids du corps ; plus il y a de graisse, plus elle baisse.',
+    metaAge: 'L’âge dont le métabolisme de base moyen égale le vôtre — une idée des balances grand public, pas une mesure clinique.',
+    distanceMi: 'La même distance en miles ; un mile fait 1,609 km.',
+    strideEst: 'Une foulée de remplacement quand vous ne l’avez jamais mesurée : 0,415 fois la taille.',
+    stepsPerKm: 'Combien de pas de cette longueur font un kilomètre.',
+    mileWalkMin: 'Votre temps sur un mile (1,609 km) le plus vite possible — en marchant, pas en courant.',
+    waistLimit: 'Le prochain seuil, propre à chaque sexe, que rencontre votre mesure.',
+    toThreshold: 'À quelle distance de ce seuil vous vous situez ; de quel côté, c’est le verdict qui le dit.',
+    weightPreEx: 'Le poids pris juste avant de commencer, après être passé aux toilettes et en tenue légère.',
+    weightPostEx: 'Le poids pris juste après, séché à la serviette et dans la même tenue.',
+    bodyLossPct: 'Le poids perdu pendant la séance, en part du poids de départ.',
+    sweatTotalMl: 'Le poids perdu plus ce que vous avez bu — la sueur réellement produite.',
+    rehydrateMl: 'Ce qu’il faut boire sur les heures qui suivent pour rattraper le poids perdu.',
+    gripKg: 'Votre meilleur serrage au dynamomètre à main, avec la main la plus forte.',
+    gripRatio: 'La préhension divisée par le poids du corps, ce qui retire la carrure de la comparaison.',
   },
 };

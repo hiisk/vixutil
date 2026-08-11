@@ -744,4 +744,54 @@ export const BODY_PT_BR: Record<string, FormulaText> = {
     long: 'O sono desce até o sono profundo e volta a subir a cada 90 minutos, mais ou menos. Acordar dentro de uns 20 minutos pega você antes do sono profundo começar, e acordar depois de um ciclo completo pega você já na subida.',
     note: 'De trinta a sessenta minutos é a pior janela. Acordar no meio do sono profundo deixa a cabeça pesada por meia hora ou mais — às vezes pior do que não ter cochilado.',
   },
+
+  /* ───────── body 4 (oito ferramentas) ───────── */
+  'pregnancy-weight-gain': {
+    title: 'Ganho de peso na gravidez',
+    desc: 'A faixa de ganho recomendada para um IMC pré-gestacional na semana em que você está.',
+    long: 'O Institute of Medicine (hoje a NAM) divide o ganho total recomendado pelo IMC pré-gestacional em quatro faixas: abaixo de 18,5 são 12,5–18 kg; de 18,5 a 24,9, de 11,5 a 16; de 25 a 29,9, de 7 a 11,5; e a partir de 30, de 5 a 9. O primeiro trimestre responde por apenas 0,5–2 kg, e o restante se distribui de forma uniforme da 13ª à 40ª semana, então um IMC de 22 na 24ª semana dá uma janela de 4,98–7,70 kg, ou 6,3 kg no ponto médio. É uma faixa e não um número único, e o julgamento da obstetriz ou do médico, que veem o ultrassom e o resto do quadro, vem antes da tabela.',
+    note: 'Uma única pesagem não decide nada. Retenção de líquido e náusea ficam fora daquilo sobre o que esta tabela foi construída, e a gravidez de gêmeos usa uma faixa totalmente diferente: 16,8–24,5 kg para um IMC de 18,5–24,9.',
+  },
+  'body-water': {
+    title: 'Água corporal total',
+    desc: 'Os litros de água no corpo e que fração do peso eles representam.',
+    long: 'As equações de Watson vêm de cerca de mil pessoas cuja água corporal foi de fato medida por diluição com deutério. Um homem de 35 anos, 175 cm e 70 kg sai em 41,57 L, ou 59,4 % do peso corporal. O tecido magro é 73,2 % água, então dividir a água corporal por 0,732 também estima a massa magra — aqui 56,8 kg. A equação feminina não tem nenhum termo de idade, então mudar a idade não move o número.',
+    note: 'Uma regressão descreve a média de uma população, e as pessoas se espalham acima e abaixo dela. A água corporal também muda dentro de um mesmo dia: comida salgada, um treino suado ou uma carga de carboidrato podem deixar o valor real a litros desta estimativa.',
+  },
+  'waist-risk': {
+    title: 'Circunferência da cintura e risco',
+    desc: 'Sua cintura diante dos limites por sexo: 94 e 102 cm em homens, 80 e 88 em mulheres.',
+    long: 'A OMS e a IDF traçam duas linhas na circunferência da cintura para cada sexo: 94 cm e 102 cm em homens, 80 cm e 88 cm em mulheres. Passar da primeira coloca você na faixa de risco aumentado, e passar da segunda na de risco bastante aumentado. Um homem com 92 cm ainda está abaixo da primeira linha, com 2 cm de folga. Outras duas ferramentas trabalham com a mesma medida: whtr divide a cintura pela altura e observa a marca de 0,5, e whr compara cintura e quadril para ver onde a gordura se acumula. Esta é a única que lê os centímetros brutos sem dividir por nada.',
+    note: 'Essas linhas vêm de dados europeus. A IDF fixa um valor próprio de 90 cm para homens de origem sul-asiática, chinesa e japonesa, então a linha se desloca 4 cm conforme a população. Meça no ponto médio entre a última costela e a borda superior do osso do quadril, no fim de uma expiração normal, com a fita firme mas sem afundar na pele. O que esse número significa para o seu corpo se decide em consulta.',
+  },
+  'metabolic-age': {
+    title: 'Idade metabólica',
+    desc: 'Seu metabolismo basal calculado pela composição corporal, sobreposto à curva média por idade.',
+    long: 'Primeiro vem a massa magra, a partir do percentual de gordura, e daí o metabolismo basal pela equação de Katch-McArdle: 370 + 21,6 × massa magra. Depois a média de Mifflin-St Jeor é traçada ao longo das idades com o mesmo sexo, altura e peso, e a idade em que essa curva encontra o seu valor é a resposta. Mifflin cai 5 kcal por ano de idade, então ficar 5 kcal acima da média rende um ano. Um homem de 35 anos, 175 cm e 70 kg com 18 % de gordura carrega 57,4 kg de massa magra e um metabolismo basal de 1.610 kcal, enquanto a média para esse corpo aos 35 é 1.624 kcal — uma idade metabólica de 37,8.',
+    note: '«Idade metabólica» é uma ideia criada pelas balanças de composição corporal, não uma medida clínica. A única coisa que ela realmente lê é a massa magra: no exemplo acima, um ponto percentual de gordura desloca a resposta em três anos. O seu número vem de Katch-McArdle enquanto a curva de referência é Mifflin-St Jeor, e as duas não coincidem exatamente numa composição média — então leia a direção e o tamanho da diferença, e não o ano em si.',
+  },
+  'steps-distance': {
+    title: 'Passos em quilômetros',
+    desc: 'Os passos multiplicados pela passada, em quilômetros e em milhas.',
+    long: 'A distância não é nada além dos passos multiplicados pela passada. Com uma passada de 70 cm, 8.000 passos dão 5,6 km ou 3,48 milhas, e um quilômetro consome 1.429 deles. Se você nunca mediu a sua passada, 0,415 vezes a altura serve de substituto: com 170 cm dá 70,6 cm, quase exatamente o valor usado acima. Duas ferramentas vizinhas usam os mesmos ingredientes: stride-from-height devolve só a passada e fixa a distância em dez mil passos, e steps-calories passa pela distância no caminho até as calorias queimadas. Esta cobre o sentido de passos para distância, com a contagem de passos que você realmente caminhou.',
+    note: 'A passada não é uma constante. Correr a alonga bem além da passada de caminhada, e subidas, areia e uma mochila carregada a encurtam. Para fixá-la, caminhe dez passos normais e divida a distância por dez. Relógios e celulares acrescentam o erro deles: contam passos quando só o braço balança e perdem passos quando você empurra um carrinho.',
+  },
+  'vo2max-rockport': {
+    title: 'Teste de caminhada de Rockport (VO2 máx)',
+    desc: 'A VO2 máx a partir de uma milha caminhada rápido: seu tempo e seu pulso ao terminar.',
+    long: 'Caminhe uma milha (1,609 km) o mais rápido que puder, anote o tempo e meça o pulso no instante em que parar. A regressão que Kline publicou em 1987 usa esses dois dados ao lado de peso, idade e sexo. Um homem de 30 anos e 80 kg que caminha em 12 minutos e termina com 140 bpm chega a uma VO2 máx de 52,9 mL/kg/min, ou 15,1 MET num ritmo de caminhada de 7,46 min/km. O que separa este teste dos dois que já existem aqui importa: vo2max-cooper usa a distância coberta em 12 minutos no limite, e vo2max-resting não usa nada além do pulso em repouso. Só este faz você trabalhar numa intensidade submáxima usando tempo e pulso juntos.',
+    note: 'Tem de ser caminhada: um pé fica sempre no chão, e sair correndo tira você da base sobre a qual a equação foi construída. O pulso precisa ser o dos primeiros segundos depois de parar; usar a média da volta que o relógio mostra deixa o valor baixo e empurra a VO2 máx para cima. O erro padrão fica em torno de 5 mL/kg/min, então isso não substitui uma medição de laboratório. Os 12 minutos dos valores padrão equivalem a 8 km/h, perto do ritmo da marcha atlética, e por isso o número sai alto — a maioria leva de 15 a 18 minutos, e o resultado cai na mesma medida. O esforço submáximo faz deste um teste mais leve que uma corrida, mas com doença cardíaca ou pulmonar quem decide se ele deve ser feito é a equipe de saúde.',
+  },
+  'grip-strength-norm': {
+    title: 'Força de preensão: valores de referência',
+    desc: 'Sua leitura do dinamômetro diante dos pontos de corte de rastreio de sarcopenia: 27 kg em homens, 16 kg em mulheres.',
+    long: 'O consenso europeu revisado sobre sarcopenia (EWGSOP2, 2019) coloca a linha de força muscular baixa em 27 kg para homens e 16 kg para mulheres. O grupo de trabalho asiático (AWGS 2019) a fixa um pouco mais alta, em 28 kg e 18 kg. Um homem de 70 kg que aperta 38 kg fica 11 kg acima da linha, ou 0,54 por quilograma de peso corporal. Isso mede algo diferente das ferramentas de músculo que já existem na seção: ffmi e muscle-mass-index descrevem quanto músculo existe, e one-rep-max descreve um peso movido em um levantamento específico. A preensão é aqui a única medida de força com pontos de corte publicados, e é por isso que a ligação dela com velocidade de marcha, recuperação após cirurgia e mortalidade reaparece sempre na literatura.',
+    note: 'O modelo do dinamômetro e a sua postura deslocam o número em vários quilogramas. Sente-se com o cotovelo a noventa graus, aperte três vezes com a mão mais forte e fique com a melhor tentativa. Dor ou artrose no punho ou nos dedos derrubam a leitura independentemente do músculo. Essa linha existe para separar quem merece um olhar mais atento e não decide nada sozinha — quem decide é a avaliação que também pesa massa muscular e função física.',
+  },
+  'sweat-loss-percent': {
+    title: 'Perda por suor em porcentagem',
+    desc: 'Que fração do peso corporal o treino custou, medida diante do limite de 2 %.',
+    long: 'O peso perdido no exercício é quase todo água, então dividi-lo pelo peso inicial o transforma em uma porcentagem de desidratação. Começar com 72 kg, beber 500 mL e terminar com 70,6 kg dá 1,4 kg ou 1,94 % a menos, enquanto o suor realmente produzido chega a 1.900 mL depois de somar a bebida. Repor isso pede cerca de 1,5 L por quilograma perdido — aqui 2.100 mL, distribuídos pelas horas seguintes. A ferramenta vizinha sweat-rate divide as mesmas medidas pelo tempo para dar uma taxa por hora, que é com a qual você planeja o treino seguinte. Esta deixa o tempo de fora e lê o déficit com que você terminou.',
+    note: 'A linha dos 2 % vem de exercício prolongado no calor; um treino curto e fresco é bem menos afetado. Em provas longas o peso perdido também não é só água: o carboidrato e a gordura queimados, e as perdas pela respiração, entram na conta. Você precisa de uma balança que leia 0,1 kg, e perda zero não é o objetivo: beber o bastante para não perder nada traz risco de hiponatremia.',
+  },
 };

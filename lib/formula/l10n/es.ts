@@ -842,6 +842,30 @@ export const ES: FormulaL10n = {
     ctr: 'CTR',
     ctrTarget: 'CTR objetivo',
     cpcAtTarget: 'CPC con ese CTR',
+    /* ───────── body 4: embarazo, agua corporal, cintura, pasos, agarre, sudor ───────── */
+    preBmi: 'IMC previo al embarazo',
+    gestWeek: 'Semana de embarazo',
+    gainNow: 'Aumento recomendado hasta ahora',
+    gainNowLow: 'Límite inferior ahora',
+    gainNowHigh: 'Límite superior ahora',
+    gainTotalLow: 'Mínimo hasta el término',
+    gainTotalHigh: 'Máximo hasta el término',
+    tbw: 'Agua corporal total',
+    tbwPct: 'Agua sobre el peso',
+    metaAge: 'Edad metabólica',
+    distanceMi: 'Distancia (millas)',
+    strideEst: 'Zancada estimada por la estatura',
+    stepsPerKm: 'Pasos por km',
+    mileWalkMin: 'Tiempo andando 1 milla',
+    waistLimit: 'Límite que aplica',
+    toThreshold: 'Distancia al límite',
+    weightPreEx: 'Peso antes del ejercicio (kg)',
+    weightPostEx: 'Peso después del ejercicio (kg)',
+    bodyLossPct: 'Peso corporal perdido',
+    sweatTotalMl: 'Sudor total perdido',
+    rehydrateMl: 'Líquido a reponer',
+    gripKg: 'Fuerza de agarre (kg)',
+    gripRatio: 'Agarre por kg de peso',
   },
 
   UNITS: {
@@ -918,6 +942,8 @@ export const ES: FormulaL10n = {
     kgPerM3: 'kg/m³',
     /* ───────── 광고 노출·클릭 ───────── */
     hit: '',
+    /* ───────── body 4 ───────── */
+    mile: 'mi',
   },
 
   DESC: {
@@ -1729,5 +1755,30 @@ export const ES: FormulaL10n = {
     /* 몸 치수 — 공예(스웨터 여유·팔찌)와 /body가 함께 쓴다 */
     chestCm: 'El pecho en su punto más ancho, medido justo debajo de las axilas.',
     wristCm: 'La parte más estrecha de la muñeca; casi no tiene grasa, así que refleja la estructura ósea.',
+
+    /* ───────── body 4: embarazo, agua corporal, cintura, pasos, agarre, sudor ───────── */
+    preBmi: 'El IMC calculado con el peso de antes del embarazo: es lo que elige el rango de aumento que aplica.',
+    gestWeek: 'Las semanas contadas desde el primer día de la última regla; el término son 40 semanas.',
+    gainNow: 'El punto medio del aumento que se espera acumulado a esta altura del embarazo.',
+    gainNowLow: 'El extremo bajo del rango de esta semana; quedarse por debajo no es de por sí un problema.',
+    gainNowHigh: 'El extremo alto del rango de esta semana.',
+    gainTotalLow: 'El aumento total mínimo recomendado hasta el término.',
+    gainTotalHigh: 'El aumento total máximo recomendado hasta el término.',
+    tbw: 'Toda el agua del cuerpo, dentro y fuera de las células, sumada.',
+    tbwPct: 'Esa agua como parte del peso corporal; con más grasa baja.',
+    metaAge: 'La edad cuyo metabolismo basal medio coincide con el tuyo: una idea de las básculas de casa, no una medida clínica.',
+    distanceMi: 'La misma distancia en millas; una milla son 1,609 km.',
+    strideEst: 'Una zancada de sustitución cuando no la has medido nunca: 0,415 por la estatura.',
+    stepsPerKm: 'Cuántos pasos de esa longitud suman un kilómetro.',
+    mileWalkMin: 'Tu tiempo andando una milla (1,609 km) lo más rápido posible, andando y no corriendo.',
+    waistLimit: 'El siguiente límite, propio de cada sexo, con el que se cruza tu medida.',
+    toThreshold: 'A qué distancia estás de ese límite; de qué lado, lo dice el veredicto.',
+    weightPreEx: 'El peso tomado justo antes de empezar, después del baño y con ropa ligera.',
+    weightPostEx: 'El peso tomado justo después, secado con la toalla y con la misma ropa.',
+    bodyLossPct: 'El peso perdido durante la sesión como parte del peso de partida.',
+    sweatTotalMl: 'El peso perdido más lo que bebiste: el sudor que de verdad produjiste.',
+    rehydrateMl: 'Lo que conviene beber en las horas siguientes para recuperar el peso perdido.',
+    gripKg: 'Tu mejor apretón en el dinamómetro de mano, con la mano más fuerte.',
+    gripRatio: 'El agarre dividido entre el peso corporal, que saca el tamaño del cuerpo de la comparación.',
   },
 };

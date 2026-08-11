@@ -744,4 +744,54 @@ export const BODY_DE: Record<string, FormulaText> = {
     long: 'Der Schlaf sinkt in den Tiefschlaf und steigt wieder auf, ungefähr alle 90 Minuten. Wer binnen etwa 20 Minuten aufwacht, erwischt sich vor dem Tiefschlaf; wer nach einem vollen Zyklus aufwacht, erwischt sich auf dem Weg zurück nach oben.',
     note: 'Dreißig bis sechzig Minuten ist das schlechteste Fenster. Aus dem Tiefschlaf gerissen bleibt man eine halbe Stunde oder länger benommen — manchmal schlimmer, als gar nicht geschlafen zu haben.',
   },
+
+  /* ───────── body 4 (acht Rechner) ───────── */
+  'pregnancy-weight-gain': {
+    title: 'Gewichtszunahme in der Schwangerschaft',
+    desc: 'Der empfohlene Bereich der Zunahme für einen BMI vor der Schwangerschaft in der Woche, in der du gerade bist.',
+    long: 'Das Institute of Medicine (heute die NAM) teilt die empfohlene Gesamtzunahme nach dem BMI vor der Schwangerschaft in vier Bänder: unter 18,5 sind es 12,5–18 kg, bei 18,5–24,9 sind es 11,5–16, bei 25–29,9 sind es 7–11,5 und ab 30 sind es 5–9. Auf das erste Trimester fallen davon nur 0,5–2 kg, der Rest verteilt sich gleichmäßig von Woche 13 bis Woche 40 — ein BMI von 22 in Woche 24 ergibt also ein Fenster von 4,98–7,70 kg oder 6,3 kg in der Mitte. Das ist ein Bereich und keine einzelne Zahl, und das Urteil der Hebamme oder der Ärztin, die den Ultraschall und alles Übrige sehen, geht der Tabelle vor.',
+    note: 'Ein einzelnes Wiegen entscheidet nichts. Wassereinlagerungen und Schwangerschaftsübelkeit liegen beide außerhalb dessen, worauf diese Tabelle gebaut ist, und Zwillingsschwangerschaften nutzen ein ganz eigenes Band — 16,8–24,5 kg bei einem BMI von 18,5–24,9.',
+  },
+  'body-water': {
+    title: 'Körperwasser berechnen',
+    desc: 'Die Liter Wasser im Körper und welchen Anteil am Körpergewicht sie ausmachen.',
+    long: 'Die Watson-Gleichungen stammen von etwa eintausend Menschen, deren Körperwasser tatsächlich per Deuteriumverdünnung gemessen wurde. Ein 35-jähriger Mann mit 175 cm und 70 kg kommt auf 41,57 L, also 59,4 % des Körpergewichts. Fettfreies Gewebe besteht zu 73,2 % aus Wasser, deshalb schätzt die Division des Körperwassers durch 0,732 auch die Magermasse — hier 56,8 kg. Die Gleichung für Frauen enthält überhaupt keinen Altersterm, ihr Wert bleibt also stehen, wenn du das Alter änderst.',
+    note: 'Eine Regression beschreibt den Durchschnitt einer Bevölkerung, Einzelne streuen darüber und darunter. Körperwasser bewegt sich außerdem innerhalb eines Tages: salziges Essen, eine schweißtreibende Einheit oder eine Kohlenhydratladung können den echten Wert Liter von dieser Schätzung entfernen.',
+  },
+  'waist-risk': {
+    title: 'Taillenumfang und Risiko',
+    desc: 'Dein Taillenumfang an den Grenzen je Geschlecht: 94 und 102 cm bei Männern, 80 und 88 bei Frauen.',
+    long: 'Die WHO und die IDF ziehen im Taillenumfang für jedes Geschlecht zwei Linien — 94 cm und 102 cm bei Männern, 80 cm und 88 cm bei Frauen. Die erste zu überschreiten setzt dich in das Band mit erhöhtem Risiko, die zweite in das mit deutlich erhöhtem. Ein Mann mit 92 cm liegt noch unter der ersten Linie, mit 2 cm Luft. Zwei weitere Werkzeuge arbeiten mit demselben Maß: whtr teilt die Taille durch die Größe und achtet auf die Marke 0,5, und whr vergleicht Taille mit Hüfte, um zu sehen, wo das Fett sitzt. Dieses hier liest allein die rohen Zentimeter, ohne durch irgendetwas zu teilen.',
+    note: 'Diese Linien kommen aus europäischen Daten. Die IDF setzt für Männer südasiatischer, chinesischer und japanischer Herkunft einen eigenen Wert von 90 cm, die Linie verschiebt sich je nach Bevölkerung also um 4 cm. Miss in der Mitte zwischen der untersten Rippe und dem oberen Rand des Hüftbeins, am Ende eines normalen Ausatmens, das Band anliegend, aber ohne es in die Haut zu drücken. Was die Zahl für deinen Körper bedeutet, klärt sich in der Praxis.',
+  },
+  'metabolic-age': {
+    title: 'Stoffwechselalter',
+    desc: 'Dein Grundumsatz aus der Körperzusammensetzung, aufgelegt auf die durchschnittliche Kurve nach Alter.',
+    long: 'Zuerst kommt die Magermasse aus dem Körperfettanteil, dann der Grundumsatz aus der Katch-McArdle-Gleichung: 370 + 21,6 × Magermasse. Danach wird die Mifflin-St-Jeor-Durchschnittskurve bei gleichem Geschlecht, gleicher Größe und gleichem Gewicht über die Alter gezogen, und das Alter, an dem sie deinen Wert trifft, ist die Antwort. Mifflin fällt je Lebensjahr um 5 kcal, 5 kcal über dem Durchschnitt bringen also ein Jahr. Ein 35-jähriger Mann mit 175 cm und 70 kg bei 18 % Körperfett trägt 57,4 kg Magermasse und einen Grundumsatz von 1.610 kcal, während der Durchschnitt für diesen Körper mit 35 bei 1.624 kcal liegt — ein Stoffwechselalter von 37,8.',
+    note: '„Stoffwechselalter“ ist eine Idee der Körperfettwaagen und kein klinisches Maß. Das Einzige, was es wirklich liest, ist die Magermasse: im Beispiel oben verschiebt ein Prozentpunkt Körperfett die Antwort um drei Jahre. Dein eigener Wert kommt zudem aus Katch-McArdle, die Vergleichskurve aus Mifflin-St Jeor, und die beiden treffen sich bei durchschnittlicher Körperzusammensetzung nicht genau — lies also Richtung und Größe des Abstands und nicht die Jahreszahl selbst.',
+  },
+  'steps-distance': {
+    title: 'Schritte in Kilometer',
+    desc: 'Schritte mal Schrittlänge, in Kilometern und in Meilen.',
+    long: 'Die Strecke ist nichts anderes als Schritte mal Schrittlänge. Bei 70 cm Schrittlänge ergeben 8.000 Schritte 5,6 km oder 3,48 Meilen, und auf einen Kilometer gehen 1.429 davon. Hast du deine Schrittlänge nie gemessen, springt 0,415 mal Körpergröße ein — bei 170 cm sind das 70,6 cm, fast genau der oben benutzte Wert. Zwei Nachbarwerkzeuge nutzen dieselben Größen: stride-from-height gibt nur die Schrittlänge zurück und setzt die Strecke auf zehntausend Schritte fest, und steps-calories geht über die Strecke hinweg zu den verbrannten Kalorien. Dieses hier deckt die Richtung von den Schritten zur Strecke ab, mit der Schrittzahl, die du wirklich gegangen bist.',
+    note: 'Die Schrittlänge ist keine Konstante. Laufen streckt sie weit über den Gehschritt hinaus, und Steigungen, Sand und ein beladener Rucksack verkürzen sie alle. Um sie festzunageln, geh zehn normale Schritte und teil die Strecke durch zehn. Uhren und Handys bringen ihren eigenen Fehler mit: sie zählen Schritte, wenn nur der Arm schwingt, und übersehen sie, wenn du einen Wagen schiebst.',
+  },
+  'vo2max-rockport': {
+    title: 'Rockport-Gehtest (VO2max)',
+    desc: 'VO2max aus einer schnell gegangenen Meile: deine Zeit und dein Puls im Ziel.',
+    long: 'Geh eine Meile (1,609 km) so schnell du kannst, notier die Zeit und nimm den Puls in dem Moment, in dem du stehen bleibst. Die Regression, die Kline 1987 veröffentlichte, nimmt diese beiden neben Gewicht, Alter und Geschlecht. Ein 30-jähriger Mann mit 80 kg, der die Meile in 12 Minuten geht und mit 140 bpm ankommt, erhält eine VO2max von 52,9 mL/kg/min, also 15,1 MET bei einem Gehtempo von 7,46 min/km. Was ihn von den zwei Tests unterscheidet, die es hier schon gibt, ist wichtig: vo2max-cooper nimmt die in 12 Minuten voll ausgelaufene Strecke, und vo2max-resting nimmt nichts als den Ruhepuls. Nur dieser lässt dich unterhalb der Ausbelastung arbeiten und nutzt Zeit und Puls zusammen.',
+    note: 'Es muss ein Gehen sein — ein Fuß bleibt durchgehend am Boden, und in einen Laufschritt zu wechseln bringt dich außerhalb dessen, worauf die Gleichung gebaut ist. Der Puls muss der aus den ersten Sekunden nach dem Stehenbleiben sein; den Rundendurchschnitt einer Uhr einzutragen fällt zu niedrig aus und treibt die VO2max hoch. Der Standardfehler liegt bei etwa 5 mL/kg/min, eine Labormessung ersetzt das also nicht. Die 12 Minuten in den Standardwerten sind 8 km/h, nahe am Gehwettkampftempo, und deshalb kommt ein hoher Wert heraus — die meisten brauchen 15 bis 18, und das Ergebnis sinkt entsprechend. Die submaximale Belastung macht das zu einem sanfteren Test als ein Lauf, doch bei Herz- oder Lungenerkrankung entscheidet die Ärztin oder der Arzt, ob er überhaupt gemacht wird.',
+  },
+  'grip-strength-norm': {
+    title: 'Griffkraft-Normwerte',
+    desc: 'Dein Wert am Handdynamometer an den Screening-Grenzwerten für Sarkopenie: 27 kg bei Männern, 16 kg bei Frauen.',
+    long: 'Der überarbeitete europäische Konsens zur Sarkopenie (EWGSOP2, 2019) legt die Linie für geminderte Muskelkraft auf 27 kg bei Männern und 16 kg bei Frauen. Die asiatische Arbeitsgruppe (AWGS 2019) setzt sie mit 28 kg und 18 kg etwas höher. Ein Mann mit 70 kg, der 38 kg drückt, liegt 11 kg über der Linie, oder 0,54 je Kilogramm Körpergewicht. Das misst etwas anderes als die Muskelwerkzeuge, die es in der Sektion schon gibt: ffmi und muscle-mass-index beschreiben, wie viel Muskel da ist, und one-rep-max beschreibt ein Gewicht, das in einer bestimmten Übung bewegt wurde. Die Griffkraft ist hier das einzige Maß für Kraft, das veröffentlichte Grenzwerte trägt, und darum tauchen ihre Zusammenhänge mit Gehgeschwindigkeit, Erholung nach Operationen und Sterblichkeit in der Literatur immer wieder auf.',
+    note: 'Das Modell des Dynamometers und deine Haltung verschieben die Zahl um mehrere Kilogramm. Setz dich hin, halte den Ellenbogen im rechten Winkel, drücke dreimal mit der stärkeren Hand und nimm den besten Versuch. Schmerzen oder Arthrose in Handgelenk oder Fingern ziehen den Wert unabhängig von der Muskulatur herunter. Diese Linie ist dazu da, Menschen für einen genaueren Blick auszusortieren, und entscheidet für sich nichts — es gilt die Beurteilung, die Muskelmasse und körperliche Funktion mit einbezieht.',
+  },
+  'sweat-loss-percent': {
+    title: 'Schweißverlust in Prozent',
+    desc: 'Welchen Anteil des Körpergewichts eine Einheit gekostet hat, gemessen an der Grenze von 2 %.',
+    long: 'Das beim Sport verlorene Gewicht ist fast vollständig Wasser, die Division durch das Startgewicht macht daraus also einen Prozentsatz der Dehydrierung. Mit 72 kg zu starten, 500 mL zu trinken und mit 70,6 kg zu enden heißt 1,4 kg oder 1,94 % weg, während der tatsächlich produzierte Schweiß 1.900 mL beträgt, sobald das Getrunkene wieder dazukommt. Zum Ersetzen braucht es etwa 1,5 L je verlorenem Kilogramm — hier 2.100 mL, verteilt über die nächsten Stunden. Das Nachbarwerkzeug sweat-rate teilt dieselben Messungen durch die Zeit und gibt eine Rate je Stunde, mit der du die nächste Einheit planst. Dieses hier lässt die Zeit heraus und liest das Defizit, mit dem du aufgehört hast.',
+    note: 'Die Linie bei 2 % kommt aus langem Sport in der Hitze; eine kurze, kühle Einheit trifft es weit weniger. Über lange Belastungen ist das verlorene Gewicht auch nicht rein Wasser — verbrannte Kohlenhydrate und Fett und die Verluste über die Atmung machen einen Teil davon aus. Du brauchst eine Waage, die 0,1 kg auflöst, und null Verlust ist nicht das Ziel: so viel zu trinken, dass gar kein Verlust entsteht, birgt das Risiko einer Hyponatriämie.',
+  },
 };

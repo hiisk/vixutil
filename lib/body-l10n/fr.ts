@@ -744,4 +744,54 @@ export const BODY_FR: Record<string, FormulaText> = {
     long: 'Le sommeil descend vers le sommeil profond puis remonte, environ toutes les 90 minutes. Se réveiller dans les 20 minutes vous prend avant l’entrée en sommeil profond, et se réveiller après un cycle complet vous prend déjà sur la remontée.',
     note: 'Trente à soixante minutes est la pire fenêtre. Sortir du sommeil profond laisse embrumé une demi-heure ou plus — parfois pire que de ne pas avoir dormi.',
   },
+
+  /* ───────── body 4 (huit outils) ───────── */
+  'pregnancy-weight-gain': {
+    title: 'Prise de poids pendant la grossesse',
+    desc: 'La plage de prise recommandée pour un IMC d’avant grossesse, à la semaine où vous en êtes.',
+    long: 'L’Institute of Medicine (aujourd’hui la NAM) répartit la prise totale recommandée selon l’IMC d’avant grossesse en quatre tranches : sous 18,5 c’est 12,5–18 kg, de 18,5 à 24,9 c’est 11,5–16, de 25 à 29,9 c’est 7–11,5, et à partir de 30 c’est 5–9. Le premier trimestre ne compte que pour 0,5–2 kg, le reste se répartissant régulièrement de la semaine 13 à la semaine 40 : un IMC de 22 à la semaine 24 donne donc une fenêtre de 4,98–7,70 kg, soit 6,3 kg au milieu. C’est une plage et non un chiffre unique, et le jugement de la sage-femme ou du médecin, qui voient les échographies et tout le reste, passe avant le tableau.',
+    note: 'Une pesée isolée ne règle rien. Les œdèmes et les nausées sortent tous deux du cadre sur lequel ce tableau a été construit, et les grossesses gémellaires utilisent une tranche entièrement différente : 16,8–24,5 kg pour un IMC de 18,5–24,9.',
+  },
+  'body-water': {
+    title: 'Eau corporelle totale',
+    desc: 'Les litres d’eau contenus dans le corps, et la part du poids qu’ils représentent.',
+    long: 'Les équations de Watson viennent d’un millier de personnes environ dont l’eau corporelle a réellement été mesurée par dilution au deutérium. Un homme de 35 ans, 175 cm et 70 kg, ressort à 41,57 L, soit 59,4 % du poids du corps. Le tissu maigre contient 73,2 % d’eau : diviser l’eau corporelle par 0,732 estime donc aussi la masse maigre, ici 56,8 kg. L’équation féminine ne comporte aucun terme d’âge, si bien que changer l’âge ne déplace pas le chiffre.',
+    note: 'Une régression décrit la moyenne d’une population, et les individus se dispersent au-dessus comme en dessous. L’eau corporelle bouge aussi à l’intérieur d’une même journée : un plat salé, une séance trempée de sueur ou une recharge en glucides peuvent éloigner la valeur réelle de plusieurs litres.',
+  },
+  'waist-risk': {
+    title: 'Tour de taille et risque',
+    desc: 'Votre tour de taille face aux seuils propres à chaque sexe : 94 et 102 cm chez l’homme, 80 et 88 chez la femme.',
+    long: 'L’OMS et l’IDF tracent deux lignes dans le tour de taille pour chaque sexe — 94 cm et 102 cm chez l’homme, 80 cm et 88 cm chez la femme. Franchir la première vous place dans la tranche à risque accru, franchir la seconde dans celle à risque nettement accru. Un homme à 92 cm reste sous la première ligne, avec 2 cm de marge. Deux autres outils travaillent sur la même mesure : whtr divise le tour de taille par la hauteur et surveille le repère de 0,5, et whr compare taille et hanches pour voir où se loge la graisse. Celui-ci est le seul à lire les centimètres bruts sans rien diviser.',
+    note: 'Ces lignes viennent de données européennes. L’IDF retient une valeur distincte de 90 cm pour les hommes d’origine sud-asiatique, chinoise et japonaise : le seuil bouge donc de 4 cm selon la population. Mesurez à mi-chemin entre la dernière côte et le haut de l’os iliaque, à la fin d’une expiration normale, le mètre ajusté mais sans l’enfoncer dans la peau. Ce que le chiffre signifie pour votre corps se décide en consultation.',
+  },
+  'metabolic-age': {
+    title: 'Âge métabolique',
+    desc: 'Votre métabolisme de base issu de la composition corporelle, posé sur la courbe moyenne par âge.',
+    long: 'La masse maigre vient d’abord, du taux de masse grasse, puis le métabolisme de base par l’équation de Katch-McArdle : 370 + 21,6 × masse maigre. Ensuite la moyenne de Mifflin-St Jeor est tracée à travers les âges, à sexe, taille et poids identiques, et l’âge où cette courbe rejoint votre valeur est la réponse. Mifflin perd 5 kcal par année d’âge : rester 5 kcal au-dessus de la moyenne vous fait donc gagner un an. Un homme de 35 ans, 175 cm et 70 kg à 18 % de masse grasse porte 57,4 kg de masse maigre et un métabolisme de base de 1 610 kcal, tandis que la moyenne pour ce corps à 35 ans est de 1 624 kcal — soit un âge métabolique de 37,8.',
+    note: 'L’« âge métabolique » est une idée inventée par les balances à impédance, pas une mesure clinique. La seule chose qu’il lise vraiment, c’est la masse maigre : dans l’exemple ci-dessus, un point de pourcentage de masse grasse déplace la réponse de trois ans. Votre propre valeur vient en plus de Katch-McArdle alors que la courbe de référence vient de Mifflin-St Jeor, et les deux ne se superposent pas exactement pour une composition moyenne — lisez donc le sens et la taille de l’écart plutôt que l’âge lui-même.',
+  },
+  'steps-distance': {
+    title: 'Pas en kilomètres',
+    desc: 'Les pas multipliés par la longueur de foulée, en kilomètres et en miles.',
+    long: 'La distance n’est rien de plus que les pas multipliés par la foulée. Avec une foulée de 70 cm, 8 000 pas font 5,6 km ou 3,48 miles, et un kilomètre en demande 1 429. Si vous n’avez jamais mesuré votre foulée, 0,415 fois la taille en tient lieu : à 170 cm cela donne 70,6 cm, presque exactement la valeur utilisée ci-dessus. Deux outils voisins emploient les mêmes ingrédients : stride-from-height ne rend que la foulée et fixe la distance à dix mille pas, tandis que steps-calories passe par la distance pour arriver aux calories brûlées. Celui-ci couvre le sens des pas vers la distance, avec le nombre de pas que vous avez réellement marchés.',
+    note: 'La foulée n’est pas une constante. La course l’allonge bien au-delà de la foulée de marche, et les côtes, le sable et un sac chargé la raccourcissent tous. Pour la fixer, marchez dix pas normaux et divisez la distance par dix. Montres et téléphones ajoutent leur propre erreur : ils comptent des pas quand seul le bras balance et en manquent quand vous poussez un chariot.',
+  },
+  'vo2max-rockport': {
+    title: 'Test de marche de Rockport (VO2 max)',
+    desc: 'La VO2 max à partir d’un mile marché vite : votre temps et votre pouls à l’arrivée.',
+    long: 'Marchez un mile (1,609 km) le plus vite possible, notez le temps et prenez votre pouls à l’instant où vous vous arrêtez. La régression publiée par Kline en 1987 prend ces deux valeurs à côté du poids, de l’âge et du sexe. Un homme de 30 ans et 80 kg qui la marche en 12 minutes et finit à 140 bpm obtient une VO2 max de 52,9 mL/kg/min, soit 15,1 MET pour une allure de marche de 7,46 min/km. Ce qui le distingue des deux tests déjà présents compte : vo2max-cooper prend la distance couverte en 12 minutes à fond, et vo2max-resting ne prend rien d’autre que le pouls au repos. Celui-ci est le seul à vous faire travailler à une intensité sous-maximale en utilisant à la fois le temps et le pouls.',
+    note: 'Ce doit être de la marche : un pied reste toujours au sol, et partir en courant vous sort du cadre sur lequel l’équation a été construite. Le pouls doit être celui des toutes premières secondes après l’arrêt ; entrer la moyenne du tour affichée par une montre le sous-estime et pousse la VO2 max vers le haut. L’erreur type tourne autour de 5 mL/kg/min : cela ne remplace donc pas une mesure en laboratoire. Les 12 minutes des valeurs par défaut correspondent à 8 km/h, proche de l’allure de marche athlétique, et le chiffre ressort donc élevé — la plupart des gens mettent 15 à 18 minutes, et le résultat baisse d’autant. L’effort sous-maximal en fait un test plus doux qu’une course, mais en cas de maladie cardiaque ou pulmonaire, c’est au soignant de décider s’il faut le faire.',
+  },
+  'grip-strength-norm': {
+    title: 'Force de préhension : normes',
+    desc: 'Votre valeur au dynamomètre face aux seuils de dépistage de la sarcopénie : 27 kg chez l’homme, 16 kg chez la femme.',
+    long: 'Le consensus européen révisé sur la sarcopénie (EWGSOP2, 2019) place la limite de faiblesse musculaire à 27 kg chez l’homme et 16 kg chez la femme. Le groupe de travail asiatique (AWGS 2019) la fixe un peu plus haut, à 28 kg et 18 kg. Un homme de 70 kg qui serre 38 kg se situe 11 kg au-dessus de la limite, soit 0,54 par kilogramme de poids. Cela mesure autre chose que les outils de muscle déjà présents dans la section : ffmi et muscle-mass-index décrivent la quantité de muscle, et one-rep-max décrit une charge déplacée sur un mouvement précis. La préhension est ici la seule mesure de force à porter des seuils publiés, et c’est pourquoi ses liens avec la vitesse de marche, la récupération après une chirurgie et la mortalité reviennent sans cesse dans la littérature.',
+    note: 'Le modèle de dynamomètre et votre posture déplacent le chiffre de plusieurs kilogrammes. Asseyez-vous, coude à quatre-vingt-dix degrés, serrez trois fois avec la main la plus forte et gardez le meilleur essai. Une douleur ou de l’arthrose au poignet ou aux doigts tire la valeur vers le bas, indépendamment du muscle. Cette limite existe pour repérer qui mérite un examen plus poussé et ne décide de rien à elle seule : c’est l’évaluation qui pèse aussi la masse musculaire et la fonction physique qui tranche.',
+  },
+  'sweat-loss-percent': {
+    title: 'Perte hydrique en pourcentage',
+    desc: 'La part du poids du corps qu’une séance vous a coûtée, mesurée face au seuil de 2 %.',
+    long: 'Le poids perdu à l’effort est presque entièrement de l’eau : le diviser par le poids de départ le transforme en pourcentage de déshydratation. Partir à 72 kg, boire 500 mL et finir à 70,6 kg, cela fait 1,4 kg ou 1,94 % en moins, tandis que la sueur réellement produite atteint 1 900 mL une fois la boisson rajoutée. Pour la remplacer, comptez environ 1,5 L par kilogramme perdu — ici 2 100 mL, répartis sur les heures qui suivent. L’outil voisin sweat-rate divise les mêmes mesures par le temps pour donner un débit horaire, celui autour duquel vous préparez la séance suivante. Celui-ci laisse le temps de côté et lit le déficit avec lequel vous avez terminé.',
+    note: 'La limite des 2 % vient d’efforts prolongés à la chaleur ; une séance courte et fraîche est bien moins concernée. Sur les épreuves longues, le poids perdu n’est pas que de l’eau : les glucides et les graisses brûlés, ainsi que les pertes par la respiration, en font partie. Il faut une balance qui affiche 0,1 kg, et zéro perte n’est pas l’objectif : boire assez pour ne rien perdre du tout expose à une hyponatrémie.',
+  },
 };
