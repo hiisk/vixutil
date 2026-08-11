@@ -23,6 +23,7 @@ import { SCORE_TOOLS } from './rate/score.ts';
 import { SCORE2_TOOLS } from './rate/score2.ts';
 import { RATE_EXTRA_TOOLS } from './rate/extra.ts';
 import { BUSINESS_TOOLS } from './rate/business.ts';
+import { BUSINESS2_TOOLS } from './rate/business2.ts';
 
 export const RATE_TOOLS: FormulaTool[] = [
   ...PRICE_TOOLS, ...PRICE2_TOOLS,
@@ -33,6 +34,7 @@ export const RATE_TOOLS: FormulaTool[] = [
   ...SCORE_TOOLS, ...SCORE2_TOOLS,
   ...RATE_EXTRA_TOOLS,
   ...BUSINESS_TOOLS,
+  ...BUSINESS2_TOOLS,
 ];
 
 export const RATE_CATEGORIES = ['할인·가격', '세금·정산', '비율·증감', '금융·이자', '농도·배합', '점수·달성'] as const;

@@ -613,4 +613,152 @@ export const CRAFT_ES: Record<string, FormulaText> = {
     long: 'Un sobre de envío es una funda plana, así que el grosor del artículo sale del ancho. El perímetro de la funda es 2 × su ancho y el artículo necesita 2 × (ancho + grosor), lo que obliga a que el sobre mida al menos el ancho del artículo más un grosor. Suma 2 cm para meterlo y sacarlo: un artículo de 25 cm de ancho y 4 cm de grosor quiere un sobre de 31 cm. El largo funciona igual, largo del artículo más grosor más holgura, y después 4 cm para la solapa adhesiva, lo que da 40 cm — la solapa se dobla y ahí no puede quedar contenido. La respuesta es entonces «31 × 40 cm o más», y compras la medida de tienda más cercana por encima, por ejemplo 32 × 45 cm. Mide la ropa y otras cosas comprimibles con el grosor aplastado. Mira también cómo indica las medidas el proveedor: unos dan el interior y otros el exterior con la solapa incluida, y a una medida exterior hay que quitarle la solapa antes de comparar.',
     note: 'Los sobres no amortiguan. Incluso uno con burbujas solo aguanta el roce y la presión, así que cualquier cosa que se rompa va en caja. Si escatimas la holgura, el contenido sube hasta la solapa adhesiva, el cierre no pega bien y la bolsa se abre en el camino: sube una talla en vez de recortar el margen. Pasarse de grande es su propio problema: el artículo se mueve, las esquinas se golpean y el sobrante se dobla justo encima de la etiqueta, donde el escáner no la lee. Forzar un artículo grueso estira la lámina hasta que se raja por una esquina, así que a partir de unos 5 cm de grosor usa caja. El tamaño del sobre ayuda con el peso volumétrico, pero calcula el porte con las reglas de tu transportista.',
   },
+
+  /* ───────── Ganchillo: cadeneta, motivos y aumentos ───────── */
+  'crochet-chain': {
+    title: 'Calculadora de cadeneta base (ganchillo)',
+    desc: 'Largo de la cadeneta base a partir de tu muestra, el ancho que quieres y la cadeneta de subida.',
+    long: '16 puntos en 10 cm son 1,6 por centímetro, así que una manta de 100 cm son 160 puntos. La cadeneta son esos puntos más la de subida: 3 en punto alto, 2 en medio punto alto, 1 en punto bajo, lo que aquí deja 163 cadenetas. La cadeneta de subida o sustituye al primer punto o solo gana altura, así que nunca cuenta para el ancho.',
+    note: 'Una cadeneta es más pequeña que el punto que se teje dentro de ella, así que las mismas manos cadenean más apretado de lo que hacen ganchillo. Esas 163 cadenetas pueden dar la medida exacta en la regla y aun así meter el borde de abajo en cuanto entra la primera vuelta. Cadenea con un ganchillo un número mayor, o sáltate la cadeneta y usa una hilera de base (punto alto base). Si el dibujo se repite cada cierto número de puntos, redondea antes los 160 a ese múltiplo y suma la cadeneta de subida después.',
+  },
+  'crochet-gauge-rounds': {
+    title: 'Calculadora de vueltas y rondas a ganchillo',
+    desc: 'Vueltas o rondas a tejer, a partir de la muestra de puntos y de lo alto que sea el punto.',
+    long: 'En ganchillo la altura la fija el propio punto. A 16 puntos por 10 cm un punto mide 0,625 cm de ancho, y un punto alto se levanta unas dos veces eso, así que una vuelta son 1,25 cm y 60 cm piden 48 vueltas. Pasa la misma lana a punto bajo (razón 1,1) y una vuelta baja a 0,69 cm: 87 vueltas, casi el doble de tiempo y de lana.',
+    note: 'Las razones son aproximadas: punto bajo 1,0–1,2, medio punto alto 1,4–1,6, punto alto 1,9–2,1, punto alto doble 2,6–3,0, y todas se mueven con tu tensión. Para una prenda que tiene que quedar bien, teje diez vueltas, mide la altura y divide entre diez. Los puntos con textura —de V, motivos, garbanzos— no siguen la razón en absoluto, así que ahí mide una repetición completa. La cuenta es la misma en plano y en redondo: el resultado sale etiquetado como rondas, y en una labor plana se lee como vueltas.',
+  },
+  'granny-square-size': {
+    title: 'Calculadora de tamaño del cuadrado de la abuela',
+    desc: 'Tamaño acabado del motivo a partir de las rondas tejidas y de lo que crece cada ronda.',
+    long: 'Un motivo crece hacia fuera por los cuatro lados, así que cada ronda añade al lado el doble de su propio ancho. Con una ronda que mide 2 cm, seis rondas dan un cuadrado de 24 cm. Pedir 30 cm exige ocho rondas (32 cm), porque siete se quedan en 28: no se puede tejer media ronda, así que un tamaño objetivo casi nunca cae exacto.',
+    note: 'El ancho por ronda sale de la lana y del ganchillo. La primera ronda es un grupo apretado dentro del anillo central y queda más estrecha que las demás, y el número de cadenetas de cada esquina mueve cada ronda 2–3 mm. Teje tres rondas, mide un lado y divide entre seis —el doble del número de rondas, porque cada ronda hace crecer los dos extremos de ese lado—. Un lado de 12 cm significa 2 cm por ronda, y ese es el número que merece volver a esta calculadora.',
+  },
+  'granny-blanket-squares': {
+    title: 'Calculadora de manta de cuadrados de la abuela',
+    desc: 'Cuántos motivos pide una manta, y cuántos van a lo ancho y a lo largo.',
+    long: 'Un motivo de 20 cm unido con una costura de 0,5 cm ocupa 20,5 cm, y como el último no lleva costura detrás, se suma una unión antes de dividir. A lo ancho de 120 cm eso es (120 + 0,5) ÷ 20,5 = 5,87 → 5 motivos; a lo largo de 150 cm son 7, o sea 35 cuadrados. Esos cinco dan un ancho acabado de 5 × 20 + 4 × 0,5 = 102 cm.',
+    note: 'Los 102 cm se quedan 18 cm por debajo de los 120 cm que pediste, porque la división redondea hacia abajo. Hay que elegir: añadir una sexta columna y pasarse hasta 122,5 cm, o tejer un borde de 9 cm y cubrir la diferencia. Los motivos hechos a mano también varían, así que bloquéalos todos al mismo tamaño antes de unirlos. El ancho de la unión depende del método: con punto enano es casi cero, con cadeneta 0,5–1 cm y con punto bajo más de 1 cm.',
+  },
+  'amigurumi-increase': {
+    title: 'Calculadora de aumentos para amigurumi (anillo mágico)',
+    desc: 'Inicio en anillo mágico y rondas de aumento a partir del perímetro objetivo y la muestra.',
+    long: 'El amigurumi empieza con 6 puntos bajos en un anillo mágico y añade 6 en cada ronda: 6, 12, 18, 24, siempre múltiplos del número inicial. Un perímetro de 30 cm a 25 puntos por 10 cm pide 75 puntos, que son 30 ÷ π = 9,5 cm de diámetro, y 75 ÷ 6 redondeado hacia arriba son 13 rondas de aumento. No se puede tejer media ronda, así que aterrizas en 78 puntos y el perímetro sube hasta 31,2 cm. Empieza con 8 y aumentas 8 por ronda, llegando a 80 puntos en 10 rondas con una base más plana.',
+    note: 'La regla es que los aumentos por ronda sean iguales al número de puntos iniciales. Empieza con 6 y aumenta 8 por ronda y el círculo pasa de plano y ondula; aumenta solo 4 y se curva formando un cuenco en vez de quedarse abierto. La muestra de amigurumi es mucho más apretada que la de una prenda, porque el ganchillo es a propósito 1–1,5 números menor de lo que la lana pide para que no se vea el relleno. Si metes aquí la muestra impresa en la faja, te saldrá un muñeco mucho más grande de lo que querías.',
+  },
+  'crochet-yarn-per-stitch': {
+    title: 'Calculadora de lana por punto a ganchillo',
+    desc: 'La lana que se come un punto, y el total de una labor, a partir de una muestra.',
+    long: 'Cada punto de ganchillo echa la lana sobre el ganchillo y la pasa por dentro, así que un punto se traga más largo que uno tejido a dos agujas. Si 200 puntos gastaron 12 m, un punto son 6 cm. Una manta de 200 puntos de ancho y 40 vueltas de alto son 8.000 puntos, así que 8.000 × 6 cm = 480 m, y con un 15 % de margen queda en 552 m. Los puntos se pueden contar directamente del patrón (puntos por vuelta × vueltas), lo que hace esto más fiable que medir el área.',
+    note: 'Cambia el punto y este número cambia con él. Un punto alto se lleva casi el doble de lana que un punto bajo, pero también se levanta el doble, así que sobre la misma superficie el punto bajo apretado sigue ganando en lana total. Teje la muestra con el punto que vas a usar de verdad. Mídela cortando un largo conocido y gastándolo, o pesando la muestra y multiplicando por los metros por gramo; con una muestra de 3–4 g, los cabos del principio y del final son una parte real de ese peso.',
+  },
+  'hook-from-gauge': {
+    title: 'Calculadora de número de ganchillo según la muestra',
+    desc: 'Convierte la distancia entre tu muestra y la del patrón en un cambio de ganchillo.',
+    long: 'El ancho del punto escala más o menos con el diámetro del ganchillo. Si un ganchillo de 5 mm te da 18 puntos por 10 cm y el patrón quiere 16, tus puntos son pequeños y el ganchillo tiene que crecer: 5 × 18 ÷ 16 = 5,63 mm, un cambio de 0,63 mm. Nadie vende un ganchillo de 5,63 mm, así que coges el de 5,5, que aterriza cerca de 16,4 puntos y nunca llega del todo a 16.',
+    note: 'Los números de ganchillo van a saltos. Alrededor de 4 mm están a 0,25 mm, pero pasados los 7 mm suben de milímetro en milímetro, así que con lana gruesa un solo número puede mover la muestra dos o tres puntos y pasarse del objetivo. Llegados ahí, el arreglo es otra lana, otro punto u otra textura, no otro ganchillo. Tu propia tensión mueve la muestra tanto como un número de ganchillo: dos personas con el mismo ganchillo de 5 mm pueden estar a dos puntos de distancia. Teje la muestra con el punto del patrón, en el mismo sentido que la labor, y mídela después de bloquear.',
+  },
+  'crochet-vs-knit-yarn': {
+    title: 'Calculadora de lana: ganchillo o dos agujas',
+    desc: 'Cuánta lana más se lleva a ganchillo la misma superficie acabada.',
+    long: 'Un patrón de dos agujas que pide 500 g, tejido al mismo tamaño a ganchillo con la cifra del 33 %, quiere 665 g: 165 g más, o sea más de tres ovillos extra de 50 g. Cada punto de ganchillo necesita más vueltas de lana para hacerse, y el tejido de ganchillo es más grueso y más denso, así que en el mismo metro cuadrado entra más lana.',
+    note: 'El 33 % es la mitad del rango, y el punto decide dónde caes. El punto bajo apretado va del 40 al 50 % más, mientras que el punto alto abierto o los motivos de la abuela se paran en el 20–25 %, porque los huecos entre los grupos sustituyen lana. El ganchillo filet, que es mitad huecos, puede incluso salir por debajo de la cifra de dos agujas. Si tiene que ser exacto, teje la misma muestra de las dos maneras y pésalas. Y esta respuesta es un peso: pásalo a ovillos con los metros por 100 g de la faja, no contando ovillos directamente.',
+  },
+  'round-increase-even': {
+    title: 'Calculadora de reparto de aumentos',
+    desc: 'Dónde colocar los aumentos por igual en una ronda, y qué hacer con el resto.',
+    long: 'Añadir 8 puntos a una ronda de 60: 60 ÷ 8 = 7,5, así que aumentas cada 7 puntos. Eso gasta 7 × 8 = 56 puntos y deja 4 de sobra. Esos 4 no se tiran: cuatro de los ocho huecos pasan a tener 8 puntos en vez de 7, y alternar 7, 8, 7, 8, 7, 8, 7, 8 los esconde por completo. Terminas la ronda con 68.',
+    note: 'Junta el resto en un solo sitio y abulta como una costura. Redondea al otro lado —«cada 8 puntos»— y 8 × 8 = 64 te deja 4 puntos por debajo del último aumento. Tejiendo en redondo, los aumentos apilados en el mismo punto ronda tras ronda se alinean en radios visibles; si no es el aspecto que buscas, mueve el punto de partida unos cuantos puntos cada ronda. Para amigurumi, donde la cuenta está atada a múltiplos de los puntos iniciales, usa la calculadora de rondas de aumento.',
+  },
+  'crochet-border': {
+    title: 'Calculadora de puntos para el borde a ganchillo',
+    desc: 'Puntos de la primera ronda de un borde, esquinas incluidas.',
+    long: 'Una manta de 100 × 120 cm tiene un perímetro de 2 × (100 + 120) = 440 cm. A 16 puntos por 10 cm son 704 puntos, más 2 en cada una de las cuatro esquinas, así que tejes 712 en la primera ronda. Deja fuera los puntos de las esquinas y el borde se mete en ellas hasta que la manta parece un pentágono: los bordes de punto bajo suelen querer 2–3 puntos por esquina y los de punto alto, dos cadenetas más un grupo de cinco puntos.',
+    note: 'Los cantos de arriba y de abajo se cuentan de otra manera que los laterales. Arriba pones un punto en cada cabeza de punto, pero los lados son finales de vuelta, y ninguna muestra te dice cuántos caben ahí: aproximadamente 2 en el lado de una vuelta de punto alto y 1 en una de punto bajo. Trata esta cifra como el objetivo hacia el que corriges mientras tejes la primera ronda. Un remate con dibujo —conchas, picos— tiene que salir en un múltiplo de su repetición, así que redondea los 712 hacia arriba hasta ese múltiplo y absorbe la diferencia en las esquinas.',
+  },
+  'chain-to-length': {
+    title: 'De cadeneta a largo real',
+    desc: 'El largo que da de verdad una cadeneta base, comprobado contra la primera vuelta.',
+    long: '163 cadenetas hechas a 20 cadenetas por 10 cm miden 81,5 cm. Teje la primera vuelta dentro de ellas a 16 puntos por 10 cm y esa vuelta quiere 101,9 cm: una diferencia de 20,4 cm. La cadeneta tiene que estirarse eso para que la vuelta quede plana, así que el borde de abajo acaba tenso y el tejido se ensancha a medida que crece — un trapecio, no un rectángulo.',
+    note: 'Es el fallo más común del ganchillo, y medir la cadeneta con una regla no lo va a pillar nunca, porque la estiras mientras la mides. Haz veinte cadenetas, suéltalas y mídelas relajadas. Si la diferencia es grande, cadenea con un ganchillo uno o dos números mayor, o sáltate la cadeneta y usa una hilera de base (punto bajo base, punto alto base) que hace la cadeneta y la primera vuelta a la vez: la base sale entonces a la muestra de la vuelta y este cálculo deja de importar. Una diferencia negativa significa que la cadeneta va más suelta que la vuelta, y entonces el borde de abajo ondulará.',
+  },
+  'crochet-hook-yarn-match': {
+    title: 'Calculadora de ganchillo según el grosor de la lana',
+    desc: 'Rango de ganchillo y banda de muestra habitual para un número de grosor de lana.',
+    long: 'Los números van del 0 (encaje) al 7 (gigante). El grosor 4 —worsted o aran— lleva un ganchillo de 5,5–6,5 mm a unos 11–14 puntos bajos por 10 cm, así que el centro de la banda son 6,0 mm y 12,5 puntos. El grosor 3 (DK) es 4,5–5,5 mm a 12–17, y el 5 (chunky) 6,5–9 mm a 8–11. El amigurumi baja a propósito 1–1,5 números de aquí para que el tejido quede lo bastante denso para tapar el relleno.',
+    note: 'Esta correspondencia es una convención, no física. El número de grosor es una categoría que fijan las marcas y las asociaciones nacionales, no un rango medido, así que dos lanas etiquetadas como 4 pueden llevar 180 m y 230 m por 100 g. La muestra de la faja además suele ser de dos agujas, y el ganchillo usa un número mayor con puntos mayores sobre la misma lana. Toma el número de aquí como el ganchillo con el que haces la primera muestra. Cuando un patrón da su propia muestra, esa manda sobre esta tabla.',
+  },
+
+  /* ───────── Costura: mangas, cinturas, ojales y acabados ───────── */
+  'sleeve-cap-ease': {
+    title: 'Calculadora de embebido de la copa de manga',
+    desc: 'Largo de la copa de manga y el embebido que hay que repartir, a partir de la sisa y un porcentaje.',
+    long: 'Una copa de manga tiene que ser más larga que la sisa para cubrir la redondez del hombro. Sobre una sisa de 46 cm al 8 %, la copa mide 49,7 cm y hay que hacer desaparecer 3,7 cm sin un solo pliegue. Esos 3,7 cm no se reparten por igual: la mayoría va al tercio superior entre los piquetes de delante y de detrás, y nada a los 3–4 cm justo encima de la costura de la axila, donde la curva es casi recta y no hay dónde meterlo.',
+    note: 'La tela fija el porcentaje. La lana y la franela dejan que 5 cm desaparezcan bajo la plancha, mientras que el algodón plastificado, el tafetán y la piel se arrugan pasado un centímetro, y los géneros de punto no admiten nada (0–2 %). Una manga de camisa montada plana quiere solo un 2–3 %; una chaqueta de sastre, con una hombrera detrás, se lleva un 8–12 %. Mide la sisa por la línea de costura con la cinta de canto: pasarla por dentro del margen da unos 2 cm de menos.',
+  },
+  'waistband-length': {
+    title: 'Calculadora de largo de pretina',
+    desc: 'Largo y ancho de corte de una pretina a partir de la cintura, la holgura, el solape y los márgenes.',
+    long: 'Una cintura de 76 cm más 2 cm de holgura acaba en 78 cm. Añade 3 cm de solape para que se apoye el botón y 1 cm de margen en cada extremo y cortas 83 cm. El ancho va doblado en dos, así que es dos veces los 3,5 cm acabados más 1 cm de margen arriba y abajo: 9 cm. Córtalo al ancho acabado y no queda nada que doblar.',
+    note: 'El solape lo fija dónde va el botón, no su diámetro: con 3 cm de solape y el botón a 1,5 cm del extremo, el botón cae en el centro delantero. Los 2 cm de holgura son lo que tu cintura gana al sentarte, así que no los dejes nunca en cero en un pantalón o una falda. Lleva entretela o la cintura se derrumba, y entretela solo los 3,5 cm acabados, no los márgenes. Una pretina de punto no es este cálculo en absoluto: se corta más corta que la cintura y se estira para ajustar.',
+  },
+  'curved-hem-facing': {
+    title: 'Calculadora de vista para bajo curvo',
+    desc: 'Largo de la tira de vista para un bajo curvo, y lo que sobra por culpa de la curva.',
+    long: 'Un bajo curvo es parte de un círculo. Si ese círculo tiene 60 cm de radio y el arco del bajo son 200 cm, doblar hacia arriba una vista de 5 cm pone su canto libre en un radio de 55 cm. El largo del arco escala con el radio, así que el canto libre solo necesita 200 × 55 ÷ 60 = 183,3 cm. Aplica una tira recta de 200 cm y 16,7 cm no tienen otro sitio que ondularse por dentro. La tira en sí se corta a 202 cm, con 1 cm en cada punta para unirla.',
+    note: 'Hay tres arreglos. Corta la vista con la misma curva —un donut, no una tira recta— y encaja exacta. Usa cinta al bies y puedes encoger su canto interior con la plancha a medida que avanzas, que es la vía más rápida en anchos estrechos. O haz la vista más estrecha: lo que sobra escala con el ancho, así que los 16,7 cm a 5 cm se convierten en 3,3 cm a 1 cm, y por eso los bajos de las faldas de vuelo se doblan tradicionalmente 1 cm o menos. Saca el radio del perímetro ÷ 2π en una falda circular, o ajustando un círculo contra la curva del bajo.',
+  },
+  'buttonhole-size': {
+    title: 'Calculadora de tamaño del ojal',
+    desc: 'Largo del ojal a partir del diámetro y el grosor del botón.',
+    long: 'El botón pasa de canto, así que su diámetro por sí solo no cabe. Un botón de 1,5 cm con 0,3 cm de grosor pide 1,8 cm, más 0,3 cm de holgura, así que coses 2,1 cm. Olvidar el grosor es el error clásico: en un botón fino de camisa, de 0,15 cm, nadie lo nota, pero un botón de abrigo puede pasar de 0,5 cm de grosor y el ojal sale claramente pequeño. Un botón de bola se gobierna en cambio por media circunferencia: π × 1,5 ÷ 2 = 2,36 cm.',
+    note: 'El prensatelas automático de ojales mide el botón de verdad, grosor incluido, así que suele aterrizar cerca de esta cifra. Pruébalo igualmente en un retal de la misma tela: la entretela y el número de capas lo mueven un par de milímetros. Un ojal horizontal debe empezar 2–3 mm pasado el centro delantero hacia el canto, porque el botón abrochado se va a ese extremo del ojal y tiene que acabar en el centro delantero. En géneros de punto, corta 2 mm más corto de lo calculado y refuerza la zona con entretela, porque la abertura estira.',
+  },
+  'interfacing-yardage': {
+    title: 'Calculadora de entretela necesaria',
+    desc: 'Cuánta entretela comprar a partir del área a entretelar y de su ancho.',
+    long: 'Suma todas las piezas que llevan entretela: en una camisa son dos cuellos, dos tiras de cuello, dos puños y dos tapetas, unos 3.000 cm² (0,3 m²). En entretela de 90 cm, 3.000 ÷ 90 = 33,3 cm bastarían, pero las piezas no son rectángulos y dejan huecos, así que un 25 % por encima lo deja en 41,7 cm. Esos 8,3 cm de diferencia son lo que acaba en recortes.',
+    note: 'Dividir por área siempre es algo optimista: las piezas curvas como los cuellos se cortan de cuadrados y se recortan, así que solo colocando el trazado sale la cifra real. La entretela termoadhesiva también encoge un 2–3 % bajo la plancha, y por eso pegarla en bloque —planchar una pieza de más y cortar después— es el orden más seguro. Respeta también el hilo: la entretela tiene uno, y aplicarla al través hace que el cuello se retuerza. Las entretelas de punto y de tejido plano vienen en anchos distintos, normalmente 90 cm y 112 cm, así que la misma área puede cambiar más de un 20 % en lo que compras.',
+  },
+  'french-seam-allowance': {
+    title: 'Calculadora de margen para costura francesa',
+    desc: 'El margen que pide una costura francesa, a partir de sus dos pasadas.',
+    long: 'Una costura francesa se cose una vez con los derechos hacia fuera y luego se vuelve y se cose otra vez, de modo que la primera costura queda encerrada. La segunda línea se mide desde la primera costura, así que desde el canto original la costura acabada queda a la suma de las dos pasadas: 0,6 + 0,9 = 1,5 cm. Por eso el margen de 1,5 cm impreso en la mayoría de los patrones se convierte directamente en una costura francesa. Después de la primera pasada recortas el margen a 0,6 cm, lo que deja 0,3 cm de holgura dentro de la segunda pasada de 0,9 cm.',
+    note: 'Recorta más ancho que la segunda pasada y los hilos cortados asoman por la costura acabada: ahí es donde casi siempre fallan las costuras francesas. Recorta demasiado estrecho y una tela fina se deshilacha hasta que la costura se suelta. Una costura francesa también tiene que doblarse a lo largo, lo que la hace incómoda en una curva como la copa de manga, y en tela gruesa apila cuatro capas en un bulto. La gasa, la batista y el chifón —ligeros y dados a deshilacharse— son su sitio.',
+  },
+  'zip-fly-length': {
+    title: 'Calculadora de largo de cremallera para bragueta',
+    desc: 'Largo de la abertura de la bragueta y la cremallera que hay que comprar, a partir del tiro delantero.',
+    long: 'Quita la pretina de 3,5 cm a un tiro delantero de 26 cm y quedan 22,5 cm bajo la banda. La bragueta se lleva el 70 % de arriba de eso —15,8 cm— porque el 30 % de abajo es la curva de la entrepierna, donde una abertura no puede ir. Las medidas de tienda van 10 · 12 · 15 · 18 · 20 · 23 · 25 cm, así que la de 15 es la que hay que comprar: el pespunte se ajusta a la cremallera, así que no necesitas una coincidencia exacta.',
+    note: 'Mide el tiro delantero por el centro delantero, de la costura de la cintura al punto de entrepierna, y no lo confundas con el tiro trasero, que es más largo. La parte varía según la prenda: 65–70 % en vaqueros y pantalones de tiro bajo, 55–60 % en pantalones de tiro alto, o la abertura llega por encima del ombligo. Si la cremallera es más larga que el cálculo, una de espiral se puede acortar por abajo con un tope cosido a mano, pero cortar los dientes de una metálica o de Vislon suelta el carro. Remata siempre el final de la abertura con presilla o pespunte de refuerzo: sentarse pone toda la carga en ese único punto.',
+  },
+  'bust-dart-rotation': {
+    title: 'Calculadora de rotación de pinza de pecho',
+    desc: 'El ángulo que representa una pinza, y cuánto se abre el bajo al rotarla.',
+    long: 'Una pinza es un doblez de papel alrededor de su vértice, así que se puede manejar como un ángulo. Con 5 cm de recogido como cuerda y 12 cm hasta el vértice como radio, eso es 2 × asin(2,5 ÷ 12) = 24,0°. El ángulo no cambia por mucho que la muevas: cierra la pinza del costado y abre una en la cintura, o llévala al hombro o al escote, y viaja el mismo 24,0°. Con 30 cm del vértice al bajo, rotar la pinza abre el bajo 0,42 rad × 30 = 12,6 cm.',
+    note: 'El mismo ángulo significa recogidos distintos a distintas longitudes: 24,0° tomados a 6 cm del vértice son solo 2,5 cm. Así que copiar «una pinza de 5 cm» a otra posición dobla el ángulo y hace que el pecho apunte como un cono. Para la punta de la pinza 1,5–2 cm antes del punto de pecho y no encima, o construyes ese cono a propósito. Pasados unos 30° una sola pinza no puede tragarse la forma: pártela en dos, una al lado de la otra, o pásala a un corte princesa. Rotar el papel de verdad es siempre más fiable que la aritmética.',
+  },
+  'grainline-shrink-adjust': {
+    title: 'Calculadora de ajuste por encogimiento según el hilo',
+    desc: 'Medidas de corte cuando el encogimiento a lo largo y a lo ancho no coinciden.',
+    long: 'El encogimiento no es igual en las dos direcciones. En una tela que pierde un 5 % a lo largo (urdimbre) y un 3 % a lo ancho (trama), una pieza que tiene que acabar en 100 × 50 cm se corta a 100 ÷ 0,95 = 105,3 cm por 50 ÷ 0,97 = 51,5 cm. Eso son 5,3 cm que se van en el lavado a lo largo, y sumar un 5 % en su lugar, para 105 cm, sale algo corto. La operación correcta es dividir, no sumar.',
+    note: 'La cifra a lo largo suele ser la mayor, porque el tejido y el acabado mantienen la urdimbre en tensión; el denim se reparte a menudo un 3–10 % a lo largo frente a un 1–2 % a lo ancho. Trata esto como el recurso para la tela que de verdad no puedes prelavar, como un género de punto que hay que cortar tal como sale del rollo. Lavar antes de cortar elimina la adivinanza y siempre es más exacto. Algunas telas siguen encogiendo en el segundo y el tercer lavado, así que fiarse de una sola prueba puede dejar la prenda otra vez más corta después.',
+  },
+  'thread-cone-yield': {
+    title: 'Calculadora de rendimiento del cono de hilo',
+    desc: 'Las prendas que cose un cono, y cuántos conos pide una tirada.',
+    long: 'Un cono de 5.000 m a 60 m por prenda rinde 83 prendas —83,3, redondeado hacia abajo, porque no se puede vender una a medio coser—. Una tirada de 120 pide 7.200 m, así que compras dos conos y sobran 2.800 m. Saca los metros por prenda del largo de costura × el múltiplo del hilo: una camiseta, casi toda remallada, va de 60 a 120 m, mientras que una camisa, casi toda a pespunte, va de 100 a 150 m.',
+    note: 'Cuando un cono no cubre la tirada, el color es la restricción real. Los baños de tinte se diferencian algo incluso bajo el mismo número, y cambiar de cono a mitad de prenda se ve como costuras que no coinciden — por eso el hilo se compra por lote y no por prenda. Una remalladora además alimenta tres o cuatro conos a la vez, así que la máquina necesita esos conos del mismo color esperando; eso no es esta respuesta multiplicada por tres, porque la cifra por prenda ya cuenta todos esos hilos. Deja fuera del plan las últimas decenas de metros de un cono: el bobinado se afloja y la tensión baila.',
+  },
+  'full-bust-adjustment': {
+    title: 'Calculadora de ajuste de busto amplio (FBA)',
+    desc: 'Cuánto abrir una pieza del patrón a partir de la diferencia entre tu pecho y el del patrón.',
+    long: 'Elegir la talla por el pecho alto deja el pecho del patrón más pequeño que el tuyo. Con un contorno real de 104 cm frente a un pecho de patrón de 92 cm, la diferencia es de 12 cm. Pero un delantero cortado al doblez es la cuarta parte del cuerpo, así que lo que se abre en la pieza es 12 ÷ 4 = 3 cm, y el recogido de la pinza crece esos mismos 3 cm. Abre los 12 cm completos y la prenda sale cuatro veces más grande de lo debido.',
+    note: 'El pecho del patrón tiene que ser la medida de cuerpo de la tabla de tallas y no el pecho acabado: la cifra acabada ya lleva dentro la holgura de diseño, así que usarla o borra el ajuste o deja la prenda nadando. Una diferencia negativa no es un FBA sino su contrario, un SBA, que se dobla hacia dentro por la misma cantidad. Por debajo de unos 2,5 cm la mayoría de la gente se salta el ajuste: el planchado y la holgura de uso absorben eso. En un patrón cuyo delantero son dos piezas en vez de cortarse al doblez —un corte princesa o una costura en el centro delantero— cada pieza es la mitad del delantero, así que se reparten 12 ÷ 2 = 6 cm.',
+  },
+  'piping-strip-width': {
+    title: 'Calculadora de ancho de la tira para vivo',
+    desc: 'Cuánto de ancho cortar la tira al bies para un cordón de vivo dado.',
+    long: 'La tira envuelve el cordón por completo, así que lo que tiene que cubrir es la circunferencia, no el diámetro. Un cordón de 5 mm mide π × 0,5 = 1,57 cm de contorno, y con 1 cm de margen de costura a cada lado cortas una tira de 3,57 cm: muy cerca de la regla imperial de una tira de 1,5 in (3,8 cm) para cordón de 1/8 in con margen de 1/2 in. Para el largo, una costura de 200 cm más un 10 % por las uniones y las esquinas son 220 cm, y como el cordón se vende por metros compras 3 m.',
+    note: 'Corta la tira al bies, a 45°. Una tira al hilo se quiebra en curvas y esquinas, y el vivo casi siempre va a algún sitio curvo. Pasar un largo de bies necesario a un cuadrado de tela es trabajo de la calculadora de tira al bies. Cuanto más gordo el cordón, más pesa la parte que lo envuelve frente al margen, así que recalcula en vez de reutilizar un ancho antiguo. Si compras vivo hecho, comprueba que su pestaña coincida con el margen de costura de tu patrón: si no, el grosor visible en la costura cambia. El cordón de algodón encoge, así que prelávalo también, no solo la tela.',
+  },
 };

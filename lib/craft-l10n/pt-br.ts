@@ -613,4 +613,152 @@ export const CRAFT_PT_BR: Record<string, FormulaText> = {
     long: 'O envelope é uma manga achatada, então a espessura do item sai da largura. A circunferência da manga é 2 × a largura dela, e o item precisa de 2 × (largura + espessura), o que significa que o envelope tem que ter no mínimo a largura do item mais uma espessura. Some 2 cm para conseguir pôr e tirar: um item de 25 cm de largura e 4 cm de espessura quer um envelope de 31 cm. O comprimento funciona do mesmo jeito, comprimento do item mais espessura mais folga, e depois 4 cm para a aba adesiva, dando 40 cm — a aba se dobra por cima e nenhum conteúdo pode ficar nela. Então a resposta é "31 × 40 cm ou maior", e você compra a medida de prateleira mais próxima acima, digamos 32 × 45 cm. Meça itens compressíveis, como roupa, na espessura amassada. Repare também em como o fornecedor informa as medidas: alguns listam o interno, outros o externo com a aba, e um número externo tem que ter a aba descontada antes da comparação.',
     note: 'Envelope não amortece. Mesmo o forrado com bolhas só resiste a atrito e pressão, então qualquer coisa quebrável vai em caixa. Economizando na folga, o conteúdo sobe até a aba adesiva, o lacre nunca cola bem e o envelope abre no caminho — suba um tamanho em vez de aparar a folga. Grande demais é problema próprio: o item desliza, os cantos batem, e a sobra dobra sobre a etiqueta, onde o leitor não consegue ler. Forçar um item grosso estica o filme até ele rasgar num canto, então, passando de uns 5 cm de espessura, use caixa. O tamanho do envelope ajuda no peso cubado, mas calcule o frete pelas regras da sua transportadora.',
   },
+
+  /* ───────── Crochê: correntinha, motivos e aumentos ───────── */
+  'crochet-chain': {
+    title: 'Calculadora de correntinha inicial (crochê)',
+    desc: 'Comprimento da correntinha inicial a partir da sua amostra, da largura desejada e da correntinha de subida.',
+    long: '16 pontos em 10 cm são 1,6 por centímetro, então uma manta de 100 cm são 160 pontos. A corrente é esses pontos mais a correntinha de subida: 3 no ponto alto, 2 no meio ponto alto, 1 no ponto baixo, o que aqui dá 163 correntinhas. A correntinha de subida ou substitui o primeiro ponto ou só ganha altura, então ela nunca conta para a largura.',
+    note: 'Uma correntinha é menor que o ponto trabalhado dentro dela, então as mesmas mãos fazem a corrente mais apertada do que fazem o crochê. Aquelas 163 correntinhas podem dar a medida exata na régua e ainda assim puxar a borda de baixo para dentro assim que a primeira carreira entra. Faça a corrente com uma agulha um número acima, ou pule a corrente e use uma carreira de base (ponto alto base). Se o desenho se repete a cada certo número de pontos, arredonde os 160 para esse múltiplo antes e só depois some a correntinha de subida.',
+  },
+  'crochet-gauge-rounds': {
+    title: 'Calculadora de carreiras e voltas de crochê',
+    desc: 'Carreiras ou voltas a trabalhar, a partir da amostra de pontos e de quão alto é o ponto.',
+    long: 'No crochê é o próprio ponto que define a altura. A 16 pontos por 10 cm um ponto mede 0,625 cm de largura, e um ponto alto se levanta cerca de duas vezes isso, então uma carreira dá 1,25 cm e 60 cm pedem 48 carreiras. Passe o mesmo fio para ponto baixo (razão 1,1) e a carreira cai para 0,69 cm — 87 carreiras, quase o dobro de tempo e de fio.',
+    note: 'As razões são aproximadas: ponto baixo 1,0–1,2, meio ponto alto 1,4–1,6, ponto alto 1,9–2,1, ponto alto duplo 2,6–3,0, e todas se movem com a sua tensão. Para uma peça que precisa vestir bem, faça dez carreiras, meça a altura e divida por dez. Pontos texturizados — ponto V, motivos, pipoca — não seguem a razão de jeito nenhum, então ali meça uma repetição inteira. A conta é a mesma em plano e em volta: o resultado vem rotulado como voltas, e num trabalho plano se lê como carreiras.',
+  },
+  'granny-square-size': {
+    title: 'Calculadora de tamanho do square da vovó',
+    desc: 'Tamanho acabado do motivo a partir das voltas trabalhadas e do crescimento por volta.',
+    long: 'O motivo cresce para fora pelos quatro lados, então cada volta acrescenta ao lado o dobro da própria largura. Com uma volta medindo 2 cm, seis voltas dão um quadrado de 24 cm. Pedir 30 cm exige oito voltas (32 cm), porque sete param em 28 — não se trabalha meia volta, então um tamanho alvo quase nunca cai exato.',
+    note: 'A largura por volta vem do fio e da agulha. A primeira volta é um grupo apertado dentro do anel central e fica mais estreita que as outras, e o número de correntinhas em cada canto move cada volta em 2–3 mm. Faça três voltas, meça um lado e divida por seis — o dobro do número de voltas, porque cada volta faz crescer as duas pontas daquele lado. Um lado de 12 cm significa 2 cm por volta, e é esse o número que vale a pena devolver a esta calculadora.',
+  },
+  'granny-blanket-squares': {
+    title: 'Calculadora de manta de squares da vovó',
+    desc: 'Quantos motivos uma manta pede, e quantos vão na largura e no comprimento.',
+    long: 'Um motivo de 20 cm unido com costura de 0,5 cm ocupa 20,5 cm, e como o último não tem costura depois dele, soma-se uma união antes de dividir. Na largura de 120 cm isso dá (120 + 0,5) ÷ 20,5 = 5,87 → 5 motivos; no comprimento de 150 cm dá 7, ou seja 35 squares. Esses cinco resultam numa largura acabada de 5 × 20 + 4 × 0,5 = 102 cm.',
+    note: 'Os 102 cm ficam 18 cm abaixo dos 120 cm que você pediu, porque a divisão arredonda para baixo. Você tem que escolher: acrescentar uma sexta coluna e passar para 122,5 cm, ou fazer uma borda de 9 cm e cobrir a diferença. Motivos feitos à mão também variam, então bloqueie todos no mesmo tamanho antes de unir. A largura da união depende do método: com ponto baixíssimo é quase zero, com correntinha 0,5–1 cm, e com ponto baixo mais de 1 cm.',
+  },
+  'amigurumi-increase': {
+    title: 'Calculadora de aumentos para amigurumi (anel mágico)',
+    desc: 'Início em anel mágico e voltas de aumento a partir da circunferência alvo e da amostra.',
+    long: 'O amigurumi começa com 6 pontos baixos num anel mágico e soma 6 a cada volta — 6, 12, 18, 24, sempre múltiplos do número inicial. Uma circunferência de 30 cm a 25 pontos por 10 cm pede 75 pontos, que são 30 ÷ π = 9,5 cm de diâmetro, e 75 ÷ 6 arredondado para cima dá 13 voltas de aumento. Não se trabalha meia volta, então você para em 78 pontos e a circunferência sobe para 31,2 cm. Comece com 8 e você aumenta 8 por volta, chegando a 80 pontos em 10 voltas com uma base mais plana.',
+    note: 'A regra é que os aumentos por volta sejam iguais ao número de pontos do início. Comece com 6 e aumente 8 por volta e o círculo passa do plano e ondula; aumente só 4 e ele encurva formando uma tigela em vez de ficar aberto. A amostra de amigurumi é bem mais fechada que a de roupa, porque a agulha é de propósito 1–1,5 números menor do que o fio pede, para que o enchimento não apareça. Colocar aqui a amostra impressa no rótulo do fio vai render um boneco muito maior do que você queria.',
+  },
+  'crochet-yarn-per-stitch': {
+    title: 'Calculadora de fio por ponto de crochê',
+    desc: 'O fio que um ponto come, e o total de um projeto, a partir de uma amostra.',
+    long: 'Cada ponto de crochê laça o fio sobre a agulha e o puxa por dentro, então um ponto engole mais comprimento que um de tricô. Se 200 pontos gastaram 12 m, um ponto dá 6 cm. Uma manta de 200 pontos de largura por 40 carreiras de altura são 8.000 pontos, então 8.000 × 6 cm = 480 m, e 15 % de sobra levam a 552 m. Os pontos podem ser contados direto da receita (pontos por carreira × carreiras), o que torna isto mais confiável que medir área.',
+    note: 'Troque o ponto e este número troca com ele. Um ponto alto leva quase o dobro do fio de um ponto baixo, mas também se levanta o dobro — então, na mesma área, o ponto baixo bem fechado ainda ganha no fio total. Faça a amostra no ponto que você vai usar de verdade. Meça cortando um comprimento conhecido e gastando-o, ou pesando a amostra e multiplicando pelos metros por grama; com uma amostra de 3–4 g, as pontas do começo e do fim são uma fatia real desse peso.',
+  },
+  'hook-from-gauge': {
+    title: 'Calculadora de agulha de crochê pela amostra',
+    desc: 'Transforme a distância entre a sua amostra e a da receita em uma troca de agulha.',
+    long: 'A largura do ponto escala mais ou menos com o diâmetro da agulha. Se uma agulha de 5 mm te dá 18 pontos por 10 cm e a receita quer 16, os seus pontos estão pequenos e a agulha tem que crescer: 5 × 18 ÷ 16 = 5,63 mm, uma mudança de 0,63 mm. Ninguém vende agulha de 5,63 mm, então você pega a de 5,5 — que cai perto de 16,4 pontos e nunca chega exatamente a 16.',
+    note: 'Os números de agulha vêm em degraus. Perto de 4 mm eles estão a 0,25 mm de distância, mas passando de 7 mm saltam um milímetro inteiro, então com fio grosso um único número pode mover a amostra dois ou três pontos e passar do alvo. Nesse ponto a solução é outro fio, outro ponto ou outra textura, não outra agulha. A sua própria tensão move a amostra tanto quanto um número de agulha: duas pessoas com a mesma agulha de 5 mm podem estar a dois pontos de distância. Faça a amostra no ponto da receita, trabalhada no mesmo sentido do projeto, e meça depois de bloquear.',
+  },
+  'crochet-vs-knit-yarn': {
+    title: 'Calculadora de fio: crochê ou tricô',
+    desc: 'Quanto fio a mais a mesma área acabada leva em crochê.',
+    long: 'Uma receita de tricô que pede 500 g, feita no mesmo tamanho em crochê com o número de 33 %, quer 665 g — 165 g mais, ou seja mais de três novelos extras de 50 g. Cada ponto de crochê precisa de mais laçadas de fio para se formar, e o tecido de crochê é mais grosso e mais denso, então entra mais fio no mesmo metro quadrado.',
+    note: '33 % é o meio da faixa, e é o ponto que decide onde você cai. Ponto baixo bem fechado corre de 40 a 50 % a mais, enquanto ponto alto aberto ou motivos da vovó param em 20–25 %, porque os buracos entre os grupos substituem fio. Crochê filé, que é metade buraco, pode até sair abaixo do número do tricô. Se precisa ser exato, faça a mesma amostra dos dois jeitos e pese as duas. E esta resposta é um peso: converta em novelos usando os metros por 100 g do rótulo, não contando novelos direto.',
+  },
+  'round-increase-even': {
+    title: 'Calculadora de distribuição de aumentos',
+    desc: 'Onde colocar os aumentos por igual em uma volta, e o que fazer com o resto.',
+    long: 'Somar 8 pontos a uma volta de 60: 60 ÷ 8 = 7,5, então você aumenta a cada 7 pontos. Isso gasta 7 × 8 = 56 pontos e deixa 4 sobrando. Esses 4 não são desperdício — quatro dos oito intervalos passam a ter 8 pontos em vez de 7, e alternar 7, 8, 7, 8, 7, 8, 7, 8 os esconde por completo. Você termina a volta com 68.',
+    note: 'Junte o resto num só lugar e ele estufa como uma costura. Arredonde para o outro lado — "a cada 8 pontos" — e 8 × 8 = 64 deixa você 4 pontos antes do último aumento. Trabalhando em volta, aumentos empilhados no mesmo ponto volta após volta se alinham em nervuras radiais visíveis; se não é esse o efeito desejado, desloque o ponto de partida alguns pontos a cada volta. Para amigurumi, onde a contagem está travada em múltiplos dos pontos iniciais, use a calculadora de voltas de aumento.',
+  },
+  'crochet-border': {
+    title: 'Calculadora de pontos da borda de crochê',
+    desc: 'Pontos para a primeira volta de uma borda, cantos incluídos.',
+    long: 'Uma manta de 100 × 120 cm tem perímetro de 2 × (100 + 120) = 440 cm. A 16 pontos por 10 cm são 704 pontos, mais 2 em cada um dos quatro cantos, então você trabalha 712 na primeira volta. Deixe os pontos de canto de fora e a borda puxa nos cantos até a manta parecer um pentágono — bordas em ponto baixo normalmente querem 2–3 pontos por canto, e as em ponto alto, duas correntinhas mais um grupo de cinco pontos.',
+    note: 'As bordas de cima e de baixo são contadas de um jeito diferente das laterais. Em cima você põe um ponto em cada cabeça de ponto, mas as laterais são fins de carreira, e nenhuma amostra diz quantos cabem ali: cerca de 2 na lateral de uma carreira de ponto alto e 1 numa de ponto baixo. Trate este número como o alvo para o qual você corrige enquanto trabalha a primeira volta. Um acabamento com desenho — conchinhas, picô — tem que fechar num múltiplo da repetição dele, então arredonde os 712 para cima até esse múltiplo e absorva a diferença nos cantos.',
+  },
+  'chain-to-length': {
+    title: 'Da correntinha ao comprimento real',
+    desc: 'O comprimento que uma corrente base realmente dá, conferido contra a primeira carreira.',
+    long: '163 correntinhas feitas a 20 correntinhas por 10 cm medem 81,5 cm. Trabalhe a primeira carreira dentro delas a 16 pontos por 10 cm e essa carreira quer 101,9 cm — uma diferença de 20,4 cm. A corrente tem que esticar isso para a carreira ficar plana, então a borda de baixo termina tensa e o tecido alarga conforme cresce: um trapézio, não um retângulo.',
+    note: 'É a falha mais comum do crochê, e medir a corrente contra a régua nunca vai pegá-la, porque você a estica enquanto mede. Faça vinte correntinhas, solte e meça relaxadas. Se a diferença é grande, faça a corrente com uma agulha um ou dois números acima, ou pule a corrente e use uma carreira de base (ponto baixo base, ponto alto base) que faz a corrente e a primeira carreira juntas — a base sai então na amostra da carreira e este cálculo deixa de importar. Uma diferença negativa significa que a corrente está mais frouxa que a carreira, e aí a borda de baixo vai ondular.',
+  },
+  'crochet-hook-yarn-match': {
+    title: 'Calculadora de agulha de crochê pela espessura do fio',
+    desc: 'Faixa de agulha e faixa de amostra típica para um número de espessura de fio.',
+    long: 'Os números vão de 0 (renda) a 7 (jumbo). A espessura 4 — worsted ou aran — pede agulha de 5,5–6,5 mm a cerca de 11–14 pontos baixos por 10 cm, então o meio da faixa são 6,0 mm e 12,5 pontos. A espessura 3 (DK) é 4,5–5,5 mm a 12–17, e a 5 (chunky) é 6,5–9 mm a 8–11. O amigurumi desce de propósito 1–1,5 números abaixo disso para o tecido ficar fechado o bastante para esconder o enchimento.',
+    note: 'Este mapeamento é convenção, não física. O número de espessura é uma categoria definida por fabricantes e entidades nacionais, não uma faixa medida, então dois fios ambos rotulados como 4 podem ter 180 m e 230 m por 100 g. A amostra do rótulo normalmente também é de tricô, e o crochê usa agulha maior com pontos maiores no mesmo fio. Trate o número daqui como a agulha com que você faz a primeira amostra. Quando a receita traz a amostra dela, ela vale mais que esta tabela.',
+  },
+
+  /* ───────── Costura: mangas, cós, casas de botão e acabamentos ───────── */
+  'sleeve-cap-ease': {
+    title: 'Calculadora de embebimento da cabeça de manga',
+    desc: 'Comprimento da cabeça de manga e o embebimento a distribuir, a partir da cava e de uma porcentagem.',
+    long: 'A cabeça de manga tem que ser mais longa que a cava para cobrir a curva do ombro. Numa cava de 46 cm a 8 %, a cabeça mede 49,7 cm e 3,7 cm precisam desaparecer sem uma única prega. Esses 3,7 cm não se espalham por igual: a maior parte vai no terço superior entre os piques da frente e das costas, e nada nos 3–4 cm logo acima da costura da axila, onde a curva é quase reta e não há onde colocá-los.',
+    note: 'É o tecido que define a porcentagem. Lã e flanela deixam 5 cm desaparecerem sob o ferro, enquanto algodão plastificado, tafetá e couro franzem passando de cerca de 1 cm, e malha não aceita nada (0–2 %). Manga de camisa montada plana quer só 2–3 %; um blazer alfaiatado, com ombreira atrás, aceita 8–12 %. Meça a cava ao longo da linha de costura com a trena em pé — passá-la por dentro da margem dá uns 2 cm de menos.',
+  },
+  'waistband-length': {
+    title: 'Calculadora de comprimento do cós',
+    desc: 'Comprimento e largura de corte de um cós a partir da cintura, da folga, do transpasse e das margens.',
+    long: 'Uma cintura de 76 cm mais 2 cm de folga acaba em 78 cm. Some 3 cm de transpasse para o botão se apoiar e 1 cm de margem em cada ponta e você corta 83 cm. A largura é dobrada em dois, então é duas vezes os 3,5 cm acabados mais 1 cm de margem em cima e embaixo: 9 cm. Corte na largura acabada e não sobra nada para dobrar.',
+    note: 'O transpasse é definido por onde o botão fica, não pelo diâmetro dele: com 3 cm de transpasse e o botão a 1,5 cm da ponta, o botão cai no meio da frente. Os 2 cm de folga são o que a sua cintura ganha ao sentar, então nunca os deixe em zero numa calça ou numa saia. Entretele o cós ou a cintura desaba — e entretele só os 3,5 cm acabados, não as margens. Um cós de malha não é este cálculo de jeito nenhum: ele é cortado mais curto que a cintura e esticado para caber.',
+  },
+  'curved-hem-facing': {
+    title: 'Calculadora de vista para barra curva',
+    desc: 'Comprimento da tira de vista para uma barra curva, e a sobra que a curva deixa.',
+    long: 'Uma barra curva é parte de um círculo. Se esse círculo tem raio de 60 cm e o arco da barra são 200 cm, virar para cima uma vista de 5 cm coloca a borda livre dela num raio de 55 cm. O comprimento do arco escala com o raio, então a borda livre só precisa de 200 × 55 ÷ 60 = 183,3 cm. Aplique uma tira reta de 200 cm e 16,7 cm não têm para onde ir a não ser ondular por dentro. A tira em si é cortada em 202 cm, com 1 cm em cada ponta para uni-la.',
+    note: 'Há três soluções. Corte a vista na mesma curva — uma rosca, não uma tira reta — e ela encaixa exatamente. Use fita de viés e você pode encolher a borda interna dela sob o ferro conforme avança, o que é o caminho mais rápido em larguras estreitas. Ou faça a vista mais estreita: a sobra escala com a largura, então os 16,7 cm a 5 cm viram 3,3 cm a 1 cm, e é exatamente por isso que barras de saia evasê tradicionalmente são viradas 1 cm ou menos. Tire o raio de circunferência ÷ 2π numa saia circular, ou encaixando um círculo contra a curva da barra.',
+  },
+  'buttonhole-size': {
+    title: 'Calculadora de tamanho da casa de botão',
+    desc: 'Comprimento da casa a partir do diâmetro e da espessura do botão.',
+    long: 'O botão passa de lado, então o diâmetro dele sozinho não cabe. Um botão de 1,5 cm com 0,3 cm de espessura precisa de 1,8 cm, mais 0,3 cm de folga, então você costura 2,1 cm. Esquecer a espessura é o erro clássico: num botão fino de camisa, de 0,15 cm, ninguém percebe, mas um botão de casaco pode passar de 0,5 cm e a casa sai claramente pequena. Um botão bola é governado por metade da circunferência: π × 1,5 ÷ 2 = 2,36 cm.',
+    note: 'O calcador automático de casear mede o botão real, espessura incluída, então normalmente cai perto deste número. Teste num retalho do mesmo tecido de todo jeito — a entretela e o número de camadas movem isso em alguns milímetros. Uma casa horizontal deve começar 2–3 mm depois do meio da frente na direção da borda, porque o botão abotoado é puxado para aquela ponta da casa e tem que acabar no meio da frente. Em malha, corte 2 mm mais curto que o calculado e reforce a área com entretela, porque a abertura estica.',
+  },
+  'interfacing-yardage': {
+    title: 'Calculadora de entretela necessária',
+    desc: 'Quanta entretela comprar a partir da área a entretelar e da largura dela.',
+    long: 'Some cada peça que leva entretela — numa camisa são dois colarinhos, dois pés de colarinho, dois punhos e duas carcelas, cerca de 3.000 cm² (0,3 m²). Em entretela de 90 cm, 3.000 ÷ 90 = 33,3 cm resolveriam, mas as peças não são retângulos e deixam vãos, então 25 % por cima levam a 41,7 cm. Os 8,3 cm de diferença são o que acaba como retalho.',
+    note: 'Dividir por área é sempre um pouco otimista: peças curvas como colarinhos são cortadas de quadrados e aparadas, então só posicionando o encaixe se chega ao número verdadeiro. Entretela adesiva também encolhe 2–3 % sob o ferro, e é por isso que colar em bloco — passar uma peça maior e cortar depois — é a ordem mais segura. Respeite o fio também: a entretela tem um, e aplicá-la atravessada faz o colarinho torcer. Entretelas de malha e de tecido plano vêm em larguras diferentes, comumente 90 cm e 112 cm, então a mesma área pode mudar mais de 20 % no que você compra.',
+  },
+  'french-seam-allowance': {
+    title: 'Calculadora de margem para costura francesa',
+    desc: 'A margem que uma costura francesa pede, a partir das duas passadas dela.',
+    long: 'A costura francesa é costurada uma vez com os direitos para fora, depois virada e costurada de novo, de modo que a primeira costura fica encerrada. A segunda linha é medida a partir da primeira costura, então, da borda de corte original, a costura acabada fica na soma das duas passadas: 0,6 + 0,9 = 1,5 cm. É por isso que a margem de 1,5 cm impressa na maioria dos moldes se converte direto em costura francesa. Depois da primeira passada você apara a margem para 0,6 cm, o que deixa 0,3 cm de folga dentro da segunda passada de 0,9 cm.',
+    note: 'Apare mais largo que a segunda passada e as pontas de fio aparecem através da costura acabada — é ali que costuras francesas quase sempre falham. Apare estreito demais e um tecido fino desfia até a costura se soltar. A costura francesa também tem que dobrar ao longo do comprimento, o que a torna difícil numa curva como a cabeça de manga, e em tecido grosso ela empilha quatro camadas num vinco. Chiffon, cambraia e gaze — leves e dados a desfiar — são o lugar dela.',
+  },
+  'zip-fly-length': {
+    title: 'Calculadora de tamanho do zíper da braguilha',
+    desc: 'Comprimento da abertura da braguilha e o tamanho de zíper a comprar, a partir do gancho dianteiro.',
+    long: 'Tire o cós de 3,5 cm de um gancho dianteiro de 26 cm e sobram 22,5 cm abaixo do cós. A braguilha toma os 70 % de cima disso — 15,8 cm — porque os 30 % de baixo são a curva do gancho, onde uma abertura não pode ir. Os tamanhos de prateleira andam em 10 · 12 · 15 · 18 · 20 · 23 · 25 cm, então o de 15 é o que se compra: o pesponto é ajustado ao zíper, então você não precisa de correspondência exata.',
+    note: 'Meça o gancho dianteiro pelo meio da frente, da costura da cintura até o ponto do gancho, e não o confunda com o gancho traseiro, que é mais longo. A fatia varia por peça: 65–70 % em jeans e calças de cintura baixa, 55–60 % em calças de cintura alta, ou a abertura chega acima do umbigo. Se o zíper é mais longo que o cálculo, um zíper de espiral pode ser encurtado por baixo com um travete feito à mão, mas cortar os dentes de um zíper de metal ou de Vislon solta o cursor. Sempre travete ou faça pesponto reforçado no fim da abertura — sentar joga toda a carga naquele único ponto.',
+  },
+  'bust-dart-rotation': {
+    title: 'Calculadora de rotação de pence do busto',
+    desc: 'O ângulo que uma pence representa, e quanto a barra abre quando você a gira.',
+    long: 'Uma pence é uma dobra de papel em torno do ápice dela, então pode ser tratada como um ângulo. Com 5 cm de pinçamento como corda e 12 cm até o ápice como raio, isso dá 2 × asin(2,5 ÷ 12) = 24,0°. O ângulo não muda para onde você levar a pence: feche a pence lateral e abra uma na cintura, ou leve-a para o ombro ou para o decote, e os mesmos 24,0° viajam. Com 30 cm do ápice até a barra, girar a pence abre a barra em 0,42 rad × 30 = 12,6 cm.',
+    note: 'O mesmo ângulo significa pinçamentos diferentes em comprimentos diferentes — 24,0° tomados a 6 cm do ápice são só 2,5 cm. Então copiar "uma pence de 5 cm" para outra posição dobra o ângulo e faz o busto apontar como um cone. Pare a ponta da pence 1,5–2 cm antes do ponto do busto, e não sobre ele, ou você constrói esse cone de propósito. Passando de uns 30° uma pence só não consegue engolir a modelagem: divida em duas lado a lado, ou converta em costura princesa. Girar o papel de verdade é sempre mais confiável que a aritmética.',
+  },
+  'grainline-shrink-adjust': {
+    title: 'Calculadora de ajuste de encolhimento pelo fio do tecido',
+    desc: 'Medidas de corte quando o encolhimento no comprimento e na largura são diferentes.',
+    long: 'O encolhimento não é igual nas duas direções. Num tecido que perde 5 % no comprimento (urdume) e 3 % na largura (trama), uma peça que precisa terminar em 100 × 50 cm é cortada em 100 ÷ 0,95 = 105,3 cm por 50 ÷ 0,97 = 51,5 cm. São 5,3 cm indo para a lavagem no comprimento — e somar 5 % em vez disso, dando 105 cm, sai ligeiramente curto. A operação correta é dividir, não somar.',
+    note: 'O número do comprimento normalmente é o maior, porque a tecelagem e o acabamento mantêm o urdume sob tensão; jeans muitas vezes se divide em 3–10 % no comprimento contra 1–2 % na largura. Trate isto como o recurso para tecido que você realmente não pode pré-lavar, como uma malha que precisa ser cortada como sai do rolo. Lavar antes de cortar elimina o palpite e é sempre mais exato. Alguns tecidos continuam encolhendo na segunda e na terceira lavagem, então confiar num único teste pode deixar a peça mais curta de novo depois.',
+  },
+  'thread-cone-yield': {
+    title: 'Calculadora de rendimento do cone de linha',
+    desc: 'Peças que um cone costura, e quantos cones uma produção consome.',
+    long: 'Um cone de 5.000 m a 60 m por peça rende 83 peças — 83,3, arredondado para baixo, porque não se vende uma peça meio costurada. Uma produção de 120 precisa de 7.200 m, então você compra dois cones e sobram 2.800 m. Tire os metros por peça do comprimento de costura × o multiplicador da linha: uma camiseta, quase toda overlocada, corre 60–120 m, enquanto uma camisa, quase toda em ponto reto, corre 100–150 m.',
+    note: 'Quando um cone não cobre a produção, a cor é a restrição real. Lotes de tingimento diferem um pouco mesmo sob o mesmo número, e trocar de cone no meio da peça aparece como costuras que não combinam — é por isso que linha se compra por lote e não por peça. Uma overloque também alimenta três ou quatro cones ao mesmo tempo, então a máquina precisa dessa quantidade de cones da mesma cor esperando; isso não é esta resposta multiplicada por três, porque o número por peça já conta todas essas linhas. Deixe as últimas dezenas de metros de um cone fora do plano: o enrolamento fica frouxo e a tensão oscila.',
+  },
+  'full-bust-adjustment': {
+    title: 'Calculadora de ajuste de busto amplo (FBA)',
+    desc: 'Quanto abrir a peça do molde a partir da diferença entre o seu busto e o do molde.',
+    long: 'Escolher o tamanho pelo busto alto deixa o busto do molde menor que o seu. Com 104 cm de busto real contra 92 cm de busto do molde, a diferença é 12 cm. Mas uma frente cortada no dobro é um quarto do corpo, então a abertura na peça é 12 ÷ 4 = 3 cm, e o pinçamento da pence cresce esses mesmos 3 cm. Abra os 12 cm inteiros e a peça sai quatro vezes maior do que deveria.',
+    note: 'O busto do molde tem que ser a medida de corpo da tabela de tamanhos, não o busto acabado — o número acabado já contém a folga de design, então usá-lo ou apaga o ajuste ou deixa a blusa nadando. Uma diferença negativa não é um FBA, e sim o contrário, um SBA, dobrado para dentro na mesma quantidade. Abaixo de cerca de 2,5 cm a maioria das costureiras pula o ajuste inteiro; a passadoria e a folga de uso absorvem isso. Num molde cuja frente são duas peças em vez de cortada no dobro — uma linha princesa ou uma costura no meio da frente — cada peça é metade da frente, então 12 ÷ 2 = 6 cm são distribuídos nela.',
+  },
+  'piping-strip-width': {
+    title: 'Calculadora de largura da tira para viés com enchimento',
+    desc: 'Que largura cortar a tira de viés para um cordão de piping dado.',
+    long: 'A tira envolve o cordão inteiro, então o que ela tem que cobrir é a circunferência, não o diâmetro. Um cordão de 5 mm mede π × 0,5 = 1,57 cm de volta, e com 1 cm de margem de costura em cada lado você corta uma tira de 3,57 cm — bem perto da regra imperial de uma tira de 1,5 pol (3,8 cm) para cordão de 1/8 pol com margem de 1/2 pol. Para o comprimento, uma costura de 200 cm mais 10 % pelas uniões e cantos dá 220 cm, e como o cordão é vendido por metro você compra 3 m.',
+    note: 'Corte a tira no viés, a 45°. Uma tira no fio reto vinca em curvas e cantos, e o piping quase sempre vai para algum lugar curvo. Transformar um comprimento de viés necessário em um quadrado de tecido é trabalho da calculadora de tira de viés. Quanto mais grosso o cordão, mais a parte que envolve cresce em relação à margem, então recalcule em vez de reutilizar uma largura antiga. Se você compra piping pronto, confira se a aba dele bate com a margem de costura do seu molde — se não bater, a espessura visível na costura muda. Cordão de algodão encolhe, então pré-lave o cordão também, não só o tecido.',
+  },
 };

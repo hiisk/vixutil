@@ -876,6 +876,249 @@ export const FR: FormulaL10n = {
     rehydrateMl: 'Liquide à remplacer',
     gripKg: 'Force de préhension (kg)',
     gripRatio: 'Préhension par kg de poids',
+
+    /* ───────── rate 4 : VAN et TRI ───────── */
+    annualCash: 'Flux net annuel',
+    npvValue: 'Valeur actuelle nette (VAN)',
+    pvInflow: 'Valeur actuelle des entrées',
+    profitIndex: 'Indice de rentabilité',
+    irrPct: 'TRI approché',
+
+    /* ───────── rate 4 : coût du capital ───────── */
+    equityWeight: 'Part des capitaux propres',
+    costEquity: 'Coût des capitaux propres',
+    costDebt: 'Coût de la dette',
+    debtWeight: 'Part de la dette',
+    afterTaxDebt: 'Coût de la dette après impôt',
+    wacc: 'CMPC (WACC)',
+
+    /* ───────── rate 4 : indicateurs de résultat ───────── */
+    revenue: 'Chiffre d’affaires',
+    operatingProfit: 'Résultat d’exploitation',
+    deprAmort: 'Amortissements',
+    ebitdaValue: 'EBITDA',
+    ebitdaMargin: 'Marge d’EBITDA',
+    operMargin: 'Marge d’exploitation',
+
+    /* ───────── rate 4 : stocks et créances ───────── */
+    cogs: 'Coût des ventes',
+    avgInventory: 'Stock moyen',
+    invTurns: 'Rotation des stocks',
+    inventoryDays: 'Jours de stock',
+    cogsPerDay: 'Coût des ventes par jour',
+    receivables: 'Créances clients',
+    dso: 'Délai de recouvrement (DSO)',
+    revenuePerDay: 'Chiffre d’affaires par jour',
+    carryCost: 'Coût de financement annuel',
+    cashPer10Days: 'Trésorerie de dix jours',
+
+    /* ───────── rate 4 : levier opérationnel ───────── */
+    contribTotal: 'Marge sur coût variable totale',
+    salesChangePct: 'Variation des ventes',
+    dol: 'Levier opérationnel',
+    profitChangePct: 'Variation du résultat d’exploitation',
+
+    /* ───────── rate 4 : règle des 40 ───────── */
+    revGrowth: 'Croissance du chiffre d’affaires',
+    ruleLine: 'La ligne',
+    ruleSum: 'Croissance plus marge',
+    marginNeeded: 'Marge nécessaire',
+
+    /* ───────── rate 4 : attrition et rétention ───────── */
+    custStart: 'Clients en début de mois',
+    custLost: 'Clients perdus',
+    churnRate: 'Taux d’attrition mensuel',
+    retentionRate: 'Taux de rétention mensuel',
+    avgLifeMonths: 'Durée de vie moyenne',
+    custLeft: 'Clients restants',
+    retainedAfter: 'Rétention après la période',
+    custAfter: 'Clients après la période',
+
+    /* ───────── rate 4 : valeur vie et acquisition ───────── */
+    arpu: 'Revenu par client et par mois',
+    monthlyProfit: 'Marge brute par client et par mois',
+    customerLtv: 'Valeur vie client (LTV)',
+    cac: 'Coût d’acquisition client (CAC)',
+    ltvCacRatio: 'LTV ÷ CAC',
+    cacPayback: 'Mois pour récupérer le CAC',
+    cacCeiling: 'Plafond de CAC à 3:1',
+    salesMarketing: 'Dépenses commerciales et marketing',
+    newCustomers: 'Nouveaux clients',
+    paidShare: 'Part venue du payant',
+    cacPaid: 'CAC sur le payant seul',
+    paidCustomers: 'Clients venus du payant',
+
+    /* ───────── rate 4 : revenus d’abonnement ───────── */
+    mrrNow: 'MRR ce mois-ci',
+    mrrPrev: 'MRR le mois dernier',
+    mrrGrowth: 'Croissance mensuelle du MRR',
+    arr: 'ARR (annualisé)',
+    growthAnnual: 'Croissance annualisée',
+    netNewMrr: 'MRR net ajouté',
+
+    /* ───────── rate 4 : conversion et panier ───────── */
+    visitors: 'Visiteurs',
+    orders: 'Commandes',
+    targetConvRate: 'Taux de conversion visé',
+    convRate: 'Taux de conversion',
+    ordersAtTarget: 'Commandes à ce taux',
+    visitorsNeeded: 'Visiteurs nécessaires au taux actuel',
+    extraVisitors: 'Visiteurs supplémentaires',
+    aovNow: 'Panier moyen actuel',
+    aovTarget: 'Panier moyen visé',
+    aovUplift: 'Hausse nécessaire',
+    revenueAfter: 'Chiffre d’affaires à la cible',
+    revenueGain: 'Chiffre d’affaires gagné',
+
+    /* ───────── rate 4 : ordre de remboursement ───────── */
+    debtA: 'Premier solde',
+    debtARate: 'Premier taux',
+    debtB: 'Deuxième solde',
+    debtBRate: 'Deuxième taux',
+    avalancheMonths: 'Taux le plus élevé d’abord : mois',
+    snowballMonths: 'Petit solde d’abord : mois',
+    avalancheInterest: 'Taux le plus élevé d’abord : intérêts',
+    snowballInterest: 'Petit solde d’abord : intérêts',
+    interestDiff: 'Écart d’intérêts',
+
+    /* ───────── rate 4 : taux d’utilisation du crédit ───────── */
+    cardBalance: 'Montant utilisé',
+    cardLimit: 'Plafond de crédit',
+    targetUtil: 'Taux d’utilisation visé',
+    utilisation: 'Taux d’utilisation',
+    balanceAtTarget: 'Solde à cet objectif',
+    payDown: 'Montant à rembourser',
+    limitNeeded: 'Plafond qui y suffirait',
+
+    /* ───────── rate 4 : remboursement anticipé ───────── */
+    extraMonthly: 'Supplément mensuel',
+    monthsSaved: 'Mois gagnés',
+    newMonths: 'Nouvelle durée',
+
+    /* ───────── rate 4 : location ou achat ───────── */
+    leaseMonthly: 'Loyer mensuel',
+    leaseUpfront: 'Apport à la signature',
+    leaseTotal: 'Coût total de la location',
+    buyTotal: 'Coût total de l’achat',
+    buyPerMonth: 'Achat, par mois',
+
+    /* ───────── rate 4 : budget 50/30/20 ───────── */
+    needsSpend: 'Dépenses de besoins',
+    wantsSpend: 'Dépenses d’envies',
+    needsCap: 'Besoins à 50 %',
+    wantsCap: 'Envies à 30 %',
+    saveTarget: 'Épargne à 20 %',
+    savingsLeft: 'Réellement restant',
+
+    /* ───────── rate 4 : salaire ou taux horaire ───────── */
+    annualSalary: 'Salaire annuel',
+    benefitPct: 'Charges et avantages en plus',
+    salaryHoursYear: 'Heures payées par an',
+    hourlyOffer: 'Taux horaire proposé',
+    salaryHourly: 'Salaire par heure payée',
+    hourlyToMatch: 'Taux horaire équivalent',
+    contractorAnnual: 'Revenu annuel à ce taux',
+    packageGap: 'Écart entre les deux offres',
+
+    /* ───────── rate 4 : rendement réel après impôt ───────── */
+    afterTaxRate: 'Rendement après impôt',
+
+    /* ───────── rate 4 : déficit de retraite ───────── */
+    targetRetireIncome: 'Revenu de retraite visé',
+    potNeeded: 'Capital nécessaire',
+    savedGrown: 'Épargne actuelle capitalisée',
+    gapAmount: 'Manque à combler',
+
+    /* ───────── craft 5 : crochet — chaînette et échantillon ───────── */
+    turnCh: 'Mailles en l’air pour tourner',
+    chainCount: 'Mailles en l’air',
+    chainGauge: 'Mailles en l’air pour 10 cm',
+    chainLen: 'Longueur de la chaînette',
+    stitchHeightRatio: 'Hauteur de maille en largeurs',
+    rowHeight: 'Hauteur d’un rang',
+    rounds: 'Tours',
+    roundsNeeded: 'Tours nécessaires',
+
+    /* ───────── craft 5 : crochet — motifs et couverture ───────── */
+    roundDepth: 'Croissance par tour',
+    squareSize: 'Côté du motif',
+    joinW: 'Largeur de l’assemblage',
+    squaresAcross: 'Motifs en largeur',
+    squaresDown: 'Motifs en longueur',
+    squareCount: 'Motifs nécessaires',
+    joinedW: 'Largeur après assemblage',
+
+    /* ───────── craft 5 : crochet — augmentations et bordure ───────── */
+    incRounds: 'Tours d’augmentation',
+    increases: 'Augmentations',
+    everyNSts: 'Toutes les n mailles',
+    leftoverSts: 'Mailles restantes',
+    borderSts: 'Mailles de la bordure',
+    cornerSts: 'Mailles pour les angles',
+    cornerExtra: 'Mailles en plus par angle',
+
+    /* ───────── craft 5 : crochet — laine et crochet ───────── */
+    swatchStitches: 'Mailles de l’échantillon',
+    swatchYarnLen: 'Laine prise par l’échantillon',
+    projectStitches: 'Mailles du projet entier',
+    yarnPerStitch: 'Laine par maille',
+    knitYarnWt: 'Laine au tricot',
+    crochetExtraPct: 'Surplus du crochet',
+    crochetYarnWt: 'Laine au crochet',
+    extraYarnWt: 'Laine supplémentaire',
+    hookSize: 'Taille du crochet',
+    hookNeeded: 'Taille nécessaire',
+    stockHook: 'Taille vendue la plus proche',
+    hookChange: 'Écart de taille de crochet',
+    hookMin: 'Crochet le plus fin',
+    hookMax: 'Crochet le plus gros',
+
+    /* ───────── craft 5 : couture — manche, ceinture, ourlet ───────── */
+    armholeCirc: 'Tour d’emmanchure',
+    capEasePct: 'Embu de tête de manche',
+    capLen: 'Longueur de tête de manche',
+    easeAmt: 'Embu à répartir',
+    easeCm: 'Aisance (cm)',
+    overlapLen: 'Croisure',
+    bandWidth: 'Largeur finie de ceinture',
+    hemEdgeLen: 'Longueur du bord d’ourlet',
+    facingW: 'Largeur de parementure',
+    facingLen: 'Longueur de la bande de parementure',
+    innerEdgeLen: 'Longueur du bord intérieur',
+
+    /* ───────── craft 5 : couture — bouton, entoilage, marges ───────── */
+    buttonD: 'Diamètre du bouton',
+    buttonThick: 'Épaisseur du bouton',
+    holeEase: 'Jeu de la boutonnière',
+    holeLen: 'Longueur de boutonnière',
+    ballHoleLen: 'Longueur pour un bouton boule',
+    interfacedArea: 'Surface à entoiler',
+    fusibleW: 'Largeur de l’entoilage',
+    fusibleLen: 'Entoilage nécessaire',
+    firstPass: 'Première piqûre',
+    secondPass: 'Seconde piqûre',
+    trimTo: 'Recouper à',
+
+    /* ───────── craft 5 : couture — pantalon, pince, retrait, série ───────── */
+    frontRise: 'Hauteur de fourche devant',
+    flySharePct: 'Part de la braguette',
+    flyLen: 'Longueur de braguette',
+    apexDist: 'Longueur de pince jusqu’à la pointe',
+    apexToHem: 'Pointe jusqu’à l’ourlet',
+    rotationDeg: 'Angle de rotation',
+    hemSwing: 'Ouverture de l’ourlet',
+    shrinkLenPct: 'Rétrécissement en longueur',
+    shrinkCrossPct: 'Rétrécissement en largeur',
+    coneLen: 'Mètres par cône',
+    threadPerItem: 'Fil par vêtement',
+    runSize: 'Vêtements de la série',
+    itemsPerCone: 'Vêtements par cône',
+    conesNeeded: 'Cônes nécessaires',
+    fullBust: 'Tour de poitrine réel',
+    patternBust: 'Tour de poitrine du modèle',
+    fbaTotal: 'Écart total',
+    fbaPerPiece: 'Écart à ouvrir par pièce',
+    cordD: 'Diamètre du cordon',
   },
 
   UNITS: {
@@ -954,6 +1197,10 @@ export const FR: FormulaL10n = {
     hit: '',
     /* ───────── body 4 ───────── */
     mile: 'mi',
+    /* ───────── rate 4 et craft 5 ───────── */
+    order: '',
+    round: 'tours',
+    cone: 'cônes',
   },
 
   DESC: {
@@ -1801,5 +2048,248 @@ export const FR: FormulaL10n = {
     rehydrateMl: 'Ce qu’il faut boire sur les heures qui suivent pour rattraper le poids perdu.',
     gripKg: 'Votre meilleur serrage au dynamomètre à main, avec la main la plus forte.',
     gripRatio: 'La préhension divisée par le poids du corps, ce qui retire la carrure de la comparaison.',
+
+    /* ───────── rate 4 : VAN et TRI ───────── */
+    annualCash: 'Le flux net qui arrive chaque année ; cette page suppose le même montant tous les ans.',
+    npvValue: 'La valeur actuelle des entrées moins la mise de départ ; au-dessus de zéro, le taux d’actualisation est battu.',
+    pvInflow: 'Chaque entrée future ramenée à aujourd’hui, puis additionnée.',
+    profitIndex: 'La valeur actuelle rendue par 1 engagé ; au-dessus de 1, la VAN est positive.',
+    irrPct: 'Le taux d’actualisation qui annule la VAN, en supposant des flux constants.',
+
+    /* ───────── rate 4 : coût du capital ───────── */
+    equityWeight: 'La part financée par les capitaux propres ; le reste devient la part de la dette.',
+    costEquity: 'Le rendement exigé par les actionnaires — une estimation, pas une donnée observée.',
+    costDebt: 'Le taux payé sur les emprunts, avant l’économie d’impôt.',
+    debtWeight: 'La part financée par la dette — ce que la part des capitaux propres laisse.',
+    afterTaxDebt: 'Le coût de la dette une fois les intérêts déductibles pris en compte ; il ne concerne que la dette.',
+    wacc: 'Coût des capitaux propres et de la dette pondérés par leur part — le taux d’actualisation habituel d’une VAN.',
+
+    /* ───────── rate 4 : indicateurs de résultat ───────── */
+    revenue: 'Tout ce qui a été vendu sur la période ; tranchez d’abord si la taxe et les remises sont dehors.',
+    operatingProfit: 'Le résultat après coût des ventes et charges d’exploitation, avant intérêts et impôt.',
+    deprAmort: 'La dépréciation des actifs à mesure qu’ils s’usent ; aucune trésorerie ne sort.',
+    ebitdaValue: 'Le résultat d’exploitation avec les amortissements réintégrés.',
+    ebitdaMargin: 'L’EBITDA divisé par le chiffre d’affaires ; très au-dessus de la marge d’exploitation dans les métiers capitalistiques.',
+    operMargin: 'Le résultat d’exploitation divisé par le chiffre d’affaires — ce qui reste après les amortissements aussi.',
+
+    /* ───────── rate 4 : stocks et créances ───────── */
+    cogs: 'Ce que la marchandise vendue a coûté à acheter ou à produire — pas le chiffre d’affaires.',
+    avgInventory: 'Le stock d’ouverture et celui de clôture moyennés ; la clôture seule suit la saison.',
+    invTurns: 'Combien de fois le stock a tourné dans l’année — coût des ventes divisé par le stock moyen.',
+    inventoryDays: 'Le nombre de jours que la marchandise passe en rayon — 365 divisé par la rotation.',
+    cogsPerDay: 'Le coût des ventes qui s’écoule par jour ; il met un prix sur une journée de stock.',
+    receivables: 'Facturé mais pas encore encaissé — votre argent sur le compte d’un autre.',
+    dso: 'Le nombre moyen de jours avant l’encaissement ; les jours de la période que vous avez choisis le pilotent.',
+    revenuePerDay: 'Le chiffre d’affaires divisé par les jours de la période — il convertit des jours en argent.',
+    carryCost: 'Ce que coûte chaque année le fait de laisser ces créances là où elles sont.',
+    cashPer10Days: 'La trésorerie libérée d’un coup en encaissant dix jours plus tôt.',
+
+    /* ───────── rate 4 : levier opérationnel ───────── */
+    contribTotal: 'Le chiffre d’affaires de la période moins les coûts variables — le total, pas le montant unitaire.',
+    salesChangePct: 'La variation des ventes que vous voulez tester ; elle joue dans les deux sens.',
+    dol: 'De combien de pour cent bouge le résultat d’exploitation par pour cent de ventes ; il enfle près du seuil de rentabilité.',
+    profitChangePct: 'De combien bouge le résultat d’exploitation pour cette variation des ventes.',
+
+    /* ───────── rate 4 : règle des 40 ───────── */
+    revGrowth: 'La croissance du chiffre d’affaires sur un an ; un trimestre annualisé en diffère beaucoup.',
+    ruleLine: 'La ligne à laquelle vous vous comparez ; les 40 habituels sont une règle du capital-risque.',
+    ruleSum: 'Croissance plus marge, simplement additionnées ; vérifiez que les deux se mesurent de la même façon.',
+    marginNeeded: 'La marge qu’il faudrait, à cette croissance, pour se poser sur la ligne.',
+
+    /* ───────── rate 4 : attrition et rétention ───────── */
+    custStart: 'Les clients présents en début de mois ; les inscrits du mois restent dehors.',
+    custLost: 'Les clients partis pendant le mois — un décompte de têtes, pas de revenus.',
+    churnRate: 'La part des clients de début de mois qui sont partis ; inversée, elle donne la durée de vie moyenne.',
+    retentionRate: 'La part encore présente un mois plus tard — ce que l’attrition laisse.',
+    avgLifeMonths: 'La durée de vie moyenne si l’attrition reste stable — 100 divisé par le taux.',
+    custLeft: 'Les clients encore inscrits à la fin du mois.',
+    retainedAfter: 'Ce à quoi la rétention mensuelle se cumule sur la période — une puissance, pas une soustraction.',
+    custAfter: 'Les clients restants après cette période ; les réabonnements ne sont pas comptés.',
+
+    /* ───────── rate 4 : valeur vie et acquisition ───────── */
+    arpu: 'Ce qu’un client paie par mois — du revenu, pas du bénéfice.',
+    monthlyProfit: 'La marge brute qu’un client laisse chaque mois, hébergement et commissions déduits.',
+    customerLtv: 'Toute la marge brute qu’un client laisse avant de partir, sans actualisation.',
+    cac: 'Ce qu’a coûté la conquête d’un client ; ce qui entre au numérateur varie d’une entreprise à l’autre.',
+    ltvCacRatio: 'La valeur vie divisée par le coût d’acquisition ; elle ne dit rien du moment où l’argent revient.',
+    cacPayback: 'Les mois qu’il faut à la marge brute pour rembourser le coût d’acquisition.',
+    cacCeiling: 'Le maximum dépensable par client en restant à 3:1.',
+    salesMarketing: 'Tout ce qui a été dépensé en commercial et en marketing sur la période.',
+    newCustomers: 'Les clients gagnés sur la période, payant et organique mélangés.',
+    paidShare: 'La part des nouveaux clients venue des canaux payants ; le reste est arrivé gratuitement.',
+    cacPaid: 'La dépense divisée par les seuls clients que le payant a réellement apportés — plus proche du coût des cent suivants.',
+    paidCustomers: 'Les clients venus des canaux payants — le total moins les organiques.',
+
+    /* ───────── rate 4 : revenus d’abonnement ───────── */
+    mrrNow: 'Le revenu récurrent de ce mois ; les ventes ponctuelles restent dehors.',
+    mrrPrev: 'Le revenu récurrent d’il y a un mois — le dénominateur du taux de croissance.',
+    mrrGrowth: 'De combien le MRR a monté en un mois, net de l’attrition et des baisses de gamme.',
+    arr: 'Le MRR de ce mois multiplié par douze ; des durées de contrat mélangées le faussent.',
+    growthAnnual: 'Ce à quoi ce taux mensuel se cumule sur un an — pas douze fois lui-même.',
+    netNewMrr: 'Le MRR réellement ajouté ce mois-ci, net de tout ce qui est parti.',
+
+    /* ───────── rate 4 : conversion et panier ───────── */
+    visitors: 'Les visiteurs de la période ; sessions et personnes uniques sont deux comptages différents.',
+    orders: 'Les commandes passées sur la période ; décidez si les annulations sont dehors.',
+    targetConvRate: 'Le taux de conversion que vous visez ; l’écart est montré en trafic supplémentaire.',
+    convRate: 'La part des visiteurs qui ont commandé ; sans filtrer les robots, il sort trop bas.',
+    ordersAtTarget: 'Les commandes que le taux visé produirait avec le même trafic.',
+    visitorsNeeded: 'Les visiteurs qu’il faudrait pour ce nombre de commandes sans toucher à la conversion.',
+    extraVisitors: 'Le trafic supplémentaire à acheter au lieu de faire monter la conversion.',
+    aovNow: 'Le panier moyen d’aujourd’hui ; quelques grosses commandes le tirent facilement.',
+    aovTarget: 'Le panier moyen que vous voulez atteindre.',
+    aovUplift: 'La hausse nécessaire, rapportée au montant actuel et non à la cible.',
+    revenueAfter: 'Le chiffre d’affaires au panier visé, à nombre de commandes inchangé.',
+    revenueGain: 'Le chiffre d’affaires gagné sans amener un seul visiteur de plus.',
+
+    /* ───────── rate 4 : ordre de remboursement ───────── */
+    debtA: 'Le capital encore dû sur la première dette.',
+    debtARate: 'Le taux annuel de la première dette.',
+    debtB: 'Le capital encore dû sur la deuxième dette.',
+    debtBRate: 'Le taux annuel de la deuxième dette.',
+    avalancheMonths: 'Les mois pour solder les deux en attaquant le taux le plus élevé d’abord.',
+    snowballMonths: 'Les mois pour solder les deux en attaquant le plus petit solde d’abord.',
+    avalancheInterest: 'Les intérêts totaux en attaquant le taux le plus élevé d’abord.',
+    snowballInterest: 'Les intérêts totaux en attaquant le plus petit solde d’abord.',
+    interestDiff: 'Les intérêts qui ne tiennent qu’à l’ordre ; le taux le plus élevé d’abord ne perd jamais sur les intérêts.',
+
+    /* ───────── rate 4 : taux d’utilisation du crédit ───────── */
+    cardBalance: 'La part du plafond actuellement utilisée.',
+    cardLimit: 'Le crédit total disponible ; l’augmenter fait baisser le taux d’utilisation sans rembourser un centime.',
+    targetUtil: 'Le taux d’utilisation que vous visez ; les seuils changent selon le pays et l’organisme.',
+    utilisation: 'Le solde divisé par le plafond ; il est souvent relevé à la date d’arrêté, pas à l’échéance.',
+    balanceAtTarget: 'Le solde le plus élevé compatible avec cet objectif.',
+    payDown: 'Le montant à rembourser pour atteindre le taux d’utilisation visé.',
+    limitNeeded: 'Le plafond qui atteindrait le même taux sans rien rembourser.',
+
+    /* ───────── rate 4 : remboursement anticipé ───────── */
+    extraMonthly: 'Ce que vous ajoutez à la mensualité ; tout part en capital.',
+    monthsSaved: 'Les mois que le versement supplémentaire retire à la durée.',
+    newMonths: 'La durée qui reste réellement une fois le supplément versé.',
+
+    /* ───────── rate 4 : location ou achat ───────── */
+    leaseMonthly: 'Le loyer mensuel ; vérifiez si l’entretien et l’assurance sont dedans.',
+    leaseUpfront: 'Versé une fois à la signature — dépôt de garantie et frais de dossier vivent ici.',
+    leaseTotal: 'Tout ce que la location coûte jusqu’au terme, sans qu’aucun bien reste.',
+    buyTotal: 'Prix d’achat moins revente — la vraie sortie d’argent ; les intérêts d’un crédit s’ajoutent.',
+    buyPerMonth: 'Le coût total de l’achat étalé sur le même nombre de mois.',
+
+    /* ───────── rate 4 : budget 50/30/20 ───────── */
+    needsSpend: 'Loyer, alimentation et autres dépenses incontournables ; intérêts et mensualités minimales en font partie.',
+    wantsSpend: 'Les dépenses dont on pourrait se passer — restaurants, voyages, abonnements.',
+    needsCap: 'La moitié du net ; des besoins au-dessus de cette ligne écrasent la part d’épargne.',
+    wantsCap: '30 % du net — le plafond des dépenses de confort.',
+    saveTarget: '20 % du net ; le capital remboursé au-delà du minimum compte ici aussi.',
+    savingsLeft: 'Ce qui reste réellement après les deux postes — le chiffre à confronter aux 20 %.',
+
+    /* ───────── rate 4 : salaire ou taux horaire ───────── */
+    annualSalary: 'Le salaire annuel du contrat, avant avantages et avant impôt.',
+    benefitPct: 'Ce que l’employeur ajoute par-dessus — cotisations, retraite, congés payés.',
+    salaryHoursYear: 'Les heures payées comptées dans l’année ; une semaine de 40 heures en fait 2 080.',
+    hourlyOffer: 'Le taux horaire de l’offre que vous comparez.',
+    salaryHourly: 'Le package entier divisé par les heures payées ; il n’est pas directement comparable à un taux horaire.',
+    hourlyToMatch: 'Le taux nécessaire pour égaler ce package sur les seules heures facturables.',
+    contractorAnnual: 'Une année à ce taux, chaque heure facturable remplie.',
+    packageGap: 'Le côté horaire moins le package salarié ; négatif, le salariat gagne.',
+
+    /* ───────── rate 4 : rendement réel après impôt ───────── */
+    afterTaxRate: 'Le rendement une fois l’impôt sorti, avant de retirer l’inflation.',
+
+    /* ───────── rate 4 : déficit de retraite ───────── */
+    targetRetireIncome: 'Ce que vous voulez dépenser chaque année à la retraite ; saisissez-le en monnaie d’aujourd’hui.',
+    potNeeded: 'Le capital qui porte ce revenu à ce taux de retrait.',
+    savedGrown: 'Ce que devient l’épargne actuelle à ce rendement sur cette durée.',
+    gapAmount: 'Le capital nécessaire moins l’épargne capitalisée — la part que les versements doivent combler.',
+
+    /* ───────── craft 5 : crochet — chaînette et échantillon ───────── */
+    turnCh: 'Les mailles en l’air qui montent un rang : 1 pour la maille serrée, 2 pour la demi-bride, 3 pour la bride.',
+    chainCount: 'Combien de mailles en l’air vous montez au départ, celles pour tourner comprises.',
+    chainGauge: 'Mailles en l’air pour 10 cm de chaînette détendue — ne la mesurez jamais tirée.',
+    chainLen: 'La longueur que cette chaînette mesure quand rien ne la tire.',
+    stitchHeightRatio: 'La hauteur de maille en multiples de sa largeur — environ 1,1 pour la maille serrée, 2 pour la bride.',
+    rowHeight: 'La hauteur qu’ajoute un rang, décidée par le type de maille.',
+    rounds: 'Les tours travaillés du centre vers l’extérieur, par opposition aux rangs faits en aller-retour.',
+    roundsNeeded: 'Les tours nécessaires pour atteindre la taille visée ; il n’y a pas de demi-tour, donc on arrondit au-dessus.',
+
+    /* ───────── craft 5 : crochet — motifs et couverture ───────── */
+    roundDepth: 'De combien un tour pousse vers l’extérieur ; faites trois tours, mesurez un côté et divisez par six.',
+    squareSize: 'Un côté du motif fini, mesuré après blocage.',
+    joinW: 'La largeur que l’assemblage ajoute entre deux motifs ; en mailles coulées, presque zéro.',
+    squaresAcross: 'Les motifs en largeur, arrondis au-dessous pour ne jamais dépasser la cible.',
+    squaresDown: 'Les motifs en longueur, comptés comme ceux en largeur.',
+    squareCount: 'Le nombre total de motifs — la largeur multipliée par la longueur.',
+    joinedW: 'La largeur réellement obtenue après assemblage, qui peut rester sous la cible.',
+
+    /* ───────── craft 5 : crochet — augmentations et bordure ───────── */
+    incRounds: 'Les tours d’augmentation jusqu’au nombre de mailles visé, en ajoutant le compte de départ à chaque tour.',
+    increases: 'Combien de mailles vous ajoutez sur ce tour.',
+    everyNSts: 'L’espacement : une augmentation toutes les tant de mailles.',
+    leftoverSts: 'Les mailles qui restent après l’espacement ; absorbez-les en élargissant quelques intervalles d’une maille.',
+    borderSts: 'Les mailles du premier tour de bordure, angles compris.',
+    cornerSts: 'Les mailles supplémentaires des quatre angles réunies ; sans elles, la bordure tire.',
+    cornerExtra: 'Les mailles en plus sur un angle — 2 à 3 en maille serrée, un groupe en bride.',
+
+    /* ───────── craft 5 : crochet — laine et crochet ───────── */
+    swatchStitches: 'Les mailles réellement travaillées dans l’échantillon — mailles par rang multipliées par les rangs.',
+    swatchYarnLen: 'La laine que l’échantillon a consommée ; couper une longueur mesurée d’avance est la méthode précise.',
+    projectStitches: 'Les mailles de tout le projet, comptées d’après les rangs et les mailles du modèle.',
+    yarnPerStitch: 'La longueur qu’avale une maille ; elle change du tout au tout avec le type de maille.',
+    knitYarnWt: 'La laine que la même pièce demande au tricot — le chiffre imprimé sur le modèle.',
+    crochetExtraPct: 'Combien le crochet consomme en plus ; la maille serrée dense atteint 40 à 50 %.',
+    crochetYarnWt: 'La laine au crochet ; divisez-la par les mètres de l’étiquette pour obtenir des pelotes.',
+    extraYarnWt: 'La laine à acheter en plus de la version tricotée, en général quelques pelotes.',
+    hookSize: 'Le diamètre du crochet en mm, mesuré sur la tige et non sur le manche.',
+    hookNeeded: 'Le diamètre qui collerait à l’échantillon, et qui n’est peut-être pas une taille vendue.',
+    stockHook: 'La taille de crochet réellement vendue la plus proche.',
+    hookChange: 'De combien bouger depuis votre crochet actuel ; positif veut dire plus gros.',
+    hookMin: 'Le crochet le plus fin habituellement conseillé pour cette laine.',
+    hookMax: 'Le crochet le plus gros habituellement conseillé pour cette laine.',
+
+    /* ───────── craft 5 : couture — manche, ceinture, ourlet ───────── */
+    armholeCirc: 'L’emmanchure mesurée tout du long sur sa ligne de couture ; à l’intérieur de la marge, elle sort trop courte.',
+    capEasePct: 'De combien la tête de manche dépasse l’emmanchure — seulement ce que le tissu supporte.',
+    capLen: 'La longueur de la courbe de tête de manche, plus longue que l’emmanchure de la valeur de l’embu.',
+    easeAmt: 'La longueur à résorber sans un pli, concentrée entre les crans.',
+    easeCm: 'L’aisance ajoutée à la mesure du corps — ce que le corps gagne en s’asseyant.',
+    overlapLen: 'De combien la ceinture croise pour recevoir le bouton ; la position du bouton décide.',
+    bandWidth: 'La largeur finie de la ceinture ; pliée en deux, donc coupée au double.',
+    hemEdgeLen: 'La longueur mesurée le long de la courbe de l’ourlet, pas en droite ligne.',
+    facingW: 'Jusqu’où remonte la parementure ; plus elle est large, plus une courbe laisse de surplus.',
+    facingLen: 'La longueur de bande à préparer pour la parementure, marges de raccord comprises.',
+    innerEdgeLen: 'La longueur sur laquelle se pose le bord libre intérieur une fois replié — plus courte que l’ourlet.',
+
+    /* ───────── craft 5 : couture — bouton, entoilage, marges ───────── */
+    buttonD: 'Le diamètre du bouton vu de dessus, sans compter la queue.',
+    buttonThick: 'L’épaisseur du bouton ; oubliez-la et la boutonnière sort trop courte.',
+    holeEase: 'Le jeu qu’il faut au bouton pour passer — 2 à 3 mm suffisent.',
+    holeLen: 'La longueur de boutonnière à piquer : diamètre plus épaisseur plus jeu.',
+    ballHoleLen: 'La longueur de boutonnière d’un bouton boule, fixée par sa demi-circonférence.',
+    interfacedArea: 'La surface de toutes les pièces qui reçoivent de l’entoilage, additionnée.',
+    fusibleW: 'La largeur de l’entoilage acheté ; les tricotés et les tissés diffèrent.',
+    fusibleLen: 'La longueur d’entoilage à acheter, chutes déjà comprises.',
+    firstPass: 'La largeur de la première piqûre, faite envers contre envers.',
+    secondPass: 'La seconde piqûre qui enferme la première, mesurée depuis la première ligne de couture.',
+    trimTo: 'La largeur à laquelle recouper la marge après la première piqûre ; elle doit rester sous la seconde.',
+
+    /* ───────── craft 5 : couture — pantalon, pince, retrait, série ───────── */
+    frontRise: 'De la taille au point de fourche le long du milieu devant — à ne pas confondre avec la fourche dos.',
+    flySharePct: 'La part de la fourche sous la ceinture que prend la braguette ; le reste est la courbe d’entrejambe.',
+    flyLen: 'La longueur d’ouverture que la fermeture doit dégager, surpiquée sur la fermeture.',
+    apexDist: 'De la pointe de la pince à l’endroit où la valeur est pincée — la longueur de la branche.',
+    apexToHem: 'De la pointe de pince à l’ourlet ; l’ouverture due à la rotation est proportionnelle à cette longueur.',
+    rotationDeg: 'L’angle que la pince ouvre à sa pointe ; la déplacer ne le change jamais.',
+    hemSwing: 'De combien l’ourlet s’ouvre quand la pince est pivotée ailleurs.',
+    shrinkLenPct: 'Le rétrécissement dans le sens de la chaîne ; en général le plus grand des deux.',
+    shrinkCrossPct: 'Le rétrécissement dans le sens de la trame, la largeur du tissu.',
+    coneLen: 'Les mètres enroulés sur un cône — une valeur nominale, et les dernières dizaines de mètres sortent molles.',
+    threadPerItem: 'Le fil qu’un vêtement consomme — longueur de couture multipliée par le facteur de fil.',
+    runSize: 'Combien de vêtements vous produisez dans cette série.',
+    itemsPerCone: 'Les vêtements qu’un cône termine ; il n’y a pas de demi-vêtement, donc on arrondit au-dessous.',
+    conesNeeded: 'Les cônes à acheter ; pour que la couleur suive, achetez large dans un même bain.',
+    fullBust: 'La circonférence mesurée au point le plus fort de la poitrine.',
+    patternBust: 'Le tour de poitrine du corps indiqué pour cette taille dans le tableau, pas la mesure finie.',
+    fbaTotal: 'L’écart de circonférence entre le corps et le modèle, avant répartition.',
+    fbaPerPiece: 'Ce que vous ouvrez réellement sur la pièce — un quart pour un devant coupé au pli.',
+    cordD: 'Le diamètre du cordon dans le passepoil ; la largeur de bande vient de sa circonférence, pas de son diamètre.',
   },
 };

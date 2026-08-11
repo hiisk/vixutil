@@ -613,4 +613,152 @@ export const CRAFT_DE: Record<string, FormulaText> = {
     long: 'Eine Versandtasche ist ein flacher Schlauch, die Dicke des Inhalts geht also von der Breite ab. Der Umfang des Schlauchs ist zweimal seine Breite, und der Inhalt braucht 2 × (Breite + Dicke), die Tasche muss also mindestens so breit sein wie die Breite des Inhalts plus einmal seine Dicke. Rechne 2 cm dazu, um das Stück hinein- und herauszubekommen: ein 25 cm breiter und 4 cm dicker Gegenstand will eine Tasche von 31 cm. Die Länge geht genauso, Länge plus Dicke plus Zugabe, und dann 4 cm für die Klebelasche, also 40 cm — die Lasche schlägt um, dort kann kein Inhalt sitzen. Die Antwort lautet also „31 × 40 cm oder größer“, und du kaufst die nächstgrößere Lagergröße, etwa 32 × 45 cm. Miss Zusammendrückbares wie Kleidung in gepresstem Zustand. Achte auch darauf, wie der Lieferant Größen angibt: manche nennen das Innenmaß, andere das Außenmaß samt Lasche, und ein Außenmaß muss vor dem Vergleich um die Lasche gekürzt werden.',
     note: 'Versandtaschen polstern nicht. Selbst eine mit Luftpolsterfutter hält nur Scheuern und Druck ab, Zerbrechliches gehört in einen Karton. Spar an der Zugabe, und der Inhalt rutscht in die Klebelasche, die Naht bindet nicht richtig und die Tasche geht unterwegs auf — nimm eine Größe mehr, statt die Zugabe zu kürzen. Zu groß ist ein eigenes Problem: das Stück rutscht, Ecken stoßen an, und der Überschuss klappt über das Etikett, wo der Scanner es nicht lesen kann. Ein dickes Stück hineinzuzwingen dehnt die Folie, bis sie an einer Ecke aufreißt, ab etwa 5 cm Dicke nimm also einen Karton. Die Taschengröße hilft beim Volumengewicht, doch rechne die Fracht nach den Regeln deines eigenen Versenders.',
   },
+
+  /* ───────── Häkeln ───────── */
+  'crochet-chain': {
+    title: 'Luftmaschenkette berechnen',
+    desc: 'Länge der Anfangskette aus Maschenprobe, Wunschbreite und Wendeluftmaschen.',
+    long: '16 Maschen auf 10 cm sind 1,6 je Zentimeter, eine Decke von 100 cm sind also 160 Maschen. Die Kette sind diese Maschen plus die Wendeluftmaschen: 3 beim Stäbchen, 2 beim halben Stäbchen, 1 bei festen Maschen, hier also 163 Luftmaschen. Die Wendeluftmaschen ersetzen entweder die erste Masche oder holen nur Höhe, zur Breite zählen sie nie.',
+    note: 'Eine Luftmasche ist kleiner als die Masche, die in sie hineingehäkelt wird, dieselben Hände häkeln die Kette also fester als die Reihe. Diese 163 Luftmaschen können am Lineal genau stimmen und die untere Kante trotzdem einziehen, sobald die erste Reihe darauf sitzt. Häkel die Kette mit einer Nadel stärker, oder lass sie ganz weg und arbeite eine Anschlagreihe (fdc). Läuft das Muster über eine feste Zahl von Maschen, runde die 160 zuerst auf dieses Vielfache und leg die Wendeluftmaschen danach dazu.',
+  },
+  'crochet-gauge-rounds': {
+    title: 'Reihen und Runden beim Häkeln berechnen',
+    desc: 'Wie viele Reihen oder Runden nötig sind — aus Maschenprobe und Maschenhöhe.',
+    long: 'Beim Häkeln setzt die Masche selbst die Höhe. Bei 16 Maschen auf 10 cm ist eine Masche 0,625 cm breit, und ein Stäbchen steht etwa doppelt so hoch, eine Reihe ist also 1,25 cm und 60 cm brauchen 48 Reihen. Wechsel mit derselben Wolle zu festen Maschen (Verhältnis 1,1), und eine Reihe fällt auf 0,69 cm — 87 Reihen, fast die doppelte Zeit und Wolle.',
+    note: 'Die Verhältnisse sind Näherungen: feste Masche 1,0–1,2, halbes Stäbchen 1,4–1,6, Stäbchen 1,9–2,1, Doppelstäbchen 2,6–3,0, und sie wandern mit deiner Fadenspannung. Bei einem Kleidungsstück, das passen muss, häkel zehn Reihen, miss die Höhe und teil durch zehn. Strukturmuster — V-Maschen, Motive, Noppen — folgen dem Verhältnis überhaupt nicht, miss dort einen ganzen Rapport.',
+  },
+  'granny-square-size': {
+    title: 'Granny Square: Größe berechnen',
+    desc: 'Fertige Motivgröße aus der Zahl der Runden und dem Zuwachs je Runde.',
+    long: 'Ein Motiv wächst an allen vier Seiten nach außen, jede Runde legt der Seite also das Doppelte ihrer eigenen Tiefe zu. Bei einer Runde von 2 cm ergeben sechs Runden ein Quadrat von 24 cm. 30 cm brauchen acht Runden (32 cm), weil sieben bei 28 stehen bleiben — eine halbe Runde gibt es nicht, eine Zielgröße trifft also selten genau.',
+    note: 'Die Tiefe je Runde hängt an Wolle und Nadel. Runde eins ist ein Büschel, das in den Fadenring gedrängt wird, und sitzt schmaler als der Rest, und die Zahl der Luftmaschen an jeder Ecke verschiebt jede Runde um 2 bis 3 mm. Häkel drei Runden, miss eine Seite und teil durch sechs — durch die doppelte Rundenzahl, weil jede Runde beide Enden dieser Seite verlängert. Eine Seite von 12 cm bedeutet 2 cm je Runde, und das ist die Zahl, die hier hineingehört.',
+  },
+  'granny-blanket-squares': {
+    title: 'Granny-Decke: Motive zählen',
+    desc: 'Wie viele Motive eine Decke braucht und wie viele in Breite und Länge liegen.',
+    long: 'Ein Motiv von 20 cm mit einer Verbindung von 0,5 cm nimmt 20,5 cm ein, und weil hinter dem letzten Motiv keine Verbindung mehr kommt, wird vor dem Teilen eine Verbindung dazugelegt. Über 120 cm sind das (120 + 0,5) ÷ 20,5 = 5,87 → 5 Motive; über 150 cm sind es 7, zusammen also 35 Quadrate. Diese fünf ergeben eine fertige Breite von 5 × 20 + 4 × 0,5 = 102 cm.',
+    note: '102 cm sind 18 cm weniger als die gewünschten 120 cm, weil die Division abrundet. Du musst wählen: eine sechste Spalte dazu und auf 122,5 cm hinausschießen, oder eine Umrandung von 9 cm häkeln und die Differenz damit schließen. Handgehäkelte Motive fallen zudem unterschiedlich aus, spann sie also alle auf ein Maß, bevor du sie zusammenfügst. Die Breite der Verbindung hängt an der Methode — mit Kettmaschen fast null, mit Luftmaschen 0,5 bis 1 cm, mit festen Maschen über 1 cm.',
+  },
+  'amigurumi-increase': {
+    title: 'Amigurumi: Zunahmen im Fadenring',
+    desc: 'Anfang im Fadenring und Zunahmerunden aus Zielumfang und Maschenprobe.',
+    long: 'Amigurumi beginnt mit 6 festen Maschen in einem Fadenring und nimmt jede Runde 6 zu — 6, 12, 18, 24, immer Vielfache der Anfangszahl. Ein Umfang von 30 cm bei 25 Maschen auf 10 cm braucht 75 Maschen, das sind 30 ÷ π = 9,5 cm Durchmesser, und 75 ÷ 6 aufgerundet sind 13 Zunahmerunden. Eine halbe Runde gibt es nicht, du landest also bei 78 Maschen und der Umfang steigt auf 31,2 cm. Fang stattdessen mit 8 an, dann nimmst du 8 je Runde zu und erreichst 80 Maschen in 10 Runden mit flacherem Boden.',
+    note: 'Die Regel lautet: die Zunahmen je Runde sind gleich der Anfangszahl. Fang mit 6 an und nimm 8 je Runde zu, und der Kreis wird über flach hinaus wellig; nimm nur 4 zu, und er wölbt sich zur Schale statt offen zu liegen. Die Maschenprobe bei Amigurumi ist viel fester als bei Kleidung, weil die Nadel absichtlich 1 bis 1,5 Stärken kleiner ist als die Wolle verlangt, damit die Füllung nicht durchscheint. Die Angabe von der Banderole hier einzutragen gibt dir ein deutlich größeres Tier, als du wolltest.',
+  },
+  'crochet-yarn-per-stitch': {
+    title: 'Wolle je Häkelmasche berechnen',
+    desc: 'Wie viel Wolle eine Masche frisst und wie viel das ganze Teil braucht — aus einer Probe.',
+    long: 'Jede Häkelmasche legt die Wolle über die Nadel und zieht sie durch, eine Masche schluckt also mehr Länge als eine gestrickte. Haben 200 Maschen 12 m gebraucht, sind das 6 cm je Masche. Eine Decke, 200 Maschen breit und 40 Reihen tief, sind 8.000 Maschen, also 8.000 × 6 cm = 480 m, und mit 15 % Zugabe 552 m. Die Maschen lassen sich direkt aus der Anleitung zählen (Maschen je Reihe × Reihen), was zuverlässiger ist als über die Fläche zu rechnen.',
+    note: 'Wechsel die Maschenart, und diese Zahl wechselt mit. Ein Stäbchen braucht fast doppelt so viel Wolle wie eine feste Masche, steht aber auch doppelt so hoch — über dieselbe Fläche gewinnt die dichte feste Masche also trotzdem beim Gesamtverbrauch. Häkel die Probe in der Masche, die du wirklich nimmst. Miss sie entweder mit einem vorher abgemessenen Faden, den du aufbrauchst, oder wieg die Probe und multiplizier mit den Metern je Gramm; bei einer Probe von 3 bis 4 g machen Anfangs- und Endfaden einen echten Anteil dieses Gewichts aus.',
+  },
+  'hook-from-gauge': {
+    title: 'Häkelnadelstärke aus der Maschenprobe',
+    desc: 'Den Abstand zwischen deiner Probe und der Probe der Anleitung in eine Nadelstärke umrechnen.',
+    long: 'Die Maschenbreite wächst etwa mit dem Nadeldurchmesser. Gibt dir eine Nadel von 5 mm 18 Maschen auf 10 cm und die Anleitung will 16, sind deine Maschen zu klein und die Nadel muss wachsen: 5 × 18 ÷ 16 = 5,63 mm, eine Änderung von 0,63 mm. Eine Nadel mit 5,63 mm verkauft niemand, du greifst also zur 5,5 — die bei etwa 16,4 Maschen landet und die 16 nie ganz trifft.',
+    note: 'Nadelstärken kommen in Stufen. Um 4 mm liegen sie 0,25 mm auseinander, über 7 mm springen sie einen ganzen Millimeter, mit dicker Wolle kann eine Stufe die Probe also um zwei oder drei Maschen bewegen und über das Ziel hinausschießen. Dann hilft eine andere Wolle, Masche oder Struktur, nicht eine andere Nadel. Deine eigene Fadenspannung bewegt die Probe so stark wie eine Nadelstärke — zwei Menschen mit derselben Nadel von 5 mm liegen zwei Maschen auseinander. Häkel die Probe in der Mustermasche, in derselben Richtung wie das Teil, und miss nach dem Spannen.',
+  },
+  'crochet-vs-knit-yarn': {
+    title: 'Häkeln oder Stricken: Wollverbrauch vergleichen',
+    desc: 'Wie viel mehr Wolle dieselbe fertige Fläche beim Häkeln braucht.',
+    long: 'Eine Strickanleitung, die 500 g verlangt, will in derselben Größe gehäkelt bei den 33 % 665 g — 165 g mehr, also über drei zusätzliche Knäuel von 50 g. Jede Häkelmasche braucht mehr Umschläge, und gehäkelter Stoff ist dicker und dichter, in denselben Quadratmeter geht also mehr Wolle.',
+    note: '33 % sind die Mitte der Spanne, und die Masche entscheidet, wo du landest. Dichte feste Maschen laufen 40 bis 50 % höher, während offene Stäbchen oder Granny-Muster bei 20 bis 25 % bleiben, weil die Löcher zwischen den Büscheln die Wolle ersetzen. Filethäkelei, halb aus Löchern, kann sogar unter dem gestrickten Wert landen. Muss es genau sein, häkel und strick dieselbe Probe und wieg beide. Und diese Antwort ist ein Gewicht: rechne sie über die Meter je 100 g auf der Banderole in Knäuel um, nicht durch Zählen von Knäueln.',
+  },
+  'round-increase-even': {
+    title: 'Zunahmen gleichmäßig verteilen',
+    desc: 'Wo die Zunahmen in einer Runde liegen und was mit dem Rest passiert.',
+    long: '8 Maschen auf eine Runde von 60 dazunehmen: 60 ÷ 8 = 7,5, du nimmst also in jeder 7. Masche zu. Das verbraucht 7 × 8 = 56 Maschen und lässt 4 übrig. Diese 4 sind kein Verschnitt — vier der acht Abstände werden 8 Maschen statt 7, und die Folge 7, 8, 7, 8, 7, 8, 7, 8 versteckt sie vollständig. Du beendest die Runde mit 68.',
+    note: 'Häuf den Rest an einer Stelle, und es beult wie eine Naht. Runde in die andere Richtung — jede 8. Masche —, und 8 × 8 = 64 lassen dich 4 Maschen vor der letzten Zunahme stehen. In Runden gehäkelt richten sich Zunahmen, die jede Runde an derselben Stelle stehen, zu sichtbaren Strahlen aus; ist das nicht gewollt, verschieb den Startpunkt jede Runde um ein paar Maschen. Für Amigurumi, wo die Zahl an Vielfache der Anfangsmaschen gebunden ist, nimm den Rechner für Zunahmerunden.',
+  },
+  'crochet-border': {
+    title: 'Umrandung häkeln: Maschen berechnen',
+    desc: 'Maschen für die erste Runde einer Umrandung, die Ecken eingeschlossen.',
+    long: 'Eine Decke von 100 × 120 cm hat einen Umfang von 2 × (100 + 120) = 440 cm. Bei 16 Maschen auf 10 cm sind das 704 Maschen, plus 2 an jeder der vier Ecken, du häkelst in der ersten Runde also 712. Lass die Eckmaschen weg, und die Umrandung zieht an den Ecken ein, bis die Decke fünfeckig aussieht — Umrandungen aus festen Maschen wollen meist 2 bis 3 Maschen je Ecke, solche aus Stäbchen 2 Luftmaschen plus ein Büschel aus 5 Maschen.',
+    note: 'Obere und untere Kante werden anders gezählt als die Seiten. Oben setzt du eine Masche in jeden Maschenkopf, die Seiten sind aber Reihenenden, und keine Maschenprobe sagt dir, wie viele dort hineingehen: etwa 2 in die Seite einer Stäbchenreihe, 1 in eine Reihe fester Maschen. Nimm diese Zahl als Ziel, auf das du in der ersten Runde zusteuerst. Eine gemusterte Kante — Muscheln, Picots — muss auf ein Vielfaches ihres Rapports aufgehen, runde die 712 also auf dieses Vielfache und schluck die Differenz an den Ecken.',
+  },
+  'chain-to-length': {
+    title: 'Luftmaschenkette: Länge prüfen',
+    desc: 'Die Länge, die eine Anfangskette wirklich ergibt, gegen die erste Reihe gehalten.',
+    long: '163 Luftmaschen bei 20 Luftmaschen auf 10 cm messen 81,5 cm. Häkel die erste Reihe bei 16 Maschen auf 10 cm hinein, und diese Reihe will 101,9 cm — eine Lücke von 20,4 cm. Die Kette muss sich um genau diese Länge dehnen, damit die Reihe flach liegt, die untere Kante wird also straff und der Stoff weitet sich nach oben: ein Trapez, kein Rechteck.',
+    note: 'Das ist der häufigste Fehlschlag beim Häkeln, und die Kette am Lineal zu messen wird ihn nie fangen, weil du sie beim Messen dehnst. Häkel zwanzig Luftmaschen, lass los und miss sie entspannt. Ist die Lücke groß, häkel die Kette mit einer oder zwei Nadelstärken mehr, oder lass die Kette weg und nimm eine Anschlagreihe (fsc, fdc), die Kette und erste Reihe zugleich macht — dann kommt der Anschlag in Reihenprobe heraus und diese Rechnung ist gegenstandslos. Eine negative Lücke heißt, die Kette ist lockerer als die Reihe, und die untere Kante wellt sich stattdessen.',
+  },
+  'crochet-hook-yarn-match': {
+    title: 'Häkelnadel zur Garnstärke finden',
+    desc: 'Nadelbereich und typische Maschenprobe zu einer Garnstärke-Nummer.',
+    long: 'Die Nummern laufen von 0 (Lace) bis 7 (Jumbo). Stärke 4 — Worsted oder Aran — nimmt eine Nadel von 5,5 bis 6,5 mm bei etwa 11 bis 14 festen Maschen auf 10 cm, die Mitte der Spanne liegt also bei 6,0 mm und 12,5 Maschen. Stärke 3 (DK) sind 4,5 bis 5,5 mm bei 12 bis 17, Stärke 5 (Chunky) 6,5 bis 9 mm bei 8 bis 11. Amigurumi geht absichtlich 1 bis 1,5 Stärken darunter, damit der Stoff dicht genug wird, um die Füllung zu verbergen.',
+    note: 'Diese Zuordnung ist eine Konvention, keine Physik. Die Stärkenummer ist eine Kategorie von Herstellern und nationalen Verbänden und keine gemessene Spanne, zwei Wollen mit derselben 4 können also 180 m und 230 m je 100 g haben. Die Maschenprobe auf der Banderole ist außerdem meist eine Strickangabe, und Häkeln nimmt bei derselben Wolle eine stärkere Nadel und größere Maschen. Nimm die Stärke hier als die Nadel, mit der du die erste Probe häkelst. Wo eine Anleitung ihre eigene Probe nennt, schlägt sie diese Tabelle.',
+  },
+
+  /* ───────── Nähen: Passform und Verarbeitung ───────── */
+  'sleeve-cap-ease': {
+    title: 'Mehrweite der Ärmelkugel berechnen',
+    desc: 'Länge der Ärmelkugel und die einzuhaltende Mehrweite aus Armloch und Prozentsatz.',
+    long: 'Eine Ärmelkugel muss länger sein als das Armloch, damit sie die Rundung der Schulter deckt. Bei einem Armloch von 46 cm und 8 % misst die Kugel 49,7 cm, und 3,7 cm müssen ohne eine einzige Falte verschwinden. Diese 3,7 cm werden nicht gleichmäßig verteilt: das meiste geht in das obere Drittel zwischen den Knipsen vorn und hinten, und nichts in die 3 bis 4 cm direkt über der Unterarmnaht, wo die Kurve fast gerade läuft und es keinen Platz dafür gibt.',
+    note: 'Der Stoff setzt den Prozentsatz. Wolle und Flanell lassen 5 cm unter dem Bügeleisen verschwinden, während beschichtete Baumwolle, Taft und Leder ab etwa 1 cm Falten werfen und Maschenware gar nichts nimmt (0–2 %). Ein flach eingesetzter Hemdärmel will nur 2 bis 3 %, ein Sakko mit Schulterpolster dahinter nimmt 8 bis 12 %. Miss das Armloch entlang der Nahtlinie mit dem Maßband auf der Kante stehend — innerhalb der Zugabe gemessen fällt es rund 2 cm zu kurz aus.',
+  },
+  'waistband-length': {
+    title: 'Bundlänge berechnen',
+    desc: 'Zuschnittlänge und -breite für einen Bund aus Taille, Mehrweite, Übertritt und Zugaben.',
+    long: 'Eine Taille von 76 cm plus 2 cm Mehrweite wird fertig 78 cm. Leg 3 cm Übertritt dazu, damit der Knopf einen Platz hat, und 1 cm Nahtzugabe an jedem Ende, dann schneidest du 83 cm. Die Breite wird doppelt gelegt, sie ist also zweimal die fertigen 3,5 cm plus 1 cm Zugabe oben und unten: 9 cm. Schneide sie in der fertigen Breite, und es bleibt nichts zum Falten.',
+    note: 'Den Übertritt setzt die Knopflage und nicht der Knopfdurchmesser: bei 3 cm Übertritt und dem Knopf 1,5 cm vom Ende landet der Knopf auf der vorderen Mitte. Die 2 cm Mehrweite sind, was die Taille beim Hinsetzen gewinnt, nimm sie an Hose oder Rock also nie auf null. Verstärke den Bund mit Einlage, sonst bricht die Taille zusammen — und verstärke nur die fertigen 3,5 cm, nicht die Nahtzugaben. Ein Bund aus Maschenware ist diese Rechnung überhaupt nicht: er wird kürzer als die Taille geschnitten und beim Annähen gedehnt.',
+  },
+  'curved-hem-facing': {
+    title: 'Beleg für einen gebogenen Saum berechnen',
+    desc: 'Länge des Belegstreifens an einem gebogenen Saum und der Überschuss, den die Kurve lässt.',
+    long: 'Ein gebogener Saum ist ein Stück eines Kreises. Hat dieser Kreis 60 cm Radius und der Saumbogen 200 cm, dann liegt die freie Kante eines 5 cm breiten Belegs nach dem Hochschlagen auf einem Radius von 55 cm. Die Bogenlänge wächst mit dem Radius, die freie Kante braucht also nur 200 × 55 ÷ 60 = 183,3 cm. Setz einen geraden Streifen von 200 cm an, und 16,7 cm haben keinen anderen Ort als Wellen auf der Innenseite. Der Streifen selbst wird auf 202 cm geschnitten, mit 1 cm an jedem Ende zum Schließen.',
+    note: 'Es gibt drei Lösungen. Schneide den Beleg als dieselbe Kurve — einen Ring, keinen geraden Streifen —, dann passt er genau. Nimm Schrägband, dessen innere Kante du unter dem Bügeleisen einhalten kannst, was bei schmalen Breiten der schnellste Weg ist. Oder mach den Beleg schmaler: der Überschuss wächst mit der Breite, aus 16,7 cm bei 5 cm werden 3,3 cm bei 1 cm — genau deshalb werden Säume an A-Linien-Röcken traditionell 1 cm oder weniger umgeschlagen. Den Radius bekommst du am Tellerrock über Umfang ÷ 2π oder indem du einen Kreis an die Saumkurve anlegst.',
+  },
+  'buttonhole-size': {
+    title: 'Knopflochlänge berechnen',
+    desc: 'Länge des Knopflochs aus Durchmesser und Dicke des Knopfes.',
+    long: 'Ein Knopf geht auf der Kante hindurch, sein Durchmesser allein passt also nicht. Ein Knopf von 1,5 cm mit 0,3 cm Dicke braucht 1,8 cm, plus 0,3 cm Spiel, du nähst also 2,1 cm. Die Dicke zu vergessen ist der klassische Fehler: bei einem dünnen Hemdknopf von 0,15 cm merkt es niemand, ein Mantelknopf kann aber über 0,5 cm dick sein und das Loch kommt sichtbar zu klein heraus. Bei einem Kugelknopf gilt stattdessen der halbe Umfang: π × 1,5 ÷ 2 = 2,36 cm.',
+    note: 'Ein automatischer Knopflochfuß misst den echten Knopf samt Dicke und landet deshalb meist nahe an dieser Zahl. Probier es trotzdem an einem Rest desselben Stoffs — Einlage und die Zahl der Lagen verschieben es um ein paar Millimeter. Ein waagerechtes Knopfloch soll 2 bis 3 mm über die vordere Mitte hinaus zur Kante hin beginnen, weil der geschlossene Knopf an dieses Ende gezogen wird und auf der vorderen Mitte landen muss. In Maschenware schneide 2 mm kürzer als berechnet und verstärke die Stelle mit Einlage, weil sich die Öffnung dehnt.',
+  },
+  'interfacing-yardage': {
+    title: 'Einlage berechnen',
+    desc: 'Wie viel Einlage zu kaufen ist — aus der zu verstärkenden Fläche und der Einlagenbreite.',
+    long: 'Zähl jedes Teil, das Einlage bekommt — an einem Hemd sind das zwei Kragenteile, zwei Kragenstegteile, zwei Manschetten und zwei vordere Blenden, ungefähr 3.000 cm² (0,3 m²). Auf einer Einlage von 90 cm Breite würden 3.000 ÷ 90 = 33,3 cm reichen, doch die Teile sind keine Rechtecke und lassen Lücken, mit 25 % obendrauf sind es also 41,7 cm. Die Differenz von 8,3 cm ist, was als Verschnitt endet.',
+    note: 'Über die Fläche zu teilen ist immer etwas optimistisch: gebogene Teile wie Kragen werden aus Vierecken geschnitten und zurückgeschnitten, nur ein echter Zuschnittplan gibt die wahre Zahl. Aufbügelbare Einlage läuft außerdem 2 bis 3 % unter dem Bügeleisen ein, weshalb Blockverstärken — ein zu großes Stück aufbügeln und danach zuschneiden — die sichere Reihenfolge ist. Achte auch auf den Fadenlauf: Einlage hat einen, und quer aufgebügelt verzieht sie einen Kragen. Maschen- und Webeinlagen kommen in verschiedenen Breiten, häufig 90 cm und 112 cm, dieselbe Fläche kann im Einkauf also um über 20 % auseinanderliegen.',
+  },
+  'french-seam-allowance': {
+    title: 'Französische Naht: Nahtzugabe berechnen',
+    desc: 'Die Zugabe, die eine französische Naht braucht — aus ihren zwei Nähten.',
+    long: 'Eine französische Naht wird zuerst mit den rechten Seiten nach außen genäht, dann gewendet und erneut genäht, sodass die erste Naht eingeschlossen ist. Die zweite Linie wird von der ersten Naht aus gemessen, von der ursprünglichen Schnittkante liegt die fertige Naht also bei der Summe der beiden: 0,6 + 0,9 = 1,5 cm. Deshalb lässt sich die auf den meisten Schnitten gedruckte Zugabe von 1,5 cm direkt in eine französische Naht umsetzen. Nach der ersten Naht schneidest du die Zugabe auf 0,6 cm zurück, was 0,3 cm Luft innerhalb der zweiten Naht von 0,9 cm lässt.',
+    note: 'Schneide breiter zurück als die zweite Naht, und die Fadenenden stehen als Barthaare aus der fertigen Naht heraus — daran scheitern französische Nähte fast immer. Schneide zu knapp, und feiner Stoff franst, bis die Naht aufgeht. Eine französische Naht muss sich außerdem in ihrer Länge falten, was sie an einer Kurve wie der Ärmelkugel unhandlich macht, und in schwerem Stoff stapelt sie vier Lagen zu einem Wulst. Chiffon, Batist und Gaze — leicht und fransanfällig — sind ihr Platz.',
+  },
+  'zip-fly-length': {
+    title: 'Hosenschlitz: Reißverschlusslänge berechnen',
+    desc: 'Länge des Schlitzes und die zu kaufende Reißverschlussgröße aus der vorderen Schritthöhe.',
+    long: 'Nimm den Bund von 3,5 cm von einer vorderen Schritthöhe von 26 cm weg, und unter dem Bund bleiben 22,5 cm. Der Schlitz nimmt die oberen 70 % davon — 15,8 cm —, weil die unteren 30 % die Schrittkurve sind, wo keine Öffnung sitzen kann. Lagergrößen gehen 10 · 12 · 15 · 18 · 20 · 23 · 25 cm, du kaufst also die 15: die Absteppung wird auf den Reißverschluss gesetzt, ein genaues Maß brauchst du nicht.',
+    note: 'Miss die vordere Schritthöhe an der vorderen Mitte von der Bundnaht bis zum Schrittpunkt, und verwechsle sie nicht mit der hinteren, die länger ist. Der Anteil ändert sich je Kleidungsstück: 65 bis 70 % an Jeans und tief sitzenden Hosen, 55 bis 60 % an hoch sitzenden — sonst reicht die Öffnung über den Nabel. Ist der Reißverschluss länger als die Rechnung, lässt sich ein Spiralreißverschluss von unten kürzen und mit einem von Hand genähten Anschlag versehen, doch die Zähne eines Metall- oder Vislon-Verschlusses abzuschneiden lässt den Schieber davonlaufen. Riegel oder verstärke das untere Ende der Öffnung immer — beim Hinsetzen liegt die ganze Last auf diesem einen Punkt.',
+  },
+  'bust-dart-rotation': {
+    title: 'Brustabnäher drehen: Winkel berechnen',
+    desc: 'Der Winkel, den ein Abnäher darstellt, und wie weit der Saum beim Drehen aufgeht.',
+    long: 'Ein Abnäher ist eine Papierfalte um seine Spitze, er lässt sich also als Winkel behandeln. Mit 5 cm Weite als Sehne und 12 cm bis zur Spitze als Radius sind das 2 × asin(2,5 ÷ 12) = 24,0°. Der Winkel ändert sich nicht, wohin du ihn auch legst: schließ den Seitenabnäher und öffne einen Taillenabnäher, oder verschieb ihn zur Schulter oder zum Halsausschnitt — dieselben 24,0° wandern mit. Bei 30 cm von der Spitze bis zum Saum öffnet das Drehen den Saum um 0,42 rad × 30 = 12,6 cm.',
+    note: 'Derselbe Winkel bedeutet bei anderer Länge eine andere Weite — 24,0°, 6 cm von der Spitze genommen, sind nur 2,5 cm. Einen Abnäher von 5 cm an eine andere Stelle zu kopieren verdoppelt also den Winkel und lässt die Brust wie einen Kegel abstehen. Lass die Abnäherspitze 1,5 bis 2 cm vor dem Brustpunkt enden und nicht darauf, sonst baust du diesen Kegel absichtlich. Über etwa 30° kann ein einzelner Abnäher die Formung nicht mehr schlucken: teil ihn in zwei nebeneinander, oder mach eine Prinzessnaht daraus. Das Papier wirklich zu drehen ist immer zuverlässiger als die Rechnung.',
+  },
+  'grainline-shrink-adjust': {
+    title: 'Einlaufen im Fadenlauf: Zuschnitt anpassen',
+    desc: 'Zuschnittmaße, wenn Länge und Breite unterschiedlich einlaufen.',
+    long: 'Das Einlaufen ist in beiden Richtungen nicht gleich. Bei einem Stoff, der in der Länge (Kette) 5 % und in der Breite (Schuss) 3 % verliert, wird ein Teil, das 100 × 50 cm fertig werden soll, bei 100 ÷ 0,95 = 105,3 cm auf 50 ÷ 0,97 = 51,5 cm geschnitten. Das sind 5,3 cm, die in der Länge in die Wäsche gehen — und stattdessen 5 % dazuzurechnen, also 105 cm, kommt etwas zu kurz heraus. Richtig ist zu teilen, nicht zu addieren.',
+    note: 'Der Wert für die Länge ist meist der größere, weil Weben und Ausrüsten die Kette unter Spannung halten; Denim liegt oft bei 3 bis 10 % in der Länge gegen 1 bis 2 % in der Breite. Nimm das hier als Notlösung für Stoff, den du wirklich nicht vorwaschen kannst, etwa Maschenware, die von der Rolle geschnitten werden muss. Vor dem Zuschnitt zu waschen nimmt das Rätselraten heraus und ist immer genauer. Manche Stoffe laufen außerdem in der zweiten und dritten Wäsche weiter ein, einem einzigen Waschversuch zu trauen kann das Teil später also erneut kürzer machen.',
+  },
+  'thread-cone-yield': {
+    title: 'Nähgarn: Reichweite einer Kone berechnen',
+    desc: 'Wie viele Teile eine Kone näht und wie viele Konen eine Serie braucht.',
+    long: 'Eine Kone mit 5.000 m bei 60 m je Teil reicht für 83 Teile — 83,3, abgerundet, weil sich ein halb genähtes nicht verkaufen lässt. Eine Serie von 120 braucht 7.200 m, du kaufst also zwei Konen und 2.800 m bleiben übrig. Die Meter je Teil bekommst du aus Nahtlänge × Garnfaktor: ein T-Shirt, überwiegend mit der Overlock genäht, läuft 60 bis 120 m, ein Hemd, überwiegend im Steppstich, 100 bis 150 m.',
+    note: 'Reicht eine Kone nicht für die Serie, ist die Farbe die echte Grenze. Färbepartien unterscheiden sich leicht selbst unter derselben Nummer, und mitten im Teil die Kone zu wechseln zeigt sich als nicht passende Nähte — deshalb wird Garn nach Partie gekauft und nicht nach Teil. Eine Overlock zieht außerdem drei oder vier Konen gleichzeitig, eine Maschine braucht also so viele Konen derselben Farbe bereitliegend; das ist nicht diese Antwort mal drei, weil die Zahl je Teil all diese Fäden schon zählt. Lass die letzten Dutzend Meter einer Kone aus der Planung: die Wicklung wird locker und die Spannung wandert.',
+  },
+  'full-bust-adjustment': {
+    title: 'FBA: Mehrweite für die Brust berechnen',
+    desc: 'Wie weit ein Schnittteil aufzuspreizen ist — aus dem Abstand zwischen deinem Brustumfang und dem des Schnitts.',
+    long: 'Die Größe über den oberen Brustumfang zu wählen lässt den Brustumfang des Schnitts kleiner als deinen. Bei 104 cm tatsächlichem Brustumfang gegen 92 cm im Schnitt beträgt der Abstand 12 cm. Ein im Bruch geschnittenes Vorderteil ist aber ein Viertel des Körpers, die Aufspreizung am Teil ist also 12 ÷ 4 = 3 cm, und die Abnäherweite wächst um dieselben 3 cm. Spreiz die vollen 12 cm auf, und das Teil kommt viermal zu groß heraus.',
+    note: 'Der Brustumfang des Schnitts muss das Körpermaß aus der Größentabelle sein und nicht das Fertigmaß — im Fertigmaß steckt schon die Bewegungszugabe, es löscht die Anpassung entweder aus oder lässt das Oberteil schwimmen. Ein negativer Abstand ist keine FBA, sondern ihr Gegenteil, eine SBA, die um denselben Betrag herausgefaltet wird. Unter etwa 2,5 cm lassen die meisten die Anpassung ganz weg; Bügeln und Bewegungszugabe schlucken so viel. Bei einem Schnitt, dessen Vorderteil aus zwei Teilen besteht statt im Bruch geschnitten zu sein — Prinzessnaht oder vordere Mittelnaht —, ist jedes Teil die Hälfte des Vorderteils, es werden also 12 ÷ 2 = 6 cm darauf verteilt.',
+  },
+  'piping-strip-width': {
+    title: 'Paspel: Streifenbreite berechnen',
+    desc: 'Wie breit der Schrägstreifen für eine bestimmte Paspelkordel zu schneiden ist.',
+    long: 'Der Streifen läuft ganz um die Kordel, zu decken ist also der Umfang und nicht der Durchmesser. Eine Kordel von 5 mm misst π × 0,5 = 1,57 cm im Umfang, und mit 1 cm Nahtzugabe an jeder Seite schneidest du einen Streifen von 3,57 cm — nahe genug an der Zollregel eines Streifens von 1,5 Zoll (3,8 cm) für eine Kordel von 1/8 Zoll bei 1/2 Zoll Zugabe. Für die Länge sind eine Naht von 200 cm plus 10 % für Stöße und Ecken 220 cm, und weil Kordel nach Meter verkauft wird, kaufst du 3 m.',
+    note: 'Schneide den Streifen im Schrägfadenlauf, also unter 45°. Ein Streifen im geraden Fadenlauf knickt an Kurven und Ecken, und eine Paspel läuft fast immer etwas Gebogenes ab. Eine nötige Schräglänge in ein Stoffquadrat umzurechnen ist die Aufgabe des Rechners für Schrägband. Je dicker die Kordel, desto stärker wächst der Anteil zum Umwickeln über die Zugabe hinaus, rechne also neu, statt eine alte Breite wiederzuverwenden. Kaufst du fertige Paspel, prüf, ob ihr Steg zur Nahtzugabe deines Schnitts passt — passt er nicht, ändert sich die sichtbare Dicke an der Naht. Baumwollkordel läuft ein, wasch also die Kordel genauso vor wie den Stoff.',
+  },
 };

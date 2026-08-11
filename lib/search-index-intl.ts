@@ -20,6 +20,8 @@ import { RATE_TOOLS } from './rate-tools.ts';
 import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
 import { CRAFT_TOOLS } from './craft-tools.ts';
+import { CMD_ITEMS } from './cmd/list.ts';
+import { cmdDesc, type CmdLangKey } from './cmd/desc.ts';
 import { TOOL_L10N } from './formula/tool-l10n.ts';
 import type { FormulaTool } from './formula/types.ts';
 import { CALC_INTL_SLUGS, calcCopy } from './calc-l10n/index.ts';
@@ -119,6 +121,19 @@ function calcEntries(lang: SearchIntlLang): Entry[] {
   });
 }
 
+/**
+ * 터미널 명령어 — 이름은 언어를 가리지 않으므로 설명만 그 언어로 꺼낸다.
+ * 사전의 언어 열쇠는 짧은 꼴(pt·zh·tw)이라 경로 꼴에서 바꿔 준다.
+ */
+const CMD_LANG: Record<string, CmdLangKey> = {
+  en: 'en', es: 'es', 'pt-br': 'pt', ja: 'ja', de: 'de', fr: 'fr', hi: 'hi', 'zh-hans': 'zh', 'zh-hant': 'tw',
+};
+
+function cmdEntries(lang: SearchIntlLang): Entry[] {
+  const key = CMD_LANG[lang] ?? 'en';
+  return CMD_ITEMS.map(x => ({ slug: x.slug, title: x.name, desc: cmdDesc(x.slug, key), icon: '⌨️' }));
+}
+
 /** 언어별 검색 목록 — 실제로 그 언어에 있는 페이지만 담는다 */
 export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
   const tools = (sec: string, list: Entry[] = []) =>
@@ -137,6 +152,7 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('body', formulaEntries(lang, BODY_TOOLS)),
     ...tools('geometry', formulaEntries(lang, GEO_TOOLS)),
     ...tools('craft', formulaEntries(lang, CRAFT_TOOLS)),
+    ...tools('cmd', cmdEntries(lang)),
     ...tools('convert', convertEntries(lang)),
     ...tools('color', colorToolsIntl(lang)),
     ...tools('time', timeToolsIntl(lang)),

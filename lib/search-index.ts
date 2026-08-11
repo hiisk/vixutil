@@ -178,6 +178,8 @@ import { GLYPHS, GLYPH_ICON } from './glyph/list';
 import { TAGS, TAG_ICON } from './html/tags';
 import { CSS_PROPS, CSS_ICON } from './css/props';
 import { HTTP_ITEMS, HTTP_ICON } from './http/list';
+import { CMD_ITEMS } from './cmd/list';
+import { cmdDesc } from './cmd/desc';
 import { httpDesc } from './http/desc';
 import { propDesc } from './css/desc';
 import { IMG_SIZES, IMG_SIZE_ICON } from './imgsize/list';
@@ -199,7 +201,7 @@ import { foodFacts } from './food/facts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -239,6 +241,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   html:       { label: 'HTML 태그', icon: '🪟', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   css:        { label: 'CSS 속성', icon: '🎨', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
   http:       { label: 'HTTP 코드', icon: '🗄️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
+  cmd:        { label: '터미널 명령어', icon: '⌨️', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   element:    { label: '원소',      icon: '⚛️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   chess:      { label: '체스',      icon: '♟️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   poker:      { label: '포커',      icon: '🃏', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
@@ -1326,6 +1329,7 @@ export const SEARCH_INDEX: SearchItem[] = [
     icon: CSS_ICON,
   })),
   ...HTTP_ITEMS.map(x => ({
+  ...CMD_ITEMS.map(x => ({ href: `/cmd/${x.slug}`, title: x.name, desc: cmdDesc(x.slug, 'ko'), section: 'cmd' as const, icon: '⌨️' })),
     href: `/http/${x.slug}`,
     title: `HTTP ${x.name}`,
     desc: httpDesc(x.slug, 'ko'),

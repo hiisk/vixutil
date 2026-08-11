@@ -713,6 +713,18 @@ const SECTIONS = [
     shadow: 'shadow-slate-100',
   },
   {
+    href: '/cmd',
+    icon: '⌨️',
+    title: '터미널 명령어',
+    desc: 'ls·grep·tar·chmod부터 git reset까지 옵션과 예시',
+    badge: `${SECTION_COUNTS.cmd}개`,
+    color: 'from-slate-700 to-indigo-500',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-950/30',
+    textAccent: 'text-indigo-700 dark:text-indigo-300',
+    borderAccent: 'border-indigo-200 dark:border-indigo-900/50',
+    shadow: 'shadow-indigo-100',
+  },
+  {
     href: '/http',
     icon: '🗄️',
     title: 'HTTP 코드 사전',

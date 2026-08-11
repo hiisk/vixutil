@@ -1,5 +1,5 @@
 /**
- * 공예 96종 — 분류별 파일을 모아 하나의 카탈로그로 낸다.
+ * 공예 120종 — 분류별 파일을 모아 하나의 카탈로그로 낸다.
  *
  * /rate·/body·/geometry와 같은 엔진을 쓴다. 공예 계산은 "얼마나 사야 하나"로
  * 끝나는 것이 많아서(실 몇 볼, 원단 몇 미터, 왁스 몇 g) 결과가 대개 올림이고,
@@ -13,8 +13,10 @@
 import type { FormulaTool } from './formula/types.ts';
 import { KNIT_TOOLS } from './craft/knit.ts';
 import { KNIT2_TOOLS } from './craft/knit2.ts';
+import { CROCHET_TOOLS } from './craft/crochet.ts';
 import { SEW_TOOLS } from './craft/sew.ts';
 import { SEW2_TOOLS } from './craft/sew2.ts';
+import { SEW3_TOOLS } from './craft/sew3.ts';
 import { QUILT_TOOLS } from './craft/quilt.ts';
 import { QUILT2_TOOLS } from './craft/quilt2.ts';
 import { CANDLE_TOOLS } from './craft/candle.ts';
@@ -25,8 +27,8 @@ import { BEAD_TOOLS } from './craft/bead.ts';
 import { BEAD2_TOOLS } from './craft/bead2.ts';
 
 export const CRAFT_TOOLS: FormulaTool[] = [
-  ...KNIT_TOOLS, ...KNIT2_TOOLS,
-  ...SEW_TOOLS, ...SEW2_TOOLS,
+  ...KNIT_TOOLS, ...KNIT2_TOOLS, ...CROCHET_TOOLS,
+  ...SEW_TOOLS, ...SEW2_TOOLS, ...SEW3_TOOLS,
   ...QUILT_TOOLS, ...QUILT2_TOOLS,
   ...CANDLE_TOOLS, ...CANDLE2_TOOLS,
   ...SOAP_TOOLS, ...SOAP2_TOOLS,

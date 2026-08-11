@@ -20,6 +20,8 @@ import { CRAFT4_DESC } from './glossary-craft4.ts';
 import { GEO4_DESC } from './glossary-geo4.ts';
 import { RATE3_DESC } from './glossary-rate3.ts';
 import { BODY4_DESC } from './glossary-body4.ts';
+import { RATE4_DESC } from './glossary-rate4.ts';
+import { CRAFT5_DESC } from './glossary-craft5.ts';
 
 const CORE_DESC: Record<string, Term> = {
   /* ───────── 가격·거래 ───────── */
@@ -300,7 +302,7 @@ const CORE_DESC: Record<string, Term> = {
 };
 
 /* 섹션별 뜻풀이는 파일을 나눠 둔다 — 한 파일에 삼백 줄이면 무엇이 빠졌는지 안 보인다 */
-export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC, ...BODY2_DESC, ...GEO2_DESC, ...GEO3_DESC, ...CRAFT_DESC, ...CRAFT2_DESC, ...CRAFT3_DESC, ...CRAFT4_DESC, ...GEO4_DESC, ...RATE3_DESC, ...BODY4_DESC };
+export const TERM_DESC: Record<string, Term> = { ...CORE_DESC, ...RATE_DESC, ...BODY2_DESC, ...GEO2_DESC, ...GEO3_DESC, ...CRAFT_DESC, ...CRAFT2_DESC, ...CRAFT3_DESC, ...CRAFT4_DESC, ...GEO4_DESC, ...RATE3_DESC, ...BODY4_DESC, ...RATE4_DESC, ...CRAFT5_DESC };
 
 /**
  * 라벨 옆에 붙는 한 줄 뜻풀이.

@@ -1,0 +1,174 @@
+import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
+import PageGlow from '@/components/PageGlow';
+import Faq from '@/components/Faq';
+import ToolIcon from '@/components/ToolIcon';
+import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
+import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
+import { CMD_ICON, cmdItem } from '@/lib/cmd/list';
+import { cmdFacts } from '@/lib/cmd/facts';
+import { cmdDesc } from '@/lib/cmd/desc';
+import { CMD_UI } from '@/lib/cmd/ui';
+import CopyLine from '@/components/cmd/CopyLine';
+import LangPicker from '@/components/LangPicker';
+
+/**
+ * 명령 한 장 — 열 언어가 이 컴포넌트 하나를 쓴다.
+ *
+ * 맨 위가 쓰는 꼴이다. "tar 압축 어떻게"로 들어온 사람은 설명보다 붙여 쓸 한
+ * 줄을 먼저 찾는다. 그 아래에 뜻, 옵션 표, 예시가 온다.
+ *
+ * 명령·옵션·예시는 열 언어가 같은 문자열을 쓴다 — 번역하면 그대로 칠 수 없는
+ * 글자가 된다. 언어를 따르는 것은 설명과 화면 틀뿐이다.
+ */
+export default function CmdPage({ slug, lang }: { slug: string; lang: Lang }) {
+  const x = cmdItem(slug);
+  if (!x) return null;
+
+  const ui = CMD_UI[lang];
+  const f = cmdFacts(x);
+  const desc = cmdDesc(slug, lang);
+  const cat = ui.catLabel[x.category];
+  const prefix = langPrefix(lang);
+  const homeHref = lang === 'ko' ? '/' : `${prefix}/cmd`;
+  const path = `${prefix}/cmd/${slug}`;
+  const base = localeOfLang(lang);
+  /** man은 첫 낱말만 받는다 — 'git reset'의 man 페이지는 git-reset이다 */
+  const manName = x.name.includes(' ') ? x.name.replace(/ /g, '-') : x.name;
+
+  return (
+    <div className="page-wrap">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: ui.home, path: homeHref },
+          { name: ui.section, path: `${prefix}/cmd` },
+          { name: x.name, path },
+        ])}
+      />
+      <JsonLd data={webAppJsonLd(x.name, ui.metaDesc(x.name, desc), path)} />
+
+      <PageGlow accent="indigo" />
+      <div className="h-1 bg-gradient-to-r from-slate-700 to-indigo-500" />
+
+      <header className="page-head">
+        <div className="page-bar">
+          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            {ui.home}
+          </Link>
+          <span className="text-slate-200 dark:text-slate-700">·</span>
+          <Link href={`${prefix}/cmd`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+            {ui.section}
+          </Link>
+          <div className="ml-auto shrink-0">
+            <LangPicker current={localeOfLang(lang)} route={`/cmd/${slug}`} available={LOCALE_PATHS} />
+          </div>
+        </div>
+      </header>
+
+      <main className="relative max-w-2xl mx-auto px-4 py-8">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-slate-700 to-indigo-500">
+            <ToolIcon emoji={CMD_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white" />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1 font-mono break-all">{x.name}</h1>
+          <p className="text-xs text-slate-400 dark:text-slate-500">{cat}</p>
+        </div>
+
+        {/* 쓰는 꼴이 먼저다 — 찾아온 사람이 붙여 갈 한 줄 */}
+        <section className="mb-6" aria-label={ui.usageTitle}>
+          <p className="label-caps mb-2">{ui.usageTitle}</p>
+          <CopyLine text={x.usage} copyLabel={ui.copyLabel} copiedLabel={ui.copiedLabel} />
+        </section>
+
+        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-4 mb-6">
+          {desc}
+        </p>
+
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40">
+            <p className="label-caps">{ui.flagsTitle}</p>
+          </div>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-slate-100 dark:border-slate-800 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+                <th scope="col" className="text-left px-4 py-2 w-1/3">{ui.flagCol}</th>
+                <th scope="col" className="text-left px-4 py-2">{ui.meaningCol}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {x.flags.map(fl => (
+                <tr key={fl.flag}>
+                  <th scope="row" className="text-left px-4 py-3 font-black text-slate-800 dark:text-slate-100 font-mono text-[13px] align-top">
+                    {fl.flag}
+                  </th>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300 leading-relaxed">{fl.en}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section className="mt-6" aria-label={ui.examplesTitle}>
+          <p className="label-caps mb-2">{ui.examplesTitle}</p>
+          <div className="flex flex-col gap-3">
+            {x.examples.map(ex => (
+              <div key={ex.cmd}>
+                <CopyLine text={ex.cmd} copyLabel={ui.copyLabel} copiedLabel={ui.copiedLabel} />
+                <p className="mt-1.5 px-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ex.en}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <p className="mt-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+          {ui.catNote[x.category]}
+        </p>
+
+        <section className="mt-8">
+          <h2 className="sec-h2">{ui.howTitle}</h2>
+          <ul className="list-card">
+            {ui.how.map(h => (
+              <li key={h} className="cell-note">{h}</li>
+            ))}
+          </ul>
+        </section>
+
+        <Faq items={ui.itemFaq(f, desc, cat)} lang={base} title={ui.faqTitle} />
+
+        <section className="mt-8" aria-label={ui.relatedTitle}>
+          <h2 className="sec-h2">{ui.relatedTitle}</h2>
+          <div className="flex flex-wrap gap-2">
+            {f.related.map(n => (
+              <Link
+                key={n}
+                href={`${prefix}/cmd/${n}`}
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 font-mono hover:shadow-sm hover:-translate-y-0.5 transition-all"
+              >
+                {cmdItem(n)?.name ?? n}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <p className="mt-6 text-center">
+          <span className="text-xs font-bold text-slate-400 dark:text-slate-500 font-mono">
+            {ui.manLabel}: man {manName}
+          </span>
+        </p>
+
+        <nav className="foot-nav" aria-label="Language">
+          {LANGS.filter(l => l.lang !== lang).map(l => (
+            <Link key={l.lang} href={`${l.prefix}/cmd/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      </main>
+
+      <SiteFooter lang={base} />
+    </div>
+  );
+}

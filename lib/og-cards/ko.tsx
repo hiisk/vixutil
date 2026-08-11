@@ -76,6 +76,7 @@ import { hubCard as gravityHub } from '@/lib/gravity/route';
 import { HANJA_SECTION, HANJA_UI } from '@/lib/hanja-ui';
 import { hubCard as htmlHub } from '@/lib/html/route';
 import { hubCard as httpHub } from '@/lib/http/route';
+import { hubCard as cmdHub } from '@/lib/cmd/route';
 import { hubCard as imgsizeHub } from '@/lib/imgsize/route';
 import { hubCard as keycodeHub } from '@/lib/keycode/route';
 import { hubCard as lensHub } from '@/lib/lens/route';
@@ -822,6 +823,7 @@ export const CARDS: Record<string, () => ReactElement> = {
     });
   },
   'html': () => htmlHub('ko'),
+  'cmd': () => cmdHub('ko'),
   'http': () => httpHub('ko'),
   'image': () => ogCard({
     icon: '🖼️',

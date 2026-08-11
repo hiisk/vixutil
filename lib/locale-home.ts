@@ -1473,6 +1473,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/cmd', icon: '⌨️', color: 'from-slate-700 to-indigo-500',
+    accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
+    copy: {
+      en: { title: 'Terminal Commands', desc: 'ls, grep, tar, chmod, git reset — flags and examples' },
+      es: { title: 'Comandos de terminal', desc: 'ls, grep, tar, chmod, git reset: opciones y ejemplos' },
+      'pt-br': { title: 'Comandos de terminal', desc: 'ls, grep, tar, chmod, git reset — opções e exemplos' },
+      ja: { title: 'ターミナルのコマンド', desc: 'ls・grep・tar・chmod・git reset のオプションと例' },
+      de: { title: 'Terminal-Befehle', desc: 'ls, grep, tar, chmod, git reset — Optionen und Beispiele' },
+      fr: { title: 'Commandes du terminal', desc: 'ls, grep, tar, chmod, git reset : options et exemples' },
+      hi: { title: 'टर्मिनल कमांड', desc: 'ls, grep, tar, chmod, git reset — विकल्प और उदाहरण' },
+      'zh-hans': { title: '终端命令', desc: 'ls、grep、tar、chmod、git reset 的选项和示例' },
+      'zh-hant': { title: '終端機命令', desc: 'ls、grep、tar、chmod、git reset 的選項和範例' },
+    },
+  },
+  {
     route: '/http', icon: '🗄️', color: 'from-teal-600 to-emerald-500',
     accent: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-900/50', bg: 'bg-teal-50 dark:bg-teal-950/30',
     copy: {
