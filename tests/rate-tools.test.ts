@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { RATE_TOOLS, rateTool } from '../lib/rate-tools.ts';
 import { RATE_SECTION } from '../lib/rate-section.ts';
 import { groupNum } from '../lib/formula/ui.ts';
-import { checkFormulaSection, primaryOf as primaryIn } from './formula-section-checks.ts';
+import { checkFormulaSection, primaryOf as primaryIn, checkEngineLabels } from './formula-section-checks.ts';
 
 /* 구조·i18n·라우트 검사는 세 섹션이 공유한다 (tests/formula-section-checks.ts) */
 checkFormulaSection(RATE_SECTION, 100);
+checkEngineLabels(RATE_SECTION);
 
 const primaryOf = (slug: string, v: Record<string, number>) => primaryIn(RATE_TOOLS, slug, v);
 

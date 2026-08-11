@@ -9,7 +9,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import type { FormulaTool } from '../lib/formula/types.ts';
-import { textOf } from '../lib/formula/types.ts';
+import { textOf } from '../lib/formula/text.ts';
 import { TERMS, UNITS, type FormulaLang } from '../lib/formula/terms.ts';
 import { sectionAlternates, groupNum, formulaLocales } from '../lib/formula/ui.ts';
 import { formulaFaq, renderFormula } from '../lib/formula/faq.ts';
@@ -20,6 +20,8 @@ import { sectionMeta, sectionCategories } from '../lib/formula/section.ts';
 import { verdictText } from '../lib/formula/types.ts';
 import { appFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
+import { engineLabels } from '../lib/formula/engine-labels.ts';
+import { sectionHasLang } from '../lib/formula/section.ts';
 
 const LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 const HANGUL = /[가-힣]/;
@@ -375,5 +377,63 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
       assert.ok(sectionMeta(section, lang).metaDesc.length > min, `${lang} 설명이 너무 짧다`);
     }
     assert.ok(!HANGUL.test(section.meta.en.metaTitle + section.meta.en.metaDesc));
+  });
+}
+
+/**
+ * 서버가 풀어 주는 라벨이 화면에 필요한 것을 다 담는지 본다.
+ *
+ * 클라이언트 엔진은 사전을 들고 있지 않다 — term()을 부르면 여덟 언어 사전
+ * 2.6MB가 번들에 딸려 오기 때문이다(components/FormulaEngine.tsx 주석). 대신
+ * 서버가 기본값으로 한 번 계산해 그 도구가 쓰는 열쇠만 풀어 넘긴다.
+ *
+ * 그 방식은 "출력 항목이 입력에 따라 바뀌지 않는다"는 데 기댄다. 어떤 도구가
+ * 입력에 따라 다른 term을 내놓으면 그 라벨이 라벨 표에 없어서 화면에 열쇠
+ * 이름이 그대로 뜬다 — 페이지가 깨지지 않아 눈으로는 못 잡는 종류다.
+ */
+export function checkEngineLabels(section: SectionConfig) {
+  const name = `[${section.key}]`;
+
+  test(`${name} 출력 항목이 입력에 따라 바뀌지 않는다`, () => {
+    const bad: string[] = [];
+    for (const t of section.tools) {
+      const sets = new Set<string>();
+      for (const mode of ['def', 'zero', 'x2', 'half'] as const) {
+        const v: Record<string, number> = {};
+        for (const f of t.fields) {
+          v[f.key] = mode === 'def' ? f.def : mode === 'zero' ? 0 : mode === 'x2' ? f.def * 2 : f.def / 2;
+        }
+        sets.add(t.compute(v).map(o => `${o.term}:${o.unit ?? ''}`).join('|'));
+      }
+      if (sets.size > 1) bad.push(`${t.slug} — ${[...sets].join(' / ')}`);
+    }
+    assert.deepEqual(
+      bad, [],
+      `입력에 따라 출력 항목이 달라진다. 서버가 미리 푼 라벨에 없는 항목이 나오면 화면에 열쇠 이름이 뜬다:\n  ${bad.join('\n  ')}`,
+    );
+  });
+
+  test(`${name} 서버가 푸는 라벨이 화면에 필요한 것을 다 담는다`, () => {
+    const bad: string[] = [];
+    for (const t of section.tools) {
+      for (const lang of LANGS) {
+        if (!sectionHasLang(section, lang)) continue;
+        const { labels, units } = engineLabels(t, lang);
+        const v: Record<string, number> = {};
+        for (const f of t.fields) v[f.key] = f.def;
+        for (const f of t.fields) {
+          if (!labels[f.term]) bad.push(`${t.slug}/${lang}: 입력 ${f.term}`);
+          if (f.unit && units[f.unit] === undefined) bad.push(`${t.slug}/${lang}: 단위 ${f.unit}`);
+        }
+        for (const o of t.compute(v)) {
+          if (!labels[o.term]) bad.push(`${t.slug}/${lang}: 출력 ${o.term}`);
+          if (o.unit && units[o.unit] === undefined) bad.push(`${t.slug}/${lang}: 단위 ${o.unit}`);
+        }
+        for (const m of t.formula.matchAll(/\{(\w+)\}/g)) {
+          if (!labels[m[1]]) bad.push(`${t.slug}/${lang}: 공식 ${m[1]}`);
+        }
+      }
+    }
+    assert.deepEqual(bad.slice(0, 20), [], `라벨이 없어 화면에 열쇠 이름이 뜬다 (${bad.length}건)`);
   });
 }

@@ -5,13 +5,15 @@ import Faq from '@/components/Faq';
 import FormulaArticle from '@/components/FormulaArticle';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from '@/components/JsonLd';
-import { textOf, type FormulaTool } from '@/lib/formula/types';
+import type { FormulaTool } from '@/lib/formula/types';
+import { textOf } from '@/lib/formula/text';
 import type { FormulaLang } from '@/lib/formula/terms';
 import { FORMULA_UI, formulaLocales } from '@/lib/formula/ui';
 import LangPicker from '@/components/LangPicker';
 import { sectionMeta } from '@/lib/formula/section';
 import { localeHref, localePrefix } from '@/lib/locales';
-import { formulaFaq } from '@/lib/formula/faq';
+import { formulaFaq, renderFormula } from '@/lib/formula/faq';
+import { engineLabels } from '@/lib/formula/engine-labels';
 import type { SectionConfig } from '@/lib/formula/section';
 
 /**
@@ -29,8 +31,12 @@ export function relatedTools(section: SectionConfig, slug: string, limit = 4): F
   return [...same, ...others].slice(0, limit);
 }
 
+
 /** 섹션마다 다른 클라이언트 진입점 — compute가 함수라서 경계를 넘길 수 없다 */
-type EngineProps = { slug: string; lang: FormulaLang; grad: string; textAccent: string; focusBorder: string };
+type EngineProps = {
+  slug: string; lang: FormulaLang; grad: string; textAccent: string; focusBorder: string;
+  labels: Record<string, string>; units: Record<string, string>; note: string; formulaText: string;
+};
 
 export default function FormulaPage({
   tool,
@@ -99,6 +105,9 @@ export default function FormulaPage({
           grad={section.grad}
           textAccent={section.textAccent}
           focusBorder={section.focusBorder}
+          {...engineLabels(tool, lang)}
+          note={text.note}
+          formulaText={renderFormula(tool.formula, lang)}
         />
 
         <FormulaArticle tool={tool} lang={lang} section={section} />

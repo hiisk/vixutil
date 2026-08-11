@@ -2,10 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GEO_TOOLS, geoTool } from '../lib/geo-tools.ts';
 import { GEO_SECTION } from '../lib/geo-section.ts';
-import { checkFormulaSection, primaryOf, outputsOf } from './formula-section-checks.ts';
+import { checkFormulaSection, primaryOf, outputsOf, checkEngineLabels } from './formula-section-checks.ts';
 import { round } from '../lib/formula/num.ts';
 
 checkFormulaSection(GEO_SECTION, 100);
+checkEngineLabels(GEO_SECTION);
 
 const primary = (slug: string, v: Record<string, number>) => primaryOf(GEO_TOOLS, slug, v);
 const outputs = (slug: string, v: Record<string, number>) => outputsOf(GEO_TOOLS, slug, v);

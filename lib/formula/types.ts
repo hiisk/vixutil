@@ -6,7 +6,6 @@
  * 세 섹션 백오십 페이지를 그린다.
  */
 import type { FormulaLang } from './terms.ts';
-import { TOOL_L10N } from './tool-l10n.ts';
 
 export interface FieldSpec {
   /** compute에 넘어가는 키 */
@@ -74,16 +73,6 @@ export interface FormulaTool {
   en: FormulaText;
 }
 
-/**
- * 그 언어의 도구 문구.
- *
- * ko·en은 도구 데이터에 그대로 붙어 있고, 나머지는 섹션별 사전(lib/rate-l10n/ 등)에
- * 있다. 사전에 없으면 영어로 되돌린다 — 그 도구만 영어가 되고 화면은 깨지지 않는다.
- */
-export const textOf = (tool: FormulaTool, lang: FormulaLang): FormulaText => {
-  if (lang === 'ko' || lang === 'en') return tool[lang];
-  return TOOL_L10N[lang]?.[tool.slug] ?? tool.en;
-};
 
 /** 0으로 나누기와 NaN을 한 곳에서 막는다 — 쉰 개가 각자 막으면 몇 개는 빠진다 */
 export const safe = (n: number): number => (Number.isFinite(n) ? n : 0);

@@ -1,13 +1,17 @@
 'use client';
 import { useMemo, useState } from 'react';
 import type { FormulaTool } from '@/lib/formula/types';
-import { term, unitLabel, type FormulaLang } from '@/lib/formula/terms';
-import { textOf, verdictText } from '@/lib/formula/types';
+import type { FormulaLang } from '@/lib/formula/terms';
+import { verdictText } from '@/lib/formula/types';
 import { FORMULA_UI, groupNum } from '@/lib/formula/ui';
-import { renderFormula } from '@/lib/formula/faq';
 
 /**
- * 공식 계산 엔진 — 백오십 페이지가 이 컴포넌트 하나를 쓴다.
+ * 공식 계산 엔진 — 육백 페이지가 이 컴포넌트 하나를 쓴다.
+ *
+ * 라벨·주의문·공식 문자열은 서버에서 풀어 prop으로 받는다. 여기서 term()이나
+ * textOf()를 부르면 여덟 언어 사전 전체(2.8MB)가 클라이언트 번들로 딸려 온다 —
+ * 낱장 하나에 필요한 것은 한 도구·한 언어인데 육백서른다섯 도구의 여덟 언어가
+ * 실린다. 사전은 서버에만 두고, 이 컴포넌트는 계산과 그리기만 한다.
  *
  * 입력은 문자열로 들고 있는다. 숫자로 정규화하면 "0.05"를 치는 도중 "0"에서
  * 값이 튀고, 지웠을 때 0이 박혀 다시 지워야 한다.
@@ -18,11 +22,23 @@ export default function FormulaEngine({
   tool,
   lang = 'ko',
   section,
+  labels,
+  units,
+  note,
+  formulaText,
 }: {
   tool: FormulaTool;
   lang?: FormulaLang;
   section: { grad: string; textAccent: string; focusBorder: string };
+  /** 용어 열쇠 → 그 언어 라벨. 서버가 이 도구가 쓰는 것만 담아 준다 */
+  labels: Record<string, string>;
+  /** 단위 열쇠 → 그 언어 라벨 */
+  units: Record<string, string>;
+  note: string;
+  formulaText: string;
 }) {
+  const term = (k: string) => labels[k] ?? k;
+  const unitLabel = (k: string) => units[k] ?? '';
   const ui = FORMULA_UI[lang];
   const [raw, setRaw] = useState<Record<string, string>>(() =>
     Object.fromEntries(tool.fields.map(f => [f.key, String(f.def)])),
@@ -43,11 +59,11 @@ export default function FormulaEngine({
   const rest = outputs.filter(o => o !== primary);
   const verdict = tool.verdict?.(values, outputs) ?? null;
 
-  const primaryText = `${groupNum(primary.value, primary.digits ?? 2)}${unitLabel(primary.unit ?? 'none', lang)}`;
+  const primaryText = `${groupNum(primary.value, primary.digits ?? 2)}${unitLabel(primary.unit ?? 'none')}`;
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(`${term(primary.term, lang)} ${primaryText}`);
+      await navigator.clipboard.writeText(`${term(primary.term)} ${primaryText}`);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
     } catch { setCopied(false); }
@@ -66,10 +82,10 @@ export default function FormulaEngine({
           {tool.fields.map(f => (
             <label key={f.key} className="block">
               <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">
-                {term(f.term, lang)}
+                {term(f.term)}
                 {f.unit && f.unit !== 'none' && (
                   <span className="ml-1 font-medium text-slate-400 dark:text-slate-500">
-                    ({unitLabel(f.unit, lang)})
+                    ({unitLabel(f.unit)})
                   </span>
                 )}
               </span>
@@ -80,7 +96,7 @@ export default function FormulaEngine({
                   setRaw(prev => ({ ...prev, [f.key]: cleaned }));
                 }}
                 inputMode="decimal"
-                aria-label={term(f.term, lang)}
+                aria-label={term(f.term)}
                 className={`w-full rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-xl font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none transition-colors ${section.focusBorder}`}
               />
             </label>
@@ -89,7 +105,7 @@ export default function FormulaEngine({
       </div>
 
       <div className={`mt-3 rounded-2xl bg-gradient-to-br ${section.grad} text-white px-6 py-7 text-center shadow-lg`}>
-        <p className="text-sm text-white/75 mb-1">{term(primary.term, lang)}</p>
+        <p className="text-sm text-white/75 mb-1">{term(primary.term)}</p>
         <p data-formula-result className="text-3xl sm:text-4xl font-black tabular-nums break-all">{primaryText}</p>
         <button
           onClick={copy}
@@ -107,12 +123,12 @@ export default function FormulaEngine({
               className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center"
             >
               <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1 truncate">
-                {term(o.term, lang)}
+                {term(o.term)}
               </p>
               <p className={`text-base font-black tabular-nums ${section.textAccent}`}>
                 {groupNum(o.value, o.digits ?? 2)}
                 <span className="text-xs font-bold text-slate-400 dark:text-slate-500 ml-0.5">
-                  {unitLabel(o.unit ?? 'none', lang)}
+                  {unitLabel(o.unit ?? 'none')}
                 </span>
               </p>
             </div>
@@ -130,9 +146,9 @@ export default function FormulaEngine({
       <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-4 py-3.5">
         <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.formula}</p>
         <p className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 leading-relaxed break-words">
-          {renderFormula(tool.formula, lang)}
+          {formulaText}
         </p>
-        <p className="mt-2.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{textOf(tool, lang).note}</p>
+        <p className="mt-2.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{note}</p>
       </div>
     </div>
   );

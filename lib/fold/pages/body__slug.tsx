@@ -5,7 +5,7 @@ import BodyEngine from '@/components/body/BodyEngine';
 import { BODY_SECTION, BODY_LANGS } from '@/lib/body-section';
 import { bodyTool, BODY_TOOLS } from '@/lib/body-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
-import { textOf } from '@/lib/formula/types';
+import { textOf } from '@/lib/formula/text';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { withCard } from '@/lib/og-cards';
 import type { FoldLang } from '../lang';

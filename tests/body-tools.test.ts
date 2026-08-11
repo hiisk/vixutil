@@ -2,9 +2,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BODY_TOOLS, bodyTool } from '../lib/body-tools.ts';
 import { BODY_SECTION } from '../lib/body-section.ts';
-import { checkFormulaSection, primaryOf, outputsOf } from './formula-section-checks.ts';
+import { checkFormulaSection, primaryOf, outputsOf, checkEngineLabels } from './formula-section-checks.ts';
 
 checkFormulaSection(BODY_SECTION, 100);
+checkEngineLabels(BODY_SECTION);
 
 const primary = (slug: string, v: Record<string, number>) => primaryOf(BODY_TOOLS, slug, v);
 const outputs = (slug: string, v: Record<string, number>) => outputsOf(BODY_TOOLS, slug, v);

@@ -5,7 +5,7 @@ import RateEngine from '@/components/rate/RateEngine';
 import { RATE_SECTION } from '@/lib/rate-section';
 import { rateTool, RATE_TOOLS } from '@/lib/rate-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
-import { textOf } from '@/lib/formula/types';
+import { textOf } from '@/lib/formula/text';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { RATE_LANGS } from '@/lib/rate-section';
 import { withCard } from '@/lib/og-cards';

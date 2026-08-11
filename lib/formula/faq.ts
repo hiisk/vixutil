@@ -4,7 +4,8 @@
  * "예를 들어"라고 쓰고 예시가 없으면 아무 말도 안 한 것과 같다. 기본값을 그대로
  * 계산해 넣으면 페이지마다 서로 다른 진짜 숫자가 들어간다.
  */
-import { textOf, type FormulaTool } from './types.ts';
+import type { FormulaTool } from './types.ts';
+import { textOf } from './text.ts';
 import { term, unitLabel, type FormulaLang } from './terms.ts';
 import { FORMULA_UI, groupNum } from './ui.ts';
 import { scenarioTable } from './article.ts';

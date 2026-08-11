@@ -4,7 +4,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import type { FormulaLang } from '@/lib/formula/terms';
-import { textOf } from '@/lib/formula/types';
+import { textOf } from '@/lib/formula/text';
 import { FORMULA_UI, formulaLocales } from '@/lib/formula/ui';
 import LangPicker from '@/components/LangPicker';
 import { sectionCategories, sectionMeta, type SectionConfig } from '@/lib/formula/section';

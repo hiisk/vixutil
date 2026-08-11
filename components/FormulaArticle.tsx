@@ -1,6 +1,6 @@
 import type { FormulaTool } from '@/lib/formula/types';
 import type { FormulaLang } from '@/lib/formula/terms';
-import { textOf } from '@/lib/formula/types';
+import { textOf } from '@/lib/formula/text';
 import { FORMULA_UI } from '@/lib/formula/ui';
 import { renderFormula } from '@/lib/formula/faq';
 import { answerLine, glossaryRows, inputRows, outputRows, scenarioTable, substituted } from '@/lib/formula/article';

@@ -5,7 +5,7 @@ import CraftEngine from '@/components/craft/CraftEngine';
 import { CRAFT_SECTION, CRAFT_LANGS } from '@/lib/craft-section';
 import { craftTool } from '@/lib/craft-tools';
 import { sectionAlternates } from '@/lib/formula/ui';
-import { textOf } from '@/lib/formula/types';
+import { textOf } from '@/lib/formula/text';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { withCard } from '@/lib/og-cards';
 import type { FoldLang } from '../lang';

@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { CRAFT_TOOLS, craftTool, CRAFT_CATEGORIES } from '../lib/craft-tools.ts';
 import { CRAFT_SECTION } from '../lib/craft-section.ts';
-import { checkFormulaSection, primaryOf, outputsOf } from './formula-section-checks.ts';
+import { checkFormulaSection, primaryOf, outputsOf, checkEngineLabels } from './formula-section-checks.ts';
 
 /**
  * 공예 섹션.
@@ -13,6 +13,7 @@ import { checkFormulaSection, primaryOf, outputsOf } from './formula-section-che
  * 계산기와 /rate 사이에서 그렇게 65건이 잡혔다.
  */
 checkFormulaSection(CRAFT_SECTION, 40);
+checkEngineLabels(CRAFT_SECTION);
 
 const primary = (slug: string, v: Record<string, number>) => primaryOf(CRAFT_TOOLS, slug, v);
 const outputs = (slug: string, v: Record<string, number>) => outputsOf(CRAFT_TOOLS, slug, v);

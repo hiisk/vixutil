@@ -17,14 +17,23 @@ export default function RateEngine({
   grad,
   textAccent,
   focusBorder,
+  labels,
+  units,
+  note,
+  formulaText,
 }: {
   slug: string;
   lang: FormulaLang;
   grad: string;
   textAccent: string;
   focusBorder: string;
+  labels: Record<string, string>;
+  units: Record<string, string>;
+  note: string;
+  formulaText: string;
 }) {
   const tool = rateTool(slug);
   if (!tool) return null;
-  return <FormulaEngine tool={tool} lang={lang} section={{ grad, textAccent, focusBorder }} />;
+  return <FormulaEngine tool={tool} lang={lang} section={{ grad, textAccent, focusBorder }}
+      labels={labels} units={units} note={note} formulaText={formulaText} />;
 }
