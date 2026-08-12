@@ -9,6 +9,7 @@ import CalcFaq from './CalcFaq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
 import ReferralCards from './ReferralCards';
+import ReferralAside, { RAIL_WRAP } from './ReferralAside';
 
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
 export function makeMetadata(title: string, description: string): Metadata {
@@ -40,6 +41,23 @@ export default function CalcShell({
   intro?: React.ReactNode;
   children: React.ReactNode;
 }) {
+  /*
+    ── 본문 폭을 큰 화면에서만 넓혔다 (2026-08-12) ──
+
+    576px(max-w-xl)은 한국어 16px 본문에서 한 줄에 34자쯤이다. 짧다고 못 읽는
+    폭은 아니지만, 1440px 화면에서 양옆이 430px씩 비어 있었다. lg부터 한 단계
+    넓혀(672px) 읽기 좋은 줄 길이 안에 두고, 상한을 둬서 무한히 늘어나지 않게 한다
+    — 줄이 너무 길어지면 다음 줄 머리로 눈이 돌아오기 힘들어진다.
+
+    sm 이하는 한 픽셀도 건드리지 않는다. 접두어 없는 max-w-xl이 그대로 있고 lg:만
+    얹혔다 — 모바일이 방문의 대부분이라 여기서 폭이 바뀌면 잃는 쪽이 크다.
+
+    머리글과 본문이 폭을 각각 적지 않고 이 기둥 하나를 함께 쓴다. 예전에는 같은
+    삼항식이 두 줄에 적혀 있었고, 한쪽만 고치면 제목이 본문과 다른 자리에서
+    시작한다. 이제 어긋날 수가 없다.
+  */
+  const width = wide ? 'max-w-3xl lg:max-w-4xl' : 'max-w-xl lg:max-w-2xl';
+
   return (
     /*
       배경에 아주 옅은 컬러 웜을 깔고, 그 위에 반투명 카드를 올린다(글래스모피즘).
@@ -81,64 +99,91 @@ export default function CalcShell({
           </div>
         </header>
 
-        {/* 페이지 타이틀 */}
-        <div className={`${wide ? 'max-w-3xl' : 'max-w-xl'} mx-auto px-4 pt-8 pb-2`}>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{description}</p>
-        </div>
+        {/*
+          ── 본문 기둥 + 옆 제휴 레일 (2026-08-12) ──
 
-        {/* 본문 */}
-        <main className={`${wide ? 'max-w-3xl' : 'max-w-xl'} mx-auto px-4 py-6 pb-8`}>
-          {children}
+          레일은 넓힌 본문의 **바깥**, 남는 여백에 들어간다. 본문을 좁혀 자리를
+          만드는 것이 아니다 — 그래서 레일이 생겨도 한 줄의 글자 수는 그대로다.
 
-          {intro && (
-            <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 dark:[&_h2]:text-slate-100 [&_strong]:text-slate-800 dark:[&_strong]:text-slate-100">
-              {intro}
+          잃는 것 — 레일이 뜨는 xl 이상에서 본문 기둥이 페이지 가운데가 아니라
+          왼쪽으로 160px쯤 붙는다("기둥 + 레일" 묶음이 가운데다). 레일이 없는
+          화면은 예전처럼 가운데다.
+        */}
+        <div className={wide ? RAIL_WRAP.wide : RAIL_WRAP.narrow}>
+          <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>
+            {/* 페이지 타이틀 */}
+            <div className="px-4 pt-8 pb-2">
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{title}</h1>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{description}</p>
             </div>
-          )}
 
-          {/*
-            계산기는 입력하는 대로 결과가 갱신돼서 "제출 버튼"이라는 순간이 없다.
-            그래서 결과 바로 아래가 아니라 설명 문단 뒤에 둔다 — 계산기와 그 해설
-            사이를 광고로 끊으면, 저품질 판정 대응으로 본문을 정적 렌더링해 넣은
-            작업(cf966da)이 노리던 "도구 + 설명" 흐름이 깨진다.
-          */}
-          <ReferralCards placement="result" />
+            {/* 본문 */}
+            <main className="px-4 py-6 pb-8">
+              {children}
 
-          {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
-          <CrossLinks />
+              {intro && (
+                <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 dark:[&_h2]:text-slate-100 [&_strong]:text-slate-800 dark:[&_strong]:text-slate-100">
+                  {intro}
+                </div>
+              )}
 
-          <RelatedCalcs />
+              {/*
+                계산기는 입력하는 대로 결과가 갱신돼서 "제출 버튼"이라는 순간이 없다.
+                그래서 결과 바로 아래가 아니라 설명 문단 뒤에 둔다 — 계산기와 그 해설
+                사이를 광고로 끊으면, 저품질 판정 대응으로 본문을 정적 렌더링해 넣은
+                작업(cf966da)이 노리던 "도구 + 설명" 흐름이 깨진다.
 
-          <CalcFaq items={faq} />
+                ── 그래서 자리를 안 옮겼다 (2026-08-12) ──
+                결과 바로 아래가 클릭이 가장 잘 되는 자리인 것은 맞다. 설명 문단
+                **앞**으로 올리는 것도 재 봤는데, 그게 바로 위 문단이 거부한 그
+                자리다 — 계산기와 해설 사이가 정확히 거기다. 그래서 흐름을 사는 대신
+                노출을 옆으로 늘렸다: 넓은 화면에서는 ReferralAside가 결과 옆
+                눈높이에 서고, 좁은 화면에서는 여기 이 카드가 예전 자리를 지킨다.
+                대신 카드 자체를 키웠다(제목 한 단계·금액 32→36px·테두리 2px).
 
-          {/*
-            ── 틀릴 수 있다는 것을 모든 계산기에 적는다 (2026-08-12) ──
+                rail은 "이 화면에 옆 레일이 함께 뜬다"는 뜻이다. 그래야 xl 이상에서
+                본문 카드와 레일이 같은 거래소를 두 번 보여 주지 않는다.
+              */}
+              <ReferralCards placement="result" rail />
 
-            계산기 146개에는 해마다 고시로 바뀌는 값(세율 구간·보험 요율·최저임금·
-            요금표·연금 상수)이 들어 있다. 시행 직후에는 반영에 시차가 생기고,
-            개인 사정에 따른 예외를 다 담을 수도 없다.
+              {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
+              <CrossLinks />
 
-            그런데 그 사실이 지금까지 **허브 FAQ 한 줄에만** 있었다. 개별 계산기는
-            페이지마다 각주가 있는 것도 있고 없는 것도 있었다. 계산 결과가 큰
-            숫자로 크게 떠 있으면 사람들은 그것을 확정된 금액으로 읽는다 — 그래서
-            껍데기에 넣어 146장 전부에 같은 문구가 뜨게 했다.
+              <RelatedCalcs />
 
-            이 자리를 FAQ 뒤에 둔 것은 결과 바로 아래에 두면 계산 흐름을 끊기
-            때문이다. 대신 글씨를 죽이지 않고 테두리를 줘서 눈에 들어오게 했다.
-          */}
-          <div className="mt-8 rounded-2xl border border-amber-200/80 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/30 p-5">
-            <p className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">
-              이 결과는 틀릴 수 있습니다
-            </p>
-            <p className="text-xs leading-relaxed text-amber-800/90 dark:text-amber-300/80">
-              공개된 산식과 표준 요율로 낸 <strong>참고용 추정치</strong>입니다. 세율 구간·보험 요율·
-              최저임금·요금표처럼 <strong>해마다 고시로 바뀌는 값</strong>은 시행 직후 반영에 시차가 생길
-              수 있고, 개인 사정에 따른 예외와 감면을 모두 담지도 못합니다. 금액이 중요한 판단에
-              쓰인다면 관계 기관의 최신 고시나 금융사·공단의 확정 통보로 반드시 확인하세요.
-            </p>
+              <CalcFaq items={faq} />
+
+              {/*
+                ── 틀릴 수 있다는 것을 모든 계산기에 적는다 (2026-08-12) ──
+
+                계산기 146개에는 해마다 고시로 바뀌는 값(세율 구간·보험 요율·최저임금·
+                요금표·연금 상수)이 들어 있다. 시행 직후에는 반영에 시차가 생기고,
+                개인 사정에 따른 예외를 다 담을 수도 없다.
+
+                그런데 그 사실이 지금까지 **허브 FAQ 한 줄에만** 있었다. 개별 계산기는
+                페이지마다 각주가 있는 것도 있고 없는 것도 있었다. 계산 결과가 큰
+                숫자로 크게 떠 있으면 사람들은 그것을 확정된 금액으로 읽는다 — 그래서
+                껍데기에 넣어 146장 전부에 같은 문구가 뜨게 했다.
+
+                이 자리를 FAQ 뒤에 둔 것은 결과 바로 아래에 두면 계산 흐름을 끊기
+                때문이다. 대신 글씨를 죽이지 않고 테두리를 줘서 눈에 들어오게 했다.
+              */}
+              <div className="mt-8 rounded-2xl border border-amber-200/80 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/30 p-5">
+                <p className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">
+                  이 결과는 틀릴 수 있습니다
+                </p>
+                <p className="text-xs leading-relaxed text-amber-800/90 dark:text-amber-300/80">
+                  공개된 산식과 표준 요율로 낸 <strong>참고용 추정치</strong>입니다. 세율 구간·보험 요율·
+                  최저임금·요금표처럼 <strong>해마다 고시로 바뀌는 값</strong>은 시행 직후 반영에 시차가 생길
+                  수 있고, 개인 사정에 따른 예외와 감면을 모두 담지도 못합니다. 금액이 중요한 판단에
+                  쓰인다면 관계 기관의 최신 고시나 금융사·공단의 확정 통보로 반드시 확인하세요.
+                </p>
+              </div>
+            </main>
           </div>
-        </main>
+
+          <ReferralAside />
+        </div>
 
         <SiteFooter referral={false} />
       </div>

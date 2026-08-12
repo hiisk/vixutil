@@ -113,7 +113,7 @@ export default function BirthStonePage() {
 
         <Faq items={SECTION_FAQ['fortune/birth-stone']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
 
       <style jsx>{`
         @keyframes bsPop { 0% { opacity: 0; transform: translateY(10px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }

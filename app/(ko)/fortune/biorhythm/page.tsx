@@ -215,7 +215,7 @@ export default function BiorhythmPage() {
 
         <Faq items={SECTION_FAQ['fortune/biorhythm']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

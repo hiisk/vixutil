@@ -160,7 +160,7 @@ export default function TarotYesNoPage() {
 
         <Faq items={SECTION_FAQ['fortune/tarot-yesno']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
 
       <style jsx>{`
         @keyframes dtFlip { 0% { opacity: 0; transform: rotateY(90deg) scale(0.92); } 100% { opacity: 1; transform: rotateY(0) scale(1); } }

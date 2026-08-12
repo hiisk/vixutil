@@ -327,7 +327,7 @@ export default function FirstImpressionPage() {
         <Faq items={SECTION_FAQ['snap/first-impression']} />
       </div>
 
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

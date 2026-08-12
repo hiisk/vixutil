@@ -33,8 +33,14 @@ function tsxFiles(dir: string, out: string[] = []): string[] {
   return out;
 }
 
+/*
+  카드를 정의하는 파일 자신은 "화면"이 아니라 세지 않는다. ReferralAside(옆 레일)는
+  머리 주석에서 referral={false} 규칙을 설명하고 있어서, 안 빼면 그 낱말만 보고
+  "푸터를 껐는데 카드가 없는 화면"으로 잡혔다.
+*/
+const CARD_DEFS = ['SiteFooter.tsx', 'ReferralCards.tsx', 'ReferralAside.tsx'];
 const files = [...tsxFiles(join(ROOT, 'app')), ...tsxFiles(join(ROOT, 'components'))]
-  .filter(f => !f.endsWith('SiteFooter.tsx') && !f.endsWith('ReferralCards.tsx'));
+  .filter(f => !CARD_DEFS.some(d => f.endsWith(d)));
 
 test('푸터 카드를 끈 화면은 자기 카드를 세운다', () => {
   const bad: string[] = [];

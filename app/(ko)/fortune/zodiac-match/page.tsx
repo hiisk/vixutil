@@ -190,7 +190,7 @@ export default function ZodiacMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/zodiac-match']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

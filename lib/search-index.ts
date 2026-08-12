@@ -69,9 +69,18 @@ import { CELLS as BPM_CELLS, BPM_ICON, slugOf as bpmSlug } from './bpm/list.ts';
 import { CELLS as GEAR_CELLS, GEAR_ICON, slugOf as gearSlug } from './gear/list.ts';
 import { CELLS as RING_CELLS, RING_ICON, slugOf as ringSlug } from './ring/list.ts';
 import { CELLS as REBAR_CELLS, REBAR_ICON, slugOf as rebarSlug } from './rebar/list.ts';
+import { CELLS as MOTOR_CELLS, MOTOR_ICON, slugOf as motorSlug } from './motor/list.ts';
+import { CELLS as STEEL_CELLS, STEEL_ICON, slugOf as steelSlug } from './steel/list.ts';
+import { CELLS as HARDNESS_CELLS, HARDNESS_ICON, slugOf as hardnessSlug } from './hardness/list.ts';
+import { CELLS as SUN_CELLS, SUN_ICON, slugOf as sunSlug } from './sun/list.ts';
 import { CELLS as FERTILIZER_CELLS, FERTILIZER_ICON, slugOf as fertilizerSlug } from './fertilizer/list.ts';
 import { ringFacts } from './ring/facts.ts';
 import { rebarFacts } from './rebar/facts.ts';
+import { motorFacts } from './motor/facts.ts';
+import { steelFacts } from './steel/facts.ts';
+import { hardnessFacts, valueOf as hardnessValue } from './hardness/facts.ts';
+import { sunFacts } from './sun/facts.ts';
+import { cellName as sunName, dayLengthText, riseSetText, shadowText } from './sun/ui.ts';
 import { fertilizerFacts } from './fertilizer/facts.ts';
 import { SYMBOL as FERT_SYMBOL, labelOf as fertilizerLabel, mass as fertilizerMass } from './fertilizer/ui.ts';
 import { CELLS as FILAMENT_CELLS, FILAMENT_ICON, slugOf as filamentSlug } from './filament/list.ts';
@@ -215,7 +224,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'motor' | 'steel' | 'hardness' | 'sun' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -299,6 +308,10 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   bpm:        { label: '딜레이 타임', icon: '🎚️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   gear:       { label: '자전거 기어', icon: '🚲', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   fertilizer: { label: '비료 시비량', icon: '🌱', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
+  sun:        { label: '태양 고도',  icon: '🌅', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  hardness:   { label: '물 경도',    icon: '🚰', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  steel:      { label: '강재 무게',   icon: '🔲', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  motor:      { label: '모터 토크',   icon: '🔃', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   rebar:      { label: '철근 물량',   icon: '🏗️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   ring:       { label: '반지 사이즈', icon: '💍', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   filament:   { label: '필라멘트 길이', icon: '🧵', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
@@ -835,6 +848,46 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: FERTILIZER_ICON,
     };
   }),
+  ...SUN_CELLS.map(c => {
+    const f = sunFacts(c);
+    return {
+      href: `/sun/${sunSlug(c)}`,
+      title: `${sunName('ko', f)} 태양 고도 ${f.noonAltitude}° — 낮 ${dayLengthText('ko', f)}`,
+      desc: `적위 ${f.declination}° · 태양시 일출·일몰 ${riseSetText('ko', f)} · 1m 막대 그림자 ${shadowText('ko', f)}`,
+      section: 'sun' as const,
+      icon: SUN_ICON,
+    };
+  }),
+  ...HARDNESS_CELLS.map(ppm => {
+    const f = hardnessFacts(ppm);
+    return {
+      href: `/hardness/${hardnessSlug(ppm)}`,
+      title: `${ppm}ppm 물 경도 — 독일 ${hardnessValue(f, 'dh')}°dH, 미국 ${hardnessValue(f, 'gpg')}gpg`,
+      desc: `프랑스 ${hardnessValue(f, 'fh')}°fH · 영국 ${hardnessValue(f, 'e')}°e · ${hardnessValue(f, 'mmol')}mmol/L`,
+      section: 'hardness' as const,
+      icon: HARDNESS_ICON,
+    };
+  }),
+  ...STEEL_CELLS.map(c => {
+    const f = steelFacts(c);
+    return {
+      href: `/steel/${steelSlug(c)}`,
+      title: `${f.size} 강재 무게 — 단위중량 ${f.unit}kg/m`,
+      desc: `단면적 ${f.area}mm² · 한 개 ${f.perPiece}kg · 1톤에 ${f.piecesPerTon}개`,
+      section: 'steel' as const,
+      icon: STEEL_ICON,
+    };
+  }),
+  ...MOTOR_CELLS.map(c => {
+    const f = motorFacts(c);
+    return {
+      href: `/motor/${motorSlug(c)}`,
+      title: `${c.kw}kW ${c.rpm}rpm 모터 토크 — ${f.torque}N·m`,
+      desc: `${f.kgfm}kgf·m · ${f.ps}PS / ${f.hp}HP · 전부하 ${f.fullRpm}rpm`,
+      section: 'motor' as const,
+      icon: MOTOR_ICON,
+    };
+  }),
   ...REBAR_CELLS.map(c => {
     const f = rebarFacts(c);
     return {
@@ -1330,6 +1383,10 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/bpm', title: '딜레이 타임표', desc: 'BPM과 음표 길이로 밀리초와 LFO 진동수', section: 'bpm' as const, icon: BPM_ICON },
   { href: '/gear', title: '자전거 기어비표', desc: '체인링과 스프라켓으로 기어비와 발전거리', section: 'gear' as const, icon: GEAR_ICON },
   { href: '/fertilizer', title: '비료 시비량표', desc: '봉지의 N-P-K 함량으로 나눠 읽는 뿌릴 양, 복합비료는 나머지 둘까지', section: 'fertilizer' as const, icon: FERTILIZER_ICON },
+  { href: '/sun', title: '태양 고도와 낮 길이표', desc: '위도와 날짜로 정오 고도·낮 길이·일출 시각·그림자', section: 'sun' as const, icon: SUN_ICON },
+  { href: '/hardness', title: '물 경도 단위 환산', desc: 'ppm·°dH·°fH·gpg를 한 표에 — 연수·경수 등급 경계는 기준마다 다릅니다', section: 'hardness' as const, icon: HARDNESS_ICON },
+  { href: '/steel', title: '강재 단위중량표', desc: '강판·평철·봉·관 형상별로 부피 × 밀도로 읽는 무게', section: 'steel' as const, icon: STEEL_ICON },
+  { href: '/motor', title: '모터 토크 계산표', desc: '출력과 회전수로 N·m, 마력 환산과 감속기·전압별 3상 전류', section: 'motor' as const, icon: MOTOR_ICON },
   { href: '/rebar', title: '철근 단위중량표', desc: '규격과 길이로 한 가닥 무게, 1톤당 가닥 수와 발주 물량', section: 'rebar' as const, icon: REBAR_ICON },
   { href: '/ring', title: '반지 사이즈 대조표', desc: '내주 mm로 미국·일본 호수·EU 사이즈, 재는 법까지', section: 'ring' as const, icon: RING_ICON },
   { href: '/filament', title: '필라멘트 길이표', desc: '재료와 스풀 무게로 감긴 길이, 남은 무게로 남은 길이', section: 'filament' as const, icon: FILAMENT_ICON },

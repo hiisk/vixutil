@@ -143,7 +143,7 @@ export default function LuckyLottoPage() {
 
         <Faq items={SECTION_FAQ['fortune/lucky-lotto']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
 
       <style jsx>{`
         @keyframes llPop { 0% { opacity: 0; transform: scale(0.92) translateY(8px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }

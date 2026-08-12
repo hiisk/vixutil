@@ -187,6 +187,39 @@ export const RANKED_REFERRALS = [...REFERRALS].sort((a, b) => a.rank - b.rank);
 export const REFERRAL_REL = 'noopener noreferrer sponsored';
 
 /**
+ * 본문 카드와 옆 레일이 나눠 가질 몫 (2026-08-12).
+ *
+ * 넓은 화면에서 본문 옆 여백에 세로 레일을 세우면서 생긴 규칙이다. 같은 화면에
+ * 같은 거래소를 두 번 보여 주면 둘 다 값이 떨어지므로 — 푸터 카드를 끄는 것과
+ * 같은 이유다 — 레일이 뜨는 화면에서는 본문 카드가 1위만 남기고 나머지를 레일에
+ * 넘긴다. 화면에 보이는 제휴 카드 수는 그대로 둘이고 자리만 갈린다.
+ *
+ * 1위를 본문에 두는 이유: 본문 카드가 크고 클릭이 가장 많은 자리다. 좁은 레일에
+ * 보너스 상한이 가장 큰 것을 밀어 넣는 것보다 낫다.
+ *
+ * narrow를 따로 돌려주는 까닭 — 레일은 xl 이상에서만 뜨고, 그 아래(방문의 대부분인
+ * 모바일)에서는 없다. 그래서 좁은 화면의 본문 카드는 **하나도 잃지 않고 전부**
+ * 보여준다. 갈라 놓기만 하면 휴대폰 화면에서 제휴가 하나로 줄어든다.
+ * 화면 폭으로 가르는 일은 CSS(xl:hidden)가 하고, 여기서는 어느 몫이 어디로
+ * 가는지만 정한다.
+ */
+export function referralSplit(withRail: boolean): {
+  /** 좁은 화면(레일 없음)에서 본문 카드가 보여주는 것 */
+  narrow: Referral[];
+  /** 넓은 화면(레일 있음)에서 본문 카드가 보여주는 것 */
+  wide: Referral[];
+  /** 넓은 화면에서 옆 레일이 보여주는 것 */
+  rail: Referral[];
+} {
+  if (!withRail) return { narrow: RANKED_REFERRALS, wide: RANKED_REFERRALS, rail: [] };
+  return {
+    narrow: RANKED_REFERRALS,
+    wide: RANKED_REFERRALS.slice(0, 1),
+    rail: RANKED_REFERRALS.slice(1),
+  };
+}
+
+/**
  * 순위 문구는 근거를 밝혀야 한다는 규칙을 코드로 지킨다.
  * "1위"가 들어간 문구는 무엇에 대한 1위인지 앞에 붙어 있어야 한다.
  */

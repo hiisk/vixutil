@@ -10,6 +10,7 @@ import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/
 import { BARS, CELLS, REBAR_ICON, slugOf } from '@/lib/rebar/list';
 import { atBar } from '@/lib/rebar/facts';
 import { REBAR_UI, barName, fmtNum } from '@/lib/rebar/ui';
+import { STEEL_UI } from '@/lib/steel/ui';
 
 export default function RebarHubPage({ lang }: { lang: Lang }) {
   const ui = REBAR_UI[lang];
@@ -99,6 +100,21 @@ export default function RebarHubPage({ lang }: { lang: Lang }) {
         </section>
 
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
+
+        {/*
+          강재 무게(/steel)로 건너가는 줄 — 두 섹션이 같은 밀도에서 나오는데
+          한쪽만 가리키면 그쪽으로 들어오는 링크가 사이트맵뿐이 된다. 제목과
+          이름표를 STEEL_UI에서 가져오므로 열 언어가 저절로 맞는다.
+        */}
+        <section className="mb-8 mt-8">
+          <h2 className="sec-h2">{STEEL_UI[lang].relatedTitle}</h2>
+          <Link
+            href={`${prefix}/steel`}
+            className="block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-amber-400 transition-colors"
+          >
+            {STEEL_UI[lang].section}
+          </Link>
+        </section>
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (

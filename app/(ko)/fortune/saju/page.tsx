@@ -843,7 +843,7 @@ export default function SajuPage() {
 
         <Faq items={SECTION_FAQ['fortune/saju']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

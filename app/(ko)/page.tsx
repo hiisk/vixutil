@@ -46,6 +46,10 @@ import { CELLS as GEAR_CELLS } from '@/lib/gear/list';
 import { CELLS as FILAMENT_CELLS } from '@/lib/filament/list';
 import { CELLS as RING_CELLS } from '@/lib/ring/list';
 import { CELLS as REBAR_CELLS } from '@/lib/rebar/list';
+import { CELLS as MOTOR_CELLS } from '@/lib/motor/list';
+import { CELLS as STEEL_CELLS } from '@/lib/steel/list';
+import { CELLS as HARDNESS_CELLS } from '@/lib/hardness/list';
+import { CELLS as SUN_CELLS } from '@/lib/sun/list';
 import { CELLS as FERTILIZER_CELLS } from '@/lib/fertilizer/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
@@ -163,6 +167,54 @@ const SECTIONS = [
     textAccent: 'text-rose-700 dark:text-rose-200',
     borderAccent: 'border-rose-200 dark:border-rose-800',
     shadow: 'shadow-rose-100',
+  },
+  {
+    href: '/sun',
+    icon: '🌅',
+    title: '태양 고도와 낮 길이',
+    desc: '북위 40° 하지의 낮은 14시간 51분 — 위도와 날짜로 읽는 정오 고도와 그림자',
+    badge: `${SUN_CELLS.length}칸`,
+    color: 'from-sky-500 to-amber-300',
+    bgLight: 'bg-sky-50 dark:bg-sky-900/40',
+    textAccent: 'text-sky-700 dark:text-sky-200',
+    borderAccent: 'border-sky-200 dark:border-sky-800',
+    shadow: 'shadow-sky-100',
+  },
+  {
+    href: '/hardness',
+    icon: '🚰',
+    title: '물 경도 단위 환산',
+    desc: '150ppm은 독일 8.4°dH, 미국 8.8gpg — 같은 물을 나라마다 다른 숫자로 적는다',
+    badge: `${HARDNESS_CELLS.length}칸`,
+    color: 'from-sky-700 to-cyan-400',
+    bgLight: 'bg-sky-50 dark:bg-sky-900/40',
+    textAccent: 'text-sky-700 dark:text-sky-200',
+    borderAccent: 'border-sky-200 dark:border-sky-800',
+    shadow: 'shadow-sky-100',
+  },
+  {
+    href: '/steel',
+    icon: '🔲',
+    title: '강재 단위중량표',
+    desc: '두께 6mm 강판 1m²는 47.1kg — 형상별 단면적 식과 강의 밀도로 읽는 물량',
+    badge: `${STEEL_CELLS.length}칸`,
+    color: 'from-slate-600 to-sky-400',
+    bgLight: 'bg-sky-50 dark:bg-sky-900/40',
+    textAccent: 'text-sky-700 dark:text-sky-200',
+    borderAccent: 'border-sky-200 dark:border-sky-800',
+    shadow: 'shadow-sky-100',
+  },
+  {
+    href: '/motor',
+    icon: '🔃',
+    title: '모터 토크 계산표',
+    desc: '2.2kW 1800rpm은 11.7N·m — 9550 계수와 50Hz·60Hz의 차이',
+    badge: `${MOTOR_CELLS.length}칸`,
+    color: 'from-indigo-600 to-sky-400',
+    bgLight: 'bg-indigo-50 dark:bg-indigo-900/40',
+    textAccent: 'text-indigo-700 dark:text-indigo-200',
+    borderAccent: 'border-indigo-200 dark:border-indigo-800',
+    shadow: 'shadow-indigo-100',
   },
   {
     href: '/rebar',

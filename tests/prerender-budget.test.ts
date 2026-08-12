@@ -171,17 +171,43 @@ test('디스크 안에 드는 값이다', () => {
 
 test('사이트맵이 내거는 양을 알고 있다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {
   /*
-   * 쓰기는 "크롤러가 훑은 낱장 × 배포"다. 사이트맵이 내거는 수가 그 상한이므로,
-   * 그 수가 갑자기 뛰면 한도 계산이 통째로 달라진다. 늘어난 것을 모르고 배포하는
-   * 일을 막으려고 여기 적어 둔다.
+   * ── 전제가 바뀌었다 (2026-08-12) ──────────────────────────
+   * 이 검사는 20만에서 걸렸고 그 까닭은 "ISR 쓰기 한도(월 20만)"였다. 그 셈은
+   * 낱장이 ISR이던 시절의 것이다. 2026-08-10에 낱장을 전부 force-dynamic으로
+   * 돌려 **캐시 쓰기가 0**이 됐으므로, 주소 수는 이제 ISR 한도를 밀지 않는다.
+   *
+   * 그렇다고 상한을 없애면 이 검사가 아무것도 안 지킨다. 지금 지켜야 하는 것은
+   * 다른 둘이다.
+   *
+   *   1) **한 언어가 한 파일에 5만을 넘지 않는다** — 사이트맵 규약이다. 언어마다
+   *      파일이 하나이므로 전체가 50만이어도 규약은 안 깨지지만, 한 언어가
+   *      45,000을 넘으면 조각이 늘고 그 주소를 낼 라우트를 새로 만들어야 한다
+   *      (tests/sitemap-chunks.test.ts가 그쪽을 본다)
+   *   2) **크롤 예산** — 구글이 한 번에 읽는 양에는 끝이 있다. 주소가 늘수록
+   *      한 장이 다시 방문받는 간격이 길어진다
+   *
+   * 그래서 상한을 **언어당**으로 옮겼다. 전체 수는 갑자기 뛰었는지만 본다 —
+   * 늘어난 것을 모르고 배포하는 일을 막으려는 원래 뜻은 그대로다.
    */
   const urls = sitemapRoutes()!;
   assert.ok(urls.length > 120_000, `사이트맵이 ${urls.length}개뿐 — 줄었다면 왜인지 확인하라`);
+
+  const INTL = new Set(['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant']);
+  const perLang = new Map<string, number>();
+  for (const u of urls) {
+    /* sitemapRoutes()가 앞 슬래시를 붙여 주기도 한다 — 떼고 첫 칸을 본다 */
+    const first = u.replace(/^\//, '').split('/')[0];
+    const k = INTL.has(first) ? first : 'ko';
+    perLang.set(k, (perLang.get(k) ?? 0) + 1);
+  }
+  const worst = [...perLang].sort((a, b) => b[1] - a[1])[0];
   assert.ok(
-    urls.length < 200_000,
-    `사이트맵이 ${urls.length}개다. ISR 쓰기 한도(월 20만)를 배포 한 번으로 넘길 수 있다 — ` +
-    '미리 굽는 수를 올리거나 배포를 모으라',
+    worst[1] < 45_000,
+    `${worst[0]}가 ${worst[1].toLocaleString()}개다 — 45,000을 넘으면 조각이 늘어 ` +
+    'app/sitemapN.xml/route.ts를 새로 만들어야 한다',
   );
+  // 열 언어가 다 있어야 이 셈이 뜻을 갖는다
+  assert.equal(perLang.size, 10, `언어가 ${perLang.size}개로 세어졌다 — 묶는 방식이 깨졌다`);
 });
 
 test('사이트맵에 같은 주소가 두 번 실리지 않는다', { skip: sitemapRoutes() ? false : '빌드 산출물 없음' }, () => {

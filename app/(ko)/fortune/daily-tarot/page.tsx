@@ -139,7 +139,7 @@ export default function DailyTarotPage() {
 
         <Faq items={SECTION_FAQ['fortune/daily-tarot']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
 
       <style jsx>{`
         @keyframes dtFlip { 0% { opacity: 0; transform: rotateY(90deg) scale(0.9); } 100% { opacity: 1; transform: rotateY(0) scale(1); } }

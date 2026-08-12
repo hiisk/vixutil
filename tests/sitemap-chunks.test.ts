@@ -115,12 +115,20 @@ test('조각이 늘어도 그 주소를 낼 라우트가 있다', () => {
    * 지금은 한국어가 20,278개로 한도의 45%다. 섹션을 계속 늘리다 그 선을
    * 넘으면 이 검사가 먼저 걸리고, 걸린 사람이 라우트 파일을 만들면 된다.
    */
-  const files = readdirSync(join(BUILT_DIR, '..', '..', '..', 'app'))
-    .filter(f => /^sitemap\d*\.xml$/.test(f));
-  const routes = files.length;
+  const appDir = join(BUILT_DIR, '..', '..', '..', 'app');
+  /*
+   * 형제 조각은 app/sitemap2.xml/route.ts … 폴더가 낸다. **0번(/sitemap.xml)만
+   * 폴더가 아니라 app/sitemap.ts가 낸다** — Next의 sitemap 규약 파일이다.
+   * 처음에 폴더만 세어 "조각 10개인데 라우트 9개"로 잘못 걸렸다. 규약 파일을
+   * 한 칸으로 세지 않으면 이 검사가 늘 하나 모자라다고 말한다.
+   */
+  const folders = readdirSync(appDir).filter(f => /^sitemap\d+\.xml$/.test(f)).length;
+  const conventionFile = existsSync(join(appDir, 'sitemap.ts')) ? 1 : 0;
+  const routes = folders + conventionFile;
+  assert.equal(conventionFile, 1, 'app/sitemap.ts가 없다 — /sitemap.xml을 낼 것이 없다');
   const need = sitemapRouteCount();
 
-  assert.ok(routes > 0, 'sitemap 라우트 폴더를 하나도 못 찾았다 — 세는 방식이 깨졌다');
+  assert.ok(folders > 0, 'sitemap 형제 라우트 폴더를 하나도 못 찾았다 — 세는 방식이 깨졌다');
   assert.ok(
     need <= routes,
     `조각이 ${need}개인데 그 주소를 낼 라우트는 ${routes}개다 — ` +

@@ -47,6 +47,10 @@ import { hubCard as gearHub } from '@/lib/gear/route';
 import { hubCard as filamentHub } from '@/lib/filament/route';
 import { hubCard as ringHub } from '@/lib/ring/route';
 import { hubCard as rebarHub } from '@/lib/rebar/route';
+import { hubCard as motorHub } from '@/lib/motor/route';
+import { hubCard as steelHub } from '@/lib/steel/route';
+import { hubCard as hardnessHub } from '@/lib/hardness/route';
+import { hubCard as sunHub } from '@/lib/sun/route';
 import { hubCard as fertilizerHub } from '@/lib/fertilizer/route';
 import { hubCard as bpmHub } from '@/lib/bpm/route';
 import { hubCard as uvHub } from '@/lib/uv/route';
@@ -161,6 +165,10 @@ export const CARDS: Record<string, () => ReactElement> = {
   'gear': () => gearHub('ja'),
   'ring': () => ringHub('ja'),
   'rebar': () => rebarHub('ja'),
+  'motor': () => motorHub('ja'),
+  'steel': () => steelHub('ja'),
+  'hardness': () => hardnessHub('ja'),
+  'sun': () => sunHub('ja'),
   'fertilizer': () => fertilizerHub('ja'),
   'filament': () => filamentHub('ja'),
   'bpm': () => bpmHub('ja'),

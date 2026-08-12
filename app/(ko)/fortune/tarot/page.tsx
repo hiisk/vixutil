@@ -619,7 +619,7 @@ export default function TarotPage() {
 
         <Faq items={SECTION_FAQ['fortune/tarot']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

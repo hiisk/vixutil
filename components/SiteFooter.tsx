@@ -1,4 +1,7 @@
 import { localeHref, type AnyLocale10 } from '@/lib/locales';
+import { langOfLocale } from '@/lib/i18n/lang';
+/* common만 본다 — lib/legal의 입구는 withCard를 끌고 오고, 푸터는 모든 페이지에 있다 */
+import { LEGAL_CHROME, LEGAL_KINDS, legalRoute } from '@/lib/legal/common';
 import { homeSections } from '@/lib/locale-home';
 import ToolIcon from '@/components/ToolIcon';
 import Link from "next/link";
@@ -157,6 +160,11 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
       : homeSections(lang).map(s => ({ href: localeHref(lang, s.route), icon: s.icon, label: s.title }));
   const popular = translated ? [] : lang === 'en' ? POPULAR_EN : POPULAR;
   const searchHref = localeHref(lang, '/search');
+  /*
+    정책·소개 네 장의 이름 — 열 언어가 lib/legal의 표 하나를 본다.
+    푸터에 적으면 문구가 두 벌이 되고, 페이지 제목과 푸터 이름이 갈린다.
+  */
+  const legalNav = LEGAL_CHROME[langOfLocale(lang)].nav;
   // 통합 검색은 여덟 언어에만 있다. 중국어에는 아직 없어서 링크를 걸면 404다 —
   // 빌드된 페이지를 훑는 검사가 실제로 이걸 잡았다.
   const hasSearch = !lang.startsWith('zh-');
@@ -249,6 +257,28 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
 
           다시 넣고 싶어지면 결과 지점 노출과 겹치지 않는지부터 확인할 것.
         */}
+        {/*
+          정책·소개 네 장 — 소개·문의·개인정보 처리방침·이용약관.
+
+          푸터에 두는 이유가 둘이다. 애드센스 심사자는 이 네 장을 **푸터에서**
+          찾고, 없으면 "가치 없는 콘텐츠"로 읽는다. 그리고 푸터는 모든 페이지에
+          있으므로 크롤러가 어느 낱장에서 들어와도 네 장에 한 번에 닿는다.
+          홈에만 두면 도구 페이지에 깊이 들어온 쪽에서 닿을 수 없다.
+
+          링크는 그 언어의 주소로 간다 — 열 언어에 네 장이 다 있다.
+        */}
+        <nav className="flex flex-wrap gap-x-4 gap-y-1.5 mb-6 text-xs font-medium text-slate-400 dark:text-slate-500">
+          {LEGAL_KINDS.map((k) => (
+            <Link
+              key={k}
+              href={localeHref(lang, legalRoute(k))}
+              className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            >
+              {legalNav[k]}
+            </Link>
+          ))}
+        </nav>
+
         <div className="flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-5">
           <Link href="/" className="flex items-center gap-0.5 shrink-0">
             <span className="text-sm font-black text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>

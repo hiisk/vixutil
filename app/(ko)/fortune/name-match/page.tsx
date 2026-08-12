@@ -164,7 +164,7 @@ export default function NameMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/name-match']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

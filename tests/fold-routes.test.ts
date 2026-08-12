@@ -74,6 +74,13 @@ test('사이트맵의 국제 주소가 전부 받는 라우트를 가진다', { 
     if ([...catchAll].some(p => key.startsWith(p + '/'))) continue;
     // 세 칸 낱장은 [a]/[b]/[slug] 하나가 받는다 — 앞 두 칸이 등록부에 있어야 한다
     if (deep && rest.length === 3 && DEEP_SLUGS.has(rest.slice(0, 2).join('/'))) continue;
+    /*
+     * 접히지 않고 라우트 파일로 남은 정적 장 — 정책·소개 네 장(2026-08-12)이 그렇다.
+     * 접기 이후 이 검사는 "허브냐 낱장이냐"만 물었는데, 그 둘 중 어느 쪽도 아닌
+     * 장이 다시 생겼다. 파일이 실제로 있는지 보면 되므로 그것을 본다 — 없는 것을
+     * 있다고 넘겨주지 않으니 검사가 헐거워지지도 않는다.
+     */
+    if (existsSync(join(APP_DIR, `(${lang})`, lang, ...rest, 'page.tsx'))) continue;
 
     // 무늬로 묶어 보고한다 — 낱장 하나가 빠지면 십만 줄이 쏟아진다
     const pattern = `${lang}/${rest.slice(0, -1).join('/')}/…`;

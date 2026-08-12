@@ -5,6 +5,7 @@ import Faq from './Faq';
 import LangPicker from './LangPicker';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
 import ReferralCards from './ReferralCards';
+import ReferralAside, { RAIL_WRAP } from './ReferralAside';
 import { CALC_SHELL } from '@/lib/calc-l10n/shell';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { localeHref } from '@/lib/locales';
@@ -48,7 +49,12 @@ export default function CalcShellIntl({
   const route = `/calculator/${slug}`;
   const path = localeHref(lang, route);
   const hub = localeHref(lang, '/calculator');
-  const width = wide ? 'max-w-3xl' : 'max-w-xl';
+  /*
+    본문 폭은 한국어 CalcShell과 같은 값을 쓴다 (2026-08-12). 576px는 한 줄에
+    34자쯤이라 1440px 화면에서 양옆이 430px씩 비었다 — lg부터 한 단계 넓혔다.
+    sm 이하는 한 픽셀도 그대로다. 머리글과 본문이 이 값을 함께 쓴다.
+  */
+  const width = wide ? 'max-w-3xl lg:max-w-4xl' : 'max-w-xl lg:max-w-2xl';
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -82,47 +88,59 @@ export default function CalcShellIntl({
           </div>
         </header>
 
-        <div className={`${width} mx-auto px-4 pt-8 pb-2`}>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{description}</p>
-        </div>
-
-        <main className={`${width} mx-auto px-4 py-6 pb-8`}>
-          {children}
-
-          {intro && intro.length > 0 && (
-            <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
-              {intro.map(s => (
-                <section key={s.h}>
-                  <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5">{s.h}</h2>
-                  <p>{s.p}</p>
-                </section>
-              ))}
+        {/*
+          본문 기둥 + 옆 제휴 레일. 한국어 CalcShell과 같은 짜임이다 —
+          까닭과 잃는 것은 ReferralAside 머리 주석에 적어 두었다.
+        */}
+        <div className={wide ? RAIL_WRAP.wide : RAIL_WRAP.narrow}>
+          <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>
+            <div className="px-4 pt-8 pb-2">
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{title}</h1>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{description}</p>
             </div>
-          )}
 
-          <ReferralCards lang={lang} placement="result" />
+            <main className="px-4 py-6 pb-8">
+              {children}
 
-          {related && related.length > 0 && (
-            <section className="mt-8" aria-label={ui.related}>
-              <h2 className="sec-h2">{ui.related}</h2>
-              <div className="grid sm:grid-cols-2 gap-2">
-                {related.map(r => (
-                  <Link
-                    key={r.slug}
-                    href={localeHref(lang, `/calculator/${r.slug}`)}
-                    className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
-                  >
-                    <span className="hub-card-title group-hover:text-blue-700 transition-colors">{r.title}</span>
-                    <span className="hub-card-desc">{r.short}</span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
+              {intro && intro.length > 0 && (
+                <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                  {intro.map(s => (
+                    <section key={s.h}>
+                      <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5">{s.h}</h2>
+                      <p>{s.p}</p>
+                    </section>
+                  ))}
+                </div>
+              )}
 
-          <Faq items={faq} lang={lang} />
-        </main>
+              {/* rail — 옆 레일이 함께 뜨는 화면에서는 본문 카드가 1위만 남긴다 */}
+              <ReferralCards lang={lang} placement="result" rail />
+
+              {related && related.length > 0 && (
+                <section className="mt-8" aria-label={ui.related}>
+                  <h2 className="sec-h2">{ui.related}</h2>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    {related.map(r => (
+                      <Link
+                        key={r.slug}
+                        href={localeHref(lang, `/calculator/${r.slug}`)}
+                        className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                      >
+                        <span className="hub-card-title group-hover:text-blue-700 transition-colors">{r.title}</span>
+                        <span className="hub-card-desc">{r.short}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              <Faq items={faq} lang={lang} />
+            </main>
+          </div>
+
+          {/* 문구는 lang을 따라간다 — 안 넘기면 기본값이 'ko'라 독일어 화면에 한국어가 뜬다 */}
+          <ReferralAside lang={lang} />
+        </div>
 
         <SiteFooter lang={lang} referral={false} />
       </div>

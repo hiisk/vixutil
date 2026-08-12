@@ -87,6 +87,11 @@ import { CELLS as GEAR_CELLS, slugOf as gearSlug } from "@/lib/gear/list";
 import { CELLS as FILAMENT_CELLS, slugOf as filamentSlug } from "@/lib/filament/list";
 import { CELLS as RING_CELLS, slugOf as ringSlug } from "@/lib/ring/list";
 import { CELLS as REBAR_CELLS, slugOf as rebarSlug } from "@/lib/rebar/list";
+import { CELLS as MOTOR_CELLS, slugOf as motorSlug } from "@/lib/motor/list";
+import { CELLS as STEEL_CELLS, slugOf as steelSlug } from "@/lib/steel/list";
+import { CELLS as HARDNESS_CELLS, slugOf as hardnessSlug } from "@/lib/hardness/list";
+import { CELLS as SUN_CELLS, slugOf as sunSlug } from "@/lib/sun/list";
+import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
 import { CELLS as FERTILIZER_CELLS, slugOf as fertilizerSlug } from "@/lib/fertilizer/list";
 import { CELLS as BPM_CELLS, slugOf as bpmSlug } from "@/lib/bpm/list";
 import { CELLS as UV_CELLS, slugOf as uvSlug } from "@/lib/uv/list";
@@ -194,10 +199,27 @@ const devRoutes = [
 function allEntries(): MetadataRoute.Sitemap {
   const monthly = "monthly" as const;
   const weekly = "weekly" as const;
+  /* 정책·소개 페이지는 해가 바뀌어도 거의 그대로다 */
+  const yearly = "yearly" as const;
 
   return [
     { url: BASE, changeFrequency: weekly, priority: 1 },
     { url: `${BASE}/search`, changeFrequency: weekly, priority: 0.9 },
+    /*
+     * 정책·소개 네 장 × 열 언어 = 40장.
+     *
+     * 애드센스가 "가치 없는 콘텐츠"로 거절한 뒤 2026-08-12에 만들었다. 심사자가
+     * 사람이 직접 찾아 읽는 자리이므로 푸터에서도 닿고 사이트맵에도 실어야 한다.
+     * 자주 바뀌지 않으므로 changeFrequency는 yearly, 우선순위는 도구보다 낮게 둔다 —
+     * 크롤 예산을 이쪽으로 끌어오려는 것이 아니라 있다는 것만 알리려는 것이다.
+     */
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+      LEGAL_KINDS.map(k => ({
+        url: `${BASE}${prefix}${legalRoute(k)}`,
+        changeFrequency: yearly,
+        priority: 0.3,
+      })),
+    ),
     { url: `${BASE}/calculator`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/test`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/quiz`, changeFrequency: weekly, priority: 0.95 },
@@ -967,6 +989,42 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/ring`, changeFrequency: weekly, priority: 0.85 },
       ...RING_CELLS.map(mm => ({
         url: `${BASE}${prefix}/ring/${ringSlug(mm)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 태양 고도 224칸도 열 언어다 — 위도 14가지 × 날짜 16가지
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/sun`, changeFrequency: weekly, priority: 0.85 },
+      ...SUN_CELLS.map(c => ({
+        url: `${BASE}${prefix}/sun/${sunSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 물 경도 120칸도 열 언어다 — ppm 눈금 5~500은 5씩, 525~1000은 25씩
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/hardness`, changeFrequency: weekly, priority: 0.85 },
+      ...HARDNESS_CELLS.map(ppm => ({
+        url: `${BASE}${prefix}/hardness/${hardnessSlug(ppm)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 강재 149칸도 열 언어다 — 형상 7가지 × 유통 치수
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/steel`, changeFrequency: weekly, priority: 0.85 },
+      ...STEEL_CELLS.map(c => ({
+        url: `${BASE}${prefix}/steel/${steelSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 모터 136칸도 열 언어다 — 출력 17가지 × 회전수 8가지(50Hz·60Hz)
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/motor`, changeFrequency: weekly, priority: 0.85 },
+      ...MOTOR_CELLS.map(c => ({
+        url: `${BASE}${prefix}/motor/${motorSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

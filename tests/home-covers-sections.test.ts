@@ -51,6 +51,15 @@ function hrefsIn(path: string): Set<string> {
 const NOT_ON_HOME = new Set([
   'search',   // 도구가 아니라 기능
   'crypto',   // 늘리지 않기로 한 섹션
+  /*
+   * 정책·소개 네 장(2026-08-12). 도구가 아니라 문서이므로 홈의 도구 격자에
+   * 카드로 끼우면 "계산기 다음에 개인정보 처리방침"이 된다. 대신 **푸터**에
+   * 넣었고, 푸터는 모든 페이지에 있어 홈 카드보다 닿는 자리가 넓다 —
+   * 애드센스 심사자와 크롤러도 그쪽에서 찾는다.
+   * 네 장이 열 언어에 다 있는지와 푸터가 그것을 거는지는
+   * tests/legal-pages.test.ts가 본다.
+   */
+  'about', 'contact', 'privacy', 'terms',
 ]);
 
 test('한국어 홈이 모든 섹션을 건다', () => {

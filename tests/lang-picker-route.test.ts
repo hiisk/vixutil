@@ -69,7 +69,15 @@ function pickerRoutes(src: string): string[] {
  * 곧 그 섹션 이름이다(`/body`, `/geometry`, `/rate`). 값이 섹션 이름이라는 걸
  * 확인한 것만 여기 적는다 — 그냥 통과시키려고 더하면 이 검사가 무의미해진다.
  */
-const DYNAMIC_SECTION_OK = new Set(['${section.key}']);
+const DYNAMIC_SECTION_OK = new Set([
+  '${section.key}',
+  /*
+   * LegalPage는 소개·문의·개인정보 처리방침·이용약관 넷이 함께 쓰는데, `kind`가
+   * 곧 그 주소다(/about, /contact, /privacy, /terms). 값이 LEGAL_KINDS의 넷뿐이고
+   * 그 넷에 라우트 파일이 열 언어로 다 있는지는 tests/legal-pages.test.ts가 센다.
+   */
+  '${kind}',
+]);
 
 const SECTIONS = sections();
 const FILES = walk(join(ROOT, 'app')).concat(walk(join(ROOT, 'components')));

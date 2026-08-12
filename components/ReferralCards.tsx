@@ -1,4 +1,4 @@
-import { RANKED_REFERRALS, REFERRAL_REL } from '@/lib/referral';
+import { RANKED_REFERRALS, REFERRAL_REL, referralSplit } from '@/lib/referral';
 import type { AnyLocale10 } from '@/lib/locales';
 
 /**
@@ -37,7 +37,8 @@ function BybitMark() {
   );
 }
 
-function BrandMark({ id }: { id: string }) {
+/** 옆 레일(ReferralAside)도 같은 마크를 쓴다 — SVG를 두 벌로 두면 한쪽만 바뀐다 */
+export function BrandMark({ id }: { id: string }) {
   if (id === 'bybit') return <BybitMark />;
   if (id === 'binance') {
     return (
@@ -55,18 +56,70 @@ function BrandMark({ id }: { id: string }) {
  *
  * "광고" 표기는 어느 언어에서도 뺀 자리가 없어야 한다. 크게 노출할수록 더
  * 필요하다 — 푸터에 들어가면서 이 카드는 이제 모든 화면에 뜬다.
+ *
+ * ── why·rail을 더했다 (2026-08-12) ──
+ * 카드가 작고 옅어서 그냥 지나쳐졌다. 크기를 올리는 것만으로는 "그래서 뭘
+ * 얻는데?"에 답이 안 되므로 제목 아래 한 줄(why)을 붙였다. 금액은 여기 적지
+ * 않는다 — 금액은 lib/referral.ts 한 곳에서만 오고, 화면 쪽에 적으면 프로모션이
+ * 바뀔 때 두 곳이 어긋난다.
+ *
+ * rail은 옆 레일(ReferralAside)의 짧은 제목이다. 폭이 288px뿐이라 section 문구를
+ * 그대로 쓰면 세 줄로 접힌다.
+ *
+ * 내보내는 이유 — 옆 레일이 같은 "광고" 표기와 같은 문구를 써야 한다. 열 언어를
+ * 두 벌로 적어 두면 한쪽만 고쳐진다(용어 열쇠가 겹쳐 남의 라벨이 바뀐 적이 있다).
  */
-const HEADING: Record<AnyLocale10, { ad: string; section: string; result: string }> = {
-  ko: { ad: '광고', section: '코인 선물 거래소 가입 혜택', result: '결과를 본 김에 — 코인 거래소 가입 혜택' },
-  en: { ad: 'Ad', section: 'Claim your crypto exchange bonus', result: 'While you’re here — claim a crypto exchange bonus' },
-  es: { ad: 'Publicidad', section: 'Consigue tu bono en un exchange de criptomonedas', result: 'Ya que estás — consigue un bono de exchange' },
-  'pt-br': { ad: 'Publicidade', section: 'Garanta seu bônus em uma corretora de cripto', result: 'Já que está aqui — garanta um bônus de corretora' },
-  ja: { ad: '広告', section: '暗号資産取引所の登録特典', result: 'ついでに — 暗号資産取引所の登録特典' },
-  de: { ad: 'Anzeige', section: 'Krypto-Börsenbonus sichern', result: 'Wenn Sie schon hier sind — Krypto-Börsenbonus sichern' },
-  fr: { ad: 'Publicité', section: 'Obtenez votre bonus de plateforme crypto', result: 'Tant que vous êtes là — un bonus de plateforme crypto' },
-  hi: { ad: 'विज्ञापन', section: 'क्रिप्टो एक्सचेंज बोनस पाएँ', result: 'आए ही हैं तो — क्रिप्टो एक्सचेंज बोनस पाएँ' },
-  'zh-hans': { ad: '广告', section: '加密货币交易所注册福利', result: '顺便看看 — 加密货币交易所注册福利' },
-  'zh-hant': { ad: '廣告', section: '加密貨幣交易所註冊優惠', result: '順便看看 — 加密貨幣交易所註冊優惠' },
+export const HEADING: Record<AnyLocale10, { ad: string; section: string; result: string; why: string; rail: string }> = {
+  ko: {
+    ad: '광고', section: '코인 선물 거래소 가입 혜택', result: '결과를 본 김에 — 코인 거래소 가입 혜택',
+    why: '가입만 해도 받는 보너스입니다. 조건은 거래소가 내건 문구를 그대로 옮겼습니다.',
+    rail: '거래소 가입 혜택',
+  },
+  en: {
+    ad: 'Ad', section: 'Claim your crypto exchange bonus', result: 'While you’re here — claim a crypto exchange bonus',
+    why: 'Bonuses you get just for signing up. Terms are copied straight from each exchange.',
+    rail: 'Exchange bonus',
+  },
+  es: {
+    ad: 'Publicidad', section: 'Consigue tu bono en un exchange de criptomonedas', result: 'Ya que estás — consigue un bono de exchange',
+    why: 'Bonos que recibes solo por registrarte. Las condiciones son las que publica cada exchange.',
+    rail: 'Bono de exchange',
+  },
+  'pt-br': {
+    ad: 'Publicidade', section: 'Garanta seu bônus em uma corretora de cripto', result: 'Já que está aqui — garanta um bônus de corretora',
+    why: 'Bônus que você recebe só por se cadastrar. As condições são as que cada corretora anuncia.',
+    rail: 'Bônus de corretora',
+  },
+  ja: {
+    ad: '広告', section: '暗号資産取引所の登録特典', result: 'ついでに — 暗号資産取引所の登録特典',
+    why: '登録するだけで受け取れる特典です。条件は各取引所の告知をそのまま載せています。',
+    rail: '取引所の登録特典',
+  },
+  de: {
+    ad: 'Anzeige', section: 'Krypto-Börsenbonus sichern', result: 'Wenn Sie schon hier sind — Krypto-Börsenbonus sichern',
+    why: 'Boni, die es allein für die Anmeldung gibt. Die Bedingungen stammen direkt von der Börse.',
+    rail: 'Börsen-Bonus',
+  },
+  fr: {
+    ad: 'Publicité', section: 'Obtenez votre bonus de plateforme crypto', result: 'Tant que vous êtes là — un bonus de plateforme crypto',
+    why: 'Des bonus offerts à la simple inscription. Les conditions sont reprises telles quelles de chaque plateforme.',
+    rail: 'Bonus de plateforme',
+  },
+  hi: {
+    ad: 'विज्ञापन', section: 'क्रिप्टो एक्सचेंज बोनस पाएँ', result: 'आए ही हैं तो — क्रिप्टो एक्सचेंज बोनस पाएँ',
+    why: 'सिर्फ़ साइन अप करने पर मिलने वाले बोनस। शर्तें हर एक्सचेंज की घोषणा से ज्यों की त्यों ली गई हैं।',
+    rail: 'एक्सचेंज बोनस',
+  },
+  'zh-hans': {
+    ad: '广告', section: '加密货币交易所注册福利', result: '顺便看看 — 加密货币交易所注册福利',
+    why: '只要注册就能领取的福利。条件均按各交易所公告原样列出。',
+    rail: '交易所注册福利',
+  },
+  'zh-hant': {
+    ad: '廣告', section: '加密貨幣交易所註冊優惠', result: '順便看看 — 加密貨幣交易所註冊優惠',
+    why: '只要註冊就能領取的優惠。條件皆依各交易所公告原樣列出。',
+    rail: '交易所註冊優惠',
+  },
 };
 
 interface Props {
@@ -80,32 +133,53 @@ interface Props {
    * 팝업이나 결과를 덮는 오버레이로 만들지 않는다. 방금 저품질 판정을 받은
    * 사이트에서 인터스티셜은 애드센스 정책에 정면으로 걸리고, 사용자가 보려고
    * 누른 결과를 가리면 광고를 보기 전에 뒤로 가기를 누른다.
+   *
+   * 갈래를 더하지 않았다 — 옆 레일은 'aside' 갈래가 아니라 별도 컴포넌트
+   * (ReferralAside)다. 세로 한 칸·sticky·288px라 이 격자 마크업과 공통점이
+   * 거의 없어서, 여기에 세 번째 분기를 넣으면 삼항식이 줄마다 갈린다.
    */
   placement?: 'section' | 'result';
+  /**
+   * 이 화면에 옆 레일(ReferralAside)이 함께 뜨는가 (2026-08-12).
+   *
+   * true면 레일이 맡은 몫을 xl 이상에서 본문 카드에서 감춘다 — 같은 화면에 같은
+   * 거래소가 두 번 뜨면 둘 다 값이 떨어진다. 가르는 규칙은 lib/referral.ts의
+   * referralSplit 한 곳에 있다.
+   *
+   * 잃는 것 — xl 이상에서는 감춰진 카드가 DOM에 남는다(display:none). 대신
+   * xl 미만(모바일 포함)에서는 본문 카드가 전부 그대로 보인다. 서버 렌더라
+   * 화면 폭을 미리 알 수 없어, 둘 중 하나는 CSS로 감추는 수밖에 없었다.
+   */
+  rail?: boolean;
 }
 
-export default function ReferralCards({ lang = 'ko', heading, placement = 'section' }: Props) {
+export default function ReferralCards({ lang = 'ko', heading, placement = 'section', rail = false }: Props) {
   const inResult = placement === 'result';
   const t = HEADING[lang] ?? HEADING.en;
   const title = heading ?? (inResult ? t.result : t.section);
+  // 레일이 맡은 몫 — 넓은 화면에서만 본문 카드에서 감춘다
+  const railIds = new Set(referralSplit(rail).rail.map(r => r.id));
 
   return (
     <section
       className={
         inResult
-          ? 'not-prose mt-6 rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/40 dark:bg-amber-950/10 p-4'
+          ? 'not-prose mt-6 rounded-2xl border-2 border-amber-300/90 dark:border-amber-800/70 bg-amber-50/70 dark:bg-amber-950/25 p-5 sm:p-6'
           : 'not-prose'
       }
     >
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-1.5">
         {/* "광고" 표기를 눈에 띄게 둔다. 숨기면 당장 클릭이 늘어도 신뢰를 잃는다. */}
         <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
           {t.ad}
         </span>
-        <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">{title}</h2>
+        {/* 제목을 한 단계 키웠다. text-sm은 본문 글씨와 같아서 머리글로 안 읽혔다. */}
+        <h2 className="text-base font-black text-slate-800 dark:text-slate-100">{title}</h2>
       </div>
+      {/* 무엇을 얻는지 한 줄 — 제목만 있으면 "그래서 뭘 얻는데?"에 답이 없다 */}
+      <p className="mb-4 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.why}</p>
 
-      <div className="grid sm:grid-cols-2 gap-3">
+      <div className={`grid gap-3 sm:grid-cols-2${rail ? ' xl:grid-cols-1' : ''}`}>
         {RANKED_REFERRALS.map(r => {
           const copy = r.copy[lang] ?? r.copy.en;
           const top = r.rank === 1;
@@ -115,7 +189,9 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
               href={r.href}
               target="_blank"
               rel={REFERRAL_REL}
-              className={`group relative overflow-hidden rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
+              className={`group relative overflow-hidden rounded-2xl p-5 sm:p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
+                railIds.has(r.id) ? 'xl:hidden ' : ''
+              }${
                 top
                   ? 'border-2 border-amber-400 dark:border-amber-500/60 bg-gradient-to-br from-amber-50 via-yellow-50/60 to-white dark:from-amber-500/[0.18] dark:via-amber-600/[0.06] dark:to-transparent hover:shadow-amber-500/20'
                   : 'border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/60 dark:to-transparent hover:border-amber-300 hover:shadow-amber-500/10'
@@ -142,16 +218,17 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
               </span>
 
               <span className="relative block">
-                <span className={`block font-black leading-none text-amber-700 dark:text-amber-300 ${top ? 'text-[32px]' : 'text-[26px]'}`}>
+                {/* 금액이 카드의 주인공이다 — 한 단계 더 키웠다 */}
+                <span className={`block font-black leading-none text-amber-700 dark:text-amber-300 ${top ? 'text-[36px]' : 'text-[29px]'}`}>
                   {copy.bonus}
                 </span>
-                <span className="mt-2 block text-xs text-slate-600 dark:text-slate-400">
+                <span className="mt-2.5 block text-[13px] leading-relaxed text-slate-600 dark:text-slate-400">
                   {copy.perks.join(' · ')}
                 </span>
               </span>
 
               <span
-                className={`relative mt-4 flex items-center justify-center gap-1.5 overflow-hidden rounded-xl py-2.5 text-sm font-black transition-colors ${
+                className={`relative mt-4 flex items-center justify-center gap-1.5 overflow-hidden rounded-xl py-3 text-[15px] font-black transition-colors ${
                   top
                     ? 'bg-amber-400 text-slate-950 group-hover:bg-amber-300'
                     : 'bg-slate-800 dark:bg-slate-700 text-white group-hover:bg-slate-900 dark:group-hover:bg-slate-600'

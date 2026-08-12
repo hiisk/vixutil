@@ -177,7 +177,7 @@ export default function StarMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/star-match']} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }
