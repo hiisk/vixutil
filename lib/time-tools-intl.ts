@@ -3,6 +3,7 @@ import type { TimeTool } from './time-tools.ts';
 import { TIME_TOOLS } from './time-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 import { withCard } from './og-cards/index.ts';
+import { relatedBySlug } from './related-window.ts';
 
 /**
  * 시간 도구(/time) 섹션의 번역 메타데이터.
@@ -620,13 +621,13 @@ export function findTimeToolIntl(lang: ToolIntlLang, slug: string): TimeTool | u
 }
 
 export function relatedTimeToolsIntl(lang: ToolIntlLang, slug: string, count = 4): TimeTool[] {
-  const all = timeToolsIntl(lang);
-  const self = all.find(t => t.slug === slug);
-  if (!self) return all.slice(0, count);
-  // 같은 분류를 먼저, 모자라면 나머지로 채운다
-  const same = all.filter(t => t.slug !== slug && t.category === self.category);
-  const rest = all.filter(t => t.slug !== slug && t.category !== self.category);
-  return [...same, ...rest].slice(0, count);
+  /*
+   * 이웃은 자기 자리 다음부터 원형으로 감아 고른다(lib/related-window.ts).
+   * 전에는 `[...same, ...rest].slice(0, count)`였고, 그러면 갈래의 앞에서
+   * 넉 개만 뽑혀 뒤쪽 도구에 **들어오는 링크가 0**이 됐다 — 여덟 섹션에서
+   * 열두 도구가 그 상태였고 열 언어이므로 120쪽이었다.
+   */
+  return relatedBySlug(timeToolsIntl(lang), slug, count, (a, b) => a.category === b.category);
 }
 
 /** 라우트가 그대로 쓰는 메타데이터 — 문구를 라이브러리 한 곳에만 둔다 */

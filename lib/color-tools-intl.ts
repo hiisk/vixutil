@@ -3,6 +3,7 @@ import type { ColorTool } from './color-tools.ts';
 import { COLOR_TOOLS } from './color-tools.ts';
 import { alternateLanguages10, localeHref, openGraphFor, type IntlLocale } from './locales.ts';
 import { withCard } from './og-cards/index.ts';
+import { relatedBySlug } from './related-window.ts';
 
 /**
  * 색상 도구(/color) 섹션의 번역 메타데이터.
@@ -605,12 +606,13 @@ export function findColorToolIntl(lang: ColorIntlLang, slug: string): ColorTool 
 }
 
 export function relatedColorToolsIntl(lang: ColorIntlLang, slug: string, count = 4): ColorTool[] {
-  const all = colorToolsIntl(lang);
-  const self = all.find(t => t.slug === slug);
-  if (!self) return all.slice(0, count);
-  const same = all.filter(t => t.slug !== slug && t.category === self.category);
-  const rest = all.filter(t => t.slug !== slug && t.category !== self.category);
-  return [...same, ...rest].slice(0, count);
+  /*
+   * 이웃은 자기 자리 다음부터 원형으로 감아 고른다(lib/related-window.ts).
+   * 전에는 `[...same, ...rest].slice(0, count)`였고, 그러면 갈래의 앞에서
+   * 넉 개만 뽑혀 뒤쪽 도구에 **들어오는 링크가 0**이 됐다 — 여덟 섹션에서
+   * 열두 도구가 그 상태였고 열 언어이므로 120쪽이었다.
+   */
+  return relatedBySlug(colorToolsIntl(lang), slug, count, (a, b) => a.category === b.category);
 }
 
 /** 허브에서 분류를 묶는 순서 — 각 언어의 category 문구와 정확히 같아야 한다 */

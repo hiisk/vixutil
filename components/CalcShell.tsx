@@ -111,6 +111,33 @@ export default function CalcShell({
           <RelatedCalcs />
 
           <CalcFaq items={faq} />
+
+          {/*
+            ── 틀릴 수 있다는 것을 모든 계산기에 적는다 (2026-08-12) ──
+
+            계산기 146개에는 해마다 고시로 바뀌는 값(세율 구간·보험 요율·최저임금·
+            요금표·연금 상수)이 들어 있다. 시행 직후에는 반영에 시차가 생기고,
+            개인 사정에 따른 예외를 다 담을 수도 없다.
+
+            그런데 그 사실이 지금까지 **허브 FAQ 한 줄에만** 있었다. 개별 계산기는
+            페이지마다 각주가 있는 것도 있고 없는 것도 있었다. 계산 결과가 큰
+            숫자로 크게 떠 있으면 사람들은 그것을 확정된 금액으로 읽는다 — 그래서
+            껍데기에 넣어 146장 전부에 같은 문구가 뜨게 했다.
+
+            이 자리를 FAQ 뒤에 둔 것은 결과 바로 아래에 두면 계산 흐름을 끊기
+            때문이다. 대신 글씨를 죽이지 않고 테두리를 줘서 눈에 들어오게 했다.
+          */}
+          <div className="mt-8 rounded-2xl border border-amber-200/80 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/30 p-5">
+            <p className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">
+              이 결과는 틀릴 수 있습니다
+            </p>
+            <p className="text-xs leading-relaxed text-amber-800/90 dark:text-amber-300/80">
+              공개된 산식과 표준 요율로 낸 <strong>참고용 추정치</strong>입니다. 세율 구간·보험 요율·
+              최저임금·요금표처럼 <strong>해마다 고시로 바뀌는 값</strong>은 시행 직후 반영에 시차가 생길
+              수 있고, 개인 사정에 따른 예외와 감면을 모두 담지도 못합니다. 금액이 중요한 판단에
+              쓰인다면 관계 기관의 최신 고시나 금융사·공단의 확정 통보로 반드시 확인하세요.
+            </p>
+          </div>
         </main>
 
         <SiteFooter referral={false} />
