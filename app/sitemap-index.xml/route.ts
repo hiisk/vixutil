@@ -1,4 +1,4 @@
-import { CHUNK_SIZE, sitemapChunkCount } from '../sitemap';
+import { CHUNK_SIZE, sitemapChunkIds } from '../sitemap';
 
 /**
  * 사이트맵 조각들을 묶는 목록.
@@ -15,8 +15,8 @@ export function GET(): Response {
   const body = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...Array.from({ length: sitemapChunkCount() }, (_, id) =>
-      `<sitemap><loc>${BASE}/sitemap/${id}.xml</loc></sitemap>`),
+    // 이름이 언어다 — /sitemap/ko.xml. 번호로 두면 언어가 쪼개질 때 이름이 밀린다
+    ...sitemapChunkIds().map(id => `<sitemap><loc>${BASE}/sitemap/${id}.xml</loc></sitemap>`),
     '</sitemapindex>',
   ].join('\n');
   return new Response(body, {

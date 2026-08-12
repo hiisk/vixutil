@@ -1338,8 +1338,15 @@ function langOfUrl(url: string): string {
   return SITEMAP_LANG_ORDER.includes(first) && first !== 'ko' ? first : 'ko';
 }
 
-/** 언어별로 묶고, 큰 언어는 한도 안에서 다시 쪼갠 조각 목록 */
-function sitemapChunks(): MetadataRoute.Sitemap[] {
+/**
+ * 언어별로 묶은 조각. 열쇠가 곧 파일 이름이 된다 — /sitemap/ko.xml.
+ *
+ * 번호(0,1,2…)로 두면 어느 언어가 한도를 넘겨 쪼개질 때 뒤 번호가 한 칸씩
+ * 밀리고, 그러면 서치 콘솔이 쌓아 둔 **파일별 이력이 다른 언어를 가리킨다.**
+ * 이름을 언어로 두면 그 일이 없다. 한 언어가 한도를 넘으면 그 언어만
+ * 'ko', 'ko-2' … 로 이어 붙는다 — 다른 언어의 이름은 그대로다.
+ */
+function sitemapChunks(): { id: string; entries: MetadataRoute.Sitemap }[] {
   const byLang = new Map<string, MetadataRoute.Sitemap>();
   for (const e of allEntries()) {
     const k = langOfUrl(String(e.url));
@@ -1348,24 +1355,32 @@ function sitemapChunks(): MetadataRoute.Sitemap[] {
     else byLang.set(k, [e]);
   }
   const langs = [...SITEMAP_LANG_ORDER, ...[...byLang.keys()].filter(l => !SITEMAP_LANG_ORDER.includes(l))];
-  const out: MetadataRoute.Sitemap[] = [];
-  for (const l of langs) {
-    const g = byLang.get(l);
+  const out: { id: string; entries: MetadataRoute.Sitemap }[] = [];
+  for (const lang of langs) {
+    const g = byLang.get(lang);
     if (!g?.length) continue;
-    for (let i = 0; i < g.length; i += CHUNK_SIZE) out.push(g.slice(i, i + CHUNK_SIZE));
+    for (let i = 0; i < g.length; i += CHUNK_SIZE) {
+      const part = i / CHUNK_SIZE;
+      out.push({ id: part === 0 ? lang : `${lang}-${part + 1}`, entries: g.slice(i, i + CHUNK_SIZE) });
+    }
   }
   return out;
+}
+
+/** 색인 파일이 줄을 세울 이름들 */
+export function sitemapChunkIds(): string[] {
+  return sitemapChunks().map(c => c.id);
 }
 
 export function sitemapChunkCount(): number {
   return Math.max(1, sitemapChunks().length);
 }
 
-export async function generateSitemaps(): Promise<{ id: number }[]> {
-  return Array.from({ length: sitemapChunkCount() }, (_, id) => ({ id }));
+export async function generateSitemaps(): Promise<{ id: string }[]> {
+  return sitemapChunks().map(c => ({ id: c.id }));
 }
 
 export default async function sitemap({ id }: { id: Promise<string> | string }): Promise<MetadataRoute.Sitemap> {
-  const n = Number(await id) || 0;
-  return sitemapChunks()[n] ?? [];
+  const key = String(await id);
+  return sitemapChunks().find(c => c.id === key)?.entries ?? [];
 }
