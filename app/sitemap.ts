@@ -91,6 +91,7 @@ import { CELLS as MOTOR_CELLS, slugOf as motorSlug } from "@/lib/motor/list";
 import { CELLS as STEEL_CELLS, slugOf as steelSlug } from "@/lib/steel/list";
 import { CELLS as HARDNESS_CELLS, slugOf as hardnessSlug } from "@/lib/hardness/list";
 import { CELLS as SUN_CELLS, slugOf as sunSlug } from "@/lib/sun/list";
+import { CELLS as LAUNDRY_CELLS } from "@/lib/laundry/list";
 import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
 import { CELLS as FERTILIZER_CELLS, slugOf as fertilizerSlug } from "@/lib/fertilizer/list";
 import { CELLS as BPM_CELLS, slugOf as bpmSlug } from "@/lib/bpm/list";
@@ -989,6 +990,15 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/ring`, changeFrequency: weekly, priority: 0.85 },
       ...RING_CELLS.map(mm => ({
         url: `${BASE}${prefix}/ring/${ringSlug(mm)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 세탁 기호 86칸도 열 언어다 — 갈래 다섯 × 요소 조합(칸이 자기 slug를 든다)
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/laundry`, changeFrequency: weekly, priority: 0.85 },
+      ...LAUNDRY_CELLS.map(c => ({
+        url: `${BASE}${prefix}/laundry/${c.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

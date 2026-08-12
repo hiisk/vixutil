@@ -80,6 +80,7 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'http': () => import('./pages/http__slug'),
   'insul': () => import('./pages/insul__slug'),
   'keycode': () => import('./pages/keycode__slug'),
+  'laundry': () => import('./pages/laundry__slug'),
   'lumber': () => import('./pages/lumber__slug'),
   'lumen': () => import('./pages/lumen__slug'),
   'metro': () => import('./pages/metro__slug'),

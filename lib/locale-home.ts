@@ -1128,6 +1128,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/laundry', icon: '🧺', color: 'from-sky-600 to-cyan-400',
+    accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
+    copy: {
+      en: { title: 'Laundry Symbols', desc: 'Dots are heat, bars are gentleness, a cross is a no' },
+      es: { title: 'Símbolos de lavado', desc: 'Los puntos son calor, las barras suavidad, la cruz una prohibición' },
+      'pt-br': { title: 'Símbolos de lavagem', desc: 'Os pontos são calor, as barras suavidade, a cruz uma proibição' },
+      ja: { title: '洗濯表示', desc: '点は温度、下線は強さ、×は禁止' },
+      de: { title: 'Pflegesymbole', desc: 'Punkte sind Hitze, Balken Schonung, ein Kreuz ist ein Verbot' },
+      fr: { title: 'Symboles d’entretien', desc: 'Les points font la chaleur, les barres la douceur, la croix l’interdit' },
+      hi: { title: 'धुलाई के चिह्न', desc: 'बिंदु ताप, रेखाएँ नरमी, क्रॉस मनाही' },
+      'zh-hans': { title: '洗涤标志', desc: '点是温度，下划线是强度，打叉是禁止' },
+      'zh-hant': { title: '洗滌標誌', desc: '點是溫度，底線是強度，打叉是禁止' },
+    },
+  },
+  {
     route: '/sun', icon: '🌅', color: 'from-sky-500 to-amber-300',
     accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
     copy: {

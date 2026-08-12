@@ -50,6 +50,7 @@ import { CELLS as MOTOR_CELLS } from '@/lib/motor/list';
 import { CELLS as STEEL_CELLS } from '@/lib/steel/list';
 import { CELLS as HARDNESS_CELLS } from '@/lib/hardness/list';
 import { CELLS as SUN_CELLS } from '@/lib/sun/list';
+import { CELLS as LAUNDRY_CELLS } from '@/lib/laundry/list';
 import { CELLS as FERTILIZER_CELLS } from '@/lib/fertilizer/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
@@ -167,6 +168,18 @@ const SECTIONS = [
     textAccent: 'text-rose-700 dark:text-rose-200',
     borderAccent: 'border-rose-200 dark:border-rose-800',
     shadow: 'shadow-rose-100',
+  },
+  {
+    href: '/laundry',
+    icon: '🧺',
+    title: '세탁 기호 뜻',
+    desc: '점은 온도, 밑줄은 세기, ×는 금지 — 옷 라벨 그림 86가지',
+    badge: `${LAUNDRY_CELLS.length}가지`,
+    color: 'from-sky-600 to-cyan-400',
+    bgLight: 'bg-sky-50 dark:bg-sky-900/40',
+    textAccent: 'text-sky-700 dark:text-sky-200',
+    borderAccent: 'border-sky-200 dark:border-sky-800',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/sun',
