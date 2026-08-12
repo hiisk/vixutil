@@ -1,3 +1,19 @@
+/*
+ * ── 이 화면만 서버 컴포넌트로 남긴다 (2026-08-13) ─────────────
+ * 낱장 103개를 클라이언트 컴포넌트로 옮겨 요청마다 나가는 RSC 짐을 절반으로
+ * 줄였는데(gzip 27.8KB → 14KB), 이 파일은 되돌렸다.
+ *
+ * 공식 계열 셋(/rate·/body·/geometry)이 이 화면 하나를 함께 쓰고, 셸이 **함수를
+ * 담은 tool 객체와 Engine 컴포넌트**를 props로 넘긴다. 클라이언트 경계는 함수를
+ * 직렬화할 수 없어서 요청이 500으로 떨어졌다.
+ *
+ *   Functions cannot be passed directly to Client Components
+ *
+ * 고칠 수는 있다 — 셸이 slug와 섹션 열쇠만 넘기고 이 화면이 tool과 Engine을
+ * 안에서 찾게 하면 된다. 하지만 세 섹션을 합쳐 **주소의 2.1%(4,280개)**이고
+ * 한 번 훑기 차이가 0.06GB다. 그 값에 세 섹션의 계산 화면을 건드릴 이유가 없다.
+ * 주소가 크게 늘거나 이 셋이 커지면 그때 고쳐라.
+ */
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';

@@ -1,3 +1,20 @@
+'use client';
+/*
+ * ── 왜 클라이언트 컴포넌트인가 (2026-08-13) ──────────────────
+ * 서버 컴포넌트가 그린 마크업은 **요청마다 두 번** 나간다 — 브라우저가 볼 HTML과,
+ * 그 옆에 인라인으로 붙는 RSC 짐(직렬화된 트리)이다. 클래스 문자열까지 두 번
+ * 실린다. 재 보니 낱장 한 장에서 RSC 짐이 61%였고 보이는 글자는 6%였다.
+ *
+ * Hobby의 Fast Origin Transfer 한도가 30일에 10GB인데, 주소 20만 개를 한 번 훑는
+ * 데만 6GB가 들어 사이트가 실제로 멈췄다(한도의 348%).
+ *
+ * 마크업을 클라이언트 컴포넌트로 옮기면 그 마크업은 **캐시되는 JS 묶음**으로
+ * 가고, 요청마다 넘어가는 것은 props(slug·lang) 둘뿐이다. HTML은 그대로 서버에서
+ * 그려지므로 크롤러가 읽는 내용은 하나도 줄지 않는다. 게다가 JS는 Fast Data
+ * Transfer(한도 100GB, 여유 많음)로 세어지고 크롤러는 애초에 받아 가지 않는다.
+ *
+ * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
+ */
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '@/lib/random-tools';

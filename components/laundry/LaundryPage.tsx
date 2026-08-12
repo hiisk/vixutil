@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';

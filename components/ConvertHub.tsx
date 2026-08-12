@@ -9,7 +9,7 @@ import { CONVERT_TOOLS, CONVERT_CATEGORIES, convert, format } from '@/lib/conver
 import { CONVERT_CATEGORY } from '@/lib/convert-i18n';
 import { CONVERT_UI, CONVERT_HUB_FAQ, type ConvertLang } from '@/lib/convert-ui-intl';
 import LangPicker from '@/components/LangPicker';
-import { localized } from '@/components/ConvertPage';
+import { localized } from '@/lib/convert-localized';
 import { localeHref, localePrefix } from '@/lib/locales';
 
 /** 허브도 여덟 언어가 공유한다 */
