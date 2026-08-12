@@ -73,6 +73,7 @@ import { CELLS as MOTOR_CELLS, MOTOR_ICON, slugOf as motorSlug } from './motor/l
 import { CELLS as STEEL_CELLS, STEEL_ICON, slugOf as steelSlug } from './steel/list.ts';
 import { CELLS as HARDNESS_CELLS, HARDNESS_ICON, slugOf as hardnessSlug } from './hardness/list.ts';
 import { CELLS as SUN_CELLS, SUN_ICON, slugOf as sunSlug } from './sun/list.ts';
+import { CELLS as DPI_CELLS, DPI_ICON } from './dpi/list.ts';
 import { CELLS as LAUNDRY_CELLS, LAUNDRY_ICON } from './laundry/list.ts';
 import { CELLS as FERTILIZER_CELLS, FERTILIZER_ICON, slugOf as fertilizerSlug } from './fertilizer/list.ts';
 import { ringFacts } from './ring/facts.ts';
@@ -81,6 +82,7 @@ import { motorFacts } from './motor/facts.ts';
 import { steelFacts } from './steel/facts.ts';
 import { hardnessFacts, valueOf as hardnessValue } from './hardness/facts.ts';
 import { sunFacts } from './sun/facts.ts';
+import { dpiFacts } from './dpi/facts.ts';
 import { laundryFacts } from './laundry/facts.ts';
 import { LAUNDRY_UI } from './laundry/ui.ts';
 import { cellName as sunName, dayLengthText, riseSetText, shadowText } from './sun/ui.ts';
@@ -227,7 +229,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'motor' | 'steel' | 'hardness' | 'sun' | 'laundry' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'motor' | 'steel' | 'hardness' | 'sun' | 'laundry' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink' | 'dpi';
 
 export interface SearchItem {
   href: string;
@@ -313,6 +315,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   fertilizer: { label: '비료 시비량', icon: '🌱', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
   laundry:    { label: '세탁 기호',  icon: '🧺', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   sun:        { label: '태양 고도',  icon: '🌅', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  dpi:        { label: '마우스 감도', icon: '🖱️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   hardness:   { label: '물 경도',    icon: '🚰', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   steel:      { label: '강재 무게',   icon: '🔲', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   motor:      { label: '모터 토크',   icon: '🔃', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
@@ -862,6 +865,24 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: LAUNDRY_ICON,
     };
   }),
+  ...DPI_CELLS.map(c => {
+    const f = dpiFacts(c);
+    return f.kind === 'pair'
+      ? {
+          href: `/dpi/${f.slug}`,
+          title: `${f.from.short} 감도를 ${f.to.short}로 — ${f.same ? '숫자가 그대로' : `${f.factor} 곱하기`}`,
+          desc: `800 DPI 30cm/360°는 ${f.from.short} ${f.pick.from} · ${f.to.short} ${f.pick.to}`,
+          section: 'dpi' as const,
+          icon: DPI_ICON,
+        }
+      : {
+          href: `/dpi/${f.slug}`,
+          title: `${f.game.short} ${f.dpi} DPI 감도표 — 30cm/360°는 ${f.pick.sens}`,
+          desc: `eDPI ${f.pick.edpi} · 20cm ${f.rows[0].sens} · 60cm ${f.rows[f.rows.length - 1].sens}`,
+          section: 'dpi' as const,
+          icon: DPI_ICON,
+        };
+  }),
   ...SUN_CELLS.map(c => {
     const f = sunFacts(c);
     return {
@@ -1398,6 +1419,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/gear', title: '자전거 기어비표', desc: '체인링과 스프라켓으로 기어비와 발전거리', section: 'gear' as const, icon: GEAR_ICON },
   { href: '/fertilizer', title: '비료 시비량표', desc: '봉지의 N-P-K 함량으로 나눠 읽는 뿌릴 양, 복합비료는 나머지 둘까지', section: 'fertilizer' as const, icon: FERTILIZER_ICON },
   { href: '/laundry', title: '세탁 기호 뜻', desc: '점은 온도, 밑줄은 세기, ×는 금지 — 옷 라벨 그림 86가지', section: 'laundry' as const, icon: LAUNDRY_ICON },
+  { href: '/dpi', title: '마우스 감도 변환표', desc: '게임 상수 하나로 읽는 cm/360°·eDPI — 감도는 목표 거리에서 거꾸로', section: 'dpi' as const, icon: DPI_ICON },
   { href: '/sun', title: '태양 고도와 낮 길이표', desc: '위도와 날짜로 정오 고도·낮 길이·일출 시각·그림자', section: 'sun' as const, icon: SUN_ICON },
   { href: '/hardness', title: '물 경도 단위 환산', desc: 'ppm·°dH·°fH·gpg를 한 표에 — 연수·경수 등급 경계는 기준마다 다릅니다', section: 'hardness' as const, icon: HARDNESS_ICON },
   { href: '/steel', title: '강재 단위중량표', desc: '강판·평철·봉·관 형상별로 부피 × 밀도로 읽는 무게', section: 'steel' as const, icon: STEEL_ICON },

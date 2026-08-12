@@ -1143,6 +1143,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/dpi', icon: '🖱️', color: 'from-violet-500 to-fuchsia-400',
+    accent: 'text-violet-700 dark:text-violet-200', border: 'border-violet-200 dark:border-violet-800', bg: 'bg-violet-50 dark:bg-violet-900/40',
+    copy: {
+      en: { title: 'Mouse Sensitivity and DPI', desc: 'cm/360° and eDPI from one game constant, converted between games' },
+      es: { title: 'Sensibilidad del ratón y DPI', desc: 'cm/360° y eDPI desde una constante, convertidos entre juegos' },
+      'pt-br': { title: 'Sensibilidade do mouse e DPI', desc: 'cm/360° e eDPI de uma constante, convertidos entre jogos' },
+      ja: { title: 'マウス感度とDPI', desc: 'ゲーム定数一つで出すcm/360°とeDPI、ゲーム間の変換つき' },
+      de: { title: 'Mausempfindlichkeit und DPI', desc: 'cm/360° und eDPI aus einer Konstante, zwischen Spielen umgerechnet' },
+      fr: { title: 'Sensibilité de la souris et DPI', desc: 'cm/360° et eDPI depuis une constante, convertis entre jeux' },
+      hi: { title: 'माउस संवेदनशीलता और DPI', desc: 'एक गेम स्थिरांक से cm/360° और eDPI, गेमों के बीच परिवर्तन' },
+      'zh-hans': { title: '鼠标灵敏度与 DPI', desc: '由一个游戏常数算出 cm/360° 和 eDPI，并在游戏间换算' },
+      'zh-hant': { title: '滑鼠靈敏度與 DPI', desc: '由一個遊戲常數算出 cm/360° 和 eDPI，並在遊戲間換算' },
+    },
+  },
+  {
     route: '/sun', icon: '🌅', color: 'from-sky-500 to-amber-300',
     accent: 'text-sky-700 dark:text-sky-200', border: 'border-sky-200 dark:border-sky-800', bg: 'bg-sky-50 dark:bg-sky-900/40',
     copy: {

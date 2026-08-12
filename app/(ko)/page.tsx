@@ -50,6 +50,7 @@ import { CELLS as MOTOR_CELLS } from '@/lib/motor/list';
 import { CELLS as STEEL_CELLS } from '@/lib/steel/list';
 import { CELLS as HARDNESS_CELLS } from '@/lib/hardness/list';
 import { CELLS as SUN_CELLS } from '@/lib/sun/list';
+import { CELLS as DPI_CELLS } from '@/lib/dpi/list';
 import { CELLS as LAUNDRY_CELLS } from '@/lib/laundry/list';
 import { CELLS as FERTILIZER_CELLS } from '@/lib/fertilizer/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
@@ -180,6 +181,18 @@ const SECTIONS = [
     textAccent: 'text-sky-700 dark:text-sky-200',
     borderAccent: 'border-sky-200 dark:border-sky-800',
     shadow: 'shadow-sky-100',
+  },
+  {
+    href: '/dpi',
+    icon: '🖱️',
+    title: '마우스 감도와 DPI',
+    desc: '소스 계열 eDPI 800은 51.95cm/360° — 게임 사이 감도를 옮기는 곱수와 DPI별 감도표',
+    badge: `${DPI_CELLS.length}칸`,
+    color: 'from-violet-500 to-fuchsia-400',
+    bgLight: 'bg-violet-50 dark:bg-violet-900/40',
+    textAccent: 'text-violet-700 dark:text-violet-200',
+    borderAccent: 'border-violet-200 dark:border-violet-800',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/sun',

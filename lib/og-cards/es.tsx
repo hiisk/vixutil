@@ -51,6 +51,7 @@ import { hubCard as motorHub } from '@/lib/motor/route';
 import { hubCard as steelHub } from '@/lib/steel/route';
 import { hubCard as hardnessHub } from '@/lib/hardness/route';
 import { hubCard as sunHub } from '@/lib/sun/route';
+import { hubCard as dpiHub } from '@/lib/dpi/route';
 import { hubCard as laundryHub } from '@/lib/laundry/route';
 import { hubCard as fertilizerHub } from '@/lib/fertilizer/route';
 import { hubCard as bpmHub } from '@/lib/bpm/route';
@@ -169,6 +170,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'motor': () => motorHub('es'),
   'steel': () => steelHub('es'),
   'hardness': () => hardnessHub('es'),
+  'dpi': () => dpiHub('es'),
   'sun': () => sunHub('es'),
   'laundry': () => laundryHub('es'),
   'fertilizer': () => fertilizerHub('es'),

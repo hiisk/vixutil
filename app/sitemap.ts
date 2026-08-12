@@ -91,6 +91,7 @@ import { CELLS as MOTOR_CELLS, slugOf as motorSlug } from "@/lib/motor/list";
 import { CELLS as STEEL_CELLS, slugOf as steelSlug } from "@/lib/steel/list";
 import { CELLS as HARDNESS_CELLS, slugOf as hardnessSlug } from "@/lib/hardness/list";
 import { CELLS as SUN_CELLS, slugOf as sunSlug } from "@/lib/sun/list";
+import { CELLS as DPI_CELLS } from "@/lib/dpi/list";
 import { CELLS as LAUNDRY_CELLS } from "@/lib/laundry/list";
 import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
 import { CELLS as FERTILIZER_CELLS, slugOf as fertilizerSlug } from "@/lib/fertilizer/list";
@@ -999,6 +1000,15 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/laundry`, changeFrequency: weekly, priority: 0.85 },
       ...LAUNDRY_CELLS.map(c => ({
         url: `${BASE}${prefix}/laundry/${c.slug}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 마우스 감도 128칸도 열 언어다 — 게임 쌍 56 + 게임×DPI 72
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/dpi`, changeFrequency: weekly, priority: 0.85 },
+      ...DPI_CELLS.map(c => ({
+        url: `${BASE}${prefix}/dpi/${c.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

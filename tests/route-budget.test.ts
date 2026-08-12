@@ -36,6 +36,13 @@
  *   동적 912 / 정적 482   39caec21 (배포 성공)
  *   동적 913 / 정적 516   2026-08-13 — 계산기 여덟·게임 넷·QR을 더했다(정적만 +17,
  *                         동적은 sitemap11 방어 라우트 하나)
+ *   동적 922 / 정적 517   2026-08-13 — /dpi를 열 언어로 냈다. 섹션 하나가 동적을
+ *                         **아홉** 먹는다(한국어는 접혀 정적 하나) — 이 검사가
+ *                         잡아서 알게 된 수다. **배포를 확인하지 않았다.**
+ *                         마지막으로 배포에 성공한 것은 동적 912(39caec21)이고
+ *                         지금은 +10이다. 다음 배포가 라우팅 표로 죽으면
+ *                         여기가 원인이고, 그때는 언어별 [slug] 라우트를
+ *                         캐치올로 접는 것이 고침이다(tests/fold-routes.test.ts).
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -46,8 +53,8 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 913;
-const EXPECT_STATIC = 516;
+const EXPECT_DYNAMIC = 922;
+const EXPECT_STATIC = 517;
 /**
  * 얼마까지 늘어도 넘기나.
  *
