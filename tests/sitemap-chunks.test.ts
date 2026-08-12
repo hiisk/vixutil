@@ -16,7 +16,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { BUILT_DIR, sitemapChunkFiles, sitemapRoutes } from './app-path.ts';
@@ -26,6 +26,16 @@ const PROTOCOL_MAX_URLS = 50_000;
 const PROTOCOL_MAX_BYTES = 50 * 1024 * 1024;
 
 const built = sitemapChunkFiles().length > 0;
+
+/**
+ * 지금 몇 조각이 필요한가 — 구운 산출물에서 센다.
+ *
+ * app/sitemap.ts는 @/ 별칭을 써서 node가 직접 못 읽으므로 sitemapParts()를
+ * 부를 수 없다. 대신 구운 파일 수를 쓴다(빌드 전이면 라우트 폴더 수와 같다).
+ */
+function sitemapRouteCount(): number {
+  return Math.max(1, sitemapChunkFiles().length);
+}
 
 test('조각 하나가 규약의 5만 주소를 안 넘는다', { skip: built ? false : '빌드 산출물 없음' }, () => {
   const files = sitemapChunkFiles();
@@ -89,4 +99,47 @@ test('robots.txt가 묶음 목록을 가리킨다', () => {
   const src = readFileSync(join(BUILT_DIR, '..', '..', '..', 'app', 'robots.ts'), 'utf8');
   assert.match(src, /sitemap-index\.xml/, 'robots.ts가 묶음 목록을 안 가리킨다');
   assert.match(src, /sitemapPartPath/, 'robots.ts가 언어별 파일을 안 세운다');
+});
+
+test('조각이 늘어도 그 주소를 낼 라우트가 있다', () => {
+  /*
+   * ── 숨은 함정 (2026-08-12에 찾음) ────────────────────────
+   * 파일 자리는 언어에 고정돼 있고, 한 언어가 45,000개를 넘으면 넘친 몫이
+   * **11번부터 뒤에 붙는다**(app/sitemap.ts의 sitemapParts). 그러면
+   * sitemap-index.xml이 /sitemap11.xml을 내걸지만, 그 주소를 낼
+   * app/sitemap11.xml/route.ts가 없어 **404**가 된다.
+   *
+   * 크롤러는 목록에 있는 주소가 404면 사이트맵 전체를 의심한다. 그런데
+   * 빌드도 검사도 멀쩡하다 — 넘치는 순간까지 아무 일도 안 일어난다.
+   *
+   * 지금은 한국어가 20,278개로 한도의 45%다. 섹션을 계속 늘리다 그 선을
+   * 넘으면 이 검사가 먼저 걸리고, 걸린 사람이 라우트 파일을 만들면 된다.
+   */
+  const files = readdirSync(join(BUILT_DIR, '..', '..', '..', 'app'))
+    .filter(f => /^sitemap\d*\.xml$/.test(f));
+  const routes = files.length;
+  const need = sitemapRouteCount();
+
+  assert.ok(routes > 0, 'sitemap 라우트 폴더를 하나도 못 찾았다 — 세는 방식이 깨졌다');
+  assert.ok(
+    need <= routes,
+    `조각이 ${need}개인데 그 주소를 낼 라우트는 ${routes}개다 — ` +
+    `app/sitemap${routes + 1}.xml/route.ts부터 만들어야 한다(없으면 목록의 그 주소가 404다)`,
+  );
+});
+
+test('한 언어가 한도에 얼마나 가까운지 본다', () => {
+  /*
+   * 넘치기 전에 알아채려고 여유를 재 둔다. 90%를 넘으면 라우트 파일을 미리
+   * 만들어 두라는 뜻이다 — 넘친 뒤에 알면 그 사이 배포가 404를 내건다.
+   */
+  const files = sitemapChunkFiles();
+  if (!files.length) return;                     // 빌드 산출물이 없으면 건너뛴다
+  const CHUNK_SIZE = 45_000;
+  const worst = Math.max(...files.map(p => (readFileSync(p, 'utf8').match(/<loc>/g) ?? []).length));
+  assert.ok(
+    worst < CHUNK_SIZE * 0.9,
+    `가장 큰 조각이 ${worst.toLocaleString()}개로 자르는 기준(${CHUNK_SIZE.toLocaleString()})의 ` +
+    `${((worst / CHUNK_SIZE) * 100).toFixed(0)}%다 — 넘기 전에 라우트 파일을 늘려 두라`,
+  );
 });
