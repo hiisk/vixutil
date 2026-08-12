@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { FOOD_TOOLS, findFoodTool, relatedFoodTools } from '../lib/food-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -44,7 +44,7 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
 
 test('재료 동적 라우트는 재료 목록에서 페이지를 만든다', () => {
   // 위 검사에서 [slug]를 빼 주었으니, 그 라우트가 실제로 재료 목록을 쓰는지 본다
-  const src = readFileSync(join(APP, '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('food'), 'utf8');
   assert.ok(src.includes('INGREDIENTS'), '[slug] 라우트가 재료 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
 });

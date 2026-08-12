@@ -11,7 +11,7 @@ import { CONVERT_EN, CONVERT_CATEGORY, CONVERT_L10N } from '../lib/convert-i18n.
 import { convertAlternates, CONVERT_HUB_FAQ } from '../lib/convert-ui-intl.ts';
 import { ALL_LOCALES10, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appJoin, hasPage } from './app-path.ts';
+import { appJoin, hasKoLeaf, hasPage } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -96,7 +96,7 @@ test('FAQ가 실제 계산값을 담는다', () => {
 
 test('허브와 상세 라우트가 있다', () => {
   assert.ok(existsSync(appJoin('convert', 'page.tsx')));
-  assert.ok(existsSync(appJoin('convert', '[slug]', 'page.tsx')));
+  assert.ok(hasKoLeaf('convert'));
   assert.ok((SECTION_FAQ.convert ?? []).length >= 3, '허브 FAQ가 부족하다');
 });
 
@@ -192,8 +192,13 @@ test('열 언어 라우트가 다 있다', () => {
     assert.ok(hasPage(lang, '/convert'), `${lang} 허브 없음`);
     // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다
     assert.ok(hasOwnCard(localeHref(lang, '/convert')), `${lang} 허브 공유 카드 없음`);
-    const base = appJoin(...localeHref(lang, '/convert').split('/').filter(Boolean));
-    assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
+    // 한국어 낱장은 라우트가 아니라 lib/ko/pages 모듈이다 — 2026-08-12 접기
+    if (lang === 'ko') {
+      assert.ok(hasKoLeaf('convert'), 'ko 낱장 모듈 없음');
+    } else {
+      const base = appJoin(...localeHref(lang, '/convert').split('/').filter(Boolean));
+      assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
+    }
   }
 });
 

@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { DEVICE_TOOLS, findDeviceTool, relatedDeviceTools } from '../lib/device-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -42,7 +42,7 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
 
 test('화면 규격 라우트는 화면 목록에서 페이지를 만든다', () => {
   // 위 검사에서 screen을 빼 주었으니, 그 라우트가 실제로 화면 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, 'screen', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('device/screen'), 'utf8');
   assert.ok(src.includes('screenParams'), '[slug] 라우트가 화면 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'screen', 'page.tsx')), '화면 규격 목록 페이지가 없다');

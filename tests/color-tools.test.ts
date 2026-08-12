@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { COLOR_TOOLS, findColorTool, relatedColorTools } from '../lib/color-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -44,7 +44,7 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
 
 test('색 이름 동적 라우트는 색 목록에서 페이지를 만든다', () => {
   // 위 검사에서 [slug]를 빼 주었으니, 그 라우트가 실제로 색 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('color'), 'utf8');
   assert.ok(src.includes('NAMED_COLORS_8'), '[slug] 라우트가 색 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
 });

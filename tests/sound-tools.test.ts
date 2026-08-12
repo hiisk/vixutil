@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { SOUND_TOOLS, findSoundTool, relatedSoundTools } from '../lib/sound-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -44,7 +44,7 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
 
 test('주파수 라우트는 주파수 목록에서 페이지를 만든다', () => {
   // 위 검사에서 hz를 빼 주었으니, 그 라우트가 실제로 주파수 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, 'hz', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('sound/hz'), 'utf8');
   assert.ok(src.includes('freqParams'), '[slug] 라우트가 주파수 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'hz', 'page.tsx')), '주파수 목록 페이지가 없다');

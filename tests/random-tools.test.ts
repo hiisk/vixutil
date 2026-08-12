@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '../lib/random-tools.ts';
 import { RANDOM_L10N, randomMetaIntl } from '../lib/random-ui-intl.ts';
 import { ALL_LOCALES, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
-import { appJoin, hasPage } from './app-path.ts';
+import { appJoin, hasKoLeaf, hasPage, koLeafSrc } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -40,7 +40,7 @@ test('RANDOM_TOOLS_MAP이 모든 도구를 포함한다', () => {
 
 test('모든 slug가 상세 페이지 컴포넌트 매핑에 존재한다', () => {
   // app/random/[slug]/page.tsx의 switch가 모든 slug를 처리해야 한다
-  const src = readFileSync(appJoin('random', '[slug]', 'page.tsx'), 'utf8');
+  const src = koLeafSrc('random');
   for (const t of RANDOM_TOOLS) {
     assert.ok(src.includes(`case '${t.slug}':`), `상세 페이지에 case 없음: ${t.slug}`);
   }
@@ -87,8 +87,13 @@ test('여덟 언어 라우트가 다 있고 hreflang이 서로를 가리킨다',
   for (const lang of ALL_LOCALES) {
     // 허브는 아홉 언어에서 접혔다 — 파일이 아니라 lib/fold/registry.ts가 쥔다
     assert.ok(hasPage(lang, '/random'), `${lang} 허브 없음`);
-    const base = appJoin(...localeHref(lang, '/random').split('/').filter(Boolean));
-    assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
+    // 한국어 낱장은 라우트가 아니라 lib/ko/pages 모듈이다 — 2026-08-12 접기
+    if (lang === 'ko') {
+      assert.ok(hasKoLeaf('random'), 'ko 낱장 모듈 없음');
+    } else {
+      const base = appJoin(...localeHref(lang, '/random').split('/').filter(Boolean));
+      assert.ok(existsSync(join(base, '[slug]', 'page.tsx')), `${lang} 상세 없음`);
+    }
   }
   // 메타데이터 함수가 withCard를 거치면서 반환형이 Metadata로 넓어졌다 —
   // 리터럴 추론이 없어져서 언어 열쇠로 바로 못 찾는다

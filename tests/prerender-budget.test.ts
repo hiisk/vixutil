@@ -71,7 +71,10 @@ test('낱장마다 force-dynamic이 있다 — 크롤이 ISR 쓰기를 안 태�
   const hubCatchalls = all.filter(f => f.includes('[[...path]]'));
   const leaves = all.filter(f => !f.includes('[[...path]]'));
   assert.equal(hubCatchalls.length, 9, `허브 캐치올이 ${hubCatchalls.length}개다 — 아홉 언어와 어긋난다`);
-  assert.ok(leaves.length > 900, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
+  /* 2026-08-12 접기로 낱장 라우트가 931 → 831이 됐다(한국어 101개는 lib/ko/pages
+     모듈이 되고 디스패처 둘이 대신 라우트를 쥔다). 그 둘에도 force-dynamic이
+     있어야 하므로 아래 검사는 그대로 유효하다. */
+  assert.ok(leaves.length > 700, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
 
   const missing = leaves.filter(f => !readFileSync(f, 'utf8').includes("export const dynamic = 'force-dynamic'"));
   assert.deepEqual(
@@ -126,7 +129,9 @@ test('디스크 안에 드는 값이다', () => {
    */
   const KB_PER_PAGE = 469;
   const dynamicRoutes = countDynamicRoutes();
-  assert.ok(dynamicRoutes > 900, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
+  /* 2026-08-12 접기로 840개가 됐다 — 굽는 장수는 이 수 × PRERENDER_PER_ROUTE다.
+     라우트가 줄면 같은 손잡이로 굽는 장수도 줄어든다는 뜻이라, 디스크 여유는 늘었다. */
+  assert.ok(dynamicRoutes > 700, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
   const pages = 2600 + dynamicRoutes * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
   assert.ok(gb < 12, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);

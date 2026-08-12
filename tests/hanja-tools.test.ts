@@ -6,7 +6,7 @@ import { idiomText } from '../lib/hanja/types.ts';
 import { HANJA_UI, hanjaCategories, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
 import { GLOSS_EN } from '../lib/hanja/gloss-en.ts';
 import { HANJA_L10N, GLOSS_L10N } from '../lib/hanja-l10n/index.ts';
-import { appFile } from './app-path.ts';
+import { appFile, hasKoLeaf, hasLeafAt } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const LANGS = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi'] as const;
@@ -151,7 +151,7 @@ test('같은 갈래 링크가 자기 자신을 가리키지 않는다', () => {
 test('세 언어 라우트가 모두 있다', () => {
   for (const p of ['app/hanja', 'app/en/hanja', ]) {
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(hasLeafAt(p), `${p}/[slug]/page.tsx 없음`);
     // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다 — 물려받은 것은 안 친다
     assert.ok(hasOwnCard(p.replace(/^app/, '') || '/'), `${p}에 제 공유 카드가 없다`);
   }

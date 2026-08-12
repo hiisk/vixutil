@@ -16,7 +16,7 @@ import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { FOOD_CATEGORIES, INGREDIENTS, ingredient, ingredientsOfCategory } from '../lib/food/ingredients8.ts';
 import { VOLUMES, foodFacts, mlOfGrams, similarIngredients } from '../lib/food/facts.ts';
 import { FOOD_UI, foodAlternates } from '../lib/food/ui.ts';
-import { appFile } from './app-path.ts';
+import { appFile, hasKoLeaf, hasLeafAt } from './app-path.ts';
 
 const LANG_KEYS = LANG_CODES;
 const ROUTE_LANGS = LANGS;
@@ -156,7 +156,7 @@ test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of ROUTE_LANGS) {
     const p = `app${prefix}/food`;
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(hasLeafAt(p), `${p}/[slug]/page.tsx 없음`);
   }
 });
 

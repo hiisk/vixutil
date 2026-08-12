@@ -9,6 +9,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { koLeafSrc } from './app-path.ts';
 
 import { LANGS, LANG_CODES } from '../lib/i18n/lang.ts';
 import { FILAMENT_ICON, FILAMENT_SLUGS } from '../lib/filament/list.ts';
@@ -62,9 +63,18 @@ test('낱장 껍데기가 아홉 언어에 있고 제 언어로 부른다', () =
   }
   // 한국어는 접지 않는다 — 파일이 직접 있다
   assert.ok(existsSync(join(ROOT, 'app', '(ko)', 'filament', 'page.tsx')), '한국어 허브가 없다');
-  const ko = readFileSync(join(ROOT, 'app', '(ko)', 'filament', '[slug]', 'page.tsx'), 'utf8');
-  assert.ok(ko.includes(`export const dynamic = 'force-dynamic'`), '한국어 낱장에 force-dynamic이 없다');
+  /*
+   * 한국어 낱장은 2026-08-12에 lib/ko/pages 모듈로 접혔다 — 라우팅 표 2,048 한도.
+   * force-dynamic은 모듈이 아니라 디스패처 라우트가 선언한다(모듈의 export는 Next가
+   * 안 본다). 그 선언이 있는지는 tests/prerender-budget.test.ts가 낱장 라우트 전부를
+   * 훑으며 지키므로 여기서 또 보지 않는다.
+   *
+   * generateStaticParams는 여기서 본다. 디스패처가 이 표를 돌며 모아 쓰기 때문에,
+   * 모듈에서 그것이 사라지면 굽는 손잡이가 그 갈래에서만 조용히 죽는다.
+   */
+  const ko = koLeafSrc('filament');
   assert.ok(ko.includes('generateStaticParams'), '한국어 낱장에 generateStaticParams가 없다');
+  assert.ok(ko.includes('FILAMENT_SLUGS') || ko.includes('filamentParams'), '한국어 낱장이 필라멘트 목록을 안 돌린다');
 });
 
 test('공유 카드 열쇠가 열 언어에 다 있다', () => {

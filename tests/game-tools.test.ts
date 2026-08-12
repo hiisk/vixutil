@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { GAME_TOOLS, findGameTool, relatedGameTools } from '../lib/game-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -45,7 +45,7 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
 
 test('큐브 공식 라우트는 공식 목록에서 페이지를 만든다', () => {
   // 위 검사에서 cube를 빼 주었으니, 그 라우트가 실제로 공식 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, 'cube', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('game/cube'), 'utf8');
   assert.ok(src.includes('algParams'), '[slug] 라우트가 공식 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'cube', 'page.tsx')), '큐브 공식 목록 페이지가 없다');
@@ -53,14 +53,14 @@ test('큐브 공식 라우트는 공식 목록에서 페이지를 만든다', ()
 
 test('체스 오프닝 라우트는 오프닝 목록에서 페이지를 만든다', () => {
   // 위 검사에서 chess를 빼 주었으니, 그 라우트가 실제로 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, 'chess', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('game/chess'), 'utf8');
   assert.ok(src.includes('openingParams'), '[slug] 라우트가 오프닝 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'chess', 'page.tsx')), '오프닝 목록 페이지가 없다');
 });
 
 test('홀덤 핸드 라우트는 핸드 목록에서 페이지를 만든다', () => {
-  const src = readFileSync(join(APP, 'poker', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('game/poker'), 'utf8');
   assert.ok(src.includes('handParams'), '[slug] 라우트가 핸드 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'poker', 'page.tsx')), '핸드 목록 페이지가 없다');

@@ -19,7 +19,7 @@ import {
 } from '../lib/time/cities8.ts';
 import { cityFacts, gapLabel, gapMinutes, offsetLabel, sameZoneCities, timeFacts, usesDst } from '../lib/time/facts.ts';
 import { TIME_UI, timeAlternates } from '../lib/time/ui.ts';
-import { appFile } from './app-path.ts';
+import { appFile, hasKoLeaf, hasLeafAt } from './app-path.ts';
 
 const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -166,7 +166,7 @@ test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/time`;
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(hasLeafAt(p), `${p}/[slug]/page.tsx 없음`);
   }
 });
 

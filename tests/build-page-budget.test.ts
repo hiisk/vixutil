@@ -95,7 +95,10 @@ test('빌드에서 구울 장수가 한도 안에 든다', () => {
   const pages = dynamic * limit + staticN + foldHubs;
 
   // 라우트를 못 세면 검사가 조용히 통과한다 — 그것부터 막는다
-  assert.ok(dynamic > 900, `동적 라우트가 ${dynamic}개뿐 — 세는 방식이 깨졌다`);
+  /* 2026-08-12: 라우팅 표 2,048 한도에 걸려 세 칸 낱장(아홉 언어 99→9)과
+     한국어 낱장 101개를 접었다. 941 → 840. 셈이 깨진 것과 일부러 줄인 것을
+     가리려면 문턱을 낮추되 0으로 두지 않는다. */
+  assert.ok(dynamic > 700, `동적 라우트가 ${dynamic}개뿐 — 세는 방식이 깨졌다`);
   assert.ok(staticN > 300, `정적 라우트가 ${staticN}개뿐 — 세는 방식이 깨졌다`);
   assert.ok(foldHubs > 2_000, `접힌 허브가 ${foldHubs}장뿐 — 등록부를 못 읽었다`);
 

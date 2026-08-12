@@ -26,9 +26,10 @@ const PICKERS = [
   'components/ChecklistIntlPage.tsx',
   'components/QuizIntlPage.tsx',
   'components/TestIntlPage.tsx',
-  'app/checklist/[slug]/page.tsx',
-  'app/quiz/[slug]/page.tsx',
-  'app/test/[slug]/page.tsx',
+  // 한국어 낱장은 2026-08-12에 lib/ko/pages 모듈로 접혔다 — 라우팅 표 2,048 한도
+  'lib/ko/pages/checklist__slug.tsx',
+  'lib/ko/pages/quiz__slug.tsx',
+  'lib/ko/pages/test__slug.tsx',
 ];
 
 test('상세 페이지의 언어 목록은 hreflang과 같은 함수에서 나온다', () => {

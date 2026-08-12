@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appJoin } from './app-path.ts';
+import { appJoin, hasKoLeaf, koLeafFile } from './app-path.ts';
 import { builtHtml, isBuilt } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -19,6 +19,8 @@ function pagePath(route: string): string {
   const direct = appJoin(route, 'page.tsx');
   if (existsSync(direct)) return direct;
   const parent = route.split('/').slice(0, -1).join('/');
+  // 한국어 낱장은 2026-08-12에 lib/ko/pages 모듈로 접혔다 — 그쪽도 인정한다
+  if (hasKoLeaf(parent)) return koLeafFile(parent);
   return appJoin(parent, '[slug]', 'page.tsx');
 }
 

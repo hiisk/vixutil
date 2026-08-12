@@ -17,7 +17,7 @@ import { LANGS as LANG_INFO, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { COLOR_FAMILIES, NAMED_COLORS_8, colorsOfFamily, namedColor } from '../lib/color/named8.ts';
 import { colorFacts, nearbyColors } from '../lib/color/facts.ts';
 import { COLOR_UI, colorAlternates, colorFaq } from '../lib/color/ui.ts';
-import { appFile } from './app-path.ts';
+import { appFile, hasKoLeaf, hasLeafAt } from './app-path.ts';
 
 const LANGS = LANG_CODES;
 const HANGUL = /[가-힣]/;
@@ -149,7 +149,7 @@ test('열 언어 라우트와 공유 카드가 다 있다', () => {
   for (const { prefix } of LANG_INFO) {
     const p = `app${prefix}/color`;
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
-    assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+    assert.ok(hasLeafAt(p), `${p}/[slug]/page.tsx 없음`);
   }
 });
 

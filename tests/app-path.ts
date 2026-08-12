@@ -39,6 +39,43 @@ export function foldHubs(): string[] {
 }
 
 /**
+ * 한국어 낱장 모듈의 경로 — 'body' 또는 'game/chess'를 준다.
+ *
+ * 2026-08-12에 한국어 낱장 101개를 라우트 둘로 접었다(Vercel 라우팅 표 2,048 한도).
+ * 알맹이는 lib/ko/pages로 옮겼고 그리는 것은 그대로다. 검사가 라우트 파일을 읽어
+ * 주장하던 자리를 여기로 돌린다 — 파일이 어디 있는지는 이 헬퍼만 알면 된다.
+ */
+export function koLeafFile(section: string): string {
+  return join(ROOT, 'lib', 'ko', 'pages', `${section.replace(/\//g, '__')}__slug.tsx`);
+}
+
+/** 그 갈래의 한국어 낱장 모듈이 있는가 */
+export function hasKoLeaf(section: string): boolean {
+  return existsSync(koLeafFile(section));
+}
+
+/** 한국어 낱장 모듈의 소스 — 없으면 던진다(검사가 조용히 통과하지 않게) */
+export function koLeafSrc(section: string): string {
+  const f = koLeafFile(section);
+  if (!existsSync(f)) throw new Error(`한국어 낱장 모듈이 없다: ${section} (${f})`);
+  return readFileSync(f, 'utf8');
+}
+
+/**
+ * 'app/color' 또는 'app/en/color'를 받아 그 언어의 낱장이 있는지 본다.
+ *
+ * 낱장이 사는 곳이 언어마다 다르다 — 한국어는 lib/ko/pages 모듈이고(2026-08-12에
+ * Vercel 라우팅 표 2,048 한도 때문에 접었다), 아홉 언어는 아직 라우트 파일이다.
+ * 언어별로 갈라 묻는 검사가 여러 곳이라 그 갈림을 여기 한 군데에 둔다.
+ */
+export function hasLeafAt(appPath: string): boolean {
+  const rel = appPath.replace(/^app\/?/, '');
+  const first = rel.split('/')[0];
+  if (FOLDED_LANGS.has(first)) return existsSync(join(appJoin(rel), '[slug]', 'page.tsx'));
+  return hasKoLeaf(rel);
+}
+
+/**
  * 접힌 낱장 열쇠 — 'body', 'game/chess' 꼴. SLUG_ROUTES가 근거다.
  *
  * foldHubs와 짝이다. 허브는 캐치올이 등록부를 보고 굽고, 낱장은 라우트가

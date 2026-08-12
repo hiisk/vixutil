@@ -7,7 +7,7 @@ import { CHECKLISTS } from '../lib/checklist-data.ts';
 import { DEVICE_TOOLS } from '../lib/device-tools.ts';
 import { IMAGE_TOOLS } from '../lib/image-tools.ts';
 import { TEXT_TOOLS } from '../lib/text-tools.ts';
-import { appJoin } from './app-path.ts';
+import { appJoin, koLeafSrc } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -78,7 +78,7 @@ test('계산기 페이지가 CrossLinks를 렌더한다', () => {
   const shell = readFileSync(join(ROOT, 'components', 'CalcShell.tsx'), 'utf8');
   assert.ok(shell.includes('<CrossLinks'), 'CalcShell이 CrossLinks를 렌더하지 않는다');
 
-  const checklistPage = readFileSync(appJoin('checklist', '[slug]', 'page.tsx'), 'utf8');
+  const checklistPage = koLeafSrc('checklist');
   assert.ok(checklistPage.includes('<CrossLinks'), '체크리스트 상세가 CrossLinks를 렌더하지 않는다');
 
   // 기기 점검도 셸 하나가 열 페이지를 다 그린다 — 여기 빠지면 전부 빠진다.

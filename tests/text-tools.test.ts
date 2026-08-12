@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { TEXT_TOOLS, findTextTool, relatedTextTools } from '../lib/text-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -46,7 +46,7 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
 
 test('특수문자 라우트는 글자 목록에서 페이지를 만든다', () => {
   // 위 검사에서 char를 빼 주었으니, 그 라우트가 실제로 글자 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, 'char', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('text/char'), 'utf8');
   assert.ok(src.includes('glyphParams'), '[slug] 라우트가 글자 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'char', 'page.tsx')), '특수문자 목록 페이지가 없다');
@@ -54,7 +54,7 @@ test('특수문자 라우트는 글자 목록에서 페이지를 만든다', () 
 
 test('정규식 라우트는 식 목록에서 페이지를 만든다', () => {
   // 위 검사에서 regex를 빼 주었으니, 그 라우트가 실제로 식 목록을 쓰는지 여기서 본다
-  const src = readFileSync(join(APP, 'regex', '[slug]', 'page.tsx'), 'utf8');
+  const src = readFileSync(koLeafFile('text/regex'), 'utf8');
   assert.ok(src.includes('patternParams'), '[slug] 라우트가 식 목록을 돌지 않는다');
   assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
   assert.ok(existsSync(join(APP, 'regex', 'page.tsx')), '정규식 목록 페이지가 없다');

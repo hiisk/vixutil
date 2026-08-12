@@ -18,7 +18,7 @@ import { termDesc } from '../lib/formula/glossary.ts';
 import type { SectionConfig } from '../lib/formula/section.ts';
 import { sectionMeta, sectionCategories } from '../lib/formula/section.ts';
 import { verdictText } from '../lib/formula/types.ts';
-import { appFile } from './app-path.ts';
+import { appFile, hasKoLeaf } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 import { engineLabels } from '../lib/formula/engine-labels.ts';
 import { sectionHasLang } from '../lib/formula/section.ts';
@@ -251,7 +251,12 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
   test(`${name} 두 언어 라우트가 모두 있다`, () => {
     for (const p of [`app/${key}`, `app/en/${key}`]) {
       assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
-      assert.ok(existsSync(appFile(`${p}/[slug]/page.tsx`)), `${p}/[slug]/page.tsx 없음`);
+      /* 낱장이 있는 곳이 언어마다 다르다 — 한국어는 lib/ko/pages 모듈이고(라우팅 표
+         2,048 한도 때문에 2026-08-12에 접었다), 영어는 아직 라우트 파일이다 */
+      const hasLeaf = p.startsWith('app/en/')
+        ? existsSync(appFile(`${p}/[slug]/page.tsx`))
+        : hasKoLeaf(key);
+      assert.ok(hasLeaf, `${p}의 낱장이 없다`);
       // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다 — 물려받은 것은 안 친다
     assert.ok(hasOwnCard(p.replace(/^app/, '') || '/'), `${p}에 제 공유 카드가 없다`);
     }
