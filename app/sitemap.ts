@@ -1305,30 +1305,42 @@ function allEntries(): MetadataRoute.Sitemap {
  * 구글과 빙은 그런 사이트맵을 앞부분만 읽거나 통째로 버린다. 즉 주소의
  * 3분의 2가 검색엔진에 안 보이고 있었다.
  *
- * generateSitemaps로 /sitemap/0.xml … 꼴로 나눈다. 한 조각을 45,000으로
- * 잡은 것은 5만에 딱 붙이면 섹션 하나만 늘어도 다시 넘치기 때문이다.
- * 조각을 묶는 목록은 app/sitemap-index.xml/route.ts가 낸다.
+ * 그래서 파일을 나눴다. 45,000으로 잡은 것은 5만에 딱 붙이면 섹션 하나만 늘어도
+ * 다시 넘치기 때문이다 — 언어 하나가 이 수를 넘길 때만 그 언어가 두 파일이 된다.
+ * 파일을 묶는 목록은 app/sitemap-index.xml/route.ts가 낸다.
  */
 export const CHUNK_SIZE = 45_000;
 
 /**
- * ── 조각 하나 = 언어 하나 (2026-08-12) ────────────────────────
- * 서치 콘솔이 이렇게 알려 줬다 — `발견된 페이지 50,000`, 그 뒤로 다시 읽지 않음.
- * 구글은 사이트맵을 **앞에서부터** 읽고 제 예산에서 끊는다. 그때 읽힌 5만 개를
- * 세어 보니 열 언어에 얇게 퍼져 한국어는 19,903개 중 5,218개(26%)뿐이었고,
+ * ── 언어마다 파일 하나, 주소는 /sitemap.xml 의 형제 (2026-08-12) ──────
+ *
+ *   /sitemap.xml     ko        19,903   ← 구글이 이미 등록해 둔 주소다
+ *   /sitemap2.xml    en        18,995
+ *   /sitemap3.xml    es
+ *   …
+ *   /sitemap10.xml   zh-hant
+ *
+ * 서치 콘솔이 알려 준 것: `/sitemap.xml` 발견된 페이지 **50,000**, 마지막 읽음
+ * 8월 8일. 구글은 사이트맵을 앞에서부터 읽고 제 예산에서 끊는다. 그때 읽힌 5만
+ * 개를 세어 보니 열 언어에 얇게 퍼져 한국어는 19,903개 중 5,218개(26%)뿐이었고,
  * 끊긴 자리는 `fr/game/poker/k9s`처럼 값만 바꿔 찍은 표였다.
  *
- * 그래서 주소를 빼지 않고 **자르는 자리를 언어에 맞췄다.** 얻는 것이 둘이다.
- *
- * 하나. 한국어가 조각 0에 통째로 들어간다. 구글이 첫 조각만 읽어도 유입이 오는
- * 언어는 한 장도 빠지지 않는다.
- *
- * 둘. **서치 콘솔이 사이트맵 파일별로 색인 현황을 보여 준다.** 조각이 언어별이면
+ * ── 왜 언어마다 하나인가 ───────────────────────────────────
+ * 서치 콘솔은 **사이트맵 파일별로** 색인 현황을 보여 준다. 파일이 언어별이면
  * "한국어는 몇 % 색인됐고 번역판은 몇 %인가"를 바로 읽을 수 있다. 45,000개씩
- * 기계적으로 자르면 조각마다 언어가 섞여 그 수치가 아무것도 말해 주지 않는다.
+ * 기계적으로 자르면 파일마다 언어가 섞여 그 수치가 아무것도 말해 주지 않는다.
+ * 그리고 한국어가 /sitemap.xml 하나에 다 들어가므로, 구글이 그 주소만 읽어도
+ * 유입이 오는 언어는 한 장도 빠지지 않는다.
  *
- * 언어 하나가 5만을 넘으면 그 언어만 다시 쪼갠다 — 규약 한도(파일당 5만)는
- * 언제나 지켜진다. 목록에 없는 언어가 생기면 뒤에 붙는다(조용히 빠지지 않게).
+ * ── 왜 /sitemap/0.xml 이 아닌가 ────────────────────────────
+ * Next의 generateSitemaps는 반드시 `/sitemap/<id>.xml` 밑에 만든다. 그러면 이미
+ * 등록된 /sitemap.xml이 목록 파일이 되고 실제 주소는 한 칸 밑으로 내려간다.
+ * 그래서 generateSitemaps를 쓰지 않고 형제 라우트로 낸다 —
+ * app/sitemap2.xml/route.ts … 가 각각 이 표의 한 칸을 낸다.
+ *
+ * 자리는 언어에 고정한다. 어느 언어가 45,000을 넘겨도 **뒤 번호를 밀지 않고**
+ * 11번부터 뒤에 붙인다 — 1~10은 배포와 무관하게 늘 같은 언어를 가리킨다.
+ * 밀리면 서치 콘솔이 파일별로 쌓아 둔 이력이 다른 언어를 가리키게 된다.
  */
 const SITEMAP_LANG_ORDER = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
@@ -1338,15 +1350,8 @@ function langOfUrl(url: string): string {
   return SITEMAP_LANG_ORDER.includes(first) && first !== 'ko' ? first : 'ko';
 }
 
-/**
- * 언어별로 묶은 조각. 열쇠가 곧 파일 이름이 된다 — /sitemap/ko.xml.
- *
- * 번호(0,1,2…)로 두면 어느 언어가 한도를 넘겨 쪼개질 때 뒤 번호가 한 칸씩
- * 밀리고, 그러면 서치 콘솔이 쌓아 둔 **파일별 이력이 다른 언어를 가리킨다.**
- * 이름을 언어로 두면 그 일이 없다. 한 언어가 한도를 넘으면 그 언어만
- * 'ko', 'ko-2' … 로 이어 붙는다 — 다른 언어의 이름은 그대로다.
- */
-function sitemapChunks(): { id: string; entries: MetadataRoute.Sitemap }[] {
+/** 0번이 /sitemap.xml, 1번이 /sitemap2.xml … 자리는 언어에 고정돼 있다 */
+export function sitemapParts(): MetadataRoute.Sitemap[] {
   const byLang = new Map<string, MetadataRoute.Sitemap>();
   for (const e of allEntries()) {
     const k = langOfUrl(String(e.url));
@@ -1354,33 +1359,60 @@ function sitemapChunks(): { id: string; entries: MetadataRoute.Sitemap }[] {
     if (arr) arr.push(e);
     else byLang.set(k, [e]);
   }
-  const langs = [...SITEMAP_LANG_ORDER, ...[...byLang.keys()].filter(l => !SITEMAP_LANG_ORDER.includes(l))];
-  const out: { id: string; entries: MetadataRoute.Sitemap }[] = [];
-  for (const lang of langs) {
-    const g = byLang.get(lang);
-    if (!g?.length) continue;
-    for (let i = 0; i < g.length; i += CHUNK_SIZE) {
-      const part = i / CHUNK_SIZE;
-      out.push({ id: part === 0 ? lang : `${lang}-${part + 1}`, entries: g.slice(i, i + CHUNK_SIZE) });
-    }
+  /* 언어 자리 — 앞 45,000개까지가 그 언어의 제 번호를 쓴다 */
+  const base = SITEMAP_LANG_ORDER
+    .map(l => (byLang.get(l) ?? []).slice(0, CHUNK_SIZE))
+    .filter(c => c.length);
+
+  /* 넘친 몫과 목록에 없는 언어는 뒤에 붙는다 — 앞 번호를 건드리지 않는다 */
+  const overflow: MetadataRoute.Sitemap[] = [];
+  for (const l of SITEMAP_LANG_ORDER) {
+    const g = byLang.get(l) ?? [];
+    for (let i = CHUNK_SIZE; i < g.length; i += CHUNK_SIZE) overflow.push(g.slice(i, i + CHUNK_SIZE));
   }
-  return out;
+  for (const [l, g] of byLang) {
+    if (SITEMAP_LANG_ORDER.includes(l)) continue;
+    for (let i = 0; i < g.length; i += CHUNK_SIZE) overflow.push(g.slice(i, i + CHUNK_SIZE));
+  }
+  return [...base, ...overflow];
 }
 
-/** 색인 파일이 줄을 세울 이름들 */
-export function sitemapChunkIds(): string[] {
-  return sitemapChunks().map(c => c.id);
+export function sitemapPartCount(): number {
+  return Math.max(1, sitemapParts().length);
 }
 
-export function sitemapChunkCount(): number {
-  return Math.max(1, sitemapChunks().length);
+/** n번째(0부터) 파일의 주소 — 0은 /sitemap.xml, 그 뒤는 /sitemap2.xml … */
+export function sitemapPartPath(n: number): string {
+  return n === 0 ? '/sitemap.xml' : `/sitemap${n + 1}.xml`;
 }
 
-export async function generateSitemaps(): Promise<{ id: string }[]> {
-  return sitemapChunks().map(c => ({ id: c.id }));
+/**
+ * 형제 라우트가 낼 XML.
+ *
+ * Next의 sitemap 규약이 만드는 것과 같은 꼴로 적는다 — 형제 라우트에서는 그
+ * 직렬화를 쓸 수 없어 여기서 손으로 쓴다.
+ */
+export function sitemapXml(entries: MetadataRoute.Sitemap): string {
+  const body = entries.map(e => {
+    const parts = [`<loc>${e.url}</loc>`];
+    if (e.changeFrequency) parts.push(`<changefreq>${e.changeFrequency}</changefreq>`);
+    if (e.priority !== undefined) parts.push(`<priority>${e.priority}</priority>`);
+    return `<url>${parts.join('')}</url>`;
+  }).join('');
+  return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${body}</urlset>`;
 }
 
-export default async function sitemap({ id }: { id: Promise<string> | string }): Promise<MetadataRoute.Sitemap> {
-  const key = String(await id);
-  return sitemapChunks().find(c => c.id === key)?.entries ?? [];
+/** 형제 라우트가 같은 꼴로 응답하게 한다 */
+export function sitemapResponse(n: number): Response {
+  return new Response(sitemapXml(sitemapParts()[n] ?? []), {
+    headers: {
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'public, max-age=0, s-maxage=3600, must-revalidate',
+    },
+  });
+}
+
+/** /sitemap.xml — 한국어. 유입이 오는 언어를 이미 등록된 주소에 둔다 */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return sitemapParts()[0] ?? [];
 }

@@ -73,21 +73,12 @@ test('묶음 목록이 조각을 하나도 빠뜨리지 않는다', { skip: buil
     console.log('  (묶음 목록 산출물을 못 찾았다 — 라우트 핸들러라 이름이 다를 수 있다)');
     return;
   }
-  /*
-   * 2026-08-12에 조각 이름을 번호에서 **언어**로 바꿨다 — /sitemap/ko.xml.
-   * 번호로 두면 어느 언어가 한도를 넘겨 쪼개질 때 뒤 번호가 밀려, 서치 콘솔이
-   * 쌓아 둔 파일별 색인 이력이 다른 언어를 가리킨다.
-   */
   const xml = readFileSync(found, 'utf8');
-  const listed = [...xml.matchAll(/<loc>https:\/\/vixutil\.com\/sitemap\/([a-z0-9-]+)\.xml<\/loc>/g)].map(m => m[1]);
-  const onDisk = sitemapChunkFiles()
-    .filter(p => p.includes('/sitemap/'))
-    .map(p => p.replace(/.*\/sitemap\//, '').replace(/\.xml(\.body)?$/, ''));
-  assert.equal(listed.length, onDisk.length, `목록은 ${listed.length}개인데 구운 조각은 ${onDisk.length}개다`);
-  assert.deepEqual([...listed].sort(), [...onDisk].sort(), '목록과 구운 조각의 이름이 다르다');
-
-  /* 한국어가 맨 앞이다 — 구글은 목록을 위에서부터 읽고, 유입이 한국어에서 온다 */
-  assert.equal(listed[0], 'ko', `목록 첫 줄이 ${listed[0]}이다 — 한국어가 앞에 와야 한다`);
+  /* 2026-08-12: 조각이 /sitemap.xml 의 형제다 — /sitemap.xml · /sitemap2.xml … */
+  const listed = [...xml.matchAll(/<loc>https:\/\/vixutil\.com\/(sitemap\d*\.xml)<\/loc>/g)].map(m => m[1]);
+  const onDisk = sitemapChunkFiles().length;
+  assert.equal(listed.length, onDisk, `목록은 ${listed.length}개인데 구운 파일은 ${onDisk}개다`);
+  assert.equal(listed[0], 'sitemap.xml', `목록 첫 줄이 ${listed[0]}이다 — 한국어가 앞에 와야 한다`);
 });
 
 test('robots.txt가 묶음 목록을 가리킨다', () => {
@@ -97,4 +88,5 @@ test('robots.txt가 묶음 목록을 가리킨다', () => {
    */
   const src = readFileSync(join(BUILT_DIR, '..', '..', '..', 'app', 'robots.ts'), 'utf8');
   assert.match(src, /sitemap-index\.xml/, 'robots.ts가 묶음 목록을 안 가리킨다');
+  assert.match(src, /sitemapPartPath/, 'robots.ts가 언어별 파일을 안 세운다');
 });

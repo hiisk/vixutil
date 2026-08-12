@@ -1,5 +1,5 @@
 /**
- * 사이트맵을 자르는 자리가 크롤 예산을 어디에 쓰는지 정한다 — 조각 하나 = 언어 하나.
+ * 사이트맵을 자르는 자리가 크롤 예산을 어디에 쓰는지 정한다 — 파일 하나 = 언어 하나.
  *
  * ── 서치 콘솔이 알려 준 것 (2026-08-12) ────────────────────────
  * `/sitemap.xml`: 발견된 페이지 **50,000**, 그 뒤로 다시 읽지 않음.
@@ -8,7 +8,7 @@
  * 끊긴 자리는 `fr/game/poker/k9s`처럼 값만 바꿔 찍은 표였다.
  *
  * 주소를 빼는 것은 노출을 포기하는 것이라 하지 않았다. 대신 자르는 자리를 언어에
- * 맞췄다 — /sitemap/ko.xml이 한국어 전부이고, 그 뒤가 언어별 파일이다. 얻는 것이 둘이다:
+ * 맞췄다 — /sitemap.xml이 한국어 전부이고, /sitemap2.xml부터가 아홉 언어다. 얻는 것이 둘이다:
  * 구글이 첫 조각만 읽어도 한국어가 다 들어가고, **서치 콘솔이 파일별 색인 현황을
  * 보여 주므로** 언어별 색인율을 바로 읽을 수 있다.
  *
@@ -21,30 +21,29 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
 
-const BUILT = join(import.meta.dirname, '..', '.next', 'server', 'app');
+import { sitemapChunkFiles } from './app-path.ts';
+
 const CHUNK_LIMIT = 50_000;   // 사이트맵 규약의 한 파일 한도
 
 const INTL = new Set(['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant']);
 
 /**
- * 구운 조각을 이름과 함께 읽는다 — /sitemap/ko.xml → { id: 'ko', urls: […] }.
+ * 구운 사이트맵 파일을 자리 순서로 읽는다 — sitemap.xml(0) · sitemap2.xml(1) …
  *
- * 이름이 언어다. 번호로 두면 어느 언어가 한도를 넘겨 쪼개질 때 뒤 번호가 밀려
- * 서치 콘솔의 파일별 이력이 다른 언어를 가리킨다.
+ * 조각은 /sitemap.xml 의 **형제**다. generateSitemaps를 쓰면 /sitemap/0.xml 밑으로
+ * 내려가는데, 구글이 이미 등록해 둔 주소는 /sitemap.xml이므로 그 자리에 실제
+ * 사이트맵(한국어)이 오게 두었다(까닭은 app/sitemap.ts).
  */
 function chunks(): { id: string; urls: string[] }[] {
-  const dir = join(BUILT, 'sitemap');
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter(f => f.endsWith('.xml.body') || /\.xml$/.test(f))
-    .map(f => ({
-      id: f.replace(/\.xml(\.body)?$/, ''),
-      urls: [...readFileSync(join(dir, f), 'utf8').matchAll(/<loc>https:\/\/vixutil\.com\/?([^<]*)<\/loc>/g)].map(m => m[1]),
+  return sitemapChunkFiles()
+    .map(p => ({
+      id: p.replace(/\.body$/, '').replace(/.*\//, ''),
+      urls: [...readFileSync(p, 'utf8').matchAll(/<loc>https:\/\/vixutil\.com\/?([^<]*)<\/loc>/g)]
+        .map(m => m[1]),
     }))
-    .filter(c => c.urls.length);
+    .filter(c => c.urls.length > 0);
 }
 
 const built = chunks();
@@ -66,30 +65,36 @@ test('조각 하나에 언어 하나만 든다', { skip }, () => {
   const mixed = built
     .map(c => ({ id: c.id, langs: [...langsIn(c)] }))
     .filter(x => x.langs.length > 1);
-  assert.deepEqual(mixed.map(x => `${x.id}.xml: ${x.langs.join(' · ')}`), [], '조각에 언어가 섞였다');
+  assert.deepEqual(mixed.map(x => `${x.id}: ${x.langs.join(' · ')}`), [], '파일에 언어가 섞였다');
 });
 
-test('조각 이름이 언어와 같다', { skip }, () => {
+test('파일 번호가 언어에 고정돼 있다', { skip }, () => {
   /*
-   * 이름이 곧 서치 콘솔에서 보게 되는 파일이다. ko.xml이 한국어가 아니면 그
-   * 화면의 숫자를 잘못 읽게 된다. 한도를 넘겨 쪼갠 것은 'ko-2' 꼴이다.
+   * 0 ko · 1 en · 2 es … 이 배포와 무관하게 늘 같아야 한다. 번호가 밀리면 서치
+   * 콘솔이 파일별로 쌓아 둔 색인 이력이 다른 언어를 가리키고, 언어별로 자른
+   * 보람이 그 순간 사라진다.
    */
-  const wrong = built
-    .map(c => ({ id: c.id, langs: [...langsIn(c)] }))
-    .filter(x => x.langs.length === 1 && x.langs[0] !== x.id.replace(/-\d+$/, ''));
-  assert.deepEqual(wrong.map(x => `${x.id}.xml에 ${x.langs[0]}`), [], '조각 이름과 안에 든 언어가 다르다');
+  const ORDER = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
+  const wrong: string[] = [];
+  built.slice(0, ORDER.length).forEach((c, i) => {
+    const langs = [...langsIn(c)];
+    if (langs.length === 1 && langs[0] !== ORDER[i]) wrong.push(`${c.id}이 ${langs[0]} (${ORDER[i]}이어야)`);
+  });
+  assert.deepEqual(wrong, [], '파일 자리와 언어가 어긋났다');
 });
 
-test('한국어가 조각 하나에 다 들어간다', { skip }, () => {
-  /* 유입이 한국어에서 온다 — ko.xml만 읽혀도 한 장도 빠지지 않아야 한다 */
-  const ko = built.find(c => c.id === 'ko');
-  assert.ok(ko, 'ko.xml이 없다');
+test('/sitemap.xml이 한국어다', { skip }, () => {
+  /* 유입이 한국어에서 온다 — 구글이 첫 조각만 읽어도 한 장도 빠지지 않아야 한다 */
+  assert.ok(built.length > 0, '사이트맵 파일이 없다');
+  assert.equal(built[0].id, 'sitemap.xml', `첫 자리가 ${built[0].id}이다 — /sitemap.xml이어야 한다`);
+  assert.deepEqual([...langsIn(built[0])], ['ko'], '/sitemap.xml이 한국어가 아니다');
+
   const koTotal = flat.filter(p => langOf(p) === 'ko').length;
   assert.ok(koTotal > 15_000, `한국어 주소가 ${koTotal}개뿐 — 세는 방식이 깨졌다`);
-  assert.equal(ko.urls.length, koTotal, `한국어 ${koTotal}개 중 ko.xml에 ${ko.urls.length}개만 들어갔다`);
+  assert.equal(built[0].urls.length, koTotal, `한국어 ${koTotal}개 중 /sitemap.xml에 ${built[0].urls.length}개만 들어갔다`);
 });
 
-test('열 언어가 모두 조각을 갖는다', { skip }, () => {
+test('열 언어가 모두 제 파일을 갖는다', { skip }, () => {
   /* 언어 하나가 조용히 빠지면 그 언어 전체가 색인 요청에서 사라진다 */
   const covered = new Set(built.flatMap(c => [...langsIn(c)]));
   const missing = [...INTL, 'ko'].filter(l => !covered.has(l));
@@ -101,6 +106,6 @@ test('자르는 자리를 바꿔도 주소가 늘거나 줄지 않는다', { ski
   assert.equal(new Set(flat).size, flat.length, '같은 주소가 두 번 실렸다');
   assert.ok(flat.length > 150_000, `주소가 ${flat.length}개뿐 — 세는 방식이 깨졌다`);
   for (const c of built) {
-    assert.ok(c.urls.length <= CHUNK_LIMIT, `${c.id}.xml이 ${c.urls.length}개 — 규약 한도 5만을 넘겼다`);
+    assert.ok(c.urls.length <= CHUNK_LIMIT, `${c.id}이 ${c.urls.length}개 — 규약 한도 5만을 넘겼다`);
   }
 });

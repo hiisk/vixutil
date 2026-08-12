@@ -180,16 +180,12 @@ const nextConfig: NextConfig = {
     preloadEntriesOnStart: false,
   },
   /*
-   * 옛 사이트맵 주소를 살려 둔다.
+   * 2026-08-12: /sitemap.xml 리라이트를 뗐다.
    *
-   * 2026-08-10에 사이트맵을 조각으로 나누면서 /sitemap.xml이 사라졌는데,
-   * 구글과 빙은 이미 그 주소를 등록해 두고 주기적으로 찾아온다. 404를 내면
-   * "사이트맵이 없어졌다"로 읽히므로, 같은 자리에서 묶음 목록을 그대로 낸다.
-   * 리다이렉트가 아니라 rewrite인 것은 크롤러가 한 번에 내용을 받게 하려는 것이다.
+   * 조각을 나눌 때 그 주소가 사라져 묶음 목록으로 돌려 두었는데, 이제 그 자리에
+   * **한국어 사이트맵이 직접 있다** — app/sitemap.ts가 낸다. 구글이 등록해 둔
+   * 주소가 실제 사이트맵이므로 돌릴 것이 없다.
    */
-  async rewrites() {
-    return [{ source: '/sitemap.xml', destination: '/sitemap-index.xml' }];
-  },
 
 };
 

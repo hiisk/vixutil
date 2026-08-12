@@ -258,16 +258,31 @@ export function sitemapRoutes(): string[] | null {
 export function sitemapChunkFiles(): string[] {
   if (!existsSync(BUILT_DIR)) return [];
   const out: string[] = [];
+  /*
+   * 2026-08-12: 조각이 /sitemap.xml 의 형제다 — sitemap.xml · sitemap2.xml …
+   *
+   * 한 주소마다 `sitemap2.xml`(폴더)과 `sitemap2.xml.body`(내용)가 같이 있다.
+   * 이름만 보고 담으면 같은 조각을 두 번 세어 개수 검사가 두 배로 나온다.
+   */
+  for (const f of readdirSync(BUILT_DIR)) {
+    if (!/^sitemap(\d+)?\.xml(\.body)?$/.test(f)) continue;
+    const p = join(BUILT_DIR, f);
+    if (statSync(p).isFile()) out.push(p);
+  }
+  /* 옛 꼴(/sitemap/0.xml)도 함께 본다 — 되돌리는 변경이 있어도 검사가 눈멀지 않게 */
   const dir = join(BUILT_DIR, 'sitemap');
   if (existsSync(dir) && statSync(dir).isDirectory()) {
     for (const f of readdirSync(dir).sort()) {
-      const p = join(dir, f);
-      if (statSync(p).isFile() && readFileSync(p, 'utf8').includes('<loc>')) out.push(p);
+      if (/\.xml(\.body)?$/.test(f)) out.push(join(dir, f));
     }
   }
-  for (const name of ['sitemap.xml.body', 'sitemap.xml']) {
-    const p = join(BUILT_DIR, name);
-    if (existsSync(p) && statSync(p).isFile() && readFileSync(p, 'utf8').includes('<loc>')) out.push(p);
-  }
-  return out;
+  return out.sort((a, b) => partNo(a) - partNo(b));
+}
+
+/** 파일 이름에서 자리 번호 — sitemap.xml=0, sitemap2.xml=1, /sitemap/3.xml=3 */
+function partNo(p: string): number {
+  const base = p.replace(/\.body$/, '').replace(/.*\//, '');
+  if (p.includes('/sitemap/')) return Number(base.replace('.xml', '')) || 0;
+  const m = /^sitemap(\d+)?\.xml$/.exec(base);
+  return m?.[1] ? Number(m[1]) - 1 : 0;
 }
