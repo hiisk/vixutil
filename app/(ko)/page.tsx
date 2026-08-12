@@ -44,6 +44,9 @@ import { CELLS as AMP_CELLS } from '@/lib/ampere/list';
 import { CELLS as BPM_CELLS } from '@/lib/bpm/list';
 import { CELLS as GEAR_CELLS } from '@/lib/gear/list';
 import { CELLS as FILAMENT_CELLS } from '@/lib/filament/list';
+import { CELLS as RING_CELLS } from '@/lib/ring/list';
+import { CELLS as REBAR_CELLS } from '@/lib/rebar/list';
+import { CELLS as FERTILIZER_CELLS } from '@/lib/fertilizer/list';
 import { CELLS as DOF_CELLS } from '@/lib/dof/list';
 import { CELLS as UV_CELLS } from '@/lib/uv/list';
 import { CELLS as HIKE_CELLS } from '@/lib/hike/list';
@@ -148,6 +151,42 @@ const SECTIONS = [
     textAccent: 'text-emerald-700 dark:text-emerald-200',
     borderAccent: 'border-emerald-200 dark:border-emerald-800',
     shadow: 'shadow-emerald-100',
+  },
+  {
+    href: '/ring',
+    icon: '💍',
+    title: '반지 사이즈 대조표',
+    desc: '내주 52mm면 미국 6, 일본 12호 — 표 없이 산식으로 나오는 나라별 표기',
+    badge: `${RING_CELLS.length}칸`,
+    color: 'from-rose-500 to-pink-400',
+    bgLight: 'bg-rose-50 dark:bg-rose-900/40',
+    textAccent: 'text-rose-700 dark:text-rose-200',
+    borderAccent: 'border-rose-200 dark:border-rose-800',
+    shadow: 'shadow-rose-100',
+  },
+  {
+    href: '/rebar',
+    icon: '🏗️',
+    title: '철근 단위중량표',
+    desc: 'D13 6m 한 가닥은 5.97kg — 공칭지름과 강의 밀도로 읽는 물량',
+    badge: `${REBAR_CELLS.length}칸`,
+    color: 'from-amber-600 to-yellow-400',
+    bgLight: 'bg-amber-50 dark:bg-amber-900/40',
+    textAccent: 'text-amber-700 dark:text-amber-200',
+    borderAccent: 'border-amber-200 dark:border-amber-800',
+    shadow: 'shadow-amber-100',
+  },
+  {
+    href: '/fertilizer',
+    icon: '🌱',
+    title: '비료 시비량표',
+    desc: '질소 10g/m²에 요소는 21.74g — 봉지의 N-P-K로 나눠 읽는 뿌릴 양',
+    badge: `${FERTILIZER_CELLS.length}칸`,
+    color: 'from-lime-500 to-emerald-400',
+    bgLight: 'bg-lime-50 dark:bg-lime-900/40',
+    textAccent: 'text-lime-700 dark:text-lime-200',
+    borderAccent: 'border-lime-200 dark:border-lime-800',
+    shadow: 'shadow-lime-100',
   },
   {
     href: '/filament',

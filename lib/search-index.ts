@@ -67,6 +67,13 @@ import { AMPERE_ICON, CELLS as AMP_CELLS, applianceOf, circuitOf, slugOf as ampS
 import { CELLS as DOF_CELLS, DOF_ICON, slugOf as dofSlug } from './dof/list.ts';
 import { CELLS as BPM_CELLS, BPM_ICON, slugOf as bpmSlug } from './bpm/list.ts';
 import { CELLS as GEAR_CELLS, GEAR_ICON, slugOf as gearSlug } from './gear/list.ts';
+import { CELLS as RING_CELLS, RING_ICON, slugOf as ringSlug } from './ring/list.ts';
+import { CELLS as REBAR_CELLS, REBAR_ICON, slugOf as rebarSlug } from './rebar/list.ts';
+import { CELLS as FERTILIZER_CELLS, FERTILIZER_ICON, slugOf as fertilizerSlug } from './fertilizer/list.ts';
+import { ringFacts } from './ring/facts.ts';
+import { rebarFacts } from './rebar/facts.ts';
+import { fertilizerFacts } from './fertilizer/facts.ts';
+import { SYMBOL as FERT_SYMBOL, labelOf as fertilizerLabel, mass as fertilizerMass } from './fertilizer/ui.ts';
 import { CELLS as FILAMENT_CELLS, FILAMENT_ICON, slugOf as filamentSlug } from './filament/list.ts';
 import { CELLS as UV_CELLS, UV_ICON, skinOf, slugOf as uvSlug } from './uv/list.ts';
 import { CELLS as HIKE_CELLS, HIKE_ICON, slugOf as hikeSlug } from './hike/list.ts';
@@ -208,7 +215,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink';
 
 export interface SearchItem {
   href: string;
@@ -291,6 +298,9 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   dof:        { label: '심도',       icon: '📷', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   bpm:        { label: '딜레이 타임', icon: '🎚️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   gear:       { label: '자전거 기어', icon: '🚲', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  fertilizer: { label: '비료 시비량', icon: '🌱', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
+  rebar:      { label: '철근 물량',   icon: '🏗️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
+  ring:       { label: '반지 사이즈', icon: '💍', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   filament:   { label: '필라멘트 길이', icon: '🧵', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   uv:         { label: '자외선',     icon: '☀️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   hike:       { label: '등산 시간',  icon: '⛰️', accent: 'bg-green-50 text-green-700 border-green-200' },
@@ -815,6 +825,36 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: GEAR_ICON,
     };
   }),
+  ...FERTILIZER_CELLS.map(c => {
+    const f = fertilizerFacts(c);
+    return {
+      href: `/fertilizer/${fertilizerSlug(c)}`,
+      title: `${fertilizerLabel(f, 'ko')} ${c.area}m² — ${FERT_SYMBOL[f.basis]} ${f.main.target}g/m²에 ${fertilizerMass('ko', f.main.grams)}`,
+      desc: `함량 ${FERT_SYMBOL[f.basis]} ${f.content}% · m²당 ${f.main.perM2}g · 필요 성분량 ${fertilizerMass('ko', f.main.need)}`,
+      section: 'fertilizer' as const,
+      icon: FERTILIZER_ICON,
+    };
+  }),
+  ...REBAR_CELLS.map(c => {
+    const f = rebarFacts(c);
+    return {
+      href: `/rebar/${rebarSlug(c)}`,
+      title: `D${c.d} ${c.length}m 철근 무게 — 한 가닥 ${f.perBar}kg`,
+      desc: `단위중량 ${f.unit}kg/m · 100가닥 ${f.perHundred}kg · 1톤에 ${f.barsPerTon}가닥`,
+      section: 'rebar' as const,
+      icon: REBAR_ICON,
+    };
+  }),
+  ...RING_CELLS.map(mm => {
+    const f = ringFacts(mm);
+    return {
+      href: `/ring/${ringSlug(mm)}`,
+      title: `반지 내주 ${mm}mm — 미국 ${f.usHalf}, 일본 ${f.jpWhole}호`,
+      desc: `내경 지름 ${f.diameter}mm · EU(ISO 8653) ${f.iso} · 미국 ${f.usHalf}의 내주는 ${f.usHalfMm}mm`,
+      section: 'ring' as const,
+      icon: RING_ICON,
+    };
+  }),
   ...FILAMENT_CELLS.map(c => {
     const f = filamentFacts(c);
     const [d175, d285] = f.diameters;
@@ -1289,6 +1329,9 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/dof', title: '피사계 심도표', desc: '초점거리와 조리개로 과초점거리와 앞뒤 한계', section: 'dof' as const, icon: DOF_ICON },
   { href: '/bpm', title: '딜레이 타임표', desc: 'BPM과 음표 길이로 밀리초와 LFO 진동수', section: 'bpm' as const, icon: BPM_ICON },
   { href: '/gear', title: '자전거 기어비표', desc: '체인링과 스프라켓으로 기어비와 발전거리', section: 'gear' as const, icon: GEAR_ICON },
+  { href: '/fertilizer', title: '비료 시비량표', desc: '봉지의 N-P-K 함량으로 나눠 읽는 뿌릴 양, 복합비료는 나머지 둘까지', section: 'fertilizer' as const, icon: FERTILIZER_ICON },
+  { href: '/rebar', title: '철근 단위중량표', desc: '규격과 길이로 한 가닥 무게, 1톤당 가닥 수와 발주 물량', section: 'rebar' as const, icon: REBAR_ICON },
+  { href: '/ring', title: '반지 사이즈 대조표', desc: '내주 mm로 미국·일본 호수·EU 사이즈, 재는 법까지', section: 'ring' as const, icon: RING_ICON },
   { href: '/filament', title: '필라멘트 길이표', desc: '재료와 스풀 무게로 감긴 길이, 남은 무게로 남은 길이', section: 'filament' as const, icon: FILAMENT_ICON },
   { href: '/uv', title: '자외선 화상 시간', desc: '지수와 피부 타입으로 몇 분에 붉어지는지', section: 'uv' as const, icon: UV_ICON },
   { href: '/ampere', title: '가전 전류 계산', desc: '소비전력과 전압으로 몇 암페어, 한 회로에 몇 대', section: 'ampere' as const, icon: AMPERE_ICON },

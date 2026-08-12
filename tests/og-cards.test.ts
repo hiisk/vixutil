@@ -72,8 +72,10 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,469  필라멘트 길이(재료 × 스풀 무게)를 열 언어씩 더함(+10)
  *   2,479  공예 계산기(뜨개·재봉·퀼트·양초·비누·구슬)를 열 언어씩 더함(+10)
  *   2,489  터미널 명령어 사전을 열 언어씩 더함(+10)
+ *   2,519  단축키·이모지·오류 문구 사전을 열 언어씩 더함(+30)
+ *   2,549  반지 사이즈·철근 물량·비료 시비량을 열 언어씩 더함(+30)
    */
-  const WANT = 2519;
+  const WANT = 2549;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

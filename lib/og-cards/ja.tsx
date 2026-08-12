@@ -45,6 +45,9 @@ import { hubCard as sizeHub } from '@/lib/size/route';
 import { hubCard as dofHub } from '@/lib/dof/route';
 import { hubCard as gearHub } from '@/lib/gear/route';
 import { hubCard as filamentHub } from '@/lib/filament/route';
+import { hubCard as ringHub } from '@/lib/ring/route';
+import { hubCard as rebarHub } from '@/lib/rebar/route';
+import { hubCard as fertilizerHub } from '@/lib/fertilizer/route';
 import { hubCard as bpmHub } from '@/lib/bpm/route';
 import { hubCard as uvHub } from '@/lib/uv/route';
 import { hubCard as hikeHub } from '@/lib/hike/route';
@@ -156,6 +159,9 @@ export const CARDS: Record<string, () => ReactElement> = {
   'size': () => sizeHub('ja'),
   'dof': () => dofHub('ja'),
   'gear': () => gearHub('ja'),
+  'ring': () => ringHub('ja'),
+  'rebar': () => rebarHub('ja'),
+  'fertilizer': () => fertilizerHub('ja'),
   'filament': () => filamentHub('ja'),
   'bpm': () => bpmHub('ja'),
   'uv': () => uvHub('ja'),
