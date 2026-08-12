@@ -1311,8 +1311,54 @@ function allEntries(): MetadataRoute.Sitemap {
  */
 export const CHUNK_SIZE = 45_000;
 
+/**
+ * ── 조각 하나 = 언어 하나 (2026-08-12) ────────────────────────
+ * 서치 콘솔이 이렇게 알려 줬다 — `발견된 페이지 50,000`, 그 뒤로 다시 읽지 않음.
+ * 구글은 사이트맵을 **앞에서부터** 읽고 제 예산에서 끊는다. 그때 읽힌 5만 개를
+ * 세어 보니 열 언어에 얇게 퍼져 한국어는 19,903개 중 5,218개(26%)뿐이었고,
+ * 끊긴 자리는 `fr/game/poker/k9s`처럼 값만 바꿔 찍은 표였다.
+ *
+ * 그래서 주소를 빼지 않고 **자르는 자리를 언어에 맞췄다.** 얻는 것이 둘이다.
+ *
+ * 하나. 한국어가 조각 0에 통째로 들어간다. 구글이 첫 조각만 읽어도 유입이 오는
+ * 언어는 한 장도 빠지지 않는다.
+ *
+ * 둘. **서치 콘솔이 사이트맵 파일별로 색인 현황을 보여 준다.** 조각이 언어별이면
+ * "한국어는 몇 % 색인됐고 번역판은 몇 %인가"를 바로 읽을 수 있다. 45,000개씩
+ * 기계적으로 자르면 조각마다 언어가 섞여 그 수치가 아무것도 말해 주지 않는다.
+ *
+ * 언어 하나가 5만을 넘으면 그 언어만 다시 쪼갠다 — 규약 한도(파일당 5만)는
+ * 언제나 지켜진다. 목록에 없는 언어가 생기면 뒤에 붙는다(조용히 빠지지 않게).
+ */
+const SITEMAP_LANG_ORDER = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
+
+/** 주소의 언어 — 한국어는 접두어가 없으므로 아홉 개에 없으면 ko다 */
+function langOfUrl(url: string): string {
+  const first = url.replace(`${BASE}/`, '').replace(BASE, '').split('/')[0];
+  return SITEMAP_LANG_ORDER.includes(first) && first !== 'ko' ? first : 'ko';
+}
+
+/** 언어별로 묶고, 큰 언어는 한도 안에서 다시 쪼갠 조각 목록 */
+function sitemapChunks(): MetadataRoute.Sitemap[] {
+  const byLang = new Map<string, MetadataRoute.Sitemap>();
+  for (const e of allEntries()) {
+    const k = langOfUrl(String(e.url));
+    const arr = byLang.get(k);
+    if (arr) arr.push(e);
+    else byLang.set(k, [e]);
+  }
+  const langs = [...SITEMAP_LANG_ORDER, ...[...byLang.keys()].filter(l => !SITEMAP_LANG_ORDER.includes(l))];
+  const out: MetadataRoute.Sitemap[] = [];
+  for (const l of langs) {
+    const g = byLang.get(l);
+    if (!g?.length) continue;
+    for (let i = 0; i < g.length; i += CHUNK_SIZE) out.push(g.slice(i, i + CHUNK_SIZE));
+  }
+  return out;
+}
+
 export function sitemapChunkCount(): number {
-  return Math.max(1, Math.ceil(allEntries().length / CHUNK_SIZE));
+  return Math.max(1, sitemapChunks().length);
 }
 
 export async function generateSitemaps(): Promise<{ id: number }[]> {
@@ -1321,5 +1367,5 @@ export async function generateSitemaps(): Promise<{ id: number }[]> {
 
 export default async function sitemap({ id }: { id: Promise<string> | string }): Promise<MetadataRoute.Sitemap> {
   const n = Number(await id) || 0;
-  return allEntries().slice(n * CHUNK_SIZE, (n + 1) * CHUNK_SIZE);
+  return sitemapChunks()[n] ?? [];
 }
