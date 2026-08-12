@@ -85,6 +85,9 @@ import { CELLS as AMP_CELLS, slugOf as ampSlug } from "@/lib/ampere/list";
 import { CELLS as DOF_CELLS, slugOf as dofSlug } from "@/lib/dof/list";
 import { CELLS as GEAR_CELLS, slugOf as gearSlug } from "@/lib/gear/list";
 import { CELLS as FILAMENT_CELLS, slugOf as filamentSlug } from "@/lib/filament/list";
+import { CELLS as RING_CELLS, slugOf as ringSlug } from "@/lib/ring/list";
+import { CELLS as REBAR_CELLS, slugOf as rebarSlug } from "@/lib/rebar/list";
+import { CELLS as FERTILIZER_CELLS, slugOf as fertilizerSlug } from "@/lib/fertilizer/list";
 import { CELLS as BPM_CELLS, slugOf as bpmSlug } from "@/lib/bpm/list";
 import { CELLS as UV_CELLS, slugOf as uvSlug } from "@/lib/uv/list";
 import { CELLS as HIKE_CELLS, slugOf as hikeSlug } from "@/lib/hike/list";
@@ -145,6 +148,11 @@ const calculatorRoutes = [
   "/calculator/business-income", "/calculator/dividend", "/calculator/vat", "/calculator/broker-fee", "/calculator/subscription-score",
   "/calculator/retirement-income-tax", "/calculator/rental-yield",
   "/calculator/rental-income-tax", "/calculator/jeonse-wolse",
+  "/calculator/national-pension", "/calculator/basic-pension", "/calculator/pension-catchup",
+  "/calculator/pension-tax",
+  "/calculator/dti", "/calculator/home-buying-cost", "/calculator/car-excise-tax", "/calculator/ev-vs-gas",
+  "/calculator/survivor-pension", "/calculator/pension-split", "/calculator/car-lease-vs-loan", "/calculator/year-end-tax",
+  "/calculator/solar-payback", "/calculator/aircon-capacity", "/calculator/ltc-copay", "/calculator/jeonse-safety", "/calculator/card-deduction", "/calculator/inheritance-share", "/calculator/severance-vs-pension",
   "/calculator/interest-tax", "/calculator/simple-vat", "/calculator/protein", "/calculator/sober-time",
   "/calculator/pension-credit", "/calculator/annual-leave", "/calculator/refinance",
   "/calculator/jeonwolse", "/calculator/pyeong", "/calculator/deposit-conversion",
@@ -950,6 +958,33 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/gear`, changeFrequency: weekly, priority: 0.85 },
       ...GEAR_CELLS.map(c => ({
         url: `${BASE}${prefix}/gear/${gearSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 반지 사이즈 101칸도 열 언어다 — 내주 40.0~90.0mm를 0.5mm씩
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/ring`, changeFrequency: weekly, priority: 0.85 },
+      ...RING_CELLS.map(mm => ({
+        url: `${BASE}${prefix}/ring/${ringSlug(mm)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 철근 117칸도 열 언어다 — 규격 13가지 × 길이 9가지
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/rebar`, changeFrequency: weekly, priority: 0.85 },
+      ...REBAR_CELLS.map(c => ({
+        url: `${BASE}${prefix}/rebar/${rebarSlug(c)}`,
+        changeFrequency: monthly,
+        priority: 0.8,
+      })),
+    ]),
+    // 비료 135칸도 열 언어다 — 비료 15가지 × 면적 9가지
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/fertilizer`, changeFrequency: weekly, priority: 0.85 },
+      ...FERTILIZER_CELLS.map(c => ({
+        url: `${BASE}${prefix}/fertilizer/${fertilizerSlug(c)}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

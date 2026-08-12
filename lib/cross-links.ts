@@ -18,6 +18,90 @@ export interface CrossLink {
 
 /** 키는 선행 슬래시를 뺀 라우트 경로 */
 export const CROSS_LINKS: Record<string, CrossLink[]> = {
+  'calculator/severance-vs-pension': [
+    { href: '/calculator/retirement-income-tax', title: '퇴직소득세 계산기', why: '일시금으로 받을 때의 세금이 비교의 출발점입니다', icon: '🧾' },
+    { href: '/checklist/retirement-prep', title: '은퇴·노후 준비 체크리스트', why: 'IRP 계좌를 미리 열어 두지 않으면 선택지가 하나로 줄어듭니다', icon: '🌇' },
+  ],
+  'calculator/inheritance-share': [
+    { href: '/calculator/inheritance-tax', title: '상속세 계산기', why: '누가 얼마를 받는지 정한 다음이 세금입니다', icon: '🧾' },
+    { href: '/calculator/gift-tax', title: '증여세 계산기', why: '미리 나눠 주는 쪽이 유리한 경우가 있습니다', icon: '🎁' },
+  ],
+  'calculator/card-deduction': [
+    { href: '/calculator/year-end-tax', title: '연말정산 환급액 계산기', why: '여기서 낸 공제액을 넣으면 환급액이 얼마 늘어나는지 보입니다', icon: '🧾' },
+    { href: '/checklist/year-end-tax', title: '연말정산 준비 체크리스트', why: '전통시장·대중교통 사용액은 따로 챙겨야 잡힙니다', icon: '📋' },
+  ],
+  'calculator/ltc-copay': [
+    { href: '/checklist/parent-hospital', title: '부모님 입원 체크리스트', why: '등급 신청과 입원이 겹칠 때 챙길 것이 많습니다', icon: '🏥' },
+    { href: '/calculator/basic-pension', title: '기초연금 수급 자격 계산기', why: '간병비를 소득으로 감당할 수 있는지 함께 보세요', icon: '🧓' },
+  ],
+  /* ── 연금·노후 계산기 → 체크리스트 (2026-08-12에 여섯 계산기를 내며 함께) ── */
+  'calculator/national-pension': [
+    { href: '/checklist/pension-check', title: '연금 점검 체크리스트', why: '내 연금 알아보기에서 확인할 것들을 순서대로 짚어 줍니다', icon: '📋' },
+    { href: '/calculator/pension-catchup', title: '국민연금 추납·임의가입 계산기', why: '가입기간이 모자라면 채우는 쪽이 이득이 가장 큽니다', icon: '➕' },
+  ],
+  'calculator/basic-pension': [
+    { href: '/checklist/pension-check', title: '연금 점검 체크리스트', why: '소득인정액을 구성하는 자료를 미리 모아 두면 신청이 빠릅니다', icon: '📋' },
+    { href: '/calculator/national-pension', title: '국민연금 예상 수령액 계산기', why: '국민연금 액수가 기초연금 연계 감액을 가릅니다', icon: '🧓' },
+  ],
+  'calculator/pension-catchup': [
+    { href: '/calculator/national-pension', title: '국민연금 예상 수령액 계산기', why: '채운 뒤 받게 되는 금액을 먼저 확인하세요', icon: '🧓' },
+    { href: '/checklist/retirement-prep', title: '은퇴·노후 준비 체크리스트', why: '추납은 은퇴 준비에서 가장 확실한 수익 하나입니다', icon: '🌇' },
+  ],
+  'calculator/pension-tax': [
+    { href: '/checklist/retirement-prep', title: '은퇴·노후 준비 체크리스트', why: '수령 순서와 시기를 정하는 것이 세금을 가릅니다', icon: '🌇' },
+    { href: '/calculator/pension-credit', title: '연금저축·IRP 세액공제 계산기', why: '넣을 때 돌려받은 세금과 받을 때 내는 세금을 함께 보세요', icon: '💸' },
+  ],
+  'calculator/survivor-pension': [
+    { href: '/checklist/pension-check', title: '연금 점검 체크리스트', why: '유족 자격과 청구 기한을 놓치면 받을 수 없습니다', icon: '📋' },
+    { href: '/calculator/national-pension', title: '국민연금 예상 수령액 계산기', why: '내 노령연금과 유족연금 중 큰 쪽을 골라야 합니다', icon: '🧓' },
+  ],
+  'calculator/pension-split': [
+    { href: '/calculator/national-pension', title: '국민연금 예상 수령액 계산기', why: '나눌 몫의 바탕이 되는 노령연금액을 먼저 구합니다', icon: '🧓' },
+    { href: '/checklist/pension-check', title: '연금 점검 체크리스트', why: '청구 기한과 수급연령 요건을 함께 확인하세요', icon: '📋' },
+  ],
+
+  /* ── 세금·금융 ── */
+  'calculator/year-end-tax': [
+    { href: '/calculator/card-deduction', title: '신용카드 소득공제 계산기', why: '공제 항목 중에서 금액이 가장 크게 갈리는 자리입니다', icon: '💳' },
+    { href: '/checklist/year-end-tax', title: '연말정산 준비 체크리스트', why: '간소화 자료에서 빠지는 항목을 미리 챙겨야 환급이 늘어납니다', icon: '🧾' },
+    { href: '/calculator/pension-credit', title: '연금저축·IRP 세액공제 계산기', why: '세액공제 칸에 넣을 금액을 여기서 구합니다', icon: '💸' },
+  ],
+  'calculator/dti': [
+    { href: '/checklist/real-estate-buy', title: '내 집 마련 체크리스트', why: '한도를 알았으면 그다음은 자금 계획과 서류입니다', icon: '🏠' },
+    { href: '/calculator/home-buying-cost', title: '집 살 때 부대비용 계산기', why: '대출 한도 말고도 현금으로 있어야 하는 돈이 있습니다', icon: '💰' },
+  ],
+  'calculator/home-buying-cost': [
+    { href: '/checklist/real-estate-buy', title: '내 집 마련 체크리스트', why: '계약부터 잔금까지 순서대로 짚어 줍니다', icon: '🏠' },
+    { href: '/checklist/renovation', title: '인테리어 리모델링 체크리스트', why: '부대비용에서 가장 크게 벌어지는 항목입니다', icon: '🔨' },
+  ],
+  'calculator/jeonse-safety': [
+    { href: '/checklist/jeonse-fraud', title: '전세사기 예방 체크리스트', why: '숫자로 위험을 봤으면 그다음은 등기부와 계약서입니다', icon: '🚨' },
+  ],
+
+  /* ── 자동차 ── */
+  'calculator/car-excise-tax': [
+    { href: '/checklist/car-purchase', title: '자동차 구매 체크리스트', why: '출고가 말고도 계약 때 확인할 것이 남아 있습니다', icon: '🚗' },
+    { href: '/calculator/car-registration', title: '자동차 취등록세 계산기', why: '출고가에 붙는 세금은 여기서 또 한 번 붙습니다', icon: '🧾' },
+  ],
+  'calculator/ev-vs-gas': [
+    { href: '/checklist/car-purchase', title: '자동차 구매 체크리스트', why: '충전 환경을 못 갖추면 계산이 뒤집힙니다', icon: '🚗' },
+    { href: '/calculator/car-lease-vs-loan', title: '자동차 리스·할부·현금 비교 계산기', why: '어떤 차를 살지 정했으면 어떻게 살지가 남았습니다', icon: '📊' },
+  ],
+  'calculator/car-lease-vs-loan': [
+    { href: '/checklist/car-purchase', title: '자동차 구매 체크리스트', why: '계약 방식이 정해지면 그다음은 계약서 항목입니다', icon: '🚗' },
+    { href: '/calculator/car-depreciation', title: '자동차 감가상각 계산기', why: '잔존가치를 얼마로 잡느냐가 비교 결과를 바꿉니다', icon: '📉' },
+  ],
+
+  /* ── 공과금 ── */
+  'calculator/solar-payback': [
+    { href: '/calculator/electricity', title: '전기요금 계산기', why: '누진 구간이 절감액을 정하므로 지금 요금부터 확인하세요', icon: '💡' },
+    { href: '/calculator/appliance-power', title: '가전 전기요금 계산기', why: '무엇이 전기를 많이 먹는지 알면 절감 순서가 달라집니다', icon: '🔌' },
+  ],
+  'calculator/aircon-capacity': [
+    { href: '/calculator/appliance-power', title: '가전 전기요금 계산기', why: '고른 용량으로 한 달에 얼마가 나오는지 봅니다', icon: '🔌' },
+    { href: '/calculator/electricity', title: '전기요금 계산기', why: '에어컨 한 대가 누진 구간을 한 칸 올릴 수 있습니다', icon: '💡' },
+  ],
+
   /* ── 계산기 → 체크리스트 ── */
   'calculator/unemployment': [
     { href: '/checklist/unemployment-claim', title: '실업급여 신청 체크리스트', why: '퇴사 사유가 이직확인서에 뭐로 적히는지가 수급 여부를 가릅니다', icon: '📄' },

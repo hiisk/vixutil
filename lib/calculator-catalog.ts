@@ -41,6 +41,8 @@ export const CATS: CalcCategory[] = [
     desc: '각종 세금 계산기',
     accent: 'bg-amber-50 text-amber-700 border-amber-200',
     calcs: [
+      { href:'/calculator/year-end-tax',      title:'연말정산 환급액 계산기', desc:'총급여·공제 → 결정세액과 환급·추가납부', hot:true },
+      { href:'/calculator/card-deduction',   title:'신용카드 소득공제 계산기', desc:'총급여 25% 문턱 → 공제액과 줄어드는 세금', hot:true },
       { href:'/calculator/freelance',         title:'프리랜서 세금 계산기', desc:'수입 → 3.3% 원천징수', hot:true },
       { href:'/calculator/vat',               title:'부가세 계산기',         desc:'공급가액 ↔ 부가가치세 계산' },
       { href:'/calculator/business-income',   title:'사업소득세 계산기',     desc:'사업소득 → 예상 세금' },
@@ -48,12 +50,28 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/capital-gains',     title:'양도소득세 계산기',     desc:'취득가·양도가 → 예상 세금' },
       { href:'/calculator/gift-tax',          title:'증여세 계산기',         desc:'증여금액·관계 → 예상 증여세' },
       { href:'/calculator/inheritance-tax',   title:'상속세 계산기',         desc:'상속재산 → 예상 상속세' },
+      { href:'/calculator/inheritance-share', title:'법정상속분 계산기', desc:'상속인 구성 → 각자의 법정상속분·유류분', hot:true },
       { href:'/calculator/local-income-tax',  title:'지방소득세 계산기',     desc:'소득세 → 지방소득세 계산' },
       { href:'/calculator/retirement-income-tax', title:'퇴직소득세 계산기', desc:'퇴직금·근속연수 → 세금·세후 수령액', hot:true },
       { href:'/calculator/rental-income-tax', title:'주택임대소득세 계산기', desc:'연 2천만원 이하 임대수입 분리과세' },
       { href:'/calculator/interest-tax',      title:'이자소득세 계산기',    desc:'예금 이자 15.4% → 세후 실수령' },
       { href:'/calculator/simple-vat',        title:'간이과세 부가세 계산기', desc:'간이과세자 매출 → 예상 부가세' },
       { href:'/calculator/pension-credit',    title:'연금저축·IRP 세액공제 계산기', desc:'연금계좌 납입액 → 연말정산 환급액', hot:true },
+    ],
+  },
+  {
+    id: 'pension', label: '연금·노후', icon: '🧓',
+    desc: '국민연금·기초연금과 노후 간병 비용 계산기',
+    accent: 'bg-rose-50 text-rose-700 border-rose-200',
+    calcs: [
+      { href:'/calculator/national-pension', title:'국민연금 예상 수령액 계산기', desc:'가입기간·소득 → 월 연금, 조기·연기 비교', hot:true },
+      { href:'/calculator/basic-pension',    title:'기초연금 수급 자격 계산기',   desc:'소득·재산 → 소득인정액과 예상 수령액', hot:true },
+      { href:'/calculator/pension-catchup',  title:'국민연금 추납·임의가입 계산기', desc:'추납액 → 늘어나는 연금과 회수 기간' },
+      { href:'/calculator/pension-tax',      title:'연금소득세 계산기',       desc:'연금 수령액 → 세금과 세후 실수령액', hot:true },
+      { href:'/calculator/ltc-copay',      title:'장기요양 본인부담금 계산기', desc:'재가·시설 부담률 → 한도 초과분·비급여 포함 월 부담', hot:true },
+      { href:'/calculator/severance-vs-pension', title:'퇴직금 일시금 vs 연금 비교 계산기', desc:'일시금과 IRP 연금 수령 → 세후 금액·차액 비교', hot:true },
+      { href:'/calculator/survivor-pension', title:'유족연금 계산기',        desc:'가입기간별 지급률 · 중복급여 조정 갈림길' },
+      { href:'/calculator/pension-split',    title:'국민연금 분할연금 계산기', desc:'이혼 시 혼인기간 몫 → 두 사람 각각의 연금' },
     ],
   },
   {
@@ -76,6 +94,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/retirement',     title:'은퇴자금 계산기',        desc:'현재 저축 + 월적립 → 은퇴 자산' },
       { href:'/calculator/max-loan',       title:'대출 가능 금액 계산기',  desc:'소득 기준 최대 대출 금액' },
       { href:'/calculator/dsr',            title:'DSR 계산기',             desc:'대출 상환 능력 비율 계산' },
+      { href:'/calculator/dti',            title:'DTI 계산기',             desc:'총부채상환비율 · 한도별 대출 원금' },
       { href:'/calculator/ltv',            title:'LTV 계산기',             desc:'담보인정비율 계산' },
       { href:'/calculator/exchange',       title:'환율 계산기',            desc:'실시간 API · 주요 통화 변환' },
       { href:'/calculator/loan-prepayment-fee', title:'중도상환수수료 계산기', desc:'조기상환 시 발생하는 수수료 계산' },
@@ -93,6 +112,8 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/jeonse-wolse',        title:'전세 월세 유불리 계산기', desc:'내 상황에서 어느 쪽이 이득인지 비교', hot:true },
       { href:'/calculator/deposit-conversion',   title:'환산보증금 계산기', desc:'상가 임대차 — 보증금 + 월세×100' },
       { href:'/calculator/acquisition-tax',     title:'취득세 계산기',      desc:'부동산 취득세 계산' },
+      { href:'/calculator/home-buying-cost', title:'집 살 때 부대비용 계산기', desc:'취득세·중개보수·인지세·채권·이사비까지 총 필요자금', hot:true },
+      { href:'/calculator/jeonse-safety', title:'전세 보증금 안전도 계산기', desc:'깡통전세 판정 — 경매로 넘어가면 얼마 떼이나', hot:true },
       { href:'/calculator/property-tax',        title:'재산세 계산기',      desc:'재산세 예상 계산' },
       { href:'/calculator/holding-tax',         title:'보유세 계산기',      desc:'종부세 포함 보유세' },
       { href:'/calculator/rental-yield',        title:'임대수익률 계산기',  desc:'매매가·월세 → 표면·실투자 수익률', hot:true },
@@ -148,6 +169,9 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/car-cost',        title:'차량 유지비 계산기', desc:'연간 유지비와 1km당 비용' },
       { href:'/calculator/car-depreciation', title:'자동차 감가상각 계산기', desc:'연식별 잔존가치와 반감기' },
       { href:'/calculator/car-registration', title:'자동차 취등록세 계산기', desc:'차값 외 취득세·공채·등록비' },
+      { href:'/calculator/car-excise-tax', title:'자동차 개별소비세 계산기', desc:'출고가에 든 개소세·교육세·부가세 역산' },
+      { href:'/calculator/ev-vs-gas',      title:'전기차 vs 내연차 유지비 비교 계산기', desc:'차값 차이를 유지비로 뽑는 손익분기 연수', hot:true },
+      { href:'/calculator/car-lease-vs-loan', title:'자동차 리스·할부·현금 비교 계산기', desc:'세 방식의 총비용을 잔존가치까지 넣어 비교' },
       { href:'/calculator/car-tax',         title:'자동차세 계산기',     desc:'배기량 기준 자동차세' },
       { href:'/calculator/fuel-efficiency', title:'연비 계산기',          desc:'주행거리·연료량 → 연비' },
       { href:'/calculator/gas-cost',        title:'주유비 계산기',        desc:'거리·연비·유가 → 주유비' },
@@ -156,7 +180,7 @@ export const CATS: CalcCategory[] = [
   },
   {
     id: 'utility', label: '공과금', icon: '💡',
-    desc: '전기·가스·수도요금 계산기',
+    desc: '전기·가스·수도요금과 절감 회수 계산기',
     accent: 'bg-yellow-50 text-yellow-700 border-yellow-200',
     calcs: [
       { href:'/calculator/electricity', title:'전기요금 계산기', desc:'kWh 기준 누진요금 계산' },
@@ -166,6 +190,8 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/heating-bill', title:'난방비 계산기', desc:'지역난방 열량(Mcal) 기준 난방요금' },
       { href:'/calculator/appliance-power', title:'가전 전기요금 계산기', desc:'에어컨·건조기 켜면 얼마 더 나오나' },
       { href:'/calculator/maintenance-fee', title:'관리비 계산기', desc:'항목별 비중 + ㎡당 단가 분석' },
+      { href:'/calculator/solar-payback',  title:'태양광 발전 수익 계산기', desc:'몇 년에 본전 뽑나 · 누진 절감액 반영', hot:true },
+      { href:'/calculator/aircon-capacity', title:'에어컨 용량 계산기', desc:'면적·용도로 필요한 냉방능력과 몇 평형을 살지', hot:true },
     ],
   },
   {
@@ -210,12 +236,39 @@ export function findCategory(href: string): CalcCategory | undefined {
 }
 
 /** 같은 카테고리의 다른 계산기를 추천한다. 부족하면 인기 계산기로 채운다. */
+/**
+ * 같은 분류의 이웃 계산기 — **자기 자리 다음부터 원형으로 감아** 고른다.
+ *
+ * ── 2026-08-12에 무엇이 있었나 ────────────────────────────
+ * 전에는 `related.slice(0, limit)`이었다. 즉 분류의 **앞에서 여섯 개**를 늘
+ * 뽑았다. 그래서 항목이 일곱 개를 넘는 분류에서는 **일곱 번째부터 형제에게서
+ * 들어오는 링크가 0**이 됐다. 141개 중 73개(52%)가 그 상태였고, 거기에
+ * 퇴직금·실업급여·육아휴직 급여처럼 검색량이 큰 페이지가 들어 있었다.
+ *
+ * 들어오는 링크가 없는 페이지는 크롤러가 사이트맵으로만 닿는다. 사이트맵은
+ * "이 주소가 있다"까지만 말해 주고 "이 주소가 중요하다"고는 말해 주지 않는다.
+ *
+ * 원형으로 감으면 항목이 limit보다 많은 분류에서 **모든 항목이 정확히 limit
+ * 개의 이웃 목록에 들어간다** — 앞뒤가 고르게 이어진다. lib/cmd·lib/shortcut·
+ * lib/emoji에서 같은 병을 같은 방법으로 고쳤다.
+ */
 export function getRelatedCalcs(href: string, limit = 6): CalcItem[] {
   const cat = findCategory(href);
-  const related = cat ? cat.calcs.filter((c) => c.href !== href) : [];
-  if (related.length >= limit) return related.slice(0, limit);
+  const related: CalcItem[] = [];
 
-  // 같은 카테고리가 부족하면 인기(hot) 계산기로 보충
+  if (cat) {
+    const n = cat.calcs.length;
+    const at = cat.calcs.findIndex((c) => c.href === href);
+    // 자기가 목록에 없으면(분류만 맞고 항목이 없는 경우) 앞에서부터 채운다
+    const start = at >= 0 ? at : -1;
+    for (let k = 1; k <= n && related.length < limit; k++) {
+      const c = cat.calcs[(((start + k) % n) + n) % n];
+      if (c.href !== href) related.push(c);
+    }
+  }
+  if (related.length >= limit) return related;
+
+  // 같은 분류가 부족하면 인기(hot) 계산기로 보충
   const hot = CATS.flatMap((c) => c.calcs).filter(
     (c) => c.hot && c.href !== href && !related.some((r) => r.href === c.href)
   );
