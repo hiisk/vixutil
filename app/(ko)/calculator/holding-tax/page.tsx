@@ -1,31 +1,9 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import { calcHoldingTax } from '@/lib/holding-tax';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
-
-const JONGBU_BRACKETS = [
-  { limit: 300_000_000,   rate: 0.005 },
-  { limit: 600_000_000,   rate: 0.007 },
-  { limit: 1_200_000_000, rate: 0.010 },
-  { limit: 2_500_000_000, rate: 0.013 },
-  { limit: 5_000_000_000, rate: 0.015 },
-  { limit: 9_400_000_000, rate: 0.020 },
-  { limit: Infinity,      rate: 0.027 },
-];
-
-function calcJongbu(base: number): number {
-  if (base <= 0) return 0;
-  const b = JONGBU_BRACKETS.find(br => base <= br.limit)!;
-  return base * b.rate;
-}
-
-function calcPropertyTax2(taxBase: number): number {
-  if (taxBase <= 60_000_000) return taxBase * 0.001;
-  if (taxBase <= 150_000_000) return 60_000 + (taxBase - 60_000_000) * 0.0015;
-  if (taxBase <= 300_000_000) return 195_000 + (taxBase - 150_000_000) * 0.0025;
-  return 570_000 + (taxBase - 300_000_000) * 0.004;
-}
 
 export default function HoldingTaxPage() {
   const [publicPrice, setPublicPrice] = useState('');
@@ -36,28 +14,30 @@ export default function HoldingTaxPage() {
     totalJongbu: number; totalHolding: number;
   }>(null);
 
+  /*
+   * ── 셈을 lib으로 옮기고 종부세를 고쳤다 (2026-08-12) ────────
+   * 전에는 이 파일 안에 세율표와 셈이 있었고, 종부세를 **초과누진이 아니라
+   * 전체 과세표준에 한 세율을 곱해** 내고 있었다. 그래서 과세표준 3억에서 1원을
+   * 더 벌면 세금이 60만원 뛰었고, 20억이면 600만원을 과다 계산했다.
+   * 클라이언트 컴포넌트라 검사가 닿지 못하는 자리였다 — 같은 날 취득세에서
+   * 같은 구조로 100배 버그가 나왔다. 이제 lib/holding-tax.ts가 갖고
+   * tests/holding-tax.test.ts가 경계를 1원 차이로 밟는다.
+   */
   function calculate() {
     const p = Number(publicPrice);
     if (p <= 0) return;
-
-    const fairRate = isOneHouse ? (p <= 300_000_000 ? 0.45 : p <= 600_000_000 ? 0.5 : 0.6) : 0.6;
-    const propTaxBase = p * fairRate;
-    const propertyTax = calcPropertyTax2(propTaxBase) * 1.2; // 포함 지방교육세
-    const paidProp = Number(paidPropertyTax || 0) || propertyTax;
-
-    const exemption = isOneHouse ? 1_200_000_000 : 900_000_000;
-    const jongbuBase = Math.max(0, p * 0.6 - exemption);
-    const jongbu = calcJongbu(jongbuBase);
-    const credit = Math.min(paidProp, jongbu);
-    const netJongbu = Math.max(0, jongbu - credit);
-    const ruralTax = netJongbu * 0.2;
+    const r = calcHoldingTax({
+      publicPrice: p,
+      oneHouse: isOneHouse,
+      paidPropertyTax: Number(paidPropertyTax || 0),
+    });
     setResult({
-      propertyTax,
-      jongbuBase,
-      jongbu: netJongbu,
-      ruralTax,
-      totalJongbu: netJongbu + ruralTax,
-      totalHolding: propertyTax + netJongbu + ruralTax,
+      propertyTax: r.propertyTax,
+      jongbuBase: r.jongbuBase,
+      jongbu: r.jongbu,
+      ruralTax: r.ruralTax,
+      totalJongbu: r.totalJongbu,
+      totalHolding: r.totalHolding,
     });
   }
 
@@ -73,6 +53,14 @@ export default function HoldingTaxPage() {
             집을 가지고만 있어도 <strong>매년</strong> 내는 세금입니다. 모두가 내는 재산세에 더해,
             공시가격이 일정 기준을 넘으면 <strong>종합부동산세</strong>가 추가됩니다. 재산세는
             지방세라 지자체에, 종부세는 국세라 국가에 냅니다.
+          </p>
+          <h2>재산세 공제는 겹치는 몫에만</h2>
+          <p>
+            같은 집에 재산세와 종부세가 겹쳐 매겨지는 몫은 종부세에서 빼 줍니다. 다만 재산세
+            <strong>전액</strong>이 아니라 <strong>종부세 과세표준에 대응하는 부분</strong>만 공제합니다.
+            이 계산기는 시행령의 배분식을 그대로 옮기지 못해 <strong>겹치는 과세표준의 비율</strong>로
+            나눈 어림을 씁니다 — 재산세를 전액 공제하는 것보다 훨씬 가깝지만 고지서와 몇만원 차이가
+            날 수 있습니다.
           </p>
           <h2>종부세는 누진 구간이 큽니다</h2>
           <p>

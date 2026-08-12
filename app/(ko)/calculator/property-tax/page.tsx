@@ -2,38 +2,20 @@
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
-const fmt = (n: number) => Math.round(n).toLocaleString();
+import { calcPropertyTax, type PropertyTaxResult } from '@/lib/property-tax';
 
-function calcPropertyTax(taxBase: number): number {
-  if (taxBase <= 60_000_000) return taxBase * 0.001;
-  if (taxBase <= 150_000_000) return 60_000 + (taxBase - 60_000_000) * 0.0015;
-  if (taxBase <= 300_000_000) return 195_000 + (taxBase - 150_000_000) * 0.0025;
-  return 570_000 + (taxBase - 300_000_000) * 0.004;
-}
+const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function PropertyTaxPage() {
   const [publicPrice, setPublicPrice] = useState('');
   const [isOneHouse, setIsOneHouse] = useState(true);
   const [isCity, setIsCity] = useState(true);
-  const [result, setResult] = useState<null | {
-    fairRate: number; taxBase: number; propertyTax: number; cityTax: number; eduTax: number; total: number;
-  }>(null);
+  const [result, setResult] = useState<PropertyTaxResult | null>(null);
 
   function calculate() {
     const p = Number(publicPrice);
     if (p <= 0) return;
-
-    let fairRate = 0.6;
-    if (isOneHouse) {
-      if (p <= 300_000_000) fairRate = 0.45;
-      else if (p <= 600_000_000) fairRate = 0.5;
-    }
-
-    const taxBase = p * fairRate;
-    const propertyTax = calcPropertyTax(taxBase);
-    const cityTax = isCity ? taxBase * 0.0014 : 0;
-    const eduTax = propertyTax * 0.2;
-    setResult({ fairRate, taxBase, propertyTax, cityTax, eduTax, total: propertyTax + cityTax + eduTax });
+    setResult(calcPropertyTax({ publicPrice: p, oneHouse: isOneHouse, cityArea: isCity }));
   }
 
   return (
@@ -106,7 +88,7 @@ export default function PropertyTaxPage() {
               <CardHeader title="세금 내역" />
               <div className="divide-y divide-slate-100">
                 {[
-                  { label: '재산세', value: result.propertyTax },
+                  { label: '재산세', value: result.base },
                   ...(result.cityTax > 0 ? [{ label: '도시지역분 (0.14%)', value: result.cityTax }] : []),
                   { label: '지방교육세 (재산세×20%)', value: result.eduTax },
                 ].map(r => (

@@ -3,18 +3,26 @@ import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
-const MIN_WAGE = 10_320;
+/*
+ * 시급과 월 환산은 lib/minimum-wage.ts에 있다. 출산전후휴가 급여의 하한도 같은
+ * 값을 쓰는데, 여기 적어 두면 해마다 한쪽만 고쳐진다.
+ */
+import {
+  MIN_HOURLY_WAGE as MIN_WAGE,
+  monthlyHours as monthlyWorkHours,
+  weeklyHolidayHours,
+} from '@/lib/minimum-wage';
 
 function calcMonthly(hourly: number, weeklyHours: number) {
-  const weeklyHoliday = weeklyHours >= 15 ? weeklyHours / 5 : 0;
-  const monthlyHours = (weeklyHours + weeklyHoliday) * (365 / 7 / 12);
+  const weeklyHoliday = weeklyHolidayHours(weeklyHours);
+  const hours = monthlyWorkHours(weeklyHours);
   return {
     hourly,
     daily: hourly * 8,
     weekly: hourly * (weeklyHours + weeklyHoliday),
-    monthlyHours: Math.round(monthlyHours),
-    monthly: Math.round(hourly * monthlyHours),
-    annual: Math.round(hourly * monthlyHours * 12),
+    monthlyHours: Math.round(hours),
+    monthly: Math.round(hourly * hours),
+    annual: Math.round(hourly * hours * 12),
   };
 }
 

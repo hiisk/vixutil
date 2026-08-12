@@ -18,6 +18,50 @@ export interface CrossLink {
 
 /** 키는 선행 슬래시를 뺀 라우트 경로 */
 export const CROSS_LINKS: Record<string, CrossLink[]> = {
+  'calculator/monthly-rent-deduction': [
+    { href: '/calculator/card-deduction', title: '신용카드 소득공제 계산기', why: '요건을 못 채우면 월세를 현금영수증으로 돌려야 합니다', icon: '💳' },
+    { href: '/checklist/year-end-tax', title: '연말정산 체크리스트', why: '월세 말고도 챙길 공제가 남아 있습니다', icon: '🧾' },
+  ],
+  'calculator/maternity-leave': [
+    { href: '/calculator/parental-leave', title: '육아휴직 급여 계산기', why: '출산전후휴가가 끝나면 이어서 쓰는 제도입니다', icon: '🍼' },
+    { href: '/calculator/annual-leave', title: '연차 계산기', why: '휴가 기간의 연차 산정이 함께 문제가 됩니다', icon: '🗓️' },
+  ],
+  'calculator/school-rank': [
+    { href: '/calculator/gpa', title: '학점/GPA 계산기', why: '대학 학점은 셈이 다릅니다', icon: '🎓' },
+    { href: '/calculator/student-loan', title: '학자금 대출 상환 계산기', why: '진학 뒤의 셈입니다', icon: '📚' },
+  ],
+  'calculator/condolence-money': [
+    { href: '/calculator/wedding-gift', title: '축의금 계산기', why: '경사 쪽은 판단의 축이 다릅니다', icon: '💐' },
+    { href: '/checklist/condolence', title: '조문 예절 체크리스트', why: '금액을 정했으면 그다음은 복장과 절차입니다', icon: '🕯️' },
+  ],
+  'calculator/moving-cost': [
+    { href: '/calculator/home-buying-cost', title: '집 살 때 부대비용 계산기', why: '그 계산기의 이사비 칸에 넣을 값이 여기서 나옵니다', icon: '💰' },
+    { href: '/checklist/moving', title: '이사 준비 체크리스트', why: '견적을 정했으면 그다음은 날짜별로 할 일입니다', icon: '📦' },
+  ],
+  'calculator/new-year-money': [
+    { href: '/calculator/wedding-gift', title: '축의금 계산기', why: '경조사비도 같은 방식으로 범위를 좁혀 봅니다', icon: '💐' },
+    { href: '/calculator/gift-tax', title: '증여세 계산기', why: '해마다 모아 목돈이 되면 자금 출처를 따지게 됩니다', icon: '🎁' },
+  ],
+  'calculator/youth-savings': [
+    { href: '/calculator/savings', title: '적금 계산기', why: '기여금이 없는 일반 적금과 얼마나 벌어지는지 보세요', icon: '🏦' },
+    { href: '/calculator/interest-tax', title: '이자소득세 계산기', why: '비과세가 만드는 차이가 여기서 나옵니다', icon: '🧾' },
+  ],
+  'calculator/eitc': [
+    { href: '/calculator/year-end-tax', title: '연말정산 환급액 계산기', why: '환급금과 장려금은 각각 받는 것이라 서로 줄이지 않습니다', icon: '🧾' },
+    { href: '/calculator/median-income', title: '기준 중위소득 계산기', why: '다른 복지 지원에도 해당하는지 함께 보세요', icon: '📋' },
+  ],
+  'calculator/health-insurance-local': [
+    { href: '/calculator/four-insurance', title: '4대보험 계산기', why: '직장에 다닐 때 내던 금액과 맞대어 보세요', icon: '🏢' },
+    { href: '/calculator/ltc-copay', title: '장기요양 본인부담금 계산기', why: '보험료와 급여를 쓸 때 내는 돈은 다릅니다', icon: '🏥' },
+  ],
+  'calculator/student-loan': [
+    { href: '/calculator/dti', title: 'DTI 계산기', why: '학자금 상환액이 다른 대출 한도를 먼저 먹습니다', icon: '🏦' },
+    { href: '/calculator/loan-method', title: '대출 상환방식 비교 계산기', why: '일반 상환 쪽을 고를 때 방식까지 견줘 보세요', icon: '📊' },
+  ],
+  'calculator/median-income': [
+    { href: '/calculator/basic-pension', title: '기초연금 수급 자격 계산기', why: '같은 이름의 소득인정액인데 기준이 달라 금액이 다르게 나옵니다', icon: '🧓' },
+    { href: '/calculator/ltc-copay', title: '장기요양 본인부담금 계산기', why: '수급자로 정해지면 급여 몫이 면제됩니다', icon: '🏥' },
+  ],
   'calculator/severance-vs-pension': [
     { href: '/calculator/retirement-income-tax', title: '퇴직소득세 계산기', why: '일시금으로 받을 때의 세금이 비교의 출발점입니다', icon: '🧾' },
     { href: '/checklist/retirement-prep', title: '은퇴·노후 준비 체크리스트', why: 'IRP 계좌를 미리 열어 두지 않으면 선택지가 하나로 줄어듭니다', icon: '🌇' },
@@ -27,6 +71,8 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
     { href: '/calculator/gift-tax', title: '증여세 계산기', why: '미리 나눠 주는 쪽이 유리한 경우가 있습니다', icon: '🎁' },
   ],
   'calculator/card-deduction': [
+    { href: '/calculator/monthly-rent-deduction', title: '월세 세액공제 계산기', why: '월세는 소득공제보다 세액공제 쪽이 훨씬 큽니다', icon: '🏠' },
+
     { href: '/calculator/year-end-tax', title: '연말정산 환급액 계산기', why: '여기서 낸 공제액을 넣으면 환급액이 얼마 늘어나는지 보입니다', icon: '🧾' },
     { href: '/checklist/year-end-tax', title: '연말정산 준비 체크리스트', why: '전통시장·대중교통 사용액은 따로 챙겨야 잡힙니다', icon: '📋' },
   ],
@@ -62,6 +108,8 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
 
   /* ── 세금·금융 ── */
   'calculator/year-end-tax': [
+    { href: '/calculator/monthly-rent-deduction', title: '월세 세액공제 계산기', why: '세액공제 칸에 넣을 월세 공제액을 여기서 냅니다', icon: '🏠' },
+
     { href: '/calculator/card-deduction', title: '신용카드 소득공제 계산기', why: '공제 항목 중에서 금액이 가장 크게 갈리는 자리입니다', icon: '💳' },
     { href: '/checklist/year-end-tax', title: '연말정산 준비 체크리스트', why: '간소화 자료에서 빠지는 항목을 미리 챙겨야 환급이 늘어납니다', icon: '🧾' },
     { href: '/calculator/pension-credit', title: '연금저축·IRP 세액공제 계산기', why: '세액공제 칸에 넣을 금액을 여기서 구합니다', icon: '💸' },
@@ -171,6 +219,8 @@ export const CROSS_LINKS: Record<string, CrossLink[]> = {
     { href: '/calculator/severance', title: '퇴직금 계산기', why: '받을 퇴직금을 미리 확인하세요', icon: '💰' },
   ],
   'checklist/year-end-tax': [
+    { href: '/calculator/monthly-rent-deduction', title: '월세 세액공제 계산기', why: '무주택 세입자가 가장 많이 놓치는 공제입니다', icon: '🏠' },
+
     { href: '/calculator/pension-credit', title: '연금저축·IRP 세액공제 계산기', why: '한도를 채우면 최대 148만 원을 돌려받습니다', icon: '💳' },
   ],
   'checklist/car-buying': [

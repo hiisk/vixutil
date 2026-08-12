@@ -129,3 +129,67 @@ export const decades = (): { from: number; years: number[] }[] => {
 
 export const neighbours = (year: number, span = 3): number[] =>
   YEARS.filter(y => Math.abs(y - year) <= span && y !== year);
+
+
+/*
+ * ── 낱장마다 다른 문장을 만드는 갈래 (2026-08-12) ──────────────
+ *
+ * 애드센스가 "가치 없는 콘텐츠"로 거절한 뒤 111개 섹션을 실측했더니 이 섹션이
+ * 형제끼리 낱말 96%가 같았다. 글이 짧아서가 아니다(본문 2,900자) — 문장이 틀에서
+ * 나와 연도와 요일만 갈렸다.
+ *
+ * 윤년 규칙은 이미 rule로 네 갈래가 나 있다. 거기에 53주·간지 한 바퀴·세기 자리를
+ * 엮으면 문장이 실제로 갈린다. 열쇠를 facts에 두는 까닭은 검사가 되짚을 수 있어야
+ * 하기 때문이다 — 어느 해에 어떤 열쇠가 붙는지는 달력 규칙이 정한다.
+ */
+export type YearReasonKey =
+  /** 4로 안 나뉘어 평년 */
+  | 'not4'
+  /** 4로 나뉘어 윤년 — 흔한 경우 */
+  | 'by4'
+  /** 100으로 나뉘어 윤년에서 빠졌다 */
+  | 'by100'
+  /** 400으로 나뉘어 다시 윤년이 됐다 */
+  | 'by400'
+  /** ISO로 53주짜리 해 */
+  | 'weeks53'
+  /** 간지 60년 주기의 첫 해(갑자) */
+  | 'ganjiFirst'
+  /** 세기의 첫 해 */
+  | 'centuryStart'
+  /** 세기의 끝 해 */
+  | 'centuryEnd'
+  /** 1월 1일과 12월 31일의 요일이 같다 — 평년에만 생긴다 */
+  | 'sameEnds'
+  /**
+   * 그 해에 53번 드는 요일 — 365 = 52×7 + 1 이라 한 요일이 하나 더 든다.
+   * 윤년은 366 = 52×7 + 2 라 두 요일이 하나 더 든다.
+   *
+   * 이 열쇠는 모든 해에 붙지만 **문장이 요일 이름을 담아** 일곱(윤년은 열넷)
+   * 갈래로 갈린다. 갈래를 늘리려고 지어낸 것이 아니라, 달력에서 바로 나오는
+   * 사실이면서 해마다 다른 것이 이것뿐이기 때문이다.
+   */
+  | 'extraWeekday';
+
+/** 이 해에 붙는 갈래 열쇠들 — 윤년 규칙이 먼저 온다 */
+export function yearReasonKeys(f: YearFacts): YearReasonKey[] {
+  const out: YearReasonKey[] = [f.rule];
+  if (f.isoWeeks === 53) out.push('weeks53');
+  if (f.stem === 0 && f.branch === 0) out.push('ganjiFirst');
+  if (f.year % 100 === 1) out.push('centuryStart');
+  if (f.year % 100 === 0) out.push('centuryEnd');
+  if (f.firstWeekday === f.lastWeekday) out.push('sameEnds');
+  out.push('extraWeekday');
+  return out;
+}
+
+
+/**
+ * 그 해에 53번 드는 요일들 — 0이 일요일.
+ *
+ * 365일은 52주에 하루가 남으므로 1월 1일의 요일이 하나 더 든다. 366일이면
+ * 이틀이 남아 1월 1일과 그 다음 요일이 함께 하나 더 든다.
+ */
+export function extraWeekdays(f: YearFacts): number[] {
+  return f.leap ? [f.firstWeekday, (f.firstWeekday + 1) % 7] : [f.firstWeekday];
+}

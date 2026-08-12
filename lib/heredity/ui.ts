@@ -5,7 +5,7 @@
  * 모양이라 옮기지 않는다.
  */
 import { LANG_CODES, type L, type Lang } from '../i18n/lang.ts';
-import type { HeredityFacts } from './facts.ts';
+import { reasonKeys, type HeredityFacts, type ReasonKey } from './facts.ts';
 
 export interface FaqItem { q: string; a: string }
 
@@ -37,6 +37,14 @@ export interface HeredityUI {
   exceptionNote: string;
   proofTitle: string;
   proofNote: string;
+  /**
+   * 이 칸이 왜 그런지 — 칸의 구조에서 갈래를 뽑아 문장으로 낸다.
+   *
+   * 갈래 열쇠는 facts.ts의 reasonKeys가 정한다(언어를 안 가린다). 여기서는
+   * 열쇠마다 한 줄씩만 두면 열 언어가 함께 갈린다. 512칸이 열넷으로 갈린다.
+   */
+  reasons: (f: HeredityFacts) => string[];
+  reasonsTitle: string;
   desc: (f: HeredityFacts) => string;
   howTitle: string;
   how: string[];
@@ -59,6 +67,135 @@ const kid = (f: HeredityFacts) => `${f.child.abo}${f.child.rh ? '+' : '−'}`;
 
 /** 확률을 문장에 넣을 때 — 한 갈래면 값 하나, 여러 갈래면 범위다 */
 const span = (f: HeredityFacts) => f.chanceText;
+
+/*
+ * ── 갈래마다 한 줄 (2026-08-12) ─────────────────────────────
+ * 열쇠는 facts.ts의 reasonKeys가 정하고, 여기는 그 열쇠에 붙는 문장만 갖는다.
+ * 512칸이 열넷의 갈래 조합으로 나뉘므로, 열 줄씩 열 언어면 낱장 문장이 실제로
+ * 갈린다 — 전에는 고유 낱말 357개 중 여섯 개만 달랐다.
+ */
+const REASON: L<Record<ReasonKey, string>> = {
+  ko: {
+    bothFixed: '부모의 혈액형만으로 유전자형이 둘 다 하나로 정해지는 드문 짝입니다. 그래서 확률이 범위가 아니라 값 하나로 나옵니다.',
+    oneFixed: '한쪽 부모는 유전자형이 하나로 정해지고 다른 쪽은 두 가지일 수 있습니다. 그래서 확률이 두 갈래로 갈립니다.',
+    neitherFixed: '두 부모 모두 겉으로 보이는 혈액형이 같아도 유전자형이 여럿일 수 있습니다. 그래서 확률이 하나가 아니라 범위입니다.',
+    onlyChild: '이 부모에게서는 이 혈액형 하나만 나옵니다 — 여덟 가지 가운데 다른 일곱은 나올 수 없습니다.',
+    allEight: '이 부모는 여덟 가지 혈액형을 모두 낳을 수 있습니다. ABO의 네 가지와 Rh의 두 가지가 모두 열려 있는 짝입니다.',
+    rhNegFromBothPlus: '부모가 둘 다 Rh+인데 아이가 Rh−인 경우입니다. 부모가 각각 D를 하나만 가지고 있으면 D 없는 쪽이 둘 다 물려질 수 있습니다.',
+    noAboAllele: '이 아이의 ABO형을 만들 대립유전자가 부모 어느 쪽에도 없습니다. 없는 것은 물려줄 수 없습니다.',
+    noRhFromNeg: 'Rh−는 D가 하나도 없다는 뜻입니다. 부모에게 D가 없으면 아이에게 Rh+가 나올 수 없습니다.',
+    abNeedsBoth: 'AB형 아이는 한쪽에서 A, 다른 쪽에서 B를 받아야 합니다. 이 부모에게는 그 둘이 갈라져 있지 않습니다.',
+    oNeedsBoth: 'O형 아이는 부모가 둘 다 O를 하나씩 물려줘야 합니다. 이 부모 가운데 O를 가질 수 없는 쪽이 있습니다.',
+  },
+  en: {
+    bothFixed: 'This is one of the rare pairs where the parents\u2019 phenotypes pin both genotypes down. That is why the chance comes out as a single figure, not a range.',
+    oneFixed: 'One parent\u2019s genotype is fixed by their blood type; the other could be either of two. That splits the chance into two cases.',
+    neitherFixed: 'Both parents could carry either of two genotypes behind the same visible type. That is why the chance is a range rather than one number.',
+    onlyChild: 'These parents can only have this one blood type — the other seven are closed off.',
+    allEight: 'These parents can have all eight blood types. Every ABO group and both Rh signs stay open.',
+    rhNegFromBothPlus: 'Two Rh-positive parents, an Rh-negative child. If each parent carries a single D, the copies without D can both be passed on.',
+    noAboAllele: 'Neither parent carries an allele that could build this ABO group. What you do not have, you cannot pass on.',
+    noRhFromNeg: 'Rh-negative means no D at all. With no D in either parent, an Rh-positive child cannot appear.',
+    abNeedsBoth: 'An AB child needs A from one side and B from the other. These parents do not have the two split that way.',
+    oNeedsBoth: 'An O child needs an O from each parent. One of these parents cannot carry one.',
+  },
+  es: {
+    bothFixed: 'Es uno de los pocos pares en que el grupo visible fija los dos genotipos. Por eso la probabilidad sale como una cifra y no como un rango.',
+    oneFixed: 'Un progenitor tiene el genotipo fijado por su grupo; el otro podr\u00eda ser uno de dos. Eso parte la probabilidad en dos casos.',
+    neitherFixed: 'Ambos progenitores podr\u00edan llevar uno de dos genotipos tras el mismo grupo visible. Por eso la probabilidad es un rango.',
+    onlyChild: 'Estos progenitores solo pueden tener este grupo: los otros siete quedan cerrados.',
+    allEight: 'Estos progenitores pueden tener los ocho grupos. Los cuatro ABO y los dos signos Rh siguen abiertos.',
+    rhNegFromBothPlus: 'Dos progenitores Rh positivos y un hijo Rh negativo. Si cada uno lleva una sola D, pueden pasar las copias sin D.',
+    noAboAllele: 'Ninguno lleva un alelo que forme este grupo ABO. Lo que no se tiene no se transmite.',
+    noRhFromNeg: 'Rh negativo significa ninguna D. Sin D en los progenitores no puede salir un hijo Rh positivo.',
+    abNeedsBoth: 'Un hijo AB necesita A de un lado y B del otro. Estos progenitores no los tienen repartidos as\u00ed.',
+    oNeedsBoth: 'Un hijo O necesita una O de cada progenitor. Uno de ellos no puede llevarla.',
+  },
+  pt: {
+    bothFixed: 'É um dos raros pares em que o grupo vis\u00edvel fixa os dois gen\u00f3tipos. Por isso a probabilidade sai como um valor \u00fanico, n\u00e3o como faixa.',
+    oneFixed: 'Um dos pais tem o gen\u00f3tipo fixado pelo grupo; o outro pode ser um de dois. Isso divide a probabilidade em dois casos.',
+    neitherFixed: 'Os dois podem carregar um de dois gen\u00f3tipos por tr\u00e1s do mesmo grupo vis\u00edvel. Por isso a probabilidade é uma faixa.',
+    onlyChild: 'Estes pais só podem ter este grupo — os outros sete ficam fechados.',
+    allEight: 'Estes pais podem ter os oito grupos. Os quatro ABO e os dois sinais Rh continuam abertos.',
+    rhNegFromBothPlus: 'Dois pais Rh positivos e um filho Rh negativo. Se cada um carrega um \u00fanico D, as c\u00f3pias sem D podem ser passadas.',
+    noAboAllele: 'Nenhum dos pais carrega um alelo que forme este grupo ABO. O que n\u00e3o se tem n\u00e3o se transmite.',
+    noRhFromNeg: 'Rh negativo significa nenhum D. Sem D nos pais, um filho Rh positivo n\u00e3o aparece.',
+    abNeedsBoth: 'Um filho AB precisa de A de um lado e B do outro. Estes pais n\u00e3o os têm separados assim.',
+    oNeedsBoth: 'Um filho O precisa de um O de cada pai. Um deles n\u00e3o pode carregar.',
+  },
+  ja: {
+    bothFixed: '親の血液型だけで両方の遺伝子型が一つに決まる珍しい組み合わせです。だから確率が幅ではなく一つの値になります。',
+    oneFixed: '片方の親は遺伝子型が一つに決まり、もう片方は二通りありえます。それで確率が二つに分かれます。',
+    neitherFixed: '同じ血液型に見えても、両親とも遺伝子型が二通りありえます。だから確率は一つではなく幅になります。',
+    onlyChild: 'この親からはこの血液型しか生まれません。ほかの七つは出ません。',
+    allEight: 'この親は八つの血液型すべてを生みえます。ABOの四つとRhの二つが全部開いている組み合わせです。',
+    rhNegFromBothPlus: '両親がRh+なのに子がRh−になる場合です。親がそれぞれDを一つだけ持っていれば、D のない側が両方から渡りえます。',
+    noAboAllele: 'この子のABO型を作る対立遺伝子が、どちらの親にもありません。持っていないものは渡せません。',
+    noRhFromNeg: 'Rh−はDが一つもないという意味です。親にDがなければ子にRh+は出ません。',
+    abNeedsBoth: 'AB型の子は片方からA、もう片方からBを受け取る必要があります。この親ではその二つが分かれていません。',
+    oNeedsBoth: 'O型の子は両親がそれぞれOを一つ渡す必要があります。この親のうち片方はOを持てません。',
+  },
+  de: {
+    bothFixed: 'Ein seltenes Paar, bei dem die sichtbaren Gruppen beide Genotypen festlegen. Darum kommt eine einzelne Zahl heraus und keine Spanne.',
+    oneFixed: 'Bei einem Elternteil legt die Blutgruppe den Genotyp fest, beim anderen sind zwei m\u00f6glich. Das teilt die Wahrscheinlichkeit in zwei F\u00e4lle.',
+    neitherFixed: 'Hinter derselben sichtbaren Gruppe k\u00f6nnen beide Eltern zwei Genotypen tragen. Darum ist die Wahrscheinlichkeit eine Spanne.',
+    onlyChild: 'Diese Eltern k\u00f6nnen nur diese eine Blutgruppe bekommen — die anderen sieben sind ausgeschlossen.',
+    allEight: 'Diese Eltern k\u00f6nnen alle acht Blutgruppen bekommen. Alle vier ABO-Gruppen und beide Rh-Zeichen bleiben offen.',
+    rhNegFromBothPlus: 'Zwei Rh-positive Eltern, ein Rh-negatives Kind. Tr\u00e4gt jeder nur ein D, k\u00f6nnen die Kopien ohne D von beiden kommen.',
+    noAboAllele: 'Kein Elternteil tr\u00e4gt ein Allel, das diese ABO-Gruppe bilden k\u00f6nnte. Was man nicht hat, gibt man nicht weiter.',
+    noRhFromNeg: 'Rh-negativ hei\u00dft: kein D. Ohne D bei den Eltern kann kein Rh-positives Kind entstehen.',
+    abNeedsBoth: 'Ein AB-Kind braucht A von der einen und B von der anderen Seite. Bei diesen Eltern sind die zwei nicht so verteilt.',
+    oNeedsBoth: 'Ein O-Kind braucht von jedem Elternteil ein O. Einer von beiden kann keines tragen.',
+  },
+  fr: {
+    bothFixed: 'C\u2019est une des rares paires o\u00f9 les groupes visibles fixent les deux g\u00e9notypes. La probabilit\u00e9 sort donc en un seul chiffre, pas en fourchette.',
+    oneFixed: 'Chez un parent le groupe fixe le g\u00e9notype, chez l\u2019autre deux sont possibles. Cela s\u00e9pare la probabilit\u00e9 en deux cas.',
+    neitherFixed: 'Derri\u00e8re le m\u00eame groupe visible, les deux parents peuvent porter l\u2019un de deux g\u00e9notypes. La probabilit\u00e9 est donc une fourchette.',
+    onlyChild: 'Ces parents ne peuvent avoir que ce groupe — les sept autres sont ferm\u00e9s.',
+    allEight: 'Ces parents peuvent avoir les huit groupes. Les quatre ABO et les deux signes Rh restent ouverts.',
+    rhNegFromBothPlus: 'Deux parents Rh positif, un enfant Rh n\u00e9gatif. Si chacun ne porte qu\u2019un D, les copies sans D peuvent venir des deux.',
+    noAboAllele: 'Aucun parent ne porte un all\u00e8le capable de former ce groupe ABO. Ce qu\u2019on n\u2019a pas, on ne le transmet pas.',
+    noRhFromNeg: 'Rh n\u00e9gatif veut dire aucun D. Sans D chez les parents, pas d\u2019enfant Rh positif.',
+    abNeedsBoth: 'Un enfant AB a besoin d\u2019un A d\u2019un c\u00f4t\u00e9 et d\u2019un B de l\u2019autre. Chez ces parents, les deux ne sont pas r\u00e9partis ainsi.',
+    oNeedsBoth: 'Un enfant O a besoin d\u2019un O de chaque parent. L\u2019un des deux ne peut pas en porter.',
+  },
+  hi: {
+    bothFixed: 'यह उन गिने-चुने जोड़ों में है जहाँ दिखने वाला समूह दोनों जीनोटाइप तय कर देता है। इसीलिए संभावना एक ही आँकड़े में आती है, दायरे में नहीं।',
+    oneFixed: 'एक माता-पिता का जीनोटाइप समूह से तय है, दूसरे का दो में से कोई हो सकता है। इससे संभावना दो हिस्सों में बँट जाती है।',
+    neitherFixed: 'एक ही दिखने वाले समूह के पीछे दोनों के दो-दो जीनोटाइप हो सकते हैं। इसीलिए संभावना एक संख्या नहीं, दायरा है।',
+    onlyChild: 'इन माता-पिता से यही एक समूह हो सकता है — बाकी सात बंद हैं।',
+    allEight: 'इन माता-पिता से आठों समूह हो सकते हैं। ABO के चारों और Rh के दोनों चिह्न खुले रहते हैं।',
+    rhNegFromBothPlus: 'दोनों Rh पॉज़िटिव, संतान Rh नेगेटिव। अगर हर एक के पास एक ही D हो, तो बिना D वाली प्रतियाँ दोनों से आ सकती हैं।',
+    noAboAllele: 'इस ABO समूह को बनाने वाला ऐलील किसी भी माता-पिता के पास नहीं है। जो नहीं है, वह दिया नहीं जा सकता।',
+    noRhFromNeg: 'Rh नेगेटिव का अर्थ है कोई D नहीं। माता-पिता में D न हो तो Rh पॉज़िटिव संतान नहीं आ सकती।',
+    abNeedsBoth: 'AB संतान को एक ओर से A और दूसरी ओर से B चाहिए। इन माता-पिता में वे दोनों इस तरह बँटे नहीं हैं।',
+    oNeedsBoth: 'O संतान को दोनों से एक-एक O चाहिए। इनमें से एक O रख नहीं सकता।',
+  },
+  zh: {
+    bothFixed: '这是少见的组合——父母显出的血型就把两边的基因型都定住了。所以概率是一个数，不是一个范围。',
+    oneFixed: '一方的基因型由血型定住，另一方可能是两种之一。概率因此分成两种情形。',
+    neitherFixed: '同样的血型背后，父母双方都可能是两种基因型之一。所以概率不是一个数，而是一个范围。',
+    onlyChild: '这对父母只能生出这一种血型，另外七种都出不来。',
+    allEight: '这对父母能生出全部八种血型。ABO 的四种和 Rh 的两种都是开着的。',
+    rhNegFromBothPlus: '父母都是 Rh 阳性，孩子却是 Rh 阴性。只要各自只带一个 D，没有 D 的那一份就可能从两边一起传下来。',
+    noAboAllele: '能组成这个 ABO 型的等位基因，父母双方都没有。没有的东西传不下去。',
+    noRhFromNeg: 'Rh 阴性就是完全没有 D。父母都没有 D，孩子就不会是 Rh 阳性。',
+    abNeedsBoth: 'AB 型的孩子要从一边拿 A、另一边拿 B。这对父母并没有这样分开。',
+    oNeedsBoth: 'O 型的孩子要从父母各拿一个 O。这对父母里有一方带不了 O。',
+  },
+  tw: {
+    bothFixed: '這是少見的組合——父母顯出的血型就把兩邊的基因型都定住了。所以機率是一個數，不是一個範圍。',
+    oneFixed: '一方的基因型由血型定住，另一方可能是兩種之一。機率因此分成兩種情形。',
+    neitherFixed: '同樣的血型背後，父母雙方都可能是兩種基因型之一。所以機率不是一個數，而是一個範圍。',
+    onlyChild: '這對父母只能生出這一種血型，另外七種都出不來。',
+    allEight: '這對父母能生出全部八種血型。ABO 的四種和 Rh 的兩種都是開著的。',
+    rhNegFromBothPlus: '父母都是 Rh 陽性，孩子卻是 Rh 陰性。只要各自只帶一個 D，沒有 D 的那一份就可能從兩邊一起傳下來。',
+    noAboAllele: '能組成這個 ABO 型的等位基因，父母雙方都沒有。沒有的東西傳不下去。',
+    noRhFromNeg: 'Rh 陰性就是完全沒有 D。父母都沒有 D，孩子就不會是 Rh 陽性。',
+    abNeedsBoth: 'AB 型的孩子要從一邊拿 A、另一邊拿 B。這對父母並沒有這樣分開。',
+    oNeedsBoth: 'O 型的孩子要從父母各拿一個 O。這對父母裡有一方帶不了 O。',
+  },
+};
 
 type Spec = { [K in keyof HeredityUI]: L<HeredityUI[K]> };
 
@@ -212,6 +349,17 @@ const SPEC: Spec = {
     'यह तालिका केवल बाहर कर सकती है। वह कह सकती है कि कोई संयोजन असंभव है; पर संभव होने का अर्थ पितृत्व नहीं — किसी भी रक्त समूह के लोग बहुत ज़्यादा हैं। और ऊपर के दुर्लभ अपवादों के कारण बाहर करना भी निश्चित नहीं। पितृत्व DNA जाँच से तय होता है।',
     '这张表能做的只是排除。它可以说某个组合不可能，却不能说可能就等于亲生——同一血型的人实在太多。加上上面那些罕见例外，连排除也不是定论。亲子关系由 DNA 检测判定。',
     '這張表能做的只是排除。它可以說某個組合不可能，卻不能說可能就等於親生——同一血型的人實在太多。加上上面那些罕見例外，連排除也不是定論。親子關係由 DNA 檢測判定。',
+  ),
+
+  reasonsTitle: T(
+    '이 칸이 왜 그런가', 'Why this cell reads that way', 'Por qué sale así', 'Por que sai assim',
+    'この欄がそうなる理由', 'Warum dieses Feld so ausf\u00e4llt', 'Pourquoi cette case dit cela',
+    'यह खाना ऐसा क्यों', '这一格为什么这样', '這一格為什麼這樣',
+  ),
+
+  reasons: T<(f: HeredityFacts) => string[]>(
+    ...(LANG_CODES.map(lang => (f: HeredityFacts) => reasonKeys(f).map(k => REASON[lang][k])) as
+      Parameters<typeof T<(f: HeredityFacts) => string[]>>),
   ),
 
   desc: T<(f: HeredityFacts) => string>(

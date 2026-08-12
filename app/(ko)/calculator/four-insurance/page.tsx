@@ -8,24 +8,16 @@ import { CALC_FAQ } from '@/lib/calc-faq';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
-const BRACKETS = [
-  { limit: 1400,     rate: 0.06,  deduct: 0 },
-  { limit: 5000,     rate: 0.15,  deduct: 126 },
-  { limit: 8800,     rate: 0.24,  deduct: 576 },
-  { limit: 15000,    rate: 0.35,  deduct: 1544 },
-  { limit: 30000,    rate: 0.38,  deduct: 1994 },
-  { limit: 50000,    rate: 0.40,  deduct: 2594 },
-  { limit: 100000,   rate: 0.42,  deduct: 3594 },
-  { limit: Infinity, rate: 0.45,  deduct: 6594 },
-];
-
-function earningDeduction(a: number): number {
-  if (a <= 500) return a * 0.7;
-  if (a <= 1500) return 350 + (a - 500) * 0.4;
-  if (a <= 4500) return 750 + (a - 1500) * 0.15;
-  if (a <= 10000) return 1200 + (a - 4500) * 0.05;
-  return Math.min(2000, 1475 + (a - 10000) * 0.02);
-}
+/*
+ * 요율과 세율표는 lib/salary.ts에서 가져온다 — 원래 이 파일에 사본이 있었다.
+ * 4대보험 요율은 해마다 바뀌므로 두 곳에 적혀 있으면 한쪽만 고쳐진다.
+ * lib/yearly-values.ts가 가리키는 자리도 그 파일이다.
+ */
+import {
+  ACCIDENT_RATE_DEFAULT, EMPLOYER_EMPLOYMENT_RATE, EMPLOYMENT_RATE, HEALTH_RATE,
+  INCOME_BRACKETS, LOCAL_TAX_RATE, LONG_CARE_RATE, PENSION_CAP, PENSION_RATE,
+  PERSONAL_DEDUCTION, earningDeduction,
+} from '@/lib/salary';
 
 interface InsuranceResult {
   // 근로자
@@ -54,19 +46,19 @@ interface InsuranceResult {
 }
 
 function calcInsurance(monthly: number): InsuranceResult {
-  const pensionBase = Math.min(monthly, 6_170_000);
+  const pensionBase = Math.min(monthly, PENSION_CAP);
 
-  const empPension    = Math.round(pensionBase * 0.045);
-  const empHealth     = Math.round(monthly * 0.03545);
-  const empLongCare   = Math.round(empHealth * 0.1295);
-  const empEmployment = Math.round(monthly * 0.009);
+  const empPension    = Math.round(pensionBase * PENSION_RATE);
+  const empHealth     = Math.round(monthly * HEALTH_RATE);
+  const empLongCare   = Math.round(empHealth * LONG_CARE_RATE);
+  const empEmployment = Math.round(monthly * EMPLOYMENT_RATE);
   const empTotal = empPension + empHealth + empLongCare + empEmployment;
 
-  const erPension    = Math.round(pensionBase * 0.045);
-  const erHealth     = Math.round(monthly * 0.03545);
-  const erLongCare   = Math.round(erHealth * 0.1295);
-  const erEmployment = Math.round(monthly * 0.0115); // 150인 미만 사업장
-  const erAccident   = Math.round(monthly * 0.0073); // 기본 업종 0.73%
+  const erPension    = Math.round(pensionBase * PENSION_RATE);
+  const erHealth     = Math.round(monthly * HEALTH_RATE);
+  const erLongCare   = Math.round(erHealth * LONG_CARE_RATE);
+  const erEmployment = Math.round(monthly * EMPLOYER_EMPLOYMENT_RATE); // 150인 미만 사업장
+  const erAccident   = Math.round(monthly * ACCIDENT_RATE_DEFAULT);    // 기본 업종
   const erTotal = erPension + erHealth + erLongCare + erEmployment + erAccident;
 
   const combinedTotal = empTotal + erTotal;
@@ -74,11 +66,11 @@ function calcInsurance(monthly: number): InsuranceResult {
   // 소득세 (연간 환산 후 월 분할)
   const annual = monthly * 12;
   const a = annual / 10000;
-  const taxable = Math.max(0, a - earningDeduction(a) - 150);
-  const bracket = BRACKETS.find(b => taxable <= b.limit)!;
+  const taxable = Math.max(0, a - earningDeduction(a) - PERSONAL_DEDUCTION);
+  const bracket = INCOME_BRACKETS.find(b => taxable <= b.limit)!;
   const annualTax = Math.max(0, taxable * bracket.rate - bracket.deduct) * 10000;
   const incomeTax = Math.round(annualTax / 12);
-  const localTax  = Math.round(incomeTax * 0.1);
+  const localTax  = Math.round(incomeTax * LOCAL_TAX_RATE);
   const totalTax  = incomeTax + localTax;
 
   const netPay = monthly - empTotal - totalTax;

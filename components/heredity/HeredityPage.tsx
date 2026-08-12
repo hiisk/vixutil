@@ -96,6 +96,30 @@ export default function HeredityPage({ slug, lang }: { slug: string; lang: Lang 
           ))}
         </dl>
 
+        {/*
+          ── 칸마다 갈리는 설명 (2026-08-12) ──────────────────────
+          전에는 낱장 512장이 형제끼리 낱말 95.9%가 같았다. 고유 낱말 357개 중
+          다른 것이 여섯 개뿐이었고 그 여섯이 전부 숫자였다 — 글이 짧아서가
+          아니라 문장이 틀에서 나와 같았다.
+
+          여기 오는 문장은 facts.ts의 reasonKeys가 이 칸의 구조에서 뽑은 갈래에
+          따라 달라진다(512칸 → 열넷의 조합). 유전 규칙에서 나오는 것만 말하므로
+          지어낸 문장이 아니다.
+        */}
+        <section className="mb-8">
+          <h2 className="sec-h2-tight">{ui.reasonsTitle}</h2>
+          <ul className="flex flex-col gap-2">
+            {ui.reasons(f).map((line, i) => (
+              <li
+                key={i}
+                className="rounded-xl border border-violet-200/70 dark:border-violet-900/50 bg-violet-50/50 dark:bg-violet-950/25 px-4 py-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200"
+              >
+                {line}
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.routesTitle}</h2>
           <p className="mb-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.routesNote(f)}</p>

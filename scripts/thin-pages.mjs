@@ -124,27 +124,51 @@ if (thin.length) console.log('  ' + thin.map(r => r.sec).join(' '));
 const dupRows = [];
 for (const [sec, g] of groups) {
   if (g.leaves.length < 2) continue;
-  const a = g.leaves[0];
-  const b = g.leaves[Math.floor(g.leaves.length / 2)];
+  /*
+   * 짝을 셋 잡아 평균을 낸다.
+   *
+   * 처음엔 첫 칸과 가운데 칸 하나만 봤는데, 그 둘이 **구조가 같은 질문**이면
+   * 섹션 전체가 그런 것처럼 나온다. heredity에서 실제로 그랬다 — 고쳐서 구조가
+   * 다른 칸끼리는 81%로 내려갔는데도 그 한 짝만 96%였다.
+   */
+  const n = g.leaves.length;
+  const pairs = [
+    [g.leaves[0], g.leaves[Math.floor(n / 2)]],
+    [g.leaves[Math.floor(n / 4)], g.leaves[Math.floor((n * 3) / 4)]],
+    [g.leaves[Math.floor(n / 3)], g.leaves[n - 1]],
+  ].filter(([x, y]) => x && y && x !== y);
   try {
-    const [ta, tb] = await Promise.all([
-      fetch(`${BASE}/${a}`).then(r => r.text()),
-      fetch(`${BASE}/${b}`).then(r => r.text()),
-    ]);
-    const wa = new Set(visibleText(ta).split(' ').filter(Boolean));
-    const wb = new Set(visibleText(tb).split(' ').filter(Boolean));
-    let both = 0;
-    for (const w of wa) if (wb.has(w)) both++;
-    const union = wa.size + wb.size - both;
-    dupRows.push({ sec, leaves: g.leaves.length, same: union ? both / union : 1, a, b });
+    const scores = [];
+    for (const [x, y] of pairs) {
+      const [tx, ty] = await Promise.all([
+        fetch(`${BASE}/${x}`).then(r => r.text()),
+        fetch(`${BASE}/${y}`).then(r => r.text()),
+      ]);
+      const wx = new Set(visibleText(tx).split(' ').filter(Boolean));
+      const wy = new Set(visibleText(ty).split(' ').filter(Boolean));
+      let both = 0;
+      for (const w of wx) if (wy.has(w)) both++;
+      const union = wx.size + wy.size - both;
+      scores.push(union ? both / union : 1);
+    }
+    if (!scores.length) continue;
+    const avg = scores.reduce((p, q) => p + q, 0) / scores.length;
+    dupRows.push({
+      sec, leaves: n, same: avg,
+      a: pairs[0][0], b: pairs[0][1],
+      worst: Math.max(...scores), best: Math.min(...scores),
+    });
   } catch { /* 못 받은 것은 건너뛴다 */ }
 }
 dupRows.sort((x, y) => y.same - x.same);
 console.log('\n형제끼리 같은 낱말 비율 (높을수록 숫자만 다른 페이지)');
-console.log('섹션        낱장수   같음     표본 둘');
+console.log('섹션        낱장수   평균     최악     최선   표본 한 짝');
 console.log('─'.repeat(78));
 for (const r of dupRows.slice(0, 20)) {
-  console.log(`${r.sec.padEnd(12)}${String(r.leaves).padStart(6)}${(r.same * 100).toFixed(1).padStart(8)}%   /${r.a} · /${r.b}`);
+  console.log(
+    `${r.sec.padEnd(12)}${String(r.leaves).padStart(6)}${(r.same * 100).toFixed(1).padStart(8)}%` +
+    `${(r.worst * 100).toFixed(1).padStart(9)}%${(r.best * 100).toFixed(1).padStart(9)}%   /${r.a} · /${r.b}`,
+  );
 }
 const risky = dupRows.filter(r => r.same >= 0.95);
 console.log(`\n95% 이상 겹치는 섹션 ${risky.length}개 · 그 낱장 합계 ${risky.reduce((n, r) => n + r.leaves, 0).toLocaleString()}장`);

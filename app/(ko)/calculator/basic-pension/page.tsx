@@ -93,7 +93,7 @@ export default function BasicPensionPage() {
           <p>
             국민연금 수령액이 기준연금액의 <strong>{LINKAGE_THRESHOLD * 100}%</strong>를 넘으면 기초연금이
             깎이는 연계 감액이 있습니다. 그 감액은 국민연금 급여 중 일부를 따로 떼어 계산해야 하고 그
-            값은 공단만 알기 때문에, 이 계산기는 <strong>금액을 지어내지 않고 대상인지만 알립니다.</strong>
+            값은 공단만 알기 때문에, 이 계산기는 <strong>금액을 지어내지 않고 대상인지만 알립니다.</strong>{' '}
             국민연금 쪽 금액은{' '}
             <Link href="/calculator/national-pension" className="underline">국민연금 예상 수령액 계산기</Link>에서
             보세요.

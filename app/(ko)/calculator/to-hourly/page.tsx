@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 
-const MIN_WAGE_2026 = 10_320;
+/* 최저시급은 lib/minimum-wage.ts 하나에서 온다 — 해마다 바뀌므로 사본을 두지 않는다 */
+import { MIN_HOURLY_WAGE as MIN_WAGE_2026 } from '@/lib/minimum-wage';
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function ToHourlyPage() {

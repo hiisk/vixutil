@@ -121,6 +121,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: "Keep your eyes on the centre dot and tap the target that appears at the edge. Targets only appear inside a ring with the middle left empty, and the ring moves outward as the levels rise. Miss the time limit and it ends, so there is no chance to look around.",
       features: ["Targets never appear in the centre", "The ring moves outward as levels rise", "Targets appear evenly in all directions", "Keeps your best score"],
     },
+    '2048': {
+      title: "2048 Game", desc: "Slide and merge matching numbers to reach 2048", category: "Brain",
+      metaTitle: "2048 Game — Play the Sliding Number Puzzle Free, No Install",
+      long: "Slide the board in four directions to merge matching numbers. A tile merges only once per slide, so 4·4·4·4 becomes 8·8 rather than 16, and sliding into a wall changes nothing and spawns no tile. Reach 2048 and you can keep going, with one move of undo always available.",
+      features: ["Arrow keys, WASD or swipe", "Score is the sum of the tiles you merged", "Keep playing past 2048", "One-move undo, best score saved"],
+    },
+    minesweeper: {
+      title: "Minesweeper", desc: "Narrow the mines down from the numbers alone", category: "Brain",
+      metaTitle: "Minesweeper — Play Beginner, Intermediate and Expert Boards Free",
+      long: "A number is how many mines touch that square, and that is the only clue you get. Your first square is always safe and always has nothing around it, so the board opens wide and you can reason from the very first move instead of guessing. Best times are kept separately for each of the three boards.",
+      features: ["Beginner 9×9, intermediate 16×16, expert 30×16", "Your first click is never a mine", "Flag button or press-and-hold on a phone", "Best time saved per difficulty", "Shows the board's 3BV (minimum clicks)"],
+    },
+    sudoku: {
+      title: "Sudoku", desc: "Fill the 9×9 grid with the digits 1 to 9", category: "Brain",
+      metaTitle: "Sudoku — Easy, Medium and Hard Puzzles With Exactly One Answer",
+      long: "Fill the grid so that every row, every column and every 3×3 box holds 1 to 9 exactly once. Each puzzle is dug out of a finished grid one cell at a time, checking after every removal that a single solution remains, so no puzzle here has two answers. The difficulty comes from the technique the puzzle needs, not from how many cells are blank.",
+      features: ["Easy, medium and hard, set by the technique needed", "Never a puzzle with more than one answer", "Hints that give the reason, not just the digit", "Pencil-mark notes and one-move undo", "Best time saved per difficulty"],
+    },
+    sliding: {
+      title: "Sliding Puzzle", desc: "Slide the numbers back into order", category: "Brain",
+      metaTitle: "Sliding Puzzle — Play the 15 Puzzle Free in 3×3, 4×4 and 5×5",
+      long: "Slide the numbers into the empty square until they run in order from the top left. Half of all arrangements of this puzzle can never be finished no matter how you slide, so every shuffle is checked by counting inversions first — the board you are given is always solvable. It also shows the Manhattan distance left, which is a lower bound on the moves you still need.",
+      features: ["3×3, 4×4 and 5×5 boards", "Unsolvable boards are never dealt", "Tap further along the row to slide several tiles at once", "Undo one move at a time", "Distance left shows how far from done you are", "Best time saved per board size"],
+    },
   },
 
   es: {
@@ -219,6 +243,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "Test de visión periférica — Cuánto abarcas mirando al frente",
       long: "Mantén la vista en el punto central y toca el objetivo que aparece en el borde. Los objetivos solo salen dentro de un anillo con el centro vacío, y el anillo se aleja al subir de nivel. Si se acaba el tiempo, termina: no hay margen para mirar alrededor.",
       features: ["Los objetivos nunca salen en el centro", "El anillo se aleja al subir de nivel", "Los objetivos salen por igual en todas las direcciones", "Guarda tu mejor marca"],
+    },
+    '2048': {
+      title: "Juego 2048", desc: "Desliza y junta los números iguales hasta llegar a 2048", category: "Cerebro",
+      metaTitle: "Juego 2048 — Desliza y junta números hasta 2048, gratis",
+      long: "Desliza el tablero en cuatro direcciones para juntar los números iguales. Una ficha se junta una sola vez por movimiento, así que 4·4·4·4 da 8·8 y no 16, y empujar contra la pared no cambia nada ni hace aparecer fichas. Al llegar a 2048 puedes seguir jugando, y siempre tienes un movimiento para deshacer.",
+      features: ["Flechas, WASD o deslizar el dedo", "Los puntos son la suma de las fichas que juntas", "Sigue jugando después de 2048", "Deshacer un movimiento y mejor marca guardada"],
+    },
+    minesweeper: {
+      title: "Buscaminas", desc: "Acota las minas solo con los números", category: "Cerebro",
+      metaTitle: "Buscaminas — Juega gratis en principiante, intermedio y experto",
+      long: "El número dice cuántas minas tocan esa casilla, y esa es la única pista que tienes. La primera casilla siempre es segura y nunca tiene minas alrededor, así que el tablero se abre en grande y puedes razonar desde la primera jugada en vez de adivinar. El mejor tiempo se guarda por separado en cada uno de los tres tableros.",
+      features: ["Principiante 9×9, intermedio 16×16, experto 30×16", "Tu primer clic nunca es una mina", "Botón de bandera o pulsación larga en el móvil", "Mejor tiempo guardado por dificultad", "Muestra el 3BV del tablero (clics mínimos)"],
+    },
+    sudoku: {
+      title: "Sudoku", desc: "Rellena la cuadrícula 9×9 con los números del 1 al 9", category: "Cerebro",
+      metaTitle: "Sudoku — Puzles fáciles, medios y difíciles con una sola solución",
+      long: "Rellena la cuadrícula para que cada fila, cada columna y cada caja de 3×3 tengan del 1 al 9 una sola vez. Cada puzle se vacía a partir de una cuadrícula completa, casilla a casilla, comprobando tras cada borrado que sigue quedando una única solución: aquí ningún puzle tiene dos respuestas. La dificultad viene de la técnica que hace falta, no del número de casillas vacías.",
+      features: ["Fácil, medio y difícil según la técnica necesaria", "Nunca un puzle con más de una solución", "Pistas que dan el motivo, no solo el número", "Notas a lápiz y deshacer una jugada", "Mejor tiempo guardado por dificultad"],
+    },
+    sliding: {
+      title: "Puzle deslizante", desc: "Desliza los números hasta ponerlos en orden", category: "Cerebro",
+      metaTitle: "Puzle deslizante — Juega al puzle del 15 en 3×3, 4×4 y 5×5",
+      long: "Desliza los números hacia el hueco hasta dejarlos en orden desde arriba a la izquierda. La mitad de las posiciones de este puzle no se pueden terminar por mucho que deslices, así que cada mezcla se comprueba contando inversiones: el tablero que recibes siempre tiene solución. También muestra la distancia de Manhattan que queda, que es una cota inferior de los movimientos que te faltan.",
+      features: ["Tableros de 3×3, 4×4 y 5×5", "Nunca reparte tableros sin solución", "Toca más lejos en la fila para deslizar varias casillas de golpe", "Deshacer movimiento a movimiento", "La distancia restante indica cuánto te falta", "Mejor tiempo guardado por tamaño de tablero"],
     },
   },
 
@@ -319,6 +367,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: "Mantenha os olhos no ponto central e toque no alvo que aparece na borda. Os alvos só aparecem dentro de um anel com o meio vazio, e o anel se afasta conforme os níveis sobem. Se passar do tempo, acaba — não dá para olhar em volta.",
       features: ["Os alvos nunca aparecem no centro", "O anel se afasta conforme os níveis sobem", "Os alvos aparecem por igual em todas as direções", "Guarda seu melhor resultado"],
     },
+    '2048': {
+      title: "Jogo 2048", desc: "Deslize e junte os números iguais até chegar a 2048", category: "Cérebro",
+      metaTitle: "Jogo 2048 — Deslize e junte números até 2048, de graça",
+      long: "Deslize o tabuleiro em quatro direções para juntar os números iguais. Uma peça se junta só uma vez por jogada, então 4·4·4·4 vira 8·8 e não 16, e empurrar contra a parede não muda nada nem cria peças. Ao chegar a 2048 você pode continuar jogando, e sempre há uma jogada para desfazer.",
+      features: ["Setas, WASD ou deslizar o dedo", "Os pontos são a soma das peças que você junta", "Continue jogando depois do 2048", "Desfazer uma jogada e melhor marca salva"],
+    },
+    minesweeper: {
+      title: "Campo Minado", desc: "Cerque as minas só com os números", category: "Cérebro",
+      metaTitle: "Campo Minado — Jogue grátis no iniciante, intermediário e especialista",
+      long: "O número diz quantas minas encostam naquela casa, e é a única pista que você tem. A primeira casa é sempre segura e nunca tem minas em volta, então o tabuleiro abre uma área grande e você já raciocina na primeira jogada em vez de chutar. O melhor tempo fica guardado à parte em cada um dos três tabuleiros.",
+      features: ["Iniciante 9×9, intermediário 16×16, especialista 30×16", "Seu primeiro clique nunca é uma mina", "Botão de bandeira ou toque longo no celular", "Melhor tempo guardado por dificuldade", "Mostra o 3BV do tabuleiro (cliques mínimos)"],
+    },
+    sudoku: {
+      title: "Sudoku", desc: "Preencha a grade 9×9 com os números de 1 a 9", category: "Cérebro",
+      metaTitle: "Sudoku — Jogos fácil, médio e difícil com uma única resposta",
+      long: "Preencha a grade para que cada linha, cada coluna e cada bloco 3×3 tenham de 1 a 9 uma única vez. Cada jogo é cavado a partir de uma grade completa, uma casa por vez, conferindo depois de cada remoção que ainda resta uma só solução — aqui nenhum jogo tem duas respostas. A dificuldade vem da técnica necessária, não da quantidade de casas vazias.",
+      features: ["Fácil, médio e difícil pela técnica necessária", "Nunca um jogo com mais de uma resposta", "Dica que dá o motivo, não só o número", "Anotações a lápis e desfazer uma jogada", "Melhor tempo guardado por dificuldade"],
+    },
+    sliding: {
+      title: "Quebra-cabeça deslizante", desc: "Deslize os números até ficarem em ordem", category: "Cérebro",
+      metaTitle: "Quebra-cabeça deslizante — Jogue o jogo do 15 em 3×3, 4×4 e 5×5",
+      long: "Deslize os números para o espaço vazio até deixá-los em ordem a partir do canto superior esquerdo. Metade das posições deste quebra-cabeça não pode ser terminada, não importa quanto você deslize, então cada embaralhada é conferida contando as inversões: o tabuleiro que você recebe sempre tem solução. Também mostra a distância de Manhattan que falta, que é um limite inferior das jogadas ainda necessárias.",
+      features: ["Tabuleiros de 3×3, 4×4 e 5×5", "Nunca entrega um tabuleiro sem solução", "Toque mais longe na linha para deslizar várias peças de uma vez", "Desfazer uma jogada por vez", "A distância restante mostra o quanto ainda falta", "Melhor tempo salvo por tamanho de tabuleiro"],
+    },
   },
 
   ja: {
@@ -417,6 +489,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "周辺視野テスト — 正面を見ながらどれだけ広く見えるか",
       long: "中央の点を見つめたまま、端に現れる的を押してください。的は中央を空けたリングの中にだけ現れ、レベルが上がるほど外側へ移ります。時間内に押せないと終わるので、目を動かして探す余裕はありません。",
       features: ["的は中央には現れない", "レベルが上がるほど外側へ", "四方に均等に現れる", "ベスト記録を保存"],
+    },
+    '2048': {
+      title: "2048 ゲーム", desc: "同じ数字をくっつけて2048を作る", category: "計算",
+      metaTitle: "2048 ゲーム — 数字を滑らせて合わせるパズル、無料でそのまま",
+      long: "盤を四方向に動かして同じ数字をくっつけます。一回の移動で同じマスがくっつくのは一度だけなので、4・4・4・4は16ではなく8・8になります。動かない向きに入力しても盤は変わらず新しいマスも出ません。2048を作ってからも続けられ、一手戻すこともできます。",
+      features: ["矢印キー・WASD・スワイプ", "くっつけた数の合計がスコア", "2048のあとも続けられる", "一手戻すとベスト記録の保存"],
+    },
+    minesweeper: {
+      title: "マインスイーパ", desc: "数字だけを頼りに地雷の位置を絞る", category: "計算",
+      metaTitle: "マインスイーパ — 初級・中級・上級の盤を無料で",
+      long: "数字はそのマスに接する八マスの地雷の数で、手がかりはそれだけです。最初のマスは必ず安全で周りにも地雷がないので盤が広く開き、一手目から勘ではなく理屈で進められます。三つの盤ごとに最高記録を別に残します。",
+      features: ["初級9×9・中級16×16・上級30×16", "最初のクリックが地雷になることはない", "スマートフォンでは旗ボタンか長押し", "難易度ごとに最高記録を保存", "盤の3BV（最小クリック数）も表示"],
+    },
+    sudoku: {
+      title: "数独", desc: "9×9の盤を1〜9で埋める", category: "計算",
+      metaTitle: "数独（ナンプレ）— 答えが一つだけの問題をやさしい・ふつう・むずかしいで",
+      long: "どの行・どの列・どの3×3ブロックにも1から9が一度ずつ入るように埋めます。問題は完成した盤から一マスずつ消して作り、消すたびに答えが一つだけ残るかを確かめているので、答えが二つある問題は出ません。難易度は空きマスの数ではなく、解くのに必要な手筋で決まります。",
+      features: ["必要な手筋で分けたやさしい・ふつう・むずかしい", "答えが二つある問題は出さない", "数字だけでなく理由まで言うヒント", "候補メモと一手戻す", "難易度ごとに最短記録を保存"],
+    },
+    sliding: {
+      title: "スライドパズル", desc: "数字を滑らせて順番に並べる15パズル", category: "計算",
+      metaTitle: "スライドパズル — 15パズルを3×3・4×4・5×5で今すぐ",
+      long: "空きマスへ数字を滑らせ、左上から順に並べます。このパズルは並べ方の半分がどう動かしても完成しないので、混ぜるたびに転倒数を数えて解けるかを先に確かめます — 出てくる盤は必ず解けます。残りのマンハッタン距離も表示し、それが必要な手数の下限になります。",
+      features: ["3×3・4×4・5×5の盤", "解けない盤は出さない", "同じ行の離れたマスを押せば一度に複数動く", "一手ずつ戻せる", "残り距離であとどれだけかが分かる", "盤の大きさごとに最高記録を保存"],
     },
   },
 
@@ -517,6 +613,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: "Halte die Augen auf dem Mittelpunkt und tippe das Ziel an, das am Rand erscheint. Ziele erscheinen nur in einem Ring mit freier Mitte, und der Ring wandert mit steigender Stufe nach außen. Wer die Zeit verpasst, ist raus — zum Umherschauen bleibt keine Gelegenheit.",
       features: ["Ziele erscheinen nie in der Mitte", "Der Ring wandert mit steigender Stufe nach außen", "Ziele erscheinen gleichmäßig in alle Richtungen", "Speichert deinen Bestwert"],
     },
+    '2048': {
+      title: "2048 Spiel", desc: "Gleiche Zahlen zusammenschieben, bis 2048 dasteht", category: "Kopf",
+      metaTitle: "2048 Spiel — Zahlen schieben und zusammenfügen, kostenlos ohne Installation",
+      long: "Schiebe das Brett in vier Richtungen, um gleiche Zahlen zu verschmelzen. Ein Feld verschmilzt pro Zug nur einmal, aus 4·4·4·4 wird also 8·8 und nicht 16, und ein Zug gegen die Wand ändert nichts und setzt kein neues Feld. Nach 2048 kannst du weiterspielen, und ein Zug lässt sich immer zurücknehmen.",
+      features: ["Pfeiltasten, WASD oder Wischen", "Die Punkte sind die Summe der verschmolzenen Felder", "Nach 2048 weiterspielen", "Ein Zug zurück, Bestwert wird gespeichert"],
+    },
+    minesweeper: {
+      title: "Minesweeper", desc: "Die Minen allein aus den Zahlen einkreisen", category: "Kopf",
+      metaTitle: "Minesweeper — Anfänger, Fortgeschritten und Profi kostenlos spielen",
+      long: "Die Zahl sagt, wie viele Minen an dieses Feld grenzen — mehr Anhaltspunkte gibt es nicht. Das erste Feld ist immer sicher und hat nie Minen ringsum, öffnet sich also großflächig, und du kannst schon im ersten Zug schließen statt zu raten. Die Bestzeit wird für jedes der drei Felder einzeln gespeichert.",
+      features: ["Anfänger 9×9, fortgeschritten 16×16, Profi 30×16", "Dein erster Klick ist nie eine Mine", "Fahnen-Knopf oder langes Drücken auf dem Handy", "Bestzeit je Schwierigkeit gespeichert", "Zeigt das 3BV des Feldes (Mindestklicks)"],
+    },
+    sudoku: {
+      title: "Sudoku", desc: "Füll das 9×9-Gitter mit den Ziffern 1 bis 9", category: "Kopf",
+      metaTitle: "Sudoku — Leichte, mittlere und schwere Rätsel mit genau einer Lösung",
+      long: "Füll das Gitter so, dass in jeder Zeile, jeder Spalte und jeder 3×3-Box die 1 bis 9 genau einmal steht. Jedes Rätsel wird aus einem fertigen Gitter Feld für Feld ausgehöhlt, wobei nach jedem Entfernen geprüft wird, ob genau eine Lösung bleibt — hier hat kein Rätsel zwei Antworten. Die Schwierigkeit kommt von der nötigen Technik, nicht von der Zahl der leeren Felder.",
+      features: ["Leicht, mittel und schwer nach der nötigen Technik", "Nie ein Rätsel mit mehr als einer Lösung", "Tipps, die den Grund nennen, nicht nur die Ziffer", "Notizen wie mit dem Bleistift und ein Zug zurück", "Bestzeit je Schwierigkeit gespeichert"],
+    },
+    sliding: {
+      title: "Schiebepuzzle", desc: "Schiebe die Zahlen in die richtige Reihenfolge", category: "Kopf",
+      metaTitle: "Schiebepuzzle — Das 15er-Puzzle in 3×3, 4×4 und 5×5 spielen",
+      long: "Schiebe die Zahlen in die Lücke, bis sie von links oben der Reihe nach liegen. Bei der Hälfte aller Stellungen dieses Puzzles kommt man durch Schieben nie ans Ziel, deshalb wird jede Mischung vorher über die Zahl der Inversionen geprüft — das Brett, das du bekommst, ist immer lösbar. Dazu wird die verbleibende Manhattan-Distanz gezeigt, eine untere Grenze für die noch nötigen Züge.",
+      features: ["Bretter in 3×3, 4×4 und 5×5", "Unlösbare Stellungen werden nie ausgegeben", "Ein Feld weiter in der Reihe antippen schiebt mehrere auf einmal", "Zug für Zug zurücknehmen", "Die Restdistanz zeigt, wie weit du noch bist", "Bestzeit pro Brettgröße gespeichert"],
+    },
   },
 
   fr: {
@@ -615,6 +735,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "Test de vision périphérique — Quelle largeur voyez-vous en regardant droit devant",
       long: "Gardez les yeux sur le point central et touchez la cible qui apparaît sur le bord. Les cibles n’apparaissent que dans un anneau au centre vide, et l’anneau s’éloigne à mesure que les niveaux montent. Passé le délai, c’est fini : pas moyen de regarder autour.",
       features: ["Les cibles n’apparaissent jamais au centre", "L’anneau s’éloigne à mesure que les niveaux montent", "Les cibles apparaissent également dans toutes les directions", "Garde votre meilleur score"],
+    },
+    '2048': {
+      title: "Jeu 2048", desc: "Faites glisser et fusionnez les mêmes nombres jusqu’à 2048", category: "Calcul",
+      metaTitle: "Jeu 2048 — Faites glisser et fusionnez les nombres, gratuit sans installation",
+      long: "Faites glisser la grille dans quatre directions pour fusionner les mêmes nombres. Une tuile ne fusionne qu’une fois par coup : 4·4·4·4 donne 8·8 et non 16, et pousser contre le mur ne change rien et ne fait apparaître aucune tuile. Après 2048, vous pouvez continuer, et un coup peut toujours être annulé.",
+      features: ["Flèches, WASD ou balayage", "Le score est la somme des tuiles fusionnées", "Continuer à jouer après 2048", "Annulation d’un coup, meilleur score gardé"],
+    },
+    minesweeper: {
+      title: "Démineur", desc: "Cerner les mines avec les seuls chiffres", category: "Calcul",
+      metaTitle: "Démineur — Joue gratuitement en débutant, intermédiaire et expert",
+      long: "Le chiffre dit combien de mines touchent cette case, et c’est le seul indice dont tu disposes. La première case est toujours sûre et n’a jamais de mine autour, donc la grille s’ouvre large et tu raisonnes dès le premier coup au lieu de deviner. Le meilleur temps est gardé à part pour chacune des trois grilles.",
+      features: ["Débutant 9×9, intermédiaire 16×16, expert 30×16", "Ton premier clic n’est jamais une mine", "Bouton drapeau ou appui long sur téléphone", "Meilleur temps gardé par difficulté", "Affiche le 3BV de la grille (clics minimaux)"],
+    },
+    sudoku: {
+      title: "Sudoku", desc: "Remplis la grille 9×9 avec les chiffres 1 à 9", category: "Calcul",
+      metaTitle: "Sudoku — Grilles facile, moyen et difficile à solution unique",
+      long: "Remplis la grille pour que chaque ligne, chaque colonne et chaque région de 3×3 contienne les chiffres 1 à 9 une seule fois. Chaque grille est creusée à partir d’une grille complète, case par case, en vérifiant après chaque retrait qu’il ne reste qu’une seule solution : ici aucune grille n’a deux réponses. La difficulté vient de la technique nécessaire, pas du nombre de cases vides.",
+      features: ["Facile, moyen et difficile selon la technique nécessaire", "Jamais de grille à plusieurs solutions", "Un indice qui donne la raison, pas seulement le chiffre", "Notes au crayon et annulation d’un coup", "Meilleur temps gardé par difficulté"],
+    },
+    sliding: {
+      title: "Jeu de taquin", desc: "Fais glisser les nombres pour les remettre en ordre", category: "Calcul",
+      metaTitle: "Jeu de taquin — Le casse-tête du 15 en 3×3, 4×4 et 5×5",
+      long: "Fais glisser les nombres vers le trou jusqu’à les ranger dans l’ordre depuis le coin en haut à gauche. La moitié des positions de ce casse-tête ne peut jamais être terminée, quoi que tu fasses glisser : chaque mélange est donc vérifié en comptant les inversions, et le plateau que tu reçois a toujours une solution. La distance de Manhattan restante est affichée, et elle borne par le bas les coups qu’il te faut encore.",
+      features: ["Plateaux 3×3, 4×4 et 5×5", "Aucune position sans solution n’est distribuée", "Toucher plus loin sur la ligne fait glisser plusieurs cases d’un coup", "Annuler coup par coup", "La distance restante dit ce qu’il te reste à faire", "Meilleur temps gardé par taille de plateau"],
     },
   },
 
@@ -715,6 +859,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: "बीच के बिंदु पर नज़र टिकाए रखें और किनारे पर आने वाले लक्ष्य को दबाएँ। लक्ष्य केवल बीच ख़ाली छोड़े गए वलय के भीतर आते हैं, और स्तर बढ़ने पर वलय बाहर की ओर जाता है। समय चूकने पर खेल ख़त्म — इधर-उधर देखने का मौक़ा नहीं मिलता।",
       features: ["लक्ष्य कभी बीच में नहीं आते", "स्तर बढ़ने पर वलय बाहर जाता है", "लक्ष्य सभी दिशाओं में समान रूप से आते हैं", "सर्वोत्तम अंक सहेजता है"],
     },
+    '2048': {
+      title: "2048 खेल", desc: "एक जैसे अंकों को जोड़कर 2048 बनाएँ", category: "गणित",
+      metaTitle: "2048 खेल — अंकों को खिसकाकर जोड़ने वाली पहेली, मुफ़्त और बिना इंस्टॉल",
+      long: "बोर्ड को चार दिशाओं में खिसकाकर एक जैसे अंकों को जोड़ें। एक बार खिसकाने में एक खाना सिर्फ़ एक बार जुड़ता है, इसलिए 4·4·4·4 से 16 नहीं बल्कि 8·8 बनता है, और दीवार की तरफ़ खिसकाने पर कुछ नहीं बदलता और नया खाना भी नहीं आता। 2048 बनाने के बाद भी खेल जारी रह सकता है, और एक चाल कभी भी पीछे ली जा सकती है।",
+      features: ["तीर कुंजियाँ, WASD या स्वाइप", "अंक जोड़े गए खानों का जोड़ हैं", "2048 के बाद भी खेलते रहें", "एक चाल पीछे और सर्वोत्तम अंक सहेजना"],
+    },
+    minesweeper: {
+      title: "माइनस्वीपर", desc: "सिर्फ़ अंकों से माइन की जगह तय करें", category: "गणित",
+      metaTitle: "माइनस्वीपर — शुरुआती, मध्यम और विशेषज्ञ बोर्ड मुफ़्त",
+      long: "अंक बताता है कि उस खाने से कितनी माइन सटी हैं, और सुराग़ बस इतना ही है। पहला खाना हमेशा सुरक्षित रहता है और उसके चारों ओर कोई माइन नहीं होती, इसलिए बोर्ड का बड़ा हिस्सा खुल जाता है और आप पहली चाल से ही अंदाज़े की जगह तर्क से चल सकते हैं। तीनों बोर्ड का सबसे अच्छा समय अलग-अलग सहेजा जाता है।",
+      features: ["शुरुआती 9×9, मध्यम 16×16, विशेषज्ञ 30×16", "आपका पहला क्लिक कभी माइन नहीं होता", "फ़ोन पर झंडा बटन या देर तक दबाना", "हर कठिनाई का सबसे अच्छा समय सहेजा जाता है", "बोर्ड का 3BV (न्यूनतम क्लिक) भी दिखता है"],
+    },
+    sudoku: {
+      title: "सुडोकू", desc: "9×9 ग्रिड को 1 से 9 तक के अंकों से भरें", category: "गणित",
+      metaTitle: "सुडोकू — आसान, मध्यम और कठिन पहेलियाँ, हर एक का उत्तर बस एक",
+      long: "ग्रिड को इस तरह भरें कि हर पंक्ति, हर स्तंभ और हर 3×3 बक्से में 1 से 9 तक हर अंक ठीक एक बार आए। हर पहेली पूरी भरी ग्रिड से एक-एक खाना हटाकर बनाई जाती है और हर हटाने के बाद जाँचा जाता है कि हल सिर्फ़ एक बचा है — इसलिए यहाँ किसी पहेली के दो उत्तर नहीं होते। कठिनाई खाली खानों की संख्या से नहीं, ज़रूरी तरकीब से तय होती है।",
+      features: ["ज़रूरी तरकीब से तय आसान, मध्यम और कठिन", "एक से ज़्यादा उत्तर वाली पहेली कभी नहीं", "सिर्फ़ अंक नहीं, वजह बताने वाला संकेत", "पेंसिल नोट और एक चाल पीछे", "हर कठिनाई का सबसे कम समय सहेजा जाता है"],
+    },
+    sliding: {
+      title: "सरकाने वाली पहेली", desc: "अंकों को सरकाकर क्रम में लगाएँ", category: "गणित",
+      metaTitle: "सरकाने वाली पहेली — 15 पहेली 3×3, 4×4 और 5×5 में",
+      long: "अंकों को खाली जगह की ओर सरकाकर ऊपर बाएँ से क्रम में जमाएँ। इस पहेली की आधी सजावटें कितना भी सरकाने पर पूरी नहीं होतीं, इसलिए हर बार मिलाने के बाद उलटावों की गिनती से जाँचा जाता है — जो बोर्ड आपको मिलता है वह हमेशा हल हो सकता है। बची मैनहटन दूरी भी दिखती है, जो बाकी चालों की निचली सीमा है।",
+      features: ["3×3, 4×4 और 5×5 बोर्ड", "बिना हल वाला बोर्ड कभी नहीं आता", "उसी पंक्ति में दूर दबाने से कई ख़ाने एक साथ सरकते हैं", "एक-एक चाल पीछे", "बची दूरी बताती है कितना रह गया", "हर बोर्ड आकार का सबसे कम समय सहेजा जाता है"],
+    },
   },
   'zh-hans': {
     reaction: {
@@ -813,6 +981,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       long: "眼睛盯住中间的点，点掉边缘出现的目标。目标只出现在中间留空的环形区域内，关卡越高环越往外。超时就结束，没有余地把眼睛移过去找。",
       features: ["目标绝不出现在中间", "关卡越高环越往外", "目标在各个方向均匀出现", "保存最佳成绩"],
     },
+    '2048': {
+      title: "2048 游戏", desc: "滑动合并相同的数字，做出 2048", category: "脑力",
+      metaTitle: "2048 游戏 — 滑动合并数字的方块拼图，免费直接玩",
+      long: "把棋盘往四个方向推，合并相同的数字。一次推动中同一格只合并一次，所以 4·4·4·4 推成 8·8 而不是 16；往推不动的方向推，盘面不变也不会出新格子。做出 2048 之后还能继续玩，而且随时可以退回一步。",
+      features: ["方向键、WASD 或滑动", "分数是合出来的数字之和", "做出 2048 之后还能继续", "退回一步，保存最佳成绩"],
+    },
+    minesweeper: {
+      title: "扫雷", desc: "只靠数字圈出地雷的位置", category: "脑力",
+      metaTitle: "扫雷 — 初级、中级、高级棋盘，打开就能玩",
+      long: "数字是紧挨着这一格的八格里有几颗地雷，线索只有这一个。第一格一定安全，周围也没有地雷，所以棋盘会开出一大片，第一手就能靠推理而不是靠猜。三种棋盘的最好成绩分别保存。",
+      features: ["初级9×9、中级16×16、高级30×16", "第一次点击绝不会是地雷", "手机上用旗子按钮或长按", "按难度分别保存最好成绩", "同时显示棋盘的3BV（最少点击数）"],
+    },
+    sudoku: {
+      title: "数独", desc: "把9×9的盘面用1到9填满", category: "脑力",
+      metaTitle: "数独 — 简单、普通、困难，每道题只有一个答案",
+      long: "把盘面填满，让每一行、每一列、每个3×3宫里1到9各出现一次。题目是从填满的盘面上一格一格挖出来的，每挖一格都确认答案仍然只剩一个，所以这里不会出现有两个答案的题。难度不看空格多少，只看解题要用到的方法。",
+      features: ["按解题方法分的简单、普通、困难", "绝不出有多个答案的题", "提示会说出理由，不只给数字", "候选笔记和撤销一步", "按难度分别保存最快成绩"],
+    },
+    sliding: {
+      title: "数字华容道", desc: "推动数字，按顺序排好", category: "脑力",
+      metaTitle: "数字华容道 — 15 拼图，3×3、4×4、5×5 直接玩",
+      long: "把数字推进空格，从左上角按顺序排好就完成。这个拼图有一半的排法无论怎么推都拼不出来，所以每次打乱都先数一遍逆序数来判断能不能解 — 给你的盘面一定能解。还会显示剩下的曼哈顿距离，那是还需要多少步的下限。",
+      features: ["3×3、4×4、5×5 三种盘面", "绝不给出无解的盘面", "点同一行更远的方块可以一次推好几个", "一步一步退回", "剩余距离显示还差多少", "按盘面大小分别保存最好成绩"],
+    },
   },
   'zh-hant': {
     reaction: {
@@ -910,6 +1102,30 @@ const COPY: Record<GameIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "周邊視野測試 — 直視前方時你能看多寬",
       long: "眼睛盯住中間的點，點掉邊緣出現的目標。目標只出現在中間留空的環形區域內，關卡越高環越往外。超時就結束，沒有餘地把眼睛移過去找。",
       features: ["目標絕不出現在中間", "關卡越高環越往外", "目標在各個方向均勻出現", "儲存最佳成績"],
+    },
+    '2048': {
+      title: "2048 遊戲", desc: "滑動合併相同的數字，做出 2048", category: "腦力",
+      metaTitle: "2048 遊戲 — 滑動合併數字的方塊拼圖，免費直接玩",
+      long: "把棋盤往四個方向推，合併相同的數字。一次推動中同一格只合併一次，所以 4·4·4·4 推成 8·8 而不是 16；往推不動的方向推，盤面不變也不會出新格子。做出 2048 之後還能繼續玩，而且隨時可以退回一步。",
+      features: ["方向鍵、WASD 或滑動", "分數是合出來的數字之和", "做出 2048 之後還能繼續", "退回一步，儲存最佳成績"],
+    },
+    minesweeper: {
+      title: "踩地雷", desc: "只靠數字圈出地雷的位置", category: "腦力",
+      metaTitle: "踩地雷 — 初級、中級、高級棋盤，打開就能玩",
+      long: "數字是緊挨著這一格的八格裡有幾顆地雷，線索只有這一個。第一格一定安全，周圍也沒有地雷，所以棋盤會開出一大片，第一手就能靠推理而不是靠猜。三種棋盤的最好成績分別保存。",
+      features: ["初級9×9、中級16×16、高級30×16", "第一次點擊絕不會是地雷", "手機上用旗子按鈕或長按", "按難度分別保存最好成績", "同時顯示棋盤的3BV（最少點擊數）"],
+    },
+    sudoku: {
+      title: "數獨", desc: "把9×9的盤面用1到9填滿", category: "腦力",
+      metaTitle: "數獨 — 簡單、普通、困難，每道題只有一個答案",
+      long: "把盤面填滿，讓每一列、每一欄、每個3×3宮裡1到9各出現一次。題目是從填滿的盤面上一格一格挖出來的，每挖一格都確認答案仍然只剩一個，所以這裡不會出現有兩個答案的題。難度不看空格多少，只看解題要用到的方法。",
+      features: ["按解題方法分的簡單、普通、困難", "絕不出有多個答案的題", "提示會說出理由，不只給數字", "候選筆記和還原一步", "按難度分別保存最快成績"],
+    },
+    sliding: {
+      title: "數字華容道", desc: "推動數字，按順序排好", category: "腦力",
+      metaTitle: "數字華容道 — 15 拼圖，3×3、4×4、5×5 直接玩",
+      long: "把數字推進空格，從左上角按順序排好就完成。這個拼圖有一半的排法無論怎麼推都拼不出來，所以每次打亂都先數一遍逆序數來判斷能不能解 — 給你的盤面一定能解。還會顯示剩下的曼哈頓距離，那是還需要多少步的下限。",
+      features: ["3×3、4×4、5×5 三種盤面", "絕不給出無解的盤面", "點同一行更遠的方塊可以一次推好幾個", "一步一步退回", "剩餘距離顯示還差多少", "按盤面大小分別保存最好成績"],
     },
   },
 };

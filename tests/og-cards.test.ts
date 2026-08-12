@@ -78,8 +78,13 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,579  물 경도를 열 언어씩 더함(+10)
  *   2,589  태양 고도를 열 언어씩 더함(+10)
  *   2,599  세탁 기호를 열 언어씩 더함(+10)
+ *   2,609  퍼즐 게임 2048을 열 언어씩 더함(+10)
+ *   2,619  지뢰찾기를 열 언어씩 더함(+10)
+ *   2,629  스도쿠를 열 언어씩 더함(+10)
+ *   2,639  슬라이딩 퍼즐을 열 언어씩 더함(+10)
+ *   2,649  QR 코드 만들기를 열 언어씩 더함(+10)
    */
-  const WANT = 2599;
+  const WANT = 2649;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

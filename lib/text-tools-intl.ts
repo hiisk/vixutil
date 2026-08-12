@@ -24,7 +24,7 @@ interface ToolCopy {
 }
 
 /** en/zh에 내보내는 slug — 한글 전용 네 개는 여기 없다 */
-export const TEXT_INTL_SLUGS = ['clean', 'dedupe', 'case', 'special-char', 'emoticon', 'replace', 'manuscript', 'lorem', 'mask', 'wrap', 'table', 'slug', 'reverse', 'vertical'] as const;
+export const TEXT_INTL_SLUGS = ['clean', 'dedupe', 'case', 'special-char', 'emoticon', 'replace', 'manuscript', 'lorem', 'mask', 'wrap', 'table', 'slug', 'reverse', 'vertical', 'qr'] as const;
 
 const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
   en: {
@@ -111,6 +111,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "Vertical Text — Turn Horizontal Writing into Vertical Columns",
       long: "Stands horizontal writing up one character at a time. Give it several lines and each becomes its own vertical column; you can also read them right to left, the traditional order. Columns of different lengths are padded so the rows never drift out of line.",
       features: ["One character per line, standing up", "Several lines become side-by-side columns", "Right-to-left (traditional) order", "Adjustable gap between columns"],
+    },
+    qr: {
+      title: "QR Code Generator", desc: "Turn a link, Wi-Fi or contact card into a QR code", category: "Symbols",
+      metaTitle: "QR Code Generator — Wi-Fi, Link, vCard and SMS Codes, Free",
+      long: "Turns a link, Wi-Fi login, contact card, SMS or map pin into a QR code. The encoding runs in your browser, so the Wi-Fi password you type never leaves the page, and you can download the result as SVG or PNG. If the content does not fit it tells you by how much instead of quietly truncating — a truncated code looks fine and scans as nothing.",
+      features: ["Wi-Fi, contact, email, SMS and map presets", "Error correction L, M, Q or H", "SVG download stays sharp at print size", "Adjustable colours, margin and module size"],
     },
   },
 
@@ -199,6 +205,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: "Pone la escritura horizontal en pie, un carácter cada vez. Si le das varias líneas, cada una se convierte en su propia columna vertical; también puedes leerlas de derecha a izquierda, el orden tradicional. Las columnas de distinta longitud se rellenan para que las filas nunca se desalineen.",
       features: ["Un carácter por línea, en vertical", "Varias líneas se vuelven columnas contiguas", "Orden de derecha a izquierda (tradicional)", "Espacio ajustable entre columnas"],
     },
+    qr: {
+      title: "Generador de códigos QR", desc: "Convierte un enlace, una Wi-Fi o un contacto en QR", category: "Símbolos",
+      metaTitle: "Generador de códigos QR — Wi-Fi, enlaces, vCard y SMS, gratis",
+      long: "Convierte un enlace, los datos de una Wi-Fi, una tarjeta de contacto, un SMS o un punto del mapa en un código QR. La codificación ocurre en tu navegador, así que la contraseña que escribes no sale de la página, y puedes descargar el resultado en SVG o PNG. Si el contenido no cabe te dice cuánto sobra en lugar de recortarlo: un código recortado se ve bien y no se lee.",
+      features: ["Plantillas de Wi-Fi, contacto, correo, SMS y mapa", "Corrección de errores L, M, Q o H", "Descarga en SVG que sigue nítida al imprimir", "Colores, margen y tamaño de módulo ajustables"],
+    },
   },
 
   'pt-br': {
@@ -285,6 +297,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "Texto vertical — Transformar escrita horizontal em colunas verticais",
       long: "Põe a escrita horizontal em pé, um caractere de cada vez. Se você der várias linhas, cada uma vira sua própria coluna vertical; também dá para lê-las da direita para a esquerda, a ordem tradicional. Colunas de tamanhos diferentes são completadas para que as fileiras nunca saiam do lugar.",
       features: ["Um caractere por linha, em pé", "Várias linhas viram colunas lado a lado", "Ordem da direita para a esquerda (tradicional)", "Espaço ajustável entre colunas"],
+    },
+    qr: {
+      title: "Gerador de QR Code", desc: "Vira link, Wi-Fi ou contato em QR Code", category: "Símbolos",
+      metaTitle: "Gerador de QR Code — Wi-Fi, link, vCard e SMS, grátis",
+      long: "Transforma um link, os dados de uma rede Wi-Fi, um cartão de contato, um SMS ou um ponto no mapa em QR Code. A codificação acontece no seu navegador, então a senha que você digita não sai da página, e você pode baixar o resultado em SVG ou PNG. Se o conteúdo não couber, ele diz o quanto passou em vez de cortar: um código cortado parece certo e não é lido.",
+      features: ["Modelos de Wi-Fi, contato, e-mail, SMS e mapa", "Correção de erros L, M, Q ou H", "Download em SVG que continua nítido na impressão", "Cores, margem e tamanho do módulo ajustáveis"],
     },
   },
 
@@ -373,6 +391,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: "横書きの文章を1文字ずつ縦に立てます。複数行を入れるとそれぞれが1つの縦列になり、右から左へ読む伝統的な順にもできます。長さの違う列は空白で埋めるので、行がずれることはありません。",
       features: ["1文字ずつ縦に立てる", "複数行を並んだ縦列に", "右から左へ（伝統的な順）", "列の間の空きを調整"],
     },
+    qr: {
+      title: "QRコード作成", desc: "URL・Wi-Fi・連絡先をQRコードにします", category: "記号",
+      metaTitle: "QRコード作成 — Wi-Fi・URL・連絡先・SMSを無料で",
+      long: "URL、Wi-Fiの接続情報、連絡先、SMS、地図の座標をQRコードにします。エンコードはブラウザの中で行うので、入力したWi-Fiのパスワードはページの外に出ません。結果はSVGとPNGで保存できます。入りきらないときは黙って切り詰めず、どれだけ超えたかを伝えます — 切れたQRは見た目は正しく、何も読めません。",
+      features: ["Wi-Fi・連絡先・メール・SMS・地図の書式", "誤り訂正レベル L・M・Q・H", "SVGで保存すれば印刷しても鮮明", "色・余白・セルの大きさを調整"],
+    },
   },
 
   de: {
@@ -459,6 +483,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "Senkrechter Text — Waagerechte Schrift in senkrechte Spalten verwandeln",
       long: "Stellt waagerechte Schrift Zeichen für Zeichen auf. Gibst du mehrere Zeilen ein, wird jede zu einer eigenen senkrechten Spalte; du kannst sie auch von rechts nach links lesen, in der überlieferten Reihenfolge. Unterschiedlich lange Spalten werden aufgefüllt, damit die Reihen nie verrutschen.",
       features: ["Ein Zeichen pro Zeile, aufrecht", "Mehrere Zeilen werden nebeneinanderstehende Spalten", "Von rechts nach links (überliefert)", "Einstellbarer Abstand zwischen Spalten"],
+    },
+    qr: {
+      title: "QR-Code-Generator", desc: "Link, WLAN oder Kontakt als QR-Code", category: "Zeichen",
+      metaTitle: "QR-Code-Generator — WLAN, Link, vCard und SMS, kostenlos",
+      long: "Macht aus einem Link, WLAN-Zugangsdaten, einer Kontaktkarte, einer SMS oder einem Kartenpunkt einen QR-Code. Codiert wird im Browser, das eingegebene WLAN-Passwort verlässt die Seite also nicht, und das Ergebnis gibt es als SVG oder PNG. Passt der Inhalt nicht, sagt es dir um wie viel — abgeschnitten wird nichts, denn ein abgeschnittener Code sieht richtig aus und liest sich als nichts.",
+      features: ["Vorlagen für WLAN, Kontakt, E-Mail, SMS und Karte", "Fehlerkorrektur L, M, Q oder H", "SVG bleibt beim Drucken scharf", "Farben, Rand und Modulgröße einstellbar"],
     },
   },
 
@@ -547,6 +577,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: "Dresse l’écriture horizontale caractère par caractère. Donnez-lui plusieurs lignes et chacune devient sa propre colonne verticale ; vous pouvez aussi les lire de droite à gauche, l’ordre traditionnel. Les colonnes de longueurs différentes sont complétées pour que les rangées ne se décalent jamais.",
       features: ["Un caractère par ligne, à la verticale", "Plusieurs lignes deviennent des colonnes côte à côte", "Ordre de droite à gauche (traditionnel)", "Espace réglable entre les colonnes"],
     },
+    qr: {
+      title: "Générateur de QR code", desc: "Un lien, un Wi-Fi ou un contact en code QR", category: "Symboles",
+      metaTitle: "Générateur de QR code — Wi-Fi, lien, vCard et SMS, gratuit",
+      long: "Transforme un lien, les identifiants d’un Wi-Fi, une fiche de contact, un SMS ou un point sur la carte en code QR. L’encodage se fait dans le navigateur : le mot de passe que tu saisis ne quitte pas la page, et le résultat se télécharge en SVG ou en PNG. Si le contenu ne rentre pas, on te dit de combien plutôt que de le tronquer — un code tronqué a l’air correct et ne se lit pas.",
+      features: ["Modèles Wi-Fi, contact, e-mail, SMS et carte", "Correction d’erreurs L, M, Q ou H", "SVG net à l’impression", "Couleurs, marge et taille de module réglables"],
+    },
   },
 
   hi: {
@@ -634,6 +670,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: "क्षैतिज लेखन को एक-एक अक्षर करके खड़ा करता है। कई पंक्तियाँ दें तो हर एक अपना लंबवत स्तंभ बन जाती है; आप उन्हें दाएँ से बाएँ, पारंपरिक क्रम में भी पढ़ सकते हैं। अलग-अलग लंबाई के स्तंभ भर दिए जाते हैं ताकि पंक्तियाँ कभी न खिसकें।",
       features: ["प्रति पंक्ति एक अक्षर, खड़ा", "कई पंक्तियाँ अगल-बगल स्तंभ बनती हैं", "दाएँ से बाएँ (पारंपरिक) क्रम", "स्तंभों के बीच समायोज्य जगह"],
     },
+    qr: {
+      title: "क्यूआर कोड जेनरेटर", desc: "लिंक, वाई-फ़ाई या संपर्क को क्यूआर कोड बनाएँ", category: "चिह्न",
+      metaTitle: "क्यूआर कोड जेनरेटर — वाई-फ़ाई, लिंक, vCard और एसएमएस, मुफ़्त",
+      long: "किसी लिंक, वाई-फ़ाई के लॉगिन, संपर्क कार्ड, एसएमएस या नक्शे के बिंदु को क्यूआर कोड में बदलता है। एन्कोडिंग आपके ब्राउज़र में ही होती है, इसलिए टाइप किया वाई-फ़ाई पासवर्ड पन्ने से बाहर नहीं जाता, और नतीजा SVG या PNG में सहेजा जा सकता है। सामग्री न समाए तो चुपचाप काटने की जगह बताता है कि कितना ज़्यादा है — कटा कोड देखने में ठीक लगता है और कुछ भी स्कैन नहीं होता।",
+      features: ["वाई-फ़ाई, संपर्क, ईमेल, एसएमएस और नक्शे के प्रारूप", "त्रुटि सुधार L, M, Q या H", "SVG छापने पर भी साफ़ रहता है", "रंग, हाशिया और खाने का आकार बदलें"],
+    },
   },
   'zh-hans': {
     clean: {
@@ -720,6 +762,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       long: "把横排文字一个字一个字地立起来。输入多行时，每一行成为一列竖排；也可以按从右到左的传统顺序排列。长度不同的列会补空格，所以各行绝不会错位。",
       features: ["一行一个字，竖着立起来", "多行变成并排的竖列", "从右到左（传统顺序）", "列间空格可调"],
     },
+    qr: {
+      title: "二维码生成器", desc: "把网址、Wi-Fi、名片做成二维码", category: "符号",
+      metaTitle: "二维码生成器 — Wi-Fi、网址、名片、短信，免费",
+      long: "把网址、Wi-Fi的连接信息、名片、短信或地图坐标做成二维码。编码在浏览器里完成，所以你输入的Wi-Fi密码不会离开这一页，结果可以存成SVG或PNG。内容装不下时不会悄悄截断，而是告诉你超出了多少 — 截断的二维码看起来没问题，却什么都扫不出来。",
+      features: ["Wi-Fi、名片、邮件、短信、地图格式", "纠错等级 L、M、Q、H", "存成SVG，打印也清晰", "颜色、边距、格子大小都可调"],
+    },
   },
   'zh-hant': {
     clean: {
@@ -805,6 +853,12 @@ const COPY: Record<TextIntlLang, Record<string, ToolCopy>> = {
       metaTitle: "直排轉換 — 把橫排文字變成直排的欄",
       long: "把橫排文字一個字一個字地立起來。輸入多列時，每一列成為一欄直排；也可以按從右到左的傳統順序排列。長度不同的欄會補空格，所以各列絕不會錯位。",
       features: ["一列一個字，直著立起來", "多列變成並排的直欄", "從右到左（傳統順序）", "欄間空格可調"],
+    },
+    qr: {
+      title: "QR Code 產生器", desc: "把網址、Wi-Fi、名片做成 QR Code", category: "符號",
+      metaTitle: "QR Code 產生器 — Wi-Fi、網址、名片、簡訊，免費",
+      long: "把網址、Wi-Fi 的連線資訊、名片、簡訊或地圖座標做成 QR Code。編碼在瀏覽器裡完成，所以你輸入的 Wi-Fi 密碼不會離開這一頁，結果可以存成 SVG 或 PNG。內容裝不下時不會悄悄截斷，而是告訴你超出了多少 — 截斷的 QR Code 看起來沒問題，卻什麼都掃不出來。",
+      features: ["Wi-Fi、名片、郵件、簡訊、地圖格式", "錯誤修正等級 L、M、Q、H", "存成SVG，列印也清晰", "顏色、邊框、格子大小都可調"],
     },
   },
 };

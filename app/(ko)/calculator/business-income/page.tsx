@@ -7,17 +7,14 @@ import CalcShell, {
 
 const w = (n: number) => Math.round(n).toLocaleString();
 
+/*
+ * 소득세 세율표는 lib/salary.ts 하나에서 온다 — 원래 이 파일에 사본이 있었다.
+ * 같은 표가 다섯 곳에 적혀 있어서, 세법이 개정되면 한 곳만 고쳐질 자리였다.
+ */
+import { INCOME_BRACKETS } from '@/lib/salary';
+
 function calcIncomeTax(taxableIncome: number): number {
-  const brackets = [
-    { limit: 1400,    rate: 0.06,  deduct: 0 },
-    { limit: 5000,    rate: 0.15,  deduct: 126 },
-    { limit: 8800,    rate: 0.24,  deduct: 576 },
-    { limit: 15000,   rate: 0.35,  deduct: 1544 },
-    { limit: 30000,   rate: 0.38,  deduct: 1994 },
-    { limit: 50000,   rate: 0.40,  deduct: 2594 },
-    { limit: 100000,  rate: 0.42,  deduct: 3594 },
-    { limit: Infinity, rate: 0.45, deduct: 6594 },
-  ];
+  const brackets = INCOME_BRACKETS;
   const b = brackets.find(br => taxableIncome <= br.limit)!;
   return Math.max(0, taxableIncome * b.rate - b.deduct);
 }

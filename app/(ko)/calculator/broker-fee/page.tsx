@@ -3,39 +3,9 @@ import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
+import { calcBrokerFee, type BrokerFeeResult, type TxType } from '@/lib/broker-fee';
+
 const fmt = (n: number) => Math.round(n).toLocaleString();
-
-type TxType = 'buy' | 'jeonse' | 'monthly';
-
-function calcFee(type: TxType, amount: number, deposit?: number, monthly?: number): { rate: number; fee: number } {
-  let eff = amount;
-  if (type === 'monthly' && deposit !== undefined && monthly !== undefined) {
-    eff = deposit + monthly * 100;
-  }
-
-  const tiers = type === 'buy'
-    ? [
-        { limit: 50_000_000,    rate: 0.6,  cap: 250_000 },
-        { limit: 200_000_000,   rate: 0.5,  cap: 800_000 },
-        { limit: 900_000_000,   rate: 0.4,  cap: 0 },
-        { limit: 1_200_000_000, rate: 0.5,  cap: 0 },
-        { limit: 1_500_000_000, rate: 0.6,  cap: 0 },
-        { limit: Infinity,      rate: 0.7,  cap: 0 },
-      ]
-    : [
-        { limit: 50_000_000,    rate: 0.5,  cap: 200_000 },
-        { limit: 100_000_000,   rate: 0.4,  cap: 300_000 },
-        { limit: 600_000_000,   rate: 0.3,  cap: 0 },
-        { limit: 1_200_000_000, rate: 0.4,  cap: 0 },
-        { limit: 1_500_000_000, rate: 0.5,  cap: 0 },
-        { limit: Infinity,      rate: 0.6,  cap: 0 },
-      ];
-
-  const tier = tiers.find(t => eff <= t.limit)!;
-  const rawFee = eff * tier.rate / 100;
-  const fee = tier.cap > 0 ? Math.min(rawFee, tier.cap) : rawFee;
-  return { rate: tier.rate, fee: Math.round(fee) };
-}
 
 export default function BrokerFeePage() {
   const [type, setType] = useState<TxType>('buy');
@@ -43,17 +13,18 @@ export default function BrokerFeePage() {
   const [deposit, setDeposit] = useState('');
   const [monthly, setMonthly] = useState('');
   const [vat, setVat] = useState(true);
-  const [result, setResult] = useState<null | { rate: number; fee: number; vatAmount: number; total: number }>(null);
+  const [result, setResult] = useState<BrokerFeeResult | null>(null);
 
   function calculate() {
     const a = Number(amount);
     if (type !== 'monthly' && a <= 0) return;
-    const d = Number(deposit);
-    const m = Number(monthly);
-
-    const { rate, fee } = calcFee(type, a, d, m);
-    const vatAmount = vat ? Math.round(fee * 0.1) : 0;
-    setResult({ rate, fee, vatAmount, total: fee + vatAmount });
+    setResult(calcBrokerFee({
+      type,
+      amount: a,
+      deposit: Number(deposit),
+      monthly: Number(monthly),
+      vat,
+    }));
   }
 
   return (
@@ -72,7 +43,9 @@ export default function BrokerFeePage() {
           </p>
           <h2>구간이 바뀌면 요율이 뛰기도 합니다</h2>
           <p>
-            매매는 <strong>9억원까지 0.4%</strong>였다가 그 위 구간부터 0.5%, 0.6%, 0.7%로 올라갑니다.
+            매매는 <strong>9억원 미만이 0.4%</strong>이고 9억원부터 0.5%, 12억원부터 0.6%, 15억원부터 0.7%로
+            올라갑니다. 구간의 경계 금액은 <strong>위 구간에 들어갑니다</strong> — 딱 9억원이면 0.4%가 아니라
+            0.5%입니다.
             금액이 커질수록 요율까지 올라가는 구조라 수수료가 가파르게 늘어납니다. 소액 구간에는
             <strong>상한액</strong>이 따로 있어서 요율로 계산한 값이 그 금액을 넘지 못합니다.
           </p>
@@ -121,7 +94,9 @@ export default function BrokerFeePage() {
                   <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
                     placeholder="예: 800,000" className={inputCls} min="0" />
                 </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500">환산금액 = 보증금 + 월세 × 100</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">
+                  환산금액 = 보증금 + 월세 × 100 (그 값이 5,000만원 미만이면 월세 × 70)
+                </p>
               </>
             )}
             <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -143,6 +118,16 @@ export default function BrokerFeePage() {
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="중개수수료" value={`${fmt(result.fee)}원`} />
               {vat && <SummaryCard label="부가가치세 (10%)" value={`${fmt(result.vatAmount)}원`} />}
+              <SummaryCard
+                label={type === 'monthly' ? '환산 거래금액' : '거래금액'}
+                value={`${fmt(result.dealAmount)}원`}
+              />
+              {result.cap > 0 && (
+                <SummaryCard
+                  label="한도액"
+                  value={`${fmt(result.cap)}원${result.cappedAt ? ' (걸림)' : ''}`}
+                />
+              )}
             </div>
             <Card className="p-4">
               <p className="text-xs text-slate-400 dark:text-slate-500">* 상한 요율 내에서 협의 가능 · 실제 요율은 중개인과 협의하여 결정</p>

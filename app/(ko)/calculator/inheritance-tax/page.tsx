@@ -2,19 +2,9 @@
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
-const INH_BRACKETS = [
-  { limit: 100_000_000, rate: 0.1, deduct: 0 },
-  { limit: 500_000_000, rate: 0.2, deduct: 10_000_000 },
-  { limit: 1_000_000_000, rate: 0.3, deduct: 60_000_000 },
-  { limit: 3_000_000_000, rate: 0.4, deduct: 160_000_000 },
-  { limit: Infinity, rate: 0.5, deduct: 460_000_000 },
-];
-
-function calcInhTax(base: number) {
-  if (base <= 0) return 0;
-  const b = INH_BRACKETS.find(br => base <= br.limit)!;
-  return base * b.rate - b.deduct;
-}
+import {
+  calcInheritanceTax, type InheritanceTaxResult,
+} from '@/lib/inheritance-tax';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -23,25 +13,18 @@ export default function InheritanceTaxPage() {
   const [hasSpouse, setHasSpouse] = useState(true);
   const [children, setChildren] = useState('2');
   const [financial, setFinancial] = useState('');
-  const [result, setResult] = useState<null | {
-    basicDeduct: number; childDeduct: number; unifiedDeduct: number;
-    spouseDeduct: number; financialDeduct: number; totalDeduct: number;
-    taxBase: number; tax: number;
-  }>(null);
+  const [result, setResult] = useState<InheritanceTaxResult | null>(null);
 
   function calculate() {
     const e = Number(estate);
     if (e <= 0) return;
-
-    const basicDeduct = 200_000_000;
-    const childDeduct = Number(children) * 50_000_000;
-    const unifiedDeduct = Math.max(500_000_000, basicDeduct + childDeduct);
-    const spouseDeduct = hasSpouse ? Math.max(500_000_000, Math.min(e * 0.5, 3_000_000_000)) : 0;
-    const financialDeduct = Math.min(Number(financial || 0) * 0.2, 200_000_000);
-    const totalDeduct = unifiedDeduct + spouseDeduct + financialDeduct;
-    const taxBase = Math.max(0, e - totalDeduct);
-    const tax = calcInhTax(taxBase);
-    setResult({ basicDeduct, childDeduct, unifiedDeduct, spouseDeduct, financialDeduct, totalDeduct, taxBase, tax });
+    setResult(calcInheritanceTax({
+      estate: e,
+      hasSpouse,
+      children: Number(children),
+      financial: Number(financial || 0),
+      selfReport: true,
+    }));
   }
 
   return (
@@ -125,9 +108,9 @@ export default function InheritanceTaxPage() {
               <CardHeader title="공제 내역" />
               <div className="divide-y divide-slate-100">
                 {[
-                  { label: '일괄공제', value: result.unifiedDeduct, note: `(기초 2억 + 자녀 ${children}명 × 5천만 vs 5억 중 큰 금액)` },
-                  ...(result.spouseDeduct > 0 ? [{ label: '배우자 공제', value: result.spouseDeduct, note: '(법정상속분 vs 5억 중 큰 금액)' }] : []),
-                  ...(result.financialDeduct > 0 ? [{ label: '금융재산 공제', value: result.financialDeduct, note: '(금융재산×20%, 최대 2억)' }] : []),
+                  { label: '일괄공제', value: result.unifiedDeduction, note: `(기초 2억 + 자녀 ${children}명 × 5천만 vs 5억 중 큰 금액)` },
+                  ...(result.spouseDeduction > 0 ? [{ label: '배우자 공제', value: result.spouseDeduction, note: `(법정상속분 ${(result.spouseShare * 100).toFixed(1)}% vs 5억 중 큰 금액, 최대 30억)` }] : []),
+                  ...(result.financialDeduction > 0 ? [{ label: '금융재산 공제', value: result.financialDeduction, note: '(2천만원 이하 전액 · 1억까지 2천만원 · 그 위 20%, 최대 2억)' }] : []),
                 ].map(row => (
                   <div key={row.label} className="px-5 py-3">
                     <div className="flex justify-between text-sm">
@@ -139,7 +122,7 @@ export default function InheritanceTaxPage() {
                 ))}
                 <div className="px-5 py-3 bg-slate-50 dark:bg-slate-950 flex justify-between font-bold text-sm">
                   <span>총 공제</span>
-                  <span className="text-emerald-600">-{fmt(result.totalDeduct)}원</span>
+                  <span className="text-emerald-600">-{fmt(result.totalDeduction)}원</span>
                 </div>
               </div>
             </Card>

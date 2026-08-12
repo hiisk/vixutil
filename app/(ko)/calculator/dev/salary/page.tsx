@@ -4,39 +4,15 @@ import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } fro
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
-const BRACKETS = [
-  { limit: 1400, rate: 0.06, deduct: 0 },
-  { limit: 5000, rate: 0.15, deduct: 126 },
-  { limit: 8800, rate: 0.24, deduct: 576 },
-  { limit: 15000, rate: 0.35, deduct: 1544 },
-  { limit: 30000, rate: 0.38, deduct: 1994 },
-  { limit: 50000, rate: 0.40, deduct: 2594 },
-  { limit: 100000, rate: 0.42, deduct: 3594 },
-  { limit: Infinity, rate: 0.45, deduct: 6594 },
-];
-
-function earningDeduction(a: number) {
-  if (a <= 500) return a * 0.7;
-  if (a <= 1500) return 350 + (a - 500) * 0.4;
-  if (a <= 4500) return 750 + (a - 1500) * 0.15;
-  if (a <= 10000) return 1200 + (a - 4500) * 0.05;
-  return Math.min(2000, 1475 + (a - 10000) * 0.02);
-}
+/*
+ * 요율·세율표·실수령 셈을 lib/salary.ts에서 가져온다 — 원래 이 파일에 네 번째
+ * 사본이 있었다. 4대보험 요율은 해마다 바뀌므로 사본이 있으면 한쪽만 고쳐진다.
+ */
+import { calcSalary } from '@/lib/salary';
 
 function calcNet(annual: number) {
-  const monthly = Math.floor(annual / 12);
-  const pension = Math.round(Math.min(monthly, 6_170_000) * 0.045);
-  const health = Math.round(monthly * 0.03545);
-  const longCare = Math.round(health * 0.1295);
-  const employment = Math.round(monthly * 0.009);
-  const a = annual / 10000;
-  const taxable = Math.max(0, a - earningDeduction(a) - 150);
-  const b = BRACKETS.find(br => taxable <= br.limit)!;
-  const annualTax = Math.max(0, taxable * b.rate - b.deduct) * 10000;
-  const incomeTax = Math.round(annualTax / 12);
-  const localTax = Math.round(incomeTax * 0.1);
-  const totalDeduction = pension + health + longCare + employment + incomeTax + localTax;
-  return { monthly, totalDeduction, netMonthly: monthly - totalDeduction };
+  const r = calcSalary(annual, 1, false);
+  return { monthly: r.monthly, totalDeduction: r.totalDeduction, netMonthly: r.netMonthly };
 }
 
 export default function DevSalaryPage() {
@@ -48,7 +24,7 @@ export default function DevSalaryPage() {
   const [salResult, setSalResult] = useState<null | ReturnType<typeof calcNet>>(null);
   const [stockResult, setStockResult] = useState<null | { gross: number; netAfterTax: number; totalExercise: number }>(null);
 
-  function calcSalary() {
+  function runSalary() {
     const v = Number(annual);
     if (v <= 0) return;
     setSalResult(calcNet(v));
@@ -84,7 +60,7 @@ export default function DevSalaryPage() {
                 <input type="number" value={annual} onChange={e => setAnnual(e.target.value)}
                   placeholder="예: 80,000,000" className={inputCls} min="0" />
               </div>
-              <PrimaryBtn onClick={calcSalary}>계산하기</PrimaryBtn>
+              <PrimaryBtn onClick={runSalary}>계산하기</PrimaryBtn>
             </Card>
 
             {salResult && (

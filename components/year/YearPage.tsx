@@ -91,6 +91,48 @@ export default function YearPage({ slug, lang }: { slug: string; lang: Lang }) {
           ))}
         </dl>
 
+        {/*
+
+          ── 해마다 갈리는 설명 (2026-08-12) ──────────────────────
+
+          전에는 낱장 241장이 형제끼리 낱말 96%가 같았다. 글이 짧아서가 아니라
+
+          문장이 틀에서 나와 연도와 요일만 갈렸다.
+
+
+          여기 오는 문장은 facts.ts의 yearReasonKeys가 이 해의 달력 규칙에서 뽑은
+
+          갈래에 따라 달라진다(241해 → 스물세 조합, 가장 큰 것이 11%).
+
+        */}
+
+        <section className="mb-8">
+
+          <h2 className="sec-h2-tight">{ui.reasonsTitle}</h2>
+
+          <ul className="flex flex-col gap-2">
+
+            {ui.reasons(f).map((line, i) => (
+
+              <li
+
+                key={i}
+
+                className="rounded-xl border border-teal-200/70 dark:border-teal-900/50 bg-teal-50/50 dark:bg-teal-950/25 px-4 py-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200"
+
+              >
+
+                {line}
+
+              </li>
+
+            ))}
+
+          </ul>
+
+        </section>
+
+
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.leapTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.leapNote}</p>
