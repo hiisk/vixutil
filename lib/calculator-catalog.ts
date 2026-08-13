@@ -152,6 +152,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/pregnancy',      title:'임신 예정일 계산기', desc:'마지막 생리일 → 출산 예정일' },
       { href:'/calculator/dday',           title:'D-day 계산기',       desc:'목표일 D-day · 날짜 간격' },
       { href:'/calculator/discharge',   title:'전역일 계산기',     desc:'입대일·군별 → 전역일과 남은 날' },
+      { href:'/calculator/military-pay', title:'군인 월급 계산기',  desc:'계급별 봉급 총액 + 장병내일준비적금 목돈', hot:true },
       { href:'/calculator/age',            title:'나이 계산기',        desc:'만나이·한국나이 계산' },
       { href:'/calculator/birthday',       title:'생년월일 계산기',    desc:'요일·출생일 기준 계산' },
       { href:'/calculator/time-diff',      title:'시간 계산기',        desc:'두 시각 차이 · 시간 더하기' },

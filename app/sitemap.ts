@@ -172,7 +172,7 @@ const calculatorRoutes = [
   "/calculator/bmi", "/calculator/bmr", "/calculator/calorie", "/calculator/sleep", "/calculator/ovulation",
   "/calculator/body-fat", "/calculator/blood-pressure", "/calculator/calories-burn",
   "/calculator/pregnancy", "/calculator/tip", "/calculator/dutch-pay", "/calculator/discount", "/calculator/gpa", "/calculator/school-rank",
-  "/calculator/age", "/calculator/birthday", "/calculator/dday", "/calculator/discharge", "/calculator/time-diff",
+  "/calculator/age", "/calculator/birthday", "/calculator/dday", "/calculator/discharge", "/calculator/military-pay", "/calculator/time-diff",
   "/calculator/unit-length", "/calculator/unit-weight", "/calculator/unit-temp", "/calculator/binary",
   "/calculator/loan-prepayment-fee", "/calculator/caffeine", "/calculator/wedding-gift",
   "/calculator/work-hours", "/calculator/average", "/calculator/pet-age", "/calculator/shoe-size",
