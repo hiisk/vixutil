@@ -23,8 +23,10 @@ export function GET(): Response {
   return new Response(body, {
     headers: {
       'Content-Type': 'application/xml',
-      // 조각 수가 배포마다 바뀔 수 있으므로 CDN에 오래 물리지 않는다
-      'Cache-Control': 'public, max-age=0, s-maxage=3600, must-revalidate',
-          },
+      /* 조각 수가 배포마다 바뀔 수 있으므로 무기한은 안 되지만, 한 시간은 너무
+         짧았다 — CDN이 그때마다 원본에서 다시 받아 Origin Transfer를 먹는다.
+         조각 파일과 같은 하루로 맞춘다(까닭은 app/sitemap.ts의 sitemapResponse). */
+      'Cache-Control': 'public, max-age=0, s-maxage=86400, must-revalidate',
+    },
   });
 }

@@ -1515,12 +1515,25 @@ export function sitemapXml(entries: MetadataRoute.Sitemap): string {
   return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${body}</urlset>`;
 }
 
-/** 형제 라우트가 같은 꼴로 응답하게 한다 */
+/**
+ * 형제 라우트가 같은 꼴로 응답하게 한다.
+ *
+ * ── s-maxage를 한 시간에서 하루로 늘렸다 (2026-08-13) ──────────
+ * 이 파일들은 force-static이라 **배포 때 구워지고 배포 사이에는 안 바뀐다.**
+ * 그런데 한 시간짜리 캐시를 달고 있었다 — CDN이 한 시간마다 원본에서 다시
+ * 받아 온다는 뜻이고, 그것이 Fast Origin Transfer(Hobby 30일 10GB)에 그대로
+ * 얹힌다. 사이트맵은 이 사이트에서 가장 큰 파일 묶음이라(주소 이십만 개)
+ * 이 한 줄이 낱장 수천 장 몫이다.
+ *
+ * 하루로 잡은 까닭: 새 페이지가 색인되려면 사이트맵이 크롤러에게 보여야 하므로
+ * 무기한은 위험하다(배포가 CDN을 비우는지 확인되지 않았다 — 확인되면 더 늘릴 수
+ * 있다). 배포가 주 1회쯤이니 하루면 새 주소가 늦어도 하루 뒤에는 보인다.
+ */
 export function sitemapResponse(n: number): Response {
   return new Response(sitemapXml(sitemapParts()[n] ?? []), {
     headers: {
       'Content-Type': 'application/xml',
-      'Cache-Control': 'public, max-age=0, s-maxage=3600, must-revalidate',
+      'Cache-Control': 'public, max-age=0, s-maxage=86400, must-revalidate',
     },
   });
 }

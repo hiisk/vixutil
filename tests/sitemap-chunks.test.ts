@@ -151,3 +151,30 @@ test('한 언어가 한도에 얼마나 가까운지 본다', () => {
     `${((worst / CHUNK_SIZE) * 100).toFixed(0)}%다 — 넘기 전에 라우트 파일을 늘려 두라`,
   );
 });
+
+test('사이트맵이 CDN에 하루는 물려 있다', () => {
+  /*
+   * ── 왜 이 검사가 생겼나 (2026-08-13) ──────────────────────
+   * 조각들이 `s-maxage=3600`을 달고 있었다. 한 시간마다 CDN이 원본에서 다시
+   * 받아 온다는 뜻이고, 그것이 Fast Origin Transfer(Hobby 30일 10GB)에 얹힌다.
+   * **사이트맵은 이 사이트에서 가장 큰 파일 묶음이다 — 실측 24MB(주소 20만).**
+   * 낱장 한 장이 gzip 16KB인 것과 견주면 조각 한 번 전송이 낱장 150장 몫이다.
+   *
+   * 내용은 배포 때만 바뀌므로(force-static) 한 시간은 아무 값도 없이 비용만
+   * 낸다. 하루로 두면 새 주소가 늦어도 하루 뒤에는 크롤러에게 보인다.
+   *
+   * 무기한으로 안 두는 까닭: 배포가 CDN 캐시를 비우는지 확인되지 않았다.
+   * 안 비운다면 무기한은 새 페이지가 영영 안 보이는 뜻이 된다.
+   */
+  const src = readFileSync(join(import.meta.dirname, '..', 'app', 'sitemap.ts'), 'utf8');
+  const idx = readFileSync(join(import.meta.dirname, '..', 'app', 'sitemap-index.xml', 'route.ts'), 'utf8');
+  for (const [name, s] of [['sitemap.ts', src], ['sitemap-index.xml/route.ts', idx]] as const) {
+    const m = s.match(/s-maxage=(\d+)/);
+    assert.ok(m, `${name}에 s-maxage가 없다`);
+    assert.ok(
+      Number(m![1]) >= 86_400,
+      `${name}의 s-maxage가 ${m![1]}초다 — 24MB짜리 파일 묶음을 그 주기로 원본에서 다시 끌어온다. ` +
+      '하루(86400) 아래로 내리려면 Origin Transfer 셈을 다시 하라',
+    );
+  }
+});

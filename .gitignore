@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# scripts/warm-isr.mjs가 어디까지 채웠는지 — 기계마다 다르고 이십만 줄이다
+.warm-isr-done.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
