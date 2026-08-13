@@ -24,7 +24,7 @@ export default function ColorShell({
   children: React.ReactNode;
 }) {
   const tool = findColorTool(slug);
-  if (!tool) throw new Error(`알 수 없는 색상 도구 도구: ${slug}`);
+  if (!tool) throw new Error(`알 수 없는 색상 도구: ${slug}`);
 
   const path = `/color/${tool.slug}`;
   const related = relatedColorTools(tool.slug);

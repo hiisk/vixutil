@@ -24,7 +24,7 @@ export default function SoundShell({
   children: React.ReactNode;
 }) {
   const tool = findSoundTool(slug);
-  if (!tool) throw new Error(`알 수 없는 소리 도구 도구: ${slug}`);
+  if (!tool) throw new Error(`알 수 없는 소리 도구: ${slug}`);
 
   const path = `/sound/${tool.slug}`;
   const related = relatedSoundTools(tool.slug);

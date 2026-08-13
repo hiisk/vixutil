@@ -24,7 +24,7 @@ export default function TimeShell({
   children: React.ReactNode;
 }) {
   const tool = findTimeTool(slug);
-  if (!tool) throw new Error(`알 수 없는 시간 도구 도구: ${slug}`);
+  if (!tool) throw new Error(`알 수 없는 시간 도구: ${slug}`);
 
   const path = `/time/${tool.slug}`;
   const related = relatedTimeTools(tool.slug);
