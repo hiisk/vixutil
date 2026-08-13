@@ -41,7 +41,7 @@ export default function ScrewHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -78,7 +78,7 @@ export default function ScrewHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.threadTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.threadNote}</p>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-center text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+          <div className="rounded-2xl border chip-off px-4 py-3 text-center text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
             H = 0.866 × {ui.pitchLabel} · {ui.pitchDiaLabel} = d − 0.75H · {ui.minorFemaleLabel} = d − 1.25H
           </div>
         </section>
@@ -91,7 +91,7 @@ export default function ScrewHubPage({ lang }: { lang: Lang }) {
               const s = coarseOnly().find(x => x.d === d)!;
               const f = screwFacts(s);
               return (
-                <Link
+                <Link prefetch={false}
                   key={slugOf(s)}
                   href={`${path}/${slugOf(s)}`}
                   className="rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-slate-500 transition-colors"
@@ -122,7 +122,7 @@ export default function ScrewHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/screw`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/screw`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

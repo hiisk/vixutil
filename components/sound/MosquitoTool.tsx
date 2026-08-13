@@ -53,7 +53,7 @@ export default function MosquitoTool({ lang = 'ko' }: { lang?: SoundLang } = {})
             className={`rounded-2xl border px-4 py-3.5 flex items-center gap-3 transition-colors ${
               playing === s.hz
                 ? 'border-lime-300 bg-lime-50 dark:bg-lime-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900'
+                : 'chip-off'
             }`}
           >
             <button

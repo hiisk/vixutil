@@ -37,25 +37,25 @@ export default function DpiList({
               ? (by === 'from' ? f.from.short : f.to.short)
               : (by === 'game' ? f.game.short : `${f.dpi} DPI`);
         return (
-          <Link
+          <Link prefetch={false}
             key={f.slug}
             href={`${path}/${f.slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-violet-500 bg-violet-50 dark:bg-violet-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-violet-400'
+                : 'chip-off hover:border-violet-400'
             }`}
           >
             <div className="cell-cut">{name}</div>
             {f.kind === 'pair' ? (
-              <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+              <div className="val">
                 {factorText(lang, f)}
               </div>
             ) : (
-              <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+              <div className="val">
                 {fmtNum(lang, f.pick.sens)}
-                <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+                <span className="val-unit">
                   {REF_CM} cm · {ui.edpiLabel} {f.pick.edpi}
                 </span>
               </div>

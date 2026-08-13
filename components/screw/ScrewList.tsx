@@ -22,7 +22,7 @@ export default function ScrewList({
       {screws.map(s => {
         const here = slugOf(s) === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slugOf(s)}
             href={`${path}/${slugOf(s)}`}
             aria-current={here ? 'page' : undefined}
@@ -30,7 +30,7 @@ export default function ScrewList({
               'rounded-lg px-2.5 py-1 text-xs font-bold tabular-nums transition-colors',
               here
                 ? 'bg-slate-700 text-white'
-                : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-100',
+                : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-100',
             ].join(' ')}
           >
             {labelOf(s)} <span className="font-normal text-[11px] opacity-70">⌀{screwFacts(s).tapDrill}</span>

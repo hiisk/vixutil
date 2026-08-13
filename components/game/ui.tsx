@@ -34,11 +34,11 @@ export const lower = (a: number, b: number) => a < b;
 /** 높을수록 좋은 기록(점수 등) */
 export const higher = (a: number, b: number) => a > b;
 
-export const CARD = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5';
+export const CARD = 'rounded-2xl border chip-off p-5';
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+    <div className="rounded-xl border chip-off px-3 py-3 text-center">
       <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>

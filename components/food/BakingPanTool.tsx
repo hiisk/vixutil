@@ -15,7 +15,7 @@ function Pan({
 }) {
   const ui = PAN_UI[lang];
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-2xl border chip-off p-4">
       <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{title}</p>
       <div className="grid grid-cols-2 gap-2 mb-3">
         {(['round', 'rect'] as const).map((v, i) => (

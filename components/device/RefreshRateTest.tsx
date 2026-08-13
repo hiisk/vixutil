@@ -117,14 +117,14 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
               { label: ui.slowestFrame, val: `${result.max}ms` },
               { label: ui.jitter, val: `${result.jitter}ms` },
             ].map(s => (
-              <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+              <div key={s.label} className="rounded-xl border chip-off px-3 py-3 text-center">
                 <p className="text-base font-black text-slate-800 dark:text-slate-100 tabular-nums">{s.val}</p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 text-sm leading-relaxed">
+          <div className="mt-3 rounded-xl border chip-off px-4 py-3.5 text-sm leading-relaxed">
             {offSpec ? (
               <p className="text-slate-600 dark:text-slate-300">
                 {ui.oddNote(result.hz, nearest ?? 0)}
@@ -145,7 +145,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
       )}
 
       {/* 눈으로 비교하는 부분 — 숫자보다 이쪽이 체감에 가깝다 */}
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <div className="flex items-center justify-between mb-3">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.motionTitle}</p>
           <button

@@ -62,7 +62,7 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
 
       {verdict && (
         <>
-          <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 text-center">
+          <div className="mt-4 rounded-2xl border chip-off p-5 text-center">
             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.ratio}</p>
             <p className={`text-5xl font-black tabular-nums ${verdict.aaNormal ? 'text-emerald-600' : 'text-rose-500'}`}>
               {verdict.ratio}

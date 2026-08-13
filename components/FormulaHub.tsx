@@ -37,7 +37,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${section.linkHover} transition-colors font-medium`}>
+          <Link prefetch={false} href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${section.linkHover} transition-colors font-medium`}>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -69,7 +69,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
               </h2>
               <div className="grid sm:grid-cols-2 gap-2">
                 {tools.map(t => (
-                  <Link
+                  <Link prefetch={false}
                     key={t.slug}
                     href={`${prefix}/${section.key}/${t.slug}`}
                     className={`group hub-card ${section.hoverBorder}`}

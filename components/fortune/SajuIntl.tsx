@@ -98,7 +98,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
     const stem = STEMS[p.stemIdx];
     const branch = BRANCHES[p.branchIdx];
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 text-center">
+      <div className="rounded-xl border chip-off p-3 text-center">
         <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
         <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[stem.element] }}>{stem.hanja}</p>
         <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[branch.element] }}>{branch.hanja}</p>
@@ -146,7 +146,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
           <p className="text-slate-500 dark:text-slate-400 text-sm">{ui.lead}</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.birthLabel}</label>
           <div className="grid grid-cols-3 gap-2 mb-3">
             {(['year', 'month', 'day'] as const).map(k => (
@@ -187,7 +187,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
 
         {chart && dayStem && dayStemIntl ? (
           <div id="saju-result" className="space-y-4">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border chip-off p-5">
               <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-3">{ui.chart}</p>
               <div className="grid grid-cols-4 gap-2">
                 <PillarCard label={ui.hourPillar} p={chart.hour} />
@@ -216,7 +216,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border chip-off p-5">
               <div className="flex items-baseline justify-between mb-3">
                 <p className="label-caps">{ui.elements}</p>
                 <span className="text-[11px] font-bold text-indigo-600">
@@ -245,7 +245,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
             </div>
 
             {missing.length > 0 && (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-2xl border chip-off p-5">
                 <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-3">{ui.missing}</p>
                 <div className="space-y-3">
                   {missing.map(el => (
@@ -258,7 +258,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               </div>
             )}
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border chip-off p-5">
               <p className="label-caps mb-3">{ui.tenGods}</p>
               <div className="space-y-3">
                 {([[ui.yearPillar, chart.year], [ui.monthPillar, chart.month], [ui.hourPillar, chart.hour]] as const)
@@ -283,7 +283,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border chip-off p-5">
               <p className="label-caps mb-3">{ui.luckPillars}</p>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                 {chart.daewoons.slice(0, 8).map(w => {
@@ -304,7 +304,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               영역별 운세 — 점수는 lib/saju-fortune-facts.ts가 계산하므로 한국어 화면과
               같은 값이 나온다. 열 개를 한 번에 펼치면 화면이 너무 길어져 넷만 먼저 보인다.
             */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border chip-off p-5">
               <p className="label-caps mb-1">{du.title}</p>
               <p className="note-xs mb-4">{du.lead}</p>
               <div className="flex flex-col gap-3">
@@ -348,7 +348,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               </button>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border chip-off p-5">
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.originNote}</p>
             </div>
 

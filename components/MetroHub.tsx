@@ -47,7 +47,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">
           {lines.map(l => (
-            <Link
+            <Link prefetch={false}
               key={l.slug}
               href={`${prefix}/metro/${l.slug}`}
               className="group hub-card hover:shadow-sm hover:border-slate-400 transition-all"
@@ -76,7 +76,7 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={homeHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 font-medium shrink-0">
+          <Link prefetch={false} href={homeHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 font-medium shrink-0">
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -114,11 +114,11 @@ export default function MetroHub({ lang }: { lang: MetroLang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {METRO_LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link
+            <Link prefetch={false}
               key={l.lang}
               href={`${l.prefix}/metro`}
               hrefLang={l.hreflang}
-              className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="dim-link"
             >
               {l.label}
             </Link>

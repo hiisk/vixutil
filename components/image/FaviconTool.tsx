@@ -92,7 +92,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
 
   return (
     <div>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.sizes}</p>
         {busy && <p className="text-sm text-slate-400 dark:text-slate-500">{common.working}</p>}
         <div className="flex flex-col gap-2">
@@ -117,7 +117,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
         <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3">{ui.iconNote}</p>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.snippet}</p>
         <Snippet label={ui.headTitle} text={headTags()} />
         <Snippet label={ui.manifest} text={manifestIcons()} />

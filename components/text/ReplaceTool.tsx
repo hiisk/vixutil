@@ -17,7 +17,7 @@ export default function ReplaceTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
     [text, find, to, caseSensitive, regex],
   );
 
-  const field = 'w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors font-mono';
+  const field = 'w-full rounded-xl border chip-off px-3.5 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors font-mono';
 
   return (
     <div>

@@ -23,7 +23,7 @@ export default function FretBoard({
   const frets = Array.from({ length: Math.min(upto, MAX_FRET) + 1 }, (_, i) => i);
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2">
+    <div className="overflow-x-auto rounded-2xl border chip-off p-2">
       <table className="w-full text-[11px] tabular-nums">
         <tbody>
           {Array.from({ length: STRINGS }, (_, i) => i + 1).map(string => (

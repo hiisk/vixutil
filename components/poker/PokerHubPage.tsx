@@ -57,7 +57,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -113,10 +113,10 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.tierNote[tier]}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {rows.map(f => (
-                    <Link
+                    <Link prefetch={false}
                       key={f.slug}
                       href={`${path}/${f.slug}`}
-                      className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-mono text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                      className="rounded-lg border chip-off px-2 py-1 font-mono text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
                     >
                       {f.label}
                     </Link>
@@ -131,7 +131,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/game/poker`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/game/poker`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

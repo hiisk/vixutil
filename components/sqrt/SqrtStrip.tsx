@@ -25,7 +25,7 @@ export default function SqrtStrip({ path, current }: { path: string; current?: n
                 ? 'bg-indigo-600 text-white'
                 : exact
                   ? 'border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:border-indigo-500'
-                  : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400',
+                  : 'border chip-off text-slate-500 dark:text-slate-400 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400',
             ].join(' ')}
           >
             {n}

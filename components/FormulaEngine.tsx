@@ -97,7 +97,7 @@ export default function FormulaEngine({
                 }}
                 inputMode="decimal"
                 aria-label={term(f.term)}
-                className={`w-full rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-xl font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none transition-colors ${section.focusBorder}`}
+                className={`w-full rounded-xl border-2 chip-off px-3.5 py-3 text-xl font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none transition-colors ${section.focusBorder}`}
               />
             </label>
           ))}
@@ -120,7 +120,7 @@ export default function FormulaEngine({
           {rest.map(o => (
             <div
               key={o.term}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center"
+              className="rounded-xl border chip-off px-3 py-3 text-center"
             >
               <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1 truncate">
                 {term(o.term)}
@@ -137,7 +137,7 @@ export default function FormulaEngine({
       )}
 
       {verdict && (
-        <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
+        <div className="mt-3 rounded-2xl border chip-off px-4 py-3.5">
           <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.interpret}</p>
           <p className={`text-sm font-bold leading-relaxed ${tone}`}>{verdictText(verdict, lang)}</p>
         </div>

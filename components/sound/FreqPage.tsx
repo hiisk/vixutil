@@ -81,14 +81,14 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/sound/hz`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/sound/hz`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -127,7 +127,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
         {freq.tags.length > 0 && (
           <section className="mb-6 flex flex-col gap-2">
             {freq.tags.map(t => (
-              <div key={t} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+              <div key={t} className="rounded-2xl border chip-off px-4 py-3">
                 <p className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 mb-0.5">{ui.tagLabel[t]}</p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.tagNote[t]}</p>
                 {t === 'dtmf' && keys.length > 0 && (
@@ -171,10 +171,10 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
             {nearby.map(n => {
               const nf = freqFacts(n);
               return (
-                <Link
+                <Link prefetch={false}
                   key={n.hz}
                   href={`${prefix}/sound/hz/${freqSlug(n.hz)}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-center hover:shadow-sm transition-all"
+                  className="rounded-xl border chip-off px-3 py-2.5 text-center hover:shadow-sm transition-all"
                 >
                   <span className="block text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">{n.hz} Hz</span>
                   <span className="block text-[11px] text-slate-400 dark:text-slate-500">{nf.note}</span>
@@ -186,7 +186,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/sound/hz/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/sound/hz/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

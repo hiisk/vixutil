@@ -159,22 +159,22 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+        <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-black text-pink-600">{points.length}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.nowTouching}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+        <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-black text-violet-600">{maxTouch}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.maxSimul}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+        <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-black text-slate-700 dark:text-slate-200">{supported ?? '–'}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.deviceSupports}</p>
         </div>
       </div>
 
       {points.length > 0 && (
-        <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+        <div className="mt-3 rounded-xl border chip-off px-4 py-3">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.detailTitle}</p>
           <div className="flex flex-wrap gap-1.5">
             {points.map(p => (

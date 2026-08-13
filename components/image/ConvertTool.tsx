@@ -75,7 +75,7 @@ export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
         <img src={url} alt={ui.alt} className="w-full max-h-[24rem] object-contain" />
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <div className="flex items-center justify-center gap-3 mb-5">
           <span className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-black text-slate-600 dark:text-slate-300">{from}</span>
           <span className="text-slate-300 dark:text-slate-600">→</span>

@@ -114,7 +114,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
       {pads.map(pad => {
         const drifting = pad.axes.some(a => Math.abs(a) > DRIFT);
         return (
-          <div key={pad.index} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <div key={pad.index} className="rounded-2xl border chip-off p-5">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="min-w-0">
                 <p className="text-sm font-black text-slate-800 dark:text-slate-100 truncate">🎮 {pad.id}</p>
@@ -142,7 +142,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                     <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-2 text-center">
                       {base === 0 ? ui.leftStick : ui.rightStick}
                     </p>
-                    <div className="relative mx-auto w-24 h-24 rounded-full border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+                    <div className="relative mx-auto w-24 h-24 rounded-full border-2 chip-off">
                       <div className="absolute left-1/2 top-1/2 w-px h-full -translate-x-1/2 bg-slate-100 dark:bg-slate-800" />
                       <div className="absolute top-1/2 left-1/2 h-px w-full -translate-y-1/2 bg-slate-100 dark:bg-slate-800" />
                       <div

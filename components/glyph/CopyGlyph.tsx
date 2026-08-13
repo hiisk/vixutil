@@ -53,7 +53,7 @@ export default function CopyGlyph({
         title={copyLabel}
         data-glyph={char}
         data-copied={done ? '1' : '0'}
-        className="relative rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 h-14 text-xl text-slate-800 dark:text-slate-100 hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all"
+        className="relative rounded-xl border chip-off h-14 text-xl text-slate-800 dark:text-slate-100 hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all"
       >
         {char}
         {done && (
@@ -71,7 +71,7 @@ export default function CopyGlyph({
       onClick={copy}
       data-glyph={char}
       data-copied={done ? '1' : '0'}
-      className="group w-full rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-8 hover:shadow-lg active:scale-[0.98] transition-all"
+      className="group w-full rounded-3xl border chip-off py-8 hover:shadow-lg active:scale-[0.98] transition-all"
     >
       <span className="block text-6xl sm:text-7xl text-slate-900 dark:text-slate-100 leading-none mb-4">{char}</span>
       <span

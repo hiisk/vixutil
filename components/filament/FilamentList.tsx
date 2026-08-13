@@ -28,20 +28,20 @@ export default function FilamentList({
         const d = f.diameters[0];
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-violet-500 bg-violet-50 dark:bg-violet-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-violet-400'
+                : 'chip-off hover:border-violet-400'
             }`}
           >
             <div className="cell-cut">{by === 'spool' ? `${materialName(c.material)} ${kgOf(c.grams)}` : materialName(c.material)}</div>
-            <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+            <div className="val">
               {d.metres} m
-              <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+              <span className="val-unit">
                 {d.gramsPerMetre} g/m
               </span>
             </div>

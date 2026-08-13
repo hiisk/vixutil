@@ -165,7 +165,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.birthLabel}</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder={c.yearPh} value={form.year}
@@ -207,7 +207,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
           </div>
         )}
 
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-2xl border chip-off p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">{c.howQ}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{c.howA}</p>
         </div>

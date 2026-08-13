@@ -50,7 +50,7 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -80,10 +80,10 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
             {MAJORS.map(c => {
               const v = cardView(c.slug, lang)!;
               return (
-                <Link
+                <Link prefetch={false}
                   key={c.slug}
                   href={`${path}/${c.slug}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                  className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                 >
                   <span className="block text-[11px] font-bold text-violet-500 dark:text-violet-400 tabular-nums">{c.number}</span>
                   <span className="block text-sm font-black text-slate-800 dark:text-slate-100 truncate">{v.name}</span>
@@ -105,10 +105,10 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.suitTheme[suit]}</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {cardsOfSuit(suit).map(c => (
-                <Link
+                <Link prefetch={false}
                   key={c.slug}
                   href={`${path}/${c.slug}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-bold text-slate-800 dark:text-slate-100 truncate hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                  className="rounded-xl border chip-off px-3 py-2 text-sm font-bold text-slate-800 dark:text-slate-100 truncate hover:shadow-sm hover:-translate-y-0.5 transition-all"
                 >
                   {cardView(c.slug, lang)?.name}
                 </Link>
@@ -130,7 +130,7 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/fortune/card`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/fortune/card`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

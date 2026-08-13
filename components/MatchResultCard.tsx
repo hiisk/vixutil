@@ -72,7 +72,7 @@ export default function MatchResultCard({
       </div>
 
       {/* 관계 원리 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-2xl border chip-off p-5">
         <p className={`text-xs font-black ${accentText} uppercase tracking-wide mb-2`}>왜 이렇게 나왔나요?</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.reason}</p>
       </div>

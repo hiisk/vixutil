@@ -23,14 +23,14 @@ export default function HikeList({
         const f = hikeFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-green-600 bg-green-50 dark:bg-green-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-green-500'
+                : 'chip-off hover:border-green-500'
             }`}
           >
             <div className="cell-sub">{c.km}km · ↑{c.up}m</div>

@@ -23,14 +23,14 @@ export default function TorqueList({
         const f = torqueFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-orange-500 bg-orange-50 dark:bg-orange-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-orange-400'
+                : 'chip-off hover:border-orange-400'
             }`}
           >
             <div className="cell-sub">{sizeLabel(c.d)} · {gradeOf(c.grade)?.label}</div>

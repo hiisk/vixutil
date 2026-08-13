@@ -27,7 +27,7 @@ export default function RomanizeTool() {
           value={name}
           onChange={e => { setName(e.target.value); setOverride(null); }}
           placeholder="예) 홍길동"
-          className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 text-lg font-bold text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors"
+          className="w-full rounded-2xl border chip-off px-4 py-3.5 text-lg font-bold text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors"
         />
       </label>
 

@@ -37,7 +37,7 @@ export default function YearDecades({
                       ? 'bg-rose-700 text-white'
                       : leap
                         ? 'border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 hover:border-rose-500'
-                        : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-rose-400 hover:text-rose-700 dark:hover:text-rose-400',
+                        : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-rose-400 hover:text-rose-700 dark:hover:text-rose-400',
                   ].join(' ')}
                 >
                   {y}

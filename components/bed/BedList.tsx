@@ -23,14 +23,14 @@ export default function BedList({
         const f = bedFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-violet-500 bg-violet-50 dark:bg-violet-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-violet-400'
+                : 'chip-off hover:border-violet-400'
             }`}
           >
             <div className="cell-sub-cut">{name(c.bed)} · {c.room}</div>

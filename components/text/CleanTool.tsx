@@ -51,7 +51,7 @@ export default function CleanTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       </div>
 
       {text && (
-        <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
+        <div className="mt-4 rounded-2xl border chip-off px-4 py-3.5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
             {entries.length === 0 ? ui.nothing : shrunk > 0 ? ui.shrunk(shrunk) : ui.cleaned}
           </p>

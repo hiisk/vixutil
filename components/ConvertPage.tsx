@@ -62,14 +62,14 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-blue-600 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-blue-600 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/convert`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/convert`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <span className="ml-auto shrink-0">
@@ -99,7 +99,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
             {related.map(r => {
               const rt = localized(r, lang);
               return (
-                <Link
+                <Link prefetch={false}
                   key={r.slug}
                   href={`${prefix}/convert/${r.slug}`}
                   className="group hub-card hover:border-blue-300 hover:shadow-sm transition-all"

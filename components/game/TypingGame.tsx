@@ -97,7 +97,7 @@ export default function TypingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         onChange={e => onType(e.target.value)}
         placeholder={ui.placeholder}
         autoComplete="off"
-        className="mt-3 w-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 text-lg text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-violet-400 transition-colors"
+        className="mt-3 w-full rounded-2xl border-2 chip-off px-4 py-3.5 text-lg text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-violet-400 transition-colors"
       />
 
       <div className="grid grid-cols-4 gap-2 mt-4">

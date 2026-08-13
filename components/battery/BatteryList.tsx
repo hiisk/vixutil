@@ -26,14 +26,14 @@ export default function BatteryList({
         const f = batteryFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-green-500 bg-green-50 dark:bg-green-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-green-400'
+                : 'chip-off hover:border-green-400'
             }`}
           >
             <div className="cell-sub">{c.mah}mAh · {c.watt}W</div>

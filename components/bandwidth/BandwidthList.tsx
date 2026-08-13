@@ -26,14 +26,14 @@ export default function BandwidthList({
         const f = bandwidthFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-sky-400'
+                : 'chip-off hover:border-sky-400'
             }`}
           >
             <div className="cell-sub">{f.size} · {c.mbps}Mbps</div>

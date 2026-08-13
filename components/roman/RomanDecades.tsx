@@ -31,7 +31,7 @@ export default function RomanDecades({
                   'rounded-lg px-2.5 py-1 text-xs font-bold tabular-nums transition-colors',
                   y === current
                     ? 'bg-amber-600 text-white'
-                    : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-amber-400 hover:text-amber-700 dark:hover:text-amber-400',
+                    : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-amber-400 hover:text-amber-700 dark:hover:text-amber-400',
                 ].join(' ')}
               >
                 {y} <span className="font-black">{toRoman(y)}</span>

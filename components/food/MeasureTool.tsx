@@ -38,7 +38,7 @@ export default function MeasureTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         <select
           value={ingredientId}
           onChange={e => setIngredientId(e.target.value)}
-          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-amber-400"
+          className="w-full rounded-xl border chip-off px-3.5 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-amber-400"
         >
           {INGREDIENTS.map(i => <option key={i.id} value={i.id}>{names[i.id]?.name ?? i.name}</option>)}
         </select>

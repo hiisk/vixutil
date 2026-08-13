@@ -26,20 +26,20 @@ export default function GearList({
         const f = gearFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-emerald-400'
+                : 'chip-off hover:border-emerald-400'
             }`}
           >
             <div className="cell-cut">{by === 'rear' ? `${c.front}×${c.rear}` : `${c.front}T`}</div>
-            <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+            <div className="val">
               {f.ratio}
-              <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+              <span className="val-unit">
                 {f.development} m
               </span>
             </div>

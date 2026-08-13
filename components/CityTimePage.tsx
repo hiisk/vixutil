@@ -76,14 +76,14 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/time`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/time`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -125,7 +125,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.gapNote}</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {f.gaps.map(g => (
-              <div key={g.city} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-center">
+              <div key={g.city} className="rounded-xl border chip-off px-3 py-2.5 text-center">
                 <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 truncate">{g.city}</p>
                 <p className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">{g.label}</p>
               </div>
@@ -149,10 +149,10 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
             <h2 className="sec-h2">{ui.sameZoneTitle}</h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {nearby.map(n => (
-                <Link
+                <Link prefetch={false}
                   key={n.slug}
                   href={`${prefix}/time/${n.slug}`}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm transition-all"
+                  className="flex items-center justify-between gap-3 rounded-xl border chip-off px-4 py-3 hover:shadow-sm transition-all"
                 >
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
                     {timeCountry(n.country)?.flag} {n.name[lang]}
@@ -168,7 +168,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/time/${city.slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/time/${city.slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

@@ -41,7 +41,7 @@ export default function DartsHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -87,7 +87,7 @@ export default function DartsHubPage({ lang }: { lang: Lang }) {
               {scoresOfDarts(n, SCORES).map(s => {
                 const f = dartsFacts(s);
                 return (
-                  <Link
+                  <Link prefetch={false}
                     key={s}
                     href={`${path}/${s}`}
                     className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
@@ -109,7 +109,7 @@ export default function DartsHubPage({ lang }: { lang: Lang }) {
           </h3>
           <div className="flex flex-wrap gap-2">
             {bogey.map(s => (
-              <Link
+              <Link prefetch={false}
                 key={s}
                 href={`${path}/${s}`}
                 className="rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/30 px-3 py-1.5 text-xs font-bold text-amber-800 dark:text-amber-200 tabular-nums hover:border-amber-400 transition-colors"
@@ -133,7 +133,7 @@ export default function DartsHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/darts`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/darts`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

@@ -30,10 +30,10 @@ export default function MusicHub({ lang }: { lang: Lang }) {
   const base = localeOfLang(lang);
 
   const card = (item: MusicItem) => (
-    <Link
+    <Link prefetch={false}
       key={item.slug}
       href={`${prefix}/music/${item.slug}`}
-      className="group flex items-center gap-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 hover:shadow-sm hover:border-slate-400 transition-all"
+      className="group flex items-center gap-2.5 rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm hover:border-slate-400 transition-all"
     >
       <span className="w-2 h-7 rounded-full shrink-0" style={{ background: colorOf(item) }} />
       <span className="hub-card-body">
@@ -63,7 +63,7 @@ export default function MusicHub({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={homeHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 font-medium shrink-0">
+          <Link prefetch={false} href={homeHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 font-medium shrink-0">
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -104,7 +104,7 @@ export default function MusicHub({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/music`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/music`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

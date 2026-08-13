@@ -38,7 +38,7 @@ const SCALES = [4, 8, 12, 16];
 const MARGINS = [0, 2, 4, 8];
 
 const FIELD =
-  'w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 ' +
+  'w-full rounded-xl border chip-off px-3 py-2.5 ' +
   'text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 ' +
   'focus:outline-none focus:border-indigo-400 transition-colors';
 

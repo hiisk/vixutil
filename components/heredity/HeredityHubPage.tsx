@@ -45,7 +45,7 @@ export default function HeredityHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -96,7 +96,7 @@ export default function HeredityHubPage({ lang }: { lang: Lang }) {
                       const kids = childrenOf(f, m);
                       return (
                         <td key={m.key} className="p-px">
-                          <Link
+                          <Link prefetch={false}
                             href={`${path}/${slugOf({ father: f.key, mother: m.key, child: kids[0] })}`}
                             aria-label={`${labelOf(f)} × ${labelOf(m)} · ${kids.length}`}
                             className="block rounded py-1.5 text-[11px] font-bold bg-violet-100 text-violet-700 dark:bg-violet-950/60 dark:text-violet-300 transition-opacity hover:opacity-60"
@@ -134,7 +134,7 @@ export default function HeredityHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/heredity`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/heredity`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

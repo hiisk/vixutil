@@ -63,7 +63,7 @@ export default function FertilizerPage({ slug, lang }: { slug: string; lang: Lan
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -121,7 +121,7 @@ export default function FertilizerPage({ slug, lang }: { slug: string; lang: Lan
                   </span>
                   <span className="cell-num shrink-0">
                     {mass(lang, a.grams)}
-                    <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+                    <span className="val-unit">
                       {ELEMENT[a.key]} {mass(lang, a.element)}
                     </span>
                   </span>
@@ -133,8 +133,8 @@ export default function FertilizerPage({ slug, lang }: { slug: string; lang: Lan
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
-            <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-              <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
+            <div key={k} className="row-pair">
+              <dt className="row-label">{k}</dt>
               <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
@@ -173,7 +173,7 @@ export default function FertilizerPage({ slug, lang }: { slug: string; lang: Lan
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/fertilizer/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/fertilizer/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

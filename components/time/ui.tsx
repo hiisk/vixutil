@@ -64,11 +64,11 @@ export function useBeep() {
   }, []);
 }
 
-export const CARD = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5';
+export const CARD = 'rounded-2xl border chip-off p-5';
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+    <div className="rounded-xl border chip-off px-3 py-3 text-center">
       <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>
@@ -91,7 +91,7 @@ export function DateField({
         type="date"
         value={value}
         onChange={e => onChange(e.target.value)}
-        className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-sky-400 transition-colors"
+        className="w-full rounded-xl border chip-off px-3.5 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-sky-400 transition-colors"
       />
     </label>
   );

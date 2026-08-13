@@ -17,7 +17,7 @@ export default function RomanTable() {
             'rounded-lg border px-2.5 py-1.5 text-center',
             letters.length === 2
               ? 'border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40'
-              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900',
+              : 'chip-off',
           ].join(' ')}
         >
           <div className="text-sm font-black text-slate-800 dark:text-slate-100">{letters}</div>

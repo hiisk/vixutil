@@ -66,7 +66,7 @@ export default function SoundHubIntl({ lang }: { lang: SoundIntlLang }) {
 
         <Link
           href={`/${lang}/sound/hz`}
-          className="group flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-emerald-400 to-teal-500">
             <ToolIcon emoji={FREQ_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />

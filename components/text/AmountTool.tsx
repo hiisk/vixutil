@@ -32,7 +32,7 @@ export default function AmountTool() {
             onChange={e => setRaw(e.target.value)}
             inputMode="numeric"
             placeholder="3500000"
-            className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5 pr-12 text-xl font-black text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 tabular-nums focus:outline-none focus:border-indigo-400 transition-colors"
+            className="w-full rounded-2xl border chip-off px-4 py-3.5 pr-12 text-xl font-black text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 tabular-nums focus:outline-none focus:border-indigo-400 transition-colors"
           />
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400 dark:text-slate-500">원</span>
         </div>

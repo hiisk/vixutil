@@ -66,7 +66,7 @@ export default function AirPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -95,15 +95,15 @@ export default function AirPage({ slug, lang }: { slug: string; lang: Lang }) {
         <p className={`mb-8 rounded-2xl border px-4 py-3 text-sm font-bold ${
           f.split
             ? 'border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200'
-            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200'
+            : 'chip-off text-slate-700 dark:text-slate-200'
         }`}>
           {f.split ? ui.splitTag : ui.agreeTag}
         </p>
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
-            <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-              <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
+            <div key={k} className="row-pair">
+              <dt className="row-label">{k}</dt>
               <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
@@ -144,7 +144,7 @@ export default function AirPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/air/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/air/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

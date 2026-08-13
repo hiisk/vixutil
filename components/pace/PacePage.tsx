@@ -67,7 +67,7 @@ export default function PacePage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -97,8 +97,8 @@ export default function PacePage({ slug, lang }: { slug: string; lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.finishNote}</p>
           <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.finishes.map(r => (
-              <div key={r.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-                <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{ui.raceName(r.key)}</dt>
+              <div key={r.key} className="row-pair">
+                <dt className="row-label">{ui.raceName(r.key)}</dt>
                 <dd className="text-base font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.text}</dd>
               </div>
             ))}
@@ -107,8 +107,8 @@ export default function PacePage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
-            <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-              <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
+            <div key={k} className="row-pair">
+              <dt className="row-label">{k}</dt>
               <dd className="cell-num text-right">{v}</dd>
             </div>
           ))}
@@ -125,7 +125,7 @@ export default function PacePage({ slug, lang }: { slug: string; lang: Lang }) {
                   'rounded-lg px-2.5 py-1 text-xs font-bold',
                   met.has(g.key)
                     ? 'border border-teal-300 dark:border-teal-800 bg-teal-50 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300'
-                    : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500',
+                    : 'border chip-off text-slate-400 dark:text-slate-500',
                 ].join(' ')}
               >
                 {ui.goalName(g.key)} · {met.has(g.key) ? ui.metTag : ui.missTag}
@@ -157,7 +157,7 @@ export default function PacePage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/pace/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/pace/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

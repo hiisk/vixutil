@@ -76,14 +76,14 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/ext`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/ext`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -135,10 +135,10 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.twinsNote}</p>
             <div className="flex flex-wrap gap-2">
               {f.twins.map(t => (
-                <Link
+                <Link prefetch={false}
                   key={t}
                   href={`${prefix}/ext/${t}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-black text-slate-800 dark:text-slate-100 hover:shadow-sm transition-all"
+                  className="rounded-xl border chip-off px-3 py-2 text-sm font-black text-slate-800 dark:text-slate-100 hover:shadow-sm transition-all"
                 >
                   .{t}
                 </Link>
@@ -162,10 +162,10 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
           <h2 className="sec-h2">{ui.relatedTitle}</h2>
           <div className="flex flex-wrap gap-2">
             {related.map(r => (
-              <Link
+              <Link prefetch={false}
                 key={r}
                 href={`${prefix}/ext/${r}`}
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                className="rounded-xl border chip-off px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:shadow-sm hover:-translate-y-0.5 transition-all"
               >
                 .{r}
               </Link>
@@ -175,7 +175,7 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/ext/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/ext/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

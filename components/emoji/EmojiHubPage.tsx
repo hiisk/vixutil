@@ -45,7 +45,7 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -84,11 +84,11 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.groupNote[g]}</p>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                 {list.map(x => (
-                  <Link
+                  <Link prefetch={false}
                     key={x.slug}
                     href={`${path}/${x.slug}`}
                     title={emojiDesc(x.slug, lang)}
-                    className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-3 text-center hover:border-amber-300 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                    className="group rounded-xl border chip-off px-2 py-3 text-center hover:border-amber-300 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                   >
                     <span className="block text-3xl leading-none mb-1.5">{x.char}</span>
                     <span className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 leading-tight group-hover:text-amber-700 transition-colors break-words">
@@ -114,7 +114,7 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/emoji`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/emoji`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

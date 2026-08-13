@@ -62,7 +62,7 @@ export default function HardnessPage({ slug, lang }: { slug: string; lang: Lang 
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -96,8 +96,8 @@ export default function HardnessPage({ slug, lang }: { slug: string; lang: Lang 
         {/* 여섯 단위를 한 자리에 — 나라를 옮겨 다니는 사람이 찾는 것이 이 표다 */}
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {f.values.map(u => (
-            <div key={u.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-              <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{ui.unitNames[u.key]}</dt>
+            <div key={u.key} className="row-pair">
+              <dt className="row-label">{ui.unitNames[u.key]}</dt>
               <dd className="cell-num text-right break-all">{n(u.value)} {u.symbol}</dd>
             </div>
           ))}
@@ -146,7 +146,7 @@ export default function HardnessPage({ slug, lang }: { slug: string; lang: Lang 
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/hardness/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/hardness/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

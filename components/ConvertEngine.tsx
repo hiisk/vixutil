@@ -81,7 +81,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
         {copied ? ui.copied : ui.copy(left || '—', tool.from, right || '—', tool.to)}
       </button>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+      <div className="mt-4 rounded-2xl border chip-off overflow-hidden">
         <p className="px-4 py-2.5 text-xs font-black text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
           {ui.quickTitle}
         </p>
@@ -105,7 +105,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
         })}
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.formula}</p>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-200">
           {/* 역수 변환은 곱셈이 아니라 나눗셈이다 — 페이스·BPM·연비가 그렇다 */}

@@ -21,7 +21,7 @@ export default function DrillList({
       {bits.map(b => {
         const here = slugOf(b) === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slugOf(b)}
             href={`${path}/${slugOf(b)}`}
             aria-current={here ? 'page' : undefined}
@@ -29,7 +29,7 @@ export default function DrillList({
               'rounded-lg px-2 py-1 text-center text-[11px] font-bold tabular-nums transition-colors',
               here
                 ? 'bg-neutral-700 text-white'
-                : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100',
+                : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100',
             ].join(' ')}
           >
             {b.name}

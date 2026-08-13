@@ -23,14 +23,14 @@ export default function GengoList({
         const f = gengoFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-red-500 bg-red-50 dark:bg-red-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-red-400'
+                : 'chip-off hover:border-red-400'
             }`}
           >
             <div className="cell-cut">{name(c.era)} {c.year}</div>

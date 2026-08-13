@@ -42,7 +42,7 @@ export default function AltitudeHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -72,10 +72,10 @@ export default function AltitudeHubPage({ lang }: { lang: Lang }) {
             {PLACES.map(p => {
               const f = altitudeFacts(p.m);
               return (
-                <Link
+                <Link prefetch={false}
                   key={p.key}
                   href={`${path}/${p.m}`}
-                  className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  className="row-pair hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 >
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{ui.placeName(p.key)}</span>
                   <span className="cell-sub text-right">
@@ -107,10 +107,10 @@ export default function AltitudeHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2">{ui.allTitle}</h2>
           <div className="flex flex-wrap gap-1">
             {ALTITUDES.map(m => (
-              <Link
+              <Link prefetch={false}
                 key={m}
                 href={`${path}/${m}`}
-                className="w-14 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-1 text-center text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-cyan-500 hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors"
+                className="w-14 rounded-md border chip-off py-1 text-center text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-cyan-500 hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors"
               >
                 {m}
               </Link>
@@ -135,7 +135,7 @@ export default function AltitudeHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/altitude`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/altitude`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

@@ -51,7 +51,7 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -91,10 +91,10 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
                 {list.map(x => {
                   const f = freqFacts(x);
                   return (
-                    <Link
+                    <Link prefetch={false}
                       key={x.hz}
                       href={`${path}/${freqSlug(x.hz)}`}
-                      className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                      className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                     >
                       <span className="block text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">{x.hz} Hz</span>
                       <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums truncate">
@@ -121,7 +121,7 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/sound/hz`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/sound/hz`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

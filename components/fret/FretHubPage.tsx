@@ -44,7 +44,7 @@ export default function FretHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -119,10 +119,10 @@ export default function FretHubPage({ lang }: { lang: Lang }) {
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {alongString(s).map(p => (
-                <Link
+                <Link prefetch={false}
                   key={slugOf(p)}
                   href={`${path}/${slugOf(p)}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition-colors"
+                  className="rounded-lg border chip-off px-2 py-1 text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition-colors"
                 >
                   {p.fret}·{nameOf(p, lang)}
                 </Link>
@@ -144,7 +144,7 @@ export default function FretHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/fret`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/fret`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

@@ -42,7 +42,7 @@ export default function TireHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -68,7 +68,7 @@ export default function TireHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.readTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.readNote}</p>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-4">
+          <div className="rounded-2xl border chip-off px-4 py-4">
             <div className="text-center text-2xl font-black text-slate-900 dark:text-slate-100 tracking-wide mb-3">205/55R16</div>
             <dl className="grid grid-cols-3 gap-2 text-center">
               {[
@@ -95,7 +95,7 @@ export default function TireHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.extremeNote}</p>
           <div className="flex flex-wrap gap-2">
             {[smallest, biggest].map(t => (
-              <Link
+              <Link prefetch={false}
                 key={slugOf(t)}
                 href={`${path}/${slugOf(t)}`}
                 className="rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-slate-500 transition-colors"
@@ -125,7 +125,7 @@ export default function TireHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/tire`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/tire`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

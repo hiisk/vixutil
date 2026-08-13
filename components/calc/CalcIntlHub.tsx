@@ -75,7 +75,7 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
                   <Link
                     key={slug}
                     href={localeHref(lang, `/calculator/${slug}`)}
-                    className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group rounded-xl border chip-off px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
                   >
                     <span className="hub-card-title group-hover:text-blue-700 transition-colors">
                       {calcCopy(lang, slug)!.title}
@@ -99,7 +99,7 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
               <Link
                 key={x.slug}
                 href={localeHref(lang, `/${x.section}/${x.slug}`)}
-                className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                className="group rounded-xl border chip-off px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
               >
                 <span className="hub-card-title group-hover:text-blue-700 transition-colors">
                   {x.title}

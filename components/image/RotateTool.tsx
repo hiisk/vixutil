@@ -88,7 +88,7 @@ export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         <img src={url} alt={ui.alt} className="w-full max-h-[26rem] object-contain" />
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <div className="grid grid-cols-4 gap-2">
           <button onClick={() => turn(-90)} className={btn}>{ui.left}</button>
           <button onClick={() => turn(90)} className={btn}>{ui.right}</button>

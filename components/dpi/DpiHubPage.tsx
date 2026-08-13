@@ -46,7 +46,7 @@ export default function DpiHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -79,7 +79,7 @@ export default function DpiHubPage({ lang }: { lang: Lang }) {
         <section className="mb-6">
           <h2 className="sec-h2-tight">{ui.aimTitle}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.aimNote}</p>
-          <Link href={`${prefix}/game/aim`} className="mt-2 inline-block text-sm font-bold text-violet-700 dark:text-violet-300 hover:underline">
+          <Link prefetch={false} href={`${prefix}/game/aim`} className="mt-2 inline-block text-sm font-bold text-violet-700 dark:text-violet-300 hover:underline">
             {ui.aimLink}
           </Link>
         </section>
@@ -118,7 +118,7 @@ export default function DpiHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/dpi`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/dpi`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

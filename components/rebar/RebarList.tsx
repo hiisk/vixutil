@@ -33,20 +33,20 @@ export default function RebarList({
         const name =
           by === 'length' ? `${c.length}m` : by === 'bar' ? barName(c.d) : `${barName(c.d)} ${c.length}m`;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-400'
+                : 'chip-off hover:border-amber-400'
             }`}
           >
             <div className="cell-cut">{name}</div>
-            <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+            <div className="val">
               {fmtNum(lang, f.perBar)} kg
-              <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+              <span className="val-unit">
                 {fmtNum(lang, f.unit)} kg/m
               </span>
             </div>

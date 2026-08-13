@@ -92,7 +92,7 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder={c.search}
-          className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-4"
+          className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-4"
         />
 
         <div className="flex flex-wrap gap-2 mb-6">

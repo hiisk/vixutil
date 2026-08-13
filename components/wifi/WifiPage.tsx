@@ -69,7 +69,7 @@ export default function WifiPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -97,8 +97,8 @@ export default function WifiPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
-            <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-              <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
+            <div key={k} className="row-pair">
+              <dt className="row-label">{k}</dt>
               <dd className="cell-num text-right break-all">{v}</dd>
             </div>
           ))}
@@ -110,10 +110,10 @@ export default function WifiPage({ slug, lang }: { slug: string; lang: Lang }) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.overlapNote}</p>
             <div className="flex flex-wrap gap-2">
               {f.overlaps.map(o => (
-                <Link
+                <Link prefetch={false}
                   key={slugOf(o)}
                   href={`${hub}/${slugOf(o)}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                  className="rounded-xl border chip-off px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
                 >
                   {o.n} · {centerOf(o)}MHz
                 </Link>
@@ -127,7 +127,7 @@ export default function WifiPage({ slug, lang }: { slug: string; lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.cleanNote}</p>
           <div className="flex flex-wrap gap-2">
             {cleanSet(c.band).slice(0, 12).map(o => (
-              <Link
+              <Link prefetch={false}
                 key={slugOf(o)}
                 href={`${hub}/${slugOf(o)}`}
                 className="rounded-xl border border-blue-300 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 text-xs font-bold text-blue-800 dark:text-blue-300 tabular-nums hover:border-blue-500 transition-colors"
@@ -149,10 +149,10 @@ export default function WifiPage({ slug, lang }: { slug: string; lang: Lang }) {
           <h2 className="sec-h2">{ui.neighbourTitle}</h2>
           <div className="flex flex-wrap gap-2">
             {neighbours(c).map(o => (
-              <Link
+              <Link prefetch={false}
                 key={slugOf(o)}
                 href={`${hub}/${slugOf(o)}`}
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                className="rounded-xl border chip-off px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
               >
                 {o.n} · {centerOf(o)}MHz
               </Link>
@@ -182,7 +182,7 @@ export default function WifiPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/wifi/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/wifi/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

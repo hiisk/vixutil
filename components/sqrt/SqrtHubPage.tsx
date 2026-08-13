@@ -42,7 +42,7 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -70,7 +70,7 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.squaresNote}</p>
           <div className="flex flex-wrap gap-2">
             {perfectSquares().map(n => (
-              <Link
+              <Link prefetch={false}
                 key={n}
                 href={`${path}/${n}`}
                 className="rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-300 tabular-nums hover:border-indigo-500 transition-colors"
@@ -86,10 +86,10 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.simplifiableNote}</p>
           <div className="flex flex-wrap gap-1.5">
             {simplifiable().map(n => (
-              <Link
+              <Link prefetch={false}
                 key={n}
                 href={`${path}/${n}`}
-                className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               >
                 √{n} = {sqrtFacts(n).radical}
               </Link>
@@ -120,7 +120,7 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/sqrt`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/sqrt`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

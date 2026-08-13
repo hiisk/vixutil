@@ -108,7 +108,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                   className={`rounded-xl border px-3.5 py-3 text-left transition-colors ${
                     spreadId === s.id
                       ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40'
-                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-violet-200'
+                      : 'chip-off hover:border-violet-200'
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
@@ -156,7 +156,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                     const open = shown.includes(i);
                     const reading = TAROT_READINGS[lang][d.card.id];
                     return (
-                      <div key={`${d.card.id}-${i}`} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3.5">
+                      <div key={`${d.card.id}-${i}`} className="rounded-2xl border chip-off p-3.5">
                         <p className="text-[10px] font-black text-violet-500 uppercase tracking-wide mb-1.5">{copy.positions[i]}</p>
                         {open ? (
                           <>
@@ -215,7 +215,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
             <h2 className="sec-h2">{ui.majorHeading}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-7">
               {TAROT_CARDS.map(c => (
-                <div key={c.id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
+                <div key={c.id} className="rounded-xl border chip-off px-3 py-2.5">
                   <p className="text-lg">{c.emoji}</p>
                   <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight">
                     {c.nameEn}
@@ -235,7 +235,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                     // getFullDeck()이 22부터 순서대로 매기므로 배열 위치가 곧 id다
                     const id = 22 + MINOR_ARCANA.indexOf(c);
                     return (
-                      <div key={id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5">
+                      <div key={id} className="rounded-xl border chip-off px-3 py-2.5">
                         <p className="text-lg">{c.emoji}</p>
                         <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight">
                           {c.nameEn}

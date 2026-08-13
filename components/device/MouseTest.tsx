@@ -130,7 +130,7 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
                   ? 'border-sky-400 bg-sky-50 dark:bg-sky-950/40'
                   : hit
                     ? 'border-emerald-200 dark:border-emerald-900/60 bg-white dark:bg-slate-900'
-                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900'
+                    : 'chip-off'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -151,15 +151,15 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-4">
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+        <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-black text-sky-600">{totalClicks}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.totalClicks}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+        <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className={`text-lg font-black ${totalChatter > 0 ? 'text-rose-500' : 'text-emerald-600'}`}>{totalChatter}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.chatterTotal}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+        <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-black text-indigo-600">{wheel?.count ?? 0}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
             {ui.wheelWord} {wheel ? `${wheel.dir} ${wheel.delta}` : ui.scrollWord}

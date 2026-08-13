@@ -26,7 +26,7 @@ function H({ children }: { children: React.ReactNode }) {
 
 function Frame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-x-auto">
+    <div className="rounded-2xl border chip-off overflow-x-auto">
       <table className="w-full border-collapse min-w-[20rem]">{children}</table>
     </div>
   );

@@ -245,7 +245,7 @@ function Result({ result, points, lang }: { result: BiorhythmResult; points: Cha
   const cycles = cyclesFor(lang);
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-2xl border chip-off p-5">
         <div className="flex items-baseline justify-between mb-1">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">{c.todayRhythm}</h2>
           <span className="text-xs text-slate-400 dark:text-slate-500">{c.daysOld(result.days.toLocaleString())}</span>
@@ -253,7 +253,7 @@ function Result({ result, points, lang }: { result: BiorhythmResult; points: Cha
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{comment(result, lang)}</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+      <div className="rounded-2xl border chip-off p-4">
         <Chart points={points} lang={lang} />
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-2">
           {cycles.map(cy => (
@@ -270,7 +270,7 @@ function Result({ result, points, lang }: { result: BiorhythmResult; points: Cha
         {result.cycles.map(state => {
           const meta = cycles.find(cy => cy.key === state.key)!;
           return (
-            <div key={state.key} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+            <div key={state.key} className="rounded-2xl border chip-off p-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-lg">{meta.emoji}</span>
                 <span className="text-sm font-black text-slate-800 dark:text-slate-100">{meta.label}</span>
@@ -348,7 +348,7 @@ export default function Biorhythm({ lang }: { lang: IntlLang }) {
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.birthLabel}</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder={c.yearPh} value={form.year}
@@ -381,7 +381,7 @@ export default function Biorhythm({ lang }: { lang: IntlLang }) {
           결정론적이라 오히려 과학처럼 보이기 쉬운데, 주기값 자체에 근거가 없다는
           점은 분명히 적어야 한다.
         */}
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-2xl border chip-off p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">{c.scienceQ}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{c.scienceA}</p>
         </div>

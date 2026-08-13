@@ -185,7 +185,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
       <div className="h-1 bg-gradient-to-r from-sky-400 to-cyan-600" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link href={`/${lang}/checklist`} className="font-black text-sky-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/checklist`} className="font-black text-sky-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
             <LangPicker current={lang} route="/checklist" available={HUB_LANGS} />
@@ -202,7 +202,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {lists.map((c, i) => (
-            <Link key={c.slug} href={`/${lang}/checklist/${c.slug}`}
+            <Link prefetch={false} key={c.slug} href={`/${lang}/checklist/${c.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
                 <ToolIcon emoji={c.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
@@ -270,7 +270,7 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (
-            <Link key={o.slug} href={`/${lang}/checklist/${o.slug}`}
+            <Link prefetch={false} key={o.slug} href={`/${lang}/checklist/${o.slug}`}
               className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-3 hover:-translate-y-0.5 hover:shadow transition-all">
               <ToolIcon emoji={o.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 mx-auto mb-1" />
               <div className="text-xs font-bold text-slate-600 dark:text-slate-300 leading-tight">{o.title}</div>
@@ -279,7 +279,7 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
         </div>
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={`/${lang}/checklist`} className="text-sm font-black text-sky-600">vixutil</Link>
+        <Link prefetch={false} href={`/${lang}/checklist`} className="text-sm font-black text-sky-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>

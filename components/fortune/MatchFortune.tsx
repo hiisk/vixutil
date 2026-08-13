@@ -252,7 +252,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
             <button
               type="button"
               onClick={() => { setA(null); setB(null); }}
-              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-bold text-slate-600 dark:text-slate-300 py-3 hover:border-violet-300 transition-colors"
+              className="w-full rounded-xl border chip-off text-sm font-bold text-slate-600 dark:text-slate-300 py-3 hover:border-violet-300 transition-colors"
             >
               {ui.reset}
             </button>

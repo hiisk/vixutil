@@ -196,7 +196,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
           푸터는 모든 페이지에 있으므로 여기가 가장 확실한 진입점이다.
         */}
         {hasSearch && (
-          <Link
+          <Link prefetch={false}
             href={searchHref}
             className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
           >
@@ -218,7 +218,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
         </p>
         <nav className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-8">
           {sections.map((s) => (
-            <Link
+            <Link prefetch={false}
               key={s.href}
               href={s.href}
               className="nav-chip"
@@ -235,7 +235,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
           {popular.map((p) => (
-            <Link
+            <Link prefetch={false}
               key={p.href}
               href={p.href}
               className="foot-chip hover:text-slate-700"
@@ -269,7 +269,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
         */}
         <nav className="flex flex-wrap gap-x-4 gap-y-1.5 mb-6 text-xs font-medium text-slate-400 dark:text-slate-500">
           {LEGAL_KINDS.map((k) => (
-            <Link
+            <Link prefetch={false}
               key={k}
               href={localeHref(lang, legalRoute(k))}
               className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
@@ -280,7 +280,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
         </nav>
 
         <div className="flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-5">
-          <Link href="/" className="flex items-center gap-0.5 shrink-0">
+          <Link prefetch={false} href="/" className="flex items-center gap-0.5 shrink-0">
             <span className="text-sm font-black text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-sm font-black text-blue-600 tracking-tighter">util</span>
           </Link>

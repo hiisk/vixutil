@@ -71,7 +71,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
       </>
     );
     return href ? (
-      <Link key={hex + label} href={href} className="block hover:opacity-80 transition-opacity">{inner}</Link>
+      <Link prefetch={false} key={hex + label} href={href} className="block hover:opacity-80 transition-opacity">{inner}</Link>
     ) : (
       <span key={hex + label} className="block">{inner}</span>
     );
@@ -93,14 +93,14 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/color`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/color`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -206,7 +206,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
           <h2 className="sec-h2">{ui.nearbyTitle}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {nearby.map(n => (
-              <Link
+              <Link prefetch={false}
                 key={n.slug}
                 href={`${prefix}/color/${n.slug}`}
                 className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-sm transition-all"
@@ -223,11 +223,11 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link
+            <Link prefetch={false}
               key={l.lang}
               href={`${l.prefix}/color/${color.slug}`}
               hrefLang={l.hreflang}
-              className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="dim-link"
             >
               {l.label}
             </Link>

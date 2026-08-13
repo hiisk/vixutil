@@ -64,7 +64,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
           onChange={e => setText(e.target.value)}
           rows={7}
           placeholder={ui.placeholder}
-          className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-amber-400 leading-relaxed"
+          className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-amber-400 leading-relaxed"
         />
       </label>
 

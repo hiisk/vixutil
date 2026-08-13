@@ -69,14 +69,14 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium shrink-0`}>
+          <Link prefetch={false} href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium shrink-0`}>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={localeHref(lang, '/country')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
+          <Link prefetch={false} href={localeHref(lang, '/country')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
             {ui.section}
           </Link>
           <span className="ml-auto shrink-0">
@@ -104,7 +104,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
 
         <p className="mt-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{t.intro}</p>
 
-        <div className="mt-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="mt-5 rounded-2xl border chip-off overflow-hidden">
           {row(ui.capital, t.capital)}
           {row(ui.languages, t.languages)}
           {row(ui.currency, `${t.currency} (${c.currencyCode})`)}
@@ -122,7 +122,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{t.visa}</p>
         </div>
 
-        <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
+        <div className="mt-3 rounded-2xl border chip-off px-4 py-3.5">
           <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.tipTitle}</p>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{t.tip}</p>
         </div>
@@ -133,7 +133,7 @@ export default function CountryPage({ country: c, lang }: { country: Country; la
           <h2 className="sec-h2">{ui.related}</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
-              <Link
+              <Link prefetch={false}
                 key={r.slug}
                 href={localeHref(lang, `/country/${r.slug}`)}
                 className={`group hub-card ${s.hoverBorder}`}

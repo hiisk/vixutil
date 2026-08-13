@@ -64,7 +64,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -91,7 +91,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2">{ui.byFirstMove}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {openers.map(o => (
-              <Link key={o.move} href={`${path}/${o.slug}`} className="group flex flex-col items-center gap-1.5">
+              <Link prefetch={false} key={o.move} href={`${path}/${o.slug}`} className="group flex flex-col items-center gap-1.5">
                 <Board board={o.board} size={140} label={`1.${o.move}`} />
                 <span className="font-mono text-sm font-black text-slate-700 dark:text-slate-200 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
                   1.{o.move}
@@ -116,7 +116,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.groupNote[group]}</p>
                 <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
                   {rows.map(x => (
-                    <Link
+                    <Link prefetch={false}
                       key={x.slug}
                       href={`${path}/${x.slug}`}
                       className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
@@ -137,7 +137,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/game/chess`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/game/chess`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

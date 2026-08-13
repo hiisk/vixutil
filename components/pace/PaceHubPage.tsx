@@ -41,7 +41,7 @@ export default function PaceHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -71,10 +71,10 @@ export default function PaceHubPage({ lang }: { lang: Lang }) {
             {GOALS.map(g => {
               const sec = paceForGoal(g);
               return (
-                <Link
+                <Link prefetch={false}
                   key={g.key}
                   href={`${path}/${slugOf(sec)}`}
-                  className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  className="row-pair hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 >
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{ui.goalName(g.key)}</span>
                   <span className="text-sm font-bold text-teal-700 dark:text-teal-400 tabular-nums">{labelOf(sec)} /km</span>
@@ -99,10 +99,10 @@ export default function PaceHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2">{ui.paceLabel}</h2>
           <div className="flex flex-wrap gap-1">
             {PACES.map(p => (
-              <Link
+              <Link prefetch={false}
                 key={p}
                 href={`${path}/${slugOf(p)}`}
-                className="rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-teal-500 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+                className="rounded-md border chip-off px-2 py-1 text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-teal-500 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
               >
                 {labelOf(p)}
               </Link>
@@ -123,7 +123,7 @@ export default function PaceHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/pace`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/pace`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

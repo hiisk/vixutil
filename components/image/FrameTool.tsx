@@ -75,7 +75,7 @@ export default function FrameTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.ratio}</p>
         <div className="grid grid-cols-3 gap-2">
           {RATIOS.map(r => (

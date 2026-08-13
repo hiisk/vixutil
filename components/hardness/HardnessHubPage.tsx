@@ -53,7 +53,7 @@ export default function HardnessHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -79,7 +79,7 @@ export default function HardnessHubPage({ lang }: { lang: Lang }) {
         {/* 단위 여섯을 이름과 기호로 먼저 보인다 — 아래 표의 열이 무엇인지가 여기서 정해진다 */}
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {UNITS.map(u => (
-            <div key={u.key} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
+            <div key={u.key} className="row-pair">
               <dt className="text-xs text-slate-500 dark:text-slate-400">{ui.unitNames[u.key]}</dt>
               <dd className="cell-num text-right shrink-0">{u.symbol}</dd>
             </div>
@@ -95,11 +95,11 @@ export default function HardnessHubPage({ lang }: { lang: Lang }) {
 
         {/* 두 기준의 경계를 숫자로 나란히 — "기준마다 다르다"를 말로만 두지 않는다 */}
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
-          <div className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
+          <div className="row-pair">
             <dt className="text-xs text-slate-500 dark:text-slate-400">{ui.bandLabel}</dt>
             <dd className="cell-num text-right shrink-0 tabular-nums">{BAND_EDGES.join(' · ')} ppm</dd>
           </div>
-          <div className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
+          <div className="row-pair">
             <dt className="text-xs text-slate-500 dark:text-slate-400">{ui.wrmgLabel}</dt>
             <dd className="cell-num text-right shrink-0 tabular-nums">
               {WRMG_EDGES.map(e => `${n(e.ppm)} ppm (${n(e.dh)} °dH)`).join(' · ')}
@@ -132,10 +132,10 @@ export default function HardnessHubPage({ lang }: { lang: Lang }) {
               <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{ui.unitNames[unit.key]}</div>
               <div className="flex flex-wrap gap-1.5">
                 {items.map(a => (
-                  <Link
+                  <Link prefetch={false}
                     key={`${a.key}-${a.value}`}
                     href={`${path}/${a.slug}`}
-                    className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1 text-xs tabular-nums hover:border-sky-400"
+                    className="rounded-lg border chip-off px-2.5 py-1 text-xs tabular-nums hover:border-sky-400"
                   >
                     {n(a.value)} {unitOf(a.key)?.symbol} → {a.ppm} ppm
                   </Link>
@@ -158,7 +158,7 @@ export default function HardnessHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/hardness`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/hardness`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

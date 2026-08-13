@@ -2,7 +2,7 @@
 import { useCallback, useState } from 'react';
 
 /** 계량·요리 도구가 함께 쓰는 조각들 */
-export const CARD = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5';
+export const CARD = 'rounded-2xl border chip-off p-5';
 
 export function useCopy() {
   const [copied, setCopied] = useState(false);
@@ -19,7 +19,7 @@ export function useCopy() {
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+    <div className="rounded-xl border chip-off px-3 py-3 text-center">
       <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>
@@ -38,7 +38,7 @@ export function NumberField({
         <input
           type="number" value={value} step={step} min={min}
           onChange={e => onChange(Number(e.target.value))}
-          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 pr-12 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-amber-400 transition-colors"
+          className="w-full rounded-xl border chip-off px-3.5 py-3 pr-12 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-amber-400 transition-colors"
         />
         {unit && <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400 dark:text-slate-500">{unit}</span>}
       </div>

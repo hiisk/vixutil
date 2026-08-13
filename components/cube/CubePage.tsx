@@ -83,7 +83,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -106,7 +106,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
           <p className="note-sm">{ui.desc(f)}</p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
+        <div className="rounded-2xl border chip-off p-4 mb-4">
           <CubeTop state={diagram(f)} slot={item.step === 'f2l'} label={item.label} className="w-full max-w-[220px] mx-auto" />
         </div>
 
@@ -117,13 +117,13 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
-            <div key={v} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-              <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{k}</dt>
+            <div key={v} className="row-pair">
+              <dt className="row-label">{k}</dt>
               <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 text-right">{v}</dd>
             </div>
           ))}
-          <div className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-            <dt className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{ui.reverseLabel}</dt>
+          <div className="row-pair">
+            <dt className="row-label">{ui.reverseLabel}</dt>
             <dd className="text-xs font-bold text-slate-600 dark:text-slate-300 font-mono text-right break-words">{reverseAlg(item.alg)}</dd>
           </div>
         </dl>
@@ -134,10 +134,10 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
             {siblings(slug).map(o => {
               const of_ = caseFacts(o);
               return (
-                <Link
+                <Link prefetch={false}
                   key={o.slug}
                   href={`${hub}/${o.slug}`}
-                  className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2.5 hover:border-amber-400 hover:shadow-md transition-all"
+                  className="rounded-2xl border chip-off p-2.5 hover:border-amber-400 hover:shadow-md transition-all"
                 >
                   <CubeTop state={diagram(of_)} slot={o.step === 'f2l'} label={o.label} className="w-full max-w-[84px] mx-auto" />
                   <div className="mt-1.5 text-center text-[11px] font-black text-slate-700 dark:text-slate-200">{o.label}</div>
@@ -160,7 +160,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(x => x.lang !== lang).map(x => (
-            <Link key={x.lang} href={`${x.prefix}/game/cube/${slug}`} hrefLang={x.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={x.lang} href={`${x.prefix}/game/cube/${slug}`} hrefLang={x.hreflang} className="dim-link">
               {x.label}
             </Link>
           ))}

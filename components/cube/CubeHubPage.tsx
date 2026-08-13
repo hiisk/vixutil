@@ -45,7 +45,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -93,10 +93,10 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
               {algsOfStep(step).map(a => {
                 const f = caseFacts(a);
                 return (
-                  <Link
+                  <Link prefetch={false}
                     key={a.slug}
                     href={`${path}/${a.slug}`}
-                    className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 hover:border-amber-400 hover:shadow-md transition-all"
+                    className="rounded-2xl border chip-off p-3 hover:border-amber-400 hover:shadow-md transition-all"
                   >
                     <CubeTop state={diagram(f)} slot={step === 'f2l'} label={a.label} className="w-full max-w-[104px] mx-auto" />
                     <div className="mt-2 text-center">
@@ -123,7 +123,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/game/cube`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/game/cube`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

@@ -40,7 +40,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
 
       <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href={homeHref} className="page-back hover:text-blue-600">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-blue-600">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -77,7 +77,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
                 {g.tools.map(t => {
                   const lt = localized(t, lang);
                   return (
-                  <Link
+                  <Link prefetch={false}
                     key={t.slug}
                     href={`${prefix}/convert/${t.slug}`}
                     className="group hub-card hover:border-blue-300 hover:shadow-sm transition-all"

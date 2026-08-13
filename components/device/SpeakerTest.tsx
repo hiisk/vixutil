@@ -171,7 +171,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         ))}
       </div>
 
-      <div className="mt-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-5 rounded-2xl border chip-off p-5">
         <div className="flex items-baseline justify-between mb-2">
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.freq}</span>
           <span className="text-lg font-black text-emerald-600 font-mono">
@@ -224,7 +224,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
       </div>
 
       {/* 스스로 체크하는 항목 — 브라우저가 대신 판정할 수 없는 부분이다 */}
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.checkTitle}</p>
         <div className="flex flex-col gap-2">
           {[

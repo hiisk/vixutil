@@ -85,7 +85,7 @@ export default function RoundTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <div className="flex items-baseline justify-between mb-1.5">
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.radius}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{radius}%</span>

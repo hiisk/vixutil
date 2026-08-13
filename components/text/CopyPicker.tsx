@@ -78,7 +78,7 @@ export default function CopyPicker({
       } ${
         copied === item.ch
           ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-950/40'
-          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30'
+          : 'chip-off hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30'
       }`}
     >
       <span className={`${large ? 'text-xs' : 'text-lg'} text-slate-800 dark:text-slate-100 break-all leading-tight`}>
@@ -102,7 +102,7 @@ export default function CopyPicker({
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder={ui.searchPlaceholder}
-          className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors mb-4"
+          className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors mb-4"
         />
       )}
 

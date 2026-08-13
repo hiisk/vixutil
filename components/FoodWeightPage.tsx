@@ -77,14 +77,14 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/food`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/food`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -143,7 +143,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           <h2 className="sec-h2">{ui.cupTableTitle}</h2>
           <div className="grid grid-cols-5 gap-2">
             {f.cupTable.map(r => (
-              <div key={r.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-2.5 text-center">
+              <div key={r.label} className="rounded-xl border chip-off px-2 py-2.5 text-center">
                 <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.cupOf(r.label)}</p>
                 <p className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">
                   {r.grams}{ui.gram}
@@ -177,10 +177,10 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
             {similar.map(s => {
               const sf = foodFacts(s);
               return (
-                <Link
+                <Link prefetch={false}
                   key={s.slug}
                   href={`${prefix}/food/${s.slug}`}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm transition-all"
+                  className="flex items-center justify-between gap-3 rounded-xl border chip-off px-4 py-3 hover:shadow-sm transition-all"
                 >
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{s.name[lang]}</span>
                   <span className="text-xs font-black text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
@@ -194,11 +194,11 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link
+            <Link prefetch={false}
               key={l.lang}
               href={`${l.prefix}/food/${ing.slug}`}
               hrefLang={l.hreflang}
-              className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="dim-link"
             >
               {l.label}
             </Link>

@@ -148,7 +148,7 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
           <label htmlFor="tc-name" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.nameLabel}</label>
           <input
             id="tc-name"

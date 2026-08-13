@@ -61,7 +61,7 @@ export function InputArea({
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors resize-y leading-relaxed"
+        className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors resize-y leading-relaxed"
       />
     </div>
   );
@@ -135,7 +135,7 @@ export function CopyRow({
       className={`w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors disabled:opacity-50 ${
         accent
           ? 'border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 hover:border-indigo-300'
-          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-indigo-300'
+          : 'chip-off hover:border-indigo-300'
       }`}
     >
       <span className="hub-card-body">
@@ -154,7 +154,7 @@ export function CopyRow({
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-center">
+    <div className="rounded-xl border chip-off px-3 py-3 text-center">
       <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>
@@ -188,4 +188,4 @@ export function Toggle({
   );
 }
 
-export const CARD = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5';
+export const CARD = 'rounded-2xl border chip-off p-5';

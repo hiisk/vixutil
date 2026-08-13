@@ -225,7 +225,7 @@ export default function MetroGame({ line, lang }: { line: MetroLine; lang: Metro
         </button>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3.5">
+      <div className="mt-5 rounded-2xl border chip-off px-4 py-3.5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.listTitle}</p>
         <div className="flex flex-wrap gap-1.5">
           {line.stations.map((st, i) => (

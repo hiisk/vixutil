@@ -60,7 +60,7 @@ export default function PetAgeIntl({ lang }: { lang: CalcLang }) {
               className={`rounded-xl border px-3 py-3 text-center transition-colors ${
                 size === s.id
                   ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/30'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  : 'chip-off hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
               <span className={`block text-sm font-bold ${size === s.id ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>

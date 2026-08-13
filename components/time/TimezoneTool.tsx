@@ -47,7 +47,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
       <select
         value={value}
         onChange={e => onChange(e.target.value)}
-        className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400"
+        className="w-full rounded-xl border chip-off px-3.5 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400"
       >
         {cities.map(c => (
           <option key={c.id} value={c.id}>{c.flag} {c.city} ({c.country})</option>

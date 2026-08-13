@@ -10,7 +10,7 @@ import { feltOf, frostbiteOf } from '@/lib/windchill/facts';
  */
 export default function WindchillGrid({ path, current }: { path: string; current?: string }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2">
+    <div className="overflow-x-auto rounded-2xl border chip-off p-2">
       <table className="w-full text-[11px] tabular-nums">
         <thead>
           <tr className="text-slate-400 dark:text-slate-500">

@@ -75,7 +75,7 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
           type="time"
           value={time}
           onChange={e => setTime(e.target.value)}
-          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3.5 text-2xl font-black text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-amber-400"
+          className="w-full rounded-xl border chip-off px-3.5 py-3.5 text-2xl font-black text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-amber-400"
         />
       </label>
 

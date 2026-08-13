@@ -37,7 +37,7 @@ export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
 
       {info && (
         <>
-          <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 text-center">
+          <div className="mt-4 rounded-2xl border chip-off p-5 text-center">
             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.nearest}</p>
             <p className="text-2xl font-black text-slate-900 dark:text-slate-100">
               {colorName(info.near, lang)} <span className="text-slate-400 dark:text-slate-500 font-mono text-lg">{info.near.name}</span>

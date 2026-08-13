@@ -75,7 +75,7 @@ export default function DevCronIntl({ lang }: { lang: CalcLang }) {
               className="flex justify-between items-center gap-3 px-3 py-2 rounded-lg text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
               <span className="text-sm text-slate-600 dark:text-slate-300">{c[p.key]}</span>
-              <span className="font-mono text-xs text-slate-500 dark:text-slate-400 shrink-0">{p.expr}</span>
+              <span className="font-mono row-label">{p.expr}</span>
             </button>
           ))}
         </div>

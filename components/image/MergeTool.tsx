@@ -109,7 +109,7 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         <img src={url} alt={ui.alt} className="w-full max-h-[30rem] object-contain" />
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
           {ui.countLine(imgs.length)}
         </p>

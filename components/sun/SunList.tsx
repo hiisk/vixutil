@@ -35,20 +35,20 @@ export default function SunList({
             : by === 'lat' ? latName(lang, c.lat)
               : `${latName(lang, c.lat)} · ${dateName(lang, f.day)}`;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-sky-400'
+                : 'chip-off hover:border-sky-400'
             }`}
           >
             <div className="cell-cut">{name}</div>
-            <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+            <div className="val">
               {dayLengthText(lang, f)}
-              <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+              <span className="val-unit">
                 {fmtNum(lang, f.noonAltitude)}°
               </span>
             </div>

@@ -93,7 +93,7 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         <img src={url} alt={ui.alt} className="w-full max-h-[24rem] object-contain" />
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <div className="flex items-end gap-2">
           <label className="flex-1">
             <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.width}</span>

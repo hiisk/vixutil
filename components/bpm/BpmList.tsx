@@ -31,20 +31,20 @@ export default function BpmList({
         const f = bpmFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-rose-400'
+                : 'chip-off hover:border-rose-400'
             }`}
           >
             <div className="cell-cut">{by === 'note' ? ui.noteName(c.note) : `${c.bpm} BPM`}</div>
-            <div className="text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100">
+            <div className="val">
               {f.ms} ms
-              <span className="ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500">
+              <span className="val-unit">
                 {f.hz} Hz
               </span>
             </div>

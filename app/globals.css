@@ -375,3 +375,40 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
   @apply rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium
          text-slate-500 dark:text-slate-400 hover:bg-slate-200 transition-colors;
 }
+
+/* ── 4차 수확 (2026-08-13, Hobby 한도에 맞추며) ──────────────────
+   Hobby의 Fast Origin Transfer가 30일 10GB인데 348%까지 태워 사이트가 멈췄다.
+   무게를 재 보니 낱장 한 장에서 class 문자열이 HTML만 13KB였고, 위 주석대로
+   그것이 **세 곳에 저장된다**(HTML · .rsc · .segments). 즉 한 장에 40KB다.
+
+   아래 여섯이 낱장 두 장에서 23KB를 차지했다. 되풀이 횟수가 크다 —
+   값 칸 66회, 단위 59회, 이웃 칩 62회(테두리 색만 다른 변종 둘). */
+
+/* 표의 값 칸 — 한 장에 예순 번 넘게 나온다 */
+.val {
+  @apply text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100;
+}
+/* 값 뒤에 붙는 단위 — 값과 같은 수만큼 나온다 */
+.val-unit {
+  @apply ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500;
+}
+/* 표의 이름 칸 */
+.row-label {
+  @apply text-xs text-slate-500 dark:text-slate-400 shrink-0;
+}
+/* 이름과 값이 마주 보는 한 줄 */
+.row-pair {
+  @apply flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900;
+}
+/* 이웃 낱장으로 가는 칩 — 뼈대와 「지금 칸이 아닐 때」의 색을 따로 뺀다.
+   지금 칸일 때의 색과 hover 테두리 색은 섹션마다 달라 마크업에 남긴다. */
+.chip {
+  @apply rounded-xl border px-3 py-2 transition-colors;
+}
+.chip-off {
+  @apply border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900;
+}
+/* 푸터·목차의 옅은 링크 */
+.dim-link {
+  @apply hover:text-slate-700 dark:hover:text-slate-300 transition-colors;
+}

@@ -56,14 +56,14 @@ export default function TextShell({
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href="/" className="page-back hover:text-indigo-600">
+          <Link prefetch={false} href="/" className="page-back hover:text-indigo-600">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href="/text" className="text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+          <Link prefetch={false} href="/text" className="text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
             텍스트 도구
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -95,7 +95,7 @@ export default function TextShell({
             {tool.features.map(f => (
               <li
                 key={f}
-                className="flex items-start gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-2.5 text-sm text-slate-600 dark:text-slate-300"
+                className="flex items-start gap-2 rounded-xl border chip-off px-3.5 py-2.5 text-sm text-slate-600 dark:text-slate-300"
               >
                 <svg className="w-4 h-4 mt-0.5 shrink-0 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -114,7 +114,7 @@ export default function TextShell({
           <h2 className="sec-h2">다른 텍스트 도구</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
-              <Link
+              <Link prefetch={false}
                 key={r.slug}
                 href={`/text/${r.slug}`}
                 className="group hub-card hover:border-indigo-300 hover:shadow-sm transition-all"

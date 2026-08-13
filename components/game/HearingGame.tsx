@@ -129,7 +129,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         </>
       ) : (
         <>
-          <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 text-center">
+          <div className="mt-4 rounded-2xl border chip-off p-5 text-center">
             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.limitLabel}</p>
             <p className="text-3xl font-black text-cyan-600 tabular-nums">
               {limit === 0 ? ui.belowOne : `${(limit / 1000).toFixed(limit % 1000 === 0 ? 0 : 1)}kHz`}

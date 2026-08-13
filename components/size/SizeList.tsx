@@ -21,14 +21,14 @@ export default function SizeList({
         const f = sizeFacts(c);
         const here = slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={slug}
             href={`${path}/${slug}`}
             aria-current={here ? 'page' : undefined}
-            className={`rounded-xl border px-3 py-2 transition-colors ${
+            className={`chip ${
               here
                 ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-purple-400'
+                : 'chip-off hover:border-purple-400'
             }`}
           >
             <div className="cell-sub">{c.cm}cm</div>

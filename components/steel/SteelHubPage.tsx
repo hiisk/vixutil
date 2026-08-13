@@ -44,7 +44,7 @@ export default function SteelHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -111,9 +111,9 @@ export default function SteelHubPage({ lang }: { lang: Lang }) {
         */}
         <section className="mb-8 mt-8">
           <h2 className="sec-h2">{ui.relatedTitle}</h2>
-          <Link
+          <Link prefetch={false}
             href={`${prefix}/rebar`}
-            className="block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-sky-400 transition-colors"
+            className="block rounded-xl border chip-off px-4 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-sky-400 transition-colors"
           >
             {REBAR_UI[lang].section}
           </Link>
@@ -121,7 +121,7 @@ export default function SteelHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/steel`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/steel`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

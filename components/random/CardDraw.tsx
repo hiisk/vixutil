@@ -43,7 +43,7 @@ export default function CardDraw({ lang = 'ko' }: { lang?: RandomLang }) {
           {hand.map((c, i) => (
             <div
               key={`${c.suit}${c.rank}`}
-              className="wc-flip w-20 h-28 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex flex-col items-center justify-center shadow-sm"
+              className="wc-flip w-20 h-28 rounded-xl border-2 chip-off flex flex-col items-center justify-center shadow-sm"
               style={{ animationDelay: `${i * 90}ms` }}
             >
               <span className={`text-3xl font-black ${c.red ? 'text-rose-500' : 'text-slate-800 dark:text-slate-100'}`}>{c.rank}</span>

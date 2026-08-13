@@ -32,7 +32,7 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
       <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link href={`/${lang}/snap`} className="font-black text-fuchsia-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/snap`} className="font-black text-fuchsia-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{c.kicker}</span>
           <span className="ml-auto">
             <LangPicker current={lang} route="/snap" available={ALL_LOCALES10} />
@@ -49,7 +49,7 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
 
         <div className="grid sm:grid-cols-2 gap-4">
           {cards.map(t => (
-            <Link key={t.href} href={t.href}
+            <Link prefetch={false} key={t.href} href={t.href}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.color} text-white p-6 min-h-[10rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
@@ -60,9 +60,9 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
           ))}
         </div>
 
-        <Link
+        <Link prefetch={false}
           href={`/${lang}/snap/lens`}
-          className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-6 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-indigo-600 to-violet-500">
             <ToolIcon emoji={LENS_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />

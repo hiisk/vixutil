@@ -76,7 +76,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
             <input
               type="number" min={0} max={180} value={minutes}
               onChange={e => { setMinutes(Math.max(0, Number(e.target.value))); reset(); }}
-              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
+              className="w-full rounded-xl border chip-off px-3.5 py-3 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
             />
           </label>
           <label>
@@ -84,7 +84,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
             <input
               type="number" min={0} max={59} value={seconds}
               onChange={e => { setSeconds(Math.min(59, Math.max(0, Number(e.target.value)))); reset(); }}
-              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
+              className="w-full rounded-xl border chip-off px-3.5 py-3 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
             />
           </label>
         </div>

@@ -40,7 +40,7 @@ export default function ErrHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -79,10 +79,10 @@ export default function ErrHubPage({ lang }: { lang: Lang }) {
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.catNote[cat]}</p>
               <div className="flex flex-col gap-2">
                 {list.map(x => (
-                  <Link
+                  <Link prefetch={false}
                     key={x.slug}
                     href={`${path}/${x.slug}`}
-                    className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-rose-300 hover:shadow-sm transition-all"
+                    className="group rounded-xl border chip-off px-4 py-3 hover:border-rose-300 hover:shadow-sm transition-all"
                   >
                     <span className="block text-[13px] font-black text-slate-800 dark:text-slate-100 font-mono group-hover:text-rose-700 transition-colors break-words">
                       {x.message}
@@ -110,7 +110,7 @@ export default function ErrHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/error`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/error`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

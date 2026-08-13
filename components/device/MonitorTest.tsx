@@ -130,7 +130,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             <button
               key={p.key}
               onClick={() => open(i)}
-              className="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2.5 hover:border-indigo-300 hover:shadow-sm transition-all"
+              className="group rounded-xl border chip-off p-2.5 hover:border-indigo-300 hover:shadow-sm transition-all"
             >
               <span
                 className="block w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700"
@@ -151,7 +151,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         </button>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.judgeTitle}</p>
         <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <li>

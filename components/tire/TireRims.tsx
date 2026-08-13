@@ -37,7 +37,7 @@ export default function TireRims({
                     'rounded-lg px-2.5 py-1 text-xs font-bold tabular-nums transition-colors',
                     here
                       ? 'bg-slate-700 text-white'
-                      : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-100',
+                      : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-100',
                   ].join(' ')}
                 >
                   {labelOf(t)} <span className="font-normal text-[11px] opacity-70">{diameterOf(t)}mm</span>

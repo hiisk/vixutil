@@ -25,7 +25,7 @@ export default function SteakTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
             className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
               pick === d.id
                 ? 'border-red-300 bg-red-50 dark:bg-red-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-red-200'
+                : 'chip-off hover:border-red-200'
             }`}
           >
             <span className="hub-card-body">

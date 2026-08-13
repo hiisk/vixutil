@@ -85,14 +85,14 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/device/screen`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/device/screen`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -120,7 +120,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
             { k: ui.diagonal, val: ui.inchUnit(v.inch) },
             { k: ui.density, val: `${v.ppi}` , unit: 'ppi' },
           ].map(x => (
-            <div key={x.k} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-3 text-center">
+            <div key={x.k} className="rounded-2xl border chip-off px-2 py-3 text-center">
               <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 truncate">{x.k}</p>
               <p className="text-sm sm:text-base font-black text-slate-800 dark:text-slate-100 tabular-nums mt-1 break-all">
                 {x.val}
@@ -184,7 +184,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
                   return (
                     <tr key={o.slug}>
                       <td className="px-3 py-2.5">
-                        <Link href={`${prefix}/device/screen/${o.slug}`} className="font-bold text-slate-800 dark:text-slate-100 hover:text-sky-600 transition-colors">
+                        <Link prefetch={false} href={`${prefix}/device/screen/${o.slug}`} className="font-bold text-slate-800 dark:text-slate-100 hover:text-sky-600 transition-colors">
                           {o.name}
                         </Link>
                       </td>
@@ -201,7 +201,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/device/screen/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/device/screen/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

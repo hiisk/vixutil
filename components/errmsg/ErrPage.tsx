@@ -67,14 +67,14 @@ export default function ErrPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/error`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/error`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -101,7 +101,7 @@ export default function ErrPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <section className="mb-6" aria-label={ui.meaningTitle}>
           <p className="label-caps mb-2">{ui.meaningTitle}</p>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-4">
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border chip-off px-4 py-4">
             {desc}
           </p>
         </section>
@@ -150,10 +150,10 @@ export default function ErrPage({ slug, lang }: { slug: string; lang: Lang }) {
               const o = errItem(s);
               if (!o) return null;
               return (
-                <Link
+                <Link prefetch={false}
                   key={s}
                   href={`${prefix}/error/${s}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 hover:border-rose-300 hover:shadow-sm transition-all"
+                  className="rounded-xl border chip-off px-4 py-3 hover:border-rose-300 hover:shadow-sm transition-all"
                 >
                   <span className="block text-[13px] font-bold text-slate-800 dark:text-slate-100 font-mono break-words line-clamp-2">
                     {o.message}
@@ -167,7 +167,7 @@ export default function ErrPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/error/${slug}`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/error/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

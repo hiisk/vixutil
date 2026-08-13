@@ -44,7 +44,7 @@ export default function WindchillHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -83,7 +83,7 @@ export default function WindchillHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.windNote}</p>
           <div className="flex flex-wrap gap-2">
             {[5, 10, 20, 30, 40, 50].map(v => (
-              <Link
+              <Link prefetch={false}
                 key={v}
                 href={`${path}/${slugOf({ t: -10, v })}`}
                 className="rounded-xl border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40 px-3 py-1.5 text-xs font-bold text-sky-800 dark:text-sky-300 tabular-nums hover:border-sky-500 transition-colors"
@@ -123,7 +123,7 @@ export default function WindchillHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/windchill`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/windchill`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

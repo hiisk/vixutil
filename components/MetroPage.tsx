@@ -77,14 +77,14 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Metro
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`${prefix}/metro`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/metro`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -126,7 +126,7 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Metro
           <h2 className="sec-h2">{ui.related}</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {related.map(r => (
-              <Link
+              <Link prefetch={false}
                 key={r.slug}
                 href={`${prefix}/metro/${r.slug}`}
                 className="group hub-card hover:shadow-sm transition-all"
@@ -147,11 +147,11 @@ export default function MetroPage({ line, lang }: { line: MetroLine; lang: Metro
 
         <nav className="foot-nav" aria-label="Language">
           {METRO_LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link
+            <Link prefetch={false}
               key={l.lang}
               href={`${l.prefix}/metro/${line.slug}`}
               hrefLang={l.hreflang}
-              className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="dim-link"
             >
               {l.label}
             </Link>

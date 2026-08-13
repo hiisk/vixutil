@@ -166,7 +166,7 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
       <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-600" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link href={`/${lang}/test`} className="font-black text-violet-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/test`} className="font-black text-violet-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
             <LangPicker current={lang} route="/test" available={HUB_LANGS} />
@@ -181,7 +181,7 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {tests.map(t => (
-            <Link key={t.slug} href={`/${lang}/test/${t.slug}`}
+            <Link prefetch={false} key={t.slug} href={`/${lang}/test/${t.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${thumbGradient(t.slug, 'test')} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
                 <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
@@ -248,7 +248,7 @@ export function TestIntlDetail({ lang, test }: { lang: TestIntlLang; test: Test 
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (
-            <Link key={o.slug} href={`/${lang}/test/${o.slug}`}
+            <Link prefetch={false} key={o.slug} href={`/${lang}/test/${o.slug}`}
               className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-3 hover:-translate-y-0.5 hover:shadow transition-all">
               <ToolIcon emoji={o.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 mx-auto mb-1" />
               <div className="text-xs font-bold text-slate-600 dark:text-slate-300 leading-tight">{o.title}</div>
@@ -257,7 +257,7 @@ export function TestIntlDetail({ lang, test }: { lang: TestIntlLang; test: Test 
         </div>
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={`/${lang}/test`} className="text-sm font-black text-violet-600">vixutil</Link>
+        <Link prefetch={false} href={`/${lang}/test`} className="text-sm font-black text-violet-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>

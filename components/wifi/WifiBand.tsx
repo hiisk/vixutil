@@ -36,7 +36,7 @@ export default function WifiBand({
                 ? 'bg-blue-700 text-white'
                 : isClean
                   ? 'border border-blue-300 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 hover:border-blue-500'
-                  : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-700 dark:hover:text-blue-400',
+                  : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-700 dark:hover:text-blue-400',
             ].join(' ')}
           >
             {c.n}

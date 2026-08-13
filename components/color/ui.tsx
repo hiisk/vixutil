@@ -23,7 +23,7 @@ export function readableOn(rgb: RGB): '#000000' | '#ffffff' {
   return luminance(rgb) > 0.35 ? '#000000' : '#ffffff';
 }
 
-export const CARD = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5';
+export const CARD = 'rounded-2xl border chip-off p-5';
 
 /** 색 하나를 고르는 입력 — 색상 선택기와 HEX 입력을 함께 둔다 */
 export function ColorInput({
@@ -53,7 +53,7 @@ export function ColorInput({
             onChange(v);
           }}
           spellCheck={false}
-          className="flex-1 min-w-0 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 text-sm font-mono font-bold uppercase text-slate-800 dark:text-slate-100 focus:outline-none focus:border-violet-400 transition-colors"
+          className="flex-1 min-w-0 rounded-xl border chip-off px-3.5 py-3 text-sm font-mono font-bold uppercase text-slate-800 dark:text-slate-100 focus:outline-none focus:border-violet-400 transition-colors"
         />
       </div>
     </label>
@@ -97,7 +97,7 @@ export function ValueRow({ label, value, lang = 'ko' }: { label: string; value: 
   return (
     <button
       onClick={() => copy(value)}
-      className="w-full flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-left hover:border-violet-300 transition-colors"
+      className="w-full flex items-center gap-3 rounded-xl border chip-off px-4 py-3 text-left hover:border-violet-300 transition-colors"
     >
       <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 w-16 shrink-0">{label}</span>
       <span className="flex-1 min-w-0 text-sm font-mono font-bold text-slate-800 dark:text-slate-100 break-all">{value}</span>

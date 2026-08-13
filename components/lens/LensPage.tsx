@@ -78,7 +78,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={hub} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={hub} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -101,20 +101,20 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
           <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{ui.kindLabel[f.kind]}</p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
+        <div className="rounded-2xl border chip-off p-4 mb-4">
           <AngleFan deg={f.diagonal} label={`${ui.diagonalLabel} ${ui.degUnit(f.diagonal)}`} className="w-full max-w-[320px] mx-auto" />
         </div>
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-4">
           {rows.map(([k, v]) => (
-            <div key={k} className="flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
+            <div key={k} className="row-pair">
               <dt className="text-xs text-slate-500 dark:text-slate-400">{k}</dt>
               <dd className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">{v}</dd>
             </div>
           ))}
         </dl>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
+        <div className="rounded-2xl border chip-off p-4 mb-4">
           <SensorBox sensor={l.sensor} label={f.sensorName} className="w-full max-w-[260px] mx-auto" />
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">{ui.sensorNote[l.sensor]}</p>
         </div>
@@ -130,7 +130,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
             {sameFieldOfView(slug).map(o => {
               const of_ = lensFacts(o);
               return (
-                <Link
+                <Link prefetch={false}
                   key={o.slug}
                   href={`${hub}/${o.slug}`}
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
@@ -148,10 +148,10 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
           <h2 className="sec-h2">{ui.neighbourTitle}</h2>
           <div className="flex flex-wrap gap-2">
             {neighbourFocals(slug).map(o => (
-              <Link
+              <Link prefetch={false}
                 key={o.slug}
                 href={`${hub}/${o.slug}`}
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors tabular-nums"
+                className="rounded-xl border chip-off px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors tabular-nums"
               >
                 {o.focal}mm · {ui.degUnit(lensFacts(o).diagonal)}
               </Link>
@@ -172,7 +172,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(x => x.lang !== lang).map(x => (
-            <Link key={x.lang} href={`${x.prefix}/snap/lens/${slug}`} hrefLang={x.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={x.lang} href={`${x.prefix}/snap/lens/${slug}`} hrefLang={x.hreflang} className="dim-link">
               {x.label}
             </Link>
           ))}

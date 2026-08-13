@@ -38,7 +38,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       <input
         type="number" value={value}
         onChange={e => set(Number(e.target.value) || 0)}
-        className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-violet-400"
+        className="w-full rounded-xl border chip-off px-3 py-2.5 text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-violet-400"
       />
     </label>
   );

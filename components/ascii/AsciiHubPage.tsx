@@ -44,7 +44,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
 
       <header className="page-head">
         <div className="page-bar">
-          <Link href={homeHref} className="page-back hover:text-slate-700 shrink-0">
+          <Link prefetch={false} href={homeHref} className="page-back hover:text-slate-700 shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -82,10 +82,10 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
             <div className="flex flex-wrap gap-1.5">
               {codesOfKind(kind).map(c => (
-                <Link
+                <Link prefetch={false}
                   key={c}
                   href={`${path}/${c}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                 >
                   <span className="tabular-nums text-slate-400 dark:text-slate-500">{c}</span> {asciiFacts(c).label}
                 </Link>
@@ -105,7 +105,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.groupNote[g]}</p>
               <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
                 {controlsOfGroup(g).map(x => (
-                  <Link
+                  <Link prefetch={false}
                     key={x.code}
                     href={`${path}/${x.code}`}
                     className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
@@ -134,7 +134,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
 
         <nav className="foot-nav" aria-label="Language">
           {LANGS.filter(l => l.lang !== lang).map(l => (
-            <Link key={l.lang} href={`${l.prefix}/ascii`} hrefLang={l.hreflang} className="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <Link prefetch={false} key={l.lang} href={`${l.prefix}/ascii`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>
           ))}

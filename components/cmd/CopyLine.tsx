@@ -29,7 +29,7 @@ export default function CopyLine({
       <button
         onClick={copy}
         aria-label={copyLabel}
-        className="shrink-0 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+        className="shrink-0 rounded-xl border chip-off px-3 text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
       >
         {done ? copiedLabel : copyLabel}
       </button>
