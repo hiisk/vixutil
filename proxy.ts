@@ -57,11 +57,20 @@ export function proxy(req: NextRequest): NextResponse {
   }
 
   /* 사이트맵은 하루다 — 조각이 배포마다 늘 수 있어 1년으로 덮으면 안 된다.
-     그쪽은 route.ts와 next.config가 이미 붙이고 있으므로 손대지 않는다. */
-  if (pathname.startsWith('/sitemap')) return NextResponse.next();
+     그쪽은 route.ts와 next.config가 이미 붙이고 있으므로 손대지 않는다.
+     /version은 캐시하면 옛 배포의 답이 남아 뜻이 없어진다(app/version/route.ts). */
+  if (pathname.startsWith('/sitemap') || pathname === '/version') return NextResponse.next();
 
   const res = NextResponse.next();
   res.headers.set('Cache-Control', CACHE);
+  /*
+   * 진단용 표식. 이 헤더가 보이면 **미들웨어가 세운 응답 헤더가 실제로 나간다**는
+   * 뜻이다. 이것은 보이는데 Cache-Control만 no-store로 남으면, Vercel이 동적
+   * 페이지의 Cache-Control만 따로 지킨다는 뜻이 된다 — 그 경우 CDN 방식은 접고
+   * 페이지 수를 줄이는 쪽을 봐야 한다. 둘을 가르는 데 배포 한 번씩 드는 값이라
+   * 남겨 둔다(바이트로는 서른 자다).
+   */
+  res.headers.set('X-Cache-Policy', 'proxy');
   return res;
 }
 
