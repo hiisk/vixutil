@@ -97,41 +97,51 @@ test('목록에 중복과 빈 값이 없다', () => {
   }
 });
 
-test('proxy.ts의 차단 정규식이 lib/crawlers.ts와 같다', async () => {
+test('proxy.ts가 목록을 코드로 읽고, 캐시 헤더를 붙인다', async () => {
   /*
-   * robots.txt는 지킬 의무가 없어서, 무시하는 봇에게는 proxy.ts가 403을 준다.
-   * 그런데 proxy의 matcher는 빌드 때 정적으로 읽혀 변수를 못 쓴다 — 목록을
-   * 정규식 리터럴로 한 번 더 적을 수밖에 없다. 두 곳에 적힌 것은 반드시
-   * 어긋난다(늘릴 때 한쪽만 고친다). 그래서 여기서 계산으로 맞대 본다.
+   * proxy.ts는 두 가지를 한다 — 봇 403과 **동적 낱장의 캐시 헤더**다.
+   * 둘째가 사라지면 Next가 붙인 no-store가 그대로 나가 CDN이 한 장도 안 받는다.
+   * 2026-08-10에 그래서 사이트가 멈췄다(Origin Transfer 348%). 그러니 여기서
+   * 헤더가 있는지까지 본다 — 봇 목록만 보면 그 사고를 못 잡는다.
+   *
+   * 목록은 lib/crawlers.ts에서 **가져다 쓴다.** 전에는 matcher에 정규식을 손으로
+   * 한 벌 더 적었는데(matcher는 변수를 못 쓴다) 이제 모든 요청이 함수를 타므로
+   * 본문에서 읽는다 — 두 곳에 적힌 목록은 반드시 어긋난다.
    */
   const { readFileSync } = await import('node:fs');
   const { join } = await import('node:path');
   const src = readFileSync(join(import.meta.dirname, '..', 'proxy.ts'), 'utf8');
 
-  /* 이름을 |로 이어 붙인 것이 그대로 정규식이 된다 — 특수문자가 끼면 그 전제가 깨진다 */
-  for (const b of BLOCKED_CRAWLERS) {
-    assert.match(b, /^[A-Za-z0-9 _-]+$/, `"${b}"에 정규식 특수문자가 있다 — 이어 붙이는 방식부터 바꿔야 한다`);
+  assert.match(src, /import \{ BLOCKED_CRAWLERS \} from '@\/lib\/crawlers'/,
+    'proxy.ts가 lib/crawlers에서 목록을 안 가져온다');
+  for (const bot of ['GPTBot', 'AhrefsBot', 'SemrushBot']) {
+    assert.ok(!src.includes(bot), `proxy.ts에 ${bot}이 직접 적혀 있다 — 목록은 한 곳에만 둔다`);
   }
 
-  const expected = `.*(${BLOCKED_CRAWLERS.join('|')}).*`;
-  assert.ok(
-    src.includes(expected),
-    'proxy.ts의 정규식이 BLOCKED_CRAWLERS와 어긋난다 — lib/crawlers.ts를 고쳤으면 proxy.ts의 리터럴도 같이 맞춰라',
-  );
-
-  /* Next는 has 값을 ^…$로 감싼다(prepare-destination.js) — 같은 방식으로 본다 */
-  const re = new RegExp(`^${expected}$`);
+  /* 이름을 |로 이어 붙여 정규식을 만든다 — 특수문자가 끼면 그 전제가 깨진다 */
+  for (const b of BLOCKED_CRAWLERS) {
+    assert.match(b, /^[A-Za-z0-9 _-]+$/, `"${b}"에 정규식 특수문자가 있다`);
+  }
+  const re = new RegExp(`(?:${BLOCKED_CRAWLERS.join('|')})`, 'i');
   for (const bot of ALLOWED_CRAWLERS) {
-    const ua = `Mozilla/5.0 (compatible; ${bot}/1.0; +https://example.com/bot)`;
-    assert.ok(!re.test(ua), `${bot}이 proxy에서 403을 받는다 — 검색 유입이 끊긴다`);
+    assert.ok(!re.test(`Mozilla/5.0 (compatible; ${bot}/1.0; +https://example.com/bot)`),
+      `${bot}이 403을 받는다 — 검색 유입이 끊긴다`);
   }
   for (const bot of BLOCKED_CRAWLERS) {
-    const ua = `Mozilla/5.0 (compatible; ${bot}/1.0)`;
-    assert.ok(re.test(ua), `${bot}이 proxy를 그냥 지나간다`);
+    assert.ok(re.test(`Mozilla/5.0 (compatible; ${bot}/1.0)`), `${bot}이 그냥 지나간다`);
   }
 
-  /* 규칙을 지키는 봇이 스스로 물러날 수 있게 robots.txt만은 열어 둔다 */
-  assert.ok(src.includes('robots\\\\.txt'), 'proxy가 robots.txt까지 막는다 — 정책을 볼 길이 없어진다');
+  /* 캐시 헤더 — 이것이 이 파일의 나머지 절반이다 */
+  const sMaxAge = src.match(/s-maxage=(\d+)/);
+  assert.ok(sMaxAge, 'proxy.ts가 Cache-Control을 안 붙인다 — 동적 낱장이 no-store로 나가 CDN이 안 받는다');
+  assert.ok(Number(sMaxAge![1]) >= 86_400, `s-maxage가 ${sMaxAge![1]}초다 — 그 주기마다 크롤 한 바퀴 값이 다시 든다`);
+  assert.match(src, /res\.headers\.set\('Cache-Control'/, 'proxy.ts가 응답 헤더를 세우지 않는다');
+
+  /* 사이트맵은 하루라 1년으로 덮으면 안 된다 */
+  assert.match(src, /pathname\.startsWith\('\/sitemap'\)/,
+    'proxy.ts가 사이트맵을 비껴가지 않는다 — 조각이 1년 캐시되면 새 주소가 안 보인다');
+  /* robots.txt는 막힌 봇도 읽을 수 있어야 한다 */
+  assert.match(src, /pathname === '\/robots\.txt'/, 'proxy.ts가 robots.txt를 막는다 — 정책을 볼 길이 없어진다');
 });
 
 test('robots.txt가 이 목록을 쓰고 검색 엔진을 허용한다', async () => {
