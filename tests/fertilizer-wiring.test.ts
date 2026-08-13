@@ -72,7 +72,11 @@ test('낱장 껍데기가 아홉 언어에 있고 제 언어로 부른다', () =
     assert.ok(existsSync(p), `${lang}에 낱장 껍데기가 없다`);
     const src = readFileSync(p, 'utf8');
     assert.ok(src.includes(`build('${lang}')`), `${lang} 껍데기가 제 언어로 안 부른다`);
-    assert.ok(src.includes(`export const dynamic = 'force-dynamic'`), `${lang} 낱장에 force-dynamic이 없다 — ISR 쓰기가 새어 나간다`);
+    /* 2026-08-13: force-dynamic → ISR. 둘이 함께 있어야 캐시가 걸린다 —
+       revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다(실측 확인).
+       까닭은 tests/prerender-budget.test.ts 머리말. */
+    assert.ok(/export const revalidate = \d+/.test(src), `${lang} 낱장에 revalidate가 없다 — 캐시가 안 걸린다`);
+    assert.ok(src.includes('generateStaticParams'), `${lang} 낱장이 generateStaticParams를 안 내보낸다 — revalidate만으로는 안 걸린다`);
   }
   // 한국어는 접지 않는다 — 허브 파일이 직접 있다
   assert.ok(existsSync(join(ROOT, 'app', '(ko)', 'fertilizer', 'page.tsx')), '한국어 허브가 없다');

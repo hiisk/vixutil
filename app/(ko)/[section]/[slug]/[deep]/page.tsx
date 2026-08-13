@@ -17,7 +17,9 @@ import { KO_DEEP_LEAVES } from '@/lib/ko/registry';
  * 세 칸 정적 페이지(/calculator/dev/base64)와 /crypto/[coin]/price-prediction은
  * 앞 칸이 정해져 있어 Next가 그쪽을 먼저 고른다.
  */
-export const dynamic = 'force-dynamic';
+/* 2026-08-13: 두 칸 디스패처와 같이 ISR로 되돌렸다 — 까닭은
+   app/(ko)/[section]/[slug]/page.tsx 머리말과 tests/prerender-budget.test.ts. */
+export const revalidate = 86400;
 
 type Params = Promise<{ section: string; slug: string; deep: string }>;
 

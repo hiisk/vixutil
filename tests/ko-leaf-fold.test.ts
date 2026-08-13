@@ -40,7 +40,7 @@ test('등록부와 모듈 파일이 양쪽 다 맞는다', () => {
   assert.deepEqual(orphan, [], '등록부에 없는 모듈이다 — 아무도 부르지 않아 그 갈래가 404가 된다');
 });
 
-test('디스패처 둘이 있고 force-dynamic을 선언한다', () => {
+test('디스패처 둘이 있고 ISR로 캐시한다', () => {
   /*
    * 모듈에는 force-dynamic이 없다(라우트가 아니므로 Next가 안 본다). 그래서 그
    * 선언이 사라지면 한국어 낱장 십만 장이 한꺼번에 ISR로 돌아가 배포마다 캐시
@@ -52,7 +52,13 @@ test('디스패처 둘이 있고 force-dynamic을 선언한다', () => {
   ]) {
     assert.ok(existsSync(p), `디스패처가 없다: ${p.replace(ROOT + '/', '')}`);
     const src = readFileSync(p, 'utf8');
-    assert.match(src, /export const dynamic = 'force-dynamic'/, `${p.replace(ROOT + '/', '')}에 force-dynamic이 없다`);
+    /*
+     * 2026-08-13: force-dynamic을 걷고 ISR로 되돌렸다. force-dynamic은 요청마다
+     * 원본에서 페이지를 전송해서 Hobby의 Fast Origin Transfer 10GB를 348%까지
+     * 태우고 사이트를 멈췄다. revalidate와 generateStaticParams가 **함께** 있어야
+     * 캐시가 걸린다 — revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다.
+     */
+    assert.match(src, /export const revalidate = \d+/, `${p.replace(ROOT + '/', '')}에 revalidate가 없다`);
     assert.match(src, /generateStaticParams/, `${p.replace(ROOT + '/', '')}가 굽는 손잡이를 안 넘긴다`);
   }
 });

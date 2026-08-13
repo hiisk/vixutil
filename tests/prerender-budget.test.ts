@@ -32,32 +32,43 @@ function countDynamicRoutes(): number {
   return n;
 }
 
-test('낱장마다 force-dynamic이 있다 — 크롤이 ISR 쓰기를 안 태운다', () => {
+test('낱장마다 revalidate와 generateStaticParams가 함께 있다', () => {
   /*
-   * ── 2026-08-10에 모델이 바뀌었다 ──────────────────────────────
-   * 전에는 낱장이 ISR이라 "사이트맵 − 미리 구운 것 = 크롤 한 바퀴의 쓰기"를
-   * 세고 있었다. 163,730장이면 월 20만의 80% — 배포를 한 달에 한 번밖에
-   * 못 했다. 사이트맵을 줄이는 안은 노출을 포기하는 것이라 접었다.
+   * ── 2026-08-13에 모델이 또 바뀌었다 ────────────────────────────
+   * 2026-08-10에는 낱장을 전부 `force-dynamic`으로 두었다. 크롤 한 바퀴가 ISR
+   * 쓰기 16만을 태워 월 20만 한도의 80%를 먹었기 때문이다(그 셈은 아래 남겨 둔
+   * 주석에 있다).
    *
-   * 지금은 모든 [slug] 낱장이 `force-dynamic`이다. 요청 때 그리고 캐시에
-   * 안 쓰므로 **크롤이 ISR 쓰기를 한 번도 안 태운다** — 그 값은 함수
-   * 실행(월 100만, 크롤 한 바퀴 ≈ 16%)에서 나간다. 사이트맵은 열 언어
-   * 전부를 그대로 내건다.
+   * 그 셈에 **Fast Origin Transfer가 없었다.** force-dynamic은 요청마다 원본에서
+   * 페이지 전체를 전송한다. Hobby의 한도가 30일 10GB인데 주소 20만을 한 번 훑는
+   * 데만 3.6GB가 들고, 실제로 한도의 348%까지 올라 **사이트가 멈췄다.** 그래서
+   * ISR로 되돌렸다. 실측한 차이는 이렇다.
    *
-   * 이 검사가 지키는 것: 새 낱장 라우트를 만들면서 force-dynamic을
-   * 빠뜨리면, 그 라우트만 조용히 ISR로 돌아가 배포마다 쓰기를 태운다.
-   * 빠진 파일이 하나라도 있으면 여기서 걸린다.
-   */
-  /*
-   * ── 2026-08-10 접기 뒤의 모양 ──────────────────────────────
-   * 아홉 언어의 페이지 알맹이는 lib/fold/pages/ 모듈 하나씩으로 접혔지만,
-   * **라우트는 그대로 남았다.** 허브는 언어마다 [[...path]] 캐치올이 굽고,
-   * 낱장은 각자 [slug] 라우트로 남아 요청 때 그린다. 둘을 한 라우트에 못
-   * 두는 까닭은 구운 라우트 안에서 요청 때 그리기로 못 빠져나가기 때문이다
-   * (connection()이 DYNAMIC_SERVER_USAGE로 죽는다).
+   *   force-dynamic  Cache-Control: no-store · ETag 없음 · 매 요청 다시 그림
+   *   ISR            s-maxage=86400, stale-while-revalidate=31449600 · ETag 있음
+   *                  크롤러 재방문이 **304 · 0바이트** · 두 번째 요청은 캐시 HIT
    *
-   * 그러므로 force-dynamic이 있어야 할 곳은 낱장 라우트 전부다.
-   * 캐치올은 반대로 **굽는 자리라 force-dynamic이 있으면 안 된다.**
+   * ── 이 검사가 지키는 것: 둘이 함께 있어야 한다 ─────────────────
+   * `revalidate`만 적으면 **아무 일도 일어나지 않는다.** generateStaticParams가
+   * 없으면 [slug] 라우트는 동적으로 잡혀(빌드 표에 ƒ) 캐시를 아예 쓰지 않는다.
+   * 실제로 그렇게 해 보고 헤더가 no-store로 남는 것을 확인했다 — 빌드도 검사도
+   * 통과하는데 아무 효과가 없는 상태다. 그것이 이 검사가 잡는 흠이다.
+   *
+   * 목록은 비어 있어도 된다(prerender()가 LIMIT 0에서 빈 배열이다). 빈 목록이면
+   * 빌드는 한 장도 굽지 않고 dynamicParams가 처음 열릴 때 만들어 캐시에 넣는다.
+   *
+   * ── 되돌릴 때의 신호 ──────────────────────────────────────────
+   * 남은 위험은 배포가 캐시를 비우는지다. 비우면 크롤 한 바퀴마다 쓰기가 다시
+   * 든다. Vercel 문서는 「내용이 같으면 쓰기가 발생하지 않는다」고 하지만
+   * 확인은 배포 뒤 Usage로 해야 한다. ISR 쓰기가 치솟으면 이 검사와 셸을 함께
+   * 되돌려라 — 그때는 Origin Transfer와 ISR 쓰기 가운데 무엇이 먼저 차는지로
+   * 고른다.
+   *
+   * ── 접기 뒤의 모양 (2026-08-10, 그대로 유효) ─────────────────
+   * 아홉 언어의 알맹이는 lib/fold/pages/ 모듈로 접혔지만 **라우트는 남았다.**
+   * 허브는 언어마다 [[...path]] 캐치올이 굽고 낱장은 각자 [slug]다. 둘을 한
+   * 라우트에 못 두는 까닭은 구운 라우트 안에서 요청 때 그리기로 빠져나갈 수 없기
+   * 때문이다(connection()이 DYNAMIC_SERVER_USAGE로 죽는다).
    */
   const walk = (dir: string, out: string[] = []): string[] => {
     for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -71,16 +82,36 @@ test('낱장마다 force-dynamic이 있다 — 크롤이 ISR 쓰기를 안 태�
   const hubCatchalls = all.filter(f => f.includes('[[...path]]'));
   const leaves = all.filter(f => !f.includes('[[...path]]'));
   assert.equal(hubCatchalls.length, 9, `허브 캐치올이 ${hubCatchalls.length}개다 — 아홉 언어와 어긋난다`);
-  /* 2026-08-12 접기로 낱장 라우트가 931 → 831이 됐다(한국어 101개는 lib/ko/pages
-     모듈이 되고 디스패처 둘이 대신 라우트를 쥔다). 그 둘에도 force-dynamic이
-     있어야 하므로 아래 검사는 그대로 유효하다. */
   assert.ok(leaves.length > 700, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
 
-  const missing = leaves.filter(f => !readFileSync(f, 'utf8').includes("export const dynamic = 'force-dynamic'"));
-  assert.deepEqual(
-    missing.map(f => f.replace(ROOT + '/', '')).slice(0, 5), [],
-    `force-dynamic이 없는 낱장 ${missing.length}개 — 이 라우트들은 ISR로 돌아가 배포마다 쓰기를 태운다`,
-  );
+  /*
+   * 아직 옮기지 못한 낱장이 있다 — params 함수를 못 찾은 서른 갈래다. 그것들은
+   * force-dynamic으로 남아 있고, 옮길 때 이 수가 줄어든다. 늘어나면 새 낱장이
+   * 옛 방식으로 들어온 것이니 걸려야 한다.
+   */
+  const isr: string[] = [];
+  const stillDynamic: string[] = [];
+  const half: string[] = [];
+  for (const f of leaves) {
+    const src = readFileSync(f, 'utf8');
+    const hasRevalidate = /export const revalidate = \d+/.test(src);
+    const hasParams = src.includes('generateStaticParams');
+    const hasForce = src.includes("export const dynamic = 'force-dynamic'");
+    const rel = f.replace(ROOT + '/', '');
+    if (hasRevalidate && hasParams) isr.push(rel);
+    else if (hasForce && !hasRevalidate) stillDynamic.push(rel);
+    else half.push(rel);
+  }
+
+  /* 반쪽만 있는 것은 조용히 아무 효과가 없다 — 그것만은 하나도 없어야 한다 */
+  assert.deepEqual(half.slice(0, 5), [],
+    `revalidate와 generateStaticParams 가운데 하나만 있는 낱장 ${half.length}개 — ` +
+    '둘이 함께 있어야 캐시가 걸린다. revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다');
+
+  /* 옮긴 것이 대부분이어야 한다 */
+  assert.ok(isr.length >= 700, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
+  assert.ok(stillDynamic.length <= 200,
+    `force-dynamic으로 남은 낱장이 ${stillDynamic.length}개다 — 옮긴 만큼 이 수가 줄어야 한다`);
 
   const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
   assert.deepEqual(
