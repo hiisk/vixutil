@@ -194,30 +194,28 @@
  * `.segments`는 못 끈다 — collectSegmentData가 정적 생성 페이지마다 무조건
  * 불린다(node_modules/next/dist/esm/server/app-render/app-render.js). 플래그가 없다.
  *
- * ── 그래서 남는 선택 (셋 다 무언가를 판다) ──────────────────────
- * 1) **페이지를 줄인다** — 한 바퀴가 20만에 들려면 59,000~85,000장이어야 한다.
- *    지금 203,039장이니 열 언어 가운데 서넛만 남기는 규모다. 노출을 판다.
- * 2) **ISR을 안 쓰고 CDN 캐시만 쓴다** — 문서가 「CDN cache reads and writes are
- *    free」라고 못 박는다. 쓰기 0, 대신 miss마다 원본 전송(한 장 15KB). 봇 차단
- *    뒤 요청이 30~40만이면 4.5~6GB로 10GB 안이다. 단 Next가 동적 페이지에
- *    no-store를 박아 proxy에서 헤더를 덮어써야 하고, **Vercel CDN이 그것을
- *    존중하는지는 배포해 봐야 안다** — 실패하면 348% 사고가 그대로 재현된다.
- * 3) **ISR 유지 + 배포 동결** — 워밍 한 번 뒤 크롤은 304로 공짜다. 하지만
- *    **배포 한 번이 두세 달 치 한도**라 「페이지를 계속 늘린다」와 부딪친다.
- *    배포마다 캐시가 새로 생기는 것은 문서가 명시한다(each new deployment uses
- *    its own ISR cache and does not reuse the cache from a previous deployment).
+ * ── 골랐다: ISR을 버리고 CDN 캐시만 쓴다 (2026-08-13) ──────────
+ * 페이지를 줄이는 것은 노출을 파는 일이라 접었다. 배포를 얼려도 「페이지를 계속
+ * 늘린다」와 부딪친다. 그래서 셋째 길로 갔다 — **캐시를 ISR 저장소가 아니라
+ * CDN에 둔다.** 문서가 「CDN cache reads and writes are free」라고 못 박는다.
  *
- * 굽는 수(이 파일의 LIMIT)로는 어느 쪽도 못 맞춘다 — 굽는 속도가 초당 19장이라
- * 45분 안에 구울 수 있는 것이 만 장 남짓, 전체의 5%다.
+ * 낱장 913개가 force-dynamic이고, next.config의 headers()가 s-maxage를 붙여
+ * CDN이 받게 한다. 2026-08-10의 사고와 다른 점이 **그 헤더 하나**다 — 그때는
+ * Next가 붙인 no-store가 그대로 나가 CDN이 한 장도 안 받았다.
  *
- * 첫 한 바퀴는 **Pro인 동안 우리가 직접 태운다** — scripts/warm-isr.mjs가 HEAD로
- * 캐시를 채운다(HEAD도 페이지를 만들어 캐시에 넣는데 본문을 안 받아 전송이 0이다.
- * 실측: HEAD → MISS, 이어진 GET → HIT). 순서는 배포 → 워밍 → Usage 확인이다.
+ * 로컬 빌드로 확인한 것:
+ *   Cache-Control  public, s-maxage=31536000, must-revalidate  (no-store가 덮인다)
+ *   ISR 캐시       요청 뒤에도 .next/server/app에 **파일이 하나도 안 생긴다** → 쓰기 0
  *
- * 시점 조심: Hobby에는 결제일이 없다. 한도는 **굴러가는 30일 창**이고 넘긴
- * 시점부터 30일 정지다. 이번 초과(348%)가 창에서 빠져나가기 전에 내리면 그
- * 자리에서 다시 정지를 맞을 수 있다 — 초과가 난 날부터 30일이 지나고, 창 안의
- * 사용량이 한도 아래로 내려온 것을 보고 내린다.
+ * 값으로 치르는 것은 CPU와 전송이다. 한 바퀴에 활성 CPU 1.3~2.7시간(한도 4)과
+ * 전송 3.3GB(한도 10GB)이므로 **크롤이 월 한 바퀴 언저리로 눌려야 성립한다.**
+ * CDN 캐시는 임시고(문서: minutes to hours) 캐시 실드가 없어 리전마다 첫 요청이
+ * 함수를 탄다 — 그래서 봇 차단(app/robots.ts, proxy.ts)이 같이 가야 한다.
+ *
+ * **이것이 무료에서 성립하는지는 배포 뒤 Usage로만 안다.** 볼 것은 셋이다 —
+ * ISR 쓰기가 0에 붙어 있는가, 활성 CPU가 4시간의 몇 %인가, Origin Transfer가
+ * 10GB의 몇 %인가. CPU나 전송이 치솟으면 CDN이 헤더를 안 받는다는 뜻이고,
+ * 그때는 페이지 수를 줄이는 것 말고 남는 수가 없다.
  */
 const LIMIT = Number(process.env.PRERENDER_PER_ROUTE ?? '0');
 

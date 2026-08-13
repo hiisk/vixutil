@@ -14,30 +14,14 @@ import { KO_LEAVES } from '@/lib/ko/registry';
  * /og/…와 /sitemap/…도 첫 칸이 정해져 있어 여기 오지 않는다.
  */
 /*
- * ── force-dynamic을 걷고 ISR로 되돌렸다 (2026-08-13) ──────────
- * force-dynamic은 요청마다 원본에서 페이지를 전송한다. Hobby의 Fast Origin
- * Transfer가 30일 10GB인데 실제로 한도의 348%까지 올라 사이트가 멈췄다.
- * lib/prerender.ts가 ISR을 버린 2026-08-10의 셈에는 이 항목이 없었다 — 그때 본
- * 것은 ISR 쓰기 한도였다.
- *
- * ISR로 되돌린 뒤 실측한 차이:
- *   Cache-Control  no-store → s-maxage=86400, stale-while-revalidate=31449600
- *   ETag           없음 → 있음. 크롤러 재방문이 **304 · 0바이트**로 떨어진다
- *   두 번째 요청    매번 다시 그림 → x-nextjs-cache: HIT (다시 안 그린다)
- *
- * 남은 위험은 하나다 — 배포가 캐시를 비우면 크롤 한 바퀴마다 쓰기가 든다(옛
- * 주석이 16만이라 적었다). 그런데 Vercel 문서는 「내용이 이전과 같으면 쓰기
- * 단위가 발생하지 않는다」와 「팀이 직접 무효화하지 않는 한 남는다」고 말한다.
- * 어느 쪽이 맞는지는 배포하고 며칠 Usage를 봐야 안다. 치솟으면 되돌린다.
- *
- * false(무기한)로 두는 까닭 (2026-08-13, 무료 복귀 판): 처음에는 86400(하루)로
- * 두었는데, 재검증 주기는 요청이 오는 장마다 그 주기로 ISR 쓰기를 다시 만든다 —
- * 크롤러가 매일 훑으면 한 바퀴 값의 쓰기가 매일 들어 무료 티어의 쓰기 한도로
- * 되돌아간다. 낱장은 순수 계산이라 내용이 빌드의 함수이고, 고침은 어차피 배포로만
- * 나가며 배포가 캐시를 비우니 신선도는 배포 주기가 정한다. 그래서 쓰기는 배포 뒤
- * 첫 요청에만 들게 둔다. 셈 전체는 lib/prerender.ts.
+ * ── ISR을 버리고 CDN 캐시만 쓴다 (2026-08-13, 두 번째 고침) ────
+ * ISR은 크롤 한 바퀴에 쓰기 48만~69만 단위가 든다 — 무료 한도 20만의 240~343%다.
+ * 배포마다 캐시가 새로 생기므로 그 값이 배포할 때마다 다시 든다. 그래서 캐시를
+ * ISR 저장소가 아니라 **CDN**에 둔다(「CDN cache reads and writes are free」).
+ * 동적으로 그리되 next.config의 headers()가 s-maxage를 붙인다 — 2026-08-10의
+ * force-dynamic과 다른 점이 그 헤더 하나다. 셈은 lib/prerender.ts.
  */
-export const revalidate = false;
+export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ section: string; slug: string }>;
 

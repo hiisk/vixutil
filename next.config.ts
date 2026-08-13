@@ -179,6 +179,62 @@ const nextConfig: NextConfig = {
      */
     preloadEntriesOnStart: false,
   },
+
+  /**
+   * ── 캐시를 ISR 저장소가 아니라 CDN에 둔다 (2026-08-13) ──────────
+   * 이 한 줄이 낱장 913개의 캐시 전략 전부다. 없으면 2026-08-10의 사고가 그대로
+   * 재현된다 — 그때도 낱장이 force-dynamic이었고, 다른 점은 이 헤더가 없어서
+   * Next가 붙인 `no-store`가 그대로 나갔다는 것뿐이다. CDN이 한 장도 안 받아
+   * Origin Transfer가 한도의 348%까지 올라 사이트가 멈췄다.
+   *
+   * ── 왜 ISR을 버렸나 ────────────────────────────────────────────
+   * ISR 쓰기는 **8KB 단위**로 세고 낱장 한 장이 2.36~3.38단위다(표본 40장 실측).
+   * 크롤 한 바퀴 203,039장이면 48만~69만 단위 — 무료 한도 20만의 240~343%다.
+   * 게다가 Vercel 문서가 「each new deployment uses its own ISR cache and does not
+   * reuse the cache from a previous deployment」라고 못 박아서, 그 값이 **배포할
+   * 때마다** 다시 든다. 페이지를 5.9만~8.5만 장으로 줄이지 않는 한 답이 없다.
+   *
+   * CDN 캐시는 다르다 — 「CDN cache reads and writes are free」(같은 문서). 그래서
+   * 쓰기가 0이 되고, 값은 CDN이 미스했을 때의 함수 실행·전송으로만 나간다.
+   * 한 바퀴에 활성 CPU 1.3~2.7시간(한도 4)과 전송 3.3GB(한도 10GB)다.
+   *
+   * ── 대신 잃는 것 (알고 고른다) ─────────────────────────────────
+   *   · CDN 캐시는 **임시**다 — 문서가 「minutes to hours, evicted under memory
+   *     pressure」라고 적는다. ISR처럼 한 번 쓰면 끝이 아니라, 축출되면 다시 그린다
+   *   · **캐시 실드가 없다** — ISR은 CDN 미스 때 함수 전에 durable 캐시를 먼저
+   *     읽지만 이 방식은 리전마다 첫 요청이 각각 함수를 탄다
+   *   · 304·ETag가 없다 — 재방문도 CDN에서 전체 본문이 나간다(그쪽은 Fast Data
+   *     Transfer 100GB라 여유가 있다)
+   * 그래서 **크롤 양이 월 한 바퀴 언저리로 눌려야 성립한다.** 봇 차단(app/robots.ts,
+   * proxy.ts)이 그 몫이고, 실제로 눌리는지는 배포 뒤 Usage로 재야 안다.
+   *
+   * ── s-maxage를 1년으로 둔 까닭 ─────────────────────────────────
+   * 낱장은 순수 계산이라 내용이 빌드의 함수다. 짧게 두면 그 주기마다 한 바퀴 값이
+   * 다시 드는데, 위 셈에서 한 바퀴가 CPU의 33~67%라 두 바퀴면 넘는다. Next가 정적
+   * 페이지에 붙이는 값과 같은 1년으로 맞춘다.
+   * **배포가 CDN을 비우는지는 확인되지 않았다** — 안 비우면 고친 내용이 안 보인다.
+   * 그때는 Vercel 대시보드의 Purge Cache로 비운다(그 비용이 한 바퀴다).
+   *
+   * ── 사이트맵은 따로 하루로 잡는다 ─────────────────────────────
+   * 조각이 배포마다 늘 수 있어 1년은 위험하다. 그런데 한국어 사이트맵 한 장은
+   * **스스로 헤더를 못 단다** — Next의 sitemap 규약이 내는 라우트라 우리 코드가 응답을
+   * 만들지 않는다. 실제로 재 보니 `public, max-age=0, must-revalidate`로 s-maxage가
+   * 없어서 **CDN이 2.5MB짜리 한국어 사이트맵을 한 번도 안 받고 있었다.**
+   * 형제 조각(/sitemap2.xml …)은 route.ts가 직접 붙여 하루였는데 그 하나만 샜다.
+   * 그래서 여기서 사이트맵 전체에 하루를 건다 — 형제들은 같은 값이라 그대로다.
+   */
+  async headers() {
+    return [
+      {
+        source: '/(sitemap.*\\.xml)',
+        headers: [{ key: 'Cache-Control', value: 'public, s-maxage=86400, must-revalidate' }],
+      },
+      {
+        source: '/((?!sitemap).*)',
+        headers: [{ key: 'Cache-Control', value: 'public, s-maxage=31536000, must-revalidate' }],
+      },
+    ];
+  },
   /*
    * 2026-08-12: /sitemap.xml 리라이트를 뗐다.
    *

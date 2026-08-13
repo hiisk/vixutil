@@ -14,10 +14,19 @@ import { prerender } from '@/lib/prerender';
 
 /*
  * GET은 Next 15부터 기본이 동적이다. 그냥 두면 카드를 요청마다 다시 그린다 —
- * 한 장에 45~240ms고 폰트를 매번 올린다. 낱장 페이지와 같은 규칙을 준다:
- * 처음 열릴 때 만들고 그 뒤로는 캐시(revalidate=false)에서 낸다.
+ * 한 장에 45~240ms고 폰트를 매번 올린다. 그래서 캐시가 꼭 필요하다.
+ *
+ * ── 캐시를 ISR에서 CDN으로 옮겼다 (2026-08-13) ─────────────────
+ * 낱장과 같은 이유로 옮겼다(셈은 lib/prerender.ts). 여기만 다른 점은 **다시 그리는
+ * 값이 훨씬 비싸다**는 것이다 — 낱장이 23.5ms인데 카드는 45~240ms다. 대신 카드는
+ * 2,659장뿐이고(허브 단위) 사람이 공유할 때나 불린다. 전부 다시 그려도 활성 CPU
+ * 10분 남짓, 한도 4시간의 4%다. 그래서 낱장과 같은 방식으로 통일한다 —
+ * 캐시 규칙이 두 벌이면 한쪽만 고쳐지는 자리가 생긴다.
+ *
+ * 캐시는 next.config의 headers()가 붙이는 s-maxage로 CDN이 든다. 그 줄이 사라지면
+ * 요청마다 카드를 새로 그리게 되므로 여기가 사이트에서 가장 먼저 아파진다.
  */
-export const revalidate = false;
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 /*

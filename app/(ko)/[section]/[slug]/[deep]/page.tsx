@@ -17,9 +17,15 @@ import { KO_DEEP_LEAVES } from '@/lib/ko/registry';
  * 세 칸 정적 페이지(/calculator/dev/base64)와 /crypto/[coin]/price-prediction은
  * 앞 칸이 정해져 있어 Next가 그쪽을 먼저 고른다.
  */
-/* 2026-08-13: 두 칸 디스패처와 같이 ISR로 되돌렸다 — 까닭은
-   app/(ko)/[section]/[slug]/page.tsx 머리말과 tests/prerender-budget.test.ts. */
-export const revalidate = false;
+/*
+ * ── ISR을 버리고 CDN 캐시만 쓴다 (2026-08-13, 두 번째 고침) ────
+ * ISR은 크롤 한 바퀴에 쓰기 48만~69만 단위가 든다 — 무료 한도 20만의 240~343%다.
+ * 배포마다 캐시가 새로 생기므로 그 값이 배포할 때마다 다시 든다. 그래서 캐시를
+ * ISR 저장소가 아니라 **CDN**에 둔다(「CDN cache reads and writes are free」).
+ * 동적으로 그리되 next.config의 headers()가 s-maxage를 붙인다 — 2026-08-10의
+ * force-dynamic과 다른 점이 그 헤더 하나다. 셈은 lib/prerender.ts.
+ */
+export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ section: string; slug: string; deep: string }>;
 

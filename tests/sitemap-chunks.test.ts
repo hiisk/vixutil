@@ -166,6 +166,18 @@ test('사이트맵이 CDN에 하루는 물려 있다', () => {
    * 무기한으로 안 두는 까닭: 배포가 CDN 캐시를 비우는지 확인되지 않았다.
    * 안 비운다면 무기한은 새 페이지가 영영 안 보이는 뜻이 된다.
    */
+  /*
+   * ── /sitemap.xml만 스스로 헤더를 못 단다 (2026-08-13) ─────
+   * 그 주소는 Next의 sitemap 규약이 내는 라우트라 우리 코드가 응답을 안 만든다.
+   * 실측하니 `max-age=0, must-revalidate`로 s-maxage가 없었다 — **2.5MB짜리
+   * 한국어 사이트맵을 CDN이 한 번도 안 받고 있었다.** 그래서 next.config의
+   * headers()가 사이트맵 전체에 하루를 건다. 그 규칙이 사라지면 여기서 걸린다.
+   */
+  const cfg = readFileSync(join(import.meta.dirname, '..', 'next.config.ts'), 'utf8');
+  const rule = cfg.match(/source: '\/\(sitemap[^']*'[\s\S]{0,200}?s-maxage=(\d+)/);
+  assert.ok(rule, 'next.config.ts에 사이트맵 캐시 규칙이 없다 — /sitemap.xml이 CDN에 안 실린다');
+  assert.ok(Number(rule![1]) >= 86_400, `사이트맵 규칙의 s-maxage가 ${rule![1]}초다`);
+
   const src = readFileSync(join(import.meta.dirname, '..', 'app', 'sitemap.ts'), 'utf8');
   const idx = readFileSync(join(import.meta.dirname, '..', 'app', 'sitemap-index.xml', 'route.ts'), 'utf8');
   for (const [name, s] of [['sitemap.ts', src], ['sitemap-index.xml/route.ts', idx]] as const) {
