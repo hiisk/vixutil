@@ -10,7 +10,7 @@ import { build } from '@/lib/fold/pages/code__slug';
  * 크롤러 재방문이 304·0바이트가 되고 두 번째 요청은 다시 그리지 않는다.
  * 까닭과 실측은 lib/fold/pages의 해당 모듈과 app/(ko)/[section]/[slug]/page.tsx에 있다.
  */
-export const revalidate = 86400;
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('hi');
 export { generateMetadata, generateStaticParams };

@@ -85,20 +85,30 @@ test('낱장마다 revalidate와 generateStaticParams가 함께 있다', () => {
   assert.ok(leaves.length > 700, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
 
   /*
-   * 아직 옮기지 못한 낱장이 있다 — params 함수를 못 찾은 서른 갈래다. 그것들은
-   * force-dynamic으로 남아 있고, 옮길 때 이 수가 줄어든다. 늘어나면 새 낱장이
-   * 옛 방식으로 들어온 것이니 걸려야 한다.
+   * ── 무료(Hobby)로 돌아가며 값이 false로 굳었다 (2026-08-13) ────
+   * 처음 ISR로 되돌릴 때는 revalidate = 86400(하루)이었다. 그 값은 Pro에서는
+   * 괜찮지만 Hobby에서는 **쓰기 한도로 되돌아가는 문**이다 — 재검증 주기는 요청이
+   * 오는 장마다 그 주기로 ISR 쓰기를 다시 만들므로, 크롤러가 매일 훑으면 한 바퀴
+   * 값(16만)의 쓰기가 매일 든다.
+   *
+   * 낱장은 순수 계산이라 내용이 빌드의 함수다. 고침은 어차피 배포로만 나가고
+   * 배포가 캐시를 비우니, false(무기한)로 두어도 신선도는 배포 주기와 같다.
+   * 그래서 여기서는 **숫자 revalidate도 흠으로 잡는다** — false만 통과다.
+   * 셈 전체는 lib/prerender.ts의 2026-08-13 절.
    */
   const isr: string[] = [];
   const stillDynamic: string[] = [];
+  const timed: string[] = [];
   const half: string[] = [];
   for (const f of leaves) {
     const src = readFileSync(f, 'utf8');
-    const hasRevalidate = /export const revalidate = \d+/.test(src);
+    const hasRevalidate = /export const revalidate = false/.test(src);
+    const hasTimed = /export const revalidate = \d+/.test(src);
     const hasParams = src.includes('generateStaticParams');
     const hasForce = src.includes("export const dynamic = 'force-dynamic'");
     const rel = f.replace(ROOT + '/', '');
-    if (hasRevalidate && hasParams) isr.push(rel);
+    if (hasTimed) timed.push(rel);
+    else if (hasRevalidate && hasParams) isr.push(rel);
     else if (hasForce && !hasRevalidate) stillDynamic.push(rel);
     else half.push(rel);
   }
@@ -108,10 +118,17 @@ test('낱장마다 revalidate와 generateStaticParams가 함께 있다', () => {
     `revalidate와 generateStaticParams 가운데 하나만 있는 낱장 ${half.length}개 — ` +
     '둘이 함께 있어야 캐시가 걸린다. revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다');
 
+  /* 숫자 주기는 Hobby의 쓰기 한도를 도로 연다 — 위 주석의 셈 */
+  assert.deepEqual(timed.slice(0, 5), [],
+    `revalidate에 숫자 주기를 준 낱장 ${timed.length}개 — 요청이 오는 장마다 그 주기로 ` +
+    'ISR 쓰기가 다시 든다. false(무기한)로 두고, 신선도는 배포가 정한다');
+
   /* 옮긴 것이 대부분이어야 한다 */
   assert.ok(isr.length >= 700, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
-  assert.ok(stillDynamic.length <= 200,
-    `force-dynamic으로 남은 낱장이 ${stillDynamic.length}개다 — 옮긴 만큼 이 수가 줄어야 한다`);
+  /* 2026-08-13에 마지막 하나(price-prediction)까지 옮겨 0이 됐다 — 새로 생기면 걸린다 */
+  assert.deepEqual(stillDynamic, [],
+    `force-dynamic 낱장 ${stillDynamic.length}개 — 매 요청 원본 전송이라 Hobby의 ` +
+    'Fast Origin Transfer(30일 10GB)를 태운다. 실제로 348%까지 올라 사이트가 멈췄던 자리다');
 
   const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
   assert.deepEqual(

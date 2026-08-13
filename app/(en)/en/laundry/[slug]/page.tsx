@@ -22,11 +22,11 @@ import { build } from '@/lib/fold/pages/laundry__slug';
  * 어느 쪽이 맞는지는 **재 봐야 안다.** 그래서 한 섹션만 바꿔 배포하고 ISR 쓰기가
  * 첫 생성 뒤 멈추는지, 배포 뒤에 다시 치솟는지 본다. 멈추면 나머지를 옮긴다.
  *
- * 하루로 잡은 까닭: 내용이 안 바뀌므로 더 길게 둘 수도 있지만, 고침이 반영되는
- * 데 그만큼 걸린다. 하루면 크롤러가 같은 주소를 다시 훑을 때 CDN이 받아 주고
- * (s-maxage), 재검증이 돌아도 내용이 같아 쓰기가 안 생긴다.
+ * false(무기한)로 바꾼 까닭 (2026-08-13, 무료 복귀 판): 재검증 주기는 요청이 오는
+ * 장마다 그 주기로 ISR 쓰기를 다시 만든다. 내용이 빌드의 함수라 기간을 둘 이유가
+ * 없고, 무기한이면 쓰기는 배포 뒤 첫 요청에만 든다. 셈은 lib/prerender.ts.
  */
-export const revalidate = 86400;
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('en');
 export { generateMetadata, generateStaticParams };

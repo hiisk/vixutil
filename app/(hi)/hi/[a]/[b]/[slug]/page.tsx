@@ -7,7 +7,7 @@ import { build } from '@/lib/fold/pages/deep__slug';
  * ── force-dynamic을 걷고 ISR로 되돌렸다 (2026-08-13) ──────────
  * 세 칸 낱장이 20,709장(주소의 10%)이다. 요청마다 원본 전송이던 것을 캐시로 돌렸다.
  */
-export const revalidate = 86400;
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('hi');
 export { generateMetadata, generateStaticParams };

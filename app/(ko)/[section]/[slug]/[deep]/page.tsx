@@ -19,7 +19,7 @@ import { KO_DEEP_LEAVES } from '@/lib/ko/registry';
  */
 /* 2026-08-13: 두 칸 디스패처와 같이 ISR로 되돌렸다 — 까닭은
    app/(ko)/[section]/[slug]/page.tsx 머리말과 tests/prerender-budget.test.ts. */
-export const revalidate = 86400;
+export const revalidate = false;
 
 type Params = Promise<{ section: string; slug: string; deep: string }>;
 

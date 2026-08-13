@@ -7,7 +7,7 @@ import { build } from '@/lib/fold/pages/calculator__xslug';
  * ── force-dynamic을 걷고 ISR로 되돌렸다 (2026-08-13) ──────────
  * 요청마다 원본에서 페이지를 전송하던 것을 캐시로 돌렸다.
  */
-export const revalidate = 86400;
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('zh-hant');
 export { generateMetadata, generateStaticParams };

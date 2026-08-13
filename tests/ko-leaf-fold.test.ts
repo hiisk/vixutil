@@ -58,7 +58,7 @@ test('디스패처 둘이 있고 ISR로 캐시한다', () => {
      * 태우고 사이트를 멈췄다. revalidate와 generateStaticParams가 **함께** 있어야
      * 캐시가 걸린다 — revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다.
      */
-    assert.match(src, /export const revalidate = \d+/, `${p.replace(ROOT + '/', '')}에 revalidate가 없다`);
+    assert.match(src, /export const revalidate = false/, `${p.replace(ROOT + '/', '')}에 revalidate = false가 없다`);
     assert.match(src, /generateStaticParams/, `${p.replace(ROOT + '/', '')}가 굽는 손잡이를 안 넘긴다`);
   }
 });

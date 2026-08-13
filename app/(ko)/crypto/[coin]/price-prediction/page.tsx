@@ -40,8 +40,10 @@ function faqs(name: string, base: string) {
   ];
 }
 
-// 낱장은 요청 때 그리고 캐시에 쓰지 않는다 — ISR 쓰기(월 20만)를 아끼는 자리다. 근거는 lib/prerender.ts
-export const dynamic = 'force-dynamic';
+/* 마지막까지 force-dynamic으로 남아 있던 낱장이다 — 2026-08-13에 다른 낱장과 같이
+   ISR(무기한)로 옮겼다. 본문은 정적 템플릿이고 시세는 CoinPrediction(클라이언트)이
+   바이낸스에서 직접 받으므로 서버가 요청 때 그릴 것이 없다. 근거는 lib/prerender.ts */
+export const revalidate = false;
 
 export function generateStaticParams() {
   return prerender(COINS.map(c => ({ coin: c.slug })));

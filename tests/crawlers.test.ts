@@ -97,6 +97,43 @@ test('목록에 중복과 빈 값이 없다', () => {
   }
 });
 
+test('proxy.ts의 차단 정규식이 lib/crawlers.ts와 같다', async () => {
+  /*
+   * robots.txt는 지킬 의무가 없어서, 무시하는 봇에게는 proxy.ts가 403을 준다.
+   * 그런데 proxy의 matcher는 빌드 때 정적으로 읽혀 변수를 못 쓴다 — 목록을
+   * 정규식 리터럴로 한 번 더 적을 수밖에 없다. 두 곳에 적힌 것은 반드시
+   * 어긋난다(늘릴 때 한쪽만 고친다). 그래서 여기서 계산으로 맞대 본다.
+   */
+  const { readFileSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const src = readFileSync(join(import.meta.dirname, '..', 'proxy.ts'), 'utf8');
+
+  /* 이름을 |로 이어 붙인 것이 그대로 정규식이 된다 — 특수문자가 끼면 그 전제가 깨진다 */
+  for (const b of BLOCKED_CRAWLERS) {
+    assert.match(b, /^[A-Za-z0-9 _-]+$/, `"${b}"에 정규식 특수문자가 있다 — 이어 붙이는 방식부터 바꿔야 한다`);
+  }
+
+  const expected = `.*(${BLOCKED_CRAWLERS.join('|')}).*`;
+  assert.ok(
+    src.includes(expected),
+    'proxy.ts의 정규식이 BLOCKED_CRAWLERS와 어긋난다 — lib/crawlers.ts를 고쳤으면 proxy.ts의 리터럴도 같이 맞춰라',
+  );
+
+  /* Next는 has 값을 ^…$로 감싼다(prepare-destination.js) — 같은 방식으로 본다 */
+  const re = new RegExp(`^${expected}$`);
+  for (const bot of ALLOWED_CRAWLERS) {
+    const ua = `Mozilla/5.0 (compatible; ${bot}/1.0; +https://example.com/bot)`;
+    assert.ok(!re.test(ua), `${bot}이 proxy에서 403을 받는다 — 검색 유입이 끊긴다`);
+  }
+  for (const bot of BLOCKED_CRAWLERS) {
+    const ua = `Mozilla/5.0 (compatible; ${bot}/1.0)`;
+    assert.ok(re.test(ua), `${bot}이 proxy를 그냥 지나간다`);
+  }
+
+  /* 규칙을 지키는 봇이 스스로 물러날 수 있게 robots.txt만은 열어 둔다 */
+  assert.ok(src.includes('robots\\\\.txt'), 'proxy가 robots.txt까지 막는다 — 정책을 볼 길이 없어진다');
+});
+
 test('robots.txt가 이 목록을 쓰고 검색 엔진을 허용한다', async () => {
   /*
    * app/robots.ts는 라우트 파일이지만 순수 함수라 불러올 수 있다. 다만 사이트맵

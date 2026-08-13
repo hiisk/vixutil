@@ -8,7 +8,7 @@ import { build } from '@/lib/fold/pages/quiz__slug';
  * 요청마다 원본에서 페이지를 전송하던 것을 캐시로 돌렸다. Hobby의 Fast Origin
  * Transfer 30일 10GB에서 348%까지 태워 사이트를 멈춘 것이 그 방식이었다.
  */
-export const revalidate = 86400;
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('es');
 export { generateMetadata, generateStaticParams };

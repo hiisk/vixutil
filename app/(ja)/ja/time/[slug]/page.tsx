@@ -9,7 +9,7 @@ import { build } from '@/lib/fold/pages/time__slug';
  * Transfer 30일 10GB에서 348%까지 태워 사이트를 멈췄다. ISR로 돌리면 크롤러
  * 재방문이 304·0바이트가 되고 두 번째 요청은 다시 그리지 않는다.
  */
-export const revalidate = 86400;
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('ja');
 export { generateMetadata, generateStaticParams };
