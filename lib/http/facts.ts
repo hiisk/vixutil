@@ -5,6 +5,7 @@
  * 내리면 실제로 보내는 꼴이 된다. 손으로 적을 것이 없다.
  */
 import { HTTP_ITEMS, statusClass, type HttpItem, type StatusClass } from './list.ts';
+import { relatedWindow } from '../related-window.ts';
 
 export interface HttpFacts {
   slug: string;
@@ -56,9 +57,33 @@ export function httpFacts(x: HttpItem): HttpFacts {
   };
 }
 
-/** 견줄 항목 — 같은 갈래에서 앞에서부터 */
+/**
+ * 견줄 항목 — 같은 갈래(상태코드/헤더)에서 한 바퀴 돌며 고른다.
+ *
+ * ── 앞에서 자르던 것을 원형으로 바꿨다 (2026-08-13) ──────────
+ * `.slice(0, limit)`이라 목록 앞쪽만 서로 가리키고 뒤에 붙인 것은 들어오는 링크가
+ * 0이었다(195개 중 118개). relatedWindow는 자기 다음부터 한 바퀴 감아 모두가 고르게 남의
+ * 목록에 든다 — 까닭은 lib/related-window.ts 머리말.
+ */
 export function relatedHttp(slug: string, limit = 10): string[] {
   const me = HTTP_ITEMS.find(x => x.slug === slug);
   if (!me) return [];
-  return httpFacts(me).siblings.slice(0, limit);
+  /*
+   * 같은 갈래로 **먼저 걸러 낸 뒤** 한 바퀴 돈다. relatedWindow에 sameGroup을
+   * 넘기면 마지막 한 칸을 다른 갈래에 남기는데(갈래에 혼자인 항목을 위한 장치),
+   * 이 섹션은 갈래마다 항목이 둘 이상이라 그 장치가 필요 없고 "관련 항목은 전부
+   * 같은 갈래"라는 기존 검사와도 어긋난다.
+   */
+  /*
+   * 갈래를 나누는 기준이 둘이다 — 상태코드는 **번호대**(1xx·2xx…), 헤더는
+   * **방향**(요청/응답)이다. httpFacts의 siblings가 쓰던 기준 그대로이고,
+   * tests/http-codes.test.ts가 그 둘을 다 본다.
+   */
+  const same = HTTP_ITEMS.filter(x =>
+    x.kind === me.kind && (
+      me.kind === 'status'
+        ? statusClass(x.code!) === statusClass(me.code!)
+        : x.side === me.side
+    ));
+  return relatedWindow(same, me, limit).map(x => x.slug);
 }

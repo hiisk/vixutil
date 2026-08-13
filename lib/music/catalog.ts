@@ -12,6 +12,7 @@
 import type { L, Lang } from '../i18n/lang.ts';
 import { CHORD_QUALITIES, INTERVALS, INTERVAL_SENTENCE, SCALE_MODES } from './theory.ts';
 import { noteName, noteSymbol, prefersFlat, slugOf, type Pc } from './notes.ts';
+import { relatedWindow } from '../related-window.ts';
 
 export type MusicKind = 'chord' | 'scale' | 'interval';
 
@@ -183,14 +184,35 @@ export function feelOf(item: MusicItem, lang: Lang): string {
 export const noteListOf = (item: MusicItem, lang: Lang): string[] =>
   notesOf(item).map(pc => noteName(pc, lang, accidentalOf(item)));
 
-/** 같은 밑음의 다른 성질, 또는 같은 성질의 다른 밑음 — 아래 추천에 쓴다 */
+/**
+ * 같은 밑음의 다른 성질, 또는 같은 성질의 다른 밑음 — 아래 추천에 쓴다.
+ *
+ * ── 앞에서 자르던 것을 원형으로 바꿨다 (2026-08-13) ──────────
+ * 같은 밑음 · 같은 성질 · 나머지를 이어 붙여 `.slice(0, limit)`이었다. 밑음이 12개,
+ * 성질이 그보다 많아 **앞의 여덟 칸이 늘 같은 것들로 찼고**, 211개 가운데 63개는
+ * 들어오는 링크가 0이었다(c-six-chord·c-m7b5-chord·c-dim7-chord처럼 뒤쪽 성질들).
+ *
+ * 두 축(밑음·성질)을 그대로 살리되 각 축 안에서 **자기 다음부터 감아** 고른다 —
+ * 그러면 같은 밑음 줄과 같은 성질 줄이 각각 한 바퀴 이어져 아무도 빠지지 않는다.
+ * 까닭은 lib/related-window.ts 머리말.
+ */
 export function relatedItems(slug: string, limit = 8): MusicItem[] {
   const me = musicItem(slug);
   if (!me) return [];
-  const sameRoot = MUSIC_ITEMS.filter(i => i.root === me.root && i.slug !== slug && i.kind === me.kind);
-  const sameKind = MUSIC_ITEMS.filter(i => i.id === me.id && i.slug !== slug);
-  const rest = MUSIC_ITEMS.filter(i => i.slug !== slug && !sameRoot.includes(i) && !sameKind.includes(i));
-  return [...sameRoot, ...sameKind, ...rest].slice(0, limit);
+  const half = Math.max(1, Math.floor(limit / 2));
+  /* 같은 밑음 줄 — 성질을 바꿔 가며 한 바퀴 */
+  const byRoot = relatedWindow(
+    MUSIC_ITEMS.filter(i => i.root === me.root && i.kind === me.kind), me, half,
+  );
+  /* 같은 성질 줄 — 밑음을 바꿔 가며 한 바퀴 */
+  const byKind = relatedWindow(
+    MUSIC_ITEMS.filter(i => i.id === me.id), me, limit - byRoot.length,
+  );
+  const picked = [...byRoot, ...byKind.filter(i => !byRoot.includes(i))];
+  if (picked.length >= limit) return picked.slice(0, limit);
+  /* 그래도 모자라면 전체에서 이어 채운다 */
+  const rest = relatedWindow(MUSIC_ITEMS, me, limit).filter(i => !picked.includes(i));
+  return [...picked, ...rest].slice(0, limit);
 }
 
 export const itemsOfKind = (kind: MusicKind): MusicItem[] =>

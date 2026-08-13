@@ -6,6 +6,7 @@
  * sqlite와 db가 그렇다.
  */
 import { EXTS, type Ext } from './list.ts';
+import { relatedWindow } from '../related-window.ts';
 
 /**
  * 브라우저가 플러그인 없이 여는 형식.
@@ -58,12 +59,23 @@ export function extFacts(x: Ext): ExtFacts {
   };
 }
 
-/** 견줄 확장자 — 쌍둥이를 먼저, 그다음 같은 갈래에서 채운다 */
+/**
+ * 견줄 확장자 — 쌍둥이(같은 MIME)를 먼저, 그다음 같은 갈래를 한 바퀴 돌며 채운다.
+ *
+ * ── 앞에서 자르던 것을 원형으로 바꿨다 (2026-08-13) ──────────
+ * `.slice(0, limit)`이라 목록 앞쪽만 서로 가리키고 뒤에 붙인 것은 들어오는 링크가
+ * 0이었다(266개 중 130개). relatedWindow는 자기 다음부터 한 바퀴 감아 모두가 고르게 남의
+ * 목록에 든다 — 까닭은 lib/related-window.ts 머리말.
+ */
 export function relatedExts(ext: string, limit = 8): string[] {
   const me = EXTS.find(x => x.ext === ext);
   if (!me) return [];
-  const f = extFacts(me);
-  return [...f.twins, ...f.siblings.filter(s => !f.twins.includes(s))].slice(0, limit);
+  /* 쌍둥이는 몇 개 안 되고 정말로 같은 것이라 앞에 그대로 둔다 */
+  const twins = extFacts(me).twins.slice(0, limit);
+  const rest = relatedWindow(EXTS, me, limit, (a, b) => a.kind === b.kind)
+    .map(x => x.ext)
+    .filter(e => !twins.includes(e));
+  return [...twins, ...rest].slice(0, limit);
 }
 
 /** 갈래별로 몇 개인지 — 목록 화면이 쓴다 */
