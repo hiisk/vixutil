@@ -6,6 +6,7 @@ import { HANJA_UI, hanjaAlternates, idiomHeading } from '@/lib/hanja-ui';
 import { idiomText } from '@/lib/hanja/types';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { withCard } from '@/lib/og-cards';
+import { prerender } from '@/lib/prerender';
 import type { FoldLang } from '../lang';
 
 /* 생성됨: scripts가 아니라 접기 이행 — 원본은 옛 app/(zh-hant)/zh-hant/hanja/[slug]/page.tsx.
@@ -38,5 +39,11 @@ export function build(lang: FoldLang) {
     return <HanjaPage idiom={i} lang={lang} />;
   }
 
-  return { generateMetadata, Page };
+  
+  /* ISR을 켜려면 generateStaticParams가 있어야 한다 — revalidate만으로는 라우트가
+     동적으로 잡혀 캐시가 안 걸린다. 목록은 prerender()가 걸러 지금은 빈 배열이다.
+     까닭은 tests/prerender-budget.test.ts 머리말. */
+  const generateStaticParams = () => prerender(IDIOMS.map(i => ({ slug: i.slug })));
+
+  return { generateMetadata, generateStaticParams, Page };
 }

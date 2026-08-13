@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import ColorNamePage from '@/components/ColorNamePage';
 import { NAMED_COLORS_8, namedColor } from '@/lib/color/named8';
 import { detailMetadata } from '@/lib/color/route';
+import { prerender } from '@/lib/prerender';
 import type { FoldLang } from '../lang';
 import { DATA_KEY } from '../lang';
 
@@ -21,5 +22,11 @@ export function build(lang: FoldLang) {
     return <ColorNamePage color={color} lang={DATA_KEY[lang]} />;
   }
 
-  return { generateMetadata, Page };
+  
+  /* ISR을 켜려면 generateStaticParams가 있어야 한다 — revalidate만으로는 라우트가
+     동적으로 잡혀 캐시가 안 걸린다. 목록은 prerender()가 걸러서 지금은 빈 배열이다.
+     까닭은 tests/prerender-budget.test.ts 머리말. */
+  const generateStaticParams = () => prerender(NAMED_COLORS_8.map(c => ({ slug: c.slug })));
+
+  return { generateMetadata, generateStaticParams, Page };
 }

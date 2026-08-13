@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { GENERATORS_EN, GENERATORS_EN_MAP } from '@/lib/generator-en';
+import { prerender } from '@/lib/prerender';
 import EnGeneratorEngine from '@/components/EnGeneratorEngine';
 import ReferralCards from '@/components/ReferralCards';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
@@ -85,5 +86,10 @@ export function build(lang: FoldLang) {
     );
   }
 
-  return { generateMetadata, Page };
+
+  /* ISR을 켜려면 generateStaticParams가 있어야 한다 — revalidate만으로는 라우트가
+     동적으로 잡혀 캐시가 안 걸린다. prerender()가 걸러 지금은 빈 배열이다. */
+  const generateStaticParams = () => prerender(GENERATORS_EN.map(g => ({ slug: g.slug })));
+
+  return { generateMetadata, generateStaticParams, Page };
 }

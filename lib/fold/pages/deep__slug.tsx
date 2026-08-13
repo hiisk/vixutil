@@ -48,5 +48,29 @@ export function build(lang: FoldLang) {
     return built.Page({ params: Promise.resolve({ slug }) });
   }
 
-  return { generateMetadata, Page };
+
+  /*
+   * ── ISR을 켜려면 이것이 있어야 한다 (2026-08-13) ────────────────
+   * 없으면 [a]/[b]/[slug] 라우트가 동적으로 잡혀 캐시를 아예 쓰지 않는다 —
+   * revalidate만 적어도 듣지 않는다. 세 칸 낱장이 20,709장(주소의 10%)이라
+   * 이 라우트가 캐시를 못 쓰면 그만큼이 요청마다 원본 전송이 된다.
+   *
+   * 한국어 세 칸 디스패처(app/(ko)/[section]/[slug]/[deep]/page.tsx)와 같은
+   * 방식이다 — 등록부의 두 칸 열쇠를 갈라 a·b로 쓰고, 그 모듈의 목록을 slug로
+   * 삼는다. 목록이 없는 모듈은 건너뛴다(그 갈래는 요청 때만 만들어진다).
+   * prerender()가 걸러서 지금은 빈 배열이므로 빌드는 한 장도 굽지 않는다.
+   */
+  async function generateStaticParams() {
+    const out: { a: string; b: string; slug: string }[] = [];
+    for (const [key, load] of Object.entries(SLUG_ROUTES)) {
+      if (!key.includes('/')) continue;
+      const [a, b] = key.split('/');
+      const mod = (await load()) as { build?: (l: FoldLang) => { generateStaticParams?: () => { slug: string }[] } };
+      const built = mod.build?.(lang);
+      for (const p of built?.generateStaticParams?.() ?? []) out.push({ a, b, slug: p.slug });
+    }
+    return out;
+  }
+
+  return { generateMetadata, generateStaticParams, Page };
 }

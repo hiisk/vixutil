@@ -20,5 +20,10 @@ export function build(lang: FoldLang) {
     return <SizePage slug={slug} lang={DATA_KEY[lang]} />;
   }
 
-  return { generateMetadata, Page };
+  
+  /* ISR을 켜려면 generateStaticParams가 있어야 한다 — revalidate만으로는 라우트가
+     동적으로 잡혀 캐시가 안 걸린다. 까닭은 tests/prerender-budget.test.ts 머리말. */
+  const generateStaticParams = () => sizeParams();
+
+  return { generateMetadata, generateStaticParams, Page };
 }

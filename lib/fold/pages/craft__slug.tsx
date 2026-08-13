@@ -8,6 +8,8 @@ import { sectionAlternates } from '@/lib/formula/ui';
 import { textOf } from '@/lib/formula/text';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import { withCard } from '@/lib/og-cards';
+import { prerender } from '@/lib/prerender';
+import { CRAFT_TOOLS } from '@/lib/craft-tools';
 import type { FoldLang } from '../lang';
 
 /* 낱장은 아홉 언어가 이 모듈 하나를 쓴다. 목록은 lib/fold/registry.ts */
@@ -35,5 +37,11 @@ export function build(lang: FoldLang) {
     return <FormulaPage tool={tool} lang={lang} section={CRAFT_SECTION} Engine={CraftEngine} />;
   }
 
-  return { generateMetadata, Page };
+  
+  /* ISR을 켜려면 generateStaticParams가 있어야 한다 — revalidate만으로는 라우트가
+     동적으로 잡혀 캐시가 안 걸린다. 목록은 prerender()가 걸러 지금은 빈 배열이다.
+     까닭은 tests/prerender-budget.test.ts 머리말. */
+  const generateStaticParams = () => prerender(CRAFT_TOOLS.map(t => ({ slug: t.slug })));
+
+  return { generateMetadata, generateStaticParams, Page };
 }
