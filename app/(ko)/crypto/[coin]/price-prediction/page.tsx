@@ -41,14 +41,18 @@ function faqs(name: string, base: string) {
 }
 
 /*
- * ── ISR을 버리고 CDN 캐시만 쓴다 (2026-08-13, 두 번째 고침) ────
- * ISR은 크롤 한 바퀴에 쓰기 48만~69만 단위가 든다 — 무료 한도 20만의 240~343%다.
- * 배포마다 캐시가 새로 생기므로 그 값이 배포할 때마다 다시 든다. 그래서 캐시를
- * ISR 저장소가 아니라 **CDN**에 둔다(「CDN cache reads and writes are free」).
- * 동적으로 그리되 next.config의 headers()가 s-maxage를 붙인다 — 2026-08-10의
- * force-dynamic과 다른 점이 그 헤더 하나다. 셈은 lib/prerender.ts.
+ * ── CDN 캐시를 시도했다가 되돌렸다 (2026-08-13) ────────────────
+ * ISR 쓰기가 크롤 한 바퀴에 무료 한도의 240~343%라, 캐시를 CDN에만 두는 길
+ * (force-dynamic + s-maxage 헤더)을 시도했다. **배포해서 재 보니 안 된다** —
+ * 미들웨어가 세운 다른 헤더(X-Cache-Policy)는 그대로 나가는데 Cache-Control만
+ * 프레임워크가 붙인 no-store가 이겼다. next.config의 headers()도 정적 라우트에만
+ * 먹었다. 즉 App Router 페이지는 **ISR로 캐시되거나 캐시가 아예 없거나 둘뿐이다.**
+ *
+ * no-store는 요청마다 원본이 페이지 전체를 보내 Origin Transfer를 348%까지 태운
+ * 바로 그 상태이므로, ISR로 되돌린다. 쓰기가 한도를 넘을지는 크롤 양에 달렸고
+ * 그것은 배포 뒤 Usage로 잰다 — 셈과 실측은 lib/prerender.ts.
  */
-export const dynamic = 'force-dynamic';
+export const revalidate = false;
 
 export function generateStaticParams() {
   return prerender(COINS.map(c => ({ coin: c.slug })));
@@ -156,13 +160,17 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           </dl>
         </section>
 
+        {/* 폭을 잡는 컨테이너 **안**에 둔다. 밖에 있으면 max-w도 좌우 여백도 안 걸려
+            카드가 화면 끝까지 늘어난다 — 코인 낱장만 그랬다(다른 crypto 페이지는
+            전부 안에 있다). 2026-08-13에 눈으로 보고 고쳤다. */}
+        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
+
         <div className="mt-8 text-center">
           <Link href="/crypto/signals" className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors">
             ← Back to the signal board
           </Link>
         </div>
       </div>
-      <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
       <SiteFooter lang="en" referral={false} />
     </div>

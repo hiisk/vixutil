@@ -54,10 +54,11 @@ test('공유 모듈 둘과 낱장 껍데기 아홉이 있고 제 언어로 부�
     assert.ok(existsSync(p), `${lang}에 낱장 껍데기가 없다`);
     const src = readFileSync(p, 'utf8');
     assert.ok(src.includes(`build('${lang}')`), `${lang} 껍데기가 제 언어로 안 부른다`);
-    /* 2026-08-13 두 번째 고침: ISR → CDN 캐시. 낱장은 동적으로 그리고 캐시는
-       next.config의 headers()가 붙인 s-maxage로 CDN이 든다. 까닭은
-       tests/prerender-budget.test.ts 머리말과 next.config.ts. */
-    assert.ok(src.includes("export const dynamic = 'force-dynamic'"), `${lang} 낱장이 force-dynamic이 아니다 — ISR로 두면 크롤 한 바퀴에 쓰기 한도의 240~343%가 든다`);
+    /* 낱장은 ISR이다. revalidate와 generateStaticParams가 **함께** 있어야 캐시가
+       걸린다 — revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다.
+       CDN 캐시만 쓰는 길은 2026-08-13에 배포해서 재 보고 접었다(proxy.ts 머리말). */
+    assert.ok(/export const revalidate = false/.test(src), `${lang} 낱장이 revalidate = false가 아니다`);
+    assert.ok(src.includes('generateStaticParams'), `${lang} 낱장이 generateStaticParams를 안 내보낸다 — revalidate만으로는 안 걸린다`);
   }
   // 한국어 허브는 접지 않는다 — 파일이 직접 있다
   assert.ok(existsSync(join(ROOT, 'app', '(ko)', 'motor', 'page.tsx')), '한국어 허브가 없다');

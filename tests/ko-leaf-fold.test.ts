@@ -55,11 +55,12 @@ test('디스패처 둘이 있고 ISR로 캐시한다', () => {
     /*
      * 2026-08-13: force-dynamic을 걷고 ISR로 되돌렸다. force-dynamic은 요청마다
      * 원본에서 페이지를 전송해서 Hobby의 Fast Origin Transfer 10GB를 348%까지
-     * 태우고 사이트를 멈췄다. 2026-08-13 두 번째 고침으로 다시 동적이 됐지만,
-     * **이번에는 next.config의 headers()가 s-maxage를 붙여 CDN이 받는다** —
-     * 그 헤더 하나가 그때와 지금의 차이다(까닭은 next.config.ts).
+     * 태우고 사이트를 멈췄다. 2026-08-13에 헤더로 CDN에 태우는 길을 시도했지만
+     * **배포해서 재 보니 Cache-Control만은 프레임워크 것이 이겼다**(proxy.ts 머리말).
+     * 그래서 낱장은 ISR이다 — revalidate와 generateStaticParams가 함께 있어야 한다.
      */
-    assert.ok(src.includes("export const dynamic = 'force-dynamic'"), `${p.replace(ROOT + '/', '')}가 force-dynamic이 아니다`);
+    assert.match(src, /export const revalidate = false/, `${p.replace(ROOT + '/', '')}에 revalidate = false가 없다`);
+    assert.match(src, /generateStaticParams/, `${p.replace(ROOT + '/', '')}가 굽는 손잡이를 안 넘긴다`);
     assert.match(src, /generateStaticParams/, `${p.replace(ROOT + '/', '')}가 굽는 손잡이를 안 넘긴다`);
   }
 });

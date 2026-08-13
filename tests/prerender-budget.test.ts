@@ -32,38 +32,35 @@ function countDynamicRoutes(): number {
   return n;
 }
 
-test('낱장이 force-dynamic이고, 그것을 CDN에 물리는 헤더가 있다', () => {
+test('낱장이 ISR이고 굽는 손잡이를 함께 갖고 있다', () => {
   /*
-   * ── 이 검사가 잡는 흠은 하나다: 헤더 없는 force-dynamic ────────
-   * 2026-08-10에 낱장을 force-dynamic으로 두었다가 **사이트가 멈췄다.** Next가
-   * 동적 페이지에 `no-store`를 붙이므로 CDN이 한 장도 안 받았고, 요청마다 원본이
-   * 페이지 전체를 보내 Fast Origin Transfer(30일 10GB)가 348%까지 올랐다.
+   * ── 세 번 바꿔 보고 여기 앉았다 (2026-08-13) ──────────────────
+   * 낱장을 어떻게 캐시할지로 하루에 세 번 모델이 바뀌었다. 결론만 적으면:
+   * **App Router 페이지는 ISR로 캐시되거나 캐시가 아예 없거나 둘뿐이다.**
    *
-   * 2026-08-13에 다시 force-dynamic으로 왔지만 **이번에는 next.config의
-   * headers()가 s-maxage를 붙인다.** 그 한 줄이 그때와 지금의 유일한 차이다.
-   * 지우면 빌드도 통과하고 화면도 멀쩡한데 정확히 그 사고가 재현된다 — 그래서
-   * 여기서 둘을 **함께** 본다.
+   *   force-dynamic (08-10)     no-store라 CDN이 한 장도 안 받는다 →
+   *                             Origin Transfer 348%, 사이트 정지
+   *   ISR revalidate=86400      요청 오는 장마다 하루 한 번 다시 쓴다 → 쓰기가 샌다
+   *   ISR revalidate=false      쓰기는 첫 생성에만. 재방문은 304·0바이트  ← 지금
    *
-   * ── 왜 ISR을 버렸나 (2026-08-13 실측) ──────────────────────────
-   * ISR 쓰기는 8KB 단위로 세고 낱장 한 장이 2.36~3.38단위다(표본 40장).
-   * 크롤 한 바퀴 203,039장이면 48만~69만 단위로 무료 한도 20만의 240~343%다.
-   * 게다가 Vercel 문서가 「each new deployment uses its own ISR cache and does
-   * not reuse the cache from a previous deployment」라고 못 박아, 그 값이 배포마다
-   * 다시 든다. 페이지를 5.9만~8.5만 장으로 줄이지 않는 한 ISR로는 답이 없다.
+   * 그 사이에 **캐시를 CDN에만 두는 길**(force-dynamic + s-maxage 헤더)을 배포해서
+   * 재 봤다. ISR 쓰기가 크롤 한 바퀴에 무료 한도의 240~343%라 그것을 0으로 만드는
+   * 길이었는데, **안 된다.**
    *
-   * CDN 캐시는 읽기·쓰기가 공짜다(같은 문서). 대신 캐시가 임시라 축출되면 다시
-   * 그리고, 리전마다 첫 요청이 함수를 탄다. 한 바퀴에 활성 CPU 1.3~2.7시간
-   * (한도 4)과 전송 3.3GB(한도 10GB)이므로 **크롤이 월 한 바퀴 언저리로 눌려야
-   * 성립한다.** 눌러 주는 것이 봇 차단(app/robots.ts, proxy.ts)이다.
+   *   x-cache-policy: proxy                  ← 미들웨어가 세운 헤더는 그대로 나갔다
+   *   cache-control: private, …, no-store    ← Cache-Control만 프레임워크 것이 이겼다
+   *   next.config의 headers()도 정적 라우트에만 먹었다(/sitemap.xml·허브는 붙었다)
    *
-   * ── 되돌릴 때의 신호 ──────────────────────────────────────────
-   * 배포 뒤 Usage에서 Origin Transfer나 활성 CPU가 치솟으면 CDN이 헤더를 안 받고
-   * 있다는 뜻이다. 그때는 ISR로 되돌리고(이 검사와 낱장 913개를 함께) 페이지 수를
-   * 줄이는 쪽을 봐야 한다.
+   * 로컬 next start에서는 둘 다 먹어서 구별이 안 됐다 — 그래서 배포하고 나서야 알았다.
    *
-   * ── 접기 뒤의 모양 (2026-08-10, 그대로 유효) ─────────────────
-   * 아홉 언어의 알맹이는 lib/fold/pages/ 모듈로 접혔지만 **라우트는 남았다.**
-   * 허브는 언어마다 [[...path]] 캐치올이 굽고 낱장은 각자 [slug]다.
+   * ── 이 검사가 지키는 것 ───────────────────────────────────────
+   * revalidate와 generateStaticParams가 **함께** 있어야 캐시가 걸린다. revalidate만
+   * 적으면 [slug] 라우트가 동적으로 잡혀(빌드 표에 ƒ) 캐시를 아예 안 쓴다 — 빌드도
+   * 검사도 통과하는데 효과가 0인 상태다. 그리고 숫자 주기를 주면 쓰기가 되살아난다.
+   *
+   * 남은 문제는 쓰기 양이고, 그것은 코드가 아니라 **크롤 양**이 정한다. 한 바퀴가
+   * 48만~69만 단위(한도 20만)지만 크롤러가 한 달에 한 바퀴를 다 돌지는 알 수 없다.
+   * 배포 뒤 Usage로 재고, 안 되면 페이지 수를 줄이는 수밖에 없다 — lib/prerender.ts.
    */
   const walk = (dir: string, out: string[] = []): string[] => {
     for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -79,34 +76,36 @@ test('낱장이 force-dynamic이고, 그것을 CDN에 물리는 헤더가 있다
   assert.equal(hubCatchalls.length, 9, `허브 캐치올이 ${hubCatchalls.length}개다 — 아홉 언어와 어긋난다`);
   assert.ok(leaves.length > 700, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
 
-  /* 낱장은 전부 동적이어야 한다 — ISR로 남으면 그 장수만큼 쓰기가 든다 */
   const isr: string[] = [];
   const dyn: string[] = [];
+  const timed: string[] = [];
+  const half: string[] = [];
   for (const f of leaves) {
     const src = readFileSync(f, 'utf8');
     const rel = f.replace(ROOT + '/', '');
+    const hasRevalidate = /export const revalidate = false/.test(src);
+    const hasTimed = /export const revalidate = \d+/.test(src);
+    const hasParams = src.includes('generateStaticParams');
     if (src.includes("export const dynamic = 'force-dynamic'")) dyn.push(rel);
-    else if (/export const revalidate/.test(src)) isr.push(rel);
+    else if (hasTimed) timed.push(rel);
+    else if (hasRevalidate && hasParams) isr.push(rel);
+    else half.push(rel);
   }
-  assert.deepEqual(isr.slice(0, 5), [],
-    `ISR로 남은 낱장 ${isr.length}개 — 한 장이 2.36~3.38 쓰기 단위이고 한 바퀴가 ` +
-    '무료 한도의 240~343%다. force-dynamic + next.config headers()로 옮겨라');
-  assert.ok(dyn.length > 900, `force-dynamic 낱장이 ${dyn.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
 
-  /*
-   * **그리고 그 동적 낱장을 CDN에 물리는 헤더가 있어야 한다.** 이것이 없으면
-   * 위의 force-dynamic이 곧 2026-08-10의 사고다.
-   */
-  const cfg = readFileSync(join(ROOT, 'next.config.ts'), 'utf8');
-  assert.match(cfg, /async headers\(\)/,
-    'next.config.ts에 headers()가 없다 — 낱장 913개가 no-store로 나가 CDN이 한 장도 안 받는다(348% 사고)');
-  const sMaxAge = cfg.match(/s-maxage=(\d+)/);
-  assert.ok(sMaxAge, 'headers()에 s-maxage가 없다 — CDN이 받을 근거가 없다');
-  assert.ok(
-    Number(sMaxAge![1]) >= 86_400,
-    `s-maxage가 ${sMaxAge![1]}초다 — 그 주기마다 크롤 한 바퀴 값(CPU 1.3~2.7시간)이 ` +
-    '다시 든다. 한도가 4시간이라 두 바퀴면 넘는다',
-  );
+  assert.deepEqual(half.slice(0, 5), [],
+    `revalidate와 generateStaticParams 가운데 하나만 있는 낱장 ${half.length}개 — ` +
+    '둘이 함께 있어야 캐시가 걸린다. revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다');
+
+  assert.deepEqual(timed.slice(0, 5), [],
+    `revalidate에 숫자 주기를 준 낱장 ${timed.length}개 — 요청이 오는 장마다 그 주기로 ` +
+    'ISR 쓰기가 다시 든다. false(무기한)로 두고, 신선도는 배포가 정한다');
+
+  assert.deepEqual(dyn, [],
+    `force-dynamic 낱장 ${dyn.length}개 — Next가 no-store를 붙여 CDN이 한 장도 안 받는다. ` +
+    '헤더로 덮으려 해 봤지만 Cache-Control만은 프레임워크 것이 이긴다(2026-08-13 배포 실측). ' +
+    'Origin Transfer가 348%까지 올라 사이트가 멈췄던 자리다');
+
+  assert.ok(isr.length >= 900, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
 
   const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
   assert.deepEqual(

@@ -13,20 +13,18 @@ import { cardAt } from '@/lib/og-cards/render';
 import { prerender } from '@/lib/prerender';
 
 /*
- * GET은 Next 15부터 기본이 동적이다. 그냥 두면 카드를 요청마다 다시 그린다 —
- * 한 장에 45~240ms고 폰트를 매번 올린다. 그래서 캐시가 꼭 필요하다.
+ * ── CDN 캐시를 시도했다가 되돌렸다 (2026-08-13) ────────────────
+ * ISR 쓰기가 크롤 한 바퀴에 무료 한도의 240~343%라, 캐시를 CDN에만 두는 길
+ * (force-dynamic + s-maxage 헤더)을 시도했다. **배포해서 재 보니 안 된다** —
+ * 미들웨어가 세운 다른 헤더(X-Cache-Policy)는 그대로 나가는데 Cache-Control만
+ * 프레임워크가 붙인 no-store가 이겼다. next.config의 headers()도 정적 라우트에만
+ * 먹었다. 즉 App Router 페이지는 **ISR로 캐시되거나 캐시가 아예 없거나 둘뿐이다.**
  *
- * ── 캐시를 ISR에서 CDN으로 옮겼다 (2026-08-13) ─────────────────
- * 낱장과 같은 이유로 옮겼다(셈은 lib/prerender.ts). 여기만 다른 점은 **다시 그리는
- * 값이 훨씬 비싸다**는 것이다 — 낱장이 23.5ms인데 카드는 45~240ms다. 대신 카드는
- * 2,659장뿐이고(허브 단위) 사람이 공유할 때나 불린다. 전부 다시 그려도 활성 CPU
- * 10분 남짓, 한도 4시간의 4%다. 그래서 낱장과 같은 방식으로 통일한다 —
- * 캐시 규칙이 두 벌이면 한쪽만 고쳐지는 자리가 생긴다.
- *
- * 캐시는 next.config의 headers()가 붙이는 s-maxage로 CDN이 든다. 그 줄이 사라지면
- * 요청마다 카드를 새로 그리게 되므로 여기가 사이트에서 가장 먼저 아파진다.
+ * no-store는 요청마다 원본이 페이지 전체를 보내 Origin Transfer를 348%까지 태운
+ * 바로 그 상태이므로, ISR로 되돌린다. 쓰기가 한도를 넘을지는 크롤 양에 달렸고
+ * 그것은 배포 뒤 Usage로 잰다 — 셈과 실측은 lib/prerender.ts.
  */
-export const dynamic = 'force-dynamic';
+export const revalidate = false;
 export const dynamicParams = true;
 
 /*

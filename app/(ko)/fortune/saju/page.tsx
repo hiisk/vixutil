@@ -224,7 +224,7 @@ export default function SajuPage() {
   /* 스텝 목록 */
   type StepType = { key: string; emoji: string; title: string; subtitle: string; grad: string };
   const STATIC_STEPS: StepType[] = [
-    { key:'pillars',  emoji:'🎴', title:'나의 사주 사주',  subtitle:'천간과 지지로 이루어진 네 기둥', grad:'from-indigo-600 to-violet-700' },
+    { key:'pillars',  emoji:'🎴', title:'나의 사주',       subtitle:'천간과 지지로 이루어진 네 기둥', grad:'from-indigo-600 to-violet-700' },
     { key:'ilju',     emoji: dayStem?.emoji??'🔯', title:'일주 심층 해석', subtitle:'나를 이루는 핵심 에너지', grad:'from-slate-700 to-slate-900' },
     { key:'singang',  emoji:'⚖️', title:'신강·신약 분석', subtitle:'일간 기운의 강약과 용신', grad:'from-rose-600 to-rose-800' },
     { key:'ohaeng',   emoji:'🌊', title:'오행 균형',       subtitle:'다섯 원소의 분포와 보완법', grad:'from-cyan-600 to-blue-700' },
@@ -299,7 +299,7 @@ export default function SajuPage() {
           <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
             <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
             <h1 className="text-xl font-black">사주 분석</h1>
-            <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주 사주(四柱)를 분석합니다</p>
+            <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주(四柱)를 분석합니다</p>
           </div>
           <div className="p-5 space-y-4">
             {/* 성별 */}

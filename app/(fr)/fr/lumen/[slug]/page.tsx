@@ -4,21 +4,18 @@ import { build } from '@/lib/fold/pages/lumen__slug';
    낱장은 십육만 장이라 못 굽는다. 요청 때 그리고 캐시에 안 써 ISR 쓰기를 0으로
    둔다 — 근거는 lib/prerender.ts. 허브는 app/(fr)/fr/[[...path]]가 굽는다. */
 /*
- * ── ISR을 버리고 CDN 캐시만 쓴다 (2026-08-13, 두 번째 고침) ────
- * ISR은 크롤 한 바퀴에 쓰기 48만~69만 단위가 든다 — 무료 한도 20만의 240~343%다
- * (쓰기는 장수가 아니라 8KB 단위로 세고 한 장이 2.36~3.38단위다). 배포마다 캐시가
- * 새로 생기므로 그 값이 배포할 때마다 다시 든다. 페이지 수를 줄이지 않는 한 ISR로는
- * 무료에 못 들어간다.
+ * ── CDN 캐시를 시도했다가 되돌렸다 (2026-08-13) ────────────────
+ * ISR 쓰기가 크롤 한 바퀴에 무료 한도의 240~343%라, 캐시를 CDN에만 두는 길
+ * (force-dynamic + s-maxage 헤더)을 시도했다. **배포해서 재 보니 안 된다** —
+ * 미들웨어가 세운 다른 헤더(X-Cache-Policy)는 그대로 나가는데 Cache-Control만
+ * 프레임워크가 붙인 no-store가 이겼다. next.config의 headers()도 정적 라우트에만
+ * 먹었다. 즉 App Router 페이지는 **ISR로 캐시되거나 캐시가 아예 없거나 둘뿐이다.**
  *
- * 그래서 캐시를 **ISR 저장소가 아니라 CDN**에 둔다 — Vercel 문서가 「CDN cache
- * reads and writes are free」라고 못 박는다. 동적으로 그리되 next.config의
- * headers()가 s-maxage를 붙여 CDN이 받아 주게 한다(no-store가 덮이는 것은
- * 로컬 빌드로 확인했다). 2026-08-10의 force-dynamic과 다른 점이 이 헤더 하나다 —
- * 그때는 no-store라 CDN이 한 장도 안 받아 Origin Transfer가 348%까지 갔다.
- *
- * 셈과 남은 위험은 lib/prerender.ts에 있다.
+ * no-store는 요청마다 원본이 페이지 전체를 보내 Origin Transfer를 348%까지 태운
+ * 바로 그 상태이므로, ISR로 되돌린다. 쓰기가 한도를 넘을지는 크롤 양에 달렸고
+ * 그것은 배포 뒤 Usage로 잰다 — 셈과 실측은 lib/prerender.ts.
  */
-export const dynamic = 'force-dynamic';
+export const revalidate = false;
 
 const { generateMetadata, generateStaticParams, Page } = build('fr');
 export { generateMetadata, generateStaticParams };
