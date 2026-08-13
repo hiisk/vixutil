@@ -62,6 +62,14 @@ const NOT_ON_HOME = new Set([
   'about', 'contact', 'privacy', 'terms',
 ]);
 
+/**
+ * 아홉 언어 홈에는 있지만 한국어 홈에는 일부러 안 두는 것.
+ *
+ * **비어 있는 것이 정상이다.** 한국어가 이 사이트의 원본이라, 번역 홈에 있는데
+ * 한국어에 없다는 것은 거의 언제나 빠뜨린 것이다.
+ */
+const KO_HOME_SKIP = new Set<string>([]);
+
 test('한국어 홈이 모든 섹션을 건다', () => {
   const linked = hrefsIn(appFile('app/(ko)/page.tsx'));
   const missing = sectionsOnDisk()
@@ -85,6 +93,31 @@ test('아홉 언어 홈도 같은 섹션을 건다', () => {
   assert.deepEqual(
     onlyKo, [],
     `한국어 홈에만 있고 아홉 언어 홈에는 없는 섹션: ${onlyKo.join(', ')}`,
+  );
+});
+
+test('아홉 언어 홈에 있는 것이 한국어 홈에도 있다 — 반대 방향', () => {
+  /*
+   * ── 방향이 하나뿐이라 놓친 자리 (2026-08-13) ──────────────
+   * 위 검사는 「한국어 홈 ⊆ 아홉 언어 홈」만 본다. 그 반대는 아무도 안 봐서,
+   * 타로 카드 허브(78장, 낱장 79장)가 아홉 언어 홈에는 있는데 **한국어 홈에만
+   * 없었다.** 한국어에서는 /fortune 부모 허브를 거쳐야 닿았다.
+   *
+   * 첫 검사(sectionsOnDisk)도 이걸 못 잡는다 — app/(ko) **최상위 폴더만** 세기
+   * 때문에 그런 하위 허브는 애초에 목록에 없다. 그래서 여기서는
+   * 자료(locale-home) 쪽을 기준으로 삼아 한국어 홈을 되짚는다.
+   *
+   * 한국어에만 없어도 되는 것이 생기면 까닭과 함께 KO_HOME_SKIP에 적는다.
+   */
+  const koSrc = readFileSync(appFile('app/(ko)/page.tsx'), 'utf8').replace(/^import[^\n]*\n/gm, '');
+  const routes = new Set(INTL_LOCALES10.flatMap(l => homeSections(l).map(s => s.route)));
+  const missing = [...routes]
+    .filter(r => !KO_HOME_SKIP.has(r))
+    .filter(r => !koSrc.includes(`'${r}'`) && !koSrc.includes(`"${r}"`));
+  assert.deepEqual(
+    missing, [],
+    `아홉 언어 홈에는 있는데 한국어 홈에 없는 섹션 ${missing.length}개 — ` +
+    '한국어가 이 사이트의 원본인데 거기서만 안 걸린다',
   );
 });
 

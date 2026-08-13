@@ -369,3 +369,28 @@ test('열 언어 제목이 언어를 통틀어 유일하다', () => {
   assert.deepEqual(dup, [], `제목이 겹친다: ${dup.slice(0, 3).join(' / ')}`);
   assert.equal(titles.length, (CELLS.length + 2) * 10);
 });
+
+test('배선 여섯 곳이 다 있다', () => {
+  /*
+   * ── 이 파일 머리말이 "배선되면 넣어라"고 적어 둔 검사다 (2026-08-13에 넣었다) ──
+   * 세 섹션(hardness·steel·sun)이 배선을 마쳤는데 머리말은 「아직 배선이 남았다」로
+   * 남아 있었다. 실제로 여섯 곳이 다 채워진 것을 확인하고 약속대로 검사를 세운다.
+   *
+   * 한 줄만 빠져도 그 섹션은 조용히 죽는다 — 라우트는 열리는데 사이트맵·검색·홈
+   * 어디에서도 안 걸려 사람도 크롤러도 못 찾는 상태가 된다.
+   */
+  const at = (p: string) => readFileSync(join(import.meta.dirname, '..', p), 'utf8');
+  const S = 'sun';
+  const places: [string, boolean][] = [
+    ['lib/fold/registry.ts (허브)', at('lib/fold/registry.ts').includes(`'${S}':`)],
+    ['lib/fold/registry.ts (낱장)', at('lib/fold/registry.ts').includes(`'${S}/[slug]':`) || at('lib/fold/registry.ts').includes(`${S}__slug`)],
+    ['lib/ko/registry.ts', at('lib/ko/registry.ts').includes(`'${S}':`)],
+    ['app/sitemap.ts', at('app/sitemap.ts').includes(`/${S}`)],
+    ['lib/search-index.ts', at('lib/search-index.ts').includes(`'${S}'`)],
+    ['lib/locale-home.ts', at('lib/locale-home.ts').includes(`'/${S}'`)],
+    ['app/(ko)/page.tsx', at('app/(ko)/page.tsx').includes(`'/${S}'`)],
+    ['lib/og-cards/ko.tsx', at('lib/og-cards/ko.tsx').includes(`'${S}'`)],
+  ];
+  const missing = places.filter(([, ok]) => !ok).map(([name]) => name);
+  assert.deepEqual(missing, [], `${S} 배선이 빠진 곳 ${missing.length}개 — 그 섹션이 사이트에서 조용히 사라진다`);
+});

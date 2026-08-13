@@ -9,22 +9,9 @@
  * 남아도 컴파일은 통과하므로, 여기서 값을 직접 센다. 소수점 기호까지 함께 본다:
  * es·pt·de·fr는 쉼표를 쓰는데 문장에 점이 남으면 표와 본문이 다른 얼굴이 된다.
  *
- * ── 아직 여기 없는 검사 (배선이 남았다) ─────────────────────
- * 아래 여섯 곳은 이 섹션이 배선되면 그때 이 파일에 함께 들어와야 한다. 지금 넣으면
- * 배선이 안 된 상태라 빨갛게 뜨므로, **넣을 줄을 적어 둔다** — 배선하는 커밋에서
- * 같이 붙이면 그 뒤로는 한 줄이 빠지는 것을 이 파일이 잡는다.
- *
- *   1. lib/fold/registry.ts   `'hardness': () => import('./pages/hardness')`
- *                             `'hardness': () => import('./pages/hardness__slug')`
- *   2. lib/ko/registry.ts     `'hardness': () => import('./pages/hardness__slug')`
- *   3. app/sitemap.ts         `from "@/lib/hardness/list"` · `/hardness` 허브 줄 · `HARDNESS_CELLS.map`
- *   4. lib/search-index.ts    `section: 'hardness' as const` · `{ href: '/hardness',` · SECTION_META
- *   5. lib/locale-home.ts     `route: '/hardness'` · app/(ko)/page.tsx `href: '/hardness'`
- *   6. lib/og-cards/*.tsx     `'hardness': () => hardnessHub('<lang>')` + keys.ts 열 언어
- *
- * 그때 tests/og-cards.test.ts의 WANT와 tests/og-fonts.test.ts의 카드 수도 함께
- * 열 장 올라간다. 배선 전까지는 tests/ko-leaf-fold.test.ts가 'hardness'를
- * "등록부에 없는 모듈"로 함께 세운다 — steel·sun이 지금 그 상태다.
+ * ── 배선 여섯 곳은 이제 다 채워졌다 (2026-08-13 확인) ──────────
+ * 전에는 여기에 「배선이 남았다, 그때 이 줄들을 넣어라」가 적혀 있었다.
+ * 세 섹션 다 배선을 마쳤으므로 그 약속대로 아래에 검사를 세웠다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -253,4 +240,29 @@ test('열 언어 제목이 언어를 통틀어 유일하다', () => {
   const dup = [...seen].filter(([, n]) => n > 1).map(([t]) => t);
   assert.deepEqual(dup, [], `제목이 겹친다: ${dup.slice(0, 3).join(' / ')}`);
   assert.equal(titles.length, (CELLS.length + 2) * 10);
+});
+
+test('배선 여섯 곳이 다 있다', () => {
+  /*
+   * ── 이 파일 머리말이 "배선되면 넣어라"고 적어 둔 검사다 (2026-08-13에 넣었다) ──
+   * 세 섹션(hardness·steel·sun)이 배선을 마쳤는데 머리말은 「아직 배선이 남았다」로
+   * 남아 있었다. 실제로 여섯 곳이 다 채워진 것을 확인하고 약속대로 검사를 세운다.
+   *
+   * 한 줄만 빠져도 그 섹션은 조용히 죽는다 — 라우트는 열리는데 사이트맵·검색·홈
+   * 어디에서도 안 걸려 사람도 크롤러도 못 찾는 상태가 된다.
+   */
+  const at = (p: string) => readFileSync(join(import.meta.dirname, '..', p), 'utf8');
+  const S = 'hardness';
+  const places: [string, boolean][] = [
+    ['lib/fold/registry.ts (허브)', at('lib/fold/registry.ts').includes(`'${S}':`)],
+    ['lib/fold/registry.ts (낱장)', at('lib/fold/registry.ts').includes(`'${S}/[slug]':`) || at('lib/fold/registry.ts').includes(`${S}__slug`)],
+    ['lib/ko/registry.ts', at('lib/ko/registry.ts').includes(`'${S}':`)],
+    ['app/sitemap.ts', at('app/sitemap.ts').includes(`/${S}`)],
+    ['lib/search-index.ts', at('lib/search-index.ts').includes(`'${S}'`)],
+    ['lib/locale-home.ts', at('lib/locale-home.ts').includes(`'/${S}'`)],
+    ['app/(ko)/page.tsx', at('app/(ko)/page.tsx').includes(`'/${S}'`)],
+    ['lib/og-cards/ko.tsx', at('lib/og-cards/ko.tsx').includes(`'${S}'`)],
+  ];
+  const missing = places.filter(([, ok]) => !ok).map(([name]) => name);
+  assert.deepEqual(missing, [], `${S} 배선이 빠진 곳 ${missing.length}개 — 그 섹션이 사이트에서 조용히 사라진다`);
 });

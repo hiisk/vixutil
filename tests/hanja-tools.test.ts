@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { IDIOMS, HANJA_CATEGORIES, idiomBySlug, relatedIdioms } from '../lib/hanja-tools.ts';
-import { idiomText } from '../lib/hanja/types.ts';
+import { idiomText, idiomGloss } from '../lib/hanja/types.ts';
 import { HANJA_UI, hanjaCategories, hanjaFaq, hanjaAlternates, idiomHeading } from '../lib/hanja-ui.ts';
 import { GLOSS_EN } from '../lib/hanja/gloss-en.ts';
 import { HANJA_L10N, GLOSS_L10N } from '../lib/hanja-l10n/index.ts';
@@ -65,6 +65,31 @@ test('영어 새김이 성어마다 네 개씩 있고 한글이 없다', () => {
     for (const w of g) {
       assert.ok(w.length > 0, `${i.slug} 빈 새김`);
       assert.ok(!HANGUL.test(w), `${i.slug} 영어 새김에 한글: ${w}`);
+    }
+  }
+});
+
+test('아홉 언어가 새김을 실제로 받아 간다 — 자료만 있고 배선이 없던 자리', () => {
+  /*
+   * ── 자료는 완벽한데 화면에 안 나가던 자리 (2026-08-13) ──────
+   * 위 검사는 GLOSS_EN **자료 파일만** 본다. 496개가 다 채워져 있고 한글도 없어서
+   * 통과했는데, 정작 `GLOSS_L10N`에 en 칸이 없어서 화면에는 한 줄도 안 나갔다.
+   * idiomGloss가 `?? i.chars[n]`로 떨어지므로 **영어 낱장 124장이 한국어 훈음을
+   * 그대로 내보내고 있었다** — "have / prepare / without / worry"가 나가야 할 자리에
+   * "있을 유 / 갖출 비 / 없을 무 / 근심 환"이 나갔다.
+   *
+   * 그래서 자료가 아니라 **함수를 부른다.** 자료가 있어도 배선이 없으면 여기서 걸린다.
+   */
+  const NON_KO = LANGS.filter(l => l !== 'ko');
+  for (const lang of NON_KO) {
+    for (const i of IDIOMS) {
+      for (let n = 0; n < 4; n++) {
+        const g = idiomGloss(i, lang, n);
+        assert.notEqual(g, i.chars[n],
+          `${lang}/${i.slug}의 ${n}번째 새김이 한국어 훈음 그대로다 — GLOSS_L10N에 ${lang} 칸이 있는지 보라`);
+        /* LANGS에 중국어는 없다 — 중국어는 새김 자리에 한국어 독음을 일부러 쓴다 */
+        assert.ok(!HANGUL.test(g), `${lang}/${i.slug}에 한글이 샜다: ${g}`);
+      }
     }
   }
 });

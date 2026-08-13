@@ -5,6 +5,7 @@ import { SECTION_COUNTS } from '@/lib/search-index';
 import { LENSES } from '@/lib/lens/list';
 import { ALGS } from '@/lib/cube/list';
 import { ROLLS } from '@/lib/dice/list';
+import { CARDS } from '@/lib/tarot/deck';
 import { PATTERNS } from '@/lib/regex/list';
 import { ELEMENTS } from '@/lib/element/list';
 import { NUMBERS } from '@/lib/number/list';
@@ -1116,6 +1117,25 @@ const SECTIONS = [
     textAccent: 'text-rose-700 dark:text-rose-300',
     borderAccent: 'border-rose-200 dark:border-rose-900/50',
     shadow: 'shadow-rose-100',
+  },
+  {
+    /*
+     * 타로 카드 뜻 — 아홉 언어 홈에는 있는데 **한국어 홈에만 빠져 있었다**
+     * (2026-08-13에 반대 방향으로 세어 보고 찾았다). lib/locale-home.ts:171에
+     * 아홉 언어 카드가 있고 낱장이 79장인데, 한국어에서는 /fortune 부모 허브를
+     * 거쳐야만 닿았다. tests/home-covers-sections.test.ts가 「한국어 홈 ⊆ 아홉 언어
+     * 홈」만 보고 그 반대를 안 봐서 통과했다 — 그 검사도 함께 세웠다.
+     */
+    href: '/fortune/card',
+    icon: '🃏',
+    title: '타로 카드 뜻',
+    desc: '78장 전부의 정방향·역방향 의미 — 메이저와 마이너 아르카나',
+    badge: `${CARDS.length}장`,
+    color: 'from-violet-500 to-fuchsia-500',
+    bgLight: 'bg-violet-50 dark:bg-violet-950/30',
+    textAccent: 'text-violet-700 dark:text-violet-300',
+    borderAccent: 'border-violet-200 dark:border-violet-900/50',
+    shadow: 'shadow-violet-100',
   },
   {
     href: '/game/cube',

@@ -49,13 +49,23 @@ const POPULAR: { href: string; label: string }[] = [
   { href: "/fortune/tarot", label: "타로" },
 ];
 
-/** 영어로 실제 페이지가 있는 섹션만 — 없는 곳으로 보내면 한국어 화면이 나온다 */
-const SECTIONS_EN: { href: string; icon: string; label: string }[] = [
-  { href: "/crypto", icon: "🪙", label: "Crypto Tools" },
-  { href: "/calculator/en", icon: "📊", label: "Calculators" },
-  { href: "/en/generator", icon: "⚙️", label: "Generators" },
-  { href: "/en/fortune", icon: "🔮", label: "Fortune" },
-];
+/**
+ * 영어 푸터에만 손으로 두는 한 줄 — /crypto다.
+ *
+ * ── 왜 넷에서 이 하나로 줄었나 (2026-08-13) ──────────────────
+ * 전에는 영어 섹션을 여기 넷만 적어 두었다("영어로 실제 페이지가 있는 섹션만").
+ * 그 문구는 아홉 언어를 접기 전(lib/fold/registry.ts) 이야기다. 지금 영어는
+ * **114개 섹션이 다 있고**(homeSections('en')로 확인), 다른 아홉 언어 푸터는
+ * 이미 그 114개를 건다. 영어만 넷이었다.
+ *
+ * 게다가 그 넷 중 하나가 `/calculator/en`이었다 — 손으로 복사한 낡은 허브라
+ * 계산기 158개 중 89개만 걸고, 그중 44개는 영어판이 따로 있는데도 한국어 쪽을
+ * 가리켰다. 진짜 허브는 `/en/calculator`이고 homeSections에 들어 있다.
+ *
+ * /crypto만 남기는 까닭: 그 섹션은 한국어 라우트에 영어 내용이 있는 예외라
+ * lib/locale-home.ts의 목록에 없다(거기는 열 언어 섹션만 든다).
+ */
+const CRYPTO_EN = { href: "/crypto", icon: "🪙", label: "Crypto Tools" };
 
 const POPULAR_EN: { href: string; label: string }[] = [
   { href: "/crypto/signals", label: "Signal Board" },
@@ -153,11 +163,17 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
     없는 페이지가 나오는 것보다 없는 편이 낫다.
   */
   const translated = lang !== 'ko' && lang !== 'en';
+  /*
+   * 한국어만 손으로 적은 목록을 쓴다 — homeSections('ko')는 빈 배열이다
+   * (lib/locale-home.ts는 아홉 언어용이고 한국어 첫 화면은 app/(ko)/page.tsx가 따로 그린다).
+   * 영어를 포함한 나머지 아홉은 그 목록 하나에서 나온다.
+   */
   const sections = lang === 'ko'
     ? SECTIONS
-    : lang === 'en'
-      ? SECTIONS_EN
-      : homeSections(lang).map(s => ({ href: localeHref(lang, s.route), icon: s.icon, label: s.title }));
+    : [
+        ...(lang === 'en' ? [CRYPTO_EN] : []),
+        ...homeSections(lang).map(s => ({ href: localeHref(lang, s.route), icon: s.icon, label: s.title })),
+      ];
   const popular = translated ? [] : lang === 'en' ? POPULAR_EN : POPULAR;
   const searchHref = localeHref(lang, '/search');
   /*
@@ -165,9 +181,17 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
     푸터에 적으면 문구가 두 벌이 되고, 페이지 제목과 푸터 이름이 갈린다.
   */
   const legalNav = LEGAL_CHROME[langOfLocale(lang)].nav;
-  // 통합 검색은 여덟 언어에만 있다. 중국어에는 아직 없어서 링크를 걸면 404다 —
-  // 빌드된 페이지를 훑는 검사가 실제로 이걸 잡았다.
-  const hasSearch = !lang.startsWith('zh-');
+  /*
+   * 통합 검색은 **열 언어에 다 있다.**
+   *
+   * 전에는 중국어만 뺐다("아직 없어서 링크를 걸면 404다"). 그 뒤 중국어가 채워졌는데
+   * 이 줄이 남아, 중국어 페이지 약 4만 장에서 검색 진입점이 사라져 있었다 —
+   * 푸터는 모든 화면에 있으므로 그 한 줄이 사이트의 한 언어를 통째로 덮는다.
+   *
+   * 2026-08-13에 라이브에서 확인했다: /zh-hans/search · /zh-hant/search 둘 다 200이고
+   * 제목도 중국어다(搜索 | vixutil). 등록부에도 언어 필터가 없다(lib/fold/registry.ts의
+   * 'search'는 모든 언어가 같이 쓴다). 그래서 조건을 걷는다.
+   */
 
   return (
     <footer className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-4">
@@ -195,11 +219,10 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
           통합 검색 — 홈에만 있으면 도구 페이지에 깊이 들어온 사용자가 닿을 수 없다.
           푸터는 모든 페이지에 있으므로 여기가 가장 확실한 진입점이다.
         */}
-        {hasSearch && (
-          <Link prefetch={false}
-            href={searchHref}
-            className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
-          >
+        <Link prefetch={false}
+          href={searchHref}
+          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
+        >
             <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
@@ -209,8 +232,7 @@ export default function SiteFooter({ lang = 'ko', referral = true }: { lang?: La
             <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">
               {t.searchCta}
             </span>
-          </Link>
-        )}
+        </Link>
 
         {/* 섹션 바로가기 */}
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
