@@ -36,6 +36,7 @@ import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi
 import { EXERCISES } from "@/lib/body/exercise";
 import { SALARIES } from "@/lib/salary-grid";
 import { allSeveranceCells, severanceSlug } from "@/lib/severance-grid";
+import { allLoanCells, loanSlug } from "@/lib/loan-grid";
 import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
 import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
@@ -376,6 +377,11 @@ function allEntries(): MetadataRoute.Sitemap {
     /* 연봉 실수령 값 낱장 — 한국어 전용(4대보험·소득세는 한국 제도다) */
     ...SALARIES.map((v) => ({
       url: `${BASE}/calculator/salary/${v}`, changeFrequency: yearly, priority: 0.8,
+    })),
+    /* 대출 상환방식 값 낱장 — 요율이 안 들어가는 순수 계산이라 안 낡는다 */
+    ...allLoanCells().map((c) => ({
+      url: `${BASE}/calculator/loan-method/${loanSlug(c.principal, c.rate, c.term)}`,
+      changeFrequency: yearly, priority: 0.8,
     })),
     /* 퇴직금 값 낱장 — 한국어 전용(근로자퇴직급여 보장법은 한국 제도다) */
     ...allSeveranceCells().map((c) => ({

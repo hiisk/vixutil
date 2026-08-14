@@ -134,6 +134,7 @@ export const KO_DEEP_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'body/bmi': () => import('./pages/body__bmi__slug'),
   'calculator/salary': () => import('./pages/calculator__salary__slug'),
   'calculator/severance': () => import('./pages/calculator__severance__slug'),
+  'calculator/loan-method': () => import('./pages/calculator__loan-method__slug'),
   'body/exercise': () => import('./pages/body__exercise__slug'),
   'device/screen': () => import('./pages/device__screen__slug'),
   'fortune/birthday': () => import('./pages/fortune__birthday__slug'),
