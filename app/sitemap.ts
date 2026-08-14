@@ -1549,22 +1549,17 @@ export const CHUNK_SIZE = 45_000;
  *
  * ── 왜 언어마다 하나인가 ───────────────────────────────────
  * 서치 콘솔은 **사이트맵 파일별로** 색인 현황을 보여 준다. 파일이 언어별이면
- * "영어는 몇 % 색인됐고 다른 언어는 몇 %인가"를 바로 읽을 수 있다. 45,000개씩
+ * "한국어는 몇 % 색인됐고 번역판은 몇 %인가"를 바로 읽을 수 있다. 45,000개씩
  * 기계적으로 자르면 파일마다 언어가 섞여 그 수치가 아무것도 말해 주지 않는다.
+ * 그리고 한국어가 /sitemap.xml 하나에 다 들어가므로, 구글이 그 주소만 읽어도
+ * 유입이 오는 언어는 한 장도 빠지지 않는다.
  *
- * ── 앞자리를 영어로 돌렸다 (2026-08-14) ────────────────────
- * 처음에는 한국어가 /sitemap.xml이었다. 유입이 한국어에서 온다고 봤기 때문이다.
- * 목표가 바뀌었다 — **국외 유입, 특히 구글이 먼저다.** 구글은 사이트맵을 앞에서
- * 부터 읽고 제 예산에서 끊으므로, 앞자리에 두는 언어가 곧 우선순위다.
- * 그래서 en을 첫 조각으로 올리고 ko를 맨 뒤로 내렸다.
- *
- * 파일 번호가 한 번 밀리는 값을 치른다(서치 콘솔의 파일별 이력이 한 번 끊긴다).
- * 지금 하지 않으면 늘어난 뒤에 더 크게 치르므로 여기서 끝낸다.
- *
- * ── 한 언어가 여러 조각을 가질 수 있다 ────────────────────
- * 예전에는 넘친 몫을 **목록 맨 뒤**에 붙였다. 그러면 그 언어가 앞뒤로 찢어져
- * 앞자리에 두는 뜻이 사라진다. 지금은 한 언어의 조각이 늘 붙어 있고 언어 순서도
- * 지켜진다 — ko가 두 조각이 되면 en은 그만큼 뒤로 밀린다.
+ * ── 앞자리를 바꾸려다 되돌렸다 (2026-08-15) ────────────────
+ * 국외 유입이 우선이 되었으니 en을 첫 조각으로 올리자고 판단해 한 번 바꿨다.
+ * **되돌렸다.** 파일 번호는 언어에 고정돼 있어야 한다 — 번호가 밀리면 서치
+ * 콘솔이 파일별로 쌓아 둔 색인 이력이 다른 언어를 가리키고, 언어별로 자른
+ * 보람이 그 순간 사라진다. 우선순위는 사이트맵 차례가 아니라 **어떤 페이지를
+ * 만드느냐**로 정한다.
  *
  * ── 왜 /sitemap/0.xml 이 아닌가 ────────────────────────────
  * Next의 generateSitemaps는 반드시 `/sitemap/<id>.xml` 밑에 만든다. 그러면 이미
@@ -1576,8 +1571,7 @@ export const CHUNK_SIZE = 45_000;
  * 11번부터 뒤에 붙인다 — 1~10은 배포와 무관하게 늘 같은 언어를 가리킨다.
  * 밀리면 서치 콘솔이 파일별로 쌓아 둔 이력이 다른 언어를 가리키게 된다.
  */
-/* 앞자리가 곧 우선순위다 — 국외 유입이 먼저라 en이 첫 조각, ko가 마지막이다 */
-const SITEMAP_LANG_ORDER = ['en', 'es', 'pt-br', 'de', 'fr', 'ja', 'zh-hans', 'zh-hant', 'hi', 'ko'];
+const SITEMAP_LANG_ORDER = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
 /** 주소의 언어 — 한국어는 접두어가 없으므로 아홉 개에 없으면 ko다 */
 function langOfUrl(url: string): string {
@@ -1585,12 +1579,7 @@ function langOfUrl(url: string): string {
   return SITEMAP_LANG_ORDER.includes(first) && first !== 'ko' ? first : 'ko';
 }
 
-/**
- * 0번이 /sitemap.xml, 1번이 /sitemap2.xml … 언어 순서대로, 한 언어의 조각은 붙어 있다.
- *
- * 한 언어가 CHUNK_SIZE를 넘으면 그 언어가 **연달아** 여러 조각을 갖는다. 넘친 몫을
- * 목록 맨 뒤로 보내면 그 언어가 앞뒤로 찢어져, 앞자리에 두는 뜻이 사라진다.
- */
+/** 0번이 /sitemap.xml, 1번이 /sitemap2.xml … 자리는 언어에 고정돼 있다 */
 export function sitemapParts(): MetadataRoute.Sitemap[] {
   const byLang = new Map<string, MetadataRoute.Sitemap>();
   for (const e of allEntries()) {
@@ -1599,15 +1588,22 @@ export function sitemapParts(): MetadataRoute.Sitemap[] {
     if (arr) arr.push(e);
     else byLang.set(k, [e]);
   }
+  /* 언어 자리 — 앞 45,000개까지가 그 언어의 제 번호를 쓴다 */
+  const base = SITEMAP_LANG_ORDER
+    .map(l => (byLang.get(l) ?? []).slice(0, CHUNK_SIZE))
+    .filter(c => c.length);
 
-  const parts: MetadataRoute.Sitemap[] = [];
-  const push = (g: MetadataRoute.Sitemap) => {
-    for (let i = 0; i < g.length; i += CHUNK_SIZE) parts.push(g.slice(i, i + CHUNK_SIZE));
-  };
-  for (const l of SITEMAP_LANG_ORDER) push(byLang.get(l) ?? []);
-  /* 목록에 없는 언어가 생기면 뒤에 붙는다 — 조용히 사라지지는 않는다 */
-  for (const [l, g] of byLang) if (!SITEMAP_LANG_ORDER.includes(l)) push(g);
-  return parts;
+  /* 넘친 몫과 목록에 없는 언어는 뒤에 붙는다 — 앞 번호를 건드리지 않는다 */
+  const overflow: MetadataRoute.Sitemap[] = [];
+  for (const l of SITEMAP_LANG_ORDER) {
+    const g = byLang.get(l) ?? [];
+    for (let i = CHUNK_SIZE; i < g.length; i += CHUNK_SIZE) overflow.push(g.slice(i, i + CHUNK_SIZE));
+  }
+  for (const [l, g] of byLang) {
+    if (SITEMAP_LANG_ORDER.includes(l)) continue;
+    for (let i = 0; i < g.length; i += CHUNK_SIZE) overflow.push(g.slice(i, i + CHUNK_SIZE));
+  }
+  return [...base, ...overflow];
 }
 
 export function sitemapPartCount(): number {
