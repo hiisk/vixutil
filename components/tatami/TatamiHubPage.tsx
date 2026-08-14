@@ -6,7 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import TatamiList from '@/components/tatami/TatamiList';
 import LangPicker from '@/components/LangPicker';
-import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, localeOfLang, localesOfSection } from '@/lib/i18n/lang';
 import { CELLS, KINDS, TATAMI_ICON, slugOf } from '@/lib/tatami/list';
 import { atKind, tatamiFacts } from '@/lib/tatami/facts';
 import { TATAMI_UI } from '@/lib/tatami/ui';
@@ -52,7 +52,7 @@ export default function TatamiHubPage({ lang }: { lang: Lang }) {
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="row-name">{ui.section}</span>
           <div className="ml-auto shrink-0">
-            <LangPicker current={localeOfLang(lang)} route="/tatami" available={LOCALE_PATHS} />
+            <LangPicker current={localeOfLang(lang)} route="/tatami" available={localesOfSection('tatami')} />
           </div>
         </div>
       </header>
@@ -114,7 +114,7 @@ export default function TatamiHubPage({ lang }: { lang: Lang }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="foot-nav" aria-label="Language">
-          {LANGS.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang && localesOfSection('tatami').includes(l.locale)).map(l => (
             <Link prefetch={false} key={l.lang} href={`${l.prefix}/tatami`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>

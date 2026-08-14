@@ -96,11 +96,63 @@ export const localeOfLang = (lang: Lang): AnyLocale10 => langInfo(lang).locale;
  * path는 언어 앞머리를 뺀 경로다 — "/metro/seoul-line-2", "/music/c-major".
  */
 export const alternates = (path: string): Record<string, string> => {
+  const only = localesOfPath(path);
   const out: Record<string, string> = {};
-  for (const l of LANGS) out[l.hreflang] = `${l.prefix}${path}`;
-  out['x-default'] = `/en${path}`;
+  for (const l of LANGS) if (only.includes(l.locale)) out[l.hreflang] = `${l.prefix}${path}`;
+  /* 영어를 안 내는 갈래는 x-default도 영어를 가리키면 안 된다 — 없는 장이다 */
+  const fallback = LANGS.find(l => only.includes(l.locale) && l.lang === 'en')
+    ?? LANGS.find(l => only.includes(l.locale))!;
+  out['x-default'] = `${fallback.prefix}${path}`;
   return out;
 };
+
+/**
+ * ── 그 언어에서 아무도 안 치는 갈래는 안 낸다 (2026-08-14) ────
+ * 갈래를 만들면 자동으로 열 언어가 나갔다. 그래서 힌디어 다다미, 독일어 일본
+ * 연호, 스페인어 한자 훈음 같은 장이 서 있었다. 아무도 안 치는 말인데 크롤
+ * 예산과 사이트맵 자리를 실제로 쓴다 — 국외 유입이 우선이 되면서 더 나빠졌다.
+ * 구글이 먼저 읽는 앞자리 목록(영어·스페인어)에 그 장들이 섞여 있었다.
+ *
+ * 갈래를 언어에서 빼려면 네 곳이 같이 맞아야 하고, 한 곳이라도 어긋나면 조용히
+ * 깨진다.
+ *
+ *   1. 라우트 파일           — 없으면 404
+ *   2. 사이트맵              — 남아 있으면 404를 목록에 싣는다
+ *   3. hreflang              — 남아 있으면 없는 장을 가리킨다  ← alternates()가 본다
+ *   4. 언어 고르개·아래 링크  — 남아 있으면 사람이 404로 간다
+ *
+ * 그래서 목록은 이 표 하나뿐이고, 나머지는 검사가 이 표와 대조한다.
+ */
+
+/**
+ * 한자 문화권 넷.
+ *
+ * 한자·일본 연호·다다미·혈액형 유전은 이 넷 밖에서 검색되지 않는다. 없는 개념이
+ * 아니라(ABO 유전은 어디서나 가르친다) **그 말로 찾지 않는다**는 뜻이다 —
+ * 영어권에서 혈액형 조합 512칸을 주소로 치는 사람은 없다.
+ */
+export const CJK_LOCALES: AnyLocale10[] = ['ko', 'ja', 'zh-hans', 'zh-hant'];
+
+/** 갈래 → 그 갈래를 내는 언어. 여기 없는 갈래는 열 언어 전부다 */
+export const SECTION_LOCALES: Record<string, AnyLocale10[]> = {
+  hanja: CJK_LOCALES,
+  gengo: CJK_LOCALES,
+  tatami: CJK_LOCALES,
+  heredity: CJK_LOCALES,
+};
+
+/** 줄인 갈래 이름들 — 사이트맵과 검사가 돈다 */
+export const NARROWED_SECTIONS = Object.keys(SECTION_LOCALES);
+
+export const localesOfSection = (section: string): AnyLocale10[] =>
+  SECTION_LOCALES[section] ?? LOCALE_PATHS;
+
+export const sectionHasLocale = (section: string, locale: AnyLocale10): boolean =>
+  localesOfSection(section).includes(locale);
+
+/** `/gengo/reiwa`에서 갈래를 뗀다 — 언어 앞머리가 붙기 전의 경로다 */
+export const localesOfPath = (path: string): AnyLocale10[] =>
+  localesOfSection(path.replace(/^\//, '').split('/')[0]);
 
 /**
  * 번호가 붙은 것의 이름을 언어별로 만든다.

@@ -5,6 +5,8 @@ import { join } from 'node:path';
 
 import { APP_DIR, builtHtml, foldHubs, foldSlugs, sitemapRoutes } from './app-path.ts';
 import { DEEP_PREFIX_ROUTES } from '../lib/fold/deep-prefix.ts';
+import { NARROWED_SECTIONS, sectionHasLocale } from '../lib/i18n/lang.ts';
+import type { AnyLocale10 } from '../lib/locales.ts';
 
 /**
  * 접힌 국제 라우트가 사이트맵과 어긋나지 않는지 본다.
@@ -108,7 +110,9 @@ test('접힌 허브가 아홉 언어에서 같은 목록이다', () => {
     const p = join(APP_DIR, `(${lang})`, lang, '[[...path]]', 'page.tsx');
     assert.ok(existsSync(p), `${lang}에 허브 캐치올이 없다`);
     const src = readFileSync(p, 'utf8');
-    assert.match(src, /STATIC_ROUTE_KEYS\.map/, `${lang} 캐치올이 등록부 목록을 안 굽는다 — 허브가 갈라진다`);
+    /* 2026-08-14: 목록을 그대로 굽지 않고 그 언어가 내는 갈래만 거른다.
+       거르는 표는 lib/i18n/lang.ts의 SECTION_LOCALES 하나뿐이라 여전히 갈라지지 않는다 */
+    assert.match(src, /staticKeysFor\(/, `${lang} 캐치올이 등록부 목록을 안 굽는다 — 허브가 갈라진다`);
     assert.match(src, new RegExp(`'${lang}'`), `${lang} 캐치올이 제 언어를 안 넘긴다`);
   }
 });
@@ -134,14 +138,26 @@ test('낱장 라우트가 아홉 언어에 똑같이 있다', () => {
    * 캐치올에 못 넣는다 — 구운 라우트 안에서는 요청 때 그리기로 못 빠져나간다).
    * 파일이 아홉 벌이라는 것은 한 언어에서만 빠질 수 있다는 뜻이다.
    */
+  /*
+   * 2026-08-14: 갈래에 따라 언어를 줄이기 시작했다(한자·연호·다다미·혈액형 유전은
+   * 한자 문화권만). 그래서 "en과 완전히 같다"가 아니라 **SECTION_LOCALES가 정한
+   * 만큼만 다르다**를 본다. 표에 없는 차이는 여전히 잡힌다.
+   */
+  /* FOLD_LANGS는 주소에 쓰는 이름이라 그대로 locale이다(pt-br·zh-hans) */
+  const expected = (locale: string) =>
+    [...leafPrefixes('en').slug, ...NARROWED_SECTIONS]
+      .filter(k => sectionHasLocale(k.split('/')[0], locale as AnyLocale10));
   const ref = leafPrefixes('en');
-  const refKeys = [...ref.slug].sort().join(',');
   assert.ok(ref.slug.size > 80, `en 낱장 무늬가 ${ref.slug.size}개뿐 — 세는 방식이 깨졌다`);
   for (const lang of FOLD_LANGS) {
     const got = leafPrefixes(lang);
-    assert.equal([...got.slug].sort().join(','), refKeys, `${lang}의 낱장 라우트가 en과 다르다`);
+    assert.deepEqual([...got.slug].sort(), [...new Set(expected(lang))].sort(),
+      `${lang}의 낱장 라우트가 SECTION_LOCALES와 어긋난다`);
     assert.deepEqual([...got.catchAll].sort(), [...ref.catchAll].sort(), `${lang}의 캐치올 낱장이 en과 다르다`);
   }
+  /* 줄인 갈래가 실제로 빠져 있는지 — 위 식이 저절로 맞아떨어지는 것을 막는다 */
+  assert.ok(!leafPrefixes('en').slug.has('hanja'), 'en에 한자 낱장 라우트가 남아 있다');
+  assert.ok(leafPrefixes('ja').slug.has('hanja'), 'ja에서 한자 낱장 라우트가 사라졌다');
 });
 
 test('낱장 껍데기가 제 언어로 공유 모듈을 부른다', () => {

@@ -6,7 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import GengoList from '@/components/gengo/GengoList';
 import LangPicker from '@/components/LangPicker';
-import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, localeOfLang, localesOfSection } from '@/lib/i18n/lang';
 import { CELLS, ERAS, GENGO_ICON, slugOf } from '@/lib/gengo/list';
 import { atEra } from '@/lib/gengo/facts';
 import { GENGO_UI } from '@/lib/gengo/ui';
@@ -51,7 +51,7 @@ export default function GengoHubPage({ lang }: { lang: Lang }) {
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="row-name">{ui.section}</span>
           <div className="ml-auto shrink-0">
-            <LangPicker current={localeOfLang(lang)} route="/gengo" available={LOCALE_PATHS} />
+            <LangPicker current={localeOfLang(lang)} route="/gengo" available={localesOfSection('gengo')} />
           </div>
         </div>
       </header>
@@ -114,7 +114,7 @@ export default function GengoHubPage({ lang }: { lang: Lang }) {
         <Faq items={ui.hubFaq} lang={base} title={ui.faqTitle} />
 
         <nav className="foot-nav" aria-label="Language">
-          {LANGS.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang && localesOfSection('gengo').includes(l.locale)).map(l => (
             <Link prefetch={false} key={l.lang} href={`${l.prefix}/gengo`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>

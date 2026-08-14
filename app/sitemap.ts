@@ -47,6 +47,7 @@ import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
 import { METRO_LINES } from "@/lib/metro-lines";
 import { METRO_LANGS } from "@/lib/metro/lang";
+import { sectionHasLocale } from "@/lib/i18n/lang";
 import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { allHexShorts, hexSlug } from "@/lib/color/hex-grid";
@@ -432,8 +433,9 @@ function allEntries(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    // 사자성어도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES10.flatMap((lang) => [
+    /* 한자는 한자 문화권에서만 낸다 — 스페인어 훈음은 아무도 안 친다.
+       목록은 lib/i18n/lang.ts의 SECTION_LOCALES 하나뿐이다 */
+    ...INTL_LOCALES10.filter((lang) => sectionHasLocale('hanja', lang)).flatMap((lang) => [
       { url: `${BASE}/${lang}/hanja`, changeFrequency: weekly, priority: 0.9 },
       ...IDIOMS.map((i: { slug: string }) => ({
         url: `${BASE}/${lang}/hanja/${i.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -867,8 +869,8 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
-    // 혈액형 유전 512장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    /* 혈액형 유전 512장은 한자 문화권 넷에만 낸다 — SECTION_LOCALES */
+    ...METRO_LANGS.filter((l) => sectionHasLocale('heredity', l.locale)).flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/heredity`, changeFrequency: weekly, priority: 0.85 },
       ...HEREDITY_CELLS.map(c => ({
         url: `${BASE}${prefix}/heredity/${heredSlug(c)}`,
@@ -948,8 +950,8 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
-    // 다다미 100장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    /* 다다미 100장은 한자 문화권 넷에만 낸다 — SECTION_LOCALES */
+    ...METRO_LANGS.filter((l) => sectionHasLocale('tatami', l.locale)).flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/tatami`, changeFrequency: weekly, priority: 0.85 },
       ...TATAMI_CELLS.map(c => ({
         url: `${BASE}${prefix}/tatami/${tatamiSlug(c)}`,
@@ -966,8 +968,8 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
-    // 일본 연호 163장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    /* 일본 연호 163장은 한자 문화권 넷에만 낸다 — SECTION_LOCALES */
+    ...METRO_LANGS.filter((l) => sectionHasLocale('gengo', l.locale)).flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/gengo`, changeFrequency: weekly, priority: 0.85 },
       ...GENGO_CELLS.map(c => ({
         url: `${BASE}${prefix}/gengo/${gengoSlug(c)}`,

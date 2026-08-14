@@ -22,7 +22,7 @@ import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import HeredityList from '@/components/heredity/HeredityList';
 import LangPicker from '@/components/LangPicker';
-import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
+import { LANGS, langPrefix, type Lang, localeOfLang, localesOfSection } from '@/lib/i18n/lang';
 import { cellOf, labelOf, typeOf } from '@/lib/heredity/list';
 import { atParents, heredityFacts } from '@/lib/heredity/facts';
 import { HEREDITY_UI } from '@/lib/heredity/ui';
@@ -75,7 +75,7 @@ export default function HeredityPage({ slug, lang }: { slug: string; lang: Lang 
           <span className="text-slate-200 dark:text-slate-700">·</span>
           <span className="row-name">{trio}</span>
           <div className="ml-auto shrink-0">
-            <LangPicker current={localeOfLang(lang)} route={`/heredity/${slug}`} available={LOCALE_PATHS} />
+            <LangPicker current={localeOfLang(lang)} route={`/heredity/${slug}`} available={localesOfSection('heredity')} />
           </div>
         </div>
       </header>
@@ -208,7 +208,7 @@ export default function HeredityPage({ slug, lang }: { slug: string; lang: Lang 
         <Faq items={ui.cellFaq(f)} lang={base} title={ui.faqTitle} />
 
         <nav className="foot-nav" aria-label="Language">
-          {LANGS.filter(l => l.lang !== lang).map(l => (
+          {LANGS.filter(l => l.lang !== lang && localesOfSection('heredity').includes(l.locale)).map(l => (
             <Link prefetch={false} key={l.lang} href={`${l.prefix}/heredity/${slug}`} hrefLang={l.hreflang} className="dim-link">
               {l.label}
             </Link>

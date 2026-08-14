@@ -1,5 +1,6 @@
 /** 사자성어 화면의 열 언어 문구와 섹션 설정 */
 import type { Lang, FormulaLang } from './formula/terms.ts';
+import { localesOfSection } from './i18n/lang.ts';
 import { IDIOMS, HANJA_CATEGORIES } from './hanja-tools.ts';
 import type { Idiom } from './hanja/types.ts';
 import { idiomText } from './hanja/types.ts';
@@ -279,7 +280,8 @@ export const HANJA_CATEGORY_INTL: Partial<Record<FormulaLang, Record<string, str
 };
 
 /** 열 언어가 다 열려 있다 */
-export const HANJA_LANGS: FormulaLang[] = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
+/* 한자 훈음은 한자 문화권에서만 검색된다 — 목록은 lib/i18n/lang.ts의 SECTION_LOCALES */
+export const HANJA_LANGS = localesOfSection('hanja') as FormulaLang[];
 
 /** 갈래 이름 — 번역이 없으면 영어로 떨어뜨린다 */
 export const hanjaCategories = (lang: FormulaLang): Record<string, string> =>
@@ -324,5 +326,7 @@ export function hanjaFaq(i: Idiom, lang: FormulaLang) {
 
 export function hanjaAlternates(slug?: string) {
   const path = slug ? `/hanja/${slug}` : '/hanja';
-  return alternateLanguagesFor(path, [...ALL_LOCALES10]);
+  /* 열 언어가 아니다 — 한자는 한자 문화권에서만 낸다(SECTION_LOCALES).
+     여기에 ALL_LOCALES10을 넘기면 지워진 장을 hreflang이 가리킨다 */
+  return alternateLanguagesFor(path, [...localesOfSection('hanja')]);
 }

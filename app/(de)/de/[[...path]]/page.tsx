@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { foldMetadata, foldPage } from '@/lib/fold/resolve';
-import { STATIC_ROUTE_KEYS } from '@/lib/fold/registry';
+import { foldMetadata, foldPage, staticKeysFor } from '@/lib/fold/resolve';
 
 /*
  * 아홉 언어 × 335개 라우트 파일(3,015개)을 언어당 이 파일 하나로 접었다.
@@ -15,7 +14,8 @@ import { STATIC_ROUTE_KEYS } from '@/lib/fold/registry';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return STATIC_ROUTE_KEYS.map(k => ({ path: k.split('/').filter(Boolean) }));
+  /* 그 언어에서 안 내기로 한 갈래는 굽지 않는다 — SECTION_LOCALES */
+  return staticKeysFor('de').map(k => ({ path: k.split('/').filter(Boolean) }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ path?: string[] }> }): Promise<Metadata> {

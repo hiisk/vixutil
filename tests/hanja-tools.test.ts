@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { localesOfSection } from '../lib/i18n/lang.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { IDIOMS, HANJA_CATEGORIES, idiomBySlug, relatedIdioms } from '../lib/hanja-tools.ts';
 import { idiomText, idiomGloss } from '../lib/hanja/types.ts';
@@ -173,8 +174,14 @@ test('같은 갈래 링크가 자기 자신을 가리키지 않는다', () => {
   }
 });
 
-test('세 언어 라우트가 모두 있다', () => {
-  for (const p of ['app/hanja', 'app/en/hanja', ]) {
+test('한자 문화권 언어에만 라우트가 있다', () => {
+  /*
+   * 2026-08-14: 한자 훈음은 그 밖의 언어에서 검색되지 않아 라우트를 지웠다.
+   * 목록은 lib/i18n/lang.ts의 SECTION_LOCALES 하나뿐이다.
+   */
+  assert.ok(!hasLeafAt('app/en/hanja'), 'en 한자 낱장 라우트가 남아 있다');
+  assert.ok(!hasLeafAt('app/hi/hanja'), 'hi 한자 낱장 라우트가 남아 있다');
+  for (const p of ['app/hanja', 'app/ja/hanja']) {
     assert.ok(existsSync(appFile(`${p}/page.tsx`)), `${p}/page.tsx 없음`);
     assert.ok(hasLeafAt(p), `${p}/[slug]/page.tsx 없음`);
     // 카드는 이제 파일이 아니라 lib/og-cards의 대응표에 있다 — 물려받은 것은 안 친다
@@ -182,18 +189,22 @@ test('세 언어 라우트가 모두 있다', () => {
   }
 });
 
-test('hreflang이 열 언어와 x-default를 낸다', () => {
+test('hreflang이 한자 문화권 넷만 낸다', () => {
+  /* 지운 언어를 가리키면 그 hreflang 묶음 전체가 신뢰를 잃는다 */
   const a = hanjaAlternates('samyeonchoga');
-  assert.equal(Object.keys(a).length, 11);
+  assert.equal(Object.keys(a).filter(k => k !== 'x-default').length, localesOfSection('hanja').length);
   assert.equal(a.ko, '/hanja/samyeonchoga');
-  assert.equal(a['pt-BR'], '/pt-br/hanja/samyeonchoga');
-  assert.equal(a['x-default'], '/en/hanja/samyeonchoga');
+  assert.equal(a.ja, '/ja/hanja/samyeonchoga');
+  assert.equal(a['pt-BR'], undefined, 'pt-br이 남아 있다 — 지운 장이다');
+  assert.equal(a.en, undefined, 'en이 남아 있다 — 지운 장이다');
+  assert.ok(!String(a['x-default']).startsWith('/en/'), 'x-default가 없는 영어 장을 가리킨다');
 });
 
 test('사이트맵이 열 언어의 /hanja를 낸다', () => {
   const src = readFileSync(appFile('app/sitemap.ts'), 'utf8');
   assert.ok(src.includes('/hanja`'), '사이트맵에 /hanja 없음');
-  assert.match(src, /INTL_LOCALES10\.flatMap[\s\S]{0,400}\/hanja/, '사이트맵이 /hanja를 언어별로 돌리지 않는다');
+  assert.match(src, /INTL_LOCALES10\.filter[\s\S]{0,400}\/hanja/, '사이트맵이 /hanja를 언어별로 돌리지 않는다');
+  assert.ok(src.includes("sectionHasLocale('hanja'"), '사이트맵이 한자를 안 거른다 — 지운 언어 주소가 실린다');
 });
 
 test('한국식·중국 고전 출처가 섞여 있다는 안내가 여덟 언어에 있다', () => {
