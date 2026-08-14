@@ -74,7 +74,14 @@ test('모듈이 저마다 generateStaticParams를 갖는다', () => {
   for (const [key, file] of registered) {
     const p = join(PAGES, `${file}__slug.tsx`);
     if (!existsSync(p)) continue;
-    if (!readFileSync(p, 'utf8').includes('export function generateStaticParams')) bad.push(key);
+    /*
+     * 내보내는 꼴이 둘이다 — 대부분은 `export function`이고, 접힌 국제 모듈을
+     * 감싸는 어댑터는 `export const ... = ko.generateStaticParams`다(BMI 격자가
+     * 그렇다). 요건은 "내보내는가"이므로 둘 다 받는다. 함수 선언만 찾던 검사가
+     * 어댑터를 흠으로 잡아 2026-08-14에 넓혔다.
+     */
+    const src = readFileSync(p, 'utf8');
+    if (!/export\s+(function|const)\s+generateStaticParams/.test(src)) bad.push(key);
   }
   assert.deepEqual(bad, [], 'generateStaticParams가 없는 모듈이다');
 });

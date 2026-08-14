@@ -32,6 +32,7 @@ import { SOUND_TOOLS } from "@/lib/sound-tools";
 import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { valuesFor, valueSlug } from "@/lib/convert/values";
+import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
@@ -141,6 +142,9 @@ import { EM_ITEMS } from "@/lib/emoji/list";
 import { ERR_ITEMS } from "@/lib/errmsg/list";
 
 const BASE = "https://vixutil.com";
+
+/* 4,131칸을 열 언어가 함께 쓴다 — 언어마다 다시 만들면 같은 배열을 열 번 만든다 */
+const BMI_CELLS = bmiAllCells();
 
 export const dynamic = "force-static";
 
@@ -323,11 +327,22 @@ function allEntries(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/body`, changeFrequency: weekly, priority: 0.95 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/body/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    /*
+     * BMI 격자 — /body/bmi/<키>-<몸무게>. 키 51 × 몸무게 81 = 4,131칸이 언어마다 붙는다.
+     * "키 170 몸무게 70"은 실제로 치는 말이라 BMI 계산기 페이지보다 이쪽이 검색에 가깝다.
+     * 격자와 기준선은 lib/body/bmi-grid.ts.
+     */
+    ...BMI_CELLS.map((c) => ({
+      url: `${BASE}/body/bmi/${bmiCellSlug(c.height, c.weight)}`, changeFrequency: monthly, priority: 0.7,
+    })),
     // 몸 수치도 slug가 여덟 언어에서 같다
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/body`, changeFrequency: weekly, priority: 0.9 },
       ...BODY_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/body/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+      ...BMI_CELLS.map((c) => ({
+        url: `${BASE}/${lang}/body/bmi/${bmiCellSlug(c.height, c.weight)}`, changeFrequency: monthly, priority: 0.6,
       })),
     ]),
     { url: `${BASE}/craft`, changeFrequency: weekly, priority: 0.95 },

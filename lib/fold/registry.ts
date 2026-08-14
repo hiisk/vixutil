@@ -283,6 +283,7 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'bignum': () => import('./pages/bignum__slug'),
   'blood': () => import('./pages/blood__slug'),
   'body': () => import('./pages/body__slug'),
+  'body/bmi': () => import('./pages/body__bmi__slug'),
   'bpm': () => import('./pages/bpm__slug'),
   'bra': () => import('./pages/bra__slug'),
   'cable': () => import('./pages/cable__slug'),
