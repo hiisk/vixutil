@@ -50,6 +50,7 @@ import { METRO_LANGS } from "@/lib/metro/lang";
 import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { allHexShorts, hexSlug } from "@/lib/color/hex-grid";
+import { allCityPairs, pairSlug } from "@/lib/time/pair-grid";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
@@ -1303,6 +1304,15 @@ function allEntries(): MetadataRoute.Sitemap {
         url: `${BASE}${prefix}/color/${c.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
+      })),
+    ),
+    /* 도시 쌍 시차 낱장 × 열 언어 — 한쪽이 그 나라 대표 도시인 쌍만 낸다.
+       까닭은 lib/time/pair-grid.ts 머리말 */
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+      allCityPairs().map((p) => ({
+        url: `${BASE}${prefix}/time/${pairSlug(p.a, p.b)}`,
+        changeFrequency: yearly,
+        priority: 0.7,
       })),
     ),
     /* hex 낱장 4,096색 × 열 언어 — 세 자리 줄임 표기를 빠짐없이 낸다.
