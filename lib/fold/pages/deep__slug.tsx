@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import type { FoldLang } from '../lang';
 import { SLUG_ROUTES } from '../registry';
+import { DEEP_PREFIX_ROUTES } from '../deep-prefix';
 
 /**
  * 세 칸 낱장을 언어마다 라우트 하나로 접는다 — game/chess/[slug] 같은 것들.
@@ -22,8 +23,24 @@ import { SLUG_ROUTES } from '../registry';
  */
 type Params = Promise<{ a: string; b: string; slug: string }>;
 
-/** 등록부에서 그 갈래의 모듈을 찾아 그쪽 build(lang)에 넘긴다 */
+/**
+ * 등록부에서 그 갈래의 모듈을 찾아 그쪽 build(lang)에 넘긴다.
+ *
+ * **정확한 열쇠를 먼저 본다.** `game/chess`처럼 앞 두 칸이 고정인 갈래가 그쪽이다.
+ * 없으면 접두 등록부를 본다 — `convert/<쌍>/<값>`처럼 둘째 칸이 목록인 갈래다
+ * (까닭은 lib/fold/deep-prefix.ts). 순서를 뒤집으면 접두가 고정 갈래를 가로챈다.
+ */
 async function delegate(lang: FoldLang, a: string, b: string) {
+  const prefix = DEEP_PREFIX_ROUTES[a];
+  if (!SLUG_ROUTES[`${a}/${b}`] && prefix) {
+    const built = (await prefix()).build(lang);
+    return {
+      generateMetadata: (arg: { params: Promise<{ slug: string }> }) =>
+        built.generateMetadata({ params: arg.params.then(p => ({ b, slug: p.slug })) }),
+      Page: (arg: { params: Promise<{ slug: string }> }) =>
+        built.Page({ params: arg.params.then(p => ({ b, slug: p.slug })) }),
+    };
+  }
   const loader = SLUG_ROUTES[`${a}/${b}`];
   if (!loader) return null;
   const mod = await loader();
@@ -68,6 +85,11 @@ export function build(lang: FoldLang) {
       const mod = (await load()) as { build?: (l: FoldLang) => { generateStaticParams?: () => { slug: string }[] } };
       const built = mod.build?.(lang);
       for (const p of built?.generateStaticParams?.() ?? []) out.push({ a, b, slug: p.slug });
+    }
+    /* 접두 갈래는 둘째 칸도 목록에서 나온다 */
+    for (const [a, load] of Object.entries(DEEP_PREFIX_ROUTES)) {
+      const built = (await load()).build(lang);
+      for (const p of built.generateStaticParams()) out.push({ a, b: p.b, slug: p.slug });
     }
     return out;
   }

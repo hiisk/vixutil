@@ -31,6 +31,7 @@ import { TIME_TOOLS } from "@/lib/time-tools";
 import { SOUND_TOOLS } from "@/lib/sound-tools";
 import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
+import { valuesFor, valueSlug } from "@/lib/convert/values";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
@@ -289,12 +290,27 @@ function allEntries(): MetadataRoute.Sitemap {
     ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    /*
+     * 값 낱장 — /convert/<쌍>/<값>. 138쌍 × 24값 = 3,312장이 언어마다 붙는다.
+     * "70kg 파운드"처럼 **값까지 넣어 검색하는 말**을 받는 자리라, 쌍 페이지보다
+     * 이쪽이 실제 유입에 가깝다. 셈과 대표값은 lib/convert/values.ts.
+     */
+    ...CONVERT_TOOLS.flatMap((t: { slug: string }) =>
+      valuesFor(t.slug).map((v) => ({
+        url: `${BASE}/convert/${t.slug}/${valueSlug(v)}`, changeFrequency: monthly, priority: 0.7,
+      })),
+    ),
     // 단위 변환은 slug가 여덟 언어에서 같다 — 언어 목록만 돌리면 된다
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/convert`, changeFrequency: weekly, priority: 0.9 },
       ...CONVERT_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
+      ...CONVERT_TOOLS.flatMap((t: { slug: string }) =>
+        valuesFor(t.slug).map((v) => ({
+          url: `${BASE}/${lang}/convert/${t.slug}/${valueSlug(v)}`, changeFrequency: monthly, priority: 0.6,
+        })),
+      ),
     ]),
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),

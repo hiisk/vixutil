@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { KO_DEEP_LEAVES } from '@/lib/ko/registry';
+import { DEEP_PREFIX_ROUTES } from '@/lib/fold/deep-prefix';
 
 /**
  * 한국어 세 칸 낱장을 라우트 하나로 받는다 — /game/chess/x, /text/regex/x …
@@ -41,19 +42,36 @@ export async function generateStaticParams() {
     const mod = await load();
     for (const p of mod.generateStaticParams()) out.push({ section, slug, deep: p.slug });
   }
+  /* 접두 갈래(convert/<쌍>/<값>)는 가운데 칸도 목록에서 나온다 — lib/fold/deep-prefix.ts */
+  for (const [section, load] of Object.entries(DEEP_PREFIX_ROUTES)) {
+    const built = (await load()).build('ko');
+    for (const p of built.generateStaticParams()) out.push({ section, slug: p.b, deep: p.slug });
+  }
   return out;
+}
+
+/**
+ * 접두 갈래를 먼저 가른다 — 두 번째 칸이 목록인 갈래(convert/<쌍>/<값>)다.
+ * 정확한 열쇠가 있으면 그쪽이 이긴다(까닭은 lib/fold/deep-prefix.ts).
+ */
+async function prefixBuild(section: string) {
+  const load = DEEP_PREFIX_ROUTES[section];
+  return load ? (await load()).build('ko') : null;
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { section, slug, deep } = await params;
   const load = KO_DEEP_LEAVES[`${section}/${slug}`];
-  if (!load) return {};
-  return (await load()).generateMetadata({ params: Promise.resolve({ slug: deep }) });
+  if (load) return (await load()).generateMetadata({ params: Promise.resolve({ slug: deep }) });
+  const built = await prefixBuild(section);
+  return built ? built.generateMetadata({ params: Promise.resolve({ b: slug, slug: deep }) }) : {};
 }
 
 export default async function KoDeepLeaf({ params }: { params: Params }) {
   const { section, slug, deep } = await params;
   const load = KO_DEEP_LEAVES[`${section}/${slug}`];
-  if (!load) notFound();
-  return (await load()).default({ params: Promise.resolve({ slug: deep }) });
+  if (load) return (await load()).default({ params: Promise.resolve({ slug: deep }) });
+  const built = await prefixBuild(section);
+  if (!built) notFound();
+  return built.Page({ params: Promise.resolve({ b: slug, slug: deep }) });
 }
