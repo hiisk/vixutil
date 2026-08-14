@@ -132,6 +132,7 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
 /** 두 칸 갈래 — /game/chess/[slug] 꼴 */
 export const KO_DEEP_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'body/bmi': () => import('./pages/body__bmi__slug'),
+  'body/exercise': () => import('./pages/body__exercise__slug'),
   'device/screen': () => import('./pages/device__screen__slug'),
   'fortune/birthday': () => import('./pages/fortune__birthday__slug'),
   'fortune/card': () => import('./pages/fortune__card__slug'),

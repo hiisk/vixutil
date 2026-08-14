@@ -33,6 +33,7 @@ import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { valuesFor, valueSlug } from "@/lib/convert/values";
 import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
+import { EXERCISES } from "@/lib/body/exercise";
 import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
 import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
@@ -366,6 +367,10 @@ function allEntries(): MetadataRoute.Sitemap {
     ...BMI_CELLS.map((c) => ({
       url: `${BASE}/body/bmi/${bmiCellSlug(c.height, c.weight)}`, changeFrequency: monthly, priority: 0.7,
     })),
+    /* 운동별 칼로리 — MET 계산기는 이미 있고 여기는 "수영이 몇 MET인가"를 받는다 */
+    ...EXERCISES.map((x) => ({
+      url: `${BASE}/body/exercise/${x.slug}`, changeFrequency: monthly, priority: 0.8,
+    })),
     // 몸 수치도 slug가 여덟 언어에서 같다
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/body`, changeFrequency: weekly, priority: 0.9 },
@@ -374,6 +379,9 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
       ...BMI_CELLS.map((c) => ({
         url: `${BASE}/${lang}/body/bmi/${bmiCellSlug(c.height, c.weight)}`, changeFrequency: monthly, priority: 0.6,
+      })),
+      ...EXERCISES.map((x) => ({
+        url: `${BASE}/${lang}/body/exercise/${x.slug}`, changeFrequency: monthly, priority: 0.7,
       })),
     ]),
     { url: `${BASE}/craft`, changeFrequency: weekly, priority: 0.95 },
