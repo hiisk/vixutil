@@ -5,6 +5,7 @@ import CalcShell, {
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
+import { calcSeverance, type SeveranceResult as Result } from '@/lib/severance';
 
 /*
  * 근로자퇴직급여 보장법 제8조, 근로기준법 제2조
@@ -20,64 +21,6 @@ import { CALC_FAQ } from '@/lib/calc-faq';
  *
  * 퇴직금 = max(평균임금, 통상임금) × 30 × (총 재직일수 / 365)
  */
-
-interface Result {
-  severancePay: number;
-  dailyAvgWage: number;
-  dailyStdWage: number;
-  appliedWage: number;
-  totalDays: number;
-  threeMonthDays: number;
-  threeMonthTotal: number;
-  wageBase: number;
-  bonus3M: number;
-  leave3M: number;
-  years: number;
-  months: number;
-}
-
-function calcThreeMonthDays(endDate: Date): number {
-  const start = new Date(endDate);
-  start.setMonth(start.getMonth() - 3);
-  return Math.round((endDate.getTime() - start.getTime()) / 86400000);
-}
-
-function calcSeverance({
-  startDate, endDate,
-  wage1, wage2, wage3,
-  annualBonus, annualLeavePay,
-  monthlyStdWage,
-}: {
-  startDate: Date; endDate: Date;
-  wage1: number; wage2: number; wage3: number;
-  annualBonus: number; annualLeavePay: number;
-  monthlyStdWage: number;
-}): Result {
-  const totalDays = Math.round((endDate.getTime() - startDate.getTime()) / 86400000);
-  const d3m = calcThreeMonthDays(endDate);
-
-  const wageBase = wage1 + wage2 + wage3;
-  const bonus3M = annualBonus * (d3m / 365);
-  const leave3M = annualLeavePay * (d3m / 365);
-  const threeMonthTotal = wageBase + bonus3M + leave3M;
-
-  const dailyAvgWage = threeMonthTotal / d3m;
-  const dailyStdWage = monthlyStdWage > 0 ? monthlyStdWage / 30 : 0;
-  const appliedWage = dailyStdWage > dailyAvgWage ? dailyStdWage : dailyAvgWage;
-
-  const severancePay = appliedWage * 30 * (totalDays / 365);
-
-  const fullYears = Math.floor(totalDays / 365);
-  const remDays = totalDays - fullYears * 365;
-  const remMonths = Math.floor(remDays / 30);
-
-  return {
-    severancePay, dailyAvgWage, dailyStdWage, appliedWage,
-    totalDays, threeMonthDays: d3m, threeMonthTotal,
-    wageBase, bonus3M, leave3M,
-    years: fullYears, months: remMonths,
-  };
-}
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 

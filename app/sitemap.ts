@@ -35,6 +35,7 @@ import { valuesFor, valueSlug } from "@/lib/convert/values";
 import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
 import { EXERCISES } from "@/lib/body/exercise";
 import { SALARIES } from "@/lib/salary-grid";
+import { allSeveranceCells, severanceSlug } from "@/lib/severance-grid";
 import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
 import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
@@ -375,6 +376,11 @@ function allEntries(): MetadataRoute.Sitemap {
     /* 연봉 실수령 값 낱장 — 한국어 전용(4대보험·소득세는 한국 제도다) */
     ...SALARIES.map((v) => ({
       url: `${BASE}/calculator/salary/${v}`, changeFrequency: yearly, priority: 0.8,
+    })),
+    /* 퇴직금 값 낱장 — 한국어 전용(근로자퇴직급여 보장법은 한국 제도다) */
+    ...allSeveranceCells().map((c) => ({
+      url: `${BASE}/calculator/severance/${severanceSlug(c.wage, c.years)}`,
+      changeFrequency: yearly, priority: 0.8,
     })),
     // 몸 수치도 slug가 여덟 언어에서 같다
     ...INTL_LOCALES10.flatMap((lang) => [
