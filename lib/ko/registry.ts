@@ -51,6 +51,7 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'craft': () => import('./pages/craft__slug'),
   'css': () => import('./pages/css__slug'),
   'darts': () => import('./pages/darts__slug'),
+  'date': () => import('./pages/date__slug'),
   'dew': () => import('./pages/dew__slug'),
   'dof': () => import('./pages/dof__slug'),
   'dpi': () => import('./pages/dpi__slug'),

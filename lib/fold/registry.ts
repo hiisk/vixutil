@@ -298,6 +298,7 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'craft': () => import('./pages/craft__slug'),
   'css': () => import('./pages/css__slug'),
   'darts': () => import('./pages/darts__slug'),
+  'date': () => import('./pages/date__slug'),
   'device/screen': () => import('./pages/device__screen__slug'),
   'dew': () => import('./pages/dew__slug'),
   'dof': () => import('./pages/dof__slug'),

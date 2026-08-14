@@ -43,6 +43,18 @@
  *                         지금은 +10이다. 다음 배포가 라우팅 표로 죽으면
  *                         여기가 원인이고, 그때는 언어별 [slug] 라우트를
  *                         캐치올로 접는 것이 고침이다(tests/fold-routes.test.ts).
+ *   동적 931 / 정적 517   2026-08-14 — /date를 열 언어로 냈다(날짜 낱장 366일).
+ *                         또 아홉을 먹었다 — 새 **섹션**은 언제나 동적 아홉이다
+ *                         (한국어는 [section]/[slug] 디스패처에 접혀 0).
+ *                         **배포를 확인하지 않았다.** 마지막 성공은 여전히 912이고
+ *                         지금은 +19다. 여유를 2,048로 보면 아직 크지만, 이 수는
+ *                         Vercel이 어떻게 세는지 모르는 채로 견주는 값이라
+ *                         (머리말 참고) 배포 한 번으로 확인하는 편이 낫다.
+ *
+ *                         값 낱장(convert 33,120장·BMI 41,310장·생일 3,660장)은
+ *                         **동적을 하나도 안 먹었다** — 이미 있는 세 칸 라우트에
+ *                         얹었기 때문이다. 장수를 늘릴 때 라우트를 안 늘리는 것이
+ *                         이 저장소가 찾은 길이다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -53,7 +65,7 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 922;
+const EXPECT_DYNAMIC = 931;
 const EXPECT_STATIC = 517;
 /**
  * 얼마까지 늘어도 넘기나.

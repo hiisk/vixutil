@@ -34,6 +34,7 @@ import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { valuesFor, valueSlug } from "@/lib/convert/values";
 import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
 import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
+import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
@@ -148,6 +149,7 @@ const BASE = "https://vixutil.com";
 const BMI_CELLS = bmiAllCells();
 /* 366일도 같은 이유로 한 번만 만든다 */
 const BIRTHDAYS = birthdayDays();
+const DATE_DAYS = dateDays();
 
 export const dynamic = "force-static";
 
@@ -235,6 +237,19 @@ function allEntries(): MetadataRoute.Sitemap {
     { url: `${BASE}/quiz`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/generator`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/checklist`, changeFrequency: weekly, priority: 0.95 },
+    /*
+     * 날짜 낱장 — /date/<MM-DD>. "3월 15일 무슨 요일"에 답한다.
+     * 생일 낱장(/fortune/birthday)과 다루는 것이 다르다 — 그쪽은 그 날 태어난 사람,
+     * 여기는 날짜 자체(요일·주차·기념일)다. 겹치지 않는지는 검사가 본다.
+     */
+    ...DATE_DAYS.map((d) => ({
+      url: `${BASE}/date/${dateSlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.7,
+    })),
+    ...INTL_LOCALES10.flatMap((lang) =>
+      DATE_DAYS.map((d) => ({
+        url: `${BASE}/${lang}/date/${dateSlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.6,
+      })),
+    ),
     { url: `${BASE}/fortune`, changeFrequency: weekly, priority: 0.95 },
     /*
      * 생일 낱장 — /fortune/birthday/<MM-DD>. 366일이 언어마다 붙는다(윤일 포함).
