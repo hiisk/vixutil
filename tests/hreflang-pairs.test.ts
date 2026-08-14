@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { ALL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { builtHtml, isBuilt } from './app-path.ts';
+import { localesOfSection } from '../lib/i18n/lang.ts';
 
 /**
  * 번역이 있는 페이지가 여덟 언어를 서로 가리키는지 본다.
@@ -38,26 +39,40 @@ function hreflangs(file: string): string[] {
   return [...html.matchAll(/hreflang="([^"]+)"/gi)].map(m => m[1]);
 }
 
-test('여덟 언어가 서로를 가리킨다', { skip: built ? false : '빌드 산출물 없음 — npm run build 필요' }, () => {
+test('그 갈래를 내는 언어끼리 서로를 가리킨다', { skip: built ? false : '빌드 산출물 없음 — npm run build 필요' }, () => {
+  /*
+   * 2026-08-14: 갈래마다 내는 언어가 다를 수 있다(SECTION_LOCALES). 그래서
+   * "열 언어를 다 가리킨다"가 아니라 **내는 언어를 빠짐없이, 안 내는 언어는
+   * 하나도** 가리키는지 본다. 안 내는 언어가 남아 있으면 지운 장을 가리키는
+   * hreflang이 되어 묶음 전체가 신뢰를 잃는다.
+   */
   const wrong: string[] = [];
-  const want = ALL_LOCALES.map(l => localeTag(l));
 
   for (const sec of SECTIONS) {
+    const only = localesOfSection(sec);
+    const want = only.map(l => localeTag(l));
+    const gone = ALL_LOCALES.filter(l => !only.includes(l)).map(l => localeTag(l));
     for (const locale of ALL_LOCALES) {
       const where = localeHref(locale, `/${sec}`);
       const file = pageFor(locale, `/${sec}`);
+      if (!only.includes(locale)) {
+        if (file) wrong.push(`${where}: 안 내기로 한 언어인데 구워졌다`);
+        continue;
+      }
       if (!file) { wrong.push(`${where}: 안 구웠다 — 허브는 반드시 구워져야 한다`); continue; }
       const tags = hreflangs(file);
       const missing = want.filter(t => !tags.includes(t));
       if (missing.length) wrong.push(`${where}: ${missing.join(', ')} 없음`);
+      const stale = gone.filter(t => tags.includes(t));
+      if (stale.length) wrong.push(`${where}: 지운 언어 ${stale.join(', ')}을 가리킨다`);
       if (!tags.includes('x-default')) wrong.push(`${where}: x-default 없음`);
     }
   }
 
   assert.deepEqual(
     wrong.slice(0, 15), [],
-    `hreflang이 여덟 언어를 다 가리키지 않는 페이지 ${wrong.length}장. ` +
-    'metadata.alternates.languages에 alternateLanguages(경로)를 쓰라',
+    `hreflang이 SECTION_LOCALES와 어긋난 페이지 ${wrong.length}장. ` +
+    'metadata.alternates.languages에 alternates(경로)를 쓰라 — 그 함수가 표를 본다',
   );
 });
 

@@ -126,10 +126,16 @@ test('빌드가 허브를 언어마다 다 구웠다', { skip: sitemapRoutes() ?
   const hubs = foldHubs();
   const short: string[] = [];
   for (const lang of FOLD_LANGS) {
-    const missing = hubs.filter(h => !builtHtml(h ? `/${lang}/${h}` : `/${lang}`));
+    /* 그 언어에서 안 내기로 한 갈래는 안 구워야 맞다 — SECTION_LOCALES */
+    const mine = hubs.filter(h => sectionHasLocale(h.split('/')[0], lang as AnyLocale10));
+    const missing = mine.filter(h => !builtHtml(h ? `/${lang}/${h}` : `/${lang}`));
     if (missing.length) short.push(`${lang}: ${missing.length}장 안 구움 (예: ${missing[0]})`);
+    /* 반대쪽도 본다 — 안 내기로 한 갈래가 구워져 있으면 그것도 어긋난 것이다 */
+    const extra = hubs.filter(h => !sectionHasLocale(h.split('/')[0], lang as AnyLocale10))
+      .filter(h => builtHtml(`/${lang}/${h}`));
+    if (extra.length) short.push(`${lang}: 안 내기로 한 ${extra.join(', ')}이 구워졌다`);
   }
-  assert.deepEqual(short, [], `구운 허브가 모자란다:\n  ${short.join('\n  ')}`);
+  assert.deepEqual(short, [], `구운 허브가 SECTION_LOCALES와 어긋난다:\n  ${short.join('\n  ')}`);
 });
 
 test('낱장 라우트가 아홉 언어에 똑같이 있다', () => {

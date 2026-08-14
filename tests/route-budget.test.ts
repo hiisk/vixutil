@@ -43,6 +43,11 @@
  *                         지금은 +10이다. 다음 배포가 라우팅 표로 죽으면
  *                         여기가 원인이고, 그때는 언어별 [slug] 라우트를
  *                         캐치올로 접는 것이 고침이다(tests/fold-routes.test.ts).
+ *   동적 907 / 정적 517   2026-08-14 — 한자·연호·다다미·혈액형 유전을 여섯 언어에서
+ *                         뺐다(SECTION_LOCALES). **처음으로 줄어든 값이다** —
+ *                         4갈래 × 6언어 = 24개 낱장 라우트를 지웠다. 늘리기만
+ *                         하던 이 수가 줄 수도 있다는 것을 여기 적어 둔다.
+ *                         마지막 배포 성공은 여전히 912이고, 이제 그보다 **낮다**.
  *   동적 931 / 정적 517   2026-08-14 — /date를 열 언어로 냈다(날짜 낱장 366일).
  *                         또 아홉을 먹었다 — 새 **섹션**은 언제나 동적 아홉이다
  *                         (한국어는 [section]/[slug] 디스패처에 접혀 0).
@@ -65,7 +70,7 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 931;
+const EXPECT_DYNAMIC = 907;
 const EXPECT_STATIC = 517;
 /**
  * 얼마까지 늘어도 넘기나.
