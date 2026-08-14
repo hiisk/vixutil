@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { APP_DIR, builtHtml, foldHubs, foldSlugs, sitemapRoutes } from './app-path.ts';
+import { DEEP_PREFIX_ROUTES } from '../lib/fold/deep-prefix.ts';
 
 /**
  * 접힌 국제 라우트가 사이트맵과 어긋나지 않는지 본다.
@@ -74,6 +75,8 @@ test('사이트맵의 국제 주소가 전부 받는 라우트를 가진다', { 
     if ([...catchAll].some(p => key.startsWith(p + '/'))) continue;
     // 세 칸 낱장은 [a]/[b]/[slug] 하나가 받는다 — 앞 두 칸이 등록부에 있어야 한다
     if (deep && rest.length === 3 && DEEP_SLUGS.has(rest.slice(0, 2).join('/'))) continue;
+    /* 접두 갈래 — 둘째 칸이 목록이라 첫 칸만 등록한다(convert/<쌍>/<값>) */
+    if (deep && rest.length === 3 && DEEP_PREFIX_ROUTES[rest[0]]) continue;
     /*
      * 접히지 않고 라우트 파일로 남은 정적 장 — 정책·소개 네 장(2026-08-12)이 그렇다.
      * 접기 이후 이 검사는 "허브냐 낱장이냐"만 물었는데, 그 둘 중 어느 쪽도 아닌
