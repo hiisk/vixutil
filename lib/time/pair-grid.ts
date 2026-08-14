@@ -13,11 +13,14 @@
  * 낱장마다 할 말이 생긴다.
  *
  * ── 어느 쌍을 내는가 ───────────────────────────────────────
- * 173곳을 전부 조합하면 14,878쌍이다. 그중 카라치–몬테비데오처럼 아무도 안 찾는
- * 쌍이 대부분이고, 얇은 장을 대량으로 내면 사이트 전체 평가가 깎인다.
- * 그래서 **한쪽이 그 나라의 대표 도시인 쌍**만 낸다. 대표 도시는 표에서 그 나라의
- * 맨 앞에 적힌 도시다 — 표가 원본이고 여기는 그것을 읽는 쪽이라, 도시를 더해도
- * 목록이 저절로 맞는다.
+ * 173곳을 전부 조합하면 14,878쌍이다. 그중 대부분은 아무도 안 친다 —
+ * 아크라–수바, 몬테비데오–울란바토르 같은 쌍이다. "나라마다 대표 도시"로 걸러도
+ * 그 둘이 다 대표라서 그대로 남았다. 나라를 고르게 덮는 규칙이지 **검색 수요를
+ * 고르게 덮는 규칙이 아니었다.**
+ *
+ * 그래서 기준을 바꿨다. **한쪽이 세계 허브 도시여야 한다.** 시차를 찾는 사람은
+ * 거의 언제나 한쪽 끝에 뉴욕·런던·도쿄·두바이 같은 도시를 두고 묻는다. 이 규칙이면
+ * 낱장마다 한쪽에 사람이 실제로 치는 이름이 들어간다.
  *
  * ── 오늘에 기대지 않는다 ───────────────────────────────────
  * 기준 연도를 못 박는다. `new Date()`를 쓰면 여는 날마다 답이 달라져 ISR 캐시를
@@ -32,19 +35,25 @@ export const PAIR_YEAR = 2026;
 export const VS = '-vs-';
 
 /**
- * 나라마다 대표 도시 하나 — 표에서 그 나라가 처음 나오는 곳.
+ * 세계 허브 도시 — 시차 검색이 몰리는 쪽 끝.
  *
- * 목록을 손으로 적지 않는다. 도시를 더하면 대표도 저절로 따라오고, 손으로 적은
- * 목록이 표와 어긋나 조용히 틀리는 일이 없다.
+ * 이것만은 계산으로 못 만든다. 인구도 GDP도 시차 검색량과 안 맞는다(카라치는
+ * 인구 1,700만인데 시차로 묻는 사람이 거의 없고, 두바이는 그보다 작은데 훨씬
+ * 많이 묻는다). 국제 항공 허브와 원격근무가 몰리는 도시를 손으로 적는다.
+ *
+ * 여기서 빼는 것이 곧 낱장을 안 내는 것이다 — 늘리기 전에 "그 이름을 사람이
+ * 치는가"만 본다.
  */
-export function representativeCities(): TimeCity[] {
-  const seen = new Set<string>();
-  return TIME_CITIES.filter(c => {
-    if (seen.has(c.country)) return false;
-    seen.add(c.country);
-    return true;
-  });
-}
+export const HUB_SLUGS: readonly string[] = [
+  'new-york', 'london', 'los-angeles', 'tokyo', 'paris', 'dubai', 'singapore',
+  'hong-kong', 'sydney', 'toronto', 'chicago', 'san-francisco', 'seoul', 'berlin',
+  'madrid', 'rome', 'amsterdam', 'delhi', 'mumbai', 'bangkok', 'shanghai', 'beijing',
+  'sao-paulo', 'mexico-city', 'istanbul', 'moscow', 'frankfurt', 'vancouver',
+  'melbourne', 'taipei',
+];
+
+export const hubCities = (): TimeCity[] =>
+  HUB_SLUGS.map(s => TIME_CITIES.find(c => c.slug === s)).filter((c): c is TimeCity => Boolean(c));
 
 export interface CityPair { a: TimeCity; b: TimeCity }
 
@@ -57,14 +66,14 @@ export interface CityPair { a: TimeCity; b: TimeCity }
 export const pairSlug = (a: TimeCity, b: TimeCity): string =>
   a.slug < b.slug ? `${a.slug}${VS}${b.slug}` : `${b.slug}${VS}${a.slug}`;
 
-/** 한쪽이 대표 도시인 쌍 전부 */
+/** 한쪽이 허브 도시인 쌍 전부 */
 export function allCityPairs(): CityPair[] {
-  const reps = new Set(representativeCities().map(c => c.slug));
+  const hubs = new Set(HUB_SLUGS);
   const out: CityPair[] = [];
   for (let i = 0; i < TIME_CITIES.length; i++) {
     for (let j = i + 1; j < TIME_CITIES.length; j++) {
       const a = TIME_CITIES[i], b = TIME_CITIES[j];
-      if (!reps.has(a.slug) && !reps.has(b.slug)) continue;
+      if (!hubs.has(a.slug) && !hubs.has(b.slug)) continue;
       out.push(a.slug < b.slug ? { a, b } : { a: b, b: a });
     }
   }
@@ -86,8 +95,7 @@ export function parsePairSlug(slug: string): CityPair | null {
   const b = cityBySlug(slug.slice(at + VS.length));
   if (!a || !b || a.slug === b.slug) return null;
   if (pairSlug(a, b) !== slug) return null;      // 뒤집힌 주소는 안 받는다
-  const reps = new Set(representativeCities().map(c => c.slug));
-  if (!reps.has(a.slug) && !reps.has(b.slug)) return null;
+  if (!HUB_SLUGS.includes(a.slug) && !HUB_SLUGS.includes(b.slug)) return null;
   return { a, b };
 }
 

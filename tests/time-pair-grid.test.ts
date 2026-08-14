@@ -7,7 +7,7 @@ import { gapMinutes, timeFacts } from '../lib/time/facts.ts';
 import { PAIR_UI } from '../lib/time/pair-ui.ts';
 import {
   PAIR_YEAR, VS,
-  representativeCities, allCityPairs, pairSlug, parsePairSlug, pairFacts, neighborPairs,
+  HUB_SLUGS, hubCities, allCityPairs, pairSlug, parsePairSlug, pairFacts, neighborPairs,
 } from '../lib/time/pair-grid.ts';
 
 const city = (slug: string) => {
@@ -24,26 +24,40 @@ const city = (slug: string) => {
  * 그래서 밖에서 아는 값으로 못 박고 나머지는 성질로 선다.
  */
 
-test('대표 도시가 나라마다 하나씩이다', () => {
-  const reps = representativeCities();
-  const countries = new Set(TIME_CITIES.map(c => c.country));
-  assert.equal(reps.length, countries.size, '대표 수가 나라 수와 다르다');
-  assert.equal(new Set(reps.map(c => c.country)).size, reps.length, '한 나라에 대표가 둘이다');
-  /* 표에서 앞에 있는 도시가 대표다 */
-  assert.equal(reps.find(c => c.country === 'kr')!.slug, 'seoul');
-  assert.equal(reps.find(c => c.country === 'jp')!.slug, 'tokyo');
-  assert.equal(reps.find(c => c.country === 'us')!.slug, 'new-york');
+test('허브 목록이 전부 실재하는 도시다', () => {
+  /* 오타 하나가 그 허브의 쌍 172개를 통째로 없앤다 — 조용히 줄어들 뿐이라 안 보인다 */
+  assert.equal(hubCities().length, HUB_SLUGS.length, '허브 목록에 표에 없는 slug가 있다');
+  assert.equal(new Set(HUB_SLUGS).size, HUB_SLUGS.length, '같은 허브가 두 번 있다');
+  const known = new Set(TIME_CITIES.map(c => c.slug));
+  for (const h of HUB_SLUGS) assert.ok(known.has(h), `${h}가 도시 표에 없다`);
 });
 
-test('쌍 목록에 한쪽은 반드시 대표 도시가 있다', () => {
-  const reps = new Set(representativeCities().map(c => c.slug));
+test('허브가 대륙에 골고루 있다 — 한 지역만 덮으면 안 낸 것과 같다', () => {
+  /*
+   * 국외 유입이 목표이므로 허브가 한쪽에 몰리면 안 된다. 나라 열쇠로 본다.
+   */
+  const countries = new Set(hubCities().map(c => c.country));
+  assert.ok(countries.size >= 18, `허브가 ${countries.size}개 나라뿐이다`);
+  for (const must of ['us', 'gb', 'jp', 'cn', 'in', 'br', 'ae', 'au', 'de', 'fr'])
+    assert.ok(countries.has(must), `${must}에 허브가 없다`);
+});
+
+test('쌍 목록은 한쪽이 반드시 허브다', () => {
+  /*
+   * 시차를 찾는 사람은 거의 언제나 한쪽 끝에 뉴욕·런던·도쿄를 두고 묻는다.
+   * 아크라–수바처럼 양쪽 다 허브가 아닌 쌍은 아무도 안 치므로 내지 않는다.
+   */
+  const hubs = new Set(HUB_SLUGS);
   const pairs = allCityPairs();
-  assert.ok(pairs.length > 5000, `쌍이 ${pairs.length}개뿐이다`);
+  assert.ok(pairs.length > 3000, `쌍이 ${pairs.length}개뿐이다`);
   for (const p of pairs) {
-    assert.ok(reps.has(p.a.slug) || reps.has(p.b.slug),
-      `${pairSlug(p.a, p.b)}에 대표 도시가 없다`);
+    assert.ok(hubs.has(p.a.slug) || hubs.has(p.b.slug),
+      `${pairSlug(p.a, p.b)}에 허브가 없다`);
     assert.notEqual(p.a.slug, p.b.slug, '같은 도시끼리 쌍이 됐다');
   }
+  /* 허브가 아닌 쌍은 실제로 걸러진다 */
+  assert.equal(parsePairSlug(pairSlug(city('accra'), city('suva'))), null, '허브 없는 쌍이 통과했다');
+  assert.equal(parsePairSlug(pairSlug(city('montevideo'), city('ulaanbaatar'))), null, '허브 없는 쌍이 통과했다');
 });
 
 test('주소가 한 쌍에 하나뿐이다 — 뒤집힌 것은 안 받는다', () => {
@@ -82,10 +96,10 @@ test('이름에 하이픈이 있는 도시가 안 깨진다', () => {
 test('목록 밖과 이상한 꼴은 거른다', () => {
   for (const bad of ['', 'seoul', 'seoul-vs-', '-vs-tokyo', 'seoul-vs-seoul',
     'seoul-vs-nowhere', 'nowhere-vs-tokyo', 'seoul-vs-tokyo-vs-paris',
-    'busan-vs-daegu', 'incheon-vs-busan']) {
+    'busan-vs-daegu', 'incheon-vs-busan', 'accra-vs-suva']) {
     assert.equal(parsePairSlug(bad), null, `"${bad}"가 통과했다`);
   }
-  /* 대표 도시가 한쪽에 있으면 통과한다 */
+  /* 허브가 한쪽에 있으면 통과한다 */
   assert.ok(parsePairSlug(pairSlug(city('seoul'), city('busan'))));
 });
 

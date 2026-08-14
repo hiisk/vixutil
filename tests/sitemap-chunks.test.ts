@@ -143,7 +143,14 @@ test('한 언어가 한도에 얼마나 가까운지 본다', () => {
    */
   const files = sitemapChunkFiles();
   if (!files.length) return;                     // 빌드 산출물이 없으면 건너뛴다
-  const CHUNK_SIZE = 45_000;
+  /*
+   * 자르는 기준을 여기 다시 적지 않는다 — 원본과 달라지면 이 검사가 엉뚱한
+   * 수를 지키게 된다. app/sitemap.ts에서 읽어 온다.
+   */
+  const src = readFileSync(new URL('../app/sitemap.ts', import.meta.url), 'utf8');
+  const m = /export const CHUNK_SIZE = ([\d_]+)/.exec(src);
+  assert.ok(m, 'app/sitemap.ts에서 CHUNK_SIZE를 못 읽었다 — 이름이 바뀌었나');
+  const CHUNK_SIZE = Number(m![1].replace(/_/g, ''));
   const worst = Math.max(...files.map(p => (readFileSync(p, 'utf8').match(/<loc>/g) ?? []).length));
   assert.ok(
     worst < CHUNK_SIZE * 0.9,

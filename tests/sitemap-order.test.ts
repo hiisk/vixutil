@@ -68,30 +68,44 @@ test('조각 하나에 언어 하나만 든다', { skip }, () => {
   assert.deepEqual(mixed.map(x => `${x.id}: ${x.langs.join(' · ')}`), [], '파일에 언어가 섞였다');
 });
 
-test('파일 번호가 언어에 고정돼 있다', { skip }, () => {
+test('언어가 정해진 순서로, 한 언어의 조각은 붙어서 나온다', { skip }, () => {
   /*
-   * 0 ko · 1 en · 2 es … 이 배포와 무관하게 늘 같아야 한다. 번호가 밀리면 서치
-   * 콘솔이 파일별로 쌓아 둔 색인 이력이 다른 언어를 가리키고, 언어별로 자른
-   * 보람이 그 순간 사라진다.
+   * ── 2026-08-14에 순서를 바꿨다 ────────────────────────────
+   * 앞자리가 곧 우선순위다. 구글은 사이트맵을 앞에서부터 읽고 제 예산에서 끊는다.
+   * 국외 유입이 먼저가 되었으므로 en을 첫 조각으로 올리고 ko를 맨 뒤로 내렸다.
+   *
+   * 번호가 아니라 **차례**를 본다. 한 언어가 45,000을 넘으면 조각을 여럿 갖고
+   * 뒤 언어가 밀리는데, 그때도 언어끼리 섞이거나 앞뒤로 찢어지면 안 된다.
    */
-  const ORDER = ['ko', 'en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
-  const wrong: string[] = [];
-  built.slice(0, ORDER.length).forEach((c, i) => {
-    const langs = [...langsIn(c)];
-    if (langs.length === 1 && langs[0] !== ORDER[i]) wrong.push(`${c.id}이 ${langs[0]} (${ORDER[i]}이어야)`);
-  });
-  assert.deepEqual(wrong, [], '파일 자리와 언어가 어긋났다');
+  const ORDER = ['en', 'es', 'pt-br', 'de', 'fr', 'ja', 'zh-hans', 'zh-hant', 'hi', 'ko'];
+  const seq = built.map(c => [...langsIn(c)]).filter(l => l.length === 1).map(l => l[0]);
+  /* 같은 언어가 연달아 나온 것을 한 칸으로 줄인다 */
+  const collapsed = seq.filter((l, i) => l !== seq[i - 1]);
+  assert.deepEqual(collapsed, ORDER,
+    `언어 차례가 어긋났다 — 나온 차례: ${collapsed.join(' · ')}`);
+  /* 줄이기 전에 같은 언어가 두 군데로 흩어져 있으면 위에서 안 잡힌다 */
+  assert.equal(new Set(collapsed).size, collapsed.length, '한 언어가 앞뒤로 찢어졌다');
 });
 
-test('/sitemap.xml이 한국어다', { skip }, () => {
-  /* 유입이 한국어에서 온다 — 구글이 첫 조각만 읽어도 한 장도 빠지지 않아야 한다 */
+test('/sitemap.xml이 영어다 — 앞자리가 우선순위다', { skip }, () => {
+  /* 국외 유입이 먼저다. 구글이 첫 조각만 읽어도 영어가 한 장도 빠지지 않아야 한다 */
   assert.ok(built.length > 0, '사이트맵 파일이 없다');
   assert.equal(built[0].id, 'sitemap.xml', `첫 자리가 ${built[0].id}이다 — /sitemap.xml이어야 한다`);
-  assert.deepEqual([...langsIn(built[0])], ['ko'], '/sitemap.xml이 한국어가 아니다');
+  assert.deepEqual([...langsIn(built[0])], ['en'], '/sitemap.xml이 영어가 아니다');
 
+  const enTotal = flat.filter(p => langOf(p) === 'en').length;
+  assert.ok(enTotal > 15_000, `영어 주소가 ${enTotal}개뿐 — 세는 방식이 깨졌다`);
+  const enChunks = built.filter(c => [...langsIn(c)].join() === 'en');
+  assert.equal(enChunks.reduce((n, c) => n + c.urls.length, 0), enTotal,
+    `영어 ${enTotal}개 중 앞 조각들에 다 안 들어갔다`);
+});
+
+test('한국어도 한 장도 안 빠진다 — 뒤로 보냈지 버린 것이 아니다', { skip }, () => {
   const koTotal = flat.filter(p => langOf(p) === 'ko').length;
   assert.ok(koTotal > 15_000, `한국어 주소가 ${koTotal}개뿐 — 세는 방식이 깨졌다`);
-  assert.equal(built[0].urls.length, koTotal, `한국어 ${koTotal}개 중 /sitemap.xml에 ${built[0].urls.length}개만 들어갔다`);
+  const koChunks = built.filter(c => [...langsIn(c)].join() === 'ko');
+  assert.equal(koChunks.reduce((n, c) => n + c.urls.length, 0), koTotal,
+    `한국어 ${koTotal}개 중 조각에 다 안 들어갔다`);
 });
 
 test('열 언어가 모두 제 파일을 갖는다', { skip }, () => {
