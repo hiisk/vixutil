@@ -49,6 +49,7 @@ import { METRO_LINES } from "@/lib/metro-lines";
 import { METRO_LANGS } from "@/lib/metro/lang";
 import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
+import { allHexShorts, hexSlug } from "@/lib/color/hex-grid";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
@@ -1302,6 +1303,15 @@ function allEntries(): MetadataRoute.Sitemap {
         url: `${BASE}${prefix}/color/${c.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
+      })),
+    ),
+    /* hex 낱장 4,096색 × 열 언어 — 세 자리 줄임 표기를 빠짐없이 낸다.
+       목록에 규칙이 있어 구멍이 없다. 까닭은 lib/color/hex-grid.ts 머리말 */
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+      allHexShorts().map((h) => ({
+        url: `${BASE}${prefix}/color/${hexSlug(h)}`,
+        changeFrequency: yearly,
+        priority: 0.6,
       })),
     ),
     // 색 허브는 아래 INTL_LOCALES10 묶음이 열 언어를 모두 낸다 — 여기서 또 내면 여덟 개가 두 번 실린다

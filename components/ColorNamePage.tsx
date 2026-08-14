@@ -36,7 +36,16 @@ import LangPicker from '@/components/LangPicker';
  * 모든 숫자는 hex에서 계산한다. 색은 눈으로 맞다/틀리다를 알 수 없으므로
  * 손으로 적어 두면 틀린 것을 아무도 못 잡는다.
  */
-export default function ColorNamePage({ color, lang }: { color: NamedColor; lang: Lang }) {
+export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, faq, nearbyTitle }: {
+  color: NamedColor;
+  lang: Lang;
+  /* 아래 셋은 hex 낱장(/color/hex-1a2)이 쓴다. 안 주면 이름 있는 색의 원래 동작이다 —
+     lib/color/hex-grid.ts 머리말. 240줄을 복사하지 않으려고 여기만 열어 두었다. */
+  lead?: string;
+  nearby?: NamedColor[];
+  faq?: { q: string; a: string }[];
+  nearbyTitle?: string;
+}) {
   const ui = COLOR_UI[lang];
   const f = colorFacts(color.hex);
   const name = color.name[lang];
@@ -50,7 +59,7 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
     아래에 영어 푸터와 영어 제휴 카드가 붙는다 — 실제로 그 상태였다.
   */
   const base = localeOfLang(lang);
-  const nearby = nearbyColors(color.slug);
+  const nearby = nearbyProp ?? nearbyColors(color.slug);
   const onColor = f.textOn === 'white' ? '#ffffff' : '#000000';
 
   const rows: { label: string; value: string }[] = [
@@ -119,6 +128,8 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
           <h1 className="text-3xl sm:text-4xl font-black mb-1">{name}</h1>
           <p className="text-lg font-black tabular-nums opacity-90">{f.hex.toUpperCase()}</p>
         </div>
+
+        {lead && <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{lead}</p>}
 
         <section className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
           <table className="w-full text-sm">
@@ -200,10 +211,10 @@ export default function ColorNamePage({ color, lang }: { color: NamedColor; lang
           </ul>
         </section>
 
-        <Faq items={colorFaq(lang, name, f)} lang={base} title={ui.faqTitle} />
+        <Faq items={faq ?? colorFaq(lang, name, f)} lang={base} title={ui.faqTitle} />
 
-        <section className="mt-8" aria-label={ui.nearbyTitle}>
-          <h2 className="sec-h2">{ui.nearbyTitle}</h2>
+        <section className="mt-8" aria-label={nearbyTitle ?? ui.nearbyTitle}>
+          <h2 className="sec-h2">{nearbyTitle ?? ui.nearbyTitle}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {nearby.map(n => (
               <Link prefetch={false}
