@@ -33,6 +33,7 @@ import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { valuesFor, valueSlug } from "@/lib/convert/values";
 import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
+import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
@@ -145,6 +146,8 @@ const BASE = "https://vixutil.com";
 
 /* 4,131칸을 열 언어가 함께 쓴다 — 언어마다 다시 만들면 같은 배열을 열 번 만든다 */
 const BMI_CELLS = bmiAllCells();
+/* 366일도 같은 이유로 한 번만 만든다 */
+const BIRTHDAYS = birthdayDays();
 
 export const dynamic = "force-static";
 
@@ -233,6 +236,19 @@ function allEntries(): MetadataRoute.Sitemap {
     { url: `${BASE}/generator`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/checklist`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/fortune`, changeFrequency: weekly, priority: 0.95 },
+    /*
+     * 생일 낱장 — /fortune/birthday/<MM-DD>. 366일이 언어마다 붙는다(윤일 포함).
+     * "3월 15일 생일 별자리"는 해마다 되돌아오는 검색이고 자료가 안 바뀐다.
+     * 셈은 lib/fortune/birthday-grid.ts.
+     */
+    ...BIRTHDAYS.map((d) => ({
+      url: `${BASE}/fortune/birthday/${birthdaySlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.7,
+    })),
+    ...INTL_LOCALES10.flatMap((lang) =>
+      BIRTHDAYS.map((d) => ({
+        url: `${BASE}/${lang}/fortune/birthday/${birthdaySlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.6,
+      })),
+    ),
     { url: `${BASE}/fortune/zodiac`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/animal`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/tarot`, changeFrequency: weekly, priority: 0.9 },

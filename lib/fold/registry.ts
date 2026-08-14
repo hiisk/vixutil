@@ -313,6 +313,7 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'filament': () => import('./pages/filament__slug'),
   'flight': () => import('./pages/flight__slug'),
   'food': () => import('./pages/food__slug'),
+  'fortune/birthday': () => import('./pages/fortune__birthday__slug'),
   'fortune/card': () => import('./pages/fortune__card__slug'),
   'fraction': () => import('./pages/fraction__slug'),
   'fret': () => import('./pages/fret__slug'),
