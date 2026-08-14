@@ -110,6 +110,7 @@ import { hubCard as resistorHub } from '@/lib/resistor/route';
 import { hubCard as romanHub } from '@/lib/roman/route';
 import { hubCard as screwHub } from '@/lib/screw/route';
 import { hubCard as soundHub } from '@/lib/sound/route';
+import { hubCard as percentHub } from '@/lib/percent/route';
 import { hubCard as sqrtHub } from '@/lib/sqrt/route';
 import { hubCard as stopHub } from '@/lib/stop/route';
 import { hubCard as tarotHub } from '@/lib/tarot/route';
@@ -408,6 +409,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'sound/recorder': () => soundOg('recorder', 'hi'),
   'sound/tone': () => soundOg('tone', 'hi'),
   'sound/tuner': () => soundOg('tuner', 'hi'),
+  'percent': () => percentHub('hi'),
   'sqrt': () => sqrtHub('hi'),
   'stop': () => stopHub('hi'),
   'test': () => intlOg('test/hi'),

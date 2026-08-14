@@ -93,6 +93,7 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'pace': () => import('./pages/pace__slug'),
   'paper': () => import('./pages/paper__slug'),
   'password': () => import('./pages/password__slug'),
+  'percent': () => import('./pages/percent__slug'),
   'petfood': () => import('./pages/petfood__slug'),
   'port': () => import('./pages/port__slug'),
   'powerbank': () => import('./pages/powerbank__slug'),

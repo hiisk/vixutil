@@ -1,4 +1,5 @@
 import { CATS } from './calculator-catalog.ts';
+import { PERCENT_ICON } from './percent/list.ts';
 import { TESTS } from './test-data.ts';
 import { QUIZZES } from './quiz-data.ts';
 import { GENERATORS } from './generator-data.ts';
@@ -229,7 +230,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'motor' | 'steel' | 'hardness' | 'sun' | 'laundry' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink' | 'dpi';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'motor' | 'steel' | 'hardness' | 'sun' | 'laundry' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'percent' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink' | 'dpi';
 
 export interface SearchItem {
   href: string;
@@ -287,6 +288,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   code:       { label: '부호',      icon: '📶', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   darts:      { label: '다트',      icon: '🎯', accent: 'bg-red-50 text-red-700 border-red-200' },
   times:      { label: '곱셈표',    icon: '🔢', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
+  percent:    { label: '퍼센트',    icon: PERCENT_ICON, accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   sqrt:       { label: '제곱근',    icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   roman:      { label: '로마 숫자',  icon: '🏛️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   tire:       { label: '타이어',    icon: '🛞', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
@@ -1374,6 +1376,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/code', title: '모스 부호표', desc: '모스·NATO 음성 문자·점자 116가지', section: 'code' as const, icon: CODE_ICON },
   { href: '/darts', title: '다트 마무리표', desc: '2점부터 170점까지 몇 다트에 끝나는지와 수순', section: 'darts' as const, icon: DARTS_ICON },
   { href: '/times', title: '곱셈표', desc: '1단부터 20단까지 210칸의 곱과 나누기', section: 'times' as const, icon: TIMES_ICON },
+  { href: '/percent', title: '퍼센트 계산', desc: '200의 15%·15% 할인·30은 200의 몇 %', section: 'percent' as const, icon: PERCENT_ICON },
   { href: '/sqrt', title: '제곱근표', desc: '1부터 200까지 소수와 근호를 간단히 한 꼴', section: 'sqrt' as const, icon: SQRT_ICON },
   { href: '/roman', title: '로마 숫자 연도표', desc: '1900년부터 2100년까지 한 해씩, 글자를 조각내어', section: 'roman' as const, icon: ROMAN_ICON },
   { href: '/tire', title: '타이어 규격표', desc: '외경·둘레·1km 회전수와 바꿔 낄 수 있는 치수', section: 'tire' as const, icon: TIRE_ICON },

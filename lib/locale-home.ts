@@ -468,6 +468,21 @@ const SECTIONS: HomeSection[] = [
     },
   },
   {
+    route: '/percent', icon: '％', color: 'from-sky-500 to-blue-600',
+    accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
+    copy: {
+      en: { title: 'Percentages', desc: 'What X% of Y is, what X% off leaves, and what percent one is of the other' },
+      es: { title: 'Porcentajes', desc: 'Cuánto es el X % de Y, cuánto queda con descuento y qué porcentaje es uno de otro' },
+      'pt-br': { title: 'Porcentagens', desc: 'Quanto é X% de Y, quanto sobra com desconto e que porcentagem um é do outro' },
+      ja: { title: 'パーセント計算', desc: 'YのX%はいくらか、X%引きならいくらか、何パーセントか' },
+      de: { title: 'Prozentrechnung', desc: 'Wie viel X % von Y sind, was nach Rabatt bleibt und wie viel Prozent das eine vom anderen ist' },
+      fr: { title: 'Pourcentages', desc: 'Combien font X % de Y, ce que laisse une remise, et quel pourcentage l’un fait de l’autre' },
+      hi: { title: 'प्रतिशत', desc: 'Y का X% कितना, छूट पर कितना बचता है, और एक दूसरे का कितने प्रतिशत है' },
+      'zh-hans': { title: '百分比计算', desc: 'Y 的 X% 是多少、打折后剩多少、一个是另一个的百分之几' },
+      'zh-hant': { title: '百分比計算', desc: 'Y 的 X% 是多少、折扣後剩多少、一個是另一個的百分之幾' },
+    },
+  },
+  {
     route: '/sqrt', icon: '📐', color: 'from-indigo-600 to-violet-500',
     accent: 'text-indigo-700 dark:text-indigo-300', border: 'border-indigo-200 dark:border-indigo-900/50', bg: 'bg-indigo-50 dark:bg-indigo-950/30',
     copy: {

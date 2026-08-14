@@ -72,6 +72,7 @@ import { CHARS as CODE_CHARS, CELLS as CODE_CELLS, charSlug, cellSlug } from "@/
 import { SCORES as DARTS_SCORES } from "@/lib/darts/list";
 import { PRODUCTS as TIMES_PRODUCTS, slugOf as timesSlug } from "@/lib/times/list";
 import { NUMBERS as SQRT_NUMBERS } from "@/lib/sqrt/list";
+import { PERCENT_SLUGS } from "@/lib/percent/list";
 import { YEARS as ROMAN_YEARS } from "@/lib/roman/list";
 import { TIRES, slugOf as tireSlug } from "@/lib/tire/list";
 import { SCREWS, slugOf as screwSlug } from "@/lib/screw/list";
@@ -700,6 +701,10 @@ function allEntries(): MetadataRoute.Sitemap {
     ]),
     // 제곱근 200장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+      { url: `${BASE}${prefix}/percent`, changeFrequency: weekly, priority: 0.9 },
+      ...PERCENT_SLUGS.map((slug) => ({
+        url: `${BASE}${prefix}/percent/${slug}`, changeFrequency: yearly, priority: 0.8,
+      })),
       { url: `${BASE}${prefix}/sqrt`, changeFrequency: weekly, priority: 0.85 },
       ...SQRT_NUMBERS.map((n: number) => ({
         url: `${BASE}${prefix}/sqrt/${n}`,
@@ -1527,11 +1532,21 @@ function allEntries(): MetadataRoute.Sitemap {
  * 구글과 빙은 그런 사이트맵을 앞부분만 읽거나 통째로 버린다. 즉 주소의
  * 3분의 2가 검색엔진에 안 보이고 있었다.
  *
- * 그래서 파일을 나눴다. 45,000으로 잡은 것은 5만에 딱 붙이면 섹션 하나만 늘어도
- * 다시 넘치기 때문이다 — 언어 하나가 이 수를 넘길 때만 그 언어가 두 파일이 된다.
+ * 그래서 파일을 나눴다. 5만에 딱 붙이면 섹션 하나만 늘어도 다시 넘치므로 여유를
+ * 둔다 — 언어 하나가 이 수를 넘길 때만 그 언어가 두 파일이 된다.
  * 파일을 묶는 목록은 app/sitemap-index.xml/route.ts가 낸다.
+ *
+ * ── 45,000 → 48,000 (2026-08-15) ───────────────────────────
+ * 한국어가 39,202까지 올라와 45,000의 87%였다. 90%를 넘으면 검사가 "라우트 파일을
+ * 늘려 두라"고 말하는데, **한국어는 늘릴 수가 없다** — /sitemap.xml 하나에 한국어가
+ * 다 들어가는 것이 이 구조의 약속이라(그래야 구글이 첫 조각만 읽어도 안 빠진다)
+ * 두 조각으로 쪼개는 순간 그 약속이 깨진다.
+ *
+ * 그래서 여유를 규약 한도 쪽으로 밀었다. 5만까지 2,000을 남긴다. 이 수를 올려도
+ * **언어와 파일 번호의 대응은 한 칸도 안 움직인다** — 언어가 쪼개질 때만 쓰이는
+ * 값이기 때문이다. 그 대응이 이 구조에서 유일하게 건드리면 안 되는 것이다.
  */
-export const CHUNK_SIZE = 45_000;
+export const CHUNK_SIZE = 48_000;
 
 /**
  * ── 언어마다 파일 하나, 주소는 /sitemap.xml 의 형제 (2026-08-12) ──────

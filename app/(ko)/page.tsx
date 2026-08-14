@@ -19,6 +19,7 @@ import { PREFIXES } from '@/lib/cidr/list';
 import { CHARS as CODE_CHARS, CELLS as CODE_CELLS } from '@/lib/code/list';
 import { SCORES as DARTS_SCORES } from '@/lib/darts/list';
 import { PRODUCTS as TIMES_PRODUCTS } from '@/lib/times/list';
+import { PERCENT_COUNT } from '@/lib/percent/list';
 import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
 import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { TIRES } from '@/lib/tire/list';
@@ -613,6 +614,18 @@ const SECTIONS = [
     textAccent: 'text-violet-700 dark:text-violet-300',
     borderAccent: 'border-violet-200 dark:border-violet-900/50',
     shadow: 'shadow-violet-100',
+  },
+  {
+    href: '/percent',
+    icon: '％',
+    title: '퍼센트 계산',
+    desc: '200의 15%는 30, 15% 깎으면 170 — 값·할인·세금·비율을 한 장에',
+    badge: `${PERCENT_COUNT.toLocaleString()}칸`,
+    color: 'from-sky-500 to-blue-600',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/sqrt',
