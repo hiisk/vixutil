@@ -34,6 +34,7 @@ import { CONVERT_TOOLS } from "@/lib/convert-tools";
 import { valuesFor, valueSlug } from "@/lib/convert/values";
 import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
 import { EXERCISES } from "@/lib/body/exercise";
+import { SALARIES } from "@/lib/salary-grid";
 import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
 import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
@@ -370,6 +371,10 @@ function allEntries(): MetadataRoute.Sitemap {
     /* 운동별 칼로리 — MET 계산기는 이미 있고 여기는 "수영이 몇 MET인가"를 받는다 */
     ...EXERCISES.map((x) => ({
       url: `${BASE}/body/exercise/${x.slug}`, changeFrequency: monthly, priority: 0.8,
+    })),
+    /* 연봉 실수령 값 낱장 — 한국어 전용(4대보험·소득세는 한국 제도다) */
+    ...SALARIES.map((v) => ({
+      url: `${BASE}/calculator/salary/${v}`, changeFrequency: yearly, priority: 0.8,
     })),
     // 몸 수치도 slug가 여덟 언어에서 같다
     ...INTL_LOCALES10.flatMap((lang) => [
