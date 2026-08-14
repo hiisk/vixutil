@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import WindchillGrid from '@/components/windchill/WindchillGrid';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, WINDCHILL_ICON, slugOf } from '@/lib/windchill/list';
+import { CELLS, WINDCHILL_ICON } from '@/lib/windchill/list';
 import { dangerous, feltOf } from '@/lib/windchill/facts';
 import { WINDCHILL_UI } from '@/lib/windchill/ui';
 
@@ -32,12 +32,7 @@ export default function WindchillHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({
-          name: `${ui.tempName(c.t)} · ${ui.windName(c.v)}`,
-          path: `${path}/${slugOf(c)}`,
-        })))}
-      />
+      {/* 낱장이 없어져 ItemList는 뺐다 — 표가 그 목록이다 */}
 
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-700 to-cyan-500" />
@@ -70,7 +65,7 @@ export default function WindchillHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.tableTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.frostbiteNote}</p>
-          <WindchillGrid path={path} />
+          <WindchillGrid />
         </section>
 
         <section className="mb-8">
@@ -82,14 +77,14 @@ export default function WindchillHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2-tight">{ui.windTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.windNote}</p>
           <div className="flex flex-wrap gap-2">
+            {/* 낱장으로 가던 칩 — 링크만 걷어내고 값은 그대로 둔다 */}
             {[5, 10, 20, 30, 40, 50].map(v => (
-              <Link prefetch={false}
+              <span
                 key={v}
-                href={`${path}/${slugOf({ t: -10, v })}`}
-                className="rounded-xl border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40 px-3 py-1.5 text-xs font-bold text-sky-800 dark:text-sky-300 tabular-nums hover:border-sky-500 transition-colors"
+                className="rounded-xl border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40 px-3 py-1.5 text-xs font-bold text-sky-800 dark:text-sky-300 tabular-nums"
               >
                 {ui.windName(v)} · {feltOf(-10, v)}°
-              </Link>
+              </span>
             ))}
           </div>
         </section>

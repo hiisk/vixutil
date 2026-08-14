@@ -3,13 +3,13 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SunList from '@/components/sun/SunList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, LATITUDES, SUN_ICON, slugOf } from '@/lib/sun/list';
+import { LATITUDES, SUN_ICON } from '@/lib/sun/list';
 import { atLat, sunFacts } from '@/lib/sun/facts';
-import { SUN_UI, cellName, fmtNum, latName } from '@/lib/sun/ui';
+import { SUN_UI, fmtNum, latName } from '@/lib/sun/ui';
 
 export default function SunHubPage({ lang }: { lang: Lang }) {
   const ui = SUN_UI[lang];
@@ -33,13 +33,6 @@ export default function SunHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({
-          name: cellName(lang, sunFacts(c)),
-          path: `${path}/${slugOf(c)}`,
-        })))}
-      />
-
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-500 to-amber-300" />
 
@@ -100,7 +93,7 @@ export default function SunHubPage({ lang }: { lang: Lang }) {
                   {ui.turns.junSolstice} {n(june.noonAltitude)}° · {ui.turns.decSolstice} {n(december.noonAltitude)}°
                 </span>
               </h3>
-              <SunList cells={atLat(lat)} path={path} lang={lang} by="date" />
+              <SunList cells={atLat(lat)} lang={lang} by="date" />
             </section>
           );
         })}

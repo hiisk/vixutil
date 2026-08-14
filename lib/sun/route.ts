@@ -5,10 +5,8 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { SUN_ICON, SUN_SLUGS, cellOf } from './list.ts';
-import { sunFacts } from './facts.ts';
+import { SUN_ICON } from './list.ts';
 import { SUN_UI } from './ui.ts';
-import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0284c7';
@@ -26,21 +24,7 @@ export function hubMetadata(lang: Lang): Metadata {
   });
 }
 
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const c = cellOf(slug);
-  if (!c) return {};
-  const ui = SUN_UI[lang];
-  const f = sunFacts(c);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/sun/${slug}`, languages: alternates(`/sun/${slug}`) },
-  });
-}
-
 export function hubCard(lang: Lang): ReactElement {
   const ui = SUN_UI[cardLang(lang)];
   return ogCard({ icon: SUN_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
-
-export const sunParams = () => prerender(SUN_SLUGS.map(slug => ({ slug })));

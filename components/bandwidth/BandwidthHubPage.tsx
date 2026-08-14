@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import BandwidthList from '@/components/bandwidth/BandwidthList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { BANDWIDTH_ICON, CELLS, LANDMARK, PLAN, SIZES, sizeLabel, slugOf } from '@/lib/bandwidth/list';
+import { BANDWIDTH_ICON, LANDMARK, PLAN, SIZES, sizeLabel } from '@/lib/bandwidth/list';
 import { atSize, bandwidthFacts } from '@/lib/bandwidth/facts';
 import { BANDWIDTH_UI } from '@/lib/bandwidth/ui';
 
@@ -39,9 +39,7 @@ export default function BandwidthHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${sizeLabel(c.mb)} · ${c.mbps}Mbps`, path: `${path}/${slugOf(c)}` })))}
-      />
+      {/* 낱장이 없어져 ItemList는 뺐다 — 아래 목록이 그 목록이다 */}
 
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-600 to-indigo-500" />
@@ -89,7 +87,7 @@ export default function BandwidthHubPage({ lang }: { lang: Lang }) {
               {sizeLabel(mb)}
               {LANDMARK[mb] && <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">{ui.landmarkName(LANDMARK[mb])}</span>}
             </h3>
-            <BandwidthList cells={atSize(mb)} path={path} time={ui.time} />
+            <BandwidthList cells={atSize(mb)} time={ui.time} />
           </section>
         ))}
 

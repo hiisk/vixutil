@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { HUMIDS, TEMPS, slugOf } from '@/lib/dew/list';
+import { HUMIDS, TEMPS } from '@/lib/dew/list';
 import { comfortOf, dewOf } from '@/lib/dew/facts';
 
 /**
@@ -7,8 +6,10 @@ import { comfortOf, dewOf } from '@/lib/dew/facts';
  *
  * 같은 습도를 세로로 훑으면 기온이 오를수록 색이 짙어진다. 습도만으로는 눅눅함을
  * 알 수 없다는 이 표의 요점이 그 모양에 그대로 있다.
+ *
+ * 칸마다 걸려 있던 낱장 링크는 걷어냈다 — 표가 이미 답을 다 보이고 있다.
  */
-export default function DewGrid({ path, current }: { path: string; current?: string }) {
+export default function DewGrid() {
   return (
     <div className="overflow-x-auto rounded-2xl border chip-off p-2">
       <table className="w-full text-[11px] tabular-nums">
@@ -27,28 +28,22 @@ export default function DewGrid({ path, current }: { path: string; current?: str
               {HUMIDS.map(rh => {
                 const dew = dewOf(t, rh);
                 const comfort = comfortOf(dew);
-                const slug = slugOf({ t, rh });
-                const here = slug === current;
                 return (
                   <td key={rh} className="p-0.5">
-                    <Link
-                      href={`${path}/${slug}`}
-                      aria-current={here ? 'page' : undefined}
+                    <div
                       className={[
-                        'block rounded px-1 py-1 text-center font-bold transition-colors',
-                        here
-                          ? 'bg-cyan-700 text-white'
-                          : comfort === 'oppressive'
-                            ? 'bg-rose-200 dark:bg-rose-900/60 text-rose-900 dark:text-rose-100'
-                            : comfort === 'muggy'
-                              ? 'bg-orange-100 dark:bg-orange-950/50 text-orange-900 dark:text-orange-200'
-                              : comfort === 'sticky'
-                                ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200'
-                                : 'text-slate-600 dark:text-slate-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/40',
+                        'block rounded px-1 py-1 text-center font-bold',
+                        comfort === 'oppressive'
+                          ? 'bg-rose-200 dark:bg-rose-900/60 text-rose-900 dark:text-rose-100'
+                          : comfort === 'muggy'
+                            ? 'bg-orange-100 dark:bg-orange-950/50 text-orange-900 dark:text-orange-200'
+                            : comfort === 'sticky'
+                              ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200'
+                              : 'text-slate-600 dark:text-slate-300',
                       ].join(' ')}
                     >
                       {dew}
-                    </Link>
+                    </div>
                   </td>
                 );
               })}

@@ -9,6 +9,13 @@
  * 남아도 컴파일은 통과하므로, 여기서 값을 직접 센다. 소수점 기호까지 함께 본다:
  * es·pt·de·fr는 쉼표를 쓰는데 문장에 점이 남으면 표와 본문이 다른 얼굴이 된다.
  *
+ * ── 2026-08-14: 낱장을 지웠다 ─────────────────────────────
+ * 검색 수요가 없어 낱장 224칸(아홉 언어 껍데기·lib/fold/pages/sun__slug·lib/ko/pages·
+ * 사이트맵/색인의 낱장 줄·components/sun/SunPage)을 통째로 지웠다. 허브 표가 같은
+ * 값을 다 보여 주므로 화면에서 사라진 것은 없다. 그래서 아래 검사들은 낱장이 아니라
+ * **허브** 기준으로 다시 세웠다 — 낱장이 있어야만 뜻이 있던 단언은 그 자리에 왜
+ * 지웠는지를 남겨 두었다.
+ *
  * ── '배선' 검사 하나는 새 섹션을 낸 직후 빨갛다 ─────────────
  * 등록부·사이트맵·검색 색인·홈·공유 카드는 여러 섹션이 함께 쓰는 파일이라 섹션을
  * 만든 쪽에서 건드리지 않는다. 그 줄을 넣기 전까지 아래 '배선' 검사가 빠진 곳을
@@ -19,10 +26,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { koLeafSrc } from './app-path.ts';
-
-import { LANGS, LANG_CODES } from '../lib/i18n/lang.ts';
-import { CELLS, SUN_ICON, SUN_SLUGS, cellOf } from '../lib/sun/list.ts';
+import { LANG_CODES } from '../lib/i18n/lang.ts';
+import { CELLS, SUN_ICON, cellOf } from '../lib/sun/list.ts';
 import { AXIAL_TILT, sunFacts } from '../lib/sun/facts.ts';
 import {
   SUN_UI, cellName, dateName, dayLengthText, fmtNum, latName, noonSideText, riseSetText, shadowText,
@@ -32,7 +37,6 @@ import { CARD_KEYS } from '../lib/og-cards/keys.ts';
 import { DENSE, hanProblem } from './han.ts';
 
 const ROOT = join(import.meta.dirname, '..');
-const FOLD_LANGS = ['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant'];
 
 /** 소수점에 쉼표를 쓰는 언어 — lib/sun/ui.ts와 같은 목록이어야 한다 */
 const COMMA_LANGS = new Set(['es', 'pt', 'de', 'fr']);
@@ -61,52 +65,38 @@ test('일출 아이콘은 목록과 카드가 같은 그림을 쓴다', () => {
   assert.ok(ICON_FOR[SUN_ICON], `${SUN_ICON} 이모지가 아이콘으로 이어지지 않는다 — 공유 카드에 컬러 이모지가 그대로 나간다`);
 });
 
-test('접힌 모듈과 낱장 껍데기가 제자리에 있다', () => {
+test('접힌 허브 모듈과 한국어 허브가 제자리에 있다', () => {
   assert.ok(existsSync(join(ROOT, 'lib', 'fold', 'pages', 'sun.tsx')), '허브 공유 모듈이 없다');
-  assert.ok(existsSync(join(ROOT, 'lib', 'fold', 'pages', 'sun__slug.tsx')), '낱장 공유 모듈이 없다');
-  /*
-   * 껍데기는 언어 이름만 다르다. 복사하다 언어를 안 바꾸면 그 언어 낱장 전체가
-   * 다른 언어로 그려진다 — 화면은 멀쩡해서 안 드러난다.
-   */
-  for (const lang of FOLD_LANGS) {
-    const p = join(ROOT, 'app', `(${lang})`, lang, 'sun', '[slug]', 'page.tsx');
-    assert.ok(existsSync(p), `${lang}에 낱장 껍데기가 없다`);
-    const src = readFileSync(p, 'utf8');
-    assert.ok(src.includes(`build('${lang}')`), `${lang} 껍데기가 제 언어로 안 부른다`);
-    /* 낱장은 ISR이다. revalidate와 generateStaticParams가 **함께** 있어야 캐시가
-       걸린다 — revalidate만 있으면 라우트가 동적으로 잡혀 아무 효과가 없다.
-       CDN 캐시만 쓰는 길은 2026-08-13에 배포해서 재 보고 접었다(proxy.ts 머리말). */
-    assert.ok(/export const revalidate = false/.test(src), `${lang} 낱장이 revalidate = false가 아니다`);
-    assert.ok(src.includes('generateStaticParams'), `${lang} 낱장이 generateStaticParams를 안 내보낸다 — revalidate만으로는 안 걸린다`);
-  }
   // 한국어 허브는 접지 않는다 — 파일이 직접 있다
   assert.ok(existsSync(join(ROOT, 'app', '(ko)', 'sun', 'page.tsx')), '한국어 허브가 없다');
   /*
-   * 한국어 낱장은 lib/ko/pages 모듈이다(라우팅 표 2,048 한도). force-dynamic은
-   * 모듈이 아니라 디스패처 라우트가 선언하므로 여기서 보지 않는다 —
-   * generateStaticParams는 디스패처가 모아 쓰는 손잡이라 여기서 본다.
+   * 지운 단언 ─ 낱장이 사라져 지킬 것이 없어졌다(2026-08-14):
+   *   · lib/fold/pages/sun__slug.tsx 존재
+   *   · 아홉 언어 app/(xx)/xx/sun/[slug]/page.tsx 껍데기 · build('xx') · revalidate=false
+   *     · generateStaticParams — ISR 손잡이는 낱장에만 붙던 것이다
+   *   · 한국어 낱장 모듈(lib/ko/pages/sun__slug.tsx)의 generateStaticParams·SUN_SLUGS
+   * 아홉 언어 허브는 껍데기 파일이 아니라 캐치올이 굽는다 — 그 이어짐은 아래
+   * '배선' 검사의 lib/fold/registry.ts 줄이 지킨다.
    */
-  const ko = koLeafSrc('sun');
-  assert.ok(ko.includes('generateStaticParams'), '한국어 낱장에 generateStaticParams가 없다');
-  assert.ok(ko.includes('sunParams') || ko.includes('SUN_SLUGS'), '한국어 낱장이 태양 목록을 안 돌린다');
 });
 
-test('두 화면이 자외선 섹션으로 이어진다', () => {
+test('허브가 자외선 섹션으로 이어진다', () => {
   /*
    * 태양 고도가 높으면 자외선이 세진다 — 같은 이야기의 다음 칸이 /uv다. 링크가
    * 빠지면 두 섹션이 서로 모르는 남이 된다.
+   *
+   * 낱장(components/sun/SunPage.tsx)에도 같은 링크가 있었으나 그 화면째 지웠다.
+   * 남은 화면은 허브 하나라 허브만 본다.
    */
-  for (const f of ['SunHubPage.tsx', 'SunPage.tsx']) {
-    const src = readFileSync(join(ROOT, 'components', 'sun', f), 'utf8');
-    assert.match(src, /\$\{prefix\}\/uv/, `${f}에 /uv 링크가 없다`);
-    assert.match(src, /ui\.uvLink/, `${f}에 자외선 링크 문구가 없다`);
-  }
+  const src = readFileSync(join(ROOT, 'components', 'sun', 'SunHubPage.tsx'), 'utf8');
+  assert.match(src, /\$\{prefix\}\/uv/, 'SunHubPage.tsx에 /uv 링크가 없다');
+  assert.match(src, /ui\.uvLink/, 'SunHubPage.tsx에 자외선 링크 문구가 없다');
   for (const lang of LANG_CODES) {
     assert.ok(SUN_UI[lang].uvLink.trim().length > 0, `${lang}: 자외선 링크 문구가 비었다`);
   }
 });
 
-test('배선 — 등록부·사이트맵·색인·홈·카드에 태양이 걸려 있다', () => {
+test('배선 — 등록부·사이트맵·색인·홈·카드에 태양 허브가 걸려 있다', () => {
   /*
    * 여러 섹션이 함께 쓰는 파일이라 섹션을 만든 쪽에서 건드리지 않는다. 아래 목록이
    * 곧 넣어야 할 줄이고, 빠진 것은 이름으로 나온다.
@@ -117,23 +107,23 @@ test('배선 — 등록부·사이트맵·색인·홈·카드에 태양이 걸�
   };
   const read = (...p: string[]) => readFileSync(join(ROOT, ...p), 'utf8');
 
+  /*
+   * 지운 단언 ─ 낱장이 사라져 지킬 것이 없어졌다(2026-08-14):
+   *   · lib/fold/registry.ts SLUG_ROUTES의 sun__slug
+   *   · lib/ko/registry.ts KO_LEAVES의 sun__slug (한국어 허브는 파일이라 여기 안 걸린다)
+   *   · app/sitemap.ts의 lib/sun/list import와 SUN_CELLS.map 낱장 줄
+   *   · lib/search-index.ts의 sun/facts import와 낱장 항목 section: 'sun' as const
+   * 허브 줄은 그대로 남아 아래에서 계속 본다.
+   */
   const fold = read('lib', 'fold', 'registry.ts');
   want(fold.includes(`'sun': () => import('./pages/sun')`), "lib/fold/registry.ts STATIC_ROUTES: 'sun': () => import('./pages/sun'),");
-  want(fold.includes(`'sun': () => import('./pages/sun__slug')`), "lib/fold/registry.ts SLUG_ROUTES: 'sun': () => import('./pages/sun__slug'),");
-
-  const ko = read('lib', 'ko', 'registry.ts');
-  want(ko.includes(`'sun': () => import('./pages/sun__slug')`), "lib/ko/registry.ts KO_LEAVES: 'sun': () => import('./pages/sun__slug'),");
 
   const sitemap = read('app', 'sitemap.ts');
-  want(sitemap.includes(`from "@/lib/sun/list"`), 'app/sitemap.ts: import { CELLS as SUN_CELLS, slugOf as sunSlug } from "@/lib/sun/list";');
   want(/\/sun`, changeFrequency: weekly, priority: 0\.85/.test(sitemap), 'app/sitemap.ts: 허브 줄(우선순위 0.85)');
-  want(/SUN_CELLS\.map/.test(sitemap), 'app/sitemap.ts: 낱장 줄(SUN_CELLS.map)');
 
   const idx = read('lib', 'search-index.ts');
-  want(idx.includes(`from './sun/list.ts'`), "lib/search-index.ts: import { CELLS as SUN_CELLS, SUN_ICON, slugOf as sunSlug } from './sun/list.ts';");
-  want(idx.includes(`from './sun/facts.ts'`), "lib/search-index.ts: import { sunFacts } from './sun/facts.ts';");
+  want(idx.includes(`from './sun/list.ts'`), "lib/search-index.ts: import { SUN_ICON } from './sun/list.ts';");
   want(/export type Section =[^;]*'sun'/.test(idx), "lib/search-index.ts: Section 합집합에 | 'sun'");
-  want(idx.includes(`section: 'sun' as const`), "lib/search-index.ts: 낱장 항목의 section: 'sun' as const");
   want(idx.includes(`{ href: '/sun',`), "lib/search-index.ts: 허브 항목 { href: '/sun', … }");
   want(/sun:\s*\{ label:/.test(idx), 'lib/search-index.ts SECTION_META: sun: { label: …, icon: …, accent: … }');
 
@@ -151,11 +141,13 @@ test('배선 — 등록부·사이트맵·색인·홈·카드에 태양이 걸�
   assert.deepEqual(missing, [], `배선이 빠졌다 (${missing.length}곳):\n  ${missing.join('\n  ')}`);
 });
 
-test('사이트맵에 실릴 장수가 허브 1 + 낱장 224의 열 언어다', () => {
-  assert.equal(SUN_SLUGS.length, 224);
-  assert.equal(LANGS.length, 10);
-  assert.equal((1 + SUN_SLUGS.length) * LANGS.length, 2250);
-});
+/*
+ * 지운 검사 ─ '사이트맵에 실릴 장수가 허브 1 + 낱장 224의 열 언어다'(2026-08-14).
+ * 낱장을 지운 뒤 사이트맵에 남은 것은 언어마다 허브 한 장뿐이라 SUN_SLUGS.length로
+ * 세던 2,250장은 더 이상 사실이 아니다. 남기면 상수끼리 곱해 맞춰 보는, 아무것도
+ * 안 지키는 초록 검사가 된다. 허브가 실제로 사이트맵에 걸렸는지는 바로 위 '배선'
+ * 검사가 app/sitemap.ts의 /sun 줄로 본다.
+ */
 
 test('열 언어 모두 문구가 채워져 있다', () => {
   for (const lang of LANG_CODES) {
@@ -381,10 +373,13 @@ test('배선 여섯 곳이 다 있다', () => {
    */
   const at = (p: string) => readFileSync(join(import.meta.dirname, '..', p), 'utf8');
   const S = 'sun';
+  /*
+   * 지운 두 곳 ─ 낱장을 지웠다(2026-08-14): lib/fold/registry.ts의 낱장 줄(sun__slug)과
+   * lib/ko/registry.ts. 한국어 허브는 접지 않고 app/(ko)/sun/page.tsx 파일이라
+   * ko 등록부에는 애초에 낱장만 걸려 있었다. 남은 여섯 곳이 허브가 걸리는 자리 전부다.
+   */
   const places: [string, boolean][] = [
     ['lib/fold/registry.ts (허브)', at('lib/fold/registry.ts').includes(`'${S}':`)],
-    ['lib/fold/registry.ts (낱장)', at('lib/fold/registry.ts').includes(`'${S}/[slug]':`) || at('lib/fold/registry.ts').includes(`${S}__slug`)],
-    ['lib/ko/registry.ts', at('lib/ko/registry.ts').includes(`'${S}':`)],
     ['app/sitemap.ts', at('app/sitemap.ts').includes(`/${S}`)],
     ['lib/search-index.ts', at('lib/search-index.ts').includes(`'${S}'`)],
     ['lib/locale-home.ts', at('lib/locale-home.ts').includes(`'/${S}'`)],

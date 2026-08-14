@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { AREAS, CADRS, CELLS, PURIFIER_ICON, slugOf } from '@/lib/purifier/list';
+import { AREAS, CADRS, PURIFIER_ICON } from '@/lib/purifier/list';
 import { purifierFacts } from '@/lib/purifier/facts';
 import { PURIFIER_UI } from '@/lib/purifier/ui';
 
@@ -33,9 +33,6 @@ export default function PurifierHubPage({ lang }: { lang: Lang }) {
   return (
     <div className="page-wrap">
       <JsonLd data={breadcrumbJsonLd([{ name: ui.home, path: homeHref }, { name: ui.section, path }])} />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${c.area} · ${c.cadr}`, path: `${path}/${slugOf(c)}` })))}
-      />
 
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-cyan-800 to-sky-400" />
@@ -87,17 +84,14 @@ export default function PurifierHubPage({ lang }: { lang: Lang }) {
                     <th scope="row" className="px-1 py-1 text-[10px] font-bold text-slate-600 dark:text-slate-300 text-left whitespace-nowrap">
                       {area}{ui.pyeongWord}
                     </th>
+                    {/* 낱장을 없앴으므로 칸은 링크가 아니다 — 값과 등급 색만 남긴다 */}
                     {CADRS.map(cadr => {
                       const f = purifierFacts({ area, cadr });
                       return (
                         <td key={cadr} className="p-px">
-                          <Link prefetch={false}
-                            href={`${path}/${slugOf({ area, cadr })}`}
-                            aria-label={`${area}${ui.pyeongWord} · CADR ${cadr} · ${f.ach} ACH`}
-                            className={`block rounded py-1 text-[10px] font-bold transition-opacity hover:opacity-60 ${TONE[f.grade]}`}
-                          >
+                          <div className={`rounded py-1 text-[10px] font-bold ${TONE[f.grade]}`}>
                             {Math.round(f.ach)}
-                          </Link>
+                          </div>
                         </td>
                       );
                     })}

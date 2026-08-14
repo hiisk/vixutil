@@ -13,6 +13,7 @@ import Faq from '@/components/Faq';
 import { contentFaq } from '@/lib/content-faq';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import { prerender } from '@/lib/prerender';
+import { withCard } from '@/lib/og-cards';
 
 
 export function generateStaticParams() {
@@ -23,11 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const test = TEST_MAP[slug];
   if (!test) return {};
-  return { title: test.title, description: test.desc, alternates: {
+  // ShareButton이 달린 264장이 여기서 카드를 못 받고 있었다 — /og/ko/test를 물려받는다
+  return withCard({ title: test.title, description: test.desc, alternates: {
       canonical: `/test/${slug}`,
       // 언어별로 내용을 따로 쓴 섹션이라 슬러그가 겹치는 것만 짝으로 맺는다
       ...(hasAlternates('test', slug) ? { languages: localeAlternates('test', slug) } : {}),
-    } };
+    } });
 }
 
 export default async function TestPage({ params }: { params: Promise<{ slug: string }> }) {

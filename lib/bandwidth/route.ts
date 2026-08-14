@@ -5,10 +5,8 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { BANDWIDTH_ICON, BANDWIDTH_SLUGS, cellOf } from './list.ts';
-import { bandwidthFacts } from './facts.ts';
+import { BANDWIDTH_ICON } from './list.ts';
 import { BANDWIDTH_UI } from './ui.ts';
-import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0284c7';
@@ -26,21 +24,7 @@ export function hubMetadata(lang: Lang): Metadata {
   });
 }
 
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const c = cellOf(slug);
-  if (!c) return {};
-  const ui = BANDWIDTH_UI[lang];
-  const f = bandwidthFacts(c);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/bandwidth/${slug}`, languages: alternates(`/bandwidth/${slug}`) },
-  });
-}
-
 export function hubCard(lang: Lang): ReactElement {
   const ui = BANDWIDTH_UI[cardLang(lang)];
   return ogCard({ icon: BANDWIDTH_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
-
-export const bandwidthParams = () => prerender(BANDWIDTH_SLUGS.map(slug => ({ slug })));

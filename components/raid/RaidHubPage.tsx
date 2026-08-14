@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, DISKS, LEVELS, RAID_ICON, levelLabel, slugOf } from '@/lib/raid/list';
+import { DISKS, LEVELS, RAID_ICON, levelLabel } from '@/lib/raid/list';
 import { raidFacts } from '@/lib/raid/facts';
 import { RAID_UI } from '@/lib/raid/ui';
 
@@ -31,14 +31,6 @@ export default function RaidHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(
-          ui.hubTitle,
-          path,
-          CELLS.map(c => ({ name: `${c.level} ${c.disks}`, path: `${path}/${slugOf(c)}` })),
-        )}
-      />
-
       <PageGlow accent="emerald" />
       <div className="h-1 bg-gradient-to-r from-teal-800 to-emerald-400" />
 
@@ -91,19 +83,18 @@ export default function RaidHubPage({ lang }: { lang: Lang }) {
                     </th>
                     {DISKS.map(n => {
                       const f = raidFacts({ level: l.key, disks: n });
+                      // 낱장은 표의 칸 하나를 옮긴 것뿐이라 지웠다 — 값만 남긴다
                       return (
-                        <td key={n} className="p-px">
-                          <Link prefetch={false}
-                            href={`${path}/${slugOf({ level: l.key, disks: n })}`}
-                            aria-label={`${levelLabel(l)} ${n} · ${f.possible ? f.usable : ui.verdictNo}`}
-                            className={`block rounded py-1 text-[10px] font-bold transition-opacity hover:opacity-60 ${
+                        <td key={n} className="p-px" aria-label={`${levelLabel(l)} ${n} · ${f.possible ? f.usable : ui.verdictNo}`}>
+                          <div
+                            className={`rounded py-1 text-[10px] font-bold ${
                               f.possible
                                 ? 'bg-teal-100 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300'
                                 : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-600'
                             }`}
                           >
                             {f.possible ? f.usable : '·'}
-                          </Link>
+                          </div>
                         </td>
                       );
                     })}

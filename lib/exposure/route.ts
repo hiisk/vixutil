@@ -5,10 +5,8 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { EXPOSURE_ICON, EXPOSURE_SLUGS, cellOf } from './list.ts';
-import { exposureFacts } from './facts.ts';
+import { EXPOSURE_ICON } from './list.ts';
 import { EXPOSURE_UI } from './ui.ts';
-import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#1e293b';
@@ -26,21 +24,7 @@ export function hubMetadata(lang: Lang): Metadata {
   });
 }
 
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const c = cellOf(slug);
-  if (!c) return {};
-  const ui = EXPOSURE_UI[lang];
-  const f = exposureFacts(c);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/exposure/${slug}`, languages: alternates(`/exposure/${slug}`) },
-  });
-}
-
 export function hubCard(lang: Lang): ReactElement {
   const ui = EXPOSURE_UI[cardLang(lang)];
   return ogCard({ icon: EXPOSURE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
-
-export const exposureParams = () => prerender(EXPOSURE_SLUGS.map(slug => ({ slug })));

@@ -65,14 +65,23 @@ test('안 내기로 한 언어에 라우트 파일이 남아 있지 않다', () 
    * 파일이 남아 있으면 사이트맵에 없는 장이 혼자 서서 색인된다 — 그 언어에서
    * 아무도 안 치는 장이므로 크롤 예산만 먹는다.
    */
+  /*
+   * 2026-08-15: "내는 언어에는 파일이 있어야 한다"는 반대쪽 단언을 뺐다.
+   * 낱장 격자를 지운 갈래(heredity)는 **어느 언어에도 라우트 파일이 없다** —
+   * 허브는 캐치올이 굽기 때문이다. 그래서 파일 유무로는 "내는가"를 알 수 없다.
+   *
+   * 여기서 지켜야 하는 것은 한 방향뿐이다: **안 내기로 한 언어에 파일이
+   * 남아 있으면 안 된다.** 남아 있으면 사이트맵에도 hreflang에도 없는 장이
+   * 혼자 서서 크롤 예산만 먹는다. 내는 쪽이 실제로 나오는지는
+   * tests/fold-routes.test.ts가 등록부와 대조해 본다.
+   */
   const left: string[] = [];
   for (const sec of NARROWED_SECTIONS) {
     for (const l of LANGS) {
       if (l.lang === 'ko') continue;                       // 한국어는 라우트 모양이 다르다
+      if (sectionHasLocale(sec, l.locale)) continue;
       const dir = `${root}app/(${l.locale})/${l.locale}/${sec}`;
-      const should = sectionHasLocale(sec, l.locale);
-      const there = existsSync(dir);
-      if (there !== should) left.push(`${l.locale}/${sec}: 파일이 ${there ? '있다' : '없다'} (${should ? '있어야' : '없어야'})`);
+      if (existsSync(dir)) left.push(`${l.locale}/${sec}: 안 내기로 했는데 라우트 파일이 있다`);
     }
   }
   assert.deepEqual(left, [], '라우트 파일과 SECTION_LOCALES가 어긋났다');

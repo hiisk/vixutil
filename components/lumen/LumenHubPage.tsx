@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LumenList from '@/components/lumen/LumenList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { AREAS, CELLS, LUMEN_ICON, USES, slugOf } from '@/lib/lumen/list';
+import { AREAS, LUMEN_ICON, USES } from '@/lib/lumen/list';
 import { atArea, lumenFacts } from '@/lib/lumen/facts';
 import { LUMEN_UI } from '@/lib/lumen/ui';
 
@@ -32,9 +32,6 @@ export default function LumenHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${c.area}㎡ ${ui.useName(c.use)}`, path: `${path}/${slugOf(c)}` })))}
       />
 
       <PageGlow accent="amber" />
@@ -97,7 +94,7 @@ export default function LumenHubPage({ lang }: { lang: Lang }) {
                 {area}㎡
                 <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">{f.pyeong} {ui.pyeongLabel}</span>
               </h3>
-              <LumenList cells={atArea(area)} path={path} name={ui.useName} />
+              <LumenList cells={atArea(area)} name={ui.useName} />
             </section>
           );
         })}

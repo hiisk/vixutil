@@ -5,10 +5,8 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { DEW_ICON, DEW_SLUGS, cellOf } from './list.ts';
-import { dewFacts } from './facts.ts';
+import { DEW_ICON } from './list.ts';
 import { DEW_UI } from './ui.ts';
-import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#0e7490';
@@ -26,21 +24,7 @@ export function hubMetadata(lang: Lang): Metadata {
   });
 }
 
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const c = cellOf(slug);
-  if (!c) return {};
-  const ui = DEW_UI[lang];
-  const f = dewFacts(c);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/dew/${slug}`, languages: alternates(`/dew/${slug}`) },
-  });
-}
-
 export function hubCard(lang: Lang): ReactElement {
   const ui = DEW_UI[cardLang(lang)];
   return ogCard({ icon: DEW_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
-
-export const dewParams = () => prerender(DEW_SLUGS.map(slug => ({ slug })));

@@ -5,7 +5,8 @@ import { join } from 'node:path';
 
 import { APP_DIR, builtHtml, foldHubs, foldSlugs, sitemapRoutes } from './app-path.ts';
 import { DEEP_PREFIX_ROUTES } from '../lib/fold/deep-prefix.ts';
-import { NARROWED_SECTIONS, sectionHasLocale } from '../lib/i18n/lang.ts';
+import { sectionHasLocale } from '../lib/i18n/lang.ts';
+import { SLUG_ROUTES } from '../lib/fold/registry.ts';
 import type { AnyLocale10 } from '../lib/locales.ts';
 
 /**
@@ -150,9 +151,17 @@ test('낱장 라우트가 아홉 언어에 똑같이 있다', () => {
    * 만큼만 다르다**를 본다. 표에 없는 차이는 여전히 잡힌다.
    */
   /* FOLD_LANGS는 주소에 쓰는 이름이라 그대로 locale이다(pt-br·zh-hans) */
+  /*
+   * 무엇이 있어야 하는가는 **등록부**가 정한다(en을 본보기로 삼지 않는다).
+   * en은 SECTION_LOCALES 때문에 한자 문화권 갈래가 빠져 있어서 본보기로 쓰면
+   * 그 갈래들을 따로 되붙여야 하고, 낱장이 통째로 없어진 갈래(2026-08-15의
+   * 조합 격자 열넷)를 지울 때 그 되붙이는 목록이 조용히 어긋난다.
+   */
   const expected = (locale: string) =>
-    [...leafPrefixes('en').slug, ...NARROWED_SECTIONS]
-      .filter(k => sectionHasLocale(k.split('/')[0], locale as AnyLocale10));
+    Object.keys(SLUG_ROUTES)
+      /* 두 칸 열쇠(body/bmi)는 라우트 파일이 아니라 [a]/[b]/[slug] 캐치올이 받는다 */
+      .filter(k => !k.includes('/'))
+      .filter(k => sectionHasLocale(k, locale as AnyLocale10));
   const ref = leafPrefixes('en');
   assert.ok(ref.slug.size > 80, `en 낱장 무늬가 ${ref.slug.size}개뿐 — 세는 방식이 깨졌다`);
   for (const lang of FOLD_LANGS) {

@@ -5,10 +5,8 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { BATTERY_ICON, BATTERY_SLUGS, cellOf } from './list.ts';
-import { batteryFacts } from './facts.ts';
+import { BATTERY_ICON } from './list.ts';
 import { BATTERY_UI } from './ui.ts';
-import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
 
 const FROM = '#15803d';
@@ -26,21 +24,7 @@ export function hubMetadata(lang: Lang): Metadata {
   });
 }
 
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const c = cellOf(slug);
-  if (!c) return {};
-  const ui = BATTERY_UI[lang];
-  const f = batteryFacts(c);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/battery/${slug}`, languages: alternates(`/battery/${slug}`) },
-  });
-}
-
 export function hubCard(lang: Lang): ReactElement {
   const ui = BATTERY_UI[cardLang(lang)];
   return ogCard({ icon: BATTERY_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
-
-export const batteryParams = () => prerender(BATTERY_SLUGS.map(slug => ({ slug })));

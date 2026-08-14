@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import BatteryList from '@/components/battery/BatteryList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { BATTERY_ICON, CAPACITIES, CELLS, CHARGERS, KNOWN_CAPACITY, KNOWN_CHARGER, slugOf } from '@/lib/battery/list';
+import { BATTERY_ICON, CAPACITIES, CHARGERS, KNOWN_CAPACITY, KNOWN_CHARGER } from '@/lib/battery/list';
 import { atCapacity, batteryFacts, stepOf } from '@/lib/battery/facts';
 import { BATTERY_UI } from '@/lib/battery/ui';
 
@@ -38,9 +38,7 @@ export default function BatteryHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${c.mah}mAh · ${c.watt}W`, path: `${path}/${slugOf(c)}` })))}
-      />
+      {/* 낱장이 없어져 ItemList는 뺐다 — 아래 목록이 그 목록이다 */}
 
       <PageGlow accent="emerald" />
       <div className="h-1 bg-gradient-to-r from-green-600 to-lime-400" />
@@ -113,7 +111,7 @@ export default function BatteryHubPage({ lang }: { lang: Lang }) {
               {KNOWN_CAPACITY[mah] && <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">{ui.capacityName(KNOWN_CAPACITY[mah])}</span>}
               <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500 tabular-nums">{batteryFacts({ mah, watt: 20 }).wh}Wh</span>
             </h3>
-            <BatteryList cells={atCapacity(mah)} path={path} clock={ui.clock} />
+            <BatteryList cells={atCapacity(mah)} clock={ui.clock} />
           </section>
         ))}
 

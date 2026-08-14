@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { BLOOD_ICON, CELLS, COMPONENTS, TYPES, labelOf, slugOf } from '@/lib/blood/list';
+import { BLOOD_ICON, COMPONENTS, TYPES, labelOf } from '@/lib/blood/list';
 import { okFor } from '@/lib/blood/facts';
 import { BLOOD_UI } from '@/lib/blood/ui';
 
@@ -30,14 +30,6 @@ export default function BloodHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(
-          ui.hubTitle,
-          path,
-          CELLS.map(c => ({ name: `${c.donor} → ${c.recipient}`, path: `${path}/${slugOf(c)}` })),
-        )}
-      />
-
       <PageGlow accent="rose" />
       <div className="h-1 bg-gradient-to-r from-red-900 to-rose-400" />
 
@@ -93,19 +85,18 @@ export default function BloodHubPage({ lang }: { lang: Lang }) {
                       </th>
                       {TYPES.map(r => {
                         const good = okFor(component, d, r);
+                        // 낱장은 표의 칸 하나를 옮긴 것뿐이라 지웠다 — 가능·불가 색만 남긴다
                         return (
-                          <td key={r.key} className="p-0.5">
-                            <Link prefetch={false}
-                              href={`${path}/${slugOf({ component, donor: d.key, recipient: r.key })}`}
-                              aria-label={`${labelOf(d)} → ${labelOf(r)} · ${good ? ui.verdictOk : ui.verdictNo}`}
-                              className={`block rounded-md py-1.5 text-xs font-bold transition-opacity hover:opacity-70 ${
+                          <td key={r.key} className="p-0.5" aria-label={`${labelOf(d)} → ${labelOf(r)} · ${good ? ui.verdictOk : ui.verdictNo}`}>
+                            <div
+                              className={`rounded-md py-1.5 text-xs font-bold ${
                                 good
                                   ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
                                   : 'bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300'
                               }`}
                             >
                               {good ? '○' : '×'}
-                            </Link>
+                            </div>
                           </td>
                         );
                       })}

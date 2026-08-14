@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import BpmList from '@/components/bpm/BpmList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, BPM_ICON, TEMPOS, slugOf } from '@/lib/bpm/list';
+import { BPM_ICON, TEMPOS } from '@/lib/bpm/list';
 import { atTempo, bpmFacts } from '@/lib/bpm/facts';
 import { BPM_UI } from '@/lib/bpm/ui';
 
@@ -32,9 +32,7 @@ export default function BpmHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${c.bpm} BPM ${ui.noteName(c.note)}`, path: `${path}/${slugOf(c)}` })))}
-      />
+      {/* 낱장이 없어져 ItemList는 뺐다 — 아래 목록이 그 목록이다 */}
 
       <PageGlow accent="rose" />
       <div className="h-1 bg-gradient-to-r from-rose-500 to-pink-400" />
@@ -84,7 +82,7 @@ export default function BpmHubPage({ lang }: { lang: Lang }) {
                 {ui.beatLabel} {bpmFacts({ bpm, note: '4' }).beatMs} ms · {ui.barLabel} {bpmFacts({ bpm, note: '4' }).barMs} ms
               </span>
             </h3>
-            <BpmList cells={atTempo(bpm)} path={path} by="note" lang={lang} />
+            <BpmList cells={atTempo(bpm)} by="note" lang={lang} />
           </section>
         ))}
 

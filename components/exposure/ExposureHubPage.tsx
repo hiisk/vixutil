@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { APERTURES, CELLS, EXPOSURE_ICON, SHUTTERS, apertureLabel, shutterLabel, slugOf } from '@/lib/exposure/list';
+import { APERTURES, EXPOSURE_ICON, SHUTTERS, apertureLabel, shutterLabel } from '@/lib/exposure/list';
 import { evStops } from '@/lib/exposure/facts';
 import { EXPOSURE_UI } from '@/lib/exposure/ui';
 
@@ -32,17 +32,6 @@ export default function ExposureHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(
-          ui.hubTitle,
-          path,
-          CELLS.map(c => ({
-            name: `${apertureLabel(c.aperture)} ${shutterLabel(SHUTTERS[c.shutter])}`,
-            path: `${path}/${slugOf(c)}`,
-          })),
-        )}
-      />
-
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-slate-800 to-sky-400" />
 
@@ -95,20 +84,14 @@ export default function ExposureHubPage({ lang }: { lang: Lang }) {
                     <th scope="row" className="px-1 py-1 text-[10px] font-bold text-slate-600 dark:text-slate-300 text-left whitespace-nowrap">
                       {apertureLabel(aperture)}
                     </th>
-                    {SHUTTERS.map((_s, j) => {
-                      const ev = evStops(i, j);
-                      return (
-                        <td key={j} className="p-px">
-                          <Link prefetch={false}
-                            href={`${path}/${slugOf({ aperture, shutter: j })}`}
-                            aria-label={`${apertureLabel(aperture)} ${shutterLabel(SHUTTERS[j])} · ${ui.evShort} ${ev}`}
-                            className="block rounded py-1 text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-opacity hover:opacity-60"
-                          >
-                            {ev}
-                          </Link>
-                        </td>
-                      );
-                    })}
+                    {/* 낱장을 없앴으므로 칸은 링크가 아니다 — 값만 남긴다 */}
+                    {SHUTTERS.map((_s, j) => (
+                      <td key={j} className="p-px">
+                        <div className="rounded py-1 text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                          {evStops(i, j)}
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>

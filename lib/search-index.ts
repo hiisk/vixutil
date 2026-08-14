@@ -55,25 +55,25 @@ import { ALTITUDES, ALTITUDE_ICON } from './altitude/list.ts';
 import { CHANNELS, WIFI_ICON, labelOf as wifiLabel, slugOf as wifiSlug } from './wifi/list.ts';
 import { FRET_ICON, SPOTS, slugOf as fretSlug } from './fret/list.ts';
 import { GRAVITY_ICON, WEIGHTS } from './gravity/list.ts';
-import { CELLS as WC_CELLS, WINDCHILL_ICON, slugOf as wcSlug } from './windchill/list.ts';
-import { CELLS as DEW_CELLS, DEW_ICON, slugOf as dewSlug } from './dew/list.ts';
+import { WINDCHILL_ICON } from './windchill/list.ts';
+import { DEW_ICON } from './dew/list.ts';
 import { BITS, DRILL_ICON, slugOf as drillSlug } from './drill/list.ts';
-import { BANDWIDTH_ICON, CELLS as BW_CELLS, sizeLabel as bwSize, slugOf as bwSlug } from './bandwidth/list.ts';
-import { BATTERY_ICON, CELLS as BATT_CELLS, slugOf as battSlug } from './battery/list.ts';
+import { BANDWIDTH_ICON } from './bandwidth/list.ts';
+import { BATTERY_ICON } from './battery/list.ts';
 import { CELLS as WIRE_CELLS, WIRE_ICON, sizeLabel as wireLabel, slugOf as wireSlug } from './wire/list.ts';
 import { CELLS as PAPER_CELLS, PAPER_ICON, slugOf as paperSlug } from './paper/list.ts';
 import { CELLS as TORQUE_CELLS, TORQUE_ICON, gradeOf as torqueGrade, sizeLabel as torqueSize, slugOf as torqueSlug } from './torque/list.ts';
-import { CELLS as LUMEN_CELLS, LUMEN_ICON, slugOf as lumenSlug } from './lumen/list.ts';
-import { AMPERE_ICON, CELLS as AMP_CELLS, applianceOf, circuitOf, slugOf as ampSlug } from './ampere/list.ts';
+import { LUMEN_ICON } from './lumen/list.ts';
+import { AMPERE_ICON } from './ampere/list.ts';
 import { CELLS as DOF_CELLS, DOF_ICON, slugOf as dofSlug } from './dof/list.ts';
-import { CELLS as BPM_CELLS, BPM_ICON, slugOf as bpmSlug } from './bpm/list.ts';
+import { BPM_ICON } from './bpm/list.ts';
 import { CELLS as GEAR_CELLS, GEAR_ICON, slugOf as gearSlug } from './gear/list.ts';
 import { CELLS as RING_CELLS, RING_ICON, slugOf as ringSlug } from './ring/list.ts';
 import { CELLS as REBAR_CELLS, REBAR_ICON, slugOf as rebarSlug } from './rebar/list.ts';
 import { CELLS as MOTOR_CELLS, MOTOR_ICON, slugOf as motorSlug } from './motor/list.ts';
 import { CELLS as STEEL_CELLS, STEEL_ICON, slugOf as steelSlug } from './steel/list.ts';
 import { CELLS as HARDNESS_CELLS, HARDNESS_ICON, slugOf as hardnessSlug } from './hardness/list.ts';
-import { CELLS as SUN_CELLS, SUN_ICON, slugOf as sunSlug } from './sun/list.ts';
+import { SUN_ICON } from './sun/list.ts';
 import { CELLS as DPI_CELLS, DPI_ICON } from './dpi/list.ts';
 import { CELLS as LAUNDRY_CELLS, LAUNDRY_ICON } from './laundry/list.ts';
 import { CELLS as FERTILIZER_CELLS, FERTILIZER_ICON, slugOf as fertilizerSlug } from './fertilizer/list.ts';
@@ -82,11 +82,9 @@ import { rebarFacts } from './rebar/facts.ts';
 import { motorFacts } from './motor/facts.ts';
 import { steelFacts } from './steel/facts.ts';
 import { hardnessFacts, valueOf as hardnessValue } from './hardness/facts.ts';
-import { sunFacts } from './sun/facts.ts';
 import { dpiFacts } from './dpi/facts.ts';
 import { laundryFacts } from './laundry/facts.ts';
 import { LAUNDRY_UI } from './laundry/ui.ts';
-import { cellName as sunName, dayLengthText, riseSetText, shadowText } from './sun/ui.ts';
 import { fertilizerFacts } from './fertilizer/facts.ts';
 import { SYMBOL as FERT_SYMBOL, labelOf as fertilizerLabel, mass as fertilizerMass } from './fertilizer/ui.ts';
 import { CELLS as FILAMENT_CELLS, FILAMENT_ICON, slugOf as filamentSlug } from './filament/list.ts';
@@ -110,13 +108,13 @@ import { CELLS as MW_CELLS, MICROWAVE_ICON, slugOf as mwSlug } from './microwave
 import { MAGNITUDES, QUAKE_ICON, slugOf as quakeSlug } from './quake/list.ts';
 import { BED_ICON, CELLS as BED_CELLS, slugOf as bedSlug } from './bed/list.ts';
 import { CELLS as WINE_CELLS, WINE_ICON, slugOf as wineSlug } from './wine/list.ts';
-import { CELLS as BLOOD_CELLS, BLOOD_ICON, labelOf as bloodLabel, slugOf as bloodSlug, typeOf as bloodType } from './blood/list.ts';
-import { CELLS as EXPOSURE_CELLS, EXPOSURE_ICON, SHUTTERS as EXPOSURE_SHUTTERS, apertureLabel, shutterLabel, slugOf as exposureSlug } from './exposure/list.ts';
-import { CELLS as HEREDITY_CELLS, HEREDITY_ICON, slugOf as heredSlug } from './heredity/list.ts';
-import { CELLS as RAID_CELLS, RAID_ICON, levelLabel as raidLabel, levelOf as raidLevel, slugOf as raidSlug } from './raid/list.ts';
+import { BLOOD_ICON } from './blood/list.ts';
+import { EXPOSURE_ICON } from './exposure/list.ts';
+import { HEREDITY_ICON } from './heredity/list.ts';
+import { RAID_ICON } from './raid/list.ts';
 import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list.ts';
-import { CELLS as PURIFIER_CELLS, PURIFIER_ICON, slugOf as purifierSlug } from './purifier/list.ts';
-import { CELLS as DRINK_CELLS, DRINK_ICON, slugOf as drinkSlug } from './drink/list.ts';
+import { PURIFIER_ICON } from './purifier/list.ts';
+import { DRINK_ICON } from './drink/list.ts';
 import { OPENINGS, CHESS_ICON } from './chess/list.ts';
 import { HANDS, POKER_ICON, labelOf } from './poker/list.ts';
 import { handFacts } from './poker/facts.ts';
@@ -145,18 +143,11 @@ import { altitudeFacts } from './altitude/facts.ts';
 import { wifiFacts } from './wifi/facts.ts';
 import { fretFacts, nameOf as fretNote } from './fret/facts.ts';
 import { gravityFacts } from './gravity/facts.ts';
-import { windchillFacts } from './windchill/facts.ts';
-import { dewFacts } from './dew/facts.ts';
 import { drillFacts } from './drill/facts.ts';
-import { bandwidthFacts } from './bandwidth/facts.ts';
-import { batteryFacts } from './battery/facts.ts';
 import { wireFacts } from './wire/facts.ts';
 import { paperFacts } from './paper/facts.ts';
 import { torqueFacts } from './torque/facts.ts';
-import { lumenFacts } from './lumen/facts.ts';
-import { ampereFacts } from './ampere/facts.ts';
 import { dofFacts } from './dof/facts.ts';
-import { bpmFacts } from './bpm/facts.ts';
 import { gearFacts } from './gear/facts.ts';
 import { filamentFacts } from './filament/facts.ts';
 import { kgOf as filamentKg, materialName as filamentName } from './filament/ui.ts';
@@ -180,13 +171,7 @@ import { microwaveFacts } from './microwave/facts.ts';
 import { quakeFacts } from './quake/facts.ts';
 import { bedFacts } from './bed/facts.ts';
 import { wineFacts } from './wine/facts.ts';
-import { bloodFacts } from './blood/facts.ts';
-import { exposureFacts } from './exposure/facts.ts';
-import { heredityFacts } from './heredity/facts.ts';
-import { raidFacts } from './raid/facts.ts';
 import { flightFacts, hoursOf } from './flight/facts.ts';
-import { purifierFacts } from './purifier/facts.ts';
-import { drinkFacts } from './drink/facts.ts';
 import { YEAR_UI } from './year/ui.ts';
 import { nameOf } from './element/names.ts';
 import { whatOf } from './regex/desc.ts';
@@ -712,26 +697,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: GRAVITY_ICON,
     };
   }),
-  ...WC_CELLS.map(c => {
-    const f = windchillFacts(c);
-    return {
-      href: `/windchill/${wcSlug(c)}`,
-      title: `${c.t}도에 시속 ${c.v}km — 체감 ${f.felt}도`,
-      desc: `기온보다 ${f.drop}도 낮게 · ${f.frostbite !== null ? `동상 ${f.frostbite}분` : '동상 위험 구간 아님'}`,
-      section: 'windchill' as const,
-      icon: WINDCHILL_ICON,
-    };
-  }),
-  ...DEW_CELLS.map(c => {
-    const f = dewFacts(c);
-    return {
-      href: `/dew/${dewSlug(c)}`,
-      title: `${c.t}도 습도 ${c.rh}% — 이슬점 ${f.dew}도`,
-      desc: `공기 1m³에 물 ${f.absolute}g · 기온과 ${f.spread}도 차이`,
-      section: 'dew' as const,
-      icon: DEW_ICON,
-    };
-  }),
   ...BITS.map(b => {
     const f = drillFacts(b);
     return {
@@ -740,26 +705,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${f.inch}인치 · 가까운 것 ${f.near.map(n => n.name).join(', ')}${f.taps.length ? ` · ${f.taps[0].label} 탭 드릴` : ''}`,
       section: 'drill' as const,
       icon: DRILL_ICON,
-    };
-  }),
-  ...BW_CELLS.map(c => {
-    const f = bandwidthFacts(c);
-    return {
-      href: `/bandwidth/${bwSlug(c)}`,
-      title: `${bwSize(c.mb)} 파일을 ${c.mbps}Mbps로 — ${f.parts.days ? `${f.parts.days}일 ${f.parts.hours}시간` : f.parts.hours ? `${f.parts.hours}시간 ${f.parts.minutes}분` : f.parts.minutes ? `${f.parts.minutes}분 ${f.parts.seconds}초` : `${f.real}초`}`,
-      desc: `실제 속도 ${f.perSecond}MB/s · 1분 안에 받으려면 ${f.minuteSpeed}Mbps`,
-      section: 'bandwidth' as const,
-      icon: BANDWIDTH_ICON,
-    };
-  }),
-  ...BATT_CELLS.map(c => {
-    const f = batteryFacts(c);
-    return {
-      href: `/battery/${battSlug(c)}`,
-      title: `${c.mah}mAh를 ${c.watt}W로 — ${f.minutes >= 60 ? `${Math.floor(f.minutes / 60)}시간 ${f.minutes % 60}분` : `${f.minutes}분`}`,
-      desc: `${f.wh}Wh · ${f.step.volt}V ${f.step.amp}A · 80%까지 ${f.to80}분`,
-      section: 'battery' as const,
-      icon: BATTERY_ICON,
     };
   }),
   ...WIRE_CELLS.map(c => {
@@ -792,28 +737,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: TORQUE_ICON,
     };
   }),
-  ...LUMEN_CELLS.map(c => {
-    const f = lumenFacts(c);
-    const NAME: Record<string, string> = { hall: '복도', bedroom: '침실', living: '거실', bath: '욕실', kitchen: '주방', study: '서재', workshop: '작업실', detail: '정밀 작업' };
-    return {
-      href: `/lumen/${lumenSlug(c)}`,
-      title: `${c.area}㎡ ${NAME[c.use]} 밝기 — ${f.lumen}루멘`,
-      desc: `${f.lux}럭스 기준 · LED ${f.watts[0].watt}W · 800루멘 전구 ${f.bulbs}개`,
-      section: 'lumen' as const,
-      icon: LUMEN_ICON,
-    };
-  }),
-  ...AMP_CELLS.map(c => {
-    const f = ampereFacts(c);
-    const NAME: Record<string, string> = { purifier: '공기청정기', laptop: '노트북', fan: '선풍기', tv: 'TV', fridge: '냉장고', blanket: '전기장판', console: '게임기', desktop: '데스크톱', washer: '세탁기', toaster: '토스터', rice: '전기밥솥', microwave: '전자레인지', coffee: '커피머신', iron: '다리미', dryer: '헤어드라이어', vacuum: '청소기', aircon: '에어컨', kettle: '전기포트', heater: '전기히터', induction: '인덕션' };
-    return {
-      href: `/ampere/${ampSlug(c)}`,
-      title: `${NAME[c.key]} ${applianceOf(c.key)?.watt}W — ${circuitOf(c.circuit)?.volt}V에서 ${f.amp}A`,
-      desc: `함께 ${f.together}대 · 전선 ${f.wire}${f.stripOk ? '' : ' · 멀티탭 금지'}`,
-      section: 'ampere' as const,
-      icon: AMPERE_ICON,
-    };
-  }),
   ...DOF_CELLS.map(c => {
     const f = dofFacts(c);
     const two = f.spans.find(x => x.subject === 2);
@@ -823,17 +746,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${f.hyperfocalNear}m부터 무한대까지 · 2m 피사체 앞뒤 ${two?.depth === null ? '무한대' : `${two?.depth}m`}`,
       section: 'dof' as const,
       icon: DOF_ICON,
-    };
-  }),
-  ...BPM_CELLS.map(c => {
-    const f = bpmFacts(c);
-    const NOTE_KO: Record<string, string> = {'1': '온음표', '2': '2분음표', '4': '4분음표', '8': '8분음표', '16': '16분음표', '32': '32분음표', '2d': '점2분음표', '4d': '점4분음표', '8d': '점8분음표', '4t': '4분 셋잇단', '8t': '8분 셋잇단', '16t': '16분 셋잇단'};
-    return {
-      href: `/bpm/${bpmSlug(c)}`,
-      title: `${c.bpm}BPM ${NOTE_KO[c.note]} — ${f.ms}ms`,
-      desc: `LFO ${f.hz}Hz · 한 박 ${f.beatMs}ms · 한 마디 ${f.barMs}ms`,
-      section: 'bpm' as const,
-      icon: BPM_ICON,
     };
   }),
   ...GEAR_CELLS.map(c => {
@@ -884,16 +796,6 @@ export const SEARCH_INDEX: SearchItem[] = [
           section: 'dpi' as const,
           icon: DPI_ICON,
         };
-  }),
-  ...SUN_CELLS.map(c => {
-    const f = sunFacts(c);
-    return {
-      href: `/sun/${sunSlug(c)}`,
-      title: `${sunName('ko', f)} 태양 고도 ${f.noonAltitude}° — 낮 ${dayLengthText('ko', f)}`,
-      desc: `적위 ${f.declination}° · 태양시 일출·일몰 ${riseSetText('ko', f)} · 1m 막대 그림자 ${shadowText('ko', f)}`,
-      section: 'sun' as const,
-      icon: SUN_ICON,
-    };
   }),
   ...HARDNESS_CELLS.map(ppm => {
     const f = hardnessFacts(ppm);
@@ -1206,61 +1108,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: WINE_ICON,
     };
   }),
-  ...BLOOD_CELLS.map(c => {
-    const f = bloodFacts(c);
-    const PART: Record<string, string> = { rbc: '적혈구', plasma: '혈장', whole: '전혈' };
-    const d = bloodLabel(bloodType(c.donor)!);
-    const r = bloodLabel(bloodType(c.recipient)!);
-    return {
-      href: `/blood/${bloodSlug(c)}`,
-      title: `${d} → ${r} ${PART[c.component]} 수혈 — ${f.ok ? '가능' : '불가'}`,
-      desc: `${d}가 여덟 혈액형 가운데 ${f.reach}곳에 줄 수 있는 성분입니다 · 반대 방향은 ${f.reverseOk ? '가능' : '불가'}`,
-      section: 'blood' as const,
-      icon: BLOOD_ICON,
-    };
-  }),
-  ...EXPOSURE_CELLS.map(c => {
-    const f = exposureFacts(c);
-    const LIGHT: Record<string, string> = {
-      snow: '눈밭', sunny: '맑은 날 한낮', hazy: '엷은 구름', cloudy: '흐린 날', overcast: '두꺼운 구름',
-      shade: '그늘', sunset: '해질 무렵', indoor: '밝은 실내', dim: '어두운 실내', candle: '촛불', night: '밤거리',
-    };
-    return {
-      href: `/exposure/${exposureSlug(c)}`,
-      title: `${apertureLabel(c.aperture)} · ${shutterLabel(EXPOSURE_SHUTTERS[c.shutter])}초 — EV ${f.ev}`,
-      desc: `ISO 100에서 ${LIGHT[f.light]} 정도 · 같은 EV 조합 ${f.equivalents.length}개 · 새겨진 수로 계산하면 ${f.evPrinted}`,
-      section: 'exposure' as const,
-      icon: EXPOSURE_ICON,
-    };
-  }),
-  ...HEREDITY_CELLS.map(c => {
-    const f = heredityFacts(c);
-    const d = `${f.father.abo}${f.father.rh ? '+' : '−'}`;
-    const m = `${f.mother.abo}${f.mother.rh ? '+' : '−'}`;
-    const k = `${f.child.abo}${f.child.rh ? '+' : '−'}`;
-    return {
-      href: `/heredity/${heredSlug(c)}`,
-      title: `${d} 아버지와 ${m} 어머니의 ${k} 아이 — ${f.possible ? '가능' : '불가능'}`,
-      desc: f.possible
-        ? `부모의 유전자형에 따라 ${f.chanceText} · 이 부모에게서 나올 수 있는 혈액형 ${f.possibleChildren.length}가지`
-        : `어느 유전자형 조합으로도 나오지 않습니다 · 나올 수 있는 혈액형은 ${f.possibleChildren.length}가지`,
-      section: 'heredity' as const,
-      icon: HEREDITY_ICON,
-    };
-  }),
-  ...RAID_CELLS.map(c => {
-    const f = raidFacts(c);
-    const name = raidLabel(raidLevel(c.level)!);
-    return {
-      href: `/raid/${raidSlug(c)}`,
-      title: `${name} 디스크 ${c.disks}장 — ${f.possible ? `${f.usable}장분` : '만들 수 없음'}`,
-      desc: f.possible
-        ? `용량 효율 ${f.efficiency}% · 고장 ${f.best!.tolerates}장까지 견딤 · 4TB짜리면 ${f.sizes.find(s => s.size === 4)!.tb}TB(${f.sizes.find(s => s.size === 4)!.tib}TiB)`
-        : `이 레벨은 최소 ${f.minDisks}장이 필요합니다`,
-      section: 'raid' as const,
-      icon: RAID_ICON,
-    };
-  }),
   ...FLIGHT_CELLS.map(c => {
     const f = flightFacts(c);
     const [fh, fm] = hoursOf(f.fastMinutes);
@@ -1272,27 +1119,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `비행시간 ${span(fh, fm)}~${span(sh, sm)} · 떠날 때의 방위 ${f.bearing}도(${f.compass}) · 시차 ${Math.abs(f.winterShift) / 60}시간`,
       section: 'flight' as const,
       icon: FLIGHT_ICON,
-    };
-  }),
-  ...PURIFIER_CELLS.map(c => {
-    const f = purifierFacts(c);
-    const GRADE: Record<string, string> = { ample: '넉넉함', enough: '권장 충족', tight: '빠듯함', short: '많이 모자람' };
-    return {
-      href: `/purifier/${purifierSlug(c)}`,
-      title: `${f.pyeong}평에 CADR ${f.cadr} — 시간당 ${f.ach}회`,
-      desc: `${GRADE[f.grade]} · 먼지가 절반이 되기까지 ${f.halfMinutes}분 · 권장값에는 ${f.needed}㎥/분이 필요`,
-      section: 'purifier' as const,
-      icon: PURIFIER_ICON,
-    };
-  }),
-  ...DRINK_CELLS.map(c => {
-    const f = drinkFacts(c);
-    return {
-      href: `/drink/${drinkSlug(c)}`,
-      title: `${f.abv}% ${f.ml}ml — 순수 알코올 ${f.grams}g`,
-      desc: `영국 ${f.ukUnits}유닛 · WHO ${f.whoDrinks}잔 · 미국 ${f.usDrinks}잔 · 알코올만의 열량 ${f.kcal}kcal`,
-      section: 'drink' as const,
-      icon: DRINK_ICON,
     };
   }),
   ...PATTERNS.map(x => ({

@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import DewGrid from '@/components/dew/DewGrid';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, DEW_ICON, slugOf } from '@/lib/dew/list';
+import { DEW_ICON } from '@/lib/dew/list';
 import { dewOf } from '@/lib/dew/facts';
 import { DEW_UI } from '@/lib/dew/ui';
 
@@ -32,12 +32,7 @@ export default function DewHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({
-          name: `${c.t}°C · ${c.rh}%`,
-          path: `${path}/${slugOf(c)}`,
-        })))}
-      />
+      {/* 낱장이 없어져 ItemList는 뺐다 — 표가 그 목록이다 */}
 
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-cyan-700 to-sky-500" />
@@ -70,7 +65,7 @@ export default function DewHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.tableTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.comfortNote}</p>
-          <DewGrid path={path} />
+          <DewGrid />
         </section>
 
         <section className="mb-8">
@@ -82,14 +77,14 @@ export default function DewHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2-tight">{ui.capacityTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.capacityNote}</p>
           <div className="flex flex-wrap gap-2">
+            {/* 낱장으로 가던 칩 — 링크만 걷어내고 값은 그대로 둔다 */}
             {[10, 20, 30, 40].map(t => (
-              <Link prefetch={false}
+              <span
                 key={t}
-                href={`${path}/${slugOf({ t, rh: 60 })}`}
-                className="rounded-xl border border-cyan-300 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:text-cyan-300 tabular-nums hover:border-cyan-500 transition-colors"
+                className="rounded-xl border border-cyan-300 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:text-cyan-300 tabular-nums"
               >
                 {t}°C · 60% → {dewOf(t, 60)}°
-              </Link>
+              </span>
             ))}
           </div>
         </section>

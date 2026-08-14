@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import AmpereList from '@/components/ampere/AmpereList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { AMPERE_ICON, APPLIANCES, CELLS, CIRCUITS, slugOf } from '@/lib/ampere/list';
+import { AMPERE_ICON, APPLIANCES, CIRCUITS } from '@/lib/ampere/list';
 import { ampereFacts, atCircuit } from '@/lib/ampere/facts';
 import { AMPERE_UI } from '@/lib/ampere/ui';
 
@@ -33,10 +33,6 @@ export default function AmpereHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${ui.applianceName(c.key)} · ${ui.circuitName(c.circuit)}`, path: `${path}/${slugOf(c)}` })))}
-      />
-
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-yellow-600 to-amber-400" />
 
@@ -97,7 +93,7 @@ export default function AmpereHubPage({ lang }: { lang: Lang }) {
                 {ui.circuitName(c.key)}
                 <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500 tabular-nums">{ui.budgetLabel} {f.budget}A</span>
               </h3>
-              <AmpereList cells={atCircuit(c.key)} path={path} name={ui.applianceName} />
+              <AmpereList cells={atCircuit(c.key)} name={ui.applianceName} />
             </section>
           );
         })}

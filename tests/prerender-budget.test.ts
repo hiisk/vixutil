@@ -106,11 +106,15 @@ test('낱장이 ISR이고 굽는 손잡이를 함께 갖고 있다', () => {
     'Origin Transfer가 348%까지 올라 사이트가 멈췄던 자리다');
 
   /*
-   * 2026-08-14: 897로 내려갔다. 한자·연호·다다미·혈액형 유전을 여섯 언어에서
-   * 빼면서 라우트 파일 24개를 지웠기 때문이다(SECTION_LOCALES). 줄어든 것이
-   * 뜻이 있어서 기준도 내렸다 — 여기서 더 줄면 옮기다 만 것이다.
+   * 이 수는 두 번 크게 줄었다. 줄어든 것이 뜻이 있어서 기준도 함께 내렸다.
+   *
+   *   897  2026-08-14 한자·연호·다다미·혈액형 유전을 여섯 언어에서 뺐다(-24)
+   *   786  2026-08-15 검색 수요가 없는 조합 격자 열넷을 지웠다(-111).
+   *        허브 표가 이미 같은 값을 다 보여주고 있어서 낱장은 정보가 0이었다.
+   *
+   * 여기서 더 줄면 옮기다 만 것이다.
    */
-  assert.ok(isr.length >= 890, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
+  assert.ok(isr.length >= 780, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
 
   const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
   assert.deepEqual(

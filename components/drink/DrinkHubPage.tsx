@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { ABVS, CELLS, DRINK_ICON, VOLUMES, VOLUME_LANDMARK, slugOf } from '@/lib/drink/list';
+import { ABVS, DRINK_ICON, VOLUMES, VOLUME_LANDMARK } from '@/lib/drink/list';
 import { drinkFacts } from '@/lib/drink/facts';
 import { DRINK_UI } from '@/lib/drink/ui';
 
@@ -27,7 +27,6 @@ export default function DrinkHubPage({ lang }: { lang: Lang }) {
   return (
     <div className="page-wrap">
       <JsonLd data={breadcrumbJsonLd([{ name: ui.home, path: homeHref }, { name: ui.section, path }])} />
-      <JsonLd data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${c.abv}% ${c.ml}ml`, path: `${path}/${slugOf(c)}` })))} />
 
       <PageGlow accent="amber" />
       <div className="h-1 bg-gradient-to-r from-amber-900 to-amber-400" />
@@ -79,17 +78,14 @@ export default function DrinkHubPage({ lang }: { lang: Lang }) {
                     <th scope="row" className="px-1 py-1 text-[10px] font-bold text-slate-600 dark:text-slate-300 text-left whitespace-nowrap">
                       {abv}%
                     </th>
+                    {/* 낱장을 없앴으므로 칸은 링크가 아니다 — 값만 남긴다 */}
                     {VOLUMES.map(ml => {
                       const f = drinkFacts({ abv, ml });
                       return (
                         <td key={ml} className="p-px">
-                          <Link prefetch={false}
-                            href={`${path}/${slugOf({ abv, ml })}`}
-                            aria-label={`${abv}% ${ml}ml · ${f.grams} g`}
-                            className="block rounded py-1 text-[10px] font-bold bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300 transition-opacity hover:opacity-60"
-                          >
+                          <div className="rounded py-1 text-[10px] font-bold bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">
                             {Math.round(f.grams)}
-                          </Link>
+                          </div>
                         </td>
                       );
                     })}

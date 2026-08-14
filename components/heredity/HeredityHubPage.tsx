@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, localeOfLang, localesOfSection } from '@/lib/i18n/lang';
-import { CELLS, HEREDITY_ICON, TYPES, labelOf, slugOf } from '@/lib/heredity/list';
+import { HEREDITY_ICON, TYPES, labelOf } from '@/lib/heredity/list';
 import { childrenOf } from '@/lib/heredity/facts';
 import { HEREDITY_UI } from '@/lib/heredity/ui';
 
@@ -32,14 +32,6 @@ export default function HeredityHubPage({ lang }: { lang: Lang }) {
           { name: ui.section, path },
         ])}
       />
-      <JsonLd
-        data={itemListJsonLd(
-          ui.hubTitle,
-          path,
-          CELLS.map(c => ({ name: `${c.father} × ${c.mother} → ${c.child}`, path: `${path}/${slugOf(c)}` })),
-        )}
-      />
-
       <PageGlow accent="violet" />
       <div className="h-1 bg-gradient-to-r from-violet-900 to-fuchsia-400" />
 
@@ -94,15 +86,12 @@ export default function HeredityHubPage({ lang }: { lang: Lang }) {
                     </th>
                     {TYPES.map(m => {
                       const kids = childrenOf(f, m);
+                      // 낱장은 표의 칸 하나를 옮긴 것뿐이라 지웠다 — 값만 남긴다
                       return (
-                        <td key={m.key} className="p-px">
-                          <Link prefetch={false}
-                            href={`${path}/${slugOf({ father: f.key, mother: m.key, child: kids[0] })}`}
-                            aria-label={`${labelOf(f)} × ${labelOf(m)} · ${kids.length}`}
-                            className="block rounded py-1.5 text-[11px] font-bold bg-violet-100 text-violet-700 dark:bg-violet-950/60 dark:text-violet-300 transition-opacity hover:opacity-60"
-                          >
+                        <td key={m.key} className="p-px" aria-label={`${labelOf(f)} × ${labelOf(m)} · ${kids.length}`}>
+                          <div className="rounded py-1.5 text-[11px] font-bold bg-violet-100 text-violet-700 dark:bg-violet-950/60 dark:text-violet-300">
                             {kids.length}
-                          </Link>
+                          </div>
                         </td>
                       );
                     })}
