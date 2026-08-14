@@ -162,7 +162,7 @@ export default function CmdPage({ slug, lang }: { slug: string; lang: Lang }) {
               <Link prefetch={false}
                 key={n}
                 href={`${prefix}/cmd/${n}`}
-                className="rounded-xl border chip-off px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 font-mono hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                className="chip-mono"
               >
                 {cmdItem(n)?.name ?? n}
               </Link>

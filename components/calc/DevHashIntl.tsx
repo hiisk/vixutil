@@ -22,10 +22,12 @@ export default function DevHashIntl({ lang }: { lang: CalcLang }) {
 
   useEffect(() => {
     let cancelled = false;
-    if (!text) { setHashes({}); return; }
+    /* 빈 문자열도 비동기 갈래로 지운다 — 이펙트 본문에서 동기로 setState하면
+       렌더가 이어 달린다(React Compiler의 set-state-in-effect). 마이크로태스크
+       하나 늦는 것은 눈에 안 보이고, 취소 처리도 한 갈래로 합쳐진다. */
     (async () => {
       const out: Record<string, string> = {};
-      for (const a of ALGOS) out[a.name] = await digest(a.name, text);
+      if (text) for (const a of ALGOS) out[a.name] = await digest(a.name, text);
       if (!cancelled) setHashes(out);
     })();
     return () => { cancelled = true; };

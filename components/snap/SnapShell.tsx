@@ -268,7 +268,10 @@ export default function SnapShell<T>({
   const ui = UI[lang];
   const hubHref = lang === 'ko' ? '/snap' : `/${lang}/snap`;
 
-  const [modelState, setModelState] = useState<'loading' | 'ready' | 'error'>('loading');
+  /* 얼굴 인식이 필요 없는 도구는 처음부터 ready다 — 이펙트에서 동기로 바꾸면
+     첫 프레임에 렌더가 이어 달린다(set-state-in-effect). requiresFace는 도구별
+     고정 prop이라 초기값으로 정해도 어긋날 일이 없다. */
+  const [modelState, setModelState] = useState<'loading' | 'ready' | 'error'>(requiresFace ? 'loading' : 'ready');
   const [preview, setPreview] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [faceError, setFaceError] = useState<string | null>(null);
@@ -278,7 +281,7 @@ export default function SnapShell<T>({
   const faceapiRef = useRef<FaceApiModule | null>(null);
 
   useEffect(() => {
-    if (!requiresFace) { setModelState('ready'); return; }
+    if (!requiresFace) return;   // 초기값이 이미 ready다
     let cancelled = false;
     (async () => {
       try {
@@ -471,6 +474,9 @@ export default function SnapShell<T>({
 
         {result && !analyzing && (
           <div id={resultId} className="space-y-4">
+            {/* reset은 이벤트 핸들러 몫으로 넘긴다 — 렌더에서 ref를 읽는 것이 아니라서
+                컴파일러의 보수적 판정이다(render prop이 뭘 하는지 정적으로 모른다) */}
+            {/* eslint-disable-next-line react-hooks/refs */}
             {children(result, reset)}
             <button type="button" onClick={reset}
               className={`w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 ${theme.resetHover} transition-colors`}>

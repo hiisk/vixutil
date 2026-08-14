@@ -412,3 +412,26 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .dim-link {
   @apply hover:text-slate-700 dark:hover:text-slate-300 transition-colors;
 }
+
+/* ── 5차 수확 (2026-08-13, 렌더된 HTML을 세어 남은 둘만) ────────────
+   4차까지 하고 나서 낱장 여섯을 렌더해 「한 장 안에서 여덟 번 넘게 나오는
+   40자 이상 클래스」를 다시 세었다. 남은 것은 딱 둘이었다 — 그 아래로는
+   한 장에 몇백 바이트뿐이라 수확이 끝났다.
+
+   keycap은 단축키 낱장의 키캡이다. 한 장에 조합 표가 있어 백 번 넘게 나오고
+   (실측: 한 장에서 5.1KB), 단축키는 477조합 × 열 언어다.
+   chip-mono는 명령어·CSS·HTML·HTTP 낱장의 이웃 칩이다(네 컴포넌트가 같은 줄). */
+
+/* 키캡 뼈대 — 크기(px·min-w)는 size prop에 따라 마크업에 남는다 */
+.keycap {
+  @apply inline-flex items-center justify-center rounded-lg border border-b-2 border-slate-300
+         dark:border-slate-600 bg-white dark:bg-slate-800 font-mono font-bold
+         text-slate-800 dark:text-slate-100 shadow-sm;
+}
+/* 고정폭 글꼴 이웃 칩 — cmd·css·html·http 낱장이 같이 쓴다.
+   @apply에는 커스텀 클래스(chip-off)를 못 넣는다 — 그 속을 풀어 적는다 */
+.chip-mono {
+  @apply rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900
+         px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 font-mono
+         hover:shadow-sm hover:-translate-y-0.5 transition-all;
+}

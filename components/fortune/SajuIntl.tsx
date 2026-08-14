@@ -45,6 +45,42 @@ interface Chart {
   daewoons: { age: number; pillar: Pillar }[];
 }
 
+/**
+ * 기둥 카드.
+ *
+ * ── 컴포넌트 안에서 정의하면 안 되는 자리다 (2026-08-13) ──────
+ * 전에는 SajuIntl **안에** 있었다. 그러면 렌더마다 새 함수가 되어 React가 매번
+ * 다른 컴포넌트로 보고 **네 기둥을 통째로 리마운트한다** — React Compiler도
+ * 그 컴포넌트는 최적화를 포기한다(static-components 오류). 닫아 쓰던 stems·
+ * branches(언어 사전)는 prop으로 받는다.
+ */
+function PillarCard({ label, p, stems, branches }: {
+  label: string; p: Pillar | null;
+  stems: (typeof STEMS_INTL)[keyof typeof STEMS_INTL];
+  branches: (typeof BRANCHES_INTL)[keyof typeof BRANCHES_INTL];
+}) {
+  if (!p) {
+    return (
+      <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-3 text-center">
+        <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
+        <p className="text-2xl text-slate-300 dark:text-slate-600">—</p>
+      </div>
+    );
+  }
+  const stem = STEMS[p.stemIdx];
+  const branch = BRANCHES[p.branchIdx];
+  return (
+    <div className="rounded-xl border chip-off p-3 text-center">
+      <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
+      <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[stem.element] }}>{stem.hanja}</p>
+      <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[branch.element] }}>{branch.hanja}</p>
+      <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
+        {stems[stem.hanja]?.kor} {branches[branch.hanja]?.kor}
+      </p>
+    </div>
+  );
+}
+
 export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
   const ui = SAJU_UI[lang];
   const stems = STEMS_INTL[lang];
@@ -84,29 +120,6 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
 
     setChart({ year, month, day, hour, counts, strong, daewoons });
     setTimeout(() => document.getElementById('saju-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
-  }
-
-  function PillarCard({ label, p }: { label: string; p: Pillar | null }) {
-    if (!p) {
-      return (
-        <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-3 text-center">
-          <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
-          <p className="text-2xl text-slate-300 dark:text-slate-600">—</p>
-        </div>
-      );
-    }
-    const stem = STEMS[p.stemIdx];
-    const branch = BRANCHES[p.branchIdx];
-    return (
-      <div className="rounded-xl border chip-off p-3 text-center">
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
-        <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[stem.element] }}>{stem.hanja}</p>
-        <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[branch.element] }}>{branch.hanja}</p>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
-          {stems[stem.hanja]?.kor} {branches[branch.hanja]?.kor}
-        </p>
-      </div>
-    );
   }
 
   const dayStem = chart ? STEMS[chart.day.stemIdx] : null;
@@ -190,10 +203,10 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
             <div className="rounded-2xl border chip-off p-5">
               <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-3">{ui.chart}</p>
               <div className="grid grid-cols-4 gap-2">
-                <PillarCard label={ui.hourPillar} p={chart.hour} />
-                <PillarCard label={ui.dayPillar} p={chart.day} />
-                <PillarCard label={ui.monthPillar} p={chart.month} />
-                <PillarCard label={ui.yearPillar} p={chart.year} />
+                <PillarCard label={ui.hourPillar} p={chart.hour} stems={stems} branches={branches} />
+                <PillarCard label={ui.dayPillar} p={chart.day} stems={stems} branches={branches} />
+                <PillarCard label={ui.monthPillar} p={chart.month} stems={stems} branches={branches} />
+                <PillarCard label={ui.yearPillar} p={chart.year} stems={stems} branches={branches} />
               </div>
             </div>
 

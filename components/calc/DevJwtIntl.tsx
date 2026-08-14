@@ -14,7 +14,14 @@ function b64url(s: string): string {
 export default function DevJwtIntl({ lang }: { lang: CalcLang }) {
   const c = DEV_JWT[lang].ui;
   const [token, setToken] = useState('');
-  const [parts, setParts] = useState<{ header: string; payload: string; sig: string; exp: number | null } | null>(null);
+  /*
+   * expired는 **붙여 넣은 순간** 판정해 상태에 담는다. 전에는 렌더에서 Date.now()를
+   * 불렀는데(react-hooks/purity), 렌더는 언제든 다시 돌 수 있어서 같은 토큰이
+   * 프레임에 따라 다르게 그려질 수 있고 React Compiler도 최적화를 포기한다.
+   * 어차피 시계를 계속 돌리는 화면이 아니다 — 판정 시점은 사용자가 토큰을 넣은
+   * 순간이면 충분하다.
+   */
+  const [parts, setParts] = useState<{ header: string; payload: string; sig: string; exp: number | null; expired: boolean } | null>(null);
   const [error, setError] = useState('');
 
   function decode(v: string) {
@@ -28,11 +35,13 @@ export default function DevJwtIntl({ lang }: { lang: CalcLang }) {
     try {
       const header = JSON.stringify(JSON.parse(b64url(seg[0])), null, 2);
       const payloadObj = JSON.parse(b64url(seg[1]));
+      const exp = typeof payloadObj.exp === 'number' ? payloadObj.exp : null;
       setParts({
         header,
         payload: JSON.stringify(payloadObj, null, 2),
         sig: seg[2],
-        exp: typeof payloadObj.exp === 'number' ? payloadObj.exp : null,
+        exp,
+        expired: exp !== null && exp * 1000 < Date.now(),
       });
     } catch {
       setError(c.malformed);
@@ -41,7 +50,7 @@ export default function DevJwtIntl({ lang }: { lang: CalcLang }) {
 
   const expState = parts
     ? parts.exp === null ? c.noExp
-      : parts.exp * 1000 < Date.now() ? c.expired : c.valid
+      : parts.expired ? c.expired : c.valid
     : '';
 
   return (
@@ -61,7 +70,7 @@ export default function DevJwtIntl({ lang }: { lang: CalcLang }) {
       {parts && (
         <>
           <div className={`rounded-2xl border px-5 py-3 text-sm font-bold ${
-            parts.exp !== null && parts.exp * 1000 < Date.now()
+            parts.expired
               ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300'
               : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-300'
           }`}>

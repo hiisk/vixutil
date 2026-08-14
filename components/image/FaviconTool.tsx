@@ -19,6 +19,34 @@ interface Made extends IconSize {
   blob: Blob;
 }
 
+/**
+ * 코드 조각 상자.
+ *
+ * 컴포넌트 안에 두면 렌더마다 새 컴포넌트가 되어 pre 블록이 통째로 리마운트된다
+ * (static-components, 2026-08-13). 닫아 쓰던 copy·copied·ui는 prop으로 받는다.
+ */
+function Snippet({ label, text, copied, onCopy, copyText, copiedText }: {
+  label: string; text: string; copied: string;
+  onCopy: (key: string, text: string) => void; copyText: string; copiedText: string;
+}) {
+  return (
+    <div className="mt-3">
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
+        <button
+          onClick={() => onCopy(label, text)}
+          className={`text-xs font-bold transition-colors ${copied === label ? 'text-emerald-600' : 'text-violet-600 hover:text-violet-700'}`}
+        >
+          {copied === label ? copiedText : copyText}
+        </button>
+      </div>
+      <pre className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2.5 text-[11px] leading-relaxed font-mono text-slate-700 dark:text-slate-200 overflow-x-auto">
+        {text}
+      </pre>
+    </div>
+  );
+}
+
 export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
   const ui = ICON_UI[lang];
   const common = IMAGE_COMMON[lang];
@@ -64,7 +92,8 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
 
   if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
-  const useLabel = (use: IconSize['use']) =>
+  /* use로 시작하는 이름은 eslint가 훅으로 오인한다 — lib/lumen의 useOf와 같은 함정 */
+  const labelOf = (use: IconSize['use']) =>
     use === 'apple' ? ui.useApple : use === 'android' || use === 'maskable' ? ui.useAndroid : ui.useFavicon;
 
   const copy = async (key: string, text: string) => {
@@ -72,23 +101,6 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
     setCopied(key);
     window.setTimeout(() => setCopied(''), 1500);
   };
-
-  const Snippet = ({ label, text }: { label: string; text: string }) => (
-    <div className="mt-3">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
-        <button
-          onClick={() => copy(label, text)}
-          className={`text-xs font-bold transition-colors ${copied === label ? 'text-emerald-600' : 'text-violet-600 hover:text-violet-700'}`}
-        >
-          {copied === label ? ui.copied : ui.copy}
-        </button>
-      </div>
-      <pre className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2.5 text-[11px] leading-relaxed font-mono text-slate-700 dark:text-slate-200 overflow-x-auto">
-        {text}
-      </pre>
-    </div>
-  );
 
   return (
     <div>
@@ -108,7 +120,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{m.size} × {m.size}</span>
-                <span className="block text-[11px] text-slate-400 dark:text-slate-500 truncate">{m.name} · {useLabel(m.use)}</span>
+                <span className="block text-[11px] text-slate-400 dark:text-slate-500 truncate">{m.name} · {labelOf(m.use)}</span>
               </span>
               <span className="shrink-0 text-xs font-bold text-slate-300 dark:text-slate-600">{formatBytes(m.blob.size)}</span>
             </button>
@@ -119,8 +131,8 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
 
       <div className="mt-4 rounded-2xl border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.snippet}</p>
-        <Snippet label={ui.headTitle} text={headTags()} />
-        <Snippet label={ui.manifest} text={manifestIcons()} />
+        <Snippet label={ui.headTitle} text={headTags()} copied={copied} onCopy={copy} copyText={ui.copy} copiedText={ui.copied} />
+        <Snippet label={ui.manifest} text={manifestIcons()} copied={copied} onCopy={copy} copyText={ui.copy} copiedText={ui.copied} />
       </div>
 
       <button

@@ -8,7 +8,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  AREAS, BULB_LUMEN, CELLS, PYEONG, SOURCES, USES, cellOf, slugOf, useOf,
+  AREAS, BULB_LUMEN, CELLS, PYEONG, SOURCES, USES, cellOf, slugOf, usageOf,
 } from '../lib/lumen/list.ts';
 import { atArea, atUse, lumenFacts, lumenOf, wattOf } from '../lib/lumen/facts.ts';
 
@@ -36,7 +36,7 @@ test('필요한 빛은 밝기에 넓이를 곱한 것', () => {
     const f = lumenFacts(c);
     // 루멘을 넓이로 나누면 그 쓰임의 럭스가 도로 나온다
     assert.equal(f.lumen / c.area, f.lux, f.slug);
-    assert.equal(f.lux, useOf(c.use)!.lux, f.slug);
+    assert.equal(f.lux, usageOf(c.use)!.lux, f.slug);
   }
   // 20제곱미터 거실은 150럭스 × 20 = 3000루멘
   assert.equal(facts('20-living').lumen, 3000);

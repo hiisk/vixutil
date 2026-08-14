@@ -53,6 +53,8 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
    * 서버는 빈 사다리를 그리고, 붙은 뒤에 채운다.
    */
   const [rungs, setRungs] = useState<Rungs>(() => emptyRungs(4));
+  // 무작위 사다리는 프리렌더 시점에 만들 수 없다(서버와 어긋난다) — 붙은 뒤 만든다
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setRungs(buildRungs(4)); }, []);
   const [rungsCols, setRungsCols] = useState(4);
   const [selected, setSelected] = useState<number | null>(null);

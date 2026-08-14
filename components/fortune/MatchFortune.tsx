@@ -10,7 +10,7 @@ import { calcZodiacMatch } from '@/lib/zodiac-match';
 import { calcStarMatch, SIGNS } from '@/lib/star-match';
 import { calcMbtiMatch, MBTI_TYPES, type MbtiType } from '@/lib/mbti-match';
 import { calcBloodMatch, type BloodType } from '@/lib/blood-match';
-import { animals, zodiacSigns, bloodTypes, t, type Lang } from '@/lib/fortune-intl';
+import { animals, zodiacSigns, bloodTypes, t } from '@/lib/fortune-intl';
 import {
   ZODIAC_MATCH_TEXT, STAR_MATCH_TEXT, MBTI_MATCH_TEXT, MBTI_AXIS_TEXT, BLOOD_MATCH_TEXT, MATCH_UI,
   type IntlLang,
@@ -155,6 +155,41 @@ const SLUG_OF: Record<MatchKind, string> = {
   mbti: '/fortune/mbti-match', blood: '/fortune/blood-match',
 };
 
+/**
+ * 고르기 격자.
+ *
+ * 컴포넌트 안에서 정의하면 렌더마다 새 컴포넌트가 되어 **누를 때마다 격자 전체가
+ * 리마운트된다** — 띠·별자리 열두 칸 버튼이 다 새로 만들어진다. 닫아 쓰던
+ * options·cols·kind는 prop으로 받는다(static-components, 2026-08-13).
+ */
+function Picker({ value, onPick, label, options, cols, showEmoji }: {
+  value: number | null; onPick: (i: number) => void; label: string;
+  options: { id: string; emoji: string; name: string }[]; cols: string; showEmoji: boolean;
+}) {
+  return (
+    <div>
+      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{label}</p>
+      <div className={`grid ${cols} gap-1.5`}>
+        {options.map((o, i) => (
+          <button
+            key={o.id}
+            type="button"
+            onClick={() => onPick(i)}
+            className={`rounded-xl py-2 px-1 text-center border transition-all ${
+              value === i
+                ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
+                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-violet-300 text-slate-700 dark:text-slate-200'
+            }`}
+          >
+            {showEmoji && <div className="text-lg leading-none mb-0.5">{o.emoji}</div>}
+            <div className="text-[11px] font-bold leading-tight truncate">{o.name}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: IntlLang }) {
   const [a, setA] = useState<number | null>(null);
   const [b, setB] = useState<number | null>(null);
@@ -165,31 +200,6 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
   const result = a !== null && b !== null ? evaluate(kind, lang, a, b) : null;
   // star-match의 SIGNS 순서가 fortune-intl의 zodiacSigns와 같은지는 테스트로 고정한다.
   void SIGNS;
-
-  function Picker({ value, onPick, label }: { value: number | null; onPick: (i: number) => void; label: string }) {
-    return (
-      <div>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{label}</p>
-        <div className={`grid ${cols} gap-1.5`}>
-          {options.map((o, i) => (
-            <button
-              key={o.id}
-              type="button"
-              onClick={() => onPick(i)}
-              className={`rounded-xl py-2 px-1 text-center border transition-all ${
-                value === i
-                  ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
-                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-violet-300 text-slate-700 dark:text-slate-200'
-              }`}
-            >
-              {kind !== 'mbti' && <div className="text-lg leading-none mb-0.5">{o.emoji}</div>}
-              <div className="text-[11px] font-bold leading-tight truncate">{o.name}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -219,8 +229,8 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
         </div>
 
         <div className="space-y-4 mb-6">
-          <Picker value={a} onPick={setA} label={ui.you} />
-          <Picker value={b} onPick={setB} label={ui.partner} />
+          <Picker value={a} onPick={setA} label={ui.you} options={options} cols={cols} showEmoji={kind !== 'mbti'} />
+          <Picker value={b} onPick={setB} label={ui.partner} options={options} cols={cols} showEmoji={kind !== 'mbti'} />
         </div>
 
         {result ? (

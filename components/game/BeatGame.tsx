@@ -22,6 +22,13 @@ export default function BeatGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
   const [phase, setPhase] = useState<'idle' | 'lead' | 'tap' | 'done'>('idle');
   const [beat, setBeat] = useState(0);
   const [result, setResult] = useState<BeatScore | null>(null);
+  /*
+   * 몇 번 눌렀는지는 상태로 둔다. 전에는 화면이 taps.current.length를 직접
+   * 읽었는데, ref는 바뀌어도 렌더를 안 일으키므로 **다음 박이 올 때까지 숫자가
+   * 안 움직였다**(박 사이에 누르면 카운터가 늦게 따라온다). 타임스탬프 배열은
+   * 채점에만 쓰이니 ref로 남긴다 — 누를 때마다 배열 복사로 렌더할 이유는 없다.
+   */
+  const [tapCount, setTapCount] = useState(0);
   const { best, submit } = useBest('beat', higher);
 
   const startAt = useRef(0);
@@ -55,6 +62,7 @@ export default function BeatGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
   const start = () => {
     taps.current = [];
+    setTapCount(0);
     setResult(null);
     setBeat(0);
     setPhase('lead');
@@ -81,7 +89,10 @@ export default function BeatGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
   const tap = () => {
     if (phase !== 'tap') return;
-    if (taps.current.length < TAPS) taps.current.push(performance.now());
+    if (taps.current.length < TAPS) {
+      taps.current.push(performance.now());
+      setTapCount(taps.current.length);
+    }
   };
 
   return (
@@ -134,7 +145,7 @@ export default function BeatGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
               }`}
             />
             <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">
-              {phase === 'tap' ? `${ui.tapHere} ${taps.current.length}/${TAPS}` : '…'}
+              {phase === 'tap' ? `${ui.tapHere} ${tapCount}/${TAPS}` : '…'}
             </p>
           </div>
         )}

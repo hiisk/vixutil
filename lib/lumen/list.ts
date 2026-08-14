@@ -70,7 +70,9 @@ const BY_SLUG = new Map(CELLS.map(c => [slugOf(c), c]));
 
 export const cellOf = (slug: string): Cell | undefined => BY_SLUG.get(slug);
 
-export const useOf = (key: string) => USES.find(u => u.key === key);
+/* 이름 조심: useOf라고 지었더니 eslint가 React 훅으로 오인해 이 함수를 부르는
+   자리마다 rules-of-hooks 오류를 냈다. use로 시작하는 이름은 훅 규약과 부딪친다. */
+export const usageOf = (key: string) => USES.find(u => u.key === key);
 
 /** 목록과 공유 카드가 같은 그림을 쓴다 */
 export const LUMEN_ICON = '💡';

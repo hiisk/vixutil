@@ -21,7 +21,13 @@ export default function NBackGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
   const [run, setRun] = useState<NBackRun | null>(null);
   const [at, setAt] = useState(-1);
   const [pressed, setPressed] = useState<Set<number>>(new Set());
-  const [done, setDone] = useState<ReturnType<typeof nBackScore> | null>(null);
+  /*
+   * 채점은 상태가 아니라 **at에서 계산한다.** 전에는 끝(-2)을 이펙트가 보고
+   * setDone을 불렀는데, 그러면 끝나는 프레임에 렌더가 두 번 돌고(React Compiler가
+   * set-state-in-effect로 잡는 자리다) done과 at이 어긋난 프레임이 생길 수 있다.
+   * at이 -2인 동안 run·pressed는 더 바뀌지 않으므로 파생값으로 늘 같다.
+   */
+  const done = at === -2 && run ? nBackScore(run, pressed) : null;
   const { best, submit } = useBest('nback', higher);
   const timer = useRef<number | null>(null);
 
@@ -30,12 +36,13 @@ export default function NBackGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
   const start = () => {
     setRun(nBackRun(LENGTH, n, Math.random));
     setPressed(new Set());
-    setDone(null);
-    setAt(0);
+    setAt(0);   // done은 at에서 나오므로 따로 지울 것이 없다
   };
 
+  /* at 자체를 의존성에 두면 매 칸마다 인터벌을 다시 건다 — 시작/끝만 본다 */
+  const started = at >= 0;
   useEffect(() => {
-    if (!run || at < 0 || done) return;
+    if (!run || !started) return;
     if (timer.current) window.clearInterval(timer.current);
     timer.current = window.setInterval(() => {
       setAt(v => {
@@ -47,14 +54,13 @@ export default function NBackGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       });
     }, STEP_MS);
     return () => { if (timer.current) window.clearInterval(timer.current); };
-  }, [run, at >= 0, done]);
+  }, [run, started]);
 
+  /* 기록 남기기는 바깥 세상에 닿는 일이라 이펙트가 맞다 — 상태는 안 바꾼다.
+     끝난 뒤에는 run·pressed가 안 바뀌고 submit은 useCallback이라 한 번만 돈다. */
   useEffect(() => {
-    if (at !== -2 || !run || done) return;
-    const s = nBackScore(run, pressed);
-    setDone(s);
-    submit(s.score);
-  }, [at, run, pressed, done, submit]);
+    if (at === -2 && run) submit(nBackScore(run, pressed).score);
+  }, [at, run, pressed, submit]);
 
   const playing = !!run && at >= 0;
 

@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node -e \"if(process.env.VERCEL)require('fs').rmSync('.next',{recursive:true,force:true})\" && tsc --noEmit && RAYON_NUM_THREADS=${RAYON_NUM_THREADS:-2} NODE_OPTIONS=--max-old-space-size=3072 next build",
+    "build": "node -e \"if(process.env.VERCEL)require('fs').rmSync('.next',{recursive:true,force:true})\" && tsc --noEmit && eslint . --quiet && RAYON_NUM_THREADS=${RAYON_NUM_THREADS:-2} NODE_OPTIONS=--max-old-space-size=3072 next build",
     "typecheck": "tsc --noEmit",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint . --quiet",
     "test": "node --test 'tests/*.test.ts'"
   },
   "dependencies": {

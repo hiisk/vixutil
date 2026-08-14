@@ -125,6 +125,8 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
    * 두고 붙은 뒤에 올해로 맞춘다.
    */
   const [year, setYear] = useState(YEARS[0]);
+  // 올해는 프리렌더 시점에 박으면 안 된다(빌드한 해가 남는다) — 붙은 뒤 읽는다
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setYear(new Date().getUTCFullYear()); }, []);
 
   // 코인 티커로 시드를 고정해 리렌더/재방문에도 같은 시나리오가 나오게 한다

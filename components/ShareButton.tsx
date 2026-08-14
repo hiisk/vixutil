@@ -48,6 +48,8 @@ export default function ShareButton({ title, description, type = 'test' }: Props
    * 살아 있고 서버와 브라우저가 어긋나지 않는다.
    */
   const [cta, setCta] = useState(POOLS[type][0]);
+  // 무작위 문구는 프리렌더 시점에 고를 수 없다(서버와 어긋난다) — 붙은 뒤 바꾼다
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setCta(getCTA(type)); }, [type]);
 
   async function share() {

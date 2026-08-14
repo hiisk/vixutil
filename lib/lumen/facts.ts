@@ -10,7 +10,7 @@
  * 같은 1000루멘을 LED는 10W로, 백열은 77W로 낸다. 와트로 고르던 버릇이 남아
  * "60W짜리"를 찾게 되지만, 찾아야 할 것은 800루멘이다.
  */
-import { AREAS, BULB_LUMEN, CELLS, PYEONG, SOURCES, USES, type Cell, slugOf, useOf } from './list.ts';
+import { AREAS, BULB_LUMEN, CELLS, PYEONG, SOURCES, USES, type Cell, slugOf, usageOf } from './list.ts';
 
 const round = (x: number, digits = 1) => {
   const k = 10 ** digits;
@@ -65,7 +65,7 @@ const step = <T,>(list: T[], i: number, by: number): T | null => {
 };
 
 export function lumenFacts(c: Cell): LumenFacts {
-  const use = useOf(c.use);
+  const use = usageOf(c.use);
   if (!use) throw new Error(`모르는 쓰임: ${c.use}`);
   const lumen = lumenOf(use.lux, c.area);
   const led = SOURCES.find(s => s.key === 'led')!;

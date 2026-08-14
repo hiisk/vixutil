@@ -52,7 +52,7 @@ export default function KeyCombo({ combo, size = 'md', naLabel }: { combo: strin
             <span key={`${k}-${i}`} className="inline-flex items-center gap-1">
               {i > 0 && <span className={`${plus} font-bold text-slate-400 dark:text-slate-500`}>+</span>}
               <kbd
-                className={`${chip} inline-flex items-center justify-center rounded-lg border border-b-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 font-mono font-bold text-slate-800 dark:text-slate-100 shadow-sm`}
+                className={`${chip} keycap`}
               >
                 {k}
               </kbd>

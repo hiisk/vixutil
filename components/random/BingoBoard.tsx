@@ -23,6 +23,8 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
    * nonce가 바뀔 때만 새로 만든다 — 칸을 지울 때마다 판이 바뀌면 못 쓴다.
    */
   const [board, setBoard] = useState<BingoBoard | null>(null);
+  // 무작위 판은 프리렌더 시점에 만들 수 없다(서버와 어긋난다) — 붙은 뒤 만든다
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setBoard(bingoBoard(size, Math.random, free)); }, [size, free, nonce]);
   const lines = board ? bingoCount(board.size, marked) : 0;
 
