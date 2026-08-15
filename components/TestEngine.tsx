@@ -5,11 +5,22 @@ import Link from 'next/link';
 import type { Test } from '@/lib/types';
 import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
+import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
 import { thumbGradient } from '@/lib/thumbnail';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
+
+/*
+ * 결과 이미지의 배경색.
+ *
+ * 화면의 히어로 카드는 result.color(테일윈드 클래스)로 칠하는데 캔버스는
+ * 클래스를 모른다. 수백 개 결과의 색을 전부 hex로 옮겨 적는 대신 섹션의
+ * 대표색 한 쌍만 쓴다 — 테스트 페이지의 상단 띠와 같은 보라·자홍이다.
+ */
+const CARD_FROM = '#8b5cf6';
+const CARD_TO = '#db2777';
 
 function getMbtiType(scores: Record<string, number>): string {
   const e = (scores.EI ?? 0) >= 8 ? 'E' : 'I';
@@ -32,6 +43,8 @@ const UI: Record<TestLang, {
   allTests: string; start: string; restart: string; retake: string; more: string;
   traits: string; resultOf: (cat: string) => string; meta: (n: number) => string;
   myMbti: (t: string) => string;
+  /** 공유 제목 — t는 테스트 이름, r은 결과 한 줄 */
+  shareTitle: (t: string, r: string) => string;
 }> = {
   ko: {
     allTests: '전체 테스트', start: '테스트 시작하기 →', restart: '다시하기',
@@ -39,6 +52,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat} 테스트 결과`,
     meta: n => `${n}문항 · 약 2분 소요`,
     myMbti: t => `나의 MBTI는 ${t}!`,
+    shareTitle: (t, r) => `${t} 결과: ${r}`,
   },
   en: {
     allTests: 'All tests', start: 'Start the test →', restart: 'Start over',
@@ -46,6 +60,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat} test result`,
     meta: n => `${n} questions · about 2 minutes`,
     myMbti: t => `My MBTI is ${t}!`,
+    shareTitle: (t, r) => `My ${t} result: ${r}`,
   },
   es: {
     allTests: 'Todos los tests', start: 'Empezar el test →', restart: 'Volver a empezar',
@@ -53,6 +68,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `Resultado del test de ${cat}`,
     meta: n => `${n} preguntas · unos 2 minutos`,
     myMbti: t => `¡Mi MBTI es ${t}!`,
+    shareTitle: (t, r) => `Mi resultado de ${t}: ${r}`,
   },
   'pt-br': {
     allTests: 'Todos os testes', start: 'Começar o teste →', restart: 'Começar de novo',
@@ -60,6 +76,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `Resultado do teste de ${cat}`,
     meta: n => `${n} perguntas · cerca de 2 minutos`,
     myMbti: t => `Meu MBTI é ${t}!`,
+    shareTitle: (t, r) => `Meu resultado de ${t}: ${r}`,
   },
   ja: {
     allTests: '診断一覧', start: '診断をはじめる →', restart: 'やり直す',
@@ -67,6 +84,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat}診断の結果`,
     meta: n => `全${n}問 · 約2分`,
     myMbti: t => `私のMBTIは${t}！`,
+    shareTitle: (t, r) => `${t}の結果: ${r}`,
   },
   de: {
     allTests: 'Alle Tests', start: 'Test starten →', restart: 'Von vorn',
@@ -74,6 +92,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `Ergebnis: ${cat}`,
     meta: n => `${n} Fragen · etwa 2 Minuten`,
     myMbti: t => `Mein MBTI ist ${t}!`,
+    shareTitle: (t, r) => `Mein Ergebnis bei ${t}: ${r}`,
   },
   fr: {
     allTests: 'Tous les tests', start: 'Commencer le test →', restart: 'Recommencer',
@@ -81,6 +100,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `Résultat du test ${cat}`,
     meta: n => `${n} questions · environ 2 minutes`,
     myMbti: t => `Mon MBTI est ${t} !`,
+    shareTitle: (t, r) => `Mon résultat au ${t} : ${r}`,
   },
   hi: {
     allTests: 'सभी टेस्ट', start: 'टेस्ट शुरू करें →', restart: 'फिर से शुरू',
@@ -88,6 +108,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat} टेस्ट का नतीजा`,
     meta: n => `${n} सवाल · लगभग 2 मिनट`,
     myMbti: t => `मेरा MBTI है ${t}!`,
+    shareTitle: (t, r) => `${t} का मेरा नतीजा: ${r}`,
   },
   'zh-hans': {
     allTests: '全部测试', start: '开始测试 →', restart: '重新开始',
@@ -95,6 +116,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat}测试结果`,
     meta: n => `${n}道题 · 约2分钟`,
     myMbti: t => `我的MBTI是${t}！`,
+    shareTitle: (t, r) => `我的${t}结果：${r}`,
   },
   'zh-hant': {
     allTests: '全部測驗', start: '開始測驗 →', restart: '重新開始',
@@ -102,6 +124,7 @@ const UI: Record<TestLang, {
     resultOf: cat => `${cat}測驗結果`,
     meta: n => `${n}道題 · 約2分鐘`,
     myMbti: t => `我的MBTI是${t}！`,
+    shareTitle: (t, r) => `我的${t}結果：${r}`,
   },
 };
 
@@ -266,18 +289,38 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
           @keyframes tePopEmoji { 0% { opacity: 0; transform: scale(0.3); } 60% { transform: scale(1.15); } 100% { opacity: 1; transform: scale(1); } }
         `}</style>
 
+        {/* lang을 안 넘기면 ShareButton 기본값이 'ko'라 아홉 외국어 화면에 한국어 버튼이 붙는다 */}
         <ShareButton
-          title={`${test.title} 결과: ${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`}
+          title={ui.shareTitle(test.title, `${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`)}
           description={`${mbtiType ? `${ui.myMbti(mbtiType)}\n` : ''}${result.title}\n\n${result.desc}`}
           type="test"
+          lang={lang}
         />
+
+        {/* 링크만 나가면 SNS에서 안 보인다 — 결과를 정사각 이미지로도 내보낸다 */}
+        <div className="mt-3">
+          <SaveResultCard
+            emoji={result.emoji}
+            title={`${mbtiType ? `${mbtiType} · ` : ''}${result.title}`}
+            subtitle={ui.resultOf(test.category)}
+            body={result.desc}
+            from={CARD_FROM}
+            to={CARD_TO}
+            fileName={`vixutil-${test.slug}`}
+            lang={lang}
+            eyebrow="TEST · vixutil.com"
+            url={`vixutil.com${hubHref}`}
+            referral={false}
+          />
+        </div>
 
         {/*
           결과 화면은 사용자가 직접 버튼을 눌러 도달한, 시선이 가장 오래 머무는
           자리다. 공유 버튼 다음·다음 행동 버튼 앞에 둔다 — 결과를 다 읽고 나서
           자연스럽게 눈에 들어오되, 결과 자체를 가리지는 않는 위치다.
         */}
-        <ReferralCards placement="result" />
+        {/* lang을 안 넘기면 기본값 'ko'라 아홉 외국어 결과 화면에 한국어 카드가 붙는다 */}
+        <ReferralCards lang={lang} placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}

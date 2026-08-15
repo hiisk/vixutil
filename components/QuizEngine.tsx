@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
 import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
+import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
 import { thumbGradient } from '@/lib/thumbnail';
@@ -26,6 +27,10 @@ const UI: Record<QuizLang, {
   wrongCount: (n: number) => string;
   grades: [string, string, string, string, string];
   msgs: [string, string, string, string, string];
+  /** 공유 제목 — q는 퀴즈 이름, s는 score()로 이미 꾸민 점수 */
+  shareTitle: (q: string, s: string) => string;
+  /** 공유 설명의 앞머리 — 맞힌 수 / 전체 수 */
+  shareDesc: (c: number, t: number) => string;
 }> = {
   ko: {
     allQuizzes: '전체 퀴즈', start: '퀴즈 시작하기 →', correct: '✓ 정답!', wrong: '✗ 오답',
@@ -35,6 +40,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `틀린 문제 (${n}개)`,
     grades: ['만점!', '우수', '양호', '보통', '분발'],
     msgs: ['완벽해요! 모든 문제를 맞혔습니다!', '훌륭해요! 높은 점수네요!', '꽤 잘 알고 계시네요!', '조금 더 공부해봐요!', '다시 도전해봐요!'],
+    shareTitle: (q, s) => `${q} ${s} 달성!`,
+    shareDesc: (c, t) => `${c}/${t}문제 정답`,
   },
   en: {
     allQuizzes: 'All quizzes', start: 'Start the quiz →', correct: '✓ Correct', wrong: '✗ Wrong',
@@ -44,6 +51,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `Missed (${n})`,
     grades: ['Perfect', 'Excellent', 'Good', 'Fair', 'Keep going'],
     msgs: ['Perfect — every single one right.', 'Excellent, that is a strong score.', 'You know this reasonably well.', 'Worth another look at this one.', 'Give it another go.'],
+    shareTitle: (q, s) => `${q} — scored ${s}`,
+    shareDesc: (c, t) => `${c} of ${t} right`,
   },
   es: {
     allQuizzes: 'Todos los tests', start: 'Empezar el test →', correct: '✓ ¡Correcto!', wrong: '✗ Incorrecto',
@@ -53,6 +62,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `Falladas (${n})`,
     grades: ['Perfecto', 'Excelente', 'Bien', 'Regular', 'A seguir'],
     msgs: ['¡Perfecto, todas acertadas!', 'Excelente, es una nota alta.', 'Se te da bastante bien.', 'Merece otra vuelta.', 'Inténtalo otra vez.'],
+    shareTitle: (q, s) => `${q}: he sacado ${s}`,
+    shareDesc: (c, t) => `${c} de ${t} correctas`,
   },
   'pt-br': {
     allQuizzes: 'Todos os quizzes', start: 'Começar o quiz →', correct: '✓ Certo!', wrong: '✗ Errado',
@@ -62,6 +73,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `Erradas (${n})`,
     grades: ['Perfeito', 'Excelente', 'Bom', 'Razoável', 'Continue'],
     msgs: ['Perfeito — acertou todas.', 'Excelente, nota alta.', 'Você manja bem disso.', 'Vale dar mais uma olhada.', 'Tente de novo.'],
+    shareTitle: (q, s) => `${q}: tirei ${s}`,
+    shareDesc: (c, t) => `${c} de ${t} certas`,
   },
   ja: {
     allQuizzes: 'クイズ一覧', start: 'クイズをはじめる →', correct: '✓ 正解！', wrong: '✗ 不正解',
@@ -71,6 +84,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `間違えた問題（${n}問）`,
     grades: ['満点！', '優秀', '良好', 'まずまず', 'もう一歩'],
     msgs: ['完璧です。全問正解！', 'お見事、高得点です。', 'なかなかよくご存じですね。', 'もう少し見直してみましょう。', 'もう一度挑戦してみましょう。'],
+    shareTitle: (q, s) => `${q}で${s}を取りました！`,
+    shareDesc: (c, t) => `${t}問中${c}問正解`,
   },
   de: {
     allQuizzes: 'Alle Quiz', start: 'Quiz starten →', correct: '✓ Richtig!', wrong: '✗ Falsch',
@@ -80,6 +95,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `Falsch (${n})`,
     grades: ['Perfekt', 'Ausgezeichnet', 'Gut', 'Geht so', 'Weiter üben'],
     msgs: ['Perfekt — alles richtig.', 'Ausgezeichnet, starkes Ergebnis.', 'Da kennst du dich ordentlich aus.', 'Da lohnt sich ein zweiter Blick.', 'Versuch es noch einmal.'],
+    shareTitle: (q, s) => `${q} — ${s} geschafft!`,
+    shareDesc: (c, t) => `${c} von ${t} richtig`,
   },
   fr: {
     allQuizzes: 'Tous les quiz', start: 'Commencer le quiz →', correct: '✓ Correct !', wrong: '✗ Faux',
@@ -89,6 +106,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `Ratées (${n})`,
     grades: ['Parfait', 'Excellent', 'Bien', 'Passable', 'Continue'],
     msgs: ['Parfait — tout juste.', 'Excellent, beau score.', 'Tu maîtrises plutôt bien.', 'Ça mérite une relecture.', 'Retente ta chance.'],
+    shareTitle: (q, s) => `${q} — ${s} au compteur !`,
+    shareDesc: (c, t) => `${c} bonnes réponses sur ${t}`,
   },
   hi: {
     allQuizzes: 'सभी क्विज़', start: 'क्विज़ शुरू करें →', correct: '✓ सही!', wrong: '✗ ग़लत',
@@ -98,6 +117,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `ग़लत (${n})`,
     grades: ['पूरे अंक!', 'बहुत बढ़िया', 'अच्छा', 'ठीक-ठाक', 'और मेहनत'],
     msgs: ['बिल्कुल सही — सारे सवाल सही निकले!', 'बहुत बढ़िया, स्कोर ऊँचा है।', 'आप इसे ठीक-ठाक जानते हैं।', 'इस पर एक बार और नज़र डालिए।', 'एक बार और कोशिश कीजिए।'],
+    shareTitle: (q, s) => `${q} में मुझे ${s} मिले!`,
+    shareDesc: (c, t) => `${t} में से ${c} सही`,
   },
   'zh-hans': {
     allQuizzes: '全部测验', start: '开始测验 →', correct: '✓ 答对了！', wrong: '✗ 答错了',
@@ -107,6 +128,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `答错的题（${n}道）`,
     grades: ['满分！', '优秀', '良好', '一般', '再加把劲'],
     msgs: ['完美，全部答对！', '很棒，分数很高。', '这块你掌握得不错。', '这部分值得再看一遍。', '再来一次试试。'],
+    shareTitle: (q, s) => `${q}，我考了${s}！`,
+    shareDesc: (c, t) => `${t}题答对${c}题`,
   },
   'zh-hant': {
     allQuizzes: '全部測驗', start: '開始測驗 →', correct: '✓ 答對了！', wrong: '✗ 答錯了',
@@ -116,6 +139,8 @@ const UI: Record<QuizLang, {
     wrongCount: n => `答錯的題（${n}道）`,
     grades: ['滿分！', '優秀', '良好', '普通', '再加把勁'],
     msgs: ['完美，全部答對！', '很棒，分數很高。', '這塊你掌握得不錯。', '這部分值得再看一遍。', '再來一次試試。'],
+    shareTitle: (q, s) => `${q}，我考了${s}！`,
+    shareDesc: (c, t) => `${t}題答對${c}題`,
   },
 };
 
@@ -127,12 +152,13 @@ function medal(pct: number) {
   if (pct >= 40) return '🥉';
   return '📚';
 }
+/** 캔버스는 테일윈드 클래스를 모른다 — 등급 색을 hex로도 들고 있는다 */
 function grade(pct: number, ui: (typeof UI)[QuizLang]) {
-  if (pct === 100) return { label: ui.grades[0], color: 'from-yellow-400 to-amber-500', textColor: 'text-amber-100' };
-  if (pct >= 80)  return { label: ui.grades[1], color: 'from-amber-400 to-orange-500', textColor: 'text-amber-100' };
-  if (pct >= 60)  return { label: ui.grades[2], color: 'from-sky-400 to-blue-500', textColor: 'text-sky-100' };
-  if (pct >= 40)  return { label: ui.grades[3], color: 'from-slate-400 to-slate-600', textColor: 'text-slate-200' };
-  return { label: ui.grades[4], color: 'from-rose-400 to-red-600', textColor: 'text-rose-100' };
+  if (pct === 100) return { label: ui.grades[0], color: 'from-yellow-400 to-amber-500', textColor: 'text-amber-100', hex: ['#facc15', '#f59e0b'] };
+  if (pct >= 80)  return { label: ui.grades[1], color: 'from-amber-400 to-orange-500', textColor: 'text-amber-100', hex: ['#fbbf24', '#f97316'] };
+  if (pct >= 60)  return { label: ui.grades[2], color: 'from-sky-400 to-blue-500', textColor: 'text-sky-100', hex: ['#38bdf8', '#3b82f6'] };
+  if (pct >= 40)  return { label: ui.grades[3], color: 'from-slate-400 to-slate-600', textColor: 'text-slate-200', hex: ['#94a3b8', '#475569'] };
+  return { label: ui.grades[4], color: 'from-rose-400 to-red-600', textColor: 'text-rose-100', hex: ['#fb7185', '#dc2626'] };
 }
 
 export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: QuizLang }) {
@@ -305,10 +331,28 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
           </div>
         )}
 
-        <ShareButton title={`${quiz.title} ${pct}점 달성!`} description={`${correct}/${total}문제 정답 · ${msg}`} type="quiz" />
+        {/* lang을 안 넘기면 ShareButton 기본값이 'ko'라 아홉 외국어 화면에 한국어 버튼이 붙는다 */}
+        <ShareButton title={ui.shareTitle(quiz.title, ui.score(pct))} description={`${ui.shareDesc(correct, total)} · ${msg}`} type="quiz" lang={lang} />
+
+        {/* 링크만 나가면 SNS에서 안 보인다 — 점수를 정사각 이미지로도 내보낸다 */}
+        <div className="mt-3">
+          <SaveResultCard
+            emoji={medal(pct)}
+            title={`${ui.score(pct)} · ${g.label}`}
+            subtitle={quiz.title}
+            body={`${ui.shareDesc(correct, total)} · ${msg}`}
+            from={g.hex[0]}
+            to={g.hex[1]}
+            fileName={`vixutil-${quiz.slug}`}
+            lang={lang}
+            eyebrow="QUIZ · vixutil.com"
+            url={`vixutil.com${hubHref}`}
+            referral={false}
+          />
+        </div>
 
         {/* 결과 화면 노출 — 위치 선정 근거는 TestEngine의 같은 자리에 적어두었다. */}
-        <ReferralCards placement="result" />
+        <ReferralCards lang={lang} placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-xl py-3.5 font-bold text-sm transition-colors">
