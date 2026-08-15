@@ -17,7 +17,7 @@ import { analyzeFortune } from '@/lib/saju-fortune';
 import { analyzeFortuneIntl } from '@/lib/saju-fortune-intl';
 import { type SajuL10nLang } from '@/lib/saju-l10n/index';
 import { TOPIC_L10N } from '@/lib/saju-topics-l10n/index';
-import { sajuForm } from '@/lib/saju-form';
+import SajuForm from '@/components/fortune/SajuForm';
 import SajuTopicNav from '@/components/fortune/SajuTopicNav';
 import Faq from '@/components/Faq';
 import SajuEvidence, { evidenceTerm, evidenceValue } from '@/components/fortune/SajuEvidence';
@@ -85,7 +85,6 @@ function PillarCell({ label, p }: { label: string; p: Pillar | null }) {
 
 export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topic: TopicSlug }) {
   const c = TOPIC_L10N[lang];
-  const fc = sajuForm(lang);
   const isKo = lang === 'ko';
   const col = COLOR[TOPIC_COLOR[topic]] ?? COLOR.indigo;
 
@@ -197,64 +196,20 @@ export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topi
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{c.lead[topic]}</p>
         </div>
 
-        {/* ── 입력 ── */}
-        <form
-          onSubmit={e => { e.preventDefault(); run(form.year, form.month, form.day, form.hour, form.gender); }}
-          className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6"
+        {/* ── 입력 ── 폼은 components/fortune/SajuForm.tsx 하나뿐이다 */}
+        <SajuForm
+          lang={lang} value={form} onChange={setForm}
+          onSubmit={() => run(form.year, form.month, form.day, form.hour, form.gender)}
+          submitClass={col.grad} error={error}
+          submitLabel={<>{TOPIC_EMOJI[topic]} {topicTitle}</>}
         >
-          {/*
-            ♂·♀ 기호만 두면 무엇을 고르는 칸인지, 지금 무엇이 골라져 있는지가
-            색으로만 남는다. 라벨을 세우고 기호 옆에 말을 붙인다 —
-            대운의 방향이 성별로 갈리므로 잘못 고르면 결과가 통째로 달라진다.
-          */}
-          <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{fc.genderLabel}</span>
-          <div className="grid grid-cols-2 gap-2 mb-3" role="group" aria-label={fc.genderLabel}>
-            {(['male', 'female'] as const).map(g => (
-              <button key={g} type="button" onClick={() => setForm(f => ({ ...f, gender: g }))}
-                aria-pressed={form.gender === g}
-                className={`rounded-xl py-2.5 text-sm font-bold border transition-colors ${form.gender === g
-                  ? 'bg-indigo-600 border-indigo-600 text-white'
-                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
-                {g === 'male' ? `♂ ${fc.male}` : `♀ ${fc.female}`}
-              </button>
-            ))}
-          </div>
-
-          {/*
-            힌트는 예시이지 입력 형식이 아니다. 월 칸에 "1-12"를 두면 숫자 칸에서
-            그것을 그대로 적으라는 말로 읽힌다 — 이름("월")을 두고, 범위는 min/max로
-            브라우저가 지키게 한다. 라벨을 따로 두는 것은 한 글자만 입력해도 힌트가
-            사라져 어느 칸이 무엇인지 알 수 없기 때문이다.
-          */}
-          <label htmlFor="saju-topic-year" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{fc.birthLabel}</label>
-          <div className="grid grid-cols-3 gap-2 mb-3">
-            {(['year', 'month', 'day'] as const).map(k => (
-              <input key={k} id={`saju-topic-${k}`} type="number" inputMode="numeric" value={form[k]}
-                placeholder={k === 'year' ? fc.yearPh : k === 'month' ? fc.monthPh : fc.dayPh}
-                aria-label={k === 'year' ? fc.yearPh : k === 'month' ? fc.monthPh : fc.dayPh}
-                min={k === 'year' ? 1900 : 1} max={k === 'year' ? 2100 : k === 'month' ? 12 : 31}
-                onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))}
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none" />
-            ))}
-          </div>
-
-          <label htmlFor="saju-topic-hour" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{fc.hourLabel}</label>
-          <input id="saju-topic-hour" type="time" value={form.hour} onChange={e => setForm(f => ({ ...f, hour: e.target.value }))}
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1" />
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{fc.hourNote}</p>
-
           {/* 이름 — 부르는 말과 공유 문구에만 쓴다. 주소에도 서버에도 안 보낸다. */}
           <label htmlFor="saju-topic-name" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.ui.nameLabel}</label>
           <input id="saju-topic-name" type="text" value={name} placeholder={c.ui.namePh} autoComplete="off"
             onChange={e => changeName(e.target.value)}
             className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1" />
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{c.ui.nameNote}</p>
-
-          {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">{error}</p>}
-          <button type="submit" className={`w-full rounded-xl bg-gradient-to-r ${col.grad} text-white text-sm font-black py-3.5 hover:-translate-y-0.5 hover:shadow-lg transition-all`}>
-            {TOPIC_EMOJI[topic]} {topicTitle}
-          </button>
-        </form>
+        </SajuForm>
 
         {/* ══ 결과 ══ */}
         {chart && domain && facts ? (

@@ -8,6 +8,7 @@ import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortuneIntl, DOMAIN_UI } from '@/lib/saju-fortune-intl';
 import SajuTopicNav from '@/components/fortune/SajuTopicNav';
+import SajuForm, { type SajuFormValue } from '@/components/fortune/SajuForm';
 import { topicQuery } from '@/lib/saju-topics';
 import {
   STEMS, BRANCHES, type Element, type Pillar,
@@ -87,9 +88,9 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
   const branches = BRANCHES_INTL[lang];
   const elements = ELEMENT_INTL[lang];
 
-  const [form, setForm] = useState({ year: '', month: '', day: '', hour: '' });
+  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '', gender: 'male' });
   const [allDomains, setAllDomains] = useState(false);
-  const [gender, setGender] = useState<'male' | 'female'>('male');
+  const gender = form.gender;
   const [chart, setChart] = useState<Chart | null>(null);
   const [error, setError] = useState('');
 
@@ -125,10 +126,6 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
     setTimeout(() => document.getElementById('saju-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   }, [ui]);
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    run(form, gender);
-  }
 
   /* 주제 낱장에서 값을 달고 돌아오면(?y=&m=&d=&h=&g=) 다시 안 넣어도 되게 푼다 */
   useEffect(() => {
@@ -137,8 +134,7 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
     const h = p.get('h') ?? '', g = (p.get('g') ?? 'male') as 'male' | 'female';
     if (!y || !m || !d) return;
     /* eslint-disable react-hooks/set-state-in-effect */
-    setForm({ year: y, month: m, day: d, hour: h });
-    setGender(g);
+    setForm({ year: y, month: m, day: d, hour: h, gender: g });
     /* eslint-enable react-hooks/set-state-in-effect */
     run({ year: y, month: m, day: d, hour: h }, g);
   }, [run]);
@@ -180,40 +176,12 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
           <p className="text-slate-500 dark:text-slate-400 text-sm">{ui.lead}</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.birthLabel}</label>
-          <div className="grid grid-cols-3 gap-2 mb-3">
-            {(['year', 'month', 'day'] as const).map(k => (
-              <input key={k} type="number" inputMode="numeric"
-                placeholder={k === 'year' ? ui.yearPh : k === 'month' ? ui.monthPh : ui.dayPh}
-                value={form[k]} onChange={e => setForm({ ...form, [k]: e.target.value })}
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none" />
-            ))}
-          </div>
-
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.hourLabel}</label>
-          {/* 분까지 받아야 진태양시 보정이 뜻을 가진다 — 비우면 시주를 생략한다 */}
-          <input type="time" value={form.hour} onChange={e => setForm({ ...form, hour: e.target.value })}
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1" />
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3">{ui.hourUnknown} — {ui.hourNote}</p>
-
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.genderLabel}</label>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {(['male', 'female'] as const).map(g => (
-              <button key={g} type="button" onClick={() => setGender(g)}
-                className={`rounded-xl py-2.5 text-sm font-bold border transition-colors ${gender === g
-                  ? 'bg-indigo-600 border-indigo-600 text-white'
-                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
-                {g === 'male' ? ui.male : ui.female}
-              </button>
-            ))}
-          </div>
-
-          {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-black py-3.5 hover:-translate-y-0.5 hover:shadow-lg transition-all">
-            {ui.submit}
-          </button>
-        </form>
+        {/* 폼은 components/fortune/SajuForm.tsx 하나뿐이다 */}
+        <SajuForm
+          lang={lang} value={form} onChange={setForm}
+          onSubmit={() => run(form, form.gender)}
+          error={error} submitLabel={ui.submit}
+        />
 
         {chart && dayStem && dayStemIntl ? (
           <div id="saju-result" className="space-y-4">

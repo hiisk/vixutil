@@ -18,6 +18,7 @@ import { sajuFacts } from '@/lib/saju-fortune-facts';
 import { TOPIC_OF_DOMAIN, topicEvidence, topicQuery } from '@/lib/saju-topics';
 import { TOPIC_L10N } from '@/lib/saju-topics-l10n/index';
 import SajuTopicNav from '@/components/fortune/SajuTopicNav';
+import SajuForm from '@/components/fortune/SajuForm';
 import SajuEvidence from '@/components/fortune/SajuEvidence';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -309,77 +310,18 @@ export default function SajuPage() {
 
       <div className="max-w-xl mx-auto px-4 py-6 pb-16 space-y-4">
 
-        {/* 입력 폼 */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
-          <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
-            <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-            <h1 className="text-xl font-black">사주 분석</h1>
-            <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주(四柱)를 분석합니다</p>
-          </div>
-          <div className="p-5 space-y-4">
-            {/* 성별 */}
-            <div>
-              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-2">성별 * (대운 방향에 영향)</label>
-              <div className="grid grid-cols-2 gap-2">
-                {(['male','female'] as const).map(g => (
-                  <button key={g} onClick={()=>setForm(f=>({...f,gender:g}))}
-                    className={`py-3 rounded-xl text-sm font-black border-2 transition-all ${
-                      form.gender===g
-                        ? g==='male' ? 'bg-blue-50 dark:bg-blue-950/30 border-blue-400 text-blue-700 dark:text-blue-300' : 'bg-pink-50 dark:bg-pink-950/30 border-pink-400 text-pink-700 dark:text-pink-300'
-                        : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
-                    }`}>
-                    {g==='male' ? '♂ 남성' : '♀ 여성'}
-                  </button>
-                ))}
-              </div>
+        {/* 입력 폼 — components/fortune/SajuForm.tsx 하나를 세 화면이 함께 쓴다 */}
+        <SajuForm
+          lang="ko" value={form} onChange={setForm} onSubmit={handleCalc} error={error}
+          submitLabel="🔯 사주 분석하기"
+          header={
+            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
+              <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+              <h1 className="text-xl font-black">사주 분석</h1>
+              <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주(四柱)를 분석합니다</p>
             </div>
-
-            {/* 생년월일 */}
-            <div className="grid grid-cols-3 gap-2">
-              <div>
-                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">출생년도 *</label>
-                <input type="number" placeholder="예) 1995" value={form.year}
-                  onChange={e=>setForm(f=>({...f,year:e.target.value}))}
-                  onKeyDown={e=>e.key==='Enter'&&handleCalc()}
-                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-              </div>
-              <div>
-                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">출생월 *</label>
-                <select value={form.month} onChange={e=>setForm(f=>({...f,month:e.target.value}))}
-                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 bg-white dark:bg-slate-900">
-                  <option value="">월</option>
-                  {Array.from({length:12},(_,i)=><option key={i+1} value={i+1}>{i+1}월</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">출생일 *</label>
-                <input type="number" placeholder="일" min={1} max={31} value={form.day}
-                  onChange={e=>setForm(f=>({...f,day:e.target.value}))}
-                  onKeyDown={e=>e.key==='Enter'&&handleCalc()}
-                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-              </div>
-            </div>
-
-            {/* 시간 — 진태양시 보정을 하려면 분까지 필요하다 */}
-            <div>
-              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">태어난 시각 (선택 — 시주 계산에 필요)</label>
-              <input type="time" value={form.hour}
-                onChange={e=>setForm(f=>({...f,hour:e.target.value}))}
-                onKeyDown={e=>e.key==='Enter'&&handleCalc()}
-                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 bg-white dark:bg-slate-900" />
-              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 leading-relaxed">
-                비워 두면 시주를 생략합니다. 시각을 넣으면 진태양시(서울 기준 약 −32분)와 서머타임을 보정해 시주를 뽑습니다.
-              </p>
-            </div>
-
-            {error && <p className="text-xs text-rose-500 font-semibold text-center">{error}</p>}
-
-            <button onClick={handleCalc}
-              className="w-full py-4 bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-black rounded-xl shadow-lg shadow-indigo-200 active:scale-[0.98] transition-transform text-sm">
-              🔯 사주 분석하기
-            </button>
-          </div>
-        </div>
+          }
+        />
 
         {/* ══════════════ 결과 ══════════════ */}
         {result && dayStem && (

@@ -502,20 +502,21 @@ test('입력칸에 라벨이 있고 힌트가 입력 형식으로 안 읽힌다'
    * 다른 화면(SajuIntl·한국어 통합)은 처음부터 공용 문구를 쓰고 있었다. 여기만
    * 갈라져 있던 것이라, 다시 갈라지는 것을 막는다.
    */
-  const src = readFileSync(new URL('../components/fortune/SajuTopicPage.tsx', import.meta.url), 'utf8');
+  /* 폼은 2026-08-15에 셋에서 하나로 모였다 — 이제 여기만 보면 세 화면이 다 걸린다 */
+  const src = readFileSync(new URL('../components/fortune/SajuForm.tsx', import.meta.url), 'utf8');
 
   /* 범위를 힌트로 적지 않는다 — 범위는 min/max가 지킨다 */
   const ranges = [...src.matchAll(/placeholder=\{?['"`]([^'"`]*\d+\s*-\s*\d+[^'"`]*)['"`]/g)].map(m => m[1]);
   assert.deepEqual(ranges, [], `힌트에 범위가 적혀 있다 — 입력 형식으로 읽힌다: ${ranges.join(', ')}`);
 
   /* 힌트는 표에서 온다 — 손으로 적으면 열 언어 가운데 아홉이 한국어를 본다 */
-  assert.match(src, /placeholder=\{k === 'year' \? fc\.yearPh/, '날짜 칸 힌트가 표에서 오지 않는다');
+  assert.match(src, /const ph = k === 'year' \? fc\.yearPh/, '날짜 칸 힌트가 표에서 오지 않는다');
   assert.ok(!/placeholder=\{k === 'year' \? '/.test(src), '날짜 칸 힌트를 손으로 적었다');
 
   /* 라벨 — 값이 채워져도 남는 것이 있어야 한다 */
   for (const [what, re] of [
-    ['생년월일', /htmlFor="saju-topic-year"[\s\S]{0,120}\{fc\.birthLabel\}/],
-    ['태어난 시각', /htmlFor="saju-topic-hour"[\s\S]{0,120}\{fc\.hourLabel\}/],
+    ['생년월일', /htmlFor="saju-year"[\s\S]{0,120}\{fc\.birthLabel\}/],
+    ['태어난 시각', /htmlFor="saju-hour"[\s\S]{0,120}\{fc\.hourLabel\}/],
     ['시각 안내', /\{fc\.hourNote\}/],
     ['성별', /\{fc\.genderLabel\}/],
   ] as const) {
@@ -564,4 +565,26 @@ test('입력칸 문구가 열 언어에 다 있고, 아홉은 이미 있던 번�
   assert.equal(ko.monthPh, '월');
   assert.equal(ko.dayPh, '일');
   assert.match(ko.yearPh, /1995/, '연도 힌트에 예시 연도가 없다');
+});
+
+test('사주 폼은 하나뿐이다 — 세 화면이 각자 그리지 않는다', () => {
+  /*
+   * 2026-08-15에 셋에서 하나로 모았다. 갈라져 있으면 고칠 때마다 세 곳을 손대야
+   * 하고, 실제로 두 곳만 고친 채로 남아 주제 낱장의 힌트가 `1-12`가 됐었다.
+   *
+   * 다시 갈라지는 것을 막는다 — 입력칸을 직접 그리는 화면이 있으면 실패한다.
+   */
+  const screens = [
+    'app/(ko)/fortune/saju/page.tsx',
+    'components/fortune/SajuIntl.tsx',
+    'components/fortune/SajuTopicPage.tsx',
+  ];
+  const own: string[] = [];
+  for (const f of screens) {
+    const src = readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
+    assert.match(src, /<SajuForm\b/, `${f}가 공용 폼을 안 쓴다`);
+    /* 생년월일·시각 칸을 직접 그리면 안 된다. 이름 칸(text)은 그 화면 것이라 뺀다 */
+    if (/type="number"/.test(src) || /type="time"/.test(src)) own.push(f);
+  }
+  assert.deepEqual(own, [], `입력칸을 직접 그리는 화면이 있다 — 폼이 다시 갈라진다: ${own.join(', ')}`);
 });
