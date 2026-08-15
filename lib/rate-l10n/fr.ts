@@ -970,4 +970,22 @@ export const RATE_FR: Record<string, FormulaText> = {
     long: 'Trois étapes. Divisez le revenu annuel visé par le taux de retrait pour obtenir le capital nécessaire : 36 000 000 à 4 % font 900 000 000. Puis faites croître ce que vous avez déjà — 80 000 000 à 5 % pendant 25 ans deviennent 270 908 395 — laissant un manque de 629 091 605. Enfin, des versements mensuels capitalisés aux mêmes 5 % pendant 300 mois portent un facteur d’accumulation de 595,51 : 629 091 605 ÷ 595,51 font donc 1 056 392 par mois.',
     note: 'Le rendement est tenu constant année après année. Les marchés réels oscillent, et une baisse dans les dernières années avant la retraite écarte largement les résultats à rendement moyen identique. L’impôt, les frais, les versements de l’employeur et une pension publique déjà acquise ne sont pas ici. Le revenu visé n’est pas indexé non plus : saisissez-le en monnaie d’aujourd’hui et mettez dans la case de rendement un rendement réel, au-dessus de l’inflation — un rendement nominal réduit la cible en pouvoir d’achat sur 25 ans. Le taux de retrait de 4 % est lui-même le résultat d’une étude, sur un marché, sur un horizon.',
   },
+  'pool-chlorine': {
+    title: 'Calcul du chlore pour piscine',
+    desc: 'La quantité de produit chloré à verser, d’après le volume et le chlore libre actuel et visé.',
+    long: 'Un ppm vaut un mg/L : monter mille litres d’un ppm demande donc exactement un gramme de chlore actif pur. C’est la partie facile ; l’erreur classique est d’oublier que le commerce ne vend pas du chlore pur, si bien que ce poids doit encore être divisé par la richesse du produit. Faire passer 50 000 litres de 1 à 3 ppm réclame 100 g de chlore actif pur, soit 800 d’un produit à 12,5 %. Le chlore liquide exprime son pourcentage en grammes pour 100 mL et non en masse : lire ce 800 comme des grammes pour le granulé et comme des millilitres pour le liquide donne le bon résultat dans les deux cas.',
+    note: 'Le chlore libre ne travaille qu’à la hauteur que le stabilisant lui laisse : un acide cyanurique élevé l’émousse et oblige à relever la consigne. Il ne se retire pas non plus une fois versé, alors dose la moitié, attends, puis remesure plutôt que de viser la cible d’un seul coup.',
+  },
+  'pool-salt': {
+    title: 'Calcul du sel pour piscine',
+    desc: 'Le sel et les sacs nécessaires pour amener un bassin au sel de sa mesure actuelle à la cible.',
+    long: 'La salinité se mesure en ppm tout comme le chlore : le calcul est identique, seule l’échelle change. Un ppm vaut un mg/L, donc monter un litre de 1 000 ppm coûte un gramme, et monter 50 000 litres de 2 400 ppm coûte 120 kg, soit six sacs de 20 kg. Le sel est quasiment pur : la seconde division par la richesse du produit, indispensable avec le chlore, n’a pas lieu d’être ici. Ce qu’il vaut mieux connaître, c’est ce qu’un seul sac déplace dans ton bassin : ici chaque sac pèse 400 ppm, de quoi faire dépasser la cible au dernier sac à lui tout seul.',
+    note: 'La plupart des électrolyseurs tournent entre 2 700 et 3 400 ppm, et la bonne valeur est celle du manuel de ta cellule, pas une règle générale. Ajoute le sel pompe en marche et verse-le sur le fond du petit bain en brossant pour le dissoudre, jamais par le skimmer, afin qu’aucun grain non dissous n’atteigne la cellule.',
+  },
+  'pool-dilution-drain': {
+    title: 'Calcul de la vidange partielle de piscine',
+    desc: 'La part d’eau à vidanger et à remplacer pour faire baisser le stabilisant, le sel ou la dureté.',
+    long: 'Plusieurs paramètres d’une piscine ne savent que monter. L’acide cyanurique, le sel et la dureté calcique sont de ceux-là, et la seule façon de les faire redescendre est de vidanger puis de remplir. La part à remplacer vaut (actuel − cible) ÷ (actuel − eau de remplissage). Passer de 100 à 50 ppm avec une eau du réseau à 0 ppm revient à changer exactement la moitié. C’est sur l’eau de remplissage que l’affaire déraille sans bruit : en zone d’eau dure où le réseau affiche déjà 250 ppm, un bassin visant 200 ppm n’y arrivera jamais — change chaque goutte et il restera à 250.',
+    note: 'La formule suppose que l’eau se mélange uniformément. Pomper seulement au petit bain mélange moins et fait moins baisser la mesure que prévu : garde la pompe en marche pendant la vidange. Là où la nappe est haute, vider beaucoup d’un coup peut faire flotter la coque — remplacer un tiers à la fois reste la manière prudente de procéder.',
+  },
 };

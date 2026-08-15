@@ -830,4 +830,22 @@ export const GEO_DE: Record<string, FormulaText> = {
     long: 'Sand wird nach Volumen gemessen und nach Gewicht verkauft, und die Dichte verbindet beides, sie ist deshalb eine Eingabe: etwa 1.500 kg/m³ trocken und 1.900 kg/m³ nass. Eine Terrasse von 20 m² mit 3 cm Bettung sind 0,6 m³; mit 10 % Verlust 0,66 m³, was bei 1.500 kg/m³ 990 kg wiegt — 39,6 Säcke von 25 kg, also 40 Säcke. Ein Bigbag mit einer Tonne hält etwa dasselbe, und in dieser Größenordnung wird Schüttware günstiger.',
     note: 'Sand verliert beim Verdichten 10 bis 15 % seiner Höhe, trag also die fertige Dicke ein und nicht die, die du beim Aufziehen misst. Der später eingekehrte Fugensand ist davon getrennt und kostet weitere 1 bis 2 kg je Quadratmeter.',
   },
+  'pool-heat-time': {
+    title: 'Aufheizzeit für den Pool berechnen',
+    desc: 'Stunden und Kilowattstunden, um ein Becken um eine bestimmte Gradzahl anzuheben.',
+    long: 'Ein Kilogramm Wasser um ein Grad zu erwärmen kostet 4,186 kJ. Setzt man den Liter als Kilogramm an, ist die nötige Wärme Volumen × 4,186 × Temperaturhub, und geteilt durch 3.600 werden daraus Kilowattstunden. 50.000 Liter um fünf Grad anzuheben sind 291 kWh vor Verlusten — und die Verluste gehören dazu, denn das Becken kühlt über die Oberfläche weiter aus, während du heizt. Mit 20 % werden daraus 349 kWh, die ein 12-kW-Heizer in 29 Stunden liefert. Genau hier überrascht das Ergebnis meistens: Poolheizen rechnet man in Tagen, nicht in einem Nachmittag.',
+    note: 'Die Verlustzahl ist im Grunde eine Frage nach der Abdeckung. Die Verdunstung an der offenen Wasseroberfläche macht den größten Teil aus, und eine Plane halbiert sie oft mehr als nur. Bei einer Wärmepumpe trägst du die Wärmeleistung ein, nicht die elektrische Aufnahme vom Typenschild: Erstere ist vier- bis fünfmal größer, und wer sie verwechselt, verschiebt die Zeit um denselben Faktor.',
+  },
+  'pool-pump-turnover': {
+    title: 'Laufzeit der Poolpumpe berechnen',
+    desc: 'Umwälzzeit und tägliche Laufzeit aus Wassermenge und Förderleistung der Pumpe.',
+    long: 'Poolwasser wird in Umwälzungen gesteuert, nicht in Stunden. Eine Umwälzung ist die Zeit, in der das gesamte Wasser einmal durch den Filter läuft — Volumen geteilt durch Förderstrom. Fünfzigtausend Liter bei 250 Litern je Minute ergeben eine Umwälzung in 3,3 Stunden, ein Ziel von anderthalb Umwälzungen am Tag also fünf Stunden Laufzeit. Optimieren lohnt sich dabei nicht an den Stunden, sondern an den Watt: Die Pumpenleistung wächst ungefähr mit der dritten Potenz des Förderstroms, halbe Drehzahl bei doppelter Laufzeit bringt dieselbe Umwälzung für etwa ein Viertel des Stroms. Genau dieser Zusammenhang bezahlt eine drehzahlgeregelte Pumpe.',
+    note: 'Der aufgedruckte Förderstrom wird ohne Rohrwiderstand gemessen, der echte liegt darunter — wer die wahre Zahl will, liest das Filtermanometer zusammen mit einem Durchflussmesser. Ein verschmutzter Filter drückt den Strom weiter, sodass dieselbe Laufzeit unbemerkt weniger Umwälzung liefert; das Rückspülintervall gehört damit ebenfalls zu dieser Rechnung.',
+  },
+  'grass-seed': {
+    title: 'Rasensamen berechnen',
+    desc: 'Saatgutgewicht und Säcke aus der Rasenfläche und der Aussaatmenge je Quadratmeter.',
+    long: 'Die Rechnung ist Fläche mal Gramm je Quadratmeter, aber diese Menge entscheidet die ganze Antwort, und darum steht sie hier als Eingabe und nicht als eingebaute Konstante. Arten mit größeren Samenkörnern brauchen mehr Gewicht für dieselbe Pflanzendichte, weshalb die empfohlene Menge zwischen ihnen um das Zwei- bis Dreifache auseinandergeht — übernimm die Zahl von der Packung. Dazu kommt, dass dieselbe Art auf offener Erde etwa doppelt so dicht gesät wird wie bei der Nachsaat in einen bestehenden Rasen. Hundert Quadratmeter zu 35 g/m² ergeben mit 10 % Zuschlag 3,85 kg, und ein 5-kg-Sack reicht für 143 m².',
+    note: 'Übriges Saatgut verliert mit jedem Lagerjahr an Keimfähigkeit, ein großer Vorrat bringt also wenig. Harke es leicht ein, damit die Körner Bodenkontakt bekommen, und halte die Oberfläche feucht, bis alles aufgelaufen ist — das zählt fürs Ergebnis mehr als die Menge aufs Gramm genau zu treffen.',
+  },
 };

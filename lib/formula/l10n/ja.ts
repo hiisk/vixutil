@@ -1068,6 +1068,37 @@ export const JA: FormulaL10n = {
     fbaTotal: '不足の合計',
     fbaPerPiece: '1枚で広げる量',
     cordD: 'コードの直径',
+
+    /* 수영장 물 관리·난방·순환, 잔디 파종 */
+    fcNow: '現在の遊離塩素',
+    fcTarget: '目標の遊離塩素',
+    chlorineStrength: '製品の有効塩素率',
+    chlorineDose: '入れる塩素剤',
+    pureChlorine: '純粋な有効塩素で',
+    dosePerPpm: '1 ppm あたりの製品量',
+    saltNow: '現在の塩分濃度',
+    saltTarget: '目標の塩分濃度',
+    saltKg: '入れる塩',
+    ppmPerBag: '1 袋で上がる塩分濃度',
+    concNow: '現在の測定値',
+    concTarget: '目標の測定値',
+    fillConc: '補給水の測定値',
+    drainPct: '抜く水の割合',
+    drainLiters: '抜く水の量',
+    halfDrainConc: '半分替えたときの値',
+    tempRise: '上げる温度',
+    heaterKw: 'ヒーターの熱出力',
+    heatLossPct: '加温中の熱損失',
+    heatHours: '加温にかかる時間',
+    heatKwh: '必要な電力量',
+    kwhPerDeg: '1 度あたりの電力量',
+    turnoverHours: '一周にかかる時間',
+    turnoverPerDay: '1 日の循環回数',
+    runHours: '1 日の運転時間',
+    pumpKw: 'ポンプの消費電力',
+    monthKwh: 'ひと月の電力量',
+    seedRate: '1 ㎡ あたりの播種量 (g)',
+    seedKg: '必要な種',
   },
 
   UNITS: {
@@ -1148,6 +1179,8 @@ export const JA: FormulaL10n = {
     order: '件',
     cone: '個',
     round: '段',
+
+    ppm: 'ppm', kwh: 'kWh', degC: '°C',
   },
 
   DESC: {

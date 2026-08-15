@@ -16,51 +16,12 @@
 import type { ReactElement } from 'react';
 import { newSnapCard } from '@/lib/snap/card';
 
-import { hubCard as altitudeHub } from '@/lib/altitude/route';
 import { hubCard as airHub } from '@/lib/air/route';
-import { hubCard as ampereHub } from '@/lib/ampere/route';
-import { hubCard as drinkHub } from '@/lib/drink/route';
-import { hubCard as purifierHub } from '@/lib/purifier/route';
 import { hubCard as flightHub } from '@/lib/flight/route';
-import { hubCard as raidHub } from '@/lib/raid/route';
-import { hubCard as heredityHub } from '@/lib/heredity/route';
-import { hubCard as exposureHub } from '@/lib/exposure/route';
-import { hubCard as bloodHub } from '@/lib/blood/route';
-import { hubCard as braHub } from '@/lib/bra/route';
-import { hubCard as wineHub } from '@/lib/wine/route';
-import { hubCard as bedHub } from '@/lib/bed/route';
-import { hubCard as quakeHub } from '@/lib/quake/route';
-import { hubCard as microwaveHub } from '@/lib/microwave/route';
-import { hubCard as golfHub } from '@/lib/golf/route';
-import { hubCard as powerbankHub } from '@/lib/powerbank/route';
-import { hubCard as lumberHub } from '@/lib/lumber/route';
-import { hubCard as tatamiHub } from '@/lib/tatami/route';
-import { hubCard as cableHub } from '@/lib/cable/route';
-import { hubCard as gengoHub } from '@/lib/gengo/route';
-import { hubCard as bignumHub } from '@/lib/bignum/route';
-import { hubCard as viewingHub } from '@/lib/viewing/route';
 import { hubCard as passwordHub } from '@/lib/password/route';
-import { hubCard as petfoodHub } from '@/lib/petfood/route';
-import { hubCard as sizeHub } from '@/lib/size/route';
-import { hubCard as dofHub } from '@/lib/dof/route';
-import { hubCard as gearHub } from '@/lib/gear/route';
-import { hubCard as filamentHub } from '@/lib/filament/route';
-import { hubCard as ringHub } from '@/lib/ring/route';
-import { hubCard as rebarHub } from '@/lib/rebar/route';
-import { hubCard as motorHub } from '@/lib/motor/route';
-import { hubCard as steelHub } from '@/lib/steel/route';
-import { hubCard as hardnessHub } from '@/lib/hardness/route';
-import { hubCard as sunHub } from '@/lib/sun/route';
 import { hubCard as dpiHub } from '@/lib/dpi/route';
 import { hubCard as laundryHub } from '@/lib/laundry/route';
-import { hubCard as fertilizerHub } from '@/lib/fertilizer/route';
-import { hubCard as bpmHub } from '@/lib/bpm/route';
-import { hubCard as uvHub } from '@/lib/uv/route';
-import { hubCard as hikeHub } from '@/lib/hike/route';
-import { hubCard as insulHub } from '@/lib/insul/route';
 import { hubCard as asciiHub } from '@/lib/ascii/route';
-import { hubCard as bandwidthHub } from '@/lib/bandwidth/route';
-import { hubCard as batteryHub } from '@/lib/battery/route';
 import { BODY_SECTION } from '@/lib/body-section';
 import { hubCard as chessHub } from '@/lib/chess/route';
 import { hubCard as chmodHub } from '@/lib/chmod/route';
@@ -69,19 +30,12 @@ import { hubCard as codeHub } from '@/lib/code/route';
 import { COUNTRY_SECTION, COUNTRY_UI } from '@/lib/country-ui';
 import { hubCard as cssHub } from '@/lib/css/route';
 import { hubCard as cubeHub } from '@/lib/cube/route';
-import { hubCard as dartsHub } from '@/lib/darts/route';
 import { hubCard as deviceHub } from '@/lib/device/route';
-import { hubCard as dewHub } from '@/lib/dew/route';
 import { hubCard as diceHub } from '@/lib/dice/route';
-import { hubCard as drillHub } from '@/lib/drill/route';
-import { hubCard as elementHub } from '@/lib/element/route';
 import { hubCard as extHub } from '@/lib/ext/route';
 import { hubCard as fractionHub } from '@/lib/fraction/route';
-import { hubCard as fretHub } from '@/lib/fret/route';
 import { GEO_SECTION } from '@/lib/geo-section';
-import { CRAFT_SECTION } from '@/lib/craft-section';
 import { hubCard as glyphHub } from '@/lib/glyph/route';
-import { hubCard as gravityHub } from '@/lib/gravity/route';
 import { HANJA_SECTION, HANJA_UI } from '@/lib/hanja-ui';
 import { hubCard as htmlHub } from '@/lib/html/route';
 import { hubCard as httpHub } from '@/lib/http/route';
@@ -92,33 +46,22 @@ import { hubCard as errHub } from '@/lib/errmsg/route';
 import { hubCard as imgsizeHub } from '@/lib/imgsize/route';
 import { hubCard as keycodeHub } from '@/lib/keycode/route';
 import { hubCard as lensHub } from '@/lib/lens/route';
-import { hubCard as lumenHub } from '@/lib/lumen/route';
 import { hubCard as metroHub } from '@/lib/metro/route';
 import { hubCard as musicHub } from '@/lib/music/route';
 import { hubCard as numberHub } from '@/lib/number/route';
 import { colorOg, deviceOg, foodOg, gameOg, imageOg, intlOg, soundOg, textOg, timeOg } from '@/lib/og-intl';
 import { ogCard } from '@/lib/og-template';
-import { hubCard as paceHub } from '@/lib/pace/route';
-import { hubCard as paperHub } from '@/lib/paper/route';
 import { hubCard as pokerHub } from '@/lib/poker/route';
 import { hubCard as portHub } from '@/lib/port/route';
 import { RATE_SECTION } from '@/lib/rate-section';
 import { hubCard as regexHub } from '@/lib/regex/route';
 import { hubCard as remHub } from '@/lib/rem/route';
-import { hubCard as resistorHub } from '@/lib/resistor/route';
 import { hubCard as romanHub } from '@/lib/roman/route';
-import { hubCard as screwHub } from '@/lib/screw/route';
 import { hubCard as soundHub } from '@/lib/sound/route';
 import { hubCard as percentHub } from '@/lib/percent/route';
 import { hubCard as sqrtHub } from '@/lib/sqrt/route';
-import { hubCard as stopHub } from '@/lib/stop/route';
 import { hubCard as tarotHub } from '@/lib/tarot/route';
 import { hubCard as timesHub } from '@/lib/times/route';
-import { hubCard as tireHub } from '@/lib/tire/route';
-import { hubCard as torqueHub } from '@/lib/torque/route';
-import { hubCard as wifiHub } from '@/lib/wifi/route';
-import { hubCard as windchillHub } from '@/lib/windchill/route';
-import { hubCard as wireHub } from '@/lib/wire/route';
 import { hubCard as yearHub } from '@/lib/year/route';
 
 export const CARDS: Record<string, () => ReactElement> = {
@@ -141,47 +84,11 @@ export const CARDS: Record<string, () => ReactElement> = {
   'snap/framing': () => newSnapCard('en', 'framing'),
   '': () => intlOg('home/en'),
   'air': () => airHub('en'),
-  'altitude': () => altitudeHub('en'),
-  'ampere': () => ampereHub('en'),
-  'bed': () => bedHub('en'),
-  'blood': () => bloodHub('en'),
-  'exposure': () => exposureHub('en'),
-  'heredity': () => heredityHub('en'),
-  'raid': () => raidHub('en'),
   'flight': () => flightHub('en'),
-  'purifier': () => purifierHub('en'),
-  'drink': () => drinkHub('en'),
-  'bra': () => braHub('en'),
   'password': () => passwordHub('en'),
-  'cable': () => cableHub('en'),
-  'lumber': () => lumberHub('en'),
-  'tatami': () => tatamiHub('en'),
-  'bignum': () => bignumHub('en'),
-  'gengo': () => gengoHub('en'),
-  'golf': () => golfHub('en'),
-  'viewing': () => viewingHub('en'),
-  'wine': () => wineHub('en'),
-  'petfood': () => petfoodHub('en'),
-  'size': () => sizeHub('en'),
-  'dof': () => dofHub('en'),
-  'gear': () => gearHub('en'),
-  'ring': () => ringHub('en'),
-  'rebar': () => rebarHub('en'),
-  'motor': () => motorHub('en'),
-  'steel': () => steelHub('en'),
-  'hardness': () => hardnessHub('en'),
   'dpi': () => dpiHub('en'),
-  'sun': () => sunHub('en'),
   'laundry': () => laundryHub('en'),
-  'fertilizer': () => fertilizerHub('en'),
-  'filament': () => filamentHub('en'),
-  'bpm': () => bpmHub('en'),
-  'uv': () => uvHub('en'),
-  'hike': () => hikeHub('en'),
-  'insul': () => insulHub('en'),
   'ascii': () => asciiHub('en'),
-  'bandwidth': () => bandwidthHub('en'),
-  'battery': () => batteryHub('en'),
   'body': () => {
     const meta = BODY_SECTION.meta['en'];
     return ogCard({
@@ -222,7 +129,6 @@ export const CARDS: Record<string, () => ReactElement> = {
     });
   },
   'css': () => cssHub('en'),
-  'darts': () => dartsHub('en'),
   'device': () => intlOg('device/en'),
   'device/gamepad': () => deviceOg('gamepad', 'en'),
   'device/info': () => deviceOg('info', 'en'),
@@ -235,9 +141,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'device/speaker': () => deviceOg('speaker', 'en'),
   'device/touch': () => deviceOg('touch', 'en'),
   'device/webcam': () => deviceOg('webcam', 'en'),
-  'dew': () => dewHub('en'),
-  'drill': () => drillHub('en'),
-  'element': () => elementHub('en'),
   'ext': () => extHub('en'),
   'food': () => intlOg('food/en'),
   'food/baking-pan': () => foodOg('baking-pan', 'en'),
@@ -271,7 +174,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'fortune/zodiac': () => intlOg('fortune/zodiac/en'),
   'fortune/zodiac-match': () => intlOg('fortune/zodiac-match/en'),
   'fraction': () => fractionHub('en'),
-  'fret': () => fretHub('en'),
   'game': () => intlOg('game/en'),
   'game/sliding': () => gameOg('sliding', 'en'),
   'game/sudoku': () => gameOg('sudoku', 'en'),
@@ -297,17 +199,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'game/beat': () => gameOg('beat', 'en'),
   'game/peripheral': () => gameOg('peripheral', 'en'),
   'generator': () => intlOg('generator/en'),
-  'craft': () => {
-    const meta = CRAFT_SECTION.meta['en'];
-    return ogCard({
-      icon: '🧶',
-      eyebrow: meta.section,
-      title: meta.hubTitle,
-      desc: meta.hubLead,
-      from: CRAFT_SECTION.ogFrom,
-      to: CRAFT_SECTION.ogTo,
-    });
-  },
   'geometry': () => {
     const meta = GEO_SECTION.meta['en'];
     return ogCard({
@@ -319,7 +210,6 @@ export const CARDS: Record<string, () => ReactElement> = {
       to: GEO_SECTION.ogTo,
     });
   },
-  'gravity': () => gravityHub('en'),
   'hanja': () => {
     const ui = HANJA_UI['en'];
     return ogCard({
@@ -354,15 +244,9 @@ export const CARDS: Record<string, () => ReactElement> = {
   'image/favicon': () => imageOg('favicon', 'en'),
   'image/size': () => imgsizeHub('en'),
   'keycode': () => keycodeHub('en'),
-  'lumen': () => lumenHub('en'),
-  'microwave': () => microwaveHub('en'),
   'metro': () => metroHub('en'),
   'music': () => musicHub('en'),
   'number': () => numberHub('en'),
-  'pace': () => paceHub('en'),
-  'paper': () => paperHub('en'),
-  'powerbank': () => powerbankHub('en'),
-  'quake': () => quakeHub('en'),
   'port': () => portHub('en'),
   'quiz': () => intlOg('quiz/en'),
   'random': () => intlOg('random/en'),
@@ -379,9 +263,7 @@ export const CARDS: Record<string, () => ReactElement> = {
     });
   },
   'rem': () => remHub('en'),
-  'resistor': () => resistorHub('en'),
   'roman': () => romanHub('en'),
-  'screw': () => screwHub('en'),
   'search': () => intlOg('search/en'),
   'snap': () => intlOg('snap/en'),
   'snap/animal-face': () => intlOg('snap/animal-face/en'),
@@ -410,7 +292,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'sound/tuner': () => soundOg('tuner', 'en'),
   'percent': () => percentHub('en'),
   'sqrt': () => sqrtHub('en'),
-  'stop': () => stopHub('en'),
   'test': () => intlOg('test/en'),
   'text': () => intlOg('text/en'),
   'text/case': () => textOg('case', 'en'),
@@ -442,10 +323,5 @@ export const CARDS: Record<string, () => ReactElement> = {
   'time/workdays': () => timeOg('workdays', 'en'),
   'time/worldclock': () => timeOg('worldclock', 'en'),
   'times': () => timesHub('en'),
-  'tire': () => tireHub('en'),
-  'torque': () => torqueHub('en'),
-  'wifi': () => wifiHub('en'),
-  'windchill': () => windchillHub('en'),
-  'wire': () => wireHub('en'),
   'year': () => yearHub('en'),
 };

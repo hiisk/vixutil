@@ -1112,6 +1112,37 @@ export const DE: FormulaL10n = {
     fbaTotal: 'Gesamte Differenz',
     fbaPerPiece: 'Aufspreizung je Schnittteil',
     cordD: 'Kordeldurchmesser',
+
+    /* 수영장 물 관리·난방·순환, 잔디 파종 */
+    fcNow: 'Freies Chlor jetzt',
+    fcTarget: 'Freies Chlor gewünscht',
+    chlorineStrength: 'Wirkstoffgehalt',
+    chlorineDose: 'Zuzugebendes Produkt',
+    pureChlorine: 'Als reines wirksames Chlor',
+    dosePerPpm: 'Produkt je 1 ppm',
+    saltNow: 'Salzgehalt jetzt',
+    saltTarget: 'Salzgehalt gewünscht',
+    saltKg: 'Zuzugebendes Salz',
+    ppmPerBag: 'Salzgehalt je Sack',
+    concNow: 'Messwert jetzt',
+    concTarget: 'Messwert gewünscht',
+    fillConc: 'Messwert des Füllwassers',
+    drainPct: 'Abzulassender Anteil',
+    drainLiters: 'Abzulassendes Wasser',
+    halfDrainConc: 'Wert nach halbem Wechsel',
+    tempRise: 'Temperaturhub',
+    heaterKw: 'Wärmeleistung',
+    heatLossPct: 'Verlust beim Aufheizen',
+    heatHours: 'Aufheizzeit',
+    heatKwh: 'Nötige Energie',
+    kwhPerDeg: 'Energie je Grad',
+    turnoverHours: 'Zeit für eine Umwälzung',
+    turnoverPerDay: 'Umwälzungen am Tag',
+    runHours: 'Laufzeit am Tag',
+    pumpKw: 'Leistungsaufnahme der Pumpe',
+    monthKwh: 'Energie im Monat',
+    seedRate: 'Aussaatmenge (g/m²)',
+    seedKg: 'Nötiges Saatgut',
   },
 
   UNITS: {
@@ -1194,6 +1225,8 @@ export const DE: FormulaL10n = {
     order: '',
     round: 'Runden',
     cone: 'Konen',
+
+    ppm: 'ppm', kwh: 'kWh', degC: '°C',
   },
 
   DESC: {

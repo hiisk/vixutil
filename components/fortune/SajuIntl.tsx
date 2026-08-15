@@ -9,9 +9,7 @@ import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortuneIntl, DOMAIN_UI } from '@/lib/saju-fortune-intl';
 import {
   STEMS, BRANCHES, type Element, type Pillar,
-  getYearPillar, getMonthPillar, getDayPillar, getHourPillar,
-  countElements, getSipseong, getSingang,
-  getDaewoonDirection, getDaewoonStartAge, getDaewoons,
+  buildChart, countElements, getSipseong, getSingang,
 } from '@/lib/saju-data';
 import {
   ELEMENT_INTL, STEMS_INTL, BRANCHES_INTL, SIPSEONG_INTL, SAJU_UI,
@@ -106,19 +104,22 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
     if (date > new Date()) { setError(ui.errFuture); return; }
     setError('');
 
-    const year = getYearPillar(y, m, d);
-    const month = getMonthPillar(m, d, year.stemIdx);
-    const day = getDayPillar(y, m, d);
-    const hour = form.hour === '' ? null : getHourPillar(Number(form.hour), day.stemIdx);
+    // 시각은 "HH:MM" — 비워 두면 시주를 생략한다
+    const [hh, mm] = form.hour.split(':');
+    const c = buildChart({
+      year: y, month: m, day: d,
+      hour: form.hour === '' ? null : Number(hh),
+      minute: Number(mm) || 0,
+    }, gender);
 
-    const pillars = [year, month, day, hour];
+    const pillars = [c.year, c.month, c.day, c.hour];
     const counts = countElements(pillars);
-    const { strong } = getSingang(day.stemIdx, pillars);
-    const direction = getDaewoonDirection(gender, year.stemIdx);
-    const startAge = getDaewoonStartAge(y, m, d, direction);
-    const daewoons = getDaewoons(month, direction, startAge).map(w => ({ age: w.startAge, pillar: w.pillar }));
+    const { strong } = getSingang(c.day.stemIdx, pillars);
 
-    setChart({ year, month, day, hour, counts, strong, daewoons });
+    setChart({
+      year: c.year, month: c.month, day: c.day, hour: c.hour, counts, strong,
+      daewoons: c.daewoons.map(w => ({ age: w.startAge, pillar: w.pillar })),
+    });
     setTimeout(() => document.getElementById('saju-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   }
 
@@ -171,14 +172,10 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
           </div>
 
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.hourLabel}</label>
-          <select value={form.hour} onChange={e => setForm({ ...form, hour: e.target.value })}
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1">
-            <option value="">{ui.hourUnknown}</option>
-            {Array.from({ length: 24 }, (_, h) => (
-              <option key={h} value={h}>{String(h).padStart(2, '0')}:00 – {String(h).padStart(2, '0')}:59</option>
-            ))}
-          </select>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3">{ui.hourNote}</p>
+          {/* 분까지 받아야 진태양시 보정이 뜻을 가진다 — 비우면 시주를 생략한다 */}
+          <input type="time" value={form.hour} onChange={e => setForm({ ...form, hour: e.target.value })}
+            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1" />
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3">{ui.hourUnknown} — {ui.hourNote}</p>
 
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.genderLabel}</label>
           <div className="grid grid-cols-2 gap-2 mb-3">

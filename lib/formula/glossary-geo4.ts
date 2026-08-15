@@ -60,4 +60,21 @@ export const GEO4_DESC: Record<string, Term> = {
   /* ───────── 모래 ───────── */
   sandDensity: { ko: '모래 1㎥의 무게. 마른 모래 1,500, 젖은 모래 1,900kg/㎥ 정도입니다.', en: 'The weight of a cubic metre of sand: about 1,500 kg/m³ dry, 1,900 kg/m³ wet.' },
   sandKg: { ko: '손실을 더해 주문해야 하는 모래의 무게. 모래는 무게로 팝니다.', en: 'The weight of sand to order, waste included — sand is sold by weight.' },
+
+  /* ───────── 수영장 난방·순환 ───────── */
+  tempRise: { ko: '지금 수온에서 올리려는 도수. 목표 온도가 아니라 차이를 넣습니다.', en: 'The number of degrees to gain — enter the difference, not the target temperature.' },
+  heaterKw: { ko: '히터가 물에 실제로 넣는 열출력. 히트펌프는 소비전력이 아니라 이 값입니다.', en: 'The heat the unit puts into the water; for a heat pump this is output, not input.' },
+  heatLossPct: { ko: '데우는 동안 수면으로 달아나는 열의 비율. 덮개가 이 값을 절반 아래로 낮춥니다.', en: 'The share lost from the surface while heating; a cover typically more than halves it.' },
+  heatHours: { ko: '쉬지 않고 돌렸을 때 목표 온도에 닿는 시간. 낮에만 켜면 그보다 길어집니다.', en: 'Hours to reach target running non-stop; heating only by day takes longer than this.' },
+  heatKwh: { ko: '손실까지 포함해 실제로 넣어야 하는 열의 양.', en: 'The energy actually needed once the losses while heating are included.' },
+  kwhPerDeg: { ko: '이 수영장을 1도 올리는 데 드는 전력량. 목표를 바꿔도 곱하기만 하면 됩니다.', en: 'The energy this pool needs per degree — change the target and just multiply.' },
+  turnoverHours: { ko: '물 전체가 여과기를 한 번 지나가는 데 걸리는 시간.', en: 'How long the whole body of water takes to pass through the filter once.' },
+  turnoverPerDay: { ko: '하루에 물을 몇 바퀴 돌릴지 정한 목표. 시간이 아니라 이 횟수가 기준입니다.', en: 'How many turnovers a day you are aiming for — the real standard, not hours.' },
+  runHours: { ko: '그 순환 횟수를 채우려면 하루에 돌려야 하는 시간.', en: 'The hours a day the pump must run to deliver that many turnovers.' },
+  pumpKw: { ko: '펌프가 쓰는 전력. 유량을 낮추면 세제곱에 가깝게 떨어집니다.', en: 'The pump draw; it falls with roughly the cube of flow when you slow it down.' },
+  monthKwh: { ko: '그 가동 시간으로 한 달에 쓰는 전력량. 자기 단가를 곱하면 요금이 됩니다.', en: 'A month of running at that schedule; multiply by your own tariff for the cost.' },
+
+  /* ───────── 잔디 파종 ───────── */
+  seedRate: { ko: '1㎡에 뿌리는 씨앗 무게. 봉지에 적힌 값이 종마다 두세 배씩 다릅니다.', en: 'Grams sown per square metre; the figure on the bag varies two- or three-fold by species.' },
+  seedKg: { ko: '여유를 더해 사야 하는 씨앗 무게. 남은 씨앗은 해마다 발아율이 떨어집니다.', en: 'The seed to buy with waste added; leftovers lose germination every year they sit.' },
 };

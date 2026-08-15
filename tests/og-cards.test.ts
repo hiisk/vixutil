@@ -85,8 +85,18 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,649  QR 코드 만들기를 열 언어씩 더함(+10)
  *   2,659  마우스 감도 허브를 열 언어씩 더함(+10)
  *   2,669  퍼센트 계산을 열 언어씩 더함(+10)
+ *   2,549  규격·중량표 열둘을 통째로 지움(-120) — steel·rebar·screw·drill·wire·
+ *          torque·tire·paper·lumber·filament·gear·resistor. 허브도 안 남겼다
+ *   2,239  참조표 서른하나를 통째로 지움(-310) — windchill·dew·bandwidth·battery·
+ *          bpm·lumen·drink·purifier·sun·exposure·raid·blood·ampere·heredity·
+ *          powerbank·viewing·size·bra·ring·petfood·golf·cable·bignum·wifi·
+ *          quake·pace·stop·element·craft·tatami·gengo. 한자 문화권 전용이던
+ *          셋(heredity·tatami·gengo)도 카드는 열 언어에 다 있었다 — 그래서 −10씩이다
+ *   2,099  찾아올 사람이 없는 갈래 열넷을 통째로 지움(-140) — gravity·microwave·
+ *          insul·motor·fertilizer·wine·uv·dof·hardness·fret·bed·hike·altitude·
+ *          darts. 허브도 안 남겼다
    */
-  const WANT = 2669;
+  const WANT = 2099;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);
@@ -115,7 +125,7 @@ test('keys.ts가 언어별 대응표와 어긋나지 않는다', () => {
 });
 
 test('카드 주소는 언어 칸으로 시작한다', () => {
-  // /og/paper가 "한국어 paper"인지 "paper라는 언어"인지 가릴 수 있어야 한다
+  // /og/chmod가 "한국어 chmod"인지 "chmod라는 언어"인지 가릴 수 있어야 한다
   const segs = new Set(LANGS.map(l => l.prefix.slice(1) || 'ko'));
   assert.deepStrictEqual(allCardParams().filter(p => !segs.has(p.slug[0])).slice(0, 5), []);
   for (const p of allCardParams()) assert.ok(parseCardSlug(p.slug), p.slug.join('/'));
@@ -151,15 +161,16 @@ test('모든 페이지가 카드를 받는다', () => {
    * 물려받으므로 [slug] 같은 칸이 있어도 상관없다 — cardUrl이 조상으로 올라간다.
    */
   const routes = pageRoutes();
-  assert.ok(routes.length > 3000, `페이지를 ${routes.length}개밖에 못 찾았다`);
+  /* 2026-08-15: 참조표 갈래를 통째로 지우면서 2,772 → 2,600으로 내렸다 */
+  assert.ok(routes.length > 2600, `페이지를 ${routes.length}개밖에 못 찾았다`);
   assert.deepStrictEqual(routes.filter(r => !cardUrl(r)).slice(0, 10), []);
 });
 
 test('낱장은 자기 섹션 카드를 물려받는다', () => {
   const cases: [string, string][] = [
-    ['/paper', '/og/ko/paper'],
-    ['/paper/a4-72', '/og/ko/paper'], // 낱장 → 섹션
-    ['/en/paper/a0-72', '/og/en/paper'],
+    ['/chmod', '/og/ko/chmod'],
+    ['/chmod/755', '/og/ko/chmod'], // 낱장 → 섹션
+    ['/en/chmod/644', '/og/en/chmod'],
     ['/en/color/name', '/og/en/color/name'], // 도구마다 제 카드가 있다
     ['/zh-hans/time/alarm', '/og/zh-hans/time/alarm'],
     ['/', '/og/ko'],

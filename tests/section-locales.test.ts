@@ -133,7 +133,8 @@ test('캐치올이 안 내는 언어의 허브를 안 굽는다', () => {
 
 test('한자 문화권 넷이 실제로 그 넷이다', () => {
   assert.deepEqual([...CJK_LOCALES].sort(), ['ja', 'ko', 'zh-hans', 'zh-hant']);
-  for (const sec of ['hanja', 'gengo', 'tatami', 'heredity']) {
+  /* 2026-08-15: 연호·다다미·혈액형 유전 갈래를 통째로 지웠다 — 한자만 남았다 */
+  for (const sec of ['hanja']) {
     assert.deepEqual(SECTION_LOCALES[sec], CJK_LOCALES, `${sec}이 한자 문화권이 아니다`);
     assert.ok(!sectionHasLocale(sec, 'en'), `${sec}이 영어로 나간다`);
     assert.ok(!sectionHasLocale(sec, 'hi'), `${sec}이 힌디어로 나간다`);
@@ -142,10 +143,10 @@ test('한자 문화권 넷이 실제로 그 넷이다', () => {
 });
 
 test('경로에서 갈래를 제대로 뗀다', () => {
-  assert.deepEqual(localesOfPath('/gengo/reiwa'), CJK_LOCALES);
-  assert.deepEqual(localesOfPath('/gengo'), CJK_LOCALES);
-  assert.deepEqual(localesOfPath('gengo/reiwa'), CJK_LOCALES);
+  assert.deepEqual(localesOfPath('/hanja/aaa'), CJK_LOCALES);
+  assert.deepEqual(localesOfPath('/hanja'), CJK_LOCALES);
+  assert.deepEqual(localesOfPath('hanja/aaa'), CJK_LOCALES);
   assert.deepEqual(localesOfPath('/convert/cm-to-inch'), LOCALE_PATHS);
   /* 이름이 겹치는 갈래를 잘못 집으면 안 된다 */
-  assert.deepEqual(localesOfPath('/gengonews/x'), LOCALE_PATHS);
+  assert.deepEqual(localesOfPath('/hanjanews/x'), LOCALE_PATHS);
 });

@@ -3,12 +3,35 @@ import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
-import { APPLIANCES } from '@/lib/ampere/list';
 import { calcElectricity, extraCost, tierOf, toNextTier } from '@/lib/electricity-tariff';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
-/* 이름은 /ampere가 쓰는 것과 같은 표를 쓴다 — 한 가전이 두 이름을 갖지 않게 */
+/* 가전과 정격 소비전력(W) — /ampere를 지우면서 여기로 옮겼다(2026-08-15) */
+const APPLIANCES: { key: string; watt: number }[] = [
+  { key: 'purifier', watt: 45 },
+  { key: 'laptop', watt: 65 },
+  { key: 'fan', watt: 80 },
+  { key: 'tv', watt: 120 },
+  { key: 'fridge', watt: 150 },
+  { key: 'blanket', watt: 200 },
+  { key: 'console', watt: 220 },
+  { key: 'desktop', watt: 350 },
+  { key: 'washer', watt: 500 },
+  { key: 'toaster', watt: 900 },
+  { key: 'rice', watt: 1100 },
+  { key: 'microwave', watt: 1200 },
+  { key: 'coffee', watt: 1400 },
+  { key: 'iron', watt: 1500 },
+  { key: 'dryer', watt: 1600 },
+  { key: 'vacuum', watt: 1700 },
+  { key: 'aircon', watt: 1800 },
+  { key: 'kettle', watt: 2000 },
+  { key: 'heater', watt: 2200 },
+  { key: 'induction', watt: 3000 },
+];
+
+
 const NAME: Record<string, string> = {
   purifier: '공기청정기', laptop: '노트북', fan: '선풍기', tv: 'TV', fridge: '냉장고',
   blanket: '전기장판', console: '게임기', desktop: '데스크톱', washer: '세탁기',

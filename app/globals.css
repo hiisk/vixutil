@@ -10,8 +10,63 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 
+/* ── 섹션색 토큰 (2026-08-15) ────────────────────────────────────
+   색이 스물한 종, 그라디언트가 334종이었다. 그만큼 쓰면 색이 정보를 못 나른다.
+   PageGlow가 이미 일곱 가지만 허용하고 tests/design-consistency.test.ts가 그걸
+   지키고 있으므로, **그 일곱을 사이트 전체의 팔레트로 승격**한다. 새 규칙이 아니라
+   있는 규칙을 본문까지 넓히는 것이다.
+
+   값은 글자에 써도 흰 바탕에서 4.5:1을 넘는 단계로 골랐다(amber·emerald·sky·rose는
+   500단계가 3:1대라 700단계를 쓴다). 다크는 slate-900 위에서 6:1을 넘는 400단계다. */
+:root {
+  --c-blue:    #2563eb;
+  --c-violet:  #7c3aed;
+  --c-amber:   #b45309;
+  --c-emerald: #047857;
+  --c-sky:     #0369a1;
+  --c-indigo:  #4f46e5;
+  --c-rose:    #be123c;
+  /* 섹션을 모르는 페이지의 기본값 — 로고와 같은 파랑 */
+  --c-sec: var(--c-blue);
+}
+
 html.dark {
   color-scheme: dark;
+  --c-blue:    #60a5fa;
+  --c-violet:  #a78bfa;
+  --c-amber:   #fbbf24;
+  --c-emerald: #34d399;
+  --c-sky:     #38bdf8;
+  --c-indigo:  #818cf8;
+  --c-rose:    #fb7185;
+}
+
+/* 섹션색을 페이지에 얹는 자리 — PageGlow가 자기 뿌리 div에 acc-* 를 달고,
+   그 **부모**가 변수를 받는다(:has). 그래서 낱장 마크업에는 style= 한 글자도
+   늘지 않는다. 인라인 스타일을 쓰면 14만 장 × 세 벌(HTML·.rsc·.segments)이라
+   Origin Transfer에 그대로 걸린다.
+
+   :has(> ...)라 PageGlow가 몇 번째 자식이든 상관없고, 못 찾으면 :root의 파랑이
+   그대로 남는다 — 깨지지 않고 색만 안 바뀐다. */
+:has(> .acc-blue)    { --c-sec: var(--c-blue); }
+:has(> .acc-violet)  { --c-sec: var(--c-violet); }
+:has(> .acc-amber)   { --c-sec: var(--c-amber); }
+:has(> .acc-emerald) { --c-sec: var(--c-emerald); }
+:has(> .acc-sky)     { --c-sec: var(--c-sky); }
+:has(> .acc-indigo)  { --c-sec: var(--c-indigo); }
+:has(> .acc-rose)    { --c-sec: var(--c-rose); }
+
+/* 키보드 초점 — 링크와 <summary>는 브라우저 기본 테두리에 맡겨져 있어 다크에서
+   거의 안 보인다. 섹션색으로 바꾼다. input·button은 이미 focus:ring이 붙어 있어
+   여기서 건드리면 테두리가 두 겹으로 겹친다 — 그래서 뺐다. */
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--c-sec);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--c-sec) 24%, transparent);
 }
 
 @theme inline {
@@ -140,6 +195,48 @@ html.dark .scroll-x {
     radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 100% 0 / 12px 100% no-repeat scroll;
 }
 
+/* ── 격자 허브의 가로 스크롤 (2026-08-15) ──────────────────────────
+   낱장이 사라진 갈래(windchill·dew·drink·purifier·exposure·raid·blood·
+   heredity·times)는 허브의 격자 표가 그 섹션의 전부다. 그런데 wrapper에
+   `overflow-x-auto` 하나만 걸려 있어서, 잘린 자리가 그냥 표의 끝처럼 보였다.
+   900px에서도 체감온도 표의 끝 열이 밖에 있었고 단서가 하나도 없었다.
+
+   .scroll-x와 같은 수법이되 두 가지가 다르다.
+   1) 그림자를 진하게(24px · 22%). .scroll-x의 12px·13%는 넓은 화면에서 안 읽힌다.
+   2) 첫 칸을 sticky로 붙인다 — 가로로 밀어도 «어느 줄인지»가 남는다.
+      격자는 행 이름(기온·조리개)이 없으면 숫자만 흐르는 벽이 된다.
+
+   local 레이어가 내용과 함께 움직여 끝에 닿으면 그림자를 덮는다. 그래서 스크롤이
+   없는 폭에서는 저절로 안 보이고, JS도 미디어쿼리도 필요 없다. */
+.grid-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  /* 왼쪽 여백은 없앤다 — 허브 마크업의 p-2가 남아 있으면 sticky가 멈추는 자리(패딩
+     안쪽)와 잘리는 자리(패딩 바깥쪽) 사이 8px이 빈 채로 남아, 밀린 숫자가 첫 칸
+     왼쪽으로 비쳤다. box-shadow로는 못 메운다(표 칸의 그림자는 안 그려진다). */
+  padding-left: 0;
+  background:
+    linear-gradient(to right, #fff 55%, rgba(255, 255, 255, 0)) 0 0 / 36px 100% no-repeat local,
+    linear-gradient(to left, #fff 55%, rgba(255, 255, 255, 0)) 100% 0 / 36px 100% no-repeat local,
+    linear-gradient(to right, rgba(15, 23, 42, 0.22), rgba(15, 23, 42, 0)) 0 0 / 24px 100% no-repeat scroll,
+    linear-gradient(to left, rgba(15, 23, 42, 0.22), rgba(15, 23, 42, 0)) 100% 0 / 24px 100% no-repeat scroll;
+}
+html.dark .grid-scroll {
+  background:
+    linear-gradient(to right, #0f172a 55%, rgba(15, 23, 42, 0)) 0 0 / 36px 100% no-repeat local,
+    linear-gradient(to left, #0f172a 55%, rgba(15, 23, 42, 0)) 100% 0 / 36px 100% no-repeat local,
+    linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)) 0 0 / 24px 100% no-repeat scroll,
+    linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)) 100% 0 / 24px 100% no-repeat scroll;
+}
+/* 행 이름 칸 — 배경을 깔아야 밑으로 지나가는 숫자를 가린다 */
+.grid-scroll th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #fff;
+}
+html.dark .grid-scroll th:first-child { background: #0f172a; }
+
 /* ── 스크롤바 (webkit) ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
@@ -230,7 +327,34 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
   @apply text-base font-black text-slate-800 dark:text-slate-100 mb-3;
 }
 .tbl-th {
-  @apply text-left text-[11px] font-bold text-slate-400 dark:text-slate-500 px-3 py-2 whitespace-nowrap;
+  @apply text-left text-[11px] font-bold text-slate-500 dark:text-slate-400 px-3 py-2 whitespace-nowrap;
+}
+
+/* ── 제목 앞의 섹션색 막대 (2026-08-15) ──────────────────────────
+   낱장을 재 보면 색이 있는 자리는 맨 위 1px 바와 히어로 카드뿐이고, 그 아래
+   본문 팔 할이 통째로 무채색이었다. 스크롤하는 내내 색이 안 나오는 것이
+   "심심하다"의 정체다. h2가 234파일에 있으니 여기 한 줄이 그 234곳에 닿는다.
+
+   막대는 왼쪽 여백(padding-left)만큼 음수 마진으로 도로 당겨 **글자 x좌표를
+   그대로 둔다** — 밑에 오는 카드·표와 어긋나지 않는다. 10px는 page-main의
+   px-4(16px) 안쪽이라 360px 화면에서도 잘리지 않는다.
+   ::before는 absolute라 flex 컨테이너 안에서도 항목이 되지 않는다. */
+.sec-h2,
+.sec-h2-tight {
+  position: relative;
+  padding-left: 0.625rem;
+  margin-left: -0.625rem;
+}
+.sec-h2::before,
+.sec-h2-tight::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.22em;
+  bottom: 0.18em;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--c-sec);
 }
 .tbl-td {
   @apply px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 align-top;
@@ -253,12 +377,15 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .sec-h2-tight {
   @apply text-base font-black text-slate-800 dark:text-slate-100 mb-1;
 }
+/* 큰 글자를 font-black으로 쓰면 자간이 벌어져 뜬다 — 한 급 조이고 히어로 카드와
+   붙어 있던 아래 여백을 8px로 벌린다 */
 .page-h1 {
-  @apply text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2;
+  @apply text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100 mb-3;
 }
+/* 흰 카드가 흰 바탕에 놓여 테두리 1px만으로 떠 있었다 — 아주 옅은 그림자로 띄운다 */
 .list-card {
   @apply rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900
-         divide-y divide-slate-100 dark:divide-slate-800;
+         divide-y divide-slate-100 dark:divide-slate-800 shadow-sm dark:shadow-none;
 }
 .cell-note {
   @apply px-4 py-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed;
@@ -269,7 +396,7 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 }
 /* 바닥의 섹션 바로가기 줄 */
 .foot-nav {
-  @apply mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-400 dark:text-slate-500;
+  @apply mt-8 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs font-bold text-slate-500 dark:text-slate-400;
 }
 
 /* ── 허브 카드 (2026-08-07) ──
@@ -282,6 +409,16 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .hub-card {
   @apply flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700
          bg-white dark:bg-slate-900 px-4 py-3 hover:shadow-sm transition-all;
+}
+/* 허브는 같은 카드가 백 장 넘게 깔린다. 마우스를 올린 칸만 왼쪽에 섹션색 띠가
+   서고 살짝 떠올라, 지금 어디를 겨누고 있는지가 보인다.
+   hover:hover로 감싸 터치 화면에서 색이 눌어붙지 않게 한다. */
+@media (hover: hover) {
+  .hub-card:hover {
+    box-shadow: inset 3px 0 0 var(--c-sec);
+    border-color: color-mix(in oklab, var(--c-sec) 45%, transparent);
+    transform: translateY(-1px);
+  }
 }
 .hub-card-icon {
   @apply text-slate-800 dark:text-slate-100 w-5 h-5 shrink-0;
@@ -297,10 +434,10 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 }
 /* 갈래 머리 — 허브마다 대여섯 번 나온다 */
 .hub-cat-h2 {
-  @apply text-sm font-black text-slate-400 dark:text-slate-500 mb-3 pl-1;
+  @apply text-sm font-black text-slate-500 dark:text-slate-400 mb-3 pl-1;
 }
 .hub-cat-count {
-  @apply ml-2 font-bold text-slate-300 dark:text-slate-600;
+  @apply ml-2 font-bold text-slate-400 dark:text-slate-500;
 }
 
 /* ── 격자 셀 (2026-08-07) ──
@@ -335,12 +472,21 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .page-bar {
   @apply max-w-2xl mx-auto px-4 h-14 flex items-center gap-2;
 }
+/* 본문 — 낱장 여덟(Salary·Loan·Value·Severance·Exercise·Day·Birthday·BmiGrid)이
+   이 이름을 쓰는데 정의가 없어 여백도 최대폭도 안 걸려 있었다. 다른 페이지 200곳이
+   쓰는 "relative max-w-2xl mx-auto px-4 py-8"과 같은 값이다. */
+.page-main {
+  @apply relative max-w-2xl mx-auto px-4 py-8;
+}
 /* 머리글의 "뒤로" — 색만 섹션마다 갈리므로(열두 가지) 그 한 칸은 마크업에 남긴다 */
 .page-back {
-  @apply flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 transition-colors font-medium;
+  @apply flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 transition-colors font-medium;
 }
+/* slate-400은 흰 바탕에서 2.6:1이라 12px 글자에 쓰면 WCAG AA(4.5:1)에 못 미친다.
+   다크의 slate-500(3.8:1)도 마찬가지였다. 한 단계씩 올려 둘 다 4.7:1 위로 뺀다.
+   note-xs는 163곳, 대부분 「무엇을 어떻게 계산했는지」를 적는 자리다. */
 .note-xs {
-  @apply text-xs text-slate-400 dark:text-slate-500 leading-relaxed;
+  @apply text-xs text-slate-500 dark:text-slate-400 leading-relaxed;
 }
 .note-sm {
   @apply text-sm text-slate-500 dark:text-slate-400 leading-relaxed;
@@ -371,9 +517,17 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .faq-a-light {
   @apply text-slate-600 dark:text-slate-300;
 }
+/* hover:bg-slate-200에 다크 짝이 없어 다크에서 마우스를 올리면 칩만 밝은 회색으로
+   튀었다. 섹션색 엷은 판으로 바꾸면 두 테마가 같은 값을 쓴다. */
 .foot-chip {
   @apply rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium
-         text-slate-500 dark:text-slate-400 hover:bg-slate-200 transition-colors;
+         text-slate-500 dark:text-slate-400 transition-colors;
+}
+@media (hover: hover) {
+  .foot-chip:hover {
+    background: color-mix(in oklab, var(--c-sec) 14%, transparent);
+    color: var(--c-sec);
+  }
 }
 
 /* ── 4차 수확 (2026-08-13, Hobby 한도에 맞추며) ──────────────────
@@ -384,15 +538,17 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    아래 여섯이 낱장 두 장에서 23KB를 차지했다. 되풀이 횟수가 크다 —
    값 칸 66회, 단위 59회, 이웃 칩 62회(테두리 색만 다른 변종 둘). */
 
-/* 표의 값 칸 — 한 장에 예순 번 넘게 나온다 */
+/* 표의 값 칸 — 한 장에 예순 번 넘게 나온다.
+   이름 칸(row-label)과 무게 차이가 거의 없어 스무 줄짜리 표가 밋밋했다.
+   한 급 키우고(14→15px) 대비를 끝까지 올려 값이 먼저 읽히게 한다. */
 .val {
-  @apply text-sm font-bold tabular-nums text-slate-800 dark:text-slate-100;
+  @apply text-[15px] leading-5 font-bold tabular-nums text-slate-900 dark:text-white;
 }
-/* 값 뒤에 붙는 단위 — 값과 같은 수만큼 나온다 */
+/* 값 뒤에 붙는 단위 — 값과 같은 수만큼 나온다. 값에서 확실히 물러나야 값이 산다 */
 .val-unit {
-  @apply ml-1.5 text-xs font-normal text-slate-400 dark:text-slate-500;
+  @apply ml-1 text-[11px] font-normal text-slate-500 dark:text-slate-400;
 }
-/* 표의 이름 칸 */
+/* 표의 이름 칸 — 값이 세졌으니 여기는 그대로 둔다(더 흐리면 대비가 기준에 못 미친다) */
 .row-label {
   @apply text-xs text-slate-500 dark:text-slate-400 shrink-0;
 }
@@ -400,10 +556,39 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .row-pair {
   @apply flex items-baseline justify-between gap-3 px-4 py-2.5 bg-white dark:bg-slate-900;
 }
+/* 줄무늬 — 스무 줄이 전부 흰 바탕이라 눈이 가로로 미끄러져 이름과 값이 어긋났다.
+   짝수 줄에만 옅게 깐다. 회색 대신 섹션색을 아주 묽게 타서(라이트 5%·다크 14%)
+   본문에도 그 페이지의 색이 남게 한다. 값 글자는 slate-900 그대로다 —
+   표는 숫자를 읽는 자리라 대비를 깎을 이유가 없다.
+   transparent와 섞어 부모가 흰 카드든 컬러 카드든 그 위에 얹히게 한다. */
+.row-pair:nth-child(even) {
+  background: color-mix(in oklab, var(--c-sec) 5%, transparent);
+}
+html.dark .row-pair:nth-child(even) {
+  background: color-mix(in oklab, var(--c-sec) 14%, transparent);
+}
+/* 스무 줄짜리 표에서 지금 보는 줄을 잡아 준다 */
+@media (hover: hover) {
+  .row-pair:hover,
+  html.dark .row-pair:hover {
+    background: color-mix(in oklab, var(--c-sec) 11%, transparent);
+  }
+}
 /* 이웃 낱장으로 가는 칩 — 뼈대와 「지금 칸이 아닐 때」의 색을 따로 뺀다.
    지금 칸일 때의 색과 hover 테두리 색은 섹션마다 달라 마크업에 남긴다. */
 .chip {
-  @apply rounded-xl border px-3 py-2 transition-colors;
+  @apply rounded-xl border px-3 py-2 transition-all;
+}
+/* 이웃 칩은 한 낱장에 서른 개가 똑같이 생겨서 무엇을 누를지 단서가 없었다.
+   겨눈 칸만 섹션색으로 물들고 1px 떠오르면 손이 어디 있는지가 보인다.
+   섹션마다 다르게 적혀 있던 hover 색(sky-300·violet-300…)을 한 값으로 모은다. */
+@media (hover: hover) {
+  .chip:hover,
+  .chip-mono:hover {
+    border-color: color-mix(in oklab, var(--c-sec) 50%, transparent);
+    background: color-mix(in oklab, var(--c-sec) 7%, transparent);
+    transform: translateY(-1px);
+  }
 }
 .chip-off {
   @apply border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900;

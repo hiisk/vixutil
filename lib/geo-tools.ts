@@ -17,6 +17,7 @@ import { PRACTICAL_TOOLS } from './geo/practical.ts';
 import { PRACTICAL2_TOOLS } from './geo/practical2.ts';
 import { EXTRA_TOOLS } from './geo/extra.ts';
 import { MATERIAL_TOOLS } from './geo/material.ts';
+import { OUTDOOR_TOOLS } from './geo/outdoor.ts';
 
 export const GEO_TOOLS: FormulaTool[] = [
   ...PLANE_TOOLS, ...PLANE2_TOOLS,
@@ -26,6 +27,7 @@ export const GEO_TOOLS: FormulaTool[] = [
   ...PRACTICAL_TOOLS, ...PRACTICAL2_TOOLS,
   ...EXTRA_TOOLS,
   ...MATERIAL_TOOLS,
+  ...OUTDOOR_TOOLS,
 ];
 
 export const GEO_CATEGORIES = ['평면 도형', '입체 부피', '삼각비·각', '원·호', '생활 계산'] as const;

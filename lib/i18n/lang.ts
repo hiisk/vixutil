@@ -136,9 +136,6 @@ export const CJK_LOCALES: AnyLocale10[] = ['ko', 'ja', 'zh-hans', 'zh-hant'];
 /** 갈래 → 그 갈래를 내는 언어. 여기 없는 갈래는 열 언어 전부다 */
 export const SECTION_LOCALES: Record<string, AnyLocale10[]> = {
   hanja: CJK_LOCALES,
-  gengo: CJK_LOCALES,
-  tatami: CJK_LOCALES,
-  heredity: CJK_LOCALES,
 };
 
 /** 줄인 갈래 이름들 — 사이트맵과 검사가 돈다 */
@@ -150,7 +147,7 @@ export const localesOfSection = (section: string): AnyLocale10[] =>
 export const sectionHasLocale = (section: string, locale: AnyLocale10): boolean =>
   localesOfSection(section).includes(locale);
 
-/** `/gengo/reiwa`에서 갈래를 뗀다 — 언어 앞머리가 붙기 전의 경로다 */
+/** `/hanja/aaa`에서 갈래를 뗀다 — 언어 앞머리가 붙기 전의 경로다 */
 export const localesOfPath = (path: string): AnyLocale10[] =>
   localesOfSection(path.replace(/^\//, '').split('/')[0]);
 

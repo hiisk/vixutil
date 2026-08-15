@@ -17,7 +17,6 @@ import { CONVERT_TOOLS } from './convert-tools.ts';
 import { RATE_TOOLS } from './rate-tools.ts';
 import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
-import { CRAFT_TOOLS } from './craft-tools.ts';
 import { COUNTRIES } from './country-tools.ts';
 import { IDIOMS } from './hanja-tools.ts';
 import { METRO_LINES } from './metro-lines.ts';
@@ -31,149 +30,48 @@ import { LENSES, LENS_ICON } from './lens/list.ts';
 import { ALGS, CUBE_ICON } from './cube/list.ts';
 import { ROLLS, DICE_ICON } from './dice/list.ts';
 import { PATTERNS, REGEX_ICON } from './regex/list.ts';
-import { ELEMENTS, ELEMENT_ICON } from './element/list.ts';
 import { NUMBERS, NUMBER_ICON } from './number/list.ts';
 import { CODES, ASCII_ICON } from './ascii/list.ts';
 import { PORTS, PORT_ICON } from './port/list.ts';
 import { MODES, CHMOD_ICON } from './chmod/list.ts';
-import { VALUES as RESISTOR_VALUES, RESISTOR_ICON } from './resistor/list.ts';
 import { FRACTIONS, FRACTION_ICON, slugOf as fractionSlug } from './fraction/list.ts';
 import { KEYS, KEYCODE_ICON, slugOf as keySlug } from './keycode/list.ts';
 import { PREFIXES, CIDR_ICON, slugOf as cidrSlug } from './cidr/list.ts';
 import { CHARS as CODE_CHARS, CODE_ICON, charSlug } from './code/list.ts';
-import { SCORES as DARTS_SCORES, DARTS_ICON } from './darts/list.ts';
 import { PRODUCTS, TIMES_ICON, slugOf as timesSlug } from './times/list.ts';
 import { NUMBERS as SQRT_NUMBERS, SQRT_ICON } from './sqrt/list.ts';
 import { ROMAN_ICON, YEARS as ROMAN_YEARS } from './roman/list.ts';
-import { TIRES, TIRE_ICON, labelOf as tireLabel, slugOf as tireSlug } from './tire/list.ts';
-import { SCREWS, SCREW_ICON, labelOf as screwLabel, slugOf as screwSlug } from './screw/list.ts';
 import { YEARS as CAL_YEARS, YEAR_ICON } from './year/list.ts';
-import { PACES, PACE_ICON, labelOf as paceLabel, slugOf as paceSlug } from './pace/list.ts';
 import { PIXELS, PX_ICON } from './rem/list.ts';
-import { SPEEDS, STOP_ICON } from './stop/list.ts';
-import { ALTITUDES, ALTITUDE_ICON } from './altitude/list.ts';
-import { CHANNELS, WIFI_ICON, labelOf as wifiLabel, slugOf as wifiSlug } from './wifi/list.ts';
-import { FRET_ICON, SPOTS, slugOf as fretSlug } from './fret/list.ts';
-import { GRAVITY_ICON, WEIGHTS } from './gravity/list.ts';
-import { WINDCHILL_ICON } from './windchill/list.ts';
-import { DEW_ICON } from './dew/list.ts';
-import { BITS, DRILL_ICON, slugOf as drillSlug } from './drill/list.ts';
-import { BANDWIDTH_ICON } from './bandwidth/list.ts';
-import { BATTERY_ICON } from './battery/list.ts';
-import { CELLS as WIRE_CELLS, WIRE_ICON, sizeLabel as wireLabel, slugOf as wireSlug } from './wire/list.ts';
-import { CELLS as PAPER_CELLS, PAPER_ICON, slugOf as paperSlug } from './paper/list.ts';
-import { CELLS as TORQUE_CELLS, TORQUE_ICON, gradeOf as torqueGrade, sizeLabel as torqueSize, slugOf as torqueSlug } from './torque/list.ts';
-import { LUMEN_ICON } from './lumen/list.ts';
-import { AMPERE_ICON } from './ampere/list.ts';
-import { CELLS as DOF_CELLS, DOF_ICON, slugOf as dofSlug } from './dof/list.ts';
-import { BPM_ICON } from './bpm/list.ts';
-import { CELLS as GEAR_CELLS, GEAR_ICON, slugOf as gearSlug } from './gear/list.ts';
-import { CELLS as RING_CELLS, RING_ICON, slugOf as ringSlug } from './ring/list.ts';
-import { CELLS as REBAR_CELLS, REBAR_ICON, slugOf as rebarSlug } from './rebar/list.ts';
-import { CELLS as MOTOR_CELLS, MOTOR_ICON, slugOf as motorSlug } from './motor/list.ts';
-import { CELLS as STEEL_CELLS, STEEL_ICON, slugOf as steelSlug } from './steel/list.ts';
-import { CELLS as HARDNESS_CELLS, HARDNESS_ICON, slugOf as hardnessSlug } from './hardness/list.ts';
-import { SUN_ICON } from './sun/list.ts';
 import { CELLS as DPI_CELLS, DPI_ICON } from './dpi/list.ts';
 import { CELLS as LAUNDRY_CELLS, LAUNDRY_ICON } from './laundry/list.ts';
-import { CELLS as FERTILIZER_CELLS, FERTILIZER_ICON, slugOf as fertilizerSlug } from './fertilizer/list.ts';
-import { ringFacts } from './ring/facts.ts';
-import { rebarFacts } from './rebar/facts.ts';
-import { motorFacts } from './motor/facts.ts';
-import { steelFacts } from './steel/facts.ts';
-import { hardnessFacts, valueOf as hardnessValue } from './hardness/facts.ts';
 import { dpiFacts } from './dpi/facts.ts';
 import { laundryFacts } from './laundry/facts.ts';
 import { LAUNDRY_UI } from './laundry/ui.ts';
-import { fertilizerFacts } from './fertilizer/facts.ts';
-import { SYMBOL as FERT_SYMBOL, labelOf as fertilizerLabel, mass as fertilizerMass } from './fertilizer/ui.ts';
-import { CELLS as FILAMENT_CELLS, FILAMENT_ICON, slugOf as filamentSlug } from './filament/list.ts';
-import { CELLS as UV_CELLS, UV_ICON, skinOf, slugOf as uvSlug } from './uv/list.ts';
-import { CELLS as HIKE_CELLS, HIKE_ICON, slugOf as hikeSlug } from './hike/list.ts';
-import { CELLS as INSUL_CELLS, INSUL_ICON, slugOf as insulSlug } from './insul/list.ts';
 import { AIR_ICON, CELLS as AIR_CELLS, pollutantOf, slugOf as airSlug } from './air/list.ts';
-import { CELLS as SIZE_CELLS, SIZE_ICON, slugOf as sizeSlug } from './size/list.ts';
-import { BRA_ICON, CELLS as BRA_CELLS, slugOf as braSlug } from './bra/list.ts';
-import { CELLS as PET_CELLS, PETFOOD_ICON, slugOf as petSlug } from './petfood/list.ts';
 import { CELLS as PW_CELLS, PASSWORD_ICON, slugOf as pwSlug } from './password/list.ts';
-import { CELLS as VIEW_CELLS, VIEWING_ICON, slugOf as viewSlug } from './viewing/list.ts';
-import { BIGNUM_ICON, CELLS as BIG_CELLS, slugOf as bigSlug } from './bignum/list.ts';
-import { CELLS as GENGO_CELLS, GENGO_ICON, slugOf as gengoSlug } from './gengo/list.ts';
-import { CABLE_ICON, CELLS as CABLE_CELLS, slugOf as cableSlug } from './cable/list.ts';
-import { CELLS as TATAMI_CELLS, TATAMI_ICON, slugOf as tatamiSlug } from './tatami/list.ts';
-import { CELLS as LUMBER_CELLS, LUMBER_ICON, slugOf as lumberSlug } from './lumber/list.ts';
-import { CELLS as PB_CELLS, POWERBANK_ICON, slugOf as pbSlug } from './powerbank/list.ts';
-import { CELLS as GOLF_CELLS, GOLF_ICON, slugOf as golfSlug } from './golf/list.ts';
-import { CELLS as MW_CELLS, MICROWAVE_ICON, slugOf as mwSlug } from './microwave/list.ts';
-import { MAGNITUDES, QUAKE_ICON, slugOf as quakeSlug } from './quake/list.ts';
-import { BED_ICON, CELLS as BED_CELLS, slugOf as bedSlug } from './bed/list.ts';
-import { CELLS as WINE_CELLS, WINE_ICON, slugOf as wineSlug } from './wine/list.ts';
-import { BLOOD_ICON } from './blood/list.ts';
-import { EXPOSURE_ICON } from './exposure/list.ts';
-import { HEREDITY_ICON } from './heredity/list.ts';
-import { RAID_ICON } from './raid/list.ts';
 import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list.ts';
-import { PURIFIER_ICON } from './purifier/list.ts';
-import { DRINK_ICON } from './drink/list.ts';
 import { OPENINGS, CHESS_ICON } from './chess/list.ts';
 import { HANDS, POKER_ICON, labelOf } from './poker/list.ts';
 import { handFacts } from './poker/facts.ts';
 import { fullName } from './chess/names.ts';
-import { elementFacts } from './element/facts.ts';
 import { factorText, numberFacts } from './number/facts.ts';
 import { asciiFacts } from './ascii/facts.ts';
 import { portFacts } from './port/facts.ts';
 import { chmodFacts } from './chmod/facts.ts';
-import { resistorFacts } from './resistor/facts.ts';
 import { fractionFacts } from './fraction/facts.ts';
 import { keyFacts } from './keycode/facts.ts';
 import { cidrFacts } from './cidr/facts.ts';
 import { charFacts } from './code/facts.ts';
-import { dartsFacts } from './darts/facts.ts';
 import { timesFacts } from './times/facts.ts';
 import { sqrtFacts } from './sqrt/facts.ts';
 import { romanFacts } from './roman/facts.ts';
-import { tireFacts } from './tire/facts.ts';
-import { screwFacts } from './screw/facts.ts';
 import { yearFacts } from './year/facts.ts';
-import { paceFacts } from './pace/facts.ts';
 import { pxFacts } from './rem/facts.ts';
-import { stopFacts } from './stop/facts.ts';
-import { altitudeFacts } from './altitude/facts.ts';
-import { wifiFacts } from './wifi/facts.ts';
-import { fretFacts, nameOf as fretNote } from './fret/facts.ts';
-import { gravityFacts } from './gravity/facts.ts';
-import { drillFacts } from './drill/facts.ts';
-import { wireFacts } from './wire/facts.ts';
-import { paperFacts } from './paper/facts.ts';
-import { torqueFacts } from './torque/facts.ts';
-import { dofFacts } from './dof/facts.ts';
-import { gearFacts } from './gear/facts.ts';
-import { filamentFacts } from './filament/facts.ts';
-import { kgOf as filamentKg, materialName as filamentName } from './filament/ui.ts';
-import { uvFacts } from './uv/facts.ts';
-import { hikeFacts } from './hike/facts.ts';
-import { insulFacts } from './insul/facts.ts';
 import { airFacts } from './air/facts.ts';
-import { sizeFacts as clothingFacts } from './size/facts.ts';
-import { braFacts } from './bra/facts.ts';
-import { petFacts } from './petfood/facts.ts';
 import { passwordFacts } from './password/facts.ts';
-import { viewingFacts } from './viewing/facts.ts';
-import { bigNumFacts } from './bignum/facts.ts';
-import { gengoFacts } from './gengo/facts.ts';
-import { cableFacts } from './cable/facts.ts';
-import { tatamiFacts } from './tatami/facts.ts';
-import { lumberFacts } from './lumber/facts.ts';
-import { powerFacts } from './powerbank/facts.ts';
-import { golfFacts } from './golf/facts.ts';
-import { microwaveFacts } from './microwave/facts.ts';
-import { quakeFacts } from './quake/facts.ts';
-import { bedFacts } from './bed/facts.ts';
-import { wineFacts } from './wine/facts.ts';
 import { flightFacts, hoursOf } from './flight/facts.ts';
 import { YEAR_UI } from './year/ui.ts';
-import { nameOf } from './element/names.ts';
 import { whatOf } from './regex/desc.ts';
 import { rollFacts } from './dice/facts.ts';
 import { caseFacts } from './cube/facts.ts';
@@ -215,7 +113,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'element' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'resistor' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'darts' | 'times' | 'sqrt' | 'roman' | 'tire' | 'screw' | 'year' | 'pace' | 'rem' | 'stop' | 'altitude' | 'wifi' | 'fret' | 'gravity' | 'windchill' | 'dew' | 'dof' | 'gear' | 'filament' | 'ring' | 'rebar' | 'fertilizer' | 'motor' | 'steel' | 'hardness' | 'sun' | 'laundry' | 'bpm' | 'drill' | 'bandwidth' | 'battery' | 'wire' | 'paper' | 'torque' | 'lumen' | 'ampere' | 'uv' | 'hike' | 'insul' | 'air' | 'size' | 'bra' | 'petfood' | 'password' | 'percent' | 'viewing' | 'bignum' | 'gengo' | 'cable' | 'tatami' | 'lumber' | 'powerbank' | 'golf' | 'microwave' | 'quake' | 'bed' | 'wine' | 'blood' | 'exposure' | 'heredity' | 'raid' | 'flight' | 'purifier' | 'drink' | 'dpi';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'laundry' | 'air' | 'password' | 'percent' | 'flight' | 'dpi';
 
 export interface SearchItem {
   href: string;
@@ -246,7 +144,6 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   rate:       { label: '비율 계산', icon: '📐', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   body:       { label: '몸 수치', icon: '🩺', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   geometry:   { label: '도형·수학', icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  craft:      { label: '공예', icon: '🧶', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   country:    { label: '나라 정보', icon: '🧭', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   hanja:      { label: '사자성어', icon: '📖', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
@@ -259,83 +156,27 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   shortcut:   { label: '키보드 단축키', icon: '⌨️', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   emoji:      { label: '이모지 뜻', icon: '😀', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   error:      { label: '오류 문구', icon: '⚠️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
-  element:    { label: '원소',      icon: '⚛️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   chess:      { label: '체스',      icon: '♟️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   poker:      { label: '포커',      icon: '🃏', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   number:     { label: '수',        icon: '🔢', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   ascii:      { label: '아스키',    icon: '⌨️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   port:       { label: '포트',      icon: '🔌', accent: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
   chmod:      { label: '파일 권한',  icon: '🔒', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
-  resistor:   { label: '저항',      icon: '⚡', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   fraction:   { label: '분수',      icon: '➗', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
   keycode:    { label: '키 코드',    icon: '🔑', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   cidr:       { label: '서브넷',    icon: '🌐', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
   code:       { label: '부호',      icon: '📶', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  darts:      { label: '다트',      icon: '🎯', accent: 'bg-red-50 text-red-700 border-red-200' },
   times:      { label: '곱셈표',    icon: '🔢', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   percent:    { label: '퍼센트',    icon: PERCENT_ICON, accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   sqrt:       { label: '제곱근',    icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   roman:      { label: '로마 숫자',  icon: '🏛️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  tire:       { label: '타이어',    icon: '🛞', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
-  screw:      { label: '나사',      icon: '🔩', accent: 'bg-zinc-50 text-zinc-700 border-zinc-200' },
   year:       { label: '연도',      icon: '📅', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
-  pace:       { label: '러닝 페이스', icon: '🏃', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   rem:        { label: 'CSS 단위',  icon: '📏', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  stop:       { label: '정지거리',  icon: '🚗', accent: 'bg-red-50 text-red-700 border-red-200' },
-  altitude:   { label: '고도',      icon: '⛰️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-  wifi:       { label: '와이파이',  icon: '📶', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
-  fret:       { label: '기타 지판',  icon: '🎸', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  gravity:    { label: '천체 몸무게', icon: '🌍', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  windchill:  { label: '체감온도',  icon: '❄️', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  dew:        { label: '이슬점',    icon: '💧', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-  drill:      { label: '드릴 비트',  icon: '🔩', accent: 'bg-neutral-50 text-neutral-700 border-neutral-200' },
-  bandwidth:  { label: '다운로드',   icon: '🔽', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  battery:    { label: '배터리 충전', icon: '🔋', accent: 'bg-green-50 text-green-700 border-green-200' },
-  wire:       { label: '전선 굵기',  icon: '🔌', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  paper:      { label: '종이 규격',  icon: '📄', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
-  torque:     { label: '조임 토크',  icon: '🔧', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
-  lumen:      { label: '방 밝기',    icon: '💡', accent: 'bg-yellow-50 text-yellow-700 border-yellow-200' },
-  ampere:     { label: '가전 전류',  icon: '⚡', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  dof:        { label: '심도',       icon: '📷', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  bpm:        { label: '딜레이 타임', icon: '🎚️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
-  gear:       { label: '자전거 기어', icon: '🚲', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  fertilizer: { label: '비료 시비량', icon: '🌱', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
   laundry:    { label: '세탁 기호',  icon: '🧺', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  sun:        { label: '태양 고도',  icon: '🌅', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   dpi:        { label: '마우스 감도', icon: '🖱️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  hardness:   { label: '물 경도',    icon: '🚰', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  steel:      { label: '강재 무게',   icon: '🔲', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  motor:      { label: '모터 토크',   icon: '🔃', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  rebar:      { label: '철근 물량',   icon: '🏗️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  ring:       { label: '반지 사이즈', icon: '💍', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
-  filament:   { label: '필라멘트 길이', icon: '🧵', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  uv:         { label: '자외선',     icon: '☀️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
-  hike:       { label: '등산 시간',  icon: '⛰️', accent: 'bg-green-50 text-green-700 border-green-200' },
-  insul:      { label: '단열재',     icon: '🧱', accent: 'bg-stone-50 text-stone-700 border-stone-200' },
   air:        { label: '대기질',     icon: '🌫️', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
-  size:       { label: '옷 사이즈',  icon: '👕', accent: 'bg-purple-50 text-purple-700 border-purple-200' },
-  bra:        { label: '브래지어',   icon: '👙', accent: 'bg-pink-50 text-pink-700 border-pink-200' },
-  petfood:    { label: '사료량',     icon: '🐕', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
   password:   { label: '비밀번호',   icon: '🔑', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
-  viewing:    { label: '시청거리',   icon: '📺', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
-  bignum:     { label: '큰 수',      icon: '🔢', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-  gengo:      { label: '일본 연호',  icon: '🎌', accent: 'bg-red-50 text-red-700 border-red-200' },
-  cable:      { label: '케이블',     icon: '🔌', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  tatami:     { label: '다다미',     icon: '🏯', accent: 'bg-green-50 text-green-700 border-green-200' },
-  lumber:     { label: '목재',       icon: '🪵', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  powerbank:  { label: '보조배터리', icon: '🔋', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
-  golf:       { label: '골프 핸디캡', icon: '⛳', accent: 'bg-lime-50 text-lime-700 border-lime-200' },
-  microwave:  { label: '전자레인지', icon: '🍽️', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
-  quake:      { label: '지진 규모',  icon: '🌋', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
-  bed:        { label: '침대 규격',  icon: '🛏️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  wine:       { label: '와인 병',    icon: '🍷', accent: 'bg-pink-50 text-pink-700 border-pink-200' },
-  blood:      { label: '수혈 적합',  icon: '🩸', accent: 'bg-red-50 text-red-700 border-red-200' },
-  exposure:   { label: '노출값',    icon: '📷', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  heredity:   { label: '혈액형 유전', icon: '🧬', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  raid:       { label: 'RAID 용량',  icon: '💽', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   flight:     { label: '도시 거리',  icon: '✈️', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
-  purifier:   { label: '공기청정기', icon: '🌬️', accent: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-  drink:      { label: '순수 알코올', icon: '🍺', accent: 'bg-amber-50 text-amber-800 border-amber-200' },
 };
 
 /**
@@ -423,7 +264,6 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...RATE_TOOLS.map(t => ({ href: `/rate/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'rate' as const, icon: t.icon })),
   ...BODY_TOOLS.map(t => ({ href: `/body/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'body' as const, icon: t.icon })),
   ...GEO_TOOLS.map(t => ({ href: `/geometry/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'geometry' as const, icon: t.icon })),
-  ...CRAFT_TOOLS.map(t => ({ href: `/craft/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'craft' as const, icon: t.icon })),
   ...COUNTRIES.map(c => ({ href: `/country/${c.slug}`, title: `${c.ko.name} 여행 정보`, desc: c.ko.intro.slice(0, 60), section: 'country' as const, icon: c.icon })),
   ...IDIOMS.map(i => ({ href: `/hanja/${i.slug}`, title: `${i.reading} ${i.hanja}`, desc: i.ko.meaning.slice(0, 60), section: 'hanja' as const, icon: i.icon })),
   ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${lineTitle(l, 'ko')} 역 이름 맞추기`, desc: l.text.ko.intro.slice(0, 60), section: 'metro' as const, icon: lineIcon(l) })),
@@ -455,16 +295,6 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'chess' as const,
     icon: CHESS_ICON,
   })),
-  ...ELEMENTS.map(x => {
-    const f = elementFacts(x);
-    return {
-      href: `/element/${x.z}`,
-      title: `${nameOf(x.z, 'ko')} ${x.symbol}`,
-      desc: `원자번호 ${x.z} · 원자량 ${x.mass} · ${f.period}주기`,
-      section: 'element' as const,
-      icon: ELEMENT_ICON,
-    };
-  }),
   ...NUMBERS.map(n => {
     const f = numberFacts(n);
     return {
@@ -503,16 +333,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${f.symbolic} · ls -l ${f.lsFile}`,
       section: 'chmod' as const,
       icon: CHMOD_ICON,
-    };
-  }),
-  ...RESISTOR_VALUES.map(ohms => {
-    const f = resistorFacts(ohms);
-    return {
-      href: `/resistor/${ohms}`,
-      title: `${f.display} 저항 색띠`,
-      desc: `${f.code} · ${f.bands4.slice(0, 3).join(' · ')}`,
-      section: 'resistor' as const,
-      icon: RESISTOR_ICON,
     };
   }),
   ...FRACTIONS.map(f => {
@@ -555,16 +375,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: CODE_ICON,
     };
   }),
-  ...DARTS_SCORES.map(score => {
-    const f = dartsFacts(score);
-    return {
-      href: `/darts/${score}`,
-      title: `${score}점 다트 마무리`,
-      desc: f.bogey ? '세 다트로는 끝낼 수 없는 보기 수' : `${f.darts}다트 · ${f.route.map(t => t.label).join(' ')}`,
-      section: 'darts' as const,
-      icon: DARTS_ICON,
-    };
-  }),
   ...PRODUCTS.map(p => {
     const f = timesFacts(p);
     return {
@@ -595,26 +405,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: ROMAN_ICON,
     };
   }),
-  ...TIRES.map(t => {
-    const f = tireFacts(t);
-    return {
-      href: `/tire/${tireSlug(t)}`,
-      title: `${tireLabel(t)} 타이어 규격`,
-      desc: `외경 ${f.diameter}mm · 사이드월 ${f.sidewall}mm · 1km ${f.revsPerKm}바퀴`,
-      section: 'tire' as const,
-      icon: TIRE_ICON,
-    };
-  }),
-  ...SCREWS.map(w => {
-    const f = screwFacts(w);
-    return {
-      href: `/screw/${screwSlug(w)}`,
-      title: `${screwLabel(w)} 나사 규격`,
-      desc: `탭 드릴 ${f.tapDrill}mm · 골지름 ${f.minorMale}mm · ${w.coarse ? '보통' : '가는'} 나사`,
-      section: 'screw' as const,
-      icon: SCREW_ICON,
-    };
-  }),
   ...CAL_YEARS.map(y => {
     const f = yearFacts(y);
     const ui = YEAR_UI.ko;
@@ -626,16 +416,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: YEAR_ICON,
     };
   }),
-  ...PACES.map(p => {
-    const f = paceFacts(p);
-    return {
-      href: `/pace/${paceSlug(p)}`,
-      title: `${paceLabel(p)} 페이스 러닝`,
-      desc: `풀코스 ${f.finishes[3].text} · 하프 ${f.finishes[2].text} · 시속 ${f.kmh}km`,
-      section: 'pace' as const,
-      icon: PACE_ICON,
-    };
-  }),
   ...PIXELS.map(px => {
     const f = pxFacts(px);
     return {
@@ -644,129 +424,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${f.rem}rem · ${f.pt}pt · ${f.mm}mm`,
       section: 'rem' as const,
       icon: PX_ICON,
-    };
-  }),
-  ...SPEEDS.map(v => {
-    const f = stopFacts(v);
-    return {
-      href: `/stop/${v}`,
-      title: `시속 ${v}km 정지거리`,
-      desc: `마른 노면 ${f.dryTotal}m · 젖은 노면 ${f.surfaces[1].total}m · 공주거리 ${f.reaction}m`,
-      section: 'stop' as const,
-      icon: STOP_ICON,
-    };
-  }),
-  ...ALTITUDES.map(m => {
-    const f = altitudeFacts(m);
-    return {
-      href: `/altitude/${m}`,
-      title: `해발 ${m}m 기압과 끓는점`,
-      desc: `${f.hpa}hPa · 물은 ${f.boilC}도에 끓음 · 산소 ${f.o2Percent}%`,
-      section: 'altitude' as const,
-      icon: ALTITUDE_ICON,
-    };
-  }),
-  ...CHANNELS.map(c => {
-    const f = wifiFacts(c);
-    return {
-      href: `/wifi/${wifiSlug(c)}`,
-      title: `${wifiLabel(c)}번 채널`,
-      desc: `${f.center}MHz · ${f.span.from}~${f.span.to}MHz · 겹침 ${f.overlaps.length}개`,
-      section: 'wifi' as const,
-      icon: WIFI_ICON,
-    };
-  }),
-  ...SPOTS.map(p => {
-    const f = fretFacts(p);
-    const note = fretNote(p, 'ko');
-    return {
-      href: `/fret/${fretSlug(p)}`,
-      title: `기타 ${p.string}번 줄 ${p.fret === 0 ? '개방현' : `${p.fret}프렛`} — ${note}${f.octave}`,
-      desc: `${f.hz}Hz · 같은 음 ${f.sameNote.length}자리 · 너트에서 ${f.distances[0].mm}mm`,
-      section: 'fret' as const,
-      icon: FRET_ICON,
-    };
-  }),
-  ...WEIGHTS.map(w => {
-    const f = gravityFacts(w);
-    return {
-      href: `/gravity/${w}`,
-      title: `${w}kg — 달과 화성에서 몇 kg`,
-      desc: `달 ${f.bodies[4].kg}kg · 화성 ${f.bodies[5].kg}kg · 목성 ${f.bodies[6].kg}kg`,
-      section: 'gravity' as const,
-      icon: GRAVITY_ICON,
-    };
-  }),
-  ...BITS.map(b => {
-    const f = drillFacts(b);
-    return {
-      href: `/drill/${drillSlug(b)}`,
-      title: `${b.name} 드릴 — ${b.mm}mm`,
-      desc: `${f.inch}인치 · 가까운 것 ${f.near.map(n => n.name).join(', ')}${f.taps.length ? ` · ${f.taps[0].label} 탭 드릴` : ''}`,
-      section: 'drill' as const,
-      icon: DRILL_ICON,
-    };
-  }),
-  ...WIRE_CELLS.map(c => {
-    const f = wireFacts(c);
-    return {
-      href: `/wire/${wireSlug(c)}`,
-      title: `${wireLabel(c.size)}로 ${c.amp}A — 230V에서 ${f.reach[3].metres}m`,
-      desc: `${f.area}mm² · 1m에 ${f.ohmPerM}Ω · 10m 왕복 ${f.dropPer10m}V`,
-      section: 'wire' as const,
-      icon: WIRE_ICON,
-    };
-  }),
-  ...PAPER_CELLS.map(c => {
-    const f = paperFacts(c);
-    return {
-      href: `/paper/${paperSlug(c)}`,
-      title: `${c.size.key.toUpperCase()} ${c.dpi}dpi — ${f.pixels.w}×${f.pixels.h}픽셀`,
-      desc: `${f.sheet.short}×${f.sheet.long}mm · 80g 종이 한 장 ${f.weights[1].grams}g`,
-      section: 'paper' as const,
-      icon: PAPER_ICON,
-    };
-  }),
-  ...TORQUE_CELLS.map(c => {
-    const f = torqueFacts(c);
-    return {
-      href: `/torque/${torqueSlug(c)}`,
-      title: `${torqueSize(c.d)} ${torqueGrade(c.grade)?.label} 조임 토크 — ${f.turns[1].nm}N·m`,
-      desc: `기름을 바르면 ${f.turns[2].nm}N·m · 목표 축력 ${f.preload}N · ${f.kgfm}kgf·m`,
-      section: 'torque' as const,
-      icon: TORQUE_ICON,
-    };
-  }),
-  ...DOF_CELLS.map(c => {
-    const f = dofFacts(c);
-    const two = f.spans.find(x => x.subject === 2);
-    return {
-      href: `/dof/${dofSlug(c)}`,
-      title: `${c.focal}mm f/${c.aperture} 심도 — 과초점거리 ${f.hyperfocal}m`,
-      desc: `${f.hyperfocalNear}m부터 무한대까지 · 2m 피사체 앞뒤 ${two?.depth === null ? '무한대' : `${two?.depth}m`}`,
-      section: 'dof' as const,
-      icon: DOF_ICON,
-    };
-  }),
-  ...GEAR_CELLS.map(c => {
-    const f = gearFacts(c);
-    const at90 = f.speeds.find(s => s.cadence === 90)?.speed ?? 0;
-    return {
-      href: `/gear/${gearSlug(c)}`,
-      title: `${c.front}T × ${c.rear}T 기어비 ${f.ratio} — 한 바퀴 ${f.development}m`,
-      desc: `기어인치 ${f.gearInches} · 90rpm이면 시속 ${at90}km`,
-      section: 'gear' as const,
-      icon: GEAR_ICON,
-    };
-  }),
-  ...FERTILIZER_CELLS.map(c => {
-    const f = fertilizerFacts(c);
-    return {
-      href: `/fertilizer/${fertilizerSlug(c)}`,
-      title: `${fertilizerLabel(f, 'ko')} ${c.area}m² — ${FERT_SYMBOL[f.basis]} ${f.main.target}g/m²에 ${fertilizerMass('ko', f.main.grams)}`,
-      desc: `함량 ${FERT_SYMBOL[f.basis]} ${f.content}% · m²당 ${f.main.perM2}g · 필요 성분량 ${fertilizerMass('ko', f.main.need)}`,
-      section: 'fertilizer' as const,
-      icon: FERTILIZER_ICON,
     };
   }),
   ...LAUNDRY_CELLS.map(c => {
@@ -797,100 +454,6 @@ export const SEARCH_INDEX: SearchItem[] = [
           icon: DPI_ICON,
         };
   }),
-  ...HARDNESS_CELLS.map(ppm => {
-    const f = hardnessFacts(ppm);
-    return {
-      href: `/hardness/${hardnessSlug(ppm)}`,
-      title: `${ppm}ppm 물 경도 — 독일 ${hardnessValue(f, 'dh')}°dH, 미국 ${hardnessValue(f, 'gpg')}gpg`,
-      desc: `프랑스 ${hardnessValue(f, 'fh')}°fH · 영국 ${hardnessValue(f, 'e')}°e · ${hardnessValue(f, 'mmol')}mmol/L`,
-      section: 'hardness' as const,
-      icon: HARDNESS_ICON,
-    };
-  }),
-  ...STEEL_CELLS.map(c => {
-    const f = steelFacts(c);
-    return {
-      href: `/steel/${steelSlug(c)}`,
-      title: `${f.size} 강재 무게 — 단위중량 ${f.unit}kg/m`,
-      desc: `단면적 ${f.area}mm² · 한 개 ${f.perPiece}kg · 1톤에 ${f.piecesPerTon}개`,
-      section: 'steel' as const,
-      icon: STEEL_ICON,
-    };
-  }),
-  ...MOTOR_CELLS.map(c => {
-    const f = motorFacts(c);
-    return {
-      href: `/motor/${motorSlug(c)}`,
-      title: `${c.kw}kW ${c.rpm}rpm 모터 토크 — ${f.torque}N·m`,
-      desc: `${f.kgfm}kgf·m · ${f.ps}PS / ${f.hp}HP · 전부하 ${f.fullRpm}rpm`,
-      section: 'motor' as const,
-      icon: MOTOR_ICON,
-    };
-  }),
-  ...REBAR_CELLS.map(c => {
-    const f = rebarFacts(c);
-    return {
-      href: `/rebar/${rebarSlug(c)}`,
-      title: `D${c.d} ${c.length}m 철근 무게 — 한 가닥 ${f.perBar}kg`,
-      desc: `단위중량 ${f.unit}kg/m · 100가닥 ${f.perHundred}kg · 1톤에 ${f.barsPerTon}가닥`,
-      section: 'rebar' as const,
-      icon: REBAR_ICON,
-    };
-  }),
-  ...RING_CELLS.map(mm => {
-    const f = ringFacts(mm);
-    return {
-      href: `/ring/${ringSlug(mm)}`,
-      title: `반지 내주 ${mm}mm — 미국 ${f.usHalf}, 일본 ${f.jpWhole}호`,
-      desc: `내경 지름 ${f.diameter}mm · EU(ISO 8653) ${f.iso} · 미국 ${f.usHalf}의 내주는 ${f.usHalfMm}mm`,
-      section: 'ring' as const,
-      icon: RING_ICON,
-    };
-  }),
-  ...FILAMENT_CELLS.map(c => {
-    const f = filamentFacts(c);
-    const [d175, d285] = f.diameters;
-    return {
-      href: `/filament/${filamentSlug(c)}`,
-      title: `${filamentName(c.material)} ${filamentKg(c.grams)} 필라멘트 — 1.75mm로 ${d175.metres}m`,
-      desc: `1m가 ${d175.gramsPerMetre}g · 10g에 ${d175.metresPer10g}m · 2.85mm는 ${d285.metres}m`,
-      section: 'filament' as const,
-      icon: FILAMENT_ICON,
-    };
-  }),
-  ...UV_CELLS.map(c => {
-    const f = uvFacts(c);
-    return {
-      href: `/uv/${uvSlug(c)}`,
-      title: `자외선 지수 ${c.uv}·${skinOf(c.skin)?.roman}형 피부 — ${f.minutes}분`,
-      desc: `SPF 30이면 ${f.shields[1].minutes}분 · 두 시간을 버티려면 SPF ${f.needSpf}`,
-      section: 'uv' as const,
-      icon: UV_ICON,
-    };
-  }),
-  ...HIKE_CELLS.map(c => {
-    const f = hikeFacts(c);
-    const h = Math.floor(f.upMinutes / 60);
-    const m = f.upMinutes % 60;
-    return {
-      href: `/hike/${hikeSlug(c)}`,
-      title: `${c.km}km에 오름 ${c.up}m — ${h ? `${h}시간 ${m}분` : `${m}분`}`,
-      desc: `왕복 ${Math.round(f.roundMinutes / 60 * 10) / 10}시간 · 평균 경사 ${f.slope}도 · 평지로 치면 ${f.equivalent}km`,
-      section: 'hike' as const,
-      icon: HIKE_ICON,
-    };
-  }),
-  ...INSUL_CELLS.map(c => {
-    const f = insulFacts(c);
-    const NAME: Record<string, string> = { vacuum: '진공단열재', phenolic: '페놀폼', pur: '경질우레탄', xps: '압출법 스티로폼', eps2: '비드법 2종', eps1: '비드법 1종', glasswool: '글라스울', mineralwool: '미네랄울', cellulose: '셀룰로스', wood: '목재', plaster: '석고보드', concrete: '콘크리트' };
-    return {
-      href: `/insul/${insulSlug(c)}`,
-      title: `${NAME[c.key]} ${c.mm}mm — 열저항 ${f.r}`,
-      desc: `열관류율 ${f.u} · 콘크리트로 치면 ${f.concrete}m`,
-      section: 'insul' as const,
-      icon: INSUL_ICON,
-    };
-  }),
   ...AIR_CELLS.map(c => {
     const f = airFacts(c);
     const NAME: Record<string, string> = { pm25: '초미세먼지', pm10: '미세먼지', o3: '오존', no2: '이산화질소', co: '일산화탄소', so2: '아황산가스' };
@@ -901,44 +464,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${f.split ? '두 나라의 판정이 갈리는 자리' : '두 나라의 판정이 같은 자리'}${f.cigarettes !== null ? ` · 하루면 담배 ${f.cigarettes}개비` : ''}`,
       section: 'air' as const,
       icon: AIR_ICON,
-    };
-  }),
-  ...SIZE_CELLS.map(c => {
-    const f = clothingFacts(c);
-    const NAME: Record<string, string> = { wtop: '여성 상의', wbottom: '여성 하의', mtop: '남성 상의', mbottom: '남성 하의', kids: '아동복' };
-    const WHERE: Record<string, string> = { bust: '가슴둘레', waist: '허리둘레', height: '키' };
-    return {
-      href: `/size/${sizeSlug(c)}`,
-      title: `${NAME[c.key]} ${WHERE[f.measure]} ${c.cm}cm — ${f.korea}호 · ${f.intl}`,
-      desc: `${f.inch}인치${f.assumes ? ` · 이 호수는 키 ${f.assumes.height}cm·가슴 ${f.assumes.bust}cm를 상정합니다` : ''}`,
-      section: 'size' as const,
-      icon: SIZE_ICON,
-    };
-  }),
-  ...BRA_CELLS.map(c => {
-    const f = braFacts(c);
-    return {
-      href: `/bra/${braSlug(c)}`,
-      title: `밑가슴 ${c.under}cm · 차이 ${c.diff}cm — ${f.label}`,
-      desc: `윗가슴 ${f.bust}cm · ${f.cup}컵 · 밑가슴 ${f.underInch}인치`,
-      section: 'bra' as const,
-      icon: BRA_ICON,
-    };
-  }),
-  ...PET_CELLS.map(c => {
-    const f = petFacts(c);
-    const NAME: Record<string, string> = {
-      'dog-puppy': '강아지 4개월 미만', 'dog-junior': '강아지 4개월~1년', 'dog-intact': '중성화 안 한 성견',
-      'dog-neutered': '중성화한 성견', 'dog-diet': '감량이 필요한 개',
-      'cat-kitten': '고양이 4개월 미만', 'cat-junior': '고양이 4개월~1년', 'cat-intact': '중성화 안 한 성묘',
-      'cat-neutered': '중성화한 성묘', 'cat-diet': '감량이 필요한 고양이',
-    };
-    return {
-      href: `/petfood/${petSlug(c)}`,
-      title: `${NAME[c.state]} ${c.kg}kg — 하루 ${f.kcalLo}~${f.kcalHi}kcal`,
-      desc: `건사료 ${f.bowls[0].lo}~${f.bowls[0].hi}g · 기초대사량 ${f.rer}kcal`,
-      section: 'petfood' as const,
-      icon: PETFOOD_ICON,
     };
   }),
   ...PW_CELLS.map(c => {
@@ -953,159 +478,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `경우의 수 10^${f.digits} · 아스키로는 ${f.asciiEquivalent}자에 해당`,
       section: 'password' as const,
       icon: PASSWORD_ICON,
-    };
-  }),
-  ...VIEW_CELLS.map(c => {
-    const f = viewingFacts(c);
-    const NAME: Record<string, string> = { hd: 'HD', fhd: 'FHD', qhd: 'QHD', uhd: '4K', '8k': '8K' };
-    return {
-      href: `/viewing/${viewSlug(c)}`,
-      title: `${c.inch}인치 ${NAME[c.res]} 시청거리 — 권장 ${f.smpte}cm`,
-      desc: `가로 ${f.width}cm · THX ${f.thx}cm · 화소는 ${f.limit}cm보다 가까울 때 보입니다`,
-      section: 'viewing' as const,
-      icon: VIEWING_ICON,
-    };
-  }),
-  ...BIG_CELLS.map(c => {
-    const f = bigNumFacts(c);
-    const NAME: Record<string, string> = {
-      man: '만', lakh: '라크', million: '밀리언', crore: '크로르', eok: '억',
-      billion: '빌리언', arab: '아랍', trillion: '트릴리언', jo: '조', gyeong: '경',
-    };
-    const eok = f.amounts.find(a => a.key === 'eok');
-    return {
-      href: `/bignum/${bigSlug(c)}`,
-      title: `${c.factor} ${NAME[c.unit]} — ${f.western}`,
-      desc: `인도식 ${f.indian} · 넷씩 끊으면 ${f.east}${eok ? ` · ${eok.amount}억` : ''}`,
-      section: 'bignum' as const,
-      icon: BIGNUM_ICON,
-    };
-  }),
-  ...GENGO_CELLS.map(c => {
-    const f = gengoFacts(c);
-    const NAME: Record<string, string> = {
-      meiji: '메이지(明治)', taisho: '다이쇼(大正)', showa: '쇼와(昭和)',
-      heisei: '헤이세이(平成)', reiwa: '레이와(令和)',
-    };
-    return {
-      href: `/gengo/${gengoSlug(c)}`,
-      title: `${NAME[c.era]} ${f.first ? '원년' : `${c.year}년`} — 서기 ${f.gregorian}년`,
-      desc: `${c.year} + ${f.era.base}${f.overlap ? ` · 이 해에는 ${NAME[f.overlap.era]}도 함께 앉습니다` : ''}`,
-      section: 'gengo' as const,
-      icon: GENGO_ICON,
-    };
-  }),
-  ...CABLE_CELLS.map(c => {
-    const f = cableFacts(c);
-    const NAME: Record<string, string> = {
-      hdmi14: 'HDMI 1.4', dp12: 'DisplayPort 1.2', hdmi20: 'HDMI 2.0',
-      dp14: 'DisplayPort 1.4', hdmi21: 'HDMI 2.1', dp21: 'DisplayPort 2.1',
-    };
-    return {
-      href: `/cable/${cableSlug(c)}`,
-      title: `${f.w}×${f.h} ${c.hz}Hz — ${f.raw8}Gbps`,
-      desc: f.lowest ? `${NAME[f.lowest]}부터 지나갑니다 · 10비트면 ${f.raw10}Gbps` : `압축 없이는 어느 규격으로도 안 됩니다 · 10비트면 ${f.raw10}Gbps`,
-      section: 'cable' as const,
-      icon: CABLE_ICON,
-    };
-  }),
-  ...TATAMI_CELLS.map(c => {
-    const f = tatamiFacts(c);
-    const NAME: Record<string, string> = {
-      kyoma: '교마(京間)', rokuichi: '로쿠이치마(六一間)', chukyo: '주쿄마(中京間)',
-      edo: '에도마(江戸間)', danchi: '단치마(団地間)',
-    };
-    return {
-      href: `/tatami/${tatamiSlug(c)}`,
-      title: `${NAME[c.kind]} ${c.mats}첩 — ${f.sqm}㎡`,
-      desc: `${f.pyeong}평 · 한 장 ${f.short}×${f.long}mm · 규격에 따라 ${f.spread}㎡까지 벌어집니다`,
-      section: 'tatami' as const,
-      icon: TATAMI_ICON,
-    };
-  }),
-  ...LUMBER_CELLS.map(c => {
-    const f = lumberFacts(c);
-    return {
-      href: `/lumber/${lumberSlug(c)}`,
-      title: `${c.size} ${c.feet}피트 — 실측 ${f.mmT} × ${f.mmW}mm`,
-      desc: `${f.actT} × ${f.actW}인치 · 재적 ${f.bf} · 실측 단면적은 공칭의 ${f.share}%`,
-      section: 'lumber' as const,
-      icon: LUMBER_ICON,
-    };
-  }),
-  ...PB_CELLS.map(c => {
-    const f = powerFacts(c);
-    const VERDICT: Record<string, string> = { free: '그냥 반입', approval: '항공사 승인 필요', banned: '반입 불가' };
-    return {
-      href: `/powerbank/${pbSlug(c)}`,
-      title: `${c.mah.toLocaleString()}mAh ${f.volts}V — ${f.wh}Wh`,
-      desc: `${VERDICT[f.verdict]} · 5V 기준 ${f.usbMah.toLocaleString()}mAh · 이 전압의 자유 한도는 ${f.maxFree.toLocaleString()}mAh`,
-      section: 'powerbank' as const,
-      icon: POWERBANK_ICON,
-    };
-  }),
-  ...GOLF_CELLS.map(c => {
-    const f = golfFacts(c);
-    return {
-      href: `/golf/${golfSlug(c)}`,
-      title: `${c.score}타 · 슬로프 ${c.slope} — 디퍼렌셜 ${f.differential}`,
-      desc: `파보다 ${f.overPar}타 · 보정 ×${f.factor} · 표준 코스였다면 ${f.atStandard}`,
-      section: 'golf' as const,
-      icon: GOLF_ICON,
-    };
-  }),
-  ...MW_CELLS.map(c => {
-    const f = microwaveFacts(c);
-    const three = f.samples[1];
-    return {
-      href: `/microwave/${mwSlug(c)}`,
-      title: `${c.from}W → ${c.to}W — 시간 ×${f.ratio}`,
-      desc: `3분이면 ${three.minutes}분 ${three.rest}초 · ${f.same ? '출력이 같아 그대로' : f.longer ? `${f.changePct}% 길어집니다` : `${-f.changePct}% 짧아집니다`}`,
-      section: 'microwave' as const,
-      icon: MICROWAVE_ICON,
-    };
-  }),
-  ...MAGNITUDES.map(m => {
-    const f = quakeFacts(m);
-    return {
-      href: `/quake/${quakeSlug(m)}`,
-      title: `규모 ${m.toFixed(2)} — TNT ${Math.round(f.tntTons).toLocaleString()}톤`,
-      desc: `에너지 10^${f.logJoule} J · 규모가 1 낮은 지진 ${f.perOneLower}번과 같습니다`,
-      section: 'quake' as const,
-      icon: QUAKE_ICON,
-    };
-  }),
-  ...BED_CELLS.map(c => {
-    const f = bedFacts(c);
-    const NAME: Record<string, string> = {
-      'kr-single': '싱글(한국)', 'kr-supersingle': '슈퍼싱글(한국)', 'kr-double': '더블(한국)',
-      'kr-queen': '퀸(한국)', 'kr-king': '킹(한국)', 'kr-largeking': '라지킹(한국)', 'kr-superking': '슈퍼킹(한국)',
-      'us-twin': 'Twin(미국)', 'us-twinxl': 'Twin XL(미국)', 'us-full': 'Full(미국)',
-      'us-queen': 'Queen(미국)', 'us-king': 'King(미국)',
-    };
-    const FIT: Record<string, string> = { both: '양쪽 통로', one: '벽에 붙이면', tight: '통로가 모자람', no: '안 들어감' };
-    return {
-      href: `/bed/${bedSlug(c)}`,
-      title: `${NAME[c.bed]} · 방 ${c.room}mm — 통로 ${f.gap}mm`,
-      desc: `침대 ${f.width} × ${f.length}mm · ${FIT[f.fit]} · 둘이 누우면 1인당 ${f.perPerson}mm`,
-      section: 'bed' as const,
-      icon: BED_ICON,
-    };
-  }),
-  ...WINE_CELLS.map(c => {
-    const f = wineFacts(c);
-    const NAME: Record<string, string> = {
-      piccolo: '피콜로', demi: '드미(하프)', jennie: '제니', standard: '표준병', magnum: '매그넘',
-      'jeroboam-burgundy': '제로보암(부르고뉴)', rehoboam: '르호보암', 'jeroboam-bordeaux': '제로보암(보르도)',
-      methuselah: '므두셀라', salmanazar: '살만아자르', balthazar: '발타자르',
-      nebuchadnezzar: '느부갓네살', melchior: '멜키오르', primat: '프리마',
-    };
-    return {
-      href: `/wine/${wineSlug(c)}`,
-      title: `${NAME[c.bottle]} · ${c.pour}ml — ${f.fullGlasses}잔`,
-      desc: `${f.litres}리터 · 표준병 ${f.standards}병분 · 두 잔씩이면 ${f.people}사람`,
-      section: 'wine' as const,
-      icon: WINE_ICON,
     };
   }),
   ...FLIGHT_CELLS.map(c => {
@@ -1190,81 +562,25 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/text/char', title: '특수문자 모음', desc: '화살표·별·체크 168개를 눌러서 복사', section: 'text' as const, icon: GLYPH_ICON },
   { href: '/game/poker', title: '홀덤 시작 핸드', desc: '시작 핸드 169가지의 확률과 첸 점수', section: 'poker' as const, icon: POKER_ICON },
   { href: '/game/chess', title: '체스 오프닝', desc: '오프닝 174가지의 수순과 판 그림', section: 'chess' as const, icon: CHESS_ICON },
-  { href: '/element', title: '주기율표', desc: '원소 118가지의 기호·원자량·전자 배치', section: 'element' as const, icon: ELEMENT_ICON },
   { href: '/number', title: '수 사전', desc: '1부터 200까지의 소인수분해·약수·진법·로마 숫자', section: 'number' as const, icon: NUMBER_ICON },
   { href: '/ascii', title: 'ASCII 코드표', desc: '128자의 진법·HTML 엔티티·Ctrl 조합', section: 'ascii' as const, icon: ASCII_ICON },
   { href: '/port', title: '포트 번호 사전', desc: '22·80·443·3306 등 포트 127개의 서비스와 구간', section: 'port' as const, icon: PORT_ICON },
   { href: '/chmod', title: 'chmod 권한표', desc: '755·644가 여는 것과 umask까지 125가지', section: 'chmod' as const, icon: CHMOD_ICON },
-  { href: '/resistor', title: '저항 색띠표', desc: 'E24 계열 144가지의 색띠와 오차', section: 'resistor' as const, icon: RESISTOR_ICON },
   { href: '/fraction', title: '분수를 소수로', desc: '분모 20까지 기약분수 127가지의 소수·퍼센트', section: 'fraction' as const, icon: FRACTION_ICON },
   { href: '/keycode', title: '키 코드 사전', desc: 'code·key·keyCode를 자판 키 120개에서', section: 'keycode' as const, icon: KEYCODE_ICON },
   { href: '/cidr', title: 'CIDR 서브넷 표', desc: '/0부터 /32까지 마스크·주소 수·호스트 수', section: 'cidr' as const, icon: CIDR_ICON },
   { href: '/code', title: '모스 부호표', desc: '모스·NATO 음성 문자·점자 116가지', section: 'code' as const, icon: CODE_ICON },
-  { href: '/darts', title: '다트 마무리표', desc: '2점부터 170점까지 몇 다트에 끝나는지와 수순', section: 'darts' as const, icon: DARTS_ICON },
   { href: '/times', title: '곱셈표', desc: '1단부터 20단까지 210칸의 곱과 나누기', section: 'times' as const, icon: TIMES_ICON },
   { href: '/percent', title: '퍼센트 계산', desc: '200의 15%·15% 할인·30은 200의 몇 %', section: 'percent' as const, icon: PERCENT_ICON },
   { href: '/sqrt', title: '제곱근표', desc: '1부터 200까지 소수와 근호를 간단히 한 꼴', section: 'sqrt' as const, icon: SQRT_ICON },
   { href: '/roman', title: '로마 숫자 연도표', desc: '1900년부터 2100년까지 한 해씩, 글자를 조각내어', section: 'roman' as const, icon: ROMAN_ICON },
-  { href: '/tire', title: '타이어 규격표', desc: '외경·둘레·1km 회전수와 바꿔 낄 수 있는 치수', section: 'tire' as const, icon: TIRE_ICON },
-  { href: '/screw', title: '미터 나사 규격표', desc: 'M1부터 M64까지 탭 드릴·골지름·응력단면적', section: 'screw' as const, icon: SCREW_ICON },
   { href: '/year', title: '연도 사전', desc: '1900년부터 2100년까지 윤년·요일·주 수·띠', section: 'year' as const, icon: YEAR_ICON },
-  { href: '/pace', title: '러닝 페이스표', desc: '5K·10K·하프·풀코스 완주 시간과 목표별 페이스', section: 'pace' as const, icon: PACE_ICON },
   { href: '/rem', title: 'CSS 단위표', desc: 'px를 rem·pt·pc·인치로, 1px부터 120px까지', section: 'rem' as const, icon: PX_ICON },
-  { href: '/stop', title: '정지거리표', desc: '시속별 공주거리·제동거리, 노면 네 가지로', section: 'stop' as const, icon: STOP_ICON },
-  { href: '/altitude', title: '고도별 기압표', desc: '해발 0m부터 5000m까지 기압·끓는점·산소', section: 'altitude' as const, icon: ALTITUDE_ICON },
-  { href: '/wifi', title: '와이파이 채널표', desc: '2.4·5·6GHz 채널의 주파수와 겹침, 왜 1·6·11인가', section: 'wifi' as const, icon: WIFI_ICON },
-  { href: '/fret', title: '기타 지판표', desc: '여섯 줄 0~23프렛의 음과 주파수, 프렛 거리', section: 'fret' as const, icon: FRET_ICON },
-  { href: '/gravity', title: '천체별 몸무게표', desc: '달·화성·목성에서 저울에 얼마로 찍히는지', section: 'gravity' as const, icon: GRAVITY_ICON },
-  { href: '/windchill', title: '체감온도표', desc: '기온과 풍속이 만나는 210칸의 체감온도', section: 'windchill' as const, icon: WINDCHILL_ICON },
-  { href: '/dew', title: '이슬점표', desc: '기온과 습도로 보는 189칸, 습도만으로는 모르는 눅눅함', section: 'dew' as const, icon: DEW_ICON },
-  { href: '/wine', title: '와인 병 크기와 잔 수', desc: '제로보암은 보르도에서 5리터, 부르고뉴에서 3리터입니다', section: 'wine' as const, icon: WINE_ICON },
-  { href: '/blood', title: '수혈 적합표', desc: '혈장은 규칙이 반대라 AB형이 만능 공혈자입니다', section: 'blood' as const, icon: BLOOD_ICON },
-  { href: '/exposure', title: '노출값(EV) 표', desc: 'f/11은 사실 11.314, 1/60초는 사실 1/64초입니다', section: 'exposure' as const, icon: EXPOSURE_ICON },
-  { href: '/heredity', title: '혈액형 유전표', desc: 'AB형과 O형 사이에서는 AB형도 O형도 나오지 않습니다', section: 'heredity' as const, icon: HEREDITY_ICON },
-  { href: '/raid', title: 'RAID 용량표', desc: '4TB 넉 장으로 RAID 5를 만들면 12TB, 화면에는 10.91TiB', section: 'raid' as const, icon: RAID_ICON },
   { href: '/flight', title: '도시 사이 거리와 비행시간', desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다', section: 'flight' as const, icon: FLIGHT_ICON },
-  { href: '/purifier', title: '공기청정기 평수', desc: '광고의 평형에는 자연 환기가 얹혀 있습니다', section: 'purifier' as const, icon: PURIFIER_ICON },
-  { href: '/drink', title: '술 순수 알코올량', desc: '\'한 잔\'이 영국 8g, WHO 10g, 미국 14g입니다', section: 'drink' as const, icon: DRINK_ICON },
-  { href: '/bed', title: '침대 규격과 방 크기', desc: '한국 킹과 미국 King은 33cm 다릅니다', section: 'bed' as const, icon: BED_ICON },
-  { href: '/quake', title: '지진 규모와 에너지', desc: '규모 7은 6의 두 배가 아니라 32배입니다', section: 'quake' as const, icon: QUAKE_ICON },
-  { href: '/microwave', title: '전자레인지 와트 환산', desc: '700W 3분은 1000W에서 2분 6초입니다', section: 'microwave' as const, icon: MICROWAVE_ICON },
-  { href: '/golf', title: '골프 핸디캡 계산', desc: '같은 90타가 코스마다 다른 실력입니다', section: 'golf' as const, icon: GOLF_ICON },
-  { href: '/powerbank', title: '보조배터리 기내 반입', desc: '기내 반입은 mAh가 아니라 Wh로 정해집니다', section: 'powerbank' as const, icon: POWERBANK_ICON },
-  { href: '/lumber', title: '목재 실측 치수', desc: '투바이포는 2인치도 4인치도 아닙니다 — 38 × 89mm', section: 'lumber' as const, icon: LUMBER_ICON },
-  { href: '/tatami', title: '다다미 방 넓이', desc: '같은 6첩이 10.94㎡이기도 하고 8.67㎡이기도 합니다', section: 'tatami' as const, icon: TATAMI_ICON },
-  { href: '/cable', title: 'HDMI·DisplayPort 대역폭', desc: '4K 120Hz는 HDMI 2.0으로 안 됩니다', section: 'cable' as const, icon: CABLE_ICON },
-  { href: '/gengo', title: '일본 연호 ↔ 서기 환산', desc: '레이와 6년은 2024년 — 개원한 해는 연호가 둘입니다', section: 'gengo' as const, icon: GENGO_ICON },
-  { href: '/bignum', title: 'lakh·crore·억·조 환산', desc: '세 자릿수 체계가 자리를 다르게 끊습니다', section: 'bignum' as const, icon: BIGNUM_ICON },
-  { href: '/viewing', title: 'TV 시청거리 계산', desc: '인치별 권장 거리와 4K가 값을 하는 거리', section: 'viewing' as const, icon: VIEWING_ICON },
   { href: '/password', title: '비밀번호 세기 계산', desc: '몇 비트인지, 저장 방식에 따라 얼마나 버티는지', section: 'password' as const, icon: PASSWORD_ICON },
-  { href: '/petfood', title: '반려동물 하루 사료량', desc: '체중과 상태로 하루 열량과 사료 그램을 계산합니다', section: 'petfood' as const, icon: PETFOOD_ICON },
-  { href: '/bra', title: '브래지어 사이즈 계산', desc: '밑가슴둘레와 가슴 차이로 표기를 계산합니다', section: 'bra' as const, icon: BRA_ICON },
-  { href: '/size', title: '옷 사이즈 환산', desc: '44·55·66과 S·M·L, 남성 95·100·105를 한 표에', section: 'size' as const, icon: SIZE_ICON },
   { href: '/air', title: '미세먼지 농도와 대기질 지수', desc: '한국 등급과 미국 AQI를 나란히, 담배 개비 환산까지', section: 'air' as const, icon: AIR_ICON },
-  { href: '/insul', title: '단열재 열저항 계산', desc: '재료와 두께로 열저항·열관류율, 콘크리트 환산까지', section: 'insul' as const, icon: INSUL_ICON },
-  { href: '/hike', title: '등산 시간 계산', desc: '거리와 누적 오름으로, 네이스미스의 규칙', section: 'hike' as const, icon: HIKE_ICON },
-  { href: '/dof', title: '피사계 심도표', desc: '초점거리와 조리개로 과초점거리와 앞뒤 한계', section: 'dof' as const, icon: DOF_ICON },
-  { href: '/bpm', title: '딜레이 타임표', desc: 'BPM과 음표 길이로 밀리초와 LFO 진동수', section: 'bpm' as const, icon: BPM_ICON },
-  { href: '/gear', title: '자전거 기어비표', desc: '체인링과 스프라켓으로 기어비와 발전거리', section: 'gear' as const, icon: GEAR_ICON },
-  { href: '/fertilizer', title: '비료 시비량표', desc: '봉지의 N-P-K 함량으로 나눠 읽는 뿌릴 양, 복합비료는 나머지 둘까지', section: 'fertilizer' as const, icon: FERTILIZER_ICON },
   { href: '/laundry', title: '세탁 기호 뜻', desc: '점은 온도, 밑줄은 세기, ×는 금지 — 옷 라벨 그림 86가지', section: 'laundry' as const, icon: LAUNDRY_ICON },
   { href: '/dpi', title: '마우스 감도 변환표', desc: '게임 상수 하나로 읽는 cm/360°·eDPI — 감도는 목표 거리에서 거꾸로', section: 'dpi' as const, icon: DPI_ICON },
-  { href: '/sun', title: '태양 고도와 낮 길이표', desc: '위도와 날짜로 정오 고도·낮 길이·일출 시각·그림자', section: 'sun' as const, icon: SUN_ICON },
-  { href: '/hardness', title: '물 경도 단위 환산', desc: 'ppm·°dH·°fH·gpg를 한 표에 — 연수·경수 등급 경계는 기준마다 다릅니다', section: 'hardness' as const, icon: HARDNESS_ICON },
-  { href: '/steel', title: '강재 단위중량표', desc: '강판·평철·봉·관 형상별로 부피 × 밀도로 읽는 무게', section: 'steel' as const, icon: STEEL_ICON },
-  { href: '/motor', title: '모터 토크 계산표', desc: '출력과 회전수로 N·m, 마력 환산과 감속기·전압별 3상 전류', section: 'motor' as const, icon: MOTOR_ICON },
-  { href: '/rebar', title: '철근 단위중량표', desc: '규격과 길이로 한 가닥 무게, 1톤당 가닥 수와 발주 물량', section: 'rebar' as const, icon: REBAR_ICON },
-  { href: '/ring', title: '반지 사이즈 대조표', desc: '내주 mm로 미국·일본 호수·EU 사이즈, 재는 법까지', section: 'ring' as const, icon: RING_ICON },
-  { href: '/filament', title: '필라멘트 길이표', desc: '재료와 스풀 무게로 감긴 길이, 남은 무게로 남은 길이', section: 'filament' as const, icon: FILAMENT_ICON },
-  { href: '/uv', title: '자외선 화상 시간', desc: '지수와 피부 타입으로 몇 분에 붉어지는지', section: 'uv' as const, icon: UV_ICON },
-  { href: '/ampere', title: '가전 전류 계산', desc: '소비전력과 전압으로 몇 암페어, 한 회로에 몇 대', section: 'ampere' as const, icon: AMPERE_ICON },
-  { href: '/lumen', title: '방 밝기 계산', desc: '넓이와 쓰임으로 필요한 루멘, 광원별 소비 전력', section: 'lumen' as const, icon: LUMEN_ICON },
-  { href: '/torque', title: '볼트 조임 토크표', desc: 'M3부터 M36까지 등급 8가지, 마찰 상태별 토크', section: 'torque' as const, icon: TORQUE_ICON },
-  { href: '/paper', title: '종이 규격표', desc: 'A·B·C 계열과 레터, 해상도별 픽셀과 장당 무게', section: 'paper' as const, icon: PAPER_ICON },
-  { href: '/wire', title: '전선 굵기 계산', desc: 'AWG·mm² 20가지와 전류 10가지, 3% 안에 드는 길이', section: 'wire' as const, icon: WIRE_ICON },
-  { href: '/battery', title: '배터리 충전 시간', desc: '용량과 충전기가 만나는 200칸, 전압·케이블·기내 반입까지', section: 'battery' as const, icon: BATTERY_ICON },
-  { href: '/bandwidth', title: '다운로드 시간 계산', desc: '파일 크기와 회선 속도가 만나는 240칸', section: 'bandwidth' as const, icon: BANDWIDTH_ICON },
-  { href: '/drill', title: '드릴 비트 규격표', desc: '미터·인치·번호·문자 네 계열과 나사 탭 드릴', section: 'drill' as const, icon: DRILL_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },

@@ -67,6 +67,25 @@ export const GEO4_TERMS: Record<string, Term> = {
   /* ───────── 모래 ───────── */
   sandDensity:    { ko: '모래 밀도',          en: 'Sand density' },
   sandKg:         { ko: '모래 무게',          en: 'Sand needed' },
+
+  /* ───────── 수영장 난방·순환 ─────────
+   * 물 양(liters)과 유량(flowLpm)은 이미 있는 것을 그대로 쓴다. 여기 새로 넣는
+   * 것은 열과 순환에만 나오는 이름들이다. */
+  tempRise:       { ko: '올릴 온도',          en: 'Temperature rise' },
+  heaterKw:       { ko: '히터 열출력',        en: 'Heater output' },
+  heatLossPct:    { ko: '데우는 중 열손실',   en: 'Heat lost while heating' },
+  heatHours:      { ko: '데우는 시간',        en: 'Time to heat' },
+  heatKwh:        { ko: '드는 전력량',        en: 'Energy needed' },
+  kwhPerDeg:      { ko: '1도당 전력량',       en: 'Energy per degree' },
+  turnoverHours:  { ko: '한 바퀴 도는 시간',  en: 'Time for one turnover' },
+  turnoverPerDay: { ko: '하루 순환 횟수',     en: 'Turnovers a day' },
+  runHours:       { ko: '하루 가동 시간',     en: 'Run time a day' },
+  pumpKw:         { ko: '펌프 소비전력',      en: 'Pump power draw' },
+  monthKwh:       { ko: '한 달 전력량',       en: 'Energy a month' },
+
+  /* ───────── 잔디 파종 ───────── */
+  seedRate:       { ko: '㎡당 파종량(g)',     en: 'Sowing rate (g/m²)' },
+  seedKg:         { ko: '필요한 씨앗',        en: 'Seed needed' },
 };
 
 export const GEO4_UNITS: Record<string, Term> = {
@@ -75,4 +94,6 @@ export const GEO4_UNITS: Record<string, Term> = {
   pack:     { ko: '팩',     en: 'packs' },
   square:   { ko: '스퀘어', en: 'squares' },
   kgPerM3:  { ko: 'kg/㎥',  en: 'kg/m³' },
+  kwh:      { ko: 'kWh',    en: 'kWh' },
+  degC:     { ko: '℃',      en: '°C' },
 };

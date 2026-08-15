@@ -1088,6 +1088,37 @@ export const HI: FormulaL10n = {
     fbaTotal: 'कुल फ़र्क़',
     fbaPerPiece: 'एक टुकड़े पर फैलाव',
     cordD: 'कॉर्ड का व्यास',
+
+    /* 수영장 물 관리·난방·순환, 잔디 파종 */
+    fcNow: 'मौजूदा फ्री क्लोरीन',
+    fcTarget: 'लक्षित फ्री क्लोरीन',
+    chlorineStrength: 'उत्पाद की सांद्रता',
+    chlorineDose: 'डालने वाला उत्पाद',
+    pureChlorine: 'शुद्ध उपलब्ध क्लोरीन में',
+    dosePerPpm: 'प्रति 1 ppm उत्पाद',
+    saltNow: 'मौजूदा लवणता',
+    saltTarget: 'लक्षित लवणता',
+    saltKg: 'डालने वाला नमक',
+    ppmPerBag: 'प्रति बोरी लवणता',
+    concNow: 'मौजूदा रीडिंग',
+    concTarget: 'लक्षित रीडिंग',
+    fillConc: 'भरने वाले पानी की रीडिंग',
+    drainPct: 'निकालने का हिस्सा',
+    drainLiters: 'निकालने वाला पानी',
+    halfDrainConc: 'आधा बदलने पर रीडिंग',
+    tempRise: 'बढ़ाना है तापमान',
+    heaterKw: 'हीटर की ऊष्मा क्षमता',
+    heatLossPct: 'गर्म करते समय हानि',
+    heatHours: 'गर्म करने का समय',
+    heatKwh: 'ज़रूरी ऊर्जा',
+    kwhPerDeg: 'प्रति डिग्री ऊर्जा',
+    turnoverHours: 'एक चक्कर का समय',
+    turnoverPerDay: 'प्रति दिन चक्कर',
+    runHours: 'प्रति दिन चलने के घंटे',
+    pumpKw: 'पंप की खपत',
+    monthKwh: 'महीने की ऊर्जा',
+    seedRate: 'बुवाई दर (g/m²)',
+    seedKg: 'ज़रूरी बीज',
   },
 
   UNITS: {
@@ -1169,6 +1200,8 @@ export const HI: FormulaL10n = {
     order: 'ऑर्डर',
     round: 'राउंड',
     cone: 'कोन',
+
+    ppm: 'ppm', kwh: 'kWh', degC: '°C',
   },
 
   DESC: {

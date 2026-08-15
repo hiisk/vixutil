@@ -970,4 +970,22 @@ export const RATE_DE: Record<string, FormulaText> = {
     long: 'Drei Schritte. Teil das gewünschte Jahreseinkommen durch die Entnahmerate, das ergibt das nötige Vermögen: 36.000.000 bei 4 % sind 900.000.000. Dann lass das Vorhandene wachsen — 80.000.000 zu 5 % über 25 Jahre werden 270.908.395 — es bleibt ein Fehlbetrag von 629.091.605. Zuletzt tragen monatliche Einzahlungen, die mit denselben 5 % über 300 Monate anwachsen, einen Endwertfaktor von 595,51, also sind 629.091.605 ÷ 595,51 = 1.056.392 im Monat.',
     note: 'Die Rendite bleibt Jahr für Jahr gleich. Echte Märkte schwanken, und ein Rückgang in den letzten Jahren vor dem Ruhestand spreizt die Ergebnisse bei gleicher Durchschnittsrendite weit. Steuern, Gebühren, Arbeitgeberbeiträge und eine schon zustehende staatliche Rente stehen hier nicht drin. Das Zieleinkommen wird auch nicht mit der Inflation fortgeschrieben, trag es also in heutigem Geld ein und setz in das Renditefeld eine reale Rendite über der Inflation — eine nominale schrumpft das Ziel über 25 Jahre in seiner Kaufkraft. Die Entnahmerate von 4 % ist selbst das Ergebnis einer Studie zu einem Markt über einen Horizont.',
   },
+  'pool-chlorine': {
+    title: 'Chlorbedarf für den Pool berechnen',
+    desc: 'Wie viel Chlorprodukt hineingehört — aus Wassermenge sowie aktuellem und gewünschtem freien Chlor.',
+    long: 'Ein ppm ist ein mg/L, also braucht es genau ein Gramm reines wirksames Chlor, um tausend Liter um ein ppm anzuheben. Das ist der leichte Teil; schiefgehen tut es dort, wo man vergisst, dass im Handel kein reines Chlor liegt — dieses Gewicht muss deshalb noch einmal durch den Wirkstoffgehalt geteilt werden. 50.000 Liter von 1 auf 3 ppm zu bringen verlangt 100 g reines wirksames Chlor, und das sind 800 eines Produkts mit 12,5 %. Flüssigchlor gibt seinen Prozentwert als Gramm je 100 mL an und nicht nach Gewicht, weshalb diese 800 beim Granulat als Gramm und beim Flüssigen als Milliliter zu lesen sind — beides stimmt.',
+    note: 'Freies Chlor arbeitet nur so hart, wie der Stabilisator es zulässt: Viel Cyanursäure bremst es, und der Zielwert muss zum Ausgleich steigen. Herausnehmen lässt es sich ebenfalls nicht, also dosiere die Hälfte, warte ab und miss erneut, statt in einem Zug auf den Zielwert zu springen.',
+  },
+  'pool-salt': {
+    title: 'Salzbedarf für den Pool berechnen',
+    desc: 'Salz und Säcke, um ein Salzwasserbecken vom aktuellen Messwert auf den Zielwert zu bringen.',
+    long: 'Der Salzgehalt wird wie Chlor in ppm gemessen, die Rechnung ist also dieselbe und nur die Größenordnung ändert sich. Ein ppm ist ein mg/L, folglich kostet ein Liter um 1.000 ppm anzuheben ein Gramm, und 50.000 Liter um 2.400 ppm anzuheben 120 kg, also sechs Säcke zu 20 kg. Salz ist nahezu rein, hier entfällt daher die zweite Division durch den Wirkstoffgehalt, die beim Chlor nötig ist. Wissenswert ist stattdessen, wie weit ein einzelner Sack dein Becken bewegt: Hier sind es 400 ppm je Sack — genug, dass der letzte Sack allein über das Ziel hinausschießt.',
+    note: 'Die meisten Elektrolysezellen laufen zwischen 2.700 und 3.400 ppm, und maßgeblich ist die Zahl im Handbuch deiner Zelle, keine allgemeine Faustregel. Gib das Salz bei laufender Pumpe zu und schütte es über den Boden des flachen Endes, wo du es einbürstest — nicht in den Skimmer, damit ungelöstes Salz nie an die Zelle gelangt.',
+  },
+  'pool-dilution-drain': {
+    title: 'Wasserwechsel im Pool berechnen',
+    desc: 'Welchen Anteil des Wassers du ablässt und ersetzt, um Cyanursäure, Salz oder Härte zu senken.',
+    long: 'Mehrere Poolwerte kennen nur eine Richtung: nach oben. Cyanursäure, Salzgehalt und Calciumhärte verhalten sich so, und der einzige Weg zurück führt über Ablassen und Nachfüllen. Der zu ersetzende Anteil ist (aktuell − Ziel) ÷ (aktuell − Füllwasser). Von 100 auf 50 ppm bei 0 ppm Leitungswasser bedeutet also genau die Hälfte. Am Füllwasser scheitert das Ganze am leisesten: In einer Hartwassergegend, deren Leitung schon 250 ppm mitbringt, erreicht ein Becken mit Ziel 200 ppm dieses nie — tausch jeden Tropfen, und es steht weiter bei 250.',
+    note: 'Die Formel setzt voraus, dass sich das Wasser gleichmäßig mischt. Nur am flachen Ende abzupumpen mischt weniger und senkt den Messwert schwächer als berechnet, lass die Pumpe beim Ablassen also laufen. Wo der Grundwasserspiegel hoch steht, kann ein großer Ablass die Wanne aufschwimmen lassen — jeweils ein Drittel zu tauschen ist der sichere Weg.',
+  },
 };

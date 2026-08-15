@@ -19,7 +19,6 @@ import { FORTUNE_TOOLS, fortuneToolCopy } from './fortune-tools-intl.ts';
 import { RATE_TOOLS } from './rate-tools.ts';
 import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
-import { CRAFT_TOOLS } from './craft-tools.ts';
 import { CMD_ITEMS } from './cmd/list.ts';
 import { SC_ITEMS, primaryCombo } from './shortcut/list.ts';
 import { SC_UI } from './shortcut/ui.ts';
@@ -190,7 +189,6 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('rate', formulaEntries(lang, RATE_TOOLS)),
     ...tools('body', formulaEntries(lang, BODY_TOOLS)),
     ...tools('geometry', formulaEntries(lang, GEO_TOOLS)),
-    ...tools('craft', formulaEntries(lang, CRAFT_TOOLS)),
     ...tools('cmd', cmdEntries(lang)),
     ...tools('shortcut', scEntries(lang)),
     ...tools('emoji', emojiEntries(lang)),

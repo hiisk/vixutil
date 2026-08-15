@@ -159,4 +159,22 @@ export const RATE4_DESC: Record<string, Term> = {
   potNeeded: { ko: '그 인출률로 목표 소득을 지탱하는 자산 규모.', en: 'The pot that carries that income at that withdrawal rate.' },
   savedGrown: { ko: '지금 있는 자산이 그 수익률로 그 기간 자란 값.', en: 'What today\'s savings grow to at that return over that time.' },
   gapAmount: { ko: '필요 자산에서 자란 자산을 뺀 모자란 금액. 적립으로 메울 몫입니다.', en: 'The pot needed less what today\'s savings become — the part contributions must fill.' },
+
+  /* ───────── 수영장 물 관리 ───────── */
+  fcNow: { ko: '지금 물에 남아 있는 유리염소. 시약이나 시험지로 잰 값을 넣으세요.', en: 'The free chlorine in the water right now, as read by a test kit or strip.' },
+  fcTarget: { ko: '맞추려는 유리염소. 안정제가 높으면 이 값을 올려 잡아야 같은 살균력이 납니다.', en: 'The free chlorine you are aiming at; high stabiliser means aiming higher for the same effect.' },
+  chlorineStrength: { ko: '제품에 든 유효염소 비율. 과립은 무게 대비, 액상은 100 mL당 g으로 적힙니다.', en: 'The available chlorine in the product — by weight for granular, per 100 mL for liquid.' },
+  chlorineDose: { ko: '봉지나 통에서 실제로 퍼내야 하는 양. 순수 염소가 아니라 제품 기준입니다.', en: 'How much to scoop or pour out — measured as product, not as pure chlorine.' },
+  pureChlorine: { ko: '제품 강도를 빼고 순수 유효염소만 따진 무게. 제품끼리 견줄 때 쓰는 값입니다.', en: 'The weight of pure available chlorine alone, which is how products compare fairly.' },
+  dosePerPpm: { ko: '이 수영장에서 1 ppm을 올리는 데 드는 제품 양. 다음부터는 이 값만 곱하면 됩니다.', en: 'The product this pool needs per 1 ppm — from then on you just multiply.' },
+  saltNow: { ko: '지금 물의 염도. 염소발생기 표시값은 어긋나기 쉬우니 따로 재는 편이 낫습니다.', en: 'The salinity now; a chlorinator readout drifts, so an independent test is safer.' },
+  saltTarget: { ko: '맞추려는 염도. 일반 기준이 아니라 쓰는 셀의 설명서 값을 넣으세요.', en: 'The salinity you are aiming at — take it from your cell manual, not a general rule.' },
+  saltKg: { ko: '목표까지 넣어야 하는 소금 무게. 소금은 순도가 높아 강도로 나누지 않습니다.', en: 'The salt to add to reach target; salt is near pure, so no strength division applies.' },
+  ppmPerBag: { ko: '한 포대가 이 물에서 올리는 염도. 마지막 포대가 목표를 넘길지 알려 줍니다.', en: 'How far one bag moves this pool — it tells you whether the last bag overshoots.' },
+  concNow: { ko: '낮추려는 항목의 현재 값. 시아누르산·염도·칼슘 경도처럼 뺄 수 없는 값들입니다.', en: 'The current reading you want down — cyanuric acid, salt or calcium hardness.' },
+  concTarget: { ko: '내리려는 값. 채움물보다 낮게 잡으면 물갈이로는 닿을 수 없습니다.', en: 'The reading you want; set below the fill water it cannot be reached by draining.' },
+  fillConc: { ko: '새로 채울 물에 이미 들어 있는 값. 희석의 바닥이 되는 수치입니다.', en: 'What the replacement water already carries — the floor that dilution cannot pass.' },
+  drainPct: { ko: '빼고 새로 채워야 하는 물의 비율. 희석은 뺀 비율만큼만 듣습니다.', en: 'The share of water to drain and replace; dilution pays out only in that proportion.' },
+  drainLiters: { ko: '그 비율을 실제 물 양으로 옮긴 값. 한 번에 다 빼지 말고 나눠 가세요.', en: 'That share expressed as litres — replace it in stages rather than all at once.' },
+  halfDrainConc: { ko: '절반만 갈았을 때 남는 값. 반쯤 빼면 되겠지가 왜 안 통하는지 보여줍니다.', en: 'What is left after changing half — why "drain a bit" rarely gets you there.' },
 };

@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { DENSE, hanProblem } from './han.ts';
-import { APP_DIR } from './app-path.ts';
+import { APP_DIR, footerSrc } from './app-path.ts';
 import { LANG_CODES, localeOfLang, type Lang } from '../lib/i18n/lang.ts';
 import { ALL_LOCALES10, localeTag } from '../lib/locales.ts';
 import {
@@ -325,7 +325,7 @@ test('개정일이 상수 하나이고 문구에 날짜가 박혀 있지 않다'
 });
 
 test('푸터가 네 주소를 모두 가리킨다', () => {
-  const src = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  const src = footerSrc();
   /*
    * 주소를 푸터에 손으로 적으면 열 언어 가운데 한 곳이 빠지거나 한국어 주소를
    * 그대로 내보낸다(SECTIONS_EN이 생긴 사정과 같다). 그래서 갈래 목록을 돌며

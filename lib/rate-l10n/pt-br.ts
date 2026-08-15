@@ -970,4 +970,22 @@ export const RATE_PT_BR: Record<string, FormulaText> = {
     long: 'Três passos. Divida a renda anual desejada pela taxa de retirada para achar o patrimônio necessário: 36.000.000 a 4 % são 900.000.000. Depois faça crescer o que você já tem — 80.000.000 a 5 % por 25 anos viram 270.908.395 — deixando uma falta de 629.091.605. Por fim, aportes mensais capitalizados aos mesmos 5 % por 300 meses carregam um fator de acumulação de 595,51, então 629.091.605 ÷ 595,51 são 1.056.392 por mês.',
     note: 'O retorno é mantido constante ano após ano. Mercados reais oscilam, e uma queda nos últimos anos antes de parar de trabalhar separa muito os resultados com o mesmo retorno médio. Imposto, taxas, aporte do empregador e qualquer benefício público já devido não estão aqui. A renda alvo também não é corrigida, então coloque-a em dinheiro de hoje e ponha um retorno real, acima da inflação, no campo da taxa — um retorno nominal encolhe a meta em poder de compra ao longo de 25 anos. A taxa de retirada de 4 % é, ela mesma, o resultado de um estudo, num mercado, sobre um horizonte.',
   },
+  'pool-chlorine': {
+    title: 'Calculadora de cloro para piscina',
+    desc: 'Quanto produto clorado colocar, a partir do volume e do cloro livre atual e desejado.',
+    long: 'Um ppm é um mg/L, então subir mil litros em um ppm custa exatamente um grama de cloro ativo puro. Essa parte é fácil; o erro comum é esquecer que a loja não vende cloro puro, e por isso esse peso precisa ser dividido de novo pela concentração do produto. Levar 50.000 litros de 1 para 3 ppm pede 100 g de cloro ativo puro, que dão 800 de um produto a 12,5 %. O cloro líquido declara a porcentagem em gramas por 100 mL e não em peso, de modo que ler esse 800 como gramas no granulado e como mililitros no líquido acerta nos dois casos.',
+    note: 'O cloro livre só rende o que o estabilizante permite: com ácido cianúrico alto ele perde força e o alvo precisa subir para compensar. Ele também não sai depois de entrar, então coloque metade, espere e meça de novo em vez de pular direto para o valor desejado.',
+  },
+  'pool-salt': {
+    title: 'Calculadora de sal para piscina',
+    desc: 'Sal e sacos necessários para levar uma piscina de água salgada da leitura atual até o alvo.',
+    long: 'A salinidade é medida em ppm igual ao cloro, então a conta é idêntica e só a escala muda. Um ppm é um mg/L, de modo que subir um litro em 1.000 ppm custa um grama, e subir 50.000 litros em 2.400 ppm custa 120 kg, ou seis sacos de 20 kg. O sal é praticamente puro, então aqui não existe aquela segunda divisão pela concentração que o cloro exige. O que vale saber é o quanto um único saco move a sua piscina: aqui cada saco vale 400 ppm, o bastante para o último passar do alvo sozinho.',
+    note: 'A maioria dos geradores trabalha entre 2.700 e 3.400 ppm, e o número certo é o do manual da sua célula, não uma regra geral. Acrescente com a bomba ligada e despeje pelo fundo da parte rasa escovando para dissolver, nunca pelo skimmer, para que sal não dissolvido jamais chegue à célula.',
+  },
+  'pool-dilution-drain': {
+    title: 'Calculadora de esvaziamento e reposição da piscina',
+    desc: 'Que fração da água esvaziar e repor para baixar cianúrico, sal ou dureza até o alvo.',
+    long: 'Vários parâmetros de piscina só sobem. Ácido cianúrico, sal e dureza cálcica são assim, e a única saída é esvaziar água e completar com água nova. A fração a trocar é (atual − alvo) ÷ (atual − água de reposição). Ir de 100 para 50 ppm com água de rede a 0 ppm significa trocar exatamente metade. A água de reposição é onde isso falha em silêncio: numa região de água dura cujo abastecimento já marca 250 ppm, uma piscina mirando 200 ppm simplesmente não chega — troque cada gota e ela continua em 250.',
+    note: 'A fórmula supõe que a água se mistura por igual. Bombear só pela parte rasa mistura menos que isso e derruba a leitura menos do que o previsto, então mantenha a bomba ligada enquanto esvazia. Onde o lençol freático é alto, esvaziar muito de uma vez pode fazer a estrutura flutuar, e por isso trocar um terço de cada vez é o jeito seguro.',
+  },
 };

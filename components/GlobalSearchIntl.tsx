@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import ToolIcon from '@/components/ToolIcon';
 import { SEARCH_INTL_UI, type SearchIntlItem, type SearchIntlLang } from '@/lib/search-index-intl';
@@ -27,7 +27,8 @@ function score(item: SearchIntlItem, q: string): number {
   return -1;
 }
 
-export default function GlobalSearchIntl({ items, lang }: { items: SearchIntlItem[]; lang: SearchIntlLang }) {
+/** empty — 질의가 없을 때 검색창 아래에 놓는 것(섹션 바로가기). 한국어 쪽과 같다. */
+export default function GlobalSearchIntl({ items, lang, empty }: { items: SearchIntlItem[]; lang: SearchIntlLang; empty?: ReactNode }) {
   const ui = SEARCH_INTL_UI[lang];
   const labels = SECTION_LABEL[lang];
   const ALL = '__all__';
@@ -104,7 +105,10 @@ export default function GlobalSearchIntl({ items, lang }: { items: SearchIntlIte
 
       <div className="mt-5">
         {!trimmed ? (
-          <p className="py-16 text-center text-sm text-slate-300 dark:text-slate-600">{ui.hint}</p>
+          <div>
+            <p className="mb-5 text-center text-sm text-slate-400 dark:text-slate-500">{ui.hint}</p>
+            {empty}
+          </div>
         ) : shown.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-4xl mb-3">🤔</p>

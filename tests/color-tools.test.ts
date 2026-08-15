@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { COLOR_TOOLS, findColorTool, relatedColorTools } from '../lib/color-tools.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appEntries, appJoin, koLeafFile } from './app-path.ts';
+import { appEntries, appJoin, koLeafFile, footerSrc } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -111,7 +111,7 @@ test('검색 인덱스·사이트맵·푸터가 이 섹션을 싣는다', () => 
   assert.ok(sitemap.includes('/color'), '사이트맵에 허브가 없다');
   assert.ok(sitemap.includes('COLOR_TOOLS'), '사이트맵에 상세 페이지가 없다');
 
-  const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  const footer = footerSrc();
   assert.ok(footer.includes('"/color"'), '푸터에 이 섹션이 없다');
 });
 

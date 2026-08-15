@@ -970,4 +970,22 @@ export const RATE_ES: Record<string, FormulaText> = {
     long: 'Tres pasos. Divide la renta anual objetivo entre la tasa de retiro para el capital necesario: 36.000.000 al 4 % son 900.000.000. Haz crecer después lo que ya tienes — 80.000.000 al 5 % durante 25 años se convierten en 270.908.395 — lo que deja un hueco de 629.091.605. Por último, las aportaciones mensuales capitalizadas a ese mismo 5 % durante 300 meses llevan un factor de acumulación de 595,51, así que 629.091.605 ÷ 595,51 son 1.056.392 al mes.',
     note: 'La rentabilidad se mantiene constante año tras año. Los mercados reales oscilan, y una caída en los últimos años antes de jubilarse separa mucho los resultados con la misma rentabilidad media. Los impuestos, las comisiones, las aportaciones de la empresa y cualquier pensión pública ya devengada no están aquí. La renta objetivo tampoco se infla, así que métela en dinero de hoy y pon una rentabilidad real, por encima de la inflación, en la casilla del tipo: una rentabilidad nominal encoge el objetivo en poder de compra a lo largo de 25 años. La tasa de retiro del 4 % es a su vez el resultado de un estudio, sobre un mercado, en un solo horizonte.',
   },
+  'pool-chlorine': {
+    title: 'Calculadora de cloro para piscina',
+    desc: 'Cuánto producto clorado echar, a partir del volumen y del cloro libre actual y deseado.',
+    long: 'Una ppm es un mg/L, así que subir mil litros una ppm cuesta exactamente un gramo de cloro activo puro. Esa parte es fácil; donde se falla es al olvidar que en la tienda no venden cloro puro, por lo que ese peso hay que dividirlo otra vez por la riqueza del producto. Llevar 50.000 litros de 1 a 3 ppm pide 100 g de cloro activo puro, que son 800 de un producto al 12,5 %. El cloro líquido expresa su porcentaje en gramos por cada 100 mL y no en peso, de modo que leer ese 800 como gramos si es granulado y como mililitros si es líquido acierta en los dos casos.',
+    note: 'El cloro libre solo rinde lo que el estabilizador le deja: con el ácido cianúrico alto pierde fuerza y hay que subir el objetivo para compensar. Además no se puede retirar una vez dentro, así que echa la mitad, espera y vuelve a medir en lugar de saltar directamente al valor buscado.',
+  },
+  'pool-salt': {
+    title: 'Calculadora de sal para piscina',
+    desc: 'Sal y sacos necesarios para llevar una piscina salada de su lectura actual al objetivo.',
+    long: 'La salinidad se mide en ppm igual que el cloro, así que la aritmética es idéntica y solo cambia la escala. Una ppm es un mg/L, de modo que subir un litro 1.000 ppm cuesta un gramo, y subir 50.000 litros 2.400 ppm cuesta 120 kg, o seis sacos de 20 kg. La sal es casi pura, así que aquí no hay una segunda división por riqueza como ocurre con el cloro. Lo que conviene saber es cuánto mueve un solo saco tu piscina: aquí cada saco vale 400 ppm, suficiente para que el último se pase del objetivo él solo.',
+    note: 'La mayoría de los cloradores trabajan entre 2.700 y 3.400 ppm, y la cifra buena es la del manual de tu célula, no una regla general. Añádela con la bomba en marcha y viértela por el suelo de la parte poco honda cepillando para disolverla, nunca por el skimmer, para que no llegue sal sin disolver a la célula.',
+  },
+  'pool-dilution-drain': {
+    title: 'Calculadora de vaciado y llenado de piscina',
+    desc: 'Qué proporción de agua vaciar y reponer para bajar cianúrico, sal o dureza hasta el objetivo.',
+    long: 'Varios parámetros de una piscina solo suben. El ácido cianúrico, la sal y la dureza cálcica se comportan así, y la única forma de bajarlos es vaciar agua y rellenar. La proporción a reponer es (actual − objetivo) ÷ (actual − agua de relleno). Pasar de 100 a 50 ppm con un agua de red de 0 ppm significa cambiar exactamente la mitad. El agua de relleno es donde esto se tuerce en silencio: en una zona de agua dura cuyo suministro ya marca 250 ppm, una piscina que apunte a 200 ppm no llegará nunca — cambia hasta la última gota y seguirá en 250.',
+    note: 'La fórmula supone que el agua se mezcla de manera uniforme. Achicar solo por la parte poco honda mezcla menos que eso y baja la lectura menos de lo previsto, así que deja la bomba en marcha mientras vacías. Donde el nivel freático está alto, vaciar mucho de golpe puede levantar el vaso, de modo que reponer un tercio cada vez es la manera prudente de hacerlo.',
+  },
 };

@@ -1074,6 +1074,37 @@ export const ZH_HANS: FormulaL10n = {
     fbaTotal: '总差量',
     fbaPerPiece: '每片要展开的量',
     cordD: '嵌线绳直径',
+
+    /* 수영장 물 관리·난방·순환, 잔디 파종 */
+    fcNow: '当前余氯',
+    fcTarget: '目标余氯',
+    chlorineStrength: '产品有效氯含量',
+    chlorineDose: '需投加的药剂',
+    pureChlorine: '折纯有效氯',
+    dosePerPpm: '每 1 ppm 用量',
+    saltNow: '当前盐度',
+    saltTarget: '目标盐度',
+    saltKg: '需投加的盐',
+    ppmPerBag: '每袋提升盐度',
+    concNow: '当前读数',
+    concTarget: '目标读数',
+    fillConc: '补水读数',
+    drainPct: '需放掉的比例',
+    drainLiters: '需放掉的水量',
+    halfDrainConc: '换一半后的读数',
+    tempRise: '升温度数',
+    heaterKw: '加热器热功率',
+    heatLossPct: '加热中热损失',
+    heatHours: '加热时间',
+    heatKwh: '所需电量',
+    kwhPerDeg: '每度温升耗电',
+    turnoverHours: '循环一遍的时间',
+    turnoverPerDay: '每日循环次数',
+    runHours: '每日运行小时',
+    pumpKw: '水泵功率',
+    monthKwh: '每月电量',
+    seedRate: '每平方米播种量 (g)',
+    seedKg: '所需草籽',
   },
 
   UNITS: {
@@ -1156,6 +1187,8 @@ export const ZH_HANS: FormulaL10n = {
     order: '单',
     round: '圈',
     cone: '筒',
+
+    ppm: 'ppm', kwh: 'kWh', degC: '°C',
   },
 
   DESC: {

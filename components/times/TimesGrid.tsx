@@ -10,7 +10,7 @@ import { MAX_FACTOR, slugOf } from '@/lib/times/list';
 export default function TimesGrid({ path, current }: { path: string; current?: { a: number; b: number } }) {
   const rows = Array.from({ length: MAX_FACTOR }, (_, i) => i + 1);
   return (
-    <div className="overflow-x-auto -mx-1 px-1 pb-2">
+    <div className="grid-scroll -mx-1 px-1 pb-2">
       <div
         className="grid gap-[2px] min-w-[560px]"
         style={{ gridTemplateColumns: `repeat(${MAX_FACTOR}, minmax(0, 1fr))` }}

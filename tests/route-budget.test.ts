@@ -60,6 +60,27 @@
  *                         **동적을 하나도 안 먹었다** — 이미 있는 세 칸 라우트에
  *                         얹었기 때문이다. 장수를 늘릴 때 라우트를 안 늘리는 것이
  *                         이 저장소가 찾은 길이다.
+ *
+ *   동적 799 / 정적 505   2026-08-15 — 규격·중량표 열둘을 지웠다(steel·rebar·screw·
+ *                         drill·wire·torque·tire·paper·lumber·filament·gear·
+ *                         resistor). 한 공식에서 뽑아낸 참조표라 그 주제를 하러
+ *                         찾아오는 사람이 없었다. 섹션 하나가 동적 아홉(국제 낱장)과
+ *                         정적 하나(한국어 허브)를 물고 있어 −108 / −12다.
+ *
+ *   동적 673 / 정적 491   2026-08-15 — 찾아올 사람이 없는 갈래 열넷을 더 지웠다
+ *                         (gravity·microwave·insul·motor·fertilizer·wine·uv·dof·
+ *                         hardness·fret·bed·hike·altitude·darts). 같은 셈으로
+ *                         −126 / −14다.
+ *
+ *   동적 532 / 정적 460   2026-08-15 — 한 공식에서 뽑아낸 참조표 서른하나를 지웠다
+ *                         (windchill·dew·bandwidth·battery·bpm·lumen·drink·
+ *                         purifier·sun·exposure·raid·blood·ampere·heredity·
+ *                         powerbank·viewing·size·bra·ring·petfood·golf·cable·
+ *                         bignum·wifi·quake·pace·stop·element·craft·tatami·gengo).
+ *                         동적은 낱장을 물고 있던 열일곱만 먹는다 — 15×9 + 2×3
+ *                         (tatami·gengo는 한자 문화권 셋뿐)으로 −141이다. 나머지
+ *                         열넷은 앞서 낱장이 지워져 허브만 남아 있었다.
+ *                         정적은 한국어 허브 서른하나라 −31이다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -70,8 +91,8 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 907;
-const EXPECT_STATIC = 517;
+const EXPECT_DYNAMIC = 532;
+const EXPECT_STATIC = 460;
 /**
  * 얼마까지 늘어도 넘기나.
  *

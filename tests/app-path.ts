@@ -86,7 +86,7 @@ export function foldSlugs(): string[] {
   const m = src.match(/export const SLUG_ROUTES[^{]*\{([\s\S]*?)\n\}/);
   if (!m) throw new Error('lib/fold/registry.ts에서 SLUG_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 헬퍼도 고치라');
   const keys = [...m[1].matchAll(/'([^']*)':/g)].map(x => x[1]);
-  if (keys.length < 80) throw new Error(`접힌 낱장이 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
+  if (keys.length < 51) throw new Error(`접힌 낱장이 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
   return keys;
 }
 
@@ -285,4 +285,18 @@ function partNo(p: string): number {
   if (p.includes('/sitemap/')) return Number(base.replace('.xml', '')) || 0;
   const m = /^sitemap(\d+)?\.xml$/.exec(base);
   return m?.[1] ? Number(m[1]) - 1 : 0;
+}
+
+/**
+ * 푸터의 원본 — 두 파일을 이어 붙인다.
+ *
+ * 2026-08-15에 섹션 바로가기 격자를 `components/SectionShortcuts.tsx`로 떼어냈다
+ * (검색 화면의 빈 첫 화면에서도 같은 목록을 쓰려고). 푸터가 그것을 렌더하므로
+ * **화면에 나오는 것은 그대로**인데, `SiteFooter.tsx`만 읽던 검사 열다섯이
+ * "푸터에 이 섹션이 없다"고 하기 시작했다. 푸터는 이제 두 파일이다.
+ */
+export function footerSrc(): string {
+  return ['SiteFooter', 'SectionShortcuts']
+    .map(n => readFileSync(join(APP, '..', 'components', `${n}.tsx`), 'utf8'))
+    .join('\n');
 }

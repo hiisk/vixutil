@@ -125,7 +125,7 @@ test('route를 뽑는 정규식이 두 표기를 다 잡는다', () => {
 test('app/ 에서 섹션을 읽어 온다', () => {
   // 섹션 목록이 비면 위 검사가 전부 통과해 버린다
   assert.ok(SECTIONS.size > 20, `섹션이 ${SECTIONS.size}개뿐이다`);
-  for (const s of ['snap', 'fortune', 'element', 'convert', 'image']) {
+  for (const s of ['snap', 'fortune', 'chmod', 'convert', 'image']) {
     assert.ok(SECTIONS.has(s), `${s}를 못 읽었다`);
   }
 });

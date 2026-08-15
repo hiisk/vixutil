@@ -11,7 +11,7 @@ import { CONVERT_EN, CONVERT_CATEGORY, CONVERT_L10N } from '../lib/convert-i18n.
 import { convertAlternates, CONVERT_HUB_FAQ } from '../lib/convert-ui-intl.ts';
 import { ALL_LOCALES10, INTL_LOCALES, localeHref, localeTag } from '../lib/locales.ts';
 import { SECTION_FAQ } from '../lib/section-faq.ts';
-import { appJoin, hasKoLeaf, hasPage } from './app-path.ts';
+import { appJoin, hasKoLeaf, hasPage, footerSrc } from './app-path.ts';
 import { hasOwnCard } from '../lib/og-cards/index.ts';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -116,7 +116,7 @@ test('검색 인덱스·사이트맵·푸터가 이 섹션을 싣는다', () => 
   const sitemap = readFileSync(appJoin('sitemap.ts'), 'utf8');
   assert.ok(sitemap.includes('CONVERT_TOOLS'), '사이트맵 누락');
 
-  const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  const footer = footerSrc();
   assert.ok(footer.includes('"/convert"'), '푸터 누락');
 });
 

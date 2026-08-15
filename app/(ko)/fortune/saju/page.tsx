@@ -6,9 +6,8 @@ import SiteFooter from '@/components/SiteFooter';
 import {
   STEMS, BRANCHES, ELEMENT_INFO, ELEMENT_SHORTAGE, ILJU_READINGS,
   SIPSEONG_INFO, JIJANGGAN,
-  type Element, type Pillar, type DaewoonEntry,
-  getSipseong, getSingang, getDaewoonDirection, getDaewoonStartAge, getDaewoons,
-  getYearPillar, getMonthPillar, getDayPillar, getHourPillar,
+  type Element, type Pillar, type DaewoonEntry, type Chart,
+  getSipseong, getSingang, buildChart, yearPillarOf,
   countElements, pillarLabel, pillarHanja,
 } from '@/lib/saju-data';
 import FortuneDisplay from '@/components/FortuneDisplay';
@@ -144,10 +143,18 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
 /* ── 메인 ── */
 type Gender = 'male' | 'female';
 interface FormState { year:string; month:string; day:string; hour:string; gender:Gender }
-interface SajuResult {
-  year: Pillar; month: Pillar; day: Pillar; hour: Pillar | null;
+interface SajuResult extends Chart {
   inputYear:number; inputMonth:number; inputDay:number;
   gender: Gender;
+}
+
+/** 시간 입력("13:40")을 시·분으로 가른다. 옛 공유 링크의 "13"도 받는다 */
+function parseHour(h: string): { hour: number | null; minute: number } {
+  if (!h) return { hour: null, minute: 0 };
+  const [a, b] = h.split(':');
+  const hour = parseInt(a, 10);
+  if (Number.isNaN(hour)) return { hour: null, minute: 0 };
+  return { hour, minute: parseInt(b ?? '0', 10) || 0 };
 }
 
 export default function SajuPage() {
@@ -163,11 +170,9 @@ export default function SajuPage() {
       setError('올바른 생년월일을 입력해 주세요.'); return;
     }
     setError('');
-    const yearP  = getYearPillar(yi,mi,di);
-    const monthP = getMonthPillar(mi,di,yearP.stemIdx);
-    const dayP   = getDayPillar(yi, mi, di);
-    const hourP  = h ? getHourPillar(parseInt(h),dayP.stemIdx) : null;
-    setResult({ year:yearP, month:monthP, day:dayP, hour:hourP, inputYear:yi, inputMonth:mi, inputDay:di, gender:g });
+    const { hour, minute } = parseHour(h);
+    const chart = buildChart({ year:yi, month:mi, day:di, hour, minute }, g);
+    setResult({ ...chart, inputYear:yi, inputMonth:mi, inputDay:di, gender:g });
     window.history.replaceState({},''  ,`?${new URLSearchParams({y,m,d,...(h?{h}:{}),g})}`);
     setTimeout(()=>document.getElementById('saju-result')?.scrollIntoView({behavior:'smooth'}),100);
   },[]);
@@ -198,9 +203,9 @@ export default function SajuPage() {
   const missingEls = (Object.entries(counts) as [Element,number][]).filter(([,c])=>c===0).map(([e])=>e);
 
   /* 대운 */
-  const direction   = result ? getDaewoonDirection(result.gender, result.year.stemIdx) : 'forward';
-  const startAge    = result ? getDaewoonStartAge(result.inputYear, result.inputMonth, result.inputDay, direction) : 0;
-  const daewoons    = result ? getDaewoons(result.month, direction, startAge) : [];
+  const direction   = result?.daewoonDirection ?? 'forward';
+  const startAge    = result?.daewoonStartAge ?? 0;
+  const daewoons    = result?.daewoons ?? [];
   const currentAge  = result ? (new Date().getFullYear() - result.inputYear) : 0;
   const currentDaewoon = daewoons.find(d=>currentAge>=d.startAge&&currentAge<=d.endAge);
 
@@ -209,8 +214,7 @@ export default function SajuPage() {
   const seunYears = result
     ? Array.from({ length: 3 }, (_, i) => {
         const y = thisYear + i;
-        // 입춘(대략 2/4) 이후로 안전하게 고정한 월/일로 연주 계산
-        const p = getYearPillar(y, 6, 15);
+        const p = yearPillarOf(y);
         const ss = getSipseong(result.day.stemIdx, p.stemIdx);
         return { year: y, pillar: p, sipseong: ss };
       })
@@ -345,25 +349,16 @@ export default function SajuPage() {
               </div>
             </div>
 
-            {/* 시간 */}
+            {/* 시간 — 진태양시 보정을 하려면 분까지 필요하다 */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">태어난 시간 (선택 — 시주 계산에 필요)</label>
-              <select value={form.hour} onChange={e=>setForm(f=>({...f,hour:e.target.value}))}
-                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 bg-white dark:bg-slate-900">
-                <option value="">모름 / 시주 생략</option>
-                <option value="23">자시 (子時, 23:00–01:00)</option>
-                <option value="1">축시 (丑時, 01:00–03:00)</option>
-                <option value="3">인시 (寅時, 03:00–05:00)</option>
-                <option value="5">묘시 (卯時, 05:00–07:00)</option>
-                <option value="7">진시 (辰時, 07:00–09:00)</option>
-                <option value="9">사시 (巳時, 09:00–11:00)</option>
-                <option value="11">오시 (午時, 11:00–13:00)</option>
-                <option value="13">미시 (未時, 13:00–15:00)</option>
-                <option value="15">신시 (申時, 15:00–17:00)</option>
-                <option value="17">유시 (酉時, 17:00–19:00)</option>
-                <option value="19">술시 (戌時, 19:00–21:00)</option>
-                <option value="21">해시 (亥時, 21:00–23:00)</option>
-              </select>
+              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 block mb-1">태어난 시각 (선택 — 시주 계산에 필요)</label>
+              <input type="time" value={form.hour}
+                onChange={e=>setForm(f=>({...f,hour:e.target.value}))}
+                onKeyDown={e=>e.key==='Enter'&&handleCalc()}
+                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-400 bg-white dark:bg-slate-900" />
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 leading-relaxed">
+                비워 두면 시주를 생략합니다. 시각을 넣으면 진태양시(서울 기준 약 −32분)와 서머타임을 보정해 시주를 뽑습니다.
+              </p>
             </div>
 
             {error && <p className="text-xs text-rose-500 font-semibold text-center">{error}</p>}
@@ -436,6 +431,16 @@ export default function SajuPage() {
                         </div>
                       ))}
                     </div>
+                    {result.solarHour && (
+                      <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-xl p-3">
+                        <p className="text-[10px] font-black text-amber-700 dark:text-amber-300 mb-1">🕰️ 시주는 진태양시로 뽑았습니다</p>
+                        <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+                          입력한 <b>{form.hour}</b> → 진태양시 <b>{String(result.solarHour.hour).padStart(2,'0')}:{String(result.solarHour.minute).padStart(2,'0')}</b>
+                          {' '}({result.solarShiftMin >= 0 ? '+' : ''}{result.solarShiftMin}분).
+                          한국 표준시는 동경 135도가 기준이라 서울(126.98도)보다 32분 이르고, 균시차와 서머타임까지 함께 보정합니다.
+                        </p>
+                      </div>
+                    )}
                     <p className="text-xs text-slate-400 dark:text-slate-500 text-center">각 기둥 천간 아래 작은 뱃지는 일간 기준 십성(十星)입니다</p>
                   </div>
                 )}
@@ -615,6 +620,41 @@ export default function SajuPage() {
                         </div>
                       );
                     })}
+
+                    {/*
+                      지지의 십성. 천간 셋만 보면 여덟 글자 가운데 셋만 읽는 셈이라
+                      화면에 안 나오는 절반이 생긴다 — 지지는 지장간 본기로 십성을 본다.
+                    */}
+                    <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-4">
+                      <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-1">지지(地支)의 십성 — 지장간 본기 기준</p>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">천간이 겉으로 드러난 기운이라면 지지는 뿌리입니다. 각 지지에 감춰진 지장간의 본기(本氣)로 십성을 봅니다.</p>
+                      <div className="space-y-1.5">
+                        {/* as const를 쓰면 열쇠가 리터럴로 좁아져 술어 타입이 안 맞는다 */}
+                        {([
+                          ['년지', result.year], ['월지', result.month],
+                          ['일지', result.day], ['시지', result.hour],
+                        ] as [string, Pillar | null][]).filter((x): x is [string, Pillar] => x[1] !== null).map(([label, p]) => {
+                          const b = BRANCHES[p.branchIdx];
+                          const jjg = JIJANGGAN[p.branchIdx];
+                          const bongi = STEMS[jjg[jjg.length - 1].stemIdx];
+                          const ss = getSipseong(result.day.stemIdx, bongi.idx);
+                          const info = SIPSEONG_INFO[ss];
+                          const el = ELEMENT_INFO[bongi.element];
+                          return (
+                            <div key={label} className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl px-3 py-2">
+                              <span className="text-[10px] font-black w-7 text-slate-400 dark:text-slate-500">{label}</span>
+                              <span className="text-base font-black" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500">본기 {bongi.hanja}({bongi.kor})</span>
+                              <span className="ml-auto flex items-center gap-1.5">
+                                {info && <span className="text-xs">{info.emoji}</span>}
+                                <span className="text-[11px] font-black px-2 py-0.5 rounded-full" style={{ background:el.bg, color:el.color }}>{ss}</span>
+                                {info && <span className="text-[10px] text-slate-400 dark:text-slate-500 w-14 text-right">{info.summary}</span>}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 )}
 

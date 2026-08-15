@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
-import { appJoin } from './app-path.ts';
+import { appJoin, footerSrc } from './app-path.ts';
 
 /**
  * 푸터는 모든 페이지에 붙으므로 여기 링크가 하나 깨지면 사이트 전체가 깨진 링크를
  * 갖는다. 그리고 언어별 목록을 손으로 관리하니, 없는 페이지로 보내는 일이 생긴다.
  */
-const src = readFileSync('components/SiteFooter.tsx', 'utf8');
+const src = footerSrc();
 
 /** 특정 배열 안의 href만 뽑는다 */
 function hrefsIn(arrayName: string): string[] {

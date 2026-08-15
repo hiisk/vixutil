@@ -22,7 +22,6 @@ import { CONVERT_L10N } from '../lib/convert-i18n.ts';
 import { RATE_META_INTL, RATE_CATEGORY_INTL } from '../lib/rate-section.ts';
 import { BODY_META_INTL, BODY_CATEGORY_INTL } from '../lib/body-section.ts';
 import { GEO_META_INTL, GEO_CATEGORY_INTL } from '../lib/geo-section.ts';
-import { CRAFT_META_INTL, CRAFT_CATEGORY_INTL } from '../lib/craft-section.ts';
 import { HANJA_CATEGORY_INTL } from '../lib/hanja-ui.ts';
 import { COUNTRY_REGION_INTL } from '../lib/country-ui.ts';
 import { FORTUNE_INTL, SNAP_INTL } from '../lib/search-index-intl.ts';
@@ -48,8 +47,6 @@ const TABLES: [string, Record<string, unknown>, readonly AnyLocale10[]][] = [
   ['BODY_CATEGORY_INTL', BODY_CATEGORY_INTL, NON_KO_EN],
   ['GEO_META_INTL', GEO_META_INTL, NON_KO_EN],
   ['GEO_CATEGORY_INTL', GEO_CATEGORY_INTL, NON_KO_EN],
-  ['CRAFT_META_INTL', CRAFT_META_INTL, NON_KO_EN],
-  ['CRAFT_CATEGORY_INTL', CRAFT_CATEGORY_INTL, NON_KO_EN],
   ['HANJA_CATEGORY_INTL', HANJA_CATEGORY_INTL, NON_KO_EN],
   ['COUNTRY_REGION_INTL', COUNTRY_REGION_INTL, NON_KO_EN],
   ['FORTUNE_INTL', FORTUNE_INTL, NON_KO],

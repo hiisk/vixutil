@@ -1119,6 +1119,37 @@ export const FR: FormulaL10n = {
     fbaTotal: 'Écart total',
     fbaPerPiece: 'Écart à ouvrir par pièce',
     cordD: 'Diamètre du cordon',
+
+    /* 수영장 물 관리·난방·순환, 잔디 파종 */
+    fcNow: 'Chlore libre actuel',
+    fcTarget: 'Chlore libre visé',
+    chlorineStrength: 'Richesse du produit',
+    chlorineDose: 'Produit à verser',
+    pureChlorine: 'En chlore actif pur',
+    dosePerPpm: 'Produit pour 1 ppm',
+    saltNow: 'Salinité actuelle',
+    saltTarget: 'Salinité visée',
+    saltKg: 'Sel à verser',
+    ppmPerBag: 'Salinité par sac',
+    concNow: 'Mesure actuelle',
+    concTarget: 'Mesure visée',
+    fillConc: 'Mesure de l’eau de remplissage',
+    drainPct: 'Part à vidanger',
+    drainLiters: 'Eau à vidanger',
+    halfDrainConc: 'Mesure après un demi-changement',
+    tempRise: 'Écart de température',
+    heaterKw: 'Puissance thermique',
+    heatLossPct: 'Perte pendant la chauffe',
+    heatHours: 'Temps de chauffe',
+    heatKwh: 'Énergie nécessaire',
+    kwhPerDeg: 'Énergie par degré',
+    turnoverHours: 'Durée d’un brassage',
+    turnoverPerDay: 'Brassages par jour',
+    runHours: 'Heures de marche par jour',
+    pumpKw: 'Puissance absorbée de la pompe',
+    monthKwh: 'Énergie par mois',
+    seedRate: 'Dose de semis (g/m²)',
+    seedKg: 'Semence nécessaire',
   },
 
   UNITS: {
@@ -1201,6 +1232,8 @@ export const FR: FormulaL10n = {
     order: '',
     round: 'tours',
     cone: 'cônes',
+
+    ppm: 'ppm', kwh: 'kWh', degC: '°C',
   },
 
   DESC: {

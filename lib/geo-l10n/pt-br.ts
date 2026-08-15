@@ -830,4 +830,22 @@ export const GEO_PT_BR: Record<string, FormulaText> = {
     long: 'Areia se mede por volume e se vende por peso, e a densidade é o que liga os dois, então ela é um campo: cerca de 1.500 kg/m³ seca e 1.900 kg/m³ úmida. Um pátio de 20 m² assentado com 3 cm são 0,6 m³; com 10 % de perda isso é 0,66 m³, que a 1.500 kg/m³ pesa 990 kg — 39,6 sacos de 25 kg, ou seja 40 sacos. Um big bag de uma tonelada dá mais ou menos o mesmo, e nesse tamanho o granel sai mais barato.',
     note: 'A areia perde de 10 a 15 % da espessura depois de compactada, então informe a espessura final e não a que você mede espalhando. A areia varrida nas juntas é separada e acrescenta outros 1 a 2 kg por metro quadrado.',
   },
+  'pool-heat-time': {
+    title: 'Calculadora de tempo para aquecer a piscina',
+    desc: 'Horas e quilowatt-hora para subir a temperatura de uma piscina em um dado número de graus.',
+    long: 'Subir um quilo de água em um grau custa 4,186 kJ. Tratando o litro como um quilo, o calor necessário é volume × 4,186 × aumento de temperatura, e dividir por 3.600 transforma isso em quilowatt-hora. Levantar 50.000 litros em cinco graus dá 291 kWh antes das perdas — e as perdas precisam entrar, porque a piscina continua esfriando pela superfície enquanto você a aquece. A 20 % viram 349 kWh, que um aquecedor de 12 kW entrega em 29 horas. É aí que a resposta costuma surpreender: aquecer piscina se mede em dias, não numa tarde.',
+    note: 'O número da perda é, na prática, uma pergunta sobre a capa. A evaporação de uma lâmina descoberta responde pela maior parte, e instalar uma capa costuma cortá-la à metade ou menos. Numa bomba de calor, informe a potência térmica e não o consumo elétrico da etiqueta: a primeira é quatro ou cinco vezes maior, e trocar uma pela outra erra o tempo na mesma proporção.',
+  },
+  'pool-pump-turnover': {
+    title: 'Calculadora de horas da bomba da piscina',
+    desc: 'Tempo de recirculação e horas diárias de bomba a partir do volume e da vazão.',
+    long: 'A água de piscina é administrada por recirculações, não por horas. Uma recirculação é o tempo que todo o volume leva para passar uma vez pelo filtro: volume dividido pela vazão. Cinquenta mil litros a 250 litros por minuto dão uma recirculação em 3,3 horas, então uma meta de uma vez e meia por dia significa cinco horas de bomba. O que vale otimizar não são as horas e sim os watts: a potência da bomba cresce quase com o cubo da vazão, de modo que ir na metade da velocidade pelo dobro do tempo entrega a mesma recirculação por cerca de um quarto da eletricidade. É essa única relação que paga uma bomba de velocidade variável.',
+    note: 'A vazão impressa na bomba é medida sem resistência de tubulação, então a real é menor; para o número verdadeiro, leia o manômetro do filtro junto com um medidor de vazão. Filtro sujo derruba a vazão ainda mais, o que faz o mesmo tempo de funcionamento entregar menos recirculação sem avisar — por isso o intervalo de retrolavagem também faz parte desta conta.',
+  },
+  'grass-seed': {
+    title: 'Calculadora de sementes de grama',
+    desc: 'Peso de sementes e sacos necessários a partir da área e da taxa de semeadura por metro quadrado.',
+    long: 'A conta é área vezes gramas por metro quadrado, mas é essa taxa que decide a resposta inteira, e por isso ela é um campo de entrada aqui e não uma constante embutida. Espécies de semente maior precisam de mais peso para alcançar a mesma densidade de plantas, então a taxa recomendada pode variar duas ou três vezes entre elas: copie a do saco. Além disso, a mesma espécie é semeada em cerca do dobro sobre solo nu do que na sobressemeadura de um gramado já formado. Cem metros quadrados a 35 g/m² dão 3,85 kg depois de somar 10 % de perda, e um saco de 5 kg cobre 143 m².',
+    note: 'Semente que sobra perde poder germinativo a cada ano guardada, então comprar muito além do necessário rende pouco. Passe o rastelo de leve para a semente encostar na terra e mantenha a superfície úmida até tudo nascer: isso pesa mais no resultado do que acertar a taxa no grama.',
+  },
 };

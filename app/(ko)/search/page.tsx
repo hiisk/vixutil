@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import GlobalSearch from '@/components/GlobalSearch';
 import SiteFooter from '@/components/SiteFooter';
+import SectionShortcuts from '@/components/SectionShortcuts';
 import { SEARCH_INDEX } from '@/lib/search-index';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -33,10 +34,12 @@ export default function SearchPage() {
       <div className="flex-1 max-w-2xl mx-auto px-4 py-8 w-full">
         {/* 검색 UI만 있고 h1이 없었다. 화면 구성은 그대로 두고 제목만 넣는다. */}
         <h1 className="sr-only">통합 검색 — 계산기·심리테스트·퀴즈·생성기·체크리스트 전체 검색</h1>
-        <GlobalSearch items={SEARCH_INDEX} />
+        {/* 질의가 없을 때의 빈 자리에 섹션 바로가기를 놓는다 — 푸터에 있던 것을
+            올린 것이라 아래 SiteFooter에서는 browse={false}로 끈다 */}
+        <GlobalSearch items={SEARCH_INDEX} empty={<SectionShortcuts lang="ko" />} />
       </div>
 
-      <SiteFooter />
+      <SiteFooter browse={false} />
     </div>
   );
 }

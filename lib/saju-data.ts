@@ -205,23 +205,39 @@ export function getSipseong(ilganIdx: number, targetIdx: number): string {
 export const STEM_ELEMENTS: Element[] = ['목','목','화','화','토','토','금','금','수','수'];
 export const BRANCH_ELEMENTS: Element[] = ['수','토','목','목','토','화','화','토','금','금','토','수'];
 
+/**
+ * 지지 가중치 [년지, 월지, 일지, 시지].
+ *
+ * 명리의 득령(得令)·득지(得地)·득세(得勢) 순서를 그대로 옮겼다. 월지는 일간이
+ * 태어난 계절이라 강약을 절반쯤 정하므로 가장 무겁고, 배우자 자리인 일지가
+ * 그다음, 년지·시지와 천간은 가볍다. 전에는 넷을 똑같이 세어 월령을 아예 보지
+ * 않았다 — 겨울에 난 수(水) 일간과 여름에 난 수 일간이 같은 점수를 받았다.
+ * 숫자 자체는 이 순서를 담기 위한 것이고 어느 책의 값을 옮긴 것은 아니다.
+ */
+const BRANCH_WEIGHT = [1, 3, 2, 1];
+
 export function getSingang(ilganIdx: number, pillars: (Pillar | null)[]): {
   strong: boolean; score: number; label: string;
   desc: string; yongshin: string; yongshinDesc: string;
 } {
-  let support = 0, oppose = 0;
   const ilEl = STEMS[ilganIdx].element;
-  for (const p of pillars) {
-    if (!p) continue;
-    const ss = getSipseong(ilganIdx, p.stemIdx);
-    if (['비견','겁재','편인','정인'].includes(ss)) support += 2; else oppose += 2;
-    // 지장간 본기만 참고
+  let support = 0, total = 0;
+  pillars.forEach((p, i) => {
+    if (!p) return;
+    // 일간 자신은 세지 않는다 — 강약을 재는 주체이지 자기 응원군이 아니다
+    if (i !== 2) {
+      total += 1;
+      if (['비견','겁재','편인','정인'].includes(getSipseong(ilganIdx, p.stemIdx))) support += 1;
+    }
+    // 지지는 지장간 본기로 판정한다
     const jjg = JIJANGGAN[p.branchIdx];
-    const bongi = jjg[jjg.length - 1];
-    const bEl = STEM_ELEMENTS[bongi.stemIdx];
-    if (bEl === ilEl || GENERATES[bEl] === ilEl) support++; else oppose++;
-  }
-  const score = support - oppose;
+    const bEl = STEM_ELEMENTS[jjg[jjg.length - 1].stemIdx];
+    const w = BRANCH_WEIGHT[i] ?? 1;
+    total += w;
+    if (bEl === ilEl || GENERATES[bEl] === ilEl) support += w;
+  });
+  // 내 편이 절반을 넘으면 신강. score는 화면에 보여 줄 치우침 정도다
+  const score = support * 2 - total;
   const strong = score >= 0;
   const stem = STEMS[ilganIdx];
   return {
@@ -243,30 +259,24 @@ export function getDaewoonDirection(gender: 'male'|'female', yearStemIdx: number
   return (gender==='male' && yearIsYang) || (gender==='female' && !yearIsYang) ? 'forward' : 'backward';
 }
 
-// 월주가 바뀌는 12절기 근사 날짜 [월, 일]
-const JEOLGI_DATES: [number, number][] = [
-  [2,4],[3,6],[4,5],[5,6],[6,6],[7,7],[8,7],[9,8],[10,8],[11,7],[12,7],[1,5],
-];
-
+/**
+ * 대운수 — 태어난 순간부터 절기까지의 날수를 3으로 나눈다(3일 = 1년).
+ * 순행이면 다음 절(節)까지, 역행이면 지난 절까지 센다.
+ *
+ * 나머지는 반올림한다. 1일이 남으면 버리고 2일이 남으면 올리는 관례
+ * (1일 = 4개월, 2일 = 8개월)와 결과가 같다.
+ */
 export function getDaewoonStartAge(
-  birthYear: number, birthMonth: number, birthDay: number,
+  birthUtcMs: number, birthYear: number, birthMonth: number,
   direction: 'forward'|'backward'
 ): number {
-  const birth = new Date(birthYear, birthMonth-1, birthDay).getTime();
-  const dates: number[] = [];
-  for (let yo = -1; yo <= 1; yo++) {
-    for (const [m, d] of JEOLGI_DATES) {
-      const y = m===1 ? birthYear+yo+1 : birthYear+yo;
-      dates.push(new Date(y, m-1, d).getTime());
-    }
+  let target = jeolgiUtc(birthYear, birthMonth);
+  if (direction === 'forward' && target <= birthUtcMs) {
+    target = birthMonth === 12 ? jeolgiUtc(birthYear+1, 1) : jeolgiUtc(birthYear, birthMonth+1);
+  } else if (direction === 'backward' && target > birthUtcMs) {
+    target = birthMonth === 1 ? jeolgiUtc(birthYear-1, 12) : jeolgiUtc(birthYear, birthMonth-1);
   }
-  dates.sort((a,b)=>a-b);
-  const target = direction==='forward'
-    ? dates.find(d => d > birth)
-    : [...dates].reverse().find(d => d < birth);
-  if (!target) return 3;
-  const diffDays = Math.abs(target - birth) / 86400000;
-  return Math.max(1, Math.round(diffDays / 3));
+  return Math.max(1, Math.round(Math.abs(target - birthUtcMs) / 86400000 / 3));
 }
 
 export interface DaewoonEntry { pillar: Pillar; startAge: number; endAge: number }
@@ -348,23 +358,108 @@ export const ILJU_READINGS: Record<string, string> = {
 // ─── 기둥 계산 ────────────────────────────────────────────────────────────────
 export interface Pillar { stemIdx: number; branchIdx: number }
 
-export function getYearPillar(year: number, month: number, day: number): Pillar {
-  const y = (month < 2 || (month===2 && day < 4)) ? year-1 : year;
-  return { stemIdx: ((y-4)%10+10)%10, branchIdx: ((y-4)%12+12)%12 };
+const DEG = Math.PI / 180;
+const J1970 = 2440587.5; // 1970-01-01 00:00 UTC의 율리우스일
+
+/*
+ * 절기(節氣)
+ *
+ * 연주는 1월 1일이 아니라 입춘(立春)에, 월주는 초하루가 아니라 절(節)에 바뀐다.
+ * 전에는 [2,4] 같은 고정 날짜 표를 썼는데 실제 입춘은 2월 3일 22:59(2021)에서
+ * 2월 5일 사이를 오간다 — 표로는 해마다 며칠씩 틀린다. 게다가 이 파일 안에 서로
+ * 어긋나는 절기 표가 둘 있었다(월주는 입추를 8월 8일로, 대운은 8월 7일로 봤다).
+ *
+ * 그래서 절기 시각을 직접 계산한다. 태양 황경이 15°의 배수를 지나는 순간이
+ * 절기이며, 태양 위치는 Meeus 《Astronomical Algorithms》 25장의 낮은 정밀도
+ * 식이다. 2025년 한국천문연구원 발표값과 견주면 열두 절 모두 오차 ±8분 안이며
+ * tests/saju-calendar.test.ts가 이를 대조한다. ΔT(약 69초)는 그 오차에 묻히므로
+ * 넣지 않았다. 절입 시각 10분 안쪽에 태어났다면 전문 만세력으로 다시 보는 편이 낫다.
+ */
+
+/** 율리우스일 → 태양 겉보기 황경(도) */
+function sunLongitude(jd: number): number {
+  const T = (jd - 2451545) / 36525;
+  const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+  const M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) * DEG;
+  const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M)
+          + (0.019993 - 0.000101 * T) * Math.sin(2 * M)
+          + 0.000289 * Math.sin(3 * M);
+  const om = (125.04 - 1934.136 * T) * DEG;
+  return ((L0 + C - 0.00569 - 0.00478 * Math.sin(om)) % 360 + 360) % 360;
 }
 
-export function getMonthPillar(month: number, day: number, yearStemIdx: number): Pillar {
-  const JEOLGI: [number, number, number][] = [
-    [1,5,1],[2,4,2],[3,6,3],[4,5,4],[5,6,5],[6,6,6],
-    [7,7,7],[8,8,8],[9,8,9],[10,8,10],[11,7,11],[12,7,0],
-  ];
-  let branchIdx = 0;
-  for (let i=11; i>=0; i--) {
-    const [m,d,b]=JEOLGI[i];
-    if (month>m||(month===m&&day>=d)) { branchIdx=b; break; }
+/**
+ * 그 달의 절(節)이 드는 순간 — 유닉스 ms(UTC).
+ *
+ * 양력 월마다 절이 하나씩 있고, 그 절을 지나면 월지가 `month % 12`로 바뀐다
+ * (1월 소한 → 丑, 2월 입춘 → 寅, … 11월 입동 → 亥, 12월 대설 → 子).
+ * 황경은 소한 285°에서 시작해 한 달에 30°씩 간다.
+ */
+export function jeolgiUtc(year: number, month: number): number {
+  const target = (285 + (month - 1) * 30) % 360;
+  let jd = Date.UTC(year, month - 1, 6) / 86400000 + J1970;
+  for (let i = 0; i < 8; i++) {
+    let d = sunLongitude(jd) - target;
+    if (d > 180) d -= 360; else if (d < -180) d += 360;
+    jd -= d / 0.9856473; // 태양은 하루에 약 0.9856° 간다
   }
-  const BASE=[2,4,6,8,0];
-  return { stemIdx:(BASE[yearStemIdx%5]+((branchIdx-2+12)%12))%10, branchIdx };
+  return (jd - J1970) * 86400000;
+}
+
+/** 그 순간 Asia/Seoul의 UTC 오프셋(ms) */
+function seoulOffsetMs(utcMs: number): number {
+  const name = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Seoul', timeZoneName: 'longOffset' })
+    .formatToParts(utcMs).find(p => p.type === 'timeZoneName')?.value ?? '';
+  const m = /GMT([+-])(\d\d):(\d\d)/.exec(name);
+  if (!m) return 9 * 3600000;
+  return (m[1] === '-' ? -1 : 1) * (Number(m[2]) * 3600000 + Number(m[3]) * 60000);
+}
+
+/**
+ * 한국에서 시계가 가리킨 시각 → 실제 순간(유닉스 ms).
+ *
+ * 표준 자오선이 두 번 바뀌었고(1954-03-21 ~ 1961-08-09은 동경 127.5도라 UTC+8:30)
+ * 서머타임도 세 차례 있었다(1948~1951 · 1955~1960 · 1987~1988). 전환 날짜를 손으로
+ * 적는 대신 Intl의 IANA 시간대 자료(Asia/Seoul)를 읽는다 — 브라우저와 Node 모두
+ * 갖고 있고 이 전환들이 전부 들어 있다.
+ *
+ * 오프셋은 순간이 정해져야 알 수 있고 순간은 오프셋이 있어야 정해지므로 두 번 돈다.
+ */
+export function koreaClockToUtc(year: number, month: number, day: number, hour: number, minute: number): number {
+  const wall = Date.UTC(year, month - 1, day, hour, minute);
+  let ms = wall - 9 * 3600000;
+  for (let i = 0; i < 2; i++) ms = wall - seoulOffsetMs(ms);
+  return ms;
+}
+
+/** 서울의 경도(동경). 한국 표준시(동경 135도)보다 32분 늦다 */
+const SEOUL_LON = 126.978;
+
+/** 균시차(분) — 궤도가 타원이라 태양의 남중 시각이 계절마다 ±16분 흔들린다 (Meeus 28장) */
+function eqOfTime(jd: number): number {
+  const T = (jd - 2451545) / 36525;
+  const L0 = (280.46646 + 36000.76983 * T + 0.0003032 * T * T) * DEG;
+  const M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) * DEG;
+  const e = 0.016708634 - 0.000042037 * T;
+  const eps = (23.439291 - 0.0130042 * T) * DEG;
+  const y = Math.tan(eps / 2) ** 2;
+  const E = y * Math.sin(2 * L0) - 2 * e * Math.sin(M)
+          + 4 * e * y * Math.sin(M) * Math.cos(2 * L0)
+          - 0.5 * y * y * Math.sin(4 * L0) - 1.25 * e * e * Math.sin(2 * M);
+  return (E / DEG) * 4;
+}
+
+/**
+ * 진태양시(眞太陽時) — 서울 하늘의 해가 실제로 가리키는 시각.
+ *
+ * 시주는 표준시가 아니라 이 시각으로 뽑는다. 한국 표준시는 동경 135도가 기준이라
+ * 서울(126.98도)보다 32분 이르고, 여기에 균시차를 더한 것이 진태양시다. 그래서
+ * 서울에서 午時는 11:00~13:00이 아니라 대략 11:32~13:32이다.
+ *
+ * 반환값은 UTC 눈금 위에 얹은 태양시라 `getUTCHours()`로 읽어야 한다.
+ */
+export function trueSolarMs(utcMs: number): number {
+  return utcMs + (SEOUL_LON / 15) * 3600000 + eqOfTime(utcMs / 86400000 + J1970) * 60000;
 }
 
 const DAY_OFFSET = 17;
@@ -379,6 +474,81 @@ export function getHourPillar(hour: number, dayStemIdx: number): Pillar {
   const branchIdx = Math.floor(((hour+1)%24)/2);
   const BASE=[0,2,4,6,8];
   return { stemIdx:(BASE[dayStemIdx%5]+branchIdx)%10, branchIdx };
+}
+
+export interface Birth {
+  year: number; month: number; day: number;
+  /** 시(0~23) — 모르면 null. 시주를 만들지 않는다 */
+  hour: number | null;
+  minute?: number;
+}
+
+export interface Chart {
+  year: Pillar; month: Pillar; day: Pillar; hour: Pillar | null;
+  /** 시주를 뽑는 데 쓴 진태양시 — 시를 모르면 null */
+  solarHour: { hour: number; minute: number } | null;
+  /** 시계 시각과 진태양시의 차이(분). 음수면 진태양시가 늦다 */
+  solarShiftMin: number;
+  daewoonDirection: 'forward' | 'backward';
+  daewoonStartAge: number;
+  daewoons: DaewoonEntry[];
+}
+
+/** 갑기년 병인두(丙寅頭) — 연간에 따라 寅월의 천간이 정해진다 */
+const MONTH_STEM_BASE = [2, 4, 6, 8, 0];
+
+/** 절기해(입춘~입춘)의 간지. 세운(歲運)처럼 해만 알면 되는 곳에 쓴다 */
+export function yearPillarOf(solarYear: number): Pillar {
+  return { stemIdx: ((solarYear - 4) % 10 + 10) % 10, branchIdx: ((solarYear - 4) % 12 + 12) % 12 };
+}
+
+/**
+ * 생년월일시 하나에서 네 기둥과 대운을 모두 뽑는다.
+ *
+ * 한국어 화면과 아홉 언어 화면이 이 함수 하나를 쓴다 — 기둥 계산이 두 벌이면
+ * 같은 생일이 언어에 따라 다른 명식을 낸다.
+ *
+ * ── 일주와 야자시 ─────────────────────────────────────────────────────────
+ * 일주는 시계 자정(한국 표준시)에 바뀌는 것으로 본다. 23시 이후 출생을 다음 날
+ * 일주로 넘기는 야자시론(夜子時論)도 널리 쓰이지만 학파가 갈리므로 건드리지
+ * 않았다 — 여기서는 자정 기준 한 가지만 쓴다.
+ */
+export function buildChart(b: Birth, gender: 'male' | 'female'): Chart {
+  const hasHour = b.hour !== null && b.hour !== undefined;
+  // 시를 모르면 절기 경계 판정만 정오로 본다. 절입이 하루 안 어디든 있을 수 있어
+  // 자정으로 몰기보다 가운데를 잡는 편이 어긋날 폭이 절반이다.
+  const utc = koreaClockToUtc(b.year, b.month, b.day, hasHour ? b.hour! : 12, b.minute ?? 0);
+
+  // 연주 — 입춘 기준
+  const year = yearPillarOf(utc < jeolgiUtc(b.year, 2) ? b.year - 1 : b.year);
+
+  // 월주 — 그 달의 절이 아직 안 들었으면 앞 달의 절기월이다
+  const jm = utc < jeolgiUtc(b.year, b.month) ? (b.month === 1 ? 12 : b.month - 1) : b.month;
+  const branchIdx = jm % 12;
+  const month: Pillar = {
+    stemIdx: (MONTH_STEM_BASE[year.stemIdx % 5] + ((branchIdx - 2 + 12) % 12)) % 10,
+    branchIdx,
+  };
+
+  const day = getDayPillar(b.year, b.month, b.day);
+
+  let hour: Pillar | null = null;
+  let solarHour: Chart['solarHour'] = null;
+  let solarShiftMin = 0;
+  if (hasHour) {
+    const s = new Date(trueSolarMs(utc));
+    solarHour = { hour: s.getUTCHours(), minute: s.getUTCMinutes() };
+    solarShiftMin = Math.round((trueSolarMs(utc) - Date.UTC(b.year, b.month - 1, b.day, b.hour!, b.minute ?? 0)) / 60000);
+    hour = getHourPillar(solarHour.hour, day.stemIdx);
+  }
+
+  const daewoonDirection = getDaewoonDirection(gender, year.stemIdx);
+  const daewoonStartAge = getDaewoonStartAge(utc, b.year, b.month, daewoonDirection);
+  return {
+    year, month, day, hour, solarHour, solarShiftMin,
+    daewoonDirection, daewoonStartAge,
+    daewoons: getDaewoons(month, daewoonDirection, daewoonStartAge),
+  };
 }
 
 // ─── 오행 집계 ────────────────────────────────────────────────────────────────

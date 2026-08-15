@@ -81,7 +81,7 @@ export const GROUPS: Record<string, string[]> = {
   equals: ['🟰'],
   thermometer: ['🌡️'],
   boat: ['⚓'],
-  drop: ['💧', '🚰', '🐠', '🍯', '💦'],
+  drop: ['💧', '🚰', '🐠', '🍯', '💦', '🚿'],
   compress: ['🗜️'],
   touch: ['👆'],
 

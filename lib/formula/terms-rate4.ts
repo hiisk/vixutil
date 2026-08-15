@@ -163,9 +163,31 @@ export const RATE4_TERMS: Record<string, Term> = {
   potNeeded: { ko: '필요 은퇴 자산', en: 'Pot needed' },
   savedGrown: { ko: '지금 자산이 자란 값', en: 'What today’s savings grow to' },
   gapAmount: { ko: '모자란 금액', en: 'Shortfall' },
+
+  /* ───────── 수영장 물 관리 ─────────
+   * 농도 용어는 이미 concentration·targetConc가 있지만 그것들은 %를 다룬다.
+   * 수영장은 전부 ppm이고, '현재 값'과 '목표 값'을 나란히 놓고 그 차이를 메우는
+   * 모양이라 짝을 이루는 이름이 따로 필요하다. */
+  fcNow:            { ko: '현재 유리염소',      en: 'Free chlorine now' },
+  fcTarget:         { ko: '목표 유리염소',      en: 'Free chlorine wanted' },
+  chlorineStrength: { ko: '제품 유효염소',      en: 'Product strength' },
+  chlorineDose:     { ko: '넣을 염소제',        en: 'Product to add' },
+  pureChlorine:     { ko: '순수 유효염소',      en: 'As pure available chlorine' },
+  dosePerPpm:       { ko: '1 ppm당 제품 양',    en: 'Product per 1 ppm' },
+  saltNow:          { ko: '현재 염도',          en: 'Salinity now' },
+  saltTarget:       { ko: '목표 염도',          en: 'Salinity wanted' },
+  saltKg:           { ko: '넣을 소금',          en: 'Salt to add' },
+  ppmPerBag:        { ko: '포대당 오르는 염도', en: 'Salinity one bag adds' },
+  concNow:          { ko: '현재 농도',          en: 'Reading now' },
+  concTarget:       { ko: '목표 농도',          en: 'Reading wanted' },
+  fillConc:         { ko: '채움물 농도',        en: 'Fill water reading' },
+  drainPct:         { ko: '빼야 할 물 비율',    en: 'Share to drain' },
+  drainLiters:      { ko: '빼야 할 물 양',      en: 'Water to drain' },
+  halfDrainConc:    { ko: '절반만 갈면 남는 농도', en: 'Reading after half a change' },
 };
 
-/** 단위는 하나만 늘었다 — 주문을 세는 '건'. 개(piece)·명(people)·회(hit)는 이미 있다 */
+/** 주문을 세는 '건'과, 수영장 수치가 쓰는 ppm. 개(piece)·명(people)·회(hit)는 이미 있다 */
 export const RATE4_UNITS: Record<string, Term> = {
   order: { ko: '건', en: '' },
+  ppm:   { ko: 'ppm', en: 'ppm' },
 };

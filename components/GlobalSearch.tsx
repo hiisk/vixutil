@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import ToolIcon from '@/components/ToolIcon';
 import { SECTION_META, type SearchItem, type Section } from '@/lib/search-index';
@@ -17,7 +17,11 @@ function score(item: SearchItem, q: string): number {
   return -1;
 }
 
-export default function GlobalSearch({ items }: { items: SearchItem[] }) {
+/**
+ * empty — 질의가 없을 때 검색창 아래에 놓는 것. 예전에는 돋보기 한 줄뿐이라
+ * 첫 화면의 절반이 빈 공백이었다. 서버에서 그린 섹션 바로가기를 그대로 받는다.
+ */
+export default function GlobalSearch({ items, empty }: { items: SearchItem[]; empty?: ReactNode }) {
   const [query, setQuery] = useState('');
   const [active, setActive] = useState<Section | '전체'>('전체');
 
@@ -88,11 +92,11 @@ export default function GlobalSearch({ items }: { items: SearchItem[] }) {
       )}
 
       {!trimmed ? (
-        <div className="py-16 text-center">
-          <p className="text-4xl mb-3">🔍</p>
-          <p className="text-sm text-slate-400 dark:text-slate-500">
+        <div>
+          <p className="mb-5 text-center text-sm text-slate-400 dark:text-slate-500">
             계산기 · 심리테스트 · 퀴즈 · 생성기 · 체크리스트를<br />한 번에 검색합니다
           </p>
+          {empty}
         </div>
       ) : shown.length === 0 ? (
         <div className="py-16 text-center">

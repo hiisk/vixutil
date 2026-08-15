@@ -1,6 +1,9 @@
 'use client';
 import { useRef, useState, useCallback } from 'react';
 import { drawResultCard, canvasToBlob } from '@/lib/canvas-result-card';
+import { langOfLocale } from '@/lib/i18n/lang';
+import type { AnyLocale10 } from '@/lib/locales';
+import { SHARE_UI } from '@/lib/share/ui';
 import ReferralCards from './ReferralCards';
 
 interface Props {
@@ -11,21 +14,36 @@ interface Props {
   from: string;
   to: string;
   fileName: string;
+  /** 안 넘기면 한국어다 — 스냅 열한 장이 그대로 쓴다 */
+  lang?: AnyLocale10;
+  /** 카드 위쪽 머리글. 섹션 이름이라 번역하지 않는다 */
+  eyebrow?: string;
+  /** 카드 아래 워터마크에 넣을 주소 */
+  url?: string;
+  /** 제휴 카드를 여기서 세울지 — 결과 엔진들은 이미 자기 것을 갖고 있다 */
+  referral?: boolean;
 }
 
 type SaveState = 'idle' | 'saving' | 'done';
 
 /** 스냅테스트 결과를 정사각형 이미지로 저장·공유하는 버튼. 링크 공유(ShareButton)와 별개로,
  *  캡처해서 SNS에 올리기 좋은 실제 이미지 파일을 만들어준다. */
-export default function SaveResultCard({ emoji, title, subtitle, body, from, to, fileName }: Props) {
+export default function SaveResultCard({
+  emoji, title, subtitle, body, from, to, fileName,
+  lang = 'ko', eyebrow, url = 'vixutil.com/snap', referral = true,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [state, setState] = useState<SaveState>('idle');
+  const ui = SHARE_UI[langOfLocale(lang)];
 
   const handleSave = useCallback(async () => {
     setState('saving');
     const canvas = canvasRef.current;
     if (!canvas) { setState('idle'); return; }
-    drawResultCard(canvas, { emoji, title, subtitle, body, from, to });
+    drawResultCard(canvas, {
+      emoji, title, subtitle, body, from, to, eyebrow, lang,
+      footer: SHARE_UI[langOfLocale(lang)].cardFooter.replace('{u}', url),
+    });
     const blob = await canvasToBlob(canvas);
     if (!blob) { setState('idle'); return; }
 
@@ -58,15 +76,15 @@ export default function SaveResultCard({ emoji, title, subtitle, body, from, to,
       }
     }
 
-    const url = URL.createObjectURL(blob);
+    const objectUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
+    a.href = objectUrl;
     a.download = `${fileName}.png`;
     a.click();
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(objectUrl);
     setState('done');
     setTimeout(() => setState('idle'), 1500);
-  }, [emoji, title, subtitle, body, from, to, fileName]);
+  }, [emoji, title, subtitle, body, from, to, fileName, lang, eyebrow, url]);
 
   return (
     <div>
@@ -77,7 +95,7 @@ export default function SaveResultCard({ emoji, title, subtitle, body, from, to,
         className="w-full py-3.5 rounded-2xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
         style={{ background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)` }}
       >
-        {state === 'saving' ? '이미지 만드는 중...' : state === 'done' ? '완료! ✓' : '🖼️ 결과 이미지로 저장·공유'}
+        {state === 'saving' ? ui.cardSaving : state === 'done' ? ui.cardDone : ui.cardSave}
       </button>
 
       {/*
@@ -85,9 +103,10 @@ export default function SaveResultCard({ emoji, title, subtitle, body, from, to,
         쓰므로, 페이지마다 따로 붙이는 대신 여기 한 번만 넣는다. 사진을 올리고
         분석이 끝난 뒤에만 렌더되는 자리라 조건도 따로 필요 없다.
         (ShareButton에 넣지 않은 이유: 테스트·퀴즈·생성기·운세도 그걸 쓰는데
-        그쪽은 이미 결과 카드를 따로 붙여둬서 두 번 나온다.)
+        그쪽은 이미 결과 카드를 따로 붙여둬서 두 번 나온다. 그 셋이 이 버튼을
+        쓸 때는 referral={false}로 여기 것을 끈다.)
       */}
-      <ReferralCards placement="result" />
+      {referral && <ReferralCards placement="result" />}
     </div>
   );
 }

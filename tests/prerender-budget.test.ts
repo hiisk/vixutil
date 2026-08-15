@@ -74,7 +74,7 @@ test('낱장이 ISR이고 굽는 손잡이를 함께 갖고 있다', () => {
   const hubCatchalls = all.filter(f => f.includes('[[...path]]'));
   const leaves = all.filter(f => !f.includes('[[...path]]'));
   assert.equal(hubCatchalls.length, 9, `허브 캐치올이 ${hubCatchalls.length}개다 — 아홉 언어와 어긋난다`);
-  assert.ok(leaves.length > 700, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
+  assert.ok(leaves.length > 380, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
 
   const isr: string[] = [];
   const dyn: string[] = [];
@@ -111,10 +111,20 @@ test('낱장이 ISR이고 굽는 손잡이를 함께 갖고 있다', () => {
    *   897  2026-08-14 한자·연호·다다미·혈액형 유전을 여섯 언어에서 뺐다(-24)
    *   786  2026-08-15 검색 수요가 없는 조합 격자 열넷을 지웠다(-111).
    *        허브 표가 이미 같은 값을 다 보여주고 있어서 낱장은 정보가 0이었다.
+   *   678  2026-08-15 규격·중량표 열둘을 통째로 지웠다(-108) — steel·rebar·screw·
+   *        drill·wire·torque·tire·paper·lumber·filament·gear·resistor.
+   *        한 공식에서 뽑아낸 참조표라 그 주제를 하러 오는 사람이 없었다.
+   *        허브도 안 남겼다. 섹션 하나가 국제 낱장 아홉을 물고 있어 12×9다.
+   *   537  2026-08-15 참조표 서른하나를 통째로 지웠다(-141) — 낱장을 물고 있던
+   *        열일곱(powerbank·viewing·size·bra·ring·petfood·golf·cable·bignum·
+   *        wifi·quake·pace·stop·element·craft·tatami·gengo)이 15×9 + 2×3이다.
+   *        나머지 열넷(windchill·dew·bandwidth·battery·bpm·lumen·drink·purifier·
+   *        sun·exposure·raid·blood·ampere·heredity)은 앞서 낱장이 지워져 허브만
+   *        남아 있던 것이라 여기서는 0이다.
    *
    * 여기서 더 줄면 옮기다 만 것이다.
    */
-  assert.ok(isr.length >= 780, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
+  assert.ok(isr.length >= 380, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
 
   const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
   assert.deepEqual(
@@ -165,7 +175,7 @@ test('디스크 안에 드는 값이다', () => {
   const dynamicRoutes = countDynamicRoutes();
   /* 2026-08-12 접기로 840개가 됐다 — 굽는 장수는 이 수 × PRERENDER_PER_ROUTE다.
      라우트가 줄면 같은 손잡이로 굽는 장수도 줄어든다는 뜻이라, 디스크 여유는 늘었다. */
-  assert.ok(dynamicRoutes > 700, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
+  assert.ok(dynamicRoutes > 380, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
   const pages = 2600 + dynamicRoutes * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
   assert.ok(gb < 12, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);

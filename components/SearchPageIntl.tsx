@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import GlobalSearchIntl from '@/components/GlobalSearchIntl';
+import SectionShortcuts from '@/components/SectionShortcuts';
 import { searchIndexIntl, searchAlternates, SEARCH_INTL_UI, type SearchIntlLang } from '@/lib/search-index-intl';
 import { localeHref, openGraphFor } from '@/lib/locales';
 import LangPicker from '@/components/LangPicker';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 통합 검색 화면 — 번역 일곱 언어가 이 컴포넌트 하나를 쓴다.
@@ -14,12 +16,13 @@ import LangPicker from '@/components/LangPicker';
  */
 export function searchMetaIntl(lang: SearchIntlLang) {
   const ui = SEARCH_INTL_UI[lang];
-  return {
+  // 카드는 canonical에서 정해진다 — /og/<언어>/search를 그대로 쓴다
+  return withCard({
     title: ui.title,
     description: ui.desc,
     openGraph: openGraphFor(lang),
     alternates: { canonical: localeHref(lang, '/search'), languages: searchAlternates() },
-  };
+  });
 }
 
 export default function SearchPageIntl({ lang }: { lang: SearchIntlLang }) {
@@ -50,7 +53,8 @@ export default function SearchPageIntl({ lang }: { lang: SearchIntlLang }) {
 
       <div className="flex-1 max-w-2xl mx-auto px-4 py-8 w-full">
         <h1 className="sr-only">{ui.h1}</h1>
-        <GlobalSearchIntl items={items} lang={lang} />
+        {/* 질의가 없을 때의 빈 자리 — 여기 푸터에는 섹션 목록이 아예 없었다 */}
+        <GlobalSearchIntl items={items} lang={lang} empty={<SectionShortcuts lang={lang} />} />
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">

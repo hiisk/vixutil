@@ -19,8 +19,14 @@ const ACCENT = {
 
 export default function PageGlow({ accent = 'blue' }: { accent?: keyof typeof ACCENT }) {
   const [a, b] = ACCENT[accent];
+  /*
+    acc-*는 그리는 것이 없다. globals.css가 `:has(> .acc-*)`로 이 div의 **부모**를
+    골라 --c-sec를 얹고, 그 아래 본문 전체(제목 막대·표 줄무늬·칩·초점 테두리)가
+    같은 색을 물려받는다. 낱장마다 style=을 박으면 십사만 장 × 세 벌
+    (HTML·.rsc·.segments)이 되므로 클래스 한 낱말로 끝낸다.
+  */
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+    <div aria-hidden className={`acc-${accent} pointer-events-none fixed inset-0 overflow-hidden`}>
       <div className={`absolute -top-32 -left-24 w-[28rem] h-[28rem] rounded-full blur-3xl ${a}`} />
       <div className={`absolute top-1/3 -right-32 w-[26rem] h-[26rem] rounded-full blur-3xl ${b}`} />
     </div>

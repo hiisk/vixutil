@@ -830,4 +830,22 @@ export const GEO_FR: Record<string, FormulaText> = {
     long: 'Le sable se mesure en volume et se vend au poids, et c’est la densité qui fait le pont : elle est donc une donnée à saisir — environ 1 500 kg/m³ sec et 1 900 kg/m³ humide. Une terrasse de 20 m² sur un lit de 3 cm fait 0,6 m³ ; avec 10 % de perte cela donne 0,66 m³, qui à 1 500 kg/m³ pèse 990 kg — 39,6 sacs de 25 kg, donc 40 sacs. Un big bag d’une tonne en contient à peu près autant, et à cette échelle le vrac revient moins cher.',
     note: 'Le sable perd 10 à 15 % de son épaisseur une fois compacté : saisissez l’épaisseur finie plutôt que celle mesurée pendant l’étalement. Le sable de jointoiement balayé ensuite est à part et ajoute 1 à 2 kg par mètre carré.',
   },
+  'pool-heat-time': {
+    title: 'Calcul du temps de chauffe d’une piscine',
+    desc: 'Heures et kilowattheures nécessaires pour monter un bassin d’un nombre de degrés donné.',
+    long: 'Élever un kilo d’eau d’un degré coûte 4,186 kJ. En assimilant le litre au kilo, la chaleur nécessaire vaut volume × 4,186 × écart de température, et diviser par 3 600 la convertit en kilowattheures. Monter 50 000 litres de cinq degrés représente 291 kWh avant pertes — et les pertes sont à ajouter, car le bassin continue de se refroidir par la surface pendant que tu le chauffes. À 20 %, cela fait 349 kWh, qu’un chauffage de 12 kW délivre en 29 heures. C’est là que le résultat surprend : chauffer une piscine se compte en jours, pas en un après-midi.',
+    note: 'Le taux de pertes est au fond une question de bâche. L’évaporation d’un plan d’eau découvert en représente l’essentiel, et poser une bâche la réduit souvent de plus de moitié. Pour une pompe à chaleur, saisis la puissance thermique et non la consommation électrique de la plaque : la première est quatre à cinq fois plus grande, et les confondre décale la durée d’autant.',
+  },
+  'pool-pump-turnover': {
+    title: 'Calcul du temps de filtration d’une piscine',
+    desc: 'Temps de brassage et heures de pompe par jour, d’après le volume et le débit.',
+    long: 'L’eau d’une piscine se gère en brassages, pas en heures. Un brassage est le temps que met l’ensemble du volume à traverser une fois le filtre : volume divisé par le débit. Cinquante mille litres à 250 litres par minute donnent un brassage en 3,3 heures, donc un objectif d’une fois et demie par jour représente cinq heures de pompe. Ce qu’il faut optimiser n’est pas les heures mais les watts : la puissance d’une pompe croît à peu près comme le cube du débit, si bien que tourner à mi-vitesse deux fois plus longtemps donne le même brassage pour environ le quart de l’électricité. C’est cette seule relation qui rentabilise une pompe à vitesse variable.',
+    note: 'Le débit gravé sur une pompe est mesuré sans résistance de tuyauterie : le vrai est plus faible, et pour le connaître il faut lire le manomètre du filtre avec un débitmètre. Un filtre encrassé fait encore baisser le débit, si bien que la même durée de marche fournit moins de brassage sans prévenir — l’intervalle de contre-lavage fait donc partie de ce calcul.',
+  },
+  'grass-seed': {
+    title: 'Calcul de semences de gazon',
+    desc: 'Poids de semence et sacs nécessaires selon la surface et la dose au mètre carré.',
+    long: 'Le calcul est surface fois grammes au mètre carré, mais c’est cette dose qui décide de toute la réponse, et c’est pour cela qu’elle est ici une saisie et non une constante cachée. Les espèces à grosses graines demandent plus de poids pour atteindre la même densité de plants, si bien que la dose conseillée varie du simple au triple entre elles : reprends celle du sac. Ajoute à cela qu’une même espèce se sème à peu près deux fois plus dru sur sol nu que pour regarnir un gazon existant. Cent mètres carrés à 35 g/m² font 3,85 kg une fois ajoutés 10 % de perte, et un sac de 5 kg couvre 143 m².',
+    note: 'Une semence qui reste en réserve perd du pouvoir germinatif chaque année, il y a donc peu d’intérêt à acheter largement au-delà. Griffe légèrement pour que la graine touche la terre et garde la surface humide jusqu’à la levée complète : cela pèse davantage sur le résultat que de viser la dose au gramme près.',
+  },
 };

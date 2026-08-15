@@ -34,8 +34,10 @@ function Pip({ suit, size = 18 }: { suit: string; size?: number }): ReactElement
 
 function Card({ rank, suit }: { rank: string; suit: string }): ReactElement {
   const red = SUITS[suit].red;
+  // 다크에서도 카드는 밝아야 한다 — 무늬 색(#1e293b·#dc2626)이 판에 박혀 있어
+  // 판을 어둡게 하면 스페이드·클럽이 사라진다. 대신 순백은 눈부시므로 slate-100.
   return (
-    <div className="flex w-16 flex-col items-center gap-1 rounded-xl border border-slate-300 bg-white px-2 py-3 shadow-sm dark:border-slate-600">
+    <div className="flex w-16 flex-col items-center gap-1 rounded-xl border border-slate-300 bg-white px-2 py-3 shadow-sm dark:border-slate-600 dark:bg-slate-100">
       <span className={`text-2xl font-black leading-none ${red ? 'text-red-600' : 'text-slate-800'}`}>{rank}</span>
       <Pip suit={suit} size={22} />
     </div>

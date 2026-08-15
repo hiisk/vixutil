@@ -830,4 +830,22 @@ export const GEO_ES: Record<string, FormulaText> = {
     long: 'La arena se mide en volumen y se vende al peso, y la densidad es lo que une las dos cosas, así que es un dato: unos 1.500 kg/m³ en seco y 1.900 kg/m³ mojada. Un patio de 20 m² con 3 cm de cama son 0,6 m³; con un 10 % de merma, 0,66 m³, que a 1.500 kg/m³ pesan 990 kg, o 39,6 sacos de 25 kg, así que 40 sacos. Un saco grande de una tonelada lleva más o menos lo mismo, y a este tamaño el granel sale más barato.',
     note: 'La arena pierde un 10–15 % de espesor al compactarla, así que mete el espesor acabado y no el que mides mientras la extiendes. La arena de junta que se barre después va aparte y suma otros 1–2 kg por metro cuadrado.',
   },
+  'pool-heat-time': {
+    title: 'Calculadora de tiempo de calentamiento de piscina',
+    desc: 'Horas y kilovatios hora para subir una piscina un número dado de grados.',
+    long: 'Subir un kilo de agua un grado cuesta 4,186 kJ. Tomando el litro como un kilo, el calor necesario es volumen × 4,186 × subida de temperatura, y dividir entre 3.600 lo convierte en kilovatios hora. Levantar 50.000 litros cinco grados son 291 kWh antes de pérdidas, y las pérdidas hay que sumarlas porque la piscina se sigue enfriando por la superficie mientras la calientas. Con un 20 % quedan 349 kWh, que un calentador de 12 kW entrega en 29 horas. Ahí está lo que suele sorprender: calentar una piscina se mide en días, no en una tarde.',
+    note: 'La cifra de pérdidas es en realidad una pregunta sobre la cubierta. La evaporación desde una lámina de agua descubierta se lleva la mayor parte, y poner una cubierta suele reducirla a menos de la mitad. En una bomba de calor, introduce la potencia térmica y no el consumo eléctrico de la etiqueta: la primera es cuatro o cinco veces mayor, y confundirlas desvía el tiempo en esa misma proporción.',
+  },
+  'pool-pump-turnover': {
+    title: 'Calculadora de horas de bomba de piscina',
+    desc: 'Tiempo de recirculación y horas diarias de bomba a partir del volumen y del caudal.',
+    long: 'El agua de una piscina se gestiona por recirculaciones, no por horas. Una recirculación es lo que tarda todo el volumen en pasar una vez por el filtro: volumen dividido entre caudal. Cincuenta mil litros a 250 litros por minuto dan una recirculación en 3,3 horas, así que un objetivo de una vez y media al día son cinco horas de bomba. Lo que conviene optimizar no son las horas sino los vatios: la potencia de la bomba sube casi con el cubo del caudal, de modo que ir a media velocidad el doble de tiempo da la misma recirculación por alrededor de la cuarta parte de electricidad. Esa sola relación es la que paga una bomba de velocidad variable.',
+    note: 'El caudal impreso en una bomba se mide sin resistencia de tuberías, así que el real es menor; si quieres el número verdadero, lee el manómetro del filtro junto a un caudalímetro. Un filtro sucio baja aún más el caudal, lo que significa que el mismo tiempo de marcha entrega menos recirculación sin avisar, de modo que el intervalo de contralavado también forma parte de este cálculo.',
+  },
+  'grass-seed': {
+    title: 'Calculadora de semilla de césped',
+    desc: 'Peso de semilla y sacos necesarios según la superficie y la dosis por metro cuadrado.',
+    long: 'La cuenta es superficie por gramos por metro cuadrado, pero esa dosis decide la respuesta entera, y por eso aquí es un dato de entrada y no una constante escondida. Las especies de semilla grande necesitan más peso para llegar a la misma densidad de plantas, de manera que la dosis publicada puede variar dos o tres veces entre unas y otras: copia la del saco. Además, la misma especie se siembra a razón del doble sobre suelo desnudo que para resembrar un césped existente. Cien metros cuadrados a 35 g/m² salen a 3,85 kg una vez añadido un 10 % de merma, y un saco de 5 kg cubre 143 m².',
+    note: 'La semilla sobrante pierde germinación cada año que pasa guardada, así que comprar mucho de más aporta poco. Rastríllala ligeramente para que toque tierra y mantén la superficie húmeda hasta que haya nacido todo: eso pesa más en el resultado que acertar la dosis al gramo.',
+  },
 };

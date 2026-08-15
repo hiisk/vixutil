@@ -27,7 +27,6 @@ import { LENS_UI } from '../lib/lens/ui.ts';
 import { HTML_UI } from '../lib/html/ui.ts';
 import { EXT_UI } from '../lib/ext/ui.ts';
 import { GLYPH_UI } from '../lib/glyph/ui.ts';
-import { ELEMENT_UI } from '../lib/element/ui.ts';
 import { SOUND_UI } from '../lib/sound/ui.ts';
 import { TAROT_UI } from '../lib/tarot/ui.ts';
 import { CUBE_UI } from '../lib/cube/ui.ts';
@@ -37,66 +36,18 @@ import { NUMBER_UI } from '../lib/number/ui.ts';
 import { ASCII_UI } from '../lib/ascii/ui.ts';
 import { PORT_UI } from '../lib/port/ui.ts';
 import { CHMOD_UI } from '../lib/chmod/ui.ts';
-import { RESISTOR_UI } from '../lib/resistor/ui.ts';
 import { FRACTION_UI } from '../lib/fraction/ui.ts';
 import { KEYCODE_UI } from '../lib/keycode/ui.ts';
 import { CIDR_UI } from '../lib/cidr/ui.ts';
 import { CODE_UI } from '../lib/code/ui.ts';
-import { DARTS_UI } from '../lib/darts/ui.ts';
 import { TIMES_UI } from '../lib/times/ui.ts';
 import { SQRT_UI } from '../lib/sqrt/ui.ts';
 import { ROMAN_UI } from '../lib/roman/ui.ts';
-import { TIRE_UI } from '../lib/tire/ui.ts';
-import { SCREW_UI } from '../lib/screw/ui.ts';
 import { YEAR_UI } from '../lib/year/ui.ts';
-import { PACE_UI } from '../lib/pace/ui.ts';
 import { PX_UI } from '../lib/rem/ui.ts';
-import { STOP_UI } from '../lib/stop/ui.ts';
-import { ALTITUDE_UI } from '../lib/altitude/ui.ts';
-import { WIFI_UI } from '../lib/wifi/ui.ts';
-import { FRET_UI } from '../lib/fret/ui.ts';
-import { GRAVITY_UI } from '../lib/gravity/ui.ts';
-import { WINDCHILL_UI } from '../lib/windchill/ui.ts';
-import { DEW_UI } from '../lib/dew/ui.ts';
-import { DRILL_UI } from '../lib/drill/ui.ts';
-import { BANDWIDTH_UI } from '../lib/bandwidth/ui.ts';
-import { BATTERY_UI } from '../lib/battery/ui.ts';
-import { WIRE_UI } from '../lib/wire/ui.ts';
-import { PAPER_UI } from '../lib/paper/ui.ts';
-import { TORQUE_UI } from '../lib/torque/ui.ts';
-import { LUMEN_UI } from '../lib/lumen/ui.ts';
-import { AMPERE_UI } from '../lib/ampere/ui.ts';
-import { DOF_UI } from '../lib/dof/ui.ts';
-import { BPM_UI } from '../lib/bpm/ui.ts';
-import { GEAR_UI } from '../lib/gear/ui.ts';
-import { FILAMENT_UI } from '../lib/filament/ui.ts';
-import { UV_UI } from '../lib/uv/ui.ts';
-import { HIKE_UI } from '../lib/hike/ui.ts';
-import { INSUL_UI } from '../lib/insul/ui.ts';
 import { AIR_UI } from '../lib/air/ui.ts';
-import { SIZE_UI } from '../lib/size/ui.ts';
-import { BRA_UI } from '../lib/bra/ui.ts';
-import { PETFOOD_UI } from '../lib/petfood/ui.ts';
 import { PASSWORD_UI } from '../lib/password/ui.ts';
-import { VIEWING_UI } from '../lib/viewing/ui.ts';
-import { BIGNUM_UI } from '../lib/bignum/ui.ts';
-import { GENGO_UI } from '../lib/gengo/ui.ts';
-import { CABLE_UI } from '../lib/cable/ui.ts';
-import { TATAMI_UI } from '../lib/tatami/ui.ts';
-import { LUMBER_UI } from '../lib/lumber/ui.ts';
-import { POWERBANK_UI } from '../lib/powerbank/ui.ts';
-import { GOLF_UI } from '../lib/golf/ui.ts';
-import { MICROWAVE_UI } from '../lib/microwave/ui.ts';
-import { QUAKE_UI } from '../lib/quake/ui.ts';
-import { BED_UI } from '../lib/bed/ui.ts';
-import { WINE_UI } from '../lib/wine/ui.ts';
-import { BLOOD_UI } from '../lib/blood/ui.ts';
-import { EXPOSURE_UI } from '../lib/exposure/ui.ts';
-import { HEREDITY_UI } from '../lib/heredity/ui.ts';
-import { RAID_UI } from '../lib/raid/ui.ts';
 import { FLIGHT_UI } from '../lib/flight/ui.ts';
-import { PURIFIER_UI } from '../lib/purifier/ui.ts';
-import { DRINK_UI } from '../lib/drink/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -107,9 +58,9 @@ const SECTIONS: Record<string, AnyUI> = {
   dice: ui(DICE_UI), device: ui(DEVICE_UI), regex: ui(REGEX_UI),
   imgsize: ui(IMG_SIZE_UI), http: ui(HTTP_UI), css: ui(CSS_UI),
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
-  glyph: ui(GLYPH_UI), element: ui(ELEMENT_UI), sound: ui(SOUND_UI),
+  glyph: ui(GLYPH_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), resistor: ui(RESISTOR_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), darts: ui(DARTS_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), tire: ui(TIRE_UI), screw: ui(SCREW_UI), year: ui(YEAR_UI), pace: ui(PACE_UI), rem: ui(PX_UI), stop: ui(STOP_UI), altitude: ui(ALTITUDE_UI), wifi: ui(WIFI_UI), fret: ui(FRET_UI), gravity: ui(GRAVITY_UI), windchill: ui(WINDCHILL_UI), dew: ui(DEW_UI), drill: ui(DRILL_UI), bandwidth: ui(BANDWIDTH_UI), battery: ui(BATTERY_UI), wire: ui(WIRE_UI), paper: ui(PAPER_UI), torque: ui(TORQUE_UI), lumen: ui(LUMEN_UI), ampere: ui(AMPERE_UI), dof: ui(DOF_UI), gear: ui(GEAR_UI), filament: ui(FILAMENT_UI), bpm: ui(BPM_UI), uv: ui(UV_UI), hike: ui(HIKE_UI), insul: ui(INSUL_UI), air: ui(AIR_UI), size: ui(SIZE_UI), bra: ui(BRA_UI), petfood: ui(PETFOOD_UI), password: ui(PASSWORD_UI), viewing: ui(VIEWING_UI), bignum: ui(BIGNUM_UI), gengo: ui(GENGO_UI), cable: ui(CABLE_UI), tatami: ui(TATAMI_UI), lumber: ui(LUMBER_UI), powerbank: ui(POWERBANK_UI), golf: ui(GOLF_UI), microwave: ui(MICROWAVE_UI), quake: ui(QUAKE_UI), bed: ui(BED_UI), wine: ui(WINE_UI), blood: ui(BLOOD_UI), exposure: ui(EXPOSURE_UI), heredity: ui(HEREDITY_UI), raid: ui(RAID_UI), flight: ui(FLIGHT_UI), purifier: ui(PURIFIER_UI), drink: ui(DRINK_UI),
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), year: ui(YEAR_UI), rem: ui(PX_UI), air: ui(AIR_UI), password: ui(PASSWORD_UI), flight: ui(FLIGHT_UI), 
 };
 
 /**

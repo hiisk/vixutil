@@ -163,7 +163,8 @@ test('낱장 라우트가 아홉 언어에 똑같이 있다', () => {
       .filter(k => !k.includes('/'))
       .filter(k => sectionHasLocale(k, locale as AnyLocale10));
   const ref = leafPrefixes('en');
-  assert.ok(ref.slug.size > 80, `en 낱장 무늬가 ${ref.slug.size}개뿐 — 세는 방식이 깨졌다`);
+  /* 2026-08-15: 검색 수요가 없는 참조표 갈래를 통째로 지우면서 68 → 35로 내렸다 */
+  assert.ok(ref.slug.size > 35, `en 낱장 무늬가 ${ref.slug.size}개뿐 — 세는 방식이 깨졌다`);
   for (const lang of FOLD_LANGS) {
     const got = leafPrefixes(lang);
     assert.deepEqual([...got.slug].sort(), [...new Set(expected(lang))].sort(),

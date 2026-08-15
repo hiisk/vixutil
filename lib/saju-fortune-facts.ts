@@ -20,10 +20,29 @@ const SS_CAT: Record<string, keyof SipCats> = {
   편인: '인성', 정인: '인성',
 };
 
-/** 도화살 지지: 子(0)卯(3)午(6)酉(9) */
-const PEACH = new Set([0, 3, 6, 9]);
-/** 역마살 지지: 寅(2)申(8)巳(5)亥(11) */
-const YONGMA = new Set([2, 8, 5, 11]);
+/*
+ * 도화살(桃花殺)·역마살(驛馬殺)은 삼합(三合)으로 정해진다.
+ *
+ * 기준 지지가 속한 삼합국의 첫 글자 바로 다음 지지가 도화, 그 첫 글자를 충(沖)하는
+ * 지지가 역마다. 기준은 년지 또는 일지로 잡고 나머지 지지에서 찾는다.
+ *   申子辰 → 도화 酉·역마 寅 / 寅午戌 → 卯·申 / 巳酉丑 → 午·亥 / 亥卯未 → 子·巳
+ * 삼합국은 지지 번호를 4로 나눈 나머지로 갈린다(申8·子0·辰4는 모두 나머지 0).
+ *
+ * 전에는 "네 기둥에 子卯午酉가 하나라도 있으면 도화"로 봤다. 그러면 사주 열에
+ * 여덟이 도화가 되어(1-(8/12)^4 = 80%) 판정이 없는 것과 마찬가지였다.
+ */
+/** 지지%4 → 도화 지지 */
+const PEACH_OF = [9, 6, 3, 0];
+/** 지지%4 → 역마 지지 */
+const YONGMA_OF = [2, 11, 8, 5];
+
+/** 기준 자리(baseIdx)의 삼합으로 정해지는 살이 다른 자리에 있는가 */
+function hasStar(table: number[], branches: (number | null)[], baseIdx: number): boolean {
+  const base = branches[baseIdx];
+  if (base == null) return false;
+  const want = table[base % 4];
+  return branches.some((b, i) => i !== baseIdx && b === want);
+}
 
 function countSip(ilganIdx: number, pillars: (Pillar | null)[]): SipCats {
   const c: SipCats = { 비겁: 0, 식상: 0, 재성: 0, 관성: 0, 인성: 0 };
@@ -93,8 +112,10 @@ export function sajuFacts(
   const hSS = hourPillar ? getSipseong(ilg, hourPillar.stemIdx) : '';
   const allSS = [ySS, mSS, hSS];
 
-  const hasPeach = allPillars.some(p => p && PEACH.has(p.branchIdx));
-  const hasYongma = allPillars.some(p => p && YONGMA.has(p.branchIdx));
+  // 년지 기준과 일지 기준 둘 다 본다 — 전통은 년지, 현대 실무는 일지를 함께 쓴다
+  const bl = allPillars.map(p => p ? p.branchIdx : null);
+  const hasPeach = hasStar(PEACH_OF, bl, 0) || hasStar(PEACH_OF, bl, 2);
+  const hasYongma = hasStar(YONGMA_OF, bl, 0) || hasStar(YONGMA_OF, bl, 2);
   const missingEls = (['목', '화', '토', '금', '수'] as Element[]).filter(e => !ohaengCounts[e]);
   const dominantEl = (Object.entries(ohaengCounts) as [Element, number][]).sort((a, b) => b[1] - a[1])[0]?.[0];
 
