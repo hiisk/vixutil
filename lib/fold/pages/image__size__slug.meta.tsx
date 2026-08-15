@@ -1,0 +1,22 @@
+/* 생성됨(gen.mjs) — 메타 전용. 뷰(<Page/>)는 같은 이름의 원본 모듈에 있고
+   components/FoldView.tsx가 클라이언트에서 따로 부른다. 여기서 뷰를 부르면
+   서버 그래프가 클라이언트 컴포넌트에 닿아 라우트의 청크가 도로 합쳐진다. */
+import type { Metadata } from 'next';
+import { detailMetadata, sizeParams } from '@/lib/imgsize/route';
+import type { FoldLang } from '../lang';
+import { DATA_KEY } from '../lang';
+/* 생성됨: scripts가 아니라 접기 이행 — 원본은 옛 app/(zh-hant)/zh-hant/image/size/[slug]/page.tsx.
+   아홉 언어 라우트 파일을 이 모듈 하나로 접었다. 목록은 lib/fold/registry.ts */
+export function buildMeta(lang: FoldLang) {
+  async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    return detailMetadata(DATA_KEY[lang], slug);
+  }
+
+  
+  /* ISR을 켜려면 generateStaticParams가 있어야 한다 — revalidate만으로는 라우트가
+     동적으로 잡혀 캐시가 안 걸린다. 까닭은 tests/prerender-budget.test.ts 머리말. */
+  const generateStaticParams = () => sizeParams();
+
+  return { generateMetadata, generateStaticParams };
+}

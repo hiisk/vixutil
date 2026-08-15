@@ -81,6 +81,11 @@
  *                         (tatami·gengo는 한자 문화권 셋뿐)으로 −141이다. 나머지
  *                         열넷은 앞서 낱장이 지워져 허브만 남아 있었다.
  *                         정적은 한국어 허브 서른하나라 −31이다.
+ *
+ *   동적 541 / 정적 461   2026-08-15 — craft를 되살렸다. 잘못 지웠던 것이다 —
+ *                         슬러그가 yarn-needed처럼 도구 이름인 공식 계산기 40종이라
+ *                         값 격자가 아니었다. 국제 낱장 아홉(+9)과 한국어 허브
+ *                         하나(+1)를 되돌린다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -91,8 +96,8 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 532;
-const EXPECT_STATIC = 460;
+const EXPECT_DYNAMIC = 541;
+const EXPECT_STATIC = 461;
 /**
  * 얼마까지 늘어도 넘기나.
  *

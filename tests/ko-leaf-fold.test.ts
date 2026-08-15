@@ -65,14 +65,18 @@ test('디스패처 둘이 있고 ISR로 캐시한다', () => {
   }
 });
 
-test('모듈이 저마다 generateStaticParams를 갖는다', () => {
+test('메타 모듈이 저마다 generateStaticParams를 갖는다', () => {
   /*
    * 디스패처가 이 표를 돌며 모아 쓴다. 모듈에서 빠지면 굽는 수를 올려도 그 갈래만
    * 안 구워지고, 빌드는 오히려 빨라지므로 눈치채기 어렵다.
+   *
+   * 2026-08-15에 보는 파일을 *__slug.meta.tsx로 옮겼다. 클라이언트 청크를 가르려고
+   * 디스패처가 뷰 모듈을 못 보게 갈랐고(tests/registry-split.test.ts), 굽는 목록도
+   * 그쪽에서 나온다. 뷰 파일을 계속 보면 **아무도 안 쓰는 것을 지키게 된다.**
    */
   const bad: string[] = [];
   for (const [key, file] of registered) {
-    const p = join(PAGES, `${file}__slug.tsx`);
+    const p = join(PAGES, `${file}__slug.meta.tsx`);
     if (!existsSync(p)) continue;
     /*
      * 내보내는 꼴이 둘이다 — 대부분은 `export function`이고, 접힌 국제 모듈을

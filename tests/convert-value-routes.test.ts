@@ -52,13 +52,15 @@ test('두 라우트가 접두 등록부를 본다 — 없으면 값 낱장이 �
    */
   const intlDeep = readFileSync(join(ROOT, 'lib', 'fold', 'pages', 'deep__slug.tsx'), 'utf8');
   const koDeep = readFileSync(join(ROOT, 'app', '(ko)', '[section]', '[slug]', '[deep]', 'page.tsx'), 'utf8');
+  /* 2026-08-15: 클라이언트 청크를 가르면서 서버 쪽이 뷰 등록부(DEEP_PREFIX_ROUTES)가 아니라
+     메타 등록부(DEEP_PREFIX_META)를 본다 — 까닭은 components/FoldView.tsx 머리말.
+     보는 표만 바뀌었고 "두 라우트가 접두 갈래를 안다"는 요건은 그대로다. */
   for (const [name, src] of [['국제 deep__slug', intlDeep], ['한국어 [deep]', koDeep]] as const) {
-    assert.match(src, /DEEP_PREFIX_ROUTES/, `${name}가 접두 등록부를 안 본다`);
+    assert.match(src, /DEEP_PREFIX_META/, `${name}가 접두 등록부를 안 본다`);
   }
   /* 정확한 열쇠가 먼저다 — 뒤집으면 접두가 game/chess 같은 고정 갈래를 가로챈다 */
   assert.ok(
-    intlDeep.indexOf('SLUG_ROUTES[`${a}/${b}`]') < intlDeep.indexOf('DEEP_PREFIX_ROUTES[a]')
-    || /!SLUG_ROUTES\[`\$\{a\}\/\$\{b\}`\] && prefix/.test(intlDeep),
+    intlDeep.indexOf('DEEP_META[exact]') < intlDeep.indexOf('DEEP_PREFIX_META[a]'),
     '접두 등록부가 고정 갈래보다 먼저 잡힌다',
   );
 });

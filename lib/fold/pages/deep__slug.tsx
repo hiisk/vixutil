@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import FoldView from '@/components/FoldView';
 import type { FoldLang } from '../lang';
-import { SLUG_ROUTES } from '../registry';
-import { DEEP_PREFIX_ROUTES } from '../deep-prefix';
+import { DEEP_META, DEEP_MODULE, DEEP_PREFIX_META, DEEP_PREFIX_MODULE } from '../registry-meta';
 
 /**
  * 세 칸 낱장을 언어마다 라우트 하나로 접는다 — game/chess/[slug] 같은 것들.
@@ -13,83 +13,67 @@ import { DEEP_PREFIX_ROUTES } from '../deep-prefix';
  * `Maximum number of routes exceeded`로 죽었다. 빌드는 성공하고 그 뒤 단계에서
  * 죽으므로, 빌드 로그만 보면 성공으로 보인다.
  *
- * 세 칸을 고른 이유는 부딪히지 않기 때문이다. 등록부의 정적 경로 251개 가운데
- * 슬래시가 둘인 것은 **하나도 없다** — 즉 `[a]/[b]/[slug]`가 잡는 것은 여기
- * 적힌 낱장 열한 갈래뿐이다. 두 칸(`[section]/[slug]`)으로 접으면 두 칸짜리
- * 정적 경로 151개까지 함께 잡혀 아홉 언어 1,359장이 굽기를 잃는다.
+ * 세 칸을 고른 이유는 부딪히지 않기 때문이다. 등록부의 정적 경로 가운데 슬래시가
+ * 둘인 것은 **하나도 없다** — 즉 `[a]/[b]/[slug]`가 잡는 것은 등록부의 두 칸 낱장
+ * 열쇠뿐이다. `calculator/dev/base64`처럼 첫 칸이 정해진 경로는 Next가 정적 칸을
+ * 먼저 고르므로 이 라우트로 오지 않는다.
  *
- * `calculator/dev/base64`처럼 첫 칸이 정해진 경로는 Next가 정적 칸을 먼저
- * 고르므로 이 라우트로 오지 않는다.
+ * ── registry.ts를 안 부르는 까닭 (2026-08-15) ─────────────
+ * 예전에는 여기서 SLUG_ROUTES를 통째로 들여왔다. 그러면 이 라우트의 서버 그래프가
+ * **등록부 전체**(허브 211 + 낱장 62)에 닿아, 그리는 것은 하나뿐인데 클라이언트
+ * 청크가 16.5MB로 나갔다. 지금은 메타 전용 등록부의 세 칸 몫만 보고, 뷰는
+ * 클라이언트 모듈인 components/FoldView.tsx가 부른다(까닭은 그 파일 머리말).
  */
 type Params = Promise<{ a: string; b: string; slug: string }>;
 
 /**
- * 등록부에서 그 갈래의 모듈을 찾아 그쪽 build(lang)에 넘긴다.
- *
  * **정확한 열쇠를 먼저 본다.** `game/chess`처럼 앞 두 칸이 고정인 갈래가 그쪽이다.
  * 없으면 접두 등록부를 본다 — `convert/<쌍>/<값>`처럼 둘째 칸이 목록인 갈래다
  * (까닭은 lib/fold/deep-prefix.ts). 순서를 뒤집으면 접두가 고정 갈래를 가로챈다.
  */
-async function delegate(lang: FoldLang, a: string, b: string) {
-  const prefix = DEEP_PREFIX_ROUTES[a];
-  if (!SLUG_ROUTES[`${a}/${b}`] && prefix) {
-    const built = (await prefix()).build(lang);
-    return {
-      generateMetadata: (arg: { params: Promise<{ slug: string }> }) =>
-        built.generateMetadata({ params: arg.params.then(p => ({ b, slug: p.slug })) }),
-      Page: (arg: { params: Promise<{ slug: string }> }) =>
-        built.Page({ params: arg.params.then(p => ({ b, slug: p.slug })) }),
-    };
-  }
-  const loader = SLUG_ROUTES[`${a}/${b}`];
-  if (!loader) return null;
-  const mod = await loader();
-  return mod.build(lang) as {
-    generateMetadata: (arg: { params: Promise<{ slug: string }> }) => Promise<Metadata>;
-    Page: (arg: { params: Promise<{ slug: string }> }) => Promise<React.ReactElement | null>;
-  };
+function pick(a: string, b: string) {
+  const exact = `${a}/${b}`;
+  if (DEEP_META[exact]) return { meta: DEEP_META[exact], mod: DEEP_MODULE[exact], prefix: false };
+  if (DEEP_PREFIX_META[a]) return { meta: DEEP_PREFIX_META[a], mod: DEEP_PREFIX_MODULE[a], prefix: true };
+  return null;
 }
 
 export function build(lang: FoldLang) {
   async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
     const { a, b, slug } = await params;
-    const built = await delegate(lang, a, b);
-    if (!built) return {};
-    return built.generateMetadata({ params: Promise.resolve({ slug }) });
+    const hit = pick(a, b);
+    if (!hit) return {};
+    const built = (await hit.meta()).buildMeta(lang);
+    return built.generateMetadata({
+      params: Promise.resolve(hit.prefix ? { b, slug } : { slug }) as Promise<never>,
+    });
   }
 
   async function Page({ params }: { params: Params }) {
     const { a, b, slug } = await params;
-    const built = await delegate(lang, a, b);
-    if (!built) notFound();
-    return built.Page({ params: Promise.resolve({ slug }) });
+    const hit = pick(a, b);
+    if (!hit) notFound();
+    return <FoldView mod={hit.mod} lang={lang} params={hit.prefix ? { b, slug } : { slug }} />;
   }
-
 
   /*
    * ── ISR을 켜려면 이것이 있어야 한다 (2026-08-13) ────────────────
    * 없으면 [a]/[b]/[slug] 라우트가 동적으로 잡혀 캐시를 아예 쓰지 않는다 —
    * revalidate만 적어도 듣지 않는다. 세 칸 낱장이 20,709장(주소의 10%)이라
    * 이 라우트가 캐시를 못 쓰면 그만큼이 요청마다 원본 전송이 된다.
-   *
-   * 한국어 세 칸 디스패처(app/(ko)/[section]/[slug]/[deep]/page.tsx)와 같은
-   * 방식이다 — 등록부의 두 칸 열쇠를 갈라 a·b로 쓰고, 그 모듈의 목록을 slug로
-   * 삼는다. 목록이 없는 모듈은 건너뛴다(그 갈래는 요청 때만 만들어진다).
    * prerender()가 걸러서 지금은 빈 배열이므로 빌드는 한 장도 굽지 않는다.
    */
   async function generateStaticParams() {
     const out: { a: string; b: string; slug: string }[] = [];
-    for (const [key, load] of Object.entries(SLUG_ROUTES)) {
-      if (!key.includes('/')) continue;
+    for (const [key, load] of Object.entries(DEEP_META)) {
       const [a, b] = key.split('/');
-      const mod = (await load()) as { build?: (l: FoldLang) => { generateStaticParams?: () => { slug: string }[] } };
-      const built = mod.build?.(lang);
-      for (const p of built?.generateStaticParams?.() ?? []) out.push({ a, b, slug: p.slug });
+      const built = (await load()).buildMeta(lang);
+      for (const p of built.generateStaticParams?.() ?? []) out.push({ a, b, slug: p.slug });
     }
     /* 접두 갈래는 둘째 칸도 목록에서 나온다 */
-    for (const [a, load] of Object.entries(DEEP_PREFIX_ROUTES)) {
-      const built = (await load()).build(lang);
-      for (const p of built.generateStaticParams()) out.push({ a, b: p.b, slug: p.slug });
+    for (const [a, load] of Object.entries(DEEP_PREFIX_META)) {
+      const built = (await load()).buildMeta(lang);
+      for (const p of built.generateStaticParams?.() ?? []) out.push({ a, b: p.b, slug: p.slug });
     }
     return out;
   }
