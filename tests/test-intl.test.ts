@@ -36,6 +36,7 @@ test('결과 구간이 0점부터 만점까지 빈틈없이 이어진다', () =>
   // 구간이 비면 그 점수를 받은 사람에게 보여줄 결과가 없어 화면이 비어버린다
   for (const [label, list] of SETS) {
     for (const t of list) {
+      if (t.type) continue; // 점수합을 안 쓰는 형(category 등)은 min/max가 전부 0이다
       const maxScore = t.questions.reduce((s, q) => s + Math.max(...q.opts.map(o => o.score)), 0);
       const sorted = [...t.results].sort((a, b) => a.min - b.min);
       assert.equal(sorted[0].min, 0, `${label} ${t.slug}: 첫 구간이 0에서 시작하지 않는다`);
@@ -56,6 +57,7 @@ test('결과 구간이 0점부터 만점까지 빈틈없이 이어진다', () =>
 test('모든 점수에 대응하는 결과가 정확히 하나씩 있다', () => {
   for (const [label, list] of SETS) {
     for (const t of list) {
+      if (t.type) continue; // 위와 같은 이유
       const maxScore = t.questions.reduce((s, q) => s + Math.max(...q.opts.map(o => o.score)), 0);
       for (let score = 0; score <= maxScore; score++) {
         const hits = t.results.filter(r => score >= r.min && score <= r.max);

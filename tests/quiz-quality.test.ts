@@ -93,25 +93,60 @@ test('한 퀴즈 안에서 정답이 한 번호에 몰리지 않는다', () => {
   assert.deepEqual(bad, [], `정답이 한 번호에 60% 이상 몰린 퀴즈: ${bad.join(', ')}`);
 });
 
+/** 그 퀴즈에서 "가장 긴 보기"만 골랐을 때 맞는 문항 수 */
+function longestWins(qs: Q[]): number {
+  // 동점이면 "가장 긴 것"을 고를 수 없으니 편향으로 세지 않는다.
+  // 정답이 나머지 모두보다 확실히 길 때만 그 전략이 통한다.
+  return qs.filter(q => {
+    const len = q.opts[q.correct].length;
+    return q.opts.every((o, i) => i === q.correct || o.length < len);
+  }).length;
+}
+
+const BY_SLUG = (() => {
+  const m = new Map<string, Q[]>();
+  for (const q of QUESTIONS) m.set(q.slug, [...(m.get(q.slug) ?? []), q]);
+  return m;
+})();
+
 test('정답만 유독 길어서 읽지 않고 고를 수 있는 퀴즈가 없다', () => {
   // 정답만 서술형으로 길게 쓰고 오답은 단어로 던져두면, 문제를 안 읽고
   // 가장 긴 보기를 고르는 것만으로 맞힐 수 있다. 한 퀴즈의 모든 문항에서
   // 정답이 최장이면 그 퀴즈는 통째로 그렇게 풀린다.
-  const bySlug = new Map<string, Q[]>();
-  for (const q of QUESTIONS) {
-    const arr = bySlug.get(q.slug) ?? [];
-    arr.push(q);
-    bySlug.set(q.slug, arr);
-  }
   const bad: string[] = [];
-  for (const [slug, qs] of bySlug) {
-    // 동점이면 "가장 긴 것"을 고를 수 없으니 편향으로 세지 않는다.
-    // 정답이 나머지 모두보다 확실히 길 때만 그 전략이 통한다.
-    const longest = qs.filter(q => {
-      const len = q.opts[q.correct].length;
-      return q.opts.every((o, i) => i === q.correct || o.length < len);
-    }).length;
-    if (longest === qs.length) bad.push(`${slug} (${longest}/${qs.length})`);
+  for (const [slug, qs] of BY_SLUG) {
+    const n = longestWins(qs);
+    if (n === qs.length) bad.push(`${slug} (${n}/${qs.length})`);
   }
   assert.deepEqual(bad, [], `모든 문항에서 정답이 가장 긴 보기인 퀴즈: ${bad.join(', ')}`);
+});
+
+/*
+ * 위 검사는 10문항 전부가 걸려야 물기 때문에 9/10짜리는 그냥 통과한다.
+ * 실제로 세어 보니 가장 긴 보기만 고르는 전략의 정답률이 전체 39.6%였고
+ * (무작위면 25%), 8할 이상 통하는 퀴즈가 13개 있었다. 기술 퀴즈는 정답이
+ * 설명형이라 길어지는 면이 있어 통째로 다시 쓰지는 않고, 대신 지금 상태를
+ * 못으로 박아 새 퀴즈가 여기에 끼어드는 것만 막는다.
+ */
+const KNOWN_LONG_ANSWER_BIAS = new Set([
+  'javascript', 'marketing', 'real-estate-quiz',           // 9/10
+  'environment', 'finance-quiz', 'dogs', 'weather',        // 8/10
+  'entrepreneurship', 'sea-creatures', 'tax-quiz',
+  'world-orgs', 'car-maintenance', 'medicine-basics',
+]);
+
+test('길이 편향이 심한 퀴즈가 늘지 않는다', () => {
+  const now = [...BY_SLUG].filter(([, qs]) => longestWins(qs) / qs.length >= 0.8).map(([s]) => s);
+  const added = now.filter(s => !KNOWN_LONG_ANSWER_BIAS.has(s));
+  assert.deepEqual(added, [], `길이만 보고 8할 이상 맞힐 수 있는 새 퀴즈: ${added.join(', ')}`);
+  // 고친 것은 목록에서도 빼야 목록이 실제 상태를 가리킨다
+  const fixed = [...KNOWN_LONG_ANSWER_BIAS].filter(s => !now.includes(s));
+  assert.deepEqual(fixed, [], `편향이 사라진 퀴즈 — 위 목록에서 지워라: ${fixed.join(', ')}`);
+});
+
+test('가장 긴 보기 전략의 전체 정답률이 더 나빠지지 않는다', () => {
+  const win = [...BY_SLUG.values()].reduce((s, qs) => s + longestWins(qs), 0);
+  const rate = win / QUESTIONS.length;
+  // 2026-08-15 기준 39.6%. 무작위 찍기는 25%다.
+  assert.ok(rate < 0.42, `길이만 보고 찍어도 ${(rate * 100).toFixed(1)}% 맞는다 — 오답 보기가 너무 짧다`);
 });

@@ -23,6 +23,8 @@ interface TestBlock {
   body: string;
   /** MBTI형은 점수 구간 대신 축(EI/SN/TF/JP) 판정을 쓴다 — min/max는 전부 0이다. */
   isMbti: boolean;
+  /** 점수합 → 구간을 쓰는 형인가. mbti·category·quadrant는 안 쓴다 — min/max가 전부 0이다. */
+  isScored: boolean;
   ranges: Array<[number, number]>;
 }
 
@@ -37,7 +39,11 @@ function loadTests(): TestBlock[] {
       const body = b[3];
       const ranges = [...body.matchAll(/min: (\d+), max: (\d+)/g)]
         .map(m => [Number(m[1]), Number(m[2])] as [number, number]);
-      out.push({ slug, body, isMbti: body.includes("type: 'mbti'"), ranges });
+      out.push({
+        slug, body, ranges,
+        isMbti: body.includes("type: 'mbti'"),
+        isScored: !/type: '(?:mbti|category|quadrant)'/.test(body),
+      });
     }
   }
   return out;
@@ -63,7 +69,7 @@ test('점수 구간에 빈틈이 없다', () => {
   // 구간 사이가 비면 그 점수를 받은 사용자에게 결과가 안 뜬다.
   const bad: string[] = [];
   for (const t of TESTS) {
-    if (t.isMbti || t.ranges.length < 2) continue;
+    if (!t.isScored || t.ranges.length < 2) continue;
     const sorted = [...t.ranges].sort((a, b) => a[0] - b[0]);
     for (let i = 0; i < sorted.length - 1; i++) {
       if (sorted[i][1] + 1 < sorted[i + 1][0]) {
@@ -78,7 +84,7 @@ test('점수 구간이 서로 겹치지 않는다', () => {
   // 겹치면 어느 결과가 나올지가 배열 순서에 달리게 된다.
   const bad: string[] = [];
   for (const t of TESTS) {
-    if (t.isMbti || t.ranges.length < 2) continue;
+    if (!t.isScored || t.ranges.length < 2) continue;
     const sorted = [...t.ranges].sort((a, b) => a[0] - b[0]);
     for (let i = 0; i < sorted.length - 1; i++) {
       if (sorted[i][1] >= sorted[i + 1][0]) {

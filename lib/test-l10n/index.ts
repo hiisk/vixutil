@@ -15,9 +15,10 @@ import { TESTS_ZH_HANT, TESTS_ZH_HANT_MAP } from './zh-hant.ts';
  *
  * 한국어 264종(2026-08-07)은 회사 문화·연애 관습처럼 한국 맥락에 묶여 있어 옮기지 않는다
  * ([[lib/test-en.ts]] 주석). 대신 어느 언어권에서도 그대로 통하는 다섯 주제만
- * 골라 아홉 언어로 옮겼다. 그래서 이 표의 슬러그는 아홉 언어가 모두 같고,
- * 한국어와는 겹치지 않는다 — hreflang을 [[lib/locale-alternates.ts]]가 실제
- * 맵에서 뽑는 이유가 이것이다.
+ * 골라 아홉 언어로 옮겼다. 그래서 이 표의 슬러그는 아홉 언어가 모두 같다.
+ * 한국어와 "겹치지 않는다"고 적혀 있었지만 셋(social-battery, decision-style,
+ * love-language)은 한국어에도 같은 슬러그로 있다 — hreflang을
+ * [[lib/locale-alternates.ts]]가 실제 맵에서 뽑는 이유가 이것이다.
  *
  * Partial이 아니라 Record다. 언어가 빠지면 tsc가 잡는다.
  */

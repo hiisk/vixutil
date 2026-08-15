@@ -2,7 +2,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Test } from '@/lib/types';
+import type { Test, TestOpt, TestResult } from '@/lib/types';
 import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
 import SaveResultCard from './SaveResultCard';
@@ -28,6 +28,42 @@ function getMbtiType(scores: Record<string, number>): string {
   const t = (scores.TF ?? 0) >= 8 ? 'T' : 'F';
   const j = (scores.JP ?? 0) >= 8 ? 'J' : 'P';
   return e + s + t + j;
+}
+
+/*
+ * 채점 방식 네 가지.
+ *
+ * 점수합 → 구간(기본)은 결과에 순서가 있을 때만 맞는다. "언어형/봉사형/선물형/
+ * 스킨십형"처럼 순서가 없는 넷을 한 줄에 세우면 "말 → 시간 → 행동 → 선물"이라는
+ * 뜻 없는 순서가 생기고, 가운데 유형은 답이 섞이기만 해도 나와버린다.
+ * 그래서 결과의 생김새에 맞는 채점을 골라 쓴다. 데이터에 type이 없으면
+ * 예전 그대로 점수합이다 — 263종 중 259종이 그 길로 간다.
+ */
+
+/**
+ * 범주형: 표를 가장 많이 받은 유형.
+ *
+ * 동점이면 그중 마지막에 고른 쪽이 이긴다. results에 먼저 적은 쪽으로 붙이면
+ * 순서가 곧 가중치가 되어 맨 앞 결과가 34%·맨 뒤가 18%로 갈렸다. 마지막 선택을
+ * 보면 넷이 25%씩으로 고르고, "표가 같으면 최근에 기운 쪽"이라는 뜻도 선다.
+ */
+function byVotes(results: TestResult[], chosen: TestOpt[]): TestResult | undefined {
+  const votes: Record<string, number> = {};
+  const last: Record<string, number> = {};
+  chosen.forEach((o, i) => { if (o.k) { votes[o.k] = (votes[o.k] ?? 0) + 1; last[o.k] = i; } });
+  return results.reduce((best, r) => {
+    const v = votes[r.k!] ?? 0, bv = votes[best.k!] ?? 0;
+    return v > bv || (v === bv && (last[r.k!] ?? -1) > (last[best.k!] ?? -1)) ? r : best;
+  }, results[0]);
+}
+
+/** 사분면: 축마다 합을 내고 부호를 이어 붙인 열쇠('+-' 등)로 결과를 찾는다 */
+function byAxes(results: TestResult[], chosen: TestOpt[]): TestResult | undefined {
+  const sums: number[] = [];
+  for (const o of chosen) (o.ax ?? []).forEach((v, i) => { sums[i] = (sums[i] ?? 0) + v; });
+  // 합이 0이면 '-'다. 그 몫까지 합쳐 tests/test-result-balance.test.ts가 결과 배분을 잰다
+  const key = sums.map(v => (v > 0 ? '+' : '-')).join('');
+  return results.find(r => r.k === key);
 }
 
 
@@ -132,33 +168,39 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
   const ui = UI[lang];
   const hubHref = lang === 'ko' ? '/test' : `/${lang}/test`;
   const [phase, setPhase] = useState<'start' | 'question' | 'result'>('start');
-  const [current, setCurrent] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [axisScores, setAxisScores] = useState<Record<string, number>>({});
+  /* 고른 보기의 번호만 남긴다 — 점수합·축합·표는 전부 여기서 다시 계산한다 */
+  const [picks, setPicks] = useState<number[]>([]);
+  const current = picks.length;
 
   const isMbti = test.type === 'mbti';
 
-  function pick(score: number) {
-    const q = test.questions[current];
-    if (isMbti && q.axis) {
-      setAxisScores(prev => ({ ...prev, [q.axis!]: (prev[q.axis!] ?? 0) + score }));
-    }
-    const next = total + score;
-    if (current + 1 >= test.questions.length) {
-      setTotal(next);
-      setPhase('result');
-    } else {
-      setTotal(next);
-      setCurrent(c => c + 1);
-    }
+  function pick(optIndex: number) {
+    const next = [...picks, optIndex];
+    setPicks(next);
+    if (next.length >= test.questions.length) setPhase('result');
   }
 
-  function restart() { setPhase('start'); setCurrent(0); setTotal(0); setAxisScores({}); }
+  function restart() { setPhase('start'); setPicks([]); }
 
-  const mbtiType = isMbti ? getMbtiType(axisScores) : null;
-  const result = isMbti
-    ? (test.results.find(r => r.mbtiType === mbtiType) ?? test.results[0])
-    : (test.results.find(r => total >= r.min && total <= r.max) ?? test.results[test.results.length - 1]);
+  const chosen = picks.map((oi, qi) => test.questions[qi].opts[oi]);
+  const total = chosen.reduce((s, o) => s + o.score, 0);
+
+  let mbtiType: string | null = null;
+  if (isMbti) {
+    const axisScores: Record<string, number> = {};
+    picks.forEach((oi, qi) => {
+      const a = test.questions[qi].axis;
+      if (a) axisScores[a] = (axisScores[a] ?? 0) + test.questions[qi].opts[oi].score;
+    });
+    mbtiType = getMbtiType(axisScores);
+  }
+
+  const result = (
+    isMbti ? test.results.find(r => r.mbtiType === mbtiType)
+    : test.type === 'category' ? byVotes(test.results, chosen)
+    : test.type === 'quadrant' ? byAxes(test.results, chosen)
+    : test.results.find(r => total >= r.min && total <= r.max)
+  ) ?? test.results[test.results.length - 1];
   const progress = Math.round((current / test.questions.length) * 100);
   const grad = result?.color ?? DEFAULT_GRADIENT;
 
@@ -216,7 +258,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
           <h2 className="text-xl font-black text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line tracking-tight">{q.q}</h2>
           <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (
-              <button key={i} onClick={() => pick(opt.score)}
+              <button key={i} onClick={() => pick(i)}
                 className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
                 <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-black flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
                   {['A', 'B', 'C', 'D', 'E'][i] ?? i + 1}
