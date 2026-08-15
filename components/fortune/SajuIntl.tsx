@@ -2,14 +2,14 @@
 import ToolIcon from '@/components/ToolIcon';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortuneIntl, DOMAIN_UI } from '@/lib/saju-fortune-intl';
 import SajuTopicNav from '@/components/fortune/SajuTopicNav';
 import SajuForm, { type SajuFormValue } from '@/components/fortune/SajuForm';
-import { topicQuery } from '@/lib/saju-topics';
+import { topicQuery, TOPIC_DOMAIN, type TopicSlug } from '@/lib/saju-topics';
 import {
   STEMS, BRANCHES, type Element, type Pillar,
   buildChart, countElements, getSipseong, getSingang,
@@ -82,7 +82,17 @@ function PillarCard({ label, p, stems, branches }: {
   );
 }
 
-export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
+export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, topicTail }: {
+  lang: SajuIntlLang;
+  /** 주제 낱장에서 왔으면 그 영역을 펼치고 표시한다 */
+  initialTopic?: TopicSlug;
+  /** 이름 칸처럼 그 화면만의 입력 */
+  formExtra?: ReactNode;
+  /** 폼 위 — 주제 낱장의 제목·소개 */
+  topicHead?: ReactNode;
+  /** 맨 아래 — 주제 낱장의 배경 설명과 자주 묻는 질문 */
+  topicTail?: ReactNode;
+}) {
   const ui = SAJU_UI[lang];
   const stems = STEMS_INTL[lang];
   const branches = BRANCHES_INTL[lang];
@@ -90,6 +100,9 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
 
   const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '', gender: 'male' });
   const [allDomains, setAllDomains] = useState(false);
+  /* 주제로 들어왔으면 그 영역이 넷 밖에 있을 수 있다 — 접힌 채로 두면 안 보인다 */
+  const openTopic = initialTopic ? TOPIC_DOMAIN[initialTopic] : null;
+  const showAllDomains = allDomains || openTopic !== null;
   const gender = form.gender;
   const [chart, setChart] = useState<Chart | null>(null);
   const [error, setError] = useState('');
@@ -170,18 +183,24 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🔯" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{ui.title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{ui.lead}</p>
-        </div>
+        {topicHead}
+        {/* 주제 낱장은 제 이름표를 위에서 이미 세웠다 — h1이 둘이면 안 된다 */}
+        {!initialTopic && (
+          <div className="text-center mb-6">
+            <ToolIcon emoji="🔯" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{ui.title}</h1>
+            <p className="text-slate-500 dark:text-slate-400 text-sm">{ui.lead}</p>
+          </div>
+        )}
 
         {/* 폼은 components/fortune/SajuForm.tsx 하나뿐이다 */}
         <SajuForm
           lang={lang} value={form} onChange={setForm}
           onSubmit={() => run(form, form.gender)}
           error={error} submitLabel={ui.submit}
-        />
+        >
+          {formExtra}
+        </SajuForm>
 
         {chart && dayStem && dayStemIntl ? (
           <div id="saju-result" className="space-y-4">
@@ -306,8 +325,10 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
               <p className="label-caps mb-1">{du.title}</p>
               <p className="note-xs mb-4">{du.lead}</p>
               <div className="flex flex-col gap-3">
-                {domains.slice(0, allDomains ? domains.length : 4).map(d => (
-                  <div key={d.id} className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3.5">
+                {domains.slice(0, showAllDomains ? domains.length : 4).map(d => (
+                  <div key={d.id} className={`rounded-xl border px-4 py-3.5 ${d.id === openTopic
+                    ? 'border-indigo-400 dark:border-indigo-500 ring-1 ring-indigo-200 dark:ring-indigo-900'
+                    : 'border-slate-200 dark:border-slate-700'}`}>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-lg">{d.emoji}</span>
                       <span className="text-sm font-black text-slate-800 dark:text-slate-100">{d.title}</span>
@@ -338,12 +359,13 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
                   </div>
                 ))}
               </div>
-              <button
+              {/* 주제로 들어오면 이미 다 펼쳐져 있어 이 단추가 할 일이 없다 */}
+              {openTopic === null && <button
                 onClick={() => setAllDomains(v => !v)}
                 className="w-full mt-3 rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-violet-300 transition-colors"
               >
                 {allDomains ? du.collapse : du.showAll}
-              </button>
+              </button>}
             </div>
 
             <div className="rounded-2xl border chip-off p-5">
@@ -364,8 +386,10 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
           주제 낱장으로 가는 줄. 명식을 뽑기 전에도 보여야 한다 — 결과 안에 두면
           첫 HTML에 링크가 없어서 크롤러에게는 일곱 장이 안 보인다.
         */}
+        {topicTail}
+
         <div className="mt-8">
-          <SajuTopicNav lang={lang} query={topicQuery({ ...form, gender })} />
+          <SajuTopicNav lang={lang} current={initialTopic} query={topicQuery({ ...form, gender })} />
         </div>
       </div>
     </div>

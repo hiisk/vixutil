@@ -281,7 +281,7 @@ test('사이트맵과 검색 상자에 일곱 주제가 다 있다', () => {
 ──────────────────────────────────────────────── */
 
 test('이름을 주소에도 서버에도 안 보낸다', () => {
-  const src = readFileSync(join(ROOT, 'components/fortune/SajuTopicPage.tsx'), 'utf8');
+  const src = readFileSync(join(ROOT, 'components/fortune/SajuKo.tsx'), 'utf8');
 
   // 주소에 싣는 열쇠 — 이름이 끼면 캐시가 이름마다 갈리고 개인정보가 남는다
   const params = src.match(/new URLSearchParams\(\{([^}]*)\}/);
@@ -297,7 +297,17 @@ test('이름을 주소에도 서버에도 안 보낸다', () => {
   for (const sink of ['fetch(', 'navigator.sendBeacon', 'XMLHttpRequest', 'localStorage', 'document.cookie']) {
     assert.equal(src.includes(sink), false, `${sink}가 있다 — 이름이 새는 길인지 확인해야 한다`);
   }
-  assert.ok(src.includes('sessionStorage'), '이름을 주제 사이에서 들고 갈 길이 없다');
+  /*
+   * 2026-08-15부터 이름 칸은 낱장(SajuTopicPage)이 갖고, 명식은 통합 화면이 뽑는다.
+   * 그래서 새는 길은 두 파일을 다 봐야 한다 — 주소 열쇠는 위에서 봤고,
+   * 이름을 들고 다니는 자리는 아래에서 본다.
+   */
+  const leaf = readFileSync(join(ROOT, 'components/fortune/SajuTopicPage.tsx'), 'utf8');
+  for (const sink of ['fetch(', 'navigator.sendBeacon', 'XMLHttpRequest', 'localStorage', 'document.cookie']) {
+    assert.equal(leaf.includes(sink), false, `낱장에 ${sink}가 있다 — 이름이 새는 길인지 확인해야 한다`);
+  }
+  assert.ok(leaf.includes('sessionStorage'), '이름을 주제 사이에서 들고 갈 길이 없다');
+  assert.equal(/replaceState[^;]*name/.test(leaf), false, '낱장이 이름을 주소에 싣는다');
 
   // 이름 없이도 페이지가 온전해야 한다 — 빈 값이 기본
   assert.ok(/useState\(''\)/.test(src), '이름의 기본값이 빈 문자열이 아니다');
@@ -354,10 +364,10 @@ test('전환 칩이 값을 물고 가고, 지금 주제를 표시한다', () => 
 });
 
 test('세 화면이 모두 전환 장치에 값을 넘긴다', () => {
+  /* 낱장은 이 둘을 품으므로 전환 장치도 함께 받는다(2026-08-15) */
   const users = [
-    'components/fortune/SajuTopicPage.tsx',
     'components/fortune/SajuIntl.tsx',
-    'app/(ko)/fortune/saju/page.tsx',
+    'components/fortune/SajuKo.tsx',
   ];
   for (const f of users) {
     const src = readFileSync(join(ROOT, f), 'utf8');
@@ -369,7 +379,7 @@ test('세 화면이 모두 전환 장치에 값을 넘긴다', () => {
 test('값을 달고 돌아온 허브가 다시 안 묻는다', () => {
   // 낱장 → 허브로 돌아올 때도 ?y=가 붙는다. 허브가 그것을 안 읽으면
   // 사람은 같은 생년월일을 또 넣게 된다.
-  for (const f of ['components/fortune/SajuIntl.tsx', 'app/(ko)/fortune/saju/page.tsx']) {
+  for (const f of ['components/fortune/SajuIntl.tsx', 'components/fortune/SajuKo.tsx']) {
     const src = readFileSync(join(ROOT, f), 'utf8');
     assert.ok(src.includes("get('y')"), `${f}가 돌아온 값을 안 읽는다`);
   }
@@ -574,15 +584,20 @@ test('사주 폼은 하나뿐이다 — 세 화면이 각자 그리지 않는다
    *
    * 다시 갈라지는 것을 막는다 — 입력칸을 직접 그리는 화면이 있으면 실패한다.
    */
+  /* 폼을 그리는 화면은 둘 — 낱장은 이 둘을 품는다(2026-08-15) */
   const screens = [
-    'app/(ko)/fortune/saju/page.tsx',
+    'components/fortune/SajuKo.tsx',
     'components/fortune/SajuIntl.tsx',
-    'components/fortune/SajuTopicPage.tsx',
   ];
+  const leaf = readFileSync(new URL('../components/fortune/SajuTopicPage.tsx', import.meta.url), 'utf8');
+  assert.match(leaf, /<SajuKo\b/, '낱장이 한국어 통합 화면을 안 쓴다');
+  assert.match(leaf, /<SajuIntl\b/, '낱장이 아홉 언어 통합 화면을 안 쓴다');
+  assert.ok(!/<SajuForm\b/.test(leaf), '낱장이 폼을 또 그린다 — 통합 화면 것과 둘이 된다');
+
   const own: string[] = [];
-  for (const f of screens) {
+  for (const f of [...screens, 'components/fortune/SajuTopicPage.tsx']) {
     const src = readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
-    assert.match(src, /<SajuForm\b/, `${f}가 공용 폼을 안 쓴다`);
+    if (screens.includes(f)) assert.match(src, /<SajuForm\b/, `${f}가 공용 폼을 안 쓴다`);
     /* 생년월일·시각 칸을 직접 그리면 안 된다. 이름 칸(text)은 그 화면 것이라 뺀다 */
     if (/type="number"/.test(src) || /type="time"/.test(src)) own.push(f);
   }

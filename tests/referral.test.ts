@@ -234,10 +234,25 @@ test('운세 페이지가 모두 결과 지점 노출을 갖는다', () => {
   const CARRIERS = ['FortuneDisplay', 'MatchResultCard', 'ReferralCards'];
   // card는 타로 78장을 찾아보는 자료 목록이라 "내 결과"가 없다 — 공유할 결과 지점도 없다
   const REFERENCE_ONLY = ['card'];
-  const missing = pages.filter(slug => !REFERENCE_ONLY.includes(slug)).filter(slug => {
-    const src = readFileSync(join(dir, slug, 'page.tsx'), 'utf8');
-    return !CARRIERS.some(c => src.includes(c));
-  });
+  /*
+   * 페이지가 화면을 components/의 컴포넌트에 넘기기도 한다 — 2026-08-15에 사주가
+   * 그렇게 됐다(page.tsx는 <SajuKo />만 그린다). 안 따라가면 멀쩡한 위임을
+   * "빠졌다"고 한다. 아래 스냅 검사가 이미 같은 일을 한다.
+   */
+  const carried = (src: string, depth = 0): boolean => {
+    if (CARRIERS.some(c => src.includes(c))) return true;
+    if (depth > 0) return false;
+    for (const m of src.matchAll(/from '@\/(components\/[\w/.-]+)'/g)) {
+      for (const ext of ['.tsx', '.ts']) {
+        const f = join(ROOT, m[1] + ext);
+        if (!existsSync(f)) continue;
+        if (carried(readFileSync(f, 'utf8'), depth + 1)) return true;
+      }
+    }
+    return false;
+  };
+  const missing = pages.filter(slug => !REFERENCE_ONLY.includes(slug)).filter(slug =>
+    !carried(readFileSync(join(dir, slug, 'page.tsx'), 'utf8')));
   assert.deepEqual(missing, [], `결과 지점 노출이 없는 운세 페이지: ${missing.join(', ')}`);
 
   // 대리 컴포넌트(MatchResultCard)가 실제로 제휴 카드를 들고 있는지 확인 —
