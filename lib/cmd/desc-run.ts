@@ -979,19 +979,6 @@ export const CMD_DESC_RUN: Record<string, Ten> = {
     '它按區塊原樣複製，裝機映像就是這樣寫進裝置的；`of=` 指到哪裡，那裡就從第 0 塊起被覆蓋，不問一聲也無法還原，所以按下 Enter 前一定要用 lsblk 再確認一次裝置名稱，用 `bs=4M` 提速，用 `status=progress`（macOS 按 Ctrl+T）看進度。',
   ],
 
-  'split-file': [
-    '큰 파일을 여러 조각으로 자릅니다 — 기본이 1000줄씩 자르는 것이라 크기로 자르려면 `-b 100M`처럼 적어야 하고, 접두사를 안 주면 조각 이름이 xaa·xab가 되며, 되붙이는 것은 `cat part_* > file` 하나로 끝나지만 그것은 접미사가 순서대로 정렬되기 때문입니다.',
-    'Cuts a big file into pieces; the default is by line count, 1000 at a time, so pass `-b 100M` when you meant size, the pieces are named xaa, xab and so on unless you give a prefix, and you glue them back with a single `cat part_* > file`, which works only because the suffixes sort in order.',
-    'Corta un archivo grande en trozos; por defecto lo hace por líneas, 1000 cada vez, así que usa `-b 100M` cuando querías tamaño, los trozos se llaman xaa, xab y así salvo que des un prefijo, y se recomponen con un solo `cat part_* > file`, que funciona porque los sufijos se ordenan.',
-    'Corta um arquivo grande em pedaços; por padrão corta por linhas, 1000 de cada vez, então use `-b 100M` quando queria tamanho, os pedaços se chamam xaa, xab e assim por diante se você não der um prefixo, e voltam a ser um só com um `cat part_* > file`, que funciona porque os sufixos ficam em ordem.',
-    '大きなファイルをいくつもの断片に切ります。既定は 1000 行ずつという行数での分割なので、大きさで切るなら `-b 100M` のように書き、接頭の語を与えないと断片は xaa・xab となり、戻すのは `cat part_* > file` 一つで済みますが、それは接尾が順に並ぶからこそです。',
-    'Zerlegt eine große Datei in Stücke; standardmäßig nach Zeilen, je 1000, also `-b 100M` schreiben, wenn die Größe gemeint war — ohne Präfix heißen die Teile xaa, xab und so weiter, und zusammengesetzt wird mit einem einzigen `cat part_* > file`, was nur funktioniert, weil die Endungen sortiert sind.',
-    'Découpe un gros fichier en morceaux ; par défaut la coupe se fait par lignes, 1000 à la fois, donc écrivez `-b 100M` si vous pensiez à une taille ; sans préfixe les morceaux s’appellent xaa, xab, etc., et un seul `cat part_* > file` les recolle, ce qui ne marche que parce que les suffixes se trient dans l’ordre.',
-    'बड़ी फ़ाइल को टुकड़ों में काटता है; डिफ़ॉल्ट कटाई पंक्तियों से होती है, एक बार में 1000, इसलिए आकार से काटना हो तो `-b 100M` जैसा लिखें; उपसर्ग न दें तो टुकड़े xaa, xab बनते हैं, और जोड़ने के लिए एक `cat part_* > file` काफ़ी है, जो केवल इसलिए चलता है कि प्रत्यय क्रम में सजते हैं।',
-    '把大文件切成若干块；默认是按行切、每 1000 行一块，想按大小切就得写 `-b 100M`，不给前缀时碎片叫 xaa、xab，拼回去只用一句 `cat part_* > file`，而这能成立全靠后缀本身是有序的。',
-    '把大檔案切成好幾塊；預設是按行切、每 1000 行一塊，想按大小切就得寫 `-b 100M`，不給前綴時碎片叫 xaa、xab，拼回去只用一句 `cat part_* > file`，而這能成立全靠後綴本身是有序的。',
-  ],
-
   cpio: [
     '무엇을 담을지 표준입력으로 받은 이름 목록에서 정하는 옛 묶음 도구라, 그 목록은 대개 find가 만듭니다 — `-o`가 묶기, `-i`가 풀기, `-t`가 목록이고, initramfs가 쓰는 꼴은 `-H newc`이며, 남이 준 묶음은 절대경로로 튀어나오지 않게 `--no-absolute-filenames`를 붙입니다.',
     'An older archiver that takes the list of names to pack from stdin, which is why find usually feeds it; `-o` writes an archive, `-i` extracts one, `-t` lists it, `-H newc` is the portable format initramfs images use, and `--no-absolute-filenames` stops an archive from someone else writing into absolute paths.',

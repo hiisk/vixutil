@@ -685,11 +685,12 @@ export const CMD_FILES: CmdItem[] = [
     ['-d', 'Number the pieces instead of naming them aa, ab'],
     ['-a', 'How many characters the suffix has'],
     ['--additional-suffix', 'GNU: give every piece an extension'],
+    ['<prefix>', 'Optional, and without it the pieces are named xaa, xab, xac'],
   ], [
     ['split -l 1000 big.csv part_', 'Files part_aa, part_ab, 1000 lines each.'],
     ['split -b 50M archive.tar chunk_', 'Pieces of 50 MB.'],
     ['cat chunk_* > archive.tar', 'Puts the pieces back together.'],
-  ], ['csplit', 'head', 'cat']),
+  ], ['csplit', 'head', 'cat', 'dd']),
 
   c('csplit', 'text', "csplit [file] '/[pattern]/' '{*}'", [
     ['-f', 'Prefix for the output names; the default is xx'],

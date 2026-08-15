@@ -946,21 +946,7 @@ export const CMD_RUN: CmdItem[] = [
     ['lsblk', 'Always confirm the device name immediately before the next command.'],
     ['sudo dd if=ubuntu.iso of=/dev/sdb bs=4M status=progress conv=fsync', 'Write an installer image to a whole USB device (Linux).'],
     ['diskutil unmountDisk /dev/disk4 && sudo dd if=ubuntu.iso of=/dev/rdisk4 bs=4m', 'On macOS the disk must be unmounted first, or dd fails with Resource busy; rdiskN is the fast raw path.'],
-  ], ['lsblk', 'split-file']),
-
-  c('split-file', 'split', 'archive', 'split -b <size> <file> <prefix>', [
-    ['-b 100M', 'Pieces of a fixed size; K, M and G suffixes work on both platforms.'],
-    ['-l 1000', 'Split by line count instead, which is the default behaviour at 1000 lines.'],
-    ['-n 4', 'Cut into exactly four pieces.'],
-    ['-d', 'Numeric suffixes instead of aa, ab, ac.'],
-    ['-a 3', 'Suffix length, when two letters are not enough.'],
-    ['--additional-suffix=.part', 'Append an extension to each piece. GNU only.'],
-    ['<prefix>', 'Optional, and without it the pieces are named xaa, xab, xac.'],
-  ], [
-    ['split -b 100M big.tar.gz part_', 'Produces part_aa, part_ab and so on.'],
-    ['cat part_* > big.tar.gz', 'Reassemble in glob order, which is why the suffixes are sorted.'],
-    ['split -l 5000 -d data.csv chunk_', 'Five thousand lines per piece, with numeric suffixes.'],
-  ], ['dd', 'tar']),
+  ], ['lsblk', 'split']),
 
   c('cpio', 'cpio', 'archive', 'find <path> | cpio -o > <archive.cpio>', [
     ['-o', 'Copy-out: build an archive from the names arriving on stdin.'],
