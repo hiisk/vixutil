@@ -53,7 +53,7 @@ export const config = {
           type: 'header',
           key: 'user-agent',
           value:
-            '.*(GPTBot|ClaudeBot|anthropic-ai|CCBot|Bytespider|Google-Extended|Applebot-Extended|meta-externalagent|FacebookBot|Diffbot|Omgilibot|Omgili|Timpibot|Webzio-Extended|ImagesiftBot|AI2Bot|Kangaroo Bot|PanguBot|Sidetrade indexer bot|cohere-ai|cohere-training-data-crawler|AhrefsBot|SemrushBot|MJ12bot|DotBot|BLEXBot|DataForSeoBot|Barkrowler|ZoominfoBot|PetalBot|SeekportBot|serpstatbot|MegaIndex|Screaming Frog SEO Spider|SiteAuditBot|rogerbot|linkdexbot).*',
+            '.*(CCBot|Bytespider|FacebookBot|Diffbot|Omgilibot|Omgili|Timpibot|Webzio-Extended|ImagesiftBot|AI2Bot|Kangaroo Bot|PanguBot|Sidetrade indexer bot|cohere-ai|cohere-training-data-crawler|AhrefsBot|SemrushBot|MJ12bot|DotBot|BLEXBot|DataForSeoBot|Barkrowler|ZoominfoBot|PetalBot|SeekportBot|serpstatbot|MegaIndex|Screaming Frog SEO Spider|SiteAuditBot|rogerbot|linkdexbot).*',
         },
       ],
     },

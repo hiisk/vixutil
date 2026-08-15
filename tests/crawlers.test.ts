@@ -16,8 +16,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  ALLOWED_CRAWLERS, ASSISTANT_FETCHERS, BLOCKED_CRAWLERS, SEARCH_BOTS,
-  SEO_CRAWLERS, TRAINING_CRAWLERS,
+  AI_ANSWER_CRAWLERS, ALLOWED_CRAWLERS, ASSISTANT_FETCHERS, BLOCKED_CRAWLERS,
+  BULK_SCRAPERS, SEARCH_BOTS, SEO_CRAWLERS,
 } from '../lib/crawlers.ts';
 
 test('검색 엔진이 막힌 목록에 없다', () => {
@@ -36,23 +36,46 @@ test('받는 목록과 막는 목록이 겹치지 않는다', () => {
   assert.deepStrictEqual(both, [], '같은 봇이 두 목록에 있다');
 });
 
-test('이름이 비슷한 짝을 헷갈리지 않았다', () => {
+test('가르는 잣대가 "되돌려주는 것이 있는가"에 머문다', () => {
   /*
-   * 학습용과 사용자 요청용은 이름이 닮았다. 방향을 못 박아 둔다.
+   * 2026-08-15에 Pro로 올라가며 AI 답변 크롤러를 받는 쪽으로 옮겼다. 그 판단의
+   * 근거는 한도가 아니라 **인용이 달리는 제품이 뒤에 있는가**다. 요금제 이야기로
+   * 목록이 흔들리지 않게 양쪽 끝을 못 박는다.
    *
-   * 처음에는 "부분 문자열로 견주면 Claude-User가 막힌다"고 적었는데 **그것이
-   * 사실이 아니었다** — 'Claude-User'는 'ClaudeBot'을 포함하지 않는다. 지어낸
-   * 예시로 검사를 세운 것이라, 실제 충돌을 코드로 찾는 쪽으로 고쳤다(아래 검사).
+   * 값이 싸졌다고 아무거나 받으면 안 되고(대량 수집은 여전히 되돌려주는 것이 0),
+   * 반대로 한 번 데었다고 인용 경로까지 닫아 두면 유입을 통째로 버린다.
    */
-  const pairs: [string, string][] = [
-    ['GPTBot', 'ChatGPT-User'],
-    ['ClaudeBot', 'Claude-User'],
-  ];
-  for (const [blocked, allowed] of pairs) {
-    assert.ok(BLOCKED_CRAWLERS.includes(blocked), `${blocked}이 막는 목록에 없다`);
-    assert.ok(ALLOWED_CRAWLERS.includes(allowed), `${allowed}가 받는 목록에 없다`);
-    assert.ok(!BLOCKED_CRAWLERS.includes(allowed), `${allowed}가 막혔다`);
+  for (const bot of ['GPTBot', 'ClaudeBot', 'Google-Extended', 'Applebot-Extended']) {
+    assert.ok(AI_ANSWER_CRAWLERS.includes(bot), `${bot}이 AI 답변 목록에서 빠졌다`);
+    assert.ok(!BLOCKED_CRAWLERS.includes(bot),
+      `${bot}이 막혔다 — AI 답변에 인용될 기회가 사라진다`);
   }
+  /* 되돌려주는 것이 없는 쪽은 요금제와 무관하게 막는다 */
+  for (const bot of ['CCBot', 'Bytespider', 'AhrefsBot', 'SemrushBot']) {
+    assert.ok(BLOCKED_CRAWLERS.includes(bot), `${bot}이 막는 목록에서 빠졌다`);
+  }
+  /* 이름이 닮은 짝 — 사람이 물어서 가져가는 쪽은 언제나 받는다 */
+  for (const bot of ['ChatGPT-User', 'Claude-User', 'Perplexity-User']) {
+    assert.ok(ALLOWED_CRAWLERS.includes(bot), `${bot}가 받는 목록에 없다`);
+    assert.ok(!BLOCKED_CRAWLERS.includes(bot), `${bot}가 막혔다`);
+  }
+});
+
+test('낱장 공유 카드는 AI 크롤러에게도 안 열린다', async () => {
+  /*
+   * AI 크롤러를 받는 것과 카드를 내주는 것은 다른 문제다. 카드 한 장을 그리는 값이
+   * CPU라(142,020장 전부면 79 CPU-시간 ≈ $10) 답변에 쓰이지도 않는 이미지를
+   * 그려 줄 이유가 없다.
+   *
+   * 그래서 AI 크롤러는 robots.txt에 **제 규칙을 갖지 않는다** — `*` 규칙에 얹혀
+   * `/og/*​/*​/*` 금지를 함께 받는다. 여기에 이름을 적으면 그 금지가 풀린다.
+   */
+  const src = await import('node:fs').then(fs => fs.readFileSync('app/robots.ts', 'utf8'));
+  for (const bot of ['AI_ANSWER_CRAWLERS', 'ASSISTANT_FETCHERS', 'SEARCH_BOTS']) {
+    assert.ok(!src.includes(bot),
+      `robots.ts가 ${bot}에게 제 규칙을 준다 — /og/*​/*​/* 금지가 풀려 카드 값이 샌다`);
+  }
+  assert.match(src, /disallow:\s*"\/og\/\*\/\*\/\*"/, '낱장 카드 금지가 사라졌다');
 });
 
 test('접두어가 겹치는 짝은 둘 다 적혀 있다', () => {
@@ -61,9 +84,9 @@ test('접두어가 겹치는 짝은 둘 다 적혀 있다', () => {
    * 이름이 받는 이름으로 시작하면(또는 그 반대), 두 이름이 **모두** 적혀 있어야
    * 각자 자기 규칙 묶음을 갖는다. 하나만 적으면 넓은 쪽이 좁은 쪽까지 덮는다.
    *
-   * 지금 실제로 겹치는 짝은 하나다 — 애플이 검색용 Applebot과 학습용
-   * Applebot-Extended를 쓴다. Applebot만 허용하고 Extended를 안 적으면 학습
-   * 수집까지 함께 받게 된다.
+   * 2026-08-15에 Applebot-Extended를 받는 쪽으로 옮기면서 **받는 쪽과 막는 쪽
+   * 사이의 충돌은 0이 됐다.** 그래도 검사를 지우지 않는다 — 목록을 늘리다 새
+   * 충돌이 생기는 것이 원래 위험이고, 지금이 그것을 잡기 가장 좋은 상태다.
    *
    * 목록을 늘릴 때 새 충돌이 생기면 여기서 걸린다 — 그때 두 이름을 모두 적어라.
    */
@@ -76,18 +99,22 @@ test('접두어가 겹치는 짝은 둘 다 적혀 있다', () => {
       }
     }
   }
-  /* 알고 있는 짝 하나만 있어야 한다 — 새로 생기면 눈으로 보고 이 목록에 더한다 */
-  assert.deepStrictEqual(collisions, ['Applebot ↔ Applebot-Extended'],
-    '접두어가 겹치는 짝이 늘거나 줄었다 — 두 이름을 모두 적었는지 확인하라');
+  assert.deepStrictEqual(collisions, [],
+    '접두어가 겹치는 짝이 생겼다 — 넓은 쪽 규칙이 좁은 쪽을 덮는다. 두 이름을 모두 적어라');
 
+  /*
+   * Applebot과 Applebot-Extended는 이제 둘 다 받는다. 그래도 **둘 다 적혀 있어야**
+   * 한다 — Extended를 지우면 애플이 기본값(학습 허용/금지)을 저 혼자 정한다.
+   */
   assert.ok(SEARCH_BOTS.includes('Applebot'), '검색용 Applebot이 빠졌다');
-  assert.ok(BLOCKED_CRAWLERS.includes('Applebot-Extended'), '학습용 Applebot-Extended가 빠졌다');
+  assert.ok(AI_ANSWER_CRAWLERS.includes('Applebot-Extended'), 'Applebot-Extended가 빠졌다');
 });
 
 test('목록에 중복과 빈 값이 없다', () => {
   for (const [name, list] of [
     ['SEARCH_BOTS', SEARCH_BOTS], ['ASSISTANT_FETCHERS', ASSISTANT_FETCHERS],
-    ['TRAINING_CRAWLERS', TRAINING_CRAWLERS], ['SEO_CRAWLERS', SEO_CRAWLERS],
+    ['AI_ANSWER_CRAWLERS', AI_ANSWER_CRAWLERS], ['BULK_SCRAPERS', BULK_SCRAPERS],
+    ['SEO_CRAWLERS', SEO_CRAWLERS],
   ] as const) {
     assert.equal(new Set(list).size, list.length, `${name}에 중복이 있다`);
     for (const b of list) {
