@@ -41,7 +41,7 @@ export interface DomainCopy {
 }
 
 export type DomainId =
-  | 'love' | 'marriage' | 'career' | 'wealth' | 'study'
+  | 'love' | 'marriage' | 'career' | 'promotion' | 'wealth' | 'study'
   | 'health' | 'social' | 'business' | 'change' | 'future';
 
 export interface SajuCopy {

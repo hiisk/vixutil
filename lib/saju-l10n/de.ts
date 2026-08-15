@@ -237,6 +237,31 @@ export const DE: SajuCopy = {
         'Tiefe in einer stabilen Organisation aufzubauen zahlt sich über die Zeit besser aus. Wäg einen Wechsel gut ab.',
       ],
     },
+    promotion: {
+      title: 'Beförderung',
+      intro: 'Die Beförderung wird an der Rechten Autorität (正官) gelesen — sie steht für Rang und Ordnung innerhalb einer Organisation. Schließt sich der Kreis Autorität-Quelle (官印相生), so erzeugt der Autoritätsstern den Quellenstern; das ist klassisch die Struktur dessen, der von der Organisation ernannt und eingesetzt wird, statt sich aus eigenem Antrieb nach vorn zu schieben. Trifft dagegen das Aufbegehrende Talent auf die Autorität (傷官見官), nimmt das Ansehen Schaden und der Titel mit ihm.',
+      sum: [
+        'Der Rang öffnet sich in der Organisation von selbst — die Struktur trägt dich nach oben.',
+        'Die Beförderung kommt, aber nicht von allein. Zeitpunkt und vorzeigbare Nachweise entscheiden.',
+        'Ein Titel innerhalb der Hierarchie kommt langsam. Hier wiegt das Können schwerer als der Rang.',
+      ],
+      points: {
+        jeonggwan: 'Die Rechte Autorität (正官) steht im Chart: Rang innerhalb einer Organisation ist für dich ein echter Weg. Die Beförderung kommt stetig, aus angesammeltem Vertrauen.',
+        pyeongwan: 'Nur die Fordernde Autorität (偏官/七殺) steht im Chart: Du steigst über Druck, Krisen und Augenblicke, in denen entschieden werden muss — nicht über Dienstjahre.',
+        noAuth: 'Kein Autoritätsstern: Die Leiter der Organisation passt schlecht zu dir. Der Titel kommt hier über Fachkenntnis oder über den Schritt in die Selbstständigkeit.',
+        gwanIn: 'Der Kreis Autorität-Quelle (官印相生) ist geschlossen — die klassische Ernennungsstruktur. Die Beförderung erreicht dich als Anordnung oder Versetzung von oben, und angesammeltes Lernen und Papiere zahlen sich aus.',
+        noGwanIn: 'Der Kreis Autorität-Quelle ist nicht geschlossen: Auf die Beförderung muss man zugehen, nicht warten. Was sie baut, sind Qualifikationen und schriftlich belegte Ergebnisse.',
+        sanggwan: 'Aufbegehren gegen die Autorität (傷官見官) steht im Chart: Ein offenes Wort und ein Zusammenstoß mit Vorgesetzten können einen Titel über Nacht wieder kosten. Der Klassiker 淵海子平 warnt, daraus folgten „hundert Arten von Schaden" — hüte zur Beurteilungszeit die Zunge.',
+        noSanggwan: 'Kein 傷官見官: Es gibt keinen strukturellen Zusammenstoß mit der Autorität. Dein Ansehen nimmt nicht leicht Schaden.',
+        manyRes: 'Zwei oder mehr Quellensterne (印星): Papiere, Zulassungen und Nachweise sind dein Hebel. Sammle weiter.',
+        oneRes: 'Genau ein Quellenstern: Ein Nachweis trägt dich. Vertief ihn, statt in die Breite zu gehen.',
+        noRes: 'Kein Quellenstern: Die Ergebnisse sind sichtbar, aber die Papiere dahinter sind dünn. Halt fest und lass bescheinigen, was du tust.',
+      },
+      adv: [
+        'Der Kreis Autorität-Quelle trägt — halt Lernen und Zulassungen am Laufen und richte dich auf den Zeitpunkt der Beurteilung aus. Was von oben kommt, kommt zu dem, der vorbereitet ist.',
+        'Warte nicht auf die Beförderung, sondern meld sie an: Sammle Zahlen, Nachweise und Belege deiner Arbeit an einer Stelle und leg sie vor, bevor gefragt wird.',
+      ],
+    },
     wealth: {
       title: 'Geld',
       intro: 'Vermögen wird an der Stärke des Vermögenssterns (財星) gelesen und daran, wie der Hervorbringungsstern (食傷) ihn nährt. Wenn die Frucht (食神) Vermögen erzeugt — die Konstellation 食神生財 — folgt das Verdienen natürlich dem Können. Ist die Selbst-Gruppe (比劫) zu schwer, geht hereinkommendes Geld wieder hinaus, und damit wird der Umgang damit entscheidend.',

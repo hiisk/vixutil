@@ -244,6 +244,31 @@ export const EN: SajuCopy = {
         'Building depth inside a stable organisation pays better over time. Weigh a move carefully.',
       ],
     },
+    promotion: {
+      title: 'Promotion',
+      intro: 'Promotion is read from a different place than work itself. Which job suits you is decided by the output (食傷) and wealth (財星) stars, but whether you rise inside an organisation is decided by the Direct Officer (正官) — the star of rank, rule and responsibility. When a resource star (印星) joins it so that the officer generates the resource — the 官印相生 configuration — the shape changes: the post is not one you push for but one the organisation hands you, by appointment or posting. The opposite case is 傷官見官, the Hurting Officer striking the Direct Officer, where standing built over years can come apart at once; the classics warn about it heavily.',
+      sum: [
+        'Rank opens up for you inside an organisation. When the moment comes you are not passed over.',
+        'Nothing blocks promotion, but nothing hands it to you either. Whoever documents the case moves first.',
+        'Building a name through skill or your own venture is faster for this chart than climbing the ladder.',
+      ],
+      points: {
+        jeonggwan: 'The Direct Officer (正官) is present, so rank inside an organisation is a real path. Accumulated trust, not one loud result, is what makes the position.',
+        pyeongwan: 'Only the Indirect Officer (偏官) is present, so you are picked out in a crisis rather than promoted by seniority. Your value rises when something has gone wrong.',
+        noAuth: 'With no authority star at all, the organisational ladder is a poor fit. A title earned through expertise, or through going independent, suits you better.',
+        gwanIn: 'The 官印相生 configuration is formed. This is the classic shape of promotion arriving as an order from above rather than a demand from you, and the study and paperwork you have banked is exactly what pays out then.',
+        noGwanIn: 'The configuration is not formed, so the post will not arrive just because you waited. Qualifications and a documented record are what put your name forward.',
+        sanggwan: 'The 傷官見官 clash is present. One blunt remark or one collision with a superior can erase a standing built over years — guard your tongue at review time in particular.',
+        noSanggwan: 'No 傷官見官 clash, so there is no structural collision with those above you. A reputation once built is not easily cut down.',
+        manyRes: 'Resource stars (印星) are thick, so documents, licences and degrees act directly as leverage. Collecting credentials is your surest investment.',
+        oneRes: 'One resource star (印星) carries you a long way. Deepening that single credential beats spreading yourself across several.',
+        noRes: 'With no resource star (印星), little paperwork survives the work you do. Recording and certifying your results is the hinge on which promotion turns.',
+      },
+      adv: [
+        'The structure opens the post for you, so there is no need to force it. Keep your qualifications and results written down, and wait for the appointment.',
+        'Waiting alone lets it pass. Say out loud which post you want, then make the qualifications for it visible.',
+      ],
+    },
     wealth: {
       title: 'Wealth',
       intro: 'Wealth is read from the strength of the wealth star (財星) and how the output star (食傷) feeds it. When Nourishment (食神) generates wealth — the 食神生財 configuration — earning follows naturally from ability. When the self group (比劫) is too heavy, money that comes in tends to leave again, which makes how you manage it the decisive factor.',

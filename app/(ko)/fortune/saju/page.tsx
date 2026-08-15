@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
@@ -13,6 +14,11 @@ import {
 import FortuneDisplay from '@/components/FortuneDisplay';
 import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortune } from '@/lib/saju-fortune';
+import { sajuFacts } from '@/lib/saju-fortune-facts';
+import { TOPIC_OF_DOMAIN, topicEvidence, topicQuery } from '@/lib/saju-topics';
+import { TOPIC_L10N } from '@/lib/saju-topics-l10n/index';
+import SajuTopicNav from '@/components/fortune/SajuTopicNav';
+import SajuEvidence from '@/components/fortune/SajuEvidence';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
@@ -220,6 +226,11 @@ export default function SajuPage() {
       })
     : [];
 
+  /* 영역별로 짚는 자리를 뽑을 때 쓰는 사실 — 계산은 한 벌뿐이다 */
+  const facts = result && singang
+    ? sajuFacts(result.day, result.year, result.month, result.hour, result.gender, singang.strong, counts)
+    : null;
+
   /* 운세 도메인 분석 */
   const fortuneDomains = result && singang
     ? analyzeFortune(result.day, result.year, result.month, result.hour, result.gender, singang.strong, counts)
@@ -262,8 +273,8 @@ export default function SajuPage() {
   async function handleShare() {
     if (!result||!dayStem) return;
     const text=`나의 사주 일주: ${pillarHanja(result.day)} (${pillarLabel(result.day)} 일주)\n${result.inputYear}년 ${result.inputMonth}월 ${result.inputDay}일생 · ${dayStem.element}(${dayStem.yinyang}) 일간\nvixutil.com에서 무료 사주 분석 →`;
-    if (navigator.share) await navigator.share({title:'사주 분석 결과',text,url:window.location.href});
-    else handleCopyLink();
+    // 글과 주소가 한 덩이로 — 일주가 text 안에 있어야 카톡에서 보인다
+    if (await shareOne(text)) { setCopied(true); setTimeout(()=>setCopied(false),2000); }
   }
 
   return (
@@ -680,6 +691,28 @@ export default function SajuPage() {
                         </div>
                         <p className={`text-sm font-bold leading-relaxed ${c.accent}`}>{d.summary}</p>
                       </div>
+                      {/*
+                        이 사주가 짚는 자리. 아래 intro는 그 영역이 명리에서 무엇을
+                        보는지 적은 배경이라 누구에게나 같다 — 그 위에 사주마다
+                        갈리는 근거를 놓아야 읽는 사람이 자기 이야기로 읽는다.
+                        주제 낱장이 있는 영역만 나온다.
+                      */}
+                      {(() => {
+                        const t = TOPIC_OF_DOMAIN[d.id];
+                        if (!t || !facts) return null;
+                        const rows = topicEvidence(t, facts, result.day, result.month, currentDaewoon?.pillar ?? null);
+                        return (
+                          <div className={`rounded-2xl border ${c.border} ${c.bg} p-4`}>
+                            <p className={`text-[10px] font-black uppercase tracking-wide mb-2.5 ${c.accent}`}>이 사주가 짚는 자리</p>
+                            <SajuEvidence lang="ko" rows={rows} />
+                            {/* 앞으로 가는 길은 옆으로 가는 칩보다 커야 한다 — .next-step의 까닭 */}
+                            <Link href={`/fortune/saju/${t}${topicQuery(form)}`} className="next-step">
+                              {d.emoji} {TOPIC_L10N.ko.title[t]} 자세히 보기 →
+                            </Link>
+                          </div>
+                        );
+                      })()}
+
                       {/* 소개 */}
                       <p className="text-sm text-slate-600 dark:text-slate-300 leading-[1.9]">{d.intro}</p>
                       {/* 포인트 */}
@@ -880,6 +913,14 @@ export default function SajuPage() {
 
           </div>
         )}
+
+        {/*
+          주제 낱장 일곱으로 가는 줄. 결과 안이 아니라 여기 둔다 — 결과 안에 두면
+          첫 HTML에 링크가 없어서 크롤러에게는 일곱 장이 안 보인다.
+        */}
+        <div className="pt-2">
+          <SajuTopicNav lang="ko" query={topicQuery(form)} />
+        </div>
 
         <Faq items={SECTION_FAQ['fortune/saju']} />
       </div>

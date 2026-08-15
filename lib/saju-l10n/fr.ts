@@ -237,6 +237,31 @@ export const FR: SajuCopy = {
         'Gagner en profondeur dans une organisation stable paie mieux avec le temps. Pesez bien un changement.',
       ],
     },
+    promotion: {
+      title: 'Promotion',
+      intro: 'La promotion se lit à l’Autorité droite (正官), qui marque le rang et la règle à l’intérieur d’une organisation. Quand le cycle autorité-ressource (官印相生) se forme, l’étoile d’autorité engendre l’étoile de ressource : c’est la structure classique de celui que l’organisation nomme et affecte elle-même, plutôt que de celui qui pousse tout seul. À l’inverse, le Talent rebelle heurtant l’autorité (傷官見官) abîme la position, et le titre avec elle.',
+      sum: [
+        'Le rang s’ouvre de lui-même dans l’organisation : la structure vous porte vers le haut.',
+        'La promotion vient, mais pas toute seule. Le moment et les pièces que vous pouvez montrer décident.',
+        'Le titre dans la hiérarchie met du temps. Ici la compétence pèse plus que le rang.',
+      ],
+      points: {
+        jeonggwan: 'L’Autorité droite (正官) est présente : le rang dans une organisation est pour vous une vraie voie. La promotion vient régulièrement, par confiance accumulée.',
+        pyeongwan: 'Seule l’Autorité exigeante (偏官/七殺) est présente : vous montez par la pression, la crise et les moments où il faut trancher, non par l’ancienneté.',
+        noAuth: 'Aucune étoile d’autorité : l’échelle de l’organisation vous convient mal. Ici le titre vient de l’expertise, ou du fait de partir à votre compte.',
+        gwanIn: 'Le cycle autorité-ressource (官印相生) est formé : la structure classique de la nomination. La promotion vous arrive comme un ordre ou une affectation venue d’en haut, et l’étude et les dossiers accumulés paient.',
+        noGwanIn: 'Le cycle n’est pas formé : la promotion se demande, elle ne s’attend pas. Ce qui la construit, ce sont les qualifications et les résultats documentés.',
+        sanggwan: '傷官見官 est présent : la franchise et l’accrochage avec un supérieur peuvent défaire un titre en une nuit. Le classique 淵海子平 prévient qu’il en sort « cent sortes de dommages » : tenez votre langue en période d’évaluation.',
+        noSanggwan: 'Pas de 傷官見官 : aucun heurt structurel avec l’autorité. Votre position ne s’abîme pas facilement.',
+        manyRes: 'Deux étoiles de ressource (印星) ou plus : les dossiers, les habilitations et les diplômes sont votre levier. Continuez à les réunir.',
+        oneRes: 'Exactement une étoile de ressource : un seul titre vous porte. Creusez-le plutôt que d’élargir.',
+        noRes: 'Aucune étoile de ressource : les résultats se voient, mais les papiers derrière sont minces. Consignez et faites certifier ce que vous faites.',
+      },
+      adv: [
+        'Le cycle autorité-ressource vous porte : gardez l’étude et les habilitations à jour, et visez le moment de l’évaluation. Ce qui descend d’en haut descend sur qui est prêt.',
+        'N’attendez pas la promotion, demandez-la : rassemblez chiffres, attestations et preuves de votre travail au même endroit, et présentez-les avant qu’on ne les réclame.',
+      ],
+    },
     wealth: {
       title: 'Argent',
       intro: 'La richesse se lit à la force de l’étoile de richesse (財星) et à la façon dont l’étoile de production (食傷) la nourrit. Quand le Fruit (食神) engendre la richesse — la configuration 食神生財 — le gain suit naturellement la capacité. Quand le groupe du soi (比劫) est trop lourd, l’argent qui entre a tendance à repartir, et la gestion devient alors le facteur décisif.',

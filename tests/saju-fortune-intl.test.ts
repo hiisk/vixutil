@@ -60,11 +60,19 @@ test('영역별 운세 점수가 세 언어에서 같다', () => {
   }
 });
 
-test('열 영역이 모두 문장을 갖는다', () => {
+/*
+ * 영역 수는 늘어난 내력을 함께 적는다 — 숫자만 고치면 왜 늘었는지가 사라진다.
+ *   10  처음
+ *   11  2026-08-15: 승진(promotion)을 더했다. /fortune/saju/promotion을 내면서
+ *       취업(career)·이직(change)과 짚는 자리가 달라 점수를 나눠 쓸 수 없었다.
+ */
+const DOMAIN_COUNT = 11;
+
+test('영역이 모두 문장을 갖는다', () => {
   for (const s of samples().slice(0, 40)) {
     for (const lang of ['en'] as const) {
       const list = analyzeFortuneIntl(s.day, s.year, s.month, s.hour, s.gender, s.singang, s.ohaeng, lang);
-      assert.equal(list.length, 10, `${lang}: 영역이 10개가 아니다`);
+      assert.equal(list.length, DOMAIN_COUNT, `${lang}: 영역이 ${DOMAIN_COUNT}개가 아니다`);
       for (const d of list) {
         assert.ok(d.title.length > 0, `${lang}/${d.id}: title이 비었다`);
         assert.ok(d.grade.length > 0, `${lang}/${d.id}: grade가 비었다`);

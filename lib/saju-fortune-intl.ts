@@ -115,6 +115,28 @@ function build(f: SajuFacts, c: SajuCopy): DomainFortuneIntl[] {
       : f.singang ? D.career.adv[0] : D.career.adv[1],
   };
 
+  /*
+   * 승진운 — 취업(career)·이직(change)과 짚는 자리가 다르다. 정관은 조직 안의
+   * 직급, 관인상생은 발령으로 자리가 열리는 구조, 상관견관은 그것을 깨뜨리는
+   * 구조다. 근거는 lib/saju-fortune-facts.ts의 promotion 점수 주석에 적었다.
+   */
+  const promotion: DomainFortuneIntl = {
+    id: 'promotion', emoji: '🏅', title: D.promotion.title, score: s.promotion, grade: g[s.promotion], colorKey: 'teal',
+    intro: D.promotion.intro as string,
+    summary: band(s.promotion, D.promotion.sum),
+    points: [
+      f.allSS.includes('정관') ? D.promotion.points.jeonggwan
+        : f.allSS.includes('편관') ? D.promotion.points.pyeongwan
+        : D.promotion.points.noAuth,
+      f.gwanInSangsaeng ? D.promotion.points.gwanIn : D.promotion.points.noGwanIn,
+      f.sanggwanGyeonGwan ? D.promotion.points.sanggwan : D.promotion.points.noSanggwan,
+      sc.인성 >= 2 ? D.promotion.points.manyRes
+        : sc.인성 === 0 ? D.promotion.points.noRes
+        : D.promotion.points.oneRes,
+    ],
+    advice: f.gwanInSangsaeng ? D.promotion.adv[0] : D.promotion.adv[1],
+  };
+
   const wealth: DomainFortuneIntl = {
     id: 'wealth', emoji: '💰', title: D.wealth.title, score: s.wealth, grade: g[s.wealth], colorKey: 'amber',
     intro: D.wealth.intro as string,
@@ -225,7 +247,7 @@ function build(f: SajuFacts, c: SajuCopy): DomainFortuneIntl[] {
     advice: D.future.adv[0],
   };
 
-  return [love, marriage, career, wealth, study, health, social, business, change, future];
+  return [love, marriage, career, promotion, wealth, study, health, social, business, change, future];
 }
 
 

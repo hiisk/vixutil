@@ -237,6 +237,31 @@ export const ES: SajuCopy = {
         'Ganar profundidad dentro de una organización estable paga mejor con el tiempo. Sopesa bien un cambio.',
       ],
     },
+    promotion: {
+      title: 'Ascenso',
+      intro: 'El ascenso se lee desde la Autoridad recta (正官), que marca el rango y la norma dentro de una organización. Cuando se forma el ciclo autoridad-recurso (官印相生), la estrella de autoridad genera la de recurso: es la estructura clásica de quien recibe el puesto de la propia organización, por nombramiento y destino, y no a base de empujar por su cuenta. En cambio, el Talento rebelde chocando con la autoridad (傷官見官) daña la posición y con ella el cargo.',
+      sum: [
+        'El rango se abre solo dentro de la organización: la estructura te sube.',
+        'El ascenso llega, pero no solo. Deciden el momento y los papeles que puedas enseñar.',
+        'El cargo dentro de la jerarquía tarda. Aquí pesa más lo que sabes hacer que el puesto.',
+      ],
+      points: {
+        jeonggwan: 'La Autoridad recta (正官) está presente: el rango dentro de una organización es un camino real para ti. El ascenso llega de forma constante, por confianza acumulada.',
+        pyeongwan: 'Solo hay Autoridad exigente (偏官/七殺): subes por la presión, las crisis y los momentos en que hay que decidir, no por antigüedad.',
+        noAuth: 'Sin ninguna estrella de autoridad, la escalera de la organización te encaja mal. Aquí el cargo viene de la pericia o de montártelo por tu cuenta.',
+        gwanIn: 'El ciclo autoridad-recurso (官印相生) está formado: la estructura clásica del nombramiento. El ascenso te llega como orden o destino desde arriba, y el estudio y los papeles acumulados dan su fruto.',
+        noGwanIn: 'El ciclo no está formado: al ascenso hay que ir a buscarlo, no esperarlo. Lo que lo construye son las titulaciones y los resultados documentados.',
+        sanggwan: 'Hay 傷官見官: hablar de más y chocar con un superior puede deshacer un cargo en una noche. El clásico 淵海子平 avisa de que de ahí salen "cien clases de daño": cuida la lengua en época de evaluación.',
+        noSanggwan: 'No hay 傷官見官: no existe un choque estructural con la autoridad. Tu posición no se daña con facilidad.',
+        manyRes: 'Dos o más estrellas de recurso (印星): los papeles, las licencias y los títulos son tu palanca. Sigue acumulándolos.',
+        oneRes: 'Exactamente una estrella de recurso: te lleva un solo título. Profundiza en él en vez de abrirte.',
+        noRes: 'Sin estrella de recurso: los resultados se ven, pero el papeleo detrás es fino. Registra y certifica lo que haces.',
+      },
+      adv: [
+        'El ciclo autoridad-recurso te sostiene: mantén al día el estudio y las acreditaciones, y apunta al momento de la evaluación. Lo que baja desde arriba baja a quien está preparado.',
+        'No esperes el ascenso, pídelo: junta cifras, certificados y pruebas de tu trabajo en un solo sitio y enséñalos antes de que te los pidan.',
+      ],
+    },
     wealth: {
       title: 'Dinero',
       intro: 'La riqueza se lee desde la fuerza de la estrella de riqueza (財星) y desde cómo la alimenta la estrella de producción (食傷). Cuando el Fruto (食神) genera riqueza —la configuración 食神生財— ganar dinero sigue de forma natural a la capacidad. Cuando el grupo del yo (比劫) pesa demasiado, el dinero que entra tiende a irse otra vez, y eso hace que la gestión sea el factor decisivo.',

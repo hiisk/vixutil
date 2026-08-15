@@ -237,6 +237,31 @@ export const PT: SajuCopy = {
         'Ganhar profundidade dentro de uma organização estável paga melhor com o tempo. Pese bem uma mudança.',
       ],
     },
+    promotion: {
+      title: 'Promoção',
+      intro: 'A promoção é lida pela Autoridade reta (正官), que marca o posto e a regra dentro de uma organização. Quando o ciclo autoridade-recurso (官印相生) se forma, a estrela de autoridade gera a de recurso: é a estrutura clássica de quem é nomeado e designado pela própria organização, e não de quem sobe no empurrão. Já o Talento rebelde batendo na autoridade (傷官見官) machuca a posição e, com ela, o cargo.',
+      sum: [
+        'O posto se abre sozinho dentro da organização: a estrutura levanta você.',
+        'A promoção vem, mas não sozinha. Decidem o momento e os papéis que você tem para mostrar.',
+        'O cargo dentro da hierarquia demora. Aqui pesa mais o que você sabe fazer do que o posto.',
+      ],
+      points: {
+        jeonggwan: 'A Autoridade reta (正官) está presente: posto dentro de uma organização é um caminho real para você. A promoção vem de forma constante, pela confiança acumulada.',
+        pyeongwan: 'Só há Autoridade exigente (偏官/七殺): você sobe pela pressão, pela crise e pelos momentos em que é preciso decidir, não por tempo de casa.',
+        noAuth: 'Nenhuma estrela de autoridade: a escada da organização combina mal com você. Aqui o cargo vem da perícia ou de sair por conta própria.',
+        gwanIn: 'O ciclo autoridade-recurso (官印相生) está formado: a estrutura clássica da nomeação. A promoção chega como ordem ou designação vinda de cima, e o estudo e a papelada acumulados dão retorno.',
+        noGwanIn: 'O ciclo não está formado: a promoção se pede, não se espera. O que a constrói são as qualificações e os resultados documentados.',
+        sanggwan: 'Há 傷官見官: falar demais e bater de frente com um superior pode desfazer um cargo em uma noite. O clássico 淵海子平 avisa que daí saem "cem espécies de dano": segure a língua em época de avaliação.',
+        noSanggwan: 'Não há 傷官見官: não existe choque estrutural com a autoridade. Sua posição não se machuca com facilidade.',
+        manyRes: 'Duas ou mais estrelas de recurso (印星): papéis, licenças e diplomas são a sua alavanca. Siga juntando.',
+        oneRes: 'Exatamente uma estrela de recurso: um único diploma carrega você. Aprofunde nele em vez de alargar.',
+        noRes: 'Nenhuma estrela de recurso: os resultados aparecem, mas a papelada por trás é fina. Registre e certifique o que você faz.',
+      },
+      adv: [
+        'O ciclo autoridade-recurso está a seu favor: mantenha estudo e certificações em dia e mire o momento da avaliação. O que desce de cima desce sobre quem está pronto.',
+        'Não espere a promoção, peça: junte números, certificados e provas do seu trabalho num lugar só, e mostre antes de pedirem.',
+      ],
+    },
     wealth: {
       title: 'Dinheiro',
       intro: 'A riqueza é lida pela força da estrela de riqueza (財星) e por como a estrela de produção (食傷) a alimenta. Quando o Fruto (食神) gera riqueza — a configuração 食神生財 — ganhar dinheiro segue naturalmente da capacidade. Quando o grupo do eu (比劫) pesa demais, o dinheiro que entra tende a sair de novo, e isso faz da gestão o fator decisivo.',

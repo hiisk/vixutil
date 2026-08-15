@@ -2,11 +2,13 @@
 import ToolIcon from '@/components/ToolIcon';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortuneIntl, DOMAIN_UI } from '@/lib/saju-fortune-intl';
+import SajuTopicNav from '@/components/fortune/SajuTopicNav';
+import { topicQuery } from '@/lib/saju-topics';
 import {
   STEMS, BRANCHES, type Element, type Pillar,
   buildChart, countElements, getSipseong, getSingang,
@@ -91,9 +93,9 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
   const [chart, setChart] = useState<Chart | null>(null);
   const [error, setError] = useState('');
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    const y = Number(form.year), m = Number(form.month), d = Number(form.day);
+  /* 값을 밖에서 받는다 — 폼 제출과 공유 링크 복원이 같은 길을 쓴다 */
+  const run = useCallback((f: { year: string; month: string; day: string; hour: string }, g: 'male' | 'female') => {
+    const y = Number(f.year), m = Number(f.month), d = Number(f.day);
     if (!y || !m || !d) { setError(ui.errAll); return; }
     if (m < 1 || m > 12) { setError(ui.errMonth); return; }
     if (d < 1 || d > 31) { setError(ui.errDay); return; }
@@ -105,12 +107,12 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
     setError('');
 
     // 시각은 "HH:MM" — 비워 두면 시주를 생략한다
-    const [hh, mm] = form.hour.split(':');
+    const [hh, mm] = f.hour.split(':');
     const c = buildChart({
       year: y, month: m, day: d,
-      hour: form.hour === '' ? null : Number(hh),
+      hour: f.hour === '' ? null : Number(hh),
       minute: Number(mm) || 0,
-    }, gender);
+    }, g);
 
     const pillars = [c.year, c.month, c.day, c.hour];
     const counts = countElements(pillars);
@@ -121,7 +123,25 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
       daewoons: c.daewoons.map(w => ({ age: w.startAge, pillar: w.pillar })),
     });
     setTimeout(() => document.getElementById('saju-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  }, [ui]);
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    run(form, gender);
   }
+
+  /* 주제 낱장에서 값을 달고 돌아오면(?y=&m=&d=&h=&g=) 다시 안 넣어도 되게 푼다 */
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const y = p.get('y') ?? '', m = p.get('m') ?? '', d = p.get('d') ?? '';
+    const h = p.get('h') ?? '', g = (p.get('g') ?? 'male') as 'male' | 'female';
+    if (!y || !m || !d) return;
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setForm({ year: y, month: m, day: d, hour: h });
+    setGender(g);
+    /* eslint-enable react-hooks/set-state-in-effect */
+    run({ year: y, month: m, day: d, hour: h }, g);
+  }, [run]);
 
   const dayStem = chart ? STEMS[chart.day.stemIdx] : null;
   const dayStemIntl = dayStem ? stems[dayStem.hanja] : null;
@@ -371,6 +391,14 @@ export default function SajuIntl({ lang }: { lang: SajuIntlLang }) {
             <p className="text-sm">{ui.empty}</p>
           </div>
         )}
+
+        {/*
+          주제 낱장으로 가는 줄. 명식을 뽑기 전에도 보여야 한다 — 결과 안에 두면
+          첫 HTML에 링크가 없어서 크롤러에게는 일곱 장이 안 보인다.
+        */}
+        <div className="mt-8">
+          <SajuTopicNav lang={lang} query={topicQuery({ ...form, gender })} />
+        </div>
       </div>
     </div>
   );

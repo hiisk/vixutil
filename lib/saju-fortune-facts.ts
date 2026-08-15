@@ -36,6 +36,17 @@ const PEACH_OF = [9, 6, 3, 0];
 /** 지지%4 → 역마 지지 */
 const YONGMA_OF = [2, 11, 8, 5];
 
+/*
+ * 문창귀인(文昌貴人) — 일간마다 정해진 지지 하나. 학문·시험·문서의 길신이라
+ * 학업 주제에서만 쓴다.
+ *   甲-巳 乙-午 丙-申 丁-酉 戊-申 己-酉 庚-亥 辛-子 壬-寅 癸-卯
+ *
+ * 戊는 자료가 갈린다 — 巳로 두는 곳도 있고 申으로 두는 곳도 있다(火土동궁을
+ * 인정하느냐의 차이). 조견표를 그대로 싣는 쪽이 다수라 申을 골랐다.
+ *   근거: sajustudy.com/93(신살론), dk-saju.com/sinsal/문창귀인
+ */
+const MUNCHANG_OF = [5, 6, 8, 9, 8, 9, 11, 0, 2, 3];
+
 /** 기준 자리(baseIdx)의 삼합으로 정해지는 살이 다른 자리에 있는가 */
 function hasStar(table: number[], branches: (number | null)[], baseIdx: number): boolean {
   const base = branches[baseIdx];
@@ -77,12 +88,21 @@ export interface SajuFacts {
   hasJeongin: boolean;
   hasPyeongin: boolean;
   lateMarriage: boolean;
+  /** 문창귀인(文昌貴人) — 일간이 정하는 지지가 사주에 있는가 */
+  hasMunchang: boolean;
+  /** 관인상생(官印相生) — 정관과 정인이 함께 있는 승진의 전형 구조 */
+  gwanInSangsaeng: boolean;
+  /** 상관견관(傷官見官) — 상관이 정관을 쳐서 직장·명예가 흔들리는 구조 */
+  sanggwanGyeonGwan: boolean;
+  /** 식상생재(食傷生財) — 재능이 재물로 이어지는 구조 */
+  siksangSaengJae: boolean;
   dayStemKor: string;
   dayStemElement: Element;
   dayBranchKor: string;
   scores: {
     love: Score; marriage: Score; career: Score; wealth: Score; study: Score;
     health: Score; social: Score; business: Score; change: Score; future: Score;
+    promotion: Score;
   };
 }
 
@@ -129,9 +149,17 @@ export function sajuFacts(
   const hasPyeongin = allSS.includes('편인');
   const lateMarriage = partnerCat === 0 || (singang && sc.비겁 >= 2);
 
+  // 문창귀인은 일간이 정한 지지가 네 기둥 어디에든 있으면 성립한다
+  const hasMunchang = bl.includes(MUNCHANG_OF[ilg]);
+  // 관인상생·상관견관은 천간 십성으로 본다 — 이 파일의 다른 판정과 기준을 맞춘다
+  const gwanInSangsaeng = allSS.includes('정관') && allSS.includes('정인');
+  const sanggwanGyeonGwan = allSS.includes('상관') && allSS.includes('정관');
+  const siksangSaengJae = sc.식상 >= 1 && sc.재성 >= 1;
+
   return {
     gender, singang, sc, allSS, hasPeach, hasYongma, missingEls, dominantEl,
     partnerCat, partnerStar, hasStablePartner, hasJeongin, hasPyeongin, lateMarriage,
+    hasMunchang, gwanInSangsaeng, sanggwanGyeonGwan, siksangSaengJae,
     dayStemKor: dayStem.kor,
     dayStemElement: dayStem.element,
     dayBranchKor: dayBranch.kor,
@@ -177,6 +205,20 @@ export function sajuFacts(
         + (singang ? 1 : 0)
         + (sc.비겁 >= 2 ? 1 : 0)
         + (sc.관성 >= 3 ? -1 : 0)),
+      /*
+       * 승진운 — 취업(career)·이직(change)과 보는 곳이 다르다.
+       *  · 정관(正官)은 조직 안의 직급과 규범이라 승진의 첫 근거다.
+       *  · 관인상생(官印相生)은 정관이 정인을 낳는 구조로, 발령·임명처럼
+       *    조직이 자리를 내주는 승진의 전형으로 친다.
+       *  · 상관견관(傷官見官)은 상관이 정관을 쳐서 직장·명예가 흔들린다
+       *    — 淵海子平·命理正宗의 "傷官見官 爲禍百端".
+       *  · 관성이 아예 없으면 조직의 사다리와 인연이 옅다.
+       */
+      promotion: clamp(3
+        + (allSS.includes('정관') ? 1 : 0)
+        + (gwanInSangsaeng ? 1 : 0)
+        + (sanggwanGyeonGwan ? -1 : 0)
+        + (sc.관성 === 0 ? -1 : 0)),
       future: clamp((singang ? 4 : 3)
         + (sc.관성 >= 1 ? 0 : sc.재성 >= 1 ? 0 : sc.식상 >= 1 ? 0 : -1)
         - (missingEls.length >= 3 ? 1 : 0)),
