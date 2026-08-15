@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import {
-  REFERRALS, RANKED_REFERRALS, REFERRAL_REL, hasRankBasis,
+  REFERRALS, RANKED_REFERRALS, REFERRAL_REL, hasRankBasis, referralHref, referralSubId,
 } from '../lib/referral.ts';
 import { ALL_LOCALES10 } from '../lib/locales.ts';
-import { appEntries, appFile, appJoin } from './app-path.ts';
+import { appEntries, appFile, appJoin, footerSrc } from './app-path.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 /*
@@ -79,7 +79,8 @@ test('결과 화면 노출이 팝업이 아니라 본문에 들어간다', () =>
   // 두 결과 화면이 실제로 카드를 렌더하는지 확인한다.
   for (const engine of ['TestEngine.tsx', 'QuizEngine.tsx']) {
     const src = readFileSync(join(ROOT, 'components', engine), 'utf8');
-    assert.match(src, /<ReferralCards placement="result" \/>/, `${engine}: 결과 화면에 카드가 없다`);
+    // 엔진은 lang을 받아 넘긴다 — 문자열을 못 박으면 언어를 넘기는 순간 깨진다
+    assert.match(src, /<ReferralCards lang=\{lang\} placement="result" \/>/, `${engine}: 결과 화면에 카드가 없다`);
   }
 });
 
@@ -294,8 +295,60 @@ test('푸터가 제휴 카드를 세우되 끌 수 있다', () => {
     끈다. 겹침은 tests/referral-coverage.test.ts가 양방향으로 막는다. 계산기는
     CalcShell이 이미 자기 카드를 갖고 있어 예전 밀도 그대로다.
   */
-  const footer = readFileSync(join(ROOT, 'components', 'SiteFooter.tsx'), 'utf8');
+  const footer = footerSrc();
   assert.match(footer, /<ReferralCards lang=\{lang\} \/>/, '푸터에 제휴 카드가 없다');
   assert.match(footer, /referral = true/, '푸터 카드를 끌 수 있는 문이 없다');
   assert.match(footer, /\{referral &&/, 'referral을 실제로 보고 있지 않다');
+});
+
+test('sub-id가 짧고 안전한 낱말이다', () => {
+  /*
+    거래소 쪽은 파라미터가 길면 자른다. 잘린 값끼리는 구별이 안 되므로 애초에
+    짧게 만들고, 인코딩이 필요한 글자를 남기지 않는다.
+  */
+  assert.equal(referralSubId('ko', 'result', 'calc'), 'ko-calc-result');
+  assert.equal(referralSubId('zh-hans', 'rail'), 'zh-hans-rail');
+  // 섹션 이름에 무엇이 들어와도 소문자·숫자·하이픈만 남는다 (공백·슬래시·한글 모두)
+  assert.equal(referralSubId('en', 'section', 'Body Fat /calc'), 'en-body-fat-calc-section');
+  for (const s of [
+    referralSubId('ko', 'result', '아주 긴 섹션 이름 that keeps going and going'),
+    referralSubId('pt-br', 'result', 'unit-converter-temperature-kelvin'),
+  ]) {
+    assert.ok(s.length <= 32, `sub-id가 32자를 넘는다: ${s}`);
+    assert.match(s, /^[a-z0-9]+(-[a-z0-9]+)*$/, `sub-id에 안전하지 않은 글자가 있다: ${s}`);
+  }
+});
+
+test('sub-id 파라미터를 확인한 거래소에만 붙인다', () => {
+  /*
+    확인 안 된 파라미터를 붙였다가 링크가 깨지면 수익이 0이 된다.
+    지금은 두 곳 다 subIdParam이 없다 — Bybit은 짧은 리디렉션 링크라 모르는
+    쿼리를 어떻게 다루는지 확인이 안 됐고, Binance는 대시보드에서 초대 코드를
+    따로 만들어 채널을 가른다(문서에 sub-id 파라미터가 없다).
+    그래서 링크는 글자 하나 달라지지 않아야 한다.
+  */
+  for (const r of REFERRALS) {
+    if (r.subIdParam) continue;
+    assert.equal(referralHref(r, 'ko-calc-result'), r.href, `${r.id}: 확인 안 된 파라미터가 붙었다`);
+  }
+
+  // 파라미터 이름을 확인해 적어 넣으면 그때는 실제로 붙어야 한다.
+  const withParam = { ...REFERRALS[0], subIdParam: 'sub_id' };
+  const u = new URL(referralHref(withParam, 'ko-calc-result'));
+  assert.equal(u.searchParams.get('sub_id'), 'ko-calc-result');
+  assert.equal(u.origin + u.pathname, new URL(REFERRALS[0].href).origin + new URL(REFERRALS[0].href).pathname,
+    '파라미터를 붙이면서 링크의 몸통이 바뀌었다');
+});
+
+test('제휴 링크를 만드는 곳이 referralHref 하나다', () => {
+  // 문자열이 화면 쪽에 흩어지면 한 곳만 고쳐지고 나머지는 옛 링크로 남는다.
+  for (const f of ['ReferralCards.tsx', 'ReferralAside.tsx']) {
+    const src = readFileSync(join(ROOT, 'components', f), 'utf8');
+    assert.match(src, /href=\{referralHref\(r, subId\)\}/, `${f}: referralHref를 거치지 않는다`);
+    assert.match(src, /data-ref-sub=\{subId\}/, `${f}: sub-id를 마크업에 남기지 않는다 — GA가 읽을 것이 없다`);
+  }
+  // GA가 그 값을 실제로 읽어 보낸다 (거래소가 안 받아 주므로 우리 쪽 유일한 눈이다)
+  const ga = readFileSync(join(ROOT, 'components', 'GoogleAnalytics.tsx'), 'utf8');
+  assert.match(ga, /data-ref-sub/, 'GA가 제휴 클릭을 읽지 않는다');
+  assert.match(ga, /referral_click/, 'GA에 제휴 클릭 이벤트가 없다');
 });

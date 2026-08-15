@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
 import PageGlow from './PageGlow';
 import Faq from './Faq';
@@ -18,10 +19,13 @@ import { localeHref } from '@/lib/locales';
  * 추천과 FAQ를 꺼내 온다. 여기서 그걸 그대로 쓰면 독일어 페이지에 한국어
  * 계산기 목록이 붙는다 — 그래서 관련 목록과 FAQ를 prop으로 받는다.
  *
- * 같은 이유로 CrossLinks("찾는 도구가 있나요?")와 CalcShareBtn("공유")도 뺐다.
- * 둘 다 문구가 한국어로 박혀 있어서, 독일어 화면에 한국어 두 조각만 남는다.
- * SiteFooter·ReferralCards는 lang을 받으므로 넘겨 준다 — 안 넘기면 기본값이
- * 'ko'라 조용히 한국어가 나온다. 실제로 처음에 그렇게 나왔다.
+ * 같은 이유로 CrossLinks("찾는 도구가 있나요?")는 뺐다 — 문구가 한국어로 박혀
+ * 있어서 독일어 화면에 한국어 한 조각만 남는다. CalcShareBtn도 같은 까닭으로
+ * 빠져 있었는데, 이제 문구가 lib/share/ui.ts에서 열 언어로 나오므로 되살렸다
+ * (2026-08-15). 국제 계산기 158장에 공유 경로가 아예 없던 상태였다.
+ *
+ * SiteFooter·ReferralCards·CalcShareBtn은 lang을 받으므로 넘겨 준다 — 안 넘기면
+ * 기본값이 'ko'라 조용히 한국어가 나온다. 실제로 처음에 그렇게 나왔다.
  */
 export default function CalcShellIntl({
   lang,
@@ -85,6 +89,9 @@ export default function CalcShellIntl({
             <span className="shrink-0">
               <LangPicker current={lang} route={route} available={CALC_LOCALES} />
             </span>
+            <span className="shrink-0">
+              <CalcShareBtn lang={lang} />
+            </span>
           </div>
         </header>
 
@@ -102,6 +109,14 @@ export default function CalcShellIntl({
             <main className="px-4 py-6 pb-8">
               {children}
 
+              {/*
+                결과 바로 아래 — 한국어 CalcShell과 같은 자리다 (2026-08-15).
+                까닭과 "결과 전에도 그대로 보이는" 이유는 그쪽 주석에 적어 두었다.
+                rail — 옆 레일이 함께 뜨는 화면에서는 본문 카드가 1위만 남긴다.
+                section='calc' — 한국어 껍데기와 같은 이름을 쓴다, 언어만 갈린다.
+              */}
+              <ReferralCards lang={lang} placement="result" rail section="calc" />
+
               {intro && intro.length > 0 && (
                 <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
                   {intro.map(s => (
@@ -112,9 +127,6 @@ export default function CalcShellIntl({
                   ))}
                 </div>
               )}
-
-              {/* rail — 옆 레일이 함께 뜨는 화면에서는 본문 카드가 1위만 남긴다 */}
-              <ReferralCards lang={lang} placement="result" rail />
 
               {related && related.length > 0 && (
                 <section className="mt-8" aria-label={ui.related}>
@@ -139,7 +151,7 @@ export default function CalcShellIntl({
           </div>
 
           {/* 문구는 lang을 따라간다 — 안 넘기면 기본값이 'ko'라 독일어 화면에 한국어가 뜬다 */}
-          <ReferralAside lang={lang} />
+          <ReferralAside lang={lang} section="calc" />
         </div>
 
         <SiteFooter lang={lang} referral={false} />

@@ -31,6 +31,14 @@ export interface Referral {
   id: string;
   name: string;
   href: string;
+  /**
+   * 이 거래소가 링크에서 받아 주는 sub-id 파라미터 이름 (2026-08-15).
+   *
+   * **확인된 곳에만 적는다.** 비워 두면 referralHref가 href를 글자 하나 안 바꾸고
+   * 그대로 내보낸다 — 확인 안 된 파라미터를 붙였다가 링크가 깨지면 수익이 0이 된다.
+   * 지금은 둘 다 비어 있고, 무엇을 확인했는지는 아래 각 거래소에 적어 두었다.
+   */
+  subIdParam?: string;
   /** 노출 순서 (1이 위) */
   rank: number;
   /**
@@ -46,6 +54,16 @@ export const REFERRALS: Referral[] = [
     id: 'bybit',
     name: 'Bybit',
     href: 'https://partner.bybit.com/b/127153',
+    /*
+     * subIdParam 없음 — 붙일 이름을 확인하지 못했다 (2026-08-15).
+     * partner.bybit.com/b/127153은 짧은 리디렉션 링크다. 리디렉터가 모르는
+     * 쿼리를 그대로 넘겨줄지 버릴지 알 수 없고, 최악에는 코드 판독이 어긋난다.
+     * Bybit 어필리에이트 도움말(bybit.com/en/help-center: Affiliate Program
+     * General FAQ / Terms)과 affiliates.bybit.com FAQ에는 클릭 단위 sub-id
+     * 파라미터가 없다 — 채널 구분은 포털에서 초대 코드를 따로 만들어서 한다.
+     * 그러니 링크는 손대지 않는다. 포털에서 파라미터 이름을 확인하면 여기 한 줄만
+     * 적으면 되고, 그전까지 갈래 구분은 GA(referral_click 이벤트)로 본다.
+     */
     rank: 1,
     copy: {
       ko: {
@@ -114,6 +132,14 @@ export const REFERRALS: Referral[] = [
     id: 'binance',
     name: 'Binance',
     href: 'https://accounts.binance.com/register?ref=KLLDA01Q',
+    /*
+     * subIdParam 없음 — 받아 주는 파라미터가 없다 (2026-08-15).
+     * Binance 어필리에이트 도움말 "How to Use the Binance Affiliate Referral
+     * Dashboard Pro"는 채널 구분을 **대시보드에서 초대 코드를 따로 만들어**
+     * 한다고 적는다(스팟 코드 50개까지, 코드마다 클릭·가입·수수료가 따로 집계).
+     * 링크에 붙이는 sub-id 파라미터는 문서 어디에도 없다. 안 읽히는 파라미터를
+     * 붙여 봐야 얻는 게 없고 링크만 길어지므로 그대로 둔다.
+     */
     rank: 2,
     copy: {
       ko: {
@@ -185,6 +211,41 @@ export const RANKED_REFERRALS = [...REFERRALS].sort((a, b) => a.rank - b.rank);
 
 /** 제휴 링크에 반드시 붙여야 하는 rel */
 export const REFERRAL_REL = 'noopener noreferrer sponsored';
+
+/**
+ * 클릭 한 번을 가리키는 짧은 이름 — sub-id (2026-08-15).
+ *
+ * 예: ko-calc-result · en-rail · zh-hans-section
+ * 어느 언어 화면의, 어느 섹션의, 어느 자리에서 눌렀는지까지만 담는다.
+ *
+ * **개인정보는 한 조각도 넣지 않는다.** 세 값 모두 페이지가 무엇인지를 말할 뿐
+ * 사람을 가리키지 않는다 — 사용자가 입력한 값(생년월일·이름·계산 입력)은 절대
+ * 여기로 오지 않는다. 인자를 늘려 그런 값을 흘리지 않도록 받는 것을 셋으로 못박는다.
+ *
+ * 32자에서 끊는 이유 — 파라미터가 길면 거래소 쪽에서 잘린다. 잘린 값은 서로
+ * 구별이 안 되므로 애초에 짧게 만든다. 소문자·숫자·하이픈만 남겨 인코딩도 없앤다.
+ */
+export function referralSubId(lang: AnyLocale10, placement: string, section?: string): string {
+  const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  // 잘린 끝에 하이픈만 남으면 보기에도 나쁘고 값도 어긋난다 — 잘라낸 뒤 한 번 더 다듬는다
+  return [lang, section ?? '', placement].map(slug).filter(Boolean).join('-').slice(0, 32).replace(/-+$/, '');
+}
+
+/**
+ * 제휴 링크를 만드는 **유일한** 자리. 카드도 옆 레일도 여기를 거친다.
+ *
+ * 문자열이 화면 쪽에 흩어져 있으면 한 곳만 고쳐지고 나머지는 옛 링크로 남는다
+ * (예전에 크립토 페이지가 링크를 따로 박아 뒀던 것과 같은 사고다).
+ *
+ * subIdParam이 없는 거래소는 href를 **그대로** 돌려준다. 지금은 둘 다 그렇다 —
+ * 왜인지는 REFERRALS 안의 각 거래소 주석에 적어 두었다.
+ */
+export function referralHref(r: Referral, subId: string): string {
+  if (!r.subIdParam) return r.href;
+  const u = new URL(r.href);
+  u.searchParams.set(r.subIdParam, subId);
+  return u.toString();
+}
 
 /**
  * 본문 카드와 옆 레일이 나눠 가질 몫 (2026-08-12).

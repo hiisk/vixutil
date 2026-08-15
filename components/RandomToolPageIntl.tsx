@@ -105,13 +105,10 @@ export default function RandomToolPageIntl({ slug, lang }: { slug: string; lang:
             ))}
           </div>
         </div>
-        {/* 제휴 카드는 아직 영어 문구만 있다. 다른 언어에 영어 카드를 끼우면
-            그 페이지에서 유일하게 못 읽는 부분이 되므로 영어에서만 낸다. */}
-        {lang === 'en' && (
-          <div className="mt-8">
-            <ReferralCards lang="en" placement="result" />
-          </div>
-        )}
+        {/* 제휴 문구가 열 언어를 갖춘 뒤로 영어에만 낼 까닭이 없어졌다 (lib/referral.ts) */}
+        <div className="mt-8">
+          <ReferralCards lang={lang} placement="result" />
+        </div>
       </RandomToolShell>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">

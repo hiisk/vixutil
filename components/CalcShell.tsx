@@ -121,30 +121,37 @@ export default function CalcShell({
             <main className="px-4 py-6 pb-8">
               {children}
 
+              {/*
+                ── 결과 바로 아래로 옮겼다 (2026-08-15) ──
+
+                예전에는 설명 문단 **뒤**였다. 계산기와 그 해설 사이를 광고로 끊지
+                않으려던 것인데, 실제 화면(scratchpad/ui/3-calc-salary.png)을 재 보니
+                결과와 카드 사이에 문단이 셋(240px 이상, 모바일은 그 배)이 끼어 있었다.
+                답을 얻은 직후가 시선이 가장 오래 머무는 자리인데 거기를 비워 두고
+                스크롤 한참 아래에 광고를 둔 셈이다. 흐름을 지킨 값이 노출이었다.
+
+                {children}가 곧 "폼 + 결과"다 — 결과는 계산기 안에서 그려지므로
+                children 바로 뒤가 결과 바로 아래다.
+
+                ── 결과 전(첫 진입)에도 그대로 보인다 ──
+                이 껍데기는 서버 컴포넌트이고 children이 무엇을 그렸는지 모른다.
+                결과가 있는지 알려면 계산기 300여 장이 저마다 신호를 넘겨야 하는데,
+                결과를 버튼 뒤에 감추는 것은 한국어 148장 중 47장뿐이고 나머지는
+                입력하는 대로 갱신돼 "결과 전"이라는 상태 자체가 없다. 옛 배치에서도
+                카드는 첫 진입에 이미 보이고 있었으므로 감추는 쪽이 오히려 새 동작이다.
+                자리만 옮기고 조건은 더하지 않는다.
+
+                rail은 "이 화면에 옆 레일이 함께 뜬다"는 뜻이다. 그래야 xl 이상에서
+                본문 카드와 레일이 같은 거래소를 두 번 보여 주지 않는다.
+                section='calc' — sub-id에 섹션을 실어 계산기발 클릭을 갈라 본다 (ko-calc-result)
+              */}
+              <ReferralCards placement="result" rail section="calc" />
+
               {intro && (
                 <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 dark:[&_h2]:text-slate-100 [&_strong]:text-slate-800 dark:[&_strong]:text-slate-100">
                   {intro}
                 </div>
               )}
-
-              {/*
-                계산기는 입력하는 대로 결과가 갱신돼서 "제출 버튼"이라는 순간이 없다.
-                그래서 결과 바로 아래가 아니라 설명 문단 뒤에 둔다 — 계산기와 그 해설
-                사이를 광고로 끊으면, 저품질 판정 대응으로 본문을 정적 렌더링해 넣은
-                작업(cf966da)이 노리던 "도구 + 설명" 흐름이 깨진다.
-
-                ── 그래서 자리를 안 옮겼다 (2026-08-12) ──
-                결과 바로 아래가 클릭이 가장 잘 되는 자리인 것은 맞다. 설명 문단
-                **앞**으로 올리는 것도 재 봤는데, 그게 바로 위 문단이 거부한 그
-                자리다 — 계산기와 해설 사이가 정확히 거기다. 그래서 흐름을 사는 대신
-                노출을 옆으로 늘렸다: 넓은 화면에서는 ReferralAside가 결과 옆
-                눈높이에 서고, 좁은 화면에서는 여기 이 카드가 예전 자리를 지킨다.
-                대신 카드 자체를 키웠다(제목 한 단계·금액 32→36px·테두리 2px).
-
-                rail은 "이 화면에 옆 레일이 함께 뜬다"는 뜻이다. 그래야 xl 이상에서
-                본문 카드와 레일이 같은 거래소를 두 번 보여 주지 않는다.
-              */}
-              <ReferralCards placement="result" rail />
 
               {/* 다른 섹션에 이어지는 다음 행동이 있으면 먼저 보여준다 (예: 실업급여 계산 → 신청 체크리스트) */}
               <CrossLinks />
@@ -182,7 +189,7 @@ export default function CalcShell({
             </main>
           </div>
 
-          <ReferralAside />
+          <ReferralAside section="calc" />
         </div>
 
         <SiteFooter referral={false} />

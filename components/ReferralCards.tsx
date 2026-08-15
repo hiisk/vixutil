@@ -1,4 +1,4 @@
-import { RANKED_REFERRALS, REFERRAL_REL, referralSplit } from '@/lib/referral';
+import { RANKED_REFERRALS, REFERRAL_REL, referralHref, referralSplit, referralSubId } from '@/lib/referral';
 import type { AnyLocale10 } from '@/lib/locales';
 
 /**
@@ -151,14 +151,24 @@ interface Props {
    * 화면 폭을 미리 알 수 없어, 둘 중 하나는 CSS로 감추는 수밖에 없었다.
    */
   rail?: boolean;
+  /**
+   * 이 카드가 선 섹션의 짧은 이름 (예: 'calc'·'crypto'·'fortune').
+   *
+   * sub-id에만 쓴다 — 어느 섹션이 전환을 만드는지 구분하려는 것이다. 짧게 쓴다:
+   * 거래소 쪽에서 파라미터가 길면 잘린다(lib/referral.ts의 referralSubId).
+   * 안 넘기면 언어와 자리만 남는다. **사용자 입력을 여기 넘기지 않는다.**
+   */
+  section?: string;
 }
 
-export default function ReferralCards({ lang = 'ko', heading, placement = 'section', rail = false }: Props) {
+export default function ReferralCards({ lang = 'ko', heading, placement = 'section', rail = false, section }: Props) {
   const inResult = placement === 'result';
   const t = HEADING[lang] ?? HEADING.en;
   const title = heading ?? (inResult ? t.result : t.section);
   // 레일이 맡은 몫 — 넓은 화면에서만 본문 카드에서 감춘다
   const railIds = new Set(referralSplit(rail).rail.map(r => r.id));
+  // 어느 언어·어느 섹션·어느 자리에서 눌렀는지 (개인정보 없음)
+  const subId = referralSubId(lang, placement, section);
 
   return (
     <section
@@ -186,9 +196,16 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
           return (
             <a
               key={r.id}
-              href={r.href}
+              href={referralHref(r, subId)}
               target="_blank"
               rel={REFERRAL_REL}
+              /*
+                거래소가 sub-id를 안 받아 주므로(각 거래소 주석 참고) 우리 쪽에서라도
+                구분할 수 있게 값을 마크업에 남긴다. GoogleAnalytics의 클릭 위임
+                리스너가 이 두 속성을 읽어 referral_click 이벤트로 보낸다.
+              */
+              data-ref-id={r.id}
+              data-ref-sub={subId}
               className={`group relative overflow-hidden rounded-2xl p-5 sm:p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
                 railIds.has(r.id) ? 'xl:hidden ' : ''
               }${

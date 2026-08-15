@@ -2,6 +2,7 @@
 import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortuneIntl, formatToday, t, type Lang } from '@/lib/fortune-intl';
 import ReferralCards from '@/components/ReferralCards';
+import SaveResultCard from '@/components/SaveResultCard';
 
 /**
  * en/zh 운세 표시 컴포넌트.
@@ -168,7 +169,24 @@ export default function FortuneDisplayIntl({ subjectId, subjectName, subjectEmoj
         </div>
       </div>
 
-      <ReferralCards lang={lang === 'ko' ? 'ko' : 'en'} placement="result" />
+      {/* 링크만 나가면 SNS에서 안 보인다 — 오늘 운세를 정사각 이미지로도 내보낸다.
+          색은 위 히어로 카드의 violet→purple와 같은 값이다. */}
+      <SaveResultCard
+        emoji={subjectEmoji}
+        title={subjectName}
+        subtitle={today}
+        body={f.overall}
+        from="#8b5cf6"
+        to="#6d28d9"
+        fileName={`vixutil-fortune-${subjectId}`}
+        lang={lang}
+        eyebrow="FORTUNE · vixutil.com"
+        url={`vixutil.com${lang === 'ko' ? '' : `/${lang}`}/fortune`}
+        referral={false}
+      />
+
+      {/* Lang은 AnyLocale10과 같은 열 언어다 — ko/en 이분법은 나머지 여덟에 영어를 붙였다 */}
+      <ReferralCards lang={lang} placement="result" />
     </div>
   );
 }

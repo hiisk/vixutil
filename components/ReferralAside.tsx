@@ -1,4 +1,4 @@
-import { REFERRAL_REL, referralSplit } from '@/lib/referral';
+import { REFERRAL_REL, referralHref, referralSplit, referralSubId } from '@/lib/referral';
 import { BrandMark, HEADING } from './ReferralCards';
 import type { AnyLocale10 } from '@/lib/locales';
 
@@ -63,13 +63,16 @@ export const RAIL_WRAP = {
 const RAIL =
   'hidden xl:block w-72 shrink-0 self-start sticky top-20 mt-8 max-h-[calc(100vh-6rem)] overflow-y-auto px-1 pt-1 pb-8';
 
-export default function ReferralAside({ lang = 'ko' }: { lang?: AnyLocale10 }) {
+export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLocale10; section?: string }) {
   // 레일이 맡은 몫. 제휴가 하나뿐이면 비므로 아무것도 그리지 않는다 —
   // 빈 테두리만 남으면 본문 옆에 이유 없는 상자가 하나 서 있게 된다.
   const items = referralSplit(true).rail;
   if (items.length === 0) return null;
 
   const t = HEADING[lang] ?? HEADING.en;
+  // 자리 이름은 'rail' — 본문 카드(section·result)와 클릭을 갈라 볼 수 있어야
+  // 레일이 값을 하는지 판단할 수 있다. 이것이 레일을 세운 이유의 검증이다.
+  const subId = referralSubId(lang, 'rail', section);
 
   return (
     <aside className={RAIL} aria-label={t.rail}>
@@ -89,9 +92,11 @@ export default function ReferralAside({ lang = 'ko' }: { lang?: AnyLocale10 }) {
           return (
             <a
               key={r.id}
-              href={r.href}
+              href={referralHref(r, subId)}
               target="_blank"
               rel={REFERRAL_REL}
+              data-ref-id={r.id}
+              data-ref-sub={subId}
               className="group block rounded-2xl border-2 border-amber-300 dark:border-amber-500/50 bg-gradient-to-b from-amber-50 to-white dark:from-amber-500/[0.16] dark:to-transparent p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-500/20"
             >
               <span className="flex items-center gap-1.5">
