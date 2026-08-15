@@ -10,6 +10,7 @@ import { thumbGradient } from '@/lib/thumbnail';
 import { GENERATORS_INTL, GENERATORS_INTL_MAP, type GeneratorIntlLang } from '@/lib/generator-l10n';
 import { alternateLanguages10 } from '@/lib/locales';
 import type { Generator } from '@/lib/types';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 한국어·영어를 뺀 여덟 언어의 생성기 허브와 개별 페이지.
@@ -165,11 +166,12 @@ const countOf = (g: Generator) => g.count ?? 6;
 
 export function generatorIntlMeta(lang: GeneratorIntlLang) {
   const ui = UI[lang];
-  return {
+  // 카드는 canonical에서 정해진다 — /og/<언어>/generator를 그대로 쓴다
+  return withCard({
     title: ui.metaTitle,
     description: ui.metaDesc,
     alternates: { canonical: `/${lang}/generator`, languages: alternateLanguages10('/generator') },
-  };
+  });
 }
 
 export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
@@ -222,11 +224,12 @@ export function generatorIntlDetailMeta(lang: GeneratorIntlLang, slug: string) {
   const gen = GENERATORS_INTL_MAP[lang][slug];
   if (!gen) return {};
   const ui = UI[lang];
-  return {
+  // 낱장은 섹션 카드(/og/<언어>/generator)를 물려받는다 — 여기에 카드를 새로 만들지 않는다
+  return withCard({
     title: ui.detailTitle(gen.title),
     description: ui.detailDesc(gen.desc),
     alternates: { canonical: `/${lang}/generator/${slug}`, languages: alternateLanguages10(`/generator/${slug}`) },
-  };
+  });
 }
 
 export function GeneratorIntlDetail({ lang, gen }: { lang: GeneratorIntlLang; gen: Generator }) {

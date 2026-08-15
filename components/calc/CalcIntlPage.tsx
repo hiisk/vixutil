@@ -59,6 +59,7 @@ import VolumetricWeightIntl from '@/components/calc/VolumetricWeightIntl';
 import { calcCopy, relatedCalcs } from '@/lib/calc-l10n';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 다국어 계산기 상세 한 장.
@@ -130,12 +131,13 @@ export function calcIntlMeta(lang: CalcLang, slug: string) {
   const c = calcCopy(lang, slug);
   if (!c) return {};
   const route = `/calculator/${slug}`;
-  return {
+  // 낱장은 허브 카드(/og/<언어>/calculator)를 물려받는다 — 여기에 카드를 새로 만들지 않는다
+  return withCard({
     title: c.title,
     description: c.desc,
     openGraph: openGraphFor(lang),
     alternates: { canonical: localeHref(lang, route), languages: alternateLanguages10(route) },
-  };
+  });
 }
 
 export default function CalcIntlPage({ lang, slug }: { lang: CalcLang; slug: string }) {

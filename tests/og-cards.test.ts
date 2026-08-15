@@ -172,8 +172,24 @@ test('낱장은 자기 섹션 카드를 물려받는다', () => {
 test('canonical을 든 메타데이터는 모두 withCard를 거친다', () => {
   /*
    * withCard를 안 부르면 그 페이지만 카드를 잃는다 — 빌드도 타입도 통과한다.
-   * 그래서 "canonical을 든 객체 리터럴"을 전부 찾아 감싸였는지 본다.
-   * 새 섹션을 손으로 적을 때 빠뜨리는 것을 여기서 잡는다.
+   *
+   * ── 이 검사가 1,394장을 놓쳤던 두 가지 ──────────────────────────
+   * 처음에는 "return {" 줄부터 같은 들여쓰기의 "};"까지를 블록으로 잘라, 그
+   * 안에 canonical이 있으면서 withCard로 안 감싸인 자리를 찾았다. 둘이 샜다.
+   *
+   *   ① 훑는 곳이 lib과 app뿐이었다. 메타데이터를 만드는 곳이 언제나
+   *      라우트 옆이라고 본 것인데, 국제 페이지 일곱은 화면과 메타를 한
+   *      파일에 담은 components/*IntlPage.tsx였다. 라우트는 그 함수를
+   *      부르기만 한다 — 검사가 한 번도 열어 본 적 없는 파일들이었다.
+   *   ② 블록의 시작을 "return {"이 줄 끝인 것으로만 봤다. 한국어
+   *      test·quiz 낱장은 "return { title: ..., alternates: {"처럼 한 줄에
+   *      이어 적어서, 정규식이 안 물었고 블록이 아예 안 열렸다.
+   *
+   * 그래서 글자를 세는 쪽으로 바꾼다. 파일에 적힌 canonical의 수만큼
+   * withCard가 있어야 한다 — 줄바꿈을 어떻게 하든 걸리고, 폴더를 늘려도
+   * 규칙이 그대로다. 짝이 어긋난 것(다른 객체를 감싼 withCard 하나로
+   * 안 감싼 canonical 하나를 가리는 것)까지는 못 보지만, 그건 옛 블록
+   * 방식도 못 봤다. 확실히 잡는 것은 "부르는 것을 통째로 잊은" 자리다.
    */
   const bad: string[] = [];
   const walk = (dir: string) => {
@@ -182,20 +198,14 @@ test('canonical을 든 메타데이터는 모두 withCard를 거친다', () => {
       if (e.isDirectory()) { walk(p); continue; }
       if (!e.name.endsWith('.ts') && !e.name.endsWith('.tsx')) continue;
       const src = readFileSync(p, 'utf8');
-      if (!src.includes('canonical:')) continue;
-      const lines = src.split('\n');
-      for (let i = 0; i < lines.length; i++) {
-        const m = /^(\s*)(?:return|export const metadata[^=]*=) \{$/.exec(lines[i]);
-        if (!m) continue;
-        let j = i + 1;
-        while (j < lines.length && lines[j] !== `${m[1]}};`) j++;
-        if (lines.slice(i, j).some(l => l.includes('canonical:')))
-          bad.push(`${p.slice(ROOT.length + 1)}:${i + 1}`);
-      }
+      const canon = src.match(/canonical:/g)?.length ?? 0;
+      const wrapped = src.match(/withCard\(/g)?.length ?? 0;
+      if (canon > wrapped) bad.push(`${p.slice(ROOT.length + 1)}: canonical ${canon}개 · withCard ${wrapped}개`);
     }
   };
-  for (const d of ['lib', 'app']) walk(join(ROOT, d));
-  assert.deepStrictEqual(bad.slice(0, 10), []);
+  // withCard가 사는 곳은 제 몸 안에서 canonical을 읽으므로 셈에서 뺀다
+  for (const d of ['lib', 'app', 'components']) walk(join(ROOT, d));
+  assert.deepStrictEqual(bad.filter(b => !b.startsWith('lib/og-cards/')).slice(0, 10), []);
 });
 
 test('카드를 그리는 라우트는 하나뿐이다', () => {

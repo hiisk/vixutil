@@ -13,6 +13,7 @@ import { thumbGradient } from '@/lib/thumbnail';
 import { TESTS_INTL, TESTS_INTL_MAP, type TestIntlLang } from '@/lib/test-l10n/index';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Test } from '@/lib/types';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 한국어를 뺀 아홉 언어의 심리테스트 허브와 개별 페이지.
@@ -131,7 +132,8 @@ export function testIntlUi(lang: TestIntlLang) {
 
 export function testIntlMeta(lang: TestIntlLang) {
   const ui = UI[lang];
-  return {
+  // 카드는 canonical에서 정해진다 — /og/<언어>/test를 그대로 쓴다
+  return withCard({
     title: ui.metaTitle,
     description: ui.metaDesc,
     alternates: {
@@ -139,7 +141,7 @@ export function testIntlMeta(lang: TestIntlLang) {
       // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
       languages: hubAlternates('test'),
     },
-  };
+  });
 }
 
 export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
@@ -212,7 +214,8 @@ export function testIntlDetailMeta(lang: TestIntlLang, slug: string) {
   const test = TESTS_INTL_MAP[lang][slug];
   if (!test) return {};
   const ui = UI[lang];
-  return {
+  // 낱장은 섹션 카드(/og/<언어>/test)를 물려받는다 — 여기에 카드를 새로 만들지 않는다
+  return withCard({
     title: ui.detailTitle(test.title),
     description: ui.detailDesc(test.desc),
     alternates: {
@@ -221,7 +224,7 @@ export function testIntlDetailMeta(lang: TestIntlLang, slug: string) {
       // 구글이 무시한다. 어느 언어에 실제로 있는지는 이 함수가 안다.
       languages: localeAlternates('test', slug),
     },
-  };
+  });
 }
 
 export function TestIntlDetail({ lang, test }: { lang: TestIntlLang; test: Test }) {

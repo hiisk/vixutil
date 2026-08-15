@@ -12,6 +12,7 @@ import { checklistFaqIntl } from '@/lib/content-faq-intl';
 import { CHECKLISTS_INTL, CHECKLISTS_INTL_MAP, type ChecklistIntlLang } from '@/lib/checklist-l10n/index';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Checklist } from '@/lib/types';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 한국어를 뺀 아홉 언어의 체크리스트 허브와 개별 페이지.
@@ -150,7 +151,8 @@ function shortTitle(title: string, trim?: string) {
 
 export function checklistIntlMeta(lang: ChecklistIntlLang) {
   const ui = UI[lang];
-  return {
+  // 카드는 canonical에서 정해진다 — /og/<언어>/checklist를 그대로 쓴다
+  return withCard({
     title: ui.metaTitle,
     description: ui.metaDesc,
     alternates: {
@@ -158,7 +160,7 @@ export function checklistIntlMeta(lang: ChecklistIntlLang) {
       // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
       languages: hubAlternates('checklist'),
     },
-  };
+  });
 }
 
 export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
@@ -234,7 +236,8 @@ export function checklistIntlDetailMeta(lang: ChecklistIntlLang, slug: string) {
   if (!checklist) return {};
   const ui = UI[lang];
   const n = countOf(checklist);
-  return {
+  // 낱장은 섹션 카드(/og/<언어>/checklist)를 물려받는다 — 여기에 카드를 새로 만들지 않는다
+  return withCard({
     title: ui.detailTitle(checklist.title, n),
     description: ui.detailDesc(checklist.desc, n),
     alternates: {
@@ -243,7 +246,7 @@ export function checklistIntlDetailMeta(lang: ChecklistIntlLang, slug: string) {
       // 구글이 무시한다. 어느 언어에 실제로 있는지는 이 함수가 안다.
       languages: localeAlternates('checklist', slug),
     },
-  };
+  });
 }
 
 export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLang; checklist: Checklist }) {

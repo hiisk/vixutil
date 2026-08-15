@@ -8,6 +8,7 @@ import { CALC_GROUPS, CALC_GROUP_LABEL } from '@/lib/calc-l10n/groups';
 import { crossCalcs } from '@/lib/calc-l10n/cross';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { alternateLanguages10, localeHref, openGraphFor, ALL_LOCALES10 } from '@/lib/locales';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 다국어 계산기 허브.
@@ -19,7 +20,8 @@ import { alternateLanguages10, localeHref, openGraphFor, ALL_LOCALES10 } from '@
  */
 export function calcIntlHubMeta(lang: CalcLang) {
   const ui = CALC_SHELL[lang];
-  return {
+  // 허브까지 통째로 카드가 없었다 — /og/<언어>/calculator를 canonical에서 찾아 붙인다
+  return withCard({
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     openGraph: openGraphFor(lang),
@@ -27,7 +29,7 @@ export function calcIntlHubMeta(lang: CalcLang) {
       canonical: localeHref(lang, '/calculator'),
       languages: alternateLanguages10('/calculator'),
     },
-  };
+  });
 }
 
 export default function CalcIntlHub({ lang }: { lang: CalcLang }) {

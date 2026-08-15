@@ -13,6 +13,7 @@ import { thumbGradient } from '@/lib/thumbnail';
 import { QUIZZES_INTL, QUIZZES_INTL_MAP, type QuizIntlLang } from '@/lib/quiz-l10n/index';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Quiz } from '@/lib/types';
+import { withCard } from '@/lib/og-cards';
 
 /**
  * 한국어를 뺀 아홉 언어의 퀴즈 허브와 개별 페이지.
@@ -123,7 +124,8 @@ const INTL_LANGS = Object.keys(QUIZZES_INTL) as QuizIntlLang[];
 
 export function quizIntlMeta(lang: QuizIntlLang) {
   const ui = UI[lang];
-  return {
+  // 카드는 canonical에서 정해진다 — /og/<언어>/quiz를 그대로 쓴다
+  return withCard({
     title: ui.metaTitle,
     description: ui.metaDesc,
     alternates: {
@@ -131,7 +133,7 @@ export function quizIntlMeta(lang: QuizIntlLang) {
       // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
       languages: hubAlternates('quiz'),
     },
-  };
+  });
 }
 
 export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
@@ -204,7 +206,8 @@ export function quizIntlDetailMeta(lang: QuizIntlLang, slug: string) {
   const quiz = QUIZZES_INTL_MAP[lang][slug];
   if (!quiz) return {};
   const ui = UI[lang];
-  return {
+  // 낱장은 섹션 카드(/og/<언어>/quiz)를 물려받는다 — 여기에 카드를 새로 만들지 않는다
+  return withCard({
     title: ui.detailTitle(quiz.title),
     description: ui.detailDesc(quiz.desc),
     alternates: {
@@ -213,7 +216,7 @@ export function quizIntlDetailMeta(lang: QuizIntlLang, slug: string) {
       // 구글이 무시한다. 어느 언어에 실제로 있는지는 이 함수가 안다.
       languages: localeAlternates('quiz', slug),
     },
-  };
+  });
 }
 
 export function QuizIntlDetail({ lang, quiz }: { lang: QuizIntlLang; quiz: Quiz }) {
