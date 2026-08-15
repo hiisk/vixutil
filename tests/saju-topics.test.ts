@@ -491,3 +491,77 @@ test('검색어를 노린다고 새 페이지를 만들지 않았다', () => {
   }
   assert.equal(TOPIC_SLUGS.length, 7, '주제가 일곱이 아니다 — 검색어마다 늘리면 안 된다');
 });
+
+test('입력칸에 라벨이 있고 힌트가 입력 형식으로 안 읽힌다', () => {
+  /*
+   * 2026-08-15에 사용자가 "입력할 때 힌트들이 이상하다"고 했다. 주제 낱장만
+   * 문구를 손으로 적고 있었고 월·일 칸이 `1-12`, `1-31`이었다 — 숫자 칸에서
+   * 그것은 예시가 아니라 **"이렇게 적어라"**로 읽힌다. 게다가 세 칸에 라벨이
+   * 없어서 한 글자만 입력해도 힌트가 사라지고 어느 칸인지 알 수 없었다.
+   *
+   * 다른 화면(SajuIntl·한국어 통합)은 처음부터 공용 문구를 쓰고 있었다. 여기만
+   * 갈라져 있던 것이라, 다시 갈라지는 것을 막는다.
+   */
+  const src = readFileSync(new URL('../components/fortune/SajuTopicPage.tsx', import.meta.url), 'utf8');
+
+  /* 범위를 힌트로 적지 않는다 — 범위는 min/max가 지킨다 */
+  const ranges = [...src.matchAll(/placeholder=\{?['"`]([^'"`]*\d+\s*-\s*\d+[^'"`]*)['"`]/g)].map(m => m[1]);
+  assert.deepEqual(ranges, [], `힌트에 범위가 적혀 있다 — 입력 형식으로 읽힌다: ${ranges.join(', ')}`);
+
+  /* 힌트는 표에서 온다 — 손으로 적으면 열 언어 가운데 아홉이 한국어를 본다 */
+  assert.match(src, /placeholder=\{k === 'year' \? fc\.yearPh/, '날짜 칸 힌트가 표에서 오지 않는다');
+  assert.ok(!/placeholder=\{k === 'year' \? '/.test(src), '날짜 칸 힌트를 손으로 적었다');
+
+  /* 라벨 — 값이 채워져도 남는 것이 있어야 한다 */
+  for (const [what, re] of [
+    ['생년월일', /htmlFor="saju-topic-year"[\s\S]{0,120}\{fc\.birthLabel\}/],
+    ['태어난 시각', /htmlFor="saju-topic-hour"[\s\S]{0,120}\{fc\.hourLabel\}/],
+    ['시각 안내', /\{fc\.hourNote\}/],
+    ['성별', /\{fc\.genderLabel\}/],
+  ] as const) {
+    assert.match(src, re, `${what} 라벨이 없다`);
+  }
+
+  /* 성별 단추가 기호만 두지 않는다 — 대운 방향이 성별로 갈린다 */
+  assert.match(src, /♂ \$\{fc\.male\}/, '성별 단추에 말이 없다');
+  assert.match(src, /♀ \$\{fc\.female\}/, '성별 단추에 말이 없다');
+
+  /* 범위는 브라우저가 지킨다 */
+  assert.match(src, /min=\{k === 'year' \? 1900 : 1\}/, '월·일 칸에 min이 없다');
+  assert.match(src, /max=\{k === 'year' \? 2100 : k === 'month' \? 12 : 31\}/, '월·일 칸에 max가 없다');
+});
+
+test('입력칸 문구가 열 언어에 다 있고, 아홉은 이미 있던 번역을 쓴다', async () => {
+  /*
+   * 새로 쓴 말은 한국어뿐이어야 한다. 아홉 언어를 여기서 또 번역하면 같은 말이
+   * 두 벌이 되고, 곧 한쪽만 고쳐진다 — 이 저장소가 겪은 그 병이다.
+   */
+  const { sajuForm } = await import('../lib/saju-form.ts');
+  const { DATE_FORM } = await import('../lib/fortune-form-intl.ts');
+  const { SAJU_L10N } = await import('../lib/saju-l10n/index.ts');
+
+  const keys = ['birthLabel', 'yearPh', 'monthPh', 'dayPh',
+    'genderLabel', 'male', 'female', 'hourLabel', 'hourNote'] as const;
+
+  const missing: string[] = [];
+  for (const lang of ALL_LOCALES10) {
+    const f = sajuForm(lang);
+    for (const k of keys) {
+      if (!f[k] || !f[k].trim()) missing.push(`${lang}.${k}`);
+    }
+    /* 아홉 언어는 원본을 그대로 가져와야 한다 — 베껴 두면 여기서 갈린다 */
+    if (lang !== 'ko') {
+      assert.equal(f.yearPh, DATE_FORM[lang as keyof typeof DATE_FORM].yearPh,
+        `${lang}: 연도 힌트가 공용 표와 다르다 — 베껴 적었다`);
+      assert.equal(f.hourNote, SAJU_L10N[lang as keyof typeof SAJU_L10N].ui.hourNote,
+        `${lang}: 시각 안내가 사주 사전과 다르다 — 베껴 적었다`);
+    }
+  }
+  assert.deepEqual(missing, [], `입력칸 문구가 비어 있다: ${missing.join(', ')}`);
+
+  /* 한국어는 범위가 아니라 이름이다 */
+  const ko = sajuForm('ko');
+  assert.equal(ko.monthPh, '월');
+  assert.equal(ko.dayPh, '일');
+  assert.match(ko.yearPh, /1995/, '연도 힌트에 예시 연도가 없다');
+});
