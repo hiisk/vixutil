@@ -7,6 +7,8 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   ALL_METHODS, compareAll, equalPayment, monthlyRate, schedule,
 } from '../lib/loan-schedule.ts';
@@ -85,4 +87,44 @@ test('기간이 길수록 이자가 는다', () => {
   // 원금이 0이거나 기간이 0이면 조용히 0을 낸다
   assert.equal(schedule({ ...loan, months: 0 }, 'equal-payment').totalInterest, 0);
   assert.equal(schedule({ ...loan, principal: 0 }, 'bullet').totalInterest, 0);
+});
+
+/**
+ * 원리금균등 식이 계산기 페이지에 다시 적혀 있지 않은가.
+ *
+ * 같은 식이 네 곳에 있었다 — loan·dsr·car-installment 페이지와 이 파일. 전부
+ * 클라이언트 컴포넌트라 node가 못 불러오고, 그래서 이 파일의 검사가 닿지 않는
+ * 자리였다. 값이 같을 때는 아무 일도 없지만, 페이지 쪽 사본 둘은 이율 0을
+ * `!r`·`rate <= 0`으로 막아 무이자 할부에서 버튼이 죽어 있었다. equalPayment는
+ * i === 0을 제대로 다룬다.
+ */
+test('계산기 페이지가 원리금균등 식을 다시 적지 않는다', () => {
+  const dir = join(import.meta.dirname, '..', 'app/(ko)/calculator');
+  const walk = (d: string, out: string[] = []): string[] => {
+    for (const n of readdirSync(d)) {
+      const p = join(d, n);
+      if (statSync(p).isDirectory()) walk(p, out);
+      else if (n.endsWith('.tsx')) out.push(p);
+    }
+    return out;
+  };
+  const files = walk(dir);
+  assert.ok(files.length > 100, `${files.length}개만 훑었다 — 검사가 헛돈다`);
+
+  const bad: string[] = [];
+  for (const f of files) {
+    const code = readFileSync(f, 'utf8').split('\n')
+      .filter(l => !/^\s*(\*|\/\*|\/\/)/.test(l)).join('\n');
+    // A = P × i ÷ (1 − (1+i)^−n) 을 손으로 적은 꼴 — 두 가지 표기 다
+    if (/1\s*-\s*Math\.pow\(1\s*\+\s*[^,]{1,30},\s*-/.test(code)
+      || /Math\.pow\(1\s*\+\s*\w+\s*,\s*\w+\)\s*[-/]\s*\(?\s*Math\.pow\(1\s*\+/.test(code))
+      bad.push(`/${f.slice(f.indexOf('app/'))}`);
+  }
+  assert.deepEqual(bad, [], `원리금균등 식이 페이지에 있다 — lib/loan-schedule.ts의 equalPayment를 쓰라:\n  ${bad.join('\n  ')}`);
+});
+
+test('이율 0에서도 상환액이 나온다', () => {
+  // 무이자 할부. 페이지 사본들이 여기서 0을 falsy로 보고 계산을 건너뛰었다
+  assert.equal(equalPayment(12_000_000, 0, 12), 1_000_000);
+  assert.equal(schedule({ principal: 12_000_000, annualRate: 0, months: 12 }, 'equal-payment').totalInterest, 0);
 });

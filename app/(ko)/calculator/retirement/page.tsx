@@ -4,6 +4,7 @@ import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap, ShowMoreBtn } 
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { equalPayment } from '@/lib/loan-schedule';
 
 function fmtKRW(n: number): string {
   if (n >= 1e8) return `${(n / 1e8).toFixed(2)}억원`;
@@ -81,12 +82,9 @@ export default function RetirementPage() {
 
     const totalAsset = balance;
 
-    // 은퇴 후 정액 인출 (월): PV × r / (1 - (1+r)^-n)
-    function monthlyWithdraw(pv: number, yearCount: number): number {
-      if (ar === 0) return pv / (yearCount * 12);
-      const n = yearCount * 12;
-      return (pv * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
-    }
+    // 은퇴 후 정액 인출은 원리금균등과 같은 식이다 — lib/loan-schedule.ts에서 온다
+    const monthlyWithdraw = (pv: number, yearCount: number) =>
+      equalPayment(pv, Number(annualReturn), yearCount * 12);
 
     setResult({
       totalAsset,

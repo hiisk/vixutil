@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortuneIntl, formatToday, t, type Lang } from '@/lib/fortune-intl';
 import ReferralCards from '@/components/ReferralCards';
@@ -35,16 +36,11 @@ function ShareBtn({ name, lang }: { name: string; lang: Lang }) {
   const [state, setState] = useState<'idle' | 'copied'>('idle');
 
   const handleShare = useCallback(async () => {
-    const url = window.location.href;
-    const text = `${name} — ${formatToday(lang)} · vixutil.com`;
-    if (navigator.share) {
-      try { await navigator.share({ title: text, url }); return; } catch {}
-    }
-    try {
-      await navigator.clipboard.writeText(url);
+    // 문구와 주소가 한 덩이로 — 예전엔 title 칸이라 카톡이 통째로 버렸다
+    if (await shareOne(`${name} — ${formatToday(lang)} · vixutil.com`)) {
       setState('copied');
       setTimeout(() => setState('idle'), 2000);
-    } catch {}
+    }
   }, [name, lang]);
 
   return (

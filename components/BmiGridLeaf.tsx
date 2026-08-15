@@ -88,7 +88,7 @@ export default function BmiGridLeaf({ height, weight, lang }: { height: number; 
             <div className="flex flex-wrap gap-1.5">
               {same.map(s => (
                 <Link prefetch={false} key={cellSlug(s.height, s.weight)} href={`${toolHref}/${cellSlug(s.height, s.weight)}`}
-                  className="chip chip-off hover:border-emerald-300 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+                  className="chip-v">
                   {s.height} · {s.weight}
                 </Link>
               ))}
@@ -102,7 +102,7 @@ export default function BmiGridLeaf({ height, weight, lang }: { height: number; 
           <div className="flex flex-wrap gap-1.5">
             {near.map(s => (
               <Link prefetch={false} key={cellSlug(s.height, s.weight)} href={`${toolHref}/${cellSlug(s.height, s.weight)}`}
-                className="chip chip-off hover:border-emerald-300 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+                className="chip-v">
                 {s.height}cm · {s.weight}kg
               </Link>
             ))}

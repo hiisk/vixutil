@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -411,18 +412,11 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
     const url = lang === 'ko'
       ? `https://vixutil.com/checklist/${checklist.slug}`
       : `https://vixutil.com/${lang}/checklist/${checklist.slug}`;
-    const title = checklist.title;
-    const text = done > 0 ? `${checklist.title} — ${ui.progress(done, total)}` : checklist.desc;
-
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      try { await navigator.share({ title, text, url }); return; } catch {}
-    }
-    try {
-      await navigator.clipboard.writeText(url);
-      showToast(ui.linkCopied);
-    } catch {
-      showToast(ui.copyFailed);
-    }
+    // 제목·진행률·주소가 한 덩이로 — title 칸은 카톡이 통째로 버린다
+    const text = done > 0
+      ? `${checklist.title} — ${ui.progress(done, total)}`
+      : `${checklist.title}\n${checklist.desc}`;
+    if (await shareOne(text, url)) showToast(ui.linkCopied);
   }
 
   function toggle(id: string) {

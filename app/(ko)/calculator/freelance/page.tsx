@@ -4,6 +4,7 @@ import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
+import { INCOME_BRACKETS, PERSONAL_DEDUCTION } from '@/lib/salary';
 
 // 단순경비율 (업종코드 940909 — 기타 자유직업 관련 서비스업) 2025년 기준
 const EXPENSE_RATE = 0.641;
@@ -31,12 +32,10 @@ export default function FreelancePage() {
     const annualEstimate = period === 'once' ? base * 12 : period === 'monthly' ? v * 12 : v;
     const expenseDeduction = Math.round(annualEstimate * EXPENSE_RATE);
     const businessIncome = Math.max(0, annualEstimate - expenseDeduction);
-    const taxableIncome = Math.max(0, (businessIncome - 1_500_000) / 10000); // 만원 단위
-    let finalTax = 0;
-    if (taxableIncome <= 1400) finalTax = taxableIncome * 0.06;
-    else if (taxableIncome <= 5000) finalTax = taxableIncome * 0.15 - 126;
-    else finalTax = taxableIncome * 0.24 - 576;
-    const estimatedFinalTax = Math.max(0, finalTax) * 10000;
+    const taxableIncome = Math.max(0, (businessIncome - PERSONAL_DEDUCTION * 10000) / 10000); // 만원 단위
+    // 구간표는 lib/salary.ts 한 곳에만 둔다 — 여기 베껴 두었을 때 8,800만원 위 다섯 구간이 빠져 있었다
+    const bracket = INCOME_BRACKETS.find(b => taxableIncome <= b.limit)!;
+    const estimatedFinalTax = Math.max(0, taxableIncome * bracket.rate - bracket.deduct) * 10000;
 
     setResult({ base, incomeTax, localTax, withholding, net, annualEstimate, expenseDeduction, estimatedFinalTax });
   }

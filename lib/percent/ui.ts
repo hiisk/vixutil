@@ -17,6 +17,8 @@ export interface FaqItem { q: string; a: string }
 export interface PercentUI {
   home: string;
   section: string;
+  /** 낱장 맨 아래의 다음 걸음 — 이웃 칩은 옆으로 가고 이건 앞으로 간다 */
+  openHub: string;
   /** 1234.5 → "1,234.5" / "1.234,5" / "1 234,5" */
   num: (v: number) => string;
   hubTitle: string;
@@ -72,6 +74,20 @@ const SPEC: Spec = {
   home: T('홈', 'Home', 'Inicio', 'Início', 'ホーム', 'Start', 'Accueil', 'होम', '首页', '首頁'),
   section: T('퍼센트', 'Percentages', 'Porcentajes', 'Porcentagens', 'パーセント', 'Prozentrechnung', 'Pourcentages', 'प्रतिशत', '百分比', '百分比'),
   num: NUM,
+
+  /* 독일어·힌디어가 길다 — .next-step은 폭이 꽉 찬 flex라 줄이 넘어가도 안 잘린다 */
+  openHub: T(
+    '내 숫자로 직접 계산하기',
+    'Try it with your own numbers',
+    'Pruébalo con tus propios números',
+    'Faça com os seus próprios números',
+    '自分の数字で計算する',
+    'Mit eigenen Zahlen rechnen',
+    'Essayer avec vos propres nombres',
+    'अपने नंबरों से गणना करें',
+    '用自己的数字算一下',
+    '用自己的數字算一下',
+  ),
 
   hubTitle: T(
     '퍼센트 계산 1,200가지',

@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import { monthlyHours as statutoryMonthlyHours, weeklyHolidayHours } from '@/lib/statutory-hours';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -21,11 +22,11 @@ export default function ParttimePage() {
 
     const weeklyHours = dh * wd;
     const hasHoliday = weeklyHours >= 15;
-    const holidayHours = hasHoliday ? weeklyHours / 5 : 0;
+    const holidayHours = weeklyHolidayHours(weeklyHours);
     const holidayPay = h * holidayHours;
     const weeklyBase = h * weeklyHours;
     const weeklyTotal = weeklyBase + holidayPay;
-    const monthlyHours = (weeklyHours + holidayHours) * (365 / 7 / 12);
+    const monthlyHours = statutoryMonthlyHours(weeklyHours);
 
     setResult({
       weeklyHours,

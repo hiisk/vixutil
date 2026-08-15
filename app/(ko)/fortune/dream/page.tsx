@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
@@ -254,14 +255,11 @@ export default function DreamPage() {
               <div className="flex gap-2 mt-6">
                 <button
                   onClick={() => {
-                    // 주소는 url 칸으로 넘긴다 — 글 안에 박으면 글과 미리보기가 따로 간다
-                    const url = 'https://vixutil.com/fortune/dream';
-                    const text = `[꿈해몽] ${selected.emoji} ${selected.keyword} 꿈\n${info.label} — ${selected.summary}`;
-                    if (navigator.share) {
-                      navigator.share({ title: `${selected.keyword} 꿈 해몽`, text, url }).catch(() => {});
-                    } else {
-                      navigator.clipboard?.writeText(`${text}\n\n${url}`);
-                    }
+                    // 글과 주소가 한 덩이로 — 나뉘면 받는 쪽에 둘 중 하나만 온다
+                    void shareOne(
+                      `[꿈해몽] ${selected.emoji} ${selected.keyword} 꿈\n${info.label} — ${selected.summary}`,
+                      'https://vixutil.com/fortune/dream',
+                    );
                   }}
                   className="flex-1 py-3.5 rounded-2xl bg-violet-600 font-bold text-white hover:bg-violet-700 transition-colors text-sm"
                 >

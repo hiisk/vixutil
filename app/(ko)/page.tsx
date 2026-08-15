@@ -367,6 +367,19 @@ const SECTIONS = [
     borderAccent: 'border-rose-200 dark:border-rose-900/50',
     shadow: 'shadow-rose-100',
   },
+  // 잘못 지웠던 것을 되살림 — craft는 공식 계산기 40종이다
+  {
+    href: '/craft',
+    icon: '🧶',
+    title: '공예',
+    desc: '실 소요량·원단 길이·왁스 무게·가성소다까지',
+    badge: `${SECTION_COUNTS.craft}개`,
+    color: 'from-amber-500 to-rose-500',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/30',
+    textAccent: 'text-amber-700 dark:text-amber-300',
+    borderAccent: 'border-amber-200 dark:border-amber-900/50',
+    shadow: 'shadow-amber-100',
+  },
   {
     href: '/geometry',
     icon: '📐',

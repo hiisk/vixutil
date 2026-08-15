@@ -22,6 +22,7 @@ import { CONVERT_L10N } from '../lib/convert-i18n.ts';
 import { RATE_META_INTL, RATE_CATEGORY_INTL } from '../lib/rate-section.ts';
 import { BODY_META_INTL, BODY_CATEGORY_INTL } from '../lib/body-section.ts';
 import { GEO_META_INTL, GEO_CATEGORY_INTL } from '../lib/geo-section.ts';
+import { CRAFT_META_INTL, CRAFT_CATEGORY_INTL } from '../lib/craft-section.ts';
 import { HANJA_CATEGORY_INTL } from '../lib/hanja-ui.ts';
 import { COUNTRY_REGION_INTL } from '../lib/country-ui.ts';
 import { FORTUNE_INTL, SNAP_INTL } from '../lib/search-index-intl.ts';
@@ -47,6 +48,9 @@ const TABLES: [string, Record<string, unknown>, readonly AnyLocale10[]][] = [
   ['BODY_CATEGORY_INTL', BODY_CATEGORY_INTL, NON_KO_EN],
   ['GEO_META_INTL', GEO_META_INTL, NON_KO_EN],
   ['GEO_CATEGORY_INTL', GEO_CATEGORY_INTL, NON_KO_EN],
+  // 잘못 지웠던 것을 되살림 — craft는 공식 계산기 40종이다
+  ['CRAFT_META_INTL', CRAFT_META_INTL, NON_KO_EN],
+  ['CRAFT_CATEGORY_INTL', CRAFT_CATEGORY_INTL, NON_KO_EN],
   ['HANJA_CATEGORY_INTL', HANJA_CATEGORY_INTL, NON_KO_EN],
   ['COUNTRY_REGION_INTL', COUNTRY_REGION_INTL, NON_KO_EN],
   ['FORTUNE_INTL', FORTUNE_INTL, NON_KO],
@@ -85,6 +89,7 @@ test('심리테스트 결과 구간이 0~30을 빈틈없이 덮는다', () => {
   const bad: string[] = [];
   for (const [lang, tests] of Object.entries(TESTS_INTL)) {
     for (const t of tests) {
+      if (t.type) continue; // 점수합을 안 쓰는 형(category 등)은 min/max가 전부 0이다
       const max = t.questions.reduce((s, q) => s + Math.max(...q.opts.map(o => o.score)), 0);
       const sorted = [...t.results].sort((a, b) => a.min - b.min);
       if (sorted[0].min !== 0) bad.push(`${lang}/${t.slug}: 0점에 결과가 없다`);

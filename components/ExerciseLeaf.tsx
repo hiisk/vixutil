@@ -67,7 +67,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
           <div className="flex flex-wrap gap-1.5">
             {relatedExercises(slug).map(r => (
               <Link prefetch={false} key={r.slug} href={`${prefix}/body/exercise/${r.slug}`}
-                className="chip chip-off hover:border-emerald-300 text-sm font-bold text-slate-700 dark:text-slate-200">
+                className="chip-v">
                 {r.name[lang]} · {r.met} MET
               </Link>
             ))}

@@ -25,20 +25,29 @@ import { GEO_JA } from '../geo-l10n/ja.ts';
 import { GEO_DE } from '../geo-l10n/de.ts';
 import { GEO_FR } from '../geo-l10n/fr.ts';
 import { GEO_HI } from '../geo-l10n/hi.ts';
+// 잘못 지웠던 것을 되살림 — craft는 참조표가 아니라 공식 계산기 40종이다
+import { CRAFT_JA } from '../craft-l10n/ja.ts';
+import { CRAFT_DE } from '../craft-l10n/de.ts';
+import { CRAFT_FR } from '../craft-l10n/fr.ts';
+import { CRAFT_HI } from '../craft-l10n/hi.ts';
+import { CRAFT_ES } from '../craft-l10n/es.ts';
+import { CRAFT_PT_BR } from '../craft-l10n/pt-br.ts';
+import { CRAFT_ZH_HANS } from '../craft-l10n/zh-hans.ts';
+import { CRAFT_ZH_HANT } from '../craft-l10n/zh-hant.ts';
 
 /**
  * 도구 문구의 번역을 언어별로 한 표에 모은다.
  *
- * 세 섹션(rate·body·geometry)이 같은 엔진을 쓰고 slug가 서로 겹치지 않으므로
+ * 네 섹션(rate·body·geometry·craft)이 같은 엔진을 쓰고 slug가 서로 겹치지 않으므로
  * 한 표에 담아도 된다. 섹션을 옮길 때마다 여기 한 줄씩 늘리면 된다.
  */
 export const TOOL_L10N: Partial<Record<Exclude<AnyLocale10, 'ko'>, Record<string, FormulaText>>> = {
-  es: { ...RATE_ES, ...BODY_ES, ...GEO_ES },
-  'pt-br': { ...RATE_PT_BR, ...BODY_PT_BR, ...GEO_PT_BR },
-  ja: { ...RATE_JA, ...BODY_JA, ...GEO_JA },
-  de: { ...RATE_DE, ...BODY_DE, ...GEO_DE },
-  fr: { ...RATE_FR, ...BODY_FR, ...GEO_FR },
-  hi: { ...RATE_HI, ...BODY_HI, ...GEO_HI },
-  'zh-hans': { ...RATE_ZH_HANS, ...BODY_ZH_HANS, ...GEO_ZH_HANS },
-  'zh-hant': { ...RATE_ZH_HANT, ...BODY_ZH_HANT, ...GEO_ZH_HANT },
+  es: { ...RATE_ES, ...BODY_ES, ...GEO_ES, ...CRAFT_ES },
+  'pt-br': { ...RATE_PT_BR, ...BODY_PT_BR, ...GEO_PT_BR, ...CRAFT_PT_BR },
+  ja: { ...RATE_JA, ...BODY_JA, ...GEO_JA, ...CRAFT_JA },
+  de: { ...RATE_DE, ...BODY_DE, ...GEO_DE, ...CRAFT_DE },
+  fr: { ...RATE_FR, ...BODY_FR, ...GEO_FR, ...CRAFT_FR },
+  hi: { ...RATE_HI, ...BODY_HI, ...GEO_HI, ...CRAFT_HI },
+  'zh-hans': { ...RATE_ZH_HANS, ...BODY_ZH_HANS, ...GEO_ZH_HANS, ...CRAFT_ZH_HANS },
+  'zh-hant': { ...RATE_ZH_HANT, ...BODY_ZH_HANT, ...GEO_ZH_HANT, ...CRAFT_ZH_HANT },
 };

@@ -9,6 +9,8 @@
 ──────────────────────────────────────────────── */
 import { MINOR_READINGS_EN } from './tarot-minor-intl.ts';
 import { tarotReadingsOf, tarotNamesOf } from './tarot-l10n.ts';
+import { TAROT_CARDS, seededInt } from './fortune-data.ts';
+import { luckyColors } from './fortune-intl.ts';
 
 export type TarotIntlLang = 'en' | 'es' | 'pt-br' | 'ja' | 'de' | 'fr' | 'hi' | 'zh-hans' | 'zh-hant';
 
@@ -214,3 +216,34 @@ export const TAROT_UI: Record<TarotIntlLang, {
     disclaimer: '塔羅是用來整理思路和圖個樂的。要緊的決定，請用真實的資訊和自己的判斷。',
   },
 };
+
+/* ── 오늘의 타로 ── */
+
+export function ymdOf(d: Date): string {
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+}
+
+export interface DailyTarot {
+  id: number;
+  reversed: boolean;
+  /** [색 이름, hex] — hex는 열 언어가 같고 이름만 갈린다 */
+  color: readonly [string, string];
+  number: number;
+}
+
+/**
+ * 그날의 카드 — 날짜 문자열만 받는 순수 함수다.
+ *
+ * 컴포넌트 안에 있으면 검사에서 어제·오늘을 넣어볼 수 없고, 렌더 중에 new Date()를
+ * 부르는 실수가 조용히 섞인다. 아홉 언어는 빌드에서 통째로 구워지므로 그러면
+ * **배포한 날의 카드**가 HTML에 박힌다. 날짜는 부르는 쪽(브라우저)이 정한다.
+ */
+export function dailyTarot(key: string, lang: TarotIntlLang): DailyTarot {
+  const colors = luckyColors(lang);
+  return {
+    id: seededInt(`daily-tarot-${key}`) % TAROT_CARDS.length,
+    reversed: seededInt(`daily-tarot-rev-${key}`) % 100 < 35,
+    color: colors[seededInt(`daily-tarot-color-${key}`) % colors.length],
+    number: (seededInt(`daily-tarot-num-${key}`) % 45) + 1,
+  };
+}

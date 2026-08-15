@@ -1,3 +1,4 @@
+import { UI } from '@/lib/meta/test-hub-ui';
 import ToolIcon from '@/components/ToolIcon';
 import { localesWithItem } from '@/lib/locale-alternates';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -26,123 +27,25 @@ import { withCard } from '@/lib/og-cards';
  * 한국어(app/test)는 아직 자기 화면을 쓴다 — 228종은 목록 구조부터 다르다.
  */
 
-const UI: Record<TestIntlLang, {
-  eyebrow: string; nav: string; h1: string; lead: string; foot: string; more: string;
-  metaTitle: string; metaDesc: string; home: string; crumb: string;
-  detailTitle: (t: string) => string; detailDesc: (d: string) => string;
-}> = {
-  'en': {
-    eyebrow: 'Test', nav: 'Tests', h1: 'Free Personality Tests',
-    lead: 'Ten questions each, about two minutes, results you can actually use.',
-    foot: 'Free personality tests', more: 'More tests', home: 'Home', crumb: 'Tests',
-    metaTitle: 'Free Personality Tests — Social Battery, Stress, Decisions & More',
-    metaDesc: 'Free personality tests: social battery, how you handle stress, your decision style, working style and how you show affection. Ten questions each, no sign-up.',
-    detailTitle: t => `${t} — Free Personality Test`,
-    detailDesc: d => `${d}. Ten questions, about two minutes. Free, no sign-up.`,
-  },
-  'es': {
-    eyebrow: 'Test', nav: 'Tests', h1: 'Tests de personalidad gratis',
-    lead: 'Diez preguntas cada uno, unos dos minutos, resultados que sirven de algo.',
-    foot: 'Tests de personalidad gratis', more: 'Más tests', home: 'Inicio', crumb: 'Tests',
-    metaTitle: 'Tests de personalidad gratis — batería social, estrés, decisiones y más',
-    metaDesc: 'Tests de personalidad gratis: batería social, cómo llevas el estrés, tu forma de decidir, tu forma de trabajar y cómo demuestras cariño. Diez preguntas cada uno, sin registro.',
-    detailTitle: t => `${t} — test de personalidad gratis`,
-    detailDesc: d => `${d}. Diez preguntas, unos dos minutos. Gratis, sin registro.`,
-  },
-  'pt-br': {
-    eyebrow: 'Teste', nav: 'Testes', h1: 'Testes de personalidade grátis',
-    lead: 'Dez perguntas cada um, cerca de dois minutos, resultados que dá para usar.',
-    foot: 'Testes de personalidade grátis', more: 'Mais testes', home: 'Início', crumb: 'Testes',
-    metaTitle: 'Testes de personalidade grátis — bateria social, estresse, decisões e mais',
-    metaDesc: 'Testes de personalidade grátis: bateria social, como você lida com o estresse, seu jeito de decidir, seu jeito de trabalhar e como demonstra carinho. Dez perguntas cada um, sem cadastro.',
-    detailTitle: t => `${t} — teste de personalidade grátis`,
-    detailDesc: d => `${d}. Dez perguntas, cerca de dois minutos. Grátis, sem cadastro.`,
-  },
-  'ja': {
-    eyebrow: '心理テスト', nav: '心理テスト', h1: '無料の心理テスト',
-    lead: '各10問、約2分。読んで役に立つ結果だけを書きました。',
-    foot: '無料の心理テスト', more: 'ほかの診断', home: 'ホーム', crumb: '心理テスト',
-    metaTitle: '無料の心理テスト — ソーシャルバッテリー・ストレス・決め方ほか',
-    metaDesc: '無料の心理テスト。ソーシャルバッテリー、ストレスとの付き合い方、決め方のクセ、仕事のスタイル、愛情の伝え方。各10問、登録不要。',
-    detailTitle: t => `${t} — 無料の心理テスト`,
-    detailDesc: d => `${d}。全10問、約2分。登録不要で無料です。`,
-  },
-  'de': {
-    eyebrow: 'Test', nav: 'Tests', h1: 'Kostenlose Persönlichkeitstests',
-    lead: 'Je zehn Fragen, etwa zwei Minuten, Ergebnisse, mit denen sich etwas anfangen lässt.',
-    foot: 'Kostenlose Persönlichkeitstests', more: 'Mehr Tests', home: 'Start', crumb: 'Tests',
-    metaTitle: 'Kostenlose Persönlichkeitstests — Social Battery, Stress, Entscheidungen und mehr',
-    metaDesc: 'Kostenlose Persönlichkeitstests: Social Battery, Umgang mit Stress, Entscheidungsstil, Arbeitsstil und wie du Zuneigung zeigst. Je zehn Fragen, ohne Anmeldung.',
-    detailTitle: t => `${t} — kostenloser Persönlichkeitstest`,
-    detailDesc: d => `${d}. Zehn Fragen, etwa zwei Minuten. Kostenlos, ohne Anmeldung.`,
-  },
-  'fr': {
-    eyebrow: 'Test', nav: 'Tests', h1: 'Tests de personnalité gratuits',
-    lead: 'Dix questions chacun, environ deux minutes, des résultats qui servent vraiment.',
-    foot: 'Tests de personnalité gratuits', more: 'Plus de tests', home: 'Accueil', crumb: 'Tests',
-    metaTitle: 'Tests de personnalité gratuits — batterie sociale, stress, décisions et plus',
-    metaDesc: 'Tests de personnalité gratuits : batterie sociale, gestion du stress, façon de décider, façon de travailler et façon de montrer son affection. Dix questions chacun, sans inscription.',
-    detailTitle: t => `${t} — test de personnalité gratuit`,
-    detailDesc: d => `${d}. Dix questions, environ deux minutes. Gratuit, sans inscription.`,
-  },
-  'hi': {
-    eyebrow: 'टेस्ट', nav: 'टेस्ट', h1: 'मुफ़्त पर्सनैलिटी टेस्ट',
-    lead: 'हर टेस्ट में दस सवाल, लगभग दो मिनट, और नतीजे जो सचमुच काम आएँ।',
-    foot: 'मुफ़्त पर्सनैलिटी टेस्ट', more: 'और टेस्ट', home: 'होम', crumb: 'टेस्ट',
-    metaTitle: 'मुफ़्त पर्सनैलिटी टेस्ट — सोशल बैटरी, तनाव, फ़ैसले और बहुत कुछ',
-    metaDesc: 'मुफ़्त पर्सनैलिटी टेस्ट: सोशल बैटरी, तनाव से निपटने का तरीक़ा, फ़ैसले लेने का अंदाज़, काम करने का तरीक़ा और प्यार जताने का ढंग। हर टेस्ट में दस सवाल, बिना रजिस्ट्रेशन।',
-    detailTitle: t => `${t} — मुफ़्त पर्सनैलिटी टेस्ट`,
-    detailDesc: d => `${d}। दस सवाल, लगभग दो मिनट। मुफ़्त, बिना रजिस्ट्रेशन।`,
-  },
-  'zh-hans': {
-    eyebrow: '心理测试', nav: '心理测试', h1: '免费心理测试',
-    lead: '每个十道题，约两分钟，结果是真能用上的那种。',
-    foot: '免费心理测试', more: '别的测试', home: '首页', crumb: '心理测试',
-    metaTitle: '免费心理测试 — 社交电量、压力、决策方式等',
-    metaDesc: '免费心理测试：社交电量、你怎么应对压力、你怎么做决定、你的工作方式，以及你怎么表达在乎。每个十道题，不用注册。',
-    detailTitle: t => `${t} — 免费心理测试`,
-    detailDesc: d => `${d}。十道题，约两分钟。免费，不用注册。`,
-  },
-  'zh-hant': {
-    eyebrow: '心理測驗', nav: '心理測驗', h1: '免費心理測驗',
-    lead: '每個十道題，約兩分鐘，結果是真能用上的那種。',
-    foot: '免費心理測驗', more: '別的測驗', home: '首頁', crumb: '心理測驗',
-    metaTitle: '免費心理測驗 — 社交電量、壓力、決策方式等',
-    metaDesc: '免費心理測驗：社交電量、你怎麼應對壓力、你怎麼做決定、你的工作方式，以及你怎麼表達在乎。每個十道題，不用註冊。',
-    detailTitle: t => `${t} — 免費心理測驗`,
-    detailDesc: d => `${d}。十道題，約兩分鐘。免費，不用註冊。`,
-  },
-};
+/* UI 표는 lib/meta/test-hub-ui.ts로 옮겼다 — 허브 메타와 같이 쓴다 */
 
-/** 아홉 언어가 같은 다섯 종을 가지므로 전환 목록은 언제나 아홉 개다. */
+
 /*
  * 허브는 열 언어, 상세는 아홉 언어다.
  *
- * 항목 목록을 언어마다 따로 썼기 때문에 한국어와 번역판은 겹치는 슬러그가
- * 하나도 없다 — 상세에서 한국어를 띄우면 전부 404다. 하지만 허브 자체는
- * 열 언어에 다 있으므로, 여기까지 아홉 개로 두면 한국어에서 건너간 사람이
- * 돌아올 길이 없어진다. 실제로 그 상태였다.
+ * 항목 목록을 언어마다 따로 썼기 때문에 한국어 264종과 번역 5종은 슬러그가
+ * 거의 겹치지 않는다 — 상세에서 한국어를 띄우면 대개 404다. 하지만 허브
+ * 자체는 열 언어에 다 있으므로, 여기까지 아홉 개로 두면 한국어에서 건너간
+ * 사람이 돌아올 길이 없어진다. 실제로 그 상태였다.
+ *
+ * "하나도 안 겹친다"고 적혀 있었지만 사실이 아니다 — social-battery,
+ * decision-style, love-language 셋은 한국어에도 같은 슬러그로 있다. 그 전제로
+ * 아홉 언어를 통째로 넘기다가 겹치는 것들이 서로 건너가지 못했던 적이 있다
+ * ([[lib/locale-alternates.ts]]). 지금은 hreflang을 실제 맵에서 뽑는다.
  */
 const HUB_LANGS = ALL_LOCALES10;
-const INTL_LANGS = Object.keys(TESTS_INTL) as TestIntlLang[];
 
-export function testIntlUi(lang: TestIntlLang) {
-  return UI[lang];
-}
-
-export function testIntlMeta(lang: TestIntlLang) {
-  const ui = UI[lang];
-  // 카드는 canonical에서 정해진다 — /og/<언어>/test를 그대로 쓴다
-  return withCard({
-    title: ui.metaTitle,
-    description: ui.metaDesc,
-    alternates: {
-      canonical: `/${lang}/test`,
-      // 한국어 허브까지 넣는다 — 상호 선언이 아니면 구글이 무시한다
-      languages: hubAlternates('test'),
-    },
-  });
-}
+export { testIntlMeta } from '@/lib/meta/test-hub';
 
 export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
   const ui = UI[lang];

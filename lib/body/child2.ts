@@ -16,7 +16,8 @@ export const CHILD2_TOOLS: FormulaTool[] = [
     fields: [
       { key: 'kg', term: 'weightKgB', unit: 'kg', def: 18, min: 1, max: 80 },
     ],
-    formula: '{childWater} = 100 × 10 + 50 × 10 + 20 × ({weightKgB} − 20)',
+    // 구간식이다 — "100×10 + 50×10 + 20×(체중−20)"으로 줄여 적으면 20kg 미만에서 답이 어긋난다
+    formula: '{childWater} = 100 × min(10, {weightKgB}) + 50 × min(10, max(0, {weightKgB} − 10)) + 20 × max(0, {weightKgB} − 20)',
     compute: v => {
       // 홀리데이-시가: 처음 10kg은 kg당 100ml, 다음 10kg은 50ml, 그 위는 20ml
       const kg = v.kg;

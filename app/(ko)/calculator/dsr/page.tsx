@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import { equalPayment } from '@/lib/loan-schedule';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -26,10 +27,11 @@ export default function DsrPage() {
 
     const loanDetails = loans.map(l => {
       const amount = Number(l.amount);
-      const r = Number(l.rate) / 100 / 12;
+      const annualRate = Number(l.rate);
       const n = Number(l.years) * 12;
-      if (amount <= 0 || r <= 0 || n <= 0) return { amount: 0, monthly: 0, annual: 0 };
-      const monthly = amount * r / (1 - Math.pow(1 + r, -n));
+      if (amount <= 0 || !(annualRate >= 0) || n <= 0) return { amount: 0, monthly: 0, annual: 0 };
+      // 원리금균등 식은 lib/loan-schedule.ts 한 곳에서 온다
+      const monthly = equalPayment(amount, annualRate, n);
       return { amount, monthly, annual: monthly * 12 };
     });
 

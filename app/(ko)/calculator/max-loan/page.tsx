@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
+import { principalFor } from '@/lib/loan-schedule';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -21,7 +22,6 @@ export default function MaxLoanPage() {
 
   function calculate() {
     const income = annualIncome;
-    const r = Number(rate) / 100 / 12;
     const n = Number(loanYears) * 12;
     const existingMonthly = existing;
     if (income <= 0 || Number(rate) <= 0) return;
@@ -30,7 +30,8 @@ export default function MaxLoanPage() {
     const allowableMonthly = monthlyIncome * Number(dti) / 100 - existingMonthly;
     if (allowableMonthly <= 0) return;
 
-    const maxLoan = allowableMonthly * (1 - Math.pow(1 + r, -n)) / r;
+    // 한도 역산은 lib/loan-schedule.ts의 principalFor 한 곳에서 온다
+    const maxLoan = principalFor(allowableMonthly, Number(rate), n);
     const totalPayment = allowableMonthly * n;
     const totalInterest = totalPayment - maxLoan;
 

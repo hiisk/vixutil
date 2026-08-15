@@ -18,19 +18,7 @@ import { withCard } from '@/lib/og-cards';
  * 나눈다(lib/calc-l10n/groups.ts). 갈래는 한국어 허브의 여덟과 다르다 —
  * 저쪽은 직장인·세금처럼 한국 제도에 붙은 갈래가 반이다.
  */
-export function calcIntlHubMeta(lang: CalcLang) {
-  const ui = CALC_SHELL[lang];
-  // 허브까지 통째로 카드가 없었다 — /og/<언어>/calculator를 canonical에서 찾아 붙인다
-  return withCard({
-    title: ui.hubMetaTitle,
-    description: ui.hubMetaDesc,
-    openGraph: openGraphFor(lang),
-    alternates: {
-      canonical: localeHref(lang, '/calculator'),
-      languages: alternateLanguages10('/calculator'),
-    },
-  });
-}
+export { calcIntlHubMeta } from '@/lib/meta/calc-hub';
 
 export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
   const ui = CALC_SHELL[lang];

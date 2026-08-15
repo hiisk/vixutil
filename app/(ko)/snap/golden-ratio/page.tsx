@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
@@ -76,16 +77,11 @@ function measureGoldenRatios(landmarks: Landmarks68): Record<string, number> {
 function ShareBtn() {
   const [state, setState] = useState<'idle' | 'copied'>('idle');
   const handleShare = useCallback(async () => {
-    const url = window.location.href;
-    const text = '사진 한 장으로 보는 얼굴 황금비율 테스트 — vixutil.com';
-    if (navigator.share) {
-      try { await navigator.share({ title: text, url }); return; } catch { /* 취소 */ }
-    }
-    try {
-      await navigator.clipboard.writeText(url);
+    // 문구와 주소가 한 덩이로 나간다 — 예전엔 title 칸이라 카톡이 통째로 버렸다
+    if (await shareOne('사진 한 장으로 보는 얼굴 황금비율 테스트 — vixutil.com')) {
       setState('copied');
       setTimeout(() => setState('idle'), 2000);
-    } catch { /* 권한 없음 */ }
+    }
   }, []);
   return (
     <button onClick={handleShare} className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 dark:bg-slate-900/20 border-white/30 dark:border-slate-700/30 text-white hover:bg-white/30">

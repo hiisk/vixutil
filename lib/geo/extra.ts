@@ -210,7 +210,8 @@ export const EXTRA_TOOLS: FormulaTool[] = [
       { key: 'd', term: 'smallDia', unit: 'cm', def: 4, min: 0 },
       { key: 't', term: 'thickness', unit: 'cm', def: 0.02, min: 0, step: 0.001 },
     ],
-    formula: '{wound} = π × ({diameter}² − {smallDia}²) ÷ (4 × {thickness})',
+    // 지름·두께는 cm, 길이는 m
+    formula: '{wound} = π × ({diameter}² − {smallDia}²) ÷ (4 × {thickness}) ÷ 100',
     compute: v => {
       const cm = ratio(PI * (v.D * v.D - v.d * v.d), 4 * v.t);
       return [

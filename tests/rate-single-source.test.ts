@@ -108,6 +108,30 @@ test('고시 요율이 원본 말고 다른 곳에 적혀 있지 않다', () => 
   );
 });
 
+/**
+ * 잘라 베낀 세율표는 위 검사가 못 본다.
+ *
+ * 위는 `1544`(4구간 누진공제액)처럼 **깊은 구간의 숫자**를 찾는다. 그런데
+ * app/(ko)/calculator/freelance/page.tsx는 세율표를 앞 세 줄만 베껴 두었다 —
+ * 6% · 15%−126 · 24%−576에서 끊고 그 위를 전부 24%로 밀었다. 깊은 구간 숫자가
+ * 아예 없으니 needle에 안 걸렸고, 과세표준 5억이면 세금이 6천만원 적게 나왔다.
+ *
+ * 그래서 **얕은 구간의 숫자**를 센다. 세율표를 베끼면 앞쪽 경계와 세율은 반드시
+ * 따라오므로, 세 개 이상 나오는 파일은 사본이다.
+ */
+test('소득세 세율표를 잘라 베낀 페이지가 없다', () => {
+  const MARKS = ['1400', '5000', '8800', '0.06', '0.15', '0.24'];
+  const files = sourceFiles(join(ROOT, 'app'));
+  assert.ok(files.length > 100, `app/에서 ${files.length}개만 훑었다 — 검사가 헛돈다`);
+
+  const bad = files
+    .map(f => ({ rel: `/${relative(ROOT, f)}`, code: codeOf(readFileSync(f, 'utf8')) }))
+    .filter(({ code }) => MARKS.filter(m => code.includes(m)).length >= 3 && !code.includes('INCOME_BRACKETS'))
+    .map(({ rel }) => rel);
+
+  assert.deepStrictEqual(bad, [], `세율표 사본으로 보인다 — lib/salary.ts의 INCOME_BRACKETS를 가져다 쓰라:\n  ${bad.join('\n  ')}`);
+});
+
 test('원본에는 그 값이 실제로 있다', () => {
   /*
    * 위 검사만 있으면 원본에서 값을 지워도 초록이다 — 찾을 사본이 없어지기

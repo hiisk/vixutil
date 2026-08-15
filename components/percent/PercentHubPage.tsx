@@ -58,7 +58,7 @@ export default function PercentHubPage({ lang }: { lang: Lang }) {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
               {PERCENTS.map(p => (
                 <Link prefetch={false} key={p} href={`${path}/${percentSlug(p, b)}`}
-                  className="chip chip-off text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-sky-300">
+                  className="chip-v">
                   {p}% → {num(percentFacts(p, b).value)}
                 </Link>
               ))}
@@ -71,7 +71,7 @@ export default function PercentHubPage({ lang }: { lang: Lang }) {
           <div className="flex flex-wrap gap-1.5">
             {BASES.map(b => (
               <Link prefetch={false} key={b} href={`${path}/${percentSlug(10, b)}`}
-                className="chip chip-off text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-sky-300">
+                className="chip-v">
                 {num(b)}
               </Link>
             ))}

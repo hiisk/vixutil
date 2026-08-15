@@ -20,7 +20,7 @@ export const PRICE2_TOOLS: FormulaTool[] = [
       { key: 'b', term: 'percentB', unit: 'percent', def: 20, min: 0, max: 100 },
       { key: 'c', term: 'percent', unit: 'percent', def: 10, min: 0, max: 100 },
     ],
-    formula: '{finalPrice} = {listPrice} × (1 − {percentA}) × (1 − {percentB}) × (1 − {percent})',
+    formula: '{finalPrice} = {listPrice} × (1 − {percentA} ÷ 100) × (1 − {percentB} ÷ 100) × (1 − {percent} ÷ 100)',
     compute: v => {
       const final = v.price * (1 - v.a / 100) * (1 - v.b / 100) * (1 - v.c / 100);
       return [

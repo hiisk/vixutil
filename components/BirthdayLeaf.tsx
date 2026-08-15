@@ -102,7 +102,7 @@ export default function BirthdayLeaf({ month, day, lang }: { month: number; day:
           <div className="flex flex-wrap gap-1.5">
             {sameZodiacDays(month, day).map(d => (
               <Link prefetch={false} key={daySlug(d.month, d.day)} href={`${prefix}/fortune/birthday/${daySlug(d.month, d.day)}`}
-                className="chip chip-off hover:border-violet-300 text-sm font-bold text-slate-700 dark:text-slate-200">
+                className="chip-v">
                 {t.dateLabel(d.month, d.day)}
               </Link>
             ))}
@@ -114,7 +114,7 @@ export default function BirthdayLeaf({ month, day, lang }: { month: number; day:
           <div className="flex flex-wrap gap-1.5">
             {neighborDays(month, day).map(d => (
               <Link prefetch={false} key={daySlug(d.month, d.day)} href={`${prefix}/fortune/birthday/${daySlug(d.month, d.day)}`}
-                className="chip chip-off hover:border-violet-300 text-sm font-bold text-slate-700 dark:text-slate-200">
+                className="chip-v">
                 {t.dateLabel(d.month, d.day)}
               </Link>
             ))}

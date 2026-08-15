@@ -200,7 +200,7 @@ export const PRACTICAL2_TOOLS: FormulaTool[] = [
       { key: 'bw', term: 'brickW', unit: 'cm', def: 19, min: 1 },
       { key: 'bh', term: 'brickH', unit: 'cm', def: 5.7, min: 1 },
     ],
-    formula: '{brickCount} = {lengthCm} × {widthCm} × 10000 ÷ (({brickW} + 1) × ({brickH} + 1))',
+    formula: '{brickCount} = {lengthCm} × {widthCm} × 10000 ÷ (({brickW} + 1) × ({brickH} + 1)) × 1.05',
     compute: v => {
       // 줄눈 10mm를 벽돌 치수에 더한다
       const per = (v.bw + 1) * (v.bh + 1);

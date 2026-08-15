@@ -28,28 +28,21 @@ export const MIN_HOURLY_WAGE = 10_320;
 /** 이 시급이 적용되는 연도 — 화면과 검사가 함께 쓴다 */
 export const MIN_WAGE_YEAR = 2026;
 
-/** 한 해의 주 수 — 365 ÷ 7 ÷ 12 로 한 달의 주 수를 낸다 */
-export const WEEKS_PER_MONTH = 365 / 7 / 12;
+/*
+ * 주휴시간은 lib/statutory-hours.ts 한 곳에서 온다.
+ *
+ * 여기에 따로 적어 두었을 때 두 파일이 갈라져 있었다 — 이 파일은 주휴시간을
+ * 주당 근로시간의 5분의 1로 잡아 상한이 없었고, statutory-hours는 40시간에서
+ * 끊어 8시간을 상한으로 두었다. 주 40시간까지는 값이 같아 아무도 몰랐는데,
+ * 최저임금 페이지에 "52시간 (연장 포함 최대)" 선택지가 있다. 52시간을 고르면
+ * 주휴가 10.4시간이 되어 나왔다 — 소정근로시간은 주 40시간을 넘을 수 없고
+ * 그 위는 연장근로라 주휴 산정에 들어가지 않으므로 8시간이 맞다.
+ */
+export { WEEKS_PER_MONTH, weeklyHolidayHours, monthlyHours } from './statutory-hours.ts';
+import { monthlyHours } from './statutory-hours.ts';
 
 /** 주휴수당이 붙는 최소 주당 근로시간 */
 export const WEEKLY_HOLIDAY_MIN_HOURS = 15;
-
-/**
- * 주당 근로시간에 붙는 주휴시간.
- *
- * 주 15시간 미만이면 주휴수당이 없다. 그 이상이면 주당 근로시간의 5분의 1인데,
- * 이것은 주 40시간에 8시간이 붙는 것을 일반화한 값이다.
- */
-export function weeklyHolidayHours(weeklyHours: number): number {
-  const w = Math.max(0, weeklyHours);
-  return w >= WEEKLY_HOLIDAY_MIN_HOURS ? w / 5 : 0;
-}
-
-/** 주당 근로시간 → 월 소정근로시간(주휴 포함) */
-export function monthlyHours(weeklyHours: number): number {
-  const w = Math.max(0, weeklyHours);
-  return (w + weeklyHolidayHours(w)) * WEEKS_PER_MONTH;
-}
 
 /** 시급과 주당 근로시간 → 월급 */
 export function monthlyPay(hourlyWage: number, weeklyHours = 40): number {

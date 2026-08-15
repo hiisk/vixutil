@@ -73,7 +73,8 @@ test('허브 카테고리 탭에 빈 칸이 없다', () => {
 /** 퀴즈 문항의 보기 수와 정답 인덱스를 소스에서 뽑는다. */
 function quizQuestions(): { slug: string; optCount: number; correct: number }[] {
   const out: { slug: string; optCount: number; correct: number }[] = [];
-  for (const f of readdirSync(LIB).filter(f => /^quiz-data-\w\.ts$/.test(f))) {
+  // 한 글자만 받으면 test-data처럼 aa~ah로 넘어가는 순간 새 조각이 조용히 빠진다
+  for (const f of readdirSync(LIB).filter(f => /^quiz-data-[a-z]+\.ts$/.test(f))) {
     const src = readFileSync(join(LIB, f), 'utf8');
     for (const b of src.matchAll(/slug: '([^']+)'[\s\S]*?questions: \[([\s\S]*?)\n {4}\],/g)) {
       for (const q of b[2].matchAll(/opts: \[([^\]]*)\], correct: (\d+)/g)) {

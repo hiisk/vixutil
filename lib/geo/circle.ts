@@ -106,7 +106,8 @@ export const CIRCLE_TOOLS: FormulaTool[] = [
       { key: 'd', term: 'diameter', unit: 'cm', def: 66, min: 0.1 },
       { key: 'turns', term: 'turns', def: 1000, min: 0 },
     ],
-    formula: '{distance} = π × {diameter} × {turns}',
+    // 지름은 cm, 거리는 m — 대입식에 ÷100이 빠지면 화면의 식과 답이 100배 어긋난다
+    formula: '{distance} = π × {diameter} × {turns} ÷ 100',
     compute: v => {
       const cm = PI * v.d * v.turns;
       return [

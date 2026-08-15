@@ -87,9 +87,10 @@ export default function TimePairPage({ a, b, lang }: { a: TimeCity; b: TimeCity;
             {dstWho ? ` ${dstWho}` : ''}
           </p>
           <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            {/* hover 색은 .row-pair:hover가 --c-sec으로 이미 그린다 — 두 번 적혀 있었다 */}
             {[a, b].map(c => (
               <Link prefetch={false} key={c.slug} href={`${prefix}/time/${c.slug}`}
-                className="row-pair hover:bg-sky-50/60 dark:hover:bg-sky-900/10 transition-colors">
+                className="row-pair">
                 <span className="row-label">
                   {timeCountry(c.country)?.flag} {c.name[lang]}
                 </span>
@@ -113,8 +114,10 @@ export default function TimePairPage({ a, b, lang }: { a: TimeCity; b: TimeCity;
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <table className="w-full text-sm">
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {/* 겹치는 업무시간 — 스물네 줄 가운데 「회의를 잡을 수 있는 줄」이다.
+                    bg-sky-50은 줄 사이 구분선보다도 옅어서 표에 파묻혀 있었다 */}
                 {f.clock.map(c => (
-                  <tr key={c.aHour} className={f.overlap.includes(c.aHour) ? 'bg-sky-50 dark:bg-sky-900/20' : ''}>
+                  <tr key={c.aHour} className={f.overlap.includes(c.aHour) ? 'row-now' : ''}>
                     <th scope="row" className="text-left px-4 py-2 font-bold text-slate-500 dark:text-slate-400 w-1/2 tabular-nums">
                       {hh(c.aHour)}
                     </th>
@@ -145,7 +148,7 @@ export default function TimePairPage({ a, b, lang }: { a: TimeCity; b: TimeCity;
           <div className="flex flex-wrap gap-1.5">
             {neighborPairs(a, b).map(p => (
               <Link prefetch={false} key={pairSlug(p.a, p.b)} href={`${prefix}/time/${pairSlug(p.a, p.b)}`}
-                className="chip chip-off hover:border-sky-300 text-sm font-bold text-slate-700 dark:text-slate-200">
+                className="chip-v">
                 {p.a.name[lang]} · {p.b.name[lang]}
               </Link>
             ))}

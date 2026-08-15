@@ -58,8 +58,9 @@ export default function PercentPage({ slug, lang }: { slug: string; lang: Lang }
           {ui.metaTitle(f)}
         </h1>
 
+        {/* 답 숫자를 눌러 복사한다 — 세 글자(` cv`)만 늘고 나머지는 globals.css가 한다 */}
         <div className="mt-4 rounded-2xl bg-gradient-to-br from-sky-600 to-blue-700 p-6 text-white">
-          <p className="text-4xl font-black leading-none tabular-nums">{num(f.value)}</p>
+          <p className="cv text-4xl font-black leading-none tabular-nums">{num(f.value)}</p>
           <p className="mt-2 text-sm text-sky-100">{ui.headline(f)}</p>
         </div>
 
@@ -108,7 +109,7 @@ export default function PercentPage({ slug, lang }: { slug: string; lang: Lang }
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
             {f.byPercent.map(r => (
               <Link prefetch={false} key={r.percent} href={`${hub}/${percentSlug(r.percent, f.base)}`}
-                className={`chip chip-off text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-sky-300 ${r.percent === f.percent ? 'ring-1 ring-sky-400' : ''}`}>
+                className={`chip-v${r.percent === f.percent ? ' chip-now' : ''}`}>
                 {r.percent}% → {num(r.value)}
               </Link>
             ))}
@@ -120,7 +121,7 @@ export default function PercentPage({ slug, lang }: { slug: string; lang: Lang }
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
             {f.byBase.map(r => (
               <Link prefetch={false} key={r.base} href={`${hub}/${percentSlug(f.percent, r.base)}`}
-                className={`chip chip-off text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-sky-300 ${r.base === f.base ? 'ring-1 ring-sky-400' : ''}`}>
+                className={`chip-v${r.base === f.base ? ' chip-now' : ''}`}>
                 {num(r.base)} → {num(r.value)}
               </Link>
             ))}
@@ -141,11 +142,16 @@ export default function PercentPage({ slug, lang }: { slug: string; lang: Lang }
           <div className="flex flex-wrap gap-1.5">
             {neighborCells(f.percent, f.base).map(c => (
               <Link prefetch={false} key={percentSlug(c.percent, c.base)} href={`${hub}/${percentSlug(c.percent, c.base)}`}
-                className="chip chip-off text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums hover:border-sky-300">
+                className="chip-v">
                 {c.percent}% / {num(c.base)}
               </Link>
             ))}
           </div>
+          {/* 여기가 낱장의 끝이었다 — 답을 얻고 칩 여든 개를 지나오면 푸터였다.
+              자기 숫자를 넣어 보는 길을 한 줄 놓는다. 옆으로가 아니라 앞으로 가는 길이다. */}
+          <Link prefetch={false} href={hub} className="next-step">
+            {ui.openHub} →
+          </Link>
         </section>
 
         <nav className="foot-nav" aria-label="Language">

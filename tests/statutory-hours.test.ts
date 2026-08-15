@@ -7,6 +7,8 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   LEGAL_WEEKLY, NIGHT_RATE, OVERTIME_RATE, WEEKS_PER_MONTH,
   commonWage, monthlyHours, monthlyHoursRounded, weeklyHolidayHours,
@@ -66,4 +68,66 @@ test('일하는 시간이 늘면 시급은 준다', () => {
   }
   // 0시간이면 0으로 나누지 않는다
   assert.equal(commonWage(2_000_000, 0).hourly, 0);
+});
+
+/**
+ * 화면의 "주 44시간 (월 226h)" 라벨이 실제 계산과 맞는가.
+ *
+ * 주휴시간 식이 계산기 페이지 네 곳에 손으로 적혀 있었고, 그중 둘은 상한 없는
+ * 5분의 1(주 44시간 → 주휴 8.8시간)을 써서 월 229시간을 냈다. 그런데 바로 위
+ * 선택지 라벨에는 "월 226h"라고 적혀 있었다 — 같은 화면 안에서 라벨과 결과가
+ * 어긋나 있었는데, 라벨은 글이고 결과는 계산이라 아무 검사도 둘을 맞춰 보지
+ * 않았다.
+ *
+ * 페이지는 Math.round로 보여주므로 여기서도 같은 자리에서 반올림해 맞춘다.
+ */
+test('선택지 라벨의 월 소정근로시간이 실제 계산과 맞는다', () => {
+  const files = [
+    'app/(ko)/calculator/to-hourly/page.tsx',
+    'app/(ko)/calculator/standard-wage/page.tsx',
+  ];
+  const bad: string[] = [];
+  let checked = 0;
+  for (const f of files) {
+    const src = readFileSync(join(import.meta.dirname, '..', f), 'utf8');
+    for (const m of src.matchAll(/<option value="(\d+)">[^<]*?월\s*(\d+)h/g)) {
+      checked++;
+      const want = Math.round(monthlyHours(Number(m[1])));
+      if (want !== Number(m[2])) bad.push(`${f}: 주 ${m[1]}시간 라벨은 ${m[2]}h인데 실제는 ${want}h`);
+    }
+  }
+  assert.deepEqual(bad, [], bad.join('\n  '));
+  assert.ok(checked >= 6, `라벨을 ${checked}개만 봤다 — 정규식이 안 맞는다`);
+});
+
+/**
+ * 주휴시간·월 환산을 페이지가 제 손으로 다시 적지 않는가.
+ *
+ * 값이 같을 때는 아무 일도 없다. 법이 바뀌거나 한쪽만 고쳐질 때 조용히 갈라지고,
+ * 클라이언트 컴포넌트라 node가 못 불러오므로 계산 검사가 닿지 않는 자리다.
+ */
+test('계산기 페이지가 주휴시간 식을 다시 적지 않는다', () => {
+  const dir = join(import.meta.dirname, '..', 'app/(ko)/calculator');
+  const walk = (d: string, out: string[] = []): string[] => {
+    for (const n of readdirSync(d)) {
+      const p = join(d, n);
+      if (statSync(p).isDirectory()) walk(p, out);
+      else if (n.endsWith('.tsx')) out.push(p);
+    }
+    return out;
+  };
+  const files = walk(dir);
+  assert.ok(files.length > 100, `${files.length}개만 훑었다 — 검사가 헛돈다`);
+
+  const bad: string[] = [];
+  for (const f of files) {
+    const code = readFileSync(f, 'utf8').split('\n')
+      .filter(l => !/^\s*(\*|\/\*|\/\/)/.test(l)).join('\n');
+    // import만 있고 안 쓰는 경우가 있으므로 "가져다 쓴다"를 면죄부로 삼지 않는다.
+    // 주휴시간을 손으로 낸 꼴 — 주당 시간의 5분의 1, 또는 40으로 나눠 8을 곱한 것
+    if (/\/\s*5\b[\s\S]{0,40}365\s*\/|weeklyHours\s*\/\s*5|w\s*\/\s*5\b/.test(code)
+      || /\/\s*40\s*\)?\s*\*\s*8/.test(code))
+      bad.push(`/${f.slice(f.indexOf('app/'))}`);
+  }
+  assert.deepEqual(bad, [], `주휴시간을 직접 계산한다 — lib/statutory-hours.ts를 쓰라:\n  ${bad.join('\n  ')}`);
 });

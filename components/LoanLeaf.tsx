@@ -87,7 +87,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
             {neighborLoans(principal, rate, term).map(c => (
               <Link prefetch={false} key={loanSlug(c.principal, c.rate, c.term)}
                 href={`/calculator/loan-method/${loanSlug(c.principal, c.rate, c.term)}`}
-                className="chip chip-off hover:border-emerald-300 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+                className="chip-v">
                 {moneyLabel(c.principal)} · {c.rate}% · {c.term}년
               </Link>
             ))}

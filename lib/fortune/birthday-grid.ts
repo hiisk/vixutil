@@ -99,10 +99,28 @@ export interface BirthdayFacts {
   ages: { year: number; age: number; animal: (typeof ANIMALS)[number] }[];
 }
 
-/** 띠 — 열두 해가 돌아간다. 자료의 years 목록을 기준점으로 삼는다 */
-export function animalOf(year: number): (typeof ANIMALS)[number] {
+/**
+ * 띠 — 열두 해가 돌아간다. 자료의 years 목록을 기준점으로 삼는다.
+ *
+ * ── 해가 바뀌는 곳은 1월 1일이 아니다 ───────────────────────
+ * 띠의 해는 입춘(立春)에 바뀐다. 사주 쪽도 같은 기준이다. 양력 1월 1일로 세면
+ * 1월생과 2월 초생이 통째로 한 해 밀린다 — 1984년 1월 15일생은 쥐띠가 아니라
+ * 돼지띠다. 생일 낱장의 나이표는 그렇게 100줄이 다 틀려 있었다(1월 낱장 31장 ×
+ * 열 언어).
+ *
+ * 입춘은 2월 3일에서 5일 사이에만 든다. 그래서 (월, 일)만 알아도 그 사흘 말고는
+ * 답이 해와 무관하게 정해진다.
+ *
+ * ponytail: 2월 3·4·5일은 해마다 갈리는데 여기서는 4일을 경계로 둔다. 1900~2100년
+ * 사이 입춘은 대부분 4일이라 대개 맞지만 2021·2025처럼 3일인 해에는 하루 어긋난다.
+ * 낱장마다 정확히 하려면 lib/saju-data.ts의 jeolgiUtc(year, 2)를 쓰면 되지만,
+ * 이 컴포넌트는 클라이언트라 그 천문 계산을 통째로 번들에 싣게 된다.
+ */
+export function animalOf(year: number, month: number, day: number): (typeof ANIMALS)[number] {
   const base = ANIMALS[0].years[0];   // 쥐띠 해
-  const i = (((year - base) % 12) + 12) % 12;
+  const beforeLichun = month === 1 || (month === 2 && day < 4);
+  const y = beforeLichun ? year - 1 : year;
+  const i = (((y - base) % 12) + 12) % 12;
   return ANIMALS[i];
 }
 
@@ -111,7 +129,7 @@ export function birthdayFacts(month: number, day: number): BirthdayFacts {
   const leapN = dayOfYear(month, day, true)!;
   const ages = Array.from({ length: AGE_SPAN }, (_, i) => AGE_REF_YEAR - i)
     .filter(y => !isLeapDay || (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)))
-    .map(year => ({ year, age: AGE_REF_YEAR - year, animal: animalOf(year) }));
+    .map(year => ({ year, age: AGE_REF_YEAR - year, animal: animalOf(year, month, day) }));
 
   return {
     month, day,

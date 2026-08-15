@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
@@ -97,16 +98,11 @@ function ShareBtn() {
   const [state, setState] = useState<'idle' | 'copied'>('idle');
 
   const handleShare = useCallback(async () => {
-    const url = window.location.href;
-    const text = '사진 한 장으로 보는 내 감성 타입 분석 — vixutil.com';
-    if (navigator.share) {
-      try { await navigator.share({ title: text, url }); return; } catch { /* 사용자가 취소한 경우 */ }
-    }
-    try {
-      await navigator.clipboard.writeText(url);
+    // 문구와 주소가 한 덩이로 나간다 — 예전엔 title 칸이라 카톡이 통째로 버렸다
+    if (await shareOne('사진 한 장으로 보는 내 감성 타입 분석 — vixutil.com')) {
       setState('copied');
       setTimeout(() => setState('idle'), 2000);
-    } catch { /* 클립보드 권한 없음 */ }
+    }
   }, []);
 
   return (

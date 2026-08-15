@@ -4,6 +4,7 @@ import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/com
 
 /* 최저시급은 lib/minimum-wage.ts 하나에서 온다 — 해마다 바뀌므로 사본을 두지 않는다 */
 import { MIN_HOURLY_WAGE as MIN_WAGE_2026 } from '@/lib/minimum-wage';
+import { monthlyHours as statutoryMonthlyHours } from '@/lib/statutory-hours';
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function ToHourlyPage() {
@@ -18,8 +19,9 @@ export default function ToHourlyPage() {
     const w = Number(weeklyHours);
     if (m <= 0 || w <= 0) return;
 
-    const holidayHours = w >= 15 ? w / 5 : 0;
-    const monthlyHours = (w + holidayHours) * (365 / 7 / 12);
+    // 주휴시간은 lib/statutory-hours.ts에서 온다 — 여기 적어 두었을 때 주 44시간이 229h로 나와
+    // 선택지 라벨(월 226h)과 어긋났다
+    const monthlyHours = statutoryMonthlyHours(w);
     const hourly = m / monthlyHours;
     setResult({
       hourly,

@@ -121,6 +121,14 @@ function pools(lang: Lang): Pools {
   };
 }
 
+/**
+ * 언어별 행운의 색 — [이름, hex]. hex는 열 언어가 같고 이름만 갈린다.
+ * 이걸 안 거치고 LUCKY_COLORS_EN을 직접 읽으면 아홉 언어에 영어 색 이름이 나간다.
+ */
+export function luckyColors(lang: Lang): readonly [string, string][] {
+  return pools(lang).colors;
+}
+
 /** 오늘의 운세 조회 — 언어별 풀에서 뽑되 시드는 언어와 무관하다 */
 export function getTodayFortuneIntl(subjectId: string, lang: Lang) {
   const p = pools(lang);

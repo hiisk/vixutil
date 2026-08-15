@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CalcShell, {
   Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard,
 } from '@/components/CalcShell';
+import { weeklyHolidayHours } from '@/lib/statutory-hours';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -30,10 +31,8 @@ export default function WeeklyHolidayPage() {
     const weeklyHours = hours * days;
     const eligible = weeklyHours >= 15;
 
-    // 주휴수당: 주40h 이상이면 8×시급, 미만이면 (주당소정근로시간/40)×8×시급
-    const weeklyHolidayPay = eligible
-      ? (weeklyHours >= 40 ? 8 * wage : (weeklyHours / 40) * 8 * wage)
-      : 0;
+    // 주휴시간은 lib/statutory-hours.ts 한 곳에서 온다 (15시간 미만 0, 40시간에서 8시간 상한)
+    const weeklyHolidayPay = weeklyHolidayHours(weeklyHours) * wage;
 
     const weeklyPay = wage * weeklyHours + weeklyHolidayPay;
     // 월급 = 주급 × (365/12/7)

@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import type { AnyLocale10 } from '@/lib/locales';
+import { langOfLocale } from '@/lib/i18n/lang';
+import { SHARE_UI } from '@/lib/share/ui';
 
 type Theme = 'light' | 'dark';
 
@@ -43,6 +45,69 @@ export default function ThemeToggle({ lang = 'ko' }: { lang?: AnyLocale10 }) {
     setTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     setMounted(true);
   }, []);
+
+  /*
+   * ── 값 복사가 왜 이 파일에 있나 ────────────────────────────
+   * `.cv`가 붙은 값(색 코드·답 숫자)을 누르면 클립보드로 간다. 까닭과 바이트
+   * 계산은 app/globals.css의 「값 복사」 주석에 적었다.
+   *
+   * 리스너를 담을 컴포넌트를 새로 만들면 그리는 것이 없어도 **클라이언트 참조가
+   * 낱장 28만 장의 RSC 짐에 실린다**. ThemeToggle은 SiteFooter를 타고 이미 모든
+   * 장에 떠 있는 유일한 클라이언트 컴포넌트다 — 여기 얹으면 늘어나는 바이트가 0이다.
+   * 테마와는 상관없는 코드라서 남의 집이지만, 그 값이 이 어색함보다 크다.
+   */
+  useEffect(() => {
+    const hit = (t: EventTarget | null) =>
+      t instanceof Element ? t.closest<HTMLElement>('.cv') : null;
+
+    /* 읽어 줄 자리 — 화면에는 ✓만 뜨고 소리로는 아무것도 안 났다.
+       문구는 SHARE_UI.calcCopied("복사됨")를 그대로 쓴다 — 열 언어가 이미 있다. */
+    const live = document.createElement('div');
+    live.setAttribute('aria-live', 'polite');
+    live.className = 'sr-only';
+    live.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)';
+    document.body.appendChild(live);
+
+    const copy = (el: HTMLElement) => {
+      /* data-cv가 있으면 그것을, 없으면 보이는 글자를 그대로 복사한다 */
+      const text = (el.dataset.cv ?? el.textContent ?? '').trim();
+      if (!text) return;
+      navigator.clipboard?.writeText(text).then(() => {
+        live.textContent = '';
+        live.textContent = SHARE_UI[langOfLocale(lang)].calcCopied;
+      }, () => {});
+      el.classList.add('cv-ok');
+      window.setTimeout(() => el.classList.remove('cv-ok'), 1400);
+    };
+
+    const onClick = (e: MouseEvent) => {
+      const el = hit(e.target);
+      if (el) copy(el);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const el = hit(e.target);
+      if (!el) return;
+      e.preventDefault();
+      copy(el);
+    };
+
+    /* 키보드로 닿게 한다. 마크업에 tabindex·role을 적으면 낱장마다 바이트가 늘어서
+       붙은 뒤에 단다. `.cv`는 한 장에 많아야 열 몇 개라 탭 순서가 길어지지 않는다 —
+       표의 값 칸(.val, 한 장에 예순 개 넘음)에 안 붙인 까닭이 이것이다. */
+    for (const el of document.querySelectorAll<HTMLElement>('.cv')) {
+      el.tabIndex = 0;
+      el.setAttribute('role', 'button');
+    }
+
+    document.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onKey);
+      live.remove();
+    };
+  }, [lang]);
 
   function toggle() {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';

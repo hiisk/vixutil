@@ -2,13 +2,15 @@
 import ToolIcon from '@/components/ToolIcon';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
-import { useState, useMemo } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import ReferralCards from '@/components/ReferralCards';
-import { TAROT_CARDS, seededInt, LUCKY_COLORS } from '@/lib/fortune-data';
-import { LUCKY_COLORS_EN } from '@/lib/fortune-en';
-import { TAROT_READINGS, TAROT_NAMES, TAROT_UI, type TarotIntlLang } from '@/lib/tarot-intl';
+import { TAROT_CARDS } from '@/lib/fortune-data';
+import {
+  TAROT_READINGS, TAROT_NAMES, TAROT_UI, dailyTarot, ymdOf,
+  type TarotIntlLang, type DailyTarot,
+} from '@/lib/tarot-intl';
 import { t, formatToday } from '@/lib/fortune-intl';
 
 /**
@@ -87,8 +89,16 @@ const VERDICT_LABEL: Record<TarotIntlLang, Record<Verdict, string>> = Object.fro
   ]),
 ) as Record<TarotIntlLang, Record<Verdict, string>>;
 
-function ymd(d: Date) {
-  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+/* useSyncExternalStore는 스냅샷이 같은 참조여야 한다 — 매번 새 객체를 주면 무한 루프다 */
+const emptySubscribe = () => () => {};
+const nullSnapshot = () => null;
+let cached: { lang: TarotIntlLang; value: DailyTarot & { dateLabel: string } } | null = null;
+function clientDaily(lang: TarotIntlLang) {
+  if (!cached || cached.lang !== lang) {
+    const now = new Date();
+    cached = { lang, value: { ...dailyTarot(ymdOf(now), lang), dateLabel: formatToday(lang, now) } };
+  }
+  return cached.value;
 }
 
 function cardName(id: number, lang: TarotIntlLang) {
@@ -99,21 +109,18 @@ function cardName(id: number, lang: TarotIntlLang) {
 export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlLang }) {
   const ui = TAROT_UI[lang];
 
-  // 오늘의 타로 — 날짜 시드라 하루 종일 같은 카드가 나온다
-  const daily = useMemo(() => {
-    if (mode !== 'daily') return null;
-    const key = ymd(new Date());
-    const idx = seededInt(`daily-tarot-${key}`) % TAROT_CARDS.length;
-    return {
-      id: idx,
-      reversed: seededInt(`daily-tarot-rev-${key}`) % 100 < 35,
-      // 색 이름도 언어를 따라야 한다 — hex는 같고 이름만 갈린다
-      color: (LUCKY_COLORS_EN)[
-        seededInt(`daily-tarot-color-${key}`) % LUCKY_COLORS.length
-      ],
-      number: (seededInt(`daily-tarot-num-${key}`) % 45) + 1,
-    };
-  }, [mode, lang]);
+  // 오늘의 타로 — 날짜 시드라 하루 종일 같은 카드가 나온다.
+  //
+  // 이 아홉 언어는 dynamicParams=false로 빌드에서 통째로 구워진다. 렌더 중에
+  // new Date()를 부르면 **배포한 날의 카드**가 HTML에 박혀서 다음 배포까지
+  // 그대로 나가고, 붙는 순간 오늘 카드로 갈아치워지며 하이드레이션이 깨진다.
+  // 한국어 /fortune/daily-tarot이 이미 같은 이유로 useSyncExternalStore를 쓴다 —
+  // 서버는 null(스켈레톤), 브라우저는 오늘 값.
+  const daily = useSyncExternalStore(
+    emptySubscribe,
+    mode === 'daily' ? () => clientDaily(lang) : nullSnapshot,
+    nullSnapshot,
+  );
 
   const [drawn, setDrawn] = useState<{ id: number; reversed: boolean } | null>(null);
 
@@ -163,8 +170,8 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
           <ToolIcon emoji="🃏" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{title}</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">{lead}</p>
-          {mode === 'daily' && (
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{formatToday(lang)}</p>
+          {daily && (
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{daily.dateLabel}</p>
           )}
         </div>
 
@@ -176,6 +183,11 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
               {ui.draw}
             </button>
           </div>
+        )}
+
+        {/* 서버는 오늘이 언제인지 모른다 — 붙기 전까지는 자리만 잡아 둔다 */}
+        {mode === 'daily' && !daily && (
+          <div className="animate-pulse rounded-2xl bg-slate-100 dark:bg-slate-800 h-80" />
         )}
 
         {card && shown && reading && (

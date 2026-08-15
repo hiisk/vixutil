@@ -8,13 +8,16 @@ import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
+import { equalPayment, monthlyRate } from '@/lib/loan-schedule';
 
 interface MonthRow {
   month: number; payment: number; principal: number; interest: number; balance: number;
 }
 
-function calcEP(p: number, r: number, n: number): MonthRow[] {
-  const pmt = r === 0 ? p / n : p * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
+// 월 상환액은 lib/loan-schedule.ts에서 온다 — 같은 식이 네 페이지에 흩어져 있었다
+function calcEP(p: number, annualRate: number, n: number): MonthRow[] {
+  const r = monthlyRate(annualRate);
+  const pmt = equalPayment(p, annualRate, n);
   let bal = p;
   return Array.from({length:n},(_,i)=>{
     const int = bal * r; const pri = pmt - int; bal = Math.max(0,bal-pri);
@@ -22,7 +25,8 @@ function calcEP(p: number, r: number, n: number): MonthRow[] {
   });
 }
 
-function calcEPrin(p: number, r: number, n: number): MonthRow[] {
+function calcEPrin(p: number, annualRate: number, n: number): MonthRow[] {
+  const r = monthlyRate(annualRate);
   const perMon = p / n; let bal = p;
   return Array.from({length:n},(_,i)=>{
     const int = bal * r; bal = Math.max(0,bal-perMon);
@@ -41,10 +45,11 @@ export default function LoanPage() {
   const [showAll, setShowAll] = useState(false);
 
   function calculate() {
-    const p = amount, r = Number(rate)/100/12, m = Number(months);
-    if(!p||!r||!m||m>600) return;
+    // 이율 0(무이자)도 계산한다 — !r로 막으면 0%에서 버튼이 죽는다
+    const p = amount, annualRate = Number(rate), m = Number(months);
+    if(!p||!Number.isFinite(annualRate)||annualRate<0||!m||m>600) return;
     setShowAll(false);
-    setRows(mode==='ep' ? calcEP(p,r,m) : calcEPrin(p,r,m));
+    setRows(mode==='ep' ? calcEP(p,annualRate,m) : calcEPrin(p,annualRate,m));
   }
 
   const totalRepay = rows ? rows.reduce((s,r)=>s+r.payment,0) : 0;

@@ -17,6 +17,7 @@ import { CONVERT_TOOLS } from './convert-tools.ts';
 import { RATE_TOOLS } from './rate-tools.ts';
 import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
+import { CRAFT_TOOLS } from './craft-tools.ts';
 import { COUNTRIES } from './country-tools.ts';
 import { IDIOMS } from './hanja-tools.ts';
 import { METRO_LINES } from './metro-lines.ts';
@@ -113,7 +114,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'laundry' | 'air' | 'password' | 'percent' | 'flight' | 'dpi';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'laundry' | 'air' | 'password' | 'percent' | 'flight' | 'dpi';
 
 export interface SearchItem {
   href: string;
@@ -144,6 +145,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   rate:       { label: '비율 계산', icon: '📐', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   body:       { label: '몸 수치', icon: '🩺', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   geometry:   { label: '도형·수학', icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+  craft:      { label: '공예', icon: '🧶', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   country:    { label: '나라 정보', icon: '🧭', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   hanja:      { label: '사자성어', icon: '📖', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
@@ -186,6 +188,15 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
 const FORTUNE_ITEMS: SearchItem[] = [
   { href: '/fortune/dream',  title: '꿈 해몽',      desc: '돼지·뱀·불 등 꿈에 나온 소재로 의미 찾기', section: 'fortune', icon: '🌙' },
   { href: '/fortune/saju',   title: '사주 분석',    desc: '생년월일로 사주 4주와 오행 균형 보기',    section: 'fortune', icon: '🔯' },
+  /* 사주 주제 일곱 — 통합 페이지 하나로는 "사주 연애운"·"이직 시기 사주" 같은 말이
+     한 항목에만 몰린다. 검색 상자에서도 주제마다 따로 걸리게 둔다. */
+  { href: '/fortune/saju/love',      title: '사주 연애운', desc: '배우자궁(일지)과 도화살로 보는 연애 인연', section: 'fortune', icon: '💕' },
+  { href: '/fortune/saju/job',       title: '사주 취업운', desc: '관성과 인성, 직업궁으로 보는 취업운',      section: 'fortune', icon: '💼' },
+  { href: '/fortune/saju/career',    title: '사주 이직운', desc: '역마살과 대운 전환점으로 보는 이직 시기',  section: 'fortune', icon: '🔄' },
+  { href: '/fortune/saju/promotion', title: '사주 승진운', desc: '정관과 관인상생으로 보는 승진운',          section: 'fortune', icon: '🏅' },
+  { href: '/fortune/saju/money',     title: '사주 재물운', desc: '재성과 식상생재로 보는 재물운',            section: 'fortune', icon: '💰' },
+  { href: '/fortune/saju/health',    title: '사주 건강운', desc: '오행의 태과·불급으로 보는 건강운',         section: 'fortune', icon: '🏥' },
+  { href: '/fortune/saju/study',     title: '사주 학업운', desc: '인성과 문창귀인으로 보는 학업·시험운',     section: 'fortune', icon: '📚' },
   { href: '/fortune/zodiac', title: '별자리 운세',  desc: '12별자리 오늘의 운세',                   section: 'fortune', icon: '⭐' },
   { href: '/fortune/animal', title: '띠 운세',      desc: '쥐·소·범 등 12띠 오늘의 운세',           section: 'fortune', icon: '🐉' },
   { href: '/fortune/tarot',  title: '타로 카드',    desc: '78장 풀덱에서 카드 뽑기',                section: 'fortune', icon: '🃏' },
@@ -264,6 +275,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...RATE_TOOLS.map(t => ({ href: `/rate/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'rate' as const, icon: t.icon })),
   ...BODY_TOOLS.map(t => ({ href: `/body/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'body' as const, icon: t.icon })),
   ...GEO_TOOLS.map(t => ({ href: `/geometry/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'geometry' as const, icon: t.icon })),
+  ...CRAFT_TOOLS.map(t => ({ href: `/craft/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'craft' as const, icon: t.icon })),
   ...COUNTRIES.map(c => ({ href: `/country/${c.slug}`, title: `${c.ko.name} 여행 정보`, desc: c.ko.intro.slice(0, 60), section: 'country' as const, icon: c.icon })),
   ...IDIOMS.map(i => ({ href: `/hanja/${i.slug}`, title: `${i.reading} ${i.hanja}`, desc: i.ko.meaning.slice(0, 60), section: 'hanja' as const, icon: i.icon })),
   ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${lineTitle(l, 'ko')} 역 이름 맞추기`, desc: l.text.ko.intro.slice(0, 60), section: 'metro' as const, icon: lineIcon(l) })),

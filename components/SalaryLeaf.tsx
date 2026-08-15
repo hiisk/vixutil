@@ -71,7 +71,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
           <div className="flex flex-wrap gap-1.5">
             {neighborSalaries(manwon).map(v => (
               <Link prefetch={false} key={v} href={`/calculator/salary/${v}`}
-                className="chip chip-off hover:border-blue-300 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+                className="chip-v">
                 {won(v)}만원
               </Link>
             ))}

@@ -70,6 +70,10 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
     { label: ui.lumLabel, value: `${f.lum}` },
   ];
 
+  /* 보색·유사색 칸의 hex에도 `cv`를 달아 봤다가 뺐다. 두 가지가 걸렸다 —
+     한 장에 아홉 칸이라 힌디어에서 낱장 증가가 124바이트로 100을 넘었고,
+     4열 격자의 11px 라벨 옆에 아이콘이 붙으면 줄이 넘어간다.
+     사람이 가지러 오는 것은 위의 표에 있는 다섯 값과 히어로의 hex다. */
   const swatch = (hex: string, label: string, href?: string) => {
     const inner = (
       <>
@@ -126,7 +130,8 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
           data-color-swatch
         >
           <h1 className="text-3xl sm:text-4xl font-black mb-1">{name}</h1>
-          <p className="text-lg font-black tabular-nums opacity-90">{f.hex.toUpperCase()}</p>
+          {/* 이 화면에 오는 사람이 가지러 온 것 — 눌러서 가져간다. `cv` 두 글자다 */}
+          <p className="cv text-lg font-black tabular-nums opacity-90">{f.hex.toUpperCase()}</p>
         </div>
 
         {lead && <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{lead}</p>}
@@ -139,12 +144,16 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5 bg-slate-50 dark:bg-slate-900/40">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                  <td className="cv px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </section>
+        {/* lib/color/ui.ts에 2026-08-13부터 열 언어로 적혀 있었는데 아무도 안 쓰던 줄이다.
+            누를 수 있다는 것을 손가락으로 찾아내라고 둘 수는 없다 — 아이콘은 힌트고
+            이 한 줄이 답이다. 스크린리더에는 ThemeToggle이 「복사됨」을 읽어 준다. */}
+        <p className="mt-2 note-xs">{ui.copyHint}</p>
 
         <section className="mt-6">
           <h2 className="sec-h2">{ui.contrastLabel}</h2>

@@ -353,7 +353,11 @@ export default function MeasuredTest({ lang, slug }: { lang: SnapLang; slug: New
             <b>{v.advice}</b> — {r.weakest}
           </p>
 
-          {/* 결과를 그림으로 저장·공유한다. 제휴 카드도 이 컴포넌트가 함께 든다. */}
+          {/*
+            결과를 그림으로 저장·공유한다. 제휴 카드도 이 컴포넌트가 함께 든다.
+            lang을 안 넘기면 SaveResultCard 기본값이 'ko'라 아홉 외국어 화면에
+            한국어 버튼·카드가 붙는다.
+          */}
           <SaveResultCard
             emoji={s.icon}
             title={`${t.title} ${r.percent}%`}
@@ -362,6 +366,7 @@ export default function MeasuredTest({ lang, slug }: { lang: SnapLang; slug: New
             from={CARD_COLOR[slug].from}
             to={CARD_COLOR[slug].to}
             fileName={`vixutil-${slug}`}
+            lang={lang}
           />
 
           <button

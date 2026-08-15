@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   calcInterestTax, calcDepositAfterTax, WITHHOLDING_RATE, COMPREHENSIVE_THRESHOLD,
 } from '../lib/interest-tax.ts';
@@ -49,6 +50,13 @@ test('0·음수 입력에서 터지지 않는다', () => {
   assert.equal(calcDepositAfterTax({ principal: -100, annualRate: -4, months: -12 }).grossInterest, 0);
 });
 
-test('같은 입력은 항상 같은 결과를 준다', () => {
-  assert.deepEqual(calcInterestTax(1_234_567), calcInterestTax(1_234_567));
+test('오늘 날짜에 기대지 않는다', () => {
+  /*
+   * 전에는 calcInterestTax(1_234_567)을 자기 자신과 비교했다. 순수 함수를 같은
+   * 밀리초에 두 번 부른 것이라, 날짜에 기대는 값이 들어와도 통과한다.
+   * tests/loan-grid.ts처럼 원본을 읽어 못 박는다.
+   */
+  const src = readFileSync(new URL('../lib/interest-tax.ts', import.meta.url), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+  assert.ok(!/new Date\(|Date\.now\(|Math\.random\(/.test(src), '날짜·난수에 기대는 값이 있다');
 });

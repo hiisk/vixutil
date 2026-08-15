@@ -89,7 +89,7 @@ export default function ValueLeaf({ slug, value, lang }: { slug: string; value: 
 
         {/* ① 답 — 이 페이지의 존재 이유다. 가장 크게 둔다 */}
         <div className="mt-4 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
-          <p className="text-3xl sm:text-4xl font-black leading-tight tabular-nums">
+          <p className="cv text-3xl sm:text-4xl font-black leading-tight tabular-nums">
             {t.answer(v, text.from, num(f.result), text.to)}
           </p>
           <p className="mt-2 text-sm text-blue-100">
@@ -119,7 +119,7 @@ export default function ValueLeaf({ slug, value, lang }: { slug: string; value: 
           <h2 className="sec-h2">{t.tableTitle(text.from, text.to)}</h2>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.table.map(([from, to]) => (
-              <div key={from} className={`row-pair${from === value ? ' bg-blue-50 dark:bg-blue-950/30' : ''}`}>
+              <div key={from} className={`row-pair${from === value ? ' row-now' : ''}`}>
                 <span className="row-label">{num(from)} {text.from}</span>
                 <span className="val">{num(to)}<span className="val-unit">{text.to}</span></span>
               </div>
@@ -153,12 +153,12 @@ export default function ValueLeaf({ slug, value, lang }: { slug: string; value: 
           <div className="flex flex-wrap gap-1.5">
             {f.neighbors.map(n => (
               <Link prefetch={false} key={n} href={`${toolHref}/${valueSlug(n)}`}
-                className="chip chip-off hover:border-blue-300 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+                className="chip-v">
                 {num(n)} {text.from}
               </Link>
             ))}
           </div>
-          <Link prefetch={false} href={toolHref} className="mt-4 inline-block text-sm font-bold text-blue-600 hover:text-blue-700">
+          <Link prefetch={false} href={toolHref} className="next-step">
             {t.openTool(text.title)} →
           </Link>
         </section>

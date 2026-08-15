@@ -51,6 +51,21 @@ export function equalPayment(principal: number, annualRate: number, months: numb
   return (principal * i) / (1 - (1 + i) ** -months);
 }
 
+/**
+ * equalPayment의 역함수 — 월 상환액에서 빌릴 수 있는 원금을 푼다.
+ *
+ *   P = A × (1 − (1+i)^−n) ÷ i
+ *
+ * 대출한도(DTI·DSR)와 은퇴 후 정액인출이 같은 식을 쓴다. 세 곳에 따로 적혀
+ * 있었고 그중 하나는 이율 0에서 0으로 나눴다.
+ */
+export function principalFor(payment: number, annualRate: number, months: number): number {
+  const i = monthlyRate(annualRate);
+  if (months <= 0) return 0;
+  if (i === 0) return payment * months;
+  return (payment * (1 - (1 + i) ** -months)) / i;
+}
+
 export function schedule(loan: Loan, method: Method): Schedule {
   const { principal, annualRate, months } = loan;
   const i = monthlyRate(annualRate);

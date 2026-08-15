@@ -102,15 +102,51 @@ test('나이표가 기준연도와 맞물린다', () => {
 });
 
 test('띠가 열두 해로 돌아간다', () => {
-  /* 자료의 years 목록과 맞는지 대조한다 — 기준점을 잘못 잡으면 통째로 한 칸 밀린다 */
+  /* 자료의 years 목록과 맞는지 대조한다 — 기준점을 잘못 잡으면 통째로 한 칸 밀린다.
+     years 목록은 입춘이 지난 뒤 기준이므로 한여름 날짜로 본다 */
   for (const a of ANIMALS) {
     for (const y of a.years) {
-      assert.equal(animalOf(y).id, a.id, `${y}년이 ${a.name}이 아니라 ${animalOf(y).name}으로 나온다`);
+      assert.equal(animalOf(y, 7, 1).id, a.id, `${y}년이 ${a.name}이 아니라 ${animalOf(y, 7, 1).name}으로 나온다`);
     }
   }
   /* 12년 주기 */
-  assert.equal(animalOf(2020).id, animalOf(2032).id);
-  assert.equal(animalOf(2020).id, animalOf(2008).id);
+  assert.equal(animalOf(2020, 7, 1).id, animalOf(2032, 7, 1).id);
+  assert.equal(animalOf(2020, 7, 1).id, animalOf(2008, 7, 1).id);
+});
+
+test('띠의 해는 1월 1일이 아니라 입춘에 바뀐다', () => {
+  /*
+   * 밖에서 아는 값으로 못 박는다. 1984년은 갑자년(쥐띠)인데, 그 해 입춘은
+   * 2월 4일이다 — 1월생은 아직 앞 해인 계해년(돼지띠)이다. 양력 1월 1일로
+   * 세면 1월 낱장 31장이 통째로 한 칸 밀린다.
+   */
+  assert.equal(animalOf(1984, 1, 1).id, 'pig',  '1984년 1월 1일생은 돼지띠다');
+  assert.equal(animalOf(1984, 1, 31).id, 'pig', '1984년 1월 31일생은 돼지띠다');
+  assert.equal(animalOf(1984, 2, 3).id, 'pig',  '입춘 전날은 아직 앞 해다');
+  assert.equal(animalOf(1984, 2, 4).id, 'rat',  '입춘부터 갑자년(쥐띠)이다');
+  assert.equal(animalOf(1984, 12, 31).id, 'rat');
+
+  /* 2000년은 경진년(용띠) — 1월생은 앞 해 기묘년(토끼띠) */
+  assert.equal(animalOf(2000, 1, 15).id, 'rabbit');
+  assert.equal(animalOf(2000, 3, 15).id, 'dragon');
+
+  /* 2월 6일 이후는 어느 해든 입춘이 지났다 */
+  for (const y of [1927, 1984, 2021, 2026]) {
+    assert.equal(animalOf(y, 2, 6).id, animalOf(y, 12, 1).id, `${y}: 2월 6일이 연말과 다른 띠다`);
+  }
+});
+
+test('생일 낱장의 나이표에 실리는 띠가 그 날짜를 따른다', () => {
+  /* 1월 낱장은 100줄 전부 앞 해의 띠여야 한다 — 이게 틀리면 표 전체가 틀린다 */
+  const jan = birthdayFacts(1, 15);
+  for (const a of jan.ages) {
+    assert.equal(animalOf(a.year, 1, 15).id, a.animal.id, `${a.year}년 줄의 띠가 어긋난다`);
+    assert.notEqual(a.animal.id, animalOf(a.year, 7, 1).id, `${a.year}: 1월인데 양력 해의 띠가 실렸다`);
+  }
+  /* 7월 낱장은 양력 해와 같아야 한다 */
+  for (const a of birthdayFacts(7, 15).ages) {
+    assert.equal(a.animal.id, animalOf(a.year, 7, 1).id);
+  }
 });
 
 test('이웃 날짜가 서로를 가리켜 고아가 없다', () => {

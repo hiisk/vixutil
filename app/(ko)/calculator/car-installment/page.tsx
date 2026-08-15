@@ -4,6 +4,7 @@ import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, RatioBar } f
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { equalPayment } from '@/lib/loan-schedule';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -24,11 +25,12 @@ export default function CarInstallmentPage() {
     const p = price;
     const d = down;
     const n = Number(months);
-    const r = Number(rate) / 100 / 12;
-    if (p <= 0 || Number(rate) <= 0) return;
+    // 무이자 할부(0%)가 흔하다 — rate <= 0으로 막으면 그 경우에 버튼이 죽는다
+    if (p <= 0 || !(Number(rate) >= 0)) return;
 
     const loan = p - d;
-    const monthly = r === 0 ? loan / n : loan * r / (1 - Math.pow(1 + r, -n));
+    // 원리금균등 식은 lib/loan-schedule.ts 한 곳에서 온다
+    const monthly = equalPayment(loan, Number(rate), n);
     const totalPay = monthly * n + d;
     const totalInterest = monthly * n - loan;
     setResult({ loan, monthly, totalPay, totalInterest });

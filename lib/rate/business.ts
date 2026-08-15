@@ -21,7 +21,8 @@ export const BUSINESS_TOOLS: FormulaTool[] = [
       { key: 'markupIn', term: 'markup', unit: 'percent', def: 50, min: 0, max: 1000, step: 0.1 },
       { key: 'marginIn', term: 'marginRate', unit: 'percent', def: 40, min: 0, max: 99.9, step: 0.1 },
     ],
-    formula: '{marginRate} = {markup} ÷ (100 + {markup}) × 100,  {markup} = {marginRate} ÷ (100 − {marginRate}) × 100',
+    // 좌변에 입력 용어를 쓰면 대입식이 "40 = ..."처럼 숫자로 치환돼 식이 거짓말이 된다
+    formula: '{marginFromMarkup} = {markup} ÷ (100 + {markup}) × 100,  {markupFromMargin} = {marginRate} ÷ (100 − {marginRate}) × 100',
     compute: v => [
       { term: 'marginFromMarkup', unit: 'percent', value: round(ratio(v.markupIn, 100 + v.markupIn) * 100, 2), digits: 2, primary: true },
       { term: 'markupFromMargin', unit: 'percent', value: round(ratio(v.marginIn, 100 - v.marginIn) * 100, 2), digits: 2 },

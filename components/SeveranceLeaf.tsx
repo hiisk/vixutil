@@ -41,7 +41,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
 
         <div className="mt-4 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white">
           <p className="text-amber-100 text-xs mb-1">퇴직금 (세전)</p>
-          <p className="text-4xl font-black leading-none tabular-nums">{won(f.pay)}원</p>
+          <p className="cv text-4xl font-black leading-none tabular-nums">{won(f.pay)}원</p>
           <p className="mt-2 text-sm text-amber-100">
             1일 평균임금 {won(f.dailyAvgWage)}원 × 30일 × ({f.totalDays}일 ÷ 365)
           </p>
@@ -76,9 +76,11 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
         <section className="mt-6">
           <h2 className="sec-h2">월급 {wage}만원, 근속 연수별</h2>
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            {/* hover 색은 globals.css의 .row-pair:hover가 --c-sec으로 이미 그린다 —
+                여기 적혀 있던 amber 짝은 같은 것을 두 번 적은 것이었다 */}
             {f.yearsTable.map(r => (
               <Link prefetch={false} key={r.years} href={`/calculator/severance/${severanceSlug(wage, r.years)}`}
-                className={`row-pair hover:bg-amber-50/60 dark:hover:bg-amber-900/10 transition-colors ${r.years === years ? 'bg-amber-50 dark:bg-amber-900/20' : ''}`}>
+                className={`row-pair${r.years === years ? ' row-now' : ''}`}>
                 <span className="row-label">{r.years}년</span>
                 <span className="val">{won(r.pay)}<span className="val-unit">원</span></span>
               </Link>
@@ -91,12 +93,12 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
           <div className="flex flex-wrap gap-1.5">
             {neighborCells(wage, years).map(c => (
               <Link prefetch={false} key={severanceSlug(c.wage, c.years)} href={`/calculator/severance/${severanceSlug(c.wage, c.years)}`}
-                className="chip chip-off hover:border-amber-300 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">
+                className="chip-v">
                 {c.wage}만원 · {c.years}년
               </Link>
             ))}
           </div>
-          <Link prefetch={false} href="/calculator/severance" className="mt-4 inline-block text-sm font-bold text-amber-600 hover:text-amber-700">
+          <Link prefetch={false} href="/calculator/severance" className="next-step">
             내 입사일·퇴직일로 계산하기 →
           </Link>
         </section>

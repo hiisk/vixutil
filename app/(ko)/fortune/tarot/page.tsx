@@ -1,4 +1,5 @@
 'use client';
+import { shareOne } from '@/lib/share/ui';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
@@ -477,9 +478,8 @@ export default function TarotPage() {
   }, []);
 
   async function handleShare() {
-    const url = window.location.href;
-    if (navigator.share) { try { await navigator.share({ title: '타로 카드 뽑기 — vixutil.com', url }); return; } catch {} }
-    try { await navigator.clipboard.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+    // 문구와 주소가 한 덩이로 — 예전엔 title 칸이라 카톡이 통째로 버렸다
+    if (await shareOne('타로 카드 뽑기 — vixutil.com')) { setCopied(true); setTimeout(() => setCopied(false), 2000); }
   }
 
   return (

@@ -42,10 +42,12 @@ import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
+import { CRAFT_TOOLS } from "@/lib/craft-tools";
 import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
 import { METRO_LINES } from "@/lib/metro-lines";
 import { METRO_LANGS } from "@/lib/metro/lang";
+import { TOPIC_SLUGS as SAJU_TOPIC_SLUGS } from "@/lib/saju-topics";
 import { sectionHasLocale } from "@/lib/i18n/lang";
 import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
@@ -348,6 +350,15 @@ function allEntries(): MetadataRoute.Sitemap {
         url: `${BASE}/${lang}/body/exercise/${x.slug}`, changeFrequency: monthly, priority: 0.7,
       })),
     ]),
+    { url: `${BASE}/craft`, changeFrequency: weekly, priority: 0.95 },
+    ...CRAFT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/craft/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
+    // 공예 계산도 slug가 아홉 언어에서 같다
+    ...INTL_LOCALES10.flatMap((lang) => [
+      { url: `${BASE}/${lang}/craft`, changeFrequency: weekly, priority: 0.9 },
+      ...CRAFT_TOOLS.map((t: { slug: string }) => ({
+        url: `${BASE}/${lang}/craft/${t.slug}`, changeFrequency: monthly, priority: 0.8,
+      })),
+    ]),
     { url: `${BASE}/geometry`, changeFrequency: weekly, priority: 0.95 },
     ...GEO_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/geometry/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 도형 계산도 slug가 여덟 언어에서 같다
@@ -475,6 +486,16 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
+    /* 사주 주제 일곱 장 × 열 언어. 통합 페이지(/fortune/saju)는 위쪽 운세 블록에
+       이미 실려 있으므로 여기서는 주제만 싣는다 — 두 번 실으면 sitemap-chunks
+       검사가 중복 <loc>으로 잡는다. */
+    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+      SAJU_TOPIC_SLUGS.map((t: string) => ({
+        url: `${BASE}${prefix}/fortune/saju/${t}`,
+        changeFrequency: weekly,
+        priority: 0.85,
+      })),
+    ),
     // 확장자 140장도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/ext`, changeFrequency: weekly, priority: 0.9 },

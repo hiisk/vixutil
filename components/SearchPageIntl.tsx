@@ -14,16 +14,7 @@ import { withCard } from '@/lib/og-cards';
  * 헤더의 홈 링크가 언어별로 다른 주소라서, 복사본에서는 그 한 줄이 영어를
  * 가리킨 채로 남기 쉽다.
  */
-export function searchMetaIntl(lang: SearchIntlLang) {
-  const ui = SEARCH_INTL_UI[lang];
-  // 카드는 canonical에서 정해진다 — /og/<언어>/search를 그대로 쓴다
-  return withCard({
-    title: ui.title,
-    description: ui.desc,
-    openGraph: openGraphFor(lang),
-    alternates: { canonical: localeHref(lang, '/search'), languages: searchAlternates() },
-  });
-}
+export { searchMetaIntl } from '@/lib/meta/search-hub';
 
 export default function SearchPageIntl({ lang }: { lang: SearchIntlLang }) {
   const ui = SEARCH_INTL_UI[lang];

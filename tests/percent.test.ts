@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 
 import {
   PERCENTS, BASES, PERCENT_COUNT,
@@ -163,5 +164,14 @@ test('낱장마다 본문이 다르다', () => {
 });
 
 test('오늘 날짜에 기대지 않는다', () => {
-  assert.deepEqual(percentFacts(15, 200), percentFacts(15, 200));
+  /*
+   * 전에는 percentFacts(15, 200)을 자기 자신과 비교했다. 같은 밀리초에 두 번
+   * 부른 것이라 날짜에 기대는 값이 들어와도 통과한다 — 이름이 말하는 것을
+   * 하나도 검사하지 않았다.
+   */
+  for (const f of ['facts.ts', 'list.ts', 'route.ts', 'ui.ts']) {
+    const src = readFileSync(new URL(`../lib/percent/${f}`, import.meta.url), 'utf8')
+      .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    assert.ok(!/new Date\(|Date\.now\(|Math\.random\(/.test(src), `${f}가 날짜·난수에 기댄다`);
+  }
 });

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { kcal } from '@/lib/body/exercise';
 
 // MET 값 (Compendium of Physical Activities, Ainsworth et al. 2011)
 const EXERCISES: { key: string; label: string; met: number; emoji: string }[] = [
@@ -59,13 +60,13 @@ export default function CaloriesBurnPage() {
     if (!d || d <= 0) { setError('운동 시간을 입력해주세요.'); return; }
 
     const ex = EXERCISES.find(e => e.key === exercise)!;
-    const hours = d / 60;
-    // 칼로리 = MET × 체중(kg) × 시간(h)
-    const kcal = ex.met * w * hours;
+    // 식은 lib/body/exercise.ts 한 곳에서 온다 — 여기서 MET × 체중 × 시간으로 셈했을 때
+    // /body의 같은 운동보다 5%(3.5 × 60 ÷ 200 = 1.05배) 적게 나왔다
+    const kcalValue = kcal(ex.met, w, d);
     // 체지방 1kg = 7,700kcal, 1g = 7.7kcal
-    const fatGram = kcal / 7.7;
+    const fatGram = kcalValue / 7.7;
 
-    setResult({ kcal, fatGram, met: ex.met, exerciseLabel: ex.label });
+    setResult({ kcal: kcalValue, fatGram, met: ex.met, exerciseLabel: ex.label });
   }
 
   return (

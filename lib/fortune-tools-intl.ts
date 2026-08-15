@@ -169,7 +169,7 @@ const TOOLS: Record<FortuneIntlLang, Record<FortuneToolSlug, ToolCopy>> = {
       metaTitle: 'Dream Dictionary — 20 Common Dream Symbols Explained',
       metaDesc: 'What falling, losing teeth, flying, being chased and 16 other common dream symbols are traditionally read as, and which situations they tend to be reported in.' },
     saju: { title: 'Saju — Korean Four Pillars', desc: 'Your four-pillar chart from birth date', badge: 'Chart',
-      metaTitle: 'Saju — Korean Four Pillars Reading, Free',
+      metaTitle: 'Free BaZi Calculator — Saju Four Pillars Chart',
       metaDesc: 'Read your saju — the Korean four-pillar chart — from your date and time of birth: heavenly stems, earthly branches, five-element balance, ten gods and luck pillars. Also known as BaZi. Free, calculated in your browser.' },
   },
   es: {
@@ -337,7 +337,7 @@ const TOOLS: Record<FortuneIntlLang, Record<FortuneToolSlug, ToolCopy>> = {
       metaTitle: '夢占い辞典 — よく見る夢の象徴20種',
       metaDesc: '落ちる、歯が抜ける、飛ぶ、追いかけられる、ほか16種のよく見る夢が伝統的にどう読まれてきたか、どんな時期に報告されやすいか。' },
     saju: { title: '四柱推命（사주）', desc: '生年月日から出す四つの柱', badge: '命式',
-      metaTitle: '四柱推命（사주） — 韓国式の四柱、無料',
+      metaTitle: '四柱推命 無料｜生年月日から命式を自動計算',
       metaDesc: '生年月日と時刻から韓国式の四柱（사주）をみます。天干、地支、五行のバランス、十神、大運。中国では八字と呼ばれます。無料、ブラウザ内で計算。' },
   },
   de: {
@@ -561,7 +561,7 @@ const TOOLS: Record<FortuneIntlLang, Record<FortuneToolSlug, ToolCopy>> = {
       metaTitle: '解梦词典 — 二十个常见梦境符号解说',
       metaDesc: '坠落、掉牙、飞、被追赶，以及另外十六个常见梦境符号在传统里怎么被解读，通常出现在什么时期。' },
     saju: { title: '八字（사주） — 韩式四柱', desc: '按出生日期排出的四柱命盘', badge: '命盘',
-      metaTitle: '八字（사주） — 韩式四柱解读，免费',
+      metaTitle: '免费八字算命 — 生辰八字排盘、五行十神解读',
       metaDesc: '用出生日期和时辰读你的사주（韩式四柱）：天干、地支、五行平衡、十神和大运。在中国称作八字。免费，在你的浏览器里计算。' },
   },
   'zh-hant': {
@@ -617,7 +617,7 @@ const TOOLS: Record<FortuneIntlLang, Record<FortuneToolSlug, ToolCopy>> = {
       metaTitle: '解夢詞典 — 二十個常見夢境符號解說',
       metaDesc: '墜落、掉牙、飛、被追趕，以及另外十六個常見夢境符號在傳統裡怎麼被解讀，通常出現在什麼時期。' },
     saju: { title: '八字（사주） — 韓式四柱', desc: '按出生日期排出的四柱命盤', badge: '命盤',
-      metaTitle: '八字（사주） — 韓式四柱解讀，免費',
+      metaTitle: '免費八字算命｜八字命盤排盤・五行十神解讀',
       metaDesc: '用出生日期和時辰讀你的사주（韓式四柱）：天干、地支、五行平衡、十神和大運。在中國稱作八字。免費，在你的瀏覽器裡計算。' },
   },
 };

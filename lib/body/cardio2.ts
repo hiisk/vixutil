@@ -19,7 +19,8 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
       { key: 'low', term: 'karvonenLow', unit: 'percent', def: 60, min: 30, max: 100 },
       { key: 'high', term: 'karvonenHigh', unit: 'percent', def: 75, min: 30, max: 100 },
     ],
-    formula: '{karvonenLow} = ({maxHr} − {restHr}) × {percent} ÷ 100 + {restHr}',
+    // 좌변은 결과인 {hrLow}다 — 입력 용어를 쓰면 대입식이 "60 = ..."으로 치환된다
+    formula: '{hrLow} = ({maxHr} − {restHr}) × {karvonenLow} ÷ 100 + {restHr}',
     compute: v => {
       const max = 220 - v.age;
       const reserve = max - v.rest;
@@ -225,7 +226,7 @@ export const CARDIO2_TOOLS: FormulaTool[] = [
       { key: 'reps', term: 'reps', def: 5, min: 1, max: 15 },
       { key: 'rm', term: 'oneRm', unit: 'kg', def: 120, min: 1 },
     ],
-    formula: '{rmPercent} = 100 − ({reps} + (10 − {rpe})) × 3',
+    formula: '{rmPercent} = 100 − ({reps} + (10 − {rpe}) − 1) × 3',
     compute: v => {
       // 남긴 횟수(10 − RPE)와 실제 횟수를 더해 총 유효 횟수를 만들고, 한 회당 약 3%로 잡는다
       const effective = v.reps + (10 - v.rpe);

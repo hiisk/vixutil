@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import { monthlyHours as statutoryMonthlyHours } from '@/lib/statutory-hours';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -21,7 +22,9 @@ export default function StandardWagePage() {
     const b = Number(basic);
     if (b <= 0) return;
     const w = Number(weeklyHours);
-    const monthlyHours = (w + w / 5) * (365 / 7 / 12);
+    // 주휴시간은 lib/statutory-hours.ts에서 온다 — 여기 적어 두었을 때 주 44시간이 229h로 나와
+    // 바로 위 선택지 라벨(월 226h)과 어긋났다
+    const monthlyHours = statutoryMonthlyHours(w);
     const rows = ALLOWANCES.map(name => ({ name, amount: Number(allowances[name] || 0) }));
     const allowanceTotal = rows.reduce((s, r) => s + r.amount, 0);
     const standard = b + allowanceTotal;

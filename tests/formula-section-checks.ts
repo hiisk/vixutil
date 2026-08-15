@@ -187,6 +187,71 @@ export function checkFormulaSection(section: SectionConfig, expectedCount = 50) 
     }
   });
 
+  /*
+   * 화면에 보여주는 공식 문자열과 compute가 어긋나지 않는가.
+   *
+   * 낱장은 공식에 기본값을 대입한 식("100,000 × (1 − 30 ÷ 100) × …")과 답을
+   * 나란히 보여준다. 그런데 그 둘은 서로 다른 곳에서 온다 — 식은 손으로 적은
+   * formula 문자열이고, 답은 compute가 낸다. 한쪽만 고치면 화면에서 식과 답이
+   * 대놓고 어긋나는데 페이지는 멀쩡히 그려지므로 눈으로는 못 잡는다.
+   *
+   * 실제로 아홉 군데가 어긋나 있었다. ÷100이 빠져 −4억 9천만이 나온 삼중할인,
+   * cm를 m로 바꾸는 ÷100이 빠져 100배가 된 바퀴 회전수·롤 길이, ㎣를 ml로
+   * 바꾸는 ÷1000이 빠진 레진, −1이 빠진 RPE, 20kg 미만에서 틀리는 아이 수분량,
+   * 손실 5%가 빠진 벽돌, 그리고 좌변에 입력 용어를 써서 "40 = …"으로 치환되던
+   * 넷.
+   *
+   * 사칙연산·√·²·π·min·max로만 된 식은 여기서 실제로 계산해 compute와 맞춰
+   * 본다. 그 밖의 표기(Σ, ln, ⌈⌉, 조건식)는 건너뛰되, 절반 밑으로 떨어지면
+   * 검사가 헛도는 것이므로 함께 걸린다.
+   */
+  test(`${name} 화면에 적은 공식이 compute와 같은 답을 낸다`, () => {
+    const toJs = (s: string) => s
+      .replace(/×/g, '*').replace(/÷/g, '/').replace(/[−–—]/g, '-')
+      .replace(/\s*²/g, '**2').replace(/\s*³/g, '**3')
+      .replace(/√\s*\(/g, 'Math.sqrt(').replace(/√\s*([\d.]+|\([^()]*\))/g, 'Math.sqrt($1)')
+      .replace(/(\d)\s*π/g, '$1*Math.PI').replace(/π/g, 'Math.PI')
+      .replace(/\^/g, '**').replace(/\bmin\(/g, 'Math.min(').replace(/\bmax\(/g, 'Math.max(')
+      .replace(/,/g, '');
+    const bad: string[] = [];
+    let checked = 0;
+    for (const t of tools) {
+      const byTerm = new Map(t.fields.map(f => [f.term, f.def]));
+      const values = Object.fromEntries(t.fields.map(f => [f.key, f.def]));
+      // 쉼표로 이어 붙인 여러 식은 각각 본다
+      // "→"가 있으면 "이 식을 풀어 저것을 구한다"는 뜻이라 좌변이 입력이어도 맞다 (irr-approx)
+      const solveFor = t.formula.includes('→');
+      for (const part of t.formula.split(/,(?=\s*\{)/)) {
+        const eq = part.indexOf('=');
+        if (eq < 0) continue;
+        const lhs = /^\s*\{(\w+)\}\s*$/.exec(part.slice(0, eq));
+        if (!lhs) continue;
+        // 좌변이 입력 용어면 대입식이 "40 = …"처럼 숫자로 치환돼 식이 거짓이 된다
+        if (byTerm.has(lhs[1])) {
+          if (!solveFor) bad.push(`${t.slug}: 공식 좌변 {${lhs[1]}}이 입력 용어다 — 대입하면 숫자가 된다`);
+          continue;
+        }
+        const filled = part.slice(eq + 1).replace(/\{(\w+)\}/g, (_, k: string) =>
+          byTerm.has(k) ? `(${byTerm.get(k)})` : ' ');
+        if (filled.includes(' ')) continue;
+        const js = toJs(filled);
+        if (!/^[-+*/().0-9\s]*$/.test(js.replace(/Math\.(sqrt|PI|min|max)/g, '').replace(/\*\*/g, '*'))) continue;
+        let val: number;
+        try { val = Function(`"use strict";return (${js})`)() as number; } catch { continue; }
+        if (!Number.isFinite(val)) continue;
+        checked++;
+        const target = t.compute(values).find(o => o.term === lhs[1]);
+        if (!target) { bad.push(`${t.slug}: 공식 좌변 {${lhs[1]}}이 결과에 없다`); continue; }
+        // 올림·반올림만큼은 봐준다 — 마지막 자릿수 한 칸, 또는 0.2%
+        const tol = Math.max(1.0001 * Math.pow(10, -(target.digits ?? 2)), Math.abs(val) * 0.002);
+        if (Math.abs(target.value - val) > tol)
+          bad.push(`${t.slug}: 공식은 ${val}, compute는 ${target.value} (${lhs[1]}) — ${t.formula}`);
+      }
+    }
+    assert.deepEqual(bad, [], `공식 문자열과 compute가 어긋난다:\n  ${bad.join('\n  ')}`);
+    assert.ok(checked * 2 >= tools.length, `계산해 본 공식이 ${checked}개뿐이다 (도구 ${tools.length}종) — 파서가 죽었다`);
+  });
+
   test(`${name} 아이콘은 이모지다 — OG 이미지 폰트가 도형 문자를 못 받는다`, () => {
     for (const t of tools) {
       assert.match(t.icon, /\p{Extended_Pictographic}/u, `${t.slug} 아이콘 "${t.icon}"이 이모지가 아니다`);

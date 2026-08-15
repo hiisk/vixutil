@@ -41,9 +41,11 @@ export function weeklyHolidayHours(weeklyHours: number): number {
 /** 한 달 평균 주수 — 365 ÷ 7 ÷ 12 */
 export const WEEKS_PER_MONTH = DAYS_PER_YEAR / DAYS_PER_WEEK / MONTHS_PER_YEAR;
 
-/** 월 소정근로시간(주휴 포함) */
-export const monthlyHours = (weeklyHours: number): number =>
-  (weeklyHours + weeklyHolidayHours(weeklyHours)) * WEEKS_PER_MONTH;
+/** 월 소정근로시간(주휴 포함). 음수는 0으로 — 부르는 곳마다 막지 않는다 */
+export const monthlyHours = (weeklyHours: number): number => {
+  const w = Math.max(0, weeklyHours);
+  return (w + weeklyHolidayHours(w)) * WEEKS_PER_MONTH;
+};
 
 /** 실무에서 쓰는 올린 값 */
 export const monthlyHoursRounded = (weeklyHours: number): number => Math.ceil(monthlyHours(weeklyHours));

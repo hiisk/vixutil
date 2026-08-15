@@ -30,7 +30,7 @@
  * 받는다 — 확인 못 한 숫자가 답처럼 보이면 안 된다.
  */
 
-import { equalPayment, monthlyRate } from './loan-schedule.ts';
+import { equalPayment, monthlyRate, principalFor } from './loan-schedule.ts';
 
 export interface Mortgage {
   /** 원금(원) */
@@ -201,10 +201,7 @@ export function maxPrincipal(
   }
 
   const monthly = forMortgageAnnual / 12;
-  const r = monthlyRate(annualRate);
-  const principal = r === 0
-    ? monthly * repayMonths
-    : (monthly * (1 - (1 + r) ** -repayMonths)) / r;
+  const principal = principalFor(monthly, annualRate, repayMonths);
 
   return { allowedAnnual, forMortgageAnnual, principal, monthly };
 }

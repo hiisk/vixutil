@@ -2,6 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BODY_TOOLS, bodyTool } from '../lib/body-tools.ts';
 import { BODY_SECTION } from '../lib/body-section.ts';
+import { formulaLocales } from '../lib/formula/ui.ts';
+import { sectionMeta } from '../lib/formula/section.ts';
 import { checkFormulaSection, primaryOf, outputsOf, checkEngineLabels } from './formula-section-checks.ts';
 
 checkFormulaSection(BODY_SECTION, 100);
@@ -186,10 +188,20 @@ test('혈중 알코올 안내문은 어떤 경우에도 운전을 권하지 않�
   }
 });
 
-test('의료 면책 문구가 세 언어 모두에 있다', () => {
-  for (const lang of ['ko', 'en'] as const) {
-    const foot = BODY_SECTION.meta[lang].footNote;
-    assert.ok(foot.length > 30, `${lang} 면책 문구가 없다`);
+test('의료 면책 문구가 열 언어 모두에 있다', () => {
+  /*
+   * 이름은 "세 언어"였는데 실제로는 ko·en 둘만 돌았다. 나머지 여덟 언어의
+   * 면책 문구는 지워도 초록이었다 — 의료 계산기라 그 문구가 없으면 안 된다.
+   * 언어 목록을 여기 적지 않고 섹션이 실제로 내는 것을 돌린다.
+   */
+  const langs = formulaLocales(BODY_SECTION);
+  assert.ok(langs.length >= 10, `언어가 ${langs.length}개뿐이다 — 검사가 헛돈다`);
+  for (const lang of langs) {
+    const foot = sectionMeta(BODY_SECTION, lang).footNote;
+    // 일본어·중국어는 한자로 같은 내용을 절반쯤의 글자 수에 담는다
+    const min = ['ja', 'zh-hans', 'zh-hant'].includes(lang) ? 15 : 30;
+    assert.ok(foot.length > min, `${lang} 면책 문구가 없다: "${foot}"`);
+    if (lang !== 'ko') assert.ok(!/[가-힣]/.test(foot), `${lang} 면책 문구에 한글`);
   }
 });
 
