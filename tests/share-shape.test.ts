@@ -10,17 +10,19 @@ import { join } from 'node:path';
  * 하나로 보낸 것이 둘로 쪼개져 도착한다 — 보내는 쪽 화면에서는 안 보이고,
  * 실제로 카톡에 보내 본 사람만 안다.
  *
- *  1. 주소를 url 칸이 아니라 text 안에 박으면, 앱은 그것을 그냥 글로 본다.
- *     그리고 글 안의 주소를 따로 알아채서 미리보기를 하나 더 만든다 —
- *     글 한 덩이와 카드 한 장이 따로 온다. url 칸에 넣어야 앱이 og 태그로
- *     카드 하나를 만들고, 그림과 글이 그 안에 함께 들어간다.
+ *  1. title·text·url은 한 통이 아니라 **세 조각**이다. title은 안드로이드에서
+ *     Intent.EXTRA_SUBJECT로 가는데 메신저는 그것을 통째로 버리고, text와 url을
+ *     같이 넘기면 iOS는 활동 항목 두 개를 넘겨 앱마다 하나만 집거나 두 통으로
+ *     쪼갠다. 그래서 링크 공유는 전부 lib/share/ui.ts의 shareOne 하나를 지난다 —
+ *     문구와 주소를 한 문자열로 이어 text 한 칸으로만 넘긴다. 조각이 하나뿐이라
+ *     쪼갤 수가 없다. (까닭과 득실은 그 함수 주석에 적혀 있다.)
  *
  *  2. files와 text를 같이 넘기면 메신저가 하나로 못 묶어서 사진 한 통,
  *     글 한 통으로 나눠 보낸다. 그림을 보낼 때는 그림만 보낸다.
  *
  * 이 검사가 없으면 공유 자리를 새로 만들 때마다 같은 실수를 되풀이한다.
- * 실제로 ShareButton 하나가 열여섯 곳 중 혼자 1번을 어기고 있었고, 그 버튼은
- * 스물여섯 장이 쓰고 있었다.
+ * 실제로 열여섯 곳이 결과를 title 칸에 담고 있었다 — 「오늘의 행운 로또 번호:
+ * 13, 14, 15, 16, 19, 20 + 17」이 정확히 버려지는 칸에 들어 있었다.
  */
 const ROOT = join(import.meta.dirname, '..');
 
@@ -85,26 +87,58 @@ function sources(): { path: string; src: string }[] {
         out.push({ path: p.slice(ROOT.length + 1), src: readFileSync(p, 'utf8') });
     }
   };
-  for (const d of ['app', 'components']) walk(join(ROOT, d));
+  // lib/share가 빠지면 정작 유일한 navigator.share 호출을 안 보게 된다
+  for (const d of ['app', 'components', 'lib/share']) walk(join(ROOT, d));
   return out;
 }
 
 test('공유 자리를 실제로 찾는다', () => {
   // 정규식이 헛돌면 아래 검사들이 조용히 통과한다
   const n = sources().reduce((c, f) => c + shareCalls(f.src).length, 0);
-  assert.ok(n >= 15, `navigator.share 호출을 ${n}개밖에 못 찾았다 — 찾는 방식이 깨졌다`);
+  assert.ok(n >= 1, `navigator.share 호출을 ${n}개밖에 못 찾았다 — 찾는 방식이 깨졌다`);
+
+  // 링크 공유는 전부 shareOne을 지나야 한다 — 부르는 곳이 사라지면 여기가 운다
+  const users = sources().filter(f => /\bshareOne\(/.test(f.src) && !f.path.startsWith('lib'));
+  assert.ok(users.length >= 15, `shareOne을 부르는 파일이 ${users.length}개뿐이다 — 자리마다 또 손으로 짜고 있다`);
 });
 
-test('링크 공유는 주소를 url 칸으로 넘긴다', () => {
+test('링크 공유는 앱에 조각을 하나만 넘긴다', () => {
+  /*
+   * title은 메신저가 버리고, text와 url을 같이 넘기면 iOS에서 두 조각이 된다.
+   * 그래서 최상위 열쇠가 text 하나뿐이어야 한다. 새 자리가 손으로 짜기 시작하면
+   * 여기서 걸린다 — 고칠 곳은 lib/share/ui.ts의 shareOne 하나다.
+   */
   const bad: string[] = [];
   for (const { path, src } of sources()) {
     for (const arg of shareCalls(src)) {
       if (hasProp(arg, 'files')) continue; // 그림 공유는 아래 검사가 본다
-      if (hasProp(arg, 'url')) continue;
-      bad.push(`${path}: navigator.share(${arg.replace(/\s+/g, ' ').trim().slice(0, 70)}…)`);
+      const keys = topLevelKeys(arg);
+      if (keys.length === 1 && keys[0] === 'text') continue;
+      bad.push(`${path}: navigator.share에 ${keys.join('·')} — text 하나여야 한다`);
     }
   }
-  assert.deepStrictEqual(bad, [], 'url 칸이 없으면 글과 미리보기가 따로 간다');
+  assert.deepStrictEqual(bad, [], '조각이 둘 이상이면 받는 쪽에서 나뉘거나 버려진다');
+});
+
+test('shareOne은 문구와 주소를 한 문자열로 잇는다', async () => {
+  const { shareOne } = await import('../lib/share/ui.ts');
+  const set = (v: unknown) => Object.defineProperty(globalThis, 'navigator', { value: v, configurable: true });
+  const before = Object.getOwnPropertyDescriptor(globalThis, 'navigator')!;
+  try {
+    // 공유 자체가 없는 환경(데스크톱 대부분)에서 떨어지는 길도 같은 문자열이어야 한다
+    const seen: unknown[] = [];
+    set({ clipboard: { writeText: (t: string) => { seen.push(t); return Promise.resolve(); } } });
+    assert.equal(await shareOne('내 결과', 'https://vixutil.com/x'), true);
+    assert.deepStrictEqual(seen, ['내 결과\nhttps://vixutil.com/x']);
+
+    // 공유가 되는 환경에서는 넘기는 객체가 { text } 하나다
+    const sent: unknown[] = [];
+    set({ share: (d: unknown) => { sent.push(d); return Promise.resolve(); } });
+    assert.equal(await shareOne('내 결과', 'https://vixutil.com/x'), false);
+    assert.deepStrictEqual(sent, [{ text: '내 결과\nhttps://vixutil.com/x' }]);
+  } finally {
+    Object.defineProperty(globalThis, 'navigator', before);
+  }
 });
 
 test('그림 공유는 그림만 넘긴다', () => {

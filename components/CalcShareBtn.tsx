@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { langOfLocale } from '@/lib/i18n/lang';
 import type { AnyLocale10 } from '@/lib/locales';
-import { SHARE_UI } from '@/lib/share/ui';
+import { SHARE_UI, shareOne } from '@/lib/share/ui';
 
 /** lang을 안 넘기면 한국어다 — 한국어 CalcShell이 그대로 쓴다 */
 export default function CalcShareBtn({ lang = 'ko' }: { lang?: AnyLocale10 }) {
@@ -10,26 +10,19 @@ export default function CalcShareBtn({ lang = 'ko' }: { lang?: AnyLocale10 }) {
   const [copied, setCopied] = useState(false);
 
   async function handleShare() {
-    const url = window.location.href;
-    const title = document.title;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, url });
-        return;
-      } catch {}
-    }
-    try {
-      await navigator.clipboard.writeText(url);
+    /* 제목은 <title> 전체(“… | 실생활 계산기”) 말고 h1까지만 — 검색엔진용
+       꼬리표는 카톡에서 그냥 잡음이다. h1이 없으면 <title>로 물러난다. */
+    const h1 = document.querySelector('h1')?.textContent?.trim();
+    if (await shareOne(h1 || document.title)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {}
+    }
   }
 
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-blue-600 border border-slate-200 dark:border-slate-700 hover:border-blue-300 rounded-xl px-3 py-1.5 transition-all relative"
+      className="sh-chip"
       aria-label={ui.calcAria}
     >
       {copied ? (

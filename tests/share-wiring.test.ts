@@ -40,6 +40,37 @@ test('CTAType에 선언된 타입은 모두 실제로 쓰인다', () => {
   assert.deepEqual(unused, [], `선언됐지만 아무 데서도 안 쓰는 CTA 타입: ${unused.join(', ')}`);
 });
 
+test('여러 언어를 그리는 화면은 공유 컴포넌트에 lang을 넘긴다', () => {
+  /*
+   * ShareButton·SaveResultCard·ReferralCards는 lang 기본값이 'ko'다. 안 넘기면
+   * 아홉 외국어 화면에 한국어 버튼과 한국어 이미지 카드가 붙는데, 로컬에서
+   * 한국어로 보면 멀쩡해 보여서 눈으로는 안 잡힌다. 실제로 스냅테스트 다섯이
+   * 쓰는 components/snap/MeasuredTest.tsx가 이 상태였다.
+   *
+   * lang이 그 파일 안에 아예 없으면 한국어 전용 화면이라 건너뛴다.
+   */
+  const ROOT = join(COMPONENTS, '..');
+  const files = execSync("grep -rl '<ShareButton\\|<SaveResultCard\\|<ReferralCards' app components", { cwd: ROOT })
+    .toString().trim().split('\n');
+  const bad: string[] = [];
+  for (const f of files) {
+    const src = readFileSync(join(ROOT, f), 'utf8');
+    // lang이 이 파일의 변수로 있을 때만 본다 — 없으면 한국어 전용 화면이다
+    if (!/\blang\s*[,}]|\blang\s*:\s*\w/.test(src)) continue;
+    for (const m of src.matchAll(/<(ShareButton|SaveResultCard|ReferralCards)\b[^>]*?\/>/g)) {
+      if (!/\blang=/.test(m[0])) bad.push(`${f}: <${m[1]}>`);
+    }
+  }
+  /*
+   * 아직 안 고친 자리. SaveResultCard는 lang을 받아 놓고 그 안의 ReferralCards에는
+   * 안 넘긴다 — referral을 끄지 않은 호출(components/snap/MeasuredTest.tsx)에서
+   * 아홉 외국어 화면에 한국어 제휴 카드가 붙는다. 그 파일은 지금 다른 작업이
+   * 동시에 만지고 있어 손대지 않았다. 고치면 이 줄을 지워라.
+   */
+  const KNOWN = ['components/SaveResultCard.tsx: <ReferralCards>'];
+  assert.deepEqual(bad, KNOWN, `lang을 안 넘기는 공유 컴포넌트:\n  ${bad.join('\n  ')}`);
+});
+
 test('GeneratorEngine은 결과가 있을 때만 공유를 보여준다', () => {
   // 결과가 없는데 "결과 공유하기"가 뜨면 공유할 게 없다.
   const src = read('GeneratorEngine.tsx');

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { langOfLocale } from '@/lib/i18n/lang';
 import type { AnyLocale10 } from '@/lib/locales';
-import { SHARE_UI } from '@/lib/share/ui';
+import { SHARE_UI, shareOne } from '@/lib/share/ui';
 
 // 계산기는 CalcShareBtn이 자체 공유를 구현하므로 여기 타입에 없다.
 type CTAType = 'test' | 'quiz' | 'generator' | 'fortune';
@@ -50,47 +50,24 @@ export default function ShareButton({ title, description, type = 'test', lang = 
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setCta(getCTA(SHARE_UI[langOfLocale(lang)].cta[type])); }, [type, lang]);
 
+  /** 제목(결과)이 첫 줄, 설명이 둘째 줄 — 주소는 shareOne이 뒤에 붙인다 */
+  const msg = description ? `${title}\n${description}` : title;
+
   async function share() {
-    const url = window.location.href;
-    const text = description ? `${description}\n\n${url}` : url;
-    if (typeof navigator !== 'undefined' && 'share' in navigator) {
-      try {
-        /*
-         * 주소는 url 칸으로 넘긴다 — 글 안에 박아 넣지 않는다.
-         *
-         * 전에는 제목·설명·주소를 줄바꿈으로 이어 붙여 text 하나로 보냈다.
-         * 받는 앱은 그것을 그냥 글로 보고, 그 안의 주소를 따로 알아채서 미리보기를
-         * 하나 더 만든다 — 글 한 덩이와 카드 한 장이 따로 온다.
-         *
-         * url 칸에 넣으면 앱이 그 주소의 og 태그로 카드 하나를 만든다. 그림과
-         * 제목·설명이 그 한 장 안에 들어간다. 이 저장소의 다른 공유 열다섯 곳은
-         * 원래 이렇게 하고 있었고, 여기만 빠져 있었다.
-         */
-        await navigator.share({ title, text: description, url });
-        return;
-      } catch (e) {
-        if ((e as Error).name === 'AbortError') return;
-      }
+    if (await shareOne(msg)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
     }
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
   }
 
   return (
     <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-      <p className="text-center text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">{ui.heading}</p>
+      {/* 머리글 자리에 「공유하기」 대신 실제로 나갈 첫 줄을 그대로 보여준다.
+          누르기 전에 뭐가 가는지 모르면 안 누른다. 새 요소는 안 만든다. */}
+      <p className="sh-peek">{ui.heading} · “{title}”</p>
       <button
         onClick={share}
-        className="
-          w-full h-14 flex items-center justify-center gap-2.5
-          bg-gradient-to-r from-fuchsia-500 via-pink-500 to-orange-400
-          text-white rounded-2xl font-bold text-[15px]
-          shadow-lg shadow-pink-200
-          hover:shadow-xl hover:shadow-pink-300 hover:scale-[1.02]
-          active:scale-[0.97]
-          transition-all duration-200
-        "
+        className="sh-go"
       >
         {copied ? (
           <>
