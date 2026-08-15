@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { sitemapPartCount, sitemapPartPath } from "./sitemap";
-import { BLOCKED_CRAWLERS } from "@/lib/crawlers";
+import { BLOCKED_CRAWLERS, UNFURLERS } from "@/lib/crawlers";
 
 export const dynamic = "force-static";
 
@@ -17,8 +17,16 @@ export default function robots(): MetadataRoute.Robots {
      * 막는 것은 학습용 대량 수집기와 SEO 분석 도구다. 어느 봇을 왜 가르는지는
      * lib/crawlers.ts에 적었다.
      */
+    /*
+     * ── 낱장 공유 카드는 미리보기 만드는 것에게만 (2026-08-15) ────
+     * 카드가 낱장마다 달라지면서 `/og/` 아래 주소가 십수만 개가 됐다(한 장 약
+     * 100KB). 크롤러가 그것을 쓸어 가면 Origin Transfer 10GB를 그것만으로
+     * 넘긴다. `/og/*​/*​/*`는 칸이 넷 이상인 것 — 즉 낱장 카드만 걸린다.
+     * `/og/ko/color`(섹션 카드 2,109장)는 칸이 셋이라 안 걸리고 지금 그대로다.
+     */
     rules: [
-      { userAgent: "*", allow: "/" },
+      { userAgent: "*", allow: "/", disallow: "/og/*/*/*" },
+      { userAgent: UNFURLERS, allow: "/" },
       { userAgent: BLOCKED_CRAWLERS, disallow: "/" },
     ],
     /*

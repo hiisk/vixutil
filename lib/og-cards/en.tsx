@@ -35,6 +35,7 @@ import { hubCard as diceHub } from '@/lib/dice/route';
 import { hubCard as extHub } from '@/lib/ext/route';
 import { hubCard as fractionHub } from '@/lib/fraction/route';
 import { GEO_SECTION } from '@/lib/geo-section';
+import { CRAFT_SECTION } from '@/lib/craft-section';
 import { hubCard as glyphHub } from '@/lib/glyph/route';
 import { HANJA_SECTION, HANJA_UI } from '@/lib/hanja-ui';
 import { hubCard as htmlHub } from '@/lib/html/route';
@@ -199,6 +200,18 @@ export const CARDS: Record<string, () => ReactElement> = {
   'game/beat': () => gameOg('beat', 'en'),
   'game/peripheral': () => gameOg('peripheral', 'en'),
   'generator': () => intlOg('generator/en'),
+  // 잘못 지웠던 것을 되살림 — craft는 공식 계산기 40종이다
+  'craft': () => {
+    const meta = CRAFT_SECTION.meta['en'];
+    return ogCard({
+      icon: '🧶',
+      eyebrow: meta.section,
+      title: meta.hubTitle,
+      desc: meta.hubLead,
+      from: CRAFT_SECTION.ogFrom,
+      to: CRAFT_SECTION.ogTo,
+    });
+  },
   'geometry': () => {
     const meta = GEO_SECTION.meta['en'];
     return ogCard({

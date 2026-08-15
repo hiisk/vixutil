@@ -101,6 +101,41 @@ export const SEO_CRAWLERS: string[] = [
   'linkdexbot',
 ];
 
+/**
+ * 링크 미리보기를 만드는 것들 — 낱장 공유 카드를 받아야 하는 유일한 무리 (2026-08-15).
+ *
+ * 카드가 낱장마다 달라지면서(lib/og-cards의 DETAIL_SECTIONS) `/og/` 아래 주소가
+ * 2,109개에서 십수만 개가 됐다. 한 장이 약 100KB라, 크롤러 하나가 그것을 쓸어
+ * 가면 Origin Transfer 10GB를 그것만으로 넘긴다 — 이 저장소가 348%로 한 번
+ * 멈춘 그 한도다.
+ *
+ * 그래서 app/robots.ts가 `*`에게 낱장 카드를 막고, 이 목록만 통과시킨다.
+ * 카드는 **공유될 때 필요한 것**이지 색인될 것이 아니다 — 구글 웹 검색 결과에는
+ * og:image가 안 쓰인다(본문 <img>를 쓴다). 잃는 것이 없다.
+ *
+ * 그래서 카드 값은 페이지 수가 아니라 **공유 횟수**를 따라간다.
+ * Applebot이 여기 있는 것은 iMessage 미리보기를 그것이 가져가기 때문이다
+ * (SEARCH_BOTS에도 있지만 그 목록은 robots.txt에 안 쓰인다 — proxy.ts용이다).
+ */
+export const UNFURLERS: string[] = [
+  'facebookexternalhit',
+  'Twitterbot',
+  'Slackbot',
+  'Slackbot-LinkExpanding',
+  'Discordbot',
+  'LinkedInBot',
+  'WhatsApp',
+  'TelegramBot',
+  'redditbot',
+  'Pinterestbot',
+  'SkypeUriPreview',
+  'kakaotalk-scrap',
+  'Applebot',
+  'Iframely',
+  'Embedly',
+  'vkShare',
+];
+
 /** 막을 봇 전부 */
 export const BLOCKED_CRAWLERS: string[] = [...TRAINING_CRAWLERS, ...SEO_CRAWLERS];
 

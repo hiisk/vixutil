@@ -5,7 +5,7 @@ import { join } from 'node:path';
 
 import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { CARD_KEYS } from '../lib/og-cards/keys.ts';
-import { allCardParams, cardUrl, parseCardSlug } from '../lib/og-cards/index.ts';
+import { DETAIL_SECTIONS, allCardParams, cardUrl, parseCardSlug } from '../lib/og-cards/index.ts';
 import { APP_DIR, foldHubs, stripGroups } from './app-path.ts';
 
 /**
@@ -95,8 +95,15 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,099  찾아올 사람이 없는 갈래 열넷을 통째로 지움(-140) — gravity·microwave·
  *          insul·motor·fertilizer·wine·uv·dof·hardness·fret·bed·hike·altitude·
  *          darts. 허브도 안 남겼다
+ *   2,109  craft를 되살림(+10) — 잘못 지웠던 것이다. 슬러그가 도구 이름인
+ *          공식 계산기 40종이라 참조표 격자가 아니었다
+ *
+ *   2,109  2026-08-15에 낱장 카드를 켰지만 **이 수는 안 움직인다.** 낱장 카드는
+ *          CARD_KEYS에 안 들어가고 요청 때 그려진다(DETAIL_SECTIONS 스물둘).
+ *          여기서 세는 것은 미리 구울 수 있는 섹션 카드뿐이다 — 낱장은
+ *          아래 「낱장 카드」 검사 셋이 따로 본다
    */
-  const WANT = 2099;
+  const WANT = 2109;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);
@@ -122,6 +129,64 @@ test('keys.ts가 언어별 대응표와 어긋나지 않는다', () => {
     }
   }
   assert.deepStrictEqual(bad, []);
+});
+
+/**
+ * ── 낱장 카드 (2026-08-15) ──────────────────────────────────────
+ * 섹션 카드 2,109장을 낱장 286,266개가 나눠 쓰고 있었다 — /color/cherry도
+ * /color/skyblue도 "색" 한 장이 나갔다. DETAIL_SECTIONS에 적힌 섹션은 이제
+ * 슬러그까지 실은 주소(`/og/ko/color/cherry`)를 내고, 그리는 것은 render.ts의
+ * DETAIL이 한다.
+ *
+ * 여기서 지키는 것은 **갈라 둔 둘이 어긋나지 않는 것**이다. 이름(index.ts)과
+ * 그림(render.ts)이 갈라져 있는 까닭은 CARD_KEYS와 같다 — render.ts는 .tsx를
+ * 끌고 와서 node --test가 못 읽는다. 어긋나면 이름만 있는 쪽은 카드가 404가
+ * 되고(공유하면 그림이 아예 없다), 그림만 있는 쪽은 아무도 안 부른다.
+ */
+const DETAIL_MAP_KEYS = (): string[] => {
+  const src = readFileSync(join(CARDS_DIR, 'render.ts'), 'utf8');
+  const body = src.slice(src.indexOf('const DETAIL: Record'));
+  return [...body.slice(0, body.indexOf('\n};')).matchAll(/^ {2}'([^']+)':/gm)].map(m => m[1]);
+};
+
+test('낱장 카드: 이름(index.ts)과 그림(render.ts)이 같다', () => {
+  const drawn = DETAIL_MAP_KEYS();
+  assert.ok(drawn.length > 0, 'render.ts에서 DETAIL을 하나도 못 읽었다');
+  assert.deepStrictEqual([...drawn].sort(), [...DETAIL_SECTIONS].sort());
+});
+
+test('낱장 카드: 섹션 카드가 열 언어에 다 있다', () => {
+  /*
+   * 낱장 카드는 그 섹션 카드가 있는 언어에서만 나간다(cardUrl이 조상을 찾은
+   * 뒤에 판단한다). 어느 언어에서 섹션 카드가 빠지면 그 언어만 조용히 낱장
+   * 카드를 잃으므로 — 「언어 하나만 빠지는 구멍」 — 여기서 가로질러 센다.
+   */
+  const missing: string[] = [];
+  for (const key of DETAIL_SECTIONS) {
+    for (const lang of LANG_CODES) if (!CARD_KEYS[lang].includes(key)) missing.push(`${lang}:${key}`);
+  }
+  assert.deepStrictEqual(missing, []);
+});
+
+test('낱장 카드: 낱장마다 주소가 다르다', () => {
+  /*
+   * 이 검사의 요점은 **다르다**는 것 하나다. 고장 나면 둘이 같은 값이 되고,
+   * 그것이 바로 고치려던 상태다(공유하면 전부 같은 그림).
+   */
+  assert.equal(cardUrl('/color/cherry'), '/og/ko/color/cherry');
+  assert.notEqual(cardUrl('/color/cherry'), cardUrl('/color/skyblue'));
+  assert.equal(cardUrl('/en/percent/15-of-200'), '/og/en/percent/15-of-200');
+  assert.equal(cardUrl('/ja/game/chess/ruy-lopez'), '/og/ja/game/chess/ruy-lopez');
+
+  // 허브는 그대로 섹션 카드다 — 칸이 하나 늘면 안 된다
+  assert.equal(cardUrl('/color'), '/og/ko/color');
+  assert.equal(cardUrl('/game/chess'), '/og/ko/game/chess');
+
+  // 제 카드를 가진 낱장(color/name)은 낱장 카드로 새지 않는다
+  assert.equal(cardUrl('/color/name'), '/og/ko/color/name');
+
+  // 낱장 카드가 없는 섹션은 예전대로 섹션 카드를 물려받는다
+  assert.equal(cardUrl('/convert/fps-ms'), '/og/ko/convert');
 });
 
 test('카드 주소는 언어 칸으로 시작한다', () => {

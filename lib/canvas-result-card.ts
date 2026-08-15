@@ -89,12 +89,41 @@ export function drawResultCard(canvas: HTMLCanvasElement, opts: ResultCardOption
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  // 배경 그라디언트
+  /*
+   * 배경 — 공유(OG) 카드와 같은 판이다 (2026-08-15).
+   *
+   * 전에는 from→to를 그대로 꽉 채워서, 링크를 공유했을 때 나가는 OG 카드
+   * (lib/og-template.tsx의 artwork: 거의 검은 판 + 섹션 색 판 + 후광)와 나란히
+   * 놓으면 다른 사이트로 보였다. 사람이 이미지로 올리는 것과 링크를 붙였을 때
+   * 나가는 것이 **같은 그림 계열**이어야 한 사이트로 읽힌다.
+   *
+   * 그래서 og-template의 세 겹을 그대로 옮겼다 — 색 stop 값이 같다. 섹션 색은
+   * 꽉 채우는 대신 얹는 판과 후광으로 남아서, 색으로 섹션을 가리는 성질은
+   * 그대로다. 글꼴은 못 맞춘다(캔버스는 CSS를 안 타서 시스템 글꼴이다).
+   */
   const bg = ctx.createLinearGradient(0, 0, SIZE, SIZE);
-  bg.addColorStop(0, opts.from);
-  bg.addColorStop(1, opts.to);
+  bg.addColorStop(0, '#12142c');
+  bg.addColorStop(0.6, '#06070f');
+  bg.addColorStop(1, '#0a0b18');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // 섹션 색 판 — 왼쪽 아래에서 오른쪽 위로 밝아진다(og-template의 'sheet')
+  const sheet = ctx.createLinearGradient(0, SIZE, SIZE, 0);
+  sheet.addColorStop(0.3, 'transparent');
+  sheet.addColorStop(1, opts.from);
+  ctx.globalAlpha = 0.3;
+  ctx.fillStyle = sheet;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // 후광 — 가운데에서 퍼진다(og-template의 'spot')
+  const spot = ctx.createRadialGradient(SIZE / 2, SIZE / 2, 0, SIZE / 2, SIZE / 2, SIZE * 0.55);
+  spot.addColorStop(0, opts.to);
+  spot.addColorStop(1, 'transparent');
+  ctx.globalAlpha = 0.5;
+  ctx.fillStyle = spot;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  ctx.globalAlpha = 1;
 
   // 중앙 카드 패널
   const pad = 60;

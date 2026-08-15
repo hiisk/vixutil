@@ -47,6 +47,46 @@ const HAS = new Map<Lang, Set<string>>(
   (Object.entries(CARD_KEYS) as [Lang, string[]][]).map(([l, ks]) => [l, new Set(ks)]),
 );
 
+/**
+ * 낱장마다 제 카드를 그리는 섹션 (2026-08-15).
+ *
+ * ── 왜 필요한가 ──────────────────────────────────────────────────
+ * 카드 2,109장을 낱장 286,266개가 나눠 쓰고 있었다. `/color/cherry`도
+ * `/color/skyblue`도 "색"이라는 같은 그림이 나갔다. <title>에는 답이 들어
+ * 있는데(#11AA22 · 200의 15% = 30) 카드에는 안 들어간다 — 공유하면 전부
+ * 같은 그림이라 눈에 띄지 않는다.
+ *
+ * ── 왜 라우트가 안 늘어나나 ─────────────────────────────────────
+ * 카드를 그리는 곳은 app/og/[...slug] **캐치올 하나**다. 칸이 몇이든 같은
+ * 라우트가 받으므로 `/og/ko/color/cherry`를 내도 **라우트 엔트리는 0칸 는다.**
+ * 1,799장을 접었던 사고(index.ts 머리말)는 카드가 많아서가 아니라 카드마다
+ * **파일**이 있어서였다. 파일은 여전히 하나다.
+ *
+ * ── 왜 전부가 아니라 이 목록인가 ────────────────────────────────
+ * 낱장 286,266개 전부에 카드를 내면 크롤러가 한 바퀴 훑을 때 28.7GB다
+ * (한 장 약 100KB). Origin Transfer 한도가 30일 10GB이므로 **287%**이고,
+ * 이 저장소는 바로 그 한도의 348%에서 한 번 멈춘 적이 있다(lib/prerender.ts).
+ * 함수 시간도 한 장 1초라 286,266초 = 79시간이다.
+ *
+ * 그래서 **이미 낱장 카드를 그릴 줄 아는 섹션만** 켠다. 파일 규약을 접을 때
+ * 살아남은 함수들이고(<섹션>Card(lang, slug)), 그동안 아무도 안 불러
+ * 죽어 있었다. 여는 주소 공간이 얼마인지 아는 채로 켜는 것이 요점이다.
+ *
+ * 크롤러가 이 주소들을 쓸어 가지 못하게 app/robots.ts가 `/og/*​/*​/*`를 막고,
+ * 링크 미리보기를 만드는 것들(lib/crawlers.ts의 UNFURLERS)만 통과시킨다.
+ * 그래서 값은 **페이지 수가 아니라 공유 횟수**를 따라간다.
+ *
+ * 목록을 늘리려면: 그 섹션에 `<섹션>Card(lang, slug)`를 만들고 여기와
+ * render.ts의 DETAIL에 같이 적는다(둘이 어긋나면 검사가 잡는다).
+ */
+export const DETAIL_SECTIONS: readonly string[] = [
+  'cmd', 'color', 'css', 'device/screen', 'ext', 'food', 'fortune/card',
+  'game/chess', 'game/cube', 'game/poker', 'html', 'http', 'image/size',
+  'metro', 'music', 'percent', 'random/dice', 'snap/lens', 'sound/hz',
+  'text/char', 'text/regex', 'time',
+];
+const DETAIL = new Set(DETAIL_SECTIONS);
+
 /** '/en/color/name' → { lang: 'en', path: 'color/name' } */
 function split(canonical: string): { lang: Lang; path: string } {
   const segs = canonical.replace(/^https?:\/\/[^/]+/, '').split('/').filter(Boolean);
@@ -66,7 +106,16 @@ export function cardUrl(canonical: string): string | undefined {
   const segs = path ? path.split('/') : [];
   for (let n = segs.length; n >= 0; n--) {
     const key = segs.slice(0, n).join('/');
-    if (has.has(key)) return `/og/${SEG_OF_LANG.get(lang)}${key ? `/${key}` : ''}`;
+    if (!has.has(key)) continue;
+    const seg = SEG_OF_LANG.get(lang);
+    /*
+     * 섹션 바로 아래 낱장이고 그 섹션이 낱장 카드를 그릴 줄 알면, 슬러그까지
+     * 실어 보낸다 — 같은 캐치올 라우트가 받으므로 라우트는 안 는다.
+     */
+    if (n === segs.length - 1 && DETAIL.has(key)) {
+      return `/og/${seg}/${key}/${encodeURIComponent(segs[n])}`;
+    }
+    return `/og/${seg}${key ? `/${key}` : ''}`;
   }
   return undefined;
 }

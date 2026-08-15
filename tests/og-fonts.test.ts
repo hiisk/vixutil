@@ -143,7 +143,8 @@ test('공유 카드가 ImageResponse를 직접 부르지 않는다', () => {
    * 이 검사가 잡으려는 것은 "섹션당 열 장"이 아니라, 낱장 라우트에 카드가
    * 되살아나 한 섹션이 수백 장을 찍는 경우다 — 그때 빌드가 죽는다.
    */
-  assert.equal(cards.length, 2099, `공유 카드가 ${cards.length}장`);
+  // 2026-08-15: craft를 되살렸다(+10) — 잘못 지웠던 것이다
+  assert.equal(cards.length, 2109, `공유 카드가 ${cards.length}장`);
   const bad = files.filter(f => readFileSync(join(dir, f), 'utf8').includes('new ImageResponse'));
   assert.deepStrictEqual(bad, []);
 });
