@@ -112,7 +112,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
             <button
               key={m.size}
               onClick={() => download(m.blob, m.name)}
-              className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-left hover:border-violet-300 transition-colors"
+              className="fld flex items-center gap-3 text-left hover:border-violet-300"
             >
               <span className="shrink-0 w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

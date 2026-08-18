@@ -57,6 +57,8 @@ export default function SajuForm({
 }) {
   const fc = sajuForm(lang);
   const set = (patch: Partial<SajuFormValue>) => onChange({ ...value, ...patch });
+  /* 값은 여전히 "HH:MM" 한 문자열이다 — 이 폼을 읽는 쪽을 안 건드리려는 것이다 */
+  const [hh, mm] = value.hour ? value.hour.split(':') : ['', '00'];
 
   return (
     <form
@@ -69,7 +71,7 @@ export default function SajuForm({
           ♂·♀ 기호만 두면 무엇을 고르는 칸인지, 지금 무엇이 골라져 있는지가 색으로만
           남는다. 대운의 방향이 성별로 갈리므로 잘못 고르면 결과가 통째로 달라진다.
         */}
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{fc.genderLabel}</span>
+        <span className="fld-lbl">{fc.genderLabel}</span>
         <div className="grid grid-cols-2 gap-2 mb-3" role="group" aria-label={fc.genderLabel}>
           {(['male', 'female'] as const).map(g => (
             <button key={g} type="button" onClick={() => set({ gender: g })}
@@ -83,7 +85,7 @@ export default function SajuForm({
       </div>
 
       {/* 라벨을 따로 두는 것은 한 글자만 입력해도 힌트가 사라지기 때문이다 */}
-      <label htmlFor="saju-year" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{fc.birthLabel}</label>
+      <label htmlFor="saju-year" className="fld-lbl">{fc.birthLabel}</label>
       <div className="grid grid-cols-3 gap-2 mb-3">
         {(['year', 'month', 'day'] as const).map(k => {
           const ph = k === 'year' ? fc.yearPh : k === 'month' ? fc.monthPh : fc.dayPh;
@@ -92,17 +94,42 @@ export default function SajuForm({
               placeholder={ph} aria-label={ph}
               min={k === 'year' ? 1900 : 1} max={k === 'year' ? 2100 : k === 'month' ? 12 : 31}
               onChange={e => set({ [k]: e.target.value } as Partial<SajuFormValue>)}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none" />
+              className="fld text-center font-bold tabular-nums" />
           );
         })}
       </div>
 
-      {/* 분까지 받아야 진태양시 보정이 뜻을 가진다 — 비우면 시주를 생략한다 */}
-      <label htmlFor="saju-hour" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{fc.hourLabel}</label>
-      <input id="saju-hour" type="time" value={value.hour}
-        onChange={e => set({ hour: e.target.value })}
-        className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1" />
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{fc.hourNote}</p>
+      {/*
+        ── 왜 <input type="time">을 안 쓰나 (2026-08-15) ──────────
+        네이티브 시각 칸은 브라우저가 제 마음대로 그린다 — 크롬 데스크톱은 위아래
+        화살표가 붙은 좁은 상자를, 사파리는 또 다른 것을 낸다. 옆의 숫자 칸들과
+        높이도 글꼴도 안 맞아 폼 안에서 그 칸만 떠 보였다.
+
+        시·분 고르개 둘로 바꾼다. 나머지 칸과 같은 .fld를 쓰므로 줄이 맞고,
+        "모름"이 목록 안에 있어 **비울 수 있다는 것이 눈에 보인다** — 예전에는
+        선택이라는 말이 라벨에만 있었다.
+
+        분까지 받는 것은 진태양시 보정(서울 −32분) 때문이다. 시진 경계에 걸린
+        사람은 분이 시주를 바꾼다.
+      */}
+      <label htmlFor="saju-hour" className="fld-lbl">{fc.hourLabel}</label>
+      <div className="flex items-center gap-2 mb-1">
+        <select id="saju-hour" className="fld fld-sel w-full" value={hh}
+          onChange={e => set({ hour: e.target.value === '' ? '' : `${e.target.value}:${mm || '00'}` })}>
+          <option value="">{fc.hourUnknown}</option>
+          {Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0')).map(h => (
+            <option key={h} value={h}>{h}</option>
+          ))}
+        </select>
+        <span className="text-slate-300 dark:text-slate-600 font-black">:</span>
+        <select aria-label={fc.hourLabel} className="fld fld-sel w-full" value={mm} disabled={hh === ''}
+          onChange={e => set({ hour: `${hh}:${e.target.value}` })}>
+          {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
+            <option key={m} value={m}>{m}</option>
+          ))}
+        </select>
+      </div>
+      <p className="fld-note mb-3">{fc.hourNote}</p>
 
       {children}
 

@@ -55,7 +55,7 @@ export default function TodayColorPage() {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="예) 홍길동"
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-violet-400 focus:outline-none mb-3"
+            className="fld w-full focus:border-violet-400 mb-3"
           />
           <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 dark:shadow-none">
             오늘의 행운 색 보기 🎨

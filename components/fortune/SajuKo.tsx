@@ -344,10 +344,15 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
         {/* 입력 폼 — components/fortune/SajuForm.tsx 하나를 세 화면이 함께 쓴다 */}
         <SajuForm
           lang="ko" value={form} onChange={setForm} onSubmit={handleCalc} error={error}
-          submitLabel="🔯 사주 분석하기"
+          /* 컬러 이모지는 보라 단추 위에서 혼자 튄다 — 머리글과 같은 단색 아이콘을 쓴다 */
+          submitLabel={<span className="inline-flex items-center justify-center gap-2">
+            <ToolIcon emoji="🔯" accent="rgba(255,255,255,0.55)" className="w-4 h-4 text-white" />
+            사주 분석하기
+          </span>}
           header={
             <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
-              <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+              {/* 보라 머리글 위다 — text-slate-800이면 아이콘이 배경에 묻힌다 */}
+              <ToolIcon emoji="🔯" accent="rgba(255,255,255,0.55)" className="w-9 h-9 mx-auto mb-2 text-white" />
               {initialTopic
                 ? <p className="text-xl font-black">사주 분석</p>
                 : <h1 className="text-xl font-black">사주 분석</h1>}

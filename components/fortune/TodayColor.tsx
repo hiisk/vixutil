@@ -155,7 +155,7 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder={c.namePh}
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-violet-400 focus:outline-none"
+            className="fld w-full focus:border-violet-400"
           />
           <button type="submit" className="w-full mt-3 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-black py-3 transition-colors">
             {c.submit}

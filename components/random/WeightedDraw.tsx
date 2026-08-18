@@ -33,7 +33,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
               value={it.label}
               onChange={e => set(i, { label: e.target.value })}
               placeholder={common.optionPlaceholder(i + 1)}
-              className="flex-1 min-w-0 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-400"
+              className="fld flex-1 min-w-0 focus:ring-2 focus:ring-rose-400"
             />
             <input
               type="number" min={0} max={999} value={it.weight}

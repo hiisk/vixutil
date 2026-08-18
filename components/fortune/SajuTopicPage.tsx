@@ -71,11 +71,11 @@ export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topi
   /* 폼 안 — 이름. 값이 바뀌면 위의 제목이 「홍길동님의 연애운」으로 바뀐다 */
   const nameField = (
     <>
-      <label htmlFor="saju-topic-name" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.ui.nameLabel}</label>
+      <label htmlFor="saju-topic-name" className="fld-lbl">{c.ui.nameLabel}</label>
       <input id="saju-topic-name" type="text" value={name} placeholder={c.ui.namePh} autoComplete="off"
         onChange={e => changeName(e.target.value)}
-        className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-1" />
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{c.ui.nameNote}</p>
+        className="fld w-full mb-1" />
+      <p className="fld-note mb-3">{c.ui.nameNote}</p>
     </>
   );
 

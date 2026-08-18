@@ -102,12 +102,12 @@ export default function NameMatchPage() {
             <div>
               <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">내 이름</label>
               <input value={nameA} onChange={e => setNameA(e.target.value)} placeholder="김민수" maxLength={10}
-                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-rose-400 focus:outline-none" />
+                className="fld w-full focus:border-rose-400" />
             </div>
             <div>
               <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">상대 이름</label>
               <input value={nameB} onChange={e => setNameB(e.target.value)} placeholder="이지은" maxLength={10}
-                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-rose-400 focus:outline-none" />
+                className="fld w-full focus:border-rose-400" />
             </div>
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}

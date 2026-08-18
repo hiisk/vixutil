@@ -652,6 +652,43 @@ html.dark .row-pair.row-now {
 
    hover:border-sky-300 같은 섹션별 색은 이미 아래 @media (hover) 규칙이
    --c-sec으로 대신하고 있다 — 마크업에 남길 이유가 없어서 뺐다. */
+/* ── 입력칸 한 벌 (2026-08-15) ─────────────────────────────
+   폼마다 같은 문자열을 적고 있었다 — 사주 폼 하나에만 여섯 곳에 155자짜리가
+   붙어 있었다. 낱장은 HTML·.rsc·.segments 세 곳에 저장되므로 그만큼 곱해진다.
+
+   생김새도 여기서 한 번에 정한다. 색은 그대로 두고 **테두리·모서리·눌림**만
+   손봤다 — 포커스 때 테두리만 바뀌면 어느 칸에 있는지가 약해서 옅은 고리를
+   같이 준다(--c-sec을 쓰므로 갈래 색을 그대로 따라간다). */
+.fld {
+  @apply rounded-xl border border-slate-200 dark:border-slate-700
+         bg-white dark:bg-slate-800 px-3 py-2.5 text-sm
+         text-slate-800 dark:text-slate-100 outline-none transition-all;
+  /* w-full은 일부러 안 넣는다 — 격자·flex 안에서 배치가 제각각이라 마크업이 정한다 */
+}
+.fld:focus {
+  border-color: var(--c-sec, oklch(0.62 0.19 275));
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--c-sec, oklch(0.62 0.19 275)) 18%, transparent);
+}
+.fld:hover:not(:focus) { @apply border-slate-300 dark:border-slate-600; }
+
+/* select은 기본 화살표가 운영체제마다 딴판이라 직접 그린다 */
+.fld-sel {
+  @apply appearance-none bg-no-repeat pr-8 font-bold tabular-nums cursor-pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.6rem center;
+  background-size: 1.1rem;
+}
+
+/* 폼 안 라벨 — 값이 채워져도 남아서 어느 칸인지 말해 준다 */
+.fld-lbl {
+  @apply block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2;
+}
+
+/* 칸 밑에 붙는 한 줄 설명 */
+.fld-note {
+  @apply text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed;
+}
+
 .chip-v {
   @apply rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900
          px-3 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums transition-all;

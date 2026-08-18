@@ -105,7 +105,7 @@ export default function TarotYesNoPage() {
           value={question}
           onChange={e => setQuestion(e.target.value)}
           placeholder="예: 이번 결정, 지금 하는 게 맞을까?"
-          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-400 mb-5"
+          className="fld w-full focus:ring-2 focus:ring-violet-400 mb-5"
         />
 
         <button

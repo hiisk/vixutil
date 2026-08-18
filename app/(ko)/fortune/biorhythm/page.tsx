@@ -171,13 +171,13 @@ export default function BiorhythmPage() {
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
               onChange={e => setForm({ ...form, year: e.target.value })}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-emerald-400 focus:outline-none" />
+              className="fld focus:border-emerald-400" />
             <input type="number" inputMode="numeric" placeholder="월" min={1} max={12} value={form.month}
               onChange={e => setForm({ ...form, month: e.target.value })}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-emerald-400 focus:outline-none" />
+              className="fld focus:border-emerald-400" />
             <input type="number" inputMode="numeric" placeholder="일" min={1} max={31} value={form.day}
               onChange={e => setForm({ ...form, day: e.target.value })}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:border-emerald-400 focus:outline-none" />
+              className="fld focus:border-emerald-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
           <button type="submit" className="w-full mt-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-black py-3 transition-colors">

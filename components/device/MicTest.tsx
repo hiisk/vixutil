@@ -205,7 +205,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
               <select
                 value={deviceId}
                 onChange={e => { setDeviceId(e.target.value); start(e.target.value); }}
-                className="mt-1.5 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200"
+                className="fld mt-1.5 w-full text-slate-700 dark:text-slate-200"
               >
                 {devices.map((d, i) => (
                   <option key={d.deviceId} value={d.deviceId}>{d.label || ui.deviceN(i + 1)}</option>

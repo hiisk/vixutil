@@ -35,6 +35,8 @@ export interface SajuFormCopy {
   /** 태어난 시각 — 선택이라는 것과 비웠을 때 어떻게 되는지 */
   hourLabel: string;
   hourNote: string;
+  /** 시각 고르개의 빈 값 — "모름" */
+  hourUnknown: string;
 }
 
 /**
@@ -54,6 +56,7 @@ const KO: SajuFormCopy = {
   female: '여성',
   hourLabel: '태어난 시각 (선택)',
   hourNote: '비워 두면 시주를 뺀 나머지로 봅니다. 넣으면 진태양시를 보정해 시주까지 뽑습니다.',
+  hourUnknown: '모름',
 };
 
 /** 열 언어 어느 것이든 입력칸 문구를 돌려준다 */
@@ -71,5 +74,6 @@ export function sajuForm(lang: AnyLocale10): SajuFormCopy {
     female: u.female,
     hourLabel: u.hourLabel,
     hourNote: u.hourNote,
+    hourUnknown: u.hourUnknown,
   };
 }

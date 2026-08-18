@@ -74,7 +74,7 @@ export default function SaltTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
             <button
               key={u.pct}
               onClick={() => { setMode('salt'); setPercent(u.pct); }}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-left hover:border-sky-300 transition-colors"
+              className="fld text-left hover:border-sky-300"
             >
               <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[i]} {u.pct}%</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.presetNotes[i]}</span>
