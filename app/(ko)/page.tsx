@@ -739,9 +739,9 @@ export default function HubPage() {
       <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 via-amber-400 via-emerald-500 to-sky-400" />
 
-      <div className="relative max-w-3xl mx-auto px-4 py-16 sm:py-24">
+      <div className="relative max-w-3xl mx-auto px-4 py-10 sm:py-24">
         {/* Brand */}
-        <div className="mb-14 text-center">
+        <div className="mb-8 sm:mb-14 text-center">
           {/*
             홈에 h1이 없었다. 브랜드가 span 두 개로만 그려져 있어서, 사이트에서
             권위가 가장 높은 페이지가 주제를 알리는 제목 없이 색인되고 있었다.
@@ -776,29 +776,29 @@ export default function HubPage() {
           </span>
         </Link>
 
-        {/* Section grid */}
-        <div className="grid sm:grid-cols-2 gap-4">
+        {/* Section grid — 모바일 두 칸, 카드 생김새는 globals.css의 .home-card */}
+        <div className="home-grid">
           {SECTIONS.map((s) => (
             <Link
               key={s.href}
               href={s.href}
-              className={`group relative overflow-hidden rounded-2xl border ${s.borderAccent} ${s.bgLight} dark:bg-slate-900/70 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg ${s.shadow} hover:-translate-y-0.5 transition-all duration-200`}
+              className={`group home-card ${s.borderAccent} ${s.bgLight} dark:bg-slate-900/70 ${s.shadow}`}
             >
               {/* Background gradient decoration */}
-              <div className={`absolute -right-8 -top-8 w-28 h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
+              <div className={`absolute -right-8 -top-8 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
 
               <div className="relative z-10">
-                <div className="flex items-start justify-between mb-4">
-                  <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
+                <div className="flex items-start justify-between gap-1.5 mb-2 sm:mb-4">
+                  <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 sm:w-8 sm:h-8 shrink-0" />
                   {s.badge && (
-                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
+                    <span className={`shrink-0 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
                       {s.badge}
                     </span>
                   )}
                 </div>
-                <h2 className={`text-lg font-black ${s.textAccent} mb-1`}>{s.title}</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{s.desc}</p>
-                <div className={`flex items-center gap-1 text-xs font-semibold ${s.textAccent}`}>
+                <h2 className={`home-card-title ${s.textAccent}`}>{s.title}</h2>
+                <p className="home-card-desc">{s.desc}</p>
+                <div className={`home-card-go ${s.textAccent}`}>
                   바로가기
                   <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

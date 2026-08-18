@@ -107,11 +107,12 @@ export default function FormulaPage({
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
-          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-gradient-to-br ${section.grad} shadow-lg`}>
-            <ToolIcon emoji={tool.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
+        {/* 모바일에서는 계산칸이 첫 화면에 들어와야 한다 — 아이콘·제목만 한 급씩 줄인다 */}
+        <div className="text-center mb-5 sm:mb-7">
+          <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-2xl mb-3 sm:mb-4 text-3xl bg-gradient-to-br ${section.grad} shadow-lg`}>
+            <ToolIcon emoji={tool.icon} accent="rgba(255,255,255,0.55)" className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{text.title}</h1>
+          <h1 className="text-xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2 sm:mb-2.5">{text.title}</h1>
           <p className="note-sm max-w-xl mx-auto">{text.long}</p>
         </div>
 

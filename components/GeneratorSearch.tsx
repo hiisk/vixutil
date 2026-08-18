@@ -25,15 +25,15 @@ function GenCard({ g }: { g: CardItem }) {
       className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)] overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
-      <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(g.slug, 'generator')}`}>
+      <div className={`card-thumb bg-gradient-to-br ${thumbGradient(g.slug, 'generator')}`}>
         <ToolIconRef
           emoji={g.icon}
-          className="w-14 h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+          className="card-thumb-icon"
         />
       </div>
-      <div className="p-3">
+      <div className="p-2.5 sm:p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
-        <p className="note-xs line-clamp-2">{g.desc}</p>
+        <p className="note-xs line-clamp-1 sm:line-clamp-2">{g.desc}</p>
       </div>
     </Link>
   );

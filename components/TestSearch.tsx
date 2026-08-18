@@ -17,15 +17,15 @@ function TestCard({ t }: { t: CardItem }) {
         바로 아래 텍스트로 또 나온다 — 순수 장식에 194개 × 90KB를 쓰고 있었다.
         그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
       */}
-      <div className={`aspect-video relative overflow-hidden flex items-center justify-center bg-gradient-to-br ${thumbGradient(t.slug, 'test')}`}>
+      <div className={`card-thumb bg-gradient-to-br ${thumbGradient(t.slug, 'test')}`}>
         <ToolIconRef
           emoji={t.icon}
-          className="w-14 h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+          className="card-thumb-icon"
         />
       </div>
-      <div className="p-3">
+      <div className="p-2.5 sm:p-3">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
-        <p className="note-xs line-clamp-2">{t.desc}</p>
+        <p className="note-xs line-clamp-1 sm:line-clamp-2">{t.desc}</p>
       </div>
     </Link>
   );

@@ -88,7 +88,7 @@ export default function LangPicker({
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label="Change language"
-        className="flex items-center gap-1.5 rounded-xl border chip-off px-2.5 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+        className="flex items-center min-h-10 gap-1.5 rounded-xl border chip-off px-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
       >
         <span aria-hidden="true" className="text-sm leading-none">{localeFlag(current)}</span>
         <span className="max-w-[6.5rem] truncate">{localeLabel(current)}</span>

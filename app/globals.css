@@ -305,8 +305,10 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .faq-card {
   @apply border rounded-xl px-4 py-3 [&_summary::-webkit-details-marker]:hidden;
 }
+/* 여는 손잡이는 <summary>뿐이다 — 카드의 py-3은 눌러도 아무 일이 안 일어난다.
+   글자는 20px이라 실제 겨눌 자리가 20px이었다. 44px로 벌린다(2026-08-18). */
 .faq-q {
-  @apply flex items-center justify-between cursor-pointer text-sm font-bold list-none;
+  @apply flex items-center justify-between min-h-11 cursor-pointer text-sm font-bold list-none;
 }
 .faq-chevron {
   @apply w-4 h-4 shrink-0 transition-transform group-open:rotate-180;
@@ -432,6 +434,47 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .hub-card-desc {
   @apply block text-xs text-slate-500 dark:text-slate-400 truncate;
 }
+/* ── 홈 갈래 카드 (2026-08-18) ─────────────────────────────
+   한국어 홈과 아홉 언어 홈이 같은 카드를 각각 손으로 적고 있었다. 모바일에서는
+   한 줄에 한 장씩 215px이라, 갈래 마흔둘을 지나려면 9,000px을 긁어야 했다.
+
+   모바일은 **두 칸**이고 카드에서 「바로가기」 줄을 뺀다 — 카드 전체가 링크라
+   그 줄은 손가락에게 아무것도 더해 주지 않는다. 설명은 두 줄에서 자른다
+   (자르는 것은 보이는 데까지고 글자는 마크업에 그대로 있다). sm 위로는 예전
+   그대로다. */
+.home-grid {
+  @apply grid grid-cols-2 gap-2.5 sm:gap-4;
+}
+.home-card {
+  @apply relative overflow-hidden rounded-2xl border backdrop-blur-xl
+         p-3.5 sm:p-6 shadow-sm transition-all duration-200;
+}
+@media (hover: hover) {
+  .home-card:hover { @apply shadow-lg; transform: translateY(-2px); }
+}
+.home-card-title {
+  @apply text-sm sm:text-lg font-black leading-tight mb-1 text-balance;
+}
+.home-card-desc {
+  @apply text-xs sm:text-sm text-slate-500 dark:text-slate-400 line-clamp-2 sm:mb-4;
+}
+/* 카드가 통째로 링크다 — 모바일에서는 이 줄을 안 그린다 */
+.home-card-go {
+  @apply hidden sm:flex items-center gap-1 text-xs font-semibold;
+}
+
+/* ── 그림 카드의 썸네일 (2026-08-18) ───────────────────────
+   test·quiz·generator 허브가 같은 카드를 쓴다. 카드 하나에 aspect-video 띠가
+   95px, 설명이 두 줄이라 264개인 /test가 모바일에서 28,587px이었다 — 손가락으로
+   서른네 화면이다. 모바일에서는 띠를 64px로 줄이고 설명을 한 줄로 자른다.
+   sm 위로는 예전 그대로다(넓은 화면에서는 그림이 넓을수록 고르기 쉽다). */
+.card-thumb {
+  @apply relative overflow-hidden flex items-center justify-center h-16 sm:h-auto sm:aspect-video;
+}
+.card-thumb-icon {
+  @apply w-8 h-8 sm:w-14 sm:h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110;
+}
+
 /* 갈래 머리 — 허브마다 대여섯 번 나온다 */
 .hub-cat-h2 {
   @apply text-sm font-black text-slate-500 dark:text-slate-400 mb-3 pl-1;
@@ -480,7 +523,7 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 }
 /* 머리글의 "뒤로" — 색만 섹션마다 갈리므로(열두 가지) 그 한 칸은 마크업에 남긴다 */
 .page-back {
-  @apply flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 transition-colors font-medium;
+  @apply flex items-center min-h-11 gap-1.5 text-sm text-slate-500 dark:text-slate-400 transition-colors font-medium;
 }
 /* slate-400은 흰 바탕에서 2.6:1이라 12px 글자에 쓰면 WCAG AA(4.5:1)에 못 미친다.
    다크의 slate-500(3.8:1)도 마찬가지였다. 한 단계씩 올려 둘 다 4.7:1 위로 뺀다.
@@ -519,8 +562,10 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 }
 /* hover:bg-slate-200에 다크 짝이 없어 다크에서 마우스를 올리면 칩만 밝은 회색으로
    튀었다. 섹션색 엷은 판으로 바꾸면 두 테마가 같은 값을 쓴다. */
+/* 손가락 자리 — py-1.5는 28px이라 엄지로 겨누기에 좁았다. 글자 크기는 그대로
+   두고 세로만 36px로 벌린다(2026-08-18). */
 .foot-chip {
-  @apply rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium
+  @apply inline-flex items-center min-h-9 rounded-full bg-slate-100 dark:bg-slate-800 px-3 text-xs font-medium
          text-slate-500 dark:text-slate-400 transition-colors;
 }
 @media (hover: hover) {

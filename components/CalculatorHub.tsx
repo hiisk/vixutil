@@ -45,7 +45,7 @@ export default function CalculatorHub() {
                   key={c.id}
                   href={`#${c.id}`}
                   onClick={() => setQuery('')}
-                  className="shrink-0 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 py-1 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors whitespace-nowrap"
+                  className="shrink-0 flex items-center min-h-11 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors whitespace-nowrap"
                 >
                   <ToolIcon emoji={c.icon} className="inline-block w-3.5 h-3.5 -mt-0.5 mr-1 align-middle" />
                   {c.label}
@@ -62,8 +62,7 @@ export default function CalculatorHub() {
 
       <div className="max-w-5xl mx-auto px-4">
         {/* 히어로 + 검색 */}
-        <section className="py-10 sm:py-14 border-b border-slate-100 dark:border-slate-800">
-          <p className="text-xs font-bold text-blue-600 tracking-widest uppercase mb-3">Korean Calculator</p>
+        <section className="py-7 sm:py-14 border-b border-slate-100 dark:border-slate-800">
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-slate-100 leading-tight mb-3">
             실생활 계산기 모음
           </h1>
@@ -101,7 +100,7 @@ export default function CalculatorHub() {
         </section>
 
         {/* 카테고리별 섹션 */}
-        <div className="py-8 flex flex-col gap-14">
+        <div className="py-8 flex flex-col gap-9 sm:gap-14">
           {filtered.map(cat => (
             <section key={cat.id} id={cat.id}>
               <div className="flex items-center gap-3 mb-5">
@@ -120,17 +119,17 @@ export default function CalculatorHub() {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 sm:p-4 hover:border-blue-300 hover:shadow-sm transition-all"
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-blue-700 transition-colors">
+                    <div className="flex items-start justify-between gap-1 mb-2">
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight text-balance line-clamp-2 group-hover:text-blue-700 transition-colors">
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
                         <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
-                    <p className="note-xs">{c.desc}</p>
+                    <p className="note-xs line-clamp-2">{c.desc}</p>
                   </Link>
                 ))}
               </div>

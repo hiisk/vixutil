@@ -23,8 +23,8 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
       <PageGlow accent="indigo" />
       <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 to-emerald-500" />
 
-      <div className="relative max-w-3xl mx-auto px-4 py-16 sm:py-24">
-        <div className="mb-14 text-center">
+      <div className="relative max-w-3xl mx-auto px-4 py-10 sm:py-24">
+        <div className="mb-8 sm:mb-14 text-center">
           <h1 className="inline-flex items-center gap-1 mb-4">
             <span className="text-5xl sm:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-5xl sm:text-6xl font-black text-blue-600 tracking-tighter">util</span>
@@ -51,19 +51,19 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
           </Link>
         )}
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="home-grid">
           {sections.map(s => (
             <Link
               key={s.route}
               href={localeHref(lang, s.route)}
-              className={`group relative overflow-hidden rounded-2xl border ${s.border} ${s.bg} backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}
+              className={`group home-card ${s.border} ${s.bg}`}
             >
-              <div className={`absolute -right-8 -top-8 w-28 h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
+              <div className={`absolute -right-8 -top-8 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
               <div className="relative z-10">
-                <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-9 h-9 block mb-4" />
-                <h2 className={`text-lg font-black ${s.accent} mb-1`}>{s.title}</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{s.desc}</p>
-                <div className={`flex items-center gap-1 text-xs font-semibold ${s.accent}`}>
+                <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 sm:w-9 sm:h-9 block mb-2 sm:mb-4" />
+                <h2 className={`home-card-title ${s.accent}`}>{s.title}</h2>
+                <p className="home-card-desc">{s.desc}</p>
+                <div className={`home-card-go ${s.accent}`}>
                   {ui.open}
                   <svg aria-hidden="true" className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
