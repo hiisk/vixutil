@@ -13,20 +13,13 @@ import { parseCardSlug } from './index.ts';
 import { openingCard } from '../chess/route.ts';
 import { itemCard as cmdCard } from '../cmd/route.ts';
 import { colorCard } from '../color/route.ts';
-import { propCard } from '../css/route.ts';
 import { algCard } from '../cube/route.ts';
 import { screenCard } from '../device/route.ts';
-import { rollCard } from '../dice/route.ts';
 import { extCard } from '../ext/route.ts';
 import { ingredientCard } from '../food/route.ts';
-import { glyphCard } from '../glyph/route.ts';
-import { tagCard } from '../html/route.ts';
 import { itemCard as httpCard } from '../http/route.ts';
 import { sizeCard } from '../imgsize/route.ts';
 import { lensCard } from '../lens/route.ts';
-import { lineCard } from '../metro/route.ts';
-import { itemCard as musicCard } from '../music/route.ts';
-import { percentCard } from '../percent/route.ts';
 import { handCard } from '../poker/route.ts';
 import { patternCard } from '../regex/route.ts';
 import { freqCard } from '../sound/route.ts';
@@ -58,7 +51,6 @@ export const CARD_SETS: Record<Lang, Record<string, () => ReactElement>> = {
 const DETAIL: Record<string, (lang: Lang, slug: string) => ReactElement> = {
   'cmd': cmdCard,
   'color': colorCard,
-  'css': propCard,
   'device/screen': screenCard,
   'ext': extCard,
   'food': ingredientCard,
@@ -66,16 +58,10 @@ const DETAIL: Record<string, (lang: Lang, slug: string) => ReactElement> = {
   'game/chess': openingCard,
   'game/cube': algCard,
   'game/poker': handCard,
-  'html': tagCard,
   'http': httpCard,
   'image/size': sizeCard,
-  'metro': lineCard,
-  'music': musicCard,
-  'percent': percentCard,
-  'random/dice': rollCard,
   'snap/lens': lensCard,
   'sound/hz': freqCard,
-  'text/char': glyphCard,
   'text/regex': patternCard,
   'time': cityCard,
 };

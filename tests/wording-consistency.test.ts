@@ -22,16 +22,12 @@ import { DEVICE_UI } from '../lib/device/ui.ts';
 import { REGEX_UI } from '../lib/regex/ui.ts';
 import { IMG_SIZE_UI } from '../lib/imgsize/ui.ts';
 import { HTTP_UI } from '../lib/http/ui.ts';
-import { CSS_UI } from '../lib/css/ui.ts';
 import { LENS_UI } from '../lib/lens/ui.ts';
-import { HTML_UI } from '../lib/html/ui.ts';
 import { EXT_UI } from '../lib/ext/ui.ts';
 import { GLYPH_UI } from '../lib/glyph/ui.ts';
 import { SOUND_UI } from '../lib/sound/ui.ts';
 import { TAROT_UI } from '../lib/tarot/ui.ts';
 import { CUBE_UI } from '../lib/cube/ui.ts';
-import { MUSIC_UI } from '../lib/music/ui.ts';
-import { METRO_UI } from '../lib/metro/ui.ts';
 import { NUMBER_UI } from '../lib/number/ui.ts';
 import { ASCII_UI } from '../lib/ascii/ui.ts';
 import { PORT_UI } from '../lib/port/ui.ts';
@@ -46,7 +42,6 @@ import { ROMAN_UI } from '../lib/roman/ui.ts';
 import { YEAR_UI } from '../lib/year/ui.ts';
 import { PX_UI } from '../lib/rem/ui.ts';
 import { PASSWORD_UI } from '../lib/password/ui.ts';
-import { FLIGHT_UI } from '../lib/flight/ui.ts';
 
 type AnyUI = Record<Lang, Record<string, unknown>>;
 
@@ -55,12 +50,9 @@ const ui = (u: unknown) => u as AnyUI;
 
 const SECTIONS: Record<string, AnyUI> = {
   dice: ui(DICE_UI), device: ui(DEVICE_UI), regex: ui(REGEX_UI),
-  imgsize: ui(IMG_SIZE_UI), http: ui(HTTP_UI), css: ui(CSS_UI),
-  lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
+  imgsize: ui(IMG_SIZE_UI), http: ui(HTTP_UI), lens: ui(LENS_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), sound: ui(SOUND_UI),
-  tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), year: ui(YEAR_UI), rem: ui(PX_UI), password: ui(PASSWORD_UI), flight: ui(FLIGHT_UI), 
-};
+  tarot: ui(TAROT_UI), cube: ui(CUBE_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), year: ui(YEAR_UI), rem: ui(PX_UI), password: ui(PASSWORD_UI), };
 
 /**
  * 섹션마다 뜻이 다른 열쇠는 뺀다.

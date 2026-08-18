@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { PERCENT_ICON, PERCENT_SLUGS, parsePercentSlug } from './list.ts';
-import { percentFacts } from './facts.ts';
+import { PERCENT_ICON, PERCENT_SLUGS } from './list.ts';
 import { PERCENT_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -29,22 +28,6 @@ export function hubMetadata(lang: Lang): Metadata {
 export function hubCard(lang: Lang): ReactElement {
   const ui = PERCENT_UI[cardLang(lang)];
   return ogCard({ icon: PERCENT_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
-}
-
-export function percentCard(lang: Lang, slug: string): ReactElement {
-  const card = cardLang(lang);
-  const ui = PERCENT_UI[card];
-  const c = parsePercentSlug(slug);
-  if (!c) return hubCard(lang);
-  const f = percentFacts(c.percent, c.base);
-  return ogCard({
-    icon: PERCENT_ICON,
-    eyebrow: `${ui.section} · ${f.percent}%`,
-    title: ui.metaTitle(f),
-    desc: ui.offNote(f),
-    from: FROM,
-    to: TO,
-  });
 }
 
 export const percentParams = () => prerender(PERCENT_SLUGS.map(slug => ({ slug })));

@@ -17,14 +17,12 @@ import { ALL_LOCALES10, type AnyLocale10 } from '../lib/locales.ts';
 import { FORMULA_L10N } from '../lib/formula/l10n/index.ts';
 import { TOOL_L10N } from '../lib/formula/tool-l10n.ts';
 import { HANJA_L10N, GLOSS_L10N } from '../lib/hanja-l10n/index.ts';
-import { COUNTRY_L10N } from '../lib/country-l10n/index.ts';
 import { CONVERT_L10N } from '../lib/convert-i18n.ts';
 import { RATE_META_INTL, RATE_CATEGORY_INTL } from '../lib/rate-section.ts';
 import { BODY_META_INTL, BODY_CATEGORY_INTL } from '../lib/body-section.ts';
 import { GEO_META_INTL, GEO_CATEGORY_INTL } from '../lib/geo-section.ts';
 import { CRAFT_META_INTL, CRAFT_CATEGORY_INTL } from '../lib/craft-section.ts';
 import { HANJA_CATEGORY_INTL } from '../lib/hanja-ui.ts';
-import { COUNTRY_REGION_INTL } from '../lib/country-ui.ts';
 import { FORTUNE_INTL, SNAP_INTL } from '../lib/search-index-intl.ts';
 import { TESTS_INTL } from '../lib/test-l10n/index.ts';
 import { QUIZZES_INTL } from '../lib/quiz-l10n/index.ts';
@@ -40,7 +38,6 @@ const TABLES: [string, Record<string, unknown>, readonly AnyLocale10[]][] = [
   ['TOOL_L10N', TOOL_L10N, NON_KO_EN],
   ['HANJA_L10N', HANJA_L10N, NON_KO_EN],
   ['GLOSS_L10N', GLOSS_L10N, NON_KO_EN],
-  ['COUNTRY_L10N', COUNTRY_L10N, NON_KO_EN],
   ['CONVERT_L10N', CONVERT_L10N, NON_KO],
   ['RATE_META_INTL', RATE_META_INTL, NON_KO_EN],
   ['RATE_CATEGORY_INTL', RATE_CATEGORY_INTL, NON_KO_EN],
@@ -52,7 +49,6 @@ const TABLES: [string, Record<string, unknown>, readonly AnyLocale10[]][] = [
   ['CRAFT_META_INTL', CRAFT_META_INTL, NON_KO_EN],
   ['CRAFT_CATEGORY_INTL', CRAFT_CATEGORY_INTL, NON_KO_EN],
   ['HANJA_CATEGORY_INTL', HANJA_CATEGORY_INTL, NON_KO_EN],
-  ['COUNTRY_REGION_INTL', COUNTRY_REGION_INTL, NON_KO_EN],
   ['FORTUNE_INTL', FORTUNE_INTL, NON_KO],
   ['SNAP_INTL', SNAP_INTL, NON_KO],
   // 심리테스트는 한국어 228종을 옮기지 않고 문화 중립인 다섯 종만 아홉 언어로 썼다

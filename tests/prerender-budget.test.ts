@@ -75,7 +75,7 @@ test('낱장이 ISR이고 굽는 손잡이를 함께 갖고 있다', () => {
   const leaves = all.filter(f => !f.includes('[[...path]]'));
   assert.equal(hubCatchalls.length, 9, `허브 캐치올이 ${hubCatchalls.length}개다 — 아홉 언어와 어긋난다`);
   /* 2026-08-18: 조합 격자 낱장 열다섯 갈래 × 아홉 언어를 지워 258이다 */
-  assert.ok(leaves.length > 250, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
+  assert.ok(leaves.length > 170, `낱장을 ${leaves.length}개밖에 못 찾았다 — 세는 방식이 깨졌다`);
 
   const isr: string[] = [];
   const dyn: string[] = [];
@@ -126,7 +126,7 @@ test('낱장이 ISR이고 굽는 손잡이를 함께 갖고 있다', () => {
    * 여기서 더 줄면 옮기다 만 것이다.
    */
   /* 2026-08-18: 조합 격자 낱장 열다섯 갈래 × 아홉 언어(135개)를 지워 258이다 */
-  assert.ok(isr.length >= 250, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
+  assert.ok(isr.length >= 170, `ISR 낱장이 ${isr.length}개뿐이다 — 옮기다 만 것이 아닌지 보라`);
 
   const bakedButDynamic = hubCatchalls.filter(f => readFileSync(f, 'utf8').includes("dynamic = 'force-dynamic'"));
   assert.deepEqual(
@@ -178,7 +178,7 @@ test('디스크 안에 드는 값이다', () => {
   /* 2026-08-12 접기로 840개가 됐다 — 굽는 장수는 이 수 × PRERENDER_PER_ROUTE다.
      라우트가 줄면 같은 손잡이로 굽는 장수도 줄어든다는 뜻이라, 디스크 여유는 늘었다. */
   /* 2026-08-18: 같은 삭제로 267이다 */
-  assert.ok(dynamicRoutes > 250, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
+  assert.ok(dynamicRoutes > 180, `동적 라우트를 ${dynamicRoutes}개밖에 못 셌다 — 세는 방식이 깨졌다`);
   const pages = 2600 + dynamicRoutes * prerenderLimit();
   const gb = (pages * KB_PER_PAGE) / 1048576;
   assert.ok(gb < 12, `${prerenderLimit()}장이면 .next가 ${gb.toFixed(1)}GB다 — 24GB에서 죽은 적이 있다`);

@@ -106,8 +106,12 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,079  laundry·air·dpi 셋을 통째로 지움(-30) — 한 공식·한 표에서 뽑아낸
  *          값 격자라 그 주제를 하러 찾아오는 사람이 없었다. 갈래 하나가 열
  *          언어씩 카드를 물고 있어 −10씩이다
+ *
+ *   2,009  2026-08-18에 country·html·css·error·music·metro·flight 일곱 갈래를
+ *          통째로 지움(−70). 손으로 쓴 자료지만 위키·MDN·스택오버플로에 밀려
+ *          들어오는 사람이 없다고 봤다
    */
-  const WANT = 2079;
+  const WANT = 2009;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);
@@ -179,7 +183,6 @@ test('낱장 카드: 낱장마다 주소가 다르다', () => {
    */
   assert.equal(cardUrl('/color/cherry'), '/og/ko/color/cherry');
   assert.notEqual(cardUrl('/color/cherry'), cardUrl('/color/skyblue'));
-  assert.equal(cardUrl('/en/percent/15-of-200'), '/og/en/percent/15-of-200');
   assert.equal(cardUrl('/ja/game/chess/ruy-lopez'), '/og/ja/game/chess/ruy-lopez');
 
   // 허브는 그대로 섹션 카드다 — 칸이 하나 늘면 안 된다
@@ -231,8 +234,8 @@ test('모든 페이지가 카드를 받는다', () => {
    */
   const routes = pageRoutes();
   /* 2026-08-15: 참조표 갈래를 통째로 지우면서 2,772 → 2,600으로 내렸다
-     2026-08-18: 조합 격자 낱장 열다섯 갈래(라우트 파일 135개)를 지워 2,564다 */
-  assert.ok(routes.length > 2500, `페이지를 ${routes.length}개밖에 못 찾았다`);
+     2026-08-18: 조합 격자 낱장과 갈래 일곱을 지워 2,431이다 */
+  assert.ok(routes.length > 2350, `페이지를 ${routes.length}개밖에 못 찾았다`);
   assert.deepStrictEqual(routes.filter(r => !cardUrl(r)).slice(0, 10), []);
 });
 

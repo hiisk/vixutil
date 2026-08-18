@@ -46,20 +46,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: DICE_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export function rollCard(lang: Lang, slug: string): ReactElement {
-  const card = cardLang(lang);
-  const ui = DICE_UI[card];
-  const r = rollOf(slug);
-  if (!r) return hubCard(card);
-  const f = rollFacts(r);
-  return ogCard({
-    icon: DICE_ICON,
-    eyebrow: `${ui.section} · ${ui.diceTitle(f.dice)}`,
-    title: `${f.dice}d6 = ${f.sum}`,
-    desc: ui.desc(f),
-    from: FROM,
-    to: TO,
-  });
-}
-
 export const rollParams = () => prerender(ROLLS.map(r => ({ slug: r.slug })));

@@ -26,8 +26,6 @@ import { SC_UI } from './shortcut/ui.ts';
 import { scDesc, type ScLangKey } from './shortcut/desc.ts';
 import { EM_ITEMS } from './emoji/list.ts';
 import { emojiDesc, type EmLangKey } from './emoji/desc.ts';
-import { ERR_ITEMS } from './errmsg/list.ts';
-import { errDesc, type ErrLangKey } from './errmsg/desc.ts';
 import { cmdDesc, type CmdLangKey } from './cmd/desc.ts';
 import { TOOL_L10N } from './formula/tool-l10n.ts';
 import type { FormulaTool } from './formula/types.ts';
@@ -151,12 +149,6 @@ function scEntries(lang: SearchIntlLang): Entry[] {
   }));
 }
 
-/** 오류 — 제목이 문구 그대로다. 다듬으면 붙여 넣고 찾는 사람이 못 알아본다 */
-function errEntries(lang: SearchIntlLang): Entry[] {
-  const key = (CMD_LANG[lang] ?? 'en') as ErrLangKey;
-  return ERR_ITEMS.map(x => ({ slug: x.slug, title: x.message, desc: errDesc(x.slug, key), icon: '⚠️' }));
-}
-
 /** 이모지 — 제목에 글자와 사람들이 부르는 이름을 함께 둔다 */
 function emojiEntries(lang: SearchIntlLang): Entry[] {
   const key = (CMD_LANG[lang] ?? 'en') as EmLangKey;
@@ -194,7 +186,6 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('cmd', cmdEntries(lang)),
     ...tools('shortcut', scEntries(lang)),
     ...tools('emoji', emojiEntries(lang)),
-    ...tools('error', errEntries(lang)),
     ...tools('convert', convertEntries(lang)),
     ...tools('color', colorToolsIntl(lang)),
     ...tools('time', timeToolsIntl(lang)),

@@ -10,9 +10,7 @@ import { IMAGE_TOOLS, relatedImageTools } from '../lib/image-tools.ts';
 import { SOUND_TOOLS, relatedSoundTools } from '../lib/sound-tools.ts';
 import { TEXT_TOOLS, relatedTextTools } from '../lib/text-tools.ts';
 import { TIME_TOOLS, relatedTimeTools } from '../lib/time-tools.ts';
-import { COUNTRIES, relatedCountries } from '../lib/country-tools.ts';
 import { IDIOMS, relatedIdioms } from '../lib/hanja-tools.ts';
-import { METRO_LINES, relatedLines } from '../lib/metro-lines.ts';
 import { rotatePick, relatedFor } from '../lib/related-rotate.ts';
 
 /**
@@ -37,9 +35,7 @@ const SECTIONS: [string, WithSlug[], (slug: string) => WithSlug[]][] = [
   ['sound', SOUND_TOOLS, relatedSoundTools],
   ['text', TEXT_TOOLS, relatedTextTools],
   ['time', TIME_TOOLS, relatedTimeTools],
-  ['country', COUNTRIES, relatedCountries],
   ['hanja', IDIOMS, relatedIdioms],
-  ['metro', METRO_LINES, relatedLines],
 ];
 
 test('낱장마다 들어오는 내부 링크가 하나 이상 있다', () => {

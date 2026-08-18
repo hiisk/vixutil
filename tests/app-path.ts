@@ -87,7 +87,7 @@ export function foldSlugs(): string[] {
   if (!m) throw new Error('lib/fold/registry.ts에서 SLUG_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 헬퍼도 고치라');
   const keys = [...m[1].matchAll(/'([^']*)':/g)].map(x => x[1]);
   /* 2026-08-18: 조합 격자 낱장을 지워 57 → 38이다(한 축 열다섯 + 두 축 넷) */
-  if (keys.length < 34) throw new Error(`접힌 낱장이 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
+  if (keys.length < 28) throw new Error(`접힌 낱장이 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
   return keys;
 }
 

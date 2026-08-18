@@ -1,5 +1,6 @@
 /**
- * 참고 사전 네 섹션 — /cmd, /shortcut, /emoji, /error.
+ * 참고 사전 세 섹션 — /cmd, /shortcut, /emoji.
+ * (/error는 2026-08-18에 지웠다 — 스택오버플로에 밀려 들어오는 사람이 없었다)
  *
  * 세 섹션이 같은 꼴이다. 식별자(명령 이름·키 조합·이모지 글자)는 프로그램과
  * 유니코드가 정한 것이라 옮기지 않고, 열 언어로 쓰는 것은 한 줄 설명뿐이다.
@@ -31,9 +32,6 @@ import { scFacts, keyCount } from '../lib/shortcut/facts.ts';
 import { EM_ITEMS, emojiItem, EM_GROUPS, codePoints } from '../lib/emoji/list.ts';
 import { EM_DESC } from '../lib/emoji/desc.ts';
 import { emojiFacts } from '../lib/emoji/facts.ts';
-import { ERR_ITEMS, errItem, ERR_CATEGORIES } from '../lib/errmsg/list.ts';
-import { ERR_DESC } from '../lib/errmsg/desc.ts';
-import { errFacts } from '../lib/errmsg/facts.ts';
 
 const LANGS = ['ko', 'en', 'es', 'pt', 'ja', 'de', 'fr', 'hi', 'zh', 'tw'] as const;
 
@@ -72,41 +70,7 @@ const SECTIONS: Section[] = [
     related: s => emojiFacts(emojiItem(s)!).related,
     groups: Object.fromEntries(EM_GROUPS.map(g => [g, EM_ITEMS.filter(x => x.group === g).length])),
   },
-  {
-    name: 'error',
-    slugs: ERR_ITEMS.map(x => x.slug),
-    desc: ERR_DESC,
-    related: s => errFacts(errItem(s)!).related,
-    groups: Object.fromEntries(ERR_CATEGORIES.map(c => [c, ERR_ITEMS.filter(x => x.category === c).length])),
-  },
 ];
-
-test('error: 오류 문구가 겹치지 않는다', () => {
-  /* 같은 문구가 둘이면 어느 쪽으로 가야 하는지 알 수 없다 — 슬러그만 다른 중복이다 */
-  const seen = new Map<string, string>();
-  const dup: string[] = [];
-  for (const x of ERR_ITEMS) {
-    const prev = seen.get(x.message);
-    if (prev) dup.push(`${x.message}: ${prev} / ${x.slug}`);
-    else seen.set(x.message, x.slug);
-  }
-  assert.deepEqual(dup, [], '같은 문구를 두 낱장이 쓴다');
-});
-
-test('error: 문구를 번역하거나 다듬지 않았다', () => {
-  /*
-   * 문구는 도구가 출력한 그대로여야 한다. 라틴 글자와 기호만으로 되어 있는지
-   * 보아, 한글·가나·한자가 섞여 들어온 것을 잡는다 — 그런 문구로는 아무것도
-   * 검색할 수 없다.
-   */
-  const bad = ERR_ITEMS.filter(x => /[가-힣ぁ-んァ-ン一-鿿]/.test(x.message));
-  assert.deepEqual(bad.map(x => `${x.slug}: ${x.message}`), []);
-});
-
-test('error: 고치는 명령도 라틴 글자로만 되어 있다', () => {
-  const bad = ERR_ITEMS.filter(x => x.fix && /[가-힣ぁ-んァ-ン一-鿿]/.test(x.fix));
-  assert.deepEqual(bad.map(x => `${x.slug}: ${x.fix}`), [], '번역한 명령은 실행되지 않는다');
-});
 
 for (const sec of SECTIONS) {
   test(`${sec.name}: 슬러그가 유일하고 주소에 쓸 수 있다`, () => {

@@ -37,7 +37,7 @@ test('허브: registry.ts와 registry-meta.ts의 열쇠가 같다', () => {
   assert.deepEqual(keys(EN_STATIC_META), keys(EN_STATIC_OVERRIDES));
   assert.deepEqual(keys(STATIC_MODULE), keys(STATIC_ROUTES));
   assert.deepEqual(keys(EN_STATIC_MODULE), keys(EN_STATIC_OVERRIDES));
-  assert.ok(keys(STATIC_META).length > 200, `허브가 ${keys(STATIC_META).length}개뿐 — 세는 방식이 깨졌다`);
+  assert.ok(keys(STATIC_META).length > 180, `허브가 ${keys(STATIC_META).length}개뿐 — 세는 방식이 깨졌다`);
 });
 
 test('세 칸 낱장: 두 칸 열쇠가 빠짐없이 메타 등록부에 있다', () => {
@@ -54,7 +54,7 @@ test('한국어: 뷰 등록부와 메타 등록부의 열쇠가 같다', () => {
   assert.deepEqual(keys(KO_MODULE), keys(KO_LEAVES));
   assert.deepEqual(keys(KO_DEEP_MODULE), keys(KO_DEEP_LEAVES));
   /* 2026-08-18: 조합 격자 낱장 열다섯을 지워 42 → 27이다 */
-  assert.ok(keys(KO_META).length > 20, `한국어 갈래가 ${keys(KO_META).length}개뿐 — 세는 방식이 깨졌다`);
+  assert.ok(keys(KO_META).length > 15, `한국어 갈래가 ${keys(KO_META).length}개뿐 — 세는 방식이 깨졌다`);
 });
 
 test('메타 모듈 파일이 실제로 있다', () => {

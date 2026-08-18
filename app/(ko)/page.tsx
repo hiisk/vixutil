@@ -21,9 +21,7 @@ import { NUMBERS as SQRT_NUMBERS } from '@/lib/sqrt/list';
 import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { YEARS as CAL_YEARS } from '@/lib/year/list';
 import { PIXELS } from '@/lib/rem/list';
-import { MUSIC_ITEMS } from '@/lib/music/catalog';
 import { CELLS as PW_CELLS } from '@/lib/password/list';
-import { CELLS as FLIGHT_CELLS } from '@/lib/flight/list';
 import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
@@ -354,42 +352,6 @@ const SECTIONS = [
     shadow: 'shadow-indigo-100',
   },
   {
-    href: '/country',
-    icon: '🧭',
-    title: '나라 정보',
-    desc: '시차·전압·플러그·국가번호·입국 조건을 나라별로 한 장에',
-    badge: `${SECTION_COUNTS.country}개`,
-    color: 'from-sky-500 to-cyan-600',
-    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
-    textAccent: 'text-sky-700 dark:text-sky-300',
-    borderAccent: 'border-sky-200 dark:border-sky-900/50',
-    shadow: 'shadow-sky-100',
-  },
-  {
-    href: '/metro',
-    icon: '🚇',
-    title: '지하철 역 맞추기',
-    desc: '서울·도쿄·런던·뉴욕 노선의 역 이름을 노선도 힌트로 맞추기',
-    badge: `${SECTION_COUNTS.metro}개`,
-    color: 'from-slate-600 to-slate-800',
-    bgLight: 'bg-slate-50 dark:bg-slate-900/40',
-    textAccent: 'text-slate-700 dark:text-slate-300',
-    borderAccent: 'border-slate-200 dark:border-slate-700',
-    shadow: 'shadow-slate-100',
-  },
-  {
-    href: '/error',
-    icon: '⚠️',
-    title: '오류 문구 사전',
-    desc: 'git·npm·Python·Docker 오류가 무슨 뜻이고 그 명령이 무엇을 버리는지',
-    badge: `${SECTION_COUNTS.error}개`,
-    color: 'from-rose-800 to-rose-400',
-    bgLight: 'bg-rose-50 dark:bg-rose-950/30',
-    textAccent: 'text-rose-700 dark:text-rose-300',
-    borderAccent: 'border-rose-200 dark:border-rose-900/50',
-    shadow: 'shadow-rose-100',
-  },
-  {
     href: '/shortcut',
     icon: '⌨️',
     title: '키보드 단축키',
@@ -436,30 +398,6 @@ const SECTIONS = [
     textAccent: 'text-teal-700 dark:text-teal-300',
     borderAccent: 'border-teal-200 dark:border-teal-900/50',
     shadow: 'shadow-teal-100',
-  },
-  {
-    href: '/css',
-    icon: '🎨',
-    title: 'CSS 속성 사전',
-    desc: '속성 154개의 쓰임과 자주 쓰는 값, 상속 여부를 한 장에',
-    badge: `${SECTION_COUNTS.css}개`,
-    color: 'from-blue-600 to-sky-500',
-    bgLight: 'bg-blue-50 dark:bg-blue-950/30',
-    textAccent: 'text-blue-700 dark:text-blue-300',
-    borderAccent: 'border-blue-200 dark:border-blue-900/50',
-    shadow: 'shadow-blue-100',
-  },
-  {
-    href: '/html',
-    icon: '🪟',
-    title: 'HTML 태그 사전',
-    desc: '태그 126개가 무엇을 하는지, 닫는 태그와 속성까지 한 장에',
-    badge: `${SECTION_COUNTS.html}개`,
-    color: 'from-orange-500 to-amber-500',
-    bgLight: 'bg-orange-50 dark:bg-orange-950/30',
-    textAccent: 'text-orange-700 dark:text-orange-300',
-    borderAccent: 'border-orange-200 dark:border-orange-900/50',
-    shadow: 'shadow-orange-100',
   },
   {
     href: '/ext',
@@ -696,18 +634,6 @@ const SECTIONS = [
     shadow: 'shadow-amber-100',
   },
   {
-    href: '/flight',
-    icon: '✈️',
-    title: '도시 사이 거리와 비행시간',
-    desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다 — 거리·방위·시차·도착 시각',
-    badge: `${FLIGHT_CELLS.length}칸`,
-    color: 'from-blue-900 to-sky-400',
-    bgLight: 'bg-blue-50 dark:bg-blue-950/40',
-    textAccent: 'text-blue-700 dark:text-blue-300',
-    borderAccent: 'border-blue-200 dark:border-blue-800',
-    shadow: 'shadow-blue-100',
-  },
-  {
     href: '/password',
     icon: '🔑',
     title: '비밀번호 세기표',
@@ -718,18 +644,6 @@ const SECTIONS = [
     textAccent: 'text-slate-700 dark:text-slate-200',
     borderAccent: 'border-slate-200 dark:border-slate-700',
     shadow: 'shadow-slate-100',
-  },
-  {
-    href: '/music',
-    icon: '🎹',
-    title: '코드·음계·음정 사전',
-    desc: '밑음 열둘 × 성질 여덟 — 건반 그림과 소리로 확인',
-    badge: `${MUSIC_ITEMS.length}가지`,
-    color: 'from-fuchsia-600 to-fuchsia-400',
-    bgLight: 'bg-fuchsia-50 dark:bg-fuchsia-950/40',
-    textAccent: 'text-fuchsia-700 dark:text-fuchsia-300',
-    borderAccent: 'border-fuchsia-200 dark:border-fuchsia-800',
-    shadow: 'shadow-fuchsia-100',
   },
 ];
 

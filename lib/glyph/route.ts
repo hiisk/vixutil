@@ -45,21 +45,4 @@ export function hubCard(lang: Lang): ReactElement {
   return ogCard({ icon: GLYPH_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });
 }
 
-export function glyphCard(lang: Lang, slug: string): ReactElement {
-  const card = cardLang(lang);
-  const ui = GLYPH_UI[card];
-  const g = glyphOf(slug);
-  if (!g) return hubCard(card);
-  const f = glyphFacts(g);
-  return ogCard({
-    icon: GLYPH_ICON,
-    eyebrow: `${ui.section} · ${ui.kindLabel[g.kind]}`,
-    // 카드에서는 글자 자체가 제목이다
-    title: `${g.char}  ${f.unicode}`,
-    desc: `${ui.entityLabel} ${f.entity} · CSS ${f.cssEscape}`,
-    from: FROM,
-    to: TO,
-  });
-}
-
 export const glyphParams = () => prerender(GLYPHS.map(g => ({ slug: g.slug })));

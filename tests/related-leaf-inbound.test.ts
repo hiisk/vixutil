@@ -1,19 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { GLYPHS } from '../lib/glyph/list.ts';
-import { relatedGlyphs } from '../lib/glyph/facts.ts';
 import { EXTS } from '../lib/ext/list.ts';
 import { relatedExts } from '../lib/ext/facts.ts';
 import { HTTP_ITEMS } from '../lib/http/list.ts';
 import { relatedHttp } from '../lib/http/facts.ts';
-import { CSS_PROPS } from '../lib/css/props.ts';
-import { relatedProps } from '../lib/css/facts.ts';
-import { TAGS } from '../lib/html/tags.ts';
-import { relatedTags } from '../lib/html/facts.ts';
 import { IMG_SIZES } from '../lib/imgsize/list.ts';
 import { sameKind } from '../lib/imgsize/facts.ts';
-import { MUSIC_ITEMS, relatedItems } from '../lib/music/catalog.ts';
 
 /**
  * 자료 섹션의 낱장이 **아무에게도 안 가리켜지는지** 본다.
@@ -29,6 +22,9 @@ import { MUSIC_ITEMS, relatedItems } from '../lib/music/catalog.ts';
  *
  *   text/char 218/423 · ext 130/266 · http 118/195 · css 78/237 ·
  *   music 63/211 · html 52/151 · image/size 44/177   = 703장
+ *
+ * (2026-08-18: text/char 낱장과 css·html·music 갈래를 지웠다 — 남은 것은 ext·
+ *  http·image/size 셋이다)
  *
  * 열 언어에 다 있는 섹션이므로 실제로는 그 열 배다.
  *
@@ -51,10 +47,6 @@ type Case = {
 
 const CASES: Case[] = [
   {
-    name: 'text/char', ids: GLYPHS.map(g => g.slug),
-    neighbors: id => relatedGlyphs(id).map(g => g.slug),
-  },
-  {
     name: 'ext', ids: EXTS.map(x => x.ext),
     neighbors: id => relatedExts(id),
   },
@@ -63,20 +55,8 @@ const CASES: Case[] = [
     neighbors: id => relatedHttp(id),
   },
   {
-    name: 'css', ids: CSS_PROPS.map(p => p.name),
-    neighbors: id => relatedProps(id),
-  },
-  {
-    name: 'html', ids: TAGS.map(t => t.name),
-    neighbors: id => relatedTags(id),
-  },
-  {
     name: 'image/size', ids: IMG_SIZES.map(x => x.slug),
     neighbors: id => sameKind(id).map(x => x.slug),
-  },
-  {
-    name: 'music', ids: MUSIC_ITEMS.map(x => x.slug),
-    neighbors: id => relatedItems(id).map(x => x.slug),
   },
 ];
 

@@ -95,7 +95,6 @@ test('검색 링크를 언어로 가리지 않는다', () => {
 test('중국어 페이지를 그리는 컴포넌트가 lang을 그대로 넘긴다', () => {
   const pages = [
     'components/FormulaPage.tsx', 'components/FormulaHub.tsx',
-    'components/CountryPage.tsx', 'components/CountryHub.tsx',
     'components/HanjaPage.tsx', 'components/HanjaHub.tsx',
     'components/ConvertPage.tsx', 'components/ConvertHub.tsx',
   ];

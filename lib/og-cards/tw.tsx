@@ -16,7 +16,6 @@
 import type { ReactElement } from 'react';
 import { newSnapCard } from '@/lib/snap/card';
 
-import { hubCard as flightHub } from '@/lib/flight/route';
 import { hubCard as passwordHub } from '@/lib/password/route';
 import { hubCard as asciiHub } from '@/lib/ascii/route';
 import { BODY_SECTION } from '@/lib/body-section';
@@ -24,8 +23,6 @@ import { hubCard as chessHub } from '@/lib/chess/route';
 import { hubCard as chmodHub } from '@/lib/chmod/route';
 import { hubCard as cidrHub } from '@/lib/cidr/route';
 import { hubCard as codeHub } from '@/lib/code/route';
-import { COUNTRY_SECTION, COUNTRY_UI } from '@/lib/country-ui';
-import { hubCard as cssHub } from '@/lib/css/route';
 import { hubCard as cubeHub } from '@/lib/cube/route';
 import { hubCard as deviceHub } from '@/lib/device/route';
 import { hubCard as diceHub } from '@/lib/dice/route';
@@ -36,17 +33,13 @@ import { GEO_SECTION } from '@/lib/geo-section';
 import { CRAFT_SECTION } from '@/lib/craft-section';
 import { hubCard as glyphHub } from '@/lib/glyph/route';
 import { HANJA_SECTION, HANJA_UI } from '@/lib/hanja-ui';
-import { hubCard as htmlHub } from '@/lib/html/route';
 import { hubCard as httpHub } from '@/lib/http/route';
 import { hubCard as cmdHub } from '@/lib/cmd/route';
 import { hubCard as scHub } from '@/lib/shortcut/route';
 import { hubCard as emojiHub } from '@/lib/emoji/route';
-import { hubCard as errHub } from '@/lib/errmsg/route';
 import { hubCard as imgsizeHub } from '@/lib/imgsize/route';
 import { hubCard as keycodeHub } from '@/lib/keycode/route';
 import { hubCard as lensHub } from '@/lib/lens/route';
-import { hubCard as metroHub } from '@/lib/metro/route';
-import { hubCard as musicHub } from '@/lib/music/route';
 import { hubCard as numberHub } from '@/lib/number/route';
 import { colorOg, deviceOg, foodOg, gameOg, imageOg, intlOg, soundOg, textOg, timeOg } from '@/lib/og-intl';
 import { ogCard } from '@/lib/og-template';
@@ -82,7 +75,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'snap/eye-open': () => newSnapCard('zh-hant', 'eye-open'),
   'snap/framing': () => newSnapCard('zh-hant', 'framing'),
   '': () => intlOg('home/zh-hant'),
-  'flight': () => flightHub('tw'),
   'password': () => passwordHub('tw'),
   'ascii': () => asciiHub('tw'),
   'body': () => {
@@ -113,18 +105,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'color/shadow': () => colorOg('shadow', 'zh-hant'),
   'color/temperature': () => colorOg('temperature', 'zh-hant'),
   'convert': () => intlOg('convert/ja'),
-  'country': () => {
-    const ui = COUNTRY_UI['zh-hant'];
-    return ogCard({
-      icon: '🧭',
-      eyebrow: ui.section,
-      title: ui.hubTitle,
-      desc: ui.hubLead,
-      from: COUNTRY_SECTION.ogFrom,
-      to: COUNTRY_SECTION.ogTo,
-    });
-  },
-  'css': () => cssHub('tw'),
   'device': () => intlOg('device/ja'),
   'device/gamepad': () => deviceOg('gamepad', 'zh-hant'),
   'device/info': () => deviceOg('info', 'zh-hant'),
@@ -229,11 +209,9 @@ export const CARDS: Record<string, () => ReactElement> = {
       to: HANJA_SECTION.ogTo,
     });
   },
-  'html': () => htmlHub('tw'),
   'cmd': () => cmdHub('tw'),
   'shortcut': () => scHub('tw'),
   'emoji': () => emojiHub('tw'),
-  'error': () => errHub('tw'),
   'http': () => httpHub('tw'),
   'image': () => intlOg('image/ja'),
   'image/compress': () => imageOg('compress', 'zh-hant'),
@@ -252,8 +230,6 @@ export const CARDS: Record<string, () => ReactElement> = {
   'image/favicon': () => imageOg('favicon', 'zh-hant'),
   'image/size': () => imgsizeHub('tw'),
   'keycode': () => keycodeHub('tw'),
-  'metro': () => metroHub('tw'),
-  'music': () => musicHub('tw'),
   'number': () => numberHub('tw'),
   'port': () => portHub('tw'),
   'quiz': () => intlOg('quiz/zh-hant'),

@@ -80,10 +80,10 @@ const HAS = new Map<Lang, Set<string>>(
  * render.ts의 DETAIL에 같이 적는다(둘이 어긋나면 검사가 잡는다).
  */
 export const DETAIL_SECTIONS: readonly string[] = [
-  'cmd', 'color', 'css', 'device/screen', 'ext', 'food', 'fortune/card',
-  'game/chess', 'game/cube', 'game/poker', 'html', 'http', 'image/size',
-  'metro', 'music', 'percent', 'random/dice', 'snap/lens', 'sound/hz',
-  'text/char', 'text/regex', 'time',
+  'cmd', 'color', 'device/screen', 'ext', 'food', 'fortune/card',
+  'game/chess', 'game/cube', 'game/poker', 'http', 'image/size',
+  'snap/lens', 'sound/hz',
+  'text/regex', 'time',
 ];
 const DETAIL = new Set(DETAIL_SECTIONS);
 

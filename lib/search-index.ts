@@ -18,11 +18,7 @@ import { RATE_TOOLS } from './rate-tools.ts';
 import { BODY_TOOLS } from './body-tools.ts';
 import { GEO_TOOLS } from './geo-tools.ts';
 import { CRAFT_TOOLS } from './craft-tools.ts';
-import { COUNTRIES } from './country-tools.ts';
 import { IDIOMS } from './hanja-tools.ts';
-import { METRO_LINES } from './metro-lines.ts';
-import { lineIcon, lineTitle } from './metro/types.ts';
-import { MUSIC_ITEMS, iconOf, symbolOf, titleOf } from './music/catalog.ts';
 import { NAMED_COLORS_8 } from './color/named8.ts';
 import { INGREDIENTS } from './food/ingredients8.ts';
 import { TIME_CITIES, timeCountry } from './time/cities8.ts';
@@ -45,13 +41,11 @@ import { ROMAN_ICON } from './roman/list.ts';
 import { YEAR_ICON } from './year/list.ts';
 import { PX_ICON } from './rem/list.ts';
 import { PASSWORD_ICON } from './password/list.ts';
-import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list.ts';
 import { OPENINGS, CHESS_ICON } from './chess/list.ts';
 import { HANDS, POKER_ICON, labelOf } from './poker/list.ts';
 import { handFacts } from './poker/facts.ts';
 import { fullName } from './chess/names.ts';
 import { portFacts } from './port/facts.ts';
-import { flightFacts, hoursOf } from './flight/facts.ts';
 import { whatOf } from './regex/desc.ts';
 import { rollFacts } from './dice/facts.ts';
 import { caseFacts } from './cube/facts.ts';
@@ -60,8 +54,6 @@ import { FREQS, FREQ_ICON, freqSlug } from './sound/freqs.ts';
 import { EXTS, EXT_ICON } from './ext/list.ts';
 import { CARDS, TAROT_ICON } from './tarot/deck.ts';
 import { GLYPHS, GLYPH_ICON } from './glyph/list.ts';
-import { TAGS, TAG_ICON } from './html/tags.ts';
-import { CSS_PROPS, CSS_ICON } from './css/props.ts';
 import { HTTP_ITEMS, HTTP_ICON } from './http/list.ts';
 import { CMD_ITEMS } from './cmd/list.ts';
 import { cmdDesc } from './cmd/desc.ts';
@@ -70,13 +62,9 @@ import { scDesc } from './shortcut/desc.ts';
 import { SC_UI } from './shortcut/ui.ts';
 import { EM_ITEMS } from './emoji/list.ts';
 import { emojiDesc } from './emoji/desc.ts';
-import { ERR_ITEMS } from './errmsg/list.ts';
-import { errDesc } from './errmsg/desc.ts';
 import { httpDesc } from './http/desc.ts';
-import { propDesc } from './css/desc.ts';
 import { IMG_SIZES, IMG_SIZE_ICON } from './imgsize/list.ts';
 import { sizeFacts } from './imgsize/facts.ts';
-import { tagDesc } from './html/desc.ts';
 import { glyphFacts } from './glyph/facts.ts';
 import { cardView } from './tarot/facts.ts';
 import { extFacts } from './ext/facts.ts';
@@ -93,7 +81,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'password' | 'percent' | 'flight';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'hanja' | 'ext' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'password' | 'percent';
 
 export interface SearchItem {
   href: string;
@@ -125,18 +113,12 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   body:       { label: '몸 수치', icon: '🩺', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   geometry:   { label: '도형·수학', icon: '📐', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   craft:      { label: '공예', icon: '🧶', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  country:    { label: '나라 정보', icon: '🧭', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   hanja:      { label: '사자성어', icon: '📖', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  metro:      { label: '지하철 퀴즈', icon: '🚇', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
-  music:      { label: '음악 이론', icon: '🎹', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   ext:        { label: '파일 확장자', icon: '📄', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  html:       { label: 'HTML 태그', icon: '🪟', accent: 'bg-orange-50 text-orange-700 border-orange-200' },
-  css:        { label: 'CSS 속성', icon: '🎨', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
   http:       { label: 'HTTP 코드', icon: '🗄️', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   cmd:        { label: '터미널 명령어', icon: '⌨️', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
   shortcut:   { label: '키보드 단축키', icon: '⌨️', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   emoji:      { label: '이모지 뜻', icon: '😀', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
-  error:      { label: '오류 문구', icon: '⚠️', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   chess:      { label: '체스',      icon: '♟️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   poker:      { label: '포커',      icon: '🃏', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   number:     { label: '수',        icon: '🔢', accent: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
@@ -154,7 +136,6 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   year:       { label: '연도',      icon: '📅', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   rem:        { label: 'CSS 단위',  icon: '📏', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
   password:   { label: '비밀번호',   icon: '🔑', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
-  flight:     { label: '도시 거리',  icon: '✈️', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
 };
 
 /**
@@ -252,10 +233,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...BODY_TOOLS.map(t => ({ href: `/body/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'body' as const, icon: t.icon })),
   ...GEO_TOOLS.map(t => ({ href: `/geometry/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'geometry' as const, icon: t.icon })),
   ...CRAFT_TOOLS.map(t => ({ href: `/craft/${t.slug}`, title: t.ko.title, desc: t.ko.desc, section: 'craft' as const, icon: t.icon })),
-  ...COUNTRIES.map(c => ({ href: `/country/${c.slug}`, title: `${c.ko.name} 여행 정보`, desc: c.ko.intro.slice(0, 60), section: 'country' as const, icon: c.icon })),
   ...IDIOMS.map(i => ({ href: `/hanja/${i.slug}`, title: `${i.reading} ${i.hanja}`, desc: i.ko.meaning.slice(0, 60), section: 'hanja' as const, icon: i.icon })),
-  ...METRO_LINES.map(l => ({ href: `/metro/${l.slug}`, title: `${lineTitle(l, 'ko')} 역 이름 맞추기`, desc: l.text.ko.intro.slice(0, 60), section: 'metro' as const, icon: lineIcon(l) })),
-  ...MUSIC_ITEMS.map(i => ({ href: `/music/${i.slug}`, title: `${titleOf(i, 'ko')} 구성음`, desc: `${symbolOf(i)} — ${titleOf(i, 'en')}`, section: 'music' as const, icon: iconOf(i) })),
   ...NAMED_COLORS_8.map(c => ({ href: `/color/${c.slug}`, title: `${c.name.ko} 색상 코드`, desc: `${c.hex.toUpperCase()} — ${c.name.en}`, section: 'color' as const, icon: '🎨' })),
   ...INGREDIENTS.map(i => ({ href: `/food/${i.slug}`, title: `${i.name.ko} 1컵 무게`, desc: `미국컵 ${foodFacts(i).grams.cupUs}g · 한국컵 ${foodFacts(i).grams.cupMetric}g`, section: 'food' as const, icon: '⚖️' })),
   ...TIME_CITIES.map(c => ({ href: `/time/${c.slug}`, title: `${c.name.ko} 현재 시각`, desc: `${timeCountry(c.country)?.name.ko ?? ''} · ${c.zone}`, section: 'time' as const, icon: '🕰️' })),
@@ -291,19 +269,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${x.service} · ${f.proto === 'both' ? 'TCP·UDP' : f.proto.toUpperCase()}`,
       section: 'port' as const,
       icon: PORT_ICON,
-    };
-  }),
-  ...FLIGHT_CELLS.map(c => {
-    const f = flightFacts(c);
-    const [fh, fm] = hoursOf(f.fastMinutes);
-    const [sh, sm] = hoursOf(f.slowMinutes);
-    const span = (h: number, m: number) => (m === 0 ? `${h}시간` : `${h}시간 ${m}분`);
-    return {
-      href: `/flight/${flightSlug(c)}`,
-      title: `${flightName('ko', c.from)} → ${flightName('ko', c.to)} — ${f.km.toLocaleString('en-US')}km`,
-      desc: `비행시간 ${span(fh, fm)}~${span(sh, sm)} · 떠날 때의 방위 ${f.bearing}도(${f.compass}) · 시차 ${Math.abs(f.winterShift) / 60}시간`,
-      section: 'flight' as const,
-      icon: FLIGHT_ICON,
     };
   }),
   ...PATTERNS.map(x => ({
@@ -389,7 +354,6 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/roman', title: '로마 숫자 연도표', desc: '1900년부터 2100년까지 한 해씩, 글자를 조각내어', section: 'roman' as const, icon: ROMAN_ICON },
   { href: '/year', title: '연도 사전', desc: '1900년부터 2100년까지 윤년·요일·주 수·띠', section: 'year' as const, icon: YEAR_ICON },
   { href: '/rem', title: 'CSS 단위표', desc: 'px를 rem·pt·pc·인치로, 1px부터 120px까지', section: 'rem' as const, icon: PX_ICON },
-  { href: '/flight', title: '도시 사이 거리와 비행시간', desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다', section: 'flight' as const, icon: FLIGHT_ICON },
   { href: '/password', title: '비밀번호 세기 계산', desc: '몇 비트인지, 저장 방식에 따라 얼마나 버티는지', section: 'password' as const, icon: PASSWORD_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
@@ -399,8 +363,6 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/sound/hz', title: '주파수 소리 듣기', desc: '20Hz~24kHz 113가지 순음', section: 'sound' as const, icon: FREQ_ICON },
   { href: '/image/size', title: '이미지 크기 모음', desc: '썸네일·인쇄·증명사진 116가지 규격', section: 'image' as const, icon: IMG_SIZE_ICON },
   { href: '/http', title: 'HTTP 코드 사전', desc: '상태 코드와 헤더 132가지의 뜻', section: 'http' as const, icon: HTTP_ICON },
-  { href: '/css', title: 'CSS 속성 사전', desc: '154개 속성의 쓰임과 값, 상속', section: 'css' as const, icon: CSS_ICON },
-  { href: '/html', title: 'HTML 태그 사전', desc: '126개 태그의 쓰임과 속성', section: 'html' as const, icon: TAG_ICON },
   { href: '/ext', title: '파일 확장자 사전', desc: '140가지 확장자의 여는 프로그램과 MIME 타입', section: 'ext' as const, icon: EXT_ICON },
   ...GLYPHS.map(g => ({
     href: `/text/char/${g.slug}`,
@@ -409,26 +371,12 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'text' as const,
     icon: GLYPH_ICON,
   })),
-  ...TAGS.map(t => ({
-    href: `/html/${t.name}`,
-    title: `<${t.name}> 태그`,
-    desc: tagDesc(t.name, 'ko'),
-    section: 'html' as const,
-    icon: TAG_ICON,
-  })),
   ...IMG_SIZES.map(x => ({
     href: `/image/size/${x.slug}`,
     title: `${x.name} 크기`,
     desc: `${x.w}×${x.h} · ${sizeFacts(x).ratioLabel}`,
     section: 'image' as const,
     icon: IMG_SIZE_ICON,
-  })),
-  ...CSS_PROPS.map(p => ({
-    href: `/css/${p.name}`,
-    title: `CSS ${p.name}`,
-    desc: propDesc(p.name, 'ko'),
-    section: 'css' as const,
-    icon: CSS_ICON,
   })),
   ...HTTP_ITEMS.map(x => ({
     href: `/http/${x.slug}`,
@@ -442,7 +390,6 @@ export const SEARCH_INDEX: SearchItem[] = [
   ...SC_ITEMS.map(x => ({ href: `/shortcut/${x.slug}`, title: `${SC_UI.ko.appLabel[x.app]} ${x.action} — ${primaryCombo(x)}`, desc: scDesc(x.slug, 'ko'), section: 'shortcut' as const, icon: '⌨️' })),
   ...EM_ITEMS.map(x => ({ href: `/emoji/${x.slug}`, title: `${x.char} ${x.common}`, desc: emojiDesc(x.slug, 'ko'), section: 'emoji' as const, icon: '😀' })),
   // 제목이 오류 문구 그대로다 — 붙여 넣고 찾는 사람이 눈으로 맞춰 본다
-  ...ERR_ITEMS.map(x => ({ href: `/error/${x.slug}`, title: x.message, desc: errDesc(x.slug, 'ko'), section: 'error' as const, icon: '⚠️' })),
   ...FORTUNE_ITEMS,
   ...SNAP_ITEMS,
 ];

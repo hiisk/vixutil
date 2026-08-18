@@ -39,13 +39,9 @@ import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
 import { CRAFT_TOOLS } from "@/lib/craft-tools";
-import { COUNTRIES } from "@/lib/country-tools";
 import { IDIOMS } from "@/lib/hanja-tools";
-import { METRO_LINES } from "@/lib/metro-lines";
-import { METRO_LANGS } from "@/lib/metro/lang";
 import { TOPIC_SLUGS as SAJU_TOPIC_SLUGS } from "@/lib/saju-topics";
 import { sectionHasLocale } from "@/lib/i18n/lang";
-import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
@@ -55,21 +51,17 @@ import { ALGS } from "@/lib/cube/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { PORTS } from "@/lib/port/list";
 import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
-import { CELLS as FLIGHT_CELLS, slugOf as flightSlug } from "@/lib/flight/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
 import { LANGS } from "@/lib/i18n/lang";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
-import { TAGS } from "@/lib/html/tags";
 import { IMG_SIZES } from "@/lib/imgsize/list";
-import { CSS_PROPS } from "@/lib/css/props";
 import { HTTP_ITEMS } from "@/lib/http/list";
 import { CMD_ITEMS } from "@/lib/cmd/list";
 import { SC_ITEMS } from "@/lib/shortcut/list";
 import { EM_ITEMS } from "@/lib/emoji/list";
-import { ERR_ITEMS } from "@/lib/errmsg/list";
 
 const BASE = "https://vixutil.com";
 
@@ -150,7 +142,7 @@ function allEntries(): MetadataRoute.Sitemap {
      * 자주 바뀌지 않으므로 changeFrequency는 yearly, 우선순위는 도구보다 낮게 둔다 —
      * 크롤 예산을 이쪽으로 끌어오려는 것이 아니라 있다는 것만 알리려는 것이다.
      */
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) =>
       LEGAL_KINDS.map(k => ({
         url: `${BASE}${prefix}${legalRoute(k)}`,
         changeFrequency: yearly,
@@ -289,14 +281,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     { url: `${BASE}/country`, changeFrequency: weekly, priority: 0.95 },
-    ...COUNTRIES.map((c: { slug: string }) => ({ url: `${BASE}/country/${c.slug}`, changeFrequency: weekly, priority: 0.9 })),
     // 나라 정보도 slug가 여덟 언어에서 같다
-    ...INTL_LOCALES10.flatMap((lang) => [
-      { url: `${BASE}/${lang}/country`, changeFrequency: weekly, priority: 0.9 },
-      ...COUNTRIES.map((c: { slug: string }) => ({
-        url: `${BASE}/${lang}/country/${c.slug}`, changeFrequency: monthly, priority: 0.8,
-      })),
-    ]),
     { url: `${BASE}/hanja`, changeFrequency: weekly, priority: 0.95 },
     ...IDIOMS.map((i: { slug: string }) => ({ url: `${BASE}/hanja/${i.slug}`, changeFrequency: weekly, priority: 0.9 })),
     /* 한자는 한자 문화권에서만 낸다 — 스페인어 훈음은 아무도 안 친다.
@@ -309,7 +294,7 @@ function allEntries(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/crypto`, changeFrequency: weekly, priority: 0.9 },
     // 도시 시계 116장도 여덟 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) =>
       TIME_CITIES.map((c: { slug: string }) => ({
         url: `${BASE}${prefix}/time/${c.slug}`,
         changeFrequency: weekly,
@@ -317,16 +302,8 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ),
     // 오류 문구도 열 언어다 — 뜻과 대처만 옮기고 문구는 그대로 둔다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/error`, changeFrequency: weekly, priority: 0.9 },
-      ...ERR_ITEMS.map((x: { slug: string }) => ({
-        url: `${BASE}${prefix}/error/${x.slug}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
     // 키보드 단축키도 열 언어다 — 목록과 낱장을 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/shortcut`, changeFrequency: weekly, priority: 0.9 },
       ...SC_ITEMS.map((x: { slug: string }) => ({
         url: `${BASE}${prefix}/shortcut/${x.slug}`,
@@ -335,7 +312,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 이모지 뜻도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/emoji`, changeFrequency: weekly, priority: 0.9 },
       ...EM_ITEMS.map((x: { slug: string }) => ({
         url: `${BASE}${prefix}/emoji/${x.slug}`,
@@ -344,7 +321,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 터미널 명령어도 열 언어다 — 목록과 낱장을 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/cmd`, changeFrequency: weekly, priority: 0.9 },
       ...CMD_ITEMS.map((x: { slug: string }) => ({
         url: `${BASE}${prefix}/cmd/${x.slug}`,
@@ -353,7 +330,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // HTTP 상태 코드와 헤더 132가지도 여덟 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/http`, changeFrequency: weekly, priority: 0.9 },
       ...HTTP_ITEMS.map((x: { slug: string }) => ({
         url: `${BASE}${prefix}/http/${x.slug}`,
@@ -362,16 +339,8 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // CSS 속성 154개도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/css`, changeFrequency: weekly, priority: 0.9 },
-      ...CSS_PROPS.map((p: { name: string }) => ({
-        url: `${BASE}${prefix}/css/${p.name}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
     // 이미지 크기 116가지도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/image/size`, changeFrequency: weekly, priority: 0.9 },
       ...IMG_SIZES.map((x: { slug: string }) => ({
         url: `${BASE}${prefix}/image/size/${x.slug}`,
@@ -380,20 +349,12 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // HTML 태그 126개도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/html`, changeFrequency: weekly, priority: 0.9 },
-      ...TAGS.map((t: { name: string }) => ({
-        url: `${BASE}${prefix}/html/${t.name}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
     // 특수문자 168자도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/text/char`, changeFrequency: weekly, priority: 0.9 },
     ]),
     // 타로 78장도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/fortune/card`, changeFrequency: weekly, priority: 0.85 },
       ...CARDS.map((c: { slug: string }) => ({
         url: `${BASE}${prefix}/fortune/card/${c.slug}`,
@@ -404,7 +365,7 @@ function allEntries(): MetadataRoute.Sitemap {
     /* 사주 주제 일곱 장 × 열 언어. 통합 페이지(/fortune/saju)는 위쪽 운세 블록에
        이미 실려 있으므로 여기서는 주제만 싣는다 — 두 번 실으면 sitemap-chunks
        검사가 중복 <loc>으로 잡는다. */
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) =>
       SAJU_TOPIC_SLUGS.map((t: string) => ({
         url: `${BASE}${prefix}/fortune/saju/${t}`,
         changeFrequency: weekly,
@@ -412,7 +373,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ),
     // 확장자 140장도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/ext`, changeFrequency: weekly, priority: 0.9 },
       ...EXTS.map((x: { ext: string }) => ({
         url: `${BASE}${prefix}/ext/${x.ext}`,
@@ -421,7 +382,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 주파수 113장도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/sound/hz`, changeFrequency: weekly, priority: 0.85 },
       ...FREQS.map((f: { hz: number }) => ({
         url: `${BASE}${prefix}/sound/hz/${freqSlug(f.hz)}`,
@@ -430,7 +391,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 화면 규격 108장도 여덟 언어다 — 목록과 상세를 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/device/screen`, changeFrequency: weekly, priority: 0.85 },
       ...SCREENS.map((sc: { slug: string }) => ({
         url: `${BASE}${prefix}/device/screen/${sc.slug}`,
@@ -457,15 +418,15 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 수 209장도 열 언어다 — 격자가 곧 목록이다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/number`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // ASCII 128장도 열 언어다 — 코드표가 곧 목록이다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/ascii`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 포트 127장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/port`, changeFrequency: weekly, priority: 0.85 },
       ...PORTS.map((x: { port: number }) => ({
         url: `${BASE}${prefix}/port/${x.port}`,
@@ -474,61 +435,53 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 권한 모드 125장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/chmod`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 분수 127장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/fraction`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 키 코드 120장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/keycode`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 프리픽스 162장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/cidr`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 부호 116장도 열 언어다 — 글자 쉰둘과 점자 셀 예순넷
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/code`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 곱셈 210장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/times`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 제곱근 200장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/percent`, changeFrequency: weekly, priority: 0.9 },
       { url: `${BASE}${prefix}/sqrt`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 로마 숫자 연도 201장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/roman`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 연도 201장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/year`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // CSS 단위 120장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/rem`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 도시 사이 342장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/flight`, changeFrequency: weekly, priority: 0.85 },
-      ...FLIGHT_CELLS.map(c => ({
-        url: `${BASE}${prefix}/flight/${flightSlug(c)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
     // 비밀번호 세기 100장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/password`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 정규식 133장도 여덟 언어다 — 표기법과 검사식을 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/text/regex`, changeFrequency: weekly, priority: 0.85 },
       ...PATTERNS.map((x: { slug: string }) => ({
         url: `${BASE}${prefix}/text/regex/${x.slug}`,
@@ -537,11 +490,11 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 주사위 확률 111장도 여덟 언어다 — 한 개부터 여섯 개까지의 모든 합
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/random/dice`, changeFrequency: weekly, priority: 0.85 },
     ]),
     // 큐브 공식 119장도 여덟 언어다 — F2L·OLL·PLL을 함께 싣는다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/game/cube`, changeFrequency: weekly, priority: 0.85 },
       ...ALGS.map((a: { slug: string }) => ({
         url: `${BASE}${prefix}/game/cube/${a.slug}`,
@@ -550,7 +503,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 렌즈 화각 104장도 여덟 언어다 — 초점거리 스물여섯에 센서 넷
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/snap/lens`, changeFrequency: weekly, priority: 0.85 },
       ...LENSES.map((l: { slug: string }) => ({
         url: `${BASE}${prefix}/snap/lens/${l.slug}`,
@@ -559,7 +512,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ]),
     // 재료 무게 125장도 여덟 언어다 — 도구는 따로 실려 있고 이건 이름 페이지다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) =>
       INGREDIENTS.map((i: { slug: string }) => ({
         url: `${BASE}${prefix}/food/${i.slug}`,
         changeFrequency: monthly,
@@ -567,7 +520,7 @@ function allEntries(): MetadataRoute.Sitemap {
       })),
     ),
     // 색 이름 110장도 여덟 언어다 — 도구는 ko·en뿐이지만 이름 페이지는 전부 있다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
+    ...LANGS.flatMap(({ prefix }: { prefix: string }) =>
       NAMED_COLORS_8.map((c: { slug: string }) => ({
         url: `${BASE}${prefix}/color/${c.slug}`,
         changeFrequency: monthly,
@@ -576,23 +529,7 @@ function allEntries(): MetadataRoute.Sitemap {
     ),
     // 색 허브는 아래 INTL_LOCALES10 묶음이 열 언어를 모두 낸다 — 여기서 또 내면 여덟 개가 두 번 실린다
     // 음악 이론도 여덟 언어다 — 지하철과 같은 목록을 돈다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/music`, changeFrequency: weekly, priority: prefix === '' ? 0.9 : 0.85 },
-      ...MUSIC_ITEMS.map((i: { slug: string }) => ({
-        url: `${BASE}${prefix}/music/${i.slug}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
     // 지하철은 여덟 언어다. 언어를 손으로 적으면 하나를 빼먹으니 목록에서 돈다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/metro`, changeFrequency: weekly, priority: prefix === '' ? 0.95 : 0.9 },
-      ...METRO_LINES.map((l: { slug: string }) => ({
-        url: `${BASE}${prefix}/metro/${l.slug}`,
-        changeFrequency: weekly,
-        priority: prefix === '' ? 0.9 : 0.85,
-      })),
-    ]),
     { url: `${BASE}/crypto/signals`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/atr-tpsl`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/crypto/kimchi-premium`, changeFrequency: weekly, priority: 0.9 },
