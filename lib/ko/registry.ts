@@ -27,7 +27,6 @@ export type KoLeaf = {
 
 /** 한 칸 갈래 — /rate/[slug] 꼴 */
 export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
-  'air': () => import('./pages/air__slug'),
   'ascii': () => import('./pages/ascii__slug'),
   'body': () => import('./pages/body__slug'),
   'checklist': () => import('./pages/checklist__slug'),
@@ -41,7 +40,6 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'craft': () => import('./pages/craft__slug'),
   'css': () => import('./pages/css__slug'),
   'date': () => import('./pages/date__slug'),
-  'dpi': () => import('./pages/dpi__slug'),
   'emoji': () => import('./pages/emoji__slug'),
   'error': () => import('./pages/error__slug'),
   'ext': () => import('./pages/ext__slug'),
@@ -54,7 +52,6 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'html': () => import('./pages/html__slug'),
   'http': () => import('./pages/http__slug'),
   'keycode': () => import('./pages/keycode__slug'),
-  'laundry': () => import('./pages/laundry__slug'),
   'metro': () => import('./pages/metro__slug'),
   'music': () => import('./pages/music__slug'),
   'number': () => import('./pages/number__slug'),

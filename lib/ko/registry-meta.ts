@@ -12,7 +12,6 @@ export type KoMeta = () => Promise<{
 }>;
 
 export const KO_META: Record<string, KoMeta> = {
-  'air': () => import('./pages/air__slug.meta'),
   'ascii': () => import('./pages/ascii__slug.meta'),
   'body': () => import('./pages/body__slug.meta'),
   'checklist': () => import('./pages/checklist__slug.meta'),
@@ -26,7 +25,6 @@ export const KO_META: Record<string, KoMeta> = {
   'craft': () => import('./pages/craft__slug.meta'),
   'css': () => import('./pages/css__slug.meta'),
   'date': () => import('./pages/date__slug.meta'),
-  'dpi': () => import('./pages/dpi__slug.meta'),
   'emoji': () => import('./pages/emoji__slug.meta'),
   'error': () => import('./pages/error__slug.meta'),
   'ext': () => import('./pages/ext__slug.meta'),
@@ -39,7 +37,6 @@ export const KO_META: Record<string, KoMeta> = {
   'html': () => import('./pages/html__slug.meta'),
   'http': () => import('./pages/http__slug.meta'),
   'keycode': () => import('./pages/keycode__slug.meta'),
-  'laundry': () => import('./pages/laundry__slug.meta'),
   'metro': () => import('./pages/metro__slug.meta'),
   'music': () => import('./pages/music__slug.meta'),
   'number': () => import('./pages/number__slug.meta'),
@@ -81,7 +78,6 @@ export const KO_DEEP_META: Record<string, KoMeta> = {
 };
 
 export const KO_MODULE: Record<string, string> = {
-  'air': 'air__slug',
   'ascii': 'ascii__slug',
   'body': 'body__slug',
   'checklist': 'checklist__slug',
@@ -95,7 +91,6 @@ export const KO_MODULE: Record<string, string> = {
   'craft': 'craft__slug',
   'css': 'css__slug',
   'date': 'date__slug',
-  'dpi': 'dpi__slug',
   'emoji': 'emoji__slug',
   'error': 'error__slug',
   'ext': 'ext__slug',
@@ -108,7 +103,6 @@ export const KO_MODULE: Record<string, string> = {
   'html': 'html__slug',
   'http': 'http__slug',
   'keycode': 'keycode__slug',
-  'laundry': 'laundry__slug',
   'metro': 'metro__slug',
   'music': 'music__slug',
   'number': 'number__slug',

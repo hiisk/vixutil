@@ -44,7 +44,6 @@ type Loader = () => Promise<unknown>;
 
 /* 국제 뷰 — lib/fold/pages/*.tsx */
 const FOLD: Record<string, Loader> = {
-  'air': () => import('@/lib/fold/pages/air'),
   'ascii': () => import('@/lib/fold/pages/ascii'),
   'body': () => import('@/lib/fold/pages/body'),
   'body__bmi__slug': () => import('@/lib/fold/pages/body__bmi__slug'),
@@ -85,7 +84,6 @@ const FOLD: Record<string, Loader> = {
   'device__speaker': () => import('@/lib/fold/pages/device__speaker'),
   'device__touch': () => import('@/lib/fold/pages/device__touch'),
   'device__webcam': () => import('@/lib/fold/pages/device__webcam'),
-  'dpi': () => import('@/lib/fold/pages/dpi'),
   'emoji': () => import('@/lib/fold/pages/emoji'),
   'error': () => import('@/lib/fold/pages/error'),
   'ext': () => import('@/lib/fold/pages/ext'),
@@ -177,7 +175,6 @@ const FOLD: Record<string, Loader> = {
   'image__split': () => import('@/lib/fold/pages/image__split'),
   'image__watermark': () => import('@/lib/fold/pages/image__watermark'),
   'keycode': () => import('@/lib/fold/pages/keycode'),
-  'laundry': () => import('@/lib/fold/pages/laundry'),
   'metro': () => import('@/lib/fold/pages/metro'),
   'music': () => import('@/lib/fold/pages/music'),
   'number': () => import('@/lib/fold/pages/number'),
@@ -276,7 +273,6 @@ const FOLD: Record<string, Loader> = {
 
 /* 한국어 뷰 — lib/ko/pages/*.tsx */
 const KO: Record<string, Loader> = {
-  'air__slug': () => import('@/lib/ko/pages/air__slug'),
   'ascii__slug': () => import('@/lib/ko/pages/ascii__slug'),
   'body__bmi__slug': () => import('@/lib/ko/pages/body__bmi__slug'),
   'body__exercise__slug': () => import('@/lib/ko/pages/body__exercise__slug'),
@@ -296,7 +292,6 @@ const KO: Record<string, Loader> = {
   'css__slug': () => import('@/lib/ko/pages/css__slug'),
   'date__slug': () => import('@/lib/ko/pages/date__slug'),
   'device__screen__slug': () => import('@/lib/ko/pages/device__screen__slug'),
-  'dpi__slug': () => import('@/lib/ko/pages/dpi__slug'),
   'emoji__slug': () => import('@/lib/ko/pages/emoji__slug'),
   'error__slug': () => import('@/lib/ko/pages/error__slug'),
   'ext__slug': () => import('@/lib/ko/pages/ext__slug'),
@@ -316,7 +311,6 @@ const KO: Record<string, Loader> = {
   'http__slug': () => import('@/lib/ko/pages/http__slug'),
   'image__size__slug': () => import('@/lib/ko/pages/image__size__slug'),
   'keycode__slug': () => import('@/lib/ko/pages/keycode__slug'),
-  'laundry__slug': () => import('@/lib/ko/pages/laundry__slug'),
   'metro__slug': () => import('@/lib/ko/pages/metro__slug'),
   'music__slug': () => import('@/lib/ko/pages/music__slug'),
   'number__slug': () => import('@/lib/ko/pages/number__slug'),

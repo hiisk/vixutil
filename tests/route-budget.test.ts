@@ -107,6 +107,11 @@
  *
  *                         **앞으로 이 줄은 빌드로 재서만 고친다.** 곱셈으로 적으면
  *                         또 어긋나고, 어긋난 채로도 이 검사는 skip이라 조용하다.
+ *
+ *   동적 403 / 정적 461   2026-08-18 — air·dpi·laundry 셋을 지웠다. 값 격자와 같은
+ *                         이유다 — 공식 하나로 뽑은 표라 그 주제를 하러 오는 사람이
+ *                         없었다. 셋이 각각 국제 낱장 아홉을 물고 있어 −27,
+ *                         한국어 허브 셋이라 −3이다. 빌드로 잰 값이다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -117,8 +122,8 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 430;
-const EXPECT_STATIC = 464;
+const EXPECT_DYNAMIC = 403;
+const EXPECT_STATIC = 461;
 /**
  * 얼마까지 늘어도 넘기나.
  *

@@ -74,10 +74,7 @@ import { PERCENT_SLUGS } from "@/lib/percent/list";
 import { YEARS as ROMAN_YEARS } from "@/lib/roman/list";
 import { YEARS as CAL_YEARS } from "@/lib/year/list";
 import { PIXELS } from "@/lib/rem/list";
-import { CELLS as DPI_CELLS } from "@/lib/dpi/list";
-import { CELLS as LAUNDRY_CELLS } from "@/lib/laundry/list";
 import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
-import { CELLS as AIR_CELLS, slugOf as airSlug } from "@/lib/air/list";
 import { CELLS as PW_CELLS, slugOf as pwSlug } from "@/lib/password/list";
 import { CELLS as FLIGHT_CELLS, slugOf as flightSlug } from "@/lib/flight/list";
 import { OPENINGS } from "@/lib/chess/list";
@@ -681,33 +678,6 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}${prefix}/password`, changeFrequency: weekly, priority: 0.85 },
       ...PW_CELLS.map(c => ({
         url: `${BASE}${prefix}/password/${pwSlug(c)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
-    // 대기질 108장도 열 언어다
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/air`, changeFrequency: weekly, priority: 0.85 },
-      ...AIR_CELLS.map(c => ({
-        url: `${BASE}${prefix}/air/${airSlug(c)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
-    // 세탁 기호 86칸도 열 언어다 — 갈래 다섯 × 요소 조합(칸이 자기 slug를 든다)
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/laundry`, changeFrequency: weekly, priority: 0.85 },
-      ...LAUNDRY_CELLS.map(c => ({
-        url: `${BASE}${prefix}/laundry/${c.slug}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-    ]),
-    // 마우스 감도 128칸도 열 언어다 — 게임 쌍 56 + 게임×DPI 72
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
-      { url: `${BASE}${prefix}/dpi`, changeFrequency: weekly, priority: 0.85 },
-      ...DPI_CELLS.map(c => ({
-        url: `${BASE}${prefix}/dpi/${c.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
       })),

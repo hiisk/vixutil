@@ -102,8 +102,12 @@ test('카드 장수가 아는 수와 같다', () => {
  *          CARD_KEYS에 안 들어가고 요청 때 그려진다(DETAIL_SECTIONS 스물둘).
  *          여기서 세는 것은 미리 구울 수 있는 섹션 카드뿐이다 — 낱장은
  *          아래 「낱장 카드」 검사 셋이 따로 본다
+ *
+ *   2,079  laundry·air·dpi 셋을 통째로 지움(-30) — 한 공식·한 표에서 뽑아낸
+ *          값 격자라 그 주제를 하러 찾아오는 사람이 없었다. 갈래 하나가 열
+ *          언어씩 카드를 물고 있어 −10씩이다
    */
-  const WANT = 2109;
+  const WANT = 2079;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

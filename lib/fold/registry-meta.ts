@@ -21,7 +21,6 @@ export type PrefixMeta = () => Promise<{ buildMeta: (lang: FoldLang | 'ko') => S
 
 export const STATIC_META: Record<string, HubMeta> = {
   '': () => import('./pages/home.meta'),
-  'air': () => import('./pages/air.meta'),
   'ascii': () => import('./pages/ascii.meta'),
   'body': () => import('./pages/body.meta'),
   'calculator': () => import('./pages/calculator.meta'),
@@ -57,7 +56,6 @@ export const STATIC_META: Record<string, HubMeta> = {
   'device/speaker': () => import('./pages/device__speaker.meta'),
   'device/touch': () => import('./pages/device__touch.meta'),
   'device/webcam': () => import('./pages/device__webcam.meta'),
-  'dpi': () => import('./pages/dpi.meta'),
   'emoji': () => import('./pages/emoji.meta'),
   'error': () => import('./pages/error.meta'),
   'ext': () => import('./pages/ext.meta'),
@@ -140,7 +138,6 @@ export const STATIC_META: Record<string, HubMeta> = {
   'image/split': () => import('./pages/image__split.meta'),
   'image/watermark': () => import('./pages/image__watermark.meta'),
   'keycode': () => import('./pages/keycode.meta'),
-  'laundry': () => import('./pages/laundry.meta'),
   'metro': () => import('./pages/metro.meta'),
   'music': () => import('./pages/music.meta'),
   'number': () => import('./pages/number.meta'),
@@ -263,7 +260,6 @@ export const DEEP_PREFIX_META: Record<string, PrefixMeta> = {
 /* 뷰 디스패처에 넘길 이름표 — 문자열뿐이라 모듈 그래프를 안 끈다 */
 export const STATIC_MODULE: Record<string, string> = {
   '': 'home',
-  'air': 'air',
   'ascii': 'ascii',
   'body': 'body',
   'calculator': 'calculator',
@@ -299,7 +295,6 @@ export const STATIC_MODULE: Record<string, string> = {
   'device/speaker': 'device__speaker',
   'device/touch': 'device__touch',
   'device/webcam': 'device__webcam',
-  'dpi': 'dpi',
   'emoji': 'emoji',
   'error': 'error',
   'ext': 'ext',
@@ -382,7 +377,6 @@ export const STATIC_MODULE: Record<string, string> = {
   'image/split': 'image__split',
   'image/watermark': 'image__watermark',
   'keycode': 'keycode',
-  'laundry': 'laundry',
   'metro': 'metro',
   'music': 'music',
   'number': 'number',

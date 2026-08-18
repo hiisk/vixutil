@@ -16,11 +16,8 @@
 import type { ReactElement } from 'react';
 import { newSnapCard } from '@/lib/snap/card';
 
-import { hubCard as airHub } from '@/lib/air/route';
 import { hubCard as flightHub } from '@/lib/flight/route';
 import { hubCard as passwordHub } from '@/lib/password/route';
-import { hubCard as dpiHub } from '@/lib/dpi/route';
-import { hubCard as laundryHub } from '@/lib/laundry/route';
 import { hubCard as asciiHub } from '@/lib/ascii/route';
 import { BODY_SECTION } from '@/lib/body-section';
 import { hubCard as chessHub } from '@/lib/chess/route';
@@ -84,11 +81,8 @@ export const CARDS: Record<string, () => ReactElement> = {
   'snap/eye-open': () => newSnapCard('en', 'eye-open'),
   'snap/framing': () => newSnapCard('en', 'framing'),
   '': () => intlOg('home/en'),
-  'air': () => airHub('en'),
   'flight': () => flightHub('en'),
   'password': () => passwordHub('en'),
-  'dpi': () => dpiHub('en'),
-  'laundry': () => laundryHub('en'),
   'ascii': () => asciiHub('en'),
   'body': () => {
     const meta = BODY_SECTION.meta['en'];

@@ -44,12 +44,6 @@ import { NUMBERS as SQRT_NUMBERS, SQRT_ICON } from './sqrt/list.ts';
 import { ROMAN_ICON, YEARS as ROMAN_YEARS } from './roman/list.ts';
 import { YEARS as CAL_YEARS, YEAR_ICON } from './year/list.ts';
 import { PIXELS, PX_ICON } from './rem/list.ts';
-import { CELLS as DPI_CELLS, DPI_ICON } from './dpi/list.ts';
-import { CELLS as LAUNDRY_CELLS, LAUNDRY_ICON } from './laundry/list.ts';
-import { dpiFacts } from './dpi/facts.ts';
-import { laundryFacts } from './laundry/facts.ts';
-import { LAUNDRY_UI } from './laundry/ui.ts';
-import { AIR_ICON, CELLS as AIR_CELLS, pollutantOf, slugOf as airSlug } from './air/list.ts';
 import { CELLS as PW_CELLS, PASSWORD_ICON, slugOf as pwSlug } from './password/list.ts';
 import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list.ts';
 import { OPENINGS, CHESS_ICON } from './chess/list.ts';
@@ -69,7 +63,6 @@ import { sqrtFacts } from './sqrt/facts.ts';
 import { romanFacts } from './roman/facts.ts';
 import { yearFacts } from './year/facts.ts';
 import { pxFacts } from './rem/facts.ts';
-import { airFacts } from './air/facts.ts';
 import { passwordFacts } from './password/facts.ts';
 import { flightFacts, hoursOf } from './flight/facts.ts';
 import { YEAR_UI } from './year/ui.ts';
@@ -114,7 +107,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'laundry' | 'air' | 'password' | 'percent' | 'flight' | 'dpi';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'country' | 'hanja' | 'metro' | 'music' | 'ext' | 'html' | 'css' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'error' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'password' | 'percent' | 'flight';
 
 export interface SearchItem {
   href: string;
@@ -174,9 +167,6 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   roman:      { label: '로마 숫자',  icon: '🏛️', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   year:       { label: '연도',      icon: '📅', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
   rem:        { label: 'CSS 단위',  icon: '📏', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  laundry:    { label: '세탁 기호',  icon: '🧺', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
-  dpi:        { label: '마우스 감도', icon: '🖱️', accent: 'bg-violet-50 text-violet-700 border-violet-200' },
-  air:        { label: '대기질',     icon: '🌫️', accent: 'bg-slate-50 text-slate-700 border-slate-200' },
   password:   { label: '비밀번호',   icon: '🔑', accent: 'bg-teal-50 text-teal-700 border-teal-200' },
   flight:     { label: '도시 거리',  icon: '✈️', accent: 'bg-blue-50 text-blue-700 border-blue-200' },
 };
@@ -438,46 +428,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       icon: PX_ICON,
     };
   }),
-  ...LAUNDRY_CELLS.map(c => {
-    const f = laundryFacts(c);
-    return {
-      href: `/laundry/${c.slug}`,
-      title: `세탁 기호 ${LAUNDRY_UI.ko.name(f)}`,
-      desc: LAUNDRY_UI.ko.meaning(f),
-      section: 'laundry' as const,
-      icon: LAUNDRY_ICON,
-    };
-  }),
-  ...DPI_CELLS.map(c => {
-    const f = dpiFacts(c);
-    return f.kind === 'pair'
-      ? {
-          href: `/dpi/${f.slug}`,
-          title: `${f.from.short} 감도를 ${f.to.short}로 — ${f.same ? '숫자가 그대로' : `${f.factor} 곱하기`}`,
-          desc: `800 DPI 30cm/360°는 ${f.from.short} ${f.pick.from} · ${f.to.short} ${f.pick.to}`,
-          section: 'dpi' as const,
-          icon: DPI_ICON,
-        }
-      : {
-          href: `/dpi/${f.slug}`,
-          title: `${f.game.short} ${f.dpi} DPI 감도표 — 30cm/360°는 ${f.pick.sens}`,
-          desc: `eDPI ${f.pick.edpi} · 20cm ${f.rows[0].sens} · 60cm ${f.rows[f.rows.length - 1].sens}`,
-          section: 'dpi' as const,
-          icon: DPI_ICON,
-        };
-  }),
-  ...AIR_CELLS.map(c => {
-    const f = airFacts(c);
-    const NAME: Record<string, string> = { pm25: '초미세먼지', pm10: '미세먼지', o3: '오존', no2: '이산화질소', co: '일산화탄소', so2: '아황산가스' };
-    const GRADE: Record<string, string> = { good: '좋음', normal: '보통', bad: '나쁨', veryBad: '매우 나쁨' };
-    return {
-      href: `/air/${airSlug(c)}`,
-      title: `${NAME[c.key]} ${c.value}${pollutantOf(c.key)?.unit} — 한국 ${GRADE[f.korea]}, AQI ${f.epa}`,
-      desc: `${f.split ? '두 나라의 판정이 갈리는 자리' : '두 나라의 판정이 같은 자리'}${f.cigarettes !== null ? ` · 하루면 담배 ${f.cigarettes}개비` : ''}`,
-      section: 'air' as const,
-      icon: AIR_ICON,
-    };
-  }),
   ...PW_CELLS.map(c => {
     const f = passwordFacts(c);
     const NAME: Record<string, string> = {
@@ -590,9 +540,6 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/rem', title: 'CSS 단위표', desc: 'px를 rem·pt·pc·인치로, 1px부터 120px까지', section: 'rem' as const, icon: PX_ICON },
   { href: '/flight', title: '도시 사이 거리와 비행시간', desc: '서울에서 뉴욕은 동쪽이 아니라 북쪽으로 떠납니다', section: 'flight' as const, icon: FLIGHT_ICON },
   { href: '/password', title: '비밀번호 세기 계산', desc: '몇 비트인지, 저장 방식에 따라 얼마나 버티는지', section: 'password' as const, icon: PASSWORD_ICON },
-  { href: '/air', title: '미세먼지 농도와 대기질 지수', desc: '한국 등급과 미국 AQI를 나란히, 담배 개비 환산까지', section: 'air' as const, icon: AIR_ICON },
-  { href: '/laundry', title: '세탁 기호 뜻', desc: '점은 온도, 밑줄은 세기, ×는 금지 — 옷 라벨 그림 86가지', section: 'laundry' as const, icon: LAUNDRY_ICON },
-  { href: '/dpi', title: '마우스 감도 변환표', desc: '게임 상수 하나로 읽는 cm/360°·eDPI — 감도는 목표 거리에서 거꾸로', section: 'dpi' as const, icon: DPI_ICON },
   { href: '/text/regex', title: '정규식 모음', desc: '표기법과 검사식 133가지, 보기까지 함께', section: 'text' as const, icon: REGEX_ICON },
   { href: '/random/dice', title: '주사위 확률표', desc: '1~6개로 나올 수 있는 합 111가지의 확률', section: 'random' as const, icon: DICE_ICON },
   { href: '/game/cube', title: '큐브 공식 모음', desc: 'F2L·OLL·PLL 119가지 경우와 공식', section: 'game' as const, icon: CUBE_ICON },

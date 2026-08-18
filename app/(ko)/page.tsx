@@ -22,9 +22,6 @@ import { YEARS as ROMAN_YEARS } from '@/lib/roman/list';
 import { YEARS as CAL_YEARS } from '@/lib/year/list';
 import { PIXELS } from '@/lib/rem/list';
 import { MUSIC_ITEMS } from '@/lib/music/catalog';
-import { CELLS as DPI_CELLS } from '@/lib/dpi/list';
-import { CELLS as LAUNDRY_CELLS } from '@/lib/laundry/list';
-import { CELLS as AIR_CELLS } from '@/lib/air/list';
 import { CELLS as PW_CELLS } from '@/lib/password/list';
 import { CELLS as FLIGHT_CELLS } from '@/lib/flight/list';
 import { OPENINGS } from '@/lib/chess/list';
@@ -55,42 +52,6 @@ const SECTIONS = [
     textAccent: 'text-blue-700 dark:text-blue-300',
     borderAccent: 'border-blue-200 dark:border-blue-900/50',
     shadow: 'shadow-blue-100',
-  },
-  {
-    href: '/laundry',
-    icon: '🧺',
-    title: '세탁 기호 뜻',
-    desc: '점은 온도, 밑줄은 세기, ×는 금지 — 옷 라벨 그림 86가지',
-    badge: `${LAUNDRY_CELLS.length}가지`,
-    color: 'from-sky-600 to-cyan-400',
-    bgLight: 'bg-sky-50 dark:bg-sky-900/40',
-    textAccent: 'text-sky-700 dark:text-sky-200',
-    borderAccent: 'border-sky-200 dark:border-sky-800',
-    shadow: 'shadow-sky-100',
-  },
-  {
-    href: '/dpi',
-    icon: '🖱️',
-    title: '마우스 감도와 DPI',
-    desc: '소스 계열 eDPI 800은 51.95cm/360° — 게임 사이 감도를 옮기는 곱수와 DPI별 감도표',
-    badge: `${DPI_CELLS.length}칸`,
-    color: 'from-violet-500 to-fuchsia-400',
-    bgLight: 'bg-violet-50 dark:bg-violet-900/40',
-    textAccent: 'text-violet-700 dark:text-violet-200',
-    borderAccent: 'border-violet-200 dark:border-violet-800',
-    shadow: 'shadow-violet-100',
-  },
-  {
-    href: '/air',
-    icon: '🌫️',
-    title: '미세먼지와 대기질 지수',
-    desc: '초미세먼지 35는 보통인데 AQI로는 99 — 한국 등급과 미국 지수를 나란히',
-    badge: `${AIR_CELLS.length}칸`,
-    color: 'from-slate-600 to-slate-400',
-    bgLight: 'bg-slate-50 dark:bg-slate-800/60',
-    textAccent: 'text-slate-700 dark:text-slate-200',
-    borderAccent: 'border-slate-200 dark:border-slate-700',
-    shadow: 'shadow-slate-100',
   },
   {
     href: '/test',

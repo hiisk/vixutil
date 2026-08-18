@@ -45,7 +45,6 @@ import { SQRT_UI } from '../lib/sqrt/ui.ts';
 import { ROMAN_UI } from '../lib/roman/ui.ts';
 import { YEAR_UI } from '../lib/year/ui.ts';
 import { PX_UI } from '../lib/rem/ui.ts';
-import { AIR_UI } from '../lib/air/ui.ts';
 import { PASSWORD_UI } from '../lib/password/ui.ts';
 import { FLIGHT_UI } from '../lib/flight/ui.ts';
 
@@ -60,7 +59,7 @@ const SECTIONS: Record<string, AnyUI> = {
   lens: ui(LENS_UI), html: ui(HTML_UI), ext: ui(EXT_UI),
   glyph: ui(GLYPH_UI), sound: ui(SOUND_UI),
   tarot: ui(TAROT_UI), cube: ui(CUBE_UI), music: ui(MUSIC_UI),
-  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), year: ui(YEAR_UI), rem: ui(PX_UI), air: ui(AIR_UI), password: ui(PASSWORD_UI), flight: ui(FLIGHT_UI), 
+  metro: ui(METRO_UI), number: ui(NUMBER_UI), ascii: ui(ASCII_UI), port: ui(PORT_UI), chmod: ui(CHMOD_UI), fraction: ui(FRACTION_UI), keycode: ui(KEYCODE_UI), cidr: ui(CIDR_UI), code: ui(CODE_UI), times: ui(TIMES_UI), sqrt: ui(SQRT_UI), roman: ui(ROMAN_UI), year: ui(YEAR_UI), rem: ui(PX_UI), password: ui(PASSWORD_UI), flight: ui(FLIGHT_UI), 
 };
 
 /**

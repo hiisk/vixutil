@@ -1,4 +1,4 @@
-/* 생성됨 — 접힌 경로 → 모듈. 정적 209 · 한 칸 동적 58 · 캐치올 1.
+/* 생성됨 — 접힌 경로 → 모듈. 정적 207 · 한 칸 동적 57 · 캐치올 1.
    새 경로는 lib/fold/pages/에 모듈을 만들고 여기 한 줄을 더한다. */
 import type { FoldLang } from './lang';
 
@@ -6,7 +6,6 @@ export type Loader = () => Promise<{ build: (lang: FoldLang) => Record<string, u
 
 export const STATIC_ROUTES: Record<string, Loader> = {
   '': () => import('./pages/home'),
-  'air': () => import('./pages/air'),
   'ascii': () => import('./pages/ascii'),
   'body': () => import('./pages/body'),
   'calculator': () => import('./pages/calculator'),
@@ -42,7 +41,6 @@ export const STATIC_ROUTES: Record<string, Loader> = {
   'device/speaker': () => import('./pages/device__speaker'),
   'device/touch': () => import('./pages/device__touch'),
   'device/webcam': () => import('./pages/device__webcam'),
-  'dpi': () => import('./pages/dpi'),
   'emoji': () => import('./pages/emoji'),
   'error': () => import('./pages/error'),
   'ext': () => import('./pages/ext'),
@@ -125,7 +123,6 @@ export const STATIC_ROUTES: Record<string, Loader> = {
   'image/split': () => import('./pages/image__split'),
   'image/watermark': () => import('./pages/image__watermark'),
   'keycode': () => import('./pages/keycode'),
-  'laundry': () => import('./pages/laundry'),
   'metro': () => import('./pages/metro'),
   'music': () => import('./pages/music'),
   'number': () => import('./pages/number'),
@@ -218,7 +215,6 @@ export const STATIC_ROUTES: Record<string, Loader> = {
 };
 
 export const SLUG_ROUTES: Record<string, Loader> = {
-  'air': () => import('./pages/air__slug'),
   'ascii': () => import('./pages/ascii__slug'),
   'body': () => import('./pages/body__slug'),
   'body/bmi': () => import('./pages/body__bmi__slug'),
@@ -235,7 +231,6 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'css': () => import('./pages/css__slug'),
   'date': () => import('./pages/date__slug'),
   'device/screen': () => import('./pages/device__screen__slug'),
-  'dpi': () => import('./pages/dpi__slug'),
   'emoji': () => import('./pages/emoji__slug'),
   'error': () => import('./pages/error__slug'),
   'ext': () => import('./pages/ext__slug'),
@@ -255,7 +250,6 @@ export const SLUG_ROUTES: Record<string, Loader> = {
   'http': () => import('./pages/http__slug'),
   'image/size': () => import('./pages/image__size__slug'),
   'keycode': () => import('./pages/keycode__slug'),
-  'laundry': () => import('./pages/laundry__slug'),
   'metro': () => import('./pages/metro__slug'),
   'music': () => import('./pages/music__slug'),
   'number': () => import('./pages/number__slug'),
