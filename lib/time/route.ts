@@ -8,8 +8,6 @@ import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
 import { timeCity, timeCountry } from './cities8.ts';
 import { cityFacts } from './facts.ts';
 import { TIME_UI } from './ui.ts';
-import { PAIR_UI } from './pair-ui.ts';
-import { pairFacts, parsePairSlug } from './pair-grid.ts';
 import { withCard } from '../og-cards/index.ts';
 
 const TO = '#0f172a';
@@ -17,32 +15,7 @@ const TO = '#0f172a';
 /** 데바나가리는 카드에서 정형되지 않는다 — 앞선 섹션들과 같은 이유다 */
 const cardLang = (lang: Lang): Lang => (lang === 'hi' ? 'en' : lang);
 
-/**
- * 도시 쌍 낱장의 메타 — `/time/seoul-vs-new-york`.
- *
- * 도시 낱장과 같은 라우트를 쓰므로 여기서 갈린다.
- */
-function pairMetadata(lang: Lang, slug: string): Metadata | null {
-  const pair = parsePairSlug(slug);
-  if (!pair) return null;
-  const f = pairFacts(pair.a, pair.b);
-  const px = PAIR_UI[lang];
-  const nameA = pair.a.name[lang], nameB = pair.b.name[lang];
-  const winter = px.dur(Math.floor(Math.abs(f.winterMinutes) / 60), Math.abs(f.winterMinutes) % 60);
-  const summer = px.dur(Math.floor(Math.abs(f.summerMinutes) / 60), Math.abs(f.summerMinutes) % 60);
-  return withCard({
-    title: px.metaTitle(nameA, nameB, f.winterMinutes === 0 ? px.noGap : winter),
-    description: px.metaDesc(nameA, nameB, winter, summer, f.shifts),
-    alternates: {
-      canonical: `${langPrefix(lang)}/time/${slug}`,
-      languages: alternates(`/time/${slug}`),
-    },
-  });
-}
-
 export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const pair = pairMetadata(lang, slug);
-  if (pair) return pair;
   const city = timeCity(slug);
   if (!city) return {};
   const ui = TIME_UI[lang];

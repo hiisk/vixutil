@@ -26,21 +26,6 @@ export function hubMetadata(lang: Lang): Metadata {
   });
 }
 
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const c = parsePercentSlug(slug);
-  if (!c) return {};
-  const ui = PERCENT_UI[lang];
-  const f = percentFacts(c.percent, c.base);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: {
-      canonical: `${langPrefix(lang)}/percent/${slug}`,
-      languages: alternates(`/percent/${slug}`),
-    },
-  });
-}
-
 export function hubCard(lang: Lang): ReactElement {
   const ui = PERCENT_UI[cardLang(lang)];
   return ogCard({ icon: PERCENT_ICON, eyebrow: ui.section, title: ui.hubTitle, desc: ui.hubLead, from: FROM, to: TO });

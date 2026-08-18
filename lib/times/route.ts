@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { TIMES_ICON, productOf, slugOf } from './list.ts';
-import { timesFacts } from './facts.ts';
+import { TIMES_ICON } from './list.ts';
 import { TIMES_UI } from './ui.ts';
 import { withCard } from '../og-cards/index.ts';
 
@@ -23,20 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/times`, languages: alternates('/times') },
   });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const p = productOf(slug);
-  if (!p) return {};
-  const ui = TIMES_UI[lang];
-  const f = timesFacts(p);
-  // 뒤집힌 주소(8x7)로 들어와도 대표 주소(7x8) 하나만 canonical로 둔다
-  const canonical = `${langPrefix(lang)}/times/${slugOf(p)}`;
-  return {
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical, languages: alternates(`/times/${slugOf(p)}`) },
-  };
 }
 
 export function hubCard(lang: Lang): ReactElement {

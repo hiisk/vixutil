@@ -31,13 +31,10 @@ import { TIME_TOOLS } from "@/lib/time-tools";
 import { SOUND_TOOLS } from "@/lib/sound-tools";
 import { FOOD_TOOLS } from "@/lib/food-tools";
 import { CONVERT_TOOLS } from "@/lib/convert-tools";
-import { valuesFor, valueSlug } from "@/lib/convert/values";
-import { allCells as bmiAllCells, cellSlug as bmiCellSlug } from "@/lib/body/bmi-grid";
 import { EXERCISES } from "@/lib/body/exercise";
 import { SALARIES } from "@/lib/salary-grid";
 import { allSeveranceCells, severanceSlug } from "@/lib/severance-grid";
 import { allLoanCells, loanSlug } from "@/lib/loan-grid";
-import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
@@ -50,14 +47,11 @@ import { TOPIC_SLUGS as SAJU_TOPIC_SLUGS } from "@/lib/saju-topics";
 import { sectionHasLocale } from "@/lib/i18n/lang";
 import { MUSIC_ITEMS } from "@/lib/music/catalog";
 import { NAMED_COLORS_8 } from "@/lib/color/named8";
-import { allHexShorts, hexSlug } from "@/lib/color/hex-grid";
-import { allCityPairs, pairSlug } from "@/lib/time/pair-grid";
 import { INGREDIENTS } from "@/lib/food/ingredients8";
 import { TIME_CITIES } from "@/lib/time/cities8";
 import { SCREENS } from "@/lib/device/screens";
 import { LENSES } from "@/lib/lens/list";
 import { ALGS } from "@/lib/cube/list";
-import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
 import { PORTS } from "@/lib/port/list";
 import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
@@ -68,7 +62,6 @@ import { LANGS } from "@/lib/i18n/lang";
 import { FREQS, freqSlug } from "@/lib/sound/freqs";
 import { EXTS } from "@/lib/ext/list";
 import { CARDS } from "@/lib/tarot/deck";
-import { GLYPHS } from "@/lib/glyph/list";
 import { TAGS } from "@/lib/html/tags";
 import { IMG_SIZES } from "@/lib/imgsize/list";
 import { CSS_PROPS } from "@/lib/css/props";
@@ -81,9 +74,7 @@ import { ERR_ITEMS } from "@/lib/errmsg/list";
 const BASE = "https://vixutil.com";
 
 /* 4,131칸을 열 언어가 함께 쓴다 — 언어마다 다시 만들면 같은 배열을 열 번 만든다 */
-const BMI_CELLS = bmiAllCells();
 /* 366일도 같은 이유로 한 번만 만든다 */
-const BIRTHDAYS = birthdayDays();
 
 export const dynamic = "force-static";
 
@@ -172,19 +163,6 @@ function allEntries(): MetadataRoute.Sitemap {
     { url: `${BASE}/generator`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/checklist`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/fortune`, changeFrequency: weekly, priority: 0.95 },
-    /*
-     * 생일 낱장 — /fortune/birthday/<MM-DD>. 366일이 언어마다 붙는다(윤일 포함).
-     * "3월 15일 생일 별자리"는 해마다 되돌아오는 검색이고 자료가 안 바뀐다.
-     * 셈은 lib/fortune/birthday-grid.ts.
-     */
-    ...BIRTHDAYS.map((d) => ({
-      url: `${BASE}/fortune/birthday/${birthdaySlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.7,
-    })),
-    ...INTL_LOCALES10.flatMap((lang) =>
-      BIRTHDAYS.map((d) => ({
-        url: `${BASE}/${lang}/fortune/birthday/${birthdaySlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.6,
-      })),
-    ),
     { url: `${BASE}/fortune/zodiac`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/animal`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/tarot`, changeFrequency: weekly, priority: 0.9 },
@@ -246,27 +224,12 @@ function allEntries(): MetadataRoute.Sitemap {
     ...FOOD_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/food/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
     { url: `${BASE}/convert`, changeFrequency: weekly, priority: 0.95 },
     ...CONVERT_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/convert/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    /*
-     * 값 낱장 — /convert/<쌍>/<값>. 138쌍 × 24값 = 3,312장이 언어마다 붙는다.
-     * "70kg 파운드"처럼 **값까지 넣어 검색하는 말**을 받는 자리라, 쌍 페이지보다
-     * 이쪽이 실제 유입에 가깝다. 셈과 대표값은 lib/convert/values.ts.
-     */
-    ...CONVERT_TOOLS.flatMap((t: { slug: string }) =>
-      valuesFor(t.slug).map((v) => ({
-        url: `${BASE}/convert/${t.slug}/${valueSlug(v)}`, changeFrequency: monthly, priority: 0.7,
-      })),
-    ),
     // 단위 변환은 slug가 여덟 언어에서 같다 — 언어 목록만 돌리면 된다
     ...INTL_LOCALES10.flatMap((lang) => [
       { url: `${BASE}/${lang}/convert`, changeFrequency: weekly, priority: 0.9 },
       ...CONVERT_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/convert/${t.slug}`, changeFrequency: monthly, priority: 0.8,
       })),
-      ...CONVERT_TOOLS.flatMap((t: { slug: string }) =>
-        valuesFor(t.slug).map((v) => ({
-          url: `${BASE}/${lang}/convert/${t.slug}/${valueSlug(v)}`, changeFrequency: monthly, priority: 0.6,
-        })),
-      ),
     ]),
     { url: `${BASE}/rate`, changeFrequency: weekly, priority: 0.95 },
     ...RATE_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/rate/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
@@ -279,14 +242,6 @@ function allEntries(): MetadataRoute.Sitemap {
     ]),
     { url: `${BASE}/body`, changeFrequency: weekly, priority: 0.95 },
     ...BODY_TOOLS.map((t: { slug: string }) => ({ url: `${BASE}/body/${t.slug}`, changeFrequency: weekly, priority: 0.9 })),
-    /*
-     * BMI 격자 — /body/bmi/<키>-<몸무게>. 키 51 × 몸무게 81 = 4,131칸이 언어마다 붙는다.
-     * "키 170 몸무게 70"은 실제로 치는 말이라 BMI 계산기 페이지보다 이쪽이 검색에 가깝다.
-     * 격자와 기준선은 lib/body/bmi-grid.ts.
-     */
-    ...BMI_CELLS.map((c) => ({
-      url: `${BASE}/body/bmi/${bmiCellSlug(c.height, c.weight)}`, changeFrequency: monthly, priority: 0.7,
-    })),
     /* 운동별 칼로리 — MET 계산기는 이미 있고 여기는 "수영이 몇 MET인가"를 받는다 */
     ...EXERCISES.map((x) => ({
       url: `${BASE}/body/exercise/${x.slug}`, changeFrequency: monthly, priority: 0.8,
@@ -310,9 +265,6 @@ function allEntries(): MetadataRoute.Sitemap {
       { url: `${BASE}/${lang}/body`, changeFrequency: weekly, priority: 0.9 },
       ...BODY_TOOLS.map((t: { slug: string }) => ({
         url: `${BASE}/${lang}/body/${t.slug}`, changeFrequency: monthly, priority: 0.8,
-      })),
-      ...BMI_CELLS.map((c) => ({
-        url: `${BASE}/${lang}/body/bmi/${bmiCellSlug(c.height, c.weight)}`, changeFrequency: monthly, priority: 0.6,
       })),
       ...EXERCISES.map((x) => ({
         url: `${BASE}/${lang}/body/exercise/${x.slug}`, changeFrequency: monthly, priority: 0.7,
@@ -439,11 +391,6 @@ function allEntries(): MetadataRoute.Sitemap {
     // 특수문자 168자도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/text/char`, changeFrequency: weekly, priority: 0.9 },
-      ...GLYPHS.map((g: { slug: string }) => ({
-        url: `${BASE}${prefix}/text/char/${g.slug}`,
-        changeFrequency: monthly,
-        priority: 0.75,
-      })),
     ]),
     // 타로 78장도 여덟 언어다 — 목록과 상세를 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
@@ -592,11 +539,6 @@ function allEntries(): MetadataRoute.Sitemap {
     // 주사위 확률 111장도 여덟 언어다 — 한 개부터 여섯 개까지의 모든 합
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/random/dice`, changeFrequency: weekly, priority: 0.85 },
-      ...ROLLS.map((r: { slug: string }) => ({
-        url: `${BASE}${prefix}/random/dice/${r.slug}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 큐브 공식 119장도 여덟 언어다 — F2L·OLL·PLL을 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
@@ -630,24 +572,6 @@ function allEntries(): MetadataRoute.Sitemap {
         url: `${BASE}${prefix}/color/${c.slug}`,
         changeFrequency: monthly,
         priority: 0.8,
-      })),
-    ),
-    /* 도시 쌍 시차 낱장 × 열 언어 — 한쪽이 그 나라 대표 도시인 쌍만 낸다.
-       까닭은 lib/time/pair-grid.ts 머리말 */
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
-      allCityPairs().map((p) => ({
-        url: `${BASE}${prefix}/time/${pairSlug(p.a, p.b)}`,
-        changeFrequency: yearly,
-        priority: 0.7,
-      })),
-    ),
-    /* hex 낱장 4,096색 × 열 언어 — 세 자리 줄임 표기를 빠짐없이 낸다.
-       목록에 규칙이 있어 구멍이 없다. 까닭은 lib/color/hex-grid.ts 머리말 */
-    ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) =>
-      allHexShorts().map((h) => ({
-        url: `${BASE}${prefix}/color/${hexSlug(h)}`,
-        changeFrequency: yearly,
-        priority: 0.6,
       })),
     ),
     // 색 허브는 아래 INTL_LOCALES10 묶음이 열 언어를 모두 낸다 — 여기서 또 내면 여덟 개가 두 번 실린다

@@ -4,8 +4,6 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import CityTimePage from '@/components/CityTimePage';
 import { TIME_CITIES, timeCity } from '@/lib/time/cities8';
-import TimePairPage from '@/components/TimePairPage';
-import { allCityPairs, pairSlug, parsePairSlug } from '@/lib/time/pair-grid';
 import { detailMetadata } from '@/lib/time/route';
 import { prerender } from '@/lib/prerender';
 
@@ -13,7 +11,6 @@ import { prerender } from '@/lib/prerender';
 export function generateStaticParams() {
   return prerender([
     ...TIME_CITIES.map(c => ({ slug: c.slug })),
-    ...allCityPairs().map(p => ({ slug: pairSlug(p.a, p.b) })),
   ]);
 }
 
@@ -24,9 +21,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function TimeCityDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  /* 도시 쌍 낱장은 같은 라우트가 받는다 — lib/time/pair-grid.ts 머리말 */
-  const pair = parsePairSlug(slug);
-  if (pair) return <TimePairPage a={pair.a} b={pair.b} lang="ko" />;
   const city = timeCity(slug);
   if (!city) notFound();
   return <CityTimePage city={city} lang="ko" />;

@@ -2,13 +2,11 @@
    components/FoldView.tsx가 클라이언트에서 따로 부른다. 까닭은 lib/ko/registry-meta.ts. */
 import type { Metadata } from 'next';
 import { NAMED_COLORS_8, namedColor } from '@/lib/color/named8';
-import { allHexShorts, hexSlug, parseHexSlug } from '@/lib/color/hex-grid';
 import { detailMetadata } from '@/lib/color/route';
 import { prerender } from '@/lib/prerender';
 export function generateStaticParams() {
   return prerender([
     ...NAMED_COLORS_8.map(c => ({ slug: c.slug })),
-    ...allHexShorts().map(h => ({ slug: hexSlug(h) })),
   ]);
 }
 

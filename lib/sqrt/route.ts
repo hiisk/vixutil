@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { SQRT_ICON, SQRT_SLUGS, numberOf } from './list.ts';
-import { sqrtFacts } from './facts.ts';
+import { SQRT_ICON, SQRT_SLUGS } from './list.ts';
 import { SQRT_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,18 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/sqrt`, languages: alternates('/sqrt') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const n = numberOf(slug);
-  if (n === undefined) return {};
-  const ui = SQRT_UI[lang];
-  const f = sqrtFacts(n);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/sqrt/${slug}`, languages: alternates(`/sqrt/${slug}`) },
   });
 }
 

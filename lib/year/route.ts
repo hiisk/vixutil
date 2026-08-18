@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { YEAR_ICON, YEAR_SLUGS, yearOf } from './list.ts';
-import { yearFacts } from './facts.ts';
+import { YEAR_ICON, YEAR_SLUGS } from './list.ts';
 import { YEAR_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,18 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/year`, languages: alternates('/year') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const y = yearOf(slug);
-  if (y === undefined) return {};
-  const ui = YEAR_UI[lang];
-  const f = yearFacts(y);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/year/${slug}`, languages: alternates(`/year/${slug}`) },
   });
 }
 

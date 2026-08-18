@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { PX_ICON, PX_SLUGS, pxOf } from './list.ts';
-import { pxFacts } from './facts.ts';
+import { PX_ICON, PX_SLUGS } from './list.ts';
 import { PX_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,18 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/rem`, languages: alternates('/rem') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const px = pxOf(slug);
-  if (px === undefined) return {};
-  const ui = PX_UI[lang];
-  const f = pxFacts(px);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/rem/${slug}`, languages: alternates(`/rem/${slug}`) },
   });
 }
 

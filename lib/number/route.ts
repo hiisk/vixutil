@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { NUMBERS, NUMBER_ICON, numberOf } from './list.ts';
-import { numberFacts } from './facts.ts';
+import { NUMBERS, NUMBER_ICON } from './list.ts';
 import { NUMBER_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,20 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/number`, languages: alternates('/number') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const n = numberOf(slug);
-  if (!n) return {};
-  const ui = NUMBER_UI[lang];
-  return withCard({
-    title: ui.metaTitle(n),
-    description: ui.metaDesc(numberFacts(n)),
-    alternates: {
-      canonical: `${langPrefix(lang)}/number/${n}`,
-      languages: alternates(`/number/${n}`),
-    },
   });
 }
 

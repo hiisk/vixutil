@@ -2,13 +2,11 @@
    components/FoldView.tsx가 클라이언트에서 따로 부른다. 까닭은 lib/ko/registry-meta.ts. */
 import type { Metadata } from 'next';
 import { TIME_CITIES, timeCity } from '@/lib/time/cities8';
-import { allCityPairs, pairSlug, parsePairSlug } from '@/lib/time/pair-grid';
 import { detailMetadata } from '@/lib/time/route';
 import { prerender } from '@/lib/prerender';
 export function generateStaticParams() {
   return prerender([
     ...TIME_CITIES.map(c => ({ slug: c.slug })),
-    ...allCityPairs().map(p => ({ slug: pairSlug(p.a, p.b) })),
   ]);
 }
 

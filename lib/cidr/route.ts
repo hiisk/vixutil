@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { CIDR_ICON, PREFIXES, prefixOf, slugOf } from './list.ts';
-import { cidrFacts } from './facts.ts';
+import { CIDR_ICON, PREFIXES, slugOf } from './list.ts';
 import { CIDR_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,21 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/cidr`, languages: alternates('/cidr') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const p = prefixOf(slug);
-  if (!p) return {};
-  const ui = CIDR_UI[lang];
-  const f = cidrFacts(p);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: {
-      canonical: `${langPrefix(lang)}/cidr/${slug}`,
-      languages: alternates(`/cidr/${slug}`),
-    },
   });
 }
 

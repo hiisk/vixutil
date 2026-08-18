@@ -24,8 +24,8 @@ import { join } from 'node:path';
 import { STATIC_ROUTES, SLUG_ROUTES, EN_STATIC_OVERRIDES } from '../lib/fold/registry.ts';
 import { KO_LEAVES, KO_DEEP_LEAVES } from '../lib/ko/registry.ts';
 import {
-  STATIC_META, EN_STATIC_META, DEEP_META, DEEP_PREFIX_META,
-  STATIC_MODULE, EN_STATIC_MODULE, DEEP_MODULE, DEEP_PREFIX_MODULE,
+  STATIC_META, EN_STATIC_META, DEEP_META,
+  STATIC_MODULE, EN_STATIC_MODULE, DEEP_MODULE,
 } from '../lib/fold/registry-meta.ts';
 import { KO_META, KO_DEEP_META, KO_MODULE, KO_DEEP_MODULE } from '../lib/ko/registry-meta.ts';
 
@@ -41,11 +41,10 @@ test('허브: registry.ts와 registry-meta.ts의 열쇠가 같다', () => {
 });
 
 test('세 칸 낱장: 두 칸 열쇠가 빠짐없이 메타 등록부에 있다', () => {
-  /* [a]/[b]/[slug]가 받는 것은 슬래시가 든 열쇠뿐이다 — 접두 갈래는 따로 */
+  /* [a]/[b]/[slug]가 받는 것은 슬래시가 든 열쇠뿐이다 */
   const deep = Object.keys(SLUG_ROUTES).filter(k => k.includes('/')).sort();
   assert.deepEqual(keys(DEEP_META), deep);
   assert.deepEqual(keys(DEEP_MODULE), deep);
-  assert.deepEqual(keys(DEEP_PREFIX_META), keys(DEEP_PREFIX_MODULE));
   assert.ok(deep.length > 10, `세 칸 낱장이 ${deep.length}개뿐 — 세는 방식이 깨졌다`);
 });
 
@@ -60,7 +59,7 @@ test('한국어: 뷰 등록부와 메타 등록부의 열쇠가 같다', () => {
 
 test('메타 모듈 파일이 실제로 있다', () => {
   const missing: string[] = [];
-  for (const [where, map] of [['lib/fold/pages', { ...STATIC_MODULE, ...EN_STATIC_MODULE, ...DEEP_MODULE, ...DEEP_PREFIX_MODULE }],
+  for (const [where, map] of [['lib/fold/pages', { ...STATIC_MODULE, ...EN_STATIC_MODULE, ...DEEP_MODULE}],
     ['lib/ko/pages', { ...KO_MODULE, ...KO_DEEP_MODULE }]] as const) {
     for (const m of new Set(Object.values(map))) {
       if (!existsSync(join(ROOT, where, `${m}.meta.tsx`))) missing.push(`${where}/${m}.meta.tsx`);
@@ -78,7 +77,7 @@ test('FoldView가 모든 뷰 모듈을 부른다', () => {
   const listed = new Set([...src.matchAll(/'([^']+)': \(\) => import\('@\/lib\/(fold|ko)\/pages\/([^']+)'\)/g)]
     .map(m => `${m[2]}/${m[3]}`));
   const want = new Set<string>();
-  for (const m of Object.values({ ...STATIC_MODULE, ...EN_STATIC_MODULE, ...DEEP_MODULE, ...DEEP_PREFIX_MODULE })) want.add(`fold/${m}`);
+  for (const m of Object.values({ ...STATIC_MODULE, ...EN_STATIC_MODULE, ...DEEP_MODULE})) want.add(`fold/${m}`);
   for (const m of Object.values({ ...KO_MODULE, ...KO_DEEP_MODULE })) want.add(`ko/${m}`);
   const missing = [...want].filter(w => !listed.has(w));
   assert.deepEqual(missing, [], 'FoldView.tsx에 없는 뷰 모듈이다 — 그 갈래가 빈 화면이 된다');
@@ -92,7 +91,7 @@ test('메타 모듈이 컴포넌트를 들여오지 않는다', () => {
    * 합쳐진다(16.5MB로 되돌아간다). 화면은 멀쩡하고 빌드도 통과하므로 여기서 잡는다.
    */
   const bad: string[] = [];
-  for (const [where, map] of [['lib/fold/pages', { ...STATIC_MODULE, ...EN_STATIC_MODULE, ...DEEP_MODULE, ...DEEP_PREFIX_MODULE }],
+  for (const [where, map] of [['lib/fold/pages', { ...STATIC_MODULE, ...EN_STATIC_MODULE, ...DEEP_MODULE}],
     ['lib/ko/pages', { ...KO_MODULE, ...KO_DEEP_MODULE }]] as const) {
     for (const m of new Set(Object.values(map))) {
       const f = join(ROOT, where, `${m}.meta.tsx`);

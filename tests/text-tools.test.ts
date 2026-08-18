@@ -44,12 +44,13 @@ test('페이지 폴더마다 카탈로그 항목이 있다', () => {
   assert.deepEqual(orphans, [], `카탈로그에 없는 페이지 폴더: ${orphans.join(', ')}`);
 });
 
-test('특수문자 라우트는 글자 목록에서 페이지를 만든다', () => {
-  // 위 검사에서 char를 빼 주었으니, 그 라우트가 실제로 글자 목록을 쓰는지 여기서 본다
-  const src = readFileSync(koLeafFile('text/char'), 'utf8');
-  assert.ok(src.includes('glyphParams'), '[slug] 라우트가 글자 목록을 돌지 않는다');
-  assert.ok(src.includes('generateStaticParams'), '[slug] 라우트가 정적 경로를 만들지 않는다');
+test('특수문자는 목록 한 장으로만 낸다', () => {
+  /* 2026-08-18: 글자마다 낱장을 내던 것을 지웠다(168자 × 열 언어 = 1,680장).
+     "㎡ 특수문자"를 치는 사람은 목록에서 찾아 복사하지 낱장을 열지 않는다.
+     목록은 그대로다 — 걷은 것은 낱장 라우트뿐이라 여기서 그것을 못 박는다. */
   assert.ok(existsSync(join(APP, 'char', 'page.tsx')), '특수문자 목록 페이지가 없다');
+  assert.ok(!existsSync(join(ROOT, 'lib', 'fold', 'pages', 'text__char__slug.tsx')),
+    '낱장 모듈이 되살아났다 — 목록 한 장으로 두기로 했다');
 });
 
 test('정규식 라우트는 식 목록에서 페이지를 만든다', () => {

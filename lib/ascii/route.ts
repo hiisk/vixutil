@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { ASCII_ICON, CODES, codeOf } from './list.ts';
-import { asciiFacts } from './facts.ts';
+import { ASCII_ICON, CODES } from './list.ts';
 import { ASCII_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,21 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/ascii`, languages: alternates('/ascii') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const code = codeOf(slug);
-  if (code === undefined) return {};
-  const ui = ASCII_UI[lang];
-  const f = asciiFacts(code);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: {
-      canonical: `${langPrefix(lang)}/ascii/${code}`,
-      languages: alternates(`/ascii/${code}`),
-    },
   });
 }
 

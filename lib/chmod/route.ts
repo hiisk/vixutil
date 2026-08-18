@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { CHMOD_ICON, MODES, modeOf } from './list.ts';
-import { chmodFacts } from './facts.ts';
+import { CHMOD_ICON, MODES } from './list.ts';
 import { CHMOD_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,21 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/chmod`, languages: alternates('/chmod') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const mode = modeOf(slug);
-  if (!mode) return {};
-  const ui = CHMOD_UI[lang];
-  const f = chmodFacts(mode);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: {
-      canonical: `${langPrefix(lang)}/chmod/${mode}`,
-      languages: alternates(`/chmod/${mode}`),
-    },
   });
 }
 

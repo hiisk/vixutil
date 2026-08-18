@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { FRACTIONS, FRACTION_ICON, fractionOf, slugOf } from './list.ts';
-import { fractionFacts } from './facts.ts';
+import { FRACTIONS, FRACTION_ICON, slugOf } from './list.ts';
 import { FRACTION_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,21 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/fraction`, languages: alternates('/fraction') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const f = fractionOf(slug);
-  if (!f) return {};
-  const ui = FRACTION_UI[lang];
-  const facts = fractionFacts(f);
-  return withCard({
-    title: ui.metaTitle(facts),
-    description: ui.metaDesc(facts),
-    alternates: {
-      canonical: `${langPrefix(lang)}/fraction/${slug}`,
-      languages: alternates(`/fraction/${slug}`),
-    },
   });
 }
 

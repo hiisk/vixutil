@@ -16,8 +16,6 @@ type SlugBuilt = {
   generateStaticParams: () => Record<string, string>[];
 };
 export type SlugMeta = () => Promise<{ buildMeta: (lang: FoldLang) => SlugBuilt }>;
-/* 접두 갈래(convert)는 한국어 디스패처도 같은 모듈을 쓴다 — 언어에 ko가 들어간다 */
-export type PrefixMeta = () => Promise<{ buildMeta: (lang: FoldLang | 'ko') => SlugBuilt }>;
 
 export const STATIC_META: Record<string, HubMeta> = {
   '': () => import('./pages/home.meta'),
@@ -197,8 +195,8 @@ export const STATIC_META: Record<string, HubMeta> = {
   'sqrt': () => import('./pages/sqrt.meta'),
   'test': () => import('./pages/test.meta'),
   'text': () => import('./pages/text.meta'),
-  'text/case': () => import('./pages/text__case.meta'),
   'text/char': () => import('./pages/text__char.meta'),
+  'text/case': () => import('./pages/text__case.meta'),
   'text/clean': () => import('./pages/text__clean.meta'),
   'text/dedupe': () => import('./pages/text__dedupe.meta'),
   'text/emoticon': () => import('./pages/text__emoticon.meta'),
@@ -235,26 +233,17 @@ export const EN_STATIC_META: Record<string, HubMeta> = {
 
 /* 세 칸 낱장 — [a]/[b]/[slug]가 받는다 */
 export const DEEP_META: Record<string, SlugMeta> = {
-  'body/bmi': () => import('./pages/body__bmi__slug.meta'),
   'body/exercise': () => import('./pages/body__exercise__slug.meta'),
   'device/screen': () => import('./pages/device__screen__slug.meta'),
-  'fortune/birthday': () => import('./pages/fortune__birthday__slug.meta'),
   'fortune/card': () => import('./pages/fortune__card__slug.meta'),
   'fortune/saju': () => import('./pages/fortune__saju__slug.meta'),
   'game/chess': () => import('./pages/game__chess__slug.meta'),
   'game/cube': () => import('./pages/game__cube__slug.meta'),
   'game/poker': () => import('./pages/game__poker__slug.meta'),
   'image/size': () => import('./pages/image__size__slug.meta'),
-  'random/dice': () => import('./pages/random__dice__slug.meta'),
   'snap/lens': () => import('./pages/snap__lens__slug.meta'),
   'sound/hz': () => import('./pages/sound__hz__slug.meta'),
-  'text/char': () => import('./pages/text__char__slug.meta'),
   'text/regex': () => import('./pages/text__regex__slug.meta'),
-};
-
-/* 둘째 칸이 목록인 갈래(convert/<쌍>/<값>) — lib/fold/deep-prefix.ts */
-export const DEEP_PREFIX_META: Record<string, PrefixMeta> = {
-  'convert': () => import('./pages/convert__value.meta'),
 };
 
 /* 뷰 디스패처에 넘길 이름표 — 문자열뿐이라 모듈 그래프를 안 끈다 */
@@ -436,8 +425,8 @@ export const STATIC_MODULE: Record<string, string> = {
   'sqrt': 'sqrt',
   'test': 'test',
   'text': 'text',
-  'text/case': 'text__case',
   'text/char': 'text__char',
+  'text/case': 'text__case',
   'text/clean': 'text__clean',
   'text/dedupe': 'text__dedupe',
   'text/emoticon': 'text__emoticon',
@@ -473,25 +462,17 @@ export const EN_STATIC_MODULE: Record<string, string> = {
 };
 
 export const DEEP_MODULE: Record<string, string> = {
-  'body/bmi': 'body__bmi__slug',
   'body/exercise': 'body__exercise__slug',
   'device/screen': 'device__screen__slug',
-  'fortune/birthday': 'fortune__birthday__slug',
   'fortune/card': 'fortune__card__slug',
   'fortune/saju': 'fortune__saju__slug',
   'game/chess': 'game__chess__slug',
   'game/cube': 'game__cube__slug',
   'game/poker': 'game__poker__slug',
   'image/size': 'image__size__slug',
-  'random/dice': 'random__dice__slug',
   'snap/lens': 'snap__lens__slug',
   'sound/hz': 'sound__hz__slug',
-  'text/char': 'text__char__slug',
   'text/regex': 'text__regex__slug',
-};
-
-export const DEEP_PREFIX_MODULE: Record<string, string> = {
-  'convert': 'convert__value',
 };
 
 export const STATIC_KEYS: string[] = Object.keys(STATIC_META);

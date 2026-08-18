@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import FoldView from '@/components/FoldView';
 import type { FoldLang } from '../lang';
-import { DEEP_META, DEEP_MODULE, DEEP_PREFIX_META, DEEP_PREFIX_MODULE } from '../registry-meta';
+import { DEEP_META, DEEP_MODULE } from '../registry-meta';
 
 /**
  * 세 칸 낱장을 언어마다 라우트 하나로 접는다 — game/chess/[slug] 같은 것들.
@@ -26,15 +26,11 @@ import { DEEP_META, DEEP_MODULE, DEEP_PREFIX_META, DEEP_PREFIX_MODULE } from '..
  */
 type Params = Promise<{ a: string; b: string; slug: string }>;
 
-/**
- * **정확한 열쇠를 먼저 본다.** `game/chess`처럼 앞 두 칸이 고정인 갈래가 그쪽이다.
- * 없으면 접두 등록부를 본다 — `convert/<쌍>/<값>`처럼 둘째 칸이 목록인 갈래다
- * (까닭은 lib/fold/deep-prefix.ts). 순서를 뒤집으면 접두가 고정 갈래를 가로챈다.
- */
+/* 앞 두 칸이 고정인 갈래만 남았다 — `game/chess` 꼴이다.
+   둘째 칸이 목록이던 접두 갈래(convert/<쌍>/<값>)는 2026-08-18에 지웠다. */
 function pick(a: string, b: string) {
   const exact = `${a}/${b}`;
-  if (DEEP_META[exact]) return { meta: DEEP_META[exact], mod: DEEP_MODULE[exact], prefix: false };
-  if (DEEP_PREFIX_META[a]) return { meta: DEEP_PREFIX_META[a], mod: DEEP_PREFIX_MODULE[a], prefix: true };
+  if (DEEP_META[exact]) return { meta: DEEP_META[exact], mod: DEEP_MODULE[exact] };
   return null;
 }
 
@@ -44,16 +40,14 @@ export function build(lang: FoldLang) {
     const hit = pick(a, b);
     if (!hit) return {};
     const built = (await hit.meta()).buildMeta(lang);
-    return built.generateMetadata({
-      params: Promise.resolve(hit.prefix ? { b, slug } : { slug }) as Promise<never>,
-    });
+    return built.generateMetadata({ params: Promise.resolve({ slug }) as Promise<never> });
   }
 
   async function Page({ params }: { params: Params }) {
     const { a, b, slug } = await params;
     const hit = pick(a, b);
     if (!hit) notFound();
-    return <FoldView mod={hit.mod} lang={lang} params={hit.prefix ? { b, slug } : { slug }} />;
+    return <FoldView mod={hit.mod} lang={lang} params={{ slug }} />;
   }
 
   /*
@@ -69,11 +63,6 @@ export function build(lang: FoldLang) {
       const [a, b] = key.split('/');
       const built = (await load()).buildMeta(lang);
       for (const p of built.generateStaticParams?.() ?? []) out.push({ a, b, slug: p.slug });
-    }
-    /* 접두 갈래는 둘째 칸도 목록에서 나온다 */
-    for (const [a, load] of Object.entries(DEEP_PREFIX_META)) {
-      const built = (await load()).buildMeta(lang);
-      for (const p of built.generateStaticParams?.() ?? []) out.push({ a, b: p.b, slug: p.slug });
     }
     return out;
   }

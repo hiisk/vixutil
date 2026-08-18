@@ -8,8 +8,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { CELLS, CHARS, CODE_ICON, cellOf, cellSlug, charOf, charSlug } from './list.ts';
-import { cellFacts, charFacts } from './facts.ts';
+import { CELLS, CHARS, CODE_ICON, cellSlug, charSlug } from './list.ts';
 import { CODE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -26,27 +25,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/code`, languages: alternates('/code') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const ui = CODE_UI[lang];
-  const char = charOf(slug);
-  if (char) {
-    const f = charFacts(char);
-    return withCard({
-      title: ui.charMetaTitle(f),
-      description: ui.charMetaDesc(f),
-      alternates: { canonical: `${langPrefix(lang)}/code/${slug}`, languages: alternates(`/code/${slug}`) },
-    });
-  }
-  const mask = cellOf(slug);
-  if (mask === undefined) return {};
-  const f = cellFacts(mask);
-  return withCard({
-    title: ui.cellMetaTitle(f),
-    description: ui.cellMetaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/code/${slug}`, languages: alternates(`/code/${slug}`) },
   });
 }
 

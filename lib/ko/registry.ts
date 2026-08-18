@@ -58,22 +58,18 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
 
 /** 두 칸 갈래 — /game/chess/[slug] 꼴 */
 export const KO_DEEP_LEAVES: Record<string, () => Promise<KoLeaf>> = {
-  'body/bmi': () => import('./pages/body__bmi__slug'),
   'calculator/salary': () => import('./pages/calculator__salary__slug'),
   'calculator/severance': () => import('./pages/calculator__severance__slug'),
   'calculator/loan-method': () => import('./pages/calculator__loan-method__slug'),
   'body/exercise': () => import('./pages/body__exercise__slug'),
   'device/screen': () => import('./pages/device__screen__slug'),
-  'fortune/birthday': () => import('./pages/fortune__birthday__slug'),
   'fortune/card': () => import('./pages/fortune__card__slug'),
   'fortune/saju': () => import('./pages/fortune__saju__slug'),
   'game/chess': () => import('./pages/game__chess__slug'),
   'game/cube': () => import('./pages/game__cube__slug'),
   'game/poker': () => import('./pages/game__poker__slug'),
   'image/size': () => import('./pages/image__size__slug'),
-  'random/dice': () => import('./pages/random__dice__slug'),
   'snap/lens': () => import('./pages/snap__lens__slug'),
   'sound/hz': () => import('./pages/sound__hz__slug'),
-  'text/char': () => import('./pages/text__char__slug'),
   'text/regex': () => import('./pages/text__regex__slug'),
 };

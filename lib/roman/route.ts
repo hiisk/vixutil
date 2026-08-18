@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { ROMAN_ICON, ROMAN_SLUGS, yearOf } from './list.ts';
-import { romanFacts } from './facts.ts';
+import { ROMAN_ICON, ROMAN_SLUGS } from './list.ts';
 import { ROMAN_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,18 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/roman`, languages: alternates('/roman') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const year = yearOf(slug);
-  if (year === undefined) return {};
-  const ui = ROMAN_UI[lang];
-  const f = romanFacts(year);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: { canonical: `${langPrefix(lang)}/roman/${slug}`, languages: alternates(`/roman/${slug}`) },
   });
 }
 

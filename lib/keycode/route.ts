@@ -5,8 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactElement } from 'react';
 import { ogCard } from '../og-template';
 import { alternates, langPrefix, type Lang } from '../i18n/lang.ts';
-import { KEYS, KEYCODE_ICON, keyOf, slugOf } from './list.ts';
-import { keyFacts } from './facts.ts';
+import { KEYS, KEYCODE_ICON, slugOf } from './list.ts';
 import { KEYCODE_UI } from './ui.ts';
 import { prerender } from '../prerender.ts';
 import { withCard } from '../og-cards/index.ts';
@@ -23,21 +22,6 @@ export function hubMetadata(lang: Lang): Metadata {
     title: ui.hubMetaTitle,
     description: ui.hubMetaDesc,
     alternates: { canonical: `${langPrefix(lang)}/keycode`, languages: alternates('/keycode') },
-  });
-}
-
-export function detailMetadata(lang: Lang, slug: string): Metadata {
-  const x = keyOf(slug);
-  if (!x) return {};
-  const ui = KEYCODE_UI[lang];
-  const f = keyFacts(x);
-  return withCard({
-    title: ui.metaTitle(f),
-    description: ui.metaDesc(f),
-    alternates: {
-      canonical: `${langPrefix(lang)}/keycode/${slug}`,
-      languages: alternates(`/keycode/${slug}`),
-    },
   });
 }
 

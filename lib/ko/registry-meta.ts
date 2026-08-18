@@ -42,23 +42,19 @@ export const KO_META: Record<string, KoMeta> = {
 };
 
 export const KO_DEEP_META: Record<string, KoMeta> = {
-  'body/bmi': () => import('./pages/body__bmi__slug.meta'),
   'calculator/salary': () => import('./pages/calculator__salary__slug.meta'),
   'calculator/severance': () => import('./pages/calculator__severance__slug.meta'),
   'calculator/loan-method': () => import('./pages/calculator__loan-method__slug.meta'),
   'body/exercise': () => import('./pages/body__exercise__slug.meta'),
   'device/screen': () => import('./pages/device__screen__slug.meta'),
-  'fortune/birthday': () => import('./pages/fortune__birthday__slug.meta'),
   'fortune/card': () => import('./pages/fortune__card__slug.meta'),
   'fortune/saju': () => import('./pages/fortune__saju__slug.meta'),
   'game/chess': () => import('./pages/game__chess__slug.meta'),
   'game/cube': () => import('./pages/game__cube__slug.meta'),
   'game/poker': () => import('./pages/game__poker__slug.meta'),
   'image/size': () => import('./pages/image__size__slug.meta'),
-  'random/dice': () => import('./pages/random__dice__slug.meta'),
   'snap/lens': () => import('./pages/snap__lens__slug.meta'),
   'sound/hz': () => import('./pages/sound__hz__slug.meta'),
-  'text/char': () => import('./pages/text__char__slug.meta'),
   'text/regex': () => import('./pages/text__regex__slug.meta'),
 };
 
@@ -93,22 +89,18 @@ export const KO_MODULE: Record<string, string> = {
 };
 
 export const KO_DEEP_MODULE: Record<string, string> = {
-  'body/bmi': 'body__bmi__slug',
   'calculator/salary': 'calculator__salary__slug',
   'calculator/severance': 'calculator__severance__slug',
   'calculator/loan-method': 'calculator__loan-method__slug',
   'body/exercise': 'body__exercise__slug',
   'device/screen': 'device__screen__slug',
-  'fortune/birthday': 'fortune__birthday__slug',
   'fortune/card': 'fortune__card__slug',
   'fortune/saju': 'fortune__saju__slug',
   'game/chess': 'game__chess__slug',
   'game/cube': 'game__cube__slug',
   'game/poker': 'game__poker__slug',
   'image/size': 'image__size__slug',
-  'random/dice': 'random__dice__slug',
   'snap/lens': 'snap__lens__slug',
   'sound/hz': 'sound__hz__slug',
-  'text/char': 'text__char__slug',
   'text/regex': 'text__regex__slug',
 };
