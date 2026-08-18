@@ -2,10 +2,10 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { PERCENTS, BASES, percentSlug } from '@/lib/percent/list';
+import { PERCENTS, BASES } from '@/lib/percent/list';
 import { percentFacts } from '@/lib/percent/facts';
 import { PERCENT_UI } from '@/lib/percent/ui';
 
@@ -32,9 +32,6 @@ export default function PercentHubPage({ lang }: { lang: Lang }) {
         { name: ui.home, path: homeHref },
         { name: ui.section, path },
       ])} />
-      <JsonLd data={itemListJsonLd(ui.hubTitle, path, COMMON_BASES.flatMap(b =>
-        PERCENTS.slice(0, 10).map(p => ({ name: `${p}% / ${b}`, path: `${path}/${percentSlug(p, b)}` })),
-      ))} />
 
       <PageGlow accent="sky" />
       <div className="h-1 bg-gradient-to-r from-sky-500 to-blue-600" />
@@ -57,10 +54,10 @@ export default function PercentHubPage({ lang }: { lang: Lang }) {
             <h2 className="sec-h2">{ui.byPercentTitle(percentFacts(PERCENTS[0], b))}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
               {PERCENTS.map(p => (
-                <Link prefetch={false} key={p} href={`${path}/${percentSlug(p, b)}`}
+                <span key={p}
                   className="chip-v">
                   {p}% → {num(percentFacts(p, b).value)}
-                </Link>
+                </span>
               ))}
             </div>
           </section>
@@ -70,10 +67,10 @@ export default function PercentHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2">{ui.byBaseTitle(percentFacts(10, BASES[0]))}</h2>
           <div className="flex flex-wrap gap-1.5">
             {BASES.map(b => (
-              <Link prefetch={false} key={b} href={`${path}/${percentSlug(10, b)}`}
+              <span key={b}
                 className="chip-v">
                 {num(b)}
-              </Link>
+              </span>
             ))}
           </div>
         </section>

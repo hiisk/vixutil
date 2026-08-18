@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import AsciiTable from '@/components/ascii/AsciiTable';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { ASCII_ICON, CODES, CONTROLS } from '@/lib/ascii/list';
+import { ASCII_ICON, CONTROLS } from '@/lib/ascii/list';
 import { KINDS, asciiFacts, codesOfKind, controlsOfGroup } from '@/lib/ascii/facts';
 import { ASCII_UI } from '@/lib/ascii/ui';
 
@@ -34,9 +34,6 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CODES.map(c => ({ name: `${asciiFacts(c).label} (${c})`, path: `${path}/${c}` })))}
       />
 
       <PageGlow accent="emerald" />
@@ -70,7 +67,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.tableTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.tableNote}</p>
-          <AsciiTable path={path} />
+          <AsciiTable />
         </section>
 
         {KINDS.map(kind => (
@@ -82,13 +79,12 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
             <div className="flex flex-wrap gap-1.5">
               {codesOfKind(kind).map(c => (
-                <Link prefetch={false}
+                <span
                   key={c}
-                  href={`${path}/${c}`}
-                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-                >
+                 
+                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
                   <span className="tabular-nums text-slate-400 dark:text-slate-500">{c}</span> {asciiFacts(c).label}
-                </Link>
+                </span>
               ))}
             </div>
           </section>
@@ -105,16 +101,15 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.groupNote[g]}</p>
               <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
                 {controlsOfGroup(g).map(x => (
-                  <Link prefetch={false}
+                  <span
                     key={x.code}
-                    href={`${path}/${x.code}`}
-                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                  >
+                   
+                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0 w-[26px] text-right">{x.code}</span>
                     <span className="text-sm font-black text-teal-700 dark:text-teal-400 font-mono shrink-0 w-[38px]">{x.abbr}</span>
                     <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{x.name}</span>
                     <span className="ml-auto text-[11px] font-mono text-slate-400 dark:text-slate-500 shrink-0">{asciiFacts(x.code).ctrl}</span>
-                  </Link>
+                  </span>
                 ))}
               </div>
             </div>

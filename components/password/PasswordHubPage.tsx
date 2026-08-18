@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import PasswordList from '@/components/password/PasswordList';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, CHARSETS, PASSWORD_ICON, RATES, slugOf } from '@/lib/password/list';
+import { CHARSETS, PASSWORD_ICON, RATES } from '@/lib/password/list';
 import { atCharset, passwordFacts, timeParts } from '@/lib/password/facts';
 import { PASSWORD_UI } from '@/lib/password/ui';
 
@@ -33,9 +33,6 @@ export default function PasswordHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, CELLS.map(c => ({ name: `${ui.charsetName(c.charset)} ${c.length}`, path: `${path}/${slugOf(c)}` })))}
       />
 
       <PageGlow accent="emerald" />
@@ -100,7 +97,7 @@ export default function PasswordHubPage({ lang }: { lang: Lang }) {
                 {ui.sizeLabel} {set.size}
               </span>
             </h3>
-            <PasswordList cells={atCharset(set.key)} path={path} name={ui.charsetName} />
+            <PasswordList cells={atCharset(set.key)} name={ui.charsetName} />
           </section>
         ))}
 

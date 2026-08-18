@@ -230,8 +230,9 @@ test('모든 페이지가 카드를 받는다', () => {
    * 물려받으므로 [slug] 같은 칸이 있어도 상관없다 — cardUrl이 조상으로 올라간다.
    */
   const routes = pageRoutes();
-  /* 2026-08-15: 참조표 갈래를 통째로 지우면서 2,772 → 2,600으로 내렸다 */
-  assert.ok(routes.length > 2600, `페이지를 ${routes.length}개밖에 못 찾았다`);
+  /* 2026-08-15: 참조표 갈래를 통째로 지우면서 2,772 → 2,600으로 내렸다
+     2026-08-18: 조합 격자 낱장 열다섯 갈래(라우트 파일 135개)를 지워 2,564다 */
+  assert.ok(routes.length > 2500, `페이지를 ${routes.length}개밖에 못 찾았다`);
   assert.deepStrictEqual(routes.filter(r => !cardUrl(r)).slice(0, 10), []);
 });
 

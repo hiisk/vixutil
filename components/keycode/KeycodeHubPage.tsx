@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { KEYS, KEYCODE_ICON, slugOf } from '@/lib/keycode/list';
+import { KEYCODE_ICON } from '@/lib/keycode/list';
 import { GROUPS, keyFacts, keysOfGroup } from '@/lib/keycode/facts';
 import { KEYCODE_UI } from '@/lib/keycode/ui';
 
@@ -30,9 +30,6 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, KEYS.map(x => ({ name: x.code, path: `${path}/${slugOf(x)}` })))}
       />
 
       <PageGlow accent="blue" />
@@ -80,15 +77,14 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
               {keysOfGroup(g).map(x => {
                 const f = keyFacts(x);
                 return (
-                  <Link prefetch={false}
+                  <span
                     key={x.code}
-                    href={`${path}/${slugOf(x)}`}
-                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                  >
+                   
+                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 shrink-0 w-[124px] truncate">{x.code}</span>
                     <span className="text-sm text-slate-500 dark:text-slate-400 truncate">{f.printable ? `"${f.label}"` : f.label}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{x.keyCode}</span>
-                  </Link>
+                  </span>
                 );
               })}
             </div>

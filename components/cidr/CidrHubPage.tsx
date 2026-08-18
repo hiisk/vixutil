@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CIDR_ICON, PREFIXES, slugOf } from '@/lib/cidr/list';
+import { CIDR_ICON, slugOf } from '@/lib/cidr/list';
 import { FAMILIES, blocksOf, cidrFacts, prefixesOf } from '@/lib/cidr/facts';
 import { CIDR_UI } from '@/lib/cidr/ui';
 
@@ -30,9 +30,6 @@ export default function CidrHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, PREFIXES.map(p => ({ name: `${p.family === 'v4' ? 'IPv4' : 'IPv6'} /${p.bits}`, path: `${path}/${slugOf(p)}` })))}
       />
 
       <PageGlow accent="sky" />
@@ -75,16 +72,15 @@ export default function CidrHubPage({ lang }: { lang: Lang }) {
                 const f = cidrFacts(p);
                 const blocks = blocksOf(p);
                 return (
-                  <Link prefetch={false}
+                  <span
                     key={slugOf(p)}
-                    href={`${path}/${slugOf(p)}`}
-                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                  >
+                   
+                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-sm font-black text-cyan-700 dark:text-cyan-400 tabular-nums shrink-0 w-[44px] text-right">/{p.bits}</span>
                     <span className="text-xs font-mono text-slate-600 dark:text-slate-300 shrink-0 w-[124px] truncate">{f.mask ?? ''}</span>
                     <span className="cell-cut">{blocks.join(' · ')}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.count(f.usable, f.hostBits)}</span>
-                  </Link>
+                  </span>
                 );
               })}
             </div>

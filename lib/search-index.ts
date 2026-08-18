@@ -31,41 +31,27 @@ import { LENSES, LENS_ICON } from './lens/list.ts';
 import { ALGS, CUBE_ICON } from './cube/list.ts';
 import { ROLLS, DICE_ICON } from './dice/list.ts';
 import { PATTERNS, REGEX_ICON } from './regex/list.ts';
-import { NUMBERS, NUMBER_ICON } from './number/list.ts';
-import { CODES, ASCII_ICON } from './ascii/list.ts';
+import { NUMBER_ICON } from './number/list.ts';
+import { ASCII_ICON } from './ascii/list.ts';
 import { PORTS, PORT_ICON } from './port/list.ts';
-import { MODES, CHMOD_ICON } from './chmod/list.ts';
-import { FRACTIONS, FRACTION_ICON, slugOf as fractionSlug } from './fraction/list.ts';
-import { KEYS, KEYCODE_ICON, slugOf as keySlug } from './keycode/list.ts';
-import { PREFIXES, CIDR_ICON, slugOf as cidrSlug } from './cidr/list.ts';
-import { CHARS as CODE_CHARS, CODE_ICON, charSlug } from './code/list.ts';
-import { PRODUCTS, TIMES_ICON, slugOf as timesSlug } from './times/list.ts';
-import { NUMBERS as SQRT_NUMBERS, SQRT_ICON } from './sqrt/list.ts';
-import { ROMAN_ICON, YEARS as ROMAN_YEARS } from './roman/list.ts';
-import { YEARS as CAL_YEARS, YEAR_ICON } from './year/list.ts';
-import { PIXELS, PX_ICON } from './rem/list.ts';
-import { CELLS as PW_CELLS, PASSWORD_ICON, slugOf as pwSlug } from './password/list.ts';
+import { CHMOD_ICON } from './chmod/list.ts';
+import { FRACTION_ICON } from './fraction/list.ts';
+import { KEYCODE_ICON } from './keycode/list.ts';
+import { CIDR_ICON } from './cidr/list.ts';
+import { CODE_ICON } from './code/list.ts';
+import { TIMES_ICON } from './times/list.ts';
+import { SQRT_ICON } from './sqrt/list.ts';
+import { ROMAN_ICON } from './roman/list.ts';
+import { YEAR_ICON } from './year/list.ts';
+import { PX_ICON } from './rem/list.ts';
+import { PASSWORD_ICON } from './password/list.ts';
 import { CELLS as FLIGHT_CELLS, FLIGHT_ICON, nameOf as flightName, slugOf as flightSlug } from './flight/list.ts';
 import { OPENINGS, CHESS_ICON } from './chess/list.ts';
 import { HANDS, POKER_ICON, labelOf } from './poker/list.ts';
 import { handFacts } from './poker/facts.ts';
 import { fullName } from './chess/names.ts';
-import { factorText, numberFacts } from './number/facts.ts';
-import { asciiFacts } from './ascii/facts.ts';
 import { portFacts } from './port/facts.ts';
-import { chmodFacts } from './chmod/facts.ts';
-import { fractionFacts } from './fraction/facts.ts';
-import { keyFacts } from './keycode/facts.ts';
-import { cidrFacts } from './cidr/facts.ts';
-import { charFacts } from './code/facts.ts';
-import { timesFacts } from './times/facts.ts';
-import { sqrtFacts } from './sqrt/facts.ts';
-import { romanFacts } from './roman/facts.ts';
-import { yearFacts } from './year/facts.ts';
-import { pxFacts } from './rem/facts.ts';
-import { passwordFacts } from './password/facts.ts';
 import { flightFacts, hoursOf } from './flight/facts.ts';
-import { YEAR_UI } from './year/ui.ts';
 import { whatOf } from './regex/desc.ts';
 import { rollFacts } from './dice/facts.ts';
 import { caseFacts } from './cube/facts.ts';
@@ -297,26 +283,6 @@ export const SEARCH_INDEX: SearchItem[] = [
     section: 'chess' as const,
     icon: CHESS_ICON,
   })),
-  ...NUMBERS.map(n => {
-    const f = numberFacts(n);
-    return {
-      href: `/number/${n}`,
-      title: `숫자 ${n}`,
-      desc: f.prime ? `소수 · 약수 2개 · 2진수 ${f.bin}` : `${factorText(f.factors)} · 약수 ${f.divisors.length}개 · 2진수 ${f.bin}`,
-      section: 'number' as const,
-      icon: NUMBER_ICON,
-    };
-  }),
-  ...CODES.map(code => {
-    const f = asciiFacts(code);
-    return {
-      href: `/ascii/${code}`,
-      title: `ASCII ${code} ${f.label}`,
-      desc: `16진수 ${f.hex} · 2진수 ${f.bin}${f.ctrl ? ` · ${f.ctrl}` : ''}`,
-      section: 'ascii' as const,
-      icon: ASCII_ICON,
-    };
-  }),
   ...PORTS.map(x => {
     const f = portFacts(x);
     return {
@@ -325,121 +291,6 @@ export const SEARCH_INDEX: SearchItem[] = [
       desc: `${x.service} · ${f.proto === 'both' ? 'TCP·UDP' : f.proto.toUpperCase()}`,
       section: 'port' as const,
       icon: PORT_ICON,
-    };
-  }),
-  ...MODES.map(mode => {
-    const f = chmodFacts(mode);
-    return {
-      href: `/chmod/${mode}`,
-      title: `chmod ${mode}`,
-      desc: `${f.symbolic} · ls -l ${f.lsFile}`,
-      section: 'chmod' as const,
-      icon: CHMOD_ICON,
-    };
-  }),
-  ...FRACTIONS.map(f => {
-    const x = fractionFacts(f);
-    return {
-      href: `/fraction/${fractionSlug(f)}`,
-      title: `${f.n}/${f.d} 소수로`,
-      desc: `${x.decimal.text} · ${x.percent.text}%`,
-      section: 'fraction' as const,
-      icon: FRACTION_ICON,
-    };
-  }),
-  ...KEYS.map(x => {
-    const f = keyFacts(x);
-    return {
-      href: `/keycode/${keySlug(x)}`,
-      title: `${x.code} 키 코드`,
-      desc: `keyCode ${x.keyCode} · key ${f.label} · location ${f.location}`,
-      section: 'keycode' as const,
-      icon: KEYCODE_ICON,
-    };
-  }),
-  ...PREFIXES.map(p => {
-    const f = cidrFacts(p);
-    return {
-      href: `/cidr/${cidrSlug(p)}`,
-      title: `${p.family === 'v4' ? 'IPv4' : 'IPv6'} /${p.bits} 서브넷`,
-      desc: f.mask ? `마스크 ${f.mask} · 호스트 ${f.usable}` : `주소 2^${f.hostBits}`,
-      section: 'cidr' as const,
-      icon: CIDR_ICON,
-    };
-  }),
-  ...CODE_CHARS.map(x => {
-    const f = charFacts(x);
-    return {
-      href: `/code/${charSlug(x)}`,
-      title: `${x.char} 모스 부호`,
-      desc: `${x.morse}${x.nato ? ` · ${x.nato}` : ''}${f.braille ? ` · 점자 ${f.braille}` : ''}`,
-      section: 'code' as const,
-      icon: CODE_ICON,
-    };
-  }),
-  ...PRODUCTS.map(p => {
-    const f = timesFacts(p);
-    return {
-      href: `/times/${timesSlug(p)}`,
-      title: `${p.a} × ${p.b} = ${f.product}`,
-      desc: `${f.divisions[0]} · ${p.a}단`,
-      section: 'times' as const,
-      icon: TIMES_ICON,
-    };
-  }),
-  ...SQRT_NUMBERS.map(n => {
-    const f = sqrtFacts(n);
-    return {
-      href: `/sqrt/${n}`,
-      title: `√${n} = ${f.exact !== null ? f.exact : f.radical}`,
-      desc: f.exact !== null ? `${f.exact} × ${f.exact} = ${n}` : `약 ${f.value} · ${f.between[0]}과 ${f.between[1]} 사이`,
-      section: 'sqrt' as const,
-      icon: SQRT_ICON,
-    };
-  }),
-  ...ROMAN_YEARS.map(y => {
-    const f = romanFacts(y);
-    return {
-      href: `/roman/${y}`,
-      title: `${y}년 = ${f.roman}`,
-      desc: `${f.parts.map(p => p.letters).join(' + ')} · ${f.length}자`,
-      section: 'roman' as const,
-      icon: ROMAN_ICON,
-    };
-  }),
-  ...CAL_YEARS.map(y => {
-    const f = yearFacts(y);
-    const ui = YEAR_UI.ko;
-    return {
-      href: `/year/${y}`,
-      title: `${y}년 — ${f.leap ? '윤년' : '평년'} ${f.days}일`,
-      desc: `1월 1일 ${ui.weekdays[f.firstWeekday]} · ${ui.stems[f.stem]}${ui.branches[f.branch]}년 ${ui.zodiac[f.branch]}띠`,
-      section: 'year' as const,
-      icon: YEAR_ICON,
-    };
-  }),
-  ...PIXELS.map(px => {
-    const f = pxFacts(px);
-    return {
-      href: `/rem/${px}`,
-      title: `${px}px는 몇 rem`,
-      desc: `${f.rem}rem · ${f.pt}pt · ${f.mm}mm`,
-      section: 'rem' as const,
-      icon: PX_ICON,
-    };
-  }),
-  ...PW_CELLS.map(c => {
-    const f = passwordFacts(c);
-    const NAME: Record<string, string> = {
-      digit: '숫자만', hex: '16진수', lower: '소문자만', base32: 'Base32', loweralnum: '소문자+숫자',
-      alpha: '대소문자', alnum: '대소문자+숫자', base64: 'Base64', ascii: '아스키 전체', hangul: '한글 음절',
-    };
-    return {
-      href: `/password/${pwSlug(c)}`,
-      title: `${NAME[c.charset]} ${c.length}자 비밀번호 — ${f.bits}비트`,
-      desc: `경우의 수 10^${f.digits} · 아스키로는 ${f.asciiEquivalent}자에 해당`,
-      section: 'password' as const,
-      icon: PASSWORD_ICON,
     };
   }),
   ...FLIGHT_CELLS.map(c => {

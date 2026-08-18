@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import TimesGrid from '@/components/times/TimesGrid';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { PRODUCTS, TIMES_ICON, slugOf } from '@/lib/times/list';
+import { TIMES_ICON, slugOf } from '@/lib/times/list';
 import { TABLES, tableOf } from '@/lib/times/facts';
 import { TIMES_UI } from '@/lib/times/ui';
 
@@ -30,9 +30,6 @@ export default function TimesHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, PRODUCTS.map(p => ({ name: `${p.a} × ${p.b}`, path: `${path}/${slugOf(p)}` })))}
       />
 
       <PageGlow accent="emerald" />
@@ -66,7 +63,7 @@ export default function TimesHubPage({ lang }: { lang: Lang }) {
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.gridTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.gridNote}</p>
-          <TimesGrid path={path} />
+          <TimesGrid />
         </section>
 
         <section className="mb-4">
@@ -79,13 +76,12 @@ export default function TimesHubPage({ lang }: { lang: Lang }) {
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">{ui.tableName(n)}</h3>
             <div className="flex flex-wrap gap-1.5">
               {tableOf(n).map(p => (
-                <Link prefetch={false}
+                <span
                   key={slugOf(p)}
-                  href={`${path}/${slugOf(p)}`}
-                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-                >
+                 
+                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
                   {p.a === n ? `${p.a}×${p.b}` : `${p.b}×${p.a}`} = {p.a * p.b}
-                </Link>
+                </span>
               ))}
             </div>
           </section>

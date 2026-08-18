@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import NumberGrid from '@/components/number/NumberGrid';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { NUMBERS, NUMBER_ICON, POWERS } from '@/lib/number/list';
+import { NUMBER_ICON, POWERS } from '@/lib/number/list';
 import { FAMILIES, membersOf, numberFacts } from '@/lib/number/facts';
 import { NUMBER_UI } from '@/lib/number/ui';
 
@@ -30,9 +30,6 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, NUMBERS.map(n => ({ name: String(n), path: `${path}/${n}` })))}
       />
 
       <PageGlow accent="indigo" />
@@ -66,7 +63,7 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.gridTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.gridNote}</p>
-          <NumberGrid path={path} />
+          <NumberGrid />
           <div className="mt-3 flex items-center gap-4 text-[11px] font-bold text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
               <span className="h-3 w-3 rounded-[3px] border border-indigo-300 bg-indigo-100 dark:border-indigo-700 dark:bg-indigo-900/60" />
@@ -86,15 +83,14 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
             {POWERS.map(n => {
               const f = numberFacts(n);
               return (
-                <Link prefetch={false}
+                <span
                   key={n}
-                  href={`${path}/${n}`}
-                  className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                >
+                 
+                  className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                   <span className="text-sm font-black text-indigo-700 dark:text-indigo-400 tabular-nums shrink-0 w-[54px] text-right">{n}</span>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">2^{f.power2}</span>
                   <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.bitsValue(f.bits)}</span>
-                </Link>
+                </span>
               );
             })}
           </div>
@@ -109,13 +105,12 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.familyNote[fam]}</p>
             <div className="flex flex-wrap gap-1.5">
               {membersOf(fam).map(n => (
-                <Link prefetch={false}
+                <span
                   key={n}
-                  href={`${path}/${n}`}
-                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
+                 
+                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   {n}
-                </Link>
+                </span>
               ))}
             </div>
           </section>

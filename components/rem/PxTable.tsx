@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { pxFacts } from '@/lib/rem/facts';
 
 /**
@@ -7,13 +6,10 @@ import { pxFacts } from '@/lib/rem/facts';
  * 이 표를 보는 손은 대개 다른 창에 코드를 띄워 두고 있다. 세 값이 한 줄에
  * 있어야 눈이 오가지 않는다.
  */
-export default function PxTable({
-  path,
-  pixels,
+export default function PxTable({ pixels,
   current,
   head,
 }: {
-  path: string;
   pixels: number[];
   current?: number;
   head: [string, string, string];
@@ -35,9 +31,9 @@ export default function PxTable({
             return (
               <tr key={px} className={here ? 'bg-violet-50 dark:bg-violet-950/40' : 'bg-white dark:bg-slate-900'}>
                 <td className="px-3 py-2 font-bold">
-                  <Link href={`${path}/${px}`} className="text-violet-700 dark:text-violet-400 hover:underline">
+                  <span className="text-violet-700 dark:text-violet-400 hover:underline">
                     {px}px
-                  </Link>
+                  </span>
                 </td>
                 <td className="px-3 py-2 text-right text-slate-700 dark:text-slate-200">{f.rem}rem</td>
                 <td className="px-3 py-2 text-right text-slate-700 dark:text-slate-200">{f.pt}pt</td>

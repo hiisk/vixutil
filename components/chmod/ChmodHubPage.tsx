@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CHMOD_ICON, COMMON, DIGITS, MODES } from '@/lib/chmod/list';
+import { CHMOD_ICON, COMMON, DIGITS } from '@/lib/chmod/list';
 import { chmodFacts, modesOfOwner } from '@/lib/chmod/facts';
 import { CHMOD_UI } from '@/lib/chmod/ui';
 
@@ -30,9 +30,6 @@ export default function ChmodHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, MODES.map(m => ({ name: `chmod ${m}`, path: `${path}/${m}` })))}
       />
 
       <PageGlow accent="amber" />
@@ -70,15 +67,14 @@ export default function ChmodHubPage({ lang }: { lang: Lang }) {
             {COMMON.map(m => {
               const f = chmodFacts(m);
               return (
-                <Link prefetch={false}
+                <span
                   key={m}
-                  href={`${path}/${m}`}
-                  className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                >
+                 
+                  className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                   <span className="text-sm font-black text-orange-700 dark:text-orange-400 tabular-nums shrink-0 w-[34px]">{m}</span>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0 w-[76px]">{f.symbolic}</span>
                   <span className="text-xs text-slate-600 dark:text-slate-300 truncate">{ui.commonUse[m]}</span>
-                </Link>
+                </span>
               );
             })}
           </div>
@@ -97,13 +93,12 @@ export default function ChmodHubPage({ lang }: { lang: Lang }) {
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {modesOfOwner(d).map(m => (
-                <Link prefetch={false}
+                <span
                   key={m}
-                  href={`${path}/${m}`}
-                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-orange-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
-                >
+                 
+                  className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-orange-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
                   {m}
-                </Link>
+                </span>
               ))}
             </div>
           </section>

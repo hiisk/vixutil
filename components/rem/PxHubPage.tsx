@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import PxTable from '@/components/rem/PxTable';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
@@ -32,9 +32,6 @@ export default function PxHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, PIXELS.map(px => ({ name: `${px}px`, path: `${path}/${px}` })))}
       />
 
       <PageGlow accent="violet" />
@@ -68,7 +65,7 @@ export default function PxHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.commonTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.commonNote}</p>
-          <PxTable path={path} pixels={COMMON} head={head} />
+          <PxTable pixels={COMMON} head={head} />
         </section>
 
         <section className="mb-8">
@@ -86,13 +83,12 @@ export default function PxHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.wholeNote}</p>
           <div className="flex flex-wrap gap-2">
             {wholeRems().map(px => (
-              <Link prefetch={false}
+              <span
                 key={px}
-                href={`${path}/${px}`}
-                className="rounded-xl border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-3 py-1.5 text-xs font-bold text-violet-800 dark:text-violet-300 tabular-nums hover:border-violet-500 transition-colors"
-              >
+               
+                className="rounded-xl border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-3 py-1.5 text-xs font-bold text-violet-800 dark:text-violet-300 tabular-nums hover:border-violet-500 transition-colors">
                 {px}px = {px / 16}rem
-              </Link>
+              </span>
             ))}
           </div>
         </section>
@@ -101,13 +97,12 @@ export default function PxHubPage({ lang }: { lang: Lang }) {
           <h2 className="sec-h2">{ui.allTitle}</h2>
           <div className="flex flex-wrap gap-1">
             {PIXELS.map(px => (
-              <Link prefetch={false}
+              <span
                 key={px}
-                href={`${path}/${px}`}
-                className="w-11 rounded-md border chip-off py-1 text-center text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-violet-500 hover:text-violet-700 dark:hover:text-violet-400 transition-colors"
-              >
+               
+                className="w-11 rounded-md border chip-off py-1 text-center text-[11px] font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-violet-500 hover:text-violet-700 dark:hover:text-violet-400 transition-colors">
                 {px}
-              </Link>
+              </span>
             ))}
           </div>
         </section>

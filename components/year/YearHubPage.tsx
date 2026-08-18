@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import YearDecades from '@/components/year/YearDecades';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { YEARS, YEAR_ICON } from '@/lib/year/list';
+import { YEAR_ICON } from '@/lib/year/list';
 import { longYears, skipped, yearFacts } from '@/lib/year/facts';
 import { YEAR_UI } from '@/lib/year/ui';
 
@@ -31,9 +31,6 @@ export default function YearHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, YEARS.map(y => ({ name: String(y), path: `${path}/${y}` })))}
       />
 
       <PageGlow accent="rose" />
@@ -74,13 +71,12 @@ export default function YearHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.skippedNote}</p>
           <div className="flex flex-wrap gap-2">
             {skipped().map(y => (
-              <Link prefetch={false}
+              <span
                 key={y}
-                href={`${path}/${y}`}
-                className="rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 px-3 py-1.5 text-xs font-bold text-rose-800 dark:text-rose-300 tabular-nums hover:border-rose-500 transition-colors"
-              >
+               
+                className="rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 px-3 py-1.5 text-xs font-bold text-rose-800 dark:text-rose-300 tabular-nums hover:border-rose-500 transition-colors">
                 {y} · {yearFacts(y).days}
-              </Link>
+              </span>
             ))}
           </div>
         </section>
@@ -90,13 +86,12 @@ export default function YearHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.weekNote}</p>
           <div className="flex flex-wrap gap-1.5">
             {longYears().map(y => (
-              <Link prefetch={false}
+              <span
                 key={y}
-                href={`${path}/${y}`}
-                className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-rose-400 hover:text-rose-700 dark:hover:text-rose-400 transition-colors"
-              >
+               
+                className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-rose-400 hover:text-rose-700 dark:hover:text-rose-400 transition-colors">
                 {y}
-              </Link>
+              </span>
             ))}
           </div>
         </section>
@@ -108,7 +103,7 @@ export default function YearHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.decadeTitle}</h2>
-          <YearDecades path={path} name={ui.decadeName} />
+          <YearDecades name={ui.decadeName} />
         </section>
 
         <section className="mb-8">

@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import BrailleCell from '@/components/code/BrailleCell';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { CELLS, CHARS, CODE_ICON, cellSlug, charSlug } from '@/lib/code/list';
+import { CODE_ICON } from '@/lib/code/list';
 import { KINDS, cellFacts, cellsOfRaised, charFacts, charsOfKind } from '@/lib/code/facts';
 import { CODE_UI } from '@/lib/code/ui';
 
@@ -30,12 +30,6 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
         data={breadcrumbJsonLd([
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
-        ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, [
-          ...CHARS.map(x => ({ name: x.char, path: `${path}/${charSlug(x)}` })),
-          ...CELLS.map(m => ({ name: cellFacts(m).char, path: `${path}/${cellSlug(m)}` })),
         ])}
       />
 
@@ -82,16 +76,15 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
               {charsOfKind(kind).map(x => {
                 const f = charFacts(x);
                 return (
-                  <Link prefetch={false}
+                  <span
                     key={x.name}
-                    href={`${path}/${charSlug(x)}`}
-                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                  >
+                   
+                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-sm font-black text-slate-900 dark:text-slate-100 shrink-0 w-[20px]">{x.char}</span>
                     <span className="text-sm font-bold tracking-[0.2em] text-violet-700 dark:text-violet-400 shrink-0 w-[84px]">{x.morse}</span>
                     <span className="cell-cut">{x.nato ?? ''}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0">{f.braille ?? ''}</span>
-                  </Link>
+                  </span>
                 );
               })}
             </div>
@@ -111,14 +104,13 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {cellsOfRaised(n).map(m => (
-                <Link prefetch={false}
+                <span
                   key={m}
-                  href={`${path}/${cellSlug(m)}`}
-                  className="flex items-center gap-2 rounded-lg border chip-off px-2 py-1.5 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:border-violet-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
-                >
+                 
+                  className="flex items-center gap-2 rounded-lg border chip-off px-2 py-1.5 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:border-violet-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
                   <BrailleCell mask={m} size="sm" />
                   {cellFacts(m).dots || '0'}
-                </Link>
+                </span>
               ))}
             </div>
           </section>

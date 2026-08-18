@@ -3,11 +3,11 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import SqrtStrip from '@/components/sqrt/SqrtStrip';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { NUMBERS, SQRT_ICON } from '@/lib/sqrt/list';
+import { SQRT_ICON } from '@/lib/sqrt/list';
 import { perfectSquares, simplifiable, sqrtFacts } from '@/lib/sqrt/facts';
 import { SQRT_UI } from '@/lib/sqrt/ui';
 
@@ -32,9 +32,6 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, NUMBERS.map(n => ({ name: `√${n}`, path: `${path}/${n}` })))}
       />
 
       <PageGlow accent="indigo" />
@@ -70,13 +67,12 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.squaresNote}</p>
           <div className="flex flex-wrap gap-2">
             {perfectSquares().map(n => (
-              <Link prefetch={false}
+              <span
                 key={n}
-                href={`${path}/${n}`}
-                className="rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-300 tabular-nums hover:border-indigo-500 transition-colors"
-              >
+               
+                className="rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-300 tabular-nums hover:border-indigo-500 transition-colors">
                 √{n} = {sqrtFacts(n).exact}
-              </Link>
+              </span>
             ))}
           </div>
         </section>
@@ -86,13 +82,12 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.simplifiableNote}</p>
           <div className="flex flex-wrap gap-1.5">
             {simplifiable().map(n => (
-              <Link prefetch={false}
+              <span
                 key={n}
-                href={`${path}/${n}`}
-                className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-              >
+               
+                className="rounded-lg border chip-off px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 tabular-nums hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                 √{n} = {sqrtFacts(n).radical}
-              </Link>
+              </span>
             ))}
           </div>
         </section>
@@ -104,7 +99,7 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.allTitle}</h2>
-          <SqrtStrip path={path} />
+          <SqrtStrip />
         </section>
 
         <section className="mb-8">

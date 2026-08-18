@@ -3,12 +3,12 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import RomanTable from '@/components/roman/RomanTable';
 import RomanDecades from '@/components/roman/RomanDecades';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { ROMAN_ICON, YEARS } from '@/lib/roman/list';
+import { ROMAN_ICON } from '@/lib/roman/list';
 import { longest, shortest, toRoman } from '@/lib/roman/facts';
 import { ROMAN_UI } from '@/lib/roman/ui';
 
@@ -32,9 +32,6 @@ export default function RomanHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, YEARS.map(y => ({ name: `${y} — ${toRoman(y)}`, path: `${path}/${y}` })))}
       />
 
       <PageGlow accent="amber" />
@@ -81,13 +78,12 @@ export default function RomanHubPage({ lang }: { lang: Lang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.longestNote}</p>
           <div className="flex flex-wrap gap-2">
             {[...longest(), ...shortest()].map(y => (
-              <Link prefetch={false}
+              <span
                 key={y}
-                href={`${path}/${y}`}
-                className="rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-3 py-1.5 text-xs font-bold text-amber-800 dark:text-amber-300 tabular-nums hover:border-amber-500 transition-colors"
-              >
+               
+                className="rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-3 py-1.5 text-xs font-bold text-amber-800 dark:text-amber-300 tabular-nums hover:border-amber-500 transition-colors">
                 {y} · {toRoman(y)} · {ui.letterUnit(toRoman(y).length)}
-              </Link>
+              </span>
             ))}
           </div>
         </section>
@@ -95,7 +91,7 @@ export default function RomanHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.decadeTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.decadeNote}</p>
-          <RomanDecades path={path} name={ui.decadeName} />
+          <RomanDecades name={ui.decadeName} />
         </section>
 
         <section className="mb-8">

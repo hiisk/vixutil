@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { slugOf, type Cell } from '@/lib/password/list';
 import { passwordFacts } from '@/lib/password/facts';
 
@@ -7,12 +6,10 @@ import { passwordFacts } from '@/lib/password/facts';
  */
 export default function PasswordList({
   cells,
-  path,
   name,
   current,
 }: {
   cells: Cell[];
-  path: string;
   name: (key: string) => string;
   current?: string;
 }) {
@@ -23,19 +20,18 @@ export default function PasswordList({
         const f = passwordFacts(c);
         const here = slug === current;
         return (
-          <Link prefetch={false}
+          <span
             key={slug}
-            href={`${path}/${slug}`}
+           
             aria-current={here ? 'page' : undefined}
             className={`chip ${
               here
                 ? 'border-teal-500 bg-teal-50 dark:bg-teal-950/40'
                 : 'chip-off hover:border-teal-400'
-            }`}
-          >
+            }`}>
             <div className="cell-cut">{name(c.charset)} · {c.length}</div>
             <div className="cell-num">{f.bits} bit</div>
-          </Link>
+          </span>
         );
       })}
     </div>

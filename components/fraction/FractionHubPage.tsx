@@ -3,10 +3,10 @@ import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import ToolIcon from '@/components/ToolIcon';
-import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
+import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { LANGS, langPrefix, type Lang, LOCALE_PATHS, localeOfLang } from '@/lib/i18n/lang';
-import { FRACTIONS, FRACTION_ICON, slugOf } from '@/lib/fraction/list';
+import { FRACTION_ICON, slugOf } from '@/lib/fraction/list';
 import { DENOMINATORS, fractionFacts, fractionsOfDenominator, terminates } from '@/lib/fraction/facts';
 import { FRACTION_UI } from '@/lib/fraction/ui';
 
@@ -30,9 +30,6 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
           { name: ui.home, path: homeHref },
           { name: ui.section, path },
         ])}
-      />
-      <JsonLd
-        data={itemListJsonLd(ui.hubTitle, path, FRACTIONS.map(f => ({ name: `${f.n}/${f.d}`, path: `${path}/${slugOf(f)}` })))}
       />
 
       <PageGlow accent="emerald" />
@@ -80,15 +77,14 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
               {fractionsOfDenominator(d).map(f => {
                 const g = fractionFacts(f);
                 return (
-                  <Link prefetch={false}
+                  <span
                     key={slugOf(f)}
-                    href={`${path}/${slugOf(f)}`}
-                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                  >
+                   
+                    className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-sm font-black text-lime-700 dark:text-lime-400 tabular-nums shrink-0 w-[52px] text-right">{f.n}/{f.d}</span>
                     <span className="text-sm text-slate-700 dark:text-slate-200 tabular-nums">{ui.dec(g.decimal)}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.dec(g.percent)}%</span>
-                  </Link>
+                  </span>
                 );
               })}
             </div>

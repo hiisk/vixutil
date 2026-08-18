@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { CODES, TABLE_COLS, TABLE_ROWS } from '@/lib/ascii/list';
 import { asciiFacts, kindOf, type Kind } from '@/lib/ascii/facts';
 
@@ -20,7 +19,7 @@ const COLOUR: Record<Kind, string> = {
   punct: 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300',
 };
 
-export default function AsciiTable({ path, current }: { path: string; current?: number }) {
+export default function AsciiTable({ current }: { current?: number }) {
   return (
     <div className="overflow-x-auto -mx-1 px-1 pb-2">
       <div
@@ -31,16 +30,15 @@ export default function AsciiTable({ path, current }: { path: string; current?: 
           const f = asciiFacts(code);
           const on = code === current;
           return (
-            <Link
+            <span
               key={code}
-              href={`${path}/${code}`}
+             
               style={{ gridColumn: f.cell.col + 1, gridRow: f.cell.row + 1 }}
               aria-current={on ? 'page' : undefined}
-              className={`rounded-[4px] border px-0.5 py-[3px] text-center leading-none transition-transform hover:scale-110 hover:z-10 ${COLOUR[kindOf(code)]} ${on ? 'ring-2 ring-slate-900 dark:ring-white' : ''}`}
-            >
+              className={`rounded-[4px] border px-0.5 py-[3px] text-center leading-none transition-transform hover:scale-110 hover:z-10 ${COLOUR[kindOf(code)]} ${on ? 'ring-2 ring-slate-900 dark:ring-white' : ''}`}>
               <span className="block text-[7px] tabular-nums opacity-70">{code}</span>
               <span className="block text-[11px] font-black">{f.label}</span>
-            </Link>
+            </span>
           );
         })}
       </div>

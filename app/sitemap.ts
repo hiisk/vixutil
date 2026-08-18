@@ -38,7 +38,6 @@ import { SALARIES } from "@/lib/salary-grid";
 import { allSeveranceCells, severanceSlug } from "@/lib/severance-grid";
 import { allLoanCells, loanSlug } from "@/lib/loan-grid";
 import { allDays as birthdayDays, daySlug as birthdaySlug } from "@/lib/fortune/birthday-grid";
-import { allDays as dateDays, daySlug as dateSlug } from "@/lib/date/day-grid";
 import { RATE_TOOLS } from "@/lib/rate-tools";
 import { BODY_TOOLS } from "@/lib/body-tools";
 import { GEO_TOOLS } from "@/lib/geo-tools";
@@ -60,22 +59,8 @@ import { LENSES } from "@/lib/lens/list";
 import { ALGS } from "@/lib/cube/list";
 import { ROLLS } from "@/lib/dice/list";
 import { PATTERNS } from "@/lib/regex/list";
-import { NUMBERS } from "@/lib/number/list";
-import { CODES } from "@/lib/ascii/list";
 import { PORTS } from "@/lib/port/list";
-import { MODES as CHMOD_MODES } from "@/lib/chmod/list";
-import { FRACTIONS, slugOf as fractionSlug } from "@/lib/fraction/list";
-import { KEYS, slugOf as keySlug } from "@/lib/keycode/list";
-import { PREFIXES, slugOf as cidrSlug } from "@/lib/cidr/list";
-import { CHARS as CODE_CHARS, CELLS as CODE_CELLS, charSlug, cellSlug } from "@/lib/code/list";
-import { PRODUCTS as TIMES_PRODUCTS, slugOf as timesSlug } from "@/lib/times/list";
-import { NUMBERS as SQRT_NUMBERS } from "@/lib/sqrt/list";
-import { PERCENT_SLUGS } from "@/lib/percent/list";
-import { YEARS as ROMAN_YEARS } from "@/lib/roman/list";
-import { YEARS as CAL_YEARS } from "@/lib/year/list";
-import { PIXELS } from "@/lib/rem/list";
 import { LEGAL_KINDS, legalRoute } from "@/lib/legal/common";
-import { CELLS as PW_CELLS, slugOf as pwSlug } from "@/lib/password/list";
 import { CELLS as FLIGHT_CELLS, slugOf as flightSlug } from "@/lib/flight/list";
 import { OPENINGS } from "@/lib/chess/list";
 import { HANDS } from "@/lib/poker/list";
@@ -99,7 +84,6 @@ const BASE = "https://vixutil.com";
 const BMI_CELLS = bmiAllCells();
 /* 366일도 같은 이유로 한 번만 만든다 */
 const BIRTHDAYS = birthdayDays();
-const DATE_DAYS = dateDays();
 
 export const dynamic = "force-static";
 
@@ -187,19 +171,6 @@ function allEntries(): MetadataRoute.Sitemap {
     { url: `${BASE}/quiz`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/generator`, changeFrequency: weekly, priority: 0.95 },
     { url: `${BASE}/checklist`, changeFrequency: weekly, priority: 0.95 },
-    /*
-     * 날짜 낱장 — /date/<MM-DD>. "3월 15일 무슨 요일"에 답한다.
-     * 생일 낱장(/fortune/birthday)과 다루는 것이 다르다 — 그쪽은 그 날 태어난 사람,
-     * 여기는 날짜 자체(요일·주차·기념일)다. 겹치지 않는지는 검사가 본다.
-     */
-    ...DATE_DAYS.map((d) => ({
-      url: `${BASE}/date/${dateSlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.7,
-    })),
-    ...INTL_LOCALES10.flatMap((lang) =>
-      DATE_DAYS.map((d) => ({
-        url: `${BASE}/${lang}/date/${dateSlug(d.month, d.day)}`, changeFrequency: yearly, priority: 0.6,
-      })),
-    ),
     { url: `${BASE}/fortune`, changeFrequency: weekly, priority: 0.95 },
     /*
      * 생일 낱장 — /fortune/birthday/<MM-DD>. 366일이 언어마다 붙는다(윤일 포함).
@@ -541,20 +512,10 @@ function allEntries(): MetadataRoute.Sitemap {
     // 수 209장도 열 언어다 — 격자가 곧 목록이다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/number`, changeFrequency: weekly, priority: 0.85 },
-      ...NUMBERS.map((n: number) => ({
-        url: `${BASE}${prefix}/number/${n}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // ASCII 128장도 열 언어다 — 코드표가 곧 목록이다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/ascii`, changeFrequency: weekly, priority: 0.85 },
-      ...CODES.map((code: number) => ({
-        url: `${BASE}${prefix}/ascii/${code}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 포트 127장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
@@ -568,101 +529,43 @@ function allEntries(): MetadataRoute.Sitemap {
     // 권한 모드 125장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/chmod`, changeFrequency: weekly, priority: 0.85 },
-      ...CHMOD_MODES.map((mode: string) => ({
-        url: `${BASE}${prefix}/chmod/${mode}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 분수 127장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/fraction`, changeFrequency: weekly, priority: 0.85 },
-      ...FRACTIONS.map((f: { n: number; d: number }) => ({
-        url: `${BASE}${prefix}/fraction/${fractionSlug(f)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 키 코드 120장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/keycode`, changeFrequency: weekly, priority: 0.85 },
-      ...KEYS.map((x: { code: string }) => ({
-        url: `${BASE}${prefix}/keycode/${keySlug(x as never)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 프리픽스 162장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/cidr`, changeFrequency: weekly, priority: 0.85 },
-      ...PREFIXES.map((p: { family: 'v4' | 'v6'; bits: number }) => ({
-        url: `${BASE}${prefix}/cidr/${cidrSlug(p)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 부호 116장도 열 언어다 — 글자 쉰둘과 점자 셀 예순넷
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/code`, changeFrequency: weekly, priority: 0.85 },
-      ...CODE_CHARS.map((x: { name: string }) => ({
-        url: `${BASE}${prefix}/code/${charSlug(x as never)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
-      ...CODE_CELLS.map((m: number) => ({
-        url: `${BASE}${prefix}/code/${cellSlug(m)}`,
-        changeFrequency: monthly,
-        priority: 0.75,
-      })),
     ]),
     // 곱셈 210장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/times`, changeFrequency: weekly, priority: 0.85 },
-      ...TIMES_PRODUCTS.map((p: { a: number; b: number }) => ({
-        url: `${BASE}${prefix}/times/${timesSlug(p)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 제곱근 200장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/percent`, changeFrequency: weekly, priority: 0.9 },
-      ...PERCENT_SLUGS.map((slug) => ({
-        url: `${BASE}${prefix}/percent/${slug}`, changeFrequency: yearly, priority: 0.8,
-      })),
       { url: `${BASE}${prefix}/sqrt`, changeFrequency: weekly, priority: 0.85 },
-      ...SQRT_NUMBERS.map((n: number) => ({
-        url: `${BASE}${prefix}/sqrt/${n}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 로마 숫자 연도 201장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/roman`, changeFrequency: weekly, priority: 0.85 },
-      ...ROMAN_YEARS.map((y: number) => ({
-        url: `${BASE}${prefix}/roman/${y}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 연도 201장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/year`, changeFrequency: weekly, priority: 0.85 },
-      ...CAL_YEARS.map((y: number) => ({
-        url: `${BASE}${prefix}/year/${y}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // CSS 단위 120장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/rem`, changeFrequency: weekly, priority: 0.85 },
-      ...PIXELS.map((px: number) => ({
-        url: `${BASE}${prefix}/rem/${px}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 도시 사이 342장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
@@ -676,11 +579,6 @@ function allEntries(): MetadataRoute.Sitemap {
     // 비밀번호 세기 100장도 열 언어다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/password`, changeFrequency: weekly, priority: 0.85 },
-      ...PW_CELLS.map(c => ({
-        url: `${BASE}${prefix}/password/${pwSlug(c)}`,
-        changeFrequency: monthly,
-        priority: 0.8,
-      })),
     ]),
     // 정규식 133장도 여덟 언어다 — 표기법과 검사식을 함께 싣는다
     ...METRO_LANGS.flatMap(({ prefix }: { prefix: string }) => [
