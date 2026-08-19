@@ -162,7 +162,7 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
                 <Link prefetch={false}
                   key={s}
                   href={`${prefix}/emoji/${s}`}
-                  className="flex items-center gap-2 rounded-xl border chip-off px-3 py-2 hover:border-amber-300 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                  className="flex items-center gap-2 rounded-xl border chip-off px-3 py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                 >
                   <span className="text-xl leading-none">{o.char}</span>
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{o.common}</span>

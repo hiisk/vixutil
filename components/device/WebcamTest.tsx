@@ -195,13 +195,13 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
           <div className="grid grid-cols-3 gap-2 mt-4">
             <button
               onClick={snapshot}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-cyan-300 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {ui.snapshot}
             </button>
             <button
               onClick={() => setMirror(m => !m)}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-cyan-300 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {mirror ? ui.mirrorOn : ui.mirrorOff}
             </button>

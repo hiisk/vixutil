@@ -11,8 +11,8 @@ const THEME: SnapTheme = {
   hover: 'hover:text-amber-600',
   notice: 'bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 text-amber-800 dark:text-amber-300',
   spinner: 'border-t-amber-500',
-  dropHover: 'hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-amber-950/40',
-  resetHover: 'hover:border-amber-300 hover:text-amber-600',
+  dropHover: 'hover:border-amber-400 hover:bg-sec-soft ',
+  resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-amber-600',
 };
 
 const COPY = {
@@ -192,7 +192,7 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg p-6 text-white text-center">
+          <div className="bg-sec rounded-lg p-6 text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.overall}</p>
             <p className="text-4xl font-black mb-3">{result.totalScore}</p>
             <p className="text-sm leading-relaxed">{result.overall}</p>

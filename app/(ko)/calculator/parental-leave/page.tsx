@@ -148,7 +148,7 @@ export default function ParentalLeavePage() {
               className={`flex-1 min-w-[60px] py-2.5 rounded-xl text-sm font-bold border transition-all ${
                 duration === m
                   ? 'bg-violet-600 text-white border-violet-600'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               {m}개월
@@ -168,7 +168,7 @@ export default function ParentalLeavePage() {
               className={`flex-1 py-3 px-2 rounded-xl text-sm border transition-all text-left ${
                 mode === opt.value
                   ? 'bg-violet-600 text-white border-violet-600'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <div className="font-bold mb-0.5">{opt.label}</div>

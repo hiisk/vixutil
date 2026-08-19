@@ -64,7 +64,7 @@ export default function ExchangeIntl({ lang }: { lang: CalcLang }) {
               type="button"
               onClick={() => { setFrom(to); setTo(from); }}
               aria-label={c.swap}
-              className="h-[46px] px-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300 transition-colors"
+              className="h-[46px] px-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               ⇄
             </button>

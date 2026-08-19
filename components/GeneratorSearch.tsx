@@ -22,7 +22,7 @@ function GenCard({ g }: { g: CardItem }) {
   return (
     <Link
       href={`/generator/${g.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-emerald-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-all"
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className={`card-thumb ${thumbSurface(g.slug, 'generator')}`}>
@@ -32,7 +32,7 @@ function GenCard({ g }: { g: CardItem }) {
         />
       </div>
       <div className="p-2.5 sm:p-3">
-        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-emerald-700 transition-colors mb-1">{g.title}</h3>
+        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors mb-1">{g.title}</h3>
         <p className="note-xs line-clamp-1 sm:line-clamp-2">{g.desc}</p>
       </div>
     </Link>
@@ -88,7 +88,7 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
             className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold transition-all border ${
               active === cat
                 ? 'bg-emerald-500 text-white border-emerald-500 shadow-sm'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-300 hover:text-emerald-600'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 hover:text-emerald-600'
             }`}
           >
             {cat !== '전체' && CAT_META[cat] && (

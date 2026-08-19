@@ -4,12 +4,14 @@ import { pickRelated, type RelatedItem } from '@/lib/related';
 
 type Accent = 'violet' | 'amber' | 'sky' | 'emerald';
 
-const ACCENT: Record<Accent, { hoverBorder: string; iconBg: string; hoverText: string }> = {
-  violet:  { hoverBorder: 'hover:border-violet-200',  iconBg: 'bg-violet-50 dark:bg-violet-950/30',  hoverText: 'group-hover:text-violet-700' },
-  amber:   { hoverBorder: 'hover:border-amber-200',   iconBg: 'bg-amber-50 dark:bg-amber-950/30',   hoverText: 'group-hover:text-amber-700' },
-  sky:     { hoverBorder: 'hover:border-sky-200',     iconBg: 'bg-sky-50 dark:bg-sky-950/30',     hoverText: 'group-hover:text-sky-700' },
-  emerald: { hoverBorder: 'hover:border-emerald-200', iconBg: 'bg-emerald-50 dark:bg-emerald-950/30', hoverText: 'group-hover:text-emerald-700' },
-};
+/*
+ * ── 갈래 색 표를 버렸다 (2026-08-19) ─────────────────────────────
+ * 갈래마다 hover 테두리·아이콘 판·hover 글자색을 손으로 적어 두고 있었다. 그런데
+ * 그 색은 이미 --c-sec로 페이지에 깔려 있다(PageGlow). 표를 들고 있으면 갈래를
+ * 더할 때 여기도 고쳐야 하고, 실제로 accent를 안 넘긴 곳은 기본값 하나로 굳었다.
+ *
+ * accent prop은 부르는 곳이 백 군데라 그대로 받되 쓰지 않는다 — 색은 페이지가 낸다.
+ */
 
 /**
  * 같은 카테고리의 다른 콘텐츠를 추천한다. 선택 규칙은 lib/related.ts 참고.
@@ -38,8 +40,6 @@ export default function RelatedContent({
   const picked = pickRelated(items, currentSlug, limit);
   if (!current || picked.length === 0) return null;
 
-  const c = ACCENT[accent];
-
   return (
     <div className={bg}>
       <section className="max-w-lg mx-auto px-4 pb-12 w-full" aria-label="관련 콘텐츠">
@@ -51,13 +51,20 @@ export default function RelatedContent({
             <Link
               key={item.slug}
               href={`${basePath}/${item.slug}`}
-              className={`group flex items-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-3 transition-all hover:shadow-sm ${c.hoverBorder}`}
+              /*
+                min-w-0가 없으면 격자 칸이 가로로 넘친다. 칸의 기본값은
+                min-width:auto라 «긴 제목의 최소 폭»이 칸의 최소 폭이 된다 —
+                390px 화면에서 카드가 436px을 요구해 문서 전체가 453px로 늘어났다.
+                truncate는 그 최소 폭을 안 줄인다(줄바꿈만 막는다).
+              */
+              className="group flex min-w-0 items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-3 transition-colors hover:border-slate-300 dark:hover:border-slate-700"
             >
-              <span className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${c.iconBg}`}>
-                <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
+              <span className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center bg-sec-soft`}>
+                <ToolIcon emoji={item.icon} className="w-5 h-5" title={item.title} />
               </span>
-              <span className="min-w-0">
-                <span className={`hub-card-title truncate transition-colors ${c.hoverText}`}>
+              <span className="min-w-0 flex-1">
+                {/* truncate는 블록에서만 먹는다 — 인라인 span에서는 넘침이 안 잘린다 */}
+                <span className="hub-card-title block truncate">
                   {item.title}
                 </span>
                 <span className="block text-xs text-slate-400 dark:text-slate-500 truncate">{item.desc}</span>

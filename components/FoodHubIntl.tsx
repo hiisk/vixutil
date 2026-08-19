@@ -89,7 +89,7 @@ export default function FoodHubIntl({ lang }: { lang: FoodIntlLang }) {
                   <Link
                     key={i.slug}
                     href={`/${lang}/food/${i.slug}`}
-                    className="flex items-center justify-between gap-2 rounded-xl border chip-off px-3 py-2 hover:shadow-sm hover:border-amber-300 transition-all"
+                    className="flex items-center justify-between gap-2 rounded-xl border chip-off px-3 py-2 hover:shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
                       {i.name[key]}

@@ -16,8 +16,8 @@ const THEME: SnapTheme = {
   hover: 'hover:text-teal-600',
   notice: 'bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 text-teal-800 dark:text-teal-300',
   spinner: 'border-t-teal-500',
-  dropHover: 'hover:border-teal-400 hover:bg-teal-50/50 dark:hover:bg-teal-950/40',
-  resetHover: 'hover:border-teal-300 hover:text-teal-600',
+  dropHover: 'hover:border-teal-400 hover:bg-sec-soft ',
+  resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-teal-600',
 };
 
 const COPY = {
@@ -219,7 +219,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg p-6 text-white text-center">
+          <div className="bg-sec rounded-lg p-6 text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <p className="text-4xl font-black mb-1">{result.slantDeg > 0 ? '+' : ''}{result.slantDeg}°</p>
             <p className="text-xs text-white/80">{c.slant}</p>

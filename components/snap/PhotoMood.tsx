@@ -20,8 +20,8 @@ const THEME: SnapTheme = {
   hover: 'hover:text-sky-600',
   notice: 'bg-sky-50 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-900/40 text-sky-800 dark:text-sky-300',
   spinner: 'border-t-sky-500',
-  dropHover: 'hover:border-sky-400 hover:bg-sky-50/50 dark:hover:bg-sky-950/40',
-  resetHover: 'hover:border-sky-300 hover:text-sky-600',
+  dropHover: 'hover:border-sky-400 hover:bg-sec-soft ',
+  resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-sky-600',
 };
 
 const COPY = {

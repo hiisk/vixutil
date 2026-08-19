@@ -228,8 +228,8 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
                 railIds.has(r.id) ? 'xl:hidden ' : ''
               }${
                 top
-                  ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 dark:hover:border-amber-600/60'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 dark:hover:border-amber-600/60'
+                  ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 dark:hover:border-amber-600/60'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 dark:hover:border-amber-600/60'
               }`}
             >
               {/*

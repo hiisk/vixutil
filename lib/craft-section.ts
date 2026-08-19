@@ -171,7 +171,7 @@ export const CRAFT_SECTION: SectionConfig = {
   hoverBorder: 'hover:border-amber-300',
   textAccent: 'text-amber-600',
   focusBorder: 'focus:border-amber-400',
-  hoverText: 'group-hover:text-amber-700',
+  hoverText: 'group-hover:text-sec',
   linkHover: 'hover:text-amber-600',
   ogFrom: '#f59e0b',
   ogTo: '#f43f5e',

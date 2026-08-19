@@ -252,7 +252,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
 
         {result ? (
           <div className="space-y-4">
-            <div className="bg-gradient-to-br from-rose-400 to-fuchsia-500 rounded-lg p-6 text-white text-center">
+            <div className="bg-sec rounded-lg p-6 text-center">
               <p className="text-sm font-semibold text-white/80 mb-2">{ui.score}</p>
               <p className="text-5xl font-black mb-3">{result.score}</p>
               <p className="text-sm leading-relaxed">{result.headlineIntl}</p>
@@ -281,7 +281,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
             </div>
 
             <button type="button" onClick={reset}
-              className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
+              className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-600 transition-colors">
               {ui.reset}
             </button>
 
@@ -289,7 +289,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
             <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">{ui.disclaimer}</p>
           </div>
         ) : (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.pickBoth}</p>
           </div>

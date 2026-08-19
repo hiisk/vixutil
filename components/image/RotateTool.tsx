@@ -79,7 +79,7 @@ export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
   if (!img) return <ImageDrop onFiles={accept} hint={ui.hint} lang={lang} />;
 
   const turn = (deg: number) => setAngle(a => (a + deg + 360) % 360);
-  const btn = 'rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors';
+  const btn = 'rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors';
 
   return (
     <div>

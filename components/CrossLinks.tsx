@@ -26,18 +26,18 @@ export default function CrossLinks({ className = 'mt-8' }: { className?: string 
           <Link
             key={l.href}
             href={l.href}
-            className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
+            className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm"
           >
             <span className="shrink-0 w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center text-lg">
               {l.icon}
             </span>
             <span className="hub-card-body">
-              <span className="hub-card-title group-hover:text-indigo-700 transition-colors">
+              <span className="hub-card-title group-hover:text-sec transition-colors">
                 {l.title}
               </span>
               <span className="block text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">{l.why}</span>
             </span>
-            <svg className="w-4 h-4 text-slate-300 dark:text-slate-600 shrink-0 mt-2.5 group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-4 h-4 text-slate-300 dark:text-slate-600 shrink-0 mt-2.5 group-hover:text-sec transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </Link>

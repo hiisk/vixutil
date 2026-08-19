@@ -171,7 +171,7 @@ export const BODY_SECTION: SectionConfig = {
   hoverBorder: 'hover:border-rose-300',
   textAccent: 'text-rose-600',
   focusBorder: 'focus:border-rose-400',
-  hoverText: 'group-hover:text-rose-700',
+  hoverText: 'group-hover:text-sec',
   linkHover: 'hover:text-rose-600',
   ogFrom: '#f43f5e',
   ogTo: '#db2777',

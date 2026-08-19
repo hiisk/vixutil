@@ -92,7 +92,7 @@ export default function LoanPrepaymentFeePage() {
                     className={`px-3 py-2 text-xs font-semibold rounded-xl border transition-colors ${
                       rate === p.rate
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     {p.label}

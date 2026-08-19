@@ -125,7 +125,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
               </div>
               <button
                 onClick={() => vibrate(pad.index)}
-                className="shrink-0 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:border-indigo-300 transition-colors"
+                className="shrink-0 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
               >
                 {ui.vibrate}
               </button>

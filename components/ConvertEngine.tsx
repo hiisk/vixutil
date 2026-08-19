@@ -56,9 +56,12 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
             value={value}
             onChange={e => onChange(e.target.value.replace(/[^\d.\-]/g, ''))}
             inputMode="decimal"
-            className={`w-full rounded-xl border-2 bg-white dark:bg-slate-900 px-3.5 py-3.5 text-2xl font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none transition-colors ${
-              editing === side ? 'border-blue-400' : 'border-slate-200 dark:border-slate-700 focus:border-blue-400'
-            }`}
+            /*
+              사이트 공용 칸으로 바꿨다(.dial-input). 예전에는 이 갈래만 테두리 상자였고
+              «지금 고치는 쪽»을 border-blue-400으로 표시했는데, 파랑이 박혀 있어 갈래
+              색을 안 따라갔다. 밑줄이 초점에서 갈래 색이 되므로 같은 일을 색 없이 한다.
+            */
+            className={`dial-input text-2xl ${editing === side ? 'dial-input-on' : ''}`}
           />
         </div>
       </label>
@@ -91,7 +94,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
             <button
               key={v}
               onClick={() => onLeft(String(v))}
-              className="w-full flex items-center gap-3 px-4 py-2.5 text-left border-b border-slate-50 dark:border-slate-800 last:border-0 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-2.5 text-left border-b border-slate-50 dark:border-slate-800 last:border-0 hover:bg-sec-soft transition-colors"
             >
               <span className="text-sm font-bold text-slate-600 dark:text-slate-300 tabular-nums w-24">
                 {v}{tool.from}

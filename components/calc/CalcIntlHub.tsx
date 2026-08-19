@@ -67,9 +67,9 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
                   <Link
                     key={slug}
                     href={localeHref(lang, `/calculator/${slug}`)}
-                    className="group rounded-xl border chip-off px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                   >
-                    <span className="hub-card-title group-hover:text-blue-700 transition-colors">
+                    <span className="hub-card-title group-hover:text-sec transition-colors">
                       {calcCopy(lang, slug)!.title}
                     </span>
                     <span className="block text-xs text-slate-500 dark:text-slate-400">
@@ -91,9 +91,9 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
               <Link
                 key={x.slug}
                 href={localeHref(lang, `/${x.section}/${x.slug}`)}
-                className="group rounded-xl border chip-off px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                className="group rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
               >
-                <span className="hub-card-title group-hover:text-blue-700 transition-colors">
+                <span className="hub-card-title group-hover:text-sec transition-colors">
                   {x.title}
                 </span>
                 <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{x.desc}</span>

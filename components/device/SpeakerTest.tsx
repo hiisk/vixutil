@@ -130,7 +130,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                 <div
                   className={`w-24 h-24 sm:w-28 sm:h-28 rounded-lg flex items-center justify-center text-4xl transition-all duration-200 border-2 ${
                     on
-                      ? 'bg-gradient-to-br from-emerald-500 to-teal-600 border-emerald-400 text-white scale-105 shadow-sm animate-pulse'
+                      ? 'bg-sec border-emerald-400 scale-105 shadow-sm animate-pulse'
                       : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600'
                   }`}
                 >
@@ -163,7 +163,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             className={`rounded-xl font-bold py-3 text-sm border transition-colors ${
               mode === b.m
                 ? 'bg-emerald-500 border-emerald-500 text-white'
-                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-emerald-300'
+                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             {mode === b.m ? c.stop : ui.modes[i]}
@@ -197,7 +197,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
               className={`rounded-lg px-1 py-2 text-[11px] font-bold border transition-colors ${
                 hz === p.hz
                   ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-emerald-200'
+                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               {p.label}

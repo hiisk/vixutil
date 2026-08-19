@@ -46,7 +46,7 @@ export default function CalculatorHub() {
                   key={c.id}
                   href={`#${c.id}`}
                   onClick={() => setQuery('')}
-                  className="shrink-0 flex items-center min-h-11 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors whitespace-nowrap"
+                  className="shrink-0 flex items-center min-h-11 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 rounded-full hover:bg-sec-soft transition-colors whitespace-nowrap"
                 >
                   <ToolIcon emoji={c.icon} className="inline-block w-3.5 h-3.5 -mt-0.5 mr-1 align-middle" />
                   {c.label}
@@ -122,10 +122,10 @@ export default function CalculatorHub() {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 sm:p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 sm:p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                   >
                     <div className="flex items-start justify-between gap-1 mb-2">
-                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight text-balance line-clamp-2 group-hover:text-blue-700 transition-colors">
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight text-balance line-clamp-2 group-hover:text-sec transition-colors">
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (

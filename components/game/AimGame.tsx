@@ -101,7 +101,7 @@ export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
               move();
             }}
             aria-label={ui.targetAria}
-            className="absolute rounded-full bg-gradient-to-br from-rose-400 to-orange-500 border-4 border-white/80 shadow-sm -translate-x-1/2 -translate-y-1/2 active:scale-90 transition-transform"
+            className="absolute rounded-full bg-sec border-4 border-white/80 shadow-sm -translate-x-1/2 -translate-y-1/2 active:scale-90 transition-transform"
             style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: size, height: size }}
           />
         ) : (

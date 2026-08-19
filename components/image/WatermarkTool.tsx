@@ -116,7 +116,7 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
               className={`h-9 rounded-lg border transition-colors disabled:opacity-30 ${
                 anchor === a && !tile
                   ? 'border-violet-400 bg-violet-100 dark:bg-violet-950/50'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-violet-200'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             />
           ))}

@@ -36,7 +36,7 @@ export default function DevJsonIntl({ lang }: { lang: CalcLang }) {
           <PrimaryBtn onClick={() => run(2)}>{c.run}</PrimaryBtn>
           <button
             onClick={() => run(0)}
-            className="px-4 py-3 rounded-xl text-sm font-bold border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-colors"
+            className="px-4 py-3 rounded-xl text-sm font-bold border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
           >
             {c.minify}
           </button>

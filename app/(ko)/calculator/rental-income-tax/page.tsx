@@ -85,7 +85,7 @@ export default function RentalIncomeTaxPage() {
                     className={`rounded-xl border p-3 text-left transition-all ${
                       registered === o.v
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30'
-                        : 'border-slate-200 dark:border-slate-700 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <p className={`text-sm font-bold ${registered === o.v ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{o.label}</p>
@@ -108,7 +108,7 @@ export default function RentalIncomeTaxPage() {
                     className={`rounded-xl border p-3 text-left transition-all ${
                       otherOver === o.v
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30'
-                        : 'border-slate-200 dark:border-slate-700 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <p className={`text-sm font-bold ${otherOver === o.v ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{o.label}</p>

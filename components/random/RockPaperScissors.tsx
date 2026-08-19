@@ -45,7 +45,7 @@ export default function RockPaperScissors({ lang = 'ko' }: { lang?: RandomLang }
           <button
             key={h}
             onClick={() => play(h)}
-            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-5 hover:border-rose-300 hover:-translate-y-0.5 transition-all"
+            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-5 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
           >
             <span className="block text-4xl">{EMOJI[h]}</span>
             <span className="block mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">{label[h]}</span>

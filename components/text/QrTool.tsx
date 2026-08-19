@@ -45,7 +45,7 @@ const FIELD =
 const PICK_ON =
   'border-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300';
 const PICK_OFF =
-  'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-indigo-200';
+  'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700';
 
 function Field({
   label, value, onChange, placeholder, type = 'text',
@@ -400,14 +400,14 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
             <button
               type="button"
               onClick={savePng}
-              className="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 py-2.5 text-sm font-bold text-indigo-700 dark:text-indigo-300 hover:border-indigo-300 transition-colors"
+              className="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 py-2.5 text-sm font-bold text-indigo-700 dark:text-indigo-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {ui.savePng}
             </button>
             <button
               type="button"
               onClick={saveSvg}
-              className="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 py-2.5 text-sm font-bold text-indigo-700 dark:text-indigo-300 hover:border-indigo-300 transition-colors"
+              className="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 py-2.5 text-sm font-bold text-indigo-700 dark:text-indigo-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {ui.saveSvg}
             </button>

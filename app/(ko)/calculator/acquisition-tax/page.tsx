@@ -119,7 +119,7 @@ export default function AcquisitionTaxPage() {
               <div className="grid grid-cols-2 gap-2">
                 {[{ v: 'house', l: '주택' }, { v: 'other', l: '비주택 (상가·토지)' }].map(o => (
                   <button key={o.v} onClick={() => setType(o.v as 'house' | 'other')}
-                    className={`py-2.5 rounded-xl text-sm font-semibold transition-colors border ${type === o.v ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-300'}`}>
+                    className={`py-2.5 rounded-xl text-sm font-semibold transition-colors border ${type === o.v ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'}`}>
                     {o.l}
                   </button>
                 ))}

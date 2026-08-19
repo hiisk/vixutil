@@ -87,7 +87,7 @@ export default function TimeHubIntl({ lang }: { lang: ToolIntlLang }) {
                   <Link
                     key={city.slug}
                     href={`/${lang}/time/${city.slug}`}
-                    className="flex items-center gap-2 rounded-xl border chip-off px-3 py-2 hover:shadow-sm hover:border-sky-300 transition-all"
+                    className="flex items-center gap-2 rounded-xl border chip-off px-3 py-2 hover:shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <span className="shrink-0">{timeCountry(city.country)?.flag}</span>
                     <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">

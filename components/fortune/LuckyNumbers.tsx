@@ -227,7 +227,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
             <ReferralCards lang="en" placement="result" />
           </div>
         ) : (
-          <div className="text-center py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{c.empty}</p>
           </div>

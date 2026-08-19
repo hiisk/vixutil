@@ -113,7 +113,7 @@ function TarotCardBack({ size = 'md', label, onClick }:
       <button
         onClick={onClick}
         style={{ width: d.w, height: d.h }}
-        className="rounded-xl border-[3px] border-purple-300/30 shadow-sm gap-1 cursor-pointer hover:opacity-80 active:scale-95 transition-all flex-shrink-0 bg-gradient-to-br from-violet-900 via-purple-950 to-slate-900"
+        className="rounded-xl border-[3px] border-purple-300/30 shadow-sm gap-1 cursor-pointer hover:opacity-80 active:scale-95 transition-all flex-shrink-0 bg-sec"
       >
         <div className="text-purple-400 text-lg leading-none">✦</div>
         {size !== 'xs' && <p className="text-[9px] text-purple-400 font-semibold text-center leading-tight px-1">클릭하여<br/>공개</p>}
@@ -499,7 +499,7 @@ export default function TarotPage() {
           <span className="text-slate-200">·</span>
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1">타로 카드</span>
           <button onClick={handleShare}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-amber-600 border border-slate-200 dark:border-slate-700 hover:border-amber-300 rounded-xl px-3 py-1.5 transition-all">
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-amber-600 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 rounded-xl px-3 py-1.5 transition-all">
             {copied
               ? <><svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg><span className="text-amber-500">복사됨</span></>
               : <><svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg>공유</>}
@@ -542,7 +542,7 @@ export default function TarotPage() {
                     className={`rounded-xl p-3 text-left transition-all border ${
                       spreadId === s.id
                         ? 'bg-amber-500 border-amber-500 text-white'
-                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-amber-200 text-slate-700 dark:text-slate-200'
+                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200'
                     }`}>
                     <div className="flex items-center gap-2 mb-1">
                       <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
@@ -562,7 +562,7 @@ export default function TarotPage() {
                 {([false, true] as const).map(isFull => (
                   <button key={String(isFull)} onClick={() => { setFullDeck(isFull); handleReset(); }}
                     className={`text-xs font-bold px-3 py-1.5 rounded-lg border transition-all ${
-                      fullDeck === isFull ? 'bg-amber-500 border-amber-500 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-amber-300'
+                      fullDeck === isFull ? 'bg-amber-500 border-amber-500 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}>
                     {isFull ? '전체 78장' : '메이저 22장'}
                   </button>
@@ -585,18 +585,18 @@ export default function TarotPage() {
                   <div className="flex gap-2">
                     {!allRevealed && anyRevealed && (
                       <button onClick={handleRevealAll}
-                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors">
+                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-sec-soft transition-colors">
                         모두 공개
                       </button>
                     )}
                     {!allRevealed && !anyRevealed && (
                       <button onClick={handleRevealAll}
-                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors">
+                        className="flex-1 py-3 text-sm font-bold text-amber-600 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-sec-soft transition-colors">
                         한 번에 모두 공개
                       </button>
                     )}
                     <button onClick={handleReset}
-                      className={`${allRevealed ? 'flex-1' : 'px-4'} py-3 text-sm font-bold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-amber-300 hover:text-amber-600 transition-colors`}>
+                      className={`${allRevealed ? 'flex-1' : 'px-4'} py-3 text-sm font-bold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-slate-300 dark:hover:border-slate-700 hover:text-amber-600 transition-colors`}>
                       다시 뽑기
                     </button>
                   </div>

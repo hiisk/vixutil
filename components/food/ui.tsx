@@ -48,7 +48,7 @@ export function NumberField({
 
 export function Result({ children, sub }: { children: React.ReactNode; sub?: string }) {
   return (
-    <div className="mt-4 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 text-white px-6 py-8 text-center">
+    <div className="mt-4 rounded-lg bg-sec px-6 py-8 text-center">
       <div className="text-3xl sm:text-4xl font-black">{children}</div>
       {sub && <p className="text-sm text-white/80 mt-2">{sub}</p>}
     </div>
@@ -72,7 +72,7 @@ export function Choice<T extends string>({
           className={`rounded-xl border px-3 py-2.5 text-center transition-colors ${
             value === o.id
               ? 'border-amber-300 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
-              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-amber-200'
+              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
           }`}
         >
           <span className="block text-sm font-bold">{o.label}</span>

@@ -87,7 +87,7 @@ export default function CpsGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         onClick={click}
         disabled={done}
         className={`w-full h-64 sm:h-72 rounded-lg text-white flex flex-col items-center justify-center select-none touch-none transition-colors ${
-          done ? 'bg-slate-700' : running ? 'bg-gradient-to-br from-sky-500 to-indigo-600 active:scale-[0.99]' : 'bg-slate-800'
+          done ? 'bg-slate-700' : running ? 'bg-sec active:scale-[0.99]' : 'bg-slate-800'
         }`}
       >
         {done ? (
@@ -134,7 +134,7 @@ export default function CpsGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
           />
           <button
             onClick={reset}
-            className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-sky-300 transition-colors"
+            className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
           >
             {c.again}
           </button>

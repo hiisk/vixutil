@@ -174,7 +174,7 @@ export default function Game2048({ lang = 'ko' }: { lang?: GameLang } = {}) {
           <button
             onClick={back}
             disabled={!canUndo(game)}
-            className="rounded-xl border border-slate-200 bg-white py-3 text-sm font-bold text-slate-700 transition-colors hover:border-orange-300 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+            className="rounded-xl border border-slate-200 bg-white py-3 text-sm font-bold text-slate-700 transition-colors hover:border-slate-300 dark:hover:border-slate-700 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
           >
             {ui.undo}
           </button>

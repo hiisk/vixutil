@@ -86,7 +86,7 @@ export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
             <button
               key={p.hz}
               onClick={() => setFreq(p.hz)}
-              className="rounded-lg border border-slate-200 dark:border-slate-700 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-sky-300 transition-colors"
+              className="rounded-lg border border-slate-200 dark:border-slate-700 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {p.label}
             </button>

@@ -297,7 +297,7 @@ export const HANJA_SECTION = {
   grad: 'from-amber-500 to-orange-600',
   hoverBorder: 'hover:border-amber-300',
   textAccent: 'text-amber-600',
-  hoverText: 'group-hover:text-amber-700',
+  hoverText: 'group-hover:text-sec',
   linkHover: 'hover:text-amber-600',
   ogFrom: '#f59e0b',
   ogTo: '#ea580c',

@@ -83,13 +83,32 @@ export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topi
 
   const faq = [...c.faqCommon, c.faqTopic[topic]];
 
+  /*
+    주제마다 다른 배경 해설. 이 자리가 비어 있어 주제 일곱이 제목만 다르고
+    본문이 같았다 — 검색엔진 쪽에서는 주소 일곱이 서로의 사본으로 보인다.
+    여기 적히는 것은 그 사람의 사주가 아니라 명리가 이 주제에서 무엇을 보는가다.
+  */
+  const body = (
+    <section className="mt-10" aria-label={c.ui.background}>
+      <h2 className="sec-h2">{c.ui.background}</h2>
+      <div className="list-card">
+        {c.body[topic].map(x => (
+          <div key={x.h} className="px-4 py-4">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">{x.h}</h3>
+            <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{x.p}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+
   return lang === 'ko'
-    ? <SajuKo initialTopic={topic} formExtra={nameField} topicHead={head} faq={faq} />
+    ? <SajuKo initialTopic={topic} formExtra={nameField} topicHead={head} topicTail={body} faq={faq} />
     : (
       <SajuIntl
         lang={lang as SajuL10nLang} initialTopic={topic}
         formExtra={nameField} topicHead={head}
-        topicTail={<Faq items={faq} lang={lang} />}
+        topicTail={<>{body}<Faq items={faq} lang={lang} /></>}
       />
     );
 }

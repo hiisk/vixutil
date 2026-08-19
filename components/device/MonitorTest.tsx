@@ -130,13 +130,13 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             <button
               key={p.key}
               onClick={() => open(i)}
-              className="group rounded-xl border chip-off p-2.5 hover:border-indigo-300 hover:shadow-sm transition-all"
+              className="group rounded-xl border chip-off p-2.5 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
             >
               <span
                 className="block w-full h-12 rounded-lg border border-slate-200 dark:border-slate-700"
                 style={{ background: p.css }}
               />
-              <span className="block mt-2 text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 transition-colors">
+              <span className="block mt-2 text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-sec transition-colors">
                 {ui.colors[i]}
               </span>
             </button>

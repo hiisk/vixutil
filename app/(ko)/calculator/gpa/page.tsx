@@ -162,7 +162,7 @@ export default function GpaPage() {
             ] as const).map(opt => (
               <button key={opt.value} type="button" onClick={() => setSystem(opt.value)}
                 className={`py-3 text-sm font-semibold rounded-xl border transition-colors leading-tight ${
-                  system === opt.value ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                  system === opt.value ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}>
                 {opt.label}
                 <span className={`block text-xs font-normal ${system === opt.value ? 'text-blue-200' : 'text-slate-400 dark:text-slate-500'}`}>
@@ -222,7 +222,7 @@ export default function GpaPage() {
           <div className="flex justify-between items-center mb-3">
             <p className="label-caps">과목 목록</p>
             <button type="button" onClick={addCourse}
-              className="text-xs font-semibold text-blue-600 border border-blue-200 dark:border-blue-900/50 rounded-lg px-3 py-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">
+              className="text-xs font-semibold text-blue-600 border border-blue-200 dark:border-blue-900/50 rounded-lg px-3 py-1.5 hover:bg-sec-soft transition-colors">
               + 과목 추가
             </button>
           </div>
@@ -291,7 +291,7 @@ export default function GpaPage() {
                     {idx === 0 && <div className="h-5 mb-1.5" />}
                     <button type="button" onClick={() => removeCourse(course.id)}
                       disabled={courses.length <= 1}
-                      className="py-3 text-xs text-red-400 border border-red-200 dark:border-red-900/50 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors disabled:opacity-30">
+                      className="py-3 text-xs text-red-400 border border-red-200 dark:border-red-900/50 rounded-xl hover:bg-sec-soft transition-colors disabled:opacity-30">
                       ✕
                     </button>
                   </div>

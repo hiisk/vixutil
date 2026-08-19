@@ -168,7 +168,7 @@ export default function NewYearMoneyPage() {
             <button
               type="button"
               onClick={() => setRows(rs => [...rs, { key: Math.max(0, ...rs.map(r => r.key)) + 1, stage: 'upper', relation: 'nephew', house: '1' }])}
-              className="w-full py-2.5 text-sm text-blue-600 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors"
+              className="w-full py-2.5 text-sm text-blue-600 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-sec-soft transition-colors"
             >
               + 아이 추가
             </button>
@@ -191,7 +191,7 @@ export default function NewYearMoneyPage() {
                     className={`px-3 py-2 text-xs font-semibold rounded-xl border transition-colors ${
                       policy === p.id
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     {p.label}

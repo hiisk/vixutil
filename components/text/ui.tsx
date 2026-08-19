@@ -134,8 +134,8 @@ export function CopyRow({
       disabled={!value}
       className={`w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors disabled:opacity-50 ${
         accent
-          ? 'border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 hover:border-indigo-300'
-          : 'chip-off hover:border-indigo-300'
+          ? 'border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/30 hover:border-slate-300 dark:hover:border-slate-700'
+          : 'chip-off hover:border-slate-300 dark:hover:border-slate-700'
       }`}
     >
       <span className="hub-card-body">

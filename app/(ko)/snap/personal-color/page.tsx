@@ -330,7 +330,7 @@ export default function PersonalColorPage() {
         {modelState === 'ready' && !preview && (
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-slate-300 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40 transition-colors"
+            className="w-full border-2 border-dashed border-slate-300 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-sec-soft transition-colors"
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
@@ -465,7 +465,7 @@ export default function PersonalColorPage() {
 
             <button
               onClick={handleReset}
-              className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors"
+              className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-600 transition-colors"
             >
               🔄 다른 사진으로 다시 해보기
             </button>

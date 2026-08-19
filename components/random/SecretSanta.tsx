@@ -112,7 +112,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
 
           <button
             onClick={() => setAssign(null)}
-            className="w-full border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-300 font-bold rounded-lg py-3 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+            className="w-full border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-300 font-bold rounded-lg py-3 hover:bg-sec-soft transition-colors"
           >
             {ui.drawAgain}
           </button>

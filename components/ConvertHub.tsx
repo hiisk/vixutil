@@ -80,11 +80,11 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
                   <Link prefetch={false}
                     key={t.slug}
                     href={`${prefix}/convert/${t.slug}`}
-                    className="group hub-card hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group hub-card hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                   >
                     <ToolIcon emoji={t.icon} className="hub-card-icon" />
                     <span className="hub-card-body">
-                      <span className="hub-card-title group-hover:text-blue-700 transition-colors">
+                      <span className="hub-card-title group-hover:text-sec transition-colors">
                         {lt.title}
                       </span>
                       <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">

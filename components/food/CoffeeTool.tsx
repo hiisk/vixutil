@@ -32,7 +32,7 @@ export default function CoffeeTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
             className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
               method === b.id
                 ? 'border-amber-400 bg-amber-50 dark:bg-amber-950/40'
-                : 'chip-off hover:border-amber-200'
+                : 'chip-off hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             <span className="hub-card-body">

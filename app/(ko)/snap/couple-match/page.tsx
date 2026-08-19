@@ -240,7 +240,7 @@ export default function CoupleMatchPage() {
                 <div key={slot}>
                   <button
                     onClick={() => inputRefs[slot].current?.click()}
-                    className="w-full aspect-square rounded-lg border-2 border-dashed border-slate-300 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40 transition-colors overflow-hidden relative gap-2"
+                    className="w-full aspect-square rounded-lg border-2 border-dashed border-slate-300 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-sec-soft transition-colors overflow-hidden relative gap-2"
                   >
                     {previews[slot] ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -278,7 +278,7 @@ export default function CoupleMatchPage() {
 
         {result && (
           <div id="couple-result" className="space-y-4 mt-6">
-            <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg p-6 text-white text-center">
+            <div className="bg-sec rounded-lg p-6 text-center">
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
@@ -310,7 +310,7 @@ export default function CoupleMatchPage() {
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.comment}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
+            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
 

@@ -196,7 +196,7 @@ export default function EnHome() {
                 <a
                   key={c.id}
                   href={`#${c.id}`}
-                  className="shrink-0 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 py-1 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors whitespace-nowrap"
+                  className="shrink-0 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 px-2.5 py-1 rounded-full hover:bg-sec-soft transition-colors whitespace-nowrap"
                 >
                   {c.icon} {c.label}
                 </a>
@@ -211,7 +211,7 @@ export default function EnHome() {
                   className={`text-xs font-semibold px-2 py-1 rounded-full transition-colors ${
                     l.href === '/en'
                       ? 'bg-blue-600 text-white'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-sec-soft '
                   }`}
                 >
                   {l.label}
@@ -265,10 +265,10 @@ export default function EnHome() {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-blue-700 transition-colors">
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors">
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (

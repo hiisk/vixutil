@@ -34,7 +34,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
       <main className="page-main">
         <h1 className="page-h1">{t.h1(name)}</h1>
 
-        <div className="mt-4 rounded-lg bg-gradient-to-br from-emerald-600 to-lime-700 p-6 text-white">
+        <div className="mt-4 rounded-lg bg-sec p-6 ">
           <p className="text-4xl font-black leading-none tabular-nums">{kcal(x.met, 70, 30)} kcal</p>
           <p className="mt-2 text-sm text-emerald-100">{t.lead(name, String(kcal(x.met, 70, 30)))}</p>
           <p className="mt-1 text-sm text-emerald-100">{t.metLine(String(x.met))}</p>

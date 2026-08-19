@@ -62,7 +62,7 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
+        <div className="mb-7">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={SC_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
@@ -93,10 +93,10 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {list.map(x => (
-                      <tr key={x.slug} className="hover:bg-sky-50/50 dark:hover:bg-sky-900/10 transition-colors">
+                      <tr key={x.slug} className="hover:bg-sec-soft transition-colors">
                         <th scope="row" className="text-left px-4 py-3 align-top font-normal">
                           <Link prefetch={false} href={`${path}/${x.slug}`} className="block group">
-                            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-sky-700 transition-colors">
+                            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-sec transition-colors">
                               {x.action}
                             </span>
                             <span className="block mt-0.5 text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">

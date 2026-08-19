@@ -30,7 +30,7 @@ function AnimalPicker({
               className={`aspect-square rounded-xl transition-all border ${
                 on
                   ? `${accent} border-transparent text-white shadow-sm scale-105`
-                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-rose-300'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <span className="text-lg leading-none">{a.emoji}</span>
@@ -103,8 +103,8 @@ export default function ZodiacMatchPage() {
 
         {/* 입력 */}
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
-          <AnimalPicker label="내 띠" value={me} onChange={setMe} accent="bg-gradient-to-br from-rose-500 to-pink-600" />
-          <AnimalPicker label="상대 띠" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-violet-500 to-purple-600" />
+          <AnimalPicker label="내 띠" value={me} onChange={setMe} accent="bg-sec" />
+          <AnimalPicker label="상대 띠" value={partner} onChange={setPartner} accent="bg-sec" />
           <button
             onClick={calculate}
             disabled={me === null || partner === null}
@@ -117,7 +117,7 @@ export default function ZodiacMatchPage() {
         {result && meAnimal && partnerAnimal && (
           <div id="match-result" className="space-y-4">
             {/* 결과 히어로 */}
-            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 p-6 text-white text-center shadow-sm">
+            <div className="relative overflow-hidden rounded-xl bg-sec p-6 text-center shadow-sm">
               <span className="absolute -top-6 -right-4 text-[110px] opacity-15 select-none">{result.info.emoji}</span>
               <div className="relative">
                 <div className="flex items-center justify-center gap-3 mb-3">
@@ -167,7 +167,7 @@ export default function ZodiacMatchPage() {
         )}
 
         {!result && (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 띠를 골라 궁합을 확인해보세요</p>
           </div>

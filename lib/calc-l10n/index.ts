@@ -56,6 +56,8 @@ import { EXCHANGE } from './exchange.ts';
 import { CALORIE } from './health2.ts';
 
 import { PROTEIN } from './health2.ts';
+import { RUNNING_PACE, ONE_REP_MAX, IDEAL_WEIGHT } from './fitness.ts';
+import { BMI } from './global.ts';
 
 import { BODY_FAT } from './body-fat.ts';
 
@@ -125,6 +127,10 @@ const TABLES: Record<string, CalcTable> = {
   'calories-burn': CALORIES_BURN,
   'body-fat': BODY_FAT,
   'protein': PROTEIN,
+  'running-pace': RUNNING_PACE,
+  'one-rep-max': ONE_REP_MAX,
+  'ideal-weight': IDEAL_WEIGHT,
+  'bmi': BMI,
   'calorie': CALORIE,
   'exchange': EXCHANGE,
   'retirement': RETIREMENT,

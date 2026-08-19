@@ -19,7 +19,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
   return (
     <div>
       {won !== null && (
-        <div className="rounded-lg border-2 border-rose-300 bg-gradient-to-br from-rose-500 to-pink-600 p-6 mb-5 text-center">
+        <div className="rounded-lg border-2 border-rose-300 bg-sec p-6 mb-5 text-center">
           <p className="text-xs font-bold text-white/70">{common.winner}</p>
           <p className="mt-1 text-2xl font-black text-white break-words">{won}</p>
         </div>
@@ -56,7 +56,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => setItems(prev => [...prev, { label: '', weight: 1 }])}
-        className="w-full mt-2 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 py-2.5 text-sm font-bold text-slate-400 dark:text-slate-500 hover:border-rose-300 hover:text-rose-500 transition-colors"
+        className="w-full mt-2 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 py-2.5 text-sm font-bold text-slate-400 dark:text-slate-500 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-500 transition-colors"
       >
         {ui.addItem}
       </button>

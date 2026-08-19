@@ -70,7 +70,7 @@ export default function InterestTaxPage() {
                 className={`rounded-xl border p-3 text-sm font-bold transition-all ${
                   mode === o.v
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300'
-                    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-300'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 {o.label}

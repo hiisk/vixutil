@@ -79,7 +79,7 @@ export default function SequenceGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
               disabled={phase !== 'input'}
               aria-label={ui.cellAria(i + 1)}
               className={`aspect-square rounded-xl transition-colors duration-150 ${
-                state === 'on' ? 'bg-gradient-to-br from-indigo-400 to-violet-600'
+                state === 'on' ? 'bg-sec'
                 : state === 'wrong' ? 'bg-rose-500'
                 : 'bg-slate-200 dark:bg-slate-800'
               }`}

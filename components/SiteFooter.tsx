@@ -170,15 +170,15 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         */}
         <Link prefetch={false}
           href={searchHref}
-          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-colors"
+          className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-sec-soft transition-colors"
         >
-            <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
             <span className="text-sm text-slate-400 dark:text-slate-500 group-hover:text-slate-600 transition-colors">
               {t.searchHint}
             </span>
-            <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">
+            <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-sec transition-colors">
               {t.searchCta}
             </span>
         </Link>

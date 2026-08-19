@@ -78,7 +78,7 @@ export default function WeddingGiftPage() {
                     className={`px-3 py-2 text-xs font-semibold rounded-xl border transition-colors ${
                       relationKey === r.key
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     {r.label}
@@ -98,7 +98,7 @@ export default function WeddingGiftPage() {
                     className={`px-4 py-2 text-sm font-semibold rounded-xl border transition-colors ${
                       attending === o.v
                         ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     {o.label}
@@ -119,7 +119,7 @@ export default function WeddingGiftPage() {
                       className={`px-4 py-2 text-sm font-semibold rounded-xl border transition-colors ${
                         venue === o.v
                           ? 'bg-blue-600 border-blue-600 text-white'
-                          : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                          : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                       }`}
                     >
                       {o.label}

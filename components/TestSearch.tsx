@@ -10,7 +10,7 @@ const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·�
 function TestCard({ t }: { t: CardItem }) {
   return (
     <Link href={`/test/${t.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-violet-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-all">
       {/*
         예전에는 여기서 OG 이미지(1200×630 PNG, 개당 ~90KB)를 썸네일로 썼다.
         200px로 줄여 보여주니 이미지 안의 글씨는 어차피 안 읽히고, 제목·설명은
@@ -24,7 +24,7 @@ function TestCard({ t }: { t: CardItem }) {
         />
       </div>
       <div className="p-2.5 sm:p-3">
-        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-violet-700 transition-colors mb-1">{t.title}</h3>
+        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors mb-1">{t.title}</h3>
         <p className="note-xs line-clamp-1 sm:line-clamp-2">{t.desc}</p>
       </div>
     </Link>

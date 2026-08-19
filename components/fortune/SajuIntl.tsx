@@ -216,7 +216,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               </div>
             </div>
 
-            <div className="rounded-lg bg-gradient-to-br from-indigo-500 to-violet-700 p-6 text-white">
+            <div className="rounded-lg bg-sec p-6 ">
               <p className="text-xs font-semibold text-white/80 mb-1">{ui.dayMaster}</p>
               <p className="text-3xl font-black mb-1">{dayStem.hanja} · {dayStemIntl.kor}</p>
               <p className="text-xs text-white/80 mb-3">{dayStemIntl.nature} · {elements[dayStem.element].label}</p>
@@ -364,7 +364,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               {/* 주제로 들어오면 이미 다 펼쳐져 있어 이 단추가 할 일이 없다 */}
               {openTopic === null && <button
                 onClick={() => setAllDomains(v => !v)}
-                className="w-full mt-3 rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-violet-300 transition-colors"
+                className="w-full mt-3 rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
               >
                 {allDomains ? du.collapse : du.showAll}
               </button>}
@@ -378,7 +378,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
             <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed pt-2">{ui.disclaimer}</p>
           </div>
         ) : (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.empty}</p>
           </div>

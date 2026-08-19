@@ -170,7 +170,7 @@ export const GEO_SECTION: SectionConfig = {
   hoverBorder: 'hover:border-indigo-300',
   textAccent: 'text-indigo-600',
   focusBorder: 'focus:border-indigo-400',
-  hoverText: 'group-hover:text-indigo-700',
+  hoverText: 'group-hover:text-sec',
   linkHover: 'hover:text-indigo-600',
   ogFrom: '#6366f1',
   ogTo: '#7c3aed',

@@ -145,9 +145,9 @@ export default function CalcShellIntl({
                       <Link
                         key={r.slug}
                         href={localeHref(lang, `/calculator/${r.slug}`)}
-                        className="group rounded-xl border chip-off px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                        className="group rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                       >
-                        <span className="hub-card-title group-hover:text-blue-700 transition-colors">{r.title}</span>
+                        <span className="hub-card-title group-hover:text-sec transition-colors">{r.title}</span>
                         <span className="hub-card-desc">{r.short}</span>
                       </Link>
                     ))}

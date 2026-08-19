@@ -155,7 +155,7 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
               className={`rounded-lg p-3 text-center transition-all border ${
                 selected === s.id
                   ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
-                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-violet-300 text-slate-700 dark:text-slate-200'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200'
               }`}
             >
               <div className="text-2xl mb-1">{s.emoji}</div>

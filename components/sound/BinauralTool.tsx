@@ -69,7 +69,7 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
 
   return (
     <div>
-      <div className="rounded-lg bg-gradient-to-br from-teal-500 to-indigo-600 px-6 py-10 text-center text-white">
+      <div className="rounded-lg bg-sec px-6 py-10 text-center ">
         <p className="text-6xl font-black tabular-nums">{beat}<span className="text-2xl ml-1">Hz</span></p>
         <p className="text-sm text-white/70 mt-2">
           {ui.channels(base, base + beat)}

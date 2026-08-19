@@ -93,7 +93,7 @@ export default function GlobalSearchIntl({ items, lang, empty }: { items: Search
                   className={`text-xs font-bold px-2.5 py-1 rounded-full border transition-colors ${
                     active === s
                       ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-200'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   {s === ALL ? allLabel : labels[s] ?? s} {n}
@@ -123,14 +123,14 @@ export default function GlobalSearchIntl({ items, lang, empty }: { items: Search
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
+                className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm"
               >
                 <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                   <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
                 </span>
                 <span className="hub-card-body">
                   <span className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-700 transition-colors">
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-sec transition-colors">
                       {item.title}
                     </span>
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">

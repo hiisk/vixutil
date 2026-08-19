@@ -118,7 +118,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
 
       {/* 결과 */}
       {winner && (
-        <div className="wc-pop text-center rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 text-white py-5 mb-6">
+        <div className="wc-pop text-center rounded-lg bg-sec py-5 mb-6">
           <div className="text-xs font-bold text-rose-100 mb-1">{ui.winner}</div>
           <div className="text-3xl font-black">{winner}</div>
         </div>
@@ -138,7 +138,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
           <button
             key={p.label}
             onClick={() => { setOptions([...p.items]); setWinner(null); }}
-            className="text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 rounded-full px-3 py-1.5 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors"
+            className="text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 rounded-full px-3 py-1.5 hover:bg-sec-soft transition-colors"
           >
             {p.label}
           </button>
@@ -159,7 +159,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
             <button
               onClick={() => removeOpt(i)}
               disabled={options.length <= 2}
-              className="w-8 h-8 shrink-0 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-30 transition-colors"
+              className="w-8 h-8 shrink-0 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-sec-soft disabled:opacity-30 transition-colors"
               aria-label={ui.remove}
             >
               ✕
@@ -170,7 +170,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={addOpt}
         disabled={options.length >= 12}
-        className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold py-2.5 hover:border-rose-300 hover:text-rose-500 disabled:opacity-40 transition-colors"
+        className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold py-2.5 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-500 disabled:opacity-40 transition-colors"
       >
         {ui.addOption}
       </button>

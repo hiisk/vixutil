@@ -89,7 +89,7 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
         <button
           onClick={cancel}
           disabled={target === null}
-          className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-rose-300 disabled:opacity-40 transition-colors"
+          className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 disabled:opacity-40 transition-colors"
         >
           {ui.stop}
         </button>

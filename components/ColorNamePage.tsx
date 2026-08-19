@@ -125,7 +125,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         {/* 큰 스와치가 먼저다 — 이름만으로는 어떤 색인지 아무도 모른다 */}
         <div
-          className="rounded-xl px-5 py-10 text-center shadow-sm border border-black/5"
+          className="rounded-xl px-5 py-10 shadow-sm border border-black/5"
           style={{ background: color.hex, color: onColor }}
           data-color-swatch
         >

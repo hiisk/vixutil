@@ -110,7 +110,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                   className={`rounded-xl border px-3.5 py-3 text-left transition-colors ${
                     spreadId === s.id
                       ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40'
-                      : 'chip-off hover:border-violet-200'
+                      : 'chip-off hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
@@ -177,7 +177,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                         ) : (
                           <button
                             onClick={() => reveal(i)}
-                            className="w-full rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 text-white py-8 text-xs font-bold hover:opacity-90 transition-opacity"
+                            className="w-full rounded-xl bg-sec py-8 text-xs font-bold hover:opacity-90 transition-opacity"
                           >
                             {ui.tapToReveal}
                           </button>
@@ -195,7 +195,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                   ) : (
                     <button
                       onClick={revealAll}
-                      className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
+                      className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
                     >
                       {ui.revealAll}
                     </button>

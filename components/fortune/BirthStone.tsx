@@ -165,7 +165,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
               type="button"
               onClick={() => pick(b.month)}
               className={`rounded-xl py-2.5 text-sm font-bold border transition-all ${result?.month === b.month
-                ? 'bg-gradient-to-br from-fuchsia-500 to-violet-600 text-white border-transparent'
+                ? 'bg-sec border-transparent'
                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-fuchsia-300'}`}
             >
               {c.monthLabel(b.month)}

@@ -95,7 +95,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-white px-6 py-10 text-center">
+      <div className="rounded-lg bg-sec px-6 py-10 text-center">
         <p className="text-sm text-white/70 mb-1">{ui.nowPlaying}</p>
         <p className="text-5xl font-black tabular-nums">
           {hz >= 1000 ? `${(hz / 1000).toFixed(hz % 1000 === 0 ? 0 : 1)}k` : hz}
@@ -121,7 +121,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             </button>
             <button
               onClick={notHeard}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-cyan-300 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3.5 text-sm text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {ui.cannotHear}
             </button>
@@ -138,7 +138,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
           </div>
           <button
             onClick={restart}
-            className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-cyan-300 transition-colors"
+            className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
           >
             {c.fromStart}
           </button>

@@ -99,7 +99,7 @@ export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLoca
               data-ref-sub={subId}
               /* 노란 판을 걷었다 — 이유는 ReferralCards.tsx의 같은 자리에 적었다.
                  색은 누를 자리(버튼)에만 남긴다. */
-              className="group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 transition-all duration-150 hover:-translate-y-0.5 hover:border-amber-300 dark:hover:border-amber-600/60"
+              className="group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 transition-all duration-150 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 dark:hover:border-amber-600/60"
             >
               <span className="flex items-center gap-1.5">
                 <BrandMark id={r.id} />

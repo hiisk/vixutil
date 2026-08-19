@@ -89,7 +89,7 @@ export default function AdjustTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                 filterString(adj) === filterString(p.adjust)
                   ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-violet-200'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               {ui.presets[i]}
@@ -113,7 +113,7 @@ export default function AdjustTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
         <button
           onClick={() => setAdj(NO_ADJUST)}
-          className="w-full mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
+          className="w-full mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
         >
           {ui.reset}
         </button>

@@ -88,6 +88,7 @@ const calculatorRoutes = [
   "/calculator/survivor-pension", "/calculator/pension-split", "/calculator/car-lease-vs-loan", "/calculator/year-end-tax",
   "/calculator/solar-payback", "/calculator/aircon-capacity", "/calculator/ltc-copay", "/calculator/jeonse-safety", "/calculator/card-deduction", "/calculator/monthly-rent-deduction", "/calculator/inheritance-share", "/calculator/severance-vs-pension", "/calculator/median-income", "/calculator/student-loan", "/calculator/eitc", "/calculator/health-insurance-local", "/calculator/youth-savings", "/calculator/new-year-money", "/calculator/moving-cost", "/calculator/traffic-fine", "/calculator/condolence-money",
   "/calculator/interest-tax", "/calculator/simple-vat", "/calculator/protein", "/calculator/sober-time",
+  "/calculator/running-pace", "/calculator/one-rep-max", "/calculator/ideal-weight",
   "/calculator/pension-credit", "/calculator/annual-leave", "/calculator/refinance",
   "/calculator/jeonwolse", "/calculator/pyeong", "/calculator/deposit-conversion",
   "/calculator/exchange", "/calculator/roi", "/calculator/avg-price", "/calculator/breakeven", "/calculator/percent",

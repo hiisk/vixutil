@@ -48,7 +48,7 @@ export default function HanyoungTool() {
             className={`rounded-xl border px-3.5 py-2 text-xs font-bold transition-colors ${
               manual === b.v
                 ? 'border-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-indigo-200'
+                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             {b.label}
@@ -66,7 +66,7 @@ export default function HanyoungTool() {
       {result && (
         <button
           onClick={() => { setText(result); setManual('auto'); }}
-          className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-indigo-300 transition-colors"
+          className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
         >
           ⇅ 결과를 다시 입력칸으로
         </button>
@@ -79,7 +79,7 @@ export default function HanyoungTool() {
             <button
               key={s.text}
               onClick={() => { setText(s.text); setManual('auto'); }}
-              className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 text-left hover:border-indigo-300 transition-colors"
+              className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 text-left hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 w-24 shrink-0">{s.label}</span>
               <span className="text-sm font-mono text-slate-700 dark:text-slate-200 truncate">{s.text}</span>

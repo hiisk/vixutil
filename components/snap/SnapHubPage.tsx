@@ -49,15 +49,16 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-2">
           {cards.map(t => (
-            <Link prefetch={false} key={t.href} href={t.href}
-              className={`group relative overflow-hidden rounded-lg bg-gradient-to-br ${t.color} text-white p-6 min-h-[10rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
-              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
-              <div>
-                <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
-                <div className="text-xs font-medium opacity-80 mt-1">{t.desc}</div>
-              </div>
+            <Link prefetch={false} key={t.href} href={t.href} className="hub-card group">
+              <span className="bg-sec-soft inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+                <ToolIcon emoji={t.icon} className="h-5 w-5" />
+              </span>
+              <span className="hub-card-body">
+                <span className="hub-card-title group-hover:text-sec">{t.title}</span>
+                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{t.desc}</span>
+              </span>
             </Link>
           ))}
         </div>

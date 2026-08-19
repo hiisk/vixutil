@@ -78,7 +78,7 @@ export default function CopyPicker({
       } ${
         copied === item.ch
           ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-950/40'
-          : 'chip-off hover:border-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30'
+          : 'chip-off hover:border-slate-300 dark:hover:border-slate-700 hover:bg-sec-soft '
       }`}
     >
       <span className={`${large ? 'text-xs' : 'text-lg'} text-slate-800 dark:text-slate-100 break-all leading-tight`}>

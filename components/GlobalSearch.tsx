@@ -81,7 +81,7 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
                   className={`shrink-0 px-3.5 py-1.5 rounded-full text-sm font-bold border transition-all ${
                     active === s
                       ? 'bg-indigo-500 text-white border-indigo-500'
-                      : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300'
+                      : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   {label} <span className={active === s ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}>{n}</span>
@@ -114,14 +114,14 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-indigo-200 hover:shadow-sm"
+                className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm"
               >
                 <span className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                   <ToolIcon emoji={item.icon} className="w-5 h-5 text-slate-700 dark:text-slate-200" title={item.title} />
                 </span>
                 <span className="hub-card-body">
                   <span className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-700 transition-colors">
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-sec transition-colors">
                       {item.title}
                     </span>
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${meta.accent}`}>

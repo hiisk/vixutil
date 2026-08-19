@@ -155,7 +155,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
                   className={`flex h-full w-full items-center justify-center rounded-xl font-black tabular-nums shadow-sm ${FONT[size]} ${
                     solved
                       ? 'bg-emerald-500 text-white'
-                      : 'bg-white text-slate-700 hover:bg-emerald-50 active:bg-emerald-100 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-700'
+                      : 'bg-white text-slate-700 hover:bg-sec-soft active:bg-emerald-100 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-700'
                   }`}
                 >
                   {v}
@@ -180,7 +180,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         <button
           onClick={back}
           disabled={!canUndo(game)}
-          className="rounded-xl border border-slate-200 bg-white py-3 text-sm font-bold text-slate-700 transition-colors hover:border-emerald-300 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+          className="rounded-xl border border-slate-200 bg-white py-3 text-sm font-bold text-slate-700 transition-colors hover:border-slate-300 dark:hover:border-slate-700 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
         >
           {ui.undo}
         </button>

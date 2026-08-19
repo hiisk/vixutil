@@ -38,7 +38,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
           연봉 {won(manwon)}만원 실수령액
         </h1>
 
-        <div className="mt-4 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
+        <div className="mt-4 rounded-lg bg-sec p-6 ">
           <p className="text-blue-100 text-xs mb-1">월 실수령액</p>
           <p className="text-4xl font-black leading-none tabular-nums">{won(r.netMonthly)}원</p>
           <p className="mt-2 text-sm text-blue-100">

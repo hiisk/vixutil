@@ -57,7 +57,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
       {result && (
         <>
-          <div className="mt-4 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white px-6 py-8 text-center">
+          <div className="mt-4 rounded-lg bg-sec px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{ui.result}</p>
             <p className="text-3xl font-black">{formatKo(result.date)}</p>
             <p className="text-sm text-white/70 mt-2">
@@ -78,7 +78,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
           <button
             key={q.label}
             onClick={() => { reset(); if (q.days) setDays(q.days); if (q.months) setMonths(q.months); }}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
           >
             {q.label}
           </button>

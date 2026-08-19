@@ -236,7 +236,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
 
             {mode === 'yesno' && (
               <button type="button" onClick={draw}
-                className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300 hover:text-amber-600 transition-colors">
+                className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-amber-600 transition-colors">
                 {ui.again}
               </button>
             )}

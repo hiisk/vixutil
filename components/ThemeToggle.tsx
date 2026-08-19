@@ -125,7 +125,7 @@ export default function ThemeToggle({ lang = 'ko' }: { lang?: AnyLocale10 }) {
       type="button"
       onClick={toggle}
       aria-label={theme === 'dark' ? COPY[lang].toLight : COPY[lang].toDark}
-      className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-blue-300 hover:text-blue-600 transition-colors"
+      className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 hover:text-blue-600 transition-colors"
     >
       {/* 마운트 전에는 아이콘을 고정해 하이드레이션 불일치를 피한다 */}
       <span aria-hidden>{mounted && theme === 'dark' ? '☀️' : '🌙'}</span>

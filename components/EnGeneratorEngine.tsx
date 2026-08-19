@@ -131,7 +131,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
         {hasResults && (
           <div key={animKey} className="space-y-2.5 mb-4 animate-in">
             {results.map((r, i) => (
-              <div key={`${r}-${i}`} className="group flex items-center gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all">
+              <div key={`${r}-${i}`} className="group flex items-center gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center">{i + 1}</span>
                 <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 min-w-0">{r}</p>
                 <button onClick={() => refreshOne(i)} title={t.reroll} className="text-slate-300 dark:text-slate-600 hover:text-emerald-500 transition-colors p-1">

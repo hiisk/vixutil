@@ -600,7 +600,7 @@ export default function SignalsPage() {
                           <div className="flex items-center gap-2">
                             <span className="text-slate-400 dark:text-slate-500 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
                             <CoinLogo base={t.base} />
-                            <span className={`font-bold text-slate-900 dark:text-white ${meta ? 'group-hover:text-amber-400 transition-colors' : ''}`}>{t.base}</span>
+                            <span className={`font-bold text-slate-900 dark:text-white ${meta ? 'group-hover:text-sec transition-colors' : ''}`}>{t.base}</span>
                             {c && market === 'futures' && (
                               <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-700 dark:text-rose-400'}`}>
                                 {c.side === 'long' ? 'LONG' : 'SHORT'}

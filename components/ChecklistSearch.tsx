@@ -10,7 +10,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
   const total = c.itemCount;
   return (
     <Link href={`/checklist/${c.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 hover:border-sky-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col gap-2">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
         <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
         <div className="flex items-center gap-1.5 shrink-0">
@@ -20,7 +20,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
         </div>
       </div>
       <div>
-        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sky-700 transition-colors mb-1">
+        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors mb-1">
           {c.title}
         </h3>
         <p className="note-xs line-clamp-2">{c.desc}</p>

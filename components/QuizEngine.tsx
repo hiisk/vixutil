@@ -281,7 +281,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
               else if (isChosen) { cls += 'bg-red-50 dark:bg-red-950/30 border-2 border-red-400 text-red-700 dark:text-red-300'; badgeCls += 'bg-red-500 text-white'; }
               else { cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'; badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'; }
             } else {
-              cls += 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:shadow-sm active:scale-[0.99] cursor-pointer';
+              cls += 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-sec-soft hover:shadow-sm active:scale-[0.99] cursor-pointer';
               badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white';
             }
             return (

@@ -80,7 +80,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
+        <div className="mb-7">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={tool.icon} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={text.title} desc={text.long} />
@@ -100,11 +100,11 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
                 <Link prefetch={false}
                   key={r.slug}
                   href={`${prefix}/convert/${r.slug}`}
-                  className="group hub-card hover:border-blue-300 hover:shadow-sm transition-all"
+                  className="group hub-card hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                 >
                   <ToolIcon emoji={r.icon} className="hub-card-icon" />
                   <span className="hub-card-body">
-                    <span className="hub-card-title group-hover:text-blue-700 transition-colors">
+                    <span className="hub-card-title group-hover:text-sec transition-colors">
                       {rt.title}
                     </span>
                     <span className="hub-card-desc">{rt.desc}</span>

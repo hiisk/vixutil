@@ -66,7 +66,7 @@ export default function BloodTypePage() {
               className={`rounded-xl p-3 text-center transition-all border ${
                 selected === t.id
                   ? 'bg-rose-600 border-rose-600 text-white shadow-sm'
-                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-rose-300 text-slate-700 dark:text-slate-200'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200'
               }`}
             >
               <div className="text-xl mb-0.5">{t.emoji}</div>
@@ -90,7 +90,7 @@ export default function BloodTypePage() {
             />
           </div>
         ) : (
-          <div className="text-center py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">혈액형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>

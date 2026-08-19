@@ -26,10 +26,6 @@ import { withCard } from '@/lib/og-cards';
  * 잘라낼 문자열을 언어별로 적어 두고, 없으면 제목을 그대로 쓴다.
  */
 
-const CARD_GRADIENTS = [
-  'from-sky-500 to-blue-600', 'from-emerald-500 to-teal-600', 'from-violet-500 to-purple-600',
-  'from-amber-400 to-orange-500', 'from-rose-500 to-pink-600', 'from-cyan-500 to-sky-600',
-];
 
 /* UI 표는 lib/meta/checklist-hub-ui.ts로 옮겼다 — 허브 메타와 같이 쓴다 */
 
@@ -94,18 +90,17 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
           {ui.leadA}<strong className="text-slate-700 dark:text-slate-200">{ui.leadB}</strong>{ui.leadC}
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {lists.map((c, i) => (
-            <Link prefetch={false} key={c.slug} href={`/${lang}/checklist/${c.slug}`}
-              className={`group relative overflow-hidden rounded-lg bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
-              <div className="flex items-start justify-between">
-                <ToolIcon emoji={c.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
-                <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{countOf(c)}</span>
-              </div>
-              <div>
-                <div className="text-base font-black drop-shadow leading-tight">{shortTitle(c.title, ui.trim)}</div>
-                <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{c.desc}</div>
-              </div>
+        <div className="grid sm:grid-cols-2 gap-2">
+          {lists.map(c => (
+            <Link prefetch={false} key={c.slug} href={`/${lang}/checklist/${c.slug}`} className="hub-card group">
+              <span className="bg-sec-soft inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+                <ToolIcon emoji={c.icon} className="h-5 w-5" />
+              </span>
+              <span className="hub-card-body">
+                <span className="hub-card-title group-hover:text-sec">{shortTitle(c.title, ui.trim)}</span>
+                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{c.desc}</span>
+              </span>
+              <span className="shrink-0 text-[10px] font-bold text-slate-400 dark:text-slate-500">{countOf(c)}</span>
             </Link>
           ))}
         </div>

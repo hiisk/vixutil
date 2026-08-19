@@ -62,7 +62,7 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
             className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${
               kelvin === p.k
                 ? 'border-orange-300 bg-orange-50 dark:bg-orange-950/40'
-                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-orange-200'
+                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             <span className="flex items-center gap-2">

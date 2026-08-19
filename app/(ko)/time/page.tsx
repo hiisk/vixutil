@@ -92,7 +92,7 @@ export default function TimeHubPage() {
                   <Link
                     key={t.slug}
                     href={`/time/${t.slug}`}
-                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-sky-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} title={t.title} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
@@ -129,7 +129,7 @@ export default function TimeHubPage() {
                   <Link
                     key={city.slug}
                     href={`/time/${city.slug}`}
-                    className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-sky-300 transition-all"
+                    className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <span className="shrink-0">{timeCountry(city.country)?.flag}</span>
                     <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">{city.name.ko}</span>

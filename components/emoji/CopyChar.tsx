@@ -29,7 +29,7 @@ export default function CopyChar({ char, label, copiedLabel }: { char: string; l
       type="button"
       onClick={copy}
       aria-label={label}
-      className="group w-full rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-7 text-center hover:border-amber-300 hover:shadow-sm transition-all"
+      className="group w-full rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-7 text-center hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
     >
       <span
         className="block text-[5.5rem] leading-none select-all"
@@ -37,7 +37,7 @@ export default function CopyChar({ char, label, copiedLabel }: { char: string; l
       >
         {char}
       </span>
-      <span className={`mt-4 inline-block text-xs font-bold transition-colors ${done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500 group-hover:text-amber-600'}`}>
+      <span className={`mt-4 inline-block text-xs font-bold transition-colors ${done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500 group-hover:text-sec'}`}>
         {done ? copiedLabel : label}
       </span>
     </button>

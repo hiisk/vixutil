@@ -149,7 +149,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
               return (
                 <div
                   key={`${r}-${i}`}
-                  className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all"
+                  className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                 >
                   <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center mt-0.5">
                     {i + 1}

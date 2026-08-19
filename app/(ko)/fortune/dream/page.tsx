@@ -126,7 +126,7 @@ export default function DreamPage() {
                 className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${
                   activeCategory === cat
                     ? 'bg-violet-600 text-white shadow'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-violet-300 hover:text-violet-600'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-600'
                 }`}
               >
                 {cat}
@@ -164,7 +164,7 @@ export default function DreamPage() {
                   className={`text-left rounded-lg border p-4 transition-all duration-200 ${
                     isOpen
                       ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/30 shadow-sm ring-1 ring-violet-300'
-                      : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-violet-200 hover:shadow-sm'
+                      : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm'
                   }`}
                 >
                   <div className="text-3xl mb-2">{dream.emoji}</div>
@@ -249,7 +249,7 @@ export default function DreamPage() {
                       <button
                         key={rel}
                         onClick={() => { setSearch(rel); setSelected(null); }}
-                        className="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-violet-100 dark:hover:bg-violet-950/50 hover:text-violet-700 transition-colors"
+                        className="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-sec-soft hover:text-violet-700 transition-colors"
                       >
                         {rel}
                       </button>

@@ -23,10 +23,6 @@ export function build(lang: FoldLang) {
     },
   });
 
-  const CARD_GRADIENTS = [
-    'from-emerald-500 to-teal-600', 'from-violet-500 to-purple-600', 'from-rose-500 to-pink-600',
-    'from-sky-500 to-blue-600', 'from-amber-400 to-orange-500', 'from-fuchsia-500 to-rose-500',
-  ];
 
   function Page() {
     return (
@@ -50,15 +46,16 @@ export function build(lang: FoldLang) {
             Instant, unlimited name ideas for games, stories and characters — <strong className="text-slate-700 dark:text-slate-200">free, no sign-up</strong>.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {GENERATORS_EN.map((g, i) => (
-              <Link key={g.slug} href={`/en/generator/${g.slug}`}
-                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-                <ToolIcon emoji={g.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
-                <div>
-                  <div className="text-base font-black drop-shadow leading-tight">{g.title.replace(' Generator', '')}</div>
-                  <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{g.desc}</div>
-                </div>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {GENERATORS_EN.map(g => (
+              <Link key={g.slug} href={`/en/generator/${g.slug}`} className="hub-card group">
+                <span className="bg-sec-soft inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+                  <ToolIcon emoji={g.icon} className="h-5 w-5" />
+                </span>
+                <span className="hub-card-body">
+                  <span className="hub-card-title group-hover:text-sec">{g.title.replace(' Generator', '')}</span>
+                  <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{g.desc}</span>
+                </span>
               </Link>
             ))}
           </div>

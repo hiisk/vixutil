@@ -63,13 +63,13 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
       </button>
       <button
         onClick={lotto}
-        className="w-full border-2 border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold rounded-lg py-3 mb-6 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
+        className="w-full border-2 border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold rounded-lg py-3 mb-6 hover:bg-sec-soft transition-colors"
       >
         {ui.lottery}
       </button>
 
       {result && (
-        <div className="rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 text-white p-6 text-center">
+        <div className="rounded-lg bg-sec p-6 text-center">
           <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? ui.luckyNumbers : ui.result}</div>
           <div className="flex flex-wrap justify-center gap-2">
             {result.map((n, i) => (

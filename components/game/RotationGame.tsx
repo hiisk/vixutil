@@ -19,7 +19,7 @@ function Grid({ shape, size }: { shape: number[]; size: number }) {
         <span
           key={i}
           className={`w-7 h-7 rounded-md ${
-            shape.includes(i) ? 'bg-gradient-to-br from-amber-400 to-orange-500' : 'bg-slate-100 dark:bg-slate-800'
+            shape.includes(i) ? 'bg-sec' : 'bg-slate-100 dark:bg-slate-800'
           }`}
         />
       ))}
@@ -84,13 +84,13 @@ export default function RotationGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
         <div className="grid grid-cols-2 gap-2 mt-4">
           <button
             onClick={() => answer(true)}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-emerald-300 active:scale-[0.98] transition-all"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
           >
             {ui.sameShape}
           </button>
           <button
             onClick={() => answer(false)}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-rose-300 active:scale-[0.98] transition-all"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
           >
             {ui.diffShape}
           </button>

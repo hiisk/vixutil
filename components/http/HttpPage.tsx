@@ -94,7 +94,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={HTTP_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={x.name} desc={kind} />

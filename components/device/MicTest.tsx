@@ -165,7 +165,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
             {bars.map((b, i) => (
               <div
                 key={i}
-                className="flex-1 rounded-t bg-gradient-to-t from-rose-500 to-orange-400 transition-[height] duration-75"
+                className="flex-1 rounded-t bg-sec transition-[height] duration-75"
                 style={{ height: `${Math.max(2, b)}%` }}
               />
             ))}
@@ -218,7 +218,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
             <button
               onClick={record}
               disabled={recording}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-rose-300 disabled:opacity-60 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 disabled:opacity-60 transition-colors"
             >
               {recording ? ui.recording : ui.recordAndListen}
             </button>

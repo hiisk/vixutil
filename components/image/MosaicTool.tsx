@@ -202,7 +202,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${
                 mode === b.m
                   ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-violet-200'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <span className={`block text-sm font-black ${mode === b.m ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
@@ -244,14 +244,14 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
           <button
             onClick={undo}
             disabled={strokes.length === 0}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 disabled:opacity-40 transition-colors"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 disabled:opacity-40 transition-colors"
           >
             {ui.undo}
           </button>
           <button
             onClick={clearAll}
             disabled={strokes.length === 0}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-rose-300 disabled:opacity-40 transition-colors"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 disabled:opacity-40 transition-colors"
           >
             {ui.clear}
           </button>

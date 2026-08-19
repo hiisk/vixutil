@@ -84,7 +84,7 @@ export default function StepBoard({
               className={`rounded px-1.5 py-0.5 font-mono font-bold transition-colors ${
                 at === i + 1
                   ? 'bg-violet-600 text-white'
-                  : 'text-slate-700 dark:text-slate-200 hover:bg-violet-50 dark:hover:bg-violet-950/40'
+                  : 'text-slate-700 dark:text-slate-200 hover:bg-sec-soft '
               }`}
             >
               {move}

@@ -67,13 +67,13 @@ export default function NotFound() {
               <div className="flex flex-wrap gap-2">
                 <Link
                   href={localeHref(c.locale, '/')}
-                  className="chip chip-off hover:border-indigo-300 text-sm font-bold text-slate-700 dark:text-slate-200"
+                  className="chip chip-off hover:border-slate-300 dark:hover:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-200"
                 >
                   {c.home}
                 </Link>
                 <Link
                   href={localeHref(c.locale, '/search')}
-                  className="chip chip-off hover:border-indigo-300 text-sm font-bold text-indigo-600 dark:text-indigo-400"
+                  className="chip chip-off hover:border-slate-300 dark:hover:border-slate-700 text-sm font-bold text-indigo-600 dark:text-indigo-400"
                 >
                   {c.search}
                 </Link>
@@ -81,7 +81,7 @@ export default function NotFound() {
                   <Link
                     key={s.route}
                     href={localeHref(c.locale, s.route)}
-                    className="chip chip-off hover:border-indigo-300 text-sm text-slate-600 dark:text-slate-300"
+                    className="chip chip-off hover:border-slate-300 dark:hover:border-slate-700 text-sm text-slate-600 dark:text-slate-300"
                   >
                     {s[c.locale]}
                   </Link>

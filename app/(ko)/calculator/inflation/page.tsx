@@ -143,7 +143,7 @@ export default function InflationPage() {
                     {QUICK_RATES.map(r => (
                       <button key={r} type="button" onClick={() => setInflRate(r)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          inflRate === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                          inflRate === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                         }`}>{r}%</button>
                     ))}
                   </div>
@@ -156,7 +156,7 @@ export default function InflationPage() {
                     {QUICK_YEARS.map(y => (
                       <button key={y} type="button" onClick={() => setYears(y)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          years === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                          years === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                         }`}>{y}년</button>
                     ))}
                   </div>
@@ -231,7 +231,7 @@ export default function InflationPage() {
                     {QUICK_RATES.map(r => (
                       <button key={r} type="button" onClick={() => setInflRate2(r)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          inflRate2 === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                          inflRate2 === r ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                         }`}>{r}%</button>
                     ))}
                   </div>
@@ -244,7 +244,7 @@ export default function InflationPage() {
                     {QUICK_YEARS.map(y => (
                       <button key={y} type="button" onClick={() => setYears2(y)}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-xl border transition-colors ${
-                          years2 === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                          years2 === y ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                         }`}>{y}년</button>
                     ))}
                   </div>

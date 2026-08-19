@@ -17,8 +17,8 @@ const THEME: SnapTheme = {
   hover: 'hover:text-indigo-600',
   notice: 'bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 text-indigo-800 dark:text-indigo-300',
   spinner: 'border-t-indigo-500',
-  dropHover: 'hover:border-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40',
-  resetHover: 'hover:border-indigo-300 hover:text-indigo-600',
+  dropHover: 'hover:border-indigo-400 hover:bg-sec-soft ',
+  resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-indigo-600',
 };
 
 const ORDER: EmotionKeyIntl[] = ['happy', 'neutral', 'surprised', 'sad', 'angry', 'fearful', 'disgusted'];

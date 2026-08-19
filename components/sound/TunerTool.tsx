@@ -124,7 +124,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
             <button
               key={String(name)}
               onClick={() => playReference(Number(freq))}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-emerald-300 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               🔊 {String(name)}
             </button>

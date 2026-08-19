@@ -22,7 +22,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
     `rounded-xl border py-2.5 text-sm font-bold transition-colors ${
       on
         ? 'border-rose-300 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-        : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-rose-200'
+        : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
     }`;
 
   return (

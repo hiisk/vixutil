@@ -29,7 +29,7 @@ function SignPicker({
               className={`aspect-square rounded-xl transition-all border ${
                 on
                   ? `${accent} border-transparent text-white shadow-sm scale-105`
-                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-violet-300'
+                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <span className="text-lg leading-none">{s.emoji}</span>
@@ -94,8 +94,8 @@ export default function StarMatchPage() {
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
-          <SignPicker label="내 별자리" value={me} onChange={setMe} accent="bg-gradient-to-br from-violet-500 to-purple-600" />
-          <SignPicker label="상대 별자리" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-fuchsia-500 to-pink-600" />
+          <SignPicker label="내 별자리" value={me} onChange={setMe} accent="bg-sec" />
+          <SignPicker label="상대 별자리" value={partner} onChange={setPartner} accent="bg-sec" />
           <button
             onClick={calculate}
             disabled={me === null || partner === null}
@@ -107,7 +107,7 @@ export default function StarMatchPage() {
 
         {result && meSign && partnerSign && (
           <div id="star-result" className="space-y-4">
-            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 p-6 text-white text-center shadow-sm">
+            <div className="relative overflow-hidden rounded-xl bg-sec p-6 text-center shadow-sm">
               <span className="absolute -top-6 -right-4 text-[110px] opacity-15 select-none">{result.info.emoji}</span>
               <div className="relative">
                 <div className="flex items-center justify-center gap-3 mb-3">
@@ -157,7 +157,7 @@ export default function StarMatchPage() {
         )}
 
         {!result && (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 별자리를 골라 궁합을 확인해보세요</p>
           </div>

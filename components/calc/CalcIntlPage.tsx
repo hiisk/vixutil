@@ -30,6 +30,10 @@ import RetirementIntl from '@/components/calc/RetirementIntl';
 import ExchangeIntl from '@/components/calc/ExchangeIntl';
 import CalorieIntl from '@/components/calc/CalorieIntl';
 import ProteinIntl from '@/components/calc/ProteinIntl';
+import RunningPaceIntl from '@/components/calc/RunningPaceIntl';
+import OneRepMaxIntl from '@/components/calc/OneRepMaxIntl';
+import IdealWeightIntl from '@/components/calc/IdealWeightIntl';
+import BmiIntl from '@/components/calc/BmiIntl';
 import BodyFatIntl from '@/components/calc/BodyFatIntl';
 import CaloriesBurnIntl from '@/components/calc/CaloriesBurnIntl';
 import CaffeineIntl from '@/components/calc/CaffeineIntl';
@@ -96,6 +100,10 @@ const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'calories-burn': CaloriesBurnIntl,
   'body-fat': BodyFatIntl,
   'protein': ProteinIntl,
+  'running-pace': RunningPaceIntl,
+  'one-rep-max': OneRepMaxIntl,
+  'ideal-weight': IdealWeightIntl,
+  'bmi': BmiIntl,
   'calorie': CalorieIntl,
   'exchange': ExchangeIntl,
   'retirement': RetirementIntl,

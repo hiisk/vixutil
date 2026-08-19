@@ -88,7 +88,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
 
       <button
         onClick={() => { setPeak(-100); historyRef.current = []; }}
-        className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-rose-300 transition-colors"
+        className="mt-3 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
       >
         {c.reset}
       </button>

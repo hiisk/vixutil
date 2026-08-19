@@ -81,7 +81,7 @@ export default function MosquitoTool({ lang = 'ko' }: { lang?: SoundLang } = {})
       </div>
 
       {top && (
-        <div className="mt-4 rounded-lg bg-gradient-to-br from-lime-500 to-emerald-600 text-white px-6 py-6 text-center">
+        <div className="mt-4 rounded-lg bg-sec px-6 py-6 text-center">
           <p className="text-sm opacity-70 mb-1">{ui.highestHeard}</p>
           <p className="text-4xl font-black">{(top / 1000).toFixed(0)}kHz</p>
           <p className="text-sm opacity-80 mt-2">{ui.ages[STEPS.findIndex(s => s.hz === top)]}</p>

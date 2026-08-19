@@ -17,7 +17,7 @@ const THEME: SnapTheme = {
   notice: 'bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 text-orange-800 dark:text-orange-300',
   spinner: 'border-t-orange-500',
   dropHover: 'hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-950/40',
-  resetHover: 'hover:border-orange-300 hover:text-orange-600',
+  resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-orange-600',
 };
 
 const COPY = {
@@ -184,7 +184,7 @@ export default function SmileScore({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="bg-gradient-to-br from-amber-400 to-rose-500 rounded-lg p-6 text-white text-center">
+          <div className="bg-sec rounded-lg p-6 text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.overall}</p>
             <p className="text-4xl font-black mb-3">{result.percent}%</p>
             <p className="text-sm leading-relaxed">{result.text}</p>

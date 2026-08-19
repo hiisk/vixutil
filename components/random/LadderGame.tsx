@@ -125,7 +125,7 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
             key={i}
             onClick={() => pick(i)}
             disabled={i >= names.length}
-            className={`text-[11px] font-bold rounded-lg py-1.5 px-0.5 truncate transition-colors ${selected === i ? 'text-white' : 'text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-rose-100 dark:hover:bg-rose-950/40'}`}
+            className={`text-[11px] font-bold rounded-lg py-1.5 px-0.5 truncate transition-colors ${selected === i ? 'text-white' : 'text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-sec-soft '}`}
             style={selected === i ? { background: COLORS[i % COLORS.length] } : undefined}
           >
             {names[i] ?? ''}
@@ -166,7 +166,7 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
 
       {/* 결과 문구 */}
       {selected !== null && (
-        <div className="wc-pop text-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 text-white py-4 mb-6">
+        <div className="wc-pop text-center rounded-lg bg-sec py-4 mb-6">
           <span className="text-lg font-black">{names[selected]}</span>
           <span className="mx-2">→</span>
           <span className="text-lg font-black">{results[revealed[selected]]}</span>
@@ -198,8 +198,8 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
         </div>
       </div>
       <div className="flex gap-2">
-        <button onClick={removePair} disabled={cols <= 2} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-violet-300 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.fewer}</button>
-        <button onClick={addPair} disabled={cols >= 8} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-violet-300 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.more}</button>
+        <button onClick={removePair} disabled={cols <= 2} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.fewer}</button>
+        <button onClick={addPair} disabled={cols >= 8} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.more}</button>
       </div>
 
       <style jsx>{`

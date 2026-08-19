@@ -61,7 +61,7 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
+        <div className="mb-7">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={EM_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
@@ -88,10 +88,10 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
                     key={x.slug}
                     href={`${path}/${x.slug}`}
                     title={emojiDesc(x.slug, lang)}
-                    className="group rounded-xl border chip-off px-2 py-3 text-center hover:border-amber-300 hover:shadow-sm hover:-translate-y-0.5 transition-all"
+                    className="group rounded-xl border chip-off px-2 py-3 text-center hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                   >
                     <span className="block text-3xl leading-none mb-1.5">{x.char}</span>
-                    <span className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 leading-tight group-hover:text-amber-700 transition-colors break-words">
+                    <span className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 leading-tight group-hover:text-sec transition-colors break-words">
                       {x.common}
                     </span>
                   </Link>

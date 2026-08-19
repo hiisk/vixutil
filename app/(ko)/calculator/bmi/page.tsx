@@ -8,6 +8,8 @@ import { useState } from 'react';
  * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 
 // 대한비만학회 2022 진료지침 기준
 const LEVELS = [
@@ -76,6 +78,9 @@ export default function BmiPage() {
         </>
       }
     >
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/bmi" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="label-caps mb-3">신체 정보</p>
@@ -86,7 +91,7 @@ export default function BmiPage() {
                 {([{v:'m',l:'남성'},{v:'f',l:'여성'}] as const).map(s=>(
                   <button key={s.v} onClick={()=>setSex(s.v)}
                     className={`py-3 text-sm font-semibold rounded-xl border transition-colors ${
-                      sex===s.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-300'
+                      sex===s.v ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}>
                     {s.l}
                   </button>

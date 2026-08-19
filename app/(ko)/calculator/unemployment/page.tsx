@@ -159,7 +159,7 @@ export default function UnemploymentPage() {
               className={`flex-1 py-2.5 rounded-xl text-sm font-bold border transition-all ${
                 over50 === opt.value
                   ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-300'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               {opt.label}

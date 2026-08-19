@@ -91,7 +91,7 @@ export default function ColorHubPage() {
                   <Link
                     key={t.slug}
                     href={`/color/${t.slug}`}
-                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-violet-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
@@ -128,7 +128,7 @@ export default function ColorHubPage() {
                   <Link
                     key={c.slug}
                     href={`/color/${c.slug}`}
-                    className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-sm hover:border-violet-200 transition-all"
+                    className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <span className="block h-11" style={{ background: c.hex }} />
                     <span className="block px-2 py-1.5 bg-white dark:bg-slate-900">

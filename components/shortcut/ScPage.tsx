@@ -83,7 +83,7 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={SC_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={`${app} · ${x.action}`} desc={x.group} />
@@ -148,7 +148,7 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
                   <Link prefetch={false}
                     key={s}
                     href={`${prefix}/shortcut/${s}`}
-                    className="flex items-center justify-between gap-3 rounded-xl border chip-off px-4 py-3 hover:border-sky-300 hover:shadow-sm transition-all"
+                    className="flex items-center justify-between gap-3 rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                   >
                     <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.appLabel[o.app]}</span>
                     <KeyCombo combo={primaryCombo(o)} size="sm" />
@@ -169,7 +169,7 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
                 <Link prefetch={false}
                   key={s}
                   href={`${prefix}/shortcut/${s}`}
-                  className="rounded-xl border chip-off px-4 py-3 hover:border-sky-300 hover:shadow-sm transition-all"
+                  className="rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                 >
                   <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 mb-1.5">{o.action}</span>
                   <KeyCombo combo={primaryCombo(o)} size="sm" />

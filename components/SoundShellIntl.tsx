@@ -102,11 +102,11 @@ export default function SoundShellIntl({
               <Link
                 key={r.slug}
                 href={`/${lang}/sound/${r.slug}`}
-                className="group hub-card hover:border-indigo-300 hover:shadow-sm transition-all"
+                className="group hub-card hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
               >
                 <ToolIcon emoji={r.icon} color={r.og[0]} accent={r.og[1]} className="w-5 h-5 shrink-0" />
                 <span className="hub-card-body">
-                  <span className="hub-card-title group-hover:text-indigo-700 transition-colors">
+                  <span className="hub-card-title group-hover:text-sec transition-colors">
                     {r.title}
                   </span>
                   <span className="hub-card-desc">{r.desc}</span>

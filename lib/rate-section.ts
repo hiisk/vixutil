@@ -178,7 +178,7 @@ export const RATE_SECTION: SectionConfig = {
   hoverBorder: 'hover:border-emerald-300',
   textAccent: 'text-emerald-600',
   focusBorder: 'focus:border-emerald-400',
-  hoverText: 'group-hover:text-emerald-700',
+  hoverText: 'group-hover:text-sec',
   linkHover: 'hover:text-emerald-600',
   ogFrom: '#10b981',
   ogTo: '#0d9488',

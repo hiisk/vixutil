@@ -26,7 +26,7 @@ function TypeRow({
               onClick={() => onChange(t.id)}
               className={`rounded-lg py-3 transition-all border ${
                 on ? `${accent} border-transparent text-white shadow-sm scale-105`
-                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-rose-300'
+                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <span className="text-xl leading-none">{t.emoji}</span>
@@ -81,8 +81,8 @@ export default function BloodMatchPage() {
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
-          <TypeRow label="내 혈액형" value={me} onChange={setMe} accent="bg-gradient-to-br from-rose-500 to-red-600" />
-          <TypeRow label="상대 혈액형" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-orange-500 to-amber-600" />
+          <TypeRow label="내 혈액형" value={me} onChange={setMe} accent="bg-sec" />
+          <TypeRow label="상대 혈액형" value={partner} onChange={setPartner} accent="bg-sec" />
           <button
             onClick={calculate}
             disabled={!me || !partner}
@@ -103,7 +103,7 @@ export default function BloodMatchPage() {
             shareDescription={`${result.label} — ${result.headline}`}
           />
         ) : (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 혈액형을 골라 궁합을 확인해보세요</p>
           </div>

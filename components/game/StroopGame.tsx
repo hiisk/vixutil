@@ -94,7 +94,7 @@ export default function StroopGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             <button
               key={o}
               onClick={() => answer(o)}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-amber-300 active:scale-[0.98] transition-all"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
             >
               {LABEL[o]}
             </button>

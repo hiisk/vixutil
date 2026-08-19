@@ -10,7 +10,7 @@ const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', 
 function QuizCard({ q }: { q: CardItem }) {
   return (
     <Link href={`/quiz/${q.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-amber-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-all">
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className={`card-thumb ${thumbSurface(q.slug, 'quiz')}`}>
         <ToolIconRef
@@ -19,7 +19,7 @@ function QuizCard({ q }: { q: CardItem }) {
         />
       </div>
       <div className="p-2.5 sm:p-3">
-        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-amber-700 transition-colors mb-1">{q.title}</h3>
+        <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors mb-1">{q.title}</h3>
         <p className="note-xs line-clamp-1 sm:line-clamp-2">{q.desc}</p>
       </div>
     </Link>

@@ -179,7 +179,7 @@ function Picker({ value, onPick, label, options, cols, showEmoji }: {
             className={`rounded-xl py-2 px-1 text-center border transition-all ${
               value === i
                 ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
-                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-violet-300 text-slate-700 dark:text-slate-200'
+                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200'
             }`}
           >
             {showEmoji && <div className="text-lg leading-none mb-0.5">{o.emoji}</div>}
@@ -264,7 +264,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
             <button
               type="button"
               onClick={() => { setA(null); setB(null); }}
-              className="w-full rounded-xl border chip-off text-sm font-bold text-slate-600 dark:text-slate-300 py-3 hover:border-violet-300 transition-colors"
+              className="w-full rounded-xl border chip-off text-sm font-bold text-slate-600 dark:text-slate-300 py-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {ui.reset}
             </button>
@@ -272,7 +272,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
             <ReferralCards lang="en" placement="result" />
           </div>
         ) : (
-          <div className="text-center py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.pickBoth}</p>
           </div>

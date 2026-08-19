@@ -39,7 +39,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
           월급 {wage}만원 · 근속 {years}년 퇴직금
         </h1>
 
-        <div className="mt-4 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white">
+        <div className="mt-4 rounded-lg bg-sec p-6 ">
           <p className="text-amber-100 text-xs mb-1">퇴직금 (세전)</p>
           <p className="cv text-4xl font-black leading-none tabular-nums">{won(f.pay)}원</p>
           <p className="mt-2 text-sm text-amber-100">

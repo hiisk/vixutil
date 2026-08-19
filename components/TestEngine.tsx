@@ -271,12 +271,12 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(i)}
-                className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
+                className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-sec-soft hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
                 <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-black flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
                   {['A', 'B', 'C', 'D', 'E'][i] ?? i + 1}
                 </span>
                 <span className="flex-1 leading-snug">{opt.text}</span>
-                <svg className="w-4 h-4 shrink-0 text-slate-200 dark:text-slate-700 group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-4 h-4 shrink-0 text-slate-200 dark:text-slate-700 group-hover:text-sec group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
               </button>

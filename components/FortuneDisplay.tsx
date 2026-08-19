@@ -88,7 +88,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
   return (
     <div className="space-y-4">
       {/* 헤더 카드 */}
-      <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-lg p-6 text-white text-center">
+      <div className="bg-sec rounded-lg p-6 text-center">
         <div className="flex justify-end mb-2">
           <ShareBtn name={subjectName} />
         </div>

@@ -26,7 +26,7 @@ function MbtiPicker({
               onClick={() => onChange(t)}
               className={`rounded-lg py-2 text-xs font-black transition-all border ${
                 on ? `${accent} border-transparent text-white shadow-sm scale-105`
-                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-violet-300'
+                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               {t}
@@ -78,8 +78,8 @@ export default function MbtiMatchPage() {
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
-          <MbtiPicker label="내 MBTI" value={me} onChange={setMe} accent="bg-gradient-to-br from-violet-500 to-indigo-600" />
-          <MbtiPicker label="상대 MBTI" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-sky-500 to-blue-600" />
+          <MbtiPicker label="내 MBTI" value={me} onChange={setMe} accent="bg-sec" />
+          <MbtiPicker label="상대 MBTI" value={partner} onChange={setPartner} accent="bg-sec" />
           <button
             onClick={calculate}
             disabled={!me || !partner}
@@ -100,7 +100,7 @@ export default function MbtiMatchPage() {
             shareDescription={`${result.info.label} — ${result.info.headline}`}
           />
         ) : (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-300 dark:text-slate-600">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 MBTI를 골라 궁합을 확인해보세요</p>
           </div>

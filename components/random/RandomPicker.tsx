@@ -74,7 +74,7 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
         />
       </div>
 
-      <div className="relative mb-5 overflow-hidden rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 text-white min-h-[7rem] flex flex-col items-center justify-center p-5">
+      <div className="relative mb-5 overflow-hidden rounded-lg bg-sec min-h-[7rem] flex flex-col items-center justify-center p-5">
         {rolling ? (
           <>
             <div className="text-xs font-bold text-amber-100 mb-1 tracking-widest">🥁 {ui.drumroll}</div>

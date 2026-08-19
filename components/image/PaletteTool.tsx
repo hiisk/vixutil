@@ -184,7 +184,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
           <button
             key={`${s.hex}-${i}`}
             onClick={() => copy(s.hex)}
-            className="flex items-center gap-3 rounded-xl border chip-off px-3 py-2.5 hover:border-violet-300 transition-colors text-left"
+            className="flex items-center gap-3 rounded-xl border chip-off px-3 py-2.5 hover:border-slate-300 dark:hover:border-slate-700 transition-colors text-left"
           >
             <span
               className="w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 shrink-0"
@@ -214,7 +214,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
       <div className="grid grid-cols-3 gap-2 mt-5">
         <button
           onClick={() => { setImg(null); setSwatches([]); setPicked(null); }}
-          className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
+          className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold py-3 text-sm text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
         >
           {ui.otherPhoto}
         </button>

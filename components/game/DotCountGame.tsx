@@ -99,7 +99,7 @@ export default function DotCountGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
             <div className="flex-1"><PlayButton onClick={next}>{ui.level} +1</PlayButton></div>
             <button
               onClick={stop}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-amber-300 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {ui.again}
             </button>

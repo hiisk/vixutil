@@ -478,7 +478,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           </span>
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-sky-600 border border-slate-200 dark:border-slate-700 hover:border-sky-300 rounded-xl px-3 py-1.5 transition-all"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-sky-600 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 rounded-xl px-3 py-1.5 transition-all"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
@@ -523,7 +523,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
             <div className="flex gap-2 mt-4">
               <button
                 onClick={handleShare}
-                className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-600 border border-emerald-200 dark:border-emerald-900/50 bg-white dark:bg-slate-900 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 px-4 py-2.5 rounded-xl transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-600 border border-emerald-200 dark:border-emerald-900/50 bg-white dark:bg-slate-900 hover:bg-sec-soft px-4 py-2.5 rounded-xl transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
@@ -615,7 +615,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           <div className="flex gap-3">
             <button
               onClick={handleShare}
-              className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-sky-600 border border-sky-200 dark:border-sky-900/50 hover:bg-sky-50 dark:hover:bg-sky-950/40 rounded-xl transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-sky-600 border border-sky-200 dark:border-sky-900/50 hover:bg-sec-soft rounded-xl transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />

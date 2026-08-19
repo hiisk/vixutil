@@ -126,7 +126,7 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
               className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${
                 mime === f.mime
                   ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-violet-200'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <span className={`block text-sm font-black ${mime === f.mime ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>

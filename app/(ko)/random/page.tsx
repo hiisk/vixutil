@@ -61,18 +61,16 @@ export default function RandomIndexPage() {
 
       <div className="max-w-5xl mx-auto px-4 tool-lift pb-10">
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 gap-2">
           {RANDOM_TOOLS.map(t => (
-            <Link
-              key={t.slug}
-              href={`/random/${t.slug}`}
-              className={`group relative overflow-hidden rounded-lg bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}
-            >
-              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
-              <div>
-                <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
-                <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</div>
-              </div>
+            <Link key={t.slug} href={`/random/${t.slug}`} className="hub-card group">
+              <span className="bg-sec-soft inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+                <ToolIcon emoji={t.icon} className="h-5 w-5" />
+              </span>
+              <span className="hub-card-body">
+                <span className="hub-card-title group-hover:text-sec">{t.title}</span>
+                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{t.desc}</span>
+              </span>
             </Link>
           ))}
         </div>

@@ -79,7 +79,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                 grid[0] === c && grid[1] === r
                   ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300'
-                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-violet-200'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               {c} × {r}
@@ -117,7 +117,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             </button>
             <button
               onClick={() => { revoke(); setImg(null); setPieces([]); }}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-violet-300 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
               {common.otherPhoto}
             </button>
