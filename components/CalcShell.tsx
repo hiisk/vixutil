@@ -269,9 +269,15 @@ export function PrimaryBtn({ onClick, children }: { onClick?: () => void; childr
       className="group btn-pri"
     >
       {children}
-      <svg className="w-4 h-4 opacity-80 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-      </svg>
+      {/*
+        화살표를 맨몸으로 글자 옆에 두지 않는다 — 제 원 안에 넣어 단추 안의
+        단추로 만든다. 누르면 원만 대각선으로 밀리면서 단추 안에 장력이 생긴다.
+      */}
+      <span className="btn-pri-knob">
+        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </span>
     </button>
   );
 }
@@ -333,6 +339,7 @@ export function SummaryCard({
     않는다. 계산기 101장이 이 한 부품을 함께 쓴다.
   */
   const cls = { default: 'stat', primary: 'stat-pri', green: 'stat-up', red: 'stat-down' }[variant];
+
   return (
     <div className={cls}>
       <p className="stat-label">
