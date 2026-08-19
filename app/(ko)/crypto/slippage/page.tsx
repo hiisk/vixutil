@@ -53,7 +53,7 @@ export default function SlippagePage() {
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="📶" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">Slippage &amp; Order Book Depth</h1>
+          <h1 className="page-h1">Slippage &amp; Order Book Depth</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             The cost everyone checks <b className="text-slate-700 dark:text-slate-200">after</b> the trade
           </p>

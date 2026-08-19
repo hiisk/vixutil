@@ -1,6 +1,14 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import { monthlyHours as statutoryMonthlyHours } from '@/lib/statutory-hours';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -8,19 +16,26 @@ const fmt = (n: number) => Math.round(n).toLocaleString();
 const ALLOWANCES = ['직책수당', '직무수당', '가족수당', '식대', '교통비', '기타 고정수당'];
 
 export default function StandardWagePage() {
-  const [basic, setBasic] = useState('');
+  const [basic, setBasic] = useState('2500000');
   const [allowances, setAllowances] = useState<Record<string, string>>(
     Object.fromEntries(ALLOWANCES.map(k => [k, '']))
   );
   const [weeklyHours, setWeeklyHours] = useState('40');
-  const [result, setResult] = useState<null | {
+
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     standard: number; hourly: number; monthlyHours: number;
     allowanceTotal: number; rows: { name: string; amount: number }[];
-  }>(null);
-
-  function calculate() {
+  } = ((): null | {
+    standard: number; hourly: number; monthlyHours: number;
+    allowanceTotal: number; rows: { name: string; amount: number }[];
+  } => {
     const b = Number(basic);
-    if (b <= 0) return;
+    if (b <= 0) return null;
     const w = Number(weeklyHours);
     // 주휴시간은 lib/statutory-hours.ts에서 온다 — 여기 적어 두었을 때 주 44시간이 229h로 나와
     // 바로 위 선택지 라벨(월 226h)과 어긋났다
@@ -28,8 +43,11 @@ export default function StandardWagePage() {
     const rows = ALLOWANCES.map(name => ({ name, amount: Number(allowances[name] || 0) }));
     const allowanceTotal = rows.reduce((s, r) => s + r.amount, 0);
     const standard = b + allowanceTotal;
-    setResult({ standard, hourly: standard / monthlyHours, monthlyHours: Math.round(monthlyHours), allowanceTotal, rows });
-  }
+    return ({ standard, hourly: standard / monthlyHours, monthlyHours: Math.round(monthlyHours), allowanceTotal, rows });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -93,9 +111,6 @@ export default function StandardWagePage() {
                   placeholder="0" className={inputCls} min="0" />
               </div>
             ))}
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

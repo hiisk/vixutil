@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -20,17 +20,24 @@ export default function CaloriePage() {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [activity, setActivity] = useState('1.55');
-  const [result, setResult] = useState<null | { bmr: number; tdee: number }>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | { bmr: number; tdee: number } = ((): null | { bmr: number; tdee: number } => {
     const a = Number(age); const h = Number(height); const w = Number(weight);
-    if (a <= 0 || h <= 0 || w <= 0) return;
+    if (a <= 0 || h <= 0 || w <= 0) return null;
     const bmr = gender === 'male'
       ? 10 * w + 6.25 * h - 5 * a + 5
       : 10 * w + 6.25 * h - 5 * a - 161;
     const tdee = bmr * Number(activity);
-    setResult({ bmr, tdee });
-  }
+    return ({ bmr, tdee });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -118,7 +125,6 @@ export default function CaloriePage() {
                 ))}
               </div>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

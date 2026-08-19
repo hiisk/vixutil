@@ -78,7 +78,9 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-sec-soft shadow-lg">
             <span>🃏</span>
           </div>
-          <PageHero title={ui.h1} desc={ui.lead} />
+          <div className="hero-band">
+            <PageHero title={ui.h1} desc={ui.lead} />
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-6">

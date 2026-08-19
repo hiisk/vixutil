@@ -85,8 +85,10 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
         {/* 글자가 먼저다 — 눌러서 복사하러 온 사람이 절반이다 */}
         <CopyChar char={x.char} label={ui.copyLabel} copiedLabel={ui.copiedLabel} />
 
-        <div className="text-center mt-5 mb-6">
-          <PageHero title={x.common} desc={group} />
+        <div className="mt-5 mb-6">
+          <div className="hero-band">
+            <PageHero title={x.common} desc={group} />
+          </div>
         </div>
 
         <section className="mb-6" aria-label={ui.meaningTitle}>

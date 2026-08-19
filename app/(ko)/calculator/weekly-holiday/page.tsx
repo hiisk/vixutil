@@ -1,7 +1,15 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import CalcShell, {
-  Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard,
+  Card, Label, inputCls, SummaryGrid, SummaryCard,
 } from '@/components/CalcShell';
 import { weeklyHolidayHours } from '@/lib/statutory-hours';
 
@@ -17,16 +25,20 @@ interface Result {
 }
 
 export default function WeeklyHolidayPage() {
-  const [hourlyWage, setHourlyWage] = useState('');
-  const [dailyHours, setDailyHours] = useState('');
-  const [workDays, setWorkDays] = useState('');
-  const [result, setResult] = useState<Result | null>(null);
+  const [hourlyWage, setHourlyWage] = useState('10320');
+  const [dailyHours, setDailyHours] = useState('8');
+  const [workDays, setWorkDays] = useState('5');
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: Result | null = ((): Result | null => {
     const wage = Number(hourlyWage);
     const hours = Number(dailyHours);
     const days = Number(workDays);
-    if (!wage || !hours || !days) return;
+    if (!wage || !hours || !days) return null;
 
     const weeklyHours = hours * days;
     const eligible = weeklyHours >= 15;
@@ -39,8 +51,11 @@ export default function WeeklyHolidayPage() {
     const monthlyPay = weeklyPay * (365 / 12 / 7);
     const monthlyHolidayTotal = weeklyHolidayPay * (365 / 12 / 7);
 
-    setResult({ weeklyHours, eligible, weeklyHolidayPay, weeklyPay, monthlyPay, monthlyHolidayTotal });
-  }
+    return ({ weeklyHours, eligible, weeklyHolidayPay, weeklyPay, monthlyPay, monthlyHolidayTotal });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -112,9 +127,6 @@ export default function WeeklyHolidayPage() {
                 />
               </div>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

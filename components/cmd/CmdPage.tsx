@@ -91,7 +91,9 @@ export default function CmdPage({ slug, lang }: { slug: string; lang: Lang }) {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={CMD_ICON} className="w-6 h-6" />
           </div>
-          <PageHero title={x.name} desc={cat} />
+          <div className="hero-band">
+            <PageHero title={x.name} desc={cat} />
+          </div>
         </div>
 
         {/* 쓰는 꼴이 먼저다 — 찾아온 사람이 붙여 갈 한 줄 */}

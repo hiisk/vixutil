@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import AreaChart from '@/components/AreaChart';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
@@ -201,6 +202,14 @@ export default function RetirementPage() {
             {/* 연도별 성장 테이블 */}
             <Card className="p-5">
               <p className="label-caps mb-3">연도별 자산 성장</p>
+              {/* 모으는 동안 늘고 쓰는 동안 줄어드는 모양은 표 수십 줄이 아니라
+                  선 하나로 읽힌다 — 은퇴 계산기에서 가장 중요한 그림이다 */}
+              <AreaChart
+                className="mb-5"
+                values={result.rows.map(r => r.endBalance)}
+                from={`${result.rows[0]?.age ?? ''}세`}
+                to={`${result.rows[result.rows.length - 1]?.age ?? ''}세`}
+              />
               <TableWrap>
                 <table className="w-full text-xs text-right">
                   <thead>

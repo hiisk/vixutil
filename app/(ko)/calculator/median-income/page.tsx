@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 import {
   BENEFIT_RULES, amountOfMedian, calcMedianIncome, medianFor,
 } from '@/lib/median-income';
@@ -17,19 +17,23 @@ export default function MedianIncomePage() {
   const [incomeValue, setIncomeValue] = useState('0');
   const [assetValue, setAssetValue] = useState('0');
   const [pct, setPct] = useState('100');
-  const [result, setResult] = useState<null | {
+
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     r: ReturnType<typeof calcMedianIncome>;
     size: number;
     custom: { percent: number; amount: number } | null;
-  }>(null);
-
-  function setCell(i: number, v: string) {
-    setTable(prev => prev.map((x, j) => (i === j ? v : x)));
-  }
-
-  function calculate() {
+  } = ((): null | {
+    r: ReturnType<typeof calcMedianIncome>;
+    size: number;
+    custom: { percent: number; amount: number } | null;
+  } => {
     const medianBySize = table.map(v => Number(v || 0));
-    if (medianFor(medianBySize, size) <= 0) return;
+    if (medianFor(medianBySize, size) <= 0) return null;
     const r = calcMedianIncome({
       medianBySize,
       size,
@@ -37,12 +41,19 @@ export default function MedianIncomePage() {
       assetValue: Number(assetValue || 0),
     });
     const p = Number(pct);
-    setResult({
+    return ({
       r,
       size,
       custom: p > 0 ? { percent: p, amount: amountOfMedian(p, r.median) } : null,
     });
+  
+    return null;
+  })();
+  function setCell(i: number, v: string) {
+    setTable(prev => prev.map((x, j) => (i === j ? v : x)));
   }
+
+
 
   return (
     <CalcShell
@@ -158,7 +169,6 @@ export default function MedianIncomePage() {
               <input type="number" value={pct} onChange={e => setPct(e.target.value)}
                 placeholder="예: 100" className={inputCls} min="0" step="1" />
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

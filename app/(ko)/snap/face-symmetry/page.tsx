@@ -199,7 +199,7 @@ export default function FaceSymmetryPage() {
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="⚖️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">얼굴 대칭 분석</h1>
+          <h1 className="page-h1">얼굴 대칭 분석</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 좌우 밸런스를 측정해요</p>
         </div>
 

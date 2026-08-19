@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import AreaChart from '@/components/AreaChart';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -141,6 +142,15 @@ export default function CompoundGoalPage() {
             </div>
             <Card>
               <CardHeader title="연도별 자산 성장" />
+              {/* 표는 «5년 차에 얼마»를 찾는 물건이고, 복리가 뒤로 갈수록 가팔라지는
+                  모양은 선으로만 읽힌다. 값은 이미 rows에 있다. */}
+              <div className="px-5 pt-4">
+                <AreaChart
+                  values={result.rows.map(r => r.amount)}
+                  from="시작"
+                  to={`${result.rows.length - 1}년 후`}
+                />
+              </div>
               <TableWrap>
                 <table className="w-full text-sm">
                   <thead className="bg-slate-50 dark:bg-slate-950">

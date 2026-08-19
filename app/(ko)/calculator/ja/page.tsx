@@ -226,7 +226,7 @@ export default function JaHome() {
         {/* ヒーロー */}
         <section className="py-10 sm:py-14 border-b border-slate-100 dark:border-slate-800">
           <p className="text-xs font-bold text-blue-600 tracking-widest uppercase mb-3">Korean Calculator</p>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-slate-100 leading-tight mb-3">
+          <h1 className="page-h1">
             生活計算機まとめ
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm mb-5">

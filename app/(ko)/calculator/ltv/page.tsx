@@ -1,6 +1,14 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -24,25 +32,34 @@ const ZONE_LABEL: Record<Zone, string> = {
 };
 
 export default function LtvPage() {
-  const [propertyValue, setPropertyValue] = useState('');
-  const [loanAmount, setLoanAmount] = useState('');
+  const [propertyValue, setPropertyValue] = useState('500000000');
+  const [loanAmount, setLoanAmount] = useState('300000000');
   const [zone, setZone] = useState<Zone>('metro');
   const [owner, setOwner] = useState<Owner>('none');
-  const [result, setResult] = useState<null | {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     ltv: number; limit: number; maxLoan: number; addable: number;
-  }>(null);
-
-  function calculate() {
+  } = ((): null | {
+    ltv: number; limit: number; maxLoan: number; addable: number;
+  } => {
     const pv = Number(propertyValue);
     const la = Number(loanAmount);
-    if (pv <= 0) return;
+    if (pv <= 0) return null;
 
     const ltv = la > 0 ? (la / pv) * 100 : 0;
     const limit = LTV_LIMIT[zone][owner];
     const maxLoan = pv * limit / 100;
     const addable = Math.max(0, maxLoan - la);
-    setResult({ ltv, limit, maxLoan, addable });
-  }
+    return ({ ltv, limit, maxLoan, addable });
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -106,7 +123,6 @@ export default function LtvPage() {
                 <option value="multi">다주택자</option>
               </select>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

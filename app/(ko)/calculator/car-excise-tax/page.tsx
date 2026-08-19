@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, TabBar, inputCls,
+  Card, CardHeader, Label, TabBar, inputCls,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import {
@@ -24,24 +24,34 @@ export default function CarExciseTaxPage() {
   const [rate, setRate] = useState(String(DEFAULT_EXCISE_RATE * 100));
   const [lowRate, setLowRate] = useState('3.5');
   const [cap, setCap] = useState(0);
-  const [result, setResult] = useState<null | {
+
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     now: ExciseBreakdown;
     cmp: RateCompare | null;
-  }>(null);
-
-  function calculate() {
-    if (amount <= 0) return;
+  } = ((): null | {
+    now: ExciseBreakdown;
+    cmp: RateCompare | null;
+  } => {
+    if (amount <= 0) return null;
     const r = Math.max(0, Number(rate) || 0) / 100;
     // 출고가로 넣었으면 먼저 공장도가로 되짚는다 — 그다음은 두 길이 같다
     const base = mode === 'base' ? amount : fromReleasePrice(amount, r).base;
-    if (base <= 0) return;
+    if (base <= 0) return null;
 
     const low = Math.max(0, Number(lowRate) || 0) / 100;
-    setResult({
+    return ({
       now: calcExcise(base, r),
       cmp: lowRate !== '' && low < r ? compareRates(base, r, low, cap) : null,
     });
-  }
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -144,7 +154,6 @@ export default function CarExciseTaxPage() {
                 인하 때 깎아 주는 개별소비세에 상한이 있었으면 그 금액
               </p>
             </div>
-            <PrimaryBtn onClick={calculate}>개별소비세 계산</PrimaryBtn>
           </div>
         </Card>
 

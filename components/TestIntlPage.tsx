@@ -81,7 +81,9 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <PageHero title={ui.h1} desc={ui.lead} />
+        <div className="hero-band">
+          <PageHero title={ui.h1} desc={ui.lead} />
+        </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {tests.map(t => (

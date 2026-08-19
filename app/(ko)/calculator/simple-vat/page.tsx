@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, selectCls,
+  Card, CardHeader, Label, selectCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -13,12 +13,19 @@ export default function SimpleVatPage() {
   const [sales, setSales] = useState(60_000_000);
   const [industryId, setIndustryId] = useState('retail');
   const [purchases, setPurchases] = useState(0);
-  const [result, setResult] = useState<SimpleVatResult | null>(null);
 
-  function calculate() {
-    if (sales <= 0) return;
-    setResult(calcSimpleVat({ sales, industryId, purchases }));
-  }
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: SimpleVatResult | null = ((): SimpleVatResult | null => {
+    if (sales <= 0) return null;
+    return (calcSimpleVat({ sales, industryId, purchases }));
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -81,8 +88,6 @@ export default function SimpleVatPage() {
             </div>
           </div>
         </Card>
-
-        <PrimaryBtn onClick={calculate}>부가세 계산</PrimaryBtn>
 
         {result && (
           <>

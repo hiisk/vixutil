@@ -84,7 +84,7 @@ export default function CryptoPage() {
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
           <ToolIcon emoji="🪙" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">Crypto Trading Tools</h1>
+          <h1 className="page-h1">Crypto Trading Tools</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Volatility & TP/SL from Binance public market data</p>
         </div>
 

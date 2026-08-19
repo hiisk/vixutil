@@ -97,13 +97,15 @@ export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLoca
               rel={REFERRAL_REL}
               data-ref-id={r.id}
               data-ref-sub={subId}
-              className="group block rounded-2xl border-2 border-amber-300 dark:border-amber-500/50 bg-gradient-to-b from-amber-50 to-white dark:from-amber-500/[0.16] dark:to-transparent p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-500/20"
+              /* 노란 판을 걷었다 — 이유는 ReferralCards.tsx의 같은 자리에 적었다.
+                 색은 누를 자리(버튼)에만 남긴다. */
+              className="group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 transition-all duration-150 hover:-translate-y-0.5 hover:border-amber-300 dark:hover:border-amber-600/60"
             >
               <span className="flex items-center gap-1.5">
                 <BrandMark id={r.id} />
               </span>
-              {/* 금액은 라이트에서 700, 다크에서 300 — 브랜드 노랑을 글자에 그대로 쓰면 흰 배경에서 사라진다 */}
-              <span className="mt-3 block text-[27px] font-black leading-none text-amber-700 dark:text-amber-300">
+              {/* 금액은 카드에서 제일 큰 글자다. 색까지 셀 필요는 없다 — 색은 버튼 몫 */}
+              <span className="mt-3 block text-[25px] font-black leading-none tabular-nums text-slate-900 dark:text-slate-50">
                 {copy.bonus}
               </span>
               <span className="mt-2 block text-[11px] font-bold text-slate-700 dark:text-slate-300">
@@ -112,7 +114,7 @@ export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLoca
               <span className="mt-1 block text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">
                 {copy.perks.join(' · ')}
               </span>
-              <span className="mt-3 flex items-center justify-center gap-1 rounded-xl bg-amber-400 py-2.5 text-[13px] font-black leading-tight text-slate-950 transition-colors group-hover:bg-amber-300">
+              <span className="mt-3 flex items-center justify-center gap-1 rounded-lg bg-amber-400 py-2.5 text-[13px] font-bold leading-tight text-slate-950 transition-colors duration-150 group-hover:bg-amber-300">
                 <span className="text-center">{copy.cta}</span>
                 <span className="transition-transform group-hover:translate-x-0.5">→</span>
               </span>

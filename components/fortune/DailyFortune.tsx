@@ -161,8 +161,10 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <PageHero icon="🔮" title={c.title} desc={c.lead} />
+        <div className="mb-6">
+          <div className="hero-band">
+            <PageHero icon="🔮" title={c.title} desc={c.lead} />
+          </div>
         </div>
 
         <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">

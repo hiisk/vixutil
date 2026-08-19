@@ -97,7 +97,7 @@ export default function ZodiacMatchPage() {
 
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">🐲 띠 궁합</h1>
+          <h1 className="page-h1">🐲 띠 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람의 띠로 보는 전통 궁합</p>
         </div>
 

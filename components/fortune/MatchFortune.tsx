@@ -225,7 +225,9 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
           <div className="text-5xl mb-2">{ICONS[kind]}</div>
-          <PageHero title={TITLES[kind][lang]} desc={LEADS[kind][lang]} />
+          <div className="hero-band">
+            <PageHero title={TITLES[kind][lang]} desc={LEADS[kind][lang]} />
+          </div>
         </div>
 
         <div className="space-y-4 mb-6">

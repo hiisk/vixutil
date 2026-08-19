@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 import { LOAN_METHOD } from '@/lib/calc-l10n/finance2';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { localeTag } from '@/lib/locales';
@@ -12,8 +12,19 @@ export default function LoanMethodIntl({ lang }: { lang: CalcLang }) {
   const [principal, setPrincipal] = useState('');
   const [rate, setRate] = useState('');
   const [months, setMonths] = useState('');
-  const [result, setResult] = useState<null | ReturnType<typeof compareAll>>(null);
 
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | ReturnType<typeof compareAll> = ((): null | ReturnType<typeof compareAll> => {
+    const loan = { principal: parseFloat(principal), annualRate: parseFloat(rate) || 0, months: parseFloat(months) };
+    if (!(loan.principal > 0) || !(loan.months > 0)) return null;
+    return (compareAll(loan));
+  
+    return null;
+  })();
   const fmt = (n: number) => Math.round(n).toLocaleString(tag);
   const methodLabel: Record<Method, string> = {
     'equal-payment': c.mEqualPayment,
@@ -21,11 +32,7 @@ export default function LoanMethodIntl({ lang }: { lang: CalcLang }) {
     'bullet': c.mBullet,
   };
 
-  function calculate() {
-    const loan = { principal: parseFloat(principal), annualRate: parseFloat(rate) || 0, months: parseFloat(months) };
-    if (!(loan.principal > 0) || !(loan.months > 0)) return;
-    setResult(compareAll(loan));
-  }
+
 
   const best = result ? result.reduce((a, b) => (a.totalInterest <= b.totalInterest ? a : b)) : null;
 
@@ -48,7 +55,6 @@ export default function LoanMethodIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={months} onChange={e => setMonths(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn>
         </div>
         <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
       </Card>

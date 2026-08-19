@@ -1,7 +1,15 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import { dti, maxPrincipal, type OtherDebt } from '@/lib/dti';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -10,28 +18,32 @@ const man = (n: number) => `${fmt(n / 10_000)}만원`;
 interface DebtRow { balance: string; rate: string }
 
 export default function DtiPage() {
-  const [income, setIncome] = useState('');
-  const [principal, setPrincipal] = useState('');
+  const [income, setIncome] = useState('60000000');
+  const [principal, setPrincipal] = useState('300000000');
   const [rate, setRate] = useState('4.5');
   const [years, setYears] = useState('30');
   const [graceYears, setGraceYears] = useState('0');
   const [limit, setLimit] = useState('40');
   const [debts, setDebts] = useState<DebtRow[]>([{ balance: '', rate: '' }]);
-  const [result, setResult] = useState<null | {
+
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     limitPercent: number;
     now: ReturnType<typeof dti>;
     max: ReturnType<typeof maxPrincipal>;
-  }>(null);
-
-  function updateDebt(i: number, field: keyof DebtRow, val: string) {
-    setDebts(prev => prev.map((d, idx) => (idx === i ? { ...d, [field]: val } : d)));
-  }
-
-  function calculate() {
+  } = ((): null | {
+    limitPercent: number;
+    now: ReturnType<typeof dti>;
+    max: ReturnType<typeof maxPrincipal>;
+  } => {
     const annualIncome = Number(income);
     const limitPercent = Number(limit);
     // 소득이 0이면 비율 자체가 정의되지 않는다 — 계산 전에 막는다
-    if (annualIncome <= 0 || limitPercent <= 0) return;
+    if (annualIncome <= 0 || limitPercent <= 0) return null;
 
     const annualRate = Number(rate);
     const months = Number(years) * 12;
@@ -41,7 +53,7 @@ export default function DtiPage() {
       .filter(d => Number(d.balance) > 0)
       .map(d => ({ balance: Number(d.balance), annualRate: Number(d.rate) || 0 }));
 
-    setResult({
+    return ({
       limitPercent,
       now: dti({
         annualIncome,
@@ -50,7 +62,14 @@ export default function DtiPage() {
       }),
       max: maxPrincipal({ annualIncome, limitPercent, annualRate, months, graceMonths, others }),
     });
+  
+    return null;
+  })();
+  function updateDebt(i: number, field: keyof DebtRow, val: string) {
+    setDebts(prev => prev.map((d, idx) => (idx === i ? { ...d, [field]: val } : d)));
   }
+
+
 
   const over = result ? result.now.dti > result.limitPercent : false;
 
@@ -204,7 +223,6 @@ export default function DtiPage() {
                 + 대출 추가
               </button>
             )}
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

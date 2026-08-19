@@ -89,8 +89,22 @@ test('가입 배너의 금액이 라이트에서 진하게 나온다', () => {
   // 대신 금액을 렌더하는 공용 카드의 className을 본다.
   const src = readFileSync(join(ROOT, 'components', 'ReferralCards.tsx'), 'utf8');
 
-  const cls = src.match(/className=\{`([^`]*)`\}[\s\S]{0,40}?\{copy\.bonus\}/)?.[1];
+  const cls = src.match(/className=\{`([^`]*)`\}[\s\S]{0,60}?\{copy\.bonus\}/)?.[1];
   assert.ok(cls, '배너 금액을 렌더하는 요소를 찾지 못함');
-  assert.match(cls, /text-\w+-[67]00/, `라이트에서 흐린 색을 쓰고 있다 — ${cls}`);
-  assert.match(cls, /dark:text-\w+-[1-4]00/, `다크 대응이 없다 — ${cls}`);
+
+  /*
+    ── «어느 단계를 써라»에서 «안 읽히는 단계를 쓰지 마라»로 (2026-08-19) ──
+    전에는 라이트에서 600·700단계만 허용했다. 그런데 지키려던 것은 그 단계가
+    아니라 «흰 판에서 읽히는가»다. 금액을 near-black(slate-900)으로 두는 편이
+    더 잘 읽히는데도 검사가 깨졌다 — 규칙이 답을 하나로 못 박고 있었다.
+
+    그래서 금지 쪽을 잰다. 라이트에서 옅은 단계, 다크에서 짙은 단계를 막는다.
+    처음 이 검사를 세우게 한 고장(흰 판에 amber-400 글자)은 그대로 걸린다.
+  */
+  const light = cls.match(/(?:^|\s)text-\w+-(\d{2,3})\b/)?.[1];
+  const dark = cls.match(/dark:text-\w+-(\d{2,3})\b/)?.[1];
+  assert.ok(light, `라이트 글자색이 없다 — ${cls}`);
+  assert.ok(dark, `다크 대응이 없다 — ${cls}`);
+  assert.ok(Number(light) >= 600, `라이트에서 흐린 색을 쓰고 있다(${light}) — ${cls}`);
+  assert.ok(Number(dark) <= 300, `다크에서 짙은 색을 쓰고 있다(${dark}) — ${cls}`);
 });

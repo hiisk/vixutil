@@ -70,7 +70,7 @@ export default function DeviceHubPage() {
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
           <ToolIcon emoji="🧰" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">기기 점검</h1>
+          <h1 className="page-h1">기기 점검</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             키보드·마우스·마이크·웹캠·스피커·모니터가 제대로 도는지
             <br className="sm:hidden" /> 브라우저에서 바로 확인하세요

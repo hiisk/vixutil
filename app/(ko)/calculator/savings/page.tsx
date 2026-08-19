@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -12,10 +12,24 @@ export default function SavingsPage() {
   const [monthly, setMonthly] = useState(500_000);
   const [rate, setRate] = useState('4');
   const [months, setMonths] = useState('24');
-  const [result, setResult] = useState<null | {
-    principal: number; interest: number; tax: number; total: number;
-  }>(null);
 
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
+    principal: number; interest: number; tax: number; total: number;
+  } = ((): null | {
+    principal: number; interest: number; tax: number; total: number;
+  } => {
+    const m = monthly;
+    const n = Number(months);
+    if (m <= 0 || Number(rate) <= 0 || n <= 0) return null;
+    return (calcSavings({ monthly: m, annualRate: Number(rate), months: n }));
+  
+    return null;
+  })();
   /*
    * ── 셈을 lib으로 옮겼다 (2026-08-12) ──────────────────────
    * 전에는 이 함수 안에 식과 세율 0.154가 직접 적혀 있었다. 클라이언트
@@ -23,12 +37,7 @@ export default function SavingsPage() {
    * 취득세 계산기에서 그 구조 때문에 100배 버그가 검사 3,013개를 통과했다.
    * 이제 lib/savings.ts가 갖고 tests/savings.test.ts가 되짚는다.
    */
-  function calculate() {
-    const m = monthly;
-    const n = Number(months);
-    if (m <= 0 || Number(rate) <= 0 || n <= 0) return;
-    setResult(calcSavings({ monthly: m, annualRate: Number(rate), months: n }));
-  }
+
 
   return (
     <CalcShell
@@ -82,7 +91,6 @@ export default function SavingsPage() {
                 ))}
               </select>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

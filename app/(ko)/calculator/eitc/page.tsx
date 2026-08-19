@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, TabBar, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, TabBar, inputCls } from '@/components/CalcShell';
 import {
   HALF_RATIO, LATE_RATIO, HOUSEHOLD_LABEL,
   type Household, type Phase,
@@ -44,19 +44,26 @@ export default function EitcPage() {
   const [asset, setAsset] = useState('0');
   const [lateApply, setLateApply] = useState(false);
 
-  const [result, setResult] = useState<null | {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     r: ReturnType<typeof calcEitc>;
     /** 지금 소득에서 100만원을 더 벌면 근로장려금이 얼마 움직이나 */
     slope: number;
     /** 자녀 수를 곱한 자녀장려금 최대액 — 결과에서 견주려고 들고 있는다 */
     childCap: number;
     workCap: number;
-  }>(null);
-
-  // 자녀장려금은 홑벌이·맞벌이에만 있다 — 단독가구에서는 입력칸부터 안 보인다
-  const hasChildCredit = household !== 'single';
-
-  function calculate() {
+  } = ((): null | {
+    r: ReturnType<typeof calcEitc>;
+    /** 지금 소득에서 100만원을 더 벌면 근로장려금이 얼마 움직이나 */
+    slope: number;
+    /** 자녀 수를 곱한 자녀장려금 최대액 — 결과에서 견주려고 들고 있는다 */
+    childCap: number;
+    workCap: number;
+  } => {
     const work = {
       ceiling: Number(ceiling || 0),
       max: Number(maxAmount || 0),
@@ -64,7 +71,7 @@ export default function EitcPage() {
       plateauEnd: Number(plateauEnd || 0),
       floor: 0,
     };
-    if (work.ceiling <= 0 || work.max <= 0) return;
+    if (work.ceiling <= 0 || work.max <= 0) return null;
 
     // 자녀장려금 고시값을 안 넣었으면 근로장려금만 낸다 — 없는 값을 지어내지 않는다
     const childGiven = Number(childCeiling) > 0 && Number(childMax) > 0;
@@ -92,13 +99,20 @@ export default function EitcPage() {
     };
 
     const n = Math.max(0, Math.floor(input.children));
-    setResult({
+    return ({
       r: calcEitc(input),
       slope: marginalRate(work, input.earnedIncome) * 1_000_000,
       childCap: child && household !== 'single' ? perChild(child, n).max : 0,
       workCap: work.max,
     });
-  }
+  
+    return null;
+  })();
+
+  // 자녀장려금은 홑벌이·맞벌이에만 있다 — 단독가구에서는 입력칸부터 안 보인다
+  const hasChildCredit = household !== 'single';
+
+
 
   return (
     <CalcShell
@@ -316,8 +330,6 @@ export default function EitcPage() {
                 className="w-4 h-4 accent-blue-600" />
               신청 기한을 놓친 기한 후 신청 ({LATE_RATIO * 100}%만 지급)
             </label>
-
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

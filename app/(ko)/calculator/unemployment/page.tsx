@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
+  Card, CardHeader, Label, inputCls, SummaryCard,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
@@ -50,13 +50,19 @@ export default function UnemploymentPage() {
   const [insuredYears, setInsuredYears] = useState('');
   const [insuredMonths, setInsuredMonths] = useState('');
   const [over50, setOver50] = useState(false);
-  const [result, setResult] = useState<null | {
-    dailyWage: number; dailyBenefit: number; days: number; total: number; monthly: number;
-  }>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
+    dailyWage: number; dailyBenefit: number; days: number; total: number; monthly: number;
+  } = ((): null | {
+    dailyWage: number; dailyBenefit: number; days: number; total: number; monthly: number;
+  } => {
     const monthly = salary * 10000;
-    if (!monthly || monthly <= 0) return;
+    if (!monthly || monthly <= 0) return null;
     const years = Number(insuredYears || 0);
     const months = Number(insuredMonths || 0);
     const totalYears = years + months / 12;
@@ -68,8 +74,11 @@ export default function UnemploymentPage() {
     const total      = dailyBenefit * days;
     const monthlyEst = Math.round(total / (days / 30));
 
-    setResult({ dailyWage, dailyBenefit, days, total, monthly: monthlyEst });
-  }
+    return ({ dailyWage, dailyBenefit, days, total, monthly: monthlyEst });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -159,8 +168,6 @@ export default function UnemploymentPage() {
             </button>
           ))}
         </div>
-
-        <PrimaryBtn onClick={calculate}>실업급여 계산하기</PrimaryBtn>
       </Card>
 
       {result && (

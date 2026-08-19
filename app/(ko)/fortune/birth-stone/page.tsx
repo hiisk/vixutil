@@ -43,7 +43,7 @@ export default function BirthStonePage() {
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
           <ToolIcon emoji="💎" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">탄생석·탄생화</h1>
+          <h1 className="page-h1">탄생석·탄생화</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">태어난 달의 보석과 꽃, 그리고 그 의미를 확인하세요</p>
         </div>
 

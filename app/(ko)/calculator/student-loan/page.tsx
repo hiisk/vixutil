@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import AreaChart from '@/components/AreaChart';
 import Link from 'next/link';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, ShowMoreBtn, SummaryCard, SummaryGrid, TableWrap,
@@ -243,6 +244,11 @@ export default function StudentLoanPage() {
 
             <Card>
               <CardHeader title="취업 후 상환 — 연도별" sub={`${icl.years.length}년`} />
+              {/* 「잔액이 줄지 않고 오히려 늘어납니다」는 이 화면의 핵심 문장이다.
+                  그 사실은 문장보다 선이 먼저 말한다 */}
+              <div className="px-5 pt-4">
+                <AreaChart values={icl.years.map(y => y.balance)} label="남은 잔액" from="1년" to={`${icl.years.length}년`} />
+              </div>
               <TableWrap>
                 <table className="w-full text-sm">
                   <thead>

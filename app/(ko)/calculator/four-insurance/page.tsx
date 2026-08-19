@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, Label, PrimaryBtn, SummaryGrid, SummaryCard, TabBar, TableWrap, RatioBar,
+  Card, Label, SummaryGrid, SummaryCard, TabBar, TableWrap, RatioBar,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
@@ -97,11 +97,18 @@ export default function FourInsurancePage() {
   const [salary, setSalary] = useState(3_500_000);
   const [tab, setTab] = useState<TabValue>('employee');
 
-  const [result, setResult] = useState<InsuranceResult | null>(null);
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: InsuranceResult | null = ((): InsuranceResult | null => {
+    if (salary > 0) return (calcInsurance(salary));
+  
+    return null;
+  })();
 
-  function calculate() {
-    if (salary > 0) setResult(calcInsurance(salary));
-  }
+
 
   function getRows(): TableRow[] {
     if (!result) return [];
@@ -178,9 +185,6 @@ export default function FourInsurancePage() {
               onChange={setSalary}
               placeholder="예: 3,500,000"
             />
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

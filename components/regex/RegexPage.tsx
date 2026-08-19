@@ -97,7 +97,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={REGEX_ICON} className="w-7 h-7" />
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 mb-1">{what}</h1>
+          <h1 className="page-h1">{what}</h1>
           <p className="note-sm">{ui.desc(f, what)}</p>
         </div>
 

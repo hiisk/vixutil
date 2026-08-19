@@ -100,7 +100,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji="⚖️" className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-3">{name}</h1>
+          <h1 className="page-h1">{name}</h1>
           <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
             {volumes.filter(v => v.hero).map(v => (
               <div key={v.label} className="rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-3 py-3">

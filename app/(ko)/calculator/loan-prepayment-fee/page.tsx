@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
@@ -19,25 +19,37 @@ export default function LoanPrepaymentFeePage() {
   const [termMonths, setTermMonths] = useState('36');
   const [elapsedMonths, setElapsedMonths] = useState('12');
 
-  const [result, setResult] = useState<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     fee: number;
     remainingMonths: number;
     remainingRatio: number;
     usedRate: number;
-  } | null>(null);
-
-  function calculate() {
+  } | null = ((): {
+    fee: number;
+    remainingMonths: number;
+    remainingRatio: number;
+    usedRate: number;
+  } | null => {
     const term = Number(termMonths);
     const elapsed = Number(elapsedMonths);
     const usedRate = rate !== null ? rate : Number(customRate);
-    if (!principal || !term || !usedRate || elapsed < 0) return;
+    if (!principal || !term || !usedRate || elapsed < 0) return null;
 
     const remainingMonths = Math.max(0, term - elapsed);
     const remainingRatio = term > 0 ? remainingMonths / term : 0;
     const fee = principal * (usedRate / 100) * remainingRatio;
 
-    setResult({ fee, remainingMonths, remainingRatio, usedRate });
-  }
+    return ({ fee, remainingMonths, remainingRatio, usedRate });
+  
+    return null;
+  })();
+
+
 
   function handleRateBtn(r: number) {
     setRate(r);
@@ -129,9 +141,6 @@ export default function LoanPrepaymentFeePage() {
                 />
               </div>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

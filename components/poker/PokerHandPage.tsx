@@ -103,7 +103,9 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
 
         <div className="text-center mb-6">
           <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">{ui.kind[f.kind]} · {ui.tier[f.tier]}</p>
-          <PageHero title={f.label} desc={ui.tierNote[f.tier]} />
+          <div className="hero-band">
+            <PageHero title={f.label} desc={ui.tierNote[f.tier]} />
+          </div>
         </div>
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">

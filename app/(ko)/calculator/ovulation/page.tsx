@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -18,12 +18,18 @@ export default function OvulationPage() {
   const [lastPeriod, setLastPeriod] = useState('');
   const [cycle, setCycle] = useState('28');
   const [periodDays, setPeriodDays] = useState('5');
-  const [result, setResult] = useState<null | {
-    nextPeriod: Date; ovulation: Date; fertilityStart: Date; fertilityEnd: Date; safeEnd: Date;
-  }>(null);
 
-  function calculate() {
-    if (!lastPeriod) return;
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
+    nextPeriod: Date; ovulation: Date; fertilityStart: Date; fertilityEnd: Date; safeEnd: Date;
+  } = ((): null | {
+    nextPeriod: Date; ovulation: Date; fertilityStart: Date; fertilityEnd: Date; safeEnd: Date;
+  } => {
+    if (!lastPeriod) return null;
     const last = new Date(lastPeriod);
     const c = Number(cycle);
     const pd = Number(periodDays);
@@ -34,8 +40,11 @@ export default function OvulationPage() {
     const fertilityEnd = addDays(ovulation, 1);
     const safeEnd = addDays(last, pd);
 
-    setResult({ nextPeriod, ovulation, fertilityStart, fertilityEnd, safeEnd });
-  }
+    return ({ nextPeriod, ovulation, fertilityStart, fertilityEnd, safeEnd });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -96,7 +105,6 @@ export default function OvulationPage() {
                 </select>
               </div>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

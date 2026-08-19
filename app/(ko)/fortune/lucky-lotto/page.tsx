@@ -70,7 +70,7 @@ export default function LuckyLottoPage() {
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
           <ToolIcon emoji="🍀" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">행운의 로또 번호</h1>
+          <h1 className="page-h1">행운의 로또 번호</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">생년월일로 보는 오늘의 행운 번호 — 매일 자정 새로 바뀝니다</p>
         </div>
 

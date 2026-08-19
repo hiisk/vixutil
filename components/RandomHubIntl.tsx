@@ -38,7 +38,9 @@ export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <PageHero title={ui.hubTitle} desc={ui.hubLead} />
+        <div className="hero-band">
+          <PageHero title={ui.hubTitle} desc={ui.hubLead} />
+        </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {RANDOM_TOOLS.map(t => {

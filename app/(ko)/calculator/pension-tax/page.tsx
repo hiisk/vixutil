@@ -1,7 +1,15 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 import {
   PENSION_DEDUCTION_CAP, PRIVATE_OVER_RATE, PRIVATE_SEPARATE_LIMIT,
   calcPensionTax, pensionDeduction, spreadTable,
@@ -13,19 +21,26 @@ const man = (n: number) => `${fmt(n / 10_000)}만원`;
 const SPREAD_YEARS = [5, 10, 15, 20];
 
 export default function PensionTaxPage() {
-  const [publicMonthly, setPublicMonthly] = useState('');
+  const [publicMonthly, setPublicMonthly] = useState('1200000');
   const [privateAnnual, setPrivateAnnual] = useState('0');
   const [age, setAge] = useState('65');
   const [otherIncome, setOtherIncome] = useState('0');
   const [personalDeduction, setPersonalDeduction] = useState('1500000');
   const [privateTotal, setPrivateTotal] = useState('');
-  const [result, setResult] = useState<null | {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     r: ReturnType<typeof calcPensionTax>;
     publicAnnual: number;
     spread: ReturnType<typeof spreadTable> | null;
-  }>(null);
-
-  function calculate() {
+  } = ((): null | {
+    r: ReturnType<typeof calcPensionTax>;
+    publicAnnual: number;
+    spread: ReturnType<typeof spreadTable> | null;
+  } => {
     const publicAnnual = Number(publicMonthly || 0) * 12;
     const input = {
       publicAnnual,
@@ -34,14 +49,18 @@ export default function PensionTaxPage() {
       otherIncome: Number(otherIncome || 0),
       personalDeduction: Number(personalDeduction || 0),
     };
-    if (publicAnnual <= 0 && input.privateAnnual <= 0) return;
+    if (publicAnnual <= 0 && input.privateAnnual <= 0) return null;
     const total = Number(privateTotal || 0);
-    setResult({
+    return ({
       r: calcPensionTax(input),
       publicAnnual,
       spread: total > 0 ? spreadTable(input, total, SPREAD_YEARS) : null,
     });
-  }
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -130,7 +149,6 @@ export default function PensionTaxPage() {
               <input type="number" value={privateTotal} onChange={e => setPrivateTotal(e.target.value)}
                 placeholder="나눠 받기 비교용 · 예: 150000000" className={inputCls} min="0" />
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

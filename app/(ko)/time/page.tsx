@@ -70,7 +70,7 @@ export default function TimeHubPage() {
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
           <ToolIcon emoji="⏰" title="시간 도구" color="#0ea5e9" accent="#f43f5e" className="w-14 h-14 mx-auto mb-4" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">시간 도구</h1>
+          <h1 className="page-h1">시간 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             재는 것과 세는 것
             <br className="sm:hidden" /> — 탭 하나면 됩니다

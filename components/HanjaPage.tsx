@@ -99,7 +99,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
             <p className="text-base font-bold text-white/85 mt-3">{i.reading}</p>
             <p className="text-xs text-white/65 mt-1">{i.pinyin}</p>
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 mt-5">
+          <h1 className="page-h1 mt-5">
             {idiomHeading(i, lang)}
           </h1>
         </div>

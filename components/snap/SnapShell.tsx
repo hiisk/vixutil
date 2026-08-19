@@ -404,7 +404,9 @@ export default function SnapShell<T>({
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">{icon}</div>
-          <PageHero title={title} desc={lead} />
+          <div className="hero-band">
+            <PageHero title={title} desc={lead} />
+          </div>
         </div>
 
         <div className={`${theme.notice} rounded-2xl p-4 mb-6 text-xs leading-relaxed`}>

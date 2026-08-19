@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
+  Card, CardHeader, Label, inputCls, SummaryCard,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
@@ -13,11 +13,18 @@ export default function SalaryPage() {
   const [annual, setAnnual] = useState(40_000_000);
   const [dependents, setDependents] = useState('1');
   const [mealExempt, setMealExempt] = useState(false);
-  const [result, setResult] = useState<SalaryResult | null>(null);
 
-  function calculate() {
-    if (annual > 0) setResult(calcSalary(annual, Number(dependents) || 1, mealExempt));
-  }
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: SalaryResult | null = ((): SalaryResult | null => {
+    if (annual > 0) return (calcSalary(annual, Number(dependents) || 1, mealExempt));
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -80,24 +87,25 @@ export default function SalaryPage() {
               </label>
             </div>
           </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-          </div>
         </Card>
 
         {result && (
           <>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="col-span-2 sm:col-span-1 stat-pri">
+            {/*
+              답이 한 줄을 통째로 쓰고 곁 숫자가 그 아래 나란히 선다.
+              예전에는 키 큰 답 칸 «옆»에 둘을 세로로 붙이는 구조였는데, 답이
+              격자 한 줄을 쓰게 되면서 그 세로 묶음이 왼쪽에만 남았다.
+              묶음을 풀어 격자의 형제로 두면 칸 수에 상관없이 줄이 맞는다.
+            */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="stat-pri">
                 <p className="stat-label">월 실수령액</p>
                 <p className="stat-value">{fmt(result.netMonthly)}원</p>
                 <p className="stat-sub">연 {fmt(result.netAnnual)}원</p>
               </div>
-              <div className="flex flex-col gap-2">
-                <SummaryCard label="월 세전 급여" value={`${fmt(result.monthly)}원`} />
-                <SummaryCard label="실효 공제율" value={`${result.effectiveRate.toFixed(1)}%`} variant="red"
-                  sub={`월 -${fmt(result.totalDeduction)}원`} />
-              </div>
+              <SummaryCard label="월 세전 급여" value={`${fmt(result.monthly)}원`} />
+              <SummaryCard label="실효 공제율" value={`${result.effectiveRate.toFixed(1)}%`} variant="red"
+                sub={`월 -${fmt(result.totalDeduction)}원`} />
             </div>
 
             <Card>

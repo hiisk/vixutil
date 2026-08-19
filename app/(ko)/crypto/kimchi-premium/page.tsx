@@ -61,7 +61,7 @@ export default function KimchiPremiumPage() {
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="🇰🇷" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-1.5">김치 프리미엄 실시간</h1>
+          <h1 className="page-h1">김치 프리미엄 실시간</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             업비트 · 빗썸 원화 시세를 바이낸스 달러 시세와 비교합니다
           </p>

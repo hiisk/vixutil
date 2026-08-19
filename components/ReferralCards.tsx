@@ -215,12 +215,21 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
               */
               data-ref-id={r.id}
               data-ref-sub={subId}
-              className={`group relative overflow-hidden rounded-2xl p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
+              /*
+                ── 노란 판을 걷었다 (2026-08-19) ──────────────────
+                1위 카드가 노란 테두리에 노란 바탕이라, 화면에서 제일 센 것이
+                도구가 아니라 광고였다. 도구를 쓰러 온 사람에게 그 순서는 틀렸고,
+                노란 광고판은 «비싼 화면»에서 안 보이는 물건이다.
+
+                판은 다른 카드와 같은 흰 판으로 두고, **색은 누를 자리에만** 남긴다.
+                버튼은 그대로 노랗다 — 노출을 줄인 게 아니라 시끄러움만 줄였다.
+              */
+              className={`group relative overflow-hidden rounded-xl border p-4 transition-all duration-150 hover:-translate-y-0.5 ${
                 railIds.has(r.id) ? 'xl:hidden ' : ''
               }${
                 top
-                  ? 'border border-amber-400 dark:border-amber-500/60 bg-amber-50 dark:bg-amber-500/10 hover:shadow-amber-500/20'
-                  : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 hover:shadow-amber-500/10'
+                  ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 dark:hover:border-amber-600/60'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 dark:hover:border-amber-600/60'
               }`}
             >
               {/*
@@ -237,16 +246,12 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
                   <span className="flex flex-wrap items-center gap-y-1 gap-2">
                     <BrandMark id={r.id} />
                     <span
-                      className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-black ${
-                        top
-                          ? 'bg-amber-400 text-slate-950'
-                          : 'bg-slate-800 dark:bg-slate-700 text-white'
-                      }`}
+                      className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-[10px] font-bold text-slate-500 dark:text-slate-400" 
                     >
                       🏆 {copy.rankLabel}
                     </span>
                   </span>
-                  <span className={`mt-1.5 block font-black leading-none text-amber-700 dark:text-amber-300 ${top ? 'text-[28px]' : 'text-[24px]'}`}>
+                  <span className={`mt-1.5 block font-black leading-none tabular-nums text-slate-900 dark:text-slate-50 ${top ? 'text-[26px]' : 'text-[22px]'}`}>
                     {copy.bonus}
                   </span>
                   <span className="mt-1.5 block text-xs leading-relaxed text-slate-600 dark:text-slate-400">
@@ -254,17 +259,14 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
                   </span>
                 </span>
 
-                <span
-                  className={`relative flex shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-xl px-5 py-3 text-sm font-black transition-colors sm:w-auto ${
-                    top
-                      ? 'bg-amber-400 text-slate-950 group-hover:bg-amber-300'
-                      : 'bg-slate-800 dark:bg-slate-700 text-white group-hover:bg-slate-900 dark:group-hover:bg-slate-600'
-                  }`}
-                >
-                  {/* 버튼 위를 스치는 광택 — 시선을 CTA로 끌어 클릭을 유도한다 */}
-                  <span aria-hidden="true" className="ref-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-white/40" />
-                  <span className="relative">{copy.cta}</span>
-                  <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
+                {/*
+                  광택 스윕을 뺐다 — 화면에서 끊임없이 움직이는 것이 제일 싸구려로
+                  읽힌다. 대신 이 버튼만 색을 갖는다(판은 흰색). 누를 자리가 화면에
+                  하나뿐이면 굳이 반짝이지 않아도 눈이 간다.
+                */}
+                <span className="relative flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-amber-400 px-5 py-2.5 text-sm font-bold text-slate-950 transition-colors duration-150 group-hover:bg-amber-300 sm:w-auto">
+                  <span>{copy.cta}</span>
+                  <span className="transition-transform duration-150 group-hover:translate-x-0.5">→</span>
                 </span>
               </span>
             </a>

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { principalFor } from '@/lib/loan-schedule';
 
@@ -13,30 +13,42 @@ export default function MaxLoanPage() {
   const [existing, setExisting] = useState(0);
   const [dti, setDti] = useState('40');
 
-  const [result, setResult] = useState<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     maxLoan: number;
     monthlyPayment: number;
     totalInterest: number;
     allowableMonthly: number;
-  } | null>(null);
-
-  function calculate() {
+  } | null = ((): {
+    maxLoan: number;
+    monthlyPayment: number;
+    totalInterest: number;
+    allowableMonthly: number;
+  } | null => {
     const income = annualIncome;
     const n = Number(loanYears) * 12;
     const existingMonthly = existing;
-    if (income <= 0 || Number(rate) <= 0) return;
+    if (income <= 0 || Number(rate) <= 0) return null;
 
     const monthlyIncome = income / 12;
     const allowableMonthly = monthlyIncome * Number(dti) / 100 - existingMonthly;
-    if (allowableMonthly <= 0) return;
+    if (allowableMonthly <= 0) return null;
 
     // 한도 역산은 lib/loan-schedule.ts의 principalFor 한 곳에서 온다
     const maxLoan = principalFor(allowableMonthly, Number(rate), n);
     const totalPayment = allowableMonthly * n;
     const totalInterest = totalPayment - maxLoan;
 
-    setResult({ maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly });
-  }
+    return ({ maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly });
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -102,9 +114,6 @@ export default function MaxLoanPage() {
                 <option value="60">60%</option>
               </select>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, inputCls,
+  Card, CardHeader, Label, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -15,17 +15,24 @@ const w = (n: number) => Math.round(n).toLocaleString();
 export default function MaintenanceFeePage() {
   const [area, setArea] = useState('84.95');
   const [fees, setFees] = useState<FeeInput>({});
-  const [result, setResult] = useState<MaintenanceResult | null>(null);
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: MaintenanceResult | null = ((): MaintenanceResult | null => {
+    const a = Number(area);
+    const r = calcMaintenance(fees, Number.isFinite(a) ? a : 0);
+    return (r.total > 0 ? r : null);
+  
+    return null;
+  })();
 
   function setFee(key: FeeKey, v: number) {
     setFees(prev => ({ ...prev, [key]: v }));
   }
 
-  function calculate() {
-    const a = Number(area);
-    const r = calcMaintenance(fees, Number.isFinite(a) ? a : 0);
-    setResult(r.total > 0 ? r : null);
-  }
+
 
   return (
     <CalcShell
@@ -109,8 +116,6 @@ export default function MaintenanceFeePage() {
             ))}
           </div>
         </Card>
-
-        <PrimaryBtn onClick={calculate}>관리비 분석</PrimaryBtn>
 
         {result && (
           <>

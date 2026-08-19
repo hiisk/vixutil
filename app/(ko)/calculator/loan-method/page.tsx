@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 import { ALL_METHODS, compareAll } from '@/lib/loan-schedule';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -12,13 +12,20 @@ export default function LoanMethodPage() {
   const [principal, setPrincipal] = useState('100000000');
   const [rate, setRate] = useState('5.4');
   const [months, setMonths] = useState('120');
-  const [result, setResult] = useState<null | ReturnType<typeof compareAll>>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | ReturnType<typeof compareAll> = ((): null | ReturnType<typeof compareAll> => {
     const loan = { principal: Number(principal), annualRate: Number(rate), months: Number(months) };
-    if (loan.principal <= 0 || loan.months <= 0) return;
-    setResult(compareAll(loan));
-  }
+    if (loan.principal <= 0 || loan.months <= 0) return null;
+    return (compareAll(loan));
+  
+    return null;
+  })();
+
 
   const best = result ? result.reduce((a, b) => (a.totalInterest <= b.totalInterest ? a : b)) : null;
 
@@ -73,7 +80,6 @@ export default function LoanMethodPage() {
                   placeholder="예: 120" className={inputCls} min="1" />
               </div>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

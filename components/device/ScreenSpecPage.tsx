@@ -106,7 +106,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={SCREEN_ICON} className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{sc.name}</h1>
+          <h1 className="page-h1">{sc.name}</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500">
             {ui.kindLabel[sc.kind]} · {v.className}
             {sc.year ? ` · ${sc.year}` : ''}

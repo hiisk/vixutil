@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import AreaChart from '@/components/AreaChart';
 import CalcShell, {
   Card, Label, inputCls, selectCls, PrimaryBtn,
   SummaryGrid, SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
@@ -175,6 +176,9 @@ export default function SimpleInterestPage() {
                 <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">기간별 이자 현황</p>
                 <span className="text-xs text-slate-400 dark:text-slate-500">세율 {(TAX_RATE * 100).toFixed(1)}% 적용</span>
               </div>
+              {/* 단리는 곧게 오른다 — 복리 곡선과 나란히 놓고 보면 차이가 분명해진다.
+                  TableWrap 안에 두면 가로 스크롤(min-width 480px)에 함께 묶인다 */}
+              <AreaChart className="mb-4" values={rows.map(r => r.balance)} from="시작" to={rows[rows.length - 1]?.label ?? ''} />
               <TableWrap>
                 <table className="calc-table">
                   <thead>

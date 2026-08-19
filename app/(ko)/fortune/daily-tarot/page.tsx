@@ -67,7 +67,7 @@ export default function DailyTarotPage() {
       <div className="max-w-lg mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <p className="text-xs font-bold text-amber-600 tracking-widest uppercase mb-1">Daily Tarot</p>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">오늘의 타로 한 장</h1>
+          <h1 className="page-h1">오늘의 타로 한 장</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             매일 자정, 당신을 위한 오늘의 카드가 바뀝니다
           </p>

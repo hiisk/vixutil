@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
+import { Card, Label, inputCls, selectCls } from '@/components/CalcShell';
 import { UNIT_TEMP } from '@/lib/calc-l10n/unit-temp';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 
@@ -57,14 +57,21 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
   const c = UNIT_TEMP[lang].ui;
   const [value, setValue] = useState('');
   const [unit, setUnit] = useState<TempUnit>('C');
-  const [result, setResult] = useState<{ C: number; F: number; K: number; R: number } | null>(null);
-
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: { C: number; F: number; K: number; R: number } | null = ((): { C: number; F: number; K: number; R: number } | null => {
     const n = parseFloat(value);
-    if (isNaN(n)) return;
+    if (isNaN(n)) return null;
     const cel = toCelsius(n, unit);
-    setResult({ C: cel, F: fromCelsius(cel, 'F'), K: fromCelsius(cel, 'K'), R: fromCelsius(cel, 'R') });
-  }
+    return ({ C: cel, F: fromCelsius(cel, 'F'), K: fromCelsius(cel, 'K'), R: fromCelsius(cel, 'R') });
+  
+    return null;
+  })();
+
+
 
   const band = result ? BANDS.find(b => result.C < b.max) ?? BANDS[BANDS.length - 1] : null;
 
@@ -83,9 +90,6 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
               {(Object.keys(UNIT_LABELS) as TempUnit[]).map(k => <option key={k} value={k}>{UNIT_LABELS[k]}</option>)}
             </select>
           </div>
-        </div>
-        <div className="mt-4">
-          <PrimaryBtn onClick={calculate}>{c.convert}</PrimaryBtn>
         </div>
       </Card>
 

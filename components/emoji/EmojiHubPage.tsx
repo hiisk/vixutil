@@ -65,7 +65,9 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg bg-sec-soft">
             <ToolIcon emoji={EM_ICON} className="w-8 h-8" />
           </div>
-          <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
+          <div className="hero-band">
+            <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
+          </div>
         </div>
 
         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3 mb-8">

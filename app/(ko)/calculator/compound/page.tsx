@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import AreaChart from '@/components/AreaChart';
 import CalcShell, {
   Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
   SummaryCard, SummaryGrid, RatioBar, TableWrap, ShowMoreBtn,
@@ -161,6 +162,11 @@ export default function CompoundPage() {
                 title="연도별 수익 현황"
                 sub={`${freq === 12 ? '월복리' : freq === 4 ? '분기복리' : '연복리'} 기준`}
               />
+              {/* 원금이 이자를 낳고 그 이자가 다시 이자를 낳는 모양은 표가 아니라
+                  곡선이 가팔라지는 것으로 읽힌다 — 이 계산기가 말하려는 것 자체다 */}
+              <div className="px-5 pt-4">
+                <AreaChart values={rows.map(r => r.balance)} from="시작" to={`${rows.length - 1}년 후`} />
+              </div>
               <TableWrap>
                 <table className="calc-table">
                   <thead>

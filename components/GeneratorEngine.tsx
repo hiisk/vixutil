@@ -93,7 +93,9 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
             <ToolIcon emoji={gen.icon} className="w-12 h-12 drop-shadow-md" />
           </div>
           <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
-          <PageHero title={gen.title} desc={gen.desc} />
+          <div className="hero-band">
+            <PageHero title={gen.title} desc={gen.desc} />
+          </div>
         </div>
 
         {/* 생성 버튼 */}

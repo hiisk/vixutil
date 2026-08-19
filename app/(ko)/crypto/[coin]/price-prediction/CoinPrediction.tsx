@@ -331,7 +331,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="flex items-center gap-3">
             <CoinLogo base={coin.base} size={44} />
             <div>
-              <h1 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">{coin.name} Price Prediction</h1>
+              <h1 className="page-h1">{coin.name} Price Prediction</h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
                 {coin.base} · Binance {marketOf(coin) === 'spot' ? 'spot' : 'futures'} · {m.samples + 1} daily closes
               </p>

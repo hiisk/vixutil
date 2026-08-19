@@ -1,6 +1,14 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, Label, inputCls, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -11,20 +19,28 @@ export default function RoiPage() {
   const [buy, setBuy] = useState(5_000_000);
   const [sell, setSell] = useState(7_000_000);
   const [fee, setFee] = useState(0);
-  const [years, setYears] = useState('');
+  const [years, setYears] = useState('3');
 
-  const [result, setResult] = useState<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     profit: number;
     roi: number;
     cagr?: number;
     isGain: boolean;
-  } | null>(null);
-
-  function calculate() {
+  } | null = ((): {
+    profit: number;
+    roi: number;
+    cagr?: number;
+    isGain: boolean;
+  } | null => {
     const b = buy;
     const s = sell;
     const f = fee;
-    if (b <= 0 || s <= 0) return;
+    if (b <= 0 || s <= 0) return null;
 
     const profit = s - b - f;
     const roi = (profit / b) * 100;
@@ -35,8 +51,12 @@ export default function RoiPage() {
       if (y > 0) cagr = (Math.pow(s / b, 1 / y) - 1) * 100;
     }
 
-    setResult({ profit, roi, cagr, isGain: profit >= 0 });
-  }
+    return ({ profit, roi, cagr, isGain: profit >= 0 });
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -102,9 +122,6 @@ export default function RoiPage() {
                   placeholder="예: 3" className={inputCls} min="0" step="0.5" />
               </div>
             )}
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

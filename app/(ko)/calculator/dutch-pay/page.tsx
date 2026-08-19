@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, TableWrap } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, TableWrap } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
 interface ExtraItem {
@@ -21,15 +21,23 @@ export default function DutchPayPage() {
 
   const peopleCount = Math.max(2, Math.min(20, Number(people) || 2));
 
-  const [result, setResult] = useState<Array<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: Array<{
     name: string;
     base: number;
     extra: number;
     total: number;
-  }> | null>(null);
-
-  function calculate() {
-    if (!total || peopleCount < 2) return;
+  }> | null = ((): Array<{
+    name: string;
+    base: number;
+    extra: number;
+    total: number;
+  }> | null => {
+    if (!total || peopleCount < 2) return null;
     const base = total / peopleCount;
     const rows = Array.from({ length: peopleCount }, (_, i) => ({
       name: `참여자 ${i + 1}`,
@@ -40,7 +48,7 @@ export default function DutchPayPage() {
 
     extras.forEach(ex => {
       const amt = ex.amount;
-      if (!amt) return;
+      if (!amt) return null;
       if (ex.payer === 'all') {
         const perPerson = amt / peopleCount;
         rows.forEach(r => { r.extra += perPerson; r.total += perPerson; });
@@ -53,8 +61,12 @@ export default function DutchPayPage() {
       }
     });
 
-    setResult(rows);
-  }
+    return (rows);
+  
+    return null;
+  })();
+
+
 
   function addExtra() {
     setExtras(prev => [...prev, { id: nextId++, name: '', amount: 0, payer: 'all' }]);
@@ -135,9 +147,6 @@ export default function DutchPayPage() {
                 />
               </div>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

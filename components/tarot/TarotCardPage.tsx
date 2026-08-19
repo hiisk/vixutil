@@ -98,7 +98,9 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={TAROT_ICON} className="w-7 h-7" />
           </div>
-          <PageHero title={v.name} desc={v.kindLine} />
+          <div className="hero-band">
+            <PageHero title={v.name} desc={v.kindLine} />
+          </div>
         </div>
 
         <section className="grid gap-3 mb-6">

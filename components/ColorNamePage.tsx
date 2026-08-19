@@ -129,7 +129,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
           style={{ background: color.hex, color: onColor }}
           data-color-swatch
         >
-          <h1 className="text-3xl sm:text-4xl font-black mb-1">{name}</h1>
+          <h1 className="page-h1">{name}</h1>
           {/* 이 화면에 오는 사람이 가지러 온 것 — 눌러서 가져간다. `cv` 두 글자다 */}
           <p className="cv text-lg font-black tabular-nums opacity-90">{f.hex.toUpperCase()}</p>
         </div>

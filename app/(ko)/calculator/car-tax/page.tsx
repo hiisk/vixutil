@@ -1,6 +1,14 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, CardHeader, Label, inputCls, TabBar } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -19,23 +27,29 @@ function getAgeDiscount(years: number): number {
 
 export default function CarTaxPage() {
   const [type, setType] = useState<'ice' | 'ev' | 'hybrid'>('ice');
-  const [cc, setCc] = useState('');
+  const [cc, setCc] = useState('2000');
   const [age, setAge] = useState('0');
-  const [result, setResult] = useState<null | {
-    base: number; discount: number; afterDiscount: number; eduTax: number; total: number; earlyDiscount: number;
-  }>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
+    base: number; discount: number; afterDiscount: number; eduTax: number; total: number; earlyDiscount: number;
+  } = ((): null | {
+    base: number; discount: number; afterDiscount: number; eduTax: number; total: number; earlyDiscount: number;
+  } => {
     let base = 0;
     if (type === 'ev') {
       base = 100_000;
     } else if (type === 'hybrid') {
       const c = Number(cc);
-      if (c <= 0) return;
+      if (c <= 0) return null;
       base = c * getRate(c) * 0.85;
     } else {
       const c = Number(cc);
-      if (c <= 0) return;
+      if (c <= 0) return null;
       base = c * getRate(c);
     }
 
@@ -45,8 +59,11 @@ export default function CarTaxPage() {
     const eduTax = afterDiscount * 0.3;
     const total = afterDiscount + eduTax;
     const earlyDiscount = total * 0.0915;
-    setResult({ base, discount, afterDiscount, eduTax, total, earlyDiscount });
-  }
+    return ({ base, discount, afterDiscount, eduTax, total, earlyDiscount });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -92,7 +109,7 @@ export default function CarTaxPage() {
             { value: 'hybrid', label: '하이브리드' },
           ]}
           value={type}
-          onChange={v => { setType(v as 'ice' | 'ev' | 'hybrid'); setResult(null); }}
+          onChange={v => { setType(v as 'ice' | 'ev' | 'hybrid'); }}
         />
         <Card className="p-5">
           <div className="flex flex-col gap-3">
@@ -118,7 +135,6 @@ export default function CarTaxPage() {
                 <option value="12">12년 이상 (50% 감면)</option>
               </select>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

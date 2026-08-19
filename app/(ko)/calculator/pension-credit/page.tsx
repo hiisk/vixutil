@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, selectCls,
+  Card, CardHeader, Label, selectCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -15,12 +15,19 @@ export default function PensionCreditPage() {
   const [income, setIncome] = useState(0);
   const [savings, setSavings] = useState(0);
   const [irp, setIrp] = useState(0);
-  const [result, setResult] = useState<PensionCreditResult | null>(null);
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: PensionCreditResult | null = ((): PensionCreditResult | null => {
+    if (savings <= 0 && irp <= 0) return null;
+    return (calcPensionCredit({ incomeType, income, savings, irp }));
+  
+    return null;
+  })();
 
-  function calculate() {
-    if (savings <= 0 && irp <= 0) return;
-    setResult(calcPensionCredit({ incomeType, income, savings, irp }));
-  }
+
 
   const cap = PENSION_RULES.cap[incomeType];
   const incomeLabel = incomeType === 'salary' ? '총급여' : '종합소득금액';
@@ -62,7 +69,7 @@ export default function PensionCreditPage() {
               <Label>소득 구분</Label>
               <select
                 value={incomeType}
-                onChange={e => { setIncomeType(e.target.value as IncomeType); setResult(null); }}
+                onChange={e => { setIncomeType(e.target.value as IncomeType); }}
                 className={selectCls}
               >
                 <option value="salary">근로자 (총급여 기준)</option>
@@ -93,8 +100,6 @@ export default function PensionCreditPage() {
                 연금저축과 합쳐 {man(PENSION_RULES.totalLimit)}까지 공제받을 수 있습니다.
               </p>
             </div>
-
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

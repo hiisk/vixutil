@@ -195,7 +195,9 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="💞" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <PageHero title={ui.title} desc={ui.lead} />
+          <div className="hero-band">
+            <PageHero title={ui.title} desc={ui.lead} />
+          </div>
         </div>
 
         <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-2xl p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">

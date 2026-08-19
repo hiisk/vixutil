@@ -1,8 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn,
-  SummaryCard, SummaryGrid,
+  Card, CardHeader, Label, SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { calcRentalIncomeTax, type RentalIncomeTaxResult } from '@/lib/rental-income-tax';
@@ -13,17 +12,24 @@ export default function RentalIncomeTaxPage() {
   const [annualRent, setAnnualRent] = useState(12_000_000);
   const [registered, setRegistered] = useState(false);
   const [otherOver, setOtherOver] = useState(false);
-  const [result, setResult] = useState<RentalIncomeTaxResult | null>(null);
 
-  function calculate() {
-    if (annualRent <= 0) return;
-    setResult(calcRentalIncomeTax({
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: RentalIncomeTaxResult | null = ((): RentalIncomeTaxResult | null => {
+    if (annualRent <= 0) return null;
+    return (calcRentalIncomeTax({
       annualRent,
       registered,
       // 공제 판정에는 2천만원 초과 여부만 쓰이므로 경계 위/아래 대표값을 넘긴다.
       otherIncome: otherOver ? 20_000_001 : 0,
     }));
-  }
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -122,8 +128,6 @@ export default function RentalIncomeTaxPage() {
             </div>
           </div>
         </Card>
-
-        <PrimaryBtn onClick={calculate}>임대소득세 계산</PrimaryBtn>
 
         {result && (
           <>

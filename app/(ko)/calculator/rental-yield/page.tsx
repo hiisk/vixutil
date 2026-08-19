@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, inputCls,
+  Card, CardHeader, Label, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -19,15 +19,22 @@ export default function RentalYieldPage() {
   const [loan, setLoan] = useState(0);
   const [loanRate, setLoanRate] = useState('4.0');
   const [monthlyCost, setMonthlyCost] = useState(0);
-  const [result, setResult] = useState<RentalResult | null>(null);
 
-  function calculate() {
-    if (price <= 0) return;
-    setResult(calcRentalYield({
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: RentalResult | null = ((): RentalResult | null => {
+    if (price <= 0) return null;
+    return (calcRentalYield({
       price, deposit, monthlyRent, acquisitionCost,
       loan, loanRate: Number(loanRate) || 0, monthlyCost,
     }));
-  }
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -116,8 +123,6 @@ export default function RentalYieldPage() {
             </div>
           </div>
         </Card>
-
-        <PrimaryBtn onClick={calculate}>수익률 계산</PrimaryBtn>
 
         {result && (
           <>

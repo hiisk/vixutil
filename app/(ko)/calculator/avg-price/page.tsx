@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -25,18 +25,28 @@ export default function AvgPricePage() {
     setRows(prev => prev.map((r, idx) => idx === i ? { ...r, qty: val } : r));
   }
 
-  const [result, setResult] = useState<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     avgPrice: number;
     totalQty: number;
     totalInvest: number;
     evalAmount?: number;
     evalProfit?: number;
     evalRate?: number;
-  } | null>(null);
-
-  function calculate() {
+  } | null = ((): {
+    avgPrice: number;
+    totalQty: number;
+    totalInvest: number;
+    evalAmount?: number;
+    evalProfit?: number;
+    evalRate?: number;
+  } | null => {
     const valid = rows.filter(r => r.price > 0 && Number(r.qty) > 0);
-    if (valid.length === 0) return;
+    if (valid.length === 0) return null;
     const totalInvest = valid.reduce((s, r) => s + r.price * Number(r.qty), 0);
     const totalQty = valid.reduce((s, r) => s + Number(r.qty), 0);
     const avgPrice = totalInvest / totalQty;
@@ -50,8 +60,12 @@ export default function AvgPricePage() {
       res.evalProfit = (cp - avgPrice) * totalQty;
       res.evalRate = (cp / avgPrice - 1) * 100;
     }
-    setResult(res);
-  }
+    return (res);
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -119,9 +133,6 @@ export default function AvgPricePage() {
           <div className="px-4 pb-4">
             <Label>현재가 (손익 계산용, 선택)</Label>
             <CommaInput value={currentPrice} onChange={setCurrentPrice} placeholder="현재 가격 입력" />
-            <div className="mt-4">
-              <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-            </div>
           </div>
         </Card>
 

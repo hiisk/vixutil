@@ -52,7 +52,9 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
         </header>
 
         <main className="max-w-2xl mx-auto px-4 py-10">
-          <PageHero title={ui.hubTitle} desc={ui.hubLead} />
+          <div className="hero-band">
+            <PageHero title={ui.hubTitle} desc={ui.hubLead} />
+          </div>
 
           {CALC_GROUPS.map(g => (
             <section key={g.id} className="mb-8">

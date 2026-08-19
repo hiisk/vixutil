@@ -490,7 +490,9 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
             <ToolIcon emoji={checklist.icon} className="w-10 h-10 drop-shadow-md" />
           </div>
           <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
-          <PageHero title={checklist.title} desc={checklist.desc} />
+          <div className="hero-band">
+            <PageHero title={checklist.title} desc={checklist.desc} />
+          </div>
 
           <div className="bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden mb-1.5">
             <div

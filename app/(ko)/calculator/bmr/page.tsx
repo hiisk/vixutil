@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -9,19 +9,26 @@ export default function BmrPage() {
   const [age, setAge] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
-  const [result, setResult] = useState<null | { harris: number; mifflin: number }>(null);
-
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | { harris: number; mifflin: number } = ((): null | { harris: number; mifflin: number } => {
     const a = Number(age); const h = Number(height); const w = Number(weight);
-    if (a <= 0 || h <= 0 || w <= 0) return;
+    if (a <= 0 || h <= 0 || w <= 0) return null;
     const harris = gender === 'male'
       ? 88.362 + 13.397 * w + 4.799 * h - 5.677 * a
       : 447.593 + 9.247 * w + 3.098 * h - 4.330 * a;
     const mifflin = gender === 'male'
       ? 10 * w + 6.25 * h - 5 * a + 5
       : 10 * w + 6.25 * h - 5 * a - 161;
-    setResult({ harris, mifflin });
-  }
+    return ({ harris, mifflin });
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -86,7 +93,6 @@ export default function BmrPage() {
                 <input type="number" value={weight} onChange={e => setWeight(e.target.value)} placeholder="kg" className={inputCls} min="0" />
               </div>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

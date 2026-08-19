@@ -89,7 +89,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
 
       <div className="max-w-5xl mx-auto px-4 py-10">
         <p className="text-xs font-bold text-sky-600 tracking-widest uppercase mb-2">{ui.eyebrow}</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.h1}</h1>
+        <h1 className="page-h1">{ui.h1}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
           {ui.leadA}<strong className="text-slate-700 dark:text-slate-200">{ui.leadB}</strong>{ui.leadC}
         </p>

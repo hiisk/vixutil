@@ -70,7 +70,7 @@ export default function ImageHubPage() {
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
           <ToolIcon emoji="🖼️" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">이미지 도구</h1>
+          <h1 className="page-h1">이미지 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             용량 줄이기·크기 조절·자르기·모자이크까지
             <br className="sm:hidden" /> 사진을 올리지 않고 브라우저에서 바로

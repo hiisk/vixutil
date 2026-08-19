@@ -140,8 +140,10 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <PageHero icon={meta.icon} title={title} desc={PROMPTS[kind][lang]} />
+        <div className="mb-6">
+          <div className="hero-band">
+            <PageHero icon={meta.icon} title={title} desc={PROMPTS[kind][lang]} />
+          </div>
         </div>
 
         <div className={`grid ${meta.cols} gap-2 mb-6`}>

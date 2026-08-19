@@ -94,7 +94,7 @@ export default function TarotYesNoPage() {
       <div className="max-w-lg mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <p className="text-xs font-bold text-violet-600 tracking-widest uppercase mb-1">Yes or No Tarot</p>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">타로 예스/노</h1>
+          <h1 className="page-h1">타로 예스/노</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             궁금한 것을 마음속으로 떠올리고, 카드 한 장으로 답을 받아보세요
           </p>

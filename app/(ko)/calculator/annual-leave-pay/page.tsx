@@ -1,7 +1,15 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard, TableWrap,
+  Card, CardHeader, Label, inputCls, SummaryGrid, SummaryCard, TableWrap,
 } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -23,33 +31,40 @@ interface Result {
 
 export default function AnnualLeavePayPage() {
   const [mode, setMode] = useState<'monthly' | 'direct'>('monthly');
-  const [monthlySalary, setMonthlySalary] = useState('');
-  const [directDailyWage, setDirectDailyWage] = useState('');
-  const [yearsOfService, setYearsOfService] = useState('');
-  const [unusedDays, setUnusedDays] = useState('');
-  const [result, setResult] = useState<Result | null>(null);
+  const [monthlySalary, setMonthlySalary] = useState('3000000');
+  const [directDailyWage, setDirectDailyWage] = useState('114833');
+  const [yearsOfService, setYearsOfService] = useState('3');
+  const [unusedDays, setUnusedDays] = useState('5');
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: Result | null = ((): Result | null => {
     const years = Number(yearsOfService);
     const unused = Number(unusedDays);
-    if (years < 0 || unused < 0) return;
+    if (years < 0 || unused < 0) return null;
 
     let dailyWage: number;
     if (mode === 'monthly') {
       const monthly = Number(monthlySalary);
-      if (!monthly) return;
+      if (!monthly) return null;
       dailyWage = (monthly / 209) * 8;
     } else {
       const direct = Number(directDailyWage);
-      if (!direct) return;
+      if (!direct) return null;
       dailyWage = direct;
     }
 
     const leaveDays = calcLeaveDays(years);
     const totalPay = dailyWage * unused;
 
-    setResult({ dailyWage, leaveDays, totalPay });
-  }
+    return ({ dailyWage, leaveDays, totalPay });
+  
+    return null;
+  })();
+
 
   // 연차 발생일수표 (1~15년)
   const leaveTable = Array.from({ length: 15 }, (_, i) => ({
@@ -168,10 +183,6 @@ export default function AnnualLeavePayPage() {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

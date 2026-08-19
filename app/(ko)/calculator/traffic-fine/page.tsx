@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, inputCls, selectCls,
+  Card, CardHeader, Label, inputCls, selectCls,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import {
@@ -36,12 +36,13 @@ export default function TrafficFinePage() {
   const [accumulated, setAccumulated] = useState('0');
   const [credits, setCredits] = useState('0');
 
-  const [result, setResult] = useState<FineResult | null>(null);
-
-  const info = VIOLATIONS.find(v => v.id === violation)!;
-
-  function calculate() {
-    setResult(calcFine({
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: FineResult | null = ((): FineResult | null => {
+    return (calcFine({
       violation,
       overSpeed: Number(overSpeed) || 0,
       schoolZone,
@@ -60,7 +61,13 @@ export default function TrafficFinePage() {
       accumulated: Number(accumulated) || 0,
       credits: Number(credits) || 0,
     }));
-  }
+  
+    return null;
+  })();
+
+  const info = VIOLATIONS.find(v => v.id === violation)!;
+
+
 
   return (
     <CalcShell
@@ -284,8 +291,6 @@ export default function TrafficFinePage() {
             공제받을 점수가 있으면 공제 칸에 넣으세요.
           </p>
         </Card>
-
-        <PrimaryBtn onClick={calculate}>범칙금·과태료 계산</PrimaryBtn>
 
         {result && (
           <>

@@ -98,17 +98,44 @@ summary:focus-visible {
    떠 보이도록 한 단계 낮췄고(#f5f5f7), 900·950은 더 깊게 잡아 글자가 무겁게
    앉게 했다. */
 @theme {
-  --color-slate-50:  #f5f5f7;
-  --color-slate-100: #ececf0;
-  --color-slate-200: #e0e0e6;
-  --color-slate-300: #c9c9d2;
-  --color-slate-400: #96969f;
-  --color-slate-500: #6e6e78;
-  --color-slate-600: #52525b;
-  --color-slate-700: #3d3d45;
-  --color-slate-800: #26262c;
-  --color-slate-900: #16161a;
-  --color-slate-950: #0b0b0e;
+  /* ── 굵기를 다시 정했다 (2026-08-19) ────────────────────────────
+     font-black(900)이 1,083곳, font-bold가 1,617곳이었다. 제목도 라벨도 숫자도
+     전부 900이면 굵기가 위계를 못 만든다 — 다 굵으면 아무것도 안 굵다. 900을
+     화면에 바르는 것은 «비싼 화면»에서 거의 안 보이는 선택이기도 하다.
+
+     마크업 1,083곳을 고치는 대신 **토큰 값**을 낮춘다. 위계는 크기와 색이
+     맡는다(제목 clamp 1.9~3.25rem, 답 clamp 1.75~2.5rem).
+
+     600 밑으로는 안 내린다. 한글은 시스템 글꼴이 그리는데 윈도우의 맑은 고딕은
+     굵기가 둘(400·700)뿐이라, 550을 주면 400으로 떨어져 한글만 얇아진다.
+     600은 700으로 올라붙으므로 안전하다. */
+  --font-weight-black: 700;
+  --font-weight-extrabold: 700;
+
+  /* 모서리를 한 단계씩 조인다. 16px는 물러 보이고 10~14px가 도구답다 */
+  /* 모서리를 더 조인다. 14px는 «카드»고 4~6px는 «블록»이다 — 이 사이트는
+     읽고 쓰는 화면이라 블록 쪽이 맞다 */
+  --radius-3xl: 0.5rem;
+  --radius-2xl: 0.375rem;
+  --radius-xl: 0.3125rem;
+  --radius-lg: 0.25rem;
+
+  /* ── 따뜻한 회색으로 (2026-08-19) ──────────────────────────────
+     중성 회색은 «정돈됨»까지는 갔는데 «차가움»에서 못 벗어났다. 글이 많고 표가
+     많은 사이트라 오래 보는 화면인데, 순회색 위 순검정은 화면에서 날이 선다.
+     노란 기가 아주 조금 도는 회색으로 옮긴다 — 종이에 가까워지고 글이 눈에
+     덜 박힌다. 먹색(800)은 #37352f, 순검정이 아니다. */
+  --color-slate-50:  #f7f6f3;
+  --color-slate-100: #f1f0ec;
+  --color-slate-200: #e9e8e3;
+  --color-slate-300: #d5d3cd;
+  --color-slate-400: #9b9a95;
+  --color-slate-500: #787772;
+  --color-slate-600: #5f5e59;
+  --color-slate-700: #474640;
+  --color-slate-800: #37352f;
+  --color-slate-900: #2b2a25;
+  --color-slate-950: #1a1a17;
 }
 
 @theme inline {
@@ -449,8 +476,14 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 }
 /* 큰 글자를 font-black으로 쓰면 자간이 벌어져 뜬다 — 한 급 조이고 히어로 카드와
    붙어 있던 아래 여백을 8px로 벌린다 */
+/* ── 페이지 제목을 한 규격으로 (2026-08-19) ──────────────────────
+   낱장 124장이 저마다 h1 클래스를 적고 있었다(«text-2xl font-black …» 다섯 종).
+   같은 사이트에서 제목 크기가 갈래마다 다르면 «다른 사이트»로 읽힌다.
+   흩어진 것을 이 하나로 모으고, 값은 PageHero의 .hero-title과 맞춘다. */
 .page-h1 {
-  @apply text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100 mb-3;
+  @apply text-[1.375rem] sm:text-[1.75rem] font-bold leading-snug
+         text-slate-900 dark:text-slate-50 text-balance mb-2;
+  letter-spacing: -0.028em;
 }
 /* 흰 카드가 흰 바탕에 놓여 테두리 1px만으로 떠 있었다 — 아주 옅은 그림자로 띄운다 */
 .list-card {
@@ -871,8 +904,8 @@ html.dark .row-pair.row-now {
    100vw로 편다. */
 .hero-band {
   position: relative;
-  padding-bottom: 2.25rem;
-  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .hero-band::before {
   content: "";
@@ -892,7 +925,7 @@ html.dark .hero-band::before { border-bottom-color: var(--color-slate-800); }
   border-radius: 0;
   padding: 0;
 }
-.hero.hero-flat .hero-in { @apply px-0 py-8 sm:py-12; }
+.hero.hero-flat .hero-in { @apply px-0 py-6 sm:py-8; }
 /* 잘린 큰 아이콘은 바탕 그림이 아니라 얼룩이다 — 띠에서는 안 그린다 */
 .hero.hero-flat .hero-art { display: none; }
 
@@ -939,21 +972,26 @@ html.dark .hero-band::before { border-bottom-color: var(--color-slate-800); }
 .bg-sec-soft { background: rgb(var(--c-sec-rgb) / 0.10); color: var(--c-sec); }
 html.dark .bg-sec { color: #0b1220; }
 
+/* 주 단추 — 색은 남기되 판을 줄인다. 화면 폭을 가로지르는 색 띠는 «누르시오»가
+   아니라 «여기가 제일 중요하오»로 읽히는데, 이 화면에서 제일 중요한 것은 답이지
+   버튼이 아니다. 글자를 조금 작게, 높이를 조금 낮게, 모서리는 블록 규격으로. */
 .btn-pri {
   background: var(--c-sec);
-  @apply w-full inline-flex items-center justify-center gap-1.5 rounded-xl py-3.5
-         text-sm font-bold text-white transition-[filter,transform] duration-150;
+  @apply w-full inline-flex items-center justify-center gap-1.5 rounded-md py-2.5
+         text-sm font-semibold text-white transition-[filter,transform] duration-150;
 }
-html.dark .btn-pri { color: #0b1220; }
-.btn-pri:active { transform: scale(0.99); }
-@media (hover: hover) { .btn-pri:hover { filter: brightness(1.08); } }
+html.dark .btn-pri { color: #1a1a17; }
+.btn-pri:active { transform: scale(0.995); }
+@media (hover: hover) { .btn-pri:hover { filter: brightness(1.06); } }
 
 /* 값을 고르는 띠 — 고른 칸만 섹션색으로 찬다 */
+/* 고른 칸 — 꽉 찬 색 대신 옅은 판 + 진한 글자. 탭은 «어디에 있는가»를 말하는
+   물건이지 «누르시오»가 아니다. */
 .tab-on {
-  background: var(--c-sec);
-  @apply flex-1 py-3 text-sm font-bold leading-tight text-white;
+  background: rgb(var(--c-sec-rgb) / 0.09);
+  color: var(--c-sec);
+  @apply flex-1 py-3 text-sm font-semibold leading-tight;
 }
-html.dark .tab-on { color: #0b1220; }
 .tab-off {
   @apply flex-1 py-3 text-sm font-semibold leading-tight text-slate-500 dark:text-slate-400
          transition-colors;
@@ -961,6 +999,167 @@ html.dark .tab-on { color: #0b1220; }
 @media (hover: hover) {
   .tab-off:hover { background: rgb(var(--c-sec-rgb) / 0.08); }
 }
+
+/* 결과 칸의 부호 — components/CalcShell.tsx의 StatMark */
+.stat-mark {
+  @apply inline-flex items-center justify-center w-4 h-4 rounded mr-1.5 align-[-2px]
+         text-[11px] font-bold leading-none;
+}
+.stat-mark-primary { background: rgb(var(--c-sec-rgb) / 0.16); color: var(--c-sec); }
+.stat-mark-green   { @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300; }
+.stat-mark-red     { @apply bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300; }
+
+/* 숫자를 말로 한 줄 — components/CalcShell.tsx의 Insight.
+   판을 깔지 않는다. 결과 바로 아래에 판이 또 오면 층이 하나 더 생겨서, 읽으라고
+   놓은 한 줄이 오히려 묻힌다. 왼쪽 짧은 막대 하나로 «여기부터 해설»만 표시한다. */
+.insight {
+  @apply mt-4 flex gap-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300;
+}
+.insight-mark {
+  background: var(--c-sec);
+  @apply mt-1.5 h-4 w-[3px] shrink-0 rounded-full;
+}
+
+/* ── 계산기를 «계기»로 다시 짰다 (2026-08-19) ────────────────────
+   지금까지의 구조는 «폼 카드 → 결과 카드 → 표 카드»였다. 서류를 채우고 제출하는
+   모양이다. 그런데 계산기는 서류가 아니라 **다이얼을 돌리면 숫자가 반응하는
+   물건 하나**다. 그래서 순서를 뒤집는다 — 답이 맨 위에 상주하고 조작부가 그
+   아래 붙는다. 금리를 3.5에서 4.0으로 바꾸는 내내 답이 시야에서 안 사라진다.
+
+   판을 겹치지 않는다. 값·조작·해설이 각각 카드에 담기면 층이 셋이 되는데,
+   실제로는 한 물건의 세 부분이다. 실선 하나로만 가른다. */
+.readout {
+  background: rgb(var(--c-sec-rgb) / 0.05);
+  border: 1px solid rgb(var(--c-sec-rgb) / 0.16);
+  @apply rounded-lg px-5 py-5 sm:px-6 sm:py-6;
+}
+.readout-label {
+  @apply text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2;
+}
+.readout-value {
+  color: var(--c-sec);
+  font-size: clamp(2.25rem, 6.5vw, 3.5rem);
+  letter-spacing: -0.04em;
+  @apply font-bold leading-none tabular-nums whitespace-nowrap;
+}
+/* 곁 숫자 — 칸을 만들지 않는다. 답 밑에 실선 하나 긋고 이름·값을 나란히 둔다 */
+.readout-specs {
+  @apply mt-5 grid gap-x-6 gap-y-2 border-t pt-4 sm:grid-cols-2;
+  border-color: rgb(var(--c-sec-rgb) / 0.16);
+}
+.spec {
+  @apply flex items-baseline justify-between gap-3 text-sm;
+}
+.spec-k { @apply text-slate-500 dark:text-slate-400; }
+.spec-v { @apply font-semibold tabular-nums text-slate-900 dark:text-slate-100; }
+
+/* ── 조작부 — 칸이 아니라 값이다 ─────────────────────────────────
+   입력을 테두리 상자에 넣으면 «채워야 할 빈칸»으로 보인다. 여기 값은 이미
+   들어 있고 사람은 그것을 **고치러** 온다. 그래서 상자를 지우고 값을 크게
+   두되 아래 실선만 남긴다 — 고칠 수 있다는 신호는 그 선으로 충분하다. */
+.dial {
+  @apply flex flex-col gap-1 border-b border-slate-200 dark:border-slate-800 pb-2
+         transition-colors;
+}
+.dial:focus-within { border-color: var(--c-sec); }
+.dial-k {
+  @apply text-[11px] font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500;
+}
+.dial input {
+  @apply w-full bg-transparent p-0 text-lg font-semibold tabular-nums
+         text-slate-900 dark:text-slate-50 outline-none;
+}
+.dial input::placeholder { @apply text-slate-300 dark:text-slate-600; }
+
+/* 계산기 입력칸 — CalcShell의 inputCls가 이걸 쓴다.
+   .dial과 같은 생각이되, 라벨과 칸이 이미 짝지어져 있는 낱장(159장)을 위해
+   테두리를 칸 자체에 건다. 위·좌·우 선을 지우고 아래만 남기면 «상자»가
+   «고칠 수 있는 값»이 된다 — 마크업은 한 글자도 안 고치고 전부 바뀐다. */
+.dial-input {
+  @apply w-full bg-transparent px-0 py-2 text-lg font-semibold tabular-nums
+         text-slate-900 dark:text-slate-50 outline-none
+         border-0 border-b border-slate-200 dark:border-slate-800 rounded-none
+         transition-colors;
+}
+.dial-input:focus { border-color: var(--c-sec); }
+.dial-input::placeholder { @apply text-slate-300 dark:text-slate-600 font-normal; }
+/* select은 화살표를 직접 그린다 — 아래 선만 남기면 기본 화살표가 겉돈다 */
+.dial-sel {
+  @apply appearance-none bg-no-repeat pr-7 cursor-pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%239b9a95' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.1rem center;
+  background-size: 1.05rem;
+}
+
+/* 두 방식 고르개 — 알약 안에서 고른 쪽만 흰 판이 올라온다 */
+.seg {
+  @apply inline-flex rounded-md bg-slate-100 dark:bg-slate-800 p-0.5;
+}
+.seg-btn {
+  @apply rounded-[5px] px-3.5 py-1.5 text-[13px] font-semibold
+         text-slate-500 dark:text-slate-400 transition-colors;
+}
+.seg-btn[aria-pressed="true"] {
+  @apply bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+
+/* 접어 둔 표 — 360줄은 «필요하면 펴는 것»이지 기본으로 펼 것이 아니다 */
+.fold > summary {
+  @apply flex cursor-pointer list-none items-center gap-2 py-3 text-sm font-semibold
+         text-slate-700 dark:text-slate-200 [&::-webkit-details-marker]:hidden;
+}
+.fold > summary::before {
+  content: "";
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  @apply transition-transform;
+}
+.fold[open] > summary::before { transform: rotate(90deg); }
+
+/* ── 면적 그래프 (2026-08-19) ────────────────────────────────────
+   components/AreaChart.tsx의 생김새. 선과 면 모두 갈래 색을 쓰고, 면은 위에서
+   아래로 옅어진다 — 값이 «쌓인 것»이 아니라 «흐른 것»으로 보이게 한다. */
+.chart-label {
+  @apply text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2.5;
+}
+.chart-svg {
+  width: 100%;
+  height: 8.5rem;
+  display: block;
+  overflow: visible;
+}
+.chart-grid {
+  stroke: var(--color-slate-200);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+html.dark .chart-grid { stroke: var(--color-slate-800); }
+.chart-area {
+  fill: rgb(var(--c-sec-rgb) / 0.13);
+}
+.chart-line {
+  fill: none;
+  stroke: var(--c-sec);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  /* 세로로 늘려 그리므로(preserveAspectRatio none) 선 굵기가 찌그러진다 */
+  vector-effect: non-scaling-stroke;
+}
+.chart-foot {
+  @apply mt-2 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 tabular-nums;
+}
+.chart-peak {
+  color: var(--c-sec);
+  @apply font-semibold;
+}
+
+/* ── 그림자를 다시 없앴다 (2026-08-19) ──────────────────────────
+   한 번 얕게 되돌렸다가 도로 걷는다. 읽고 쓰는 화면에서 «떠 있는 판»은 손댈 수
+   있는 것(메뉴·대화상자)에만 쓰는 신호다. 입력칸도 결과도 표도 다 떠 있으면
+   그 신호가 아무 뜻도 없어진다. 가장자리는 아주 옅은 실선 하나로 충분하다. */
 
 /* ── 결과 칸 (2026-08-19) ────────────────────────────────────────
    계산기는 숫자를 보러 오는 화면인데, 결과가 본문과 같은 크기·같은 흰 판에
@@ -974,20 +1173,31 @@ html.dark .tab-on { color: #0b1220; }
    숫자는 tabular-nums다. 비례폭이면 자릿수가 바뀔 때 칸이 흔들린다 —
    계산기는 입력할 때마다 숫자가 갱신되는 화면이라 그 흔들림이 계속 보인다. */
 .stat {
-  @apply rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4;
+  @apply rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4;
 }
+/* ── 답 칸을 판독부로 (2026-08-19) ───────────────────────────────
+   계산기 서른한 장이 결과 칸 하나에 variant="primary"를 달아 두었다. 그 하나가
+   답이라는 뜻이므로, 여기만 키우면 낱장 서른한 장의 위계가 한 번에 잡힌다.
+
+   답은 격자에서 **한 줄을 통째로** 쓴다. 두 칸만 먹게 했더니 2열 격자에서
+   오른쪽이 빈 채로 남았다(칸 수가 낱장마다 다르다). 한 줄을 다 쓰면 칸이
+   둘이든 넷이든 «답 한 줄 → 곁 숫자 한 줄»로 같은 모양이 되고, 답의 글자를
+   키울 자리도 넉넉해진다.
+
+   색 판이 여럿 나란히 서면 «어느 것이 답인가»가 다시 흐려지므로 여기만 색이다. */
 .stat-pri {
-  background: rgb(var(--c-sec-rgb) / 0.10);
-  border-color: rgb(var(--c-sec-rgb) / 0.22);
-  @apply rounded-2xl border p-4;
+  background: rgb(var(--c-sec-rgb) / 0.06);
+  border-color: rgb(var(--c-sec-rgb) / 0.18);
+  @apply rounded-md border p-4 sm:p-5;
+  grid-column: 1 / -1;
 }
 .stat-up {
-  @apply rounded-2xl border border-emerald-200 dark:border-emerald-900/60
-         bg-emerald-50 dark:bg-emerald-950/30 p-4;
+  @apply rounded-md border border-slate-200 dark:border-slate-800
+         bg-white dark:bg-slate-900 p-4;
 }
 .stat-down {
-  @apply rounded-2xl border border-rose-200 dark:border-rose-900/60
-         bg-rose-50 dark:bg-rose-950/30 p-4;
+  @apply rounded-md border border-slate-200 dark:border-slate-800
+         bg-white dark:bg-slate-900 p-4;
 }
 .stat-label {
   @apply text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5;
@@ -998,9 +1208,14 @@ html.dark .tab-on { color: #0b1220; }
 }
 /* 답은 답의 크기로 둔다. 옆 칸과 같은 크기면 «어느 것이 답인가»를 색 하나로만
    말하게 되고, 색은 훑는 눈이 제일 늦게 읽는 신호다. */
+/* 답은 화면에서 제일 큰 글자다(제목은 24~28px). 두 칸을 차지하므로 여기까지
+   키워도 «원»이 다음 줄로 안 넘어간다. nowrap으로 접히는 길을 막는다 —
+   접히면 옆 칸과 높이가 어긋난다. */
 .stat-pri .stat-value {
-  font-size: clamp(1.75rem, 4.4vw, 2.5rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: var(--c-sec);
 }
 .stat-pri .stat-label {
   @apply text-slate-600 dark:text-slate-300;
@@ -1054,16 +1269,20 @@ html.dark .tab-on { color: #0b1220; }
   z-index: 1;
   @apply px-5 py-8 sm:px-7 sm:py-10;
 }
-/* 도구 하나가 전부인 페이지다. 그 도구의 이름이 본문 소제목과 두 단계 차이면
-   무엇을 보러 온 화면인지 눈으로 안 잡힌다. 다섯 단계 위로 올린다. */
+/* ── 위계를 뒤집었다 (2026-08-19) ────────────────────────────────
+   제목을 52px까지 키웠다가 되돌린다. 이 페이지에서 제일 큰 글자는 «대출 이자
+   계산기»가 아니라 **답**이어야 한다 — 사람들은 계산기의 이름을 보러 오지
+   않는다. 이름은 «여기가 맞구나»를 확인시켜 주면 되고, 그건 22~28px로 충분하다.
+
+   제목이 작아진 만큼 답이 화면에서 유일하게 큰 글자가 된다. 위계는 크기 차이로
+   생기지 두 개를 다 키운다고 생기지 않는다. */
 .hero-title {
-  font-size: clamp(1.9rem, 5.2vw, 3.25rem);
-  line-height: 1.04;
-  @apply font-extrabold text-slate-900 dark:text-slate-50 text-balance;
+  @apply text-[1.375rem] sm:text-[1.75rem] font-bold leading-snug
+         text-slate-900 dark:text-slate-50 text-balance;
 }
 .hero-desc {
-  @apply mt-3 text-sm sm:text-base leading-relaxed text-slate-500 dark:text-slate-400;
-  max-width: 46ch;
+  @apply mt-1.5 text-sm leading-relaxed text-slate-500 dark:text-slate-400;
+  max-width: 60ch;
 }
 /* 바탕 그림 — 크게 깔고 오른쪽으로 흘려보낸다. 가장자리가 잘려 화면 밖으로
    이어지는 느낌을 만든다. 96px짜리가 넓은 어둠에 혼자 떠 있으면 구성이 아니라

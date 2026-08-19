@@ -87,7 +87,9 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={SC_ICON} className="w-6 h-6" />
           </div>
-          <PageHero title={`${app} · ${x.action}`} desc={x.group} />
+          <div className="hero-band">
+            <PageHero title={`${app} · ${x.action}`} desc={x.group} />
+          </div>
         </div>
 
         {/* 키가 먼저다 — 찾아온 사람이 눌러야 할 것 */}

@@ -1,8 +1,16 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard, SummaryGrid, TableWrap,
+  Card, CardHeader, Label, inputCls, SummaryCard, SummaryGrid, TableWrap,
 } from '@/components/CalcShell';
 import { compareEvVsGas, type EvVsGasResult } from '@/lib/ev-vs-gas';
 
@@ -10,29 +18,33 @@ const fmt = (n: number) => Math.round(n).toLocaleString();
 const man = (n: number) => `${fmt(Math.abs(n) / 10_000)}만원`;
 
 export default function EvVsGasPage() {
-  const [km, setKm] = useState('');
+  const [km, setKm] = useState('15000');
   const [years, setYears] = useState('5');
   // 충전 단가·유가·자동차세·정비비·감면은 기본값을 두지 않는다 — 시기와 지역에
   // 따라 갈리는 값이라, 박아 두면 그 숫자가 결론을 정해 버린다.
-  const [evPrice, setEvPrice] = useState('');
-  const [evTaxCut, setEvTaxCut] = useState('');
-  const [evEff, setEvEff] = useState('');
+  const [evPrice, setEvPrice] = useState('55000000');
+  const [evTaxCut, setEvTaxCut] = useState('3000000');
+  const [evEff, setEvEff] = useState('5');
   const [evUnit, setEvUnit] = useState('');
   const [evTax, setEvTax] = useState('');
-  const [evMaint, setEvMaint] = useState('');
-  const [gasPrice, setGasPrice] = useState('');
-  const [gasEff, setGasEff] = useState('');
+  const [evMaint, setEvMaint] = useState('400000');
+  const [gasPrice, setGasPrice] = useState('40000000');
+  const [gasEff, setGasEff] = useState('12');
   const [gasUnit, setGasUnit] = useState('');
   const [gasTax, setGasTax] = useState('');
-  const [gasMaint, setGasMaint] = useState('');
-  const [result, setResult] = useState<EvVsGasResult | null>(null);
+  const [gasMaint, setGasMaint] = useState('900000');
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: EvVsGasResult | null = ((): EvVsGasResult | null => {
     const y = Number(years);
-    if (y < 1) return;
-    if (Number(evEff) <= 0 || Number(gasEff) <= 0) return;
-    if (Number(evPrice) <= 0 || Number(gasPrice) <= 0) return;
-    setResult(compareEvVsGas({
+    if (y < 1) return null;
+    if (Number(evEff) <= 0 || Number(gasEff) <= 0) return null;
+    if (Number(evPrice) <= 0 || Number(gasPrice) <= 0) return null;
+    return (compareEvVsGas({
       km: Number(km || 0),
       years: y,
       ev: {
@@ -46,7 +58,10 @@ export default function EvVsGasPage() {
         tax: Number(gasTax || 0), maintenance: Number(gasMaint || 0),
       },
     }));
-  }
+  
+    return null;
+  })();
+
 
   const be = result?.breakevenYears ?? null;
 
@@ -179,7 +194,6 @@ export default function EvVsGasPage() {
               <input type="number" value={gasMaint} onChange={e => setGasMaint(e.target.value)}
                 placeholder="예: 900000" className={inputCls} min="0" />
             </div>
-            <PrimaryBtn onClick={calculate}>비교하기</PrimaryBtn>
           </div>
         </Card>
 

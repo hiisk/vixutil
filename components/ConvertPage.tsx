@@ -84,7 +84,9 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-sec-soft shadow-lg">
             <ToolIcon emoji={tool.icon} className="w-8 h-8" />
           </div>
-          <PageHero title={text.title} desc={text.long} />
+          <div className="hero-band">
+            <PageHero title={text.title} desc={text.long} />
+          </div>
         </div>
 
         <ConvertEngine tool={{ ...tool, note: text.note, from: text.from, to: text.to }} lang={lang} />

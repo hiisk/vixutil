@@ -1,8 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn,
-  SummaryCard, SummaryGrid, TabBar,
+  Card, CardHeader, Label, inputCls, SummaryCard, SummaryGrid, TabBar,
 } from '@/components/CalcShell';
 
 const w = (n: number) => Math.round(n).toLocaleString();
@@ -19,25 +18,31 @@ interface Result {
 export default function VatPage() {
   const [mode, setMode] = useState<Mode>('from-supply');
   const [input, setInput] = useState('');
-  const [result, setResult] = useState<Result | null>(null);
-
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: Result | null = ((): Result | null => {
     const v = Number(input);
-    if (!v || v <= 0) return;
+    if (!v || v <= 0) return null;
     if (mode === 'from-supply') {
       const vat = v * 0.1;
-      setResult({ supply: v, vat, total: v + vat, vatRate: '10%' });
+      return ({ supply: v, vat, total: v + vat, vatRate: '10%' });
     } else {
       const supply = v / 1.1;
       const vat = v / 11;
-      setResult({ supply, vat, total: v, vatRate: '10%' });
+      return ({ supply, vat, total: v, vatRate: '10%' });
     }
-  }
+  
+    return null;
+  })();
+
+
 
   function handleModeChange(m: Mode) {
     setMode(m);
     setInput('');
-    setResult(null);
   }
 
   return (
@@ -94,7 +99,6 @@ export default function VatPage() {
                 className={inputCls}
               />
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

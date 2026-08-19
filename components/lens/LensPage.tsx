@@ -97,7 +97,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={LENS_ICON} className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{title}</h1>
+          <h1 className="page-h1">{title}</h1>
           <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{ui.kindLabel[f.kind]}</p>
         </div>
 

@@ -97,7 +97,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji="🕰️" className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{f.city}</h1>
+          <h1 className="page-h1">{f.city}</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-5">
             {country?.flag} {f.country} · UTC {f.standardLabel}
           </p>

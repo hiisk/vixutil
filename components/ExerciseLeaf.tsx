@@ -32,7 +32,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
       </header>
 
       <main className="page-main">
-        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1">{t.h1(name)}</h1>
+        <h1 className="page-h1">{t.h1(name)}</h1>
 
         <div className="mt-4 rounded-2xl bg-gradient-to-br from-emerald-600 to-lime-700 p-6 text-white">
           <p className="text-4xl font-black leading-none tabular-nums">{kcal(x.met, 70, 30)} kcal</p>

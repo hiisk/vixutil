@@ -67,7 +67,7 @@ export default function DreamPage() {
         <div className="max-w-2xl mx-auto px-4">
           <div className="text-center mb-7">
             <ToolIcon emoji="🌙" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-            <h1 className="text-3xl font-black mb-1.5">꿈 해몽</h1>
+            <h1 className="page-h1">꿈 해몽</h1>
             <p className="text-indigo-300 text-sm">어젯밤 꿈의 의미를 알아보세요</p>
           </div>
           <div className="relative">

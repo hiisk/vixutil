@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -13,15 +13,21 @@ export default function DepositPage() {
   const [rate, setRate] = useState('3.5');
   const [period, setPeriod] = useState('12');
   const [unit, setUnit] = useState<'month' | 'year'>('month');
-  const [result, setResult] = useState<null | {
-    interest: number; tax: number; netInterest: number; total: number;
-  }>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
+    interest: number; tax: number; netInterest: number; total: number;
+  } = ((): null | {
+    interest: number; tax: number; netInterest: number; total: number;
+  } => {
     const p = principal;
     const r = Number(rate) / 100;
     const periodVal = Number(period);
-    if (p <= 0 || r <= 0 || periodVal <= 0) return;
+    if (p <= 0 || r <= 0 || periodVal <= 0) return null;
 
     const years = unit === 'year' ? periodVal : periodVal / 12;
     let interest = 0;
@@ -31,8 +37,11 @@ export default function DepositPage() {
       interest = p * (Math.pow(1 + r, years) - 1);
     }
     const tax = interest * 0.154;
-    setResult({ interest, tax, netInterest: interest - tax, total: p + interest - tax });
-  }
+    return ({ interest, tax, netInterest: interest - tax, total: p + interest - tax });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -74,7 +83,7 @@ export default function DepositPage() {
             { value: 'compound', label: '복리' },
           ]}
           value={mode}
-          onChange={v => { setMode(v as 'simple' | 'compound'); setResult(null); }}
+          onChange={v => { setMode(v as 'simple' | 'compound'); }}
         />
         <Card className="p-5">
           <div className="flex flex-col gap-3">
@@ -101,7 +110,6 @@ export default function DepositPage() {
                 </select>
               </div>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

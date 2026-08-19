@@ -169,7 +169,9 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="🃏" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <PageHero title={title} desc={lead} />
+          <div className="hero-band">
+            <PageHero title={title} desc={lead} />
+          </div>
           {daily && (
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{daily.dateLabel}</p>
           )}

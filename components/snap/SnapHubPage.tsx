@@ -44,7 +44,9 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
       <div className="max-w-3xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
           <ToolIcon emoji="📸" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <PageHero title={c.title} desc={c.lead} />
+          <div className="hero-band">
+            <PageHero title={c.title} desc={c.lead} />
+          </div>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">

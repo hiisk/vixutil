@@ -355,7 +355,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
               <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-white" />
               {initialTopic
                 ? <p className="text-xl font-black">사주 분석</p>
-                : <h1 className="text-xl font-black">사주 분석</h1>}
+                : <h1 className="page-h1">사주 분석</h1>}
               <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주(四柱)를 분석합니다</p>
             </div>
           }

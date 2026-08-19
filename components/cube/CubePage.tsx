@@ -103,7 +103,9 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={CUBE_ICON} className="w-7 h-7" />
           </div>
-          <PageHero title={item.label} desc={ui.desc(f)} />
+          <div className="hero-band">
+            <PageHero title={item.label} desc={ui.desc(f)} />
+          </div>
         </div>
 
         <div className="rounded-2xl border chip-off p-4 mb-4">

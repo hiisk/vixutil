@@ -223,7 +223,9 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
         </div>
         <span className="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1 rounded-full mb-3">{quiz.category}</span>
         <div className="w-full max-w-sm mb-6">
-          <PageHero title={quiz.title} desc={quiz.desc} />
+          <div className="hero-band">
+            <PageHero title={quiz.title} desc={quiz.desc} />
+          </div>
         </div>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(quiz.questions.length)}</p>
         <button onClick={() => setPhase('question')}

@@ -101,7 +101,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
             <ToolIcon emoji={IMG_SIZE_ICON} className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{x.name}</h1>
+          <h1 className="page-h1">{x.name}</h1>
           <p className="text-3xl font-black text-pink-600 dark:text-pink-400 tabular-nums mb-1">{x.w} × {x.h}</p>
           <p className="text-xs text-slate-400 dark:text-slate-500">{kind} · {f.ratioLabel}</p>
         </div>

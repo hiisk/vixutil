@@ -195,7 +195,7 @@ export default function FirstImpressionPage() {
       <div className="relative max-w-lg mx-auto px-4 py-8">
         <div className="text-center mb-7">
           <span className="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full">AI 얼굴 분석</span>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1.5">첫인상 분석</h1>
+          <h1 className="page-h1 mt-3">첫인상 분석</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             사진 속 얼굴에서 눈·얼굴선·입꼬리를 실제로 재어<br />
             사람들이 받는 첫인상 유형을 알려드려요.

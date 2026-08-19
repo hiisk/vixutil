@@ -113,7 +113,9 @@ export default function FormulaPage({
           <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-2xl mb-3 sm:mb-4 text-3xl bg-sec-soft shadow-lg`}>
             <ToolIcon emoji={tool.icon} className="w-6 h-6 sm:w-8 sm:h-8" />
           </div>
-          <PageHero title={text.title} desc={text.long} />
+          <div className="hero-band">
+            <PageHero title={text.title} desc={text.long} />
+          </div>
         </div>
 
         <Engine

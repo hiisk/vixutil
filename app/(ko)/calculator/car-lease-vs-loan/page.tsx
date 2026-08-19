@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { comparePlans, type Comparison } from '@/lib/car-lease-vs-loan';
 
@@ -30,12 +30,15 @@ export default function CarLeaseVsLoanPage() {
   const [buy, setBuy] = useState(false);
   const [buyout, setBuyout] = useState(15_000_000);
 
-  const [result, setResult] = useState<Comparison | null>(null);
-
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: Comparison | null = ((): Comparison | null => {
     const n = Number(months);
-    if (price <= 0 || n <= 0) return;
-    setResult(comparePlans({
+    if (price <= 0 || n <= 0) return null;
+    return (comparePlans({
       price,
       months: n,
       upfrontFee,
@@ -52,7 +55,11 @@ export default function CarLeaseVsLoanPage() {
       leaseIncludesInsurance: includesInsurance,
       leaseBuyout: buy ? buyout : null,
     }));
-  }
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -210,7 +217,6 @@ export default function CarLeaseVsLoanPage() {
                 <CommaInput value={buyout} onChange={setBuyout} placeholder="예: 15,000,000" />
               </div>
             )}
-            <PrimaryBtn onClick={calculate}>비교하기</PrimaryBtn>
           </div>
         </Card>
 

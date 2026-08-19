@@ -1,22 +1,37 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
 
 export default function WaterPage() {
-  const [weight, setWeight] = useState('');
+  const [weight, setWeight] = useState('65');
   const [activity, setActivity] = useState('normal');
   const [weather, setWeather] = useState('normal');
-  const [result, setResult] = useState<null | { ml: number }>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | { ml: number } = ((): null | { ml: number } => {
     const w = Number(weight);
-    if (w <= 0) return;
+    if (w <= 0) return null;
     let ml = w * 33;
     if (activity === 'high') ml += 400;
     if (weather === 'hot') ml += 500;
     if (weather === 'exercise') ml += 700;
-    setResult({ ml });
-  }
+    return ({ ml });
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -75,7 +90,6 @@ export default function WaterPage() {
                 <option value="exercise">운동 중 (+700ml)</option>
               </select>
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
 
-const defaultCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition';
+/* 사이트 공용 입력칸. 예전에는 여기에 클래스를 길게 적어 두어서 이 칸만 다른
+   모양이었고, 초점 테두리도 파랑으로 박혀 있어 갈래 색을 안 따라갔다.
+   className=""를 넘기면 이 기본값이 빠지고 부모가 생김새를 정한다(.dial). */
+const defaultCls = 'fld w-full';
 
 export default function CommaInput({
   value,

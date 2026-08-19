@@ -1,22 +1,37 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 
 import { calcPropertyTax, type PropertyTaxResult } from '@/lib/property-tax';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function PropertyTaxPage() {
-  const [publicPrice, setPublicPrice] = useState('');
+  const [publicPrice, setPublicPrice] = useState('500000000');
   const [isOneHouse, setIsOneHouse] = useState(true);
   const [isCity, setIsCity] = useState(true);
-  const [result, setResult] = useState<PropertyTaxResult | null>(null);
 
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: PropertyTaxResult | null = ((): PropertyTaxResult | null => {
     const p = Number(publicPrice);
-    if (p <= 0) return;
-    setResult(calcPropertyTax({ publicPrice: p, oneHouse: isOneHouse, cityArea: isCity }));
-  }
+    if (p <= 0) return null;
+    return (calcPropertyTax({ publicPrice: p, oneHouse: isOneHouse, cityArea: isCity }));
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -71,7 +86,6 @@ export default function PropertyTaxPage() {
                 className="w-4 h-4 accent-blue-600" />
               <span className="text-sm text-slate-700 dark:text-slate-200">도시지역 (도시지역분 포함)</span>
             </label>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

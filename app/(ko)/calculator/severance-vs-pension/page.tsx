@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, inputCls,
+  Card, CardHeader, Label, inputCls,
   SummaryCard, SummaryGrid, TableWrap,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -25,15 +25,22 @@ export default function SeveranceVsPensionPage() {
   const [pensionYears, setPensionYears] = useState('15');
   const [returnRate, setReturnRate] = useState('4');
   const [startAge, setStartAge] = useState('60');
-  const [result, setResult] = useState<null | {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     c: ReturnType<typeof compare>;
     table: ReturnType<typeof compareTable>;
     breakeven: number | null;
-  }>(null);
-
-  function calculate() {
+  } = ((): null | {
+    c: ReturnType<typeof compare>;
+    table: ReturnType<typeof compareTable>;
+    breakeven: number | null;
+  } => {
     const serviceMonths = (Number(years) || 0) * 12 + (Number(months) || 0);
-    if (payout <= 0 || serviceMonths <= 0) return;
+    if (payout <= 0 || serviceMonths <= 0) return null;
     const input = {
       payout,
       serviceMonths,
@@ -41,13 +48,17 @@ export default function SeveranceVsPensionPage() {
       returnRate: (Number(returnRate) || 0) / 100,
       startAge: Number(startAge) || 0,
     };
-    if (input.pensionYears <= 0) return;
-    setResult({
+    if (input.pensionYears <= 0) return null;
+    return ({
       c: compare(input),
       table: compareTable(input, TABLE_YEARS),
       breakeven: breakevenYears(input),
     });
-  }
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -166,7 +177,6 @@ export default function SeveranceVsPensionPage() {
                 아직 안 받은 잔액에 붙는 수익률 · 손실을 보는 경우를 보려면 음수를 넣으세요
               </p>
             </div>
-            <PrimaryBtn onClick={calculate}>두 선택 비교하기</PrimaryBtn>
           </div>
         </Card>
 

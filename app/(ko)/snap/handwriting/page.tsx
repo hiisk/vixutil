@@ -185,7 +185,7 @@ export default function HandwritingPage() {
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="✍️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">손글씨 심리 테스트</h1>
+          <h1 className="page-h1">손글씨 심리 테스트</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">손글씨 사진 한 장으로 기울기·필압을 분석해요</p>
         </div>
 

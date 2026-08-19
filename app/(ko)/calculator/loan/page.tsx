@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
+import AreaChart from '@/components/AreaChart';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar,
+  Card, CardHeader, Insight, Label, inputCls, TabBar,
   SummaryCard, RatioBar, TableWrap, ShowMoreBtn,
 } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
@@ -41,16 +42,26 @@ export default function LoanPage() {
   const [amount, setAmount] = useState(300_000_000);
   const [rate, setRate] = useState('3.5');
   const [months, setMonths] = useState('360');
-  const [rows, setRows] = useState<MonthRow[]|null>(null);
   const [showAll, setShowAll] = useState(false);
 
-  function calculate() {
-    // 이율 0(무이자)도 계산한다 — !r로 막으면 0%에서 버튼이 죽는다
+  /*
+    ── 버튼을 없앴다 (2026-08-19) ──────────────────────────────────
+    값을 넣고 「계산하기」를 눌러야 답이 나왔다. 그런데 이 계산은 세 숫자를
+    읽어 곱하고 더하는 것이 전부다 — 기다릴 것도, 확인받을 것도 없다. 버튼은
+    사람에게 «한 번 더 하세요»를 시키고 있었을 뿐이다.
+
+    금리를 3.5에서 4.0으로 바꿔 보는 것이 이 계산기를 쓰는 진짜 방식인데,
+    그때마다 버튼을 다시 눌러야 하면 그 비교를 안 하게 된다. 이제 숫자를 고치면
+    답과 그래프가 바로 따라 움직인다.
+
+    입력이 아직 성립하지 않으면(빈 칸·기간 초과) null이고, 그 동안은 결과가
+    통째로 안 그려진다 — 예전에 버튼을 안 누른 상태와 같다.
+  */
+  const rows = ((): MonthRow[] | null => {
     const p = amount, annualRate = Number(rate), m = Number(months);
-    if(!p||!Number.isFinite(annualRate)||annualRate<0||!m||m>600) return;
-    setShowAll(false);
-    setRows(mode==='ep' ? calcEP(p,annualRate,m) : calcEPrin(p,annualRate,m));
-  }
+    if (!p || !Number.isFinite(annualRate) || annualRate < 0 || !m || m > 600) return null;
+    return mode === 'ep' ? calcEP(p, annualRate, m) : calcEPrin(p, annualRate, m);
+  })();
 
   const totalRepay = rows ? rows.reduce((s,r)=>s+r.payment,0) : 0;
   const totalInterest = totalRepay - amount;
@@ -93,67 +104,90 @@ export default function LoanPage() {
         </>
       }
     >
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-end">
+      {/*
+        ── 계기로 다시 짰다 (2026-08-19) ──────────────────────────────
+        예전 순서는 «폼 카드 → 결과 카드 → 표 카드»였다. 서류를 채워 제출하는
+        모양인데, 계산기는 서류가 아니라 다이얼을 돌리면 숫자가 반응하는 물건이다.
+
+        그래서 답을 맨 위에 두고 조작부를 그 아래 붙였다. 금리를 3.5에서 4.0으로
+        바꾸는 내내 답이 시야에서 안 사라진다 — 이 계산기를 쓰는 진짜 방식이
+        그 «바꿔 보기»이기 때문이다.
+
+        판도 겹치지 않는다. 값·조작·해설이 각각 카드에 담기면 층이 셋이 되는데
+        실제로는 한 물건의 세 부분이다. 생김새는 globals.css의 .readout·.dial에.
+      */}
+      <div className="flex flex-col gap-7">
+        <div className="flex items-center justify-between gap-3">
+          {/* 두 방식은 결과를 통째로 바꾸므로 조작부보다 먼저 온다 */}
+          <div className="seg" role="group" aria-label="상환 방식">
+            {([['ep','원리금균등'],['eprin','원금균등']] as const).map(([v,label])=>(
+              <button key={v} type="button" className="seg-btn" aria-pressed={mode===v}
+                onClick={()=>{setMode(v);setShowAll(false);}}>{label}</button>
+            ))}
+          </div>
           <LangPicker current="ko" route="/calculator/loan" available={ALL_LOCALES10} />
         </div>
-        <TabBar
-          options={[
-            {value:'ep', label:'원리금균등', sub:'매월 동일 금액'},
-            {value:'eprin', label:'원금균등', sub:'원금 고정, 이자 감소'},
-          ]}
-          value={mode}
-          onChange={(v)=>{setMode(v as 'ep'|'eprin');setRows(null);}}
-        />
 
-        <Card className="p-5">
-          <p className="label-caps mb-3">대출 조건</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <Label>대출금액 (원)</Label>
-              <CommaInput value={amount} onChange={setAmount} placeholder="예: 300,000,000" />
-            </div>
-            <div>
-              <Label>연이율 (%)</Label>
-              <input type="number" value={rate} onChange={e=>setRate(e.target.value)}
-                placeholder="예: 4.5" className={inputCls}/>
-            </div>
-            <div>
-              <Label>대출기간 (개월)</Label>
-              <input type="number" value={months} onChange={e=>setMonths(e.target.value)}
-                placeholder="예: 360 (30년)" className={inputCls}/>
+        {rows && (
+          <div className="readout">
+            <p className="readout-label">{mode==='ep'?'월 납입액':'첫 달 납입액'}</p>
+            <p className="readout-value">{fmt(rows[0].payment)}원</p>
+            <div className="readout-specs">
+              <p className="spec"><span className="spec-k">총 상환액</span><span className="spec-v">{fmt(totalRepay)}원</span></p>
+              <p className="spec"><span className="spec-k">총 이자</span><span className="spec-v">{fmt(totalInterest)}원</span></p>
+              <p className="spec"><span className="spec-k">이자 비중</span><span className="spec-v">{Math.round((totalInterest/(amount||1))*100)}%</span></p>
+              <p className="spec">
+                <span className="spec-k">{mode==='ep'?'기간':'마지막 달'}</span>
+                <span className="spec-v">{mode==='ep'?`${Math.round(rows.length/12)}년`:`${fmt(rows[rows.length-1].payment)}원`}</span>
+              </p>
             </div>
           </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-          </div>
-        </Card>
+        )}
+
+        {/* 조작부 — 상자가 아니라 «고칠 수 있는 값»으로 둔다 */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <label className="dial">
+            <span className="dial-k">대출금액 (원)</span>
+            {/* className=""라서 .dial이 생김새를 정한다 — 상자 없이 값만 */}
+            <CommaInput value={amount} onChange={setAmount} placeholder="300,000,000" className="" />
+          </label>
+          <label className="dial">
+            <span className="dial-k">연이율 (%)</span>
+            <input type="number" inputMode="decimal" value={rate} onChange={e=>setRate(e.target.value)} placeholder="3.5" />
+          </label>
+          <label className="dial">
+            <span className="dial-k">기간 (개월)</span>
+            <input type="number" inputMode="numeric" value={months} onChange={e=>setMonths(e.target.value)} placeholder="360" />
+          </label>
+        </div>
 
         {rows && (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="stat-pri">
-                <p className="stat-label">{mode==='ep'?'월 납입액':'첫 달 납입액'}</p>
-                <p className="stat-value">{fmt(rows[0].payment)}원</p>
-                {mode==='eprin' && (
-                  <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">마지막 달 {fmt(rows[rows.length-1].payment)}원</p>
-                )}
-              </div>
-              <SummaryCard label="총 상환액" value={`${fmt(totalRepay)}원`}/>
-              <SummaryCard label="총 이자" value={`${fmt(totalInterest)}원`} variant="red"/>
-            </div>
+            <RatioBar
+              a={amount} b={totalInterest}
+              labelA={`원금 ${fmt(amount)}원`}
+              labelB={`이자 ${fmt(totalInterest)}원`}
+            />
 
-            <Card className="p-5">
-              <p className="label-caps mb-3">원금 vs 이자 비율</p>
-              <RatioBar
-                a={amount} b={totalInterest}
-                labelA={`원금 ${fmt(amount)}원`}
-                labelB={`이자 ${fmt(totalInterest)}원`}
-              />
-            </Card>
+            {/* 숫자를 말로 — 「184,968,240원」과 「원금의 62%」는 다른 정보다 */}
+            <Insight>
+              {Math.round(rows.length/12)}년 동안 이자로만 <strong>{fmt(totalInterest)}원</strong>을 낸다 — 빌린 돈의{' '}
+              <strong>{Math.round((totalInterest / (amount || 1)) * 100)}%</strong>다.
+              기간을 줄이면 월 부담은 늘지만 이 몫이 빠르게 줄어든다.
+            </Insight>
 
-            <Card>
-              <CardHeader title="월별 상환 스케줄" sub={`전체 ${rows.length}개월`}/>
+            {/* 「이 빚이 어떻게 줄어드는가」는 표 360줄이 아니라 선 하나로 읽힌다 */}
+            <AreaChart
+              values={rows.map(r => r.balance)}
+              label="남은 잔금"
+              from="1회"
+              to={`${rows.length}회`}
+              peak={`시작 ${fmt(rows[0].balance)}원`}
+            />
+
+            {/* 360줄은 «필요하면 펴는 것»이지 기본으로 펼 것이 아니다 */}
+            <details className="fold border-t border-slate-200 dark:border-slate-800">
+              <summary>월별 상환 스케줄 <span className="font-normal text-slate-400">{rows.length}개월</span></summary>
               <TableWrap>
                 <table className="calc-table">
                   <thead>
@@ -166,18 +200,20 @@ export default function LoanPage() {
                       <tr key={r.month}>
                         <td>{r.month}회</td>
                         <td>{fmt(r.payment)}원</td>
-                        <td className="text-blue-700 dark:text-blue-300 font-semibold">{fmt(r.principal)}원</td>
-                        <td className="text-red-500">{fmt(r.interest)}원</td>
+                        <td>{fmt(r.principal)}원</td>
+                        <td>{fmt(r.interest)}원</td>
                         <td>{fmt(r.balance)}원</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </TableWrap>
-              <div className="px-5 pb-4">
-                {!showAll && <ShowMoreBtn total={rows.length} showing={24} onClick={()=>setShowAll(true)}/>}
-              </div>
-            </Card>
+              {!showAll && (
+                <div className="pb-2">
+                  <ShowMoreBtn total={rows.length} showing={24} onClick={()=>setShowAll(true)}/>
+                </div>
+              )}
+            </details>
           </>
         )}
       </div>

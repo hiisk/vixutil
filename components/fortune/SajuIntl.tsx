@@ -189,7 +189,9 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
         {!initialTopic && (
           <div className="text-center mb-6">
             <ToolIcon emoji="🔯" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-            <PageHero title={ui.title} desc={ui.lead} />
+            <div className="hero-band">
+              <PageHero title={ui.title} desc={ui.lead} />
+            </div>
           </div>
         )}
 

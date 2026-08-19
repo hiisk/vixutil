@@ -153,7 +153,9 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
           <ToolIcon emoji="💎" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-          <PageHero title={c.title} desc={c.lead} />
+          <div className="hero-band">
+            <PageHero title={c.title} desc={c.lead} />
+          </div>
         </div>
 
         <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-6">

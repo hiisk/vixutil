@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
 const TIP_RATES = [10, 15, 18, 20, 25];
@@ -12,30 +12,43 @@ export default function TipPage() {
   const [customRate, setCustomRate] = useState('');
   const [people, setPeople] = useState('4');
 
-  const [result, setResult] = useState<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     tipAmount: number;
     tipPerPerson: number;
     total: number;
     totalPerPerson: number;
     rate: number;
-  } | null>(null);
-
-  function calculate() {
+  } | null = ((): {
+    tipAmount: number;
+    tipPerPerson: number;
+    total: number;
+    totalPerPerson: number;
+    rate: number;
+  } | null => {
     const a = amount;
     const p = Number(people) || 1;
     const rate = tipRate !== null ? tipRate : Number(customRate);
-    if (!a || !rate) return;
+    if (!a || !rate) return null;
 
     const tipAmount = a * (rate / 100);
     const total = a + tipAmount;
-    setResult({
+    return ({
       tipAmount,
       tipPerPerson: tipAmount / p,
       total,
       totalPerPerson: total / p,
       rate,
     });
-  }
+  
+    return null;
+  })();
+
+
 
   function handleRateBtn(r: number) {
     setTipRate(r);
@@ -139,9 +152,6 @@ export default function TipPage() {
                 />
               </div>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

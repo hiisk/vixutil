@@ -1,7 +1,15 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard,
+  Card, CardHeader, Label, inputCls, SummaryCard,
 } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
 import { INCOME_BRACKETS, PERSONAL_DEDUCTION } from '@/lib/salary';
@@ -12,16 +20,22 @@ const EXPENSE_RATE = 0.641;
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function FreelancePage() {
-  const [income, setIncome] = useState('');
+  const [income, setIncome] = useState('5000000');
   const [period, setPeriod] = useState<'once'|'monthly'|'annual'>('once');
-  const [result, setResult] = useState<{
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     base: number; incomeTax: number; localTax: number; withholding: number; net: number;
     annualEstimate: number; expenseDeduction: number; estimatedFinalTax: number;
-  } | null>(null);
-
-  function calculate() {
+  } | null = ((): {
+    base: number; incomeTax: number; localTax: number; withholding: number; net: number;
+    annualEstimate: number; expenseDeduction: number; estimatedFinalTax: number;
+  } | null => {
     const v = Number(income);
-    if (!v) return;
+    if (!v) return null;
     const base = period === 'annual' ? Math.round(v/12) : period === 'monthly' ? v : v;
     const incomeTax = Math.round(base * 0.03);
     const localTax = Math.round(base * 0.003);
@@ -37,8 +51,12 @@ export default function FreelancePage() {
     const bracket = INCOME_BRACKETS.find(b => taxableIncome <= b.limit)!;
     const estimatedFinalTax = Math.max(0, taxableIncome * bracket.rate - bracket.deduct) * 10000;
 
-    setResult({ base, incomeTax, localTax, withholding, net, annualEstimate, expenseDeduction, estimatedFinalTax });
-  }
+    return ({ base, incomeTax, localTax, withholding, net, annualEstimate, expenseDeduction, estimatedFinalTax });
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -96,9 +114,6 @@ export default function FreelancePage() {
               <input type="number" value={income} onChange={e=>setIncome(e.target.value)}
                 placeholder="예: 5,000,000" className={inputCls}/>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

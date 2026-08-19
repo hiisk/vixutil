@@ -94,7 +94,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
         </div>
 
         <div className="text-center mb-6">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{ui.metaTitle(f)}</h1>
+          <h1 className="page-h1">{ui.metaTitle(f)}</h1>
           <p className="text-xs font-bold text-fuchsia-700 dark:text-fuchsia-400 mb-2">{ui.groupLabel[f.group]}</p>
           <p className="note-sm">{ui.desc(f)}</p>
         </div>

@@ -64,7 +64,9 @@ export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topi
   const head = (
     <div className="text-center mb-6">
       <ToolIcon emoji={TOPIC_EMOJI[topic]} className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-      <PageHero title={heading} desc={c.lead[topic]} />
+      <div className="hero-band">
+        <PageHero title={heading} desc={c.lead[topic]} />
+      </div>
     </div>
   );
 

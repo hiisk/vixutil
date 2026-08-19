@@ -1,6 +1,14 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
 
 // 대한비만학회 2022 진료지침 기준
 const LEVELS = [
@@ -15,26 +23,36 @@ const LEVELS = [
 const BMI_SCALE = { min: 14, max: 42 }; // 게이지 범위
 
 export default function BmiPage() {
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('175');
+  const [weight, setWeight] = useState('70');
   const [sex, setSex] = useState<'m'|'f'>('m');
-  const [result, setResult] = useState<{
+
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: {
     bmi: number; std: number; diff: number; level: typeof LEVELS[0];
     idealMin: number; idealMax: number;
-  }|null>(null);
-
-  function calculate() {
+  }|null = ((): {
+    bmi: number; std: number; diff: number; level: typeof LEVELS[0];
+    idealMin: number; idealMax: number;
+  }|null => {
     const h = Number(height) / 100;
     const w = Number(weight);
-    if (!h || !w) return;
+    if (!h || !w) return null;
     const bmi = w / (h * h);
     const std = sex === 'm' ? (Number(height) - 100) * 0.9 : (Number(height) - 100) * 0.85;
     const level = LEVELS.find(l => bmi < l.max) ?? LEVELS[LEVELS.length - 1];
     // 정상 BMI 범위 체중
     const idealMin = 18.5 * h * h;
     const idealMax = 22.9 * h * h;
-    setResult({ bmi, std, diff: w - std, level, idealMin, idealMax });
-  }
+    return ({ bmi, std, diff: w - std, level, idealMin, idealMax });
+  
+    return null;
+  })();
+
 
   const bmiPct = result ? Math.min(100, Math.max(0, (result.bmi - BMI_SCALE.min) / (BMI_SCALE.max - BMI_SCALE.min) * 100)) : 0;
 
@@ -98,9 +116,6 @@ export default function BmiPage() {
                   placeholder="예: 70" className={inputCls}/>
               </div>
             </div>
-          </div>
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

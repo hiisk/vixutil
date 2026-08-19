@@ -84,7 +84,7 @@ export default function FortunePage() {
         {/* 타이틀 */}
         <div className="text-center mb-10">
           <ToolIcon emoji="🔮" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">오늘의 운세</h1>
+          <h1 className="page-h1">오늘의 운세</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">매일 새롭게 업데이트 · 사주·별자리·띠·타로·MBTI</p>
         </div>
 

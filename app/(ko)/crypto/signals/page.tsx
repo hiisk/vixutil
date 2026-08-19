@@ -387,7 +387,7 @@ export default function SignalsPage() {
 
         <div className="text-center mb-6">
           <ToolIcon emoji="📈" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-1.5">Crypto Signal Board</h1>
+          <h1 className="page-h1">Crypto Signal Board</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
           <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">🕛 All times in UTC · strategy resets at <span className="text-amber-500/80 font-semibold tabular-nums">00:00 UTC</span>{resetIn ? <> · <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> from now</> : null}</p>
         </div>

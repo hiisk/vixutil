@@ -72,7 +72,7 @@ export default function TextHubPage() {
       <main className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-9">
           <ToolIcon emoji="✍️" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">텍스트 도구</h1>
+          <h1 className="page-h1">텍스트 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             한글을 다루다 생기는 잔일들
             <br className="sm:hidden" /> — 한 곳에서 끝내세요

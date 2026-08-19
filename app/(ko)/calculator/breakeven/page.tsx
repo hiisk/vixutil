@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -21,29 +21,36 @@ export default function BreakevenPage() {
   const [sellPriceU, setSellPriceU] = useState(20_000);
   const [varCost, setVarCost] = useState(8_000);
 
-  const [result, setResult] = useState<{ bep: number; extra: string } | null>(null);
-
-  function calculate() {
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: { bep: number; extra: string } | null = ((): { bep: number; extra: string } | null => {
     if (mode === 'invest') {
       const p = buyPrice;
-      if (!p) return;
+      if (!p) return null;
       const bf = Number(buyFee) / 100;
       const sf = Number(sellFee) / 100;
       const tt = txTax ? 0.0018 : 0;
       const bep = p * (1 + bf) / (1 - sf - tt);
       const upRate = (bep / p - 1) * 100;
-      setResult({ bep, extra: `필요 상승률 ${upRate.toFixed(2)}%` });
+      return ({ bep, extra: `필요 상승률 ${upRate.toFixed(2)}%` });
     } else {
       const fc = fixedCost;
       const sp = sellPriceU;
       const vc = varCost;
-      if (fc <= 0 || sp <= vc) return;
+      if (fc <= 0 || sp <= vc) return null;
       const contrib = sp - vc;
       const qty = fc / contrib;
       const sales = qty * sp;
-      setResult({ bep: qty, extra: `BEP 매출 ${Math.ceil(sales).toLocaleString()}원` });
+      return ({ bep: qty, extra: `BEP 매출 ${Math.ceil(sales).toLocaleString()}원` });
     }
-  }
+  
+    return null;
+  })();
+
+
 
   return (
     <CalcShell
@@ -127,9 +134,6 @@ export default function BreakevenPage() {
               </div>
             </div>
           )}
-          <div className="mt-4">
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
-          </div>
         </Card>
 
         {result && (

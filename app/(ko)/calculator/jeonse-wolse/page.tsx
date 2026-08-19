@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, PrimaryBtn, inputCls,
+  Card, CardHeader, Label, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -14,14 +14,21 @@ export default function JeonseWolsePage() {
   const [wolseDeposit, setWolseDeposit] = useState(30_000_000);
   const [monthlyRent, setMonthlyRent] = useState(1_000_000);
   const [rate, setRate] = useState('4.0');
-  const [result, setResult] = useState<JeonseWolseResult | null>(null);
-
-  function calculate() {
-    if (jeonseDeposit <= 0) return;
-    setResult(calcJeonseWolse({
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: JeonseWolseResult | null = ((): JeonseWolseResult | null => {
+    if (jeonseDeposit <= 0) return null;
+    return (calcJeonseWolse({
       jeonseDeposit, wolseDeposit, monthlyRent, rate: Number(rate) || 0,
     }));
-  }
+  
+    return null;
+  })();
+
+
 
   const cheaperLabel = result
     ? result.cheaper === 'jeonse' ? '전세가 유리' : result.cheaper === 'wolse' ? '월세가 유리' : '거의 같음'
@@ -103,8 +110,6 @@ export default function JeonseWolsePage() {
             </p>
           </div>
         </Card>
-
-        <PrimaryBtn onClick={calculate}>유불리 비교</PrimaryBtn>
 
         {result && (
           <>

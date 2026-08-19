@@ -238,7 +238,7 @@ export function CardHeader({ title, sub }: { title: string; sub?: string }) {
 }
 
 export function Label({ children }: { children: React.ReactNode }) {
-  return <label className="fld-lbl">{children}</label>;
+  return <label className="dial-k block mb-0.5">{children}</label>;
 }
 
 /*
@@ -249,9 +249,17 @@ export function Label({ children }: { children: React.ReactNode }) {
  * class 속성은 낱장 HTML의 17~26%다. 문자열을 클래스 이름으로 바꾸면 한 장에
  * 칸 수만큼 300자가 준다.
  */
-export const inputCls = 'fld w-full';
+/*
+ * ── 상자에서 값으로 (2026-08-19) ────────────────────────────────
+ * 테두리 상자는 «채워야 할 빈칸»으로 보인다. 계산기의 칸은 대개 값이 이미 들어
+ * 있고 사람은 그것을 **고치러** 온다. 위·좌·우 선을 지우고 아래만 남기면 고칠 수
+ * 있다는 신호는 그대로면서 화면에서 상자 수십 개가 사라진다.
+ *
+ * 이 문자열 하나가 계산기 159장의 칸 전부를 바꾼다 — 낱장 마크업은 그대로다.
+ */
+export const inputCls = 'dial-input';
 
-export const selectCls = 'fld fld-sel w-full';
+export const selectCls = 'dial-input dial-sel';
 
 export function PrimaryBtn({ onClick, children }: { onClick?: () => void; children: React.ReactNode }) {
   return (
@@ -298,6 +306,18 @@ export function SummaryGrid({ children }: { children: React.ReactNode }) {
   return <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{children}</div>;
 }
 
+/**
+ * 결과 칸 앞의 부호 — 계산기라서 뜻이 있는 기호만 쓴다 (2026-08-19).
+ *
+ * primary는 «=»다. 계산기에서 등호 뒤에 오는 것이 답이라는 약속은 설명이
+ * 필요 없다. green·red는 늘었다·줄었다라서 화살표다. default에는 아무것도
+ * 안 붙인다 — 전부에 붙이면 부호가 아니라 장식이 된다.
+ */
+function StatMark({ variant }: { variant: 'primary' | 'green' | 'red' }) {
+  const glyph = variant === 'primary' ? '=' : variant === 'green' ? '↑' : '↓';
+  return <span aria-hidden className={`stat-mark stat-mark-${variant}`}>{glyph}</span>;
+}
+
 export function SummaryCard({
   label, value, sub, variant = 'default',
 }: {
@@ -312,10 +332,31 @@ export function SummaryCard({
   const cls = { default: 'stat', primary: 'stat-pri', green: 'stat-up', red: 'stat-down' }[variant];
   return (
     <div className={cls}>
-      <p className="stat-label">{label}</p>
+      <p className="stat-label">
+        {variant !== 'default' && <StatMark variant={variant} />}
+        {label}
+      </p>
       <p className="stat-value">{value}</p>
       {sub && <p className="stat-sub">{sub}</p>}
     </div>
+  );
+}
+
+/**
+ * 숫자를 말로 한 줄 (2026-08-19).
+ *
+ * 결과 칸은 «얼마»를 말하지만 «그래서 어떤가»는 안 말한다. 총 이자가
+ * 184,968,240원이라는 것과 «원금의 62%»라는 것은 다른 정보다. 뒤엣것이
+ * 사람이 남 이야기하듯 옮기는 문장이고, 계산기를 다시 찾게 만드는 것도 그쪽이다.
+ *
+ * 문장은 부르는 쪽이 만든다 — 계산기마다 짚을 것이 다르다.
+ */
+export function Insight({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="insight">
+      <span aria-hidden className="insight-mark" />
+      <span>{children}</span>
+    </p>
   );
 }
 

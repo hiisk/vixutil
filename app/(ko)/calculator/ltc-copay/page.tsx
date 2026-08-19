@@ -1,7 +1,15 @@
 'use client';
 import { useState } from 'react';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
+ * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
+ * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
+ * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
+ * 골라 둔 예시를 그대로 올렸다.
+ */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, selectCls } from '@/components/CalcShell';
 import {
   GRADES, RELIEF_RATES, SERVICE_RATES,
   type Relief, type ServiceKind,
@@ -31,34 +39,46 @@ export default function LtcCopayPage() {
   const [used, setUsed] = useState('');
   const [relief, setRelief] = useState<Relief>('none');
   const [nonBenefit, setNonBenefit] = useState('0');
-  const [budget, setBudget] = useState('');
-  const [result, setResult] = useState<null | {
+  const [budget, setBudget] = useState('400000');
+
+  /*
+   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
+   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
+   * 예전에 버튼을 안 누른 상태와 같다.
+   */
+  const result: null | {
     r: ReturnType<typeof calcCopay>;
     grade: string;
     kind: ServiceKind;
     usable: number | null;
-  }>(null);
-
-  function calculate() {
+  } = ((): null | {
+    r: ReturnType<typeof calcCopay>;
+    grade: string;
+    kind: ServiceKind;
+    usable: number | null;
+  } => {
     const u = Number(used);
-    if (u <= 0) return;
+    if (u <= 0) return null;
     /*
      * 시설급여는 월 한도액이 아니라 등급별 1일 수가 × 이용일수로 매겨진다.
      * 그래서 한도를 비워 두면 초과분 없이(한도 = 이용액) 셈한다.
      * 재가급여는 한도액이 없으면 셈 자체가 안 되므로 넣을 때까지 기다린다.
      */
     const l = limit === '' ? (kind === 'facility' ? u : 0) : Number(limit);
-    if (kind === 'home' && l <= 0) return;
+    if (kind === 'home' && l <= 0) return null;
 
     const input = { kind, used: u, limit: l, relief, nonBenefit: Number(nonBenefit || 0) };
     const b = Number(budget);
-    setResult({
+    return ({
       r: calcCopay(input),
       grade,
       kind,
       usable: b > 0 ? maxUsableFor(input, b) : null,
     });
-  }
+  
+    return null;
+  })();
+
 
   return (
     <CalcShell
@@ -180,7 +200,6 @@ export default function LtcCopayPage() {
               <input type="number" value={budget} onChange={e => setBudget(e.target.value)}
                 placeholder="예: 400000" className={inputCls} min="0" />
             </div>
-            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
