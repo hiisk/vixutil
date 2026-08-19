@@ -89,7 +89,7 @@ export default function DailyTarotPage() {
               </div>
               <div className="text-xs font-bold text-white/80">{daily.card.nameEn}</div>
               <div className="text-3xl font-bold drop-shadow">{daily.card.name}</div>
-              <div className="inline-block mt-3 text-xs font-bold bg-white/25 rounded-full px-3 py-1">
+              <div className="inline-block mt-3 text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-3 py-1">
                 {daily.reversed ? '역방향 ⟲' : '정방향 ⟰'}
               </div>
             </div>

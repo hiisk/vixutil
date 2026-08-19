@@ -159,7 +159,7 @@ export default function NationalPensionPage() {
 
             <Card>
               <CardHeader title="식이 어떻게 풀렸나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   [`${result.year}년 상수`, result.r.constant.toFixed(3)],
                   ['기본연금액 (연액)', `${fmt(result.r.basicAnnual)}원`],
@@ -179,7 +179,7 @@ export default function NationalPensionPage() {
             {result.r.eligible && (
               <Card>
                 <CardHeader title="앞당길 때와 미룰 때" />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {result.table.map(({ shift, monthly }) => (
                     <div key={shift} className="px-5 py-3 flex justify-between text-sm">
                       <span className="text-slate-600 dark:text-slate-300">

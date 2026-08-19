@@ -178,7 +178,7 @@ export default function BusinessIncomePage() {
 
             <Card>
               <CardHeader title="세금 계산 내역" sub="2026년 기준" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 <TableWrap>
                   <table className="w-full text-sm">
                     <tbody>

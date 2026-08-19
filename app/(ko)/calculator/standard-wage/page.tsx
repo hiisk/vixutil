@@ -117,7 +117,7 @@ export default function StandardWagePage() {
             </div>
             <Card>
               <CardHeader title="구성 내역" sub={`월 ${result.monthlyHours}h 기준`} />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 <div className="px-5 py-3 flex justify-between text-sm">
                   <span className="text-slate-600 dark:text-slate-300">기본급</span>
                   <span className="font-semibold">{fmt(Number(basic))}원</span>

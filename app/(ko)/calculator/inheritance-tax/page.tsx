@@ -112,7 +112,7 @@ export default function InheritanceTaxPage() {
             </div>
             <Card>
               <CardHeader title="공제 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '일괄공제', value: result.unifiedDeduction, note: `(기초 2억 + 자녀 ${children}명 × 5천만 vs 5억 중 큰 금액)` },
                   ...(result.spouseDeduction > 0 ? [{ label: '배우자 공제', value: result.spouseDeduction, note: `(법정상속분 ${(result.spouseShare * 100).toFixed(1)}% vs 5억 중 큰 금액, 최대 30억)` }] : []),

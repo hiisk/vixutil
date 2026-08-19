@@ -246,7 +246,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
               </div>
               <div className="text-5xl font-bold drop-shadow">{result.score}</div>
               <div className="text-xs font-bold text-white/85 mb-3">{ui.score}</div>
-              <div className="inline-block text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">{result.label}</div>
+              <div className="inline-block text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-4 py-1.5">{result.label}</div>
               <p className="text-sm text-white/90 mt-3">{result.headline}</p>
             </div>
 

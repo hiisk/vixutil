@@ -190,7 +190,7 @@ export default function PensionCatchupPage() {
 
             <Card>
               <CardHeader title="넣기 전과 뒤" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['인정되는 추가 기간', yearsOf(result.r.addedMonths)],
                   ['한 달 보험료', `${fmt(result.r.monthlyContribution)}원`],
@@ -210,7 +210,7 @@ export default function PensionCatchupPage() {
 
             <Card>
               <CardHeader title="개월수를 달리 잡으면" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.table.map(row => (
                   <div key={row.months} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">

@@ -85,7 +85,7 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
           {state === 'recording' ? ui.recording : state === 'done' ? ui.done : ui.idle}
         </p>
         {state === 'recording' && (
-          <div className="mt-5 h-3 rounded-full bg-white/20 overflow-hidden max-w-xs mx-auto">
+          <div className="mt-5 h-3 rounded-full bg-white dark:bg-slate-900/20 overflow-hidden max-w-xs mx-auto">
             <div className="h-full bg-white transition-[width] duration-75" style={{ width: `${level}%` }} />
           </div>
         )}

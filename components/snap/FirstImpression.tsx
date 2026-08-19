@@ -207,7 +207,7 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
             <p className="text-sm leading-relaxed">{result.desc}</p>
             <div className="flex flex-wrap justify-center gap-1.5 mt-4">
               {result.keywords.map(k => (
-                <span key={k} className="text-xs font-bold bg-white/25 rounded-full px-3 py-1">#{k}</span>
+                <span key={k} className="text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-3 py-1">#{k}</span>
               ))}
             </div>
           </div>

@@ -208,7 +208,7 @@ export default function BasicPensionPage() {
 
             <Card>
               <CardHeader title="소득인정액이 어떻게 나왔나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['소득평가액', `${fmt(result.r.incomeValue)}원`],
                   ['재산의 소득환산액', `${fmt(result.r.assetValue)}원`],
@@ -225,7 +225,7 @@ export default function BasicPensionPage() {
 
             <Card>
               <CardHeader title="수령액이 어떻게 깎였나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['기준연금액', `${fmt(Number(fullAmount))}원`],
                   [`부부 감액 (${COUPLE_REDUCTION * 100}%)`, couple ? `−${fmt(Number(fullAmount) * COUPLE_REDUCTION)}원` : '해당 없음'],

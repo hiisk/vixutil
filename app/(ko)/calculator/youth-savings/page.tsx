@@ -245,7 +245,7 @@ export default function YouthSavingsPage() {
 
             <Card>
               <CardHeader title="연 환산 수익률" sub="기여금이 얹히면 실효 수익률이 크게 뛴다" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['원금 대비 연 환산 수익률', `${pct(result.annualReturn)}%`],
                   ['같은 결과를 내는 일반 과세 적금 금리', `연 ${pct(result.equivalentRate)}%`],
@@ -260,7 +260,7 @@ export default function YouthSavingsPage() {
 
             <Card>
               <CardHeader title="같은 돈을 일반 적금에 넣었다면" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['이 계좌 만기 수령액', fmt(result.maturity)],
                   ['일반 과세 적금 만기 수령액', fmt(result.plainMaturity)],
@@ -276,7 +276,7 @@ export default function YouthSavingsPage() {
 
             <Card>
               <CardHeader title="적용된 기여금" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['적용 구간', result.tier ? result.tier.label : '해당 구간 없음 (기여금 0원)'],
                   ['월 기여금', `${fmt(result.monthlyMatch)}원`],

@@ -125,7 +125,7 @@ export default function FreelancePage() {
 
             <Card>
               <CardHeader title="원천징수 내역"/>
-              <div className="divide-y divide-slate-100 text-sm">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800 text-sm">
                 <Row l="소득세 (3%)" v={`-${fmt(result.incomeTax)}원`} red/>
                 <Row l="지방소득세 (0.3%)" v={`-${fmt(result.localTax)}원`} red/>
                 <Row l="합계 (3.3%)" v={`-${fmt(result.withholding)}원`} red bold/>

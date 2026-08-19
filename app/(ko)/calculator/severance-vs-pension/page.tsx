@@ -199,7 +199,7 @@ export default function SeveranceVsPensionPage() {
 
             <Card>
               <CardHeader title="일시금으로 받으면" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['퇴직금', `${fmt(result.c.lump.netPayout + result.c.lump.totalTax)}원`],
                   ['근속연수 (올림)', `${result.c.lump.years}년`],
@@ -217,7 +217,7 @@ export default function SeveranceVsPensionPage() {
 
             <Card>
               <CardHeader title={`연금으로 ${result.c.pension.years}년에 걸쳐 받으면`} />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['세전 총 수령액', `${fmt(result.c.pension.grossTotal)}원`],
                   ['그중 운용수익', `${fmt(result.c.pension.gainTotal)}원`],
@@ -241,7 +241,7 @@ export default function SeveranceVsPensionPage() {
 
             <Card>
               <CardHeader title="수령 기간을 바꾸면" sub={`${RATE_STEP_YEAR}년째부터 감액이 40%로 커집니다`} />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.table.map(row => (
                   <div key={row.years} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">
@@ -281,7 +281,7 @@ export default function SeveranceVsPensionPage() {
                       <th className="px-3 py-2 text-right font-medium">세후</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {result.c.pension.rows.map(row => (
                       <tr key={row.year}>
                         <td className="px-3 py-2">{row.year}년째</td>

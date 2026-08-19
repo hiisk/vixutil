@@ -623,9 +623,10 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    열일곱 칸이 전부 같은 크기였다. 같은 크기가 늘어서면 목록이지 첫 화면이
    아니고, «무엇부터 보라»는 말이 하나도 없다.
 
-   첫 둘은 두 칸씩 먹는다 — 계산기와 심리테스트다. 어느 것을 키울지는 취향이
-   아니라 유입 순서로 정했다(lib/locale-home.ts의 순서 = 사람이 실제로 오는
-   순서). 나머지는 한 칸으로 그 둘레를 채운다.
+   첫 둘은 두 칸씩 먹는다. 어느 것을 키울지는 취향이 아니라 **목록의 앞 순서**로
+   정했다 — 한국어 홈은 계산기·심리테스트, 아홉 언어 홈은 계산기·단위변환이다
+   (lib/locale-home.ts의 SECTIONS 순서). 순서를 바꾸면 커지는 칸도 바뀐다.
+   나머지는 한 칸으로 그 둘레를 채운다.
 
    모바일(2열)에서는 큰 칸이 한 줄을 통째로 먹으므로 오히려 또렷해진다.
    md 아래에서 col-span을 풀지 않는 까닭이다 — 2열 격자에서 2칸은 곧 한 줄이다. */
@@ -1079,9 +1080,14 @@ html.dark .bg-sec { color: #0b1220; }
    버튼이 아니다. 글자를 조금 작게, 높이를 조금 낮게, 모서리는 블록 규격으로. */
 .btn-pri {
   background: var(--c-sec);
-  @apply w-full inline-flex items-center justify-center gap-2 rounded-full py-3 pl-5 pr-2.5
+  @apply w-full inline-flex items-center justify-center gap-2 rounded-full px-5 py-3
          text-sm font-semibold text-white;
   transition: filter 350ms var(--ease-physical), transform 350ms var(--ease-physical);
+}
+/* 손잡이(원 안의 화살표)가 있을 때만 오른쪽을 좁힌다. 무조건 좁히면 손잡이 없는
+   단추에서 글자가 왼쪽으로 치우친다 — TestEngine의 «시작하기»가 그랬다. */
+.btn-pri:has(.btn-pri-knob) {
+  @apply pr-2.5;
 }
 html.dark .btn-pri { color: #1a1a17; }
 /* 단추 안의 단추 — 화살표가 앉는 원. 단추의 오른쪽 안쪽 여백에 딱 붙는다 */

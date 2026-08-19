@@ -79,7 +79,7 @@ export default function BirthdayPage() {
               </div>
             </div>
             <Card>
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '태어난 요일', value: info.birthDow },
                   { label: `${new Date().getFullYear()}년 생일 요일`, value: info.birthdayDow },

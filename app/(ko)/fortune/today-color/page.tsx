@@ -71,7 +71,7 @@ export default function TodayColorPage() {
             >
               <div className="text-xs font-bold text-white/80 mb-1 drop-shadow">오늘의 행운 색</div>
               <div className="text-4xl font-bold text-white drop-shadow mb-2">{result.lucky.name}</div>
-              <div className="inline-block text-sm font-bold text-white bg-white/25 rounded-full px-4 py-1.5">
+              <div className="inline-block text-sm font-bold text-white bg-white dark:bg-slate-900/25 rounded-full px-4 py-1.5">
                 {result.lucky.meaning}
               </div>
               <div className="flex justify-center gap-1.5 mt-4">

@@ -76,7 +76,7 @@ export default function UnitLengthPage() {
         {results && (
           <Card className="p-5">
             <p className="label-caps mb-3">변환 결과</p>
-            <div className="flex flex-col divide-y divide-slate-100">
+            <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
               {results.map(r => (
                 <div
                   key={r.key}

@@ -72,7 +72,7 @@ export default function BirthStonePage() {
               <div className="text-7xl mb-2 drop-shadow-sm">{result.emoji}</div>
               <div className="text-xs font-bold text-white/85">{result.month}월의 탄생석 · {result.stoneEn}</div>
               <div className="text-3xl font-bold drop-shadow">{result.stone}</div>
-              <div className="inline-block mt-3 text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">
+              <div className="inline-block mt-3 text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-4 py-1.5">
                 {result.stoneMeaning}
               </div>
             </div>

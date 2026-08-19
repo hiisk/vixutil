@@ -90,7 +90,7 @@ export default function ElectricityPage() {
             </div>
             <Card>
               <CardHeader title="요금 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '기본요금', value: result.basicFee },
                   { label: '전력량요금', value: result.usageFee },

@@ -91,7 +91,7 @@ export default function GasBillPage() {
             </div>
             <Card>
               <CardHeader title="요금 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '기본요금', value: result.basicFee },
                   { label: '사용요금', value: result.usageFee },

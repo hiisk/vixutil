@@ -105,7 +105,7 @@ export default function SalaryPage() {
 
             <Card>
               <CardHeader title="공제 상세 내역" sub="2026년 기준" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 <Section title="4대보험" total={result.totalInsurance}>
                   <Row label="국민연금" rate="4.5%" value={result.pension} />
                   <Row label="건강보험" rate="3.545%" value={result.health} />

@@ -168,7 +168,7 @@ export default function AcquisitionTaxPage() {
             </div>
             <Card>
               <CardHeader title="세금 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '취득세', value: result.acquisitionTax },
                   { label: '농어촌특별세', value: result.ruralTax },

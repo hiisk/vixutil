@@ -80,8 +80,8 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
         {/* 오차 눈금 — 가운데가 정확한 음이다 */}
         <div className="relative h-12 mt-6 mx-auto max-w-xs">
-          <div className="absolute inset-x-0 top-1/2 h-0.5 bg-white/20" />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-8 bg-white/60" />
+          <div className="absolute inset-x-0 top-1/2 h-0.5 bg-white dark:bg-slate-900/20" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-8 bg-white dark:bg-slate-900/60" />
           {reading && (
             <div
               className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full transition-[left] ${

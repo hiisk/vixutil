@@ -226,7 +226,7 @@ export default function CardDeductionPage() {
 
             <Card>
               <CardHeader title="공제액이 나오기까지" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['총사용액', result.totalSpending],
                   [`− 문턱 (총급여 × ${THRESHOLD_RATIO * 100}%)`, -result.threshold],
@@ -252,7 +252,7 @@ export default function CardDeductionPage() {
 
             <Card>
               <CardHeader title="수단별 내역" sub="문턱은 공제율이 낮은 수단이 먼저 채웁니다" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.byMeans.filter(m => m.spending > 0).map(m => (
                   <div key={m.means} className="px-5 py-3 text-sm">
                     <div className="flex justify-between">
@@ -282,7 +282,7 @@ export default function CardDeductionPage() {
             {headroom && (
               <Card>
                 <CardHeader title="얼마를 더 써야 공제가 늘어나나" />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
                     ['문턱까지 남은 사용액', headroom.toThreshold],
                     ['문턱을 넘긴 금액', headroom.overThreshold],
@@ -308,7 +308,7 @@ export default function CardDeductionPage() {
 
             <Card>
               <CardHeader title="이 공제로 줄어드는 세금" sub="소득공제라 사람마다 다릅니다" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['공제 전 과세표준', result.taxBaseBefore],
                   ['공제 후 과세표준', result.taxBaseAfter],

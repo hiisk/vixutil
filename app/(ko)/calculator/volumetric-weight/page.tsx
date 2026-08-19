@@ -108,7 +108,7 @@ export default function VolumetricWeightPage() {
             </div>
             <Card>
               <CardHeader title="내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['부피', `${num(result.volume, 0)}㎤`],
                   ['부피무게', `${num(result.volumetric)}kg`],

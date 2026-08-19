@@ -260,7 +260,7 @@ export default function InheritanceSharePage() {
                     title="상속인별 법정상속분"
                     sub={result.d.estate > 0 ? `상속재산 ${man(result.d.estate)}` : '금액을 넣으면 각자의 몫까지'}
                   />
-                  <div className="divide-y divide-slate-100">
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800">
                     {result.d.heirs.map(h => (
                       <div key={h.label} className="px-5 py-3">
                         <div className="flex justify-between text-sm">
@@ -300,7 +300,7 @@ export default function InheritanceSharePage() {
 
                 <Card>
                   <CardHeader title="식이 어떻게 풀렸나" sub={`${unit(result.d.totalUnit)}로 나눔`} />
-                  <div className="divide-y divide-slate-100">
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800">
                     {[
                       ['상속이 열린 순위', RANK_LABEL[result.d.rank]],
                       ['몫 단위', result.d.heirs.map(h => unit(h.unit)).join(' : ')],

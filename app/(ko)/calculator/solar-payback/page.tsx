@@ -193,7 +193,7 @@ export default function SolarPaybackPage() {
 
             <Card>
               <CardHeader title="월 전기요금이 이렇게 바뀝니다" sub="1년차 · 열두 달 평균" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['태양광 없을 때', w(out.billBefore)],
                   ['태양광 달았을 때', w(out.billAfter)],

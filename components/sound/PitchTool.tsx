@@ -83,7 +83,7 @@ export default function PitchTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
             <p className="text-sm text-white/60 mb-3">{ui.askInterval}</p>
             <button
               onClick={() => playPair(question.root, question.semi)}
-              className="rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-white font-bold text-sm hover:bg-white/20 transition-colors"
+              className="rounded-xl bg-white dark:bg-slate-900/10 border border-white/20 px-6 py-3 text-white font-bold text-sm hover:bg-white/20 transition-colors"
             >
               {ui.replay}
             </button>

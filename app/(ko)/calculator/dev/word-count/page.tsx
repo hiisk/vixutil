@@ -96,7 +96,7 @@ export default function WordCountPage() {
         {text && (
           <Card className="p-5">
             <p className="label-caps mb-3">상세 분석</p>
-            <div className="flex flex-col divide-y divide-slate-100">
+            <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
               {STAT_ITEMS.map(item => (
                 <div key={item.key} className="flex justify-between items-center py-2.5">
                   <div>

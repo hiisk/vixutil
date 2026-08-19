@@ -155,7 +155,7 @@ export default function ComprehensiveTaxPage() {
             </div>
             <Card>
               <CardHeader title="공제 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: type === 'work' ? '근로소득공제' : '필요경비', value: result.grossDeduction },
                   { label: `인적공제 (${dependents}명)`, value: result.personalDeduction },

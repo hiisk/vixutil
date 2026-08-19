@@ -83,7 +83,7 @@ export default function DischargePage() {
             </div>
             <Card>
               <CardHeader title="복무 현황" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['복무기간', `${result.months}개월 (${result.total.toLocaleString()}일)`],
                   ['지난 날', `${result.done.toLocaleString()}일`],
@@ -99,7 +99,7 @@ export default function DischargePage() {
             </Card>
             <Card>
               <CardHeader title="진급 예정일" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.ranks.map(r => (
                   <div key={r.rank} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">{r.rank}</span>

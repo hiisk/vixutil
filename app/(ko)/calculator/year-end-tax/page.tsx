@@ -193,7 +193,7 @@ export default function YearEndTaxPage() {
 
             <Card>
               <CardHeader title="결정세액이 나오기까지" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['총급여', num(gross)],
                   ['− 근로소득공제', -result.earningDeduction],
@@ -215,7 +215,7 @@ export default function YearEndTaxPage() {
 
             <Card>
               <CardHeader title="세액공제 내역" sub={`한도 ${man(result.creditLimit)}`} />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['근로소득세액공제', result.earnedIncomeCredit],
                   ['자녀세액공제', result.childCredit],

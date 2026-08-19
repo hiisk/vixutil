@@ -232,7 +232,7 @@ export default function FourInsurancePage() {
                       <th className="px-4 py-2.5 text-right label-caps">금액</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-50">
+                  <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                     {getRows().map(row => (
                       <tr key={row.label}>
                         <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">

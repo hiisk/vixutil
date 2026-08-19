@@ -93,7 +93,7 @@ export default function LoanMethodPage() {
               return (
                 <Card key={s.method}>
                   <CardHeader title={label} />
-                  <div className="divide-y divide-slate-100">
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800">
                     {[
                       ['첫 달 상환액', s.firstPayment],
                       ['마지막 달 상환액', s.lastPayment],

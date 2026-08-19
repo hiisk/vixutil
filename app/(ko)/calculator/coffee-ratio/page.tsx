@@ -153,7 +153,7 @@ export default function CoffeeRatioPage() {
                   <button
                     key={cups}
                     onClick={() => { setMode('water'); setValue(String(cups * 200)); }}
-                    className="w-full px-5 py-3 flex justify-between items-center text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                    className="w-full px-5 py-3 flex justify-between items-center text-sm hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 transition-colors"
                   >
                     <span className="font-semibold text-slate-700 dark:text-slate-200">{cups}잔 ({cups * 200}ml)</span>
                     <span className="text-slate-400 dark:text-slate-500">원두 {((cups * 200) / r).toFixed(1)}g</span>

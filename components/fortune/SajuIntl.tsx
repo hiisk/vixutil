@@ -227,7 +227,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                   [t('luckyColor', lang), dayStemIntl.luckyColor],
                   [t('luckyDirection', lang), dayStemIntl.luckyDirection],
                 ].map(([k, v]) => (
-                  <div key={k} className="bg-white/15 rounded-xl px-2 py-2">
+                  <div key={k} className="bg-white dark:bg-slate-900/15 rounded-xl px-2 py-2">
                     <p className="text-[10px] text-white/70">{k}</p>
                     <p className="text-[11px] font-bold leading-tight mt-0.5">{v}</p>
                   </div>

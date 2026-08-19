@@ -205,7 +205,7 @@ export default function JeonseSafetyPage() {
 
             <Card>
               <CardHeader title="경매로 넘어가면" sub="낙찰가에서 순서대로 빠져나가는 돈" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['낙찰가 (시세 × 낙찰가율)', result.auctionPrice],
                   ['경매비용', -result.auctionCost],
@@ -226,7 +226,7 @@ export default function JeonseSafetyPage() {
 
             <Card>
               <CardHeader title="두 비율" sub="전세가율은 집주인 빚을 세지 않는다" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['전세가율 (보증금 ÷ 시세)', pct(result.jeonseRatio)],
                   ['부채비율 ((선순위 + 보증금) ÷ 시세)', pct(result.debtRatio)],

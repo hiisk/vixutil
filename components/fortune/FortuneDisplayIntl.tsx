@@ -47,7 +47,7 @@ function ShareBtn({ name, lang }: { name: string; lang: Lang }) {
     <button
       type="button"
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white/20 border-white/30 text-white hover:bg-white/30"
+      className="flex items-center gap-1.5 text-xs font-semibold border rounded-xl px-3 py-1.5 transition-all bg-white dark:bg-slate-900/20 border-white/30 text-white hover:bg-white/30"
     >
       {state === 'copied' ? (
         <>
@@ -92,7 +92,7 @@ export default function FortuneDisplayIntl({ subjectId, subjectName, subjectEmoj
         <p className="text-sm font-semibold text-purple-200 mb-2">{today}</p>
         <div className="text-6xl mb-3">{subjectEmoji}</div>
         <h2 className="text-2xl font-bold mb-1">{subjectName}</h2>
-        {badge && <span className="text-xs bg-white/20 px-3 py-1 rounded-full font-semibold">{badge}</span>}
+        {badge && <span className="text-xs bg-white dark:bg-slate-900/20 px-3 py-1 rounded-full font-semibold">{badge}</span>}
         <div className="mt-4 flex flex-col items-center gap-1">
           <p className="text-xs text-purple-200">{t('todaysFortune', lang)}</p>
           <Stars n={overallAvg} />

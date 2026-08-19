@@ -94,7 +94,7 @@ export default function CarCostPage() {
             </div>
             <Card>
               <CardHeader title="항목별" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['연료비', result.fuel],
                   ['자동차세', result.tax],

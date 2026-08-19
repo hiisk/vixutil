@@ -370,7 +370,7 @@ function CatalogTab() {
             return (
               <div key={suit} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                 <button onClick={() => setOpenSuit(open ? null : suit)}
-                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 transition-colors">
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: info.color + '22' }}>{info.emoji}</div>
                   <div className="text-left flex-1">
                     <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{info.name} <span className="text-slate-400 dark:text-slate-500 font-normal text-xs">({info.nameEn})</span></p>

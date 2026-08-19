@@ -85,7 +85,7 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
             <div className="text-xs font-bold text-amber-100 mb-2">{ui.winner}</div>
             <div className="flex flex-wrap justify-center gap-2">
               {winners.map((w, i) => (
-                <span key={i} className="rp-pop relative inline-block bg-white/25 rounded-full px-4 py-2 text-lg font-bold" style={{ animationDelay: `${i * 120}ms` }}>
+                <span key={i} className="rp-pop relative inline-block bg-white dark:bg-slate-900/25 rounded-full px-4 py-2 text-lg font-bold" style={{ animationDelay: `${i * 120}ms` }}>
                   <span className="absolute -top-2 -right-1 text-sm">{CONFETTI[i % CONFETTI.length]}</span>
                   {w}
                 </span>

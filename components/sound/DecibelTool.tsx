@@ -72,7 +72,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
         <p className="text-6xl font-bold text-white tabular-nums">{db.toFixed(1)}</p>
         <p className="text-sm text-white/60 mt-1">dBFS · {ui.aboutLevel(ui.refs[REFERENCE.indexOf(nearest)])}</p>
 
-        <div className="mt-6 h-4 rounded-full bg-white/10 overflow-hidden">
+        <div className="mt-6 h-4 rounded-full bg-white dark:bg-slate-900/10 overflow-hidden">
           <div
             className={`h-full transition-[width] duration-75 ${level > 80 ? 'bg-rose-500' : level > 55 ? 'bg-amber-400' : 'bg-emerald-500'}`}
             style={{ width: `${level}%` }}

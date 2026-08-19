@@ -573,14 +573,14 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
                   </div>
                 </button>
 
-                <div className="divide-y divide-slate-50">
+                <div className="divide-y divide-slate-50 dark:divide-slate-800">
                   {section.items.map(item => {
                     const isChecked = checked.has(item.id);
                     return (
                       <button
                         key={item.id}
                         onClick={() => toggle(item.id)}
-                        className="w-full flex items-start gap-3 px-5 py-3.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
+                        className="w-full flex items-start gap-3 px-5 py-3.5 hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 transition-colors text-left"
                       >
                         <div className={`mt-0.5 w-5 h-5 rounded-md border-2 shrink-0 flex items-center justify-center transition-all ${
                           isChecked ? 'bg-sky-500 border-sky-500' : 'border-slate-300 hover:border-sky-400'

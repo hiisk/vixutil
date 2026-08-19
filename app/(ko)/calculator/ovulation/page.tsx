@@ -107,7 +107,7 @@ export default function OvulationPage() {
               <p className="stat-value">{formatDate(result.ovulation)}</p>
             </div>
             <Card>
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '다음 생리 예정일', value: formatDate(result.nextPeriod), color: 'text-slate-800 dark:text-slate-100' },
                   { label: '가임기 시작', value: formatDate(result.fertilityStart), color: 'text-emerald-600' },

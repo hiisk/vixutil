@@ -227,7 +227,7 @@ export default function CompoundCalculator() {
                     {suggestions.map(c => (
                       <li key={c.slug}>
                         <button type="button" onClick={() => pickCoin(c)}
-                          className="w-full flex items-center gap-2 px-3 py-2 text-left text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                          className="w-full flex items-center gap-2 px-3 py-2 text-left text-sm hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 transition-colors">
                           <CoinLogo base={c.base} size={16} />
                           <span className="font-bold text-slate-800 dark:text-slate-100">{c.base}</span>
                         </button>

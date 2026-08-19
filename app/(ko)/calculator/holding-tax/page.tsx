@@ -121,7 +121,7 @@ export default function HoldingTaxPage() {
             </div>
             <Card>
               <CardHeader title="보유세 구성" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '재산세 (교육세 포함)', value: result.propertyTax },
                   { label: '종합부동산세', value: result.jongbu, note: result.jongbuBase > 0 ? `과세표준 ${fmt(result.jongbuBase)}원` : '공제 이하 — 미과세' },

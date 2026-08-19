@@ -265,7 +265,7 @@ export default function FirstImpressionPage() {
               <h2 className="text-2xl font-bold mb-2">{result.type.label}</h2>
               <div className="flex flex-wrap justify-center gap-1.5 mt-3">
                 {result.type.keywords.map(k => (
-                  <span key={k} className="text-xs font-bold bg-white/20 px-2.5 py-1 rounded-full">{k}</span>
+                  <span key={k} className="text-xs font-bold bg-white dark:bg-slate-900/20 px-2.5 py-1 rounded-full">{k}</span>
                 ))}
               </div>
             </div>

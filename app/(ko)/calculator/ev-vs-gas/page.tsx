@@ -228,7 +228,7 @@ export default function EvVsGasPage() {
 
             <Card>
               <CardHeader title="해마다 드는 돈" sub="두 차를 가르는 항목만" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['에너지비', result.ev.energy, result.gas.energy],
                   ['자동차세', result.ev.tax, result.gas.tax],

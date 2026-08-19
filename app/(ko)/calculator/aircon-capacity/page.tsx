@@ -242,7 +242,7 @@ export default function AirconCapacityPage() {
 
             <Card>
               <CardHeader title="필요 냉방능력이 어떻게 나왔나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {([
                   ['면적', `${result.need.sqm.toFixed(1)}㎡ · ${result.need.pyeong.toFixed(1)}평`],
                   ['용도별 계수', `${result.wPerSqm}W/㎡ (${result.useLabel})`],
@@ -262,7 +262,7 @@ export default function AirconCapacityPage() {
 
             <Card>
               <CardHeader title="흔히 파는 용량" sub="필요한 능력을 갓 덮는 등급을 골랐습니다" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {GRADES.map(g => {
                   const picked = g === result.choice.perUnit;
                   return (
@@ -296,7 +296,7 @@ export default function AirconCapacityPage() {
             {result.run && (
               <Card>
                 <CardHeader title="한 달 전기요금" sub={`${kw1(result.choice.totalKw)}kW · 하루 ${result.hours}시간 × ${result.days}일`} />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {([
                     ['소비전력', `${fmt(result.run.inputKw * 1000)}W`],
                     ['한 달 사용량', `${fmt(result.run.kwh)}kWh`],

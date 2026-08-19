@@ -87,7 +87,7 @@ export default function CarDepreciationPage() {
             </div>
             <Card>
               <CardHeader title="해마다 남는 값" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.rows.map(r => (
                   <div key={r.year} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">

@@ -210,7 +210,7 @@ export default function LtcCopayPage() {
 
             <Card>
               <CardHeader title="어떻게 나왔나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['급여 대상 금액 (한도까지)', `${fmt(result.r.covered)}원`],
                   [`본인부담금 (${pct(result.r.rate)})`, `${fmt(result.r.copay)}원`],

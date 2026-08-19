@@ -124,7 +124,7 @@ export default function OvertimePage() {
             </div>
             <Card>
               <CardHeader title="수당 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '연장근로수당', rate: '통상시급 × 1.5', hours: Number(overtime || 0), pay: result.overtimePay },
                   { label: '야간근로수당', rate: '통상시급 × 0.5 (가산)', hours: Number(night || 0), pay: result.nightPay },

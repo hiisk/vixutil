@@ -251,7 +251,7 @@ export default function DtiPage() {
 
             <Card>
               <CardHeader title="연 상환 부담" sub="주담대는 원리금, 기타 대출은 이자만" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['주담대 연 원리금', result.now.mortgageAnnual],
                   ['기타 대출 연 이자', result.now.otherAnnual],
@@ -269,7 +269,7 @@ export default function DtiPage() {
             {Number(graceYears) > 0 && (
               <Card>
                 <CardHeader title="거치기간이 있으면" sub={`원금은 ${result.now.burden.repayMonths}개월에 나눠 갚습니다`} />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
                     ['거치 중 월 이자', result.now.burden.monthlyDuringGrace],
                     ['거치 후 월 원리금', result.now.burden.monthlyAfterGrace],

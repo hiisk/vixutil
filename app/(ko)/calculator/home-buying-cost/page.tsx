@@ -231,7 +231,7 @@ export default function HomeBuyingCostPage() {
 
             <Card>
               <CardHeader title="부대비용 내역" sub="0원인 항목은 표시하지 않습니다" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.items.map(i => (
                   <div key={i.label} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">{i.label}</span>

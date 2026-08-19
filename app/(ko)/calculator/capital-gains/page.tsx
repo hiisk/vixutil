@@ -152,7 +152,7 @@ export default function CapitalGainsPage() {
             </div>
             <Card>
               <CardHeader title="계산 과정" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '양도차익', value: fmt(result.gain) + '원' },
                   { label: `장기보유특별공제 (${(result.ltdRate * 100).toFixed(0)}%)`, value: `-${fmt(result.ltd)}원` },

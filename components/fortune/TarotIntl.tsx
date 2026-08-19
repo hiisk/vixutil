@@ -206,7 +206,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
               <p className="text-xs font-bold text-white/80 mb-2">{ui.drawn}</p>
               <div className={`text-6xl mb-3 ${shown.reversed ? 'rotate-180' : ''} inline-block transition-transform`}>{card.emoji}</div>
               <p className="text-2xl font-bold mb-1">{cardName(shown.id, lang)}</p>
-              <span className="inline-block text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">
+              <span className="inline-block text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-4 py-1.5">
                 {shown.reversed ? ui.reversed : ui.upright}
               </span>
             </div>

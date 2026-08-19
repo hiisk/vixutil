@@ -183,7 +183,7 @@ export default function PensionSplitPage() {
 
             <Card>
               <CardHeader title="식이 어떻게 풀렸나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['나누기 전 노령연금 월액', `${fmt(result.r.baseMonthly)}원`],
                   ['총 가입기간', `${Math.floor(result.months / 12)}년 ${result.months % 12}개월`],
@@ -203,7 +203,7 @@ export default function PensionSplitPage() {
 
             <Card>
               <CardHeader title="두 사람이 각각 받는 금액" sub="합치면 원래 연금" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['받는 쪽 (분할연금)', result.r.spouseMonthly],
                   ['나눠 준 쪽에 남는 노령연금', result.r.ownBeforeFamily],
@@ -231,7 +231,7 @@ export default function PensionSplitPage() {
 
             <Card>
               <CardHeader title="분할 비율을 달리 정하면" sub="협의·재판으로 달라질 수 있음" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.table.map(row => (
                   <div key={row.ratio} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">

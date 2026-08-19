@@ -213,7 +213,7 @@ export default function HealthInsuranceLocalPage() {
 
             <Card>
               <CardHeader title="보험료가 어떻게 나왔나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['소득월액', `${fmt(result.r.incomeMonthly)}원`],
                   [`소득보험료 (${result.r.atFloor ? '최저보험료' : pct(HEALTH_RATE)})`, `${fmt(result.r.incomePremium)}원`],
@@ -233,7 +233,7 @@ export default function HealthInsuranceLocalPage() {
 
             <Card>
               <CardHeader title="같은 소득의 직장가입자와 견주면" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['지역가입자 (나)', `${fmt(result.r.total)}원`],
                   ['직장가입자 본인부담', `${fmt(result.c.employeeTotal)}원`],

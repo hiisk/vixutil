@@ -150,7 +150,7 @@ export default function AppliancePowerPage() {
             </div>
             <Card>
               <CardHeader title="쓰기 전과 뒤" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: `원래 사용량 (${result.tierBefore}구간)`, value: result.beforeTotal },
                   { label: `이 가전을 더한 뒤 (${result.tierAfter}구간)`, value: result.afterTotal },

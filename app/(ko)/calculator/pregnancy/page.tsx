@@ -227,7 +227,7 @@ export default function PregnancyPage() {
             {/* 중요 검사 일정 */}
             <Card className="p-5">
               <p className="label-caps mb-3">중요 검사 및 시기</p>
-              <div className="flex flex-col divide-y divide-slate-100">
+              <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
                 {result.milestones.map(m => {
                   const isPast = m.date < new Date();
                   const isCurrent = result.currentWeeks >= m.week && result.currentWeeks < m.week + 2;

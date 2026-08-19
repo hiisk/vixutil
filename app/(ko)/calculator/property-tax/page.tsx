@@ -93,7 +93,7 @@ export default function PropertyTaxPage() {
             </div>
             <Card>
               <CardHeader title="세금 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '재산세', value: result.base },
                   ...(result.cityTax > 0 ? [{ label: '도시지역분 (0.14%)', value: result.cityTax }] : []),

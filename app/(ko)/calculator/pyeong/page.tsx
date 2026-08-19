@@ -100,7 +100,7 @@ export default function PyeongPage() {
               <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
                 <p className="label-caps">아파트 평형 참고표</p>
               </div>
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {REFS.map(r => (
                   <button
                     key={r.label}

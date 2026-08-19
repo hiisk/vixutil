@@ -118,7 +118,7 @@ export default function HeatingBillPage() {
             </div>
             <Card>
               <CardHeader title="요금 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '기본요금 (계약면적에 붙음)', value: result.bill.basicFee },
                   { label: '사용요금 (쓴 열량에 붙음)', value: result.bill.usageFee },
@@ -133,7 +133,7 @@ export default function HeatingBillPage() {
             </Card>
             <Card>
               <CardHeader title="열량을 줄이면" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '10% 덜 쓰면', bill: result.cut10 },
                   { label: '20% 덜 쓰면', bill: result.cut20 },

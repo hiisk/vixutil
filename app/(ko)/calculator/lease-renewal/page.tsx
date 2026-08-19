@@ -95,7 +95,7 @@ export default function LeaseRenewalPage() {
             </div>
             <Card>
               <CardHeader title="지금과 상한" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['보증금 상한', fmt(result.cap.maxDeposit)],
                   ['보증금 증액분', fmt(result.cap.depositRise)],
@@ -112,7 +112,7 @@ export default function LeaseRenewalPage() {
             {result.all && (
               <Card>
                 <CardHeader title="보증금 증액분을 월세로 돌리면" />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
                     ['월세만 5% 올릴 때', result.all.monthlyOnly],
                     ['보증금 증액분까지 월세로', result.all.depositAsMonthly],

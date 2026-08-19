@@ -83,7 +83,7 @@ export default function RegexPage() {
                           <th className="px-3 py-2 text-left font-bold text-slate-500 dark:text-slate-400">그룹</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100">
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                         {result.matches.slice(0, 20).map((m, i) => (
                           <tr key={i}>
                             <td className="px-3 py-2 text-slate-400 dark:text-slate-500">{i + 1}</td>

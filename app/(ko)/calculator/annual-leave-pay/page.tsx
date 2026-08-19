@@ -206,7 +206,7 @@ export default function AnnualLeavePayPage() {
                   <th className="px-4 py-2.5 text-right label-caps">연차 발생일수</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50">
+              <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                 {leaveTable.map(row => (
                   <tr
                     key={row.years}

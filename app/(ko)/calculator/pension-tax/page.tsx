@@ -159,7 +159,7 @@ export default function PensionTaxPage() {
 
             <Card>
               <CardHeader title="공적연금 쪽" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['연 수령액', `${fmt(result.publicAnnual)}원`],
                   ['연금소득공제', `−${fmt(result.r.deduction)}원`],
@@ -179,7 +179,7 @@ export default function PensionTaxPage() {
             {Number(privateAnnual) > 0 && (
               <Card>
                 <CardHeader title="사적연금 쪽" />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
                     ['연 수령액', `${fmt(Number(privateAnnual))}원`],
                     ['적용 세율', `${(result.r.privateRate * 100).toFixed(1)}%`],
@@ -198,7 +198,7 @@ export default function PensionTaxPage() {
             {result.spread && (
               <Card>
                 <CardHeader title="나눠 받으면 세금이 얼마 줄어드나" />
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {result.spread.map(row => (
                     <div key={row.years} className="px-5 py-3 flex justify-between text-sm">
                       <span className="text-slate-600 dark:text-slate-300">

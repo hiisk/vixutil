@@ -73,7 +73,7 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
           <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? ui.luckyNumbers : ui.result}</div>
           <div className="flex flex-wrap justify-center gap-2">
             {result.map((n, i) => (
-              <span key={i} className="wc-pop flex items-center justify-center w-12 h-12 rounded-full bg-white text-emerald-700 text-lg font-bold" style={{ animationDelay: `${i * 90}ms` }}>
+              <span key={i} className="wc-pop flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-slate-900 text-emerald-700 text-lg font-bold" style={{ animationDelay: `${i * 90}ms` }}>
                 {n}
               </span>
             ))}

@@ -83,7 +83,7 @@ export default function WorkHours209Page() {
             </div>
             <Card>
               <CardHeader title="셈한 과정" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['주 소정근로시간', `${weekly}시간`],
                   ['주휴시간', `${result.holiday.toFixed(1)}시간`],
@@ -100,7 +100,7 @@ export default function WorkHours209Page() {
             </Card>
             <Card>
               <CardHeader title="1시간의 값" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['통상시급', result.hourly],
                   ['연장근로 (1.5배)', result.overtime],

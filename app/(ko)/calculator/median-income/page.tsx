@@ -192,7 +192,7 @@ export default function MedianIncomePage() {
 
             <Card>
               <CardHeader title="급여별 선정기준과 판정" sub={`${SIZE_LABELS[result.size - 1]} 가구`} />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {result.r.lines.map(l => (
                   <div key={l.label} className="px-5 py-3 flex justify-between items-center text-sm">
                     <span className="text-slate-600 dark:text-slate-300">
@@ -211,7 +211,7 @@ export default function MedianIncomePage() {
 
             <Card>
               <CardHeader title="생계급여는 차액을 준다" sub="기준액 − 소득인정액" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   [`${result.r.lines[0].label} 기준액 (${result.r.lines[0].percent}%)`, `${fmt(result.r.lines[0].threshold)}원`],
                   ['소득인정액', `−${fmt(result.r.recognized)}원`],

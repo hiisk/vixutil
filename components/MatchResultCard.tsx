@@ -47,7 +47,7 @@ export default function MatchResultCard({
       {/* 히어로 */}
       <div className={`mr-pop relative overflow-hidden rounded-xl bg-gradient-to-br ${heroGradient} p-6 text-white text-center shadow-sm`}>
         <span className="absolute -top-6 -right-4 text-[110px] opacity-15 select-none">{result.emoji}</span>
-        <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white/20 blur-3xl" />
+        <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white dark:bg-slate-900/20 blur-3xl" />
         <div className="relative">
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="flex flex-col items-center">
@@ -64,7 +64,7 @@ export default function MatchResultCard({
           </div>
           <p className="text-6xl font-bold leading-none tracking-tight">{result.score}<span className="text-2xl">점</span></p>
           <div className="mt-4 max-w-[220px] mx-auto relative h-3 rounded-full bg-white/30 overflow-hidden">
-            <div className="absolute inset-y-0 left-0 rounded-full bg-white/90 transition-all duration-700" style={{ width: `${result.score}%` }} />
+            <div className="absolute inset-y-0 left-0 rounded-full bg-white dark:bg-slate-900/90 transition-all duration-700" style={{ width: `${result.score}%` }} />
           </div>
           <p className="text-base font-bold mt-4">{result.emoji} {result.label}</p>
           <p className="text-sm text-white/90 mt-1">{result.headline}</p>

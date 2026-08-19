@@ -109,7 +109,7 @@ export default function FormulaEngine({
         <p data-formula-result className="text-3xl sm:text-4xl font-bold tabular-nums break-all">{primaryText}</p>
         <button
           onClick={copy}
-          className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/15 hover:bg-white/25 px-3.5 py-1.5 text-xs font-bold transition-colors"
+          className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white dark:bg-slate-900/15 hover:bg-white/25 px-3.5 py-1.5 text-xs font-bold transition-colors"
         >
           {copied ? ui.copied : ui.copy}
         </button>

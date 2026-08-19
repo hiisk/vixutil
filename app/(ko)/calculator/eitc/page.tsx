@@ -347,7 +347,7 @@ export default function EitcPage() {
 
             <Card>
               <CardHeader title="금액이 어떻게 나왔나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['근로장려금 산정액', `${fmt(result.r.workBase)}원`],
                   ['근로장려금 최대액', `${fmt(result.workCap)}원`],
@@ -371,7 +371,7 @@ export default function EitcPage() {
 
             <Card>
               <CardHeader title="최종 지급액" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['근로장려금', `${fmt(result.r.work)}원`],
                   ...(result.childCap > 0 ? [['자녀장려금', `${fmt(result.r.child)}원`]] : []),

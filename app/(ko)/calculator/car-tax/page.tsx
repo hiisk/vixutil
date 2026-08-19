@@ -138,7 +138,7 @@ export default function CarTaxPage() {
             </div>
             <Card>
               <CardHeader title="세금 내역" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   { label: '자동차세 (과표)', value: result.base },
                   ...(result.discount > 0 ? [{ label: '경과연수 감면', value: -result.discount }] : []),

@@ -72,7 +72,7 @@ export default function DevCronIntl({ lang }: { lang: CalcLang }) {
             <button
               key={p.expr}
               onClick={() => setExpr(p.expr)}
-              className="flex justify-between items-center gap-3 px-3 py-2 rounded-lg text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="flex justify-between items-center gap-3 px-3 py-2 rounded-lg text-left hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 transition-colors"
             >
               <span className="text-sm text-slate-600 dark:text-slate-300">{c[p.key]}</span>
               <span className="font-mono row-label">{p.expr}</span>

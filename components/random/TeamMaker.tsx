@@ -69,7 +69,7 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: RandomLang }) {
               <div className="text-xs font-bold text-white/80 mb-2">{ui.teamLabel(i + 1, team.length)}</div>
               <div className="flex flex-wrap gap-1.5">
                 {team.map((m, j) => (
-                  <span key={j} className="inline-block bg-white/25 rounded-full px-2.5 py-1 text-sm font-bold">{m}</span>
+                  <span key={j} className="inline-block bg-white dark:bg-slate-900/25 rounded-full px-2.5 py-1 text-sm font-bold">{m}</span>
                 ))}
               </div>
             </div>

@@ -146,7 +146,7 @@ export default function SurvivorPensionPage() {
 
             <Card>
               <CardHeader title="두 선택을 나란히" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {[
                   ['유족연금을 고를 때', result.r.survivorMonthly, result.r.choice === 'survivor'],
                   ['내 노령연금 + 유족연금 30%', result.r.ownPlusBonus, result.r.choice === 'own'],
@@ -178,7 +178,7 @@ export default function SurvivorPensionPage() {
 
             <Card>
               <CardHeader title="가입기간이 지급률을 어떻게 가르나" />
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {SURVIVOR_RATES.slice().reverse().map(r => (
                   <div key={r.fromMonths} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">
