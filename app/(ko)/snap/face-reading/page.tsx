@@ -12,6 +12,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { pickBackend } from '@/lib/snap/backend';
+import { detectFace } from '@/lib/snap/detect';
+import { useDropPaste } from '@/lib/snap/useDropPaste';
 
 // face-api 타입은 무겁고 이 페이지에서만 쓰이므로 동적 import로 코드분할한다
 type FaceApiModule = typeof import('@vladmandic/face-api');
@@ -150,6 +153,8 @@ export default function FaceReadingPage() {
     (async () => {
       try {
         const faceapi = await import('@vladmandic/face-api');
+        /* 모델을 받기 전에 백엔드를 세운다 — 까닭은 lib/snap/backend.ts */
+        await pickBackend(faceapi.tf);
         await Promise.all([
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
           // 랜드마크는 68개 좌표 정밀도가 모든 비율 계산의 근거이므로, 속도보다
@@ -192,15 +197,9 @@ export default function FaceReadingPage() {
     }).catch(() => null);
 
     const startedAt = Date.now();
-    let detection;
-    try {
-      // inputSize를 기본값(416)보다 키워 작거나 비스듬한 얼굴도 놓치지 않게 한다.
-      detection = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 }))
-        .withFaceLandmarks();
-    } catch {
-      detection = undefined;
-    }
+    /* 크기를 바꿔 가며 세 번 본다 — 까닭은 lib/snap/detect.ts.
+       전에는 inputSize 512 한 판이라 작거나 비스듬한 얼굴을 놓쳤다. */
+    const detection = await detectFace(faceapi, img, { minScore: 0.6 });
 
     // 너무 빠르게 반짝이면 "분석"의 실감이 안 나서, 최소 800ms는 로딩을 보여준다
     const elapsed = Date.now() - startedAt;
@@ -220,6 +219,9 @@ export default function FaceReadingPage() {
     setAnalyzing(false);
     setTimeout(() => document.getElementById('face-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
+
+  /* 끌어다 놓기·붙여넣기로도 받는다 — 까닭은 lib/snap/useDropPaste.ts */
+  useDropPaste(handleFile);
 
   function handleReset() {
     setPreview(null);

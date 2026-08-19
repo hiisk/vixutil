@@ -91,13 +91,21 @@ export default function CalcShellIntl({
 
         <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-            <Link href={hub} className="page-back hover:text-blue-600 shrink-0">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            {/*
+              ── 좁은 화면에서는 글자를 빼고 화살표만 (2026-08-20) ──────────
+              이 줄이 스페인어·프랑스어·포르투갈어 국제 계산기 **전부**를 옆으로
+              밀고 있었다. 「Todas las calculadoras」·「Toutes les calculatrices」가
+              길고 이 링크가 shrink-0이라, 390px에서 줄이 453px을 요구했다.
+              한국어(「전체 계산기」)와 독일어에서는 안 드러나서 남아 있었다.
+              바로 옆 빵부스러기가 어디인지 이미 말하므로 글자는 없어도 된다.
+            */}
+            <Link href={hub} className="page-back hover:text-blue-600 shrink-0" aria-label={ui.allCalcs}>
+              <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
-              {ui.allCalcs}
+              <span className="hidden sm:inline">{ui.allCalcs}</span>
             </Link>
-            <span className="text-slate-200 dark:text-slate-700">·</span>
+            <span className="hidden sm:inline text-slate-200 dark:text-slate-700">·</span>
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1 truncate">{title}</span>
             <span className="shrink-0">
               <LangPicker current={lang} route={route} available={CALC_LOCALES} />
@@ -145,7 +153,14 @@ export default function CalcShellIntl({
                       <Link
                         key={r.slug}
                         href={localeHref(lang, `/calculator/${r.slug}`)}
-                        className="group rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
+                        /*
+                          min-w-0가 없으면 격자 칸이 가로로 넘친다. 칸의 기본값은
+                          min-width:auto라 «가장 긴 제목의 최소 폭»이 칸의 최소
+                          폭이 된다 — 「Calculateur de coût de recharge」가 있는
+                          프랑스어에서 390px 화면이 429px로 늘어났다. truncate는
+                          그 최소 폭을 안 줄이므로 min-w-0가 함께 있어야 한다.
+                        */
+                        className="group min-w-0 rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                       >
                         <span className="hub-card-title group-hover:text-sec transition-colors">{r.title}</span>
                         <span className="hub-card-desc">{r.short}</span>

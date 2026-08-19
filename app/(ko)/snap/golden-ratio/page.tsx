@@ -12,6 +12,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { pickBackend } from '@/lib/snap/backend';
+import { detectFace } from '@/lib/snap/detect';
+import { useDropPaste } from '@/lib/snap/useDropPaste';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -107,6 +110,8 @@ export default function GoldenRatioPage() {
     (async () => {
       try {
         const faceapi = await import('@vladmandic/face-api');
+        /* 모델을 받기 전에 백엔드를 세운다 — 까닭은 lib/snap/backend.ts */
+        await pickBackend(faceapi.tf);
         await Promise.all([
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
           faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -146,14 +151,8 @@ export default function GoldenRatioPage() {
     }).catch(() => null);
 
     const startedAt = Date.now();
-    let detection;
-    try {
-      detection = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 }))
-        .withFaceLandmarks();
-    } catch {
-      detection = undefined;
-    }
+    /* 크기를 바꿔 가며 세 번 본다 — 까닭은 lib/snap/detect.ts */
+    const detection = await detectFace(faceapi, img, { expressions: false, minScore: 0.6 });
 
     const elapsed = Date.now() - startedAt;
     if (elapsed < 800) await new Promise(r => setTimeout(r, 800 - elapsed));
@@ -169,6 +168,9 @@ export default function GoldenRatioPage() {
     setAnalyzing(false);
     setTimeout(() => document.getElementById('golden-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
+
+  /* 끌어다 놓기·붙여넣기로도 받는다 — 까닭은 lib/snap/useDropPaste.ts */
+  useDropPaste(handleFile);
 
   function handleReset() {
     setPreview(null);

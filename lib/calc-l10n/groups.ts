@@ -22,7 +22,7 @@ export const CALC_GROUPS: { id: CalcGroupId; icon: string; slugs: string[] }[] =
   {
     id: 'money', icon: '📈',
     slugs: [
-      'loan', 'loan-method', 'refinance', 'ltv', 'deposit', 'savings',
+      'tip', 'loan', 'loan-method', 'refinance', 'ltv', 'deposit', 'savings',
       'compound-goal', 'dividend', 'inflation', 'retirement', 'breakeven',
       'avg-price', 'exchange', 'rental-yield',
     ],
@@ -38,7 +38,7 @@ export const CALC_GROUPS: { id: CalcGroupId; icon: string; slugs: string[] }[] =
     id: 'health', icon: '🫀',
     slugs: [
       'calorie', 'protein', 'body-fat', 'calories-burn', 'caffeine', 'blood-pressure',
-      'bmi', 'ideal-weight', 'one-rep-max', 'running-pace',
+      'bmi', 'ideal-weight', 'one-rep-max', 'running-pace', 'sleep',
     ],
   },
   {

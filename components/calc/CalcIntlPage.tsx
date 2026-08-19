@@ -34,6 +34,8 @@ import RunningPaceIntl from '@/components/calc/RunningPaceIntl';
 import OneRepMaxIntl from '@/components/calc/OneRepMaxIntl';
 import IdealWeightIntl from '@/components/calc/IdealWeightIntl';
 import BmiIntl from '@/components/calc/BmiIntl';
+import TipIntl from '@/components/calc/TipIntl';
+import SleepIntl from '@/components/calc/SleepIntl';
 import BodyFatIntl from '@/components/calc/BodyFatIntl';
 import CaloriesBurnIntl from '@/components/calc/CaloriesBurnIntl';
 import CaffeineIntl from '@/components/calc/CaffeineIntl';
@@ -104,6 +106,8 @@ const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'one-rep-max': OneRepMaxIntl,
   'ideal-weight': IdealWeightIntl,
   'bmi': BmiIntl,
+  'tip': TipIntl,
+  'sleep': SleepIntl,
   'calorie': CalorieIntl,
   'exchange': ExchangeIntl,
   'retirement': RetirementIntl,

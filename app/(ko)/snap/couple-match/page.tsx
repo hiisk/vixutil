@@ -12,6 +12,8 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { pickBackend } from '@/lib/snap/backend';
+import { detectFace } from '@/lib/snap/detect';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -107,6 +109,8 @@ export default function CoupleMatchPage() {
     (async () => {
       try {
         const faceapi = await import('@vladmandic/face-api');
+        /* 모델을 받기 전에 백엔드를 세운다 — 까닭은 lib/snap/backend.ts */
+        await pickBackend(faceapi.tf);
         await Promise.all([
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
           faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -145,14 +149,8 @@ export default function CoupleMatchPage() {
       img.onerror = () => reject(new Error('image load failed'));
     }).catch(() => null);
 
-    let detection;
-    try {
-      detection = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 }))
-        .withFaceLandmarks();
-    } catch {
-      detection = undefined;
-    }
+    /* 크기를 바꿔 가며 세 번 본다 — 까닭은 lib/snap/detect.ts */
+    const detection = await detectFace(faceapi, img, { expressions: false, minScore: 0.6 });
 
     if (!detection || detection.detection.score < 0.6) {
       setErrors(prev => { const n = [...prev]; n[slot] = '얼굴을 찾지 못했어요. 다른 사진으로 시도해주세요.'; return n; });

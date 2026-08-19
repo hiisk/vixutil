@@ -11,6 +11,7 @@ import ReferralCards from '@/components/ReferralCards';
 import { getCoupleMatch, type FaceVector, type CoupleMatchResult } from '@/lib/couple-match-data';
 import { COUPLE_LABELS_INTL, COUPLE_POOL_INTL, COUPLE_COMMENT_INTL, COUPLE_UI, type SnapIntlLang } from '@/lib/snap-intl';
 import { hashString, mix32, pick } from '@/lib/ratio-pick';
+import { pickBackend } from '@/lib/snap/backend';
 
 /**
  * 커플 관상 궁합 — en/zh판.
@@ -89,6 +90,8 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
     (async () => {
       try {
         const faceapi = await import('@vladmandic/face-api');
+        /* 모델을 받기 전에 백엔드를 세운다 — 까닭은 lib/snap/backend.ts */
+        await pickBackend(faceapi.tf);
         await Promise.all([
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
           faceapi.nets.faceLandmark68Net.loadFromUri('/models'),

@@ -11,6 +11,9 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { pickBackend } from '@/lib/snap/backend';
+import { detectFace } from '@/lib/snap/detect';
+import { useDropPaste } from '@/lib/snap/useDropPaste';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -98,6 +101,8 @@ export default function FirstImpressionPage() {
     (async () => {
       try {
         const faceapi = await import('@vladmandic/face-api');
+        /* 모델을 받기 전에 백엔드를 세운다 — 까닭은 lib/snap/backend.ts */
+        await pickBackend(faceapi.tf);
         await Promise.all([
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
           faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -137,14 +142,8 @@ export default function FirstImpressionPage() {
     }).catch(() => null);
 
     const startedAt = Date.now();
-    let detection;
-    try {
-      detection = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 }))
-        .withFaceLandmarks();
-    } catch {
-      detection = undefined;
-    }
+    /* 크기를 바꿔 가며 세 번 본다 — 까닭은 lib/snap/detect.ts */
+    const detection = await detectFace(faceapi, img, { expressions: false, minScore: 0.6 });
 
     // 분석이 너무 빨리 끝나면 "정말 분석했나" 싶어진다. 최소 시간을 둔다.
     const elapsed = Date.now() - startedAt;
@@ -162,6 +161,9 @@ export default function FirstImpressionPage() {
     setAnalyzing(false);
     setTimeout(() => document.getElementById('impression-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
+
+  /* 끌어다 놓기·붙여넣기로도 받는다 — 까닭은 lib/snap/useDropPaste.ts */
+  useDropPaste(handleFile);
 
   function handleReset() {
     setPreview(null);

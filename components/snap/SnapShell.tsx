@@ -7,6 +7,9 @@ import PageGlow from '@/components/PageGlow';
 import type { SnapIntlLang } from '@/lib/snap-intl';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { pickBackend } from '@/lib/snap/backend';
+import { detectFace } from '@/lib/snap/detect';
+import { useDropPaste } from '@/lib/snap/useDropPaste';
 
 /**
  * 스냅테스트 공용 껍데기.
@@ -287,6 +290,8 @@ export default function SnapShell<T>({
     (async () => {
       try {
         const faceapi = await import('@vladmandic/face-api');
+        /* 모델을 받기 전에 백엔드를 세운다 — 까닭은 lib/snap/backend.ts */
+        await pickBackend(faceapi.tf);
         const loads = [
           faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
           faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -332,15 +337,11 @@ export default function SnapShell<T>({
     const startedAt = Date.now();
     let detection;
     if (requiresFace && faceapi) {
-      try {
-        const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 512, scoreThreshold: 0.5 });
-        const base = faceapi.detectSingleFace(img, opts).withFaceLandmarks();
-        detection = models === 'landmarks+expressions'
-          ? await base.withFaceExpressions()
-          : await base;
-      } catch {
-        detection = undefined;
-      }
+      /* 크기를 바꿔 가며 세 번 본다 — 까닭은 lib/snap/detect.ts */
+      detection = await detectFace(faceapi, img, {
+        expressions: models === 'landmarks+expressions',
+        minScore: MIN_CONFIDENCE,
+      });
     }
 
     const elapsed = Date.now() - startedAt;
@@ -371,6 +372,9 @@ export default function SnapShell<T>({
     setAnalyzing(false);
     setTimeout(() => document.getElementById(resultId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, [analyze, resultId, ui.noFace, requiresFace, models, noResultMessage]);
+
+  /* 끌어다 놓기·붙여넣기로도 받는다 — 까닭은 lib/snap/useDropPaste.ts */
+  useDropPaste(handleFile);
 
   const reset = useCallback(() => {
     setPreview(null);

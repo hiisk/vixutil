@@ -13,6 +13,7 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { useDropPaste } from '@/lib/snap/useDropPaste';
 
 function clampUnit(x: number) {
   return Math.max(0, Math.min(1, x));
@@ -161,6 +162,9 @@ export default function PhotoMoodPage() {
     setAnalyzing(false);
     setTimeout(() => document.getElementById('mood-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }, []);
+
+  /* 끌어다 놓기·붙여넣기로도 받는다 — 까닭은 lib/snap/useDropPaste.ts */
+  useDropPaste(handleFile);
 
   function handleReset() {
     setPreview(null);
